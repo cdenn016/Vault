@@ -19,7 +19,7 @@ The model, in terms that link out to `[[concept]]` and `[[method]]` pages.
 ## Experiments
 | Run | Variant | Result | Note |
 |-----|---------|--------|------|
-| [[Run …]] | | | |
+| _Run …_ | | | |
 
 ## Status & next steps
 Where things stand; the next variant to run.
