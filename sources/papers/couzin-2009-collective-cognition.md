@@ -17,9 +17,9 @@ tags:
   - field/biology
   - field/neuroscience
   - cluster/social-physics/social-influence
-status: stub
+status: stable
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-06-20
 ---
 
 # Collective Cognition in Animal Groups
@@ -30,6 +30,18 @@ updated: 2026-06-19
 ## TL;DR
 
 A review arguing that animal groups — schools, flocks, swarms, colonies — collectively process information and make decisions that exceed any individual's capacity, with group-level cognition emerging from simple local interactions among members. Effective leadership, consensus decisions, and accurate collective sensing arise without centralized control or individual awareness of the global outcome.
+
+## Problem & setting
+
+How do animal groups — fish schools, bird flocks, insect swarms, ungulate herds, primate troops — make accurate, coherent decisions and process environmental information when no individual holds global knowledge and there is no centralized controller? Couzin reviews the empirical and modelling evidence that decision-making and "cognition" can be properties of the *group*, emerging from local interactions among members rather than residing in any one of them.
+
+## Method
+
+The synthesis is organized around self-organization from simple local rules — the attraction/alignment/repulsion "zonal" interactions of collective-motion models — together with information transfer through the group, nonlinear quorum (threshold) responses, and the disproportionate influence of a small set of informed individuals. These ingredients are studied with agent-based models and controlled experiments (for example, informed-minority leadership and quorum decision-making in fish), linking microscopic interaction rules to macroscopic group behaviour and collective accuracy.
+
+## Key results
+
+A small informed minority can reliably guide a naïve group toward a target without any individual recognizing the leaders or signalling, and the steering accuracy *increases* with group size. Quorum responses — in which an individual's probability of adopting an option rises sharply once a threshold number of neighbours has done so — let groups amplify good information while filtering noise, yielding sharp and accurate consensus ("many wrongs" averaging combined with quorum sharpening). Groups also display *emergent sensing*, tracking environmental gradients and detecting threats better than isolated individuals. Across these cases the group-level decision is an emergent computation distributed over the interaction network, not localized in any member.
 
 ## Relevance to this research
 

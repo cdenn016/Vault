@@ -14,7 +14,7 @@ tags:
   - project/transformer
   - field/statistics
   - field/mathematics
-status: stub
+status: stable
 created: 2026-06-18
 updated: 2026-06-18
 ---
