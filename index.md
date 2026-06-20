@@ -7,7 +7,7 @@ updated: 2026-06-19
 
 # Index
 
-Catalog of this **LLM-wiki**. See [[LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[Operations Log]] for history.
+Catalog of this **LLM-wiki**. See [[LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
 > **3** projects · **4** manuscripts · **12** themes · **11** field MOCs · **83** concepts · **10** methods · **260** papers · **167** references · **6** web/methodology
@@ -16,7 +16,7 @@ Catalog of this **LLM-wiki**. See [[LLM-Wiki Schema]] for conventions (Ingest / 
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
 - [[Gauge-Theoretic Multi-Agent VFE Model]] — the multi-agent, continuous-time instantiation (MAgent)
 - [[SocialPhysics]] — opinion dynamics & belief momentum as multi-agent VFE (founded on [[belief-inertia]])
-- [[LLM-Wiki Schema]] — how the wiki is maintained · [[Operations Log]] — operation history
+- [[LLM-Wiki Schema]] — how the wiki is maintained · [[log|Operations Log]] — operation history
 
 ## 📐 Projects
 - [[Gauge-Theoretic Multi-Agent VFE Model]]
