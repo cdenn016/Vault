@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-06-19
+updated: 2026-06-20
 ---
 
 # Participatory realism (it from bit)
@@ -66,6 +66,8 @@ The frame-twist block is *not* gauge-invariant: under $U_i \to U_i\,g(c)$ the co
 The symmetric tensor $G_i(c)$ admits a spectral decomposition $G_i(c)=\sum_a \lambda_a\,(e_a\otimes e_a)$, with each $\lambda_a$ a squared information rate. These split into an **observable** sector ($\lambda_a > \Lambda_{\text{obs}}$, the "perceived spacetime", conjectured $\approx 4$ base dimensions for humans), a **subthreshold informational** sector, and an **internal** sector ($\lambda_a$ negligible). The Gaussian fibre dimension itself is $\dim(\mathcal{B}) = K(K+3)/2$ (e.g. $\approx 2.96\times 10^5$ at $K=768$), of which only $\dim(\mathcal{C})$ directions are sampled by the section.
 
 A central *unsolved* problem is signature: pullbacks of score outer products are positive **semi-definite**, yet observed spacetime is Lorentzian $(-,+,+,+)$. Compact $\mathrm{SO}(3)$ forces Riemannian geometry, and even non-compact real $\mathrm{GL}(K,\mathbb{R})$ keeps the congruence positive-definite (Sylvester's law of inertia). An indefinite signature is exhibited only in a 2D abelian-exact worked example by *postulating* a complexified frame ($\phi_\tau = i\psi_\tau T$, $T$ non-compact with $\mathrm{tr}(T^2)>0$), a $+\mathrm{tr}(AB)$ bilinear form, and a real-part projection $G^{\mathrm{Lor}}_{\mu\nu}:=\mathrm{Re}(G_{\mu\nu})$. The author is explicit that free-energy minimisation is *not* shown to select this configuration — it demonstrates structural compatibility, not derivation.
+
+> [!note] Editorial: PIFB round-8 review corrections (2026-06-20). A deep adversarial pass corrected two participatory-program claims. (1) **Worked-example representation.** The 2D abelian-exact signature toy realises the two-dimensional vector representation of $\mathrm{SO}^+(1,1)$ in $\mathrm{GL}(2,\mathbb{R})$ (single generator $T=\mathrm{diag}(1,-1)$, $K_q=2$, 2D base), *not* the four-dimensional vector representation of $\mathrm{SO}^+(1,3)$; the 4D Lorentz case is available inside the complexified $\mathrm{GL}(K_q,\mathbb{C})$ only through a four-generator extension the manuscript does not carry out. (PIFB had attached the 4D $\mathrm{SO}^+(1,3)$ rep to the worked example; corrected at the signature-resolution and open-problems statements.) (2) **Gauge-curvature falsifier sign.** The conditional (Regime-II) gauge-curvature-minimisation conjecture reads curvature as transport *inefficiency*, so it entails a strictly **positive** partial correlation between the plaquette-averaged Wilson curvature $1-W_{ijk}/K_q$ (zero at flatness, growing as holonomy departs from $I$) and corpus cross-entropy per token (a cost; lower = more efficient), with a non-positive partial correlation as the falsifier. PIFB's pre-registered test had the sign inverted (predicted negative, "non-negative falsifies"), so it would have confirmed the conjecture exactly when false; now corrected.
 
 ### The participatory loop
 
