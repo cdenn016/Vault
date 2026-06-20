@@ -31,9 +31,11 @@ The spin-glass connection is more than a metaphor in this model. In a spin glass
 
 - [[castellano-fortunato-loreto-2009-social-dynamics]] — canonical review of statistical-physics methods for social dynamics (opinion, cultural, language, crowd, spreading models).
 - [[galam-2008-sociophysics]] — the sociophysics research agenda: order parameters, universality, and physics-style modeling of opinion formation.
+- [[jusup-2022-social-physics]] — the most current panoramic *Physics Reports* review of the whole social-physics field (urban dynamics, markets, cooperation, networks, epidemics, human–machine systems).
 - [[latane-1981-social-impact]] — Social Impact Theory; nonlinear aggregation of social influence by strength, immediacy, and number.
 - [[rogers-2003-diffusion-of-innovations]] — diffusion of innovations as a spreading process across a social network.
 - [[mezard-parisi-virasoro-1987-spin-glass]] — spin-glass theory: frustration, rugged landscapes, and exponentially many metastable states.
+- [[nishimori-2001-spin-glasses-information]] — statistical mechanics of disordered systems and its identity with Bayesian inference (the Nishimori line); what the spin-glass connection to opinion frustration would require.
 - [[sornette-2006-critical-phenomena]] — critical phenomena and phase transitions in natural and social systems; tipping and divergent susceptibility.
 - [[strogatz-2015-nonlinear-dynamics]] — nonlinear dynamics, bifurcations, and synchronization of coupled oscillators.
 - [[heins-2024-surprise-minimization]], [[albarracin-2022-epistemic-communities]] — active-inference reconstruction of collective social behavior.

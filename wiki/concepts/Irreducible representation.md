@@ -79,3 +79,6 @@ Irreps surface wherever the config's gauge-theoretic vocabulary touches typed, c
 - [[fulton-harris-1991-representation-theory]] — Standard reference for Lie-group/Lie-algebra irreps and isotypic decomposition - the rep-theory backbone of the block_glk gauge and irrep-tower head mixers.
 - [[steinberg-2012-representation-theory-finite-groups]] — Concrete character-theoretic development of finite-group representation theory;
 - [[cohen-2018-spherical-cnns]] — SO(3)-equivariant convolution via generalized Fourier analysis on the sphere;
+- [[georgi-1999-lie-algebras-particle-physics]] — computational representation theory: roots/weights, Young tableaux, and explicit tensor-product (Clebsch–Gordan) decomposition into irreducibles.
+- [[woit-2017-quantum-theory-groups-representations]] — Lie-group/representation theory through quantum mechanics; the $SU(2)$/$SO(3)$ irrep prototype and the momentum map from a group action.
+- [[hall-2013-quantum-theory-mathematicians]] — rigorous operator-theoretic QM with $SU(2)$ angular momentum, the Wigner–Eckart theorem, and geometric quantization (companion to Hall's Lie-groups text).

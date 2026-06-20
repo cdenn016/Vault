@@ -97,6 +97,7 @@ vanishing only at perfect post-detection consensus. In the single reported run, 
 - [[caticha-bartolomeo-reginatto-2015-entropic-dynamics]] — the entropic-dynamics reconstruction of quantum theory from information geometry, the precedent for inducing physics-like structure the pullback construction follows.
 - [[ladyman-ross-2007-every-thing-must-go]], [[cassirer-1910-substance-function]] — the structural-realist and relational ("function over substance") ontological backing for a framework where geometry is induced relationally rather than presupposed.
 - [[lahav-neemeh-2022-relativistic-consciousness]] — the observer-relative ("relativistic") account of conscious experience, a neighbour to the agent-dependent structural-tier geometry $G^{(s)}_i$.
+- [[zenil-2013-computable-universe]] — survey anthology of the digital-physics / "nature as computation" lineage (Zuse, Wolfram, 't Hooft, Lloyd; Penrose foreword), the computational wing of "it from bit" the framework inherits and positions against.
 
 ## See also
 

@@ -59,6 +59,7 @@ Two boundary observations round out the picture. When a belief covariance is dri
 - [[docarmo-1992-riemannian-geometry]] — foundational Riemannian-geometry vocabulary and convexity-radius / Jacobi-field results.
 - [[lee-2012-smooth-manifolds]] — smooth-manifold, Lie-group, and fiber-bundle foundations behind the quotient and its exp/log.
 - [[nickel-kiela-2017-poincare-embeddings]] — hierarchy is most faithfully represented on a curved manifold (resonance with the nonpositively-curved cone).
+- [[livan-2018-random-matrices]] — random-matrix theory: the Wishart / Marchenko–Pastur ensemble as the null spectrum of a sample covariance, the baseline against which structure in a learned SPD $\Sigma$ is detected.
 
 ## See also
 

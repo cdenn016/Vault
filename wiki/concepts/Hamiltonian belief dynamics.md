@@ -188,6 +188,12 @@ Hamiltonian runs.
 - [[arnold-1989-classical-mechanics]] — classical-mechanics reference for
   the Hamiltonian formulation, symplectic structure, and the position-momentum
   equations of motion underlying the second-order regime.
+- [[marsden-ratiu-1999-mechanics-symmetry]] — geometric mechanics with
+  momentum maps and symplectic/Marsden–Weinstein reduction, the framework for
+  handling the gauge symmetry and the conserved momentum current of the
+  second-order regime.
+- [[lemons-2002-stochastic-processes-physics]] — Langevin / Ornstein–Uhlenbeck
+  toolkit for the noisy (stochastic) form of the damped belief oscillator.
 
 ## See also
 

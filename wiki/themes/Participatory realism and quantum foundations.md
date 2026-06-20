@@ -5,7 +5,7 @@ aliases: [participatory realism synthesis, quantum foundations theme, agent-cent
 tags: [cluster/participatory, project/multi-agent]
 status: stable
 created: 2026-06-18
-updated: 2026-06-19
+updated: 2026-06-20
 ---
 
 # Participatory realism and quantum foundations
@@ -216,4 +216,7 @@ informational state rather than presupposed.
 - [[spekkens-2007-toy-theory]] — epistemic-restriction toy model; the pre-consensus regime.
 - [[deutsch-marletto-2015-constructor-information]] — constructor theory; the agent-independent contrast class.
 - [[lloyd-2002-computational-capacity]] — computational-universe bounds; the computational face of "it from bit".
+- [[zenil-2013-computable-universe]] — anthology of the digital-physics / "nature as computation" lineage (Zuse, Wolfram, 't Hooft, Lloyd; Penrose foreword); the computational wing of "it from bit," cited as both kin and observer-independent contrast class.
+- [[nelson-1967-brownian-motion]] — stochastic mechanics deriving the Schrödinger equation from a conservative diffusion; the physics-from-information ancestor of the entropic-dynamics strand.
+- [[bell-2004-speakable-unspeakable]] — Bell's collected foundational papers; the theorem against local observer-independent values that the sharpened Wigner's-friend no-go results extend.
 - [[connes-rovelli-1994-thermal-time]] — thermal time hypothesis; observer-relative emergent time.

@@ -2,7 +2,7 @@
 type: index
 title: Index
 aliases: [Index, Home]
-updated: 2026-06-19
+updated: 2026-06-20
 ---
 
 # Index
@@ -10,7 +10,7 @@ updated: 2026-06-19
 Catalog of this **LLM-wiki**. See [[LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **4** manuscripts · **12** themes · **11** field MOCs · **83** concepts · **10** methods · **260** papers · **167** references · **6** web/methodology
+> **3** projects · **4** manuscripts · **12** themes · **11** field MOCs · **83** concepts · **10** methods · **262** papers · **177** references · **6** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -245,6 +245,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[docarmo-1992-riemannian-geometry|Riemannian Geometry]]
 - [[huang-2017-spdnet|A Riemannian Network for SPD Matrix Learning]]
 - [[jeuris-2012-matrix-geometric-mean|A Survey and Comparison of Contemporary Algorithms for Computing the Matrix Geometric Mean]]
+- [[livan-2018-random-matrices|Introduction to Random Matrices: Theory and Practice]]
 - [[moakher-2005-geometric-mean|A Differential Geometric Approach to the Geometric Mean of Symmetric Positive-Definite Matrices]]
 - [[pennec-2006-affine-invariant-tensor|A Riemannian Framework for Tensor Computing]]
 - [[sra-hosseini-2015-conic-geometric-optimization|Conic Geometric Optimization on the Manifold of Positive Definite Matrices]]
@@ -382,6 +383,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[holley-liggett-1975-voter-model-ergodic|Ergodic Theorems for Weakly Interacting Infinite Systems and the Voter Model]]
 - [[huang-malhame-caines-2006-nash-certainty-equivalence|Large population stochastic dynamic games: closed-loop McKean-Vlasov systems and the Nash certainty equivalence principle]]
 - [[iyengar-2019-affective-polarization|The Origins and Consequences of Affective Polarization in the United States]]
+- [[jusup-2022-social-physics|Social physics]]
 - [[kempe-kleinberg-tardos-2003-influence-maximization|Maximizing the Spread of Influence through a Social Network]]
 - [[krapivsky-redner-bennaim-2010-kinetic-view|A Kinetic View of Statistical Physics]]
 - [[kuramoto-1975-coupled-oscillators|Self-entrainment of a population of coupled non-linear oscillators]]
@@ -474,6 +476,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 ### Gauge theory, Lie groups & geometric deep learning
 - [[adlam-rovelli-2022-cross-perspective|Information is Physical: Cross-Perspective Links in Relational Quantum Mechanics]]
 - [[arnold-1989-classical-mechanics|Mathematical Methods of Classical Mechanics]]
+- [[marsden-ratiu-1999-mechanics-symmetry|Introduction to Mechanics and Symmetry]]
 - [[baez-muniain-1994-gauge-fields|Gauge Fields, Knots and Gravity]]
 - [[bartlett-rudolph-spekkens-2007-reference-frames|Reference Frames, Superselection Rules, and Quantum Information]]
 - [[creutz-1983-quarks-gluons-lattices|Quarks, Gluons and Lattices]]
@@ -489,6 +492,9 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[steinberg-2012-representation-theory-finite-groups|Representation Theory of Finite Groups]]
 - [[fulton-harris-1991-representation-theory|Representation Theory: A First Course]]
 - [[bleecker-1981-gauge-theory-variational-principles|Gauge Theory and Variational Principles]]
+- [[georgi-1999-lie-algebras-particle-physics|Lie Algebras in Particle Physics: From Isospin to Unified Theories]]
+- [[woit-2017-quantum-theory-groups-representations|Quantum Theory, Groups and Representations: An Introduction]]
+- [[hall-2013-quantum-theory-mathematicians|Quantum Theory for Mathematicians]]
 
 ### Information geometry, divergences & natural gradient
 - [[amari-2016-information-geometry-applications|Information Geometry and Its Applications]]
@@ -500,6 +506,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[chechik-2005-gaussian-ib|Information Bottleneck for Gaussian Variables]]
 - [[hoffmann-2022-chinchilla|Training Compute-Optimal Large Language Models (Chinchilla)]]
 - [[johnson-caticha-2011-measurement-problem|Entropic Dynamics and the Quantum Measurement Problem]]
+- [[nelson-1967-brownian-motion|Dynamical Theories of Brownian Motion]]
 - [[nickel-kiela-2017-poincare-embeddings|Poincaré Embeddings for Learning Hierarchical Representations]]
 - [[petz-1996-monotone-metrics|Monotone Metrics on Matrix Spaces]]
 - [[slonim-2000-agglomerative-ib|Agglomerative Information Bottleneck]]
@@ -539,10 +546,13 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[bateson-1972-steps-ecology-mind|Steps to an Ecology of Mind]]
 - [[bender-orszag-1999-asymptotic-methods|Advanced Mathematical Methods for Scientists and Engineers]]
 - [[cardy-1996-scaling-renormalization|Scaling and Renormalization in Statistical Physics]]
+- [[delamotte-2012-nonperturbative-rg|An Introduction to the Nonperturbative Renormalization Group]]
 - [[fenichel-1979-geometric-singular-perturbation|Geometric Singular Perturbation Theory for Ordinary Differential Equations]]
 - [[fiedler-1973-algebraic-connectivity|Algebraic Connectivity of Graphs]]
 - [[genest-zidek-1986-pooling|Combining Probability Distributions: A Critique and an Annotated Bibliography]]
+- [[lemons-2002-stochastic-processes-physics|An Introduction to Stochastic Processes in Physics]]
 - [[mezard-parisi-virasoro-1987-spin-glass|Spin Glass Theory and Beyond]]
+- [[nishimori-2001-spin-glasses-information|Statistical Physics of Spin Glasses and Information Processing]]
 - [[rissanen-1978-mdl|Modeling by Shortest Data Description]]
 - [[schwarz-1978-bic|Estimating the Dimension of a Model]]
 - [[sornette-2006-critical-phenomena|Critical Phenomena in Natural Sciences (2nd ed.)]]
@@ -554,6 +564,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[wong-2001-asymptotic-integrals|Asymptotic Approximations of Integrals]]
 
 ### Participatory realism, quantum foundations, holography & consciousness
+- [[bell-2004-speakable-unspeakable|Speakable and Unspeakable in Quantum Mechanics]]
 - [[bousso-2002-holographic-principle|The Holographic Principle]]
 - [[brukner-2018-no-go-observer-facts|A No-Go Theorem for Observer-Independent Facts]]
 - [[carhart-harris-2014-entropic-brain|The Entropic Brain]]
@@ -599,6 +610,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[wheeler-1990-it-from-bit|Information, Physics, Quantum: The Search for Links (It from Bit)]]
 - [[wigner-1960-unreasonable-effectiveness|The Unreasonable Effectiveness of Mathematics in the Natural Sciences]]
 - [[worrall-1989-structural-realism|Structural Realism: The Best of Both Worlds?]]
+- [[zenil-2013-computable-universe|A Computable Universe: Understanding and Exploring Nature as Computation]]
 - [[zurek-2003-decoherence|Decoherence, Einselection, and the Quantum Origins of the Classical]]
 - [[cartwright-1999-dappled-world|The Dappled World: A Study of the Boundaries of Science]]
 - [[hacking-1983-representing-intervening|Representing and Intervening]]

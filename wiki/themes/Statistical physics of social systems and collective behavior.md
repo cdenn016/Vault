@@ -11,7 +11,7 @@ tags:
   - project/social-physics
 status: stable
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-06-20
 ---
 
 # Statistical physics of social systems and collective behavior
@@ -103,6 +103,7 @@ The sharpest gap is empirical: the underdamped predictions that distinguish the 
 
 ## Sources synthesized
 
+- [[jusup-2022-social-physics]] — the most current panoramic *Physics Reports* review of social physics; the broadest field map the program situates itself within.
 - [[castellano-fortunato-loreto-2009-social-dynamics]] — the canonical statistical-physics-of-social-dynamics review (the field's map).
 - [[galam-2008-sociophysics]] — the sociophysics lineage and the Galam majority-rule models.
 - [[flache-2017-social-influence-models]] — taxonomy of social-influence and opinion-dynamics models.

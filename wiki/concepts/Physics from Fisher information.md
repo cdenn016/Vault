@@ -41,6 +41,7 @@ The strands differ in how much they claim. Jaynes ([[jaynes-1957-information-sta
 - [[johnson-caticha-2011-measurement-problem]] — the quantum measurement problem as Bayesian/entropic updating.
 - [[jaynes-1957-information-statistical-mechanics]] — statistical mechanics as MaxEnt inference, the root of the whole lineage.
 - [[crooks-2007-thermodynamic-length]] — Fisher-Rao thermodynamic length bounding dissipation; Fisher distance as physical cost.
+- [[nelson-1967-brownian-motion]] — stochastic mechanics: the Schrödinger equation derived from a conservative diffusion, with osmotic velocity $u=\nu\,\nabla\ln\rho$ a Fisher-information gradient; the historical headwater of the entropic-dynamics lineage.
 
 ## See also
 

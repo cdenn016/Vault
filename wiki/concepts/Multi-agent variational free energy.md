@@ -111,6 +111,7 @@ The self-diagonal of $E$ is zeroed (self-KL is owned by T1/T2, not the alignment
 - [[blei-2017-variational-inference]] — variational inference review framing the KL objective minimised here.
 - [[bissiri-holmes-walker-2016-general-bayes]] — general Bayesian updating via loss-based KL minimisation.
 - [[genest-zidek-1986-pooling]] — logarithmic and linear opinion pooling, the classical belief-aggregation theory behind T3/T4.
+- [[nishimori-2001-spin-glasses-information]] — statistical mechanics of inference: the disorder-averaged free energy as the right object for Bayes-optimal collective behavior, with the Nishimori line as the matched-prior condition derived from a gauge symmetry.
 
 ## See also
 
