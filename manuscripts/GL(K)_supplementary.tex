@@ -49,7 +49,7 @@ This supplement collects derivations, implementation details, and additional emp
 \section{General Mathematical Framework}
 \subsection{Principal Bundle and Associated Bundles}
 
-The following geometric and probabilistic constructions comprise standard methods in differential geometry and gauge theory. See references for details, proofs, and examples \citep{nakahara2003geometry,frankel2011geometry,blei2017variational,amari2016information}.
+The following geometric and probabilistic constructions comprise standard methods in differential geometry and gauge theory. See references for details, proofs, and examples \citep{nakahara2003geometry,frankel2011geometry,Blei2017,Amari2016}.
 
 Let $\pi: \mathcal{N} \to \mathcal{C}$ be a smooth principal $G$-bundle where $\mathcal{C}$ is a smooth manifold (the base space) and $G$ is a Lie group (the structure group) acting freely and transitively on the right on $\mathcal{N}$. The projection satisfies $\pi(n \cdot g) = \pi(n)$ for all $g \in G$, $n \in \mathcal{N}$.
 
@@ -201,7 +201,7 @@ where $q_i = \mathcal{N}(\mu_i, \Sigma_i)$, $p_i = \mathcal{N}(\mu_{p,i}, \Sigma
 
 \subsubsection{Gaussian KL Divergence under $\mathrm{GL}(K)$ Gauge Transport}
 
-The alignment term $D_{\mathrm{KL}}(q_i \| \Omega_{ij} q_j)$ involves KL divergences between Gaussians related by gauge transport $\Omega_{ij} = e^{\phi_i}e^{-\phi_j} \in \mathrm{GL}^+(K)$. The standard Gaussian KL divergence \citep{bishop2006pattern,murphy2012machine,CoverThomas2006} is
+The alignment term $D_{\mathrm{KL}}(q_i \| \Omega_{ij} q_j)$ involves KL divergences between Gaussians related by gauge transport $\Omega_{ij} = e^{\phi_i}e^{-\phi_j} \in \mathrm{GL}^+(K)$. The standard Gaussian KL divergence \citep{Bishop2006,murphy2012machine,CoverThomas2006} is
 
 \begin{align}
 D_{\mathrm{KL}} \left(
@@ -234,7 +234,7 @@ Differentiating w.r.t.\ $\Sigma_1$ (holding $\mu_1,\mu_2,\Sigma_2$ fixed), using
 \right].
 \end{equation}
 
-The push-forward $\Omega_{ij} q_j = \mathcal{N}(\Omega_{ij}\mu_j, \Omega_{ij}\Sigma_j\Omega_{ij}^\top)$ used below is the standard linear-transformation rule for a Gaussian random variable under $\Omega \in \mathrm{GL}(K)$ \citep[\S2.3.3]{bishop2006pattern}. Applying the above derivative to each term in $\mathcal{F}_i$:
+The push-forward $\Omega_{ij} q_j = \mathcal{N}(\Omega_{ij}\mu_j, \Omega_{ij}\Sigma_j\Omega_{ij}^\top)$ used below is the standard linear-transformation rule for a Gaussian random variable under $\Omega \in \mathrm{GL}(K)$ \citep[\S2.3.3]{Bishop2006}. Applying the above derivative to each term in $\mathcal{F}_i$:
 
 \begin{align}
 \frac{\partial}{\partial \Sigma_i}
@@ -626,7 +626,7 @@ The computational cost of each mode scales as: clipping $O(n_{\mathrm{gen}})$, C
 
 
 \subsection{Natural Gradient Descent on the Gaussian Manifold}
-Our implementation uses natural gradient descent for the statistical parameters, which exploits the information-geometric structure of the Gaussian manifold. Rather than treating the covariance matrices $\Sigma_i$ as Euclidean variables, we recognize them as points on the manifold of symmetric positive-definite matrices, equipped with the Fisher-Rao metric \citep{amari1998natural,Cencov1982,amari2016information}. The natural gradient at a point $\Sigma$ on this manifold is obtained by applying the inverse Fisher metric to the Euclidean gradient, yielding an intrinsic tangent vector that respects the manifold's curved geometry. Given Euclidean gradients $\nabla_\mu$ and $\nabla_\Sigma$, the natural gradient projections are
+Our implementation uses natural gradient descent for the statistical parameters, which exploits the information-geometric structure of the Gaussian manifold. Rather than treating the covariance matrices $\Sigma_i$ as Euclidean variables, we recognize them as points on the manifold of symmetric positive-definite matrices, equipped with the Fisher-Rao metric \citep{amari1998natural,Cencov1982,Amari2016}. The natural gradient at a point $\Sigma$ on this manifold is obtained by applying the inverse Fisher metric to the Euclidean gradient, yielding an intrinsic tangent vector that respects the manifold's curved geometry. Given Euclidean gradients $\nabla_\mu$ and $\nabla_\Sigma$, the natural gradient projections are
 \begin{equation}
 \delta\mu = -\Sigma \nabla_\mu, \qquad
 \delta\Sigma = -2 \Sigma \mathrm{sym}(\nabla_\Sigma) \Sigma,
@@ -637,7 +637,7 @@ The covariance update $\delta\Sigma$ is then passed to a manifold retraction (Se
 \begin{equation}
 B = \Lambda^{-1/2} (V^\top \delta\Sigma V) \Lambda^{-1/2},
 \end{equation}
-where $\Sigma = V \Lambda V^\top$ is the eigendecomposition. This whitening ensures that the resulting step is affine-invariant such that the same step size produces comparable effects regardless of the current scale of the covariance matrix. Following the computation of the whitened tangent $B$, we apply a trust-region constraint by clipping its Frobenius norm to a maximum relative step size $\rho$. This prevents excessively large updates that could destabilize the manifold structure or lead to ill-conditioned covariances.
+where $\Sigma = V \Lambda V^\top$ is the eigendecomposition. This whitening ensures that the resulting step is affine-invariant such that the same step size produces comparable effects regardless of the current scale of the covariance matrix. Following the computation of the whitened tangent $B$, we apply a trust-region constraint by clipping its Frobenius norm to a maximum relative step size $\rho_{\mathrm{tr}}$. This prevents excessively large updates that could destabilize the manifold structure or lead to ill-conditioned covariances.
 
 \subsection{Manifold Retraction for Covariance Matrices}\label{sec:retraction}
 The manifold retraction is the process of mapping the tangent vector back to a valid point on the manifold. This is performed using the affine-invariant exponential map on the manifold of symmetric positive-definite matrices \citep{Pennec2006,Bhatia2007,Absil2008}. Working in the eigenbasis of $\Sigma_k$ with eigenvalues $\lambda_j$, the whitened tangent $B$ is diagonalized $B = U\Lambda_B U^\top$ and the retraction is
@@ -1284,7 +1284,7 @@ Subtracting \eqref{eq:rearranged_target_supp} from the general stationarity cond
 \sum_{j} \beta_{ij}\Bigl[\,f'\!\left(\frac{q_i^*(c)}{\Omega_{ij}(c)q_j(c)}\right) - \log\frac{q_i^*(c)}{\Omega_{ij}(c)q_j(c)}\,\Bigr] = k,
 \label{eq:residual_sum_supp}
 \end{equation}
-with $k = \lambda - 1 - C'$ a constant independent of $c$. To isolate a single $f'$ evaluation we exploit the freedom to choose the configuration: pick transported neighbors so that all $\Omega_{ij}(c) q_j(c)$ coincide pointwise with a common reference density $\bar{q}(c)$ — for example by setting $q_j(c) = \Omega_{ij}^{-1}(c)\bar{q}(c)$ for each $j$ in the family of admissible neighbor beliefs — and let $p_i$ vary so that $q_i^*(c)$ sweeps a range of values. All ratios $r_{ij}(c) = q_i^*(c)/\bar{q}(c)$ then coincide for fixed $c$, and \eqref{eq:residual_sum_supp} collapses via $\sum_j \beta_{ij} = 1$ to
+with $k = \lambda - 1 - C'$ a constant independent of $c$. To isolate a single $f'$ evaluation we exploit the freedom to choose the configuration: pick transported neighbors so that all $\Omega_{ij}(c) q_j(c)$ coincide pointwise with a common reference density $\bar{q}(c)$ — for example by setting $q_j(c) = \Omega_{ij}^{-1}(c)\bar{q}(c)$ for each $j$ in the family of admissible neighbor beliefs — and let $p_i$ vary so that $q_i^*(c)$ sweeps a range of values. This step assumes the admissible neighbor-belief family is rich enough that each $\Omega_{ij}^{-1}(c)\bar{q}(c)$ is a normalizable density; the geometric-mean stationary form then gives $q_i^*/\bar{q} \propto (p_i/\bar{q})^{1/2}$, so varying $p_i$ over admissible priors drives this ratio across an open subinterval of $(0,\infty)$. All ratios $r_{ij}(c) = q_i^*(c)/\bar{q}(c)$ then coincide for fixed $c$, and \eqref{eq:residual_sum_supp} collapses via $\sum_j \beta_{ij} = 1$ to
 \begin{equation}
 f'(r(c)) - \log r(c) = k,
 \label{eq:ode_supp}
@@ -1316,7 +1316,7 @@ C_{ij} \equiv \frac{\partial F_i}{\partial\beta_{ij}}\bigg|_{q_i^*}
 identifying the cost of attention with the information divergence between the agent's updated belief and the neighbor's transported signal.
 
 \subsubsection{Interpretations}
-From the perspective of gauge invariance, the comparison is made between $q_i$ and the transported $\Omega_{ij}q_j$ within the same frame (and similarly for $j \rightarrow i$); gauge covariance fixes what is compared, while variational duality fixes how it is compared. From the perspective of this duality, the forward KL is the only divergence that simultaneously yields a closed-form Boltzmann solution for $q_i$ and a consistent dual cost $C_{ij} = \partial F_i / \partial \beta_{ij}$. From the perspective of information geometry, the forward KL is the Bregman divergence generated by the negative entropy potential, whose Hessian induces the Fisher-Rao metric and yields the mixed/exponential family-projection Pythagorean theorem. These global properties are not shared by generic f-divergences. These observations place the result within the classical uniqueness tradition rather than apart from it: \citet{Chentsov1982} established the uniqueness of the Fisher-Rao metric and its associated invariant divergence, \citet{Petz1996} extended the monotone-metric uniqueness to the matrix (quantum) setting, and the characterization of the forward KL as the unique divergence lying in both the Bregman and the $f$-divergence classes is standard \citep{Amari2016}. The contribution here is the route rather than the endpoint: a variational/envelope re-derivation that selects the forward KL from the requirement of a closed-form Gibbs update together with a consistent dual attention cost, without assuming decomposability a priori.
+From the perspective of gauge invariance, the comparison is made between $q_i$ and the transported $\Omega_{ij}q_j$ within the same frame (and similarly for $j \rightarrow i$); gauge covariance fixes what is compared, while variational duality fixes how it is compared. From the perspective of this duality, the forward KL is the only divergence that simultaneously yields a closed-form Boltzmann solution for $q_i$ and a consistent dual cost $C_{ij} = \partial F_i / \partial \beta_{ij}$. From the perspective of information geometry, the forward KL is the Bregman divergence generated by the negative entropy potential, whose Hessian induces the Fisher-Rao metric and yields the mixed/exponential family-projection Pythagorean theorem. These global properties are not shared by generic f-divergences. These observations place the result within the classical uniqueness tradition rather than apart from it: \citet{Cencov1982} established the uniqueness of the Fisher-Rao metric and its associated invariant divergence, \citet{Petz1996} extended the monotone-metric uniqueness to the matrix (quantum) setting, and the characterization of the forward KL as the unique divergence lying in both the Bregman and the $f$-divergence classes is standard \citep{Amari2016}. The contribution here is the route rather than the endpoint: a variational/envelope re-derivation that selects the forward KL from the requirement of a closed-form Gibbs update together with a consistent dual attention cost, without assuming decomposability a priori.
 
 \subsubsection{Summary}
 Under the natural assumptions of locality, linear coupling, and exponential-family closure, the forward KL divergence
