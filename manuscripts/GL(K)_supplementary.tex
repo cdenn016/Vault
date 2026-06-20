@@ -173,8 +173,10 @@ q_j(c) \mapsto \Omega_{ij}(c) \cdot q_j(c) := \rho(\Omega_{ij}(c)) q_j(c).
 On overlaps, local connections are related by:
 
 \begin{equation}
-A^{(i)}_\mu = \Omega_{ij} A^{(j)}_\mu \Omega_{ij}^{-1} + \Omega_{ij} \partial_\mu \Omega_{ij}^{-1}.
+A^{(i)}_\mu = A^{(j)}_\mu + U_j^{-1}\bigl(\Omega_{ij}^{-1} \partial_\mu \Omega_{ij}\bigr) U_j.
 \end{equation}
+
+The additive form, rather than the adjoint form $\Omega_{ij} A^{(j)}_\mu \Omega_{ij}^{-1} + (\partial_\mu \Omega_{ij}) \Omega_{ij}^{-1}$, is a consequence of the left-invariant convention $A^{(i)}_\mu = U_i^{-1}\partial_\mu U_i$ together with $\Omega_{ij} = U_i U_j^{-1}$; the familiar adjoint form is recovered under the right-invariant convention $A^{(i)}_\mu = (\partial_\mu U_i) U_i^{-1}$, with the field strength then carrying $-[A_\mu, A_\nu]$.
 
 \paragraph{Scope and forward references.} The present chapter establishes the bundle scaffold and the gauge-connection apparatus used throughout this appendix and the main paper. The remaining foundational machinery on which the main paper's derivations build is developed in subsequent chapters of this appendix: the Gaussian KL closed form under $\mathrm{GL}(K)$ gauge transport and the covariance-channel fixed-point dynamics are derived in Section~\ref{app:covariance_dynamics}; the gauge-frame gradient and the differential of the matrix exponential are derived in Section~\ref{app:phi_gradients}; the natural-gradient descent on the Gaussian manifold and the symmetric positive-definite manifold retraction are derived in Section~\ref{app:variational_descent}. The variational free energy functional itself, its E-step / M-step decomposition, and the softmax-$\beta$ derivation from a mixture-of-sources model are developed in the main paper at Sections~\ref{sec:mixture_derivation} and~\ref{sec:final_free_energy}. The $\mathrm{GL}(K)$-invariance of the Gaussian KL divergence is stated and proved in the main paper at Theorem~\ref{thm:glk_invariance}; this appendix uses it without re-proof.
 
@@ -637,7 +639,7 @@ The covariance update $\delta\Sigma$ is then passed to a manifold retraction (Se
 \begin{equation}
 B = \Lambda^{-1/2} (V^\top \delta\Sigma V) \Lambda^{-1/2},
 \end{equation}
-where $\Sigma = V \Lambda V^\top$ is the eigendecomposition. This whitening ensures that the resulting step is affine-invariant such that the same step size produces comparable effects regardless of the current scale of the covariance matrix. Following the computation of the whitened tangent $B$, we apply a trust-region constraint by clipping its Frobenius norm to a maximum relative step size $\rho_{\mathrm{tr}}$. This prevents excessively large updates that could destabilize the manifold structure or lead to ill-conditioned covariances.
+where $\Sigma = V \Lambda V^\top$ is the eigendecomposition. This whitening ensures that the resulting step is affine-invariant such that the same step size produces comparable effects regardless of the current scale of the covariance matrix. Following the computation of the whitened tangent $B$, we apply a trust-region constraint by clipping its Frobenius norm to a maximum relative step size $\rho_{\mathrm{tr}}$ (on the full-covariance path; the diagonal reduction instead clips the per-coordinate whitened ratio $\delta\sigma/\sigma$ to $[-\rho_{\mathrm{tr}}, \rho_{\mathrm{tr}}]$ componentwise, an $\ell^{\infty}$ rather than Frobenius bound). This prevents excessively large updates that could destabilize the manifold structure or lead to ill-conditioned covariances.
 
 \subsection{Manifold Retraction for Covariance Matrices}\label{sec:retraction}
 The manifold retraction is the process of mapping the tangent vector back to a valid point on the manifold. This is performed using the affine-invariant exponential map on the manifold of symmetric positive-definite matrices \citep{Pennec2006,Bhatia2007,Absil2008}. Working in the eigenbasis of $\Sigma_k$ with eigenvalues $\lambda_j$, the whitened tangent $B$ is diagonalized $B = U\Lambda_B U^\top$ and the retraction is
@@ -685,7 +687,7 @@ This appendix presents the full transformer validation protocol and detailed emp
 \subsection{Transformer Validation Protocol}
 To empirically validate the equivalence between our gauge attention rule and standard transformer self-attention, we conducted a quantitative comparison using a pretrained \texttt{BERT-base-uncased} model from HuggingFace Transformers \citep{devlin2018bert}. We constructed a corpus of 105 diverse English passages spanning multiple genres, registers, and subject domains, tokenized each using BERT's WordPiece tokenizer, and performed full forward passes while extracting hidden states from all 12 layers.
 
-The validation proceeds in eight phases. All primary analyses use the theory-predicted temperature $\tau = 19.0 \approx 2\sqrt{d}$ for $d = 64$ (the value of $\tau$ that our gauge framework predicts from dimensional scaling): (1)~single-passage analysis establishing per-head agreement; (2)~multi-passage corpus validation across all 105 passages, quantifying cross-passage stability via standard errors and confidence intervals for each of the 144 attention heads; (3)~a temperature sweep across the full corpus at 10 values of $\tau$ from 0.1 to 50, confirming the empirical optimum at $\tau = 19.0$ and its consistency with the theoretical prediction $\tau_{\text{opt}} = 2\sqrt{d}$; (4)~multi-model validation across five architectures (BERT-base, BERT-large, DistilBERT, RoBERTa, ALBERT); (5)~per-head temperature dispersion diagnostic across all five architectures, testing four hypotheses for the cross-model variation in $\alpha$--$\beta$ correlation; (6)~mathematical identity decomposition verifying $Q \cdot K / \sqrt{d} = (-\|Q-K\|^2 + \|Q\|^2 + \|K\|^2)/2\sqrt{d}$ to machine precision; (7)~attention entropy analysis confirming that $H(\beta) \approx H(\alpha)$ at the optimal temperature; and (8)~sequence-length sensitivity analysis from $N = 16$ to $N = 512$ tokens.
+The validation proceeds in eight phases. All primary analyses use the empirical optimal temperature $\tau = 19.0 \approx 2\sqrt{d}$ for $d = 64$ (close to the value $\tau = 2\sqrt{d} = 16$ that our gauge framework predicts from dimensional scaling, a 19\% deviation attributed to finite-dimensional corrections): (1)~single-passage analysis establishing per-head agreement; (2)~multi-passage corpus validation across all 105 passages, quantifying cross-passage stability via standard errors and confidence intervals for each of the 144 attention heads; (3)~a temperature sweep across the full corpus at 10 values of $\tau$ from 0.1 to 50, confirming the empirical optimum at $\tau = 19.0$ and its consistency with the theoretical prediction $\tau_{\text{opt}} = 2\sqrt{d}$; (4)~multi-model validation across five architectures (BERT-base, BERT-large, DistilBERT, RoBERTa, ALBERT); (5)~per-head temperature dispersion diagnostic across all five architectures, testing four hypotheses for the cross-model variation in $\alpha$--$\beta$ correlation; (6)~mathematical identity decomposition verifying $Q \cdot K / \sqrt{d} = (-\|Q-K\|^2 + \|Q\|^2 + \|K\|^2)/2\sqrt{d}$ to machine precision; (7)~attention entropy analysis confirming that $H(\beta) \approx H(\alpha)$ at the optimal temperature; and (8)~sequence-length sensitivity analysis from $N = 16$ to $N = 512$ tokens.
 
 For each layer $L$ and head $H$, we extracted query, key, and value matrices
 \[
@@ -734,7 +736,7 @@ The distribution of per-head correlations reveals substantial heterogeneity cons
   \includegraphics[width=\linewidth]{attention/figs/correlation_distribution_all_heads.png}
   \caption{
   \textbf{Distribution of per-head correlations across 105 passages.}
-  Each head's correlation is its mean $r(\alpha,\beta)$ across the full 105-passage corpus at the theory-predicted optimal temperature $\tau = 19.0$. The grand mean is $\bar{r} = 0.804$ and grand median is $\tilde{r} = 0.876$; 93 of 144 heads (64.6\%) exceed $r > 0.8$ and 59 heads (41.0\%) exceed $r > 0.9$.
+  Each head's correlation is its mean $r(\alpha,\beta)$ across the full 105-passage corpus at the empirical optimal temperature $\tau = 19.0$. The grand mean is $\bar{r} = 0.804$ and grand median is $\tilde{r} = 0.876$; 93 of 144 heads (64.6\%) exceed $r > 0.8$ and 59 heads (41.0\%) exceed $r > 0.9$.
   }
   \label{fig:correlation_distribution_supp}
 \end{figure}
@@ -1045,12 +1047,12 @@ The gauge variation and holonomy exponents on the attention graph ($y_2 = -0.66$
 To investigate observation-driven symmetry breaking, we simulated six overlapping agents on a 2-dimensional flat base manifold under periodic boundary conditions, using $\mathrm{SO}(3)$ with the $\ell = 4$ irrep (9-dimensional representation space). All agents were initialized with identical models and $\gamma_{ij} = 0$.
 
 \subsection{Vacuum State}
-Without observations, all agent beliefs converge to a shared rotationally invariant vacuum state with identical norms (Figure~\ref{fig:mu_q_center_vacuum_supp}), occupying the gauge orbit predicted by the symmetric vacuum theory.
+Without observations, all agent beliefs converge to a common gauge orbit: they settle at distinct directions in the $9$-dimensional representation space but at a single shared norm (Figure~\ref{fig:mu_q_center_vacuum_supp}), the orbit predicted by the symmetric vacuum theory. The orbit, not any individual belief vector, is the rotation-invariant object, since the $\ell = 4$ irrep of $\mathrm{SO}(3)$ carries no nonzero invariant vector; the invariant content of the equilibrium is its $\mathrm{SO}(3)$-invariant norm.
 
 \begin{figure*}[t]
   \centering
   \includegraphics[width=0.85\textwidth]{attention/figs/Symmetric Vacuum.png}
-  \caption{Symmetric vacuum state: $\mu_Q^{\text{center}}$ tracking summary without observations. \textbf{Top:} Norm trajectories for all six agents, converging to a shared equilibrium value. \textbf{Middle left:} Symmetry measure $\mathrm{Var}(\|\mu\|)$ decays to machine precision, confirming gauge symmetry is preserved. \textbf{Middle right:} Population-averaged norm stabilizes. \textbf{Bottom left:} Phase-space projection (dimensions 0, 1) showing agents collapsing to a common point. \textbf{Bottom right:} Final statistics confirming zero variance across agents and preserved gauge symmetry.}
+  \caption{Symmetric vacuum state: $\mu_Q^{\text{center}}$ tracking summary without observations. \textbf{Top:} Norm trajectories for all six agents, converging to a shared equilibrium value. \textbf{Middle left:} Symmetry measure $\mathrm{Var}(\|\mu\|)$ decays to machine precision, confirming gauge symmetry is preserved. \textbf{Middle right:} Population-averaged norm stabilizes. \textbf{Bottom left:} Phase-space projection (dimensions 0, 1) showing the agents settling at distinct directions of a common norm sphere (a shared gauge orbit), not a single point. \textbf{Bottom right:} Final statistics confirming zero variance of the belief norm across agents ($\mathrm{Var}(\|\mu\|) \approx 2.8 \times 10^{-14}$, common norm $0.2857$) and preserved gauge symmetry.}
   \label{fig:mu_q_center_vacuum_supp}
 \end{figure*}
 
@@ -1404,7 +1406,7 @@ Substituting \eqref{eq:supp_gaussian_kl} into \eqref{eq:supp_expected_loglik} gi
 + C,
 \label{eq:supp_kl_decomposition}
 \end{equation}
-where $H(q_i^{\star}) = \tfrac{1}{2}\log\bigl((2\pi e)^K |\Sigma_{q,i}|\bigr)$ is the differential entropy of $q_i^{\star}$ and $C = -\tfrac{K}{2}\log 2\pi - \tfrac{K}{2}$ is a $v$-invariant scalar constant. Both $H(q_i^{\star})$ and $C$ depend on the row index $i$ but not on the column index $v$. Under the softmax over $v$,
+where $H(q_i^{\star}) = \tfrac{1}{2}\log\bigl((2\pi e)^K |\Sigma_{q,i}|\bigr)$ is the differential entropy of $q_i^{\star}$ and $C = 0$: the cross-entropy identity $\mathbb{E}_{q_i^{\star}}[\log p(x \mid C_v)] = -D_{\mathrm{KL}}(q_i^{\star} \| \pi_v) - H(q_i^{\star})$ is exact, because the full $(2\pi e)^K$ normalisation carried inside $H(q_i^{\star})$ supplies precisely the $-\tfrac{K}{2}\log 2\pi$ and $-\tfrac{1}{2}\log|\Sigma_{q,i}|$ terms that would otherwise survive, leaving no additive constant. The row-only term $-H(q_i^{\star})$ depends on the row index $i$ but not on the column index $v$. Under the softmax over $v$,
 \begin{equation}
 \frac{e^{\mathbb{E}_{q_i^{\star}}[\log p(x \mid C_v)]/\tau}}
      {\sum_{v'} e^{\mathbb{E}_{q_i^{\star}}[\log p(x \mid C_{v'})]/\tau}}
