@@ -126,6 +126,22 @@ Three further recompute-driven multi-agent passes closed out the deep review; al
 
 **Residual items for a future pass (not defects):** the meta-agent moment-matching identity $\Sigma_A = \langle\Sigma_i\rangle + \mathrm{Var}_A(\mu)$; the ALiBi/T5/window logit reductions versus the published forms; the Frobenius-pullback natural-gradient metric (App D).
 
+## Deep review pass 8 (2026-06-20)
+
+Pass 8 closed the three residual items above and found no new mathematical defect. A nine-agent workflow recomputed each end-to-end (NumPy/SymPy/finite-difference) with adversarial verification; a completeness critic then recomputed five further blocks, all correct. Report: `V3_Transformer` at `docs/reviews/2026-06-20-glk-attention-deep-review-pass8.md`. Edits were applied to the canonical vault manuscripts.
+
+**The three residuals — all verified correct:**
+
+- **Meta-agent moment matching $\Sigma_A = \langle\Sigma_i\rangle + \mathrm{Var}_A(\mu)$.** Exactly the covariance of the equal-weight Gaussian mixture (Euclidean law of total covariance); symbolic residual identically zero, Monte-Carlo deviation pure sampling noise $\sim 1/\sqrt{N}$. The population $1/|A|$ normalization is the unique correct moment-matching choice (the Bessel $1/(|A|-1)$ variant carries a systematic $\sim 4\%$ bias); $g_1^{(\mathrm{emer})}=\|\mathrm{Var}_A(\mu)\|/\sigma^2$ is the anisotropic component, consistently normalized.
+- **ALiBi / T5 / sliding-window / causal reductions.** Substituting each prior $\pi_j$ into the general softmax reproduces the published mechanism exactly; the log-prior enters the logits additively as $+\log\pi_j$ with **no** $1/\tau$ factor (dividing the bias by $\tau$ deviates $0.04$–$0.18$). Matches Press et al. 2022 ($-m|i-j|$ on the causal support) and Raffel et al. 2020. Residuals $5.6\times10^{-17}$.
+- **Frobenius-pullback metric $\mathcal{G}_{ab}(\phi)$ and $\Psi(\mathrm{ad}_\phi)$.** Right-trivialised Fréchet derivative versus finite difference $\sim10^{-10}$; the trace-cyclicity collapse exact; all limits ($\phi=0\to$ Gram, skew $\to I$, symmetric $\to e^{2\phi}$) to $\sim10^{-14}$; $\Psi(z)=(e^z-1)/z$ with Bernoulli inverse confirmed; $\mathcal{G}=J^\top J$ is symmetric PSD, degenerate only at $2\pi i$-integer $\mathrm{ad}_\phi$ resonances.
+
+**Also recomputed fresh (all correct):** the $\phi$-gradient / KL-through-transport chain (App C); the Cartan/Killing preconditioner block; the geometric-mean $\tfrac12$ exponents; RoPE relative composition; the off-diagonal codimension arithmetic.
+
+**Pass-8 edits (one fix during review, seven expository/citation items on request):** the value-aggregation gloss `mixture variational model` $\to$ `generative mixture` (it is the responsibility-weighted mean of the generative components, not $\mathbb{E}_Q[k]=\mu_i$); the Knapp bibref `Prop. 1.93` $\to$ `Ch. VI` (Prop. 1.93 is a topological-groups result; the Cartan-involution / positive-definite-$B_\theta$ material is Ch. VI); the temperature-dispersion claim softened to "negatively associated (Pearson $-0.87$, Spearman $-0.6$)"; the key-norm $0.256$ relabeled the between-head mean of *absolute* correlations versus the signed population magnitude $0.475$; the Cartan projector $P_{\mathrm{sym}}$ noted to retain the center; the ALiBi/T5 reductions cross-referenced to the temperature rescaling; and a pullback-metric resonance caveat. The RG graph-based $y_3$ fit-window inconsistency was recorded in the in-source DATA-PENDING TODO (blocked on the finalized CSV).
+
+> [!note] Settled (verified-ledger). The full settled record now lives in `manuscripts/verified-ledger.md` (updated through pass 8). After eight passes the GL(K) manuscript pair is mathematically exhausted at the level of its analytic derivations: no sign, transpose, coefficient, or index error remains in any load-bearing identity; the residue is expository, documentary, or empirical/data-pending.
+
 ## References cited
 
 Resolved from `references.bib` (unique keys across the main paper and supplement):

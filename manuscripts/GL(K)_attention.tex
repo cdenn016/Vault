@@ -775,7 +775,7 @@ where $\tau$ couples explicitly to the attention entropy/prior term. The softmax
 \subsubsection{Non-Uniform Attention Priors: Masking and Positional Biases}
 \label{sec:nonuniform_priors}
 
-The general solution \eqref{eq:mixture_softmax_general} with non-uniform priors $\pi_k$ provides a unified derivation of several architectural features historically introduced empirically into transformers. 
+The general solution \eqref{eq:mixture_softmax_general} with non-uniform priors $\pi_k$ provides a unified derivation of several architectural features historically introduced empirically into transformers. Throughout this subsection the alignment energy carries the temperature factor of Eq.~\eqref{eq:F_align_canonical_tau}, so the reduced softmaxes below read $-E_{ik}/\tau + \log\pi_k$ in the logits, with the log-prior entering additively and untempered.
 
 \paragraph{Causal Masking.}
 In auto-regressive language modeling, token $i$ should not attend to future tokens $j > i$. Within our generative model, this constraint is a prior restriction on the availability of a source. Formally, setting the attention prior to
@@ -1040,7 +1040,7 @@ Communication between agents $i$ and $j$ is mediated by a gauge frame transport 
 
 which maps representations from agent $j$'s local frame into agent $i$'s frame. 
 
-The value-aggregation output received by agent $i$ is the posterior mean of the mixture variational model under responsibilities $\beta_{ij}$ (derived formally in Section~\ref{sec:value_aggregation}):
+The value-aggregation output received by agent $i$ is the posterior mean of the generative mixture under responsibilities $\beta_{ij}$ (derived formally in Section~\ref{sec:value_aggregation}):
 
 \begin{equation}
 \hat\mu_i = \sum_j \beta_{ij} \Omega_{ij}\mu_j,
