@@ -66,3 +66,33 @@ Next steps, in rough priority order:
 **Key concepts:** [[Variational free energy]] · [[Evidence lower bound (ELBO)]] · [[Prediction error]] · [[Precision weighting]] · [[Gauge transformation]] · [[Holonomy]] · [[Non-flat connection and the photon analogy]] · [[Natural gradient]] · [[Fisher information metric]] · [[Renyi divergence]] · [[Irreducible representation]] · [[Clebsch-Gordan coefficients]]
 
 **Key sources:** [[friston-2010-free-energy-principle]] · [[neal-1998-variational-em]] · [[bogacz-2017-free-energy-tutorial]] · [[kingma-2013-auto-encoding-variational-bayes]] · [[cohen-2019-gauge-cnn]] · [[bronstein-2021-geometric-deep-learning]] · [[finzi-2020-lieconv]] · [[amari-1998-natural-gradient]] · [[li-turner-2016-renyi-vi]] · [[pennec-2006-affine-invariant-tensor]] · [[absil-2008-optimization-matrix-manifolds]] · [[wang-2023-riemannian-self-attention-spd]] · [[vaswani-2017-attention]]
+
+## Engineering, ML-training & methodology references
+
+Background/implementation references cited by the engineering and ML-engineer review lenses (software-engineering practice, general DL-training mechanics, model baselines, and tooling) — not core VFE theory.
+
+- [[loshchilov-hutter-2017-sgdr-warm-restarts]] — Cosine-annealing-with-restarts schedule;
+- [[smith-2017-cyclical-learning-rates]] — Cyclical/one-cycle learning-rate practice;
+- [[ioffe-szegedy-2015-batch-normalization]] — Batch normalization;
+- [[srivastava-2014-dropout]] — Dropout regularization;
+- [[glorot-bengio-2010-understanding-difficulty-training]] — Xavier initialization and training-difficulty analysis;
+- [[he-2015-delving-deep-rectifiers]] — He/Kaiming initialization and PReLU;
+- [[micikevicius-2018-mixed-precision-training]] — FP16/FP32 mixed-precision training;
+- [[goodfellow-bengio-courville-2016-deep-learning]] — The standard deep-learning textbook;
+- [[baydin-2017-automatic-differentiation-survey]] — AD survey;
+- [[martin-2008-clean-code]] — Software-engineering practice canon informing code-quality standards for the vfe3 implementation (not VFE research theory).
+- [[martin-2017-clean-architecture]] — Software-engineering practice canon informing code-quality standards for the vfe3 implementation (not VFE research theory).
+- [[fowler-2018-refactoring]] — Software-engineering practice canon informing code-quality standards for the vfe3 implementation (not VFE research theory).
+- [[mcconnell-2004-code-complete]] — Software-engineering practice canon informing code-quality standards for the vfe3 implementation (not VFE research theory).
+- [[hunt-thomas-2019-pragmatic-programmer]] — Software-engineering practice canon informing code-quality standards for the vfe3 implementation (not VFE research theory).
+- [[knuth-art-of-computer-programming]] — Software-engineering practice canon informing code-quality standards for the vfe3 implementation (not VFE research theory).
+- [[beazley-jones-2013-python-cookbook]] — Software-engineering practice canon informing code-quality standards for the vfe3 implementation (not VFE research theory).
+- [[pep-8-style-guide-python-code]] — Python/PyTorch standards doc informing implementation conventions of the vfe3 codebase.
+- [[pep-257-docstring-conventions]] — Python/PyTorch standards doc informing implementation conventions of the vfe3 codebase.
+- [[pep-484-type-hints]] — Python/PyTorch standards doc informing implementation conventions of the vfe3 codebase.
+- [[pep-695-type-parameter-syntax]] — Python/PyTorch standards doc informing implementation conventions of the vfe3 codebase.
+- [[pytorch-documentation]] — Python/PyTorch standards doc informing implementation conventions of the vfe3 codebase.
+- [[sculley-2015-hidden-technical-debt-ml]] — ML-systems technical-debt taxonomy;
+- [[hooker-2020-hardware-lottery]] — Essay on how hardware shapes which research ideas win;
+- [[touvron-2023-llama]] — Open foundation-model release;
+- [[touvron-2023-llama2]] — Open foundation/chat-model release;

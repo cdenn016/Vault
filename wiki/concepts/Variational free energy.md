@@ -48,7 +48,7 @@ Variational free energy is the organizing objective of the VFE Transformer. The 
 
 **Amortization.** Rather than solving the E-step per example, the [[Variational autoencoder (VAE)]] of [[kingma-2013-auto-encoding-variational-bayes]] amortizes it with a recognition network and optimizes the ELBO end-to-end via the [[Reparameterization trick]]. Single-pass encoders leave an *amortization gap*; [[Iterative amortized inference]] ([[marino-2018-iterative-amortized-inference]]) closes it by learning an optimizer that repeatedly ingests free-energy gradients to refine the belief — the iterative refinement view that motivates the transformer's repeated belief updates. [[millidge-2020-pc-approximates-backprop]] further shows that local free-energy minimization via prediction errors can approximate exact backpropagation, unifying the E/M inference loop with gradient training.
 
-**Variants.** Beyond the KL form, the variational Renyi bound of [[li-turner-2016-renyi-vi]] replaces KL with an \(\alpha\)-Renyi divergence, giving a one-parameter family that interpolates between the ELBO (\(\alpha \to 1\)) and the log marginal likelihood; [[vanerven-2014-renyi-kl]] is the definitive reference for that divergence family and its \(\alpha \to 1 \Rightarrow\) KL limit. Minimizing \(\mathcal{F}\) on the statistical manifold is most efficiently done with the [[Natural gradient]] preconditioned by the [[Fisher information metric]] ([[amari-1998-natural-gradient]]).
+**Variants.** Beyond the KL form, the variational Renyi bound of [[li-turner-2016-renyi-vi]] replaces KL with an \(\alpha\)-Renyi divergence, giving a one-parameter family that interpolates between the ELBO (\(\alpha \to 1\)) and the log marginal likelihood; [[vanerven-2014-renyi-kl]] is the definitive reference for that divergence family and its \(\alpha \to 1 \Rightarrow\) KL limit. Minimizing \(\mathcal{F}\) on the statistical manifold is most efficiently done with the [[Natural gradient]] preconditioned by the [[Fisher information metric]] ([[amari-1998-natural-gradient]]); [[khan-rue-2023-bayesian-learning-rule]] turns that natural gradient into a concrete learning rule, showing that natural-gradient descent on the natural parameters of an exponential-family posterior — with the update reading off the expectation-parameter gradient — unifies Adam, Newton, variational inference, and online learning, and yields exactly the closed-form Fisher-preconditioned Gaussian belief update the VFE transformer performs.
 
 ## In this work
 
@@ -72,6 +72,10 @@ Variational free energy surfaces throughout the model and config:
 - [[li-turner-2016-renyi-vi]] — Variational Renyi bound interpolating ELBO and log evidence.
 - [[vanerven-2014-renyi-kl]] — Renyi divergence family with KL as the \(\alpha \to 1\) limit.
 - [[amari-1998-natural-gradient]] — Fisher-preconditioned natural gradient for efficient minimization on the statistical manifold.
+- [[khan-rue-2023-bayesian-learning-rule]] — Natural-gradient descent on exponential-family natural parameters as a single learning rule unifying Adam, Newton, VI, and online learning; the Fisher-preconditioned Gaussian belief update.
+- [[bishop-2006-pattern-recognition-machine-learning]] — Ch. 10 variational inference: the ELBO and mean-field EM that the VFE transformer instantiates per token.
+- [[wainwright-jordan-2008-graphical-models-variational-inference]] — Exponential-family convex-duality foundation of mean-field variational inference and the free-energy bound.
+- [[beal-2003-variational-algorithms-approximate-bayesian-inference]] — Variational Bayesian EM and the free-energy bound; direct antecedent of iterative VFE minimization.
 
 ## See also
 
@@ -92,3 +96,7 @@ Variational free energy surfaces throughout the model and config:
 - [[Variational free energy and predictive coding]]
 - [[Inference machinery — variational EM and filtering]]
 - [[VFE Transformer Program]]
+
+## Related sources (ingested 2026-06-20)
+
+- [[friston-2016-active-inference-learning]] — Active-inference treatment of learning as free-energy minimization over time;

@@ -35,7 +35,7 @@ Gauge invariance is also what makes the optimization geometry well posed. A repa
 
 **Composition by BCH.** Because two gauge elements compose as $\exp(\phi_1)\exp(\phi_2) = \exp\!\big(\phi_1 + \phi_2 + \tfrac12[\phi_1,\phi_2] + \cdots\big)$, composing transformations directly in the algebra requires the [[Baker-Campbell-Hausdorff formula|Baker–Campbell–Hausdorff]] (BCH) series, truncated to a finite order in practice. The model uses BCH both as the *retraction* that moves gauge parameters along an update (`phi_retract_mode: bch`) and as the *composition* rule for positional gauges (`pos_phi_compose: bch`, `bch_pe_order: 4`). Retractions are the cheap first-order surrogates for true geodesic exponentials analyzed in [[absil-2008-optimization-matrix-manifolds]]; using a Lie-group retraction keeps each update *on the group manifold* without leaving the gauge structure.
 
-**Transport and holonomy.** Once features carry frames, comparing a belief at token $i$ with one at token $j$ requires carrying the frame along, i.e. [[Parallel transport]]. The path-dependence of that transport — the failure of a frame to return to itself around a loop — is [[Holonomy]]. The current configuration uses a flat connection (`transport_mode: flat`), the trivial-holonomy limit, while exposing a cocycle-relaxation knob (`cocycle_relaxation`) that controls how strictly the transport maps must satisfy the cocycle consistency condition required for a well-defined gauge structure.
+**Transport and holonomy.** Once features carry frames, comparing a belief at token $i$ with one at token $j$ requires carrying the frame along, i.e. [[Parallel transport]]. The path-dependence of that transport — the failure of a frame to return to itself around a loop — is [[Holonomy]]. The current configuration uses a flat connection (`transport_mode: flat`), the trivial-holonomy limit, while exposing a cocycle-relaxation knob (`cocycle_relaxation`) that controls how strictly the transport maps must satisfy the cocycle consistency condition required for a well-defined gauge structure. The textbook-grade statements of this transport rule and its cocycle/holonomy bookkeeping are derived from first principles in [[weiler-2021-coordinate-independent-cnns]], which shows that demanding coordinate-independence together with weight-sharing *forces* local-gauge equivariance, complete with the underlying $G$-structure and parallel-transport machinery.
 
 **Representations, irreps, and coupling.** A gauge group acts on features through representations. Decomposing features into [[Irreducible representation|irreducible representations]] (irreps) and coupling them through the [[Clebsch-Gordan coefficients|Clebsch–Gordan]] tensor product is the standard bookkeeping for building gauge-equivariant layers, established for steerable and tensor-field networks in [[weiler-2019-e2-steerable]], [[kondor-2018-compact-group-conv]], and [[thomas-2018-tensor-field-networks]]. The VFE transformer carries the corresponding switches (`irrep_spec`, `use_cg_coupling`, `cross_couplings`), so its block-GL($k$) gauge group can in principle structure attention by irrep rather than by raw coordinates.
 
@@ -59,6 +59,7 @@ Because the beliefs $(\mu, \Sigma)$ that the gauge frames act upon are SPD-manif
 ## Sources
 
 - [[cohen-2019-gauge-cnn]] — local gauge transformations on manifolds; kernel constraint and parallel-transport rule.
+- [[weiler-2021-coordinate-independent-cnns]] — definitive monograph deriving gauge equivariance from coordinate-independence plus weight-sharing, with full $G$-structure, transport, and cocycle/holonomy statements.
 - [[bronstein-2021-geometric-deep-learning]] — gauges and equivariance as a unifying blueprint for deep nets.
 - [[cohen-2016-gcnn]] — global group equivariance, the precursor to local gauge equivariance.
 - [[finzi-2020-lieconv]] — Lie-algebra (log) parameterization with $\exp$ recovery.
@@ -69,6 +70,7 @@ Because the beliefs $(\mu, \Sigma)$ that the gauge frames act upon are SPD-manif
 - [[pennec-2006-affine-invariant-tensor]] — affine-invariant SPD geometry on which the gauge congruence acts.
 - [[horn-johnson-2013-matrix-analysis]] — matrix-analysis reference for the GL($k$) congruence action and exponential map.
 - [[bartlett-rudolph-spekkens-2007-reference-frames]] — quantum reference frames and the frame-invariance of physical content.
+- [[bleecker-1981-gauge-theory-variational-principles]] — canonical bundle-connection-and-variational-principle reference behind the gauge formalism.
 
 ## See also
 

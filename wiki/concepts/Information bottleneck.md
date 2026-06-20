@@ -43,6 +43,7 @@ The original IB is a *soft* assignment; its **deterministic** limit replaces $I(
 - [[strouse-2017-deterministic-ib]] — deterministic (hard-clustering) IB limit; account of low-temperature attention and crisp meta-agent membership.
 - [[slonim-2000-agglomerative-ib]] — bottom-up agglomerative IB; relevance-preserving coarse-graining cousin of meta-agent formation.
 - [[shwartz-ziv-2017-opening-black-box]] — information-plane dynamics of deep nets; fitting-then-compression reading of layerwise $F$ descent.
+- [[cover-thomas-2006-elements-information-theory]] — defines entropy, KL/relative entropy, and mutual information, the quantities underpinning the IB Lagrangian's $I(X;T)$ and $I(T;Y)$, the free-energy KL terms, and the attention-entropy term.
 
 ## See also
 

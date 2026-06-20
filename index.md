@@ -10,7 +10,7 @@ updated: 2026-06-19
 Catalog of this **LLM-wiki**. See [[LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **4** manuscripts · **12** themes · **11** field MOCs · **83** concepts · **10** methods · **221** papers · **140** references · **1** web/methodology
+> **3** projects · **4** manuscripts · **12** themes · **11** field MOCs · **83** concepts · **10** methods · **260** papers · **167** references · **6** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -185,6 +185,10 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[rao-1999-predictive-coding|Predictive coding in the visual cortex: a functional interpretation of some extra-classical receptive-field effects]]
 - [[von-oswald-2022-transformers-gradient-descent|Transformers Learn In-Context by Gradient Descent]]
 - [[waade-2025-as-one-and-many|As One and Many: Relating Individual and Emergent Group-Level Generative Models in Active Inference]]
+- [[friston-2016-active-inference-learning|Active Inference and Learning]]
+- [[buckley-2017-fep-mathematical-review|The Free Energy Principle for Action and Perception: A Mathematical Review]]
+- [[winn-2005-variational-message-passing|Variational Message Passing]]
+- [[smith-2022-active-inference-tutorial|A Step-by-Step Tutorial on Active Inference and Its Application to Empirical Data]]
 
 ### Gauge theory, Lie groups & geometric deep learning
 - [[bronstein-2021-geometric-deep-learning|Geometric Deep Learning: Grids, Groups, Graphs, Geodesics, and Gauges]]
@@ -199,6 +203,10 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[thomas-2018-tensor-field-networks|Tensor Field Networks: Rotation- and Translation-Equivariant Neural Networks for 3D Point Clouds]]
 - [[wald-1993-black-hole-entropy-noether|Black Hole Entropy is the Noether Charge]]
 - [[weiler-2019-e2-steerable|General E(2)-Equivariant Steerable CNNs]]
+- [[cohen-2018-spherical-cnns|Spherical CNNs]]
+- [[cohen-2019-general-theory-equivariant|A General Theory of Equivariant CNNs on Homogeneous Spaces]]
+- [[finzi-2021-emlp-arbitrary-matrix-groups|A Practical Method for Constructing Equivariant MLPs for Arbitrary Matrix Groups (EMLP)]]
+- [[weiler-2021-coordinate-independent-cnns|Coordinate Independent Convolutional Networks]]
 
 ### Information geometry, divergences & natural gradient
 - [[amari-1998-natural-gradient|Natural Gradient Works Efficiently in Learning]]
@@ -220,6 +228,14 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[shwartz-ziv-2017-opening-black-box|Opening the Black Box of Deep Neural Networks via Information]]
 - [[vanerven-2014-renyi-kl|Renyi Divergence and Kullback-Leibler Divergence]]
 - [[wootters-1981-statistical-distance|Statistical distance and Hilbert space]]
+- [[smith-2017-cyclical-learning-rates|A Disciplined Approach to Neural Network Hyper-Parameters (Cyclical LR)]]
+- [[martens-2010-hessian-free-optimization|Deep Learning via Hessian-Free Optimization]]
+- [[loshchilov-hutter-2017-sgdr-warm-restarts|SGDR: Stochastic Gradient Descent with Warm Restarts]]
+- [[loshchilov-hutter-2019-adamw|Decoupled Weight Decay Regularization (AdamW)]]
+- [[kingma-ba-2015-adam|Adam: A Method for Stochastic Optimization]]
+- [[nielsen-2020-elementary-introduction-information-geometry|An Elementary Introduction to Information Geometry]]
+- [[khan-rue-2023-bayesian-learning-rule|The Bayesian Learning Rule]]
+- [[zhang-2004-divergence-duality-convex|Divergence Function, Duality, and Convex Analysis]]
 
 ### SPD / Riemannian geometry & matrix manifolds
 - [[absil-2008-optimization-matrix-manifolds|Optimization Algorithms on Matrix Manifolds]]
@@ -233,6 +249,9 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[pennec-2006-affine-invariant-tensor|A Riemannian Framework for Tensor Computing]]
 - [[sra-hosseini-2015-conic-geometric-optimization|Conic Geometric Optimization on the Manifold of Positive Definite Matrices]]
 - [[wang-2023-riemannian-self-attention-spd|Riemannian Self-Attention Mechanism for SPD Networks]]
+- [[zhang-sra-2016-geodesically-convex-optimization|First-order Methods for Geodesically Convex Optimization]]
+- [[ionescu-2015-matrix-backpropagation|Matrix Backpropagation for Deep Networks with Structured Layers]]
+- [[al-mohy-higham-2009-scaling-squaring-matrix-exp|A New Scaling and Squaring Algorithm for the Matrix Exponential]]
 
 ### Attention, transformers & positional structure
 - [[bahdanau-2014-neural-machine-translation|Neural Machine Translation by Jointly Learning to Align and Translate]]
@@ -241,6 +260,19 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[olsson-2022-induction-heads|In-Context Learning and Induction Heads]]
 - [[tsai-2019-kernel-attention|Transformer Dissection: A Unified Understanding of Transformer's Attention via the Lens of Kernel]]
 - [[vaswani-2017-attention|Attention Is All You Need]]
+- [[touvron-2023-llama2|Llama 2: Open Foundation and Fine-Tuned Chat Models]]
+- [[touvron-2023-llama|LLaMA: Open and Efficient Foundation Language Models]]
+- [[micikevicius-2018-mixed-precision-training|Mixed Precision Training]]
+- [[he-2015-delving-deep-rectifiers|Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet]]
+- [[glorot-bengio-2010-understanding-difficulty-training|Understanding the Difficulty of Training Deep Feedforward Networks]]
+- [[srivastava-2014-dropout|Dropout: A Simple Way to Prevent Neural Networks from Overfitting]]
+- [[ioffe-szegedy-2015-batch-normalization|Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift]]
+- [[garg-2022-what-can-transformers-learn-in-context|What Can Transformers Learn In-Context? A Case Study of Simple Function Classes]]
+- [[ba-2016-layer-normalization|Layer Normalization]]
+- [[xiong-2020-on-layer-normalization-transformer|On Layer Normalization in the Transformer Architecture]]
+- [[elhage-2021-transformer-circuits-framework|A Mathematical Framework for Transformer Circuits]]
+- [[zhang-sennrich-2019-rmsnorm|Root Mean Square Layer Normalization (RMSNorm)]]
+- [[kazemnejad-2023-positional-encoding-length-generalization|The Impact of Positional Encoding on Length Generalization in Transformers]]
 
 ### Multi-agent dynamics, RG & emergence
 - [[berges-tetradis-wetterich-2002-nonperturbative-rg|Non-Perturbative Renormalization Flow in Quantum Field Theory and Statistical Physics]]
@@ -277,6 +309,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[susskind-2014-complexity-black-hole-horizons|Computational Complexity and Black Hole Horizons]]
 - [[thooft-1993-dimensional-reduction|Dimensional Reduction in Quantum Gravity]]
 - [[tsuchiya-saigo-2016-category-theory-iit|Using Category Theory to Assess the Relationship Between Consciousness and Integrated Information Theory]]
+- [[worrall-2014-prediction-accommodation-revisited|Prediction and Accommodation Revisited]]
 
 ### Social physics, opinion dynamics & collective behavior
 - [[acebron-2005-kuramoto-review|The Kuramoto model: A simple paradigm for synchronization phenomena]]
@@ -402,6 +435,15 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[weidlich-haag-1983-quantitative-sociology|Concepts and Models of a Quantitative Sociology: The Dynamics of Interacting Populations]]
 - [[winfree-1967-coupled-oscillators|Biological rhythms and the behavior of populations of coupled oscillators]]
 
+### Methodology, ML training & engineering
+
+- [[baydin-2017-automatic-differentiation-survey|Automatic Differentiation in Machine Learning: a Survey]]
+- [[sculley-2015-hidden-technical-debt-ml|Hidden Technical Debt in Machine Learning Systems]]
+- [[hooker-2020-hardware-lottery|The Hardware Lottery]]
+- [[yang-2022-tensor-programs-v-mup|Tensor Programs V: Tuning Large Neural Networks via Zero-Shot Hyperparameter Transfer (muP)]]
+- [[liu-2020-variance-adaptive-radam|On the Variance of the Adaptive Learning Rate and Beyond (RAdam)]]
+- [[kapoor-narayanan-2023-leakage-reproducibility-ml|Leakage and the Reproducibility Crisis in Machine-Learning-based Science]]
+
 ## 📚 Sources — references (cited by the manuscripts)
 
 ### Variational free energy, predictive coding & active inference
@@ -425,6 +467,9 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[solms-friston-2018-how-consciousness-arises|How and Why Consciousness Arises: Some Considerations from Physics and Physiology]]
 - [[sonderby-2016-ladder-vae|Ladder Variational Autoencoders]]
 - [[west-harrison-1997-bayesian-forecasting|Bayesian Forecasting and Dynamic Models]]
+- [[beal-2003-variational-algorithms-approximate-bayesian-inference|Variational Algorithms for Approximate Bayesian Inference]]
+- [[wainwright-jordan-2008-graphical-models-variational-inference|Graphical Models, Exponential Families, and Variational Inference]]
+- [[bishop-2006-pattern-recognition-machine-learning|Pattern Recognition and Machine Learning]]
 
 ### Gauge theory, Lie groups & geometric deep learning
 - [[adlam-rovelli-2022-cross-perspective|Information is Physical: Cross-Perspective Links in Relational Quantum Mechanics]]
@@ -441,6 +486,9 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[vanrietvelde-2020-change-of-perspective|A Change of Perspective: Switching Quantum Reference Frames via a Perspective-Neutral Framework]]
 - [[wilson-1974-confinement-quarks|Confinement of Quarks]]
 - [[yang-mills-1954|Conservation of Isotopic Spin and Isotopic Gauge Invariance]]
+- [[steinberg-2012-representation-theory-finite-groups|Representation Theory of Finite Groups]]
+- [[fulton-harris-1991-representation-theory|Representation Theory: A First Course]]
+- [[bleecker-1981-gauge-theory-variational-principles|Gauge Theory and Variational Principles]]
 
 ### Information geometry, divergences & natural gradient
 - [[amari-2016-information-geometry-applications|Information Geometry and Its Applications]]
@@ -458,6 +506,8 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[strouse-2017-deterministic-ib|The Deterministic Information Bottleneck]]
 - [[tishby-1999-information-bottleneck|The Information Bottleneck Method]]
 - [[uhlmann-1976-transition-probability|The Transition Probability in the State Space of a *-Algebra]]
+- [[cover-thomas-2006-elements-information-theory|Elements of Information Theory (2nd ed.)]]
+- [[skovgaard-1984-riemannian-geometry-normal-model|A Riemannian Geometry of the Multivariate Normal Model]]
 
 ### SPD / Riemannian geometry & matrix manifolds
 - [[bonnabel-sepulchre-2009-psd-fixed-rank|Riemannian Metric and Geometric Mean for Positive Semidefinite Matrices of Fixed Rank]]
@@ -465,6 +515,11 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[horn-johnson-2013-matrix-analysis|Matrix Analysis]]
 - [[karcher-1977-center-of-mass|Riemannian Center of Mass and Mollifier Smoothing]]
 - [[pennec-2006-intrinsic-statistics|Intrinsic Statistics on Riemannian Manifolds: Basic Tools for Geometric Measurements]]
+- [[higham-2002-accuracy-stability-numerical-algorithms|Accuracy and Stability of Numerical Algorithms (2nd ed.)]]
+- [[trefethen-bau-1997-numerical-linear-algebra|Numerical Linear Algebra]]
+- [[golub-vanloan-2013-matrix-computations|Matrix Computations (4th ed.)]]
+- [[moler-vanloan-2003-nineteen-dubious-ways|Nineteen Dubious Ways to Compute the Exponential of a Matrix, Twenty-Five Years Later]]
+- [[boumal-2023-optimization-smooth-manifolds|An Introduction to Optimization on Smooth Manifolds]]
 
 ### Attention, transformers & positional structure
 - [[beltagy-2020-longformer|Longformer: The Long-Document Transformer]]
@@ -478,6 +533,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[ramsauer-2021-hopfield|Hopfield Networks Is All You Need]]
 - [[su-2021-roformer-rope|RoFormer: Enhanced Transformer with Rotary Position Embedding]]
 - [[voita-2019-multihead|Analyzing Multi-Head Self-Attention: Specialized Heads Do the Heavy Lifting, the Rest Can Be Pruned]]
+- [[goodfellow-bengio-courville-2016-deep-learning|Deep Learning]]
 
 ### Multi-agent dynamics, RG & emergence
 - [[bateson-1972-steps-ecology-mind|Steps to an Ecology of Mind]]
@@ -544,6 +600,12 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[wigner-1960-unreasonable-effectiveness|The Unreasonable Effectiveness of Mathematics in the Natural Sciences]]
 - [[worrall-1989-structural-realism|Structural Realism: The Best of Both Worlds?]]
 - [[zurek-2003-decoherence|Decoherence, Einselection, and the Quantum Origins of the Classical]]
+- [[cartwright-1999-dappled-world|The Dappled World: A Study of the Boundaries of Science]]
+- [[hacking-1983-representing-intervening|Representing and Intervening]]
+- [[lakatos-1978-methodology-scientific-research-programmes|The Methodology of Scientific Research Programmes]]
+- [[popper-1963-conjectures-refutations|Conjectures and Refutations]]
+- [[popper-1959-logic-scientific-discovery|The Logic of Scientific Discovery]]
+- [[mayo-1996-error-growth-experimental-knowledge|Error and the Growth of Experimental Knowledge]]
 
 ### Opinion dynamics, sociophysics & networks
 - [[anderson-1980-belief-perseverance|Perseverance of Social Theories]]
@@ -560,5 +622,20 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[nickerson-1998-confirmation-bias|Confirmation Bias: A Ubiquitous Phenomenon in Many Guises]]
 - [[rogers-2003-diffusion-of-innovations|Diffusion of Innovations (5th ed.)]]
 
+### Methodology, ML training & engineering
+
+- [[martin-2008-clean-code|Clean Code]]
+- [[martin-2017-clean-architecture|Clean Architecture]]
+- [[fowler-2018-refactoring|Refactoring: Improving the Design of Existing Code (2nd ed.)]]
+- [[mcconnell-2004-code-complete|Code Complete (2nd ed.)]]
+- [[hunt-thomas-2019-pragmatic-programmer|The Pragmatic Programmer (2nd ed.)]]
+- [[knuth-art-of-computer-programming|The Art of Computer Programming]]
+- [[beazley-jones-2013-python-cookbook|Python Cookbook (3rd ed.)]]
+
 ## 🌐 Sources — web & methodology
 - [[karpathy-llm-wiki-pattern|Karpathy — The LLM Wiki Pattern]]
+- [[pytorch-documentation|PyTorch Official Documentation]]
+- [[pep-695-type-parameter-syntax|PEP 695 - Type Parameter Syntax]]
+- [[pep-484-type-hints|PEP 484 - Type Hints]]
+- [[pep-257-docstring-conventions|PEP 257 - Docstring Conventions]]
+- [[pep-8-style-guide-python-code|PEP 8 - Style Guide for Python Code]]

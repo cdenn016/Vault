@@ -33,7 +33,7 @@ The core driver is **social contagion through interpersonal networks**: adoption
 
 > [!note] Editorial: This is a book (the 5th edition is the standard citation); the page count and edition details vary slightly across listings, and the descriptions of the adopter taxonomy and S-curve above summarize the standard reading of Rogers' synthesis rather than quoting specific theorems.
 
-> [!warning] Bib hygiene: the BibTeX key `rogers2003diffusion` is **missing** from the manuscript's `references.bib`. The [[belief-inertia]] manuscript invokes diffusion of innovations as a named limiting case but the entry needs to be added before the citation will resolve. The BibTeX block below supplies the canonical entry to paste in.
+> [!note] Resolved 2026-06-20: the BibTeX entry below was added to the unified `references.bib` (both repos); the `rogers2003diffusion` citation in [[belief-inertia]] now resolves.
 
 ## Why the project cites it
 

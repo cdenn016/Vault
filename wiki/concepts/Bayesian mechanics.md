@@ -60,3 +60,7 @@ The "physics-by-beliefs" half of the claim only has teeth if the underlying infe
 - [[Hamiltonian belief dynamics]]
 - [[Belief inertia]]
 - [[Ouroboros multi-scale dynamics]]
+
+## Related sources (ingested 2026-06-20)
+
+- [[friston-2016-active-inference-learning]] — Active-inference treatment of learning as free-energy minimization over time;

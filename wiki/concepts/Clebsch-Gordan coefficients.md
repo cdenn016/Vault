@@ -61,6 +61,8 @@ Within the VFE transformer's config, Clebsch-Gordan coupling is the equivariant 
 - [[cohen-2016-gcnn]] — the foundational statement that a declared symmetry group structures the network's operations.
 - [[bronstein-2021-geometric-deep-learning]] — Erlangen-Program synthesis supplying the gauge/equivariance scaffolding around irrep coupling.
 - [[finzi-2020-lieconv]] — Lie-algebra-first parameterization matching the model's $\mathrm{GL}(k)$ gauge handling.
+- [[fulton-harris-1991-representation-theory]] — irrep classification and Clebsch-Gordan machinery behind the `block_glk` gauge and the isotypic head mixers.
+- [[steinberg-2012-representation-theory-finite-groups]] — finite-group irrep and character theory behind the model's isotypic head mixers and CG coupling.
 
 ## See also
 

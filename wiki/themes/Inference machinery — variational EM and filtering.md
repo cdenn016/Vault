@@ -48,7 +48,12 @@ surprise (negative log model evidence). In this reading the E-step is *perceptio
 (inferring hidden causes of the input), the M-step is *learning* (improving the
 generative model), and the precision terms that weight prediction errors are *attention*.
 This is not loose analogy for the VFE transformer; it is the literal training objective
-and the literal source of [[Precision weighting]] in its attention.
+and the literal source of [[Precision weighting]] in its attention. For the discrete (POMDP)
+incarnation of the same scheme, [[smith-2022-active-inference-tutorial]] is the standard
+operational reference: it writes out the explicit variational and expected-free-energy update
+equations and the worked mean-field factorization over hidden states, policies, and parameters,
+giving an equation-level E-step/M-step template against which to benchmark this program's
+filtering loop.
 
 The remaining ingredient — what makes the beliefs Gaussian and the updates concrete — comes
 from the predictive-coding lineage. [[rao-1999-predictive-coding]], [[bogacz-2017-free-energy-tutorial]],
@@ -68,7 +73,12 @@ exact posterior is intractable and `q` must be an approximating diagonal Gaussia
 incremental and sparse variants Neal and Hinton justify are the formal ancestors of
 "filtering": optimize `q` for a subset, or for a few steps, then update parameters. This
 thread connects directly to [[Variational free energy]] and [[Evidence lower bound (ELBO)]]
-as the shared objective.
+as the shared objective. What that E-step optimizes is fixed by the chosen mean-field
+factorization, and [[winn-2005-variational-message-passing]] makes that structure
+computational: on conjugate-exponential models, mean-field variational inference becomes local
+message passing on a factor graph, pinning down which factorization underwrites a given update
+and prefiguring the way gauge-VFE attention routes precision-weighted prediction errors between
+token-belief factors.
 
 **The free-energy principle and precision-weighted perception.**
 [[friston-2010-free-energy-principle]] elevates the same functional to a theory of
@@ -82,7 +92,11 @@ and the method [[Predictive coding network]]). [[bogacz-2017-free-energy-tutoria
 mapping operational, deriving for Gaussian beliefs the explicit E-step belief-relaxation
 update (gradient descent on free energy in `mu`) and the M-step precision-learning update
 (updating `Sigma` and weights). The architecture's filtering loop mirrors these two updates
-nearly line for line.
+nearly line for line. [[buckley-2017-fep-mathematical-review]] supplies the cleanest
+self-contained worked derivation of the same continuous-state machinery — the Laplace-encoded
+variational free energy, the gradient-descent E-step on `mu`, and the precision-weighted
+prediction-error dynamics for Gaussian beliefs — serving as a derivation bridge from the
+Bishop/Beal ELBO canon to the Friston-style free-energy claims that the filtering E-step mirrors.
 
 **Predictive coding equals backprop.** A pivotal modern result,
 [[millidge-2020-pc-approximates-backprop]], proves that free-energy minimization with purely
@@ -165,12 +179,20 @@ under parallel transport and holonomy (the cross-cluster theme
 
 - [[neal-1998-variational-em]] — EM as coordinate ascent on a single free-energy/ELBO functional;
   justification for incremental and partial (filtering) updates.
+- [[winn-2005-variational-message-passing]] — mean-field VI on conjugate-exponential models as
+  local factor-graph message passing; pins down the factorization behind a given E-step.
 - [[friston-2010-free-energy-principle]] — free-energy minimization as a unified account of
   perception, attention, and learning; the training-objective semantics.
+- [[smith-2022-active-inference-tutorial]] — discrete (POMDP) active inference: explicit
+  variational/expected-free-energy updates and the mean-field factorization as an E-step/M-step
+  template.
 - [[rao-1999-predictive-coding]] — hierarchical predictive coding; precision-weighted prediction
   errors as the mechanistic prototype.
 - [[bogacz-2017-free-energy-tutorial]] — explicit Gaussian E-step belief-relaxation and M-step
   precision-learning updates.
+- [[buckley-2017-fep-mathematical-review]] — self-contained continuous-state FEP derivation
+  (Laplace VFE, gradient E-step on `mu`, precision-weighted prediction-error dynamics) bridging
+  the ELBO canon to Friston-style claims.
 - [[kingma-2013-auto-encoding-variational-bayes]] — the VAE: amortized Gaussian recognition and the
   reparameterization trick.
 - [[marino-2018-iterative-amortized-inference]] — learned iterative optimizer closing the

@@ -41,7 +41,7 @@ The link to [[belief-inertia]]'s distinctive new physics is through [[Belief ine
 
 The theory also anchors the project's relational geometry. Latané's strength and immediacy are exactly the social-network weights and distances that the gauge-theoretic treatment encodes in the connection $\Omega_{ij}$ and the coupling graph; treating agents as [[Agents as fibre-bundle sections]] coupled through a [[Gauge transformation]]-covariant connection generalizes Latané's scalar impact field to a geometry-aware influence on a statistical manifold equipped with the [[Fisher information metric]]. Citing Latané (1981) places SocialPhysics in continuity with the [[Sociophysics]] and [[Opinion dynamics]] traditions, and connects to the [[Echo chambers and polarization]] literature, where bounded, distance-weighted impact (cf. [[Bounded confidence]]) drives fragmentation. Within the wider research program, the same impact-as-field intuition recurs in the [[Gauge-Theoretic Multi-Agent VFE Model]], whose Hamiltonian integrator implements the underdamped belief dynamics, and the project as a whole sits beside the [[VFE Transformer Program]] and the [[Free-energy principle active inference]] account of self-organizing agents.
 
-> [!warning] Bibliography flag: the [[belief-inertia]] BibTeX key `latane1981psychology` is referenced in the manuscript text but the entry was missing from `references.bib`. The verified entry below should be added.
+> [!note] Resolved 2026-06-20: the verified entry below was added to the unified `references.bib` (both repos); the `latane1981psychology` citation in [[belief-inertia]] now resolves.
 
 ```bibtex
 @article{latane1981psychology,

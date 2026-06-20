@@ -55,6 +55,7 @@ A recurring theme is that *distance on the statistical manifold has a cost*. [[c
 - [[jaynes-1957-information-statistical-mechanics]] — MaxEnt foundation placing exponential families at the center of the manifold.
 - [[crooks-2007-thermodynamic-length]] — Fisher–Rao path length on the manifold bounding dissipation; distance as physical cost.
 - [[chechik-2005-gaussian-ib]] — Gaussian-IB spectral optimum as a problem in the covariance geometry of the Gaussian statistical manifold.
+- [[nielsen-2020-elementary-introduction-information-geometry]] — pedagogical information-geometry survey grounding the model's KL divergences and natural-gradient M-step in the statistical-manifold picture.
 
 ## See also
 

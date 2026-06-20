@@ -90,7 +90,13 @@ reparameterizations of the same underlying $f$-divergence quantity built from th
 integral $\int p^\alpha q^{1-\alpha}$). The alpha-divergences and their associated
 **alpha-connections** are the backbone of the dually-flat exponential-family
 geometry developed in [[amari-2000-methods-information-geometry]]; see
-[[Alpha-divergence]]. Because the model's beliefs are exponential-family
+[[Alpha-divergence]]. The convex-analytic root of this structure is made explicit
+in [[zhang-2004-divergence-duality-convex]], which constructs the whole parametric
+alpha-divergence family from a single convex potential, each member inducing one
+common Fisher-type metric together with a pair of dual alpha-connections and
+recovering the Bregman/canonical KL divergence of the dually-flat space at
+$\alpha = \pm 1$ — the reason the program's Renyi/alpha loss sits inside one
+dually-flat geometry with KL as the special case. Because the model's beliefs are exponential-family
 (diagonal-Gaussian) objects, this geometric structure is not incidental: the same
 manifold whose metric is the [[Fisher information metric]] (used for the
 [[Natural gradient]]) carries the alpha/Renyi divergences as its canonical
@@ -125,7 +131,9 @@ $\mathcal{N}(\mu,\Sigma)$ representation.
 - [[li-turner-2016-renyi-vi]] — the variational Renyi bound; one-parameter family interpolating ELBO to log evidence.
 - [[vanerven-2014-renyi-kl]] — definitive survey of order-$\alpha$ Renyi divergence; KL as the $\alpha \to 1$ limit.
 - [[amari-2000-methods-information-geometry]] — alpha-divergences, alpha-connections, and dually-flat exponential-family geometry.
+- [[zhang-2004-divergence-duality-convex]] — convex-analytic construction of the parametric alpha-divergence family from one convex potential, with dual alpha-connections and KL recovered at $\alpha = \pm 1$.
 - [[amari-1998-natural-gradient]] — Fisher-metric natural gradient that pairs with the divergence on the same manifold.
+- [[cover-thomas-2006-elements-information-theory]] — defines entropy, KL / relative entropy, and mutual information, the order-one ($\alpha \to 1$) limit of Renyi divergence and the foundation of the free-energy KL and attention-entropy terms.
 
 ## See also
 - [[Alpha-divergence]]

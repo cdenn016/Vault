@@ -173,6 +173,9 @@ training objective:
 - [[vanerven-2014-renyi-kl]] — KL as the $\alpha\to 1$ limit of the Renyi family.
 - [[amari-1998-natural-gradient]] — Natural-gradient ascent on the bound.
 - [[amari-2000-methods-information-geometry]] — Dual / alpha-connection geometry behind the divergence family.
+- [[bishop-2006-pattern-recognition-machine-learning]] — Ch.10 variational inference / ELBO / mean-field EM the VFE transformer instantiates per token.
+- [[wainwright-jordan-2008-graphical-models-variational-inference]] — Exponential-family convex-duality foundation of mean-field variational inference / free energy.
+- [[beal-2003-variational-algorithms-approximate-bayesian-inference]] — Variational Bayesian EM and the free-energy bound — direct antecedent of iterative VFE minimization.
 
 ## See also
 

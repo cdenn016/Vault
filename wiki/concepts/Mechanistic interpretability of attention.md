@@ -34,13 +34,14 @@ as **source attribution** — a token's belief asking which other beliefs it dra
 
 ## Details
 
-The induction-head circuit is the cleanest case for the gauge-transport picture: copy-completion is a relational operation between non-adjacent positions, exactly the regime where the transport $\Omega_{ij} = \exp(\phi_i)\exp(-\phi_j)$ must distinguish genuine source attribution from positional bias. Voita's prunability — most heads inert — is congenial to the project's no-extra-parameters stance: capacity concentrated in a few meaningful coupling channels, yielding a *sparse* effective relational graph that matches the thresholded-coupling object of the conjecture. Because the VFE $\beta_{ij}$ uses a KL-geometric score on the [[Fisher information metric|statistical manifold]] rather than a raw dot product, importing these findings is interpretive, not exact; the bridge between the operational and information-geometric definitions of attention is developed in [[Attention mechanisms — theory and positional structure]].
+The induction-head circuit is the cleanest case for the gauge-transport picture: copy-completion is a relational operation between non-adjacent positions, exactly the regime where the transport $\Omega_{ij} = \exp(\phi_i)\exp(-\phi_j)$ must distinguish genuine source attribution from positional bias. The architectural object being reinterpreted here — heads as block-diagonal $\mathrm{GL}(K_h)$ channels writing into a shared residual stream — is exactly the residual-stream and QK/OV-circuit decomposition formalized in the framework that parents the induction-heads result ([[elhage-2021-transformer-circuits-framework]]). Voita's prunability — most heads inert — is congenial to the project's no-extra-parameters stance: capacity concentrated in a few meaningful coupling channels, yielding a *sparse* effective relational graph that matches the thresholded-coupling object of the conjecture. Because the VFE $\beta_{ij}$ uses a KL-geometric score on the [[Fisher information metric|statistical manifold]] rather than a raw dot product, importing these findings is interpretive, not exact; the bridge between the operational and information-geometric definitions of attention is developed in [[Attention mechanisms — theory and positional structure]].
 
 > [!note] Editorial:
 > No source applies a structural probe or induction-head metric to the VFE transformer's $\beta_{ij}$; the parse-completeness and source-attribution claims are this program's conjectures, and the interpretability canon above is what they would be tested against. Treat the mapping "VFE coupling $\leftrightarrow$ specialized head" as a hypothesis, not a demonstrated equivalence.
 
 ## Sources
 
+- [[elhage-2021-transformer-circuits-framework]] — residual-stream and QK/OV-circuit decomposition (parent framework of the induction-heads result)
 - [[olsson-2022-induction-heads]] — induction heads and in-context learning
 - [[voita-2019-multihead]] — head specialization and pruning
 - [[clark-2019-bert-attention]] — syntactic attention in BERT
@@ -49,6 +50,8 @@ The induction-head circuit is the cleanest case for the gauge-transport picture:
 - [[vaswani-2017-attention]] — scaled dot-product attention (the object being interpreted)
 - [[dong-2021-rank-collapse]], [[geshkovski-2023-mathematical-transformers]] — theory-side: rank collapse / consensus
 - [[von-oswald-2022-transformers-gradient-descent]] — in-context learning as unrolled gradient descent
+- [[xiong-2020-on-layer-normalization-transformer]] — Pre-LN vs Post-LN gradient analysis; informs residual-temperature/normalization placement in GL(K) attention
+- [[ioffe-szegedy-2015-batch-normalization]] — normalization scheme contrasted with the VFE model's precision-weighting
 
 ## See also
 
@@ -56,3 +59,8 @@ The induction-head circuit is the cleanest case for the gauge-transport picture:
 - [[Attention mechanisms — theory and positional structure]]
 - [[Participatory realism (it from bit)]]
 - [[VFE Transformer Program]]
+
+## Related sources (ingested 2026-06-20)
+
+- [[ba-2016-layer-normalization]] — Introduces layer normalization;
+- [[garg-2022-what-can-transformers-learn-in-context]] — Empirical in-context-learning study;

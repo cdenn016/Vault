@@ -156,6 +156,12 @@ beliefs without an explicit per-token optimization:
   governing objective for the predicted beliefs.
 - [[rao-1999-predictive-coding]] — feedforward prediction / feedback error
   dynamics that the predict-then-refine scheme mirrors.
+- [[bishop-2006-pattern-recognition-machine-learning]] — Ch.10 variational
+  inference, the ELBO, and mean-field EM that the VFE transformer instantiates
+  per token.
+- [[beal-2003-variational-algorithms-approximate-bayesian-inference]] —
+  variational Bayesian EM and the free-energy bound, a direct antecedent of the
+  iterative VFE minimization.
 
 ## See also
 

@@ -39,6 +39,14 @@ Worrall's move answers the no-miracles argument and the pessimistic meta-inducti
 - [[esfeld-lam-2008-moderate-osr]] — moderate OSR on spacetime, expressed in the fibre-bundle formalism; the closest literal precedent for the program's metaphysics.
 - [[participatory-it-from-bit]] — the manuscript whose invariance-as-objectivity and pan-agentic claims this lineage anchors.
 
+### Related sources (methodology and realism)
+
+- [[popper-1959-logic-scientific-discovery]] — falsificationism backs the program's pre-registered falsifiers and adversarial-test discipline.
+- [[popper-1963-conjectures-refutations]] — conjecture/refutation plus corroboration ground the project's adversarial review and falsifier discipline.
+- [[lakatos-1978-methodology-scientific-research-programmes]] — progressive-vs-degenerating-programme lens for appraising the VFE program's scientific status.
+- [[hacking-1983-representing-intervening]] — theory-ladenness and entity/experimental realism behind the panels' confirmation-bias and intervention arguments.
+- [[cartwright-1999-dappled-world]] — patchwork/nomological-machine view of models: regime-bound laws versus transportable capacities.
+
 ## See also
 
 - [[Structural realism and philosophy of science]]

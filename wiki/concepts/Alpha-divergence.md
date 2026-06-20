@@ -156,7 +156,13 @@ transformer:
   alpha-divergence ([[amari-2000-methods-information-geometry|Amari & Nagaoka]])
   are the dual-flat structure underlying the model's Fisher-preconditioned
   [[Natural gradient]] parameter updates
-  ([[amari-1998-natural-gradient|Amari]]).
+  ([[amari-1998-natural-gradient|Amari]]). The convex-analytic account of
+  [[zhang-2004-divergence-duality-convex|Zhang]] makes the bundling explicit:
+  one convex potential generates the entire parametric alpha-divergence family,
+  each member inducing the *same* Fisher-type metric together with a dual pair
+  of alpha-connections, so the program's Rényi/alpha objective and its
+  natural-gradient geometry are two readings of a single dually-flat structure
+  whose canonical (Bregman/KL) divergence is recovered at $\alpha = \pm 1$.
 
 > [!note] Editorial: The config exposes the *family* name `"renyi"`; the
 > specific operative value of $\alpha$ is a tunable hyperparameter of the run
@@ -173,8 +179,14 @@ transformer:
   and KL as the $\alpha \to 1$ limit.
 - [[amari-2000-methods-information-geometry]] — Amari's alpha-divergence,
   alpha-connections, and the dually-flat exponential-family geometry.
+- [[zhang-2004-divergence-duality-convex]] — convex-analytic construction of the
+  parametric alpha-divergence family from one convex potential, with its common
+  Fisher-type metric and dual alpha-connections, recovering the Bregman/canonical
+  KL divergence of a dually-flat space at $\alpha = \pm 1$.
 - [[amari-1998-natural-gradient]] — the Fisher metric as the common local limit
   and the natural-gradient direction it induces.
+- [[nielsen-2020-elementary-introduction-information-geometry]] — pedagogical IG
+  survey grounding the model's KL divergences and natural-gradient M-step.
 - [[kingma-2013-auto-encoding-variational-bayes]] — reparameterized,
   amortized Gaussian variational inference, the substrate the divergence acts
   on.

@@ -108,7 +108,12 @@ same data. Laudan ([[laudan-1984-science-and-values]]) replaces hierarchical jus
 the *reticulated model* — aims, methods, and facts mutually adjust — which is a closer analogue
 to the model's gradual, network-distributed, multi-level belief co-adjustment than Kuhn's
 discontinuous gestalt-switch, and whose historical catalogue of successful-but-false theories is
-a principal driver of the pessimistic meta-induction that structural realism answers.
+a principal driver of the pessimistic meta-induction that structural realism answers. Worrall's
+own later treatment of use-novelty ([[worrall-2014-prediction-accommodation-revisited]]) — that
+evidence supports a theory only insofar as the theory was not built to fit it — supplies the
+operational criterion for the program's Lakatosian progressive-versus-degenerating audit: whether
+the gauge-theoretic results are genuine novel predictions or post-hoc accommodations of structure
+the canon already contains under other notation.
 
 ## No view from nowhere: realism, anti-realism, and the social
 
@@ -192,6 +197,8 @@ physical keep — the same place the gauge-theoretic core of the program operate
   conceptual seed of structural realism and of "objective = gauge-invariant."
 - [[worrall-1989-structural-realism]] — founding (epistemic) structural realism; Fresnel
   example; best of both worlds.
+- [[worrall-2014-prediction-accommodation-revisited]] — use-novelty / heuristic predictivism; the
+  prediction-vs-accommodation criterion behind the Lakatosian progressive/degenerating audit.
 - [[french-ladyman-2003-remodelling]] — canonical ontic structural realism; relations without
   prior relata; underdetermination of individuality.
 - [[ladyman-ross-2007-every-thing-must-go]] — naturalized OSR, real patterns, information-theoretic
@@ -215,6 +222,22 @@ physical keep — the same place the gauge-theoretic core of the program operate
 - [[cartwright-1983-laws-physics-lie]] — laws as idealizing tools (laws-as-grammar).
 - [[longino-2002-fate-of-knowledge]] — social objectivity; communities of critical inquiry.
 - [[wigner-1960-unreasonable-effectiveness]] — the effectiveness puzzle the program claims to dissolve.
+- [[popper-1959-logic-scientific-discovery]] — falsificationism behind the program's pre-registered
+  falsifiers and adversarial test discipline.
+- [[popper-1963-conjectures-refutations]] — conjecture/refutation and corroboration grounding the
+  project's adversarial review and falsifier discipline.
+- [[lakatos-1978-methodology-scientific-research-programmes]] — progressive vs. degenerating-programme
+  lens for appraising the VFE program's scientific status.
+- [[mayo-1996-error-growth-experimental-knowledge]] — error-statistical severe testing; the operational
+  demarcation tool behind the pre-registered falsifiers and golden tests, and the canonical
+  philosophical antagonist to a variational-Bayesian engine.
+- [[kapoor-narayanan-2023-leakage-reproducibility-ml]] — leakage taxonomy and model info sheets; the
+  concrete severe-test instrument for judging whether a VFE-vs-vanilla advantage is corroboration or a
+  leakage artifact (the ML-meta counterpart to Sculley 2015 and Hooker 2020).
+- [[hacking-1983-representing-intervening]] — theory-ladenness and entity/experimental realism behind
+  the panels' confirmation-bias and intervention arguments.
+- [[cartwright-1999-dappled-world]] — patchwork/nomological-machine view of models; regime-bound laws
+  vs. transportable capacities.
 
 ## See also
 
