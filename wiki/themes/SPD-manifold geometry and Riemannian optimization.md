@@ -1,0 +1,80 @@
+---
+type: theme
+title: SPD-manifold geometry and Riemannian optimization
+aliases:
+  - SPD geometry
+  - Symmetric positive-definite manifold
+  - Covariance manifold
+  - Affine-invariant metric
+  - Riemannian optimization
+tags:
+  - cluster/spd-geometry
+  - project/transformer
+  - project/multi-agent
+status: stable
+created: 2026-06-18
+updated: 2026-06-19
+---
+
+# SPD-manifold geometry and Riemannian optimization
+
+## The big picture
+
+The [[VFE Transformer Program]] represents each token not as a point vector but as a Gaussian belief — a mean `mu` and a covariance `Sigma`. The covariance is, by construction, a symmetric positive-definite (SPD) matrix: symmetric, with strictly positive eigenvalues. The set of all such matrices is not a flat vector space. It is an open convex cone, and treating it as flat — adding two covariances, taking an unconstrained gradient step, averaging entrywise — quickly leaves the cone, producing indefinite or singular "covariances" that are meaningless as second moments. This theme collects the geometry that lets the architecture treat `Sigma` as a first-class differentiable object living on a curved manifold, and the optimization machinery that moves along that manifold without ever falling off it.
+
+The organizing object is the SPD manifold equipped with a Riemannian metric. Two metric choices dominate the literature and both appear in the project's vocabulary. The **affine-invariant Riemannian metric** ([[pennec-2006-affine-invariant-tensor]], [[bhatia-2007-positive-definite-matrices]]) makes the cone a complete manifold of negative curvature with unique geodesics, a closed-form geodesic distance, and well-defined Fréchet (Riemannian) means; it is invariant under congruence transformations `Sigma -> G Sigma Gᵀ`, which is exactly the action a change of basis (a gauge transformation) induces on a covariance. The **Log-Euclidean metric** ([[arsigny-2006-log-euclidean]]) trades curvature for speed: it pulls SPD matrices through the matrix logarithm into a flat tangent space at the identity, where means and interpolation become closed-form and commutative, at the cost of the full affine invariance. The model's `spd_affine` retraction names the first; the Log-Euclidean view supplies the cheap fallback for averaging and interpolating beliefs.
+
+The second pillar is **Riemannian optimization** — how to take a gradient step that respects the manifold. [[absil-2008-optimization-matrix-manifolds]] is the canonical reference, introducing *retractions* (cheap first-order surrogates for the exponential map / geodesic flow) and *vector transports* (cheap surrogates for parallel transport) so that one need not compute exact, expensive geodesics at every step. [[bonnabel-2013-riemannian-sgd]] then lifts stochastic gradient descent itself onto a manifold, proving almost-sure convergence to a critical point. Together these give the project the theoretical license to train both the SPD belief covariances and the [[VFE Transformer Program]]'s GL(k) gauge parameters with ordinary mini-batch SGD, simply reinterpreted as steps-plus-retractions on the appropriate manifold.
+
+The third pillar is architectural: networks that compute *on* SPD matrices rather than merely producing them. [[huang-2017-spdnet]] (SPDNet) is the prototype, with layers — BiMap congruence, ReEig spectral rectification, LogEig tangent-space projection — each engineered to keep activations on the cone and to be differentiable through the eigen-operations, trained with Riemannian SGD on the Stiefel manifold. [[wang-2023-riemannian-self-attention-spd]] carries this all the way to attention, building self-attention whose affinities and value aggregation both live on the SPD manifold — the closest existing precedent for what the VFE transformer attempts.
+
+## Key threads
+
+**Thread 1 — The metric defines the geometry.** Everything downstream depends on the choice of inner product on the tangent space at each SPD point. The affine-invariant metric ([[pennec-2006-affine-invariant-tensor]]) defines `<A, B>_Sigma = tr(Sigma⁻¹ A Sigma⁻¹ B)`, which yields the geodesic distance `||log(Sigma₁⁻¹ᐟ² Sigma₂ Sigma₁⁻¹ᐟ²)||_F` and a closed-form matrix geometric mean ([[bhatia-2007-positive-definite-matrices]]). Its defining virtue is invariance under congruence: distances and means are unchanged when every covariance is conjugated by an invertible `G`. This is precisely why it is the natural metric for the VFE transformer — the GL(k) gauge group acts on `Sigma` by exactly such congruences, so an affine-invariant geometry is *automatically* gauge-invariant. The Log-Euclidean metric ([[arsigny-2006-log-euclidean]]) is the commutative approximation: it is the pullback of the flat Euclidean metric through the matrix log, giving the same broad shape (geodesics that never leave the cone, no "swelling" of determinants under interpolation) but only invariance under orthogonal conjugation and similarity, not the full affine group. The practical trade is curvature-handling cost versus exactness of invariance.
+
+> [!note] Editorial: The affine-invariant and Log-Euclidean metrics coincide to first order at the identity and diverge as one moves into the cone; for the project's *diagonal* Gaussian family (`family gaussian_diagonal`) the two largely collapse, since diagonal SPD matrices commute and the matrix log acts entrywise. The full machinery earns its keep only if/when beliefs acquire off-diagonal covariance through gauge transport or Clebsch-Gordan coupling.
+
+**Thread 2 — Retractions and transports make steps tractable.** Exact geodesics and parallel transport on the SPD cone require matrix exponentials, logarithms, and square roots at every update — too expensive inside a training loop. [[absil-2008-optimization-matrix-manifolds]] supplies the standard remedy: a *retraction* is any smooth map from the tangent space back to the manifold that agrees with the exponential map to first order, and a *vector transport* is the analogous cheap surrogate for moving a tangent vector along the manifold. The model's `spd_affine` retraction is one such map for covariances; crucially, the *same* framework also covers the GL(k) gauge-parameter updates, where the project uses a [[Baker-Campbell-Hausdorff formula|Baker-Campbell-Hausdorff]] (BCH) retraction in Lie-algebra coordinates. Retractions are thus the shared abstraction that unifies the SPD-covariance M-step and the gauge M-step under one optimization vocabulary.
+
+**Thread 3 — Riemannian SGD as the training engine.** [[bonnabel-2013-riemannian-sgd]] establishes that descending a stochastic gradient and then retracting back to the manifold converges almost surely, under standard step-size conditions, to a critical point — the manifold analogue of Robbins-Monro. This is the convergence guarantee that licenses training `Sigma` and the gauge parameters jointly with mini-batches. It connects tightly to the information-geometry cluster: the [[Natural gradient]] of [[amari-1998-natural-gradient]] is itself a Riemannian gradient, taken with respect to the [[Fisher information metric]]. For a Gaussian family the Fisher metric on the covariance block *is* (a scaling of) the affine-invariant metric — an identity this wiki draws rather than one the cited sources state explicitly (see the editorial note on [[Fisher information metric]]) — so the project's natural-gradient M-step and its SPD Riemannian step are, on the covariance, two views of the same update — Riemannian optimization and information geometry meet on the covariance manifold.
+
+**Thread 4 — Networks that live on the cone.** [[huang-2017-spdnet]] demonstrates that a covariance can be the activation itself, not just an output: BiMap layers apply a learned congruence `W Sigma Wᵀ` (with `W` constrained to the Stiefel manifold to preserve positive-definiteness), ReEig rectifies eigenvalues to stay safely positive, and LogEig maps to the flat tangent space at the identity for a final Euclidean classifier. Each operation is differentiable through its eigendecomposition. This is the template the VFE transformer follows in treating `Sigma` as a propagated, transformed, learnable object rather than a fixed hyperparameter.
+
+**Thread 5 — Attention on the SPD manifold.** [[wang-2023-riemannian-self-attention-spd]] is the bridge to the [[Attention mechanisms — theory and positional structure]] theme. It replaces dot-product affinities with SPD-manifold distances under the affine-invariant metric, and replaces the weighted sum of values with a *weighted Riemannian (Fréchet) mean* of SPD value matrices — the manifold-correct way to "average" covariances. This is the nearest existing realization of precision-weighted, geometry-aware attention, and it directly anticipates the VFE transformer's ambition to make attention respect the covariance manifold rather than flattening it. It connects naturally to the kernel view of [[tsai-2019-kernel-attention]], under which swapping the dot-product affinity for an SPD geodesic affinity is simply another choice of kernel, and to the [[vaswani-2017-attention]] softmax baseline that both modify.
+
+## How it lands in this work
+
+In the VFE transformer the SPD manifold is where the *uncertainty* half of every token belief lives. The E-step relaxes `(mu, Sigma)` toward lower variational free energy; for the covariance, that relaxation is a Riemannian step on the SPD cone, retracted by `spd_affine` so the result is always a valid covariance ([[pennec-2006-affine-invariant-tensor]], [[absil-2008-optimization-matrix-manifolds]]). The M-step updates parameters, including any per-block covariance structure, again as Riemannian SGD ([[bonnabel-2013-riemannian-sgd]]) and, on the Gaussian covariance block, in agreement with the natural gradient ([[amari-1998-natural-gradient]]).
+
+The affine-invariant metric is the load-bearing choice precisely because the architecture is gauge-theoretic. A GL(k) gauge transformation acts on a covariance by congruence, and parallel transport of a belief between token frames is also a congruence-type action. Choosing an affine-invariant geometry ([[pennec-2006-affine-invariant-tensor]], [[bhatia-2007-positive-definite-matrices]]) means the belief geometry is *blind* to which gauge frame it is expressed in — distances, means, and free-energy contributions are gauge-invariant by construction. This is the SPD-side counterpart of the gauge invariance the [[Gauge equivariance and geometric deep learning]] theme pursues for features, and of the reparameterization-invariance the [[Information geometry and natural gradient]] theme pursues for parameters; all three are the same demand — that the objective not depend on arbitrary coordinate choices — instantiated on three different manifolds.
+
+Precision-weighted attention closes the loop. Where [[rao-1999-predictive-coding]] and [[friston-2010-free-energy-principle]] motivate weighting prediction errors by precision (inverse covariance), and [[wang-2023-riemannian-self-attention-spd]] shows how to make the *attention affinity and aggregation* themselves SPD-aware, the VFE transformer combines the two: attention weights informed by precision, value aggregation that respects the covariance manifold, and the whole computation differentiable through the [[huang-2017-spdnet]]-style spectral operations needed to keep `Sigma` on the cone.
+
+## Open questions / gaps
+
+- **Affine-invariant versus Log-Euclidean in practice.** For diagonal Gaussian beliefs the two metrics nearly coincide and the curved geometry may buy little; for full or block covariances they differ sharply. The project has not pinned down at what point the cost of the affine-invariant computations ([[pennec-2006-affine-invariant-tensor]]) is repaid relative to the cheap Log-Euclidean approximation ([[arsigny-2006-log-euclidean]]).
+- **Differentiating through eigen-operations at scale.** SPDNet-style ReEig/LogEig layers ([[huang-2017-spdnet]]) require backpropagating through eigendecompositions, which is numerically delicate when eigenvalues cluster. Whether this is stable for thousands of per-token covariances per forward pass is unestablished.
+- **Riemannian means in attention.** [[wang-2023-riemannian-self-attention-spd]] computes a weighted Fréchet mean of value matrices, which has no closed form under the affine-invariant metric and requires an inner iterative solve per attention operation. Its cost and convergence inside a causal, autoregressive transformer remain open.
+- **Consistency of the three invariances.** Gauge invariance (GL(k) congruence), Fisher/natural-gradient invariance, and SPD affine invariance are intended to be facets of one principle, but the project has not verified that the chosen retractions and transports keep them *exactly* mutually consistent rather than only to first order ([[absil-2008-optimization-matrix-manifolds]]).
+- **Convergence under joint manifold training.** [[bonnabel-2013-riemannian-sgd]] guarantees convergence on a single manifold; the VFE transformer optimizes over a product of manifolds (SPD covariances × GL(k) gauge parameters × Euclidean weights) coupled through the free energy, and the convergence theory for that coupled product geometry is not yet worked out.
+
+## Sources synthesized
+
+- [[pennec-2006-affine-invariant-tensor]] — the affine-invariant Riemannian metric making the SPD cone a complete manifold; the geometry behind `spd_affine`.
+- [[arsigny-2006-log-euclidean]] — the Log-Euclidean metric; fast, commutative, closed-form means and interpolation for SPD matrices.
+- [[bhatia-2007-positive-definite-matrices]] — standard monograph on SPD geometry: geodesics, geodesic distance, matrix geometric mean, operator-monotone functions.
+- [[absil-2008-optimization-matrix-manifolds]] — retractions and vector transports; the Riemannian-optimization vocabulary shared by SPD and GL(k) updates.
+- [[bonnabel-2013-riemannian-sgd]] — stochastic gradient descent on Riemannian manifolds with almost-sure convergence; license for Riemannian SGD training.
+- [[huang-2017-spdnet]] — SPDNet, the prototype deep network operating directly on SPD matrices via differentiable spectral layers.
+- [[wang-2023-riemannian-self-attention-spd]] — self-attention built on the SPD manifold; the existing bridge from SPD geometry to attention.
+- [[moakher-2005-geometric-mean]] — differential-geometric construction of the SPD geometric mean as a Riemannian (Fréchet) mean under the affine-invariant metric.
+- [[karcher-1977-center-of-mass]] — Riemannian center of mass (the Karcher/Fréchet mean) and its existence and uniqueness on manifolds of nonpositive curvature, underpinning means on the SPD cone.
+- [[milnor-1976-left-invariant-metrics]] — curvatures of left-invariant metrics on Lie groups, the homogeneous-space backdrop for the SPD cone viewed as GL(k)/O(k).
+- [[higham-2008-functions-of-matrices]] — matrix functions (exp, log, square root) and their stable computation, the operations every SPD retraction and geodesic depends on.
+- [[horn-johnson-2013-matrix-analysis]] — standard reference for positive-definite matrices, congruence, and the spectral and eigenvalue facts the SPD geometry rests on.
+
+## See also
+
+- [[Symmetric spaces and the SPD cone]] — the SPD cone as the symmetric space GL(k)/O(k), placing the affine-invariant geometry in its homogeneous-space setting.
+
+Cross-cluster links drawn above: [[amari-1998-natural-gradient]] and the [[Fisher information metric]] / [[Natural gradient]] (information geometry); [[rao-1999-predictive-coding]] and [[friston-2010-free-energy-principle]] (precision weighting); [[vaswani-2017-attention]] and [[tsai-2019-kernel-attention]] (attention baselines); and the sibling themes [[Information geometry and natural gradient]], [[Gauge equivariance and geometric deep learning]], and [[Attention mechanisms — theory and positional structure]].

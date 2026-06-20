@@ -1,0 +1,1124 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{bm}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{cleveref}
+\usepackage{booktabs}
+\usepackage{microtype}
+\emergencystretch=3em
+
+% ---------- Theorem environments ----------
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{conjecture}{Conjecture}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{remark}{Remark}[section]
+
+% ---------- Custom commands ----------
+\newcommand{\KL}[2]{D_{\mathrm{KL}}\mathopen{}\left(#1 \mathbin{\Vert} #2\right)\mathclose{}}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\SPD}{\mathrm{SPD}}
+\newcommand{\Lie}{\mathfrak{gl}}
+\newcommand{\so}{\mathfrak{so}}
+\newcommand{\holonomy}{\operatorname{Hol}}
+\newcommand{\softmax}{\operatorname{softmax}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\bmu}{\boldsymbol{\mu}}
+\newcommand{\bSigma}{\boldsymbol{\Sigma}}
+\newcommand{\bphi}{\boldsymbol{\phi}}
+\newcommand{\bOmega}{\boldsymbol{\Omega}}
+\newcommand{\bI}{\mathbf{I}}
+\newcommand{\Fcal}{\mathcal{F}}
+\newcommand{\Dcal}{\mathcal{D}}
+\newcommand{\Hcal}{\mathcal{H}}
+\newcommand{\Mcal}{\mathcal{M}}
+\newcommand{\Ncal}{\mathcal{N}}
+\newcommand{\Scal}{\mathcal{S}}
+\newcommand{\Zcal}{\mathcal{Z}}
+\newcommand{\Pcal}{\mathcal{P}}
+\newcommand{\Gcal}{\mathcal{G}}
+\newcommand{\Wmeta}{W}
+\newcommand{\Smeta}{S_{\mathrm{meta}}}
+\newcommand{\Tmeta}{T_{\mathrm{meta}}}
+\newcommand{\bmeta}{\beta_{\mathrm{meta}}}
+\newcommand{\Omegaij}{\Omega_{ij}}
+\newcommand{\betaij}{\beta_{ij}}
+\newcommand{\gammaij}{\gamma_{ij}}
+\newcommand{\veps}{\varepsilon}
+
+\title{Configurational Meta-Entropy of a Population of Variational Beliefs:\\
+Toward a Thermodynamic Limit for the Gauge-Theoretic Free Energy Transformer}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The gauge-theoretic variational free energy (VFE) transformer assigns to a population
+of agents a single scalar functional $\Fcal$ over their Gaussian belief tuples
+$(\bmu_i,\bSigma_i,\bphi_i)$. A given value of $\Fcal$ can be realised by many distinct
+belief configurations, which invites a statistical-mechanical reading: in the
+large-population limit the log-count of belief configurations at fixed value of the
+belief-sector free energy is a
+candidate configurational meta-entropy $\Smeta(\Fcal_0)=\log\Wmeta(\Fcal_0)$, an
+analogue of Boltzmann's $S=k\log W$. This note develops that construction and delimits
+what can and cannot yet be claimed for it. We first separate three entropies that are
+easily conflated: the intra-belief Gaussian entropy, the attention-distribution entropy
+already present in $\Fcal$, and the configurational meta-entropy. We take the counting
+measure on the belief sector to be the Riemannian volume form of the Fisher--Rao metric,
+which Chentsov's theorem and its extension to parametric families fix up to a positive
+scalar, the information-geometric counterpart of the Liouville measure, while noting
+that the gauge sector requires a separately specified group measure together with a
+quotient or regulator. We show that the coupling energy is rendered extensive by the
+Kac normalisation implicit in row-stochastic softmax attention, provided the
+attention-entropy contribution is absorbed into the row log-partition $-\tau\log Z_i$,
+whose $1/N$ normalisation keeps each row bounded. We give the meta-entropy a large-deviation
+form through a single declared reference measure and identify the McKean--Vlasov
+stationary form of its constrained minimiser, keeping the directed row structure of attention rather than a symmetrised
+pair potential. The conjugate meta-temperature is given an operational reading as the
+noise level of stochastic natural-gradient belief updating through the Riemannian
+Langevin equation, whose stationary law requires the metric-divergence drift together
+with confinement. A solvable Gaussian instance is a linear-response calculation rather
+than a delivered phase transition: its susceptibility diverges as the prior-anchoring
+strength $\alpha\to0$, identifying the prior as the explicit field that breaks an
+otherwise exact local $\GL^{+}(K)$ covariance of the interaction before regulation. We close with a
+conjecture, conditional on an edge-local connection with nontrivial holonomy and on
+extensive ground-state degeneracy, that geometric frustration leaves a residual
+meta-entropy; in the vertex-frame transport actually used in the functional the loop
+holonomy is identically trivial, so the conjecture concerns a distinct, edge-relaxed
+regime.
+\end{abstract}
+
+\section{Motivation}
+\label{sec:motivation}
+
+The gauge-theoretic VFE transformer dispenses with learned projections and obtains all
+of its representational capacity from iterative minimisation of a single free energy
+functional over Gaussian belief tuples \citep{vaswani2017attention,friston2010free}. In
+its canonical form the functional couples $N$ agents through
+\begin{equation}
+\label{eq:F}
+\begin{aligned}
+\Fcal
+={}& \alpha\sum_{i}\KL{q_i}{p_i}
++ \lambda_h\sum_i \KL{s_i}{h}
++ \sum_{i,j}\Bigl[\betaij \KL{q_i}{\Omegaij q_j} + \tau \betaij\log\tfrac{\betaij}{\pi_{ij}}\Bigr]\\
+&{}+ \sum_{i,j}\Bigl[\gammaij \KL{s_i}{\Omegaij s_j} + \tau \gammaij\log\tfrac{\gammaij}{\pi^{s}_{ij}}\Bigr]
+- \sum_i\E_{q_i}[\log p(o_i\mid x_i)],
+\end{aligned}
+\end{equation}
+with transport $\Omegaij = e^{\bphi_i}e^{-\bphi_j}$, congruence action
+$\bSigma\mapsto\Omegaij\bSigma\Omegaij^{\top}$, effective temperature $\tau=\kappa\sqrt{K}$,
+and attention weights obtained by minimising the row-simplex Lagrangian,
+\begin{equation}
+\label{eq:softmax}
+\betaij=\softmax_j\bigl(\log\pi_{ij}-\KL{q_i}{\Omegaij q_j}/\tau\bigr),
+\end{equation}
+which reduces to $\softmax_j(-\KL{q_i}{\Omegaij q_j}/\tau)$ only for the uniform prior
+$\pi_{ij}=1/N$ on a fixed row support; throughout we take $\tau>0$ and $\pi_{ij}>0$ with
+$\sum_{j\in S_i}\pi_{ij}=1$ on that active support $S_i$ (the operative case being full all-to-all
+support, $S_i=\{1,\dots,N\}$), so the row optimum is interior and the row-reduced functional is
+smooth in the belief and frame variables. The transport in \cref{eq:F} is of vertex-frame
+form, $\Omegaij=g_i g_j^{-1}$ with $g_i=e^{\bphi_i}$; this distinction will matter in
+\cref{sec:frustration}, where an edge-local connection is required for nontrivial
+holonomy. A single value of $\Fcal$ does not pin down the configuration
+$\{(\bmu_i,\bSigma_i,\bphi_i)\}$: the beliefs can be distributed among the agents in many
+ways at fixed cost. The count is taken over the belief and frame sector
+$(\bmu_i,\bSigma_i,\bphi_i)$ at fixed M-step parameters $p_i,s_i,h$, so the counted
+functional is the belief-sector free energy $\Fcal_{\mathrm{belief}}$ of
+\cref{sec:measure} rather than the full $\Fcal$. This is the situation that, in physics, gives rise to entropy. The
+question we address is whether the count of belief configurations compatible with a
+given free energy defines a bona fide entropy for the theory, what measure it must be
+taken against, whether it survives the limit of an astronomically large population, and
+what new structure the gauge sector contributes that ordinary thermodynamics lacks.
+
+We answer in a qualified and partly conjectural form, and the construction requires care
+because $\Fcal$ is itself already a free energy rather than an energy, so the new object
+is an entropy of a free-energy landscape. Throughout we distinguish what is exact and
+verified, what is a standard result imported from statistical mechanics and information
+geometry, and what is conjectural. \Cref{sec:three} separates three distinct entropies.
+\Cref{sec:measure} fixes the counting measure on the belief sector and states what the
+gauge sector additionally requires. \Cref{sec:limit} examines extensivity through the
+row-reduced free energy. \Cref{sec:meta} gives the meta-entropy a large-deviation form
+under a declared reference measure. \Cref{sec:temperature} gives the meta-temperature an
+operational meaning. \Cref{sec:phase} works a solvable Gaussian response calculation.
+\Cref{sec:gauge} treats the gauge sector and separates invariance from redundancy.
+\Cref{sec:frustration} states the holonomy-frustration conjecture for the edge-local
+regime. \Cref{sec:discussion} records scope and open problems.
+
+\section{Three entropies at three levels}
+\label{sec:three}
+
+The largest source of confusion is that $\Fcal$ already contains entropy, so a
+meta-entropy must be defined against what is already there. Three distinct objects must
+be kept apart. The first is the intra-belief entropy of a single Gaussian,
+$\Scal[q_i] = \tfrac12\log\det(2\pi e\bSigma_i)$, which is the term that makes each
+agent's contribution a free energy rather than a bare energy. The second is the
+attention-distribution entropy, the family of terms
+$\tau\betaij\log(\betaij/\pi_{ij})$ in \cref{eq:F}; these measure the spread of one
+agent's attention over its neighbours, are a within-configuration quantity, and are part
+of the functional whose minimisation over $\betaij$ returns the softmax \cref{eq:softmax}.
+The third, which is the subject of this note, is the meta-entropy: the logarithm of the
+number of belief configurations $\{(\bmu_i,\bSigma_i,\bphi_i)\}_{i=1}^{N}$ that realise a
+prescribed value of $\Fcal$. The first two are properties of a single configuration; the
+third is a property of the configuration space. Only the third is a new object, and only
+the third is the analogue of Boltzmann's $S=k\log W$. Because $\Fcal$ is already a free
+energy, the meta-entropy is an entropy of a free-energy landscape, a second-order
+construction with the same formal status as the quenched free energies of disordered
+systems \citep{mezard1987spin}.
+
+\section{Microstate, macrostate, and the counting measure}
+\label{sec:measure}
+
+A microstate is a full configuration
+$\omega=\{(\bmu_i,\bSigma_i,U_i)\}_{i=1}^{N}$ in the product manifold $\Mcal^{N}$, where
+the single-agent state space is $\Mcal_1=\R^{K}\times\SPD(K)\times\Gcal$, with
+$\GL^{+}(K)$ the ambient gauge group. The primitive counted coordinate of the gauge
+sector is the Lie-algebra generator $\bphi_i$ restricted to the compact principal-log
+chart $\{\bphi:\|\bphi\|_2\le\pi-\eta\}$ introduced in \cref{eq:container}; the frame
+$U_i=e^{\bphi_i}$ is its parameterization and generates the transports. The chart image
+is a strict subset of the exponential image, which for $K\ge2$ is in turn a strict subset of the
+ambient group,
+\begin{equation}
+\label{eq:nesting}
+\{e^{\bphi}:\|\bphi\|_2\le\pi-\eta\}\subsetneq\{e^{\bphi}\}\subsetneq\GL^{+}(K),
+\end{equation}
+the second inclusion being proper because the matrix exponential is not surjective onto
+$\GL^{+}(K)$ for $K\ge2$: a real matrix has a real logarithm only if every Jordan block of
+a negative eigenvalue occurs an even number of times \citep{culver1966existence}, so an
+element such as $\diag(-2,-\tfrac12)\in\GL^{+}(2)$ has positive determinant yet no real
+logarithm. We take $\Gcal=\GL^{+}(K)$, the identity component of $\GL(K)$ \citep{hall2015lie}, as the ambient group and count over the chart. The meta-entropy is defined at a fixed realisation of the slow M-step
+sector. The fast E-step infers the belief and frame variables
+$(\bmu_i,\bSigma_i,\bphi_i)$ while the priors $p_i$, the model channel $s_i$, the
+hyper-prior $h$, and the model coupling are held fixed as the slow parameters that
+the M-step adjusts on a separate timescale. Here \emph{quenched} names the
+two-timescale procedure of disordered statistical mechanics, freezing the slow
+realisation and counting only the fast degrees of freedom at fixed slow parameters
+\citep{mezard1987spin}; it is not a claim that the frozen slow sector is itself
+disordered. We make no average over the slow sector, so no annealed or replica step
+is claimed. The large-deviation passage of \cref{sec:meta}, and the iid Sanov rate of
+\cref{eq:sanov}, are stated in the operative homogeneous regime: the prior is common,
+$p_i=p$, the observation potential is a common bounded per-agent functional, the slow
+bounds are common, and the attention prior is the uniform $\pi_{ij}=1/N$ already
+assumed. In this regime the frozen slow sector carries no disorder, the belief-sector
+free energy depends on the configuration only through the empirical law of the fast
+states, $\Fcal_{\mathrm{belief}}=N\Fcal[\rho_N]$, so $\rho_N$ is a sufficient
+statistic, the fast population is exchangeable, and ordinary (non-disordered) iid
+empirical-measure large deviations apply \citep[Thm.~6.2.10]{dembo1998large}. A
+genuinely heterogeneous frozen slow sector (agent-dependent $p_i$ or observation
+potentials) is the quenched-\emph{disorder} generalisation, in which
+$\Fcal_{\mathrm{belief}}$ is no longer a function of the fast empirical law alone: it
+requires augmenting the empirical state with the slow labels and a conditional, joint
+fast--slow large-deviation rate \citep{comets1989large}, or an annealed average over a
+declared distribution of the slow variables \citep{touchette2009large}; neither is
+claimed here. The counted functional is
+accordingly the belief-sector part of \cref{eq:F},
+\begin{equation}
+\label{eq:Fbelief}
+\Fcal_{\mathrm{belief}}=\alpha\sum_i\KL{q_i}{p_i}
++\sum_{i,j}\Bigl[\betaij\KL{q_i}{\Omegaij q_j}+\tau\betaij\log\tfrac{\betaij}{\pi_{ij}}\Bigr]
+-\sum_i\E_{q_i}[\log p(o_i\mid x_i)],
+\end{equation}
+the belief-sector restriction of $\Fcal$ that we count over $(\bmu_i,\bSigma_i,\bphi_i)$ at
+fixed $p_i,s_i,h$. The hyper-prior term $\lambda_h\sum_i\KL{s_i}{h}$ depends only on
+the fixed slow sector and is a configuration-independent additive offset that shifts
+the zero of $\Fcal_0$ but not the count. The model-coupling block, by contrast, is
+not a constant of the count: its transport $\Omegaij=e^{\bphi_i}e^{-\bphi_j}$ and the
+resulting weight $\gammaij$ both depend on the counted frames $\bphi_i$, so it is a
+slow-sector interaction that is excluded by scoping the count to
+$\Fcal_{\mathrm{belief}}$, not by being configuration independent. A macrostate is the
+value $\Fcal_0$ of $\Fcal_{\mathrm{belief}}$, together with any
+further macroscopic constraints that play the role of a container volume. Throughout the
+count, $\Fcal_{\mathrm{belief}}$ abbreviates the row-reduced functional
+$\Fcal_{\mathrm{belief}}^{\mathrm{red}}(\omega)$ obtained by evaluating \cref{eq:Fbelief} at the
+softmax stationary point \cref{eq:softmax}, so that the attention weights $\betaij$ are slaved to the
+microstate through the row log-partition $-\tau\log Z_i$ of \cref{eq:rowfree} and
+$\Fcal_{\mathrm{belief}}^{\mathrm{red}}$ is a function of $(\bmu_i,\bSigma_i,\bphi_i)$ alone; the
+$\betaij$ are not independent microstate coordinates and are distinct from the canonical conjugate
+$\bmeta$ introduced in \cref{sec:temperature}. The
+microcanonical meta-entropy is
+\begin{equation}
+\label{eq:Smicro}
+\Smeta(\Fcal_0)=\log\Wmeta(\Fcal_0),\qquad
+\Wmeta(\Fcal_0)=\int_{\Dcal^{N}}\delta\bigl(\Fcal_{\mathrm{belief}}^{\mathrm{red}}(\omega)-\Fcal_0\bigr)\mu_1^{\otimes N}(\dd\omega).
+\end{equation}
+The Dirac density $\delta(\Fcal_{\mathrm{belief}}-\Fcal_0)$ is shorthand for the thin energy shell
+$\Fcal_{\mathrm{belief},N}/N\in[f-\veps,f+\veps]$ at $f=\Fcal_0/N$, with the limit $N\to\infty$ taken first
+and $\veps\to0$ afterwards; under a regular-value assumption on $\Fcal_{\mathrm{belief}}$ the coarea prefactors
+that convert the shell volume into a surface density on the level set $\{\Fcal_{\mathrm{belief}}=\Fcal_0\}$ are
+subexponential in $N$ and so leave the entropy rate $\Smeta/N$ unchanged
+\citep[\S5.4]{touchette2009large} and \citep{ellis1985entropy}. This shell-volume to LDP-rate
+equality is used at regular values of $f$; at critical values and at the ground value $f_0$ of
+\cref{sec:frustration}, where the level set can fail to be regular and the entropy density can lose
+smoothness, the equality is read through the thick-shell limit above rather than the surface coarea form.
+In Hamiltonian statistical mechanics the counting measure $\dd\mu=\prod \dd q \dd p$ is
+canonical because the dynamics preserves it (Liouville's theorem)
+\citep{goldstein1980classical}. The VFE dynamics is gradient descent on $\Fcal$, not a
+symplectic flow, so a different principle must select the measure. The information
+geometry of the belief manifold supplies it on the statistical sector: by Chentsov's
+theorem and its extension to parametric families the Fisher--Rao metric is, up to scale,
+the unique Riemannian metric invariant under Markov morphisms
+\citep{chentsov1982statistical,amari2000methods,nielsen2020elementary}. The natural
+single-agent reference is therefore the product of the Fisher--Rao volume on the
+statistical factor and a group measure on the gauge factor,
+\begin{equation}
+\label{eq:measure}
+\dd\mu_1=\dd\mathrm{Vol}_{\mathrm{FR}}(\bmu,\bSigma)\times\dd\mu_{\mathrm{Haar}}^{\Gcal}(U),
+\qquad U\in\Gcal,
+\end{equation}
+with the affine-invariant Fisher--Rao volume on $\R^{K}\times\SPD(K)$, understood as the
+Riemannian volume form $\sqrt{\det g_{\mathrm{FR}}}$ of the Fisher--Rao metric that the
+theorem fixes up to a positive scalar (so the volume is determined up to a multiplicative
+constant $c$, which shifts $\Smeta$ by the configuration-independent additive term $N\log c$ and hence
+the entropy density $\Smeta/N$ by $\log c$; the Chentsov scale therefore fixes the additive zero of the
+entropy density, and only entropy differences and $f$-derivatives are scale-invariant unless the scale
+convention is declared), and the
+Haar measure on the group $\Gcal$ itself. Two cautions attach to the gauge factor and are
+carried through the rest of the note. First, Chentsov's theorem fixes the statistical
+metric but says nothing about the group measure, which must be specified separately;
+Haar measure lives on the group, not directly on the Lie-algebra coordinates $\bphi$. In
+exponential coordinates $U=e^{\bphi}$ the group measure pulls back to a Jacobian density
+$J_{\exp}(\bphi)\dd\bphi$ on a chart, but for $\GL^{+}(K)$ the exponential map is not a
+global diffeomorphism \citep{higham2008functions}, so the chart and its Jacobian must be
+stated. Second, $\Gcal=\GL^{+}(K)$ is noncompact, so the total gauge volume diverges and
+$\Wmeta(\Fcal_0)$ is finite only after a gauge slice or quotient, or a regulator such as
+a bound $\|\bphi_i\|\le c$, is imposed; we return to this container requirement in
+\cref{sec:gauge}. With these provisos the correspondence is exact in role on the
+statistical sector and interpretive in content: Chentsov's theorem is to the belief part
+of the meta-entropy what Liouville's theorem is to thermodynamic entropy, each singling
+out a natural measure for counting states, the present one curved rather than flat.
+
+\section{Extensivity through the row-reduced free energy}
+\label{sec:limit}
+
+For the meta-entropy to scale with population size, the counted functional
+$\Fcal_{\mathrm{belief}}$ must be extensive, $\Fcal_{\mathrm{belief}}=O(N)$, and the route to
+extensivity is more delicate than row normalisation alone. At fixed row-stochastic weights, $\sum_j\betaij=1$, the coupling energy
+$\sum_{i,j}\betaij \KL{q_i}{\Omegaij q_j}$ is a sum of $N$ convex combinations, hence
+$O(N)$ once each divergence is bounded by the container of \cref{sec:measure}. The
+attention-entropy term, however, is not bounded by $O(N)$ on its own: with $\pi_{ij}=1/N$,
+\begin{equation}
+\tau\sum_{j}\betaij\log\frac{\betaij}{\pi_{ij}}
+=\tau\bigl(\log N-H(\beta_{i\cdot})\bigr)\in[0,\tau\log N]
+\end{equation}
+per row, where $H$ is the Shannon entropy of the row, so the naive total is
+$O(N\log N)$ and is configuration dependent through the row concentrations $H(\beta_{i\cdot})$.
+The correct extensive object is the row-reduced free energy obtained by inserting the
+softmax stationary point \cref{eq:softmax} back into \cref{eq:F}. The energy and entropy
+of row $i$ then combine into a log-partition,
+\begin{equation}
+\label{eq:rowfree}
+\min_{\beta_{i\cdot}}\Bigl[\sum_j\betaij\KL{q_i}{\Omegaij q_j}+\tau\sum_j\betaij\log\tfrac{\betaij}{\pi_{ij}}\Bigr]
+=-\tau\log Z_i,\qquad
+Z_i=\sum_j\pi_{ij} e^{-\KL{q_i}{\Omegaij q_j}/\tau}.
+\end{equation}
+With $\pi_{ij}=1/N$ this is
+$-\tau\log Z_i=\tau\log N-\tau\operatorname{logsumexp}_j\bigl(-\KL{q_i}{\Omegaij q_j}/\tau\bigr)$.
+The $\tau\log N$ does not separate off as a removable reference: it is the Kac
+normalisation that keeps the row bounded. Equivalently one writes the reduced row
+contribution with the $1/N$ inside the logarithm,
+\begin{equation}
+\label{eq:rowkac}
+-\tau\log Z_i=-\tau\log\Bigl(\tfrac1N\sum_j e^{-\KL{q_i}{\Omegaij q_j}/\tau}\Bigr)\in[0,M],
+\end{equation}
+where $M$ is the supremum of the row divergence over the container of \cref{sec:measure}.
+Each summand $e^{-\KL{q_i}{\Omegaij q_j}/\tau}\in[e^{-M/\tau},1]$, so the averaged
+partition function $Z_i$ lies in $[e^{-M/\tau},1]$ and each $-\tau\log Z_i$ lies in the
+finite range $[0,M]$. Subtracting $\tau\log N$ per row would instead leave
+$-\tau\sum_i\operatorname{logsumexp}_j(-\KL{q_i}{\Omegaij q_j}/\tau)$, which is
+$O(N\log N)$ because $\operatorname{logsumexp}_j(-\KL{q_i}{\Omegaij q_j}/\tau)=\log N+O(1)$;
+the $1/N$ must be kept inside the logarithm. Summed with the $1/N$ retained, the reduced
+free energy $\sum_i(-\tau\log Z_i)$ is therefore $O(N)$. This is the precise content of the
+Kac prescription, which renders long-range interactions extensive by normalising the
+coupling by the number of partners \citep{kac1963vanderwaals}, the construction underlying
+the Curie--Weiss model and mean-field theory. Row-stochastic softmax attention is thus a
+Kac-normalised all-to-all coupling, so the reduced functional is extensive. Boundedness of
+each $-\tau\log Z_i$ gives the $O(N)$ scaling but not, on its own, convergence of the
+free-energy density $\frac1N\sum_i(-\tau\log Z_i)$; existence of that limit is the
+Kac/Laplace-principle result \citep{kac1963vanderwaals,ellis1985entropy} and is realised
+in \cref{sec:meta}, where the density is a weakly continuous functional of the empirical
+measure that concentrates under Sanov. A mean-field variational limit is then the
+appropriate leading-order description under these hypotheses, provided one works with the
+reduced functional with the $1/N$ retained inside the row log-partition.
+
+\section{The meta-entropy and its large-deviation form}
+\label{sec:meta}
+
+We give the meta-entropy a large-deviation form through a single declared reference
+measure, following the microcanonical route and recording the canonical alternative for
+completeness. Let $\rho_N=\tfrac1N\sum_i\delta_{(\bmu_i,\bSigma_i,U_i)}$ be the empirical
+belief distribution, and let the reference be the product law $\mu_1^{\otimes N}$ built
+from the single-agent measure \cref{eq:measure} restricted to the single-agent compact
+container $\Dcal$ of \cref{eq:container} and normalised there to a probability law, so
+that $\mu_1^{\otimes N}$ lives on the product container $\Dcal^{N}$ and $\rho_N$ is a
+probability law on the single-agent space $\Dcal$. This product reference over the frame
+coordinates $U_i$ is the correct starting point under the active-frame interpretation of
+\cref{sec:gauge}, in which the local transformations are genuine changes of epistemic
+configuration; if instead the frame directions are true gauge redundancies, the empirical law
+must be carried on a gauge slice and the reference rebuilt as the corresponding quotient or
+Faddeev--Popov measure \citep{faddeev1967feynman} before Sanov is applied, since quotienting
+removes extensive orbit volume and can alter whether the soft frame directions contribute to
+$\Smeta$. By Sanov's
+theorem the empirical measure satisfies a large-deviation principle with the relative
+entropy as rate,
+\begin{equation}
+\label{eq:sanov}
+\Pr(\rho_N\approx\rho)\asymp e^{-N\KL{\rho}{\mu_1}}.
+\end{equation}
+The macroscopic free energy is a functional of the population law, and we keep the
+directed (row) structure of attention rather than symmetrising. Write the continuum
+single-agent state as $z=(\bmu,\bSigma,U)$, with $q=\Ncal(\bmu,\bSigma)$ its Gaussian
+part and transport $\Omega(z,z')=U U'^{-1}$ determined by the frame pair $(U,U')$, so that
+the empirical law of \cref{eq:sanov} is a law on these states. In the mean-field limit
+each query state $z$ sees the population as its source distribution, drawn from a source
+prior $\pi(\dd z'\mid z)$ that is the continuum image of the finite attention prior
+$\pi_{ij}$; its row free energy is the log-partition of \cref{eq:rowfree} with the sum
+over partners replaced by an integral against $\pi(\cdot\mid z)$, and the reduced functional is
+\begin{equation}
+\label{eq:Frho}
+\Fcal[\rho]=\alpha\int \KL{q}{p}\rho(\dd z)
+-\tau\int \rho(\dd z)\log\int e^{-\KL{q}{\Omega(z,z') q'}/\tau}\pi(\dd z'\mid z)+\cdots,
+\end{equation}
+where the attention weight $\beta(z,z')=e^{-\KL{q}{\Omega(z,z') q'}/\tau}/Z(z)$ is
+normalised over the source prior by the row partition $Z(z)$, the inner integral of
+\cref{eq:Frho}. For the uniform finite prior $\pi_{ij}=1/N$ on a fixed row support the
+continuum source prior is the empirical law itself, $\pi(\dd z'\mid z)=\rho(\dd z')$, the
+case treated below; then $Z(z;\rho)$ depends on the whole law $\rho$ through the row
+normaliser. A structured or non-uniform $\pi_{ij}$ (a sparse interaction graph, a positional mask, or a
+non-exchangeable kernel) falls outside the empirical-measure contraction of \cref{eq:contraction}, which
+counts only the exchangeable fast states: there $\Fcal_N/N$ is no longer a continuous functional of $\rho_N$
+alone, and a converging extension would have to augment the empirical state with the additional structure that
+the kernel resolves, a graphon limit of the interaction array or a marked or pair empirical measure carrying
+the source labels, which we do not pursue here. The trailing $+\cdots$ in \cref{eq:Frho} is the population observation term $\int V(z)\rho(\dd z)$, the $\rho$-average of a common bounded per-agent potential $V(z)=-\E_q[\log p(o\mid x)]$ of \cref{eq:F}; under the homogeneous slow sector this is a single $\rho$-functional bounded on $\Dcal$, with per-agent average $O(1)$, so the summed observation block is $O(N)$ and contributes extensively. No model-sector term enters because the count is scoped to $\Fcal_{\mathrm{belief}}$ at fixed slow parameters. No symmetric factor of $1/2$ appears, because the coupling is
+row-directed; a symmetric double integral would be correct only after the conductances
+have been symmetrised, which is a separate modelling choice. In the operative uniform-prior
+case $\pi(\dd z'\mid z)=\rho(\dd z')$, on the compact container
+$\Dcal$ the Gaussian divergences $\KL{q}{p}$ and $\KL{q}{\Omega(z,z') q'}$ are jointly
+continuous and uniformly bounded, so the kernel $e^{-\KL{q}{\Omega(z,z') q'}/\tau}$ is bounded
+away from zero and $\rho\mapsto\Fcal[\rho]$ is weakly continuous on the Prokhorov-compact
+space $\Pcal(\Dcal)$; this discharges the continuity hypothesis of the contraction
+principle \citep[Thm.~4.2.1]{dembo1998large} applied to the Sanov rate
+\citep[Thm.~6.2.10]{dembo1998large}, provided the priors and the model sector $s_i$ obey
+the same two-sided bound and the likelihood $-\E_q[\log p(o\mid x)]$ is bounded on
+$\Dcal$. Combining \cref{eq:sanov}
+with the constraint $\Fcal[\rho]=f$ through the contraction principle gives the
+microcanonical meta-entropy density, up to the configuration-independent reference and
+container terms,
+\begin{equation}
+\label{eq:contraction}
+s(f)=\lim_{N\to\infty}\frac1N\log\Wmeta(Nf)
+=-\inf\bigl\{ \KL{\rho}{\mu_1} : \Fcal[\rho]=f \bigr\}+\text{const}.
+\end{equation}
+The meta-entropy at free-energy density $f$ is thus minus the cheapest relative-entropy
+cost, against the declared reference, of any population belief-distribution consistent
+with $f$.
+
+\begin{remark}[Explicit Gaussian form of the Sanov rate]
+\label{rem:gaussianrate}
+The rate $\KL{\rho}{\mu_1}$ is a relative entropy between probability laws on the
+single-agent manifold $\Mcal_1$, not the Gaussian divergence of \cref{lem:affine}. On the Gaussian sector, with the gauge coordinate held fixed or marginalised against its Haar
+factor so that the frame carries no relative entropy, the reference $\mu_1$ of \cref{eq:measure}
+reduces to the Fisher--Rao volume normalised on the container $\Dcal$, with density against the
+Riemannian volume the constant
+$\dd\mu_1/\dd\mathrm{Vol}_{\mathrm{FR}}=1/\mathrm{Vol}_{\mathrm{FR}}(\Dcal)$; the determinant
+density $c_K(\det\bSigma)^{-(K+2)/2}$ displayed below is this Gaussian-sector factor of the full
+$\mathrm{Vol}_{\mathrm{FR}}\times\mu_{\mathrm{Haar}}$ product, not the joint density. The
+Gaussian-sector marginal rate then reduces exactly, for every $\rho\ll\mu_1$ on $\Dcal$ (the rate
+is $+\infty$ otherwise), to a negative differential entropy
+taken against $\sqrt{\det g_{\mathrm{FR}}}$,
+\begin{equation}
+\label{eq:rateentropy}
+\KL{\rho}{\mu_1}=-H_{\mathrm{FR}}[\rho]+\log\mathrm{Vol}_{\mathrm{FR}}(\Dcal),
+\qquad
+H_{\mathrm{FR}}[\rho]=-\int_{\Dcal}\frac{\dd\rho}{\dd\mathrm{Vol}_{\mathrm{FR}}}\log\frac{\dd\rho}{\dd\mathrm{Vol}_{\mathrm{FR}}}\dd\mathrm{Vol}_{\mathrm{FR}};
+\end{equation}
+this relative entropy is nonnegative and vanishes only at $\rho=\mu_1$, and being unbounded
+above as $\rho$ concentrates it is a coercive, lower-semicontinuous Sanov rate. On the
+Gaussian sector the Fisher metric is block-diagonal in $(\bmu,\bSigma)$ with mean block
+$\bSigma^{-1}$ and covariance block proportional to the affine-invariant SPD metric (half it, in the Fisher normalisation), so the volume element
+is $\sqrt{\det g_{\mathrm{FR}}}=c_K(\det\bSigma)^{-(K+2)/2}$, the product of the mean-block
+weight $(\det\bSigma)^{-1/2}$ and the SPD volume $(\det\bSigma)^{-(K+1)/2}$
+\citep{skovgaard1984riemannian,amari2000methods}; block-diagonality of the metric does not
+make the joint volume factor into independent $\bmu$ and $\bSigma$ measures, the
+$\bmu$-volume carrying the $\bSigma$-dependent weight $(\det\bSigma)^{-1/2}$. The
+affine-invariant geodesic distance of that covariance block,
+$d_R(\bSigma,\bSigma_0)=\lVert\log(\bSigma_0^{-1/2}\bSigma\bSigma_0^{-1/2})\rVert_F=(\sum_i(\log\lambda_i)^2)^{1/2}$
+with $\lambda_i$ the eigenvalues of $\bSigma_0^{-1}\bSigma$, is the closed-form geodesic of
+the Gaussian covariance geometry and is invariant under the congruence
+$\bSigma\mapsto A\bSigma A^{\top}$ \citep{pennec2006riemannian}; the same-mean Fisher--Rao
+distance equals $d_F=d_R/\sqrt2$ \citep{pinele2020fisher}. This distance fixes the volume
+form in \cref{eq:rateentropy} but is not itself the rate, which is the law-to-law relative
+entropy of \cref{eq:rateentropy} rather than the point-to-point Gaussian divergence of
+\cref{lem:affine}: that point divergence between two same-mean covariance points agrees
+with $\tfrac12 d_F^2=\tfrac14 d_R^2$ only to second order, the Fisher metric being the
+Hessian of the Gaussian divergence \citep{amari2000methods,nielsen2020elementary}, and the
+metric-normalisation convention relating $d_F$ and $d_R$ shifts
+$\log\mathrm{Vol}_{\mathrm{FR}}(\Dcal)$ by a configuration-independent constant as in the
+Chentsov-scale remark of \cref{sec:measure}. The constrained minimiser
+$\rho^{\star}=\arg\min\{\KL{\rho}{\mu_1}:\Fcal[\rho]=f\}$ then takes exponential-family form for
+the fixed-covariance means-only sub-family, where $\Mcal_1=\R^{K}$ carries the constant
+metric $\bSigma^{-1}$ and the entropy-maximising minimiser under a quadratic $\Fcal$ is the
+$I$-projection of the uniform carrier $\mathbf 1_{\{\lVert\bmu\rVert\le R\}}\dd\mathrm{Vol}$ onto the
+moment family it constrains, namely the truncated exponential tilt
+$\rho^{\star}(\bmu)\propto e^{\mathbf a\cdot\bmu-\tfrac12\bmu^{\top}\mathbf A\bmu}\mathbf 1_{\{\lVert\bmu\rVert\le R\}}$
+with carrier the ball, where $\mathbf a\in\R^{K}$ and the symmetric $\mathbf A$ are the conjugate
+parameters fixed by $\Fcal[\rho^{\star}]=f$ \citep{csiszar1975iprojection,cover2006elements}. The
+all-to-all means-only $\Fcal[\rho]$ is nonlinear in $\rho$ through an interaction term
+$-J\lVert\E\bmu\rVert^{2}$ of the form realised in \cref{prop:gaussian}, so the linear coefficient
+$\mathbf a$ vanishes and $\mathbf A$ collapses to the scalar form $\mathbf A=\theta\bI$ only in the
+centered, rotationally symmetric, zero-field subcase, the truncated-Gaussian family with sufficient
+statistic $\lVert\bmu\rVert^{2}$ and a single multiplier $\theta\in\R$; on the compact ball $\theta$
+ranges over all of $\R$, with $\theta>0$ selecting the low-second-moment branch and $\theta<0$ the
+high-second-moment branch concentrated near the boundary, $\theta>0$ being recovered as the operative
+sign only in the boundary-negligible limit below. Its exact rate is
+$\KL{\rho^{\star}}{\mu_1}=-H(\rho^{\star})+\log\mathrm{Vol}(\{\lVert\bmu\rVert\le R\})$, and only in the
+boundary-negligible limit, where the Gaussian width $\theta^{-1/2}$ is small relative to $R$ so the
+truncation is inactive and $\rho^{\star}$ tends to the full Gaussian $\Ncal(0,S^{\star})$ with
+$S^{\star}=\theta^{-1}\bI$ of \cref{prop:gaussian}, does this reduce to the displayed elementary value
+$\KL{\rho^{\star}}{\mu_1}=-\tfrac12\log\det(2\pi e S^{\star})+\log\mathrm{Vol}(\{\lVert\bmu\rVert\le R\})$. With the covariance sector active the minimiser is implicit rather than elementary: its functional
+derivative carries nonlinear covariance terms from the Gaussian divergences $\KL{q}{p}$ and
+$\KL{q}{\Omega q'}$ and from the row normalisers of \cref{eq:Frho}, so the stationarity condition
+does not solve in closed form and the residual $\rho^{\star}$ stays a McKean--Vlasov self-consistency
+problem recorded as open. The geometry sharpens the same warning: the two-point Fisher--Rao distance
+on the joint $(\bmu,\bSigma)$ manifold itself has no known closed form
+\citep{nielsen2020elementary,pinele2020fisher}.
+\end{remark} Stationary points of this constrained variational problem satisfy a self-consistency
+relation of McKean--Vlasov form. In the operative uniform-prior case $\pi(\dd z'\mid z)=\rho(\dd z')$,
+the first variation of \cref{eq:Frho} carries two distinct attention contributions, an outgoing
+row term and an incoming source term, because the row normaliser $Z(z;\rho)$ depends on $\rho$ both
+through the query at $z$ and through every other query that reads $z$ as a source,
+\begin{equation}
+\label{eq:firstvar}
+\frac{\delta\Fcal}{\delta\rho}(y)
+=\alpha\KL{q_y}{p}
+-\tau\log Z(y)
+-\tau\int\beta(z,y)\rho(\dd z)
++V(y),
+\qquad
+\beta(z,y)=\frac{e^{-\KL{q_z}{\Omega(z,y)q_y}/\tau}}{Z(z)},
+\end{equation}
+the term $-\tau\log Z(y)$ being the attention emitted by the query at $y$ over its sources and
+$-\tau\int\beta(z,y)\rho(\dd z)$ the total attention received by $y$ from the population through
+the incoming kernel $K(\cdot,y)$; the directedness of the row coupling keeps these two terms
+distinct, so no symmetric factor of $1/2$ appears. The Euler--Lagrange condition of
+$\inf\{\KL{\rho}{\mu_1}:\Fcal[\rho]=f\}$ at the conjugate tilt $\bmeta$ then reads
+$\log(\dd\rho/\dd\mu_1)=\mathrm{const}-\bmeta\delta\Fcal/\delta\rho$, that is the fixed-point
+equation of the tilted single-site law
+$\rho^{\star}(\dd y)\propto\mu_1(\dd y)\exp[-\bmeta\delta\Fcal/\delta\rho(y)]$ with $Z$ and
+$\beta$ evaluated self-consistently at $\rho^{\star}$, the bounded-Lipschitz regularity this
+characterisation presumes being supplied by the compact container. Identifying such a
+stationary point with the continuum limit of the finite-population E-step iteration is a
+separate, dynamical statement and does not follow from the microcanonical contraction
+alone: the E-step as written is deterministic natural-gradient descent rather than a weakly
+interacting diffusion, so the link requires a propagation-of-chaos or mean-field-limit
+argument of the Dawson--G\"artner and Sznitman type
+\citep{dawson1987large,sznitman1991topics}, whose bounded-Lipschitz hypotheses on the
+interaction must then be checked on the container. The canonical alternative replaces the hard
+constraint by a tilt: the Gibbs law $P_{\bmeta}\propto e^{-\bmeta\Fcal_{\mathrm{belief},N}}\mu_1^{\otimes N}$ over the same belief sector
+has, by Sanov's theorem and Varadhan's lemma, the scaled-cumulant limit
+$\tfrac1N\log\Zcal_N(\bmeta)\to-\varphi(\bmeta)$ with
+$\varphi(\bmeta)=\inf_{\rho}\{\bmeta\Fcal[\rho]+\KL{\rho}{\mu_1}\}$, so $\varphi$ is the
+negative of the $\bmeta$-scaled cumulant generating function (the negative pressure), not the free-energy density
+$f$ itself. The microcanonical entropy density is recovered as the concave (infimum-form)
+Legendre--Fenchel transform $s(f)=\inf_{\bmeta}\{\bmeta f-\varphi(\bmeta)\}+\text{const}$, the
+transform direction that holds under the concavity (equivalence-of-ensembles) hypothesis; since
+$\varphi$ is concave in $\bmeta$, the supremum-form transform does not recover $s$, and the two
+routes should not be mixed \citep{ellis1985entropy,touchette2009large}. Working with the empirical law rather than
+labelled agents quotients out permutations automatically, which resolves the
+Gibbs-paradox bookkeeping and renders $\Smeta$ extensive without an inserted $1/N!$ when
+the agents are exchangeable.
+
+\section{The meta-temperature as natural-gradient noise}
+\label{sec:temperature}
+
+The Legendre conjugate $\bmeta=\partial\Smeta/\partial\Fcal_0$ defines the canonical
+meta-ensemble $P[\omega]\propto e^{-\bmeta\Fcal_{\mathrm{belief}}^{\mathrm{red}}(\omega)}\mu_1^{\otimes N}$, a Gibbs
+distribution over belief configurations weighted by their free energy, with partition
+function $\Zcal_{\mathrm{meta}}=\int_{\Dcal^{N}} e^{-\bmeta\Fcal_{\mathrm{belief}}^{\mathrm{red}}}\mu_1^{\otimes N}(\dd\omega)$ and meta free energy
+$\Phi=\langle\Fcal_{\mathrm{belief}}\rangle-\Tmeta\Smeta$, where the meta-temperature is the inverse
+conjugate $\Tmeta=1/\bmeta$, so the inverse-temperature form $e^{-\bmeta\Fcal_{\mathrm{belief}}}$ and
+the temperature form $e^{-\Fcal_{\mathrm{belief}}/\Tmeta}$ are the same weight. Because the container bounds the
+free-energy density and $\Smeta$ need not be monotone in $\Fcal_0$, the canonical tilt $\bmeta=\partial\Smeta/\partial\Fcal_0$
+is a signed parameter $\bmeta\in\R$, and the Riemannian-Langevin noise reading below applies only on the
+positive branch $\bmeta=1/\Tmeta>0$; a negative-$\bmeta$ tilt remains a well-defined formal ensemble but
+carries no diffusion temperature, since a noise amplitude cannot be negative. These weights are well defined only on the
+container of \cref{sec:measure} where $\Zcal_{\mathrm{meta}}<\infty$. Rather than posit
+this ensemble we identify it as the stationary law of a dynamics. Pure descent on
+$\Fcal_{\mathrm{belief}}$ concentrates on the set of global minimisers, modulo the declared gauge quotient
+and container constraint; it need not select a single configuration when minimisers are
+degenerate or related by symmetry. Adding noise populates the ensemble, and on the curved
+belief manifold the appropriate dynamics is the Riemannian Langevin equation, whose
+It\^o form is
+\begin{equation}
+\label{eq:rlangevin}
+\dd\omega^{i}
+=\Bigl[-g^{ij}\partial_j\Fcal_{\mathrm{belief}}
++\Tmeta \tfrac{1}{\sqrt{\det g}} \partial_j\bigl((\sqrt{\det g}) g^{ij}\bigr)\Bigr]\dd t
++\sqrt{2\Tmeta}\bigl(\sqrt{g^{-1}}\bigr)^{i}{}_{k}\dd W^{k}.
+\end{equation}
+The first drift term $g^{ij}\partial_j\Fcal_{\mathrm{belief}}$ is the natural gradient, and the diffusion
+covariance is $2\Tmeta g^{-1}$ per unit time, so $\Tmeta$ is the scalar temperature
+multiplying the inverse metric rather than the full variance tensor. Subject to
+confinement, non-explosiveness, and a normalisable partition function on the container,
+the stationary law of \cref{eq:rlangevin} is the metric-weighted canonical ensemble
+$P\propto e^{-\Fcal_{\mathrm{belief}}/\Tmeta}\sqrt{\det g}$, and this holds only when the metric-divergence
+drift is retained; plain natural-gradient descent with isotropic noise does not sample it
+\citep{girolami2011riemann,welling2011bayesian,xifara2014langevin}. This metric-weighted law equals
+the declared canonical ensemble $e^{-\Fcal_{\mathrm{belief}}/\Tmeta}\mu_1^{\otimes N}$ of
+\cref{eq:measure} only when the Riemannian volume reproduces the counting measure,
+$\sqrt{\det g}\dd\omega=\dd\mathrm{Vol}_{\mathrm{FR}}(\bmu,\bSigma)\times\dd\mu_{\mathrm{Haar}}^{\Gcal}(U)$.
+This is achieved by taking the product metric $g=g_{\mathrm{FR}}\oplus g_{\Gcal}$, where $g_{\mathrm{FR}}$
+is the Fisher--Rao metric of \cref{sec:measure} and $g_{\Gcal}$ is the left-invariant metric on
+$\Gcal=\GL^{+}(K)$ obtained by left-translating a fixed inner product on $\Lie(K)$: its Riemannian
+volume is left Haar measure, which coincides with right Haar because $\GL^{+}(K)$ is unimodular, and
+its pull-back to the exponential chart $U=e^{\bphi}$ is $\sqrt{\det g_{\Gcal}}\dd\bphi=J_{\exp}(\bphi)\dd\bphi$,
+so the exp-chart Jacobian enters both the drift and the diffusion of \cref{eq:rlangevin} automatically
+through $g$ and $\sqrt{\det g}$. Existence of this left-invariant metric is guaranteed; adopting it as
+the Langevin metric is a modelling choice rather than a property of the E-step. On the hard container
+of \cref{eq:container} the stationary law is exact only with reflecting boundary conditions on
+$\partial\Dcal$, a formal prescription here, since the semialgebraic boundary carries nonsmooth strata
+at repeated $\bSigma$ eigenvalues and frame singular-value multiplicities, where a well-posed reflected
+diffusion requires a carefully specified Skorokhod problem or a smoothed domain. Replacing the hard
+container by a smooth confining potential $V(\omega)\to\infty$ at the boundary removes the boundary
+terms, but then samples the softened target $\propto e^{-(\Fcal_{\mathrm{belief}}+V)/\Tmeta}\sqrt{\det g}$,
+the original hard-container law being recovered only in the infinite-barrier limit of $V$. The meta-temperature is therefore the
+noise level injected into stochastic natural-gradient belief updating, an operational
+quantity rather than an analogy. At $\Tmeta\to0$ the population concentrates on the
+minimiser set; at finite $\Tmeta$ the meta-entropy is populated. The inverse
+meta-temperature is the configuration-level counterpart of the precision that weights the
+free energy in active-inference policy selection \citep{friston2017active}, lifted from
+policies to whole belief configurations.
+
+This places two Gibbs-weight temperatures and one relaxation scale in the theory, one for
+each of its three timescales. The attention temperature $\tau=\kappa\sqrt{K}$ is the
+soft-min temperature of the row log-partition $-\tau\log Z_i$ and governs within-configuration
+inference on the fast E-step. The M-step learning rate is a relaxation and discretisation scale
+for the slow adjustment of priors and models; a rate becomes a temperature only once an
+accompanying injected-noise scale or fluctuation-dissipation relation is specified, as in
+stochastic-gradient Langevin and constant-SGD samplers \citep{welling2011bayesian,mandt2017stochastic}.
+The meta-temperature $\Tmeta$ is the genuine Gibbs weight of the ensemble over configurations,
+the noise level of the Riemannian Langevin dynamics of \cref{eq:rlangevin}. The attention
+temperature is already explicit in \cref{eq:F}; the meta-temperature is the new object of this
+note.
+
+\section{A solvable Gaussian response calculation}
+\label{sec:phase}
+
+A means-only Gaussian instance is solvable in closed form, and what it establishes is
+narrow. It is a linear-response calculation, not a finite-coupling phase transition: the
+order parameter vanishes at zero field for every finite prior strength, and the
+susceptibility diverges only in the decoupling limit $\alpha\to0$. A genuine consensus
+transition would require a compact or regulated model or a non-Gaussian covariance
+sector, as discussed below.
+
+\begin{proposition}[Gaussian meta-ensemble susceptibility]
+\label{prop:gaussian}
+Take isotropic fixed-covariance beliefs $q_i=\Ncal(\bmu_i,\sigma^2\bI)$, trivial gauge
+$\Omegaij=\bI$, a normalised all-to-all weight $a_{ij}=1/N$ with coupling strength $J$,
+and a quadratic prior field of strength $\alpha$ centred at the origin, so that up to a
+$\sigma$-dependent constant
+\begin{equation}
+\label{eq:gaussianF}
+\Fcal(\{\bmu\})=\frac{\alpha}{2}\sum_i\|\bmu_i\|^2
++\frac{J}{2}\sum_{i,j}a_{ij}\|\bmu_i-\bmu_j\|^2
+=\frac{\alpha}{2}\sum_i\|\bmu_i\|^2+\frac{J}{2N}\sum_{i,j}\|\bmu_i-\bmu_j\|^2 .
+\end{equation}
+In the canonical meta-ensemble with the uniform field $b$ inserted as an energy-scale term inside the
+free energy, $P\propto\exp[-\bmeta(\Fcal-b\cdot\sum_i\bmu_i)]$, conjugate to the magnetisation
+$m=\frac1N\sum_i\bmu_i$, the mean-field
+self-consistency reads $m=(2Jm+b)/(\alpha+2J)$, hence $m\alpha=b$. The zero-field
+magnetisation is $m^{\star}=0$ and the susceptibility is
+\begin{equation}
+\chi=\frac{\partial m}{\partial b}=\frac{1}{\alpha},
+\end{equation}
+independent of the coupling $J$ and of $\bmeta$.
+\end{proposition}
+
+The $\bmeta$-independence is specific to the energy-scale convention above, in which the field and the free energy carry the common factor $\bmeta$ that cancels in the Gaussian mean. Under the source convention $P\propto\exp[-\bmeta\Fcal+b\cdot\sum_i\bmu_i]$, with $b$ entering the exponent unscaled, the same computation gives $m\alpha=b/\bmeta$ and $\chi=1/(\bmeta\alpha)$, the two conventions differing only by where the external field is scaled relative to $\bmeta$ \citep{kardar2007fields}.
+
+\begin{proof}
+Expanding the pairwise term,
+$\sum_{i,j}\|\bmu_i-\bmu_j\|^2=2N\sum_i\|\bmu_i\|^2-2\|\sum_i\bmu_i\|^2$, so
+$\Fcal=(\tfrac{\alpha}{2}+J)\sum_i\|\bmu_i\|^2-\tfrac{J}{N}\|\sum_i\bmu_i\|^2$. The
+single-site energy in the mean field $m$ and external field $b$ is
+$(\tfrac{\alpha}{2}+J)\|\bmu\|^2-(2Jm+b)\cdot\bmu$, a Gaussian with mean
+$\langle\bmu\rangle=(2Jm+b)/(\alpha+2J)$. Imposing $\langle\bmu\rangle=m$ gives
+$m(\alpha+2J)=2Jm+b$, that is $m\alpha=b$, whence $m^{\star}=0$ at $b=0$ and
+$\chi=1/\alpha$.
+\end{proof}
+
+The susceptibility diverges as $\alpha\to0$: the prior strength is the control field, and
+the means-only model has no spontaneous consensus at any finite $\alpha$. This
+zero-mode susceptibility divergence is a linear-response signature, not an order--disorder
+transition, and it is consistent with the gauge analysis of \cref{sec:gauge}, where
+$\alpha$ is the strength of the explicit breaking of an otherwise exact covariance. A
+genuine finite-coupling transition with a nonzero ordered magnetisation requires either a
+spherical constraint $\sum_i\|\bmu_i\|^2=N$ in the manner of Berlin and Kac
+\citep{berlin1952spherical} or the anharmonicity supplied by dynamical covariances. The
+covariance sector is what makes the model non-Gaussian: a means-only theory is always
+Gaussian, and the $\bSigma_i$ degrees of freedom would provide the nonlinearity required
+for a sharp consensus transition. We therefore record the consensus transition itself as
+a conjecture requiring a regulated or non-Gaussian model, and we do not claim it from
+\cref{prop:gaussian}.
+
+\section{The gauge sector: invariance, covariance, and redundancy}
+\label{sec:gauge}
+
+The order parameter is constrained by an exact invariance of the interaction, which we
+establish below, and which the prior breaks. Three notions must be separated, because
+only the last licenses gauge-fixing language. The first is the common-pushforward
+invariance of the Gaussian divergence (\cref{lem:affine}). The second is the active
+local covariance of the interaction under transforming all states and transports together
+(\cref{prop:gaugeinv}). The third is true gauge redundancy, a transformation that leaves
+the entire physical configuration unchanged and is to be quotiented in the partition
+function. Whether the local transformations below are redundancies or active changes of
+epistemic configuration depends on the gauge structure declared for the model. The
+companion participatory manuscript treats the independent per-agent action
+$\Omegaij\mapsto G_i\Omegaij G_j^{-1}$ explicitly and designates such per-agent frame
+changes as active changes of epistemic configuration rather than redundancies; that
+designation is a declared structural commitment, grounded in an edge-mode and
+quantum-reference-frame analogy rather than derived from primitives, so we carry it as an
+assumption and not as a settled result. We therefore prove the invariance and the active covariance, and we
+keep the gauge-fixing and Goldstone reading explicitly conditional on the directions in
+question being genuine redundancies.
+
+\begin{lemma}[Affine invariance of the Gaussian divergence]
+\label{lem:affine}
+For invertible $G\in\GL(K)$ and $c\in\R^{K}$ let $T(x)=Gx+c$, so that
+$T_{\#}\Ncal(\mu,\Sigma)=\Ncal(G\mu+c,G\Sigma G^{\top})$. Then for any two Gaussians
+$q_1,q_2$,
+\begin{equation}
+\KL{T_{\#}q_1}{T_{\#}q_2}=\KL{q_1}{q_2}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+The Gaussian divergence is
+$\KL{q_1}{q_2}=\tfrac12[\Tr(\Sigma_2^{-1}\Sigma_1)+(\mu_2-\mu_1)^{\top}\Sigma_2^{-1}(\mu_2-\mu_1)-K+\log(\det\Sigma_2/\det\Sigma_1)]$.
+Under $T$ the covariances map by congruence, $\Sigma_a\mapsto G\Sigma_a G^{\top}$ and
+$\Sigma_2^{-1}\mapsto G^{-\top}\Sigma_2^{-1}G^{-1}$, so by cyclicity of the trace
+$\Tr(\Sigma_2^{-1}\Sigma_1)$ is unchanged; the mean difference maps as
+$\mu_2-\mu_1\mapsto G(\mu_2-\mu_1)$ and the quadratic form is invariant; and
+$\det(G\Sigma_a G^{\top})=(\det G)^2\det\Sigma_a$, so the log-determinant ratio is
+invariant. Each term is preserved.
+\end{proof}
+
+\begin{proposition}[Local covariance of the belief coupling]
+\label{prop:gaugeinv}
+Let the local transformation $g=(G_i)_{i=1}^{N}\in\GL^{+}(K)^{N}$ act by
+$q_i\mapsto (G_i)_{\#}q_i$ and $e^{\bphi_i}\mapsto G_i e^{\bphi_i}$. This is a
+pre-regulator algebraic identity on the ambient group: the underlying common-pushforward
+invariance of \cref{lem:affine} holds for all of $\GL(K)$, and the proposition is a
+covariance of the unregulated interaction, not of the regulated counted state space.
+The action does not preserve the counted gauge chart of \cref{eq:nesting}: a noncompact
+$G_i$ carries $G_ie^{\bphi_i}$ outside $\{e^{\bphi}:\|\bphi\|_2\le\pi-\eta\}$, a $G_i$ of
+negative determinant carries it outside $\GL^{+}(K)$, and $G_ie^{\bphi_i}$ need not be an
+exponential at all \citep{culver1966existence}; the resulting failure to preserve the
+container is the explicit regulator breaking discussed after \cref{prop:breaking}. Then the transport
+maps as $\Omegaij\mapsto G_i\Omegaij G_j^{-1}$, the transported source belief satisfies
+$(G_i\Omegaij G_j^{-1})_{\#}(G_j)_{\#}q_j=(G_i)_{\#}(\Omegaij)_{\#}q_j$, and each summand
+$\KL{q_i}{\Omegaij q_j}$ is invariant. Consequently the belief-coupling functional
+$\sum_{i,j}\betaij \KL{q_i}{\Omegaij q_j}$ is invariant, the softmax weights $\betaij$
+being functions of the invariant divergences.
+\end{proposition}
+
+\begin{proof}
+Transport acts on a Gaussian by the congruence
+$\Omegaij\cdot\Ncal(\mu,\Sigma)=\Ncal(\Omegaij\mu,\Omegaij\Sigma\Omegaij^{\top})$, that is
+by pushforward under the linear map $\Omegaij$. The transformed transport is
+$G_i\Omegaij G_j^{-1}$; composing its pushforward with that of $G_j$ gives pushforward
+under $(G_i\Omegaij G_j^{-1})G_j=G_i\Omegaij$, hence
+$(G_i\Omegaij)_{\#}q_j=(G_i)_{\#}(\Omegaij q_j)$. The target transforms as
+$q_i\mapsto(G_i)_{\#}q_i$. Both arguments of the divergence acquire the common map $G_i$,
+so by \cref{lem:affine} the summand is unchanged.
+\end{proof}
+
+The covariance is exact and algebraic: \cref{prop:gaugeinv} follows from \cref{lem:affine}
+in two lines, since both arguments of each summand acquire the common map $G_i$, while the
+self-coupling does not co-transform and so is not invariant.
+
+\begin{proposition}[The prior is the symmetry-breaking field]
+\label{prop:breaking}
+The self-coupling $\alpha\KL{q_i}{p_i}$ with fixed prior $p_i$ is invariant under
+$q_i\mapsto(G_i)_{\#}q_i$ only if the prior co-transforms, $p_i\mapsto(G_i)_{\#}p_i$.
+With the priors held fixed as M-step references, the local covariance of the
+belief-sector interaction $\Fcal_{\mathrm{belief}}$ is explicitly broken by two terms: the
+prior-anchoring term $\alpha\sum_i\KL{q_i}{p_i}$, whose strength is set by $\alpha$, and the
+observation term $-\E_q[\log p(o\mid x)]$, which is not invariant under $q_i\mapsto(G_i)_{\#}q_i$
+unless the channel co-transforms, since the data $o$ and the likelihood $p(o\mid x)$ do not
+transform with the frame. The hyper-prior term $\lambda_h\sum_i\KL{s_i}{h}$ does not appear in
+$\Fcal_{\mathrm{belief}}$ and so plays no role in the breaking of the counted belief covariance.
+The $s_i/h$ and model-coupling $\gammaij$ sector of the full $\Fcal$ acts on the frame variables
+as well, and its symmetry analysis is separate; we do not undertake it here.
+\end{proposition}
+
+The consequences depend on whether the transformations of \cref{prop:gaugeinv} are
+genuine gauge redundancies. If they are, then in the limit $\alpha\to0$, and for a gauge-invariant or absent observation
+term so that the likelihood imposes no residual breaking, the belief-sector redundancy is
+exact, the configuration measure has flat directions along the gauge orbits, and
+$\Wmeta(\Fcal_0)$ diverges through the noncompact gauge volume unless one quotients by the
+gauge group; this quotient is the Faddeev--Popov gauge
+fixing of the partition function familiar from gauge field theory
+\citep{faddeev1967feynman}, and for $\alpha>0$ the broken directions become
+pseudo-Goldstone soft modes whose contribution grows smoothly as $\alpha\to0$. At the fixed compact
+container $\Dcal$ this contribution saturates at the finite soft-direction volume rather than diverging;
+the unbounded gauge-volume divergence appears only once the regulator is removed, taking $\alpha\to0$ first
+and the container scale to infinity afterward. The growth is consistent with the susceptibility
+$\chi=1/\alpha$ of \cref{prop:gaussian}. If instead
+the transformations are active changes of epistemic configuration, the directions are
+physical and must not be quotiented; counting them is then correct but the
+Goldstone/gauge-fixing language is inappropriate, and the $\alpha\to0$ divergence is
+read as a genuine soft-mode susceptibility rather than a gauge volume. In either reading
+the noncompactness of $\R^{K}$, $\SPD(K)$ and $\Gcal$ means that $\Wmeta(\Fcal_0)$ is
+finite only relative to a compact container. Four distinct things must be kept apart. The
+first is the invariance of the unregulated interaction: each summand $\KL{q_i}{\Omegaij q_j}$
+is invariant under the common pushforward of \cref{prop:gaugeinv}, an algebraic identity on the
+ambient group. The second concerns the counting measure: the ambient density $\dd\mu_1$
+of \cref{eq:measure} is left-invariant in form before restriction, since the ambient Haar density is
+invariant under the left translation $U\mapsto G U$ and the affine-invariant Fisher--Rao volume is
+preserved by the congruence $\bSigma\mapsto G\bSigma G^{\top}$ \citep{pennec2006riemannian}. After
+restriction to the counted chart the relevant measure is the restricted Haar density, and a generic
+left translation no longer maps the counted domain to itself, so the local action is not a symmetry of
+the measured domain; this loss is the container breaking recorded as the fourth mechanism below.
+The third is explicit breaking within $\Fcal_{\mathrm{belief}}$ by the prior anchoring, of strength $\alpha$, and by the observation likelihood, as in \cref{prop:breaking}. The fourth is explicit breaking
+by the finite container: a noncompact $G_i$ can push $\bmu_i$ past $\|\bmu_i\|\le R$, move the
+eigenvalues of $\bSigma_i$ outside the two-sided bounds, or carry $G_ie^{\bphi_i}$ outside the
+principal-log chart. A regulator is expected to break a noncompact symmetry, so the container
+breaking is a feature of the construction rather than a defect; the gauge-volume and
+pseudo-Goldstone reading above is attached to the explicit prior breaking of the third kind, with
+the fourth kind always present once $\Dcal$ is imposed. The bare precision bound
+$\tr\bSigma_i^{-1}\le c$ does not suffice: it constrains each $\bSigma_i$ from below only
+and leaves $\KL{q_i}{p_i}\to+\infty$ as $\bSigma_i\to\infty$. We therefore take the
+two-sided set
+\begin{equation}
+\label{eq:container}
+\Dcal=\bigl\{c_1\bI\preceq\bSigma^{-1}\preceq c_2\bI,\ \ \|\bmu\|\le R,\ \ \|\bphi\|_2\le\pi-\eta\bigr\},
+\qquad 0<c_1\le c_2<\infty,\ \ R<\infty,\ \ 0<\eta<\pi,
+\end{equation}
+the single-agent container, with $\Dcal^{N}$ the product container used in the microcanonical
+integral and the reference law; equivalently $(1/c_2)\bI\preceq\bSigma\preceq(1/c_1)\bI$, which
+bounds the covariance from both sides; the closed spectral bound $\|\bphi\|_2\le\pi-\eta$ confines
+the frame $U=e^{\bphi}$ to the counted gauge chart $\{e^{\bphi}:\|\bphi\|_2\le\pi-\eta\}$ of
+\cref{eq:nesting}, a compact subset of the exponential image, itself a proper subset of
+$\GL^{+}(K)$ \citep{culver1966existence}, lying strictly inside the open injective exponential chart
+$\{\|\bphi\|_2<\pi\}$ on which the principal logarithm inverts $\exp$ with non-vanishing
+Jacobian \citep{higham2008functions}. On
+$\Dcal$ the affine-invariant Fisher--Rao volume and the Haar mass of the compact gauge
+image are finite, so the reference $\mu_1$ restricted to $\Dcal$ normalises to a
+probability law, the analogue of the finite volume an ideal gas requires; the meta-entropy
+is well defined once such a constraint is declared, and this should precede any
+theorem-like use of a finite $\Wmeta(\Fcal_0)$.
+
+\section{Holonomy, frustration, and residual meta-entropy}
+\label{sec:frustration}
+
+The transport in \cref{eq:F} is vertex-frame, $\Omegaij=g_i g_j^{-1}$ with
+$g_i=e^{\bphi_i}$. Around any closed loop the product telescopes,
+\begin{equation}
+\Omega_{i_1 i_2}\Omega_{i_2 i_3}\cdots\Omega_{i_n i_1}
+=g_{i_1}g_{i_2}^{-1}g_{i_2}g_{i_3}^{-1}\cdots g_{i_n}g_{i_1}^{-1}=\bI,
+\end{equation}
+so the holonomy is identically trivial in the regime the functional actually defines, by the
+exact telescoping of the displayed product, matching the vanishing-holonomy result established
+for vertex-frame transport in the companion attention manuscript. No
+residual holonomy entropy can arise in this regime. A nontrivial holonomy requires an
+edge-local connection that does not telescope, for example
+$\Omegaij=e^{\bphi_i}e^{\delta_{ij}G}e^{-\bphi_j}$ with an edge generator $\delta_{ij}G$,
+which inserts a genuine loop curvature. The conjecture below is therefore a statement
+about this distinct, edge-relaxed regime, not about \cref{eq:F} as written.
+
+Even in the edge-local regime, nonzero holonomy does not by itself produce a residual
+entropy. A holonomy group can have fixed vectors, and a frustrated constraint system can
+still possess a unique ground state; what is required is an extensive ground-state
+degeneracy, a near-ground manifold whose dimension grows with $N$. In the continuous
+belief sector frustration can act in the opposite direction: a uniform twist gaps the
+consensus soft mode, raising the lowest eigenvalue of the coupling operator and lowering,
+rather than raising, the configurational entropy. A positive residual entropy density is
+thus a property of the ground-state degeneracy, not of holonomy alone, and typically
+needs a compact or regulated sector to be realised. We state the conditional consequence
+as a conjecture.
+
+\begin{conjecture}[Holonomy-induced residual meta-entropy, edge-local regime]
+\label{conj:frustration}
+Adopt an edge-local connection with holonomy $\holonomy(\gamma)$ nontrivial on a set of
+independent loops $\gamma$ of extensive cardinality, and a compact or regulated belief
+sector. Suppose the induced alignment constraints are mutually incompatible in the sense
+that the near-ground set is an extensive flat manifold, or a discretely resolved family under the
+declared reference measure, whose log-volume grows linearly with $N$, rather than a collection of
+isolated minima with merely soft harmonic directions. Then the
+consensus order parameter is frustrated and the meta-entropy retains a strictly positive
+density at zero meta-temperature in the thermodynamic order of limits,
+$\lim_{\Tmeta\to0}\lim_{N\to\infty} N^{-1}\Smeta>0$ (population limit first, then
+$\Tmeta\to0$), the analogue of the residual entropy of ice \citep{pauling1935structure} and
+of spin-glass
+ground-state degeneracy \citep{mezard1987spin}. For a flat connection, or whenever the
+ground state is unique up to the declared quotient, the residual density vanishes.
+\end{conjecture}
+
+The conjecture is falsifiable by simulation in the edge-local regime. One arranges agents
+on a frustrated lattice with an extensive number of independent plaquettes, compares a
+flat connection against one carrying nonzero plaquette holonomy, samples the canonical
+meta-ensemble with the Riemannian Langevin dynamics of \cref{eq:rlangevin} on a regulated
+sector, and estimates the residual entropy density by thermodynamic integration of
+$\langle\Fcal_{\mathrm{belief}}\rangle$ over $\bmeta$. Because
+$\partial_{\bmeta}\log\Zcal_{\mathrm{meta}}=-\langle\Fcal_{\mathrm{belief}}\rangle$, this integration is
+anchored at $\bmeta=0$, where $\log\Zcal_{\mathrm{meta}}(0)=0$ because the reference
+$\mu_1^{\otimes N}$ normalises to a probability law on the container of \cref{eq:container}, so no
+free integration constant remains and the entropy is fixed relative to that declared reference,
+the same reference carried as the $+\text{const}$ of \cref{eq:contraction}. The quantity the test
+estimates is the canonical entropy density, not the log-partition alone: at inverse meta-temperature
+$\bmeta$ the canonical meta-entropy is
+\begin{equation}
+\label{eq:scan}
+S_{\mathrm{can}}(\bmeta)=\log\Zcal_{\mathrm{meta}}(\bmeta)+\bmeta\langle\Fcal_{\mathrm{belief}}\rangle_{\bmeta},
+\end{equation}
+both terms accumulated along the same integration, and the residual density is its zero-temperature
+limit $s_0=\lim_{\bmeta\to\infty}N^{-1}[\log\Zcal_{\mathrm{meta}}(\bmeta)+\bmeta\Fcal_{\mathrm{belief},0}]$
+when the free-energy density tends to the ground value $f_0=\Fcal_{\mathrm{belief},0}/N$. This canonical
+$s_0$ coincides with the microcanonical ground-shell entropy density
+$\lim_{N\to\infty}N^{-1}\Smeta(\Fcal_{\mathrm{belief},0})$ of \cref{eq:Smicro} only where the
+Legendre--Fenchel equivalence of ensembles of \cref{sec:meta} holds, which can fail at the ground
+value if concavity is lost. Because the belief sector is continuous, the test must also separate the
+harmonic low-temperature contribution of the soft directions around each minimum, which scales as a
+$\log\Tmeta$ term per extensive normal mode under the declared reference, from the residual flat or
+discretely resolved degeneracy that survives the $\Tmeta\to0$ limit as a finite log-volume; only the
+latter enters the conjectured positive density. The holonomic-minus-flat plateau difference targeted
+by the test is in any case reference independent.
+A positive plateau in the holonomic case and its absence in the flat case would support
+\cref{conj:frustration}; absence in both, or a plateau that vanishes as the regulator is removed,
+would refute it.
+
+\section{Scope and open problems}
+\label{sec:discussion}
+
+The construction supports a qualified answer to the original question. There is a
+candidate configurational meta-entropy $\Smeta=\log\Wmeta(\Fcal_0)$, counted on the
+belief sector against the Fisher--Rao volume and on the gauge sector against a separately
+specified group measure with a quotient or regulator. It is rendered extensive in the
+large-population limit through the row log-partition $-\tau\log Z_i$ of \cref{eq:rowfree},
+with the $1/N$ Kac normalisation retained inside the logarithm; its conjugate temperature
+is the noise level of stochastic natural-gradient updating; and the structure that
+distinguishes it from ordinary thermodynamics is the gauge sector, whose soft modes are
+pseudo-Goldstone directions only when they are genuine redundancies, and whose frustration
+is governed by the curvature of an edge-local connection.
+
+We separate three confidence levels. Exact and verified in this note are the affine
+invariance of the Gaussian divergence (\cref{lem:affine}), the local covariance of the
+belief coupling and its breaking by the fixed prior and the fixed observation channel
+(\cref{prop:gaugeinv,prop:breaking}), the susceptibility
+$\chi=1/\alpha$ of the Gaussian response calculation (\cref{prop:gaussian}), and the
+telescoping of vertex-frame holonomy to the identity. Standard and imported, not
+re-derived here, are the Kac criterion for extensivity, the Chentsov uniqueness of the
+Fisher--Rao metric, the Sanov and contraction apparatus of \cref{sec:meta} together with
+the McKean--Vlasov stationary form of its constrained minimiser, the Riemannian-Langevin stationary law with its
+metric-divergence drift under confinement, and the active-inference reading of $\bmeta$.
+Conjectural, and explicitly conditional on an edge-local connection and on extensive
+ground-state degeneracy, is the holonomy-frustration mechanism of
+\cref{conj:frustration}; conjectural likewise is the consensus phase transition, which
+the Gaussian model does not deliver and which requires a regulated or non-Gaussian
+covariance sector.
+
+Several problems remain open. The container constraint that regularises the noncompact
+gauge and scale directions should be chosen so that the meta-entropy is a smooth function
+of $\Fcal_0$; the natural candidate, bounded average precision, has a clear
+information-geometric meaning but its effect on the response calculation has not been
+computed. The Sanov rate of \cref{eq:contraction} closes only partially for the Gaussian
+family (\cref{rem:gaussianrate}): the rate functional reduces to a negative Fisher--Rao
+entropy and the affine-invariant geometry of $\SPD(K)$ supplies the closed geodesic of the
+covariance sector, but the constrained minimiser is elementary only when the covariance
+sector is frozen, and the covariance-active minimiser remains an open variational problem;
+the equivalence of the microcanonical and canonical routes should also be checked where
+concavity can fail. The status of the local transformations of
+\cref{prop:gaugeinv} as redundancies or as active changes should be settled against the
+operative gauge actions of the wider theory, since the gauge-fixing language of
+\cref{sec:gauge} depends on it. The coupling between the meta-temperature and the
+attention temperature $\tau$ invites a Maxwell-relation analysis, since both are
+temperatures in the same hierarchy. Finally, \cref{conj:frustration} should be tested in
+the edge-local regime on a frustrated lattice with a regulated belief sector, which is
+the natural next step.
+
+\begin{thebibliography}{99}
+
+\bibitem{amari2000methods}
+S.~Amari and H.~Nagaoka.
+\newblock \emph{Methods of Information Geometry}.
+\newblock American Mathematical Society and Oxford University Press, 2000.
+
+\bibitem{berlin1952spherical}
+T.~H. Berlin and M.~Kac.
+\newblock The spherical model of a ferromagnet.
+\newblock \emph{Physical Review}, 86(6):821--835, 1952.
+
+\bibitem{chentsov1982statistical}
+N.~N. Chentsov.
+\newblock \emph{Statistical Decision Rules and Optimal Inference}.
+\newblock Translations of Mathematical Monographs, vol.~53, American Mathematical
+  Society, 1982.
+
+\bibitem{cover2006elements}
+T.~M. Cover and J.~A. Thomas.
+\newblock \emph{Elements of Information Theory}.
+\newblock Wiley, 2nd edition, 2006.
+
+\bibitem{csiszar1975iprojection}
+I.~Csisz\'ar.
+\newblock $I$-divergence geometry of probability distributions and minimization problems.
+\newblock \emph{The Annals of Probability}, 3(1):146--158, 1975.
+
+\bibitem{kardar2007fields}
+M.~Kardar.
+\newblock \emph{Statistical Physics of Fields}.
+\newblock Cambridge University Press, 2007.
+
+\bibitem{comets1989large}
+F.~Comets.
+\newblock Large deviation estimates for a conditional probability distribution.
+  Applications to random interaction Gibbs measures.
+\newblock \emph{Probability Theory and Related Fields}, 80(3):407--432, 1989.
+
+\bibitem{culver1966existence}
+W.~J. Culver.
+\newblock On the existence and uniqueness of the real logarithm of a matrix.
+\newblock \emph{Proceedings of the American Mathematical Society}, 17(5):1146--1151, 1966.
+
+\bibitem{dawson1987large}
+D.~A. Dawson and J.~G\"artner.
+\newblock Large deviations from the McKean--Vlasov limit for weakly interacting
+  diffusions.
+\newblock \emph{Stochastics}, 20(4):247--308, 1987.
+
+\bibitem{dembo1998large}
+A.~Dembo and O.~Zeitouni.
+\newblock \emph{Large Deviations Techniques and Applications}.
+\newblock Springer, 2nd edition, 1998.
+
+\bibitem{ellis1985entropy}
+R.~S. Ellis.
+\newblock \emph{Entropy, Large Deviations, and Statistical Mechanics}.
+\newblock Springer, 1985.
+
+\bibitem{faddeev1967feynman}
+L.~D. Faddeev and V.~N. Popov.
+\newblock Feynman diagrams for the Yang--Mills field.
+\newblock \emph{Physics Letters B}, 25(1):29--30, 1967.
+
+\bibitem{friston2010free}
+K.~Friston.
+\newblock The free-energy principle: a unified brain theory?
+\newblock \emph{Nature Reviews Neuroscience}, 11(2):127--138, 2010.
+
+\bibitem{friston2017active}
+K.~Friston, T.~FitzGerald, F.~Rigoli, P.~Schwartenbeck, and G.~Pezzulo.
+\newblock Active inference: a process theory.
+\newblock \emph{Neural Computation}, 29(1):1--49, 2017.
+
+\bibitem{girolami2011riemann}
+M.~Girolami and B.~Calderhead.
+\newblock Riemann manifold Langevin and Hamiltonian Monte Carlo methods.
+\newblock \emph{Journal of the Royal Statistical Society: Series B}, 73(2):123--214, 2011.
+
+\bibitem{xifara2014langevin}
+T.~Xifara, C.~Sherlock, S.~Livingstone, S.~Byrne, and M.~Girolami.
+\newblock Langevin diffusions and the Metropolis-adjusted Langevin algorithm.
+\newblock \emph{Statistics \& Probability Letters}, 91:14--19, 2014.
+
+\bibitem{goldstein1980classical}
+H.~Goldstein.
+\newblock \emph{Classical Mechanics}.
+\newblock Addison-Wesley, 2nd edition, 1980.
+
+\bibitem{hall2015lie}
+B.~C. Hall.
+\newblock \emph{Lie Groups, Lie Algebras, and Representations: An Elementary Introduction}.
+\newblock Graduate Texts in Mathematics, vol.~222, Springer, 2nd edition, 2015.
+
+\bibitem{higham2008functions}
+N.~J. Higham.
+\newblock \emph{Functions of Matrices: Theory and Computation}.
+\newblock Society for Industrial and Applied Mathematics, 2008.
+
+\bibitem{kac1963vanderwaals}
+M.~Kac, G.~E. Uhlenbeck, and P.~C. Hemmer.
+\newblock On the van der Waals theory of the vapor--liquid equilibrium. I.
+\newblock \emph{Journal of Mathematical Physics}, 4(2):216--228, 1963.
+
+\bibitem{mandt2017stochastic}
+S.~Mandt, M.~D. Hoffman, and D.~M. Blei.
+\newblock Stochastic gradient descent as approximate Bayesian inference.
+\newblock \emph{Journal of Machine Learning Research}, 18(134):1--35, 2017.
+
+\bibitem{mezard1987spin}
+M.~M\'ezard, G.~Parisi, and M.~A. Virasoro.
+\newblock \emph{Spin Glass Theory and Beyond}.
+\newblock World Scientific, 1987.
+
+\bibitem{nielsen2020elementary}
+F.~Nielsen.
+\newblock An elementary introduction to information geometry.
+\newblock \emph{Entropy}, 22(10):1100, 2020.
+
+\bibitem{pennec2006riemannian}
+X.~Pennec, P.~Fillard, and N.~Ayache.
+\newblock A Riemannian framework for tensor computing.
+\newblock \emph{International Journal of Computer Vision}, 66(1):41--66, 2006.
+
+\bibitem{pinele2020fisher}
+J.~Pinele, J.~E. Strapasson, and S.~I.~R. Costa.
+\newblock The Fisher--Rao distance between multivariate normal distributions: special cases, bounds and applications.
+\newblock \emph{Entropy}, 22(4):404, 2020.
+
+\bibitem{skovgaard1984riemannian}
+L.~T. Skovgaard.
+\newblock A Riemannian geometry of the multivariate normal model.
+\newblock \emph{Scandinavian Journal of Statistics}, 11(4):211--223, 1984.
+
+\bibitem{pauling1935structure}
+L.~Pauling.
+\newblock The structure and entropy of ice and of other crystals with some randomness of
+  atomic arrangement.
+\newblock \emph{Journal of the American Chemical Society}, 57(12):2680--2684, 1935.
+
+\bibitem{sznitman1991topics}
+A.-S. Sznitman.
+\newblock Topics in propagation of chaos.
+\newblock In \emph{\'Ecole d'\'Et\'e de Probabilit\'es de Saint-Flour XIX--1989},
+  Lecture Notes in Mathematics, vol.~1464, pp.~165--251. Springer, 1991.
+
+\bibitem{touchette2009large}
+H.~Touchette.
+\newblock The large deviation approach to statistical mechanics.
+\newblock \emph{Physics Reports}, 478(1--3):1--69, 2009.
+
+\bibitem{vaswani2017attention}
+A.~Vaswani, N.~Shazeer, N.~Parmar, J.~Uszkoreit, L.~Jones, A.~N. Gomez, L.~Kaiser, and
+  I.~Polosukhin.
+\newblock Attention is all you need.
+\newblock In \emph{Advances in Neural Information Processing Systems 30}, 2017.
+
+\bibitem{welling2011bayesian}
+M.~Welling and Y.~W. Teh.
+\newblock Bayesian learning via stochastic gradient Langevin dynamics.
+\newblock In \emph{Proceedings of the 28th International Conference on Machine Learning},
+  pp.~681--688, 2011.
+
+\end{thebibliography}
+
+\end{document}
