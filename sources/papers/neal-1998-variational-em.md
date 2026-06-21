@@ -3,6 +3,7 @@ type: paper
 title: A View of the EM Algorithm that Justifies Incremental, Sparse, and Other Variants
 aliases:
   - Neal & Hinton 1998 — Variational EM
+  - "neal-hinton-1998-em-variational"
 authors:
   - Radford M. Neal
   - Geoffrey E. Hinton

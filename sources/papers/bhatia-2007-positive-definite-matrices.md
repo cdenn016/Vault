@@ -3,6 +3,7 @@ type: paper
 title: Positive Definite Matrices
 aliases:
   - "Bhatia 2007 — Positive Definite Matrices"
+  - "bhatia-2009-positive-definite"
 authors:
   - Rajendra Bhatia
 year: 2007

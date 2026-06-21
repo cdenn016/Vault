@@ -4,6 +4,7 @@ title: "Active Inference and Learning"
 aliases:
   - "Friston 2016"
   - "Active Inference and Learning"
+  - "friston2016active"
 authors:
   - Friston, Karl
   - FitzGerald, Thomas

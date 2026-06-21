@@ -4,6 +4,9 @@ title: Variational Message Passing
 aliases:
   - "Winn, Bishop 2005 — VMP"
   - "Variational Message Passing"
+  - "winn-2005-vbem"
+  - "winn-2005-variational-message-passing"
+  - "winn2005vbem"
 authors:
   - John Winn
   - Christopher M. Bishop

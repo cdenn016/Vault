@@ -4,6 +4,8 @@ title: "Active Inference: A Process Theory"
 aliases:
   - "Friston 2017"
   - "Active Inference Process Theory"
+  - "friston-2017-active-inference-curiosity"
+  - "friston2017activeinferencecuriosity"
 authors:
   - Friston, Karl
   - FitzGerald, Thomas

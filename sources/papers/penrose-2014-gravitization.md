@@ -5,6 +5,8 @@ aliases:
   - "Penrose 2014"
   - "Diósi-Penrose model"
   - "DP state reduction"
+  - "penrose-2014-gravitization-2"
+  - "penrose2014gravitization2"
 authors:
   - Penrose, Roger
 year: 2014

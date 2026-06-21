@@ -6,6 +6,10 @@ aliases:
   - "Positional encoding"
   - "Self-attention"
   - "Precision-weighted attention"
+  - "Attention Mechanisms"
+  - "attentionmechanisms"
+  - "Attention Mechanism"
+  - "Attention mechanism"
 tags:
   - cluster/attention
   - project/transformer

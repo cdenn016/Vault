@@ -6,6 +6,7 @@ aliases:
   - "Gauge symmetry"
   - "Frame change"
   - "Change of gauge"
+  - "Gauge invariance"
 tags:
   - cluster/gauge-theory
   - project/transformer

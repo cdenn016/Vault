@@ -5,6 +5,8 @@ tags: cluster/social-physics, project/social-physics
 status: stable
 created: 2026-06-19
 updated: 2026-06-19
+aliases:
+  - "Echo Chambers"
 ---
 
 # Echo chambers and polarization

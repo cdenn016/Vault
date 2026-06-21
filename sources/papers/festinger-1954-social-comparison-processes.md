@@ -1,7 +1,10 @@
 ---
 type: paper
 title: "A Theory of Social Comparison Processes"
-aliases: ["Festinger 1954", "Social comparison theory"]
+aliases:
+  - "Festinger 1954"
+  - "Social comparison theory"
+  - "festinger1954social-comparison"
 authors: ["Festinger L."]
 year: 1954
 url: https://doi.org/10.1177/001872675400700202

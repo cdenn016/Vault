@@ -5,6 +5,7 @@ aliases:
   - "Dauphin 2017"
   - "GLU"
   - "GCNN"
+  - "Gated Linear Unit"
 authors:
   - Dauphin, Yann N.
   - Fan, Angela

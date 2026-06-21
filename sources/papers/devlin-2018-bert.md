@@ -4,6 +4,9 @@ title: "BERT: Pre-training of Deep Bidirectional Transformers for Language Under
 aliases:
   - "Devlin 2018"
   - "BERT"
+  - "devlin-2019-bert"
+  - "devlin2019bert"
+  - "devlin2018bert"
 authors:
   - Devlin, Jacob
   - Chang, Ming-Wei

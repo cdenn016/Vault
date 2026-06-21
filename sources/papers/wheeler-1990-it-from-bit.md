@@ -5,6 +5,11 @@ aliases:
   - "Wheeler 1990"
   - "It from Bit"
   - "wheeler-1990-it-from-bit"
+  - "wheeler-1989-it-from-bit"
+  - "wheeler-1990-information-physics-quanta"
+  - "wheeler1990informationphysicsquanta"
+  - "it-from-bit"
+  - "Wheeler1990-it-from-bit"
 authors:
   - Wheeler, John Archibald
 year: 1990

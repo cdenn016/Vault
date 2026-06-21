@@ -4,6 +4,21 @@ title: "The Free Energy Principle Made Simpler but Not Too Simple"
 aliases:
   - "Friston 2023"
   - "FEP simpler"
+  - "friston-2023-active-inference"
+  - "Friston 2023 active inference"
+  - "Active Inference and Intentional Behaviour"
+  - "friston2023activeinference"
+  - "friston-2023-path-integrals"
+  - "friston2023pathintegrals"
+  - "friston-2022-bayesian-mechanics"
+  - "friston2022bayesianmechanics"
+  - "friston2022free"
+  - "friston-2023-path-integrals-particular-physics"
+  - "friston2023pathintegralsparticularphysics"
+  - "Friston 2023 path integrals"
+  - "friston-2023-path-integrals-active-inference"
+  - "friston2023pathintegralsactiveinference"
+  - "Friston et al. 2023 (Path Integrals)"
 authors:
   - Friston, Karl
   - Da Costa, Lancelot

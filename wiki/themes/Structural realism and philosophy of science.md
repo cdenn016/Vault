@@ -5,6 +5,7 @@ aliases:
   - "Philosophy of science (structural realism)"
   - "Scientific realism and anti-realism"
   - "Theory change and the constitutive a priori"
+  - "Philosophy of Science"
 tags:
   - cluster/participatory
   - cluster/methodology

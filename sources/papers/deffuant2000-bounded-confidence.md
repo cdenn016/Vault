@@ -6,6 +6,10 @@ aliases:
   - "Deffuant–Weisbuch model"
   - "DW model"
   - "bounded confidence model"
+  - "deffuant2000-mixing"
+  - "deffuant2000mixing"
+  - "deffuant-2000-mixing"
+  - "deffuant-2000-mixing-beliefs"
 authors:
   - Deffuant, Guillaume
   - Neau, David

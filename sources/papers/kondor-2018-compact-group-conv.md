@@ -4,6 +4,9 @@ title: "On the Generalization of Equivariance and Convolution in Neural Networks
 aliases:
   - "Kondor & Trivedi 2018"
   - "Compact Group Convolution"
+  - "kondor2018clebsch"
+  - "Clebsch-Gordan Nets"
+  - "Kondor 2018 Clebsch-Gordan"
 authors:
   - Kondor, Risi
   - Trivedi, Shubhendu

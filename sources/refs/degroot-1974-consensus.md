@@ -1,7 +1,9 @@
 ---
 type: reference
 title: "Reaching a Consensus"
-aliases: ["DeGroot 1974"]
+aliases:
+  - "DeGroot 1974"
+  - "degroot1974-reaching-consensus"
 authors: ["Morris H. DeGroot"]
 year: 1974
 tags: [cluster/social-physics, project/multi-agent, project/social-physics, field/statistics, field/sociology, cluster/social-physics/opinion-dynamics]

@@ -6,6 +6,7 @@ aliases:
   - Free energy
   - Negative ELBO
   - Variational free-energy functional
+  - "VFE Functional"
 tags:
   - cluster/vfe
   - project/transformer

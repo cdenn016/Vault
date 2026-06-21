@@ -5,6 +5,10 @@ aliases:
   - "Vaswani 2017"
   - "Transformer"
   - "Scaled dot-product attention"
+  - "vaswani2017attention"
+  - "vaswani2017-attention"
+  - "vaswani2017"
+  - "vaswani2017-attention-all-you-need"
 authors:
   - Vaswani, Ashish
   - Shazeer, Noam

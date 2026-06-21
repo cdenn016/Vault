@@ -4,6 +4,7 @@ title: "Train Short, Test Long: Attention with Linear Biases Enables Input Lengt
 aliases:
   - "Press 2022"
   - "ALiBi"
+  - "press2022train"
 authors:
   - Press, Ofir
   - Smith, Noah A.

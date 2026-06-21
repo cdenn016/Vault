@@ -4,6 +4,10 @@ title: "A Duet for One"
 aliases:
   - "Friston Frith 2015"
   - "Duet for One"
+  - "friston-2015-active-inference-epistemic"
+  - "friston2015activeinferenceepistemic"
+  - "friston-2015-active-inference-mdp"
+  - "friston2015activeinferencemdp"
 authors:
   - Friston, Karl
   - Frith, Christopher

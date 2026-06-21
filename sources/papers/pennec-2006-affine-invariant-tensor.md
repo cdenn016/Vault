@@ -4,6 +4,8 @@ title: "A Riemannian Framework for Tensor Computing"
 aliases:
   - "Pennec 2006"
   - "Pennec et al. 2006 — Affine-Invariant Tensor Framework"
+  - "pennec-2006-riemannian-framework-tensors"
+  - "pennec2006riemannianframeworktensors"
 authors:
   - Pennec, Xavier
   - Fillard, Pierre

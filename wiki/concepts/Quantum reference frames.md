@@ -6,6 +6,9 @@ aliases:
   - "QRFs"
   - "Quantum reference frame"
   - "Frame covariance"
+  - "Reference Frames"
+  - "referenceframes"
+  - "Reference frames"
 tags:
   - cluster/gauge-theory
   - cluster/participatory

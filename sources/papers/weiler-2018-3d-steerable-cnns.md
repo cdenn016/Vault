@@ -4,6 +4,7 @@ title: "3D Steerable CNNs: Learning Rotationally Equivariant Features in Volumet
 aliases:
   - "Weiler 2018"
   - "3D Steerable CNNs"
+  - "weiler2018-3d-steerable-cnns"
 authors:
   - Weiler, Maurice
   - Geiger, Mario

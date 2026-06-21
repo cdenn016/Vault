@@ -4,6 +4,8 @@ title: "A Differential Geometric Approach to the Geometric Mean of Symmetric Pos
 aliases:
   - "Moakher 2005"
   - "Moakher (2005) SPD Geometric Mean"
+  - "moakher-2005-spd-means"
+  - "moakher2005spdmeans"
 authors:
   - Maher Moakher
 year: 2005

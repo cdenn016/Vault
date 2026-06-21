@@ -4,6 +4,9 @@ title: "Elements of Information Theory (2nd ed.)"
 aliases:
   - "Cover & Thomas 2006 — Elements of Information Theory"
   - "Cover-Thomas"
+  - "cover2006elements"
+  - "Cover and Thomas 2006"
+  - "Elements of Information Theory"
 authors:
   - "Cover T. M."
   - "Thomas J. A."

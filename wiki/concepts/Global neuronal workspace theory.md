@@ -1,7 +1,13 @@
 ---
 type: concept
 title: Global neuronal workspace theory
-aliases: ["Global workspace theory", "Ignition and global broadcast", "GNW"]
+aliases:
+  - "Global workspace theory"
+  - "Ignition and global broadcast"
+  - "GNW"
+  - "Global Neuronal Workspace"
+  - "Conscious Access"
+  - "Conscious access"
 tags:
   - cluster/participatory
   - cluster/participatory/consciousness

@@ -8,6 +8,7 @@ aliases:
   - Bayesian Information Criterion
   - Penalized model selection
   - VFE as compression
+  - "Model Selection"
 tags:
   - cluster/methodology
   - project/multi-agent

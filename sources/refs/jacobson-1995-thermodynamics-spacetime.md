@@ -4,6 +4,8 @@ title: "Thermodynamics of Spacetime: The Einstein Equation of State"
 aliases:
   - "Jacobson 1995"
   - "Einstein Equation of State"
+  - "Thermodynamics of Spacetime"
+  - "thermodynamicsofspacetime"
 authors:
   - Ted Jacobson
 year: 1995

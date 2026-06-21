@@ -4,6 +4,7 @@ title: "Social Influence Network Theory"
 aliases:
   - "Friedkin & Johnsen 2011"
   - "Social Influence Network Theory"
+  - "Social Influence Networks"
 authors:
   - Noah E. Friedkin
   - Eugene C. Johnsen

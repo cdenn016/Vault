@@ -5,6 +5,7 @@ aliases:
   - "Frauchiger & Renner 2018"
   - "Frauchiger-Renner no-go"
   - "FR thought experiment"
+  - "frauchiger-renner-2018-self-consistent"
 authors:
   - Frauchiger, Daniela
   - Renner, Renato

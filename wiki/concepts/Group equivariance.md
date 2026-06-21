@@ -6,6 +6,8 @@ aliases:
   - Equivariant map
   - G-equivariance
   - Group-equivariant
+  - "Gauge Equivariance"
+  - "Gauge equivariance"
 tags:
   - cluster/gauge-theory
   - project/transformer

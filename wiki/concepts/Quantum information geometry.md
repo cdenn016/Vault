@@ -7,6 +7,9 @@ aliases:
   - "Bures metric"
   - "SLD metric"
   - "Quantum information geometry (QIG)"
+  - "Quantum Fidelity"
+  - "Fidelity"
+  - "Uhlmann fidelity"
 tags:
   - cluster/info-geometry
   - cluster/participatory

@@ -5,6 +5,10 @@ aliases:
   - VEM
   - Variational Expectation-Maximization
   - Variational EM algorithm
+  - "Expectation Maximisation"
+  - "Expectation Maximization"
+  - "Expectation-Maximization"
+  - "E-step and M-step"
 tags:
   - cluster/vfe
   - cluster/methodology

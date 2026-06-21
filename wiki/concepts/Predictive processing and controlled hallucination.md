@@ -1,7 +1,11 @@
 ---
 type: concept
 title: Predictive processing and controlled hallucination
-aliases: ["Perception as inference", "Controlled hallucination", "Predictive mind"]
+aliases:
+  - "Perception as inference"
+  - "Controlled hallucination"
+  - "Predictive mind"
+  - "Predictive Processing"
 tags:
   - cluster/participatory
   - cluster/participatory/consciousness

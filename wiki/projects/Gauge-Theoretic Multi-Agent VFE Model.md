@@ -5,6 +5,7 @@ aliases:
   - "MAgent"
   - "MAgent_Model"
   - "Gauge Agent"
+  - "MAgent Model"
 tags:
   - cluster/multi-agent
   - cluster/gauge-theory

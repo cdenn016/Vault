@@ -1,7 +1,11 @@
 ---
 type: concept
 title: Russellian monism
-aliases: ["Russellian structuralism", "Panprotopsychism", "Russellian neutral monism"]
+aliases:
+  - "Russellian structuralism"
+  - "Panprotopsychism"
+  - "Russellian neutral monism"
+  - "Panpsychism"
 tags:
   - cluster/participatory
   - cluster/participatory/philosophy-of-mind

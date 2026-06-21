@@ -6,6 +6,7 @@ aliases:
   - CG coefficients
   - Clebsch-Gordan tensor product
   - CG tensor product
+  - "Tensor Product"
 tags:
   - cluster/gauge-theory
   - project/transformer

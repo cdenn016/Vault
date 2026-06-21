@@ -3,6 +3,8 @@ type: paper
 title: Methods of Information Geometry
 aliases:
   - "Amari & Nagaoka 2000 — Methods of Information Geometry"
+  - "amari-2000-information-geometry"
+  - "amari2000informationgeometry"
 authors:
   - Shun-ichi Amari
   - Hiroshi Nagaoka

@@ -5,6 +5,8 @@ aliases:
   - "Shannon 1948"
   - "Shannon information theory"
   - "AMTC"
+  - "shannon1948mathematical"
+  - "A Mathematical Theory of Communication"
 authors:
   - Shannon, Claude E.
 year: 1948

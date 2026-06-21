@@ -5,6 +5,9 @@ aliases:
   - "Su 2024"
   - "RoPE"
   - "RoFormer"
+  - "su2021roformer"
+  - "Rotary Position Embedding"
+  - "rotarypositionembedding"
 authors:
   - Su, Jianlin
   - Lu, Yu

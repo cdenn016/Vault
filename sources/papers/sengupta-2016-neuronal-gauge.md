@@ -4,6 +4,8 @@ title: "Towards a Neuronal Gauge Theory"
 aliases:
   - "Sengupta 2016"
   - "Neuronal Gauge Theory"
+  - "sengupta2016neuronal-gauge"
+  - "sengupta2016neuronalgauge"
 authors:
   - Sengupta, Biswa
   - Tozzi, Arturo

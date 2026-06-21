@@ -5,6 +5,7 @@ aliases:
   - "Opinion dynamics"
   - "Social learning dynamics"
   - "Opinion formation"
+  - "Social Opinion Dynamics"
 tags:
   - cluster/social-physics
   - cluster/multi-agent

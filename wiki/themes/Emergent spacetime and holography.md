@@ -6,6 +6,13 @@ aliases:
   - Holographic principle
   - Entanglement and geometry
   - Information-theoretic gravity
+  - "Holography"
+  - "Holography and AdS-CFT"
+  - "Entanglement Renormalization"
+  - "Anti-de Sitter Space"
+  - "AdS-CFT Correspondence"
+  - "AdS/CFT correspondence"
+  - "AdS-CFT"
 tags:
   - cluster/participatory
   - project/multi-agent

@@ -5,6 +5,7 @@ aliases:
   - "Fuchs 2017"
   - "Participatory Realism"
   - "QBism realism"
+  - "participatory-realism"
 authors:
   - Fuchs, Christopher A.
 year: 2017

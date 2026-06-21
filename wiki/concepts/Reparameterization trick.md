@@ -6,6 +6,8 @@ aliases:
   - Pathwise gradient estimator
   - Stochastic backpropagation
   - Location-scale reparameterization
+  - "rezende2014stochastic"
+  - "rezende-2014-stochastic"
 tags:
   - cluster/vfe
   - cluster/info-geometry

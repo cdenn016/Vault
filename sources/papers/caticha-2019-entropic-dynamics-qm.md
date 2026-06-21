@@ -5,6 +5,8 @@ aliases:
   - "Caticha 2019"
   - "Entropic Dynamics QM"
   - "ED-QM"
+  - "caticha-2019-entropic-physics"
+  - "caticha2019entropicphysics"
 authors:
   - Caticha, Ariel
 year: 2019

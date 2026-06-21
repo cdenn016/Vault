@@ -7,6 +7,11 @@ aliases:
   - Covariance manifold
   - Affine-invariant metric
   - Riemannian optimization
+  - "SPD Manifold"
+  - "SPD manifold"
+  - "SPD Belief Geometry"
+  - "spdbeliefgeometry"
+  - "SPD manifold geometry"
 tags:
   - cluster/spd-geometry
   - project/transformer

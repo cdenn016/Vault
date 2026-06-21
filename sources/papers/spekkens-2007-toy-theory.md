@@ -1,7 +1,13 @@
 ---
 type: paper
 title: "Evidence for the Epistemic View of Quantum States: A Toy Theory"
-aliases: ["Spekkens 2007", "Spekkens toy theory", "Epistemic toy model"]
+aliases:
+  - "Spekkens 2007"
+  - "Spekkens toy theory"
+  - "Epistemic toy model"
+  - "spekkens-2007-epistemic-toy-theory"
+  - "spekkens-2007-epistemic"
+  - "spekkens2007epistemic"
 authors: ["Robert W. Spekkens"]
 year: 2007
 arxiv: "quant-ph/0401052"

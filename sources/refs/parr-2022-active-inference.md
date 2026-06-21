@@ -4,6 +4,12 @@ title: "Active Inference: The Free Energy Principle in Mind, Brain, and Behavior
 aliases:
   - "Parr 2022"
   - "Parr, Pezzulo & Friston 2022"
+  - "parr-2022-active-inference-book"
+  - "parr2022active"
+  - "friston-2022-active-inference"
+  - "friston2022activeinference"
+  - "friston2022active"
+  - "Active Inference (textbook)"
 authors:
   - Thomas Parr
   - Giovanni Pezzulo

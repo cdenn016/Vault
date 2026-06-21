@@ -5,6 +5,7 @@ aliases:
   - "Wigner's friend"
   - "Extended Wigner's friend"
   - "No-go theorem for observer-independent facts"
+  - "Observer-Relative Facts"
 tags:
   - cluster/participatory
   - project/multi-agent

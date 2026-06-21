@@ -5,6 +5,8 @@ aliases:
   - "It from bit"
   - "Participatory universe"
   - "Pullback it-from-bit"
+  - "PIFB.tex"
+  - "PIFB"
 tags:
   - cluster/multi-agent
   - cluster/participatory
