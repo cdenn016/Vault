@@ -56,9 +56,9 @@ T5 achieved state-of-the-art performance at publication time on GLUE, SuperGLUE,
 The primary relevance is the T5 relative attention bias, which is directly implemented in the VFE transformer codebase as an optional attention-prior channel (`t5_relative_bias` attention prior, controlled by `t5_num_buckets`, `t5_learnable_bias`). In the VFE framework, the T5 bias enters as a structured prior $\pi_{ij}$ on attention weights: the pre-softmax logit receives an additive offset that is a learned function of position offset only, providing a soft inductive bias toward locality without breaking gauge equivariance (the bias depends only on position offset, not on the gauge fiber, so it commutes with the GL(K) transport). The `t5_learnable_bias` toggle (default OFF, initialized to the fixed `-log1p(bucket)` table) allows end-to-end learning of this bias table within the VFE free-energy framework, making it the cleanest learned-scalar exception among the opt-in toggles described in CLAUDE.md. The paper's finding that relative biases outperform absolute embeddings in length generalization is directly relevant to designing attention priors $\pi_{ij}$ in the gauge-equivariant attention layer of the GL(K) manuscript.
 
 ## Cross-links
-- Concepts: [[Relative Position Encoding]], [[Attention Mechanism]], [[Transfer Learning]], [[Transformer Architecture]]
-- Related sources: [[vaswani2017attention]], [[shaw2018self]], [[press2022train]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention Manuscript]]
+- Concepts: [[Relative positional encoding|Relative Position Encoding]], [[Attention Mechanism]], [[Transfer Learning]], [[Transformer Architecture]]
+- Related sources: [[vaswani-2017-attention|vaswani2017attention]], [[shaw-2018-self-attention-relative-position|shaw2018self]], [[press2022-alibi|press2022train]]
+- Manuscript/Project: [[VFE Transformer Program]], [[gl-k-attention|GL(K) Attention Manuscript]]
 
 ## BibTeX
 ```bibtex

@@ -55,7 +55,7 @@ This paper supplies the **spectral-gap machinery** the project uses to analyze h
 ## Cross-links
 
 - Concepts: [[Multi-agent variational free energy]], [[Community detection and modularity]], [[Meta-agents and hierarchical emergence]]
-- Related sources: [[degroot-1974-consensus]], [[friedkin-johnsen-1990]], [[deffuant-2000-bounded-confidence]], [[hegselmann-krause-2002]]
+- Related sources: [[degroot-1974-consensus]], [[friedkin1990-social-influence-opinions|friedkin-johnsen-1990]], [[deffuant2000-bounded-confidence|deffuant-2000-bounded-confidence]], [[hegselmann-2002-opinion|hegselmann-krause-2002]]
 - Manuscript: [[participatory-it-from-bit]]
 - Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
 

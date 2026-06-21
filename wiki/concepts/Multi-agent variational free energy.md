@@ -19,7 +19,7 @@ updated: 2026-06-19
 
 # Multi-agent variational free energy
 
-The **multi-agent variational free energy (VFE)** is the central objective functional of the [[Gauge-Theoretic Multi-Agent VFE Model]]. It generalises the single-agent [[Variational free energy]] of active inference (the [[parr-2022-active-inference]] / [[friston-2017-active-inference-process]] substrate) to a *population* of agents that are realised as [[Agents as fibre-bundle sections|sections of two associated fibre bundles]], each carrying Gaussian beliefs on a *belief* fibre and a *model* fibre with `GL(K)` [[Gauge transformation|gauge frames]]. The whole framework minimises this one scalar; everything else — attention weights, mass, dynamics, hierarchy — is read off from its structure.
+The **multi-agent variational free energy (VFE)** is the central objective functional of the [[Gauge-Theoretic Multi-Agent VFE Model]]. It generalises the single-agent [[Variational free energy]] of active inference (the [[parr-2022-active-inference]] / [[friston-2017-active-inference-process-theory|friston-2017-active-inference-process]] substrate) to a *population* of agents that are realised as [[Agents as fibre-bundle sections|sections of two associated fibre bundles]], each carrying Gaussian beliefs on a *belief* fibre and a *model* fibre with `GL(K)` [[Gauge transformation|gauge frames]]. The whole framework minimises this one scalar; everything else — attention weights, mass, dynamics, hierarchy — is read off from its structure.
 
 ## Definition
 
@@ -94,7 +94,7 @@ The self-diagonal of $E$ is zeroed (self-KL is owned by T1/T2, not the alignment
 ## In this work
 
 - **Code.** Two implementations: `gauge_agent/free_energy.py` holds the simplified five-term `FreeEnergyFunctional` (used by `ouroboros.py`, `mass.py`, `renormalization.py`, `manifold_system.py`), and `gauge_agent/full_vfe.py` holds `FullVFE` — the full functional with adaptive precision, T6 hyperpriors, and the R1/R2 extensions — plus `HierarchicalVFE`, which sums per-scale VFE over the Ouroboros tower and wires the ancestor maps for T6. `FullVFE.forward` corresponds to the manuscript's canonical free energy (README line citation 1232).
-- **Manuscript.** Developed in [[participatory-it-from-bit]] (Sections 2.10–2.11, Eq. 24); the single-agent substrate it generalises is [[parr-2022-active-inference]] / [[friston-2017-active-inference-process]] / [[ramstead-2019-variational-neuroethology]]. Its [[Mass as Fisher information|inertial-mass]] and Hamiltonian extensions are the subject of [[belief-inertia]]; its thermodynamic-limit / counting-measure treatment (configurational [[meta-entropy-manuscript]]) is [[meta-entropy-manuscript]]; the attention recovery and `GL(K)` validation are [[gl-k-attention]].
+- **Manuscript.** Developed in [[participatory-it-from-bit]] (Sections 2.10–2.11, Eq. 24); the single-agent substrate it generalises is [[parr-2022-active-inference]] / [[friston-2017-active-inference-process-theory|friston-2017-active-inference-process]] / [[ramstead-2019-enactive-inference|ramstead-2019-variational-neuroethology]]. Its [[Mass as Fisher information|inertial-mass]] and Hamiltonian extensions are the subject of [[belief-inertia]]; its thermodynamic-limit / counting-measure treatment (configurational [[meta-entropy-manuscript]]) is [[meta-entropy-manuscript]]; the attention recovery and `GL(K)` validation are [[gl-k-attention]].
 - **Where it plugs in.** The functional is the potential minimised by `NaturalGradientDynamics` and `HamiltonianDynamics`; its attention weights $\beta,\gamma$ are the model's [[Attention mechanisms — theory and positional structure|attention mechanism]]; its T6 chain and the soft-membership pooling drive [[Belief inertia]]-aware [[Meta-agents and hierarchical emergence|meta-agent emergence]] and the [[Renormalization-group flow of beliefs|RG flow of beliefs]].
 
 ## Sources
@@ -103,13 +103,13 @@ The self-diagonal of $E$ is zeroed (self-KL is owned by T1/T2, not the alignment
 - [[belief-inertia]] — Fisher-precision-as-mass and the Hamiltonian regime built on this functional.
 - [[meta-entropy-manuscript]] — configurational meta-entropy / thermodynamic limit of the gauge-theoretic VFE.
 - [[gl-k-attention]] — attention recovered from the gauge-transported KL alignment terms.
-- [[parr-2022-active-inference]], [[friston-2017-active-inference-process]], [[ramstead-2019-variational-neuroethology]] — single-agent VFE substrate.
-- [[dempster-1977-em]] — the E/M alternation underlying the precision (genotype) vs. belief timescale split.
+- [[parr-2022-active-inference]], [[friston-2017-active-inference-process-theory|friston-2017-active-inference-process]], [[ramstead-2019-enactive-inference|ramstead-2019-variational-neuroethology]] — single-agent VFE substrate.
+- [[dempster-1977-em-algorithm|dempster-1977-em]] — the E/M alternation underlying the precision (genotype) vs. belief timescale split.
 - [[heins-2024-surprise-minimization]] — surprise minimisation in multi-agent / collective active inference.
 - [[friston-2024-federated-inference]] — federated inference and belief sharing across coupled agents.
-- [[hinton-2002-poe]] — products of experts as a precursor to multiplicative belief combination.
+- [[hinton-2002-products-of-experts|hinton-2002-poe]] — products of experts as a precursor to multiplicative belief combination.
 - [[blei-2017-variational-inference]] — variational inference review framing the KL objective minimised here.
-- [[bissiri-holmes-walker-2016-general-bayes]] — general Bayesian updating via loss-based KL minimisation.
+- [[bissiri-2016-general-bayesian-updating|bissiri-holmes-walker-2016-general-bayes]] — general Bayesian updating via loss-based KL minimisation.
 - [[genest-zidek-1986-pooling]] — logarithmic and linear opinion pooling, the classical belief-aggregation theory behind T3/T4.
 - [[nishimori-2001-spin-glasses-information]] — statistical mechanics of inference: the disorder-averaged free energy as the right object for Bayes-optimal collective behavior, with the Nishimori line as the matched-prior condition derived from a gauge symmetry.
 

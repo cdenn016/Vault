@@ -37,7 +37,7 @@ Shows that neural populations with Poisson-like (exponential-family) variability
 A foundational probabilistic-population-coding result underpinning precision-weighted neural inference; it grounds the program's identification of neural gain with precision (Fisher information) and motivates precision-weighted attention as Bayesian cue combination.
 
 ## Cross-links
-[[Precision-weighted attention]], [[Predictive coding]], [[Mass as Fisher information]]
+[[Precision weighting|Precision-weighted attention]], [[Predictive coding]], [[Mass as Fisher information]]
 
 ## BibTeX
 ```bibtex

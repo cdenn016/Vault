@@ -17,4 +17,4 @@ Group representation theory studies how abstract groups act linearly on vector s
 [[Irreducible representation]], [[Spherical harmonics]], [[Tensor Field Network]], [[Gauge equivariance and geometric deep learning]]
 
 ## Sources
-[[fuchs2020-se3-transformer]], [[woit-2017-quantum-theory-groups-representations]]
+[[fuchs-2020-se3-transformer|fuchs2020-se3-transformer]], [[woit-2017-quantum-theory-groups-representations]]

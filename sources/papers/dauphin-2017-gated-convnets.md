@@ -57,7 +57,7 @@ which contains the path $\nabla X \otimes \sigma(X)$ without any compressive non
 The GLU is directly relevant to gating in transformer-style attention: the mechanism $A \otimes \sigma(B)$ with element-wise multiplicative control is structurally analogous to the information-flow gating implicit in VFE belief updates, where $\sigma_q$ (precision) gates how strongly incoming messages modulate a belief mean. The linear-path gradient argument parallels the rationale for keeping the VFE update equations differentiable through the Gaussian parameterization rather than through saturating nonlinearities. The paper's demonstration that finite-context hierarchical (convolutional) models can match unbounded-context recurrent models is also conceptually relevant to the VFE transformer's use of finite attention windows over belief states. The GLU's element-wise gating $\otimes \sigma(\cdot)$ reappears in many modern gated attention variants (e.g., gated MLP blocks in PaLM, gated linear attention) that inform architectural choices around the attention score computation in the GL(K) framework.
 
 ## Cross-links
-- Concepts: [[Attention Mechanisms]] [[Gated Linear Unit]] [[Vanishing Gradient]]
+- Concepts: [[Attention Mechanism|Attention Mechanisms]] [[dauphin-2017-gated-convnets|Gated Linear Unit]] [[Vanishing Gradient]]
 - Related sources: [[vaswani-2017-attention]]
 - Manuscript/Project: [[VFE Transformer Program]]
 

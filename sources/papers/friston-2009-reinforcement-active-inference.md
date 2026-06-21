@@ -34,7 +34,7 @@ Argues that adaptive behavior can be explained by active inference under the fre
 A foundational active-inference paper connecting free-energy minimization to action and control, grounding the action/policy side of the VFE framework that the gauge-theoretic transformer and multi-agent model build on.
 
 ## Cross-links
-[[Variational free energy]], [[Predictive coding]], [[Free energy principle]]
+[[Variational free energy]], [[Predictive coding]], [[Free-energy principle active inference|Free energy principle]]
 
 ## BibTeX
 ```bibtex

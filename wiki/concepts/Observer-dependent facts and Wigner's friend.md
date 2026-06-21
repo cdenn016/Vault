@@ -31,12 +31,12 @@ The repair on the physics side that the model most resembles is **relational qua
 ## Sources
 
 - [[brukner-2018-no-go-observer-facts]] — no-go theorem ruling out observer-independent facts under absoluteness, locality, and freedom of choice.
-- [[adlam-rovelli-2022-cross-perspective]] — cross-perspective-link postulate repairing RQM against the extended Wigner's-friend no-go results.
+- [[adlam-2022-cross-perspective|adlam-rovelli-2022-cross-perspective]] — cross-perspective-link postulate repairing RQM against the extended Wigner's-friend no-go results.
 - [[frauchiger-renner-2018-no-self-description]] — nested-agent thought experiment: quantum theory cannot consistently describe its own use across reasoning agents.
 - [[bell-2004-speakable-unspeakable]] — Bell's collected foundational papers: the Bell theorem against local observer-independent values, the primary source the extended Wigner's-friend no-go results lift to observers.
 - [[spekkens-2007-toy-theory]] — epistemic toy theory locating quantum-like features in a knowledge restriction.
 - [[hardy-2001-five-axioms]] — operational reconstruction of quantum theory from information-theoretic axioms.
-- [[zurek-2003-decoherence]] — decoherence, einselection, and quantum Darwinism as the route to redundantly objective records.
+- [[zurek-2003-einselection|zurek-2003-decoherence]] — decoherence, einselection, and quantum Darwinism as the route to redundantly objective records.
 - [[participatory-it-from-bit]] — the manuscript whose observer-dependent-reality and consensus constructions this debate tests.
 
 ## See also

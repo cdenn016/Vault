@@ -66,7 +66,7 @@ The most direct architectural payoff is [[Precision weighting|precision-weighted
 - [[vanerven-2014-renyi-kl]] (cross-cluster) — KL as the order-one limit of Renyi divergence.
 - [[amari-1998-natural-gradient]] (cross-cluster) — Fisher-preconditioned natural gradient grounding the M-step.
 - [[friston-2023-fep-simpler]] — Streamlined statement of the free-energy principle and its [[Bayesian mechanics]] reading.
-- [[bissiri-holmes-walker-2016-general-bayes]] — General Bayesian updating from a loss-based coherence argument, motivating divergence choices beyond KL.
+- [[bissiri-2016-general-bayesian-updating|bissiri-holmes-walker-2016-general-bayes]] — General Bayesian updating from a loss-based coherence argument, motivating divergence choices beyond KL.
 
 ## See also
 
@@ -77,5 +77,5 @@ The most direct architectural payoff is [[Precision weighting|precision-weighted
 ## Related sources (ingested 2026-06-20)
 
 - [[bishop-2006-pattern-recognition-machine-learning]] — Ch.
-- [[wainwright-jordan-2008-graphical-models-variational-inference]] — Exponential-family / convex-duality foundation of variational inference;
-- [[beal-2003-variational-algorithms-approximate-bayesian-inference]] — Beal's thesis - variational Bayesian EM and the free-energy lower bound for latent-variable models;
+- [[wainwright-2008-graphical-models-variational|wainwright-jordan-2008-graphical-models-variational-inference]] — Exponential-family / convex-duality foundation of variational inference;
+- [[beal-2003-variational-bayesian|beal-2003-variational-algorithms-approximate-bayesian-inference]] — Beal's thesis - variational Bayesian EM and the free-energy lower bound for latent-variable models;

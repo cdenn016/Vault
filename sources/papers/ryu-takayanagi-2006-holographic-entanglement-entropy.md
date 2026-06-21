@@ -47,12 +47,12 @@ The prescription reproduces known 2D CFT entanglement entropies, satisfies stron
 
 ## Relevance to this research
 
-This is the missing keystone beneath two works the PIFB manuscript ([[participatory-it-from-bit]]) *does* cite — [[vanraamsdonk-2010-entanglement-spacetime]] and Swingle's tensor-network holography — both of which rest on the RT identification of entanglement with geometry. PIFB's Level-3 program proposes an *information-to-geometry* map of its own: the pullback of the [[Fisher information metric]] from a statistical fibre to a base manifold, inducing emergent "spacetime-like" structure. RT is the canonical physics precedent for exactly this move (an information measure determining a metric quantity), and the natural external benchmark against which PIFB's classical-information, gauge-theoretic pullback should be contrasted. It anchors the proposed [[Emergent spacetime and holography]] theme and the [[Participatory realism (it from bit)]] thread.
+This is the missing keystone beneath two works the PIFB manuscript ([[participatory-it-from-bit]]) *does* cite — [[VanRaamsdonk-2010-spacetime-entanglement|vanraamsdonk-2010-entanglement-spacetime]] and Swingle's tensor-network holography — both of which rest on the RT identification of entanglement with geometry. PIFB's Level-3 program proposes an *information-to-geometry* map of its own: the pullback of the [[Fisher information metric]] from a statistical fibre to a base manifold, inducing emergent "spacetime-like" structure. RT is the canonical physics precedent for exactly this move (an information measure determining a metric quantity), and the natural external benchmark against which PIFB's classical-information, gauge-theoretic pullback should be contrasted. It anchors the proposed [[Emergent spacetime and holography]] theme and the [[Participatory realism (it from bit)]] thread.
 
 ## Cross-links
 - Concepts: [[Participatory realism (it from bit)]], [[Fisher information metric]]
 - Themes: [[Emergent spacetime and holography]]
-- Related sources: [[vanraamsdonk-2010-entanglement-spacetime]], [[faulkner-2014-gravitation-from-entanglement]], [[vidal-2007-entanglement-renormalization]], [[wheeler-1990-it-from-bit]]
+- Related sources: [[VanRaamsdonk-2010-spacetime-entanglement|vanraamsdonk-2010-entanglement-spacetime]], [[faulkner-2014-gravitation-from-entanglement]], [[vidal-2007-entanglement-renormalization]], [[wheeler-1990-it-from-bit]]
 
 ## BibTeX
 ```bibtex

@@ -54,7 +54,7 @@ This is the **canonical instrumental-vs-ontological worry that [[participatory-i
 
 - Concepts: [[Participatory realism (it from bit)]], [[Gauge transformation]], [[Agents as fibre-bundle sections]], [[Multi-agent variational free energy]]
 - New pages: [[Markov blanket interpretation debate]], [[Bayesian mechanics]]
-- Related sources: [[aguilera-2022-particular-physics]], [[biehl-2021-technical-critique]], [[friston-2019-particular-physics]], [[dacosta-2021-bayesian-mechanics]], [[ramstead-2019-variational-neuroethology]]
+- Related sources: [[aguilera-2022-particular-physics]], [[biehl-2021-technical-critique]], [[friston-2019-particular-physics]], [[dacosta-2021-bayesian-mechanics]], [[ramstead-2019-enactive-inference|ramstead-2019-variational-neuroethology]]
 - Manuscript: [[participatory-it-from-bit]]
 
 ```bibtex

@@ -60,7 +60,7 @@ This paper is the precise precedent for the central move in **[[participatory-it
 - Concepts: [[Variational free energy]], [[Fisher information metric]], [[Natural gradient]], [[Hamiltonian belief dynamics]], [[Belief inertia]], [[Participatory realism (it from bit)]]
 - New pages: [[Bayesian mechanics]], [[Markov blanket interpretation debate]]
 - Methods/themes: [[Free-energy principle active inference]], [[Multi-agent variational free energy]]
-- Related sources: [[friston-2019-particular-physics]], [[ramstead-2023-bayesian-mechanics]], [[parr-2020-markov-blankets-thermodynamics]], [[caticha-2019-entropic-dynamics]]
+- Related sources: [[friston-2019-particular-physics]], [[ramstead-2023-bayesian-mechanics]], [[parr-2020-markov-blankets-thermodynamics]], [[caticha-2019-entropic-dynamics-qm|caticha-2019-entropic-dynamics]]
 - Manuscript: [[participatory-it-from-bit]]
 
 ```bibtex

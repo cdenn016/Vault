@@ -59,9 +59,9 @@ where $p(\rho)$ is a probability measure over density operators. This eliminates
 This paper is a foundational reference for the **participatory realism / QBism** strand of the VFE research program. Several direct connections arise. The view that quantum states are states of knowledge — Bayesian beliefs rather than objective properties — maps directly onto the VFE transformer's treatment of beliefs as Gaussian tuples $(μ, Σ, φ)$ encoding an agent's epistemic state, not objective facts about the world. The Dutch-book derivation of the Born rule from consistency of belief-updating parallels the VFE principle: beliefs evolve to minimize surprise (free energy), not because reality dictates a particular state but because coherent inference demands it. The quantum de Finetti representation (mixture over i.i.d. density operators, updated by Bayes's rule) is structurally analogous to the prior-bank / PriorBank decode in the VFE architecture, where a latent mixture prior over learned prototypes is updated by VFE minimization. The "maximal-but-incomplete information" theme — a pure state prescribes nontrivial probabilities for all other questions — resonates with the SPD belief geometry, where a Gaussian with small but nonzero covariance is maximally informed yet fundamentally uncertain. More broadly, this paper supports the participatory-realism interpretation being developed in `Manuscripts-Theory/PIFB.tex`, where agents' beliefs constitute reality rather than passively reflecting a mind-independent world.
 
 ## Cross-links
-- Concepts: [[Participatory Realism]], [[Bayesian Inference]], [[Quantum Foundations]], [[de Finetti Representation]]
+- Concepts: [[fuchs-2017-participatory-realism|Participatory Realism]], [[Bayesian Inference]], [[Participatory realism and quantum foundations|Quantum Foundations]], [[de Finetti representation theorem|de Finetti Representation]]
 - Related sources: [[fuchs-2002-quantum-mechanics]], [[jaynes-2003-probability]]
-- Manuscript/Project: [[PIFB]], [[VFE Transformer Program]]
+- Manuscript/Project: [[Participatory realism (it from bit)|PIFB]], [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex

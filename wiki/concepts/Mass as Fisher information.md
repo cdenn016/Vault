@@ -33,13 +33,13 @@ This page documents the [[Gauge-Theoretic Multi-Agent VFE Model]] construction. 
 
 ## Why it matters here
 
-A standard active-inference agent ([[parr-2022-active-inference]], [[friston-2017-active-inference-process]]) updates beliefs by pure gradient descent on [[Variational free energy]] — a first-order, dissipative flow with no momentum. The MAgent model instead reads the curvature of the free-energy landscape as an **inertial mass tensor**, equipping belief space with kinetic energy $T = \tfrac12 \dot{\mu}^\top M \dot{\mu}$ and a Hamiltonian dynamics ([[Hamiltonian belief dynamics]]). Mass-as-Fisher-information is the bridge that turns the gauge-theoretic VFE functional into a second-order theory and gives the model [[Belief inertia]].
+A standard active-inference agent ([[parr-2022-active-inference]], [[friston-2017-active-inference-process-theory|friston-2017-active-inference-process]]) updates beliefs by pure gradient descent on [[Variational free energy]] — a first-order, dissipative flow with no momentum. The MAgent model instead reads the curvature of the free-energy landscape as an **inertial mass tensor**, equipping belief space with kinetic energy $T = \tfrac12 \dot{\mu}^\top M \dot{\mu}$ and a Hamiltonian dynamics ([[Hamiltonian belief dynamics]]). Mass-as-Fisher-information is the bridge that turns the gauge-theoretic VFE functional into a second-order theory and gives the model [[Belief inertia]].
 
 This identification does the following load-bearing work in the model:
 
 - **It makes precision the source of stubbornness.** A confident belief (large $\Lambda$) is heavy and resists change; an uncertain belief is light and updates readily. This recovers confirmation bias and belief perseverance as geometric consequences of inertia rather than as irrationality.
 - **It makes inertia social.** The two social terms couple an agent's mass to the precision of its neighbours via the attention weights $\beta_{ij}$, so a cluster of mutually-attending confident agents becomes collectively rigid, and *exerting* influence (being attended to) also costs flexibility through the outgoing/recoil term.
-- **It supplies the overdamped/underdamped split.** In the overdamped limit the dynamics reduce to ordinary Bayesian free-energy descent, recovering classical opinion-dynamics models ([[degroot-1974-consensus]], [[friedkin-johnsen-1990]], [[hegselmann-krause-2002]]); the underdamped regime predicts oscillation, overshoot, and resonance.
+- **It supplies the overdamped/underdamped split.** In the overdamped limit the dynamics reduce to ordinary Bayesian free-energy descent, recovering classical opinion-dynamics models ([[degroot-1974-consensus]], [[friedkin1990-social-influence-opinions|friedkin-johnsen-1990]], [[hegselmann-2002-opinion|hegselmann-krause-2002]]); the underdamped regime predicts oscillation, overshoot, and resonance.
 
 ## Details
 
@@ -98,8 +98,8 @@ Letting $\alpha_i^*$ co-move with the belief inside the second variation adds a 
 - [[belief-inertia]] — *The Inertia of Belief*: the manuscript that derives the Hessian mass, the four-term precision formula, and the Hamiltonian belief dynamics.
 - [[cencov-1982-statistical-decision-rules]] — Čencov/Chentsov uniqueness theorem grounding the Fisher metric as the canonical invariant structure.
 - [[amari-2016-information-geometry-applications]], [[ay-2017-information-geometry]] — information-geometric foundations for the Fisher metric and precision tensors.
-- [[parr-2022-active-inference]], [[friston-2017-active-inference-process]] — the single-agent VFE / active-inference substrate the model generalizes (and whose purely dissipative dynamics it extends to second order).
-- [[degroot-1974-consensus]], [[friedkin-johnsen-1990]], [[hegselmann-krause-2002]] — classical opinion-dynamics models recovered in the overdamped (massless-flow) limit.
+- [[parr-2022-active-inference]], [[friston-2017-active-inference-process-theory|friston-2017-active-inference-process]] — the single-agent VFE / active-inference substrate the model generalizes (and whose purely dissipative dynamics it extends to second order).
+- [[degroot-1974-consensus]], [[friedkin1990-social-influence-opinions|friedkin-johnsen-1990]], [[hegselmann-2002-opinion|hegselmann-krause-2002]] — classical opinion-dynamics models recovered in the overdamped (massless-flow) limit.
 - [[frieden-1998-physics-fisher]], [[reginatto-1998-fisher-quantum]] — deriving physical dynamics from Fisher information (extreme physical information; Schrödinger equation from a Fisher term), the broader programme that reading mass off the precision tensor belongs to.
 
 ## See also

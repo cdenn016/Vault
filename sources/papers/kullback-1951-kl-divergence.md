@@ -50,9 +50,9 @@ The paper establishes the following central results. (1) Non-negativity: $I(1:2)
 The KL divergence introduced here is the foundational building block of the entire VFE (variational free energy) framework used in this research program. Concretely: (a) the variational free energy functional $F$ is a sum of KL terms — $\alpha \, D_\mathrm{KL}(q_i \| p_i)$ (belief-to-prior self-coupling), $\lambda_h \, D_\mathrm{KL}(s_i \| h)$ (hyper-prior coupling), pairwise $\beta_{ij}\, D_\mathrm{KL}(q_i \| \Omega_{ij} q_j)$ terms (gauge-transported belief coupling), and model-coupling $\gamma_{ij}\, D_\mathrm{KL}(s_i \| \Omega_{ij} s_j)$ terms — so every gradient step in the VFE transformer minimizes KL terms derived from this paper's definition; (b) the GL(K) gauge-equivariant attention mechanism derives softmax attention weights $\beta_{ij}$ as the stationary point of $F$ with respect to those weights, a derivation whose correctness depends critically on the $I(1:2) \geq 0$ lower bound guaranteeing the free energy is bounded below; (c) information geometry (the Fisher–Rao metric, natural gradient, SPD belief manifolds) is the geometric elaboration of the local approximation $I \approx \tfrac{1}{2}(\Delta\theta)^T J(\theta) \Delta\theta$ established here; (d) the f-divergence registry in the codebase (KL, reverse-KL, alpha-divergences) is a generalization of this paper's construction; (e) in the multi-agent active inference model, agents minimize expected free energy which again reduces to KL terms between posterior beliefs and prior preferences.
 
 ## Cross-links
-- Concepts: [[KL Divergence]], [[Variational Free Energy]], [[Information Geometry]], [[Fisher Information]]
-- Related sources: [[shannon-1948-mathematical-theory-communication]], [[amari-2016-information-geometry]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]]
+- Concepts: [[kullback-1951-kl-divergence|KL Divergence]], [[Variational Free Energy]], [[Information Geometry]], [[Fisher information metric|Fisher Information]]
+- Related sources: [[shannon-1948-mathematical-theory-communication]], [[amari-2016-information-geometry-applications|amari-2016-information-geometry]]
+- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) gauge-equivariant attention|GL(K) Attention]]
 
 ## BibTeX
 ```bibtex

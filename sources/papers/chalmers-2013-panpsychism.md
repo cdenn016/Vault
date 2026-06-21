@@ -45,9 +45,9 @@ This paper is the primary philosophical grounding for the participatory realism 
 ## Cross-links
 > [!note] Editorial: The manuscript [[participatory-it-from-bit]] **self-classifies as panprotopsychist in Chalmers's exact sense**, and this lecture is the definitional source for that label. PIFB does not claim its gauge frames or beliefs are themselves conscious; it claims the frame-relative informational structure provides the *protophenomenal* basis from which experiential character is constituted — precisely panprotopsychism, not panpsychism. The residual cross-scale [[combination problem]] (see [[chalmers-2016-combination-problem]]) is the open question the project's [[Meta-agents and hierarchical emergence]] and [[Ouroboros multi-scale dynamics]] machinery is the candidate answer to.
 
-- Concepts: [[Hard Problem of Consciousness]], [[Russellian Monism]], [[Participatory Realism]], [[Participatory realism (it from bit)]], [[Quiddities]], [[Explanatory gap]], [[combination problem]], [[Meta-agents and hierarchical emergence]], [[Ouroboros multi-scale dynamics]], [[Mathematical consciousness science]]
-- Related sources: [[participatory-it-from-bit]], [[chalmers-1995-facing-up]], [[chalmers-2016-combination-problem]], [[goff-2017-consciousness-fundamental-reality]], [[russell-1927-analysis-of-matter]], [[strawson-2006-realistic-monism]]
-- Manuscript/Project: [[PIFB]], [[VFE Transformer Program]]
+- Concepts: [[Explanatory gap|Hard Problem of Consciousness]], [[Russellian Monism]], [[fuchs-2017-participatory-realism|Participatory Realism]], [[Participatory realism (it from bit)]], [[Quiddities]], [[Explanatory gap]], [[combination problem]], [[Meta-agents and hierarchical emergence]], [[Ouroboros multi-scale dynamics]], [[Mathematical consciousness science]]
+- Related sources: [[participatory-it-from-bit]], [[chalmers-1995-facing-up-consciousness|chalmers-1995-facing-up]], [[chalmers-2016-combination-problem]], [[goff-2017-consciousness-fundamental-reality]], [[russell-1927-analysis-of-matter]], [[strawson-2006-realistic-monism]]
+- Manuscript/Project: [[Participatory realism (it from bit)|PIFB]], [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex

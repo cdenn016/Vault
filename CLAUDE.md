@@ -86,6 +86,42 @@ year: 2020
   `amari-1998-natural-gradient.md`) and carry a readable `aliases:` entry. Wiki pages cite
   them by that slug: `[[amari-1998-natural-gradient]]`.
 
+**Canonical notation — one name, one note.** Every entity has exactly **one canonical note**, and
+every `[[link]]` must resolve to exactly one file. Two notes may **never** share a name *or* an alias
+(a cross-file **identity collision** — Obsidian then resolves the link ambiguously).
+- **Sources:** the canonical key is the slug `firstauthor-YYYY-keyword` — **all-lowercase, ASCII,
+  hyphen-separated** (`vaswani-2017-attention`, never `vaswani2017attention` or `Vaswani2017`). Always
+  cite by this slug.
+- **Wiki pages:** the canonical key is the **Title** (must be unique).
+- **Variants are aliases, never new notes.** If you meet or want any other spelling — camelCase, no
+  hyphens, year-attached, singular/plural, British/American, or an acronym — add it to the canonical
+  note's `aliases:`; do **not** create a second note. When you rename or merge, add the *old* name as
+  an alias so inbound links keep resolving — **and repoint the inbound `[[links]]` to the new
+  filename** (the callout below explains why alias-backing alone is not enough for the graph).
+- A bare term resolves to its **most-canonical** home: prefer a `concept` page over a
+  `method`/`theme`/`source`, and reserve a `… Manuscript` alias for the manuscript note.
+
+> [!important] The graph view ignores aliases — link by **filename**.
+> Obsidian's **graph view resolves links by FILENAME only; it does *not* follow `aliases:`.** A raw
+> `[[alias]]` or `[[old-slug]]` link therefore appears as a **grey placeholder node**, and clicking it
+> **creates an empty note in `inbox/`** (per the vault's `newFileFolderPath`). Aliases keep
+> *navigation* and *search* working, but they do **not** keep the graph clean. So **write every link
+> to the canonical filename**, using `[[Canonical Name|display text]]` when you want different display.
+> Alias-backing a deleted slug is necessary but **not sufficient** — you must also repoint the inbound
+> `[[links]]` to the canonical filename (run the lint's *GRAPH grey nodes* check).
+
+**Inbox / shadow-stub hygiene.** Obsidian writes an *empty* note into `inbox/` when you click an
+**unresolved** `[[link]]`. An empty stub whose basename equals an existing alias **shadows** that
+alias (a filename beats an alias), silently turning an already-resolved link into an **empty graph
+node**. So never leave 0-byte notes lying around: triage each promptly — if the target already exists,
+add the clicked name as an **alias** on the canonical note and **delete the stub**; create a real note
+only when there is a genuine gap.
+
+**Link-integrity lint.** `python docs/_lint.py` reports broken wikilinks, **GRAPH grey nodes**
+(alias-only link targets the graph can't resolve), **empty files (= shadow
+stubs)**, basename case-collisions, and **cross-file identity (alias/basename) collisions**. All five
+should read **0** before committing.
+
 **Linking.** Liberally cross-link with `[[Page Title]]`. A wiki page should link the
 concepts/methods it touches and cite the `[[source notes]]` it draws from. Prefer linking
 to a concept page over re-explaining the concept inline. Orphan pages (nothing links to
@@ -233,7 +269,12 @@ Scan for and report (and fix where safe):
 - **Stale claims** — wiki text not supported by any current `sources/` note.
 - **Orphans** — pages nothing links to; broken `[[wikilinks]]`.
 - **Gaps** — concepts referenced but with no page; sources ingested but not synthesized.
-- **Duplication** — two pages covering the same idea → merge, keep one canonical title.
+- **Duplication** — two pages covering the same idea → merge into one canonical title, **repoint
+  inbound `[[links]]` to the survivor's filename** (alias-backing alone leaves grey graph nodes — see
+  the *graph view ignores aliases* callout above), then delete the redundant note.
+- **Graph grey nodes & shadow stubs** — raw `[[alias]]` / `[[old-slug]]` links the graph can't
+  resolve, plus empty `inbox/` stubs. Run `python docs/_lint.py`; **GRAPH grey nodes** and **EMPTY
+  files** must both read 0.
 - **Index drift** — pages missing from `index.md`.
 
 Append a `LINT` line to `log.md` summarizing findings and actions.
@@ -247,7 +288,7 @@ Append-only. One operation per line, newest at the bottom, parseable timestamp f
 ```
 2026-06-18  GENESIS  Scaffold created; wiki schema established.
 2026-06-18  INGEST   sources/papers/amari-1998-natural-gradient.md → updated [[Natural gradient]], [[Information geometry and natural gradient|information geometry]]
-2026-06-18  QUERY    "how does precision-weighting relate to Fisher info?" → filed [[Precision-weighted attention]]
+2026-06-18  QUERY    "how does precision-weighting relate to Fisher info?" → filed [[Precision weighting|Precision-weighted attention]]
 2026-06-18  LINT     3 orphans fixed, 1 contradiction flagged on [[Holonomy]]
 ```
 

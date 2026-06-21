@@ -77,9 +77,9 @@ The finding that entropy of functional connectivity distributions (Shannon H of 
 The thalamo-cortical vs. cortico-cortical dissociation across temporal states is relevant to multi-scale or hierarchical VFE architectures: thalamic gating modulates information access in a state-dependent manner, analogous to how hyper-prior level (h → s) coupling in the VFE hierarchy is conditionally active. The paper also provides a concrete empirical example of how graph-theoretic measures of integration/segregation transition correspond to functional state changes — a pattern directly relevant to opinion dynamics and collective integration in multi-agent active inference models where agents transition between more and less integrated network states.
 
 ## Cross-links
-- Concepts: [[Integrated Information Theory]] · [[Global Workspace Theory]] · [[Entropy and Consciousness]] · [[Default Mode Network]] · [[Dynamic Functional Connectivity]] · [[Fisher information metric]] · [[Meta-entropy]] · [[Meta-agents and hierarchical emergence]] · [[Ouroboros multi-scale dynamics]] · [[Mathematical consciousness science]]
-- Related sources: [[luppi-2021-synergistic-core]] · [[tononi-2004-information-integration]] · [[tononi-2016-iit]] · [[carhart-harris-2014-entropic-brain]]
-- Manuscript/Project: [[participatory-it-from-bit]] · [[VFE Transformer Program]] · [[Participatory It-from-Bit]]
+- Concepts: [[tononi-2004-integrated-information|Integrated Information Theory]] · [[Global neuronal workspace theory|Global Workspace Theory]] · [[Entropy and Consciousness]] · [[Default Mode Network]] · [[Dynamic Functional Connectivity]] · [[Fisher information metric]] · [[Meta-entropy]] · [[Meta-agents and hierarchical emergence]] · [[Ouroboros multi-scale dynamics]] · [[Mathematical consciousness science]]
+- Related sources: [[luppi-2021-synergistic-core]] · [[tononi-2004-integrated-information|tononi-2004-information-integration]] · [[tononi-2016-iit]] · [[carhart-harris-2014-entropic-brain]]
+- Manuscript/Project: [[participatory-it-from-bit]] · [[VFE Transformer Program]] · [[participatory-it-from-bit|Participatory It-from-Bit]]
 
 ## BibTeX
 ```bibtex

@@ -18,7 +18,7 @@ updated: 2026-06-21
 Neural networks with many stacked nonlinear layers, whose depth lets them compose hierarchical, increasingly abstract features. Training very deep networks motivated innovations such as residual/highway connections, normalization, and careful initialization to control gradient flow. In the program, network depth corresponds to iterated belief-refinement steps, making depth a discretized inference dynamic rather than mere capacity.
 
 ## Related
-[[Residual Connections]], [[Highway networks]], [[Neural scaling laws]]
+[[Residual Connections]], [[srivastava2015highway|Highway networks]], [[Neural scaling laws]]
 
 ## Sources
-[[srivastava2015highway]], [[he2016resnet]]
+[[srivastava2015highway]], [[he-2016-resnet|he2016resnet]]

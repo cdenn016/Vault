@@ -42,9 +42,9 @@ The REBUS model generates several specific, empirically supported predictions. P
 The REBUS model is deeply relevant to the VFE transformer program through several channels. First, it is an explicit application of variational free-energy minimization (the same functional F minimized in the VFE transformer) to biological hierarchical inference, demonstrating how precision (inverse variance) weighting — directly analogous to the sigma terms in belief tuples (mu, Sigma, phi) — governs hierarchical information flow. Second, the concept of flattening the free-energy landscape by relaxing prior precision maps onto the role of lambda_h (hyper-prior coupling) and alpha (self-coupling strength) in the VFE functional: reducing these parameters loosens the anchoring of beliefs to priors, allowing larger belief updates from inter-agent coupling terms. Third, the anarchic brain — increased bottom-up prediction error flow — is structurally analogous to the attention-weighted inter-layer coupling (beta_ij) terms dominating when top-down priors are weakened. Fourth, Bayesian model reduction as a mechanism for lasting prior revision after a plasticity window parallels the role of the prior bank (PriorBank) that stores and refines group-level generative models. Fifth, the paper's treatment of precision as gain on prediction error is the neuroscientific interpretation of the information-geometric role of the precision matrix Sigma in Gaussian belief geometry. Finally, the participatory/consciousness dimension: REBUS frames ego dissolution as the collapse of high-level self-models, connecting to the participatory realism and participatory-it-from-bit themes explored in the PIFB manuscript.
 
 ## Cross-links
-- Concepts: [[Variational Free Energy]] [[Predictive Coding]] [[Precision Weighting]] [[Active Inference]] [[Entropic Brain]]
-- Related sources: [[friston-2010-fep]] [[carhart-harris-2018-entropic-brain]]
-- Manuscript/Project: [[VFE Transformer Program]] [[PIFB]]
+- Concepts: [[Variational Free Energy]] [[Predictive Coding]] [[Precision Weighting]] [[Active Inference]] [[carhart-harris-2014-entropic-brain|Entropic Brain]]
+- Related sources: [[friston-2010-free-energy-principle|friston-2010-fep]] [[carhart-harris-2018-entropic-brain-revisited|carhart-harris-2018-entropic-brain]]
+- Manuscript/Project: [[VFE Transformer Program]] [[Participatory realism (it from bit)|PIFB]]
 
 ## BibTeX
 ```bibtex

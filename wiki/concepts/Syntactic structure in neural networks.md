@@ -17,4 +17,4 @@ Refers to the body of work asking whether and how neural language models encode 
 [[Probing classifiers]], [[Mechanistic interpretability of attention]], [[Attention mechanisms — theory and positional structure]]
 
 ## Sources
-[[clark2019does-bert-look]]
+[[clark-2019-bert-attention|clark2019does-bert-look]]

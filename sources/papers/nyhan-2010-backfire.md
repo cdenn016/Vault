@@ -47,9 +47,9 @@ In Study 1 (fall 2005, WMD), the correction × ideology interaction is significa
 This paper belongs to the social-physics / opinion-dynamics literature that the VFE multi-agent framework is designed to model. Several connections are worth noting. First, the "backfire effect" is a concrete empirical instance of non-Bayesian belief update: agents with strong priors generate counter-arguments that reinforce, rather than revise, prior beliefs when confronted with disconfirming evidence — directly analogous to the failure of naive free-energy minimization when the agent's prior coupling (alpha·KL(q||p)) dominates the observation likelihood. Second, the ideology-moderated interaction maps cleanly onto the multi-agent attention structure: the coupling weights beta_ij encode who influences whom, and ideologically sorted social networks produce block-diagonal effective coupling — agents within an ideological cluster attend heavily to each other and resist out-cluster information. Third, the motivated reasoning mechanism (counterarguing → attitude bolstering) echoes the tau-scaled attention entropy term in the VFE functional: a high-certainty agent (low tau) concentrates beta on in-group peers, making the observation likelihood term too weak to pull beliefs toward corrective evidence. Quantitative modeling of backfire onset and decay as a function of prior strength and social-network topology is a natural downstream application of the multi-agent VFE framework.
 
 ## Cross-links
-- Concepts: [[Motivated Reasoning]], [[Belief Updating]], [[Opinion Dynamics]], [[Social Influence]]
+- Concepts: [[Motivated Reasoning]], [[Bayesian Inference|Belief Updating]], [[Opinion Dynamics]], [[Social influence and conformity|Social Influence]]
 - Related sources: [[lord-1979-biased-assimilation]], [[taber-2006-motivated-skepticism]]
-- Manuscript/Project: [[VFE Transformer Program]], [[MAgent Model]]
+- Manuscript/Project: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model|MAgent Model]]
 
 ## BibTeX
 ```bibtex

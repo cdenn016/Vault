@@ -51,7 +51,7 @@ The Hamiltonian formulation of momentum-based methods is directly relevant to th
 
 ## Cross-links
 - Concepts: [[Bregman Divergence]], [[Information Geometry]], [[Variational Free Energy]]
-- Related sources: [[wibisono2016variational]], [[su2016differential]]
+- Related sources: [[wibisono-2016-variational-accelerated|wibisono2016variational]], [[su-2016-differential-equation-nesterov|su2016differential]]
 - Manuscript/Project: [[VFE Transformer Program]]
 
 ## BibTeX

@@ -17,4 +17,4 @@ Dimensionality reduction maps high-dimensional data to a low-dimensional represe
 [[Fisher information metric]], [[VFE Transformer Program]]
 
 ## Sources
-[[gao-2017-neural-dimensionality]], [[gao-2017-neuroscience-dimensionality]], [[ganguli-2012-compressed-sensing-neuroscience]]
+[[gao-2017-neural-dimensionality]], [[gao-2017-neural-dimensionality|gao-2017-neuroscience-dimensionality]], [[ganguli-2012-compressed-sensing-neuroscience]]

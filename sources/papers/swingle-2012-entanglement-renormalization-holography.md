@@ -54,11 +54,11 @@ The MERA/holography correspondence is directly relevant to the VFE transformer p
 > [!note] Ouroboros-tower framing (from refs/ note): The MERA scale tower is the structural template for the program's **Ouroboros Tower**: both stack gauge-covariant coarse-grainings, one rung per scale, and in both the geometry of the tower *is* the [[Renormalization-group flow of beliefs]]. Swingle's "RG depth = bulk radial coordinate" is the precedent PIFB leans on when asking whether its own scale index can play the role of an emergent dimension; the minimal-cut/Ryu–Takayanagi correspondence is the entanglement-side mirror of belief-coupling cuts in the program's coupling graph. A HIGH-priority node bridging the [[Emergent spacetime and holography]] theme to the program's multi-scale machinery.
 
 ## Cross-links
-- Concepts: [[Entanglement Renormalization]]
-- Concepts: [[Holography]]
-- Concepts: [[Anti-de Sitter Space]]
+- Concepts: [[Emergent spacetime and holography|Entanglement Renormalization]]
+- Concepts: [[Emergent spacetime and holography|Holography]]
+- Concepts: [[Emergent spacetime and holography|Anti-de Sitter Space]]
 - Concepts: [[Renormalization-group flow of beliefs]], [[Ouroboros multi-scale dynamics]], [[Meta-agents and hierarchical emergence]], [[Emergent spacetime and holography]]
-- Related sources: [[ryu-takayanagi-2006-holographic-derivation]], [[ryu-takayanagi-2006-holographic-entanglement-entropy]], [[vidal-2007-entanglement-renormalization]]
+- Related sources: [[ryu-takayanagi-2006-holographic-entanglement-entropy|ryu-takayanagi-2006-holographic-derivation]], [[ryu-takayanagi-2006-holographic-entanglement-entropy]], [[vidal-2007-entanglement-renormalization]]
 - Manuscript/Project: [[VFE Transformer Program]], [[participatory-it-from-bit]]
 
 ## BibTeX

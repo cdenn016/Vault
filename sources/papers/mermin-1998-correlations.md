@@ -18,7 +18,7 @@ updated: 2026-06-19
 
 ## TL;DR
 
-Mermin proposes that the proper subject matter of quantum physics is *correlation and only correlation* — his "Ithaca interpretation," summarized by the slogan **correlations without correlata**. Quantum theory tells us about the correlations between subsystems while remaining silent about the absolute, correlate properties of the subsystems themselves; the relations are physical and definite even when the relata are not. This dissolves much of the measurement puzzle by relocating physical content from intrinsic system properties to the relational structure among them, and it explicitly bridges the relational ([[rovelli-1996-relational-qm]]) and emerging QBist ([[fuchs-2014-qbism]]) lines of thought.
+Mermin proposes that the proper subject matter of quantum physics is *correlation and only correlation* — his "Ithaca interpretation," summarized by the slogan **correlations without correlata**. Quantum theory tells us about the correlations between subsystems while remaining silent about the absolute, correlate properties of the subsystems themselves; the relations are physical and definite even when the relata are not. This dissolves much of the measurement puzzle by relocating physical content from intrinsic system properties to the relational structure among them, and it explicitly bridges the relational ([[rovelli-1996-relational-qm]]) and emerging QBist ([[fuchs2014-qbism-locality|fuchs-2014-qbism]]) lines of thought.
 
 ## Relevance to this research
 
@@ -27,7 +27,7 @@ Mermin proposes that the proper subject matter of quantum physics is *correlatio
 ## Cross-links
 
 - Concepts: [[Participatory realism (it from bit)]], [[QBism]], [[Observer-dependent facts and Wigner's friend]]
-- Related sources: [[rovelli-1996-relational-qm]], [[fuchs-2014-qbism]], [[mermin-1998-correlations]]
+- Related sources: [[rovelli-1996-relational-qm]], [[fuchs2014-qbism-locality|fuchs-2014-qbism]], [[mermin-1998-correlations]]
 - Manuscript: [[participatory-it-from-bit]]
 
 ```bibtex

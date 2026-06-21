@@ -73,14 +73,14 @@ ED is a direct antecedent of the participatory / epistemic foundations motivatin
 
 **Information geometry of configuration space.** The Fisher-Rao metric on $X^N$ derived from $P(x'|x)$ yields the mass tensor as a natural geometric object. The VFE transformer likewise uses SPD/Riemannian geometry of the space of Gaussian beliefs as its native geometry — the Bures metric and the natural gradient on the SPD manifold play the role of the information metric here.
 
-**Epistemic wave functions and the participatory framework.** Caticha's fully epistemic interpretation of $\Psi$ (information about actual positions, not an ontic field) connects to the participatory realism framework underpinning the multi-agent active-inference program (see [[PIFB]] and [[Participatory Realism]]). The "it from bit" structure — observations constrain distributions, not ontic fields — is shared.
+**Epistemic wave functions and the participatory framework.** Caticha's fully epistemic interpretation of $\Psi$ (information about actual positions, not an ontic field) connects to the participatory realism framework underpinning the multi-agent active-inference program (see [[Participatory realism (it from bit)|PIFB]] and [[fuchs-2017-participatory-realism|Participatory Realism]]). The "it from bit" structure — observations constrain distributions, not ontic fields — is shared.
 
 **Symplectic structure and phase-space dynamics.** The natural symplectic structure on $\{\rho, \Phi\}$ and the Hamiltonian-Killing flow derivation of Schrödinger evolution is potentially relevant to understanding the phase structure of the VFE belief update as a geometric flow on a statistical manifold.
 
 ## Cross-links
-- Concepts: [[Information Geometry]], [[Information geometry and natural gradient]], [[Natural gradient]], [[Fisher information metric]], [[Variational Free Energy]], [[Gauge Equivariance]], [[Participatory Realism]], [[Participatory realism (it from bit)]], [[Maximum Entropy Principle]], [[Hamiltonian belief dynamics]], [[Belief inertia]], [[Mass as Fisher information]], [[Meta-entropy]], [[Agents as fibre-bundle sections]], [[Parallel transport]]
-- Related sources: [[jaynes-1957-information-theory]], [[amari-2000-methods-information-geometry]], [[wheeler-1990-it-from-bit]], [[fuchs-2014-qbism]]
-- Manuscript/Project: [[VFE Transformer Program]], [[PIFB]], [[participatory-it-from-bit]], [[GL(K) Attention]]
+- Concepts: [[Information Geometry]], [[Information geometry and natural gradient]], [[Natural gradient]], [[Fisher information metric]], [[Variational Free Energy]], [[Group equivariance|Gauge Equivariance]], [[fuchs-2017-participatory-realism|Participatory Realism]], [[Participatory realism (it from bit)]], [[Maximum entropy|Maximum Entropy Principle]], [[Hamiltonian belief dynamics]], [[Belief inertia]], [[Mass as Fisher information]], [[Meta-entropy]], [[Agents as fibre-bundle sections]], [[Parallel transport]]
+- Related sources: [[jaynes-1957-information-statistical-mechanics|jaynes-1957-information-theory]], [[amari-2000-methods-information-geometry]], [[wheeler-1990-it-from-bit]], [[fuchs2014-qbism-locality|fuchs-2014-qbism]]
+- Manuscript/Project: [[VFE Transformer Program]], [[Participatory realism (it from bit)|PIFB]], [[participatory-it-from-bit]], [[GL(K) gauge-equivariant attention|GL(K) Attention]]
 
 ## BibTeX
 ```bibtex

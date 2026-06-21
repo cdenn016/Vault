@@ -71,7 +71,7 @@ The relevant/irrelevant taxonomy of [[wilson-1971-rg-critical-phenomena]] suppli
 principled answer to *which* belief structures survive aggregation: the few belief couplings
 that grow under coarse-graining set the emergent macro-dynamics, while the many that decay are
 integrated out — a retention criterion that also dovetails with the predictive-information
-picture of [[bialek-2001-predictability-complexity]], where coarse-graining discards extensive
+picture of [[bialek2001predictability|bialek-2001-predictability-complexity]], where coarse-graining discards extensive
 detail and keeps the sub-extensive, learnable part. The "integrate out the fast/fine modes to
 get an effective slow theory" operation is the same move that
 [[Geometric singular perturbation theory]] makes rigorous at the level of fast-slow dynamics:
@@ -116,7 +116,7 @@ literature adjudicates.
 - [[wilson-kogut-1974-epsilon-expansion]] — the long-form review; effective-action formalism and the $\epsilon = 4-d$ perturbative expansion of critical exponents.
 - [[berges-tetradis-wetterich-2002-nonperturbative-rg]] — functional (non-perturbative) RG: the effective average action $\Gamma_k$ and the exact Wetterich flow; the language for the continuum-limit question.
 - [[cardy-1996-scaling-renormalization]] — standard pedagogy: Wilsonian effective action, Gaussian/saddle-point closure, finite-size scaling.
-- [[bialek-2001-predictability-complexity]] — predictive information and its sub-extensive growth; the information-theoretic reading of what coarse-graining keeps versus discards.
+- [[bialek2001predictability|bialek-2001-predictability-complexity]] — predictive information and its sub-extensive growth; the information-theoretic reading of what coarse-graining keeps versus discards.
 - [[geshkovski-2023-mathematical-transformers]] — attention as an interacting-particle consensus flow producing clusters; the microdynamics the belief-RG coarse-grains.
 - [[genest-zidek-1986-pooling]], [[dietrich-list-2016-opinion-pooling]], [[bordley-1982-multiplicative-pooling]] — opinion-pooling taxonomy fixing the aggregator used at the RG blocking step.
 

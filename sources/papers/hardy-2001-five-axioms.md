@@ -39,7 +39,7 @@ Hardy's reconstruction is the template for the "it from bit, then emergent struc
 ## Cross-links
 
 - Concepts: [[Participatory realism (it from bit)]], [[Quantum information geometry]], [[Fisher information metric]]
-- Related sources: [[fuchs-schack-2013-bayesian-coherence]], [[caticha-2019-entropic-dynamics]], [[spekkens-2007-toy-theory]], [[wheeler-1990-it-from-bit]]
+- Related sources: [[fuchs-schack-2013-bayesian-coherence]], [[caticha-2019-entropic-dynamics-qm|caticha-2019-entropic-dynamics]], [[spekkens-2007-toy-theory]], [[wheeler-1990-it-from-bit]]
 - Manuscript: [[participatory-it-from-bit]]
 - Project: [[VFE Transformer Program]]
 

@@ -48,9 +48,9 @@ On a 4^4 SU(2) lattice at β = 2.7 with naive staggered fermions (mass m = 0.3),
 CASK is a direct analog in lattice-QCD language of the GL(K) gauge-equivariant attention developed in the VFE transformer program. Both build gauge-invariant attention weights from inner products that are invariant under the local group action, then use those weights to transport and aggregate "value" objects covariantl. Key structural parallels: (1) CASK's Frobenius inner product tr(U^(Q)†U^(K)·staple) as gauge-invariant attention score maps precisely onto the VFE program's parallel-transport inner product used to form β_{ij}; (2) CASK's update rule (exponential map driven by attention-weighted values) mirrors the VFE Ω_{ij}-transport used to couple beliefs; (3) CASK's sparse Wilson-loop attention is a physics instantiation of the locality structure that the VFE framework accommodates via the sparsity of the transport graph. CASK provides an existence proof and empirical validation that gauge-equivariant Transformer attention can outperform purely convolutional gauge-equivariant architectures, directly supporting the motivation for the GL(K) attention architecture.
 
 ## Cross-links
-- Concepts: [[Gauge Equivariance]], [[Attention Mechanism]], [[Wilson Loop]], [[Parallel Transport]]
+- Concepts: [[Group equivariance|Gauge Equivariance]], [[Attention Mechanism]], [[Lattice gauge theory|Wilson Loop]], [[Parallel Transport]]
 - Related sources: [[kanwar-2020-equivariant-flow]] [[boyda-2021-su-n-flows]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]]
+- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) gauge-equivariant attention|GL(K) Attention]]
 
 ## BibTeX
 ```bibtex

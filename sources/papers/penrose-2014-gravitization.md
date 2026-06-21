@@ -51,9 +51,9 @@ The main result is the lifetime formula τ ≈ ℏ/E_G for spontaneous collapse 
 This paper is the primary reference for the Diósi-Penrose (DP) objective collapse model, which enters the participatory realism / "it-from-bit" research thread. In the context of the VFE/active inference program, the DP proposal is relevant to discussions of observer-participancy, the physical basis for wavefunction collapse, and comparisons between Bayesian inference (belief updating as R-like collapse) and gravitational decoherence as objective reduction. The identification of τ ≈ ℏ/E_G as an intrinsic timescale for quantum-classical transition connects to questions about the physical grounding of the measurement postulate that appear in participatory realism frameworks (see PIFB.tex). The paper's treatment of incompatible vacua in superposed gravitational fields also bears on the mathematical structure of Hilbert space bundles over configuration space, a geometry relevant to gauge-theoretic formulations.
 
 ## Cross-links
-- Concepts: [[Quantum State Reduction]] [[Measurement Paradox]] [[Participatory Realism]] [[Decoherence]]
-- Related sources: [[diosi-1989-models]] [[penrose-2014-gravitization-2]]
-- Manuscript/Project: [[PIFB]] [[VFE Transformer Program]]
+- Concepts: [[Quantum State Reduction]] [[Quantum Measurement|Measurement Paradox]] [[fuchs-2017-participatory-realism|Participatory Realism]] [[Decoherence]]
+- Related sources: [[diosi-1989-gravity-collapse|diosi-1989-models]] [[penrose-2014-gravitization|penrose-2014-gravitization-2]]
+- Manuscript/Project: [[Participatory realism (it from bit)|PIFB]] [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex

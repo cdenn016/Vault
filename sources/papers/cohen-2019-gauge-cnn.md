@@ -4,7 +4,6 @@ title: "Gauge Equivariant Convolutional Networks and the Icosahedral CNN"
 aliases:
   - "Cohen et al. 2019 — Gauge Equivariant CNN"
   - "cohen2019gauge"
-  - "Gauge Equivariant CNN"
 authors:
   - Cohen, Taco S.
   - Weiler, Maurice
@@ -65,7 +64,7 @@ This is the canonical reference for the **gauge-theoretic core** of the VFE-tran
 - Concepts: [[Gauge transformation]], [[Parallel transport]], [[Holonomy]], [[Irreducible representation]], [[Group equivariance]], [[Clebsch-Gordan coefficients]]
 - Methods: [[Gauge equivariant CNN]], [[Steerable CNN]], [[Group equivariant CNN (G-CNN)]]
 - Related sources: [[cohen-2016-gcnn]], [[weiler-2019-e2-steerable]], [[kondor-2018-compact-group-conv]], [[thomas-2018-tensor-field-networks]], [[bronstein-2021-geometric-deep-learning]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]]
+- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) gauge-equivariant attention|GL(K) Attention]]
 
 ## BibTeX
 

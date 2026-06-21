@@ -33,7 +33,7 @@ Hurley critiques the 'classical sandwich' model of mind (perception in, cognitio
 Cited by Bayne-Chalmers as a philosopher who explicitly entertains denying phenomenal unity, establishing the thesis's substantive content; its sensorimotor, action-coupled view of consciousness resonates with the active-inference grounding of the VFE program.
 
 ## Cross-links
-[[Unity of Consciousness]], [[Consciousness and the hard problem]]
+[[bayne-2005-unity-consciousness|Unity of Consciousness]], [[Consciousness and the hard problem]]
 
 ## BibTeX
 ```bibtex

@@ -40,8 +40,8 @@ The conceptual core of the IB family is **distributional clustering**: grouping 
 ## Sources
 
 - [[tishby-1999-information-bottleneck]] — founding IB variational principle; KL-distortion softmax assignment and the information plane.
-- [[bialek-2001-predictability-complexity]] — predictive information as a complexity measure; the $\tfrac{K}{2}\log T$ counting law, currency for the $h \to s \to p \to q$ hierarchy.
-- [[chechik-2005-gaussian-ib]] — closed-form Gaussian IB; spectral, phase-transition optimum matching PIFB's Gaussian belief tuples.
+- [[bialek2001predictability|bialek-2001-predictability-complexity]] — predictive information as a complexity measure; the $\tfrac{K}{2}\log T$ counting law, currency for the $h \to s \to p \to q$ hierarchy.
+- [[chechik2005information-bottleneck-gaussian|chechik-2005-gaussian-ib]] — closed-form Gaussian IB; spectral, phase-transition optimum matching PIFB's Gaussian belief tuples.
 - [[strouse-2017-deterministic-ib]] — deterministic (hard-clustering) IB limit; account of low-temperature attention and crisp meta-agent membership.
 - [[slonim-2000-agglomerative-ib]] — bottom-up agglomerative IB; relevance-preserving coarse-graining cousin of meta-agent formation.
 - [[shwartz-ziv-2017-opening-black-box]] — information-plane dynamics of deep nets; fitting-then-compression reading of layerwise $F$ descent.

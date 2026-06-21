@@ -48,9 +48,9 @@ Behaviorally, participants modulated learning rates with CPP (median coefficient
 This paper is directly relevant to the VFE transformer's free-energy framework in several respects. First, the two normative factors CPP and RU correspond precisely to the two information-theoretic terms that govern Bayesian belief updating: CPP is proportional to a KL divergence or prediction error (the surprise term that appears in the self-coupling $\alpha \cdot \text{KL}(q_i \| p_i)$ when the prior shifts), while RU maps onto belief uncertainty — the variance of $q_i$ relative to the prior. The VFE canonical free energy contains both a self-coupling KL term and belief uncertainty (through the Gaussian belief tuple $(\mu, \Sigma, \phi)$), providing a formal link. Second, the convergence of CPP and RU signals in DMFC mirrors the convergence of free-energy gradient terms at a shared inference system — in the VFE multi-agent model, this corresponds to the aggregation of per-token belief updates into a common coupling term. Third, the dissociable factor-specific pathways (visual cortex for CPP, aPFC/parietal for RU, striatum for reward) are suggestive of a hierarchical or modular architecture consistent with the VFE hierarchy $h \to s \to p \to q \to \text{observations}$. Fourth, the reward-driven bias — a context-inappropriate tendency that nonetheless propagates to the common learning-rate system — is an empirical instance of the kind of non-normative influence that the VFE framework can model by including an observation-likelihood term that conflates task-relevant and task-irrelevant signals.
 
 ## Cross-links
-- Concepts: [[Variational Free Energy]], [[Bayesian Belief Updating]], [[Change-Point Detection]], [[Relative Uncertainty]]
-- Related sources: [[nassar2010-approximately-bayesian]], [[behrens2007-learning-value-information]]
-- Manuscript/Project: [[VFE Transformer Program]], [[multi-agent active inference]]
+- Concepts: [[Variational Free Energy]], [[Bayesian Inference|Bayesian Belief Updating]], [[Change-Point Detection]], [[Relative Uncertainty]]
+- Related sources: [[nassar2010-bayesian-delta-rule|nassar2010-approximately-bayesian]], [[behrens-2007-learning-value-information|behrens2007-learning-value-information]]
+- Manuscript/Project: [[VFE Transformer Program]], [[Collective active inference|multi-agent active inference]]
 
 ## BibTeX
 ```bibtex

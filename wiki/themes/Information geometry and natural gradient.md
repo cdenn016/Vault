@@ -2,7 +2,6 @@
 type: theme
 title: Information geometry and natural gradient
 aliases:
-  - Information geometry
   - Fisher-Rao geometry
   - Natural-gradient optimization
   - "Dual connections"

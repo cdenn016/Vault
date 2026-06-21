@@ -22,4 +22,4 @@ The operation of averaging a quantum state or channel over the action of a group
 [[Quantum reference frames]], [[Superselection rules]], [[Decoherence-free subsystems]], [[Group equivariance]], [[Irreducible representation]]
 
 ## Sources
-[[bartlett-rudolph-spekkens-2007-reference-frames]]
+[[bartlett-2007-reference-frames|bartlett-rudolph-spekkens-2007-reference-frames]]

@@ -3,7 +3,6 @@ type: paper
 title: "Auto-Encoding Variational Bayes"
 aliases:
   - "Kingma 2013"
-  - "VAE"
   - "kingma-2013-vae"
   - "kingma2013vae"
   - "kingma2014vae"

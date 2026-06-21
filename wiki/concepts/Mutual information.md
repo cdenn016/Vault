@@ -71,7 +71,7 @@ $$
 p(t\mid x)\;\propto\;p(t)\,\exp\!\big(-\beta\,D_{\mathrm{KL}}(p(y\mid x)\,\|\,p(y\mid t))\big),
 $$
 
-solved by Blahut-Arimoto-style alternating projection; sweeping $\beta$ traces the **information plane** $\big(I(X;T),\,I(T;Y)\big)$, whose boundary generalizes the rate-distortion curve ([[tishby-1999-information-bottleneck]]). The Gaussian case has a closed-form spectral optimum ([[chechik-2005-gaussian-ib]]), and a layerwise "fitting-then-compression" reading of deep networks lives in the information plane ([[shwartz-ziv-2017-opening-black-box]]). See [[Information bottleneck]] for the full treatment and its mapping onto the program's variational free energy.
+solved by Blahut-Arimoto-style alternating projection; sweeping $\beta$ traces the **information plane** $\big(I(X;T),\,I(T;Y)\big)$, whose boundary generalizes the rate-distortion curve ([[tishby-1999-information-bottleneck]]). The Gaussian case has a closed-form spectral optimum ([[chechik2005information-bottleneck-gaussian|chechik-2005-gaussian-ib]]), and a layerwise "fitting-then-compression" reading of deep networks lives in the information plane ([[shwartz-ziv-2017-opening-black-box]]). See [[Information bottleneck]] for the full treatment and its mapping onto the program's variational free energy.
 
 ## Quadratic regime and the Fisher metric
 
@@ -111,7 +111,7 @@ Mutual information is the bridge between the Shannon-information vocabulary in w
 - [[cover-thomas-2006-elements-information-theory]] — defines entropy, relative entropy, and mutual information; the chain rules, the data-processing inequality, and the relative-entropy-to-Fisher local relation.
 - [[shannon-1948-mathematical-theory-communication]] — founding definition of entropy and mutual information; $I$ as channel capacity.
 - [[tishby-1999-information-bottleneck]] — the information-bottleneck objective $I(X;T)-\beta\,I(T;Y)$; KL-distortion softmax assignment; the information plane.
-- [[chechik-2005-gaussian-ib]] — closed-form Gaussian information bottleneck; spectral, phase-transition optimum.
+- [[chechik2005information-bottleneck-gaussian|chechik-2005-gaussian-ib]] — closed-form Gaussian information bottleneck; spectral, phase-transition optimum.
 - [[shwartz-ziv-2017-opening-black-box]] — information-plane (fitting-then-compression) dynamics of deep networks.
 - [[slonim-2000-agglomerative-ib]] — agglomerative IB; relevance-preserving coarse-graining, cousin of meta-agent formation.
 

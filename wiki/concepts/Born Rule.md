@@ -20,4 +20,4 @@ The Born rule is the postulate of quantum mechanics giving the probability of a 
 [[Participatory realism and quantum foundations]], [[Fisher information metric]]
 
 ## Sources
-[[johnson-2011-entropic-dynamics-measurement]], [[fuchs-schack-2013-bayesian-coherence]], [[caticha-2019-entropic-dynamics]]
+[[johnson-2011-entropic-dynamics-measurement]], [[fuchs-schack-2013-bayesian-coherence]], [[caticha-2019-entropic-dynamics-qm|caticha-2019-entropic-dynamics]]

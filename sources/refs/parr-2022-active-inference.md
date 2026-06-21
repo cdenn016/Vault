@@ -57,7 +57,7 @@ This book is the canonical reference for the variational-free-energy substrate t
 
 ## Related references
 
-The continuous-time, process-theoretic precursor is [[friston-2017-active-inference-process]]; the ecological / multi-agent extension the project also draws on is [[ramstead-2019-variational-neuroethology]]; the entropic-dynamics view of the same updating is [[caticha-2019-entropic-dynamics]].
+The continuous-time, process-theoretic precursor is [[friston-2017-active-inference-process-theory|friston-2017-active-inference-process]]; the ecological / multi-agent extension the project also draws on is [[ramstead-2019-enactive-inference|ramstead-2019-variational-neuroethology]]; the entropic-dynamics view of the same updating is [[caticha-2019-entropic-dynamics-qm|caticha-2019-entropic-dynamics]].
 
 ## BibTeX
 

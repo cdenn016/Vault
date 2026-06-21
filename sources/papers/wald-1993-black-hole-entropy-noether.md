@@ -42,12 +42,12 @@ The Wald entropy formula, a symmetry-based generalization of the area law valid 
 
 ## Relevance to this research
 
-Wald supplies the *gauge/symmetry* face of the emergent-gravity story: horizon entropy is a Noether charge of the diffeomorphism gauge group. This complements the thermodynamic ([[jacobson-1995-thermodynamics-spacetime]]) and entanglement-equilibrium ([[jacobson-2016-entanglement-equilibrium]]) derivations by tying the entropy that drives those arguments to a symmetry principle — exactly the register in which the program's own gauge-theoretic machinery operates ([[Gauge transformation]], [[Holonomy]]). For PIFB ([[participatory-it-from-bit]]) it reinforces the [[Emergent spacetime and holography]] theme from the symmetry side and connects the information-as-entropy thread to the program's broader commitment that conserved/charge structure follows from symmetry. It is therefore tagged into the gauge-theory cluster as well.
+Wald supplies the *gauge/symmetry* face of the emergent-gravity story: horizon entropy is a Noether charge of the diffeomorphism gauge group. This complements the thermodynamic ([[jacobson-1995-einstein-equation-of-state|jacobson-1995-thermodynamics-spacetime]]) and entanglement-equilibrium ([[jacobson-2016-entanglement-equilibrium]]) derivations by tying the entropy that drives those arguments to a symmetry principle — exactly the register in which the program's own gauge-theoretic machinery operates ([[Gauge transformation]], [[Holonomy]]). For PIFB ([[participatory-it-from-bit]]) it reinforces the [[Emergent spacetime and holography]] theme from the symmetry side and connects the information-as-entropy thread to the program's broader commitment that conserved/charge structure follows from symmetry. It is therefore tagged into the gauge-theory cluster as well.
 
 ## Cross-links
 - Concepts: [[Gauge transformation]], [[Holonomy]], [[Participatory realism (it from bit)]]
 - Themes: [[Emergent spacetime and holography]]
-- Related sources: [[jacobson-1995-thermodynamics-spacetime]], [[jacobson-2016-entanglement-equilibrium]], [[bekenstein-1973-black-holes-entropy]], [[yang-mills-1954]]
+- Related sources: [[jacobson-1995-einstein-equation-of-state|jacobson-1995-thermodynamics-spacetime]], [[jacobson-2016-entanglement-equilibrium]], [[bekenstein-1973-black-holes-entropy]], [[yang-mills-1954]]
 
 ## BibTeX
 ```bibtex

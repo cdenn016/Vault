@@ -42,7 +42,7 @@ Key identities directly relevant to the VFE transformer include: derivatives of 
 This is a low-level utility reference that underpins virtually every matrix calculation in the VFE transformer codebase and manuscripts. Specifically: (1) derivatives of $\log|\Sigma|$ and quadratic forms in $\Sigma^{-1}$ appear directly in the VFE free-energy gradient $\nabla_\Sigma F$ used in the M-step / belief update; (2) the Woodbury identity appears whenever the $(K \times K)$ precision matrix is updated with a rank-1 or rank-$r$ correction during E-step coupling; (3) the matrix exponential identities are relevant to the GL(K) transport / parallel transport computation $\Omega_{ij} = \exp(\Delta_{ij})$; (4) Gaussian marginal and conditional identities underpin the SPD belief geometry and the derivation of the KL divergence between Gaussians used throughout the free-energy functional. The GL(K) attention manuscript (`Manuscripts-Theory/GL(K)_attention.tex`) and the supplementary implicitly rely on these results in every gradient derivation.
 
 ## Cross-links
-- Concepts: [[Matrix calculus]], [[SPD manifold]], [[Gaussian beliefs]], [[KL divergence]]
+- Concepts: [[Matrix calculus]], [[SPD-manifold geometry and Riemannian optimization|SPD manifold]], [[Gaussian beliefs]], [[kullback-1951-kl-divergence|KL divergence]]
 - Related sources: [[bhatia-2007-positive-definite-matrices]], [[absil-2008-optimization-matrix-manifolds]], [[amari-2000-methods-information-geometry]], [[pennec-2006-affine-invariant-tensor]]
 - Manuscript/Project: [[VFE Transformer Program]]
 

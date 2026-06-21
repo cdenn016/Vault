@@ -50,7 +50,7 @@ StreamingLLM's mechanistic analysis of softmax normalization and attention score
 
 ## Cross-links
 - Concepts: [[Attention Mechanism]], [[Softmax]], [[KV Cache]], [[Length Extrapolation]]
-- Related sources: [[vaswani2017attention]], [[su2021roformer]]
+- Related sources: [[vaswani-2017-attention|vaswani2017attention]], [[su2024roformer|su2021roformer]]
 - Manuscript/Project: [[VFE Transformer Program]]
 
 ## BibTeX

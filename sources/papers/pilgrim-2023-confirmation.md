@@ -49,9 +49,9 @@ Under the BIASR model, five empirical phenomena are reproduced: (1) biased evalu
 The BIASR model is a concrete instantiation of variational mean-field approximation applied to sequential Bayesian belief updating, directly mirroring the mathematics at the core of the VFE framework. The independence approximation $P(H,R) \approx P(H)P(R)$ is precisely the factored (mean-field) variational family used in variational inference, and the paper explicitly frames this as minimising KL divergence from the true joint — the variational free energy perspective. The compounding of small approximation errors over sequential observations parallels how iterated VFE minimisation can accumulate policy-shaping biases in multi-agent active inference. The collider Bayesian network structure ($H \to D \leftarrow R$) is conceptually related to the observation-likelihood term in the VFE free-energy functional where observations are explained by both latent state beliefs and model (prior/source) reliability. The attitude polarisation result connects to social-physics models of opinion dynamics: agents with shared auxiliary priors can diverge when their central priors differ, a mechanism relevant to multi-agent belief coupling in the GL(K) attention framework. The information-gain formulation as expected KL divergence relates to the attention-entropy and belief-coupling terms in the VFE functional. The paper also provides a normative grounding for why boundedly rational agents would adopt mean-field approximations — directly relevant to justifying the independence assumptions implicit in factored VFE updates across agent layers.
 
 ## Cross-links
-- Concepts: [[Variational Inference]], [[Mean Field Approximation]], [[KL Divergence]], [[Bounded Rationality]], [[Bayesian Inference]]
-- Related sources: [[Social Opinion Dynamics]], [[Active Inference]]
-- Manuscript/Project: [[VFE Transformer Program]], [[PIFB]]
+- Concepts: [[blei-2017-variational-inference|Variational Inference]], [[Mean-Field Approximation|Mean Field Approximation]], [[kullback-1951-kl-divergence|KL Divergence]], [[Bounded Rationality]], [[Bayesian Inference]]
+- Related sources: [[Opinion dynamics|Social Opinion Dynamics]], [[Active Inference]]
+- Manuscript/Project: [[VFE Transformer Program]], [[Participatory realism (it from bit)|PIFB]]
 
 ## BibTeX
 ```bibtex

@@ -3,7 +3,6 @@ type: paper
 title: "The Psychology of Social Impact"
 aliases:
   - Latane 1981
-  - Social Impact Theory
   - SIT
   - latane-1981-social-impact
   - Latané 1981
@@ -79,9 +78,9 @@ Social Impact Theory is a foundational quantitative model for social influence t
 **Belief-inertia force law.** Within the **SocialPhysics** program founded by [[belief-inertia]] ("The Inertia of Belief"), Social Impact Theory enters as the *force law* whose overdamped (gradient-flow) limit the multi-agent variational dynamics must reproduce, and whose underdamped extension it predicts. Latané's law specifies the force of social influence — how strongly the aggregate of others pushes on a target — but is silent on the target's resistance to being moved; the manuscript supplies that missing factor by reading the Fisher/precision tensor as an inertial mass ([[Mass as Fisher information]]) in a [[Hamiltonian belief dynamics]] ansatz, so the same impact field produces not instantaneous overdamped relaxation but oscillation, overshoot, and resonance ([[Belief inertia]]). Strength and immediacy are exactly the social-network weights and distances the gauge-theoretic treatment encodes in the connection $\Omega_{ij}$ and coupling graph.
 
 ## Cross-links
-- Concepts: [[Social Influence]], [[Opinion Dynamics]], [[Power Law]], [[Diffusion of Responsibility]], [[Social Loafing]], [[Sociophysics]], [[Bounded confidence]], [[Echo chambers and polarization]], [[Belief inertia]], [[Mass as Fisher information]], [[Hamiltonian belief dynamics]], [[Multi-agent variational free energy]], [[Fisher information metric]], [[Agents as fibre-bundle sections]], [[Gauge transformation]]
-- Related sources: [[hegselmann2002opinion]], [[deffuant2000mixing]], [[latane1996dynamic]], [[castellano-fortunato-loreto-2009-social-dynamics]], [[galam-2008-sociophysics]], [[degroot-1974-consensus]], [[friedkin-johnsen-1990]]
-- Manuscript/Project: [[belief-inertia]], [[SocialPhysics]], [[Gauge-Theoretic Multi-Agent VFE Model]], [[MAgent Model]], [[PIFB]], [[VFE Transformer Program]]
+- Concepts: [[Social influence and conformity|Social Influence]], [[Opinion Dynamics]], [[Social Impact Theory|Power Law]], [[Social Impact Theory|Diffusion of Responsibility]], [[Social Impact Theory|Social Loafing]], [[Sociophysics]], [[Bounded confidence]], [[Echo chambers and polarization]], [[Belief inertia]], [[Mass as Fisher information]], [[Hamiltonian belief dynamics]], [[Multi-agent variational free energy]], [[Fisher information metric]], [[Agents as fibre-bundle sections]], [[Gauge transformation]]
+- Related sources: [[hegselmann-2002-opinion|hegselmann2002opinion]], [[deffuant2000-bounded-confidence|deffuant2000mixing]], [[latane-1996-dynamic-social-impact|latane1996dynamic]], [[castellano-2009-statistical-physics-social-dynamics|castellano-fortunato-loreto-2009-social-dynamics]], [[galam-2008-sociophysics]], [[degroot-1974-consensus]], [[friedkin1990-social-influence-opinions|friedkin-johnsen-1990]]
+- Manuscript/Project: [[belief-inertia]], [[SocialPhysics]], [[Gauge-Theoretic Multi-Agent VFE Model]], [[Gauge-Theoretic Multi-Agent VFE Model|MAgent Model]], [[Participatory realism (it from bit)|PIFB]], [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex

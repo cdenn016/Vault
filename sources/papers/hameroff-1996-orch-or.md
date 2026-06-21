@@ -59,9 +59,9 @@ More directly relevant is the connection to the **participatory realism** thread
 The paper is also relevant to the multi-agent programme insofar as Orch OR proposes that neurons are not passive integrators but active quantum-computing agents whose internal microtubule dynamics gate synaptic function, paralleling the active-inference view of neurons as agents minimising variational free energy.
 
 ## Cross-links
-- Concepts: [[Participatory Realism]], [[Quantum Foundations]], [[Consciousness]], [[Objective Reduction]]
-- Related sources: [[penrose-1994-shadows-of-the-mind]], [[friston-2019-free-energy]]
-- Manuscript/Project: [[PIFB]], [[VFE Transformer Program]]
+- Concepts: [[fuchs-2017-participatory-realism|Participatory Realism]], [[Participatory realism and quantum foundations|Quantum Foundations]], [[Consciousness]], [[Objective Reduction]]
+- Related sources: [[penrose-1994-shadows-of-the-mind]], [[friston-2019-particular-physics|friston-2019-free-energy]]
+- Manuscript/Project: [[Participatory realism (it from bit)|PIFB]], [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex

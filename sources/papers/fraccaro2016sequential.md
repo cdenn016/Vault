@@ -51,8 +51,8 @@ On Blizzard speech (0.5s sequences), SRNN (smooth+Resq) achieves a log-likelihoo
 SRNN is directly relevant to the VFE transformer program's treatment of beliefs as Gaussian tuples propagated through a generative hierarchy. The paper's ELBO decomposes as a sum of per-timestep KL divergences between variational posteriors and structured priors — exactly the belief-coupling and self-coupling terms in the VFE free energy functional. The Resq residual parameterization (learning corrections to the predictive prior mean rather than the full mean) mirrors the VFE perspective that inference updates should be understood as corrections to transported prior beliefs. The clean separation of deterministic and stochastic layers in SRNN also resonates with the VFE transformer's separation of gauge transport (deterministic, equivariant) from belief updates (stochastic, VFE-driven). The structured variational approximation that exploits d-separation and Markov structure of the posterior is analogous to how the VFE attention weights $\beta_{ij}$ are derived as stationary points of a well-defined free energy rather than ad hoc softmax outputs.
 
 ## Cross-links
-- Concepts: [[Variational Free Energy]], [[ELBO]], [[State Space Models]], [[Gaussian Beliefs]]
-- Related sources: [[chung2015recurrent]] (VRNN), [[krishnan2015deep]] (Deep Kalman Filter)
+- Concepts: [[Variational Free Energy]], [[Evidence lower bound (ELBO)|ELBO]], [[State Space Models]], [[Gaussian Beliefs]]
+- Related sources: [[chung-2015-vrnn|chung2015recurrent]] (VRNN), [[krishnan-2015-deep-kalman-filters|krishnan2015deep]] (Deep Kalman Filter)
 - Manuscript/Project: [[VFE Transformer Program]]
 
 ## BibTeX

@@ -38,12 +38,12 @@ The review covers several experimental platforms for mechanical quantum superpos
 The macroscopicity scale places current experiments in the range $\mu \approx 5$–$12$: neutron interferometry (1962) at $\mu \approx 6.8$, SQUID persistent-current superpositions at $\mu \approx 4.8$, Talbot-Lau interference of large molecules (PFNS8, 2011) at $\mu \approx 12.1$. Proposed OTIMA experiments with $10^8$ amu gold nanoparticles could reach $\mu \approx 23.3$, which would falsify all current CSL (continuous spontaneous localization) model predictions. The review establishes that competitive macroscopicities are achievable by radically different physical systems, suggesting no single golden experimental strategy dominates.
 
 ## Relevance to this research
-This paper is relevant primarily through the participatory realism and quantum-foundations thread of the research program (see [[PIFB.tex]] / [[Participatory It-from-Bit]]). The empirical question of whether the superposition principle extends to macroscopic scales bears directly on interpretations of quantum measurement, objective collapse models (CSL, Penrose-Diosi), and the role of observation in constituting physical reality — all themes central to participatory realism. The macroscopicity measure is also a concrete operationalization of the idea that "macroscopicness" is a matter of empirical degree rather than metaphysical kind, relevant to discussions of the quantum-classical boundary and decoherence in active inference / FEP contexts. The Schrödinger-Newton and CSL collapse models discussed here represent the class of theories the program aims to situate epistemically.
+This paper is relevant primarily through the participatory realism and quantum-foundations thread of the research program (see [[Participatory realism (it from bit)|PIFB.tex]] / [[participatory-it-from-bit|Participatory It-from-Bit]]). The empirical question of whether the superposition principle extends to macroscopic scales bears directly on interpretations of quantum measurement, objective collapse models (CSL, Penrose-Diosi), and the role of observation in constituting physical reality — all themes central to participatory realism. The macroscopicity measure is also a concrete operationalization of the idea that "macroscopicness" is a matter of empirical degree rather than metaphysical kind, relevant to discussions of the quantum-classical boundary and decoherence in active inference / FEP contexts. The Schrödinger-Newton and CSL collapse models discussed here represent the class of theories the program aims to situate epistemically.
 
 ## Cross-links
-- Concepts: [[Quantum Superposition]], [[Decoherence]], [[Macroscopicity]], [[CSL Model]], [[Participatory Realism]]
-- Related sources: [[Zurek2003]], [[Bassi2013]]
-- Manuscript/Project: [[Participatory It-from-Bit]]
+- Concepts: [[Quantum Superposition]], [[Decoherence]], [[Macroscopicity]], [[CSL Model]], [[fuchs-2017-participatory-realism|Participatory Realism]]
+- Related sources: [[zurek-2003-einselection|Zurek2003]], [[bassi-2013-collapse-models|Bassi2013]]
+- Manuscript/Project: [[participatory-it-from-bit|Participatory It-from-Bit]]
 
 ## BibTeX
 ```bibtex

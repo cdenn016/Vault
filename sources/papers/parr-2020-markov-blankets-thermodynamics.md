@@ -57,7 +57,7 @@ This is the **exact precedent** for the pullback move in **[[participatory-it-fr
 - Concepts: [[Fisher information metric]], [[Natural gradient]], [[Variational free energy]], [[Mass as Fisher information]], [[Hamiltonian belief dynamics]], [[Participatory realism (it from bit)]]
 - New pages: [[Bayesian mechanics]], [[Markov blanket interpretation debate]]
 - Themes: [[Information geometry and natural gradient]], [[Free-energy principle active inference]]
-- Related sources: [[dacosta-2021-bayesian-mechanics]], [[friston-2019-particular-physics]], [[ramstead-2023-bayesian-mechanics]], [[caticha-2019-entropic-dynamics]]
+- Related sources: [[dacosta-2021-bayesian-mechanics]], [[friston-2019-particular-physics]], [[ramstead-2023-bayesian-mechanics]], [[caticha-2019-entropic-dynamics-qm|caticha-2019-entropic-dynamics]]
 - Manuscript: [[participatory-it-from-bit]]
 
 ```bibtex

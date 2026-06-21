@@ -50,9 +50,9 @@ decaying rapidly after $t=0$ for large thermal occupation $\bar{n}$, but revivin
 This paper is directly relevant to the participatory-realism and quantum-foundations thread of the research program. Penrose is a co-author, and the proposal is explicitly designed to test the Penrose–Diosi gravitational wave-function collapse model — the same objective-collapse framework that motivates the participatory "it-from-bit" ontology and the role of observer-dependent reality in the PIFB manuscript. The decoherence revival structure (sudden loss of coherence followed by exact recovery at the mechanical period) is formally analogous to the time-reversal and revival structure that appears in VFE belief-state dynamics under cyclic transport. The use of a single photon to probe entanglement with a many-body system (mirror) mirrors the structure of a single agent updating beliefs coupled to a large environmental prior, and the quantification of decoherence through off-diagonal density-matrix elements maps directly onto the KL-divergence loss of coherence between transported belief states $\Omega_{ij} q_j$ and $q_i$ in the GL(K) attention framework.
 
 ## Cross-links
-- Concepts: [[Quantum Decoherence]], [[Wavefunction Collapse]], [[Participatory Realism]], [[Optomechanics]]
+- Concepts: [[Decoherence|Quantum Decoherence]], [[Wave-Function Collapse|Wavefunction Collapse]], [[fuchs-2017-participatory-realism|Participatory Realism]], [[Optomechanics]]
 - Related sources: [[penrose-2000-mathematical-physics]], [[diosi-1989-gravity-collapse]]
-- Manuscript/Project: [[PIFB]], [[VFE Transformer Program]]
+- Manuscript/Project: [[Participatory realism (it from bit)|PIFB]], [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex

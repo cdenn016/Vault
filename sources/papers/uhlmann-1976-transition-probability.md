@@ -71,9 +71,9 @@ The Uhlmann transition probability P(ρ, σ) = (Tr√(√ρ σ √ρ))² appears
 For the participatory realism / quantum-foundations thread (PIFB manuscript), Uhlmann's algebraic treatment of states of a *-algebra is the natural language for the "it from bit" / participatory observer framework, where quantum states are seen as positive functionals and transition amplitudes are given by the purification construction.
 
 ## Cross-links
-- Concepts: [[Bures Metric]], [[Quantum Fidelity]], [[SPD Geometry]], [[Purification]], [[Information Geometry]], [[Quantum information geometry]]
+- Concepts: [[Quantum information geometry|Bures Metric]], [[Quantum information geometry|Quantum Fidelity]], [[SPD-manifold geometry and Riemannian optimization|SPD Geometry]], [[Purification (quantum states)|Purification]], [[Information Geometry]], [[Quantum information geometry]]
 - Related sources: [[bures-1969-metric]], [[pusz-woronowicz-1975-functional-calculus]], [[petz-1996-monotone-metrics]], [[braunstein-caves-1994-quantum-fisher]], [[wootters-1981-statistical-distance]]
-- Manuscript/Project: [[GL(K) Attention Manuscript]], [[PIFB Manuscript]], [[VFE Transformer Program]]
+- Manuscript/Project: [[gl-k-attention|GL(K) Attention Manuscript]], [[participatory-it-from-bit|PIFB Manuscript]], [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex

@@ -22,4 +22,4 @@ Hamiltonian (Hybrid) Monte Carlo is an MCMC method that augments the target dist
 [[Hamiltonian belief dynamics]], [[Variational free energy]]
 
 ## Sources
-[[hoffman2014no]], [[neal2011mcmc]]
+[[hoffman2014no]], [[neal-2011-mcmc-hamiltonian|neal2011mcmc]]

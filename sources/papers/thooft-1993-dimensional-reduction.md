@@ -37,7 +37,7 @@ A degree-of-freedom counting argument: the maximum entropy (hence information) s
 
 ## Key results
 
-The holographic bound on degrees of freedom and the holographic principle, subsequently sharpened by Susskind and formalized covariantly by [[bousso-2002-holographic-principle]]; realized concretely in AdS/CFT.
+The holographic bound on degrees of freedom and the holographic principle, subsequently sharpened by Susskind and formalized covariantly by [[bousso-2002-holographic|bousso-2002-holographic-principle]]; realized concretely in AdS/CFT.
 
 ## Relevance to this research
 
@@ -46,7 +46,7 @@ This is the founding holographic-principle proposal that gives quantitative teet
 ## Cross-links
 - Concepts: [[Participatory realism (it from bit)]]
 - Themes: [[Emergent spacetime and holography]]
-- Related sources: [[bekenstein-1973-black-holes-entropy]], [[bousso-2002-holographic-principle]], [[wheeler-1990-it-from-bit]], [[ryu-takayanagi-2006-holographic-entanglement-entropy]]
+- Related sources: [[bekenstein-1973-black-holes-entropy]], [[bousso-2002-holographic|bousso-2002-holographic-principle]], [[wheeler-1990-it-from-bit]], [[ryu-takayanagi-2006-holographic-entanglement-entropy]]
 
 ## BibTeX
 ```bibtex

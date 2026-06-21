@@ -50,9 +50,9 @@ Evolutionary games (Monte Carlo simulations, many payoff functions and world siz
 ITP is a direct philosophical and mathematical foundation for the participatory realism strand of the VFE program. The claim that perception constructs a species-specific interface (not a veridical readout) aligns with the PIFB manuscript's "participatory it-from-bit" thesis, in which observations are agent-relative interface events rather than objective readouts of a mind-independent world. Concretely: (1) the CEP framework's separation of W from the representational space X parallels the VFE hierarchy's separation of objective states from agent beliefs (mu, Sigma); (2) the fitness-tuned perceptual channel $P_X: W \to X$ is structurally analogous to the VFE likelihood $p(o|x)$ where observations are filtered through an agent's generative model; (3) the "interface" ontology motivates why the gauge group GL(K) acts on the *belief* space, not on an observer-independent physical space; (4) the impossibility of recovering W from X (Invention of Symmetry Theorem) echoes gauge invariance — the gauge orbit is precisely the unobservable redundancy in representation.
 
 ## Cross-links
-- Concepts: [[Participatory Realism]] [[Variational Free Energy]] [[Generative Model]] [[Active Inference]]
-- Related sources: [[hoffman-2014-objects-of-consciousness]] [[friston-2019-free-energy]] [[prakash-2020-conscious-agents]]
-- Manuscript/Project: [[PIFB]] [[VFE Transformer Program]]
+- Concepts: [[fuchs-2017-participatory-realism|Participatory Realism]] [[Variational Free Energy]] [[Generative Model]] [[Active Inference]]
+- Related sources: [[hoffman2014no|hoffman-2014-objects-of-consciousness]] [[friston-2019-particular-physics|friston-2019-free-energy]] [[prakash-2020-conscious-agents]]
+- Manuscript/Project: [[Participatory realism (it from bit)|PIFB]] [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex

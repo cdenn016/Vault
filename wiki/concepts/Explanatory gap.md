@@ -31,7 +31,7 @@ The Russellian lineage runs Russell (1927) → Strawson (2006) → Goff (2017): 
 
 - [[levine-1983-explanatory-gap]] — coins the term; the epistemic-vs-metaphysical distinction the project must preserve.
 - [[nagel-1974-what-is-it-like]] — the subjective character of experience; the "what it is like" omitted by objective description.
-- [[chalmers-1995-facing-up]], [[chalmers-1996-conscious-mind]] — the hard problem; easy/hard distinction.
+- [[chalmers-1995-facing-up-consciousness|chalmers-1995-facing-up]], [[chalmers-1996-conscious-mind]] — the hard problem; easy/hard distinction.
 - [[chalmers-2013-panpsychism]] — definitional source for the panprotopsychism label PIFB adopts; Russellian-monist framing.
 - [[chalmers-2016-combination-problem]] — the combination problem (subject/quality/structure) the project's hierarchy is measured against.
 - [[goff-2017-consciousness-fundamental-reality]] — the contemporary Russellian-monist / panpsychist case.

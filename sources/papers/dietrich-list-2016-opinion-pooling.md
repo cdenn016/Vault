@@ -51,7 +51,7 @@ This paper is the cleanest theorem-level adjudication of the **barycenter / pool
 
 ## Cross-links
 - Concepts: [[Meta-agents and hierarchical emergence]], [[Multi-agent variational free energy]]
-- Related sources: [[genest-zidek-1986-pooling]], [[hinton-2002-poe]], [[bordley-1982-multiplicative-pooling]], [[bissiri-holmes-walker-2016-general-bayes]]
+- Related sources: [[genest-zidek-1986-pooling]], [[hinton-2002-products-of-experts|hinton-2002-poe]], [[bordley-1982-multiplicative-pooling]], [[bissiri-2016-general-bayesian-updating|bissiri-holmes-walker-2016-general-bayes]]
 - Manuscript: [[participatory-it-from-bit]]
 - Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
 

@@ -54,7 +54,7 @@ The NTC framework instantiates in a rigorous statistical setting the idea that t
 ## Cross-links
 - Concepts: [[Information Geometry]] · [[Dimensionality Reduction]] · [[Variational Free Energy]]
 - Related sources: [[ganguli-2012-compressed-sensing-neuroscience]]
-- Manuscript/Project: [[VFE Transformer Program]] · [[GL(K) Attention]]
+- Manuscript/Project: [[VFE Transformer Program]] · [[GL(K) gauge-equivariant attention|GL(K) Attention]]
 
 ## BibTeX
 ```bibtex

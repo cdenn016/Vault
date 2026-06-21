@@ -47,9 +47,9 @@ The main theorem identifies the classical extended phase space with a gauge-inva
 This paper is directly relevant to the gauge-theoretic foundations of the VFE transformer and GL(K) attention framework. The core construction — introducing boundary degrees of freedom (the trivialization phi) to restore gauge invariance of a variational structure on a region with boundary — is a precise classical field-theory analog of the gauge-equivariance conditions imposed in the GL(K) attention mechanism, where beliefs must transform covariantly under local group actions. The distinction between gauge symmetry (acting on the right of phi, generating constraints that vanish on-shell) and surface symmetry (acting on the left, generating physical charges) maps cleanly onto the distinction between gauge redundancy and physical gauge-equivariant observables in the VFE attention framework. The fusion product / entangling product P_Sigma x_{G_S} P_Sigma-bar is a field-theoretic instance of the same symplectic reduction / quotient by gauge group that underlies the GL(K) variational free energy's gauge-invariant belief-coupling term. The identification of SL(2,R) as the boundary boost algebra, and its Casimir as the area, is suggestive for the role of the GL(K) Cartan subalgebra in determining information-geometric "area" (entropy). The extended phase space / Hilbert space construction is also the cleanest field-theory precursor to boundary degrees of freedom in multi-agent active inference networks where agents share a boundary.
 
 ## Cross-links
-- Concepts: [[Gauge Symmetry]], [[Symplectic Geometry]], [[Entanglement Entropy]], [[Surface Charges]]
+- Concepts: [[Gauge transformation|Gauge Symmetry]], [[Symplectic Geometry]], [[Entanglement Entropy]], [[Surface Charges]]
 - Related sources: [[freidel-geiller-2021-edge-modes]], [[donnelly-wall-2015-geometric-entropy]]
-- Manuscript/Project: [[GL(K) Attention]], [[VFE Transformer Program]]
+- Manuscript/Project: [[GL(K) gauge-equivariant attention|GL(K) Attention]], [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex

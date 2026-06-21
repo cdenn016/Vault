@@ -52,9 +52,9 @@ The main theorem establishes Dec(A|E) ≤ h(beta) for any no-signalling theory, 
 This paper is relevant primarily through its connection to participatory quantum foundations and the physical interpretation of decoherence in theories that go beyond standard quantum mechanics. The framework of generalized probabilistic theories (GPTs) and the use of the no-signalling principle as the sole assumption resonates with the participatory realism / "it from bit" program (Wheeler), where physical reality emerges from information-theoretic constraints rather than from a pre-given quantum Hilbert space. The information-theoretic decoherence measure Dec(A|E) — defined operationally via fidelity between probability distributions over measurement outcomes — is in spirit aligned with the VFE program's emphasis on belief geometries and divergence measures as fundamental quantities. The monogamy-of-correlations argument (strong correlations between A-B imply weak A-E entanglement) has structural parallels to the attention-mediated belief coupling in the VFE transformer, where coupling between token pairs competes for a shared "resource." The optomechanical experiment design (entangled cavities probing decoherence) is not directly relevant to the transformer code, but the foundational stance — deriving bounds from operational/information-theoretic principles without assuming a specific physical theory — is directly in the spirit of the participatory and information-geometric foundations of the VFE research.
 
 ## Cross-links
-- Concepts: [[Participatory Realism]], [[Generalized Probabilistic Theories]], [[Quantum Decoherence]], [[Bell Inequality]], [[No-Signalling Principle]]
-- Related sources: [[Pfister2013]] (prior work by same author on information-theoretic principle implying classicality)
-- Manuscript/Project: [[PIFB]], [[VFE Transformer Program]]
+- Concepts: [[fuchs-2017-participatory-realism|Participatory Realism]], [[Informational reconstruction of quantum theory|Generalized Probabilistic Theories]], [[Decoherence|Quantum Decoherence]], [[Bell inequalities|Bell Inequality]], [[No-Signalling Principle]]
+- Related sources: [[pfister-2013-information-classical|Pfister2013]] (prior work by same author on information-theoretic principle implying classicality)
+- Manuscript/Project: [[Participatory realism (it from bit)|PIFB]], [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex

@@ -17,4 +17,4 @@ An associative (content-addressable) memory stores a set of patterns and retriev
 [[Attention Mechanism]], [[Energy-Based Models]], [[Variational Free Energy]]
 
 ## Sources
-[[ramsauer2021hopfield]], [[krotov2016dense]]
+[[ramsauer2021hopfield]], [[krotov-2016-dense-associative-memory|krotov2016dense]]

@@ -46,8 +46,8 @@ This paper is relevant to the VFE transformer and multi-agent active inference p
 
 ## Cross-links
 - Concepts: [[Kalman Filter]], [[Variational Free Energy]], [[Predictive Coding]], [[Information Rigidity]], [[Rational Inattention]]
-- Related sources: [[mankiw2002-sticky-information]], [[woodford2001-imperfect-information]], [[sims2003-rational-inattention]]
-- Manuscript/Project: [[VFE Transformer Program]], [[Multi-Agent Active Inference]]
+- Related sources: [[mankiw-2002-sticky-information|mankiw2002-sticky-information]], [[woodford-2001-imperfect-information|woodford2001-imperfect-information]], [[sims-2003-rational-inattention|sims2003-rational-inattention]]
+- Manuscript/Project: [[VFE Transformer Program]], [[Collective active inference|Multi-Agent Active Inference]]
 
 ## BibTeX
 ```bibtex

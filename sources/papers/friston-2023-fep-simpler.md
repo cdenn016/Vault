@@ -79,8 +79,8 @@ This paper is the primary theoretical substrate for the multi-agent active infer
 
 ## Cross-links
 - Concepts: [[Variational Free Energy]] [[Markov Blanket]] [[Active Inference]] [[Nonequilibrium Steady State]] [[Bayesian Mechanics]] [[Hamiltonian belief dynamics]] [[Belief inertia]] [[Markov blanket interpretation debate]] [[Natural gradient]] [[Fisher information metric]]
-- Related sources: [[friston-2022-bayesian-mechanics]] [[parr-2022-active-inference-book]] [[friston-2019-particular-physics]] [[dacosta-2021-bayesian-mechanics]] [[parr-2020-markov-blankets-thermodynamics]] [[ramstead-2023-bayesian-mechanics]]
-- Manuscript/Project: [[VFE Transformer Program]] [[GL(K) Attention]]
+- Related sources: [[friston-2023-fep-simpler|friston-2022-bayesian-mechanics]] [[parr-2022-active-inference|parr-2022-active-inference-book]] [[friston-2019-particular-physics]] [[dacosta-2021-bayesian-mechanics]] [[parr-2020-markov-blankets-thermodynamics]] [[ramstead-2023-bayesian-mechanics]]
+- Manuscript/Project: [[VFE Transformer Program]] [[GL(K) gauge-equivariant attention|GL(K) Attention]]
 
 ## BibTeX
 ```bibtex

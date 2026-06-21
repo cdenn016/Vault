@@ -46,12 +46,12 @@ The dynamics (symplectic) and the statistics/distinguishability (metric) of quan
 
 ## Relevance to this research
 
-The symplectic-plus-metric (Kähler) structure of state space is the template for [[participatory-it-from-bit]]'s signature/complexification thread: the manuscript asks how a complex/quantum-like structure can arise on an agent's real belief manifold, and geometric QM shows the target structure — a metric (distinguishability) paired with a compatible symplectic form generating dynamics. The metric component is the same Fubini–Study/[[wootters-1981-statistical-distance|distinguishability]] geometry the project pulls back, and the Hamiltonian-flow picture parallels the project's [[Hamiltonian belief dynamics]]. Links [[Quantum information geometry]], [[caticha-2019-entropic-dynamics]] (which likewise derives Hamiltonian flow from information geometry), and the manuscript [[participatory-it-from-bit]].
+The symplectic-plus-metric (Kähler) structure of state space is the template for [[participatory-it-from-bit]]'s signature/complexification thread: the manuscript asks how a complex/quantum-like structure can arise on an agent's real belief manifold, and geometric QM shows the target structure — a metric (distinguishability) paired with a compatible symplectic form generating dynamics. The metric component is the same Fubini–Study/[[wootters-1981-statistical-distance|distinguishability]] geometry the project pulls back, and the Hamiltonian-flow picture parallels the project's [[Hamiltonian belief dynamics]]. Links [[Quantum information geometry]], [[caticha-2019-entropic-dynamics-qm|caticha-2019-entropic-dynamics]] (which likewise derives Hamiltonian flow from information geometry), and the manuscript [[participatory-it-from-bit]].
 
 ## Cross-links
 
 - Concepts: [[Quantum information geometry]], [[Fisher information metric]], [[Statistical manifold]], [[Hamiltonian belief dynamics]]
-- Related sources: [[wootters-1981-statistical-distance]], [[braunstein-caves-1994-quantum-fisher]], [[bengtsson-zyczkowski-2017-geometry-quantum-states]], [[caticha-2019-entropic-dynamics]]
+- Related sources: [[wootters-1981-statistical-distance]], [[braunstein-caves-1994-quantum-fisher]], [[bengtsson-zyczkowski-2017-geometry-quantum-states]], [[caticha-2019-entropic-dynamics-qm|caticha-2019-entropic-dynamics]]
 - Manuscript: [[participatory-it-from-bit]]
 
 ## BibTeX

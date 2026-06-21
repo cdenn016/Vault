@@ -58,9 +58,9 @@ ViT-H/14 pre-trained on JFT-300M achieves 88.55% top-1 on ImageNet, 90.72% on Im
 ViT establishes the canonical form of patch-based self-attention that the VFE transformer generalizes. The VFE transformer replaces dot-product softmax attention with variational free-energy minimization over Gaussian belief tuples $(\mu, \Sigma, \phi)$, where the attention weights $\beta_{ij}$ emerge as stationary points of $F$ rather than as softmax of inner products. ViT's MSA equations (Eqs. 5–8) are the flat, non-probabilistic special case that the GL(K) gauge-equivariant attention subsumes: the key-query product $qk^\top / \sqrt{D_h}$ maps onto the KL divergence $\text{KL}(q_i \| \Omega_{ij} q_j)$ under the appropriate Gaussian parameterization, and the softmax corresponds to the entropy-regularized stationary condition for $\beta_{ij}$ in the VFE free energy. The patch embedding linear projection $E$ is also the structural antecedent of the VFE encoder that maps observations into belief-space $(\mu, \Sigma)$. ViT's finding that positional embeddings learn 2D topology from data (without hand-crafted 2D structure) is relevant to the T5 relative-position bias design in the VFE transformer.
 
 ## Cross-links
-- Concepts: [[Attention Mechanism]], [[Transformer Architecture]], [[Self-Attention]]
+- Concepts: [[Attention Mechanism]], [[Transformer Architecture]], [[Attention mechanisms — theory and positional structure|Self-Attention]]
 - Related sources: [[vaswani-2017-attention]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]]
+- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) gauge-equivariant attention|GL(K) Attention]]
 
 ## BibTeX
 ```bibtex

@@ -56,9 +56,9 @@ This paper is the primary reference for SE(3)-equivariant self-attention and dir
 The core mechanism — constructing invariant attention weights via inner products of equivariantly-embedded queries and keys — is exactly the pattern used in the VFE transformer's GL(K) attention, where the gauge group is GL(K) acting on the belief space $\mathbb{R}^K$ rather than SO(3) acting on 3D space. The decomposition into irreducible representations (type-$\ell$ vectors, Wigner-D matrices) here corresponds to the isotypic/irrep-block decomposition in the GL(K) or SO(n)/Sp(n) variants. The TFN kernel constraint $W^{\ell k}(R_g^{-1} x) = D_\ell(g) W^{\ell k}(x) D_k(g)^{-1}$ is analogous to the gauge covariance constraint on the transport operator $\Omega_{ij}$ in the VFE free energy. The Clebsch-Gordan path weights used here (with `use_cg_coupling=True` in V3) are a direct specialization of the CG decomposition for SO(3) studied in this paper. The "angular modulation" interpretation of data-dependent attention weights closely mirrors the idea that attention $\beta_{ij}$ modulates the effective transport coupling in the VFE free energy beyond fixed Riemannian geometry.
 
 ## Cross-links
-- Concepts: [[Gauge Equivariance]], [[GL(K) Attention]], [[Irreducible Representations]], [[Group representation theory]], [[Transport Operator]], [[Wigner-D Matrices]], [[Spherical Harmonics]], [[Clebsch-Gordan Coefficients]]
-- Related sources: [[thomas-2018-tensor-field-networks]], [[cohen-2016-steerable-cnns]], [[weiler2018-3d-steerable-cnns]], [[vaswani-2017-attention]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention Manuscript]]
+- Concepts: [[Group equivariance|Gauge Equivariance]], [[GL(K) gauge-equivariant attention|GL(K) Attention]], [[Irreducible representation|Irreducible Representations]], [[Group representation theory]], [[Parallel transport|Transport Operator]], [[Wigner-D Matrices]], [[Spherical Harmonics]], [[Clebsch-Gordan Coefficients]]
+- Related sources: [[thomas-2018-tensor-field-networks]], [[cohen-2016-gcnn|cohen-2016-steerable-cnns]], [[weiler-2018-3d-steerable-cnns|weiler2018-3d-steerable-cnns]], [[vaswani-2017-attention]]
+- Manuscript/Project: [[VFE Transformer Program]], [[gl-k-attention|GL(K) Attention Manuscript]]
 
 ## BibTeX
 ```bibtex

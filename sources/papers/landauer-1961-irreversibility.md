@@ -31,7 +31,7 @@ Establishes Landauer's principle: logically irreversible operations — notably 
 Landauer's principle is a cornerstone of physics-from-information and the thermodynamics of computation underlying Lloyd's limits on the computational capacity of the universe; it grounds the it-from-bit thesis that information is physical and connects entropy/free-energy bookkeeping to the cost of belief updating.
 
 ## Cross-links
-[[Participatory realism and quantum foundations]], [[Margolus-Levitin theorem]], [[Quantum computation]]
+[[Participatory realism and quantum foundations]], [[margolus-1998-physical-limits-computation|Margolus-Levitin theorem]], [[Quantum computation]]
 
 ## BibTeX
 ```bibtex

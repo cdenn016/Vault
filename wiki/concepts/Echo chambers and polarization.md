@@ -41,14 +41,14 @@ Two recent causal experiments are the most regime-discriminating items on the pa
 
 ## Relation to other constructs
 
-The clusters left behind by selective coupling are exactly the communities studied under [[Community detection and modularity]]: the connectivity pattern of $\beta_{ij}$ defines a weighted graph whose modular partition *is* the set of echo chambers, so the modularity of the influence network is a quantitative measure of how polarized the population has become. Bounded-confidence thresholds ([[Bounded confidence]]) set the resolution at which this partition appears — tighter confidence bounds yield more, smaller, more sharply separated chambers — and the classical Deffuant and Hegselmann-Krause dynamics ([[deffuant-2000-bounded-confidence]], [[hegselmann-krause-2002]]) are the overdamped limits in which this clustering was first studied numerically.
+The clusters left behind by selective coupling are exactly the communities studied under [[Community detection and modularity]]: the connectivity pattern of $\beta_{ij}$ defines a weighted graph whose modular partition *is* the set of echo chambers, so the modularity of the influence network is a quantitative measure of how polarized the population has become. Bounded-confidence thresholds ([[Bounded confidence]]) set the resolution at which this partition appears — tighter confidence bounds yield more, smaller, more sharply separated chambers — and the classical Deffuant and Hegselmann-Krause dynamics ([[deffuant2000-bounded-confidence|deffuant-2000-bounded-confidence]], [[hegselmann-2002-opinion|hegselmann-krause-2002]]) are the overdamped limits in which this clustering was first studied numerically.
 
 ## Sources
 
 - [[belief-inertia]] — consensus and polarization as dual outcomes of one VFE functional; epistemic inertia as the driver of chamber formation
 - [[albarracin-2022-epistemic-communities]] — active-inference microfoundations for epistemic-community segregation
-- [[deffuant-2000-bounded-confidence]] — bounded-confidence cluster formation (overdamped limit)
-- [[hegselmann-krause-2002]] — opinion clustering under confidence thresholds
+- [[deffuant2000-bounded-confidence|deffuant-2000-bounded-confidence]] — bounded-confidence cluster formation (overdamped limit)
+- [[hegselmann-2002-opinion|hegselmann-krause-2002]] — opinion clustering under confidence thresholds
 - [[dimaggio-evans-bryson-1996-attitude-polarization]] — four separable moments (dispersion, bimodality, constraint, between-group) defining how to measure polarization
 - [[iyengar-2019-affective-polarization]] — affective (in-/out-party affect) versus issue polarization as distinct axes
 - [[baldassarri-bearman-2007-political-polarization]] — multi-issue agent-based model: local homogeneity with limited global polarization

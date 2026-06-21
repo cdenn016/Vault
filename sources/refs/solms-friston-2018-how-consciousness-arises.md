@@ -3,7 +3,6 @@ type: reference
 title: "How and Why Consciousness Arises: Some Considerations from Physics and Physiology"
 aliases:
   - "Solms & Friston 2018"
-  - "Friston 2018"
   - "Solms-Friston (2018) How Consciousness Arises"
 authors:
   - Mark Solms

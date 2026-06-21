@@ -65,8 +65,8 @@ This paper is directly relevant to the participatory-realism and quantum-foundat
 - The two-step frame switch (reduce to the perspective-neutral structure, re-embed into a new frame) is structurally identical to the project's composition of transports $\Omega_{ij} = \exp(\phi_i)\exp(-\phi_j)$, which likewise factors a perspective change through a common reference; the obstruction to a single global gauge slice is the project's [[Holonomy]], legitimizing the reading of belief-coupling as living on a quotient/gauge-invariant space rather than on raw frame-dependent coordinates.
 
 ## Cross-links
-- Concepts: [[Quantum Reference Frames]], [[Gauge Theory]], [[Relational Observables]], [[Participatory Realism]], [[Dirac Quantization]], [[Agents as fibre-bundle sections]], [[Holonomy]], [[Gauge transformation]]
-- Related sources: [[giacomini-2019-qrf-covariance]], [[fuchs-2017-participatory-realism]], [[bartlett-rudolph-spekkens-2007-reference-frames]]
+- Concepts: [[Quantum Reference Frames]], [[Gauge Theory]], [[Relational Observables]], [[fuchs-2017-participatory-realism|Participatory Realism]], [[Dirac Quantization]], [[Agents as fibre-bundle sections]], [[Holonomy]], [[Gauge transformation]]
+- Related sources: [[giacomini-2019-qrf-covariance]], [[fuchs-2017-participatory-realism]], [[bartlett-2007-reference-frames|bartlett-rudolph-spekkens-2007-reference-frames]]
 - Manuscript/Project: [[participatory-it-from-bit]], [[VFE Transformer Program]]
 
 ## BibTeX

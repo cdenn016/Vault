@@ -54,7 +54,7 @@ This paper is the conceptual root of the VFE program's reading of attention as a
 
 - Concepts: [[Attention mechanisms — theory and positional structure]], [[Mechanistic interpretability of attention]]
 - Related sources: [[vaswani-2017-attention]], [[olsson-2022-induction-heads]], [[tsai-2019-kernel-attention]]
-- Manuscript/Project: [[GL(K) Attention Manuscript]], [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Manuscript/Project: [[gl-k-attention|GL(K) Attention Manuscript]], [[Gauge-Theoretic Multi-Agent VFE Model]]
 
 ## BibTeX
 

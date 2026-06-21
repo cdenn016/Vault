@@ -78,8 +78,8 @@ This paper is directly relevant to the VFE transformer program in two ways. Firs
 ## Cross-links
 - Concepts: [[Attention Mechanism]], [[Variational Free Energy]], [[Softmax]], [[Associative Memory]], [[Energy-Based Models]], [[Precision weighting]], [[Information geometry and natural gradient]]
 - Themes: [[Meta-agents and hierarchical emergence]], [[Renormalization-group flow of beliefs]]
-- Related sources: [[vaswani2017attention]], [[friston2022active]], [[krotov2016dense]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention Manuscript]]
+- Related sources: [[vaswani-2017-attention|vaswani2017attention]], [[parr-2022-active-inference|friston2022active]], [[krotov-2016-dense-associative-memory|krotov2016dense]]
+- Manuscript/Project: [[VFE Transformer Program]], [[gl-k-attention|GL(K) Attention Manuscript]]
 
 > [!note] Editorial: Depending on $\beta$ and the pattern geometry, fixed points fall into three regimes — single-pattern retrieval, **metastable states** that average over clusters of similar patterns, or a global fixed point averaging all patterns. The metastable regime gives attention an associative-memory mechanism for coarse-graining tokens into groups, resonating with the project's [[Meta-agents and hierarchical emergence]] and [[Renormalization-group flow of beliefs]] themes (structure at one scale condensing into effective units at the next).
 

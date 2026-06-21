@@ -69,9 +69,9 @@ The relation #ops ≈ (t/t_P)^2 is shown to be dimensionally inevitable — the 
 This paper sits at the foundation of the **participatory/it-from-bit** strand of the research program. Wheeler's "It from Bit" slogan is invoked explicitly; Lloyd's quantitative grounding of that slogan — every degree of freedom registers a bit, every interaction performs a logic gate — is the physical-universe instantiation of the participatory realism framework explored in `PIFB.tex`. The holographic bound (#bits ≈ horizon area / ℓ_P^2) and the Bekenstein entropy bound are both used in the VFE/gauge-theoretic context when relating information-geometric quantities (Fisher information, KL divergence, entropy) to physical degrees of freedom. The Margolus–Levitin bound (energy ↔ operation rate) resonates with the energy interpretation of the VFE's free-energy functional: minimizing F trades off speed of belief update against thermodynamic cost. The paper is also relevant to the multi-agent model insofar as it frames *all* physical dynamics as information processing, grounding the claim that VFE minimization is a universal computational principle rather than a metaphor.
 
 ## Cross-links
-- Concepts: [[It from Bit]], [[Holographic Principle]], [[Bekenstein Bound]], [[Margolus-Levitin Theorem]], [[Quantum Computation]], [[Information is Physical]], [[Participatory realism (it from bit)]], [[Emergent spacetime and holography]]
-- Related sources: [[wheeler-1990-it-from-bit]], [[bekenstein-1973-black-holes]], [[landauer-1961-irreversibility]], [[susskind-2014-complexity-black-hole-horizons]]
-- Manuscript/Project: [[participatory-it-from-bit]], [[PIFB]], [[VFE Transformer Program]], [[MAgent Model]]
+- Concepts: [[Participatory realism (it from bit)|It from Bit]], [[Emergent spacetime and holography|Holographic Principle]], [[Bekenstein Bound]], [[margolus-1998-physical-limits-computation|Margolus-Levitin Theorem]], [[Quantum Computation]], [[Information is Physical]], [[Participatory realism (it from bit)]], [[Emergent spacetime and holography]]
+- Related sources: [[wheeler-1990-it-from-bit]], [[bekenstein-1973-black-holes-entropy|bekenstein-1973-black-holes]], [[landauer-1961-irreversibility]], [[susskind-2014-complexity-black-hole-horizons]]
+- Manuscript/Project: [[participatory-it-from-bit]], [[Participatory realism (it from bit)|PIFB]], [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model|MAgent Model]]
 
 ## BibTeX
 ```bibtex

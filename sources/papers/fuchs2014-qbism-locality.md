@@ -66,9 +66,9 @@ QBism is directly relevant to the participatory-realism thread of the VFE resear
 - **No objective collapse.** QBism's rejection of physical collapse parallels the VFE program's avoidance of hard decision/argmax steps — beliefs propagate probabilistically, not via winner-take-all collapse.
 
 ## Cross-links
-- Concepts: [[Participatory Realism]], [[QBism]], [[Bayesian Probability]], [[Active Inference]]
-- Related sources: [[fuchs2010-qbism-perimeter]], [[caves2002-quantum-bayesian]]
-- Manuscript/Project: [[PIFB]], [[VFE Transformer Program]]
+- Concepts: [[fuchs-2017-participatory-realism|Participatory Realism]], [[QBism]], [[Bayesian Probability]], [[Active Inference]]
+- Related sources: [[fuchs-2010-qbism-perimeter|fuchs2010-qbism-perimeter]], [[caves-2002-quantum-bayesian|caves2002-quantum-bayesian]]
+- Manuscript/Project: [[Participatory realism (it from bit)|PIFB]], [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex

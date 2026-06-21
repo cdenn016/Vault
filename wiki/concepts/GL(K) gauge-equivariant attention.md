@@ -201,7 +201,7 @@ kernel/linear-attention lineage ([[tsai-2019-kernel-attention]]) and to the free
 literature it operationalizes ([[Free-energy principle active inference]], [[parr-2022-active-inference]],
 [[Variational free energy and predictive coding]]). The most direct conceptual precursor — that
 approximate Bayesian inference *is itself* a gauge theory — is
-[[sengupta-friston-2017-bayesian-gauge-theory]] (with [[sengupta-2016-neuronal-gauge-theory]]);
+[[sengupta2017gauge|sengupta-friston-2017-bayesian-gauge-theory]] (with [[sengupta-2016-neuronal-gauge|sengupta-2016-neuronal-gauge-theory]]);
 the manuscript's bibliographic review identified these as the prior art it must position against.
 
 ## Relevance to this research
@@ -237,5 +237,5 @@ variational inference — rests.
 [[tsai-2019-kernel-attention]] · [[pennec-2006-affine-invariant-tensor]] ·
 [[bhatia-2007-positive-definite-matrices]] · [[amari-2016-information-geometry-applications]] ·
 [[cencov-1982-statistical-decision-rules]] · [[petz-1996-monotone-metrics]] ·
-[[parr-2022-active-inference]] · [[sengupta-friston-2017-bayesian-gauge-theory]] ·
-[[sengupta-2016-neuronal-gauge-theory]] · [[participatory-it-from-bit]]
+[[parr-2022-active-inference]] · [[sengupta2017gauge|sengupta-friston-2017-bayesian-gauge-theory]] ·
+[[sengupta-2016-neuronal-gauge|sengupta-2016-neuronal-gauge-theory]] · [[participatory-it-from-bit]]

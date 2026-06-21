@@ -59,8 +59,8 @@ On synthetic linear GSSMs, DKS (ST-R) and ST-LR converge to the RMSE of the exac
 The structured variational lower bound in Eq. (6) is directly analogous to the VFE functional used in the VFE transformer: both decompose a KL between approximate posterior and prior into a sum of stepwise, analytically tractable KL terms over Gaussian beliefs. The DMM's latent state tuple $(z_t)$ with Gaussian belief propagation in the combiner function is a prototype of the belief tuple $(\mu, \Sigma)$ architecture in VFE3. The paper's emphasis on building inference networks that mirror the exact posterior's factorization structure parallels the gauge-equivariant attention design principle — structure imposed on the approximation to respect the generative model's symmetries. The factored KL derivation (Appendix A–B) is directly relevant to verifying the KL decomposition in the VFE free-energy functional. Missing-data marginalization (simply ignoring absent likelihood terms) is the same principle used when observations are partially observed in the VFE setting.
 
 ## Cross-links
-- Concepts: [[Variational Free Energy]], [[Gaussian State Space Model]], [[Recognition Network]], [[KL Divergence]]
-- Related sources: [[kingma2014vae]], [[rezende2014stochastic]], [[chung2015vrnn]]
+- Concepts: [[Variational Free Energy]], [[Gaussian State Space Model]], [[Amortized inference|Recognition Network]], [[kullback-1951-kl-divergence|KL Divergence]]
+- Related sources: [[kingma-2013-auto-encoding-variational-bayes|kingma2014vae]], [[Reparameterization trick|rezende2014stochastic]], [[chung-2015-vrnn|chung2015vrnn]]
 - Manuscript/Project: [[VFE Transformer Program]]
 
 ## BibTeX

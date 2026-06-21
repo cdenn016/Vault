@@ -35,7 +35,7 @@ Comparative conceptual analysis of theoretical identity statements. Levine contr
 
 ## Key results
 
-The essay supplies the standard vocabulary for one of the central problems in philosophy of mind. "Explanatory gap" becomes the canonical name for the failure of physical descriptions to render conscious quality intelligible, and the locution is later folded into Chalmers's "hard problem" (see [[chalmers-1995-facing-up]], [[chalmers-1996-conscious-mind]]). Levine's careful separation of the epistemic from the metaphysical reading is what lets the gap function as a constraint on theories that any candidate account must address.
+The essay supplies the standard vocabulary for one of the central problems in philosophy of mind. "Explanatory gap" becomes the canonical name for the failure of physical descriptions to render conscious quality intelligible, and the locution is later folded into Chalmers's "hard problem" (see [[chalmers-1995-facing-up-consciousness|chalmers-1995-facing-up]], [[chalmers-1996-conscious-mind]]). Levine's careful separation of the epistemic from the metaphysical reading is what lets the gap function as a constraint on theories that any candidate account must address.
 
 ## Relevance to this research
 
@@ -44,7 +44,7 @@ Levine's term is the precise object the manuscript [[participatory-it-from-bit]]
 ## Cross-links
 
 - Concepts: [[Explanatory gap]], [[Mathematical consciousness science]], [[Participatory realism (it from bit)]]
-- Related sources: [[nagel-1974-what-is-it-like]], [[chalmers-1995-facing-up]], [[chalmers-1996-conscious-mind]], [[tononi-2016-iit]], [[tsuchiya-saigo-2016-category-theory-iit]]
+- Related sources: [[nagel-1974-what-is-it-like]], [[chalmers-1995-facing-up-consciousness|chalmers-1995-facing-up]], [[chalmers-1996-conscious-mind]], [[tononi-2016-iit]], [[tsuchiya-saigo-2016-category-theory-iit]]
 - Manuscript: [[participatory-it-from-bit]]
 - Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
 

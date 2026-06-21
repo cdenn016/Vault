@@ -92,7 +92,7 @@ This is exactly the transport law implemented as $\mu' = \Omega_{ij}\mu_j$, $\Si
 - [[nakahara-2003-geometry-topology-physics]] — fibre bundles, associated-bundle convention used here.
 - [[frankel-2011-geometry-of-physics]], [[baez-muniain-1994-gauge-fields]] — bundle / connection vocabulary.
 - [[cencov-1982-statistical-decision-rules]], [[ay-2017-information-geometry]] — uniqueness and rigor of the Fisher-Rao metric on the fibres.
-- [[parr-2022-active-inference]], [[friston-2017-active-inference-process]] — single-agent VFE substrate the section construction generalizes.
+- [[parr-2022-active-inference]], [[friston-2017-active-inference-process-theory|friston-2017-active-inference-process]] — single-agent VFE substrate the section construction generalizes.
 - [[lee-2012-smooth-manifolds]] — smooth manifolds, sections, and local trivializations underpinning the bundle construction.
 - [[esfeld-lam-2008-moderate-osr]] — moderate ontic structural realism, the philosophical reading of agents-as-sections (relational/structural ontology).
 

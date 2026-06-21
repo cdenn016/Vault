@@ -52,8 +52,8 @@ The review also frames the manuscript's distinctive new physics against an expli
 - Concept pages: [[Opinion dynamics]], [[Sociophysics]], [[Bounded confidence]], [[Echo chambers and polarization]], [[Belief perseverance and confirmation bias]]
 - Project dynamics shared with the multi-agent model: [[Belief inertia]], [[Mass as Fisher information]], [[Hamiltonian belief dynamics]], [[Multi-agent variational free energy]]
 - Geometry / method context: [[Fisher information metric]], [[Natural gradient]], [[Gauge transformation]]
-- Classical opinion-dynamics sources reviewed here: [[degroot-1974-consensus]], [[friedkin-johnsen-1990]], [[deffuant-2000-bounded-confidence]], [[hegselmann-krause-2002]], [[galam-2008-sociophysics]], [[friedkin-johnsen-2011-social-influence-network]], [[axelrod1997-culture]]
-- Companion surveys created this build: [[castellano-fortunato-loreto-2009-social-dynamics]], [[rogers-2003-diffusion-of-innovations]]
+- Classical opinion-dynamics sources reviewed here: [[degroot-1974-consensus]], [[friedkin1990-social-influence-opinions|friedkin-johnsen-1990]], [[deffuant2000-bounded-confidence|deffuant-2000-bounded-confidence]], [[hegselmann-2002-opinion|hegselmann-krause-2002]], [[galam-2008-sociophysics]], [[friedkin-johnsen-2011-social-influence-network]], [[axelrod-1997-dissemination-of-culture|axelrod1997-culture]]
+- Companion surveys created this build: [[castellano-2009-statistical-physics-social-dynamics|castellano-fortunato-loreto-2009-social-dynamics]], [[rogers-2003-diffusion-of-innovations]]
 - Related project pages: [[Gauge-Theoretic Multi-Agent VFE Model]], [[VFE Transformer Program]]
 
 ## BibTeX

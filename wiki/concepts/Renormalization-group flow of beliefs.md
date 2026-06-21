@@ -83,7 +83,7 @@ This page develops the multi-scale, coarse-graining facet of the model; for the 
 - [[participatory-it-from-bit]] — the manuscript (`Participatory_it_from_bit.tex`) that the codebase implements; §4.3.2 supplies the RG-by-blocking-ratio scaling and §§4, 6 the three-phase / condensation picture.
 - [[meta-entropy-manuscript]] — configurational meta-entropy and the thermodynamic limit the RG flow's free-energy density and scaling dimension speak to.
 - [[belief-inertia]] — Fisher-precision-as-mass belief dynamics underlying per-scale equilibration.
-- [[degroot-1974-consensus]], [[friedkin-johnsen-1990]], [[deffuant-2000-bounded-confidence]], [[hegselmann-krause-2002]], [[galam-2008-sociophysics]] — opinion-dynamics / sociophysics precedents for coarse-grained collective belief behavior.
+- [[degroot-1974-consensus]], [[friedkin1990-social-influence-opinions|friedkin-johnsen-1990]], [[deffuant2000-bounded-confidence|deffuant-2000-bounded-confidence]], [[hegselmann-2002-opinion|hegselmann-krause-2002]], [[galam-2008-sociophysics]] — opinion-dynamics / sociophysics precedents for coarse-grained collective belief behavior.
 - [[delamotte-2012-nonperturbative-rg]] — pedagogical functional (nonperturbative) RG: the Wetterich flow of the whole effective action, the formalism for making belief coarse-graining exact rather than schematic.
 
 ## See also

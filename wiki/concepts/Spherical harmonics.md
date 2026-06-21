@@ -17,4 +17,4 @@ Spherical harmonics are the orthonormal basis functions on the 2-sphere that car
 [[Group representation theory]], [[Irreducible representation]], [[Tensor Field Network]], [[Gauge equivariance and geometric deep learning]]
 
 ## Sources
-[[fuchs2020-se3-transformer]], [[thomas-2018-tensor-field-networks]], [[weiler-2018-3d-steerable-cnns]]
+[[fuchs-2020-se3-transformer|fuchs2020-se3-transformer]], [[thomas-2018-tensor-field-networks]], [[weiler-2018-3d-steerable-cnns]]

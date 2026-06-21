@@ -159,7 +159,7 @@ beliefs without an explicit per-token optimization:
 - [[bishop-2006-pattern-recognition-machine-learning]] — Ch.10 variational
   inference, the ELBO, and mean-field EM that the VFE transformer instantiates
   per token.
-- [[beal-2003-variational-algorithms-approximate-bayesian-inference]] —
+- [[beal-2003-variational-bayesian|beal-2003-variational-algorithms-approximate-bayesian-inference]] —
   variational Bayesian EM and the free-energy bound, a direct antecedent of the
   iterative VFE minimization.
 

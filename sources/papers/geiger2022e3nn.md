@@ -51,9 +51,9 @@ The `TensorProduct` class is provably universal: it can represent any bilinear e
 This paper is directly relevant to the GL(K) gauge-equivariant attention architecture of the VFE transformer. The VFE program uses GL(K) as the structure group acting on $K$-dimensional belief means $\mu$; e3nn instantiates analogous structure for O(3)/E(3). The key conceptual bridge is the decomposition of feature channels into irreducible representations and the use of Clebsch-Gordan tensor products as the only permissible bilinear coupling — the same principle underlies the isotypic decomposition and irrep-block structure discussed in the GL(K) manuscript (`GL(K)_attention.tex`) for the Schur-commutant head mixer and the `use_cg_coupling=True` path. The `ReducedTensorProduct` for symmetric tensors is relevant to SPD belief geometry (symmetric positive-definite matrices decompose as $1 \times 0e + 1 \times 2e$ under SO(3)). The treatment of equivariant attention in Section 8 (citing SE(3)-Transformers) provides a worked reference implementation that parallels the gauge-transport attention of the VFE transformer. The $\mu$P initialization discussion is relevant to training stability of the VFE transformer's learned parameters (connection weights, head mixers).
 
 ## Cross-links
-- Concepts: [[Gauge Equivariance]], [[Irreducible Representations]], [[Clebsch-Gordan Coefficients]], [[GL(K) Attention]], [[Tensor Product]]
-- Related sources: [[fuchs2020se3transformers]], [[kondor2018clebsch]], [[thomas2018tensor]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention Manuscript]]
+- Concepts: [[Group equivariance|Gauge Equivariance]], [[Irreducible representation|Irreducible Representations]], [[Clebsch-Gordan Coefficients]], [[GL(K) gauge-equivariant attention|GL(K) Attention]], [[Clebsch-Gordan coefficients|Tensor Product]]
+- Related sources: [[fuchs-2020-se3-transformer|fuchs2020se3transformers]], [[kondor-2018-compact-group-conv|kondor2018clebsch]], [[thomas-2018-tensor-field-networks|thomas2018tensor]]
+- Manuscript/Project: [[VFE Transformer Program]], [[gl-k-attention|GL(K) Attention Manuscript]]
 
 ## BibTeX
 ```bibtex

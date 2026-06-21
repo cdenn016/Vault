@@ -56,7 +56,7 @@ This reference is the textbook statement of the variational machinery the VFE tr
 - **Variational EM and the two timescales.** The E-step (update beliefs / $q$) versus M-step (update parameters) split that organizes the model's optimization is Bishop's variational-EM scheme; the [[Evidence lower bound (ELBO)]] is the shared quantity both steps ascend.
 - **Amortization and precision.** Where Bishop optimizes $q$ directly, the transformer amortizes the belief update across tokens (see [[Amortized inference]]), and the Gaussian-posterior precisions that weight prediction errors in the model are the variational analogue of Bishop's precision-parameterized Gaussian updates (see [[Precision weighting]]).
 
-This grounds the project's [[Variational free energy and predictive coding]] theme. See the companion variational sources [[neal-1998-variational-em]], [[dempster-1977-em]], [[blei-2017-variational-inference]], and the amortized / deep-latent extension [[kingma-2013-auto-encoding-variational-bayes]].
+This grounds the project's [[Variational free energy and predictive coding]] theme. See the companion variational sources [[neal-1998-variational-em]], [[dempster-1977-em-algorithm|dempster-1977-em]], [[blei-2017-variational-inference]], and the amortized / deep-latent extension [[kingma-2013-auto-encoding-variational-bayes]].
 
 Project hubs: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model]].
 

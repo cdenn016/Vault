@@ -31,7 +31,7 @@ Zurek's focused review of Quantum Darwinism: classical objectivity emerges becau
 Provides the quantitative account of how shared environmental records create observer-independent objectivity, mapping onto the multi-agent VFE setting where shared coupling signals drive consensus over pointer-like belief states; central to the participatory-realism (PIFB) thread on observer-relative yet intersubjectively binding facts.
 
 ## Cross-links
-[[Quantum Darwinism]], [[Einselection]], [[Pointer States]], [[Participatory realism (it from bit)]]
+[[Quantum Darwinism]], [[zurek-2003-einselection|Einselection]], [[Pointer States]], [[Participatory realism (it from bit)]]
 
 ## BibTeX
 ```bibtex

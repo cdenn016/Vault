@@ -45,7 +45,7 @@ The model's belief tuples carry SPD covariances $\Sigma$, and every operation on
 - Concept: [[Symmetric spaces and the SPD cone]]
 - Theme: [[SPD-manifold geometry and Riemannian optimization]]
 - Projects: [[VFE Transformer Program]] · [[Gauge-Theoretic Multi-Agent VFE Model]]
-- Related sources: [[higham-2008-functions-of-matrices]] · [[horn-johnson-2013-matrix-analysis]] · [[pennec-2006-intrinsic-statistics]] · [[bonnabel-sepulchre-2009-psd-fixed-rank]]
+- Related sources: [[higham-2008-functions-of-matrices]] · [[horn-johnson-2013-matrix-analysis]] · [[pennec-2006-intrinsic-statistics]] · [[bonnabel-2009-spd-fixed-rank|bonnabel-sepulchre-2009-psd-fixed-rank]]
 
 ## BibTeX
 

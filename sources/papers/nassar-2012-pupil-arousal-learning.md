@@ -51,8 +51,8 @@ Pupil change tracked change-point probability: larger phasic dilations occurred 
 The reduced Bayesian model here is a concrete, tractable implementation of adaptive belief updating that parallels the VFE framework: change-point probability corresponds to a signal that a new prior is needed (analogous to the KL divergence between new evidence and current belief being anomalously large), while relative uncertainty maps onto the Kalman-gain-like weighting that governs how much a new observation updates the mean belief $\mu_q$. In the VFE transformer, the learning-rate analogue is the softmax attention weight $\beta_{ij}$, which is driven by the KL divergence terms $\mathrm{KL}(q_i \| \Omega_{ij} q_j)$; a high-surprise token (large KL) dominates the attention sum just as high change-point probability drives $\alpha \to 1$ here. The tonic/phasic locus coeruleus decomposition suggests a biological substrate that separates the two uncertainty channels, which resonates with the VFE framework's separation of the self-coupling term $\alpha \cdot \mathrm{KL}(q_i \| p_i)$ (tonic, prior-anchoring) from the pairwise coupling $\beta_{ij} \cdot \mathrm{KL}(q_i \| \Omega_{ij} q_j)$ (phasic, data-driven update). For multi-agent active inference the paper also provides a normative account of how an agent's arousal state should be represented as a hyper-prior over hazard rate, analogous to the hyper-prior $h$ in the VFE hierarchy.
 
 ## Cross-links
-- Concepts: [[Variational Free Energy]], [[Belief Updating]], [[Kalman Filter]], [[Active Inference]]
-- Related sources: [[nassar-2010-bayesian-delta-rule]] [[wilson-2010-bayesian-hazard-rate]]
+- Concepts: [[Variational Free Energy]], [[Bayesian Inference|Belief Updating]], [[Kalman Filter]], [[Active Inference]]
+- Related sources: [[nassar2010-bayesian-delta-rule|nassar-2010-bayesian-delta-rule]] [[wilson2010-bayesian-online-hazard|wilson-2010-bayesian-hazard-rate]]
 - Manuscript/Project: [[VFE Transformer Program]]
 
 ## BibTeX

@@ -63,9 +63,9 @@ The paper's central philosophical finding is that representationalists commit a 
 This paper is directly relevant to the multi-agent active inference program underpinning the VFE transformer. Its formal articulation of the generative/recognition density distinction maps precisely onto the VFE hierarchy $h \to s \to p \to q \to o$: the hyper-prior $h$ and model-level density $s$ play roles analogous to the enacted generative model, while the belief tuple $(μ, Σ, φ)$ at the $q$ level is the embodied recognition density whose sufficient statistics the E-step updates. The Markov blanket formalism underpins the agent-environment boundary implicit in the GL(K) attention architecture, where each token maintains an internal belief state isolated from external tokens except through the sensory/active interface encoded by gauge-transported attention weights $\Omega_{ij}$. The paper's insistence that the generative model is a control system (not a representational mirror) aligns with the VFE transformer's design philosophy: free-energy minimisation drives policy-like attention allocation, not feature matching. The action-perception cycle described here foreshadows multi-scale active inference in the multi-agent model, where model-level beliefs $s_i$ couple via meta-attention $\gamma_{ij}$ in the same circular causal structure.
 
 ## Cross-links
-- Concepts: [[Free Energy Principle]], [[Active Inference]], [[Markov Blanket]], [[Variational Free Energy]], [[Recognition Density]]
-- Related sources: [[friston-2010-free-energy]], [[ramstead-2018-answering-schrodinger]], [[kirchhoff-2018-markov-blankets-of-life]]
-- Manuscript/Project: [[VFE Transformer Program]], [[MAgent Model]]
+- Concepts: [[Free-energy principle active inference|Free Energy Principle]], [[Active Inference]], [[Markov Blanket]], [[Variational Free Energy]], [[Recognition Density]]
+- Related sources: [[friston-2010-free-energy-principle|friston-2010-free-energy]], [[ramstead-2018-answering-schrodinger]], [[kirchhoff-2018-markov-blankets-of-life]]
+- Manuscript/Project: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model|MAgent Model]]
 
 ## BibTeX
 ```bibtex

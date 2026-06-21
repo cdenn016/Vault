@@ -27,7 +27,7 @@ updated: 2026-06-19
 
 ## TL;DR
 
-Vidal introduces the multi-scale entanglement renormalization ansatz (MERA): a coarse-graining transformation for quantum lattice systems that, before each blocking step, applies local *disentanglers* to remove short-range entanglement, so that the renormalization flow does not accumulate spurious correlations. Iterating disentangle-then-coarse-grain builds a layered tensor network — one layer per length scale — whose geometry literally is a discretized extra (renormalization) dimension. MERA is the structural origin of the tensor-network picture of holography (later read as an emergent bulk by [[swingle-2012-entanglement-renormalization]]).
+Vidal introduces the multi-scale entanglement renormalization ansatz (MERA): a coarse-graining transformation for quantum lattice systems that, before each blocking step, applies local *disentanglers* to remove short-range entanglement, so that the renormalization flow does not accumulate spurious correlations. Iterating disentangle-then-coarse-grain builds a layered tensor network — one layer per length scale — whose geometry literally is a discretized extra (renormalization) dimension. MERA is the structural origin of the tensor-network picture of holography (later read as an emergent bulk by [[swingle-2012-entanglement-renormalization-holography|swingle-2012-entanglement-renormalization]]).
 
 ## Problem & setting
 
@@ -48,7 +48,7 @@ MERA is a direct structural cousin of the program's **Ouroboros Tower**: both ar
 ## Cross-links
 - Concepts: [[Renormalization-group flow of beliefs]], [[Ouroboros multi-scale dynamics]], [[Meta-agents and hierarchical emergence]]
 - Themes: [[Emergent spacetime and holography]], [[Participatory realism (it from bit)]]
-- Related sources: [[swingle-2012-entanglement-renormalization]], [[ryu-takayanagi-2006-holographic-entanglement-entropy]], [[wilson-1975-renormalization-group]], [[vanraamsdonk-2010-entanglement-spacetime]]
+- Related sources: [[swingle-2012-entanglement-renormalization-holography|swingle-2012-entanglement-renormalization]], [[ryu-takayanagi-2006-holographic-entanglement-entropy]], [[wilson-1975-renormalization-group]], [[VanRaamsdonk-2010-spacetime-entanglement|vanraamsdonk-2010-entanglement-spacetime]]
 
 ## BibTeX
 ```bibtex

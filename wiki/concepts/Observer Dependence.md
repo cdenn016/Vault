@@ -17,4 +17,4 @@ Observer dependence is the thesis that certain facts — measurement outcomes, s
 [[Participatory realism (it from bit)]], [[Participatory realism and quantum foundations]]
 
 ## Sources
-[[lahav-2025-relativistic-consciousness]], [[brukner-2018-no-go-observer-facts]], [[fuchs-2010-qbism-perimeter]]
+[[lahav-2022-relativistic-consciousness|lahav-2025-relativistic-consciousness]], [[brukner-2018-no-go-observer-facts]], [[fuchs-2010-qbism-perimeter]]

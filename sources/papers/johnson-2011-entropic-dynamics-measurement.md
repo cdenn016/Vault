@@ -49,9 +49,9 @@ Continuous unitary evolution and wave-function collapse are both special cases o
 This paper is a primary reference for the participatory/informational interpretation of quantum mechanics that underlies the Participatory It-from-Bit (PIFB) manuscript. The entropic derivation of the Schrödinger equation — from MaxEnt inference over position with an energy conservation constraint — is a concrete worked example of how physical law emerges from inference principles, directly paralleling the PIFB program's thesis that reality is participatory and observer-constituted. The identification of non-position observables as attributes of probability distributions (not particles) resonates with the VFE transformer's treatment of beliefs (mu, Sigma, phi) as the primary objects, with classical "observables" emerging from variational inference. The unification of Bayesian and entropic updating under a single entropic inference scheme is also relevant to the VFE free-energy functional, where the E-step and M-step can be viewed as analogous alternating update modes. This is the physics precedent for PIFB's "collapse as consensus" claim: the abrupt entropic update of an agent's beliefs upon receiving information is read, in the multi-agent setting, as collective convergence — the social-physics counterpart of measurement, driven by the same MaxEnt updating that the project's entropy-regularized consensus dynamics perform on belief tuples.
 
 ## Cross-links
-- Concepts: [[Entropic Dynamics]] · [[Maximum Entropy]] · [[Born Rule]] · [[Wave Function Collapse]] · [[Participatory Realism]]
-- Related sources: [[caticha-2011-entropic-dynamics]] · [[caticha-2019-entropic-physics]]
-- Manuscript/Project: [[PIFB]] · [[VFE Transformer Program]]
+- Concepts: [[Physics from Fisher information|Entropic Dynamics]] · [[Maximum Entropy]] · [[Born Rule]] · [[Wave-Function Collapse|Wave Function Collapse]] · [[fuchs-2017-participatory-realism|Participatory Realism]]
+- Related sources: [[caticha-2011-entropic-dynamics]] · [[caticha-2019-entropic-dynamics-qm|caticha-2019-entropic-physics]]
+- Manuscript/Project: [[Participatory realism (it from bit)|PIFB]] · [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex

@@ -36,7 +36,7 @@ DeGroot's averaging dynamics is the canonical starting point of opinion-dynamics
 
 Where DeGroot fixes opinions as objects pushed around by a static stochastic matrix, the project recasts inter-agent belief exchange as coupled minimization of [[Variational free energy]], so that consensus emerges from [[Prediction error]] reduction and [[Precision weighting]] rather than from prescribed averaging weights. The trust weights $p_{ij}$ acquire a geometric reading once beliefs live on a statistical manifold: averaging is replaced by transport and combination governed by the [[Fisher information metric]] and the [[Natural gradient]], and the gauge-theoretic picture treats each agent as a local frame via [[Agents as fibre-bundle sections]], with disagreement that fails to wash out registered as [[Holonomy]] around belief-exchange loops. DeGroot's stationary-distribution consensus is thus the flat, abelian limiting case of the richer, possibly non-trivial dynamics the project develops, and connects to its treatment of [[Belief inertia]] and [[Meta-agents and hierarchical emergence]].
 
-The note sits in the same social-physics lineage the project draws on for opinion dynamics, alongside [[friedkin-johnsen-1990]], [[deffuant-2000-bounded-confidence]], [[hegselmann-krause-2002]], and [[galam-2008-sociophysics]].
+The note sits in the same social-physics lineage the project draws on for opinion dynamics, alongside [[friedkin1990-social-influence-opinions|friedkin-johnsen-1990]], [[deffuant2000-bounded-confidence|deffuant-2000-bounded-confidence]], [[hegselmann-2002-opinion|hegselmann-krause-2002]], and [[galam-2008-sociophysics]].
 
 ```bibtex
 @article{degroot1974consensus,

@@ -42,12 +42,12 @@ Conceptual and historical exposition rather than new formalism. Rovelli reconstr
 
 ## Relevance to this research
 
-Helgoland bridges the project's two foundational pillars: quantum-foundations participation ([[Participatory realism (it from bit)]], [[wheeler-1990-it-from-bit]], [[fuchs-2014-qbism]]) and relations-first [[Structural realism]]. Its claim that properties exist only relative to other systems is the foundational-physics analogue of the manuscript's insistence that an agent's belief is meaningful only in relation to other agents, expressed through the connection that transports between [[Agents as fibre-bundle sections]] under a [[Gauge transformation]]. RQM thus supplies the metaphysical reading under which the program's gauge structure is not mere formalism but ontology: no agent holds a view from nowhere, and the objective content is the invariant relational web. It develops the technical [[rovelli-1996-relational-qm]] into the broad anti-substantialist stance the manuscript [[participatory-it-from-bit]] adopts.
+Helgoland bridges the project's two foundational pillars: quantum-foundations participation ([[Participatory realism (it from bit)]], [[wheeler-1990-it-from-bit]], [[fuchs2014-qbism-locality|fuchs-2014-qbism]]) and relations-first [[Structural realism]]. Its claim that properties exist only relative to other systems is the foundational-physics analogue of the manuscript's insistence that an agent's belief is meaningful only in relation to other agents, expressed through the connection that transports between [[Agents as fibre-bundle sections]] under a [[Gauge transformation]]. RQM thus supplies the metaphysical reading under which the program's gauge structure is not mere formalism but ontology: no agent holds a view from nowhere, and the objective content is the invariant relational web. It develops the technical [[rovelli-1996-relational-qm]] into the broad anti-substantialist stance the manuscript [[participatory-it-from-bit]] adopts.
 
 ## Cross-links
 
 - Concepts: [[Participatory realism (it from bit)]], [[Structural realism]], [[Agents as fibre-bundle sections]], [[Gauge transformation]]
-- Related sources: [[rovelli-1996-relational-qm]], [[fuchs-2014-qbism]], [[wheeler-1990-it-from-bit]], [[french-ladyman-2003-remodelling]]
+- Related sources: [[rovelli-1996-relational-qm]], [[fuchs2014-qbism-locality|fuchs-2014-qbism]], [[wheeler-1990-it-from-bit]], [[french-ladyman-2003-remodelling]]
 - Manuscript: [[participatory-it-from-bit]]
 
 ```bibtex

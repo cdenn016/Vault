@@ -18,4 +18,4 @@ Probing classifiers are an interpretability methodology in which a simple superv
 [[Mechanistic interpretability of attention]], [[Attention mechanisms — theory and positional structure]]
 
 ## Sources
-[[clark2019does-bert-look]]
+[[clark-2019-bert-attention|clark2019does-bert-look]]

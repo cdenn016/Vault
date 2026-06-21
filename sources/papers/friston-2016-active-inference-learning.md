@@ -103,7 +103,7 @@ More specifically:
 
 - Concepts: [[Variational free energy]], [[Bayesian mechanics]], [[Expected free energy]], [[Active inference]], [[Predictive coding]]
 - Theme: [[Variational free energy and predictive coding]]
-- Related sources: [[friston-2010-free-energy-principle]], [[friston-2015-active-inference-epistemic]], [[friston-2017-active-inference-curiosity]]
+- Related sources: [[friston-2010-free-energy-principle]], [[friston-frith-2015-duet|friston-2015-active-inference-epistemic]], [[friston-2017-active-inference-process-theory|friston-2017-active-inference-curiosity]]
 - Manuscript/Project: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model]]
 
 ## BibTeX

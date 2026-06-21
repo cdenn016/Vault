@@ -13,7 +13,7 @@ updated: 2026-06-19
 > The **discipline facet** of the wiki. Every `sources/` note carries one or more `field/<discipline>`
 > tags recording its academic discipline(s) of origin (field-of-origin listed first). This is
 > orthogonal to the topic axis (`cluster/*`) and the project axis (`project/*`) — see the
-> [[LLM-Wiki Schema]]. Discipline is a **multi-valued tag**, not a folder, because ≈65% of sources are
+> [[CLAUDE|LLM-Wiki Schema]]. Discipline is a **multi-valued tag**, not a folder, because ≈65% of sources are
 > cross-disciplinary. The per-field tables below are live **Bases** views.
 
 ## The ten fields
@@ -45,5 +45,5 @@ The power of the faceted scheme is the intersection of axes via tag search:
 - `tag:#field/statistics tag:#cluster/info-geometry` — the statistical core of information geometry
 
 ## See also
-- [[LLM-Wiki Schema]] — the `field/*`, `cluster/*`, `project/*` tag taxonomy
+- [[CLAUDE|LLM-Wiki Schema]] — the `field/*`, `cluster/*`, `project/*` tag taxonomy
 - Topic themes: [[Information geometry and natural gradient]] · [[Statistical physics of social systems and collective behavior]] · [[Participatory realism and quantum foundations]]

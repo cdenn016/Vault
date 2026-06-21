@@ -56,9 +56,9 @@ The central conjecture is that Type IIB string theory on (AdS_5 × S^5)_N (with 
 The AdS/CFT correspondence is a foundational instance of a holographic duality in which a gauge theory encodes a gravitational bulk, structurally analogous to the way the VFE transformer program seeks to encode information-geometric structure (SPD belief geometry, GL(K) gauge-equivariant attention) within a variational free-energy framework. More concretely, the large-N limit that makes AdS/CFT tractable is paralleled by the large-K (large representation dimension) regime in GL(K) attention, where gauge-equivariant transport dominates. The role of the conformal group SO(2,4) in constraining the probe action — fixing the Born-Infeld action purely from symmetry — resonates with the manuscript's use of GL(K) gauge invariance to constrain admissible attention kernels. The AdS radial coordinate U, interpreted as an energy/RG scale, offers a conceptual analogue to the hierarchical VFE structure h → s → p → q → observations, where each level corresponds to a different scale of belief abstraction. The participatory realism angle is less direct but non-trivial: Maldacena's conjecture treats bulk quantum gravity as emergent from boundary degrees of freedom, a holographic version of the "it from bit" theme relevant to the PIFB manuscript's participatory ontology.
 
 ## Cross-links
-- Concepts: [[Gauge Theory]], [[Information Geometry]], [[Holography]], [[Holographic Principle]], [[Emergent spacetime and holography]], [[Participatory realism (it from bit)]], [[Fisher information metric]]
-- Related sources: [[witten-1998-adscft-correlators]], [[gubser-1998-gauge-gravity]], [[ryu-takayanagi-2006-holographic-entanglement-entropy]], [[vanraamsdonk-2010-entanglement-spacetime]]
-- Manuscript/Project: [[participatory-it-from-bit]], [[VFE Transformer Program]], [[GL(K) Attention Manuscript]]
+- Concepts: [[Gauge Theory]], [[Information Geometry]], [[Emergent spacetime and holography|Holography]], [[Emergent spacetime and holography|Holographic Principle]], [[Emergent spacetime and holography]], [[Participatory realism (it from bit)]], [[Fisher information metric]]
+- Related sources: [[witten-1998-adscft-correlators]], [[gubser-1998-gauge-gravity]], [[ryu-takayanagi-2006-holographic-entanglement-entropy]], [[VanRaamsdonk-2010-spacetime-entanglement|vanraamsdonk-2010-entanglement-spacetime]]
+- Manuscript/Project: [[participatory-it-from-bit]], [[VFE Transformer Program]], [[gl-k-attention|GL(K) Attention Manuscript]]
 
 ## BibTeX
 ```bibtex

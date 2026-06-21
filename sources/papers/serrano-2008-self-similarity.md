@@ -34,7 +34,7 @@ Introduces the idea that complex scale-free networks are embedded in a hidden me
 This is the founding paper for the hidden-metric-space (S1) network model that underpins the geometric renormalization work cited in the multi-agent / social-physics thread; the latent-geometry view of connection probability parallels similarity-based attention kernels in the VFE program.
 
 ## Cross-links
-[[Hidden Metric Space]], [[Scale-Free Networks]], [[Hyperbolic Geometry]]
+[[Hidden Metric Space]], [[Network structure — small-world and scale-free|Scale-Free Networks]], [[Hyperbolic Geometry]]
 
 ## BibTeX
 ```bibtex

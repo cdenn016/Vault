@@ -21,4 +21,4 @@ Generalised synchrony is the regime in which two coupled dynamical systems becom
 [[Multi-agent variational free energy]], [[Meta-agents and hierarchical emergence]], [[Free-energy principle active inference]]
 
 ## Sources
-[[friston-2015-duet]], [[friston-frith-2015-duet]]
+[[friston-frith-2015-duet|friston-2015-duet]], [[friston-frith-2015-duet]]

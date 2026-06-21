@@ -51,7 +51,7 @@ Optimal transport and entropic regularization appear in several threads of the V
 ## Cross-links
 - Concepts: [[Optimal Transport]], [[Entropic Regularization]], [[Information Geometry]], [[Attention Mechanism]]
 - Related sources: [[villani-2009-optimal-transport]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]]
+- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) gauge-equivariant attention|GL(K) Attention]]
 
 ## BibTeX
 ```bibtex

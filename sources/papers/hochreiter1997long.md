@@ -49,8 +49,8 @@ LSTM was evaluated against RTRL, BPTT, recurrent cascade correlation, Elman nets
 LSTM is the canonical prior work on learned gating mechanisms for controlling information flow over time, which provides direct conceptual ancestry for the attention mechanisms in the VFE transformer. The gate-as-multiplicative-selector pattern — where a learned scalar modulates information passage — resurfaces in softmax attention as β_{ij} weighting belief transport Ω_{ij} q_j. The CEC's constant error flow under truncated gradients is structurally analogous to the VFE free-energy minimization objective maintaining stable belief geometry across transformer layers. More concretely, the GL(K) gauge-equivariant attention mechanism can be viewed as replacing LSTM's scalar gates with group-valued parallel transport operators, generalizing gating from R to GL(K) while preserving a similar information-routing function. The O(W) local-in-space-and-time property of LSTM motivates comparable efficiency aspirations in the per-layer VFE update rules.
 
 ## Cross-links
-- Concepts: [[Attention Mechanism]], [[Recurrent Networks]], [[Vanishing Gradient Problem]]
-- Related sources: [[vaswani2017attention]]
+- Concepts: [[Attention Mechanism]], [[Recurrent Networks]], [[Vanishing gradient|Vanishing Gradient Problem]]
+- Related sources: [[vaswani-2017-attention|vaswani2017attention]]
 - Manuscript/Project: [[VFE Transformer Program]]
 
 ## BibTeX

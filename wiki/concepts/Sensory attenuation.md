@@ -19,4 +19,4 @@ Sensory attenuation is the active-inference phenomenon whereby an agent down-wei
 [[Precision weighting]], [[Free-energy principle active inference]], [[Predictive processing and controlled hallucination]]
 
 ## Sources
-[[friston-2015-duet]], [[friston-frith-2015-duet]]
+[[friston-frith-2015-duet|friston-2015-duet]], [[friston-frith-2015-duet]]

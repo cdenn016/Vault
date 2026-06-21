@@ -33,7 +33,7 @@ This paper turns Van Raamsdonk's slogan "spacetime is built from entanglement" i
 
 ## Problem & setting
 
-[[ryu-takayanagi-2006-holographic-entanglement-entropy]] identifies entanglement entropy with bulk minimal-surface area, and [[vanraamsdonk-2010-entanglement-spacetime]] argues qualitatively that entanglement glues geometry together. What was missing was a quantitative bridge showing that the *dynamical* law of gravity (not just the kinematics of distance) follows from entanglement. This work supplies that bridge in the linearized regime.
+[[ryu-takayanagi-2006-holographic-entanglement-entropy]] identifies entanglement entropy with bulk minimal-surface area, and [[VanRaamsdonk-2010-spacetime-entanglement|vanraamsdonk-2010-entanglement-spacetime]] argues qualitatively that entanglement glues geometry together. What was missing was a quantitative bridge showing that the *dynamical* law of gravity (not just the kinematics of distance) follows from entanglement. This work supplies that bridge in the linearized regime.
 
 ## Method
 
@@ -45,12 +45,12 @@ Linearized Einstein equations emerge from the first law of entanglement; the res
 
 ## Relevance to this research
 
-This is the technical hinge between the two emergent-gravity strands the PIFB manuscript ([[participatory-it-from-bit]]) leans on: Jacobson's thermodynamic-of-spacetime derivation ([[jacobson-1995-thermodynamics-spacetime]]) and Van Raamsdonk's entanglement-builds-geometry picture. It shows that a *variational/stationarity* statement about an information functional yields field equations for a metric — exactly the structural move PIFB proposes when it asks whether stationarity of [[Variational free energy]] over belief fibres can induce dynamics on an emergent base manifold via the pullback of the [[Fisher information metric]]. The "first law" here is the entanglement analogue of PIFB's claim that information determines geometry; it anchors the [[Emergent spacetime and holography]] theme and sharpens the [[Participatory realism (it from bit)]] thread by making the it-from-bit dependence quantitative rather than slogan-level.
+This is the technical hinge between the two emergent-gravity strands the PIFB manuscript ([[participatory-it-from-bit]]) leans on: Jacobson's thermodynamic-of-spacetime derivation ([[jacobson-1995-einstein-equation-of-state|jacobson-1995-thermodynamics-spacetime]]) and Van Raamsdonk's entanglement-builds-geometry picture. It shows that a *variational/stationarity* statement about an information functional yields field equations for a metric — exactly the structural move PIFB proposes when it asks whether stationarity of [[Variational free energy]] over belief fibres can induce dynamics on an emergent base manifold via the pullback of the [[Fisher information metric]]. The "first law" here is the entanglement analogue of PIFB's claim that information determines geometry; it anchors the [[Emergent spacetime and holography]] theme and sharpens the [[Participatory realism (it from bit)]] thread by making the it-from-bit dependence quantitative rather than slogan-level.
 
 ## Cross-links
 - Concepts: [[Participatory realism (it from bit)]], [[Fisher information metric]]
 - Themes: [[Emergent spacetime and holography]]
-- Related sources: [[jacobson-1995-thermodynamics-spacetime]], [[vanraamsdonk-2010-entanglement-spacetime]], [[ryu-takayanagi-2006-holographic-entanglement-entropy]], [[jacobson-2016-entanglement-equilibrium]], [[wheeler-1990-it-from-bit]]
+- Related sources: [[jacobson-1995-einstein-equation-of-state|jacobson-1995-thermodynamics-spacetime]], [[VanRaamsdonk-2010-spacetime-entanglement|vanraamsdonk-2010-entanglement-spacetime]], [[ryu-takayanagi-2006-holographic-entanglement-entropy]], [[jacobson-2016-entanglement-equilibrium]], [[wheeler-1990-it-from-bit]]
 
 ## BibTeX
 ```bibtex

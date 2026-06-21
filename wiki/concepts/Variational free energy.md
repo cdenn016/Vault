@@ -75,8 +75,8 @@ Variational free energy surfaces throughout the model and config:
 - [[amari-1998-natural-gradient]] — Fisher-preconditioned natural gradient for efficient minimization on the statistical manifold.
 - [[khan-rue-2023-bayesian-learning-rule]] — Natural-gradient descent on exponential-family natural parameters as a single learning rule unifying Adam, Newton, VI, and online learning; the Fisher-preconditioned Gaussian belief update.
 - [[bishop-2006-pattern-recognition-machine-learning]] — Ch. 10 variational inference: the ELBO and mean-field EM that the VFE transformer instantiates per token.
-- [[wainwright-jordan-2008-graphical-models-variational-inference]] — Exponential-family convex-duality foundation of mean-field variational inference and the free-energy bound.
-- [[beal-2003-variational-algorithms-approximate-bayesian-inference]] — Variational Bayesian EM and the free-energy bound; direct antecedent of iterative VFE minimization.
+- [[wainwright-2008-graphical-models-variational|wainwright-jordan-2008-graphical-models-variational-inference]] — Exponential-family convex-duality foundation of mean-field variational inference and the free-energy bound.
+- [[beal-2003-variational-bayesian|beal-2003-variational-algorithms-approximate-bayesian-inference]] — Variational Bayesian EM and the free-energy bound; direct antecedent of iterative VFE minimization.
 
 ## See also
 

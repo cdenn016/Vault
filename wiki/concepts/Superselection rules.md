@@ -22,4 +22,4 @@ A superselection rule forbids coherent superpositions across certain sectors of 
 [[Quantum reference frames]], [[G-twirling]], [[Gauge transformation]]
 
 ## Sources
-[[bartlett-rudolph-spekkens-2007-reference-frames]]
+[[bartlett-2007-reference-frames|bartlett-rudolph-spekkens-2007-reference-frames]]

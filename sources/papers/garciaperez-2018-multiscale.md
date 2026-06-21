@@ -47,9 +47,9 @@ Real scale-free networks (Internet AS, human metabolic, music chord transitions,
 The geometric renormalization framework is directly relevant to the multi-agent and social-physics components of this research program. The S1/H2 hidden metric space, in which node similarity is encoded as angular proximity and popularity as degree, is a concrete geometric realization of the kind of latent-space structure that underpins attention mechanisms in the VFE transformer: the connection probability $p_{ij} = (1 + \chi_{ij}^\beta)^{-1}$ with $\chi_{ij} = R\Delta\theta_{ij}/(\mu\kappa_i\kappa_j)$ is structurally analogous to a softmax attention kernel governed by similarity and scale. The renormalization semigroup structure — iterative coarse-graining that preserves the model family — parallels hierarchical message-passing or multi-scale belief propagation ideas relevant to active inference over networks. The community-structure preservation across scales is relevant to multi-agent opinion dynamics: it implies that mesoscopic cluster structure (social groups, epistemic communities) is stable under scale changes, which could constrain or inform the prior structure in multi-agent VFE models. The phase diagram ($\nu$ vs. $\gamma$, $\beta$) quantifying when networks flow toward full connectivity vs. ring-like sparsity is a concrete theoretical result about collective behavior that connects to social-physics questions about consensus and polarization.
 
 ## Cross-links
-- Concepts: [[Hidden Metric Space]], [[Renormalization Group]], [[Scale-Free Networks]], [[Hyperbolic Geometry]], [[Community Structure]]
-- Related sources: [[boguna2010sustaining]], [[serrano2008self]]
-- Manuscript/Project: [[VFE Transformer Program]], [[MAgent Model]]
+- Concepts: [[Hidden Metric Space]], [[Renormalization group flow|Renormalization Group]], [[Network structure — small-world and scale-free|Scale-Free Networks]], [[Hyperbolic Geometry]], [[Community detection and modularity|Community Structure]]
+- Related sources: [[boguna-2010-sustaining|boguna2010sustaining]], [[serrano-2008-self-similarity|serrano2008self]]
+- Manuscript/Project: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model|MAgent Model]]
 
 ## BibTeX
 ```bibtex

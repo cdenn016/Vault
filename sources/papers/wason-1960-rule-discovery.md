@@ -33,7 +33,7 @@ Wason's classic 2-4-6 rule-discovery task: subjects must infer a hidden numeric 
 Provides the canonical empirical anchor for confirmation bias and the failure of falsification-seeking — the human deviation from ideal Bayesian/active-inference test selection that the belief-inertia and social-physics opinion-dynamics work models as biased evidence weighting.
 
 ## Cross-links
-[[Confirmation bias]], [[Bayesian reasoning]]
+[[Belief perseverance and confirmation bias|Confirmation bias]], [[Bayesian Inference|Bayesian reasoning]]
 
 ## BibTeX
 ```bibtex

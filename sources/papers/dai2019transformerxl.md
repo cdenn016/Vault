@@ -57,8 +57,8 @@ Transformer-XL's **relative positional encoding** is the direct ancestor of the 
 The segment-level recurrence is less directly used in the current VFE3 architecture but is conceptually related to the belief-propagation across sequence positions: the VFE attention mechanism iteratively updates belief tuples $(\mu, \Sigma, \phi)$ through transport operators $\Omega_{ij}$, and the question of how context window length versus recurrence affects free-energy minimization is an open architectural question for longer sequences. The relative-encoding ideas here also inform how positional structure enters the attention prior $\pi_{ij}$ without breaking gauge equivariance (since the T5 bias is a scalar offset added after the gauge-invariant KL transport term, leaving the gauge structure intact).
 
 ## Cross-links
-- Concepts: [[Relative Positional Encoding]], [[Self-Attention]], [[Language Modeling]]
-- Related sources: [[vaswani2017attention]], [[raffel2020t5]]
+- Concepts: [[Relative Positional Encoding]], [[Attention mechanisms — theory and positional structure|Self-Attention]], [[Language Modeling]]
+- Related sources: [[vaswani-2017-attention|vaswani2017attention]], [[raffel2020exploring|raffel2020t5]]
 - Manuscript/Project: [[VFE Transformer Program]]
 
 ## BibTeX

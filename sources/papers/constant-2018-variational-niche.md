@@ -38,7 +38,7 @@ Casts niche construction in active-inference terms: developmental niche construc
 Provides the variational-niche-construction mechanism by which a shared niche acquires Markov-blanket structure, grounding the multi-agent VFE model's belief coupling and the social-physics extension to opinion dynamics. Cited from ramstead2020variational.
 
 ## Cross-links
-[[Niche Construction]], [[Active Inference]], [[Free Energy Principle]]
+[[Niche Construction]], [[Active Inference]], [[Free-energy principle active inference|Free Energy Principle]]
 
 ## BibTeX
 ```bibtex

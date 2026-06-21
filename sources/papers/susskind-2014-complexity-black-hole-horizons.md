@@ -41,12 +41,12 @@ The conjecture that bulk geometric growth behind horizons is dual to boundary co
 
 ## Relevance to this research
 
-Susskind extends "information builds geometry" from entanglement to *computation*, which bridges two threads PIFB ([[participatory-it-from-bit]]) weaves together: the entanglement-geometry holography of [[vanraamsdonk-2010-entanglement-spacetime]] and [[maldacena-susskind-2013-er-epr]], and the computational-universe reading of "it from bit" associated with [[lloyd-2002-computational-capacity]]. For the program this matters because PIFB's emergent structure is produced by an *iterative computation* — VFE minimization — not a static entanglement pattern; complexity-as-geometry is the closest physics analogue to "geometry emerges from the work of inference." It supports the [[Emergent spacetime and holography]] theme and the computational face of [[Participatory realism (it from bit)]].
+Susskind extends "information builds geometry" from entanglement to *computation*, which bridges two threads PIFB ([[participatory-it-from-bit]]) weaves together: the entanglement-geometry holography of [[VanRaamsdonk-2010-spacetime-entanglement|vanraamsdonk-2010-entanglement-spacetime]] and [[maldacena-2013-er-epr|maldacena-susskind-2013-er-epr]], and the computational-universe reading of "it from bit" associated with [[lloyd-2002-computational-capacity-universe|lloyd-2002-computational-capacity]]. For the program this matters because PIFB's emergent structure is produced by an *iterative computation* — VFE minimization — not a static entanglement pattern; complexity-as-geometry is the closest physics analogue to "geometry emerges from the work of inference." It supports the [[Emergent spacetime and holography]] theme and the computational face of [[Participatory realism (it from bit)]].
 
 ## Cross-links
 - Concepts: [[Participatory realism (it from bit)]]
 - Themes: [[Emergent spacetime and holography]]
-- Related sources: [[maldacena-susskind-2013-er-epr]], [[lloyd-2002-computational-capacity]], [[vanraamsdonk-2010-entanglement-spacetime]], [[wheeler-1990-it-from-bit]]
+- Related sources: [[maldacena-2013-er-epr|maldacena-susskind-2013-er-epr]], [[lloyd-2002-computational-capacity-universe|lloyd-2002-computational-capacity]], [[VanRaamsdonk-2010-spacetime-entanglement|vanraamsdonk-2010-entanglement-spacetime]], [[wheeler-1990-it-from-bit]]
 
 ## BibTeX
 ```bibtex

@@ -64,9 +64,9 @@ This paper is also relevant to the multi-agent active inference framework: the e
 > [!note] Editorial: The correspondence is interpretive — Lahav and Neemeh use "relativistic" by analogy to physics, and the project supplies a definite (gauge-theoretic) transformation law they did not state. This is a constructive completion of their proposal, not a result they prove.
 
 ## Cross-links
-- Concepts: [[Participatory Realism]], [[Participatory realism (it from bit)]], [[Hard Problem of Consciousness]], [[Active Inference]], [[Gauge Equivariance]], [[Gauge transformation]], [[Holonomy]], [[Agents as fibre-bundle sections]], [[Mathematical consciousness science]]
-- Related sources: [[wheeler-1990-it-from-bit]], [[friston-2019-free-energy-principle]], [[fuchs-2010-qbism]], [[seth-2021-being-you]]
-- Manuscript/Project: [[participatory-it-from-bit]], [[PIFB Manuscript]], [[VFE Transformer Program]]
+- Concepts: [[fuchs-2017-participatory-realism|Participatory Realism]], [[Participatory realism (it from bit)]], [[Explanatory gap|Hard Problem of Consciousness]], [[Active Inference]], [[Group equivariance|Gauge Equivariance]], [[Gauge transformation]], [[Holonomy]], [[Agents as fibre-bundle sections]], [[Mathematical consciousness science]]
+- Related sources: [[wheeler-1990-it-from-bit]], [[friston-2019-particular-physics|friston-2019-free-energy-principle]], [[fuchs-2010-qbism-perimeter|fuchs-2010-qbism]], [[seth-2021-being-you]]
+- Manuscript/Project: [[participatory-it-from-bit]], [[participatory-it-from-bit|PIFB Manuscript]], [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex

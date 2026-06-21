@@ -49,7 +49,7 @@ Highway Networks are background context for understanding residual/skip connecti
 
 ## Cross-links
 - Concepts: [[Residual Connections]], [[Gating Mechanisms]], [[Deep Networks]]
-- Related sources: [[he2016resnet]], [[vaswani2017attention]]
+- Related sources: [[he-2016-resnet|he2016resnet]], [[vaswani-2017-attention|vaswani2017attention]]
 - Manuscript/Project: [[VFE Transformer Program]]
 
 ## BibTeX

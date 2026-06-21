@@ -42,12 +42,12 @@ The area–entropy law $S = A/4$ (in $G = c = \hbar = k_B = 1$ units) and the ge
 
 ## Relevance to this research
 
-Bekenstein's area law is the foundational fact under the entire emergent-spacetime subsection that PIFB ([[participatory-it-from-bit]]) surveys: it is the original "geometry counts information" statement, generalized by [[ryu-takayanagi-2006-holographic-entanglement-entropy]] to arbitrary regions and used by [[jacobson-1995-thermodynamics-spacetime]] and [[jacobson-2016-entanglement-equilibrium]] to derive gravity itself. For the program it supplies the historical anchor for the [[Emergent spacetime and holography]] theme and for the [[Participatory realism (it from bit)]] claim that informational measures (entropy, [[Fisher information metric]]) underwrite geometric structure.
+Bekenstein's area law is the foundational fact under the entire emergent-spacetime subsection that PIFB ([[participatory-it-from-bit]]) surveys: it is the original "geometry counts information" statement, generalized by [[ryu-takayanagi-2006-holographic-entanglement-entropy]] to arbitrary regions and used by [[jacobson-1995-einstein-equation-of-state|jacobson-1995-thermodynamics-spacetime]] and [[jacobson-2016-entanglement-equilibrium]] to derive gravity itself. For the program it supplies the historical anchor for the [[Emergent spacetime and holography]] theme and for the [[Participatory realism (it from bit)]] claim that informational measures (entropy, [[Fisher information metric]]) underwrite geometric structure.
 
 ## Cross-links
 - Concepts: [[Participatory realism (it from bit)]], [[Fisher information metric]]
 - Themes: [[Emergent spacetime and holography]]
-- Related sources: [[ryu-takayanagi-2006-holographic-entanglement-entropy]], [[jacobson-1995-thermodynamics-spacetime]], [[bousso-2002-holographic-principle]], [[wheeler-1990-it-from-bit]]
+- Related sources: [[ryu-takayanagi-2006-holographic-entanglement-entropy]], [[jacobson-1995-einstein-equation-of-state|jacobson-1995-thermodynamics-spacetime]], [[bousso-2002-holographic|bousso-2002-holographic-principle]], [[wheeler-1990-it-from-bit]]
 
 ## BibTeX
 ```bibtex

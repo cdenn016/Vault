@@ -45,10 +45,10 @@ This paper is peripherally relevant to the participatory/it-from-bit strand of t
 ## Cross-links
 > [!note] Editorial: PIFB cites Carlip as the deliberate **critical counterweight** in its emergent-gravity discussion — the strongest objection naming, so interpretive analogy is not dressed up as theorem. The universality challenge applies with full force to the program's own ambition of deriving geometric structure from the stationarity of an information functional and the pullback [[Fisher information metric]]; hence dual-tagged into the methodology cluster.
 
-- Concepts: [[Gauge Theory]], [[Participatory Realism]], [[Participatory realism (it from bit)]], [[It From Bit]], [[Fisher information metric]]
+- Concepts: [[Gauge Theory]], [[fuchs-2017-participatory-realism|Participatory Realism]], [[Participatory realism (it from bit)]], [[Participatory realism (it from bit)|It From Bit]], [[Fisher information metric]]
 - Themes: [[Emergent spacetime and holography]]
-- Related sources: [[wheeler-1990-it-from-bit]], [[jacobson-1995-thermodynamics-spacetime]], [[verlinde-2011-entropic-gravity]]
-- Manuscript/Project: [[PIFB]], [[participatory-it-from-bit]], [[VFE Transformer Program]]
+- Related sources: [[wheeler-1990-it-from-bit]], [[jacobson-1995-einstein-equation-of-state|jacobson-1995-thermodynamics-spacetime]], [[verlinde-2011-entropic-gravity]]
+- Manuscript/Project: [[Participatory realism (it from bit)|PIFB]], [[participatory-it-from-bit]], [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex

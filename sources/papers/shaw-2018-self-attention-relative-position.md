@@ -33,7 +33,7 @@ Extends the Transformer's self-attention to incorporate learned representations 
 Seminal source for relative positional encoding in transformers, directly relevant to the program's analysis of how positional structure shapes attention geometry and length generalization.
 
 ## Cross-links
-[[Relative Position Encoding]], [[Positional encoding and length generalization]], [[Attention mechanisms — theory and positional structure]]
+[[Relative positional encoding|Relative Position Encoding]], [[kazemnejad-2023-positional-encoding-length-generalization|Positional encoding and length generalization]], [[Attention mechanisms — theory and positional structure]]
 
 ## BibTeX
 ```bibtex

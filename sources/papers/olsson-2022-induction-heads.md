@@ -69,12 +69,12 @@ Circuit analysis (attention-pattern inspection, the QK/OV decomposition of the t
 
 ## Relevance to this research
 
-PIFB ([[participatory-it-from-bit]]) reads the attention weight $\beta_{ij}$ as a **source-attribution** quantity — how much agent $i$'s belief is sourced from agent $j$ — a mixture-of-sources interpretation of attention. Induction heads are the sharpest empirical foil for that reading: they are a documented case where $\beta_{ij}$ provably routes information from a specific earlier source (the prior occurrence) to the present token, exactly the "belief $i$ draws on source $j$" semantics PIFB wants attention to carry. They also test the limits of the reading, since their function is copy-and-complete rather than belief-averaging consensus, so they pose the question of whether the PIFB coupling term can express directed copy circuits or only diffusive consensus. This connects to [[Mechanistic interpretability of attention]] and to the head-specialization literature ([[voita-2019-multihead]], [[clark-2019-bert-attention]]); together these works supply the interpretability frame against which PIFB's source-attribution claim about $\beta_{ij}$ must be checked.
+PIFB ([[participatory-it-from-bit]]) reads the attention weight $\beta_{ij}$ as a **source-attribution** quantity — how much agent $i$'s belief is sourced from agent $j$ — a mixture-of-sources interpretation of attention. Induction heads are the sharpest empirical foil for that reading: they are a documented case where $\beta_{ij}$ provably routes information from a specific earlier source (the prior occurrence) to the present token, exactly the "belief $i$ draws on source $j$" semantics PIFB wants attention to carry. They also test the limits of the reading, since their function is copy-and-complete rather than belief-averaging consensus, so they pose the question of whether the PIFB coupling term can express directed copy circuits or only diffusive consensus. This connects to [[Mechanistic interpretability of attention]] and to the head-specialization literature ([[voita-2019-attention-heads|voita-2019-multihead]], [[clark-2019-bert-attention]]); together these works supply the interpretability frame against which PIFB's source-attribution claim about $\beta_{ij}$ must be checked.
 
 ## Cross-links
 
 - Concepts: [[Mechanistic interpretability of attention]], [[Attention mechanisms — theory and positional structure]]
-- Sources: [[voita-2019-multihead]], [[clark-2019-bert-attention]], [[vaswani-2017-attention]]
+- Sources: [[voita-2019-attention-heads|voita-2019-multihead]], [[clark-2019-bert-attention]], [[vaswani-2017-attention]]
 - Project: [[participatory-it-from-bit]], [[Gauge-Theoretic Multi-Agent VFE Model]]
 
 ```bibtex

@@ -3,7 +3,6 @@ type: paper
 title: "Group Equivariant Convolutional Networks"
 aliases:
   - "Cohen 2016"
-  - "G-CNN"
   - "cohen-2016-steerable-cnns"
   - "cohen2016steerablecnns"
   - "Cohen & Welling 2016 (Steerable CNNs)"

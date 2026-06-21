@@ -36,7 +36,7 @@ Introduces a tighter, importance-sampling-based lower bound on the marginal like
 Directly sharpens the variational free-energy bound at the heart of the program: the IWAE bound is a tighter surrogate for the ELBO/VFE, relevant to how accurately the model's Gaussian beliefs approximate true posteriors.
 
 ## Cross-links
-[[Variational free energy]], [[Variational autoencoder]], [[Amortized inference]]
+[[Variational free energy]], [[Variational autoencoder (VAE)|Variational autoencoder]], [[Amortized inference]]
 
 ## BibTeX
 ```bibtex

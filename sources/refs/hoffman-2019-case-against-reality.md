@@ -4,7 +4,6 @@ title: "The Case Against Reality / The Interface Theory of Perception"
 aliases:
   - "Hoffman 2019"
   - "Hoffman, Singh & Prakash 2015"
-  - "Interface Theory of Perception"
 authors:
   - Donald D. Hoffman
   - Manish Singh

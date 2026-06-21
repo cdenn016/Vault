@@ -33,7 +33,7 @@ An edited interdisciplinary volume gathering philosophical, psychological, and n
 The host volume for the Bayne-Chalmers unity-of-consciousness chapter that the PIFB manuscript draws on for the phenomenal-unity / total-phenomenal-state notion linked to the global VFE minimum.
 
 ## Cross-links
-[[Unity of Consciousness]], [[Consciousness and the hard problem]]
+[[bayne-2005-unity-consciousness|Unity of Consciousness]], [[Consciousness and the hard problem]]
 
 ## BibTeX
 ```bibtex

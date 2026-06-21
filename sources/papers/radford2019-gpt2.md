@@ -46,8 +46,8 @@ GPT-2 (1.5B parameters) achieves state-of-the-art zero-shot perplexity on 7 of 8
 GPT-2's Transformer architecture is the dominant baseline against which the VFE transformer's GL(K) gauge-equivariant attention mechanism is contrasted. Where GPT-2 learns task representations implicitly through maximum likelihood over token sequences, the VFE framework derives attention weights as the stationary point of a variational free energy functional with explicit belief geometry (Gaussian tuples (mu, Sigma, phi)) and gauge-equivariant transport. The log-linear scaling of zero-shot performance with capacity in GPT-2 is relevant context for understanding what the VFE transformer's inductive biases (gauge equivariance, SPD belief geometry) buy beyond raw parameter count. GPT-2's autoregressive factorization p(output | input, task) is a special case of the conditional modeling framework that the VFE approach generalizes via the observation likelihood term E_q[log p(o | x)] in the free energy. The BPE tokenization and pre-norm residual architecture details are standard engineering choices also inherited by VFE3's input encoding layer.
 
 ## Cross-links
-- Concepts: [[Transformer Architecture]], [[Self-Attention]], [[Language Modeling]], [[Zero-Shot Learning]]
-- Related sources: [[vaswani2017-attention]], [[radford2018-gpt1]]
+- Concepts: [[Transformer Architecture]], [[Attention mechanisms — theory and positional structure|Self-Attention]], [[Language Modeling]], [[Zero-Shot Learning]]
+- Related sources: [[vaswani-2017-attention|vaswani2017-attention]], [[radford-2018-gpt1|radford2018-gpt1]]
 - Manuscript/Project: [[VFE Transformer Program]]
 
 ## BibTeX

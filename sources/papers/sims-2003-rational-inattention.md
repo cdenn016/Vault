@@ -33,7 +33,7 @@ Introduces rational inattention: agents have finite Shannon information-processi
 The founding paper of rational inattention, providing the information-theoretic account of capacity-constrained attention that parallels precision-weighted attention in the VFE framework and underwrites information rigidity in the SocialPhysics project.
 
 ## Cross-links
-[[Rational inattention]], [[Information rigidity]], [[Precision-weighted attention]]
+[[Rational inattention]], [[Information rigidity]], [[Precision weighting|Precision-weighted attention]]
 
 ## BibTeX
 ```bibtex

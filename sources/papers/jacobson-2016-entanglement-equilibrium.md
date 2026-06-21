@@ -29,7 +29,7 @@ Jacobson reframes his own 1995 thermodynamic derivation of gravity as a *station
 
 ## Problem & setting
 
-The 1995 "Einstein equation of state" derivation ([[jacobson-1995-thermodynamics-spacetime]]) used a Clausius relation $\delta Q = T\,\delta S$ across local Rindler horizons. The 2016 paper recasts the same physics in a cleaner variational language that meshes with the entanglement-entropy program of [[ryu-takayanagi-2006-holographic-entanglement-entropy]] and [[faulkner-2014-gravitation-from-entanglement]], avoiding some interpretational issues of the heat-flow argument.
+The 1995 "Einstein equation of state" derivation ([[jacobson-1995-einstein-equation-of-state|jacobson-1995-thermodynamics-spacetime]]) used a Clausius relation $\delta Q = T\,\delta S$ across local Rindler horizons. The 2016 paper recasts the same physics in a cleaner variational language that meshes with the entanglement-entropy program of [[ryu-takayanagi-2006-holographic-entanglement-entropy]] and [[faulkner-2014-gravitation-from-entanglement]], avoiding some interpretational issues of the heat-flow argument.
 
 ## Method
 
@@ -46,7 +46,7 @@ This is the single closest external precedent for PIFB's central methodological 
 ## Cross-links
 - Concepts: [[Participatory realism (it from bit)]], [[Fisher information metric]], [[Variational free energy]]
 - Themes: [[Emergent spacetime and holography]]
-- Related sources: [[jacobson-1995-thermodynamics-spacetime]], [[faulkner-2014-gravitation-from-entanglement]], [[verlinde-2011-entropic-gravity]], [[padmanabhan-2010-thermodynamic-gravity]], [[wheeler-1990-it-from-bit]]
+- Related sources: [[jacobson-1995-einstein-equation-of-state|jacobson-1995-thermodynamics-spacetime]], [[faulkner-2014-gravitation-from-entanglement]], [[verlinde-2011-entropic-gravity]], [[padmanabhan-2010-thermodynamical-gravity|padmanabhan-2010-thermodynamic-gravity]], [[wheeler-1990-it-from-bit]]
 
 ## BibTeX
 ```bibtex

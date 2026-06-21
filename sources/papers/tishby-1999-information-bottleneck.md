@@ -3,8 +3,6 @@ type: paper
 title: "The Information Bottleneck Method"
 aliases:
   - Tishby 1999
-  - IB
-  - Information Bottleneck
   - tishby-2000-information-bottleneck
   - Tishby 2000
   - tishby2000information
@@ -62,13 +60,13 @@ The main theoretical contributions are: (i) the existence and characterization o
 
 ## Relevance to this research
 
-The IB Lagrangian maps directly onto the PIFB variational free energy. The VFE self-coupling term $\alpha\,\mathrm{KL}(q_i \| p_i)$ penalizes representational complexity (analogous to $I(X;T)$), while the observation-likelihood term $-\mathbb{E}_q[\log p(o\mid x)]$ drives accuracy (analogous to $\beta\,I(T;Y)$), with $\alpha$ (or its inverse) playing the role of Tishby's $\beta$. The IB's defining structural result — that the optimal compression assignment is a **softmax over a KL distortion** — is also the exact form of the GL(K) attention weight $\beta_{ij} = \mathrm{softmax}(-\mathrm{KL}(\cdot)/\tau)$, supplying the variational pedigree for both the capacity floor and the KL-distortion-softmax structure of belief coupling in the [[GL(K) Attention]] manuscript. The Gaussian specialization closest to PIFB's Gaussian belief tuples $(μ, Σ, φ)$ is developed in [[chechik-2005-gaussian-ib]], and the deep-learning information-plane interpretation is developed in [[shwartz-ziv-2017-opening-black-box]].
+The IB Lagrangian maps directly onto the PIFB variational free energy. The VFE self-coupling term $\alpha\,\mathrm{KL}(q_i \| p_i)$ penalizes representational complexity (analogous to $I(X;T)$), while the observation-likelihood term $-\mathbb{E}_q[\log p(o\mid x)]$ drives accuracy (analogous to $\beta\,I(T;Y)$), with $\alpha$ (or its inverse) playing the role of Tishby's $\beta$. The IB's defining structural result — that the optimal compression assignment is a **softmax over a KL distortion** — is also the exact form of the GL(K) attention weight $\beta_{ij} = \mathrm{softmax}(-\mathrm{KL}(\cdot)/\tau)$, supplying the variational pedigree for both the capacity floor and the KL-distortion-softmax structure of belief coupling in the [[GL(K) gauge-equivariant attention|GL(K) Attention]] manuscript. The Gaussian specialization closest to PIFB's Gaussian belief tuples $(μ, Σ, φ)$ is developed in [[chechik2005information-bottleneck-gaussian|chechik-2005-gaussian-ib]], and the deep-learning information-plane interpretation is developed in [[shwartz-ziv-2017-opening-black-box]].
 
 ## Cross-links
 
-- Concepts: [[Information bottleneck]], [[Variational free energy]], [[KL divergence]], [[Natural gradient]]
-- Related sources: [[chechik-2005-gaussian-ib]], [[shwartz-ziv-2017-opening-black-box]], [[neal-1998-variational-em]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]]
+- Concepts: [[Information bottleneck]], [[Variational free energy]], [[kullback-1951-kl-divergence|KL divergence]], [[Natural gradient]]
+- Related sources: [[chechik2005information-bottleneck-gaussian|chechik-2005-gaussian-ib]], [[shwartz-ziv-2017-opening-black-box]], [[neal-1998-variational-em]]
+- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) gauge-equivariant attention|GL(K) Attention]]
 
 ## BibTeX
 

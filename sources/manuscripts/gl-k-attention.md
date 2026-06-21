@@ -2,8 +2,6 @@
 type: manuscript
 title: "Attention as Gauge-Theoretic Variational Inference"
 aliases:
-  - "GL(K) Attention"
-  - "Gauge-Theoretic Attention"
   - "Attention as Gauge-Theoretic Variational Inference"
   - "GL(K) Attention Manuscript"
   - "GL(K) attention manuscript"
@@ -88,11 +86,11 @@ Related program manuscripts: [[belief-inertia]], [[meta-entropy-manuscript]].
 
 A multi-agent, wiki-grounded peer review (eight expert lenses, adversarial verification; full report in the `V3_Transformer` repo at `docs/reviews/2026-06-19-glk-attention-wiki-peer-review.md`) found the core derivations sound — the $\mathrm{GL}(K)$-invariance theorem, the softmax-as-KKT derivation, the covariance precision fixed point, the SPD retraction, and the App. H forward-KL uniqueness result all survived adversarial verification, and no finding overturns a derivation. The consequential weakness is bibliographic: the standalone manuscript is systematically under-cited against this knowledge base. Confirmed overlooked connections (each catalogued here, none engaged in the GL(K) body):
 
-- **Gauge–FEP prior art.** [[sengupta-friston-2017-bayesian-gauge-theory]] ("approximate Bayesian inference *is* a gauge theory") and [[sengupta-2016-neuronal-gauge-theory]] are the most direct precursors; the Introduction's "stubbornly separated" framing overstates novelty against them. The body cites neither (see bib defect below).
+- **Gauge–FEP prior art.** [[sengupta2017gauge|sengupta-friston-2017-bayesian-gauge-theory]] ("approximate Bayesian inference *is* a gauge theory") and [[sengupta-2016-neuronal-gauge|sengupta-2016-neuronal-gauge-theory]] are the most direct precursors; the Introduction's "stubbornly separated" framing overstates novelty against them. The body cites neither (see bib defect below).
 - **Architecture-as-RG.** [[mehta-schwab-2014-variational-rg-deep-learning]] (exact variational-RG ↔ deep-learning map) and [[beny-osborne-2015-info-geometric-rg]] (RG as a Fisher–Bures monotone flow) are the precedents the RG-fixed-point conjecture must position against; both uncited.
 - **Depth and the no-MLP claim.** [[dong-2021-rank-collapse]] (pure attention loses rank doubly-exponentially with depth) reframes residual connections as a load-bearing anti-collapse counterforce and exposes the "no-MLP minimality" claim as untested — every experiment is single-layer. Held at *major*.
 - **Attention-as-clustering.** [[geshkovski-2023-mathematical-transformers]] is the rigorous mathematics of the consensus / emergent-cluster results the paper reports; uncited. Held at *major*.
-- **Head specialization.** [[voita-2019-multihead]] supplies the exact taxonomy the emergent-structure section uses, plus a concrete falsification (head pruning); in bib, uncited in body.
+- **Head specialization.** [[voita-2019-attention-heads|voita-2019-multihead]] supplies the exact taxonomy the emergent-structure section uses, plus a concrete falsification (head pruning); in bib, uncited in body.
 - **Minor but apt:** [[wang-2023-riemannian-self-attention-spd]] (nearest SPD-attention prior art), [[von-oswald-2022-transformers-gradient-descent]] ("layers as VFE iterations"), [[petz-1996-monotone-metrics]] (matrix Chentsov uniqueness, bears on App. H), and the multi-agent FEP / Bayesian-mechanics clusters ([[friston-2024-federated-inference]], [[dacosta-2021-bayesian-mechanics]]).
 
 **Bibliography defect.** `references.bib` contains `Sengupta2016NeuronalGauge` and a `SenguptaFriston2018` key that points to a *different* paper (arXiv:1810.08750, belief-state synchronization); the most-direct prior art, arXiv:1705.06614, is **absent** from the bib. Fix applied 2026-06-19: added it under key `sengupta2017gauge` and drafted a dedicated Introduction related-work paragraph plus abstract/positional calibration clauses into the manuscript.
@@ -156,7 +154,7 @@ Resolved from `references.bib` (unique keys across the main paper and supplement
 - [[friston-2010-free-energy-principle|Friston (2010), The free-energy principle: a unified brain theory? (supplement, cite key `Friston2010`)]]
 - Friston, Parr & de Vries (2017), The graphical brain: belief propagation and active inference
 - [[parr-2022-active-inference|Parr, Pezzulo & Friston (2022), Active Inference: The Free Energy Principle in Mind, Brain, and Behavior]]
-- [[ramstead-2019-variational-neuroethology|Ramstead, Constant, Badcock & Friston (2019), Variational ecology and the physics of sentient systems]]
+- [[ramstead-2019-enactive-inference|Ramstead, Constant, Badcock & Friston (2019), Variational ecology and the physics of sentient systems]]
 - Clark, Khandelwal, Levy & Manning (2019), What does BERT look at? An analysis of BERT's attention
 - Fuchs, Worrall, Fischer & Welling (2020), SE(3)-Transformers: 3D roto-translation equivariant attention networks
 - Thomas et al. (2018), Tensor field networks: rotation- and translation-equivariant neural networks for 3D point clouds
@@ -168,7 +166,7 @@ Resolved from `references.bib` (unique keys across the main paper and supplement
 - [[absil-2008-optimization-matrix-manifolds|Absil, Mahony & Sepulchre (2008), Optimization Algorithms on Matrix Manifolds]]
 - [[tsai-2019-kernel-attention|Tsai et al. (2019), Transformer dissection: a unified understanding of transformer's attention via the lens of kernel]]
 - [[katharopoulos-2020-linear-transformers|Katharopoulos, Vyas, Pappas & Fleuret (2020), Transformers are RNNs: fast autoregressive transformers with linear attention]]
-- [[ramsauer-2021-hopfield|Ramsauer et al. (2021), Hopfield networks is all you need]]
+- [[ramsauer2021hopfield|Ramsauer et al. (2021), Hopfield networks is all you need]]
 - Tishby & Zaslavsky (2015), Deep learning and the information bottleneck principle
 - Shwartz-Ziv & Tishby (2017), Opening the black box of deep neural networks via information
 - Hinton (2022), The forward-forward algorithm: some preliminary investigations
