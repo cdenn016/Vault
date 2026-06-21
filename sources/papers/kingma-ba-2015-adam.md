@@ -71,7 +71,7 @@ Adam is the standard first-order optimizer used in training the VFE transformer'
 
 ## Cross-links
 
-- Concepts: [[Natural gradient]], [[Fisher information matrix]], [[Variational free energy]]
+- Concepts: [[Natural gradient]], [[Fisher information metric|Fisher information matrix]], [[Variational free energy]]
 - Related sources: [[amari-1998-natural-gradient]]
 - Manuscript/Project: [[VFE Transformer Program]]
 

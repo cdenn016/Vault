@@ -3,7 +3,6 @@ type: paper
 title: "Perseverance of Social Theories: The Role of Explanation in the Persistence of Discredited Information"
 aliases:
   - Anderson 1980
-  - belief perseverance
   - anderson1980perseverance
   - anderson-1980-belief-perseverance
   - Anderson Lepper Ross 1980
@@ -51,9 +50,9 @@ In Experiment 1, debriefed subjects retained beliefs nearly as strong as non-deb
 This paper is directly relevant to the social-physics and opinion-dynamics components of the VFE multi-agent framework. In the gauge-theoretic VFE / active-inference setting, agents maintain belief distributions q_i over latent states; the belief-perseverance phenomenon maps onto the stability of local minima in the variational free energy landscape — once a causal explanation is encoded as a generative model structure (the "prior" p_i in the VFE), it persists as a self-reinforcing attractor even when the original sensory evidence is removed. The finding that explanation-generation mediates perseverance suggests that the depth of generative-model elaboration (analogous to the number of hierarchical layers or the specificity of prior structure in a predictive coding hierarchy) predicts resistance to belief revision. For social-influence and opinion-dynamics modeling this is a key empirical regularity: belief states do not simply track evidence but are stabilized by the internal generative structure the agent has constructed, which is exactly the kind of dynamics the multi-agent VFE coupling terms (beta_ij KL divergences) need to reproduce. The paper also anticipates the "consider-the-opposite" debiasing technique, which maps onto the meta-cognitive free-energy regulation proposed in the participatory-realism thread.
 
 ## Cross-links
-- Concepts: [[Belief Perseverance]], [[Causal Explanation]], [[Social Influence]], [[Opinion Dynamics]]
-- Related sources: [[ross1975-perseverance]], [[lord1979-biased-assimilation]]
-- Manuscript/Project: [[VFE Transformer Program]], [[MAgent Model]]
+- Concepts: [[Belief perseverance and confirmation bias|Belief Perseverance]], [[Belief perseverance and confirmation bias|Causal Explanation]], [[Social influence and conformity|Social Influence]], [[Opinion Dynamics]]
+- Related sources: [[ross-1975-perseverance|ross1975-perseverance]], [[lord-1979-biased-assimilation|lord1979-biased-assimilation]]
+- Manuscript/Project: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model|MAgent Model]]
 
 ## BibTeX
 ```bibtex

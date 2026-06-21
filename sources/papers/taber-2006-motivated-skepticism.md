@@ -33,7 +33,7 @@ An experimental study showing citizens evaluate political arguments through a pa
 A core empirical pillar for motivated reasoning and the asymmetric evidence weighting that produces polarization — the directional belief-update bias the SocialPhysics opinion-dynamics models formalize as precision-skewed assimilation and belief inertia.
 
 ## Cross-links
-[[Motivated reasoning]], [[Confirmation bias]], [[Belief inertia]]
+[[Motivated reasoning]], [[Belief perseverance and confirmation bias|Confirmation bias]], [[Belief inertia]]
 
 ## BibTeX
 ```bibtex

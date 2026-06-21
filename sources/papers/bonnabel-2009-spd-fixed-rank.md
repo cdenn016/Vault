@@ -51,8 +51,8 @@ Theorem 1 establishes that (S+(p,n), g) is a Riemannian manifold, with the metri
 The VFE transformer represents beliefs as Gaussian tuples (mu, Sigma) where Sigma is a positive definite (or positive semidefinite in low-rank approximations) covariance matrix. The quotient geometry S+(p,n) = (V_{n,p} x P_p)/O(p) is structurally identical to the gauge fiber bundle that underpins GL(K) gauge-equivariant attention: the O(p) group action on representatives is the same gauge redundancy that the VFE transformer's gauge transport Omega_{ij} must handle equivariantly. The decoupled metric decomposing into a Grassmann part (subspace direction) and a P_p part (shape/scale) parallels the decomposition of the VFE free energy into transport terms (which rotate beliefs across tokens) and self-coupling KL terms (which penalize deviation from priors within a fixed reference frame). The SVD-based efficient distance formula at O(np^2) cost is directly relevant for scalable SPD belief geometry in the transformer's E-step. The rank-preserving geometric mean provides a principled interpolation operation for low-rank belief covariances under the natural metric, relevant to any mixture or aggregation step over Gaussian beliefs.
 
 ## Cross-links
-- Concepts: [[SPD Geometry]] | [[Grassmann Manifold]] | [[Riemannian Quotient Manifold]] | [[Information Geometry]] | [[Gauge Theory]]
-- Related sources: [[bonnabel-2013-riemannian-sgd]] | [[pennec-2006-riemannian-framework-tensors]]
+- Concepts: [[SPD-manifold geometry and Riemannian optimization|SPD Geometry]] | [[Grassmann Manifold]] | [[Riemannian Quotient Manifold]] | [[Information Geometry]] | [[Gauge Theory]]
+- Related sources: [[bonnabel-2013-riemannian-sgd]] | [[pennec-2006-affine-invariant-tensor|pennec-2006-riemannian-framework-tensors]]
 - Manuscript/Project: [[VFE Transformer Program]] | [[GL(K) Gauge-Equivariant Attention]]
 
 ## BibTeX

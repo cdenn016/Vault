@@ -45,12 +45,12 @@ For a slow protocol the mean dissipation is bounded below in terms of the square
 
 ## Relevance to this research
 
-This is the cleanest statement that "Fisher arc length costs something" — the energetic price of moving through belief/parameter space is set by the [[Fisher information metric]]. It is the thermodynamic counterpart of the project's [[Mass as Fisher information]] identification (inertia of belief change = Fisher information) and supplies a dissipation reading of the [[Belief inertia]] dynamics: reconfiguring beliefs along a non-geodesic path wastes "work," so geodesic motion in the Fisher metric is the least-dissipative belief update. This grounds [[participatory-it-from-bit]]'s claim that the metric structure of belief space carries physical (energetic) content, complementing the equation-level derivations of [[reginatto-1998-fisher-quantum]] and the entropic-dynamics lineage of [[caticha-2019-entropic-dynamics]]. Links [[Physics from Fisher information]] and [[Information geometry and natural gradient]].
+This is the cleanest statement that "Fisher arc length costs something" — the energetic price of moving through belief/parameter space is set by the [[Fisher information metric]]. It is the thermodynamic counterpart of the project's [[Mass as Fisher information]] identification (inertia of belief change = Fisher information) and supplies a dissipation reading of the [[Belief inertia]] dynamics: reconfiguring beliefs along a non-geodesic path wastes "work," so geodesic motion in the Fisher metric is the least-dissipative belief update. This grounds [[participatory-it-from-bit]]'s claim that the metric structure of belief space carries physical (energetic) content, complementing the equation-level derivations of [[reginatto-1998-fisher-quantum]] and the entropic-dynamics lineage of [[caticha-2019-entropic-dynamics-qm|caticha-2019-entropic-dynamics]]. Links [[Physics from Fisher information]] and [[Information geometry and natural gradient]].
 
 ## Cross-links
 
 - Concepts: [[Fisher information metric]], [[Statistical manifold]], [[Mass as Fisher information]], [[Belief inertia]], [[Natural gradient]]
-- Related sources: [[amari-1998-natural-gradient]], [[reginatto-1998-fisher-quantum]], [[caticha-2019-entropic-dynamics]], [[parr-2020-markov-blankets-thermodynamics]]
+- Related sources: [[amari-1998-natural-gradient]], [[reginatto-1998-fisher-quantum]], [[caticha-2019-entropic-dynamics-qm|caticha-2019-entropic-dynamics]], [[parr-2020-markov-blankets-thermodynamics]]
 - Manuscript: [[participatory-it-from-bit]]
 
 ## BibTeX

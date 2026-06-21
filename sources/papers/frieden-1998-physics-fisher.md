@@ -47,13 +47,13 @@ EPI posits two informations: the Fisher information $I$ in the data and a "bound
 
 ## Relevance to this research
 
-Frieden is the maximal backdrop against which [[participatory-it-from-bit]]'s Level-3 claim must position itself. PIFB argues that an agent's physics emerges from the information geometry of its beliefs; Frieden argues that *all* of physics emerges from Fisher information transferred in measurement. The manuscript should adopt what is defensible (Fisher information as the metric that costs belief change — the [[Mass as Fisher information]] identification) while explicitly distancing itself from EPI's contested universality and the criticisms its derivations have drawn. Reading EPI as a strong, controversial precursor lets PIFB stake out a more modest and better-grounded position: not "all field equations come from Fisher information," but "belief dynamics inherit an inertial/metric structure from Fisher information," consistent with the narrower, rigorously demonstrated result of [[reginatto-1998-fisher-quantum]] and the entropic lineage of [[caticha-2019-entropic-dynamics]]. The participatory, measurement-centric framing of EPI also resonates with the [[Participatory realism (it from bit)]] thread and [[wheeler-1990-it-from-bit]], giving PIFB a clear ancestor for "observer-constitutive law."
+Frieden is the maximal backdrop against which [[participatory-it-from-bit]]'s Level-3 claim must position itself. PIFB argues that an agent's physics emerges from the information geometry of its beliefs; Frieden argues that *all* of physics emerges from Fisher information transferred in measurement. The manuscript should adopt what is defensible (Fisher information as the metric that costs belief change — the [[Mass as Fisher information]] identification) while explicitly distancing itself from EPI's contested universality and the criticisms its derivations have drawn. Reading EPI as a strong, controversial precursor lets PIFB stake out a more modest and better-grounded position: not "all field equations come from Fisher information," but "belief dynamics inherit an inertial/metric structure from Fisher information," consistent with the narrower, rigorously demonstrated result of [[reginatto-1998-fisher-quantum]] and the entropic lineage of [[caticha-2019-entropic-dynamics-qm|caticha-2019-entropic-dynamics]]. The participatory, measurement-centric framing of EPI also resonates with the [[Participatory realism (it from bit)]] thread and [[wheeler-1990-it-from-bit]], giving PIFB a clear ancestor for "observer-constitutive law."
 
 ## Cross-links
 
 - Concept: [[Fisher information metric]], [[Mass as Fisher information]].
 - Theme: [[Physics from Fisher information]], [[Participatory realism (it from bit)]].
-- Sources: [[reginatto-1998-fisher-quantum]], [[caticha-2019-entropic-dynamics]], [[wheeler-1990-it-from-bit]].
+- Sources: [[reginatto-1998-fisher-quantum]], [[caticha-2019-entropic-dynamics-qm|caticha-2019-entropic-dynamics]], [[wheeler-1990-it-from-bit]].
 - Manuscript: [[participatory-it-from-bit]].
 
 ## BibTeX

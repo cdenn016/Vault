@@ -42,7 +42,7 @@ Uses information decomposition (synergy vs. redundancy) to identify a 'synergist
 Supplies the higher-order information-decomposition framework (synergy/redundancy) connecting integrated-information and entropy-of-consciousness measures to the multi-agent program's interest in emergent collective structure and meta-agent formation.
 
 ## Cross-links
-[[Entropy and consciousness]], [[Integrated information theory]], [[Dynamic functional connectivity]]
+[[Entropy and consciousness]], [[tononi-2004-integrated-information|Integrated information theory]], [[Dynamic functional connectivity]]
 
 ## BibTeX
 ```bibtex

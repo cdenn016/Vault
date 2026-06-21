@@ -63,8 +63,8 @@ On all four speech datasets (Blizzard, TIMIT, Onomatopoeia, Accent) the VRNN-Gau
 The VRNN's per-timestep VAE with a recurrent, state-conditioned prior is a close structural precursor to the VFE transformer's iterative belief update over Gaussian tuples $(\mu, \Sigma, \phi)$. The ELBO objective in Eq. (11) — a sum of $-\mathrm{KL}(q \| p) + \log p(x|z)$ terms — is the per-step variational free energy minimised in the VFE framework; the self-coupling $\alpha \cdot \mathrm{KL}(q_i \| p_i)$ term in the VFE Lagrangian corresponds directly to the KL regulariser here. The temporally-structured prior (conditioning on $h_{t-1}$) parallels the way the VFE transformer's prior bank $p_i$ is updated via gauge-transported beliefs from neighboring tokens. The reparameterisation trick and joint generative/inference training are also foundational to understanding how backprop interacts with the variational objective in the VFE codebase.
 
 ## Cross-links
-- Concepts: [[Variational Free Energy]], [[Gaussian Beliefs]], [[Variational Autoencoder]], [[Evidence lower bound (ELBO)]], [[Reparameterization trick]], [[Amortized inference]], [[Prediction error]]
-- Related sources: [[kingma-2013-vae]], [[rezende-2014-stochastic-backprop]], [[kingma-2013-auto-encoding-variational-bayes]], [[marino-2018-iterative-amortized-inference]], [[sonderby-2016-ladder-vae]]
+- Concepts: [[Variational Free Energy]], [[Gaussian Beliefs]], [[Variational autoencoder (VAE)|Variational Autoencoder]], [[Evidence lower bound (ELBO)]], [[Reparameterization trick]], [[Amortized inference]], [[Prediction error]]
+- Related sources: [[kingma-2013-auto-encoding-variational-bayes|kingma-2013-vae]], [[rezende-2014-stochastic-backprop]], [[kingma-2013-auto-encoding-variational-bayes]], [[marino-2018-iterative-amortized-inference]], [[sonderby-2016-ladder-vae]]
 - Manuscript/Project: [[VFE Transformer Program]], [[gl-k-attention]]
 
 ## BibTeX

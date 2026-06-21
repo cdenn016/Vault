@@ -46,9 +46,9 @@ Focused Attention (FA) and mindfulness meditation deactivate key DMN nodes (mPFC
 This paper is most directly relevant to the participatory realism and philosophy-of-mind threads in the broader research program. Within the VFE / active inference framework, the DMN is plausibly interpreted as encoding high-level self-priors (the "narrative self" as a hierarchical prior over autobiographical context), and its disruption by psychedelics or meditation corresponds to a collapse of the prior–posterior gap in self-referential inference. The paper's multidimensional taxonomy of self-consciousness maps onto the layered belief hierarchy of the VFE model (narrative self ↔ hyper-priors; bodily awareness ↔ low-level sensory beliefs). The observation that weakened top-down priors (reduced binocular rivalry switching under psilocybin; attenuated mismatch negativity under LSD) mediate ego dissolution resonates with the VFE model's emphasis on prior strength as a gauge coupling — high-coupling priors rigidly constrain posterior beliefs, while reduced coupling allows larger posterior excursions away from the prior, producing experiences of boundary dissolution. The NDA and pure consciousness discussions are directly relevant to the PIFB (participatory it-from-bit) manuscript's treatment of consciousness and self.
 
 ## Cross-links
-- Concepts: [[Self-Consciousness]], [[Ego Dissolution]], [[Default Mode Network]], [[Active Inference]], [[Predictive Coding]], [[Free Energy Principle]]
-- Related sources: [[friston-2013-active-inference]], [[seth-2013-interoception]]
-- Manuscript/Project: [[PIFB]], [[VFE Transformer Program]]
+- Concepts: [[Self-Consciousness]], [[Ego Dissolution]], [[Default Mode Network]], [[Active Inference]], [[Predictive Coding]], [[Free-energy principle active inference|Free Energy Principle]]
+- Related sources: [[friston-2013-life-as-we-know-it|friston-2013-active-inference]], [[seth-2013-interoception]]
+- Manuscript/Project: [[Participatory realism (it from bit)|PIFB]], [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex

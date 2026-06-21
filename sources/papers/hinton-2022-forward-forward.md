@@ -43,9 +43,9 @@ On permutation-invariant MNIST with four fully connected hidden layers of 2000 R
 The FF algorithm is directly relevant to the VFE transformer program in several respects. First, FF's layer-wise goodness optimization — minimizing a local energy-like scalar per layer — is structurally analogous to VFE minimization per layer in the gauge-theoretic transformer: both replace global backpropagation with local objective minimization. Second, the FF positive/negative data contrast is a discrete analog of the KL divergence terms in the VFE free energy, which also contrast a belief distribution against a prior or transported belief; the goodness threshold $\theta$ plays the role of a reference energy. Third, FF's use of layer normalization to pass only the orientation of the activity vector (not its length) to the next layer parallels the normalization implicit in working on the unit sphere or SPD cone in information geometry — in both cases, the "length" (energy/goodness) is factored out as a local signal. Fourth, the connection to predictive coding (section 3.5) is directly relevant since predictive coding is a limiting case of VFE minimization, and the recurrent top-down/bottom-up structure in FF mirrors the hierarchical belief propagation (`h → s → p → q → observations`) in the VFE hierarchy. Fifth, the mortal computation discussion (section 9) and the use of distillation to transfer learned functions (not weights) between hardware instances resonates with the multi-agent active inference setting where agents must transfer beliefs, not parameters.
 
 ## Cross-links
-- Concepts: [[Variational Free Energy]] [[Predictive Coding]] [[Contrastive Learning]] [[Layer Normalization]] [[Active Inference]]
-- Related sources: [[rao-ballard-1999-predictive-coding]] [[hinton-sejnowski-1986-boltzmann]]
-- Manuscript/Project: [[VFE Transformer Program]] [[GL(K) Attention]]
+- Concepts: [[Variational Free Energy]] [[Predictive Coding]] [[Contrastive Learning]] [[ba-2016-layer-normalization|Layer Normalization]] [[Active Inference]]
+- Related sources: [[rao-1999-predictive-coding|rao-ballard-1999-predictive-coding]] [[hinton-sejnowski-1986-boltzmann]]
+- Manuscript/Project: [[VFE Transformer Program]] [[GL(K) gauge-equivariant attention|GL(K) Attention]]
 
 ## BibTeX
 ```bibtex

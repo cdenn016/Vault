@@ -46,9 +46,9 @@ SVI analyzed 300K Nature articles, 1.8M New York Times articles, and 3.8M Wikipe
 SVI is a foundational reference for the VFE transformer's E-step: the VFE3 architecture performs iterative variational free-energy minimization over Gaussian belief tuples $(\mu, \Sigma, \phi)$, and the coordinate structure of SVI — local updates per token, global updates over the layer — maps directly onto the per-token belief update versus the shared prior/model update in the VFE hierarchy $h \to s \to p \to q \to o$. The natural-gradient perspective is directly relevant to the information-geometric foundations of the project: the Fisher metric on the variational parameter space is the same object that appears in the SPD / Riemannian geometry of Gaussian beliefs, and the natural gradient's invariance to reparameterization is the scalar analogue of the gauge-equivariance property pursued in GL(K) attention. The ELBO decomposition into expected log-joint minus entropy is the direct precursor to the free-energy functional used throughout the manuscripts. SVI's stochastic mini-batch paradigm also motivates the scalable training regime in `train_vfe3.py`.
 
 ## Cross-links
-- Concepts: [[Variational Free Energy]], [[Evidence Lower Bound]], [[Natural Gradient]], [[Information Geometry]], [[Exponential Family]]
-- Related sources: [[jordan-1999-variational]], [[amari-1998-natural-gradient]], [[blei-2003-lda]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]]
+- Concepts: [[Variational Free Energy]], [[Evidence lower bound (ELBO)|Evidence Lower Bound]], [[Natural Gradient]], [[Information Geometry]], [[Exponential Family]]
+- Related sources: [[jordan-1999-introduction-variational|jordan-1999-variational]], [[amari-1998-natural-gradient]], [[blei-2003-lda]]
+- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) gauge-equivariant attention|GL(K) Attention]]
 
 ## BibTeX
 ```bibtex

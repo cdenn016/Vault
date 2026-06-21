@@ -56,7 +56,7 @@ The DEQ framework is directly relevant to the VFE transformer because the VFE-3 
 
 ## Cross-links
 - Concepts: [[Fixed-Point Iteration]], [[Implicit Differentiation]], [[Attention Mechanism]]
-- Related sources: [[vaswani2017attention]], [[dai2019transformerxl]]
+- Related sources: [[vaswani-2017-attention|vaswani2017attention]], [[dai2019transformerxl]]
 - Manuscript/Project: [[VFE Transformer Program]]
 
 ## BibTeX

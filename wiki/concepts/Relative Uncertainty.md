@@ -16,7 +16,7 @@ updated: 2026-06-21
 Relative uncertainty (RU), tau_t, is the fraction of total predictive uncertainty attributable to imprecision in the agent's current estimate rather than to irreducible observation noise — a Kalman-filter-like quantity. It is the second normative driver of the adaptive learning rate alpha_t = Omega_t + (1 - Omega_t) tau_t: when the belief is uncertain, new evidence is weighted more heavily. RU maps onto the variance Sigma of the Gaussian belief tuple in the VFE model and dissociates neurally (anterior PFC / parietal) from the surprise-driven change-point signal.
 
 ## Related
-[[Change-Point Detection]], [[Bayesian Belief Updating]], [[Variational Free Energy]], [[Mass as Fisher information]]
+[[Change-Point Detection]], [[Bayesian Inference|Bayesian Belief Updating]], [[Variational Free Energy]], [[Mass as Fisher information]]
 
 ## Sources
-[[mcguire2014-adaptive-learning]], [[nassar2010-approximately-bayesian]]
+[[mcguire2014-adaptive-learning]], [[nassar2010-bayesian-delta-rule|nassar2010-approximately-bayesian]]

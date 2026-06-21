@@ -53,14 +53,14 @@ This reference supplies the information-theoretic vocabulary in which the projec
 
 - **KL/relative entropy as the coupling cost.** Every coupling in the free-energy functional — the self-coupling $\alpha\,\mathrm{KL}(q_i\,\|\,p_i)$ of beliefs to priors, the hyper-prior term $\lambda_h\,\mathrm{KL}(s_i\,\|\,h)$, and the belief/model couplings $\beta_{ij}\,\mathrm{KL}(q_i\,\|\,\Omega_{ij}q_j)$ — is a relative entropy in exactly Cover & Thomas's sense. Non-negativity and convexity of $D$ (Gibbs' inequality) are what make these terms genuine costs minimized at agreement, central to the [[Variational free energy]] construction and the [[Information geometry and natural gradient]] theme.
 - **Attention entropy.** The $\tau\,\beta_{ij}\log(\beta_{ij}/\pi_{ij})$ term that makes softmax attention a stationary point of $F$ is the entropy of the attention distribution relative to a uniform prior — the discrete relative entropy this text defines. The temperature $\tau = \kappa\sqrt{\dim_h}$ scales that entropic regularizer.
-- **Information bottleneck.** The project's rate-distortion / compression intuitions for what attention and the belief hierarchy retain are framed through mutual information and the data-processing inequality developed here; see [[tishby-1999-information-bottleneck]] and the Gaussian case in [[chechik-2005-gaussian-ib]].
+- **Information bottleneck.** The project's rate-distortion / compression intuitions for what attention and the belief hierarchy retain are framed through mutual information and the data-processing inequality developed here; see [[tishby-1999-information-bottleneck]] and the Gaussian case in [[chechik2005information-bottleneck-gaussian|chechik-2005-gaussian-ib]].
 - **Bridge to information geometry.** Relative entropy is the global object whose local second-order form is the [[Fisher information metric]]; this text is the information-theoretic half of the foundation that [[amari-2016-information-geometry-applications]] and [[cencov-1982-statistical-decision-rules]] complete on the geometric side, grounding the natural-gradient M-step.
 
 ## Cross-links
 
 Concepts and theme: [[Fisher information metric]], [[Information bottleneck]], [[Renyi divergence]], [[Information geometry and natural gradient]].
 Projects: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model]].
-Related sources: [[amari-2016-information-geometry-applications]], [[cencov-1982-statistical-decision-rules]], [[tishby-1999-information-bottleneck]], [[chechik-2005-gaussian-ib]].
+Related sources: [[amari-2016-information-geometry-applications]], [[cencov-1982-statistical-decision-rules]], [[tishby-1999-information-bottleneck]], [[chechik2005information-bottleneck-gaussian|chechik-2005-gaussian-ib]].
 
 ## BibTeX
 

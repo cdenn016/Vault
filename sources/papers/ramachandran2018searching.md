@@ -44,7 +44,7 @@ This paper has peripheral relevance to the VFE transformer program. The V3 trans
 
 ## Cross-links
 - Concepts: [[Attention Mechanism]]
-- Related sources: [[vaswani2017attention]]
+- Related sources: [[vaswani-2017-attention|vaswani2017attention]]
 - Manuscript/Project: [[VFE Transformer Program]]
 
 ## BibTeX

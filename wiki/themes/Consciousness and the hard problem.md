@@ -34,7 +34,7 @@ gap**: even granting that "pain is C-fibre firing" is metaphysically true, the i
 explanatorily open in a way that "heat is molecular kinetic energy" is not — it never makes
 intelligible *why* that physical state should feel like anything. Levine is careful that this is an
 *epistemic* deficiency, compatible with materialism being true; that epistemic-vs-metaphysical
-distinction is the discipline any honest theory must keep. Chalmers ([[chalmers-1995-facing-up]],
+distinction is the discipline any honest theory must keep. Chalmers ([[chalmers-1995-facing-up-consciousness|chalmers-1995-facing-up]],
 [[chalmers-1996-conscious-mind]]) consolidates both into the **hard problem**: the *easy* problems
 of consciousness (discrimination, integration, reportability, attentional control) are functional
 and tractable, but the hard problem — *why is there experience at all?* — survives any complete
@@ -115,7 +115,7 @@ Carhart-Harris et al.'s entropic brain ([[carhart-harris-2014-entropic-brain]]) 
 richness to neural entropy, and Luppi et al. ([[luppi-2019-consciousness-integration-diversity]])
 identify a consciousness-specific balance of integration and functional diversity — both resonating
 with the project's [[Meta-entropy]] and the integration/segregation trade-off of its coarse-graining.
-Lahav and Neemeh's *relativistic* theory ([[lahav-neemeh-2022-relativistic-consciousness]]) is the
+Lahav and Neemeh's *relativistic* theory ([[lahav-2022-relativistic-consciousness|lahav-neemeh-2022-relativistic-consciousness]]) is the
 highest-priority bridge: they assert consciousness is observer-frame-dependent (present in a system's
 own cognitive frame, absent in others) but leave the *transformation law* between frames
 unspecified — and PIFB supplies it, identifying the cognitive frame with a local gauge frame
@@ -163,7 +163,7 @@ gap remain open.
 
 - [[nagel-1974-what-is-it-like]] — subjective character of experience; the point-of-view criterion.
 - [[levine-1983-explanatory-gap]] — coins "explanatory gap"; epistemic-vs-metaphysical distinction.
-- [[chalmers-1995-facing-up]], [[chalmers-1996-conscious-mind]] — the hard problem; easy/hard split.
+- [[chalmers-1995-facing-up-consciousness|chalmers-1995-facing-up]], [[chalmers-1996-conscious-mind]] — the hard problem; easy/hard split.
 - [[chalmers-2013-panpsychism]] — panpsychism vs. panprotopsychism; Russellian monism.
 - [[chalmers-2016-combination-problem]] — the combination problem taxonomy.
 - [[goff-2017-consciousness-fundamental-reality]] — Russellian monism, cosmopsychist inversion.
@@ -177,7 +177,7 @@ gap remain open.
 - [[dehaene-2014-consciousness-brain]], [[mashour-2020-global-workspace]] — global neuronal workspace.
 - [[solms-friston-2018-how-consciousness-arises]] — FEP route to consciousness.
 - [[carhart-harris-2014-entropic-brain]], [[luppi-2019-consciousness-integration-diversity]] — entropy / integration–diversity markers.
-- [[lahav-neemeh-2022-relativistic-consciousness]] — relativistic theory; the transformation law PIFB supplies.
+- [[lahav-2022-relativistic-consciousness|lahav-neemeh-2022-relativistic-consciousness]] — relativistic theory; the transformation law PIFB supplies.
 - [[hameroff-penrose-1996-orch-or]] — quantum-collapse foil.
 - [[seth-2021-being-you]] — controlled-hallucination science of consciousness (companion).
 

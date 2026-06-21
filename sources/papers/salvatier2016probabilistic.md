@@ -52,8 +52,8 @@ The framework is demonstrated to successfully recover true parameters in simulat
 PyMC3 is the primary tool used for Bayesian inference experiments in projects adjacent to the VFE transformer program. More directly, its architecture illustrates the modular registry pattern this codebase adopts: swappable inference algorithms behind a common interface mirror the VFE3 registry pattern for divergences, families, and transport modes. The NUTS sampler's use of gradient information from a log-posterior is conceptually analogous to how VFE gradient flow drives belief updates in the VFE transformer — both perform iterative minimization of a free-energy-like objective (negative log-posterior = KL + negative log-likelihood in a flat-prior MAP sense). The stochastic volatility case study's latent Gaussian random walk prior is structurally similar to the VFE hierarchy `h → s → p → q`, where latent states are inferred by minimizing variational free energy rather than sampling. PyMC3's Theano-based autodiff backend is the spiritual predecessor to the PyTorch autograd used for VFE gradient computation.
 
 ## Cross-links
-- Concepts: [[Variational Free Energy]] [[Bayesian Inference]] [[MCMC]]
-- Related sources: [[hoffman2014nuts]]
+- Concepts: [[Variational Free Energy]] [[Bayesian Inference]] [[Markov chain Monte Carlo|MCMC]]
+- Related sources: [[hoffman2014no|hoffman2014nuts]]
 - Manuscript/Project: [[VFE Transformer Program]]
 
 ## BibTeX

@@ -41,9 +41,9 @@ Visual aftereffects exist for virtually every perceptual dimension studied — f
 This review is relevant to the VFE research program in several ways. First, the norm-based coding framework — in which neural representations are always relative to a dynamically adjusted reference point set by the current adaptation state — is structurally analogous to the belief-updating dynamics in the VFE transformer, where beliefs `(mu, Sigma)` are continuously recalibrated against priors via KL minimization. The "null point" of adaptation corresponds to the equilibrium state of VFE minimization where the KL term vanishes. Second, the predictive coding account of adaptation (nulling expected stimuli and encoding only residuals/errors) maps directly onto the free-energy principle and active inference framework that underlies the multi-agent model; adaptation can be read as the biological instantiation of precision-weighted prediction error minimization. Third, the hierarchical propagation of adaptation — where sensitivity changes at one level are inherited by all downstream levels — parallels the layered belief hierarchy `h → s → p → q → observations` in the VFE formulation. Fourth, the finding that adaptation is calibrated to natural image statistics (1/f spectra, color gamut distributions) raises the question of how learned prior banks in the VFE transformer should be initialized or updated to reflect the statistical structure of the token distribution.
 
 ## Cross-links
-- Concepts: [[Predictive Coding]], [[Free Energy Principle]], [[Belief Updating]], [[Information Geometry]]
-- Related sources: [[friston2010-free-energy]], [[barlow1990-unsupervised-learning]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]]
+- Concepts: [[Predictive Coding]], [[Free-energy principle active inference|Free Energy Principle]], [[Bayesian Inference|Belief Updating]], [[Information Geometry]]
+- Related sources: [[friston-2010-free-energy-principle|friston2010-free-energy]], [[barlow-1990-unsupervised-learning|barlow1990-unsupervised-learning]]
+- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) gauge-equivariant attention|GL(K) Attention]]
 
 ## BibTeX
 ```bibtex

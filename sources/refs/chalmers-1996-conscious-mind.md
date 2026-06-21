@@ -27,7 +27,7 @@ Chalmers's book is the most-cited monograph anchoring the modern hard-problem de
 
 ## What it establishes
 
-The work consolidates and systematizes the hard problem first stated in [[chalmers-1995-facing-up]]. It articulates the logical-supervenience failure of consciousness on the physical, the zombie and inverted-spectrum thought experiments, and the "principle of structural coherence" and "principle of organizational invariance" as candidate psychophysical laws. It proposes that information has a double aspect — a physical realization and a phenomenal realization — as the seed of a fundamental theory, and it surveys panpsychist and protopanpsychist options for what experience could be made of. The book remains the standard reference statement of consciousness-as-fundamental.
+The work consolidates and systematizes the hard problem first stated in [[chalmers-1995-facing-up-consciousness|chalmers-1995-facing-up]]. It articulates the logical-supervenience failure of consciousness on the physical, the zombie and inverted-spectrum thought experiments, and the "principle of structural coherence" and "principle of organizational invariance" as candidate psychophysical laws. It proposes that information has a double aspect — a physical realization and a phenomenal realization — as the seed of a fundamental theory, and it surveys panpsychist and protopanpsychist options for what experience could be made of. The book remains the standard reference statement of consciousness-as-fundamental.
 
 ## Why the project cites it
 

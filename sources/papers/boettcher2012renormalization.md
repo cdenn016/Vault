@@ -51,9 +51,9 @@ The critical temperature for HN5 ($y=1$) involves the golden ratio $\phi$: $\mu_
 This paper is relevant to the social-physics dimension of the research program rather than the core VFE/gauge-theory transformer. The hierarchical network structure and the exact real-space RG are a formal analogue to multi-scale belief propagation and coarse-graining in hierarchical generative models; the fixed-point classification by regime mirrors the question of what universality class the VFE minimization flow belongs to under different coupling strengths. More directly, the Hanoi network's combination of local geometry with small-world long-range bonds is a structural model for social interaction graphs on which opinion dynamics or active inference agents might be studied. The BKT-like transition appearing generically from network topology (rather than from any lattice-specific mechanism) is of interest for understanding phase transitions in collective inference or belief synchronization in multi-agent systems. The "patchiness" phenomenon — persistent partial order in the disordered phase due to hierarchical long-range couplings — may be relevant to understanding metastable consensus states in agent networks.
 
 ## Cross-links
-- Concepts: [[Renormalization Group]] | [[Phase Transitions]] | [[Small-World Networks]] | [[Critical Phenomena]]
-- Related sources: [[dorogovtsev2008critical]]
-- Manuscript/Project: [[VFE Transformer Program]] | [[Multi-Agent Active Inference]]
+- Concepts: [[Renormalization group flow|Renormalization Group]] | [[Critical Phenomena|Phase Transitions]] | [[Network structure — small-world and scale-free|Small-World Networks]] | [[Critical Phenomena]]
+- Related sources: [[dorogovtsev-2008-critical-phenomena-networks|dorogovtsev2008critical]]
+- Manuscript/Project: [[VFE Transformer Program]] | [[Collective active inference|Multi-Agent Active Inference]]
 
 ## BibTeX
 ```bibtex

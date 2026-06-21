@@ -34,7 +34,7 @@ Diósi proposes a stochastic, nonlinear modification of the Schrödinger equatio
 Supplies the explicit objective-collapse decoherence rate that experiments such as the Marshall mirror superposition and levitated optomechanics seek to test, and grounds the gravity-induced measurement/observer thread feeding the participatory it-from-bit (PIFB) program.
 
 ## Cross-links
-[[Quantum Decoherence]], [[Participatory realism and quantum foundations]]
+[[Decoherence|Quantum Decoherence]], [[Participatory realism and quantum foundations]]
 
 ## BibTeX
 ```bibtex

@@ -4,7 +4,6 @@ title: "Algebraic Connectivity of Graphs"
 aliases:
   - Fiedler 1973
   - Fiedler vector
-  - algebraic connectivity
   - Fiedler (1973) Algebraic Connectivity
 authors:
   - Fiedler, Miroslav
@@ -51,9 +50,9 @@ Key results are proved by constructing auxiliary graphs (adding or removing vert
 The Fiedler value and its associated Fiedler vector are the canonical spectral tool for graph connectivity and spectral partitioning. In the social-physics strand of this research program, networks of agents or opinions are analyzed using graph Laplacians; $a(G)$ controls the rate of diffusion/consensus on the graph and governs the second-slowest mode of opinion dynamics. The Laplacian $\hat{A}(G)$ is structurally analogous to the precision-weighted belief-coupling term in the VFE functional: the off-diagonal $-1$ entries correspond to pairwise KL coupling weights $\beta_{ij}$, and $a(G)$ lower-bounds how rapidly coupled beliefs converge. The spectral partitioning intuition (Fiedler vector partitions the graph) is directly related to multi-agent community detection and to how the gauge-equivariant attention matrix $\beta_{ij}$ clusters tokens. The degree-bound $a(G) \le 2|E|/(n-1)$ also resembles the effective connectivity bounds one derives from the attention entropy term in the canonical free energy. In the multi-agent strand specifically, $\lambda_2$ of the agent coupling graph is the project's *constrained spectral gap* and a proxy for the "parent mass" (how strongly a coarse [[Meta-agents and hierarchical emergence|meta-agent]] binds its constituents): a large gap means a tightly bound cluster, while a small gap is the signal that a population is about to split into sub-communities along the Fiedler vector.
 
 ## Cross-links
-- Concepts: [[Graph Laplacian]], [[Spectral Graph Theory]], [[Algebraic Connectivity]]
+- Concepts: [[Graph Laplacian]], [[Spectral Graph Theory]], [[Community detection and modularity|Algebraic Connectivity]]
 - Related sources: [[anderson-morley-1971-laplacian-eigenvalues]]
-- Manuscript/Project: [[VFE Transformer Program]], [[Social Physics]]
+- Manuscript/Project: [[VFE Transformer Program]], [[SocialPhysics|Social Physics]]
 
 ## BibTeX
 ```bibtex

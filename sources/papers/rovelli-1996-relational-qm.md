@@ -3,7 +3,6 @@ type: paper
 title: "Relational Quantum Mechanics"
 aliases:
   - "Rovelli 1996"
-  - "RQM"
 authors:
   - Rovelli, Carlo
 year: 1996
@@ -51,9 +50,9 @@ The paper establishes: (1) the observer-dependence of quantum states is not a de
 Rovelli's relational quantum mechanics is a direct antecedent and philosophical grounding for the **participatory realism** and **"it from bit"** framework developed in the PIFB manuscript. The identification of physical reality with the information systems have about each other — with no privileged observer-independent description — maps directly onto the participatory ontology in which observation constitutes relational facts. The two postulates (bounded and inexhaustible information) are structurally analogous to the bounded capacity / new-information-from-interaction schema in active inference and variational free energy minimization, where a belief state is always relative to a model and updated by sensory interaction. The reconstruction of unitary dynamics from information-theoretic postulates (Postulate 3 and the consistency of inter-observer descriptions) has a counterpart in the gauge-theoretic VFE framework, where GL(K)-equivariant transport and the softmax attention distribution emerge as the unique self-consistent information-coupling under free energy minimization. The multi-agent extension of RQM — where each agent holds a distinct relative description, and inter-agent consistency is enforced only through physical interaction — is structurally isomorphic to the multi-agent active inference architecture in the MAgent model.
 
 ## Cross-links
-- Concepts: [[Participatory Realism]], [[It from Bit]], [[Relational Quantum Mechanics]], [[Information Geometry]], [[Agents as fibre-bundle sections]], [[Parallel transport]], [[Holonomy]], [[Gauge transformation]], [[Multi-agent variational free energy]]
-- Related sources: [[wheeler-1989-it-from-bit]], [[wheeler-1990-it-from-bit]], [[fuchs-2014-qbism]], [[friston-2023-path-integrals-active-inference]], [[von-neumann-1932-mathematical-foundations]]
-- Manuscript/Project: [[PIFB]], [[VFE Transformer Program]], [[MAgent Model]]
+- Concepts: [[fuchs-2017-participatory-realism|Participatory Realism]], [[Participatory realism (it from bit)|It from Bit]], [[Relational Quantum Mechanics]], [[Information Geometry]], [[Agents as fibre-bundle sections]], [[Parallel transport]], [[Holonomy]], [[Gauge transformation]], [[Multi-agent variational free energy]]
+- Related sources: [[wheeler-1990-it-from-bit|wheeler-1989-it-from-bit]], [[wheeler-1990-it-from-bit]], [[fuchs2014-qbism-locality|fuchs-2014-qbism]], [[friston-2023-fep-simpler|friston-2023-path-integrals-active-inference]], [[von-neumann-1932-mathematical-foundations]]
+- Manuscript/Project: [[Participatory realism (it from bit)|PIFB]], [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model|MAgent Model]]
 
 > [!note] Editorial: In the gauge-theoretic reading, agents are [[Agents as fibre-bundle sections]] whose beliefs are well-defined only relative to a local frame; comparing one agent's beliefs to another's requires [[Parallel transport]] along a connection, with the [[Holonomy]] measuring the failure of relational descriptions to agree globally under a [[Gauge transformation]]. Rovelli's "no view from nowhere" becomes precisely the statement that there is **no canonical global section**.
 

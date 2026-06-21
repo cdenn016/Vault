@@ -39,7 +39,7 @@ This is the most literal physics precedent for the project's central structural 
 ## Cross-links
 
 - Concepts: [[Quantum reference frames]], [[Gauge transformation]], [[Participatory realism (it from bit)]]
-- Related sources: [[bartlett-rudolph-spekkens-2007-reference-frames]], [[vanrietvelde-2020-change-of-perspective]], [[brukner-2018-no-go-observer-facts]], [[rovelli-1996-relational-qm]]
+- Related sources: [[bartlett-2007-reference-frames|bartlett-rudolph-spekkens-2007-reference-frames]], [[vanrietvelde-2020-qrf-perspective-neutral|vanrietvelde-2020-change-of-perspective]], [[brukner-2018-no-go-observer-facts]], [[rovelli-1996-relational-qm]]
 - Manuscript: [[participatory-it-from-bit]]
 
 ```bibtex

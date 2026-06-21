@@ -44,9 +44,9 @@ On the Switch Riddle with $n=3$ agents, all methods (RIAL and DIAL, with and wit
 DIAL's architecture introduces differentiable inter-agent communication as a form of gradient-coupled belief passing — a precursor to the message-passing / belief-propagation view in the VFE multi-agent framework. The centralised-learning / decentralised-execution paradigm mirrors the structure of the VFE multi-agent model, where free-energy minimisation coordinates beliefs across agents while each agent acts on its own posterior. The DRU's regularised-then-discretised channel is structurally analogous to the continuous relaxation of discrete communication in variational inference settings. DIAL's gradient chain through the communication bottleneck is a non-probabilistic analogue of the belief-coupling KL terms in the VFE free energy functional ($\sum_{ij} \beta_{ij} \text{KL}(q_i \| \Omega_{ij} q_j)$), where message content is shaped by downstream prediction error rather than free-energy gradient. The parameter-sharing finding (shared network, differentiated only by agent index and hidden state) parallels the shared prior / model structure in the MAgent model. This work is foundational background for understanding emergent communication in cooperative multi-agent systems.
 
 ## Cross-links
-- Concepts: [[Multi-Agent Active Inference]], [[Variational Free Energy]], [[Belief Propagation]]
+- Concepts: [[Collective active inference|Multi-Agent Active Inference]], [[Variational Free Energy]], [[Belief Propagation]]
 - Related sources: [[lowe-2017-maddpg]], [[sukhbaatar-2016-commnet]]
-- Manuscript/Project: [[MAgent Model]], [[VFE Transformer Program]]
+- Manuscript/Project: [[Gauge-Theoretic Multi-Agent VFE Model|MAgent Model]], [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex

@@ -46,9 +46,9 @@ Multisensory cue combination (Ernst & Banks 2002) demonstrates that humans weigh
 This review is foundational background for the VFE transformer program in several ways. The linear PPC framework — encoding log posterior as a linear combination of neural basis functions weighted by sufficient statistics — directly parallels the Gaussian belief tuples (mu, Sigma, phi) used in vfe3: the sufficient statistics of a Gaussian exponential family are exactly the form that the VFE transformer propagates per layer. The emphasis on variational approximations as the tractable route to probabilistic inference in neural circuits motivates the VFE framework itself: the transformer's iterative VFE minimization is a structured variational E-step. The discussion of divisive normalization implementing marginalization connects to the attention softmax as a probabilistic normalizer in the GL(K) framework. The posterior-over-weights challenge (Bayesian learning) is relevant to the PriorBank design: rather than learning a point-estimate weight matrix, the PriorBank encodes a distribution over prior means that serves a structurally analogous role. The general point that probabilistic population codes with exponential-family statistics admit computationally efficient inference is the theoretical bedrock underpinning the choice of Gaussian beliefs throughout VFE_3.0.
 
 ## Cross-links
-- Concepts: [[Variational Free Energy]], [[Gaussian Belief Propagation]], [[Attention as Inference]], [[Exponential Family]]
+- Concepts: [[Variational Free Energy]], [[Gaussian Belief Propagation]], [[Precision weighting|Attention as Inference]], [[Exponential Family]]
 - Related sources: [[ma-2006-bayesian-inference-ppc]], [[beck-2011-marginalization-divisive-normalization]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]]
+- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) gauge-equivariant attention|GL(K) Attention]]
 
 ## BibTeX
 ```bibtex

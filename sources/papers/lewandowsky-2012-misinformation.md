@@ -44,9 +44,9 @@ The continued influence effect is robust: retractions at most halve the number o
 The continued influence effect and belief polarization are directly relevant to the social-physics / opinion-dynamics strand of this research program. The finding that beliefs resist Bayesian updating — particularly when corrections are worldview-dissonant — provides empirical grounding for non-Gaussian or non-linear belief update rules in opinion dynamics models. The mental-model account (coherence gaps drive reliance on retracted information) maps naturally onto VFE-style reasoning: removing a belief node without replacing it increases model free energy (leaves an unexplained observation), so the agent re-activates the retracted node to minimize surprise — a variational interpretation of the continued influence effect. The worldview/backfire literature also informs multi-agent active inference models where prior strength (precision on priors) determines whether corrective evidence is assimilated or rejected, connecting to the lambda_h hyper-prior coupling and the alpha self-coupling terms in the VFE free energy functional. Echo-chamber dynamics and selective exposure are relevant to the network topology choices in social-physics models.
 
 ## Cross-links
-- Concepts: [[Belief Updating]], [[Opinion Dynamics]], [[Misinformation]], [[Echo Chambers]], [[Backfire Effect]]
-- Related sources: [[deffuant-2000-mixing]], [[hegselmann-krause-2002]]
-- Manuscript/Project: [[VFE Transformer Program]], [[Social Physics]]
+- Concepts: [[Bayesian Inference|Belief Updating]], [[Opinion Dynamics]], [[Misinformation and its persistence|Misinformation]], [[Echo chambers and polarization|Echo Chambers]], [[nyhan-2010-backfire|Backfire Effect]]
+- Related sources: [[deffuant2000-bounded-confidence|deffuant-2000-mixing]], [[hegselmann-2002-opinion|hegselmann-krause-2002]]
+- Manuscript/Project: [[VFE Transformer Program]], [[SocialPhysics|Social Physics]]
 
 ## BibTeX
 ```bibtex

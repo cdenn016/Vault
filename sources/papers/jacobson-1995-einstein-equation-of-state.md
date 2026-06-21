@@ -52,9 +52,9 @@ The Einstein equation emerges as a thermodynamic equation of state from (i) entr
 This paper is a foundational reference for the participatory/quantum-foundations cluster because it exemplifies the "physics from information" programme: macroscopic laws (gravity) emerge from microscopic information-theoretic or thermodynamic constraints rather than being independently fundamental. The derivation's structure — demanding a variational principle ($\delta Q = T\,dS$) hold everywhere and deriving field equations as its consequence — parallels the VFE programme's logic of deriving attention/transport equations as stationary points of a free-energy functional. The entropy-area proportionality and Unruh temperature are direct precursors to Verlinde's entropic gravity and to the holographic/entanglement perspectives that underlie participatory realism. The conclusion that the Einstein equation should not be canonically quantized resonates with the stance in the PIFB manuscript that certain macroscopic equations are emergent equations of state rather than fundamental quantum objects.
 
 ## Cross-links
-- Concepts: [[Thermodynamics of Spacetime]], [[Unruh Effect]], [[Horizon Entropy]], [[Holographic Principle]], [[Entropic Gravity]], [[Emergent spacetime and holography]], [[Participatory realism (it from bit)]]
-- Related sources: [[jacobson-2016-entanglement-equilibrium]], [[verlinde-2011-entropic-gravity]], [[padmanabhan-2010-thermodynamic-gravity]], [[faulkner-2014-gravitation-from-entanglement]], [[wheeler-1990-it-from-bit]]
-- Manuscript/Project: [[VFE Transformer Program]], [[PIFB]]
+- Concepts: [[jacobson-1995-einstein-equation-of-state|Thermodynamics of Spacetime]], [[Unruh Effect]], [[Horizon thermodynamics|Horizon Entropy]], [[Emergent spacetime and holography|Holographic Principle]], [[verlinde-2011-entropic-gravity|Entropic Gravity]], [[Emergent spacetime and holography]], [[Participatory realism (it from bit)]]
+- Related sources: [[jacobson-2016-entanglement-equilibrium]], [[verlinde-2011-entropic-gravity]], [[padmanabhan-2010-thermodynamical-gravity|padmanabhan-2010-thermodynamic-gravity]], [[faulkner-2014-gravitation-from-entanglement]], [[wheeler-1990-it-from-bit]]
+- Manuscript/Project: [[VFE Transformer Program]], [[Participatory realism (it from bit)|PIFB]]
 
 ## BibTeX
 ```bibtex

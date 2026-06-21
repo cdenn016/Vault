@@ -100,6 +100,15 @@ every `[[link]]` must resolve to exactly one file. Two notes may **never** share
 - A bare term resolves to its **most-canonical** home: prefer a `concept` page over a
   `method`/`theme`/`source`, and reserve a `… Manuscript` alias for the manuscript note.
 
+> [!important] The graph view ignores aliases — link by **filename**.
+> Obsidian's **graph view resolves links by FILENAME only; it does *not* follow `aliases:`.** A raw
+> `[[alias]]` or `[[old-slug]]` link therefore appears as a **grey placeholder node**, and clicking it
+> **creates an empty note in `inbox/`** (per the vault's `newFileFolderPath`). Aliases keep
+> *navigation* and *search* working, but they do **not** keep the graph clean. So **write every link
+> to the canonical filename**, using `[[Canonical Name|display text]]` when you want different display.
+> Alias-backing a deleted slug is necessary but **not sufficient** — you must also repoint the inbound
+> `[[links]]` to the canonical filename (run the lint's *GRAPH grey nodes* check).
+
 **Inbox / shadow-stub hygiene.** Obsidian writes an *empty* note into `inbox/` when you click an
 **unresolved** `[[link]]`. An empty stub whose basename equals an existing alias **shadows** that
 alias (a filename beats an alias), silently turning an already-resolved link into an **empty graph
@@ -107,8 +116,9 @@ node**. So never leave 0-byte notes lying around: triage each promptly — if th
 add the clicked name as an **alias** on the canonical note and **delete the stub**; create a real note
 only when there is a genuine gap.
 
-**Link-integrity lint.** `python docs/_lint.py` reports broken wikilinks, **empty files (= shadow
-stubs)**, basename case-collisions, and **cross-file identity (alias/basename) collisions**. All four
+**Link-integrity lint.** `python docs/_lint.py` reports broken wikilinks, **GRAPH grey nodes**
+(alias-only link targets the graph can't resolve), **empty files (= shadow
+stubs)**, basename case-collisions, and **cross-file identity (alias/basename) collisions**. All five
 should read **0** before committing.
 
 **Linking.** Liberally cross-link with `[[Page Title]]`. A wiki page should link the
@@ -272,7 +282,7 @@ Append-only. One operation per line, newest at the bottom, parseable timestamp f
 ```
 2026-06-18  GENESIS  Scaffold created; wiki schema established.
 2026-06-18  INGEST   sources/papers/amari-1998-natural-gradient.md → updated [[Natural gradient]], [[Information geometry and natural gradient|information geometry]]
-2026-06-18  QUERY    "how does precision-weighting relate to Fisher info?" → filed [[Precision-weighted attention]]
+2026-06-18  QUERY    "how does precision-weighting relate to Fisher info?" → filed [[Precision weighting|Precision-weighted attention]]
 2026-06-18  LINT     3 orphans fixed, 1 contradiction flagged on [[Holonomy]]
 ```
 

@@ -54,9 +54,9 @@ For a 40 nm silica sphere (mass ~ 10^7 amu) with experimentally achievable param
 This paper is relevant to the participatory realism and quantum foundations thread of the VFE research program. The "optomechanical double slit" protocol creates macroscopic superposition states and subjects them to projective measurement; the interplay between wavefunction expansion, quadratic measurement back-action, and environmental decoherence is precisely the setting in which participatory/observer-dependent collapse interpretations (Wheeler's participatory universe, it-from-bit) make observationally distinct predictions from objective collapse models (CSL/GRW). In the VFE/active-inference framing, the measurement-induced state preparation here is analogous to the E-step belief update in the VFE transformer — the homodyne outcome p_L plays the role of an observation that collapses a prior Gaussian belief to a bimodal superposition, directly relevant to discussions of measurement, observer participation, and the quantum-to-classical transition addressed in the PIFB manuscript. The decoherence analysis (position-localization master equation) also provides a concrete physical instantiation of the Lindblad-type belief degradation that could appear in a quantum extension of the VFE architecture.
 
 ## Cross-links
-- Concepts: [[Quantum Measurement]], [[Wavefunction Collapse]], [[Decoherence]], [[Participatory Realism]], [[Cavity Optomechanics]]
-- Related sources: [[Participatory It-from-Bit]]
-- Manuscript/Project: [[PIFB]], [[VFE Transformer Program]]
+- Concepts: [[Quantum Measurement]], [[Wave-Function Collapse|Wavefunction Collapse]], [[Decoherence]], [[fuchs-2017-participatory-realism|Participatory Realism]], [[aspelmeyer-2014-cavity-optomechanics|Cavity Optomechanics]]
+- Related sources: [[participatory-it-from-bit|Participatory It-from-Bit]]
+- Manuscript/Project: [[Participatory realism (it from bit)|PIFB]], [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex

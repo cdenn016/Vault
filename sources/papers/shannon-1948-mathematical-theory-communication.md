@@ -78,9 +78,9 @@ Specific connections:
 
 ## Cross-links
 
-- Concepts: [[Entropy]], [[KL divergence]], [[Mutual information]], [[Channel capacity]], [[Maximum entropy principle]]
+- Concepts: [[Entropy]], [[kullback-1951-kl-divergence|KL divergence]], [[Mutual information]], [[Channel capacity]], [[Maximum entropy|Maximum entropy principle]]
 - Related sources: [[amari-1998-natural-gradient]], [[amari-2000-methods-information-geometry]], [[li-turner-2016-renyi-vi]], [[neal-1998-variational-em]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) attention manuscript]]
+- Manuscript/Project: [[VFE Transformer Program]], [[gl-k-attention|GL(K) attention manuscript]]
 
 ## BibTeX
 

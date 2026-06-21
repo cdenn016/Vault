@@ -77,4 +77,4 @@ views:
 ## See also
 - [[Disciplines MOC]] — per-discipline `field/*` MOCs
 - [[Wiki Status Board]] — synthesis-page maturity
-- [[index|Index]] · [[LLM-Wiki Schema]]
+- [[index|Index]] · [[CLAUDE|LLM-Wiki Schema]]

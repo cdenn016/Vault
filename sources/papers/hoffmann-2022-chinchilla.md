@@ -82,7 +82,7 @@ Chinchilla (70B, 1.4T tokens) at the Gopher compute budget achieves:
 This paper is not directly connected to the gauge-theoretic VFE transformer. It concerns empirical scaling laws for standard autoregressive transformers trained by gradient descent with backprop — a paradigm orthogonal to the VFE framework, which replaces learned weights with iterative variational free energy minimization over Gaussian belief tuples. The Chinchilla result (data quantity matters as much as model size) could inform decisions about training corpus size in any future empirical evaluation of VFE transformer scaling, but no specific architectural, theoretical, or mathematical connection to GL(K) gauge-equivariant attention, SPD belief geometry, variational free energy, or information geometry applies. PIFB nonetheless cites Chinchilla as its named comparison anchor for an inverse-$K$ scaling claim: the parametric loss law $L = E + A N^{-\alpha} + B D^{-\beta}$ is the template PIFB recapitulates with capacity = belief dimension $K$ in place of parameter count $N$, and the **irreducible term $E$** (the entropy of natural text) is read through an [[Information bottleneck]] lens as a capacity-independent free-energy floor that no compression budget can remove.
 
 ## Cross-links
-- Concepts: [[Transformer Architecture]], [[Scaling Laws]], [[Neural scaling laws]], [[Information bottleneck]]
+- Concepts: [[Transformer Architecture]], [[Neural scaling laws|Scaling Laws]], [[Neural scaling laws]], [[Information bottleneck]]
 - Related sources: [[kaplan-2020-scaling-laws]]
 - Manuscript/Project: [[VFE Transformer Program]], [[participatory-it-from-bit]]
 

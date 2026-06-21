@@ -20,11 +20,11 @@ updated: 2026-06-19
 
 **Bounded confidence** names a family of opinion-dynamics models in which agents influence one another only when their current opinions lie within a fixed tolerance, the *confidence threshold* $\varepsilon$. Unlike unconditional averaging models, where every agent pulls on every other, bounded-confidence agents simply ignore opinions too far from their own, so the interaction structure is state-dependent: the set of who listens to whom changes as opinions move. This single nonlinearity is enough to turn a homogenizing averaging rule into one that can hold a population apart, producing consensus, polarization into a few stable camps, or fragmentation into many isolated clusters depending on the threshold and the initial distribution.
 
-Two canonical realizations differ in their update schedule. The **Hegselmann-Krause (HK)** model ([[hegselmann-krause-2002]]) is synchronous: at each step every agent $i$ replaces its scalar opinion with the mean of all opinions inside its confidence set $I(i,x) = \{ j : |x_i - x_j| \le \varepsilon \}$,
+Two canonical realizations differ in their update schedule. The **Hegselmann-Krause (HK)** model ([[hegselmann-2002-opinion|hegselmann-krause-2002]]) is synchronous: at each step every agent $i$ replaces its scalar opinion with the mean of all opinions inside its confidence set $I(i,x) = \{ j : |x_i - x_j| \le \varepsilon \}$,
 $$
 x_i(t+1) = \frac{1}{|I(i,x(t))|} \sum_{j \in I(i,x(t))} x_j(t).
 $$
-The **Deffuant-Weisbuch** model ([[deffuant-2000-bounded-confidence]]) is pairwise and asynchronous: at each step a random pair $(i,j)$ meets, and if $|x_i - x_j| \le \varepsilon$ they each move a fraction $\mu$ of the way toward the other,
+The **Deffuant-Weisbuch** model ([[deffuant2000-bounded-confidence|deffuant-2000-bounded-confidence]]) is pairwise and asynchronous: at each step a random pair $(i,j)$ meets, and if $|x_i - x_j| \le \varepsilon$ they each move a fraction $\mu$ of the way toward the other,
 $$
 x_i \leftarrow x_i + \mu\,(x_j - x_i), \qquad x_j \leftarrow x_j + \mu\,(x_i - x_j),
 $$
@@ -52,8 +52,8 @@ Beyond the agent-based realizations, the same confidence mechanism admits a cont
 
 ## Sources
 
-- [[hegselmann-krause-2002]] — synchronous bounded-confidence (HK) averaging; consensus, polarization, and fragmentation regimes set by the confidence radius $\varepsilon$.
-- [[deffuant-2000-bounded-confidence]] — pairwise asynchronous bounded-confidence (Deffuant-Weisbuch) mixing with convergence parameter $\mu$.
+- [[hegselmann-2002-opinion|hegselmann-krause-2002]] — synchronous bounded-confidence (HK) averaging; consensus, polarization, and fragmentation regimes set by the confidence radius $\varepsilon$.
+- [[deffuant2000-bounded-confidence|deffuant-2000-bounded-confidence]] — pairwise asynchronous bounded-confidence (Deffuant-Weisbuch) mixing with convergence parameter $\mu$.
 - [[belief-inertia]] — recovers bounded confidence as a soft finite-temperature analog via the KL/softmax coupling, with the overdamped limit as the classical case.
 - [[lorenz-2007-bounded-confidence-survey]] — authoritative survey unifying the HK and Deffuant-Weisbuch variants, with the consolidated cluster-count-vs-$\varepsilon$ phenomenology.
 - [[ben-naim-2003-bifurcations-compromise]] — kinetic rate-equation treatment whose steady-state cluster count undergoes a bifurcation cascade as the initial spread grows.

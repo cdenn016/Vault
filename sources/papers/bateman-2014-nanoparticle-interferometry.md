@@ -48,9 +48,9 @@ Simulated fringe visibilities reach up to 75–83% for 10^6 AMU silicon particle
 This paper is primarily an experimental quantum optics proposal. Its direct relevance to the VFE/gauge-theoretic program is peripheral but real: it bears on the quantum-foundations context motivating participatory realism and the measurement problem. The paper probes precisely the regime where wave-function collapse models (CSL) become testable, which is the macroscopic quantum-to-classical transition that participatory and relational interpretations of quantum mechanics aim to explain ontologically. It also uses quantum phase-space (Wigner/characteristic-function) methods analogous to the Gaussian belief geometry used throughout the VFE framework.
 
 ## Cross-links
-- Concepts: [[Quantum Superposition Principle]], [[Wave-Function Collapse]], [[Continuous Spontaneous Localization]]
+- Concepts: [[Quantum superposition|Quantum Superposition Principle]], [[Wave-Function Collapse]], [[CSL model|Continuous Spontaneous Localization]]
 - Related sources: [[bassi-2013-collapse-models]]
-- Manuscript/Project: [[Participatory It from Bit]]
+- Manuscript/Project: [[participatory-it-from-bit|Participatory It from Bit]]
 
 ## BibTeX
 ```bibtex

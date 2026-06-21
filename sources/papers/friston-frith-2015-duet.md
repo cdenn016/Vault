@@ -68,9 +68,9 @@ This paper is directly relevant to the **multi-agent VFE / active inference** ar
 The paper does not address gauge equivariance, SPD geometry, or the GL(K) attention formalism, so it is not directly relevant to the VFE transformer (GL(K)) manuscript.
 
 ## Cross-links
-- Concepts: [[Active Inference]], [[Predictive Coding]], [[Variational Free Energy]], [[Generalised Synchrony]], [[Precision Weighting]], [[Theory of Mind]], [[Sensory Attenuation]], [[Free Energy Principle]], [[Markov Blanket]]
-- Related sources: [[rao-1999-predictive-coding]], [[heins-2024-surprise-minimization]], [[albarracin-2022-epistemic-communities]], [[friston-2010-generalised-filtering]], [[feldman-friston-2010-attention]]
-- Manuscript/Project: [[MAgent Model]], [[VFE Transformer Program]]
+- Concepts: [[Active Inference]], [[Predictive Coding]], [[Variational Free Energy]], [[Generalised Synchrony]], [[Precision Weighting]], [[Theory of Mind]], [[Sensory Attenuation]], [[Free-energy principle active inference|Free Energy Principle]], [[Markov Blanket]]
+- Related sources: [[rao-1999-predictive-coding]], [[heins-2024-surprise-minimization]], [[albarracin-2022-epistemic-communities]], [[friston-2010-free-energy-principle|friston-2010-generalised-filtering]], [[feldman-friston-2010-attention]]
+- Manuscript/Project: [[Gauge-Theoretic Multi-Agent VFE Model|MAgent Model]], [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex

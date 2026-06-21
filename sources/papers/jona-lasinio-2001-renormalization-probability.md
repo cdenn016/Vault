@@ -48,9 +48,9 @@ Fixed points of the renormalization transformation on probability distributions 
 The probabilistic RG framework has several structural parallels with the VFE transformer program. The fixed-point / domain-of-attraction structure mirrors the belief-state convergence under iterated VFE minimization: both identify a manifold of stationary distributions (Gaussian beliefs in the SPD geometry) that are attractors under a contraction map. The linearized RG operator, acting via conditional expectations on function spaces, is closely analogous to the attention mechanism as a conditional-expectation operator in the GL(K) equivariant attention framework. The role of Hermite polynomial eigenfunctions in the RG spectral theory connects to the irrep decomposition underlying the GL(K) gauge structure. The anomalous scaling at criticality (departure from Gaussian fixed points) is conceptually related to the non-Gaussian generalized families (Student-t, exponential power) considered as belief distributions in the VFE hierarchy. More broadly, the paper provides a mathematical foundation for understanding universality in hierarchical probabilistic models, which is the formal setting of the VFE hyper-prior hierarchy $h \to s \to p \to q \to \text{observations}$.
 
 ## Cross-links
-- Concepts: [[Renormalization Group]], [[Central Limit Theorem]], [[Fixed Points]], [[Information Geometry]], [[Gaussian Beliefs]]
-- Related sources: [[sinai-1982-theory-phase-transitions]], [[wilson-1971-renormalization-group]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]]
+- Concepts: [[Renormalization group flow|Renormalization Group]], [[Central Limit Theorem]], [[Fixed Points]], [[Information Geometry]], [[Gaussian Beliefs]]
+- Related sources: [[sinai-1982-theory-phase-transitions]], [[wilson-1971-rg-critical-phenomena|wilson-1971-renormalization-group]]
+- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) gauge-equivariant attention|GL(K) Attention]]
 
 ## BibTeX
 ```bibtex

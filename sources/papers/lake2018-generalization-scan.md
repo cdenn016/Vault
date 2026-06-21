@@ -41,8 +41,8 @@ In Experiment 1 (random split), the best LSTM achieves 99.8% test accuracy, demo
 This paper is primarily a cognitive science / NLP benchmark paper with limited direct relevance to the VFE transformer's gauge-theoretic or variational architecture. However, it is relevant as a contrast case for attention mechanisms: the Bahdanau attention used here is a purely associative softmax over encoder hidden states, carrying no structural inductive bias toward compositionality. The VFE framework's attention weights beta_ij emerge from KL divergence between transported Gaussian beliefs, which in principle encodes relational structure among tokens rather than surface co-occurrence statistics. If the VFE transformer's belief-geometric attention imposes more compositional structure on the representation, the SCAN benchmark would be a natural probe. Additionally, the failure mode diagnosed here — distributional shift in latent representational geometry — connects to the SPD belief geometry and information-geometric distances used in the VFE framework, where the geometry of the belief manifold determines generalization structure.
 
 ## Cross-links
-- Concepts: [[Compositional Generalization]], [[Attention Mechanism]], [[Sequence-to-Sequence]]
-- Related sources: [[bahdanau2015attention]]
+- Concepts: [[Compositional Generalization]], [[Attention Mechanism]], [[Sequence-to-sequence learning|Sequence-to-Sequence]]
+- Related sources: [[bahdanau-2014-neural-machine-translation|bahdanau2015attention]]
 - Manuscript/Project: [[VFE Transformer Program]]
 
 ## BibTeX

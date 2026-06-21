@@ -38,9 +38,9 @@ The construction is grounded in the manuscript [[belief-inertia]] ("The Inertia 
 
 Belief inertia is the dynamical heart of the [[Gauge-Theoretic Multi-Agent VFE Model]]'s sociological face. The same gauge-theoretic, multi-agent free energy that yields attention in the transformer setting ([[Multi-agent variational free energy]], [[gl-k-attention]]) becomes, when read as a *potential* for second-order dynamics, a theory of how opinions move, oscillate, and transfer between agents. It supplies three things distinctive to the model:
 
-- **A unification of opinion-dynamics models.** In the overdamped limit ($\gamma\to\infty$) the dynamics reduce to preconditioned gradient flow $\dot\mu = -M^{-1}\nabla\mathcal F$, from which DeGroot social learning ([[degroot-1974-consensus]]), Friedkin–Johnsen opinion dynamics ([[friedkin-johnsen-1990]]), and bounded-confidence models ([[hegselmann-krause-2002]], [[deffuant-2000-bounded-confidence]]) emerge as limiting cases. Consensus and polarization become two regimes of one functional rather than separate theories.
+- **A unification of opinion-dynamics models.** In the overdamped limit ($\gamma\to\infty$) the dynamics reduce to preconditioned gradient flow $\dot\mu = -M^{-1}\nabla\mathcal F$, from which DeGroot social learning ([[degroot-1974-consensus]]), Friedkin–Johnsen opinion dynamics ([[friedkin1990-social-influence-opinions|friedkin-johnsen-1990]]), and bounded-confidence models ([[hegselmann-2002-opinion|hegselmann-krause-2002]], [[deffuant2000-bounded-confidence|deffuant-2000-bounded-confidence]]) emerge as limiting cases. Consensus and polarization become two regimes of one functional rather than separate theories.
 - **A mechanism for social rigidity.** Because mass is *collective* (it inherits neighbors' precision through attention), the model explains why expertise clusters resist perturbation and why wielding influence costs flexibility — connecting to [[Agents as fibre-bundle sections]] and the gauge-transport coupling $D_{\mathrm{KL}}(q_i\|\Omega_{ij}\cdot q_j)$.
-- **Novel, testable dynamics absent from first-order active inference** ([[parr-2022-active-inference]], [[friston-2017-active-inference-process]]): overshoot, oscillation, resonance, perseverance, and momentum transfer — see [[Hamiltonian belief dynamics]].
+- **Novel, testable dynamics absent from first-order active inference** ([[parr-2022-active-inference]], [[friston-2017-active-inference-process-theory|friston-2017-active-inference-process]]): overshoot, oscillation, resonance, perseverance, and momentum transfer — see [[Hamiltonian belief dynamics]].
 
 ## Details
 
@@ -94,8 +94,8 @@ When the prior self-coupling weight is promoted to a per-agent variational preci
 - [[belief-inertia]] — The Inertia of Belief (primary manuscript; all definitions, the mass formula, dynamics, and validation are taken from this file).
 - [[cencov-1982-statistical-decision-rules]] — Čencov/Chentsov uniqueness theorem underwriting precision-as-Fisher-information.
 - [[amari-2016-information-geometry-applications]], [[ay-2017-information-geometry]] — information geometry of the statistical manifold.
-- [[parr-2022-active-inference]], [[friston-2017-active-inference-process]] — first-order active-inference substrate that the second-order dynamics extend.
-- [[degroot-1974-consensus]], [[friedkin-johnsen-1990]], [[hegselmann-krause-2002]], [[deffuant-2000-bounded-confidence]] — classical opinion-dynamics models recovered as overdamped limits.
+- [[parr-2022-active-inference]], [[friston-2017-active-inference-process-theory|friston-2017-active-inference-process]] — first-order active-inference substrate that the second-order dynamics extend.
+- [[degroot-1974-consensus]], [[friedkin1990-social-influence-opinions|friedkin-johnsen-1990]], [[hegselmann-2002-opinion|hegselmann-krause-2002]], [[deffuant2000-bounded-confidence|deffuant-2000-bounded-confidence]] — classical opinion-dynamics models recovered as overdamped limits.
 
 ## See also
 

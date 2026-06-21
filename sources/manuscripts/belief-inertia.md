@@ -80,13 +80,13 @@ Resolved from `references.bib` in the same folder. Keys present in the program r
 - [[bogacz-2017-free-energy-tutorial|Bogacz (2017), A tutorial on the free-energy framework for modelling perception and learning]]
 - Castellano, Fortunato & Loreto (2009), Statistical physics of social dynamics
 - [[galam-2008-sociophysics|Galam (2012), Sociophysics: A Physicist's Modeling of Psycho-political Phenomena]]
-- [[hegselmann-krause-2002|Hegselmann & Krause (2002), Opinion dynamics and bounded confidence: models, analysis and simulation]] (cited as both `hegselmann2002opinion` and `hegselmann2002`)
+- [[hegselmann-2002-opinion|Hegselmann & Krause (2002), Opinion dynamics and bounded confidence: models, analysis and simulation]] (cited as both `hegselmann2002opinion` and `hegselmann2002`)
 - Busemeyer & Bruza (2012), Quantum Models of Cognition and Decision
 - Kahneman (2011), Thinking, Fast and Slow
 - Nielsen (2020), Elementary Differential Geometry
 - [[degroot-1974-consensus|DeGroot (1974), Reaching a consensus]]
-- [[friedkin-johnsen-1990|Friedkin & Johnsen (1990), Social influence and opinions]]
-- [[deffuant-2000-bounded-confidence|Deffuant, Neau, Amblard & Weisbuch (2000), Mixing beliefs among interacting agents]]
+- [[friedkin1990-social-influence-opinions|Friedkin & Johnsen (1990), Social influence and opinions]]
+- [[deffuant2000-bounded-confidence|Deffuant, Neau, Amblard & Weisbuch (2000), Mixing beliefs among interacting agents]]
 - Kaplowitz & Fink (1992), Dynamics of attitude change
 - Fink, Kaplowitz & Hubbard (2002), Oscillation in beliefs and decisions
 - Webster (2015), Visual adaptation

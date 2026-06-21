@@ -48,8 +48,8 @@ NUTS matches or outperforms hand-tuned HMC on a range of test problems (a 250-di
 NUTS is relevant to the VFE transformer program primarily as a high-quality posterior sampler that can be used to validate variational approximations — i.e., to check whether the Gaussian beliefs $(μ, Σ)$ maintained by the VFE layers are faithful summaries of the true posterior, and to generate ground-truth samples for calibration diagnostics. More directly, the paper's dual-averaging step-size schedule is a clean example of adaptive mirror-descent on a simplex-like constraint, which is conceptually adjacent to the natural-gradient / information-geometry updates in the VFE E-step. The NUTS U-turn criterion also has a geometric flavor (detecting curvature reversal in Hamiltonian flow) that parallels the SPD / Riemannian geometry used in the belief-state updates. In multi-agent active inference experiments, NUTS could serve as an oracle sampler for individual agent posteriors against which the variational updates are benchmarked.
 
 ## Cross-links
-- Concepts: [[Hamiltonian Monte Carlo]], [[Variational Inference]], [[Information Geometry]], [[Natural Gradient]]
-- Related sources: [[neal2011mcmc]], [[wainwright2008graphical]]
+- Concepts: [[Hamiltonian Monte Carlo]], [[blei-2017-variational-inference|Variational Inference]], [[Information Geometry]], [[Natural Gradient]]
+- Related sources: [[neal-2011-mcmc-hamiltonian|neal2011mcmc]], [[wainwright-2008-graphical-models-variational|wainwright2008graphical]]
 - Manuscript/Project: [[VFE Transformer Program]]
 
 ## BibTeX

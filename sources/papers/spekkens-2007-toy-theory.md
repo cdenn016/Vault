@@ -40,12 +40,12 @@ A single epistemic-restriction principle reproduces a large swath of quantum inf
 
 ## Relevance to this research
 
-The toy theory is a clean precedent for the project's *pre-consensus* regime in [[participatory-it-from-bit]]: a regime in which apparently nonclassical, perspective-dependent structure is understood as the consequence of agents holding *restricted, incomplete information* rather than reading off an objective state. The project treats an agent's belief as a variational posterior over a latent structure it never fully resolves; Spekkens shows how far one can go with "states as knowledge under a fundamental restriction" before genuinely nonclassical resources are required. This demarcation matters for the participatory thesis ([[Participatory realism (it from bit)]], [[QBism]]): it tells the project which features of agreement and disagreement among agents can be explained by ignorance-plus-coherence alone, and which demand the stronger relational/transport machinery ([[Parallel transport]], [[Holonomy]], [[Multi-agent variational free energy]]). It pairs naturally with the QBist epistemic stance ([[fuchs-2014-qbism]], [[fuchs-schack-2013-bayesian-coherence]]) while supplying an operational, model-level handle on "how much is just incomplete knowledge."
+The toy theory is a clean precedent for the project's *pre-consensus* regime in [[participatory-it-from-bit]]: a regime in which apparently nonclassical, perspective-dependent structure is understood as the consequence of agents holding *restricted, incomplete information* rather than reading off an objective state. The project treats an agent's belief as a variational posterior over a latent structure it never fully resolves; Spekkens shows how far one can go with "states as knowledge under a fundamental restriction" before genuinely nonclassical resources are required. This demarcation matters for the participatory thesis ([[Participatory realism (it from bit)]], [[QBism]]): it tells the project which features of agreement and disagreement among agents can be explained by ignorance-plus-coherence alone, and which demand the stronger relational/transport machinery ([[Parallel transport]], [[Holonomy]], [[Multi-agent variational free energy]]). It pairs naturally with the QBist epistemic stance ([[fuchs2014-qbism-locality|fuchs-2014-qbism]], [[fuchs-schack-2013-bayesian-coherence]]) while supplying an operational, model-level handle on "how much is just incomplete knowledge."
 
 ## Cross-links
 
 - Concepts: [[QBism]], [[Participatory realism (it from bit)]], [[Observer-dependent facts and Wigner's friend]]
-- Related sources: [[fuchs-2014-qbism]], [[fuchs-schack-2013-bayesian-coherence]], [[hardy-2001-five-axioms]]
+- Related sources: [[fuchs2014-qbism-locality|fuchs-2014-qbism]], [[fuchs-schack-2013-bayesian-coherence]], [[hardy-2001-five-axioms]]
 - Manuscript: [[participatory-it-from-bit]]
 
 ```bibtex

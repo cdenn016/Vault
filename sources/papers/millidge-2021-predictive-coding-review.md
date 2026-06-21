@@ -64,7 +64,7 @@ The VFE transformer is, at its mathematical core, a PC network operating on toke
 
 - Concepts: [[Variational free energy]], [[Prediction error]], [[Precision weighting]], [[Predictive processing and controlled hallucination]], [[Evidence lower bound (ELBO)]]
 - Methods: [[Predictive coding network]], [[Free-energy principle active inference]], [[Variational EM]]
-- Related sources: [[rao-1999-predictive-coding]], [[friston-2010-free-energy-principle]], [[millidge-2020-pc-approximates-backprop]], [[bogacz-2017-free-energy-tutorial]], [[friston-2017-active-inference-process]], [[buckley-2017-fep-mathematical-review]]
+- Related sources: [[rao-1999-predictive-coding]], [[friston-2010-free-energy-principle]], [[millidge-2020-pc-approximates-backprop]], [[bogacz-2017-free-energy-tutorial]], [[friston-2017-active-inference-process-theory|friston-2017-active-inference-process]], [[buckley-2017-fep-mathematical-review]]
 - Theme: [[Variational free energy and predictive coding]]
 - Manuscript/Project: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model]], [[gl-k-attention|Attention as Gauge-Theoretic Variational Inference]]
 

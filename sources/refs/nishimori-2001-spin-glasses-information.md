@@ -16,7 +16,7 @@ updated: 2026-06-20
 
 ## TL;DR
 
-The standard introduction to the **statistical mechanics of disordered systems and its identity with Bayesian inference**. Nishimori develops the replica and cavity methods for spin glasses (Sherrington–Kirkpatrick and beyond) and then shows that the *same* free-energy machinery solves canonical information-processing problems: error-correcting codes, image restoration, and associative memory ([[ramsauer-2021-hopfield|Hopfield]] networks) are all spin systems whose Bayes-optimal decoding is a thermal average. The book's signature contribution is the **Nishimori line** — a special locus in the temperature/disorder plane, fixed by a gauge symmetry of the disorder average, on which the system is at the Bayes-optimal "temperature equals true noise level" condition and many quantities become exactly computable.
+The standard introduction to the **statistical mechanics of disordered systems and its identity with Bayesian inference**. Nishimori develops the replica and cavity methods for spin glasses (Sherrington–Kirkpatrick and beyond) and then shows that the *same* free-energy machinery solves canonical information-processing problems: error-correcting codes, image restoration, and associative memory ([[ramsauer2021hopfield|Hopfield]] networks) are all spin systems whose Bayes-optimal decoding is a thermal average. The book's signature contribution is the **Nishimori line** — a special locus in the temperature/disorder plane, fixed by a gauge symmetry of the disorder average, on which the system is at the Bayes-optimal "temperature equals true noise level" condition and many quantities become exactly computable.
 
 ## What it establishes
 

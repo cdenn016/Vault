@@ -54,9 +54,9 @@ Theorem 3.5 proves invariance of the Amari-Chentsov structure under sufficient s
 Information geometry provides the underlying geometric language for the VFE transformer's belief geometry and variational free energy minimization. The Fisher metric and the Amari-Chentsov tensor are the canonical geometric structures on the space of probability distributions used throughout the gauge-theoretic VFE framework — the SPD belief geometry for Gaussian beliefs $(mu, \Sigma, \phi)$ is precisely the information-geometric structure on Gaussian families. The uniqueness theorems here justify why the Fisher metric is the natural metric on the belief manifold (it is the only one invariant under sufficient statistics), directly underpinning the theoretical grounding of the KL divergence terms in the free energy functional. The monotonicity of Fisher information under statistics also connects to the information-processing inequality invoked in the VFE hierarchy ($h \to s \to p \to q \to$ observations), where each level compresses information. The Markov morphism framework resonates with the Markov blanket structure central to active inference and multi-agent VFE.
 
 ## Cross-links
-- Concepts: [[Information Geometry]], [[Fisher Metric]], [[Amari-Chentsov Tensor]], [[Sufficient Statistics]], [[SPD Geometry]]
-- Related sources: [[amari1985-differential-geometric-methods]], [[chentsov1982-statistical-decision-rules]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]]
+- Concepts: [[Information Geometry]], [[Fisher information metric|Fisher Metric]], [[Amari-Chentsov Tensor]], [[Sufficient Statistics]], [[SPD-manifold geometry and Riemannian optimization|SPD Geometry]]
+- Related sources: [[amari-1985-differential-geometric-methods|amari1985-differential-geometric-methods]], [[cencov-1982-statistical-decision-rules|chentsov1982-statistical-decision-rules]]
+- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) gauge-equivariant attention|GL(K) Attention]]
 
 ## BibTeX
 ```bibtex

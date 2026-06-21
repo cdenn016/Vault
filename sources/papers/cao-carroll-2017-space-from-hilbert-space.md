@@ -49,7 +49,7 @@ This paper is the purest "geometry from informational relations, no background" 
 ## Cross-links
 - Concepts: [[Participatory realism (it from bit)]], [[Fisher information metric]], [[Ouroboros multi-scale dynamics]]
 - Themes: [[Emergent spacetime and holography]]
-- Related sources: [[vanraamsdonk-2010-entanglement-spacetime]], [[ryu-takayanagi-2006-holographic-entanglement-entropy]], [[jacobson-2016-entanglement-equilibrium]], [[wheeler-1990-it-from-bit]]
+- Related sources: [[VanRaamsdonk-2010-spacetime-entanglement|vanraamsdonk-2010-entanglement-spacetime]], [[ryu-takayanagi-2006-holographic-entanglement-entropy]], [[jacobson-2016-entanglement-equilibrium]], [[wheeler-1990-it-from-bit]]
 - Manuscript/Project: [[participatory-it-from-bit]]
 
 ## BibTeX

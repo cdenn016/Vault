@@ -35,7 +35,7 @@ Reframes Bayesian inference as the solution to an optimization problem — the R
 Generalizes the variational free-energy objective central to the program: it shows the accuracy+complexity (loss+divergence) decomposition is one point in a broad design space, justifying alternative divergences and loss functions (e.g. generalized/Gibbs posteriors) used to motivate the VFE attention and belief-update rules.
 
 ## Cross-links
-[[Variational free energy]], [[Generalized Bayes]]
+[[Variational free energy]], [[bissiri-2016-general-bayesian-updating|Generalized Bayes]]
 
 ## BibTeX
 ```bibtex

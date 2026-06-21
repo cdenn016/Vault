@@ -2,7 +2,6 @@
 type: paper
 title: "Hierarchical Models in the Brain"
 aliases:
-  - "Friston 2008"
   - "HDM DEM"
 authors:
   - Friston, Karl
@@ -51,8 +50,8 @@ This paper is a foundational reference for the VFE transformer program. The HDM 
 
 ## Cross-links
 - Concepts: [[Variational Free Energy]], [[Predictive Coding]], [[Active Inference]], [[Belief Propagation]]
-- Related sources: [[friston2003learning]], [[friston2005theory]], [[friston2010free]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]]
+- Related sources: [[friston-2003-learning-inference-brain|friston2003learning]], [[friston-2005-cortical-responses|friston2005theory]], [[friston-2010-free-energy-principle|friston2010free]]
+- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) gauge-equivariant attention|GL(K) Attention]]
 
 ## BibTeX
 ```bibtex

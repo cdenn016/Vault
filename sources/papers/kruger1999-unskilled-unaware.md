@@ -41,9 +41,9 @@ Bottom-quartile participants consistently placed themselves near the 55th–68th
 The Dunning-Kruger phenomenon is directly relevant to multi-agent active inference and belief-updating dynamics. In the VFE / FEP framework, an agent's self-model — its prior over its own competence — is precisely the quantity that should be updated via variational free energy minimization. An agent with poorly calibrated metacognitive priors will systematically misattribute prediction errors: its internal model of "how well I am performing" diverges from the evidence, and the KL term KL(q_i || p_i) in the free energy fails to drive accurate belief revision. The dual-burden result maps cleanly onto a failure mode where the prior p_i encodes inflated competence and the beliefs q_i converge to match it rather than the observations, i.e., the likelihood term -E_q[log p(o|x)] is insufficient to overcome a miscalibrated prior. More broadly, this paper informs the social-physics / opinion-dynamics dimension of the research program: agents with Dunning-Kruger-type belief dynamics would form a recognizable attractor pattern in belief-coupling networks (the β_ij / KL(q_i || Ω_ij q_j) terms), where low-competence agents resist updating from social comparison because they cannot accurately evaluate the competence of the agents they are coupled to. The false-consensus effect observed in top-quartile participants is similarly interpretable as an overly narrow prior on peer beliefs, corrected when transport from accurate social observations reduces the KL to neighbor beliefs.
 
 ## Cross-links
-- Concepts: [[Metacognition]], [[Self-Assessment Bias]], [[Active Inference]], [[Belief Updating]]
-- Related sources: [[festinger1954social-comparison]], [[ross1977false-consensus]]
-- Manuscript/Project: [[VFE Transformer Program]], [[MAgent Model]]
+- Concepts: [[Metacognition]], [[Self-Assessment Bias]], [[Active Inference]], [[Bayesian Inference|Belief Updating]]
+- Related sources: [[festinger-1954-social-comparison-processes|festinger1954social-comparison]], [[ross-1977-false-consensus|ross1977false-consensus]]
+- Manuscript/Project: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model|MAgent Model]]
 
 ## BibTeX
 ```bibtex

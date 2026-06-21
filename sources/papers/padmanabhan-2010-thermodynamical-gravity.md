@@ -47,10 +47,10 @@ The main results are: (1) Gravitational field equations in any diffeomorphism-in
 The emergence of thermodynamic structure from information-geometric principles is a conceptual bridge to the VFE framework. Padmanabhan's derivation of gravitational dynamics from entropy extremization parallels the VFE principle that inference dynamics arise from free-energy minimization: both treat dynamical laws as consequences of an information-theoretic variational principle rather than as fundamental. The local Rindler observer's mandatory coarse-graining over horizon-hidden degrees of freedom is structurally analogous to the VFE agents' coarse-graining encoded in the KL divergence terms (particularly the beta_ij coupling and the tau entropy regularizer). The entropy-area relationship S = A/4 and its Noether-charge generalization parallels the way GL(K) gauge-equivariant attention encodes relational geometry: both frame "entropy" as a geometric invariant of an observer-relative partition of the state space. The cosmological constant freedom (the Tab → Tab + λ g^ab symmetry) resonates with the VFE's scale-invariance degeneracies under the gauge group GL(K). For the participatory-realism thread (PIFB manuscript), Padmanabhan's argument that spacetime microstructure is inferred from thermodynamic observability — rather than directly accessed — is a physics instantiation of the participatory "it from bit" motif: the geometry emerges from observer-information relationships rather than being ontologically primitive.
 
 ## Cross-links
-- Concepts: [[Emergent Spacetime]], [[Horizon Thermodynamics]], [[Rindler Observer]], [[Entropy Extremization]], [[Diffeomorphism Invariance]]
-- Related sources: [[jacobson-1995-thermodynamics-spacetime]], [[verlinde-2011-entropic-gravity]], [[bekenstein-1973-black-holes-entropy]], [[wald-1993-black-hole-entropy-noether]]
+- Concepts: [[Emergent spacetime and holography|Emergent Spacetime]], [[Horizon Thermodynamics]], [[Rindler Observer]], [[Entropy Extremization]], [[Diffeomorphism Invariance]]
+- Related sources: [[jacobson-1995-einstein-equation-of-state|jacobson-1995-thermodynamics-spacetime]], [[verlinde-2011-entropic-gravity]], [[bekenstein-1973-black-holes-entropy]], [[wald-1993-black-hole-entropy-noether]]
 - Themes: [[Emergent spacetime and holography]], [[Participatory realism (it from bit)]]
-- Manuscript/Project: [[PIFB]], [[VFE Transformer Program]]
+- Manuscript/Project: [[Participatory realism (it from bit)|PIFB]], [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex

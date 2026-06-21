@@ -41,8 +41,8 @@ In-distribution test accuracy was 96–99% for all three architectures, with neg
 COGS is not directly about variational free energy or gauge-equivariant attention, but it is relevant to the VFE transformer research program in several ways. First, the Transformer architecture evaluated in COGS (Vaswani et al., 2017) is precisely the architecture the VFE transformer is designed to replace or reinterpret through iterative VFE minimization over Gaussian belief tuples. COGS results provide a concrete empirical data point about where standard softmax-attention Transformers fail: they lack structural compositionality, which in the VFE framework may be related to the absence of geometry-aware belief transport. Second, the compositionality problem — whether a model's representations combine in a principled, structure-sensitive way — is analogous to the gauge-equivariance requirement in GL(K) attention: both demand that the model respect certain structural symmetries (grammatical role structure vs. gauge group action) when generalizing to unseen inputs. Third, the failure of scale to fix generalization aligns with the VFE program's thesis that architectural inductive bias (here, gauge-equivariant belief transport) matters more than parameter count. The paper is a useful external baseline motivating why attention mechanisms need richer structural priors.
 
 ## Cross-links
-- Concepts: [[Compositionality]], [[Attention Mechanism]], [[Sequence-to-Sequence Models]]
-- Related sources: [[vaswani2017attention]]
+- Concepts: [[Compositional generalization|Compositionality]], [[Attention Mechanism]], [[Sequence-to-sequence learning|Sequence-to-Sequence Models]]
+- Related sources: [[vaswani-2017-attention|vaswani2017attention]]
 - Manuscript/Project: [[VFE Transformer Program]]
 
 ## BibTeX

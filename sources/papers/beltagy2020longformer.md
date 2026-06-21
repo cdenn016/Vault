@@ -62,10 +62,10 @@ The global-attention tokens are also structurally analogous to the hierarchical 
 ## Cross-links
 
 - Concepts: [[Attention mechanisms — theory and positional structure]], [[Sparse attention]]
-- Related sources: [[press-2021-alibi]], [[participatory-it-from-bit]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention Manuscript]], [[PIFB]]
+- Related sources: [[press2022-alibi|press-2021-alibi]], [[participatory-it-from-bit]]
+- Manuscript/Project: [[VFE Transformer Program]], [[gl-k-attention|GL(K) Attention Manuscript]], [[Participatory realism (it from bit)|PIFB]]
 
-> [!note] Editorial: PIFB ([[participatory-it-from-bit]]) cites Longformer as long-context "architecture furniture" — a representative efficient-attention scheme whose local-window-plus-global pattern is a hard, hand-designed special case of the distance-decaying coupling prior that PIFB derives softly (the entropy-regularized consensus prior behind ALiBi, [[press-2021-alibi]]).
+> [!note] Editorial: PIFB ([[participatory-it-from-bit]]) cites Longformer as long-context "architecture furniture" — a representative efficient-attention scheme whose local-window-plus-global pattern is a hard, hand-designed special case of the distance-decaying coupling prior that PIFB derives softly (the entropy-regularized consensus prior behind ALiBi, [[press2022-alibi|press-2021-alibi]]).
 
 ## BibTeX
 

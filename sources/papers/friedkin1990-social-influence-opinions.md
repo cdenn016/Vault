@@ -65,9 +65,9 @@ In the equivalent *susceptibility form* of the model, each agent updates as $y_i
 > [!note] Editorial: the exact parameterization (agent-specific vs. scalar $\lambda$, and the precise normalization of $W$) varies across presentations; the susceptibility form above follows the standard linear influence-process reading of the 1990 paper.
 
 ## Cross-links
-- Concepts: [[Opinion Dynamics]], [[Social Influence Networks]], [[Belief Propagation]], [[Attention Mechanism]]
-- Related sources: [[degroot1974-reaching-consensus]], [[french1956-formal-theory-social-power]]
-- Manuscript/Project: [[VFE Transformer Program]], [[Multi-Agent Active Inference]]
+- Concepts: [[Opinion Dynamics]], [[friedkin-johnsen-2011-social-influence-network|Social Influence Networks]], [[Belief Propagation]], [[Attention Mechanism]]
+- Related sources: [[degroot-1974-consensus|degroot1974-reaching-consensus]], [[french-1956-formal-theory-social-power|french1956-formal-theory-social-power]]
+- Manuscript/Project: [[VFE Transformer Program]], [[Collective active inference|Multi-Agent Active Inference]]
 
 ## BibTeX
 ```bibtex

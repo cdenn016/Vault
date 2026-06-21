@@ -52,7 +52,7 @@ This result is the mechanistic explanation for why PIFB ([[participatory-it-from
 ## Cross-links
 
 - Concepts: [[Variational free energy]], [[Meta-agents and hierarchical emergence]], [[Attention mechanisms — theory and positional structure]]
-- Sources: [[geshkovski-2023-mathematical-transformers]], [[vaswani-2017-attention]], [[ramsauer-2021-hopfield]]
+- Sources: [[geshkovski-2023-mathematical-transformers]], [[vaswani-2017-attention]], [[ramsauer2021hopfield|ramsauer-2021-hopfield]]
 - Project: [[participatory-it-from-bit]], [[Gauge-Theoretic Multi-Agent VFE Model]]
 
 ```bibtex

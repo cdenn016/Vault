@@ -49,13 +49,13 @@ Maximize the Shannon entropy $H = -\sum_i p_i \log p_i$ subject to normalization
 
 ## Relevance to this research
 
-Jaynes is the methodological root of two pillars of this research program. First, the project's **entropy-regularized softmax consensus** — the attention-distribution entropy term $\tau\,\beta_{ij}\log(\beta_{ij}/\pi_{ij})$ that makes the softmax $\beta$ a stationary point of the free energy — is precisely a MaxEnt construction: maximizing entropy of the coupling weights subject to a cost (KL) constraint yields the exponential/softmax form, with the temperature $\tau$ as the Lagrange multiplier, exactly as inverse temperature arises here. Second, Jaynes' epistemic, observer-centric reading of probability is the headwater of the Caticha entropic-dynamics lineage ([[caticha-2019-entropic-dynamics]], [[caticha-bartolomeo-reginatto-2015-entropic-dynamics]]) that [[participatory-it-from-bit]] builds on, and it underwrites PIFB's "collapse/consensus as updating" stance and its [[Participatory realism (it from bit)]] framing alongside [[wheeler-1990-it-from-bit]]. The note carries `cluster/methodology` as well as `cluster/info-geometry` because MaxEnt is the inference method the project's variational machinery generalizes.
+Jaynes is the methodological root of two pillars of this research program. First, the project's **entropy-regularized softmax consensus** — the attention-distribution entropy term $\tau\,\beta_{ij}\log(\beta_{ij}/\pi_{ij})$ that makes the softmax $\beta$ a stationary point of the free energy — is precisely a MaxEnt construction: maximizing entropy of the coupling weights subject to a cost (KL) constraint yields the exponential/softmax form, with the temperature $\tau$ as the Lagrange multiplier, exactly as inverse temperature arises here. Second, Jaynes' epistemic, observer-centric reading of probability is the headwater of the Caticha entropic-dynamics lineage ([[caticha-2019-entropic-dynamics-qm|caticha-2019-entropic-dynamics]], [[caticha-bartolomeo-reginatto-2015-entropic-dynamics]]) that [[participatory-it-from-bit]] builds on, and it underwrites PIFB's "collapse/consensus as updating" stance and its [[Participatory realism (it from bit)]] framing alongside [[wheeler-1990-it-from-bit]]. The note carries `cluster/methodology` as well as `cluster/info-geometry` because MaxEnt is the inference method the project's variational machinery generalizes.
 
 ## Cross-links
 
 - Concept: [[Fisher information metric]] (metric-side complement to entropy-side MaxEnt), [[Variational free energy]].
 - Theme: [[Physics from Fisher information]], [[Participatory realism (it from bit)]], [[Information geometry and natural gradient]].
-- Sources: [[caticha-2019-entropic-dynamics]], [[caticha-bartolomeo-reginatto-2015-entropic-dynamics]], [[reginatto-1998-fisher-quantum]], [[wheeler-1990-it-from-bit]].
+- Sources: [[caticha-2019-entropic-dynamics-qm|caticha-2019-entropic-dynamics]], [[caticha-bartolomeo-reginatto-2015-entropic-dynamics]], [[reginatto-1998-fisher-quantum]], [[wheeler-1990-it-from-bit]].
 - Manuscript: [[participatory-it-from-bit]].
 
 ## BibTeX

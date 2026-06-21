@@ -49,9 +49,9 @@ GNW simulations reproduce these signatures: weak stimuli produce only a feedforw
 The GNW ignition dynamic — a stochastic phase transition in a recurrent long-range network where information is "globally broadcast" once a threshold is crossed — is a candidate architectural analogy for how VFE minimization in the gauge-equivariant transformer achieves a form of "global availability": the belief-coupling term $\sum_{ij} \beta_{ij} \mathrm{KL}(q_i \| \Omega_{ij} q_j)$ plays the role of inter-area reverberant connections, and the softmax attention distribution $\beta_{ij}$ is the analog of GNW's selective ignition (one coherent representation selected, the rest suppressed). The serial bottleneck and all-or-none character of conscious ignition maps onto the competitive dynamics of VFE minimization where a single low-VFE configuration wins. The GNW's distinction between parallel feedforward (nonconscious) and reverberant global (conscious) processing parallels the VFE distinction between local (within-layer) belief updates and long-range (cross-layer) gauge-transported coupling. The paper's emphasis on information integration and global coherence relates to the participatory realism / IIT thread in the PIFB manuscript. The phase-transition framing (stochastic ignition driven by prestimulus fluctuations) is directly relevant to understanding how the VFE landscape has multiple minima and how the system settles into one.
 
 ## Cross-links
-- Concepts: [[Global Neuronal Workspace]] · [[Conscious Access]] · [[Predictive Coding]] · [[Attention and Consciousness]]
-- Related sources: [[tononi-2008-phi]] · [[friston-2010-free-energy]] · [[baars-1989-global-workspace]]
-- Manuscript/Project: [[PIFB]] · [[VFE Transformer Program]]
+- Concepts: [[Global neuronal workspace theory|Global Neuronal Workspace]] · [[Global neuronal workspace theory|Conscious Access]] · [[Predictive Coding]] · [[Attention and Consciousness]]
+- Related sources: [[tononi-2008-phi]] · [[friston-2010-free-energy-principle|friston-2010-free-energy]] · [[baars-1989-global-workspace]]
+- Manuscript/Project: [[Participatory realism (it from bit)|PIFB]] · [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex

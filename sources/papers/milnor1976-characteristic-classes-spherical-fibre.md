@@ -57,9 +57,9 @@ Stasheff's result (Theorem 2) that BG is a homotopy-associative, homotopy-commut
 This paper is foundational for the gauge-theoretic / fibre-bundle perspective underlying the VFE transformer program. The classifying space BG(n) is the universal moduli space for spherical fibre spaces, directly analogous to the role of classifying spaces BG for principal G-bundles in the GL(K) gauge-equivariant attention mechanism. Characteristic classes (Wu, Stiefel-Whitney, Pontryagin) are the cohomological invariants that measure the non-triviality of gauge structure — directly relevant to understanding what invariants the GL(K)-equivariant attention heads can and cannot compute. The Hopf algebra structure of H*(BG; Z_p) arising from the Whitney join is structurally analogous to the tensor-product factorisation of belief distributions across attention heads. The Postnikov tower / k-invariant machinery for computing cohomology inductively is the algebraic topology counterpart of the layer-by-layer VFE minimisation in the transformer stack. Pontryagin classes appearing in the rational cohomology connect to the SPD (symmetric positive definite) belief geometry, where Pontryagin classes characterise real vector bundles associated to the Riemannian structure.
 
 ## Cross-links
-- Concepts: [[Gauge Theory]], [[Characteristic Classes]], [[Classifying Space]], [[Fibre Bundle]], [[SPD Geometry]]
+- Concepts: [[Gauge Theory]], [[Characteristic Classes]], [[Classifying Space]], [[Fibre Bundle]], [[SPD-manifold geometry and Riemannian optimization|SPD Geometry]]
 - Related sources: [[stasheff-1963-homotopy-associativity]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]]
+- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) gauge-equivariant attention|GL(K) Attention]]
 
 ## BibTeX
 ```bibtex

@@ -27,7 +27,7 @@ in the view from nowhere.
 
 ## Sub-clusters of `cluster/participatory`
 
-This cluster spans three disciplines, so the [[LLM-Wiki Schema|`cluster/participatory`]] tag is subdivided into three nested sub-tags (the parent still rolls up), each anchored by its own theme essay:
+This cluster spans three disciplines, so the [[CLAUDE|`cluster/participatory`]] tag is subdivided into three nested sub-tags (the parent still rolls up), each anchored by its own theme essay:
 
 - **`cluster/participatory/quantum-foundations`** *(physics origin)* — QM foundations & interpretation, holography & emergent spacetime, physics-from-information. **This theme** is its home; see also [[Emergent spacetime and holography]].
 - **`cluster/participatory/philosophy-of-mind`** *(philosophy origin)* — structural realism, philosophy of science & metaphysics, it-from-bit. Home: [[Structural realism and philosophy of science]].
@@ -86,7 +86,7 @@ under which the program's gauge structure is ontology, not mere formalism.
 
 RQM faces an obvious tension: if information is physical yet the facts one observer holds
 are in principle inaccessible to any other, how do observers ever agree? Adlam and Rovelli
-repair this in [[adlam-rovelli-2022-cross-perspective]] by adding a **cross-perspective
+repair this in [[adlam-2022-cross-perspective|adlam-rovelli-2022-cross-perspective]] by adding a **cross-perspective
 links** postulate: whenever an observer has obtained a definite value, that information is
 stored in physical variables and is therefore accessible by measurement to other
 observers, who will find consistent values. Agreement is thus a *physical achievement*,
@@ -135,8 +135,8 @@ disagreement measured by [[Holonomy]].
 The most literal physics precedent for the program's structural claim — that **gauge
 covariance is the formal expression of shareability between agents** — is the quantum
 reference frame (QRF) program, developed on its own [[Quantum reference frames]] concept
-page and grounded in [[giacomini-2019-qrf-covariance]], [[bartlett-rudolph-spekkens-2007-reference-frames]],
-and [[vanrietvelde-2020-change-of-perspective]]. Promoting the reference frame to a quantum
+page and grounded in [[giacomini-2019-qrf-covariance]], [[bartlett-2007-reference-frames|bartlett-rudolph-spekkens-2007-reference-frames]],
+and [[vanrietvelde-2020-qrf-perspective-neutral|vanrietvelde-2020-change-of-perspective]]. Promoting the reference frame to a quantum
 system makes superposition and entanglement *frame-relative*; the speakable/unspeakable
 split distinguishes shareable from frame-local content; and recasting frame change as
 gauge-fixing makes "frame choice = choice of gauge" exact. Each agent's local gauge frame
@@ -162,14 +162,14 @@ model of the program's *pre-consensus* regime.
 
 The remaining information-first sources sharpen the program's position by contrast and by
 extension. Deutsch and Marletto's constructor theory of information
-([[deutsch-marletto-2015-constructor-information]]) is the explicit **contrast class**:
+([[deutsch-2015-constructor-information|deutsch-marletto-2015-constructor-information]]) is the explicit **contrast class**:
 both programs are information-first, but constructor theory grounds information in
 *objective, agent-independent* possibility/impossibility facts about physical
 transformations, whereas the program grounds objectivity in *consensus among coupled
 agents*. Citing it lets the manuscript stake out its participatory commitment — it accepts
 the priority of information from [[wheeler-1990-it-from-bit]] but sides with relational and
 QBist accounts against locating information in observer-independent physical possibility.
-Seth Lloyd's computational-capacity bounds ([[lloyd-2002-computational-capacity]]) supply
+Seth Lloyd's computational-capacity bounds ([[lloyd-2002-computational-capacity-universe|lloyd-2002-computational-capacity]]) supply
 the *computational* face of "it from bit": physical processes as literal computations on a
 finite stock of bits, the natural partner of the program's stance that emergent structure
 is produced by *running* an inference computation (iterative VFE minimization) rather than
@@ -209,17 +209,17 @@ informational state rather than presupposed.
 - [[fuchs-schack-2013-bayesian-coherence]] — Born rule as a personalist coherence constraint (SIC-POVM); the QBist technical core.
 - [[mermin-1998-correlations]] — "correlations without correlata"; the relational thesis in one line.
 - [[rovelli-2021-helgoland]] — relational QM as relations-first metaphysics.
-- [[adlam-rovelli-2022-cross-perspective]] — cross-perspective links; agreement as a physical achievement.
+- [[adlam-2022-cross-perspective|adlam-rovelli-2022-cross-perspective]] — cross-perspective links; agreement as a physical achievement.
 - [[frauchiger-renner-2018-no-self-description]] — Q/C/S trilemma; no shared observer-independent facts.
 - [[brukner-2018-no-go-observer-facts]] — testable Bell-type no-go for observer-independent facts.
 - [[healey-2017-quantum-revolution]] — pragmatist objectivity-without-ontic-states.
 - [[giacomini-2019-qrf-covariance]] — quantum-reference-frame covariance; entanglement as frame-relative.
-- [[bartlett-rudolph-spekkens-2007-reference-frames]] — operational QRF theory; speakable/unspeakable; superselection.
-- [[vanrietvelde-2020-change-of-perspective]] — perspective-neutral / gauge-fixing formulation of frame change.
+- [[bartlett-2007-reference-frames|bartlett-rudolph-spekkens-2007-reference-frames]] — operational QRF theory; speakable/unspeakable; superselection.
+- [[vanrietvelde-2020-qrf-perspective-neutral|vanrietvelde-2020-change-of-perspective]] — perspective-neutral / gauge-fixing formulation of frame change.
 - [[hardy-2001-five-axioms]] — informational reconstruction of quantum theory.
 - [[spekkens-2007-toy-theory]] — epistemic-restriction toy model; the pre-consensus regime.
-- [[deutsch-marletto-2015-constructor-information]] — constructor theory; the agent-independent contrast class.
-- [[lloyd-2002-computational-capacity]] — computational-universe bounds; the computational face of "it from bit".
+- [[deutsch-2015-constructor-information|deutsch-marletto-2015-constructor-information]] — constructor theory; the agent-independent contrast class.
+- [[lloyd-2002-computational-capacity-universe|lloyd-2002-computational-capacity]] — computational-universe bounds; the computational face of "it from bit".
 - [[zenil-2013-computable-universe]] — anthology of the digital-physics / "nature as computation" lineage (Zuse, Wolfram, 't Hooft, Lloyd; Penrose foreword); the computational wing of "it from bit," cited as both kin and observer-independent contrast class.
 - [[nelson-1967-brownian-motion]] — stochastic mechanics deriving the Schrödinger equation from a conservative diffusion; the physics-from-information ancestor of the entropic-dynamics strand.
 - [[bell-2004-speakable-unspeakable]] — Bell's collected foundational papers; the theorem against local observer-independent values that the sharpened Wigner's-friend no-go results extend.

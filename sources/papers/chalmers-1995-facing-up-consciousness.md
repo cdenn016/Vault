@@ -3,7 +3,6 @@ type: paper
 title: "Facing Up to the Problem of Consciousness"
 aliases:
   - Chalmers 1995
-  - hard problem of consciousness
   - chalmers-1995-facing-up
   - Chalmers (1995) Hard Problem
 authors:
@@ -52,7 +51,7 @@ This paper is the foundational reference for the hard problem as it appears in t
 
 - Concepts: [[Consciousness and the hard problem]], [[Explanatory gap]], [[Russellian monism]], [[Mathematical consciousness science]], [[Structural realism]], [[Participatory realism (it from bit)]]
 - Related sources: [[participatory-it-from-bit]], [[solms-friston-2018-how-consciousness-arises]], [[levine-1983-explanatory-gap]], [[nagel-1974-what-is-it-like]], [[chalmers-2013-panpsychism]], [[wheeler-1990-it-from-bit]]
-- Manuscript/Project: [[Gauge-Theoretic Multi-Agent VFE Model]], [[PIFB]]
+- Manuscript/Project: [[Gauge-Theoretic Multi-Agent VFE Model]], [[Participatory realism (it from bit)|PIFB]]
 
 ## BibTeX
 

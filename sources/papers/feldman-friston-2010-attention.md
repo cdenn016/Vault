@@ -32,7 +32,7 @@ Recasts attention within the free-energy / predictive-coding framework as the op
 Directly grounds the program's precision-weighted attention story: attention as precision/Fisher-information weighting of prediction errors is the neuroscientific antecedent of the VFE transformer's precision-weighted attention mechanism.
 
 ## Cross-links
-[[Precision-weighted attention]], [[Attention mechanisms — theory and positional structure]], [[Free-energy principle active inference]]
+[[Precision weighting|Precision-weighted attention]], [[Attention mechanisms — theory and positional structure]], [[Free-energy principle active inference]]
 
 ## BibTeX
 ```bibtex

@@ -2,7 +2,6 @@
 type: paper
 title: "Llama 2: Open Foundation and Fine-Tuned Chat Models"
 aliases:
-  - "Touvron 2023"
   - "Llama 2: Open Foundation and Fine-Tuned Chat Models"
   - "touvron2023-llama2"
   - "touvron2023llama2"

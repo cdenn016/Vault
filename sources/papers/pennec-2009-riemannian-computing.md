@@ -51,9 +51,9 @@ The Riemannian variance is differentiable at all points where the cut locus has 
 This paper is a core reference for the SPD belief geometry in the VFE transformer. The VFE framework represents beliefs as Gaussian tuples $(\mu, \Sigma, \phi)$ on SPD manifolds, and every operation — transporting beliefs via gauge parallel transport $\Omega_{ij}$, computing the KL divergence $\mathrm{KL}(q_i \| \Omega_{ij} q_j)$, retracting updated parameters back onto the SPD cone — requires exactly the Exp/Log atomic machinery Pennec formalises here. The Riemannian Gaussian maximum-entropy characterisation directly motivates why Gaussian beliefs are the natural exponential-family choice on SPD space, and the curvature correction $\Gamma = \Sigma^{-1} - \tfrac{1}{3}\mathrm{Ric}$ is relevant to higher-order accuracy of the VFE E-step. PGA / covariance analysis in the exponential chart at the mean is the geometric analogue of the attention-weighted mean used in the belief-update E-step. The extrinsic-vs-intrinsic robustness discussion (Section 3.5) also bears on whether Euclidean approximations to SPD geometry are acceptable in the VFE regime.
 
 ## Cross-links
-- Concepts: [[SPD Manifold]], [[Riemannian Geometry]], [[Exponential Map]], [[Karcher Mean]], [[Information Geometry]]
-- Related sources: [[moakher-2005-spd-means]], [[bhatia-2009-positive-definite]], [[amari-2016-information-geometry]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention Manuscript]]
+- Concepts: [[SPD-manifold geometry and Riemannian optimization|SPD Manifold]], [[Riemannian Geometry]], [[Exponential map (Riemannian)|Exponential Map]], [[karcher-1977-center-of-mass|Karcher Mean]], [[Information Geometry]]
+- Related sources: [[moakher-2005-geometric-mean|moakher-2005-spd-means]], [[bhatia-2007-positive-definite-matrices|bhatia-2009-positive-definite]], [[amari-2016-information-geometry-applications|amari-2016-information-geometry]]
+- Manuscript/Project: [[VFE Transformer Program]], [[gl-k-attention|GL(K) Attention Manuscript]]
 
 ## BibTeX
 ```bibtex

@@ -49,9 +49,9 @@ This paper is a foundational reference for the participatory realism strand of t
 ## Cross-links
 > [!note] Editorial: The project reads this no-go as the foundational-physics statement that **holonomy between observer frames is generically nonzero** — facts certified in one frame need not survive transport to another. PIFB's answer is objectivity as *transported consensus*: agreement constructed by [[Parallel transport]] of beliefs between [[Agents as fibre-bundle sections]], with residual disagreement measured by [[Holonomy]] under a [[Gauge transformation]].
 
-- Concepts: [[Participatory Realism]], [[Participatory realism (it from bit)]], [[Wigner's Friend]], [[Observer-dependent facts and Wigner's friend]], [[Observer-Relative Facts]], [[Bell Inequalities]], [[Relational Quantum Mechanics]], [[Holonomy]], [[Parallel transport]], [[Agents as fibre-bundle sections]], [[Gauge transformation]], [[Multi-agent variational free energy]]
-- Related sources: [[brukner-2016-quantum-measurement-problem]], [[frauchiger-renner-2018-self-consistent]], [[rovelli-1996-relational-qm]], [[fuchs-2014-qbism]]
-- Manuscript/Project: [[PIFB]], [[participatory-it-from-bit]], [[VFE Transformer Program]], [[GL(K) Attention]]
+- Concepts: [[fuchs-2017-participatory-realism|Participatory Realism]], [[Participatory realism (it from bit)]], [[Observer-dependent facts and Wigner's friend|Wigner's Friend]], [[Observer-dependent facts and Wigner's friend]], [[Observer-dependent facts and Wigner's friend|Observer-Relative Facts]], [[Bell Inequalities]], [[Relational Quantum Mechanics]], [[Holonomy]], [[Parallel transport]], [[Agents as fibre-bundle sections]], [[Gauge transformation]], [[Multi-agent variational free energy]]
+- Related sources: [[brukner-2016-quantum-measurement-problem]], [[frauchiger-renner-2018-no-self-description|frauchiger-renner-2018-self-consistent]], [[rovelli-1996-relational-qm]], [[fuchs2014-qbism-locality|fuchs-2014-qbism]]
+- Manuscript/Project: [[Participatory realism (it from bit)|PIFB]], [[participatory-it-from-bit]], [[VFE Transformer Program]], [[GL(K) gauge-equivariant attention|GL(K) Attention]]
 
 ## BibTeX
 ```bibtex

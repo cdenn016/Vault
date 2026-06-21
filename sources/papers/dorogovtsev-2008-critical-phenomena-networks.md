@@ -35,7 +35,7 @@ A comprehensive review of cooperative phenomena and phase transitions on complex
 Supplies the canonical reference for how network topology reshapes phase transitions and critical phenomena — directly relevant to collective inference, belief synchronization, and opinion dynamics on agent-interaction graphs in the multi-agent and social-physics arms of the program.
 
 ## Cross-links
-[[Critical Phenomena]], [[Phase Transitions]], [[Renormalization group flow]]
+[[Critical Phenomena]], [[Critical Phenomena|Phase Transitions]], [[Renormalization group flow]]
 
 ## BibTeX
 ```bibtex

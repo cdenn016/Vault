@@ -46,9 +46,9 @@ The ER=EPR conjecture: the Einstein-Rosen bridge connecting two black holes is c
 The ER=EPR paper is directly relevant to the participatory-realism / "It from Bit" theoretical programme in this research program. The identification of geometric connectivity (wormholes) with quantum informational connectivity (entanglement) is a concrete realisation of participatory realism: the spacetime structure is not a background but is constituted by relational quantum information. This resonates with the VFE transformer's gauge-theoretic treatment of belief coupling — the attention weights $\beta_{ij}$ encode relational entanglement-like correlations between belief states, and the GL(K) gauge transport $\Omega_{ij}$ plays a role analogous to the interior geometry threading the bridge. The idea that different entangled states (different unitaries relating the two sides) produce different bridges maps loosely onto the idea that different gauge connections produce different transported beliefs in the VFE attention mechanism. The growth of bridge complexity under time evolution connects to the complexity-equals-action or complexity-equals-volume proposals, and more broadly to the question of how relational information structures grow under iterative VFE minimisation. For the multi-agent active inference programme, the ER=EPR non-locality-without-signalling principle parallels the VFE result that coupled agents can share information through belief transport without violating the free-energy bound on inference.
 
 ## Cross-links
-- Concepts: [[Participatory Realism]], [[Quantum Entanglement]], [[Information Geometry]], [[Holography and AdS-CFT]]
-- Related sources: [[wheeler-1990-it-from-bit]], [[friston-2023-path-integrals-particular-physics]]
-- Manuscript/Project: [[PIFB]], [[VFE Transformer Program]]
+- Concepts: [[fuchs-2017-participatory-realism|Participatory Realism]], [[Quantum Entanglement]], [[Information Geometry]], [[Emergent spacetime and holography|Holography and AdS-CFT]]
+- Related sources: [[wheeler-1990-it-from-bit]], [[friston-2023-fep-simpler|friston-2023-path-integrals-particular-physics]]
+- Manuscript/Project: [[Participatory realism (it from bit)|PIFB]], [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex

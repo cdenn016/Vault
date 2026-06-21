@@ -63,9 +63,9 @@ Subjects used trial-by-trial learning rates spanning [0, 1], with rates increasi
 The reduced Bayesian delta-rule is directly structurally analogous to the VFE belief-update equations: both express posterior mean updating as a weighted combination of prior belief and new evidence, with weights determined by surprise relative to expected uncertainty. The change-point probability Omega_t plays the role of the attention weight beta_ij in the VFE transformer — a Bayesian posterior over "is this new observation informative enough to override the prior run?" The run-length r-hat is the VFE analog of accumulated evidence that drives the KL self-coupling alpha_i: as r-hat grows, the belief concentrates and the effective learning rate 1/(r-hat+1) shrinks, mirroring the stabilizing effect of a tight posterior sigma_q in the VFE E-step. The hazard rate H is a prior over environmental change that functions precisely as a hyperprior h in the VFE hierarchy (h -> s -> p -> q), setting the meta-level expectation that drives model coupling lambda_h. The individual-variability account via subjective hazard rates is a concrete empirical grounding for the heterogeneous coupling strengths gamma_ij in multi-agent active inference, where agents with different priors over volatility naturally develop different coupling weights to neighbors. This paper provides a neuroscientific behavioral validation that approximate Bayesian inference (rather than exact inference) underlies human belief dynamics, directly motivating the VFE transformer's iterative approximate E-step rather than a closed-form Kalman filter.
 
 ## Cross-links
-- Concepts: [[Variational Free Energy]], [[Active Inference]], [[Belief Updating]], [[Predictive Coding]]
-- Related sources: [[behrens2007-learning-value-information]], [[wilson2010-bayesian-online-hazard]]
-- Manuscript/Project: [[VFE Transformer Program]], [[MAgent Model]]
+- Concepts: [[Variational Free Energy]], [[Active Inference]], [[Bayesian Inference|Belief Updating]], [[Predictive Coding]]
+- Related sources: [[behrens-2007-learning-value-information|behrens2007-learning-value-information]], [[wilson2010-bayesian-online-hazard]]
+- Manuscript/Project: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model|MAgent Model]]
 
 ## BibTeX
 ```bibtex

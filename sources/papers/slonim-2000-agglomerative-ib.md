@@ -58,9 +58,9 @@ The Information Bottleneck framework is a foundational precursor to the VFE / ac
 > [!note] Meta-agent / RG-flow framing (from refs/ note): This is the **coarse-graining cousin of PIFB's meta-agent formation**. Building a scale-$s{+}1$ agent by pooling a cluster of scale-$s$ agents is, in information terms, an agglomerative merge that preserves the relevant (predictive) information while compressing detail — exactly the merge-by-least-information-loss criterion formalized here. The bottom-up cluster hierarchy is the algorithmic shadow of the project's tower of [[Meta-agents and hierarchical emergence]] and its [[Renormalization-group flow of beliefs]]. Cited as the agglomerative-IB precedent for relevance-preserving coarse-graining.
 
 ## Cross-links
-- Concepts: [[Information Bottleneck]] · [[Mutual Information]] · [[Jensen-Shannon Divergence]] · [[Distributional Clustering]] · [[Deterministic Annealing]] · [[Meta-agents and hierarchical emergence]] · [[Renormalization-group flow of beliefs]]
+- Concepts: [[Information Bottleneck]] · [[Mutual Information]] · [[Jensen-Shannon Divergence]] · [[Information bottleneck|Distributional Clustering]] · [[Deterministic Annealing]] · [[Meta-agents and hierarchical emergence]] · [[Renormalization-group flow of beliefs]]
 - Related sources: [[tishby-1999-information-bottleneck]] (founding IB) · [[strouse-2017-deterministic-ib]] (deterministic hard-clustering limit) · [[pereira-1993-distributional-clustering]]
-- Manuscript/Project: [[VFE Transformer Program]] · [[GL(K) Attention]] · [[participatory-it-from-bit]]
+- Manuscript/Project: [[VFE Transformer Program]] · [[GL(K) gauge-equivariant attention|GL(K) Attention]] · [[participatory-it-from-bit]]
 
 ## BibTeX
 ```bibtex

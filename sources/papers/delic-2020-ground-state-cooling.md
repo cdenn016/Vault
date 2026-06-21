@@ -48,9 +48,9 @@ At optimal detuning Δ/2π = 315 kHz, the final phonon occupation is n_x = 0.43 
 The primary connection to this research program is through the participatory realism and quantum foundations thread. The paper demonstrates quantum coherence (ground-state purity) of a macroscopic solid-state object with 10^8 atoms, directly probing the quantum-classical boundary and the universality of quantum superposition. The authors explicitly discuss the prospect of using such levitated quantum systems as gravitational source masses, citing Feynman's original suggestion from the 1957 Chapel Hill conference and the recent Bose et al. / Marletto–Vedral proposals for entanglement-based quantum gravity witnesses — both directly relevant to participatory quantum foundations and "it from bit" type questions about the role of quantum systems as physical realizers of information. The decoherence analysis (localization parameter Λ, wavepacket expansion in short- and long-distance gas-scattering regimes) is a concrete physical instantiation of the measurement-decoherence problem central to participatory realism. There is no direct connection to the VFE transformer, GL(K) attention, or social-physics threads.
 
 ## Cross-links
-- Concepts: [[Quantum Decoherence]], [[Macroscopic Quantum Coherence]], [[Participatory Realism]]
+- Concepts: [[Decoherence|Quantum Decoherence]], [[Macroscopic Quantum Coherence]], [[fuchs-2017-participatory-realism|Participatory Realism]]
 - Related sources: [[bose-2017-quantum-gravity-entanglement]], [[marletto-2017-gravitationally-induced-entanglement]]
-- Manuscript/Project: [[PIFB]]
+- Manuscript/Project: [[Participatory realism (it from bit)|PIFB]]
 
 ## BibTeX
 ```bibtex

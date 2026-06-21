@@ -33,12 +33,12 @@ Healey shows that the standard "paradoxes" (measurement, nonlocality) dissolve o
 
 ## Relevance to this research
 
-Healey marks out exactly the position the project's [[participatory-it-from-bit]] needs to navigate toward: objectivity-as-binding-prescription-for-all-agents, between QBist personalism ([[fuchs-2014-qbism]], [[fuchs-schack-2013-bayesian-coherence]]) and full state-realism. The project's notion of objectivity is *consensus among coupled agents* — not one agent's private credence, yet not a view from nowhere either — which is structurally the pragmatist middle ground Healey articulates. In the project's terms, the "prescription any agent ought to adopt in this situation" is the belief an agent would hold after its variational dynamics have equilibrated against the shared coupling field ([[Multi-agent variational free energy]], [[Variational free energy]]); intersubjective bindingness corresponds to beliefs that agree up to [[Parallel transport]] between frames, with disagreement quantified by [[Holonomy]]. Healey supplies the philosophical vocabulary (prescription, objective-but-not-ontic) that lets the project state its [[Participatory realism (it from bit)]] commitments without collapsing into either solipsism or naive realism.
+Healey marks out exactly the position the project's [[participatory-it-from-bit]] needs to navigate toward: objectivity-as-binding-prescription-for-all-agents, between QBist personalism ([[fuchs2014-qbism-locality|fuchs-2014-qbism]], [[fuchs-schack-2013-bayesian-coherence]]) and full state-realism. The project's notion of objectivity is *consensus among coupled agents* — not one agent's private credence, yet not a view from nowhere either — which is structurally the pragmatist middle ground Healey articulates. In the project's terms, the "prescription any agent ought to adopt in this situation" is the belief an agent would hold after its variational dynamics have equilibrated against the shared coupling field ([[Multi-agent variational free energy]], [[Variational free energy]]); intersubjective bindingness corresponds to beliefs that agree up to [[Parallel transport]] between frames, with disagreement quantified by [[Holonomy]]. Healey supplies the philosophical vocabulary (prescription, objective-but-not-ontic) that lets the project state its [[Participatory realism (it from bit)]] commitments without collapsing into either solipsism or naive realism.
 
 ## Cross-links
 
 - Concepts: [[Participatory realism (it from bit)]], [[QBism]], [[Observer-dependent facts and Wigner's friend]]
-- Related sources: [[fuchs-2014-qbism]], [[fuchs-2017-participatory-realism]], [[mermin-1998-correlations]], [[rovelli-1996-relational-qm]]
+- Related sources: [[fuchs2014-qbism-locality|fuchs-2014-qbism]], [[fuchs-2017-participatory-realism]], [[mermin-1998-correlations]], [[rovelli-1996-relational-qm]]
 - Manuscript: [[participatory-it-from-bit]]
 
 ```bibtex

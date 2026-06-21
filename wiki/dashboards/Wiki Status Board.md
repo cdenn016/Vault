@@ -62,4 +62,4 @@ views:
 ```
 
 ## See also
-- [[Sources Dashboard]] · [[Disciplines MOC]] · [[index|Index]] · [[LLM-Wiki Schema]]
+- [[Sources Dashboard]] · [[Disciplines MOC]] · [[index|Index]] · [[CLAUDE|LLM-Wiki Schema]]

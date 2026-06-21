@@ -16,7 +16,7 @@ updated: 2026-06-21
 Rational inattention, introduced by Christopher Sims, models agents who face a limited capacity to process information (measured in Shannon bits via mutual information) and optimally allocate that scarce attention across signals subject to an information-processing cost. It explains sluggish, incomplete responses to news (information rigidity) as optimal behavior under a channel-capacity constraint. The information-theoretic, precision-weighted view of attention here is conceptually parallel to precision-weighted attention in the VFE framework.
 
 ## Related
-[[Information rigidity]], [[Precision-weighted attention]], [[Belief inertia]]
+[[Information rigidity]], [[Precision weighting|Precision-weighted attention]], [[Belief inertia]]
 
 ## Sources
-[[coibion2015-information-rigidity]], [[sims2003-rational-inattention]]
+[[coibion2015-information-rigidity]], [[sims-2003-rational-inattention|sims2003-rational-inattention]]

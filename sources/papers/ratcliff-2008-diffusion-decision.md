@@ -48,7 +48,7 @@ The DDM provides a principled stochastic-process account of evidence accumulatio
 ## Cross-links
 - Concepts: [[Sequential Sampling Models]], [[Evidence Accumulation]], [[Reaction Time Distributions]], [[Speed-Accuracy Tradeoff]]
 - Related sources: [[gold-2001-neural-basis-decision]], [[bogacz-2006-physics-optimal-decision]]
-- Manuscript/Project: [[VFE Transformer Program]], [[Multi-Agent Active Inference]]
+- Manuscript/Project: [[VFE Transformer Program]], [[Collective active inference|Multi-Agent Active Inference]]
 
 ## BibTeX
 ```bibtex

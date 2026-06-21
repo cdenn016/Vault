@@ -49,9 +49,9 @@ Levitated nanoparticles achieve mechanical quality factors $Q_m \sim 10^8$ at $1
 The connection to the VFE transformer / GL(K) gauge-equivariant attention program is indirect. Levitated optomechanics is not related to gauge theory, information geometry, or variational free energy in any direct sense. The tangential relevances are: (1) stochastic oscillator dynamics under a Langevin equation is mathematically analogous to diffusion in belief space that underlies predictive-coding and VFE update rules — both are Ornstein-Uhlenbeck-type processes with noise-temperature tradeoffs; (2) the stochastic heat-engine and Kramers-escape literature overlaps with the fluctuation-theorem / non-equilibrium thermodynamics perspective that informs some active-inference formulations of free energy; (3) proposals for macroscopic quantum superposition and wavefunction-collapse testing (CSL, Diósi-Penrose) are adjacent to participatory-realism and quantum-foundations discussions in the PIFB manuscript. In summary, this paper is primarily relevant as background reading for the quantum-foundations / participatory cluster, not for the VFE attention mechanism itself.
 
 ## Cross-links
-- Concepts: [[Stochastic Thermodynamics]], [[Quantum Foundations]], [[Free Energy]]
-- Related sources: [[participatory-realism]]
-- Manuscript/Project: [[PIFB]]
+- Concepts: [[Stochastic Thermodynamics]], [[Participatory realism and quantum foundations|Quantum Foundations]], [[Variational free energy|Free Energy]]
+- Related sources: [[fuchs-2017-participatory-realism|participatory-realism]]
+- Manuscript/Project: [[Participatory realism (it from bit)|PIFB]]
 
 ## BibTeX
 ```bibtex

@@ -42,7 +42,7 @@ This paper is primarily background reference for language modeling rather than d
 
 ## Cross-links
 - Concepts: [[Information Geometry]], [[Variational Free Energy]]
-- Related sources: [[kneser1995improved]], [[jelinek1980interpolated]]
+- Related sources: [[kneser-1995-improved-backing-off|kneser1995improved]], [[jelinek-1980-interpolated-estimation|jelinek1980interpolated]]
 - Manuscript/Project: [[VFE Transformer Program]]
 
 ## BibTeX

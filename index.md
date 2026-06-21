@@ -7,7 +7,7 @@ updated: 2026-06-21
 
 # Index
 
-Catalog of this **LLM-wiki**. See [[LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
+Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
 > **3** projects · **4** manuscripts · **12** themes · **11** field MOCs · **268** concepts · **10** methods · **527** papers · **104** references · **1** run · **6** web/methodology
@@ -16,7 +16,7 @@ Catalog of this **LLM-wiki**. See [[LLM-Wiki Schema]] for conventions (Ingest / 
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
 - [[Gauge-Theoretic Multi-Agent VFE Model]] — the multi-agent, continuous-time instantiation (MAgent)
 - [[SocialPhysics]] — opinion dynamics & belief momentum as multi-agent VFE (founded on [[belief-inertia]])
-- [[LLM-Wiki Schema]] — how the wiki is maintained · [[log|Operations Log]] — operation history
+- [[CLAUDE|LLM-Wiki Schema]] — how the wiki is maintained · [[log|Operations Log]] — operation history
 
 ## 📐 Projects
 - [[Gauge-Theoretic Multi-Agent VFE Model]]
@@ -823,7 +823,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[hohwy-2013-predictive-mind|The Predictive Mind]]
 - [[kirchhoff-2018-markov-blankets-of-life|The Markov blankets of life: autonomy, active inference and the free energy principle]]
 - [[parr-2022-active-inference|Active Inference: The Free Energy Principle in Mind, Brain, and Behavior]]
-- [[ramstead-2019-variational-neuroethology|A tale of two densities: active inference is enactive inference (variational neuroethology and Markov blankets)]]
+- [[ramstead-2019-enactive-inference|A tale of two densities: active inference is enactive inference (variational neuroethology and Markov blankets)]]
 - [[sakthivadivel2022-bayesian-mechanics-geometry|Towards a Geometry and Analysis for Bayesian Mechanics]]
 - [[sengupta-2016-neuronal-gauge|Towards a Neuronal Gauge Theory]]
 - [[sengupta2017gauge|Approximate Bayesian inference as a gauge theory]]
@@ -902,8 +902,8 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[jiang2023-mistral7b|Mistral 7B]]
 - [[katharopoulos-2020-linear-transformers|Transformers are RNNs: Fast Autoregressive Transformers with Linear Attention]]
 - [[press2022-alibi|Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation]]
-- [[radford-2019-gpt2|Language Models Are Unsupervised Multitask Learners (GPT-2)]]
-- [[raffel-2020-t5|Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer (T5)]]
+- [[radford2019-gpt2|Language Models Are Unsupervised Multitask Learners (GPT-2)]]
+- [[raffel2020exploring|Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer (T5)]]
 - [[ramsauer2021hopfield|Hopfield Networks Is All You Need]]
 - [[su2024roformer|RoFormer: Enhanced Transformer with Rotary Position Embedding]]
 - [[voita-2019-attention-heads|Analyzing Multi-Head Self-Attention: Specialized Heads Do the Heavy Lifting, the Rest Can Be Pruned]]
@@ -963,7 +963,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[longino-2002-fate-of-knowledge|The Fate of Knowledge]]
 - [[luppi-2019-consciousness-integration-diversity|Consciousness-Specific Dynamic Interactions of Brain Integration and Functional Diversity]]
 - [[maldacena-1999-adscft|The Large N Limit of Superconformal Field Theories and Supergravity]]
-- [[maldacena-susskind-2013-er-epr|Cool Horizons for Entangled Black Holes (ER = EPR)]]
+- [[maldacena-2013-er-epr|Cool Horizons for Entangled Black Holes (ER = EPR)]]
 - [[mashour-2020-global-workspace|Conscious Processing and the Global Neuronal Workspace Hypothesis]]
 - [[nagel-1986-view-from-nowhere|The View from Nowhere]]
 - [[padmanabhan-2010-thermodynamical-gravity|Thermodynamical Aspects of Gravity: New Insights]]

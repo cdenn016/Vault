@@ -63,9 +63,9 @@ The DIB is directly relevant to the VFE transformer program in several ways. The
 > [!note] MDL / crisp-assignment framing (from refs/ note): The DIB is the **hard-assignment** end of the IB spectrum, and PIFB lives on that spectrum (attention/coarse-graining ranging soft↔hard, governed by $\tau = \kappa\sqrt{K}$). Penalizing $H(T)$ rather than $I(X;T)$ links bottleneck compression to **minimum-description-length** coding, and the hard-clustering optimum is the cleanest analogue of crisp [[Meta-agents and hierarchical emergence]] formation — assigning each constituent agent to exactly one meta-agent is a deterministic bottleneck on the population, and the DIB supplies the variational account of when that hard assignment is optimal.
 
 ## Cross-links
-- Concepts: [[Information Bottleneck]] [[KL Divergence]] [[Variational Free Energy]] [[Belief Compression]] [[Meta-agents and hierarchical emergence]]
+- Concepts: [[Information Bottleneck]] [[kullback-1951-kl-divergence|KL Divergence]] [[Variational Free Energy]] [[Belief Compression]] [[Meta-agents and hierarchical emergence]]
 - Related sources: [[tishby-1999-information-bottleneck]] (soft IB) [[slonim-2000-agglomerative-ib]] (agglomerative coarse-graining cousin)
-- Manuscript/Project: [[VFE Transformer Program]] [[GL(K) Attention]] [[participatory-it-from-bit]]
+- Manuscript/Project: [[VFE Transformer Program]] [[GL(K) gauge-equivariant attention|GL(K) Attention]] [[participatory-it-from-bit]]
 
 ## BibTeX
 ```bibtex

@@ -57,9 +57,9 @@ The paper is directly relevant to the participatory-realism and consciousness th
 The distinction between access unity (which breaks down at information-processing bottlenecks) and phenomenal unity (the global "total phenomenal state") maps naturally onto the distinction between local belief-propagation messages and the global VFE minimum in the transformer model: the free-energy landscape itself enforces a kind of global coherence that need not correspond to pairwise accessibility. The Sperling bottleneck is structurally analogous to bounded attention in the GL(K) attention mechanism, where softmax weights distribute finite capacity across tokens, yet the joint VFE is globally well-defined. The "total phenomenal state" idea — a single encompassing phenomenal state that subsumes all others — resonates with the hyper-prior level of the VFE hierarchy (h → s → p → q → observations), where the hyper-prior plays the role of the unifying "conscious field" across agents or layers. The paper's insistence that phenomenal unity is non-trivial (not merely the conjunction of states, but requiring that conjunction itself to be a phenomenal state) parallels the requirement in VFE theory that the joint belief distribution be a well-defined Gaussian, not merely a product of marginals — a covariance structure that can fail in degenerate cases.
 
 ## Cross-links
-- Concepts: [[Unity of Consciousness]] · [[Phenomenal Consciousness]] · [[Access Consciousness]] · [[Binding Problem]]
-- Related sources: [[Cleeremans-unity-consciousness]] · [[Block-access-phenomenal]] · [[Hurley1998]]
-- Manuscript/Project: [[PIFB]] · [[VFE Transformer Program]] · [[GL(K) Attention Manuscript]]
+- Concepts: [[bayne-2005-unity-consciousness|Unity of Consciousness]] · [[Phenomenal Consciousness]] · [[Access Consciousness]] · [[Binding Problem]]
+- Related sources: [[cleeremans-2003-unity-consciousness|Cleeremans-unity-consciousness]] · [[block-1995-confusion-consciousness|Block-access-phenomenal]] · [[hurley-1998-consciousness-in-action|Hurley1998]]
+- Manuscript/Project: [[Participatory realism (it from bit)|PIFB]] · [[VFE Transformer Program]] · [[gl-k-attention|GL(K) Attention Manuscript]]
 
 ## BibTeX
 ```bibtex

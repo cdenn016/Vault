@@ -56,8 +56,8 @@ single config toggle:
   descent $\dot\mu \propto -\Sigma\,\nabla_\mu\mathcal{F}$. In this limit
   the model reproduces standard Bayesian free-energy descent and the
   classical social-physics limits ([[degroot-1974-consensus|DeGroot]],
-  [[friedkin-johnsen-1990|Friedkin-Johnsen]], bounded-confidence
-  [[hegselmann-krause-2002|Hegselmann-Krause]] / [[deffuant-2000-bounded-confidence|Deffuant]]).
+  [[friedkin1990-social-influence-opinions|Friedkin-Johnsen]], bounded-confidence
+  [[hegselmann-2002-opinion|Hegselmann-Krause]] / [[deffuant2000-bounded-confidence|Deffuant]]).
 - **Underdamped / Hamiltonian** (`hamiltonian`): a symplectic leapfrog
   integrator that endows beliefs with momentum, producing oscillation,
   overshoot, resonance, and inter-agent momentum transfer absent from the

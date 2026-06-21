@@ -56,9 +56,9 @@ DEM (with embedding order $n=6$) accurately recovers the conditional trajectory 
 DEM is the foundational algorithmic realisation of the free-energy principle for dynamical systems and is directly ancestral to the VFE transformer. Key connections: (1) the free-energy $F = \langle U \rangle_q + H[q]$ is the same functional minimised in the VFE transformer's E-step, with the Laplace approximation giving Gaussian belief tuples $(\mu, \Sigma)$; (2) the hierarchical structure $h \to s \to p \to q \to o$ of the VFE transformer mirrors DEM's HDM with empirical priors at each level; (3) the D-step's prediction-error-driven update in generalised coordinates is the continuous-time counterpart of the transformer's attention-weighted belief propagation; (4) the mean-field partition of parameters into states/parameters/hyperparameters anticipates the VFE model's $(\mu, \Sigma, \phi)$ tuple with hyper-prior $h$ and model-level $s$; (5) the variational action path-integral framework connects to the active inference / FEP literature directly relevant to the multi-agent model.
 
 ## Cross-links
-- Concepts: [[Variational Free Energy]], [[Generalised Coordinates]], [[Active Inference]], [[Laplace Approximation]], [[Expectation Maximisation]], [[Bayesian mechanics]], [[Hamiltonian belief dynamics]], [[Natural gradient]]
-- Related sources: [[friston-2005-fep]], [[friston-2010-fep-unified]], [[dacosta-2021-bayesian-mechanics]], [[ramstead-2023-bayesian-mechanics]]
-- Manuscript/Project: [[VFE Transformer Program]], [[MAgent Model]]
+- Concepts: [[Variational Free Energy]], [[Generalised coordinates of motion|Generalised Coordinates]], [[Active Inference]], [[Laplace Approximation]], [[Variational EM|Expectation Maximisation]], [[Bayesian mechanics]], [[Hamiltonian belief dynamics]], [[Natural gradient]]
+- Related sources: [[friston-2005-cortical-responses|friston-2005-fep]], [[friston-2010-free-energy-principle|friston-2010-fep-unified]], [[dacosta-2021-bayesian-mechanics]], [[ramstead-2023-bayesian-mechanics]]
+- Manuscript/Project: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model|MAgent Model]]
 
 ## BibTeX
 ```bibtex

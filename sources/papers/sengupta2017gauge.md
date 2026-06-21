@@ -73,9 +73,9 @@ This paper is a direct conceptual ancestor of the V3_Transformer's gauge-equivar
 
 ## Cross-links
 
-- Concepts: [[Gauge Theory]], [[Variational Free Energy]], [[Information Geometry]], [[Parallel Transport]], [[Fisher Information Metric]], [[Schild's Ladder]], [[Attention as Precision-Weighting]], [[Gauge transformation]], [[Holonomy]], [[Agents as fibre-bundle sections]], [[Participatory realism (it from bit)]]
-- Related sources: [[sengupta-2016-neuronal-gauge]] (the 2016 PLoS Biology predecessor), [[friston2010free-energy]]
-- Manuscript/Project: [[GL(K) Attention Manuscript]], [[VFE Transformer Program]], [[participatory-it-from-bit]], [[Multi-agent variational free energy]]
+- Concepts: [[Gauge Theory]], [[Variational Free Energy]], [[Information Geometry]], [[Parallel Transport]], [[Fisher Information Metric]], [[Schild's Ladder]], [[Precision weighting|Attention as Precision-Weighting]], [[Gauge transformation]], [[Holonomy]], [[Agents as fibre-bundle sections]], [[Participatory realism (it from bit)]]
+- Related sources: [[sengupta-2016-neuronal-gauge]] (the 2016 PLoS Biology predecessor), [[friston-2010-free-energy-principle|friston2010free-energy]]
+- Manuscript/Project: [[gl-k-attention|GL(K) Attention Manuscript]], [[VFE Transformer Program]], [[participatory-it-from-bit]], [[Multi-agent variational free energy]]
 
 ## BibTeX
 

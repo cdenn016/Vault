@@ -51,7 +51,7 @@ PIFB ([[participatory-it-from-bit]]) posits a **capacity floor**: an irreducible
 ## Cross-links
 
 - Concepts: [[Information bottleneck]], [[Variational free energy]], [[Neural scaling laws]]
-- Sources: [[tishby-1999-information-bottleneck]], [[chechik-2005-gaussian-ib]], [[kaplan-2020-scaling-laws]]
+- Sources: [[tishby-1999-information-bottleneck]], [[chechik2005information-bottleneck-gaussian|chechik-2005-gaussian-ib]], [[kaplan-2020-scaling-laws]]
 - Project: [[participatory-it-from-bit]], [[Gauge-Theoretic Multi-Agent VFE Model]]
 
 ```bibtex

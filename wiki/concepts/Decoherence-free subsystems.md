@@ -23,4 +23,4 @@ Subsystems of a quantum system that are immune to a collective noise process bec
 [[Quantum reference frames]], [[G-twirling]], [[Superselection rules]], [[Irreducible representation]]
 
 ## Sources
-[[bartlett-rudolph-spekkens-2007-reference-frames]]
+[[bartlett-2007-reference-frames|bartlett-rudolph-spekkens-2007-reference-frames]]

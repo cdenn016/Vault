@@ -37,7 +37,7 @@ The canonical tutorial introducing variational methods for approximate inference
 Foundational reference for the variational lower bound (free energy) at the heart of the entire VFE program; cited by Beal as the basis for the VBEM treatment.
 
 ## Cross-links
-[[Variational free energy]], [[Amortized variational inference]]
+[[Variational free energy]], [[Amortized inference|Amortized variational inference]]
 
 ## BibTeX
 ```bibtex

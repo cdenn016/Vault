@@ -18,4 +18,4 @@ Quantum information is the theory of information encoded in quantum states (qubi
 [[Quantum information geometry]], [[Participatory realism (it from bit)]], [[Emergent spacetime and holography]], [[Quantum Entanglement]]
 
 ## Sources
-[[lloyd-2002-computational-capacity]], [[wheeler-1990-it-from-bit]]
+[[lloyd-2002-computational-capacity-universe|lloyd-2002-computational-capacity]], [[wheeler-1990-it-from-bit]]

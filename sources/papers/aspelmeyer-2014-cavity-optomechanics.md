@@ -44,9 +44,9 @@ The review compiles experimental parameters across many platforms (suspended mir
 This paper has limited direct relevance to the VFE transformer / GL(K) gauge-equivariant attention framework. The primary conceptual overlap is with the **participatory realism / quantum foundations** thread: Aspelmeyer has been a key figure in macroscopic quantum experiments testing the quantum-classical boundary, and the measurement backaction formalism here (standard quantum limit, QND measurement, quantum noise spectra) informs discussions of participatory observation and the it-from-bit program (Wheeler). The fluctuation-dissipation framework and the open-quantum-systems input-output formalism are mathematically adjacent to the Langevin / stochastic dynamics that appear in free-energy-based models. However, there is no direct connection to variational inference, attention mechanisms, SPD geometry, information geometry, or multi-agent active inference.
 
 ## Cross-links
-- Concepts: [[Quantum Measurement]], [[Participatory Realism]]
+- Concepts: [[Quantum Measurement]], [[fuchs-2017-participatory-realism|Participatory Realism]]
 - Related sources: [[wheeler-1990-it-from-bit]]
-- Manuscript/Project: [[Participatory It-From-Bit]]
+- Manuscript/Project: [[participatory-it-from-bit|Participatory It-From-Bit]]
 
 ## BibTeX
 ```bibtex

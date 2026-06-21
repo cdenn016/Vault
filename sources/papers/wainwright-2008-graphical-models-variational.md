@@ -57,9 +57,9 @@ This monograph is foundational background for the VFE transformer and GL(K) gaug
 > [!note] Editorial: The monograph is also published verbatim as a standalone book (Now Publishers, 2008); the *Foundations and Trends* article and the book share pagination (1–305). For the Gaussian exponential family the natural-to-mean map $\nabla A$ is precisely the passage from natural parameters $(\Sigma^{-1}\mu, -\tfrac12\Sigma^{-1})$ to mean parameters $(\mu, \Sigma + \mu\mu^\top)$ — the Legendre duality this monograph builds the whole theory on, and the identity underlying the model's Gaussian belief tuple $(\mu, \Sigma)$.
 
 ## Cross-links
-- Concepts: [[Variational Free Energy]] [[Exponential Families]] [[Belief Propagation]] [[Mean Field Theory]] [[Information Geometry]] [[Evidence lower bound (ELBO)]]
-- Related sources: [[amari-2016-information-geometry]] [[blei-2017-variational-inference-review]] [[dempster-1977-em]] [[amari-2000-methods-information-geometry]] [[blei-2017-variational-inference]] [[friston-2010-free-energy-principle]]
-- Manuscript/Project: [[VFE Transformer Program]] [[GL(K) Attention Manuscript]] [[Variational free energy and predictive coding]]
+- Concepts: [[Variational Free Energy]] [[Exponential family|Exponential Families]] [[Belief Propagation]] [[Mean-Field Approximation|Mean Field Theory]] [[Information Geometry]] [[Evidence lower bound (ELBO)]]
+- Related sources: [[amari-2016-information-geometry-applications|amari-2016-information-geometry]] [[blei-2017-variational-inference|blei-2017-variational-inference-review]] [[dempster-1977-em-algorithm|dempster-1977-em]] [[amari-2000-methods-information-geometry]] [[blei-2017-variational-inference]] [[friston-2010-free-energy-principle]]
+- Manuscript/Project: [[VFE Transformer Program]] [[gl-k-attention|GL(K) Attention Manuscript]] [[Variational free energy and predictive coding]]
 
 ## BibTeX
 ```bibtex

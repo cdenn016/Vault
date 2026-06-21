@@ -57,9 +57,9 @@ This paper is a core reference for the **participatory realism** philosophical b
 **Information is physical.** The principle that knowledge is stored in physical variables connects directly to the information-geometric perspective underlying VFE: beliefs are not abstract probability distributions but are encoded in physical (neural/computational) substrate, and their geometry (SPD matrices, Fisher metric) reflects the physical constraints of that substrate.
 
 ## Cross-links
-- Concepts: [[Participatory Realism]] · [[Relational Quantum Mechanics]] · [[Information is Physical]] · [[Parallel transport]] · [[Holonomy]] · [[Gauge transformation]] · [[Agents as fibre-bundle sections]]
-- Related sources: [[wheeler-1989-it-from-bit]] · [[rovelli-1996-relational-qm]] · [[friston-2019-free-energy]] · [[brukner-2018-no-go-observer-facts]] · [[frauchiger-renner-2018-no-self-description]]
-- Manuscript/Project: [[PIFB]] · [[participatory-it-from-bit]] · [[VFE Transformer Program]] · [[GL(K) Attention]]
+- Concepts: [[fuchs-2017-participatory-realism|Participatory Realism]] · [[Relational Quantum Mechanics]] · [[Information is Physical]] · [[Parallel transport]] · [[Holonomy]] · [[Gauge transformation]] · [[Agents as fibre-bundle sections]]
+- Related sources: [[wheeler-1990-it-from-bit|wheeler-1989-it-from-bit]] · [[rovelli-1996-relational-qm]] · [[friston-2019-particular-physics|friston-2019-free-energy]] · [[brukner-2018-no-go-observer-facts]] · [[frauchiger-renner-2018-no-self-description]]
+- Manuscript/Project: [[Participatory realism (it from bit)|PIFB]] · [[participatory-it-from-bit]] · [[VFE Transformer Program]] · [[GL(K) gauge-equivariant attention|GL(K) Attention]]
 
 > [!note] Editorial: Adlam-Rovelli's "cross-perspective links" are the closest existing-physics analogue of the project's inter-agent transport map $\Omega_{ij} = \exp(\phi_i)\exp(-\phi_j)$ — a fact in one frame is physically readable in another, consistently — which the project *constructs* as [[Parallel transport]] of beliefs along a connection, with the residual disagreement quantified by [[Holonomy]].
 

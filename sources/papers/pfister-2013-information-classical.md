@@ -33,7 +33,7 @@ Pfister and Wehner formulate an information-theoretic principle and show that an
 Prior work by the same author cited by pfister-2016-gravitational-decoherence as the information-theoretic-principle-implies-classicality result. Supports the participatory-realism / it-from-bit thread's use of information-theoretic axioms (no-signalling, GPTs) to constrain physical theory.
 
 ## Cross-links
-[[No-Signalling Principle]], [[Bell Inequality]], [[Informational reconstruction of quantum theory]]
+[[No-Signalling Principle]], [[Bell inequalities|Bell Inequality]], [[Informational reconstruction of quantum theory]]
 
 ## BibTeX
 ```bibtex

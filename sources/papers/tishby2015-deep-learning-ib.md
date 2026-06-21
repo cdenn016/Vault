@@ -50,9 +50,9 @@ The IB distortion measure enables evaluation of individual hidden layers (not ju
 The IB principle connects directly to the VFE transformer framework in several ways. The free energy functional in this research program balances compression (KL divergences penalizing deviation from priors) against prediction (observation likelihood), which is structurally isomorphic to the IB tradeoff L = I(X;X̂) - β I(X̂;Y). The Markovian hierarchy X → h_1 → ... → Ŷ mirrors the VFE hierarchy h → s → p → q → observations. The role of KL divergence as the IB distortion measure d_IB(x,x̂) = D_KL[p(y|x) ‖ p(y|x̂)] is the same divergence used throughout the VFE belief-coupling terms. The IB phase transitions and their spectral characterization (second-order correlations, eigenvalue bifurcations) are reminiscent of the GL(K) gauge structure and the role of the SPD belief covariance Σ in organizing representations. The finite-sample complexity argument (compression is necessary for generalization) aligns with the VFE prior-bank regularization that prevents beliefs from collapsing to arbitrary precision.
 
 ## Cross-links
-- Concepts: [[Information Bottleneck]], [[Mutual Information]], [[KL Divergence]], [[Data Processing Inequality]]
+- Concepts: [[Information Bottleneck]], [[Mutual Information]], [[kullback-1951-kl-divergence|KL Divergence]], [[Data Processing Inequality]]
 - Related sources: [[tishby-1999-information-bottleneck]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]]
+- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) gauge-equivariant attention|GL(K) Attention]]
 
 ## BibTeX
 ```bibtex

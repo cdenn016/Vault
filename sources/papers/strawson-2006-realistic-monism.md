@@ -44,9 +44,9 @@ This paper is relevant primarily through the participatory realism / philosophy 
 > [!note] Anti-emergence framing (from refs/ note): Strawson supplies the **anti-(brute-)emergence pressure** that motivates the manuscript [[participatory-it-from-bit]]'s panprotopsychist (rather than emergentist) commitment, via [[chalmers-2013-panpsychism]]. If PIFB took the line that consciousness simply *emerges* at some scale of belief-coupling, Strawson is the standing objection. The project answers in the Russellian-structuralist idiom it shares with [[russell-1927-analysis-of-matter]] and [[goff-2017-consciousness-fundamental-reality]]: protophenomenal nature occupies the categorical roles of the gauge structure at the base, so higher-scale experience is *constituted* (via [[Meta-agents and hierarchical emergence]] and [[Ouroboros multi-scale dynamics]]) rather than brutely emergent — which is exactly why the project owes an account of the [[chalmers-2016-combination-problem]]. This places the note within the [[Mathematical consciousness science]] and [[Participatory realism (it from bit)]] threads: PIFB is constitutive panprotopsychism, defended against brute emergence on Strawson's grounds.
 
 ## Cross-links
-- Concepts: [[Participatory Realism]], [[Consciousness]], [[Panpsychism]], [[Philosophy of Mind]], [[Mathematical consciousness science]], [[Participatory realism (it from bit)]], [[Meta-agents and hierarchical emergence]]
+- Concepts: [[fuchs-2017-participatory-realism|Participatory Realism]], [[Consciousness]], [[Russellian monism|Panpsychism]], [[Philosophy of Mind]], [[Mathematical consciousness science]], [[Participatory realism (it from bit)]], [[Meta-agents and hierarchical emergence]]
 - Related sources: [[wheeler-1990-it-from-bit]], [[nagel-1974-what-is-it-like]], [[chalmers-2013-panpsychism]], [[chalmers-2016-combination-problem]], [[russell-1927-analysis-of-matter]], [[goff-2017-consciousness-fundamental-reality]]
-- Manuscript/Project: [[PIFB]], [[participatory-it-from-bit]], [[VFE Transformer Program]]
+- Manuscript/Project: [[Participatory realism (it from bit)|PIFB]], [[participatory-it-from-bit]], [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex

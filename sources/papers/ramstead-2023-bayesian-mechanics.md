@@ -63,7 +63,7 @@ This is the paper whose central phrase — "a physics of and by beliefs" — **[
 - Concepts: [[Variational free energy]], [[Fisher information metric]], [[Natural gradient]], [[Participatory realism (it from bit)]], [[Hamiltonian belief dynamics]]
 - New pages: [[Bayesian mechanics]], [[Markov blanket interpretation debate]]
 - Methods/themes: [[Free-energy principle active inference]], [[Multi-agent variational free energy]], [[Information geometry and natural gradient]]
-- Related sources: [[dacosta-2021-bayesian-mechanics]], [[friston-2019-particular-physics]], [[parr-2020-markov-blankets-thermodynamics]], [[sakthivadivel-2022-geometry-bayesian-mechanics]], [[caticha-2019-entropic-dynamics]]
+- Related sources: [[dacosta-2021-bayesian-mechanics]], [[friston-2019-particular-physics]], [[parr-2020-markov-blankets-thermodynamics]], [[sakthivadivel2022-bayesian-mechanics-geometry|sakthivadivel-2022-geometry-bayesian-mechanics]], [[caticha-2019-entropic-dynamics-qm|caticha-2019-entropic-dynamics]]
 - Manuscript: [[participatory-it-from-bit]]
 
 ```bibtex

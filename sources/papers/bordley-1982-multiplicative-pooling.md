@@ -47,12 +47,12 @@ Treating expert assessments as conditionally independent evidence about the true
 
 ## Relevance to this research
 
-Bordley (1982) is the historical root of the pooling rule the project's meta-agent code *deliberately rejects*. The coarse-graining step in [[Meta-agents and hierarchical emergence]] pools constituent beliefs by a gauge-covariant arithmetic (sandwich) average of $(\mu,\Sigma)$, not by the multiplicative product Bordley derives, precisely to avoid the product's veto pathology and to remain consensus-preserving. This reference therefore documents the alternative the project measures itself against: it is the precursor to the product-of-experts of [[hinton-2002-poe]] and the geometric-pool branch of the [[genest-zidek-1986-pooling]] and [[dietrich-list-2016-opinion-pooling]] taxonomies. Where PIFB (see [[participatory-it-from-bit]]) *does* invoke a log-linear pool — in the discounted-KL multi-generation hyperprior, where the weighted-product Gaussian precision $\Sigma_\star^{-1} = \sum_k \lambda_k \Sigma_k^{-1}$ is exactly Bordley's multiplicative aggregate — this note marks the genealogy of that form. Citing Bordley fixes which pooling tradition the project is and is not adopting at each point in the model.
+Bordley (1982) is the historical root of the pooling rule the project's meta-agent code *deliberately rejects*. The coarse-graining step in [[Meta-agents and hierarchical emergence]] pools constituent beliefs by a gauge-covariant arithmetic (sandwich) average of $(\mu,\Sigma)$, not by the multiplicative product Bordley derives, precisely to avoid the product's veto pathology and to remain consensus-preserving. This reference therefore documents the alternative the project measures itself against: it is the precursor to the product-of-experts of [[hinton-2002-products-of-experts|hinton-2002-poe]] and the geometric-pool branch of the [[genest-zidek-1986-pooling]] and [[dietrich-list-2016-opinion-pooling]] taxonomies. Where PIFB (see [[participatory-it-from-bit]]) *does* invoke a log-linear pool — in the discounted-KL multi-generation hyperprior, where the weighted-product Gaussian precision $\Sigma_\star^{-1} = \sum_k \lambda_k \Sigma_k^{-1}$ is exactly Bordley's multiplicative aggregate — this note marks the genealogy of that form. Citing Bordley fixes which pooling tradition the project is and is not adopting at each point in the model.
 
 ## Cross-links
 
 - Concepts: [[Meta-agents and hierarchical emergence]], [[Multi-agent variational free energy]]
-- Related sources: [[hinton-2002-poe]], [[genest-zidek-1986-pooling]], [[dietrich-list-2016-opinion-pooling]]
+- Related sources: [[hinton-2002-products-of-experts|hinton-2002-poe]], [[genest-zidek-1986-pooling]], [[dietrich-list-2016-opinion-pooling]]
 - Manuscript: [[participatory-it-from-bit]]
 - Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
 

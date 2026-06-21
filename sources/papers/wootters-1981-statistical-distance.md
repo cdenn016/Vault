@@ -47,13 +47,13 @@ He defines statistical distance via the distinguishability of neighboring distri
 
 ## Relevance to this research
 
-This paper is the historical root of the distinguishability metric that [[participatory-it-from-bit]] *pulls back*. PIFB's program treats the geometry of an agent's belief space as primary and asks what physical structure it induces; Wootters provides the founding demonstration that a core piece of physics — the Hilbert-space geometry of quantum states — is itself the pullback of a purely statistical, observer-defined distinguishability metric. That is precisely the participatory move PIFB generalizes: physical geometry as the shadow of how an agent can tell its states apart. The Fisher–Rao statistical distance Wootters uses is the same [[Fisher information metric]] the project employs throughout, and the identification "statistical distance = geometric angle" is the conceptual template for PIFB's signature/complexification arguments and for any quantum extension. It links directly to the entropic-dynamics derivation of quantum geometry in [[caticha-2019-entropic-dynamics]] and to the broader [[Participatory realism (it from bit)]] thread descending from [[wheeler-1990-it-from-bit]].
+This paper is the historical root of the distinguishability metric that [[participatory-it-from-bit]] *pulls back*. PIFB's program treats the geometry of an agent's belief space as primary and asks what physical structure it induces; Wootters provides the founding demonstration that a core piece of physics — the Hilbert-space geometry of quantum states — is itself the pullback of a purely statistical, observer-defined distinguishability metric. That is precisely the participatory move PIFB generalizes: physical geometry as the shadow of how an agent can tell its states apart. The Fisher–Rao statistical distance Wootters uses is the same [[Fisher information metric]] the project employs throughout, and the identification "statistical distance = geometric angle" is the conceptual template for PIFB's signature/complexification arguments and for any quantum extension. It links directly to the entropic-dynamics derivation of quantum geometry in [[caticha-2019-entropic-dynamics-qm|caticha-2019-entropic-dynamics]] and to the broader [[Participatory realism (it from bit)]] thread descending from [[wheeler-1990-it-from-bit]].
 
 ## Cross-links
 
 - Concept: [[Fisher information metric]] (Fisher–Rao distance), [[Quantum information geometry]].
 - Theme: [[Physics from Fisher information]], [[Participatory realism (it from bit)]].
-- Sources: [[braunstein-caves-1994-quantum-fisher]], [[caticha-2019-entropic-dynamics]], [[wheeler-1990-it-from-bit]], [[bengtsson-zyczkowski-2017-geometry-quantum-states]].
+- Sources: [[braunstein-caves-1994-quantum-fisher]], [[caticha-2019-entropic-dynamics-qm|caticha-2019-entropic-dynamics]], [[wheeler-1990-it-from-bit]], [[bengtsson-zyczkowski-2017-geometry-quantum-states]].
 - Manuscript: [[participatory-it-from-bit]].
 
 ## BibTeX

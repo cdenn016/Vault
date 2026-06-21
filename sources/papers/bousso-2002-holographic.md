@@ -50,10 +50,10 @@ The covariant entropy bound holds in every tested case, including all settings w
 The holographic principle is the foundational backdrop for the participatory "it from bit" program: the claim that physical reality is constituted by information, that geometry encodes information content, and that the degrees of freedom of spacetime are area-scaling rather than volume-scaling. This maps directly onto the cluster/participatory/quantum-foundations themes in this research program. The covariant entropy bound's reliance on light-sheets and null geometry resonates with the information-geometric structures underlying the VFE transformer's belief geometry: both replace naive local (volume) counting with a global geometric (area/boundary) constraint. The role of unitarity and black hole complementarity — that no single observer can access both copies of information — echoes the perspectival, observer-relative framing of participatory realism (Wheeler's "it from bit") explored in the PIFB manuscript. The area-information duality (A/4 degrees of freedom) is a concrete instantiation of the general claim that geometry and information are unified, which the VFE/GL(K) framework pursues in the context of Riemannian/SPD belief geometry and gauge-equivariant attention.
 
 ## Cross-links
-- Concepts: [[Holographic Principle]], [[Covariant Entropy Bound]], [[Black Hole Thermodynamics]], [[Information Geometry]], [[Fisher information metric]], [[Participatory Realism]], [[Participatory realism (it from bit)]]
+- Concepts: [[Emergent spacetime and holography|Holographic Principle]], [[Covariant Entropy Bound]], [[Black Hole Thermodynamics]], [[Information Geometry]], [[Fisher information metric]], [[fuchs-2017-participatory-realism|Participatory Realism]], [[Participatory realism (it from bit)]]
 - Themes: [[Emergent spacetime and holography]]
-- Related sources: [[wheeler-1990-it-from-bit]], [[bekenstein-1973-black-holes]], [[thooft-1993-dimensional-reduction]], [[maldacena-1998-adscft]]
-- Manuscript/Project: [[PIFB]], [[participatory-it-from-bit]], [[VFE Transformer Program]]
+- Related sources: [[wheeler-1990-it-from-bit]], [[bekenstein-1973-black-holes-entropy|bekenstein-1973-black-holes]], [[thooft-1993-dimensional-reduction]], [[maldacena-1999-adscft|maldacena-1998-adscft]]
+- Manuscript/Project: [[Participatory realism (it from bit)|PIFB]], [[participatory-it-from-bit]], [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex

@@ -30,7 +30,7 @@ The chief tension QBism leaves open is *objectivity*: if every state is one agen
 
 ## Sources
 
-- [[fuchs-2014-qbism]] — the canonical short introduction: states as personal credence, Born rule as coherence constraint, measurement as participatory action, dissolution of EPR/Bell nonlocality.
+- [[fuchs2014-qbism-locality|fuchs-2014-qbism]] — the canonical short introduction: states as personal credence, Born rule as coherence constraint, measurement as participatory action, dissolution of EPR/Bell nonlocality.
 - [[fuchs-schack-2013-bayesian-coherence]] — the technical core: the SIC-POVM reformulation of the Born rule as a single dimension-dependent deformation of the law of total probability.
 - [[fuchs-2017-participatory-realism]] — Fuchs coins *participatory realism* as the umbrella over QBism, RQM, and Wheeler observer-participancy; names the project's own stance.
 - [[mermin-1998-correlations]] — "correlations without correlata," the Ithaca interpretation bridging relational and QBist lines.

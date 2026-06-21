@@ -46,9 +46,9 @@ The main philosophical result is the coinage and defence of the term "participat
 Participatory realism is the philosophical backbone of the PIFB (Participatory It-From-Bit) manuscript, which generalises Wheeler's it-from-bit programme to the active-inference/VFE setting. Several direct connections: (1) The QBist agent's probability assignments updated by the Born Rule are the quantum analogue of the VFE agent's belief distributions updated by variational free energy minimisation — both are normative, first-person prescriptions that nonetheless point to inter-subjective structure. (2) Wheeler's "elementary quantum phenomena" as elementary acts of creation map onto the discrete VFE update steps in the multi-agent active-inference model: each belief update is a local "QBoom." (3) The distinction between the subjective quantum state and the objective normative Born Rule parallels the distinction in the VFE framework between agent-specific posteriors q_i and the shared gauge-equivariant transport structure Omega_ij — the latter is the "objective factor" that agents must agree on. (4) Fuchs's insistence that agents are non-eliminable participators directly motivates the multi-agent FEP model where individual agents' actions reshape the shared generative model, not merely sample from a pre-existing one.
 
 ## Cross-links
-- Concepts: [[Participatory realism (it from bit)]], [[QBism]], [[It from Bit]], [[Variational Free Energy]], [[Active Inference]], [[Gauge transformation]], [[Parallel transport]], [[Holonomy]], [[Agents as fibre-bundle sections]], [[Multi-agent variational free energy]]
-- Related sources: [[wheeler-1990-it-from-bit]], [[fuchs-2014-qbism]], [[fuchs-schack-2013-bayesian-coherence]], [[rovelli-1996-relational-qm]], [[friston-2023-active-inference]]
-- Manuscript/Project: [[PIFB]], [[VFE Transformer Program]]
+- Concepts: [[Participatory realism (it from bit)]], [[QBism]], [[Participatory realism (it from bit)|It from Bit]], [[Variational Free Energy]], [[Active Inference]], [[Gauge transformation]], [[Parallel transport]], [[Holonomy]], [[Agents as fibre-bundle sections]], [[Multi-agent variational free energy]]
+- Related sources: [[wheeler-1990-it-from-bit]], [[fuchs2014-qbism-locality|fuchs-2014-qbism]], [[fuchs-schack-2013-bayesian-coherence]], [[rovelli-1996-relational-qm]], [[friston-2023-fep-simpler|friston-2023-active-inference]]
+- Manuscript/Project: [[Participatory realism (it from bit)|PIFB]], [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex

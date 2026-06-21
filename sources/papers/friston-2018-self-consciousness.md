@@ -43,9 +43,9 @@ The paper's main thesis is that consciousness is defined by the temporal thickne
 The paper provides a foundational philosophical grounding for the free energy principle that is directly upstream of the VFE transformer program. The identification of self-evidencing with surprise minimization (variational free energy) is the core motivation for the VFE functional `F` used throughout the GL(K) attention architecture. The emphasis on temporal depth and counterfactual generative models connects to the multi-agent active inference framework in `MAgent_Model`, where agents maintain Gaussian belief tuples `(mu, Sigma, phi)` that are updated by iterative VFE minimization across a hierarchy `h → s → p → q → observations`. The self/other distinction discussed here is also relevant to the multi-agent coupling terms in `F` (the `beta_ij` belief-coupling and `gamma_ij` model-coupling sums), which implement the inferential binding between agents' generative models. The paper's grounding of consciousness in Lyapunov / free energy dynamics connects to the participatory realism and "it from bit" themes explored in `Manuscripts-Theory/PIFB.tex`.
 
 ## Cross-links
-- Concepts: [[Variational Free Energy]], [[Active Inference]], [[Free Energy Principle]], [[Markov Blanket]], [[Predictive Processing]]
-- Related sources: [[friston-2013-life-as-we-know-it]], [[ramstead-2017-answering-schrodinger]]
-- Manuscript/Project: [[VFE Transformer Program]], [[MAgent Model]]
+- Concepts: [[Variational Free Energy]], [[Active Inference]], [[Free-energy principle active inference|Free Energy Principle]], [[Markov Blanket]], [[Predictive processing and controlled hallucination|Predictive Processing]]
+- Related sources: [[friston-2013-life-as-we-know-it]], [[ramstead-2018-answering-schrodinger|ramstead-2017-answering-schrodinger]]
+- Manuscript/Project: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model|MAgent Model]]
 
 ## BibTeX
 ```bibtex

@@ -17,4 +17,4 @@ Zero-shot learning is the ability of a model to perform a task it was never expl
 `in-context learning`, [[Attention mechanisms — theory and positional structure]]
 
 ## Sources
-[[radford-2019-gpt2]]
+[[radford2019-gpt2|radford-2019-gpt2]]

@@ -34,7 +34,7 @@ Friston casts perception as empirical Bayesian inference in a hierarchical gener
 A foundational free-energy-principle / predictive-coding reference for the VFE program: it establishes free-energy minimization over hierarchical generative models as the account of cortical inference, the conceptual root of the variational-free-energy transformer's layered belief updating.
 
 ## Cross-links
-[[Free energy principle]], [[Predictive coding]], [[Variational free energy]]
+[[Free-energy principle active inference|Free energy principle]], [[Predictive coding]], [[Variational free energy]]
 
 ## BibTeX
 ```bibtex

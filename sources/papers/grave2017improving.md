@@ -50,7 +50,7 @@ The Neural Cache Model implements a form of non-parametric, dot-product-based re
 
 ## Cross-links
 - Concepts: [[Attention Mechanism]], [[Memory-Augmented Networks]], [[Language Modeling]]
-- Related sources: [[merity2016pointer]], [[sukhbaatar2015end]], [[graves2014neural]]
+- Related sources: [[merity2017-pointer-sentinel|merity2016pointer]], [[sukhbaatar-2015-end-to-end-memory|sukhbaatar2015end]], [[graves-2014-neural-turing-machines|graves2014neural]]
 - Manuscript/Project: [[VFE Transformer Program]]
 
 ## BibTeX

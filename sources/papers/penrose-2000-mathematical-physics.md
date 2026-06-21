@@ -32,7 +32,7 @@ Penrose's contribution to the Mathematical Physics 2000 volume develops his prop
 Provides the theoretical objective-collapse model (Penrose-Diosi) that the mirror-superposition and levitated-optomechanics experiments aim to test, and underpins the observer-dependent, gravity-coupled ontology discussed in the PIFB participatory it-from-bit manuscript.
 
 ## Cross-links
-[[Participatory realism and quantum foundations]], [[Quantum Decoherence]]
+[[Participatory realism and quantum foundations]], [[Decoherence|Quantum Decoherence]]
 
 ## BibTeX
 ```bibtex

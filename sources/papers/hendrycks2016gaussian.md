@@ -48,7 +48,7 @@ The GELU is mentioned here primarily for completeness as a standard transformer 
 
 ## Cross-links
 - Concepts: [[Gaussian Beliefs]], [[Transformer Architecture]], [[Activation Functions]]
-- Related sources: [[vaswani2017attention]], [[devlin2018bert]]
+- Related sources: [[vaswani-2017-attention|vaswani2017attention]], [[devlin-2018-bert|devlin2018bert]]
 - Manuscript/Project: [[VFE Transformer Program]]
 
 ## BibTeX

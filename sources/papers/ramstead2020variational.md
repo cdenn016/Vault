@@ -2,7 +2,6 @@
 type: paper
 title: "Variational ecology and the physics of sentient systems"
 aliases:
-  - "Ramstead 2019"
   - "Variational Ecology"
   - "VE"
 authors:
@@ -46,9 +45,9 @@ The paper's key theoretical results are the following. First, the extensivity of
 This paper is directly relevant to the multi-agent extension of the VFE transformer program. The extensivity of variational free energy over agent ensembles is the justification for summing individual agent free energies in the MAgent_Model, and the recursive MB nesting underpins the multi-scale belief-coupling architecture. The coupling term in the VFE free energy functional — $\sum_{ij} \beta_{ij} \mathrm{KL}(q_i \| \Omega_{ij} q_j)$ — is a formal realisation of the pairwise belief coupling that VE describes informally between agents sharing a niche. The gauge transport $\Omega_{ij}$ in the GL(K)-equivariant attention corresponds to the statistical structure of niche-mediated coupling among agents' internal states. The paper also provides conceptual grounding for the social-physics extension, since VE's physics of interacting minds directly motivates modelling social opinion dynamics as active inference over shared niches with affordance-structured interactions.
 
 ## Cross-links
-- Concepts: [[Free Energy Principle]], [[Active Inference]], [[Markov Blanket]], [[Variational Free Energy]], [[Niche Construction]]
-- Related sources: [[friston2019free]], [[ramstead2018answering]], [[constant2018variational]]
-- Manuscript/Project: [[VFE Transformer Program]], [[MAgent Model]]
+- Concepts: [[Free-energy principle active inference|Free Energy Principle]], [[Active Inference]], [[Markov Blanket]], [[Variational Free Energy]], [[Niche Construction]]
+- Related sources: [[friston-2019-particular-physics|friston2019free]], [[ramstead-2018-answering-schrodinger|ramstead2018answering]], [[constant-2018-variational-niche|constant2018variational]]
+- Manuscript/Project: [[VFE Transformer Program]], [[Gauge-Theoretic Multi-Agent VFE Model|MAgent Model]]
 
 ## BibTeX
 ```bibtex

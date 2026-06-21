@@ -69,10 +69,10 @@ This paper is foundational background for the VFE transformer program. Several c
 > Clark distils predictive processing into **five core claims**: (1) the brain encodes a hierarchical generative model of its sensory stream; (2) perception is Bayesian inference within that model; (3) prediction errors, not raw stimuli, are the primary bottom-up signal; (4) attention is precision-weighting of prediction errors; (5) action is active inference — motor predictions fulfilled by movement. The single-layer free energy he writes, $F = D_{\text{KL}}[q(\theta)\,\|\,p(\theta\mid s)] - \log p(s)$, is the one-level instance of the VFE transformer's full multi-level belief-coupling functional $F = \alpha\,\text{KL}(q_i\|p_i) + \lambda_h\,\text{KL}(s_i\|h) + \sum_{ij}[\beta_{ij}\,\text{KL}(q_i\|\Omega_{ij}q_j) + \tau\beta_{ij}\log(\beta_{ij}/\pi_{ij})] - \mathbb{E}_q[\log p(o\mid x)]$. The **"dark-room" objection** (PP predicts organisms should seek sensory-impoverished environments) is answered by noting that itinerant exploration is itself predicted given species-typical priors about a changing world.
 
 ## Cross-links
-- Concepts: [[Predictive Coding]] · [[Variational Free Energy]] · [[Active Inference]] · [[Free Energy Principle]] · [[Attention as Precision]] · [[Hierarchical Generative Model]] · [[Bayesian Brain]] · [[Collective active inference]] · [[Multi-agent variational free energy]]
-- Related sources: [[friston-2010-free-energy]] · [[rao-ballard-1999]] · [[hohwy-2013-predictive-mind]] · [[friston-2016-active-inference-learning]] · [[bogacz-2017-free-energy-tutorial]] · [[smith-2022-active-inference-tutorial]]
+- Concepts: [[Predictive Coding]] · [[Variational Free Energy]] · [[Active Inference]] · [[Free-energy principle active inference|Free Energy Principle]] · [[Precision weighting|Attention as Precision]] · [[Hierarchical Generative Model]] · [[Bayesian brain hypothesis|Bayesian Brain]] · [[Collective active inference]] · [[Multi-agent variational free energy]]
+- Related sources: [[friston-2010-free-energy-principle|friston-2010-free-energy]] · [[rao-1999-predictive-coding|rao-ballard-1999]] · [[hohwy-2013-predictive-mind]] · [[friston-2016-active-inference-learning]] · [[bogacz-2017-free-energy-tutorial]] · [[smith-2022-active-inference-tutorial]]
 - Methods: [[Free-energy principle active inference]] · [[Predictive coding network]]
-- Manuscript/Project: [[VFE Transformer Program]] · [[GL(K) Attention Manuscript]] · [[PIFB Manuscript]] · [[Gauge-Theoretic Multi-Agent VFE Model]]
+- Manuscript/Project: [[VFE Transformer Program]] · [[gl-k-attention|GL(K) Attention Manuscript]] · [[participatory-it-from-bit|PIFB Manuscript]] · [[Gauge-Theoretic Multi-Agent VFE Model]]
 
 ## BibTeX
 ```bibtex

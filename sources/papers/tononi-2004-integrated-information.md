@@ -46,9 +46,9 @@ Simulated systems optimised for Φ develop heterogeneous, globally connected arc
 Tononi's IIT is directly relevant to the participatory / philosophy-of-mind strand of the VFE research program in several ways. The Φ measure operationalises causal integration across a system's bipartitions using mutual information and effective information — an information-geometric quantity closely related to the KL divergences that appear throughout the VFE free energy functional. The notion of a *complex* (a subset maximising integrated information) parallels the role of the GL(K) attention mechanism in selecting which belief-states are causally coupled: the β_ij weights in F determine which pairs of beliefs (q_i, q_j) are informationally linked, and the gauge-equivariant transport Ω_ij controls the geometry of that linkage. The *qualia space* (effective information matrix) maps conceptually onto the SPD belief-geometry of the transformer: different configurations of (μ, Σ) encode distinct experiential states, and the informational relationships among layers/agents define the structure of the representational space. In the multi-agent active inference setting, a multi-agent network with high Φ across agents would correspond to a socially integrated group that cannot be decomposed into independent sub-communities — precisely the kind of emergent collective consciousness that the participatory PIFB manuscript aims to ground theoretically. IIT's insistence that consciousness is substrate-independent and graded also aligns with the PIFB's participatory realism framing.
 
 ## Cross-links
-- Concepts: [[Integrated Information Theory]], [[Variational Free Energy]], [[Information Geometry]], [[Active Inference]]
-- Related sources: [[friston-2010-free-energy]], [[bayne-2010-unity-of-consciousness]]
-- Manuscript/Project: [[VFE Transformer Program]], [[PIFB]]
+- Concepts: [[tononi-2004-integrated-information|Integrated Information Theory]], [[Variational Free Energy]], [[Information Geometry]], [[Active Inference]]
+- Related sources: [[friston-2010-free-energy-principle|friston-2010-free-energy]], [[bayne-2010-unity-of-consciousness]]
+- Manuscript/Project: [[VFE Transformer Program]], [[Participatory realism (it from bit)|PIFB]]
 
 ## BibTeX
 ```bibtex

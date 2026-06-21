@@ -36,7 +36,7 @@ Argues that the canonical cortical computation of divisive normalization impleme
 Connects divisive normalization — the operation behind softmax/attention normalization — to approximate Bayesian marginalization in PPCs, supporting the program's view of attention normalization as precision-weighted probabilistic inference.
 
 ## Cross-links
-[[Precision-weighted attention]], [[Predictive coding]]
+[[Precision weighting|Precision-weighted attention]], [[Predictive coding]]
 
 ## BibTeX
 ```bibtex

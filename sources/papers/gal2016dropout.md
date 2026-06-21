@@ -58,8 +58,8 @@ Across ten UCI regression benchmarks, MC dropout matches or outperforms Probabil
 The VFE transformer maintains explicit Gaussian belief tuples $(μ, Σ, φ)$ and minimizes a variational free energy that subsumes KL divergences between beliefs and priors. The Gal–Ghahramani result is directly germane in two ways. First, it provides a reference anchor for what "approximate Bayesian inference via KL minimization" means in a computationally tractable setting, grounding the VFE hierarchy's free-energy functional in a concrete finite-network analog. Second, the MC dropout predictive variance formula — expressing epistemic uncertainty as the sample variance of stochastic forward passes — is structurally analogous to how the VFE transformer propagates $\Sigma$ through attention layers: both track second-moment information that standard (deterministic, point-estimate) architectures discard. The connection is particularly relevant to the $\alpha_i$ self-coupling term $\alpha \cdot \mathrm{KL}(q_i \| p_i)$, which penalizes beliefs that deviate from priors and plays the same regularization role as dropout's weight-decay-through-$\tau$. The paper also illustrates why uncertainty representation is indispensable for active inference and reinforcement learning — a motivation the VFE program shares. It does not address gauge equivariance, SPD geometry, or GL(K) transport, so its relevance is at the level of the variational inference substrate rather than the geometric superstructure.
 
 ## Cross-links
-- Concepts: [[Variational Free Energy]] [[Gaussian Process]] [[KL Divergence]] [[Approximate Bayesian Inference]]
-- Related sources: [[kingma2013vae]] [[blundell2015weight]]
+- Concepts: [[Variational Free Energy]] [[Gaussian Process]] [[kullback-1951-kl-divergence|KL Divergence]] [[Approximate Bayesian Inference]]
+- Related sources: [[kingma-2013-auto-encoding-variational-bayes|kingma2013vae]] [[blundell-2015-weight-uncertainty|blundell2015weight]]
 - Manuscript/Project: [[VFE Transformer Program]]
 
 ## BibTeX

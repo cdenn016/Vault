@@ -55,8 +55,8 @@ The precision-weighted fusion rule in eqs. (17)-(18) is structurally identical t
 > [!note] Shadow-prior framing (from refs/ note): The Ladder VAE's top-down precision-weighted posterior is the conventional-deep-learning precedent for PIFB's **cross-scale shadow priors**. In the project's tower the prior of a scale-$s$ agent is its parent's belief transported down, $p_i^{(s)} = \Omega_{i,I}[q_I^{(s+1)}]$ — so the coarse scale's belief informs the fine scale's posterior through a top-down pass, structurally the same idea as the ladder's top-down prior merged with bottom-up evidence. The Gaussian precision-weighted merge is exactly the operation PIFB performs with its Gaussian belief tuples and the self-coupling KL term $\alpha\,\mathrm{KL}(q_i\|p_i)$.
 
 ## Cross-links
-- Concepts: [[Variational Free Energy]] [[Belief Propagation]] [[Information Geometry]] [[Hierarchical Latent Variable Models]] [[Meta-agents and hierarchical emergence]] [[Iterative amortized inference]]
-- Related sources: [[kingma-2013-vae]] [[burda-2015-iwae]] [[rezende-2015-normalizing-flows]]
+- Concepts: [[Variational Free Energy]] [[Belief Propagation]] [[Information Geometry]] [[Hierarchical generative model|Hierarchical Latent Variable Models]] [[Meta-agents and hierarchical emergence]] [[Iterative amortized inference]]
+- Related sources: [[kingma-2013-auto-encoding-variational-bayes|kingma-2013-vae]] [[burda-2015-iwae]] [[rezende-2015-normalizing-flows]]
 - Manuscript/Project: [[VFE Transformer Program]] [[participatory-it-from-bit]]
 
 ## BibTeX

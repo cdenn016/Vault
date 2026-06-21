@@ -3,7 +3,6 @@ type: paper
 title: "Tensor Field Networks: Rotation- and Translation-Equivariant Neural Networks for 3D Point Clouds"
 aliases:
   - "Thomas 2018"
-  - "TFN"
   - "thomas2018-tensor-field-networks"
   - "thomas2018tensor"
 authors:

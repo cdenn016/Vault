@@ -3,8 +3,6 @@ type: paper
 title: "Estimating the Dimension of a Model"
 aliases:
   - Schwarz 1978
-  - BIC
-  - Bayesian Information Criterion
   - Schwarz (1978) BIC
 authors:
   - Schwarz, Gideon
@@ -52,10 +50,10 @@ The main result is that maximizing BIC yields a consistent model-dimension estim
 BIC is directly connected to the variational free energy (VFE) framework at the model-selection level. The free energy F = −ELBO = KL(q ∥ p) − log p(o) is a variational upper bound on the negative log marginal likelihood; Schwarz's Laplace approximation gives the leading asymptotic term of that same quantity. In the VFE transformer, the hyper-prior KL term λ_h KL(s_i ∥ h) plays an analogous complexity-penalization role at the level of model beliefs s_i — preferring simpler (lower-dimensional, centroid-hugging) model representations. The BIC derivation also underpins the interpretation of the Fisher information geometry (SPD matrices) as the natural curvature of the Laplace approximation, linking directly to the SPD belief geometry (Σ matrices) used throughout the GL(K) attention layers.
 
 ## Cross-links
-- Concepts: [[Variational Free Energy]], [[Model Selection]], [[Laplace Approximation]], [[Fisher Information]], [[SPD Geometry]], [[MDL and BIC model selection]]
+- Concepts: [[Variational Free Energy]], [[MDL and BIC model selection|Model Selection]], [[Laplace Approximation]], [[Fisher information metric|Fisher Information]], [[SPD-manifold geometry and Riemannian optimization|SPD Geometry]], [[MDL and BIC model selection]]
 - Themes: [[Meta-agents and hierarchical emergence]]
 - Related sources: [[akaike-1974-aic]], [[rissanen-1978-mdl]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]], [[participatory-it-from-bit]]
+- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) gauge-equivariant attention|GL(K) Attention]], [[participatory-it-from-bit]]
 
 > [!note] Editorial: For the multi-agent thread, BIC is one of the two retention criteria used when forming [[Meta-agents and hierarchical emergence|meta-agents]] by coarse-graining clusters of agents: a candidate coarse parent (adding $k$ parameters) is kept only if the gain in fit outweighs the $\tfrac{1}{2}k\log n$ complexity penalty, giving the hierarchy-growth rule a principled Bayesian footing. As the asymptotic Bayesian counterpart of MDL ([[rissanen-1978-mdl]]), it anchors the [[MDL and BIC model selection]] page.
 

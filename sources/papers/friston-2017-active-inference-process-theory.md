@@ -68,7 +68,7 @@ This paper is the canonical reference for active inference as a process theory g
 
 ## Cross-links
 - Concepts: [[Variational Free Energy]], [[Active Inference]], [[Belief Propagation]], [[Expected Free Energy]], [[Predictive Coding]]
-- Related sources: [[friston-2006-free-energy-brain]], [[friston-2015-active-inference-mdp]]
+- Related sources: [[friston-2006-free-energy-brain]], [[friston-frith-2015-duet|friston-2015-active-inference-mdp]]
 - Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Gauge-Equivariant Attention]]
 
 ## BibTeX

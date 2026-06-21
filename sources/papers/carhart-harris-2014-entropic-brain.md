@@ -57,8 +57,8 @@ The entropic brain framework operationalizes entropy as a direct measure of cons
 > [!note] Editorial: Cited chiefly for the **entropy-as-marker-of-conscious-state** idea; the project does not adopt the psychedelic-specific claims. The criticality/entropy framing connects loosely to the project's [[Renormalization group flow]] and [[Ouroboros multi-scale dynamics]].
 
 - Concepts: [[Variational Free Energy]], [[Entropy]], [[Meta-entropy]], [[Self-Organized Criticality]], [[Default Mode Network]], [[Active Inference]], [[Precision weighting]], [[Mathematical consciousness science]]
-- Related sources: [[friston-2010-free-energy]], [[tononi-2004-information-integration]]
-- Manuscript/Project: [[VFE Transformer Program]], [[PIFB]], [[participatory-it-from-bit]]
+- Related sources: [[friston-2010-free-energy-principle|friston-2010-free-energy]], [[tononi-2004-integrated-information|tononi-2004-information-integration]]
+- Manuscript/Project: [[VFE Transformer Program]], [[Participatory realism (it from bit)|PIFB]], [[participatory-it-from-bit]]
 
 ## BibTeX
 ```bibtex

@@ -18,11 +18,11 @@ Mechanistic interpretability of attention is the empirical program that reverse-
 
 - **Induction heads.** A two-head composition implements in-context copy-completion: a previous-token head writes, at each position, the identity of the token before it, and a downstream head matches the current token against that record to attend to "the token that followed last time," producing the $[A][B]\dots[A]\!\to\![B]$ pattern. Their formation coincides with a sharp phase change in in-context-learning ability during training, and ablating them removes much of that ability ([[olsson-2022-induction-heads]]).
 
-- **Head specialization and prunability.** Heads divide labor unequally: a minority carry interpretable, specialized functions — positional (fixed-offset), syntactic (relation-specific), rare-token — while the majority are redundant and can be pruned via a differentiable gate with little loss ([[voita-2019-multihead]]).
+- **Head specialization and prunability.** Heads divide labor unequally: a minority carry interpretable, specialized functions — positional (fixed-offset), syntactic (relation-specific), rare-token — while the majority are redundant and can be pruned via a differentiable gate with little loss ([[voita-2019-attention-heads|voita-2019-multihead]]).
 
 - **Syntactic attention in encoders.** In BERT, specific heads attend along identifiable grammatical relations (objects to verbs, determiners to nouns, coreferent mentions), recovering dependency structure above chance directly from attention weights, while heavy attention to delimiters like `[SEP]` acts as a no-op ([[clark-2019-bert-attention]]).
 
-- **Structure in the representation, not just the weights.** A *structural probe* learns a single linear transform of the contextual embedding space under which squared Euclidean distance approximates dependency-parse-tree distance and squared norm approximates parse depth — so syntax is embedded as a low-rank metric on the representations the attention layers build, recoverable for BERT/ELMo but not for non-contextual baselines ([[hewitt-manning-2019-structural-probe]]).
+- **Structure in the representation, not just the weights.** A *structural probe* learns a single linear transform of the contextual embedding space under which squared Euclidean distance approximates dependency-parse-tree distance and squared norm approximates parse depth — so syntax is embedded as a low-rank metric on the representations the attention layers build, recoverable for BERT/ELMo but not for non-contextual baselines ([[hewitt-2019-structural-probe|hewitt-manning-2019-structural-probe]]).
 
 A complementary, *theory-first* strand of the same program asks not "what does this head do" but "what does stacked attention do to the token cloud": pure attention loses rank doubly exponentially with depth, collapsing all tokens to one vector ([[dong-2021-rank-collapse]]), and the mean-field interacting-particle view predicts clustering and consensus ([[geshkovski-2023-mathematical-transformers]]). And the in-context-learning mechanism has a constructive account: a linear-attention layer can implement one step of gradient descent on the context loss, so depth indexes iterations of an inner optimizer ([[von-oswald-2022-transformers-gradient-descent]]). These belong to the [[Mechanistic interpretability of attention|same interpretive enterprise]] but are synthesized in the companion theme [[Transformer interpretability and scaling]].
 
@@ -43,9 +43,9 @@ The induction-head circuit is the cleanest case for the gauge-transport picture:
 
 - [[elhage-2021-transformer-circuits-framework]] — residual-stream and QK/OV-circuit decomposition (parent framework of the induction-heads result)
 - [[olsson-2022-induction-heads]] — induction heads and in-context learning
-- [[voita-2019-multihead]] — head specialization and pruning
+- [[voita-2019-attention-heads|voita-2019-multihead]] — head specialization and pruning
 - [[clark-2019-bert-attention]] — syntactic attention in BERT
-- [[hewitt-manning-2019-structural-probe]] — syntax as a metric on representations
+- [[hewitt-2019-structural-probe|hewitt-manning-2019-structural-probe]] — syntax as a metric on representations
 - [[bahdanau-2014-neural-machine-translation]] — attention as soft alignment over sources
 - [[vaswani-2017-attention]] — scaled dot-product attention (the object being interpreted)
 - [[dong-2021-rank-collapse]], [[geshkovski-2023-mathematical-transformers]] — theory-side: rank collapse / consensus

@@ -15,7 +15,7 @@ updated: 2026-06-21
 Motivated reasoning is the tendency for goals and prior attitudes to bias information processing: people scrutinize and counter-argue attitude-incongruent evidence while uncritically accepting congruent evidence (disconfirmation and prior-attitude effects), so that exposure to balanced information can entrench rather than moderate beliefs. It is the mechanism behind attitude polarization and the backfire effect, and is naturally modeled as asymmetric, precision-weighted evidence assimilation — a directional deviation from symmetric Bayesian updating that supplies a microfoundation for belief inertia in opinion dynamics.
 
 ## Related
-[[Confirmation bias]], [[Belief inertia]], [[Bayesian reasoning]], [[Belief perseverance and confirmation bias]]
+[[Belief perseverance and confirmation bias|Confirmation bias]], [[Belief inertia]], [[Bayesian Inference|Bayesian reasoning]], [[Belief perseverance and confirmation bias]]
 
 ## Sources
 [[nyhan-2010-backfire]], [[taber-2006-motivated-skepticism]]
