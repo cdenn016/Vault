@@ -2,9 +2,10 @@
 type: paper
 title: "The \"Transition Probability\" in the State Space of a *-Algebra"
 aliases:
-  - "Uhlmann 1976"
-  - "Uhlmann transition probability"
-  - "Bures-Uhlmann fidelity"
+  - Uhlmann 1976
+  - Uhlmann transition probability
+  - Bures-Uhlmann fidelity
+  - Uhlmann (1976) Transition Probability
 authors:
   - Uhlmann, A.
 year: 1976
@@ -14,6 +15,7 @@ tags:
   - cluster/info-geometry
   - cluster/participatory/quantum-foundations
   - project/multi-agent
+  - project/transformer
   - field/physics
   - field/mathematics
 status: stable
@@ -24,7 +26,7 @@ updated: 2026-06-20
 # The "Transition Probability" in the State Space of a *-Algebra
 
 > [!info] Citation
-> Uhlmann, A. (1976). "The 'Transition Probability' in the State Space of a *-Algebra." *Reports on Mathematical Physics*, 9(2), 273–279.
+> Uhlmann, A. (1976). "The 'Transition Probability' in the State Space of a *-Algebra." *Reports on Mathematical Physics*, 9(2), 273–279. DOI: [10.1016/0034-4877(76)90060-4](https://doi.org/10.1016/0034-4877(76)90060-4).
 
 ## TL;DR
 Uhlmann introduces and studies a generalized transition probability P(ω₁, ω₂) between two states of a *-algebra, defined as the supremum of |⟨x₁, x₂⟩|² over all *-representations in which the states are realized as vector states. For density matrices d₁, d₂ on a type I factor, this reduces to P = (Sp s)², where s = (d₁^{1/2} d₂ d₁^{1/2})^{1/2}, recovering the Bures fidelity. The paper establishes concavity of P, connects it to orthogonality of states, provides upper bounds via geometric means of Hermitian forms, and proves a central theorem giving an explicit expression in terms of a factored representation.
@@ -69,8 +71,8 @@ The Uhlmann transition probability P(ρ, σ) = (Tr√(√ρ σ √ρ))² appears
 For the participatory realism / quantum-foundations thread (PIFB manuscript), Uhlmann's algebraic treatment of states of a *-algebra is the natural language for the "it from bit" / participatory observer framework, where quantum states are seen as positive functionals and transition amplitudes are given by the purification construction.
 
 ## Cross-links
-- Concepts: [[Bures Metric]], [[Quantum Fidelity]], [[SPD Geometry]], [[Purification]], [[Information Geometry]]
-- Related sources: [[bures-1969-metric]], [[pusz-woronowicz-1975-functional-calculus]]
+- Concepts: [[Bures Metric]], [[Quantum Fidelity]], [[SPD Geometry]], [[Purification]], [[Information Geometry]], [[Quantum information geometry]]
+- Related sources: [[bures-1969-metric]], [[pusz-woronowicz-1975-functional-calculus]], [[petz-1996-monotone-metrics]], [[braunstein-caves-1994-quantum-fisher]], [[wootters-1981-statistical-distance]]
 - Manuscript/Project: [[GL(K) Attention Manuscript]], [[PIFB Manuscript]], [[VFE Transformer Program]]
 
 ## BibTeX
@@ -83,5 +85,6 @@ For the participatory realism / quantum-foundations thread (PIFB manuscript), Uh
   number  = {2},
   pages   = {273--279},
   year    = {1976},
+  doi     = {10.1016/0034-4877(76)90060-4},
 }
 ```

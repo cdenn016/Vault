@@ -2,8 +2,10 @@
 type: paper
 title: "On simplicity and complexity in the brave new world of large-scale neuroscience"
 aliases:
-  - "Gao 2017"
-  - "Gao Ganguli 2017 NTC"
+  - Gao 2017
+  - Gao Ganguli 2017 NTC
+  - gao-2017-neuroscience-dimensionality
+  - Gao Ganguli dimensionality neuroscience
 authors:
   - Gao, Peiran
   - Ganguli, Surya
@@ -43,7 +45,7 @@ For single-trial analysis, they derive a sufficient condition for accurate dimen
 
 ## Key results
 
-The dimensionality of trial-averaged neural data is upper bounded by the NTC, not by the number of recorded neurons. Increasing neuron count without increasing task complexity does not raise dataset dimensionality. Accurate dynamical portraits are recoverable when recorded neurons are proportional to log(NTC). A phase transition in single-trial decoding and dimensionality inference separates feasible from infeasible regimes as a function of neurons (M) and stimuli/trials (P): the boundary follows SNR√(MP) ≈ K. A parallel phase boundary governs identification of linear dynamical systems from spontaneous activity as a function of neurons and recording time. These results were empirically confirmed in motor/premotor cortical recordings of monkeys performing 8-direction reach tasks.
+The dimensionality of trial-averaged neural data is upper bounded by the NTC, not by the number of recorded neurons. Increasing neuron count without increasing task complexity does not raise dataset dimensionality. Accurate dynamical portraits are recoverable when recorded neurons are proportional to log(NTC). A phase transition in single-trial decoding and dimensionality inference separates feasible from infeasible regimes as a function of neurons (M) and stimuli/trials (P): the boundary follows SNR√(MP) ≈ K. A parallel phase boundary governs identification of linear dynamical systems from spontaneous activity as a function of neurons and recording time. These results were empirically confirmed in motor/premotor cortical recordings of monkeys performing 8-direction reach tasks; the low-dimensionality-relative-to-neuron-count observation itself holds across dozens of experiments spanning motor, prefrontal, olfactory, hippocampal, visual, and somatosensory cortex. An analogous phase boundary in the (M, T) plane (number of neurons, recording time) governs identification of linear dynamical systems from spontaneous/noise-driven activity, paralleling the (M, P) boundary for static decoding.
 
 ## Relevance to this research
 

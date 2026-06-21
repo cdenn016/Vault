@@ -2,11 +2,16 @@
 type: paper
 title: "The Large N Limit of Superconformal Field Theories and Supergravity"
 aliases:
-  - "Maldacena 1999"
-  - "AdS/CFT"
-  - "Maldacena conjecture"
-  - "Maldacena-1997-adscft"
-  - "Maldacena 1997"
+  - Maldacena 1999
+  - AdS/CFT
+  - Maldacena conjecture
+  - Maldacena-1997-adscft
+  - Maldacena 1997
+  - maldacena-1998-ads-cft
+  - Maldacena 1998
+  - maldacena-1998-adscft
+  - maldacena-1997-large-n
+  - maldacena1997largen
 authors:
   - Maldacena, Juan
 year: 1999
@@ -14,6 +19,8 @@ arxiv: hep-th/9711200
 url: https://doi.org/10.1023/A:1026654312961
 tags:
   - cluster/gauge-theory
+  - cluster/participatory
+  - cluster/participatory/quantum-foundations
   - project/multi-agent
   - field/physics
   - field/mathematics
@@ -25,7 +32,9 @@ updated: 2026-06-20
 # The Large N Limit of Superconformal Field Theories and Supergravity
 
 > [!info] Citation
-> Maldacena, J. (1999). "The Large N Limit of Superconformal Field Theories and Supergravity." *International Journal of Theoretical Physics*, 38(4), 1113–1133. arXiv:hep-th/9711200.
+> Maldacena, J. (1998). "The Large N Limit of Superconformal Field Theories and Supergravity." *Advances in Theoretical and Mathematical Physics* 2(2): 231–252. DOI: [10.4310/ATMP.1998.v2.n2.a1](https://doi.org/10.4310/ATMP.1998.v2.n2.a1). Reprinted in *International Journal of Theoretical Physics* 38(4): 1113–1133 (1999), DOI: [10.1023/A:1026654312961](https://doi.org/10.1023/A:1026654312961). Preprint: arXiv:hep-th/9711200.
+
+> [!note] Two published venues. The original publication is *Adv. Theor. Math. Phys.* **2**(2):231–252 (1998); the widely-cited reprint is *Int. J. Theor. Phys.* **38**(4):1113–1133 (1999). Both are recorded below; cite the ATMP-1998 original where a single canonical reference is wanted.
 
 ## TL;DR
 Maldacena conjectures a precise duality (AdS/CFT correspondence) between large-N conformal field theories in d dimensions and string/M-theory on Anti-de Sitter (AdS) spacetimes. The primary example equates Type IIB string theory on AdS_5 × S^5 with N=4 d=3+1 U(N) super-Yang-Mills theory, providing a non-perturbative, strong-weak duality. The near-horizon geometry of N parallel D3 branes in the decoupling limit reproduces AdS_5 × S^5, and the superconformal symmetry groups of both sides coincide exactly.
@@ -47,12 +56,26 @@ The central conjecture is that Type IIB string theory on (AdS_5 × S^5)_N (with 
 The AdS/CFT correspondence is a foundational instance of a holographic duality in which a gauge theory encodes a gravitational bulk, structurally analogous to the way the VFE transformer program seeks to encode information-geometric structure (SPD belief geometry, GL(K) gauge-equivariant attention) within a variational free-energy framework. More concretely, the large-N limit that makes AdS/CFT tractable is paralleled by the large-K (large representation dimension) regime in GL(K) attention, where gauge-equivariant transport dominates. The role of the conformal group SO(2,4) in constraining the probe action — fixing the Born-Infeld action purely from symmetry — resonates with the manuscript's use of GL(K) gauge invariance to constrain admissible attention kernels. The AdS radial coordinate U, interpreted as an energy/RG scale, offers a conceptual analogue to the hierarchical VFE structure h → s → p → q → observations, where each level corresponds to a different scale of belief abstraction. The participatory realism angle is less direct but non-trivial: Maldacena's conjecture treats bulk quantum gravity as emergent from boundary degrees of freedom, a holographic version of the "it from bit" theme relevant to the PIFB manuscript's participatory ontology.
 
 ## Cross-links
-- Concepts: [[Gauge Theory]], [[Information Geometry]], [[Holography]]
-- Related sources: [[witten-1998-adscft-correlators]], [[gubser-1998-gauge-gravity]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention Manuscript]]
+- Concepts: [[Gauge Theory]], [[Information Geometry]], [[Holography]], [[Holographic Principle]], [[Emergent spacetime and holography]], [[Participatory realism (it from bit)]], [[Fisher information metric]]
+- Related sources: [[witten-1998-adscft-correlators]], [[gubser-1998-gauge-gravity]], [[ryu-takayanagi-2006-holographic-entanglement-entropy]], [[vanraamsdonk-2010-entanglement-spacetime]]
+- Manuscript/Project: [[participatory-it-from-bit]], [[VFE Transformer Program]], [[GL(K) Attention Manuscript]]
 
 ## BibTeX
 ```bibtex
+@article{Maldacena1998,
+  author  = {Maldacena, Juan},
+  title   = {The Large {N} Limit of Superconformal Field Theories and Supergravity},
+  journal = {Advances in Theoretical and Mathematical Physics},
+  volume  = {2},
+  number  = {2},
+  pages   = {231--252},
+  year    = {1998},
+  doi     = {10.4310/ATMP.1998.v2.n2.a1},
+  eprint  = {hep-th/9711200},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th},
+}
+
 @article{Maldacena1999,
   author  = {Maldacena, Juan},
   title   = {The Large {N} Limit of Superconformal Field Theories and Supergravity},
@@ -61,7 +84,9 @@ The AdS/CFT correspondence is a foundational instance of a holographic duality i
   number  = {4},
   pages   = {1113--1133},
   year    = {1999},
+  doi     = {10.1023/A:1026654312961},
   eprint  = {hep-th/9711200},
   archivePrefix = {arXiv},
+  note    = {Reprint of Adv. Theor. Math. Phys. 2 (1998) 231--252},
 }
 ```

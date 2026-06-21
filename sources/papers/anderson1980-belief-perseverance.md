@@ -2,8 +2,12 @@
 type: paper
 title: "Perseverance of Social Theories: The Role of Explanation in the Persistence of Discredited Information"
 aliases:
-  - "Anderson 1980"
-  - "belief perseverance"
+  - Anderson 1980
+  - belief perseverance
+  - anderson1980perseverance
+  - anderson-1980-belief-perseverance
+  - Anderson Lepper Ross 1980
+  - Perseverance of Social Theories
 authors:
   - Anderson, Craig A.
   - Lepper, Mark R.
@@ -24,7 +28,7 @@ updated: 2026-06-20
 # Perseverance of Social Theories: The Role of Explanation in the Persistence of Discredited Information
 
 > [!info] Citation
-> Anderson, C. A., Lepper, M. R., & Ross, L. (1980). "Perseverance of Social Theories: The Role of Explanation in the Persistence of Discredited Information." *Journal of Personality and Social Psychology*, 39(6), 1037–1049.
+> Anderson, C. A., Lepper, M. R., & Ross, L. (1980). "Perseverance of Social Theories: The Role of Explanation in the Persistence of Discredited Information." *Journal of Personality and Social Psychology*, 39(6), 1037–1049. DOI: [10.1037/h0077720](https://doi.org/10.1037/h0077720).
 
 ## TL;DR
 Two experiments using a debriefing paradigm demonstrate that social theories formed on minimal evidence survive complete invalidation of the formative data. The effect is substantially amplified when subjects are first asked to generate a causal explanation for the observed relationship, because the explanation becomes cognitively autonomous of the original (now-discredited) evidence base.
@@ -58,5 +62,6 @@ This paper is directly relevant to the social-physics and opinion-dynamics compo
   volume  = {39},
   number  = {6},
   pages   = {1037--1049},
+  doi     = {10.1037/h0077720},
 }
 ```

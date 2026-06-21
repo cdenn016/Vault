@@ -67,7 +67,6 @@ The exposed transformer-RNN equivalence connects to the manuscripts' filtering p
 ## Cross-links
 
 - Concepts: [[Linear attention]], [[Kernel feature map]], [[Belief inertia]], [[Group equivariance]], [[Fisher information metric]], [[Gauge transformation]], [[Variational free energy]]
-- Related sources: [[katharopoulos-2020-linear-transformers]] (refs mirror)
 - Manuscript/Project: [[VFE Transformer Program]], [[gl-k-attention]]
 
 ## BibTeX

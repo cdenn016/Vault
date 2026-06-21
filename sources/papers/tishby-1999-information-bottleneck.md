@@ -2,13 +2,15 @@
 type: paper
 title: "The Information Bottleneck Method"
 aliases:
-  - "Tishby 1999"
-  - "IB"
-  - "Information Bottleneck"
-  - "tishby-2000-information-bottleneck"
-  - "Tishby 2000"
-  - "tishby2000information"
-  - "tishby1999information"
+  - Tishby 1999
+  - IB
+  - Information Bottleneck
+  - tishby-2000-information-bottleneck
+  - Tishby 2000
+  - tishby2000information
+  - tishby1999information
+  - Tishby, Pereira & Bialek 1999
+  - Tishby (1999) Information Bottleneck
 authors:
   - Tishby, Naftali
   - Pereira, Fernando C.

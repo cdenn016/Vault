@@ -2,8 +2,10 @@
 type: paper
 title: "Towards a Geometry and Analysis for Bayesian Mechanics"
 aliases:
-  - "Sakthivadivel 2022"
-  - "Bayesian Mechanics Geometry"
+  - Sakthivadivel 2022
+  - Bayesian Mechanics Geometry
+  - sakthivadivel-2022-geometry-bayesian-mechanics
+  - Sakthivadivel (2022) Geometry for Bayesian Mechanics
 authors:
   - Sakthivadivel, Dalton A R
 year: 2022
@@ -13,10 +15,13 @@ tags:
   - cluster/vfe
   - cluster/gauge-theory
   - cluster/info-geometry
+  - cluster/participatory
   - project/multi-agent
+  - project/transformer
   - field/physics
   - field/mathematics
   - field/cs-ml
+  - field/statistics
 status: stable
 created: 2026-06-20
 updated: 2026-06-20
@@ -43,9 +48,9 @@ The three principal theorems are: (1) approximate Bayesian inference is equivale
 This paper is directly relevant to the gauge-theoretic VFE transformer program on multiple levels. The core claim — that the constraints on a self-organising system constitute a gauge degree of freedom and generate a gauge force — is the conceptual precursor to the GL(K) gauge-equivariant attention mechanism, where gauge symmetry in the belief-coupling transport is the architectural foundation. The equivalence between free energy minimisation and constrained entropy maximisation provides formal grounding for the VFE objective used throughout the V3 transformer. The field-theoretic Lagrangian formulation of maximum entropy (Section 5) is mathematically consonant with the variational free energy functional in the manuscripts, including the KL coupling terms and the attention-entropy regulariser. The category-theoretic duality between system and environment (Section 2.3) connects to the multi-agent active inference framing and the hyper-prior / model / belief hierarchy ($h \to s \to p \to q$). The non-equilibrium steady-state results (Section 6.3) are relevant to understanding the stability of belief dynamics in the transformer at convergence.
 
 ## Cross-links
-- Concepts: [[Variational Free Energy]], [[Gauge Theory]], [[Free Energy Principle]], [[Information Geometry]], [[Markov Blanket]], [[Maximum Entropy]]
-- Related sources: [[friston2019-free-energy-principle]], [[da-costa2021-bayesian-mechanics]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]]
+- Concepts: [[Variational Free Energy]], [[Gauge Theory]], [[Free Energy Principle]], [[Information Geometry]], [[Markov Blanket]], [[Maximum Entropy]], [[Bayesian mechanics]], [[Natural gradient]], [[Fisher information metric]], [[Multi-agent variational free energy]], [[Participatory realism (it from bit)]], [[Markov blanket interpretation debate]]
+- Related sources: [[friston2019-free-energy-principle]], [[da-costa2021-bayesian-mechanics]], [[caticha-2019-entropic-dynamics]], [[ramstead-2023-bayesian-mechanics]]
+- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]], [[participatory-it-from-bit]]
 
 ## BibTeX
 ```bibtex

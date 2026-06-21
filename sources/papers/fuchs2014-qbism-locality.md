@@ -2,9 +2,12 @@
 type: paper
 title: "An Introduction to QBism with an Application to the Locality of Quantum Mechanics"
 aliases:
-  - "Fuchs 2014"
-  - "QBism introduction"
-  - "QBism locality"
+  - Fuchs 2014
+  - QBism introduction
+  - QBism locality
+  - fuchs-2014-qbism
+  - Fuchs
+  - Mermin & Schack 2014
 authors:
   - Fuchs, Christopher A.
   - Mermin, N. David
@@ -26,7 +29,7 @@ updated: 2026-06-20
 # An Introduction to QBism with an Application to the Locality of Quantum Mechanics
 
 > [!info] Citation
-> Fuchs, C. A., Mermin, N. D., & Schack, R. (2014). "An Introduction to QBism with an Application to the Locality of Quantum Mechanics." *American Journal of Physics* 82, 749. arXiv:1311.5253.
+> Fuchs, C. A., Mermin, N. D., & Schack, R. (2014). "An Introduction to QBism with an Application to the Locality of Quantum Mechanics." *American Journal of Physics* **82**(8), 749–754. DOI: 10.1119/1.4874855. arXiv:1311.5253.
 
 ## TL;DR
 QBism (Quantum Bayesianism) reinterprets quantum mechanics as a single-agent tool for organizing personal probabilistic beliefs about future experience, rather than as a description of an observer-independent world. Quantum states are personal judgments, measurement outcomes are agent-created experiences, and "quantum nonlocality" dissolves because quantum correlations are necessarily between time-like separated events in one agent's experience. The paper argues this resolves nearly all foundational paradoxes of quantum mechanics — including EPR, Bell, and the measurement problem — without introducing new ontology.
@@ -74,8 +77,10 @@ QBism is directly relevant to the participatory-realism thread of the VFE resear
   title   = {An Introduction to {QBism} with an Application to the Locality of Quantum Mechanics},
   journal = {American Journal of Physics},
   volume  = {82},
-  pages   = {749},
+  number  = {8},
+  pages   = {749--754},
   year    = {2014},
+  doi     = {10.1119/1.4874855},
   eprint  = {1311.5253},
   archivePrefix = {arXiv},
   primaryClass  = {quant-ph},

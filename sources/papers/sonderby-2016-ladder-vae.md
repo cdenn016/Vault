@@ -2,8 +2,10 @@
 type: paper
 title: "Ladder Variational Autoencoders"
 aliases:
-  - "Sønderby 2016"
-  - "LVAE"
+  - Sønderby 2016
+  - LVAE
+  - Sønderby et al. 2016
+  - Ladder VAE
 authors:
   - Sønderby, Casper Kaae
   - Raiko, Tapani
@@ -16,6 +18,7 @@ url: https://arxiv.org/abs/1602.02282
 tags:
   - cluster/vfe
   - project/transformer
+  - project/multi-agent
   - field/cs-ml
   - field/statistics
 status: stable
@@ -49,10 +52,12 @@ On permutation-invariant MNIST the 5-layer LVAE achieves $\mathcal{L}_1^{\text{t
 ## Relevance to this research
 The precision-weighted fusion rule in eqs. (17)-(18) is structurally identical to the Gaussian belief update step in the VFE transformer's E-step: combining a bottom-up likelihood term with a top-down prior is precisely the per-layer belief update $q_i \leftarrow \mathrm{arg\,min}_q \alpha\,\mathrm{KL}(q \| p_i) + \text{coupling terms}$. The LVAE's bidirectional hierarchy maps directly onto the VFE hierarchy $h \to s \to p \to q \to o$, where each level corrects the prior from above with evidence from below. The KL warm-up schedule (gradually increasing $\beta$ from 0 to 1) is directly analogous to the $\beta$-annealing or deterministic-to-stochastic warm-up strategies applicable in VFE training. The layer-wise KL collapse phenomenon is also directly relevant to per-layer VFE diagnostics: inactive latent units correspond to layers where the VFE coupling term collapses the posterior onto the prior, exactly the regime-I flatness issue. Finally, the precision-weighted mean as a posterior update is the Gaussian special case of the natural-gradient VFE update in information-geometric coordinates.
 
+> [!note] Shadow-prior framing (from refs/ note): The Ladder VAE's top-down precision-weighted posterior is the conventional-deep-learning precedent for PIFB's **cross-scale shadow priors**. In the project's tower the prior of a scale-$s$ agent is its parent's belief transported down, $p_i^{(s)} = \Omega_{i,I}[q_I^{(s+1)}]$ — so the coarse scale's belief informs the fine scale's posterior through a top-down pass, structurally the same idea as the ladder's top-down prior merged with bottom-up evidence. The Gaussian precision-weighted merge is exactly the operation PIFB performs with its Gaussian belief tuples and the self-coupling KL term $\alpha\,\mathrm{KL}(q_i\|p_i)$.
+
 ## Cross-links
-- Concepts: [[Variational Free Energy]] [[Belief Propagation]] [[Information Geometry]] [[Hierarchical Latent Variable Models]]
+- Concepts: [[Variational Free Energy]] [[Belief Propagation]] [[Information Geometry]] [[Hierarchical Latent Variable Models]] [[Meta-agents and hierarchical emergence]] [[Iterative amortized inference]]
 - Related sources: [[kingma-2013-vae]] [[burda-2015-iwae]] [[rezende-2015-normalizing-flows]]
-- Manuscript/Project: [[VFE Transformer Program]]
+- Manuscript/Project: [[VFE Transformer Program]] [[participatory-it-from-bit]]
 
 ## BibTeX
 ```bibtex

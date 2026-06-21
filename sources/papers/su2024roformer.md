@@ -2,12 +2,15 @@
 type: paper
 title: "RoFormer: Enhanced Transformer with Rotary Position Embedding"
 aliases:
-  - "Su 2024"
-  - "RoPE"
-  - "RoFormer"
-  - "su2021roformer"
-  - "Rotary Position Embedding"
-  - "rotarypositionembedding"
+  - Su 2024
+  - RoPE
+  - RoFormer
+  - su2021roformer
+  - Rotary Position Embedding
+  - rotarypositionembedding
+  - su-2021-roformer-rope
+  - Su et al. 2021
+  - Su (2021) RoPE
 authors:
   - Su, Jianlin
   - Lu, Yu
@@ -21,6 +24,7 @@ url: https://arxiv.org/abs/2104.09864
 tags:
   - cluster/attention
   - project/transformer
+  - project/multi-agent
   - field/cs-ml
 status: stable
 created: 2026-06-20
@@ -57,10 +61,12 @@ The long-term decay property follows from the Abel-transform bound on the summed
 ## Relevance to this research
 RoPE is directly relevant to the VFE transformer's attention prior and position encoding design. The VFE framework supports a T5-style relative position bias table (the `t5_relative_bias` attention prior) as a learned scalar of offset; RoPE offers an alternative multiplicative encoding that is equivariant under rotation of the representation space. More substantively, RoPE's block-diagonal rotation structure is a sub-case of gauge transport: applying $R^d_{\Theta,m}$ to queries and $R^d_{\Theta,n}$ to keys is equivalent to parallel-transporting embeddings to a common "position-zero" reference frame via $\Omega_{mn} = R^d_{\Theta,n-m}$, exactly the GL(K) transport operator structure used in the gauge-equivariant attention. The relative-position-only inner product constraint $\langle f_q(x_m,m), f_k(x_n,n)\rangle = g(x_m,x_n,m-n)$ mirrors the gauge-invariance requirement that attention weights depend only on gauge-invariant comparisons between beliefs. The norm-preserving property of the orthogonal rotation matrix $R^d_{\Theta}$ is also consistent with the SPD/Riemannian belief geometry's isometry requirements. RoPE therefore serves as a concrete, computationally efficient instantiation of gauge-structured relative position encoding compatible with the VFE transformer's pure path.
 
+> [!note] RoPE-as-abelian-gauge-frame framing (from refs/ note): PIFB makes the structural claim that **RoPE is an abelian gauge frame**. The per-block 2D rotation $R_m = \exp(m\,\theta J)$ is the exponential of a fixed antisymmetric generator $J$ scaled by position — exactly the project's gauge-frame construction $\Omega = \exp(\phi)$ specialized to a one-parameter abelian (commuting-rotation) subgroup, with $\phi$ linear in position. Under that reading RoPE's relative-position property is the gauge-covariance identity $\Omega_m \Omega_n^{-1} = \Omega_{m-n}$, i.e. the transport $\Omega_{ij} = \exp(\phi_i)\exp(-\phi_j)$ restricted to commuting generators. RoPE is thus the **abelian base case** of the gauge-frame transport that PIFB's learned non-abelian $\phi$-frame generalizes (rotations in fixed planes become general $\mathrm{GL}^+(K)$ transport).
+
 ## Cross-links
-- Concepts: [[Attention Mechanism]], [[Gauge Transport]], [[Rotary Position Embedding]]
-- Related sources: [[vaswani2017attention]], [[dai2019transformerxl]], [[raffel2020t5]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]]
+- Concepts: [[Attention Mechanism]], [[Gauge Transport]], [[Rotary Position Embedding]], [[Gauge transformation]], [[Parallel transport]]
+- Related sources: [[vaswani2017attention]], [[dai2019transformerxl]], [[raffel2020t5]], [[tsai-2019-kernel-attention]]
+- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]], [[participatory-it-from-bit]], [[Attention mechanisms — theory and positional structure]]
 
 ## BibTeX
 ```bibtex

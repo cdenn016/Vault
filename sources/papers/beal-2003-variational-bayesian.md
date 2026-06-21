@@ -2,10 +2,12 @@
 type: paper
 title: "Variational Algorithms for Approximate Bayesian Inference"
 aliases:
-  - "Beal 2003"
-  - "VB EM thesis"
-  - "VBEM"
-  - "beal-2003-variational-bayes"
+  - Beal 2003
+  - VB EM thesis
+  - VBEM
+  - beal-2003-variational-bayes
+  - beal-2003-variational-algorithms-approximate-bayesian-inference
+  - Beal 2003 — Variational Bayesian EM
 authors:
   - Beal, Matthew J.
 year: 2003
@@ -53,9 +55,12 @@ The VB lower bound satisfies $\mathcal{F} \leq \log p(y)$, with equality when th
 The VB EM algorithm is the direct intellectual ancestor of the VFE minimisation loops in the V3 transformer. The free-energy lower bound $\mathcal{F}$ computed here is precisely the VFE used throughout the VFE transformer program; the E-step / M-step alternation maps onto the belief-update / parameter-update cycle in `train_vfe3.py`. The conjugate-exponential framework justifies the Gaussian belief tuples $(\mu, \Sigma, \phi)$ as the natural update target: Gaussians are in the CE family, so closed-form VBE updates exist and no sampling is required. The mean-field factorisation $q(x)q(\theta)$ motivates the per-token/per-layer belief factorisation in the transformer architecture. The marginal KL divergence results (Appendix C.3) for gamma-Gaussian variables are directly relevant to the KL divergence terms in the VFE free-energy functional used in GL(K) attention. The model-selection interpretation of $\mathcal{F}$ connects to the hyper-prior coupling term $\lambda_h\,\text{KL}(s_i \| h)$ in the full VFE hierarchy: models $s_i$ compete via the same Occam's razor that the marginal likelihood embodies.
 
 ## Cross-links
-- Concepts: [[Variational Free Energy]], [[KL Divergence]], [[Conjugate Exponential Family]], [[Expectation Maximisation]]
-- Related sources: [[winn-2005-vbem]], [[jordan-1999-introduction-variational]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]]
+- Concepts: [[Variational Free Energy]], [[KL Divergence]], [[Conjugate Exponential Family]], [[Expectation Maximisation]], [[Evidence lower bound (ELBO)]], [[Amortized inference]], [[Fisher information metric]]
+- Theme: [[Variational free energy and predictive coding]]
+- Related sources: [[winn-2005-vbem]], [[jordan-1999-introduction-variational]], [[dempster-1977-em]], [[neal-1998-variational-em]], [[blei-2017-variational-inference]], [[kingma-2013-auto-encoding-variational-bayes]]
+- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]], [[Gauge-Theoretic Multi-Agent VFE Model]]
+
+> [!note] Editorial: Beal's monotonicity and closed-form VBEM updates are established for KL-based mean-field bounds in conjugate-exponential families. The VFE transformer departs on two axes — it can replace KL with a Rényi / $\alpha$-divergence in the belief step, and it uses structured Gaussian beliefs with gauge transport rather than a generic conjugate posterior — so it realizes the *spirit* of VBEM (coordinate ascent on a free-energy bound with distributions over both states and parameters) as a principled generalization, not a literal instance of the 2003 algorithm.
 
 ## BibTeX
 ```bibtex
@@ -65,5 +70,6 @@ The VB EM algorithm is the direct intellectual ancestor of the VFE minimisation 
   school  = {University of London},
   year    = {2003},
   note    = {Gatsby Computational Neuroscience Unit, UCL},
+  url     = {https://cse.buffalo.edu/faculty/mbeal/thesis/},
 }
 ```

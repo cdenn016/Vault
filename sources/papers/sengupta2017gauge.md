@@ -2,8 +2,11 @@
 type: paper
 title: "Approximate Bayesian inference as a gauge theory"
 aliases:
-  - "Sengupta 2017"
-  - "ABI gauge theory"
+  - Sengupta 2017
+  - ABI gauge theory
+  - sengupta-friston-2017-bayesian-gauge-theory
+  - Sengupta & Friston 2017
+  - Sengupta-Friston (2017) Bayesian Gauge Theory
 authors:
   - Sengupta, Biswa
   - Friston, Karl
@@ -14,12 +17,15 @@ tags:
   - cluster/gauge-theory
   - cluster/vfe
   - cluster/info-geometry
+  - cluster/participatory
+  - cluster/participatory/consciousness
   - project/transformer
   - project/multi-agent
   - field/neuroscience
   - field/mathematics
   - field/physics
   - field/cs-ml
+  - field/statistics
 status: stable
 created: 2026-06-20
 updated: 2026-06-20
@@ -29,6 +35,8 @@ updated: 2026-06-20
 
 > [!info] Citation
 > Sengupta, B. & Friston, K. (2017). "Approximate Bayesian inference as a gauge theory." ICML 2017 Computational Biology Workshop, Sydney, Australia. arXiv:1705.06614.
+
+> [!note] Editorial (provenance, resolved 2026-06-19): This 2017 preprint (arXiv:1705.06614) is the technical follow-up to [[sengupta-2016-neuronal-gauge]] ("Towards a Neuronal Gauge Theory," *PLoS Biology*) and is the project's most direct gauge–FEP precursor. The "belief-state synchronization" paper the domain brief tentatively listed *does* exist and is a **distinct** work: Sengupta & Friston, "How Belief States Get Synchronized through Active Inference" (arXiv:1810.08750), carried in the manuscript bibliography under key `SenguptaFriston2018`. Manuscript-side check (GL(K) peer review, 2026-06-19): the `GL(K)_attention.tex` body cited **no** Sengupta work; `references.bib` held `Sengupta2016NeuronalGauge` and the 2018 synchronization entry but **not** this 1705.06614 gauge-theory preprint. `Participatory_it_from_bit.tex` cites the 2016 and 2018 entries. Fix applied: 1705.06614 added to the manuscript bib under key `sengupta2017gauge` and cited in the GL(K) Introduction.
 
 ## TL;DR
 
@@ -65,9 +73,9 @@ This paper is a direct conceptual ancestor of the V3_Transformer's gauge-equivar
 
 ## Cross-links
 
-- Concepts: [[Gauge Theory]], [[Variational Free Energy]], [[Information Geometry]], [[Parallel Transport]], [[Fisher Information Metric]], [[Schild's Ladder]], [[Attention as Precision-Weighting]]
-- Related sources: [[sengupta2016neuronal-gauge]] (the 2016 PLoS Biology predecessor), [[friston2010free-energy]]
-- Manuscript/Project: [[GL(K) Attention Manuscript]], [[VFE Transformer Program]]
+- Concepts: [[Gauge Theory]], [[Variational Free Energy]], [[Information Geometry]], [[Parallel Transport]], [[Fisher Information Metric]], [[Schild's Ladder]], [[Attention as Precision-Weighting]], [[Gauge transformation]], [[Holonomy]], [[Agents as fibre-bundle sections]], [[Participatory realism (it from bit)]]
+- Related sources: [[sengupta-2016-neuronal-gauge]] (the 2016 PLoS Biology predecessor), [[friston2010free-energy]]
+- Manuscript/Project: [[GL(K) Attention Manuscript]], [[VFE Transformer Program]], [[participatory-it-from-bit]], [[Multi-agent variational free energy]]
 
 ## BibTeX
 

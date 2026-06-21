@@ -2,8 +2,11 @@
 type: paper
 title: "Analyzing Multi-Head Self-Attention: Specialized Heads Do the Heavy Lifting, the Rest Can Be Pruned"
 aliases:
-  - "Voita 2019"
-  - "Voita attention heads"
+  - Voita 2019
+  - Voita attention heads
+  - voita-2019-multihead
+  - Voita et al. 2019
+  - Voita (2019) Multi-Head Attention
 authors:
   - Voita, Elena
   - Talbot, David
@@ -16,6 +19,7 @@ url: https://arxiv.org/abs/1905.09418
 tags:
   - cluster/attention
   - project/transformer
+  - project/multi-agent
   - field/cs-ml
 status: stable
 created: 2026-06-20
@@ -53,9 +57,11 @@ Fine-tuning starts from a converged full model with decoder parameters frozen; v
 ## Relevance to this research
 This paper is relevant to the GL(K) gauge-equivariant attention project in two complementary ways. First, the finding that most heads are redundant and that a small set of interpretable functional heads does the actual work resonates with the VFE perspective: the attention distribution $\beta_{ij}$ in the free-energy functional is a stationary-point softmax whose entropy is penalized, naturally concentrating weight on a few meaningful connections. The VFE framework gives a principled variational reason for why sparse, specialized attention patterns emerge rather than treating it as an empirical curiosity. Second, the syntactic dependency tracking by specific heads is structurally analogous to the gauge-transport interpretation of attention in GL(K): syntactic relations correspond to the parallel-transport paths $\Omega_{ij}$ that define which "coordinate frame" token $j$ should be aligned to before comparing to token $i$. The positional heads tracking $\pm 1$ neighbours are the simplest gauge connections. The LRP head-importance scores also suggest a practical diagnostic tool for auditing which heads in a VFE transformer are doing meaningful variational work versus which are near-zero gate. The pruning method itself (scalar gates with L0 relaxation) is a structural cousin to the $\beta_{ij}$ attention weights: both are learned sparse routing coefficients, though in the VFE framework sparsity emerges from variational optimality rather than an explicit penalty.
 
+In the PIFB reading, the positional/syntactic head split maps onto the decomposition of the coupling: positional heads (fixed-offset attention) are the abelian gauge-frame / distance-prior part (the RoPE and ALiBi mechanisms of [[su-2021-roformer-rope]] and [[press-2021-alibi]]), while relation-specific syntactic heads are the content-driven KL coupling between beliefs. This grounds the head-role reading under [[Mechanistic interpretability of attention]].
+
 ## Cross-links
-- Concepts: [[Multi-Head Attention]], [[Attention Mechanisms]], [[Transformer Architecture]], [[Gauge Transport]]
-- Related sources: [[vaswani-2017-attention]], [[louizos-2018-l0]]
+- Concepts: [[Multi-Head Attention]], [[Attention Mechanisms]], [[Transformer Architecture]], [[Gauge Transport]], [[Mechanistic interpretability of attention]]
+- Related sources: [[vaswani-2017-attention]], [[louizos-2018-l0]], [[olsson-2022-induction-heads]], [[clark-2019-bert-attention]]
 - Manuscript/Project: [[GL(K) Attention Manuscript]], [[VFE Transformer Program]]
 
 ## BibTeX

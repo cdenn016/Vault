@@ -2,8 +2,10 @@
 type: paper
 title: "Facing Up to the Problem of Consciousness"
 aliases:
-  - "Chalmers 1995"
-  - "hard problem of consciousness"
+  - Chalmers 1995
+  - hard problem of consciousness
+  - chalmers-1995-facing-up
+  - Chalmers (1995) Hard Problem
 authors:
   - Chalmers, David J.
 year: 1995
@@ -22,7 +24,7 @@ updated: 2026-06-20
 # Facing Up to the Problem of Consciousness
 
 > [!info] Citation
-> Chalmers, D.J. (1995). "Facing up to the problem of consciousness." *Journal of Consciousness Studies*, 2, 200–219.
+> Chalmers, D.J. (1995). "Facing up to the problem of consciousness." *Journal of Consciousness Studies*, 2(3), 200–219. (Imprint Academic.)
 
 ## TL;DR
 
@@ -46,9 +48,11 @@ This paper is the foundational reference for the hard problem as it appears in t
 
 ## Cross-links
 
-- Concepts: [[Consciousness and the hard problem]], [[Explanatory gap]], [[Russellian monism]], [[Mathematical consciousness science]], [[Structural realism]]
-- Related sources: [[participatory-it-from-bit]], [[solms-friston-2018-how-consciousness-arises]]
-- Manuscript/Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
+> [!note] Editorial: PIFB does not claim to *solve* the hard problem; it claims a **relocation, not a dissolution** — the hard problem is repositioned from a brute substrate-to-experience step to a question about frame-relative registered content. Citing Chalmers fixes the target precisely: the manuscript must be measured against the easy/hard distinction, and its honesty depends on conceding that a relocation is not a dissolution.
+
+- Concepts: [[Consciousness and the hard problem]], [[Explanatory gap]], [[Russellian monism]], [[Mathematical consciousness science]], [[Structural realism]], [[Participatory realism (it from bit)]]
+- Related sources: [[participatory-it-from-bit]], [[solms-friston-2018-how-consciousness-arises]], [[levine-1983-explanatory-gap]], [[nagel-1974-what-is-it-like]], [[chalmers-2013-panpsychism]], [[wheeler-1990-it-from-bit]]
+- Manuscript/Project: [[Gauge-Theoretic Multi-Agent VFE Model]], [[PIFB]]
 
 ## BibTeX
 
@@ -59,6 +63,8 @@ This paper is the foundational reference for the hard problem as it appears in t
   journal = {Journal of Consciousness Studies},
   year    = {1995},
   volume  = {2},
-  pages   = {200--219}
+  number  = {3},
+  pages   = {200--219},
+  publisher = {Imprint Academic}
 }
 ```

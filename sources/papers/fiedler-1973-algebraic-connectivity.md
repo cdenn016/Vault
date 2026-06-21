@@ -2,9 +2,10 @@
 type: paper
 title: "Algebraic Connectivity of Graphs"
 aliases:
-  - "Fiedler 1973"
-  - "Fiedler vector"
-  - "algebraic connectivity"
+  - Fiedler 1973
+  - Fiedler vector
+  - algebraic connectivity
+  - Fiedler (1973) Algebraic Connectivity
 authors:
   - Fiedler, Miroslav
 year: 1973
@@ -12,7 +13,9 @@ arxiv: null
 url: http://dml.cz/dmlcz/101168
 tags:
   - cluster/social-physics/networks-and-contagion
+  - cluster/multi-agent
   - project/social-physics
+  - project/multi-agent
   - field/mathematics
 status: stable
 created: 2026-06-20
@@ -22,7 +25,7 @@ updated: 2026-06-20
 # Algebraic Connectivity of Graphs
 
 > [!info] Citation
-> Fiedler, Miroslav (1973). "Algebraic Connectivity of Graphs." *Czechoslovak Mathematical Journal*, 23(98), 298–305. http://dml.cz/dmlcz/101168
+> Fiedler, Miroslav (1973). "Algebraic Connectivity of Graphs." *Czechoslovak Mathematical Journal*, 23(2), 298–305. DOI: [10.21136/CMJ.1973.101168](https://doi.org/10.21136/CMJ.1973.101168). http://dml.cz/dmlcz/101168
 
 ## TL;DR
 This paper introduces the concept of the *algebraic connectivity* of a graph, defined as the second smallest eigenvalue $a(G)$ of the graph Laplacian matrix $\hat{A}(G)$. Fiedler establishes that $a(G) > 0$ if and only if the graph is connected, and derives tight inequalities relating $a(G)$ to classical vertex and edge connectivities. The paper is the founding reference for what is now called the Fiedler value and Fiedler vector in spectral graph theory.
@@ -45,7 +48,7 @@ Key results are proved by constructing auxiliary graphs (adding or removing vert
 - **Complete bipartite graph**: $a(K_{p,q}) = \min(p,q)$.
 
 ## Relevance to this research
-The Fiedler value and its associated Fiedler vector are the canonical spectral tool for graph connectivity and spectral partitioning. In the social-physics strand of this research program, networks of agents or opinions are analyzed using graph Laplacians; $a(G)$ controls the rate of diffusion/consensus on the graph and governs the second-slowest mode of opinion dynamics. The Laplacian $\hat{A}(G)$ is structurally analogous to the precision-weighted belief-coupling term in the VFE functional: the off-diagonal $-1$ entries correspond to pairwise KL coupling weights $\beta_{ij}$, and $a(G)$ lower-bounds how rapidly coupled beliefs converge. The spectral partitioning intuition (Fiedler vector partitions the graph) is directly related to multi-agent community detection and to how the gauge-equivariant attention matrix $\beta_{ij}$ clusters tokens. The degree-bound $a(G) \le 2|E|/(n-1)$ also resembles the effective connectivity bounds one derives from the attention entropy term in the canonical free energy.
+The Fiedler value and its associated Fiedler vector are the canonical spectral tool for graph connectivity and spectral partitioning. In the social-physics strand of this research program, networks of agents or opinions are analyzed using graph Laplacians; $a(G)$ controls the rate of diffusion/consensus on the graph and governs the second-slowest mode of opinion dynamics. The Laplacian $\hat{A}(G)$ is structurally analogous to the precision-weighted belief-coupling term in the VFE functional: the off-diagonal $-1$ entries correspond to pairwise KL coupling weights $\beta_{ij}$, and $a(G)$ lower-bounds how rapidly coupled beliefs converge. The spectral partitioning intuition (Fiedler vector partitions the graph) is directly related to multi-agent community detection and to how the gauge-equivariant attention matrix $\beta_{ij}$ clusters tokens. The degree-bound $a(G) \le 2|E|/(n-1)$ also resembles the effective connectivity bounds one derives from the attention entropy term in the canonical free energy. In the multi-agent strand specifically, $\lambda_2$ of the agent coupling graph is the project's *constrained spectral gap* and a proxy for the "parent mass" (how strongly a coarse [[Meta-agents and hierarchical emergence|meta-agent]] binds its constituents): a large gap means a tightly bound cluster, while a small gap is the signal that a population is about to split into sub-communities along the Fiedler vector.
 
 ## Cross-links
 - Concepts: [[Graph Laplacian]], [[Spectral Graph Theory]], [[Algebraic Connectivity]]
@@ -62,6 +65,7 @@ The Fiedler value and its associated Fiedler vector are the canonical spectral t
   number  = {2},
   pages   = {298--305},
   year    = {1973},
+  doi     = {10.21136/CMJ.1973.101168},
   url     = {http://dml.cz/dmlcz/101168},
 }
 ```

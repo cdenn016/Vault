@@ -2,8 +2,9 @@
 type: paper
 title: "Challenges for Emergent Gravity"
 aliases:
-  - "Carlip 2014"
-  - "Carlip emergent gravity challenges"
+  - Carlip 2014
+  - Carlip emergent gravity challenges
+  - carlip-2014-challenges-emergent-gravity
 authors:
   - Carlip, S.
 year: 2014
@@ -11,6 +12,7 @@ arxiv: "1207.2504"
 url: https://arxiv.org/abs/1207.2504
 tags:
   - cluster/gauge-theory
+  - cluster/methodology
   - project/multi-agent
   - field/physics
   - field/mathematics
@@ -23,7 +25,7 @@ updated: 2026-06-20
 # Challenges for Emergent Gravity
 
 > [!info] Citation
-> Carlip, S. (2014). "Challenges for Emergent Gravity." Studies in History and Philosophy of Modern Physics. arXiv:1207.2504 [gr-qc].
+> Carlip, S. (2014). "Challenges for emergent gravity." *Studies in History and Philosophy of Modern Physics* 46, 200–208. DOI: [10.1016/j.shpsb.2012.11.002](https://doi.org/10.1016/j.shpsb.2012.11.002). Preprint: [arXiv:1207.2504](https://arxiv.org/abs/1207.2504) [gr-qc].
 
 ## TL;DR
 Carlip surveys the principal obstacles that any model of emergent gravity must overcome to reproduce the observational underpinnings of general relativity. The paper classifies emergent models into two broad types — those in which fundamental degrees of freedom live in a pre-existing background environment (type I) and those in which spacetime itself is emergent (type II) — and argues that recovering local Lorentz invariance, the equivalence principle, diffeomorphism invariance, and background independence simultaneously is extremely difficult. No current ad hoc approach is likely to succeed without some deeper organizing principle yet to be identified.
@@ -41,9 +43,12 @@ The paper establishes that each of the following constitutes a serious, largely 
 This paper is peripherally relevant to the participatory/it-from-bit strand of the research program. Wheeler's "it from bit" is explicitly catalogued as a type II emergent-gravity model, and Carlip's critique of it — that recovering Lorentz invariance, the equivalence principle, and diffeomorphism invariance from purely informational or combinatorial degrees of freedom remains an open and extremely difficult problem — provides a useful calibration for participatory-realist interpretations that invoke quantum information as ontologically primary. For the VFE transformer research specifically, the paper is background context rather than a technical input: the gauge structure in GL(K) attention is an internal information-geometric gauge (acting on belief-state representations), not a spacetime gauge, so the Weinberg-Witten and EPS constraints analyzed here do not directly constrain that framework. However, Carlip's discussion of how approximate symmetries (e.g., near-diffeomorphism invariance) can be qualitatively misleading resonates with the project's insistence on maintaining exact gauge equivariance rather than accepting it only perturbatively.
 
 ## Cross-links
-- Concepts: [[Gauge Theory]], [[Participatory Realism]], [[It From Bit]]
-- Related sources: [[wheeler-1990-it-from-bit]], [[jacobson-1995-thermodynamics-spacetime]]
-- Manuscript/Project: [[PIFB]], [[VFE Transformer Program]]
+> [!note] Editorial: PIFB cites Carlip as the deliberate **critical counterweight** in its emergent-gravity discussion — the strongest objection naming, so interpretive analogy is not dressed up as theorem. The universality challenge applies with full force to the program's own ambition of deriving geometric structure from the stationarity of an information functional and the pullback [[Fisher information metric]]; hence dual-tagged into the methodology cluster.
+
+- Concepts: [[Gauge Theory]], [[Participatory Realism]], [[Participatory realism (it from bit)]], [[It From Bit]], [[Fisher information metric]]
+- Themes: [[Emergent spacetime and holography]]
+- Related sources: [[wheeler-1990-it-from-bit]], [[jacobson-1995-thermodynamics-spacetime]], [[verlinde-2011-entropic-gravity]]
+- Manuscript/Project: [[PIFB]], [[participatory-it-from-bit]], [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex
@@ -52,6 +57,9 @@ This paper is peripherally relevant to the participatory/it-from-bit strand of t
   title   = {Challenges for Emergent Gravity},
   journal = {Studies in History and Philosophy of Modern Physics},
   year    = {2014},
+  volume  = {46},
+  pages   = {200--208},
+  doi     = {10.1016/j.shpsb.2012.11.002},
   eprint  = {1207.2504},
   archivePrefix = {arXiv},
   primaryClass  = {gr-qc},

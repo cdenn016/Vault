@@ -2,8 +2,10 @@
 type: paper
 title: "Longformer: The Long-Document Transformer"
 aliases:
-  - "Beltagy 2020"
-  - "Longformer"
+  - Beltagy 2020
+  - Longformer
+  - beltagy-2020-longformer
+  - Beltagy et al. 2020
 authors:
   - Beltagy, Iz
   - Peters, Matthew E.
@@ -14,6 +16,7 @@ url: https://arxiv.org/abs/2004.05150
 tags:
   - cluster/attention
   - project/transformer
+  - project/multi-agent
   - field/cs-ml
 status: stable
 created: 2026-06-20
@@ -60,7 +63,9 @@ The global-attention tokens are also structurally analogous to the hierarchical 
 
 - Concepts: [[Attention mechanisms — theory and positional structure]], [[Sparse attention]]
 - Related sources: [[press-2021-alibi]], [[participatory-it-from-bit]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention Manuscript]]
+- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention Manuscript]], [[PIFB]]
+
+> [!note] Editorial: PIFB ([[participatory-it-from-bit]]) cites Longformer as long-context "architecture furniture" — a representative efficient-attention scheme whose local-window-plus-global pattern is a hard, hand-designed special case of the distance-decaying coupling prior that PIFB derives softly (the entropy-regularized consensus prior behind ALiBi, [[press-2021-alibi]]).
 
 ## BibTeX
 

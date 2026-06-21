@@ -2,8 +2,11 @@
 type: paper
 title: "Thermodynamics of Spacetime: The Einstein Equation of State"
 aliases:
-  - "Jacobson 1995"
-  - "Einstein equation of state"
+  - Jacobson 1995
+  - Einstein equation of state
+  - jacobson-1995-thermodynamics-spacetime
+  - Thermodynamics of Spacetime
+  - thermodynamicsofspacetime
 authors:
   - Jacobson, Ted
 year: 1995
@@ -23,7 +26,7 @@ updated: 2026-06-20
 # Thermodynamics of Spacetime: The Einstein Equation of State
 
 > [!info] Citation
-> Jacobson, Ted (1995). "Thermodynamics of Spacetime: The Einstein Equation of State." *Physical Review Letters* 75, 1260. arXiv:gr-qc/9504004.
+> Jacobson, Ted (1995). "Thermodynamics of Spacetime: The Einstein Equation of State." *Physical Review Letters* **75**(7), 1260–1263. DOI: 10.1103/PhysRevLett.75.1260. arXiv:gr-qc/9504004.
 
 ## TL;DR
 Jacobson derives the Einstein field equation from thermodynamic first principles alone — specifically from the proportionality of entropy to horizon area and the Clausius relation $\delta Q = T\,dS$ applied to all local Rindler causal horizons. The key insight is that demanding this relation hold for every spacetime point, with heat defined as energy flux across a causal horizon and temperature as the Unruh temperature seen by an accelerated observer, forces the spacetime curvature to satisfy the Einstein equation. Viewed this way, the Einstein equation is an equation of state of spacetime, not a fundamental field equation to be quantized.
@@ -49,8 +52,8 @@ The Einstein equation emerges as a thermodynamic equation of state from (i) entr
 This paper is a foundational reference for the participatory/quantum-foundations cluster because it exemplifies the "physics from information" programme: macroscopic laws (gravity) emerge from microscopic information-theoretic or thermodynamic constraints rather than being independently fundamental. The derivation's structure — demanding a variational principle ($\delta Q = T\,dS$) hold everywhere and deriving field equations as its consequence — parallels the VFE programme's logic of deriving attention/transport equations as stationary points of a free-energy functional. The entropy-area proportionality and Unruh temperature are direct precursors to Verlinde's entropic gravity and to the holographic/entanglement perspectives that underlie participatory realism. The conclusion that the Einstein equation should not be canonically quantized resonates with the stance in the PIFB manuscript that certain macroscopic equations are emergent equations of state rather than fundamental quantum objects.
 
 ## Cross-links
-- Concepts: [[Thermodynamics of Spacetime]], [[Unruh Effect]], [[Horizon Entropy]], [[Holographic Principle]], [[Entropic Gravity]]
-- Related sources: [[jacobson-2016-entanglement-equilibrium]], [[verlinde-2011-entropic-gravity]]
+- Concepts: [[Thermodynamics of Spacetime]], [[Unruh Effect]], [[Horizon Entropy]], [[Holographic Principle]], [[Entropic Gravity]], [[Emergent spacetime and holography]], [[Participatory realism (it from bit)]]
+- Related sources: [[jacobson-2016-entanglement-equilibrium]], [[verlinde-2011-entropic-gravity]], [[padmanabhan-2010-thermodynamic-gravity]], [[faulkner-2014-gravitation-from-entanglement]], [[wheeler-1990-it-from-bit]]
 - Manuscript/Project: [[VFE Transformer Program]], [[PIFB]]
 
 ## BibTeX
@@ -60,9 +63,12 @@ This paper is a foundational reference for the participatory/quantum-foundations
   title   = {Thermodynamics of Spacetime: {The} {Einstein} Equation of State},
   journal = {Physical Review Letters},
   volume  = {75},
+  number  = {7},
   pages   = {1260--1263},
   year    = {1995},
+  doi     = {10.1103/PhysRevLett.75.1260},
   eprint  = {gr-qc/9504004},
   archivePrefix = {arXiv},
+  primaryClass  = {gr-qc},
 }
 ```

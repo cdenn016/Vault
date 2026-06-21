@@ -2,8 +2,9 @@
 type: paper
 title: "The Combination Problem for Panpsychism"
 aliases:
-  - "Chalmers 2016"
-  - "Combination Problem Panpsychism"
+  - Chalmers 2016
+  - Combination Problem Panpsychism
+  - Chalmers (2016) Combination Problem
 authors:
   - Chalmers, David J.
 year: 2016
@@ -22,7 +23,7 @@ updated: 2026-06-20
 # The Combination Problem for Panpsychism
 
 > [!info] Citation
-> Chalmers, David J. (2016). "The Combination Problem for Panpsychism." In Ludwig Jaskolla and Godehard Bruntrup (eds.), *Panpsychism*. Oxford University Press.
+> Chalmers, David J. (2016). "The Combination Problem for Panpsychism." In G. Brüntrup & L. Jaskolla (Eds.), *Panpsychism: Contemporary Perspectives* (pp. 179–214). New York: Oxford University Press.
 
 ## TL;DR
 Chalmers provides a systematic treatment of the combination problem for panpsychism: how do the micro-experiences of fundamental physical entities (quarks, photons) combine to yield the unified, rich macro-experiences of conscious beings like humans? He distinguishes multiple sub-problems (subject combination, quality combination, structural mismatch), turns each into a formal argument against constitutive panpsychism, and then surveys the logical space of responses (emergent, identity, autonomous, and combinatorial panpsychism). No single proposed solution is endorsed as adequate, but the taxonomy clarifies what any successful solution must accomplish.
@@ -46,18 +47,23 @@ The paper yields a taxonomy of four panpsychist positions with respect to the co
 The combination problem maps directly onto the participatory realism framework under development in this program (see PIFB.tex and the GL(K) manuscripts). In participatory realism, the question of how micro-level belief states (the Gaussian tuples (mu, Sigma, phi) of individual agents/tokens) combine to yield macro-level coherent representations and collective consciousness is a structural analog of Chalmers' combination problem. The VFE free-energy functional couples beliefs across agents via the KL transport terms sum_ij beta_ij KL(q_i || Omega_ij q_j); the gauge transport Omega_ij is the mathematical mechanism by which "combination" occurs. Chalmers' structural mismatch problem — microphenomenal structure vs. macrophysical structure — mirrors the tension in the VFE framework between local gauge-equivariant belief geometry (SPD manifold, Riemannian structure) and the emergent global representational structure. The subject-summing problem is relevant to multi-agent active inference: does a collection of free-energy-minimizing agents constitute a unified "macro-agent"? The hyper-prior KL(s_i || h) term (model-to-centroid coupling) and the meta-attention gamma_ij terms are the program's proposed answer to exactly this aggregation question.
 
 ## Cross-links
-- Concepts: [[Panpsychism]], [[Participatory Realism]], [[Consciousness and Active Inference]], [[Combination Problem]]
-- Related sources: [[chalmers-1995-facing-up]], [[friston-2019-free-energy-consciousness]]
+- Concepts: [[Panpsychism]], [[Participatory Realism]], [[Consciousness and Active Inference]], [[Combination Problem]], [[Mathematical consciousness science]], [[Participatory realism (it from bit)]], [[Meta-agents and hierarchical emergence]], [[Ouroboros multi-scale dynamics]]
+- Related sources: [[chalmers-1995-facing-up]], [[friston-2019-free-energy-consciousness]], [[chalmers-2013-panpsychism]], [[goff-2017-consciousness-fundamental-reality]]
 - Manuscript/Project: [[PIFB]], [[GL(K) attention]], [[VFE Transformer Program]]
+
+> [!note] Why the project cites it (from manuscript-citation note)
+> PIFB ([[participatory-it-from-bit]]) self-classifies as **panprotopsychist** (via [[chalmers-2013-panpsychism]]) and so inherits the obligation to explain how protophenomenal structure at one scale composes into experiential structure at a higher scale. This chapter is the canonical statement of that obligation. The project's gauge-covariant coarse-graining ([[Meta-agents and hierarchical emergence]], [[Ouroboros multi-scale dynamics]]) is a candidate, mathematically explicit answer to the *structure* combination problem; whether that pooling also resolves the *subject* combination problem (a genuinely new unified subject, not just a coarse statistic) is the residual difficulty the manuscript must concede.
 
 ## BibTeX
 ```bibtex
 @incollection{Chalmers2016,
   author    = {Chalmers, David J.},
   title     = {The Combination Problem for Panpsychism},
-  booktitle = {Panpsychism},
-  editor    = {Jaskolla, Ludwig and Bruntrup, Godehard},
+  booktitle = {Panpsychism: Contemporary Perspectives},
+  editor    = {Br\"untrup, Godehard and Jaskolla, Ludwig},
   publisher = {Oxford University Press},
+  address   = {New York},
+  pages     = {179--214},
   year      = {2016},
 }
 ```

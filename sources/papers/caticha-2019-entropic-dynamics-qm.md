@@ -2,11 +2,13 @@
 type: paper
 title: "The Entropic Dynamics approach to Quantum Mechanics"
 aliases:
-  - "Caticha 2019"
-  - "Entropic Dynamics QM"
-  - "ED-QM"
-  - "caticha-2019-entropic-physics"
-  - "caticha2019entropicphysics"
+  - Caticha 2019
+  - Entropic Dynamics QM
+  - ED-QM
+  - caticha-2019-entropic-physics
+  - caticha2019entropicphysics
+  - caticha-2019-entropic-dynamics
+  - Caticha (2019) Entropic Dynamics
 authors:
   - Caticha, Ariel
 year: 2019
@@ -16,6 +18,7 @@ tags:
   - cluster/participatory/quantum-foundations
   - cluster/info-geometry
   - project/multi-agent
+  - project/transformer
   - field/physics
   - field/mathematics
   - field/statistics
@@ -28,7 +31,7 @@ updated: 2026-06-20
 # The Entropic Dynamics approach to Quantum Mechanics
 
 > [!info] Citation
-> Caticha, Ariel (2019). "The Entropic Dynamics approach to Quantum Mechanics." arXiv:1908.04693v3 [quant-ph]. https://arxiv.org/abs/1908.04693
+> Caticha, Ariel (2019). "The Entropic Dynamics approach to Quantum Mechanics." *Entropy* 21(10), 943. DOI: [10.3390/e21100943](https://doi.org/10.3390/e21100943). Preprint: [arXiv:1908.04693](https://arxiv.org/abs/1908.04693) [quant-ph].
 
 ## TL;DR
 Entropic Dynamics (ED) derives quantum mechanics as an application of entropic inference (maximum entropy) rather than as a generalization of classical mechanics. The wave function is treated as a purely epistemic object encoding probabilistic constraints, and the Schrödinger equation emerges as the unique Hamilton-Killing flow that preserves both the symplectic and information-geometric metric structures of the space of probabilities and phases. Hilbert spaces are shown to be a convenient but non-essential calculational tool.
@@ -75,16 +78,21 @@ ED is a direct antecedent of the participatory / epistemic foundations motivatin
 **Symplectic structure and phase-space dynamics.** The natural symplectic structure on $\{\rho, \Phi\}$ and the Hamiltonian-Killing flow derivation of Schrödinger evolution is potentially relevant to understanding the phase structure of the VFE belief update as a geometric flow on a statistical manifold.
 
 ## Cross-links
-- Concepts: [[Information Geometry]], [[Variational Free Energy]], [[Gauge Equivariance]], [[Participatory Realism]], [[Maximum Entropy Principle]]
-- Related sources: [[jaynes-1957-information-theory]], [[amari-2000-methods-information-geometry]]
-- Manuscript/Project: [[VFE Transformer Program]], [[PIFB]], [[GL(K) Attention]]
+- Concepts: [[Information Geometry]], [[Information geometry and natural gradient]], [[Natural gradient]], [[Fisher information metric]], [[Variational Free Energy]], [[Gauge Equivariance]], [[Participatory Realism]], [[Participatory realism (it from bit)]], [[Maximum Entropy Principle]], [[Hamiltonian belief dynamics]], [[Belief inertia]], [[Mass as Fisher information]], [[Meta-entropy]], [[Agents as fibre-bundle sections]], [[Parallel transport]]
+- Related sources: [[jaynes-1957-information-theory]], [[amari-2000-methods-information-geometry]], [[wheeler-1990-it-from-bit]], [[fuchs-2014-qbism]]
+- Manuscript/Project: [[VFE Transformer Program]], [[PIFB]], [[participatory-it-from-bit]], [[GL(K) Attention]]
 
 ## BibTeX
 ```bibtex
 @article{Caticha2019,
   author  = {Caticha, Ariel},
   title   = {The Entropic Dynamics approach to Quantum Mechanics},
+  journal = {Entropy},
   year    = {2019},
+  volume  = {21},
+  number  = {10},
+  pages   = {943},
+  doi     = {10.3390/e21100943},
   eprint  = {1908.04693},
   archivePrefix = {arXiv},
   primaryClass  = {quant-ph},

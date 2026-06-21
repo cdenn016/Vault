@@ -2,9 +2,12 @@
 type: paper
 title: "Social Influence and Opinions"
 aliases:
-  - "Friedkin Johnsen 1990"
-  - "Friedkin-Johnsen model"
-  - "FJ model"
+  - Friedkin Johnsen 1990
+  - Friedkin-Johnsen model
+  - FJ model
+  - friedkin-johnsen-1990
+  - Friedkin 1990
+  - Friedkin & Johnsen 1990
 authors:
   - Friedkin, Noah E
   - Johnsen, Eugene C
@@ -16,6 +19,7 @@ tags:
   - cluster/social-physics/social-influence
   - cluster/social-physics/networks-and-contagion
   - project/social-physics
+  - project/multi-agent
   - field/sociology
   - field/mathematics
   - field/statistics
@@ -55,6 +59,10 @@ The equilibrium model $Y_\infty = [I - \alpha W]^{-1} \beta X B$ subsumes as spe
 
 ## Relevance to this research
 The Friedkin-Johnsen model is structurally analogous to iterative belief-updating in the VFE transformer: the weight matrix $W$ parallels the attention matrix $\beta_{ij}$ (normalized influence weights between agents/tokens), and the equilibrium $Y_\infty = [I - \alpha W]^{-1} \beta Y_1$ mirrors the fixed-point structure of VFE E-step iterations where beliefs $\mu_i$ are updated as weighted combinations of neighbor beliefs transported via $\Omega_{ij}$. In the multi-agent active inference setting, the $\alpha$/$\beta$ decomposition (endogenous vs. exogenous weight) corresponds to the self-coupling $\alpha \cdot \mathrm{KL}(q_i \| p_i)$ and observation likelihood terms in the free energy functional. The FJ convergence theorem (stochastic $W$, $|\alpha|<1$ implies unique equilibrium) gives a classical precedent for the convergence analysis of the VFE message-passing dynamics. The peer-effects cautionary note — that a noteworthy effect of the mean of influential opinions does not imply conformance to a norm — is relevant to interpreting softmax attention averages in the GL(K) attention mechanism.
+
+In the equivalent *susceptibility form* of the model, each agent updates as $y_i \leftarrow \lambda_i \sum_j W_{ij}\, y_j + (1-\lambda_i)\, y_i^{(0)}$, where the anchoring term $(1-\lambda_i)\,y_i^{(0)}$ encodes a stubbornness/attachment to the agent's own initial opinion. This fixed anchoring is the sociological precursor to the project's [[Belief inertia]]: where Friedkin–Johnsen impose a constant susceptibility $\lambda_i$, the project recasts the resistance to belief change geometrically as [[Mass as Fisher information]] (curvature of the local statistical manifold via the [[Fisher information metric]]). The model thus serves as the flat, no-gauge-curvature limit against which the gauge-theoretic extension — beliefs as [[Agents as fibre-bundle sections]] propagated by [[Parallel transport]] — is positioned, situating the project within the [[Renormalization-group flow of beliefs]] and [[Meta-agents and hierarchical emergence]] picture.
+
+> [!note] Editorial: the exact parameterization (agent-specific vs. scalar $\lambda$, and the precise normalization of $W$) varies across presentations; the susceptibility form above follows the standard linear influence-process reading of the 1990 paper.
 
 ## Cross-links
 - Concepts: [[Opinion Dynamics]], [[Social Influence Networks]], [[Belief Propagation]], [[Attention Mechanism]]

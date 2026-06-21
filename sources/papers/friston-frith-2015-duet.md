@@ -2,8 +2,13 @@
 type: paper
 title: "A Duet for One"
 aliases:
-  - "Friston Frith 2015"
-  - "Duet for One"
+  - Friston Frith 2015
+  - Duet for One
+  - friston-2015-duet
+  - friston-2015-active-inference-epistemic
+  - friston2015activeinferenceepistemic
+  - friston-2015-active-inference-mdp
+  - friston2015activeinferencemdp
 authors:
   - Friston, Karl
   - Frith, Christopher
@@ -35,7 +40,11 @@ A longstanding puzzle in social neuroscience is how agents infer the mental stat
 ## Method
 The framework is active (Bayesian) inference: agents minimise variational free energy (surprise) by updating beliefs about hidden states and by acting to fulfil descending proprioceptive predictions. A hierarchical generative model is constructed from two coupled Lorenz attractors driving a synthetic syrinx to produce birdsong. The critical technical device is **sensory attenuation** — transiently reducing the precision (inverse variance) of auditory prediction errors to permit open-loop motor control during articulation — so an agent can either listen (high auditory precision, low proprioceptive precision) or speak (reversed), but not both simultaneously. Two such synthetic birds are then coupled: each alternately sings and listens. Generalised synchrony is measured by plotting the hidden-state trajectories of both agents against each other.
 
-The free energy in this setting follows the standard form: minimising $F = D_{\mathrm{KL}}[q(x) \| p(x)] - \mathbb{E}_q[\log p(y | x)]$, where $q$ encodes posterior beliefs about hidden states $x$ given sensory observations $y$. Precision weighting enters as the inverse covariance of prediction errors, and sensory attenuation is implemented by reducing that weighting on auditory channels during action epochs.
+The free energy in this setting follows the standard form: minimising $F = D_{\mathrm{KL}}[q(x) \| p(x)] - \mathbb{E}_q[\log p(y | x)]$, where $q$ encodes posterior beliefs about hidden states $x$ given sensory observations $y$. Precision weighting enters as the inverse covariance of prediction errors, and sensory attenuation is implemented by reducing that weighting on auditory channels during action epochs. Concretely, inference proceeds by generalised gradient descent on free energy in generalised coordinates of motion,
+
+$$\dot{\tilde{\mu}}(t) = D\tilde{\mu}(t) - \partial_{\tilde{\mu}} F(\tilde{s}, \tilde{\mu}),$$
+
+where $\tilde{\mu}$ are generalised posterior expectations over hidden states, $\tilde{s}$ generalised sensory inputs, and $D$ is the shift operator returning generalised motion (the DEM/spm_ADEM scheme).
 
 ## Key results
 - When two birds share the same generative model and can hear each other, **identical generalised synchrony** emerges rapidly (within one exchange epoch) from random initial conditions. The synchronisation manifold collapses to the identity line in state space.
@@ -43,6 +52,7 @@ The free energy in this setting follows the standard form: minimising $F = D_{\m
 - Successful articulation requires sensory attenuation: running without attenuation destroys the hierarchical dynamics of the higher vocal centre, producing incoherent output — offering a formal account of why one cannot speak and listen simultaneously.
 - The shared narrative is amodal and **without agency**: the hidden states driving the duet transcend which bird is currently singing; agency is a contextual factor determined by precision fluctuations, not by the hidden states themselves.
 - This yields a predictive-coding account of the hermeneutic circle in communication, resolving theory of mind via model-sharing rather than explicit other-modelling.
+- The synchrony is mathematically inevitable, not incidental: any measure-preserving coupled dynamical system with a [[Markov Blanket]] possesses a random dynamical attractor (the synchronisation manifold), and minimising free energy reduces the measure of that attractor — so generalised synchrony is forced. Theory of mind reduces to inferring which state one would need to be in to produce the observed sensory consequences.
 
 ## Relevance to this research
 This paper is directly relevant to the **multi-agent VFE / active inference** arm of the research program. Several connections are precise:
@@ -58,8 +68,8 @@ This paper is directly relevant to the **multi-agent VFE / active inference** ar
 The paper does not address gauge equivariance, SPD geometry, or the GL(K) attention formalism, so it is not directly relevant to the VFE transformer (GL(K)) manuscript.
 
 ## Cross-links
-- Concepts: [[Active Inference]], [[Predictive Coding]], [[Variational Free Energy]], [[Generalised Synchrony]], [[Precision Weighting]], [[Theory of Mind]], [[Sensory Attenuation]]
-- Related sources: [[rao-1999-predictive-coding]], [[heins-2024-surprise-minimization]], [[albarracin-2022-epistemic-communities]]
+- Concepts: [[Active Inference]], [[Predictive Coding]], [[Variational Free Energy]], [[Generalised Synchrony]], [[Precision Weighting]], [[Theory of Mind]], [[Sensory Attenuation]], [[Free Energy Principle]], [[Markov Blanket]]
+- Related sources: [[rao-1999-predictive-coding]], [[heins-2024-surprise-minimization]], [[albarracin-2022-epistemic-communities]], [[friston-2010-generalised-filtering]], [[feldman-friston-2010-attention]]
 - Manuscript/Project: [[MAgent Model]], [[VFE Transformer Program]]
 
 ## BibTeX

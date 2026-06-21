@@ -2,9 +2,12 @@
 type: paper
 title: "Information Bottleneck for Gaussian Variables"
 aliases:
-  - "Chechik 2005"
-  - "Gaussian IB"
-  - "GIB"
+  - Chechik 2005
+  - Gaussian IB
+  - GIB
+  - chechik-2005-gaussian-ib
+  - Chechik et al. 2005
+  - Gaussian Information Bottleneck
 authors:
   - Chechik, Gal
   - Globerson, Amir
@@ -15,7 +18,9 @@ arxiv: null
 url: https://jmlr.org/papers/v6/chechik05a.html
 tags:
   - cluster/info-geometry
+  - cluster/spd-geometry
   - project/transformer
+  - project/multi-agent
   - field/cs-ml
   - field/statistics
   - field/mathematics
@@ -60,8 +65,11 @@ The Gaussian IB result is directly relevant to the VFE transformer's information
 
 ## Cross-links
 - Concepts: [[Information Bottleneck]], [[Canonical Correlation Analysis]], [[Information Geometry]], [[Variational Free Energy]], [[Gaussian Beliefs]]
-- Related sources: [[tishby1999information]], [[globerson2004sufficient]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]]
+- Related sources: [[tishby1999information]], [[globerson2004sufficient]], [[pennec-2006-affine-invariant-tensor]]
+- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]], [[participatory-it-from-bit]]
+
+> [!note] Why the project cites it (from manuscript-citation note)
+> Of the entire IB family this is the closest to PIFB, because PIFB's representations are **Gaussian belief tuples** $(\mu, \Sigma, \phi)$ — exactly the regime Chechik et al. solve. Their result says the optimal relevance-preserving compression of a Gaussian source is a covariance-eigenstructure operation, congenial to the project's treatment of belief covariances $\Sigma$ on the SPD manifold with affine-invariant geometry (see [[pennec-2006-affine-invariant-tensor]]). It gives a tractable benchmark in the one case where the compression-relevance trade-off is exactly solvable and matches the project's representation class.
 
 ## BibTeX
 ```bibtex

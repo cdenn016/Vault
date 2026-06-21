@@ -2,10 +2,12 @@
 type: paper
 title: "The entropic brain: a theory of conscious states informed by neuroimaging research with psychedelic drugs"
 aliases:
-  - "Carhart-Harris 2014"
-  - "Entropic Brain"
-  - "Entropic Brain Theory"
-  - "entropicbraintheory"
+  - Carhart-Harris 2014
+  - Entropic Brain
+  - Entropic Brain Theory
+  - entropicbraintheory
+  - Carhart-Harris et al. 2014
+  - The Entropic Brain
 authors:
   - Carhart-Harris, Robin L.
   - Leech, Robert
@@ -52,9 +54,11 @@ Psilocybin produced decreases in CBF, BOLD signal, intra-DMN functional connecti
 The entropic brain framework operationalizes entropy as a direct measure of consciousness quality, connecting information-theoretic entropy to the free-energy principle (Friston 2010) through the identity that free-energy (surprise) averages to entropy (uncertainty). This is directly relevant to the VFE transformer program: the variational free-energy objective minimized in VFE attention is formally the same quantity that Carhart-Harris et al. link to conscious state regulation. The attractor-landscape language (shallower basins in primary states, entrenched basins in depression/OCD) parallels the belief-geometry picture of SPD manifolds and KL divergences between beliefs and priors. The concept that normal cognition operates at slight sub-criticality — tuned to minimize surprise while maintaining flexibility — mirrors the active-inference framing of beliefs organized to minimize expected free energy. The paper's treatment of the ego as self-organized DMN activity suppressing entropy also connects to participatory realism discussions of observer-constituted reality and the role of prior beliefs in shaping perception. Shannon entropy over connectivity motif sequences is a network-level analog of the entropy terms appearing in the VFE free-energy functional (the attention entropy term tau * beta * log(beta/pi)).
 
 ## Cross-links
-- Concepts: [[Variational Free Energy]], [[Entropy]], [[Self-Organized Criticality]], [[Default Mode Network]], [[Active Inference]]
+> [!note] Editorial: Cited chiefly for the **entropy-as-marker-of-conscious-state** idea; the project does not adopt the psychedelic-specific claims. The criticality/entropy framing connects loosely to the project's [[Renormalization group flow]] and [[Ouroboros multi-scale dynamics]].
+
+- Concepts: [[Variational Free Energy]], [[Entropy]], [[Meta-entropy]], [[Self-Organized Criticality]], [[Default Mode Network]], [[Active Inference]], [[Precision weighting]], [[Mathematical consciousness science]]
 - Related sources: [[friston-2010-free-energy]], [[tononi-2004-information-integration]]
-- Manuscript/Project: [[VFE Transformer Program]], [[PIFB]]
+- Manuscript/Project: [[VFE Transformer Program]], [[PIFB]], [[participatory-it-from-bit]]
 
 ## BibTeX
 ```bibtex
@@ -66,5 +70,6 @@ The entropic brain framework operationalizes entropy as a direct measure of cons
   volume  = {8},
   pages   = {20},
   doi     = {10.3389/fnhum.2014.00020},
+  publisher = {Frontiers Media SA},
 }
 ```

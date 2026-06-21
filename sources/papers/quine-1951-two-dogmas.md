@@ -2,8 +2,10 @@
 type: paper
 title: "Two Dogmas of Empiricism"
 aliases:
-  - "Quine 1951"
-  - "Two Dogmas"
+  - Quine 1951
+  - Two Dogmas
+  - Quine1951-two-dogmas
+  - Quine — Two Dogmas of Empiricism
 authors:
   - Quine, W. V.
 year: 1951
@@ -11,6 +13,8 @@ arxiv: null
 url: http://www.jstor.org/stable/2181906
 tags:
   - cluster/participatory/philosophy-of-mind
+  - cluster/methodology
+  - project/multi-agent
   - field/philosophy
 status: stable
 created: 2026-06-20
@@ -43,9 +47,11 @@ The analytic/synthetic distinction is shown to be a dogma without clear empirica
 Quine's holism and rejection of a sharp fact/meaning boundary bear on the philosophical foundations of participatory realism and the observer-dependent physics program that motivates the VFE research. Participatory accounts of quantum measurement (Wheeler's "it from bit") require a nuanced view of how theoretical posits and observational reports are coupled — Quinean holism supports the claim that no observation statement is theory-free and that the "boundary" between observer and observed is a pragmatic posit, not a metaphysical given. The paper is a canonical reference for the philosophy of science background underlying discussions of participatory realism, epistemic frameworks, and the status of mathematical structures in physical theory (relevant to [[Participatory Realism]] and [[PIFB]] manuscript). The rejection of reductionism also resonates with the VFE program's treatment of beliefs as irreducible Gaussian tuples rather than point estimates reducible to data.
 
 ## Cross-links
-- Concepts: [[Participatory Realism]], [[Philosophy of Science]], [[Holism]]
-- Related sources: [[wheeler-1990-information-physics-quanta]]
-- Manuscript/Project: [[PIFB]]
+- Concepts: [[Participatory Realism]], [[Philosophy of Science]], [[Holism]], [[Web of Belief]], [[Analytic-Synthetic Distinction]], [[Variational free energy]], [[Relativized a priori]]
+- Related sources: [[wheeler-1990-information-physics-quanta]], [[Quine1960-word-and-object]], [[putnam-1981-reason-truth-history]], [[vanfraassen-1980-scientific-image]], [[reichenbach-1920-relativity-apriori]], [[kuhn-1962-structure]]
+- Manuscript/Project: [[PIFB]], [[VFE Transformer Program]]
+
+> [!note] Editorial: Beyond holism, the load-bearing thesis for the project is **underdetermination** — multiple, logically incompatible total theories can fit the same evidence; experience does not uniquely fix theory. In the multi-agent variational setting this becomes the existence of many belief configurations (gauge-related or otherwise) compatible with the same data, the no-unique-true-description backbone of [[Participatory realism (it from bit)]]. Quine sharpens underdetermination in his 1975 *On Empirically Equivalent Systems of the World* (*Erkenntnis* 9(3):313–328, DOI 10.1007/BF00178004), which may be cited alongside.
 
 ## BibTeX
 ```bibtex
@@ -57,6 +63,18 @@ Quine's holism and rejection of a sharp fact/meaning boundary bear on the philos
   volume  = {60},
   number  = {1},
   pages   = {20--43},
+  doi     = {10.2307/2181906},
   url     = {http://www.jstor.org/stable/2181906},
+}
+
+@article{quine1975empirically,
+  author  = {Quine, Willard Van Orman},
+  title   = {On Empirically Equivalent Systems of the World},
+  journal = {Erkenntnis},
+  volume  = {9},
+  number  = {3},
+  pages   = {313--328},
+  year    = {1975},
+  doi     = {10.1007/BF00178004},
 }
 ```

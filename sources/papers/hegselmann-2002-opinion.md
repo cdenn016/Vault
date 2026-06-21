@@ -2,13 +2,14 @@
 type: paper
 title: "Opinion Dynamics and Bounded Confidence: Models, Analysis and Simulation"
 aliases:
-  - "Hegselmann 2002"
-  - "Hegselmann-Krause 2002"
-  - "HK model"
-  - "hegselmann2002-opinion-dynamics"
-  - "hegselmann-2002-opinion-dynamics"
-  - "hegselmann2002-opinion"
-  - "hegselmann2002opinion"
+  - Hegselmann 2002
+  - Hegselmann-Krause 2002
+  - HK model
+  - hegselmann2002-opinion-dynamics
+  - hegselmann-2002-opinion-dynamics
+  - hegselmann2002-opinion
+  - hegselmann2002opinion
+  - hegselmann-krause-2002
 authors:
   - Hegselmann, Rainer
   - Krause, Ulrich
@@ -74,9 +75,9 @@ The plain Euclidean averaging in HK is also the flat-geometry special case of th
 
 ## Cross-links
 
-- Concepts: [[Bounded confidence]], [[Multi-agent variational free energy]], [[Meta-agents and hierarchical emergence]], [[Precision weighting]], [[Parallel transport]], [[Fisher information metric]]
+- Concepts: [[Bounded confidence]], [[Multi-agent variational free energy]], [[Meta-agents and hierarchical emergence]], [[Renormalization-group flow of beliefs]], [[Ouroboros multi-scale dynamics]], [[Precision weighting]], [[Prediction error]], [[Parallel transport]], [[Fisher information metric]], [[Information geometry and natural gradient]], [[Belief inertia]], [[Mass as Fisher information]]
 - Related sources: [[deffuant-2000-bounded-confidence]], [[degroot-1974-consensus]], [[friedkin-johnsen-1990]], [[galam-2008-sociophysics]], [[albi-2017-recent-advances-opinion-modeling]]
-- Manuscript/Project: [[Gauge-Theoretic Multi-Agent VFE Model]], [[VFE Transformer Program]]
+- Manuscript/Project: [[Gauge-Theoretic Multi-Agent VFE Model]], [[VFE Transformer Program]], [[participatory-it-from-bit]]
 
 ## BibTeX
 

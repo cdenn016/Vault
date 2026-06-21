@@ -2,8 +2,10 @@
 type: paper
 title: "The holographic principle"
 aliases:
-  - "Bousso 2002"
-  - "holographic principle review"
+  - Bousso 2002
+  - holographic principle review
+  - bousso-2002-holographic-principle
+  - Holographic Principle (review)
 authors:
   - Bousso, Raphael
 year: 2002
@@ -22,7 +24,7 @@ updated: 2026-06-20
 # The holographic principle
 
 > [!info] Citation
-> Bousso, R. (2002). "The holographic principle." *Reviews of Modern Physics* 74, 825. arXiv:hep-th/0203101.
+> Bousso, R. (2002). "The holographic principle." *Reviews of Modern Physics* 74(3), 825–874. DOI: [10.1103/RevModPhys.74.825](https://doi.org/10.1103/RevModPhys.74.825). Preprint: [arXiv:hep-th/0203101](https://arxiv.org/abs/hep-th/0203101).
 
 ## TL;DR
 This is the canonical review article on the holographic principle, establishing that the area of any surface bounds the information content of adjacent spacetime regions at approximately 1.4 × 10^69 bits per square meter. The covariant entropy bound — that entropy on any light-sheet of a surface B does not exceed the area of B divided by 4 — is presented as the most general and correct formulation. The holographic principle asserts this bound reflects a fundamental reduction in the degrees of freedom of nature from the volume-scaling expected by local quantum field theory to an area-scaling dictated by quantum gravity.
@@ -48,9 +50,10 @@ The covariant entropy bound holds in every tested case, including all settings w
 The holographic principle is the foundational backdrop for the participatory "it from bit" program: the claim that physical reality is constituted by information, that geometry encodes information content, and that the degrees of freedom of spacetime are area-scaling rather than volume-scaling. This maps directly onto the cluster/participatory/quantum-foundations themes in this research program. The covariant entropy bound's reliance on light-sheets and null geometry resonates with the information-geometric structures underlying the VFE transformer's belief geometry: both replace naive local (volume) counting with a global geometric (area/boundary) constraint. The role of unitarity and black hole complementarity — that no single observer can access both copies of information — echoes the perspectival, observer-relative framing of participatory realism (Wheeler's "it from bit") explored in the PIFB manuscript. The area-information duality (A/4 degrees of freedom) is a concrete instantiation of the general claim that geometry and information are unified, which the VFE/GL(K) framework pursues in the context of Riemannian/SPD belief geometry and gauge-equivariant attention.
 
 ## Cross-links
-- Concepts: [[Holographic Principle]], [[Covariant Entropy Bound]], [[Black Hole Thermodynamics]], [[Information Geometry]], [[Participatory Realism]]
-- Related sources: [[wheeler-1990-it-from-bit]], [[bekenstein-1973-black-holes]], [[maldacena-1998-adscft]]
-- Manuscript/Project: [[PIFB]], [[VFE Transformer Program]]
+- Concepts: [[Holographic Principle]], [[Covariant Entropy Bound]], [[Black Hole Thermodynamics]], [[Information Geometry]], [[Fisher information metric]], [[Participatory Realism]], [[Participatory realism (it from bit)]]
+- Themes: [[Emergent spacetime and holography]]
+- Related sources: [[wheeler-1990-it-from-bit]], [[bekenstein-1973-black-holes]], [[thooft-1993-dimensional-reduction]], [[maldacena-1998-adscft]]
+- Manuscript/Project: [[PIFB]], [[participatory-it-from-bit]], [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex
@@ -59,9 +62,12 @@ The holographic principle is the foundational backdrop for the participatory "it
   title   = {The holographic principle},
   journal = {Reviews of Modern Physics},
   volume  = {74},
-  pages   = {825},
+  number  = {3},
+  pages   = {825--874},
   year    = {2002},
+  doi     = {10.1103/RevModPhys.74.825},
   eprint  = {hep-th/0203101},
   archivePrefix = {arXiv},
+  primaryClass  = {hep-th},
 }
 ```

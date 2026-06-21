@@ -2,10 +2,13 @@
 type: paper
 title: "Towards a Neuronal Gauge Theory"
 aliases:
-  - "Sengupta 2016"
-  - "Neuronal Gauge Theory"
-  - "sengupta2016neuronal-gauge"
-  - "sengupta2016neuronalgauge"
+  - Sengupta 2016
+  - Neuronal Gauge Theory
+  - sengupta2016neuronal-gauge
+  - sengupta2016neuronalgauge
+  - sengupta-2016-neuronal-gauge-theory
+  - Sengupta et al. 2016
+  - Sengupta (2016) Neuronal Gauge Theory
 authors:
   - Sengupta, Biswa
   - Tozzi, Arturo
@@ -19,6 +22,8 @@ tags:
   - cluster/gauge-theory
   - cluster/vfe
   - cluster/info-geometry
+  - cluster/participatory
+  - cluster/participatory/consciousness
   - project/multi-agent
   - project/transformer
   - field/neuroscience
@@ -68,9 +73,11 @@ This paper is a direct conceptual precursor to the GL(K) gauge-equivariant VFE t
 - **Hierarchical gauge theory**: The nested, hierarchical application of the gauge theory (system $\subset$ environment, recursively) prefigures the multi-agent active inference model (MAgent_Model), where each agent is a gauge-theoretic inference system embedded in a larger one.
 
 ## Cross-links
-- Concepts: [[Gauge Theory]], [[Variational Free Energy]], [[Information Geometry]], [[Fisher Information Metric]], [[Predictive Coding]], [[Active Inference]], [[Attention as Precision]], [[Riemannian Manifold]]
-- Related sources: [[friston-2010-free-energy-principle]], [[amari-2000-information-geometry]], [[friston-2023-active-inference]]
-- Manuscript/Project: [[GL(K) Attention Manuscript]], [[VFE Transformer Program]], [[MAgent Model]]
+- Concepts: [[Gauge Theory]], [[Variational Free Energy]], [[Information Geometry]], [[Fisher Information Metric]], [[Predictive Coding]], [[Active Inference]], [[Attention as Precision]], [[Riemannian Manifold]], [[Gauge transformation]], [[Parallel transport]], [[Holonomy]], [[Agents as fibre-bundle sections]], [[Participatory realism (it from bit)]]
+- Related sources: [[friston-2010-free-energy-principle]], [[amari-2000-information-geometry]], [[friston-2023-active-inference]], [[sengupta2017gauge]] (the technical follow-up, Sengupta & Friston 2017, arXiv:1705.06614, which develops the connection/transport mathematics)
+- Manuscript/Project: [[GL(K) Attention Manuscript]], [[VFE Transformer Program]], [[MAgent Model]], [[participatory-it-from-bit]]
+
+> [!note] Framing (from refs/ note): This is the project's **named closest precursor on the gauge–FEP axis** — the explicit proposal that active inference and gauge theory should be unified. Where Sengupta et al. argue *that* the brain admits a gauge description, the project supplies *which* group (GL(K)), *which* connection, and a working multi-agent VFE minimizer respecting gauge equivariance; the participatory reading — physical content is what survives the gauge freedom of any observer's belief frame — extends this paper's invariance principle.
 
 ## BibTeX
 ```bibtex

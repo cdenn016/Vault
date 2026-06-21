@@ -2,10 +2,11 @@
 type: paper
 title: "On Participatory Realism"
 aliases:
-  - "Fuchs 2017"
-  - "Participatory Realism"
-  - "QBism realism"
-  - "participatory-realism"
+  - Fuchs 2017
+  - Participatory Realism
+  - QBism realism
+  - participatory-realism
+  - Participatory realism coinage
 authors:
   - Fuchs, Christopher A.
 year: 2017
@@ -25,7 +26,7 @@ updated: 2026-06-20
 # On Participatory Realism
 
 > [!info] Citation
-> Fuchs, Christopher A. (2017). "On Participatory Realism." arXiv:1601.04360 [quant-ph]. (Chapter contribution, dated 28 Jun 2016 revision.)
+> Fuchs, Christopher A. (2017). "On Participatory Realism." In I. T. Durham & D. Rickles (Eds.), *Information and Interaction: Eddington, Wheeler, and the Limits of Knowledge* (pp. 113–134). Springer. Preprint: arXiv:1601.04360 [quant-ph] (v3, 28 Jun 2016 revision).
 
 ## TL;DR
 Fuchs argues that QBism — Quantum Bayesianism in its most radical form — should be understood not as instrumentalism or anti-realism but as a species of "participatory realism": the view that reality is more than any third-person perspective can capture, and that agents (observers) are irreducible, non-negligible participants in the construction of actual events. The paper traces this position through John Wheeler's "law without law" and "observer-participancy," defends it against critics who label it non-realist, and presents the Born Rule as a normative, inter-subjectively binding structure that points beyond any individual agent's probability assignments.
@@ -45,8 +46,8 @@ The main philosophical result is the coinage and defence of the term "participat
 Participatory realism is the philosophical backbone of the PIFB (Participatory It-From-Bit) manuscript, which generalises Wheeler's it-from-bit programme to the active-inference/VFE setting. Several direct connections: (1) The QBist agent's probability assignments updated by the Born Rule are the quantum analogue of the VFE agent's belief distributions updated by variational free energy minimisation — both are normative, first-person prescriptions that nonetheless point to inter-subjective structure. (2) Wheeler's "elementary quantum phenomena" as elementary acts of creation map onto the discrete VFE update steps in the multi-agent active-inference model: each belief update is a local "QBoom." (3) The distinction between the subjective quantum state and the objective normative Born Rule parallels the distinction in the VFE framework between agent-specific posteriors q_i and the shared gauge-equivariant transport structure Omega_ij — the latter is the "objective factor" that agents must agree on. (4) Fuchs's insistence that agents are non-eliminable participators directly motivates the multi-agent FEP model where individual agents' actions reshape the shared generative model, not merely sample from a pre-existing one.
 
 ## Cross-links
-- Concepts: [[Participatory Realism]], [[QBism]], [[It from Bit]], [[Variational Free Energy]], [[Active Inference]]
-- Related sources: [[wheeler-1990-information-physics-quanta]], [[friston-2023-active-inference]]
+- Concepts: [[Participatory realism (it from bit)]], [[QBism]], [[It from Bit]], [[Variational Free Energy]], [[Active Inference]], [[Gauge transformation]], [[Parallel transport]], [[Holonomy]], [[Agents as fibre-bundle sections]], [[Multi-agent variational free energy]]
+- Related sources: [[wheeler-1990-it-from-bit]], [[fuchs-2014-qbism]], [[fuchs-schack-2013-bayesian-coherence]], [[rovelli-1996-relational-qm]], [[friston-2023-active-inference]]
 - Manuscript/Project: [[PIFB]], [[VFE Transformer Program]]
 
 ## BibTeX
@@ -54,6 +55,10 @@ Participatory realism is the philosophical backbone of the PIFB (Participatory I
 @incollection{Fuchs2017,
   author    = {Fuchs, Christopher A.},
   title     = {On Participatory Realism},
+  booktitle = {Information and Interaction: Eddington, Wheeler, and the Limits of Knowledge},
+  editor    = {Durham, Ian T. and Rickles, Dean},
+  pages     = {113--134},
+  publisher = {Springer},
   year      = {2017},
   eprint    = {1601.04360},
   archivePrefix = {arXiv},

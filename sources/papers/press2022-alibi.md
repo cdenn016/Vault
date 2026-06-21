@@ -2,9 +2,12 @@
 type: paper
 title: "Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation"
 aliases:
-  - "Press 2022"
-  - "ALiBi"
-  - "press2022train"
+  - Press 2022
+  - ALiBi
+  - press2022train
+  - press-2021-alibi
+  - Press et al. 2021
+  - Press (2021) ALiBi
 authors:
   - Press, Ofir
   - Smith, Noah A.
@@ -15,6 +18,7 @@ url: https://arxiv.org/abs/2108.12409
 tags:
   - cluster/attention
   - project/transformer
+  - project/multi-agent
   - field/cs-ml
 status: stable
 created: 2026-06-20
@@ -46,9 +50,11 @@ On WikiText-103, ALiBi trained on $L = 512$ tokens achieves perplexity 18.40 ext
 ALiBi is directly relevant to the VFE transformer's T5 relative-position attention prior channel. The VFE3 codebase implements a `t5_relative_bias` attention prior that adds a learned (or fixed) per-bucket scalar bias $b_{i-j}$ to attention scores — the same structural mechanism as ALiBi but with a learnable table and bucket discretization. The ALiBi paper establishes that non-learned, analytically defined position biases (linear distance penalties with geometric slope schedules) can match or exceed learned variants and enable extrapolation, supporting the design choice to keep `t5_learnable_bias=False` as the default (fixed $-\log(1 + \text{bucket})$ initialization). The insight that position information should be injected into queries and keys but not values — which ALiBi inherits from the T5 bias and rotary methods — is consistent with VFE3's gauge-theoretic treatment, where attention weights (arising from transport/KL terms) carry relational structure while value-like quantities (the transported beliefs $\Omega_{ij} q_j$) are position-free. The paper's analysis of the "early token curse" also provides empirical grounding for the recency-biased inductive structure built into ALiBi's linear penalty, which is structurally analogous to the distance-decaying attention priors in the VFE framework.
 
 ## Cross-links
-- Concepts: [[Attention Mechanism]], [[Positional Encoding]], [[Length Extrapolation]]
+- Concepts: [[Attention Mechanism]], [[Positional Encoding]], [[Length Extrapolation]], [[Attention mechanisms — theory and positional structure]]
 - Related sources: [[vaswani2017attention]], [[raffel2020t5]], [[su2021roformer]]
-- Manuscript/Project: [[VFE Transformer Program]]
+- Manuscript/Project: [[VFE Transformer Program]], [[participatory-it-from-bit]]
+
+> [!note] Editorial: In the PIFB reading, ALiBi is *derived* rather than an engineering trick: with an entropy-regularized consensus prior $\tau\,\beta_{ij}\log(\beta_{ij}/\pi_{ij})$ on belief coupling, taking the prior $\pi_{ij}$ to decay with distance shifts each attention logit by $\log\pi_{ij}$, and a log-prior linear in distance is exactly ALiBi's additive linear bias — the per-head slope $m$ reading as the strength of the distance prior. This is the additive log-prior complement to the multiplicative gauge-frame reading of RoPE ([[su2021roformer]]).
 
 ## BibTeX
 ```bibtex

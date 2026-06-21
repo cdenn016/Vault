@@ -2,8 +2,13 @@
 type: paper
 title: "Reference frames, superselection rules, and quantum information"
 aliases:
-  - "Bartlett 2007"
-  - "BRS2007"
+  - Bartlett 2007
+  - BRS2007
+  - bartlett-rudolph-spekkens-2007-reference-frames
+  - Bartlett
+  - Rudolph & Spekkens 2007
+  - BRS 2007
+  - Reference frames review
 authors:
   - Bartlett, Stephen D.
   - Rudolph, Terry
@@ -27,7 +32,7 @@ updated: 2026-06-20
 # Reference frames, superselection rules, and quantum information
 
 > [!info] Citation
-> Bartlett, S. D., Rudolph, T., & Spekkens, R. W. (2007). "Reference frames, superselection rules, and quantum information." Reviews of Modern Physics, 79, 555. arXiv:quant-ph/0610030.
+> Bartlett, S. D., Rudolph, T., & Spekkens, R. W. (2007). "Reference frames, superselection rules, and quantum information." *Reviews of Modern Physics*, 79(2), 555–609. DOI: 10.1103/RevModPhys.79.555. arXiv:quant-ph/0610030.
 
 ## TL;DR
 This review establishes a unified framework showing that lacking a reference frame for a symmetry group G is mathematically equivalent to a superselection rule associated with G. The key technical tool is G-twirling — averaging states or operations over the group's Haar measure — which decomposes Hilbert space into decoherence-full gauge subsystems and decoherence-free multiplicity subsystems. The paper surveys communication, cryptography, entanglement, and frame-alignment tasks under this restriction, demonstrating that quantum information processing can often be performed as efficiently without a shared reference frame as with one, via relational encodings into decoherence-free subsystems.
@@ -54,9 +59,11 @@ where $M_q$ carries irrep $q$ of $G$ (the gauge/decoherence-full subsystem) and 
 The decomposition $\mathcal{H} = \bigoplus_q M_q \otimes N_q$ with decoherence-full gauge subsystems $M_q$ and decoherence-free multiplicity subsystems $N_q$ is structurally identical to the isotypic decomposition underlying the GL(K) gauge-equivariant attention mechanism: the $M_q$ correspond to the irrep carrier spaces on which the group acts (the gauge degrees of freedom that must be integrated out or transported equivariantly), and the $N_q$ correspond to the multiplicity spaces that carry the invariant (physical) information. The G-twirling map $\mathcal{G}$ is precisely the operation that projects onto G-invariant operators, mirroring how the VFE transport $\Omega_{ij}$ must preserve gauge invariance of the free energy. The paper's framework also clarifies why relational encodings (encoding information in relative degrees of freedom between subsystems) are the correct strategy when absolute frames are absent — directly motivating the KL divergence terms $\text{KL}(q_i \| \Omega_{ij} q_j)$ in the VFE free energy as relational comparisons of beliefs across positions. The superselection-rule/twirling duality provides a rigorous quantum-information-theoretic foundation for the participatory/gauge-frame perspective developed in PIFB.tex.
 
 ## Cross-links
-- Concepts: [[Gauge Equivariance]], [[Superselection Rules]], [[Decoherence-Free Subsystems]], [[Irreducible Representations]], [[G-Twirling]], [[Reference Frames]]
-- Related sources: [[spekkens-2007-epistemic]], [[chiribella-2016-quantum-from-principles]]
-- Manuscript/Project: [[GL(K) Attention]], [[VFE Transformer Program]], [[PIFB]]
+- Concepts: [[Gauge Equivariance]], [[Superselection Rules]], [[Decoherence-Free Subsystems]], [[Irreducible Representations]], [[G-Twirling]], [[Reference Frames]], [[Quantum reference frames]], [[Gauge transformation]], [[Parallel transport]], [[Holonomy]], [[Participatory realism (it from bit)]], [[Agents as fibre-bundle sections]]
+- Related sources: [[spekkens-2007-epistemic]], [[chiribella-2016-quantum-from-principles]], [[giacomini-2019-qrf-covariance]], [[vanrietvelde-2020-change-of-perspective]]
+- Manuscript/Project: [[GL(K) Attention]], [[VFE Transformer Program]], [[PIFB]], [[participatory-it-from-bit]]
+
+> [!note] Editorial: BRS's "speakable" (frame-invariant, communicable) vs "unspeakable" (frame-relative — a direction, a phase, a time) information split is the operational license to read the per-agent gauge frame $\phi_i$ as a *genuine physical reference frame* rather than a bookkeeping convenience: the project's [[Gauge transformation]] $\Omega_{ij} = \exp(\phi_i)\exp(-\phi_j)$ is exactly a change of reference frame, [[Parallel transport]] of a belief from frame $i$ to $j$ is the inferential analogue of aligning two physical frames, and the unremovable residue when frames cannot be globally aligned is [[Holonomy]].
 
 ## BibTeX
 ```bibtex
@@ -65,9 +72,12 @@ The decomposition $\mathcal{H} = \bigoplus_q M_q \otimes N_q$ with decoherence-f
   title   = {Reference frames, superselection rules, and quantum information},
   journal = {Reviews of Modern Physics},
   volume  = {79},
-  pages   = {555},
+  number  = {2},
+  pages   = {555--609},
   year    = {2007},
+  doi     = {10.1103/RevModPhys.79.555},
   eprint  = {quant-ph/0610030},
   archivePrefix = {arXiv},
+  primaryClass  = {quant-ph},
 }
 ```

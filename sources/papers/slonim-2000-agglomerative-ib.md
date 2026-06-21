@@ -2,17 +2,20 @@
 type: paper
 title: "Agglomerative Information Bottleneck"
 aliases:
-  - "Slonim Tishby 2000"
-  - "AgglomerativeIB"
+  - Slonim Tishby 2000
+  - AgglomerativeIB
+  - Slonim & Tishby 2000
 authors:
   - Slonim, Noam
   - Tishby, Naftali
 year: 2000
 arxiv: null
-url: null
+url: https://papers.nips.cc/paper/1651-agglomerative-information-bottleneck
 tags:
   - cluster/info-geometry
+  - cluster/multi-agent
   - project/transformer
+  - project/multi-agent
   - field/cs-ml
   - field/statistics
   - field/mathematics
@@ -24,7 +27,7 @@ updated: 2026-06-20
 # Agglomerative Information Bottleneck
 
 > [!info] Citation
-> Slonim, N. & Tishby, N. (2000). "Agglomerative Information Bottleneck." Advances in Neural Information Processing Systems (NIPS 2000), pp. 617–623.
+> Slonim, N. & Tishby, N. (2000). "Agglomerative Information Bottleneck." *Advances in Neural Information Processing Systems* 12 (NIPS 1999), pp. 617–623. <https://papers.nips.cc/paper/1651-agglomerative-information-bottleneck> (Presented at NIPS 1999; published in the NIPS 12 proceedings, 2000.)
 
 ## TL;DR
 Slonim and Tishby introduce a bottom-up, greedy agglomerative clustering algorithm that maximizes mutual information between a compressed representation and a relevance variable, framed as a "hard" (zero-temperature) limit of the Information Bottleneck (IB) method. At each step the algorithm merges the pair of clusters whose join minimizes the loss in mutual information, with the merge cost equal to the Jensen-Shannon divergence between the cluster conditional distributions. On the 20 Newsgroups corpus the method achieves three-orders-of-magnitude compression while retaining 90% of the relevant mutual information.
@@ -52,10 +55,12 @@ The agglomerative algorithm yields fully deterministic hard partitions for every
 ## Relevance to this research
 The Information Bottleneck framework is a foundational precursor to the VFE / active-inference treatment of attention: both frame representation learning as a constrained mutual-information (or KL-divergence) optimization. The KL divergence $D_{\mathrm{KL}}[p(Y|x)\|p(Y|\hat{x})]$ that appears in the IB self-consistent equations is structurally identical to the belief-coupling KL terms in the VFE free-energy functional. The Lagrange multiplier $\beta$ (inverse temperature) maps directly to the inverse softmax temperature $\tau^{-1} = (\kappa\sqrt{d})^{-1}$ controlling the attention sharpness in GL(K) attention. The Jensen-Shannon divergence merge criterion provides an information-geometric view of cluster similarity that connects to the SPD/Riemannian geometry of Gaussian belief tuples $(\mu, \Sigma)$ used in VFE3. The "hard vs. soft clustering" duality (agglomerative IB vs. deterministic annealing) mirrors the distinction between hard (MAP) and soft (variational) inference modes available in the VFE transformer. The paper's "information plane" analysis — tracking $I(Z;Y)$ vs. $I(Z;X)$ as compression increases — is a precursor to information-geometric analyses of the attention mechanism's compression-fidelity trade-off central to the GL(K) manuscript.
 
+> [!note] Meta-agent / RG-flow framing (from refs/ note): This is the **coarse-graining cousin of PIFB's meta-agent formation**. Building a scale-$s{+}1$ agent by pooling a cluster of scale-$s$ agents is, in information terms, an agglomerative merge that preserves the relevant (predictive) information while compressing detail — exactly the merge-by-least-information-loss criterion formalized here. The bottom-up cluster hierarchy is the algorithmic shadow of the project's tower of [[Meta-agents and hierarchical emergence]] and its [[Renormalization-group flow of beliefs]]. Cited as the agglomerative-IB precedent for relevance-preserving coarse-graining.
+
 ## Cross-links
-- Concepts: [[Information Bottleneck]] · [[Mutual Information]] · [[Jensen-Shannon Divergence]] · [[Distributional Clustering]] · [[Deterministic Annealing]]
-- Related sources: [[tishby-2000-information-bottleneck]] · [[pereira-1993-distributional-clustering]]
-- Manuscript/Project: [[VFE Transformer Program]] · [[GL(K) Attention]]
+- Concepts: [[Information Bottleneck]] · [[Mutual Information]] · [[Jensen-Shannon Divergence]] · [[Distributional Clustering]] · [[Deterministic Annealing]] · [[Meta-agents and hierarchical emergence]] · [[Renormalization-group flow of beliefs]]
+- Related sources: [[tishby-1999-information-bottleneck]] (founding IB) · [[strouse-2017-deterministic-ib]] (deterministic hard-clustering limit) · [[pereira-1993-distributional-clustering]]
+- Manuscript/Project: [[VFE Transformer Program]] · [[GL(K) Attention]] · [[participatory-it-from-bit]]
 
 ## BibTeX
 ```bibtex

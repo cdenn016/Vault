@@ -2,8 +2,13 @@
 type: paper
 title: "A Relativistic Theory of Consciousness"
 aliases:
-  - "Lahav Neemeh 2022"
-  - "Relativistic Consciousness"
+  - Lahav Neemeh 2022
+  - Relativistic Consciousness
+  - lahav-2025-relativistic-consciousness
+  - Lahav Neemeh 2025
+  - lahav-neemeh-2022-relativistic-consciousness
+  - Lahav & Neemeh 2022
+  - Lahav-Neemeh (2022) Relativistic Consciousness
 authors:
   - Lahav, Nir
   - Neemeh, Zachariah A.
@@ -54,10 +59,14 @@ The three-tier cognitive model S = (T, P, C) maps naturally onto the VFE hierarc
 
 This paper is also relevant to the multi-agent active inference framework: the equivalence between Alice's and ALICE's frames under the relativistic principle is structurally analogous to gauge equivalence between agents sharing a common prior — different agents in different "cognitive frames of reference" nonetheless agree on measurement outcomes because they are related by an admissible transformation.
 
+**Manuscript usage (PIFB).** The manuscript [[participatory-it-from-bit]] devotes a full subsection to *writing the transformation law that Lahav and Neemeh leave unspecified*: they assert a relativity of consciousness across cognitive frames but supply no explicit operator carrying experiential content from one frame to another. PIFB identifies that operator with the project's gauge transport — a cognitive frame becomes a local frame $\phi_i$ in the gauge bundle, and the change between frames is the transport $\Omega_{ij} = \exp(\phi_i)\exp(-\phi_j)$ acting on belief content ([[Gauge transformation]], [[Holonomy]], [[Agents as fibre-bundle sections]]). What was an analogy to relativity becomes an actual covariant structure with a transformation group, connecting to the [[Mathematical consciousness science]] thread.
+
+> [!note] Editorial: The correspondence is interpretive — Lahav and Neemeh use "relativistic" by analogy to physics, and the project supplies a definite (gauge-theoretic) transformation law they did not state. This is a constructive completion of their proposal, not a result they prove.
+
 ## Cross-links
-- Concepts: [[Participatory Realism]], [[Hard Problem of Consciousness]], [[Active Inference]], [[Gauge Equivariance]]
-- Related sources: [[wheeler-1990-it-from-bit]], [[friston-2019-free-energy-principle]], [[fuchs-2010-qbism]]
-- Manuscript/Project: [[PIFB Manuscript]], [[VFE Transformer Program]]
+- Concepts: [[Participatory Realism]], [[Participatory realism (it from bit)]], [[Hard Problem of Consciousness]], [[Active Inference]], [[Gauge Equivariance]], [[Gauge transformation]], [[Holonomy]], [[Agents as fibre-bundle sections]], [[Mathematical consciousness science]]
+- Related sources: [[wheeler-1990-it-from-bit]], [[friston-2019-free-energy-principle]], [[fuchs-2010-qbism]], [[seth-2021-being-you]]
+- Manuscript/Project: [[participatory-it-from-bit]], [[PIFB Manuscript]], [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex

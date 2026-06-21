@@ -2,8 +2,11 @@
 type: paper
 title: "The Markov blankets of life: autonomy, active inference and the free energy principle"
 aliases:
-  - "Kirchhoff 2018"
-  - "Markov blankets of life"
+  - Kirchhoff 2018
+  - Markov blankets of life
+  - kirchhoff-2018-markov-blankets-life
+  - Kirchhoff et al. 2018
+  - Kirchhoff (2018) Markov Blankets of Life
 authors:
   - Kirchhoff, Michael
   - Parr, Thomas
@@ -15,8 +18,12 @@ arxiv: null
 url: https://doi.org/10.1098/rsif.2017.0792
 tags:
   - cluster/vfe
+  - cluster/participatory
   - cluster/participatory/philosophy-of-mind
+  - cluster/participatory/consciousness
+  - cluster/multi-agent
   - project/multi-agent
+  - project/transformer
   - field/neuroscience
   - field/biology
   - field/philosophy
@@ -28,7 +35,7 @@ updated: 2026-06-20
 # The Markov blankets of life: autonomy, active inference and the free energy principle
 
 > [!info] Citation
-> Kirchhoff M, Parr T, Palacios E, Friston K, Kiverstein J. (2018). "The Markov blankets of life: autonomy, active inference and the free energy principle." J. R. Soc. Interface 15: 20170792. https://doi.org/10.1098/rsif.2017.0792
+> Kirchhoff M, Parr T, Palacios E, Friston K, Kiverstein J. (2018). "The Markov blankets of life: autonomy, active inference and the free energy principle." J. R. Soc. Interface 15(138): 20170792. https://doi.org/10.1098/rsif.2017.0792
 
 ## TL;DR
 This paper argues that the autonomous organization of all biological systems — from single cells to Homo sapiens — can be understood in terms of hierarchically nested Markov blankets operating under the free energy principle. A Markov blanket defines a statistical boundary separating a system's internal states from external states, and its presence induces active inference: the tendency to minimize variational free energy, which upper-bounds surprise. The central contribution is the concept of "ensemble Markov blankets" (blankets of blankets), showing that collectives of Markov-blanketed subsystems self-assemble into superordinate systems that themselves possess a Markov blanket, with autonomous organization extending all the way down to organelles and all the way out to environmental elements.
@@ -50,9 +57,11 @@ The paper establishes three main claims. First, any living system necessarily po
 This paper is foundational background for the multi-agent active inference architecture in the VFE transformer program. The hierarchical Markov blanket structure maps directly onto the VFE free energy hierarchy (h → s → p → q → observations): each level of the hierarchy corresponds to a Markov-blanketed system whose internal states are beliefs and whose active/sensory states mediate coupling to adjacent levels. The ensemble Markov blanket construction provides a principled theoretical justification for multi-agent belief coupling via GL(K)-transported KL divergences: each agent has its own Markov blanket, and the coupled-agent system forms a higher-order blanket whose free energy is the sum of pairwise KL terms in the canonical F. The distinction between mere and adaptive active inference informs what "autonomy" means for an agent node in the multi-agent graph. The autopoietic framing (operational closure, sense making) connects to the participatory realism / PIFB manuscript, where Markov blankets are reinterpreted as quantum reference frames that enact the system's classical reality.
 
 ## Cross-links
-- Concepts: [[Markov Blanket]], [[Free Energy Principle]], [[Active Inference]], [[Variational Free Energy]], [[Predictive Coding]]
+- Concepts: [[Markov Blanket]], [[Free Energy Principle]], [[Active Inference]], [[Variational Free Energy]], [[Predictive Coding]], [[Meta-agents and hierarchical emergence]], [[Ouroboros multi-scale dynamics]], [[Renormalization-group flow of beliefs]], [[Multi-agent variational free energy]], [[Agents as fibre-bundle sections]], [[Markov blanket interpretation debate]], [[Participatory realism (it from bit)]]
 - Related sources: [[friston-2010-free-energy-unified]], [[ramstead-2018-answering-schrodinger]], [[parr-friston-2019-generalised]]
 - Manuscript/Project: [[VFE Transformer Program]], [[MAgent Model]], [[PIFB]]
+
+> [!note] The nested-blanket ("blankets of blankets") construction is the canonical precedent for the project's recursive meta-agent tower: scale-`s+1` agents are coarse-grainings of clusters of scale-`s` agents, and a parent's beliefs become its constituents' priors (the cross-scale shadow-prior construction).
 
 ## BibTeX
 ```bibtex
@@ -62,7 +71,9 @@ This paper is foundational background for the multi-agent active inference archi
   journal = {Journal of the Royal Society Interface},
   year    = {2018},
   volume  = {15},
+  number  = {138},
   pages   = {20170792},
   doi     = {10.1098/rsif.2017.0792},
+  publisher = {The Royal Society},
 }
 ```

@@ -2,9 +2,11 @@
 type: paper
 title: "The Psychology of Social Impact"
 aliases:
-  - "Latane 1981"
-  - "Social Impact Theory"
-  - "SIT"
+  - Latane 1981
+  - Social Impact Theory
+  - SIT
+  - latane-1981-social-impact
+  - Latané 1981
 authors:
   - Latane, Bibb
 year: 1981
@@ -23,7 +25,7 @@ updated: 2026-06-20
 # The Psychology of Social Impact
 
 > [!info] Citation
-> Latane, B. (1981). "The Psychology of Social Impact." *American Psychologist*, 36(4), 343–356. https://doi.org/10.1037/0003-066X.36.4.343
+> Latané, B. (1981). "The Psychology of Social Impact." *American Psychologist*, 36(4), 343–356. https://doi.org/10.1037/0003-066X.36.4.343
 
 ## TL;DR
 Latane proposes a formal theory of social impact specifying how other persons affect an individual through three principles: impact as a multiplicative function of source strength, immediacy, and number (I = f(SIN)); a psychosocial power law I = sN^t with t < 1 (diminishing marginal returns of additional people); and division of impact when multiple people share a target role, yielding I = sN^{-t}. The theory is validated across ten empirical domains spanning conformity, stage fright, bystander inhibition, tipping, and crowding in rats.
@@ -72,17 +74,19 @@ Social Impact Theory is a foundational quantitative model for social influence t
 
 **Social-physics bridge to opinion dynamics.** SIT is an upstream empirical foundation for bounded-confidence opinion-dynamics models (Hegselmann–Krause, Deffuant) and Latane's own later Dynamic Social Impact Theory (1996), which is a direct precursor to the collective belief updating treated in the MAgent / social-physics manuscripts. The power-law scaling across ten domains provides empirical grounding for why opinion-field models use sub-linear influence kernels.
 
-**Participatory / observer-dependence angle.** Latane notes the theory does not explain mechanisms, only aggregate laws — an epistemological humility parallel to the participatory realism stance in the PIFB manuscript, where observer-relative coarse-graining produces emergent social structure without requiring a microscopic mechanistic account.
+**Participatory / observer-dependence angle.** Latané notes the theory does not explain mechanisms, only aggregate laws — an epistemological humility parallel to the participatory realism stance in the PIFB manuscript, where observer-relative coarse-graining produces emergent social structure without requiring a microscopic mechanistic account.
+
+**Belief-inertia force law.** Within the **SocialPhysics** program founded by [[belief-inertia]] ("The Inertia of Belief"), Social Impact Theory enters as the *force law* whose overdamped (gradient-flow) limit the multi-agent variational dynamics must reproduce, and whose underdamped extension it predicts. Latané's law specifies the force of social influence — how strongly the aggregate of others pushes on a target — but is silent on the target's resistance to being moved; the manuscript supplies that missing factor by reading the Fisher/precision tensor as an inertial mass ([[Mass as Fisher information]]) in a [[Hamiltonian belief dynamics]] ansatz, so the same impact field produces not instantaneous overdamped relaxation but oscillation, overshoot, and resonance ([[Belief inertia]]). Strength and immediacy are exactly the social-network weights and distances the gauge-theoretic treatment encodes in the connection $\Omega_{ij}$ and coupling graph.
 
 ## Cross-links
-- Concepts: [[Social Influence]], [[Opinion Dynamics]], [[Power Law]], [[Diffusion of Responsibility]], [[Social Loafing]]
-- Related sources: [[hegselmann2002opinion]], [[deffuant2000mixing]], [[latane1996dynamic]]
-- Manuscript/Project: [[MAgent Model]], [[PIFB]], [[VFE Transformer Program]]
+- Concepts: [[Social Influence]], [[Opinion Dynamics]], [[Power Law]], [[Diffusion of Responsibility]], [[Social Loafing]], [[Sociophysics]], [[Bounded confidence]], [[Echo chambers and polarization]], [[Belief inertia]], [[Mass as Fisher information]], [[Hamiltonian belief dynamics]], [[Multi-agent variational free energy]], [[Fisher information metric]], [[Agents as fibre-bundle sections]], [[Gauge transformation]]
+- Related sources: [[hegselmann2002opinion]], [[deffuant2000mixing]], [[latane1996dynamic]], [[castellano-fortunato-loreto-2009-social-dynamics]], [[galam-2008-sociophysics]], [[degroot-1974-consensus]], [[friedkin-johnsen-1990]]
+- Manuscript/Project: [[belief-inertia]], [[SocialPhysics]], [[Gauge-Theoretic Multi-Agent VFE Model]], [[MAgent Model]], [[PIFB]], [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex
 @article{latane1981psychology,
-  author  = {Latane, Bibb},
+  author  = {Latan{\'e}, Bibb},
   title   = {The Psychology of Social Impact},
   journal = {American Psychologist},
   year    = {1981},

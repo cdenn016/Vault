@@ -2,8 +2,10 @@
 type: paper
 title: "A no-go theorem for observer-independent facts"
 aliases:
-  - "Brukner 2018"
-  - "no-go observer-independent facts"
+  - Brukner 2018
+  - no-go observer-independent facts
+  - Brukner no-go theorem
+  - Observer-independent facts
 authors:
   - Brukner, Časlav
 year: 2018
@@ -23,7 +25,7 @@ updated: 2026-06-20
 # A no-go theorem for observer-independent facts
 
 > [!info] Citation
-> Brukner, Č. (2018). "A no-go theorem for observer-independent facts." arXiv:1804.00749 [quant-ph].
+> Brukner, Č. (2018). "A no-go theorem for observer-independent facts." *Entropy* **20**(5), 350. DOI: [10.3390/e20050350](https://doi.org/10.3390/e20050350). Preprint: [arXiv:1804.00749](https://arxiv.org/abs/1804.00749) [quant-ph].
 
 ## TL;DR
 Brukner derives a Bell-type no-go theorem showing that the assumptions of (1) universal validity of quantum theory, (2) locality, (3) freedom of choice, and (4) observer-independent facts are mutually incompatible. Using an extended Wigner's friend scenario with two super-observers (Alice and Bob) each measuring an entangled laboratory-plus-friend system, the quantum prediction violates the CHSH bound ($S_Q = 2\sqrt{2} > 2$), ruling out any theoretical framework — quantum or otherwise — in which facts observed by different observers can be jointly assigned truth values in a single Boolean algebra. The result suggests that facts in quantum theory are inherently relational, defined only relative to an observer and her experimental arrangement.
@@ -45,16 +47,23 @@ The four assumptions — universal quantum validity, locality, freedom of choice
 This paper is a foundational reference for the participatory realism strand of the VFE research program and the PIFB manuscript. The core result — that observer-relative facts cannot be amalgamated into a single objective description — provides quantum-mechanical grounding for the participatory "it-from-bit" ontology in which each agent holds a local, frame-dependent belief state. In the gauge-theoretic VFE framework, the GL(K) gauge freedom precisely encodes this observer-relativity: belief tuples $(\mu_i, \Sigma_i)$ are defined relative to an agent's local frame, and the gauge transport $\Omega_{ij}$ relates frames without requiring a global, observer-independent ground truth. The no-go theorem thus offers independent justification for why a globally commuting Boolean algebra of agent beliefs cannot exist, directly motivating the relational structure of VFE attention (belief coupling via transported KL divergences) and the multi-agent active inference architecture in which shared facts are emergent rather than pre-given.
 
 ## Cross-links
-- Concepts: [[Participatory Realism]], [[Wigner's Friend]], [[Observer-Relative Facts]], [[Bell Inequalities]], [[Relational Quantum Mechanics]]
-- Related sources: [[brukner-2016-quantum-measurement-problem]], [[frauchiger-renner-2018-self-consistent]]
-- Manuscript/Project: [[PIFB]], [[VFE Transformer Program]], [[GL(K) Attention]]
+> [!note] Editorial: The project reads this no-go as the foundational-physics statement that **holonomy between observer frames is generically nonzero** — facts certified in one frame need not survive transport to another. PIFB's answer is objectivity as *transported consensus*: agreement constructed by [[Parallel transport]] of beliefs between [[Agents as fibre-bundle sections]], with residual disagreement measured by [[Holonomy]] under a [[Gauge transformation]].
+
+- Concepts: [[Participatory Realism]], [[Participatory realism (it from bit)]], [[Wigner's Friend]], [[Observer-dependent facts and Wigner's friend]], [[Observer-Relative Facts]], [[Bell Inequalities]], [[Relational Quantum Mechanics]], [[Holonomy]], [[Parallel transport]], [[Agents as fibre-bundle sections]], [[Gauge transformation]], [[Multi-agent variational free energy]]
+- Related sources: [[brukner-2016-quantum-measurement-problem]], [[frauchiger-renner-2018-self-consistent]], [[rovelli-1996-relational-qm]], [[fuchs-2014-qbism]]
+- Manuscript/Project: [[PIFB]], [[participatory-it-from-bit]], [[VFE Transformer Program]], [[GL(K) Attention]]
 
 ## BibTeX
 ```bibtex
 @article{Brukner2018,
   author  = {Brukner, \v{C}aslav},
   title   = {A no-go theorem for observer-independent facts},
+  journal = {Entropy},
+  volume  = {20},
+  number  = {5},
+  pages   = {350},
   year    = {2018},
+  doi     = {10.3390/e20050350},
   eprint  = {1804.00749},
   archivePrefix = {arXiv},
   primaryClass  = {quant-ph},

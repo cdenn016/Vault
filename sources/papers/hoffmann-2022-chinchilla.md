@@ -2,9 +2,10 @@
 type: paper
 title: "Training Compute-Optimal Large Language Models"
 aliases:
-  - "Hoffmann 2022"
-  - "Chinchilla"
-  - "Chinchilla scaling laws"
+  - Hoffmann 2022
+  - Chinchilla
+  - Chinchilla scaling laws
+  - Hoffmann et al. 2022
 authors:
   - Hoffmann, Jordan
   - Borgeaud, Sebastian
@@ -44,7 +45,7 @@ updated: 2026-06-20
 # Training Compute-Optimal Large Language Models
 
 > [!info] Citation
-> Hoffmann, J., Borgeaud, S., Mensch, A., et al. (2022). "Training Compute-Optimal Large Language Models." arXiv:2203.15556 [cs.CL].
+> Hoffmann, J., Borgeaud, S., Mensch, A., et al. (2022). "Training Compute-Optimal Large Language Models." *Advances in Neural Information Processing Systems 35 (NeurIPS 2022)*. arXiv:2203.15556 [cs.CL].
 
 ## TL;DR
 This paper investigates the optimal trade-off between model size and number of training tokens under a fixed compute budget for autoregressive transformer language models. Training over 400 models ranging from 70M to 16B parameters, the authors show that for compute-optimal training, model size and training tokens should scale in equal proportions — not the model-size-dominant regime suggested by Kaplan et al. (2020). They validate this by training Chinchilla (70B parameters, 1.4T tokens), which uses the same compute as Gopher (280B) yet uniformly outperforms Gopher, GPT-3, Jurassic-1, and Megatron-Turing NLG on a wide range of downstream tasks.
@@ -78,12 +79,12 @@ Chinchilla (70B, 1.4T tokens) at the Gopher compute budget achieves:
 - Substantially reduced inference and fine-tuning cost due to 4x smaller model size
 
 ## Relevance to this research
-This paper is not directly connected to the gauge-theoretic VFE transformer. It concerns empirical scaling laws for standard autoregressive transformers trained by gradient descent with backprop — a paradigm orthogonal to the VFE framework, which replaces learned weights with iterative variational free energy minimization over Gaussian belief tuples. The Chinchilla result (data quantity matters as much as model size) could inform decisions about training corpus size in any future empirical evaluation of VFE transformer scaling, but no specific architectural, theoretical, or mathematical connection to GL(K) gauge-equivariant attention, SPD belief geometry, variational free energy, or information geometry applies.
+This paper is not directly connected to the gauge-theoretic VFE transformer. It concerns empirical scaling laws for standard autoregressive transformers trained by gradient descent with backprop — a paradigm orthogonal to the VFE framework, which replaces learned weights with iterative variational free energy minimization over Gaussian belief tuples. The Chinchilla result (data quantity matters as much as model size) could inform decisions about training corpus size in any future empirical evaluation of VFE transformer scaling, but no specific architectural, theoretical, or mathematical connection to GL(K) gauge-equivariant attention, SPD belief geometry, variational free energy, or information geometry applies. PIFB nonetheless cites Chinchilla as its named comparison anchor for an inverse-$K$ scaling claim: the parametric loss law $L = E + A N^{-\alpha} + B D^{-\beta}$ is the template PIFB recapitulates with capacity = belief dimension $K$ in place of parameter count $N$, and the **irreducible term $E$** (the entropy of natural text) is read through an [[Information bottleneck]] lens as a capacity-independent free-energy floor that no compression budget can remove.
 
 ## Cross-links
-- Concepts: [[Transformer Architecture]], [[Scaling Laws]]
+- Concepts: [[Transformer Architecture]], [[Scaling Laws]], [[Neural scaling laws]], [[Information bottleneck]]
 - Related sources: [[kaplan-2020-scaling-laws]]
-- Manuscript/Project: [[VFE Transformer Program]]
+- Manuscript/Project: [[VFE Transformer Program]], [[participatory-it-from-bit]]
 
 ## BibTeX
 ```bibtex
@@ -91,7 +92,10 @@ This paper is not directly connected to the gauge-theoretic VFE transformer. It 
   author  = {Hoffmann, Jordan and Borgeaud, Sebastian and Mensch, Arthur and Buchatskaya, Elena and Cai, Trevor and Rutherford, Eliza and de Las Casas, Diego and Hendricks, Lisa Anne and Welbl, Johannes and Clark, Aidan and Hennigan, Tom and Noland, Eric and Millican, Katie and van den Driessche, George and Damoc, Bogdan and Guy, Aurelia and Osindero, Simon and Simonyan, Karen and Elsen, Erich and Rae, Jack W. and Vinyals, Oriol and Sifre, Laurent},
   title   = {Training Compute-Optimal Large Language Models},
   year    = {2022},
-  journal = {arXiv preprint arXiv:2203.15556},
+  booktitle = {Advances in Neural Information Processing Systems 35 (NeurIPS)},
+  eprint  = {2203.15556},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL},
   url     = {https://arxiv.org/abs/2203.15556},
 }
 ```

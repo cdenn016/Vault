@@ -2,13 +2,16 @@
 type: paper
 title: "Riemannian Metric and Geometric Mean for Positive Semidefinite Matrices of Fixed Rank"
 aliases:
-  - "Bonnabel Sepulchre 2009"
-  - "SPD fixed-rank geometry"
+  - Bonnabel Sepulchre 2009
+  - SPD fixed-rank geometry
+  - bonnabel-sepulchre-2009-psd-fixed-rank
+  - Bonnabel & Sepulchre 2009
+  - Bonnabel & Sepulchre (2009) PSD Fixed Rank
 authors:
   - Bonnabel, Silvere
   - Sepulchre, Rodolphe
 year: 2009
-arxiv: null
+arxiv: "0807.4462"
 url: https://doi.org/10.1137/080731347
 tags:
   - cluster/spd-geometry
@@ -24,7 +27,7 @@ updated: 2026-06-20
 # Riemannian Metric and Geometric Mean for Positive Semidefinite Matrices of Fixed Rank
 
 > [!info] Citation
-> Bonnabel, S. and Sepulchre, R. (2009). "Riemannian Metric and Geometric Mean for Positive Semidefinite Matrices of Fixed Rank." SIAM Journal on Matrix Analysis and Applications. https://doi.org/10.1137/080731347
+> Bonnabel, S. and Sepulchre, R. (2009). "Riemannian Metric and Geometric Mean for Positive Semidefinite Matrices of Fixed Rank." *SIAM Journal on Matrix Analysis and Applications* 31(3), 1055–1070. DOI: [10.1137/080731347](https://doi.org/10.1137/080731347). Preprint: [arXiv:0807.4462](https://arxiv.org/abs/0807.4462).
 
 ## TL;DR
 This paper introduces a Riemannian quotient geometry on the manifold S+(p,n) of positive semidefinite matrices of fixed rank p, obtained by factoring out the O(p) gauge action from the product of the Stiefel and positive definite cone manifolds. The resulting metric is invariant under orthogonal transformations, scalings, and pseudoinversion; the induced space is geodesically complete. An efficient SVD-based approximation of the Riemannian distance and a rank-preserving geometric mean are derived and shown to inherit the desirable invariance properties of the full-rank natural metric on the positive cone.
@@ -59,7 +62,12 @@ The VFE transformer represents beliefs as Gaussian tuples (mu, Sigma) where Sigm
   title   = {Riemannian Metric and Geometric Mean for Positive Semidefinite Matrices of Fixed Rank},
   journal = {SIAM Journal on Matrix Analysis and Applications},
   year    = {2009},
+  volume  = {31},
+  number  = {3},
+  pages   = {1055--1070},
   doi     = {10.1137/080731347},
   url     = {https://doi.org/10.1137/080731347},
+  eprint  = {0807.4462},
+  archivePrefix = {arXiv},
 }
 ```

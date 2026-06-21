@@ -2,8 +2,10 @@
 type: paper
 title: "Thermodynamical Aspects of Gravity: New Insights"
 aliases:
-  - "Padmanabhan 2010"
-  - "emergent gravity thermodynamics"
+  - Padmanabhan 2010
+  - emergent gravity thermodynamics
+  - padmanabhan-2010-thermodynamic-gravity
+  - Thermodynamic Gravity (Padmanabhan)
 authors:
   - Padmanabhan, T.
 year: 2010
@@ -23,7 +25,7 @@ updated: 2026-06-20
 # Thermodynamical Aspects of Gravity: New Insights
 
 > [!info] Citation
-> Padmanabhan, T. (2010). "Thermodynamical Aspects of Gravity: New Insights." *Reports on Progress in Physics* (review article). arXiv:0911.5004 [gr-qc].
+> Padmanabhan, T. (2010). "Thermodynamical Aspects of Gravity: New Insights." *Reports on Progress in Physics* **73**(4): 046901. DOI: [10.1088/0034-4885/73/4/046901](https://doi.org/10.1088/0034-4885/73/4/046901). Preprint: arXiv:0911.5004 [gr-qc].
 
 ## TL;DR
 This review establishes that gravitational field equations in any diffeomorphism-invariant theory have a deep thermodynamic interpretation: when evaluated on a horizon they reduce to the identity TdS = dE + PdV. More remarkably, Einstein's equations (with cosmological constant) can be derived entirely from an entropy maximization principle applied to local Rindler observers, with no prior assumption of gravitational dynamics. The work argues that spacetime itself possesses microstructure — inferred from the reality of horizon temperatures — and that gravity is best understood as an emergent thermodynamic phenomenon rather than a fundamental interaction.
@@ -46,7 +48,8 @@ The emergence of thermodynamic structure from information-geometric principles i
 
 ## Cross-links
 - Concepts: [[Emergent Spacetime]], [[Horizon Thermodynamics]], [[Rindler Observer]], [[Entropy Extremization]], [[Diffeomorphism Invariance]]
-- Related sources: [[jacobson-1995-thermodynamics-spacetime]], [[bekenstein-1973-black-holes-entropy]], [[wald-1993-black-hole-entropy-noether]]
+- Related sources: [[jacobson-1995-thermodynamics-spacetime]], [[verlinde-2011-entropic-gravity]], [[bekenstein-1973-black-holes-entropy]], [[wald-1993-black-hole-entropy-noether]]
+- Themes: [[Emergent spacetime and holography]], [[Participatory realism (it from bit)]]
 - Manuscript/Project: [[PIFB]], [[VFE Transformer Program]]
 
 ## BibTeX
@@ -57,7 +60,9 @@ The emergence of thermodynamic structure from information-geometric principles i
   journal = {Reports on Progress in Physics},
   year    = {2010},
   volume  = {73},
+  number  = {4},
   pages   = {046901},
+  doi     = {10.1088/0034-4885/73/4/046901},
   eprint  = {0911.5004},
   archivePrefix = {arXiv},
   primaryClass  = {gr-qc},

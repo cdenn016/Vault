@@ -2,8 +2,12 @@
 type: paper
 title: "Computational Capacity of the Universe"
 aliases:
-  - "Lloyd 2002"
-  - "universe as quantum computer"
+  - Lloyd 2002
+  - universe as quantum computer
+  - Lloyd2002-computational-capacity
+  - Lloyd computational universe
+  - lloyd-2002-computational-capacity
+  - Computational Universe
 authors:
   - Lloyd, Seth
 year: 2002
@@ -23,7 +27,9 @@ updated: 2026-06-20
 # Computational Capacity of the Universe
 
 > [!info] Citation
-> Lloyd, Seth (2002). "Computational Capacity of the Universe." *Nature* 406, 1047–1054 (derived from arXiv:quant-ph/0110141). https://arxiv.org/abs/quant-ph/0110141
+> Lloyd, Seth (2002). "Computational Capacity of the Universe." *Physical Review Letters* 88(23): 237901. DOI: [10.1103/PhysRevLett.88.237901](https://doi.org/10.1103/PhysRevLett.88.237901). Preprint: [arXiv:quant-ph/0110141](https://arxiv.org/abs/quant-ph/0110141).
+
+> [!warning] Citation corrected (2026-06-21): The published venue is *Phys. Rev. Lett.* 88, 237901 (2002), **not** *Nature* 406. Earlier copies of this note (and the now-deleted `Lloyd2002-computational-capacity` / `lloyd-2002-computational-capacity` mirrors) carried an erroneous "Nature 406, 1047–1054" citation; the verified primary reference is PRL. The PDF at `sources/pdfs/Lloyd2002.pdf` was password-protected and could not be read directly — verify against the actual PDF when access is available.
 
 ## TL;DR
 Every physical system registers information, and physical dynamics transforms that information; the universe is therefore itself a physical computer. Lloyd derives tight upper bounds on the total number of elementary operations (~10^120) and bits (~10^90 in matter, ~10^120 including gravitational degrees of freedom) the observable universe could have performed or registered since the Big Bang, expressed as simple polynomials in Planck's constant, the speed of light, the gravitational constant, and the age of the universe. These bounds follow from the Margolus–Levitin theorem (ops per second bounded by energy: #ops/sec ≤ 2E/πℏ) combined with the Bekenstein entropy bound and the holographic principle.
@@ -63,21 +69,24 @@ The relation #ops ≈ (t/t_P)^2 is shown to be dimensionally inevitable — the 
 This paper sits at the foundation of the **participatory/it-from-bit** strand of the research program. Wheeler's "It from Bit" slogan is invoked explicitly; Lloyd's quantitative grounding of that slogan — every degree of freedom registers a bit, every interaction performs a logic gate — is the physical-universe instantiation of the participatory realism framework explored in `PIFB.tex`. The holographic bound (#bits ≈ horizon area / ℓ_P^2) and the Bekenstein entropy bound are both used in the VFE/gauge-theoretic context when relating information-geometric quantities (Fisher information, KL divergence, entropy) to physical degrees of freedom. The Margolus–Levitin bound (energy ↔ operation rate) resonates with the energy interpretation of the VFE's free-energy functional: minimizing F trades off speed of belief update against thermodynamic cost. The paper is also relevant to the multi-agent model insofar as it frames *all* physical dynamics as information processing, grounding the claim that VFE minimization is a universal computational principle rather than a metaphor.
 
 ## Cross-links
-- Concepts: [[It from Bit]], [[Holographic Principle]], [[Bekenstein Bound]], [[Margolus-Levitin Theorem]], [[Quantum Computation]], [[Information is Physical]]
-- Related sources: [[wheeler-1990-it-from-bit]], [[bekenstein-1973-black-holes]], [[landauer-1961-irreversibility]]
-- Manuscript/Project: [[PIFB]], [[VFE Transformer Program]], [[MAgent Model]]
+- Concepts: [[It from Bit]], [[Holographic Principle]], [[Bekenstein Bound]], [[Margolus-Levitin Theorem]], [[Quantum Computation]], [[Information is Physical]], [[Participatory realism (it from bit)]], [[Emergent spacetime and holography]]
+- Related sources: [[wheeler-1990-it-from-bit]], [[bekenstein-1973-black-holes]], [[landauer-1961-irreversibility]], [[susskind-2014-complexity-black-hole-horizons]]
+- Manuscript/Project: [[participatory-it-from-bit]], [[PIFB]], [[VFE Transformer Program]], [[MAgent Model]]
 
 ## BibTeX
 ```bibtex
 @article{Lloyd2002,
   author  = {Lloyd, Seth},
   title   = {Computational Capacity of the Universe},
-  journal = {Nature},
+  journal = {Physical Review Letters},
   year    = {2002},
-  volume  = {406},
-  pages   = {1047--1054},
+  volume  = {88},
+  number  = {23},
+  pages   = {237901},
+  doi     = {10.1103/PhysRevLett.88.237901},
   eprint  = {quant-ph/0110141},
   archivePrefix = {arXiv},
+  primaryClass  = {quant-ph},
   note    = {arXiv:quant-ph/0110141v1, submitted 24 Oct 2001},
 }
 ```

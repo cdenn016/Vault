@@ -2,23 +2,25 @@
 type: paper
 title: "The Free Energy Principle Made Simpler but Not Too Simple"
 aliases:
-  - "Friston 2023"
-  - "FEP simpler"
-  - "friston-2023-active-inference"
-  - "Friston 2023 active inference"
-  - "Active Inference and Intentional Behaviour"
-  - "friston2023activeinference"
-  - "friston-2023-path-integrals"
-  - "friston2023pathintegrals"
-  - "friston-2022-bayesian-mechanics"
-  - "friston2022bayesianmechanics"
-  - "friston2022free"
-  - "friston-2023-path-integrals-particular-physics"
-  - "friston2023pathintegralsparticularphysics"
-  - "Friston 2023 path integrals"
-  - "friston-2023-path-integrals-active-inference"
-  - "friston2023pathintegralsactiveinference"
-  - "Friston et al. 2023 (Path Integrals)"
+  - Friston 2023
+  - FEP simpler
+  - friston-2023-active-inference
+  - Friston 2023 active inference
+  - Active Inference and Intentional Behaviour
+  - friston2023activeinference
+  - friston-2023-path-integrals
+  - friston2023pathintegrals
+  - friston-2022-bayesian-mechanics
+  - friston2022bayesianmechanics
+  - friston2022free
+  - friston-2023-path-integrals-particular-physics
+  - friston2023pathintegralsparticularphysics
+  - Friston 2023 path integrals
+  - friston-2023-path-integrals-active-inference
+  - friston2023pathintegralsactiveinference
+  - Friston et al. 2023 (Path Integrals)
+  - Friston et al. 2023
+  - Friston (2023) FEP Made Simpler
 authors:
   - Friston, Karl
   - Da Costa, Lancelot
@@ -32,11 +34,16 @@ arxiv: "2201.06387"
 url: https://arxiv.org/abs/2201.06387
 tags:
   - cluster/vfe
+  - cluster/participatory
+  - cluster/participatory/consciousness
+  - cluster/info-geometry
   - project/multi-agent
+  - project/transformer
   - field/physics
   - field/neuroscience
   - field/mathematics
   - field/biology
+  - field/statistics
 status: stable
 created: 2026-06-20
 updated: 2026-06-20
@@ -45,7 +52,7 @@ updated: 2026-06-20
 # The Free Energy Principle Made Simpler but Not Too Simple
 
 > [!info] Citation
-> Friston, K., Da Costa, L., Sajid, N., Heins, C., Ueltzhöffer, K., Pavliotis, G. A., & Parr, T. (2023). "The free energy principle made simpler but not too simple." *Physics Reports*. arXiv:2201.06387.
+> Friston, K., Da Costa, L., Sajid, N., Heins, C., Ueltzhöffer, K., Pavliotis, G. A., & Parr, T. (2023). "The free energy principle made simpler but not too simple." *Physics Reports*, **1024**, 1–29. DOI: [10.1016/j.physrep.2023.07.001](https://doi.org/10.1016/j.physrep.2023.07.001). arXiv:2201.06387.
 
 ## TL;DR
 This paper provides a concise, pedagogically accessible derivation of the free energy principle (FEP), starting from random dynamical systems expressed as a Langevin equation and arriving at a Bayesian mechanics interpretable as a physics of sentience. The derivation proceeds through (i) establishing a particular partition of states via conditional independencies from sparse coupling, (ii) unpacking the Bayesian inference implications of that partition, and (iii) describing the paths of particular states via a variational principle of least action. The FEP offers a normative account of self-organisation as self-evidencing — the maximisation of Bayesian model evidence.
@@ -71,8 +78,8 @@ The paper establishes that sparse coupling in a random dynamical system with a N
 This paper is the primary theoretical substrate for the multi-agent active inference framework underlying the VFE transformer program. The particular partition (Markov blanket) formalism directly motivates the hierarchical belief structure in the VFE free energy functional — the $h \to s \to p \to q \to o$ hierarchy mirrors the FEP's internal/blanket/external partition at multiple scales. The NESS density and Helmholtz decomposition (solenoidal + gradient flow) are the statistical-physics foundation for the variational free energy $F$ used in the VFE transformer, where minimisation of $F$ with respect to Gaussian belief tuples $(\mu, \Sigma, \phi)$ is the E-step. The path-integral / least-action variational principle is directly analogous to the variational principle that underlies Bayesian mechanics in the transformer setting. The nonequilibrium (solenoidal) flow distinguishing NESS from equilibrium also has bearing on gauge-theoretic structure: solenoidal flow is divergence-free in state space, resonating with gauge-covariant transport in the GL(K) attention mechanism.
 
 ## Cross-links
-- Concepts: [[Variational Free Energy]] [[Markov Blanket]] [[Active Inference]] [[Nonequilibrium Steady State]] [[Bayesian Mechanics]]
-- Related sources: [[friston-2022-bayesian-mechanics]] [[parr-2022-active-inference-book]]
+- Concepts: [[Variational Free Energy]] [[Markov Blanket]] [[Active Inference]] [[Nonequilibrium Steady State]] [[Bayesian Mechanics]] [[Hamiltonian belief dynamics]] [[Belief inertia]] [[Markov blanket interpretation debate]] [[Natural gradient]] [[Fisher information metric]]
+- Related sources: [[friston-2022-bayesian-mechanics]] [[parr-2022-active-inference-book]] [[friston-2019-particular-physics]] [[dacosta-2021-bayesian-mechanics]] [[parr-2020-markov-blankets-thermodynamics]] [[ramstead-2023-bayesian-mechanics]]
 - Manuscript/Project: [[VFE Transformer Program]] [[GL(K) Attention]]
 
 ## BibTeX
@@ -81,7 +88,11 @@ This paper is the primary theoretical substrate for the multi-agent active infer
   author  = {Friston, Karl and Da Costa, Lancelot and Sajid, Noor and Heins, Conor and Ueltzhöffer, Kai and Pavliotis, Grigorios A. and Parr, Thomas},
   title   = {The free energy principle made simpler but not too simple},
   journal = {Physics Reports},
+  volume  = {1024},
+  pages   = {1--29},
   year    = {2023},
+  doi     = {10.1016/j.physrep.2023.07.001},
+  publisher = {Elsevier},
   note    = {arXiv:2201.06387},
 }
 ```

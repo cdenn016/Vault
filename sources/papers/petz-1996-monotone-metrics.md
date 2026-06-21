@@ -2,8 +2,9 @@
 type: paper
 title: "Monotone Metrics on Matrix Spaces"
 aliases:
-  - "Petz 1996"
-  - "Petz monotone metrics"
+  - Petz 1996
+  - Petz monotone metrics
+  - Petz (1996) Monotone Metrics
 authors:
   - Petz, Dénes
 year: 1996
@@ -11,6 +12,8 @@ arxiv: null
 url: https://doi.org/10.1016/0024-3795(94)00211-8
 tags:
   - cluster/info-geometry
+  - cluster/participatory
+  - cluster/participatory/quantum-foundations
   - project/transformer
   - project/multi-agent
   - field/mathematics
@@ -40,15 +43,17 @@ $$\mathbf{J}_\rho = \mathbf{R}_\rho\, f(\mathbf{L}_\rho \mathbf{R}_\rho^{-1})$$
 for an *operator monotone function* $f : \mathbb{R}^+ \to \mathbb{R}^+$ satisfying the symmetry condition $f(t) = t f(t^{-1})$. The proof uses the theory of operator means (Kubo–Ando), quasi-entropy methods (Petz 1986), and the quasi-entropy inequality from the earlier paper on Cramér–Rao in the quantum setting. An explicit one-to-one (affine) correspondence is established between normalized monotone metrics and symmetric operator monotone functions.
 
 ## Key results
-The main theorem (Theorem 1 and its converse, Theorem 5) states: every monotone metric on $\mathcal{D}_n$ is of the form $\mathbf{K}_\rho(A,B) = \mathrm{Tr}(A^* \mathbf{J}_\rho^{-1} B)$ with $\mathbf{J}_\rho = \mathbf{R}_\rho f(\mathbf{L}_\rho\mathbf{R}_\rho^{-1})$, where $f$ is a symmetric operator monotone function. Conversely, every such $f$ yields a monotone metric. This gives an *abundance* of monotone metrics parameterized by the cone of symmetric operator monotone functions. Specific metrics recovered include: (i) the Bures–Helstrom metric ($f(t)=(1+t)/2$, arithmetic mean, smallest monotone metric); (ii) the Bogoliubov–Kubo–Mori metric / logarithmic mean metric ($f(t)=(t-1)/\log t$, harmonic-logarithmic mean); (iii) the metric from the right logarithmic derivative ($f(t)=t$, largest monotone metric). The Morozova–Chentsov function $m(\lambda,\mu)=1/f(\lambda/\mu)\mu$ relates to the inverse. There is a one-to-one correspondence between symmetric operator means and symmetric monotone metrics; under this correspondence the harmonic mean corresponds to the smallest (most informative) metric and the arithmetic mean to the largest. All five candidates of Morozova–Chentsov are confirmed monotone. The symmetrized metric ($f(t)=2t/(1+t)$, harmonic mean) is also monotone, being related to the Bogoluibov metric via symmetrization.
+The main theorem (Theorem 1 and its converse, Theorem 5) states: every monotone metric on $\mathcal{D}_n$ is of the form $\mathbf{K}_\rho(A,B) = \mathrm{Tr}(A^* \mathbf{J}_\rho^{-1} B)$ with $\mathbf{J}_\rho = \mathbf{R}_\rho f(\mathbf{L}_\rho\mathbf{R}_\rho^{-1})$, where $f$ is a symmetric operator monotone function. Conversely, every such $f$ yields a monotone metric. This gives an *abundance* of monotone metrics parameterized by the cone of symmetric operator monotone functions. Specific metrics recovered include: (i) the Bures–Helstrom metric ($f(t)=(1+t)/2$, arithmetic mean, smallest monotone metric); (ii) the Bogoliubov–Kubo–Mori metric / logarithmic mean metric ($f(t)=(t-1)/\log t$, harmonic-logarithmic mean); (iii) the metric from the right logarithmic derivative ($f(t)=t$, largest monotone metric). The Morozova–Chentsov function $m(\lambda,\mu)=1/f(\lambda/\mu)\mu$ relates to the inverse. There is a one-to-one correspondence between symmetric operator means and symmetric monotone metrics; under this correspondence the Bures/SLD member ($f(t)=(1+t)/2$, arithmetic mean) is the **smallest** monotone metric and the right-logarithmic-derivative member ($f(t)=t$) is the **largest**, with the Bogoliubov–Kubo–Mori metric lying strictly between. All five candidates of Morozova–Chentsov are confirmed monotone. The symmetrized metric ($f(t)=2t/(1+t)$, harmonic mean) is also monotone, being related to the Bogoluibov metric via symmetrization.
 
 ## Relevance to this research
 This paper is foundational for the **information geometry of SPD/density-matrix belief states** in the VFE transformer. In the GL(K) gauge-equivariant attention model, belief states are Gaussian tuples $(\mu, \Sigma, \phi)$ with $\Sigma$ a symmetric positive definite matrix. The monotone metrics characterized here are exactly the quantum analogs of the Fisher–Rao metric on SPD belief manifolds; the operator-monotone-function parameterization of metrics directly mirrors the family of divergences and retractions configurable in the VFE codebase (the `divergence` and `retraction` registries). The Kubo–Ando operator mean structure underlying Petz's theorem is related to the SPD geodesics and parallel transport (gauge connection) used in the VFE belief coupling term $\sum_{ij}\beta_{ij}\mathrm{KL}(q_i \| \Omega_{ij} q_j)$. The smallest monotone metric (Bures) and its connection to quantum Cramér–Rao bounds are relevant to understanding the information-geometric optimality of the VFE minimization. The correspondence between operator monotone functions and Riemannian metrics on state spaces also informs the theoretical basis for the `f-divergence` module choices in the codebase.
 
 ## Cross-links
-- Concepts: [[SPD Geometry]], [[Information Geometry]], [[Fisher Information Metric]], [[Operator Monotone Functions]]
-- Related sources: [[amari-1985-differential-geometry]], [[uhlmann-1976-transition-probability]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]]
+- Concepts: [[SPD Geometry]], [[Information Geometry]], [[Fisher Information Metric]], [[Operator Monotone Functions]], [[Quantum information geometry]]
+- Related sources: [[amari-1985-differential-geometry]], [[uhlmann-1976-transition-probability]], [[braunstein-caves-1994-quantum-fisher]], [[cencov-1982-statistical-decision-rules]]
+- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]], [[participatory-it-from-bit]]
+
+> [!note] Editorial: For the participatory/quantum-foundations thread, this classification is the foil to the *classical* Čencov uniqueness theorem ([[cencov-1982-statistical-decision-rules]]): in the quantum extension, metric uniqueness fails — a metric must be *chosen* from the monotone family (most naturally the minimal Bures/SLD member, via [[braunstein-caves-1994-quantum-fisher]]), so PIFB cannot transplant the classical "the geometry is forced" rhetoric unchanged.
 
 ## BibTeX
 ```bibtex
@@ -59,5 +64,6 @@ This paper is foundational for the **information geometry of SPD/density-matrix 
   year    = {1996},
   volume  = {244},
   pages   = {81--96},
+  doi     = {10.1016/0024-3795(94)00211-8},
 }
 ```
