@@ -73,7 +73,7 @@ consequences of epistemic inertia rather than irrationality.
 
 \section{Introduction}
 
-Why do some beliefs resist change more than others? Why does influence itself seem to harden the minds and poison the empathies of those who wield it? Some beliefs are stiff while others readily sway. While confident beliefs clearly possess more "cognitive inertia" than uncertain ones, a principled mathematical foundation for this intuitive phenomenon remains elusive. Current theories of belief updating, from Bayesian inference \citet{jaynes2003probability} to predictive coding \citep{Friston2010,clark2013whatever}, model belief change as gradient descent. This is a purely dissipative process where beliefs flow toward lower free energy without momentum, inertia, or dynamics. Though enormously successful across neuroscience \citep{friston2016active}, psychology \citep{hohwy2013predictive}, and machine learning \citep{millidge2021predictive}, this framework does not account for inertial or oscillatory dynamics.
+Why do some beliefs resist change more than others? Why does influence itself seem to harden the minds and poison the empathies of those who wield it? Some beliefs are stiff while others readily sway. While confident beliefs clearly possess more "cognitive inertia" than uncertain ones, a principled mathematical foundation for this intuitive phenomenon remains elusive. Current theories of belief updating, from Bayesian inference \citep{jaynes2003probability} to predictive coding \citep{Friston2010,clark2013whatever}, model belief change as gradient descent. This is a purely dissipative process where beliefs flow toward lower free energy without momentum, inertia, or dynamics. Though enormously successful across neuroscience \citep{friston2016active}, psychology \citep{hohwy2013predictive}, and machine learning \citep{millidge2021predictive}, this framework does not account for inertial or oscillatory dynamics.
 
 In this article, we show that beliefs possess an epistemic inertia proportional to an agent's prior precision, observational precision, and their social interactions. Just as physical objects with mass resist acceleration, beliefs held with high confidence resist change and, once moving, tend to continue in their direction on a statistical manifold of beliefs. The second-order expansion of the variational free energy reveals that the Fisher information metric \citep{Amari2016} suggests an ansatz for an inertial mass tensor for belief dynamics. The Hamiltonian structure we adopt treats these second-order terms, traditionally neglected \citep{friston2008hierarchical,bogacz2017tutorial}, as generating momentum with sociological and psychological consequences.
 
@@ -605,7 +605,7 @@ where $\tilde{\mu}_i^{(k)} = \Omega_{ki}\mu_i$ is agent $i$'s mean transported i
 
 \subsubsection{Conservation and Non-Conservation}
 
-Under reciprocal coupling---fixed and symmetric attention weights $\beta_{ik} = \beta_{ki}$ together with reciprocal frames $\Omega_{ik}\Omega_{ki} = I$---the consensus forces between any pair of agents are equal and opposite, so in the absence of priors and damping the internal forces derive from a single conservative potential and the total momentum is conserved,
+Under reciprocal coupling---fixed and symmetric attention weights $\beta_{ik} = \beta_{ki}$ with reciprocal frames $\Omega_{ik}\Omega_{ki} = I$---the consensus forces between any pair of agents are equal and opposite. In flat gauge ($\Omega_{ik} = I$) the internal forces then derive from a single conservative potential and the bare momentum sum is conserved in the absence of priors and damping (more generally, under non-identity reciprocal frames the conserved quantity is the frame-transported momentum rather than the bare $\sum_i \pi_i$),
 
 \begin{equation}
 \frac{d}{dt}\sum_i \pi_i = 0 \quad \text{(closed, reciprocal system)} .
@@ -779,7 +779,7 @@ Differentiating $\mathcal{F}$ in $\mu_i$, the unordered pair $\{i,j\}$ contribut
 \end{align}
 
 \textbf{Step 3: Apply gradient flow.}
-The canonical mass formula \eqref{eq:effective_mass} for agent $i$ also carries incoming and outgoing social-precision terms, $\sum_k \beta_{ik}\tilde{\Lambda}_{q_k} + \sum_j \beta_{ji}\Lambda_{q_i}$. Recovering the clean DeGroot scalar update requires the \emph{small-coupling} approximation in which these social-precision contributions to the mass are negligible relative to the belief precision, so that $M_i \approx \sigma^{-2} I$ is isotropic and agent-independent. (Retaining the full mass instead introduces an agent-dependent factor $1 + \sum_j w_{ji}$ that yields an agent-specific effective step size, breaking the uniform DeGroot form.) Under the small-coupling approximation, gradient flow gives
+The canonical mass formula \eqref{eq:effective_mass} for agent $i$ also carries incoming and outgoing social-precision terms, $\sum_k \beta_{ik}\tilde{\Lambda}_{q_k} + \sum_j \beta_{ji}\Lambda_{q_i}$. In flat gauge with $\Lambda_{q_k} = \sigma^{-2} I$, the incoming term equals $\sigma^{-2} I$ by row-stochasticity ($\sum_k \beta_{ik} = 1$), so the full mass is $M_i = \sigma^{-2}\bigl(1 + \sum_j w_{ji}\bigr) I$. Recovering the clean DeGroot scalar update requires the \emph{small-coupling} approximation in which the agent-dependent outgoing (recoil) term $\sum_j \beta_{ji}\Lambda_{q_i} = \sigma^{-2}\bigl(\sum_j w_{ji}\bigr) I$ is negligible, so that $M_i \approx \sigma^{-2} I$ is isotropic and agent-independent. (Retaining the full mass instead keeps the agent-dependent factor $1 + \sum_j w_{ji}$, which yields an agent-specific effective step size, breaking the uniform DeGroot form.) Under the small-coupling approximation, gradient flow gives
 \begin{equation}
 \frac{d\mu_i}{dt} = -M_i^{-1}\nabla_{\mu_i} F = -\lambda_\beta\left(\mu_i - \sum_j w_{ij}\mu_j\right).
 \end{equation}
@@ -839,7 +839,7 @@ Moreover, the stubbornness parameter $\alpha_i$ emerges from prior precision and
 \textbf{Step 1: VFE with self-coupling.}
 Including the prior term:
 \begin{equation}
-\mathcal{F}[\mu] = \frac{\alpha}{2\Sigma_p} \sum_i \|\mu_i - \mu_i(0)\|^2 + \frac{\lambda_\beta}{2\sigma^2} \sum_{i,j} w_{ij} \|\mu_i - \mu_j\|^2
+\mathcal{F}[\mu] = \frac{\alpha}{2\Sigma_p} \sum_i \|\mu_i - \mu_i(0)\|^2 + \frac{\lambda_\beta}{2\sigma^2} \sum_{i<j} w_{ij} \|\mu_i - \mu_j\|^2
 \end{equation}
 
 \textbf{Step 2: Equilibrium condition.}
@@ -920,17 +920,17 @@ others. For the polarized state to be stable, out-group pull must be negligible.
 Requiring $\beta_{\text{out-group}} < 1/N$ (out-group attention vanishes as 
 $N \to \infty$):
 \begin{equation}
-\frac{(N/2)x}{(N/2) + (N/2)x} < \frac{1}{N}
+\frac{(N/2)x}{(N/2 - 1) + (N/2)x} < \frac{1}{N}
 \end{equation}
 
-For large $N$ with $x \ll 1$, this simplifies to $x < 2/N$, yielding:
+For large $N$ with $x \ll 1$, this gives $x \lesssim 1/N$, yielding:
 \begin{equation}
-\exp\left(-\frac{d^2}{2\sigma^2\kappa}\right) < \frac{2}{N}
+\exp\left(-\frac{d^2}{2\sigma^2\kappa}\right) < \frac{1}{N}
 \end{equation}
 
 Taking logarithms:
 \begin{equation}
-\boxed{\|\mu_A - \mu_B\|^2 > 2\sigma^2 \kappa \log(N/2) \approx 2\sigma^2 \kappa \log N}
+\boxed{\|\mu_A - \mu_B\|^2 > 2\sigma^2 \kappa \log N}
 \end{equation}
 
 This is the polarization threshold: groups separated by more than 
@@ -1996,7 +1996,7 @@ The potential forces decompose into four distinct contributions:
 \label{eq:force_decomposition}
 \end{equation}
 
-The geodesic force $f_i^{\text{geo}} = -\frac{1}{2}\sum_{jkl}(\pi_j^\mu)^T\frac{\partial[\mathbf{M}^{-1}]_{jk}^{\mu\mu}}{\partial \mu_i}\pi_k^\mu$ encodes manifold curvature.
+The geodesic force $f_i^{\text{geo}} = -\frac{1}{2}\sum_{jkl}(\pi_j^\mu)^T\frac{\partial[\mathbf{M}^{-1}]_{jk}^{\mu\mu}}{\partial \mu_i}\pi_k^\mu$ encodes manifold curvature. Under the frozen-attention (mean-field) convention adopted for the mass, the mean-sector mass is independent of $\mu$, so this mean-sector term vanishes and the geodesic curvature is carried by the covariance-sector ($\Sigma$-derivative) force; the mean-sector term is reinstated only when the state-dependence of the softmax weights $\beta$ is retained.
 
 \subsubsection{Compact Form}
 
