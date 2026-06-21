@@ -10,7 +10,7 @@ updated: 2026-06-21
 Catalog of this **LLM-wiki**. See [[LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **4** manuscripts · **12** themes · **11** field MOCs · **264** concepts · **10** methods · **527** papers · **104** references · **1** run · **6** web/methodology
+> **3** projects · **4** manuscripts · **12** themes · **11** field MOCs · **268** concepts · **10** methods · **527** papers · **104** references · **1** run · **6** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -56,6 +56,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 ## 💡 Concepts
 
 ### Variational free energy, predictive coding & active inference
+- [[Active Inference]]
 - [[Alpha-divergence]]
 - [[Amortized inference]]
 - [[Bayesian mechanics]]
@@ -69,6 +70,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Ouroboros multi-scale dynamics]]
 - [[Precision weighting]]
 - [[Prediction error]]
+- [[Predictive Coding]]
 - [[Reparameterization trick]]
 - [[Variational free energy]]
 
@@ -90,6 +92,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Divergence clamp saturation]]
 - [[Fisher information metric]]
 - [[Hamiltonian belief dynamics]]
+- [[Information Geometry]]
 - [[Mass as Fisher information]]
 - [[Meta-entropy]]
 - [[Natural gradient]]
@@ -104,6 +107,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Symmetric spaces and the SPD cone]]
 
 ### Attention, transformers & positional structure
+- [[Attention Mechanism]]
 - [[Mechanistic interpretability of attention]]
 - [[Neural scaling laws]]
 

@@ -59,6 +59,13 @@ for p in files:
             broken[m.group(1).split("|")[0].split("#")[0].strip()].append(rel(p))
 coll={k:[rel(x) for x in v] for k,v in names.items() if len(v)>1}
 empty=[rel(p) for p in files if wc[p]<12]
+# cross-file IDENTITY collisions: a name/alias claimed by >1 note resolves ambiguously
+ident=defaultdict(set)
+for k,v in names.items():
+    for p in v: ident[k].add(p)
+for k,v in aliasmap.items():
+    for p in v: ident[k].add(p)
+idcoll={k:sorted(rel(x) for x in v) for k,v in ident.items() if len(v)>1}
 print("files:",len(files))
 print("BROKEN wikilinks:",len(broken))
 for k,v in sorted(broken.items()): print("   ",repr(k),"<-",v[:3])
@@ -66,3 +73,5 @@ print("CASE collisions:",len(coll))
 for k,v in sorted(coll.items()): print("   ",k,v)
 print("EMPTY files:",len(empty))
 for e in empty: print("   ",e)
+print("IDENTITY collisions:",len(idcoll))
+for k,v in sorted(idcoll.items()): print("   ",repr(k),v)

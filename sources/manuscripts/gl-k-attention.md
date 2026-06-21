@@ -2,8 +2,6 @@
 type: manuscript
 title: "Attention as Gauge-Theoretic Variational Inference"
 aliases:
-  - "GL(K) Attention"
-  - "Gauge-Theoretic Attention"
   - "Attention as Gauge-Theoretic Variational Inference"
   - "GL(K) Attention Manuscript"
   - "GL(K) attention manuscript"

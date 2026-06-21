@@ -86,6 +86,31 @@ year: 2020
   `amari-1998-natural-gradient.md`) and carry a readable `aliases:` entry. Wiki pages cite
   them by that slug: `[[amari-1998-natural-gradient]]`.
 
+**Canonical notation — one name, one note.** Every entity has exactly **one canonical note**, and
+every `[[link]]` must resolve to exactly one file. Two notes may **never** share a name *or* an alias
+(a cross-file **identity collision** — Obsidian then resolves the link ambiguously).
+- **Sources:** the canonical key is the slug `firstauthor-YYYY-keyword` — **all-lowercase, ASCII,
+  hyphen-separated** (`vaswani-2017-attention`, never `vaswani2017attention` or `Vaswani2017`). Always
+  cite by this slug.
+- **Wiki pages:** the canonical key is the **Title** (must be unique).
+- **Variants are aliases, never new notes.** If you meet or want any other spelling — camelCase, no
+  hyphens, year-attached, singular/plural, British/American, or an acronym — add it to the canonical
+  note's `aliases:`; do **not** create a second note. When you rename or merge, add the *old* name as
+  an alias so inbound links keep resolving.
+- A bare term resolves to its **most-canonical** home: prefer a `concept` page over a
+  `method`/`theme`/`source`, and reserve a `… Manuscript` alias for the manuscript note.
+
+**Inbox / shadow-stub hygiene.** Obsidian writes an *empty* note into `inbox/` when you click an
+**unresolved** `[[link]]`. An empty stub whose basename equals an existing alias **shadows** that
+alias (a filename beats an alias), silently turning an already-resolved link into an **empty graph
+node**. So never leave 0-byte notes lying around: triage each promptly — if the target already exists,
+add the clicked name as an **alias** on the canonical note and **delete the stub**; create a real note
+only when there is a genuine gap.
+
+**Link-integrity lint.** `python docs/_lint.py` reports broken wikilinks, **empty files (= shadow
+stubs)**, basename case-collisions, and **cross-file identity (alias/basename) collisions**. All four
+should read **0** before committing.
+
 **Linking.** Liberally cross-link with `[[Page Title]]`. A wiki page should link the
 concepts/methods it touches and cite the `[[source notes]]` it draws from. Prefer linking
 to a concept page over re-explaining the concept inline. Orphan pages (nothing links to

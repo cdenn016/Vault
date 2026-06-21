@@ -4,7 +4,6 @@ title: Free-energy principle active inference
 aliases:
   - Free-energy principle
   - FEP
-  - Active inference
   - Friston free energy
   - "Free Energy Principle"
   - "Free energy principle"

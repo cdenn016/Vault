@@ -2,7 +2,6 @@
 type: method
 title: Predictive coding network
 aliases:
-  - Predictive coding
   - PC network
   - PCN
   - Hierarchical predictive coding
