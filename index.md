@@ -10,7 +10,7 @@ updated: 2026-06-21
 Catalog of this **LLM-wiki**. See [[LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **4** manuscripts · **12** themes · **11** field MOCs · **278** concepts · **10** methods · **543** papers · **177** references · **6** web/methodology
+> **3** projects · **4** manuscripts · **12** themes · **11** field MOCs · **279** concepts · **10** methods · **543** papers · **177** references · **1** run · **6** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -87,6 +87,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Quantum reference frames]]
 
 ### Information geometry, divergences & natural gradient
+- [[Divergence clamp saturation]]
 - [[Fisher information metric]]
 - [[Hamiltonian belief dynamics]]
 - [[Mass as Fisher information]]
@@ -1035,3 +1036,6 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[pep-484-type-hints|PEP 484 - Type Hints]]
 - [[pep-257-docstring-conventions|PEP 257 - Docstring Conventions]]
 - [[pep-8-style-guide-python-code|PEP 8 - Style Guide for Python Code]]
+
+## 🧪 Sources — experiment runs
+- [[2026-06-21-k160-hyperprior-saturation|K=160 runs — hyper-prior KL(s‖r) saturates the kl_max clamp]]
