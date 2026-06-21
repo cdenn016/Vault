@@ -175,7 +175,7 @@ agent's contribution a free energy rather than a bare energy. The second is the
 attention-distribution entropy, the family of terms
 $\tau\betaij\log(\betaij/\pi_{ij})$ in \cref{eq:F}; these measure the spread of one
 agent's attention over its neighbours, are a within-configuration quantity, and are part
-of the functional whose minimisation over $\betaij$ returns the softmax \cref{eq:softmax}.
+of the functional whose minimisation over $\betaij$ returns the softmax \cref{eq:softmax}; the model channel carries a structurally identical attention-distribution entropy in the model-coupling ($\gamma_{ij}$) terms of \cref{eq:F}, scoped out here together with the rest of the $\gamma$ block.
 The third, which is the subject of this note, is the meta-entropy: the logarithm of the
 number of belief configurations $\{(\bmu_i,\bSigma_i,\bphi_i)\}_{i=1}^{N}$ that realise a
 prescribed value of $\Fcal$. The first two are properties of a single configuration; the
@@ -317,7 +317,7 @@ $O(N)$ once each divergence is bounded by the container of \cref{sec:measure}. T
 attention-entropy term, however, is not bounded by $O(N)$ on its own: with $\pi_{ij}=1/N$,
 \begin{equation}
 \tau\sum_{j}\betaij\log\frac{\betaij}{\pi_{ij}}
-=\tau\bigl(\log N-H(\beta_{i\cdot})\bigr)\in[0,\tau\log N]
+=\tau\bigl(\log N-H(\beta_{i\cdot})\bigr)\in[0,\tau\log N],
 \end{equation}
 per row, where $H$ is the Shannon entropy of the row, so the naive total is
 $O(N\log N)$ and is configuration dependent through the row concentrations $H(\beta_{i\cdot})$.
@@ -489,7 +489,7 @@ statistic $\lVert\bmu\rVert^{2}$ and a single multiplier $\theta\in\R$; on the c
 ranges over all of $\R$, with $\theta>0$ selecting the low-second-moment branch and $\theta<0$ the
 high-second-moment branch concentrated near the boundary, $\theta>0$ being recovered as the operative
 sign only in the boundary-negligible limit below. Its exact rate is
-$\KL{\rho^{\star}}{\mu_1}=-H(\rho^{\star})+\log\mathrm{Vol}(\{\lVert\bmu\rVert\le R\})$, and only in the
+$\KL{\rho^{\star}}{\mu_1}=-H_{\mathrm{FR}}(\rho^{\star})+\log\mathrm{Vol}(\{\lVert\bmu\rVert\le R\})$, and only in the
 boundary-negligible limit, where the Gaussian width $\theta^{-1/2}$ is small relative to $R$ so the
 truncation is inactive and $\rho^{\star}$ tends to the full Gaussian $\Ncal(0,S^{\star})$ with
 $S^{\star}=\theta^{-1}\bI$ of \cref{prop:gaussian}, does this reduce to the displayed elementary value
@@ -517,7 +517,7 @@ through the query at $z$ and through every other query that reads $z$ as a sourc
 \end{equation}
 the term $-\tau\log Z(y)$ being the attention emitted by the query at $y$ over its sources and
 $-\tau\int\beta(z,y)\rho(\dd z)$ the total attention received by $y$ from the population through
-the incoming kernel $K(\cdot,y)$; the directedness of the row coupling keeps these two terms
+the incoming kernel $\mathcal{K}(\cdot,y)$; the directedness of the row coupling keeps these two terms
 distinct, so no symmetric factor of $1/2$ appears. The Euler--Lagrange condition of
 $\inf\{\KL{\rho}{\mu_1}:\Fcal[\rho]=f\}$ at the conjugate tilt $\bmeta$ then reads
 $\log(\dd\rho/\dd\mu_1)=\mathrm{const}-\bmeta\delta\Fcal/\delta\rho$, that is the fixed-point
@@ -572,7 +572,7 @@ It\^o form is
 \dd\omega^{i}
 =\Bigl[-g^{ij}\partial_j\Fcal_{\mathrm{belief}}
 +\Tmeta \tfrac{1}{\sqrt{\det g}} \partial_j\bigl((\sqrt{\det g}) g^{ij}\bigr)\Bigr]\dd t
-+\sqrt{2\Tmeta}\bigl(\sqrt{g^{-1}}\bigr)^{i}{}_{k}\dd W^{k}.
++\sqrt{2\Tmeta}\bigl(\sqrt{g^{-1}}\bigr)^{i}{}_{k}\dd B^{k}.
 \end{equation}
 The first drift term $g^{ij}\partial_j\Fcal_{\mathrm{belief}}$ is the natural gradient, and the diffusion
 covariance is $2\Tmeta g^{-1}$ per unit time, so $\Tmeta$ is the scalar temperature
