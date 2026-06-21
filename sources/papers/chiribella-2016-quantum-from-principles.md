@@ -2,6 +2,8 @@
 type: paper
 title: "Quantum Theory from First Principles: An Informational Approach"
 aliases:
+  - "chiribella-2017-quantum-from-principles"
+  - "chiribella2017quantumfromprinciples"
   - "chiribella-2016-quantum-from-principles"
   - "chiribella2016quantumfromprinciples"
   - "Chiribella D'Ariano Perinotti 2017"
@@ -38,7 +40,7 @@ Anchors the it-from-bit / participatory thesis that quantum theory is reconstruc
 
 ## BibTeX
 ```bibtex
-@book{chiribella2016quantumfromprinciples,
+@book{chiribella2017quantumfromprinciples,
   title={Quantum Theory from First Principles: An Informational Approach},
   author={D'Ariano, Giacomo Mauro and Chiribella, Giulio and Perinotti, Paolo},
   year={2017},

@@ -4,6 +4,9 @@ title: "A tale of two densities: active inference is enactive inference"
 aliases:
   - "Ramstead 2019"
   - "enactive inference"
+  - "ramstead-2019-variational-neuroethology"
+  - "Ramstead et al. 2019"
+  - "Variational neuroethology"
 authors:
   - Ramstead, Maxwell JD
   - Kirchhoff, Michael D
@@ -25,7 +28,7 @@ updated: 2026-06-20
 # A tale of two densities: active inference is enactive inference
 
 > [!info] Citation
-> Ramstead, M. J. D., Kirchhoff, M. D., & Friston, K. J. (2019). "A tale of two densities: active inference is enactive inference." *Adaptive Behavior*, 1–15. DOI: 10.1177/1059712319862774
+> Ramstead, M. J. D., Kirchhoff, M. D., & Friston, K. J. (2019). "A tale of two densities: active inference is enactive inference." *Adaptive Behavior*, 28(4), 225–239. DOI: 10.1177/1059712319862774
 
 ## TL;DR
 
@@ -71,7 +74,9 @@ This paper is directly relevant to the multi-agent active inference program unde
   title   = {A tale of two densities: active inference is enactive inference},
   journal = {Adaptive Behavior},
   year    = {2019},
-  pages   = {1--15},
+  volume  = {28},
+  number  = {4},
+  pages   = {225--239},
   doi     = {10.1177/1059712319862774},
 }
 ```

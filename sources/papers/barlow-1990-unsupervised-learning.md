@@ -2,6 +2,8 @@
 type: paper
 title: "Unsupervised Learning"
 aliases:
+  - "barlow-1989-unsupervised-learning"
+  - "barlow1989unsupervisedlearning"
   - "barlow1990-unsupervised-learning"
   - "barlow1990unsupervisedlearning"
   - "barlow-1990-unsupervised-learning"
@@ -37,7 +39,7 @@ Efficient coding and redundancy reduction are precursors to the free-energy / pr
 
 ## BibTeX
 ```bibtex
-@article{barlow1990unsupervisedlearning,
+@article{barlow1989unsupervisedlearning,
   title={Unsupervised learning},
   author={Barlow, Horace B.},
   journal={Neural Computation},

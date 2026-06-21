@@ -3,7 +3,8 @@ type: paper
 title: "Edge modes of gravity. Part I: Corner potentials and charges"
 aliases:
   - "freidel-geiller-2021-edge-modes"
-  - "Freidel Geiller 2021"
+  - "freidel-geiller-2020-edge-modes"
+  - "Freidel Geiller 2020"
   - "corner symmetry charges"
 authors:
   - "Freidel, Laurent"

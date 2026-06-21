@@ -3,7 +3,8 @@ type: paper
 title: "Sufficient Dimensionality Reduction"
 aliases:
   - "globerson2004sufficient"
-  - "Globerson & Tishby 2004"
+  - "globerson-2003-sufficient-dimensionality-reduction"
+  - "Globerson & Tishby 2003"
   - "Sufficient Dimensionality Reduction"
 authors:
   - "Globerson, Amir"

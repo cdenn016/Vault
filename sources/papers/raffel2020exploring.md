@@ -4,6 +4,9 @@ title: "Exploring the Limits of Transfer Learning with a Unified Text-to-Text Tr
 aliases:
   - "Raffel 2020"
   - "T5"
+  - "raffel-2020-t5"
+  - "Raffel et al. 2020"
+  - "raffel2020t5"
 authors:
   - Raffel, Colin
   - Shazeer, Noam

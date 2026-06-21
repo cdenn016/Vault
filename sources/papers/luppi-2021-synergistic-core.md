@@ -3,8 +3,9 @@ type: paper
 title: "A synergistic core for human brain evolution and cognition"
 aliases:
   - "luppi-2021-synergistic-core"
+  - "luppi-2022-synergistic-core"
   - "luppi2021synergisticcore"
-  - "Luppi 2021 synergistic core"
+  - "Luppi 2022 synergistic core"
 authors:
   - "Luppi, Andrea I."
   - "Mediano, Pedro A. M."
