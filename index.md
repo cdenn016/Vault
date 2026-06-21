@@ -22,6 +22,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 - [[Gauge-Theoretic Multi-Agent VFE Model]]
 - [[SocialPhysics]]
 - [[VFE Transformer Program]]
+  - [[VFE Transformer Research Directions (2026-06-21)]] — prioritized open-experiments roadmap (37 hypotheses)
 
 ## 📝 Manuscripts (in preparation)
 - [[participatory-it-from-bit|A Gauge-Theoretic Framework Toward a Participatory \"It From Bit\" Program: Mathematical Foundations and Computational Implementation]]
