@@ -4,6 +4,7 @@ title: "What is the Unity of Consciousness?"
 aliases:
   - "Bayne Chalmers 2005"
   - "Unity of Consciousness Bayne"
+  - "Unity of Consciousness"
 authors:
   - Bayne, Tim
   - Chalmers, David J.

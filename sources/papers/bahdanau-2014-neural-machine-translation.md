@@ -5,6 +5,7 @@ aliases:
   - "Bahdanau 2014"
   - "Bahdanau et al. 2014"
   - "Bahdanau (2014) Soft Attention"
+  - "bahdanau2015attention"
 authors:
   - Bahdanau, Dzmitry
   - Cho, Kyunghyun

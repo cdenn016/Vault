@@ -4,6 +4,7 @@ title: "Decoherence, Einselection, and the Quantum Origins of the Classical"
 aliases:
   - "Zurek 2003"
   - "einselection"
+  - "Zurek2003"
 authors:
   - Zurek, Wojciech Hubert
 year: 2003

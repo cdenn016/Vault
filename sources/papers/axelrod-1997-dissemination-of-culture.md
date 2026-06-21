@@ -1,7 +1,11 @@
 ---
 type: paper
 title: "The Dissemination of Culture: A Model with Local Convergence and Global Polarization"
-aliases: ["Axelrod 1997", "Axelrod culture-dissemination model"]
+aliases:
+  - "Axelrod 1997"
+  - "Axelrod culture-dissemination model"
+  - "axelrod-1997-complexity-cooperation"
+  - "axelrod1997-culture"
 authors: ["Axelrod R."]
 year: 1997
 url: https://doi.org/10.1177/0022002797041002001

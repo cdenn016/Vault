@@ -4,6 +4,10 @@ title: "An Approximately Bayesian Delta-Rule Model Explains the Dynamics of Beli
 aliases:
   - "Nassar 2010"
   - "reduced Bayesian delta-rule"
+  - "nassar2010-approximately-bayesian"
+  - "nassar2010approximatelybayesian"
+  - "nassar-2010-bayesian-delta-rule"
+  - "nassar2010bayesiandeltarule"
 authors:
   - Nassar, Matthew R.
   - Wilson, Robert C.

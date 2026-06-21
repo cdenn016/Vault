@@ -5,6 +5,8 @@ aliases:
   - "GL(K) Attention"
   - "Gauge-Theoretic Attention"
   - "Attention as Gauge-Theoretic Variational Inference"
+  - "GL(K) Attention Manuscript"
+  - "GL(K) attention manuscript"
 authors:
   - Robert C. Dennis
 year: 2026

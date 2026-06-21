@@ -4,6 +4,14 @@ title: "A free energy principle for a particular physics"
 aliases:
   - "Friston 2019"
   - "Friston (2019) Particular Physics"
+  - "friston2019free"
+  - "friston-2019-free-energy-particular-physics"
+  - "friston-2019-free-energy-principle"
+  - "friston2019-free-energy-principle"
+  - "friston2019freeenergyprinciple"
+  - "friston-2019-free-energy"
+  - "friston-2019-free-energy-consciousness"
+  - "friston2019freeenergyconsciousness"
 authors:
   - Karl Friston
 year: 2019

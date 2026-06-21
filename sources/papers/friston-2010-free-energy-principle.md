@@ -4,6 +4,17 @@ title: "The free-energy principle: a unified brain theory?"
 aliases:
   - "Friston 2010"
   - "FEP 2010"
+  - "friston-2010-free-energy"
+  - "friston2010free-energy"
+  - "friston2010-free-energy"
+  - "friston2010freeenergy"
+  - "friston2010free"
+  - "friston-2010-fep"
+  - "friston-2010-fep-unified"
+  - "friston-2010-generalised-filtering"
+  - "friston2010generalisedfiltering"
+  - "friston-2010-free-energy-unified"
+  - "friston2010freeenergyunified"
 authors:
   - Friston, Karl
 year: 2010

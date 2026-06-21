@@ -4,6 +4,7 @@ title: "Riemannian Center of Mass and Mollifier Smoothing"
 aliases:
   - "Karcher 1977"
   - "Karcher (1977) Center of Mass"
+  - "Karcher Mean"
 authors:
   - Hermann Karcher
 year: 1977

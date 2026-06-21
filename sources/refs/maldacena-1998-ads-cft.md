@@ -4,6 +4,9 @@ title: "The Large N Limit of Superconformal Field Theories and Supergravity"
 aliases:
   - "Maldacena 1998"
   - "AdS/CFT"
+  - "maldacena-1998-adscft"
+  - "maldacena-1997-large-n"
+  - "maldacena1997largen"
 authors:
   - Juan Maldacena
 year: 1998

@@ -5,6 +5,8 @@ aliases:
   - Information geometry
   - Fisher-Rao geometry
   - Natural-gradient optimization
+  - "Dual connections"
+  - "Dual connection"
 tags:
   - cluster/info-geometry
   - project/transformer

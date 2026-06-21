@@ -5,6 +5,8 @@ aliases:
   - Precision-weighted prediction error
   - Inverse-variance weighting
   - Precision weighting (attention)
+  - "Attention as Precision-Weighting"
+  - "Attention as precision-weighting"
 tags:
   - cluster/vfe
   - cluster/attention

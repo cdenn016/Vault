@@ -1,7 +1,11 @@
 ---
 type: paper
 title: "Llama 2: Open Foundation and Fine-Tuned Chat Models"
-aliases: ["Touvron 2023", "Llama 2: Open Foundation and Fine-Tuned Chat Models"]
+aliases:
+  - "Touvron 2023"
+  - "Llama 2: Open Foundation and Fine-Tuned Chat Models"
+  - "touvron2023-llama2"
+  - "touvron2023llama2"
 authors: ["Hugo Touvron", "Louis Martin", "Kevin Stone", "et al."]
 year: 2023
 arxiv: 2307.09288

@@ -4,6 +4,8 @@ title: "Renormalization Group and Critical Phenomena. I. Renormalization Group a
 aliases:
   - "Wilson 1971"
   - "Wilson (1971) RG and Kadanoff Scaling"
+  - "wilson-1971-renormalization-group"
+  - "wilson1971renormalizationgroup"
 authors:
   - Kenneth G. Wilson
 year: 1971

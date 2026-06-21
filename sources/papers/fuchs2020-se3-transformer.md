@@ -4,6 +4,8 @@ title: "SE(3)-Transformers: 3D Roto-Translation Equivariant Attention Networks"
 aliases:
   - "Fuchs 2020"
   - "SE(3)-Transformer"
+  - "fuchs2020se3transformers"
+  - "fuchs2020se3"
 authors:
   - Fuchs, Fabian B.
   - Worrall, Daniel E.

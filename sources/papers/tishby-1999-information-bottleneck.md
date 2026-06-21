@@ -5,6 +5,10 @@ aliases:
   - "Tishby 1999"
   - "IB"
   - "Information Bottleneck"
+  - "tishby-2000-information-bottleneck"
+  - "Tishby 2000"
+  - "tishby2000information"
+  - "tishby1999information"
 authors:
   - Tishby, Naftali
   - Pereira, Fernando C.

@@ -1,7 +1,13 @@
 ---
 type: concept
 title: Social Impact Theory
-aliases: ["Latané social impact", "Sublinear social influence law", "Division of impact"]
+aliases:
+  - "Latané social impact"
+  - "Sublinear social influence law"
+  - "Division of impact"
+  - "Power Law"
+  - "Diffusion of Responsibility"
+  - "Social Loafing"
 tags:
   - cluster/social-physics
   - cluster/social-physics/social-influence

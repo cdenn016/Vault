@@ -6,6 +6,8 @@ aliases:
   - Fisher information matrix
   - FIM
   - Fisher-Rao metric
+  - "Fisher Metric"
+  - "Fisher metric"
 tags:
   - cluster/info-geometry
   - project/transformer

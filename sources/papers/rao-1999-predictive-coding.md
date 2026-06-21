@@ -4,6 +4,10 @@ title: "Predictive coding in the visual cortex: a functional interpretation of s
 aliases:
   - "Rao & Ballard 1999"
   - "Rao & Ballard 1999 — Predictive Coding"
+  - "rao-ballard-1999"
+  - "rao1999predictive"
+  - "rao-ballard-1999-predictive-coding"
+  - "raoballard1999predictivecoding"
 authors:
   - Rao, Rajesh P. N.
   - Ballard, Dana H.

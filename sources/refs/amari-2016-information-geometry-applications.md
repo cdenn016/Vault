@@ -3,6 +3,7 @@ type: reference
 title: "Information Geometry and Its Applications"
 aliases:
   - "Amari 2016"
+  - "amari-2016-information-geometry"
 authors:
   - "Shun-ichi Amari"
 year: 2016

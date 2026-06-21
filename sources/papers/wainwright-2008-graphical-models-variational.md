@@ -4,6 +4,8 @@ title: "Graphical Models, Exponential Families, and Variational Inference"
 aliases:
   - "Wainwright 2008"
   - "Wainwright Jordan 2008"
+  - "wainwright-2008-graphical"
+  - "wainwright2008graphical"
 authors:
   - Wainwright, Martin J.
   - Jordan, Michael I.

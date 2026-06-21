@@ -4,6 +4,8 @@ title: "Bayesian mechanics for stationary processes"
 aliases:
   - "Da Costa et al. 2021"
   - "Da Costa (2021) Bayesian Mechanics"
+  - "da-costa2021-bayesian-mechanics"
+  - "dacosta2021bayesianmechanics"
 authors:
   - Lancelot Da Costa
   - Karl Friston

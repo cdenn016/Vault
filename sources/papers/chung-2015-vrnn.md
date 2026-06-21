@@ -4,6 +4,7 @@ title: "A Recurrent Latent Variable Model for Sequential Data"
 aliases:
   - "Chung 2015"
   - "VRNN"
+  - "chung2015vrnn"
 authors:
   - Chung, Junyoung
   - Kastner, Kyle

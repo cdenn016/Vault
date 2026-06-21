@@ -8,6 +8,7 @@ aliases:
   - "Fiedler value"
   - "Spectral gap"
   - "Graph community detection"
+  - "Community Structure"
 tags:
   - cluster/social-physics
   - cluster/multi-agent

@@ -4,6 +4,7 @@ title: "Pointer Sentinel Mixture Models"
 aliases:
   - "Merity 2017"
   - "Pointer Sentinel"
+  - "merity2016pointer"
 authors:
   - Merity, Stephen
   - Xiong, Caiming

@@ -4,6 +4,8 @@ title: "Tensor Field Networks: Rotation- and Translation-Equivariant Neural Netw
 aliases:
   - "Thomas 2018"
   - "TFN"
+  - "thomas2018-tensor-field-networks"
+  - "thomas2018tensor"
 authors:
   - Thomas, Nathaniel
   - Smidt, Tess

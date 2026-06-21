@@ -5,6 +5,10 @@ aliases:
   - "Hegselmann 2002"
   - "Hegselmann-Krause 2002"
   - "HK model"
+  - "hegselmann2002-opinion-dynamics"
+  - "hegselmann-2002-opinion-dynamics"
+  - "hegselmann2002-opinion"
+  - "hegselmann2002opinion"
 authors:
   - Hegselmann, Rainer
   - Krause, Ulrich

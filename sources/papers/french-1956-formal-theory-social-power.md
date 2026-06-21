@@ -1,7 +1,10 @@
 ---
 type: paper
 title: "A Formal Theory of Social Power"
-aliases: ["French 1956", "French formal theory of social power"]
+aliases:
+  - "French 1956"
+  - "French formal theory of social power"
+  - "french1956-formal-theory-social-power"
 authors: ["French J. R. P."]
 year: 1956
 url: https://doi.org/10.1037/h0046123

@@ -5,6 +5,7 @@ aliases:
   - VAE
   - Auto-encoding variational Bayes
   - Variational auto-encoder
+  - "Variational Autoencoder"
 tags:
   - cluster/vfe
   - project/transformer

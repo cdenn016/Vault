@@ -4,6 +4,10 @@ title: "The No-U-Turn Sampler: Adaptively Setting Path Lengths in Hamiltonian Mo
 aliases:
   - "Hoffman & Gelman 2014"
   - "NUTS"
+  - "hoffman-2014-objects-of-consciousness"
+  - "hoffman2014objectsofconsciousness"
+  - "Hoffman & Prakash 2014"
+  - "hoffman2014nuts"
 authors:
   - Hoffman, Matthew D.
   - Gelman, Andrew

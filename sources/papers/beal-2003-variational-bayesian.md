@@ -5,6 +5,7 @@ aliases:
   - "Beal 2003"
   - "VB EM thesis"
   - "VBEM"
+  - "beal-2003-variational-bayes"
 authors:
   - Beal, Matthew J.
 year: 2003

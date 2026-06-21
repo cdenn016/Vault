@@ -4,6 +4,8 @@ title: "Black Holes and Entropy"
 aliases:
   - "Bekenstein 1973"
   - "Bekenstein entropy"
+  - "bekenstein-1973-black-holes"
+  - "Bekenstein1973-entropy-bounds"
 authors:
   - Jacob D. Bekenstein
 year: 1973

@@ -1,7 +1,11 @@
 ---
 type: paper
 title: "Continuous Opinion Dynamics Under Bounded Confidence: A Survey"
-aliases: ["Lorenz 2007", "Bounded-confidence survey"]
+aliases:
+  - "Lorenz 2007"
+  - "Bounded-confidence survey"
+  - "lorenz-2007-continuous-opinion-dynamics"
+  - "lorenz2007-continuous-opinion-dynamics"
 authors: ["Lorenz J."]
 year: 2007
 url: https://doi.org/10.1142/S0129183107011789

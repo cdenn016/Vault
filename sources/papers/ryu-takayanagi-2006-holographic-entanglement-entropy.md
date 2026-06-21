@@ -5,6 +5,8 @@ aliases:
   - "Ryu-Takayanagi 2006"
   - "Ryu-Takayanagi formula"
   - "RT formula"
+  - "ryu-takayanagi-2006-holographic-derivation"
+  - "Ryu-Takayanagi-2006-holographic-entropy"
 authors:
   - Shinsei Ryu
   - Tadashi Takayanagi

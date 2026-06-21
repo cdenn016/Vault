@@ -4,6 +4,8 @@ title: "Statistical Decision Rules and Optimal Inference (Cencov/Chentsov unique
 aliases:
   - "Cencov (Chentsov) 1982"
   - "Chentsov 1982"
+  - "chentsov1982-statistical-decision-rules"
+  - "chentsov1982statisticaldecisionrules"
 authors:
   - N. N. Cencov (Chentsov)
 year: 1982

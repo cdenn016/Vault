@@ -4,6 +4,8 @@ title: "A Gauge-Theoretic Framework Toward a Participatory \"It From Bit\" Progr
 aliases:
   - "Participatory It From Bit"
   - "Gauge-Theoretic Participatory Framework"
+  - "Participatory It-from-Bit"
+  - "PIFB Manuscript"
 authors:
   - Robert C. Dennis
 year: 2025

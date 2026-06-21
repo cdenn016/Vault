@@ -4,6 +4,7 @@ title: "Quantum probabilities as Bayesian probabilities"
 aliases:
   - "Caves 2002"
   - "QBism foundations"
+  - "caves2002-quantum-bayesian"
 authors:
   - Caves, Carlton M.
   - Fuchs, Christopher A.

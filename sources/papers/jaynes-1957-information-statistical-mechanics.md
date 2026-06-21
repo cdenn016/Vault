@@ -4,6 +4,7 @@ title: "Information Theory and Statistical Mechanics"
 aliases:
   - "Jaynes 1957"
   - "Jaynes (1957) MaxEnt"
+  - "jaynes-1957-information-theory"
 authors:
   - Edwin T. Jaynes
 year: 1957

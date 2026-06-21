@@ -5,6 +5,8 @@ aliases:
   - "Maldacena 1999"
   - "AdS/CFT"
   - "Maldacena conjecture"
+  - "Maldacena-1997-adscft"
+  - "Maldacena 1997"
 authors:
   - Maldacena, Juan
 year: 1999

@@ -4,6 +4,8 @@ title: "The entropic brain: a theory of conscious states informed by neuroimagin
 aliases:
   - "Carhart-Harris 2014"
   - "Entropic Brain"
+  - "Entropic Brain Theory"
+  - "entropicbraintheory"
 authors:
   - Carhart-Harris, Robin L.
   - Leech, Robert

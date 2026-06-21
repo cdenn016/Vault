@@ -1,7 +1,11 @@
 ---
 type: theme
 title: Participatory realism and quantum foundations
-aliases: [participatory realism synthesis, quantum foundations theme, agent-centered quantum interpretations]
+aliases:
+  - "participatory realism synthesis"
+  - "quantum foundations theme"
+  - "agent-centered quantum interpretations"
+  - "Quantum Foundations"
 tags: [cluster/participatory, project/multi-agent]
 status: stable
 created: 2026-06-18

@@ -6,6 +6,8 @@ aliases:
   - FEP
   - Active inference
   - Friston free energy
+  - "Free Energy Principle"
+  - "Free energy principle"
 tags:
   - cluster/vfe
   - cluster/attention

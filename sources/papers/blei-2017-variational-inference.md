@@ -4,6 +4,9 @@ title: "Variational Inference: A Review for Statisticians"
 aliases:
   - "Blei 2017"
   - "VI Review"
+  - "Variational Inference"
+  - "blei-2017-variational-inference-review"
+  - "blei2017variationalinferencereview"
 authors:
   - Blei, David M.
   - Kucukelbir, Alp

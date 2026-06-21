@@ -5,6 +5,9 @@ aliases:
   - "Tononi 2004"
   - "IIT"
   - "Integrated Information Theory"
+  - "tononi-2004-information-integration"
+  - "tononi2004informationintegration"
+  - "tononi-2004-iit"
 authors:
   - Tononi, Giulio
 year: 2004
