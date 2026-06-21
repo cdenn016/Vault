@@ -1,16 +1,16 @@
 ---
 type: paper
-title: A Riemannian Framework for Tensor Computing
+title: "A Riemannian Framework for Tensor Computing"
 aliases:
+  - "Pennec 2006"
   - "Pennec et al. 2006 — Affine-Invariant Tensor Framework"
-  - "Pennec 2006 — Riemannian Framework for Tensors"
 authors:
-  - Xavier Pennec
-  - Pierre Fillard
-  - Nicholas Ayache
+  - Pennec, Xavier
+  - Fillard, Pierre
+  - Ayache, Nicholas
 year: 2006
-arxiv: ""
-url: https://link.springer.com/article/10.1007/s11263-005-3222-z
+arxiv: null
+url: https://doi.org/10.1007/s11263-005-3222-z
 tags:
   - cluster/spd-geometry
   - project/transformer
@@ -19,13 +19,13 @@ tags:
   - field/cs-ml
 status: stable
 created: 2026-06-18
-updated: 2026-06-18
+updated: 2026-06-20
 ---
 
 # A Riemannian Framework for Tensor Computing
 
 > [!info] Citation
-> Xavier Pennec, Pierre Fillard, and Nicholas Ayache (2006). "A Riemannian Framework for Tensor Computing." *International Journal of Computer Vision* 66(1), 41–66. DOI: 10.1007/s11263-005-3222-z. URL: https://link.springer.com/article/10.1007/s11263-005-3222-z
+> Pennec, Xavier, Pierre Fillard, and Nicholas Ayache (2006). "A Riemannian Framework for Tensor Computing." *International Journal of Computer Vision* 66(1), 41–66. DOI: 10.1007/s11263-005-3222-z.
 
 ## TL;DR
 
@@ -50,39 +50,36 @@ The authors contrast this with the simpler **Log-Euclidean** alternative (see [[
 
 ## Key results
 
-- A complete, coordinate-free calculus on SPD matrices: unique geodesics, unique means, and invariance simultaneously to congruence and inversion, eliminating the eigenvalue-positivity and swelling problems of Euclidean methods.
-- Demonstrated on diffusion-tensor MRI: interpolation that preserves determinant and anisotropy, edge-preserving anisotropic filtering of tensor fields, and regularization formulated as Riemannian energy minimization, all outperforming Euclidean baselines on synthetic and real data.
-- Established the affine-invariant metric as the canonical Riemannian structure on the SPD cone, the reference against which later SPD methods (Log-Euclidean, SPD neural layers, Riemannian SGD) are positioned.
+A complete, coordinate-free calculus on SPD matrices is established: unique geodesics, unique means, and invariance simultaneously to congruence and inversion, eliminating the eigenvalue-positivity and swelling problems of Euclidean methods. Demonstrated on diffusion-tensor MRI — interpolation that preserves determinant and anisotropy, edge-preserving anisotropic filtering of tensor fields, and regularization formulated as Riemannian energy minimization — all outperforming Euclidean baselines on synthetic and real data. This work established the affine-invariant metric as the canonical Riemannian structure on the SPD cone, the reference against which later SPD methods (Log-Euclidean, SPD neural layers, Riemannian SGD) are positioned.
 
 ## Relevance to this research
 
-The VFE-transformer carries a **per-token Gaussian belief** $(\mu, \Sigma)$ with a symmetric-positive-definite covariance $\Sigma$, and the model's `spd_affine` retraction together with its "affine-invariant geometry" descriptor are precisely the geometry this paper introduced. Concretely:
+The VFE-transformer carries a **per-token Gaussian belief** $(\mu, \Sigma)$ with a symmetric-positive-definite covariance $\Sigma$, and the model's `spd_affine` retraction together with its "affine-invariant geometry" descriptor are precisely the geometry this paper introduced. The `spd_affine` retraction is the affine-invariant exponential map: it updates $\Sigma$ along a tangent direction via the $\Sigma^{1/2}$-sandwiched matrix exponential, guaranteeing the updated covariance stays in the SPD cone with no projection or clamping. This is the manifold counterpart, on the covariance, of the gauge-side Lie-algebra/BCH retraction used for the frames.
 
-- The `spd_affine` retraction is the affine-invariant exponential map: it updates $\Sigma$ along a tangent direction via the $\Sigma^{1/2}$-sandwiched matrix exponential, guaranteeing the updated covariance stays in the SPD cone with no projection or clamping. This is the manifold counterpart, on the covariance, of the gauge-side Lie-algebra/BCH retraction used for the frames.
-- The affine-invariant metric makes the M-step / E-step updates of $\Sigma$ **Riemannian optimization** on a Hadamard manifold (cf. [[bonnabel-2013-riemannian-sgd]], [[absil-2008-optimization-matrix-manifolds]]), where geodesic convexity gives well-behaved descent — relevant whenever beliefs are averaged or pooled across tokens, since the unique Fréchet mean is the principled aggregate.
-- Congruence invariance $\Sigma \mapsto A\Sigma A^{\top}$ is exactly the action of the block general-linear gauge group GL(k) on a covariance. The affine-invariant geometry is therefore the natural SPD geometry that is *equivariant* to the model's gauge transformations on $\Sigma$, dovetailing with the GL(k) frame structure.
-- > [!note] Editorial: For a Gaussian belief, the affine-invariant distance between covariances coincides (up to a factor) with the symmetrized-KL / Fisher–Rao geometry restricted to the covariance, linking this SPD metric to the model's information-geometric machinery — see [[Fisher information metric]] and [[amari-2000-methods-information-geometry]]. The papers above do not state this connection explicitly; it is the bridge this wiki draws.
-- It is the heavier-but-exact alternative to the [[arsigny-2006-log-euclidean]] metric and the structural ancestor of SPD deep-learning layers ([[huang-2017-spdnet]]) and SPD self-attention ([[wang-2023-riemannian-self-attention-spd]]).
+The affine-invariant metric makes the M-step / E-step updates of $\Sigma$ **Riemannian optimization** on a Hadamard manifold (cf. [[bonnabel-2013-riemannian-sgd]], [[absil-2008-optimization-matrix-manifolds]]), where geodesic convexity gives well-behaved descent — relevant whenever beliefs are averaged or pooled across tokens, since the unique Fréchet mean is the principled aggregate. Congruence invariance $\Sigma \mapsto A\Sigma A^{\top}$ is exactly the action of the block general-linear gauge group GL(k) on a covariance, so the affine-invariant geometry is the natural SPD geometry that is equivariant to the model's gauge transformations on $\Sigma$, dovetailing with the GL(k) frame structure described in the GL(K) attention manuscript.
+
+> [!note] Editorial: For a Gaussian belief, the affine-invariant distance between covariances coincides (up to a factor) with the symmetrized-KL / Fisher–Rao geometry restricted to the covariance, linking this SPD metric to the model's information-geometric machinery — see [[Fisher information metric]] and [[amari-2000-methods-information-geometry]]. This connection is the bridge this wiki draws; the papers above do not state it explicitly.
+
+This paper is the heavier-but-exact alternative to the [[arsigny-2006-log-euclidean]] metric and the structural ancestor of SPD deep-learning layers ([[huang-2017-spdnet]]) and SPD self-attention ([[wang-2023-riemannian-self-attention-spd]]).
 
 ## Cross-links
 
-- Manifold/optimization context: [[absil-2008-optimization-matrix-manifolds]], [[bonnabel-2013-riemannian-sgd]]
-- SPD geometry alternatives and descendants: [[arsigny-2006-log-euclidean]], [[bhatia-2007-positive-definite-matrices]], [[huang-2017-spdnet]], [[wang-2023-riemannian-self-attention-spd]]
-- Information geometry of the covariance: [[Fisher information metric]], [[Natural gradient]], [[amari-2000-methods-information-geometry]]
-- Theme: [[SPD-manifold geometry and Riemannian optimization]]
-- Program: [[VFE Transformer Program]]
+- Concepts: [[SPD-manifold geometry and Riemannian optimization]], [[Fisher information metric]], [[Natural gradient]]
+- Related sources: [[absil-2008-optimization-matrix-manifolds]], [[bonnabel-2013-riemannian-sgd]], [[arsigny-2006-log-euclidean]], [[bhatia-2007-positive-definite-matrices]], [[huang-2017-spdnet]], [[wang-2023-riemannian-self-attention-spd]], [[amari-2000-methods-information-geometry]]
+- Manuscript/Project: [[VFE Transformer Program]]
 
+## BibTeX
 ```bibtex
-@article{pennec2006riemannian,
-  title   = {A {Riemannian} Framework for Tensor Computing},
-  author  = {Pennec, Xavier and Fillard, Pierre and Ayache, Nicholas},
-  journal = {International Journal of Computer Vision},
-  volume  = {66},
-  number  = {1},
-  pages   = {41--66},
-  year    = {2006},
+@article{Pennec2006,
+  author    = {Pennec, Xavier and Fillard, Pierre and Ayache, Nicholas},
+  title     = {A {Riemannian} Framework for Tensor Computing},
+  journal   = {International Journal of Computer Vision},
+  volume    = {66},
+  number    = {1},
+  pages     = {41--66},
+  year      = {2006},
   publisher = {Springer},
-  doi     = {10.1007/s11263-005-3222-z},
-  url     = {https://link.springer.com/article/10.1007/s11263-005-3222-z}
+  doi       = {10.1007/s11263-005-3222-z},
+  url       = {https://link.springer.com/article/10.1007/s11263-005-3222-z},
 }
 ```

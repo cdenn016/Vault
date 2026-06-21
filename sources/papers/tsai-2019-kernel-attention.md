@@ -2,16 +2,17 @@
 type: paper
 title: "Transformer Dissection: A Unified Understanding of Transformer's Attention via the Lens of Kernel"
 aliases:
+  - "Tsai 2019"
   - "Tsai et al. 2019 — Kernel View of Attention"
 authors:
-  - Yao-Hung Hubert Tsai
-  - Shaojie Bai
-  - Makoto Yamada
-  - Louis-Philippe Morency
-  - Ruslan Salakhutdinov
+  - Tsai, Yao-Hung Hubert
+  - Bai, Shaojie
+  - Yamada, Makoto
+  - Morency, Louis-Philippe
+  - Salakhutdinov, Ruslan
 year: 2019
 arxiv: "1908.11775"
-url: https://arxiv.org/abs/1908.11775
+url: https://arxiv.org/abs/1908.11775  # arXiv (EMNLP 2019; no public DOI)
 tags:
   - cluster/attention
   - project/transformer
@@ -20,7 +21,7 @@ tags:
   - field/statistics
 status: stable
 created: 2026-06-18
-updated: 2026-06-18
+updated: 2026-06-20
 ---
 
 # Transformer Dissection: A Unified Understanding of Transformer's Attention via the Lens of Kernel

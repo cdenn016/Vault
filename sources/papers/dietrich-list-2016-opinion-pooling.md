@@ -5,22 +5,21 @@ aliases:
   - "Dietrich & List 2016"
   - "Dietrich-List (2016) Opinion Pooling"
 authors:
-  - Franz Dietrich
-  - Christian List
+  - Dietrich, Franz
+  - List, Christian
 year: 2016
 arxiv: null
 url: https://doi.org/10.1093/oxfordhb/9780199607617.013.37
 tags:
-  - cluster/social-physics
+  - cluster/social-physics/opinion-dynamics
   - cluster/multi-agent
   - project/multi-agent
   - project/social-physics
-  - field/statistics
   - field/philosophy
-  - cluster/social-physics/opinion-dynamics
+  - field/statistics
 status: stable
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-06-20
 ---
 
 # Probabilistic Opinion Pooling
@@ -51,12 +50,12 @@ The work proceeds axiomatically. It states representation theorems: **eventwise 
 This paper is the cleanest theorem-level adjudication of the **barycenter / pooling choice** at the heart of the [[Gauge-Theoretic Multi-Agent VFE Model]]. The meta-agent coarse-graining step (see [[Meta-agents and hierarchical emergence]]) pools constituent beliefs by a *gauge-covariant linear (sandwich) average* — transport each constituent into the meta frame, then take a coherence-weighted arithmetic mean of $(\mu, \Sigma)$ — explicitly rather than by a product-of-experts. Dietrich & List supply the principled reason this is defensible: linear pooling is the operator forced by eventwise independence and consensus preservation, and it avoids the veto pathology of geometric pooling that would let a single overconfident constituent annihilate the collective belief. Their result also clarifies the cost: the sandwich average is not externally Bayesian, which is exactly why [[participatory-it-from-bit]] keeps the log-linear / tempered-Bayes pooling as a *separate* identification for the multi-generation hyperprior term (the discounted-KL stack), where external Bayesianity and the geometric-discount structure are wanted. The two pooling regimes thus live in different parts of the model, and this reference is the axiomatic map that tells the project which is appropriate where.
 
 ## Cross-links
-
 - Concepts: [[Meta-agents and hierarchical emergence]], [[Multi-agent variational free energy]]
 - Related sources: [[genest-zidek-1986-pooling]], [[hinton-2002-poe]], [[bordley-1982-multiplicative-pooling]], [[bissiri-holmes-walker-2016-general-bayes]]
 - Manuscript: [[participatory-it-from-bit]]
 - Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
 
+## BibTeX
 ```bibtex
 @incollection{dietrich2016probabilistic,
   author    = {Dietrich, Franz and List, Christian},

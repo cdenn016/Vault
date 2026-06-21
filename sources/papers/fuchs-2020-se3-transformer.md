@@ -1,0 +1,71 @@
+---
+type: paper
+title: "SE(3)-Transformers: 3D Roto-Translation Equivariant Attention Networks"
+aliases:
+  - "Fuchs 2020"
+  - "SE(3)-Transformer"
+authors:
+  - Fuchs, Fabian B.
+  - Worrall, Daniel E.
+  - Fischer, Volker
+  - Welling, Max
+year: 2020
+arxiv: "2006.10503"
+url: https://arxiv.org/abs/2006.10503
+tags:
+  - cluster/gauge-theory
+  - cluster/attention
+  - project/transformer
+  - field/cs-ml
+  - field/mathematics
+  - field/physics
+status: stable
+created: 2026-06-20
+updated: 2026-06-20
+---
+
+# SE(3)-Transformers: 3D Roto-Translation Equivariant Attention Networks
+
+> [!info] Citation
+> Fuchs, F. B., Worrall, D. E., Fischer, V., & Welling, M. (2020). "SE(3)-Transformers: 3D Roto-Translation Equivariant Attention Networks." *34th Conference on Neural Information Processing Systems (NeurIPS 2020)*. arXiv:2006.10503.
+
+## TL;DR
+The SE(3)-Transformer introduces a self-attention module for 3D point clouds and graphs that is equivariant under the group SE(3) of continuous 3D roto-translations. It unifies the expressiveness of self-attention (data-adaptive, anisotropic filters) with the symmetry guarantees of Tensor Field Networks (TFNs), showing that invariant attention weights can be constructed via inner products of SO(3)-equivariant query and key vectors. Experiments on N-body simulation, object classification (ScanObjectNN), and molecular property prediction (QM9) demonstrate consistent gains over both non-equivariant attention baselines and equivariant models without attention.
+
+## Problem & setting
+Standard self-attention operates on unstructured sets and is unaware of 3D geometric symmetries, so predictions can change arbitrarily under rotations or translations of the input. Prior equivariant architectures for point clouds (Tensor Field Networks, 3D Steerable CNNs) use convolutions with angularly-constrained kernels, limiting representational capacity and requiring expensive spherical-harmonic computations without GPU acceleration. The goal is an attention mechanism for point clouds that is guaranteed to respect SE(3) symmetry while inheriting the expressiveness and scalability benefits of self-attention.
+
+## Method
+The SE(3)-Transformer operates in four steps: (1) build a neighbourhood graph from the point cloud to reduce quadratic attention cost; (2) construct SO(3)-equivariant weight matrices via the TFN kernel basis — a sum over Clebsch-Gordan matrices weighted by learnable radial networks and spherical harmonics; (3) propagate queries, keys, and values along edges; (4) compute attention and aggregate.
+
+The core layer output for a node $i$ and representation degree $\ell$ is
+
+$$f^\ell_{\mathrm{out},i} = W^{\ell\ell}_V f^\ell_{\mathrm{in},i} + \sum_{k \geq 0} \sum_{j \in \mathcal{N}_i \setminus i} \alpha_{ij}\, W^{\ell k}_V(x_j - x_i)\, f^k_{\mathrm{in},j},$$
+
+where the attention weights $\alpha_{ij} = \mathrm{softmax}_j(q_i^\top k_{ij})$ are SE(3)-invariant because queries $q_i$ and keys $k_{ij}$ are both type-$\ell$ TFN embeddings and the inner product of two vectors transforming under the same orthogonal representation is invariant. The value messages $W^{\ell k}_V(x_j - x_i) f^k_{\mathrm{in},j}$ are SE(3)-equivariant. Hence the weighted sum is equivariant. Attention also introduces data-dependent angular modulation of the TFN kernel, resolving the angular over-constraint endemic to prior equivariant convolutional approaches. A GPU-accelerated spherical harmonics implementation yields 10-1000x speed-up over CPU/SciPy alternatives.
+
+## Key results
+On an N-body particle simulation, the SE(3)-Transformer achieves MSE of 0.0076 for position prediction, outperforming Set Transformer (0.0139) and Tensor Field Networks (0.0151), with equivariance error $\Delta_{EQ} = 3.2 \times 10^{-7}$, confirming exact equivariance up to floating-point precision. On the ScanObjectNN real-world object classification benchmark (128 points), the SE(3)-Transformer +z variant reaches 85.0% accuracy, competitive with methods using 1024 points. On QM9 molecular property regression, the model is competitive with Cormorant and outperforms TFN on most tasks. In all experiments, adding equivariance constraints over a non-equivariant attention baseline improves performance, and adding attention over an equivariant-but-attention-free model (TFN) also improves performance.
+
+## Relevance to this research
+This paper is the primary reference for SE(3)-equivariant self-attention and directly motivates the GL(K) gauge-equivariant attention program in V3_Transformer. Several structural parallels are worth noting.
+
+The core mechanism — constructing invariant attention weights via inner products of equivariantly-embedded queries and keys — is exactly the pattern used in the VFE transformer's GL(K) attention, where the gauge group is GL(K) acting on the belief space $\mathbb{R}^K$ rather than SO(3) acting on 3D space. The decomposition into irreducible representations (type-$\ell$ vectors, Wigner-D matrices) here corresponds to the isotypic/irrep-block decomposition in the GL(K) or SO(n)/Sp(n) variants. The TFN kernel constraint $W^{\ell k}(R_g^{-1} x) = D_\ell(g) W^{\ell k}(x) D_k(g)^{-1}$ is analogous to the gauge covariance constraint on the transport operator $\Omega_{ij}$ in the VFE free energy. The Clebsch-Gordan path weights used here (with `use_cg_coupling=True` in V3) are a direct specialization of the CG decomposition for SO(3) studied in this paper. The "angular modulation" interpretation of data-dependent attention weights closely mirrors the idea that attention $\beta_{ij}$ modulates the effective transport coupling in the VFE free energy beyond fixed Riemannian geometry.
+
+## Cross-links
+- Concepts: [[Gauge Equivariance]], [[GL(K) Attention]], [[Irreducible Representations]], [[Transport Operator]], [[Wigner-D Matrices]], [[Clebsch-Gordan Coefficients]]
+- Related sources: [[thomas-2018-tensor-field-networks]], [[cohen-2016-steerable-cnns]], [[vaswani-2017-attention]]
+- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention Manuscript]]
+
+## BibTeX
+```bibtex
+@inproceedings{Fuchs2020,
+  author    = {Fuchs, Fabian B. and Worrall, Daniel E. and Fischer, Volker and Welling, Max},
+  title     = {{SE(3)}-Transformers: {3D} Roto-Translation Equivariant Attention Networks},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2020},
+  volume    = {33},
+  eprint    = {2006.10503},
+  archivePrefix = {arXiv},
+}
+```

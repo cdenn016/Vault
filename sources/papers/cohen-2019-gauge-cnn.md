@@ -1,13 +1,15 @@
 ---
 type: paper
-title: Gauge Equivariant Convolutional Networks and the Icosahedral CNN
+title: "Gauge Equivariant Convolutional Networks and the Icosahedral CNN"
 aliases:
-  - Cohen et al. 2019 — Gauge Equivariant CNN
+  - "Cohen et al. 2019 — Gauge Equivariant CNN"
+  - "cohen2019gauge"
+  - "Gauge Equivariant CNN"
 authors:
-  - Taco S. Cohen
-  - Maurice Weiler
-  - Berkay Kicanaoglu
-  - Max Welling
+  - Cohen, Taco S.
+  - Weiler, Maurice
+  - Kicanaoglu, Berkay
+  - Welling, Max
 year: 2019
 arxiv: "1902.04615"
 url: https://arxiv.org/abs/1902.04615
@@ -18,13 +20,13 @@ tags:
   - field/mathematics
 status: stable
 created: 2026-06-18
-updated: 2026-06-18
+updated: 2026-06-20
 ---
 
 # Gauge Equivariant Convolutional Networks and the Icosahedral CNN
 
 > [!info] Citation
-> Taco S. Cohen, Maurice Weiler, Berkay Kicanaoglu, Max Welling (2019). *Gauge Equivariant Convolutional Networks and the Icosahedral CNN*. ICML 2019. arXiv:1902.04615. https://arxiv.org/abs/1902.04615
+> Cohen, Taco S., Maurice Weiler, Berkay Kicanaoglu, and Max Welling (2019). "Gauge Equivariant Convolutional Networks and the Icosahedral CNN." *Proceedings of the 36th International Conference on Machine Learning (ICML)*. arXiv:1902.04615. https://arxiv.org/abs/1902.04615
 
 ## TL;DR
 
@@ -36,7 +38,7 @@ Standard CNNs exploit *translation* equivariance, and group-equivariant CNNs (se
 
 ## Method
 
-A *gauge equivariant convolution* is a local operator whose output, when the input gauge is transformed by a position-dependent group element, transforms by the same element acted through the output representation. The authors derive that this requirement imposes a **linear constraint on the convolution kernel** (a representation-theoretic / Clebsch-Gordan-type condition relating input and output [[Irreducible representation]]s), exactly analogous to the steerability constraints of [[weiler-2019-e2-steerable]]. Because a kernel at point *p* must combine feature vectors sampled at neighboring points *q*, and those neighbors carry features in *their own* frames, the operator must first **parallel transport** neighboring features into the frame at *p* before contracting them with the kernel. Different paths of transport on a curved manifold accumulate a frame rotation — the **holonomy** — so the construction is intrinsically tied to the manifold's connection and curvature.
+A *gauge equivariant convolution* is a local operator whose output, when the input gauge is transformed by a position-dependent group element, transforms by the same element acted through the output representation. The authors derive that this requirement imposes a **linear constraint on the convolution kernel** (a representation-theoretic / Clebsch-Gordan-type condition relating input and output [[Irreducible representation]]s), exactly analogous to the steerability constraints of [[weiler-2019-e2-steerable]]. Because a kernel at point $p$ must combine feature vectors sampled at neighboring points $q$, and those neighbors carry features in *their own* frames, the operator must first **parallel transport** neighboring features into the frame at $p$ before contracting them with the kernel. Different paths of transport on a curved manifold accumulate a frame rotation — the **holonomy** — so the construction is intrinsically tied to the manifold's connection and curvature.
 
 Concretely, the authors specialize the manifold to the **icosahedron**, whose near-regular hexagonal structure lets them unfold the surface to a flat grid; the gauge-equivariant convolution then reduces to a standard padded `conv2d` with the kernel constraint enforced by weight sharing across the six orientation channels. This yields an architecture that is fast and scalable while remaining equivariant to the icosahedral symmetry group and to local gauge changes.
 
@@ -50,9 +52,11 @@ Concretely, the authors specialize the manifold to the **icosahedron**, whose ne
 
 This is the canonical reference for the **gauge-theoretic core** of the VFE-transformer program (see [[VFE Transformer Program]]). Several model ingredients map directly onto its constructions:
 
-- **Gauge frames and the block-GL(k) group.** The model expresses per-token quantities in learned local frames and acts on them with a block general-linear group. The paper supplies the precise meaning of a position-dependent [[Gauge transformation]] and the requirement that all operations be equivariant to re-choosing those frames — the design discipline the transformer inherits from token to token.
-- **Transport of per-token beliefs.** The model parallel-transports per-token Gaussian beliefs (mu, Sigma) between positions and accumulates holonomy. This paper is the deep-learning source for using [[Parallel transport]] to move feature vectors between frames before they interact, and for treating path-dependent frame rotation as [[Holonomy]] — exactly the machinery behind transporting beliefs along the token sequence.
-- **Representation structure and Clebsch-Gordan coupling.** The kernel constraint here is a representation-theoretic coupling between input and output [[Irreducible representation]]s, the same algebra invoked by the model's Clebsch-Gordan coupling and irreps. It tells us how features in different irreps may be combined while preserving [[Group equivariance]].
+**Gauge frames and the block-GL(K) group.** The model expresses per-token quantities in learned local frames and acts on them with a block general-linear group. The paper supplies the precise meaning of a position-dependent [[Gauge transformation]] and the requirement that all operations be equivariant to re-choosing those frames — the design discipline the GL(K) attention mechanism inherits from token to token.
+
+**Transport of per-token beliefs.** The model parallel-transports per-token Gaussian beliefs $(\mu, \Sigma)$ between positions and accumulates holonomy. This paper is the deep-learning source for using [[Parallel transport]] to move feature vectors between frames before they interact, and for treating path-dependent frame rotation as [[Holonomy]] — exactly the machinery behind the belief-transport layer in the VFE transformer.
+
+**Representation structure and Clebsch-Gordan coupling.** The kernel constraint here is a representation-theoretic coupling between input and output [[Irreducible representation]]s, the same algebra invoked by the model's Clebsch-Gordan coupling and irreps tower. It governs how features in different irreps may be combined while preserving [[Group equivariance]].
 
 > [!note] Editorial: This paper treats *deterministic* feature fields, not probabilistic beliefs; the VFE-transformer's extension is to transport a full Gaussian belief (mean and SPD covariance) rather than a point feature. The gauge-equivariance and parallel-transport scaffolding carries over, but the SPD-covariance transport law is an additional ingredient supplied elsewhere in the program.
 
@@ -61,17 +65,19 @@ This is the canonical reference for the **gauge-theoretic core** of the VFE-tran
 - Concepts: [[Gauge transformation]], [[Parallel transport]], [[Holonomy]], [[Irreducible representation]], [[Group equivariance]], [[Clebsch-Gordan coefficients]]
 - Methods: [[Gauge equivariant CNN]], [[Steerable CNN]], [[Group equivariant CNN (G-CNN)]]
 - Related sources: [[cohen-2016-gcnn]], [[weiler-2019-e2-steerable]], [[kondor-2018-compact-group-conv]], [[thomas-2018-tensor-field-networks]], [[bronstein-2021-geometric-deep-learning]]
-- Theme: [[Gauge equivariance and geometric deep learning]]
+- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]]
+
+## BibTeX
 
 ```bibtex
 @inproceedings{cohen2019gauge,
-  title     = {Gauge Equivariant Convolutional Networks and the Icosahedral {CNN}},
-  author    = {Cohen, Taco S. and Weiler, Maurice and Kicanaoglu, Berkay and Welling, Max},
-  booktitle = {Proceedings of the 36th International Conference on Machine Learning (ICML)},
-  year      = {2019},
-  eprint    = {1902.04615},
+  title        = {Gauge Equivariant Convolutional Networks and the Icosahedral {CNN}},
+  author       = {Cohen, Taco S. and Weiler, Maurice and Kicanaoglu, Berkay and Welling, Max},
+  booktitle    = {Proceedings of the 36th International Conference on Machine Learning (ICML)},
+  year         = {2019},
+  eprint       = {1902.04615},
   archivePrefix = {arXiv},
   primaryClass  = {cs.LG},
-  url       = {https://arxiv.org/abs/1902.04615}
+  url          = {https://arxiv.org/abs/1902.04615}
 }
 ```

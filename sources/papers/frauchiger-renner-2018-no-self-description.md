@@ -1,14 +1,24 @@
 ---
 type: paper
 title: "Quantum Theory Cannot Consistently Describe the Use of Itself"
-aliases: ["Frauchiger & Renner 2018", "Frauchiger-Renner no-go", "FR thought experiment"]
-authors: ["Daniela Frauchiger", "Renato Renner"]
+aliases:
+  - "Frauchiger & Renner 2018"
+  - "Frauchiger-Renner no-go"
+  - "FR thought experiment"
+authors:
+  - Frauchiger, Daniela
+  - Renner, Renato
 year: 2018
 arxiv: "1604.07422"
-url: https://arxiv.org/abs/1604.07422
-tags: [cluster/participatory, project/multi-agent, field/physics, field/philosophy, cluster/participatory/quantum-foundations]
+url: https://doi.org/10.1038/s41467-018-05739-8
+tags:
+  - cluster/participatory/quantum-foundations
+  - project/multi-agent
+  - field/physics
+  - field/philosophy
+status: stable
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-06-20
 ---
 
 # Quantum Theory Cannot Consistently Describe the Use of Itself
@@ -30,7 +40,7 @@ The protocol uses a quantum coin and two spin-1/2 systems with carefully chosen 
 
 ## Key results
 
-The central theorem is that assumptions Q, C, and S are mutually inconsistent within universal quantum theory applied to agents-as-systems. Copenhagen-style views that deny universal validity of unitary evolution reject Q; many-worlds rejects S (no single outcome); Bohmian and collapse theories face their own tensions; and crucially the *relational/QBist* family escapes by rejecting C — there is simply no agent-independent fact for different observers to share. The paper thereby converts an interpretational debate into a precise trilemma and frames "no observer-independent facts" as a live, theorem-backed option rather than mere philosophy.
+The central theorem is that assumptions Q, C, and S are mutually inconsistent within universal quantum theory applied to agents-as-systems. Copenhagen-style views that deny universal validity of unitary evolution reject Q; many-worlds rejects S (no single outcome); Bohmian and collapse theories face their own tensions; and the relational/QBist family escapes by rejecting C — there is simply no agent-independent fact for different observers to share. The paper thereby converts an interpretational debate into a precise trilemma and frames "no observer-independent facts" as a live, theorem-backed option rather than mere philosophy.
 
 ## Relevance to this research
 
@@ -43,16 +53,18 @@ This is the sharpest statement of the problem that the project's participatory t
 - Manuscript: [[participatory-it-from-bit]]
 - Project: [[Participatory realism (it from bit)]]
 
+## BibTeX
+
 ```bibtex
 @article{frauchiger2018quantum,
-  author  = {Frauchiger, Daniela and Renner, Renato},
-  title   = {Quantum theory cannot consistently describe the use of itself},
-  journal = {Nature Communications},
-  volume  = {9},
-  pages   = {3711},
-  year    = {2018},
-  doi     = {10.1038/s41467-018-05739-8},
-  eprint  = {1604.07422},
+  author        = {Frauchiger, Daniela and Renner, Renato},
+  title         = {Quantum theory cannot consistently describe the use of itself},
+  journal       = {Nature Communications},
+  volume        = {9},
+  pages         = {3711},
+  year          = {2018},
+  doi           = {10.1038/s41467-018-05739-8},
+  eprint        = {1604.07422},
   archivePrefix = {arXiv},
   primaryClass  = {quant-ph}
 }

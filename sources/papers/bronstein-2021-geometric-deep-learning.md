@@ -19,7 +19,7 @@ tags:
   - field/mathematics
 status: stable
 created: 2026-06-18
-updated: 2026-06-18
+updated: 2026-06-20
 ---
 
 # Geometric Deep Learning: Grids, Groups, Graphs, Geodesics, and Gauges

@@ -1,29 +1,29 @@
 ---
 type: paper
-title: A tutorial on the free-energy framework for modelling perception and learning
+title: "A tutorial on the free-energy framework for modelling perception and learning"
 aliases:
-  - "Bogacz 2017 — Free-Energy Tutorial"
   - "Bogacz 2017"
+  - "Bogacz 2017 — Free-Energy Tutorial"
 authors:
-  - Rafal Bogacz
+  - Bogacz, Rafal
 year: 2017
 arxiv: null
-url: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5341759/
+url: https://doi.org/10.1016/j.jmp.2015.11.003
 tags:
   - cluster/vfe
   - project/transformer
   - project/multi-agent
   - field/neuroscience
   - field/statistics
-status: draft
+status: stable
 created: 2026-06-18
-updated: 2026-06-18
+updated: 2026-06-20
 ---
 
 # A tutorial on the free-energy framework for modelling perception and learning
 
 > [!info] Citation
-> Rafal Bogacz (2017). *A tutorial on the free-energy framework for modelling perception and learning.* Journal of Mathematical Psychology, 76(B), 198–211. PMC5341759. <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5341759/>
+> Bogacz, Rafal (2017). "A tutorial on the free-energy framework for modelling perception and learning." *Journal of Mathematical Psychology*, 76(B), 198–211. https://doi.org/10.1016/j.jmp.2015.11.003
 
 ## TL;DR
 
@@ -43,7 +43,7 @@ The core object is the (Laplace-approximated) free energy for a single hidden va
 
 with prior error `ε_p = φ − v_p` and sensory error `ε_u = u − g(φ)`. Two coupled dynamics follow by gradient descent / ascent on this single scalar:
 
-- **E-step (inference / belief update).** The estimate `φ` relaxes by `φ̇ = −∂F/∂φ = ε_u g'(φ)/Σ_u − ε_p/Σ_p`. Defining *precision-weighted* prediction-error units `ξ_p = ε_p/Σ_p` and `ξ_u = ε_u/Σ_u`, the update becomes `φ̇ = g'(φ) ξ_u − ξ_p`: the belief moves to reduce top-down and bottom-up prediction error, each weighted by its inverse variance (precision). This is the filtering-style fixed-point relaxation: beliefs are updated *online* by integrating prediction-error currents rather than by a closed-form posterior solve.
+- **E-step (inference / belief update).** The estimate `φ` relaxes by `φ̇ = −∂F/∂φ = ε_u g'(φ)/Σ_u − ε_p/Σ_p`. Defining precision-weighted prediction-error units `ξ_p = ε_p/Σ_p` and `ξ_u = ε_u/Σ_u`, the update becomes `φ̇ = g'(φ) ξ_u − ξ_p`: the belief moves to reduce top-down and bottom-up prediction error, each weighted by its inverse variance (precision). This is the filtering-style fixed-point relaxation: beliefs are updated online by integrating prediction-error currents rather than by a closed-form posterior solve.
 
 - **M-step (learning).** Holding the relaxed beliefs fixed, the generative parameters descend the same `F`. Weights in `g(v)` update by a Hebbian rule proportional to the product of a presynaptic estimate and the postsynaptic precision-weighted error. The variances/precisions update by `Σ̇ ∝ (ε²/Σ² − 1/Σ)`, which drives each precision toward the inverse of the running mean-squared error — an explicit, local rule for learning the metric that scales every error term.
 
@@ -51,10 +51,7 @@ The tutorial then shows the error units themselves can be given relaxation dynam
 
 ## Key results
 
-- A single scalar (free energy) governs both perception and learning; no separate objectives are needed.
-- All updates are **local**: each depends only on quantities available at the corresponding unit, making the scheme a candidate for neural implementation and a clean template for layerwise message passing.
-- **Precision** appears everywhere as the gain on prediction error; learning precision is learning how much to trust each error channel.
-- The Gaussian-belief, precision-weighted-error formulation connects directly to Friston's [[friston-2010-free-energy-principle|free-energy principle]] and to [[Variational EM]] (cf. [[neal-1998-variational-em]]), and reproduces classical [[rao-1999-predictive-coding|predictive coding]].
+A single scalar (free energy) governs both perception and learning; no separate objectives are needed. All updates are local: each depends only on quantities available at the corresponding unit, making the scheme a candidate for neural implementation and a clean template for layerwise message passing. Precision appears everywhere as the gain on prediction error; learning precision is learning how much to trust each error channel. The Gaussian-belief, precision-weighted-error formulation connects directly to Friston's [[friston-2010-free-energy-principle|free-energy principle]] and to [[Variational EM]] (cf. [[neal-1998-variational-em]]), and reproduces classical [[rao-1999-predictive-coding|predictive coding]].
 
 ## Relevance to this research
 
@@ -67,8 +64,9 @@ This tutorial is the closest textbook analogue of the VFE-transformer's inner lo
 - Concepts: [[Variational free energy]], [[Evidence lower bound (ELBO)]], [[Prediction error]], [[Precision weighting]]
 - Methods: [[Variational EM]], [[Predictive coding network]], [[Free-energy principle active inference]]
 - Related sources: [[friston-2010-free-energy-principle]], [[rao-1999-predictive-coding]], [[neal-1998-variational-em]], [[millidge-2020-pc-approximates-backprop]], [[kingma-2013-auto-encoding-variational-bayes]]
-- Project: [[VFE Transformer Program]]
+- Manuscript/Project: [[VFE Transformer Program]]
 
+## BibTeX
 ```bibtex
 @article{bogacz2017tutorial,
   author  = {Bogacz, Rafal},

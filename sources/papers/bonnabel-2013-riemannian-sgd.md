@@ -1,13 +1,14 @@
 ---
 type: paper
-title: Stochastic Gradient Descent on Riemannian Manifolds
+title: "Stochastic Gradient Descent on Riemannian Manifolds"
 aliases:
-  - Bonnabel 2013 — Riemannian SGD
+  - "Bonnabel 2013"
+  - "Riemannian SGD"
 authors:
-  - Silvère Bonnabel
+  - Bonnabel, Silvère
 year: 2013
 arxiv: "1111.5280"
-url: https://arxiv.org/abs/1111.5280
+url: https://doi.org/10.1109/TAC.2013.2254619
 tags:
   - cluster/spd-geometry
   - project/transformer
@@ -15,17 +16,17 @@ tags:
   - field/cs-ml
 status: stable
 created: 2026-06-18
-updated: 2026-06-18
+updated: 2026-06-20
 ---
 
 # Stochastic Gradient Descent on Riemannian Manifolds
 
 > [!info] Citation
-> Silvère Bonnabel (2013). *Stochastic Gradient Descent on Riemannian Manifolds*. IEEE Transactions on Automatic Control, 58(9), 2217–2229. arXiv:[1111.5280](https://arxiv.org/abs/1111.5280).
+> Bonnabel, Silvère (2013). "Stochastic Gradient Descent on Riemannian Manifolds." *IEEE Transactions on Automatic Control*, 58(9), 2217–2229. DOI:[10.1109/TAC.2013.2254619](https://doi.org/10.1109/TAC.2013.2254619). arXiv:[1111.5280](https://arxiv.org/abs/1111.5280).
 
 ## TL;DR
 
-This paper generalizes the classical Robbins–Monro stochastic gradient descent (SGD) algorithm from flat Euclidean space to a connected Riemannian manifold, and proves that the resulting iterates converge almost surely to a critical point of the expected cost. The update replaces the Euclidean step `x - η∇f` with a step along a geodesic (or, more generally, a retraction): one follows the Riemannian gradient of a noisy per-sample cost a short distance along the manifold using the exponential map. The headline theoretical payoff is that the familiar SGD convergence guarantees — under decreasing step sizes satisfying the Robbins–Monro conditions `Σηₜ = ∞`, `Σηₜ² < ∞` — survive the move to curved spaces, given mild bounds on curvature and gradient growth. A worked application is a "gossip" averaging algorithm on the manifold of covariance (symmetric positive-definite) matrices.
+This paper generalizes the classical Robbins–Monro stochastic gradient descent (SGD) algorithm from flat Euclidean space to a connected Riemannian manifold, and proves that the resulting iterates converge almost surely to a critical point of the expected cost. The update replaces the Euclidean step `x - η∇f` with a step along a geodesic (or, more generally, a retraction): one follows the Riemannian gradient of a noisy per-sample cost a short distance along the manifold using the exponential map. The headline theoretical payoff is that the familiar SGD convergence guarantees — under decreasing step sizes satisfying the Robbins–Monro conditions `Σηₜ = ∞`, `Σηₜ² < ∞` — survive the move to curved spaces, given mild bounds on curvature and gradient growth. A worked application is a "gossip" averaging algorithm on the manifold of symmetric positive-definite (SPD) covariance matrices.
 
 ## Problem & setting
 
@@ -35,10 +36,10 @@ Many learning problems optimize a cost that is naturally a function on a curved 
 
 The proposed algorithm is the Riemannian analogue of SGD. At each step `t`, given a fresh sample `zₜ`:
 
-1. Compute the **Riemannian gradient** `gradQ(xₜ, zₜ)` — the tangent vector at `xₜ` representing the steepest ascent direction of the per-sample cost with respect to the manifold's metric (this builds in the metric, e.g. the affine-invariant metric on SPD matrices via [[Fisher information metric]]-style preconditioning).
+1. Compute the **Riemannian gradient** `gradQ(xₜ, zₜ)` — the tangent vector at `xₜ` representing the steepest ascent direction of the per-sample cost with respect to the manifold's metric (this builds in the metric, e.g. the affine-invariant metric on SPD matrices via Fisher-information-style preconditioning).
 2. Take a step of size `ηₜ` against that gradient and **map back onto the manifold** with the exponential map (a geodesic step): `x_{t+1} = exp_{xₜ}(-ηₜ gradQ(xₜ, zₜ))`. The paper notes the exponential map may be replaced by any computationally cheaper retraction.
 
-The step sizes obey the Robbins–Monro conditions. Convergence is established by adapting stochastic-approximation arguments to the manifold: under assumptions that the iterates stay in a region of bounded curvature (or are confined to a compact set), that the gradient noise has bounded variance, and that the injectivity radius is controlled, the sequence `f(xₜ)` converges and `gradf(xₜ) → 0` almost surely, so the iterates approach a critical point. As in the Euclidean case, only convergence to a *critical* point (not a global minimum) is guaranteed for non-convex `f`.
+The step sizes obey the Robbins–Monro conditions. Convergence is established by adapting stochastic-approximation arguments to the manifold: under assumptions that the iterates stay in a region of bounded curvature (or are confined to a compact set), that the gradient noise has bounded variance, and that the injectivity radius is controlled, the sequence `f(xₜ)` converges and `gradf(xₜ) → 0` almost surely, so the iterates approach a critical point. As in the Euclidean case, only convergence to a critical point (not a global minimum) is guaranteed for non-convex `f`.
 
 ## Key results
 
@@ -54,17 +55,17 @@ First, the per-token covariance `Σ` of each Gaussian belief is an **SPD matrix*
 
 Second, the **gauge parameters** live on the block general-linear group GL(k) and are updated through a Lie-algebra ("phi") parameterization with a BCH retraction — again a manifold, again trained by stochastic gradients. Bonnabel's result extends to such matrix-Lie-group parameters: the exp/retraction-step convergence argument is agnostic to which manifold, so the same guarantee underwrites Riemannian SGD on the gauge frames, not just on `Σ`.
 
-Third, because the natural-gradient direction is itself the Riemannian gradient under the [[Fisher information metric]], this paper is the stochastic-approximation foundation under [[Natural gradient]] training in the mini-batch regime — the convergence theory that the natural-gradient analyses of [[amari-1998-natural-gradient]] and [[martens-2020-natural-gradient-insights]] presuppose when applied online. Together with [[bonnabel-2013-riemannian-sgd]]'s SPD gossip example, this makes the paper the load-bearing citation for "train SPD beliefs and gauge parameters with Riemannian mini-batch SGD" in this program.
+Third, because the natural-gradient direction is itself the Riemannian gradient under the [[Fisher information metric]], this paper is the stochastic-approximation foundation under [[Natural gradient]] training in the mini-batch regime — the convergence theory that the natural-gradient analyses of [[amari-1998-natural-gradient]] and [[martens-2020-natural-gradient-insights]] presuppose when applied online. Together with the SPD gossip example, this makes the paper the load-bearing citation for "train SPD beliefs and gauge parameters with Riemannian mini-batch SGD" in this program.
 
 ## Cross-links
 
-- Manifolds, geometry, and SPD covariances: [[SPD-manifold geometry and Riemannian optimization]], [[absil-2008-optimization-matrix-manifolds]], [[pennec-2006-affine-invariant-tensor]], [[bhatia-2007-positive-definite-matrices]], [[arsigny-2006-log-euclidean]]
-- Natural gradient and information geometry: [[Natural gradient]], [[Fisher information metric]], [[amari-1998-natural-gradient]], [[martens-2020-natural-gradient-insights]], [[ollivier-2015-riemannian-metrics-nn]]
-- SPD-valued networks and attention this enables: [[huang-2017-spdnet]], [[wang-2023-riemannian-self-attention-spd]]
-- Program context: [[VFE Transformer Program]]
+- Concepts: [[SPD-manifold geometry and Riemannian optimization]], [[Natural gradient]], [[Fisher information metric]]
+- Related sources: [[absil-2008-optimization-matrix-manifolds]], [[pennec-2006-affine-invariant-tensor]], [[bhatia-2007-positive-definite-matrices]], [[arsigny-2006-log-euclidean]], [[amari-1998-natural-gradient]], [[martens-2020-natural-gradient-insights]], [[ollivier-2015-riemannian-metrics-nn]], [[huang-2017-spdnet]], [[wang-2023-riemannian-self-attention-spd]]
+- Manuscript/Project: [[VFE Transformer Program]]
 
+## BibTeX
 ```bibtex
-@article{bonnabel2013stochastic,
+@article{Bonnabel2013,
   author  = {Bonnabel, Silv{\`e}re},
   title   = {Stochastic Gradient Descent on {Riemannian} Manifolds},
   journal = {IEEE Transactions on Automatic Control},

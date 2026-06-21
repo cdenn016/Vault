@@ -16,9 +16,10 @@ tags:
   - project/transformer
   - project/multi-agent
   - field/cs-ml
+  - field/mathematics
 status: stable
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-06-20
 ---
 
 # Attention Is Not All You Need: Pure Attention Loses Rank Doubly Exponentially with Depth

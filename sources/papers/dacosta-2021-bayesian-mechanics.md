@@ -23,7 +23,7 @@ tags:
   - cluster/participatory/consciousness
 status: stable
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-06-20
 ---
 
 # Bayesian mechanics for stationary processes

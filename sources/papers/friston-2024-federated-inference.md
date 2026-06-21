@@ -5,17 +5,17 @@ aliases:
   - "Friston et al. 2024"
   - "Friston (2024) Federated Inference"
 authors:
-  - Karl J. Friston
-  - Thomas Parr
-  - Conor Heins
-  - Axel Constant
-  - Daniel Friedman
-  - Takuya Isomura
-  - Chris Fields
-  - Tim Verbelen
-  - Maxwell J. D. Ramstead
-  - John Clippinger
-  - Christopher D. Frith
+  - Friston, Karl J.
+  - Parr, Thomas
+  - Heins, Conor
+  - Constant, Axel
+  - Friedman, Daniel
+  - Isomura, Takuya
+  - Fields, Chris
+  - Verbelen, Tim
+  - Ramstead, Maxwell J. D.
+  - Clippinger, John
+  - Frith, Christopher D.
 year: 2024
 arxiv: null
 url: https://doi.org/10.1016/j.neubiorev.2023.105500
@@ -23,14 +23,14 @@ tags:
   - cluster/multi-agent
   - cluster/vfe
   - cluster/social-physics
+  - cluster/social-physics/opinion-dynamics
   - project/multi-agent
   - project/social-physics
   - field/neuroscience
   - field/cs-ml
-  - cluster/social-physics/opinion-dynamics
 status: stable
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-06-20
 ---
 
 # Federated Inference and Belief Sharing
@@ -44,7 +44,7 @@ A position-and-simulation paper arguing that distributed intelligence — "feder
 
 ## Problem & setting
 
-Multiple active-inference agents inhabit a shared environment and each maintain a generative model of it. They cannot read one another's internal states directly; instead an agent can *broadcast* its posterior beliefs, and a receiving agent can treat the broadcast as additional sensory evidence about the shared hidden state. The question is how belief-sharing should be governed so that the collective performs better joint inference than any isolated agent — and whether that governance can be derived rather than designed.
+Multiple active-inference agents inhabit a shared environment and each maintain a generative model of it. They cannot read one another's internal states directly; instead an agent can broadcast its posterior beliefs, and a receiving agent can treat the broadcast as additional sensory evidence about the shared hidden state. The question is how belief-sharing should be governed so that the collective performs better joint inference than any isolated agent — and whether that governance can be derived rather than designed.
 
 ## Method
 
@@ -58,7 +58,7 @@ The authors cast belief-sharing as part of each agent's free-energy minimization
 
 ## Relevance to this research
 
-This is the cleanest free-energy-principle statement of exactly the coupling term the [[Gauge-Theoretic Multi-Agent VFE Model]] is built around. The project's belief-coupling energy $\sum_{ij}\beta_{ij}\,\mathrm{KL}(q_i \| \Omega_{ij} q_j)$ in [[Multi-agent variational free energy]] *is* federated inference written as a single functional: each agent treats its neighbors' (transported) beliefs as priors/evidence and pays a KL price for disagreement, with the attention weights $\beta_{ij}$ governing whom to listen to — the project's analogue of Friston et al.'s "when and to whom to broadcast." What this paper supplies in words, the project supplies in a closed variational form; what the project adds is the missing geometric ingredient, the **gauge transport** $\Omega_{ij}$ that re-expresses a neighbor's belief in the receiver's frame before integration. Federated inference assumes a literally *common* world-model and hence a common frame; PIFB (see [[participatory-it-from-bit]]) relaxes that to agents holding beliefs in distinct local frames related by a connection, recovering federated belief-sharing as the flat-connection ($\Omega_{ij}=I$) special case. This reference is therefore the anchor for the NEW [[Collective active inference]] page and the FEP-side justification of the project's coupling, attention, and emergent-communication claims.
+This is the cleanest free-energy-principle statement of exactly the coupling term the [[Gauge-Theoretic Multi-Agent VFE Model]] is built around. The project's belief-coupling energy $\sum_{ij}\beta_{ij}\,\mathrm{KL}(q_i \| \Omega_{ij} q_j)$ in [[Multi-agent variational free energy]] is federated inference written as a single functional: each agent treats its neighbors' (transported) beliefs as priors/evidence and pays a KL price for disagreement, with the attention weights $\beta_{ij}$ governing whom to listen to — the project's analogue of Friston et al.'s "when and to whom to broadcast." What this paper supplies in words, the project supplies in a closed variational form; what the project adds is the missing geometric ingredient, the gauge transport $\Omega_{ij}$ that re-expresses a neighbor's belief in the receiver's frame before integration. Federated inference assumes a literally common world-model and hence a common frame; PIFB (see [[participatory-it-from-bit]]) relaxes that to agents holding beliefs in distinct local frames related by a connection, recovering federated belief-sharing as the flat-connection ($\Omega_{ij}=I$) special case. This reference is therefore the anchor for the [[Collective active inference]] page and the FEP-side justification of the project's coupling, attention, and emergent-communication claims.
 
 ## Cross-links
 
@@ -67,15 +67,16 @@ This is the cleanest free-energy-principle statement of exactly the coupling ter
 - Manuscript: [[participatory-it-from-bit]]
 - Project: [[Gauge-Theoretic Multi-Agent VFE Model]]
 
+## BibTeX
 ```bibtex
 @article{friston2024federated,
-  author  = {Friston, Karl J. and Parr, Thomas and Heins, Conor and Constant, Axel and Friedman, Daniel and Isomura, Takuya and Fields, Chris and Verbelen, Tim and Ramstead, Maxwell J. D. and Clippinger, John and Frith, Christopher D.},
-  title   = {Federated inference and belief sharing},
-  journal = {Neuroscience \& Biobehavioral Reviews},
-  volume  = {156},
-  pages   = {105500},
-  year    = {2024},
-  doi     = {10.1016/j.neubiorev.2023.105500},
+  author    = {Friston, Karl J. and Parr, Thomas and Heins, Conor and Constant, Axel and Friedman, Daniel and Isomura, Takuya and Fields, Chris and Verbelen, Tim and Ramstead, Maxwell J. D. and Clippinger, John and Frith, Christopher D.},
+  title     = {Federated inference and belief sharing},
+  journal   = {Neuroscience \& Biobehavioral Reviews},
+  volume    = {156},
+  pages     = {105500},
+  year      = {2024},
+  doi       = {10.1016/j.neubiorev.2023.105500},
   publisher = {Elsevier}
 }
 ```

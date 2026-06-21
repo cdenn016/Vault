@@ -16,9 +16,9 @@ tags:
   - project/transformer
   - field/cs-ml
   - field/mathematics
-status: draft
+status: stable
 created: 2026-06-18
-updated: 2026-06-18
+updated: 2026-06-20
 ---
 
 # Generalizing Convolutional Neural Networks for Equivariance to Lie Groups on Arbitrary Continuous Data
@@ -66,7 +66,7 @@ It also supplies the geometric-deep-learning framing — convolution as integrat
 - Project: [[VFE Transformer Program]].
 
 ```bibtex
-@inproceedings{finzi2020lieconv,
+@inproceedings{finzi2020generalizing,
   title     = {Generalizing Convolutional Neural Networks for Equivariance to Lie Groups on Arbitrary Continuous Data},
   author    = {Finzi, Marc and Stanton, Samuel and Izmailov, Pavel and Wilson, Andrew Gordon},
   booktitle = {Proceedings of the 37th International Conference on Machine Learning (ICML)},

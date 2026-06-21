@@ -28,7 +28,7 @@ tags:
   - cluster/participatory/consciousness
 status: stable
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-06-20
 ---
 
 # On Bayesian mechanics: a physics of and by beliefs

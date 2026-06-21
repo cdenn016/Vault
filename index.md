@@ -10,7 +10,7 @@ updated: 2026-06-20
 Catalog of this **LLM-wiki**. See [[LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **4** manuscripts · **12** themes · **11** field MOCs · **83** concepts · **10** methods · **262** papers · **177** references · **6** web/methodology
+> **3** projects · **4** manuscripts · **12** themes · **11** field MOCs · **83** concepts · **10** methods · **281** papers · **177** references · **6** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -189,6 +189,13 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[buckley-2017-fep-mathematical-review|The Free Energy Principle for Action and Perception: A Mathematical Review]]
 - [[winn-2005-variational-message-passing|Variational Message Passing]]
 - [[smith-2022-active-inference-tutorial|A Step-by-Step Tutorial on Active Inference and Its Application to Empirical Data]]
+- [[clark-2013-whatever-next|Whatever Next? Predictive Brains, Situated Agents, and the Future of Cognitive Science]]
+- [[friston-frith-2015-duet|A Duet for One]]
+- [[millidge-2021-predictive-coding-review|Predictive Coding: a Theoretical and Experimental Review]]
+- [[friston2008hierarchical|Hierarchical Models in the Brain]]
+- [[friston2017graphical|The Graphical Brain: Belief Propagation and Active Inference]]
+- [[friston-2018-self-consciousness|Am I Self-Conscious? (Or Does Self-Organization Entail Self-Consciousness?)]]
+- [[carhartharris-2019-rebus|REBUS and the Anarchic Brain: Toward a Unified Model of the Brain Action of Psychedelics]]
 
 ### Gauge theory, Lie groups & geometric deep learning
 - [[bronstein-2021-geometric-deep-learning|Geometric Deep Learning: Grids, Groups, Graphs, Geodesics, and Gauges]]
@@ -207,6 +214,10 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[cohen-2019-general-theory-equivariant|A General Theory of Equivariant CNNs on Homogeneous Spaces]]
 - [[finzi-2021-emlp-arbitrary-matrix-groups|A Practical Method for Constructing Equivariant MLPs for Arbitrary Matrix Groups (EMLP)]]
 - [[weiler-2021-coordinate-independent-cnns|Coordinate Independent Convolutional Networks]]
+- [[geiger2022e3nn|e3nn: Euclidean Neural Networks]]
+- [[weiler-2018-3d-steerable-cnns|3D Steerable CNNs: Learning Rotationally Equivariant Features in Volumetric Data]]
+- [[fuchs2020-se3-transformer|SE(3)-Transformers: 3D Roto-Translation Equivariant Attention Networks]]
+- [[nagai-2025-cask|CASK: A Gauge Covariant Transformer for Lattice Gauge Theory]]
 
 ### Information geometry, divergences & natural gradient
 - [[amari-1998-natural-gradient|Natural Gradient Works Efficiently in Learning]]
@@ -226,6 +237,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[ollivier-2015-riemannian-metrics-nn|Riemannian Metrics for Neural Networks I: Feedforward Networks]]
 - [[reginatto-1998-fisher-quantum|Derivation of the equations of nonrelativistic quantum mechanics using the principle of minimum Fisher information]]
 - [[shwartz-ziv-2017-opening-black-box|Opening the Black Box of Deep Neural Networks via Information]]
+- [[tishby-1999-information-bottleneck|The Information Bottleneck Method]]
 - [[vanerven-2014-renyi-kl|Renyi Divergence and Kullback-Leibler Divergence]]
 - [[wootters-1981-statistical-distance|Statistical distance and Hilbert space]]
 - [[smith-2017-cyclical-learning-rates|A Disciplined Approach to Neural Network Hyper-Parameters (Cyclical LR)]]
@@ -236,6 +248,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[nielsen-2020-elementary-introduction-information-geometry|An Elementary Introduction to Information Geometry]]
 - [[khan-rue-2023-bayesian-learning-rule|The Bayesian Learning Rule]]
 - [[zhang-2004-divergence-duality-convex|Divergence Function, Duality, and Convex Analysis]]
+- [[shannon-1948-mathematical-theory-communication|A Mathematical Theory of Communication]]
 
 ### SPD / Riemannian geometry & matrix manifolds
 - [[absil-2008-optimization-matrix-manifolds|Optimization Algorithms on Matrix Manifolds]]
@@ -253,6 +266,8 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[zhang-sra-2016-geodesically-convex-optimization|First-order Methods for Geodesically Convex Optimization]]
 - [[ionescu-2015-matrix-backpropagation|Matrix Backpropagation for Deep Networks with Structured Layers]]
 - [[al-mohy-higham-2009-scaling-squaring-matrix-exp|A New Scaling and Squaring Algorithm for the Matrix Exponential]]
+- [[culver-1966-existence|On the Existence and Uniqueness of the Real Logarithm of a Matrix]]
+- [[petersen2012matrix|The Matrix Cookbook]]
 
 ### Attention, transformers & positional structure
 - [[bahdanau-2014-neural-machine-translation|Neural Machine Translation by Jointly Learning to Align and Translate]]
@@ -274,9 +289,33 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[elhage-2021-transformer-circuits-framework|A Mathematical Framework for Transformer Circuits]]
 - [[zhang-sennrich-2019-rmsnorm|Root Mean Square Layer Normalization (RMSNorm)]]
 - [[kazemnejad-2023-positional-encoding-length-generalization|The Impact of Positional Encoding on Length Generalization in Transformers]]
+- [[chung2015recurrent|A Recurrent Latent Variable Model for Sequential Data]]
+- [[dai2019transformerxl|Transformer-XL: Attentive Language Models Beyond a Fixed-Length Context]]
+- [[devlin-2018-bert|BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding]]
+- [[hendrycks2016gaussian|Gaussian Error Linear Units (GELUs)]]
+- [[srivastava2015highway|Training Very Deep Networks]]
+- [[bai2019deep-equilibrium|Deep Equilibrium Models]]
+- [[chen1998empirical|An Empirical Study of Smoothing Techniques for Language Modeling]]
+- [[chung-2015-vrnn|A Recurrent Latent Variable Model for Sequential Data]]
+- [[cuturi-2013-sinkhorn|Sinkhorn Distances: Lightspeed Computation of Optimal Transportation Distances]]
+- [[dauphin-2017-gated-convnets|Language Modeling with Gated Convolutional Networks]]
+- [[diakonikolas2021momentum|Generalized Momentum-Based Methods: A Hamiltonian Perspective]]
+- [[foerster2016learning|Learning to Communicate with Deep Multi-Agent Reinforcement Learning]]
+- [[fraccaro2016sequential|Sequential Neural Models with Stochastic Layers]]
+- [[gal2016dropout|Dropout as a Bayesian Approximation: Representing Model Uncertainty in Deep Learning]]
+- [[grave2017improving|Improving Neural Language Models with a Continuous Cache]]
+- [[hinton-2022-forward-forward|The Forward-Forward Algorithm: Some Preliminary Investigations]]
+- [[hochreiter1997long|Long Short-Term Memory]]
+- [[kim2020-cogs|COGS: A Compositional Generalization Challenge Based on Semantic Interpretation]]
+- [[krishnan2017structured|Structured Inference Networks for Nonlinear State Space Models]]
+- [[lake2018-generalization-scan|Generalization without Systematicity: On the Compositional Skills of Sequence-to-Sequence Recurrent Networks]]
+- [[merity2017-pointer-sentinel|Pointer Sentinel Mixture Models]]
+- [[ramachandran2018searching|Searching for Activation Functions]]
+- [[xiao2024efficient-streaming-llm|Efficient Streaming Language Models with Attention Sinks]]
 
 ### Multi-agent dynamics, RG & emergence
 - [[berges-tetradis-wetterich-2002-nonperturbative-rg|Non-Perturbative Renormalization Flow in Quantum Field Theory and Statistical Physics]]
+- [[kadanoff1966scaling|Scaling Laws for Ising Models Near Tc]]
 - [[bordley-1982-multiplicative-pooling|A Multiplicative Formula for Aggregating Probability Assessments]]
 - [[couzin-2009-collective-cognition|Collective Cognition in Animal Groups]]
 - [[dietrich-list-2016-opinion-pooling|Probabilistic Opinion Pooling]]
@@ -445,6 +484,9 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[yang-2022-tensor-programs-v-mup|Tensor Programs V: Tuning Large Neural Networks via Zero-Shot Hyperparameter Transfer (muP)]]
 - [[liu-2020-variance-adaptive-radam|On the Variance of the Adaptive Learning Rate and Beyond (RAdam)]]
 - [[kapoor-narayanan-2023-leakage-reproducibility-ml|Leakage and the Reproducibility Crisis in Machine-Learning-based Science]]
+- [[hoffman2014no|The No-U-Turn Sampler: Adaptively Setting Path Lengths in Hamiltonian Monte Carlo]]
+- [[salvatier2016probabilistic|Probabilistic Programming in Python using PyMC]]
+- [[webster2015-visual-adaptation|Visual Adaptation]]
 
 ## 📚 Sources — references (cited by the manuscripts)
 
@@ -515,6 +557,11 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[uhlmann-1976-transition-probability|The Transition Probability in the State Space of a *-Algebra]]
 - [[cover-thomas-2006-elements-information-theory|Elements of Information Theory (2nd ed.)]]
 - [[skovgaard-1984-riemannian-geometry-normal-model|A Riemannian Geometry of the Multivariate Normal Model]]
+- [[ay2015-info-geometry-sufficient-statistics|Information Geometry and Sufficient Statistics]]
+- [[kullback-1951-kl-divergence|On Information and Sufficiency]]
+- [[pennec-2009-riemannian-computing|Statistical Computing on Manifolds: From Riemannian Geometry to Computational Anatomy]]
+- [[tishby2015-deep-learning-ib|Deep Learning and the Information Bottleneck Principle]]
+- [[hoffman-2013-svi|Stochastic Variational Inference]]
 
 ### SPD / Riemannian geometry & matrix manifolds
 - [[bonnabel-sepulchre-2009-psd-fixed-rank|Riemannian Metric and Geometric Mean for Positive Semidefinite Matrices of Fixed Rank]]
@@ -562,6 +609,9 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[wilson-1975-renormalization-group|The Renormalization Group: Critical Phenomena and the Kondo Problem]]
 - [[wilson-kogut-1974-epsilon-expansion|The Renormalization Group and the Epsilon Expansion]]
 - [[wong-2001-asymptotic-integrals|Asymptotic Approximations of Integrals]]
+- [[boettcher2012renormalization|Renormalization Group for Critical Phenomena in Complex Networks]]
+- [[jona-lasinio-2001-renormalization-probability|Renormalization Group and Probability Theory]]
+- [[milnor1976-characteristic-classes-spherical-fibre|On Characteristic Classes for Spherical Fibre Spaces]]
 
 ### Participatory realism, quantum foundations, holography & consciousness
 - [[bell-2004-speakable-unspeakable|Speakable and Unspeakable in Quantum Mechanics]]
@@ -618,6 +668,27 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[popper-1963-conjectures-refutations|Conjectures and Refutations]]
 - [[popper-1959-logic-scientific-discovery|The Logic of Scientific Discovery]]
 - [[mayo-1996-error-growth-experimental-knowledge|Error and the Growth of Experimental Knowledge]]
+- [[norton-1993-general-covariance|General Covariance and the Foundations of General Relativity: Eight Decades of Dispute]]
+- [[arndt-2014-quantum-superpositions|Testing the Limits of Quantum Mechanical Superpositions]]
+- [[aspelmeyer-2014-cavity-optomechanics|Cavity Optomechanics]]
+- [[bateman-2014-nanoparticle-interferometry|Near-field interferometry of a free-falling nanoparticle from a point-like source]]
+- [[bayne-2005-unity-consciousness|What is the Unity of Consciousness?]]
+- [[caves-2002-quantum-bayesian|Quantum Probabilities as Bayesian Probabilities]]
+- [[delic-2020-ground-state-cooling|Cooling of a Levitated Nanoparticle to the Motional Quantum Ground State]]
+- [[gao-2017-neuroscience-dimensionality|On simplicity and complexity in the brave new world of large-scale neuroscience]]
+- [[hoffman-2015-interface-perception|The Interface Theory of Perception]]
+- [[lahav-2025-relativistic-consciousness|A Relativistic Theory of Consciousness]]
+- [[lahav-2022-topological-sync|Topological synchronization of chaotic systems]]
+- [[marshall-2003-mirror-superposition|Towards Quantum Superpositions of a Mirror]]
+- [[millen-2020-levitated-optomechanics|Optomechanics with Levitated Particles]]
+- [[milliere-2018-psychedelics-meditation-selfconsciousness|Psychedelics, Meditation, and Self-Consciousness]]
+- [[penrose-2014-gravitization|On the Gravitization of Quantum Mechanics 1: Quantum State Reduction]]
+- [[pfister-2016-gravitational-decoherence|A universal test for gravitational decoherence]]
+- [[pouget-2013-probabilistic-brains|Probabilistic brains: knowns and unknowns]]
+- [[romero-isart-2011-quantum-superpositions|Large Quantum Superpositions and Interference of Massive Nanometer-Sized Objects]]
+- [[swanson-2018-psychedelic-theories|Unifying Theories of Psychedelic Drug Effects]]
+- [[tononi-2004-integrated-information|An Information Integration Theory of Consciousness]]
+- [[tononi-2015-iit|Consciousness: here, there and everywhere?]]
 
 ### Opinion dynamics, sociophysics & networks
 - [[anderson-1980-belief-perseverance|Perseverance of Social Theories]]
@@ -633,6 +704,16 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[latane-1981-social-impact|The Psychology of Social Impact]]
 - [[nickerson-1998-confirmation-bias|Confirmation Bias: A Ubiquitous Phenomenon in Many Guises]]
 - [[rogers-2003-diffusion-of-innovations|Diffusion of Innovations (5th ed.)]]
+- [[coibion2015-information-rigidity|Information Rigidity and the Expectations Formation Process: A Simple Framework and New Facts]]
+- [[kruger1999-unskilled-unaware|Unskilled and Unaware of It: How Difficulties in Recognizing One's Own Incompetence Lead to Inflated Self-Assessments]]
+- [[lewandowsky-2012-misinformation|Misinformation and Its Correction: Continued Influence and Successful Debiasing]]
+- [[mcguire2014-adaptive-learning|Functionally dissociable influences on learning rate in a dynamic environment]]
+- [[nassar2010-bayesian-delta-rule|An Approximately Bayesian Delta-Rule Model Explains the Dynamics of Belief Updating in a Changing Environment]]
+- [[nassar-2012-pupil-arousal-learning|Rational regulation of learning dynamics by pupil-linked arousal systems]]
+- [[nyhan-2010-backfire|When Corrections Fail: The Persistence of Political Misperceptions]]
+- [[pilgrim-2023-confirmation|Confirmation bias emerges from an approximation to Bayesian reasoning]]
+- [[ratcliff-2008-diffusion-decision|The Diffusion Decision Model: Theory and Data for Two-Choice Decision Tasks]]
+- [[scheffer-2022-belief-traps|Belief traps: Tackling the inertia of harmful beliefs]]
 
 ### Methodology, ML training & engineering
 

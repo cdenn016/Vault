@@ -21,7 +21,7 @@ tags:
   - field/cs-ml
 status: stable
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-06-20
 ---
 
 # A Mathematical Perspective on Transformers
