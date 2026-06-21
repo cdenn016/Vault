@@ -96,7 +96,8 @@ every `[[link]]` must resolve to exactly one file. Two notes may **never** share
 - **Variants are aliases, never new notes.** If you meet or want any other spelling — camelCase, no
   hyphens, year-attached, singular/plural, British/American, or an acronym — add it to the canonical
   note's `aliases:`; do **not** create a second note. When you rename or merge, add the *old* name as
-  an alias so inbound links keep resolving.
+  an alias so inbound links keep resolving — **and repoint the inbound `[[links]]` to the new
+  filename** (the callout below explains why alias-backing alone is not enough for the graph).
 - A bare term resolves to its **most-canonical** home: prefer a `concept` page over a
   `method`/`theme`/`source`, and reserve a `… Manuscript` alias for the manuscript note.
 
@@ -268,7 +269,12 @@ Scan for and report (and fix where safe):
 - **Stale claims** — wiki text not supported by any current `sources/` note.
 - **Orphans** — pages nothing links to; broken `[[wikilinks]]`.
 - **Gaps** — concepts referenced but with no page; sources ingested but not synthesized.
-- **Duplication** — two pages covering the same idea → merge, keep one canonical title.
+- **Duplication** — two pages covering the same idea → merge into one canonical title, **repoint
+  inbound `[[links]]` to the survivor's filename** (alias-backing alone leaves grey graph nodes — see
+  the *graph view ignores aliases* callout above), then delete the redundant note.
+- **Graph grey nodes & shadow stubs** — raw `[[alias]]` / `[[old-slug]]` links the graph can't
+  resolve, plus empty `inbox/` stubs. Run `python docs/_lint.py`; **GRAPH grey nodes** and **EMPTY
+  files** must both read 0.
 - **Index drift** — pages missing from `index.md`.
 
 Append a `LINT` line to `log.md` summarizing findings and actions.
