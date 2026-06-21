@@ -418,7 +418,7 @@ This provides a geometric account of why high-precision priors ($M \approx \bar{
 \frac{d_H}{d_L} = \sqrt{\frac{\Lambda_H}{\Lambda_L}},
 \end{equation}
 
-a prediction that remains to be verified in simulation and experiment. While less dramatic than a linear scaling, this square-root relationship would be a rigid constraint imposed by the harmonic geometry of Gaussian belief spaces.
+evaluated at matched belief velocity $|\dot{\mu}|$; under matched epistemic momentum $\pi = M\dot{\mu}$ the overshoot instead scales as $\Lambda^{-1/2}$, so the comparison must specify which quantity is held fixed. This prediction remains to be verified in simulation and experiment. While less dramatic than a linear scaling, this square-root relationship would be a rigid constraint imposed by the harmonic geometry of Gaussian belief spaces.
 
 %------------------------------------------------------------------------------
 \subsection{Belief Oscillation}
@@ -1386,9 +1386,9 @@ The mean-sector mass matrix transforms as a tensor under gauge transformations.
 
 \paragraph{Diagonal blocks:}
 \begin{align}
-[\mathbf{M}^\mu]_{ii}' &= \bar{\Lambda}_{p_i}' + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k}' + \sum_j \beta_{ji}\Lambda_{q_i}' \nonumber\\
-&= g_i^{-T}\bar{\Lambda}_{p_i} g_i^{-1} + \sum_k \beta_{ik} g_i^{-T}\tilde{\Lambda}_{q_k} g_i^{-1} + \sum_j \beta_{ji} g_i^{-T}\Lambda_{q_i} g_i^{-1} \nonumber\\
-&= g_i^{-T} \left[\bar{\Lambda}_{p_i} + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k} + \sum_j \beta_{ji}\Lambda_{q_i}\right] g_i^{-1} \nonumber\\
+[\mathbf{M}^\mu]_{ii}' &= \alpha_i\bar{\Lambda}_{p_i}' + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k}' + \sum_j \beta_{ji}\Lambda_{q_i}' \nonumber\\
+&= \alpha_i g_i^{-T}\bar{\Lambda}_{p_i} g_i^{-1} + \sum_k \beta_{ik} g_i^{-T}\tilde{\Lambda}_{q_k} g_i^{-1} + \sum_j \beta_{ji} g_i^{-T}\Lambda_{q_i} g_i^{-1} \nonumber\\
+&= g_i^{-T} \left[\alpha_i\bar{\Lambda}_{p_i} + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k} + \sum_j \beta_{ji}\Lambda_{q_i}\right] g_i^{-1} \nonumber\\
 &= g_i^{-T} [\mathbf{M}^\mu]_{ii} g_i^{-1}
 \end{align}
 
@@ -1419,9 +1419,9 @@ This is the transformation law for a $(0,2)$-tensor (metric tensor) on the produ
 
 The covariance-sector mass involves Kronecker products. Using the contragredient precision law $\Lambda_{q_i}' = g_i^{-T}\Lambda_{q_i} g_i^{-1}$, under gauge transformation:
 \begin{align}
-[\mathbf{M}^\Sigma]_{ii}' &= \frac{1}{2}(\Lambda_{q_i}' \otimes \Lambda_{q_i}') \cdot \left(1 + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right) \nonumber\\
-&= \frac{1}{2}(g_i^{-T}\Lambda_{q_i} g_i^{-1} \otimes g_i^{-T}\Lambda_{q_i} g_i^{-1}) \cdot \left(1 + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right) \nonumber\\
-&= \frac{1}{2}(g_i^{-T} \otimes g_i^{-T})(\Lambda_{q_i} \otimes \Lambda_{q_i})(g_i^{-1} \otimes g_i^{-1}) \cdot \left(1 + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right)
+[\mathbf{M}^\Sigma]_{ii}' &= \frac{1}{2}(\Lambda_{q_i}' \otimes \Lambda_{q_i}') \cdot \left(\alpha_i + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right) \nonumber\\
+&= \frac{1}{2}(g_i^{-T}\Lambda_{q_i} g_i^{-1} \otimes g_i^{-T}\Lambda_{q_i} g_i^{-1}) \cdot \left(\alpha_i + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right) \nonumber\\
+&= \frac{1}{2}(g_i^{-T} \otimes g_i^{-T})(\Lambda_{q_i} \otimes \Lambda_{q_i})(g_i^{-1} \otimes g_i^{-1}) \cdot \left(\alpha_i + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right)
 \end{align}
 
 The transformation law is:
@@ -1825,7 +1825,7 @@ The sensory term does not couple different agents. Therefore:
 \end{equation}
 
 
-By Schwarz's theorem, this Hessian is symmetric: using $\Lambda = \Lambda^T$ one verifies that $[\mathbf{M}^\mu]_{ik} = ([\mathbf{M}^\mu]_{ki})^T$ holds for any $\beta_{ik}$ and any invertible $\Omega_{ik}$.\footnote{The reciprocal (recoil) term $\sum_j \beta_{ji}\Lambda_{q_i}$ is what makes the assembled mass symmetric and the force conservative even when the realized attention is asymmetric ($\beta_{ik} \neq \beta_{ki}$). An implementation that retains only the incoming term $\sum_k \beta_{ik}\tilde{\Lambda}_{q_k}$ recovers the same symmetric, single-Hamiltonian structure only after symmetrizing the attention, $\beta \to \tfrac{1}{2}(\beta + \beta^\top)$.}
+By Schwarz's theorem, this Hessian is symmetric: using $\Lambda = \Lambda^T$ one verifies that $[\mathbf{M}^\mu]_{ik} = ([\mathbf{M}^\mu]_{ki})^T$ holds for any $\beta_{ik}$ and any invertible $\Omega_{ik}$.\footnote{The reciprocal (recoil) term $\sum_j \beta_{ji}\Lambda_{q_i}$ is what makes the assembled mass symmetric and the force conservative even when the realized attention is asymmetric ($\beta_{ik} \neq \beta_{ki}$). An implementation that retains only the incoming term $\sum_k \beta_{ik}\tilde{\Lambda}_{q_k}$ restores a symmetric, single-Hamiltonian structure (in the metric-preserving or flat-gauge regime, and only up to an overall scale) after symmetrizing the attention, $\beta \to \tfrac{1}{2}(\beta + \beta^\top)$; it does not reproduce the full assembled mass exactly.}
 
 
 %-----------------------------------------------------------------------
@@ -1956,7 +1956,7 @@ The sensory precision $\Lambda_{o_i}$ contributes to the mean-sector mass (Eq.~\
 \subsubsection{Kinetic Energy}
 
 \begin{equation}
-T = \frac{1}{2}\dot{\mu}^T\mathbf{M}^\mu\dot{\mu} + \frac{1}{2}\mathrm{tr}\left[\mathbf{M}^\Sigma[\dot{\Sigma}, \dot{\Sigma}]\right]
+T = \frac{1}{2}\dot{\mu}^T\mathbf{M}^\mu\dot{\mu} + \frac{1}{2}\mathrm{tr}\left[\mathbf{M}^\Sigma(\dot{\Sigma}, \dot{\Sigma})\right]
 \end{equation}
 
 The first term gives standard kinetic energy with precision-mass. The second gives "shape" kinetic energy on the SPD manifold; the metric $(\Lambda \otimes \Lambda)$ corresponds to the affine-invariant metric on the cone of symmetric positive-definite matrices.
