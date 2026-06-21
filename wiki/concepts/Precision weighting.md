@@ -7,6 +7,9 @@ aliases:
   - Precision weighting (attention)
   - "Attention as Precision-Weighting"
   - "Attention as precision-weighting"
+  - "Attention as Precision"
+  - "Attention as Inference"
+  - "Precision-weighted attention"
 tags:
   - cluster/vfe
   - cluster/attention
@@ -46,6 +49,8 @@ i.e. a balance of *precision-weighted* prior and likelihood errors. Following [[
 
 **Precision as attentional gain.** In [[rao-1999-predictive-coding]] and the free-energy-principle synthesis of [[friston-2010-free-energy-principle]], attention *is* the optimization of expected precision: raising the precision on a channel amplifies its prediction errors and lets it steer inference, formally identical to an attentional gain. Reading the transformer through the kernel lens of [[tsai-2019-kernel-attention]], precision weighting is a particular choice of kernel/similarity, and through [[wang-2023-riemannian-self-attention-spd]] it connects to SPD-manifold affinities computed with the affine-invariant metric.
 
+**Attention as inference / as precision.** Read the other way round, this is the claim that softmax attention is *not* an ad hoc weighting but the computational signature of probabilistic inference: it implements a posterior over which keys are relevant to a query, equivalent to precision-weighted Bayesian cue combination in which more reliable (higher-precision) sources receive more weight ([[pouget-2013-probabilistic-brains]]). The active-inference reading sharpens this into an *identity* — attention is the gain modulation of ascending prediction-error signals by their estimated reliability, rather than a separate selection mechanism ([[clark-2013-predictive-brains]]) — which grounds neural-network attention weights as precision (Fisher-information) estimates and is what lets the program's gauge/precision-weighted attention inherit Friston's free-energy formulation directly ([[sengupta-2016-neuronal-gauge]]).
+
 **Information-geometric variant.** Precision is the Gaussian Fisher information for the mean, so precision weighting and [[Natural gradient]] preconditioning coincide in this family: the [[Fisher information metric]] of [[amari-1998-natural-gradient]] *is* the precision, and updating `mu` by inverse-Fisher is updating by inverse-covariance. The block-wise Fisher preconditioning of [[martens-2015-kfac]] and the unit/block-diagonal natural gradients of [[ollivier-2015-riemannian-metrics-nn]] are precision weighting carried into parameter space.
 
 > [!note] Editorial: Because the project uses a `gaussian_diagonal` family, the working precision is a diagonal `Sigma^{-1}`, making precision weighting an elementwise rescaling per token; the full-covariance case recovers the matrix form above and the SPD geometry of [[pennec-2006-affine-invariant-tensor]].
@@ -78,6 +83,9 @@ See [[VFE Transformer Program]] for the concrete configuration in which these te
 - [[tsai-2019-kernel-attention]] — attention as a kernel, precision weighting as a kernel choice.
 - [[wang-2023-riemannian-self-attention-spd]] — SPD affinities bridging precision and attention.
 - [[pennec-2006-affine-invariant-tensor]] — SPD geometry for the covariances whose inverse is the precision.
+- [[pouget-2013-probabilistic-brains]] — probabilistic-population-code account of precision-weighted Bayesian cue combination, the inference reading of attention.
+- [[clark-2013-predictive-brains]] — predictive-processing account in which attention is the optimization of expected precision on prediction errors.
+- [[sengupta-2016-neuronal-gauge]] — neuronal gauge theory linking precision-weighted attention to the free-energy formulation.
 
 ## See also
 

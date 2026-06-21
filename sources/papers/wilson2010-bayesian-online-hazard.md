@@ -6,7 +6,6 @@ aliases:
   - "wilson2010bayesianhazardrate"
   - "wilson2010-bayesian-online-hazard"
   - "wilson2010bayesianonlinehazard"
-  - "wilson2010-bayesian-online-hazard (target)"
   - "Wilson 2010"
 authors:
   - "Wilson, Robert C."

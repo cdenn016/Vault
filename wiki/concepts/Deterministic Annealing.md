@@ -5,7 +5,6 @@ aliases:
   - "deterministicannealing"
 tags:
   - cluster/info-geometry
-  - cluster/cs-ml
   - cluster/methodology
   - project/transformer
 status: stub

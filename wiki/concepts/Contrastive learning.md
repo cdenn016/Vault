@@ -4,7 +4,7 @@ title: "Contrastive learning"
 aliases:
   - "contrastivelearning"
 tags:
-  - cluster/cs-ml
+  - cluster/attention
   - cluster/vfe
   - project/transformer
 status: stub

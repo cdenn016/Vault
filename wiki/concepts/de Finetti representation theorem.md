@@ -8,7 +8,7 @@ aliases:
   - "quantum de Finetti theorem"
 tags:
   - cluster/participatory/quantum-foundations
-  - cluster/statistics
+  - cluster/info-geometry
   - project/multi-agent
 status: stub
 created: 2026-06-21

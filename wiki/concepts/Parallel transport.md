@@ -2,9 +2,11 @@
 type: concept
 title: Parallel transport
 aliases:
-  - Parallel transport
   - Vector transport
   - Connection transport
+  - "Gauge transport"
+  - "gauge-covariant transport"
+  - "Transport Operator"
 tags:
   - cluster/gauge-theory
   - cluster/spd-geometry
@@ -23,7 +25,7 @@ updated: 2026-06-19
 
 The defining property is **path dependence**: transporting a vector around a closed loop generally does not return it unchanged, and the resulting fibre automorphism is the loop's [[Holonomy|holonomy]]. The failure of transport to be path-independent is precisely the curvature of the connection. When the manifold is flat (zero curvature) transport is path-independent and reduces to ordinary translation; when it is curved, transport encodes the geometry.
 
-In the *gauge-theoretic* reading, a manifold is covered by local frames (gauges), each fibre is acted on by a structure group, and parallel transport is the operation that relates feature vectors expressed in one frame to the same features expressed in a neighbouring frame. Changing the local frame is a [[Gauge transformation|gauge transformation]]; transport is the connection-compatible way to carry data between frames so that downstream computations do not depend on the arbitrary local choice.
+In the *gauge-theoretic* reading, a manifold is covered by local frames (gauges), each fibre is acted on by a structure group, and parallel transport is the operation that relates feature vectors expressed in one frame to the same features expressed in a neighbouring frame. Changing the local frame is a [[Gauge transformation|gauge transformation]]; transport is the connection-compatible way to carry data between frames so that downstream computations do not depend on the arbitrary local choice. The program's term **gauge transport** names exactly this dynamical use: moving belief/representation vectors between token frames along the connection so that comparisons (attention scores) are made in a common frame and remain covariant under local gauge transformations. It is worth distinguishing from a passive gauge transformation (relabeling the frame): transport carries data *along a path*, accumulating [[Holonomy|holonomy]] when the connection is non-flat, so in gauge-theoretic attention a query-key comparison implicitly transports one token's frame to another's before the inner product. The linear map that effects this — a **transport operator** that intertwines the group action so features transform consistently — generalizes parallel transport; in equivariant deep learning (e.g. the SE(3)-Transformer) it is built from steerable kernels and Wigner-D matrices acting on irreducible-representation features ([[fuchs-2020-se3-transformer]]), the discrete attention-mechanism analogue of gauge parallel transport.
 
 ## Why it matters here
 
@@ -84,6 +86,7 @@ Parallel transport surfaces wherever per-token beliefs or gauge-frame quantities
 - [[bonnabel-2013-riemannian-sgd]] — Riemannian SGD whose iterate-to-iterate updates rely on transport.
 - [[huang-2017-spdnet]] — deep SPD-matrix network grounding tangent-space and transport operations.
 - [[wang-2023-riemannian-self-attention-spd]] — SPD-manifold self-attention aggregating transported covariances.
+- [[fuchs-2020-se3-transformer]] — SE(3)-equivariant transport operator built from steerable kernels and Wigner-D matrices; the attention-mechanism analogue of gauge parallel transport.
 
 ## See also
 

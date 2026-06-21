@@ -3,7 +3,6 @@ type: concept
 title: "Zero-Shot Learning"
 tags:
   - cluster/attention
-  - cluster/cs-ml
   - project/transformer
 status: stub
 created: 2026-06-21

@@ -5,7 +5,6 @@ aliases:
   - "DPI"
 tags:
   - cluster/info-geometry
-  - cluster/cs-ml
   - project/transformer
 status: stub
 created: 2026-06-21

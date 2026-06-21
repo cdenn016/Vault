@@ -14,7 +14,6 @@ url: https://arxiv.org/abs/1412.6623
 venue: "International Conference on Learning Representations (ICLR)"
 tags:
   - cluster/info-geometry
-  - cluster/cs-ml
   - project/transformer
   - field/cs-ml
   - field/statistics

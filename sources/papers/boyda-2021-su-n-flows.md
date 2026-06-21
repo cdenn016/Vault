@@ -19,7 +19,6 @@ url: https://arxiv.org/abs/2008.05456
 venue: "Physical Review D"
 tags:
   - cluster/gauge-theory
-  - cluster/cs-ml
   - project/transformer
   - field/physics
   - field/cs-ml

@@ -2,6 +2,8 @@
 type: concept
 title: "Relational Quantum Mechanics"
 aliases:
+  - "RQM"
+  - "Relational interpretation"
 tags:
   - cluster/participatory/quantum-foundations
   - project/multi-agent
