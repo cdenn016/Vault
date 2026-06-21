@@ -154,11 +154,11 @@ We retain the general gauge structure for three reasons. First, gauge equivarian
 The total variational free energy for a network of agents balances individual belief maintenance with social consensus pressure (see Appendix~\ref{app:hamiltonian} for the complete derivation and Appendix~\ref{app:social_coupling} for the generative model foundation):
 
 \begin{align}
-\mathcal{F}[\{q_i\}, \{\phi_i\}] &= \sum_i \underbrace{D_{\mathrm{KL}}(q_i \| p_i)}_{\text{Prior beliefs}} + \sum_{i,j} \underbrace{\beta_{ij} D_{\mathrm{KL}}(q_i \| \Omega_{ij} \cdot q_j)}_{\text{Social alignment}} \\
+\mathcal{F}[\{q_i\}, \{\phi_i\}] &= \sum_i \underbrace{\alpha_i D_{\mathrm{KL}}(q_i \| p_i)}_{\text{Prior beliefs}} + \sum_{i,j} \underbrace{\beta_{ij} D_{\mathrm{KL}}(q_i \| \Omega_{ij} \cdot q_j)}_{\text{Social alignment}} \\
 &\quad - \sum_i \underbrace{\mathbb{E}_{q_i}[\log p(o_i \mid c_i)]}_{\text{Sensory evidence}}
 \end{align}
 
-where $c_i$ denotes the hidden causes (latent state) that agent $i$ infers, with $\mu_i = \mathbb{E}_{q_i}[c_i]$ being the posterior mean belief about these causes. The coefficient $\beta_{ij}$ represents the attention agent $i$ places in agent $j$'s beliefs and we take $p_i$ to be quasi-static. The attention naturally emerges as
+where $c_i$ denotes the hidden causes (latent state) that agent $i$ infers, with $\mu_i = \mathbb{E}_{q_i}[c_i]$ being the posterior mean belief about these causes. The coefficient $\beta_{ij}$ represents the attention agent $i$ places in agent $j$'s beliefs and we take $p_i$ to be quasi-static. The scalar $\alpha_i$ is agent $i$'s self-coupling weight, the precision of its attachment to its own prior; it is set to the canonical default $\alpha_i = 1$ throughout the main-text derivations and promoted to a state-dependent precision in Section~\ref{sec:state_dependent_precision}. The attention naturally emerges as
 
 \begin{equation}
 \beta_{ij} = \frac{\exp(-D_{\mathrm{KL}}(q_i \| \Omega_{ij} \cdot q_j)/\tau)}{\sum_k \exp(-D_{\mathrm{KL}}(q_i \| \Omega_{ik} \cdot q_k)/\tau)}
@@ -225,7 +225,7 @@ The central observation motivating our Hamiltonian ansatz is that the Hessian of
 The complete variational free energy for a multi-agent system decomposes as
 
 \begin{equation}
-\mathcal{F} = \underbrace{\sum_i D_{\mathrm{KL}}(q_i \| p_i)}_{\text{complexity}} - \underbrace{\sum_i \mathbb{E}_{q_i}[\log p(o_i|c_i)]}_{\text{accuracy}} + \underbrace{\sum_{i,k} \beta_{ik} D_{\mathrm{KL}}(q_i \| \Omega_{ik}\cdot q_k)}_{\text{consensus}}
+\mathcal{F} = \underbrace{\sum_i \alpha_i D_{\mathrm{KL}}(q_i \| p_i)}_{\text{complexity}} - \underbrace{\sum_i \mathbb{E}_{q_i}[\log p(o_i|c_i)]}_{\text{accuracy}} + \underbrace{\sum_{i,k} \beta_{ik} D_{\mathrm{KL}}(q_i \| \Omega_{ik}\cdot q_k)}_{\text{consensus}}
 \end{equation}
 
 where $q_i$ is agent $i$'s posterior belief, $p_i$ is agent $i$'s prior, $p(o_i|c_i)$ is the observation likelihood with hidden state $c_i$, $\Omega_{ik}\cdot q_k$ is neighbor $k$'s belief transported into agent $i$'s reference frame, and $\beta_{ik}$ is the attention-weighted coupling strength. Denoting the full state vector $\xi = (\mu_1, \ldots, \mu_N, \Sigma_1, \ldots, \Sigma_N)$, we define the mass matrix as the Hessian of this free energy:
@@ -283,7 +283,7 @@ M_i = \underbrace{\bar{\Lambda}_{p_i}}_{\substack{\text{prior} \\ \text{precisio
 }
 \end{equation}
 
-This four-part structure has transparent intuitive meaning. The term $\bar{\Lambda}_{p_i}$ represents \textbf{prior inertia}, the resistance arising from the cost of deviating from deep expectations. The term $\Lambda_{o_i}$ represents \textbf{sensory inertia}, grounding through observation whereby precise senses anchor beliefs. The term $\sum_k \beta_{ik}\tilde{\Lambda}_{q_k}$ represents \textbf{incoming social inertia}, the effect of being pulled toward confident neighbors. Finally, the term $\sum_j \beta_{ji}\Lambda_{q_i}$ represents \textbf{outgoing social inertia}, the recoil from exerting influence on others.
+This four-part structure has transparent intuitive meaning. The term $\bar{\Lambda}_{p_i}$ represents \textbf{prior inertia}, the resistance arising from the cost of deviating from deep expectations; it carries the self-coupling weight $\alpha_i$, set to its default $1$ here and promoted to a state-dependent precision in Section~\ref{sec:state_dependent_precision}, where the prior block becomes $\alpha_i^* \bar{\Lambda}_{p_i}$. The term $\Lambda_{o_i}$ represents \textbf{sensory inertia}, grounding through observation whereby precise senses anchor beliefs. The term $\sum_k \beta_{ik}\tilde{\Lambda}_{q_k}$ represents \textbf{incoming social inertia}, the effect of being pulled toward confident neighbors. Finally, the term $\sum_j \beta_{ji}\Lambda_{q_i}$ represents \textbf{outgoing social inertia}, the recoil from exerting influence on others.
 
 \subsubsection{Interpretation}
 
@@ -322,12 +322,12 @@ Stationarity in $\alpha_i$ at fixed beliefs gives the closed form
 \end{equation}
 The linear term in $R$ penalizes arbitrarily large precision and the logarithmic term enforces $\alpha_i > 0$. Because $-c_0 \log \alpha_i + b_0 \alpha_i$ is, up to an additive constant, the negative log density of a Gamma distribution with shape $c_0 + 1$ and rate $b_0$, Eq.~\eqref{eq:state_dependent_alpha} is the maximum-a-posteriori estimate of the self-coupling weight under a Gamma prior. This is conjugate in form to the variational treatment of a univariate Gaussian with a Gamma factor on its precision \citep[\S 10.1.3, \S 2.3.6]{Bishop2006}, though $\alpha_i$ weights an entire divergence rather than parameterizing a Gaussian precision, so the correspondence is structural rather than the exact Normal-Gamma conjugacy of that example.
 
-The consequence for the dynamics turns on a single fact: the envelope theorem cleans the gradient but not the Hessian. Differentiating the stationary objective, the regularizer contribution and the implicit $\partial \alpha_i^* / \partial \mu_i$ cancel, leaving the self-coupling force $\alpha_i^* \nabla_{\mu_i} D_{\mathrm{KL}}(q_i \| p_i)$. Recomputing $\alpha_i^*$ from the current belief at each inference step and treating it as fixed in the second variation, the prior block of the mass is rescaled,
+The consequence for the dynamics turns on a single fact: the envelope theorem cleans the gradient but not the Hessian. Differentiating the stationary objective, the regularizer contribution and the implicit $\partial \alpha_i^* / \partial \mu_i$ cancel, leaving the self-coupling force $\alpha_i^* \nabla_{\mu_i} D_{\mathrm{KL}}(q_i \| p_i)$. This envelope force is the gradient of the reduced self-energy $\alpha_i^* D_{\mathrm{KL}} + R(\alpha_i^*)$; the companion framework \citep{Dennis2025trans} instead differentiates the bare weighted divergence $\alpha_i^* D_{\mathrm{KL}}$ alone and reports the prefactor $(\alpha_i^*)^2 b_0 / c_0$, which equals $\partial_{D_{\mathrm{KL}}}(\alpha_i^* D_{\mathrm{KL}})$ and differs from $\alpha_i^*$ only in which objective is differentiated; the two agree on the dynamics. Recomputing $\alpha_i^*$ from the current belief at each inference step and treating it as fixed in the second variation, the prior block of the mass is rescaled,
 \begin{equation}
 M_i = \alpha_i^* \bar{\Lambda}_{p_i} + \Lambda_{o_i} + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k} + \sum_j \beta_{ji}\Lambda_{q_i},
 \label{eq:adaptive_mass}
 \end{equation}
-which is the natural generalization of the mass tensor and reduces to it at $\alpha_i^* = 1$. The weight rescales only the prior term, the second variation of $D_{\mathrm{KL}}(q_i \| p_i)$; the observation and social terms descend from separate divergences and are untouched.
+which is the natural generalization of the mass tensor and reduces to it at $\alpha_i^* = 1$. The weight rescales only the prior term, the second variation of $D_{\mathrm{KL}}(q_i \| p_i)$; the observation and social terms descend from separate divergences and are untouched. The same rescaling reaches the covariance sector through the prior's contribution to Eq.~\eqref{eq:mass_covariance}: its leading unit coefficient becomes $\alpha_i^*$, so $[\mathbf{M}^\Sigma]_{ii} = \frac{1}{2}(\Lambda_{q_i} \otimes \Lambda_{q_i})(\alpha_i^* + \sum_k \beta_{ik} + \sum_j \beta_{ji})$, the prior weight rescaling in both sectors alike.
 
 \paragraph{Adaptive inertia.} The sign of Eq.~\eqref{eq:state_dependent_alpha} is the substantive prediction. Since $\alpha_i^*$ decreases as $D_{\mathrm{KL}}(q_i \| p_i)$ grows, an agent whose belief has drifted far from its prior contributes \emph{less} prior precision to its own mass, not more. State-dependent precision therefore weakens prior anchoring exactly where the belief is most displaced, a self-reinforcing drift rather than added stubbornness. This sharpens the emergent-stubbornness account of Section~\ref{sec:classical_limits}. There the Friedkin-Johnsen susceptibility $\alpha_i'$ of Eq.~\eqref{eq:emergent_stubbornness} was assembled from a fixed self-coupling weight; with Eq.~\eqref{eq:state_dependent_alpha} that weight is instead set by the equilibrium belief through $\alpha_i^* = c_0 / (b_0 + D_{\mathrm{KL}}(q_i \| p_i)|_{\mu_i^*})$, so the weight and the equilibrium it shapes are co-determined and $\alpha_i'$ inherits this state dependence. We note the consequence here rather than solving the fixed point. The DeGroot limit, recovered earlier by setting the self-coupling to zero, now corresponds to $c_0 \to 0$, which removes the log-barrier rather than being a free toggle.
 
@@ -418,7 +418,7 @@ This provides a geometric account of why high-precision priors ($M \approx \bar{
 \frac{d_H}{d_L} = \sqrt{\frac{\Lambda_H}{\Lambda_L}},
 \end{equation}
 
-a prediction that remains to be verified in simulation and experiment. While less dramatic than a linear scaling, this square-root relationship would be a rigid constraint imposed by the harmonic geometry of Gaussian belief spaces.
+evaluated at matched belief velocity $|\dot{\mu}|$; under matched epistemic momentum $\pi = M\dot{\mu}$ the overshoot instead scales as $\Lambda^{-1/2}$, so the comparison must specify which quantity is held fixed. This prediction remains to be verified in simulation and experiment. While less dramatic than a linear scaling, this square-root relationship would be a rigid constraint imposed by the harmonic geometry of Gaussian belief spaces.
 
 %------------------------------------------------------------------------------
 \subsection{Belief Oscillation}
@@ -816,7 +816,7 @@ Friedkin and Johnsen (1990) extended DeGroot by introducing "stubbornness" as at
 \label{eq:fj_classical}
 \end{equation}
 
-where $\alpha_i \in [0,1]$ represents agent $i$'s resistance to social influence and $\mu^*$ denotes equilibrium. This model better captures polarization and persistent disagreement, as stubborn agents prevent full consensus.
+where $\alpha_i \in [0,1]$ represents agent $i$'s resistance to social influence and $\mu^*$ denotes equilibrium. This model better captures polarization and persistent disagreement, as stubborn agents prevent full consensus. We follow the Friedkin-Johnsen convention in writing this bounded susceptibility as $\alpha_i$; it is a distinct object from the unbounded self-coupling weight $\alpha_i$ of Section~\ref{sec:state_dependent_precision}, and the two are related through the emergent susceptibility $\alpha_i'$ derived below (Eq.~\eqref{eq:emergent_stubbornness}) rather than identified.
 
 \subsubsection{Sociological Context}
 
@@ -1386,9 +1386,9 @@ The mean-sector mass matrix transforms as a tensor under gauge transformations.
 
 \paragraph{Diagonal blocks:}
 \begin{align}
-[\mathbf{M}^\mu]_{ii}' &= \bar{\Lambda}_{p_i}' + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k}' + \sum_j \beta_{ji}\Lambda_{q_i}' \nonumber\\
-&= g_i^{-T}\bar{\Lambda}_{p_i} g_i^{-1} + \sum_k \beta_{ik} g_i^{-T}\tilde{\Lambda}_{q_k} g_i^{-1} + \sum_j \beta_{ji} g_i^{-T}\Lambda_{q_i} g_i^{-1} \nonumber\\
-&= g_i^{-T} \left[\bar{\Lambda}_{p_i} + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k} + \sum_j \beta_{ji}\Lambda_{q_i}\right] g_i^{-1} \nonumber\\
+[\mathbf{M}^\mu]_{ii}' &= \alpha_i\bar{\Lambda}_{p_i}' + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k}' + \sum_j \beta_{ji}\Lambda_{q_i}' \nonumber\\
+&= \alpha_i g_i^{-T}\bar{\Lambda}_{p_i} g_i^{-1} + \sum_k \beta_{ik} g_i^{-T}\tilde{\Lambda}_{q_k} g_i^{-1} + \sum_j \beta_{ji} g_i^{-T}\Lambda_{q_i} g_i^{-1} \nonumber\\
+&= g_i^{-T} \left[\alpha_i\bar{\Lambda}_{p_i} + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k} + \sum_j \beta_{ji}\Lambda_{q_i}\right] g_i^{-1} \nonumber\\
 &= g_i^{-T} [\mathbf{M}^\mu]_{ii} g_i^{-1}
 \end{align}
 
@@ -1419,9 +1419,9 @@ This is the transformation law for a $(0,2)$-tensor (metric tensor) on the produ
 
 The covariance-sector mass involves Kronecker products. Using the contragredient precision law $\Lambda_{q_i}' = g_i^{-T}\Lambda_{q_i} g_i^{-1}$, under gauge transformation:
 \begin{align}
-[\mathbf{M}^\Sigma]_{ii}' &= \frac{1}{2}(\Lambda_{q_i}' \otimes \Lambda_{q_i}') \cdot \left(1 + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right) \nonumber\\
-&= \frac{1}{2}(g_i^{-T}\Lambda_{q_i} g_i^{-1} \otimes g_i^{-T}\Lambda_{q_i} g_i^{-1}) \cdot \left(1 + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right) \nonumber\\
-&= \frac{1}{2}(g_i^{-T} \otimes g_i^{-T})(\Lambda_{q_i} \otimes \Lambda_{q_i})(g_i^{-1} \otimes g_i^{-1}) \cdot \left(1 + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right)
+[\mathbf{M}^\Sigma]_{ii}' &= \frac{1}{2}(\Lambda_{q_i}' \otimes \Lambda_{q_i}') \cdot \left(\alpha_i + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right) \nonumber\\
+&= \frac{1}{2}(g_i^{-T}\Lambda_{q_i} g_i^{-1} \otimes g_i^{-T}\Lambda_{q_i} g_i^{-1}) \cdot \left(\alpha_i + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right) \nonumber\\
+&= \frac{1}{2}(g_i^{-T} \otimes g_i^{-T})(\Lambda_{q_i} \otimes \Lambda_{q_i})(g_i^{-1} \otimes g_i^{-1}) \cdot \left(\alpha_i + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right)
 \end{align}
 
 The transformation law is:
@@ -1673,12 +1673,12 @@ The complete variational free energy with explicit sensory evidence is:
 %
 \begin{equation}
 \boxed{
-\mathcal{F}[\{q_i\}] = \sum_i D_{\mathrm{KL}}(q_i \| p_i) + \sum_{i,k} \beta_{ik} D_{\mathrm{KL}}(q_i \| \Omega_{ik}\cdot q_k) - \sum_i \mathbb{E}_{q_i}[\log p(o_i \mid \theta)]
+\mathcal{F}[\{q_i\}] = \sum_i \alpha_i D_{\mathrm{KL}}(q_i \| p_i) + \sum_{i,k} \beta_{ik} D_{\mathrm{KL}}(q_i \| \Omega_{ik}\cdot q_k) - \sum_i \mathbb{E}_{q_i}[\log p(o_i \mid \theta)]
 }
 \label{eq:full_free_energy}
 \end{equation}
 %
-The three terms represent, respectively, \textbf{prior anchoring} (deviation from internal world-model), \textbf{social consensus} (alignment with other agents via gauge-covariant transport), and \textbf{sensory evidence} (grounding in observations).
+The three terms represent, respectively, \textbf{prior anchoring} (deviation from internal world-model), \textbf{social consensus} (alignment with other agents via gauge-covariant transport), and \textbf{sensory evidence} (grounding in observations). The scalar $\alpha_i$ is the self-coupling weight on the prior-anchoring term, set to $\alpha_i = 1$ in the main-text derivations and promoted to the state-dependent precision $\alpha_i^*$ of Section~\ref{sec:state_dependent_precision}; we carry it explicitly through the gradient and mass below so that the inertial mass specializes to that section by the single substitution $\bar{\Lambda}_{p_i} \to \alpha_i \bar{\Lambda}_{p_i}$.
 
 %-----------------------------------------------------------------------
 \subsection{Component Free Energies for Gaussians}
@@ -1752,7 +1752,7 @@ With respect to sender $k$:
 
 \begin{equation}
 \boxed{
-\frac{\partial \mathcal{F}}{\partial \mu_i} = \bar{\Lambda}_{p_i}(\mu_i - \bar{\mu}_i) + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k}(\mu_i - \tilde{\mu}_k) + \sum_j \beta_{ji}\Lambda_{q_i}\Omega_{ji}^{-1}(\tilde{\mu}_i^{(j)} - \mu_j) + \Lambda_{o_i}(\mu_i - o_i)
+\frac{\partial \mathcal{F}}{\partial \mu_i} = \alpha_i\bar{\Lambda}_{p_i}(\mu_i - \bar{\mu}_i) + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k}(\mu_i - \tilde{\mu}_k) + \sum_j \beta_{ji}\Lambda_{q_i}\Omega_{ji}^{-1}(\tilde{\mu}_i^{(j)} - \mu_j) + \Lambda_{o_i}(\mu_i - o_i)
 }
 \label{eq:total_gradient_mu}
 \end{equation}
@@ -1799,7 +1799,7 @@ From sensory evidence:
 \textbf{Total diagonal mass:}
 \begin{equation}
 \boxed{
-[\mathbf{M}^\mu]_{ii} = \underbrace{\bar{\Lambda}_{p_i}}_{\text{prior}} + \underbrace{\sum_k \beta_{ik}\tilde{\Lambda}_{q_k}}_{\text{incoming social}} + \underbrace{\sum_j \beta_{ji}\Lambda_{q_i}}_{\text{outgoing recoil}} + \underbrace{\Lambda_{o_i}}_{\text{sensory}}
+[\mathbf{M}^\mu]_{ii} = \underbrace{\alpha_i\bar{\Lambda}_{p_i}}_{\text{prior}} + \underbrace{\sum_k \beta_{ik}\tilde{\Lambda}_{q_k}}_{\text{incoming social}} + \underbrace{\sum_j \beta_{ji}\Lambda_{q_i}}_{\text{outgoing recoil}} + \underbrace{\Lambda_{o_i}}_{\text{sensory}}
 }
 \label{eq:mass_diagonal}
 \end{equation}
@@ -1825,7 +1825,7 @@ The sensory term does not couple different agents. Therefore:
 \end{equation}
 
 
-By Schwarz's theorem, this Hessian is symmetric: using $\Lambda = \Lambda^T$ one verifies that $[\mathbf{M}^\mu]_{ik} = ([\mathbf{M}^\mu]_{ki})^T$ holds for any $\beta_{ik}$ and any invertible $\Omega_{ik}$.
+By Schwarz's theorem, this Hessian is symmetric: using $\Lambda = \Lambda^T$ one verifies that $[\mathbf{M}^\mu]_{ik} = ([\mathbf{M}^\mu]_{ki})^T$ holds for any $\beta_{ik}$ and any invertible $\Omega_{ik}$.\footnote{The reciprocal (recoil) term $\sum_j \beta_{ji}\Lambda_{q_i}$ is what makes the assembled mass symmetric and the force conservative even when the realized attention is asymmetric ($\beta_{ik} \neq \beta_{ki}$). An implementation that retains only the incoming term $\sum_k \beta_{ik}\tilde{\Lambda}_{q_k}$ restores a symmetric, single-Hamiltonian structure (in the metric-preserving or flat-gauge regime, and only up to an overall scale) after symmetrizing the attention, $\beta \to \tfrac{1}{2}(\beta + \beta^\top)$; it does not reproduce the full assembled mass exactly.}
 
 
 %-----------------------------------------------------------------------
@@ -1854,7 +1854,7 @@ In tensor notation:
 \frac{\partial^2 D_{\mathrm{KL}}(q_i \| p_i)}{\partial \Sigma_i \partial \Sigma_i} = \frac{1}{2}(\Lambda_{q_i} \otimes \Lambda_{q_i})
 \end{equation}
 
-From consensus (as receiver and sender), identical contributions arise.
+From consensus (as receiver and sender), identical contributions arise. The prior contribution carries the self-coupling weight $\alpha_i$ (the term being $\alpha_i D_{\mathrm{KL}}(q_i \| p_i)$), so it enters the covariance-sector mass with coefficient $\alpha_i$ rather than unity; at the default $\alpha_i = 1$ this is the familiar prior contribution.
 
 \textbf{Critical observation:} The sensory term $\frac{1}{2}\mathrm{tr}(\Lambda_{o_i}\Sigma_i)$ is \textit{linear} in $\Sigma_i$, so its second derivative \textbf{vanishes}:
 \begin{equation}
@@ -1864,7 +1864,7 @@ From consensus (as receiver and sender), identical contributions arise.
 Therefore:
 \begin{equation}
 \boxed{
-[\mathbf{M}^\Sigma]_{ii} = \frac{1}{2}(\Lambda_{q_i} \otimes \Lambda_{q_i}) \cdot \left(1 + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right)
+[\mathbf{M}^\Sigma]_{ii} = \frac{1}{2}(\Lambda_{q_i} \otimes \Lambda_{q_i}) \cdot \left(\alpha_i + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right)
 }
 \label{eq:mass_covariance}
 \end{equation}
@@ -1914,7 +1914,7 @@ where each block is an $N \times N$ matrix of sub-blocks.
 
 \paragraph{Mean sector diagonal:}
 \begin{equation}
-[\mathbf{M}^\mu]_{ii} = \underbrace{\bar{\Lambda}_{p_i}}_{\text{prior anchoring}} + \underbrace{\sum_k \beta_{ik}\Omega_{ik}^{-T}\Lambda_{q_k}\Omega_{ik}^{-1}}_{\text{incoming consensus}} + \underbrace{\sum_j \beta_{ji}\Lambda_{q_i}}_{\text{outgoing recoil}} + \underbrace{\Lambda_{o_i}}_{\text{sensory grounding}}
+[\mathbf{M}^\mu]_{ii} = \underbrace{\alpha_i\bar{\Lambda}_{p_i}}_{\text{prior anchoring}} + \underbrace{\sum_k \beta_{ik}\Omega_{ik}^{-T}\Lambda_{q_k}\Omega_{ik}^{-1}}_{\text{incoming consensus}} + \underbrace{\sum_j \beta_{ji}\Lambda_{q_i}}_{\text{outgoing recoil}} + \underbrace{\Lambda_{o_i}}_{\text{sensory grounding}}
 \label{eq:mass_full_diagonal}
 \end{equation}
 
@@ -1925,7 +1925,7 @@ where each block is an $N \times N$ matrix of sub-blocks.
 
 \paragraph{Covariance sector diagonal:}
 \begin{equation}
-[\mathbf{M}^\Sigma]_{ii} = \frac{1}{2}(\Lambda_{q_i} \otimes \Lambda_{q_i}) \cdot \left(1 + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right)
+[\mathbf{M}^\Sigma]_{ii} = \frac{1}{2}(\Lambda_{q_i} \otimes \Lambda_{q_i}) \cdot \left(\alpha_i + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right)
 \end{equation}
 
 \paragraph{Cross mean-covariance (at consensus):}
@@ -1942,12 +1942,12 @@ where each block is an $N \times N$ matrix of sub-blocks.
 The mean-sector effective mass for agent $i$ is:
 \begin{equation}
 \boxed{
-M_i = \bar{\Lambda}_{p_i} + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k} + \sum_j \beta_{ji}\Lambda_{q_i} + \Lambda_{o_i}
+M_i = \alpha_i\bar{\Lambda}_{p_i} + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k} + \sum_j \beta_{ji}\Lambda_{q_i} + \Lambda_{o_i}
 }
 \label{eq:effective_mass}
 \end{equation}
 
-The term $\bar{\Lambda}_{p_i}$ represents \textbf{bare mass}, providing inertia against deviation from the prior. The term $\sum_k \beta_{ik}\tilde{\Lambda}_{q_k}$ represents \textbf{incoming relational mass}, the inertia from being "pulled" by neighbors. The term $\sum_j \beta_{ji}\Lambda_{q_i}$ represents \textbf{outgoing relational mass}, the inertia from "pulling" neighbors (recoil). Finally, $\Lambda_{o_i}$ represents \textbf{sensory mass}, the inertia from grounding in observations.
+The term $\alpha_i\bar{\Lambda}_{p_i}$ represents \textbf{bare mass}, providing inertia against deviation from the prior (with self-coupling weight $\alpha_i = 1$ by default; Section~\ref{sec:state_dependent_precision} promotes it to the state-dependent $\alpha_i^*$). The term $\sum_k \beta_{ik}\tilde{\Lambda}_{q_k}$ represents \textbf{incoming relational mass}, the inertia from being "pulled" by neighbors. The term $\sum_j \beta_{ji}\Lambda_{q_i}$ represents \textbf{outgoing relational mass}, the inertia from "pulling" neighbors (recoil). Finally, $\Lambda_{o_i}$ represents \textbf{sensory mass}, the inertia from grounding in observations.
 
 \subsubsection{Asymmetry of Sensory Contribution}
 
@@ -1956,7 +1956,7 @@ The sensory precision $\Lambda_{o_i}$ contributes to the mean-sector mass (Eq.~\
 \subsubsection{Kinetic Energy}
 
 \begin{equation}
-T = \frac{1}{2}\dot{\mu}^T\mathbf{M}^\mu\dot{\mu} + \frac{1}{2}\mathrm{tr}\left[\mathbf{M}^\Sigma[\dot{\Sigma}, \dot{\Sigma}]\right]
+T = \frac{1}{2}\dot{\mu}^T\mathbf{M}^\mu\dot{\mu} + \frac{1}{2}\mathrm{tr}\left[\mathbf{M}^\Sigma(\dot{\Sigma}, \dot{\Sigma})\right]
 \end{equation}
 
 The first term gives standard kinetic energy with precision-mass. The second gives "shape" kinetic energy on the SPD manifold; the metric $(\Lambda \otimes \Lambda)$ corresponds to the affine-invariant metric on the cone of symmetric positive-definite matrices.
@@ -1991,12 +1991,12 @@ H = \frac{1}{2}\langle\pi, \mathbf{M}^{-1}\pi\rangle + \mathcal{F}[\xi]
 The potential forces decompose into four distinct contributions:
 \begin{equation}
 \boxed{
--\frac{\partial \mathcal{F}}{\partial \mu_i} = \underbrace{-\bar{\Lambda}_{p_i}(\mu_i - \bar{\mu}_i)}_{\text{prior restoring}} \underbrace{- \sum_k \beta_{ik}\tilde{\Lambda}_{q_k}(\mu_i - \tilde{\mu}_k)}_{\text{consensus}} \underbrace{- \sum_j \beta_{ji}\Lambda_{q_i}\Omega_{ji}^{-1}(\tilde{\mu}_i^{(j)} - \mu_j)}_{\text{reciprocal}} \underbrace{- \Lambda_{o_i}(\mu_i - o_i)}_{\text{sensory evidence}}
+-\frac{\partial \mathcal{F}}{\partial \mu_i} = \underbrace{-\alpha_i\bar{\Lambda}_{p_i}(\mu_i - \bar{\mu}_i)}_{\text{prior restoring}} \underbrace{- \sum_k \beta_{ik}\tilde{\Lambda}_{q_k}(\mu_i - \tilde{\mu}_k)}_{\text{consensus}} \underbrace{- \sum_j \beta_{ji}\Lambda_{q_i}\Omega_{ji}^{-1}(\tilde{\mu}_i^{(j)} - \mu_j)}_{\text{reciprocal}} \underbrace{- \Lambda_{o_i}(\mu_i - o_i)}_{\text{sensory evidence}}
 }
 \label{eq:force_decomposition}
 \end{equation}
 
-The geodesic force $f_i^{\text{geo}} = -\frac{1}{2}\sum_{jkl}(\pi_j^\mu)^T\frac{\partial[\mathbf{M}^{-1}]_{jk}^{\mu\mu}}{\partial \mu_i}\pi_k^\mu$ encodes manifold curvature. Under the frozen-attention (mean-field) convention adopted for the mass, the mean-sector mass is independent of $\mu$, so this mean-sector term vanishes and the geodesic curvature is carried by the covariance-sector ($\Sigma$-derivative) force; the mean-sector term is reinstated only when the state-dependence of the softmax weights $\beta$ is retained.
+The geodesic force $f_i^{\text{geo}} = -\frac{1}{2}\sum_{jkl}(\pi_j^\mu)^T\frac{\partial[\mathbf{M}^{-1}]_{jk}^{\mu\mu}}{\partial \mu_i}\pi_k^\mu$ encodes manifold curvature. Under the frozen-attention (mean-field) convention adopted for the mass, the mean-sector mass is independent of $\mu$, so this mean-sector term vanishes and the geodesic curvature is carried by the covariance-sector ($\Sigma$-derivative) force; the mean-sector term is reinstated only when the state-dependence of the softmax weights $\beta$ (or of the self-coupling weight $\alpha_i^*$ of Section~\ref{sec:state_dependent_precision}) is retained.
 
 \subsubsection{Compact Form}
 

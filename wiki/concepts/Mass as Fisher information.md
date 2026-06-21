@@ -14,7 +14,7 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-06-18
-updated: 2026-06-19
+updated: 2026-06-21
 ---
 
 # Mass as Fisher information
@@ -79,18 +79,29 @@ Because mass is a sum of independent precisions, the model reads each term as a 
 
 ### Mean-field validity and adaptive precision
 
-The mass is evaluated under **frozen (mean-field) attention**: $\beta_{ik}$ in fact depends on $\mu_i$ through the softmax, so the full Hessian carries extra terms that vanish exactly at consensus and are $O(1)$ off-equilibrium. The mass is therefore exact at consensus and an approximation otherwise. A state-dependent generalization promotes the prior weight to $\alpha_i^*(c) = c_0/(b_0 + D_{\mathrm{KL}}(q_i\|p_i))$ (a Gamma-MAP self-coupling), rescaling only the prior block:
+The mass is evaluated under **frozen (mean-field) attention**: $\beta_{ik}$ in fact depends on $\mu_i$ through the softmax, so the full Hessian carries extra terms that vanish exactly at consensus and are $O(1)$ off-equilibrium. The mass is therefore exact at consensus and an approximation otherwise. A state-dependent generalization promotes the prior weight to $\alpha_i^*(c) = c_0/(b_0 + D_{\mathrm{KL}}(q_i\|p_i))$ (a Gamma-MAP self-coupling, with shape $c_0+1$ and rate $b_0$), rescaling the prior block of the mass:
 
 $$
 M_i = \alpha_i^*\,\bar{\Lambda}_{p_i} + \Lambda_{o_i} + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k} + \sum_j \beta_{ji}\Lambda_{q_i}.
 $$
 
-Letting $\alpha_i^*$ co-move with the belief inside the second variation adds a *negative* rank-one correction $-\tfrac{(\alpha_i^*)^2}{c_0}(\bar{\Lambda}_{p_i}\Delta\mu_i)(\bar{\Lambda}_{p_i}\Delta\mu_i)^\top$ that can make the mass indefinite; the model adopts the detached, quasi-static convention to keep the kinetic energy bounded below.
+Because $\alpha_i^*$ weights the *entire* self-coupling divergence $\alpha_i D_{\mathrm{KL}}(q_i\|p_i)$, it rescales the prior contribution in **both** sectors of the mass, not only the mean sector: the leading unit coefficient of the covariance-sector block becomes $\alpha_i^*$ as well,
+
+$$
+[\mathbf{M}^\Sigma]_{ii} = \tfrac12(\Lambda_{q_i}\otimes\Lambda_{q_i})\,\big(\alpha_i^* + \textstyle\sum_k\beta_{ik} + \sum_j\beta_{ji}\big).
+$$
+
+Letting $\alpha_i^*$ co-move with the belief inside the second variation adds a *negative* rank-one correction $-\tfrac{(\alpha_i^*)^2}{c_0}(\bar{\Lambda}_{p_i}\Delta\mu_i)(\bar{\Lambda}_{p_i}\Delta\mu_i)^\top$ that can make the mass indefinite; the model adopts the detached, quasi-static convention to keep the kinetic energy bounded below. The regularizer $R(\alpha_i)=b_0\alpha_i - c_0\log\alpha_i$ buys a wider positive-definite window: at matched covariance the prior block stays PD until $D_{\mathrm{KL}} = b_0$, whereas differentiating the bare product $\alpha_i^* D_{\mathrm{KL}}$ alone loses it already at $D_{\mathrm{KL}} = b_0/3$.
+
+> [!note] Editorial:
+> **Two force conventions across the manuscripts.** [[belief-inertia]] reports the *envelope* force $\alpha_i^*\nabla D_{\mathrm{KL}}$ — the gradient of the reduced self-energy $\alpha_i^* D_{\mathrm{KL}} + R(\alpha_i^*)$ — whereas the companion [[gl-k-attention]] differentiates the bare weighted divergence $\alpha_i^* D_{\mathrm{KL}}$ alone and reports the prefactor $(\alpha_i^*)^2 b_0/c_0$. The two are *not* in conflict: $(\alpha_i^*)^2 b_0/c_0 = \partial_{D_{\mathrm{KL}}}(\alpha_i^* D_{\mathrm{KL}})$ is the same quantity computed against a different objective, and they agree on the dynamics.
+>
+> **Verification (2026-06-21 deep-review pass).** All six $\alpha_i^*$ identities — the stationary form, the Gamma-MAP shape/rate, the envelope-gradient cancellation, the detached mass, the rank-one correction, and both PD thresholds ($b_0$ vs $b_0/3$) — were recomputed symbolically to machine zero, matching the companion-paper ledger. The pass also closed a consistency gap: the manuscript now carries the symbol $\alpha_i$ explicitly through the headline free energy and the full appendix mass derivation (the boxed forms previously fixed $\alpha_i=1$ silently), so the state-dependent section specializes the master result by the single substitution $\bar{\Lambda}_{p_i}\to\alpha_i^*\bar{\Lambda}_{p_i}$ rather than re-deriving it.
 
 ## In this work
 
 - **Manuscript.** [[belief-inertia]] develops the construction in full: the section "Mass as Fisher Information: The Complete Derivation" gives the four-term Hessian, the boxed mass formula $M_i = \bar{\Lambda}_{p_i} + \Lambda_{o_i} + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k} + \sum_j \beta_{ji}\Lambda_{q_i}$, the Hessian-vs-Fisher-Rao distinction, the "Hamiltonian as ansatz" caveat, and the state-dependent self-coupling generalization. The mass feeds the Fisher arc-length clock, the kinetic energy $T = \tfrac12\dot{\mu}^\top M\dot{\mu}$, and the overshoot law $d_{\text{overshoot}} = |\dot{\mu}_i|\sqrt{M_i/K_i}$.
-- **Code.** `gauge_agent/mass.py` implements the tensor. The `MassMatrix` module computes `effective_mass_diagonal` (the four-term Eq. 37 diagonal), `off_diagonal_mass` / `full_block` (the full $N\!\cdot\!K \times N\!\cdot\!K$ mean-sector block with the contravariant $\Omega^{-\top}\Lambda\,\Omega^{-1}$ transport), `full_block_gridded` (per-base-point mass), `kinetic_energy`, `scalar_mass` (= $\mathrm{tr}(M_i)$), and the covariance-sector mass $[M_{\Sigma\Sigma}]_{ii} = \tfrac12(\Lambda_{q_i}\!\otimes\!\Lambda_{q_i})\,f_i$ with $f_i = 1 + \sum_k\beta_{ik} + \sum_j\beta_{ji}$. Precisions and gauge frames are read with `.detach()` / `.omega.data` because the mass is a frozen preconditioner under the envelope convention. The opt-in `adaptive_precision` flag rescales only the prior block by $\alpha_i^*$. `InformationGeometricMass.mass_precision_correlation` validates the mass–precision correspondence (separating the honest *relational* statistic from the self-correlated total). `ouroboros_effective_mass` exposes a distinct timescale-separation inertia $M_{\text{eff}} = 2/(\varepsilon\eta^2\Lambda_m)$ for the [[Ouroboros multi-scale dynamics]] convention — kept independent from the Hessian/spring-constant object.
+- **Code.** `gauge_agent/mass.py` implements the tensor. The `MassMatrix` module computes `effective_mass_diagonal` (the four-term Eq. 37 diagonal), `off_diagonal_mass` / `full_block` (the full $N\!\cdot\!K \times N\!\cdot\!K$ mean-sector block with the contravariant $\Omega^{-\top}\Lambda\,\Omega^{-1}$ transport), `full_block_gridded` (per-base-point mass), `kinetic_energy`, `scalar_mass` (= $\mathrm{tr}(M_i)$), and the covariance-sector mass $[M_{\Sigma\Sigma}]_{ii} = \tfrac12(\Lambda_{q_i}\!\otimes\!\Lambda_{q_i})\,f_i$ with $f_i = 1 + \sum_k\beta_{ik} + \sum_j\beta_{ji}$. Precisions and gauge frames are read with `.detach()` / `.omega.data` because the mass is a frozen preconditioner under the envelope convention. The opt-in `adaptive_precision` flag rescales the (mean-sector) prior block by $\alpha_i^*$; the parallel covariance-sector rescaling $1\to\alpha_i^*$ in $f_i$ is the theory completion noted under *Mean-field validity and adaptive precision* above. `InformationGeometricMass.mass_precision_correlation` validates the mass–precision correspondence (separating the honest *relational* statistic from the self-correlated total). `ouroboros_effective_mass` exposes a distinct timescale-separation inertia $M_{\text{eff}} = 2/(\varepsilon\eta^2\Lambda_m)$ for the [[Ouroboros multi-scale dynamics]] convention — kept independent from the Hessian/spring-constant object.
 - **Related model concepts.** The mass is the backbone of [[Belief inertia]] and [[Hamiltonian belief dynamics]]; it is built from gauge transport of beliefs ([[Agents as fibre-bundle sections]]) and the softmax attention of [[Multi-agent variational free energy]]. The companion [[meta-entropy-manuscript]] manuscript and the [[gl-k-attention]] / [[participatory-it-from-bit]] line carry the same $\mathrm{GL}(K)$ gauge and precision-weighting machinery.
 
 ## Sources
