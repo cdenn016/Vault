@@ -5,7 +5,6 @@ aliases:
   - "recurrentnetworks"
   - "RNN"
 tags:
-  - cluster/cs-ml
   - cluster/attention
   - project/transformer
 status: stub

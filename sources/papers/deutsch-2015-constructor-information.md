@@ -2,14 +2,18 @@
 type: paper
 title: "Constructor Theory of Information"
 aliases:
-  - "Deutsch 2015"
-  - "Constructor Information Theory"
+  - Deutsch 2015
+  - Constructor Information Theory
+  - deutsch-marletto-2015-constructor-information
+  - Deutsch & Marletto 2015
+  - Constructor theory
+  - Information constructor theory
 authors:
   - Deutsch, David
   - Marletto, Chiara
 year: 2015
 arxiv: "1405.5563"
-url: https://doi.org/10.1098/rspa.2015.0478
+url: https://doi.org/10.1098/rspa.2014.0540
 tags:
   - cluster/participatory/quantum-foundations
   - cluster/participatory/philosophy-of-mind
@@ -25,7 +29,7 @@ updated: 2026-06-20
 # Constructor Theory of Information
 
 > [!info] Citation
-> Deutsch, D. & Marletto, C. (2015). "Constructor Theory of Information." *Proceedings of the Royal Society A*, 471(2174), 20150478. https://doi.org/10.1098/rspa.2015.0478
+> Deutsch, D. & Marletto, C. (2015). "Constructor Theory of Information." *Proceedings of the Royal Society A*, 471(2174), 20140540. https://doi.org/10.1098/rspa.2014.0540
 
 ## TL;DR
 Deutsch and Marletto reformulate information theory entirely in constructor-theoretic terms — specifying which physical transformations are possible or impossible rather than reasoning about probabilities or initial conditions. The framework resolves the foundational circularity in Shannon's theory (distinguishability defined in terms of information, and vice versa) by grounding information in constructor-theoretic computation and cloning primitives. It reveals that quantum information is an instance of a more general concept, "superinformation," characterized by the impossibility of certain cloning tasks.
@@ -53,9 +57,12 @@ Five conjectured physical principles (I–VII in the paper) govern information: 
 ## Relevance to this research
 Constructor theory's reformulation of information as "which transformations are possible/impossible" is philosophically adjacent to the participatory-realism and "it from bit" tradition explored in the PIFB manuscript and the broader VFE research program. The constructor-theoretic notion of an *information variable* (a clonable computation variable) provides a rigorous substrate-independent counterpart to the belief-state variables $(μ, Σ, φ)$ that the VFE transformer manipulates. The substrate-independence and interoperability principles mirror the gauge-equivariance requirements of the GL(K) attention mechanism — information structure is preserved under the group action just as constructor-theoretic information is preserved under medium changes. The impossibility-based definition of distinguishability resonates with the KL-divergence geometry of belief coupling: two beliefs are "distinguishable" exactly to the degree that the VFE cost of transporting one to the other is large. The superinformation/quantum-information connection is relevant to any extension of the VFE framework toward quantum substrates.
 
+> [!note] Why the project cites it — the *contrast class* (from manuscript-citation note)
+> Constructor theory is the contrast class the project explicitly defines itself against. Both programs are "information-first," but they differ sharply on what grounds information: Deutsch and Marletto ground it in *objective, agent-independent* possibility/impossibility facts about physical transformations, whereas [[participatory-it-from-bit]] grounds objectivity in *consensus among coupled agents* — information is fundamentally perspectival, and shared structure is an achievement of inter-agent [[Parallel transport]] rather than a pre-given physical invariant. Citing Deutsch–Marletto lets the manuscript stake out its participatory position: it accepts the "it from bit" priority of information ([[wheeler-1990-it-from-bit]]) but rejects locating information in observer-independent physical possibility, siding instead with relational and QBist accounts ([[rovelli-1996-relational-qm]], [[fuchs-2014-qbism]], [[adlam-rovelli-2022-cross-perspective]]), with [[Holonomy]] measuring where that construction fails to globalize.
+
 ## Cross-links
-- Concepts: [[Participatory Realism]], [[It from Bit]], [[Information Geometry]], [[Gauge Equivariance]], [[VFE Functional]]
-- Related sources: [[wheeler-1989-it-from-bit]], [[marletto-2021-constructor-reality]]
+- Concepts: [[Participatory Realism]], [[It from Bit]], [[Information Geometry]], [[Gauge Equivariance]], [[VFE Functional]], [[Parallel transport]], [[Holonomy]], [[Agents as fibre-bundle sections]], [[Participatory realism (it from bit)]]
+- Related sources: [[wheeler-1989-it-from-bit]], [[wheeler-1990-it-from-bit]], [[marletto-2021-constructor-reality]], [[rovelli-1996-relational-qm]], [[fuchs-2014-qbism]], [[adlam-rovelli-2022-cross-perspective]]
 - Manuscript/Project: [[PIFB]], [[VFE Transformer Program]], [[GL(K) Attention]]
 
 ## BibTeX
@@ -66,8 +73,8 @@ Constructor theory's reformulation of information as "which transformations are 
   journal = {Proceedings of the Royal Society A},
   volume  = {471},
   number  = {2174},
-  pages   = {20150478},
+  pages   = {20140540},
   year    = {2015},
-  doi     = {10.1098/rspa.2015.0478},
+  doi     = {10.1098/rspa.2014.0540},
 }
 ```

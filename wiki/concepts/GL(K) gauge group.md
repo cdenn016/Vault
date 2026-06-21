@@ -4,21 +4,99 @@ title: "GL(K) gauge group"
 aliases:
   - "glkgaugegroup"
   - "GL(K) group"
+  - "General linear gauge group"
+  - "GL(K,R)"
+  - "GL+(K)"
 tags:
   - cluster/gauge-theory
-  - cluster/attention
+  - cluster/spd-geometry
   - project/transformer
-status: stub
+  - project/multi-agent
+status: draft
 created: 2026-06-21
 updated: 2026-06-21
 ---
 
 # GL(K) gauge group
 
-The general linear group GL(K) of invertible K×K real matrices is the structure (gauge) group of the GL(K)-attention manuscript: each token carries a feature frame that is acted on by GL(K) change-of-basis transformations, and attention is required to transform covariantly (equivariantly) under this group. Gauging GL(K) introduces a connection whose holonomy encodes how frames are parallel-transported between tokens, generalizing fixed positional structure to a learned, geometry-aware transport. The relevant homogeneous space is the symmetric space GL(K)/O(K), which is isomorphic to the SPD cone, linking the gauge group to the covariance/precision geometry of the program.
+## Definition
 
-## Related
-[[Gauge transformation]], [[Group equivariance]], [[Symmetric spaces and the SPD cone]], [[Holonomy]], [[Parallel transport]], [[Irreducible representation]]
+The **general linear group** $\mathrm{GL}(K,\mathbb{R})$ is the group of invertible $K\times K$ real matrices under multiplication. In the gauge-theoretic variational-free-energy program it is the **structure (gauge) group** of the belief bundle: each token carries an internal $K$-dimensional feature frame, and $\mathrm{GL}(K)$ is the group of admissible *change-of-frame* maps acting on that frame. Because the model never commits to a canonical frame, a frame may be chosen independently at each token — a *position-dependent* (local) group element $g(x)\in\mathrm{GL}(K)$ — which is exactly the defining move of a [[Gauge transformation]]. The set of all such assignments $x\mapsto g(x)$ is the gauge group; demanding that the free-energy objective and predictions be invariant under it is what makes the architecture *gauge-theoretic* ([[gl-k-attention|GL(K) attention manuscript]], [[bronstein-2021-geometric-deep-learning]]).
+
+The program works with the **identity component** $\mathrm{GL}^+(K)=\{g:\det g>0\}$, the orientation-preserving invertible maps. This is forced by the frame parameterization: gauge elements are generated as $g=\exp(\phi)$ from a matrix $\phi$ in the Lie algebra, and the matrix exponential always lands in the identity component ($\det\exp(\phi)=e^{\operatorname{tr}\phi}>0$). The gauge invariance of the divergence terms, however, is broader: the manuscript's $\mathrm{GL}(K)$ invariance theorem (below) holds for *any* $\det\Omega\neq0$, so the full $\mathrm{GL}(K)$ — both orientation components — acts as a symmetry of the inference, while the $\exp(\phi)$ parameterization realizes only $\mathrm{GL}^+(K)$ ([[gl-k-attention|GL(K) attention manuscript]]).
+
+### The Lie algebra gl(k)
+
+The **Lie algebra** $\mathfrak{gl}(K)$ is the tangent space to $\mathrm{GL}(K)$ at the identity: *all* $K\times K$ real matrices (no invertibility constraint), equipped with the matrix commutator $[\phi_1,\phi_2]=\phi_1\phi_2-\phi_2\phi_1$ as its Lie bracket. The exponential map $\exp:\mathfrak{gl}(K)\to\mathrm{GL}^+(K)$ recovers a group element from an algebra element, and is the device that lets the model carry gauge parameters in the *unconstrained, differentiable* coordinates $\phi$ rather than on the curved group manifold ([[hall-2015-lie-groups]], [[Gauge transformation]]). Because two gauge elements compose as
+$$
+\exp(\phi_1)\exp(\phi_2)=\exp\!\Big(\phi_1+\phi_2+\tfrac12[\phi_1,\phi_2]+\cdots\Big),
+$$
+composing transformations directly in the algebra requires the [[Baker-Campbell-Hausdorff formula|Baker–Campbell–Hausdorff]] series, truncated to finite order in practice — the rule the program uses both to retract gauge updates and to compose positional gauges ([[gl-k-attention|GL(K) attention manuscript]], [[Gauge transformation]]). The algebra carries a natural invariant inner product, the [[Killing form]], used to precondition gauge updates so that learning respects the symmetry rather than fighting it.
+
+> [!note] Editorial: $\mathfrak{gl}(K)$ is the *full* matrix algebra precisely because $\mathrm{GL}^+(K)$ is open in $\mathbb{R}^{K\times K}$ — its tangent space at $I$ is the whole ambient space. This is what distinguishes $\mathfrak{gl}(K)$ from the constrained algebras (skew-symmetric $\mathfrak{so}(K)$, traceless $\mathfrak{sl}(K)$) of the compact/special subgroups, and is why the unconstrained $\phi$ parameterization is available without projection.
+
+## The quotient GL(K)/O(K) and the SPD cone
+
+The single most load-bearing fact connecting the gauge group to the rest of the program is the homogeneous-space identification
+$$
+\mathrm{SPD}(K)\;\cong\;\mathrm{GL}(K,\mathbb{R})/O(K)\;\cong\;\mathrm{GL}^+(K)/SO(K),
+$$
+where $\mathrm{SPD}(K)$ is the cone of symmetric positive-definite $K\times K$ matrices — the space the program's belief **covariances** $\Sigma$ live in. This realizes the SPD cone as a **Riemannian symmetric space of noncompact type**: $\mathrm{GL}(K)$ acts transitively on the cone by the **congruence (sandwich) action** $\Sigma\mapsto M\,\Sigma\,M^{\top}$, the orbit of the identity $I$ is the whole cone, and the *stabilizer* of $I$ is the orthogonal group $O(K)$ (since $M\,I\,M^{\top}=I\iff M\in O(K)$). Quotienting the group by that stabilizer therefore gives the cone ([[Symmetric spaces and the SPD cone]], [[helgason-1978-symmetric-spaces]], [[pennec-2006-affine-invariant-tensor]]).
+
+This is the source of three structural facts the program uses for free, rather than imposing by hand:
+
+- **The covariance geometry falls out of group structure.** The invariant Riemannian metric on the quotient $\mathrm{GL}(K)/O(K)$ is exactly the **affine-invariant metric** $\langle A,B\rangle_\Sigma=\operatorname{tr}(\Sigma^{-1}A\,\Sigma^{-1}B)$ on the cone, with matrix-exp/log geodesics through the $\Sigma^{1/2}$-sandwich and nonpositive curvature ([[pennec-2006-affine-invariant-tensor]], [[bhatia-2007-positive-definite-matrices]]). Congruence invariance and nonpositive curvature are consequences of the quotient, not accidents of a metric choice ([[Symmetric spaces and the SPD cone]]).
+- **Frames and covariances are acted on by the *same* group.** A gauge frame $\phi$ lives in $\mathfrak{gl}(K)$ and a covariance $\Sigma$ lives on the cone; the very group whose left action realizes a frame change acts on covariances by congruence. The gauge action on a belief's covariance is therefore the sandwich $\Sigma\mapsto g\,\Sigma\,g^{\top}$, which preserves positive-definiteness ([[Gauge transformation]], [[Symmetric spaces and the SPD cone]]).
+- **The Cartan decomposition separates rotation from scale.** The algebra splits as $\mathfrak{gl}(K)=\mathfrak{o}(K)\oplus\mathrm{Sym}(K)$ — antisymmetric matrices (the compact $\mathfrak{k}$, which fix $\Sigma=I$) plus symmetric matrices (the directions $\mathfrak{p}$ that move along the cone). Geodesics on the cone are one-parameter subgroups exponentiated through $\mathfrak{p}$ ([[Symmetric spaces and the SPD cone]], [[Killing form]]).
+
+## Key results
+
+**The congruence action is well-posed.** Two elementary matrix-analysis lemmas make $\Sigma\mapsto M\Sigma M^{\top}$ usable: by **Sylvester's law of inertia**, congruence preserves positive-definiteness, so a transported covariance is still a valid covariance; and congruence scales the determinant by $(\det M)^2$ ([[horn-johnson-2013-matrix-analysis]]). The latter is the identity invoked whenever a Gaussian normalization transforms under a gauge change.
+
+**$\mathrm{GL}(K)$ gauge invariance of the divergence.** The manuscript proves that for Gaussians $P,Q$ on $\mathbb{R}^K$ and any $\Omega\in\mathrm{GL}(K)$,
+$$
+D_{\mathrm{KL}}\!\left(\Omega_*P\,\|\,\Omega_*Q\right)=D_{\mathrm{KL}}\!\left(P\,\|\,Q\right),
+$$
+because the $(\det\Omega)^2$ Jacobian factors cancel identically; the result extends to all $f$-divergences, so a transport map need only satisfy $\det\Omega\neq0$ for the full $\mathrm{GL}(K)$ to act as a gauge symmetry of the inference ([[gl-k-attention|GL(K) attention manuscript]]). This is the formal guarantee that attention scores — built from KL divergences between transported beliefs — are invariant to local frame choice, the property that earns the name "gauge."
+
+**Vertex-frame transport has trivially vanishing holonomy.** The program's standard transport between tokens $i$ and $j$ factorizes through the gauge frames as $\Omega_{ij}=\exp(\phi_i)\exp(-\phi_j)$, which satisfies the cocycle identity $\Omega_{ij}\Omega_{jk}\Omega_{ki}=I$ as an algebraic identity. The resulting connection is therefore **flat**: its reconstructed [[Holonomy]] around any loop vanishes, placing both the gauge transformer and standard transformers in a flat-bundle regime. A relaxed extension $\Omega_{ij}=\exp(\phi_i)\exp(\delta_{ij}G)\exp(-\phi_j)$ promotes the bundle to nontrivial holonomy, reserved for the companion work ([[gl-k-attention|GL(K) attention manuscript]], [[Parallel transport]], [[Holonomy]]).
+
+**No bi-invariant metric on the frame group.** Unlike the covariance side, where the cone inherits a canonical invariant metric from the quotient, the *frame* group $\mathrm{GL}^+(K)$ is noncompact and non-abelian and so — by Milnor's theorem — admits **no bi-invariant metric** ([[milnor-1976-left-invariant-metrics]]). The clean symmetric-space structure on the covariance side has no automatic counterpart on the frame side, which is why the choice of inner product on $\mathfrak{gl}(K)$ (e.g. the Killing-form preconditioner) is a genuine modeling decision rather than a foregone conclusion.
+
+## Relevance to this research
+
+$\mathrm{GL}(K)$ is the organizing symmetry of the entire VFE attention architecture. The [[gl-k-attention|GL(K) attention manuscript]] derives transformer attention as variational inference on a principal $\mathrm{GL}^+(K)$-bundle with statistical-manifold fibers: each token is a Gaussian "agent" $q_i=\mathcal{N}(\mu_i,\Sigma_i)$ (see [[Gaussian Beliefs]]), its belief is parallel-transported to a neighbor via a $\mathrm{GL}(K)$ gauge map $\Omega_{ij}$, and the attention weight $\beta_{ij}=\operatorname{softmax}_j(-D_{\mathrm{KL}}[q_i\|\Omega_{ij}q_j]/\tau)$ falls out of minimizing the free energy. Standard dot-product attention is recovered as the isotropic, flat-bundle, constant-gauge **degenerate limit** of this gauge-theoretic rule ([[GL(K) gauge-equivariant attention]], [[Variational free energy]]). The agents-as-sections and bundle scaffolding are catalogued in [[Agents as fibre-bundle sections]] and [[Fibre Bundle]].
+
+The choice of $\mathrm{GL}(K)$ as the structure group is consequential precisely *because* of the quotient $\mathrm{GL}(K)/O(K)\cong\mathrm{SPD}(K)$: it is what lets a single group simultaneously (i) rotate token frames as a gauge symmetry and (ii) act on belief covariances by congruence along the SPD cone, unifying the frame geometry and the covariance geometry under one Lie group. The natural-gradient training dynamics on these fibers are governed by the [[Fisher information metric]] and the [[Natural gradient]], the statistical counterpart of gauge/reparameterization invariance ([[Gauge transformation]], [[amari-1998-natural-gradient]]). The reading of belief dynamics as a gauge theory more broadly — local frame choices as gauge, transport as a connection, holonomy as path-dependent belief change — is developed in [[Gauge Theory]] and has direct precedent in the neuronal-gauge-theory program of [[sengupta2017gauge]] and [[sengupta-2016-neuronal-gauge]]. The nearest prior art for SPD-valued self-attention is [[wang-2023-riemannian-self-attention-spd]].
 
 ## Sources
-[[hewitt-2019-structural-probe]]
+
+- [[gl-k-attention|GL(K) attention manuscript]] — the canonical source: $\mathrm{GL}(K)$ as structure group of the belief bundle, the $\mathrm{GL}(K)$ invariance theorem for KL/$f$-divergences, the $\exp(\phi)$ frame parameterization restricting to $\mathrm{GL}^+(K)$, and the vertex-frame transport / vanishing-holonomy lemma.
+- [[Symmetric spaces and the SPD cone]] — the quotient $\mathrm{GL}(K)/O(K)\cong\mathrm{SPD}(K)$, the congruence action with $O(K)$ stabilizer, the Cartan decomposition, and the affine-invariant metric.
+- [[helgason-1978-symmetric-spaces]] — canonical reference for symmetric spaces $G/K$ and the identification of the SPD cone with the noncompact $\mathrm{GL}(K)/O(K)$.
+- [[pennec-2006-affine-invariant-tensor]] — the affine-invariant metric as the invariant Riemannian structure of the cone, on which the gauge congruence acts.
+- [[bhatia-2007-positive-definite-matrices]] — SPD geometry: geodesics, geodesic distance, geometric mean.
+- [[horn-johnson-2013-matrix-analysis]] — Sylvester's law of inertia (congruence preserves definiteness) and the $(\det M)^2$ determinant-under-sandwich identity.
+- [[hall-2015-lie-groups]] — matrix Lie groups, the $\mathfrak{gl}(K)$ Lie algebra, the exponential map, and the Lie-algebra correspondence.
+- [[milnor-1976-left-invariant-metrics]] — no bi-invariant metric on the noncompact non-abelian frame group $\mathrm{GL}^+(K)$.
+- [[bronstein-2021-geometric-deep-learning]] — gauges and local frame equivariance as a unifying blueprint for deep nets.
+- [[sengupta2017gauge]], [[sengupta-2016-neuronal-gauge]] — neuronal-gauge-theory precedent: approximate Bayesian inference as a gauge theory.
+- [[wang-2023-riemannian-self-attention-spd]] — nearest SPD-valued self-attention prior art.
+
+## See also
+
+- [[Gauge transformation]]
+- [[Gauge Theory]]
+- [[GL(K) gauge-equivariant attention]]
+- [[Symmetric spaces and the SPD cone]]
+- [[SPD-manifold geometry and Riemannian optimization]]
+- [[Killing form]]
+- [[Baker-Campbell-Hausdorff formula]]
+- [[Holonomy]]
+- [[Parallel transport]]
+- [[Group equivariance]]
+- [[Irreducible representation]]
+- [[Fisher information metric]]
+- [[Natural gradient]]
+- [[VFE Transformer Program]]
+- [[Gauge-Theoretic Multi-Agent VFE Model]]

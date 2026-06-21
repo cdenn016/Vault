@@ -2,9 +2,11 @@
 type: paper
 title: "DEM: A variational treatment of dynamic systems"
 aliases:
-  - "Friston 2008"
-  - "DEM"
-  - "Dynamic Expectation Maximisation"
+  - Friston 2008
+  - DEM
+  - Dynamic Expectation Maximisation
+  - Friston 2008 DEM
+  - Friston (2008) DEM
 authors:
   - Friston, Karl J.
   - Trujillo-Barreto, Nelson
@@ -26,7 +28,9 @@ updated: 2026-06-20
 # DEM: A variational treatment of dynamic systems
 
 > [!info] Citation
-> Friston, K.J., Trujillo-Barreto, N., & Daunizeau, J. (2008). "DEM: A variational treatment of dynamic systems." NeuroImage, 41, 849–885. https://doi.org/10.1016/j.neuroimage.2008.02.054
+> Friston, K.J., Trujillo-Barreto, N., & Daunizeau, J. (2008). "DEM: A variational treatment of dynamic systems." *NeuroImage*, 41(3), 849–885. https://doi.org/10.1016/j.neuroimage.2008.02.054
+
+> [!note] Editorial: disambiguation — the "Friston 2008 DEM" citation resolves to *this* DEM (Dynamic Expectation Maximization) paper, *NeuroImage* 41(3):849–885, and is distinct from the separately-citable "Hierarchical models in the brain" (Friston, *PLoS Comput. Biol.* 2008). Confirm the manuscript cites the intended one.
 
 ## TL;DR
 This paper introduces Dynamic Expectation Maximisation (DEM), a variational scheme for inverting nonlinear dynamic causal models formulated as differential equations. The method maximises a variational action (path-integral of free-energy) with respect to conditional densities on trajectories of states and time-invariant densities on parameters and hyperparameters, under a Laplace (Gaussian) fixed-form approximation. By working in generalised coordinates of motion, DEM supports online Bayesian inversion and is shown to outperform Kalman and particle filtering while simultaneously supporting dual and triple inference on states, parameters, and hyperparameters.
@@ -52,8 +56,8 @@ DEM (with embedding order $n=6$) accurately recovers the conditional trajectory 
 DEM is the foundational algorithmic realisation of the free-energy principle for dynamical systems and is directly ancestral to the VFE transformer. Key connections: (1) the free-energy $F = \langle U \rangle_q + H[q]$ is the same functional minimised in the VFE transformer's E-step, with the Laplace approximation giving Gaussian belief tuples $(\mu, \Sigma)$; (2) the hierarchical structure $h \to s \to p \to q \to o$ of the VFE transformer mirrors DEM's HDM with empirical priors at each level; (3) the D-step's prediction-error-driven update in generalised coordinates is the continuous-time counterpart of the transformer's attention-weighted belief propagation; (4) the mean-field partition of parameters into states/parameters/hyperparameters anticipates the VFE model's $(\mu, \Sigma, \phi)$ tuple with hyper-prior $h$ and model-level $s$; (5) the variational action path-integral framework connects to the active inference / FEP literature directly relevant to the multi-agent model.
 
 ## Cross-links
-- Concepts: [[Variational Free Energy]], [[Generalised Coordinates]], [[Active Inference]], [[Laplace Approximation]], [[Expectation Maximisation]]
-- Related sources: [[friston-2005-fep]], [[friston-2010-fep-unified]]
+- Concepts: [[Variational Free Energy]], [[Generalised Coordinates]], [[Active Inference]], [[Laplace Approximation]], [[Expectation Maximisation]], [[Bayesian mechanics]], [[Hamiltonian belief dynamics]], [[Natural gradient]]
+- Related sources: [[friston-2005-fep]], [[friston-2010-fep-unified]], [[dacosta-2021-bayesian-mechanics]], [[ramstead-2023-bayesian-mechanics]]
 - Manuscript/Project: [[VFE Transformer Program]], [[MAgent Model]]
 
 ## BibTeX
@@ -63,8 +67,10 @@ DEM is the foundational algorithmic realisation of the free-energy principle for
   title   = {{DEM}: A variational treatment of dynamic systems},
   journal = {NeuroImage},
   volume  = {41},
+  number  = {3},
   pages   = {849--885},
   year    = {2008},
   doi     = {10.1016/j.neuroimage.2008.02.054},
+  publisher = {Elsevier},
 }
 ```

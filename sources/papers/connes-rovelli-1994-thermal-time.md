@@ -2,8 +2,9 @@
 type: paper
 title: "Von Neumann algebra automorphisms and time-thermodynamics relation in general covariant quantum theories"
 aliases:
-  - "Connes Rovelli 1994"
-  - "thermal time hypothesis"
+  - Connes Rovelli 1994
+  - thermal time hypothesis
+  - Connes & Rovelli 1994
 authors:
   - Connes, Alain
   - Rovelli, Carlo
@@ -24,7 +25,7 @@ updated: 2026-06-20
 # Von Neumann algebra automorphisms and time-thermodynamics relation in general covariant quantum theories
 
 > [!info] Citation
-> Connes, A. & Rovelli, C. (1994). "Von Neumann algebra automorphisms and time-thermodynamics relation in general covariant quantum theories." arXiv:gr-qc/9406019.
+> Connes, A. & Rovelli, C. (1994). "Von Neumann algebra automorphisms and time–thermodynamics relation in generally covariant quantum theories." *Classical and Quantum Gravity*, 11(12), 2899–2917. DOI: [10.1088/0264-9381/11/12/007](https://doi.org/10.1088/0264-9381/11/12/007). Preprint: arXiv:gr-qc/9406019.
 
 ## TL;DR
 Connes and Rovelli propose the "thermal time hypothesis": in a generally covariant quantum theory, there is no preferred time flow, and physical time emerges from the thermodynamical state of the system via the Tomita-Takesaki modular automorphism group. Given any faithful state over a von Neumann algebra, the Tomita-Takesaki theorem defines a canonical one-parameter group of automorphisms (the modular group) that is postulated to be the physical time flow. The Cocycle Radon-Nikodym theorem further implies a state-independent canonical outer automorphism group intrinsic to the algebra itself.
@@ -48,17 +49,25 @@ The thermal time hypothesis is shown to reduce to standard Hamiltonian dynamics 
 The thermal time hypothesis directly informs the participatory realism / "it from bit" / consciousness-theoretic thread of the VFE research program. The identification of time flow with the modular automorphism of a thermal state resonates with the VFE framework's treatment of beliefs as thermodynamic states and free energy minimization as the dynamical principle — in both, thermodynamics and dynamics are unified through a state-dependent flow. The Tomita-Takesaki modular group is an operator-algebraic counterpart to the belief-geometry structures in SPD manifolds: a faithful state on a von Neumann algebra plays the role of a positive-definite covariance matrix $\Sigma$, and the modular operator $\Delta$ encodes the information geometry of that state. The state-independence of the outer automorphism group (via Cocycle Radon-Nikodym) parallels the gauge-invariance requirement in the GL(K) attention framework — the canonical "time" is the invariant structure independent of the choice of representative state, just as gauge-invariant quantities are independent of the choice of basis. The paper also anchors the philosophical claim in PIFB.tex that physical time is observer-relative and thermodynamically constituted — a participatory, relational view of time that underpins the theoretical motivations for the VFE active inference program.
 
 ## Cross-links
-- Concepts: [[Thermal Time Hypothesis]], [[Tomita-Takesaki Theorem]], [[Modular Automorphism]], [[KMS States]], [[Von Neumann Algebras]], [[Information Geometry]]
-- Related sources: [[rovelli-1996-relational-qm]], [[friston-2019-free-energy]]
-- Manuscript/Project: [[VFE Transformer Program]], [[PIFB manuscript]]
+- Concepts: [[Thermal Time Hypothesis]], [[Tomita-Takesaki Theorem]], [[Modular Automorphism]], [[KMS States]], [[Von Neumann Algebras]], [[Information Geometry]], [[Participatory realism (it from bit)]], [[Emergent spacetime and holography]]
+- Related sources: [[rovelli-1996-relational-qm]], [[friston-2019-free-energy]], [[page-wootters-1983]]
+- Manuscript/Project: [[VFE Transformer Program]], [[PIFB manuscript]], [[participatory-it-from-bit]]
+
+> [!note] Why the project cites it (observer-relative time cluster, from manuscript-citation note)
+> The thermal time hypothesis completes the program's *observer-relative time* cluster: time is the modular flow of the observer's state. It sits beside the relational reading of [[rovelli-1996-relational-qm]] and the observer-internal time of the Page–Wootters mechanism ([[page-wootters-1983]]) as the three pillars, reinforcing that "when/how things evolve" is a state-dependent, [[Variational free energy]]-driven inference notion within the [[Emergent spacetime and holography]] theme.
 
 ## BibTeX
 ```bibtex
 @article{ConnesRovelli1994,
   author  = {Connes, Alain and Rovelli, Carlo},
-  title   = {Von {N}eumann algebra automorphisms and time-thermodynamics relation
-             in general covariant quantum theories},
+  title   = {Von {N}eumann algebra automorphisms and time--thermodynamics relation
+             in generally covariant quantum theories},
+  journal = {Classical and Quantum Gravity},
   year    = {1994},
+  volume  = {11},
+  number  = {12},
+  pages   = {2899--2917},
+  doi     = {10.1088/0264-9381/11/12/007},
   eprint  = {gr-qc/9406019},
   archivePrefix = {arXiv},
   primaryClass  = {gr-qc},

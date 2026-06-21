@@ -19,7 +19,6 @@ url: https://arxiv.org/abs/2003.06413
 venue: "Physical Review Letters"
 tags:
   - cluster/gauge-theory
-  - cluster/cs-ml
   - project/transformer
   - field/physics
   - field/cs-ml

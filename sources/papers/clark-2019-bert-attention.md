@@ -2,8 +2,11 @@
 type: paper
 title: "What Does BERT Look At? An Analysis of BERT's Attention"
 aliases:
-  - "Clark 2019"
-  - "BERT attention analysis"
+  - Clark 2019
+  - BERT attention analysis
+  - clark2019does-bert-look
+  - Clark et al. 2019
+  - Clark (2019) BERT Attention
 authors:
   - Clark, Kevin
   - Khandelwal, Urvashi
@@ -15,8 +18,9 @@ url: https://arxiv.org/abs/1906.04341
 tags:
   - cluster/attention
   - project/transformer
+  - project/multi-agent
   - field/cs-ml
-  - field/linguistics
+  - field/neuroscience
 status: stable
 created: 2026-06-20
 updated: 2026-06-20
@@ -25,7 +29,7 @@ updated: 2026-06-20
 # What Does BERT Look At? An Analysis of BERT's Attention
 
 > [!info] Citation
-> Clark, K., Khandelwal, U., Levy, O., & Manning, C. D. (2019). "What Does BERT Look At? An Analysis of BERT's Attention." arXiv:1906.04341.
+> Clark, K., Khandelwal, U., Levy, O., & Manning, C. D. (2019). "What Does BERT Look At? An Analysis of BERT's Attention." In *Proceedings of the 2019 ACL Workshop BlackboxNLP: Analyzing and Interpreting Neural Networks for NLP*. arXiv:1906.04341.
 
 ## TL;DR
 This paper provides a systematic empirical analysis of the 144 attention heads in BERT-base, revealing that attention heads exhibit structured surface-level behaviors (attending to delimiter tokens, fixed positional offsets, or diffusely over the sentence) as well as linguistically meaningful specializations corresponding to syntactic dependency relations and coreference. An attention-based probing classifier combining BERT attention maps with GloVe embeddings achieves 77 UAS on dependency parsing, demonstrating that substantial syntactic knowledge is encoded in the attention mechanism itself — not merely in the hidden-state vectors.
@@ -59,10 +63,13 @@ $$p(i \mid j) \propto \exp\!\Bigl(\sum_{k=1}^n W_{k,:}(v_i \oplus v_j)\,\alpha^k
 ## Relevance to this research
 This paper is primarily empirical interpretability work on standard softmax attention (no gauge structure, no variational free energy), so it does not directly contribute mathematical content to the VFE/GL(K) program. Its relevance is as a reference point for what standard multi-head attention encodes and how it can be probed. Several connections are worth noting. First, the Jensen-Shannon divergence used to cluster heads is a natural information-geometric quantity closely related to the f-divergences (including KL) that appear throughout the VFE free-energy functional; the finding that within-layer heads cluster together resonates with the question of whether VFE attention heads also specialize by layer. Second, the "no-op" interpretation of high [SEP] attention — where a head routes attention to a dummy token when its specific function is not applicable — has a structural analogue in VFE attention: the beta_ij softmax weights are stationary points of F only when the attention-entropy term tau * beta_ij * log(beta_ij / pi_ij) is included, and degenerate attention (spiking to a single token) corresponds to a particular regime of that entropy balance. Third, the probing methodology (treating attention weights as zero-parameter classifiers of relational structure) is a useful empirical template for evaluating whether GL(K) gauge-equivariant heads specialize to structured relational patterns in the same way that BERT heads specialize to syntactic relations.
 
+> [!note] Why the project cites it (parse-completeness foil, from manuscript-citation note)
+> Clark et al. is the **attention-tracks-dependency foil** for PIFB's parse-completeness conjecture. PIFB claims the belief representation comes to encode the syntactic structure needed for prediction; the strong form would have the coupling weights $\beta_{ij}$ themselves carry the parse. This paper is evidence base for *and* against that strong form: attention *does* reflect dependency relations head by head (supporting that $\beta_{ij}$ has linguistic content), while showing the signal is partial, head-specific, and confounded by delimiter attention (cautioning against reading a complete parse off the attention matrix). It pairs with the geometric probe of [[hewitt-manning-2019-structural-probe]] (syntax in the representation metric) to bracket the conjecture from both the weight side and the representation side. Organized under [[Mechanistic interpretability of attention]]; see also head specialization ([[voita-2019-multihead]]).
+
 ## Cross-links
-- Concepts: [[Attention Mechanism]], [[Multi-Head Attention]], [[Transformer Architecture]]
-- Related sources: [[vaswani-2017-attention]], [[devlin-2019-bert]]
-- Manuscript/Project: [[VFE Transformer Program]]
+- Concepts: [[Attention Mechanism]], [[Multi-Head Attention]], [[Transformer Architecture]], [[Probing Classifiers]], [[Syntactic Structure in Neural Networks]], [[Mechanistic interpretability of attention]]
+- Related sources: [[vaswani-2017-attention]], [[devlin-2019-bert]], [[hewitt-manning-2019-structural-probe]], [[voita-2019-multihead]]
+- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention Manuscript]]
 
 ## BibTeX
 ```bibtex

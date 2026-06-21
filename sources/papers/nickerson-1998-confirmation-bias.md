@@ -2,8 +2,9 @@
 type: paper
 title: "Confirmation Bias: A Ubiquitous Phenomenon in Many Guises"
 aliases:
-  - "Nickerson 1998"
-  - "confirmation bias"
+  - Nickerson 1998
+  - confirmation bias
+  - nickerson-1998-confirmation
 authors:
   - Nickerson, Raymond S.
 year: 1998
@@ -12,6 +13,7 @@ url: null
 tags:
   - cluster/social-physics/social-influence
   - project/social-physics
+  - project/multi-agent
   - field/psychology
   - field/sociology
 status: stable
@@ -22,7 +24,7 @@ updated: 2026-06-20
 # Confirmation Bias: A Ubiquitous Phenomenon in Many Guises
 
 > [!info] Citation
-> Nickerson, Raymond S. (1998). "Confirmation Bias: A Ubiquitous Phenomenon in Many Guises." *Review of General Psychology*, Vol. 2, No. 2, 175–220. Educational Publishing Foundation.
+> Nickerson, Raymond S. (1998). "Confirmation Bias: A Ubiquitous Phenomenon in Many Guises." *Review of General Psychology*, Vol. 2, No. 2, 175–220. Educational Publishing Foundation. DOI: [10.1037/1089-2680.2.2.175](https://doi.org/10.1037/1089-2680.2.2.175).
 
 ## TL;DR
 This comprehensive review surveys the empirical literature on confirmation bias — the tendency to seek, interpret, and recall evidence in ways that favor existing beliefs or hypotheses. Nickerson demonstrates that the bias operates across a wide spectrum of cognitive tasks including hypothesis testing, formal reasoning (Wason selection task), social judgment, and expert professional judgment, manifesting both when individuals have personal stakes in a belief and when they do not. The paper considers multiple theoretical explanations and discusses when the bias may be adaptive versus harmful.
@@ -40,9 +42,9 @@ Across a wide range of paradigms the following findings are reported consistentl
 Confirmation bias is directly relevant to the social-physics / opinion-dynamics strand of the VFE research program. In multi-agent active inference and variational social-influence models, agents update beliefs (posterior $q_i$) based on evidence and social coupling. Confirmation bias describes a systematic violation of optimal Bayesian updating: agents over-weight evidence consistent with the current belief state $\mu_i$ and under-weight disconfirming evidence, which in the VFE framework can be modeled as an asymmetric likelihood or a prior that is too heavily weighted relative to the free-energy observation term $-\mathbb{E}_q[\log p(o|x)]$. The primacy effect maps onto strong prior weighting or slow adaptation of $\mu_i$ after the first observations. Belief perseverance resembles a high self-coupling $\alpha \cdot KL(q_i \| p_i)$ where $p_i$ is anchored to the initial belief. Illusory correlation corresponds to spurious coupling terms $\beta_{ij}$ arising from matching heuristics rather than true statistical dependence. The failure to consider likelihood ratios is precisely the failure to use the full Bayesian update — connecting to discussions of approximate inference (variational vs. exact) in the manuscript. This paper provides empirical grounding for why social-influence models must model non-ideal agents, and why confirmation bias as a systematic deviation from free-energy minimization is worth formalizing.
 
 ## Cross-links
-- Concepts: [[Confirmation Bias]], [[Belief Updating]], [[Social Influence]], [[Opinion Dynamics]], [[Bayesian Reasoning]]
-- Related sources: [[lord-1979-biased-assimilation]], [[wason-1960-rule-discovery]]
-- Manuscript/Project: [[VFE Transformer Program]], [[MAgent Model]]
+- Concepts: [[Confirmation Bias]], [[Belief Updating]], [[Social Influence]], [[Opinion Dynamics]], [[Bayesian Reasoning]], [[Active Inference]], [[Variational Free Energy]], [[Belief perseverance and confirmation bias]], [[Belief inertia]], [[Echo chambers and polarization]], [[Sociophysics]], [[Bounded confidence]]
+- Related sources: [[lord-1979-biased-assimilation]], [[wason-1960-rule-discovery]], [[anderson-1980-belief-perseverance]], [[flache-2017-social-influence-models]], [[friedkin-johnsen-1990]], [[deffuant-2000-bounded-confidence]], [[hegselmann-krause-2002]]
+- Manuscript/Project: [[VFE Transformer Program]], [[MAgent Model]], [[SocialPhysics]], [[belief-inertia]]
 
 ## BibTeX
 ```bibtex
@@ -55,5 +57,6 @@ Confirmation bias is directly relevant to the social-physics / opinion-dynamics 
   number  = {2},
   pages   = {175--220},
   publisher = {Educational Publishing Foundation},
+  doi     = {10.1037/1089-2680.2.2.175},
 }
 ```

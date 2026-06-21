@@ -2,11 +2,13 @@
 type: paper
 title: "Variational Inference: A Review for Statisticians"
 aliases:
-  - "Blei 2017"
-  - "VI Review"
-  - "Variational Inference"
-  - "blei-2017-variational-inference-review"
-  - "blei2017variationalinferencereview"
+  - Blei 2017
+  - VI Review
+  - Variational Inference
+  - blei-2017-variational-inference-review
+  - blei2017variationalinferencereview
+  - Blei et al. 2017
+  - Blei (2017) Variational Inference Review
 authors:
   - Blei, David M.
   - Kucukelbir, Alp
@@ -52,9 +54,11 @@ The mean-field approximation cannot capture posterior correlations — by constr
 This paper is a foundational reference for the VFE transformer's core inference mechanism. The VFE free energy functional F is precisely an ELBO (up to sign and additional coupling terms): minimizing F over belief tuples (mu, Sigma, phi) is an instantiation of variational inference where the variational family is Gaussian with SPD covariance and the divergence measure is KL(q_i || p_i) for the self-coupling term and KL(q_i || Omega_ij * q_j) for the inter-token coupling terms. The CAVI structure directly motivates the iterative E-step / M-step structure in the VFE transformer: each layer performs one or more coordinate-ascent steps on the free energy. The mean-field factorization assumption (independent per-token beliefs) is exactly the structural prior behind the token-independent Gaussian belief tuples, and its known limitation — inability to capture posterior correlations — is precisely what the gauge-equivariant transport terms Omega_ij are designed to address by coupling beliefs across tokens. The underestimation of posterior variance by reverse-KL VI is a live concern for the GL(K) attention manuscript's discussion of the KL-to-prior decode versus the PriorBank pathway.
 
 ## Cross-links
-- Concepts: [[Variational Free Energy]], [[ELBO]], [[KL Divergence]], [[Mean-Field Approximation]]
-- Related sources: [[wainwright-2008-graphical]], [[hoffman-2013-svi]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]]
+- Concepts: [[Variational Free Energy]], [[ELBO]], [[KL Divergence]], [[Mean-Field Approximation]], [[Multi-agent variational free energy]]
+- Related sources: [[wainwright-2008-graphical]], [[hoffman-2013-svi]], [[friston-2010-free-energy-principle]]
+- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]], [[PIFB]], [[participatory-it-from-bit]]
+
+> [!note] Editorial: PIFB ([[participatory-it-from-bit]]) cites `blei2017variational` (alongside `Friston2010`) for the **standard correspondence between additive KL contributions and product priors** — the identity that lets the manuscript read its additive discounted-KL hyperprior $\sum_k \lambda_k \mathrm{KL}(q_i \| p_k)$ as a log-linear / product-of-experts prior.
 
 ## BibTeX
 ```bibtex
@@ -67,6 +71,8 @@ This paper is a foundational reference for the VFE transformer's core inference 
   pages   = {859--877},
   year    = {2017},
   doi     = {10.1080/01621459.2017.1285773},
-  note    = {arXiv:1601.00670 [stat.CO]},
+  eprint  = {1601.00670},
+  archivePrefix = {arXiv},
+  primaryClass  = {stat.CO},
 }
 ```

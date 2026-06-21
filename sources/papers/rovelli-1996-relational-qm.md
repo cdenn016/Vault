@@ -23,7 +23,7 @@ updated: 2026-06-20
 # Relational Quantum Mechanics
 
 > [!info] Citation
-> Rovelli, Carlo (1996). "Relational Quantum Mechanics." arXiv:quant-ph/9609002v2 (published in International Journal of Theoretical Physics, 35, 1637–1678, 1996).
+> Rovelli, Carlo (1996). "Relational Quantum Mechanics." *International Journal of Theoretical Physics* **35**(8), 1637–1678. DOI: [10.1007/BF02302261](https://doi.org/10.1007/BF02302261). Preprint: arXiv:quant-ph/9609002.
 
 ## TL;DR
 Rovelli argues that the measurement problem in quantum mechanics stems from an incorrect assumption — that physical quantities and system states have observer-independent, absolute values. By dropping this assumption in favor of purely relational states (a state is always a state *relative to* some other physical system), quantum mechanics becomes internally consistent and complete. The theory is then reformulated as a description of the information that physical systems have about each other, reconstructed from two postulates about bounded and inexhaustible information, plus a superposition principle.
@@ -51,9 +51,11 @@ The paper establishes: (1) the observer-dependence of quantum states is not a de
 Rovelli's relational quantum mechanics is a direct antecedent and philosophical grounding for the **participatory realism** and **"it from bit"** framework developed in the PIFB manuscript. The identification of physical reality with the information systems have about each other — with no privileged observer-independent description — maps directly onto the participatory ontology in which observation constitutes relational facts. The two postulates (bounded and inexhaustible information) are structurally analogous to the bounded capacity / new-information-from-interaction schema in active inference and variational free energy minimization, where a belief state is always relative to a model and updated by sensory interaction. The reconstruction of unitary dynamics from information-theoretic postulates (Postulate 3 and the consistency of inter-observer descriptions) has a counterpart in the gauge-theoretic VFE framework, where GL(K)-equivariant transport and the softmax attention distribution emerge as the unique self-consistent information-coupling under free energy minimization. The multi-agent extension of RQM — where each agent holds a distinct relative description, and inter-agent consistency is enforced only through physical interaction — is structurally isomorphic to the multi-agent active inference architecture in the MAgent model.
 
 ## Cross-links
-- Concepts: [[Participatory Realism]], [[It from Bit]], [[Relational Quantum Mechanics]], [[Information Geometry]]
-- Related sources: [[wheeler-1989-it-from-bit]], [[friston-2023-path-integrals-active-inference]], [[von-neumann-1932-mathematical-foundations]]
+- Concepts: [[Participatory Realism]], [[It from Bit]], [[Relational Quantum Mechanics]], [[Information Geometry]], [[Agents as fibre-bundle sections]], [[Parallel transport]], [[Holonomy]], [[Gauge transformation]], [[Multi-agent variational free energy]]
+- Related sources: [[wheeler-1989-it-from-bit]], [[wheeler-1990-it-from-bit]], [[fuchs-2014-qbism]], [[friston-2023-path-integrals-active-inference]], [[von-neumann-1932-mathematical-foundations]]
 - Manuscript/Project: [[PIFB]], [[VFE Transformer Program]], [[MAgent Model]]
+
+> [!note] Editorial: In the gauge-theoretic reading, agents are [[Agents as fibre-bundle sections]] whose beliefs are well-defined only relative to a local frame; comparing one agent's beliefs to another's requires [[Parallel transport]] along a connection, with the [[Holonomy]] measuring the failure of relational descriptions to agree globally under a [[Gauge transformation]]. Rovelli's "no view from nowhere" becomes precisely the statement that there is **no canonical global section**.
 
 ## BibTeX
 ```bibtex
@@ -63,7 +65,9 @@ Rovelli's relational quantum mechanics is a direct antecedent and philosophical 
   journal = {International Journal of Theoretical Physics},
   year    = {1996},
   volume  = {35},
+  number  = {8},
   pages   = {1637--1678},
+  doi     = {10.1007/BF02302261},
   archivePrefix = {arXiv},
   eprint  = {quant-ph/9609002},
 }

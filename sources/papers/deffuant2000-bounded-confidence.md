@@ -2,14 +2,17 @@
 type: paper
 title: "Mixing Beliefs Among Interacting Agents"
 aliases:
-  - "Deffuant 2000"
-  - "Deffuant–Weisbuch model"
-  - "DW model"
-  - "bounded confidence model"
-  - "deffuant2000-mixing"
-  - "deffuant2000mixing"
-  - "deffuant-2000-mixing"
-  - "deffuant-2000-mixing-beliefs"
+  - Deffuant 2000
+  - Deffuant–Weisbuch model
+  - DW model
+  - bounded confidence model
+  - deffuant2000-mixing
+  - deffuant2000mixing
+  - deffuant-2000-mixing
+  - deffuant-2000-mixing-beliefs
+  - deffuant-2000-bounded-confidence
+  - Deffuant et al. 2000
+  - Bounded confidence (Deffuant model)
 authors:
   - Deffuant, Guillaume
   - Neau, David
@@ -34,7 +37,7 @@ updated: 2026-06-20
 # Mixing Beliefs Among Interacting Agents
 
 > [!info] Citation
-> Deffuant, G., Neau, D., Amblard, F., & Weisbuch, G. (2001). "Mixing beliefs among interacting agents." *Advances in Complex Systems (ACS)*, 03(3), 11. https://doi.org/10.1142/S0219525900000078
+> Deffuant, G., Neau, D., Amblard, F., & Weisbuch, G. (2000). "Mixing beliefs among interacting agents." *Advances in Complex Systems (ACS)*, **3**(1n04), 87–98. https://doi.org/10.1142/S0219525900000078
 
 ## TL;DR
 
@@ -61,21 +64,24 @@ In complete mixing the maximum number of final opinion clusters scales as approx
 
 The DW model is a canonical example of belief-coupling dynamics that has direct structural parallels with the VFE transformer's attention mechanism. The bounded-confidence threshold corresponds to the VFE attention weight beta_ij: agents with large belief divergence KL(q_i || Omega_ij * q_j) contribute negligibly to the coupling sum, just as distant-opinion pairs in the DW model do not interact. The emergence of opinion clusters mirrors the formation of consensus modules in the multi-agent active inference framework. The self-amplifying density dynamics (peaks grow, valleys empty) is analogous to the free-energy landscape sharpening under iterative VFE minimization. The extension to vector opinions with Hamming-distance threshold also anticipates the role of the SPD/Riemannian geometry in belief space: distance in opinion-vector space plays the role of KL divergence between Gaussian beliefs. This paper is a foundational reference for the social-physics grounding of the multi-agent VFE model, particularly for understanding how local similarity-gated belief coupling produces macro-level clustering without any imposed external structure.
 
+> [!note] Editorial (from manuscript-citation note): The exact critical-threshold value and cluster-count formulas are summarized from the standard reading of this well-known model; treat the $1/d$ (≈$1/2\epsilon$) cluster scaling as the qualitative claim made in the paper rather than a precise theorem.
+
 ## Cross-links
-- Concepts: [[Opinion Dynamics]] [[Bounded Confidence]] [[Social Influence]] [[Belief Coupling]] [[Attention Mechanism]]
-- Related sources: [[hegselmann2002-opinion-dynamics]] [[lorenz2007-continuous-opinion-dynamics]]
-- Manuscript/Project: [[VFE Transformer Program]] [[MAgent Model]]
+- Concepts: [[Opinion Dynamics]] [[Bounded Confidence]] [[Social Influence]] [[Belief Coupling]] [[Attention Mechanism]] [[Precision weighting]] [[Belief inertia]] [[Meta-agents and hierarchical emergence]] [[Renormalization-group flow of beliefs]] [[Fisher information metric]] [[Multi-agent variational free energy]]
+- Related sources: [[hegselmann2002-opinion-dynamics]] [[lorenz2007-continuous-opinion-dynamics]] [[degroot-1974-consensus]] [[friedkin-johnsen-1990]] [[galam-2008-sociophysics]] [[belief-inertia]]
+- Manuscript/Project: [[VFE Transformer Program]] [[MAgent Model]] [[Gauge-Theoretic Multi-Agent VFE Model]]
 
 ## BibTeX
 ```bibtex
 @article{deffuant2000,
-  author  = {Deffuant, Guillaume and Neau, David and Amblard, Frederic and Weisbuch, Gerard},
-  title   = {Mixing beliefs among interacting agents},
-  journal = {Advances in Complex Systems},
-  year    = {2001},
-  volume  = {3},
-  number  = {3},
-  pages   = {11},
-  doi     = {10.1142/S0219525900000078},
+  author    = {Deffuant, Guillaume and Neau, David and Amblard, Fr{\'e}d{\'e}ric and Weisbuch, G{\'e}rard},
+  title     = {Mixing beliefs among interacting agents},
+  journal   = {Advances in Complex Systems},
+  year      = {2000},
+  volume    = {3},
+  number    = {1n04},
+  pages     = {87--98},
+  doi       = {10.1142/S0219525900000078},
+  publisher = {World Scientific},
 }
 ```

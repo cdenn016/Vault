@@ -2,8 +2,12 @@
 type: paper
 title: "Information is Physical: Cross-Perspective Links in Relational Quantum Mechanics"
 aliases:
-  - "Adlam Rovelli 2022"
-  - "cross-perspective links RQM"
+  - Adlam Rovelli 2022
+  - cross-perspective links RQM
+  - adlam-rovelli-2022-cross-perspective
+  - Adlam & Rovelli 2022
+  - Cross-perspective links
+  - RQM cross-perspective
 authors:
   - Adlam, Emily
   - Rovelli, Carlo
@@ -13,6 +17,7 @@ url: https://arxiv.org/abs/2203.13342
 tags:
   - cluster/participatory/quantum-foundations
   - cluster/participatory/philosophy-of-mind
+  - cluster/gauge-theory
   - project/multi-agent
   - field/physics
   - field/philosophy
@@ -24,7 +29,7 @@ updated: 2026-06-20
 # Information is Physical: Cross-Perspective Links in Relational Quantum Mechanics
 
 > [!info] Citation
-> Adlam, Emily and Rovelli, Carlo (2022). "Information is Physical: Cross-Perspective Links in Relational Quantum Mechanics." arXiv:2203.13342 [quant-ph]. https://arxiv.org/abs/2203.13342
+> Adlam, Emily and Rovelli, Carlo (2022). "Information is Physical: Cross-Perspective Links in Relational Quantum Mechanics." *Philosophy of Physics* (2023). Preprint: arXiv:2203.13342 [quant-ph]. https://arxiv.org/abs/2203.13342
 
 ## TL;DR
 Relational quantum mechanics (RQM) holds that quantum states are always relative to an observer, but this creates a tension with the principle that information is physical: an observer's subjective measurement outcome appears inaccessible to others, verging on solipsism. Adlam and Rovelli resolve this by introducing a new postulate — cross-perspective links — which guarantees that information an observer acquires about a variable is stored in their physical variables and is therefore accessible by measurement to any other observer, underwriting intersubjective agreement and empirical confirmability within RQM. The paper also proposes a refined ontology in which quantum states remain relational while quantum events themselves are observer-independent, absolute facts.
@@ -52,19 +57,23 @@ This paper is a core reference for the **participatory realism** philosophical b
 **Information is physical.** The principle that knowledge is stored in physical variables connects directly to the information-geometric perspective underlying VFE: beliefs are not abstract probability distributions but are encoded in physical (neural/computational) substrate, and their geometry (SPD matrices, Fisher metric) reflects the physical constraints of that substrate.
 
 ## Cross-links
-- Concepts: [[Participatory Realism]] · [[Relational Quantum Mechanics]] · [[Information is Physical]]
-- Related sources: [[wheeler-1989-it-from-bit]] · [[rovelli-1996-relational-qm]] · [[friston-2019-free-energy]]
-- Manuscript/Project: [[PIFB]] · [[VFE Transformer Program]] · [[GL(K) Attention]]
+- Concepts: [[Participatory Realism]] · [[Relational Quantum Mechanics]] · [[Information is Physical]] · [[Parallel transport]] · [[Holonomy]] · [[Gauge transformation]] · [[Agents as fibre-bundle sections]]
+- Related sources: [[wheeler-1989-it-from-bit]] · [[rovelli-1996-relational-qm]] · [[friston-2019-free-energy]] · [[brukner-2018-no-go-observer-facts]] · [[frauchiger-renner-2018-no-self-description]]
+- Manuscript/Project: [[PIFB]] · [[participatory-it-from-bit]] · [[VFE Transformer Program]] · [[GL(K) Attention]]
+
+> [!note] Editorial: Adlam-Rovelli's "cross-perspective links" are the closest existing-physics analogue of the project's inter-agent transport map $\Omega_{ij} = \exp(\phi_i)\exp(-\phi_j)$ — a fact in one frame is physically readable in another, consistently — which the project *constructs* as [[Parallel transport]] of beliefs along a connection, with the residual disagreement quantified by [[Holonomy]].
 
 ## BibTeX
 ```bibtex
 @article{AdlamRovelli2022,
   author  = {Adlam, Emily and Rovelli, Carlo},
   title   = {Information is Physical: Cross-Perspective Links in Relational Quantum Mechanics},
-  year    = {2022},
+  journal = {Philosophy of Physics},
+  year    = {2023},
   eprint  = {2203.13342},
   archivePrefix = {arXiv},
   primaryClass  = {quant-ph},
   url     = {https://arxiv.org/abs/2203.13342},
+  note    = {Preprint arXiv:2203.13342 (2022); published in Philosophy of Physics (2023)},
 }
 ```

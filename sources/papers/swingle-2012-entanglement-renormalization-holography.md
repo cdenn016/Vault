@@ -2,16 +2,22 @@
 type: paper
 title: "Entanglement Renormalization and Holography"
 aliases:
-  - "Swingle 2012"
-  - "ER=MERA"
+  - Swingle 2012
+  - ER=MERA
+  - swingle-2012-entanglement-renormalization
+  - MERA = Holography
 authors:
   - Swingle, Brian
 year: 2012
 arxiv: "0905.1317"
-url: https://doi.org/10.1103/PhysRevB.86.045117
+url: https://doi.org/10.1103/PhysRevD.86.065007
 tags:
   - cluster/gauge-theory
+  - cluster/participatory
+  - cluster/participatory/quantum-foundations
+  - cluster/multi-agent
   - project/transformer
+  - project/multi-agent
   - field/physics
   - field/mathematics
 status: stable
@@ -22,7 +28,9 @@ updated: 2026-06-20
 # Entanglement Renormalization and Holography
 
 > [!info] Citation
-> Swingle, B. (2012). "Entanglement Renormalization and Holography." Phys. Rev. B 86, 045117. arXiv:0905.1317.
+> Swingle, B. (2012). "Entanglement Renormalization and Holography." *Phys. Rev. D* 86(6): 065007. DOI: [10.1103/PhysRevD.86.065007](https://doi.org/10.1103/PhysRevD.86.065007). arXiv:0905.1317.
+
+> [!note] Citation correction (2026-06-21): An earlier ingest recorded this as *Phys. Rev. B* 86, 045117 — that is **wrong**. The published venue is *Physical Review D* 86(6): 065007 (DOI 10.1103/PhysRevD.86.065007), confirmed by the refs/ note on merge.
 
 ## TL;DR
 Swingle shows that the tensor network structure of entanglement renormalization (MERA) naturally gives rise to an emergent higher-dimensional holographic geometry, with the extra dimension corresponding to coarse-graining scale. At a quantum critical point the emergent geometry is a discrete version of anti-de Sitter (AdS) space, recovering the Ryu-Takayanagi minimal-surface formula for entanglement entropy as a consequence of the causal-cone structure of the network. This establishes a concrete, lattice-level bridge between real-space renormalization group methods and holographic gauge/gravity duality.
@@ -43,24 +51,29 @@ The entanglement entropy of a block of sites in the ultraviolet lattice is bound
 ## Relevance to this research
 The MERA/holography correspondence is directly relevant to the VFE transformer program in several ways. First, the construction shows that iterative variational minimization over a hierarchy of belief states (the VFE hierarchy $h \to s \to p \to q \to o$) is the information-theoretic analog of entanglement renormalization: each level of the hierarchy coarse-grains beliefs, and the "geometry" of the emergent representation is controlled by the KL divergences (free energies) at each scale. Second, the appearance of AdS geometry from a discrete, layer-wise tensor network suggests that the per-layer attention geometry in the GL(K)-equivariant transformer may have a natural holographic interpretation, with the depth of the network playing the role of the radial AdS coordinate. Third, the Ryu-Takayanagi formula — entropy = minimal surface area — is structurally parallel to the variational free-energy bound: both express an entropic quantity as an extremal geometric object. Fourth, gauge/gravity duality's role for bulk fields (renormalized couplings obeying RG equations) is analogous to how the VFE transformer's gauge connection encodes inter-layer transport in the belief hierarchy. This paper is foundational for understanding why deep hierarchical belief propagation with geometric structure might naturally give rise to AdS-like emergent spaces.
 
+> [!note] Ouroboros-tower framing (from refs/ note): The MERA scale tower is the structural template for the program's **Ouroboros Tower**: both stack gauge-covariant coarse-grainings, one rung per scale, and in both the geometry of the tower *is* the [[Renormalization-group flow of beliefs]]. Swingle's "RG depth = bulk radial coordinate" is the precedent PIFB leans on when asking whether its own scale index can play the role of an emergent dimension; the minimal-cut/Ryu–Takayanagi correspondence is the entanglement-side mirror of belief-coupling cuts in the program's coupling graph. A HIGH-priority node bridging the [[Emergent spacetime and holography]] theme to the program's multi-scale machinery.
+
 ## Cross-links
 - Concepts: [[Entanglement Renormalization]]
 - Concepts: [[Holography]]
 - Concepts: [[Anti-de Sitter Space]]
-- Related sources: [[ryu-takayanagi-2006-holographic-derivation]]
-- Manuscript/Project: [[VFE Transformer Program]]
+- Concepts: [[Renormalization-group flow of beliefs]], [[Ouroboros multi-scale dynamics]], [[Meta-agents and hierarchical emergence]], [[Emergent spacetime and holography]]
+- Related sources: [[ryu-takayanagi-2006-holographic-derivation]], [[ryu-takayanagi-2006-holographic-entanglement-entropy]], [[vidal-2007-entanglement-renormalization]]
+- Manuscript/Project: [[VFE Transformer Program]], [[participatory-it-from-bit]]
 
 ## BibTeX
 ```bibtex
 @article{Swingle2012,
   author  = {Swingle, Brian},
   title   = {Entanglement Renormalization and Holography},
-  journal = {Physical Review B},
+  journal = {Physical Review D},
   volume  = {86},
-  pages   = {045117},
+  number  = {6},
+  pages   = {065007},
   year    = {2012},
   eprint  = {0905.1317},
   archivePrefix = {arXiv},
-  doi     = {10.1103/PhysRevB.86.045117},
+  primaryClass  = {hep-th},
+  doi     = {10.1103/PhysRevD.86.065007},
 }
 ```

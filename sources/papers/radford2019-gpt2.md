@@ -4,6 +4,8 @@ title: "Language Models are Unsupervised Multitask Learners"
 aliases:
   - "Radford 2019"
   - "GPT-2"
+  - "radford-2019-gpt2"
+  - "Radford et al. 2019"
 authors:
   - Radford, Alec
   - Wu, Jeffrey
@@ -26,7 +28,7 @@ updated: 2026-06-20
 # Language Models are Unsupervised Multitask Learners
 
 > [!info] Citation
-> Radford, A., Wu, J., Child, R., Luan, D., Amodei, D., & Sutskever, I. (2019). "Language Models are Unsupervised Multitask Learners." OpenAI Blog.
+> Radford, A., Wu, J., Child, R., Luan, D., Amodei, D., & Sutskever, I. (2019). "Language Models are Unsupervised Multitask Learners." OpenAI technical report / OpenAI Blog. PDF: <https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf>
 
 ## TL;DR
 GPT-2 demonstrates that a Transformer language model trained on a large, diverse web-scraped corpus (WebText, 40 GB) learns to perform a wide range of NLP tasks in a zero-shot setting, without any task-specific fine-tuning. The 1.5B parameter model achieves state-of-the-art results on 7 out of 8 language modeling benchmarks zero-shot. The key finding is that model capacity is essential to zero-shot task transfer, with performance improving log-linearly with scale across tasks.

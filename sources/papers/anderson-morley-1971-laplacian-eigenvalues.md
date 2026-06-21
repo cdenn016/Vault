@@ -3,6 +3,8 @@ type: paper
 title: "Eigenvalues of the Laplacian of a Graph"
 aliases:
   - "anderson-morley-1971-laplacian-eigenvalues"
+  - "anderson-morley-1985-laplacian-eigenvalues"
+  - "Anderson Morley 1985"
   - "Anderson Morley 1971"
   - "Laplacian eigenvalue bounds"
 authors:
@@ -23,7 +25,7 @@ updated: 2026-06-21
 # Eigenvalues of the Laplacian of a Graph
 
 > [!info] Citation
-> Anderson, William N., Morley, Thomas D. (1985). "Eigenvalues of the Laplacian of a Graph." Linear and Multilinear Algebra 18(2). https://doi.org/10.1080/03081088508817681
+> Anderson, William N., Morley, Thomas D. (1985). "Eigenvalues of the Laplacian of a Graph." *Linear and Multilinear Algebra* 18(2), 141–145. https://doi.org/10.1080/03081088508817681 (Originally circulated as University of Maryland Technical Report TR 71-45, 1971; first formally published 1985 — the filename slug reflects the 1971 report, the citation year is the 1985 publication.)
 
 ## TL;DR
 Proves the classical bound that the largest eigenvalue of the graph Laplacian is at most the maximum sum of degrees of adjacent vertices (and at least the maximum degree plus one), tightening earlier spectral bounds. A foundational result in the spectral theory of the graph Laplacian.

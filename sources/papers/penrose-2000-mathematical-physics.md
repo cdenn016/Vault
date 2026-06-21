@@ -5,6 +5,7 @@ aliases:
   - "penrose-2000-mathematical-physics"
   - "Penrose 2000"
   - "penrose2000mathematicalphysics"
+  - "Wavefunction Collapse as a Real Gravitational Effect"
 authors:
   - "Penrose, Roger"
 year: 2000

@@ -35,7 +35,7 @@ Clusters nouns by the distributions of verbs that take them as objects, using a 
 The historical and methodological ancestor of the Information Bottleneck used throughout the program's compression-based view of belief representation; cited by the agglomerative-IB source as the origin of distributional/soft KL clustering.
 
 ## Cross-links
-[[Information bottleneck]], [[Agglomerative information bottleneck]]
+[[Information bottleneck]]
 
 ## BibTeX
 ```bibtex

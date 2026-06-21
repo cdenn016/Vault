@@ -2,8 +2,11 @@
 type: paper
 title: "Predictability, Complexity and Learning"
 aliases:
-  - "Bialek 2001"
-  - "predictive information"
+  - Bialek 2001
+  - predictive information
+  - bialek-2001-predictability-complexity
+  - Bialek, Nemenman & Tishby 2001
+  - Bialek (2001) Predictive Information
 authors:
   - Bialek, William
   - Nemenman, Ilya
@@ -27,7 +30,7 @@ updated: 2026-06-20
 # Predictability, Complexity and Learning
 
 > [!info] Citation
-> Bialek, W., Nemenman, I., & Tishby, N. (2001). "Predictability, Complexity and Learning." arXiv:physics/0007070. Published in *Neural Computation* 13(11):2409–2463.
+> Bialek, W., Nemenman, I., & Tishby, N. (2001). "Predictability, Complexity and Learning." *Neural Computation* 13(11):2409–2463. DOI: [10.1162/089976601753195969](https://doi.org/10.1162/089976601753195969). Preprint: arXiv:physics/0007070.
 
 ## TL;DR
 The paper defines "predictive information" $I_{\text{pred}}(T)$ as the mutual information between the past and future of a time series of duration $T$, and shows that this quantity equals the subextensive component of the entropy $S_1(T)$. Three qualitatively distinct complexity classes emerge: finite $I_{\text{pred}}$, logarithmic divergence (finite-dimensional parametric models), and power-law divergence (nonparametric/infinite-dimensional models). The divergent part of $I_{\text{pred}}$ is argued to be the unique, model-free measure of the complexity of a dynamical process.
@@ -61,9 +64,11 @@ and is shown to equal (up to a constant) the conventional $\chi^2$ generalizatio
 The predictive information framework is directly relevant to the VFE transformer program in several ways. First, the identification of $I_{\text{pred}} = S_1(T)$ as the quantity that "matters" for learning parallels the VFE principle: variational free energy bounds the log-evidence (the information the model captures about data), and minimizing VFE is equivalent to maximizing the predictive/generative information extracted by the belief state. Second, the logarithmic growth $\frac{K}{2} \ln N$ is a direct expression of Bayesian model complexity in information-geometric terms — the $K$ here counts the Fisher information volume of the parameter manifold, a quantity central to the SPD belief geometry of the VFE transformer. Third, power-law complexity classes (nonparametric models) correspond precisely to the regime where finite-rank Gaussian beliefs over a $K$-dimensional latent space are insufficient, motivating deeper or hierarchical belief structures — the hyper-prior $h \to s \to p \to q$ hierarchy in the VFE free energy. Fourth, the uniqueness argument for $I_{\text{pred}}$ as the complexity measure echoes the uniqueness argument for entropy in Shannon's original work, supporting the principled grounding of VFE-based active inference as the "correct" objective. Finally, Tishby is a co-author of the information bottleneck method, whose connection to the VFE attention mechanism (compressing past into predictive sufficient statistics) is a recurring theme in the GL(K) manuscript.
 
 ## Cross-links
-- Concepts: [[Predictive Information]], [[Information Geometry]], [[Variational Free Energy]], [[Model Complexity]]
+- Concepts: [[Predictive Information]], [[Information Geometry]], [[Variational Free Energy]], [[Model Complexity]], [[Information bottleneck]], [[Meta-agents and hierarchical emergence]], [[Renormalization-group flow of beliefs]]
 - Related sources: [[bialek-2012-statistical-mechanics-flocks]], [[tishby2000information]]
-- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention Manuscript]]
+- Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention Manuscript]], [[PIFB]], [[participatory-it-from-bit]]
+
+> [!note] Editorial: PIFB ([[participatory-it-from-bit]]) reads the $\tfrac{K}{2}\log T$ predictive-information counting law as an information-theoretic ground for its inverse-$K$ capacity scaling: the belief dimension $K$ that sets predictive capacity here is the same $K$ that appears in the manuscript's inverse-$K$ scaling claim, and the hierarchy $h \to s \to p \to q$ passes the sub-extensive (learnable) predictive part downward via cross-scale shadow priors.
 
 ## BibTeX
 ```bibtex
@@ -75,6 +80,7 @@ The predictive information framework is directly relevant to the VFE transformer
   number  = {11},
   pages   = {2409--2463},
   year    = {2001},
+  doi     = {10.1162/089976601753195969},
   eprint  = {physics/0007070},
   archivePrefix = {arXiv},
 }

@@ -2,9 +2,10 @@
 type: paper
 title: "A Recurrent Latent Variable Model for Sequential Data"
 aliases:
-  - "Chung 2015"
-  - "VRNN"
-  - "chung2015vrnn"
+  - Chung 2015
+  - VRNN
+  - chung2015vrnn
+  - chung2015recurrent
 authors:
   - Chung, Junyoung
   - Kastner, Kyle
@@ -28,7 +29,7 @@ updated: 2026-06-20
 # A Recurrent Latent Variable Model for Sequential Data
 
 > [!info] Citation
-> Chung, J., Kastner, K., Dinh, L., Goel, K., Courville, A., & Bengio, Y. (2015). "A Recurrent Latent Variable Model for Sequential Data." arXiv:1506.02216.
+> Chung, J., Kastner, K., Dinh, L., Goel, K., Courville, A. C., & Bengio, Y. (2015). "A Recurrent Latent Variable Model for Sequential Data." *Advances in Neural Information Processing Systems 28* (NeurIPS 2015). arXiv:1506.02216.
 
 ## TL;DR
 The paper introduces the Variational Recurrent Neural Network (VRNN), which embeds a VAE at every timestep of an RNN so that the prior over latent variables is conditioned on the RNN hidden state rather than being a fixed Gaussian. This temporally-structured prior over latent variables allows the model to capture the high-level variability in structured sequential data — such as natural speech — more faithfully than standard RNNs or VAEs with independent priors. Empirically, VRNN outperforms baseline RNN-Gauss and RNN-GMM models on four speech datasets and a handwriting dataset in terms of log-likelihood.
@@ -56,22 +57,24 @@ $$\mathbb{E}_{q(z_{\le T}|x_{\le T})}\left[\sum_{t=1}^T \left(-\mathrm{KL}(q(z_t
 with the reparameterisation trick enabling gradient flow through the stochastic nodes.
 
 ## Key results
-On all four speech datasets (Blizzard, TIMIT, Onomatopoeia, Accent) the VRNN-Gauss and VRNN-GMM variants achieve substantially higher log-likelihood than RNN-Gauss and RNN-GMM baselines. The VRNN-I variant (independent prior, no temporal conditioning) lies consistently between the RNN baselines and the full VRNN, confirming that the temporally-structured prior is the key driver of improvement. On the handwriting task (IAM-OnDB), gains are smaller but still present. Qualitatively, VRNN-Gauss generates less noisy audio waveforms than RNN-GMM, and VRNN-GMM generates handwriting with more consistent style across a sample.
+On all four speech datasets (Blizzard, TIMIT, Onomatopoeia, Accent) the VRNN-Gauss and VRNN-GMM variants achieve substantially higher log-likelihood than RNN-Gauss and RNN-GMM baselines. The VRNN-I variant (independent prior, no temporal conditioning) lies consistently between the RNN baselines and the full VRNN, confirming that the temporally-structured prior is the key driver of improvement. The **fixed-prior ablation** is decisive: replacing the history-conditioned prior $p(\mathbf{z}_t \mid \mathbf{h}_{t-1})$ with a standard $\mathcal{N}(0, I)$ prior degrades results substantially, demonstrating that the *recurrent structure of the prior* — not merely the presence of latents — is what lets the model capture temporal coherence. On the handwriting task (IAM-OnDB), gains are smaller but still present. Qualitatively, VRNN-Gauss generates less noisy audio waveforms than RNN-GMM, and VRNN-GMM generates handwriting with more consistent style across a sample.
 
 ## Relevance to this research
 The VRNN's per-timestep VAE with a recurrent, state-conditioned prior is a close structural precursor to the VFE transformer's iterative belief update over Gaussian tuples $(\mu, \Sigma, \phi)$. The ELBO objective in Eq. (11) — a sum of $-\mathrm{KL}(q \| p) + \log p(x|z)$ terms — is the per-step variational free energy minimised in the VFE framework; the self-coupling $\alpha \cdot \mathrm{KL}(q_i \| p_i)$ term in the VFE Lagrangian corresponds directly to the KL regulariser here. The temporally-structured prior (conditioning on $h_{t-1}$) parallels the way the VFE transformer's prior bank $p_i$ is updated via gauge-transported beliefs from neighboring tokens. The reparameterisation trick and joint generative/inference training are also foundational to understanding how backprop interacts with the variational objective in the VFE codebase.
 
 ## Cross-links
-- Concepts: [[Variational Free Energy]], [[Gaussian Beliefs]], [[Variational Autoencoder]]
-- Related sources: [[kingma-2013-vae]], [[rezende-2014-stochastic-backprop]]
-- Manuscript/Project: [[VFE Transformer Program]]
+- Concepts: [[Variational Free Energy]], [[Gaussian Beliefs]], [[Variational Autoencoder]], [[Evidence lower bound (ELBO)]], [[Reparameterization trick]], [[Amortized inference]], [[Prediction error]]
+- Related sources: [[kingma-2013-vae]], [[rezende-2014-stochastic-backprop]], [[kingma-2013-auto-encoding-variational-bayes]], [[marino-2018-iterative-amortized-inference]], [[sonderby-2016-ladder-vae]]
+- Manuscript/Project: [[VFE Transformer Program]], [[gl-k-attention]]
 
 ## BibTeX
 ```bibtex
-@article{chung2015recurrent,
-  author  = {Chung, Junyoung and Kastner, Kyle and Dinh, Laurent and Goel, Kratarth and Courville, Aaron and Bengio, Yoshua},
-  title   = {A Recurrent Latent Variable Model for Sequential Data},
-  journal = {arXiv preprint arXiv:1506.02216},
-  year    = {2015},
+@inproceedings{chung2015recurrent,
+  author    = {Chung, Junyoung and Kastner, Kyle and Dinh, Laurent and Goel, Kratarth and Courville, Aaron C. and Bengio, Yoshua},
+  title     = {A Recurrent Latent Variable Model for Sequential Data},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume    = {28},
+  year      = {2015},
+  url       = {https://arxiv.org/abs/1506.02216},
 }
 ```

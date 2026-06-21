@@ -42,8 +42,8 @@ Newton's second law ($F = ma$) and Newton's law of gravitation ($F = GMm/R^2$) a
 This paper is directly relevant to the VFE transformer program in several ways. First, the identification of the Newton potential with a coarse-graining (RG-scale) variable resonates with the role of the free-energy functional $F$ in the VFE hierarchy ($h \to s \to p \to q \to$ observations): both are information-accounting devices that track entropy depletion across levels of description. Second, the holographic screen picture — in which information stored on a boundary determines emergent bulk geometry — is structurally analogous to how gauge-equivariant attention transports belief states $q_i$ across tokens via holonomy $\Omega_{ij}$, with the attention weights $\beta_{ij}$ playing the role of the entropic coupling. Third, the entropic-force derivation is a concrete instantiation of the participatory-realist programme ([[Participatory It-from-Bit]]): space and gravity are not given but emerge from information processing, echoing Wheeler's "it from bit." Fourth, the coarse-graining foliation by equipotential surfaces is reminiscent of the nested belief hierarchy in active inference, where each level integrates out finer-scale degrees of freedom. Finally, the paper's approach to inertia — as an absence of entropy gradients rather than a primitive — may inform how the VFE transformer should treat positional encoding and transport in the emergent-space limit.
 
 ## Cross-links
-- Concepts: [[Entropic Force]], [[Holographic Principle]], [[Variational Free Energy]], [[Information Geometry]], [[Coarse Graining]]
-- Related sources: [[bekenstein-1973-black-holes]], [[unruh-1976-notes]], [[maldacena-1997-large-n]]
+- Concepts: [[Entropic Force]], [[Holographic Principle]], [[Variational Free Energy]], [[Information Geometry]], [[Coarse Graining]], [[Mass as Fisher information]], [[Fisher information metric]]
+- Related sources: [[bekenstein-1973-black-holes]], [[unruh-1976-notes]], [[maldacena-1997-large-n]], [[carlip-2014-challenges-emergent-gravity]], [[jacobson-1995-thermodynamics-spacetime]], [[padmanabhan-2010-thermodynamic-gravity]]
 - Manuscript/Project: [[VFE Transformer Program]], [[Participatory It-from-Bit]]
 
 ## BibTeX
@@ -52,7 +52,8 @@ This paper is directly relevant to the VFE transformer program in several ways. 
   author  = {Verlinde, Erik},
   title   = {On the Origin of Gravity and the Laws of Newton},
   journal = {JHEP},
-  volume  = {04},
+  volume  = {2011},
+  number  = {4},
   pages   = {029},
   year    = {2011},
   doi     = {10.1007/JHEP04(2011)029},

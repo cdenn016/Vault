@@ -2,9 +2,11 @@
 type: paper
 title: "Decoherence, Einselection, and the Quantum Origins of the Classical"
 aliases:
-  - "Zurek 2003"
-  - "einselection"
-  - "Zurek2003"
+  - Zurek 2003
+  - einselection
+  - Zurek2003
+  - zurek-2003-decoherence
+  - Zurek (2003)
 authors:
   - Zurek, Wojciech Hubert
 year: 2003
@@ -25,7 +27,7 @@ updated: 2026-06-20
 # Decoherence, Einselection, and the Quantum Origins of the Classical
 
 > [!info] Citation
-> Zurek, W. H. (2003). "Decoherence, Einselection, and the Quantum Origins of the Classical." *Reviews of Modern Physics*, 75, 715. arXiv:quant-ph/0105127. https://doi.org/10.1103/RevModPhys.75.715
+> Zurek, W. H. (2003). "Decoherence, Einselection, and the Quantum Origins of the Classical." *Reviews of Modern Physics*, 75(3), 715–775. arXiv:quant-ph/0105127. https://doi.org/10.1103/RevModPhys.75.715
 
 ## TL;DR
 This landmark review synthesizes Zurek's program of environment-induced superselection (einselection): decoherence caused by environmental monitoring selects preferred "pointer states" from quantum Hilbert space, enforcing an effective superselection rule that recovers classical structure without invoking a hard quantum-classical cut. The paper introduces Quantum Darwinism — the idea that classicality is established by the redundant imprinting of pointer-state information throughout the environment — and envariance (environment-assisted invariance), a new symmetry that derives Born's rule and justifies reduced density matrices without assuming them.
@@ -45,8 +47,8 @@ Einselection resolves the preferred-basis problem without appealing to an extern
 Zurek's framework is foundational for the participatory-realism cluster and for several theoretical threads in the VFE program. The einselection mechanism — environment monitoring selects a preferred basis — is structurally analogous to how GL(K) gauge-equivariant attention selects stable belief representations via free energy minimization: both frameworks enforce preferred representational states through an interaction structure rather than by external decree. The redundancy/Quantum-Darwinism account of objectivity maps onto the multi-agent setting where shared environmental signals create consensus over pointer states, connecting to the social-physics and multi-agent active inference programs. Envariance and the derivation of Born's rule from symmetry arguments resonate with the information-geometric and participatory-realist interpretations in PIFB.tex, where observer-relative existence and measurement outcomes are grounded in relational symmetries rather than ontic collapse. The SAE (system-apparatus-environment) triangle is directly relevant to the three-level VFE hierarchy (q, p, s) and its treatment of observations. The sub-Planck phase-space structure and decoherence-restored classical correspondence also inform how macroscopic SPD belief geometry recovers classical statistics in the appropriate limit.
 
 ## Cross-links
-- Concepts: [[Decoherence]], [[Einselection]], [[Quantum Darwinism]], [[Envariance]], [[Pointer States]], [[Participatory Realism]]
-- Related sources: [[wheeler-1990-it-from-bit]], [[zurek-2009-quantum-darwinism]]
+- Concepts: [[Decoherence]], [[Einselection]], [[Quantum Darwinism]], [[Envariance]], [[Pointer States]], [[Participatory Realism]], [[Multi-agent variational free energy]], [[Renormalization-group flow of beliefs]], [[Meta-agents and hierarchical emergence]], [[Fisher information metric]], [[Precision weighting]]
+- Related sources: [[wheeler-1990-it-from-bit]], [[zurek-2009-quantum-darwinism]], [[fuchs-2014-qbism]], [[rovelli-1996-relational-qm]]
 - Manuscript/Project: [[PIFB]], [[GL(K) Attention]], [[VFE Transformer Program]]
 
 ## BibTeX
@@ -56,9 +58,11 @@ Zurek's framework is foundational for the participatory-realism cluster and for 
   title   = {Decoherence, Einselection, and the Quantum Origins of the Classical},
   journal = {Reviews of Modern Physics},
   volume  = {75},
-  pages   = {715},
+  number  = {3},
+  pages   = {715--775},
   year    = {2003},
   eprint  = {quant-ph/0105127},
   doi     = {10.1103/RevModPhys.75.715},
+  publisher = {American Physical Society},
 }
 ```

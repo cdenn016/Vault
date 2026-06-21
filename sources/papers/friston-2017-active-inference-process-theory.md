@@ -2,10 +2,12 @@
 type: paper
 title: "Active Inference: A Process Theory"
 aliases:
-  - "Friston 2017"
-  - "Active Inference Process Theory"
-  - "friston-2017-active-inference-curiosity"
-  - "friston2017activeinferencecuriosity"
+  - Friston 2017
+  - Active Inference Process Theory
+  - friston-2017-active-inference-curiosity
+  - friston2017activeinferencecuriosity
+  - friston-2017-active-inference-process
+  - Friston et al. 2017
 authors:
   - Friston, Karl
   - FitzGerald, Thomas
@@ -31,7 +33,7 @@ updated: 2026-06-20
 # Active Inference: A Process Theory
 
 > [!info] Citation
-> Friston, K., FitzGerald, T., Rigoli, F., Schwartenbeck, P., & Pezzulo, G. (2017). "Active Inference: A Process Theory." *Neural Computation*, 29, 1–49. https://doi.org/10.1162/NECO_a_00912
+> Friston, K., FitzGerald, T., Rigoli, F., Schwartenbeck, P., & Pezzulo, G. (2017). "Active Inference: A Process Theory." *Neural Computation*, 29(1), 1–49. https://doi.org/10.1162/NECO_a_00912
 
 ## TL;DR
 This paper derives a neuronal process theory from the principle that all processing and action selection minimize variational free energy (equivalently, maximize Bayesian model evidence). Starting from a Markov decision process (MDP) generative model, it obtains gradient-descent belief-update equations whose neuronal interpretation reproduces a wide range of empirical phenomena — including repetition suppression, mismatch negativity, place-cell activity, theta-gamma coupling, and dopamine transfer — within a single unified framework. Variational free energy is shown to be a Lyapunov function for these neuronal dynamics, connecting them to Hamilton's principle of least action.
@@ -60,7 +62,9 @@ $$G(\pi, \tau) = D[Q(o_\tau|\pi) \| P(o_\tau)] + \mathbb{E}_{\tilde{Q}}[H[P(o_\t
 The gradient-descent dynamics reproduce a broad catalogue of neuronal phenomena without any additional assumptions. Repetition suppression and violation/omission responses emerge from prediction-error suppression as beliefs converge. Hippocampal place-cell activity, phase precession, theta sequences, and theta-gamma coupling emerge from the simultaneous representation of past and future states under each policy. Evidence accumulation and race-to-bound dynamics arise from the precision-weighted policy-selection update. Dopamine transfer to conditioned stimuli is reproduced by the precision parameter $\gamma$ tracking expected free energy at the start of a trial. Epistemic foraging (curiosity) emerges automatically from the epistemic-value term of expected free energy without any additional engineering. Variational free energy serves as a Lyapunov function: gradient descent guarantees convergence to a free-energy minimum, connecting the scheme to Hamilton's least-action principle.
 
 ## Relevance to this research
-This paper is the canonical reference for active inference as a process theory grounded in variational free energy minimisation, directly underpinning the theoretical foundations of the VFE transformer program. The decomposition of free energy into complexity and accuracy (equation 2.4) and expected free energy into epistemic and extrinsic value (equation 2.5) map directly onto the KL terms in the VFE functional used in the GL(K) gauge-equivariant attention model. The belief-propagation update rules (gradient descent on F) instantiate exactly the iterative VFE minimisation that replaces backprop in the V3 transformer. The MDP formulation (states, policies, Dirichlet parameters) is a discrete analogue of the Gaussian belief tuples $(mu, \Sigma, \phi)$ in the VFE transformer and the multi-agent active inference (MAgent) program. The role of precision $\gamma$ (encoded by dopamine) is the discrete-state counterpart of the beta/temperature parameters and attention-distribution entropy term in the GL(K) free energy. Expected free energy and the epistemic/extrinsic decomposition also connects to multi-agent belief coupling and the gamma-weighted model-coupling term in the VFE hierarchy.
+This paper is the canonical reference for active inference as a process theory grounded in variational free energy minimisation, directly underpinning the theoretical foundations of the VFE transformer program. The decomposition of free energy into complexity and accuracy (equation 2.4) and expected free energy into epistemic and extrinsic value (equation 2.5) map directly onto the KL terms in the VFE functional used in the GL(K) gauge-equivariant attention model. The belief-propagation update rules (gradient descent on F) instantiate exactly the iterative VFE minimisation that replaces backprop in the V3 transformer. The MDP formulation (states, policies, Dirichlet parameters) is a discrete analogue of the Gaussian belief tuples $(mu, \Sigma, \phi)$ in the VFE transformer and the multi-agent active inference (MAgent) program. The role of precision $\gamma$ (encoded by dopamine) is the discrete-state counterpart of the beta/temperature parameters and attention-distribution entropy term in the GL(K) free energy. Expected free energy and the epistemic/extrinsic decomposition also connects to multi-agent belief coupling and the gamma-weighted model-coupling term in the VFE hierarchy. This paper supplies the canonical **single-agent baseline** that the [[Gauge-Theoretic Multi-Agent VFE Model]] generalises to interacting agents (yielding [[Multi-agent variational free energy]]) and must reduce to; because the belief updates are gradient descent on free energy, they also connect to the [[Fisher information metric]] / [[Natural gradient]] view and the project's reading of [[Mass as Fisher information]], [[Belief inertia]], and [[Hamiltonian belief dynamics]].
+
+> [!note] Editorial: the claims above are restricted to what the paper itself establishes (free-energy and expected-free-energy updates, the precision/dopamine mapping, the discrete-MDP process theory). The gauge-theoretic and multi-agent connections are the present project's contributions, not claims of the cited paper.
 
 ## Cross-links
 - Concepts: [[Variational Free Energy]], [[Active Inference]], [[Belief Propagation]], [[Expected Free Energy]], [[Predictive Coding]]
@@ -75,7 +79,9 @@ This paper is the canonical reference for active inference as a process theory g
   journal = {Neural Computation},
   year    = {2017},
   volume  = {29},
+  number  = {1},
   pages   = {1--49},
   doi     = {10.1162/NECO_a_00912},
+  publisher = {MIT Press},
 }
 ```

@@ -14,7 +14,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-18
-updated: 2026-06-18
+updated: 2026-06-21
 ---
 
 # VFE Transformer Program
@@ -41,7 +41,13 @@ The reference configuration is intentionally small so that the geometry, not sca
 
 ## Experiments
 
-> [!note] Editorial: Experiment runs and their artifacts (checkpoints, metric logs, configs) are tracked **outside this wiki**, in the `V3_Transformer` repository — they are deliberately not catalogued here. No quantitative results (loss, perplexity, belief diagnostics, holonomy) have been persisted yet, so this page documents the architecture and theory only; results-level synthesis can be added once artifacts exist and are explicitly ingested.
+Run artifacts (checkpoints, `metrics.csv`, `config.json`, figures) now persist under `V3_Transformer/vfe3_runs/`. Most runs stay in the repo and are not catalogued here; only runs that produce a **finding worth synthesizing** are ingested as `sources/runs/` notes.
+
+| run | K / heads | dataset | test ppl | finding |
+|-----|-----------|---------|----------|---------|
+| [[2026-06-21-k160-hyperprior-saturation]] | 160 / 4 | wikitext-103 | 76.53 (1 ep), 66.48 (2 ep) | hyper-prior $\lambda_h\mathrm{KL}(s\|r)$ pins at the `kl_max=100` clamp at large K → [[Divergence clamp saturation]] |
+
+> [!note] Finding (2026-06-21) — divergence clamp saturation at large K. At K=160 the K-linear $\mathrm{KL}(s_i\|r)$ saturates the K-independent `kl_max=100` safety-net clamp for ~100% of the vocab (measured median 125, max 584). The hard clamp's gradient is zero above the ceiling, and the filtering kernel's self-mask reproduces that exactly, so the $\lambda_h$ hyper-prior regularizer is **silently disabled** and the learnable centroid `r` is **gradient-frozen** while pinned (under `s_e_step=True` the term is gated out of the scored loss, so this is a dead regularizer, not corrupted training; the model still trains via the live gamma coupling + likelihood). Fix applied: scale the safety-net clamp with width — `kl_max = 8 * embed_dim` in `train_vfe3.py` — which is theory-neutral below the ceiling. Full mechanism, scope, and rejected alternatives: [[Divergence clamp saturation]]; analysis doc `V3_Transformer/docs/2026-06-21-edits.md`.
 
 ## Status & next steps
 
@@ -63,7 +69,7 @@ Next steps, in rough priority order:
 
 **Themes:** [[Variational free energy and predictive coding]] · [[Gauge equivariance and geometric deep learning]] · [[Information geometry and natural gradient]] · [[SPD-manifold geometry and Riemannian optimization]] · [[Attention mechanisms — theory and positional structure]] · [[Inference machinery — variational EM and filtering]]
 
-**Key concepts:** [[Variational free energy]] · [[Evidence lower bound (ELBO)]] · [[Prediction error]] · [[Precision weighting]] · [[Gauge transformation]] · [[Holonomy]] · [[Non-flat connection and the photon analogy]] · [[Natural gradient]] · [[Fisher information metric]] · [[Renyi divergence]] · [[Irreducible representation]] · [[Clebsch-Gordan coefficients]]
+**Key concepts:** [[Variational free energy]] · [[Evidence lower bound (ELBO)]] · [[Prediction error]] · [[Precision weighting]] · [[Gauge transformation]] · [[Holonomy]] · [[Non-flat connection and the photon analogy]] · [[Natural gradient]] · [[Fisher information metric]] · [[Renyi divergence]] · [[Divergence clamp saturation]] · [[Irreducible representation]] · [[Clebsch-Gordan coefficients]]
 
 **Key sources:** [[friston-2010-free-energy-principle]] · [[neal-1998-variational-em]] · [[bogacz-2017-free-energy-tutorial]] · [[kingma-2013-auto-encoding-variational-bayes]] · [[cohen-2019-gauge-cnn]] · [[bronstein-2021-geometric-deep-learning]] · [[finzi-2020-lieconv]] · [[amari-1998-natural-gradient]] · [[li-turner-2016-renyi-vi]] · [[pennec-2006-affine-invariant-tensor]] · [[absil-2008-optimization-matrix-manifolds]] · [[wang-2023-riemannian-self-attention-spd]] · [[vaswani-2017-attention]]
 

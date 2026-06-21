@@ -2,8 +2,10 @@
 type: paper
 title: "Poincaré Embeddings for Learning Hierarchical Representations"
 aliases:
-  - "Nickel 2017"
-  - "Poincaré Embeddings"
+  - Nickel 2017
+  - Poincaré Embeddings
+  - nickel-kiela-2017-poincare-embeddings
+  - Nickel & Kiela 2017
 authors:
   - Nickel, Maximilian
   - Kiela, Douwe
@@ -14,6 +16,7 @@ tags:
   - cluster/info-geometry
   - cluster/spd-geometry
   - project/transformer
+  - project/multi-agent
   - field/cs-ml
   - field/mathematics
   - field/statistics
@@ -25,7 +28,7 @@ updated: 2026-06-20
 # Poincaré Embeddings for Learning Hierarchical Representations
 
 > [!info] Citation
-> Nickel, Maximilian and Kiela, Douwe (2017). "Poincaré Embeddings for Learning Hierarchical Representations." arXiv:1705.08039v2 [cs.AI].
+> Nickel, Maximilian and Kiela, Douwe (2017). "Poincaré Embeddings for Learning Hierarchical Representations." *Advances in Neural Information Processing Systems 30 (NeurIPS 2017)*, pp. 6338–6347. arXiv:1705.08039 [cs.AI].
 
 ## TL;DR
 This paper introduces Poincaré embeddings: representations of symbolic data (text, graphs, taxonomies) in hyperbolic space — specifically the Poincaré ball model — rather than Euclidean space. The core insight is that hyperbolic geometry is a continuous analog of tree structure, so hierarchical data can be embedded far more parsimoniously there. The method uses Riemannian stochastic gradient descent on the Poincaré ball and dramatically outperforms Euclidean embeddings on WordNet taxonomy reconstruction, link prediction in social networks, and lexical entailment, often with an order-of-magnitude smaller embedding dimension.
@@ -55,17 +58,23 @@ On the transitive closure of the WordNet noun hierarchy (82,115 nouns, 743,241 h
 Poincaré embeddings are directly relevant to the SPD/Riemannian belief geometry at the core of the VFE transformer. The Poincaré ball is a Riemannian manifold, and the paper's RSGD optimizer (natural gradient + retraction) is a direct instance of the Riemannian optimization framework used for belief-space E-steps in VFE3. The conformal metric $g_x = \lambda(x)^2 g_E$ with scalar conformal factor is structurally analogous to information-geometric metrics on Gaussian belief manifolds. The paper demonstrates that the choice of manifold geometry is not cosmetic — it encodes structural bias (hierarchical vs. flat) that propagates into generalization performance, which mirrors the VFE program's claim that gauge-equivariant geometry of the belief manifold shapes representation quality. The norm-as-hierarchy and distance-as-similarity dual encoding has a loose analog in the VFE framework where the precision $\Sigma^{-1}$ (norm-like) and belief distance (KL divergence) play separable geometric roles. The Fermi-Dirac edge probability used for network embedding (Eq. 7) is also structurally related to softmax attention with a temperature parameter.
 
 ## Cross-links
-- Concepts: [[Riemannian Geometry]], [[Hyperbolic Geometry]], [[Information Geometry]], [[SPD Belief Geometry]]
-- Related sources: [[vilnis-2015-gaussian-embeddings]]
-- Manuscript/Project: [[VFE Transformer Program]]
+- Concepts: [[Riemannian Geometry]], [[Hyperbolic Geometry]], [[Information Geometry]], [[SPD Belief Geometry]], [[Meta-agents and hierarchical emergence]]
+- Related sources: [[vilnis-2015-gaussian-embeddings]], [[pennec-2006-affine-invariant-tensor]], [[amari-1998-natural-gradient]], [[absil-2008-optimization-matrix-manifolds]], [[bialek-2001-predictability-complexity]]
+- Manuscript/Project: [[participatory-it-from-bit]], [[VFE Transformer Program]]
+
+> [!note] Manuscript usage (PIFB): cited as the geometric warrant that hierarchical structure is most faithfully represented on a curved, non-Euclidean manifold rather than in flat space — supporting the project's hierarchical tower of agents/meta-agents and its use of curved manifolds (affine-invariant SPD belief covariances; Lie-group gauge frames), with Riemannian-optimization the same family as the project's natural-gradient retractions for $(\mu, \Sigma, \phi)$.
 
 ## BibTeX
 ```bibtex
-@article{Nickel2017,
-  author  = {Nickel, Maximilian and Kiela, Douwe},
-  title   = {Poincar\'{e} Embeddings for Learning Hierarchical Representations},
-  journal = {arXiv preprint arXiv:1705.08039},
-  year    = {2017},
-  url     = {https://arxiv.org/abs/1705.08039},
+@inproceedings{Nickel2017,
+  author        = {Nickel, Maximilian and Kiela, Douwe},
+  title         = {Poincar\'{e} Embeddings for Learning Hierarchical Representations},
+  booktitle     = {Advances in Neural Information Processing Systems 30 (NeurIPS)},
+  pages         = {6338--6347},
+  year          = {2017},
+  eprint        = {1705.08039},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.AI},
+  url           = {https://arxiv.org/abs/1705.08039},
 }
 ```

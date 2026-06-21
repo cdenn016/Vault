@@ -2,9 +2,12 @@
 type: paper
 title: "Maximum Likelihood from Incomplete Data via the EM Algorithm"
 aliases:
-  - "Dempster 1977"
-  - "EM Algorithm"
-  - "EM"
+  - Dempster 1977
+  - EM Algorithm
+  - EM
+  - dempster-1977-em
+  - Dempster
+  - Laird & Rubin 1977
 authors:
   - Dempster, A. P.
   - Laird, N. M.
@@ -15,6 +18,7 @@ url: https://links.jstor.org/sici?sici=0035-9246%281977%2939%3A1%3C1%3AMLFIDV%3E
 tags:
   - cluster/info-geometry
   - project/transformer
+  - project/multi-agent
   - field/statistics
   - field/mathematics
   - field/cs-ml
@@ -62,9 +66,11 @@ Examples covered include: multinomial missing data, normal linear model with mis
 ## Relevance to this research
 The EM algorithm is the direct computational ancestor of the E-step / M-step structure in the VFE transformer. In the VFE framework the E-step minimizes free energy over beliefs $(μ, Σ)$ while holding model parameters fixed, and the M-step updates parameters (prior bank, connection weights, scalars) while holding beliefs fixed — a direct analogue of Dempster et al.'s cycle. The monotone decrease of variational free energy under coordinate updates mirrors the monotone increase of the incomplete-data likelihood under EM, and both derive from Jensen's inequality applied to a KL divergence. The EM rate-of-convergence result in terms of missing information fraction has an exact parallel in VFE convergence rates driven by the ratio of prior precision to total precision. The extension to posterior-mode finding (adding $G(\phi)$ to the M-step) is the precursor to MAP / free-energy minimization with an explicit prior, which is the foundational operation of the VFE transformer and active inference more broadly.
 
+> [!note] Editorial (from manuscript-citation note): The free-energy / ELBO reinterpretation of EM is *later* work (Neal & Hinton; see [[neal-1998-variational-em]] / [[neal-hinton-1998-em-variational]]). The 1977 paper itself states the algorithm and proves likelihood monotonicity, and does **not** use free-energy language. The project leans on the modern "free-energy view of EM" — E-step = belief updating, M-step = parameter learning, both ascent on one functional — which connects the classical algorithm to the [[Fisher information metric]], [[Natural gradient]], and the inertial / [[Mass as Fisher information]] reading of belief dynamics.
+
 ## Cross-links
-- Concepts: [[Variational Free Energy]], [[E-step and M-step]], [[KL Divergence]], [[Information Geometry]], [[Missing Information Principle]]
-- Related sources: [[neal-hinton-1998-em-variational]], [[beal-2003-variational-bayes]]
+- Concepts: [[Variational Free Energy]], [[E-step and M-step]], [[KL Divergence]], [[Information Geometry]], [[Missing Information Principle]], [[Variational EM]], [[Evidence lower bound (ELBO)]], [[Fisher information metric]], [[Natural gradient]], [[Mass as Fisher information]], [[Free-energy principle active inference]]
+- Related sources: [[neal-hinton-1998-em-variational]], [[neal-1998-variational-em]], [[beal-2003-variational-bayes]]
 - Manuscript/Project: [[VFE Transformer Program]], [[GL(K) Attention]]
 
 ## BibTeX
@@ -77,5 +83,7 @@ The EM algorithm is the direct computational ancestor of the E-step / M-step str
   volume  = {39},
   number  = {1},
   pages   = {1--38},
+  doi     = {10.1111/j.2517-6161.1977.tb01600.x},
+  note    = {With discussion},
 }
 ```

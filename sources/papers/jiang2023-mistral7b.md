@@ -2,8 +2,10 @@
 type: paper
 title: "Mistral 7B"
 aliases:
-  - "Jiang 2023"
-  - "Mistral 7B"
+  - Jiang 2023
+  - Mistral 7B
+  - jiang-2023-mistral
+  - Jiang et al. 2023
 authors:
   - Jiang, Albert Q.
   - Sablayrolles, Alexandre
@@ -53,12 +55,12 @@ Mistral 7B adopts a standard transformer backbone (32 layers, dim 4096, 32 atten
 On the standard benchmark suite (MMLU, HellaSwag, Winogrande, PIQA, ARC, NaturalQuestions, TriviaQA, HumanEval, MBPP, MATH, GSM8K), Mistral 7B scores 60.1% on MMLU, 81.3% on HellaSwag, 30.5% on HumanEval, and 52.2% on GSM8K — exceeding Llama 2 13B on every metric. In reasoning and STEM tasks, Mistral 7B effectively matches what would be expected of a Llama 2 model more than 3× its size. The instruction-fine-tuned model achieves an MT-Bench score of 6.84, outperforming all 7B chat models and matching 13B-class chat models on human preference evaluations. The self-reflection content moderation prompt achieves 99.4% precision and 95.6% recall on an adversarial safety dataset.
 
 ## Relevance to this research
-Mistral 7B is not directly related to the gauge-theoretic VFE transformer; it is a conventional neural language model using standard backpropagation and learned weight matrices throughout. However, two of its architectural ideas are of incidental technical interest. First, sliding window attention provides a local-neighborhood inductive bias on sequence structure, which connects loosely to the locality assumptions in belief-coupling terms $\beta_{ij}$ of the VFE free-energy functional. Second, grouped-query attention is a factorization of the key-value space that reduces redundancy across heads, a different approach to multi-head efficiency than the gauge-equivariant per-irrep structure used in GL(K) attention. The primary relevance is as a reference point for open-model scaling efficiency, not as a theoretical precursor.
+Mistral 7B is not directly related to the gauge-theoretic VFE transformer; it is a conventional neural language model using standard backpropagation and learned weight matrices throughout. However, two of its architectural ideas are of incidental technical interest. First, sliding window attention provides a local-neighborhood inductive bias on sequence structure, which connects loosely to the locality assumptions in belief-coupling terms $\beta_{ij}$ of the VFE free-energy functional. Second, grouped-query attention is a factorization of the key-value space that reduces redundancy across heads, a different approach to multi-head efficiency than the gauge-equivariant per-irrep structure used in GL(K) attention. The primary relevance is as a reference point for open-model scaling efficiency, not as a theoretical precursor. PIFB ([[participatory-it-from-bit]]) cites it as contemporary "architecture furniture" — a strong, efficient open baseline in the conventional transformer lineage ([[vaswani2017-attention]]) against which the project positions its no-neural-network VFE alternative; its sliding-window attention is treated as another special case of the local-coupling prior under [[Attention mechanisms — theory and positional structure]].
 
 ## Cross-links
-- Concepts: [[Attention Mechanism]]
+- Concepts: [[Attention Mechanism]], [[Attention mechanisms — theory and positional structure]]
 - Related sources: [[vaswani2017-attention]], [[touvron2023-llama2]]
-- Manuscript/Project: [[VFE Transformer Program]]
+- Manuscript/Project: [[VFE Transformer Program]], [[participatory-it-from-bit]]
 
 ## BibTeX
 ```bibtex

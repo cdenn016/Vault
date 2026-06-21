@@ -27,7 +27,7 @@ updated: 2026-06-21
 # Importance Weighted Autoencoders
 
 > [!info] Citation
-> Burda, Yuri, Grosse, Roger, Salakhutdinov, Ruslan (2016). "Importance Weighted Autoencoders." ICLR. https://arxiv.org/abs/1509.00519
+> Burda, Yuri, Grosse, Roger, Salakhutdinov, Ruslan (2016). "Importance Weighted Autoencoders." *International Conference on Learning Representations (ICLR) 2016*. First posted as arXiv:1509.00519 (2015). https://arxiv.org/abs/1509.00519
 
 ## TL;DR
 Introduces a tighter, importance-sampling-based lower bound on the marginal likelihood (the IWAE bound) for variational autoencoders, using k weighted posterior samples. As k grows the bound becomes tighter than the standard ELBO, yielding richer approximate posteriors and better generative models.

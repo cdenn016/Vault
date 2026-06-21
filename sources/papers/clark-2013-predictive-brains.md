@@ -2,9 +2,12 @@
 type: paper
 title: "Whatever next? Predictive brains, situated agents, and the future of cognitive science"
 aliases:
-  - "Clark 2013"
-  - "Whatever Next"
-  - "Predictive Brains"
+  - Clark 2013
+  - Whatever Next
+  - Predictive Brains
+  - clark-2013-whatever-next
+  - clark2013whatever
+  - predictive processing Clark
 authors:
   - Clark, Andy
 year: 2013
@@ -62,10 +65,14 @@ This paper is foundational background for the VFE transformer program. Several c
 - **Participatory realism**: Clark's section 3.4 on situated agents, cultural niche construction, and "designer environments" resonates with the participatory realism / "it from bit" perspective developed in the PIFB manuscript — agents do not merely passively represent the world but co-constitute it through prediction-error minimizing action.
 - **GL(K) attention**: The duplex representation/error-unit architecture motivates the VFE transformer's separation of mean ($\mu$) and precision ($\Sigma^{-1}$) belief parameters, and the role of gauge-equivariant transport $\Omega_{ij}$ in comparing beliefs across positions parallels the hierarchical top-down predictive cascade.
 
+> [!note] Five core PP claims + folded detail (from merged duplicate notes)
+> Clark distils predictive processing into **five core claims**: (1) the brain encodes a hierarchical generative model of its sensory stream; (2) perception is Bayesian inference within that model; (3) prediction errors, not raw stimuli, are the primary bottom-up signal; (4) attention is precision-weighting of prediction errors; (5) action is active inference — motor predictions fulfilled by movement. The single-layer free energy he writes, $F = D_{\text{KL}}[q(\theta)\,\|\,p(\theta\mid s)] - \log p(s)$, is the one-level instance of the VFE transformer's full multi-level belief-coupling functional $F = \alpha\,\text{KL}(q_i\|p_i) + \lambda_h\,\text{KL}(s_i\|h) + \sum_{ij}[\beta_{ij}\,\text{KL}(q_i\|\Omega_{ij}q_j) + \tau\beta_{ij}\log(\beta_{ij}/\pi_{ij})] - \mathbb{E}_q[\log p(o\mid x)]$. The **"dark-room" objection** (PP predicts organisms should seek sensory-impoverished environments) is answered by noting that itinerant exploration is itself predicted given species-typical priors about a changing world.
+
 ## Cross-links
-- Concepts: [[Predictive Coding]] · [[Variational Free Energy]] · [[Active Inference]] · [[Attention as Precision]] · [[Hierarchical Generative Model]]
-- Related sources: [[friston-2010-free-energy]] · [[rao-ballard-1999]] · [[hohwy-2013-predictive-mind]]
-- Manuscript/Project: [[VFE Transformer Program]] · [[GL(K) Attention Manuscript]] · [[PIFB Manuscript]]
+- Concepts: [[Predictive Coding]] · [[Variational Free Energy]] · [[Active Inference]] · [[Free Energy Principle]] · [[Attention as Precision]] · [[Hierarchical Generative Model]] · [[Bayesian Brain]] · [[Collective active inference]] · [[Multi-agent variational free energy]]
+- Related sources: [[friston-2010-free-energy]] · [[rao-ballard-1999]] · [[hohwy-2013-predictive-mind]] · [[friston-2016-active-inference-learning]] · [[bogacz-2017-free-energy-tutorial]] · [[smith-2022-active-inference-tutorial]]
+- Methods: [[Free-energy principle active inference]] · [[Predictive coding network]]
+- Manuscript/Project: [[VFE Transformer Program]] · [[GL(K) Attention Manuscript]] · [[PIFB Manuscript]] · [[Gauge-Theoretic Multi-Agent VFE Model]]
 
 ## BibTeX
 ```bibtex

@@ -2,8 +2,12 @@
 type: paper
 title: "Perseverance of Social Theories: The Role of Explanation in the Persistence of Discredited Information"
 aliases:
-  - "Anderson 1980"
-  - "belief perseverance"
+  - Anderson 1980
+  - belief perseverance
+  - anderson1980perseverance
+  - anderson-1980-belief-perseverance
+  - Anderson Lepper Ross 1980
+  - Perseverance of Social Theories
 authors:
   - Anderson, Craig A.
   - Lepper, Mark R.
@@ -24,7 +28,7 @@ updated: 2026-06-20
 # Perseverance of Social Theories: The Role of Explanation in the Persistence of Discredited Information
 
 > [!info] Citation
-> Anderson, C. A., Lepper, M. R., & Ross, L. (1980). "Perseverance of Social Theories: The Role of Explanation in the Persistence of Discredited Information." *Journal of Personality and Social Psychology*, 39(6), 1037–1049.
+> Anderson, C. A., Lepper, M. R., & Ross, L. (1980). "Perseverance of Social Theories: The Role of Explanation in the Persistence of Discredited Information." *Journal of Personality and Social Psychology*, 39(6), 1037–1049. DOI: [10.1037/h0077720](https://doi.org/10.1037/h0077720).
 
 ## TL;DR
 Two experiments using a debriefing paradigm demonstrate that social theories formed on minimal evidence survive complete invalidation of the formative data. The effect is substantially amplified when subjects are first asked to generate a causal explanation for the observed relationship, because the explanation becomes cognitively autonomous of the original (now-discredited) evidence base.
@@ -39,6 +43,9 @@ Experiment 2 (N = 62): Six conditions crossing relationship direction (positive/
 
 ## Key results
 In Experiment 1, debriefed subjects retained beliefs nearly as strong as non-debriefed subjects: the Relationship × Debriefing interaction was non-significant, F(1,63) = 1.59. The internal analysis revealed a highly significant point-biserial correlation (r = 0.44, p < 0.0005) between the presence of a generalized explanatory principle in the subject's written account and the degree of post-debriefing belief perseverance. In Experiment 2, theory perseverance occurred even in the debriefing/no-explanation condition (Relationship × Debriefing interaction significant, F(1,54) = 23.31, p < 0.001), and explicit explanation significantly enhanced perseverance beyond this baseline (Explanation × Relationship interaction, F(1,54) = 7.86, p < 0.05). Subjects exposed to opposing fictional data sets were equally easily induced to adopt and retain conceptually opposite beliefs, ruling out the possibility that perseverance reflects a normatively defensible prior.
+
+> [!note] Editorial — verified statistic
+> The Experiment-2 Explanation × Relationship interaction is reported in the original article as **F(1,54) = 7.86, p < .05** (the duplicate notes that disagreed — p < .01 vs p < .05 — are resolved in favour of **p < .05**). Confirmed against the primary source: Anderson, Lepper & Ross (1980), *JPSP* 39(6), 1037–1049, p. 1046, where the same paragraph states all component effects were significant at p < .05 and renders the F = 23.31 Relationship × Debriefing interaction at p < .001. Full text: author's copy at craiganderson.org (80ALR.PDF).
 
 ## Relevance to this research
 This paper is directly relevant to the social-physics and opinion-dynamics components of the VFE multi-agent framework. In the gauge-theoretic VFE / active-inference setting, agents maintain belief distributions q_i over latent states; the belief-perseverance phenomenon maps onto the stability of local minima in the variational free energy landscape — once a causal explanation is encoded as a generative model structure (the "prior" p_i in the VFE), it persists as a self-reinforcing attractor even when the original sensory evidence is removed. The finding that explanation-generation mediates perseverance suggests that the depth of generative-model elaboration (analogous to the number of hierarchical layers or the specificity of prior structure in a predictive coding hierarchy) predicts resistance to belief revision. For social-influence and opinion-dynamics modeling this is a key empirical regularity: belief states do not simply track evidence but are stabilized by the internal generative structure the agent has constructed, which is exactly the kind of dynamics the multi-agent VFE coupling terms (beta_ij KL divergences) need to reproduce. The paper also anticipates the "consider-the-opposite" debiasing technique, which maps onto the meta-cognitive free-energy regulation proposed in the participatory-realism thread.
@@ -58,5 +65,6 @@ This paper is directly relevant to the social-physics and opinion-dynamics compo
   volume  = {39},
   number  = {6},
   pages   = {1037--1049},
+  doi     = {10.1037/h0077720},
 }
 ```

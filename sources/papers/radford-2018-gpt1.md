@@ -16,7 +16,6 @@ url: https://cdn.openai.com/research-covers/language-unsupervised/language_under
 venue: "OpenAI Technical Report"
 tags:
   - cluster/attention
-  - cluster/cs-ml
   - project/transformer
   - field/cs-ml
 status: stub

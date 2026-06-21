@@ -2,11 +2,15 @@
 type: paper
 title: "A change of perspective: switching quantum reference frames via a perspective-neutral framework"
 aliases:
-  - "Vanrietvelde 2020"
-  - "QRF perspective-neutral"
+  - Vanrietvelde 2020
+  - QRF perspective-neutral
+  - vanrietvelde-2020-change-of-perspective
+  - Vanrietvelde et al. 2020
+  - Perspective-neutral framework
+  - QRF switching
 authors:
   - Vanrietvelde, Augustin
-  - Hühn, Philipp A.
+  - Höhn, Philipp A.
   - Giacomini, Flaminia
   - Castro-Ruiz, Esteban
 year: 2020
@@ -14,6 +18,7 @@ arxiv: "1809.00556"
 url: https://arxiv.org/abs/1809.00556
 tags:
   - cluster/participatory/quantum-foundations
+  - cluster/gauge-theory
   - project/multi-agent
   - field/physics
   - field/philosophy
@@ -25,7 +30,7 @@ updated: 2026-06-20
 # A change of perspective: switching quantum reference frames via a perspective-neutral framework
 
 > [!info] Citation
-> Vanrietvelde, A., Hühn, P. A., Giacomini, F., & Castro-Ruiz, E. (2020). "A change of perspective: switching quantum reference frames via a perspective-neutral framework." *Quantum*, 4, 225. arXiv:1809.00556.
+> Vanrietvelde, A., Höhn, P. A., Giacomini, F., & Castro-Ruiz, E. (2020). "A change of perspective: switching quantum reference frames via a perspective-neutral framework." *Quantum*, 4, 225. DOI: [10.22331/q-2020-01-27-225](https://doi.org/10.22331/q-2020-01-27-225). arXiv:1809.00556.
 
 ## TL;DR
 
@@ -57,16 +62,17 @@ This paper is directly relevant to the participatory-realism and quantum-foundat
 - The perspective-neutral/Dirac vs. perspectival/reduced duality is formally analogous to the distinction between gauge-invariant global descriptions and perspectival local (belief-relative) descriptions in the VFE framework, where each agent holds a gauge-fixed view while the full system is described gauge-invariantly.
 - The QRF framework's relational observables and gauge-invariant quantities connect directly to the gauge-equivariant structure of GL(K) attention, where the attention weights and belief updates must be invariant under local gauge transformations (frame re-labelings by agents).
 - This paper, together with [[giacomini-2019-qrf-covariance]], provides the quantum-gravitational and quantum-foundational underpinning for the perspectival ontology assumed in the PIFB manuscript.
+- The two-step frame switch (reduce to the perspective-neutral structure, re-embed into a new frame) is structurally identical to the project's composition of transports $\Omega_{ij} = \exp(\phi_i)\exp(-\phi_j)$, which likewise factors a perspective change through a common reference; the obstruction to a single global gauge slice is the project's [[Holonomy]], legitimizing the reading of belief-coupling as living on a quotient/gauge-invariant space rather than on raw frame-dependent coordinates.
 
 ## Cross-links
-- Concepts: [[Quantum Reference Frames]], [[Gauge Theory]], [[Relational Observables]], [[Participatory Realism]], [[Dirac Quantization]]
-- Related sources: [[giacomini-2019-qrf-covariance]], [[fuchs-2017-participatory-realism]]
+- Concepts: [[Quantum Reference Frames]], [[Gauge Theory]], [[Relational Observables]], [[Participatory Realism]], [[Dirac Quantization]], [[Agents as fibre-bundle sections]], [[Holonomy]], [[Gauge transformation]]
+- Related sources: [[giacomini-2019-qrf-covariance]], [[fuchs-2017-participatory-realism]], [[bartlett-rudolph-spekkens-2007-reference-frames]]
 - Manuscript/Project: [[participatory-it-from-bit]], [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex
 @article{Vanrietvelde2020,
-  author  = {Vanrietvelde, Augustin and H{\"u}hn, Philipp A. and Giacomini, Flaminia and Castro-Ruiz, Esteban},
+  author  = {Vanrietvelde, Augustin and H{\"o}hn, Philipp A. and Giacomini, Flaminia and Castro-Ruiz, Esteban},
   title   = {A change of perspective: switching quantum reference frames via a perspective-neutral framework},
   journal = {Quantum},
   year    = {2020},

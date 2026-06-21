@@ -2,8 +2,10 @@
 type: paper
 title: "Consciousness-specific dynamic interactions of brain integration and functional diversity"
 aliases:
-  - "Luppi 2019"
-  - "Luppi2021"
+  - Luppi 2019
+  - Luppi2021
+  - Luppi et al. 2019
+  - Luppi (2019) Integration and Diversity
 authors:
   - Luppi, Andrea I.
   - Craig, Michael M.
@@ -34,6 +36,8 @@ updated: 2026-06-20
 
 > [!info] Citation
 > Luppi, A.I., Craig, M.M., Pappas, I., Finoia, P., Williams, G.B., Allanson, J., Pickard, J.D., Owen, A.M., Naci, L., Menon, D.K., & Stamatakis, E.A. (2019). "Consciousness-specific dynamic interactions of brain integration and functional diversity." *Nature Communications*, 10, 4616. https://doi.org/10.1038/s41467-019-12658-9
+
+> [!note] Editorial (citation disambiguation): The verified primary article is *Nature Communications* **10**:4616 (2019), DOI 10.1038/s41467-019-12658-9. A task-supplied citation listed "Nat. Commun. 12:4427 (2021)"; that is a different/erroneous attribution. The `Luppi2021` alias on this note is misleading and should be reviewed/removed by a human — if the manuscript intends a distinct 2021 Luppi paper, the attribution must be reconfirmed separately.
 
 ## TL;DR
 This study combines graph-theoretic measures of brain integration with entropy-based measures of functional diversity from resting-state fMRI to identify consciousness-specific patterns. Comparing awake volunteers, propofol-anaesthetised volunteers, and patients with disorders of consciousness (DOC), the authors demonstrate that consciousness specifically requires the interaction of integration and diversity: cortical networks in highly integrated temporal states show reduced functional diversity and compromised informational capacity (small-worldness) during unconsciousness, while thalamo-cortical disconnections emerge during segregated states. Posterior default mode network (DMN) regions, especially posterior cingulate/precuneus, consistently show concurrent reductions in both integrative capacity and temporal entropy across both datasets.
@@ -73,9 +77,9 @@ The finding that entropy of functional connectivity distributions (Shannon H of 
 The thalamo-cortical vs. cortico-cortical dissociation across temporal states is relevant to multi-scale or hierarchical VFE architectures: thalamic gating modulates information access in a state-dependent manner, analogous to how hyper-prior level (h → s) coupling in the VFE hierarchy is conditionally active. The paper also provides a concrete empirical example of how graph-theoretic measures of integration/segregation transition correspond to functional state changes — a pattern directly relevant to opinion dynamics and collective integration in multi-agent active inference models where agents transition between more and less integrated network states.
 
 ## Cross-links
-- Concepts: [[Integrated Information Theory]] · [[Global Workspace Theory]] · [[Entropy and Consciousness]] · [[Default Mode Network]] · [[Dynamic Functional Connectivity]]
-- Related sources: [[luppi-2021-synergistic-core]] · [[tononi-2004-information-integration]] · [[carhart-harris-2014-entropic-brain]]
-- Manuscript/Project: [[VFE Transformer Program]] · [[Participatory It-from-Bit]]
+- Concepts: [[Integrated Information Theory]] · [[Global Workspace Theory]] · [[Entropy and Consciousness]] · [[Default Mode Network]] · [[Dynamic Functional Connectivity]] · [[Fisher information metric]] · [[Meta-entropy]] · [[Meta-agents and hierarchical emergence]] · [[Ouroboros multi-scale dynamics]] · [[Mathematical consciousness science]]
+- Related sources: [[luppi-2021-synergistic-core]] · [[tononi-2004-information-integration]] · [[tononi-2016-iit]] · [[carhart-harris-2014-entropic-brain]]
+- Manuscript/Project: [[participatory-it-from-bit]] · [[VFE Transformer Program]] · [[Participatory It-from-Bit]]
 
 ## BibTeX
 ```bibtex

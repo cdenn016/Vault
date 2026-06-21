@@ -3,7 +3,7 @@ type: concept
 title: "Missing information principle"
 tags:
   - cluster/vfe
-  - cluster/statistics
+  - cluster/info-geometry
   - cluster/methodology
   - project/transformer
 status: stub

@@ -2,8 +2,9 @@
 type: paper
 title: "Building up Spacetime with Quantum Entanglement"
 aliases:
-  - "Van Raamsdonk 2010"
-  - "spacetime from entanglement"
+  - Van Raamsdonk 2010
+  - spacetime from entanglement
+  - vanraamsdonk-2010-entanglement-spacetime
 authors:
   - Van Raamsdonk, Mark
 year: 2010
@@ -22,7 +23,9 @@ updated: 2026-06-20
 # Building up Spacetime with Quantum Entanglement
 
 > [!info] Citation
-> Van Raamsdonk, Mark (2010). "Building up Spacetime with Quantum Entanglement." *General Relativity and Gravitation*, 42, 2323–2329. https://doi.org/10.1007/s10714-010-1034-0. arXiv:1005.3035.
+> Van Raamsdonk, Mark (2010). "Building up Spacetime with Quantum Entanglement." *General Relativity and Gravitation*, 42(10), 2323–2329. https://doi.org/10.1007/s10714-010-1034-0. arXiv:1005.3035. (First Award, 2010 Gravity Research Foundation Essay Competition.)
+
+> [!note] Editorial: This is a short essay (a Gravity Research Foundation award piece), so it advances a conceptual thesis with illustrative holographic arguments rather than a fully formalized theorem. The claims above reflect its argued thesis, not derived proofs.
 
 ## TL;DR
 Van Raamsdonk argues, within the AdS/CFT framework, that the classical connectedness of spacetime is not fundamental but emergent: it is the geometric manifestation of quantum entanglement between degrees of freedom in the dual non-perturbative description. Reducing entanglement between two boundary regions causes the corresponding bulk regions to pinch off and disconnect, while maximal entanglement corresponds to a smoothly connected geometry. The essay won first prize in the 2010 Gravity Research Foundation competition and launched the modern "spacetime from entanglement" research programme.
@@ -43,8 +46,9 @@ This paper is a foundational reference for the participatory-realism / it-from-b
 
 ## Cross-links
 - Concepts: [[Holography]], [[Entanglement Entropy]], [[AdS-CFT Correspondence]], [[Emergent Spacetime]], [[Participatory Realism]], [[It-from-Bit]]
-- Related sources: [[Maldacena-1997-adscft]], [[Ryu-Takayanagi-2006-holographic-entropy]], [[Wheeler-1989-it-from-bit]]
-- Manuscript/Project: [[PIFB]], [[Participatory It-From-Bit]], [[VFE Transformer Program]]
+- Related sources: [[Maldacena-1997-adscft]], [[Ryu-Takayanagi-2006-holographic-entropy]], [[Wheeler-1989-it-from-bit]], [[wheeler-1990-it-from-bit]], [[rovelli-1996-relational-qm]], [[fuchs-2014-qbism]]
+- Concepts (participatory): [[Participatory realism (it from bit)]], [[Fisher information metric]], [[Mass as Fisher information]], [[Meta-agents and hierarchical emergence]], [[Renormalization-group flow of beliefs]]
+- Manuscript/Project: [[PIFB]], [[Participatory It-From-Bit]], [[participatory-it-from-bit]], [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex
@@ -54,9 +58,12 @@ This paper is a foundational reference for the participatory-realism / it-from-b
   journal = {General Relativity and Gravitation},
   year    = {2010},
   volume  = {42},
+  number  = {10},
   pages   = {2323--2329},
   doi     = {10.1007/s10714-010-1034-0},
+  note    = {First Award, 2010 Gravity Research Foundation Essay Competition},
   eprint  = {1005.3035},
   archivePrefix = {arXiv},
+  primaryClass  = {hep-th},
 }
 ```

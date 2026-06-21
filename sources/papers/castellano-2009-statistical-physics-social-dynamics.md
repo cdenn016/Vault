@@ -2,8 +2,9 @@
 type: paper
 title: "Statistical physics of social dynamics"
 aliases:
-  - "Castellano 2009"
-  - "Castellano Fortunato Loreto 2009"
+  - Castellano 2009
+  - Castellano Fortunato Loreto 2009
+  - castellano-fortunato-loreto-2009-social-dynamics
 authors:
   - Castellano, Claudio
   - Fortunato, Santo
@@ -16,7 +17,9 @@ tags:
   - cluster/social-physics/networks-and-contagion
   - cluster/social-physics/evolutionary-and-cultural
   - cluster/social-physics/social-influence
+  - cluster/multi-agent
   - project/social-physics
+  - project/multi-agent
   - field/physics
   - field/sociology
   - field/mathematics
@@ -28,7 +31,7 @@ updated: 2026-06-20
 # Statistical physics of social dynamics
 
 > [!info] Citation
-> Castellano, C., Fortunato, S., and Loreto, V. (2009). "Statistical physics of social dynamics." *Reviews of Modern Physics* (arXiv:0710.3256v2). https://arxiv.org/abs/0710.3256
+> Castellano, C., Fortunato, S., and Loreto, V. (2009). "Statistical physics of social dynamics." *Reviews of Modern Physics* **81**(2), 591–646. DOI: [10.1103/RevModPhys.81.591](https://doi.org/10.1103/RevModPhys.81.591). Preprint: [arXiv:0710.3256](https://arxiv.org/abs/0710.3256).
 
 ## TL;DR
 A comprehensive review of statistical physics approaches to collective social phenomena, treating individuals as interacting agents analogous to spins or particles. The review covers opinion dynamics (voter model, majority rule, bounded confidence), cultural and language dynamics, crowd behavior, hierarchy formation, human dynamics, and social spreading, unifying them under common statistical physics concepts of order-disorder transitions, universality, and coarsening. The central question throughout is how microscopic interactions between agents produce macroscopic consensus, fragmentation, or ordered phases.
@@ -74,9 +77,11 @@ This review is a primary reference for the social-physics layer of the multi-age
 **Social impact and field-theoretic formulation.** The spatiotemporal opinion field equations (19-20) are structurally related to the hyper-prior coupling $\lambda_h \cdot \text{KL}(s_i \| h)$ in the VFE hierarchy, where the hyper-prior $h$ plays the role of the aggregate social field that all agent-models $s_i$ are pulled toward.
 
 ## Cross-links
-- Concepts: [[Opinion Dynamics]], [[Voter Model]], [[Social Influence]], [[Phase Transitions in Social Systems]], [[Bounded Confidence]]
-- Related sources: [[castellano-marsili-vespignani-2000-axelrod-transition]], [[axelrod-1997-complexity-cooperation]]
-- Manuscript/Project: [[MAgent Model]], [[VFE Transformer Program]]
+> [!note] Editorial: Every model surveyed here is **first-order (overdamped)**: opinions relax monotonically toward an attractor with no inertia. [[belief-inertia]] defines its new physics by contrast — reading the Fisher/precision tensor as an inertial [[Mass as Fisher information]] gives belief *momentum* ([[Hamiltonian belief dynamics]], [[Belief inertia]]), predicting oscillation, overshoot, and resonance structurally absent from this relaxational catalogue. The classical models (DeGroot, Friedkin–Johnsen, bounded-confidence Hegselmann–Krause/Deffuant, majority/Galam, Social Impact Theory) are recovered as limiting cases of [[Multi-agent variational free energy]] minimization with gauge-transported KL coupling.
+
+- Concepts: [[Opinion Dynamics]], [[Voter Model]], [[Social Influence]], [[Phase Transitions in Social Systems]], [[Bounded Confidence]], [[Sociophysics]], [[Echo chambers and polarization]], [[Belief perseverance and confirmation bias]], [[Multi-agent variational free energy]], [[Renormalization-group flow of beliefs]], [[Meta-agents and hierarchical emergence]], [[Belief inertia]], [[Mass as Fisher information]], [[Hamiltonian belief dynamics]], [[Fisher information metric]], [[Agents as fibre-bundle sections]]
+- Related sources: [[castellano-marsili-vespignani-2000-axelrod-transition]], [[axelrod-1997-complexity-cooperation]], [[degroot-1974-consensus]], [[friedkin-johnsen-1990]], [[deffuant-2000-bounded-confidence]], [[hegselmann-krause-2002]], [[galam-2008-sociophysics]], [[latane-1981-social-impact]]
+- Manuscript/Project: [[belief-inertia]], [[SocialPhysics]], [[Gauge-Theoretic Multi-Agent VFE Model]], [[MAgent Model]], [[VFE Transformer Program]]
 
 ## BibTeX
 ```bibtex
@@ -86,7 +91,9 @@ This review is a primary reference for the social-physics layer of the multi-age
   journal = {Reviews of Modern Physics},
   year    = {2009},
   volume  = {81},
+  number  = {2},
   pages   = {591--646},
+  doi     = {10.1103/RevModPhys.81.591},
   eprint  = {0710.3256},
   archivePrefix = {arXiv},
   primaryClass  = {physics.soc-ph},

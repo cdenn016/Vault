@@ -2,10 +2,13 @@
 type: paper
 title: "Graphical Models, Exponential Families, and Variational Inference"
 aliases:
-  - "Wainwright 2008"
-  - "Wainwright Jordan 2008"
-  - "wainwright-2008-graphical"
-  - "wainwright2008graphical"
+  - Wainwright 2008
+  - Wainwright Jordan 2008
+  - wainwright-2008-graphical
+  - wainwright2008graphical
+  - wainwright-jordan-2008-graphical-models-variational-inference
+  - Wainwright & Jordan 2008 — Graphical Models, Exponential Families, and Variational Inference
+  - Wainwright-Jordan 2008
 authors:
   - Wainwright, Martin J.
   - Jordan, Michael I.
@@ -51,10 +54,12 @@ The sum-product algorithm on trees computes exact marginals; on loopy graphs it 
 ## Relevance to this research
 This monograph is foundational background for the VFE transformer and GL(K) gauge-equivariant attention in several direct ways. First, the VFE framework minimizes a variational free energy $F = \mathrm{KL}(q \| p)$ that is precisely an instance of the conjugate dual variational principle developed here: $F[\mu] = A^*(\mu) - \langle \theta_{\mathrm{obs}}, \mu \rangle$, placing VFE squarely within the exponential family variational framework. The Bethe free energy and its cluster variational method (CVM) generalizations are the direct statistical-physics predecessors of the VFE functional used in the transformer. Second, the attention weights $\beta_{ij}$ in the GL(K) manuscript arise as the solution to a row-constrained variational problem (the softmax is the stationary point of an entropy-regularized coupling objective), exactly mirroring the variational derivation of belief propagation fixed points here. Third, the paper's treatment of the marginal polytope $\mathcal{M}$ and its local polytope outer bound is directly relevant to the constraint geometry of the E-step belief update in the VFE transformer. Fourth, for the multi-agent active inference setting, this framework provides the formal basis for understanding how distributed message-passing agents (each minimizing local VFE) collectively approximate a joint variational inference computation. The exponential family structure is also central to the Gaussian belief tuples $(\mu, \Sigma)$ used as the natural parameterization of beliefs throughout the VFE code.
 
+> [!note] Editorial: The monograph is also published verbatim as a standalone book (Now Publishers, 2008); the *Foundations and Trends* article and the book share pagination (1–305). For the Gaussian exponential family the natural-to-mean map $\nabla A$ is precisely the passage from natural parameters $(\Sigma^{-1}\mu, -\tfrac12\Sigma^{-1})$ to mean parameters $(\mu, \Sigma + \mu\mu^\top)$ — the Legendre duality this monograph builds the whole theory on, and the identity underlying the model's Gaussian belief tuple $(\mu, \Sigma)$.
+
 ## Cross-links
-- Concepts: [[Variational Free Energy]] [[Exponential Families]] [[Belief Propagation]] [[Mean Field Theory]] [[Information Geometry]]
-- Related sources: [[amari-2016-information-geometry]] [[blei-2017-variational-inference-review]]
-- Manuscript/Project: [[VFE Transformer Program]] [[GL(K) Attention Manuscript]]
+- Concepts: [[Variational Free Energy]] [[Exponential Families]] [[Belief Propagation]] [[Mean Field Theory]] [[Information Geometry]] [[Evidence lower bound (ELBO)]]
+- Related sources: [[amari-2016-information-geometry]] [[blei-2017-variational-inference-review]] [[dempster-1977-em]] [[amari-2000-methods-information-geometry]] [[blei-2017-variational-inference]] [[friston-2010-free-energy-principle]]
+- Manuscript/Project: [[VFE Transformer Program]] [[GL(K) Attention Manuscript]] [[Variational free energy and predictive coding]]
 
 ## BibTeX
 ```bibtex
@@ -66,6 +71,8 @@ This monograph is foundational background for the VFE transformer and GL(K) gaug
   volume  = {1},
   number  = {1--2},
   pages   = {1--305},
+  publisher = {Now Publishers},
   doi     = {10.1561/2200000001},
+  issn    = {1935-8237},
 }
 ```

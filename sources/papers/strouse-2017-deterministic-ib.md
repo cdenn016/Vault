@@ -2,8 +2,10 @@
 type: paper
 title: "The Deterministic Information Bottleneck"
 aliases:
-  - "Strouse Schwab 2017"
-  - "DIB"
+  - Strouse Schwab 2017
+  - DIB
+  - Strouse & Schwab 2017
+  - Deterministic Information Bottleneck
 authors:
   - Strouse, DJ
   - Schwab, David J.
@@ -13,6 +15,7 @@ url: https://arxiv.org/abs/1604.00268
 tags:
   - cluster/info-geometry
   - project/transformer
+  - project/multi-agent
   - field/cs-ml
   - field/physics
   - field/neuroscience
@@ -24,7 +27,7 @@ updated: 2026-06-20
 # The Deterministic Information Bottleneck
 
 > [!info] Citation
-> Strouse, DJ & Schwab, David J. (2017). "The Deterministic Information Bottleneck." arXiv:1604.00268.
+> Strouse, DJ & Schwab, David J. (2017). "The Deterministic Information Bottleneck." *Neural Computation* 29(6): 1611–1630. arXiv:1604.00268. <https://arxiv.org/abs/1604.00268>
 
 ## TL;DR
 Strouse and Schwab introduce the deterministic information bottleneck (DIB), an alternative to the classical information bottleneck (IB) of Tishby, Pereira, and Bialek, in which the compression term is entropy H(T) rather than mutual information I(X;T). The key result is that the optimal DIB encoder is deterministic (a hard clustering / assignment function), in contrast to the stochastic soft-clustering optimal under IB. The DIB also converges 2–5x faster than IB empirically while outperforming it significantly on the DIB's own cost function.
@@ -57,18 +60,26 @@ The IB and DIB perform nearly identically when evaluated on the IB cost (I(X;T) 
 ## Relevance to this research
 The DIB is directly relevant to the VFE transformer program in several ways. The IB cost function L_IB = I(X;T) - β I(Y;T) is structurally analogous to the VFE free-energy functional: the KL-divergence coupling term KL(q_i || Ω_ij q_j) plays the role of the relevance term I(Y;T), while the self-coupling KL(q_i || p_i) plays the role of the compression term. The α-interpolation family Lα = H(T) - αH(T|X) - βI(Y;T) is particularly interesting because varying α shifts between source-coding (H(T), representational cost) and channel-coding (I(X;T), communication cost) notions of compression — a distinction mirrored in the VFE by the choice of f-divergence and decode strategy (KL-to-prior vs mutual-information decoding). The DIB's hard-clustering / deterministic-encoder result connects to the question of when VFE belief updates collapse to winner-take-all routing versus soft mixture assignment. The log q(t) "rich-get-richer" prior in the DIB assignment is structurally similar to the log-prior term in VFE belief updates (the alpha_i self-coupling). The paper also establishes that the noise-entropy term H(T|X) is what forces the IB toward stochastic encoders — a useful theoretical anchor for understanding why the VFE's sigma (variance) degree of freedom matters for maintaining soft beliefs.
 
+> [!note] MDL / crisp-assignment framing (from refs/ note): The DIB is the **hard-assignment** end of the IB spectrum, and PIFB lives on that spectrum (attention/coarse-graining ranging soft↔hard, governed by $\tau = \kappa\sqrt{K}$). Penalizing $H(T)$ rather than $I(X;T)$ links bottleneck compression to **minimum-description-length** coding, and the hard-clustering optimum is the cleanest analogue of crisp [[Meta-agents and hierarchical emergence]] formation — assigning each constituent agent to exactly one meta-agent is a deterministic bottleneck on the population, and the DIB supplies the variational account of when that hard assignment is optimal.
+
 ## Cross-links
-- Concepts: [[Information Bottleneck]] [[KL Divergence]] [[Variational Free Energy]] [[Belief Compression]]
-- Related sources: [[tishby-2000-information-bottleneck]]
-- Manuscript/Project: [[VFE Transformer Program]] [[GL(K) Attention]]
+- Concepts: [[Information Bottleneck]] [[KL Divergence]] [[Variational Free Energy]] [[Belief Compression]] [[Meta-agents and hierarchical emergence]]
+- Related sources: [[tishby-1999-information-bottleneck]] (soft IB) [[slonim-2000-agglomerative-ib]] (agglomerative coarse-graining cousin)
+- Manuscript/Project: [[VFE Transformer Program]] [[GL(K) Attention]] [[participatory-it-from-bit]]
 
 ## BibTeX
 ```bibtex
 @article{StrouseSchwab2017,
   author  = {Strouse, DJ and Schwab, David J.},
   title   = {The Deterministic Information Bottleneck},
-  journal = {arXiv preprint arXiv:1604.00268},
+  journal = {Neural Computation},
+  volume  = {29},
+  number  = {6},
+  pages   = {1611--1630},
   year    = {2017},
+  eprint  = {1604.00268},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.IT},
   url     = {https://arxiv.org/abs/1604.00268},
 }
 ```

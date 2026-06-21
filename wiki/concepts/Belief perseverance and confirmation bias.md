@@ -5,6 +5,8 @@ aliases:
   - Confirmation bias
   - Belief perseverance
   - Epistemic inertia (cognitive)
+  - Causal Explanation
+  - "Explanation-based belief perseverance"
 tags:
   - cluster/social-physics
   - cluster/vfe
@@ -31,6 +33,10 @@ This recasting matters for the program because it lets perseverance and confirma
 ### Confirmation bias from precision-weighted assimilation
 
 In the multi-agent free energy the influence of a neighbor (or an observation) on agent $i$ is mediated by a precision-weighted, gauge-transported coupling $\beta_{ik}\,D_{\mathrm{KL}}(q_i\|\Omega_{ik}\cdot q_k)$. The effective pull a source exerts is scaled by the *transported precision* it presents and by the attention weight $\beta_{ik}$, which itself falls off with the KL divergence between the agent's belief and the source. Evidence (or an interlocutor) that already lies close to the held belief is assigned a larger $\beta$ and is assimilated; evidence that lies far away is down-weighted. Preferential weighting of confirming information is therefore not an extra rule but the behavior of the same attention kernel that drives bounded-confidence dynamics ([[hegselmann-krause-2002]], [[deffuant-2000-bounded-confidence]]). The asymmetry sharpens further when the source's apparent precision is high: a confident, agreeing neighbor contributes a large block to agent $i$'s mass and pulls hard, while a confident *disagreeing* neighbor is suppressed by the divergence-sensitive $\beta$.
+
+### Causal explanation as the engine of perseverance
+
+A specific cognitive mechanism underwrites why perseverance is so robust: people generate a *causal story* to account for a proposed fact, and that self-constructed explanation then sustains the belief even after the original evidence is fully discredited. Anderson, Lepper and Ross showed this is the engine of belief perseverance — once a causal account is in place, debriefing fails to undo the belief ([[anderson-1980-belief-perseverance]]). In the program's terms the explanation acts as a *hysteresis term* resisting evidential updating: it is a psychological microfoundation for the high-mass, slow-to-revise dynamics formalized below, and a route by which an entrenched explanation behaves like accumulated inertia rather than a freshly weighed posterior.
 
 ### Belief perseverance as high-mass resistance and overshoot
 
