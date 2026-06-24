@@ -120,6 +120,19 @@ scaffolding of [[lee-2012-smooth-manifolds]]: a lattice gauge field is a discret
 connection on a principal bundle over the graph, with link variables as the
 discretized transport and plaquettes as the discretized curvature 2-form.
 
+Modern machine-learning work on the lattice supplies the bridge from these
+classical objects to the program's neural architecture. [[nagai-2025-cask]]
+builds a **gauge-covariant Transformer** (CASK) whose attention weights are
+Frobenius inner products of smeared link variables and Wilson-loop staples — the
+lattice-QCD analog of the program's [[GL(K) gauge-equivariant attention]], where a
+parallel-transport inner product forms the attention coefficient $\beta_{ij}$ and
+an exponential-map update transports the value. [[kanwar-2020-equivariant-flow]]
+and [[boyda-2021-su-n-flows]] construct **gauge-equivariant normalizing flows** on
+link variables — first $U(1)$, then non-abelian $SU(N)$ — that sample the
+gauge-invariant lattice measure exactly; they are direct evidence that learnable
+maps over $G$-valued links can respect local gauge symmetry by construction, the
+same demand the model places on its $GL^+(K)$ frame transport.
+
 > [!note] Editorial: The identification "edge-relaxed belief transport = Wilson
 > link variable, plaquette holonomy = curvature diagnostic" is the program's own
 > reading; the lattice-gauge sources establish the objects (links, plaquettes,
@@ -143,3 +156,6 @@ discretized transport and plaquettes as the discretized curvature 2-form.
 - [[Gauge transformation]]
 - [[Killing form]]
 - [[participatory-it-from-bit]]
+- [[GL(K) gauge-equivariant attention]] — the program's neural instantiation of gauge-invariant link inner products
+- [[nagai-2025-cask]] — gauge-covariant Transformer (CASK) on lattice links
+- [[kanwar-2020-equivariant-flow]] · [[boyda-2021-su-n-flows]] — gauge-equivariant flows on $U(1)$ / $SU(N)$ links
