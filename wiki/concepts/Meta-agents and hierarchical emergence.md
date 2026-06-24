@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-06-19
+updated: 2026-06-23
 ---
 
 # Meta-agents and hierarchical emergence
@@ -34,6 +34,18 @@ W_{i\alpha}(x) = S_{i\sigma(\alpha)}(x)\cdot C_{i\alpha}(x),
 $$
 
 with $S$ the slow species gate (from model alignment) and $C$ the fast coalition membership (from belief alignment). The code likens this to Cooper pairing: condensation requires matching quantum numbers (species) before pairing (meta-agent formation) can occur.
+
+## Definitional hierarchy in the source manuscript
+
+[[participatory-it-from-bit]] characterizes a meta-agent in several ways and explicitly notes that "three readings of the same meta-agent structure recur" — a fast-channel consensus detector, a variational free-energy-improvement criterion, and a renormalization-group closure ansatz. A 2026-06-23 audit (14 reader passes + a domain-expert panel and an adversarial red/blue/judge over the whole manuscript) catalogued ten non-foil characterizations plus three foils, found that they decompose into one constructive state-definition with a dependency chain of licensing/justification criteria, and the manuscript was revised the same day to declare a single canonical hierarchy rather than co-equal readings:
+
+- **Definition (what a meta-agent *is*).** The gauge-covariant forward-KL **barycenter** of the transported constituents, $q_I^* = \arg\min_{q_I}\sum_i w_i^I\,\mathrm{KL}(\Omega_{Ii}q_i\,\|\,q_I) + \lambda\,\mathrm{KL}(q_I\|p_I)$, with the Karcher / first-order-BCH gauge frame. This is the one meta-agent object that is at once a genuine variational minimizer and provably gauge-covariant: the coarse-graining map satisfies $\mathcal{R}_s(h\cdot X)=h\cdot\mathcal{R}_s(X)$.
+- **Licensing (*when* one forms).** The free-energy-improvement criterion $\mathcal{F}^*[\text{parent}] + C(I) < \mathcal{F}^*[\text{constituents}]$, itself the $\Delta_I>0$ special case of an MDL/Bayesian retention rule.
+- **Justification (*why* the collapse is admissible).** The [[Renormalization-group flow of beliefs|RG closure ansatz]] — a constrained spectral gap $m_I=\lambda_{I,w}\,\lambda_{\min}(F(q_I))>0$ on the slow manifold plus edge-marginal compatibility — carried as renormalization-group-*inspired* support, not as the definition.
+- **Computational surrogate.** The Gibbs consensus detector $\Gamma = P\,C_q\,C_s>\Gamma_{\min}$ described above, which selects candidate clusters for the criterion.
+- **Foils.** Perfect (pointwise) consensus and epistemic death (complete informational alignment after transport) are the pathological limit, not the formation target.
+
+> [!note] Editorial (2026-06-23): Anchoring the *definition* to the barycenter rather than to the RG-closed cluster (which the coarse-graining language might suggest) is a proof-status call. The RG closure half is conceded RG-inspired-not-rigorous: the strict closure class is *empty in the operational regime*, representability in the multi-agent KL class is unestablished, the gauge-covariance and closure theorems are proved only on the compact $\mathrm{SO}(K_q)$ rather than the operational noncompact $\mathrm{GL}^+(K_q)$, and the deployed detector omits the spectral-gap test (so it runs as a similarity threshold, not a closure surrogate). The barycenter is the only meta-agent object carrying a clean theorem, so it anchors the definition while RG anchors the justification. A standing dissent (philosophy-of-science lens) holds that a definition should fix *when* a meta-agent exists, which would favor the FE-improvement criterion; the manuscript resolves this by demoting that criterion to licensing rather than discarding it. The same revision also fixed an internal inconsistency in the formal `Definition[Meta-Agent]`, whose two-factor coherence condition $C_{\text{belief}}\cdot C_{\text{model}}>\Gamma_{\min}$ had dropped the presence factor $P$ that the canonical three-factor score $\Gamma=P\,C_q\,C_s$ carries.
 
 ## Why it matters here
 
