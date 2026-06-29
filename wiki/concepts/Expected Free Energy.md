@@ -183,6 +183,26 @@ coupling its predicted outcomes to its neighbors' beliefs. See
 [[Inference machinery — variational EM and filtering]] for where this template plugs into the
 [[VFE Transformer Program]] and the [[Gauge-Theoretic Multi-Agent VFE Model]].
 
+As of 2026-06-28 the EFE functional is operationalized for the *transformer* as well, not only the multi-agent
+setting: [[2026-06-28-active-inference-efe-policy-scorer-spec]] pre-registers a default-off, no-grad EFE policy
+scorer that reranks candidate token continuations by $G(\pi)=\mathrm{KL}[q(o\mid\pi)\|p(o\mid C)]+\mathbb{E}_{q(s\mid\pi)}H[p(o\mid s)]$
+with $Q(\pi)=\mathrm{softmax}(\log E-\gamma G)$, using an explicit *peaked task preference* for $p(o\mid C)$ so the
+risk term is a genuine goal rather than negative log-likelihood. The design records a sharp caveat that the
+canon makes inevitable: at a one-step, sigma-free point belief the epistemic term $\mathcal{I}(o;s\mid\pi)$ is
+identically zero, so the first version is a pragmatic preference-matching reranker and the epistemic/ambiguity
+machinery stays inert until belief-uncertainty enters the rollout (or the $\sigma$ signal passes a pre-registered
+validation gate). Nothing is implemented and no efficacy is claimed.
+
+As of 2026-06-29 that pre-registered $\sigma$-validation gate has been measured, and it FAILed
+([[2026-06-29-sigma-gate-fail-and-collapse]]). On the prior-bank decode checkpoint the belief-covariance trace is
+*anti-correlated* with realized cross-entropy ($\rho=-0.137$) and near-constant (cv $0.0445$), so $\sigma$ is not a
+usable epistemic signal — the information-gain / ambiguity arm stays inert *empirically*, not only by the $H{=}1$
+scope argument. The cause is structural: the vfe3 belief E-step carries no observation/data-precision term (a
+[[Variational EM|target-blind E-step]]; the canonical $-\mathbb{E}_q[\log p(o\mid x)]$ term is a gated stub with no
+live caller), so the covariance is a near-static learned prior the [[Precision weighting|precision]] machinery never
+contracts toward data. Making the EFE epistemic term live would require wiring an observation-precision term into
+the E-step covariance gradient — the canonical-vs-reduced choice the manuscripts lay out.
+
 > [!note] Editorial: The risk/ambiguity and epistemic/pragmatic decompositions, the
 > softmax-over-$-G$ policy rule, and the explore–exploit and epistemic-foraging results are
 > established by the cited sources. The mappings to GL(K) attention weights, meta-entropy, the
