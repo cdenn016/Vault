@@ -128,6 +128,22 @@ incremental E-step in the sense of [[neal-1998-variational-em]].
   recovered as the `alpha -> 1` limit, broadening the single free-energy functional
   that Neal and Hinton, and later Friston, place at the center of the scheme.
 
+- **Where it departs from textbook VEM (2026-06-29).** Neal and Hinton's defining
+  property is that the E-step and M-step ascend the **same** functional. The deployed
+  vfe3 transformer does **not**: its belief E-step is **target-blind**, carrying no
+  observation/likelihood term (the canonical $-\mathbb{E}_q[\log p(o\mid x)]$ is a
+  gated stub with no live caller), so the E-step descends a self-coupling-plus-belief-
+  alignment energy while the M-step minimizes the decode cross-entropy — **distinct
+  objectives**, a *structural* (generalized) EM with no monotone-evidence guarantee.
+  The [[gl-k-attention|GL(K) manuscript]] states this in plain text ("the observation
+  enters only the M-step loss, so the E-step is target-blind"; "rather than coordinate-
+  ascent steps on a single shared free energy"), a deliberate deviation from the
+  canonical [[participatory-it-from-bit|PIFB]] functional, where the observation term
+  lives in the fast belief subsystem the beliefs descend. The measured consequence is
+  that the belief covariance gets no per-token data precision and collapses to a near-
+  constant learned prior, failing the $\sigma$-validation gate
+  ([[2026-06-29-sigma-gate-fail-and-collapse]]).
+
 > [!note] Editorial: The mapping "E-step = belief/attention update, M-step =
 > parameter update, free energy = training loss" is the organizing idea of the
 > architecture; the individual sources establish each piece, but the synthesis is

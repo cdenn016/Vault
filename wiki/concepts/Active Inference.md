@@ -63,8 +63,25 @@ Active inference is the theoretical backbone of the [[Collective active inferenc
 where many free-energy-minimizing agents — each carrying Gaussian beliefs $(\mu,\Sigma)$ — couple
 into a collective whose meta-agents themselves do active inference, grounding the model's
 self-organization and belief dynamics. For the **vfe3 transformer**, the project imports active
-inference's *perceptual* half (precision-weighted belief-updating as attention) but generally not its
-expected-free-energy planning over actions.
+inference's *perceptual* half (precision-weighted belief-updating as attention) and, as of 2026-06-28, has a
+concrete *pre-registered design spec* for its action half: a default-off, no-grad
+[[Expected Free Energy]] policy scorer over candidate token continuations
+([[2026-06-28-active-inference-efe-policy-scorer-spec]]). It is specified, not implemented, and the design is
+honest about a sharp limit — at its first operating point (one look-ahead step over a sigma-free point belief)
+the expected-information-gain term vanishes identically, so version one reduces to a *pragmatic
+preference-matching reranker*; genuine information-seeking active inference is deferred until belief-uncertainty
+enters the rollout.
+
+A 2026-06-29 finding sharpens what the perceptual half actually does here ([[2026-06-29-sigma-gate-fail-and-collapse]]).
+The vfe3 belief E-step is **target-blind**: it carries no observation/likelihood term (the canonical
+$-\mathbb{E}_q[\log p(o\mid x)]$ is a gated stub with no live caller), so beliefs are *not* conditioned on observations
+in the canonical free-energy sense — a [[Variational EM|structural EM]] in which the E-step and the M-step descend
+distinct objectives. This is the [[gl-k-attention|GL(K) manuscript]]'s own design (its Algorithm 1 states "the
+observation enters only the M-step loss, so the E-step is target-blind"), and it deviates from the canonical
+[[participatory-it-from-bit|PIFB]] functional, which places the observation term in the fast belief subsystem that
+beliefs descend. The empirical signature is the failed $\sigma$-validation gate: the belief covariance carries no
+data precision, so it is a near-static learned prior, anti-correlated with surprise, rather than a live epistemic
+quantity.
 
 > [!note] Editorial: The map from active inference's policy selection onto a sequence model is loose;
 > the transformer borrows the belief-updating/precision-as-attention reading, while EFE-style planning
