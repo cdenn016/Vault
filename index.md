@@ -10,7 +10,7 @@ updated: 2026-06-28
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **4** manuscripts · **12** themes · **11** field MOCs · **268** concepts · **10** methods · **527** papers · **104** references · **4** runs · **6** web/methodology
+> **3** projects · **4** manuscripts · **12** themes · **11** field MOCs · **268** concepts · **10** methods · **527** papers · **104** references · **5** runs · **6** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -1059,3 +1059,4 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[2026-06-27-gauge-transport-ablation-suite|vfe3 ablation suite (2026-06-27) — gauge-transport causal ablation, 3-seed scaling, mechanism sweeps]]
 - [[2026-06-28-active-inference-efe-policy-scorer-spec|vfe3 active-inference EFE policy-scorer — investigation + pre-registered design spec (2026-06-28)]] (design / pre-registration, no results)
 - [[2026-06-29-sigma-gate-fail-and-collapse|vfe3 sigma-validation gate FAIL + why the belief covariance collapses (2026-06-29)]] (empirical negative + mechanism + manuscript reconciliation)
+- [[2026-07-05-blocks-k48-gauge-block-scaling|blocks_K48 gauge-block scaling sweep — fixed embed_dim, vary the GL partition (S1 survives REMAND)]]
