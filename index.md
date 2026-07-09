@@ -10,7 +10,7 @@ updated: 2026-06-28
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **4** manuscripts · **12** themes · **11** field MOCs · **268** concepts · **10** methods · **527** papers · **104** references · **5** runs · **6** web/methodology
+> **3** projects · **4** manuscripts · **12** themes · **11** field MOCs · **268** concepts · **10** methods · **527** papers · **104** references · **7** runs · **6** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -1060,3 +1060,5 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[2026-06-28-active-inference-efe-policy-scorer-spec|vfe3 active-inference EFE policy-scorer — investigation + pre-registered design spec (2026-06-28)]] (design / pre-registration, no results)
 - [[2026-06-29-sigma-gate-fail-and-collapse|vfe3 sigma-validation gate FAIL + why the belief covariance collapses (2026-06-29)]] (empirical negative + mechanism + manuscript reconciliation)
 - [[2026-07-05-blocks-k48-gauge-block-scaling|blocks_K48 gauge-block scaling sweep — fixed embed_dim, vary the GL partition (S1 survives REMAND)]]
+- [[2026-07-08-omega-direct-detsign-buildout|omega_direct element-store gauge + learnable det-sign (2026-07-08)]] (implementation / design; reaches the det<0 GL(K) component; gauge-covariance-vs-frame-use + diagonal-family findings)
+- [[2026-07-08-phi-reflection-buildout|learnable reflection on the phi path — R.exp(phi) (2026-07-08)]] (implementation; the cheap 1-bit route to det<0 on the default phi path; misses the non-exp interior omega_direct reaches; fixed a latent omega_direct block.py bug)
