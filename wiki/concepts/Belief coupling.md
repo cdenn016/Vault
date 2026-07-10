@@ -13,7 +13,7 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-06-21
-updated: 2026-06-21
+updated: 2026-07-09
 ---
 
 # Belief coupling
@@ -54,24 +54,24 @@ the *pushforward* of the Gaussian $q_k$ under this linear map, $\Omega_{ik}[q_k]
 \mathcal{N}(\Omega_{ik}\mu_k,\ \Omega_{ik}\Sigma_k\Omega_{ik}^\top)$.
 
 The pairwise interaction energy is then the transported divergence
-$E_{ik} = D_{\mathrm{KL}}(q_i \,\|\, \Omega_{ik}[q_k])$, and the **coupling term** in the free
+$E_{ik} = D_{\mathrm{KL}}(q_i\|\Omega_{ik}[q_k])$, and the **coupling term** in the free
 energy is the attention-weighted, entropy-regularized sum (term T3 of the canonical functional
 in [[Multi-agent variational free energy]]):
 
 $$
 \mathcal{F}_{\text{couple}}
-= \sum_{i,k}\,\Big[\,\beta_{ik}\,D_{\mathrm{KL}}\!\big(q_i\,\|\,\Omega_{ik}[q_k]\big)
-   \;+\; \tau\,\beta_{ik}\log\beta_{ik}\,\Big],
+= \sum_{i,k}\Big[\beta_{ik}D_{\mathrm{KL}}\big(q_i\|\Omega_{ik}[q_k]\big)
+   + \tau\beta_{ik}\log(\beta_{ik}/\pi_{ik})\Big],
 \qquad
-\beta_{ik} = \operatorname*{softmax}_{k}\!\Big(\!-\tfrac{E_{ik}}{\kappa\sqrt{K}} + \log\pi_{ik}\Big).
+\beta_{ik} = \operatorname*{softmax}_{k}\Big(-\tfrac{E_{ik}}{\kappa\sqrt{K}} + \log\pi_{ik}\Big).
 $$
 
 Here $\beta_{ik}$ is the **attention weight** — a normalized coupling strength that *itself*
 depends on the divergence: pairs that already disagree strongly (large $E_{ik}$) couple weakly,
 pairs that nearly agree couple strongly. The weight is not a free parameter but the stationary
-minimizer of the bracket: the entropy term $\tau\,\beta\log\beta$ is exactly what makes the
+minimizer of the bracket: the relative-entropy term $\tau\beta\log(\beta/\pi)$ is what makes the
 softmax the actual free-energy minimizer rather than an imposed choice, so that
-$\min_\beta \mathcal{F}_{\text{couple}} = -\tau\,\operatorname{LogSumExp}_k(-E_{ik}/\tau)$
+$\min_\beta \mathcal{F}_{\text{couple}} = -\tau\log\sum_k\pi_{ik}\exp(-E_{ik}/\tau)$
 ([[Multi-agent variational free energy]]). The prior $\pi_{ik}$ is a non-uniform attention
 prior (causal masks, positional biases) and $\kappa\sqrt{K}$ is the
 [[Precision weighting|precision-temperature]] scale.
@@ -166,17 +166,17 @@ emergent meta-agent's transporter is the inter-cluster average $\Omega_{AB} = (|
 $\Sigma_A = \langle\Sigma_i\rangle + \mathrm{Var}_A(\mu)$ — both read directly off the coupling
 structure. Iterating this gives the cross-scale tower of the
 [[Renormalization-group flow of beliefs]], in which the coupling strength is one of the
-RG couplings whose flow toward the standard-transformer fixed point is analyzed in
-[[gl-k-attention]].
+RG couplings. For Regime-I vertex variables, equal-weight blocking gives RMS fluctuations
+proportional to $n^{-1/2}$ and $y_2=-1/2$. The $n^{-1}$ rate belongs to a separate enlarged
+independent-edge ensemble and is not established by the data-dependent Regime-II parameterization.
+[[gl-k-attention-2026-07-09-review-revision]]
 
 Two further connections make the term load-bearing:
 
-- **Attention is this coupling.** In the flat, isotropic-Gaussian limit the transported-KL
-  coupling *is* standard transformer attention: $\beta_{ik} \propto
-  \operatorname{softmax}(Q_i K_k^\top/\sqrt{d_k})$ emerges as the degenerate limit of
-  $\operatorname{softmax}(-D_{\mathrm{KL}}(q_i\|\Omega_{ik}[q_k])/\tau)$
-  ([[gl-k-attention]]). Belief coupling is thus the variational-inference reading of an
-  attention head: each token-agent infers which neighbour generated its state.
+- **Attention uses this coupling.** The Regime-I cocycle forces trivial loop holonomy but does not
+  force pairwise identity transport. In the shared-frame or edge-independent constant reduction,
+  $\Omega_{ik}=I$. Its isotropic transported-KL score is identity-bilinear plus a key-norm bias; an
+  arbitrary learned QK bilinear form is a separate structural map. [[gl-k-attention-2026-07-09-review-revision]]
 
 - **Coupling vs. inertia.** The coupling term is the *force* that moves beliefs together; the
   resistance to that force is [[Belief inertia]] — the mass an agent's belief carries, set by

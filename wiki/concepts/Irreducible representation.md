@@ -10,7 +10,7 @@ tags:
   - project/transformer
 status: stable
 created: 2026-06-18
-updated: 2026-06-19
+updated: 2026-07-09
 ---
 
 # Irreducible representation
@@ -43,7 +43,7 @@ This matters concretely for the model's gauge machinery. Per-token beliefs and g
 
 Irreps surface wherever the config's gauge-theoretic vocabulary touches typed, coupled features:
 
-- **Gauge group `block_glk`.** The block $GL(k)$ structure partitions features into blocks that transform under group actions; representation labels are what make a "block" a well-defined transforming object rather than an arbitrary slice. This block structure also dovetails with the per-block [[Killing form|Killing-form]] preconditioning and the [[Fisher information metric]]-style, Kronecker-factored M-step (cf. [[martens-2015-kfac]], [[ollivier-2015-riemannian-metrics-nn]]).
+- **Gauge group `block_glk`.** The block $GL(k)$ structure partitions features into blocks that transform under group actions; representation labels make a block a typed object rather than an arbitrary slice. Optional per-block [[Killing form|Killing-form]] conditioning is an optimizer preconditioner, not a Fisher/KFAC M-step; the audited frame table uses plain AdamW and does not activate that conditioner. [[gl-k-attention-2026-07-09-review-revision]]
 - **Clebsch-Gordan coupling and irreps (config terms).** Explicitly listed in the architecture; these are the operations that combine block features of different types, following the template of [[thomas-2018-tensor-field-networks]] and the per-irrep machinery of [[weiler-2019-e2-steerable]] and [[kondor-2018-compact-group-conv]].
 - **Parallel transport / holonomy of beliefs.** Transporting per-token Gaussian beliefs and gauge frames ([[Parallel transport]], [[Holonomy]]) presupposes those objects carry representation types, the local-gauge setting formalized by [[cohen-2019-gauge-cnn]].
 - **Positional encodings via learned phi.** The Lie-algebra `phi` parameterization composed through [[Baker-Campbell-Hausdorff formula|BCH]] retraction is the algebra-coordinate analogue of [[finzi-2020-lieconv]]; irrep structure governs how such transforming features may legally interact.

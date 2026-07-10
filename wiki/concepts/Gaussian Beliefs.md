@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-06-21
+updated: 2026-07-09
 ---
 
 # Gaussian Beliefs
@@ -193,10 +193,11 @@ by the Gaussian log-partition function).
 Gaussian beliefs are a **core program concept**, the shared substrate of both flagship projects:
 
 - **VFE transformer / gauge attention.** Each token is a Gaussian agent; attention is KL
-  consensus between transported Gaussians; the covariance fixed point is a precision sum; and
-  standard dot-product attention is recovered as the isotropic ($\Sigma = \sigma^2 I$),
-  flat-gauge limit, with $W_Q W_K^\top$ identified as $\sigma^{-2}\Omega^{-\top}$
-  ([[gl-k-attention|GL(K) attention manuscript]], [[GL(K) gauge-equivariant attention]]).
+  consensus between transported Gaussians; and the covariance fixed point is a precision sum.
+  In the shared-frame Regime-I specialization, the isotropic limit is identity-bilinear plus a key-norm bias; a general
+  $W_QW_K^\top$ is structural, not transport. Full-Gaussian congruence remains exact, while the
+  live diagonal family is exact only under monomial transport and otherwise uses projection.
+  [[gl-k-attention-2026-07-09-review-revision]]
 - **Multi-agent / MAgent model.** Each agent carries $(\mu,\Sigma)$; precision $\Sigma^{-1}$
   is inertial [[Mass as Fisher information|mass]], which gives the model [[Belief inertia]] and
   a [[Hamiltonian belief dynamics|Hamiltonian]] second-order belief dynamics

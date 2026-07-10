@@ -11,7 +11,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-06-21
+updated: 2026-07-09
 ---
 
 # Exponential family
@@ -154,11 +154,10 @@ preconditioning by the curvature of $A$, and on a dually flat manifold the natur
 in one coordinate system is an ordinary gradient step in the other
 [[amari-1998-natural-gradient]].
 
-> [!note] Editorial: This chain — *Hessian of $A$ = covariance of $T$ = Fisher metric =
-> inverse-metric of the dual chart* — is why the project can treat "use the Fisher metric" and
-> "use the curvature of the log-partition" as the same instruction for Gaussian beliefs, and why
-> the M-step's Fisher/Killing preconditioning is geometrically the invariant-metric choice rather
-> than an arbitrary curvature estimate (cf. [[amari-2000-methods-information-geometry]]).
+> [!note] Editorial (2026-07-09): The Hessian/covariance/Fisher identity supports the
+> Gaussian belief update. It does not identify the frame M-step with Fisher geometry or make
+> Killing conditioning a full-$\mathrm{GL}(K)$ invariant metric; the audited frame table uses
+> plain AdamW, while the configured geometric and heavy-ball fields are inactive. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Gaussian beliefs as the working instance
 
@@ -224,10 +223,10 @@ other piece of its machinery is a property of this one structure.
   and the [[Evidence lower bound (ELBO)]] is its rearrangement
   [[wainwright-2008-graphical-models-variational]]. The Bethe/mean-field free energies that the
   monograph derives are the statistical-physics predecessors of the model's free-energy functional.
-- **E/M steps are dual projections.** The [[Variational EM]] split — E-step refines beliefs, M-step
-  moves parameters — is the pair of *dual projections* (m-projection / e-projection) on the dually flat
-  exponential-family manifold, with the [[Natural gradient]] M-step preconditioned by the inverse Fisher
-  metric, i.e. the Hessian of $A^{*}$ [[amari-2000-methods-information-geometry]][[amari-1998-natural-gradient]].
+- **Textbook dual projections.** In a shared-functional exponential-family [[Variational EM]]
+  model, E- and M-steps can be read as dual projections. The deployed transformer instead uses
+  distinct belief and decode objectives; only the belief update has the established Gaussian
+  Fisher/AIRM geometry. [[gl-k-attention-2026-07-09-review-revision]]
 - **Attention as an entropy-regularized coupling.** The softmax attention weights arise as the
   stationary point of an entropy-regularized variational problem — the same conjugate-duality template
   that gives belief-propagation fixed points in [[wainwright-2008-graphical-models-variational]].

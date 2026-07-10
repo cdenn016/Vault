@@ -12,7 +12,7 @@ tags:
   - project/transformer
 status: stable
 created: 2026-06-18
-updated: 2026-06-19
+updated: 2026-07-10
 ---
 
 # Inference machinery — variational EM and filtering
@@ -24,22 +24,22 @@ The [[VFE Transformer Program]] treats every token not as a fixed vector but as 
 machinery that updates those beliefs, and the parameters that shape them, is the
 subject of this page. It is the engine room of the architecture — the loop that, on
 each forward pass, decides what the model currently believes and how confident it is,
-and on each backward pass, decides how to revise the generative model that produced
-those beliefs. The conceptual spine is the [[Variational EM]] algorithm: a single
-objective, optimized by alternating between an inference step over latent beliefs and a
-learning step over parameters.
+and on each backward pass, updates parameters through a separate decode loss. The
+architecture borrows the alternating skeleton of [[Variational EM]], but its target-blind
+belief filter and decode cross-entropy do not optimize a single shared functional.
+“Structural EM” names that organization, not a coordinate-ascent guarantee.
+[[gl-k-attention-2026-07-09-review-revision]]
 
 The unifying observation, due to [[neal-1998-variational-em]], is that the
 Expectation-Maximization algorithm is not two unrelated operations but coordinate
 ascent on *one* functional — the negative [[Variational free energy]], equivalently the
 [[Evidence lower bound (ELBO)]]. The E-step holds parameters fixed and optimizes the
 variational belief distribution `q`; the M-step holds `q` fixed and optimizes the
-parameters. Crucially, Neal and Hinton show this functional view licenses *incremental*
+parameters. Neal and Hinton show this functional view licenses *incremental*
 and *partial* updates: you need not run either step to convergence before switching.
-That permission is exactly what the architecture's `gradient_mode = "filtering"`
-exploits — beliefs are nudged a few steps toward their optimum rather than relaxed
-fully, and parameters are updated on the resulting partially-relaxed beliefs, so
-inference and learning interleave online like a filter rather than a batch EM sweep.
+That permission applies to textbook shared-functional EM. The transformer's target-blind
+belief objective and decode cross-entropy are distinct, so its one-step filter is not
+licensed by Neal–Hinton monotonicity. [[gl-k-attention-2026-07-09-review-revision]]
 
 Where Neal and Hinton supply the algorithmic justification, [[friston-2010-free-energy-principle]]
 supplies the semantics. Friston's free-energy principle casts perception, attention,
@@ -47,8 +47,10 @@ and learning as a single imperative: minimize variational free energy, an upper 
 surprise (negative log model evidence). In this reading the E-step is *perception*
 (inferring hidden causes of the input), the M-step is *learning* (improving the
 generative model), and the precision terms that weight prediction errors are *attention*.
-This is not loose analogy for the VFE transformer; it is the literal training objective
-and the literal source of [[Precision weighting]] in its attention. For the discrete (POMDP)
+For the VFE transformer this is conceptual background, not a literal single-objective
+description of its structural-EM schedule. [[gl-k-attention-2026-07-09-review-revision]]
+
+For the discrete (POMDP)
 incarnation of the same scheme, [[smith-2022-active-inference-tutorial]] is the standard
 operational reference: it writes out the explicit variational and expected-free-energy update
 equations and the worked mean-field factorization over hidden states, policies, and parameters,
@@ -59,9 +61,8 @@ The remaining ingredient — what makes the beliefs Gaussian and the updates con
 from the predictive-coding lineage. [[rao-1999-predictive-coding]], [[bogacz-2017-free-energy-tutorial]],
 and [[millidge-2020-pc-approximates-backprop]] turn the abstract free-energy functional
 into explicit, local, precision-weighted [[Prediction error]] dynamics on Gaussian
-variables, and prove that those local dynamics recover the gradients of exact
-backpropagation. That equivalence is what lets the architecture run an EM-style belief
-loop and still claim it is training the same model end-to-end gradient descent would.
+variables. Exact-backprop recovery is a convergence result for the source model; it does
+not certify the transformer's truncated, two-objective filtering loop. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Key threads
 
@@ -70,15 +71,16 @@ loop and still claim it is training the same model end-to-end gradient descent w
 free energy `F(q, theta)`, it makes the E-step an explicit optimization over the belief
 `q` rather than a fixed posterior computation, which is precisely what is needed when the
 exact posterior is intractable and `q` must be an approximating diagonal Gaussian. The
-incremental and sparse variants Neal and Hinton justify are the formal ancestors of
-"filtering": optimize `q` for a subset, or for a few steps, then update parameters. This
-thread connects directly to [[Variational free energy]] and [[Evidence lower bound (ELBO)]]
-as the shared objective. What that E-step optimizes is fixed by the chosen mean-field
+incremental and sparse variants Neal and Hinton justify are precedents for partial updates
+on one shared functional. The transformer's `filtering` label is only an analogy: its
+target-blind belief and decode objectives are distinct, so their guarantee does not
+transfer. What a textbook E-step optimizes is fixed by the chosen mean-field
 factorization, and [[winn-2005-variational-message-passing]] makes that structure
 computational: on conjugate-exponential models, mean-field variational inference becomes local
 message passing on a factor graph, pinning down which factorization underwrites a given update
-and prefiguring the way gauge-VFE attention routes precision-weighted prediction errors between
-token-belief factors.
+and providing a comparison for local message routing. The deployed attention
+uses precision-weighted pairwise belief mismatches, not observation-prediction
+errors from that factor graph.
 
 **The free-energy principle and precision-weighted perception.**
 [[friston-2010-free-energy-principle]] elevates the same functional to a theory of
@@ -91,83 +93,79 @@ precision-weighted attention (see the theme [[Variational free energy and predic
 and the method [[Predictive coding network]]). [[bogacz-2017-free-energy-tutorial]] makes the
 mapping operational, deriving for Gaussian beliefs the explicit E-step belief-relaxation
 update (gradient descent on free energy in `mu`) and the M-step precision-learning update
-(updating `Sigma` and weights). The architecture's filtering loop mirrors these two updates
-nearly line for line. [[buckley-2017-fep-mathematical-review]] supplies the cleanest
+(updating `Sigma` and weights). The transformer's belief-side precision weighting is
+analogous, but its one-step filter and separate decode objective do not reproduce both
+updates. [[buckley-2017-fep-mathematical-review]] supplies the cleanest
 self-contained worked derivation of the same continuous-state machinery — the Laplace-encoded
 variational free energy, the gradient-descent E-step on `mu`, and the precision-weighted
 prediction-error dynamics for Gaussian beliefs — serving as a derivation bridge from the
 Bishop/Beal ELBO canon to the Friston-style free-energy claims that the filtering E-step mirrors.
 
-**Predictive coding equals backprop.** A pivotal modern result,
-[[millidge-2020-pc-approximates-backprop]], proves that free-energy minimization with purely
-local prediction-error messages converges to exact backpropagation gradients along arbitrary
-computation graphs. For this program the implication is decisive: the E-step/M-step inference
-loop is not an *alternative* to gradient training but a *realization* of it. The model can be
-described as variational EM and trained as a differentiable network without contradiction,
-which is what makes the belief loop and the parameter optimizer coherent halves of one system.
+**Predictive-coding/backpropagation equivalence is conditional.**
+[[millidge-2020-pc-approximates-backprop]] proves exact-gradient recovery for the source
+model under its convergence and scheduling assumptions. The transformer's finite one-$s$/one-$q$
+inner schedule, separate decode objective, and no-neural-network pure path do not satisfy that
+theorem by description alone. [[gl-k-attention-2026-07-09-review-revision]]
 
-**Amortization and iterative refinement.** A single forward pass that emits beliefs is an
-*amortized* inference network: it learns a function from input to `q` rather than optimizing
-`q` from scratch per input. [[kingma-2013-auto-encoding-variational-bayes]] is the blueprint —
-the variational autoencoder trains the ELBO end-to-end using an amortized Gaussian recognition
-network and the [[Reparameterization trick]] to backpropagate through sampling. But a single
-amortized pass leaves an *amortization gap*: the learned encoder rarely hits the true per-input
-optimum. [[marino-2018-iterative-amortized-inference]] closes that gap by learning an *optimizer*
-that repeatedly refines beliefs by encoding free-energy gradients. This is the precise template
-for "filtering" as a finite number of belief-refinement iterations per token, sitting between a
-one-shot VAE encoder ([[Amortized inference]], [[Variational autoencoder (VAE)]]) and full
-per-token relaxation ([[Iterative amortized inference]]).
+**Amortization and iterative refinement.** VAEs and iterative-amortized methods provide
+recognition-network and learned-optimizer precedents. The pure transformer contains neither:
+it carries model and belief states explicitly and applies finite target-blind refinements.
+Amortization is therefore a comparison, not the precise template or a demonstrated gap-closing result for
+`filtering`. See [[Amortized inference]], [[Variational autoencoder (VAE)]], and
+[[Iterative amortized inference]]. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## How it lands in this work
 
-In the decoded config these threads compose into a concrete loop. Each token carries a Gaussian
-belief `(mu, Sigma)` with `family = gaussian_diagonal`. The **E-step** is the filtering update:
-starting from the amortized prediction (the [[kingma-2013-auto-encoding-variational-bayes]]
-recognition pass), beliefs are refined by a small number of precision-weighted prediction-error
-steps in the style of [[bogacz-2017-free-energy-tutorial]] and
-[[marino-2018-iterative-amortized-inference]], rather than relaxed to convergence — the partial
-update [[neal-1998-variational-em]] permits. The **M-step** updates the generative parameters on
-those partially-relaxed beliefs. The objective minimized throughout is variational free energy
-(the [[friston-2010-free-energy-principle]] / [[Evidence lower bound (ELBO)]] functional),
-and [[millidge-2020-pc-approximates-backprop]] is what guarantees the loop's local updates and
-the end-to-end optimizer agree.
+In the decoded config, each token carries diagonal-Gaussian model and belief states. The inner
+stage first performs one target-blind $s$ refinement toward the learned global $r$ and
+gamma-weighted model consensus. It then sets $q_i^{(0)}=p_i=s_i^{(1)}$ and performs one
+target-blind natural-gradient $q$ refinement on alignment/self-coupling terms. Neither is an
+argmin or CAVI update. The outer stage minimizes decode cross-entropy through both unrolled
+paths. See the structural-EM disclosure in [[Variational EM]]; no shared-functional monotonicity
+or exact-backprop guarantee applies to this loop. [[gl-k-attention-2026-07-09-review-revision]]
 
-The inference machinery does not stand alone; it borrows its *metrics* from the geometry clusters.
-The M-step here is not vanilla gradient descent but a [[Natural gradient]] step: the free-energy
-gradient is preconditioned by the inverse [[Fisher information metric]], following
-[[amari-1998-natural-gradient]], so that parameter updates are invariant to reparameterization of
-the beliefs (the cross-cluster theme [[Information geometry and natural gradient]]). Because `Sigma`
-is symmetric-positive-definite, the belief-covariance updates live on the SPD manifold and use
-Riemannian retractions rather than naive additive steps (the theme
-[[SPD-manifold geometry and Riemannian optimization]]). And because the architecture's
-training loss is a [[Renyi divergence]] family with KL as the order-one limit, the very ELBO that
-EM ascends is generalized to the variational Renyi bound of [[li-turner-2016-renyi-vi]] — a
-one-parameter `alpha` interpolation between the standard ELBO and the log marginal likelihood.
-The "inference machinery," in other words, is the standard variational-EM loop whose objective,
-gradient metric, and covariance arithmetic are each upgraded by a neighboring cluster.
+The belief machinery uses the Gaussian-family Fisher metric. At each recorded source SHA, the frame
+table is routed through AdamW by the committed gate and stored configuration, although dirty provenance
+prevents byte-level reconstruction. Heavy-ball is confined to the disabled custom outer frame optimizer;
+BCH/retraction is confined to disabled in-E-step frame revision; and the shared pullback conditioner is
+inactive because both optional routes are off. Optional frame conditioning is not a Fisher natural gradient.
+[[gl-k-attention-2026-07-09-review-revision]]
 
-> [!note] Editorial: The literal `"filtering"` label in the config is read here as the
-> incremental/partial-E-step regime of [[neal-1998-variational-em]] combined with the
-> iterative-refinement optimizer of [[marino-2018-iterative-amortized-inference]]; the sources
-> establish each ingredient, but the specific synthesis into a streaming online filter is this
-> program's design choice rather than a claim made by any one paper.
+Because `Sigma` is symmetric-positive-definite, the belief-covariance updates
+live on the SPD manifold and use Riemannian retractions rather than naive
+additive steps (the theme [[SPD-manifold geometry and Riemannian optimization]]).
+The belief-side objective may use an order-[[Renyi divergence|Rényi divergence]]
+with KL as the order-one limit. This pairwise discrepancy is not the variational
+Rényi bound of [[li-turner-2016-renyi-vi]]. The decoder is trained by a separate
+cross-entropy objective, so no single ELBO or Rényi bound is jointly ascended by
+the two inner refinements and the outer update. The inference machinery is structural EM
+with distinct inner and decode objectives.
+[[gl-k-attention-2026-07-09-review-revision]]
+
+> [!note] Editorial (2026-07-10): The literal `"filtering"` label denotes the target-blind
+> belief-refinement component; the retained route precedes it with one model-channel refinement.
+> It is analogous to the iterative refinement of
+> [[marino-2018-iterative-amortized-inference]], but it is not Neal–Hinton incremental EM because
+> the inner and decode updates optimize distinct objectives. Reading this finite refinement as
+> a streaming online filter is this program's design choice rather than a claim made by either source.
 
 ## Open questions / gaps
 
-Several tensions remain unresolved by the available sources. First, **how many E-step iterations
-suffice.** [[marino-2018-iterative-amortized-inference]] shows refinement helps but offers no
-principled stopping rule; a filtering transformer must fix an iteration budget per token, trading
-amortization gap against compute, and none of the sources prescribe the optimum.
+Several tensions remain unresolved by the available sources. First, **how many
+filtering iterations suffice.** The depth of the target-blind filter is an
+empirical compute/relaxation trade-off. Marino et al. provide a learned
+amortized-refinement comparison, but their amortization-gap result does not
+define the stopping rule for this nonamortized update.
 
-Second, **the interaction of partial E-steps with the Renyi objective.** The EM coordinate-ascent
-guarantee of [[neal-1998-variational-em]] is stated for the KL-based free energy; whether partial,
-filtered E-steps retain a monotone-improvement guarantee under the `alpha`-divergence bound of
-[[li-turner-2016-renyi-vi]] is not addressed and is a genuine theoretical gap.
+Second, **the structural-EM boundary.** The deployed objectives are already distinct at KL order,
+so no Neal–Hinton monotone-improvement guarantee applies before considering Renyi order.
+[[gl-k-attention-2026-07-09-review-revision]]
 
-Third, **the backprop-equivalence boundary.** [[millidge-2020-pc-approximates-backprop]] proves
-local PC updates *converge* to backprop gradients; under truncated filtering the loop is by
-construction not converged, so the exactness of the recovered gradient is approximate and its
-error is uncharacterized here.
+Third, **the backprop-equivalence boundary.**
+[[millidge-2020-pc-approximates-backprop]] proves recovery under a converged
+source-model schedule. The target-blind filter optimizes a different objective,
+so there is no “recovered decode gradient” whose approximation error can be
+inferred from that theorem.
 
 Fourth, **amortization under gauge structure.** The recognition network of
 [[kingma-2013-auto-encoding-variational-bayes]] assumes a fixed coordinate frame, but this program
@@ -178,7 +176,7 @@ under parallel transport and holonomy (the cross-cluster theme
 ## Sources synthesized
 
 - [[neal-1998-variational-em]] — EM as coordinate ascent on a single free-energy/ELBO functional;
-  justification for incremental and partial (filtering) updates.
+  partial-update guarantees apply only while both coordinates improve that functional.
 - [[winn-2005-variational-message-passing]] — mean-field VI on conjugate-exponential models as
   local factor-graph message passing; pins down the factorization behind a given E-step.
 - [[friston-2010-free-energy-principle]] — free-energy minimization as a unified account of
@@ -195,10 +193,12 @@ under parallel transport and holonomy (the cross-cluster theme
   the ELBO canon to Friston-style claims.
 - [[kingma-2013-auto-encoding-variational-bayes]] — the VAE: amortized Gaussian recognition and the
   reparameterization trick.
-- [[marino-2018-iterative-amortized-inference]] — learned iterative optimizer closing the
-  amortization gap; template for filtering as finite refinement.
-- [[millidge-2020-pc-approximates-backprop]] — local predictive-coding free-energy minimization
-  recovers exact backprop, unifying the EM loop with gradient training.
+- [[marino-2018-iterative-amortized-inference]] — learned iterative optimizer
+  reducing an amortization gap; comparison for repeated refinement, not a
+  template that identifies the deployed filter.
+- [[millidge-2020-pc-approximates-backprop]] — converged predictive-coding updates recover
+  backpropagation under the source paper's schedule; this does not cover the one-step filter.
 
-Cross-cluster anchors drawn on above: [[amari-1998-natural-gradient]] and
-[[li-turner-2016-renyi-vi]] for the M-step's metric and objective.
+Cross-cluster anchors drawn on above: [[amari-1998-natural-gradient]] for the
+Gaussian belief metric and [[li-turner-2016-renyi-vi]] as a distinct
+variational-bound comparison. Neither identifies the frame/decode M-step.

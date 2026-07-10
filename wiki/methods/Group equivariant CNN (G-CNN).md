@@ -10,7 +10,7 @@ tags:
   - project/transformer
 status: stable
 created: 2026-06-18
-updated: 2026-06-19
+updated: 2026-07-09
 ---
 
 # Group equivariant CNN (G-CNN)
@@ -35,9 +35,9 @@ The limitations are equally concrete. The original G-CNN handles only *discrete*
 
 The VFE transformer does not perform image convolution, so it does not use a G-CNN layer directly. What it borrows is the **founding principle** that G-CNN crystallized: that a network's structure should be organized around a declared symmetry group whose action is respected throughout. In this project that group is the block general-linear group GL(k), a continuous (Lie) gauge group rather than a finite rotation group, so the relevant lineage runs from this page through [[Gauge equivariant CNN]] (local rather than global symmetry; [[Parallel transport]] of per-token beliefs between frames), [[LieConv]] (Lie-algebra "phi" parameterization with recovery by the exponential map), and the irrep/[[Clebsch-Gordan coefficients|Clebsch-Gordan]] bookkeeping of [[Steerable CNN|steerable]] and [[Tensor Field Network|tensor-field]] networks.
 
-> [!note] Editorial: The model improves on the rigid global-symmetry stance of the original G-CNN in two ways. First, it replaces a fixed discrete group with a learned, continuous GL(k) gauge acting *locally* per token, so the symmetry is a frame-dependent gauge rather than a global constraint, and beliefs are transported between frames as a connection demands. Second, equivariance is enforced not just architecturally but through the optimizer: per-block [[Killing form|Killing-form]] / Fisher preconditioning of the [[Natural gradient]] (in the spirit of [[ollivier-2015-riemannian-metrics-nn]]) makes the M-step updates themselves invariant to the gauge, whereas a classical G-CNN leaves the training dynamics outside the equivariance guarantee.
+> [!note] Editorial (2026-07-10): the VFE transformer targets local frame covariance in its forward construction. Its optimizer does not certify exact equivariance: the audited frame table uses plain AdamW, while the optional Cartan/Killing and pullback conditioners are inactive and are neither full-$\mathrm{GL}(K)$ invariant nor Fisher natural gradients. [[gl-k-attention-2026-07-09-review-revision]]
 
-The differences are therefore in scope (global discrete vs. local continuous), in domain (image grids vs. sequence tokens with Gaussian beliefs), and in where equivariance is enforced (forward pass only vs. forward pass and natural-gradient optimization).
+The comparison is architectural: global discrete image symmetry versus local continuous token-frame covariance. No stronger optimizer-equivariance claim is made. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Sources
 

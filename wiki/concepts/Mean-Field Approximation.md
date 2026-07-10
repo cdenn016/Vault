@@ -12,7 +12,7 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-06-21
-updated: 2026-06-21
+updated: 2026-07-10
 ---
 
 # Mean-Field Approximation
@@ -23,11 +23,11 @@ The **mean-field approximation** is the workhorse simplification of variational 
 restricts the approximating family $\mathcal{Q}$ to **fully factorized** distributions over the
 latent variables,
 $$
-q(z) \;=\; \prod_{i=1}^{m} q_i(z_i),
+q(z) = \prod_{i=1}^{m} q_i(z_i),
 $$
 so that every latent variable (or block of variables) is treated as *mutually independent* under
 $q$. Variational inference recasts posterior computation as optimization — one posits a family
-$\mathcal{Q}$ and finds the member $q^\*(z) = \arg\min_{q\in\mathcal{Q}} \mathrm{KL}\!\bigl(q(z)\,\|\,p(z\mid x)\bigr)$
+$\mathcal{Q}$ and finds the member $q^\*(z) = \arg\min_{q\in\mathcal{Q}} \mathrm{KL}\bigl(q(z)\|p(z\mid x)\bigr)$
 closest to the intractable exact posterior $p(z\mid x)$ in reverse Kullback–Leibler (KL)
 divergence, equivalently maximizing the [[Evidence lower bound (ELBO)|evidence lower bound]]
 $\mathrm{ELBO}(q)=\mathbb{E}_q[\log p(z,x)]-\mathbb{E}_q[\log q(z)]$
@@ -35,7 +35,7 @@ $\mathrm{ELBO}(q)=\mathbb{E}_q[\log p(z,x)]-\mathbb{E}_q[\log q(z)]$
 tractable: by severing the dependence structure of $q$, the per-factor problem decouples into
 something solvable in closed form for a large class of models. This is the same factorization
 that statistical physics calls **mean-field theory** — replacing each particle's interaction with
-its neighbours by an interaction with the *average* (mean) field — and the name is inherited
+its neighbors by an interaction with the *average* (mean) field — and the name is inherited
 directly from that lineage ([[wainwright-2008-graphical-models-variational]]).
 
 It is essential to keep the factorization assumption separate from any assumption on the
@@ -52,7 +52,7 @@ fixed — a block-coordinate-ascent scheme known as **coordinate ascent variatio
 factor $q_j$ and setting the functional derivative to zero gives the celebrated coordinate-optimal
 update
 $$
-q_j^\*(z_j) \;\propto\; \exp\!\Bigl(\, \mathbb{E}_{-j}\bigl[\log p(z_j, z_{-j}, x)\bigr] \Bigr),
+q_j^\*(z_j) \propto \exp\Bigl( \mathbb{E}_{-j}\bigl[\log p(z_j, z_{-j}, x)\bigr] \Bigr),
 $$
 where $\mathbb{E}_{-j}[\cdot]$ denotes expectation over all *other* factors $\prod_{i\ne j} q_i$.
 Equivalently, the optimal $q_j$ is proportional to the exponentiated expected log
@@ -65,7 +65,7 @@ inside the exponential reduces to a closed-form update of the natural parameters
 sufficient statistics*, so no integration or sampling is needed. This conjugate-exponential
 structure is exactly what makes the mean-field updates analytic, and it is the backbone of
 **[[Variational EM|variational Bayesian EM (VB-EM)]]**: there the factorization
-$q(x,\theta)=q(x)\,q(\theta)$ separates hidden states from parameters, the VBE step updates
+$q(x,\theta)=q(x)q(\theta)$ separates hidden states from parameters, the VBE step updates
 $q(x)$ from the expected sufficient statistics of $q(\theta)$, and the VBM step does the reverse,
 both staying in the same conjugate family with closed-form updates that mirror ordinary EM
 ([[beal-2003-variational-bayesian]]).
@@ -81,22 +81,22 @@ a consistent model-selection criterion ([[beal-2003-variational-bayesian]]).
 
 ## Underestimation of posterior variance
 
-The signature pathology of mean-field VI is that it **systematically underestimates posterior
-variance**, and it does so for two compounding reasons ([[blei-2017-variational-inference]]).
+A common pathology of reverse-KL mean-field VI is underestimated posterior
+variance. Factorization and divergence orientation contribute in distinct ways
+([[blei-2017-variational-inference]]).
 
 1. **The factorization discards correlations.** By construction the variational covariance is
    block-diagonal: $q(z)=\prod_i q_i(z_i)$ can represent no posterior covariance *between* factors.
    Whatever dependence the true posterior carries — strong off-diagonal couplings, ridges,
    multimodal correlations — is projected away.
 
-2. **Reverse KL is mode-seeking / zero-forcing.** Minimizing $\mathrm{KL}(q\,\|\,p)$ (rather than
-   the "forward" $\mathrm{KL}(p\,\|\,q)$) penalizes placing $q$-mass where $p$ is small, but *not*
-   the reverse. The optimizer is therefore driven to a *single* mode and to a $q$ that is
-   **narrower** than $p$ — it would rather be too confident than spread mass into low-density
-   regions. This direction-of-KL asymmetry is the same lever the [[Alpha-divergence|alpha- and
-   Rényi divergence]] families interpolate: $\alpha\to 1$ recovers the mode-seeking reverse-KL
-   ELBO, while larger $\alpha$ relaxes the zero-forcing toward more mass-covering (variance-
-   preserving) behaviour.
+2. **Reverse KL is zero-forcing.** Minimizing $\mathrm{KL}(q\|p)$ penalizes
+   probability that $q$ assigns where $p$ is small. In multimodal or strongly
+   dependent targets this can favor an underdispersed approximation, but it is
+   not a universal theorem that every optimum selects one mode. Order-Rényi
+   divergences change density-ratio weighting; their consequences require a
+   stated orientation and complete variational objective. Amari alpha-divergence
+   geometry is a separate construction.
 
 The net effect is a posterior approximation whose *point* estimates can be excellent while its
 *uncertainty* is too tight — a serious problem whenever calibrated uncertainty matters. Whether
@@ -112,11 +112,11 @@ each particle feels with its ensemble average. [[wainwright-2008-graphical-model
 make this lineage exact by deriving *all* the major inference algorithms — sum-product / belief
 propagation, mean field, expectation propagation, max-product, and LP/conic relaxations — from a
 **single variational principle** rooted in exponential-family conjugate duality. The cumulant
-(log-partition) function $A(\theta)=\log\int\exp\langle\theta,\phi(x)\rangle\,d\nu(x)$ is convex,
+(log-partition) function $A(\theta)=\log\int\exp\langle\theta,\phi(x)\rangle d\nu(x)$ is convex,
 and its convex conjugate is the negative entropy $A^\*(\mu)$ over the marginal polytope
 $\mathcal{M}$ of realizable mean parameters, giving the exact representation
 $$
-A(\theta) \;=\; \sup_{\mu\in\mathcal{M}} \bigl\{\langle\theta,\mu\rangle - A^\*(\mu)\bigr\}.
+A(\theta) = \sup_{\mu\in\mathcal{M}} \bigl\{\langle\theta,\mu\rangle - A^\*(\mu)\bigr\}.
 $$
 Approximate algorithms arise from relaxing this principle in two ways: outer-bounding the marginal
 polytope $\mathcal{M}$, or substituting a tractable surrogate entropy for $A^\*$. **Naive mean
@@ -129,11 +129,11 @@ heritage: unlike the convex tree-reweighted bounds, the mean-field objective is 
 mean-field fixed points may be multiple and only locally optimal — the variational-optimization
 mirror of the multiple-minima landscape of a frustrated mean-field energy.
 
-## Link to opinion-dynamics and collective behaviour
+## Link to opinion-dynamics and collective behavior
 
-The same factorization travels into the modelling of *populations of interacting agents*. In
+The same factorization travels into the modeling of *populations of interacting agents*. In
 sociophysics and [[Opinion dynamics|opinion dynamics]], a **mean-field** treatment replaces each
-agent's coupling to its specific neighbours by a coupling to the population's mean (or to the
+agent's coupling to its specific neighbors by a coupling to the population's mean (or to the
 distribution of opinions), exactly as in physics — this is the device that makes voter-type,
 bounded-confidence, and kinetic opinion models analytically tractable in the large-population limit
 (see [[Sociophysics]] and the survey in
@@ -146,55 +146,44 @@ mean-field ideas** that share a name and a heritage but operate at different lev
   routing it through an aggregate, and is the foundation of the
   [[Mean-field games and continuum limits|continuum limit]] of agent populations.
 
-> [!note] Editorial: These two senses coincide structurally when the agents in question are
-> themselves Bayesian. If a population of [[Multi-agent variational free energy|VFE agents]] each
-> carries an independent belief and is coupled only through population-level aggregates, then the
-> product belief $\prod_i q_i$ *is* a mean-field variational posterior over the joint latent state,
-> and the agent-level mean-field interaction *is* the variational mean-field factorization viewed
-> at the population scale. The wiki keeps the two pages distinct because the supporting literature
-> is distinct ([[blei-2017-variational-inference]] / [[beal-2003-variational-bayesian]] for the
-> inferential sense; the kinetic / mean-field-games corpus for the population sense), but the
-> identification is the bridge the SocialPhysics program leans on.
+> [!note] Editorial (2026-07-10): Variational and population mean fields are
+> analogous but not identical. Aggregate interaction does not prove posterior
+> independence. A product posterior over agent latents remains an explicit
+> variational-family assumption, and pairwise or aggregate coupling does not
+> restore cross-agent correlations within that product family.
+> [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Relevance to this research
 
-The mean-field approximation is the structural prior behind the **per-token, per-layer belief
-factorization** of the VFE transformer. Each token carries an *independent* Gaussian belief tuple
-$(\mu,\Sigma,\phi)$, which is precisely a mean-field factorization $q(z)=\prod_i q_i(z_i)$ over the
-token latents; the VFE free-energy functional $F$ minimized at each layer is an
-[[Evidence lower bound (ELBO)|ELBO]] (up to sign and coupling terms), and the layerwise
-belief-update / parameter-update loop is the [[Variational EM|VB-EM]] E-step / M-step alternation
-specialized to that Gaussian family ([[blei-2017-variational-inference]],
-[[beal-2003-variational-bayesian]]). The choice of Gaussian belief tuples is not incidental:
-Gaussians lie in the conjugate-exponential family, so the mean-field / CAVI updates are
-closed-form, exactly as Beal's framework requires ([[beal-2003-variational-bayesian]]).
+The VFE transformer stores one diagonal-Gaussian marginal belief per token, a
+representation reminiscent of a mean-field family. The deployed target-blind
+belief step is not a CAVI coordinate optimum, and its separate decode
+cross-entropy means the alternating schedule is not one VB-EM/ELBO loop. A
+Gaussian family alone also does not imply conjugacy or a closed-form CAVI
+update. [[gl-k-attention-2026-07-09-review-revision]]
 
 The program's distinctive moves are best read as *responses to the two known limitations of
 mean field*:
 
-- **Recovering lost correlations via gauge transport.** The mean-field factorization's inability
-  to represent posterior dependence across tokens
-  ([[blei-2017-variational-inference]]) is exactly what the gauge-equivariant transport terms
-  $\Omega_{ij}$ are designed to repair: the inter-token coupling
-  $\mathrm{KL}\!\bigl(q_i \,\|\, \Omega_{ij}\,q_j\bigr)$ reintroduces structured dependence that a
-  naive product posterior cannot carry. The softmax attention weights $\beta_{ij}$ themselves arise
-  as the stationary point of an entropy-regularized coupling objective — the same variational /
-  conjugate-duality machinery [[wainwright-2008-graphical-models-variational]] use to derive
-  belief-propagation fixed points (see [[GL(K) gauge-equivariant attention]]).
+- **Coupling marginals without restoring joint covariance.** Gauge transport and
+  pairwise discrepancies let one token's marginal update depend on transported
+  neighboring marginals. They do not change a product-form $q=\prod_i q_i$ into
+  a joint distribution with nonzero cross-token covariance. Recovering posterior
+  correlations would require an explicitly coupled variational family or other
+  joint representation. The entropy-regularized softmax weights govern pairwise
+  interactions, not the covariance structure of $q$.
 
-- **Tuning the variance pathology via the divergence.** The reverse-KL variance underestimation
-  ([[blei-2017-variational-inference]]) is a live design concern for the decode path (the
-  KL-to-prior decode versus the PriorBank pathway). The program retains the freedom to replace the
-  plain KL in the belief step with an [[Alpha-divergence|alpha- / Rényi divergence]], trading the
-  mode-seeking zero-forcing of reverse KL for more mass-covering behaviour when calibrated
-  uncertainty is needed.
+- **Changing pairwise divergence sensitivity.** The belief step can replace KL
+  with an order-[[Renyi divergence|Rényi divergence]], changing sensitivity to
+  density-ratio tails in each oriented pairwise term. This does not by itself
+  guarantee calibrated posterior variance or repair correlations removed by a
+  product family. [[Alpha-divergence|Amari alpha-divergence]] is distinct.
 
-Finally, the same factorization underwrites the **multi-agent** reading: a population of
-independent VFE agents coupled through aggregates is a mean-field posterior at the population scale
-(see the Editorial above and [[Multi-agent variational free energy]]), which is the formal hinge
-connecting the transformer's token beliefs to the SocialPhysics program's
-[[Opinion dynamics|opinion-dynamics]] and [[Mean-field games and continuum limits|continuum]]
-limits.
+For the **multi-agent** reading, one may explicitly choose a product posterior
+over agent latents and separately define aggregate interactions. That modeling
+choice links the transformer analogy to [[Opinion dynamics]] and
+[[Mean-field games and continuum limits]], but aggregate coupling alone does not
+derive the product factorization.
 
 ## Related
 

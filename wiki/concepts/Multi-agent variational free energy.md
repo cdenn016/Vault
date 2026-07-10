@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-06-19
+updated: 2026-07-09
 ---
 
 # Multi-agent variational free energy
@@ -38,8 +38,8 @@ S[\{q_i\},\{p_i\},\{s_i\},\{r_i\},\{\Omega_i\},\{\tilde\Omega_i\}]
 + \underbrace{\lambda_h \sum_i \int \chi_i\, D_{\mathrm{KL}}(s_i\|r_i)\,dc}_{\text{T2: model self-consistency}}
 $$
 $$
-+ \underbrace{\sum_{ij}\int \chi_{ij}\big[\beta_{ij}\,D_{\mathrm{KL}}(q_i\|\Omega_{ij}[q_j]) + \tau\,\beta_{ij}\log\beta_{ij}\big]\,dc}_{\text{T3: belief alignment}}
-+ \underbrace{\sum_{ij}\int \chi_{ij}\big[\gamma_{ij}\,D_{\mathrm{KL}}(s_i\|\tilde\Omega_{ij}[s_j]) + \tau\,\gamma_{ij}\log\gamma_{ij}\big]\,dc}_{\text{T4: model alignment}}
++ \underbrace{\sum_{ij}\int \chi_{ij}\big[\beta_{ij}D_{\mathrm{KL}}(q_i\|\Omega_{ij}[q_j]) + \tau\beta_{ij}\log(\beta_{ij}/\pi_{ij})\big]dc}_{\text{T3: belief alignment}}
++ \underbrace{\sum_{ij}\int \chi_{ij}\big[\gamma_{ij}D_{\mathrm{KL}}(s_i\|\tilde\Omega_{ij}[s_j]) + \tau\gamma_{ij}\log(\gamma_{ij}/\pi^{(s)}_{ij})\big]dc}_{\text{T4: model alignment}}
 $$
 $$
 - \underbrace{\sum_i \int \chi_i\, \mathbb{E}_{q_i}[\log p(o\mid q_i)]\,dc}_{\text{T5: observation}} .
@@ -48,8 +48,8 @@ $$
 Here $\chi_i(c)$ is agent $i$'s spatial support function over the base manifold, $\chi_{ij}=\chi_i\chi_j$ is the pairwise overlap, $d\mu(c) = \sqrt{|g|}\,d^{n}c$ carries the volume form, and the attention weights are softmaxes of the (transported) [[Prediction error|alignment energies]]:
 
 $$
-\beta_{ij} = \mathrm{softmax}_j\!\Big(\!-\tfrac{D_{\mathrm{KL}}(q_i\|\Omega_{ij}[q_j])}{\kappa\sqrt{K}} + \log\pi_{ij}\Big), \qquad
-\gamma_{ij} = \mathrm{softmax}_j\!\Big(\!-\tfrac{D_{\mathrm{KL}}(s_i\|\tilde\Omega_{ij}[s_j])}{\kappa\sqrt{K}}\Big).
+\beta_{ij} = \mathrm{softmax}_j\Big(-\tfrac{D_{\mathrm{KL}}(q_i\|\Omega_{ij}[q_j])}{\kappa\sqrt{K}} + \log\pi_{ij}\Big), \qquad
+\gamma_{ij} = \mathrm{softmax}_j\Big(-\tfrac{D_{\mathrm{KL}}(s_i\|\tilde\Omega_{ij}[s_j])}{\kappa\sqrt{K}} + \log\pi^{(s)}_{ij}\Big).
 $$
 
 The crucial point recorded in both files is that $s_i \ne p_i$: an agent separately represents *what it thinks is happening* ($q_i$), *what it expected* ($p_i$), *what it thinks its model is* ($s_i$), and *what it expected its model to be* ($r_i$). T4 aligns the model fibre $s_i$ across agents — this is the framework's notion of **ontology sharing** ("what makes science possible — agents must agree not just on beliefs but on the MODEL itself").
@@ -58,9 +58,9 @@ The crucial point recorded in both files is that $s_i \ne p_i$: an agent separat
 
 This functional is the object the entire [[Gauge-Theoretic Multi-Agent VFE Model]] minimises; it is what makes the model *multi-agent* rather than a stack of independent active-inference agents, placing it within the wider programme of [[Collective active inference]]. Three roles:
 
-1. **Coupling through transport.** T3 and T4 couple agents only after their beliefs are parallel-transported through `GL(K)` frames, so the objective is gauge-structured: the comparison $D_{\mathrm{KL}}(q_i\|\Omega_{ij}[q_j])$ is the gauge-covariant generalisation of "how much do I disagree with you." This is the same construction that, in the flat isotropic-Gaussian limit, recovers standard transformer attention ([[gl-k-attention]], [[participatory-it-from-bit]]).
+1. **Coupling through transport.** T3 and T4 compare beliefs after transport. The Regime-I vertex cocycle forces trivial loop holonomy but permits nonidentity pairwise transport. Only the shared-frame or edge-independent constant reduction gives identity transport, whose isotropic score is identity-bilinear plus a key-norm bias; arbitrary learned QK structure is not recovered from transport. [[gl-k-attention-2026-07-09-review-revision]]
 
-2. **Attention is emergent, not assumed.** The $\tau\beta\log\beta$ and $\tau\gamma\log\gamma$ entropy terms are *required* for the softmax weights to be the actual minimiser of the alignment energy: dropping them, the energy-only sum $\sum\beta E$ is not the free-energy minimiser. With the entropy term, the reduced objective coincides with the Legendre conjugate $F^\* = -\tau\,\mathrm{LogSumExp}_j(-E_{ij}/\tau)$ (manuscript line 1224). The softmax $\beta$ is then a stationary point.
+2. **Attention is emergent, not assumed.** The entropy term makes softmax the conditional row minimizer for fixed energies. It does not make a one-step belief update an argmin or CAVI step. The canonical and entropy-suppressed belief vector fields agree exactly only when the softmax energy-gradient covariance gap vanishes; joint canonical stationarity alone is insufficient. [[gl-k-attention-2026-07-09-review-revision]]
 
 3. **It is the potential for the dynamics.** Its gradient drives the [[Natural gradient]] flow (`NaturalGradientDynamics`) in the overdamped regime and acts as the potential energy $V$ in the [[Hamiltonian belief dynamics]] regime, where the [[Mass as Fisher information|Fisher precision tensor supplies the inertial mass]] — the [[belief-inertia]] story.
 
