@@ -18,7 +18,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-06-19
+updated: 2026-07-09
 ---
 
 # Precision weighting
@@ -31,9 +31,9 @@ In the Gaussian variational setting that underlies this project, precision weigh
 
 ## Why it matters here
 
-The VFE transformer maintains a per-token Gaussian belief `(mu, Sigma)` and trains by minimizing a free-energy / [[Evidence lower bound (ELBO)]] objective. Two design choices make precision weighting central rather than incidental:
+The VFE transformer maintains a per-token Gaussian belief `(mu, Sigma)`. Its target-blind belief objective and decode cross-entropy are distinct, so precision weighting belongs to the belief and attention channels rather than one shared ELBO. Two design choices make it central rather than incidental: [[gl-k-attention-2026-07-09-review-revision]]
 
-1. **It is the gradient of free energy.** For Gaussian beliefs the free-energy gradient with respect to a token's mean is a sum of *precision-weighted* prediction errors, as derived step by step in [[bogacz-2017-free-energy-tutorial]]. The E-step belief relaxation and the M-step precision learning the architecture implements are literally these precision-weighted error dynamics, in the coordinate-ascent form of [[neal-1998-variational-em]]; the textbook account of the variational lower bound and mean-field EM that the transformer instantiates per token is [[bishop-2006-pattern-recognition-machine-learning]] (Ch. 10).
+1. **It enters the belief gradient.** Gaussian belief gradients retain their precision-weighted form. The deployed target-blind E-step and cross-entropy M-step descend distinct objectives, so textbook coordinate-ascent EM does not describe their joint schedule. [[gl-k-attention-2026-07-09-review-revision]]
 
 2. **It reshapes attention — structurally, not via a flag.** Attention here is precision-weighted by construction: the attention logit is itself a Gaussian KL, $\beta_{ij}\propto\exp(-D_{\mathrm{KL}}[q_i\|\Omega_{ij}q_j]/\tau)$, whose quadratic term $(\mu_i-\Omega_{ij}\mu_j)^\top S_{ij}^{-1}(\mu_i-\Omega_{ij}\mu_j)$ weights the transported prediction error by the neighbor's precision $S_{ij}^{-1}=(\Omega_{ij}\Sigma_j\Omega_{ij}^\top)^{-1}$. On the live `gaussian_diagonal` family this matrix Mahalanobis is realized as a *per-coordinate inverse-variance* weight — $S_{ij}$ is the diagonal of the transported sandwich $\Omega_{ij}\Sigma_j\Omega_{ij}^\top$ (`families/gaussian.py:102` divides by `sigma_t`) — with the full matrix $S^{-1}$ arising only on the full-covariance and Route B (`gauge_invariant_edge_features`) paths. Confident (high-precision) sources therefore produce sharper logits and dominate the read; uncertain ones are discounted. This is the transformer realization of the predictive-coding circuit of [[rao-1999-predictive-coding]], where feedforward signals carry precision-weighted prediction errors and precision acts as an attentional gain. The config flag literally named `precision_weighted_attention` is a *separate, narrower* device (see the editorial note under "In this work") — not the source of this structural precision weighting, which is always on in the pure path.
 
@@ -61,10 +61,10 @@ Precision weighting surfaces at several points in the configured model:
 
 - **Structural precision weighting (always on, the pure path)** — the attention logit is the Gaussian KL $-D_{\mathrm{KL}}(q_i\|\Omega_{ij}q_j)/\tau$, so the precision $S_{ij}^{-1}$ weights every prediction error inside the softmax (`vfe3/families/gaussian.py`: `mahal_term = ((mu_t - mu_q)**2 / sigma_t)`, then `div = 0.5*(trace + mahal - K + logdet)`); active whenever `divergence_family="renyi"` at order $\alpha=1$ (= KL), the default. Predictive-coding ancestor [[rao-1999-predictive-coding]]; kernel reading [[tsai-2019-kernel-attention]].
 - **The `precision_weighted_attention` config flag (default OFF) is NOT this** — it is a detached, key-only scalar *reliability* bias $-\log(b_0+\operatorname{tr}\Sigma_j)$ added to the attention log-prior (`vfe3/model/model.py`: `_precision_key_bias` / `_fold_precision_bias`), uniformly down-weighting high-variance keys. It is query-independent, detached (so the closed-form belief kernel stays exact), and does not alter the KL logit. The name is a trap: the substantive precision weighting lives in the divergence, not in this flag.
-- **E-step / M-step (`gradient_mode: filtering`)** — the belief relaxation and parameter updates are precision-weighted free-energy gradients in the coordinate-ascent form of [[neal-1998-variational-em]], derived explicitly in [[bogacz-2017-free-energy-tutorial]].
+- **E-step / M-step (`gradient_mode: filtering`)** — the belief update is a one-step filter on its own objective; the decode M-step minimizes cross-entropy separately. [[gl-k-attention-2026-07-09-review-revision]]
 - **`family: gaussian_diagonal`** — the precision is a per-token diagonal `Sigma^{-1}`; the covariance itself lives on the SPD cone and is updated with the `spd_affine` retraction of [[pennec-2006-affine-invariant-tensor]].
 - **No data precision in the belief covariance (2026-06-29 finding).** Inverse-variance combination would set a posterior precision `Pi_post = Pi_prior + Pi_data`, but the deployed vfe3 belief E-step has **no `Pi_data` channel**: its $\nabla_\Sigma$ is only the self-coupling and belief-coupling KL terms — the observation/likelihood term is a gated stub with no live caller (a [[Variational EM|target-blind E-step]]). So `Sigma_q` is never contracted by per-token evidence; it stays pinned to a near-constant learned prior table (shrunk toward one shared centroid), collapsing the gate that would license $\sigma$ as an epistemic signal ([[2026-06-29-sigma-gate-fail-and-collapse]]). Precision here is *learned into the tables*, not *inferred per token from data* — the perceptual gain modulation above operates on the means, while the covariance is effectively static.
-- **M-step preconditioning** — [[Killing form|Killing-form]] / Fisher per-block preconditioning is precision weighting in parameter space, in the spirit of [[martens-2015-kfac]] and [[amari-1998-natural-gradient]].
+- **Frame M-step** — the audited frame table uses plain AdamW; optional frame conditioning is inactive and is not Fisher precision weighting. [[gl-k-attention-2026-07-09-review-revision]]
 
 > [!note] Editorial (2026-06-18): The config flag named `precision_weighted_attention` is a naming trap. Verified against the code (`vfe3/config.py:309` default `False`; `vfe3/model/model.py:34–57,1192–1215`), it gates only a detached, query-independent reliability prior $-\log(b_0+\operatorname{tr}\Sigma_j)$ on the attention keys — it never enters the KL logit. The substantive precision weighting is the inverse-covariance Mahalanobis term *inside* the Gaussian KL divergence (`vfe3/families/gaussian.py:99–104` — the `abs(alpha-1)<1e-6` KL branch opens at line 99) and is always on in the theoretically-pure path. Established by multi-agent derivation + code reconciliation, 2026-06-18 (see [[log|Operations Log]]).
 
@@ -75,8 +75,8 @@ See [[VFE Transformer Program]] for the concrete configuration in which these te
 - [[bogacz-2017-free-energy-tutorial]] — explicit precision-weighted E-step/M-step Gaussian updates.
 - [[rao-1999-predictive-coding]] — precision-weighted prediction errors as the cortical/attentional template.
 - [[friston-2010-free-energy-principle]] — precision optimization as attention within the free-energy principle.
-- [[neal-1998-variational-em]] — coordinate-ascent free-energy view justifying the belief/parameter steps.
-- [[bishop-2006-pattern-recognition-machine-learning]] — Ch. 10 variational inference / ELBO / mean-field EM that the VFE transformer instantiates per token.
+- [[neal-1998-variational-em]] — coordinate ascent on one free-energy functional; it justifies incremental steps only when both coordinates optimize that same functional, not the deployed two-objective schedule.
+- [[bishop-2006-pattern-recognition-machine-learning]] — Ch. 10 variational inference / ELBO / mean-field EM as belief-side background, not a shared-functional description of the deployed loop.
 - [[millidge-2020-pc-approximates-backprop]] — local precision-weighted errors recover backprop.
 - [[amari-1998-natural-gradient]] — precision as Fisher information; precision weighting as natural gradient.
 - [[martens-2015-kfac]] — block-Fisher (precision) preconditioning in parameter space.

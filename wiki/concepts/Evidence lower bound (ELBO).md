@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-06-19
+updated: 2026-07-10
 ---
 
 # Evidence lower bound (ELBO)
@@ -27,7 +27,7 @@ variables $z$, a generative model $p_\theta(x, z)$, and an approximate
 posterior (or *belief*) $q_\phi(z)$, the log evidence decomposes exactly as
 
 $$
-\log p_\theta(x) \;=\; \underbrace{\mathbb{E}_{q_\phi(z)}\!\big[\log p_\theta(x,z) - \log q_\phi(z)\big]}_{\text{ELBO}\;\;\mathcal{L}(\theta,\phi)} \;+\; \mathrm{KL}\!\big(q_\phi(z)\,\|\,p_\theta(z\mid x)\big).
+\log p_\theta(x) = \underbrace{\mathbb{E}_{q_\phi(z)}\big[\log p_\theta(x,z) - \log q_\phi(z)\big]}_{\mathcal{L}(\theta,\phi)\text{ (ELBO)}} + \mathrm{KL}\big(q_\phi(z)\|p_\theta(z\mid x)\big).
 $$
 
 Because the Kullback-Leibler (KL) divergence is non-negative, the first term
@@ -39,7 +39,7 @@ approximate posterior toward the true one.** A common equivalent rewriting
 separates a reconstruction term from a prior-matching term,
 
 $$
-\mathcal{L}(\theta,\phi) \;=\; \mathbb{E}_{q_\phi(z)}\big[\log p_\theta(x\mid z)\big] \;-\; \mathrm{KL}\!\big(q_\phi(z)\,\|\,p_\theta(z)\big),
+\mathcal{L}(\theta,\phi) = \mathbb{E}_{q_\phi(z)}\big[\log p_\theta(x\mid z)\big] - \mathrm{KL}\big(q_\phi(z)\|p_\theta(z)\big),
 $$
 
 which exposes the ELBO as accuracy (expected log-likelihood) regularized by
@@ -51,36 +51,27 @@ are one and the same operation, viewed from opposite signs.
 
 ## Why it matters here
 
-The VFE transformer is, at its core, a model trained to maximize an ELBO over
-per-token Gaussian beliefs. Each token carries a diagonal-Gaussian belief
-$q = \mathcal{N}(\mu, \Sigma)$ over its latent state, and the training
-objective is the (negative) free energy of these beliefs — an ELBO whose
-reconstruction term measures how well predictions explain the sequence and
-whose complexity term keeps beliefs near their priors. This single functional
-is what the architecture's alternating inference loop ascends: it is the
-glue connecting the E-step (belief updates) and M-step (parameter updates)
-into one coherent variational-EM procedure, as formalized by
-[[neal-1998-variational-em]], who showed both steps to be coordinate ascent
-on the *same* negative-free-energy / ELBO objective. Reading the bound through
-the [[Free-energy principle active inference]] lens of
-[[friston-2010-free-energy-principle]], the ELBO is an upper bound on surprise
-that perception, attention, and learning all act to tighten.
+The ELBO is textbook background for the belief-side variational construction,
+but the deployed VFE transformer does not maximize one ELBO across its whole
+alternating loop. Each token carries a diagonal-Gaussian belief
+$q=\mathcal{N}(\mu,\Sigma)$. A target-blind belief objective updates those
+beliefs, while a separate decode cross-entropy trains the readout and other
+parameters. The one-step filter is not a CAVI argmin or Neal–Hinton incremental
+EM update, so shared-functional coordinate-ascent and monotone-evidence
+guarantees do not transfer to this schedule.
 
-The ELBO therefore furnishes the precise meaning of "training loss" in this
-program: it is not an ad hoc penalty but the quantity whose maximization is
-provably equivalent to approximate Bayesian inference over the token beliefs.
+The ELBO therefore supplies a comparison point for the belief objective rather
+than the exact meaning of the complete training loss. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Details
 
-**Tightness and the inference gap.** The ELBO equals the log evidence exactly
-when $q_\phi(z) = p_\theta(z\mid x)$, i.e. when the belief matches the true
-posterior. In practice $q$ is restricted to a tractable family — here the
-diagonal-Gaussian family — so a residual gap remains. Refining $q$ within its
-family to shrink this gap is precisely the **E-step**; this is the operation
-[[Iterative amortized inference]] of
-[[marino-2018-iterative-amortized-inference]] learns to perform by repeatedly
-encoding free-energy gradients, narrowing the *amortization gap* that a
-single-pass encoder leaves open.
+**Tightness and the inference gap.** In textbook ELBO optimization, the bound
+equals log evidence when $q_\phi(z)=p_\theta(z\mid x)$, and restricting $q$ can
+leave an inference gap. In the learned amortized model of
+[[marino-2018-iterative-amortized-inference]], repeated refinement reduces an
+encoder's amortization gap. These facts do not describe the deployed
+target-blind filter as posterior refinement: it has no shared likelihood/ELBO
+with the separate decode objective.
 
 **Gaussian beliefs and precision weighting.** For Gaussian generative models
 and Gaussian beliefs, the ELBO reduces to a sum of squared
@@ -102,63 +93,55 @@ parameters — the blueprint for gradient-based optimization of per-token
 diagonal-Gaussian beliefs and the defining recipe of the
 **[[Variational autoencoder (VAE)]]**.
 
-**Local errors recover global gradients.** Maximizing the ELBO by local
-prediction-error minimization is not a weaker form of learning:
-[[millidge-2020-pc-approximates-backprop]] proves that predictive-coding
-free-energy minimization with purely local updates converges to exact
-backpropagation gradients on arbitrary computation graphs, unifying the
-E-step/M-step loop with end-to-end gradient training.
+**Local errors and global gradients.** Under the converged predictive-coding
+schedule analyzed by [[millidge-2020-pc-approximates-backprop]], local updates
+recover exact backpropagation gradients on the source paper's computation
+graphs. The deployed one-step, target-blind belief filter does not meet that
+schedule, so the theorem does not identify its belief update with the gradient
+of the separate decode loss.
 
-**Generalized bounds (Renyi / alpha family).** The standard ELBO uses KL
-divergence, but it is the $\alpha\to 1$ member of a one-parameter family. The
-variational **[[Renyi divergence]]** bound of [[li-turner-2016-renyi-vi]]
-replaces KL with the order-$\alpha$ Renyi divergence, smoothly interpolating
-between the ELBO ($\alpha\to 1$) and the exact log marginal likelihood
-($\alpha\to 0$), and tuning mass-covering versus mode-seeking behavior via
-$\alpha$. [[vanerven-2014-renyi-kl]] establishes that KL is exactly the
-$\alpha\to 1$ limit of the Renyi family (see **[[Alpha-divergence]]**),
-licensing the model's "renyi" divergence family with the classical ELBO as a
-special case. The dual affine connections and alpha-connections underlying
-this family are the subject of [[amari-2000-methods-information-geometry]].
+**Generalized bounds and divergences.** [[li-turner-2016-renyi-vi]] defines a
+variational Rényi bound whose endpoints include the ELBO and log marginal
+likelihood. [[vanerven-2014-renyi-kl]] studies order-Rényi divergence itself,
+including its order-one KL limit. [[amari-2000-methods-information-geometry]]
+develops a different alpha-divergence family and its dual affine connections.
+These constructions are related through power integrals but are not
+interchangeable. In particular, selecting a pairwise order-Rényi discrepancy
+does not instantiate the Li–Turner bound or an Amari alpha-connection.
 
-**Geometry of the ascent.** Maximizing the ELBO over a statistical manifold is
-most efficiently done along the **[[Natural gradient]]** direction — the
-ordinary gradient preconditioned by the inverse **[[Fisher information metric]]** — which [[amari-1998-natural-gradient]] shows to be the
-reparameterization-invariant steepest-descent direction. This is the
-information-geometric machinery the M-step uses to update parameters and the
-belief updates use to move efficiently.
+**Geometry of the ascent.** For a genuine ELBO, the **[[Natural gradient]]**
+is the reparameterization-invariant steepest direction under the
+**[[Fisher information metric]]** ([[amari-1998-natural-gradient]]). In the
+deployed transformer this geometry supports the Gaussian belief update. It
+does not license the frame or decode M-step as a Fisher natural gradient;
+the audited frame table uses plain AdamW, with the configured heavy-ball and pullback fields inactive. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## In this work
 
-The ELBO surfaces wherever the config speaks of free energy, beliefs, and the
-training objective:
+The ELBO surfaces as a reference for the belief-side objective, not as one
+functional optimized by the entire model:
 
-- **Training objective.** The architecture's ELBO / free-energy loss is the
-  negative variational free energy of the per-token Gaussian beliefs; this is
-  the quantity the whole model maximizes (see **[[Variational free energy]]**).
-- **`gradient_mode: "filtering"` and the E-step.** The filtering belief
-  updates are the ELBO's E-step — incremental, partial belief refinements that
-  [[neal-1998-variational-em]] justifies as valid coordinate ascent on the
-  bound and that [[bogacz-2017-free-energy-tutorial]] renders as
-  precision-weighted relaxation.
+- **Distinct objectives.** The target-blind belief objective and decode
+  cross-entropy are separate; neither is the complete-model ELBO.
+- **`gradient_mode: "filtering"`.** The one-step belief refinement is a
+  precision-weighted filter, not an ELBO argmin or a shared-functional
+  coordinate-ascent step.
 - **`family: gaussian_diagonal`.** The diagonal-Gaussian belief family fixes
-  the variational class over which the bound is optimized; the
-  reparameterization trick of
-  [[kingma-2013-auto-encoding-variational-bayes]] makes it differentiable.
-- **`divergence_family: "renyi"`.** The complexity term of the ELBO is
-  generalized from KL to the Renyi/alpha family of
-  [[li-turner-2016-renyi-vi]] and [[vanerven-2014-renyi-kl]], with KL recovered
-  as the $\alpha\to 1$ limit.
-- **Precision-weighted attention.** The squared-error, precision-weighted form
-  the Gaussian ELBO takes is exactly what makes
-  **[[Precision weighting]]** and the model's attention dynamics inference,
-  not heuristic — grounded in [[rao-1999-predictive-coding]] and
-  [[friston-2010-free-energy-principle]].
+  the class used by the belief-side objective; reparameterization can
+  differentiate sampled expectations in that objective.
+- **`divergence_family: "renyi"`.** The belief-side discrepancy uses the
+  order-Rényi family surveyed by [[vanerven-2014-renyi-kl]], with KL recovered
+  at order one. This does not instantiate the variational bound of
+  [[li-turner-2016-renyi-vi]].
+- **Precision-weighted attention.** Gaussian-KL coupling contains a
+  precision-weighted mismatch, which motivates the inference interpretation
+  of attention. This belief-side structure does not make the complete
+  two-objective loop one ELBO.
 
-> [!note] Editorial: The config exposes the ELBO only implicitly, through the
-> free-energy objective, the belief family, and the divergence family; the
-> precise decomposition above is the standard reading that makes those knobs
-> coherent, not a verbatim field in the run configuration.
+> [!note] Editorial (2026-07-10): ELBO identities on this page remain textbook
+> facts. They do not turn the deployed two-objective schedule into one ELBO or
+> grant its one-step filter Neal–Hinton monotonicity.
+> [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Sources
 
@@ -168,12 +151,12 @@ training objective:
 - [[bogacz-2017-free-energy-tutorial]] — Gaussian-belief derivation yielding precision-weighted ELBO updates.
 - [[rao-1999-predictive-coding]] — Predictive-coding ancestor of precision-weighted error dynamics.
 - [[marino-2018-iterative-amortized-inference]] — Closing the inference/amortization gap in the ELBO's E-step.
-- [[millidge-2020-pc-approximates-backprop]] — Local ELBO minimization recovers exact backprop gradients.
+- [[millidge-2020-pc-approximates-backprop]] — Exact-backprop recovery for the source paper's converged predictive-coding schedule.
 - [[li-turner-2016-renyi-vi]] — The variational Renyi bound generalizing the ELBO.
 - [[vanerven-2014-renyi-kl]] — KL as the $\alpha\to 1$ limit of the Renyi family.
 - [[amari-1998-natural-gradient]] — Natural-gradient ascent on the bound.
-- [[amari-2000-methods-information-geometry]] — Dual / alpha-connection geometry behind the divergence family.
-- [[bishop-2006-pattern-recognition-machine-learning]] — Ch.10 variational inference / ELBO / mean-field EM the VFE transformer instantiates per token.
+- [[amari-2000-methods-information-geometry]] — Amari alpha-divergence and dual-connection geometry, distinct from order-Rényi and variational Rényi constructions.
+- [[bishop-2006-pattern-recognition-machine-learning]] — Ch. 10 textbook variational inference, ELBO, and mean-field EM used here as comparison material; the deployed filter does not instantiate that full coordinate-ascent scheme.
 - [[wainwright-2008-graphical-models-variational|wainwright-jordan-2008-graphical-models-variational-inference]] — Exponential-family convex-duality foundation of mean-field variational inference / free energy.
 - [[beal-2003-variational-bayesian|beal-2003-variational-algorithms-approximate-bayesian-inference]] — Variational Bayesian EM and the free-energy bound — direct antecedent of iterative VFE minimization.
 

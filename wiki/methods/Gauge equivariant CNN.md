@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-06-19
+updated: 2026-07-09
 ---
 
 # Gauge equivariant CNN
@@ -84,17 +84,13 @@ with a surjective exponential map by working in log coordinates.
 
 ## Relation to this work
 
-The VFE transformer borrows the *gauge* stance of [[cohen-2019-gauge-cnn]] but
-relocates it from image features on a manifold to the per-token latent geometry of
-a sequence model. Its declared structure group is a block general-linear group,
-GL(k) — a non-compact analogue of the tangent-frame rotations used here — and it
-parameterizes gauge elements in the Lie algebra (the "phi" parameterization), in
-the same algebra-first spirit as [[finzi-2020-lieconv]]. The two concepts this page
-makes precise, [[Parallel transport]] and [[Holonomy]], reappear directly: the
-transformer transports per-token Gaussian beliefs (mean and an SPD covariance)
-between positions, and its cocycle-relaxation and holonomy terms measure the
-frame mismatch accumulated around loops, exactly as transport-around-a-loop does
-on a curved manifold. Nonlinear coupling of features carried by different
+The VFE transformer borrows the local-frame and transport stance of gauge CNNs.
+Its single real phi chart reaches only $\operatorname{image}(\exp)$, not all of
+$\mathrm{GL}^+(K)$. Regime-I vertex transport telescopes around loops, so its
+holonomy is identity exactly; nontrivial loop transport requires an edge-relaxed
+connection. [[gl-k-attention-2026-07-09-review-revision]]
+
+Nonlinear coupling of features carried by different
 [[Irreducible representation]]s is handled, as in [[thomas-2018-tensor-field-networks]]
 and the [[Steerable CNN]] line, via [[Clebsch-Gordan coefficients]].
 
@@ -103,11 +99,11 @@ equivariance through a hard kernel constraint, the VFE transformer treats
 gauge-consistency as a *soft*, learned objective folded into a variational
 [[Variational free energy]] loss — equivariance is relaxed (a cocycle penalty)
 rather than imposed. The geometry the transformer transports is not a generic
-feature field but a probability belief on the SPD cone, so transport and
-preconditioning are governed by Riemannian SPD machinery (the affine-invariant
-metric and a [[Killing form|Killing-form]] per-block conditioner) and by information-geometric
-[[Natural gradient]] updates, rather than by the Euclidean kernels of the original
-CNN. In short, the gauge equivariant CNN supplies the *conceptual scaffolding*
+feature field but a probability belief on the SPD cone. Full-SPD and Gaussian
+belief Fisher/AIRM facts survive; the frame conditioner is separate and does not
+certify a full-$\mathrm{GL}(K)$ natural gradient or equivariant optimizer. [[gl-k-attention-2026-07-09-review-revision]]
+
+In short, the gauge equivariant CNN supplies the *conceptual scaffolding*
 — local frames, transport, holonomy, irrep coupling — that the VFE transformer
 reinterprets probabilistically and optimizes variationally.
 

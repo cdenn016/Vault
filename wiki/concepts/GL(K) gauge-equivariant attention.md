@@ -14,21 +14,23 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-06-21
+updated: 2026-07-10
 ---
 
 # GL(K) gauge-equivariant attention
 
 **GL(K) gauge-equivariant attention** is the central construction of the program's
 [[gl-k-attention|GL(K) attention manuscript]] (*"Attention as Gauge-Theoretic Variational
-Inference"*). It recasts transformer attention not as an architectural primitive but as
-**variational inference over information sources**: each token is a Gaussian "agent"
+Inference"*). It constructs an attention rule as **variational inference over information
+sources** and compares scoped limits of that rule with transformer attention: each token is a Gaussian "agent"
 $q_i=\mathcal N(\mu_i,\Sigma_i)$ living on a statistical fiber bundle, and the attention weight
 between tokens is *derived* by minimizing a multi-agent [[Variational free energy]]. The
 mechanism is built so that those weights are **invariant** to a per-token change of feature
 basis drawn from the general linear group $\mathrm{GL}(K)$ — the structure (gauge) group of the
 construction (see [[GL(K) gauge group]]). This page states the construction precisely and
-records what is proven versus conjectured.
+records what is proven versus conjectured. The analytic attention derivation is a belief-channel
+reduction. The retained empirical sweep is instead a same-scale two-channel route with one model
+refinement before one belief refinement. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Setup: tokens as Gaussian agents on a bundle
 
@@ -44,15 +46,19 @@ the geometry the program uses to move, average, and compare beliefs
 Over the token base sits a principal $G$-bundle whose fibers are statistical manifolds; the agents
 are sections of it ([[Agents as fibre-bundle sections]]). Each token additionally carries a **gauge
 frame** $U_i\in\mathrm{GL}(K)$ — a local, invertible change of basis for the $K$-dimensional
-feature space. The frames are not arbitrary: in the manuscript they are generated from a Lie-algebra
-field $\phi_i\in\mathfrak{gl}(K)$ via the matrix exponential, $U_i=\exp(\phi_i)$, which restricts to
-the identity component $\mathrm{GL}^+(K)$ ($\det U_i>0$). The transport that carries token $j$'s
+feature space. In the manuscript's real exponential chart the frames are generated from
+$\phi_i\in\mathfrak{gl}(K)$ as $U_i=\exp(\phi_i)$. This chart reaches only
+$\operatorname{image}(\exp)$, a proper subset of $\mathrm{GL}^+(K)$, even though the ambient
+divergence theorem below applies to every invertible frame. The transport that carries token $j$'s
 frame into token $i$'s frame is the composition
 
 $$\Omega_{ij} \;=\; \exp(\phi_i)\,\exp(-\phi_j)\;=\;U_i U_j^{-1}\in\mathrm{GL}(K).$$
 
 This $\Omega_{ij}$ is the bundle's discrete analogue of [[Parallel transport]]: it is the object
-applied to a neighbor's belief before that belief is compared to one's own.
+applied to a neighbor's belief before that belief is compared to one's own. The full-Gaussian
+pushforward is exact under common $\mathrm{GL}(K)$ changes of frame. The live diagonal covariance
+family is closed exactly only under monomial transports; a general congruence leaves that family and
+therefore requires projection or approximation. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Definition: the congruence-transformed, GL(K)-invariant score
 
@@ -111,20 +117,22 @@ specialized here to the linear-frame ($\mathrm{GL}(K)$) reparameterizations the 
   solution for the source-selection posterior and the KL is exact ([[gl-k-attention]],
   [[Variational free energy]]).
 
-- **Standard attention is a degenerate limit.** Three ordered limits — flat connection, then
-  vanishing gauge variation, then isotropic covariance — collapse gauge attention to the standard
-  rule $\beta_{ij}\propto\operatorname{softmax}(Q_iK_j^\top/\sqrt{d_k})$. In that limit the invertible
-  head-space factor of $W_QW_K^\top$ is identified as $\sigma^{-2}\Omega^{-\top}$, and the
-  temperature $1/\sqrt{d_k}$ emerges from the dimensional concentration of the KL divergence rather
-  than being a tuning convention ([[gl-k-attention]]).
+- **The shared-frame Regime-I reduction is narrower than standard attention.** The vertex cocycle
+  makes loop transport flat but does not force pairwise identity. If one transport is constant on
+  every attended edge including a self edge, or on all three edges of a transitive triple, then
+  $\Omega_{ij}=I$. With isotropic covariance, the Gaussian KL then gives an identity-bilinear score
+  plus a key-norm bias. An arbitrary learned $M=W_QW_K^\top$ is an additional structural map, not a
+  transport factor recovered from this limit. [[gl-k-attention-2026-07-09-review-revision]]
 
-- **Architectural choices fall out of the geometry.** Layer normalization is the key-norm
-  cancellation condition ($\|\mu_j\|^2\approx C$) that makes inference frame-independent;
+- **Architectural choices can be compared with the geometry.** Approximately constant key norms can
+  cancel the key-norm bias in the strict identity-transport reduction, but this is not a derivation of
+  LayerNorm or of a general QK metric;
   [[Multi-head attention]] is a block-diagonal restriction of the gauge algebra
   $\bigoplus_a\mathfrak{gl}(d_{\mathrm{head}})$; RoPE positional encoding is reinterpreted as
   position-dependent gauge frames; and ALiBi/T5/causal biases are non-uniform attention priors
   $\pi_j$ entering the logits additively as $+\log\pi_j$ ([[gl-k-attention]],
   [[Attention mechanisms — theory and positional structure]]).
+  [[gl-k-attention-2026-07-09-review-revision]]
 
 - **Covariance fixed point and SPD dynamics.** Minimizing the free energy in $\Sigma_i$ yields the
   matrix precision fixed point
@@ -134,33 +142,69 @@ specialized here to the linear-frame ($\mathrm{GL}(K)$) reparameterizations the 
   natural-gradient steps with an SPD-manifold retraction ([[SPD-manifold geometry and Riemannian optimization]],
   [[Natural gradient]], [[Fisher information metric]]).
 
-- **Flat-bundle (vanishing holonomy) regime.** The vertex-frame transport satisfies the cocycle
-  identity $\Omega_{ij}\Omega_{jk}\Omega_{ki}=I$ as an *algebraic* identity, so both the gauge
-  transformer and standard transformers operate with trivially vanishing reconstructed
-  [[Holonomy]] (Regime I). An edge-relaxed extension
+- **Flat-bundle (vanishing holonomy) regime.** The gauge transformer's vertex-frame transport
+  satisfies the cocycle identity $\Omega_{ij}\Omega_{jk}\Omega_{ki}=I$ as an *algebraic*
+  identity, so its Regime-I [[Holonomy]] vanishes. A standard transformer has no transport
+  variable or intrinsic holonomy; only the imposed identity-transport comparison point is flat.
+  An edge-relaxed extension
   $\Omega_{ij}=\exp(\phi_i)\exp(\delta_{ij}G)\exp(-\phi_j)$ promotes the bundle to non-trivial
   holonomy (Regime II), reserved for the companion participatory program ([[participatory-it-from-bit]]).
+  No nonzero Regime-I holonomy exponent exists. [[gl-k-attention-2026-07-09-review-revision]]
 
-- **Forward KL is (conditionally) the right divergence.** Within the convex $f$-divergence class,
-  the forward KL is the unique choice giving a closed-form Gibbs belief update with exponential-family
-  closure *and* a consistent dual (envelope-theorem) reading of the attention weights; reverse KL,
-  $\chi^2$, and Jensen–Shannon each break this log-linearity ([[gl-k-attention]] App. H). This is the
-  attention-side echo of Chentsov/Petz uniqueness for invariant metrics
-  ([[cencov-1982-statistical-decision-rules]], [[petz-1996-monotone-metrics]]).
+- **Forward-KL uniqueness is conditional.** For a fixed admissible witness, the density-ratio range
+  must contain a nonempty open essential interval, or overlapping configurations must identify their
+  integration constants. Under that richness condition, closure selects the positive ray
+  $f_c(t)=c(t\log t-t+1)$ up to divergence-null affine terms. The convention $f''(1)=1$, or fixed
+  exponents and coefficients, sets $c=1$. A diagonal family under general transport does not
+  automatically supply the required witness. [[gl-k-attention-2026-07-09-review-revision]]
 
-- **Learning as symmetry breaking.** The untrained network is a gauge-symmetric "vacuum"; in the
-  observation-free regime beliefs converge to a common gauge orbit, and observations break the
-  symmetry. Training is read as explicit symmetry breaking ([[gl-k-attention]]).
+- **The nested attention envelope uses optimized costs, not a differentiated product.** For
+  $F_i(\beta_i)=\min_{q_i}\{D_{\mathrm{KL}}(q_i\|p_i)+\sum_j\beta_{ij}C_{ij}(q_i)\}$,
+  the envelope identity is $\partial F_i/\partial\beta_{ij}=C_{ij}(q_i^*(\beta_i))$.
+  At fixed $q_i$, the attention-coordinate objective is linear in $\beta_i$ plus its entropy
+  regularizer and gives the Gibbs row. After eliminating $q_i$, this becomes an implicit Gibbs
+  fixed point. One must not differentiate $\sum_j\beta_{ij}C_{ij}(q_i^*(\beta_i))$ as though it
+  were $F_i$. [[gl-k-attention-2026-07-09-review-revision]]
 
-### Empirical anchor (as reported)
+- **The retained sweep is two-channel and same-scale.** Every archived configuration activates
+  `prior_source=model_channel` and `s_e_step=true`. One target-blind $s$ refinement toward a
+  learned global, token-uniform $r$ and gamma-weighted model consensus supplies
+  $q_i^{(0)}=p_i=s_i^{(1)}$, followed by one target-blind $q$ refinement. Outer cross-entropy
+  differentiates through both paths; the inner hyper-prior and gamma terms are not scored again.
+  The learned route includes the model tables, $r$, token and learned positional frames, output
+  projection and bias, and the active mixer. This does not establish a slower model timescale or
+  the full multiscale PIFB hierarchy. [[gl-k-attention-2026-07-09-review-revision]]
 
-On WikiText-103 a $\mathrm{GL}(15)$ gauge transformer ($K=90$, 81.4M params) reaches test
-perplexity 71.6, beating a standard transformer at matched embedding dimension (PPL 118.6) by
-$1.66\times$, though a parameter-matched standard transformer ($d_{\text{model}}=1{,}280$) still
-wins at PPL 48.5. A frozen-BERT validation across 105 passages finds the flat-bundle KL attention
-$\beta^{\text{flat}}_{ij}=\operatorname{softmax}(-\|Q_i-K_j\|^2/\tau)$ agreeing with dot-product
-attention at grand mean correlation $\bar r=0.804$ — treated as a consistency check, since high $r$
-partly follows from an algebraic identity ([[gl-k-attention]]).
+- **Coarse-grained mean dispersion is covariance broadening, not necessarily anisotropy.** The
+  law-of-total-covariance contribution $\operatorname{Var}_A(\mu)$ is positive semidefinite and may
+  be proportional to the identity. The historical sum of its norm and the block-averaged input
+  deviation is only a triangle-inequality upper-bound proxy for the actual block deviation.
+  [[gl-k-attention-2026-07-09-review-revision]]
+
+- **The isotropic geometric bias measures scale and shape distortion.** The bias vanishes exactly
+  for orthogonal transport, but $\Omega=cR$ with $R\in\mathrm{O}(K)$ preserves isotropic shape
+  while changing covariance scale and gives nonzero bias unless $c=1$. A nonzero bias therefore
+  does not by itself diagnose directional anisotropy. [[gl-k-attention-2026-07-09-review-revision]]
+
+- **The vacuum/training language is interpretive and stabilizer-dependent.** An observation-free
+  divergence sector may have gauge redundancy when its priors are transport-compatible. A fixed
+  non-invariant likelihood generally reduces that redundancy to its stabilizer; it does not by
+  itself force specialization, unequal Euclidean norms, or a phase transition. Those dynamical
+  claims require a declared order parameter and evidence not supplied by the retained sweep.
+  [[gl-k-attention-2026-07-09-review-revision]]
+
+### Empirical anchor (audited development evidence)
+
+The retained numerical record is the fixed-$\mathrm{GL}^+(10)$ WikiText-103 width sweep over
+$K=10,20,\ldots,120$ with three development records per width and 491.52 million tokens per run.
+Mean test perplexity decreases from $219.0\pm1.3$ to $74.1\pm0.3$. The sweep spans ten source
+commits, activates the head mixer only from $K=20$ onward, and is neither iso-compute nor a matched
+architecture comparison. All 36 provenance records mark dirty worktrees, and no dirty diff survives.
+The archived configurations and committed code at their recorded SHAs reconstruct the same-scale
+$s\to q$ route, but the SHAs do not identify the exact executed bytes. The trend is therefore
+development-provenance evidence, not a frozen benchmark or transferable scaling law. Historical
+matched-baseline and frozen-BERT numerical claims are not retained; only the shared-frame algebraic
+score comparison survives. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## KL vs Bures: which distortion measures belief distance?
 
@@ -215,9 +259,11 @@ $\mathrm{GL}(K)/O(K)$, [[Symmetric spaces and the SPD cone]]). It anchors the
 [[VFE Transformer Program]] and feeds the [[Gauge-Theoretic Multi-Agent VFE Model]], where the same
 transported-belief machinery drives meta-agent coarse-graining and the
 [[Renormalization-group flow of beliefs]] / [[Meta-agents and hierarchical emergence]] thread.
-Because it derives attention from first principles rather than positing it, it is the formal pivot on
-which the program's claim — that transformer attention is a special case of gauge-theoretic
-variational inference — rests.
+The construction derives its own KL-softmax attention rule rather than positing it. Its strict
+shared-frame, isotropic limit yields an identity-bilinear score plus a key-norm bias; a general
+transformer compatibility $W_QW_K^\top$ and value map remain structural additions. It is therefore
+the formal pivot for a scoped comparison with transformer attention, not a theorem that arbitrary
+transformer attention is an exact special case. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Related
 

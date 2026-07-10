@@ -13,7 +13,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-21
-updated: 2026-06-21
+updated: 2026-07-10
 ---
 
 # Fibre Bundle
@@ -81,13 +81,13 @@ Local curvature data integrates to **global** topological invariants. The **[[Ch
 
 Fibre bundles are the geometric backbone of the entire gauge-theoretic VFE program; nearly every distinctive construction is a specialization of the chain above.
 
-- **Agents are sections, not vectors.** The foundational ontological move of the [[Gauge-Theoretic Multi-Agent VFE Model]] is that an agent's belief $q_i$ and generative model $s_i$ are **smooth sections of associated bundles** over a base of contexts $\mathcal{C}$, with structure group $G = \mathrm{GL}(K,\mathbb{R})$ ([[Agents as fibre-bundle sections]]). Spatial extension, overlap of agent supports, and intersubjectivity all follow from beliefs being *fields* over a base rather than single distributions. When the base collapses to a point ($\dim\mathcal{C}=0$) the sections reduce to one distribution per agent and standard attention is recovered — the transformer is the zero-dimensional shadow of the bundle picture (developed in [[gl-k-attention]], [[participatory-it-from-bit]]).
+- **Agents are sections, not vectors.** Collapsing the base to a point reduces each section to one distribution per agent, but does not by itself recover arbitrary standard attention. Strict shared-frame Regime I gives identity transport; a general learned QK bilinear map is structural. [[gl-k-attention-2026-07-09-review-revision]]
 
-- **Comparison is transport; disagreement is holonomy.** Because sections live in different gauge frames, the consensus/alignment energy is a *transported* KL, $\mathrm{KL}(q_i\,\|\,\Omega_{ij}[q_j])$, with $\Omega_{ij}=U_iU_j^{-1}$ the discrete parallel transport between frames ([[Agents as fibre-bundle sections]], [[Multi-agent variational free energy]]). Propagating beliefs around a social/computational loop can fail to return them unchanged — that path-dependence is [[Holonomy]], and nonzero curvature is the obstruction to consistent transport. This grounds [[Belief inertia]] and the connection's role in the dynamics.
+- **Comparison requires transport.** For the realized Regime-I vertex cocycle, $\Omega_{ij}=U_iU_j^{-1}$ telescopes around every loop, so $H=I$ exactly. Path-dependent disagreement belongs to an edge-relaxed or otherwise nonflat connection, not Regime I. Generic bundle holonomy statements above remain unchanged. [[gl-k-attention-2026-07-09-review-revision]]
 
 - **Statistical fibres and information geometry.** When the associated fibre is a statistical manifold of Gaussians, the connection interacts with the [[Fisher information metric]] (see [[Information geometry and natural gradient]], [[Mass as Fisher information]]); the bundle/connection texts supply the connection-theoretic side that information geometry specializes to probability. The covariance fibres sit on the curved SPD cone, whose transport is genuinely curved (see [[Symmetric spaces and the SPD cone]]).
 
-- **Equivariant transformer.** The same principal-bundle connection theory underlies gauge-equivariant deep learning ([[Group equivariance]], [[Irreducible representation]], the theme [[Gauge equivariance and geometric deep learning]]). The [[VFE Transformer Program]]'s per-block GL(K) gauge, irrep-tower head mixers, and Clebsch–Gordan coupling realize the connection-and-representation machinery on belief tuples $(\mu,\Sigma,\phi)$; a learned, structure-group-respecting transport *is* a discrete connection.
+- **Equivariant transformer.** The same principal-bundle connection theory underlies gauge-equivariant deep learning ([[Group equivariance]], [[Irreducible representation]], the theme [[Gauge equivariance and geometric deep learning]]). The [[VFE Transformer Program]]'s per-block GL(K) transport realizes connection-and-representation machinery on belief tuples $(\mu,\Sigma,\phi)$. The optional post-belief head mixer is a separate learned remap, not a connection: under the live untied $\mathrm{GL}(d)^H$ action its off-diagonal head mixing is not equivariant, and the Schur-commutant interpretation applies only when the gauge action is tied across equivalent copies. [[gl-k-attention-2026-07-09-review-revision]]
 
 - **Variational principle.** Bleecker's framing — physical dynamics as the stationary points of a gauge-invariant action — is the structural analogue of the program's central move, that belief and attention dynamics are stationary points of the variational free energy ([[bleecker-1981-gauge-theory-variational-principles]]). The correspondence is at the level of variational structure, an analogy rather than a literal Yang–Mills reproduction.
 

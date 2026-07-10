@@ -11,7 +11,7 @@ tags:
   - project/transformer
 status: stable
 created: 2026-06-18
-updated: 2026-06-19
+updated: 2026-07-09
 ---
 
 # Variational autoencoder (VAE)
@@ -42,16 +42,16 @@ The decisive technical move is the [[Reparameterization trick]]: rather than sam
 
 ## Relation to this work
 
-The VAE is the **direct blueprint** for the VFE transformer's treatment of per-token beliefs ([[VFE Transformer Program]]). The architecture maintains a per-token diagonal-Gaussian belief `(mu, Sigma)` and trains an ELBO/free-energy objective by gradient descent — precisely the Kingma–Welling recipe of [[kingma-2013-auto-encoding-variational-bayes]] lifted from one global latent to a latent belief attached to every token. The `family gaussian_diagonal` configuration and the reparameterized, gradient-trained belief updates are inherited wholesale.
+The VAE is a reference point for the VFE transformer's per-token diagonal-Gaussian beliefs, not a direct blueprint for its complete training loop. The model has no neural recognition network and does not train one shared VAE ELBO: its target-blind belief objective and decode cross-entropy are distinct. Reparameterized Gaussian differentiation, where used, is the narrower Kingma–Welling connection. [[gl-k-attention-2026-07-09-review-revision]]
 
 The VFE transformer **differs** from the vanilla VAE on several axes that the registry's other sources supply:
 
-- **Iterative rather than single-pass inference.** The model's `filtering` gradient mode runs an E-step belief relaxation per token, closer to [[Iterative amortized inference]] and the predictive-coding relaxation of [[bogacz-2017-free-energy-tutorial]] and [[rao-1999-predictive-coding]] than to a one-shot VAE encoder. This narrows the amortization gap that [[marino-2018-iterative-amortized-inference]] identifies. [[millidge-2020-pc-approximates-backprop]] further shows such local free-energy E-step/M-step loops can recover exact backprop gradients, reconciling iterative inference with end-to-end training.
-- **Renyi rather than pure KL.** Where the VAE's ELBO uses the `alpha -> 1` KL term, the VFE transformer's `divergence_family "renyi"` generalizes the bound to a one-parameter [[Renyi divergence]] family ([[li-turner-2016-renyi-vi]], [[vanerven-2014-renyi-kl]]), recovering the standard ELBO only in the KL limit.
+- **Iterative rather than single-pass inference.** The `filtering` mode applies a one-step belief refinement. This resembles [[Iterative amortized inference]] but does not establish a VAE amortization-gap result or exact-backprop equivalence for the deployed schedule.
+- **Rényi rather than pure KL.** The belief-side `divergence_family "renyi"` provides a one-parameter [[Renyi divergence]] family with KL as its order-one limit; it does not generalize the separate decode objective into one VAE bound.
 - **Curved belief geometry.** The VAE treats the Gaussian covariance as an unconstrained diagonal vector; the VFE transformer treats `Sigma` as a point on the SPD manifold and updates it with an `spd_affine` retraction under the affine-invariant metric ([[pennec-2006-affine-invariant-tensor]], [[bhatia-2007-positive-definite-matrices]]), a structure the original VAE does not impose.
-- **Natural-gradient belief and parameter updates.** Rather than the plain SGD that trains a standard VAE, the M-step uses Fisher/[[Natural gradient]] preconditioning ([[amari-1998-natural-gradient]], [[martens-2015-kfac]]), making the updates reparameterization-invariant in the information-geometric sense.
+- **Scoped geometry.** Fisher/AIRM geometry supports the Gaussian belief update. The audited frame table uses plain AdamW, and no Fisher/Killing natural-gradient parameter M-step is established; the configured geometric frame fields are inactive.
 
-In short, the VFE transformer **borrows** the VAE's core identity — amortized Gaussian beliefs trained against a free-energy/ELBO objective via differentiable sampling — and **improves** it with iterative filtering inference, a Renyi-generalized divergence, SPD-manifold covariance geometry, and natural-gradient optimization.
+In short, the VAE supplies Gaussian-latent and differentiable-sampling background. The transformer's filtering, transported-belief geometry, and two-objective schedule are separate constructions rather than improvements to one inherited VAE ELBO. [[gl-k-attention-2026-07-09-review-revision]]
 
 > [!note] Editorial: The registry does not contain a dedicated [[Prediction error]] or [[Precision weighting]] derivation specific to the VAE; the link from VAE reconstruction error to precision-weighted prediction error is made through the predictive-coding sources rather than [[kingma-2013-auto-encoding-variational-bayes]] itself.
 

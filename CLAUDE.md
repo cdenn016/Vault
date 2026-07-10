@@ -26,7 +26,7 @@ maintaining the wiki. Read it before doing any ingest / query / lint operation.
 | Layer | Location | Mutability | Owner |
 |-------|----------|------------|-------|
 | **Raw sources** | `sources/` | **Immutable** — never edit, only append new files | Human curates |
-| **Manuscripts** | `manuscripts/` | **Editable** — canonical LaTeX (`.tex`/`.bib`); the single source of truth across all repos | Human + LLM edit |
+| **Manuscripts** | `manuscripts/` | **Editable** — freshest in-progress LaTeX WIPs (`.tex`/`.bib`); these working copies do not override authorial intent | Human + LLM edit |
 | **The wiki** | `wiki/` | LLM-owned synthesis; freely rewritten | LLM maintains |
 | **The schema** | `CLAUDE.md` (this file) | Rarely changed | Human + LLM agree |
 
@@ -39,7 +39,7 @@ Plus two navigation files at the vault root: **`index.md`** (catalog) and **`log
 ├── CLAUDE.md            ← this schema / operating manual
 ├── index.md            ← catalog of every wiki page, grouped by type
 ├── log.md              ← append-only chronological ledger of operations
-├── manuscripts/        ← EDITABLE canonical LaTeX (.tex/.bib) — single source of truth across repos
+├── manuscripts/        ← EDITABLE freshest LaTeX WIPs (.tex/.bib) — current working copies, not an authority over authorial intent
 ├── sources/            ← IMMUTABLE raw source notes (the source of truth)
 │   ├── papers/         ←   one note per paper (arXiv etc.), with bibtex
 │   ├── refs/           ←   curated references cited by the manuscripts (type: reference)
@@ -296,7 +296,7 @@ Append-only. One operation per line, newest at the bottom, parseable timestamp f
 
 ## Guidance for the maintaining LLM
 
-- **You own `wiki/`; you may rewrite any wiki page wholesale.** You may NEVER edit `sources/`. The top-level `manuscripts/` folder *is* editable — it holds the canonical `.tex`/`.bib` (the single source of truth across repos); `sources/manuscripts/` still holds only the immutable *notes* about them.
+- **You own `wiki/`; you may rewrite any wiki page wholesale.** You may NEVER edit `sources/`. The top-level `manuscripts/` folder *is* editable — it holds the freshest `.tex`/`.bib` WIPs, which are the current working copies but do not override authorial intent; `sources/manuscripts/` still holds only the immutable *notes* about them.
 - Keep summaries current; that bookkeeping is the whole point — the human won't do it.
 - Write for a future reader who has not read the papers: define terms, link generously.
 - Prefer fewer, well-connected, canonical pages over many thin duplicates.

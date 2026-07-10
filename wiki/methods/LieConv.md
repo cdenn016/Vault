@@ -10,34 +10,71 @@ tags:
   - project/transformer
 status: stable
 created: 2026-06-18
-updated: 2026-06-19
+updated: 2026-07-10
 ---
 
 # LieConv
 
 ## What it is
 
-LieConv is a convolutional layer, introduced by Finzi, Stanton, Izmailov, and Wilson in [[finzi-2020-lieconv]], that is provably equivariant to the action of an arbitrary Lie group with a surjective exponential map and that operates on arbitrary continuous data (point clouds, sets, irregularly sampled signals) rather than on a regular grid. Its defining move is to express all geometry in *Lie-algebra (logarithmic) coordinates*: group elements are represented through their logarithms, the convolution kernel is a function on the algebra, and group elements are recovered when needed via the matrix exponential. This is the same algebra-first parameterization the VFE transformer adopts for its GL(k) gauge group.
+LieConv is a convolutional layer introduced by Finzi, Stanton, Izmailov, and
+Wilson in [[finzi-2020-lieconv]]. It is equivariant to Lie-group actions under
+the construction's stated exponential-map assumptions and operates on
+continuous, irregularly sampled data. It evaluates kernels in Lie-algebra
+coordinates and recovers group elements with the group exponential, which is a
+matrix exponential only after choosing a matrix-group representation. The VFE
+transformer's represented GL($k$) path uses that matrix-group special case.
 
 ## How it works
 
-A standard convolution sums weighted neighbour contributions; a group convolution generalizes this so that the weight depends only on the *relative group element* between two points, which is what makes the output [[Group equivariance|group-equivariant]]. LieConv realizes this in three steps. First, each data point is lifted from the input space to (a coset of) the group, so that the relative transformation taking one point to another is a concrete group element. Second, rather than parameterize the kernel as a function of group elements directly — which is awkward for curved, high-dimensional groups — LieConv maps that relative element through the logarithm into the Lie algebra, a flat vector space, and evaluates a learned MLP kernel there. Third, the exponential map recovers group elements as required. Because the log/exp pair is a bijection wherever the exponential is surjective, the kernel is a well-defined function of the relative group element, and the resulting layer is equivariant by construction for any such Lie group — translations, rotations, scalings, the special Euclidean group, and so on — selected simply by swapping in the group's exp/log. A Monte Carlo estimate of the integral over neighbours, together with a local neighbourhood restriction, keeps the operation tractable on continuous, unstructured inputs.
+A standard convolution sums weighted neighbor contributions; a group convolution
+generalizes this so the weight depends on a relative group element. LieConv
+lifts data to a group or homogeneous space, evaluates a learned kernel in chosen
+Lie-algebra coordinates of relative elements, and estimates the group integral
+by Monte Carlo sampling over a local neighborhood. Surjectivity of the
+exponential map ensures the required group elements have algebra preimages; it
+does **not** make exp injective or establish a global exp/log bijection. Logarithm
+branches and multiple preimages therefore remain part of the coordinate
+construction in [[finzi-2020-lieconv]].
 
 This construction sits alongside the discrete-group convolutions of [[cohen-2016-gcnn]] and the compact-group theory of [[kondor-2018-compact-group-conv]], extending equivariance from finite or compact symmetry groups to continuous Lie groups, and it is one of the concrete instances of the broader equivariance blueprint surveyed in [[bronstein-2021-geometric-deep-learning]].
 
 ## Strengths / limitations
 
-The principal strength is generality: a single layer template covers a whole catalogue of symmetry groups, chosen by supplying the group's exp/log maps, and it applies to genuinely irregular data where grid-based [[Group equivariant CNN (G-CNN)|G-CNNs]] do not. Working in algebra coordinates avoids hand-derived, group-specific kernel constraints such as those that [[weiler-2019-e2-steerable|steerable CNNs]] solve per-irrep, trading representation-theoretic bookkeeping for a learned MLP on the tangent space.
+The principal strength is generality: a single layer template covers a whole catalog of symmetry groups, chosen by supplying the group's exp/log maps, and it applies to genuinely irregular data where grid-based [[Group equivariant CNN (G-CNN)|G-CNNs]] do not. Working in algebra coordinates avoids hand-derived, group-specific kernel constraints such as those that [[weiler-2019-e2-steerable|steerable CNNs]] solve per-irrep, trading representation-theoretic bookkeeping for a learned MLP on the tangent space.
 
-The limitations follow from the same assumptions. Equivariance is exact only when the exponential map is surjective; for groups where exp fails to cover the group (or is not injective on the relevant region) the log coordinates are ambiguous and the guarantee weakens. The Monte Carlo neighbourhood integral introduces sampling variance, and the lifting and pairwise-relative computation cost grows with neighbourhood size. Unlike [[thomas-2018-tensor-field-networks|tensor field networks]] or steerable approaches, LieConv does not natively decompose features into [[Irreducible representation|irreps]] coupled by [[Clebsch-Gordan coefficients]]; its equivariance is enforced through the kernel's argument rather than through the representation type of its features.
+The limitations follow from the same assumptions. Non-surjective exponential
+maps leave group elements without algebra preimages, while noninjectivity makes
+log coordinates multivalued even when exp is surjective. The Monte Carlo
+neighborhood integral introduces sampling variance, and lifting and pairwise
+relative computation grow with neighborhood size. Unlike
+[[thomas-2018-tensor-field-networks|tensor field networks]] or steerable
+approaches, LieConv does not natively decompose features into
+[[Irreducible representation|irreps]] coupled by
+[[Clebsch-Gordan coefficients]].
 
 ## Relation to this work
 
-The VFE transformer's gauge sector is built on the same algebra-first idea that LieConv pioneered. Its declared gauge group is the block general-linear group GL(k); rather than parameterize gauge frames as group matrices, the architecture carries a Lie-algebra "phi" parameterization and reconstructs group elements through a retraction — a [[Baker-Campbell-Hausdorff formula|Baker-Campbell-Hausdorff]] (BCH) composition that plays the role LieConv's exponential plays, mapping algebra coordinates back to the group. In both cases the algebra is the flat space where parameters live and learning happens, and exp/BCH is the bridge to the curved group.
+The VFE transformer's gauge sector uses the same broad algebra-first pattern.
+It stores a Lie-algebra coordinate `phi` and obtains group actions through the
+matrix exponential. [[Baker-Campbell-Hausdorff formula|BCH]] has a different
+type: it maps a pair of local algebra coordinates to another algebra coordinate
+approximating the logarithm of a product. Exponentiation or a separately defined
+group-valued retraction then maps that coordinate to the group.
 
-> [!note] Editorial: LieConv supplies the parameterization pattern (learn in the log, act through exp) rather than the layer itself. The VFE transformer does not perform a LieConv-style spatial convolution; it borrows the algebra-first treatment of a continuous group and applies it to gauge frames and to positional encodings, where a learned phi is composed via BCH before being combined with RoPE, ALiBi, and T5 relative-position priors.
+> [!note] Editorial (2026-07-10): LieConv supplies a comparison for algebra-first
+> coordinates, not the layer or its neural MLP kernel. The VFE transformer has no
+> LieConv-style convolution, and LieConv's equivariance theorem does not establish
+> the transformer's gauge, optimizer, or positional claims.
+> [[gl-k-attention-2026-07-09-review-revision]]
 
-Where LieConv stops at equivariance of a convolution, this work extends the geometric machinery in directions LieConv does not address: it transports per-token Gaussian beliefs across gauge frames via [[Parallel transport]] and [[Holonomy]] in the sense of [[cohen-2019-gauge-cnn]], couples block features through [[Clebsch-Gordan coefficients]] and [[Irreducible representation|irreps]] in the manner of [[thomas-2018-tensor-field-networks]], and ties the group-geometric updates to a [[Variational free energy]] objective with [[Natural gradient]] M-step updates. LieConv contributes the foundational discipline — do the geometry in log coordinates and recover the group by exponentiation — that makes the GL(k) gauge parameterization well-posed.
+The transformer's use of transported Gaussian beliefs and blockwise group actions
+must be justified by its own construction. In realized Regime I,
+$\Omega_{ij}=U_iU_j^{-1}$ is a flat pure-gauge transport, so citing LieConv does
+not supply nontrivial holonomy. Joint Gaussian belief updates use Fisher
+geometry, whose covariance block is one-half conventional AIRM, whereas the
+audited frame table uses plain AdamW and leaves the configured heavy-ball/pullback path inactive. LieConv contributes only the
+comparison that algebra coordinates can parameterize continuous group actions.
 
 ## Sources
 

@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-07-08
+updated: 2026-07-09
 ---
 
 # GL(K) gauge group
@@ -27,11 +27,13 @@ The program works with the **identity component** $\mathrm{GL}^+(K)=\{g:\det g>0
 
 ### The Lie algebra gl(k)
 
-The **Lie algebra** $\mathfrak{gl}(K)$ is the tangent space to $\mathrm{GL}(K)$ at the identity: *all* $K\times K$ real matrices (no invertibility constraint), equipped with the matrix commutator $[\phi_1,\phi_2]=\phi_1\phi_2-\phi_2\phi_1$ as its Lie bracket. The exponential map $\exp:\mathfrak{gl}(K)\to\mathrm{GL}^+(K)$ recovers a group element from an algebra element, and is the device that lets the model carry gauge parameters in the *unconstrained, differentiable* coordinates $\phi$ rather than on the curved group manifold ([[hall-2015-lie-groups]], [[Gauge transformation]]). Because two gauge elements compose as
+The **Lie algebra** $\mathfrak{gl}(K)$ is the tangent space to $\mathrm{GL}(K)$ at the identity: *all* $K\times K$ real matrices (no invertibility constraint), equipped with the matrix commutator $[\phi_1,\phi_2]=\phi_1\phi_2-\phi_2\phi_1$ as its Lie bracket. The exponential map supplies unconstrained differentiable coordinates, but over the reals $\operatorname{image}(\exp)$ is a proper subset of $\mathrm{GL}^+(K)$ rather than the whole identity component. [[gl-k-attention-2026-07-09-review-revision]]
+
+Because two gauge elements compose as
 $$
 \exp(\phi_1)\exp(\phi_2)=\exp\!\Big(\phi_1+\phi_2+\tfrac12[\phi_1,\phi_2]+\cdots\Big),
 $$
-composing transformations directly in the algebra requires the [[Baker-Campbell-Hausdorff formula|Baker–Campbell–Hausdorff]] series, truncated to finite order in practice — the rule the program uses both to retract gauge updates and to compose positional gauges ([[gl-k-attention|GL(K) attention manuscript]], [[Gauge transformation]]). The algebra carries a natural invariant inner product, the [[Killing form]], used to precondition gauge updates so that learning respects the symmetry rather than fighting it.
+composing transformations directly in the algebra requires the [[Baker-Campbell-Hausdorff formula|Baker–Campbell–Hausdorff]] series; finite truncation is a local approximation. The configured regularized Cartan/Killing object is a frame preconditioner, not a full-$\mathrm{GL}(K)$-invariant Fisher natural gradient. [[gl-k-attention-2026-07-09-review-revision]]
 
 > [!note] Editorial: $\mathfrak{gl}(K)$ is the *full* matrix algebra precisely because $\mathrm{GL}^+(K)$ is open in $\mathbb{R}^{K\times K}$ — its tangent space at $I$ is the whole ambient space. This is what distinguishes $\mathfrak{gl}(K)$ from the constrained algebras (skew-symmetric $\mathfrak{so}(K)$, traceless $\mathfrak{sl}(K)$) of the compact/special subgroups, and is why the unconstrained $\phi$ parameterization is available without projection.
 
@@ -68,15 +70,15 @@ D_{\mathrm{KL}}\!\left(\Omega_*P\,\|\,\Omega_*Q\right)=D_{\mathrm{KL}}\!\left(P\
 $$
 because the $(\det\Omega)^2$ Jacobian factors cancel identically; the result extends to all $f$-divergences, so a transport map need only satisfy $\det\Omega\neq0$ for the full $\mathrm{GL}(K)$ to act as a gauge symmetry of the inference ([[gl-k-attention|GL(K) attention manuscript]]). This is the formal guarantee that attention scores — built from KL divergences between transported beliefs — are invariant to local frame choice, the property that earns the name "gauge."
 
-**Vertex-frame transport has trivially vanishing holonomy.** The program's standard transport between tokens $i$ and $j$ factorizes through the gauge frames as $\Omega_{ij}=\exp(\phi_i)\exp(-\phi_j)$, which satisfies the cocycle identity $\Omega_{ij}\Omega_{jk}\Omega_{ki}=I$ as an algebraic identity. The resulting connection is therefore **flat**: its reconstructed [[Holonomy]] around any loop vanishes, placing both the gauge transformer and standard transformers in a flat-bundle regime. A relaxed extension $\Omega_{ij}=\exp(\phi_i)\exp(\delta_{ij}G)\exp(-\phi_j)$ promotes the bundle to nontrivial holonomy, reserved for the companion work ([[gl-k-attention|GL(K) attention manuscript]], [[Parallel transport]], [[Holonomy]]).
+**Vertex-frame transport has trivially vanishing holonomy.** The program's standard transport between tokens $i$ and $j$ factorizes through the gauge frames as $\Omega_{ij}=\exp(\phi_i)\exp(-\phi_j)$, which satisfies the cocycle identity $\Omega_{ij}\Omega_{jk}\Omega_{ki}=I$ as an algebraic identity. The resulting gauge-transformer connection is therefore **flat**: its reconstructed [[Holonomy]] around any loop vanishes. A standard transformer has no transport variable or intrinsic holonomy; flatness applies only to the imposed identity-transport comparison point. A relaxed extension $\Omega_{ij}=\exp(\phi_i)\exp(\delta_{ij}G)\exp(-\phi_j)$ promotes the gauge model to nontrivial holonomy, reserved for the companion work ([[gl-k-attention|GL(K) attention manuscript]], [[Parallel transport]], [[Holonomy]]). [[gl-k-attention-2026-07-09-review-revision]]
 
 **No bi-invariant metric on the frame group.** Unlike the covariance side, where the cone inherits a canonical invariant metric from the quotient, the *frame* group $\mathrm{GL}^+(K)$ is noncompact and non-abelian and so — by Milnor's theorem — admits **no bi-invariant metric** ([[milnor-1976-left-invariant-metrics]]). The clean symmetric-space structure on the covariance side has no automatic counterpart on the frame side, which is why the choice of inner product on $\mathfrak{gl}(K)$ (e.g. the Killing-form preconditioner) is a genuine modeling decision rather than a foregone conclusion.
 
 ## Relevance to this research
 
-$\mathrm{GL}(K)$ is the organizing symmetry of the entire VFE attention architecture. The [[gl-k-attention|GL(K) attention manuscript]] derives transformer attention as variational inference on a principal $\mathrm{GL}^+(K)$-bundle with statistical-manifold fibers: each token is a Gaussian "agent" $q_i=\mathcal{N}(\mu_i,\Sigma_i)$ (see [[Gaussian Beliefs]]), its belief is parallel-transported to a neighbor via a $\mathrm{GL}(K)$ gauge map $\Omega_{ij}$, and the attention weight $\beta_{ij}=\operatorname{softmax}_j(-D_{\mathrm{KL}}[q_i\|\Omega_{ij}q_j]/\tau)$ falls out of minimizing the free energy. Standard dot-product attention is recovered as the isotropic, flat-bundle, constant-gauge **degenerate limit** of this gauge-theoretic rule ([[GL(K) gauge-equivariant attention]], [[Variational free energy]]). The agents-as-sections and bundle scaffolding are catalogued in [[Agents as fibre-bundle sections]] and [[Fibre Bundle]].
+$\mathrm{GL}(K)$ organizes transported-Gaussian attention. The Regime-I vertex cocycle makes loop transport flat but does not force pairwise identity. Identity follows in the shared-frame reduction, or when one edge-independent constant occurs on every attended edge including a self edge or on all three edges of a transitive triple. The resulting isotropic score is identity-bilinear with a key-norm bias. A general learned $W_QW_K^\top$ is structural rather than transport-derived. [[gl-k-attention-2026-07-09-review-revision]]
 
-The choice of $\mathrm{GL}(K)$ as the structure group is consequential precisely *because* of the quotient $\mathrm{GL}(K)/O(K)\cong\mathrm{SPD}(K)$: it is what lets a single group simultaneously (i) rotate token frames as a gauge symmetry and (ii) act on belief covariances by congruence along the SPD cone, unifying the frame geometry and the covariance geometry under one Lie group. The natural-gradient training dynamics on these fibers are governed by the [[Fisher information metric]] and the [[Natural gradient]], the statistical counterpart of gauge/reparameterization invariance ([[Gauge transformation]], [[amari-1998-natural-gradient]]). The reading of belief dynamics as a gauge theory more broadly — local frame choices as gauge, transport as a connection, holonomy as path-dependent belief change — is developed in [[Gauge Theory]] and has direct precedent in the neuronal-gauge-theory program of [[sengupta2017gauge]] and [[sengupta-2016-neuronal-gauge]]. The nearest prior art for SPD-valued self-attention is [[wang-2023-riemannian-self-attention-spd]].
+The quotient $\mathrm{GL}(K)/O(K)\cong\mathrm{SPD}(K)$ supports the affine-invariant geometry of full covariances and their Fisher/AIRM natural gradients. It does not identify the configured frame conditioner with that Fisher metric. The live diagonal family is closed under congruence only for monomial transports, so a general frame action is projected or approximate. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Sources
 

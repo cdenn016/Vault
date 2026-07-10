@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-06-19
+updated: 2026-07-09
 ---
 
 # Holonomy
@@ -31,13 +31,7 @@ an element of the structure group `G`. The connection is **flat** (curvature zer
 
 ## Why it matters here
 
-The VFE transformer is built as a **gauge theory over per-token state**: each token carries a Gaussian belief `(mu, Sigma)` living in a local frame, and the architecture moves these beliefs between tokens and across layers using connection-like operations rather than naive copying. Wherever there is a connection and [[Parallel transport]], holonomy is the diagnostic for whether that transport is consistent. Two facts make it central here:
-
-1. **The gauge group is non-abelian.** The model's `gauge_group` is `block_glk` — the block general-linear group GL(k) — whose elements generally do not commute. For non-commuting groups, the order of transport matters, so closed-loop transport accumulates a nontrivial holonomy. This is precisely the regime where holonomy is informative rather than vacuous.
-
-2. **Covariances live on a curved manifold.** Each `Sigma` is a symmetric-positive-definite (SPD) matrix, and the model's `spd_affine` retraction uses the affine-invariant Riemannian metric, whose [[Parallel transport]] is genuinely curved (see [[pennec-2006-affine-invariant-tensor]], [[bhatia-2007-positive-definite-matrices]]). Transporting a belief covariance around a loop on the SPD cone returns a congruence-transformed matrix, not the original — again a holonomy effect.
-
-In gauge-equivariant networks the central design principle is that *features are only meaningful relative to a frame*, and any operation comparing features at different points must transport them with the connection so the result is independent of arbitrary local frame choices ([[cohen-2019-gauge-cnn]], [[bronstein-2021-geometric-deep-learning]]). Holonomy is what is left over after you demand that consistency: it is the frame-independent, physically real part of the geometry. The "cocycle relaxation" in the model is, in this language, a soft constraint pushing certain holonomies toward the identity so that transported beliefs agree.
+Generic non-abelian connections and curved SPD manifolds can have nontrivial holonomy. The realized transformer Regime-I connection is more restrictive: $\Omega_{ij}=U_iU_j^{-1}$ telescopes on every closed loop, so $H=I$ exactly despite the noncommutativity of $\mathrm{GL}(K)$. Nontrivial model holonomy requires an independent-edge or otherwise nonflat Regime-II connection. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Details
 
@@ -51,21 +45,21 @@ so curvature is the *density* of holonomy and holonomy is its *integral*. A conn
 
 **Anholonomy and the geometric (Berry-type) phase.** Holonomy is sometimes called *anholonomy* to stress that the closed-loop transport fails to close on itself in the fiber. The classic intuition is parallel-transporting a vector around a spherical triangle: it returns rotated by an angle equal to the enclosed solid angle (the sphere's curvature times area). Abelian holonomy reduces to such a phase/scale factor; the non-abelian GL(k) case generalizes this to a full matrix.
 
-**Relation to the Lie-algebra parameterization.** The model parameterizes gauge elements in the Lie algebra (a `phi` field) and maps back to the group via exponentiation, composing transports with the **[[Baker-Campbell-Hausdorff formula|Baker–Campbell–Hausdorff]] (BCH)** formula — the algebra-first recipe used by Lie-group-equivariant networks such as [[finzi-2020-lieconv]]. Because `exp(X) exp(Y) = exp(X + Y + ½[X,Y] + ...)`, the BCH commutator terms are exactly the source of non-abelian holonomy: when `[X,Y] ≠ 0`, the round-trip `exp(X)exp(Y)exp(-X)exp(-Y)` is not the identity, and its leading term is the commutator — the infinitesimal curvature. Holonomy is thus directly readable from how the model composes its `phi`-generated transports. The map back to the group is a matrix exponential `exp(phi)`, whose numerics matter: when `phi` is symmetric rather than skew the frames leave the orthogonal regime and `exp(phi)` can become ill-conditioned, exactly the eigenvalue-method breakdown for non-normal/defective matrices catalogued in [[moler-vanloan-2003-nineteen-dubious-ways]].
+**Relation to Lie-algebra coordinates.** BCH commutators describe generic non-abelian group commutators, but they do not create holonomy in the realized vertex cocycle: the exact group products $U_iU_j^{-1}$ still telescope. Finite BCH truncation is only a local approximation, and any truncation residue is numerical/chart error rather than a Regime-I curvature observable. [[gl-k-attention-2026-07-09-review-revision]]
 
 **Holonomy group as a representation-theoretic object.** The holonomy group sits inside the structure group and acts on features that are organized into [[Irreducible representation]]s. Equivariant architectures route information through irreps and couple them with [[Clebsch-Gordan coefficients]] ([[weiler-2019-e2-steerable]], [[kondor-2018-compact-group-conv]], [[thomas-2018-tensor-field-networks]]); the holonomy is the concrete group element that acts on each irrep block as a belief is transported, so its effect decomposes block-by-block across the model's irrep bookkeeping.
 
-> [!note] Editorial: The sources below establish parallel transport, connections, and the curved SPD/GL(k) geometry individually; the synthesis that closed-loop transport in this specific architecture yields a measurable GL(k)/SPD holonomy is the editor's framing, not a claim made verbatim in any one paper.
+> [!note] Editorial (2026-07-09): generic holonomy definitions on this page remain valid. In this architecture, measurable nontrivial loop transport belongs only to an edge-relaxed/nonflat path; strict Regime I is exactly flat. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## In this work
 
 Holonomy surfaces wherever the config commits to a connection or to non-commuting transport:
 
-- **`gauge_group: block_glk` (GL(k)) with Lie-algebra `phi` and BCH retraction.** The non-abelian group and BCH composition are the direct source of nontrivial loop holonomy; the commutator terms in BCH are its infinitesimal generator. See [[Parallel transport]] and [[Gauge transformation]].
-- **Parallel transport / holonomy of beliefs.** The architecture transports per-token Gaussian beliefs between frames; holonomy quantifies whether a belief returns to itself after a closed circuit of transports, and is the consistency check the gauge construction must respect ([[cohen-2019-gauge-cnn]], [[bronstein-2021-geometric-deep-learning]]).
-- **`spd_affine` retraction on covariances.** Transporting `Sigma` under the affine-invariant metric on the SPD cone is curved, so loop transport induces SPD-side holonomy ([[pennec-2006-affine-invariant-tensor]], [[bhatia-2007-positive-definite-matrices]]); retractions and vector transports are used as cheap surrogates for the exact geodesic transport ([[absil-2008-optimization-matrix-manifolds]]).
-- **Cocycle relaxation.** Softly enforcing trivial composition of transition maps is a relaxation of the flatness/zero-holonomy condition, trading exact frame consistency for trainability.
-- **[[Killing form|Killing-form]] per-block preconditioning.** Conditioning the GL(k) updates with the Killing form is the natural-gradient-style metric on the gauge group that makes transport (and hence holonomy) reparameterization-invariant, echoing the information-geometric preconditioning of [[ollivier-2015-riemannian-metrics-nn]] and [[amari-1998-natural-gradient]].
+- **Regime-I vertex transport.** The cocycle gives $H=I$ exactly; noncommutativity alone does not change this. [[gl-k-attention-2026-07-09-review-revision]]
+- **Parallel transport / holonomy of beliefs.** Closed-loop transport is a valid consistency diagnostic only for a connection that the architecture actually realizes. The Regime-I frame connection closes exactly; an edge-relaxed connection can be tested for nontrivial loop transport ([[cohen-2019-gauge-cnn]], [[bronstein-2021-geometric-deep-learning]]).
+- **Generic SPD holonomy.** Levi-Civita parallel transport of tangent vectors around a closed path on the curved affine-invariant SPD manifold can have nontrivial holonomy ([[pennec-2006-affine-invariant-tensor]], [[bhatia-2007-positive-definite-matrices]]). The deployed `spd_affine` covariance retraction updates covariance points; it does not by itself implement that closed-loop tangent-vector transport or establish SPD-side model holonomy.
+- **Edge-relaxed transport.** Independent edge variables can produce nontrivial holonomy and are the appropriate target for loop diagnostics. [[gl-k-attention-2026-07-09-review-revision]]
+- **Frame conditioning.** The configured Cartan/Killing object is an optimizer preconditioner, not a full-$\mathrm{GL}(K)$ Fisher metric and not a certificate that holonomy is reparameterization invariant. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Sources
 
@@ -73,7 +67,7 @@ Holonomy surfaces wherever the config commits to a connection or to non-commutin
 - [[bronstein-2021-geometric-deep-learning]] — Erlangen-Program synthesis providing the gauge / connection / parallel-transport scaffolding.
 - [[finzi-2020-lieconv]] — Lie-algebra (log-coordinate) parameterization with exp recovery, the BCH-style composition underlying non-abelian holonomy.
 - [[weiler-2021-coordinate-independent-cnns]] — monograph deriving gauge equivariance from coordinate-independence plus weight-sharing, with textbook-grade transport rule and cocycle/holonomy conditions.
-- [[moler-vanloan-2003-nineteen-dubious-ways]] — conditioning of the matrix exponential `exp(phi)` and the eigenvalue-method breakdown for non-normal/defective matrices (the regime when `phi` is symmetric rather than skew).
+- [[moler-vanloan-2003-nineteen-dubious-ways]] — conditioning of the matrix exponential and the eigenvalue-method breakdown for non-normal or defective matrices; symmetric `phi` is normal and nondefective.
 - [[weiler-2019-e2-steerable]], [[kondor-2018-compact-group-conv]], [[thomas-2018-tensor-field-networks]] — irrep-structured features and Clebsch–Gordan coupling on which the holonomy group acts block-by-block.
 - [[pennec-2006-affine-invariant-tensor]], [[bhatia-2007-positive-definite-matrices]] — the curved affine-invariant SPD geometry whose transport is non-flat.
 - [[absil-2008-optimization-matrix-manifolds]] — retractions and vector transports as first-order surrogates for geodesic transport.

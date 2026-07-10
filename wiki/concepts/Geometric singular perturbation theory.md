@@ -14,7 +14,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-07-09
 ---
 
 # Geometric singular perturbation theory
@@ -25,7 +25,7 @@ updated: 2026-06-19
 
 ## Why it matters here
 
-GSPT is the mathematical backbone of the timescale separation that organizes the entire [[participatory-it-from-bit]] program. The model's **fast E-step / slow M-step** split (see CLAUDE.md "Timescales") is exactly a fast-slow system: belief inference $q=(\mu,\Sigma,\phi)$ relaxes quickly within each forward pass (the fast $x$), while prior/model parameters $(p,s)$ and gauge couplings drift slowly under backprop (the slow $y$). Fenichel theory is what licenses treating the E-step as having reached its slow manifold — the variational fixed point — before the M-step takes a step, rather than this being a mere computational convenience. The same logic underwrites the **Schur-complement parent flow** in [[Ouroboros multi-scale dynamics]]: coarse-graining a cluster of fast constituent agents into a slow meta-agent is an adiabatic elimination of fast degrees of freedom, and the parent's effective dynamics are the slow flow obtained after the fast block equilibrates (the Schur complement is the algebraic shadow of integrating out the fast sub-block). Across scales this is precisely the picture [[Renormalization-group flow of beliefs]] formalizes: each blocking step eliminates a normally-hyperbolic fast manifold and reads off the slow effective theory.
+GSPT supplies a conditional language for the timescale separation in the [[participatory-it-from-bit]] program. Fenichel theory would license a slow-manifold reduction only after a small parameter, normal hyperbolicity, attraction, and sufficient fast relaxation are established. The deployed transformer takes one target-blind belief step before a separate decode update, so it does not establish convergence to a variational fixed point or satisfy those hypotheses by construction. The Schur-complement parent flow and RG interpretation remain proposed reductions whose GSPT premises require separate verification. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Details
 

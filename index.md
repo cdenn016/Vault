@@ -2,7 +2,7 @@
 type: index
 title: Index
 aliases: [Index, Home]
-updated: 2026-06-28
+updated: 2026-07-10
 ---
 
 # Index
@@ -10,7 +10,7 @@ updated: 2026-06-28
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **4** manuscripts · **12** themes · **11** field MOCs · **268** concepts · **10** methods · **527** papers · **104** references · **7** runs · **6** web/methodology
+> **3** projects · **5** manuscripts · **12** themes · **11** field MOCs · **268** concepts · **10** methods · **527** papers · **100** references · **7** runs · **6** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -27,6 +27,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 ## 📝 Manuscripts (in preparation)
 - [[participatory-it-from-bit|A Gauge-Theoretic Framework Toward a Participatory \"It From Bit\" Program: Mathematical Foundations and Computational Implementation]]
 - [[gl-k-attention|Attention as Gauge-Theoretic Variational Inference]]
+- [[gl-k-attention-2026-07-09-review-revision|Attention as Gauge-Theoretic Variational Inference: 2026-07-09 Review and Revision Record]] — major-review revision and supersession record
 - [[meta-entropy-manuscript|Configurational Meta-Entropy of a Population of Variational Beliefs: Toward a Thermodynamic Limit for the Gauge-Theoretic Free Energy Transformer]]
 - [[belief-inertia|The Inertia of Belief]]
 

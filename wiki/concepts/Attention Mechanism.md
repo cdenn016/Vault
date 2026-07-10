@@ -10,7 +10,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-21
-updated: 2026-06-21
+updated: 2026-07-09
 ---
 
 # Attention Mechanism
@@ -33,7 +33,7 @@ This program reads attention through a Bayesian lens: the attention weights are 
 
 ## The gauge-theoretic reinterpretation
 
-In the vfe3 / V3_Transformer each token is a Gaussian belief $(\mu,\Sigma)$ rather than a point vector, expressed in a per-token gauge frame. Attention then transports one token's belief into another's frame before comparing them, with the transport operator $\Omega_{ij}=\exp(\phi_i)\exp(-\phi_j)$ built from gauge Lie-algebra elements. The affinity becomes a precision-weighted Mahalanobis distance between transported means — the Gaussian KL $D_{\mathrm{KL}}[q_i\,\Vert\,\Omega_{ij}q_j]$ — recovering ordinary dot-product attention only in the flat, identity-metric limit. Each head acts as a block-diagonal $\mathrm{GL}(k_h)$ channel; the details, including the stationary-point derivation of the softmax weights, live in [[GL(K) gauge-equivariant attention]].
+In vfe3 each token is a Gaussian belief in a local frame. Strict Regime-I transport is $\Omega_{ij}=U_iU_j^{-1}$ and telescopes to identity under the constant/self-edge reduction. The isotropic KL then yields the identity-bilinear attention subcase plus a key-norm bias; an arbitrary learned $W_QW_K^\top$ is structural, not transport-derived. [[gl-k-attention-2026-07-09-review-revision]]
 
 > [!note] Editorial: This page is the definitional hub. The full theory — attention as kernel smoothing, the positional-encoding family (RoPE/ALiBi/T5), SPD-Riemannian affinities, and the open questions — is synthesized in the theme page below; this page deliberately stays at the level of definition and orientation.
 
