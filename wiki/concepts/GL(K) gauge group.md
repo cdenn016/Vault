@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-07-09
+updated: 2026-07-11
 ---
 
 # GL(K) gauge group
@@ -74,6 +74,12 @@ because the $(\det\Omega)^2$ Jacobian factors cancel identically; the result ext
 
 **No bi-invariant metric on the frame group.** Unlike the covariance side, where the cone inherits a canonical invariant metric from the quotient, the *frame* group $\mathrm{GL}^+(K)$ is noncompact and non-abelian and so — by Milnor's theorem — admits **no bi-invariant metric** ([[milnor-1976-left-invariant-metrics]]). The clean symmetric-space structure on the covariance side has no automatic counterpart on the frame side, which is why the choice of inner product on $\mathfrak{gl}(K)$ (e.g. the Killing-form preconditioner) is a genuine modeling decision rather than a foregone conclusion.
 
+## Active optimizer and hierarchy-domain limits
+
+The July 11 code-concordance review separates scalar invariance from optimizer equivariance. A Gaussian-KL functional built from relative links can remain invariant under the common-right action $U_i\mapsto U_i g$ while the reached Frobenius update fails to preserve that orbit for generic nonorthogonal $g\in\mathrm{GL}^+(K)$. The implemented body covector transforms as $g^\top B g^{-\top}$, whereas the right retraction requires $g^{-1}Bg$. Full-$\mathrm{GL}^+$ trajectory equivalence therefore needs a different metric and update, an explicit gauge fixing, or a restriction to a right-isometric subgroup. This limitation does not weaken common-pushforward invariance of Gaussian KL. [[participatory-it-from-bit-2026-07-11-code-concordance-review]]
+
+The same review found that products of legal exponential increments need not remain in the real-log domain used by hierarchical frame pooling. The well-conditioned matrix $\operatorname{diag}(-1,-2,1,1,1,1,1)\in\mathrm{GL}^+(7)$ is reachable as a product of bounded exponentials but has no real logarithm. An admissible group element can therefore reach the unconditional `matrix_log_principal` call and fail during meta-agent formation. The operative hierarchy needs a log-safe invariant domain, a restricted group closed under its chart and update, or a log-free group-level barycenter. [[participatory-it-from-bit-2026-07-11-code-concordance-review]]
+
 ## Relevance to this research
 
 $\mathrm{GL}(K)$ organizes transported-Gaussian attention. The Regime-I vertex cocycle makes loop transport flat but does not force pairwise identity. Identity follows in the shared-frame reduction, or when one edge-independent constant occurs on every attended edge including a self edge or on all three edges of a transitive triple. The resulting isotropic score is identity-bilinear with a key-norm bias. A general learned $W_QW_K^\top$ is structural rather than transport-derived. [[gl-k-attention-2026-07-09-review-revision]]
@@ -81,6 +87,8 @@ $\mathrm{GL}(K)$ organizes transported-Gaussian attention. The Regime-I vertex c
 The quotient $\mathrm{GL}(K)/O(K)\cong\mathrm{SPD}(K)$ supports the affine-invariant geometry of full covariances and their Fisher/AIRM natural gradients. It does not identify the configured frame conditioner with that Fisher metric. The live diagonal family is closed under congruence only for monomial transports, so a general frame action is projected or approximate. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Sources
+
+- [[participatory-it-from-bit-2026-07-11-code-concordance-review]] — commit-scoped code-concordance record separating scalar gauge invariance from active optimizer equivariance and exhibiting a legal $\mathrm{GL}^+(7)$ trajectory endpoint outside the real-log domain required by hierarchical pooling.
 
 - [[gl-k-attention|GL(K) attention manuscript]] — the canonical source: $\mathrm{GL}(K)$ as structure group of the belief bundle, the $\mathrm{GL}(K)$ invariance theorem for KL/$f$-divergences, the $\exp(\phi)$ frame parameterization restricting to $\mathrm{GL}^+(K)$, and the vertex-frame transport / vanishing-holonomy lemma.
 - [[2026-07-08-omega-direct-detsign-buildout]] — the `omega_direct` element-store parameterization and the learnable ($\Delta F$-gated Metropolis) det-sign that reach the $\det<0$ component the $\exp(\phi)$ parameterization cannot; the free-energy barrier separating the sheets; and the diagonal-family / gauge-covariance-vs-frame-use findings.

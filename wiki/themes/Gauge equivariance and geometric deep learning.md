@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-10
+updated: 2026-07-11
 ---
 
 # Gauge equivariance and geometric deep learning
@@ -47,11 +47,17 @@ Full-SPD covariance geometry and Gaussian belief natural gradients remain valid.
 
 ## Open questions / gaps
 
+The active MAgent frame optimizer does not yet support the manuscript's full common-right $\mathrm{GL}^+(K)$ trajectory claim. Scalar Gaussian-KL invariance under a common pushforward remains valid, but the reached Frobenius body-covector update transforms under a different law from the one required by right-orbit equivariance for generic nonorthogonal gauge changes. The open design choice is whether to restrict the admitted symmetry, state a gauge fixing, or replace the update with a proved right-equivariant rule. [[participatory-it-from-bit-2026-07-11-code-concordance-review]]
+
+Hierarchical closure creates a second domain problem. Legal bounded products of exponential frame increments can reach well-conditioned elements of $\mathrm{GL}^+(K)$ for which no real logarithm exists, while the current coarse-frame construction requires `matrix_log_principal`. A group-level construction that avoids a global logarithm, or an invariant restriction to a log-safe domain, is required before the formal frame group and executable hierarchy have the same domain. [[participatory-it-from-bit-2026-07-11-code-concordance-review]]
+
 The main realized-family gap is exact: a single real exponential chart misses part of $\mathrm{GL}^+(K)$. Stored group elements (`omega_direct`) or multiple-chart constructions can cover transformations that the phi chart cannot. This is separate from LieConv's valid theorem under its own surjectivity premise. [[gl-k-attention-2026-07-09-review-revision]]
 
 Holonomy is closed in strict Regime I: $\Omega_{ij}=U_iU_j^{-1}$ telescopes around every loop. The open holonomy question belongs to independent-edge or otherwise nonflat transport, not stacked vertex-cocycle attention. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Sources synthesized
+
+- [[participatory-it-from-bit-2026-07-11-code-concordance-review]] — MAgent/PIFB2 code-concordance review of optimizer equivariance and the frame-log domain of hierarchical pooling.
 
 - [[cohen-2016-gcnn]] — Group Equivariant Convolutional Networks: the founding statement that a declared symmetry group structures the architecture and yields provable [[Group equivariance]].
 - [[cohen-2019-gauge-cnn]] — Gauge Equivariant CNNs and the Icosahedral CNN: the move from global to local symmetry, with the kernel constraint and [[Parallel transport]] rule underpinning the project's gauge frames.

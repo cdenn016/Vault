@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-06-19
+updated: 2026-07-11
 ---
 
 # Ouroboros multi-scale dynamics
@@ -23,7 +23,15 @@ updated: 2026-06-19
 
 Operationally, the tower runs an inner base-scale dynamics (a [[Natural gradient]]/`natural_gradient` first-order descent or a [[Hamiltonian belief dynamics|hamiltonian]] symplectic integrator) and then couples scales together: information flows *up* the tower (coarse-graining beliefs into higher-scale structure) and *down* the tower (higher scales propagating priors back onto lower scales as hyperpriors).
 
-> [!note] Editorial: The detailed implementation lives in `gauge_agent/ouroboros.py` (`OuroborosTower`), which is referenced in the README module map but was not in the read scope. The claims below are grounded in the README; equation-level internals are deferred to that module and the manuscript.
+> [!note] Editorial history: The original page was grounded in the README and did not inspect `gauge_agent/ouroboros.py`. The July 11 code-concordance record expands the evidence scope to the executable tower, loader, free-energy terms, observations, and recorder. Its commit-scoped status supersedes the earlier README-only account wherever they conflict.
+
+## Executable contract at the reviewed MAgent baseline
+
+The July 11 code-concordance review distinguishes the formal Ouroboros construction from the checked-in prospective arm. At code baseline `779f96f`, both `top_down_prior_propagation` and `top_down_model_prior` resolve to `False`. Descendant belief priors are independently learned; the reached T6 ancestor contribution is a model-fiber alignment penalty and does not assign $p_i^{(s)}=\Omega_{iI}[q_I^{(s+1)}]$. Self-referential closure is enabled, but with the hyperprior frozen it updates only the apex belief prior. It does not restore lower-scale belief shadows. The primary arm therefore does not execute the bidirectional shadow relation that the manuscript treats as structural. [[participatory-it-from-bit-2026-07-11-code-concordance-review]]
+
+Topology is also one-shot on this baseline. A higher scale is created only while absent; subsequent detector partitions do not reconcile, replace, or retire its members and parent maps. A formed hierarchy consequently persists by construction, so a persistence window is not independent evidence of stability. The emitted nonequilibrium scores also differ from the declared normalized energy-flux, information-flux, and across-agent gradient-variance statistic, while fixed observations supply a time-independent constraint rather than persistent external work. [[participatory-it-from-bit-2026-07-11-code-concordance-review]]
+
+The current recorder receives the base system rather than the complete tower. It cannot reconstruct full `q,s,p,r` states at every scale, dynamic lineage events, every cross-scale link, or the requested cryptographic provenance manifest. An executable prospective test therefore requires a declared top-down arm, dynamic lineage semantics or an explicit one-shot-genealogy claim, the stated nonequilibrium observable with time-dependent forcing, and a tower-aware recorder. [[participatory-it-from-bit-2026-07-11-code-concordance-review]]
 
 ## Why it matters here
 
@@ -49,7 +57,7 @@ $$
 
 so distant generations contribute progressively less, giving a finite-range but multi-generation top-down prior.
 
-**Top-down propagation on both fibres.** The downward leg propagates priors on *both* the belief and model fibres — consistent with the agent construction in which each agent is a smooth section of two associated fibre bundles ([[Agents as fibre-bundle sections]]) carrying Gaussian beliefs on belief and model fibres with [[Gauge transformation|GL(K)]] gauge frames. The README maps this to `TopDownFeedback.propagate_prior` (both fibers, line 1965).
+**Top-down propagation is an opt-in formal branch on the reviewed baseline.** The downward leg is defined on both belief and model fibers, consistent with the agent construction in which each agent is a smooth section of two associated fiber bundles ([[Agents as fibre-bundle sections]]) carrying Gaussian beliefs on both fibers with [[Gauge transformation|GL(K)]] gauge frames. The implementation exposes these writes through separate configuration flags, but both flags are disabled in the checked-in prospective arm at `779f96f`. The reached T6 model-fiber penalty is not a belief-prior assignment. [[participatory-it-from-bit-2026-07-11-code-concordance-review]]
 
 **Mass under the ouroboros convention.** When the inner dynamics is Hamiltonian, the mass that plays the role of [[Belief inertia|inertia]] can be set with `cfg.dynamics.hamiltonian.mass_convention = 'ouroboros'` (versus the default `'hessian'`). The README's module map names `ouroboros_effective_mass` in `gauge_agent/mass.py` as the multi-scale counterpart to the four-term Hessian mass — i.e. the multi-scale tower has its own effective-mass convention for the second-order, [[Hamiltonian belief dynamics]] regime, where the [[Fisher information metric]] / precision acts as the inertial [[Mass as Fisher information|mass]].
 
@@ -61,6 +69,8 @@ so distant generations contribute progressively less, giving a finite-range but 
 - **Relation to neighbouring concepts.** Ouroboros builds the self-referential loop on top of [[Belief inertia]] / [[Hamiltonian belief dynamics]] (inner second-order regime), connects upward to [[Meta-agents and hierarchical emergence]] and [[Renormalization-group flow of beliefs]] (the other coarse-graining modes), and is the multi-scale embodiment of [[Participatory realism (it from bit)]]. The thermodynamic-limit counting of belief configurations developed in [[meta-entropy-manuscript]] supplies the statistical-mechanical lens on such multi-scale belief populations.
 
 ## Sources
+
+- [[participatory-it-from-bit-2026-07-11-code-concordance-review]] — commit-scoped executable contract for disabled top-down writes, one-shot topology, nonequilibrium-statistic drift, fixed observations, and the tower-recorder gap.
 
 - [[participatory-it-from-bit]] — Dennis, the manuscript (`Participatory_it_from_bit.tex`) the framework implements; develops the gauge-covariant multi-agent variational-inference construction and the Ouroboros meta-agent emergence simulation. §4.5–4.7, lines 1965 / 1990.
 - [[wheeler-1990-it-from-bit]] — Wheeler's participatory "It From Bit" essay motivating the self-observing loop.
