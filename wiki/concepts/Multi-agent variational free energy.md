@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-09
+updated: 2026-07-12
 ---
 
 # Multi-agent variational free energy
@@ -53,6 +53,40 @@ $$
 $$
 
 The crucial point recorded in both files is that $s_i \ne p_i$: an agent separately represents *what it thinks is happening* ($q_i$), *what it expected* ($p_i$), *what it thinks its model is* ($s_i$), and *what it expected its model to be* ($r_i$). T4 aligns the model fibre $s_i$ across agents — this is the framework's notion of **ontology sharing** ("what makes science possible — agents must agree not just on beliefs but on the MODEL itself").
+
+## Generative-model status
+
+Each frozen source-selection row has a valid joint-KL identity. With
+$P_i(x,j)=\pi_{ij}T_{ij}q_j(x)$ and $Q_i(x,j)=\beta_{ij}q_i(x)$,
+
+$$
+D_{\mathrm{KL}}(Q_i\Vert P_i)
+=\sum_j\beta_{ij}D_{\mathrm{KL}}(q_i\Vert T_{ij}q_j)
++D_{\mathrm{KL}}(\beta_i\Vert\pi_i).
+$$
+
+The identity is algebraically exact, but it equals the canonical energy-plus-categorical-KL row
+only at unit categorical temperature. For $\tau\ne1$, the implemented row is a tempered
+generalized-Bayes objective. Even at unit temperature, this rowwise identity is weaker than a
+population ELBO because the source densities $T_{ij}q_j$ are other variational beliefs rather than
+fixed generative-model factors. For a fixed joint
+$p_\theta$ and mean-field $Q_q=\bigotimes_iq_i$, the mixed third variation
+$D^3_{q_iq_jq_j}D_{\mathrm{KL}}(Q_q\Vert p_\theta)$ vanishes for $i\ne j$. An active term
+$D_{\mathrm{KL}}(q_i\Vert T_{ij}q_j)$ generically has a nonzero mixed third variation. It follows
+that the consensus functional is not, on an open product family, the mean-field ELBO of one fixed
+joint on the original agent states. This variation holds the independently varied attention rows
+fixed; after substituting $\beta^\ast(q)$, the reduced functional requires a separate
+representability test. [[vfe-population-generative-status-2026-07-12]]
+
+Three exact exceptions or enlargements remain. At zero raw within-scale coupling, PIFB2's
+cross-scale Gaussian tree is a proper joint with an SPD stacked precision and a unique mean-field
+optimum. On a finite positive state space, Brouwer's theorem gives a self-consistent source
+equilibrium; freezing that selected equilibrium produces proper auxiliary row models, although not
+automatically one compatible shared-state joint. On the larger space of belief configurations,
+$dP_{\mathcal F}\propto e^{-\mathcal F/T_{\mathrm{cfg}}}d\rho_0$ is an exact energy-based model if
+and only if its partition function is finite. The last construction yields a meta-level VFE that
+includes configuration entropy; it does not retroactively turn the population energy into the
+excluded state-level ELBO.
 
 ## Why it matters here
 
@@ -100,6 +134,7 @@ The self-diagonal of $E$ is zeroed (self-KL is owned by T1/T2, not the alignment
 ## Sources
 
 - [[participatory-it-from-bit]] — primary manuscript developing the framework and Eq. 24.
+- [[vfe-population-generative-status-2026-07-12]] — state-level no-go theorem, equilibrium-frozen source model, and configuration-Gibbs lift.
 - [[belief-inertia]] — Fisher-precision-as-mass and the Hamiltonian regime built on this functional.
 - [[meta-entropy-manuscript]] — configurational meta-entropy / thermodynamic limit of the gauge-theoretic VFE.
 - [[gl-k-attention]] — attention recovered from the gauge-transported KL alignment terms.
@@ -121,6 +156,6 @@ The self-diagonal of $E$ is zeroed (self-KL is owned by T1/T2, not the alignment
 - [[Precision weighting]] · [[Alpha-divergence]] · [[Renyi divergence]] — the adaptive-$\alpha$ and divergence generalisations.
 - [[Natural gradient]] · [[Hamiltonian belief dynamics]] · [[Mass as Fisher information]] — the dynamics that minimise it.
 - [[Meta-agents and hierarchical emergence]] · [[Ouroboros multi-scale dynamics]] · [[Renormalization-group flow of beliefs]] — the multi-scale structure of T6.
-- [[Evidence lower bound (ELBO)]] — the variational-bound reading of each KL term.
+- [[Evidence lower bound (ELBO)]] — the single-system bound and the distinction between a rowwise KL identity and one fixed population ELBO.
 - [[Collective active inference]] — the broader programme of many agents minimising shared/coupled free energy.
 - [[Information bottleneck]] — the rate–distortion reading of the compression–alignment trade-off in the KL terms.

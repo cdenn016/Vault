@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-06-20
+updated: 2026-07-12
 ---
 
 # Meta-entropy
@@ -65,6 +65,38 @@ $$
 
 **Meta-temperature as natural-gradient noise.** The Legendre conjugate $\beta_{\mathrm{meta}} = \partial S_{\mathrm{meta}}/\partial\mathcal{F}_0$ defines a canonical meta-ensemble $P[\omega]\propto e^{-\beta_{\mathrm{meta}}\mathcal{F}_{\mathrm{belief}}^{\mathrm{red}}}\mu_1^{\otimes N}$. Rather than posit it, the manuscript identifies it as the stationary law of a **Riemannian Langevin** dynamics whose drift is the natural gradient $g^{ij}\partial_j\mathcal{F}_{\mathrm{belief}}$ plus a metric-divergence term and whose diffusion covariance is $2T_{\mathrm{meta}}\,g^{-1}$. So $T_{\mathrm{meta}} = 1/\beta_{\mathrm{meta}}$ is "the noise level injected into stochastic natural-gradient belief updating, an operational quantity rather than an analogy": $T_{\mathrm{meta}}\to0$ concentrates on minimisers, finite $T_{\mathrm{meta}}$ populates the meta-entropy. The inverse meta-temperature is the configuration-level counterpart of the precision that weights free energy in [[friston-2017-active-inference-process-theory|active-inference policy selection]], lifted from policies to whole belief configurations. This places three scales in the theory: the attention temperature $\tau = \kappa\sqrt{K}$ (fast E-step), the M-step learning rate (slow relaxation), and $T_{\mathrm{meta}}$ (the genuine Gibbs weight over configurations).
 
+**Gibbs lift, existence, and interpretation.** Let $X$ denote a complete belief configuration,
+let $\rho_0$ be a proper reference probability measure, and let $T_{\mathrm{cfg}}>0$. The
+configuration-space law
+
+$$
+Z_{\mathcal F}=\int e^{-\mathcal F(X)/T_{\mathrm{cfg}}}d\rho_0(X),
+\qquad
+\frac{dP_{\mathcal F}}{d\rho_0}(X)
+=Z_{\mathcal F}^{-1}e^{-\mathcal F(X)/T_{\mathrm{cfg}}}
+$$
+
+exists if and only if $0<Z_{\mathcal F}<\infty$. For every $R\ll\rho_0$ with finite terms,
+
+$$
+\mathbb E_R[\mathcal F]
++T_{\mathrm{cfg}}D_{\mathrm{KL}}(R\Vert\rho_0)
+=T_{\mathrm{cfg}}D_{\mathrm{KL}}(R\Vert P_{\mathcal F})
+-T_{\mathrm{cfg}}\log Z_{\mathcal F}.
+$$
+
+The exact relation
+$\mathcal F/T_{\mathrm{cfg}}=-\log(dP_{\mathcal F}/d\rho_0)-\log Z_{\mathcal F}$ makes
+$\mathcal F$ the configuration energy, equivalently the temperature-scaled negative log density up
+to normalization, and yields an exact meta-level variational free energy
+[[vfe-population-generative-status-2026-07-12]], consistent with
+the loss-based Gibbs construction of [[bissiri-2016-general-bayesian-updating]]. It does not make
+$\mathcal F$ the mean-field ELBO of one fixed joint on the original agent-state variables. The
+noncompact $\mathrm{GL}^+(K)$ warning remains binding: invariant Haar volume along an unquotiented
+gauge orbit diverges, so a proper construction needs a quotient or gauge fixing, a regulator, a
+coercive symmetry-breaking prior, or another proper reference law, together with exponential
+integrability in the remaining physical directions.
+
 **Solvable Gaussian instance.** A means-only, trivial-gauge model with quadratic prior strength $\alpha$ and all-to-all coupling $J$ is solvable in closed form. Its zero-field magnetisation is $m^\star = 0$ and its susceptibility is
 
 $$
@@ -90,6 +122,7 @@ It sits atop the same belief-sector functional that the companion manuscripts bu
 ## Sources
 
 - [[meta-entropy-manuscript]] — the manuscript that defines and develops the configurational meta-entropy in full (every equation on this page is grounded here).
+- [[vfe-population-generative-status-2026-07-12]] — normalization theorem and the distinction between configuration-level and state-level variational models.
 - [[gl-k-attention]] — derives softmax attention as gauge-transported KL divergence; supplies the row functional whose stationary point gives the $-\tau\log Z_i$ used for Kac extensivity.
 - [[participatory-it-from-bit]] — treats the per-agent frame action $\Omega_{ij}\mapsto G_i\Omega_{ij}G_j^{-1}$ as active epistemic change, the reading that licenses counting the frame directions in $S_{\mathrm{meta}}$.
 - [[belief-inertia]] — companion dynamical construction (Fisher-as-mass, Hamiltonian belief dynamics); adjacent but distinct from the configuration-counting meta-entropy.

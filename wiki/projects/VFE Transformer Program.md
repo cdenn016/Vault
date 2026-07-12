@@ -14,7 +14,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-18
-updated: 2026-07-11
+updated: 2026-07-12
 ---
 
 # VFE Transformer Program
@@ -30,6 +30,45 @@ Three ambitions distinguish the program: iterative belief filtering, transported
 The reference configuration is intentionally small enough for direct geometric diagnostics: a **1-layer** transformer whose per-token Gaussian belief has dimension **K = embed_dim**. This design choice does not establish that geometry, rather than scale or another coupled factor, causes the observed behavior. As of 2026-07-10, the live click-run config is **embed_dim = K = 20 with 2 heads**. The parameter count tracks K and the vocabulary, so it is config-dependent rather than a fixed figure. Each ingredient links out to its concept or method page. [[gl-k-attention-2026-07-09-review-revision]]
 
 **Variational inference core.** The retained diagonal-Gaussian route uses `prior_source=model_channel` and `s_e_step=true`: one target-blind $s$ refinement toward a learned global, token-uniform $r$ and gamma-weighted model consensus supplies $q^{(0)}=p=s^{(1)}$, followed by one target-blind $q$ refinement. The decode M-step differentiates cross-entropy through both paths. The hyper-prior and gamma terms remain inside the $s$ refinement and are not added again to the scored outer scalar. This finite same-scale route is neither CAVI nor the full multiscale PIFB hierarchy, and its configured rates do not establish a slower $s$ timescale. [[gl-k-attention-2026-07-09-review-revision]]
+
+**Optional two-hop coupling.** On the selected filtering/MM route, the experimental belief-only
+extension is
+
+$$
+\mathcal F_2(\bar q;q)
+=\lambda_2\sum_{h,i,k}
+W_{ik}^{(2,h)}(\bar q)
+\widehat E_{ik}^{q,h}(q_i;\bar q_k),
+\qquad
+W_{ik}^{(2,h)}(\bar q)
+=\sum_j\beta_{ij}^{(h)}(\bar q)\beta_{jk}^{(h)}(\bar q),
+$$
+
+where $\bar q$ denotes the detached state and $\widehat E$ is the registry-selected, clamped
+value energy with a live receiver query and detached source key. The scalar uses the clamped value,
+and its derivative is gated by the destination clamp mask. Only the hop weights are detached
+on every route; the smoothing oracle shares live query and key leaves for the endpoint-energy
+derivative. Since $\beta$ is row-stochastic,
+$W^{(2)}=\beta^2$ is its two-step Markov transition kernel. The implementation freezes both
+attention factors and supplies no independent two-hop prior or categorical relative entropy, so the
+term is a frozen-conductance endpoint-consensus surrogate rather than another Gibbs row or a
+state-level ELBO. Under the flat vertex cocycle, $\Omega_{ij}\Omega_{jk}=\Omega_{ik}$ makes direct
+endpoint transport agree with composed transport, but KL is not path-additive. In edge-local
+Regime II, direct and path transports generally differ, removing that composed-path reading.
+
+The selected `mm_exact` ablation does not take a literal gradient step: with covariance frozen and
+`mm_damping=0.75`, the term adds a positive neighbor-precision block and changes only the damped
+mean target. The anchored contraction bound extends if the preconditioned one-plus-two-hop neighbor
+operator remains below one. This does not prove convergence for live state-dependent attention.
+The executable scope is belief-only:
+there is no gamma counterpart, and the frame-alignment subproblem omits the term. The ordinary
+reflection-aware belief path retains it, but the Metropolis reflection accept/reject scorer does
+not. The no-snapshot E-step trace used by both the end-of-run report and the final test-results
+energy omits its coefficient. The selected ablation keeps
+frame refinement and reflections off while sweeping `lambda_twohop` over `0.0`, `0.001`, `0.005`,
+and `0.01`. The canonical pure route keeps `lambda_twohop=0.0`. The term may enter the higher-order
+configuration Gibbs energy if its partition function is finite, but it does not evade the fixed
+state-level mean-field obstruction. [[vfe-population-generative-status-2026-07-12]]
 
 **Gauge structure.** The real exponential chart reaches only $\operatorname{image}(\exp)\subsetneq\mathrm{GL}^+(K)$, and finite BCH composition is approximate. The optional Cartan/Killing object is a frame preconditioner, not a full-$\mathrm{GL}(K)$ natural metric. Regime-I transport $\Omega_{ij}=U_iU_j^{-1}$ telescopes, so loop holonomy is exactly identity; nontrivial holonomy belongs to an edge-relaxed path. [[gl-k-attention-2026-07-09-review-revision]]
 

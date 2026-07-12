@@ -12,7 +12,7 @@ tags:
   - project/transformer
 status: stable
 created: 2026-06-18
-updated: 2026-07-11
+updated: 2026-07-12
 ---
 
 # Inference machinery — variational EM and filtering
@@ -106,6 +106,17 @@ Bishop/Beal ELBO canon to the Friston-style free-energy claims that the filterin
 model under its convergence and scheduling assumptions. The transformer's finite one-$s$/one-$q$
 inner schedule, separate decode objective, and no-neural-network pure path do not satisfy that
 theorem by description alone. [[gl-k-attention-2026-07-09-review-revision]]
+
+**Population representability separates filtering from smoothing.** A fixed-model mean-field ELBO
+has zero mixed third variation $D^3_{q_iq_jq_j}$, whereas a nondegenerate transported consensus
+term $D_{\mathrm{KL}}(q_i\Vert T_{ij}q_j)$ does not. The population consensus scalar is therefore
+not generally the ELBO of one fixed joint on the original token states. A finite positive
+receiver-response map still has a Brouwer equilibrium when incoming source roles are frozen, but
+that filtering equilibrium is not thereby stationary for the global smoothing scalar. A separate
+configuration-space Gibbs lift is exact when its partition function is finite; it changes the
+latent variable from token states to whole belief configurations. These distinctions govern which
+fixed-point, CAVI, and evidence-bound claims can accompany each executable update mode.
+[[vfe-population-generative-status-2026-07-12]]
 
 **Credit assignment by inference: the backprop-free track.** The 2026-07-11 plan
 ([[Nudged two-phase EM]], banked in [[2026-07-11-backprop-free-plan-and-pure-fep-postmortem]])
@@ -211,6 +222,8 @@ under parallel transport and holonomy (the cross-cluster theme
   template that identifies the deployed filter.
 - [[millidge-2020-pc-approximates-backprop]] — converged predictive-coding updates recover
   backpropagation under the source paper's schedule; this does not cover the one-step filter.
+- [[vfe-population-generative-status-2026-07-12]] — state-level ELBO obstruction,
+  receiver-response equilibrium, configuration-Gibbs lift, and V3 two-hop update scope.
 
 Cross-cluster anchors drawn on above: [[amari-1998-natural-gradient]] for the
 Gaussian belief metric and [[li-turner-2016-renyi-vi]] as a distinct
