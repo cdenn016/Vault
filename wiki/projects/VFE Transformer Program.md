@@ -14,7 +14,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-18
-updated: 2026-07-10
+updated: 2026-07-11
 ---
 
 # VFE Transformer Program
@@ -77,6 +77,8 @@ Next steps, in rough priority order:
 
 > [!note] Buildout (2026-07-08) — the cheaper $R\exp(\phi)$ route on the phi path. The same learnable det-sign, but for the DEFAULT `phi` parameterization: prepend a per-token reflection to $\exp(\phi)$, $g_i=R_i\exp(\phi_i)$ (so $\det g_i=-e^{\operatorname{tr}\phi_i}<0$; $\det\exp(\phi)$ is *always* $>0$, which is why $\exp(\phi)$ alone is stuck in $\mathrm{GL}^+(K)$). This reaches the $\det<0$ sheet with a single sign **bit** per token instead of a stored $K\times K$ element ([[2026-07-08-phi-reflection-buildout]]); `phi_reflection="metropolis"` learns it via the *same* $\Delta F$-gated Metropolis flip, threaded through every channel. Reach is $R\cdot\mathrm{image}(\exp)$ (misses the non-exp interior `omega_direct` reaches) in exchange for reusing the full $\exp(\phi)$ / BCH / Killing machinery — realizing $\mathrm{GL}(K)=\{I,R\}\cdot\mathrm{GL}^+(K)$. The two findings above carry over (the discrete $\pm1$ sign has no continuous $g$-action, so a gauge-invariance test over it is empirically inert; near-inert under `gaussian_diagonal`, so a meaningful run needs `gaussian_full` + `s_e_step=False`). The build also fixed a **latent `omega_direct` bug**: `block.py`'s post-E-step transforms dropped the stored frame for layers past the first under `head_mixer` / `cg_coupling` / `block_norm` at `n_layers>1` (now `_replace`-preserved). Default-off. `origin/main` @ `7ffb68e`.
 
+> [!note] Plan (2026-07-11) — backprop-free learning track pre-registered ([[Nudged two-phase EM]]). A 14-agent adversarial investigation (recon / design / challenge / synthesis, file:line spot-verified) produced `V3_Transformer/docs/plans/2026-07-11-backprop-free-vfe-lm-plan.md` and the run note [[2026-07-11-backprop-free-plan-and-pure-fep-postmortem]]. Two banked results: (i) the adjudicated post-mortem of VFE_2.0's `pure_fep` clean-EM attempt (~25000 PPL): its target-blind fixed point structurally dropped the through-$q^*$ credit term $(\partial\mathrm{CE}/\partial q^*)(\partial q^*/\partial\theta)$ — everything but the prototype readout was reservoir computing — compounded by raw global-LR Euclidean M-steps at $1/\tau\sim 1/K$ gradient scale, encode/decode tying, and sign-monotone hyperparameter updates; (ii) a temperature degeneracy: $\partial F_{red}/\partial\tau=\mathrm{KL}(\beta\|\pi)\ge 0$ (sympy-verified), so softmax temperatures cannot be learned by descending $F$ — they need contrastive or held-out estimation. The prescription is a nudged two-phase EM (free phase = deployed inference; symmetric $\pm\lambda$ target-nudged continuations; EqProp contrasts carry all non-decode credit; analytic per-row Gauss-Newton decode; quarantine rule for sign-monotone knobs), realizing the [[participatory-it-from-bit|PIFB]]-canonical observation placement whose absence caused the 2026-06-29 sigma collapse. Design only — no training results; milestone gates run measured BPE unigram → KenLM 5-gram → the DFA band ([[launay-2020-dfa-transformers]], the only published backprop-free transformer LM PPLs) → 2x matched-K backprop vfe3.
+
 ## Cross-links
 
 **Related project:** [[Gauge-Theoretic Multi-Agent VFE Model]] — the multi-agent, continuous-time instantiation of the same GL(K)-gauge VFE theory (this transformer is the language-model instantiation).
@@ -84,6 +86,8 @@ Next steps, in rough priority order:
 **Manuscripts:** [[gl-k-attention]] · [[participatory-it-from-bit]]
 
 **Themes:** [[Variational free energy and predictive coding]] · [[Gauge equivariance and geometric deep learning]] · [[Information geometry and natural gradient]] · [[SPD-manifold geometry and Riemannian optimization]] · [[Attention mechanisms — theory and positional structure]] · [[Inference machinery — variational EM and filtering]]
+
+**Methods:** [[Nudged two-phase EM]] — the pre-registered backprop-free learning prescription
 
 **Key concepts:** [[Variational free energy]] · [[Evidence lower bound (ELBO)]] · [[Prediction error]] · [[Precision weighting]] · [[Gauge transformation]] · [[GL(K) gauge group]] · [[Holonomy]] · [[Non-flat connection and the photon analogy]] · [[Natural gradient]] · [[Fisher information metric]] · [[Renyi divergence]] · [[Divergence clamp saturation]] · [[Irreducible representation]] · [[Clebsch-Gordan coefficients]] · [[Expected Free Energy]] · [[Active Inference]]
 

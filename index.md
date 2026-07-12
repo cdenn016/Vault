@@ -10,7 +10,7 @@ updated: 2026-07-11
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **6** manuscripts · **12** themes · **11** field MOCs · **268** concepts · **10** methods · **527** papers · **100** references · **7** runs · **6** web/methodology
+> **3** projects · **6** manuscripts · **12** themes · **11** field MOCs · **268** concepts · **11** methods · **529** papers · **100** references · **8** runs · **6** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -367,6 +367,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Group equivariant CNN (G-CNN)]]
 - [[Iterative amortized inference]]
 - [[LieConv]]
+- [[Nudged two-phase EM]]
 - [[Predictive coding network]]
 - [[Steerable CNN]]
 - [[Tensor Field Network]]
@@ -400,6 +401,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[parr-2020-markov-blankets-thermodynamics|Markov blankets, information geometry and stochastic thermodynamics]]
 - [[ramstead-2023-bayesian-mechanics|On Bayesian mechanics: a physics of and by beliefs]]
 - [[rao-1999-predictive-coding|Predictive coding in the visual cortex: a functional interpretation of some extra-classical receptive-field effects]]
+- [[scellier-bengio-2017-equilibrium-propagation|Equilibrium Propagation: Bridging the Gap between Energy-Based Models and Backpropagation]]
 - [[von-oswald-2022-transformers-gradient-descent|Transformers Learn In-Context by Gradient Descent]]
 - [[waade-2025-as-one-and-many|As One and Many: Relating Individual and Emergent Group-Level Generative Models in Active Inference]]
 - [[friston-2016-active-inference-learning|Active Inference and Learning]]
@@ -490,6 +492,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[bahdanau-2014-neural-machine-translation|Neural Machine Translation by Jointly Learning to Align and Translate]]
 - [[dong-2021-rank-collapse|Attention Is Not All You Need: Pure Attention Loses Rank Doubly Exponentially with Depth]]
 - [[geshkovski-2023-mathematical-transformers|A Mathematical Perspective on Transformers]]
+- [[launay-2020-dfa-transformers|Direct Feedback Alignment Scales to Modern Deep Learning Tasks and Architectures]]
 - [[olsson-2022-induction-heads|In-Context Learning and Induction Heads]]
 - [[tsai-2019-kernel-attention|Transformer Dissection: A Unified Understanding of Transformer's Attention via the Lens of Kernel]]
 - [[vaswani-2017-attention|Attention Is All You Need]]
@@ -1064,3 +1067,4 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[2026-07-05-blocks-k48-gauge-block-scaling|blocks_K48 gauge-block scaling sweep — fixed embed_dim, vary the GL partition (S1 survives REMAND)]]
 - [[2026-07-08-omega-direct-detsign-buildout|omega_direct element-store gauge + learnable det-sign (2026-07-08)]] (implementation / design; reaches the det<0 GL(K) component; gauge-covariance-vs-frame-use + diagonal-family findings)
 - [[2026-07-08-phi-reflection-buildout|learnable reflection on the phi path — R.exp(phi) (2026-07-08)]] (implementation; the cheap 1-bit route to det<0 on the default phi path; misses the non-exp interior omega_direct reaches; fixed a latent omega_direct block.py bug)
+- [[2026-07-11-backprop-free-plan-and-pure-fep-postmortem|backprop-free vfe3 plan + pure_fep post-mortem (2026-07-11)]] (design / plan + adjudicated post-mortem, no training results; see [[Nudged two-phase EM]])

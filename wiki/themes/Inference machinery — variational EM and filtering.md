@@ -12,7 +12,7 @@ tags:
   - project/transformer
 status: stable
 created: 2026-06-18
-updated: 2026-07-10
+updated: 2026-07-11
 ---
 
 # Inference machinery — variational EM and filtering
@@ -106,6 +106,19 @@ Bishop/Beal ELBO canon to the Friston-style free-energy claims that the filterin
 model under its convergence and scheduling assumptions. The transformer's finite one-$s$/one-$q$
 inner schedule, separate decode objective, and no-neural-network pure path do not satisfy that
 theorem by description alone. [[gl-k-attention-2026-07-09-review-revision]]
+
+**Credit assignment by inference: the backprop-free track.** The 2026-07-11 plan
+([[Nudged two-phase EM]], banked in [[2026-07-11-backprop-free-plan-and-pure-fep-postmortem]])
+turns the structural-EM caveats above into a constructive prescription: restore the observation
+term to the belief update (the [[participatory-it-from-bit|PIFB]]-canonical placement) in a pair
+of symmetric target-nudged continuations of the free E-step, and estimate the through-$q^*$
+credit that fixed-$q^*$ M-steps drop by the [[scellier-bengio-2017-equilibrium-propagation|equilibrium-propagation]]
+contrast of analytic envelope statistics. The adjudicated post-mortem of VFE_2.0's target-blind
+clean-EM attempt (~25000 PPL) is the negative result motivating this: at a target-blind fixed
+point, the envelope theorem fails for the decode term by construction, and a provable temperature
+degeneracy ($\partial F_{red}/\partial\tau = \mathrm{KL}(\beta\|\pi)\ge 0$) makes several
+hyperparameters unlearnable by any free-energy descent. Design stage only; the EqProp theorem's
+equilibrium premise does not hold under truncated settling, so gates replace guarantees.
 
 **Amortization and iterative refinement.** VAEs and iterative-amortized methods provide
 recognition-network and learned-optimizer precedents. The pure transformer contains neither:
