@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-06-23
+updated: 2026-07-11
 ---
 
 # Meta-agents and hierarchical emergence
@@ -46,6 +46,12 @@ with $S$ the slow species gate (from model alignment) and $C$ the fast coalition
 - **Foils.** Perfect (pointwise) consensus and epistemic death (complete informational alignment after transport) are the pathological limit, not the formation target.
 
 > [!note] Editorial (2026-06-23): Anchoring the *definition* to the barycenter rather than to the RG-closed cluster (which the coarse-graining language might suggest) is a proof-status call. The RG closure half is conceded RG-inspired-not-rigorous: the strict closure class is *empty in the operational regime*, representability in the multi-agent KL class is unestablished, the gauge-covariance and closure theorems are proved only on the compact $\mathrm{SO}(K_q)$ rather than the operational noncompact $\mathrm{GL}^+(K_q)$, and the deployed detector omits the spectral-gap test (so it runs as a similarity threshold, not a closure surrogate). The barycenter is the only meta-agent object carrying a clean theorem, so it anchors the definition while RG anchors the justification. A standing dissent (philosophy-of-science lens) holds that a definition should fix *when* a meta-agent exists, which would favor the FE-improvement criterion; the manuscript resolves this by demoting that criterion to licensing rather than discarding it. The same revision also fixed an internal inconsistency in the formal `Definition[Meta-Agent]`, whose two-factor coherence condition $C_{\text{belief}}\cdot C_{\text{model}}>\Gamma_{\min}$ had dropped the presence factor $P$ that the canonical three-factor score $\Gamma=P\,C_q\,C_s$ carries.
+
+## 2026-07-11 executable-status correction
+
+The PIFB2 code-concordance review found three limits on the reached meta-agent construction. First, the checked-in Gibbs detector inherits $\tau_q=\tau_s=14$ from `kl_threshold=14` rather than using the manuscript's reference $\tau_q=0.05$. At membership threshold $1/2$, the resulting belief pass band is $14\log 2\approx9.704$ nats rather than $0.05\log 2\approx0.035$ nats. The active `covariance_collapse="moment"` pool omits between-child mean dispersion, so the small-temperature argument does not control that truncation on the reviewed arm. A matching implementation must use and verify the stated temperature or retain dispersion in the covariance collapse. [[participatory-it-from-bit-2026-07-11-code-concordance-review]]
+
+Second, the current frame pool is not defined on every frame the active updates admit. Bounded products of real exponentials can reach well-conditioned elements of $\mathrm{GL}^+(K)$ without a real logarithm, while meta-agent formation calls `matrix_log_principal` unconditionally. The hierarchy therefore needs a log-safe invariant domain, a restricted group closed under the selected chart, or a log-free group barycenter. Third, an existing higher scale is not reconciled with later detector partitions: membership, parent maps, and lineage persist after one-shot formation. A persistence window is consequently not an independent stability test until the runtime supports replacement, retirement, and time-indexed membership. [[participatory-it-from-bit-2026-07-11-code-concordance-review]]
 
 ## Why it matters here
 
@@ -158,6 +164,8 @@ These mechanisms live in two Layer-6/7 modules of `MAgent_Model`:
 It is exercised by the `'hierarchy'` preset (species × coalition gated membership + condensation, manuscript §4.2) and feeds the `'ouroboros'` multi-scale tower (§4.5–4.7). The construction grounds out in the source manuscript [[participatory-it-from-bit]], which develops the participatory "It From Bit" loop the meta-agent / top-down cycle realizes. It composes with the related concepts [[Multi-agent variational free energy]], [[Agents as fibre-bundle sections]], [[Meta-entropy]] (the thermodynamic counting of belief configurations, [[meta-entropy-manuscript]]), [[Renormalization-group flow of beliefs]], and [[Ouroboros multi-scale dynamics]]; the Hamiltonian / inertial belief regime is developed in [[Belief inertia]] and [[belief-inertia]].
 
 ## Sources
+
+- [[participatory-it-from-bit-2026-07-11-code-concordance-review]] — executable-status correction for detector temperature, covariance dispersion, the real-log domain of frame pooling, and one-shot hierarchy persistence.
 
 - [[participatory-it-from-bit]] — source manuscript: gauge-covariant multi-agent variational inference on a $GL(K)$-bundle, with the Ouroboros meta-agent emergence simulation that this construction implements.
 - [[meta-entropy-manuscript]] — configurational meta-entropy counting belief configurations of the gauge-theoretic VFE transformer; the thermodynamic-limit companion to the condensation order parameters here.

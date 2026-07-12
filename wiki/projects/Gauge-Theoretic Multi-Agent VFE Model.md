@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-06-18
+updated: 2026-07-11
 ---
 
 # Gauge-Theoretic Multi-Agent VFE Model
@@ -57,11 +57,11 @@ The natural-gradient path is overdamped flow preconditioned by the inverse [[Fis
 | `mode` | What it exercises | Concept |
 | --- | --- | --- |
 | `basic` | Flat, single-scale dynamics (natural-gradient or Hamiltonian) | — |
-| `ouroboros` | Multi-scale tower with bidirectional flow and multi-generation hyperpriors | [[Ouroboros multi-scale dynamics]] |
+| `ouroboros` | Multi-scale tower with bottom-up formation, opt-in top-down writes, and multi-generation hyperpriors | [[Ouroboros multi-scale dynamics]] |
 | `hierarchy` | Species × coalition gated soft membership and condensation into meta-agents | [[Meta-agents and hierarchical emergence]] |
 | `rg` | Renormalization-group flow with KL-proximity blocking | [[Renormalization-group flow of beliefs]] |
 
-The `ouroboros` mode realizes a self-referential, multi-scale loop in which the population "observes itself into existence"; the `hierarchy` mode detects consensus and condenses sub-populations into emergent meta-agents whose footprint $M_\alpha(x) = \sum_i W[i,\alpha,x]\,\chi_i(x)$ can be visualized; and the `rg` mode coarse-grains beliefs scale-by-scale in the manner of Wilson's renormalization group ([[wilson-1975-renormalization-group]]).
+The `ouroboros` mode provides the machinery for a self-referential, multi-scale loop. On the reviewed `779f96f` configuration it executes bottom-up tower formation while both top-down shadow-write flags are disabled, so full bidirectional feedback remains an opt-in branch. The `hierarchy` mode detects consensus and condenses sub-populations into emergent meta-agents whose footprint $M_\alpha(x) = \sum_i W[i,\alpha,x]\chi_i(x)$ can be visualized, and the `rg` mode coarse-grains beliefs scale by scale in the manner of Wilson's renormalization group ([[wilson-1975-renormalization-group]]). [[participatory-it-from-bit-2026-07-11-code-concordance-review]]
 
 ## Relation to the transformer
 
@@ -71,6 +71,8 @@ The difference is the instantiation. The transformer is the **language** instant
 
 ## Manuscripts
 
+- [[participatory-it-from-bit-2026-07-11-code-concordance-review]] — major-revision code-concordance record for the PIFB2 repository mirror and executable MAgent baseline at `779f96f`; the review is commit-scoped and does not claim exhaustive coverage of the differing Research-vault WIP.
+
 - [[participatory-it-from-bit]] — the primary manuscript this codebase implements: a gauge-covariant multi-agent variational-inference framework on a principal $GL(K)$-bundle, recovering transformer attention as a gauge-fixed isotropic-Gaussian limit and including the Ouroboros meta-agent emergence simulation that the `ouroboros` mode runs.
 - [[belief-inertia]] — the [[Belief inertia]] / [[Mass as Fisher information]] result: the Fisher-information precision tensor doubles as an inertial mass, recovering DeGroot, Friedkin-Johnsen, and bounded-confidence opinion dynamics in the overdamped limit and predicting oscillation, overshoot, resonance, and social momentum transfer in the underdamped Hamiltonian regime.
 - [[meta-entropy-manuscript]] — the configurational [[Meta-entropy]] $S_{\mathrm{meta}} = \log W$ counting belief configurations at fixed free energy, fixed by the Fisher-Rao volume and rendered extensive via Kac normalization, supplying the thermodynamic-limit bridge for the gauge-theoretic free-energy transformer.
@@ -78,26 +80,29 @@ The difference is the instantiation. The transformer is the **language** instant
 
 ## Applications
 
-**Physics.** The Hamiltonian regime is exercised on a multi-agent oscillator (the `hamiltonian_oscillator` preset) and on a photon-style minimal-coupling construction (see [[Non-flat connection and the photon analogy]]), where the complex / Lorentzian gauge module and lattice gauge field (plaquette holonomy, Yang-Mills) come into play. A 2026-06-18 audit found this sector to be the gauge-covariant half of the photon picture — a genuine non-flat connection with a Yang-Mills kinetic term wired into the free energy, fixing the gauge-covariance break that the sibling [[VFE Transformer Program]]'s `regime_ii` carries. The open second half — the minimal-coupling belief vertex (`lambda_belief_neighbor`) that lets the connection do covariant-derivative work *on* the beliefs — was then implemented the same day (`gauge_agent/belief_neighbor.py`) and wired to the *same* lattice connection the Yang-Mills term penalizes (the `belief_neighbor_from_lattice` toggle reindexes the `LatticeGaugeField` twists into the vertex's base links), so MAgent now realizes both halves of the photon; the term is default-off and opt-in. Two follow-on fixes the same day made the connection a genuine dynamical field rather than a frozen constant: the lattice Yang-Mills density wired into the free energy is now the bounded gauge-invariant eigenvalue form $\sum_k|\lambda_k(W)-1|$ (replacing the signed, unbounded-below $K-\operatorname{Re}\operatorname{tr}(W)$), and the connection's edge twists are now optimized in the M-step with a bounded Lie-group retraction, so they descend toward the flat connection under the bounded action instead of running away. See [[Non-flat connection and the photon analogy]]. These connect to the participatory-physics cluster: entropic dynamics ([[caticha-2019-entropic-dynamics-qm|caticha-2019-entropic-dynamics]]), QBism ([[fuchs2014-qbism-locality|fuchs-2014-qbism]]), relational quantum mechanics ([[rovelli-1996-relational-qm]]), evolution-without-evolution ([[page-wootters-1983]]), entanglement-built spacetime ([[VanRaamsdonk-2010-spacetime-entanglement|vanraamsdonk-2010-entanglement-spacetime]]), decoherence/einselection ([[zurek-2003-einselection|zurek-2003-decoherence]]), and the participatory ontology of [[wheeler-1990-it-from-bit]] via [[Participatory realism (it from bit)]].
+**Physics.** The Hamiltonian regime is exercised on a multi-agent oscillator (the `hamiltonian_oscillator` preset) and on a photon-style minimal-coupling construction (see [[Non-flat connection and the photon analogy]]), where the complex / Lorentzian gauge module and lattice gauge field (plaquette holonomy, Yang-Mills) come into play. A 2026-06-18 audit found this sector to be the gauge-covariant half of the photon picture — a genuine non-flat connection with a Yang-Mills kinetic term wired into the free energy, fixing the gauge-covariance break that the sibling [[VFE Transformer Program]]'s `regime_ii` carries. The open second half — the minimal-coupling belief vertex (`lambda_belief_neighbor`) that lets the connection do covariant-derivative work *on* the beliefs — was then implemented the same day (`gauge_agent/belief_neighbor.py`) and wired to the *same* lattice connection the Yang-Mills term penalizes (the `belief_neighbor_from_lattice` toggle reindexes the `LatticeGaugeField` twists into the vertex's base links), so MAgent now realizes both halves of the photon; the term is default-off and opt-in. The current `ym_bounded=True` and `ym_action_form="frobenius"` defaults select the nonnegative plaquette deficit $\sum_\square\lVert W(\square)-I\rVert_F^2$. This term is smooth at flatness and detects unipotent shear, but it is a frame-metric penalty invariant only under orthogonal vertex reframing, not a full-$\mathrm{GL}(K)$ conjugation-invariant action. The opt-in spectral form $\sum_k|\lambda_k(W)-1|$ is a conjugation-invariant semisimple diagnostic, but it vanishes on nonidentity unipotent holonomy and has unstable gradients when eigenvalues coalesce. The connection's edge twists are optimized in the M-step with a bounded Lie-group retraction. See [[Non-flat connection and the photon analogy]]. These connect to the participatory-physics cluster: entropic dynamics ([[caticha-2019-entropic-dynamics-qm|caticha-2019-entropic-dynamics]]), QBism ([[fuchs2014-qbism-locality|fuchs-2014-qbism]]), relational quantum mechanics ([[rovelli-1996-relational-qm]]), evolution-without-evolution ([[page-wootters-1983]]), entanglement-built spacetime ([[VanRaamsdonk-2010-spacetime-entanglement|vanraamsdonk-2010-entanglement-spacetime]]), decoherence/einselection ([[zurek-2003-einselection|zurek-2003-decoherence]]), and the participatory ontology of [[wheeler-1990-it-from-bit]] via [[Participatory realism (it from bit)]].
 
 **Social science.** The overdamped regime is the home of opinion dynamics. As established in [[belief-inertia]], the natural-gradient flow recovers DeGroot consensus ([[degroot-1974-consensus]]), the Friedkin-Johnsen anchored-influence model ([[friedkin1990-social-influence-opinions|friedkin-johnsen-1990]]), and bounded-confidence dynamics ([[deffuant2000-bounded-confidence|deffuant-2000-bounded-confidence]], [[hegselmann-2002-opinion|hegselmann-krause-2002]]), within a sociophysics tradition ([[galam-2008-sociophysics]]). The underdamped Hamiltonian regime adds genuinely dynamical predictions — opinion oscillation, overshoot, resonance, and momentum transfer — absent from the classical averaging models. Consciousness-adjacent participatory framings ([[seth-2021-being-you]], [[tononi-2016-iit]]) motivate the self-modeling agent.
 
 ## Status & next steps
 
+The July 11 code-concordance review supersedes the earlier all-clear status for claims that join [[participatory-it-from-bit|PIFB2]] to the reached MAgent runtime. It adjudicated five High, six Medium, and one Low finding at baseline `779f96f`. The load-bearing corrections concern common-right frame-update equivariance, closure of hierarchical pooling on the real-log domain, the detector-temperature and covariance-collapse pairing, disabled belief-shadow propagation, and one-shot lineage persistence. The recommendation is major revision before presenting the manuscript as a code-backed Methods paper. [[participatory-it-from-bit-2026-07-11-code-concordance-review]]
+
 Per the repository `README.md`, the codebase is at a hardened, click-to-run stage:
 
-- Four rounds of formal audit closed (math / code / architecture / test coverage), all BLOCKERs plus eight follow-up MAJORs fixed.
+- Earlier formal audits closed their recorded blockers and follow-up majors; the July 11 review identified a separate set of manuscript-to-runtime defects that remains open.
 - 83 numerical asserts pin manuscript-canonical equations (70 blocker + 7 numerical-monitor + 6 manifold-visualization).
 - Single click-to-run entry point (`run_experiment.py`) with four modes and a full artifact pipeline (metrics, rotating checkpoints, publication figures, verifier report).
-- Real-time numerical-health monitor and gauge-invariant information-geometric trust regions on the natural-gradient path (AUDIT6-8).
+- Real-time numerical-health monitor with KL, SPD, and spectral trust-region guards on the natural-gradient path (AUDIT6-8).
 
 > [!note] Editorial: The README lists dormant / architectural follow-ups in `PURIFICATION_PLAN.md` but does not enumerate quantitative experimental results in the file read; specific run outputs (loss curves, emergence statistics) are not quoted here because they are not present in the grounding files.
 
 Next steps, in rough priority order:
 
-1. Persist and report representative runs for each mode (`basic`, `ouroboros`, `hierarchy`, `rg`) so the qualitative claims — meta-agent condensation, RG fixed points, oscillation vs. overdamped relaxation — are backed by saved artifacts.
-2. Quantify the [[belief-inertia]] predictions (resonance, overshoot, momentum transfer) against the classical opinion-dynamics baselines they generalize.
-3. Tighten the thermodynamic-limit correspondence of [[meta-entropy-manuscript]] between this continuum population and the discrete [[VFE Transformer Program]].
+1. Settle one frame-space contract across the symmetry statement, metric, regularizer, update, and admitted subgroup, then make hierarchical pooling closed on that domain without an unconditional real logarithm.
+2. Pair detector temperature with a covariance collapse that has the claimed error control, and make belief/model shadows, T2, and T6 a non-duplicative executable contract.
+3. Add dynamic membership or declare a one-shot genealogy; implement the stated nonequilibrium statistic, time-dependent forcing, tower-aware recording, lineage events, and cryptographic provenance before running the prospective validation.
+4. After those corrections, persist representative mode artifacts, quantify the [[belief-inertia]] predictions against classical baselines, and tighten the [[meta-entropy-manuscript]] thermodynamic-limit correspondence.
 
 ## Cross-links
 
@@ -105,6 +110,6 @@ Next steps, in rough priority order:
 
 **Key concepts:** [[Agents as fibre-bundle sections]] · [[Multi-agent variational free energy]] · [[Belief inertia]] · [[Mass as Fisher information]] · [[Hamiltonian belief dynamics]] · [[Ouroboros multi-scale dynamics]] · [[Meta-agents and hierarchical emergence]] · [[Renormalization-group flow of beliefs]] · [[Meta-entropy]] · [[Participatory realism (it from bit)]] · [[Gauge transformation]] · [[Parallel transport]] · [[Holonomy]] · [[Non-flat connection and the photon analogy]] · [[Natural gradient]] · [[Fisher information metric]] · [[Precision weighting]] · [[Variational free energy]]
 
-**Manuscripts:** [[participatory-it-from-bit]] · [[belief-inertia]] · [[meta-entropy-manuscript]] · [[gl-k-attention]]
+**Manuscripts:** [[participatory-it-from-bit]] · [[participatory-it-from-bit-2026-07-11-code-concordance-review]] · [[belief-inertia]] · [[meta-entropy-manuscript]] · [[gl-k-attention]]
 
 **Key sources:** [[parr-2022-active-inference]] · [[friston-2017-active-inference-process-theory|friston-2017-active-inference-process]] · [[caticha-2019-entropic-dynamics-qm|caticha-2019-entropic-dynamics]] · [[cencov-1982-statistical-decision-rules]] · [[amari-2016-information-geometry-applications]] · [[yang-mills-1954]] · [[nakahara-2003-geometry-topology-physics]] · [[wheeler-1990-it-from-bit]] · [[degroot-1974-consensus]] · [[friedkin1990-social-influence-opinions|friedkin-johnsen-1990]] · [[hegselmann-2002-opinion|hegselmann-krause-2002]] · [[wilson-1975-renormalization-group]]
