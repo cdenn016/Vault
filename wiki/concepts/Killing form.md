@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-06-18
+updated: 2026-07-09
 ---
 
 # Killing form
@@ -37,9 +37,9 @@ Two textbook facts make the form a structural diagnostic. **Cartan's criterion**
 
 ## Why it matters here
 
-The VFE transformer's gauge group is the block general-linear group GL($k$) (`gauge_group: block_glk`), and its gauge parameters live in the Lie algebra $\mathfrak{gl}(k)$ as matrix-valued $\phi$, mapped to the group by $\exp$ (the `gauge_parameterization: phi` setting; see [[Gauge transformation]]). The M-step that updates $\phi$ does not move it in a bare Euclidean direction: the config sets `phi_precond_mode: killing_per_block`, meaning each GL($k$) block's update is preconditioned by a Killing-form / invariant trace-form metric on that block's copy of the Lie algebra. The Killing form is therefore the *metric* attached to the gauge update — the object that decides what "steepest descent on $\phi$" means in a frame-respecting way.
+The literal Killing form remains a useful Lie-algebra diagnostic, but the configured frame object must be described more narrowly. The regularized Cartan/Killing construction is an optional optimizer preconditioner; audited runs use plain AdamW for the frame table, so this conditioner and the heavy-ball field are inactive. It is not the Fisher geometry of the Gaussian beliefs. [[gl-k-attention-2026-07-09-review-revision]]
 
-The reason an ad-invariant form is the right metric is exactly the reason gauge invariance is the organizing principle of the architecture. A [[Gauge transformation]] is free to re-choose the frame at each token; the learning dynamics must not depend on that arbitrary choice. An $\operatorname{Ad}$-invariant inner product on the algebra is, by construction, blind to the frame — conjugating $\phi$ by a group element leaves its norm unchanged — so preconditioning the gauge update with it makes the M-step *covariant under the gauge symmetry* rather than fighting it. This is the gauge-theoretic sibling of the [[Natural gradient]]: where natural gradient divides out the [[Fisher information metric]] to make belief updates reparameterization-invariant, Killing-form preconditioning divides out the invariant algebra metric to make gauge updates frame-invariant. Both are instances of the same demand that learning follow the geometry of the model, not the coordinates it happens to be written in.
+For $\mathfrak{gl}(k)$, $\operatorname{tr}(XY)$ is adjoint-invariant but indefinite, while the positive Frobenius form $\operatorname{tr}(X^\top Y)$ is invariant only under orthogonal, more precisely conformal-orthogonal, conjugations. No positive-definite choice here supplies full-$\mathrm{GL}(K)$ gauge invariance or a Fisher natural gradient. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Details
 
@@ -51,28 +51,21 @@ $$
 B(X, Y) \;=\; 2k\,\operatorname{tr}(XY) \;-\; 2\,\operatorname{tr}(X)\,\operatorname{tr}(Y),
 $$
 
-so on the center (scalar matrices, where $X \propto I$) the two terms cancel and $B$ vanishes identically — Cartan's criterion failing exactly because $\mathfrak{gl}(k)$ is not semisimple. Restricted to the semisimple part $\mathfrak{sl}(k)$ (where $\operatorname{tr} X = 0$) it reduces to the nondegenerate $B(X,Y) = 2k\,\operatorname{tr}(XY)$. The practical consequence is that the *literal* Killing form cannot serve as a metric on all of $\mathfrak{gl}(k)$, because it assigns zero length to the scalar (overall-scale) direction. The honest and standard remedy is to use the **nondegenerate invariant trace form**
+so on the center (scalar matrices, where $X \propto I$) the two terms cancel and $B$ vanishes identically — Cartan's criterion failing exactly because $\mathfrak{gl}(k)$ is not semisimple. Restricted to the semisimple part $\mathfrak{sl}(k)$ (where $\operatorname{tr} X = 0$) it reduces to the nondegenerate $B(X,Y) = 2k\,\operatorname{tr}(XY)$. The practical consequence is that the *literal* Killing form cannot serve as a metric on all of $\mathfrak{gl}(k)$, because it assigns zero length to the scalar (overall-scale) direction. A nondegenerate replacement requires choosing between matrix pairings with different positivity and invariance properties:
 
 $$
 \langle X, Y\rangle \;=\; \operatorname{tr}(X^{\top} Y) \qquad\text{(or } \operatorname{tr}(XY)\text{)},
 $$
 
-which is positive-definite on all of $\mathfrak{gl}(k)$, agrees with the Killing form up to the scalar $2k$ on $\mathfrak{sl}(k)$, and is still $\operatorname{Ad}$-invariant under the relevant action. This is the working "Killing-type" metric that a per-block preconditioner actually uses; calling it "Killing" is a mild, conventional abuse — what is wanted is *an* ad-invariant nondegenerate trace form, and on a reductive algebra the trace form is the natural completion of the genuine Killing form on its semisimple part.
+The two displayed choices have different properties: $\operatorname{tr}(X^\top Y)$ is positive definite but not full-$\mathrm{GL}(K)$ adjoint-invariant, whereas $\operatorname{tr}(XY)$ is adjoint-invariant but indefinite. Neither is simultaneously a positive-definite, full-$\mathrm{GL}(K)$-invariant frame metric. [[gl-k-attention-2026-07-09-review-revision]]
 
-> [!note] Editorial: The config label `killing_per_block` names the *intent* — a per-block invariant trace-form metric on each $\mathfrak{gl}(k)$ block — rather than a claim that the literal, degenerate Killing form of $\mathfrak{gl}(k)$ is inverted. The identification of the working metric with $\operatorname{tr}(X^\top Y)$ as the nondegenerate completion of $B$ on the reductive algebra is the standard reading of these facts for this architecture, not a statement made verbatim in a registry source.
+> [!note] Editorial (2026-07-09): `killing_per_block` names a conditioning heuristic, not a proven invariant metric or a Fisher/K-FAC identification. [[gl-k-attention-2026-07-09-review-revision]]
 
-**Link to the natural-gradient / Fisher reading.** Viewing the gauge parameters as coordinates on a manifold, an $\operatorname{Ad}$-invariant inner product on $\mathfrak{g}$ is an *invariant metric on parameter space*, and preconditioning the gradient by its inverse is structurally identical to a [[Natural gradient]] step preconditioned by the [[Fisher information metric]] (see [[amari-1998-natural-gradient]], [[amari-2000-methods-information-geometry]]). The difference is the source of the metric: Fisher comes from the statistical model's curvature, the Killing/trace form comes from the algebra's bracket structure — but both yield a coordinate-free steepest-descent direction. Doing this **per block** rather than over the whole parameter vector is exactly the block-structured curvature preconditioning of K-FAC ([[martens-2015-kfac]]): a large invariant metric is approximated by independent metrics on smaller blocks, here one $\mathfrak{gl}(k)$ block at a time. The Riemannian-optimization scaffolding — retractions standing in for exact group exponentials, with convergence guarantees — comes from [[absil-2008-optimization-matrix-manifolds]] and [[bonnabel-2013-riemannian-sgd]].
+**Relation to belief natural gradients.** Gaussian mean/covariance natural gradients are defined by the belief-family [[Fisher information metric]]. The frame conditioner comes from a chosen matrix-space form and is not thereby Fisher, K-FAC, left-invariant, or coordinate-free. The Frobenius pullback through $\exp$ is an extrinsic chart metric, positive definite only where $D\exp_\phi$ has full rank. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## In this work
 
-Killing-form preconditioning is the gauge-side counterpart to natural-gradient preconditioning of the beliefs, and it surfaces in the config as:
-
-- **`phi_precond_mode: killing_per_block`.** Each block of the block-GL($k$) gauge group carries its own invariant (Killing-type) trace-form metric, so the M-step update to that block's $\phi$ is a **per-block Riemannian / natural step** rather than a raw Euclidean one. The per-block factorization is the gauge analogue of the block-Kronecker Fisher approximation of [[martens-2015-kfac]], applied one GL($k$) block at a time.
-- **Algebra-first parameterization.** Because gauge elements are stored as algebra-valued $\phi$ and recovered by $\exp$ (shared with [[finzi-2020-lieconv]]), the metric that governs their update naturally lives on the algebra — which is precisely where the Killing form is defined. The invariant trace form gives that tangent space a frame-independent inner product.
-- **Composition by BCH.** Updates and positional gauges compose in the algebra through the [[Baker-Campbell-Hausdorff formula]] (`phi_retract_mode: bch`, `pos_phi_compose: bch`). The same bracket $[\cdot,\cdot]$ that drives the BCH series also *defines* the Killing form via $\operatorname{ad}$, so the metric and the composition law spring from one structure: the more non-abelian the block, the more both the BCH corrections and the off-diagonal Killing entries matter.
-- **Reductive reality of GL($k$).** Because $\mathfrak{gl}(k)$ is reductive, the scalar (trace) direction has zero Killing length; using the nondegenerate $\operatorname{tr}(X^\top Y)$ keeps the overall-scale degree of freedom of each block preconditioned rather than left unmetered. This matters because the gauge congruence $\Sigma \mapsto g\,\Sigma\,g^{\top}$ acts on SPD covariances, and the scale component of $g$ genuinely moves the belief.
-
-This sits alongside the matching design choices elsewhere in the architecture: the SPD covariance under the `spd_affine` retraction is updated by affine-invariant Riemannian descent, the beliefs by [[Natural gradient]], and the gauge by Killing-form preconditioning — three faces of one frame-invariant, geometry-respecting optimization philosophy, as catalogued in [[VFE Transformer Program]].
+In this work, frame conditioning and belief natural gradients are separate mechanisms. The optional per-block conditioner can be compared empirically with heavy-ball or other frame updates, but it carries no full-$\mathrm{GL}(K)$ invariance or Fisher guarantee. The full-SPD AIRM and Gaussian Fisher statements remain valid on the belief side. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Sources
 

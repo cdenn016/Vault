@@ -10,7 +10,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-18
-updated: 2026-06-18
+updated: 2026-07-09
 ---
 
 # Iterative amortized inference
@@ -39,11 +39,11 @@ The limitations are equally clear. Each inference step requires a fresh evaluati
 
 ## Relation to this work
 
-The VFE transformer treats each token as carrying a Gaussian belief $(\mu, \Sigma)$ and alternates an E-step that updates those beliefs with an M-step that updates parameters, under an ELBO/free-energy objective with `gradient_mode` set to *filtering*. Iterative amortized inference is the most direct conceptual template for that E-step: each transformer block can be viewed as one iteration of a learned optimizer that reads precision-weighted prediction errors and refines the per-token belief, rather than a single VAE-style encoder pass.
+The VFE transformer treats each token as carrying a Gaussian belief $(\mu,\Sigma)$ and applies a target-blind filtering step before a separate decode cross-entropy update. Iterative amortized inference is a conceptual template for repeated belief refinement: a transformer block can be compared with one optimizer iteration that reads precision-weighted errors. This is not one shared ELBO, a converged E-step, or a learned VAE encoder. [[gl-k-attention-2026-07-09-review-revision]]
 
-What the program **borrows**: the core move of amortizing not a posterior but an *update rule*, and the use of free-energy gradients as the driving signal for belief refinement ([[marino-2018-iterative-amortized-inference]]), layered on top of the VAE's amortized Gaussian recognition and reparameterization machinery ([[kingma-2013-auto-encoding-variational-bayes]]). The two-timescale E-step/M-step decomposition is taken from incremental [[Variational EM]] ([[neal-1998-variational-em]]), and the explicit precision-weighted form of the belief update comes from the Gaussian free-energy derivations of [[bogacz-2017-free-energy-tutorial]] and the predictive-coding tradition ([[rao-1999-predictive-coding]], [[friston-2010-free-energy-principle]]).
+What the program **borrows** is the iterative-update viewpoint and the use of belief-objective gradients as refinement signals ([[marino-2018-iterative-amortized-inference]]). Its Gaussian beliefs invite comparison with VAE reparameterization ([[kingma-2013-auto-encoding-variational-bayes]]), and its precision weighting with Gaussian predictive-coding derivations ([[bogacz-2017-free-energy-tutorial]], [[rao-1999-predictive-coding]]). Neal–Hinton incremental EM remains textbook background for a shared functional; it does not justify this two-objective schedule.
 
-How it **differs / improves**: the VFE transformer enriches the flat Euclidean update of the original method with geometry the latter does not consider. The belief covariance lives on the SPD manifold and is refined through an `spd_affine` retraction under the affine-invariant metric, so the iterative update is a Riemannian step rather than a plain gradient step. The parameter side replaces a vanilla M-step with a [[Natural gradient]] / Fisher-preconditioned update, in the spirit of treating learned-optimizer refinement as steepest descent on a statistical manifold rather than in raw coordinates. The training objective generalizes from the strict KL-based ELBO to a [[Renyi divergence]] family (`divergence_family = "renyi"`, with KL as the order-$\to 1$ limit), so the iterated objective $\mathcal{L}$ being refined is itself a tunable variational bound. Finally, the GL($k$) gauge structure means the iterative belief update must be transported across token frames consistently — a constraint absent from the original Euclidean formulation but compatible with its learned-optimizer skeleton.
+How it **differs**: the belief covariance uses an `spd_affine` retraction and belief-side Fisher/AIRM geometry. The audited frame table uses plain AdamW on the outer objective, not a Fisher natural gradient; the stored pullback and heavy-ball fields are inactive. The belief divergence can use a [[Renyi divergence]] family (`divergence_family = "renyi"`, with KL as the order-one limit), but the decode cross-entropy remains separate. The GL($k$) structure also transports belief updates across token frames, a constraint absent from the original Euclidean formulation. [[gl-k-attention-2026-07-09-review-revision]]
 
 > [!note] Editorial: The mapping "one transformer block = one iterative-inference step" is an interpretive bridge offered by this program; the original paper frames the method for VAE-style latent-variable models, not sequence transformers.
 

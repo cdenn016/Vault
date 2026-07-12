@@ -15,7 +15,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-21
-updated: 2026-06-21
+updated: 2026-07-10
 ---
 
 # VFE Transformer Research Directions (2026-06-21)
@@ -30,47 +30,45 @@ leaving **37 surviving hypotheses**. Full table, eight detailed experiment plans
 appendix live in the repo at `V3_Transformer/docs/hypotheses/2026-06-21-hypotheses.md`.
 
 > [!note] Editorial: status
-> These are *proposed* experiments, not results. The framing rests on the manuscripts being
-> review-exhausted at the analytic level (the verified ledger records no surviving sign/factor/index
-> error across passes 3–16), so the fertile ground is now empirical and extension work, not new proofs.
+> These are *proposed* experiments, not results. The revision ledger now governs eleven claim families,
+> adding same-channel representation scope, fixed-readout gauge fixing, Rényi/Amari separation,
+> pointwise-versus-family bilinear reach, filtering-versus-smoothing support, and the nonuniform
+> hard-attention limit to the original six corrections. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## The central gap
 
-The program's headline causal claim — that the predictive advantage comes from the GL(K) gauge
-*transport* geometry rather than from the diagonal-Gaussian KL attention or the PriorBank alone — has
-**never been measured**. The manuscripts carry an in-source TODO conceding the gauge on/off ablation is
-unrun. Closing this is the single highest-value experiment and is now reachable by config alone (see the
-gauge-transport toggle below).
+The program's headline causal claim — that predictive advantage comes from learned GL(K) transport
+rather than diagonal-Gaussian KL attention or the PriorBank alone — was measured once in a single-seed
+development ablation, but that result lacks the frozen multi-seed provenance required for the revised
+manuscript. Repeating it under the controls below remains the highest-value experiment.
 
 ## Priority tier (run-this-week)
 
-The ranking is impact × feasibility, ties broken by novelty; all are runnable on one RTX 5090 by config.
+The ranking is impact × feasibility, ties broken by novelty. Most arms have configuration seams, but matched controls, provenance capture, and some diagnostics still require experiment work.
 
-1. **Multi-seed variance floor.** A 5-seed baseline error bar overlaid on the existing narrow ablation
-   grids, to flag any "win" that is seed noise. The cheapest deliverable and the discipline gate for
-   every other ablation; headline perplexities are presently single-seed.
+1. **Multi-seed variance floor.** A 5-seed error bar over the narrow mechanism-ablation grids. The width
+   sweep has three development records, but the gauge, divergence-order, positional, and optimizer arms
+   remain single-seed and cannot borrow that width-sweep dispersion as their own uncertainty.
 2. **Gauge ON / OFF (Ω=I) / frozen-random.** The central causal test. OFF forces the transport to the
    identity exactly; FROZEN keeps a random but fixed frame (isolating *having* a frame from *learning*
    one). Decision rule: non-overlapping ±1 SD bands at ≥3 seeds, at depth L=2 (rank collapse cannot
    manifest at L=1). Connects to [[Holonomy]] and [[GL(K) gauge-equivariant attention]].
 3. **Σ_q as calibrated Fisher uncertainty.** Does the belief covariance carry decode-time uncertainty a
    standard transformer lacks? Mostly a post-hoc correlation + recalibration on one checkpoint. Gated on
-   a pre-registered tr(Σ_q)-spread check (at `n_e_steps=1` from `sigma_init=1` the spread is ~4%).
+   a pre-registered tr(Σ_q)-spread check (under the retained/current one-step setup with `sigma_init=3`, the spread is ~4%).
    Relates to [[Precision weighting]] and the [[Fisher information metric]].
-4. **Canonical-F vs entropy-suppressed surrogate.** The closed-form kernel never computes the attention-
-   entropy term, so production "canonical" has trained on the surrogate gradient (which differs from the
-   true gradient by $-\tau^{-1}\mathrm{Cov}_\beta(E,\partial E)$). An oracle arm is the only path that has
-   ever exercised the canonical gradient.
-5. **μP width-stability of the inverse-K scaling exponent.** Re-fit the loss-vs-K exponent under μP
-   learning-rate correction, recomputing `kl_max = 8·embed_dim` per width in both arms (the frozen
-   `kl_max` is itself a confound — see [[Divergence clamp saturation]]). Decides whether the exponent is
-   a capacity law or partly optimization mis-tuning. Connects to [[Neural scaling laws]].
+4. **Canonical-F vs entropy-suppressed surrogate.** Both objective paths have been exercised in legacy
+   development artifacts, but no frozen multi-seed comparison is retained. Repeat the comparison while
+   holding derivative support fixed, since the objective toggle and filtering/smoothing toggle are independent.
+5. **Width-fit stability and mixer control.** Repeat the $K=10\ldots120$ sweep with matched mixer-off and
+   mixer-on arms, width-aware learning-rate controls, and matched compute or tokens-per-parameter. The current
+   fixed-token fit is descriptive and not a Kaplan/Chinchilla-comparable capacity law. Connects to [[Neural scaling laws]].
 6. **Prior-anchoring resists rank collapse.** Tests whether the self-coupling $\alpha\,\mathrm{KL}(q\|p)$
    is the brake that substitutes for the absent feed-forward block, via a depth sweep measuring the Dong
    rank-one residual on the pure no-MLP path.
-7. **Pullback natural-gradient gauge M-step.** Whether the position-dependent pullback metric beats
-   AdamW-on-φ, and where; the regime knob is `mass_phi` (frame norm), and a log-spaced LR sweep tests the
-   natural-gradient LR-mis-scaling pitfall. Relates to [[Natural gradient]].
+7. **Extrinsic exponential-coordinate pullback preconditioner.** Compare this local, chart-dependent
+   preconditioner with AdamW-on-φ. It is positive definite only where $D\exp_\phi$ has full rank and is
+   neither left invariant nor a Fisher natural gradient. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Cluster overview (37 hypotheses)
 
@@ -87,7 +85,8 @@ The ranking is impact × feasibility, ties broken by novelty; all are runnable o
 - **SPD retraction geometry and numerics** — the affine vs log-Euclidean chart and the `sigma_max`
   congruence break; bf16 transport exposure; the mean trust region as a stability guard.
 - **Scaling, depth, and RG** — μP width-stability; rank-collapse / FFN-brake; the empirical RG exponent
-  $y_3$ and its fit-window stability ([[Renormalization-group flow of beliefs]], [[Neural scaling laws]]).
+  vertex-field $y_2=-1/2$ in Regime I; measure $g_3$ only for an edge-relaxed/nonflat path because
+  strict Regime I has $g_3=0$ identically. [[gl-k-attention-2026-07-09-review-revision]]
 - **Thermodynamic limit and belief dynamics** — the freshest unmeasured theory: the susceptibility
   $\chi = 1/\lambda_\alpha$ response law and the Sanov large-deviations rate function from
   [[Meta-entropy]]; a symplectic-momentum E-step with the $\sqrt{M/K}$ overshoot law and DeGroot/
@@ -96,14 +95,16 @@ The ranking is impact × feasibility, ties broken by novelty; all are runnable o
   absolute/RoPE do not; per-head temperature dispersion.
 - **Empirical rigor** — the multi-seed variance floor as the gate on all of the above.
 
-## Status — what is now runnable
+## Status — available seams and remaining controls
 
-The gauge on/off ablation (priority 2 / EXP-2) was made config-runnable on 2026-06-21: a
+The gauge on/off ablation (priority 2 / EXP-2) was made config-runnable on 2026-06-21 and was exercised in a single-seed development run: a
 `gauge_transport` toggle was added to `VFE3Config` (`"on"` pure / `"off"` Ω=I / `"frozen"` random-fixed),
 coercing the gauge-frame fields so `"off"` forces the transport to the identity exactly (verified:
 `phi_embed = 0`, finite logits, the frame table dropped from the parameter count under `pos_phi='none'`).
-The other priority experiments are reachable through existing toggles (`renyi_order`, `n_e_steps`,
-`m_phi_natural_grad` + `phi_precond_mode`, the `scaling.py` width routes, per-head `kappa_beta`).
+Other experiment seams exist through `renyi_order`, `include_attention_entropy`, `gradient_mode`,
+`n_e_steps`, `m_phi_natural_grad` plus `phi_precond_mode`, `use_head_mixer`, the width routes, and
+per-head `kappa_beta`. A toggle is not a completed controlled experiment; the retained reruns still need
+matched seeds, optimizer calibration, artifact manifests, and prespecified estimands.
 
 ## Cross-links
 

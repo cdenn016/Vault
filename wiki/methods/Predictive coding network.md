@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-06-19
+updated: 2026-07-09
 ---
 
 # Predictive coding network
@@ -42,16 +42,22 @@ Both updates are *local*: each unit needs only the activity of its neighbors and
 
 ## Relation to this work
 
-The predictive coding network is the most direct conceptual ancestor of the VFE transformer's inference core. The model maintains per-token diagonal-Gaussian beliefs $(\mu, \Sigma)$ and trains them with a free-energy / ELBO objective under a `filtering` gradient mode whose E-step belief relaxation and M-step parameter learning are exactly the two PCN phases of [[bogacz-2017-free-energy-tutorial]] and [[neal-1998-variational-em]]. Crucially, the architecture's **precision-weighted attention** is a direct lift of the Rao–Ballard idea ([[rao-1999-predictive-coding]]): attention weights are modulated by the precisions of token beliefs, so that confident tokens exert more influence — the cortical "precision gates prediction error" mechanism reread as an attention prior. The equivalence result of [[millidge-2020-pc-approximates-backprop]] is what licenses training this local E-step/M-step loop with ordinary gradient methods without abandoning the predictive-coding interpretation.
+The predictive coding network is a conceptual ancestor of the VFE transformer's belief-update core. The retained route maintains per-token diagonal-Gaussian model and belief states, applies one target-blind $s$ refinement, sets $q_i^{(0)}=p_i=s_i^{(1)}$, and then applies one target-blind $q$ refinement. This is not a converged predictive-coding E-step or an argmin on the decode objective. Its precision-weighted attention adapts the Rao–Ballard precision-gating idea ([[rao-1999-predictive-coding]]) to transported Gaussian-KL coupling. The exact-backprop result of [[millidge-2020-pc-approximates-backprop]] depends on its own scheduling and convergence assumptions and does not license the deployed finite, multi-objective loop as exact backpropagation. [[gl-k-attention-2026-07-09-review-revision]]
 
-> [!note] Editorial: The VFE transformer departs from a vanilla PCN in three ways that the classic formulation does not address. First, it treats each token's covariance $\Sigma$ as a full SPD matrix evolving on a curved manifold (the affine-invariant geometry of [[pennec-2006-affine-invariant-tensor]]) rather than as a scalar or diagonal precision. Second, it learns and *transports* beliefs across a GL(k) gauge structure, importing parallel transport and gauge frames absent from cortical predictive coding. Third, it generalizes the KL-based free energy to a [[Renyi divergence|Rényi]]/[[Alpha-divergence|alpha-divergence]] objective and preconditions the M-step with the [[Fisher information metric|Fisher]]-based [[Natural gradient|natural gradient]]. In short, the VFE transformer keeps predictive coding's *prediction-error-and-precision* engine while replacing its flat-Gaussian, ungauged substrate with information-geometric and SPD-manifold machinery.
+> [!note] Editorial (2026-07-09): The live covariance family is diagonal SPD, with belief-side
+> Fisher/AIRM updates. Beliefs are transported across a GL(k) frame structure, and their pairwise
+> discrepancy may use order-Rényi divergence. That discrepancy is distinct from the Li–Turner
+> variational Rényi bound and Amari alpha-divergence geometry. The committed optimizer route at each
+> recorded SHA uses AdamW for the frame table, but dirty provenance prevents exact reconstruction of
+> the executed optimizer; the separate decode cross-entropy prevents a single predictive-coding ELBO interpretation.
+> [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Sources
 
 - [[rao-1999-predictive-coding]] — hierarchical predictive coding in visual cortex; the precision-weighted prediction-error mechanism.
 - [[friston-2010-free-energy-principle]] — predictive coding as variational free-energy minimization.
 - [[bogacz-2017-free-energy-tutorial]] — explicit Gaussian-belief free-energy derivation, E-step/M-step updates.
-- [[neal-1998-variational-em]] — EM as coordinate ascent on negative free energy, justifying incremental/partial updates.
+- [[neal-1998-variational-em]] — EM as coordinate ascent on one negative-free-energy functional; incremental guarantees require that shared-functional setting.
 - [[millidge-2020-pc-approximates-backprop]] — local predictive-coding updates approximate exact backprop.
 - [[kingma-2013-auto-encoding-variational-bayes]] — amortized Gaussian variational inference (contrast: single-pass vs. iterative).
 - [[marino-2018-iterative-amortized-inference]] — iterative refinement of beliefs from free-energy gradients.

@@ -5,7 +5,6 @@ aliases:
   - VEM
   - Variational Expectation-Maximization
   - Variational EM algorithm
-  - "Expectation Maximisation"
   - "Expectation Maximization"
   - "Expectation-Maximization"
   - "E-step and M-step"
@@ -15,7 +14,7 @@ tags:
   - project/transformer
 status: stable
 created: 2026-06-18
-updated: 2026-06-19
+updated: 2026-07-10
 ---
 
 # Variational EM
@@ -29,8 +28,9 @@ in [[neal-1998-variational-em]] that the classical Expectation-Maximization
 algorithm can be read as **coordinate ascent on a single functional**: the
 negative variational free energy, equivalently the [[Evidence lower bound (ELBO)]].
 When the exact posterior cannot be computed, the E-step is relaxed to optimize a
-tractable approximating distribution `q` rather than recover the true posterior,
-giving the *variational* EM that the VFE transformer's inference loop instantiates.
+tractable approximating distribution `q` rather than recover the true posterior.
+The deployed VFE transformer borrows the alternating belief/parameter skeleton
+but does not instantiate this shared-functional algorithm.
 
 ## How it works
 
@@ -39,7 +39,7 @@ VEM maximizes a lower bound on the log marginal likelihood
 (taken with a sign convention so that ascent maximizes it). For a single
 observation with latent variable `z`, this bound decomposes as expected
 log-likelihood minus the KL divergence between the approximate posterior `q(z)`
-and the prior. Crucially, the gap between the bound and `log p(x)` is exactly
+and the prior. The gap between the bound and `log p(x)` is exactly
 `KL(q || p(z|x))`, so tightening the bound in `q` *is* approximate posterior
 inference. Neal and Hinton's key observation, in [[neal-1998-variational-em]], is
 that both steps optimize the **same** objective:
@@ -47,9 +47,10 @@ that both steps optimize the **same** objective:
 - **E-step (belief update).** Hold parameters `theta` fixed; improve `q`. With an
   exact, unconstrained `q` this recovers the true posterior and closes the KL gap;
   with a restricted variational family (e.g. a Gaussian) it returns the
-  closest member. Because the objective is shared, this step need not be run to
-  convergence — *partial* and *incremental* E-steps still ascend the bound, which
-  is precisely what licenses the online, filtering-style updates used downstream.
+  closest member. Partial and incremental E-steps retain the Neal–Hinton guarantee
+  only when they improve the same bound later used by the M-step. This condition
+  does not hold for the transformer's target-blind belief filter and separate
+  decode cross-entropy.
 - **M-step (parameter update).** Hold `q` fixed; improve `theta`, typically by
   maximizing the expected complete-data log-likelihood under `q`.
 
@@ -92,7 +93,7 @@ changing the overall scheme.
 
 **Limitations.** The approximation is only as good as the variational family: a
 diagonal-Gaussian `q` cannot capture posterior correlations, and the
-mode-seeking behaviour of the KL-based ELBO can underestimate posterior variance.
+  reverse-KL orientation of the standard ELBO can underestimate posterior variance.
 The bound can also be loose, leaving an amortization gap when a single encoder
 must serve all inputs — the motivation for the iterative scheme of
 [[marino-2018-iterative-amortized-inference]]. And coordinate ascent on a
@@ -100,41 +101,42 @@ non-convex bound only guarantees a local optimum.
 
 ## Relation to this work
 
-The VFE transformer is built directly on a variational-EM skeleton, and the model
-config's `gradient_mode: "filtering"` is the design's name for a partial,
-incremental E-step in the sense of [[neal-1998-variational-em]].
+The VFE transformer uses a structural-EM skeleton. In the retained sweep, its inner
+forward stage performs one target-blind model-channel refinement and then one
+target-blind Fisher-preconditioned belief refinement with
+$q_i^{(0)}=p_i=s_i^{(1)}$. Neither update is a Neal–Hinton incremental step on the
+decode objective. [[gl-k-attention-2026-07-09-review-revision]]
 
-- **What it borrows.** Each token carries a Gaussian belief `(mu, Sigma)` from the
-  `gaussian_diagonal` family. The **E-step** updates these beliefs by
-  precision-weighted free-energy relaxation, in the lineage of
+- **What it borrows.** Each token carries diagonal-Gaussian model and belief states.
+  The retained **inner stage** first refines $s_i$ toward the learned global $r$ and
+  gamma-weighted model consensus, then uses $q_i^{(0)}=p_i=s_i^{(1)}$ for one
+  precision-weighted belief refinement, in the lineage of
   [[bogacz-2017-free-energy-tutorial]] and [[rao-1999-predictive-coding]], and
   surfaces as [[Precision weighting|precision-weighted attention]]. The **M-step**
-  updates the network's gauge and projection parameters. The ELBO/free-energy
-  training objective is the [[Variational free energy]] of
-  [[friston-2010-free-energy-principle]], and the per-token Gaussian recognition
-  beliefs follow the [[kingma-2013-auto-encoding-variational-bayes]] blueprint of
-  optimizing diagonal-Gaussian posteriors by gradient descent.
+  updates the learned parameters against decode cross-entropy through both unrolled
+  refinements, a distinct objective. [[gl-k-attention-2026-07-09-review-revision]]
 
-- **How it differs / improves.** Where textbook VEM uses Euclidean gradient steps
-  in flat parameter coordinates, the VFE transformer replaces both steps with
-  geometry-aware updates. The M-step uses a [[Natural gradient]] preconditioned by
-  the [[Fisher information metric]] (after [[amari-1998-natural-gradient]]),
-  block-structured over the GL(k) gauge group much as K-FAC factorizes curvature.
-  The covariance `Sigma` is treated as a point on the SPD manifold and updated by a
-  Riemannian retraction rather than an unconstrained step, so the "M-step" for
-  beliefs is Riemannian optimization on the SPD cone. The ELBO is further
-  generalized: instead of the KL-based bound the model trains a
-  [[Renyi divergence|Renyi]] / [[Alpha-divergence|alpha]] objective, with KL
-  recovered as the `alpha -> 1` limit, broadening the single free-energy functional
-  that Neal and Hinton, and later Friston, place at the center of the scheme.
+  The per-token Gaussian beliefs are explicit optimized state variables. The
+  architecture has no neural recognition network, so the VAE amortization theorem
+  is comparison material rather than a description of this update.
+
+- **How it differs.** Joint Gaussian belief updates use Fisher geometry; the
+  covariance block is one-half conventional AIRM. The frame table uses
+  plain AdamW in the audited path, not
+  a Fisher/K-FAC natural gradient, and the decode optimizer is separate. The
+  configured order-[[Renyi divergence|Rényi]] term is a pairwise belief
+  discrepancy with KL at order one; it is neither a Li–Turner variational bound
+  nor an Amari alpha-connection. [[gl-k-attention-2026-07-09-review-revision]]
 
 - **Where it departs from textbook VEM (2026-06-29).** Neal and Hinton's defining
   property is that the E-step and M-step ascend the **same** functional. The deployed
-  vfe3 transformer does **not**: its belief E-step is **target-blind**, carrying no
+  vfe3 transformer does **not**: its model and belief refinements are **target-blind**.
+  The first uses the hyper-prior and gamma model-consensus terms; the second carries no
   observation/likelihood term (the canonical $-\mathbb{E}_q[\log p(o\mid x)]$ is a
-  gated stub with no live caller), so the E-step descends a self-coupling-plus-belief-
-  alignment energy while the M-step minimizes the decode cross-entropy — **distinct
-  objectives**, a *structural* (generalized) EM with no monotone-evidence guarantee.
+  gated stub with no live caller) and descends a self-coupling-plus-belief-alignment
+  energy. The outer update instead minimizes decode cross-entropy through both paths.
+  These are **distinct objectives**, a *structural* (generalized) EM with no
+  monotone-evidence guarantee.
   The [[gl-k-attention|GL(K) manuscript]] states this in plain text ("the observation
   enters only the M-step loss, so the E-step is target-blind"; "rather than coordinate-
   ascent steps on a single shared free energy"), a deliberate deviation from the
@@ -144,29 +146,33 @@ incremental E-step in the sense of [[neal-1998-variational-em]].
   constant learned prior, failing the $\sigma$-validation gate
   ([[2026-06-29-sigma-gate-fail-and-collapse]]).
 
-> [!note] Editorial: The mapping "E-step = belief/attention update, M-step =
-> parameter update, free energy = training loss" is the organizing idea of the
-> architecture; the individual sources establish each piece, but the synthesis is
-> this wiki's reading.
+> [!note] Editorial (2026-07-10): “Structural EM” names the alternating schedule,
+> not a proof that the two inner refinements and outer decode optimize one ELBO. The
+> retained one-$s$/one-$q$ schedule has no
+> Neal–Hinton monotonicity or converged predictive-coding/backpropagation
+> guarantee. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Sources
 
 - [[neal-1998-variational-em]] — EM as coordinate ascent on one free-energy/ELBO
-  functional; the justification for incremental and partial (filtering) updates.
-- [[friston-2010-free-energy-principle]] — perception, attention, and learning as
-  free-energy minimization; the objective the transformer trains.
+  functional; incremental and partial updates retain the guarantee only when both
+  coordinates optimize that same functional.
+- [[friston-2010-free-energy-principle]] — shared-free-energy background used as
+  comparison material; the deployed transformer uses separate objectives.
 - [[rao-1999-predictive-coding]] — precision-weighted prediction-error dynamics;
   the ancestor of the E-step belief updates.
-- [[bogacz-2017-free-energy-tutorial]] — explicit Gaussian E-step / M-step update
-  equations mirrored by the filtering gradient mode.
+- [[bogacz-2017-free-energy-tutorial]] — explicit Gaussian E-step/M-step equations
+  for a shared free energy; conceptual ancestry rather than an identity with the
+  deployed filter.
 - [[kingma-2013-auto-encoding-variational-bayes]] — ELBO + reparameterization for
   gradient-trained diagonal-Gaussian beliefs.
 - [[marino-2018-iterative-amortized-inference]] — iterative refinement of beliefs
   that closes the amortization gap.
-- [[millidge-2020-pc-approximates-backprop]] — local free-energy minimization
-  equals backprop, unifying the inference loop with gradient training.
+- [[millidge-2020-pc-approximates-backprop]] — converged predictive-coding updates
+  recover backpropagation under the source paper's schedule; the truncated
+  target-blind filter is outside that result.
 - [[amari-1998-natural-gradient]] — Fisher-preconditioned steepest descent for the
-  M-step.
+  Gaussian belief update, not the frame or decode M-step.
 
 ## See also
 
@@ -176,8 +182,8 @@ incremental E-step in the sense of [[neal-1998-variational-em]].
 - [[Free-energy principle active inference]] — the generalized scheme.
 - [[Variational autoencoder (VAE)]] — amortized VEM with the reparameterization trick.
 - [[Iterative amortized inference]] — multi-step E-step with a learned optimizer.
-- [[Natural gradient]] and [[Fisher information metric]] — the geometry of the M-step.
-- [[Renyi divergence]] and [[Alpha-divergence]] — the generalized training objective.
+- [[Natural gradient]] and [[Fisher information metric]] — the geometry of the Gaussian belief update.
+- [[Renyi divergence]] and [[Alpha-divergence]] — distinct belief-side divergence comparisons, not one generalized complete-model training objective.
 - [[Variational free energy and predictive coding]] — the theme grouping these sources.
 - [[Inference machinery — variational EM and filtering]] — the theme for the inference loop.
 - [[VFE Transformer Program]] — the project this method serves.

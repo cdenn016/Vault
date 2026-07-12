@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-06-19
+updated: 2026-07-09
 ---
 
 # Agents as fibre-bundle sections
@@ -50,7 +50,7 @@ $$
 r_i \to s_i \to p_i \to q_i \to \text{observations},
 $$
 with each arrow realized cross-scale: $p_i$ regularizes $q_i$ *because* $p_i$ is the meta-agent's belief transported down. This converts hierarchical [[Variational free energy]] into a statement about sections of nested associated bundles.
-- **Transformers as a limit.** When the base collapses to a point ($\dim\mathcal{C}=0$) the sections become single distributions per agent and standard attention is recovered — the section picture is the general object of which the transformer is the zero-dimensional shadow (developed in [[participatory-it-from-bit]] and [[gl-k-attention]]).
+- **The zero-dimensional reduction.** When the base collapses to a point, each section becomes one distribution per agent. This alone does not recover arbitrary standard attention: strict shared-frame Regime I gives identity transport, and a general QK bilinear map is an additional structural choice. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Details
 

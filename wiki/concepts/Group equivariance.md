@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-06-19
+updated: 2026-07-09
 ---
 
 # Group equivariance
@@ -51,7 +51,7 @@ Third, equivariance is the architectural counterpart of the *reparameterization 
 
 **Irreps and Clebsch-Gordan coupling.** When features are decomposed into [[Irreducible representation|irreps]], the equivariance constraint on a linear map factorizes into independent constraints per irrep, giving a reusable steerable basis [[weiler-2019-e2-steerable]]. *Nonlinear* equivariant mixing of features in different irreps is achieved by the tensor product, whose decomposition is governed by the [[Clebsch-Gordan coefficients|Clebsch-Gordan coefficients]]; [[thomas-2018-tensor-field-networks|Tensor Field Networks]] are the canonical template, coupling `SO(3)` irreps via spherical-harmonic filters and the Clebsch-Gordan product. This is the same bookkeeping the project invokes for its irrep-structured blocks and Clebsch-Gordan coupling.
 
-**Lie groups and the algebra-first route.** For a continuous group like `GL(k)`, an efficient path to equivariance is to do all geometry in the **Lie algebra** (logarithmic coordinates) and map back to the group via the exponential. [[finzi-2020-lieconv|LieConv]] builds convolutions equivariant to any Lie group with a surjective exponential map by lifting points to algebra coordinates and recovering elements through `exp`. The VFE Transformer uses exactly this algebra-first parameterization: its gauge degrees of freedom are carried as a Lie-algebra element `phi`, retracted onto the group via a [[Baker-Campbell-Hausdorff formula|Baker-Campbell-Hausdorff]] (BCH) composition. The same algebra-first logic extends to *arbitrary* matrix groups, including the non-compact ones the project actually targets: [[finzi-2021-emlp-arbitrary-matrix-groups]] constructs equivariant layers for any matrix group — `GL(n)`, the Lorentz group `O(1,3)`, `Sp(n)` — by solving the constraint `rho(X) W = W rho(X)` at the Lie-algebra level through a nullspace computation, closing the non-compact-group gap left open by the compact-group results above for `GL(k)`-attention's commutant-restricted per-block maps.
+**Lie groups and the algebra-first route.** LieConv's theorem remains valid under its stated surjective-exponential premise. Real $\mathrm{GL}^+(K)$ does not satisfy that premise globally: a single phi chart realizes only $\operatorname{image}(\exp)$, and finite BCH composition is approximate. This limits the realized family without changing the ambient score-invariance theorem. [[gl-k-attention-2026-07-09-review-revision]]
 
 > [!note] Editorial: In practice the model targets *approximate* or *soft* equivariance — `GL(k)` is non-compact and the retraction/optimization are inexact — so equivariance is better read as an inductive bias and a design target than as an exactly enforced identity at every layer.
 
@@ -60,8 +60,8 @@ Third, equivariance is the architectural counterpart of the *reparameterization 
 Group equivariance surfaces wherever the configuration commits to a symmetry group and then arranges computation to respect it:
 
 - **`gauge_group: block_glk`.** The declared symmetry is the block general-linear group `GL(k)`; equivariance under it is the property the gauge machinery aims to enforce.
-- **Lie-algebra `phi` + BCH retraction.** Gauge elements parameterized in the algebra and composed by BCH realize the [[finzi-2020-lieconv|LieConv]]-style algebra-first construction for a continuous group.
-- **Belief transport and holonomy.** Equivariance is what makes [[Parallel transport|parallel transport]] of per-token `(mu, Sigma)` beliefs and the resulting [[Holonomy|holonomy]] coherent, following the gauge-CNN transport rule [[cohen-2019-gauge-cnn]].
+- **Lie-algebra `phi` + BCH retraction.** This is a local, incomplete chart and approximate composition rule, not a global exact-equivariance certificate. [[gl-k-attention-2026-07-09-review-revision]]
+- **Belief transport and holonomy.** Regime-I vertex transport has $H=I$ exactly; nontrivial holonomy requires an edge-relaxed/nonflat connection. [[gl-k-attention-2026-07-09-review-revision]]
 - **Irreps and Clebsch-Gordan blocks.** Per-block features organized by [[Irreducible representation|irreps]] and coupled through [[Clebsch-Gordan coefficients|Clebsch-Gordan coefficients]] implement equivariant nonlinear mixing in the spirit of [[thomas-2018-tensor-field-networks]] and [[weiler-2019-e2-steerable]].
 - **Symmetry-respecting positional encodings.** The learned positional `phi` composed via BCH is the positional analogue of an equivariant operator, designed so that position information enters without breaking the declared symmetry [[bronstein-2021-geometric-deep-learning]].
 

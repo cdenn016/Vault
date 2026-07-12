@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-06-20
+updated: 2026-07-09
 ---
 
 # Renormalization-group flow of beliefs
@@ -40,9 +40,9 @@ RG flow is the natural companion to [[Meta-entropy]] (a thermodynamic-limit coun
 
 ## RG in the GL(K) attention manuscript
 
-The [[gl-k-attention]] manuscript instantiates this RG-of-beliefs idea on the *transformer* side, with a three-component coupling vector: $g_1=\|\Sigma_i-\sigma^2 I\|/\sigma^2$ (intrinsic anisotropy), $g_2=\|\Omega_{ij}-\Omega\|/\|\Omega\|$ (gauge variation), and $g_3=\|H_{ijk}-I\|$ (linear holonomy, $H_{ijk}=\Omega_{ij}\Omega_{jk}\Omega_{ki}$), under a coarse-graining $R_n$ that blocks $n$ tokens into a meta-agent. A deep-review pass (2026-06-20) **settled** the scaling-dimension bookkeeping that two earlier passes had flagged as ambiguous: $y_2=-1$ is correct, because the meta-agent transport $\Omega_{AB}=(|A||B|)^{-1}\sum_{i\in A, j\in B}\Omega_{ij}$ averages $|A||B|=n^2$ inter-cluster edges and so contracts as $(n^2)^{-1/2}=n^{-1}$, whereas $g_1$ averages only $n$ token covariances and contracts as $n^{-1/2}$ (so $y_1=-\tfrac12$); the holonomy inherits the $n^{-1}$ rate ($y_3=-1$ for the linear norm, $y_3^{(\mathrm{action})}=-2$ for $\|H-I\|^2$). The apparent $n^{-1/2}$ reading of $g_2$ was a main-text exposition gap — the $n^2$-edge count lived only in the supplement — now closed; the exponents are confirmed numerically and match the supplement's CLT validation table.
+The transformer-side Regime-I variables are vertex-shared. Equal-weight blocking therefore averages $n$ vertex fluctuations and gives RMS scaling $n^{-1/2}$, so $y_2=-1/2$. Its cocycle $\Omega_{ij}=U_iU_j^{-1}$ makes $H_{ijk}=I$ and $g_3=0$ identically, leaving no Regime-I holonomy exponent to fit. The rates $n^{-1}$ for a linear edge observable and $n^{-2}$ for its squared action apply only to an explicitly iid independent-edge ensemble. Generic edge relaxation permits nontrivial holonomy but does not establish those independence premises or rates. [[gl-k-attention-2026-07-09-review-revision]]
 
-> [!note] Editorial (2026-06-20): the analytic CLT exponents ($y_1=-\tfrac12$, $y_2=y_3=-1$) are a *synthetic-data* sanity check, not validation on trained models. The manuscript's **Universality Conjecture** — that trained transformers sit at this infrared-stable fixed point — remains stated, not validated: graph-measured exponents on trained attention deviate ($y_2\approx-0.66$, $y_3\approx+0.17$), and the manuscript honestly leaves the interpretation open between (H1) finite-size/crossover bias in the spectral coarse-graining and (H2) genuine cross-token correlation that puts an $O(1)$ floor on $\mathrm{Var}(\bar X_n)$, breaks the CLT $n^{-1/2}$ rate, and would make $g_3$ a *relevant* operator — falsifying part of the conjecture. This mirrors the RG-inspired-not-derived posture recorded above for the multi-agent model, and the rigorous metric-level backbone it points toward is [[beny-osborne-2015-info-geometric-rg]]'s Fisher–Bures monotone flow.
+> [!note] Editorial (2026-07-09): a nonzero graph-measured $y_3$ diagnoses an edge-relaxed graph observable; it cannot validate or falsify strict Regime I, where $g_3=0$ algebraically. Regime-I vertex fluctuations instead predict the RMS exponent $y_2=-1/2$. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Details
 

@@ -13,7 +13,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-07-10
 ---
 
 # Neural scaling laws
@@ -23,25 +23,48 @@ updated: 2026-06-19
 **Neural scaling laws** are the empirical regularities, established for autoregressive language models, that test loss falls as a smooth power law in the three resources of training: parameter count $N$, dataset size $D$, and compute $C$. In the founding formulation ([[kaplan-2020-scaling-laws|Kaplan et al. 2020]]) each resource, held the others non-binding, gives a relation of the form $L \propto X^{-\alpha_X}$ over many orders of magnitude, with small exponents (a few hundredths — Kaplan reports $\alpha_N \approx 0.076$, $\alpha_D \approx 0.095$). The corrected, two-resource law ([[hoffmann-2022-chinchilla|Hoffmann et al. 2022]], "Chinchilla") fits a single parametric surface,
 
 $$
-L(N, D) = E + A\,N^{-\alpha} + B\,D^{-\beta},
+L(N, D) = E + AN^{-\alpha} + BD^{-\beta},
 $$
 
-with an **irreducible term $E$** — the entropy of natural text that no finite model can remove — plus separable finite-size penalties, finding $\alpha \approx \beta \approx 0.5$. The operational payoff is **compute-optimal allocation**: under a fixed budget $C \approx 6ND$, parameters and tokens should grow in roughly equal proportion ($D \propto N$), correcting Kaplan's bias toward enormous, under-trained models.
+with an **irreducible term $E$** plus separable finite-size penalties. Under
+$C\approx6ND$, the fitted loss-surface exponents imply compute-frontier laws
+$N_{\mathrm{opt}}\propto C^a$ and $D_{\mathrm{opt}}\propto C^b$, where
+$a=\beta/(\alpha+\beta)$ and $b=\alpha/(\alpha+\beta)$. Chinchilla finds
+$a\approx b\approx0.5$: model size and training tokens should grow in roughly
+equal proportion with compute. The values near one-half are the frontier
+exponents $a,b$, not the loss-surface exponents $\alpha,\beta$.
 
 ## Why it matters here
 
-This is the genre into which the participatory manuscript's empirical scaling result is placed. [[participatory-it-from-bit|PIFB]] trains the [[VFE Transformer Program|gauge-theoretic transformer]] — no learned $W_Q/W_K/W_V$, no MLPs, no activations — across belief dimension $K \in [10,120]$ at an iso-token budget on WikiText-103, and fits the per-$K$ seed-mean curve $\mathrm{PPL} = aK^b + c$, obtaining a floor-dominated **inverse-$K$ law** ($b \approx -1.0$, floor $c \approx 61$). Belief dimension $K$ plays the role of capacity that parameter count $N$ plays in Chinchilla, and the additive floor $c$ is the gauge-transformer analogue of the irreducible term $E$. Framing the inverse-$K$ result as a scaling law is what lets the manuscript connect its capacity sweep to the broader empirical literature without overclaiming competitive LM quality.
+The retained [[VFE Transformer Program|gauge-theoretic transformer]] evidence is a twelve-width development sweep on WikiText-103, not a neural scaling law in the Kaplan or Chinchilla sense. Every run uses 491.52 million tokens, while raw trainable parameters rise from 7.60 million to 90.67 million and tokens per parameter fall from 64.66 to 5.42. The sweep also changes head count and activates an identity-initialized head mixer at $K\geq20$, and its records span ten source commits. The fitted curves summarize that heterogeneous trajectory; they do not identify an architecture-level law, a compute-optimal frontier, or an irreducible loss term. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Details
 
-PIFB is careful that a **direct comparison of its exponent to the Chinchilla exponent is not unit-consistent**, and this caveat is the load-bearing reason both sources are cited. Chinchilla fits **cross-entropy loss** $L$ (nats per token) with exponents $\alpha \approx \beta \approx 0.5$; PIFB fits **perplexity with an additive floor**, $\mathrm{PPL} = aK^b + c$, where $\mathrm{PPL} = \exp(\text{cross-entropy})$. A power-law exponent measured in perplexity space is therefore a different quantity from a cross-entropy exponent: the exponential link means $b$ and $\alpha$ are not the same observable, the additive-floor form $aK^b + c$ does not transform into $E + AN^{-\alpha}$ under the $\log$, and PIFB's $K$ is a within-architecture capacity axis rather than $N$ or $D$. The right correspondence is structural — both laws exhibit a capacity-independent floor over a power-law decay — not a numerical match of exponents. Reading a capacity sweep as a scaling law also presumes the optimization stays comparable as $K$ grows, an assumption the NN-scaling literature treats explicitly: the maximal-update parametrization ([[yang-2022-tensor-programs-v-mup|Yang et al. 2022]], muP) scales initialization and learning rate with width so activations and gradients stay $O(1)$ and hyperparameters transfer across width, bearing on whether the $\phi$/$\sigma$ initialization and the $\kappa$ in $\tau = \kappa\sqrt{\dim_h}$ remain width-stable across the program's $K$-sweep, while the unbounded early-training variance of adaptive per-coordinate preconditioners ([[liu-2020-variance-adaptive-radam|Liu et al. 2020]], RAdam) is the optimizer-side stability question for the Fisher-preconditioned / natural-gradient M-step and the filtering E-step, which are adaptive-preconditioner updates with no LayerNorm module to lean on. PIFB also leaves the status of $b = -1$ explicitly **unadjudicated** (a nested $F$-test rejects it, $F(1,8)=9.73$, $p=0.014$, while the bootstrap CI $[-1.103,-0.998]$ contains $-1$), reinforcing that the inverse-$K$ claim is descriptive of this architecture, not a derived universal exponent. For the attention machinery whose capacity is being scaled here, see [[Attention mechanisms — theory and positional structure]].
+The audited offset cross-entropy fit is $L(N)=E+AN^{-\alpha}$ with
+$\alpha=0.556$ and a nested-cluster bootstrap interval $[0.400,0.600]$ over the
+observed widths. Its $E=3.945$ is an apparent offset of that chosen fit, not an
+identified irreducible term. The unweighted perplexity fit
+$\mathrm{PPL}(K)=aK^b+c$ gives $b=-1.04891$ and $c=63.96199$, but it uses a
+different response scale and estimator. Neither coefficient is comparable to
+the loss-surface or compute-frontier exponents of Chinchilla.
+
+Width-stability remains an empirical requirement. MuP
+([[yang-2022-tensor-programs-v-mup|Yang et al. 2022]]) is a neural-network width
+scaling precedent, not a theorem for this no-neural-network architecture. RAdam
+([[liu-2020-variance-adaptive-radam|Liu et al. 2020]]) analyzes adaptive
+second-moment preconditioners; it does not diagnose the audited frame M-step,
+which uses plain AdamW. Gaussian belief updates use Fisher geometry and require
+their own stability analysis. PIFB leaves $b=-1$ unadjudicated: a nested
+$F$-test rejects it, while the reported bootstrap interval contains $-1$.
+The width fits are therefore descriptive summaries, not derived or transferable exponents.
+[[gl-k-attention-2026-07-09-review-revision]]
 
 ## Sources
 
 - [[kaplan-2020-scaling-laws]] — founding empirical power-law scaling of LM loss in parameters, data, and compute; the genre PIFB's inverse-$K$ result joins.
 - [[hoffmann-2022-chinchilla]] — Chinchilla's corrected two-resource law $L = E + AN^{-\alpha} + BD^{-\beta}$ with irreducible floor $E$ and compute-optimal $D \propto N$; PIFB's named comparison anchor and the source of the unit-consistency caveat.
 - [[yang-2022-tensor-programs-v-mup]] — muP: how initialization scale and learning rate must scale with width to keep activations and gradients $O(1)$, so small-width hyperparameters transfer to large; bears on width-stability of $\phi$/$\sigma$ init and $\kappa$ across the $K$-sweep.
-- [[liu-2020-variance-adaptive-radam]] — RAdam: the adaptive second-moment preconditioner has unbounded variance early in training and warmup is the variance-reduction fix; the optimizer-side stability question for the program's natural-gradient M-step and filtering E-step.
+- [[liu-2020-variance-adaptive-radam]] — RAdam's analysis of adaptive second-moment preconditioners is relevant to the audited plain-AdamW frame group, but it does not establish a Fisher or gauge-natural frame update.
 - [[participatory-it-from-bit]] — the manuscript whose inverse-$K$ perplexity-with-floor scaling sweep this concept contextualizes.
 
 ## See also

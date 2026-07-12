@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-06-19
+updated: 2026-07-09
 ---
 
 # Gauge transformation
@@ -28,11 +28,11 @@ The crucial structural fact is that a gauge transformation is *not* a free relab
 
 The VFE transformer is built so that its per-token Gaussian beliefs $(\mu, \Sigma)$ and their couplings are *expressed in a frame that the model is free to rotate at each token*. The chosen gauge group is the block general-linear group GL($k$) (`gauge_group: block_glk`): each token's latent space is partitioned into blocks, and an independent invertible linear map may act on each block. Because there is no canonical frame, the physics of the model — its free-energy objective and its predictions — must be invariant to which frame is picked at each token, exactly the requirement of a gauge transformation. This absence of a privileged frame is the same condition that motivates [[Quantum reference frames]], where physical content is read off only relative to a chosen frame and observables must be frame-invariant ([[bartlett-2007-reference-frames|bartlett-rudolph-spekkens-2007-reference-frames]]). This is the architectural commitment that turns a transformer into a *gauge-theoretic* one: rather than baking in a single global symmetry as the group-equivariant convolutions of [[cohen-2016-gcnn]] do, it follows the *local* gauge generalization of [[cohen-2019-gauge-cnn]], where features carry frames and any comparison across positions is mediated by [[Parallel transport]].
 
-Gauge invariance is also what makes the optimization geometry well posed. A reparameterization-invariant objective demands a reparameterization-invariant update rule, which is precisely the [[Natural gradient]] preconditioned by the [[Fisher information metric]] (see [[amari-1998-natural-gradient]] and [[ollivier-2015-riemannian-metrics-nn]]). Gauge freedom on the latent frame is the geometric-deep-learning cousin of reparameterization invariance on the statistical manifold; both insist that the learning dynamics depend on the model, not on the arbitrary coordinates in which it is written.
+Gauge covariance of the forward score and reparameterization invariance of an optimizer are separate claims. The Gaussian belief update has a Fisher natural gradient; the frame update does not acquire one from the gauge analogy. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Details
 
-**Group, algebra, and the "phi" parameterization.** For a Lie group such as GL($k$), gauge elements are most safely handled in the *Lie algebra*. The model parameterizes each gauge element as $g = \exp(\phi)$, where $\phi$ is a matrix (the `gauge_parameterization: phi` setting) living in the algebra $\mathfrak{gl}(k)$; the exponential map recovers the group element. This algebra-first treatment is the same device LieConv uses to remain equivariant to any Lie group with a surjective exponential map ([[finzi-2020-lieconv]]): doing all geometry in logarithmic coordinates and recovering group elements via $\exp$ keeps the parameterization unconstrained and differentiable.
+**Group, algebra, and the "phi" parameterization.** LieConv's theorem retains its own surjective-exponential premise. Over the reals, the transformer's single chart reaches only $\operatorname{image}(\exp)\subsetneq\mathrm{GL}^+(K)$, so it is not a global parameterization of the intended group. [[gl-k-attention-2026-07-09-review-revision]]
 
 **Composition by BCH.** Because two gauge elements compose as $\exp(\phi_1)\exp(\phi_2) = \exp\!\big(\phi_1 + \phi_2 + \tfrac12[\phi_1,\phi_2] + \cdots\big)$, composing transformations directly in the algebra requires the [[Baker-Campbell-Hausdorff formula|Baker–Campbell–Hausdorff]] (BCH) series, truncated to a finite order in practice. The model uses BCH both as the *retraction* that moves gauge parameters along an update (`phi_retract_mode: bch`) and as the *composition* rule for positional gauges (`pos_phi_compose: bch`, `bch_pe_order: 4`). Retractions are the cheap first-order surrogates for true geodesic exponentials analyzed in [[absil-2008-optimization-matrix-manifolds]]; using a Lie-group retraction keeps each update *on the group manifold* without leaving the gauge structure.
 
@@ -40,7 +40,7 @@ Gauge invariance is also what makes the optimization geometry well posed. A repa
 
 **Representations, irreps, and coupling.** A gauge group acts on features through representations. Decomposing features into [[Irreducible representation|irreducible representations]] (irreps) and coupling them through the [[Clebsch-Gordan coefficients|Clebsch–Gordan]] tensor product is the standard bookkeeping for building gauge-equivariant layers, established for steerable and tensor-field networks in [[weiler-2019-e2-steerable]], [[kondor-2018-compact-group-conv]], and [[thomas-2018-tensor-field-networks]]. The VFE transformer carries the corresponding switches (`irrep_spec`, `use_cg_coupling`, `cross_couplings`), so its block-GL($k$) gauge group can in principle structure attention by irrep rather than by raw coordinates.
 
-**Preconditioning the gauge update.** Updates to $\phi$ are preconditioned per block by the Killing form of the Lie algebra (`phi_precond_mode: killing_per_block`). The Killing form is the natural, gauge-covariant inner product on a Lie algebra; preconditioning with it is the gauge-theoretic analogue of the block-Kronecker Fisher preconditioning K-FAC introduced for natural-gradient training ([[martens-2015-kfac]], [[martens-2020-natural-gradient-insights]]). In both cases the point is to make the update *invariant to the frame*, so learning respects the gauge symmetry rather than fighting it.
+**Conditioning the gauge update.** The optional Cartan/Killing and pullback objects are optimizer preconditioners, not full-$\mathrm{GL}(K)$-invariant Fisher/K-FAC metrics. Audited runs use plain AdamW for the frame table; the configured preconditioner and heavy-ball fields are inactive. [[gl-k-attention-2026-07-09-review-revision]]
 
 > [!note] Editorial: The config sets `transport_mode: flat`, `cocycle_relaxation: 1.0`, `use_cg_coupling: false`, and `irrep_spec: null` in the inspected run, so the gauge machinery is present and parameterizable but operating in its simplest (flat, uncoupled) regime for this particular training run rather than at full curvature.
 
@@ -50,7 +50,7 @@ The gauge transformation is the organizing symmetry of the whole architecture, s
 
 - `gauge_group: block_glk` — the gauge group is block GL($k$), one invertible linear map per latent block per token.
 - `gauge_parameterization: phi` with `phi_scale` — gauge elements are generated from algebra-valued $\phi$ via the exponential map.
-- `phi_retract_mode: bch` and `phi_precond_mode: killing_per_block` — gauge parameters are retracted with a truncated BCH map and preconditioned by the per-block Killing form during the M-step.
+- `phi_retract_mode: bch` is a truncated, local approximation; optional frame conditioning carries no Fisher or full-gauge-invariance guarantee. [[gl-k-attention-2026-07-09-review-revision]]
 - `transport_mode: flat`, `cocycle_relaxation` — the connection used to transport beliefs between tokens, and the consistency relaxation governing it.
 - `pos_phi: learned`, `pos_phi_compose: bch`, `bch_pe_order`, `pos_phi_scale` — positional encodings are themselves learned gauge elements composed via BCH, the gauge-native counterpart to the RoPE / ALiBi / T5 position priors that ride alongside them.
 - `irrep_spec`, `use_cg_coupling`, `cross_couplings` — the irrep decomposition and Clebsch–Gordan coupling through which the gauge group can structure attention (disabled in the inspected run).

@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-06-19
+updated: 2026-07-09
 ---
 
 # Prediction error
@@ -25,9 +25,9 @@ Prediction error generalizes beyond the input layer: in a hierarchical model eac
 
 ## Why it matters here
 
-The VFE transformer is, at heart, a machine for computing and discharging prediction errors. Its per-token Gaussian beliefs `(mu, Sigma)` are updated in an E-step that descends the free-energy gradient, and that gradient *is* a precision-weighted prediction error: each token's belief is pulled toward the data it must explain and toward the prediction implied by its context, with the pull scaled by precision. The architecture's [[Precision weighting|precision-weighted attention]] is the mechanism by which one token's prediction error is routed to and weighted against the beliefs of other tokens — a learned, content-dependent assignment of how much each error should count. Because the training objective is a free energy / negative [[Evidence lower bound (ELBO)]], the parameters in the M-step are also moved by accumulated prediction errors, so the same quantity that drives perception (belief updates) drives learning (parameter updates). Prediction error is therefore the common currency linking the E-step, the M-step, and the attention computation.
+The VFE transformer uses precision-weighted mismatch terms in its target-blind Gaussian-belief update and in transported attention coupling. The decoder and other learned parameters are trained by a separate cross-entropy objective, so prediction error is not one shared ELBO currency linking both steps. The attention interpretation is a belief-side routing analogy, not a proof that the one-step filter has converged to a posterior. [[gl-k-attention-2026-07-09-review-revision]]
 
-> [!note] Editorial: In the config's "filtering" gradient mode, beliefs are updated by partial, online descent rather than to convergence, so what flows between tokens and layers each step is a residual prediction error rather than a fully relaxed posterior — exactly the incremental-EM picture below.
+> [!note] Editorial (2026-07-09): In `filtering` mode, beliefs receive one target-blind update rather than converging. This is not Neal–Hinton incremental EM because the decode objective is separate. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Details
 
@@ -39,7 +39,7 @@ i.e. a difference of precision-weighted prediction errors. Gradient descent on `
 
 **Predictive coding.** [[rao-1999-predictive-coding]] introduced this as a cortical model: feedback connections carry predictions `g(mu)`, feedforward connections carry precision-weighted prediction errors `Sigma_x^{-1} e_x`, and dedicated "error units" represent the residual. This is the direct ancestor of the VFE transformer's error-driven belief dynamics and its precision weighting; see [[Predictive coding network]] and the theme [[Variational free energy and predictive coding]]. [[friston-2010-free-energy-principle]] elevates the same arithmetic to a general principle: perception, attention, and action all minimize free energy, and *attention* is precisely the optimization of precision on prediction errors — the inferential reading of [[Precision weighting]].
 
-**Relation to free energy and backprop.** [[neal-1998-variational-em]] frames the whole loop as coordinate ascent on one negative-free-energy functional, with an E-step over beliefs and an M-step over parameters; partial E-steps (filtering) are sanctioned by this view. [[millidge-2020-pc-approximates-backprop]] proves that local prediction-error minimization along an arbitrary computation graph converges to the *exact* backpropagation gradient — so the network's error-passing E-step and ordinary gradient training are two views of the same computation. The amortized refinement of beliefs by re-encoding free-energy gradients (i.e. prediction errors) is [[Iterative amortized inference]] ([[marino-2018-iterative-amortized-inference]]), which closes the amortization gap left by a single-pass encoder.
+**Relation to free energy and backprop.** Textbook EM and converged predictive coding retain their source-level results. The deployed transformer instead uses a target-blind belief objective and a separate cross-entropy M-step, so Neal–Hinton monotonicity and exact backprop recovery do not license its one-step filter. [[gl-k-attention-2026-07-09-review-revision]]
 
 **Variants.**
 - *Raw vs. precision-weighted*: the bare residual `e` versus `Pi e`. Only the weighted form is the free-energy gradient.
@@ -53,16 +53,16 @@ i.e. a difference of precision-weighted prediction errors. Gradient descent on `
 
 Prediction error surfaces wherever the model config exposes its inference machinery:
 
-- **E-step / belief updates.** The per-token Gaussian belief `(mu, Sigma)` is relaxed by descending the free-energy gradient, whose mean component is the difference of precision-weighted prediction errors above. The `gradient_mode: filtering` setting makes these partial, online updates, so a *residual* prediction error is what propagates — the incremental-EM regime of [[neal-1998-variational-em]] and the filtering theme [[Inference machinery — variational EM and filtering]].
+- **E-step / belief updates.** The one-step update is a target-blind natural-gradient filter on its belief objective, not an argmin or coordinate-ascent step on the decode loss. [[gl-k-attention-2026-07-09-review-revision]]
 - **Precision-weighted attention.** Attention scores weight inter-token contributions by precision, routing each token's prediction error to the beliefs that should absorb it; this is the architectural realization of [[Precision weighting]] and the precision-optimization-as-attention reading of [[friston-2010-free-energy-principle]]. The kernel-smoother view of attention ([[tsai-2019-kernel-attention]]) and the softmax baseline ([[vaswani-2017-attention]]) are the operations this modifies.
-- **M-step / parameter learning.** Accumulated prediction errors drive parameter updates on the ELBO/free-energy loss, with Fisher/[[Killing form|Killing-form]] preconditioning per block — the metric-aware learning of [[bogacz-2017-free-energy-tutorial]] and [[amari-1998-natural-gradient]].
+- **M-step / parameter learning.** Decode and frame parameters minimize the outer cross-entropy by plain AdamW in the audited path; no Fisher/Killing frame natural gradient is established, and the stored heavy-ball/pullback fields are inactive. [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Sources
 
 - [[rao-1999-predictive-coding]] — cortical predictive coding; feedforward precision-weighted prediction errors.
 - [[friston-2010-free-energy-principle]] — free energy as bounded surprise; attention as precision on prediction errors.
 - [[bogacz-2017-free-energy-tutorial]] — explicit Gaussian E-step/M-step updates in terms of prediction errors.
-- [[neal-1998-variational-em]] — EM as coordinate ascent on negative free energy; partial (filtering) E-steps.
+- [[neal-1998-variational-em]] — EM as coordinate ascent on one negative-free-energy functional; partial E-steps retain that interpretation only for the shared-functional setting.
 - [[millidge-2020-pc-approximates-backprop]] — local prediction-error updates equal backprop gradients.
 - [[marino-2018-iterative-amortized-inference]] — iterative refinement of beliefs from free-energy gradients.
 - [[kingma-2013-auto-encoding-variational-bayes]] — ELBO, reparameterized Gaussian beliefs.
