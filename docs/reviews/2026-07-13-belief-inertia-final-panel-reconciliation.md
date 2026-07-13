@@ -23,7 +23,7 @@ The final verdict remains **ready for author-led submission preparation as a spe
 
 ### F3 — Adjacent social-model pages overstated exact recovery
 
-**Disposition: fixed.** The opinion-dynamics, bounded-confidence, voter-model, evolutionary-game, Social Impact Theory, conformity, sociophysics, polarization, project, and theme pages now match the manuscript's proof-status table. Hegselmann--Krause and Deffuant are soft analogs; voter copying and evolutionary-game dynamics are benchmarks; Social Impact Theory is interpretive because row-normalized attention does not derive its number law; general directed influence and persistent polarization remain outside the proved reduction.
+**Disposition: fixed.** The opinion-dynamics, bounded-confidence, voter-model, evolutionary-game, Social Impact Theory, conformity, sociophysics, polarization, project, and theme pages now match the manuscript's proof-status table. Hegselmann--Krause and Deffuant are soft analogs; voter copying and evolutionary-game dynamics are benchmarks; Social Impact Theory is interpretive because row-normalized attention does not derive its number law; general directed influence and persistent polarization remain outside the proved reduction. The final bounded scan also removed residual recovery language from the evolutionary-game and replicator pages while retaining the correct Shahshahani/Fisher fact, and reclassified kinetic/Fokker--Planck opinion theory as a continuum analogy and extension target rather than a literal overdamped limit.
 
 ### F4 — Three canonical social-science claims lacked direct support
 

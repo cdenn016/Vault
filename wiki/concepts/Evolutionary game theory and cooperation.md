@@ -61,7 +61,7 @@ On networks, the progression is from demonstration to theorem to closed form. [[
 - [[SocialPhysics]] · [[belief-inertia]] — the founding project and manuscript this concept is positioned against.
 - [[Multi-agent variational free energy]] — the program's functional, contrasted here with strategy-update dynamics.
 - [[Sociophysics]] — the statistical-physics-of-social-systems tradition EGT-on-graphs belongs to.
-- [[Opinion dynamics]] · [[Bounded confidence]] — consensus models recovered as overdamped VFE limits.
+- [[Opinion dynamics]] · [[Bounded confidence]] — restricted averaging correspondence and soft analog; evolutionary-game dynamics remain benchmarks rather than VFE limits.
 - [[Echo chambers and polarization]] — the fragmentation outcome that structure-dependent dynamics can produce.
 - [[Community detection and modularity]] — graph structure and the meta-agent / group-selection parallel.
 - [[Collective active inference]] — the active-inference reading of coupled belief-updating populations.
