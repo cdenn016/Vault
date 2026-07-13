@@ -47,8 +47,9 @@ These tipping and lock-in phenomena sit within the broader theme of [[Statistica
 ## See also
 
 - [[SocialPhysics]] · [[belief-inertia]] — the founding project and manuscript.
-- [[Multi-agent variational free energy]] — the functional whose neighbor coupling should reproduce tipping and clustering.
-- [[Opinion dynamics]] — the overdamped (averaging) face of the same dynamics; tipping is its discontinuous counterpart.
+- [[Multi-agent variational free energy]] — the functional that would require an added threshold or multistable mechanism to model tipping.
+- [[Opinion dynamics]] — the restricted averaging correspondence; Schelling tipping remains a separate benchmark.
 - [[Echo chambers and polarization]] · [[Community detection and modularity]] · [[Meta-agents and hierarchical emergence]] — the fragmented, clustered, and coarse-grained regimes.
-- [[Belief inertia]] · [[Hamiltonian belief dynamics]] · [[Mass as Fisher information]] — where momentum gives hysteresis, the signature of lock-in.
+- [[Belief inertia]] · [[Hamiltonian belief dynamics]] · [[Mass as Fisher information]] — conditional kinetic machinery that does not by itself derive hysteresis or lock-in.
 - [[Sociophysics]] · [[Bounded confidence]] · [[Renormalization-group flow of beliefs]] · [[Meta-entropy]] · [[Collective active inference]] · [[Holonomy]].
+- [[belief-inertia-2026-07-13-final-review-closure]] — authoritative benchmark-only status for segregation, tipping, and lock-in.

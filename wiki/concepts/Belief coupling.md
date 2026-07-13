@@ -208,4 +208,5 @@ This dual heritage is why the concept sits in both the
 ## Sources
 
 [[deffuant2000-bounded-confidence]] · [[friedkin1990-social-influence-opinions]] ·
-[[hinton-2002-products-of-experts]] · [[degroot-1974-consensus]] · [[gl-k-attention]]
+[[hinton-2002-products-of-experts]] · [[degroot-1974-consensus]] · [[gl-k-attention]] ·
+[[belief-inertia-2026-07-13-final-review-closure]]

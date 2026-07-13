@@ -10,7 +10,7 @@ updated: 2026-07-12
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **9** manuscripts · **12** themes · **11** field MOCs · **268** concepts · **11** methods · **539** papers · **100** references · **8** runs · **6** web/methodology
+> **3** projects · **10** manuscripts · **12** themes · **11** field MOCs · **268** concepts · **11** methods · **539** papers · **100** references · **8** runs · **6** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -34,6 +34,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 - [[belief-inertia|The Inertia of Belief]]
 - [[belief-inertia-2026-07-12-theorem-first-revision|The Inertia of Belief: 2026-07-12 Theorem-First Revision Record]] — corrected theorem-first manuscript state, proof-status supersessions, comparator set, and source hashes
 - [[belief-inertia-2026-07-13-final-verification-addendum|The Inertia of Belief: 2026-07-13 Final Verification Addendum]] — final metric-scope, stiffness-direction, social-claim, citation, and hash reconciliation
+- [[belief-inertia-2026-07-13-final-review-closure|The Inertia of Belief: 2026-07-13 Final Review Closure]] — authoritative FJ equilibrium/transient distinction, final wiki reconciliation, symbolic regression, hashes, and verification counts
 
 ## 🧩 Themes — cross-paper synthesis
 - [[Attention mechanisms — theory and positional structure]]

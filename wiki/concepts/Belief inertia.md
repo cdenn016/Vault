@@ -122,3 +122,4 @@ Oscillation alone is not evidence for belief inertia. [[baumann-sokolov-tyloo-20
 - [[Natural gradient]]
 - [[Gauge-Theoretic Multi-Agent VFE Model]]
 - [[SocialPhysics]]
+- [[belief-inertia-2026-07-13-final-review-closure]]

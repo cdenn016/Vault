@@ -81,6 +81,7 @@ The information-geometric mechanics neighborhood is equally important: [[chirco-
 
 - [[belief-inertia-2026-07-12-theorem-first-revision]] -- authoritative corrected manuscript record.
 - [[belief-inertia-2026-07-13-final-verification-addendum]] -- authoritative final-panel reconciliation of metric scope, stiffness direction, social claims, and final hashes.
+- [[belief-inertia-2026-07-13-final-review-closure]] -- authoritative final closure for the FJ equilibrium/transient distinction, adjacent-model scope, and current hashes.
 - [[martins-2015-opinion-particles]], [[nevin-mandell-atak-1983-behavioral-momentum]], [[xue-hirche-cao-2020-opinion-port-hamiltonian]], [[baumann-sokolov-tyloo-2020-second-order-consensus]], [[bass-1969-product-growth]], [[sampson-porter-restrepo-2025-oscillatory-opinion]] -- direct comparison set.
 - [[degroot-1974-consensus]], [[friedkin1990-social-influence-opinions]], [[hegselmann-2002-opinion]], [[deffuant2000-bounded-confidence]] -- classical restricted correspondences.
 - [[albarracin-2022-epistemic-communities]] -- active-sampling polarization comparator.

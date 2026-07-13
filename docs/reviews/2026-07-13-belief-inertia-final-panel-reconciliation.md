@@ -3,6 +3,7 @@
 Date: 2026-07-13
 Branch: `codex/belief-inertia-ultradeep-review-20260712`
 Content-fix commit: `7bb02bc8ff7a43d2d4a1137e87a2178059a1e5b3`
+Closure content-fix commit: `d85e2f63911d8b040324815c50d12a548aa9da57`
 
 ## Verdict
 
@@ -14,7 +15,7 @@ The final verdict remains **ready for author-led submission preparation as a spe
 
 ### F1 — Nonuniform reversible DeGroot used the wrong primary metric
 
-**Disposition: fixed.** The manuscript now writes the primary product Fisher metric explicitly and shows that it leaves $D_\rho(I-W)$ in the reversible nonuniform flow. The exact $(I-W)$ generator requires $G_\rho=\sigma^{-2}(D_\rho\otimes I_d)$, the fixed-label joint-family interpretation, or rates $\eta_i\propto\rho_i^{-1}$. The Friedkin--Johnsen reduction inherits the same qualification. The symbolic regression contains exact rational checks for both generators.
+**Disposition: fixed and closure-corrected.** The manuscript writes the primary product Fisher metric explicitly and shows that it leaves $D_\rho(I-W)$ in the reversible nonuniform flow. Matching the standard transient $(I-W)$ generator requires $G_\rho=\sigma^{-2}(D_\rho\otimes I_d)$, the fixed-label joint-family interpretation, or rates $\eta_i\propto\rho_i^{-1}$. The restricted anchored Friedkin--Johnsen equilibrium is instead the stationary point of the reversible scalar energy and is independent of the positive flow metric; only its standard transient inherits the generator qualification. The exact regression now differentiates an explicit nonsymmetric reversible two-state chain and verifies the anchored stationary zero set.
 
 ### F2 — The first-order stiffness/latency direction was reversed
 
@@ -34,9 +35,9 @@ The final verdict remains **ready for author-led submission preparation as a spe
 
 ## Verification evidence
 
-The final-panel build sequence was `pdflatex`, BibTeX, and three stabilizing `pdflatex` passes in `C:\tmp\belief-inertia-final-panel-A-20260713`. Every authoritative command exited zero. The final PDF is 39 pages. The final log has zero forbidden unresolved/error diagnostics, zero overfull boxes, and 22 underfull boxes. The `.blg` has zero BibTeX warnings or errors.
+The authoritative closure build sequence was `pdflatex`, BibTeX, and three stabilizing `pdflatex` passes in `C:\tmp\belief-inertia-final-closure-C-20260713`. Every authoritative command exited zero. The final PDF is 39 pages. The final log has zero LaTeX or natbib warnings, zero forbidden unresolved/error diagnostics, zero overfull boxes, and 19 underfull boxes. The `.blg` has zero BibTeX warnings or errors.
 
-The fresh exact regression prints `belief-inertia symbolic checks: PASS`. Vault lint checks 981 files and reports zero broken wikilinks, zero gray graph nodes, zero empty files, zero case-insensitive basename collisions, and zero cross-file identity collisions. `git diff --check` exits zero. Protected hashes remain unchanged:
+The fresh exact regression prints `belief-inertia symbolic checks: PASS`. Vault lint checks 983 files and reports zero broken wikilinks, zero gray graph nodes, zero empty files, zero case-insensitive basename collisions, and zero cross-file identity collisions. `git diff --check` exits zero. The authoritative current provenance is [[belief-inertia-2026-07-13-final-review-closure]]. Protected hashes remain unchanged:
 
 ```text
 manuscripts/PIFB2.tex
@@ -51,4 +52,4 @@ E1F4CDE3A71D0AA852B93AE3955C3C5650093116E8ECAC8E52C8F152C02FBF6F
 
 ## Residual limitations
 
-The manuscript remains a theory/model contribution. The kinetic metric is postulated rather than identified; the primary attractive dynamics do not prove indefinitely persistent polarization; the social-psychological mappings need operationalized measures and data; and the weighted reversible construction is an additional geometry, not the primary population metric. The 22 underfull-box notices are confined to narrow comparison-table cells and two low-badness prose lines; they do not indicate truncated text, mathematical failure, or unresolved cross-references.
+The manuscript remains a theory/model contribution. The kinetic metric is postulated rather than identified; the primary attractive dynamics do not prove indefinitely persistent polarization; the social-psychological mappings need operationalized measures and data; and the weighted reversible construction is an additional transient geometry, not the primary population metric. The 19 underfull-box notices are nonblocking layout diagnostics; they do not indicate truncated text, mathematical failure, or unresolved cross-references.

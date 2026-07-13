@@ -13,6 +13,12 @@ The revised work is suitable for author-led submission preparation as a speciali
 
 No new data were created, analyzed, or claimed in this revision.
 
+## Final-review closure — 2026-07-13
+
+The authoritative closure content commit is `d85e2f63911d8b040324815c50d12a548aa9da57`, recorded in [[belief-inertia-2026-07-13-final-review-closure]]. It corrects the remaining Friedkin--Johnsen precision: the restricted reversible anchored equilibrium is the stationary point of the scalar energy and is independent of the positive flow metric; only matching the standard transient generator requires $G_\rho$ or agent-specific rates. It also reconciles the six named adjacent-model wiki pages and the additional direct current overclaims surfaced by the repository-wide scan, and replaces the earlier matrix identity with an exact nonsymmetric reversible-chain differentiation.
+
+The final clean build is 39 pages with zero LaTeX or natbib warnings, zero BibTeX warnings or errors, zero forbidden diagnostics, zero overfull boxes, and 19 nonblocking underfull boxes. Final vault lint checks 983 files with all five structural categories at zero. Citation resolution has zero missing keys and zero duplicate BibTeX keys. The final manuscript hash is `A3C4B5F03B6B1A08DD8F473FEC56413F90E8ED7A9885C3E90E12A62B50BA7B3B`, the bibliography hash is `01491289DB2DBB426F5EC156C9D123F568F415E04378FDB626E721F6654F3E62`, and the exact-regression hash is `09CBC0277A768702B8E96272E4D5C35D6F1D9BBF32B561019F3FCA88DC793788`. Both prior immutable belief-inertia source records and the protected PIFB2 and historical-source hashes remain unchanged. No new data were created, analyzed, or claimed.
+
 ## Final-panel reconciliation — 2026-07-13
 
 The final panel identified five residual issues after the original verification snapshot: the nonuniform reversible DeGroot reduction required an additional stationary-measure-weighted Fisher metric or equivalent agent-specific rates; the first-order stiffness-versus-relaxation direction was reversed; several adjacent social-model wiki pages retained overbroad recovery language; three canonical social-science claims needed direct citations; and the source provenance needed to distinguish the pre-Task-11 hashes from the final reviewed files. All five were corrected in content commit `7bb02bc8ff7a43d2d4a1137e87a2178059a1e5b3` and are documented in `docs/reviews/2026-07-13-belief-inertia-final-panel-reconciliation.md` and [[belief-inertia-2026-07-13-final-verification-addendum]].
@@ -171,7 +177,7 @@ belief-inertia symbolic checks: PASS
 exit 0
 
 python docs/_lint.py --root .
-files: 981
+files: 983
 BROKEN wikilinks: 0
 GRAPH grey nodes: 0
 EMPTY files: 0

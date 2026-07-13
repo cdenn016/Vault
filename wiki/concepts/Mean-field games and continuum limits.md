@@ -67,7 +67,7 @@ is the Wasserstein gradient flow of the free energy $\mathcal{E}[\rho] = \int U(
 
 ## See also
 
-- [[Multi-agent variational free energy]] — the functional whose continuum limit these methods would make rigorous.
+- [[Multi-agent variational free energy]] — the finite-agent functional for which a continuum limit remains to be derived.
 - [[belief-inertia]] · [[Belief inertia]] — the founding manuscript and the inertial-belief claim that Cucker–Smale prototypes.
 - [[Hamiltonian belief dynamics]] — the second-order belief equation $M\ddot\mu + \gamma\dot\mu + \nabla F = 0$ paralleled by velocity alignment.
 - [[Renormalization-group flow of beliefs]] · [[Meta-agents and hierarchical emergence]] — the program's own coarse-graining tower across scales.
@@ -75,3 +75,4 @@ is the Wasserstein gradient flow of the free energy $\mathcal{E}[\rho] = \int U(
 - [[Opinion dynamics]] · [[Bounded confidence]] — restricted averaging correspondence and soft analog; no general overdamped recovery.
 - [[Sociophysics]] · [[SocialPhysics]] — the broader programme and the founding project page.
 - [[Statistical manifold]] · [[Fisher information metric]] · [[Gauge transformation]] — the curved geometry that complicates a direct continuum port.
+- [[belief-inertia-2026-07-13-final-review-closure]] — authoritative status of mean-field and continuum models as methodological templates.

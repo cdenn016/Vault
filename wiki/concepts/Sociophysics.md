@@ -60,3 +60,4 @@ The contribution should be compared directly with established opinion and probab
 - [[Multi-agent variational free energy]]
 - [[Hamiltonian belief dynamics]]
 - [[Gauge-Theoretic Multi-Agent VFE Model]]
+- [[belief-inertia-2026-07-13-final-review-closure]]

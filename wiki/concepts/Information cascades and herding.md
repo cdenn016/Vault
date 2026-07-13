@@ -69,3 +69,4 @@ These models sit within the broader [[Statistical physics of social systems and 
 - [[Sociophysics]] · [[SocialPhysics]] — the broader programme and the founding project page.
 - [[Community detection and modularity]] · [[Meta-agents and hierarchical emergence]] — the graph-structure lever that governs correct vs. pathological collective inference.
 - [[Collective active inference]] — the active-inference reading of coupled belief-updating populations.
+- [[belief-inertia-2026-07-13-final-review-closure]] — authoritative benchmark-only status for cascades and herding.

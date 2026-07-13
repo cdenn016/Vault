@@ -58,8 +58,9 @@ Collectively these results place synchronization within the broader theme of [[S
 
 - [[Hamiltonian belief dynamics]] — the underdamped regime whose oscillation/resonance/entrainment phenomenology parallels synchronization.
 - [[Mass as Fisher information]] — the inertial reading that makes momentum-carrying beliefs possible.
-- [[Multi-agent variational free energy]] — the functional whose coupling sets up the consensus-versus-fragmentation transition.
+- [[Multi-agent variational free energy]] — the functional whose present theorem does not derive a Kuramoto or fragmentation transition.
 - [[Opinion dynamics]] — the restricted first-order averaging correspondence, contrasted with synchronization benchmarks.
 - [[Echo chambers and polarization]] — the fragmented (incoherent) phase of the coupling-driven transition.
 - [[Meta-entropy]] · [[Renormalization-group flow of beliefs]] — the continuum / multi-scale machinery the kinetic Kuramoto formulation mirrors.
 - [[Sociophysics]] · [[SocialPhysics]] · [[belief-inertia]] — the broader programme, the founding project page, and the founding manuscript.
+- [[belief-inertia-2026-07-13-final-review-closure]] — authoritative benchmark-only status for synchronization.
