@@ -11,6 +11,7 @@ tags:
   - cluster/social-physics
   - cluster/vfe
   - project/multi-agent
+  - project/social-physics
 status: stable
 created: 2026-06-19
 updated: 2026-07-12
