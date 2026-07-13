@@ -327,11 +327,22 @@ For a trajectory $\mu(t)$ parameterized by some external parameter $t$, the tota
 This Fisher arc-length clock plays a role loosely comparable to proper time in special relativity, in that different agents accumulate it at different rates depending on their precision; we draw the comparison only as an analogy and do not claim a Lorentzian metric structure, which would require a derived signature and is not established here. The velocity through belief space determines how quickly arc length accumulates, with high-precision agents accumulating it faster for identical parametric motion. The intrinsic metric that defines this arc length does not, by itself, select a kinetic energy or an inertial mass.
 
 %==============================================================================
-\subsection{Kinetic Geometry Is an Additional Postulate}
-\label{sec:hamiltonian}
+\subsection{Fisher--Rao Natural Gradient as the Primary Dynamics}
+\label{sec:natural_gradient_dynamics}
 %==============================================================================
 
-The objective determines forces and local loss curvature, whereas a second-order theory also requires a positive kinetic metric. We reserve $\mathbf M(x)$ for that kinetic metric. It is introduced only by an explicit kinetic postulate and is neither the Fisher--Rao metric nor the loss Hessian by definition. This subsection therefore does not install second-order dynamics; it first isolates the stiffness supplied by the canonical objective.
+The primary belief dynamics are first order.  For each Gaussian factor, the inverse Fisher metric in affine $(\mu_i,\Sigma_i)$ coordinates maps the Euclidean coordinate derivatives of the canonical objective to
+\begin{equation}
+\boxed{
+\dot\mu_i=-\eta_\mu\Sigma_i\nabla_{\mu_i}\mathcal F,
+\qquad
+\dot\Sigma_i=-2\eta_\Sigma\Sigma_i
+(\nabla_{\Sigma_i}\mathcal F)\Sigma_i,}
+\label{eq:primary_fisher_flow}
+\end{equation}
+with $\eta_\mu,\eta_\Sigma>0$ and symmetric covariance derivative.  Equation~\eqref{eq:primary_fisher_flow} is the Fisher--Rao steepest-descent flow on the Gaussian statistical manifold, not inverse-loss-Hessian or Newton flow \citep{Amari2016}.  In particular, the four-part loss stiffness derived below does not replace the intrinsic Fisher preconditioner in Eq.~\eqref{eq:primary_fisher_flow}.
+
+An overdamped mechanical analogy reproduces this flow only after a tensor friction has been specified.  If one separately postulates a kinetic block $\mathbf M=\mathbf G$ and writes $\mathbf M\ddot x+\boldsymbol\Gamma\dot x+\nabla_x\mathcal F=0$, then choosing $\boldsymbol\Gamma=\mathbf M/\eta$ gives $\dot x=-\eta\mathbf G^{-1}\nabla_x\mathcal F$ on the slow manifold.  Distinct mean and covariance learning rates give the corresponding blockwise choices $\boldsymbol\Gamma^\mu=\mathbf G^\mu/\eta_\mu$ and $\boldsymbol\Gamma^\Sigma=\mathbf G^\Sigma/\eta_\Sigma$.  For a general independently chosen kinetic metric $\mathbf M\ne\mathbf G$, the choice $\boldsymbol\Gamma=\mathbf M/\eta$ instead produces an $\mathbf M$-metric flow and must not be called the Fisher natural gradient.  A scalar damping coefficient cannot establish either identification.
 
 
 %------------------------------------------------------------------------------
@@ -457,93 +468,106 @@ For a symmetric covariance variation $U$, each matched Gaussian KL in which $q_i
 this diagonal block is positive definite on nonzero symmetric $U$ whenever its scalar coefficient is positive. This is a local block statement only: it does not establish positive definiteness of the full stacked covariance Hessian or of the envelope-reduced Hessian.
 \end{proof}
 
+%------------------------------------------------------------------------------
+\subsection{Kinetic Geometry as a Conditional Extension}
+\label{sec:hamiltonian}
+%------------------------------------------------------------------------------
+
+The objective determines forces and local loss curvature, whereas a second-order theory additionally requires a positive kinetic metric.  We reserve $\mathbf M(x)$ for that metric.  Statistical-bundle Lagrangians and Hamiltonian probability dynamics provide precedents for such an additional construction, including accelerated natural-gradient mechanics, but they begin by specifying the mechanical structure rather than deriving a unique kinetic energy from a divergence \citep{Pistone2018StatisticalBundle,ChircoMalagoPistone2022}.  Likewise, the information-geometric/discrete-mechanical bridge of Leok and Zhang holds under explicit Hessian-manifold and variational conditions, and Riemann-manifold Hamiltonian Monte Carlo chooses a position-dependent Fisher or Riemannian kinetic geometry for an algorithmic purpose \citep{LeokZhang2017,GirolamiCalderhead2011}.  These precedents motivate, but do not prove, the following assumption.
+
+\begin{tcolorbox}[colback=gray!5,colframe=gray!75,title=Kinetic-metric postulate]
+\textbf{Assumption.} In a reciprocal, frozen-attention, local-consensus regime, a positive restriction of the gauge-VFE stiffness may be adopted as a kinetic metric for belief-configuration change.
+\end{tcolorbox}
+
+This is a modeling choice, not a theorem of variational free energy or information geometry.  It applies only after the chosen restriction is positive definite; it does not identify the intrinsic Fisher metric $\mathbf G$, the affine-coordinate loss Hessian $\mathbf H_F$, and the kinetic metric $\mathbf M$ globally.
+
+The postulate also exposes a degeneracy that any oscillator interpretation must confront.  If the same local objective supplies the restoring stiffness, a normal mode $v\ne0$ solves
+\begin{equation}
+\mathbf H_Fv=\omega^2\mathbf Mv.
+\label{eq:hessian_mass_spectrum}
+\end{equation}
+Consequently,
+\begin{equation}
+\boxed{
+\mathbf M=\mathbf H_F
+\quad\Longrightarrow\quad
+\omega^2=1,}
+\label{eq:hessian_mass_degeneracy}
+\end{equation}
+up to the declared conversion scale (more generally, $\mathbf M=c\mathbf H_F$ gives $\omega^2=c^{-1}$).  Thus the four-part stiffness spectrum cannot simultaneously serve as an identical mass spectrum and yield nontrivial mode-dependent frequencies.  Such dependence requires an operationally independent kinetic metric and restoring stiffness, for example a frozen pre-intervention $\mathbf M$ followed by manipulated evidence curvature, or the intrinsic Fisher metric $\mathbf G$ paired with a distinct local objective Hessian $\mathbf H_F$.  The conditional formulas below therefore use a positive kinetic metric $\mathbf M$ and a separately specified positive restoring stiffness $\mathbf K$.
+
 \section{Results}
 
 %==============================================================================
-\subsection{Cognitive Phenomena from Belief Momentum}
+\subsection{Conditional Kinetic Mechanics and Full Coupled Momentum}
 \label{sec:cognitive-momentum}
 %==============================================================================
 
-The Hamiltonian formulation introduces a quantity absent from standard treatments of Bayesian belief updating we refer to as epistemic momentum. Just as physical momentum allows objects to flow past equilibrium, epistemic momentum allows beliefs to overshoot, oscillate, and resist change in ways that pure gradient descent cannot capture.
+The second-order extension is conditional on the postulate in Section~\ref{sec:hamiltonian}; it is not the primary inference law.  Opinion particles with force and inertia, including a harmonic example, already appear in Martins's Bayesian-inspired construction, while Xue, Hirche, and Cao use port-Hamiltonian and passivity methods for a controlled opinion network \citep{Martins2015OpinionParticles,XueHircheCao2020}.  The present mechanism is narrower: it applies a separately declared kinetic metric to the gauge-transported VFE potential.
 
-
-\begin{definition}[Cognitive Momentum]
-
-The cognitive momentum of agent $i$ is the product of epistemic mass and belief velocity
-
+Let $\boldsymbol\mu=(\mu_1^\top,\ldots,\mu_N^\top)^\top$ and let the locally constant mean-sector kinetic metric have blocks $\mathbf M_{ik}^\mu$.  The Lagrangian and conjugate momentum are
 \begin{equation}
-\boxed{\pi_i = M_i \dot{\mu}_i = \left(\bar{\Lambda}_{p_i} + \Lambda_{o_i}+ \sum_k \beta_{ik}\tilde{\Lambda}_{q_k} + \sum_j \beta_{ji}\Lambda_{q_i}\right) \dot{\mu}_i}
+L=\frac12\dot{\boldsymbol\mu}^{\top}\mathbf M^\mu
+\dot{\boldsymbol\mu}-\mathcal F(\boldsymbol\mu),
+\qquad
+\boldsymbol\pi^\mu
+=\frac{\partial L}{\partial\dot{\boldsymbol\mu}}
+=\mathbf M^\mu\dot{\boldsymbol\mu}.
+\label{eq:conditional_mean_lagrangian}
 \end{equation}
-
-where $\dot{\mu}_i$ is the rate of belief change.
-
-\end{definition}
-
-The full theory includes conjugate momentum $\Pi_i^\Sigma$ for covariance dynamics 
-(see Appendix~\ref{app:hamiltonian}), but mean dynamics capture the primary phenomenology.
-
-For an isolated agent with isotropic uncertainty $\Sigma_i = \sigma_i^2 I$, this simplifies to
-
+Therefore the momentum assigned to agent $i$ is the full coupled row
 \begin{equation}
-\pi_i = \frac{1}{\sigma_i^2}\dot{\mu}_i = \Lambda_i \dot{\mu}_i
+\boxed{
+\pi_i^\mu=\sum_k\mathbf M_{ik}^\mu\dot\mu_k.}
+\label{eq:full_coupled_momentum}
 \end{equation}
+The simpler expression $\pi_i^\mu=M_i\dot\mu_i$ is valid only under an explicit block-diagonal approximation $\mathbf M_{ik}^\mu=\delta_{ik}M_i$.  In particular, the four diagonal stiffness contributions in Eq.~\eqref{eq:stiffness_diagonal} do not separately define four momenta, and off-diagonal sender--receiver blocks cannot be dropped when the full coupled kinetic metric is used.  Covariance motion has the analogous cotangent variable $\Pi_i^\Sigma$ described in Appendix~\ref{app:hamiltonian}.
 
- Momentum is not simply the velocity of belief. A confident agent (high $\Lambda$) moving slowly has the same momentum as an uncertain agent (low $\Lambda$) moving quickly. This asymmetry has interesting consequences for belief dynamics.
-
-\begin{table}[ht]
-\centering
-\caption{Components of cognitive momentum and their psychological interpretations.}
-\label{tab:momentum-components}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{@{} l l l @{}}
-\toprule
-\textbf{Component} & \textbf{Formula} & \textbf{Psychological Role} \\
-\midrule
-Bare momentum & $\bar{\Lambda}_{p_i}\dot{\mu}_i$ & Inertia from prior expectations \\
-Sensory momentum & $\Lambda_{o_i}\dot{\mu}_i$ & Inertia from observation precision \\
-Social momentum & $\sum_k\beta_{ik}\tilde{\Lambda}_{q_k}\dot{\mu}_i$ & Inertia from social embedding \\
-Recoil momentum & $\sum_j\beta_{ji}\Lambda_{q_i}\dot{\mu}_i$ & Inertia from influencing others \\
-\bottomrule
-
-\end{tabular}
-\end{table}
+For positive $\mathbf M$ the corresponding local Hamiltonian is
+\begin{equation}
+\boxed{
+H(\boldsymbol\mu,\boldsymbol\pi)
+=\frac12\boldsymbol\pi^{\top}\mathbf M^{-1}\boldsymbol\pi
++\mathcal F(\boldsymbol\mu).}
+\label{eq:conditional_local_hamiltonian}
+\end{equation}
+If $\mathbf M$ varies with the state, Hamilton's momentum equation includes the metric-derivative term given in Appendix~\ref{app:hamiltonian}; the constant-metric oscillator laws below do not apply without that term.
 
 \subsection{Belief Overshoot and Perseverance}\label{sec:overshoot}
 
-Presently, research treats belief perseverance as a flaw in information processing. Epistemic momentum yields an alternative perspective: perseverance is the natural dynamical consequence of beliefs possessing inertia.
-
-Consider an agent moving toward a conclusion with velocity $\dot{\mu}$ who encounters a sudden shift in evidence (a new equilibrium). An agent lacking inertia would instantly reverse course whereas an inertial agent possesses a "kinetic energy" that must be converted into "potential energy" before they can stop and reverse.
-
-In the low-damping limit, energy conservation on the quadratic free energy landscape dictates that the initial kinetic energy converts to potential energy at the point of maximum overshoot:
-
+Linearize about a local equilibrium and independently specify a positive kinetic metric $\mathbf M$, a positive restoring stiffness $\mathbf K$, and a positive-semidefinite damping tensor $\boldsymbol\Gamma$.  The conditional driven equation is
 \begin{equation}
-\frac{1}{2} M_i |\dot{\mu}_i|^2 = \frac{1}{2} K_i |d_{\text{overshoot}}|^2
+\mathbf M\ddot{\delta\boldsymbol\mu}
++\boldsymbol\Gamma\dot{\delta\boldsymbol\mu}
++\mathbf K\delta\boldsymbol\mu
+=f(t).
+\label{eq:conditional_matrix_oscillator}
 \end{equation}
+For an $\mathbf M$-orthonormal generalized mode $v$ satisfying $\mathbf Kv=\omega_0^2\mathbf Mv$, assume that damping is modal so that the projected coordinate $z=v^\top\mathbf M\delta\boldsymbol\mu$ obeys $m\ddot z+\gamma\dot z+kz=f_v(t)$ with $m,k>0$.  These hypotheses are essential: a state-dependent metric, evolving attention, indefinite reduced Hessian, or nonmodal damping requires the full coupled equations rather than the scalar formulas below.
 
-where $K_i$ is the stiffness (curvature) of the free energy well provided by the new evidence. 
-
-Solving for the overshoot distance:
-
+In the nearly conservative harmonic case, set $f_v=0$ during the coast and neglect damping over the stopping interval.  Energy conversion gives
 \begin{equation}
-\boxed{d_{\text{overshoot}} = |\dot{\mu}_i| \sqrt{\frac{M_i}{K_i}}}
+\frac12m v_0^2=\frac12k d_{\mathrm{over}}^2,
+\qquad
+\boxed{d_{\mathrm{over}}=|v_0|\sqrt{\frac{m}{k}}.}
+\label{eq:conditional_harmonic_overshoot}
 \end{equation}
+Thus $d_{\mathrm{over}}\propto\sqrt m$ only when the initial velocity $v_0$, restoring stiffness $k$, and damping protocol are held fixed.  If initial momentum $p_0=mv_0$ is held fixed instead, then $d_{\mathrm{over}}=|p_0|/\sqrt{mk}$ decreases as $m^{-1/2}$.  Neither scaling follows from the four-part loss stiffness unless the kinetic metric and the post-intervention restoring stiffness have been independently operationalized.
 
-This result differs from constant-force braking models. It predicts that for a given velocity and evidence strength ($K$), the overshoot should scale with the square root of the epistemic mass (precision). We emphasize that this $\sqrt{M/K}$ law is a \emph{prediction} of the harmonic (energy-conserving) regime; the simulations reported in Section~\ref{sec:computational_validation} test only the linear ballistic stopping-distance relation $d_{\text{stop}} \propto \Lambda$ under constant counter-force, which is a different regime, and do not yet verify the square-root law directly.
-% TODO: simulate the sqrt(M/K) overshoot law directly (currently only the linear ballistic relation is simulated).
-
-This provides a geometric account of why high-precision priors ($M \approx \bar{\Lambda}_p$) should lead to "stubbornness." A person with deep convictions (high $M$) moving through a line of reasoning possesses enormous epistemic momentum. When they encounter a contradiction (a force $K$), they do not stop immediately. Instead, they "coast" past the logical stopping point, requiring a larger counter-force or longer time to arrest their belief trajectory. This yields a testable quantitative prediction: the ratio of overshoot distances for high-precision ($\Lambda_H$) versus low-precision ($\Lambda_L$) agents should scale as the square root of their precisions,
-
+A different protocol applies a constant opposing force of magnitude $f_0>0$ with no spring.  Integrating $m\ddot z=-f_0$ until the velocity reaches zero yields
 \begin{equation}
-\frac{d_H}{d_L} = \sqrt{\frac{\Lambda_H}{\Lambda_L}},
+\boxed{
+d_{\mathrm{stop}}=\frac{m v_0^2}{2f_0}
+=\frac{p_0^2}{2mf_0}.}
+\label{eq:conditional_ballistic_stop}
 \end{equation}
-
-evaluated at matched belief velocity $|\dot{\mu}|$; under matched epistemic momentum $\pi = M\dot{\mu}$ the overshoot instead scales as $\Lambda^{-1/2}$, so the comparison must specify which quantity is held fixed. This prediction remains to be verified in simulation and experiment. While less dramatic than a linear scaling, this square-root relationship would be a rigid constraint imposed by the harmonic geometry of Gaussian belief spaces.
+The first form is linear in $m$ at fixed initial velocity and force; the second is inverse in $m$ at fixed initial momentum and force.  The harmonic overshoot and constant-force stopping laws are distinct interventions and must not be used interchangeably.
 
 %------------------------------------------------------------------------------
 \subsection{Belief Oscillation}
 %------------------------------------------------------------------------------
 
-Another prediction of our Hamiltonian epistemic dynamics is oscillation phenomena. Unlike gradient descent, which monotonically approaches equilibrium, Hamiltonian systems can overshoot, oscillate, and decay (see Figure~\ref{fig:phase_portraits})
+Equation~\eqref{eq:conditional_matrix_oscillator}, rather than the primary Fisher flow, supplies the conditional oscillator.  Second-order opinion motion is not novel by itself: Martins gives an inferential opinion-particle harmonic oscillator, and network-level second-order consensus can exhibit Laplacian-mode parametric resonance under periodic coupling \citep{Martins2015OpinionParticles,BaumannSokolovTyloo2020}.  The distinctive question here is whether an independently defined kinetic metric improves predictions once the gauge-VFE restoring stiffness is manipulated.
 
 \begin{figure}[ht]
     \centering
@@ -560,7 +584,7 @@ Another prediction of our Hamiltonian epistemic dynamics is oscillation phenomen
         \caption{Underdamped ($\gamma < 2\sqrt{KM}$)}
         \label{fig:phase_underdamped}
     \end{subfigure}
-    \caption{Phase portraits of belief dynamics. (a) Overdamped regime: beliefs decay monotonically to equilibrium. (b) Underdamped regime: beliefs exhibit oscillatory dynamics. Both simulations run from $t=0$ to $t=250$ over 10,000 steps.}
+    \caption{Phase portraits for the conditional scalar oscillator with locally constant, independently specified $m$ and $k$. (a) Overdamped trajectories decay without oscillation. (b) Underdamped trajectories spiral toward equilibrium. These plots illustrate Eq.~\eqref{eq:conditional_matrix_oscillator}; they are not trajectories of the first-order Fisher flow.}
     \label{fig:phase_portraits}
 \end{figure}
 
@@ -568,184 +592,139 @@ Another prediction of our Hamiltonian epistemic dynamics is oscillation phenomen
 
 \subsubsection{The Damped Epistemic Oscillator}
 
-The damping coefficient $\gamma$ is not a new free parameter but inherits directly from standard variational inference. To see this, note that in the overdamped limit where $M\ddot{\mu} \ll \gamma\dot{\mu}$, the equation of motion $M\ddot{\mu} + \gamma\dot{\mu} + \nabla F = 0$ reduces to $\gamma\dot{\mu} \approx -\nabla F$, yielding $\dot{\mu} = -\gamma^{-1}\nabla F$. This is precisely gradient descent on the free energy, $\dot{q} = -\nabla_q F$, with learning rate $\eta = \gamma^{-1}$. Thus $\gamma$ is simply the inverse learning rate from standard variational inference. The underdamped regime ($\gamma < 2\sqrt{KM}$) corresponds to fast learning where inertial effects become significant, introducing dynamics not present in first-order treatments.
-
+For one modal coordinate, the characteristic roots of $m\ddot z+\gamma\dot z+kz=0$ are
 \begin{equation}
-M_i\ddot{\mu}_i + \gamma_i\dot{\mu}_i + \nabla_{\mu_i}\mathcal{F} = 0
+r_\pm=\frac{-\gamma\pm\sqrt{\gamma^2-4mk}}{2m}.
+\label{eq:conditional_modal_roots}
 \end{equation}
-
-where $\gamma_i > 0$ is a damping coefficient.  This equation, from the physics perspective, is the well-known damped harmonic oscillator.
-
-For small displacements from equilibrium $\mu^*$ we have
-
+When $\gamma^2<4mk$, the damped angular frequency and envelope time are
 \begin{equation}
-M_i\ddot{\delta\mu} + \gamma_i\dot{\delta\mu} + K_i\delta\mu = 0
+\boxed{
+\omega_d=\sqrt{\frac{k}{m}-\frac{\gamma^2}{4m^2}},
+\qquad
+\tau_{\mathrm{env}}=\frac{2m}{\gamma}.}
+\label{eq:conditional_damped_frequency}
 \end{equation}
-
-where $K_i$ represents the belief's "stiffness," the curvature of the potential well supplied by the evidence (the likelihood/observation precision $\Lambda_{o_i}$ together with any external restoring force), completely analogous to a spring constant. We stress that $K_i$ is the \emph{evidence} curvature, distinct from the epistemic mass $M_i = \partial^2\mathcal{F}/\partial\mu_i\partial\mu_i^\top$ that collects all precision contributions; the natural frequency $\omega_0 = \sqrt{K_i/M_i}$ is non-trivial precisely because the stiffness $K_i$ and the inertia $M_i$ are different objects, not the same Hessian.
-
-Once again we arrive at a quantifiable prediction:
-
-In the sub-critical ($\gamma_i < 2\sqrt{K_i M_i}$) regime, beliefs will oscillate around equilibrium with a frequency and decay time given by
-
-\begin{equation}
-\boxed{\omega = \sqrt{\frac{K_i}{M_i} - \frac{\gamma_i^2}{4M_i^2}} \approx \sqrt{\frac{\text{Evidence strength}}{\text{Epistemic mass}}}}
-\end{equation}
-
-\begin{equation}
-\tau_{\mathrm{env}} = \frac{2M_i}{\gamma_i} ,
-\end{equation}
-
-the underdamped envelope decay time, distinct from the overdamped relaxation time $\tau_{\mathrm{relax}}$ introduced in Section~\ref{sec:overshoot}.
+These dependences compare modes or interventions at fixed $k$ and $\gamma$.  Holding a damping ratio rather than $\gamma$ fixed changes the scaling.  Moreover, setting $m=k$ because both are the same loss Hessian collapses the undamped frequency to the unit value already shown in Eq.~\eqref{eq:hessian_mass_degeneracy}.
 
 \subsubsection{Three Dynamical Regimes}
 
-As the standard physics of oscillators show, the discriminant $\Delta = \gamma_i^2 - 4K_iM_i$ manifestly determines different behaviors. In the over-damped regime ($\Delta > 0$), beliefs decay to equilibrium monotonically without oscillation, resembling standard Bayesian updating in the literature. In the critically damped regime ($\Delta = 0$), the system exhibits the fastest approach to equilibrium without oscillation, suggesting this may be optimal for rapid learning. In the under-damped regime ($\Delta < 0$), beliefs oscillate around the equilibrium value, overshooting periodically before equilibrating, producing distinctly non-standard Bayesian dynamics.
-
-As an intuitive example, consider an agent with strong prior beliefs and low receptivity to counter-evidence. When confronted with strong contradictory evidence, the agent will generally exhibit initial resistance as the high mass $M = \Lambda$ resists the force of evidence, followed by acceleration as persistent evidence eventually accelerates belief change, then overshoot as momentum carries belief past the truth, then oscillation as belief swings between acceptance and rejection, and finally settling as damping eventually brings convergence to equilibrium.
-
-This pattern (resist, over-correct, oscillate) is consistent with phenomena documented in attitude change and belief correction research \citep{Eagly1993, Lewandowsky2012} but remains unexplained by standard Bayesian models. Here we find a natural and intuitive account.
+The discriminant $\Delta=\gamma^2-4mk$ yields overdamped ($\Delta>0$), critically damped ($\Delta=0$), and underdamped ($\Delta<0$) conditional regimes.  These are exact statements about the postulated scalar mechanical mode.  They are neither consequences of information geometry alone nor evidence that observed nonmonotonic opinion trajectories uniquely identify this mechanism; feedback systems and time-dependent network coupling can also oscillate or resonate.
 
 \subsection{Resonant Response to Periodic Evidence}
 
-Driven oscillatory systems exhibit resonance: a well-characterized phenomenon 
-in physics and engineering where response amplitude peaks at a specific driving 
-frequency. This mechanical effect, not to be confused with metaphorical uses of 
-"resonance", makes precise predictions for belief dynamics.
-
-Periodic evidence driving achieves maximum steady-state displacement amplitude at the driving frequency
-
+For a sinusoidal modal force $f_v(t)=f_0\cos(\omega t)$, with force amplitude $f_0$, mass $m$, stiffness $k$, and damping $\gamma$ all held fixed while the driving frequency is varied, the steady-state displacement amplitude is
 \begin{equation}
-\boxed{\omega_{\text{res}} = \sqrt{\frac{K_i}{M_i} - \frac{\gamma_i^2}{2M_i^2}}} .
+A(\omega)=\frac{f_0}
+{\sqrt{(k-m\omega^2)^2+(\gamma\omega)^2}}.
+\label{eq:conditional_resonance_amplitude}
 \end{equation}
-
-This is the displacement-amplitude resonance peak of the driven damped oscillator (note the factor $\gamma_i^2/2M_i^2$, distinct from the $\gamma_i^2/4M_i^2$ of the free underdamped frequency above). In the light-damping regime $\gamma_i^2 \ll 2K_iM_i$ it reduces to the undamped natural frequency $\sqrt{K_i/M_i}$, the ratio of evidence strength to epistemic mass; the velocity-amplitude response, by contrast, peaks at $\sqrt{K_i/M_i}$ for any damping.
+Differentiating $A^{-2}$ shows that a positive-frequency displacement peak exists when $\gamma^2<2mk$ and occurs at
+\begin{equation}
+\boxed{
+\omega_{\mathrm{res}}
+=\sqrt{\frac{k}{m}-\frac{\gamma^2}{2m^2}}.}
+\label{eq:conditional_resonance_frequency}
+\end{equation}
+This is a forced-response result under a fixed-force protocol.  The velocity-amplitude response instead peaks at $\sqrt{k/m}$, and a periodically modulated coupling produces the parametric network resonance studied by Baumann, Sokolov, and Tyloo rather than the additive-force response in Eq.~\eqref{eq:conditional_resonance_amplitude} \citep{BaumannSokolovTyloo2020}.
 
 
 \subsubsection{Amplitude at Resonance}
 
-For example, with sinusoidal forcing $f(t) = f_0\cos(\omega t)$, the steady-state amplitude is shown (in physics/engineering) to be
-
+Substitution of Eq.~\eqref{eq:conditional_resonance_frequency} gives the exact peak
 \begin{equation}
-A(\omega) = \frac{f_0/M_i}{\sqrt{(\omega_0^2 - \omega^2)^2 + (\gamma\omega/M_i)^2}}
+\boxed{
+A_{\mathrm{res}}
+=\frac{f_0}{\gamma\sqrt{k/m-\gamma^2/(4m^2)}}.}
+\label{eq:conditional_resonance_peak}
 \end{equation}
-
-where $\omega_0 = \sqrt{K/M}$ is the system's "natural" frequency.
-
-At resonance ($\omega = \omega_{\text{res}} \approx \omega_0$) then, we have
-
-\begin{equation}
-A_{\text{max}} = \frac{f_0}{\gamma_i \sqrt{K_i/M_i}} = \frac{f_0}{\gamma_i}\sqrt{\frac{M_i}{K_i}}
-\end{equation}
-
-Curiously this implies that high-mass (confident) agents have larger resonance amplitudes rather than smaller. While they resist off-resonance forcing, properly timed evidence produces dramatic swings. This prediction then offers myriad applications in psychological/sociological fields (education, advertising, negotiating, therapy, etc).
+Only in the light-damping limit does this reduce to $(f_0/\gamma)\sqrt{m/k}$.  That square-root comparison holds at fixed force amplitude, stiffness, and damping coefficient; it does not hold at fixed acceleration amplitude $f_0/m$, fixed input energy, or fixed damping ratio.  Because $m$ and $k$ must be operationally independent, the formula cannot be interpreted by substituting the same four-part loss Hessian for both.
 
 
 %------------------------------------------------------------------------------
 \subsection{Belief Perseverance in Social Embeddings}
 %------------------------------------------------------------------------------
 
-In the underdamped regime, where a restoring evidence force is present, the characteristic envelope decay time for a belief to relax toward equilibrium in a social setting is given by
-
+When the restoring force and external drive are removed after an intervention, the conditional modal equation becomes $m\ddot z+\gamma\dot z=0$.  Its velocity decays as
 \begin{equation}
-\boxed{\tau_{\mathrm{env}} = \frac{2M_i}{\gamma_i} = \frac{2\left(\bar{\Lambda}_{p_i} + \Lambda_{o_i}+ \sum_k\beta_{ik}\tilde{\Lambda}_{q_k} + \sum_j\beta_{ji}\Lambda_{q_i}\right)}{\gamma_i}} .
+\dot z(t)=\dot z(0)e^{-t/\tau_{\mathrm{coast}}},
+\qquad
+\boxed{\tau_{\mathrm{coast}}=\frac{m}{\gamma}.}
+\label{eq:conditional_coasting_time}
 \end{equation}
-
-This underdamped envelope time $\tau_{\mathrm{env}} = 2M/\gamma$ is distinct from the overdamped coasting time $\tau_{\mathrm{relax}} = M/\gamma$ that governs belief perseverance once the driving evidence is withdrawn (Section~\ref{sec:overshoot}); the two differ by a factor of two because they are decay constants of different equations of motion.
-
-
-High-precision beliefs have long decay times. This suggests phenomena where agents tend to hold onto beliefs even after thorough debunking and evidence to their contrary.
-
-For example, if agent A has precision $\Lambda_A = 10$ and agent B has $\Lambda_B = 1$ (both with equal damping $\gamma$), then
-
-\begin{equation}
-\frac{\tau_{\mathrm{env},A}}{\tau_{\mathrm{env},B}} = \frac{\Lambda_A}{\Lambda_B} = 10
-\end{equation}
-
-Agent A's false beliefs persist ten times longer than that of B's, despite identical evidence exposure.
+Thus the coasting time is proportional to $m$ only when the damping coefficient $\gamma$ is held fixed.  Under a fixed damping ratio $\zeta=\gamma/(2\sqrt{mk})$, it scales instead as $\sqrt{m/k}$.  The coasting time in Eq.~\eqref{eq:conditional_coasting_time} is also distinct from the underdamped displacement-envelope time $2m/\gamma$ in Eq.~\eqref{eq:conditional_damped_frequency} and from the spring-dominated overdamped slow time $\gamma/k$.  None of these times may be inferred directly from precision without an independently specified kinetic metric and damping protocol.
 
 \subsubsection{The Debunking Problem}
 
-Typically debunking assumes beliefs respond instantaneously to evidence yet our theory of epistemic momentum predicts that immediate debunking is ineffective.  The belief should flow past the correction target. Furthermore, if debunking occurs at intervals matching the belief's natural oscillation period, resonance could amplify rather than dampen the response.  A candidate method for debunking, then, is to properly time the belief trajectory before reinforcing the correction.  However, predicting that time scale for a given agent may be difficult.
+Interpreting this mathematical coast as belief perseverance is a falsifiable mechanism-specific hypothesis, not a consequence of the primary Fisher flow.  A test would have to manipulate or estimate $m$ separately from $k$ and $\gamma$ and then compare the observed post-drive velocity decay with Eq.~\eqref{eq:conditional_coasting_time}.
 
 
 %------------------------------------------------------------------------------
 \subsection{Sociology and Multi-Agent Momentum Transfer}
 %------------------------------------------------------------------------------
 
-When agents interact through the attention free energy ($\beta_{ij}$ term), momentum can transfer between beliefs, i.e. one agent's beliefs affects another's. This suggests a system of coupled equations of motion given an attention pattern of a multi-agent system.
+The complete coupled momentum balance follows from the scalar potential and the full momentum in Eq.~\eqref{eq:full_coupled_momentum}.  This differs from a receiver-only influence update: every directed edge contributes both a receiver force and a sender recoil in the sender's cotangent frame.
 
 \subsubsection{Coupled Equations of Motion}
 
-The full multi-agent dynamics with damping are
-
+For locally constant $\mathbf M$ and a damping tensor $\boldsymbol\Gamma$, the stacked equation is
 \begin{equation}
-\boxed{M_i\ddot{\mu}_i + \gamma_i\dot{\mu}_i + \nabla_{\mu_i}\mathcal{F} = 0}
+\boxed{
+\dot{\boldsymbol\pi}
+=-\nabla_{\boldsymbol\mu}\mathcal F
+-\boldsymbol\Gamma\dot{\boldsymbol\mu}
++f_{\mathrm{ext}},
+\qquad
+\boldsymbol\pi=\mathbf M\dot{\boldsymbol\mu}.}
+\label{eq:full_coupled_momentum_balance}
 \end{equation}
-
-We may expand the gradient as 
-
-\begin{equation}
-M_i\ddot{\mu}_i = -\gamma_i\dot{\mu}_i - \bar{\Lambda}_{p_i}(\mu_i - \bar{\mu}_i) - \sum_k\beta_{ik}\tilde{\Lambda}_{q_k}(\mu_i - \tilde{\mu}_k) - \sum_j\beta_{ji}\Lambda_{q_i}\Omega_{ji}^{-1}(\tilde{\mu}_i^{(j)} - \mu_j)
-\end{equation}
-
-Then this can be written as
-
-\begin{equation}
-\boxed{\underbrace{M_i\ddot{\mu}_i}_{\text{Inertia}} = -\underbrace{\gamma_i\dot{\mu}_i}_{\text{Damping}} - \underbrace{\nabla_{\mu_i}\mathcal{F}_{\text{prior}}}_{\text{Prior force}} - \underbrace{\nabla_{\mu_i}\mathcal{F}_{\text{consensus}}}_{\text{Social force}}}
-\end{equation}
+This formula remains coupled even if damping is block diagonal.  For state-dependent $\mathbf M$, the Hamiltonian metric-derivative force must be restored, so Eq.~\eqref{eq:full_coupled_momentum_balance} is the local constant-metric form rather than a global identity.
 
 \paragraph{Dynamic attention.} The expansion above assumes fixed attention weights. When attention is optimized inside the entropy-retaining row objective, its canonical gradient is the envelope response in Eq.~\eqref{eq:reduced_vfe_envelope}, with no additional first-order attention-reallocation term. Applying a product rule after dropping the categorical term instead differentiates the distinct surrogate $S_i$ and produces Eq.~\eqref{eq:entropy_suppressed_differential}. The covariance correction in that equation has no universal homophily sign and cannot by itself establish accelerated polarization.
 
-\paragraph{Regime of validity.} When attention weights $\beta_{ij}$ are dynamic (softmax), the mass matrix $M_i$ itself depends on the state $\{\mu_j, \Sigma_j\}$, making the Hamiltonian non-separable. The clean oscillator results derived below---natural frequency $\omega = \sqrt{K/M}$, envelope decay time $\tau_{\mathrm{env}} = 2M/\gamma$, overshoot distance $d \propto \sqrt{M/K}$---are therefore valid only in the regime of small perturbations around equilibrium, where the mass matrix can be treated as approximately constant. For large-amplitude dynamics or rapidly evolving attention, the state-dependent mass introduces additional nonlinear effects (parametric driving, adiabatic mass variation) not captured by the linearized analysis. The computational validation in Section~\ref{sec:computational_validation} confirms that the linearized predictions are quantitatively accurate for the parameter regimes explored.
+\paragraph{Regime of validity.} When attention weights or the postulated kinetic metric vary with the belief state, the Hamiltonian is generally nonseparable.  The modal formulas above apply only after $\mathbf M$, $\mathbf K$, and $\boldsymbol\Gamma$ have been frozen locally and the resulting positive modes identified.  Large-amplitude or rapidly adapting trajectories require the full state-dependent equations.
 
 
 \subsubsection{Epistemic Momentum Transfer}
 
 
-When agent $k$ changes belief, it transfers epistemic momentum to agent $i$ according to
-
+For the directed edge $k\to i$, define the receiver-frame current
 \begin{equation}
-\frac{d\pi_i}{dt}\bigg|_{\text{from } k} = -\beta_{ik}\tilde{\Lambda}_{q_k}(\mu_i - \tilde{\mu}_k) - \beta_{ki}\Lambda_{q_i}\Omega_{ki}^{-1}(\tilde{\mu}_i^{(k)} - \mu_k)
+\boxed{
+J_{k\to i}
+=\beta_{ik}\widetilde\Lambda_{q_k}
+(\Omega_{ik}\mu_k-\mu_i).}
+\label{eq:directed_edge_current}
 \end{equation}
-
-where $\tilde{\mu}_i^{(k)} = \Omega_{ki}\mu_i$ is agent $i$'s mean transported into agent $k$'s frame, so the reciprocal residual $\Omega_{ki}\mu_i - \mu_k$ is evaluated in the sender-receiver's frame, in agreement with the complete gradient of Eq.~\eqref{eq:total_gradient_mu}. The first (receiver) term carries the residual $\mu_i - \tilde{\mu}_k$ in agent $i$'s own frame. The total momentum transfer over a given interaction time scale $[0, T]$ is
-
-\begin{equation}
-\boxed{\Delta\pi_i = -\int_0^T \left[\beta_{ik}\tilde{\Lambda}_{q_k}(\mu_i - \tilde{\mu}_k) + \beta_{ki}\Lambda_{q_i}\Omega_{ki}^{-1}(\tilde{\mu}_i^{(k)} - \mu_k)\right] dt} .
-\end{equation}
+The force on the sender generated by this same directed edge is not a second copy of $J_{k\to i}$; it is the cotangent recoil $-\Omega_{ik}^{\top}J_{k\to i}$.  Consequently the complete local balance is
+\begin{align}
+\dot\pi_i^mu
+&+(\boldsymbol\Gamma\dot{\boldsymbol\mu})_i
++\alpha_i\bar\Lambda_{p_i}(\mu_i-\bar\mu_i)
++\Lambda_{o_i}(\mu_i-o_i)\nonumber\\
+&=\sum_kJ_{k\to i}
+-\sum_j\Omega_{ji}^{\top}J_{i\to j}
++f_{i,\mathrm{ext}}.
+\label{eq:complete_current_balance}
+\end{align}
+Integrating Eq.~\eqref{eq:complete_current_balance} gives the momentum change over a declared interval.  It does not reduce to the incoming-current sum unless sender variables have explicitly been detached.
 
 
 \subsubsection{Conservation and Non-Conservation}
 
-Under reciprocal coupling---fixed and symmetric attention weights $\beta_{ik} = \beta_{ki}$ with reciprocal frames $\Omega_{ik}\Omega_{ki} = I$---the consensus forces between any pair of agents are equal and opposite. In flat gauge ($\Omega_{ik} = I$) the internal forces then derive from a single conservative potential and the bare momentum sum is conserved in the absence of priors and damping (more generally, under non-identity reciprocal frames the conserved quantity is the frame-transported momentum rather than the bare $\sum_i \pi_i$),
+Fixed asymmetric attention does not by itself destroy conservativity.  With the weights frozen, the sum of all directed edge energies is still one scalar potential, and Eqs.~\eqref{eq:edge_mean_gradients} and \eqref{eq:complete_current_balance} retain both receiver and sender derivatives.  Nonconservative behavior arises only after a declared truncation, such as treating each sender as detached and applying only the receiver current, or from explicit time dependence, damping, or external forcing.  This distinction parallels the systems-and-control separation between a Hamiltonian storage function and its dissipative ports \citep{XueHircheCao2020}.
 
+Momentum conservation requires a continuous symmetry, not symmetric weights alone.  Let $a=(a_1,\ldots,a_N)$ be a covariantly constant translation generator satisfying $a_i=\Omega_{ik}a_k$ on every active edge.  If priors and observations are absent or translated with the state, $\boldsymbol\Gamma=0$, $f_{\mathrm{ext}}=0$, and the kinetic metric shares this symmetry, Noether's theorem gives
 \begin{equation}
-\frac{d}{dt}\sum_i \pi_i = 0 \quad \text{(closed, reciprocal system)} .
+\boxed{
+Q_a=\sum_i a_i^\top\pi_i^\mu,
+\qquad
+\frac{dQ_a}{dt}=0.}
+\label{eq:covariant_momentum_conservation}
 \end{equation}
+In a flat common frame, $\Omega_{ik}=I$ and $a_i=a$, so Eq.~\eqref{eq:covariant_momentum_conservation} reduces componentwise to $d(\sum_i\pi_i^mu)/dt=0$.  Anchoring terms, damping, external forcing, or the receiver-only detached truncation supply the exact nonconservation terms in Eq.~\eqref{eq:complete_current_balance}.  Attention asymmetry alone does not.
 
-Under row-normalized (hence generically asymmetric) attention, or state-dependent $\beta$, the dynamics are no longer the gradient flow of a single conservative potential and total momentum is not conserved even without priors or damping.
-
-In contrast,  with priors and damping, momentum is assuredly not conserved. Momentum flows into the environment (the prior) and is then dissipated
-
-\begin{equation}
-\frac{d}{dt}\sum_i \pi_i = -\sum_i\gamma_i\dot{\mu}_i - \sum_i\bar{\Lambda}_{p_i}(\mu_i - \bar{\mu}_i)
-\end{equation}
-
-
-This allows us to define a momentum current from agent $k$ to agent $i$ as
-
-\begin{equation}
-J_{k\rightarrow i} = \beta_{ik}\tilde{\Lambda}_{q_k}(\tilde{\mu}_k - \mu_i)
-\end{equation}
-
-This satisfies the continuity equation
-
-\begin{equation}
-\dot{\pi}_i + \gamma_i\dot{\mu}_i + \bar{\Lambda}_{p_i}(\mu_i - \bar{\mu}_i) = \sum_k J_{k\rightarrow i}
-\end{equation}
-
-We find that momentum flows from agents with different beliefs via attention $\beta_{ik}$ and sender precision $\Lambda_{q_k}$. High-precision agents are powerful momentum sources as their motion strongly affects coupled neighbors. However, their strength is weighted by their relative attentions $\beta_{ij}$
+Finally, a loop holonomy $W_\gamma=\Omega_{ij}\Omega_{jk}\cdots\Omega_{\ell i}$ transforms by conjugation, $W_\gamma\mapsto g_iW_\gamma g_i^{-1}$.  Its conjugacy data---for example $\operatorname{tr}(W_\gamma^r)$ and characteristic-polynomial coefficients---are gauge invariant.  Wilson traces are the conventional compact-group observables.  By contrast, $\|W_\gamma-I\|_F$ is invariant under orthogonal or unitary conjugation but is frame dependent under a general $\mathrm{GL}(d)$ gauge transformation, so it cannot serve as a general gauge-invariant curvature magnitude.
 
 %------------------------------------------------------------------------------
 \subsection{Summary}
@@ -753,61 +732,61 @@ We find that momentum flows from agents with different beliefs via attention $\b
 
 \begin{table}[ht]
 \centering
-\caption{Testable predictions from cognitive momentum theory.}
+\caption{Conditional kinetic predictions and the quantities held fixed.  Every row assumes locally constant, independently specified positive $m$ and $k$ where a restoring stiffness is present.}
 \label{tab:predictions}
 \renewcommand{\arraystretch}{1.3}
 \begin{tabular}{@{} p{3cm} p{5cm} p{5cm} @{}}
 \toprule
-\textbf{Phenomenon} & \textbf{Prediction} & \textbf{Experimental Test} \\
+\textbf{Protocol} & \textbf{Conditional formula} & \textbf{Controlled quantities} \\
 \midrule
-Overshoot & Distance $\propto \sqrt{\text{precision}}$ & Measure overshoot vs. confidence \\[6pt]
-Belief oscillation & Under-damped agents overshoot truth and oscillate & Track belief trajectories over time \\[6pt]
-Resonance & Peak displacement response near $\omega_{\text{res}} = \sqrt{K/M}$ (light damping; exact peak $\sqrt{K/M - \gamma^2/2M^2}$) & Vary message timing, measure change \\[6pt]
-Perseverance & Coasting decay time $\tau_{\mathrm{relax}} = M/\gamma$ (continued-influence regime); underdamped envelope decay $\tau_{\mathrm{env}} = 2M/\gamma$ & Measure false belief persistence vs. uncertainty \\[6pt]
-Social momentum & High-$\Lambda$ agents transfer more momentum & Attention vs. source confidence \\[6pt]
-Recoil & Persuaders become harder to persuade & Measure attitude stiffness after persuasion attempts \\
+Harmonic overshoot & $d_{\mathrm{over}}=|v_0|\sqrt{m/k}$ & Initial velocity, $k$, damping protocol \\[6pt]
+Ballistic stopping & $d_{\mathrm{stop}}=mv_0^2/(2f_0)$ & Initial velocity and opposing force \\[6pt]
+Free oscillation & $\omega_d^2=k/m-\gamma^2/(4m^2)$ & $k$ and damping coefficient \\[6pt]
+Forced resonance & $\omega_{\mathrm{res}}^2=k/m-\gamma^2/(2m^2)$ & Force amplitude, $k$, and damping coefficient \\[6pt]
+Underdamped envelope & $\tau_{\mathrm{env}}=2m/\gamma$ & Damping coefficient \\[6pt]
+Force-free coast & $\tau_{\mathrm{coast}}=m/\gamma$ & Damping coefficient \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Our epistemic momentum framework unifies seemingly disparate phenomena such as confirmation bias, belief perseverance, oscillation, and social influence into manifestations of a single underlying epistemic Hamiltonian mechanics. Beliefs are not just updated, they are dynamic. Evidence does not instantly change minds but rather applies an epistemic force. Finally, confident beliefs don't only resist change; rather, they possess epistemic inertia that carries them further than evidence alone would have led them.
+These formulas characterize the conditional kinetic extension, not the primary Fisher natural-gradient flow.  Their empirical content lies in interventions that vary one operationally defined ingredient while holding the listed quantities fixed; replacing both $m$ and $k$ by the same VFE Hessian removes the claimed spectral dependence.
 
 %==============================================================================
-\subsection{Numerical Verification and Empirical Validation}
+\subsection{Numerical Checks of the Conditional Mechanical Model}
 \label{sec:computational_validation}
 %==============================================================================
 
-We distinguish two kinds of test. The simulations in this section provide \emph{numerical verification}: they integrate the model's own equations of motion and confirm that the measured trajectories reproduce the closed-form predictions of those same equations, establishing internal consistency and the correctness of the integrator. They do not, by themselves, validate the theory against independent data. \emph{Empirical validation} requires comparison with human behavioral data; we report one such comparison (the helicopter task below). The numerical verification used symplectic (leapfrog/St\"ormer-Verlet) integration, which preserves Hamiltonian phase space structure and ensures bounded energy drift over long time scales. Energy conservation was monitored throughout, with typical energy drift below $10^{-6}$ per unit time in the absence of dissipation. Source code for all simulations is available in the public repository, which is the authoritative record for the fit procedure, random seeds, integration step sizes, and loss functions.
+The simulations in this section integrate a postulated scalar or finite-dimensional mechanical model and compare its trajectories with formulas derived from that same model.  They are internal numerical checks, not evidence that Fisher information, VFE stiffness, or human belief dynamics supplies the chosen mass.  In every oscillator check, the positive kinetic metric $\mathbf M$ and restoring stiffness $\mathbf K$ are separate inputs; the calculations do not set $\mathbf M=\mathbf H_F=\mathbf K$.  The numerical integration used a leapfrog/St\"ormer--Verlet method in the conservative subproblems.  The later helicopter-task comparison is exploratory and does not validate the kinetic-metric postulate.
 
 \subsubsection{Damping Regimes}
 
-We examined the three dynamical regimes predicted by the epistemic oscillator model. For fixed precision $\Lambda = 2$ and evidence strength $K = 1$, the critical damping coefficient is $\gamma_c = 2\sqrt{K\Lambda} \approx 2.83$. We simulated belief evolution from an initial displacement $\mu_0 = 1$ with zero initial momentum under overdamped ($\gamma = 10$), near-critical ($\gamma = 1$), and underdamped ($\gamma = 0.1$) regimes.
+For the illustrative scalar model, the kinetic mass is set to $m=2$ and the independently specified restoring stiffness to $k=1$, giving $\gamma_c=2\sqrt{mk}\approx2.83$.  The reference regimes use the same initial displacement and zero initial momentum while varying only $\gamma$: $\gamma=10$ is overdamped, $\gamma=\gamma_c$ is critical, and $\gamma=0.1$ is underdamped.
 
 The overdamped regime exhibits typical exponential decay toward equilibrium, qualitatively resembling standard Bayesian updating where beliefs approach the posterior without overshooting. The critically damped case achieves the fastest equilibration, reaching the target belief in the least time without oscillations, representing an optimal learning regime. As predicted, the underdamped regime produces damped oscillations as the belief overshoots equilibrium, reverses direction, and undergoes multiple oscillatory cycles before settling.
 
-The phase space portraits reveal the geometric differences between regimes: overdamped trajectories spiral inward, critically damped trajectories approach the origin along a separatrix, and underdamped trajectories execute diminishing elliptical orbits characteristic of a damped harmonic oscillator. The measured decay times match theoretical predictions: in the underdamped case with $\gamma = 0.1$, the observed frequency $\omega = \sqrt{K/\Lambda - \gamma^2/4\Lambda^2} \approx 0.71$~rad/time agrees with theory, and the envelope decay time $\tau_{\mathrm{env}} = 2\Lambda/\gamma = 40$ matches the observed exponential decay of oscillation amplitude.
+The phase-space portraits distinguish nonoscillatory overdamped and critical trajectories from diminishing underdamped orbits.  With $m=2$, $k=1$, and $\gamma=0.1$ held fixed, Eq.~\eqref{eq:conditional_damped_frequency} gives $\omega_d\approx0.71$~rad/time and $\tau_{\mathrm{env}}=40$.  Agreement with those values checks the integration of the selected oscillator only.
 
 \subsubsection{Momentum Transfer Between Coupled Agents}
 
-To demonstrate that epistemic momentum has genuine mechanical consequences in multi-agent systems, we simulated two coupled agents with precisions $\Lambda_1 = 2$ (the influencer) and $\Lambda_2 = 1$ (the follower), connected through symmetric attention coupling $\beta_{12} = \beta_{21} = 0.5$. Agent~1 was initialized with momentum $\pi_1(0) = 2$ while Agent~2 began at rest.
+We also integrated a two-agent block-diagonal approximation with chosen masses $m_1=2$ and $m_2=1$, symmetric coupling $\beta_{12}=\beta_{21}=0.5$, and initial momenta $\pi_1(0)=2$, $\pi_2(0)=0$.  This check uses $\pi_i=m_i\dot\mu_i$ only because off-diagonal kinetic blocks were omitted by construction; it does not test the full momentum in Eq.~\eqref{eq:full_coupled_momentum}.
 
 As Agent~1's momentum drives its belief forward, the consensus coupling exerts an epistemic force on Agent~2, accelerating the follower's belief in the same direction. Simultaneously, Agent~2 exerts an equal and opposite force on Agent~1, producing a recoil effect: the influencer's momentum decreases as momentum flows to the follower. Agent~1's momentum drops from its initial value of 2.0 to approximately $-0.75$ at the point of maximum transfer, while Agent~2's momentum rises from zero to a peak of approximately 1.7. Total momentum $\pi_1 + \pi_2$ is not conserved due to dissipative damping and prior anchoring; in the limit of vanishing damping and prior strength, total momentum would be conserved as in an isolated mechanical system, the symmetric coupling $\beta_{12} = \beta_{21} = 0.5$ used here being what makes that closed-system limit applicable. The simulation confirms that social influence is not unidirectional: changing another agent's mind necessarily perturbs one's own epistemic trajectory.
 
 \subsubsection{Confirmation Bias as Stopping Distance}
 
-A central prediction is that confirmation bias emerges naturally from belief inertia. We tested this by simulating pure ballistic motion against constant counter-evidence, measuring the stopping distance as a function of precision. For precision values $\Lambda \in \{0.5, 1.0, 2.0, 4.0, 8.0\}$, agents were initialized with identical velocity $v_0 = 1$ (corresponding to momentum $\pi_0 = \Lambda v_0$) and subjected to constant opposing force $f = 0.5$. The equations of motion reduce to $\Lambda \ddot{\mu} = -f$, yielding a stopping distance $d_{\text{stop}} = \Lambda v_0^2 / 2f$.
+The ballistic check varies the chosen scalar mass over $m\in\{0.5,1.0,2.0,4.0,8.0\}$ while holding initial velocity $v_0=1$ and opposing force $f_0=0.5$ fixed.  Equation~\eqref{eq:conditional_ballistic_stop} then gives $d_{\mathrm{stop}}=mv_0^2/(2f_0)$.  This is a constant-force protocol with no restoring stiffness, not a test of harmonic overshoot or of mass--precision identification.
 
 Higher-precision agents travel substantially further before stopping: an agent with $\Lambda = 8$ overshoots by approximately 8 units, while an agent with $\Lambda = 0.5$ travels only 0.5 units, representing a 16-fold difference corresponding exactly to the predicted precision ratio ($R^2 = 1.000$). This reframes confirmation bias as a mechanical phenomenon: an agent twice as confident overshoots exactly twice as far when confronted with contradicting evidence, not because they irrationally discount evidence but because their epistemic momentum requires proportionally more opposing force to arrest.
 
 \subsubsection{Resonance Under Periodic Evidence}
 
-For $\tilde{K}$-dimensional belief states, the natural frequencies are eigenvalues of the generalized eigenvalue problem $\omega_i^2 = \text{eig}(\mathbf{M}^{-1}\mathbf{K})$. We simulated resonance by subjecting an agent with $\tilde{K}=3$ latent dimensions ($\gamma = 0.3$, $\lambda_{\text{self}} = 1$, covariance scale $\sigma = 1/\sqrt{2}$) to sinusoidal forcing $f(t) = f_0 \cos(\omega t)$ with $f_0 = 0.5$ across a range of driving frequencies.
+For $\tilde K$-dimensional states, the undamped modal frequencies solve the generalized eigenproblem $\mathbf Kv=\omega_0^2\mathbf Mv$.  The resonance check independently fixes positive $\mathbf M$ and $\mathbf K$, damping $\gamma=0.3$, and force amplitude $f_0=0.5$, then varies only the driving frequency.
 
 The response exhibits a clear resonance peak at $\omega_{\text{res}} \approx 0.385$~rad/time, matching the theoretical dominant natural frequency from the minimum eigenvalue of $\mathbf{M}^{-1}\mathbf{K}$. At frequencies well below resonance, the response is quasi-static; above resonance, the response decays as $1/\omega^2$, as the agent's belief cannot track rapidly oscillating evidence. Agents with anisotropic uncertainty exhibit mode-selective resonance, where periodic evidence along certain directions is amplified while evidence along others is attenuated.
 
 \subsubsection{Belief Perseverance and Decay Time}
 
-When the driving evidence is withdrawn ($K \to 0$), the belief coasts under damping alone, $M\ddot{\mu} + \gamma\dot{\mu} = 0$, relaxing with the first-order coasting time $\tau_{\mathrm{relax}} = M/\gamma = \Lambda/\gamma$. This regime, rather than the spring-dominated overdamped slow mode (whose time constant $\gamma/K$ is mass-independent), is what produces a relaxation time proportional to precision. Measured decay times for agents with varying precision confirm this linear relationship exactly ($R^2 = 1.000$): an agent with $\Lambda = 8$ exhibits a decay time eight times longer than an agent with $\Lambda = 1$, providing a mechanistic account of the continued influence effect \citep{Lewandowsky2012}.
+When both the drive and restoring stiffness are removed, the selected scalar model coasts under $m\ddot z+\gamma\dot z=0$.  Varying $m$ at fixed $\gamma$ checks the linear relation $\tau_{\mathrm{coast}}=m/\gamma$ in Eq.~\eqref{eq:conditional_coasting_time}.  The check does not establish that empirical precision equals $m$, and it differs from the spring-dominated overdamped slow time $\gamma/k$.
 
 \subsubsection{Helicopter Task: Near-Critical Damping}
 
@@ -1405,9 +1384,9 @@ for every choice of frames $U_i\in\mathrm{GL}(d)$, because the connection is pur
 
 \paragraph{Cultural translation losses.} Translating a concept from culture $A$ to culture $B$ to culture $C$ and back to $A$ should accumulate holonomy: the re-imported concept will generally differ from the original by a transformation $F_\gamma \in G$ that measures the total distortion. This predicts that in multilateral diplomacy or international scientific collaboration, the fidelity of concept transmission should degrade with the number of intermediate translations, and the degradation should depend on the curvature of the gauge connection (the degree of frame incompatibility) rather than on the semantic content of the beliefs themselves. Longitudinal studies of concept drift across translation chains could test this prediction quantitatively.
 
-\paragraph{Curvature-driven instability.} In lattice gauge theory, high curvature configurations carry high energy and are dynamically suppressed. By analogy, social networks with high gauge curvature should be dynamically unstable: the frustrated free energy drives agents to either (a) reduce curvature by aligning their frames (cultural homogenization), (b) reduce connectivity by severing cross-group links (network fragmentation), or (c) reduce attention to frustrating neighbors (selective disengagement). This predicts a phase diagram in the $(\kappa, \|F_\gamma\|)$ plane, where $\kappa$ is attention temperature and $\|F_\gamma\|$ measures average curvature. At low $\kappa$ and high $\|F_\gamma\|$, the network should fragment along curvature boundaries---a geometric mechanism for the formation of epistemic communities that is distinct from both homophily (similarity-driven) and bounded confidence (threshold-driven) accounts.
+\paragraph{Curvature-driven instability.} In lattice gauge theory, high curvature configurations carry high energy and are dynamically suppressed. By analogy, social networks with high gauge curvature should be dynamically unstable: the frustrated free energy drives agents to either (a) reduce curvature by aligning their frames (cultural homogenization), (b) reduce connectivity by severing cross-group links (network fragmentation), or (c) reduce attention to frustrating neighbors (selective disengagement). A future phase diagram must use a declared conjugacy invariant, for example $\chi_\gamma=|\operatorname{tr}(F_\gamma)-d|$, together with the attention temperature $\kappa$. The Frobenius norm of $F_\gamma$ is not an admissible general-$\mathrm{GL}(d)$ observable because nonorthogonal conjugation changes it. This remains a proposed extension rather than a result of the present flat model.
 
-\paragraph{Measurability.} While gauge frames $\phi_i$ are not directly observable, the curvature $F_\gamma$ is in principle measurable from behavioral data. If agents $i$, $j$, $k$ each demonstrate pairwise agreement in bilateral conversations but exhibit systematic disagreement in triadic interaction, the discrepancy provides an estimate of $\|F_\gamma - I\|$. Experimental paradigms in which participants first calibrate understanding in pairs, then attempt group consensus, could measure gauge curvature directly. The framework predicts that the magnitude of triadic disagreement (controlling for pairwise agreement) should correlate with the heterogeneity of disciplinary, cultural, or linguistic backgrounds---a quantitative test of the gauge curvature hypothesis.
+\paragraph{Measurability.} While gauge frames $\phi_i$ are not directly observable, an edge-relaxed model could estimate conjugacy data of $F_\gamma$ from calibrated transport maps. Pairwise calibration followed by triadic composition would target Wilson traces or characteristic-polynomial coefficients; a raw Frobenius discrepancy $\|F_\gamma-I\|_F$ would be frame dependent under general $\mathrm{GL}(d)$. Whether such class functions correlate with triadic disagreement is a future falsification question, not a measurement established here.
 
 \subsection{Limitations}
 
@@ -1565,11 +1544,17 @@ In the same full-vectorization convention, the mean-covariance cross blocks tran
 \subsection{Transformation of Momenta}
 %------------------------------------------------------------------------------
 
-For Hamilton's equations to be covariant, momenta must transform contragrediently to positions.
+For Hamilton's equations to be covariant, momenta must transform contragrediently to positions.  With a coupled kinetic metric their definition is the full cotangent relation, not a per-agent diagonal product.
 
 \subsubsection{Mean Momentum}
 
-The mean momentum transforms as a covector, contragrediently to the position $\mu' = g\mu$:
+For the stacked mean coordinate,
+\begin{equation}
+\boldsymbol\pi^\mu=\mathbf M^\mu\dot{\boldsymbol\mu},
+\qquad
+\boxed{\pi_i^\mu=\sum_k\mathbf M_{ik}^\mu\dot\mu_k.}
+\end{equation}
+Only a declared block-diagonal approximation gives $\pi_i^\mu=M_i\dot\mu_i$.  The mean momentum transforms as a covector, contragrediently to the position $\mu'=g\mu$:
 \begin{equation}
 \boxed{(\pi_i^\mu)' = g_i^{-T} \pi_i^\mu}
 \end{equation}
@@ -1642,12 +1627,12 @@ This is the discrete analog of the gauge transformation $A \mapsto gAg^{-1} + g 
 
 \subsubsection{Curvature}
 
-The curvature around a closed loop $\gamma = (i \to j \to k \to i)$ is:
+The discrete loop holonomy around $\gamma=(i\to j\to k\to i)$ is
 \begin{equation}
 F_\gamma = \Omega_{ij}\Omega_{jk}\Omega_{ki} \in G
 \end{equation}
 
-This is gauge-covariant: $F_\gamma' = g_i F_\gamma g_i^{-1}$.
+This is gauge-covariant: $F_\gamma'=g_iF_\gamma g_i^{-1}$.  Accordingly, the gauge-invariant data are conjugacy invariants of $F_\gamma$, not its coordinate entries.
 
 A \textbf{flat connection} satisfies $F_\gamma = I$ for all loops, meaning beliefs can be consistently parallel-transported around any cycle. Nonzero curvature represents "information geometry frustration" whereby belief frames cannot be consistently aligned around cycles.
 
@@ -1728,7 +1713,7 @@ where $\xi_X$ is the vector field generated by $X$.
 
 \subsubsection{Gauge-Invariant Quantities}
 
-Only horizontal components of velocities and momenta correspond to observables. Gauge-invariant quantities include the \textbf{consensus divergence} $\|\mu_i - \tilde{\mu}_k\|_{\tilde{\Lambda}_{q_k}}^2 = (\mu_i - \tilde{\mu}_k)^T\tilde{\Lambda}_{q_k}(\mu_i - \tilde{\mu}_k)$, the \textbf{free energy} $F[\{q_i\}]$ which is gauge-invariant by construction, the \textbf{Hamiltonian} $H = \frac{1}{2}\langle\pi, \mathbf{M}^{-1}\pi\rangle + F$, and the \textbf{inter-agent KL divergence} $\mathrm{KL}(q_i \| \Omega_{ik}\cdot q_k)$. Each scalar is invariant when beliefs, transports, and any postulated kinetic metric are transformed consistently. The transport operators obey $\Omega_{ik}\to g_i\Omega_{ik}g_k^{-1}$, the full-state kinetic metric obeys the Jacobian congruence stated below, and the curvature obeys $F_\gamma\to g_iF_\gamma g_i^{-1}$.
+Only horizontal components of velocities and momenta correspond to observables. Gauge-invariant quantities include the \textbf{consensus divergence} $\|\mu_i - \tilde{\mu}_k\|_{\tilde{\Lambda}_{q_k}}^2 = (\mu_i - \tilde{\mu}_k)^T\tilde{\Lambda}_{q_k}(\mu_i - \tilde{\mu}_k)$, the \textbf{free energy} $F[\{q_i\}]$, the conditional \textbf{Hamiltonian} $H=\frac12\langle\pi,\mathbf M^{-1}\pi\rangle+F$, and the \textbf{inter-agent KL divergence} $\mathrm{KL}(q_i\|\Omega_{ik}\cdot q_k)$. Each scalar is invariant when beliefs, transports, and the postulated kinetic metric transform consistently. Loop holonomy transforms by conjugation, $F_\gamma\to g_iF_\gamma g_i^{-1}$, so $\operatorname{tr}(F_\gamma^r)$, the characteristic polynomial, and the eigenvalue multiset are gauge invariant. Wilson traces are the standard compact-group observables. The Frobenius norm $\|F_\gamma-I\|_F$ is invariant under orthogonal or unitary conjugation but is frame dependent for general $\mathrm{GL}(d)$ transformations.
 
 
 %------------------------------------------------------------------------------
@@ -1762,7 +1747,7 @@ Here $J$ uses full $\operatorname{vec}(\Sigma_i)$ covariance coordinates. In $\o
 
 \textbf{Hamilton's Equations:} Fully covariant under these transformations.
 
-\textbf{Observables:} Gauge-invariant quantities include $F$, $H$, and all inter-agent divergences.
+\textbf{Observables:} Gauge-invariant quantities include $F$, the conditional $H$, all inter-agent divergences, and conjugacy invariants of loop holonomy.  A general-$\mathrm{GL}(d)$ Frobenius holonomy norm is frame dependent.
 \end{tcolorbox}
 
 
@@ -2085,7 +2070,7 @@ This display defines a kinetic energy only after a positive $\mathbf M$ has been
 \subsection{The Hamiltonian}
 %-----------------------------------------------------------------------
 
-With conjugate momenta $\pi = (\pi^\mu, \Pi^\Sigma)$ and Hamiltonian:
+After independently choosing a positive kinetic metric $\mathbf M$, define conjugate momenta $\pi=(\pi^\mu,\Pi^\Sigma)=\mathbf M\dot\xi$ and the conditional Hamiltonian
 \begin{equation}
 \boxed{
 H = \frac{1}{2}\langle\pi, \mathbf{M}^{-1}\pi\rangle + \mathcal{F}[\xi]
@@ -2116,7 +2101,7 @@ The potential forces decompose into four distinct contributions:
 \label{eq:force_decomposition}
 \end{equation}
 
-The geodesic force $f_i^{\text{geo}} = -\frac{1}{2}\sum_{jkl}(\pi_j^\mu)^T\frac{\partial[\mathbf{M}^{-1}]_{jk}^{\mu\mu}}{\partial \mu_i}\pi_k^\mu$ encodes manifold curvature. Under the frozen-attention (mean-field) convention adopted for the mass, the mean-sector mass is independent of $\mu$, so this mean-sector term vanishes and the geodesic curvature is carried by the covariance-sector ($\Sigma$-derivative) force; the mean-sector term is reinstated only when the state-dependence of the softmax weights $\beta$ (or of the self-coupling weight $\alpha_i^*$ of Section~\ref{sec:state_dependent_precision}) is retained.
+The metric-derivative force $f_i^{\text{geo}}=-\frac12\sum_{jkl}(\pi_j^\mu)^T\frac{\partial[\mathbf M^{-1}]_{jk}^{\mu\mu}}{\partial\mu_i}\pi_k^\mu$ is present whenever the independently chosen kinetic metric varies with the mean coordinates.  It vanishes in the locally constant kinetic approximation used for the modal formulas.  Freezing attention in the potential does not, by itself, determine whether the separately postulated $\mathbf M$ is state dependent.
 
 \subsubsection{Compact Form}
 
@@ -2129,40 +2114,44 @@ The geodesic force $f_i^{\text{geo}} = -\frac{1}{2}\sum_{jkl}(\pi_j^\mu)^T\frac{
 }
 \end{equation}
 
-Since $\mathbf{M}$ depends on $\Sigma$, the Hamiltonian is non-separable, requiring implicit or splitting methods for symplectic integration.
+If the chosen $\mathbf M$ depends on $\Sigma$, the Hamiltonian is nonseparable and requires an integrator that retains the metric-derivative terms.  The local oscillator formulas in the main text instead freeze $\mathbf M$.
 
 %-----------------------------------------------------------------------
 \subsection{Damped Dynamics}
 %-----------------------------------------------------------------------
 
-Including dissipation yields:
+With locally constant $\mathbf M$, dissipation is represented by a positive-semidefinite tensor $\boldsymbol\Gamma$:
 \begin{equation}
-M_i\ddot{\mu}_i + \gamma_i\dot{\mu}_i + \nabla_{\mu_i}\mathcal{F} = 0
+\boxed{
+\mathbf M\ddot{\boldsymbol\mu}
++\boldsymbol\Gamma\dot{\boldsymbol\mu}
++\nabla_{\boldsymbol\mu}\mathcal F
+=f_{\mathrm{ext}}.}
 \label{eq:damped_dynamics}
 \end{equation}
-
-For small displacements from equilibrium with stiffness $K_i = \nabla^2\mathcal{F}|_{\mu^*}$:
-\begin{equation}
-M_i\ddot{\delta\mu} + \gamma_i\dot{\delta\mu} + K_i\delta\mu = 0
-\end{equation}
-
-The discriminant $\Delta = \gamma_i^2 - 4K_iM_i$ determines three regimes: the \textbf{overdamped} regime ($\Delta > 0$) exhibits monotonic decay corresponding to standard Bayesian updating; the \textbf{critically damped} regime ($\Delta = 0$) achieves fastest equilibration; and the \textbf{underdamped} regime ($\Delta < 0$) exhibits oscillatory approach with overshooting.
+Linearization introduces the restoring stiffness $\mathbf K$.  Nontrivial oscillator spectra require $\mathbf K$ to be operationally independent of $\mathbf M$; if both are the same $\mathbf H_F$, Eq.~\eqref{eq:hessian_mass_degeneracy} gives a unit spectrum up to scale.  Only after projection onto a positive modal pair $(m,k)$ with modal damping $\gamma$ does the scalar discriminant $\gamma^2-4mk$ classify over-, critical-, and underdamping.
 
 %-----------------------------------------------------------------------
 \subsection{Momentum Current with Sensory Coupling}
 %-----------------------------------------------------------------------
 
-Between agents, the momentum current is:
+For a directed edge $k\to i$, the receiver-frame momentum current is
 \begin{equation}
-J_{k \to i} = \beta_{ik}\tilde{\Lambda}_{q_k}(\tilde{\mu}_k - \mu_i)
+J_{k \to i}=\beta_{ik}\widetilde\Lambda_{q_k}
+(\Omega_{ik}\mu_k-\mu_i),
 \end{equation}
 
-The continuity equation becomes:
-\begin{equation}
-\dot{\pi}_i + \gamma_i\dot{\mu}_i + \bar{\Lambda}_{p_i}(\mu_i - \bar{\mu}_i) + \Lambda_{o_i}(\mu_i - o_i) = \sum_k J_{k \to i}
-\end{equation}
-
-The sensory term $\Lambda_{o_i}(\mu_i - o_i)$ acts as an additional ``anchoring force'' that grounds the agent in observations, distinct from the social momentum currents.
+and the same edge gives the sender recoil $-\Omega_{ik}^\top J_{k\to i}$.  Hence the complete block balance is
+\begin{align}
+\dot\pi_i^\mu
+&+(\boldsymbol\Gamma\dot{\boldsymbol\mu})_i
++\alpha_i\bar\Lambda_{p_i}(\mu_i-\bar\mu_i)
++\Lambda_{o_i}(\mu_i-o_i)\nonumber\\
+&=\sum_kJ_{k\to i}
+-\sum_j\Omega_{ji}^\top J_{i\to j}
++f_{i,\mathrm{ext}}.
+\end{align}
+Fixed asymmetric attention still defines the scalar potential whose complete derivative gives this equation.  Dropping the outgoing recoil is a receiver-only detached truncation and is the nonconservative approximation, not a consequence of row normalization itself.
 
 %-----------------------------------------------------------------------
 \subsection{Summary}
@@ -2174,22 +2163,20 @@ The sensory term $\Lambda_{o_i}(\mu_i - o_i)$ acts as an additional ``anchoring 
 
 \textbf{Free Energy:} The unique population scalar is the entropy-retaining $\mathcal F_{\mathrm{full}}$ of Eq.~\eqref{eq:canonical_full_vfe}; fixed attention makes its categorical term constant only for the belief-coordinate derivatives in this appendix.
 
-\textbf{Mass Matrix:}
-\begin{equation}
-\mathbf{M} = \frac{\partial^2 \mathcal{F}}{\partial \xi \partial \xi} = \text{Hessian of free energy} = \text{Precision}
-\end{equation}
+\textbf{Three geometries:} $\mathbf G$ is the intrinsic Fisher--Rao metric, $\mathbf H_F$ is the affine-coordinate loss stiffness, and $\mathbf M$ is a separately postulated positive kinetic metric.  A positive local restriction of $\mathbf H_F$ may be chosen as $\mathbf M$ only under the kinetic-metric postulate; the objects are not globally identical.
 
-\textbf{Effective Mass:}
+\textbf{Coupled momentum:}
 \begin{equation}
-M_i = \bar{\Lambda}_{p_i} + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k} + \sum_j \beta_{ji}\Lambda_{q_i} + \Lambda_{o_i}
+\pi_i^\mu=\sum_k\mathbf M_{ik}^\mu\dot\mu_k,
 \end{equation}
+with $\pi_i^\mu=M_i\dot\mu_i$ reserved for a block-diagonal approximation.
 
 \textbf{Dynamics:}
 \begin{equation}
 \dot{\xi} = \mathbf{M}^{-1}\pi, \qquad \dot{\pi} = -\nabla\mathcal{F} - \frac{1}{2}\nabla_\xi\langle\pi, \mathbf{M}^{-1}\pi\rangle
 \end{equation}
 
-\textbf{Interpretation:} Position $\mu_i$ represents what agent $i$ believes; momentum $\pi_i$ represents the rate of belief change times precision; mass equals precision (tight beliefs are heavy); and force represents the pull toward prior, consensus, and observations.
+\textbf{Scope:} Equation~\eqref{eq:primary_fisher_flow} remains the primary dynamics.  The Hamiltonian equations in this box apply only after the kinetic postulate and do not turn four-part VFE stiffness into an information-geometric theorem about inertia.
 
 \end{tcolorbox}
 
@@ -2346,7 +2333,7 @@ The gauge group expands from $\mathrm{SO}(d)$ to the group of measure-preserving
 
 \subsection{Summary}
 
-The ansatz that mass equals Fisher information generalizes immediately to exponential families and, in principle, to arbitrary distributions. The Gaussian case developed in the main text is the simplest instance of a broader geometric framework. Extension to mixtures captures multi-modal beliefs at the cost of increased computational complexity. Fully general distributions require infinite-dimensional analysis or computational approximation, but the underlying geometric principle remains unchanged.
+The intrinsic Fisher metric and its natural-gradient flow generalize to regular exponential families and, with functional-analytic qualifications, to spaces of positive densities.  A kinetic extension does not generalize automatically: each statistical family still requires a separately declared positive kinetic metric, and any identification with a loss-Hessian restriction is a modeling postulate subject to the degeneracy in Eq.~\eqref{eq:hessian_mass_degeneracy}.  Mixtures add singularities and cross-parameter Fisher blocks, so neither the Gaussian kinetic choice nor its oscillator formulas transfer without further analysis.
 
 \bibliographystyle{apalike}
 \bibliography{references}
