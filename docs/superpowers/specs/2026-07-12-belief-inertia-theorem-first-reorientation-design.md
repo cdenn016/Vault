@@ -1,7 +1,7 @@
 # Belief-Inertia Theorem-First Reorientation Design
 
 Date: 2026-07-12
-Status: Approved design, pending written-spec review
+Status: Approved by the author on 2026-07-12
 Branch: codex/belief-inertia-ultradeep-review-20260712
 
 ## Objective
