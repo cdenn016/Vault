@@ -139,7 +139,7 @@ This proves gauge covariance of the scalar edge energy. It does not imply that a
 
 \subsection{Canonical Entropy-Retaining Population Objective}
 
-For each receiver $i$, let $\pi_i$ be a strictly positive probability vector on its finite candidate-source set, let $\beta_i$ lie in the same probability simplex, and fix $\tau>0$. A hard mask is represented by removing an index from that set rather than assigning a positive-weight formula at $\pi_{ij}=0$. The authoritative scalar objective is
+For each receiver $i$, let the attention-prior coefficients satisfy $\pi_{ij}>0$ and $\sum_j\pi_{ij}=1$ on its finite candidate-source set, let $\beta_i$ lie in the same probability simplex, and fix $\tau>0$. A hard mask is represented by removing an index from that set rather than assigning a positive-weight formula at $\pi_{ij}=0$. The authoritative scalar objective is
 \begin{equation}
 \boxed{
 \mathcal F_{\mathrm{full}}
@@ -200,7 +200,7 @@ Consequently the optimized row and the fully reduced population objective are
 \label{eq:canonical_reduced_vfe}
 \end{align}
 
-When $\pi_i$ and $\tau$ are fixed, direct differentiation of the log-partition function proves the envelope identity
+When the coefficients $\pi_{ij}$ and the temperature $\tau$ are fixed, direct differentiation of the log-partition function proves the envelope identity
 \begin{equation}
 \boxed{
 d\mathcal F_{i,\mathrm{red}}
@@ -217,7 +217,7 @@ Dropping the categorical entropy and prior term after substituting optimized att
 S_i=\sum_j\beta_{ij}^*E_{ij}.
 \label{eq:entropy_suppressed_surrogate}
 \end{equation}
-For fixed $\pi_i$ and $\tau$, Eq.~\eqref{eq:attention_weights} gives
+For fixed $\pi_{ij}$ and $\tau$, Eq.~\eqref{eq:attention_weights} gives
 \begin{equation}
 d\beta_{ij}^*
 =-\tau^{-1}\beta_{ij}^*
@@ -1356,11 +1356,12 @@ We stress that our theory makes no distinction between "physical" and "abstract"
 \subsection{Gauge Curvature and Epistemic Frustration}
 \label{sec:curvature_predictions}
 
-The derivations in Section~\ref{sec:classical_limits} assumed flat gauge ($\Omega_{ij} = I$). It is important to recognize that the vertex-cocycle transport adopted in this paper, $\Omega_{ij} = e^{\phi_i}e^{-\phi_j}$, is pure gauge, and its holonomy around any closed loop $\gamma = (i \to j \to k \to i)$ collapses identically to the identity,
+The derivations in Section~\ref{sec:classical_limits} assumed flat gauge ($\Omega_{ij} = I$). It is important to recognize that the vertex-cocycle transport adopted in this paper, $\Omega_{ij}=U_iU_j^{-1}$, is pure gauge, and its holonomy around any closed loop $\gamma = (i \to j \to k \to i)$ collapses identically to the identity,
 \begin{equation}
-F_\gamma = \Omega_{ij}\Omega_{jk}\Omega_{ki} = e^{\phi_i}e^{-\phi_j}e^{\phi_j}e^{-\phi_k}e^{\phi_k}e^{-\phi_i} = I,
+F_\gamma = \Omega_{ij}\Omega_{jk}\Omega_{ki}
+=U_iU_j^{-1}U_jU_k^{-1}U_kU_i^{-1}=I,
 \end{equation}
-for every choice of frames $\phi_i$, because the connection is pure gauge and its curvature vanishes by the Maurer--Cartan identity. Nontrivial holonomy therefore does not arise from the present parameterization. It requires promoting the transport to an edge-local connection, $\Omega_{ij} = U_i\,e^{\delta_{ij}}\,U_j^{-1}$ with $\delta_{ij}$ an independent link variable valued in the Lie algebra (the lattice gauge-theory link variable), which reduces to the present flat case at $\delta_{ij} = 0$. Under that edge-relaxed extension the loop holonomy can satisfy $F_\gamma \neq I$, measuring the accumulated frame distortion when beliefs are transported around a social cycle, and nonzero curvature represents \emph{epistemic frustration}: the impossibility of consistently aligning all agents' reference frames simultaneously. The predictions outlined below are consequences of that edge-relaxed (non-pure-gauge) extension and are stated as a future-work program; they do not follow from the flat pure-gauge model studied in this paper.
+for every choice of frames $U_i\in\mathrm{GL}(d)$, because the connection is pure gauge and its curvature vanishes by the Maurer--Cartan identity. A restricted exponential-chart specialization may set $U_i=e^{\phi_i}$, giving $\Omega_{ij}=e^{\phi_i}e^{-\phi_j}$, but not every $\mathrm{GL}(d)$ frame lies in the image of the real matrix exponential. Nontrivial holonomy therefore does not arise from the present parameterization. It requires promoting the transport to an edge-local connection, $\Omega_{ij} = U_i\,e^{\delta_{ij}}\,U_j^{-1}$ with $\delta_{ij}$ an independent link variable valued in the Lie algebra (the lattice gauge-theory link variable), which reduces to the present flat case at $\delta_{ij} = 0$. Under that edge-relaxed extension the loop holonomy can satisfy $F_\gamma \neq I$, measuring the accumulated frame distortion when beliefs are transported around a social cycle, and nonzero curvature represents \emph{epistemic frustration}: the impossibility of consistently aligning all agents' reference frames simultaneously. The predictions outlined below are consequences of that edge-relaxed (non-pure-gauge) extension and are stated as a future-work program; they do not follow from the flat pure-gauge model studied in this paper.
 
 \paragraph{Intransitive understanding.} Consider three agents---say a physicist ($i$), an economist ($j$), and a sociologist ($k$)---who each share overlapping vocabulary with their neighbors but encode concepts in incompatible frames. The physicist and economist may agree on what ``equilibrium'' means ($\Omega_{ij} \approx I$ in that subspace), and the economist and sociologist may agree on what ``rational agent'' means ($\Omega_{jk} \approx I$), but when the physicist and sociologist attempt direct communication, the composed transport $\Omega_{ij}\Omega_{jk}$ may not equal the direct transport $\Omega_{ik}$. The holonomy $F_\gamma = \Omega_{ij}\Omega_{jk}\Omega_{ki} \neq I$ quantifies this \emph{intransitivity of understanding}. The framework predicts that triadic closure in interdisciplinary networks should be inhibited by gauge curvature: agents who understand each other pairwise through intermediaries may nonetheless fail to reach mutual understanding directly, because the composed frame transformations accumulate distortion that a direct interaction would not.
 
@@ -1742,7 +1743,7 @@ Each agent $i$ maintains a belief distribution $q_i = \mathcal{N}(\mu_i, \Sigma_
 \tilde{\Lambda}_{q_k} &= \left(\Omega_{ik}\Sigma_k\Omega_{ik}^T\right)^{-1} = \Omega_{ik}^{-T}\Lambda_{q_k}\Omega_{ik}^{-1} & &\text{(transported precision)}
 \end{align}
 %
-where $\Omega_{ik} \in G \subseteq \mathrm{GL}(d)$ is the gauge transport operator from agent $k$'s frame to agent $i$'s frame, given by $\Omega_{ik} = e^{\phi_i}e^{-\phi_k}$ with $\phi_i \in \mathfrak{g}$, the Lie algebra of $G$.
+where $\Omega_{ik}\in G\subseteq\mathrm{GL}(d)$ is the gauge transport operator from agent $k$'s frame to agent $i$'s frame, given canonically by $\Omega_{ik}=U_iU_k^{-1}$. In the restricted exponential-chart specialization $U_i=e^{\phi_i}$ with $\phi_i\in\mathfrak g$, this becomes $\Omega_{ik}=e^{\phi_i}e^{-\phi_k}$; this chart does not represent every $\mathrm{GL}(d)$ frame.
 
 %-----------------------------------------------------------------------
 \subsection{The Extended Free Energy Functional}
@@ -2189,7 +2190,7 @@ Q_i(c,j)=q_i(c)\beta_{ij},
 P_i(c,j)=r_{ij}(c)\pi_{ij}.
 \label{eq:row_source_models}
 \end{equation}
-Both distributions are normalized when $q_i$, every $r_{ij}$, $\beta_i$, and $\pi_i$ are normalized. Direct expansion gives the exact unit-temperature identity
+Both distributions are normalized when $q_i$ and every $r_{ij}$ are normalized, $\sum_j\beta_{ij}=1$, and $\sum_j\pi_{ij}=1$. Direct expansion gives the exact unit-temperature identity
 \begin{equation}
 \KL(Q_i\|P_i)
 =\sum_j\beta_{ij}\KL(q_i\|r_{ij})
