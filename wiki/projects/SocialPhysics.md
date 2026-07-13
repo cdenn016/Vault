@@ -53,7 +53,7 @@ For the first-order linearization $\dot\delta=-\eta G^{-1}H_F\delta$, fixed $G$ 
 ## Social claim-status map
 
 - **DeGroot:** under the primary unweighted product Fisher metric, derived only for fixed symmetric coupling. Nonuniform reversible coupling requires the additional $\rho$-weighted metric, a fixed-label joint family, or equivalent agent-specific rates. General directed row-stochastic influence is excluded.
-- **Friedkin--Johnsen:** restricted anchored equilibrium inheriting the same symmetric/weighted-reversible metric scope; heterogeneous susceptibility requires agent-indexed anchor precision or coupling.
+- **Friedkin--Johnsen:** restricted anchored stationary equilibrium of the reversible scalar energy, independent of the positive flow metric; matching its standard transient requires $G_\rho$ or agent-specific rates; heterogeneous susceptibility requires agent-indexed anchor precision or coupling.
 - **Bounded confidence:** Gibbs attention is a soft finite-temperature analog, not an exact hard-threshold recovery.
 - **Polarization:** positive finite-temperature attractive coupling gives metastable separation in the stated unanchored, symmetric reciprocal two-cluster reduction. Exact persistence needs additional support, anchors, repulsion, or active sampling.
 - **Social Impact Theory:** interpretive only; normalized attention does not reproduce Latan\'e's number law.

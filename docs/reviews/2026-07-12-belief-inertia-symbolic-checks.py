@@ -41,16 +41,61 @@ A = sp.diag(anchor, anchor)
 assert (sp.ones(1, 2) * L) == sp.zeros(1, 2)
 assert sp.simplify((A + lam * L).inv() * A * sp.ones(2, 1) - sp.ones(2, 1)) == sp.zeros(2, 1)
 
-# A nonuniform reversible Dirichlet energy retains D_rho under the unweighted
-# primary product Fisher metric, while the additional G_rho metric cancels it.
-rho1, rho2 = sp.symbols("rho1 rho2", positive=True)
-D_rho = sp.diag(rho1, rho2)
+# An exact nonsymmetric reversible two-state chain. Differentiating its
+# reciprocal Dirichlet energy produces D_rho(I-W), not an assumed matrix.
+u, v, mu1, mu2, lambda_s = sp.symbols(
+    "u v mu1 mu2 lambda_s", positive=True
+)
+W = sp.Matrix([[1 - u, u], [v, 1 - v]])
+rho = sp.Matrix([v / (u + v), u / (u + v)])
+D_rho = sp.diag(*rho)
 I2 = sp.eye(2)
-primary_generator = I2.inv() * D_rho * L
-weighted_generator = D_rho.inv() * D_rho * L
-assert sp.simplify(primary_generator - D_rho * L) == sp.zeros(2)
-assert sp.simplify(weighted_generator - L) == sp.zeros(2)
-assert sp.simplify(primary_generator - L).subs({rho1: 2, rho2: 3}) != sp.zeros(2)
+mu = sp.Matrix([mu1, mu2])
+assert sp.simplify(W * sp.ones(2, 1) - sp.ones(2, 1)) == sp.zeros(2, 1)
+assert sp.simplify((rho.T * W) - rho.T) == sp.zeros(1, 2)
+assert sp.simplify(rho[0] * W[0, 1] - rho[1] * W[1, 0]) == 0
+
+dirichlet = sp.Rational(1, 4) * lambda_s * sum(
+    rho[i] * W[i, j] * (mu[i] - mu[j]) ** 2
+    for i in range(2)
+    for j in range(2)
+)
+dirichlet_grad = sp.Matrix([sp.diff(dirichlet, z) for z in mu])
+chain_laplacian = I2 - W
+assert sp.simplify(
+    dirichlet_grad - lambda_s * D_rho * chain_laplacian * mu
+) == sp.zeros(2, 1)
+primary_generator = sp.simplify(dirichlet_grad / lambda_s)
+weighted_generator = sp.simplify(D_rho.inv() * dirichlet_grad / lambda_s)
+assert sp.simplify(
+    primary_generator - D_rho * chain_laplacian * mu
+) == sp.zeros(2, 1)
+assert sp.simplify(weighted_generator - chain_laplacian * mu) == sp.zeros(2, 1)
+assert sp.simplify(primary_generator - chain_laplacian * mu).subs(
+    {u: sp.Rational(1, 3), v: sp.Rational(1, 2), mu1: 1, mu2: 0}
+) != sp.zeros(2, 1)
+
+# The anchored stationary point is a zero of the scalar-energy gradient under
+# every positive flow metric; only the transient generator depends on it.
+a1, a2, prior1, prior2 = sp.symbols("a1 a2 prior1 prior2", positive=True)
+anchor_matrix = sp.diag(a1, a2)
+prior_mean = sp.Matrix([prior1, prior2])
+stationary_residual = (
+    (anchor_matrix + lambda_s * chain_laplacian) * mu
+    - anchor_matrix * prior_mean
+)
+anchored_gradient = D_rho * stationary_residual
+mu_star = sp.simplify(
+    (anchor_matrix + lambda_s * chain_laplacian).inv()
+    * anchor_matrix
+    * prior_mean
+)
+star_subs = {mu1: mu_star[0], mu2: mu_star[1]}
+assert sp.simplify(anchored_gradient.subs(star_subs)) == sp.zeros(2, 1)
+assert sp.simplify((-anchored_gradient).subs(star_subs)) == sp.zeros(2, 1)
+assert sp.simplify(
+    (-D_rho.inv() * anchored_gradient).subs(star_subs)
+) == sp.zeros(2, 1)
 
 # At fixed Fisher geometry and learning rate, scalar first-order relaxation
 # becomes faster, not slower, as positive stiffness increases.

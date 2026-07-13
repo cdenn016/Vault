@@ -30,7 +30,7 @@ The current vertex transport $\Omega_{ij}=U_iU_j^{-1}$ has trivial loop holonomy
 
 ## Relation to classical models
 
-Under the primary unweighted product Fisher metric, the first-order gauge-VFE result recovers continuous-time DeGroot only for fixed symmetric coupling. Nonuniform reversible DeGroot requires the additional metric $G_\rho=\sigma^{-2}(D_\rho\otimes I)$, equivalently a fixed-label joint family or agent-specific rates $\eta_i\propto\rho_i^{-1}$. The restricted anchored Friedkin--Johnsen equilibrium inherits that metric scope. Arbitrary directed row-stochastic influence is not derived. Gibbs similarity weighting is a finite-temperature **soft analog** of bounded confidence, not an exact Hegselmann--Krause ball average or Deffuant update.
+Under the primary unweighted product Fisher metric, the first-order gauge-VFE result recovers continuous-time DeGroot only for fixed symmetric coupling. Matching a standard nonuniform reversible transient requires the additional metric $G_\rho=\sigma^{-2}(D_\rho\otimes I)$, equivalently a fixed-label joint family or agent-specific rates $\eta_i\propto\rho_i^{-1}$. The restricted anchored Friedkin--Johnsen stationary equilibrium is independent of the positive flow metric; only its standard transient retains that requirement. Arbitrary directed row-stochastic influence is not derived. Gibbs similarity weighting is a finite-temperature **soft analog** of bounded confidence, not an exact Hegselmann--Krause ball average or Deffuant update.
 
 Selective exposure, slow revision, and persistent explanatory beliefs are separate mechanisms:
 

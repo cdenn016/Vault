@@ -13,7 +13,7 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-06-21
-updated: 2026-07-09
+updated: 2026-07-13
 ---
 
 # Belief coupling
@@ -27,12 +27,12 @@ $$
 \sum_{k}\,\beta_{ik}\;D_{\mathrm{KL}}\!\big(q_i \,\big\|\, \Omega_{ik}[q_k]\big),
 $$
 
-summed over the neighbours $k$ of agent $i$. It is the term that makes the model genuinely
-*multi-agent* rather than a stack of independent active-inference agents, and it is the
-microscopic force from which consensus, polarization, and the emergence of
-[[Meta-agents and hierarchical emergence|meta-agents]] are read off. This page collects the
-definition, its two classical limits (bounded confidence and products of experts), and its
-role in collective dynamics.
+summed over the neighbors $k$ of agent $i$. It is the term that makes the model genuinely
+*multi-agent* rather than a stack of independent active-inference agents. It supplies a
+consensus interaction and a candidate input to coarse-graining, but polarization and
+[[Meta-agents and hierarchical emergence|meta-agent]] emergence require separate results and
+cannot be read off from this term alone. This page collects the definition, its classical
+comparisons, and its role in collective dynamics.
 
 ## Definition
 
@@ -94,32 +94,29 @@ promoting it to non-trivial holonomy is reserved for the companion edge-relaxed 
 > the same term with indices $i,j$ as $\beta_{ij}\,D_{\mathrm{KL}}(q_i\|\Omega_{ij}[q_j])$. They
 > are identical — only the dummy summation label differs.
 
-## Two classical limits
+## Classical comparisons and restricted reductions
 
-The gauge-transported KL coupling is a strict generalization of two well-known interaction
-rules. Recovering them is the main evidence that this term is the "right" coupling rather than
-an arbitrary choice.
+The gauge-transported KL coupling shares structures with several established interaction
+rules, but the current theorem proves only a narrow first-order subclass. The comparisons
+below separate that result from soft analogies and covariance-fusion calculations.
 
 ### Bounded-confidence / opinion-dynamics limit
 
-Replace each Gaussian belief by its mean (a point opinion $x_i \in \mathbb{R}$), set the gauge
-frame to the identity ($\Omega_{ik}=I$, flat bundle), and the transported KL collapses to a
-squared Euclidean distance, $D_{\mathrm{KL}}(q_i\|q_k) \to \tfrac{1}{2}\|x_i-x_k\|^2/\sigma^2$.
-The attention weight $\beta_{ik}$ then becomes a *similarity gate*: pairs whose opinions are
-close get large weight and interact, while pairs that differ by more than a confidence scale
-get exponentially suppressed weight and effectively do not interact. This is precisely the
-**bounded-confidence** mechanism of the Deffuant–Weisbuch model
-([[deffuant2000-bounded-confidence]], [[Bounded confidence]]): a randomly chosen pair updates
-toward each other only when $|x_i - x_k| < \epsilon$, otherwise not at all. The soft softmax
-gate of attention is the smooth analogue of the hard threshold $\epsilon$
-([[deffuant2000-bounded-confidence]] notes this correspondence explicitly). The same point-mass
-limit recovers the **linear discrepancy / DeGroot averaging** family of
-[[friedkin1990-social-influence-opinions|the Friedkin–Johnsen model]], whose influence matrix
-$W$ plays the role of the attention matrix $\beta_{ik}$ and whose equilibrium
-$Y_\infty = [I-\alpha W]^{-1}\beta XB$ mirrors the fixed-point structure of the VFE E-step.
-Friedkin–Johnsen's constant *susceptibility* $\lambda_i$ — an agent's fixed attachment to its own
-initial opinion — is the flat, curvature-free precursor of the project's [[Belief inertia]],
-which the gauge model recasts geometrically as [[Mass as Fisher information]].
+Replace each Gaussian belief by its mean, set $\Omega_{ik}=I$, and hold a common covariance
+fixed. The transported KL then becomes a squared Euclidean discrepancy, and finite-temperature
+attention becomes a smooth similarity-decreasing gate. This is a **soft analog** of bounded
+confidence, not the hard Deffuant–Weisbuch update or a Hegselmann–Krause ball average
+([[deffuant2000-bounded-confidence]], [[Bounded confidence]]).
+
+For fixed symmetric row-stochastic influence, the primary unweighted product Fisher flow gives
+continuous-time DeGroot up to one global rate scale. For a nonuniform reversible matrix, matching
+the standard transient requires $G_\rho=\sigma^{-2}(D_\rho\otimes I)$ or agent-specific rates
+$\eta_i\propto\rho_i^{-1}$; the primary flow retains $D_\rho$. Adding persistent anchors to the
+reversible scalar energy gives a restricted [[friedkin1990-social-influence-opinions|Friedkin–Johnsen]]
+stationary equilibrium independently of the positive flow metric, but matching its standard
+transient has the same weighted-metric or rate requirement. General directed DeGroot and
+Friedkin–Johnsen iterations are not derived. Susceptibility is an anchoring parameter, not a
+geometric identity with [[Belief inertia]] or [[Mass as Fisher information]].
 
 ### Products-of-experts limit
 
@@ -152,13 +149,11 @@ in the single transported-KL term.
 
 ## Role in consensus and meta-agent formation
 
-Belief coupling is the engine of collective behaviour in the program. Because $\beta_{ik}$ is a
-*function of* the divergence it weights, the dynamics are self-reinforcing in the same way as
-bounded confidence: agents that start close pull closer, raising their mutual weight, while
-distant agents decouple. This produces the characteristic two-regime outcome of opinion
-dynamics — global **consensus** when coupling reaches across the population, fragmentation into
-multiple stable **clusters** when it does not ([[deffuant2000-bounded-confidence]]). In the
-gauge model these consensus clusters are the seed of structure: a tightly coupled group of
+Belief coupling supplies attractive interaction in the program. Because $\beta_{ik}$ is a
+function of the divergence it weights, nearby agents can interact more strongly than distant
+agents. Under the stated connected, positive, finite-temperature, symmetric reciprocal
+two-cluster reduction, however, separated clusters are metastable and continue to contract;
+stable fragmentation is not derived ([[deffuant2000-bounded-confidence]]). A tightly coupled group of
 agents whose beliefs have aligned (modulo their gauge frames) behaves as a single coarse belief
 — a **meta-agent** — at the next scale ([[Meta-agents and hierarchical emergence]]). The
 emergent meta-agent's transporter is the inter-cluster average $\Omega_{AB} = (|A||B|)^{-1}
@@ -178,26 +173,26 @@ Two further connections make the term load-bearing:
   $\Omega_{ik}=I$. Its isotropic transported-KL score is identity-bilinear plus a key-norm bias; an
   arbitrary learned QK bilinear form is a separate structural map. [[gl-k-attention-2026-07-09-review-revision]]
 
-- **Coupling vs. inertia.** The coupling term is the *force* that moves beliefs together; the
-  resistance to that force is [[Belief inertia]] — the mass an agent's belief carries, set by
-  the curvature of its local statistical manifold via the [[Fisher information metric]]
-  ([[Mass as Fisher information]]). Consensus is the balance of the two: strong coupling and low
-  inertia drive rapid agreement; high inertia (sharp, high-precision beliefs) resists being
-  pulled, producing stubborn agents and persistent disagreement — the gauge generalization of
-  Friedkin–Johnsen's susceptibility split between conformity and conflict
+- **Coupling vs. inertia.** The coupling term supplies a restoring force. The intrinsic
+  [[Fisher information metric]], the loss stiffness, and any kinetic metric are distinct
+  ([[Mass as Fisher information]]). At fixed Fisher geometry and learning rate, larger positive
+  first-order stiffness speeds relaxation; slower revision requires an independent mobility,
+  damping, kinetic, or slow-state mechanism. Friedkin–Johnsen susceptibility is represented by
+  explicit anchoring, not by identifying stiffness or Fisher geometry with inertia
   ([[friedkin1990-social-influence-opinions]]).
 
 ## Relevance to this research
 
-Belief coupling is the single inter-agent interaction from which the program's three macroscopic
-phenomena all follow: **attention** (the flat-bundle limit), **consensus / cluster formation**
-(the bounded-confidence dynamics), and **hierarchical emergence** (meta-agent coarse-graining).
-It is the term that unifies the social-physics lineage — Deffuant–Weisbuch bounded confidence
+Belief coupling is the program's inter-agent interaction and a common comparison point for
+**attention**, restricted **consensus**, and proposed **hierarchical emergence**. It does not by
+itself derive bounded-confidence fragmentation, cascades, polarization, or meta-agent closure.
+It connects the social-physics lineage — Deffuant–Weisbuch bounded confidence
 ([[deffuant2000-bounded-confidence]]), Friedkin–Johnsen social influence
 ([[friedkin1990-social-influence-opinions]]), DeGroot averaging
 ([[degroot-1974-consensus]]) — with the machine-learning lineage of products of experts
 ([[hinton-2002-products-of-experts]]) and transformer attention
-([[gl-k-attention]]), placing them as different limits of one gauge-covariant divergence.
+([[gl-k-attention]]), but with the proof-status distinctions stated above rather than as
+unqualified limits of one gauge-covariant divergence.
 This dual heritage is why the concept sits in both the
 [[Gauge-Theoretic Multi-Agent VFE Model]] and the [[SocialPhysics]] projects.
 

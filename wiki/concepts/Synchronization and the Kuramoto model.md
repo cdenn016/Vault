@@ -11,7 +11,7 @@ tags:
   - project/social-physics
 status: stable
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-07-13
 ---
 
 # Synchronization and the Kuramoto model
@@ -28,7 +28,7 @@ The decisive step ([[kuramoto-1975-coupled-oscillators]]) is to define the compl
 
 The relevance to the SocialPhysics / [[belief-inertia]] program is real but specific, and it is worth being precise about its strength. Synchronization theory is **not machinery the belief-inertia VFE functional imports**: beliefs in this program are Gaussian tuples $q_i = N(\mu_i, \Sigma_i)$ on a [[Statistical manifold]] coupled by the gauge-transported divergence $\mathrm{KL}(q_i \| \Omega_{ij}[q_j])$ with $\Omega_{ij} = \exp(\phi_i)\exp(-\phi_j)$, not scalar phases on a circle coupled by a sinusoid. The correspondence is therefore at the level of **phenomenology and method**, not shared equations.
 
-Where the link is strongest is the program's underdamped, momentum-carrying regime. The flagged second-order ansatz of [[Hamiltonian belief dynamics]] — reading the Fisher/precision tensor as inertial [[Mass as Fisher information|mass]] so that beliefs obey $M\ddot\mu + \gamma\dot\mu + \nabla F = 0$ — predicts exactly the qualitative repertoire synchronization theory was built to describe: oscillation, overshoot, resonance, entrainment, and phase-locking of trajectories that first-order (overdamped) opinion-dynamics models cannot produce. The Kuramoto order-parameter reduction is the physics analogue of the question this program asks of a population of momentum-carrying beliefs: do they entrain to a collective rhythm or stay dispersed? That is a genuine conceptual parallel, and it sits one regime over from the overdamped recovery of DeGroot/Friedkin–Johnsen documented in [[Opinion dynamics]].
+The closest link is still analogical. The conditional second-order ansatz of [[Hamiltonian belief dynamics]] permits tests of oscillation, overshoot, and resonance only after a positive kinetic metric and damping are independently specified; it does not derive Kuramoto phases, sinusoidal coupling, an order parameter, entrainment, or phase locking. The current first-order theorem is also narrower than an "overdamped recovery" family: the primary unweighted Fisher flow gives fixed symmetric DeGroot, a nonuniform reversible transient requires $G_\rho$ or agent-specific rates, and the restricted anchored stationary equilibrium is independent of the positive flow metric. Kuramoto synchronization remains a benchmark and source of analytical techniques, not a derived limit of [[belief-inertia]].
 
 Two further links are methodological rather than phenomenological. First, the **mean-field, finite-$N$ analytical toolkit** transfers directly: the self-consistency argument, the stability of the incoherent state, and the bifurcation to collective locking ([[strogatz-2000-kuramoto-to-crawford]]) are precisely the techniques one would port to ask whether a population of beliefs locks or fragments as coupling strength crosses a threshold — the consensus-versus-fragmentation transition that the program already frames through critical phenomena and [[Echo chambers and polarization]]. Second, the **noisy, network-coupled** Kuramoto variants ([[acebron-2005-kuramoto-review]]) mirror this program's own setting — noisy belief updates coupled over a graph rather than all-to-all — and their nonlinear Fokker–Planck / population-density formulation is the natural continuum bridge alongside the configuration-counting of [[Meta-entropy]] and the multi-scale view of [[Renormalization-group flow of beliefs]]. Beyond those, the connection is intellectual-neighborhood context: a shared mean-field, order-parameter, phase-transition vocabulary inside [[Sociophysics]] and [[Multi-agent variational free energy]], not an identity of dynamics.
 
@@ -59,7 +59,7 @@ Collectively these results place synchronization within the broader theme of [[S
 - [[Hamiltonian belief dynamics]] — the underdamped regime whose oscillation/resonance/entrainment phenomenology parallels synchronization.
 - [[Mass as Fisher information]] — the inertial reading that makes momentum-carrying beliefs possible.
 - [[Multi-agent variational free energy]] — the functional whose coupling sets up the consensus-versus-fragmentation transition.
-- [[Opinion dynamics]] — the overdamped recovery of classical models, one regime over from belief synchronization.
+- [[Opinion dynamics]] — the restricted first-order averaging correspondence, contrasted with synchronization benchmarks.
 - [[Echo chambers and polarization]] — the fragmented (incoherent) phase of the coupling-driven transition.
 - [[Meta-entropy]] · [[Renormalization-group flow of beliefs]] — the continuum / multi-scale machinery the kinetic Kuramoto formulation mirrors.
 - [[Sociophysics]] · [[SocialPhysics]] · [[belief-inertia]] — the broader programme, the founding project page, and the founding manuscript.

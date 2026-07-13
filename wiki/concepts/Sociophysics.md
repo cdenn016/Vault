@@ -28,7 +28,7 @@ The contribution should be compared directly with established opinion and probab
 ## Exact status of the social correspondences
 
 - **DeGroot:** under the primary unweighted product Fisher metric, derived only for fixed symmetric coupling under flat transport and common fixed covariance. Nonuniform reversible DeGroot additionally requires the $\rho$-weighted metric $G_\rho$, a fixed-label joint family, or equivalent agent-specific rates. General directed row-stochastic dynamics are outside the scalar derivation.
-- **Friedkin--Johnsen:** a restricted anchored equilibrium correspondence inheriting the same symmetric/weighted-reversible metric scope. Heterogeneous susceptibility requires agent-indexed prior precision or coupling; the general directed iteration is not derived.
+- **Friedkin--Johnsen:** a restricted anchored stationary equilibrium of the reversible scalar energy, independent of the positive flow metric. Matching its standard transient requires $G_\rho$ or agent-specific rates; heterogeneous susceptibility requires agent-indexed prior precision or coupling, and the general directed iteration is not derived.
 - **Bounded confidence:** Gibbs similarity weighting is a soft finite-temperature analog. It is not an exact Hegselmann--Krause ball average or Deffuant update.
 - **Polarization:** positive finite-temperature attractive attention yields metastable separation in the stated unanchored, symmetric reciprocal two-cluster reduction. Stable polarization requires added support, anchors, repulsion, or active sampling.
 - **Social Impact Theory:** interpretive only. Row-normalized attention redistributes a fixed allocation and does not derive Latan\'e's increasing-number or multiplicative strength--immediacy--number law.

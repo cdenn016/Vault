@@ -11,7 +11,7 @@ tags:
   - project/social-physics
 status: stable
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-07-13
 ---
 
 # Cultural evolution and social learning
@@ -24,7 +24,7 @@ updated: 2026-06-19
 
 ## Why it matters here
 
-This literature matters to the SocialPhysics program in two distinct ways, and the strength of the connection differs sharply between them. The first is genuine machinery-level lineage for the *overdamped recovery* claim of [[belief-inertia]]. Cavalli-Sforza and Feldman's linear blending recursion $p_{t+1} = a\,p_t + b$ is structurally the population-level analogue of DeGroot averaging and Friedkin-Johnsen anchoring ([[Opinion dynamics]]), and its transmission operators are precisely the population limit that the pairwise gauge-transported coupling $\beta_{ij}\,\mathrm{KL}(q_i \,\|\, \Omega_{ij}[q_j])$ of [[Multi-agent variational free energy]] instantiates at the level of individual Gaussian beliefs. The vertical/horizontal/oblique distinction among transmission channels maps onto the structure of the coupling graph and attention kernel. This is real lineage, with the honest caveat that the classical models are scalar-trait and noise-free whereas the VFE beliefs carry full covariance and gauge frames $\Omega_{ij} = \exp(\phi_i)\exp(-\phi_j)$.
+This literature supplies lineage and benchmarks, not a population limit already derived by [[belief-inertia]]. Cavalli-Sforza and Feldman's linear blending recursion is structurally analogous to DeGroot averaging and Friedkin–Johnsen anchoring ([[Opinion dynamics]]), but the current theorem proves only fixed symmetric DeGroot under the primary unweighted Fisher flow, a nonuniform reversible transient under $G_\rho$ or agent-specific rates, and a restricted reversible anchored stationary equilibrium independent of the positive flow metric. It does not derive vertical, horizontal, or oblique cultural-transmission operators from the pairwise gauge-transported coupling. Those channels can inform the design of a coupling graph and an empirical comparison, but remain external modeling choices.
 
 The second connection concerns the *structure of the attention/coupling kernel*, and here the literature functions as a specification of what the dynamics must reproduce rather than as imported mathematics. The social-learning-strategies taxonomy enumerates exactly which neighbors an agent should weight and under what conditions: "copy-when-uncertain" maps directly onto precision-weighted updating — an agent with broad covariance $\Sigma_i$ should place more weight on transported neighbor beliefs — which is the behavior the coupling term produces when its gain scales with the agent's own posterior uncertainty ([[laland-2004-social-learning-strategies]], [[rendell-2011-cognitive-culture]], [[Precision weighting]], [[Fisher information metric]]). The Social Learning Strategies Tournament supplies the same target empirically: the winning "copy-the-best, discount-the-stale" policy is what the softmax weights $\beta_{ij} = \mathrm{softmax}_j(-\mathrm{KL}/(\kappa\sqrt K))$ ought to recover when neighbors are weighted by the quality of their information ([[rendell-2010-why-copy-others]]). Prestige bias is the asymmetric, status-concentrated allocation of learning attention a heterogeneous $\beta_{ij}$ must be able to represent ([[henrich-gilwhite-2001-evolution-of-prestige]]). The relevance here is strong but specificational: these are behaviors the kernel should recover under appropriate weightings, not terms the functional derives.
 

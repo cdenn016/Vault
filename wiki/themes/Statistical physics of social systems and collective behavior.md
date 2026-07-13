@@ -28,7 +28,7 @@ The social correspondences now fall into four classes.
 
 ### Derived under restrictions
 
-Under the primary unweighted product Fisher metric, the model derives continuous-time DeGroot only for fixed symmetric influence under flat transport and common fixed covariance. Nonuniform reversible influence requires the additional metric $G_\rho=\sigma^{-2}(D_\rho\otimes I)$, equivalently a fixed-label joint family or agent-specific rates. Persistent anchors give the restricted Friedkin--Johnsen equilibrium under the same metric scope. These results do not extend to arbitrary directed row-stochastic influence, and heterogeneous susceptibility requires agent-indexed anchor precision or coupling.
+Under the primary unweighted product Fisher metric, the model derives continuous-time DeGroot only for fixed symmetric influence under flat transport and common fixed covariance. Matching a standard nonuniform reversible transient requires the additional metric $G_\rho=\sigma^{-2}(D_\rho\otimes I)$, equivalently a fixed-label joint family or agent-specific rates. Persistent anchors give a restricted Friedkin--Johnsen stationary equilibrium independently of the positive flow metric; only its standard transient retains the weighted-metric or rate requirement. These results do not extend to arbitrary directed row-stochastic influence, and heterogeneous susceptibility requires agent-indexed anchor precision or coupling.
 
 ### Soft analogs
 
