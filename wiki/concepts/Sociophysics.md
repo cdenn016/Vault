@@ -10,55 +10,54 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-07-13
 ---
 
 # Sociophysics
 
 ## Definition
 
-**Sociophysics** is the application of statistical-physics methods to social and collective behavior: it treats individuals as interacting elements of a many-body system and asks which macroscopic, emergent patterns — consensus, polarization, fragmentation, sudden tipping — follow from simple microscopic interaction rules. The toolkit is borrowed wholesale from condensed-matter and statistical mechanics: spin models (Ising, Potts) for binary or discrete opinions, mean-field approximations for densely connected populations, phase transitions and critical phenomena for the abrupt onset of consensus or order, the renormalization group for behavior across scales, and spin-glass theory for frustrated, conflicting interactions that produce many metastable states. The canonical review of the field ([[castellano-2009-statistical-physics-social-dynamics|castellano-fortunato-loreto-2009-social-dynamics]]) catalogs this program across opinion dynamics, cultural dynamics, language, crowd behavior, and social spreading, and the modern formulation owes much to Galam's "sociophysics" agenda ([[galam-2008-sociophysics]]), which explicitly imported the physicist's habit of seeking universality and order parameters in social data.
+**Sociophysics** applies statistical-physics, network, kinetic, and dynamical-systems methods to collective social behavior. Its canonical models isolate different mechanisms: averaging, anchoring, bounded confidence, signed influence, majority rules, contagion, synchronization, and second-order response. The surveys [[castellano-2009-statistical-physics-social-dynamics]], [[galam-2008-sociophysics]], and [[jusup-2022-social-physics]] map this broader field.
 
-## Why it matters here
+## Position of the gauge-VFE program
 
-The SocialPhysics project, founded on the manuscript [[belief-inertia]] ("The Inertia of Belief"), positions its gauge-theoretic variational-free-energy framework squarely within this tradition while supplying two ingredients the classical sociophysics literature lacks. The first is a principled microscopic foundation: rather than postulating opinion-update rules by analogy to spins, the model derives them from [[Multi-agent variational free energy]] minimization on a [[Statistical manifold]], with the coupling between agents carried by GL(K)-gauge-transported KL divergence $D_{\mathrm{KL}}(q_i\|\Omega_{ij}\,q_j)$ ([[Gauge transformation]], [[Fisher information metric]]). Classical opinion-dynamics models — DeGroot averaging, Friedkin–Johnsen, bounded-confidence Hegselmann–Krause and Deffuant — then reappear as overdamped (gradient-flow) limits of this single functional rather than as separate stipulated theories. The second ingredient is genuinely new physics: reading the Fisher/precision tensor as an inertial mass ([[Mass as Fisher information]]) promotes the usual dissipative dynamics to a second-order Hamiltonian system ([[Hamiltonian belief dynamics]]), predicting opinion oscillation, overshoot, resonance, and momentum transfer that first-order sociophysics models cannot produce. The framework also inherits the field's structural concerns — multi-scale coarse-graining through [[Renormalization-group flow of beliefs]] and the configuration counting of [[Meta-entropy]], spin-glass-style frustration when gauge transports around a loop fail to compose to the identity ([[mezard-parisi-virasoro-1987-spin-glass]], [[Holonomy]]), and the critical-phenomena language for tipping and synchronization ([[sornette-2006-critical-phenomena]], [[strogatz-2015-nonlinear-dynamics]]).
+The [[SocialPhysics]] project contributes an engineered gauge-covariant consensus energy for distribution-valued beliefs in heterogeneous local frames. Entropy-retaining attention optimization gives a canonical log-partition objective, and the local Gaussian loss Hessian separates into prior, sensory, incoming relational, and outgoing relational or recoil stiffness. The primary dynamics are Fisher--Rao [[Natural gradient|natural-gradient]] flow. [[Belief inertia]] is a conditional kinetic extension, not a consequence of sociophysics, VFE, or the [[Fisher information metric]]. The corrected source is [[belief-inertia-2026-07-12-theorem-first-revision]].
 
-## Details
+The contribution should be compared directly with established opinion and probability mechanics. [[martins-2015-opinion-particles]] already gives Bayesian-inspired opinion particles with inertia and a harmonic example. [[xue-hirche-cao-2020-opinion-port-hamiltonian]] applies port-Hamiltonian methods to controlled opinion networks. [[baumann-sokolov-tyloo-2020-second-order-consensus]] shows network resonance in second-order consensus. [[sampson-porter-restrepo-2025-oscillatory-opinion]] generates self-sustained and excitable opinions through group feedback without the proposed kinetic metric. These comparators make oscillation, resonance, or Hamiltonian terminology non-novel and non-diagnostic by themselves.
 
-The spin-glass connection is more than a metaphor in this model. In a spin glass the competition between ferromagnetic and antiferromagnetic bonds produces frustration — no spin configuration satisfies all bonds simultaneously — and a rugged free-energy landscape with exponentially many metastable states ([[mezard-parisi-virasoro-1987-spin-glass]]). The gauge-transported coupling supplies the social analogue: when the holonomy of $\Omega_{ij}$ around a cycle of agents differs from the identity, no global belief assignment can make every pairwise transport agree, and the multi-agent free energy acquires a frustrated landscape whose local minima are competing partial consensuses. This is the geometric origin of stable disagreement and persistent factions. Critical phenomena enter through the same functional: as coupling strength or precision crosses a threshold the population can undergo a phase transition from a disordered (diverse-opinion) phase to an ordered (consensus) phase, and near such a transition the susceptibility and correlation length diverge in the manner that [[sornette-2006-critical-phenomena]] documents for collective social tipping, while the synchronization of oscillatory belief trajectories connects to the coupled-oscillator analysis of [[strogatz-2015-nonlinear-dynamics]]. Beyond the binary-spin caricature, the model engages the specific mechanisms sociophysics has formalized: Social Impact Theory's nonlinear aggregation of influence by strength, immediacy, and number ([[latane1981psychology|latane-1981-social-impact]]) maps onto the precision-weighted, distance-discounted attention coupling; and the diffusion of innovations across a population ([[rogers-2003-diffusion-of-innovations]]) becomes a spreading process on the belief-coupling graph. A parallel and convergent program reconstructs sociophysics from active inference and the free-energy principle, deriving collective behavior from surprise minimization over shared generative models ([[heins-2024-surprise-minimization]], [[albarracin-2022-epistemic-communities]], [[Collective active inference]]) — the same variational substrate this model uses, which is why the two traditions meet naturally here.
+## Exact status of the social correspondences
+
+- **DeGroot:** under the primary unweighted product Fisher metric, derived only for fixed symmetric coupling under flat transport and common fixed covariance. Nonuniform reversible DeGroot additionally requires the $\rho$-weighted metric $G_\rho$, a fixed-label joint family, or equivalent agent-specific rates. General directed row-stochastic dynamics are outside the scalar derivation.
+- **Friedkin--Johnsen:** a restricted anchored stationary equilibrium of the reversible scalar energy, independent of the positive flow metric. Matching its standard transient requires $G_\rho$ or agent-specific rates; heterogeneous susceptibility requires agent-indexed prior precision or coupling, and the general directed iteration is not derived.
+- **Bounded confidence:** Gibbs similarity weighting is a soft finite-temperature analog. It is not an exact Hegselmann--Krause ball average or Deffuant update.
+- **Polarization:** positive finite-temperature attractive attention yields metastable separation in the stated unanchored, symmetric reciprocal two-cluster reduction. Stable polarization requires added support, anchors, repulsion, or active sampling.
+- **Social Impact Theory:** interpretive only. Row-normalized attention redistributes a fixed allocation and does not derive Latan\'e's increasing-number or multiplicative strength--immediacy--number law.
+- **Diffusion:** not derived. A population S-curve requires an explicit adoption state and hazard, with [[bass-1969-product-growth]] as the formal comparator.
+- **Confirmation bias and perseverance:** selective exposure, first-order stiffness response, kinetic latency, and persistence of an explanatory state are different mechanisms. At fixed Fisher geometry and learning rate, larger positive stiffness speeds linear relaxation; slower revision needs a separate mobility, damping, kinetic, or slow-state mechanism.
+
+## Behavioral and mechanics comparators
+
+[[nevin-mandell-atak-1983-behavioral-momentum]] operationalizes resistance to disruption in conditioned behavior. It is a useful experimental-design precedent, not validation of opinion-level Hamiltonian dynamics. [[chirco-2022-statistical-bundle-dynamics]], [[leok-zhang-2017-information-geometric-mechanics]], [[pistone-2018-statistical-bundle-lagrangian]], and [[girolami-calderhead-2011-riemann-hmc]] establish that information-geometric and statistical-bundle mechanics also predate this program. The residual novelty is the gauge-transported Gaussian KL consensus potential, optimized attention, and four-part local relational stiffness with an explicitly conditional kinetic reading.
 
 ## Sources
 
-- [[castellano-2009-statistical-physics-social-dynamics|castellano-fortunato-loreto-2009-social-dynamics]] — canonical review of statistical-physics methods for social dynamics (opinion, cultural, language, crowd, spreading models).
-- [[galam-2008-sociophysics]] — the sociophysics research agenda: order parameters, universality, and physics-style modeling of opinion formation.
-- [[jusup-2022-social-physics]] — the most current panoramic *Physics Reports* review of the whole social-physics field (urban dynamics, markets, cooperation, networks, epidemics, human–machine systems).
-- [[latane1981psychology|latane-1981-social-impact]] — Social Impact Theory; nonlinear aggregation of social influence by strength, immediacy, and number.
-- [[rogers-2003-diffusion-of-innovations]] — diffusion of innovations as a spreading process across a social network.
-- [[mezard-parisi-virasoro-1987-spin-glass]] — spin-glass theory: frustration, rugged landscapes, and exponentially many metastable states.
-- [[nishimori-2001-spin-glasses-information]] — statistical mechanics of disordered systems and its identity with Bayesian inference (the Nishimori line); what the spin-glass connection to opinion frustration would require.
-- [[sornette-2006-critical-phenomena]] — critical phenomena and phase transitions in natural and social systems; tipping and divergent susceptibility.
-- [[strogatz-2015-nonlinear-dynamics]] — nonlinear dynamics, bifurcations, and synchronization of coupled oscillators.
-- [[heins-2024-surprise-minimization]], [[albarracin-2022-epistemic-communities]] — active-inference reconstruction of collective social behavior.
+- [[belief-inertia-2026-07-12-theorem-first-revision]] -- revised theorem and claim-status record.
+- [[belief-inertia-2026-07-13-final-verification-addendum]] -- authoritative final-panel reconciliation.
+- [[martins-2015-opinion-particles]] -- direct opinion-particle predecessor.
+- [[nevin-mandell-atak-1983-behavioral-momentum]] -- behavioral resistance-to-disruption comparator.
+- [[xue-hirche-cao-2020-opinion-port-hamiltonian]] -- port-Hamiltonian opinion-network comparator.
+- [[baumann-sokolov-tyloo-2020-second-order-consensus]] -- second-order consensus and parametric resonance.
+- [[bass-1969-product-growth]] -- formal population diffusion model.
+- [[sampson-porter-restrepo-2025-oscillatory-opinion]] -- alternative non-inertial oscillation mechanism.
+- [[castellano-2009-statistical-physics-social-dynamics]], [[galam-2008-sociophysics]], [[jusup-2022-social-physics]] -- field surveys.
 
 ## See also
 
-**Deep neighborhood** (synthesized in the theme [[Statistical physics of social systems and collective behavior]]): [[Voter model]] · [[Discrete spin and majority-rule models of opinion]] · [[Axelrod model of cultural dissemination]] · [[Kinetic theory of opinion dynamics]] · [[Sociodynamics and synergetics]] · [[Mean-field games and continuum limits]] · [[Network structure — small-world and scale-free]] · [[Threshold models and complex contagion]] · [[Information cascades and herding]] · [[Schelling segregation and tipping points]] · [[Collective motion and flocking]] · [[Synchronization and the Kuramoto model]] · [[Social influence and conformity]] · [[Cultural evolution and social learning]] · [[Evolutionary game theory and cooperation]] · [[Replicator dynamics]]
-
+- [[Statistical physics of social systems and collective behavior]]
 - [[Opinion dynamics]]
 - [[Echo chambers and polarization]]
-- [[SocialPhysics]]
-- [[belief-inertia]]
-- [[Belief inertia]]
-- [[Mass as Fisher information]]
-- [[Hamiltonian belief dynamics]]
+- [[Belief perseverance and confirmation bias]]
 - [[Multi-agent variational free energy]]
-- [[Renormalization-group flow of beliefs]]
-- [[Meta-entropy]]
-- [[Collective active inference]]
-- [[Community detection and modularity]]
-- [[Gauge transformation]]
-- [[Holonomy]]
-- [[Fisher information metric]]
-- [[Statistical manifold]]
+- [[Hamiltonian belief dynamics]]
 - [[Gauge-Theoretic Multi-Agent VFE Model]]
-- [[VFE Transformer Program]]
+- [[belief-inertia-2026-07-13-final-review-closure]]

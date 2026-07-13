@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-07-13
 ---
 
 # Opinion dynamics
@@ -28,9 +28,9 @@ The most current broad map of the field is the survey of [[noorazar-2020-opinion
 
 ## Why it matters here
 
-These models matter to this project because [[belief-inertia]] derives each of them as the **overdamped (gradient-flow) limit** of [[Multi-agent variational free energy]] with gauge-transported KL coupling. When agents carry Gaussian beliefs and disagreement is measured by the gauge-covariant divergence $\mathrm{KL}(q_i \,\|\, \Omega_{ij}[q_j])$, the first-order descent $\dot\mu_i \propto -\partial F/\partial\mu_i$ of the coupling term $\sum_{ij}\beta_{ij}\,\mathrm{KL}(q_i\|\Omega_{ij}[q_j])$ reduces, in the scalar-belief flat-connection limit, to exactly the DeGroot averaging law, with the [[Attention mechanisms — theory and positional structure|softmax attention weights]] $\beta_{ij}$ playing the role of the influence/trust matrix $W_{ij}$. Adding the self-coupling term $\alpha\,\mathrm{KL}(q_i\|p_i)$ that anchors each belief to its prior reproduces the Friedkin–Johnsen anchoring term, with the precision ratio $\alpha/(\alpha+\sum_j\beta_{ij})$ acting as the complement of the susceptibility $\lambda_i$. The consequence drawn out in the manuscript is that consensus and polarization are not separate phenomena requiring separate models but one principle under different boundary conditions: tune the prior anchoring, the confidence structure of the attention weights, and the connection, and the same free-energy descent moves between global agreement, persistent disagreement, and fragmentation into [[Echo chambers and polarization|echo chambers]].
+The dated theorem-first status in [[belief-inertia-2026-07-12-theorem-first-revision]] is narrower. Under flat transport and common fixed covariance, the primary unweighted product Fisher metric yields continuous-time DeGroot only for fixed **symmetric** influence. Matching a standard nonuniform reversible transient requires the additional metric $G_\rho=\sigma^{-2}(D_\rho\otimes I)$, equivalently a fixed-label joint family $P(i,x)=\rho_iq_i(x)$ or agent-specific rates $\eta_i\propto\rho_i^{-1}$. Persistent anchors give a restricted reversible Friedkin--Johnsen stationary equilibrium independently of the positive flow metric; only its standard transient retains that metric or rate requirement. General directed iterations are not derived.
 
-A distinctive feature of the gauge-theoretic reading is that the influence weights are not postulated but **emergent**. In DeGroot and Friedkin–Johnsen the matrix $W$ is exogenous; here $\beta_{ij} = \mathrm{softmax}_j(-\mathrm{KL}(q_i\|\Omega_{ij}[q_j])/(\kappa\sqrt{K}))$ is determined by the current beliefs themselves, so trust is endogenous and opinion-dependent — agents weight most heavily those neighbors they already agree with after transport. This makes the bounded-confidence phenomenology continuous rather than thresholded: the soft attention kernel smoothly down-weights distant opinions where Hegselmann–Krause imposes a hard cutoff.
+The optimized weights $\beta_{ij}=\mathrm{softmax}_j[-\mathrm{KL}(q_i\|\Omega_{ij\#}q_j)/\tau+\log\pi_{ij}]$ are endogenous conditional on the imposed candidate set, prior $\pi_{ij}$, and divergence kernel. They provide graded similarity selectivity, not a derivation of trust. Their finite-temperature behavior is a **soft analog** of bounded confidence, not an exact Hegselmann--Krause or Deffuant limit, and positive tails do not by themselves produce stable fragmentation. Voter imitation, threshold cascades, evolutionary dynamics, and polarized equilibria remain benchmark mechanisms or extensions rather than limits already proved by this functional.
 
 ## Details
 
@@ -52,10 +52,12 @@ The averaging skeleton of opinion dynamics is the same object that appears in tw
 
 ## See also
 
-- [[belief-inertia]] — derives the classical opinion-dynamics models as overdamped limits of gauge-theoretic VFE.
-- [[Multi-agent variational free energy]] — the functional whose gradient flow yields the averaging dynamics.
-- [[Bounded confidence]] — opinion-dependent influence and clustering into stable groups.
-- [[Echo chambers and polarization]] — the fragmented, consensus-failing regime of the same dynamics.
+- [[belief-inertia-2026-07-12-theorem-first-revision]] — current theorem-first scope for the symmetric and weighted-reversible reductions.
+- [[belief-inertia-2026-07-13-final-verification-addendum]] — final source for the primary-versus-weighted metric distinction.
+- [[belief-inertia-2026-07-13-final-review-closure]] — authoritative final source for the metric-independent anchored equilibrium and transient qualification.
+- [[Multi-agent variational free energy]] — the functional whose restricted Fisher flows yield the proved averaging subclass.
+- [[Bounded confidence]] — a soft-analog comparison, not an exact recovered limit.
+- [[Echo chambers and polarization]] — metastability under passive attraction and the extra mechanisms needed for persistent separation.
 - [[Sociophysics]] · [[SocialPhysics]] — the broader programme and the founding project page.
 - [[Collective active inference]] — the active-inference reading of coupled belief-updating populations.
 - [[Attention mechanisms — theory and positional structure]] — the softmax weights that play the role of the influence/trust matrix.

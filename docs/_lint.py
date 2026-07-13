@@ -11,10 +11,23 @@ Reports:
   CASE collisions    - two notes whose basenames match ignoring case.
   IDENTITY collisions- one name/alias claimed by >1 note (ambiguous resolution / autocomplete).
 """
-import os, re
+import argparse
+import os
+import re
 from collections import defaultdict
-ROOT = r"C:\Users\chris and christine\Desktop\Research"
-DIRS = ["wiki","sources","manuscripts","templates","inbox"]
+
+parser = argparse.ArgumentParser(description="Lint an Obsidian Research vault")
+parser.add_argument(
+    "--root",
+    default=os.environ.get(
+        "RESEARCH_VAULT_ROOT",
+        os.path.abspath(os.path.join(os.path.dirname(__file__), "..")),
+    ),
+    help="vault root; defaults to the repository containing docs/_lint.py",
+)
+args = parser.parse_args()
+ROOT = os.path.abspath(args.root)
+DIRS = ["wiki", "sources", "manuscripts", "templates", "inbox"]
 WL = re.compile(r"\[\[([^\]]+)\]\]")
 
 def strip_code(t):
