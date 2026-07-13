@@ -324,104 +324,138 @@ For a trajectory $\mu(t)$ parameterized by some external parameter $t$, the tota
 \ell = \int \sqrt{\dot{\mu}^T \Sigma^{-1} \dot{\mu}}\ dt .
 \end{equation}
 
-This Fisher arc-length clock plays a role loosely comparable to proper time in special relativity, in that different agents accumulate it at different rates depending on their precision; we draw the comparison only as an analogy and do not claim a Lorentzian metric structure, which would require a derived signature and is not established here. The velocity through belief space determines how quickly arc length accumulates, with high-precision agents accumulating it faster for identical parametric motion. This metric structure motivates the kinetic energy $T = \frac{1}{2}\dot{\mu}^T \mathbf{M} \dot{\mu}$ adopted in the Hamiltonian formulation below; the belief-perseverance envelope decay time $\tau_{\mathrm{env}} = 2M/\gamma$ (Section~\ref{sec:overshoot}) is a separate dynamical timescale and should not be conflated with this arc-length clock.
+This Fisher arc-length clock plays a role loosely comparable to proper time in special relativity, in that different agents accumulate it at different rates depending on their precision; we draw the comparison only as an analogy and do not claim a Lorentzian metric structure, which would require a derived signature and is not established here. The velocity through belief space determines how quickly arc length accumulates, with high-precision agents accumulating it faster for identical parametric motion. The intrinsic metric that defines this arc length does not, by itself, select a kinetic energy or an inertial mass.
 
 %==============================================================================
-\subsection{Hamiltonian Formulation of Belief Dynamics}
+\subsection{Kinetic Geometry Is an Additional Postulate}
 \label{sec:hamiltonian}
 %==============================================================================
 
-The Fisher arc-length metric introduced above equips belief space with a natural notion of kinetic energy: $T = \frac{1}{2}\dot{\mu}^T \mathbf{M} \dot{\mu}$ where $\mathbf{M}$ is derived below. Combined with the free energy as potential, this suggests a Hamiltonian formulation where precision plays the role of inertial mass. We adopt this as an ansatz (not derived from first principles) motivated by the geometric structure and its empirical consequences.
-
-Under the adiabatic approximation where priors evolve slowly relative to beliefs 
-(see Appendix~\ref{app:hamiltonian} for the complete phase space construction), 
-the mass matrix takes a remarkably interpretable form.
+The objective determines forces and local loss curvature, whereas a second-order theory also requires a positive kinetic metric. We reserve $\mathbf M(x)$ for that kinetic metric. It is introduced only by an explicit kinetic postulate and is neither the Fisher--Rao metric nor the loss Hessian by definition. This subsection therefore does not install second-order dynamics; it first isolates the stiffness supplied by the canonical objective.
 
 
 %------------------------------------------------------------------------------
-\subsection{Mass as Fisher Information: The Complete Derivation}
+\subsection{Local Gaussian Stiffness and the Three Geometries}
 %------------------------------------------------------------------------------
 
-The central observation motivating our Hamiltonian ansatz is that the Hessian of the variational free energy---which measures the curvature of the free energy landscape and thus the resistance to belief change---takes the form of a total precision matrix combining all sources of constraint. We compute this Hessian explicitly and adopt it as an inertial mass tensor.
-
-\subsubsection{The Variational Free Energy}
-
-The complete scalar is the entropy-retaining objective $\mathcal F_{\mathrm{full}}$ in Eq.~\eqref{eq:canonical_full_vfe}, or its adaptive-prior extension obtained by the replacement in Eq.~\eqref{eq:adaptive_self_coupling}. In the frozen-attention calculation below, the categorical entropy term remains part of the scalar but is constant with respect to the Gaussian belief coordinates. Denoting the full state vector $\xi = (\mu_1, \ldots, \mu_N, \Sigma_1, \ldots, \Sigma_N)$, this section considers the coordinate Hessian
-
+Let $x=(\mu_1,\ldots,\mu_N,\Sigma_1,\ldots,\Sigma_N)$ denote affine Gaussian coordinates. Three geometric objects must be distinguished. The intrinsic Fisher--Rao metric $\mathbf G(q)$ depends only on the statistical family and the point $q$. The coordinate loss Hessian
 \begin{equation}
-\mathbf{M} = \frac{\partial^2 \mathcal{F}_{\mathrm{full}}}{\partial\xi\partial\xi^\top}
+\mathbf H_F(x)=\nabla_x^2\mathcal F(x)
+\label{eq:loss_hessian_definition}
 \end{equation}
+is the local stiffness of the selected scalar objective. Outside a critical point it is an affine-coordinate stiffness, not a tensor under arbitrary nonlinear reparameterizations. The symbol $\mathbf M(x)$ is reserved for a positive kinetic metric introduced only if the kinetic postulate is adopted. Thus $\mathbf G$, $\mathbf H_F$, and $\mathbf M$ are not interchangeable notation.
 
-This Hessian defines the effective mass matrix $\mathbf{M}$ for belief dynamics. A key distinction must be noted: this Hessian mass is \emph{not} the intrinsic Fisher-Rao metric $\mathcal{I}(\theta) = \mathrm{Cov}_{q}[(\nabla \log q)(\nabla \log q)^T]$, which depends only on the belief distribution $q_i$. Rather, it is the curvature of the \emph{total free energy landscape}, which incorporates contributions from priors, observations, and social coupling. In the single-agent case with prior $p$ only, the Hessian of $D_{\mathrm{KL}}(q \| p)$ with respect to the parameters of $q$ yields the \emph{reference} distribution's precision $\Lambda_p$, not the Fisher information of $q$ itself. The two coincide only at the critical point $q = p$. We therefore refer to $\mathbf{M}$ as the ``Hessian mass'' to distinguish it from the Fisher-Rao metric, while noting that both reduce to the precision matrix for Gaussians. Each term in $F$ contributes independently to the total mass.
+The {\v C}encov--Chentsov theorem justifies $\mathbf G$, up to scale, as the classical monotone metric under sufficient-statistic maps \citep{Cencov1982}; it does not identify the Hessian of a prior, likelihood, and relational objective with that intrinsic metric. A matched KL term has the Fisher quadratic form at its minimum, and a fixed-covariance Gaussian KL is quadratic in its mean. Consequently $\mathbf H_F=\mathbf G$ can hold on an explicitly identified matching block or in a declared quadratic regime, but it does not hold globally for the summed population objective merely because both objects contain precision matrices.
 
-\subsubsection{Contribution 1: Prior Precision}
-
-The complexity cost $D_{\mathrm{KL}}(q_i \| p_i)$ penalizes deviation from the prior. Its Hessian with respect to the mean yields
-
-\begin{equation}
-\frac{\partial^2}{\partial\mu_i\partial\mu_i^\top} D_{\mathrm{KL}}(q_i \| p_i) = \bar{\Sigma}_{p_i}^{-1} \equiv \bar{\Lambda}_{p_i}
-\end{equation}
-
-This is the prior precision, i.e. resistance to deviating from innate or learned expectations.
-
-\subsubsection{Contribution 2: Observation Precision}
-
-The accuracy term $-\mathbb{E}_{q_i}[\log p(o_i|c_i)]$ rewards explaining observations. For a Gaussian observation model $p(o_i|c_i) = \mathcal{N}(o_i \mid c_i, R_i)$ where $c_i$ is the hidden cause and $R_i$ is the sensory noise covariance:
-
-\begin{equation}
-\frac{\partial^2}{\partial\mu_i\partial\mu_i^\top} \left[-\mathbb{E}_{q_i}[\log p(o_i|c_i)]\right] = R_i^{-1} \equiv \Lambda_{o_i}
-\end{equation}
-
-This is the observation precision—the inverse sensory noise covariance. Precise observations (small $R_i$, large $\Lambda_{o_i}$) provide strong grounding that resists belief change.
-
-
-\subsubsection{Contribution 3: Social Precision}
-
-The consensus term $\sum_k \beta_{ik} D_{\mathrm{KL}}(q_i \| \Omega_{ik}\cdot q_k)$ penalizes disagreement with neighbors. Taking the Hessian with the attention weights $\beta_{ik}$ held fixed (the mean-field approximation discussed below):
-\begin{equation}
-\frac{\partial^2}{\partial\mu_i\partial\mu_i^\top} \sum_k \beta_{ik} D_{\mathrm{KL}}(q_i \| \Omega_{ik}\cdot q_k) = \sum_k \beta_{ik} \left(\Omega_{ik}\Sigma_{q_k}\Omega_{ik}^\top\right)^{-1} = \sum_k \beta_{ik} \tilde{\Lambda}_{q_k}
-\end{equation}
-
-where $\tilde{\Lambda}_{q_k} = \left(\Omega_{ik}\Sigma_{q_k}\Omega_{ik}^\top\right)^{-1} = \Omega_{ik}^{-\top}\Lambda_{q_k}\Omega_{ik}^{-1}$ is the precision of neighbor $k$ transported into agent $i$'s frame. This is the inverse of the transported covariance $\Omega_{ik}\Sigma_{q_k}\Omega_{ik}^\top$ of Eq.~\eqref{eq:transport_cov}, consistent with the covariance sandwich used throughout. On the metric-preserving subgroup $\mathrm{SO}(d)$ or $\mathrm{O}(d)$, where $\Omega^{-\top} = \Omega$, this reduces to the familiar form $\Omega_{ik}\Lambda_{q_k}\Omega_{ik}^\top$; all simulations in this paper use $\Omega = I$ or an orthogonal $\Omega$, for which the two coincide.
-
-This display is the frozen-attention coordinate Hessian, not the Hessian of the envelope-reduced row. When attention is optimized, the canonical first variation is Eq.~\eqref{eq:reduced_vfe_envelope}; attention response re-enters only at second order through the reduced log-partition curvature. The local-stiffness result below therefore states explicitly whether attention is frozen or envelope-eliminated rather than differentiating the entropy-suppressed product as though it were the canonical objective.
-
-Additionally, agent $i$ appears in the consensus terms of its neighbors $j$, contributing a \textit{reciprocal} mass:
-\begin{equation}
-\frac{\partial^2}{\partial\mu_i\partial\mu_i^\top} \sum_j \beta_{ji} D_{\mathrm{KL}}(q_j \| \Omega_{ji}[q_i]) = \sum_j \beta_{ji} \Lambda_{q_i}
-\end{equation}
-
-\subsubsection{The Complete Mass Formula}
-
-Combining all contributions, the effective mass of agent $i$ is:
-
+\begin{theorem}[Four-part local Gaussian stiffness]
+\label{thm:four_part_stiffness}
+Consider the objective in Eq.~\eqref{eq:canonical_full_vfe}, with the Gaussian observation model used in this paper. Fix the transports and covariances. Evaluate the optimized attention weights in Eq.~\eqref{eq:attention_weights}, then freeze those values while differentiating the Gaussian coordinates. Also hold $\alpha_i$ fixed, with $\alpha_i=1$ in the canonical prior sector and $\alpha_i=\alpha_i^*$ when a conditionally optimized adaptive value is frozen. At a gauge-consensus point $q_i=\Omega_{ik\#}q_k$ on every active edge, the mean-sector block of the full stacked loss Hessian has diagonal blocks
 \begin{equation}
 \boxed{
-M_i = \underbrace{\bar{\Lambda}_{p_i}}_{\substack{\text{prior} \\ \text{precision}}} + \underbrace{\Lambda_{o_i}}_{\substack{\text{observation} \\ \text{precision}}} + \underbrace{\sum_k \beta_{ik}\tilde{\Lambda}_{q_k}}_{\substack{\text{incoming} \\ \text{social precision}}} + \underbrace{\sum_j \beta_{ji}\Lambda_{q_i}}_{\substack{\text{outgoing} \\ \text{social precision}}}
-}
+[\mathbf H_{\mu\mu}]_{ii}
+=\underbrace{\alpha_i\bar\Lambda_{p_i}}_{\text{prior stiffness}}
++\underbrace{\Lambda_{o_i}}_{\text{sensory stiffness}}
++\underbrace{\sum_k\beta_{ik}\widetilde\Lambda_{q_k}}_{\text{incoming relational stiffness}}
++\underbrace{\sum_j\beta_{ji}\Lambda_{q_i}}_{\text{outgoing relational/recoil stiffness}},}
+\label{eq:stiffness_diagonal}
 \end{equation}
+where $\widetilde\Lambda_{q_k}=\Omega_{ik}^{-\top}\Lambda_{q_k}\Omega_{ik}^{-1}$. For $i\ne k$, its off-diagonal sender--receiver blocks are
+\begin{equation}
+\boxed{
+[\mathbf H_{\mu\mu}]_{ik}
+=-\beta_{ik}\Omega_{ik}^{-\top}\Lambda_{q_k}
+-\beta_{ki}\Lambda_{q_i}\Omega_{ki}^{-1}.}
+\label{eq:stiffness_offdiagonal}
+\end{equation}
+The assembled matrix is symmetric, including when the frozen attention matrix is asymmetric.
+\end{theorem}
 
-This four-part structure has transparent intuitive meaning. The term $\bar{\Lambda}_{p_i}$ represents \textbf{prior inertia}, the resistance arising from the cost of deviating from deep expectations; it carries the self-coupling weight $\alpha_i$, set to its default $1$ here and promoted to a state-dependent precision in Section~\ref{sec:state_dependent_precision}, where the prior block becomes $\alpha_i^* \bar{\Lambda}_{p_i}$. The term $\Lambda_{o_i}$ represents \textbf{sensory inertia}, grounding through observation whereby precise senses anchor beliefs. The term $\sum_k \beta_{ik}\tilde{\Lambda}_{q_k}$ represents \textbf{incoming social inertia}, the effect of being pulled toward confident neighbors. Finally, the term $\sum_j \beta_{ji}\Lambda_{q_i}$ represents \textbf{outgoing social inertia}, the recoil from exerting influence on others.
+\begin{proof}
+For one directed edge from sender $k$ to receiver $i$, write $r_{ik}=\mu_i-\Omega_{ik}\mu_k$. The mean-dependent part of its Gaussian KL is
+\begin{equation}
+E_{ik}^{(\mu)}=\frac12 r_{ik}^{\top}\widetilde\Lambda_{q_k}r_{ik}.
+\label{eq:edge_mean_quadratic}
+\end{equation}
+Direct differentiation gives
+\begin{align}
+\nabla_{\mu_i}E_{ik}^{(\mu)}
+&=\widetilde\Lambda_{q_k}r_{ik},
+&
+\nabla_{\mu_k}E_{ik}^{(\mu)}
+&=-\Omega_{ik}^{\top}\widetilde\Lambda_{q_k}r_{ik},
+\label{eq:edge_mean_gradients}\\
+\nabla_{\mu_i\mu_i}^2E_{ik}^{(\mu)}
+&=\widetilde\Lambda_{q_k},
+&
+\nabla_{\mu_k\mu_k}^2E_{ik}^{(\mu)}
+&=\Lambda_{q_k},
+\label{eq:edge_mean_diagonal_hessians}\\
+\nabla_{\mu_i\mu_k}^2E_{ik}^{(\mu)}
+&=-\Omega_{ik}^{-\top}\Lambda_{q_k},
+&
+\nabla_{\mu_k\mu_i}^2E_{ik}^{(\mu)}
+&=-\Lambda_{q_k}\Omega_{ik}^{-1}.
+\label{eq:edge_mean_cross_hessians}
+\end{align}
+The prior and observation quadratics contribute $\alpha_i\bar\Lambda_{p_i}$ and $\Lambda_{o_i}$ to the $i$th diagonal block. Every edge received by $i$ contributes its transported sender precision, while every edge on which $i$ is the sender contributes its untransported precision $\Lambda_{q_i}$. Summing these terms proves Eq.~\eqref{eq:stiffness_diagonal}. For $i\ne k$, the edge received by $i$ contributes the first term of Eq.~\eqref{eq:stiffness_offdiagonal}, and the reciprocal edge received by $k$ contributes the second. Equation~\eqref{eq:edge_mean_cross_hessians} then gives $[\mathbf H_{\mu\mu}]_{ki}=[\mathbf H_{\mu\mu}]_{ik}^{\top}$ without requiring $\beta_{ik}=\beta_{ki}$.
 
-\subsubsection{Interpretation}
+The same calculation exposes the full frozen-attention force balance:
+\begin{align}
+\nabla_{\mu_i}\mathcal F_{\mathrm{full}}
+={}&\alpha_i\bar\Lambda_{p_i}(\mu_i-\bar\mu_i)
++\Lambda_{o_i}(\mu_i-o_i)\nonumber\\
+&+\sum_k\beta_{ik}\widetilde\Lambda_{q_k}
+(\mu_i-\Omega_{ik}\mu_k)
++\sum_j\beta_{ji}\Lambda_{q_i}
+(\mu_i-\Omega_{ji}^{-1}\mu_j).
+\label{eq:stiffness_force_balance}
+\end{align}
+Differentiating this stacked force reproduces both block formulas. At consensus the mean--covariance cross blocks of the edge KLs vanish, so the displayed mean sector decouples locally from covariance variations. This completes the proof.
+\end{proof}
 
-The identification of mass with total Fisher information reveals several intuitive phenomena and grounds them geometrically and quantitatively:
+The theorem concerns the complete scalar and includes both receiver and sender derivatives. The outgoing term is therefore a recoil contribution to local curvature, not accumulated memory and not an inertial effect by itself. If the envelope-reduced adaptive prior of Eq.~\eqref{eq:adaptive_prior_reduced_hessian} is differentiated rather than frozen, its stated negative rank-one response must be added to the prior mean block.
 
-\paragraph{Sensory anchoring.} Agents with precise observations ($\Lambda_o$ large) have greater belief inertia. This seems counterintuitive; shouldn't better data make beliefs more flexible? The resolution is that precise observations provide strong evidence for the current state. An agent with low-noise sensors has high Fisher information, meaning small belief changes would dramatically worsen the likelihood fit. The agent is anchored by its own sensory precision. This predicts that experts with reliable instrumentation become harder to move than novices relying on noisy signals; not because the expert is stubborn, but because their high-fidelity observations geometrically constrain the belief manifold. The very precision that makes expertise valuable simultaneously makes it rigid.
+\begin{proposition}[Reduced-attention Hessian correction]
+\label{prop:reduced_attention_hessian}
+For any affine coordinate vector on which the row energies depend, the exact Hessian of the optimized row in Eq.~\eqref{eq:canonical_row_reduced_vfe} is
+\begin{equation}
+\boxed{
+\nabla^2\mathcal F_{i,\mathrm{red}}
+=\mathbb E_{\beta_i^*}[\nabla^2E_{ij}]
+-\tau^{-1}\operatorname{Cov}_{\beta_i^*}
+(\nabla E_{ij},\nabla E_{ij}).}
+\label{eq:reduced_row_hessian}
+\end{equation}
+Here the covariance is the matrix-valued covariance of the edge gradients.
+\end{proposition}
 
- 
-\paragraph{Social amplification.} The social terms show that an agent's inertia is collective. An agent coupled to confident neighbors inherits their precision as mass via the incoming term $\sum_k \beta_{ik}\tilde{\Lambda}_{q_k}$. A population of high-precision agents becomes collectively rigid, while uncertain agents readily reach consensus. This predicts that expertise clusters resist external perturbation: a group of confident specialists, each attending to the others, forms a mutually reinforcing mass that deflects outside information. Conversely, low-confidence agents coalesce readily around any confident neighbor, explaining how charismatic leaders can rapidly consolidate uncertain populations. The dynamics are asymmetric: confident clusters repel, uncertain populations attract.
+\begin{proof}
+Differentiate the envelope identity in Eq.~\eqref{eq:reduced_vfe_envelope} and substitute Eq.~\eqref{eq:attention_weight_differential}. The derivative of each edge gradient gives the expected edge Hessian, while the derivative of the Gibbs weights gives the negative covariance term in Eq.~\eqref{eq:reduced_row_hessian}.
+\end{proof}
 
-\paragraph{Reciprocal costs.} The outgoing term $\sum_j \beta_{ji}\Lambda_{q_i}$ reveals that influencing others costs flexibility. An agent that strongly affects its neighbors accumulates inertia from those interactions, becoming less responsive itself. Influence is not free but instead is paid for in epistemic rigidity. The more others attend to your beliefs, the more those beliefs resist change. This has profound implications: leaders become trapped by their followers, gurus ossify under the weight of their disciples' attention, and public figures grow deaf to feedback as their audience grows. Henry Adams observed that "power is poison. Its effect on Presidents has always been tragic" \citep{adams1918education}. Our framework provides a geometric mechanism for this tragedy. The very act of projecting influence onto others accumulates as inertial mass, progressively consuming the capacity for empathy and update. The powerful become rigid not through moral failure but through the geometry of attention: when many minds attend to yours, the Fisher information contributed by those outgoing connections makes belief change increasingly costly. This predicts that influence hierarchies naturally produce epistemic stratification, with those at the top most resistant to information from below.
+The covariance term is positive semidefinite before its minus sign, so attention response can reduce curvature and can create indefinite directions away from consensus. No global positive-definiteness claim follows for the reduced Hessian. At exact edgewise consensus the KL gradients vanish and so does this covariance correction; freezing the optimized weights omits the correction by construction.
 
-\begin{tcolorbox}[colback=yellow!5,colframe=orange!75,title=Important Caveat: The Hamiltonian as Ansatz]
+\begin{proposition}[Locally positive covariance diagonal block]
+\label{prop:covariance_stiffness}
+Under the same frozen-attention and edgewise-consensus assumptions as Theorem~\ref{thm:four_part_stiffness}, the clean diagonal covariance block, represented on symmetric matrix coordinates, is
+\begin{equation}
+\boxed{
+[\mathbf H_{\Sigma\Sigma}]_{ii}
+=\frac12(\Lambda_{q_i}\otimes\Lambda_{q_i})
+\left(\alpha_i+\sum_k\beta_{ik}+\sum_j\beta_{ji}\right).}
+\label{eq:stiffness_covariance}
+\end{equation}
+The sensory term contributes no covariance Hessian because it is affine in $\Sigma_i$.
+\end{proposition}
 
-The preceding development identifies the Fisher information metric with an inertial mass tensor. This identification is natural and geometrically principled. By the {\v C}encov--Chentsov theorem \citep{Cencov1982}, the Fisher metric is, up to a positive scalar, the unique Riemannian metric on statistical manifolds that is invariant under sufficient statistics (Markov morphisms). However, we emphasize that the second-order (Hamiltonian) dynamics are an ansatz, not a derivation.
-
-The Fisher metric provides geometry; a notion of distance and curvature on belief space. It does not by itself imply that beliefs evolve according to Hamiltonian mechanics with this metric as mass. We adopt this ansatz because it naturally identifies precision with inertial resistance to belief change; it predicts phenomena (oscillation, overshooting, resonance) observed empirically in attitude change research; it reduces to well-justified gradient flow in the overdamped limit $\gamma \to \infty$; and the derivations of classical sociological models (Section~\ref{sec:classical_limits}) rely \emph{only} on this overdamped limit, not on the full Hamiltonian structure.
-
-The empirical adequacy of the underdamped regime remains to be established. The framework's predictive value lies partly in making this distinction precise: overdamped predictions are geometrically necessary, while underdamped predictions depend on the ansatz.
-\end{tcolorbox}
+\begin{proof}
+For a symmetric covariance variation $U$, each matched Gaussian KL in which $q_i$ is receiver or sender has second variation $\frac12\operatorname{tr}(\Lambda_{q_i}U\Lambda_{q_i}U)$. The prior supplies the same form with coefficient $\alpha_i$, incoming edges supply coefficients $\beta_{ik}$, and outgoing edges supply coefficients $\beta_{ji}$. Their sum gives Eq.~\eqref{eq:stiffness_covariance}. Since
+\begin{equation}
+\operatorname{tr}(\Lambda_{q_i}U\Lambda_{q_i}U)
+=\|\Lambda_{q_i}^{1/2}U\Lambda_{q_i}^{1/2}\|_F^2,
+\end{equation}
+this diagonal block is positive definite on nonzero symmetric $U$ whenever its scalar coefficient is positive. This is a local block statement only: it does not establish positive definiteness of the full stacked covariance Hessian or of the envelope-reduced Hessian.
+\end{proof}
 
 \section{Results}
 
@@ -1445,6 +1479,7 @@ Under this transformation, belief parameters transform as:
 \Lambda_{q_i} &\mapsto \Lambda_{q_i}' = (g_i \Sigma_i g_i^T)^{-1} = g_i^{-T} \Lambda_{q_i} g_i^{-1}
 \end{align}
 The precision transforms contragrediently to the covariance because $\Lambda_{q_i} = \Sigma_i^{-1}$; on the metric-preserving subgroup $\mathrm{SO}(d)$, where $g_i^{-T} = g_i$, this reduces to $g_i \Lambda_{q_i} g_i^T$.
+The prior and observation models are expressed in the same local frame, so their precision matrices transform similarly: $\bar\Lambda_{p_i}'=g_i^{-T}\bar\Lambda_{p_i}g_i^{-1}$ and $\Lambda_{o_i}'=g_i^{-T}\Lambda_{o_i}g_i^{-1}$.
 
 The transport operators transform as:
 \begin{equation}
@@ -1457,63 +1492,63 @@ This ensures that the transported belief $\tilde{q}_k = \Omega_{ik}\cdot q_k$ tr
 \end{equation}
 
 %------------------------------------------------------------------------------
-\subsection{Transformation of the Mass Matrix}
+\subsection{Transformation of the Affine Stiffness Blocks}
 %------------------------------------------------------------------------------
 
 \subsubsection{Mean Sector}
 
-The mean-sector mass matrix transforms as a tensor under gauge transformations.
+Because the local gauge-frame changes are affine linear, the frozen-attention mean-stiffness blocks transform by congruence. This does not extend ordinary Hessian covariance to arbitrary nonlinear reparameterizations away from a critical point.
 
 \paragraph{Diagonal blocks:}
 \begin{align}
-[\mathbf{M}^\mu]_{ii}' &= \alpha_i\bar{\Lambda}_{p_i}' + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k}' + \sum_j \beta_{ji}\Lambda_{q_i}' \nonumber\\
-&= \alpha_i g_i^{-T}\bar{\Lambda}_{p_i} g_i^{-1} + \sum_k \beta_{ik} g_i^{-T}\tilde{\Lambda}_{q_k} g_i^{-1} + \sum_j \beta_{ji} g_i^{-T}\Lambda_{q_i} g_i^{-1} \nonumber\\
-&= g_i^{-T} \left[\alpha_i\bar{\Lambda}_{p_i} + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k} + \sum_j \beta_{ji}\Lambda_{q_i}\right] g_i^{-1} \nonumber\\
-&= g_i^{-T} [\mathbf{M}^\mu]_{ii} g_i^{-1}
+[\mathbf H_F^\mu]_{ii}' &= \alpha_i\bar{\Lambda}_{p_i}' + \Lambda_{o_i}' + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k}' + \sum_j \beta_{ji}\Lambda_{q_i}' \nonumber\\
+&= \alpha_i g_i^{-T}\bar{\Lambda}_{p_i} g_i^{-1} + g_i^{-T}\Lambda_{o_i}g_i^{-1} + \sum_k \beta_{ik} g_i^{-T}\tilde{\Lambda}_{q_k} g_i^{-1} + \sum_j \beta_{ji} g_i^{-T}\Lambda_{q_i} g_i^{-1} \nonumber\\
+&= g_i^{-T} \left[\alpha_i\bar{\Lambda}_{p_i} + \Lambda_{o_i} + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k} + \sum_j \beta_{ji}\Lambda_{q_i}\right] g_i^{-1} \nonumber\\
+&= g_i^{-T} [\mathbf H_F^\mu]_{ii} g_i^{-1}
 \end{align}
 
 \paragraph{Off-diagonal blocks:}
-With the corrected off-diagonal form $[\mathbf{M}^\mu]_{ik} = -\beta_{ik}\Omega_{ik}^{-T}\Lambda_{q_k} - \beta_{ki}\Lambda_{q_i}\Omega_{ki}^{-1}$ (Eq.~\eqref{eq:mass_offdiagonal}),
+With the off-diagonal form $[\mathbf H_F^\mu]_{ik}=-\beta_{ik}\Omega_{ik}^{-T}\Lambda_{q_k}-\beta_{ki}\Lambda_{q_i}\Omega_{ki}^{-1}$ from Eq.~\eqref{eq:mass_offdiagonal},
 \begin{align}
-[\mathbf{M}^\mu]_{ik}' &= -\beta_{ik}(\Omega_{ik}')^{-T}\Lambda_{q_k}' - \beta_{ki}\Lambda_{q_i}'(\Omega_{ki}')^{-1} \nonumber\\
+[\mathbf H_F^\mu]_{ik}' &= -\beta_{ik}(\Omega_{ik}')^{-T}\Lambda_{q_k}' - \beta_{ki}\Lambda_{q_i}'(\Omega_{ki}')^{-1} \nonumber\\
 &= -\beta_{ik}(g_i\Omega_{ik}g_k^{-1})^{-T}(g_k^{-T}\Lambda_{q_k} g_k^{-1}) - \beta_{ki}(g_i^{-T}\Lambda_{q_i} g_i^{-1})(g_k\Omega_{ki}g_i^{-1})^{-1} \nonumber\\
 &= -\beta_{ik} g_i^{-T}\Omega_{ik}^{-T}\Lambda_{q_k} g_k^{-1} - \beta_{ki} g_i^{-T}\Lambda_{q_i}\Omega_{ki}^{-1} g_k^{-1} \nonumber\\
-&= g_i^{-T} [\mathbf{M}^\mu]_{ik} g_k^{-1}
+&= g_i^{-T} [\mathbf H_F^\mu]_{ik} g_k^{-1}
 \end{align}
 
 \paragraph{Block matrix form:}
 
 Define the block-diagonal gauge matrix:
 \begin{equation}
-\mathbf{G} = \mathrm{diag}(g_1, g_2, \ldots, g_N) \in G^N
+\mathsf g = \mathrm{diag}(g_1, g_2, \ldots, g_N) \in G^N
 \end{equation}
 
-Then the full mean-sector mass matrix transforms as:
+Then the full mean-sector stiffness transforms as
 \begin{equation}
-\boxed{(\mathbf{M}^\mu)' = \mathbf{G}^{-T} \mathbf{M}^\mu \mathbf{G}^{-1}}
+\boxed{(\mathbf H_F^\mu)' = \mathsf g^{-T}\mathbf H_F^\mu\mathsf g^{-1}}.
 \end{equation}
 
-This is the transformation law for a $(0,2)$-tensor (metric tensor) on the product manifold, contragredient to the vector positions $\mu' = \mathbf{G}\mu$. On $\mathrm{SO}(d)$, where $\mathbf{G}^{-T} = \mathbf{G}$, it reduces to the orthogonal congruence $\mathbf{G}\mathbf{M}^\mu\mathbf{G}^T$.
+This is the affine congruence law contragredient to $\mu'=\mathsf g\mu$. On $\mathrm{SO}(d)$ it reduces to $\mathsf g\mathbf H_F^\mu\mathsf g^T$.
 
 \subsubsection{Covariance Sector}
 
-The covariance-sector mass involves Kronecker products. Using the contragredient precision law $\Lambda_{q_i}' = g_i^{-T}\Lambda_{q_i} g_i^{-1}$, under gauge transformation:
+The locally matched covariance-stiffness block involves Kronecker products. Using the contragredient precision law $\Lambda_{q_i}'=g_i^{-T}\Lambda_{q_i}g_i^{-1}$ gives
 \begin{align}
-[\mathbf{M}^\Sigma]_{ii}' &= \frac{1}{2}(\Lambda_{q_i}' \otimes \Lambda_{q_i}') \cdot \left(\alpha_i + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right) \nonumber\\
+[\mathbf H_F^\Sigma]_{ii}' &= \frac{1}{2}(\Lambda_{q_i}' \otimes \Lambda_{q_i}') \cdot \left(\alpha_i + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right) \nonumber\\
 &= \frac{1}{2}(g_i^{-T}\Lambda_{q_i} g_i^{-1} \otimes g_i^{-T}\Lambda_{q_i} g_i^{-1}) \cdot \left(\alpha_i + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right) \nonumber\\
 &= \frac{1}{2}(g_i^{-T} \otimes g_i^{-T})(\Lambda_{q_i} \otimes \Lambda_{q_i})(g_i^{-1} \otimes g_i^{-1}) \cdot \left(\alpha_i + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right)
 \end{align}
 
 The transformation law is:
 \begin{equation}
-\boxed{(\mathbf{M}^\Sigma)' = (\mathbf{G}^{-T} \otimes \mathbf{G}^{-T}) \mathbf{M}^\Sigma (\mathbf{G}^{-1} \otimes \mathbf{G}^{-1})}
+\boxed{(\mathbf H_F^\Sigma)' = (\mathsf g^{-T}\otimes\mathsf g^{-T})\mathbf H_F^\Sigma(\mathsf g^{-1}\otimes\mathsf g^{-1})}
 \end{equation}
 
 \subsubsection{Cross Blocks}
 
 The mean-covariance cross blocks transform as:
 \begin{equation}
-(\mathbf{C}^{\mu\Sigma})' = \mathbf{G}^{-T} \mathbf{C}^{\mu\Sigma} (\mathbf{G}^{-1} \otimes \mathbf{G}^{-1})
+(\mathbf H_F^{\mu\Sigma})'=\mathsf g^{-T}\mathbf H_F^{\mu\Sigma}(\mathsf g^{-1}\otimes\mathsf g^{-1})
 \end{equation}
 
 %------------------------------------------------------------------------------
@@ -1556,12 +1591,12 @@ where we used cyclicity of the trace and $g_i^{-1} g_i = I$, valid for any $g_i 
 The velocity equation $\dot{\mu} = (\mathbf{M}^\mu)^{-1}\pi^\mu$ transforms as:
 \begin{align}
 \dot{\mu}' &= ((\mathbf{M}^\mu)')^{-1}(\pi^\mu)' \nonumber\\
-&= (\mathbf{G}^{-T}\mathbf{M}^\mu\mathbf{G}^{-1})^{-1}\mathbf{G}^{-T}\pi^\mu \nonumber\\
-&= \mathbf{G}(\mathbf{M}^\mu)^{-1}\mathbf{G}^{T}\mathbf{G}^{-T}\pi^\mu \nonumber\\
-&= \mathbf{G}(\mathbf{M}^\mu)^{-1}\pi^\mu = \mathbf{G}\dot{\mu}
+&= (\mathsf g^{-T}\mathbf{M}^\mu\mathsf g^{-1})^{-1}\mathsf g^{-T}\pi^\mu \nonumber\\
+&= \mathsf g(\mathbf{M}^\mu)^{-1}\mathsf g^{T}\mathsf g^{-T}\pi^\mu \nonumber\\
+&= \mathsf g(\mathbf{M}^\mu)^{-1}\pi^\mu = \mathsf g\dot{\mu}
 \end{align}
 
-Velocities therefore transform as vectors, $\dot{\mu}' = \mathbf{G}\dot{\mu}$, consistently with the positions $\mu' = \mathbf{G}\mu$, for any $G \subseteq \mathrm{GL}(d)$; on $\mathrm{SO}(d)$ this coincides with $\mathbf{G}^{-T}\dot{\mu}$. The kinetic energy $T = \frac{1}{2}\dot{\mu}^T\mathbf{M}^\mu\dot{\mu}$ is gauge-invariant, since $(\dot{\mu}')^T(\mathbf{M}^\mu)'\dot{\mu}' = \dot{\mu}^T\mathbf{G}^{T}\mathbf{G}^{-T}\mathbf{M}^\mu\mathbf{G}^{-1}\mathbf{G}\dot{\mu} = \dot{\mu}^T\mathbf{M}^\mu\dot{\mu}$.
+Velocities therefore transform as vectors, $\dot{\mu}'=\mathsf g\dot{\mu}$, consistently with $\mu'=\mathsf g\mu$, for any $G\subseteq\mathrm{GL}(d)$. If a kinetic metric $\mathbf M$ is separately chosen with the congruence law $\mathbf M'=\mathsf g^{-T}\mathbf M\mathsf g^{-1}$, then $T=\frac12\dot\mu^T\mathbf M\dot\mu$ is gauge invariant.
 
 \subsubsection{Force Equation}
 
@@ -1572,9 +1607,9 @@ The force equation involves the free energy gradient. Since $F$ is gauge-invaria
 
 This follows from the chain rule and the invariance of $F$ under gauge transformations when transport operators transform consistently.
 
-The geodesic force transforms the same way, ensuring full covariance with the momentum law $(\pi^\mu)' = \mathbf{G}^{-T}\pi^\mu$:
+The geodesic force transforms the same way, ensuring full covariance with the momentum law $(\pi^\mu)'=\mathsf g^{-T}\pi^\mu$:
 \begin{equation}
-\boxed{\dot{\pi}' = \mathbf{G}^{-T}\dot{\pi}}
+\boxed{\dot{\pi}'=\mathsf g^{-T}\dot{\pi}}
 \end{equation}
 
 %------------------------------------------------------------------------------
@@ -1620,27 +1655,27 @@ The variation of transported precision, using $\tilde{\Lambda}_k = \Omega_{ik}^{
 For $G = \mathrm{SO}(d)$, the antisymmetry $\omega^T = -\omega$ reduces this to the matrix commutator $\delta\tilde{\Lambda}_k = \omega_{ik}\tilde{\Lambda}_k - \tilde{\Lambda}_k\omega_{ik} = [\omega_{ik}, \tilde{\Lambda}_k]$.
 
 %------------------------------------------------------------------------------
-\subsection{Variation of the Mass Matrix Under Connection Changes}
+\subsection{Variation of the Loss Stiffness Under Connection Changes}
 %------------------------------------------------------------------------------
 
 \subsubsection{Diagonal Block Variation}
 
 \begin{equation}
-\delta[\mathbf{M}^\mu]_{ii} = \sum_k \beta_{ik}   \delta\tilde{\Lambda}_{q_k} = \sum_k \beta_{ik}   [\omega_{ik}, \tilde{\Lambda}_{q_k}]
+\delta[\mathbf H_F^\mu]_{ii} = \sum_k \beta_{ik}\,\delta\tilde{\Lambda}_{q_k} = \sum_k \beta_{ik}[\omega_{ik},\tilde{\Lambda}_{q_k}]
 \end{equation}
 
 \subsubsection{Off-Diagonal Block Variation}
 
-We specialize to $G = \mathrm{SO}(d)$, where the off-diagonal block takes the metric-preserving form $[\mathbf{M}^\mu]_{ik} = -\beta_{ik}\Omega_{ik}\Lambda_{q_k} - \beta_{ki}\Lambda_{q_i}\Omega_{ki}^T$ (for general $\mathrm{GL}(d)$ the transposes are replaced by inverses, as in Eq.~\eqref{eq:mass_offdiagonal}):
+We specialize to $G=\mathrm{SO}(d)$, where the off-diagonal stiffness block is $[\mathbf H_F^\mu]_{ik}=-\beta_{ik}\Omega_{ik}\Lambda_{q_k}-\beta_{ki}\Lambda_{q_i}\Omega_{ki}^T$ (for general $\mathrm{GL}(d)$ the transposes are replaced by inverses, as in Eq.~\eqref{eq:mass_offdiagonal}):
 \begin{align}
-\delta[\mathbf{M}^\mu]_{ik} &= -\beta_{ik}   \delta(\Omega_{ik}\Lambda_{q_k}) - \beta_{ki}   \delta(\Lambda_{q_i}\Omega_{ki}^T) \nonumber\\
+\delta[\mathbf H_F^\mu]_{ik} &= -\beta_{ik}\,\delta(\Omega_{ik}\Lambda_{q_k}) - \beta_{ki}\,\delta(\Lambda_{q_i}\Omega_{ki}^T) \nonumber\\
 &= -\beta_{ik}\omega_{ik}\Omega_{ik}\Lambda_{q_k} - \beta_{ki}\Lambda_{q_i}(\omega_{ki}\Omega_{ki})^T \nonumber\\
 &= -\beta_{ik}\omega_{ik}\Omega_{ik}\Lambda_{q_k} - \beta_{ki}\Lambda_{q_i}\Omega_{ki}^T\omega_{ki}^T
 \end{align}
 
 For the $\mathrm{SO}(d)$ case, using $\omega_{ki}^T = -\omega_{ki}$:
 \begin{equation}
-\boxed{\delta[\mathbf{M}^\mu]_{ik} = -\beta_{ik}\omega_{ik}\Omega_{ik}\Lambda_{q_k} + \beta_{ki}\Lambda_{q_i}\Omega_{ki}^T\omega_{ki}}
+\boxed{\delta[\mathbf H_F^\mu]_{ik}=-\beta_{ik}\omega_{ik}\Omega_{ik}\Lambda_{q_k}+\beta_{ki}\Lambda_{q_i}\Omega_{ki}^T\omega_{ki}}
 \end{equation}
 
 %------------------------------------------------------------------------------
@@ -1703,9 +1738,9 @@ Only horizontal components of velocities and momenta correspond to observables. 
 
 \textbf{Mass Matrix (a $(0,2)$-tensor):}
 \begin{equation}
-\mathbf{M}' = \mathbf{G}^{-T}\mathbf{M}\mathbf{G}^{-1}
+\mathbf{M}'=\mathsf g^{-T}\mathbf{M}\mathsf g^{-1}
 \end{equation}
-(On $\mathrm{SO}(d)$, where $g^{-T} = g$, these reduce to the orthogonal congruences $g\pi$, $g\Pi g^T$, and $\mathbf{G}\mathbf{M}\mathbf{G}^T$.)
+(On $\mathrm{SO}(d)$, where $g^{-T}=g$, these reduce to the orthogonal congruences $g\pi$, $g\Pi g^T$, and $\mathsf g\mathbf M\mathsf g^T$.)
 
 \textbf{Transport Operators:}
 \begin{equation}
@@ -1724,10 +1759,10 @@ Only horizontal components of velocities and momenta correspond to observables. 
 % With Explicit Sensory Likelihood
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Hamiltonian Mechanics on Statistical Manifolds}
+\section{Gaussian Loss Stiffness and Conditional Mechanics}
 \label{app:hamiltonian}
 
-This appendix derives the complete mass matrix structure for multi-agent belief dynamics with explicit sensory evidence, demonstrating that inertial mass emerges as statistical precision. We work in the quasi-static approximation where prior parameters $(\bar{\mu}_i, \bar{\Sigma}_i)$ evolve slowly relative to beliefs $(\mu_i, \Sigma_i)$.
+This appendix records the detailed first and second derivatives of the Gaussian objective with explicit sensory evidence. The second variations define the affine-coordinate loss stiffness $\mathbf H_F$; they do not, by themselves, define the positive kinetic metric $\mathbf M$. We work in the quasi-static approximation where prior parameters $(\bar{\mu}_i, \bar{\Sigma}_i)$ evolve slowly relative to beliefs $(\mu_i, \Sigma_i)$.
 
 %-----------------------------------------------------------------------
 \subsection{Setup and Notation}
@@ -1839,10 +1874,10 @@ where $\tilde{\mu}_i^{(j)} = \Omega_{ji}\mu_i$ is agent $i$'s mean transported i
 \end{equation}
 
 %-----------------------------------------------------------------------
-\subsection{Second Variations (Hessian = Mass Matrix)}
+\subsection{Second Variations and the Loss Hessian}
 %-----------------------------------------------------------------------
 
-The Hessian $\mathbf{M} = \partial^2\mathcal{F}/\partial\xi\partial\xi$ serves as the mass matrix. This is distinct from the intrinsic Fisher-Rao metric on the statistical manifold; it is a ``Hessian mass matrix'' whose curvature depends on the full free energy landscape including priors, sensory evidence, and social coupling.
+The coordinate Hessian $\mathbf H_F=\partial^2\mathcal F/\partial\xi\partial\xi^\top$ is the local stiffness of the selected objective. It is distinct from the intrinsic Fisher--Rao metric $\mathbf G$ and from any separately postulated kinetic metric $\mathbf M$.
 
 \subsubsection{Mean Sector: $\partial^2\mathcal{F}/\partial\mu\partial\mu^T$}
 
@@ -1868,10 +1903,10 @@ From sensory evidence:
 \frac{\partial^2}{\partial \mu_i \partial \mu_i^T}\left[-\mathbb{E}_{q_i}[\log p(o_i \mid \theta)]\right] = \Lambda_{o_i}
 \end{equation}
 
-\textbf{Total diagonal mass:}
+\textbf{Total diagonal stiffness:}
 \begin{equation}
 \boxed{
-[\mathbf{M}^\mu]_{ii} = \underbrace{\alpha_i\bar{\Lambda}_{p_i}}_{\text{prior}} + \underbrace{\sum_k \beta_{ik}\tilde{\Lambda}_{q_k}}_{\text{incoming social}} + \underbrace{\sum_j \beta_{ji}\Lambda_{q_i}}_{\text{outgoing recoil}} + \underbrace{\Lambda_{o_i}}_{\text{sensory}}
+[\mathbf{H}_F^\mu]_{ii} = \underbrace{\alpha_i\bar{\Lambda}_{p_i}}_{\text{prior}} + \underbrace{\sum_k \beta_{ik}\tilde{\Lambda}_{q_k}}_{\text{incoming relational}} + \underbrace{\sum_j \beta_{ji}\Lambda_{q_i}}_{\text{outgoing recoil}} + \underbrace{\Lambda_{o_i}}_{\text{sensory}}
 }
 \label{eq:mass_diagonal}
 \end{equation}
@@ -1891,13 +1926,13 @@ From $D_{\mathrm{KL}}(q_k \| \tilde{q}_i)$ (if $k$ also listens to $i$):
 The sensory term does not couple different agents. Therefore:
 \begin{equation}
 \boxed{
-[\mathbf{M}^\mu]_{ik} = -\beta_{ik}\Omega_{ik}^{-T}\Lambda_{q_k} - \beta_{ki}\Lambda_{q_i}\Omega_{ki}^{-1} \quad (i \neq k)
+[\mathbf{H}_F^\mu]_{ik} = -\beta_{ik}\Omega_{ik}^{-T}\Lambda_{q_k} - \beta_{ki}\Lambda_{q_i}\Omega_{ki}^{-1} \quad (i \neq k)
 }
 \label{eq:mass_offdiagonal}
 \end{equation}
 
 
-By Schwarz's theorem, this Hessian is symmetric: using $\Lambda = \Lambda^T$ one verifies that $[\mathbf{M}^\mu]_{ik} = ([\mathbf{M}^\mu]_{ki})^T$ holds for any $\beta_{ik}$ and any invertible $\Omega_{ik}$.\footnote{The reciprocal (recoil) term $\sum_j \beta_{ji}\Lambda_{q_i}$ is what makes the assembled mass symmetric and the force conservative even when the realized attention is asymmetric ($\beta_{ik} \neq \beta_{ki}$). An implementation that retains only the incoming term $\sum_k \beta_{ik}\tilde{\Lambda}_{q_k}$ restores a symmetric, single-Hamiltonian structure (in the metric-preserving or flat-gauge regime, and only up to an overall scale) after symmetrizing the attention, $\beta \to \tfrac{1}{2}(\beta + \beta^\top)$; it does not reproduce the full assembled mass exactly.}
+By Schwarz's theorem, this Hessian is symmetric: using $\Lambda=\Lambda^T$ one verifies that $[\mathbf H_F^\mu]_{ik}=([\mathbf H_F^\mu]_{ki})^T$ for any frozen $\beta_{ik}$ and invertible $\Omega_{ik}$. The sender/recoil derivative is required because the scalar objective contains every directed edge on which agent $i$ appears; asymmetry of the frozen attention weights does not make this complete scalar potential nonconservative.
 
 
 %-----------------------------------------------------------------------
@@ -1926,7 +1961,7 @@ In tensor notation:
 \frac{\partial^2 D_{\mathrm{KL}}(q_i \| p_i)}{\partial \Sigma_i \partial \Sigma_i} = \frac{1}{2}(\Lambda_{q_i} \otimes \Lambda_{q_i})
 \end{equation}
 
-From consensus (as receiver and sender), identical contributions arise. The prior contribution carries the self-coupling weight $\alpha_i$ (the term being $\alpha_i D_{\mathrm{KL}}(q_i \| p_i)$), so it enters the covariance-sector mass with coefficient $\alpha_i$ rather than unity; at the default $\alpha_i = 1$ this is the familiar prior contribution.
+At edgewise consensus, the receiver and sender covariance Hessians reduce to the same local quadratic form. The prior contribution carries the self-coupling weight $\alpha_i$, because its scalar term is $\alpha_i D_{\mathrm{KL}}(q_i\|p_i)$.
 
 \textbf{Critical observation:} The sensory term $\frac{1}{2}\mathrm{tr}(\Lambda_{o_i}\Sigma_i)$ is \textit{linear} in $\Sigma_i$, so its second derivative \textbf{vanishes}:
 \begin{equation}
@@ -1936,14 +1971,14 @@ From consensus (as receiver and sender), identical contributions arise. The prio
 Therefore:
 \begin{equation}
 \boxed{
-[\mathbf{M}^\Sigma]_{ii} = \frac{1}{2}(\Lambda_{q_i} \otimes \Lambda_{q_i}) \cdot \left(\alpha_i + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right)
+[\mathbf{H}_F^\Sigma]_{ii} = \frac{1}{2}(\Lambda_{q_i} \otimes \Lambda_{q_i}) \cdot \left(\alpha_i + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right)
 }
 \label{eq:mass_covariance}
 \end{equation}
 
-The sensory precision $\Lambda_{o_i}$ does \textbf{not} contribute to the covariance-sector mass.
+The sensory precision $\Lambda_{o_i}$ does \textbf{not} contribute to this covariance-sector stiffness.
 
-This covariance-sector mass is a local, fixed-attention surrogate rather than a stationary point of the fully reduced free energy. It is evaluated at consensus ($\mu_i = \tilde{\mu}_k$), with the attention weights $\beta_{ij}$ held fixed rather than envelope-eliminated through their entropy-regularized softmax optimum, and with the sender covariances not independently differentiated. The sender contribution retained above is the consensus-simplified form; the general expression carries the transported precision conjugated by $\Omega_{ji}$ together with a rank-one residual that vanishes only at consensus. The block stated here is therefore adequate for the consensus-regime analysis of this paper, and the fully reduced covariance mass including the envelope and sender-covariance terms is left to future work.
+This clean covariance block is local to the frozen-attention, edgewise-consensus calculation. Away from consensus the sender Hessian carries additional residual-dependent terms, and envelope elimination adds the covariance correction in Eq.~\eqref{eq:reduced_row_hessian}. Equation~\eqref{eq:mass_covariance} therefore does not assert that the fully reduced covariance Hessian is globally positive definite.
 
 %-----------------------------------------------------------------------
 \subsubsection{Mean-Covariance Cross Blocks}
@@ -1956,21 +1991,21 @@ This covariance-sector mass is a local, fixed-attention surrogate rather than a 
 
 \paragraph{Sensory term:} The sensory free energy decomposes into a component quadratic in $\mu_i$, namely $(o_i - \mu_i)^T\Lambda_{o_i}(o_i - \mu_i)$, and a component linear in $\Sigma_i$, namely $\mathrm{tr}(\Lambda_{o_i}\Sigma_i)$. These are independent, so:
 \begin{equation}
-[\mathbf{C}^{\mu\Sigma}]_{ii}^{\text{sensory}} = 0
+[\mathbf{H}_F^{\mu\Sigma}]_{ii}^{\text{sensory}} = 0
 \end{equation}
 
 \paragraph{Consensus (cross-agent):} From $\partial D_{\mathrm{KL}}(q_i \| \tilde{q}_k)/\partial \mu_i = \tilde{\Lambda}_{q_k}(\mu_i - \tilde{\mu}_k)$, varying $\Sigma_k$:
 \begin{equation}
-\frac{\partial^2 D_{\mathrm{KL}}(q_i \| \tilde{q}_k)}{\partial \mu_i \partial \Sigma_k}[V] = -\Omega_{ik}\Lambda_{q_k}V\Lambda_{q_k}\Omega_{ik}^T(\mu_i - \tilde{\mu}_k)
+\frac{\partial^2 D_{\mathrm{KL}}(q_i \| \tilde{q}_k)}{\partial \mu_i \partial \Sigma_k}[V] = -\Omega_{ik}^{-T}\Lambda_{q_k}V\Lambda_{q_k}\Omega_{ik}^{-1}(\mu_i - \tilde{\mu}_k)
 \end{equation}
 
 This vanishes at consensus ($\mu_i = \tilde{\mu}_k$):
 \begin{equation}
-[\mathbf{C}^{\mu\Sigma}]_{ik} = 0 \quad \text{when } \mu_i = \tilde{\mu}_k
+[\mathbf{H}_F^{\mu\Sigma}]_{ik} = 0 \quad \text{when } \mu_i = \tilde{\mu}_k
 \end{equation}
 
 %-----------------------------------------------------------------------
-\subsection{Complete Mass Matrix Assembly}
+\subsection{Complete Local Stiffness Assembly}
 %-----------------------------------------------------------------------
 
 The full state vector is $\xi = (\mu_1, \ldots, \mu_N, \Sigma_1, \ldots, \Sigma_N)$.
@@ -1978,7 +2013,7 @@ The full state vector is $\xi = (\mu_1, \ldots, \mu_N, \Sigma_1, \ldots, \Sigma_
 \subsubsection{Block Structure}
 
 \begin{equation}
-\mathbf{M} = \begin{pmatrix} \mathbf{M}^\mu & \mathbf{C}^{\mu\Sigma} \\ (\mathbf{C}^{\mu\Sigma})^T & \mathbf{M}^\Sigma \end{pmatrix}
+\mathbf H_F = \begin{pmatrix} \mathbf H_F^\mu & \mathbf H_F^{\mu\Sigma} \\ (\mathbf H_F^{\mu\Sigma})^T & \mathbf H_F^\Sigma \end{pmatrix}
 \end{equation}
 where each block is an $N \times N$ matrix of sub-blocks.
 
@@ -1986,44 +2021,44 @@ where each block is an $N \times N$ matrix of sub-blocks.
 
 \paragraph{Mean sector diagonal:}
 \begin{equation}
-[\mathbf{M}^\mu]_{ii} = \underbrace{\alpha_i\bar{\Lambda}_{p_i}}_{\text{prior anchoring}} + \underbrace{\sum_k \beta_{ik}\Omega_{ik}^{-T}\Lambda_{q_k}\Omega_{ik}^{-1}}_{\text{incoming consensus}} + \underbrace{\sum_j \beta_{ji}\Lambda_{q_i}}_{\text{outgoing recoil}} + \underbrace{\Lambda_{o_i}}_{\text{sensory grounding}}
+[\mathbf H_F^\mu]_{ii} = \underbrace{\alpha_i\bar{\Lambda}_{p_i}}_{\text{prior anchoring}} + \underbrace{\sum_k \beta_{ik}\Omega_{ik}^{-T}\Lambda_{q_k}\Omega_{ik}^{-1}}_{\text{incoming consensus}} + \underbrace{\sum_j \beta_{ji}\Lambda_{q_i}}_{\text{outgoing recoil}} + \underbrace{\Lambda_{o_i}}_{\text{sensory grounding}}
 \label{eq:mass_full_diagonal}
 \end{equation}
 
 \paragraph{Mean sector off-diagonal:}
 \begin{equation}
-[\mathbf{M}^\mu]_{ik} = -\beta_{ik}\Omega_{ik}^{-T}\Lambda_{q_k} - \beta_{ki}\Lambda_{q_i}\Omega_{ki}^{-1} \quad (i \neq k)
+[\mathbf H_F^\mu]_{ik} = -\beta_{ik}\Omega_{ik}^{-T}\Lambda_{q_k} - \beta_{ki}\Lambda_{q_i}\Omega_{ki}^{-1} \quad (i \neq k)
 \end{equation}
 
 \paragraph{Covariance sector diagonal:}
 \begin{equation}
-[\mathbf{M}^\Sigma]_{ii} = \frac{1}{2}(\Lambda_{q_i} \otimes \Lambda_{q_i}) \cdot \left(\alpha_i + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right)
+[\mathbf H_F^\Sigma]_{ii} = \frac{1}{2}(\Lambda_{q_i} \otimes \Lambda_{q_i}) \cdot \left(\alpha_i + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right)
 \end{equation}
 
 \paragraph{Cross mean-covariance (at consensus):}
 \begin{equation}
-[\mathbf{C}^{\mu\Sigma}]_{ik} = 0 \quad \text{when } \mu_i = \tilde{\mu}_k
+[\mathbf H_F^{\mu\Sigma}]_{ik} = 0 \quad \text{when } \mu_i = \tilde{\mu}_k
 \end{equation}
 
 %-----------------------------------------------------------------------
 \subsection{Interpretation}
 %-----------------------------------------------------------------------
 
-\subsubsection{Mass as Precision}
+\subsubsection{Four-Part Mean Stiffness}
 
-The mean-sector effective mass for agent $i$ is:
+The mean-sector diagonal stiffness for agent $i$ is
 \begin{equation}
 \boxed{
-M_i = \alpha_i\bar{\Lambda}_{p_i} + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k} + \sum_j \beta_{ji}\Lambda_{q_i} + \Lambda_{o_i}
+[\mathbf H_F^\mu]_{ii} = \alpha_i\bar{\Lambda}_{p_i} + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k} + \sum_j \beta_{ji}\Lambda_{q_i} + \Lambda_{o_i}
 }
 \label{eq:effective_mass}
 \end{equation}
 
-The term $\alpha_i\bar{\Lambda}_{p_i}$ represents \textbf{bare mass}, providing inertia against deviation from the prior (with self-coupling weight $\alpha_i = 1$ by default; Section~\ref{sec:state_dependent_precision} promotes it to the state-dependent $\alpha_i^*$). The term $\sum_k \beta_{ik}\tilde{\Lambda}_{q_k}$ represents \textbf{incoming relational mass}, the inertia from being "pulled" by neighbors. The term $\sum_j \beta_{ji}\Lambda_{q_i}$ represents \textbf{outgoing relational mass}, the inertia from "pulling" neighbors (recoil). Finally, $\Lambda_{o_i}$ represents \textbf{sensory mass}, the inertia from grounding in observations.
+The four summands are prior, incoming relational, outgoing relational/recoil, and sensory stiffness. They describe how the selected scalar objective resists an affine-coordinate displacement; they do not yet specify how much kinetic momentum accompanies a given belief velocity.
 
 \subsubsection{Asymmetry of Sensory Contribution}
 
-The sensory precision $\Lambda_{o_i}$ contributes to the mean-sector mass (Eq.~\ref{eq:mass_full_diagonal}) and the mean-sector force (Eq.~\ref{eq:total_gradient_mu}), but not to the covariance-sector mass (Eq.~\ref{eq:mass_covariance}). This asymmetry arises because the sensory term is quadratic in $\mu$ but only linear in $\Sigma$.
+The sensory precision $\Lambda_{o_i}$ contributes to the mean-sector stiffness (Eq.~\ref{eq:mass_full_diagonal}) and the mean-sector force (Eq.~\ref{eq:total_gradient_mu}), but not to the covariance-sector stiffness (Eq.~\ref{eq:mass_covariance}). This asymmetry arises because the sensory term is quadratic in $\mu$ but only affine in $\Sigma$.
 
 \subsubsection{Kinetic Energy}
 
@@ -2031,7 +2066,7 @@ The sensory precision $\Lambda_{o_i}$ contributes to the mean-sector mass (Eq.~\
 T = \frac{1}{2}\dot{\mu}^T\mathbf{M}^\mu\dot{\mu} + \frac{1}{2}\mathrm{tr}\left[\mathbf{M}^\Sigma(\dot{\Sigma}, \dot{\Sigma})\right]
 \end{equation}
 
-The first term gives standard kinetic energy with precision-mass. The second gives "shape" kinetic energy on the SPD manifold; the metric $(\Lambda \otimes \Lambda)$ corresponds to the affine-invariant metric on the cone of symmetric positive-definite matrices.
+This display defines a kinetic energy only after a positive $\mathbf M$ has been chosen by the kinetic postulate. The Fisher covariance block is one-half the affine-invariant SPD metric in the usual convention, whereas Eq.~\eqref{eq:mass_covariance} is a loss-Hessian block with objective-dependent coefficients. Their similar Kronecker forms do not identify $\mathbf M$, $\mathbf G$, and $\mathbf H_F$.
 
 %-----------------------------------------------------------------------
 \subsection{The Hamiltonian}
@@ -2221,19 +2256,20 @@ p(x \mid \theta) = h(x) \exp\left[\theta^T T(x) - A(\theta)\right]
 \end{equation}
 where $\theta \in \mathbb{R}^k$ are natural parameters, $T(x)$ are sufficient statistics, and $A(\theta)$ is the log-partition function ensuring normalization.
 
-\subsubsection{Fisher Information as Mass}
+\subsubsection{Fisher Geometry and Local KL Stiffness}
 
 The Fisher information matrix for exponential families has the elegant form:
 \begin{equation}
 \mathcal{I}(\theta) = \nabla^2 A(\theta) = \mathrm{Cov}_{p(\cdot|\theta)}[T(x)]
 \end{equation}
 
-This is the Hessian of the log-partition function, equivalently the covariance of sufficient statistics. Our reading of the free-energy Hessian as a mass carries over to exponential families, with the caveat established in the main text that this Hessian equals the Fisher information of the belief only at the matching point. At that point,
+This is the Hessian of the log-partition function, equivalently the covariance of sufficient statistics. It defines the intrinsic metric $\mathbf G$ of the exponential family. The coordinate Hessian of a KL objective agrees with this metric at the matching point:
 \begin{equation}
-\boxed{M_i = \nabla^2 A(\theta_i) = \mathcal{I}(\theta_i)} \quad (\theta_q = \theta_p) .
+\boxed{\mathbf H_{\mathrm{KL}}(\theta_i)=\nabla^2 A(\theta_i)=\mathbf G(\theta_i)}
+\qquad (\theta_q=\theta_p).
 \end{equation}
 
-For Gaussians with natural parameters $\theta = (\Sigma^{-1}\mu, -\frac{1}{2}\Sigma^{-1})$, this recovers $M = \Lambda$ (precision) in the mean sector.
+For a Gaussian with fixed covariance, this gives $\mathbf H_{\mathrm{KL},\mu\mu}=\mathbf G_{\mu\mu}=\Lambda$ at matching. It does not choose a kinetic metric $\mathbf M$.
 
 \subsubsection{KL Divergence Structure}
 
@@ -2246,7 +2282,7 @@ Differentiating twice with respect to $\theta_q$ gives the gradient $\nabla^2 A(
 \begin{equation}
 \frac{\partial^2 D_{\mathrm{KL}}(q \| p)}{\partial \theta_q \partial \theta_q^T} = \nabla^2 A(\theta_q) + \nabla^3 A(\theta_q)\cdot(\theta_q - \theta_p) ,
 \end{equation}
-where $\nabla^3 A$ is the third-cumulant tensor of the sufficient statistics contracted against $\theta_q - \theta_p$. This Hessian reduces to the Fisher information $\mathcal{I}(\theta_q) = \nabla^2 A(\theta_q)$ only at the matching point $\theta_q = \theta_p$, or globally when $A$ is quadratic, as for a Gaussian with fixed covariance whose cumulants above second order vanish. The mass-as-Fisher-information identification is therefore a local statement at the matching point rather than a global identity across an exponential family.
+where $\nabla^3 A$ is the third-cumulant tensor of the sufficient statistics contracted against $\theta_q-\theta_p$. This Hessian reduces to the Fisher information $\mathcal I(\theta_q)=\nabla^2A(\theta_q)$ only at matching, or globally when $A$ is quadratic. Thus the loss-Hessian/Fisher equality is a local matching or quadratic-regime statement, not a global identity and not an inertial conclusion.
 
 \subsection{Multi-Modal Beliefs: Mixture Models}
 
