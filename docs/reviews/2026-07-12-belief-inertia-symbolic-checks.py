@@ -41,6 +41,29 @@ A = sp.diag(anchor, anchor)
 assert (sp.ones(1, 2) * L) == sp.zeros(1, 2)
 assert sp.simplify((A + lam * L).inv() * A * sp.ones(2, 1) - sp.ones(2, 1)) == sp.zeros(2, 1)
 
+# A nonuniform reversible Dirichlet energy retains D_rho under the unweighted
+# primary product Fisher metric, while the additional G_rho metric cancels it.
+rho1, rho2 = sp.symbols("rho1 rho2", positive=True)
+D_rho = sp.diag(rho1, rho2)
+I2 = sp.eye(2)
+primary_generator = I2.inv() * D_rho * L
+weighted_generator = D_rho.inv() * D_rho * L
+assert sp.simplify(primary_generator - D_rho * L) == sp.zeros(2)
+assert sp.simplify(weighted_generator - L) == sp.zeros(2)
+assert sp.simplify(primary_generator - L).subs({rho1: 2, rho2: 3}) != sp.zeros(2)
+
+# At fixed Fisher geometry and learning rate, scalar first-order relaxation
+# becomes faster, not slower, as positive stiffness increases.
+eta, g, stiffness_lo, stiffness_hi = sp.symbols(
+    "eta g stiffness_lo stiffness_hi", positive=True
+)
+rate_lo = eta * stiffness_lo / g
+rate_hi = eta * stiffness_hi / g
+tau_lo = 1 / rate_lo
+tau_hi = 1 / rate_hi
+assert sp.simplify(tau_hi / tau_lo - stiffness_lo / stiffness_hi) == 0
+assert (tau_hi < tau_lo).subs({stiffness_hi: 2, stiffness_lo: 1}) is sp.S.true
+
 # Complete derivatives of a fixed asymmetric scalar potential conserve net force.
 x1, x2, beta12, beta21, ell1, ell2 = sp.symbols(
     "x1 x2 beta12 beta21 ell1 ell2", positive=True

@@ -13,7 +13,7 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-06-19
-updated: 2026-07-12
+updated: 2026-07-13
 ---
 
 # SocialPhysics
@@ -48,16 +48,18 @@ $$
 
 This is local stiffness $H_F$, not automatically the intrinsic Fisher metric $G$ or kinetic mass $M$. If a conditional kinetic model sets $M=H_F$ while the same $H_F$ supplies the restoring force, the generalized spectrum is $\omega^2=1$ up to scale. Nontrivial modal predictions require independently identified kinetic and restoring tensors.
 
+For the first-order linearization $\dot\delta=-\eta G^{-1}H_F\delta$, fixed $G$ and $\eta$ make larger positive modal stiffness reduce the matched-force static displacement and increase the relaxation rate. Slower revision requires a separate mobility or learning rate, damping law, kinetic metric, or slow explanatory state.
+
 ## Social claim-status map
 
-- **DeGroot:** derived for a fixed symmetric or reversible continuous-time subclass; general directed row-stochastic influence is excluded.
-- **Friedkin--Johnsen:** restricted anchored equilibrium; heterogeneous susceptibility requires agent-indexed anchor precision or coupling.
+- **DeGroot:** under the primary unweighted product Fisher metric, derived only for fixed symmetric coupling. Nonuniform reversible coupling requires the additional $\rho$-weighted metric, a fixed-label joint family, or equivalent agent-specific rates. General directed row-stochastic influence is excluded.
+- **Friedkin--Johnsen:** restricted anchored equilibrium inheriting the same symmetric/weighted-reversible metric scope; heterogeneous susceptibility requires agent-indexed anchor precision or coupling.
 - **Bounded confidence:** Gibbs attention is a soft finite-temperature analog, not an exact hard-threshold recovery.
 - **Polarization:** positive finite-temperature attractive coupling gives metastable separation in the stated unanchored, symmetric reciprocal two-cluster reduction. Exact persistence needs additional support, anchors, repulsion, or active sampling.
 - **Social Impact Theory:** interpretive only; normalized attention does not reproduce Latan\'e's number law.
 - **Diffusion:** not derived. An adoption variable and hazard are required, with [[bass-1969-product-growth]] as the direct population comparator.
 - **Confirmation bias:** only similarity-weighted selective exposure conditional on the kernel is represented.
-- **Belief perseverance:** revision latency and a conditional kinetic coast are candidate mechanisms; explanatory perseverance requires a slow explanatory state.
+- **Belief perseverance:** a conditional kinetic coast is a candidate mechanism; first-order stiffness alone does not produce latency, and explanatory perseverance requires a slow explanatory state.
 - **Leadership/recoil:** contemporaneous source-role curvature, not accumulated social memory or inevitable rigidity.
 
 ## Direct comparison set

@@ -14,7 +14,7 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-06-18
-updated: 2026-07-12
+updated: 2026-07-13
 ---
 
 # Mass as Fisher information
@@ -102,7 +102,7 @@ The first is the derivative of the bare product; the second is the envelope deri
 
 Mechanics on probability spaces predates this program. [[chirco-2022-statistical-bundle-dynamics]], [[leok-zhang-2017-information-geometric-mechanics]], and [[pistone-2018-statistical-bundle-lagrangian]] show explicit statistical-bundle or divergence-to-mechanics constructions. [[martins-2015-opinion-particles]] supplies a direct inertial opinion-particle predecessor. These sources support a carefully scoped kinetic construction while ruling out novelty or necessity claims based only on using precision-like quantities as mass.
 
-The four-part stiffness can motivate hypotheses about revision latency under controlled attention and matched priors, evidence, and restoring forces. It does not by itself derive confirmation bias, belief perseverance, expertise rigidity, or validation of Hamiltonian opinion dynamics.
+Under the primary first-order linearization, $\dot\delta=-\eta G^{-1}H_F\delta$. At fixed $G$ and $\eta$, a larger positive modal stiffness produces a smaller static displacement under matched constant forcing and a faster relaxation rate. It does not itself create revision latency. Slower revision requires an independently specified mobility or learning rate, damping law, kinetic metric, or slow explanatory state. The four-part stiffness also does not by itself derive confirmation bias, belief perseverance, expertise rigidity, or validation of Hamiltonian opinion dynamics.
 
 ## Sources
 

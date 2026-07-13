@@ -13,7 +13,7 @@ tags:
   - project/social-physics
 status: stable
 created: 2026-06-19
-updated: 2026-07-12
+updated: 2026-07-13
 ---
 
 # Belief perseverance and confirmation bias
@@ -24,9 +24,15 @@ updated: 2026-07-12
 
 Given a fixed candidate set and a similarity-decreasing Gibbs kernel, sources closer to an agent's current belief receive more attention. This is **similarity-weighted selective exposure conditional on the kernel**. It does not derive active search, asymmetric evaluation of equally diagnostic evidence, memory distortion, or motivated reasoning. Active selection requires an explicit policy or sampling model, as in [[albarracin-2022-epistemic-communities]].
 
-## Revision latency
+## Stiffness, displacement, and revision rate
 
-At frozen optimal attention and local consensus, the gauge-VFE loss Hessian supplies prior, sensory, incoming relational, and outgoing relational stiffness. Large positive stiffness can support a controlled prediction of slower first-order revision under matched forcing and Fisher geometry. If a positive kinetic metric is separately postulated, a force-free coast or damping time can provide another candidate latency mechanism.
+At frozen optimal attention and local consensus, the gauge-VFE loss Hessian supplies prior, sensory, incoming relational, and outgoing relational stiffness. For the primary first-order linearization,
+
+$$
+\dot\delta=-\eta G^{-1}H_F\delta.
+$$
+
+At fixed Fisher geometry $G$ and learning rate $\eta$, larger positive modal stiffness gives a smaller static displacement under matched constant forcing and a faster linear relaxation rate. Stiffness therefore does not by itself produce revision latency. Slower revision requires an independently specified mobility or learning rate, damping law, kinetic metric, or slow explanatory state. If a positive kinetic metric is separately postulated, a force-free coast or damping time can provide a distinct candidate latency mechanism.
 
 Neither statement licenses the global identity "precision is psychological mass." The intrinsic Fisher metric $G$, loss stiffness $H_F$, and kinetic metric $M$ are distinct. If $M=H_F$ is used for both sides of the same local oscillator equation, its modal spectrum is trivial up to scale. Any coasting or oscillation test must therefore identify kinetic and restoring quantities separately. See [[Mass as Fisher information]] and [[Hamiltonian belief dynamics]].
 

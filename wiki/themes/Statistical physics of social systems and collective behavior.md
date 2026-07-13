@@ -11,7 +11,7 @@ tags:
   - project/social-physics
 status: stable
 created: 2026-06-19
-updated: 2026-07-12
+updated: 2026-07-13
 ---
 
 # Statistical physics of social systems and collective behavior
@@ -28,7 +28,7 @@ The social correspondences now fall into four classes.
 
 ### Derived under restrictions
 
-The model derives a continuous-time DeGroot subclass only for fixed symmetric or reversible influence under flat transport and common fixed covariance. With persistent anchors, it gives a restricted Friedkin--Johnsen equilibrium. These results do not extend to arbitrary directed row-stochastic influence, and heterogeneous susceptibility requires agent-indexed anchor precision or coupling.
+Under the primary unweighted product Fisher metric, the model derives continuous-time DeGroot only for fixed symmetric influence under flat transport and common fixed covariance. Nonuniform reversible influence requires the additional metric $G_\rho=\sigma^{-2}(D_\rho\otimes I)$, equivalently a fixed-label joint family or agent-specific rates. Persistent anchors give the restricted Friedkin--Johnsen equilibrium under the same metric scope. These results do not extend to arbitrary directed row-stochastic influence, and heterogeneous susceptibility requires agent-indexed anchor precision or coupling.
 
 ### Soft analogs
 
@@ -55,7 +55,7 @@ The current vertex transport is pure gauge and has trivial loop holonomy. Spin-g
 Three mechanisms must remain separate:
 
 - similarity weighting gives selective exposure conditional on an imposed kernel;
-- local stiffness or a separately chosen kinetic metric can motivate controlled revision-latency tests;
+- at fixed Fisher geometry and learning rate, local stiffness reduces matched-force displacement but speeds first-order relaxation; revision latency needs a separate mobility, damping, kinetic, or slow-state mechanism;
 - explanation-based belief perseverance requires a slow explanatory or generative-model state that survives evidence withdrawal.
 
 The outgoing relational/recoil Hessian block is contemporaneous curvature, not accumulated leadership history. None of these constructions alone derives universal confirmation bias, moral rigidity, or explanatory perseverance. [[nevin-mandell-atak-1983-behavioral-momentum]] supplies a behavioral resistance-to-disruption comparator, not validation of Hamiltonian opinion dynamics.

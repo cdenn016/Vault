@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-07-12
+updated: 2026-07-13
 ---
 
 # Gauge-Theoretic Multi-Agent VFE Model
@@ -85,7 +85,7 @@ The repository exposes `basic`, `ouroboros`, `hierarchy`, and `rg` modes. Natura
 
 ## Social-science scope
 
-The revised social theory derives only a symmetric or reversible continuous-time DeGroot subclass and a restricted anchored Friedkin--Johnsen equilibrium. Gibbs attention is a soft bounded-confidence analog. Positive finite-temperature attractive attention yields metastable clustering in the stated unanchored, symmetric reciprocal two-cluster reduction, not exact stable polarization. Social Impact Theory remains interpretive, and diffusion requires an explicit adoption state and hazard.
+Under the primary unweighted product Fisher metric, the revised social theory derives continuous-time DeGroot only for fixed symmetric coupling. Nonuniform reversible DeGroot requires an additional $\rho$-weighted product metric, a fixed-label joint family, or equivalent agent-specific rates; the restricted anchored Friedkin--Johnsen equilibrium inherits that scope. Gibbs attention is a soft bounded-confidence analog. Positive finite-temperature attractive attention yields metastable clustering in the stated unanchored, symmetric reciprocal two-cluster reduction, not exact stable polarization. Social Impact Theory remains interpretive, and diffusion requires an explicit adoption state and hazard.
 
 The direct comparison set includes [[martins-2015-opinion-particles]], [[nevin-mandell-atak-1983-behavioral-momentum]], [[xue-hirche-cao-2020-opinion-port-hamiltonian]], [[baumann-sokolov-tyloo-2020-second-order-consensus]], [[bass-1969-product-growth]], and [[sampson-porter-restrepo-2025-oscillatory-opinion]]. Oscillation or resonance alone does not identify the proposed kinetic mechanism.
 

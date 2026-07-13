@@ -15,7 +15,7 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-06-18
-updated: 2026-07-12
+updated: 2026-07-13
 ---
 
 # Belief inertia
@@ -99,7 +99,7 @@ The envelope force coefficient $c_0/(b_0+D_i)$ differs from the bare-product der
 
 ## Social interpretation
 
-The stiffness theorem can motivate controlled hypotheses about confidence-dependent revision latency. The conditional kinetic extension can motivate tests of coasting, overshoot, or modal response only when $M$, restoring stiffness, damping, force, and initial conditions are separately identified. Neither result establishes universal confirmation bias, explanatory perseverance, or accumulated social memory. The outgoing recoil term is contemporaneous curvature from occupying a sender role, not a stored moral or psychological trait.
+For first-order flow linearized at a critical point, $\dot\delta=-\eta G^{-1}H_F\delta$. At fixed $G$ and $\eta$, increasing a positive modal stiffness reduces the matched-force static displacement but increases the relaxation rate. The stiffness theorem therefore does not imply revision latency. Slower revision requires an independently specified mobility or learning rate, damping law, kinetic metric, or slow explanatory state. The conditional kinetic extension can motivate tests of coasting, overshoot, or modal response only when $M$, restoring stiffness, damping, force, and initial conditions are separately identified. Neither result establishes universal confirmation bias, explanatory perseverance, or accumulated social memory. The outgoing recoil term is contemporaneous curvature from occupying a sender role, not a stored moral or psychological trait.
 
 Oscillation alone is not evidence for belief inertia. [[baumann-sokolov-tyloo-2020-second-order-consensus]] produces network resonance under periodic coupling, and [[sampson-porter-restrepo-2025-oscillatory-opinion]] produces oscillatory and excitable opinions through group-state feedback without this kinetic mechanism. [[nevin-mandell-atak-1983-behavioral-momentum]] is an empirical resistance-to-disruption comparator, not validation of opinion-level Hamiltonian dynamics.
 

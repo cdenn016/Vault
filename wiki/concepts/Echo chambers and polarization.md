@@ -4,7 +4,7 @@ type: concept
 tags: cluster/social-physics, project/social-physics
 status: stable
 created: 2026-06-19
-updated: 2026-07-12
+updated: 2026-07-13
 aliases:
   - "Echo Chambers"
 ---
@@ -30,12 +30,12 @@ The current vertex transport $\Omega_{ij}=U_iU_j^{-1}$ has trivial loop holonomy
 
 ## Relation to classical models
 
-The first-order gauge-VFE result recovers only a symmetric or reversible continuous-time DeGroot subclass and a restricted anchored Friedkin--Johnsen equilibrium. It does not derive arbitrary directed row-stochastic influence. Gibbs similarity weighting is a finite-temperature **soft analog** of bounded confidence, not an exact Hegselmann--Krause ball average or Deffuant update.
+Under the primary unweighted product Fisher metric, the first-order gauge-VFE result recovers continuous-time DeGroot only for fixed symmetric coupling. Nonuniform reversible DeGroot requires the additional metric $G_\rho=\sigma^{-2}(D_\rho\otimes I)$, equivalently a fixed-label joint family or agent-specific rates $\eta_i\propto\rho_i^{-1}$. The restricted anchored Friedkin--Johnsen equilibrium inherits that metric scope. Arbitrary directed row-stochastic influence is not derived. Gibbs similarity weighting is a finite-temperature **soft analog** of bounded confidence, not an exact Hegselmann--Krause ball average or Deffuant update.
 
 Selective exposure, slow revision, and persistent explanatory beliefs are separate mechanisms:
 
 - similarity-weighted attention represents selective exposure conditional on the chosen kernel;
-- local stiffness or a separately chosen kinetic metric can motivate revision-latency tests;
+- at fixed Fisher geometry and learning rate, local stiffness reduces matched-force displacement but speeds first-order relaxation; latency requires a separate mobility, damping, kinetic, or slow-state mechanism;
 - explanatory perseverance requires an explicit slow explanatory or generative-model state.
 
 None of these alone establishes general confirmation bias or stable polarization. See [[Belief perseverance and confirmation bias]].

@@ -10,7 +10,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-19
-updated: 2026-07-12
+updated: 2026-07-13
 ---
 
 # Sociophysics
@@ -27,13 +27,13 @@ The contribution should be compared directly with established opinion and probab
 
 ## Exact status of the social correspondences
 
-- **DeGroot:** derived only for a fixed symmetric or reversible continuous-time consensus subclass under flat transport and common fixed covariance. General directed row-stochastic DeGroot dynamics are outside the scalar derivation.
-- **Friedkin--Johnsen:** a restricted anchored equilibrium correspondence. Heterogeneous susceptibility requires agent-indexed prior precision or coupling; the general directed iteration is not derived.
+- **DeGroot:** under the primary unweighted product Fisher metric, derived only for fixed symmetric coupling under flat transport and common fixed covariance. Nonuniform reversible DeGroot additionally requires the $\rho$-weighted metric $G_\rho$, a fixed-label joint family, or equivalent agent-specific rates. General directed row-stochastic dynamics are outside the scalar derivation.
+- **Friedkin--Johnsen:** a restricted anchored equilibrium correspondence inheriting the same symmetric/weighted-reversible metric scope. Heterogeneous susceptibility requires agent-indexed prior precision or coupling; the general directed iteration is not derived.
 - **Bounded confidence:** Gibbs similarity weighting is a soft finite-temperature analog. It is not an exact Hegselmann--Krause ball average or Deffuant update.
 - **Polarization:** positive finite-temperature attractive attention yields metastable separation in the stated unanchored, symmetric reciprocal two-cluster reduction. Stable polarization requires added support, anchors, repulsion, or active sampling.
 - **Social Impact Theory:** interpretive only. Row-normalized attention redistributes a fixed allocation and does not derive Latan\'e's increasing-number or multiplicative strength--immediacy--number law.
 - **Diffusion:** not derived. A population S-curve requires an explicit adoption state and hazard, with [[bass-1969-product-growth]] as the formal comparator.
-- **Confirmation bias and perseverance:** selective exposure, revision latency, and persistence of an explanatory state are different mechanisms and must be modeled separately.
+- **Confirmation bias and perseverance:** selective exposure, first-order stiffness response, kinetic latency, and persistence of an explanatory state are different mechanisms. At fixed Fisher geometry and learning rate, larger positive stiffness speeds linear relaxation; slower revision needs a separate mobility, damping, kinetic, or slow-state mechanism.
 
 ## Behavioral and mechanics comparators
 
