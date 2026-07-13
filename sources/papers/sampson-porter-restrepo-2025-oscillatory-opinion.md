@@ -25,6 +25,8 @@ created: 2026-07-12
 
 > [!info] Citation
 > Corbit R. Sampson, Juan G. Restrepo, and Mason A. Porter (2025). “Oscillatory and excitable dynamics in an opinion model with group opinions.” *Physical Review E* 112, 024303. DOI: [10.1103/PhysRevE.112.024303](https://doi.org/10.1103/PhysRevE.112.024303). arXiv: [2408.13336](https://arxiv.org/abs/2408.13336).
+>
+> Provenance: The arXiv landing page and API metadata agree with the journal's Sampson–Restrepo–Porter order, but the rendered current v2 manuscript title-page byline orders Sampson–Porter–Restrepo. This source note follows the published *Physical Review E* version of record.
 
 ## TL;DR
 
