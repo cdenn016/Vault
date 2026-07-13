@@ -13,87 +13,67 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-07-12
 ---
 
 # SocialPhysics
 
 ## Goal
 
-SocialPhysics studies how the collective dynamics of opinion, belief, and consensus emerge from a single physical principle: variational free energy minimization run over a population of agents whose beliefs live on statistical manifolds. The program's wager is that the classical models of sociophysics and opinion dynamics — averaging toward consensus, anchoring to an initial conviction, refusing to listen past a confidence threshold, hardening into echo chambers — are not independent phenomenological constructions but limiting cases of one information-geometric variational law with $GL(K)$ gauge-transported KL coupling $\mathrm{KL}(q_i \| \Omega_{ij}[q_j])$. Where it departs from the existing literature is in taking the geometry seriously enough to ask what happens at *second* order: reading the Fisher/precision tensor as an inertial mass gives belief a momentum, and momentum predicts behavior — oscillation, overshoot, resonance, and momentum transfer between agents — that the standard first-order (overdamped) models structurally cannot produce.
+SocialPhysics develops a mathematical sociophysics model for distribution-valued beliefs in heterogeneous local frames. Its theorem-level contribution is an engineered gauge-covariant consensus energy with entropy-retaining optimized attention and a local Gaussian loss Hessian that separates prior, sensory, incoming relational, and outgoing relational or recoil stiffness. Fisher--Rao [[Natural gradient|natural-gradient]] flow is the primary dynamics. A second-order [[Belief inertia]] interpretation is conditional on a separately declared positive kinetic metric.
 
-This is the social-science and dynamical-systems face of the author's broader gauge-theoretic VFE research program. Its founding manuscript is [[belief-inertia]] ("The Inertia of Belief", Robert C. Dennis), and the dynamics it proposes are implemented in the [[Gauge-Theoretic Multi-Agent VFE Model]] codebase, which carries the Hamiltonian integrator.
+The current manuscript is recorded in [[belief-inertia-2026-07-12-theorem-first-revision]]. The historical [[belief-inertia]] note remains immutable and should not be used for the revised proof statuses where the two records differ.
 
-## Theoretical core
+## Mathematical core
 
-Each agent carries a Gaussian belief $q_i = \mathcal{N}(\mu_i, \Sigma_i)$ and is treated as a section of a fibre bundle, with comparison between agents performed by [[Parallel transport]] of one belief into another's gauge frame via $\Omega_{ij} = e^{\phi_i} e^{-\phi_j}$ (see [[Agents as fibre-bundle sections]], [[Gauge transformation]]). The population descends a [[Multi-agent variational free energy]] in which inter-agent disagreement is the gauge-transported divergence $\mathrm{KL}(q_i \| \Omega_{ij}[q_j])$, weighted by softmax attention coefficients $\beta_{ij}$. The geometry is not optional: by the Čencov–Chentsov theorem the [[Fisher information metric]] is the unique Riemannian metric (up to scaling) invariant under sufficient statistics, and it supplies a stiffness tensor — the curvature of the free-energy landscape — so that confident beliefs resist change while uncertain beliefs update readily. This [[Precision weighting]] is what makes belief inertia geometrically necessary rather than postulated.
+For transported edge energies $E_{ij}=D_{\mathrm{KL}}(q_i\|\Omega_{ij\#}q_j)$, the canonical social row retains both expected edge energy and categorical relative entropy:
 
-The novel physics enters with the Hessian of the free energy, which decomposes into a four-term inertial mass
-$$ M_i = \bar{\Lambda}_{p_i} + \Lambda_{o_i} + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k} + \sum_j \beta_{ji}\Lambda_{q_i}, $$
-combining prior precision, observation precision, incoming social precision, and a novel "recoil" outgoing-social term $\sum_j \beta_{ji}\Lambda_{q_i}$ by which influencing others costs an agent its own epistemic flexibility. See [[Mass as Fisher information]].
+$$
+\sum_j\left[
+\beta_{ij}E_{ij}
++\tau\beta_{ij}\log\frac{\beta_{ij}}{\pi_{ij}}
+\right].
+$$
 
-## The two regimes
+Row optimization gives $\beta_{ij}^*=\pi_{ij}e^{-E_{ij}/\tau}/Z_i$, reduced value $-\tau\log Z_i$, and envelope gradient $\sum_j\beta_{ij}^*dE_{ij}$. The construction is an engineered consensus energy. A source-mixture interpretation requires the stated rowwise source-independence assumption; the entire population functional is not presented as one fixed generative-model ELBO over the original agent states.
 
-The framework lives on a single dynamics toggle separating an overdamped and an underdamped regime, governed by the damped-oscillator equation of motion $M_i\ddot{\mu}_i + \gamma_i\dot{\mu}_i + \nabla_{\mu_i}\mathcal{F} = 0$, with the damping $\gamma$ identified as the inverse variational-inference learning rate and the regime fixed by the discriminant $\gamma^2 - 4KM$.
+At frozen optimized attention and local gauge consensus,
 
-The **overdamped regime** is first-order gradient flow on the free energy — the standard Bayesian descent limit. Here the dynamics reduce to the [[Free-energy principle active inference]] / predictive-coding update, and this is where the classical opinion-dynamics models are recovered. These derivations depend only on gradient flow and are presented as geometrically necessary, not as resting on any additional assumption.
+$$
+[H_{\mu\mu}]_{ii}
+=\alpha_i\bar\Lambda_{p_i}+\Lambda_{o_i}
++\sum_k\beta_{ik}\widetilde\Lambda_{q_k}
++\sum_j\beta_{ji}\Lambda_{q_i}.
+$$
 
-The **underdamped regime** is the novel contribution and rests on a [[Hamiltonian belief dynamics]] *ansatz*: reading the precision tensor as an inertial mass rather than only a stiffness. This is flagged explicitly in [[belief-inertia]] as an assumption beyond information geometry, since the curvature of a potential does not by itself fix a kinetic term. Granting the ansatz, belief acquires momentum and the model predicts attitude oscillation, overshoot past the equilibrium opinion, displacement resonance under periodic forcing, and momentum transfer between coupled agents — the phenomena absent from first-order dissipative treatments. See [[Belief inertia]].
+This is local stiffness $H_F$, not automatically the intrinsic Fisher metric $G$ or kinetic mass $M$. If a conditional kinetic model sets $M=H_F$ while the same $H_F$ supplies the restoring force, the generalized spectrum is $\omega^2=1$ up to scale. Nontrivial modal predictions require independently identified kinetic and restoring tensors.
 
-## Classical models recovered as limiting cases
+## Social claim-status map
 
-In the overdamped limit the same VFE functional reproduces the canonical sociophysics models. DeGroot social learning ([[degroot-1974-consensus]]) emerges as precision-weighted averaging toward consensus; Friedkin–Johnsen opinion dynamics ([[friedkin1990-social-influence-opinions|friedkin-johnsen-1990]], [[friedkin-johnsen-2011-social-influence-network]]) as the same flow with a persistent anchor to the initial conviction (the prior term); bounded-confidence dynamics ([[hegselmann-2002-opinion|hegselmann-krause-2002]], [[deffuant2000-bounded-confidence|deffuant-2000-bounded-confidence]]) as a soft finite-temperature analog of the hard confidence threshold, with the softmax attention $\beta_{ij}$ playing the role of the bounded-confidence kernel; echo-chamber formation and polarization ([[Echo chambers and polarization]]) as the self-reinforcing drift that the state-dependent self-coupling $\alpha_i^*(c) = c_0/(b_0 + \mathrm{KL}(q_i\|p_i))$ produces; Social Impact Theory ([[latane1981psychology|latane-1981-social-impact]]) as the precision-weighted aggregation of social forcing; and diffusion of innovations ([[rogers-2003-diffusion-of-innovations]]) as belief spreading through the coupling network. Consensus and polarization are thereby unified as two boundary conditions of one principle rather than two mechanisms. The broader sociophysics tradition this sits within is surveyed in [[castellano-2009-statistical-physics-social-dynamics|castellano-fortunato-loreto-2009-social-dynamics]], [[galam-2008-sociophysics]], and [[flache-2017-social-influence-models]]; confirmation bias ([[nickerson-1998-confirmation-bias]]) and belief perseverance ([[anderson1980-belief-perseverance|anderson-1980-belief-perseverance]]) are recast as geometric consequences of epistemic inertia rather than irrationality.
+- **DeGroot:** derived for a fixed symmetric or reversible continuous-time subclass; general directed row-stochastic influence is excluded.
+- **Friedkin--Johnsen:** restricted anchored equilibrium; heterogeneous susceptibility requires agent-indexed anchor precision or coupling.
+- **Bounded confidence:** Gibbs attention is a soft finite-temperature analog, not an exact hard-threshold recovery.
+- **Polarization:** positive finite-temperature attractive coupling gives metastable separation in the stated unanchored, symmetric reciprocal two-cluster reduction. Exact persistence needs additional support, anchors, repulsion, or active sampling.
+- **Social Impact Theory:** interpretive only; normalized attention does not reproduce Latan\'e's number law.
+- **Diffusion:** not derived. An adoption variable and hazard are required, with [[bass-1969-product-growth]] as the direct population comparator.
+- **Confirmation bias:** only similarity-weighted selective exposure conditional on the kernel is represented.
+- **Belief perseverance:** revision latency and a conditional kinetic coast are candidate mechanisms; explanatory perseverance requires a slow explanatory state.
+- **Leadership/recoil:** contemporaneous source-role curvature, not accumulated social memory or inevitable rigidity.
 
-## Relation to the sibling projects
+## Direct comparison set
 
-SocialPhysics shares its entire mathematical substrate — the [[Multi-agent variational free energy]] functional and the $GL(K)$ gauge core — with the [[Gauge-Theoretic Multi-Agent VFE Model]], which is where the dynamics actually run: the MAgent codebase carries the symplectic Hamiltonian integrator (`dynamics.dynamics = hamiltonian`) that realizes the underdamped regime, alongside the natural-gradient overdamped path. SocialPhysics is the social-physics reading of that machinery, picking out the opinion-dynamics interpretation and the falsifiable second-order predictions. It is a sibling to the [[VFE Transformer Program]], the language-model instantiation of the same theory; the three projects differ only in what the agents *are* (opinions, persistent bundle sections, tokens) and what the dynamics *mean*.
+[[martins-2015-opinion-particles]] is the closest direct predecessor for inertial opinion particles and a harmonic example. [[nevin-mandell-atak-1983-behavioral-momentum]] operationalizes resistance to disruption but does not establish opinion-level Hamiltonian mechanics. [[xue-hirche-cao-2020-opinion-port-hamiltonian]] applies port-Hamiltonian systems and passivity to opinion networks. [[baumann-sokolov-tyloo-2020-second-order-consensus]] provides a second-order network-resonance baseline. [[sampson-porter-restrepo-2025-oscillatory-opinion]] demonstrates oscillatory and excitable opinions without the proposed kinetic mechanism. [[bass-1969-product-growth]] is the required diffusion comparator.
 
-## Manuscripts
+Probability-space mechanics is also prior art: [[chirco-2022-statistical-bundle-dynamics]], [[girolami-calderhead-2011-riemann-hmc]], [[leok-zhang-2017-information-geometric-mechanics]], and [[pistone-2018-statistical-bundle-lagrangian]]. The residual novelty is the gauge-transported Gaussian KL consensus potential, optimized attention, four-part local relational stiffness, and a conditional kinetic reading.
 
-- [[belief-inertia]] — the founding and flagship manuscript: classical sociology models as overdamped limits of multi-agent VFE, the four-term Hessian mass, and the Hamiltonian belief-momentum extension.
-- [[meta-entropy-manuscript]] — supplies the thermodynamic-limit bridge ([[Meta-entropy]], Kac-normalized extensivity) connecting the discrete population to a continuum.
-- [[participatory-it-from-bit]] — the gauge substrate from which the state-dependent self-coupling weight and the $GL(K)$ transport are imported.
-- [[gl-k-attention]] — the shared gauge-attention derivation linking opinion coupling to transformer attention.
+## Relationship to sibling projects
+
+The [[Gauge-Theoretic Multi-Agent VFE Model]] supplies the broader multi-agent computational architecture, and the [[VFE Transformer Program]] supplies the language-model instantiation of related gauge-transported VFE machinery. SocialPhysics is the focused social-dynamics interpretation. It does not import the broader participatory-physics scope of [[participatory-it-from-bit]].
+
+## Status and next tests
+
+The theorem-first revision makes no new empirical-data or validation claim. The next discriminating experiments should estimate or manipulate Fisher geometry, restoring stiffness, any kinetic metric, damping, candidate-set selection, and slow explanatory state separately. Oscillation alone is insufficient because time-varying coupling and group feedback supply alternative mechanisms. The detailed literature map is [[Statistical physics of social systems and collective behavior]].
 
 ## Concepts
 
-[[Opinion dynamics]] · [[Bounded confidence]] · [[Sociophysics]] · [[Echo chambers and polarization]] · [[Belief perseverance and confirmation bias]] · [[Belief inertia]] · [[Mass as Fisher information]] · [[Hamiltonian belief dynamics]] · [[Multi-agent variational free energy]] · [[Fisher information metric]] · [[Variational free energy]] · [[Natural gradient]] · [[Precision weighting]] · [[Gauge transformation]] · [[Parallel transport]] · [[Holonomy]] · [[Agents as fibre-bundle sections]] · [[Renormalization-group flow of beliefs]] · [[Meta-agents and hierarchical emergence]] · [[Participatory realism (it from bit)]]
-
-## Deep literature neighborhood
-
-The broad statistical-physics-of-social-systems literature this program sits within is synthesized in the theme [[Statistical physics of social systems and collective behavior]], which frames each strand by its relation to the belief-inertia functional (recovered in the overdamped limit, extended by the underdamped momentum ansatz, or adjacent context). It is organized into these concept pages:
-
-- **Opinion-dynamics models** — [[Opinion dynamics]] · [[Voter model]] · [[Discrete spin and majority-rule models of opinion]] · [[Axelrod model of cultural dissemination]] · [[Bounded confidence]]
-- **Continuum & kinetic theory** — [[Kinetic theory of opinion dynamics]] · [[Sociodynamics and synergetics]] · [[Mean-field games and continuum limits]]
-- **Networks & contagion** — [[Network structure — small-world and scale-free]] · [[Threshold models and complex contagion]] · [[Information cascades and herding]] · [[Schelling segregation and tipping points]]
-- **Collective motion & synchronization** — [[Collective motion and flocking]] · [[Synchronization and the Kuramoto model]]
-- **Behavioral & evolutionary foundations** — [[Social influence and conformity]] · [[Cultural evolution and social learning]] · [[Evolutionary game theory and cooperation]] · [[Replicator dynamics]]
-- **Empirical polarization** — [[Echo chambers and polarization]]
-
-This neighborhood was ingested as 122 source notes spanning the discrete opinion models (DeGroot, voter, Sznajd, Galam, Axelrod), kinetic/continuum theory (Toscani, Pareschi, Weidlich, Helbing, mean-field games), network science (Watts–Strogatz, Barabási–Albert, Granovetter), synchronization and flocking (Kuramoto, Vicsek, Cucker–Smale), the social psychology of influence (French, Asch, Festinger, Sherif), information cascades (Bikhchandani–Hirshleifer–Welch, Banerjee), evolutionary cooperation (Axelrod, Nowak), cultural evolution (Boyd–Richerson, Henrich), and empirical polarization (Del Vicario, Cinelli, Bail). The full catalog is in [[index|the index]]; the synchronization, Kuramoto, and Cucker–Smale strands are the closest physical precedents for the underdamped [[Hamiltonian belief dynamics]] regime, while the kinetic and mean-field-game limits are the natural continuum home for [[Meta-entropy]] and the thermodynamic-limit bridge.
-
-## Key sources
-
-**Classic opinion dynamics / sociophysics:** [[degroot-1974-consensus]] · [[friedkin1990-social-influence-opinions|friedkin-johnsen-1990]] · [[friedkin-johnsen-2011-social-influence-network]] · [[hegselmann-2002-opinion|hegselmann-krause-2002]] · [[deffuant2000-bounded-confidence|deffuant-2000-bounded-confidence]] · [[galam-2008-sociophysics]] · [[castellano-2009-statistical-physics-social-dynamics|castellano-fortunato-loreto-2009-social-dynamics]] · [[latane1981psychology|latane-1981-social-impact]] · [[rogers-2003-diffusion-of-innovations]] · [[flache-2017-social-influence-models]]
-
-**Psychology of belief:** [[nickerson-1998-confirmation-bias]] · [[anderson1980-belief-perseverance|anderson-1980-belief-perseverance]] · [[kaplowitz-fink-1992-attitude-change]]
-
-**Dynamics / statistical physics:** [[strogatz-2015-nonlinear-dynamics]] · [[sornette-2006-critical-phenomena]] · [[mezard-parisi-virasoro-1987-spin-glass]]
-
-**Collective inference:** [[heins-2024-surprise-minimization]] · [[friston-2024-federated-inference]] · [[waade-2025-as-one-and-many]] · [[albarracin-2022-epistemic-communities]] · [[Collective active inference]]
-
-**Geometry / inference substrate:** [[Free-energy principle active inference]] · [[Fisher information metric]] · [[Natural gradient]]
-
-## Status & next steps
-
-The overdamped results — recovery of DeGroot, Friedkin–Johnsen, bounded confidence, echo chambers, and Social Impact Theory — are the settled, geometrically necessary core. The underdamped Hamiltonian regime is the program's falsifiable, not-yet-validated frontier: it rests on the mass ansatz and makes sharp predictions that have yet to be tested empirically. The distinctive quantitative claims are the natural and resonance frequencies $\omega = \sqrt{K/M - \gamma^2/4M^2}$ and $\omega_{\text{res}} = \sqrt{K/M - \gamma^2/2M^2}$, the square-root overshoot law $d_{\text{overshoot}} = |\dot{\mu}|\sqrt{M/K}$ (which the manuscript notes has not yet even been simulated), and momentum transfer between coupled agents with a conserved current under reciprocal symmetric coupling. Symplectic integration in the manuscript confirms internal/integrator consistency (stopping-distance and decay-time scaling $\propto \Lambda$ at $R^2 = 1.000$, resonance frequency within $1.1\%$), but these establish self-consistency, not empirical truth.
-
-Only one empirical comparison exists so far: a fit to the McGuire et al. (2014) helicopter task, which lands near critical damping ($\zeta = 0.91 \pm 0.12$) with the zero-momentum delta rule winning by BIC for 31 of 32 participants — consistent with the prediction that high-noise, volatile tasks sit near critical damping where the framework collapses back to first-order updating. The open frontier is therefore to find a low-noise, stable-environment paradigm where the underdamped predictions (oscillation, overshoot, resonance) would be visible and to test them directly. A second forward direction is the gauge-curvature extension: the vertex-cocycle transport $\Omega_{ij} = e^{\phi_i}e^{-\phi_j}$ is pure gauge with trivial [[Holonomy]], so nontrivial epistemic frustration (persistent disagreement under apparent consensus, spin-glass-like structure) requires the edge-local link variable $\Omega_{ij} = U_i e^{\delta_{ij}} U_j^{-1}$ flagged in [[belief-inertia]] as future work.
-
-## Cross-links
-
-**Sibling projects:** [[Gauge-Theoretic Multi-Agent VFE Model]] · [[VFE Transformer Program]]
-
-**Manuscripts:** [[belief-inertia]] · [[meta-entropy-manuscript]] · [[participatory-it-from-bit]] · [[gl-k-attention]]
-
-**Key concepts:** [[Belief inertia]] · [[Mass as Fisher information]] · [[Hamiltonian belief dynamics]] · [[Opinion dynamics]] · [[Bounded confidence]] · [[Sociophysics]] · [[Echo chambers and polarization]] · [[Belief perseverance and confirmation bias]] · [[Multi-agent variational free energy]] · [[Fisher information metric]]
+[[Opinion dynamics]] · [[Bounded confidence]] · [[Sociophysics]] · [[Echo chambers and polarization]] · [[Belief perseverance and confirmation bias]] · [[Belief inertia]] · [[Mass as Fisher information]] · [[Hamiltonian belief dynamics]] · [[Multi-agent variational free energy]] · [[Fisher information metric]] · [[Natural gradient]] · [[Collective active inference]]

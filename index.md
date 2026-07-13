@@ -10,7 +10,7 @@ updated: 2026-07-12
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **7** manuscripts · **12** themes · **11** field MOCs · **268** concepts · **11** methods · **529** papers · **100** references · **8** runs · **6** web/methodology
+> **3** projects · **8** manuscripts · **12** themes · **11** field MOCs · **268** concepts · **11** methods · **539** papers · **100** references · **8** runs · **6** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -32,6 +32,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 - [[gl-k-attention-2026-07-09-review-revision|Attention as Gauge-Theoretic Variational Inference: 2026-07-09 Review and Revision Record]] — major-review revision and supersession record
 - [[meta-entropy-manuscript|Configurational Meta-Entropy of a Population of Variational Beliefs: Toward a Thermodynamic Limit for the Gauge-Theoretic Free Energy Transformer]]
 - [[belief-inertia|The Inertia of Belief]]
+- [[belief-inertia-2026-07-12-theorem-first-revision|The Inertia of Belief: 2026-07-12 Theorem-First Revision Record]] — corrected theorem-first manuscript state, proof-status supersessions, comparator set, and source hashes
 
 ## 🧩 Themes — cross-paper synthesis
 - [[Attention mechanisms — theory and positional structure]]
@@ -440,6 +441,10 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[nagai-2025-cask|CASK: A Gauge Covariant Transformer for Lattice Gauge Theory]]
 
 ### Information geometry, divergences & natural gradient
+- [[chirco-2022-statistical-bundle-dynamics|Lagrangian and Hamiltonian Dynamics for Probabilities on the Statistical Bundle]]
+- [[girolami-calderhead-2011-riemann-hmc|Riemann Manifold Langevin and Hamiltonian Monte Carlo Methods]]
+- [[leok-zhang-2017-information-geometric-mechanics|Connecting Information Geometry and Geometric Mechanics]]
+- [[pistone-2018-statistical-bundle-lagrangian|Lagrangian Function on the Finite State Space Statistical Bundle]]
 - [[amari-1998-natural-gradient|Natural Gradient Works Efficiently in Learning]]
 - [[amari-2000-methods-information-geometry|Methods of Information Geometry]]
 - [[bengtsson-zyczkowski-2017-geometry-quantum-states|Geometry of Quantum States: An Introduction to Quantum Entanglement (2nd ed.)]]
@@ -573,6 +578,12 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[worrall-2014-prediction-accommodation-revisited|Prediction and Accommodation Revisited]]
 
 ### Social physics, opinion dynamics & collective behavior
+- [[bass-1969-product-growth|A New Product Growth for Model Consumer Durables]]
+- [[baumann-sokolov-tyloo-2020-second-order-consensus|Periodic Coupling Inhibits Second-Order Consensus on Networks]]
+- [[martins-2015-opinion-particles|Opinion Particles: Classical Physics and Opinion Dynamics]]
+- [[nevin-mandell-atak-1983-behavioral-momentum|The Analysis of Behavioral Momentum]]
+- [[sampson-porter-restrepo-2025-oscillatory-opinion|Oscillatory and Excitable Dynamics in an Opinion Model with Group Opinions]]
+- [[xue-hirche-cao-2020-opinion-port-hamiltonian|Opinion Behavior Analysis in Social Networks Under the Influence of Coopetitive Media]]
 - [[acebron-2005-kuramoto-review|The Kuramoto model: A simple paradigm for synchronization phenomena]]
 - [[acemoglu-dahleh-lobel-ozdaglar-2011-bayesian-learning-networks|Bayesian Learning in Social Networks]]
 - [[albert-barabasi-2002-statistical-mechanics|Statistical mechanics of complex networks]]

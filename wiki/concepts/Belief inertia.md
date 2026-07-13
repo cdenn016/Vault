@@ -15,98 +15,109 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-06-18
-updated: 2026-06-19
+updated: 2026-07-12
 ---
 
 # Belief inertia
 
 ## Definition
 
-**Belief inertia** is the proposal that a belief, modeled as a point on a statistical manifold, possesses an *inertial mass* proportional to the agent's total precision, so that confident beliefs resist change and, once in motion, tend to continue along their trajectory. The mechanism augments the standard first-order (dissipative) picture of belief updating with a second-order **Hamiltonian** term: instead of pure gradient descent on [[Variational free energy]], beliefs obey an equation of motion of damped-oscillator form
+**Belief inertia** is a conditional kinetic interpretation of the local stiffness produced by the gauge-covariant population objective in [[Multi-agent variational free energy]]. The primary inference law is first-order Fisher--Rao [[Natural gradient|natural-gradient]] flow. A second-order reading enters only through this modeling postulate:
+
+> In a reciprocal, frozen-attention, local-consensus regime, a positive restriction of the gauge-VFE stiffness may be adopted as a kinetic metric for belief-configuration change.
+
+The revision recorded in [[belief-inertia-2026-07-12-theorem-first-revision]] separates three tensors:
+
+- $G(q)$: the intrinsic [[Fisher information metric]] on the statistical manifold;
+- $H_F(x)$: the coordinate loss Hessian, interpreted locally as free-energy stiffness;
+- $M(x)$: a separately selected positive kinetic metric.
+
+These tensors can agree in a declared local matching regime, but information geometry does not identify them globally. [[martins-2015-opinion-particles]], [[chirco-2022-statistical-bundle-dynamics]], [[girolami-calderhead-2011-riemann-hmc]], [[leok-zhang-2017-information-geometric-mechanics]], and [[pistone-2018-statistical-bundle-lagrangian]] are direct precedents for opinion mechanics, statistical-bundle mechanics, or Fisher-dependent kinetic geometry. The present contribution is the gauge-transported Gaussian KL potential and its four-part local relational stiffness before the kinetic choice is made.
+
+## Local stiffness and the kinetic postulate
+
+At frozen optimized attention and local gauge consensus, the mean-sector diagonal block is
 
 $$
-M_i\,\ddot{\mu}_i + \gamma_i\,\dot{\mu}_i + \nabla_{\mu_i}\mathcal{F} = 0,
+[H_{\mu\mu}]_{ii}
+=\alpha_i\bar\Lambda_{p_i}
++\Lambda_{o_i}
++\sum_k\beta_{ik}\widetilde\Lambda_{q_k}
++\sum_j\beta_{ji}\Lambda_{q_i}.
 $$
 
-where $\mu_i$ is agent $i$'s mean belief, $\mathcal{F}$ is the multi-agent free energy, $\gamma_i>0$ is a damping coefficient, and $M_i$ is the **epistemic mass** tensor. The mass is identified with the Hessian of the free energy (a total precision matrix); see [[Mass as Fisher information]]. The associated **cognitive momentum** is $\pi_i = M_i\,\dot{\mu}_i$.
-
-The construction is grounded in the manuscript [[belief-inertia]] ("The Inertia of Belief"), by R. C. Dennis.
-
-> [!note] Editorial: The manuscript is explicit that the second-order Hamiltonian reading is an *ansatz*, not a consequence of information geometry alone. The Fisher metric supplies curvature (a potential), but "the curvature of a potential does not by itself determine a kinetic term." Overdamped predictions are geometrically necessary; underdamped (inertial, oscillatory) predictions depend on the ansatz.
-
-## Why it matters here
-
-Belief inertia is the dynamical heart of the [[Gauge-Theoretic Multi-Agent VFE Model]]'s sociological face. The same gauge-theoretic, multi-agent free energy that yields attention in the transformer setting ([[Multi-agent variational free energy]], [[gl-k-attention]]) becomes, when read as a *potential* for second-order dynamics, a theory of how opinions move, oscillate, and transfer between agents. It supplies three things distinctive to the model:
-
-- **A unification of opinion-dynamics models.** In the overdamped limit ($\gamma\to\infty$) the dynamics reduce to preconditioned gradient flow $\dot\mu = -M^{-1}\nabla\mathcal F$, from which DeGroot social learning ([[degroot-1974-consensus]]), Friedkin–Johnsen opinion dynamics ([[friedkin1990-social-influence-opinions|friedkin-johnsen-1990]]), and bounded-confidence models ([[hegselmann-2002-opinion|hegselmann-krause-2002]], [[deffuant2000-bounded-confidence|deffuant-2000-bounded-confidence]]) emerge as limiting cases. Consensus and polarization become two regimes of one functional rather than separate theories.
-- **A mechanism for social rigidity.** Because mass is *collective* (it inherits neighbors' precision through attention), the model explains why expertise clusters resist perturbation and why wielding influence costs flexibility — connecting to [[Agents as fibre-bundle sections]] and the gauge-transport coupling $D_{\mathrm{KL}}(q_i\|\Omega_{ij}\cdot q_j)$.
-- **Novel, testable dynamics absent from first-order active inference** ([[parr-2022-active-inference]], [[friston-2017-active-inference-process-theory|friston-2017-active-inference-process]]): overshoot, oscillation, resonance, perseverance, and momentum transfer — see [[Hamiltonian belief dynamics]].
-
-## Details
-
-### Epistemic mass as total precision
-
-Writing the multi-agent free energy as complexity + (negative) accuracy + consensus,
+The four terms are prior, sensory, incoming relational, and outgoing relational or recoil **stiffness**. The full stacked Hessian also contains off-diagonal sender/receiver blocks. Away from frozen consensus, optimized attention contributes the reduced-Hessian correction
 
 $$
-\mathcal{F} = \sum_i D_{\mathrm{KL}}(q_i\|p_i) - \sum_i \mathbb{E}_{q_i}[\log p(o_i|c_i)] + \sum_{i,k}\beta_{ik}\,D_{\mathrm{KL}}(q_i\|\Omega_{ik}\cdot q_k),
+-\tau^{-1}\operatorname{Cov}_{\beta_i^*}(\nabla E_{ij},\nabla E_{ij}),
 $$
 
-the mass is defined as the Hessian $\mathbf{M} = \partial^2\mathcal{F}/\partial\xi\,\partial\xi^\top$ with respect to the belief parameters. For Gaussian beliefs this decomposes into four interpretable precision contributions:
+so no global positive-definiteness or intrinsic-metric claim follows for $H_F$.
+
+If the kinetic postulate chooses the same tensor as the restoring Hessian at the same equilibrium, the generalized mode equation becomes
 
 $$
-M_i = \underbrace{\bar{\Lambda}_{p_i}}_{\text{prior}} + \underbrace{\Lambda_{o_i}}_{\text{observation}} + \underbrace{\sum_k \beta_{ik}\,\tilde{\Lambda}_{q_k}}_{\text{incoming social}} + \underbrace{\sum_j \beta_{ji}\,\Lambda_{q_i}}_{\text{outgoing social}},
+H_Fv=\omega^2Mv,
+\qquad M=H_F
+\Longrightarrow \omega^2=1
 $$
 
-where $\bar{\Lambda}_{p_i}=\bar\Sigma_{p_i}^{-1}$ is the prior precision, $\Lambda_{o_i}=R_i^{-1}$ the observation (inverse sensory-noise) precision, $\tilde{\Lambda}_{q_k}=(\Omega_{ik}\Sigma_{q_k}\Omega_{ik}^\top)^{-1}$ a neighbor's precision transported into agent $i$'s frame ([[Parallel transport]], [[Gauge transformation]]), and the *outgoing* term the reciprocal recoil from being attended to. The four parts read as prior inertia, sensory anchoring, incoming social pull, and outgoing recoil. The identification of mass with precision rests on the uniqueness of the [[Fisher information metric]] under sufficient statistics ([[cencov-1982-statistical-decision-rules]]).
+up to the declared scale. The same-functional choice therefore has a trivial spectrum and cannot support nontrivial precision-dependent frequency claims. Such claims require an independently specified $M$ and restoring tensor $K$, for example a frozen pre-intervention kinetic metric paired with manipulated evidence curvature.
 
-> [!note] Editorial: The manuscript carefully distinguishes this "Hessian mass" from the intrinsic Fisher–Rao metric $\mathcal{I}(\theta)$; the two coincide only at the critical point $q=p$. Both reduce to the precision matrix for Gaussians.
+For a coupled kinetic form, canonical momentum is
 
-### The Fisher arc-length clock and kinetic energy
+$$
+\pi_i=\sum_kM_{ik}\dot\mu_k,
+$$
 
-Time is defined intrinsically as Fisher arc length, $d\ell = \sqrt{d\mu^\top\Sigma^{-1}d\mu}$, so high-precision agents accumulate "cognitive time" faster for the same parametric motion. This metric motivates the kinetic energy $T=\tfrac12\dot\mu^\top M\dot\mu$ that completes the Hamiltonian. To second order, $\mathrm{KL}(q\|q+dq)\approx\tfrac12 d\ell^2$, so the clock measures accumulated information change.
+with covariance-sector terms where retained. The local formula $\pi_i=M_i\dot\mu_i$ is valid only after an explicit block-diagonal approximation.
 
-### Damping and the three regimes
+## Primary dynamics and force scope
 
-The damping $\gamma$ is *not* a new free parameter: in the overdamped limit it is the inverse learning rate of standard variational inference ($\dot\mu = -\gamma^{-1}\nabla\mathcal F$). Linearizing about equilibrium, $M_i\ddot{\delta\mu}+\gamma_i\dot{\delta\mu}+K_i\,\delta\mu=0$, where the **stiffness** $K_i$ is the *evidence* curvature, a different object from the mass $M_i$. The discriminant $\Delta=\gamma_i^2-4K_iM_i$ sorts behavior into overdamped (monotone decay), critically damped (fastest non-oscillatory approach), and underdamped (oscillation/overshoot). Key closed forms:
+The first-order mean and covariance dynamics are
 
-- Natural frequency: $\omega=\sqrt{K_i/M_i-\gamma_i^2/4M_i^2}$.
-- Overshoot distance: $d_{\text{overshoot}}=|\dot\mu_i|\sqrt{M_i/K_i}$, predicting overshoot $\propto\sqrt{\text{precision}}$.
-- Displacement resonance peak: $\omega_{\text{res}}=\sqrt{K_i/M_i-\gamma_i^2/2M_i^2}$, with high-mass agents showing *larger* resonant swings ($A_{\max}=(f_0/\gamma_i)\sqrt{M_i/K_i}$).
-- Perseverance: underdamped envelope decay $\tau_{\mathrm{env}}=2M_i/\gamma_i$; coasting (continued-influence) time $\tau_{\mathrm{relax}}=M_i/\gamma_i$. Both scale linearly with precision.
+$$
+\dot\mu_i=-\eta_\mu\Sigma_i\nabla_{\mu_i}\mathcal F,
+\qquad
+\dot\Sigma_i=-2\eta_\Sigma\Sigma_i
+(\nabla_{\Sigma_i}\mathcal F)\Sigma_i.
+$$
 
-### Momentum transfer between agents
+This is Fisher natural-gradient flow, not a Newton or loss-Hessian flow derived from scalar damping. A mechanical overdamped reduction matches it only after a compatible tensor friction, such as $\Gamma=M/\eta$, is declared and the slow-time limit is derived.
 
-Through the attention coupling $\beta_{ij}$, momentum flows between agents. The current from $k$ to $i$ is $J_{k\to i}=\beta_{ik}\tilde{\Lambda}_{q_k}(\tilde\mu_k-\mu_i)$, satisfying a continuity equation. Under symmetric, reciprocal coupling ($\beta_{ik}=\beta_{ki}$, $\Omega_{ik}\Omega_{ki}=I$) with no priors or damping, total momentum is conserved; row-normalized (asymmetric) attention or priors/damping break conservation, dissipating momentum into the prior "environment." This makes influence intrinsically reciprocal: changing another's mind perturbs one's own trajectory.
+Fixed asymmetric attention does not make the complete dynamics nonconservative. With both receiver and sender derivatives retained, the directed edge sum remains one scalar potential. Nonconservative behavior requires a receiver-only/detached truncation, explicit time dependence, damping, or external forcing.
 
-### Adaptive (state-dependent) self-coupling
+For adaptive prior precision, the complete sector is
 
-When the prior self-coupling weight is promoted to a per-agent variational precision $\alpha_i$ with a Gamma-type regularizer, the stationary value $\alpha_i^*(c)=c_0/(b_0+D_{\mathrm{KL}}(q_i\|p_i))$ rescales only the prior block of the mass, $M_i=\alpha_i^*\bar\Lambda_{p_i}+\dots$. Because $\alpha_i^*$ *decreases* as the belief drifts from its prior, prior anchoring weakens exactly where the belief is most displaced — a self-reinforcing drift rather than added stubbornness.
+$$
+\alpha_iD_i+b_0\alpha_i-c_0\log\alpha_i,
+\qquad
+\alpha_i^*=\frac{c_0}{b_0+D_i}.
+$$
 
-## In this work
+The envelope force coefficient $c_0/(b_0+D_i)$ differs from the bare-product derivative $b_0c_0/(b_0+D_i)^2$. These are different objectives and do not generate the same dynamics.
 
-- **Manuscript [[belief-inertia]]** ("The Inertia of Belief") develops the entire construction: the four-part mass formula, the Fisher arc-length clock, the damped-oscillator dynamics, the classical opinion-dynamics limits, and the numerical/empirical validation (symplectic integration reproducing closed-form predictions to $<1\%$; a single empirical comparison on the helicopter task that lands near critical damping, where the framework reduces to a delta rule).
-- Tightly coupled wiki concepts: [[Mass as Fisher information]] (the precision-as-mass identification), [[Hamiltonian belief dynamics]] (the full phase-space formulation and predictions), and [[Precision weighting]] (the precision quantities reused as inertia).
-- The same multi-agent free energy and gauge-transport coupling appear in the transformer-side manuscripts [[gl-k-attention]] and [[participatory-it-from-bit]], where softmax attention is recovered as a gauge-fixed isotropic-Gaussian limit; belief inertia is the second-order reading of that shared potential. The thermodynamic-limit counting of belief configurations is developed under [[meta-entropy-manuscript]].
+## Social interpretation
+
+The stiffness theorem can motivate controlled hypotheses about confidence-dependent revision latency. The conditional kinetic extension can motivate tests of coasting, overshoot, or modal response only when $M$, restoring stiffness, damping, force, and initial conditions are separately identified. Neither result establishes universal confirmation bias, explanatory perseverance, or accumulated social memory. The outgoing recoil term is contemporaneous curvature from occupying a sender role, not a stored moral or psychological trait.
+
+Oscillation alone is not evidence for belief inertia. [[baumann-sokolov-tyloo-2020-second-order-consensus]] produces network resonance under periodic coupling, and [[sampson-porter-restrepo-2025-oscillatory-opinion]] produces oscillatory and excitable opinions through group-state feedback without this kinetic mechanism. [[nevin-mandell-atak-1983-behavioral-momentum]] is an empirical resistance-to-disruption comparator, not validation of opinion-level Hamiltonian dynamics.
 
 ## Sources
 
-- [[belief-inertia]] — The Inertia of Belief (primary manuscript; all definitions, the mass formula, dynamics, and validation are taken from this file).
-- [[cencov-1982-statistical-decision-rules]] — Čencov/Chentsov uniqueness theorem underwriting precision-as-Fisher-information.
-- [[amari-2016-information-geometry-applications]], [[ay-2017-information-geometry]] — information geometry of the statistical manifold.
-- [[parr-2022-active-inference]], [[friston-2017-active-inference-process-theory|friston-2017-active-inference-process]] — first-order active-inference substrate that the second-order dynamics extend.
-- [[degroot-1974-consensus]], [[friedkin1990-social-influence-opinions|friedkin-johnsen-1990]], [[hegselmann-2002-opinion|hegselmann-krause-2002]], [[deffuant2000-bounded-confidence|deffuant-2000-bounded-confidence]] — classical opinion-dynamics models recovered as overdamped limits.
+- [[belief-inertia-2026-07-12-theorem-first-revision]] -- corrected theorem-first manuscript record and source hashes.
+- [[belief-inertia]] -- immutable historical manuscript note, retained for provenance.
+- [[martins-2015-opinion-particles]] -- direct opinion-particle and oscillator predecessor.
+- [[chirco-2022-statistical-bundle-dynamics]], [[leok-zhang-2017-information-geometric-mechanics]], [[pistone-2018-statistical-bundle-lagrangian]] -- statistical-bundle and information-geometric mechanics.
+- [[girolami-calderhead-2011-riemann-hmc]] -- Fisher/Riemannian kinetic geometry with the metric kept distinct from target curvature.
+- [[nevin-mandell-atak-1983-behavioral-momentum]], [[baumann-sokolov-tyloo-2020-second-order-consensus]], [[sampson-porter-restrepo-2025-oscillatory-opinion]] -- behavioral persistence and alternative oscillation mechanisms.
 
 ## See also
 
 - [[Mass as Fisher information]]
 - [[Hamiltonian belief dynamics]]
 - [[Multi-agent variational free energy]]
-- [[Agents as fibre-bundle sections]]
-- [[Variational free energy]]
 - [[Fisher information metric]]
 - [[Natural gradient]]
-- [[Precision weighting]]
-- [[Parallel transport]]
-- [[Gauge transformation]]
 - [[Gauge-Theoretic Multi-Agent VFE Model]]
+- [[SocialPhysics]]
