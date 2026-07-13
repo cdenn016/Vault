@@ -88,76 +88,208 @@ Later definitions, propositions, and interpretations cite the applicable fence w
 
 \section{Mathematical Framework}
 
-\subsection{Beliefs as Points on Statistical Manifolds}
+\subsection{Gaussian Beliefs and Local Frames}
 
-We model beliefs as probability distributions $q(\xi)$ parameterized by $\xi \in \mathbb{R}^n$ on a statistical manifold $\mathcal{B}$. 
-
-For the remainder of this article we shall consider multi-variate Gaussian (MVG) beliefs and priors for convenience.
-
-
-\begin{align}
-q &= \mathcal{N}(\mu_q, \Sigma_q) \\
-p &= \mathcal{N}(\mu_p, \Sigma_p)
-\end{align}
-
-where $\mu_\nu$ represents the mean value and $\Sigma_\nu$ represents uncertainty.
-
-The Kullback-Leibler (KL) divergence measures the distance between an agent's belief $q$ and their prior model $p$
-
+Agent $i$ carries a Gaussian belief $q_i=\mathcal N(\mu_i,\Sigma_i)$ and a quasi-static Gaussian prior $p_i=\mathcal N(\bar\mu_i,\bar\Sigma_i)$ on a common latent dimension $d$, with $\Sigma_i,\bar\Sigma_i\in\mathrm{SPD}(d)$. The coordinates are local: an invertible frame $U_i\in\mathrm{GL}(d)$ specifies how agent $i$ represents the latent variables. For any invertible affine map $T(x)=Ax+a$, Gaussian pushforward gives
 \begin{equation}
-D_{\mathrm{KL}}(q \| p) = \int q(x) \log \frac{q(x)}{p(x)} dx
+T_{\#}\mathcal N(\mu,\Sigma)
+=\mathcal N(A\mu+a,A\Sigma A^{\top}).
+\label{eq:affine_gaussian_pushforward}
 \end{equation}
-
-
-
-\subsection{Multi-Agent Belief Geometry}
-
-We extend our single-agent framework to networks of interacting cognitive agents via attention. The geometric setting is a principal $G$-bundle $\pi: P \to \mathcal{C}$ where the base manifold $\mathcal{C}$ encodes agent positions and social network topology, and the gauge group $G$ acts on belief space (see Appendix~\ref{app:gauge} for the complete geometric treatment). Each agent $i$ maintains beliefs $q_i = \mathcal{N}(\mu_i, \Sigma_i)$ anchored to a prior $p_i = \mathcal{N}(\bar{\mu}_i, \bar{\Sigma}_i)$, along with an internal reference frame $\phi_i$ that determines how they encode information.
-
-To compare beliefs across agents, we introduce parallel transport operators as
-
+The inter-agent transport used below is the linear specialization
 \begin{equation}
-\Omega_{ij} = e^{\phi_i}e^{-\phi_j} \in G
-\end{equation}
-
-where $\phi_i, \phi_j \in \mathfrak{g}$, the Lie algebra of $G$.
-
-This operator transforms agent $j$'s beliefs into agent $i$'s reference frame as
-
-\begin{equation}
-q_j \to \Omega_{ij} \cdot q_j = \mathcal{N}(\Omega_{ij}\mu_j, \Omega_{ij}\Sigma_j\Omega_{ij}^T)
+\Omega_{ij}=U_iU_j^{-1},
+\qquad
+\Omega_{ij\#}q_j
+=\mathcal N(\Omega_{ij}\mu_j,\Omega_{ij}\Sigma_j\Omega_{ij}^{\top}).
 \label{eq:transport_cov}
 \end{equation}
+Thus both means and covariances are compared only after they have been expressed in the receiver's frame. This is the focused social-dynamics use of the gauge construction; no participatory-physics interpretation is required.
 
-The transformed belief can then be compared with agent $i$'s own beliefs via KL divergence:
-
+\begin{definition}[Transported edge energy]
+The directed disagreement energy from source $j$ to receiver $i$ is
 \begin{equation}
-D_{ij} = D_{\mathrm{KL}}(q_i \| \Omega_{ij} \cdot q_j)
+E_{ij}=\KL\!\left(q_i\,\middle\|\,\Omega_{ij\#}q_j\right),
+\qquad
+\Omega_{ij}=U_iU_j^{-1}.
+\label{eq:transported_edge_energy}
 \end{equation}
+For Gaussians, this is the ordinary closed-form Gaussian KL evaluated using the transported mean and covariance in Eq.~\eqref{eq:transport_cov}.
+\end{definition}
 
-The natural invariance group for KL-based belief coupling is $\mathrm{GL}(d)$, the general linear group of invertible $d \times d$ matrices \citep{Dennis2025trans}. This is because KL divergence between Gaussians is invariant under any invertible linear transformation of the sufficient statistics: for any $\Omega \in \mathrm{GL}(d)$, we have $D_{\mathrm{KL}}(\Omega \cdot q \| \Omega \cdot p) = D_{\mathrm{KL}}(q \| p)$. The only requirement is invertibility ($\det \Omega \neq 0$), not orthogonality. Since our transport operators are parameterized via the matrix exponential, $\det(\exp(\phi)) = \exp(\mathrm{tr}(\phi)) > 0$, so their determinants are always positive and a single-exponential transport lies within the identity component $G = \mathrm{GL}^{+}(d)$, a subgroup of the full invariance group $\mathrm{GL}(d)$. Positive determinant is necessary but not sufficient for membership in the image of the exponential map: for the non-compact group $\mathrm{GL}^{+}(d)$ the real exponential $\exp: \mathfrak{gl}(d,\mathbb{R}) \to \mathrm{GL}^{+}(d,\mathbb{R})$ is not surjective (for example $\mathrm{diag}(-1,-2)$ has positive determinant yet no real logarithm), so reaching all of $\mathrm{GL}^{+}(d)$ requires a two-factor polar (Cartan) decomposition $\Omega = \exp(X)\exp(Y)$ rather than a single exponential. The single-exponential parameterization used here remains within $\mathrm{GL}^{+}(d)$. Important subgroups include $\mathrm{SO}(d)$ (rotations, preserving the metric structure so that agents agree on how different two beliefs are), $\mathrm{SL}(d)$ (volume-preserving transformations), and $\mathrm{O}(d)$ (orthogonal transformations). For the concrete derivations in this paper, we work primarily in the flat gauge limit $\Omega_{ij} = I$ or with $G = \mathrm{SO}(d)$ for illustrative purposes, but the general $\mathrm{GL}(d)$ structure is available for applications (such as language modeling \citep{Dennis2025trans}) where reference frame transformations are not metric-preserving.
+\begin{proposition}[Gauge covariance of the edge energy]
+Under independent local frame changes $g_i\in\mathrm{GL}(d)$, let $q_i'=g_{i\#}q_i$ and $U_i'=g_iU_i$. Then $E_{ij}'=E_{ij}$.
+\end{proposition}
 
-As we show later, the flat gauge ($\Omega_{ij} = I$ for all agent pairs) recovers standard consensus models where all agents share a common reference frame. All derivations in this paper, such as the mass formula, classical model limits, and dynamical predictions, hold in the flat gauge limit. We state plainly that every quantitative result and every simulation reported here uses the flat gauge $\Omega_{ij} = I$ (or, for illustration, the metric-preserving subgroup $\mathrm{SO}(d)$); the general $\mathrm{GL}^{+}(d)$ machinery is a principled extension whose empirical payoff we leave to future work.
-
-We retain the general gauge structure for three reasons. First, gauge equivariance has proven essential in geometric deep learning: gauge equivariant CNNs \citep{cohen2019gauge} and recent gauge-covariant transformers \citep{he2025cask} demonstrate that enforcing covariance under local reference frame changes substantially improves generalization in learned representations. We conjecture that the same principle applies to social and cognitive modeling, where agents genuinely encode information in incompatible frames (e.g., different cultural schemas, disciplinary vocabularies, or linguistic representations). Second, the gauge framework provides the natural language for multi-agent extensions where reference frame heterogeneity becomes non-trivial, such as cross-cultural opinion dynamics or multi-lingual information processing. Third, the gauge covariance of Hamilton's equations (Appendix~\ref{app:gauge}) ensures that all physical predictions are frame-independent, a desirable theoretical property regardless of whether non-flat gauge is empirically invoked. We emphasize that the core results of this paper do not depend on non-trivial gauge choices; the gauge structure is a principled extension whose empirical relevance we anticipate exploring in future work on cross-cultural belief dynamics and language modeling.
-
-\subsection{Multi-Agent Free Energy}
-
-The total variational free energy for a network of agents balances individual belief maintenance with social consensus pressure (see Appendix~\ref{app:hamiltonian} for the complete derivation and Appendix~\ref{app:social_coupling} for the generative model foundation):
-
-\begin{align}
-\mathcal{F}[\{q_i\}, \{\phi_i\}] &= \sum_i \underbrace{\alpha_i D_{\mathrm{KL}}(q_i \| p_i)}_{\text{Prior beliefs}} + \sum_{i,j} \underbrace{\beta_{ij} D_{\mathrm{KL}}(q_i \| \Omega_{ij} \cdot q_j)}_{\text{Social alignment}} \\
-&\quad - \sum_i \underbrace{\mathbb{E}_{q_i}[\log p(o_i \mid c_i)]}_{\text{Sensory evidence}}
-\end{align}
-
-where $c_i$ denotes the hidden causes (latent state) that agent $i$ infers, with $\mu_i = \mathbb{E}_{q_i}[c_i]$ being the posterior mean belief about these causes. The coefficient $\beta_{ij}$ represents the attention agent $i$ places in agent $j$'s beliefs and we take $p_i$ to be quasi-static. The scalar $\alpha_i$ is agent $i$'s self-coupling weight, the precision of its attachment to its own prior; it is set to the canonical default $\alpha_i = 1$ throughout the main-text derivations and promoted to a state-dependent precision in Section~\ref{sec:state_dependent_precision}. The attention naturally emerges as
-
+\begin{proof}
+The transformed transport is $\Omega_{ij}'=g_i\Omega_{ij}g_j^{-1}$, so functoriality of pushforward gives
 \begin{equation}
-\beta_{ij} = \frac{\exp(-D_{\mathrm{KL}}(q_i \| \Omega_{ij} \cdot q_j)/\tau)}{\sum_k \exp(-D_{\mathrm{KL}}(q_i \| \Omega_{ik} \cdot q_k)/\tau)}
+\Omega_{ij\#}'q_j'
+=(g_i\Omega_{ij}g_j^{-1})_{\#}(g_{j\#}q_j)
+=g_{i\#}(\Omega_{ij\#}q_j).
+\end{equation}
+KL divergence is invariant when both arguments are pushed forward by the same invertible measurable map. Therefore
+\begin{equation}
+E_{ij}'
+=\KL\!\left(g_{i\#}q_i\,\middle\|\,g_{i\#}(\Omega_{ij\#}q_j)\right)
+=E_{ij}.
+\end{equation}
+This proves gauge covariance of the scalar edge energy. It does not imply that an ordinary coordinate Hessian is invariant under arbitrary nonlinear reparameterization; such Hessians are used later only as local affine-coordinate stiffnesses, consistently with fence E2 in Table~\ref{tab:epistemic-status}.
+\end{proof}
+
+\subsection{Canonical Entropy-Retaining Population Objective}
+
+For each receiver $i$, let $\pi_i$ be a strictly positive probability vector on its finite candidate-source set, let $\beta_i$ lie in the same probability simplex, and fix $\tau>0$. A hard mask is represented by removing an index from that set rather than assigning a positive-weight formula at $\pi_{ij}=0$. The authoritative scalar objective is
+\begin{equation}
+\boxed{
+\mathcal F_{\mathrm{full}}
+=\sum_i\KL(q_i\|p_i)
+-\sum_i\mathbb E_{q_i}\log p(o_i\mid c_i)
++\sum_{i,j}\left[
+\beta_{ij}E_{ij}
++\tau\beta_{ij}\log\frac{\beta_{ij}}{\pi_{ij}}
+\right].}
+\label{eq:canonical_full_vfe}
+\end{equation}
+The inter-agent block is an engineered, gauge-covariant consensus energy. In particular, $\mathcal F_{\mathrm{full}}$ is not claimed to be the negative evidence lower bound of one fixed population generative model over the original agent-state variables, as required by fence E1 in Table~\ref{tab:epistemic-status}. Its exact rowwise source-selection identity at unit categorical temperature is narrower than that population-level claim; Appendix~\ref{app:social_coupling} records the distinction.
+
+\subsection{Optimized Attention and the Reduced Objective}
+
+\begin{definition}[Rowwise source-independence assumption]
+For the source-selection interpretation of a fixed row $i$, introduce a source label $z$ and factor the variational row as $Q_i(c,z=j)=q_i(c)\beta_{ij}$. Thus the focal belief $q_i(c)$ is independent of the source label under $Q_i$. During the row optimization, $q_i$, the transported source templates $\Omega_{ij\#}q_j$, the prior weights $\pi_{ij}$, and $\tau$ are held fixed. This is a substantive mean-field assumption at the mixture-to-softmax seam, not a statement that all agents' variational beliefs are fixed generative-model factors.
+\end{definition}
+
+The part of Eq.~\eqref{eq:canonical_full_vfe} that depends on row $i$ is
+\begin{equation}
+\Phi_i(\beta_i)
+=\sum_j\left[
+\beta_{ij}E_{ij}
++\tau\beta_{ij}\log\frac{\beta_{ij}}{\pi_{ij}}
+\right],
+\qquad
+\sum_j\beta_{ij}=1.
+\label{eq:attention_row_objective}
+\end{equation}
+Introducing a multiplier $\lambda_i$ for the simplex constraint gives the interior stationarity equations
+\begin{equation}
+E_{ij}+\tau\left(\log\frac{\beta_{ij}}{\pi_{ij}}+1\right)+\lambda_i=0.
+\label{eq:attention_row_stationarity}
+\end{equation}
+Exponentiation and normalization therefore yield
+\begin{equation}
+\boxed{
+\beta_{ij}^*=\frac{\pi_{ij}e^{-E_{ij}/\tau}}{Z_i},
+\qquad
+Z_i=\sum_k\pi_{ik}e^{-E_{ik}/\tau}.}
 \label{eq:attention_weights}
 \end{equation}
+Strict convexity of the categorical KL term on the simplex makes this stationary point the unique minimizer. More directly, substituting Eq.~\eqref{eq:attention_weights} into Eq.~\eqref{eq:attention_row_objective} gives the exact decomposition
+\begin{equation}
+\Phi_i(\beta_i)
+=-\tau\log Z_i+\tau\KL(\beta_i\|\beta_i^*).
+\label{eq:attention_row_kl_decomposition}
+\end{equation}
+Consequently the optimized row and the fully reduced population objective are
+\begin{align}
+\mathcal F_{i,\mathrm{red}}&=-\tau\log Z_i,
+\label{eq:canonical_row_reduced_vfe}\\
+\mathcal F_{\mathrm{red}}
+&=\sum_i\KL(q_i\|p_i)
+-\sum_i\mathbb E_{q_i}\log p(o_i\mid c_i)
++\sum_i\mathcal F_{i,\mathrm{red}}.
+\label{eq:canonical_reduced_vfe}
+\end{align}
 
-with temperature $\tau$ controlling selectivity. This softmax form is not arbitrary but is the minimizer of an attention free energy that includes an entropy and prior term, $\tau\sum_k \beta_{ik}\log(\beta_{ik}/\pi_{ik})$, whose explicit form and reduction to $-\tau\log Z$ are given in Appendix~\ref{app:social_coupling}; the displayed multi-agent free energy below holds $\beta$ fixed at this softmax value, which is the relevant regime for the near-consensus Hessian analysis. In a gauge-fixed, isotropic-Gaussian limit, with a separately introduced learned bilinear compatibility and a learnable temperature scalar, the same construction reduces to the scaled dot-product attention of transformer architectures up to a residual key-norm bias that vanishes under standard layer normalization or high-dimensional concentration \citep{Dennis2025trans}; it is therefore a limit recovery rather than a derivation of transformer attention from the present model alone. The forward KL direction in the social term is similarly motivated (Appendix~\ref{app:forward_kl}).\footnote{The companion $\mathrm{GL}(K)$ attention framework \citep{Dennis2025trans} carries a per-head scaling $\kappa\sqrt{K}$ and a R{\'e}nyi-$\alpha$ generalization of the divergence; here $\tau$ subsumes the $\kappa\sqrt{K}$ factor and the KL divergence is the $\alpha = 1$ case, an acceptable simplification for the present purpose.}
+When $\pi_i$ and $\tau$ are fixed, direct differentiation of the log-partition function proves the envelope identity
+\begin{equation}
+\boxed{
+d\mathcal F_{i,\mathrm{red}}
+=-\tau\frac{dZ_i}{Z_i}
+=\sum_j\beta_{ij}^*\,dE_{ij}.}
+\label{eq:reduced_vfe_envelope}
+\end{equation}
+No derivative of $\beta_i^*$ appears in Eq.~\eqref{eq:reduced_vfe_envelope}; its contribution has already canceled through conditional minimization.
+
+\subsection{Entropy-Suppressed Surrogate}
+
+Dropping the categorical entropy and prior term after substituting optimized attention defines a different scalar,
+\begin{equation}
+S_i=\sum_j\beta_{ij}^*E_{ij}.
+\label{eq:entropy_suppressed_surrogate}
+\end{equation}
+For fixed $\pi_i$ and $\tau$, Eq.~\eqref{eq:attention_weights} gives
+\begin{equation}
+d\beta_{ij}^*
+=-\tau^{-1}\beta_{ij}^*
+\left(dE_{ij}-\mathbb E_{\beta_i^*}[dE_{ij}]\right).
+\label{eq:attention_weight_differential}
+\end{equation}
+Applying the product rule to Eq.~\eqref{eq:entropy_suppressed_surrogate} then yields
+\begin{equation}
+\boxed{
+dS_i
+=\mathbb E_{\beta_i^*}[dE_{ij}]
+-\tau^{-1}\operatorname{Cov}_{\beta_i^*}(E_{ij},dE_{ij}).}
+\label{eq:entropy_suppressed_differential}
+\end{equation}
+Here the covariance between the scalar $E_{ij}$ and the one-form $dE_{ij}$ is understood componentwise. It has no universal sign in a direction identified with increasing or decreasing social similarity. The surrogate response therefore neither equals the canonical envelope response in general nor implies a sign-definite strengthening of similarity selection.
+
+\subsection{Adaptive Prior Precision}
+\label{sec:state_dependent_precision}
+
+The canonical objective in Eq.~\eqref{eq:canonical_full_vfe} uses unit prior weight. Its adaptive-precision extension replaces the $i$th prior summand by the complete sector
+\begin{equation}
+\Psi_i(\alpha_i,D_i)
+=\alpha_iD_i+R(\alpha_i),
+\qquad
+D_i=\KL(q_i\|p_i),
+\qquad
+R(\alpha_i)=b_0\alpha_i-c_0\log\alpha_i,
+\label{eq:adaptive_self_coupling}
+\end{equation}
+where $b_0,c_0>0$ and $\alpha_i>0$. Because
+\begin{equation}
+\partial_{\alpha_i}\Psi_i
+=D_i+b_0-\frac{c_0}{\alpha_i},
+\qquad
+\partial_{\alpha_i}^2\Psi_i=\frac{c_0}{\alpha_i^2}>0,
+\end{equation}
+the unique conditional optimum is
+\begin{equation}
+\boxed{\alpha_i^*=\frac{c_0}{b_0+D_i}.}
+\label{eq:state_dependent_alpha}
+\end{equation}
+
+Two derivatives that have previously been conflated belong to different scalar objectives. For the bare product $B_i(D)=\alpha_i^*(D)D$ and the reduced regularized sector $\bar\Psi_i(D)=\Psi_i(\alpha_i^*(D),D)$, respectively,
+\begin{align}
+\partial_D(\alpha_i^*D)
+&=\frac{b_0c_0}{(b_0+D)^2},
+\label{eq:adaptive_bare_product_derivative}\\
+\partial_D[\alpha_i^*D+R(\alpha_i^*)]
+&=\frac{c_0}{b_0+D}=\alpha_i^*.
+\label{eq:adaptive_envelope_derivative}
+\end{align}
+The second identity is the envelope theorem. Except at $D=0$, Eqs.~\eqref{eq:adaptive_bare_product_derivative} and~\eqref{eq:adaptive_envelope_derivative} produce different force coefficients and therefore generate distinct dynamics.
+
+Let $\bar\Lambda_{p_i}=\bar\Sigma_i^{-1}$ and $\Lambda_{q_i}=\Sigma_i^{-1}$. At fixed $\alpha_i$, the adaptive sector contributes
+\begin{align}
+\nabla_{\mu_i}\Psi_i
+&=\alpha_i\bar\Lambda_{p_i}(\mu_i-\bar\mu_i),
+\label{eq:adaptive_prior_mean_gradient}\\
+\nabla_{\Sigma_i}\Psi_i
+&=\frac{\alpha_i}{2}(\bar\Lambda_{p_i}-\Lambda_{q_i}).
+\label{eq:adaptive_prior_covariance_gradient}
+\end{align}
+For the reduced regularized sector, the same formulas hold with $\alpha_i=\alpha_i^*$ by Eq.~\eqref{eq:adaptive_envelope_derivative}. Thus the prior coefficient is carried consistently through both the mean and covariance gradients; any corresponding fixed-$\alpha_i$ prior Hessian block carries the same factor.
+
+The response of $\alpha_i^*$ matters when one differentiates the reduced regularized sector a second time. Holding $\Sigma_i$, $p_i$, $b_0$, and $c_0$ fixed, and writing $g_i=\bar\Lambda_{p_i}(\mu_i-\bar\mu_i)$, its mean-coordinate Hessian is
+\begin{equation}
+\nabla_{\mu_i}^2\bar\Psi_i
+=\alpha_i^*\bar\Lambda_{p_i}
+-\frac{(\alpha_i^*)^2}{c_0}g_ig_i^{\top}.
+\label{eq:adaptive_prior_reduced_hessian}
+\end{equation}
+The negative rank-one term in Eq.~\eqref{eq:adaptive_prior_reduced_hessian} belongs specifically to the mean block of the envelope-reduced, regularized prior sector. It is not a correction to the bare product, the covariance block, the full population Hessian, or an intrinsic Fisher metric. Its possible loss of positive definiteness therefore limits only an interpretation that treats this reduced coordinate curvature itself as a positive stiffness; it does not invalidate the scalar objective.
 
 %==============================================================================
 \subsection{Fisher Arc Length as an Information-Theoretic Clock}
@@ -214,16 +346,10 @@ The central observation motivating our Hamiltonian ansatz is that the Hessian of
 
 \subsubsection{The Variational Free Energy}
 
-The complete variational free energy for a multi-agent system decomposes as
+The complete scalar is the entropy-retaining objective $\mathcal F_{\mathrm{full}}$ in Eq.~\eqref{eq:canonical_full_vfe}, or its adaptive-prior extension obtained by the replacement in Eq.~\eqref{eq:adaptive_self_coupling}. In the frozen-attention calculation below, the categorical entropy term remains part of the scalar but is constant with respect to the Gaussian belief coordinates. Denoting the full state vector $\xi = (\mu_1, \ldots, \mu_N, \Sigma_1, \ldots, \Sigma_N)$, this section considers the coordinate Hessian
 
 \begin{equation}
-\mathcal{F} = \underbrace{\sum_i \alpha_i D_{\mathrm{KL}}(q_i \| p_i)}_{\text{complexity}} - \underbrace{\sum_i \mathbb{E}_{q_i}[\log p(o_i|c_i)]}_{\text{accuracy}} + \underbrace{\sum_{i,k} \beta_{ik} D_{\mathrm{KL}}(q_i \| \Omega_{ik}\cdot q_k)}_{\text{consensus}}
-\end{equation}
-
-where $q_i$ is agent $i$'s posterior belief, $p_i$ is agent $i$'s prior, $p(o_i|c_i)$ is the observation likelihood with hidden state $c_i$, $\Omega_{ik}\cdot q_k$ is neighbor $k$'s belief transported into agent $i$'s reference frame, and $\beta_{ik}$ is the attention-weighted coupling strength. Denoting the full state vector $\xi = (\mu_1, \ldots, \mu_N, \Sigma_1, \ldots, \Sigma_N)$, we define the mass matrix as the Hessian of this free energy:
-
-\begin{equation}
-\mathbf{M} = \frac{\partial^2 \mathcal{F}}{\partial\xi\partial\xi^\top}
+\mathbf{M} = \frac{\partial^2 \mathcal{F}_{\mathrm{full}}}{\partial\xi\partial\xi^\top}
 \end{equation}
 
 This Hessian defines the effective mass matrix $\mathbf{M}$ for belief dynamics. A key distinction must be noted: this Hessian mass is \emph{not} the intrinsic Fisher-Rao metric $\mathcal{I}(\theta) = \mathrm{Cov}_{q}[(\nabla \log q)(\nabla \log q)^T]$, which depends only on the belief distribution $q_i$. Rather, it is the curvature of the \emph{total free energy landscape}, which incorporates contributions from priors, observations, and social coupling. In the single-agent case with prior $p$ only, the Hessian of $D_{\mathrm{KL}}(q \| p)$ with respect to the parameters of $q$ yields the \emph{reference} distribution's precision $\Lambda_p$, not the Fisher information of $q$ itself. The two coincide only at the critical point $q = p$. We therefore refer to $\mathbf{M}$ as the ``Hessian mass'' to distinguish it from the Fisher-Rao metric, while noting that both reduce to the precision matrix for Gaussians. Each term in $F$ contributes independently to the total mass.
@@ -258,7 +384,7 @@ The consensus term $\sum_k \beta_{ik} D_{\mathrm{KL}}(q_i \| \Omega_{ik}\cdot q_
 
 where $\tilde{\Lambda}_{q_k} = \left(\Omega_{ik}\Sigma_{q_k}\Omega_{ik}^\top\right)^{-1} = \Omega_{ik}^{-\top}\Lambda_{q_k}\Omega_{ik}^{-1}$ is the precision of neighbor $k$ transported into agent $i$'s frame. This is the inverse of the transported covariance $\Omega_{ik}\Sigma_{q_k}\Omega_{ik}^\top$ of Eq.~\eqref{eq:transport_cov}, consistent with the covariance sandwich used throughout. On the metric-preserving subgroup $\mathrm{SO}(d)$ or $\mathrm{O}(d)$, where $\Omega^{-\top} = \Omega$, this reduces to the familiar form $\Omega_{ik}\Lambda_{q_k}\Omega_{ik}^\top$; all simulations in this paper use $\Omega = I$ or an orthogonal $\Omega$, for which the two coincide.
 
-We note that $\beta_{ik}$ depends on $\mu_i$ through the softmax \eqref{eq:attention_weights}, so the full Hessian carries additional terms $2(\nabla_{\mu_i}\beta_{ik})(\nabla_{\mu_i}E_{ik})^\top + E_{ik}\nabla^2_{\mu_i}\beta_{ik}$ where $E_{ik} = D_{\mathrm{KL}}(q_i \| \Omega_{ik}\cdot q_k)$. These vanish exactly at consensus ($\mu_i = \tilde{\mu}_k$) and are $O(1)$ off-equilibrium, where they may be indefinite. The mass tensor is therefore evaluated under frozen (mean-field) attention; it is exact at consensus and an approximation otherwise.
+This display is the frozen-attention coordinate Hessian, not the Hessian of the envelope-reduced row. When attention is optimized, the canonical first variation is Eq.~\eqref{eq:reduced_vfe_envelope}; attention response re-enters only at second order through the reduced log-partition curvature. The local-stiffness result below therefore states explicitly whether attention is frozen or envelope-eliminated rather than differentiating the entropy-suppressed product as though it were the canonical objective.
 
 Additionally, agent $i$ appears in the consensus terms of its neighbors $j$, contributing a \textit{reciprocal} mass:
 \begin{equation}
@@ -296,39 +422,6 @@ The Fisher metric provides geometry; a notion of distance and curvature on belie
 
 The empirical adequacy of the underdamped regime remains to be established. The framework's predictive value lies partly in making this distinction precise: overdamped predictions are geometrically necessary, while underdamped predictions depend on the ansatz.
 \end{tcolorbox}
-
-\subsection{State-Dependent Self-Coupling Precision}
-\label{sec:state_dependent_precision}
-
-The self-coupling term has so far carried unit weight, the canonical default $\alpha_i = 1$ in $\alpha_i D_{\mathrm{KL}}(q_i \| p_i)$. The companion frameworks promote this weight to a per-agent variational precision \citep{Dennis2025it, Dennis2025trans}, and we record here what that generalization does to the inertial mass, since the mass is the second variation of exactly this term.
-
-The adaptive self-coupling augments the divergence with a regularizer,
-\begin{equation}
-\mathcal{F}_i^{\text{self}} = \alpha_i D_{\mathrm{KL}}(q_i \| p_i) + R(\alpha_i), \qquad R(\alpha_i) = b_0 \alpha_i - c_0 \log \alpha_i, \quad b_0, c_0 > 0.
-\label{eq:adaptive_self_coupling}
-\end{equation}
-Stationarity in $\alpha_i$ at fixed beliefs gives the closed form
-\begin{equation}
-\alpha_i^*(c) = \frac{c_0}{b_0 + D_{\mathrm{KL}}(q_i(c) \| p_i(c))}.
-\label{eq:state_dependent_alpha}
-\end{equation}
-The linear term in $R$ penalizes arbitrarily large precision and the logarithmic term enforces $\alpha_i > 0$. Because $-c_0 \log \alpha_i + b_0 \alpha_i$ is, up to an additive constant, the negative log density of a Gamma distribution with shape $c_0 + 1$ and rate $b_0$, Eq.~\eqref{eq:state_dependent_alpha} is the maximum-a-posteriori estimate of the self-coupling weight under a Gamma prior. This is conjugate in form to the variational treatment of a univariate Gaussian with a Gamma factor on its precision \citep[\S 10.1.3, \S 2.3.6]{Bishop2006}, though $\alpha_i$ weights an entire divergence rather than parameterizing a Gaussian precision, so the correspondence is structural rather than the exact Normal-Gamma conjugacy of that example.
-
-The consequence for the dynamics turns on a single fact: the envelope theorem cleans the gradient but not the Hessian. Differentiating the stationary objective, the regularizer contribution and the implicit $\partial \alpha_i^* / \partial \mu_i$ cancel, leaving the self-coupling force $\alpha_i^* \nabla_{\mu_i} D_{\mathrm{KL}}(q_i \| p_i)$. This envelope force is the gradient of the reduced self-energy $\alpha_i^* D_{\mathrm{KL}} + R(\alpha_i^*)$; the companion framework \citep{Dennis2025trans} instead differentiates the bare weighted divergence $\alpha_i^* D_{\mathrm{KL}}$ alone and reports the prefactor $(\alpha_i^*)^2 b_0 / c_0$, which equals $\partial_{D_{\mathrm{KL}}}(\alpha_i^* D_{\mathrm{KL}})$ and differs from $\alpha_i^*$ only in which objective is differentiated; the two agree on the dynamics. Recomputing $\alpha_i^*$ from the current belief at each inference step and treating it as fixed in the second variation, the prior block of the mass is rescaled,
-\begin{equation}
-M_i = \alpha_i^* \bar{\Lambda}_{p_i} + \Lambda_{o_i} + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k} + \sum_j \beta_{ji}\Lambda_{q_i},
-\label{eq:adaptive_mass}
-\end{equation}
-which is the natural generalization of the mass tensor and reduces to it at $\alpha_i^* = 1$. The weight rescales only the prior term, the second variation of $D_{\mathrm{KL}}(q_i \| p_i)$; the observation and social terms descend from separate divergences and are untouched. The same rescaling reaches the covariance sector through the prior's contribution to Eq.~\eqref{eq:mass_covariance}: its leading unit coefficient becomes $\alpha_i^*$, so $[\mathbf{M}^\Sigma]_{ii} = \frac{1}{2}(\Lambda_{q_i} \otimes \Lambda_{q_i})(\alpha_i^* + \sum_k \beta_{ik} + \sum_j \beta_{ji})$, the prior weight rescaling in both sectors alike.
-
-\paragraph{Adaptive inertia.} The sign of Eq.~\eqref{eq:state_dependent_alpha} is the substantive prediction. Since $\alpha_i^*$ decreases as $D_{\mathrm{KL}}(q_i \| p_i)$ grows, an agent whose belief has drifted far from its prior contributes \emph{less} prior precision to its own mass, not more. State-dependent precision therefore weakens prior anchoring exactly where the belief is most displaced, a self-reinforcing drift rather than added stubbornness. This sharpens the emergent-stubbornness account of Section~\ref{sec:classical_limits}. There the Friedkin-Johnsen susceptibility $\alpha_i'$ of Eq.~\eqref{eq:emergent_stubbornness} was assembled from a fixed self-coupling weight; with Eq.~\eqref{eq:state_dependent_alpha} that weight is instead set by the equilibrium belief through $\alpha_i^* = c_0 / (b_0 + D_{\mathrm{KL}}(q_i \| p_i)|_{\mu_i^*})$, so the weight and the equilibrium it shapes are co-determined and $\alpha_i'$ inherits this state dependence. We note the consequence here rather than solving the fixed point. The DeGroot limit, recovered earlier by setting the self-coupling to zero, now corresponds to $c_0 \to 0$, which removes the log-barrier rather than being a free toggle.
-
-\paragraph{Regime of validity.} If instead $\alpha_i^*$ is allowed to co-vary with the belief inside the second variation, the prior block of the mass acquires a negative rank-one correction,
-\begin{equation}
-M_{p_i} = \alpha_i^* \bar{\Lambda}_{p_i} - \frac{(\alpha_i^*)^2}{c_0} \left(\bar{\Lambda}_{p_i}\Delta\mu_i\right)\left(\bar{\Lambda}_{p_i}\Delta\mu_i\right)^\top, \qquad \Delta\mu_i = \mu_i - \bar{\mu}_{p_i},
-\label{eq:adaptive_mass_rank1}
-\end{equation}
-which vanishes only when the belief sits at its prior. This is the same mean-field subtlety already noted for dynamic attention at Eq.~\eqref{eq:attention_weights}, where the softmax makes $\beta_{ik}$ state-dependent and the omitted Hessian terms vanish at consensus. The regularizer delays the loss of positive definiteness: for a mean displacement at matched covariance, where $D_{\mathrm{KL}}(q_i \| p_i) = \tfrac{1}{2}\Delta\mu_i^\top \bar{\Lambda}_{p_i}\Delta\mu_i$, the prior block of Eq.~\eqref{eq:adaptive_mass_rank1} stays positive until $D_{\mathrm{KL}} = b_0$, whereas the unregularized weight $\alpha_i^* D_{\mathrm{KL}}$ alone would lose it already at $D_{\mathrm{KL}} = b_0/3$. Beyond that bound the prior contribution to the mass turns indefinite and the inertial reading fails, since the kinetic energy is then unbounded below. We therefore adopt the detached, quasi-static convention of Eq.~\eqref{eq:adaptive_mass} for the dynamics, consistent with the frozen-attention treatment of the mass and with the small-perturbation regime in which the oscillator results hold.
 
 \section{Results}
 
@@ -568,13 +661,7 @@ Then this can be written as
 \boxed{\underbrace{M_i\ddot{\mu}_i}_{\text{Inertia}} = -\underbrace{\gamma_i\dot{\mu}_i}_{\text{Damping}} - \underbrace{\nabla_{\mu_i}\mathcal{F}_{\text{prior}}}_{\text{Prior force}} - \underbrace{\nabla_{\mu_i}\mathcal{F}_{\text{consensus}}}_{\text{Social force}}}
 \end{equation}
 
-\paragraph{Dynamic attention.} The expansion above assumes fixed attention weights $\beta_{ij}$. When attention is dynamic, the gradient includes an additional term from the product rule:
-
-\begin{equation}
-\nabla_{\mu_i} F_{\text{social}} = \sum_j \beta_{ij} \nabla_{\mu_i} D_{\mathrm{KL},ij} + \sum_j D_{\mathrm{KL},ij} \nabla_{\mu_i} \beta_{ij}
-\end{equation}
-
-The second term represents attention reallocation: agents are pulled toward neighbors whose attention would increase most upon approach. This amplifies homophily beyond the direct KL force, accelerating polarization when attention is sharply selective (low $\kappa$). Most derivations in this paper assume fixed attention, neglecting this effect. The full product rule becomes significant when modeling adaptive attention such as in active learning, persuasion dynamics, or computational implementations where attention weights are optimized. We reserve these terms to future investigation.
+\paragraph{Dynamic attention.} The expansion above assumes fixed attention weights. When attention is optimized inside the entropy-retaining row objective, its canonical gradient is the envelope response in Eq.~\eqref{eq:reduced_vfe_envelope}, with no additional first-order attention-reallocation term. Applying a product rule after dropping the categorical term instead differentiates the distinct surrogate $S_i$ and produces Eq.~\eqref{eq:entropy_suppressed_differential}. The covariance correction in that equation has no universal homophily sign and cannot by itself establish accelerated polarization.
 
 \paragraph{Regime of validity.} When attention weights $\beta_{ij}$ are dynamic (softmax), the mass matrix $M_i$ itself depends on the state $\{\mu_j, \Sigma_j\}$, making the Hamiltonian non-separable. The clean oscillator results derived below---natural frequency $\omega = \sqrt{K/M}$, envelope decay time $\tau_{\mathrm{env}} = 2M/\gamma$, overshoot distance $d \propto \sqrt{M/K}$---are therefore valid only in the regime of small perturbations around equilibrium, where the mass matrix can be treated as approximately constant. For large-amplitude dynamics or rapidly evolving attention, the state-dependent mass introduces additional nonlinear effects (parametric driving, adiabatic mass variation) not captured by the linearized analysis. The computational validation in Section~\ref{sec:computational_validation} confirms that the linearized predictions are quantitatively accurate for the parameter regimes explored.
 
@@ -1661,16 +1748,7 @@ where $\Omega_{ik} \in G \subseteq \mathrm{GL}(d)$ is the gauge transport operat
 \subsection{The Extended Free Energy Functional}
 %-----------------------------------------------------------------------
 
-The complete variational free energy with explicit sensory evidence is:
-%
-\begin{equation}
-\boxed{
-\mathcal{F}[\{q_i\}] = \sum_i \alpha_i D_{\mathrm{KL}}(q_i \| p_i) + \sum_{i,k} \beta_{ik} D_{\mathrm{KL}}(q_i \| \Omega_{ik}\cdot q_k) - \sum_i \mathbb{E}_{q_i}[\log p(o_i \mid \theta)]
-}
-\label{eq:full_free_energy}
-\end{equation}
-%
-The three terms represent, respectively, \textbf{prior anchoring} (deviation from internal world-model), \textbf{social consensus} (alignment with other agents via gauge-covariant transport), and \textbf{sensory evidence} (grounding in observations). The scalar $\alpha_i$ is the self-coupling weight on the prior-anchoring term, set to $\alpha_i = 1$ in the main-text derivations and promoted to the state-dependent precision $\alpha_i^*$ of Section~\ref{sec:state_dependent_precision}; we carry it explicitly through the gradient and mass below so that the inertial mass specializes to that section by the single substitution $\bar{\Lambda}_{p_i} \to \alpha_i \bar{\Lambda}_{p_i}$.
+The complete scalar is Eq.~\eqref{eq:canonical_full_vfe}; this appendix does not define a second population objective. For the fixed-attention derivatives below, the entropy term is retained in $\mathcal F_{\mathrm{full}}$ but contributes no Gaussian-coordinate derivative. We write $\mathcal F=\mathcal F_{\mathrm{full}}$ for compactness and allow the explicit adaptive-prior replacement in Eq.~\eqref{eq:adaptive_self_coupling}. Accordingly, $\alpha_i=1$ denotes the canonical prior sector, while a fixed adaptive value carries the factor $\alpha_i$ through both belief-coordinate gradients and Hessian blocks. If $\alpha_i$ has already been optimized, envelope derivatives instead use $\alpha_i^*$ as specified in Eqs.~\eqref{eq:adaptive_envelope_derivative}--\eqref{eq:adaptive_prior_covariance_gradient}.
 
 %-----------------------------------------------------------------------
 \subsection{Component Free Energies for Gaussians}
@@ -1712,12 +1790,13 @@ Therefore:
 \subsection{First Variations (Gradient)}
 %-----------------------------------------------------------------------
 
-\subsubsection{Prior Term: $D_{\mathrm{KL}}(q_i \| p_i)$}
+\subsubsection{Prior Term: $\alpha_iD_{\mathrm{KL}}(q_i \| p_i)$}
 
 \begin{align}
-\frac{\partial D_{\mathrm{KL}}(q_i \| p_i)}{\partial \mu_i} &= \bar{\Lambda}_{p_i}(\mu_i - \bar{\mu}_i) \label{eq:grad_prior_mu} \\[6pt]
-\frac{\partial D_{\mathrm{KL}}(q_i \| p_i)}{\partial \Sigma_i} &= \frac{1}{2}(\bar{\Lambda}_{p_i} - \Lambda_{q_i}) \label{eq:grad_prior_sigma}
+\frac{\partial [\alpha_iD_{\mathrm{KL}}(q_i \| p_i)]}{\partial \mu_i} &= \alpha_i\bar{\Lambda}_{p_i}(\mu_i - \bar{\mu}_i) \label{eq:grad_prior_mu} \\[6pt]
+\frac{\partial [\alpha_iD_{\mathrm{KL}}(q_i \| p_i)]}{\partial \Sigma_i} &= \frac{\alpha_i}{2}(\bar{\Lambda}_{p_i} - \Lambda_{q_i}) \label{eq:grad_prior_sigma}
 \end{align}
+Here $\alpha_i=1$ in the canonical sector, while the envelope-reduced adaptive sector uses $\alpha_i=\alpha_i^*$.
 
 \subsubsection{Consensus Term: $D_{\mathrm{KL}}(q_i \| \tilde{q}_k)$}
 
@@ -1753,7 +1832,7 @@ where $\tilde{\mu}_i^{(j)} = \Omega_{ji}\mu_i$ is agent $i$'s mean transported i
 
 \begin{equation}
 \boxed{
-\frac{\partial \mathcal{F}}{\partial \Sigma_i} = \frac{1}{2}(\bar{\Lambda}_{p_i} - \Lambda_{q_i}) + \sum_k \frac{\beta_{ik}}{2}(\tilde{\Lambda}_{q_k} - \Lambda_{q_i}) + \sum_j \frac{\beta_{ji}}{2}\Omega_{ji}^T\left[\tilde{\Lambda}_{qi}^{(j)} - \tilde{\Lambda}_{qi}^{(j)}\Sigma_j\tilde{\Lambda}_{qi}^{(j)}\right]\Omega_{ji} + \frac{1}{2}\Lambda_{o_i}
+\frac{\partial \mathcal{F}}{\partial \Sigma_i} = \frac{\alpha_i}{2}(\bar{\Lambda}_{p_i} - \Lambda_{q_i}) + \sum_k \frac{\beta_{ik}}{2}(\tilde{\Lambda}_{q_k} - \Lambda_{q_i}) + \sum_j \frac{\beta_{ji}}{2}\Omega_{ji}^T\left[\tilde{\Lambda}_{qi}^{(j)} - \tilde{\Lambda}_{qi}^{(j)}\Sigma_j\tilde{\Lambda}_{qi}^{(j)}\right]\Omega_{ji} + \frac{1}{2}\Lambda_{o_i}
 }
 \label{eq:total_gradient_sigma}
 \end{equation}
@@ -2044,10 +2123,7 @@ The sensory term $\Lambda_{o_i}(\mu_i - o_i)$ acts as an additional ``anchoring 
 
 \textbf{State:} Each agent $i$ has belief $q_i = \mathcal{N}(\mu_i, \Sigma_i)$ with fixed prior $p_i = \mathcal{N}(\bar{\mu}_i, \bar{\Sigma}_i)$ and observations $o_i$ with precision $\Lambda_{o_i}$.
 
-\textbf{Free Energy:}
-\begin{equation}
-\mathcal{F} = \sum_i D_{\mathrm{KL}}(q_i \| p_i) + \sum_{i,k} \beta_{ik} D_{\mathrm{KL}}(q_i \| \Omega_{ik}\cdot q_k) - \sum_i \mathbb{E}_{q_i}[\log p(o_i \mid \theta)]
-\end{equation}
+\textbf{Free Energy:} The unique population scalar is the entropy-retaining $\mathcal F_{\mathrm{full}}$ of Eq.~\eqref{eq:canonical_full_vfe}; fixed attention makes its categorical term constant only for the belief-coordinate derivatives in this appendix.
 
 \textbf{Mass Matrix:}
 \begin{equation}
@@ -2067,49 +2143,6 @@ M_i = \bar{\Lambda}_{p_i} + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k} + \sum_j \bet
 \textbf{Interpretation:} Position $\mu_i$ represents what agent $i$ believes; momentum $\pi_i$ represents the rate of belief change times precision; mass equals precision (tight beliefs are heavy); and force represents the pull toward prior, consensus, and observations.
 
 \end{tcolorbox}
-
-%==============================================================================
-% APPENDIX: DERIVATION OF SOFTMAX ATTENTION FROM MAXIMUM ENTROPY
-%==============================================================================
-
-\section{Derivation of Softmax Attention from Maximum Entropy}
-\label{app:softmax}
-
-The softmax attention weights $\beta_{ij}$ are not arbitrary but emerge from a principled maximum entropy argument. We seek attention weights that satisfy a constraint on expected dissimilarity while being maximally uncertain otherwise.
-
-\subsection{The Maximum Entropy Problem}
-
-For agent $i$, let $\beta_{ij}$ denote the attention weight assigned to neighbor $j$, subject to the constraint $\sum_j \beta_{ij} = 1$. We seek the distribution over attention that maximizes entropy subject to a constraint on expected belief dissimilarity:
-\begin{equation}
-\max_{\{\beta_{ij}\}} \left[ -\sum_j \beta_{ij} \log \beta_{ij} \right] \quad \text{subject to} \quad \sum_j \beta_{ij}   d_{ij}^2 = C_i, \quad \sum_j \beta_{ij} = 1
-\end{equation}
-where $d_{ij}^2 = \|\mu_i - \mu_j\|^2_{\Lambda}$ is the precision-weighted squared distance between beliefs.
-
-\subsection{Lagrangian Solution}
-
-Introducing Lagrange multipliers $\lambda$ and $\nu$, the Lagrangian is:
-\begin{equation}
-\mathcal{L} = -\sum_j \beta_{ij} \log \beta_{ij} - \lambda \left(\sum_j \beta_{ij} d_{ij}^2 - C_i\right) - \nu \left(\sum_j \beta_{ij} - 1\right)
-\end{equation}
-
-Taking the derivative with respect to $\beta_{ik}$ and setting it to zero:
-\begin{equation}
-\frac{\partial \mathcal{L}}{\partial \beta_{ik}} = -\log \beta_{ik} - 1 - \lambda d_{ik}^2 - \nu = 0
-\end{equation}
-
-Solving for $\beta_{ik}$:
-\begin{equation}
-\beta_{ik} = \exp\left(-1 - \nu - \lambda d_{ik}^2\right) = \frac{\exp(-\lambda d_{ik}^2)}{Z_i}
-\end{equation}
-where $Z_i = \sum_j \exp(-\lambda d_{ij}^2)$ is the normalizing partition function determined by the constraint $\sum_j \beta_{ij} = 1$.
-
-\subsection{Interpretation}
-
-The result is exactly the softmax (or Gibbs/Boltzmann) distribution over attention:
-\begin{equation}
-\boxed{\beta_{ij} = \frac{\exp(-d_{ij}^2 / \kappa)}{\sum_k \exp(-d_{ik}^2 / \kappa)}}
-\end{equation}
-where $\kappa = 1/\lambda$ is an "attention temperature" controlling how sharply attention concentrates on similar neighbors. In the limit $\kappa \to 0$, attention becomes deterministic (winner-take-all), while $\kappa \to \infty$ yields uniform attention regardless of similarity. This derivation shows that, \emph{conditional on the chosen constraint functional}---here the expected precision-weighted squared distance $\sum_j \beta_{ij}\|\mu_i - \mu_j\|^2_\Lambda$---softmax attention is the unique maximum-entropy solution. We note that the operative attention used in the main text \eqref{eq:attention_weights} constrains the expected \emph{full} KL divergence $\sum_j \beta_{ij} D_{\mathrm{KL}}(q_i \| \Omega_{ij}\cdot q_j)$ rather than the squared-distance proxy; the uniqueness statement applies to whichever constraint is imposed, and the squared-distance form above is the leading-order (mean-only, common-covariance) approximation of the KL constraint. The same maximum-entropy principle underlies the Boltzmann distribution in statistical mechanics and the exponential family in statistics.
 
 %==============================================================================
 % APPENDIX: WHY FORWARD KL DIVERGENCE
@@ -2136,7 +2169,7 @@ Consider the general family of $f$-divergences $D_f(q \| p) = \int p(x) f(q(x)/p
 
 \paragraph{Desideratum 3: Fisher information as Hessian.} The Hessian of the coupling term at $q_i = \Omega_{ik}\cdot q_k$ should recover the Fisher information metric, ensuring consistency with the mass interpretation. The forward KL satisfies this: for $D_{\mathrm{KL}}(q \| p)$, we have $\nabla^2_q D_{\mathrm{KL}}(q \| p)\big|_{q=p} = \mathcal{I}_p$, the Fisher information at $p$.
 
-This property does not by itself single out the forward direction: the reverse KL has the same Hessian at the matching point, $\nabla^2_q D_{\mathrm{KL}}(p \| q)\big|_{q=p} = \mathcal{I}_p$. The directions are distinguished instead by global convexity: $D_{\mathrm{KL}}(q \| p)$ is convex in $q$ everywhere, whereas $D_{\mathrm{KL}}(p \| q)$ is convex only locally near $q = p$, which can create spurious local minima in the free-energy minimization. We therefore present the forward direction as the \emph{natural} (not uniquely forced) choice, and we regard the mixture-of-sources generative derivation of Appendix~\ref{app:social_coupling} as the primary and stronger justification: there the forward KL arises directly as posterior inference over which neighbor generated agent $i$'s latent state, with no appeal to a uniqueness argument.
+This property does not by itself single out the forward direction: the reverse KL has the same local Fisher quadratic form at matching. We therefore present the forward direction as a modeling choice compatible with the variational convention in the next subsection, not as an unconditional uniqueness result. Appendix~\ref{app:social_coupling} supplies a narrower rowwise identity whose first argument is $q_i$; its frozen-source scope does not strengthen that identity into a population generative-model derivation.
 
 \subsection{Connection to Variational Inference}
 
@@ -2149,97 +2182,25 @@ In variational inference, the forward KL $D_{\mathrm{KL}}(q \| p)$ is the natura
 \section{Social Coupling from a Mixture-of-Sources Consensus Energy}
 \label{app:social_coupling}
 
-The social coupling term $\sum_{i,k} \beta_{ik} D_{\mathrm{KL}}(q_i \| \Omega_{ik}\cdot q_k)$ in our free energy is best read as a consensus-energy ansatz motivated by source selection over gauge-transported neighbors, rather than as a derivation from a fixed generative model. The component distributions $P(c \mid z{=}j) = \Omega_{ij}q_j$ depend on the variational posteriors $q_j$ of other agents, so the construction is a function of variational quantities and is not held fixed in the standard variational sense. This framing, adapted from the $\mathrm{GL}(K)$ attention framework \citep{Dennis2025trans}, reads the coupling as an alignment energy that penalizes belief disagreement after gauge transport; the source-selection interpretation, in which attention is posterior inference over which neighbor generated the focal agent's latent state, is suggestive but presumes a joint fixed point we do not establish here.
-
-\subsection{Mixture-of-Sources Generative Model}
-
-Agent $i$ seeks to update its belief $q_i(c)$ by attending to a set of source agents $j$. Agent $i$'s generative model assumes its latent state $c$ was drawn from one of the neighboring agents, selected by a categorical latent variable $z \in \{1, \ldots, N\}$:
-
+This appendix records the limited probabilistic identity that motivates the engineered consensus row without repeating the authoritative optimization in Eqs.~\eqref{eq:attention_row_objective}--\eqref{eq:reduced_vfe_envelope}. Fix receiver $i$ and define the transported source templates $r_{ij}=\Omega_{ij\#}q_j$. Under the rowwise source-independence assumption, set
 \begin{equation}
-P(c, z) = P(c \mid z)  P(z),
-\label{eq:mixture_joint}
+Q_i(c,j)=q_i(c)\beta_{ij},
+\qquad
+P_i(c,j)=r_{ij}(c)\pi_{ij}.
+\label{eq:row_source_models}
 \end{equation}
-
-where $P(z = j) = \pi_j$ is the prior probability of attending to agent $j$ (the attention prior), and $P(c \mid z = j) = \mathcal{N}(c;  \Omega_{ij}\mu_j,  \Omega_{ij}\Sigma_j\Omega_{ij}^\top)$ is agent $j$'s belief transported into agent $i$'s gauge frame via the transport operator $\Omega_{ij} \in G$, where $G$ is the gauge group (see below).
-
-This construction is consistent with the gauge structure developed in the main text. Agent $j$'s belief $q_j(c_j)$ lives in $j$'s local frame, and $\Omega_{ij} \cdot q_j$ is agent $i$'s representation of what agent $j$ believes, as seen from $i$'s reference frame. The categorical variable $z$ endows the model with probabilistic source selection: attention is posterior inference over which neighbor generated agent $i$'s state.
-
-The component distributions $P(c \mid z{=}j) = \Omega_{ij} \cdot q_j$ depend on the variational posteriors $q_j$ of other agents. This can be understood as an augmented model where the full system has a joint generative model over all agents' latent states, and the pairwise KL terms emerge as variational couplings in the mean-field decomposition of the joint ELBO. At the fixed point of the joint optimization over all $\{q_i\}$ simultaneously, the pairwise objectives are mutually consistent.
-
-\subsection{Variational Posterior and Alignment Free Energy}
-
-We approximate the true posterior $P(c, z \mid \text{data})$ using mean-field factorization:
-
+Both distributions are normalized when $q_i$, every $r_{ij}$, $\beta_i$, and $\pi_i$ are normalized. Direct expansion gives the exact unit-temperature identity
 \begin{equation}
-Q(c, z) = q_i(c) \cdot \beta(z),
+\KL(Q_i\|P_i)
+=\sum_j\beta_{ij}\KL(q_i\|r_{ij})
++\sum_j\beta_{ij}\log\frac{\beta_{ij}}{\pi_{ij}}.
+\label{eq:row_source_kl_identity}
 \end{equation}
+Thus a fixed row has an ordinary joint-KL interpretation when the categorical coefficient is one. For general $\tau$, Eq.~\eqref{eq:attention_row_objective} is instead a tempered loss-based row objective; multiplying only its categorical KL by $\tau$ does not preserve the single-KL identity in Eq.~\eqref{eq:row_source_kl_identity}.
 
-where $\beta(z = j) \equiv \beta_{ij} \geq 0$ are variational attention weights satisfying $\sum_j \beta_{ij} = 1$.
+The scope restriction is essential. The templates $r_{ij}=\Omega_{ij\#}q_j$ are other agents' variational beliefs, not fixed factors of one population generative model. Equation~\eqref{eq:row_source_kl_identity} is therefore exact conditional on frozen row templates, but it does not establish that the sum over interacting rows is the negative ELBO of one fixed joint distribution over the original agent states. Nor does it establish existence, uniqueness, or convergence of a simultaneous population fixed point. This is precisely fence E1 in Table~\ref{tab:epistemic-status}.
 
-The alignment free energy is the KL divergence between the variational posterior and the generative model:
-
-\begin{equation}
-\mathcal{F}_{\text{align}} = D_{\mathrm{KL}}[Q(c,z) \| P(c,z)] = \sum_j \beta_{ij} \int dc  q_i(c) \log \frac{q_i(c)  \beta_{ij}}{P(c \mid z{=}j)  \pi_j}.
-\end{equation}
-
-Decomposing the logarithm yields:
-
-\begin{equation}
-\mathcal{F}_{\text{align}} = \sum_j \beta_{ij} \left[ \underbrace{\int dc  q_i(c) \log \frac{q_i(c)}{P(c \mid z{=}j)}}_{=   D_{\mathrm{KL}}[q_i  \|  \Omega_{ij} q_j]} + \log \beta_{ij} - \log \pi_j \right].
-\label{eq:mixture_free_energy}
-\end{equation}
-
-The identification of the integral with $D_{\mathrm{KL}}[q_i \| \Omega_{ij} q_j]$ follows directly from the definition of KL divergence and the generative model $P(c \mid z{=}j) = (\Omega_{ij} q_j)(c)$, with no approximation.
-
-Defining an alignment energy $E_{ij} \equiv D_{\mathrm{KL}}[q_i \| \Omega_{ij} q_j]$:
-
-\begin{equation}
-\mathcal{F}_{\text{align}} = \sum_j \beta_{ij} \big( E_{ij} + \log \beta_{ij} - \log \pi_j \big).
-\end{equation}
-
-This has the standard ``energy minus entropy'' form $\mathcal{F}_{\text{align}} = \langle E \rangle_\beta - H(\beta) + \text{const}$, where $H(\beta) = -\sum_j \beta_{ij} \log \beta_{ij}$ is the entropy of the attention distribution.
-
-\subsection{Minimization and the Softmax Solution}
-
-Minimizing $\mathcal{F}_{\text{align}}$ with respect to $\beta_{ij}$ subject to the constraint $\sum_j \beta_{ij} = 1$ via Lagrange multipliers yields:
-
-\begin{equation}
-E_{ik} + \log \beta_{ik} + 1 - \log \pi_k - \lambda = 0.
-\end{equation}
-
-Solving and normalizing produces the softmax form weighted by attention priors $\pi_k$:
-
-\begin{equation}
-\beta_{ik} = \frac{\pi_k \exp(-E_{ik})}{\sum_m \pi_m \exp(-E_{im})}.
-\label{eq:mixture_softmax_general}
-\end{equation}
-
-For a uniform attention prior $\pi_k = 1/N$, the prior factors cancel, yielding:
-
-\begin{equation}
-\boxed{\beta_{ik} = \operatorname{softmax}_k(-E_{ik}) = \operatorname{softmax}_k\big(-D_{\mathrm{KL}}[q_i \| \Omega_{ik} q_k]\big).}
-\label{eq:mixture_softmax}
-\end{equation}
-
-Including a temperature parameter $\tau > 0$ by rescaling $E_{ik} \to E_{ik}/\tau$ recovers the attention weights used throughout this paper.
-
-\subsection{Non-Uniform Priors: Masking and Causal Structure}
-
-The general solution \eqref{eq:mixture_softmax_general} with non-uniform priors $\pi_k$ provides a principled mechanism for several architectural features. Setting $\pi_j = 0$ for certain agents implements hard masking (causal structure in temporal networks, preventing influence from future agents). Log-linear priors $\log \pi_j \propto f(i,j)$ implement soft positional or relational biases. This unifies masking, positional encoding, and attention biases as prior structure on the source-selection variable $z$.
-
-\subsection{The Complete Free Energy}
-
-Combining the alignment free energy with the prior anchoring and sensory evidence terms, the total variational free energy carries the attention entropy and prior term explicitly,
-
-\begin{equation}
-\boxed{
-\mathcal{F}[\{q_i\}, \{\beta_{ik}\}] = \sum_i D_{\mathrm{KL}}(q_i \| p_i) + \sum_{i,k} \beta_{ik} D_{\mathrm{KL}}(q_i \| \Omega_{ik}\cdot q_k) + \tau\sum_{i,k}\beta_{ik}\log\frac{\beta_{ik}}{\pi_{ik}} - \sum_i \mathbb{E}_{q_i}[\log p(o_i \mid c_i)]
-}
-\end{equation}
-
-Minimizing over $\beta$ subject to $\sum_k \beta_{ik} = 1$ recovers the softmax weights of Eq.~\eqref{eq:mixture_softmax} and, on substitution, yields the reduced alignment free energy $-\tau\sum_i \log Z_i$ with $Z_i = \sum_k \pi_{ik}\exp(-E_{ik}/\tau)$. The entropy-suppressed surrogate $\sum_{i,k}\beta_{ik}^{*} D_{\mathrm{KL}}(q_i \| \Omega_{ik}\cdot q_k)$ obtained by dropping the entropy and prior term is not equal to this reduced free energy up to a state-independent constant, and its gradient differs from that of the reduced form by $-\tau^{-1}\mathrm{Cov}_{\beta^{*}}(E, \nabla E)$. This discrepancy vanishes at exact consensus, where all alignment energies $E_{ik}$ coincide, so the belief-inertia and near-consensus Hessian analyses of the main text, which hold $\beta$ fixed at $\beta^{*}$, are unaffected to leading order.
-
-This construction establishes several points. First, the KL-based social coupling arises as a consensus-energy ansatz with a probabilistic source-selection interpretation, rather than as an objective derived from a fixed generative model; the augmented-model reading via mean-field decomposition of a joint ELBO is motivational and depends on a fixed-point existence result we do not prove. Second, the attention weights $\beta_{ik}$ are the variational posterior over source identity, with a clear probabilistic interpretation. Third, the forward KL direction arises naturally: agent $i$'s belief $q_i$ is compared against each transported source belief $\Omega_{ik} q_k$, and the softmax selects the most compatible sources. Fourth, the gauge transport operators $\Omega_{ik}$ enter through the component distributions, ensuring gauge covariance by construction. Fifth, the construction holds for any gauge group $G$ acting on the belief space---including $\mathrm{GL}(K)$, $\mathrm{SO}(d)$, or any subgroup---since KL divergence is invariant under invertible linear transformations of the sufficient statistics.
+The canonical consequences are consequently taken from the scalar objective itself, not from a stronger generative-model claim. The row minimizer is Eq.~\eqref{eq:attention_weights}, the entropy-retaining reduced value is Eq.~\eqref{eq:canonical_row_reduced_vfe}, and its differential is Eq.~\eqref{eq:reduced_vfe_envelope}. The entropy-suppressed $S_i$ in Eq.~\eqref{eq:entropy_suppressed_surrogate} remains a distinct comparator with the covariance response in Eq.~\eqref{eq:entropy_suppressed_differential}.
 
 
 %==============================================================================
