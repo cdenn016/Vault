@@ -107,6 +107,7 @@ Under the primary first-order linearization, $\dot\delta=-\eta G^{-1}H_F\delta$.
 ## Sources
 
 - [[belief-inertia-2026-07-12-theorem-first-revision]] -- corrected source for the stiffness theorem, three-geometry distinction, and kinetic degeneracy.
+- [[belief-inertia-2026-07-13-final-verification-addendum]] -- final first-order stiffness-direction and metric-scope correction.
 - [[belief-inertia]] -- immutable historical manuscript note.
 - [[girolami-calderhead-2011-riemann-hmc]] -- position-dependent Fisher/Riemannian kinetic geometry.
 - [[chirco-2022-statistical-bundle-dynamics]], [[leok-zhang-2017-information-geometric-mechanics]], [[pistone-2018-statistical-bundle-lagrangian]] -- statistical-bundle and geometric-mechanics precedents.

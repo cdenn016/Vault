@@ -42,6 +42,8 @@ On networks, the progression is from demonstration to theorem to closed form. [[
 
 ## Sources
 
+- [[belief-inertia-2026-07-13-final-verification-addendum]] — authoritative status of evolutionary-game dynamics as a benchmark rather than a derived limit.
+
 - [[maynard-smith-1982-evolution-theory-games]] — founding monograph of EGT; the ESS equilibrium concept and population thinking.
 - [[axelrod-hamilton-1981-evolution-of-cooperation]] — iterated prisoner's dilemma, tit-for-tat, and the shadow-of-the-future condition for reciprocal cooperation.
 - [[nowak-2006-five-rules-cooperation]] — the five cooperation mechanisms, each as a single cost-benefit threshold rule.

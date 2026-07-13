@@ -43,6 +43,7 @@ The three sources thus benchmark model definition, rigorous stochastic behavior,
 - [[Opinion dynamics]] — the averaging-model family of which the voter model is the discrete, zero-confidence corner.
 - [[Multi-agent variational free energy]] — the continuous Gaussian functional compared with, but not reduced to, copy-a-neighbor imitation.
 - [[belief-inertia-2026-07-12-theorem-first-revision]] · [[Belief inertia]] — the current restricted theorem status and conditional kinetic postulate.
+- [[belief-inertia-2026-07-13-final-verification-addendum]] — final confirmation that voter copying remains a benchmark, not a derived limit.
 - [[Sociophysics]] · [[SocialPhysics]] — the broader programme and the founding project page.
 - [[Echo chambers and polarization]] · [[Bounded confidence]] — the persistent-disagreement / coexistence phenomenology.
 - [[Hamiltonian belief dynamics]] · [[Mass as Fisher information]] — the underdamped regime the memoryless voter model cannot reach.

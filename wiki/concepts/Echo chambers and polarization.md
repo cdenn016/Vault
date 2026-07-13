@@ -51,6 +51,7 @@ Diffusion and polarization are also distinct outcomes. The present continuous be
 ## Sources
 
 - [[belief-inertia-2026-07-12-theorem-first-revision]] -- metastability theorem and proof-status correction.
+- [[belief-inertia-2026-07-13-final-verification-addendum]] -- final metric and persistence-scope reconciliation.
 - [[albarracin-2022-epistemic-communities]] -- active confirmation-biased sampling and epistemic-community segregation.
 - [[degroot-1974-consensus]], [[friedkin1990-social-influence-opinions]], [[hegselmann-2002-opinion]], [[deffuant2000-bounded-confidence]] -- classical comparison models with restricted correspondence.
 - [[martins-2015-opinion-particles]], [[xue-hirche-cao-2020-opinion-port-hamiltonian]], [[baumann-sokolov-tyloo-2020-second-order-consensus]], [[sampson-porter-restrepo-2025-oscillatory-opinion]] -- direct dynamical comparators.

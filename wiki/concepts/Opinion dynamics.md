@@ -53,6 +53,7 @@ The averaging skeleton of opinion dynamics is the same object that appears in tw
 ## See also
 
 - [[belief-inertia-2026-07-12-theorem-first-revision]] — current theorem-first scope for the symmetric and weighted-reversible reductions.
+- [[belief-inertia-2026-07-13-final-verification-addendum]] — final source for the primary-versus-weighted metric distinction.
 - [[Multi-agent variational free energy]] — the functional whose restricted Fisher flows yield the proved averaging subclass.
 - [[Bounded confidence]] — a soft-analog comparison, not an exact recovered limit.
 - [[Echo chambers and polarization]] — metastability under passive attraction and the extra mechanisms needed for persistent separation.

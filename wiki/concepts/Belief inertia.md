@@ -106,6 +106,7 @@ Oscillation alone is not evidence for belief inertia. [[baumann-sokolov-tyloo-20
 ## Sources
 
 - [[belief-inertia-2026-07-12-theorem-first-revision]] -- corrected theorem-first manuscript record and source hashes.
+- [[belief-inertia-2026-07-13-final-verification-addendum]] -- final metric-scope, stiffness-direction, and post-Task-11 hash reconciliation.
 - [[belief-inertia]] -- immutable historical manuscript note, retained for provenance.
 - [[martins-2015-opinion-particles]] -- direct opinion-particle and oscillator predecessor.
 - [[chirco-2022-statistical-bundle-dynamics]], [[leok-zhang-2017-information-geometric-mechanics]], [[pistone-2018-statistical-bundle-lagrangian]] -- statistical-bundle and information-geometric mechanics.

@@ -55,6 +55,7 @@ Beyond the agent-based realizations, the same confidence mechanism admits a cont
 - [[hegselmann-2002-opinion|hegselmann-krause-2002]] — synchronous bounded-confidence (HK) averaging; consensus, polarization, and fragmentation regimes set by the confidence radius $\varepsilon$.
 - [[deffuant2000-bounded-confidence|deffuant-2000-bounded-confidence]] — pairwise asynchronous bounded-confidence (Deffuant-Weisbuch) mixing with convergence parameter $\mu$.
 - [[belief-inertia-2026-07-12-theorem-first-revision]] — current source for the soft-analog status and explicit exclusion of an exact HK/Deffuant recovery.
+- [[belief-inertia-2026-07-13-final-verification-addendum]] — final-panel confirmation of that soft-analog boundary.
 - [[lorenz-2007-bounded-confidence-survey]] — authoritative survey unifying the HK and Deffuant-Weisbuch variants, with the consolidated cluster-count-vs-$\varepsilon$ phenomenology.
 - [[ben-naim-2003-bifurcations-compromise]] — kinetic rate-equation treatment whose steady-state cluster count undergoes a bifurcation cascade as the initial spread grows.
 

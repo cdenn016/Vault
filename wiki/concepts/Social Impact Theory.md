@@ -41,6 +41,8 @@ Recovering the number law would require an unnormalized exposure-intensity term 
 
 ## Sources
 
+- [[belief-inertia-2026-07-13-final-verification-addendum]] — final interpretive-only status for the gauge-VFE mapping.
+
 - [[latane1981psychology|latane-1981-social-impact]] — Latané's foundational statement of Social Impact Theory: impact as a multiplicative function $I = f(S, I_m, N)$ of source strength, immediacy, and number; the sublinear power law $I \propto N^{t}$ with $t<1$; and the dual division-of-impact principle grounding diffusion of responsibility and social loafing.
 - [[asch-1955-opinions-and-social-pressure]] — line-judgment conformity rising with majority size to three or four and then plateauing, the empirical signature of the saturating number term.
 - [[bond-smith-1996-culture-and-conformity]] — meta-analysis of 133 Asch studies across 17 countries: monotonic-but-saturating dependence of conformity on majority size $N$, and the collectivist/individualist moderator scaling effective source strength.

@@ -13,6 +13,14 @@ The revised work is suitable for author-led submission preparation as a speciali
 
 No new data were created, analyzed, or claimed in this revision.
 
+## Final-panel reconciliation — 2026-07-13
+
+The final panel identified five residual issues after the original verification snapshot: the nonuniform reversible DeGroot reduction required an additional stationary-measure-weighted Fisher metric or equivalent agent-specific rates; the first-order stiffness-versus-relaxation direction was reversed; several adjacent social-model wiki pages retained overbroad recovery language; three canonical social-science claims needed direct citations; and the source provenance needed to distinguish the pre-Task-11 hashes from the final reviewed files. All five were corrected in content commit `7bb02bc8ff7a43d2d4a1137e87a2178059a1e5b3` and are documented in `docs/reviews/2026-07-13-belief-inertia-final-panel-reconciliation.md` and [[belief-inertia-2026-07-13-final-verification-addendum]].
+
+This dated reconciliation supersedes the 37-page, 18-underfull-box, and pre-correction hash evidence later in this historical report. The final-panel authoritative build is 39 pages with zero forbidden diagnostics, zero overfull boxes, 22 nonblocking underfull boxes, and zero BibTeX warnings or errors. The exact symbolic check passes with the new weighted-metric and stiffness-direction assertions; vault lint still reports all five structural categories at zero. The final manuscript hash is `B821E0A79D377521AA012B543BAB76B0B0161AB6B8658AB93DBE049ECD4E9231`, the final bibliography hash is `01491289DB2DBB426F5EC156C9D123F568F415E04378FDB626E721F6654F3E62`, and the final symbolic-script hash is `C4334A3679C0632C37CD6DFB5ED530D88D3C32B0383DCFE5B11CBEF75BFE71ED`.
+
+The revised publication verdict is unchanged: ready for author-led submission preparation as a specialized theory/model paper, with the stated empirical and mechanism-identification limitations. No new data were created, analyzed, or claimed in the final-panel pass.
+
 ## Branch and revision range
 
 The verification was performed in the isolated worktree `C:\tmp\Research-belief-inertia-review-20260712`; the live Research checkout was not modified. At the start of final verification:

@@ -32,6 +32,8 @@ The boundary cases are where the program is tested and the prose theories add st
 
 ## Sources
 
+- [[belief-inertia-2026-07-13-final-verification-addendum]] — final restricted-reduction and benchmark status.
+
 - [[sherif-1936-psychology-social-norms]] — autokinetic experiments; bottom-up, internalized consensus emergence under ambiguity.
 - [[asch-1955-opinions-and-social-pressure]] — line-judgment conformity; unanimity, majority-size, and the dissenting-ally effect on unambiguous tasks.
 - [[deutsch-gerard-1955-normative-informational-influence]] — the foundational informational-versus-normative two-channel decomposition of influence.

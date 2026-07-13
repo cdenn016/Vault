@@ -42,6 +42,7 @@ The contribution should be compared directly with established opinion and probab
 ## Sources
 
 - [[belief-inertia-2026-07-12-theorem-first-revision]] -- revised theorem and claim-status record.
+- [[belief-inertia-2026-07-13-final-verification-addendum]] -- authoritative final-panel reconciliation.
 - [[martins-2015-opinion-particles]] -- direct opinion-particle predecessor.
 - [[nevin-mandell-atak-1983-behavioral-momentum]] -- behavioral resistance-to-disruption comparator.
 - [[xue-hirche-cao-2020-opinion-port-hamiltonian]] -- port-Hamiltonian opinion-network comparator.

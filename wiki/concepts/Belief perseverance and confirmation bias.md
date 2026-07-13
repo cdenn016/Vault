@@ -63,6 +63,7 @@ A useful experiment should distinguish at least the candidate-set policy, the fi
 ## Sources
 
 - [[belief-inertia-2026-07-12-theorem-first-revision]] -- corrected claim-status record.
+- [[belief-inertia-2026-07-13-final-verification-addendum]] -- final correction to the first-order stiffness/latency direction and construct scope.
 - [[nickerson-1998-confirmation-bias]] -- confirmation-bias taxonomy.
 - [[anderson1980-belief-perseverance]] -- explanation-based perseverance after evidence discrediting.
 - [[albarracin-2022-epistemic-communities]] -- active confirmation-biased sampling.
