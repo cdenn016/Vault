@@ -25,7 +25,7 @@
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{prediction}[theorem]{Prediction}
 
-\title{The Inertia of Belief}
+\title{The Inertia of Belief:\\Gauge-Covariant Variational Free Energy for Social Dynamics}
 
 \author{
 Robert C. Dennis\\
@@ -40,59 +40,51 @@ Robert C. Dennis\\
 
 
 \begin{abstract}
-We present a unified geometric framework from which several foundational 
-sociological models emerge as limiting cases: DeGroot social learning, 
-Friedkin-Johnsen opinion dynamics, bounded confidence models, echo chamber 
-formation, and Social Impact Theory all arise from variational free energy 
-minimization on statistical manifolds under appropriate parameter regimes. 
-This unification reveals that consensus and polarization
-are not separate phenomena requiring distinct theories but manifestations of
-a single information-geometric principle operating under different boundary
-conditions, with bounded-confidence dynamics recovered as a soft
-finite-temperature analog rather than as an exact hard-threshold limit.
-
-The framework's deeper structure explains why phenomenological mass/spring
-models of belief dynamics have proven empirically successful: the Fisher
-information metric, which by the {\v C}encov--Chentsov theorem is the unique
-Riemannian metric (up to positive scaling) on statistical manifolds invariant
-under sufficient statistics, naturally supplies a stiffness tensor---the curvature of the
-free-energy landscape, by which confident beliefs resist change while uncertain beliefs
-update readily. Reading this same precision tensor as an inertial mass, rather than only as
-a stiffness, is a Hamiltonian ansatz rather than a consequence of information geometry
-alone, since the curvature of a potential does not by itself determine a kinetic term. Under
-this ansatz precision plays the role of epistemic inertia, and the dynamics reduce to
-standard Bayesian free energy descent in the overdamped limit while predicting oscillation,
-overshooting, and resonance in underdamped regimes consistent with attitude change research. The 
-framework reframes confirmation bias and belief perseverance as geometric 
-consequences of epistemic inertia rather than irrationality.
+We formulate an engineered gauge-covariant consensus energy for distribution-valued beliefs represented in heterogeneous local frames. Its relational weights follow from entropy-retaining attention optimization, whose rowwise elimination yields a reduced log-partition functional. Around local Gaussian consensus, the corresponding loss Hessian separates into prior, sensory, incoming relational, and outgoing relational or recoil stiffness. We take Fisher--Rao natural-gradient dynamics as the primary first-order update law. Belief inertia enters only through a separate kinetic-metric postulate: a positive local restriction of the stiffness may be adopted as kinetic geometry, but if the same functional supplies both kinetic mass $M$ and restoring Hessian $H_F$, then $M=H_F$ makes the generalized harmonic spectrum degenerate, $\omega^2=1$ up to scale. Under symmetric or reversible coupling, or at equilibrium under additional anchoring assumptions, the first-order theory has correspondences to restricted DeGroot and Friedkin--Johnsen dynamics and a finite-temperature analog of bounded confidence. With purely attractive finite-temperature attention, however, separated clusters retain nonzero mutual influence and are metastable rather than stably polarized. This construction is a local mathematical model: it distinguishes intrinsic Fisher geometry, loss curvature, and optional kinetic structure, and it treats social and psychological interpretations as mechanism-specific hypotheses rather than validated explanations.
 \end{abstract}
 
 
 
-\noindent\textbf{Keywords:} Gauge theory $\cdot$ Active inference $\cdot$ Free energy principle $\cdot$ Information geometry $\cdot$ Sociology
+\noindent\textbf{Keywords:} gauge-covariant variational free energy $\cdot$ opinion dynamics $\cdot$ information geometry $\cdot$ natural gradient $\cdot$ relational stiffness $\cdot$ belief inertia
 
 \section{Introduction}
 
-Why do some beliefs resist change more than others? Why does influence itself seem to harden the minds and poison the empathies of those who wield it? Some beliefs are stiff while others readily sway. While confident beliefs clearly possess more "cognitive inertia" than uncertain ones, a principled mathematical foundation for this intuitive phenomenon remains elusive. Current theories of belief updating, from Bayesian inference \citep{jaynes2003probability} to predictive coding \citep{Friston2010,clark2013whatever}, model belief change as gradient descent. This is a purely dissipative process where beliefs flow toward lower free energy without momentum, inertia, or dynamics. Though enormously successful across neuroscience \citep{friston2016active}, psychology \citep{hohwy2013predictive}, and machine learning \citep{millidge2021predictive}, this framework does not account for inertial or oscillatory dynamics.
+Social beliefs are often represented by point estimates in a common coordinate system. That representation suppresses two features that matter when heterogeneous agents exchange information: an agent may hold a distribution rather than a single opinion, and different agents may encode the same latent content in different local frames. Comparing such beliefs therefore requires both uncertainty-aware divergence and an explicit transport law. We study this problem for local Gaussian belief families, using gauge transport to compare probability distributions without identifying their coordinates by fiat.
 
-In this article, we show that beliefs possess an epistemic inertia proportional to an agent's prior precision, observational precision, and their social interactions. Just as physical objects with mass resist acceleration, beliefs held with high confidence resist change and, once moving, tend to continue in their direction on a statistical manifold of beliefs. The second-order expansion of the variational free energy reveals that the Fisher information metric \citep{Amari2016} suggests an ansatz for an inertial mass tensor for belief dynamics. The Hamiltonian structure we adopt treats these second-order terms, traditionally neglected \citep{friston2008hierarchical,bogacz2017tutorial}, as generating momentum with sociological and psychological consequences.
+The relevant landscape is already broad. Classical DeGroot and Friedkin--Johnsen models describe linear averaging and anchored influence \citep{degroot1974,friedkin1990}, while Hegselmann--Krause and Deffuant models impose bounded-confidence interaction rules \citep{hegselmann2002opinion,deffuant2000}. The closest direct opinion-inertia predecessor is Martins: his Bayesian-inspired opinion particles already possess force, inertia, and a harmonic-oscillator example \citep{Martins2015OpinionParticles}. Behavioral momentum instead operationalizes resistance to disruption in conditioned behavior and does not establish opinion-level Hamiltonian dynamics \citep{NevinMandellAtak1983}. Active-inference models supply further collective precedents. Federated inference treats communicated posteriors as evidence in shared-model inference \citep{friston2024federated}, whereas confirmation-biased policy selection can generate epistemic communities and echo chambers \citep{albarracin2022epistemic}; neither construction supplies the inter-frame transport studied here. Xue, Hirche, and Cao apply port-Hamiltonian systems and passivity to media-influenced opinion networks, but their state-space control model is not a gauge-coupled geometry of probabilistic beliefs \citep{XueHircheCao2020}.
 
-Furthermore, beliefs propagate through networks of agents in attention patterns ranging from coordinated consensus to turbulent disagreement, often exhibiting distortion, resonance, and phase transitions \citep{castellano2009statistical,galam2012sociophysics}. While numerous models capture aspects of this collective evolution, from opinion dynamics \citep{hegselmann2002opinion} to quantum-inspired approaches \citep{busemeyer2012quantum}, a principled geometric foundation has been lacking.
+Information-geometric mechanics also predates the present work. Pistone constructs Lagrangian dynamics on a finite-state statistical bundle \citep{Pistone2018StatisticalBundle}, and Chirco, Malag\`o, and Pistone develop Lagrangian and Hamiltonian probability dynamics that include accelerated natural-gradient motion \citep{ChircoMalagoPistone2022}. Leok and Zhang relate divergence functions to discrete Lagrangians under explicit geometric conditions rather than identifying every divergence with a unique kinetic energy \citep{LeokZhang2017}. Girolami and Calderhead use a position-dependent Fisher or Riemannian metric in Hamiltonian sampling, providing a clear precedent for metric-dependent kinetic geometry while keeping that metric conceptually distinct from objective curvature \citep{GirolamiCalderhead2011}. At the network level, periodically modulated second-order consensus already exhibits Laplacian-mode resonance \citep{BaumannSokolovTyloo2020}. Oscillatory social behavior is not diagnostic of inertia by itself: Sampson, Restrepo, and Porter obtain self-sustained and excitable opinion motion from feedback between individual and group opinions without the kinetic mechanism proposed here \citep{SampsonPorterRestrepo2025}.
 
-As an intuitive example, consider an agent with strong priors about a political position. When presented with contradicting evidence, their belief doesn't immediately flip but resists change, may overshoot when it does shift, and might oscillate before settling. Conversely, an uncertain agent responds quickly to new evidence with minimal resistance. These phenomena, typically attributed to cognitive biases \citep{kahneman2011thinking}, emerge naturally from belief inertia.
+Against these precedents, the gap is specific. We have not identified an earlier model that combines Gaussian KL consensus across heterogeneous local frames with an explicit local four-part stiffness decomposition into prior, sensory, incoming relational, and outgoing relational or recoil terms. The outgoing term is especially important because it records the curvature contributed when an agent serves as the source in other agents' relational energies. The contribution is this transported consensus and curvature construction, together with a strict separation between first-order inference and an optional kinetic extension; it is not the invention of opinion inertia, Hamiltonian probability dynamics, or oscillatory consensus.
 
-This article provides three primary contributions. First, we propose second-order belief dynamics motivated by the variational free energy, showing that the Hessian of the free energy provides a natural candidate for an inertial mass tensor $M = \Lambda_{\text{prior}} + \Lambda_{\text{observation}} + \Lambda_{\text{social}}^{\text{in}} + \Lambda_{\text{social}}^{\text{out}}$ combining prior conviction, sensory data, and social interactions (both incoming influence and outgoing recoil). Via pullback geometry on statistical manifolds \citep{Amari2016,nielsen2020elementary}, we extend the variational free energy to multi-agent systems where social coupling takes the form $D_{\mathrm{KL}}(q_i \| \Omega_{ij} \cdot q_j)$, penalizing disagreement with neighbors after gauge transport into a common reference frame.
+The paper makes three contributions. First, it gives a gauge-covariant population consensus functional for distribution-valued beliefs in heterogeneous local frames, with a canonical log-partition reduction of attention. Second, it establishes a local Gaussian stiffness theorem separating prior, sensory, incoming relational, and outgoing relational/recoil curvature, including the reduced-Hessian covariance correction away from frozen consensus. Third, it gives a conditional kinetic extension and a proof-status map for social dynamics: symmetric/reversible DeGroot flow, restricted Friedkin--Johnsen equilibrium, soft bounded confidence, metastable clustering, and mechanism-specific falsification tests.
 
-Second, we demonstrate that several foundational models from sociology and opinion dynamics emerge as limiting cases of our unified framework. DeGroot social learning \citep{degroot1974}, Friedkin-Johnsen opinion dynamics \citep{friedkin1990}, bounded confidence models \citep{hegselmann2002opinion,deffuant2000} (recovered as a soft, finite-temperature analog rather than as the exact hard-threshold rule), echo chamber formation, and Social Impact Theory \citep{latane1981psychology} arise from appropriate parameter regimes and approximations of the same variational free energy functional. This unification reveals that phenomena previously requiring separate theoretical apparatuses---consensus formation and polarization---are manifestations of a single geometric principle operating under different boundary conditions, with bounded-confidence selection appearing as a soft finite-temperature limit.
+The scope is consequently narrow. This is a local Gaussian theory and model paper in mathematical sociophysics and computational social science, not a general psychology of belief perseverance or confirmation bias and not a participatory-physics theory. It does not infer adoption dynamics from individual belief trajectories; a diffusion claim would require an explicit adoption state and population hazard, as in the Bass model \citep{Bass1969}. Psychological constructs enter only as candidate mechanisms to be distinguished by controlled perturbations and matched alternative models.
 
-Third, we unify documented but theoretically distinct psychological phenomena---attitude oscillation in persuasion \citep{kaplowitz1992,fink2002}, perceptual aftereffects and adaptation overshoot \citep{webster2015}, and momentum in expectations \citep{coibion2015}---
-% TODO: cite a dedicated empirical perceptual-overshoot/aftereffect source if one is added to the bibliography (burge2010 removed: it is a philosophy-of-mind monograph, not an empirical overshoot report).
-as well as cognitive biases such as confirmation bias \citep{nickerson1998confirmation} and belief perseverance \citep{anderson1980perseverance}, as natural consequences of epistemic inertia operating in different parameter regimes. These effects, absent in first-order dissipative treatments \citep{parr2022active}, emerge from second-order dynamics and yield testable predictions (precision-scaled relaxation times, resonance frequencies, and stopping distances) that distinguish our framework from purely dissipative models.
+\section{Epistemic Status and Scope}\label{sec:epistemic_status}
 
-Our approach thereby opens mathematical tools traditionally confined to physics---symplectic geometry \citep{arnold1989mathematical}, perturbation theory \citep{holmes2012introduction}, Noether's theorem \citep{olver1993applications}, renormalization group methods \citep{wilson1975renormalization,goldenfeld1992lectures}, and critical point analyses \citep{strogatz2015nonlinear,sornette2006critical}---for understanding cognitive and social dynamics. By recognizing beliefs as dynamical and inertial quantities, we bridge information geometry, cognitive science, and collective behavior within a unified Hamiltonian framework.
+Table~\ref{tab:epistemic-status} fixes the claim-status contract for the manuscript. Each fence distinguishes a mathematical result or modeling choice from a stronger interpretation that the present construction does not establish.
 
-The remainder of this article is organized as follows. Section~2 develops the mathematical framework: beliefs as points on statistical manifolds, multi-agent gauge geometry, the variational free energy, the Fisher arc-length clock, and the Hamiltonian formulation with the complete mass derivation. Section~3 presents results on cognitive phenomena (overshoot, oscillation, resonance, perseverance, multi-agent momentum transfer) together with computational validation. Section~4 derives classical sociological models as limiting cases. Section~5 discusses implications, experimental tests, and limitations. Detailed derivations appear in the appendices.
+\begin{table}[H]
+\centering
+\small
+\caption{Epistemic-status fences governing the paper's claims.}
+\label{tab:epistemic-status}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.08\textwidth}>{\raggedright\arraybackslash}p{0.84\textwidth}@{}}
+\toprule
+Fence & Claim status \\
+\midrule
+E1 & The population interaction term is an engineered consensus energy, not the evidence lower bound of a fixed population generative model. \\
+E2 & The four-part stiffness is a local frozen-attention, consensus-point loss Hessian, not a global intrinsic metric. \\
+E3 & The kinetic metric is an additional modeling postulate rather than a consequence of variational free energy. \\
+E4 & Classical-model recovery is restricted to symmetric or reversible flows, or to equilibrium correspondences under stated assumptions. \\
+E5 & Finite-temperature attractive attention supports metastable clustering, not exact stable polarization. \\
+E6 & Psychological constructs are candidate mechanisms, not established explanations. \\
+\bottomrule
+\end{tabular}
+\end{table}
 
+Later definitions, propositions, and interpretations cite the applicable fence whenever their validity depends on one of these restrictions. The fence reference is part of the claim itself: dropping it does not strengthen the result, but changes it into an unsupported statement.
 
 \section{Mathematical Framework}
 
