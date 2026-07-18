@@ -6,6 +6,100 @@ This appendix collects the normalization conditions and algebraic conventions ne
 
 For the state-tier results, all latent and observation products are finite and carry the finite product sigma-algebras of Chapter~\ref{ch:probability-semantics}. The configuration space \((\mathsf X,\mathscr X)\) has one fixed design, incidence pattern, and set of identified latent and observation fibers, so every state kernel has the same measurable codomain. Continuous coordinates use the declared Borel base measures, discrete coordinates use counting measures, and mixed coordinates use their product. Probability kernels are normalized before densities are introduced. Whenever a logarithmic density ratio is used, its numerator is absolutely continuous with respect to its denominator and both densities are taken relative to a declared dominating measure. These conventions do not define a measure on a continuum of sections.
 
+\section{Radon--Nikodym derivation of the state evidence identity}
+\label{sec:state-elbo-radon-nikodym}
+
+Fix \((o,X)\) under the assumptions of Chapter~\ref{ch:structured-recognition-elbo}. For \(B\in\mathscr Y_D\), the dominated conditional posterior measure is
+\begin{equation}
+P_\theta(B\mid o,X)
+=\frac{1}{p_\theta(o\mid X)}
+\int_B p_\theta(o,y\mid X)\nu_D^Y(dy).
+\label{eq:appendix-posterior-measure}
+\end{equation}
+It is normalized because the denominator is the evidence in Equation~\eqref{eq:evidence-density-definition}. Its density relative to \(\nu_D^Y\) is therefore
+\begin{equation}
+\frac{dP_\theta(\mathord\cdot\mid o,X)}{d\nu_D^Y}(y)
+=\frac{p_\theta(o,y\mid X)}{p_\theta(o\mid X)}.
+\label{eq:appendix-posterior-density}
+\end{equation}
+
+Write \(q_X(y\mid o)=dQ_X(\mathord\cdot\mid o)/d\nu_D^Y\). Absolute continuity of \(Q_X(\mathord\cdot\mid o)\) with respect to the posterior and the Radon--Nikodym chain rule give, \(Q_X\)-almost surely,
+\begin{equation}
+\frac{dQ_X(\mathord\cdot\mid o)}
+{dP_\theta(\mathord\cdot\mid o,X)}(y)
+=\frac{q_X(y\mid o)p_\theta(o\mid X)}
+{p_\theta(o,y\mid X)}.
+\label{eq:appendix-radon-nikodym-ratio}
+\end{equation}
+The declared log-integrability condition permits integration of the logarithm. Hence
+\begin{align}
+\KL\left(
+Q_X(\mathord\cdot\mid o)
+\middle\Vert
+P_\theta(\mathord\cdot\mid o,X)
+\right)
+&=\int_{\mathsf Y_D}
+\log\frac{dQ_X}{dP_\theta(\mathord\cdot\mid o,X)}(y)
+Q_X(dy\mid o)
+\label{eq:appendix-kl-rn-expansion}\\
+&=\E_{Q_X}\left[
+\log q_X(Y\mid o)-\log p_\theta(o,Y\mid X)
+\right]
++\log p_\theta(o\mid X)\notag\\
+&=-\Lstate(Q_X;X)+\log p_\theta(o\mid X).\notag
+\end{align}
+Rearranging Equation~\eqref{eq:appendix-kl-rn-expansion} proves Equation~\eqref{eq:state-evidence-identity}. For probability measures, strict convexity of \(u\mapsto u\log u\) gives
+\(\KL(Q_X(\mathord\cdot\mid o)\Vert P_\theta(\mathord\cdot\mid o,X))=0\) exactly when the Radon--Nikodym derivative equals one \(P_\theta(\mathord\cdot\mid o,X)\)-almost surely. This is equivalent to equality of the two probability measures and proves Equation~\eqref{eq:state-elbo-equality-condition} \citep{Kullback1951,Csiszar1967}.
+
+\section{Algebraic audit of the directed-factor decomposition}
+\label{sec:state-elbo-factor-audit}
+
+Let \(\mathcal R\) be the roots and restore the design index on every factor. Define the one-design-point log density
+\begin{align}
+\ell_{\theta,a}(y_a;o_a,X)
+={}&\sum_{r\in\mathcal R}
+\left[
+\log p_{\theta,r,a}^{m}(m_{r,a}\mid X)
++\log p_{\theta,r,a}^{k}(k_{r,a}\mid m_{r,a},X)
+\right]
+\label{eq:appendix-one-point-log-factorization}\\
+&+\sum_{i\in V\setminus\mathcal R}
+\left[
+\log p_{\theta,i,a}^{m}
+(m_{i,a}\mid m_{\operatorname{pa}(i),a},X)
++\log p_{\theta,i,a}^{k}
+(k_{i,a}\mid k_{\operatorname{pa}(i),a},m_{i,a},X)
+\right]\notag\\
+&+\sum_{i\in V}
+\log p_{\theta,i,a}^{o}
+(o_{i,a}\mid k_{i,a},m_{i,a},X).\notag
+\end{align}
+Equation~\eqref{eq:finite-design-density-factorization} gives
+\begin{equation}
+\log p_\theta(o,y\mid X)
+=\sum_{a=1}^{M}\ell_{\theta,a}(y_a;o_a,X).
+\label{eq:appendix-finite-design-log-factorization}
+\end{equation}
+The root sector contains \(2M|\mathcal R|\) latent factors, the nonroot sector contains \(2M(N-|\mathcal R|)\), and the observation sector contains \(MN\). Their sum is \(3MN\). Root state bridges replace nonroot state transitions at roots; they are not additional factors.
+
+Let \(\Fstate^{\mathrm{fact}}\) denote the right-hand side of Equation~\eqref{eq:state-free-energy-factorization}. Direct substitution gives the audit identity
+\begin{align}
+\Fstate[Q_X;X,o]-\Fstate^{\mathrm{fact}}
+&=\E_{Q_X}\left[
+\log q_X(Y\mid o)-\log p_\theta(o,Y\mid X)
+\right]\notag\\
+&\quad-
+\left\{
+\E_{Q_X}\left[\log q_X(Y\mid o)\right]
+-\E_{Q_X}\left[
+\sum_{a=1}^{M}\ell_{\theta,a}(Y_a;o_a,X)
+\right]
+\right\}\notag\\
+&=0.
+\label{eq:appendix-factorization-zero-residual}
+\end{align}
+The same joint recognition term appears once on each side and cancels as a whole. No step in this audit replaces it by marginal entropies.
+
 \section{Reverse-topological normalization of the directed joint}
 \label{sec:directed-normalization-proof}
 
@@ -34,7 +128,35 @@ After every nonroot has been removed, only roots remain. No edge joins one root 
 
 \chapter{Gaussian Information and Mean-Field Identities}
 
-This appendix fixes the Gaussian information-form notation and the block partitions used by the restricted recognition controls. It will provide the matrix identities required to compare a correlated Gaussian law with block-product approximations.
+This appendix fixes the Gaussian information-form notation and the block partitions used by the restricted recognition controls. It provides the matrix identities required to compare a correlated Gaussian law with block-product approximations.
+
+\section{Information-form normalization and moments}
+\label{sec:gaussian-information-normalization}
+
+Let \(J=J^\top\succ0\), \(h\in\mathbb R^d\), and \(\mu=J^{-1}h\). The exponent before its log normalizer satisfies
+\begin{equation}
+h^\top y-\frac12y^\top Jy
+=-\frac12(y-\mu)^\top J(y-\mu)
++\frac12h^\top J^{-1}h.
+\label{eq:appendix-information-complete-square}
+\end{equation}
+The Gaussian integral is
+\begin{align}
+\int_{\mathbb R^d}
+\exp\left(h^\top y-\frac12y^\top Jy\right)dy
+&=\exp\left(\frac12h^\top J^{-1}h\right)
+(2\pi)^{d/2}(\det J)^{-1/2}\notag\\
+&=\exp\left(A(h,J)\right).
+\label{eq:appendix-information-normalizer-integral}
+\end{align}
+Subtracting Equation~\eqref{eq:recognition-gaussian-log-normalizer} from the exponent therefore produces a density of unit mass. Equation~\eqref{eq:appendix-information-complete-square} identifies that density as \(\mathcal N(\mu,J^{-1})\). Equivalently, differentiation of the log normalizer with respect to \(h\) gives
+\begin{equation}
+\E[Y]=\nabla_h A(h,J)=J^{-1}h=\mu,
+\qquad
+\operatorname{Cov}(Y)=\nabla_h^2A(h,J)=J^{-1}=C.
+\label{eq:appendix-information-moment-derivatives}
+\end{equation}
+Positive definiteness of \(J\) is used both for integrability and for the existence of \(J^{-1}\). An off-diagonal block of \(J\) belongs to the conditional-dependence structure of the joint Gaussian law; the corresponding covariance block is obtained only after inversion of the full precision matrix.
 
 \chapter{Gauge Transformations and Verification Oracles}
 
