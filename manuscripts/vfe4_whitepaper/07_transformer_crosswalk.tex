@@ -4,16 +4,26 @@ This chapter maps the probabilistic factors and update roles already defined to 
 
 \section{Source posteriors as attention-like routing}
 
-The categorical variables $a_t$ and $b_t$ make source selection part of the probability model. Write $Y=(\boldsymbol z,\boldsymbol m,a,b)$, and let $Y_{\setminus a_t}$ and $Y_{\setminus b_t}$ denote the complete latent configuration with the named coordinate removed. If an unrestricted recognition block may condition pointwise on the entire complement, its ELBO-coordinate optimum is the corresponding posterior full conditional. The two source coordinates are therefore exactly
+The categorical variables $a_t$ and $b_t$ make source selection part of the probability model. Write $Y=(\boldsymbol z,\boldsymbol m,a,b)$, and let $Y_{\setminus a_t}$ and $Y_{\setminus b_t}$ denote the complete latent configuration with the named coordinate removed. The positive-prior source supports are
+\begin{equation}
+S_t^z
+:=\{j\in\operatorname{Pa}_z(t):\pi_t^z(j)>0\},
+\qquad
+S_t^m
+:=\{j\in\operatorname{Pa}_m(t):\pi_t^m(j)>0\}.
+\label{eq:positive-source-prior-supports}
+\end{equation}
+They are nonempty because the source priors are normalized. If an unrestricted recognition block may condition pointwise on the entire complement, its ELBO-coordinate optimum is the corresponding posterior full conditional. On the set where the displayed normalizer is positive, the two source coordinates are exactly
 \begin{equation}
 \begin{aligned}
 \log Q^\star(a_t=j\given Y_{\setminus a_t},x,\Gamma)
 ={}&\log\pi_t^z(j)
 +\log K^z_{\theta,tj}
 (z_t\given z_j,m_t,x_{<t},\Gamma)
--\log Z_t^z(Y_{\setminus a_t}),\\
+-\log Z_t^z(Y_{\setminus a_t}),
+\qquad j\in S_t^z,\\
 Z_t^z(Y_{\setminus a_t})
-:={}&\sum_{k\in\operatorname{Pa}_z(t)}
+:={}&\sum_{k\in S_t^z}
 \pi_t^z(k)
 K^z_{\theta,tk}
 (z_t\given z_k,m_t,x_{<t},\Gamma),\\
@@ -21,18 +31,19 @@ K^z_{\theta,tk}
 ={}&\log\pi_t^m(j)
 +\log K^m_{\theta,tj}
 (m_t\given m_j,x_{<t},\Gamma)
--\log Z_t^m(Y_{\setminus b_t}),\\
+-\log Z_t^m(Y_{\setminus b_t}),
+\qquad j\in S_t^m,\\
 Z_t^m(Y_{\setminus b_t})
-:={}&\sum_{k\in\operatorname{Pa}_m(t)}
+:={}&\sum_{k\in S_t^m}
 \pi_t^m(k)
 K^m_{\theta,tk}
 (m_t\given m_k,x_{<t},\Gamma).
 \end{aligned}
 \label{eq:source-posterior-routing-logits}
 \end{equation}
-Only the source prior and selected transition appear in these pointwise full conditionals because, with the remaining realized variables fixed, no other generative factor contains $a_t$ or $b_t$. This statement is exact and imposes no mean-field factorization.
+The first and third lines of \cref{eq:source-posterior-routing-logits} apply for $j\in S_t^z$ and $j\in S_t^m$, respectively. The normalizers are positive almost surely under the declared continuous law; for the Gaussian reference kernels they are positive at every finite latent configuration. Posterior mass is zero for $j\notin S_t^z$ or $j\notin S_t^m$. Only the source prior and selected transition appear in these pointwise full conditionals because, with the remaining realized variables fixed, no other generative factor contains $a_t$ or $b_t$. This statement is exact and imposes no mean-field factorization.
 
-The forward recognition factors called $\beta_t$ and $\gamma_t$ generally condition on less information than the full complements above. Their coordinate problem is different when a source choice also indexes a source-conditioned continuous recognition factor. To state that problem without dropping dependent terms, let $\mathcal C_t^z\subseteq Y_{\setminus a_t}$ be the variables exposed to $\beta_t$, let $\mathcal R_t^z:=Y_{\setminus a_t}\setminus\mathcal C_t^z$, and hold fixed a normalized component density $q^z_{t,j}(\mathcal R_t^z\given\mathcal C_t^z,x,\Gamma)$ for each source. Define its complete component-ELBO score by
+The forward recognition factors called $\beta_t$ and $\gamma_t$ generally condition on less information than the full complements above. Their coordinate problem is different when a source choice also indexes a source-conditioned continuous recognition factor. To state that problem without dropping dependent terms, let $\mathcal C_t^z\subseteq Y_{\setminus a_t}$ be the variables exposed to $\beta_t$, let $\mathcal R_t^z:=Y_{\setminus a_t}\setminus\mathcal C_t^z$, and hold fixed a normalized component density $q^z_{t,j}(\mathcal R_t^z\given\mathcal C_t^z,x,\Gamma)$ for each $j\in S_t^z$. A component is admissible only if it is absolutely continuous with respect to the applicable generative support and its complete component score is finite and integrable. For an admissible component, define that score by
 \begin{equation}
 \begin{aligned}
 \mathcal A^z_{t,j}(\mathcal C_t^z)
@@ -45,19 +56,21 @@ The forward recognition factors called $\beta_t$ and $\gamma_t$ generally condit
 &\left.\hspace{7em}
 -\log q^z_{t,j}
 (\mathcal R_t^z\given\mathcal C_t^z,x,\Gamma)
-\right],\\
+\right],
+\qquad j\in S_t^z,\\
 \beta_t^\star(j\given\mathcal C_t^z)
 ={}&
 \frac{
 \pi_t^z(j)\exp\mathcal A^z_{t,j}(\mathcal C_t^z)
 }{
-\sum_{k\in\operatorname{Pa}_z(t)}
+\sum_{k\in S_t^z}
 \pi_t^z(k)\exp\mathcal A^z_{t,k}(\mathcal C_t^z)
-}.
+},
+\qquad j\in S_t^z.
 \end{aligned}
 \label{eq:restricted-source-component-softmax}
 \end{equation}
-The analogous model-channel construction replaces $(a_t,z,\pi^z,\mathcal C_t^z,\mathcal R_t^z,q^z)$ by $(b_t,m,\pi^m,\mathcal C_t^m,\mathcal R_t^m,q^m)$ and yields $\gamma_t^\star$. Because the score in \cref{eq:restricted-source-component-softmax} uses the complete joint log density and the component log density, it contains the conditional component entropy and every emission, transition, or descendant factor whose expectation changes with the source-conditioned component. An expected log transition alone is sufficient only in a special restricted family where all omitted contributions are source independent. If the component densities are updated jointly with the routing row, the coupled problem must be solved or accepted against the complete ELBO rather than treated as this fixed-component softmax.
+The analogous model-channel construction uses $b_t$, $m$, $\pi^m$, and $S_t^m$ in place of their state-channel counterparts. Its conditioning set, remainder, and component law are $\mathcal C_t^m$, $\mathcal R_t^m$, and $q^m$, and the resulting routing row is $\gamma_t^\star$. Routing mass is zero outside the corresponding positive-prior support. By convention, an invalid or nonfinite component has score $-\infty$ and therefore cannot receive positive routing mass; the softmax is normalized over the positive-prior support with those zero-mass components retained only formally. A routing row is defined only when at least one component is admissible, which makes its denominator positive. Because the score in \cref{eq:restricted-source-component-softmax} uses the complete joint log density and the component log density, it contains the conditional component entropy and every emission, transition, or descendant factor whose expectation changes with the source-conditioned component. An expected log transition alone is sufficient only in a special restricted family where all omitted contributions are source independent. If the component densities are updated jointly with the routing row, the coupled problem must be solved or accepted against the complete ELBO rather than treated as this fixed-component softmax.
 
 Both exact objects retain an attention-like interpretation. The full conditional routes a realized configuration among causal source transitions. The limited-conditioning $\beta_t$ and $\gamma_t$ rows route component evidence after integrating variables hidden from the row. In either case, the state source selects transported information $\Omega^z_{tj}z_j$, and the model source selects $\Omega^m_{tj}m_j$. Marginalizing a source variable generally produces a mixture; replacing it by one moment-matched Gaussian is a declared projection and not an identity. The source KL terms in \cref{eq:vfe4-local-elbo-decomposition} retain coefficient one.
 
