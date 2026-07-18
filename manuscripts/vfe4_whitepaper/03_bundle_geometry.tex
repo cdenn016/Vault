@@ -26,7 +26,7 @@ R_g:P&\longrightarrow P,
 \end{aligned}
 \label{eq:working-principal-bundle}
 \end{equation}
-for $g,h\in G$.  Principal and associated bundles, their local trivializations, and the induced gauge laws are standard constructions \citep{kobayashi1963foundations,nakahara2003geometry}.  Equation~\eqref{eq:working-principal-bundle} is an explicit modeling choice: this paper asserts no nontrivial principal-bundle class for the working model.  It does not assert that finiteness, or being a graph or cell complex, forces every principal bundle over the base to be trivial.  In particular, the undirected realization may contain cycles even though the causal orientation is acyclic.
+for $g,h\in G$.  Principal and associated bundles, their local trivializations, and the induced gauge laws are standard constructions \citep{kobayashi1963foundations,nakahara2003geometry}.  Equation~\eqref{eq:working-principal-bundle} is an explicit modeling choice: this paper asserts no nontrivial principal-bundle class for the working model.  It does not assert that finiteness, or being a graph or cell complex, forces every principal bundle over the base to be trivial.  The undirected realization may still contain cycles even though the causal orientation is acyclic.
 
 When $G=\mathrm{GL}(K)$, the symbol denotes the full real general linear group unless a connected component or subgroup is named.  A parameterization by one real matrix exponential reaches only its realized subset of $\mathrm{GL}^{+}(K)$; it is not silently identified with the full group.  Any implementation that restricts $G$ to a block, compact, positive-determinant, or other subgroup must state that restriction separately.
 
@@ -63,23 +63,25 @@ E_{m,t}:=\pi_m^{-1}(t)\simeq V_m.
 \label{eq:vertex-fibers}
 \end{equation}
 
-The direct-sum path bundle for the fixed horizon is
+The finite section, or configuration, space for the fixed horizon is
 \begin{equation}
-\mathbb E_T
+\mathcal C_T
 :=
+\Gamma\left(V_T,(E_z\oplus E_m)|_{V_T}\right)
+\simeq
 \bigoplus_{t=0}^{T}\left(E_{z,t}\oplus E_{m,t}\right).
-\label{eq:direct-sum-path-bundle}
+\label{eq:finite-section-configuration-space}
 \end{equation}
-A state path $Z=(Z_t)_{t=0}^{T}$ and a model path $M=(M_t)_{t=0}^{T}$ are vertexwise random sections of $E_z|_{V_T}$ and $E_m|_{V_T}$, respectively, so that
+This is a finite-dimensional vector space of sections over the discrete vertex set $V_T$, not a vector bundle over $|D_T|$.  Write the random vertexwise state and model paths as $\boldsymbol z=(z_t)_{t=0}^{T}$ and $\boldsymbol m=(m_t)_{t=0}^{T}$, respectively, so that
 \begin{equation}
-Z_t\in E_{z,t},
+\boldsymbol z\in\Gamma\left(V_T,E_z|_{V_T}\right),
 \qquad
-M_t\in E_{m,t},
+\boldsymbol m\in\Gamma\left(V_T,E_m|_{V_T}\right),
 \qquad
-(Z,M)\in\mathbb E_T.
+(\boldsymbol z,\boldsymbol m)\in\mathcal C_T.
 \label{eq:random-vertex-sections}
 \end{equation}
-Uppercase letters denote random sections and lowercase $z_t$, $m_t$ denote realized fiber elements.  After choosing local frames, we use the same symbols for their coordinate columns in $V_z$ and $V_m$.  Under a change of those frames,
+The components $z_t\in E_{z,t}$ and $m_t\in E_{m,t}$ denote realized fiber elements.  After choosing local frames, we use the same symbols for their coordinate columns in $V_z$ and $V_m$.  Under a change of those frames,
 \begin{equation}
 z_t'=\rho_z(g_t)z_t,
 \qquad
@@ -110,10 +112,10 @@ B\in\Gamma\left(\operatorname{Hom}(E_m,E_z)\right),
 \qquad
 B_t:E_{m,t}\longrightarrow E_{z,t},
 \qquad
-B_t\in\mathbb R^{d_z\times d_m}
+B_t\in\mathbb R^{d_z\times d_m},
 \label{eq:typed-model-state-morphism}
 \end{equation}
-in local coordinates.  It need not be invertible and $d_z$ need not equal $d_m$.  The declarations in \cref{eq:typed-associated-transports,eq:typed-model-state-morphism} precede their use in any probability kernel.  In particular,
+in local coordinates.  It need not be invertible and $d_z$ need not equal $d_m$.  The declarations in \cref{eq:typed-associated-transports,eq:typed-model-state-morphism} precede their use in any probability kernel.  The resulting transported arguments have the types
 \begin{equation}
 \Omega^z_{tj}z_j\in E_{z,t},
 \qquad
