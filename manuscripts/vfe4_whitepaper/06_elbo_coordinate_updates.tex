@@ -1,15 +1,15 @@
 \chapter[The VFE 4.0 ELBO and Coordinate Updates]{The VFE 4.0 ELBO and\\Coordinate Updates}
 
-This chapter derives the shared ELBO only after the normalized joint and structured recognition law have been specified. It then defines E-like and M-like updates as operations on that scalar objective. The exact statements concern the conditional model with deterministic geometric data $\Gamma$; a latent-geometry extension is separated below.
+This chapter derives the shared ELBO only after the normalized joint and structured recognition law have been specified. It then defines E-like and M-like updates as operations on that scalar objective. The exact statements concern the zero-dimensional population model with deterministic singleton-base, frame-coboundary, and morphism data collected in $\Gamma_{\mathrm{core}}$. Independent graph links and a positive-dimensional base connection are distinct latent-geometry extensions separated below.
 
 \section{Mixed-reference assumptions and the evidence identity}
 
-Fix an observed sequence $x=x_{1:T}$ and deterministic $\Gamma$, and collect the random latent variables as
+Fix an observed sequence $x=x_{1:T}$ and deterministic $\Gamma$, and collect the random population variables as
 \begin{equation}
 Y:=(\boldsymbol z,\boldsymbol m,a,b).
 \label{eq:vfe4-latent-inventory}
 \end{equation}
-The reference measure for $Y$ is the product of the fiberwise Lebesgue measures and the finite source counting measures,
+The reference measure for $Y$ is the product of the Lebesgue measures on the labeled sample copies and the finite source counting measures,
 \begin{equation}
 \begin{aligned}
 \mu_Y
@@ -269,16 +269,47 @@ Taking $Q_\psi^{(r)}$-expectations in \cref{eq:monolithic-to-local-log-ratio} yi
 \end{equation}
 The first line is the expected categorical token log likelihood from \cref{eq:gauge-compatible-categorical-emission}. The source terms in \cref{eq:model-source-complexity-term,eq:state-source-complexity-term} are ordinary conditional categorical KL divergences with coefficient one. No geometry KL occurs in \cref{eq:vfe4-local-elbo-decomposition} because $\Gamma$ is deterministic in the exact core.
 
+Equivalently, the negative ELBO displays the status of cross-entropy directly:
+\begin{equation}
+\boxed{
+\begin{aligned}
+\VFE^{(r)}
+={}&\mathcal C_{\mathrm{obs}}(Q_\psi^{(r)};x,\Gamma)
++\mathcal K_0^{(r)}\\
+&+\sum_{t=1}^{T}
+\left(
+\mathcal K_{b,t}^{(r)}
++\mathcal K_{m,t}^{(r)}
++\mathcal K_{a,t}^{(r)}
++\mathcal K_{z,t}^{(r)}
+\right).
+\end{aligned}}
+\label{eq:vfe4-negative-elbo-ce-plus-complexity}
+\end{equation}
+Cross-entropy is therefore the exact observation sector of $\VFE$, not a competing loss and not the complete objective unless a declared reduction removes every latent and source complexity term.
+
 \paragraph{Temperature boundary.}
 A temperature may parameterize a normalized source prior. For example,
 \begin{equation}
-\pi_{\tau,t}(j)
-:=\frac{\exp(s_{t,j}/\tau)}
-{\sum_{k\in\operatorname{Pa}(t)}\exp(s_{t,k}/\tau)},
+\pi_{\tau,t}^{m}(j)
+:=\frac{\exp(s_{t,j}^{m}/\tau)}
+{\sum_{k\in\operatorname{Pa}_m(t)}\exp(s_{t,k}^{m}/\tau)},
 \qquad \tau>0,
 \label{eq:temperature-parameterized-source-prior}
 \end{equation}
-is a valid model factor, and its normalizer is already part of $\log\pi_{\tau,t}$. The ordinary ELBO still contains $\KL(q_t\Vert\pi_{\tau,t})$ with coefficient one. Multiplying only the categorical entropy or the entire source KL by an arbitrary coefficient changes \cref{eq:monolithic-to-local-log-ratio} and is not the ELBO of \cref{eq:vfe4-generative-joint}.
+is a valid model factor, and its normalizer is already part of $\log\pi_{\tau,t}^{m}$. Writing
+$\mathcal C_t^{(r)}:=(\mathcal H_t,\mathcal I_t^{(r)},\Gamma)$,
+the negative ELBO still contains the corresponding conditional categorical divergence
+\[
+\E_{Q_\psi^{(r)}}\left[
+\KL\left(
+\gamma_{\psi,t}^{(r)}(\mathord{\cdot}\given\mathcal C_t^{(r)})
+\middle\Vert
+\pi_{\tau,t}^{m}
+\right)
+\right],
+\]
+with coefficient one. Multiplying only the categorical entropy or the entire source KL by an arbitrary coefficient changes \cref{eq:monolithic-to-local-log-ratio} and is not the ELBO of \cref{eq:vfe4-generative-joint}.
 
 Generalized Bayes has a separate proper construction and does not require a normalized sampling model. Let $\Pi(\mathop{\mathrm d\omega})$ be a prior probability, let $\ell(\omega;x)$ be a measurable loss, and let $w>0$. If
 \begin{equation}
@@ -294,7 +325,7 @@ then the loss posterior
 \end{equation}
 is normalized and minimizes $w\mathbb E_R[\ell(\omega;x)]+\KL(R\Vert\Pi)$ over absolutely continuous $R$ under the corresponding finiteness conditions \citep{BissiriHolmesWalker2016}. It is not the ordinary evidence ELBO in \cref{eq:vfe4-evidence-elbo-kl-identity} unless the loss is the negative log of the declared normalized likelihood with the matching scale. Learning or comparing parameterized loss families must account for their changing $Z_w(x)$ and must not relabel that normalizer as ordinary model evidence.
 
-\section{Separate latent-geometry extension}
+\section{Separate latent internal-geometry or base-geometry extension}
 
 Suppose an extension declares a measurable geometry space with reference $\nu_\Gamma$, a proper prior $p_\theta(\Gamma)$ satisfying \cref{eq:proper-latent-geometry-prior}, and the factorization
 \begin{equation}
@@ -319,7 +350,7 @@ p_\theta(\Gamma)
 \end{aligned}
 \label{eq:latent-geometry-elbo-extension}
 \end{equation}
-The final term is the geometry KL and has coefficient one. It is absent from the deterministic conditional core. Equation~\eqref{eq:latent-geometry-elbo-extension} does not provide the proper prior, gauge fixing, quotient measure, or noncompact-volume treatment required to instantiate such an extension.
+The final term is the geometry KL and has coefficient one. It is absent from the deterministic conditional core. Random population frames, random internal graph links, and a random connection on a positive-dimensional base are different extensions and require different sample spaces and priors. The zero-dimensional model has no nontrivial base-connection coordinate to randomize. Equation~\eqref{eq:latent-geometry-elbo-extension} does not provide the proper prior, gauge fixing, quotient measure, or noncompact-volume treatment required to instantiate any of these extensions.
 
 \section{E-like and M-like updates on one scalar}
 
@@ -353,6 +384,18 @@ Q_{\psi,C}^{\mathrm{new}}
 \label{eq:structured-e-coordinate-update}
 \end{equation}
 If the unrestricted posterior conditional belongs to $\mathcal Q_C$, the maximizer is proportional to $\exp\Phi_C$ with respect to the mixed block reference measure. Otherwise \cref{eq:structured-e-coordinate-update} defines the constrained block problem, and the complete $\ELBO$ must be evaluated after a proposed update.
+
+The optional mean-field coordinate problem is different. If the recognition family is restricted to $Q(Y)=q_C(Y_C)Q_{-C}(Y_{-C})$, then its unrestricted factor update within that product family is
+\begin{equation}
+\log q_C^\star(Y_C)
+=\mathbb E_{Q_{-C}}
+\left[
+\log p_\theta(x,Y\given\Gamma)
+\right]
++\operatorname{constant},
+\label{eq:mean-field-cavi-update}
+\end{equation}
+where the constant normalizes $q_C^\star$. Equation~\eqref{eq:mean-field-cavi-update} averages over the complement, whereas \cref{eq:structured-e-coordinate-update} updates a conditional that may retain dependence on $Y_{\bar C}$. Neither formula supplies a closed-form Gaussian step when a nonconjugate categorical emission touches the block.
 
 The factor set in \cref{eq:generative-markov-blanket-potential} prevents a child contribution from being silently dropped. For $1\leq s\leq T$, the singleton state and model potentials are
 \begin{equation}
@@ -501,9 +544,9 @@ h_\rho=h+\rho\Delta h.
 \end{equation}
 The candidate is accepted only when a checked factorization succeeds with the preregistered pivot and condition margins and the complete ELBO, including every affected factor, is nondecreasing beyond its declared evaluation error. Otherwise backtracking continues or the candidate is rejected. A rescaled or regularized candidate is a new proposal and must repeat the same checks. The corresponding $\xi$-proposal is converted to $(h,J)$ before this acceptance test. A candidate outside $\mathcal D_\eta$ or $\mathcal D_\xi$ does not define a Gaussian law, and domain admissibility alone does not imply that a finite natural-gradient step lowers $\VFE$.
 
-\section{Gauge invariance of the complete ELBO}
+\section{Internal population-frame invariance of the complete ELBO}
 
-Let $\mathcal T_{\mathsf G}$ be the block frame map in \cref{eq:block-diagonal-global-frame-map}. It sends $y$ to $y'=\mathsf G y$, leaves $(a,b)$ and $x$ unchanged, and transforms the deterministic geometric and model data to $\Gamma'$ and $\theta'$ by \cref{eq:link-morphism-gauge-laws,eq:transition-offset-covariance-gauge-laws,eq:dual-decoder-gauge-laws}. Define the absolute Jacobian
+Let $\mathcal T_{\mathsf G}$ be the block frame map in \cref{eq:block-diagonal-global-frame-map}. It sends $y$ to $y'=\mathsf G y$, leaves $(a,b)$ and $x$ unchanged, and transforms the deterministic geometric and model data to $\Gamma'$ and $\theta'$ by \cref{eq:link-morphism-gauge-laws,eq:transition-offset-covariance-gauge-laws,eq:dual-decoder-gauge-laws}. The general block map represents the internal product group $\mathcal G_T$; the diagonal subgroup is the base-bundle gauge action inherited at $\ast$. Define the absolute Jacobian
 \begin{equation}
 \mathcal J_{\mathsf G}
 :=|\det\mathsf G|
@@ -578,5 +621,5 @@ The strict readout stabilizer in \cref{eq:fixed-decoder-stabilizer} is sufficien
 \end{equation}
 The inclusion can be proper when a transformed readout differs only by a row-common linear functional, which adds the same input-dependent scalar to every vocabulary logit.
 
-\paragraph{Proposition (complete gauge invariance).}
-Under simultaneous pushforward of the generative and recognition measures, transformation of every transition and decoder law, and the support and integrability conditions above, the evidence, posterior KL, $\ELBO$, and $\VFE$ are invariant under the block frame map. If the decoder weights are held fixed instead of transformed by \cref{eq:dual-decoder-gauge-laws}, the statement holds on the categorical emission-kernel stabilizer in \cref{eq:fixed-decoder-emission-kernel-stabilizer}. The strict Task-5 subgroup in \cref{eq:fixed-decoder-stabilizer} remains a sufficient subgroup, but need not exhaust the softmax-kernel symmetry. Outside the emission-kernel stabilizer, the full local gauge group is not a symmetry. \hfill$\square$
+\paragraph{Proposition (complete internal frame invariance).}
+Under simultaneous pushforward of the generative and recognition measures, transformation of every transition and decoder law, and the support and integrability conditions above, the evidence, posterior KL, $\ELBO$, and $\VFE$ are invariant under the declared block frame map. If the decoder weights are held fixed instead of transformed by \cref{eq:dual-decoder-gauge-laws}, the statement holds on the categorical emission-kernel stabilizer in \cref{eq:fixed-decoder-emission-kernel-stabilizer}. The strict subgroup in \cref{eq:fixed-decoder-stabilizer} remains sufficient, but need not exhaust the softmax-kernel symmetry. Outside the emission-kernel stabilizer, the full internal product group is not a symmetry. This proposition is a probability-measure reparameterization theorem. It does not imply nontrivial base transport, curvature, or holonomy in the zero-dimensional reduction. \hfill$\square$

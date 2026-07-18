@@ -1,39 +1,19 @@
-\chapter{Gauge-Causal Bundle Geometry}
+\chapter[Statistical Bundles and the Zero-Dimensional Population Reduction]{Statistical Bundles and the\\Zero-Dimensional Population Reduction}
+\chaptermark{Statistical Bundles and the Zero-Dimensional Reduction}
 
-This chapter introduces the causal token graph, principal and associated bundles, representations, and discrete transports that provide the geometric domain for the later probability model. It fixes transformation types and deterministic geometric data without yet asserting a generative factorization or an inference result.
+This chapter separates the program's general geometric ontology from the finite language-model specialization. The general theory places agents on statistical associated bundles over a smooth contextual or noumenal base. The V3/V4 language construction then takes the zero-dimensional reduction of that base and stacks labeled token agents over its single point. A causal graph organizes probabilistic dependence inside the stack; it is not substituted for the base manifold.
 
-\section{Causal base and working principal bundle}
+\section{General principal, sample, and statistical bundles}
 
-\paragraph{Definition (causal token base).}
-For a fixed sequence horizon $T\in\mathbb N$, let
+\paragraph{Definition (contextual base and principal bundle).}
+Let \(\mathcal C\) be a finite-dimensional smooth manifold. The interpretation of \(\mathcal C\) as a contextual or noumenal domain is a modeling postulate: the present language model neither identifies its topology from text nor equates it with physical spacetime. Let \(G\) be a declared matrix Lie group and let
 \begin{equation}
-D_T=(V_T,E_T),
-\qquad
-V_T=\{0,\ldots,T\},
-\qquad
-(j,t)\in E_T\Longrightarrow j<t.
-\label{eq:causal-token-graph}
-\end{equation}
-The arrow $j\to t$ records an admissible causal dependence of a variable at position $t$ on a variable at position $j$.  The strict order in \cref{eq:causal-token-graph} makes $D_T$ a directed acyclic graph.  Its geometric realization $|D_T|$ is used only as the base on which local frames and transport data are organized; it does not add a directed feedback edge to the autoregressive factorization.
-
-Let $G$ be a declared matrix Lie group with identity $e$.  The working principal bundle is the product
-\begin{equation}
-\begin{aligned}
-\pi:P=|D_T|\times G&\longrightarrow |D_T|,
-&\pi(x,h)&=x,\\
-R_g:P&\longrightarrow P,
-&R_g(x,h)&=(x,hg),
-\end{aligned}
+\pi:P\longrightarrow\mathcal C
 \label{eq:working-principal-bundle}
 \end{equation}
-for $g,h\in G$.  Principal and associated bundles, their local trivializations, and the induced gauge laws are standard constructions \citep{kobayashi1963foundations,nakahara2003geometry}.  Equation~\eqref{eq:working-principal-bundle} is an explicit modeling choice: this paper asserts no nontrivial principal-bundle class for the working model.  It does not assert that finiteness, or being a graph or cell complex, forces every principal bundle over the base to be trivial.  The undirected realization may still contain cycles even though the causal orientation is acyclic.
+be a smooth principal \(G\)-bundle with right action \(R_g(p)=pg\). Principal and associated bundles, local trivializations, and connections are standard constructions \citep{kobayashi1963foundations,nakahara2003geometry}. No global trivialization of \(P\) is assumed in the general theory.
 
-When $G=\mathrm{GL}(K)$, the symbol denotes the full real general linear group unless a connected component or subgroup is named.  A parameterization by one real matrix exponential reaches only its realized subset of $\mathrm{GL}^{+}(K)$; it is not silently identified with the full group.  Any implementation that restricts $G$ to a block, compact, positive-determinant, or other subgroup must state that restriction separately.
-
-\section{Associated state and model bundles}
-
-\paragraph{Definition (typed fibers and vertex paths).}
-Let $V_z$ and $V_m$ be finite-dimensional real vector spaces with
+Let \(V_z\) and \(V_m\) be finite-dimensional real vector spaces, with
 \begin{equation}
 d_z:=\dim V_z,
 \qquad
@@ -42,91 +22,156 @@ d_m:=\dim V_m,
 \end{equation}
 and let
 \begin{equation}
-\rho_z:G\longrightarrow \mathrm{GL}(V_z),
+\rho_z:G\longrightarrow\mathrm{GL}(V_z),
 \qquad
-\rho_m:G\longrightarrow \mathrm{GL}(V_m),
+\rho_m:G\longrightarrow\mathrm{GL}(V_m)
 \label{eq:shared-group-representations}
 \end{equation}
-be representations of the same group.  They define the associated vector bundles
+be representations of the same group. They define the associated sample bundles
 \begin{equation}
-\begin{aligned}
-\pi_z:E_z=P\times_{\rho_z}V_z&\longrightarrow |D_T|,\\
-\pi_m:E_m=P\times_{\rho_m}V_m&\longrightarrow |D_T|.
-\end{aligned}
+E_z:=P\times_{\rho_z}V_z,
+\qquad
+E_m:=P\times_{\rho_m}V_m,
 \label{eq:associated-state-model-bundles}
 \end{equation}
-Adopt the quotient convention $(p g,v)\sim(p,\rho_\bullet(g)v)$.  Thus changing a local frame from $s_t$ to $s_t'=s_tg_t^{-1}$ acts on coordinates by $\rho_\bullet(g_t)$.  The fibers at vertex $t$ are
-\begin{equation}
-E_{z,t}:=\pi_z^{-1}(t)\simeq V_z,
-\qquad
-E_{m,t}:=\pi_m^{-1}(t)\simeq V_m.
-\label{eq:vertex-fibers}
-\end{equation}
+over \(\mathcal C\). A realized state sample belongs to a vector fiber \(E_{z,c}\), and a realized model sample belongs to \(E_{m,c}\). These sample fibers are not themselves spaces of probability laws.
 
-The finite section, or configuration, space for the fixed horizon is
+To represent beliefs, let \(\mathcal F_z\) and \(\mathcal F_m\) be statistical manifolds of probability measures on \(V_z\) and \(V_m\), respectively. Assume each family is closed under the applicable pushforward action. For a Borel set \(A\), define
 \begin{equation}
-\mathcal C_T
+\bigl[\rho_{z\#}(g)q\bigr](A)
+:=q\bigl(\rho_z(g)^{-1}A\bigr),
+\qquad
+\bigl[\rho_{m\#}(g)s\bigr](A)
+:=s\bigl(\rho_m(g)^{-1}A\bigr).
+\label{eq:statistical-pushforward-actions}
+\end{equation}
+The induced associated statistical bundles are
+\begin{equation}
+\mathscr B_z:=P\times_{\rho_{z\#}}\mathcal F_z,
+\qquad
+\mathscr B_m:=P\times_{\rho_{m\#}}\mathcal F_m.
+\label{eq:associated-statistical-bundles}
+\end{equation}
+Their fibers are statistical manifolds. For example, the full nonsingular Gaussian family has coordinates \((\mu,\Sigma)\in V\times\operatorname{Sym}_{++}^2(V)\), and the pushforward action is \((\mu,\Sigma)\mapsto(\rho(g)\mu,\rho(g)\Sigma\rho(g)^\top)\). The natural-coordinate action is derived later.
+
+\paragraph{Definition (agents as smooth local statistical sections).}
+An agent \(i\) defined on an open contextual domain \(U_i\subseteq\mathcal C\) carries smooth sections
+\begin{equation}
+q_i\in\Gamma^\infty(U_i,\mathscr B_z),
+\qquad
+s_i\in\Gamma^\infty(U_i,\mathscr B_m).
+\label{eq:agent-local-statistical-sections}
+\end{equation}
+Thus \(q_i(c)\) and \(s_i(c)\) are probability laws on the corresponding sample fibers, not sample vectors. On overlaps, changes of local frame act by the pushforwards in \cref{eq:statistical-pushforward-actions}. Transition functions glue coordinate descriptions of one bundle; they do not encode disagreement between two agents and are not a substitute for a probabilistic coupling law.
+
+The broader \(h\to s\to p\to q\to o\) hierarchy can be typed by additional statistical associated bundles \(\mathscr B_h,\mathscr B_s,\mathscr B_p,\mathscr B_q\), each with a declared family and representation. An exact generative model must then supply normalized latent factors between the corresponding sample variables. The minimal construction below retains state and model sample channels and absorbs omitted levels into declared initial laws or fixed model parameters. Naming the hierarchy, or adding divergences between moving belief sections, does not by itself produce an ELBO.
+
+Let \(A\) be a smooth principal connection on \(P\). It defines parallel transport along curves in \(\mathcal C\) and has curvature \(F_A\). This smooth base connection must be distinguished from both local transition functions and the internal inter-agent maps introduced after the zero-dimensional reduction.
+
+\section{The zero-dimensional language-model reduction}
+
+Choose one contextual point and write the reduced base as
+\begin{equation}
+\mathcal C_0:=\{\ast\}.
+\label{eq:zero-dimensional-base}
+\end{equation}
+The restricted principal bundle \(P_0\to\mathcal C_0\) is a \(G\)-torsor and is trivializable, although no preferred frame is supplied. Its associated sample fibers are denoted \(E_{z,\ast}\) and \(E_{m,\ast}\), and its statistical fibers are \(\mathscr B_{z,\ast}\) and \(\mathscr B_{m,\ast}\). Because \(\{\ast\}\) is its only nonempty open set, every nonempty local agent section becomes a global section value at the same point. Distinct agents survive as labels; they do not become distinct base points.
+
+For a sequence horizon \(T\), define the population index set and its internal causal graph by
+\begin{equation}
+D_T=(I_T,E_T),
+\qquad
+I_T:=\{0,\ldots,T\},
+\qquad
+(j,t)\in E_T\Longrightarrow j<t.
+\label{eq:causal-token-graph}
+\end{equation}
+The arrow \(j\to t\) records an admissible conditional dependence or source relation among labeled population slots. The strict order makes \(D_T\) a directed acyclic graph. Neither \(D_T\) nor its geometric realization is the base of \(P_0\).
+
+Use a labeled copy of each common sample fiber for every slot. The finite continuous population fiber is
+\begin{equation}
+\mathcal Y_T
 :=
-\Gamma\left(V_T,(E_z\oplus E_m)|_{V_T}\right)
-\simeq
-\bigoplus_{t=0}^{T}\left(E_{z,t}\oplus E_{m,t}\right).
+\bigoplus_{t=0}^{T}
+\left(E_{z,\ast}^{(t)}\oplus E_{m,\ast}^{(t)}\right).
 \label{eq:finite-section-configuration-space}
 \end{equation}
-This is a finite-dimensional vector space of sections over the discrete vertex set $V_T$, not a vector bundle over $|D_T|$.  Write the random vertexwise state and model paths as $\boldsymbol z=(z_t)_{t=0}^{T}$ and $\boldsymbol m=(m_t)_{t=0}^{T}$, respectively, so that
+Write the population samples as
 \begin{equation}
-\boldsymbol z\in\Gamma\left(V_T,E_z|_{V_T}\right),
+z_t\in E_{z,\ast}^{(t)},
 \qquad
-\boldsymbol m\in\Gamma\left(V_T,E_m|_{V_T}\right),
+m_t\in E_{m,\ast}^{(t)},
 \qquad
-(\boldsymbol z,\boldsymbol m)\in\mathcal C_T.
+y:=\operatorname{col}(z_0,m_0,\ldots,z_T,m_T)\in\mathcal Y_T.
 \label{eq:random-vertex-sections}
 \end{equation}
-The components $z_t\in E_{z,t}$ and $m_t\in E_{m,t}$ denote realized fiber elements.  After choosing local frames, the same symbols also denote their coordinate columns in $V_z$ and $V_m$.  Under a change of those frames,
+The superscript \((t)\) marks a labeled copy, not a different geometric fiber over a different point. For compact notation below, set
+\begin{equation}
+E_{z,t}:=E_{z,\ast}^{(t)},
+\qquad
+E_{m,t}:=E_{m,\ast}^{(t)}.
+\label{eq:vertex-fibers}
+\end{equation}
+These symbols are population-slot copies over \(\ast\), not fibers over token base points. Later formulas suppress \(\ast\) and \((t)\) when the slot label on the variable makes the type unambiguous.
+
+A single principal \(G\)-bundle over a point has one diagonal bundle gauge action. V3-style independent agent coordinates require the derived population frame torsor
+\begin{equation}
+P_T^{\mathrm{pop}}
+:=\prod_{t=0}^{T}P_0^{(t)}
+\longrightarrow\{\ast\},
+\qquad
+\mathcal G_T:=G^{T+1}.
+\label{eq:population-frame-torsor}
+\end{equation}
+Its block representation acts separately on the labeled sample copies. This construction can be read as a principal \(\mathcal G_T\)-bundle over the point or as explicit reparameterization bookkeeping for the population fiber. Restricting to the diagonal subgroup \(g_0=\cdots=g_T\) recovers a common frame change of the original bundle.
+
+Under \(g=(g_0,\ldots,g_T)\in\mathcal G_T\), sample coordinates transform as
 \begin{equation}
 z_t'=\rho_z(g_t)z_t,
 \qquad
 m_t'=\rho_m(g_t)m_t.
 \label{eq:state-model-gauge-law}
 \end{equation}
+This is a change of agent coordinates at the same base point. It is not motion along the token index.
 
-\paragraph{Remark (product-group alternative).}
-If the two channels require independent gauge choices, one may replace $G$ by $G_z\times G_m$, let the state representation ignore the $G_m$ factor and the model representation ignore the $G_z$ factor, and use $B_t'=\rho_z(g_t^z)B_t\rho_m(g_t^m)^{-1}$.  That variant introduces additional gauge data and is not used below; the main construction uses one shared $G$ with the two representations in \cref{eq:shared-group-representations}.
+\section{Internal source maps and the model-to-state morphism}
 
-\section{Discrete links and the cross-channel morphism}
-
-For each permitted edge $(j,t)\in E_T$, let the superscript-free symbol $\Omega_{tj}\in G$ denote a group-valued link from $j$ to $t$.  Its two represented transports are typed maps
+Choose one population-frame coordinate \(U_t\in G\) for every label. The exact core uses only the pure same-point frame coboundary
+\begin{equation}
+\Omega_{tj}:=U_tU_j^{-1}
+\label{eq:regime-i-vertex-cocycle}
+\end{equation}
+for every permitted relation \((j,t)\in E_T\). It induces the typed inter-slot maps
 \begin{equation}
 \begin{aligned}
-\Omega^z_{tj}&:E_{z,j}\longrightarrow E_{z,t},
-&\Omega^z_{tj}&\in\operatorname{Iso}(E_{z,j},E_{z,t}),\\
-\Omega^m_{tj}&:E_{m,j}\longrightarrow E_{m,t},
-&\Omega^m_{tj}&\in\operatorname{Iso}(E_{m,j},E_{m,t}),
+\Omega^z_{tj}&:E_{z,\ast}^{(j)}\longrightarrow E_{z,\ast}^{(t)},
+&\Omega^z_{tj}&\in\operatorname{Iso}(E_{z,\ast}^{(j)},E_{z,\ast}^{(t)}),\\
+\Omega^m_{tj}&:E_{m,\ast}^{(j)}\longrightarrow E_{m,\ast}^{(t)},
+&\Omega^m_{tj}&\in\operatorname{Iso}(E_{m,\ast}^{(j)},E_{m,\ast}^{(t)}).
 \end{aligned}
 \label{eq:typed-associated-transports}
 \end{equation}
-whose coordinate matrices are $\rho_z(\Omega_{tj})\in\mathbb R^{d_z\times d_z}$ and $\rho_m(\Omega_{tj})\in\mathbb R^{d_m\times d_m}$.  The two channels therefore share the group-valued connection while carrying it through different representations.
+Their coordinate matrices are \(\rho_z(\Omega_{tj})\in\mathbb R^{d_z\times d_z}\) and \(\rho_m(\Omega_{tj})\in\mathbb R^{d_m\times d_m}\). The maps align or propagate internal agent representations. They are not parallel transports between distinct points of \(\mathcal C_0\).
 
-The model-to-state field is a section of the bundle of fiberwise homomorphisms,
+The model-to-state field in the reduced population is the labeled family
 \begin{equation}
-B\in\Gamma\left(\operatorname{Hom}(E_m,E_z)\right),
+B_t:E_{m,\ast}^{(t)}\longrightarrow E_{z,\ast}^{(t)},
 \qquad
-B_t:E_{m,t}\longrightarrow E_{z,t},
-\qquad
-B_t\in\mathbb R^{d_z\times d_m},
+B_t\in\operatorname{Hom}(E_{m,\ast}^{(t)},E_{z,\ast}^{(t)}),
 \label{eq:typed-model-state-morphism}
 \end{equation}
-in local coordinates.  It need not be invertible and $d_z$ need not equal $d_m$.  The declarations in \cref{eq:typed-associated-transports,eq:typed-model-state-morphism} precede their use in any probability kernel.  The resulting transported arguments have the types
+with coordinate shape \(d_z\times d_m\). It need not be invertible and \(d_z\) need not equal \(d_m\). Consequently,
 \begin{equation}
-\Omega^z_{tj}z_j\in E_{z,t},
+\Omega^z_{tj}z_j\in E_{z,\ast}^{(t)},
 \qquad
-\Omega^m_{tj}m_j\in E_{m,t},
+\Omega^m_{tj}m_j\in E_{m,\ast}^{(t)},
 \qquad
-B_tm_t\in E_{z,t},
+B_tm_t\in E_{z,\ast}^{(t)}.
 \label{eq:typed-transported-arguments}
 \end{equation}
-so a later state transition may combine $\Omega^z_{tj}z_j$ with $B_tm_t$, whereas a model transition consumes $\Omega^m_{tj}m_j$.  No sum is formed between elements of $E_{z,t}$ and $E_{m,t}$ without an explicitly typed morphism.
+No sum is formed between state and model elements without the declared morphism.
 
-Under local frame changes $g_j,g_t\in G$, the link and morphism coordinates obey
+Under independent population reframing, the link and morphism coordinates obey
 \begin{equation}
 \begin{aligned}
 \Omega_{tj}^{z\prime}
@@ -137,7 +182,7 @@ B_t'&=\rho_z(g_t)B_t\rho_m(g_t)^{-1}.
 \end{aligned}
 \label{eq:link-morphism-gauge-laws}
 \end{equation}
-These laws make each typed argument transform in its target fiber:
+These laws make every output transform in the receiving labeled copy:
 \begin{equation}
 \begin{aligned}
 \Omega_{tj}^{z\prime}z_j'&=\rho_z(g_t)\Omega^z_{tj}z_j,\\
@@ -146,53 +191,56 @@ B_t'm_t'&=\rho_z(g_t)B_tm_t.
 \end{aligned}
 \label{eq:transported-argument-equivariance}
 \end{equation}
-Gauge-equivariant convolutional work provides precedent for this local-frame equivariance principle and for transporting fields between fibers before combining them \citep{cohen2019gauge,weiler2021coordinate}.  Those sources concern coordinate-independent or gauge-equivariant geometric operators.  They do not define, derive, or validate the causal language-model joint proposed later in this paper.
+Gauge-equivariant geometric learning provides precedent for combining fields only after their frame types have been aligned \citep{cohen2019gauge,weiler2021coordinate}. Those sources do not define the normalized language-model joint introduced below.
 
-The two associated fiber channels, their represented link transports, and the later coordinate views of one structured Gaussian law are summarized together in \cref{fig:vfe4-bundle-dual-coordinates}. The coordinate conversions in that figure change the description of the Gaussian law; they do not create a new bundle map or a generative edge.
+\section{Local agent beliefs and one correlated population law}
 
-\section{Flat vertex transport and the Regime II boundary}
-
-\paragraph{Proposition (Regime I cocycle and identity loop holonomy).}
-Choose one vertex frame $U_t\in G$ at each $t\in V_T$ and define the geometric transport for every ordered vertex pair by
+The statistical sections in \cref{eq:agent-local-statistical-sections} supply local agent beliefs. The exact variational object required by the language model is stronger: it is a normalized joint law on the complete population fiber and the discrete source variables. If \(Q_\psi^{\mathrm{cont}}(\mathop{\mathrm dy}\given x,\Gamma)\) denotes its continuous source-marginal law, then the local state and model beliefs are recovered as pushforward marginals,
 \begin{equation}
-\Omega_{tj}:=U_tU_j^{-1}.
-\label{eq:regime-i-vertex-cocycle}
+q_t(\ast)
+=\bigl(\operatorname{pr}_{z,t}\bigr)_\#Q_\psi^{\mathrm{cont}},
+\qquad
+s_t(\ast)
+=\bigl(\operatorname{pr}_{m,t}\bigr)_\#Q_\psi^{\mathrm{cont}}.
+\label{eq:agent-beliefs-as-population-marginals}
 \end{equation}
-Only links on $E_T$ enter a causal probability kernel.  For any vertices $k,j,t$, the geometric links satisfy
+The collection \(\{q_t(\ast),s_t(\ast)\}_{t=0}^{T}\) does not determine \(Q_\psi^{\mathrm{cont}}\): different joint laws can have the same marginals and different cross-agent dependence. VFE 4.0 therefore takes the joint law as primitive and derives the agent beliefs from it. An agent-first alternative must add an explicit copula, a correlation section, or a compatible family of normalized conditional kernels and must prove that the resulting joint has the declared local marginals.
+
+For the reference Gaussian family, off-diagonal blocks of the joint precision encode cross-agent and cross-channel conditional dependence. The mean-field family is obtained only after imposing a block-diagonal precision. Statistical-fiber language therefore does not force mean-field inference; mean-field enters only through an additional restriction of the population law.
+
+The two sample channels, the statistical agent sections, the zero-dimensional population stack, the internal maps, and the later coordinate views of one structured Gaussian law are summarized in \cref{fig:vfe4-bundle-dual-coordinates}. Coordinate conversion changes the description of the joint law; it does not add a probabilistic factor or a geometric edge.
+
+\section{Base curvature, frame coboundaries, and optional graph holonomy}
+
+\paragraph{Proposition (zero-dimensional base curvature).}
+Let \(\iota:\{\ast\}\hookrightarrow\mathcal C\) select the point used by the reduction. For every smooth connection \(A\) on \(P\),
+\begin{equation}
+\iota^*F_A=0
+\in\Omega^2\bigl(\{\ast\},\operatorname{Ad}P_0\bigr).
+\label{eq:zero-dimensional-curvature-vanishes}
+\end{equation}
+There are no nonconstant base curves and no nonzero base two-forms on \(\{\ast\}\). Hence the reduced model has no nontrivial smooth parallel transport or curvature along its base. This statement does not forbid internal frame comparisons or a separately supplied graph connection.
+
+\paragraph{Proposition (exact-core internal coboundary).}
+For the frame comparison defined in \cref{eq:regime-i-vertex-cocycle} and all labels \(k,j,t\),
 \begin{equation}
 \Omega_{tj}\Omega_{jk}=\Omega_{tk}.
 \label{eq:regime-i-cocycle-identity}
 \end{equation}
-Every closed combinatorial walk in an underlying undirected graph has identity group holonomy, and its state and model holonomies are the corresponding identity maps.  Hence Regime I is flat in this discrete holonomy sense.
-
-\emph{Proof.}
-The cocycle identity follows directly from cancellation at the intermediate vertex:
+For any closed walk \(C=(v_0,\ldots,v_r=v_0)\) in a declared internal relation graph, with reverse traversal represented by inverse links,
 \begin{equation}
-\Omega_{tj}\Omega_{jk}
-=U_tU_j^{-1}U_jU_k^{-1}
-=U_tU_k^{-1}
-=\Omega_{tk}.
-\label{eq:regime-i-cocycle-proof}
-\end{equation}
-Let $C=(v_0,v_1,\ldots,v_r)$ be a closed combinatorial walk, with $v_r=v_0$, in a graph obtained by forgetting edge directions or in the one-skeleton of a chosen cell complex.  Define reverse transport by $\Omega_{ab}=\Omega_{ba}^{-1}$.  Composition in traversal order gives
-\begin{equation}
-\begin{aligned}
 H_C
-&:=\Omega_{v_rv_{r-1}}\cdots\Omega_{v_2v_1}\Omega_{v_1v_0}\\
-&=(U_{v_r}U_{v_{r-1}}^{-1})\cdots
-  (U_{v_2}U_{v_1}^{-1})(U_{v_1}U_{v_0}^{-1})\\
-&=U_{v_r}U_{v_0}^{-1}
+:=\Omega_{v_rv_{r-1}}\cdots\Omega_{v_2v_1}\Omega_{v_1v_0}
 =e.
-\end{aligned}
 \label{eq:regime-i-loop-holonomy}
 \end{equation}
-Because representations preserve products and the identity, $\rho_z(H_C)=I_{d_z}$ and $\rho_m(H_C)=I_{d_m}$.  This proves both associated-bundle statements.  \hfill$\square$
+The proof is telescoping cancellation. This is flatness of an internal frame coboundary, not flatness of a connection along the zero-dimensional base.
 
-A local reframe $U_t'=g_tU_t$ sends the group link to
+A local population reframe \(U_t'=g_tU_t\) sends
 \begin{equation}
 \Omega_{tj}'=g_t\Omega_{tj}g_j^{-1},
 \label{eq:group-link-gauge-law}
 \end{equation}
-which induces \cref{eq:link-morphism-gauge-laws} under $\rho_z$ and $\rho_m$.  Gauge covariance therefore does not imply nonzero curvature: the pure vertex cocycle is covariant and flat at the same time.
+which induces \cref{eq:link-morphism-gauge-laws}. Internal population-frame covariance therefore does not imply nontrivial internal holonomy.
 
-Regime II removes the factorization in \cref{eq:regime-i-vertex-cocycle} and assigns independent group links to oriented edges, with the reverse orientation carrying the inverse.  A nonidentity holonomy can then occur only when an auxiliary underlying undirected graph contains a cycle, or when a cell complex supplies a closed face boundary; independent links permit, but do not guarantee, a nonidentity product around that cycle.  This geometric cycle is not a directed causal loop.  The probability model continues to factor over the acyclic graph $D_T$ in \cref{eq:causal-token-graph}, while the separate undirected graph or cell complex supplies the closed paths on which holonomy or discrete curvature may be measured.  Any Regime II link prior, curvature energy, or latent-link law must be normalized and added to the generative construction explicitly; it is not part of the initial deterministic Regime I geometry.
+An optional graph-link variant assigns independent links \(\Lambda_{tj}\in G\) to oriented relations of a separately declared internal graph or cell complex, with \(\Lambda_{jt}=\Lambda_{tj}^{-1}\). These links transform by \(\Lambda_{tj}'=g_t\Lambda_{tj}g_j^{-1}\) and can have a nonidentity product around an undirected cycle. The causal directed graph remains acyclic; a closed walk must come from the underlying relation complex. On a bare graph, cycle holonomy is defined up to conjugation, so its conjugacy class or a class function of it is gauge invariant. A discrete curvature assignment additionally requires declared two-cells whose boundaries support plaquette holonomy. Neither object is curvature of \(P_0\to\{\ast\}\). Any independent-link prior, latent-link entropy, or plaquette energy must be normalized and added to the generative model explicitly; it is absent from the exact core and cannot be substituted silently for \(\Omega_{tj}=U_tU_j^{-1}\).

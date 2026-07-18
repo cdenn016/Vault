@@ -63,8 +63,8 @@
   recognition/.style={-{Stealth[length=2.2mm]}, sciencegreen!85!black, dashed, line width=0.9pt},
   plate/.style={draw=mediumgray, rounded corners=3pt, line width=0.7pt, inner sep=5mm}
 ]
-  \node[parentbank] (mpast) {model-parent bank\\$\{m_j:j\in\mathcal P_t^m\}$};
-  \node[parentbank, below=12mm of mpast] (zpast) {state-parent bank\\$\{z_j:j\in\mathcal P_t^z\}$};
+  \node[parentbank] (mpast) {internal model sources\\$\{m_j:j\in\mathcal P_t^m\}$};
+  \node[parentbank, below=12mm of mpast] (zpast) {internal state sources\\$\{z_j:j\in\mathcal P_t^z\}$};
   \node[parentbank, below=12mm of zpast] (history) {observed history\\$x_{<t}$};
 
   \node[categorical, right=17mm of mpast] (bt) {$b_t$};
@@ -74,8 +74,8 @@
   \node[continuous, right=38mm of at] (zt) {$z_t$};
   \node[observed, right=18mm of zt] (xt) {$x_t$};
 
-  \node[deterministic, above right=18mm and 22mm of mt] (geometry) {$\Gamma$};
-  \node[font=\scriptsize, text=darkgray, above=1mm of geometry] {single global fixed geometry};
+  \node[deterministic, above right=18mm and 22mm of mt] (geometry) {$\Gamma_{\mathrm{core}}$};
+  \node[font=\scriptsize, text=darkgray, above=1mm of geometry] {fixed core structural data};
   \node[recognitiondata, below=13mm of zt] (information) {$\mathcal I_t^{(r)}$ from observed tokens};
 
   \draw[generative] (mpast.north east) to[out=18,in=162] (mt.north west);
@@ -99,7 +99,7 @@
 
   \begin{scope}[on background layer]
     \node[plate, fit=(bt)(at)(mt)(zt)(xt)(information),
-      label={[font=\scriptsize\bfseries, text=darkgray]above left:$t=1,\ldots,T$}] (timeplate) {};
+      label={[font=\scriptsize\bfseries, text=darkgray]above left:population slots $t=1,\ldots,T$ over $\ast$}] (timeplate) {};
   \end{scope}
 
   \node[continuous, minimum size=5mm, below=15mm of history] (legcontinuous) {};
