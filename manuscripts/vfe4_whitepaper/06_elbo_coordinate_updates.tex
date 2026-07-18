@@ -29,7 +29,7 @@ Q_\psi^{(r)}(\mathord{\cdot}\given x,\Gamma)
 \ll p_\theta(\mathord{\cdot}\given x,\Gamma),
 \label{eq:elbo-posterior-absolute-continuity}
 \end{equation}
-with absolute continuity taken relative to the mixed reference in \cref{eq:vfe4-latent-reference-measure}. Equivalently, $Q_\psi^{(r)}$ assigns zero mass to every set on which the posterior density vanishes. In particular, a recognition source probability must vanish wherever the corresponding $\pi_t^z$ or $\pi_t^m$ vanishes. Assume also
+with absolute continuity taken relative to the mixed reference in \cref{eq:vfe4-latent-reference-measure}. Equivalently, $Q_\psi^{(r)}$ assigns zero mass to every set on which the posterior density vanishes. A recognition source probability must therefore vanish wherever the corresponding $\pi_t^z$ or $\pi_t^m$ vanishes. Assume also
 \begin{equation}
 \mathbb E_{Q_\psi^{(r)}}\left[
 \left|\log p_\theta(x,Y\given\Gamma)\right|
@@ -413,7 +413,22 @@ For each conditional Gaussian component, use the canonical coordinates already f
 \tau=(\mu,M).
 \label{eq:canonical-natural-expectation-pairs}
 \end{equation}
-On the interior of the regular Gaussian family, the log normalizer $A(\eta)$ and its Legendre dual $A^*(\tau)$ satisfy
+The corresponding open coordinate domains are
+\begin{equation}
+\begin{aligned}
+\mathcal D_\eta
+&:=\left\{\left(h,-\frac12J\right):
+h\in\mathbb R^D,
+J=J^\top\succ0\right\},\\
+\mathcal D_\tau
+&:=\left\{(\mu,M):
+\mu\in\mathbb R^D,
+M=M^\top,
+M-\mu\mu^\top\succ0\right\}.
+\end{aligned}
+\label{eq:gaussian-dual-open-domains}
+\end{equation}
+On these interiors of the regular Gaussian family, the log normalizer $A(\eta)$ and its Legendre dual $A^*(\tau)$ satisfy
 \begin{equation}
 \tau=\nabla_\eta A(\eta),
 \qquad
@@ -453,7 +468,7 @@ Applying the inverse metric in each chart proves
 \end{equation}
 This is the natural-gradient identity for the declared statistical family, not a name for a coordinate system alone \citep{Amari1998,Amari2016}.
 
-Three update classes must remain separate. When all factors touching a Gaussian block are conjugate quadratic factors, their information contributions add and an exact conditional update sets $(h,J)$ to the resulting information vector and precision. An explicitly Fisher-preconditioned proposal such as $\eta^{\mathrm{new}}=\eta-\rho G_\eta^{-1}\nabla_\eta\VFE$ is a natural-gradient step. Ordinary Euclidean SGD or Adam applied to the entries of $(h,J)$ is neither of these, and natural coordinates alone do not change that fact. The categorical softmax emission is nonconjugate to the Gaussian latent family, so it generally prevents an exact closed-form Gaussian information update. No finite natural-gradient step is guaranteed to lower $\VFE$ without a valid trust region, an accepted line search, or another verified ascent construction.
+Three update classes must remain separate. When all factors touching a Gaussian block are conjugate quadratic factors, their information contributions add and an exact conditional update sets $(h,J)$ to the resulting information vector and precision. An explicitly Fisher-preconditioned proposal such as $\eta^{\mathrm{new}}=\eta-\rho G_\eta^{-1}\nabla_\eta\VFE$ is a natural-gradient step. Ordinary Euclidean SGD or Adam applied to the entries of $(h,J)$ is neither of these, and natural coordinates alone do not change that fact. The categorical softmax emission is nonconjugate to the Gaussian latent family, so it generally prevents an exact closed-form Gaussian information update. Every finite $\eta$-step or $\tau$-step must use a domain-preserving retraction or trust region, or be accepted only after the candidate satisfies $J^{\mathrm{new}}\succ0$ in $\mathcal D_\eta$ or $M^{\mathrm{new}}-\mu^{\mathrm{new}}\mu^{\mathrm{new}\top}\succ0$ in $\mathcal D_\tau$. A candidate outside these domains does not define a Gaussian law and has no valid ELBO value. Domain admissibility alone does not guarantee that a finite natural-gradient step lowers $\VFE$; that claim still requires an accepted objective evaluation or another verified ascent construction.
 
 \section{Gauge invariance of the complete ELBO}
 
@@ -504,5 +519,33 @@ Since $\mathop{\mathrm dy}'=\mathcal J_{\mathsf G}\mathop{\mathrm dy}$ and the d
 \end{equation}
 The same calculation without the recognition denominator proves evidence invariance, and applying it to the posterior ratio proves invariance of the KL gap in \cref{eq:vfe4-evidence-elbo-kl-identity}. By contrast, the continuous differential entropy alone shifts by $\log\mathcal J_{\mathsf G}$ as in \cref{eq:entropy-shift-kl-invariance}; the matching generative-density shift is what cancels it in the complete objective.
 
+If the linear decoder readouts are held fixed, categorical-kernel invariance is weaker than strict logit invariance because softmax ignores a common shift of all vocabulary logits. Define the centered-logit projector
+\begin{equation}
+\mathsf C_V
+:=I_V-\frac1V\boldsymbol 1\boldsymbol 1^\top.
+\label{eq:centered-logit-projector}
+\end{equation}
+For finite logit vectors $u$ and $v$, $\operatorname{softmax}(u)=\operatorname{softmax}(v)$ if and only if $\mathsf C_Vu=\mathsf C_Vv$. Under the contragredient convention in \cref{eq:dual-decoder-gauge-laws}, the exact held-fixed emission-kernel stabilizer is therefore
+\begin{equation}
+\begin{aligned}
+\operatorname{Stab}^{\mathrm{em}}_{\mathcal G_T}(W^z,W^m)
+:=\bigl\{(g_0,\ldots,g_T)\in\mathcal G_T:
+&\mathsf C_VW_t^z\rho_z(g_t)^{-1}
+=\mathsf C_VW_t^z,\\
+&\mathsf C_VW_t^m\rho_m(g_t)^{-1}
+=\mathsf C_VW_t^m\\
+&\text{for every }t=1,\ldots,T\bigr\}.
+\end{aligned}
+\label{eq:fixed-decoder-emission-kernel-stabilizer}
+\end{equation}
+The strict readout stabilizer in \cref{eq:fixed-decoder-stabilizer} is sufficient. More precisely,
+\begin{equation}
+\operatorname{Stab}_{\mathcal G_T}(W^z,W^m)
+\subseteq
+\operatorname{Stab}^{\mathrm{em}}_{\mathcal G_T}(W^z,W^m).
+\label{eq:strict-readout-stabilizer-subset}
+\end{equation}
+The inclusion can be proper when a transformed readout differs only by a row-common linear functional, which adds the same input-dependent scalar to every vocabulary logit.
+
 \paragraph{Proposition (complete gauge invariance).}
-Under simultaneous pushforward of the generative and recognition measures, transformation of every transition and decoder law, and the support and integrability conditions above, the evidence, posterior KL, $\ELBO$, and $\VFE$ are invariant under the block frame map. If the decoder weights are held fixed instead of transformed by \cref{eq:dual-decoder-gauge-laws}, the statement holds only for the fixed-decoder stabilizer in \cref{eq:fixed-decoder-stabilizer}; the full local gauge group is then not a symmetry. \hfill$\square$
+Under simultaneous pushforward of the generative and recognition measures, transformation of every transition and decoder law, and the support and integrability conditions above, the evidence, posterior KL, $\ELBO$, and $\VFE$ are invariant under the block frame map. If the decoder weights are held fixed instead of transformed by \cref{eq:dual-decoder-gauge-laws}, the statement holds on the categorical emission-kernel stabilizer in \cref{eq:fixed-decoder-emission-kernel-stabilizer}. The strict Task-5 subgroup in \cref{eq:fixed-decoder-stabilizer} remains a sufficient subgroup, but need not exhaust the softmax-kernel symmetry. Outside the emission-kernel stabilizer, the full local gauge group is not a symmetry. \hfill$\square$
