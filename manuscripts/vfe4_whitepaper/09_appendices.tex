@@ -6,6 +6,57 @@ This appendix records supporting coordinate and factor-assembly identities that 
 
 This appendix collects proof details and reference checks for claims introduced in the main text. It will make the corresponding assumptions and numerical oracles explicit when those derivations are added.
 
+\section{Bundle-map dimension and type oracle}
+
+The coordinate audit for \cref{eq:typed-associated-transports,eq:typed-model-state-morphism} begins with column vectors $z_j,z_t\in\mathbb R^{d_z}$ and $m_j,m_t\in\mathbb R^{d_m}$.  The represented state link has shape $d_z\times d_z$, the represented model link has shape $d_m\times d_m$, and the cross-channel morphism has shape $d_z\times d_m$.  Consequently,
+\begin{equation}
+\begin{aligned}
+\underbrace{\Omega^z_{tj}}_{d_z\times d_z}
+\underbrace{z_j}_{d_z\times 1}
+&\in\mathbb R^{d_z},
+&
+\underbrace{\Omega^m_{tj}}_{d_m\times d_m}
+\underbrace{m_j}_{d_m\times 1}
+&\in\mathbb R^{d_m},\\
+\underbrace{B_t}_{d_z\times d_m}
+\underbrace{m_t}_{d_m\times 1}
+&\in\mathbb R^{d_z}.
+&&
+\end{aligned}
+\label{eq:bundle-map-dimension-oracle}
+\end{equation}
+The first and third outputs in \cref{eq:bundle-map-dimension-oracle} inhabit the same target fiber $E_{z,t}$ and may enter one state-kernel location parameter.  The model-link output inhabits $E_{m,t}$ and may enter a model-kernel location parameter.  Combining the latter directly with a state-fiber vector would be ill typed.
+
+The gauge-law audit is equally mechanical.  With $\rho_z(g_t)\in\mathbb R^{d_z\times d_z}$ and $\rho_m(g_t)\in\mathbb R^{d_m\times d_m}$, every product in \cref{eq:link-morphism-gauge-laws} has the same shape as the unprimed map:
+\begin{equation}
+\begin{aligned}
+(d_z\times d_z)(d_z\times d_z)(d_z\times d_z)&=d_z\times d_z,\\
+(d_m\times d_m)(d_m\times d_m)(d_m\times d_m)&=d_m\times d_m,\\
+(d_z\times d_z)(d_z\times d_m)(d_m\times d_m)&=d_z\times d_m.
+\end{aligned}
+\label{eq:gauge-law-dimension-oracle}
+\end{equation}
+No equality $d_z=d_m$ is used.  This check is the source-level oracle for later probability kernels: a kernel over $E_{z,t}$ must receive a location in $E_{z,t}$ and a covariance or precision endomorphism of $E_{z,t}$, while a kernel over $E_{m,t}$ must receive the corresponding model-fiber objects.
+
+\section{Expanded Regime I composition check}
+
+For a path $v_0\to v_1\to\cdots\to v_r$ in the auxiliary geometric graph, the composite group transport is ordered so that the rightmost map acts first.  Repeated use of \cref{eq:regime-i-cocycle-identity} gives
+\begin{equation}
+\Omega_{v_rv_{r-1}}\cdots\Omega_{v_1v_0}
+=U_{v_r}U_{v_0}^{-1}.
+\label{eq:regime-i-open-path-telescope}
+\end{equation}
+Thus an open-path transport depends only on its endpoints in Regime I.  Setting $v_r=v_0$ yields the identity, as in \cref{eq:regime-i-loop-holonomy}.  Applying either representation to \cref{eq:regime-i-open-path-telescope} gives the correctly typed composites
+\begin{equation}
+\Omega^z_{v_rv_{r-1}}\circ\cdots\circ\Omega^z_{v_1v_0}
+:E_{z,v_0}\longrightarrow E_{z,v_r},
+\qquad
+\Omega^m_{v_rv_{r-1}}\circ\cdots\circ\Omega^m_{v_1v_0}
+:E_{m,v_0}\longrightarrow E_{m,v_r}.
+\label{eq:associated-open-path-types}
+\end{equation}
+This check uses a geometric walk in the underlying undirected graph or cell complex.  It does not insert a directed cycle into the causal factor graph.
+
 \chapter{Notation}
 
 This appendix reserves a stable location for the notation shared by the preceding construction. It does not introduce additional model assumptions beyond those defined in the main text.
