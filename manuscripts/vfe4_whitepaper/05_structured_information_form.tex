@@ -1,6 +1,6 @@
 \chapter{Structured Recognition in Information Coordinates}
 
-This chapter defines normalized recognition laws over the complete latent inventory of \cref{eq:vfe4-generative-joint} and then identifies the conditional Gaussian subfamily used by the reference implementation.  The distinction between filtering, smoothing, and prediction is part of the probability model: the first two are observation-conditioned variational laws, whereas prediction uses the target-blind causal prior.
+This chapter defines normalized recognition laws over the complete latent inventory of \cref{eq:vfe4-generative-joint} and then identifies the conditional Gaussian subfamily used by the reference implementation. The recognition law is a joint law on the labeled population fiber, not a product assembled from independently specified agent marginals. The distinction between filtering, smoothing, and prediction is part of the probability model: the first two are observation-conditioned variational laws, whereas prediction uses the target-blind causal prior.
 
 \section{Normalized filtering and smoothing laws}
 
@@ -52,9 +52,11 @@ and the factor is zero outside those sets.  In the local frames of \cref{eq:norm
 \end{aligned}
 \label{eq:recognition-factor-normalization}
 \end{equation}
-for every fixed value of the displayed conditioning variables.  Repeated conditional integration and summation therefore normalize \cref{eq:normalized-filtering-smoothing-recognition}.  The joint time-slice notation imposes no within-slice mean-field assumption; a particular implementation may further factor a slice only after declaring the corresponding conditional independences.
+for every fixed value of the displayed conditioning variables. Repeated conditional integration and summation therefore normalize \cref{eq:normalized-filtering-smoothing-recognition}. The joint agent-slice notation imposes no within-slice mean-field assumption; a particular implementation may further factor a slice only after declaring the corresponding conditional independences.
 
-Dependence on $\mathcal H_t$ allows a later latent block to depend on earlier latent blocks.  Consequently, even if the innovation within each conditional factor is block diagonal, the marginal path law can carry cross-token and cross-channel covariance.  Removing history dependence is a restriction of the recognition family, not a consequence of filtering.
+Dependence on $\mathcal H_t$ allows a later latent block to depend on earlier latent blocks. Consequently, even if the innovation within each conditional factor is block diagonal, the marginal population law can carry cross-agent and cross-channel covariance. Removing history dependence is a restriction of the recognition family, not a consequence of filtering.
+
+The local statistical sections are recovered from the global recognition law. After marginalizing the discrete sources, \cref{eq:agent-beliefs-as-population-marginals} defines each state belief $q_t(\ast)$ and model belief $s_t(\ast)$ by pushforward. This joint-first convention supplies cross-agent consistency automatically. Specifying only those marginals would leave the copula and therefore the population entropy, conditional dependence, and off-diagonal precision blocks undetermined.
 
 The causal predictive law at position $t$ is a different object.  Before observing $x_t$, \cref{eq:vfe4-generative-joint} induces
 \begin{equation}
@@ -72,7 +74,7 @@ This normalized prior contains neither $x_t$ nor a variational parameter.  Train
 
 \section{Conditional joint Gaussian information form}
 
-Stack the continuous path in token-major order as
+Stack the continuous population sample in agent-major order as
 \begin{equation}
 y:=\operatorname{col}(z_0,m_0,\ldots,z_T,m_T)
 \in\mathbb R^D,
@@ -80,6 +82,7 @@ y:=\operatorname{col}(z_0,m_0,\ldots,z_T,m_T)
 D=(T+1)(d_z+d_m).
 \label{eq:stacked-continuous-path}
 \end{equation}
+This coordinate vector represents an element of $\mathcal Y_T$ after agent frames have been chosen. It is not a sampled path through distinct points of the base manifold.
 Because $(a,b)$ are finite discrete variables, any recognition law admits the disintegration
 \begin{equation}
 Q_\psi^{(r)}(y,a,b\given x,\Gamma)
@@ -108,7 +111,7 @@ H\left(q_\psi^{(r)}(\mathord{\cdot}\given a,b,x,\Gamma)\right).
 \end{aligned}
 \label{eq:mixed-recognition-joint-entropy}
 \end{equation}
-Here $H(w):=-\sum_{a,b}w(a,b)\log w(a,b)$, with $0\log0:=0$.  The second equality uses $\log(wq)=\log w+\log q$ on every positive-weight component.  Equation~\eqref{eq:mixed-recognition-joint-entropy} is the joint entropy of the categorical sources and continuous path that enters the ELBO, so the source entropy cannot be omitted.
+Here $H(w):=-\sum_{a,b}w(a,b)\log w(a,b)$, with $0\log0:=0$. The second equality uses $\log(wq)=\log w+\log q$ on every positive-weight component. Equation~\eqref{eq:mixed-recognition-joint-entropy} is the joint entropy of the categorical sources and continuous population sample that enters the ELBO, so the source entropy cannot be omitted.
 
 This joint mixed entropy is not the differential entropy of the source-marginal mixture in \cref{eq:source-marginal-gaussian-mixture}.  The latter is
 \begin{equation}
@@ -149,6 +152,23 @@ h=J\mu.
 \label{eq:information-moment-conversion}
 \end{equation}
 These relations are solve interfaces: they do not require constructing a dense inverse.
+
+For an agent block $y_i=(z_i,m_i)$, partition $h$, $J$, and $\Sigma=J^{-1}$ conformably. The marginal and full conditional are different Gaussian objects:
+\begin{equation}
+\begin{aligned}
+q(y_i)&=\mathcal N(y_i;\mu_i,\Sigma_{ii}),\\
+q(y_i\given y_{-i})
+&=\mathcal N\left(
+y_i;
+J_{ii}^{-1}(h_i-J_{i,-i}y_{-i}),
+J_{ii}^{-1}
+\right),\\
+\Sigma_{ii}^{-1}
+&=J_{ii}-J_{i,-i}J_{-i,-i}^{-1}J_{-i,i}.
+\end{aligned}
+\label{eq:gaussian-agent-marginal-conditional-dictionary}
+\end{equation}
+Thus $J_{ii}$ is a conditional precision, while the Schur complement is the marginal precision. The persistent agent belief in \cref{eq:agent-beliefs-as-population-marginals} uses the first line. The structured coordinate kernel in \cref{eq:structured-block-disintegration} uses a conditional of the second kind. Equation~\eqref{eq:gaussian-agent-marginal-conditional-dictionary} applies componentwise at fixed source assignment; after source marginalization, the exact law is generally a mixture and need not have one precision matrix.
 
 Marginalizing the source variables gives
 \begin{equation}
@@ -203,8 +223,8 @@ Equivalently, differentiating with respect to $\eta_2=-J/2$ gives $\nabla_{\eta_
 \centering
 \resizebox{\textwidth}{!}{\input{vfe4_whitepaper/figures/vfe4_bundle_dual_coordinates}}
 \caption{%
-\textbf{Associated state/model fibers and dual Gaussian coordinates.}
-The left panel keeps the distinct state fibers $E_{z,\bullet}$ and model fibers $E_{m,\bullet}$ over tokens $j<t$, with represented transports $\Omega^z_{tj}$ and $\Omega^m_{tj}$ and the typed within-token morphism $B_t:E_{m,t}\to E_{z,t}$. The right panel gives three coordinate descriptions of the same conditional Gaussian law: natural $(h,-J/2)$ and expectation $(\mu,M)$ coordinates form the Legendre/Fisher dual pair, whereas $(\mu,\Sigma)$ is connected to the expectation view by the ordinary conversion $M=\Sigma+\mu\mu^\top$. These coordinate arrows are not additional probabilistic factors.
+\textbf{General statistical sections, zero-dimensional population copies, and dual Gaussian coordinates.}
+The left panel shows state and model statistical bundles over the general base $\mathcal C$. The middle panel specializes to one point $\ast$, retains labeled agent copies $j<t$, and places $\Omega^z_{tj}$, $\Omega^m_{tj}$, and $B_t$ inside the population rather than along the base. The right panel gives three coordinate descriptions of the same correlated conditional Gaussian law: natural $(h,-J/2)$ and expectation $(\mu,M)$ coordinates form the Legendre/Fisher dual pair, whereas $(\mu,\Sigma)$ is connected to the expectation view by $M=\Sigma+\mu\mu^\top$. These coordinate arrows are not additional probabilistic factors.
 }
 \label{fig:vfe4-bundle-dual-coordinates}
 \end{figure}
@@ -244,7 +264,7 @@ D\bigl(1+\log(2\pi)\bigr)+\log\det\Sigma
 \end{aligned}
 \label{eq:full-joint-gaussian-entropy}
 \end{equation}
-For token blocks $y_t=(z_t,m_t)$, the difference
+For agent blocks $y_t=(z_t,m_t)$, the difference
 \begin{equation}
 \sum_{t=0}^{T}H(q(y_t))-H(q(y))
 =D_{\mathrm{KL}}
@@ -254,7 +274,24 @@ q(y)\middle\Vert\prod_{t=0}^{T}q(y_t)
 \geq0,
 \label{eq:gaussian-total-correlation}
 \end{equation}
-is the total correlation.  Replacing the joint entropy by a sum of node entropies therefore drops this dependence term and overcounts the entropy unless the token blocks are independent.
+is the total correlation. Replacing the joint entropy by a sum of agent entropies therefore drops this dependence term and overcounts the entropy unless the agent blocks are independent.
+
+The failure of local marginals to determine the joint is visible even for two scalar agents. For every $|\rho|<1$, let
+\begin{equation}
+Q_\rho
+:=\mathcal N\left(
+0,
+\begin{pmatrix}1&\rho\\\rho&1\end{pmatrix}
+\right).
+\label{eq:fixed-marginals-varying-correlation-example}
+\end{equation}
+Both marginals are $\mathcal N(0,1)$ for every $\rho$, but
+\begin{equation}
+H(Q_\rho)-H(Q_0)
+=\frac12\log(1-\rho^2).
+\label{eq:fixed-marginals-varying-entropy}
+\end{equation}
+The agent beliefs therefore fix neither the joint entropy nor the cross-agent moments. A global ELBO requires the additional joint structure supplied here by $Q$.
 
 Let $q_i=\mathcal N(\mu_i,\Sigma_i)$ with $J_i=\Sigma_i^{-1}$ for $i\in\{0,1\}$.  With the orientation $D_{\mathrm{KL}}(q_0\Vert q_1)$ fixed, the covariance form is
 \begin{equation}
@@ -293,7 +330,7 @@ D_{\mathrm{KL}}(q_0\Vert q_1)
 \end{equation}
 The appendix derives these identities and audits their determinant signs.  They are standard Gaussian and exponential-family identities \citep{Kullback1951,petersen2012matrix,Wainwright2008}.
 
-\section{Global gauge action and family closure}
+\section{Internal population-frame action and family closure}
 
 Using the fiber coordinate matrices in \cref{eq:fiber-coordinate-change-matrices}, define the combined token maps and their block-diagonal global assembly by
 \begin{equation}
@@ -304,7 +341,7 @@ Using the fiber coordinate matrices in \cref{eq:fiber-coordinate-change-matrices
 :=\operatorname{diag}(\mathsf G_0,\ldots,\mathsf G_T).
 \label{eq:block-diagonal-global-frame-map}
 \end{equation}
-The stacked path transforms as $y'=\mathsf G y$.  Pushforward of the Gaussian probability measure then gives
+The population vector transforms as $y'=\mathsf G y$. The independent matrices $g_t$ define the internal product action of $\mathcal G_T=G^{T+1}$ from \cref{eq:population-frame-torsor}; they are not independent base gauge transformations on $\mathcal C_0$. The diagonal restriction $g_0=\cdots=g_T$ is the gauge action inherited from the single principal $G$-bundle over the point. Pushforward of the Gaussian probability measure gives
 \begin{equation}
 \begin{aligned}
 h'&=\mathsf G^{-\top}h,
@@ -332,15 +369,15 @@ D_{\mathrm{KL}}(q_0'\Vert q_1')
 \end{equation}
 Differential entropy is coordinate dependent, while the common Jacobian cancels from the log-density ratio defining KL.
 
-Partition $J$ into combined token blocks $J_{ts}$.  Because \cref{eq:block-diagonal-global-frame-map} does not mix token indices,
+Partition $J$ into combined agent blocks $J_{ts}$. Because \cref{eq:block-diagonal-global-frame-map} does not mix population labels,
 \begin{equation}
 J_{ts}'
 =\mathsf G_t^{-\top}J_{ts}\mathsf G_s^{-1}.
 \label{eq:precision-token-block-gauge-law}
 \end{equation}
-Invertibility implies $J_{ts}'=0$ if and only if $J_{ts}=0$.  Token-block sparsity, including block-banded and block-tridiagonal patterns, is therefore closed under the local gauge action.
+Invertibility implies $J_{ts}'=0$ if and only if $J_{ts}=0$. Population-block sparsity, including block-banded and block-tridiagonal patterns induced by the internal graph, is therefore closed under the declared product action.
 
-Within-token scalar diagonality is not closed under general $\mathrm{GL}(K)$.  For example,
+Within-agent scalar diagonality is not closed under general $\mathrm{GL}(K)$. For example,
 \begin{equation}
 \Sigma=I_2,
 \qquad
@@ -350,7 +387,7 @@ G\Sigma G^\top
 =\begin{pmatrix}2&1\\1&1\end{pmatrix}.
 \label{eq:diagonal-covariance-nonclosure-example}
 \end{equation}
-Thus a full-$\mathrm{GL}(K)$ path must retain full within-token blocks, choose another representation class closed under the action, or restrict the group.  Rewriting a nonclosed family in natural coordinates does not restore closure.
+Thus a full-$\mathrm{GL}(K)$ construction must retain full within-agent blocks, choose another representation class closed under the action, or restrict the group. Rewriting a nonclosed family in natural coordinates does not restore closure.
 
 \section{Sparse precision as the scalable interface}
 

@@ -1,6 +1,6 @@
 \chapter{A Fixed Normalized Generative Model}
 
-This chapter specifies the normalized causal joint after the observation semantics and geometric objects have been fixed. Its transition, source-prior, and categorical emission factors establish the model against which the later structured recognition law and ELBO are defined.
+This chapter specifies the normalized causal joint after the observation semantics, zero-dimensional population fiber, and internal geometric maps have been fixed. Its transition, source-prior, and categorical emission factors establish the model against which the later structured recognition law and ELBO are defined. The internal causal graph orders variables in the population stack; it is not used as a bundle base.
 
 \section{Causal sources and reference measures}
 
@@ -13,16 +13,16 @@ equipped with counting measure.  For every $t\in\{1,\ldots,T\}$, choose nonempty
 \begin{equation}
 \begin{aligned}
 \varnothing\ne\operatorname{Pa}_z(t)
-&\subseteq\{j\in V_T:(j,t)\in E_T\}
+&\subseteq\{j\in I_T:(j,t)\in E_T\}
 \subseteq\{0,\ldots,t-1\},
 \\
 \varnothing\ne\operatorname{Pa}_m(t)
-&\subseteq\{j\in V_T:(j,t)\in E_T\}
+&\subseteq\{j\in I_T:(j,t)\in E_T\}
 \subseteq\{0,\ldots,t-1\}.
 \end{aligned}
 \label{eq:nonempty-causal-parent-sets}
 \end{equation}
-The last inclusions follow from \cref{eq:causal-token-graph}.  Hence every selected source is a permitted edge predecessor and has the typed state and model transports declared in \cref{eq:typed-associated-transports}.  The categorical variables $a_t\in\operatorname{Pa}_z(t)$ and $b_t\in\operatorname{Pa}_m(t)$ select the state and model source, respectively.  Their fixed priors are probability mass functions satisfying
+The last inclusions follow from \cref{eq:causal-token-graph}. Hence every selected source is a permitted internal predecessor and has the typed same-point state and model maps declared in \cref{eq:typed-associated-transports}. The categorical variables $a_t\in\operatorname{Pa}_z(t)$ and $b_t\in\operatorname{Pa}_m(t)$ select the state and model source, respectively. Their fixed priors are probability mass functions satisfying
 \begin{equation}
 \begin{aligned}
 \pi_t^z(j)&\geq0,
@@ -36,7 +36,7 @@ The last inclusions follow from \cref{eq:causal-token-graph}.  Hence every selec
 \end{equation}
 These priors are model quantities and do not depend on a later recognition law. In the exact core they are also fixed with respect to the realized latent content, so the generative source variables define normalized mixture ancestry rather than content-dependent transformer attention. A future causal extension could replace them by target-blind normalized laws conditioned only on $x_{<t}$, earlier generated latents, and $\Gamma$. Such a replacement would change the generative joint and would require a new normalization and ELBO audit; it is not an identity of the present model.
 
-Each finite-dimensional fiber carries its Borel $\sigma$-algebra.  A choice of local frame identifies $E_{z,t}$ and $E_{m,t}$ with Euclidean coordinate spaces and supplies Lebesgue reference measures $\lambda_{z,t}$ and $\lambda_{m,t}$.  The initial density is jointly normalized with respect to the receiver-fiber product measure,
+Each finite-dimensional labeled sample copy carries its Borel $\sigma$-algebra. A choice of agent frame identifies $E_{z,t}$ and $E_{m,t}$ with Euclidean coordinate spaces and supplies Lebesgue reference measures $\lambda_{z,t}$ and $\lambda_{m,t}$. The initial density is jointly normalized with respect to the receiver-copy product measure,
 \begin{equation}
 \int_{E_{z,0}\times E_{m,0}}
 p_{\theta,0}(z_0,m_0\given\Gamma)
@@ -68,7 +68,14 @@ All history-dependent coefficient maps used below are Borel measurable in $x_{<t
 
 \section{The authoritative conditional joint}
 
-Retain the complete-path notation $\boldsymbol z=(z_t)_{t=0}^{T}$ and $\boldsymbol m=(m_t)_{t=0}^{T}$ from \cref{eq:random-vertex-sections}, and write $x=x_{1:T}$, $a=a_{1:T}$, and $b=b_{1:T}$.  With $\Gamma$ held fixed as deterministic geometric data, the generative density is defined once by
+Retain the complete-population notation $\boldsymbol z=(z_t)_{t=0}^{T}$ and $\boldsymbol m=(m_t)_{t=0}^{T}$ from \cref{eq:random-vertex-sections}, and write $x=x_{1:T}$, $a=a_{1:T}$, and $b=b_{1:T}$. In the exact core,
+\begin{equation}
+\Gamma=\Gamma_{\mathrm{core}}
+:=
+(\Gamma_{\mathrm{base},0},\Gamma_{\mathrm{fr}},\Gamma_{\mathrm{mor}}),
+\label{eq:core-geometry-sector-split}
+\end{equation}
+where $\Gamma_{\mathrm{base},0}$ records the singleton-base selection and representations, $\Gamma_{\mathrm{fr}}$ records the population frames $U_t$ and the constrained coboundaries $\Omega_{tj}=U_tU_j^{-1}$, and $\Gamma_{\mathrm{mor}}$ records typed maps such as $B_t$. Independent graph links $\Lambda_{tj}$ belong instead to an optional $\Gamma_{\mathrm{graph}}$ extension and are not equivalent to $\Gamma_{\mathrm{fr}}$. With $\Gamma$ held fixed, the generative density is defined once by
 \begin{equation}
 \begin{aligned}
 p_\theta(x,\boldsymbol z,\boldsymbol m,a,b\given\Gamma)
@@ -87,19 +94,19 @@ The order inside each time slice is generative: the model state is drawn before 
 \centering
 \resizebox{\textwidth}{!}{\input{vfe4_whitepaper/figures/vfe4_factor_graph}}
 \caption{%
-\textbf{Normalized causal joint and recognition-only dependencies.}
-Solid navy arrows depict the directed dependencies in \cref{eq:vfe4-generative-joint}: each causal parent bank and its categorical selector are distinct co-parents of the receiving variable, $m_t$ is generated before $z_t$, and $(m_t,z_t)$ emit the observed token $x_t$. The single global $\Gamma$ lies outside the time plate, and its gray arrows show conditioning of the model transition, state transition, and emission on the same fixed geometric data rather than on time-replicated random variables. Teal dashed arrows show observation conditioning that belongs only to the recognition law. Circles are continuous variables, diamonds are categorical variables, a double rectangle is observed, and a hexagon is fixed rather than random.
+\textbf{Normalized causal joint inside the zero-dimensional population stack.}
+Solid navy arrows depict the directed dependencies in \cref{eq:vfe4-generative-joint}: each internal parent bank and its categorical selector are distinct co-parents of the receiving variable, $m_t$ is generated before $z_t$, and $(m_t,z_t)$ emit the observed token $x_t$. The plate indexes labeled agents over the same point $\ast$; it is a probability graph, not the bundle base. The single fixed $\Gamma_{\mathrm{core}}$ lies outside the plate, and its gray arrows show conditioning on the same base-selection, frame-coboundary, and morphism data rather than on time-replicated random variables. Teal dashed arrows show observation conditioning that belongs only to the recognition law. Circles are continuous variables, diamonds are categorical variables, a double rectangle is observed, and a hexagon is fixed rather than random.
 }
 \label{fig:vfe4-factor-graph}
 \end{figure}
 
-\section{Receiver-fiber Gaussian transitions}
+\section{Labeled receiver-copy Gaussian transitions}
 
-A minimal non-neural realization uses offsets $c_{\theta,t}^m\in E_{m,t}$ and $c_{\theta,t}^z\in E_{z,t}$ and receiver covariances
+A minimal non-neural realization uses offsets $c_{\theta,t}^m\in E_{m,t}$ and $c_{\theta,t}^z\in E_{z,t}$ and receiver covariances on the labeled copies
 \begin{equation}
-R_{\theta,t}^m\in\operatorname{Sym}_+^2(E_{m,t}),
+R_{\theta,t}^m\in\operatorname{Sym}_{++}^2(E_{m,t}),
 \qquad
-R_{\theta,t}^z\in\operatorname{Sym}_+^2(E_{z,t}),
+R_{\theta,t}^z\in\operatorname{Sym}_{++}^2(E_{z,t}),
 \label{eq:receiver-spd-transition-covariances}
 \end{equation}
 which may be measurable functions of $(x_{<t},\Gamma)$ but are symmetric positive definite for every history.  Their conditional locations are
@@ -134,9 +141,9 @@ K^z_{\theta,tj}
 \end{equation}
 Here the conditioning arguments are those in \cref{eq:normalized-transition-kernels} and are suppressed only to keep the density formula legible.  Positive definiteness gives finite positive determinants and makes both kernels normalized with respect to their receiver measures.
 
-\section{Gauge covariance of transition measures}
+\section{Internal population-frame covariance of transition measures}
 
-For a local frame change, abbreviate
+For a population-frame change, abbreviate
 \begin{equation}
 \mathsf G_{z,t}:=\rho_z(g_t),
 \qquad
@@ -216,7 +223,7 @@ d_t'=d_t,
 \end{equation}
 make every logit, and hence every categorical probability, invariant under simultaneous frame and parameter transformation.
 
-If the decoder is instead held fixed while the latent coordinates transform, the surviving local gauge group is exactly its stabilizer.  For the full local gauge group $\mathcal G_T:=G^{T+1}$, this subgroup is
+If the decoder is instead held fixed while the latent coordinates transform, the surviving internal population-frame subgroup is exactly its stabilizer. For the internal product group $\mathcal G_T:=G^{T+1}$, this subgroup is
 \begin{equation}
 \begin{aligned}
 \operatorname{Stab}_{\mathcal G_T}(W^z,W^m)
@@ -253,7 +260,7 @@ Suppose \cref{eq:nonempty-causal-parent-sets,eq:normalized-causal-source-priors,
 \emph{Proof sketch.}
 Nonnegativity permits Tonelli's theorem.  Starting at $t=T$, first sum over $x_T$, then integrate over $z_T$, sum over $a_T$, integrate over $m_T$, and sum over $b_T$.  Each operation replaces its normalized conditional factor or probability mass function by one while holding its causal history fixed.  Repeat this terminal-block elimination for $t=T-1,\ldots,1$.  The remaining integral is the normalized initial law in \cref{eq:normalized-initial-law}.  History dependence causes no extra term because every coefficient at time $t$ is measurable in already-fixed $x_{<t}$ and no earlier factor depends on a later variable.  The complete measure-theoretic argument appears in the appendix.  \hfill$\square$
 
-The exact core conditions on $\Gamma$ and assigns it no random law.  Promoting the geometric data to latent variables would require a declared measurable geometry space with reference measure $\nu_\Gamma$ and a proper density satisfying
+The exact core conditions on $\Gamma_{\mathrm{core}}$ and assigns it no random law. Promoting population frames, independent graph links, morphisms, or a positive-dimensional contextual base connection to latent variables would require separate declared measurable spaces, reference measures, and proper densities. A generic notation $\nu_\Gamma$ is adequate only after the selected sector has been specified, with a proper density satisfying
 \begin{equation}
 \int p_\theta(\Gamma)\mathop{\mathrm d\nu_\Gamma(\Gamma)}=1.
 \label{eq:proper-latent-geometry-prior}

@@ -83,7 +83,7 @@ H(q)
 \end{aligned}
 \label{eq:joint-entropy-derivation}
 \end{equation}
-including the full joint determinant.  If $q_t$ are the token marginals, then
+including the full joint determinant. If $q_t$ are the agent-block marginals of one fixed-source Gaussian component, then
 \begin{equation}
 \begin{aligned}
 D_{\mathrm{KL}}
@@ -95,7 +95,37 @@ D_{\mathrm{KL}}
 \end{aligned}
 \label{eq:total-correlation-entropy-proof}
 \end{equation}
-which proves the sign in \cref{eq:gaussian-total-correlation}.
+which proves the sign in \cref{eq:gaussian-total-correlation}. For the complete source-marginal recognition law, the same entropy identity applies directly to that generally non-Gaussian joint and its marginals, although the Gaussian determinant formula need not apply.
+
+To verify the marginal--conditional dictionary in \cref{eq:gaussian-agent-marginal-conditional-dictionary}, partition one component's canonical parameters as
+\begin{equation}
+J=
+\begin{pmatrix}
+J_{ii}&J_{i,-i}\\
+J_{-i,i}&J_{-i,-i}
+\end{pmatrix},
+\qquad
+h=
+\begin{pmatrix}h_i\\h_{-i}\end{pmatrix}.
+\label{eq:partitioned-agent-information-parameters}
+\end{equation}
+Holding $y_{-i}$ fixed leaves the canonical terms in $y_i$ as
+\begin{equation}
+\left(h_i-J_{i,-i}y_{-i}\right)^\top y_i
+-\frac12y_i^\top J_{ii}y_i,
+\label{eq:agent-conditional-canonical-exponent}
+\end{equation}
+which gives conditional precision $J_{ii}$ and conditional mean $J_{ii}^{-1}(h_i-J_{i,-i}y_{-i})$. Eliminating $y_{-i}$ by Gaussian completion instead gives marginal canonical parameters
+\begin{equation}
+\begin{aligned}
+J_i^{\mathrm{marg}}
+&=J_{ii}-J_{i,-i}J_{-i,-i}^{-1}J_{-i,i},\\
+h_i^{\mathrm{marg}}
+&=h_i-J_{i,-i}J_{-i,-i}^{-1}h_{-i}.
+\end{aligned}
+\label{eq:agent-marginal-schur-parameters}
+\end{equation}
+The block inverse identity yields $\Sigma_{ii}=(J_i^{\mathrm{marg}})^{-1}$, and $\mu_i=(J_i^{\mathrm{marg}})^{-1}h_i^{\mathrm{marg}}$. This proof applies componentwise to $q(y\given a,b,x,\Gamma)$. Persistent agent beliefs are pushforward marginals of the complete source-marginal $Q_\psi$ and are generally mixtures.
 
 For $q_i=\mathcal N(\mu_i,\Sigma_i)$, write $\delta:=\mu_0-\mu_1$.  The two quadratic expectations needed for the oriented ratio $\log(q_0/q_1)$ are
 \begin{equation}
@@ -128,7 +158,7 @@ D_{\mathrm{KL}}(q_0\Vert q_1)
 \end{equation}
 which is \cref{eq:gaussian-kl-natural-expectation-form}.
 
-\section{Gauge pushforward and precision-family closure}
+\section{Internal population-frame pushforward and precision-family closure}
 
 Let $y'=\mathsf G y$ with the block-diagonal invertible map in \cref{eq:block-diagonal-global-frame-map}.  Substituting $y=\mathsf G^{-1}y'$ into the exponent gives
 \begin{equation}
@@ -138,7 +168,7 @@ h^\top y-\frac12y^\top Jy
 (\mathsf G^{-\top}J\mathsf G^{-1})y',
 \label{eq:gauge-transformed-information-exponent}
 \end{equation}
-which proves the $(h,J)$ transformations in \cref{eq:joint-gaussian-gauge-laws}.  Inversion and expectation then give
+which proves the $(h,J)$ transformations in \cref{eq:joint-gaussian-gauge-laws}. Here $\mathsf G$ is the block representation of the declared internal product action $\mathcal G_T=G^{T+1}$. Its diagonal subgroup is the common base-frame action inherited from the principal $G$-bundle over $\ast$. Inversion and expectation then give
 \begin{equation}
 \begin{aligned}
 (J')^{-1}
@@ -158,8 +188,8 @@ Moreover,
 \end{equation}
 while the quadratic term $h^\top J^{-1}h$ is unchanged.  Hence $A'=A+\log|\det\mathsf G|$ and $H'=H+\log|\det\mathsf G|$.  The pushed-forward density acquires the inverse Jacobian, so both factors in a KL ratio acquire the same additive log-density shift.  Their difference is unchanged, proving \cref{eq:entropy-shift-kl-invariance}.
 
-\paragraph{Proposition (closure of token-block precision sparsity).}
-Let $\mathcal S$ be any set of token-index pairs and let
+\paragraph{Proposition (closure of population-block precision sparsity).}
+Let $\mathcal S$ be any set of population-index pairs and let
 \begin{equation}
 \mathcal J_{\mathcal S}
 :=\{J=J^\top\succ0:J_{ts}=0\text{ for }(t,s)\notin\mathcal S\}.
@@ -170,7 +200,7 @@ For every block-diagonal $\mathsf G=\operatorname{diag}(\mathsf G_0,\ldots,\math
 \emph{Proof.}
 Block multiplication gives $J_{ts}'=\mathsf G_t^{-\top}J_{ts}\mathsf G_s^{-1}$.  Thus $J_{ts}=0$ implies $J_{ts}'=0$.  Applying the same argument to $J=\mathsf G^\top J'\mathsf G$ proves the converse.  Congruence by an invertible matrix preserves positive definiteness, so every transformed matrix remains in the precision cone.  \hfill$\square$
 
-The conclusion does not extend to elementwise diagonality within a token block.  The matrix in \cref{eq:diagonal-covariance-nonclosure-example} has determinant one, yet its congruence image of $I_2$ has off-diagonal entry one.  General $\mathrm{GL}(2)$ therefore takes the diagonal-covariance family outside itself.  The same example applies to a diagonal precision by replacing the frame map with its inverse transpose.
+The conclusion does not extend to elementwise diagonality within a population block.  The matrix in \cref{eq:diagonal-covariance-nonclosure-example} has determinant one, yet its congruence image of $I_2$ has off-diagonal entry one.  General $\mathrm{GL}(2)$ therefore takes the diagonal-covariance family outside itself.  The same example applies to a diagonal precision by replacing the frame map with its inverse transpose.
 
 Finally, direct multiplication verifies that the two matrices in \cref{eq:tridiagonal-precision-dense-covariance} are inverses.  Hence even the shortest nondegenerate Markov chain can have a tridiagonal precision and a dense covariance.  Sparse storage promises exact factorization and solve interfaces for $J$; it does not promise sparse storage for $J^{-1}$.
 
@@ -180,9 +210,9 @@ This appendix collects proof details and reference checks for claims introduced 
 
 \section{Full normalization proof for the fixed conditional joint}
 
-By \cref{eq:nonempty-causal-parent-sets}, every state or model source index lies on a permitted edge $(j,t)\in E_T$.  The transports $\Omega^z_{tj}$ and $\Omega^m_{tj}$ used by the corresponding Gaussian kernels are therefore defined by \cref{eq:typed-associated-transports}.
+By \cref{eq:nonempty-causal-parent-sets}, every state or model source index lies on a permitted edge $(j,t)\in E_T$ of the internal causal DAG. The same-point maps $\Omega^z_{tj}$ and $\Omega^m_{tj}$ used by the corresponding Gaussian kernels are therefore defined by \cref{eq:typed-associated-transports}.
 
-Let $\#_A$ denote counting measure on a finite set $A$.  In the local frames used to express the densities, the reference measure for the fixed-horizon variables $(x,\boldsymbol z,\boldsymbol m,a,b)$ is
+Let $\#_A$ denote counting measure on a finite set $A$. In the chosen frames of the labeled sample copies over $\ast$, the reference measure for the fixed-horizon variables $(x,\boldsymbol z,\boldsymbol m,a,b)$ is
 \begin{equation}
 \begin{aligned}
 \mu_T
@@ -234,7 +264,7 @@ Nested normalization gives the pointwise identity
 \end{equation}
 The unshown conditioning arguments of the two transition kernels are exactly those in \cref{eq:time-slice-factor-for-normalization}.  In the first equality, categorical emission normalization removes the innermost sum, state-kernel normalization removes the $z_t$ integral, and \cref{eq:normalized-causal-source-priors} removes the $a_t$ sum.  In the second equality, model-kernel normalization removes the $m_t$ integral and the same source-prior identity removes the $b_t$ sum.
 
-To apply \cref{eq:time-slice-nested-normalization} to the complete density, begin at the terminal vertex $T$.  There is no factor at an earlier time that depends on $x_T$, $z_T$, $m_T$, $a_T$, or $b_T$, because every parent index is strictly smaller than its receiver and every history is $x_{<t}$.  Factors at later times may depend on terminal-block variables at an intermediate stage, but reverse topological order removes all such factors before that stage is reached.  Hence the nested elimination at $T$ is pointwise in every earlier variable and replaces $F_T$ by one.
+To apply \cref{eq:time-slice-nested-normalization} to the complete density, begin at the terminal population slot $T$ in the internal DAG. There is no factor at an earlier index that depends on $x_T$, $z_T$, $m_T$, $a_T$, or $b_T$, because every parent index is strictly smaller than its receiver and every history is $x_{<t}$. Factors at later indices may depend on a slot's variables at an intermediate stage, but reverse topological order removes all such factors before that stage is reached. Hence the nested elimination at $T$ is pointwise in every earlier variable and replaces $F_T$ by one.
 
 After eliminating the terminal block, the same argument applies to $F_{T-1}$.  Induction removes $F_t$ for $t=T,T-1,\ldots,1$.  History dependence is harmless throughout: when the time-$t$ identity is evaluated, $x_{<t}$ is held fixed, and all factors that could depend on $x_t$ have already been eliminated.  What remains is
 \begin{equation}
@@ -245,13 +275,13 @@ p_{\theta,0}(z_0,m_0\given\Gamma)
 =1,
 \label{eq:normalization-proof-initial-remainder}
 \end{equation}
-by \cref{eq:normalized-initial-law}.  Thus the density over $(x,\boldsymbol z,\boldsymbol m,a,b)$ in \cref{eq:vfe4-generative-joint} defines a probability measure with respect to \cref{eq:full-joint-reference-measure} for every fixed deterministic $\Gamma$.  Under a local frame change, \cref{eq:receiver-density-kernel-measure-invariance,eq:initial-density-gauge-jacobian} preserve this probability measure even though its coordinate density and Lebesgue representatives change.  \hfill$\square$
+by \cref{eq:normalized-initial-law}. Thus the density over $(x,\boldsymbol z,\boldsymbol m,a,b)$ in \cref{eq:vfe4-generative-joint} defines a probability measure with respect to \cref{eq:full-joint-reference-measure} for every fixed deterministic $\Gamma$. Under the declared internal population-frame action, \cref{eq:receiver-density-kernel-measure-invariance,eq:initial-density-gauge-jacobian} preserve this probability measure even though its coordinate density and Lebesgue representatives change. Restricting all $g_t$ to one common $g$ gives the actual base-frame transformation of the point bundle. \hfill$\square$
 
 \section{Linear-Gaussian information-factor assembly}
 
 Consider one normalized transition factor
 \begin{equation}
-y_t=Ay_j+c+\epsilon,
+y_t=\mathsf A y_j+c+\epsilon,
 \qquad
 \epsilon\sim\mathcal N(0,R),
 \qquad
@@ -260,18 +290,18 @@ P:=R^{-1}=P^\top\succ0,
 \end{equation}
 and define its residual by
 \begin{equation}
-r:=y_t-Ay_j-c.
+r:=y_t-\mathsf A y_j-c.
 \label{eq:linear-gaussian-transition-residual}
 \end{equation}
 Direct expansion gives
 \begin{equation}
 \begin{aligned}
 r^\top P r
-={}&y_j^\top A^\top P A y_j
--y_j^\top A^\top P y_t
--y_t^\top P A y_j
+={}&y_j^\top \mathsf A^\top P\mathsf A y_j
+-y_j^\top \mathsf A^\top P y_t
+-y_t^\top P\mathsf A y_j
 +y_t^\top P y_t\\
-&+2y_j^\top A^\top P c
+&+2y_j^\top \mathsf A^\top P c
 -2y_t^\top P c
 +c^\top P c.
 \end{aligned}
@@ -297,11 +327,11 @@ comparison with $-r^\top P r/2$ gives exactly
 \begin{equation}
 \boxed{
 \begin{aligned}
-J_{jj}&=A^\top P A,
-&J_{jt}&=-A^\top P,\\
-J_{tj}&=-P A,
+J_{jj}&=\mathsf A^\top P\mathsf A,
+&J_{jt}&=-\mathsf A^\top P,\\
+J_{tj}&=-P\mathsf A,
 &J_{tt}&=P,\\
-h_j&=-A^\top P c,
+h_j&=-\mathsf A^\top P c,
 &h_t&=P c.
 \end{aligned}}
 \label{eq:linear-gaussian-information-blocks}
@@ -314,26 +344,26 @@ C_K
 -\frac12\log\det R,
 \label{eq:linear-gaussian-factor-constant}
 \end{equation}
-where $d_t:=\dim y_t$. Thus normalized Gaussian factors contribute additively to a global $(h,J)$, including their normalizing constants in log-density or ELBO evaluation. The identities in \cref{eq:linear-gaussian-information-blocks} do not require $A$ to be square.
+where $d_t:=\dim y_t$. Thus normalized Gaussian factors contribute additively to the information vector, precision, and log constant of one global fixed-source component $q(y\given a,b,x,\Gamma)$. This factor assembly does not construct a population law from independently specified local marginals. The identities in \cref{eq:linear-gaussian-information-blocks} do not require $\mathsf A$ to be square.
 
 \section{Analytic evidence and ELBO positive control}
 
-An implementation-level positive control can use the one-step normalized linear-Gaussian model
+An implementation-level positive control can use the two-slot, one-edge zero-dimensional population model
 \begin{equation}
 \begin{aligned}
 y_0&\sim\mathcal N(\mu_0,S_0),\\
-y_1\given y_0&\sim\mathcal N(Ay_0+c,R),\\
+y_1\given y_0&\sim\mathcal N(\mathsf A y_0+c,R),\\
 x\given y_1&\sim\mathcal N(Cy_1+d,S).
 \end{aligned}
 \label{eq:linear-gaussian-positive-control-model}
 \end{equation}
-The Gaussian observation in this oracle is a tractable verification device, not a replacement for the categorical observation law in the exact language model. Marginalization gives
+The labels $0$ and $1$ identify population slots over the same base point, not two base points. The Gaussian observation in this oracle is a tractable verification device, not a replacement for the categorical observation law in the exact language model. Marginalization gives
 \begin{equation}
 \begin{aligned}
 \bar x
-&=C(A\mu_0+c)+d,\\
+&=C(\mathsf A\mu_0+c)+d,\\
 S_x
-&=C(AS_0A^\top+R)C^\top+S,\\
+&=C(\mathsf A S_0\mathsf A^\top+R)C^\top+S,\\
 \log p(x)
 &=-\frac12\left[
 d_x\log(2\pi)+\log\det S_x
@@ -349,7 +379,7 @@ J_{11}\mathrel{+}=C^\top S^{-1}C,
 h_1\mathrel{+}=C^\top S^{-1}(x-d).
 \label{eq:gaussian-observation-information-contribution}
 \end{equation}
-Solving $J_*\mu_*=h_*$ and $J_*\Sigma_*=I$ gives the analytic posterior. For any nonposterior Gaussian $Q=\mathcal N(\mu_Q,\Sigma_Q)$ with rational positive-definite parameters, the control evaluates
+Solving $J_*\mu_*=h_*$ and $J_*\Sigma_*=I$ gives the analytic posterior. For any normalized, possibly correlated joint Gaussian $Q=\mathcal N(\mu_Q,\Sigma_Q)$ on the two-slot population fiber with rational positive-definite parameters, the control evaluates
 \begin{equation}
 \mathcal L(Q)
 =\mathbb E_Q[\log p(x,y_0,y_1)-\log Q(y_0,y_1)],
@@ -364,9 +394,9 @@ from complete quadratic expectations and verifies
 \end{equation}
 The protocol first checks the six blocks in \cref{eq:linear-gaussian-information-blocks} by exact Hessian and gradient extraction, then checks \cref{eq:linear-gaussian-positive-control-identity} with exact rational arithmetic. A floating-point implementation must additionally compare monolithic log-ratio and decomposed-factor evaluations at the same $Q$ before any optimizer is introduced.
 
-\section{Bundle-map dimension and type oracle}
+\section{Population-copy map dimension and type oracle}
 
-The coordinate audit for \cref{eq:typed-associated-transports,eq:typed-model-state-morphism} begins with column vectors $z_j,z_t\in\mathbb R^{d_z}$ and $m_j,m_t\in\mathbb R^{d_m}$.  The represented state link has shape $d_z\times d_z$, the represented model link has shape $d_m\times d_m$, and the cross-channel morphism has shape $d_z\times d_m$.  Consequently,
+The coordinate audit for \cref{eq:typed-associated-transports,eq:typed-model-state-morphism} begins with column vectors $z_j,z_t\in\mathbb R^{d_z}$ and $m_j,m_t\in\mathbb R^{d_m}$ in labeled copies of the common fibers over $\ast$. The represented state map has shape $d_z\times d_z$, the represented model map has shape $d_m\times d_m$, and the cross-channel morphism has shape $d_z\times d_m$. Consequently,
 \begin{equation}
 \begin{aligned}
 \underbrace{\Omega^z_{tj}}_{d_z\times d_z}
@@ -383,9 +413,9 @@ The coordinate audit for \cref{eq:typed-associated-transports,eq:typed-model-sta
 \end{aligned}
 \label{eq:bundle-map-dimension-oracle}
 \end{equation}
-The first and third outputs in \cref{eq:bundle-map-dimension-oracle} inhabit the same target fiber $E_{z,t}$ and may enter one state-kernel location parameter.  The model-link output inhabits $E_{m,t}$ and may enter a model-kernel location parameter.  Combining the latter directly with a state-fiber vector would be ill typed.
+The first and third outputs in \cref{eq:bundle-map-dimension-oracle} inhabit the same receiver-labeled copy $E_{z,t}$ and may enter one state-kernel location parameter. The model-map output inhabits $E_{m,t}$ and may enter a model-kernel location parameter. Combining the latter directly with a state-copy vector would be ill typed. None of these maps connects distinct base points.
 
-The gauge-law audit is equally mechanical.  With $\rho_z(g_t)\in\mathbb R^{d_z\times d_z}$ and $\rho_m(g_t)\in\mathbb R^{d_m\times d_m}$, every product in \cref{eq:link-morphism-gauge-laws} has the same shape as the unprimed map:
+The internal frame-law audit is equally mechanical. With $\rho_z(g_t)\in\mathbb R^{d_z\times d_z}$ and $\rho_m(g_t)\in\mathbb R^{d_m\times d_m}$, every product in \cref{eq:link-morphism-gauge-laws} has the same shape as the unprimed map:
 \begin{equation}
 \begin{aligned}
 (d_z\times d_z)(d_z\times d_z)(d_z\times d_z)&=d_z\times d_z,\\
@@ -396,10 +426,10 @@ The gauge-law audit is equally mechanical.  With $\rho_z(g_t)\in\mathbb R^{d_z\t
 \end{equation}
 No equality $d_z=d_m$ is used.  This check is the source-level oracle for later probability kernels.  A covariance on the state fiber is a positive symmetric contravariant tensor and its precision is a positive symmetric covariant tensor,
 \begin{equation}
-\Sigma_{z,t}\in\operatorname{Sym}^{2}_{+}(E_{z,t})
+\Sigma_{z,t}\in\operatorname{Sym}^{2}_{++}(E_{z,t})
 \simeq\operatorname{Hom}_{+}(E_{z,t}^{*},E_{z,t}),
 \qquad
-J_{z,t}\in\operatorname{Sym}^{2}_{+}(E_{z,t}^{*})
+J_{z,t}\in\operatorname{Sym}^{2}_{++}(E_{z,t}^{*})
 \simeq\operatorname{Hom}_{+}(E_{z,t},E_{z,t}^{*}).
 \label{eq:state-covariance-precision-types}
 \end{equation}
@@ -420,17 +450,17 @@ then covariance and precision carry opposite congruence laws in either channel:
 \end{aligned}
 \label{eq:covariance-precision-opposite-congruence}
 \end{equation}
-A kernel over $E_{z,t}$ must therefore receive a location in $E_{z,t}$ together with a covariance in $\operatorname{Sym}^{2}_{+}(E_{z,t})$ or a precision in $\operatorname{Sym}^{2}_{+}(E_{z,t}^{*})$.  A kernel over $E_{m,t}$ must receive the corresponding model-fiber objects.
+A kernel over $E_{z,t}$ must therefore receive a location in $E_{z,t}$ together with a covariance in $\operatorname{Sym}^{2}_{++}(E_{z,t})$ or a precision in $\operatorname{Sym}^{2}_{++}(E_{z,t}^{*})$. A kernel over $E_{m,t}$ must receive the corresponding model-copy objects.
 
-\section{Expanded Regime I composition check}
+\section{Expanded internal frame-coboundary composition check}
 
-For a path $v_0\to v_1\to\cdots\to v_r$ in the auxiliary geometric graph, the composite group transport is ordered so that the rightmost map acts first.  Repeated use of \cref{eq:regime-i-cocycle-identity} gives
+For a walk $v_0\to v_1\to\cdots\to v_r$ in a declared internal relation graph, the composite same-point frame comparison is ordered so that the rightmost map acts first. Repeated use of \cref{eq:regime-i-cocycle-identity} gives
 \begin{equation}
 \Omega_{v_rv_{r-1}}\cdots\Omega_{v_1v_0}
 =U_{v_r}U_{v_0}^{-1}.
 \label{eq:regime-i-open-path-telescope}
 \end{equation}
-Thus an open-path transport depends only on its endpoints in Regime I.  Setting $v_r=v_0$ yields the identity, as in \cref{eq:regime-i-loop-holonomy}.  Applying either representation to \cref{eq:regime-i-open-path-telescope} gives the correctly typed composites
+Thus the frame-coboundary composite along an open walk depends only on its endpoint labels. Setting $v_r=v_0$ yields the identity, as in \cref{eq:regime-i-loop-holonomy}. Applying either representation to \cref{eq:regime-i-open-path-telescope} gives the correctly typed composites
 \begin{equation}
 \Omega^z_{v_rv_{r-1}}\circ\cdots\circ\Omega^z_{v_1v_0}
 :E_{z,v_0}\longrightarrow E_{z,v_r},
@@ -439,7 +469,7 @@ Thus an open-path transport depends only on its endpoints in Regime I.  Setting 
 :E_{m,v_0}\longrightarrow E_{m,v_r}.
 \label{eq:associated-open-path-types}
 \end{equation}
-This check uses a geometric walk in the underlying undirected graph or cell complex.  It does not insert a directed cycle into the causal factor graph.
+These are maps between labeled copies of the same fiber over $\ast$, not base parallel transports. The telescoping identity is an internal coboundary property. Optional independent graph links need not telescope, but their cycle products belong to a separately declared internal graph sector and are not base holonomy or curvature.
 
 \chapter{Notation}
 
@@ -447,7 +477,7 @@ The symbols in \cref{tab:vfe4-notation} fix the notation path used throughout th
 
 {\small
 \begin{longtable}{>{\raggedright\arraybackslash}p{0.18\textwidth} >{\raggedright\arraybackslash}p{0.27\textwidth} >{\raggedright\arraybackslash}p{0.45\textwidth}}
-\caption{Notation for the gauge-causal VFE 4.0 construction.}
+\caption{Notation for the zero-dimensional population-bundle VFE 4.0 construction.}
 \label{tab:vfe4-notation}\\
 \toprule
 \textbf{Symbol} & \textbf{Domain or type} & \textbf{Meaning} \\
@@ -463,51 +493,77 @@ The symbols in \cref{tab:vfe4-notation} fix the notation path used throughout th
 \endfoot
 \bottomrule
 \endlastfoot
-$t,T$ & $t\in\{0,\ldots,T\}$ & Token position and fixed sequence horizon. \\
+$\mathcal C,c$ & Smooth manifold; $c\in\mathcal C$ & General contextual or noumenal base and one of its points. Its interpretation is a modeling postulate. \\
+\addlinespace
+$\mathcal C_0,\ast$ & $\mathcal C_0=\{\ast\}$ & Zero-dimensional base used by the V3/V4 language specialization. Positive-degree base forms, base curvature, and nonidentity base holonomy vanish. \\
+\addlinespace
+$G,P$ & Matrix Lie group; $P\to\mathcal C$ & Declared principal group and principal bundle in the general theory. The restriction $P_0\to\{\ast\}$ is a trivializable $G$-torsor without a preferred frame. \\
+\addlinespace
+$E_z,E_m$ & Associated vector bundles & State and model sample bundles $P\times_{\rho_z}V_z$ and $P\times_{\rho_m}V_m$ with dimensions $d_z$ and $d_m$. \\
+\addlinespace
+$\mathscr B_z,\mathscr B_m$ & Statistical associated bundles & Bundles whose fibers are declared statistical manifolds of probability laws on the sample fibers. \\
+\addlinespace
+$q_i,s_i$ & Local sections of $\mathscr B_z,\mathscr B_m$ & Agent-level state and model beliefs in the general theory. In the point reduction, a nonempty section is one statistical-fiber value. \\
+\addlinespace
+$t,T$ & $t\in\{0,\ldots,T\}$ & Population label associated with a token position and the fixed sequence horizon. \\
 \addlinespace
 $x_t,x_{<t}$ & $x_t\in\mathcal X$ & Observed token and realized causal prefix; $x_t$ is never a latent belief coordinate. \\
 \addlinespace
-$D_T=(V_T,E_T)$ & Directed acyclic graph & Causal token base with $(j,t)\in E_T$ only when $j<t$. \\
+$D_T=(I_T,E_T)$ & Directed acyclic graph & Internal causal and factor graph with $(j,t)\in E_T$ only when $j<t$; it is not the bundle base. \\
 \addlinespace
-$G,P$ & Matrix Lie group; principal $G$-bundle & Declared gauge group and the working product bundle $P=|D_T|\times G$. \\
+$E_{z,\ast}^{(t)},E_{m,\ast}^{(t)}$ & Labeled sample-fiber copies & State and model copies for agent $t$ over the common point. The shorthands $E_{z,t}$ and $E_{m,t}$ do not denote distinct base fibers. \\
 \addlinespace
-$E_z,E_m$ & Associated vector bundles & State and model bundles with fibers $E_{z,t}$ and $E_{m,t}$ of dimensions $d_z$ and $d_m$. \\
+$\mathcal Y_T$ & Finite product of labeled sample copies & Continuous population sample fiber on which the joint recognition law is defined. \\
 \addlinespace
-$\rho_z,\rho_m$ & Representations of $G$ & Possibly distinct actions of the shared group on the state and model fibers. \\
+$\begin{gathered}A,F_A\\\operatorname{PT}^A,\operatorname{Hol}_{\mathrm{base}}\end{gathered}$ & Smooth base-connection sector & General base connection, curvature, parallel transport, and holonomy. Their local base-direction content is trivial after restriction to $\mathcal C_0$. \\
 \addlinespace
-$z_t,m_t$ & $z_t\in E_{z,t}$, $m_t\in E_{m,t}$ & State and model latent variables; bold symbols $\boldsymbol z,\boldsymbol m$ denote their complete paths. \\
+$\rho_z,\rho_m$ & Representations of $G$ & Possibly distinct actions of the shared group on the state and model sample fibers. \\
 \addlinespace
-$\Gamma$ & Deterministic geometric data in the exact core & Collection of declared frames, links, representations, morphisms, and other fixed geometric coefficients. \\
+$U_t,\Omega_{tj}$ & Same-point frame data & $\Omega_{tj}=U_tU_j^{-1}$ is the pure frame coboundary when that restriction is imposed. Its represented maps act between labeled copies and are not base parallel transports. \\
 \addlinespace
-$\Omega_{tj}$ & $G$-valued link & Group transport from source $j$ to receiver $t$; $\Omega^z_{tj}$ and $\Omega^m_{tj}$ are its represented state and model maps. \\
+$\Lambda_{tj},H_C^{\mathrm{graph}}$ & Optional independent graph-link sector & Separately declared graph connection and cycle product. It is absent from the exact core and is distinct from base holonomy. \\
+\addlinespace
+$\mathcal G_{\mathrm{base}},\mathcal G_T$ & $G$; $G^{T+1}$ & Actual base gauge group at one point and declared internal population-frame action. The former is the diagonal subgroup of the latter. \\
+\addlinespace
+$\Gamma_{\mathrm{core}}$ & $(\Gamma_{\mathrm{base},0},\Gamma_{\mathrm{fr}},\Gamma_{\mathrm{mor}})$ & Conditioned singleton-base, pure frame-coboundary, and typed-morphism data of the exact core. \\
+\addlinespace
+$\Gamma_{\mathrm{graph}}$ & Optional independent graph-link data & Separate extension containing $\Lambda_{tj}$; it is not equivalent to $\Gamma_{\mathrm{fr}}$ and is absent from the exact core. \\
+\addlinespace
+$z_t,m_t$ & $z_t\in E_{z,t}$, $m_t\in E_{m,t}$ & Realized state and model samples in the labeled copy for population slot $t$. Bold symbols denote their complete population collections. \\
+\addlinespace
+$\Omega^z_{tj},\Omega^m_{tj}$ & Isomorphisms between labeled copies & Represented same-point maps from source copy $j$ to receiver copy $t$. \\
 \addlinespace
 $B_t$ & $\operatorname{Hom}(E_{m,t},E_{z,t})$ & Typed model-to-state morphism; no equality $d_m=d_z$ is assumed. \\
 \addlinespace
 $a_t,b_t$ & Finite categorical variables & State-source and model-source assignments on $\operatorname{Pa}_z(t)$ and $\operatorname{Pa}_m(t)$. \\
 \addlinespace
-$\pi_t^z,\pi_t^m$ & Normalized probability mass functions & Fixed generative priors for $a_t$ and $b_t$. \\
+$\pi_t^z,\pi_t^m$ & Normalized probability mass functions & Generative priors for $a_t$ and $b_t$; content-dependent versions must be prefix measurable. \\
 \addlinespace
 $K^z_{\theta,tj},K^m_{\theta,tj}$ & Normalized Markov kernels & State and model transition densities for source $j$ and receiver $t$. \\
 \addlinespace
-$L_{\theta,t}$ & Categorical Markov kernel on $\mathcal X$ & Normalized token-emission law whose expected log probability is the observation term. \\
+$L_{\theta,t}$ & Categorical Markov kernel on $\mathcal X$ & Normalized token-emission law whose expected negative log probability is categorical cross-entropy. \\
 \addlinespace
-$Y$ & $(\boldsymbol z,\boldsymbol m,a,b)$ & Complete latent inventory used in the evidence identity. \\
+$Y$ & $(\boldsymbol z,\boldsymbol m,a,b)$ & Complete labeled population and source inventory used in the evidence identity. \\
 \addlinespace
-$Q_\psi^{(r)}$ & Normalized mixed variational law & Filtering ($r=\mathrm f$) or smoothing ($r=\mathrm s$) recognition law over $Y$. \\
+$Q_\psi^{(r)}$ & Normalized mixed variational law & One generally correlated filtering ($r=\mathrm f$) or smoothing ($r=\mathrm s$) recognition law over $Y$. \\
 \addlinespace
-$\beta_t,\gamma_t$ & Conditional categorical recognition laws & State-source and model-source routing factors; these are not the fixed priors $\pi_t^z,\pi_t^m$. \\
+$q_t(\ast),s_t(\ast)$ & Pushforward marginals of $Q_\psi$ & Persistent local agent beliefs induced by the population joint. They do not determine that joint without additional dependence data. \\
 \addlinespace
-$y$ & $\operatorname{col}(z_0,m_0,\ldots,z_T,m_T)\in\mathbb R^D$ & Token-major stacking of the continuous state and model paths in chosen local frames. \\
+$Q_{t\mid -t}$ & Regular conditional law & Full population-coordinate conditional used by unrestricted structured coordinate updates; it is not the same object as a marginal agent belief. \\
 \addlinespace
-$D$ & $(T+1)(d_z+d_m)$ & Dimension of the stacked continuous path $y$. \\
+$\beta_t,\gamma_t$ & Conditional categorical recognition laws & State-source and model-source routing factors; these are not the generative priors $\pi_t^z,\pi_t^m$. \\
+\addlinespace
+$y$ & $\operatorname{col}(z_0,m_0,\ldots,z_T,m_T)\in\mathbb R^D$ & Population-major coordinate vector in chosen frames of the labeled copies. \\
+\addlinespace
+$D$ & $(T+1)(d_z+d_m)$ & Dimension of the stacked continuous population vector $y$. \\
 \addlinespace
 $w(a,b),q(y\given a,b)$ & Categorical mass and conditional density & Disintegration of $Q(y,a,b)=w(a,b)q(y\given a,b)$; source marginalization generally gives a Gaussian mixture. \\
 \addlinespace
-$(h,J)$ & $h\in\mathbb R^D$, $J=J^\top\succ0$ & Information vector and precision; the Gaussian natural coordinates are $(h,-J/2)$. \\
+$(h,J)$ & $h\in\mathbb R^D$, $J=J^\top\succ0$ & Information vector and precision of one fixed-source Gaussian component; the natural coordinates are $(h,-J/2)$. \\
 \addlinespace
-$(\mu,M)$ & $M=\mathbb E[yy^\top]$ & Expectation-coordinate pair exactly dual to $(h,-J/2)$. \\
+$(\mu,M)$ & $M=\mathbb E[yy^\top]$ & Componentwise expectation-coordinate pair exactly dual to $(h,-J/2)$. \\
 \addlinespace
-$(\mu,\Sigma)$ & $\Sigma=J^{-1}$ & Moment view, related to expectation coordinates by $M=\Sigma+\mu\mu^\top$. \\
+$(\mu,\Sigma)$ & $\Sigma=J^{-1}$ & Componentwise moment view, related to expectation coordinates by $M=\Sigma+\mu\mu^\top$. The source-marginal mixture generally has no single $J$. \\
 \addlinespace
 $\eta,\xi$ & $\eta=(h,-J/2)$, $\xi=(\mu,M)$ & Canonical natural and expectation charts. The separate symbol $\tau>0$ denotes a source-prior temperature, as in $\pi_{\tau,t}$. \\
 \addlinespace
