@@ -1,0 +1,198 @@
+\chapter{Gauge-Causal Bundle Geometry}
+
+This chapter introduces the causal token graph, principal and associated bundles, representations, and discrete transports that provide the geometric domain for the later probability model. It fixes transformation types and deterministic geometric data without yet asserting a generative factorization or an inference result.
+
+\section{Causal base and working principal bundle}
+
+\paragraph{Definition (causal token base).}
+For a fixed sequence horizon $T\in\mathbb N$, let
+\begin{equation}
+D_T=(V_T,E_T),
+\qquad
+V_T=\{0,\ldots,T\},
+\qquad
+(j,t)\in E_T\Longrightarrow j<t.
+\label{eq:causal-token-graph}
+\end{equation}
+The arrow $j\to t$ records an admissible causal dependence of a variable at position $t$ on a variable at position $j$.  The strict order in \cref{eq:causal-token-graph} makes $D_T$ a directed acyclic graph.  Its geometric realization $|D_T|$ is used only as the base on which local frames and transport data are organized; it does not add a directed feedback edge to the autoregressive factorization.
+
+Let $G$ be a declared matrix Lie group with identity $e$.  The working principal bundle is the product
+\begin{equation}
+\begin{aligned}
+\pi:P=|D_T|\times G&\longrightarrow |D_T|,
+&\pi(x,h)&=x,\\
+R_g:P&\longrightarrow P,
+&R_g(x,h)&=(x,hg),
+\end{aligned}
+\label{eq:working-principal-bundle}
+\end{equation}
+for $g,h\in G$.  Principal and associated bundles, their local trivializations, and the induced gauge laws are standard constructions \citep{kobayashi1963foundations,nakahara2003geometry}.  Equation~\eqref{eq:working-principal-bundle} is an explicit modeling choice: this paper asserts no nontrivial principal-bundle class for the working model.  It does not assert that finiteness, or being a graph or cell complex, forces every principal bundle over the base to be trivial.  The undirected realization may still contain cycles even though the causal orientation is acyclic.
+
+When $G=\mathrm{GL}(K)$, the symbol denotes the full real general linear group unless a connected component or subgroup is named.  A parameterization by one real matrix exponential reaches only its realized subset of $\mathrm{GL}^{+}(K)$; it is not silently identified with the full group.  Any implementation that restricts $G$ to a block, compact, positive-determinant, or other subgroup must state that restriction separately.
+
+\section{Associated state and model bundles}
+
+\paragraph{Definition (typed fibers and vertex paths).}
+Let $V_z$ and $V_m$ be finite-dimensional real vector spaces with
+\begin{equation}
+d_z:=\dim V_z,
+\qquad
+d_m:=\dim V_m,
+\label{eq:fiber-dimensions}
+\end{equation}
+and let
+\begin{equation}
+\rho_z:G\longrightarrow \mathrm{GL}(V_z),
+\qquad
+\rho_m:G\longrightarrow \mathrm{GL}(V_m),
+\label{eq:shared-group-representations}
+\end{equation}
+be representations of the same group.  They define the associated vector bundles
+\begin{equation}
+\begin{aligned}
+\pi_z:E_z=P\times_{\rho_z}V_z&\longrightarrow |D_T|,\\
+\pi_m:E_m=P\times_{\rho_m}V_m&\longrightarrow |D_T|.
+\end{aligned}
+\label{eq:associated-state-model-bundles}
+\end{equation}
+Adopt the quotient convention $(p g,v)\sim(p,\rho_\bullet(g)v)$.  Thus changing a local frame from $s_t$ to $s_t'=s_tg_t^{-1}$ acts on coordinates by $\rho_\bullet(g_t)$.  The fibers at vertex $t$ are
+\begin{equation}
+E_{z,t}:=\pi_z^{-1}(t)\simeq V_z,
+\qquad
+E_{m,t}:=\pi_m^{-1}(t)\simeq V_m.
+\label{eq:vertex-fibers}
+\end{equation}
+
+The finite section, or configuration, space for the fixed horizon is
+\begin{equation}
+\mathcal C_T
+:=
+\Gamma\left(V_T,(E_z\oplus E_m)|_{V_T}\right)
+\simeq
+\bigoplus_{t=0}^{T}\left(E_{z,t}\oplus E_{m,t}\right).
+\label{eq:finite-section-configuration-space}
+\end{equation}
+This is a finite-dimensional vector space of sections over the discrete vertex set $V_T$, not a vector bundle over $|D_T|$.  Write the random vertexwise state and model paths as $\boldsymbol z=(z_t)_{t=0}^{T}$ and $\boldsymbol m=(m_t)_{t=0}^{T}$, respectively, so that
+\begin{equation}
+\boldsymbol z\in\Gamma\left(V_T,E_z|_{V_T}\right),
+\qquad
+\boldsymbol m\in\Gamma\left(V_T,E_m|_{V_T}\right),
+\qquad
+(\boldsymbol z,\boldsymbol m)\in\mathcal C_T.
+\label{eq:random-vertex-sections}
+\end{equation}
+The components $z_t\in E_{z,t}$ and $m_t\in E_{m,t}$ denote realized fiber elements.  After choosing local frames, the same symbols also denote their coordinate columns in $V_z$ and $V_m$.  Under a change of those frames,
+\begin{equation}
+z_t'=\rho_z(g_t)z_t,
+\qquad
+m_t'=\rho_m(g_t)m_t.
+\label{eq:state-model-gauge-law}
+\end{equation}
+
+\paragraph{Remark (product-group alternative).}
+If the two channels require independent gauge choices, one may replace $G$ by $G_z\times G_m$, let the state representation ignore the $G_m$ factor and the model representation ignore the $G_z$ factor, and use $B_t'=\rho_z(g_t^z)B_t\rho_m(g_t^m)^{-1}$.  That variant introduces additional gauge data and is not used below; the main construction uses one shared $G$ with the two representations in \cref{eq:shared-group-representations}.
+
+\section{Discrete links and the cross-channel morphism}
+
+For each permitted edge $(j,t)\in E_T$, let the superscript-free symbol $\Omega_{tj}\in G$ denote a group-valued link from $j$ to $t$.  Its two represented transports are typed maps
+\begin{equation}
+\begin{aligned}
+\Omega^z_{tj}&:E_{z,j}\longrightarrow E_{z,t},
+&\Omega^z_{tj}&\in\operatorname{Iso}(E_{z,j},E_{z,t}),\\
+\Omega^m_{tj}&:E_{m,j}\longrightarrow E_{m,t},
+&\Omega^m_{tj}&\in\operatorname{Iso}(E_{m,j},E_{m,t}),
+\end{aligned}
+\label{eq:typed-associated-transports}
+\end{equation}
+whose coordinate matrices are $\rho_z(\Omega_{tj})\in\mathbb R^{d_z\times d_z}$ and $\rho_m(\Omega_{tj})\in\mathbb R^{d_m\times d_m}$.  The two channels therefore share the group-valued connection while carrying it through different representations.
+
+The model-to-state field is a section of the bundle of fiberwise homomorphisms,
+\begin{equation}
+B\in\Gamma\left(\operatorname{Hom}(E_m,E_z)\right),
+\qquad
+B_t:E_{m,t}\longrightarrow E_{z,t},
+\qquad
+B_t\in\mathbb R^{d_z\times d_m},
+\label{eq:typed-model-state-morphism}
+\end{equation}
+in local coordinates.  It need not be invertible and $d_z$ need not equal $d_m$.  The declarations in \cref{eq:typed-associated-transports,eq:typed-model-state-morphism} precede their use in any probability kernel.  The resulting transported arguments have the types
+\begin{equation}
+\Omega^z_{tj}z_j\in E_{z,t},
+\qquad
+\Omega^m_{tj}m_j\in E_{m,t},
+\qquad
+B_tm_t\in E_{z,t},
+\label{eq:typed-transported-arguments}
+\end{equation}
+so a later state transition may combine $\Omega^z_{tj}z_j$ with $B_tm_t$, whereas a model transition consumes $\Omega^m_{tj}m_j$.  No sum is formed between elements of $E_{z,t}$ and $E_{m,t}$ without an explicitly typed morphism.
+
+Under local frame changes $g_j,g_t\in G$, the link and morphism coordinates obey
+\begin{equation}
+\begin{aligned}
+\Omega_{tj}^{z\prime}
+&=\rho_z(g_t)\Omega_{tj}^{z}\rho_z(g_j)^{-1},\\
+\Omega_{tj}^{m\prime}
+&=\rho_m(g_t)\Omega_{tj}^{m}\rho_m(g_j)^{-1},\\
+B_t'&=\rho_z(g_t)B_t\rho_m(g_t)^{-1}.
+\end{aligned}
+\label{eq:link-morphism-gauge-laws}
+\end{equation}
+These laws make each typed argument transform in its target fiber:
+\begin{equation}
+\begin{aligned}
+\Omega_{tj}^{z\prime}z_j'&=\rho_z(g_t)\Omega^z_{tj}z_j,\\
+\Omega_{tj}^{m\prime}m_j'&=\rho_m(g_t)\Omega^m_{tj}m_j,\\
+B_t'm_t'&=\rho_z(g_t)B_tm_t.
+\end{aligned}
+\label{eq:transported-argument-equivariance}
+\end{equation}
+Gauge-equivariant convolutional work provides precedent for this local-frame equivariance principle and for transporting fields between fibers before combining them \citep{cohen2019gauge,weiler2021coordinate}.  Those sources concern coordinate-independent or gauge-equivariant geometric operators.  They do not define, derive, or validate the causal language-model joint proposed later in this paper.
+
+The two associated fiber channels, their represented link transports, and the later coordinate views of one structured Gaussian law are summarized together in \cref{fig:vfe4-bundle-dual-coordinates}. The coordinate conversions in that figure change the description of the Gaussian law; they do not create a new bundle map or a generative edge.
+
+\section{Flat vertex transport and the Regime II boundary}
+
+\paragraph{Proposition (Regime I cocycle and identity loop holonomy).}
+Choose one vertex frame $U_t\in G$ at each $t\in V_T$ and define the geometric transport for every ordered vertex pair by
+\begin{equation}
+\Omega_{tj}:=U_tU_j^{-1}.
+\label{eq:regime-i-vertex-cocycle}
+\end{equation}
+Only links on $E_T$ enter a causal probability kernel.  For any vertices $k,j,t$, the geometric links satisfy
+\begin{equation}
+\Omega_{tj}\Omega_{jk}=\Omega_{tk}.
+\label{eq:regime-i-cocycle-identity}
+\end{equation}
+Every closed combinatorial walk in an underlying undirected graph has identity group holonomy, and its state and model holonomies are the corresponding identity maps.  Hence Regime I is flat in this discrete holonomy sense.
+
+\emph{Proof.}
+The cocycle identity follows directly from cancellation at the intermediate vertex:
+\begin{equation}
+\Omega_{tj}\Omega_{jk}
+=U_tU_j^{-1}U_jU_k^{-1}
+=U_tU_k^{-1}
+=\Omega_{tk}.
+\label{eq:regime-i-cocycle-proof}
+\end{equation}
+Let $C=(v_0,v_1,\ldots,v_r)$ be a closed combinatorial walk, with $v_r=v_0$, in a graph obtained by forgetting edge directions or in the one-skeleton of a chosen cell complex.  Define reverse transport by $\Omega_{ab}=\Omega_{ba}^{-1}$.  Composition in traversal order gives
+\begin{equation}
+\begin{aligned}
+H_C
+&:=\Omega_{v_rv_{r-1}}\cdots\Omega_{v_2v_1}\Omega_{v_1v_0}\\
+&=(U_{v_r}U_{v_{r-1}}^{-1})\cdots
+  (U_{v_2}U_{v_1}^{-1})(U_{v_1}U_{v_0}^{-1})\\
+&=U_{v_r}U_{v_0}^{-1}
+=e.
+\end{aligned}
+\label{eq:regime-i-loop-holonomy}
+\end{equation}
+Because representations preserve products and the identity, $\rho_z(H_C)=I_{d_z}$ and $\rho_m(H_C)=I_{d_m}$.  This proves both associated-bundle statements.  \hfill$\square$
+
+A local reframe $U_t'=g_tU_t$ sends the group link to
+\begin{equation}
+\Omega_{tj}'=g_t\Omega_{tj}g_j^{-1},
+\label{eq:group-link-gauge-law}
+\end{equation}
+which induces \cref{eq:link-morphism-gauge-laws} under $\rho_z$ and $\rho_m$.  Gauge covariance therefore does not imply nonzero curvature: the pure vertex cocycle is covariant and flat at the same time.
+
+Regime II removes the factorization in \cref{eq:regime-i-vertex-cocycle} and assigns independent group links to oriented edges, with the reverse orientation carrying the inverse.  A nonidentity holonomy can then occur only when an auxiliary underlying undirected graph contains a cycle, or when a cell complex supplies a closed face boundary; independent links permit, but do not guarantee, a nonidentity product around that cycle.  This geometric cycle is not a directed causal loop.  The probability model continues to factor over the acyclic graph $D_T$ in \cref{eq:causal-token-graph}, while the separate undirected graph or cell complex supplies the closed paths on which holonomy or discrete curvature may be measured.  Any Regime II link prior, curvature energy, or latent-link law must be normalized and added to the generative construction explicitly; it is not part of the initial deterministic Regime I geometry.
