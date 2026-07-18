@@ -158,6 +158,166 @@ Subtracting Equation~\eqref{eq:recognition-gaussian-log-normalizer} from the exp
 \end{equation}
 Positive definiteness of \(J\) is used both for integrability and for the existence of \(J^{-1}\). An off-diagonal block of \(J\) belongs to the conditional-dependence structure of the joint Gaussian law; the corresponding covariance block is obtained only after inversion of the full precision matrix.
 
+\section{Block-product reverse-KL proof}
+\label{sec:gaussian-block-reverse-kl-proof}
+
+Let \(P=\mathcal N(m,J^{-1})\) and \(Q=\mathcal N(\mu,C)\) under the assumptions of Equations~\eqref{eq:gaussian-exact-posterior} and \eqref{eq:gaussian-block-product-family}. Their log-density ratio is
+\begin{align}
+\log\frac{q(y)}{p(y)}
+={}&-\frac12\log\det C-\frac12\log\det J
+-\frac12(y-\mu)^\top C^{-1}(y-\mu)
+\notag\\
+&+\frac12(y-m)^\top J(y-m).
+\label{eq:appendix-gaussian-log-density-ratio}
+\end{align}
+The Gaussian moment identities give
+\begin{align}
+\E_Q\left[(Y-\mu)^\top C^{-1}(Y-\mu)\right]
+&=\operatorname{tr}(C^{-1}C)=d,
+\label{eq:appendix-gaussian-centered-quadratic}\\
+\E_Q\left[(Y-m)^\top J(Y-m)\right]
+&=\operatorname{tr}(JC)+(\mu-m)^\top J(\mu-m).
+\label{eq:appendix-gaussian-target-quadratic}
+\end{align}
+Taking the expectation of Equation~\eqref{eq:appendix-gaussian-log-density-ratio} proves Equation~\eqref{eq:gaussian-reverse-kl-block} directly from the two normalized densities.
+
+Because \(C\) is block diagonal,
+\begin{equation}
+\operatorname{tr}(JC)=\sum_{b\in\mathfrak B}\operatorname{tr}(J_{bb}C_b),
+\qquad
+\log\det C=\sum_{b\in\mathfrak B}\log\det C_b.
+\label{eq:appendix-block-trace-logdet}
+\end{equation}
+For a symmetric perturbation \(dC_b\), the identities
+\begin{equation}
+d\operatorname{tr}(J_{bb}C_b)=\operatorname{tr}(J_{bb}dC_b),
+\qquad
+d\log\det C_b=\operatorname{tr}(C_b^{-1}dC_b),
+\label{eq:appendix-block-matrix-differentials}
+\end{equation}
+give the covariance derivative in Equation~\eqref{eq:gaussian-reverse-kl-derivatives}. The mean derivative follows from symmetry of \(J\). Every principal block \(J_{bb}\) is positive definite. The covariance-dependent objective
+\begin{equation}
+C_b\longmapsto
+\operatorname{tr}(J_{bb}C_b)-\log\det C_b
+\label{eq:appendix-covariance-block-objective}
+\end{equation}
+is strictly convex on \(\mathbb S_{++}^{d_b}\), while the mean quadratic is strictly convex because \(J\succ0\). The stationary values in Equation~\eqref{eq:gaussian-block-reverse-kl-optimum} are therefore the unique global minimizers.
+
+At that optimum,
+\begin{equation}
+\operatorname{tr}(JC^\star)
+=\sum_{b\in\mathfrak B}\operatorname{tr}(J_{bb}J_{bb}^{-1})
+=\sum_{b\in\mathfrak B}d_b=d,
+\qquad
+\log\det C^\star=-\sum_{b\in\mathfrak B}\log\det J_{bb}.
+\label{eq:appendix-gaussian-optimum-substitution}
+\end{equation}
+Substitution in Equation~\eqref{eq:gaussian-reverse-kl-block} yields the right-hand side of Equation~\eqref{eq:gaussian-mean-field-evidence-gap}.
+
+For completeness, partition an SPD matrix into two nonempty block groups:
+\begin{equation}
+J=\begin{bmatrix}A&B\\B^\top&D\end{bmatrix},
+\qquad
+A\succ0,
+\qquad
+D-B^\top A^{-1}B\succ0.
+\label{eq:appendix-fischer-two-block-partition}
+\end{equation}
+The Schur determinant identity and the Loewner inequality \(D-B^\top A^{-1}B\preceq D\) give
+\begin{equation}
+\det J
+=\det A\det(D-B^\top A^{-1}B)
+\leq\det A\det D.
+\label{eq:appendix-fischer-two-block-proof}
+\end{equation}
+Equality holds only when \(B^\top A^{-1}B=0\), which is equivalent to \(B=0\). Applying this two-block argument to the first declared block and its complement, then recursively to the complementary principal submatrix, proves
+\begin{equation}
+\det J\leq\prod_{b\in\mathfrak B}\det J_{bb}.
+\label{eq:appendix-fischer-multiblock-proof}
+\end{equation}
+Equality at every recursive step is equivalent to the vanishing of all off-diagonal blocks. This proves both the sign and the equality condition in Equation~\eqref{eq:gaussian-mean-field-evidence-gap}.
+
+\section{Gaussian precision audit for the zero-coupling controls}
+\label{sec:gaussian-zero-coupling-proof}
+
+At one design point, set \(T_i^m=A_i^m\Omega_{ij}^m\), \(T_i^k=A_i^k\Omega_{ij}^k\), \(\Lambda_i^m=(Q_i^m)^{-1}\), and \(\Lambda_i^k=(Q_i^k)^{-1}\). The nonroot model residual \(r_i^m=m_i-T_i^m m_j-a_i^m\) contributes the following Hessian to the latent negative log joint in the order \((m_i,m_j)\):
+\begin{equation}
+J_i^m=
+\begin{bmatrix}
+\Lambda_i^m&-\Lambda_i^mT_i^m\\
+-(T_i^m)^\top\Lambda_i^m&(T_i^m)^\top\Lambda_i^mT_i^m
+\end{bmatrix}.
+\label{eq:appendix-model-transition-precision-blocks}
+\end{equation}
+The nonroot state residual \(r_i^k=k_i-T_i^k k_j-B_i m_i-a_i^k\) contributes, in the order \((k_i,k_j,m_i)\),
+\begin{equation}
+J_i^k=
+\begin{bmatrix}
+\Lambda_i^k&-\Lambda_i^kT_i^k&-\Lambda_i^kB_i\\
+-(T_i^k)^\top\Lambda_i^k&(T_i^k)^\top\Lambda_i^kT_i^k&(T_i^k)^\top\Lambda_i^kB_i\\
+-B_i^\top\Lambda_i^k&B_i^\top\Lambda_i^kT_i^k&B_i^\top\Lambda_i^kB_i
+\end{bmatrix}.
+\label{eq:appendix-state-transition-precision-blocks}
+\end{equation}
+At a root, the state bridge contributes the local \((k_r,m_r)\) matrix
+\begin{equation}
+J_{r,0}^k=
+\begin{bmatrix}
+\Lambda_{r,0}^k&-\Lambda_{r,0}^kB_r\\
+-B_r^\top\Lambda_{r,0}^k&B_r^\top\Lambda_{r,0}^kB_r
+\end{bmatrix}.
+\label{eq:appendix-root-bridge-precision-blocks}
+\end{equation}
+Finally, the observation residual \(r_i^o=o_i-H_i k_i-L_i m_i-d_i\) contributes
+\begin{equation}
+J_i^o=
+\begin{bmatrix}
+H_i^\top(R_i^o)^{-1}H_i&H_i^\top(R_i^o)^{-1}L_i\\
+L_i^\top(R_i^o)^{-1}H_i&L_i^\top(R_i^o)^{-1}L_i
+\end{bmatrix},
+\label{eq:appendix-observation-precision-blocks}
+\end{equation}
+in the local order \((k_i,m_i)\). These matrices follow by differentiating \(r^\top\Lambda r/2\); offsets and the observed value affect only the information vector and additive constant.
+
+The posterior precision is the sum of the embedded factor Hessians. Conditional independence across design points makes that sum block diagonal across \(a\). If every total off-diagonal block between distinct agents vanishes, every remaining summand is supported within one \((k_i^D,m_i^D)\) block. Hence Equation~\eqref{eq:agent-block-zero-coupling-precision} follows. Setting \(T_i^k=T_i^m=0\) removes all cross-agent blocks in Equations~\eqref{eq:appendix-model-transition-precision-blocks} and \eqref{eq:appendix-state-transition-precision-blocks} while retaining the \(B_i\)-dependent local terms and Equation~\eqref{eq:appendix-observation-precision-blocks}.
+
+Under the agent-block condition, the only state--model off-diagonal contribution in the declared local factors is
+\begin{equation}
+J_{k_i m_i}
+=-\Lambda_i^kB_i
++H_i^\top(R_i^o)^{-1}L_i,
+\label{eq:appendix-local-state-model-total}
+\end{equation}
+for a nonroot, with \(\Lambda_i^k\) replaced by \(\Lambda_{r,0}^k\) at a root. Adding any further fixed factor that couples \(k_i\) and \(m_i\) adds its Hessian block to this expression. Requiring the complete sum to vanish yields Equation~\eqref{eq:fully-factorized-zero-coupling-precision}. An SPD Gaussian with either displayed block-diagonal precision has a covariance with the same block structure, so its normalized density factorizes under that partition. Equation~\eqref{eq:gaussian-mean-field-evidence-gap} then gives a zero gap.
+
+\section{Fixed-source row KL and simplex optimum}
+\label{sec:fixed-source-row-proof}
+
+Under the support and normalization assumptions preceding Equation~\eqref{eq:fixed-source-row-joints}, direct use of counting measure on \(\mathcal J_i\) gives
+\begin{align}
+\KL(Q_i\Vert P_i)
+&=\sum_j\int\beta_{ij}q_i(y)
+\left[
+\log\frac{q_i(y)}{f_{ij}(y)}
++\log\frac{\beta_{ij}}{\pi_{ij}}
+\right]\nu_i(dy)\notag\\
+&=\sum_j\beta_{ij}\KL(q_i\Vert f_{ij})
++\sum_j\beta_{ij}\log\frac{\beta_{ij}}{\pi_{ij}},
+\label{eq:appendix-fixed-source-row-kl}
+\end{align}
+which proves Equation~\eqref{eq:fixed-source-row-kl-decomposition}. Write \(c_{ij}=\KL(q_i\Vert f_{ij})\). The simplex Lagrangian has derivative
+\begin{equation}
+\frac{\partial}{\partial\beta_{ij}}
+\left\{
+\sum_\ell\beta_{i\ell}
+\left(c_{i\ell}+\log\frac{\beta_{i\ell}}{\pi_{i\ell}}\right)
++\lambda_i\left(\sum_\ell\beta_{i\ell}-1\right)
+\right\}
+=c_{ij}+\log\frac{\beta_{ij}}{\pi_{ij}}+1+\lambda_i.
+\label{eq:appendix-fixed-source-simplex-derivative}
+\end{equation}
+The stationary values obey \(\beta_{ij}=\pi_{ij}\exp(-c_{ij}-1-\lambda_i)\). Summing over \(j\) determines the multiplier and gives Equation~\eqref{eq:fixed-source-row-optimum}. Strict convexity of categorical relative entropy on the interior of the simplex makes this stationary row the unique minimizer.
+
 \chapter{Gauge Transformations and Verification Oracles}
 
 This appendix specifies the transformation rules and finite-dimensional test constructions used to audit covariance, precision, and probability-ratio calculations. These oracles verify declared formulas under controlled inputs and do not stand in for a claim about the active runtime.
