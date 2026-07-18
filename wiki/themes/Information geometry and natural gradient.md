@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-07-10
+updated: 2026-07-18
 ---
 
 # Information geometry and natural gradient
@@ -52,6 +52,16 @@ themes rather than optimizer identities.
 
 In the VFE transformer, Gaussian belief updates use information geometry. At each recorded source SHA, the committed gate and stored configuration route the frame table through AdamW; every provenance record marks a dirty worktree, so the exact executed optimizer cannot be reconstructed. Heavy-ball belongs only to the disabled custom outer optimizer. The exponential-coordinate pullback can condition either optional frame route, but both are off; BCH/retraction belongs only to the disabled in-E-step route. Optional Cartan/Killing or pullback conditioning is extrinsic and is not a Fisher, K-FAC, or reparameterization-invariant natural gradient. [[gl-k-attention-2026-07-09-review-revision]]
 
+The rebuilt opt-in `pullback_group` route now supplies a cleaner empirical separation. Its first
+retained K=10 run used a stateless Frobenius-pullback direction and BCH group update on the existing
+outer cross-entropy covector. Through validation step 9,000, PPL improved from 456.32 to 365.57, but
+the user observed substantially poorer performance than AdamW. The geometry diagnostics remained
+benign: direction cosine 0.991, median damped generalized condition number 1.90, and accepted update
+scale 1.0. Thus this partial result points toward stochastic optimizer dynamics and learning-rate
+scale rather than a singular pullback solve. It is not yet a controlled AdamW comparison because no
+matching K=10 AdamW artifact is retained and the registered pullback learning-rate sweep is
+incomplete. [[2026-07-18-phi-pullback-group-k10-partial-negative-result]]
+
 The configured `renyi` family supplies a pairwise belief-side Rényi discrepancy with KL at order one. It is not, without an additional derivation, the variational Rényi bound of [[li-turner-2016-renyi-vi]], the separate decode cross-entropy, or an Amari alpha-divergence connection. The Gaussian belief update independently retains its Fisher geometry. [[gl-k-attention-2026-07-09-review-revision]]
 
 > [!note] Editorial (2026-07-10): the zero-mean Gaussian covariance Fisher metric
@@ -73,6 +83,12 @@ Likewise, changing an order-Rényi discrepancy changes its local Fisher scale bu
 does not sweep Amari alpha-connections. Fisher-equals-Gauss–Newton statements
 still require the output-distribution and loss-matching hypotheses specified by
 [[martens-2020-natural-gradient-insights]].
+
+For the frame route, the immediate empirical gap is now a matched optimizer study: preserve the
+same K=10 model and outer objective, compare AdamW against the registered pullback learning-rate
+grid, and carry only surviving settings to multiple seeds. Until that control is complete, the
+current negative signal supports AdamW as the default without establishing that tuned group descent
+is intrinsically inferior. [[2026-07-18-phi-pullback-group-k10-partial-negative-result]]
 
 ## Sources synthesized
 

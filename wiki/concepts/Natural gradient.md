@@ -11,7 +11,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-10
+updated: 2026-07-18
 ---
 
 # Natural gradient
@@ -79,6 +79,15 @@ positive scale.
 Natural gradient surfaces wherever the VFE transformer optimizes a distribution:
 
 - **Frame M-step.** The committed gate at each recorded SHA routes the frame table through AdamW, subject to the dirty-provenance caveat. Optional per-block conditioning and heavy-ball are inactive fields, not an identified Fisher/K-FAC natural gradient; the BCH retraction dispatcher is a separate optional in-E-step route. [[gl-k-attention-2026-07-09-review-revision]]
+- **Opt-in frame pullback group descent.** The rebuilt 2026-07-18 route is a stateless
+  exponential-coordinate Frobenius-pullback solve followed by a right group update. Its first
+  retained K=10 run was numerically healthy but optimized outer cross-entropy slowly: validation
+  PPL fell from 456.32 at step 1,500 to 365.57 at step 9,000, while the pulled-back direction stayed
+  0.991 cosine-aligned with the raw covector, the median generalized condition number stayed near
+  1.90, and no trust/backtracking reduction activated. This is evidence about an extrinsic frame
+  optimizer, not a Fisher natural gradient. The exact K=10 AdamW gap is not reconstructable from
+  the retained artifacts, and the registered pullback learning-rate sweep remains incomplete.
+  [[2026-07-18-phi-pullback-group-k10-partial-negative-result]]
 - **E-step / online belief updates.** The per-token Gaussian beliefs $(\mu,\Sigma)$ are refined with the belief-family Fisher geometry. [[khan-rue-2023-bayesian-learning-rule]] supplies a related exponential-family natural-parameter update, but it does not identify the entire program or its separate decode/frame M-steps with one Bayesian learning rule. Adaptive-optimizer cautions must therefore be assessed per optimizer rather than transferred from the belief update to every channel. [[gl-k-attention-2026-07-09-review-revision]]
 - **SPD covariance geometry.** The covariance $\Sigma$ lives on the SPD
   manifold under the `spd_affine` retraction. For a zero-mean Gaussian, the

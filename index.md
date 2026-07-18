@@ -2,7 +2,7 @@
 type: index
 title: Index
 aliases: [Index, Home]
-updated: 2026-07-17
+updated: 2026-07-18
 ---
 
 # Index
@@ -10,7 +10,7 @@ updated: 2026-07-17
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **10** manuscripts · **12** themes · **11** field MOCs · **268** concepts · **11** methods · **539** papers · **104** references · **9** runs · **6** web/methodology
+> **3** projects · **10** manuscripts · **12** themes · **11** field MOCs · **268** concepts · **11** methods · **539** papers · **104** references · **10** runs · **6** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -1087,3 +1087,4 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[2026-07-08-phi-reflection-buildout|learnable reflection on the phi path — R.exp(phi) (2026-07-08)]] (implementation; the cheap 1-bit route to det<0 on the default phi path; misses the non-exp interior omega_direct reaches; fixed a latent omega_direct block.py bug)
 - [[2026-07-11-backprop-free-plan-and-pure-fep-postmortem|backprop-free vfe3 plan + pure_fep post-mortem (2026-07-11)]] (design / plan + adjudicated post-mortem, no training results; see [[Nudged two-phase EM]])
 - [[2026-07-12-partial-buildout-audit-remediation|partial-buildout audit remediation — seven completion plans (2026-07-12)]] (implementation record, no training metrics; efe_rollout live, sigma_mc four-identity gate stays FAIL-closed, phi/Metropolis objective parity, full-SPD model channel, CG covariance pushforward, family-consistent decode)
+- [[2026-07-18-phi-pullback-group-k10-partial-negative-result|K=10 phi pullback-group partial negative result (2026-07-18)]] (validation PPL 365.57 at step 9,000; stable geometry diagnostics; matched AdamW artifact and pullback LR sweep remain open)
