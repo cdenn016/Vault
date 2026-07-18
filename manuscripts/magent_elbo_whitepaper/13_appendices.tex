@@ -6,6 +6,32 @@ This appendix collects the normalization conditions and algebraic conventions ne
 
 For the state-tier results, all latent and observation products are finite and carry the finite product sigma-algebras of Chapter~\ref{ch:probability-semantics}. The configuration space \((\mathsf X,\mathscr X)\) has one fixed design, incidence pattern, and set of identified latent and observation fibers, so every state kernel has the same measurable codomain. Continuous coordinates use the declared Borel base measures, discrete coordinates use counting measures, and mixed coordinates use their product. Probability kernels are normalized before densities are introduced. Whenever a logarithmic density ratio is used, its numerator is absolutely continuous with respect to its denominator and both densities are taken relative to a declared dominating measure. These conventions do not define a measure on a continuum of sections.
 
+\section{Reverse-topological normalization of the directed joint}
+\label{sec:directed-normalization-proof}
+
+Fix one design point and a topological order \(v_1,\ldots,v_N\) of the finite DAG in Equation~\eqref{eq:abstract-directed-kernel-factorization}. Under the domination assumptions, write its nonnegative density as
+\begin{equation}
+f(o,k,m)
+=\prod_{\ell=1}^{N}
+p_{\theta,v_\ell}^{m}(m_{v_\ell}\mid m_{\operatorname{pa}(v_\ell)},X)
+p_{\theta,v_\ell}^{k}(k_{v_\ell}\mid k_{\operatorname{pa}(v_\ell)},m_{v_\ell},X)
+p_{\theta,v_\ell}^{o}(o_{v_\ell}\mid k_{v_\ell},m_{v_\ell},X).
+\label{eq:appendix-directed-density}
+\end{equation}
+Tonelli's theorem applies because \(f\geq0\). Integrating all \(o_i\) removes every observation factor, since each is a probability density for every fixed \((k_i,m_i,X)\).
+
+Now traverse the nonroot vertices in reverse topological order. Consider the current vertex \(i\). Every child of \(i\), and hence every descendant of \(i\), occurs later in the forward order and has already been integrated out. After those integrations, the only remaining factor that depends on \(k_i\) as its sampled variable is
+\begin{equation}
+p_{\theta,i}^{k}(k_i\mid k_{\operatorname{pa}(i)},m_i,X),
+\end{equation}
+whose integral with respect to \(\nu_i^k(dk_i)\) is one for every fixed conditioning value. Once \(k_i\) is removed, the only remaining factor that contains \(m_i\) as its sampled variable is
+\begin{equation}
+p_{\theta,i}^{m}(m_i\mid m_{\operatorname{pa}(i)},X),
+\end{equation}
+whose integral with respect to \(\nu_i^m(dm_i)\) is also one. This pair of integrations removes vertex \(i\) without changing the remaining integrand. The argument covers multiple parents because their coordinates are held fixed while the child kernel is integrated.
+
+After every nonroot has been removed, only roots remain. No edge joins one root as a child of another root, because the child would then have a parent. For each root \(r\), integrate its normalized state bridge \(p_{\theta,r}^{k}(k_r\mid m_r,X)\) and then its normalized model root \(p_{\theta,r}^{m}(m_r\mid X)\). The resulting scalar is one. The kernel statement follows without domination by the same successive-kernel argument. Finally, the declared product over \(a=1,\ldots,M\) multiplies \(M\) unit masses, which proves Equations~\eqref{eq:kernel-total-mass-one} and \eqref{eq:density-normalization}.
+
 \chapter{Gaussian Information and Mean-Field Identities}
 
 This appendix fixes the Gaussian information-form notation and the block partitions used by the restricted recognition controls. It will provide the matrix identities required to compare a correlated Gaussian law with block-product approximations.
@@ -13,6 +39,38 @@ This appendix fixes the Gaussian information-form notation and the block partiti
 \chapter{Gauge Transformations and Verification Oracles}
 
 This appendix specifies the transformation rules and finite-dimensional test constructions used to audit covariance, precision, and probability-ratio calculations. These oracles verify declared formulas under controlled inputs and do not stand in for a claim about the active runtime.
+
+\section{Gaussian kernel gauge oracle}
+\label{sec:gaussian-gauge-oracle}
+
+For a nonroot state transition, define its residual
+\begin{equation}
+\delta_i^k
+=k_i-A_i^k\Omega_{ij}^k k_j-B_i m_i-a_i^k.
+\label{eq:state-transition-residual}
+\end{equation}
+Equations~\eqref{eq:generative-link-gauge-laws}--\eqref{eq:generative-bridge-offset-gauge-laws} give \(\delta_i^{k\prime}=g_i^k\delta_i^k\). With \(Q_i^{k\prime}=g_i^kQ_i^k(g_i^k)^\top\), direct inversion gives
+\begin{equation}
+(Q_i^{k\prime})^{-1}
+=(g_i^k)^{-\top}(Q_i^k)^{-1}(g_i^k)^{-1},
+\qquad
+(\delta_i^{k\prime})^\top(Q_i^{k\prime})^{-1}\delta_i^{k\prime}
+=(\delta_i^k)^\top(Q_i^k)^{-1}\delta_i^k.
+\label{eq:state-transition-quadratic-invariance}
+\end{equation}
+The determinant obeys
+\begin{equation}
+\det Q_i^{k\prime}=\det(g_i^k)^2\det Q_i^k.
+\label{eq:state-transition-determinant-law}
+\end{equation}
+Therefore the transformed Gaussian density acquires the factor \(|\det g_i^k|^{-1}\), which is exactly canceled by the coordinate volume change \(dk_i'=|\det g_i^k|dk_i\). The conditional probability measure, rather than its coordinate density alone, is invariantly defined. Replacing \(k\) by \(m\) proves the model-channel result.
+
+For the observation residual
+\begin{equation}
+\delta_i^o=o_i-H_i k_i-L_i m_i-d_i,
+\label{eq:observation-residual}
+\end{equation}
+Equation~\eqref{eq:observation-parameter-gauge-laws} gives \(\delta_i^{o\prime}=\delta_i^o\) and \(R_i^{o\prime}=R_i^o\). Hence the observation density itself is unchanged. The same calculations apply to the root kernels after replacing the nonroot means and covariances by Equations~\eqref{eq:gaussian-model-root}--\eqref{eq:gaussian-state-root}. These identities provide a finite matrix oracle: sample invertible represented frame matrices and SPD covariances, transform every parameter by the displayed laws, and test the residual, quadratic-form, determinant, root-moment, and observation-mean equalities to numerical tolerance.
 
 \chapter{Notation}
 
