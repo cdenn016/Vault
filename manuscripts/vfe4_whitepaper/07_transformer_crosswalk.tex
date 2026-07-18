@@ -1,3 +1,168 @@
 \chapter{Transformer Correspondence and the V3 Boundary}
 
-This chapter maps already defined probabilistic factors and update roles to transformer-like operations after the ELBO construction is complete. It records the V3 boundary as a comparison of architectures rather than treating V3 consensus energies as factors of the new generative model.
+This chapter maps the probabilistic factors and update roles already defined to transformer-like operations. The mapping is structural: it identifies source routing, transported value propagation, cross-channel conversion, iterative refinement, and categorical decoding. It does not assert that the resulting algebra is scaled dot-product attention, a standard transformer block, or a reduction of the V3 update equations. Any such recovery would require an explicit limiting theorem with matched parameters and normalizers.
+
+\section{Source posteriors as attention-like routing}
+
+The categorical variables $a_t$ and $b_t$ make source selection part of the probability model. Their recognition conditionals are the state-source weights $\beta_t$ and the model-source weights $\gamma_t$. Holding the other recognition coordinates fixed, the unrestricted coordinate optima implied by \cref{eq:source-markov-blanket-potentials} have the schematic forms
+\begin{equation}
+\begin{aligned}
+\log\beta_t(j)
+={}&\log\pi_t^z(j)
++\mathbb E_{Q_{\setminus a_t}}
+\left[
+\log K^z_{\theta,tj}
+(z_t\given z_j,m_t,x_{<t},\Gamma)
+\right]
+-\log Z^z_t,\\
+\log\gamma_t(j)
+={}&\log\pi_t^m(j)
++\mathbb E_{Q_{\setminus b_t}}
+\left[
+\log K^m_{\theta,tj}
+(m_t\given m_j,x_{<t},\Gamma)
+\right]
+-\log Z^m_t,
+\end{aligned}
+\label{eq:source-posterior-routing-logits}
+\end{equation}
+where the expectations retain the conditioning variables of the recognition family, and $Z_t^z$ and $Z_t^m$ normalize over the permitted causal parent sets. Thus each routing logit is the sum of a normalized source-prior log mass and expected conditional log evidence supplied by the corresponding transition. The source KL terms in \cref{eq:vfe4-local-elbo-decomposition} penalize departures from those priors with coefficient one.
+
+Equation~\eqref{eq:source-posterior-routing-logits} gives $\beta_t$ and $\gamma_t$ an attention-like role. The state row allocates posterior mass among transported state sources $\Omega^z_{tj}z_j$, while the model row allocates posterior mass among transported model sources $\Omega^m_{tj}m_j$. Posterior expectations can use these masses to combine messages or component moments. Marginalizing the source variable, however, generally produces a mixture. Replacing that mixture by one moment-matched Gaussian is a declared projection and not an identity.
+
+Scaled dot-product attention instead obtains its logits from query-key inner products and then uses the resulting categorical weights to average values \citep{Vaswani2017}. No equality between that construction and \cref{eq:source-posterior-routing-logits} has been proved here. Such an equality could hold only under a specified transition family for which the expected log kernel reduces, up to source-independent terms, to the chosen query-key score and for which the probabilistic source prior matches the attention bias. Similarity of the final softmax operation is not enough.
+
+\section{State propagation, channel conversion, and inference depth}
+
+For a selected state source $a_t=j$, the transition mean in \cref{eq:typed-gaussian-transition-locations} first moves $z_j$ into the receiver fiber through $\Omega^z_{tj}$, then adds the model-channel contribution $B_tm_t$ and the receiver offset. This resembles transported value propagation followed by a channel map. The resemblance is structural because the VFE 4.0 object is a normalized conditional density with a covariance and normalization constant, rather than a deterministic value update. For a selected model source $b_t=j$, the model transition similarly propagates $m_j$ through $\Omega^m_{tj}$. Different representations $\rho_z$ and $\rho_m$ may have different dimensions, so $B_t:E_{m,t}\to E_{z,t}$ is the typed operation that permits the two channels to interact.
+
+Repeated E-like updates supply an inference depth. One sweep may update source assignments, model states, state variables, and selected parameter blocks; additional sweeps revisit their Markov blankets. This recurrence is analogous to stacking refinement layers only in the operational sense that later computations use revised latent summaries. An exact coordinate maximum, a valid minorize-maximize update, an accepted generalized-EM proposal, and an ordinary truncated optimizer have different guarantees under \cref{eq:structured-e-coordinate-update,eq:vfe4-exact-m-coordinate-update}. Calling every sweep a layer would conceal those distinctions.
+
+The observation operation is the normalized categorical kernel $L_{\theta,t}$. Training uses
+\begin{equation}
+\mathbb E_{Q_\psi}
+\left[
+\log L_{\theta,t}(x_t\given z_t,m_t,\Gamma)
+\right],
+\label{eq:expected-categorical-transformer-readout}
+\end{equation}
+not merely the decoder evaluated at a posterior mean unless that replacement is separately justified. Generation and prior-predictive evaluation use the causal predictive distribution obtained before assimilating $x_t$. The softmax negative log likelihood remains categorical cross-entropy. VFE 4.0 places that term inside the shared latent-variable objective rather than replacing it.
+
+These correspondences establish an architectural vocabulary. They do not establish algebraic recovery of a conventional transformer. A recovery theorem would need to specify a limiting posterior family, transition covariance, source score, transport, channel morphism, number of inference iterations, residual convention, and decoder action, then show equality of the resulting maps. That theorem is outside the present construction.
+
+\section{Executable V3 boundary}
+
+The V3 comparison is based on the executable baseline rather than on names inherited from the broader theory. V3 stores one \texttt{BeliefState} with tokenwise $\mu$, within-token diagonal or full $\Sigma$, and frame coordinates $\phi$; its pairwise routine returns an $N\times N$ or head-indexed $N\times N$ divergence array.\footnote{Live-source locations inspected on 2026-07-17 are \path{V3_Transformer/vfe3/belief.py}, lines 23 through 28, and \path{V3_Transformer/vfe3/free_energy.py}, lines 162 through 173.} The energy array is therefore a directed score grid. It is not a covariance matrix, an edge marginal, or an off-diagonal block of a joint precision.
+
+On the investigated training path, \texttt{forward\_beliefs} runs before the target is used, categorical cross-entropy is formed afterward, and the initial outer loss is set to that cross-entropy.\footnote{See \path{V3_Transformer/vfe3/model/model.py}, lines 1549 through 1611. The optional \texttt{log\_likelihood} input in \path{V3_Transformer/vfe3/free_energy.py}, lines 389 through 471, is not called by this production path.} The active model-channel refinement replaces the initial belief and its prior with the refined $s$ moments, after which the belief stack performs another refinement.\footnote{See \path{V3_Transformer/vfe3/model/model.py}, lines 1069 through 1113. The same-$K$ model table and broadcast hyperprior shapes appear at lines 821 through 839, and the prior handoff recurrence appears in \path{V3_Transformer/vfe3/model/stack.py}, lines 139 through 140.} These are deterministic replacement and refinement maps among same-dimensional parameter tuples. They are not four stochastic conditionals that by themselves instantiate $h\to s\to p\to q$.
+
+The named baseline uses \texttt{block\_glk}, flat transport, causal ALiBi priors without self edges for both $\beta$ and $\gamma$, an active $s$ refinement, and the linear decoder selected by \texttt{use\_prior\_bank=false}.\footnote{See \path{V3_Transformer/vfe3_runs/122.14_wikitext-103_K20_block_glk_linear_mix_s6/config.json}, lines 16 through 20, 60 through 66, 78 through 80, and 97 through 100.} That decoder computes logits from $\mu$ and discards $\Sigma$.\footnote{See \path{V3_Transformer/vfe3/model/prior_bank.py}, lines 1727 through 1740.} Because the learned readout is fixed while the latent coordinates carry the block gauge action, this active route does not transform every observation parameter contragrediently and is not an end-to-end realization of the complete gauge-invariance proposition in \cref{eq:complete-elbo-gauge-invariance}. It still contains meaningful gauge-transport components.
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.16\textwidth} >{\raggedright\arraybackslash}p{0.37\textwidth} >{\raggedright\arraybackslash}p{0.37\textwidth}}
+\caption{Architectural boundary between the executable V3 baseline and the proposed VFE 4.0 construction.}
+\label{tab:v3-v4-crosswalk}\\
+\toprule
+\textbf{Criterion} & \textbf{V3 baseline} & \textbf{VFE 4.0 proposal} \\
+\midrule
+\endfirsthead
+\multicolumn{3}{c}{\tablename\ \thetable\ continued}\\
+\toprule
+\textbf{Criterion} & \textbf{V3 baseline} & \textbf{VFE 4.0 proposal} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{Continued on the next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+State representation
+& Token marginals \texttt{BeliefState}$(\mu,\Sigma,\phi)$, with diagonal or full covariance inside each token. The live $h,s,p,q$ language denotes same-$K$ tables, copies, priors, and refinements rather than a declared stochastic hierarchy.
+& A joint law over state and model paths, source variables, and optional geometry. A structured Gaussian component uses joint information coordinates $(h,J)$ with distinct state and model fibers allowed. \\
+\addlinespace
+Cross-token correlation
+& No cross-token covariance or edge belief is stored. The $N\times N$ energy grid contains directed pairwise divergence scores and is not a covariance.
+& Off-diagonal token blocks of $J$ encode conditional dependence. The covariance may be dense even when $J$ is sparse, and source marginalization generally yields a mixture. \\
+\addlinespace
+Peer interaction
+& $D(q_i\Vert\Omega_{ij}q_j)$ compares two moving posterior marginals. It is an engineered consensus energy with useful routing semantics, not a fixed generative transition.
+& Normalized kernels $K^z_{\theta,tj}$ and $K^m_{\theta,tj}$ are fixed model factors. Posterior source rows compare categorical recognition laws with fixed priors. \\
+\addlinespace
+Target access
+& The $q$, $s$, $\beta$, and $\gamma$ refinements consume observed input tokens but do not consume the held-out next-token target. The target first enters at decode and cross-entropy.
+& The predictive prior remains target-blind. A training filtering posterior may condition on $x_{\leq t}$, and a smoothing posterior may condition on $x_{1:T}$; prior-based evaluation never uses this target-conditioned recognition law. \\
+\addlinespace
+Observation term
+& The investigated run uses a mean-only linear categorical decoder. Cross-entropy is its live target-data-fit scalar; the optional observation input of the internal free-energy assembler is not on the production path.
+& The objective contains the expected log of a normalized categorical emission under the declared joint $Q$. Cross-entropy is retained as the observation sector. \\
+\addlinespace
+Objective
+& Outer categorical loss differentiates through VFE-inspired refinements, with any enabled regularizers added by separate gates. The model, belief, and decode operations are not coordinate updates of one proved global ELBO.
+& State inference, model inference, source selection, and M-like parameter updates are evaluated against $\VFE=-\ELBO$ from one normalized joint and one normalized recognition law. \\
+\addlinespace
+Geometry
+& The baseline uses flat block-$\mathrm{GL}(K)$ transports and gauge-structured internal operations, but its fixed linear readout prevents full local gauge covariance of the complete scored model.
+& Associated state and model bundles carry declared representations. Complete invariance requires simultaneous pushforward of $p$, $Q$, transitions, covariances, morphisms, and decoder weights, or restriction to the emission stabilizer. \\
+\addlinespace
+Checkpoint compatibility
+& V3 checkpoints encode token tables, same-$K$ refinements, pair-score mechanisms, and the existing decoder contract.
+& They are not directly loadable as VFE 4.0 checkpoints. A deliberate one-way initializer may copy compatible tables or frames after an explicit dimension and representation map, but it cannot manufacture joint precision blocks, normalized transitions, or new variational state. \\
+\addlinespace
+Empirical status
+& The 28-epoch run is evidence about this V3 baseline and its optimization plateau.
+& No VFE 4.0 training result exists in this paper. The V3 result neither validates the global ELBO implementation nor predicts a VFE 4.0 gain. \\
+\end{longtable}
+
+The crosswalk supports a clean development boundary. V3 remains the comparison arm and a source of tested numerical kernels. VFE 4.0 is a new probabilistic architecture. A one-way migration utility may initialize compatible emissions, token statistics, or flat connection data, but the V4 state, objective, and checkpoint schema must remain independently versioned.
+
+\section{A separate configuration-Gibbs extension}
+
+The state-level joint in \cref{eq:vfe4-generative-joint} is not the only possible probabilistic use of the earlier population free energy. A distinct construction takes an entire belief configuration as its random variable. Let
+\begin{equation}
+\mathfrak X
+=
+(q,s,\alpha,\beta,\gamma,\phi,\ldots)
+\label{eq:configuration-gibbs-random-variable}
+\end{equation}
+collect the distributions, weights, and geometric coordinates of one settled population configuration. Let $c$ be an observed prefix, let $y$ be held-out token data, let $\rho_0(\mathop{\mathrm d\mathfrak X})$ be a proper reference probability, and let $\mathcal F_{\mathrm{vac}}(\mathfrak X;c)$ exclude the held-out observation term. If
+\begin{equation}
+0<Z_{\mathcal F}(c)
+:=
+\int
+\exp\left[-\frac{\mathcal F_{\mathrm{vac}}(\mathfrak X;c)}{T_{\mathrm{cfg}}}\right]
+\rho_0(\mathop{\mathrm d\mathfrak X})
+<\infty,
+\label{eq:configuration-gibbs-partition}
+\end{equation}
+then
+\begin{equation}
+P_{\mathcal F}(\mathop{\mathrm d\mathfrak X}\given c)
+=
+\frac{1}{Z_{\mathcal F}(c)}
+\exp\left[-\frac{\mathcal F_{\mathrm{vac}}(\mathfrak X;c)}{T_{\mathrm{cfg}}}\right]
+\rho_0(\mathop{\mathrm d\mathfrak X})
+\label{eq:configuration-gibbs-prior}
+\end{equation}
+is a normalized prior over configurations.
+
+One may attach an explicit state draw $k\sim q_{\mathfrak X}$ and normalized observation $y\sim p_\theta(\mathord{\cdot}\given k,c)$. With a recognition law $R(\mathop{\mathrm d\mathfrak X}\given c,y)$ and the tied conditional $q_{\mathfrak X}(\mathop{\mathrm dk})$, the resulting ELBO is
+\begin{equation}
+\begin{aligned}
+\mathcal L_{\mathrm{cfg}}
+={}&
+\mathbb E_R\mathbb E_{q_{\mathfrak X}}
+\left[
+\log p_\theta(y\given k,c)
+\right]
+-\frac{1}{T_{\mathrm{cfg}}}
+\mathbb E_R
+\left[
+\mathcal F_{\mathrm{vac}}(\mathfrak X;c)
+\right]\\
+&-\KL\left(R\Vert\rho_0\right)
+-\log Z_{\mathcal F}(c).
+\end{aligned}
+\label{eq:configuration-gibbs-elbo}
+\end{equation}
+The term $\KL(R\Vert\rho_0)$ contains the configuration-level entropy. A point estimate of $\mathfrak X$ drops that entropy and is a MAP or zero-configuration-temperature approximation, not the finite-temperature ELBO in \cref{eq:configuration-gibbs-elbo}. If parameters inside $\mathcal F_{\mathrm{vac}}$ are learned, the partition function is generally parameter dependent and cannot be omitted from their M-like update.
+
+The random variable in \cref{eq:configuration-gibbs-random-variable} is a whole configuration of belief objects. It is not the state path $(\boldsymbol z,\boldsymbol m,a,b)$ in \cref{eq:vfe4-generative-joint}, and its entropy is not the joint state entropy in \cref{eq:full-joint-gaussian-entropy}. The two constructions answer different questions. The state-level VFE 4.0 model asks which latent states generated the observed tokens. The configuration-Gibbs model asks which population configuration is probable under a configuration energy. They must not be combined by identifying their random variables or by counting the observation likelihood twice.

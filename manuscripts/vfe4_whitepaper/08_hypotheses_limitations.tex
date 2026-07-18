@@ -1,7 +1,120 @@
 \chapter{Falsifiable Hypotheses and Experimental Program}
 
-This chapter states tests that follow from the completed construction, separating identity checks, posterior-family comparisons, optimization checks, predictive evaluation, and gauge-covariance tests. These are empirical hypotheses and promotion criteria, not conclusions derived by the preceding sections.
+The completed construction licenses mathematical identity checks, but it does not license a claim of predictive or computational benefit. The research program therefore advances through seven gates: identity, representation, posterior structure, optimization, prediction, gauge covariance, and scale. A failed early gate stops promotion to a more expensive one. Passing a gate establishes only the proposition named by that gate.
+
+The first reference implementation should use the immediate causal predecessor, deterministic Regime I geometry, normalized linear-Gaussian transitions, and a small vocabulary categorical emission. It should next compare natural and moment evaluations of the same Gaussian law, then compare structured and factorized recognition under a fixed model. Categorical source variables, broader parent sets, learned geometric parameters, and sparse large-window execution enter only after the simpler regimes pass their analytic oracles. This sequence keeps model expressiveness from masking a failure of the probability calculation.
+
+\section{Preregistered hypotheses and falsifiers}
+
+\paragraph{H1 (analytic ELBO identity).}
+For a tiny fixed-parent reference problem, evaluate the monolithic log-ratio definition in \cref{eq:vfe4-elbo-definition}, the local decomposition in \cref{eq:vfe4-local-elbo-decomposition}, and an independently evaluated evidence-plus-posterior-KL identity. Use exact summation over the discrete source variables and either analytic Gaussian expectations or common random numbers for any categorical-emission estimate. Define the window residual as the largest absolute discrepancy among the evaluations after matching reduction and normalization conventions. The hypothesis passes only when
+\begin{equation}
+r_{\mathrm{ELBO}}
+\leq 10^{-3}
+\quad\text{nats per window in float32}.
+\label{eq:h1-elbo-residual-threshold}
+\end{equation}
+It is falsified if the residual exceeds this threshold after conditioning, support, random draws, and summation order have been matched. A cancellation visible only after omitting a determinant, source entropy, or emission normalizer is a failure rather than an acceptable approximation.
+
+\paragraph{H2 (information and moment equality).}
+Construct one positive-definite Gaussian law, convert it exactly between $(h,J)$ and $(\mu,\Sigma)$ using linear solves, and evaluate every Gaussian contribution and the complete ELBO in both representations. The hypothesis passes only when the absolute ELBO difference at that identical law satisfies
+\begin{equation}
+\left|
+\ELBO^{\mathrm{information}}
+-\ELBO^{\mathrm{moment}}
+\right|
+<10^{-4}.
+\label{eq:h2-coordinate-equality-threshold}
+\end{equation}
+It is falsified by a difference at or above the threshold, by unequal laws after conversion, or by an implementation that silently forms a dense inverse and thereby tests a different computational path. This test concerns representational equality, not optimization speed.
+
+\paragraph{H3 (correlation benefit).}
+Fix a synthetic coupled linear-Gaussian generative model for which the exact posterior can be computed. Optimize a structured block-precision recognition family and a matched token-factorized family against that same fixed model, using the same initialization policy and convergence criterion. Let $\Delta_{\mathrm{corr}}$ be the converged structured ELBO minus the converged factorized ELBO. The hypothesis predicts a resolved positive gain for the coupled exact posterior and disappearance of that gain in a separately generated matched zero-transition-coupling control whose exact posterior factorizes. It is falsified if the structured family fails to close more of the known posterior gap in the coupled model, or if a gain larger than the numerical oracle tolerance remains in the factorizing control.
+
+\paragraph{H4 (computational benefit of information form).}
+Compare information-form and moment-form solvers on the same Gaussian model, objective, initialization law, stopping criterion, hardware, and precision. After converting their terminal distributions into a common representation, they must reach the same converged optimum within the preregistered solver tolerance. The information-form implementation must then show a lower measured cost, such as wall-clock time, peak allocated memory, or counted factorization work, on the sparse reference problem. The hypothesis is falsified if the optima differ after adequate convergence checks, if the apparent saving comes from a looser stopping rule or omitted term, or if no measured cost is lower. Algebraic sparsity alone does not count as a computational result.
+
+\paragraph{H5 (coordinate coherence).}
+Record the complete ELBO before and after every update labeled exact coordinate ascent, valid minorize-maximize, or generalized EM. Exact coordinate and valid minorize-maximize updates must not decrease the evaluated ELBO. A generalized-EM proposal counts only when direct evaluation or its declared line search accepts an increase. The hypothesis is falsified by a decrease outside the stated numerical tolerance for any update carrying one of those labels, or by a code path that reports monotonicity without evaluating all affected factors. No monotonicity hypothesis is made for arbitrary finite natural-gradient steps, SGD, Adam, stochastic estimates, or unaccepted truncated iterations.
+
+\paragraph{H6 (predictive transfer).}
+Compare the VFE 4.0 arm with a compute-matched V3 baseline and the declared ablations using strictly causal prior-predictive evaluation. Preregister one primary held-out criterion from prior-predictive negative log likelihood, perplexity, calibrated uncertainty, or held-out evidence, and report the other applicable measures as secondary outcomes. The hypothesis passes only if the preregistered held-out measure improves across at least three seeds. Posterior-predictive scores obtained from a recognition law that has seen the target do not satisfy this test. The hypothesis is falsified if the improvement is absent on held-out data, occurs only in the training bound, fails to reproduce across three seeds, or disappears under compute matching.
+
+\paragraph{H7 (gauge covariance).}
+Sample admissible local frame changes, transform the complete generative and recognition laws according to \cref{eq:complete-generative-density-pushforward,eq:complete-recognition-density-pushforward}, and compare the full ELBO before and after the pushforward. The comparison must include transitions, source factors, covariances or precisions, $B_t$, decoder weights, and all Jacobian terms. The hypothesis passes only when
+\begin{equation}
+r_{\mathrm{gauge}}
+:=
+\left|
+\ELBO(\theta',\psi';x,\Gamma')
+-\ELBO(\theta,\psi;x,\Gamma)
+\right|
+<10^{-4}.
+\label{eq:h7-gauge-residual-threshold}
+\end{equation}
+It is falsified by a residual at or above the threshold. A transition-only or latent-only invariance check cannot substitute for the complete-objective test. If decoder weights are held fixed, the trial must be restricted to the emission-kernel stabilizer in \cref{eq:fixed-decoder-emission-kernel-stabilizer}.
+
+\paragraph{H8 (sparse scale).}
+Run a declared sparse reference graph at $T=128$ and $K=20$ while tracing tensor allocations, factorization storage, selected-inverse requests, and peak device memory. The implementation must use block-sparse or block-banded information operations and must not allocate a dense $O((TK)^2)$ covariance. The hypothesis is falsified if a dense $(TK)\times(TK)$ covariance or equivalent quadratic buffer appears, if a convenience diagnostic triggers such an allocation, or if the solver cannot complete the reference case. Passing this test does not establish large-language-model scale; it establishes only that the specified reference case respects its sparse-memory contract.
+
+\section{Two distinct correlation controls}
+
+The structured-versus-factorized comparison and the zero-coupling control answer different questions and must be reported separately. In the first comparison, the generative model is fixed and coupled. Both recognition families optimize the same ELBO. Any structured gain measures the value of variational-family expressiveness for that model. The exact posterior supplies an independent target, so a higher bound can be attributed to closing a known approximation gap rather than to changing the model.
+
+The second control changes the synthetic generative model in a matched way. Its transition coupling is set to zero, and its initial and observation factors are selected so that the exact posterior factorizes. This control asks whether the structured advantage disappears when correlation is absent from the exact posterior. It is not an ablation of the recognition family and does not reuse the coupled-model result.
+
+Temporally shuffling real text is not the decisive correlation diagnostic. A shuffle changes the language-prediction problem, its conditional entropy, its token statistics, and the meaning of the causal parent relation. It cannot isolate whether a fixed model's posterior requires cross-token correlation. Shuffled data may be a robustness experiment, but it does not replace either controlled comparison above.
+
+\section{Promotion and stopping rules}
+
+The implementation sequence begins with H1 and H2 on analytic reference problems. H3 then tests whether the structured family supplies information that a product family cannot represent. H4 and H5 determine whether the proposed coordinates and update labels survive measurement. Only after those gates pass should the categorical language experiment in H6 be treated as evidence about the architecture. H7 must pass before any observed gain is attributed to the proposed gauge-covariant construction, and H8 must pass before expanding sequence length or parent-set complexity.
+
+The program stops before a full VFE 4.0 build if the analytic oracle in H1 fails. It also stops if the categorical language bound produces no held-out gain, if an apparent gain occurs only in training, or if compute matching removes the gain. A stopped program may still leave useful Gaussian inference kernels or a valid negative result, but it does not license promotion to source mixtures, latent geometry, curvature sectors, or larger language models.
+
+Resource limits should be set before each promotion. Seed count, hardware, wall-clock budget, parent-set width, convergence tolerance, and primary metric must be fixed before viewing the comparison. If the budget cannot distinguish the preregistered effect from numerical or seed variation, the result is inconclusive rather than positive.
 
 \chapter{Limitations and Research Outlook}
 
-This chapter identifies the limits of the initial exact regime and the questions that require later derivations or experiments. It keeps approximation layers, noncompact gauge-volume issues, and scaling claims outside the established ELBO identity until their assumptions are made explicit.
+The ELBO identity resolves an objective-coherence question. It does not resolve posterior tractability, gauge-volume regularization, optimization, prediction, or scale. The initial reference regime deliberately selects assumptions under which each of those questions can be tested without being conflated with the others.
+
+\section{Noncompact gauge groups and latent geometry}
+
+The exact core conditions on deterministic $\Gamma$. This avoids integrating over the noncompact volume of $\mathrm{GL}(K)$, but it also means that the paper has not constructed Bayesian uncertainty over frames or connections. A latent-geometry extension requires a proper prior, a reference measure, an explicit recognition entropy, and either gauge fixing, a quotient construction, a compact restriction, or another coercive treatment that makes the relevant integral finite. An invariant formal volume on a noncompact group is not a probability prior.
+
+Gauge redundancy also creates identifiability and numerical-conditioning questions. Complete ELBO invariance says that gauge-related descriptions have the same score; it does not choose a stable chart or prevent drift along an orbit. Gauge fixing and numerical retractions may improve conditioning, but their effect on the declared model and measure must be recorded. Regime II curvature is not part of the initial flat reference and requires its own normalized link law.
+
+\section{Nonconjugate categorical emissions}
+
+The softmax categorical emission is normalized and appropriate for language, but it is nonconjugate to a Gaussian latent posterior. Consequently, its Markov-blanket contribution generally prevents a closed-form Gaussian information update. Monte Carlo estimates, quadrature, auxiliary bounds, or accepted gradient steps can be used, but they introduce variance, bias, or a looser bound according to the selected method. A Laplace or expectation-propagation approximation may be useful without being an ELBO coordinate update.
+
+Posterior collapse remains possible when the categorical decoder can predict tokens while ignoring the latent variables, as observed in latent-variable text models \citep{bowman2016generating}. The program must therefore report posterior-prior KL, prior-predictive versus posterior-predictive performance, and sensitivity to latent ablations. A valid bound does not imply that the latent channel is used.
+
+\section{Source mixtures and posterior approximation}
+
+Marginalizing $a$ and $b$ generally yields a mixture whose number of components grows with the source-assignment space. Exact enumeration is available only in small reference problems. Conditional source updates, dynamic programming in restricted graphs, particle methods, beam truncation, or moment projection may control cost, but each choice changes the inference approximation and must preserve a normalized $Q$. A moment-matched single Gaussian does not retain the mixture entropy exactly.
+
+Broader causal parent sets also change precision sparsity. A fixed predecessor produces a block-banded Gaussian graph, while dense source support can create fill-in after conditioning or marginalization. Sparse storage cannot by itself prevent fill-in. Parent-set width, elimination order, approximation error, and source truncation must therefore be measured together.
+
+\section{Optimization limits}
+
+Even with one scalar objective, the joint optimization over recognition variables, transition parameters, source priors, decoder parameters, and geometry is nonconvex. Exact coordinate updates may be unavailable, local maxima may differ, and stochastic estimators may obscure small changes in the bound. The monotonicity statement in H5 is intentionally limited to exact coordinates, valid surrogate steps, and explicitly accepted generalized-EM proposals.
+
+Natural coordinates improve factor assembly but do not guarantee a better optimizer. Finite steps can leave the positive-definite domain or decrease the ELBO, and damping can trade speed for stability. Any claim that information coordinates reduce cost or improve convergence remains contingent on H4 rather than following from the Fisher-dual identity.
+
+\section{Scaling boundary}
+
+The $T=128$, $K=20$ test in H8 is a minimum systems check. It does not establish million-token context, large-vocabulary throughput, or large-language-model parameter scaling. Sparse factorization, selected covariance blocks, log determinants, and sampling can all dominate at different graph widths. GPU kernels may also require padding or batching that creates buffers absent from an asymptotic description.
+
+The categorical decoder retains a vocabulary normalization, so vocabulary cost remains even when latent inference is sparse. Approximate or hierarchical softmax variants would define different normalized emissions and require their own predictive and ELBO verification. Scaling claims must include the full training and prior-predictive path rather than timing the Gaussian solver alone.
+
+\section{Interpretive and empirical boundary}
+
+The associated-bundle construction supplies typed local frames, representations, transports, and a covariant objective. It does not show that learned frames correspond to a physical gauge field, that holonomy improves language modeling, or that an irrep decomposition will be discovered. Those are empirical or interpretive claims and require measurements beyond ELBO closure.
+
+The V3 baseline is a valid engineering ancestor but not a proved limit of the new model. Checkpoint migration can initialize compatible quantities without establishing model equivalence. The current 28-epoch V3 plateau supplies neither a positive nor a negative result for H1 through H8 because those tests concern objects that the baseline does not instantiate.
+
+\section{Conclusion}
+
+VFE 4.0 makes training tokens observations in a causal latent-variable model while retaining normalized categorical cross-entropy as the accuracy term. Its state, model, source, geometry, and decoder sectors share one ELBO only under the normalized joint, normalized recognition law, and complete update accounting specified in the preceding chapters. The proposed transformer correspondence is therefore a testable architectural interpretation rather than an identity with conventional attention or with V3.
+
+The research claim survives only if the staged tests separate algebra from representation, representation from optimization, and optimization from held-out prediction. H1 through H8 provide those promotion criteria. Failure at any gate narrows the claim and prevents a mathematical construction from being presented as a language-model result.
