@@ -48,7 +48,7 @@ and the factor is zero outside those sets.  In the local frames of \cref{eq:norm
 \sum_{b_t\in\operatorname{Pa}_m(t)}
 \int Q_{\psi,t}^{(r)}
 \mathop{\mathrm d\lambda_{z,t}}
-\mathop{\mathrm d\lambda_{m,t}}&=1
+\mathop{\mathrm d\lambda_{m,t}}&=1,
 \end{aligned}
 \label{eq:recognition-factor-normalization}
 \end{equation}
@@ -87,6 +87,40 @@ Q_\psi^{(r)}(y,a,b\given x,\Gamma)
 q_\psi^{(r)}(y\given a,b,x,\Gamma).
 \label{eq:recognition-disintegration}
 \end{equation}
+With counting measure on $(a,b)$ and Lebesgue measure on $y$, the entropy of the complete mixed recognition law is
+\begin{equation}
+\begin{aligned}
+H\left(Q_\psi^{(r)}\right)
+&:=-\sum_{a,b}\int
+Q_\psi^{(r)}(y,a,b\given x,\Gamma)
+\log Q_\psi^{(r)}(y,a,b\given x,\Gamma)
+\mathop{\mathrm dy}\\
+&=-\sum_{a,b}w_\psi^{(r)}(a,b\given x,\Gamma)
+\int q_\psi^{(r)}(y\given a,b,x,\Gamma)
+\left[
+\log w_\psi^{(r)}(a,b\given x,\Gamma)
++\log q_\psi^{(r)}(y\given a,b,x,\Gamma)
+\right]
+\mathop{\mathrm dy}\\
+&=H\left(w_\psi^{(r)}\right)
++\sum_{a,b}w_\psi^{(r)}(a,b\given x,\Gamma)
+H\left(q_\psi^{(r)}(\mathord{\cdot}\given a,b,x,\Gamma)\right).
+\end{aligned}
+\label{eq:mixed-recognition-joint-entropy}
+\end{equation}
+Here $H(w):=-\sum_{a,b}w(a,b)\log w(a,b)$, with $0\log0:=0$.  The second equality uses $\log(wq)=\log w+\log q$ on every positive-weight component.  Equation~\eqref{eq:mixed-recognition-joint-entropy} is the joint entropy of the categorical sources and continuous path that enters the ELBO, so the source entropy cannot be omitted.
+
+This joint mixed entropy is not the differential entropy of the source-marginal mixture in \cref{eq:source-marginal-gaussian-mixture}.  The latter is
+\begin{equation}
+H\left(Q_\psi^{(r)}(y\given x,\Gamma)\right)
+=-\int
+\left(\sum_{a,b}w_{ab}q_{ab}(y)\right)
+\log\left(\sum_{a,b}w_{ab}q_{ab}(y)\right)
+\mathop{\mathrm dy},
+\label{eq:source-marginal-mixture-entropy}
+\end{equation}
+which is generally not the weighted component entropy $\sum_{a,b}w_{ab}H(q_{ab})$ and does not inherit the componentwise Gaussian closed form.
+
 The reference Gaussian family is a restriction only on the continuous conditional in \cref{eq:recognition-disintegration}.  For each source assignment with positive weight, it is
 \begin{equation}
 q(y)
@@ -207,7 +241,7 @@ For token blocks $y_t=(z_t,m_t)$, the difference
 \left(
 q(y)\middle\Vert\prod_{t=0}^{T}q(y_t)
 \right)
-\geq0
+\geq0,
 \label{eq:gaussian-total-correlation}
 \end{equation}
 is the total correlation.  Replacing the joint entropy by a sum of node entropies therefore drops this dependence term and overcounts the entropy unless the token blocks are independent.
@@ -322,7 +356,7 @@ J^{-1}=\frac14\begin{pmatrix}
 3&2&1\\
 2&4&2\\
 1&2&3
-\end{pmatrix}
+\end{pmatrix},
 \label{eq:tridiagonal-precision-dense-covariance}
 \end{equation}
 already has a nonzero covariance between its first and third nodes.  The scalable information-form interface is therefore a factorization of $J$ together with linear solves $Jv=r$, selected inverse blocks required by the objective, log-determinant evaluation, and sampling.  If $J=LL^\top$ is a sparse Cholesky factorization, then
