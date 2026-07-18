@@ -2,6 +2,10 @@
 
 This appendix collects the normalization conditions and algebraic conventions needed to state the evidence decomposition from a fixed joint and a normalized recognition law. Its purpose is to make conditioning sets, Radon--Nikodym requirements, and integrability assumptions available in one proof reference.
 
+\section{Finite-design measure conventions}
+
+For the state-tier results, all latent and observation products are finite and carry the finite product sigma-algebras of Chapter~\ref{ch:probability-semantics}. Continuous coordinates use the declared Borel base measures, discrete coordinates use counting measures, and mixed coordinates use their product. Probability kernels are normalized before densities are introduced. Whenever a logarithmic density ratio is used, its numerator is absolutely continuous with respect to its denominator and both densities are taken relative to a declared dominating measure. These conventions do not define a measure on a continuum of sections.
+
 \chapter{Gaussian Information and Mean-Field Identities}
 
 This appendix fixes the Gaussian information-form notation and the block partitions used by the restricted recognition controls. It will provide the matrix identities required to compare a correlated Gaussian law with block-product approximations.
@@ -12,4 +16,91 @@ This appendix specifies the transformation rules and finite-dimensional test con
 
 \chapter{Notation}
 
-This appendix will consolidate the symbols for the contextual base, principal and associated bundles, agents, latent samples, structural data, probability laws, and variational objectives. The table introduced here will make the distinction between section-valued objects and sample-level random variables explicit.
+Table~\ref{tab:magent-notation} consolidates the geometric, probabilistic, and configuration-level types. A symbol in the middle column denotes a domain or mathematical type, not merely an informal role. The table reserves \(q_i\) and \(s_i\) for state- and model-level section values or recognition marginals. If a later random configuration contains measure-valued fields, they are written \(\widehat q_i,\widehat s_i\) and related to state-level marginals by an explicit model or summary map; they are never silently substituted for \(q_i,s_i\).
+
+\small
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.17\textwidth}>{\raggedright\arraybackslash}p{0.31\textwidth}>{\raggedright\arraybackslash}p{0.42\textwidth}}
+\caption{Typed notation for the geometric, finite-state, and optional configuration constructions.}
+\label{tab:magent-notation}\\
+\toprule
+\textbf{Symbol} & \textbf{Domain or type} & \textbf{Meaning} \\
+\midrule
+\endfirsthead
+\multicolumn{3}{l}{\textit{Table \thetable\ continued}}\\
+\toprule
+\textbf{Symbol} & \textbf{Domain or type} & \textbf{Meaning} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{\textit{Continued on next page}}\\
+\endfoot
+\bottomrule
+\endlastfoot
+\(\mathcal C,c,c_a,D\) &
+\(\mathcal C\) a smooth base; \(c,c_a\in\mathcal C\); \(D=\{c_a\}_{a=1}^{M}\) &
+Contextual base, base points, and finite evaluation design. These are not population-graph vertices.\\
+\(V,E,\mathfrak I\) &
+\(V\) a finite vertex set, \(E\subseteq V\times V\), \(\mathfrak I\) an interaction complex &
+Population incidence and oriented interaction links. The graph or complex is structural data, not the principal-bundle base.\\
+\(\mathcal A^i\) &
+\(\left(\mathcal U_i;q_i,p_i,s_i,r_i,U_i\right)\), with \(\mathcal U_i\subseteq\mathcal C\) &
+Agent object carrying supported local statistical sections and a local group-valued frame coordinate. It is not a vertex label, latent vector, or variational factor alone.\\
+\(q_i(c),p_i(c)\) &
+\(\mathcal B_{\mathrm{state},c}\subseteq\mathcal P(\mathsf K_{i,c})\) &
+State recognition marginal and state prior section values at \(c\).\\
+\(s_i(c),r_i(c)\) &
+\(\mathcal B_{\mathrm{model},c}\subseteq\mathcal P(\mathsf M_{i,c})\) &
+Model recognition marginal and model prior section values at \(c\).\\
+\(k_i(c),m_i(c)\) &
+\(\mathsf K_{i,c}\) and \(\mathsf M_{i,c}\) &
+Latent state and model samples. These are realizations, not probability measures or agents.\\
+\(Y(c),Y_D,\mathsf Y_D\) &
+\(Y(c)\in\prod_i(\mathsf K_{i,c}\times\mathsf M_{i,c})\); \(Y_D\) valued in \(\mathsf Y_D\) &
+Population sample at one context, finite-design random element, and its finite product sample space.\\
+\(o,\mathsf O_D\) &
+\(o\in\mathsf O_D=\prod_{a,i}\mathsf O_{i,c_a}\) &
+Finite-design observation and observation sample space.\\
+\(X,\mathsf X\) &
+\(X\in\mathsf X\) &
+Structural data conditioned upon by the state model, possibly including \(D\), supports, graph, deterministic frames or links, and fixed parameters.\\
+\(P_\theta,p_\theta\) &
+\(P_\theta:\mathsf X\to\mathcal P(\mathsf O_D\times\mathsf Y_D)\) &
+Normalized generative probability kernel and, when dominated, its density. No factor reads a live recognition marginal.\\
+\(Q_X(dY\mid o)\) &
+\(Q:(\mathsf O_D\times\mathsf X)\to\mathcal P(\mathsf Y_D)\) &
+Normalized, generally correlated recognition kernel whose coordinate pushforwards give \(q_i(c_a)\) and \(s_i(c_a)\).\\
+\(P_0(dX),R(dX\mid o)\) &
+\(P_0\in\mathcal P(\mathsf X)\); \(R:\mathsf O_D\to\mathcal P(\mathsf X)\), with \(R(\mathord\cdot\mid o)\ll P_0\) where required &
+Configuration prior and configuration recognition law in the optional hierarchical tier.\\
+\(\rho_0(dX),P_{\mathcal F}(dX)\) &
+\(\rho_0,P_{\mathcal F}\in\mathcal P(\mathsf X)\) when the partition function is finite &
+Proper configuration reference law and an optional normalized configuration-Gibbs law.\\
+\(\widehat q_i,\widehat s_i\) &
+Declared measure-valued coordinates of a random \(X\), if that extension is used &
+Configuration-level fields distinguished typographically from the state recognition marginals \(q_i,s_i\); an explicit map must relate the two levels.\\
+\(U_i(c),g_i\) &
+\(U_i(c),g_i\in G\) &
+Local principal-frame coordinate and a principal-frame change. The exponential expression \(U_i=\exp\phi_i\) is only local.\\
+\(g_i^k,g_i^m\) &
+\(\rho_k(g_i)\in\operatorname{Aut}(\mathsf K)\), \(\rho_m(g_i)\in\operatorname{Aut}(\mathsf M)\) &
+State and model actions induced by the same principal group element \(g_i\).\\
+\(\Omega_{ij}\) &
+\(U_iU_j^{-1}\in G\) on a common local domain &
+Regime-I frame comparison; its represented actions are \(\Omega_{ij}^{k}=\rho_k(\Omega_{ij})\) and \(\Omega_{ij}^{m}=\rho_m(\Omega_{ij})\).\\
+\(L_{ij}\) &
+\(L_{ij}\in G\) on an oriented edge of \(\mathfrak I\) &
+Independent Regime-II interaction link with \(L_{ij}'=g_iL_{ij}g_j^{-1}\).\\
+\(\Sigma_k,\Sigma_m\) &
+\(\mathbb S_{++}^{d_k}\), \(\mathbb S_{++}^{d_m}\) &
+Nondegenerate state and model covariances, transforming by represented congruence.\\
+\(\Lambda_k,\Lambda_m\) &
+\(\Lambda_k=\Sigma_k^{-1}\), \(\Lambda_m=\Sigma_m^{-1}\) &
+Local precision tensors, transforming by dual inverse congruence. They are distinct from the later global population precision \(J\).\\
+\(J\) &
+\(\mathbb S_{++}^{\dim\mathsf Y_D}\) in the finite Gaussian reference regime &
+Global correlated population precision used by structured recognition and Gaussian mean-field analysis.\\
+\(\nu_D^Y,\nu_D^O\) &
+Sigma-finite measures on \(\mathsf Y_D\) and \(\mathsf O_D\) &
+Declared finite-product reference measures for densities and Radon--Nikodym ratios.\\
+\end{longtable}
+\normalsize
