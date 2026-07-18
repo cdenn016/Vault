@@ -247,6 +247,123 @@ p_{\theta,0}(z_0,m_0\given\Gamma)
 \end{equation}
 by \cref{eq:normalized-initial-law}.  Thus the density over $(x,\boldsymbol z,\boldsymbol m,a,b)$ in \cref{eq:vfe4-generative-joint} defines a probability measure with respect to \cref{eq:full-joint-reference-measure} for every fixed deterministic $\Gamma$.  Under a local frame change, \cref{eq:receiver-density-kernel-measure-invariance,eq:initial-density-gauge-jacobian} preserve this probability measure even though its coordinate density and Lebesgue representatives change.  \hfill$\square$
 
+\section{Linear-Gaussian information-factor assembly}
+
+Consider one normalized transition factor
+\begin{equation}
+y_t=Ay_j+c+\epsilon,
+\qquad
+\epsilon\sim\mathcal N(0,R),
+\qquad
+P:=R^{-1}=P^\top\succ0,
+\label{eq:linear-gaussian-factor-setup}
+\end{equation}
+and define its residual by
+\begin{equation}
+r:=y_t-Ay_j-c.
+\label{eq:linear-gaussian-transition-residual}
+\end{equation}
+Direct expansion gives
+\begin{equation}
+\begin{aligned}
+r^\top P r
+={}&y_j^\top A^\top P A y_j
+-y_j^\top A^\top P y_t
+-y_t^\top P A y_j
++y_t^\top P y_t\\
+&+2y_j^\top A^\top P c
+-2y_t^\top P c
++c^\top P c.
+\end{aligned}
+\label{eq:expanded-linear-gaussian-residual}
+\end{equation}
+Since $P$ is symmetric, the two cross terms in the first line are transposes of the same scalar. Writing the log factor in canonical information form,
+\begin{equation}
+\log K(y_t\given y_j)
+=
+\begin{pmatrix}h_j\\h_t\end{pmatrix}^{\top}
+\begin{pmatrix}y_j\\y_t\end{pmatrix}
+-\frac12
+\begin{pmatrix}y_j\\y_t\end{pmatrix}^{\top}
+\begin{pmatrix}
+J_{jj}&J_{jt}\\
+J_{tj}&J_{tt}
+\end{pmatrix}
+\begin{pmatrix}y_j\\y_t\end{pmatrix}
++C_K,
+\label{eq:linear-gaussian-canonical-factor}
+\end{equation}
+comparison with $-r^\top P r/2$ gives exactly
+\begin{equation}
+\boxed{
+\begin{aligned}
+J_{jj}&=A^\top P A,
+&J_{jt}&=-A^\top P,\\
+J_{tj}&=-P A,
+&J_{tt}&=P,\\
+h_j&=-A^\top P c,
+&h_t&=P c.
+\end{aligned}}
+\label{eq:linear-gaussian-information-blocks}
+\end{equation}
+The remaining constant is
+\begin{equation}
+C_K
+=-\frac12c^\top P c
+-\frac{d_t}{2}\log(2\pi)
+-\frac12\log\det R,
+\label{eq:linear-gaussian-factor-constant}
+\end{equation}
+where $d_t:=\dim y_t$. Thus normalized Gaussian factors contribute additively to a global $(h,J)$, including their normalizing constants in log-density or ELBO evaluation. The identities in \cref{eq:linear-gaussian-information-blocks} do not require $A$ to be square.
+
+\section{Analytic evidence and ELBO positive control}
+
+An implementation-level positive control can use the one-step normalized linear-Gaussian model
+\begin{equation}
+\begin{aligned}
+y_0&\sim\mathcal N(\mu_0,S_0),\\
+y_1\given y_0&\sim\mathcal N(Ay_0+c,R),\\
+x\given y_1&\sim\mathcal N(Cy_1+d,S).
+\end{aligned}
+\label{eq:linear-gaussian-positive-control-model}
+\end{equation}
+The Gaussian observation in this oracle is a tractable verification device, not a replacement for the categorical observation law in the exact language model. Marginalization gives
+\begin{equation}
+\begin{aligned}
+\bar x
+&=C(A\mu_0+c)+d,\\
+S_x
+&=C(AS_0A^\top+R)C^\top+S,\\
+\log p(x)
+&=-\frac12\left[
+d_x\log(2\pi)+\log\det S_x
++(x-\bar x)^\top S_x^{-1}(x-\bar x)
+\right].
+\end{aligned}
+\label{eq:linear-gaussian-positive-control-evidence}
+\end{equation}
+The posterior information matrix and vector are assembled from the initial law, \cref{eq:linear-gaussian-information-blocks}, and the fixed observation factor. In particular, the observation contributes
+\begin{equation}
+J_{11}\mathrel{+}=C^\top S^{-1}C,
+\qquad
+h_1\mathrel{+}=C^\top S^{-1}(x-d).
+\label{eq:gaussian-observation-information-contribution}
+\end{equation}
+Solving $J_*\mu_*=h_*$ and $J_*\Sigma_*=I$ gives the analytic posterior. For any nonposterior Gaussian $Q=\mathcal N(\mu_Q,\Sigma_Q)$ with rational positive-definite parameters, the control evaluates
+\begin{equation}
+\mathcal L(Q)
+=\mathbb E_Q[\log p(x,y_0,y_1)-\log Q(y_0,y_1)],
+\label{eq:linear-gaussian-positive-control-elbo}
+\end{equation}
+from complete quadratic expectations and verifies
+\begin{equation}
+\log p(x)-\mathcal L(Q)
+-\KL\left(Q\middle\Vert
+\mathcal N(\mu_*,\Sigma_*)\right)=0.
+\label{eq:linear-gaussian-positive-control-identity}
+\end{equation}
+The protocol first checks the six blocks in \cref{eq:linear-gaussian-information-blocks} by exact Hessian and gradient extraction, then checks \cref{eq:linear-gaussian-positive-control-identity} with exact rational arithmetic. A floating-point implementation must additionally compare monolithic log-ratio and decomposed-factor evaluations at the same $Q$ before any optimizer is introduced.
+
 \section{Bundle-map dimension and type oracle}
 
 The coordinate audit for \cref{eq:typed-associated-transports,eq:typed-model-state-morphism} begins with column vectors $z_j,z_t\in\mathbb R^{d_z}$ and $m_j,m_t\in\mathbb R^{d_m}$.  The represented state link has shape $d_z\times d_z$, the represented model link has shape $d_m\times d_m$, and the cross-channel morphism has shape $d_z\times d_m$.  Consequently,
