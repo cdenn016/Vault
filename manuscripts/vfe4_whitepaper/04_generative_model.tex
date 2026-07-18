@@ -11,12 +11,18 @@ Let the vocabulary be the finite measurable space
 \end{equation}
 equipped with counting measure.  For every $t\in\{1,\ldots,T\}$, choose nonempty causal parent sets
 \begin{equation}
-\varnothing\ne\operatorname{Pa}_z(t)\subseteq\{0,\ldots,t-1\},
-\qquad
-\varnothing\ne\operatorname{Pa}_m(t)\subseteq\{0,\ldots,t-1\}.
+\begin{aligned}
+\varnothing\ne\operatorname{Pa}_z(t)
+&\subseteq\{j\in V_T:(j,t)\in E_T\}
+\subseteq\{0,\ldots,t-1\},
+\\
+\varnothing\ne\operatorname{Pa}_m(t)
+&\subseteq\{j\in V_T:(j,t)\in E_T\}
+\subseteq\{0,\ldots,t-1\}.
+\end{aligned}
 \label{eq:nonempty-causal-parent-sets}
 \end{equation}
-The categorical variables $a_t\in\operatorname{Pa}_z(t)$ and $b_t\in\operatorname{Pa}_m(t)$ select the state and model source, respectively.  Their fixed priors are probability mass functions satisfying
+The last inclusions follow from \cref{eq:causal-token-graph}.  Hence every selected source is a permitted edge predecessor and has the typed state and model transports declared in \cref{eq:typed-associated-transports}.  The categorical variables $a_t\in\operatorname{Pa}_z(t)$ and $b_t\in\operatorname{Pa}_m(t)$ select the state and model source, respectively.  Their fixed priors are probability mass functions satisfying
 \begin{equation}
 \begin{aligned}
 \pi_t^z(j)&\geq0,
@@ -62,10 +68,10 @@ All history-dependent coefficient maps used below are Borel measurable in $x_{<t
 
 \section{The authoritative conditional joint}
 
-Write $x=x_{1:T}$, $z=z_{0:T}$, $m=m_{0:T}$, $a=a_{1:T}$, and $b=b_{1:T}$.  With $\Gamma$ held fixed as deterministic geometric data, the generative density is defined once by
+Retain the complete-path notation $\boldsymbol z=(z_t)_{t=0}^{T}$ and $\boldsymbol m=(m_t)_{t=0}^{T}$ from \cref{eq:random-vertex-sections}, and write $x=x_{1:T}$, $a=a_{1:T}$, and $b=b_{1:T}$.  With $\Gamma$ held fixed as deterministic geometric data, the generative density is defined once by
 \begin{equation}
 \begin{aligned}
-p_\theta(x,z,m,a,b\given\Gamma)
+p_\theta(x,\boldsymbol z,\boldsymbol m,a,b\given\Gamma)
 ={}&p_{\theta,0}(z_0,m_0\given\Gamma)\\
 &\times\prod_{t=1}^{T}\pi_t^m(b_t)
 K^m_{\theta,tb_t}(m_t\given m_{b_t},x_{<t},\Gamma)\\
