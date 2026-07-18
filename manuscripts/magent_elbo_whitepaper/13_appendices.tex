@@ -51,6 +51,141 @@ Q_X(dy\mid o)
 Rearranging Equation~\eqref{eq:appendix-kl-rn-expansion} proves Equation~\eqref{eq:state-evidence-identity}. For probability measures, strict convexity of \(u\mapsto u\log u\) gives
 \(\KL(Q_X(\mathord\cdot\mid o)\Vert P_\theta(\mathord\cdot\mid o,X))=0\) exactly when the Radon--Nikodym derivative equals one \(P_\theta(\mathord\cdot\mid o,X)\)-almost surely. This is equivalent to equality of the two probability measures and proves Equation~\eqref{eq:state-elbo-equality-condition} \citep{Kullback1951,Csiszar1967}.
 
+\section{Joint-KL chain rule for the configuration hierarchy}
+\label{sec:hierarchical-joint-kl-proof}
+
+Fix \(o\) under the assumptions preceding Equation~\eqref{eq:nested-configuration-objective}, and write
+\begin{equation}
+r_o(X)
+=\frac{dR(\mathord\cdot\mid o)}{dP_0}(X).
+\label{eq:appendix-configuration-radon-nikodym-density}
+\end{equation}
+Relative to \(P_0\otimes\nu_D^Y\), the joint recognition and hierarchical posterior densities are
+\begin{equation}
+\frac{d\mathcal Q_o}{d(P_0\otimes\nu_D^Y)}(X,y)
+=r_o(X)q_X(y\mid o),
+\qquad
+\frac{d\mathbf P_\theta(\mathord\cdot,\mathord\cdot\mid o)}
+{d(P_0\otimes\nu_D^Y)}(X,y)
+=\frac{p_\theta(o,y\mid X)}{p_\theta(o)}.
+\label{eq:appendix-hierarchical-densities}
+\end{equation}
+The absolute-continuity assumptions and the Radon--Nikodym chain rule therefore give
+\begin{equation}
+\frac{d\mathcal Q_o}
+{d\mathbf P_\theta(\mathord\cdot,\mathord\cdot\mid o)}(X,y)
+=r_o(X)
+\frac{q_X(y\mid o)p_\theta(o)}
+{p_\theta(o,y\mid X)}
+\quad
+\text{for \(\mathcal Q_o\)-almost every \((X,y)\)}.
+\label{eq:appendix-hierarchical-radon-nikodym-ratio}
+\end{equation}
+The absolute-log-integrability condition permits direct integration of its logarithm:
+\begin{align}
+\KL\left(
+\mathcal Q_o
+\middle\Vert
+\mathbf P_\theta(\mathord\cdot,\mathord\cdot\mid o)
+\right)
+={}&
+\int_{\mathsf X}\log r_o(X)R(dX\mid o)
+\notag\\
+&+\int_{\mathsf X}\int_{\mathsf Y_D}
+\left[
+\log q_X(y\mid o)-\log p_\theta(o,y\mid X)
+\right]
+Q_X(dy\mid o)R(dX\mid o)
+\notag\\
+&+\log p_\theta(o)
+\label{eq:appendix-hierarchical-kl-expansion}\\
+={}&
+\KL\left(R(\mathord\cdot\mid o)\middle\Vert P_0\right)
++\int_{\mathsf X}
+\Fstate[Q_X;X,o]R(dX\mid o)
++\log p_\theta(o).
+\notag
+\end{align}
+Multiplication by \(T_{\mathrm{cfg}}>0\) and rearrangement prove Equation~\eqref{eq:nested-configuration-evidence-identity}.
+
+The same result has the conditional chain-rule form
+\begin{align}
+\KL\left(
+\mathcal Q_o
+\middle\Vert
+\mathbf P_\theta(\mathord\cdot,\mathord\cdot\mid o)
+\right)
+={}&
+\KL\left(
+R(\mathord\cdot\mid o)
+\middle\Vert
+\mathbf P_\theta(\mathord\cdot\mid o)
+\right)
+\label{eq:appendix-hierarchical-conditional-kl-chain-rule}\\
+&+\int_{\mathsf X}
+\KL\left(
+Q_X(\mathord\cdot\mid o)
+\middle\Vert
+P_\theta(\mathord\cdot\mid o,X)
+\right)
+R(dX\mid o).
+\notag
+\end{align}
+To see this directly, factor the Radon--Nikodym derivative in Equation~\eqref{eq:appendix-hierarchical-radon-nikodym-ratio} into the configuration-marginal derivative and the conditional-state derivative, take logarithms, and integrate. Both summands in Equation~\eqref{eq:appendix-hierarchical-conditional-kl-chain-rule} are nonnegative. The joint KL is zero exactly when
+\(R(\mathord\cdot\mid o)=\mathbf P_\theta(\mathord\cdot\mid o)\) and
+\(Q_X(\mathord\cdot\mid o)=P_\theta(\mathord\cdot\mid o,X)\) for \(R\)-almost every \(X\). This proves Equations~\eqref{eq:hierarchical-elbo-equality-condition} and \eqref{eq:hierarchical-elbo-component-equality}.
+
+Dividing the definition of \(\mathcal J\) by \(T_{\mathrm{cfg}}\) also gives the explicit sector audit
+\begin{align}
+\frac{\mathcal J[R,Q]}{T_{\mathrm{cfg}}}
+={}&
+\int_{\mathsf X}\int_{\mathsf Y_D}
+[-\log p_\theta(o,y\mid X)]Q_X(dy\mid o)R(dX\mid o)
+\notag\\
+&+\int_{\mathsf X}\int_{\mathsf Y_D}
+\log q_X(y\mid o)Q_X(dy\mid o)R(dX\mid o)
+\label{eq:appendix-hierarchical-entropy-sector-audit}\\
+&+\int_{\mathsf X}
+\log r_o(X)R(dX\mid o).
+\notag
+\end{align}
+The complete state log-density appears once and the configuration log-density ratio appears once. Any auxiliary source entropy is already included in whichever joint recognition measure contains that source variable.
+
+\section{Normalization identity for the configuration-Gibbs prior}
+\label{sec:configuration-gibbs-proof}
+
+Under Equation~\eqref{eq:configuration-gibbs-partition-function}, define
+\begin{equation}
+g_{\mathcal F}(X)
+=\frac{dP_{\mathcal F}}{d\rho_0}(X)
+=Z_{\mathcal F}^{-1}
+\exp\left[-\frac{\mathcal F_{\mathrm{vac}}(X)}
+{T_{\mathrm{cfg}}}\right].
+\label{eq:appendix-configuration-gibbs-density}
+\end{equation}
+Measurability of \(\mathcal F_{\mathrm{vac}}\) makes \(g_{\mathcal F}\) measurable, its nonnegativity is immediate, and the definition of \(Z_{\mathcal F}\) gives
+\begin{equation}
+\int_{\mathsf X}g_{\mathcal F}(X)\rho_0(dX)=1.
+\label{eq:appendix-configuration-gibbs-normalization}
+\end{equation}
+Thus \(P_{\mathcal F}\) is a probability measure. For \(R\ll\rho_0\) with finite displayed terms and support contained in \(\{X:\mathcal F_{\mathrm{vac}}(X)<+\infty\}\), the Radon--Nikodym chain rule gives, \(R\)-almost surely,
+\begin{equation}
+\log\frac{dR}{dP_{\mathcal F}}(X)
+=\log\frac{dR}{d\rho_0}(X)
++\frac{\mathcal F_{\mathrm{vac}}(X)}{T_{\mathrm{cfg}}}
++\log Z_{\mathcal F}.
+\label{eq:appendix-configuration-gibbs-log-ratio}
+\end{equation}
+Integrating and multiplying by \(T_{\mathrm{cfg}}\) yields
+\begin{align}
+T_{\mathrm{cfg}}\KL(R\Vert P_{\mathcal F})
+={}&T_{\mathrm{cfg}}\KL(R\Vert\rho_0)
++\int_{\mathsf X}\mathcal F_{\mathrm{vac}}(X)R(dX)
++T_{\mathrm{cfg}}\log Z_{\mathcal F}.
+\label{eq:appendix-configuration-gibbs-kl-expansion}
+\end{align}
+Rearrangement proves Equation~\eqref{eq:configuration-gibbs-variational-identity}. If the Gibbs law is selected as \(P_0\), Equation~\eqref{eq:appendix-configuration-gibbs-kl-expansion} is the complete expansion of \(T_{\mathrm{cfg}}\KL(R\Vert P_0)\); adding the expected vacuum energy a second time would double count it.
+
 \section{Algebraic audit of the directed-factor decomposition}
 \label{sec:state-elbo-factor-audit}
 
