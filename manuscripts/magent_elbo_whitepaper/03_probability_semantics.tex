@@ -39,9 +39,9 @@ The realized observation is denoted \(o\in\mathsf O_D\). Missing or aggregated o
 
 \section{Structural data and conditioning}
 
-The symbol \(X\in\mathsf X\) collects all objects treated as fixed when the state-level joint is defined. Depending on the declared reference model, \(X\) may contain \(D\), the supports \(\mathcal U_i\), a finite directed graph or forest \(F=(V,E)\), deterministic Regime-I frames or Regime-II links, root and transition parameters, observation structure, and other fixed model parameters. Conditioning on \(X\) is part of the type of every state-level kernel. A factor of the fixed generative model may not read a live marginal of the recognition law.
+Fix a measurable configuration space \((\mathsf X,\mathscr X)\), and write \(\mathcal P(\mathsf S,\mathscr S)\) for the probability measures on a measurable space \((\mathsf S,\mathscr S)\). Every \(X\in\mathsf X\) uses the same design \(D\), agent index set, incidence pattern, and measurable identifications of its latent and observation fibers with the declared spaces \((\mathsf Y_D,\mathscr Y_D)\) and \((\mathsf O_D,\mathscr O_D)\). Accordingly, these sample spaces and sigma-algebras do not vary with \(X\). The configuration may contain a finite directed graph or forest on the fixed incidence structure, deterministic Regime-I frames or Regime-II link values, root and transition parameters, observation-kernel parameters, and other structural values. Conditioning on \(X\) is part of the type of every state-level kernel. A factor of the fixed generative model may not read a live marginal of the recognition law.
 
-Later configuration chapters may make \(X\) random. At that different probability level, \(P_0(dX)\) will denote a configuration prior, \(R(dX\mid o)\) a configuration recognition law, and \(\rho_0(dX)\) a reference probability measure for a configuration-Gibbs construction. None of these objects is denoted \(q_i\). The symbols \(q_i\) and \(s_i\) remain state- and model-section values or their finite-design marginals.
+Later configuration chapters may make \(X\) random only within this fixed measurable space. At that different probability level, \(P_0\in\mathcal P(\mathsf X,\mathscr X)\) will denote a configuration prior, \(R:(\mathsf O_D,\mathscr O_D)\to\mathcal P(\mathsf X,\mathscr X)\) a configuration recognition kernel, and \(\rho_0\in\mathcal P(\mathsf X,\mathscr X)\) a reference probability measure for a configuration-Gibbs construction. For every \(B\in\mathscr X\), the map \(o\mapsto R(B\mid o)\) is \(\mathscr O_D\)-measurable. Thus neither \(P_0\) nor \(R\) changes \(D\), the incidence pattern, or the identified fibers. None of these objects is denoted \(q_i\). The symbols \(q_i\) and \(s_i\) remain state- and model-section values or their finite-design marginals.
 
 \section{Reference measures and normalized kernels}
 
@@ -59,13 +59,20 @@ Probability measures and Markov kernels are primary. Densities are Radon--Nikody
 
 For each fixed \(X\), the generative model is a normalized probability kernel
 \begin{equation}
-P_\theta:\mathsf X\longrightarrow
-\mathcal P(\mathsf O_D\times\mathsf Y_D),
+P_\theta:(\mathsf X,\mathscr X)\longrightarrow
+\mathcal P\left(\mathsf O_D\times\mathsf Y_D,
+\mathscr O_D\otimes\mathscr Y_D\right),
 \qquad
-P_\theta(do,dY\mid X)=p_\theta(o,dY\mid X).
+X\longmapsto P_\theta(\mathord\cdot\mid X).
 \label{eq:generative-kernel-type}
 \end{equation}
-Here \(\mathcal P(\mathsf S)\) denotes the probability measures on the measurable space \(\mathsf S\). When \(P_\theta(\mathord\cdot\mid X)\) is absolutely continuous with respect to \(\nu_D^O\otimes\nu_D^Y\), its density is written \(p_\theta(o,y\mid X)\). The evidence is the normalized marginal
+For every measurable \(A\subseteq\mathsf O_D\times\mathsf Y_D\), the map \(X\mapsto P_\theta(A\mid X)\) is \(\mathscr X\)-measurable. When \(P_\theta(\mathord\cdot\mid X)\) is absolutely continuous with respect to \(\nu_D^O\otimes\nu_D^Y\), its density \(p_\theta(o,y\mid X)\) is defined by
+\begin{equation}
+P_\theta(do,dY\mid X)
+=p_\theta(o,y\mid X)\nu_D^O(do)\nu_D^Y(dy).
+\label{eq:generative-density-reference-measures}
+\end{equation}
+The evidence is the normalized marginal
 \begin{equation}
 p_\theta(o\mid X)
 =\int_{\mathsf Y_D}p_\theta(o,y\mid X)\nu_D^Y(dy).
@@ -74,8 +81,9 @@ p_\theta(o\mid X)
 
 The recognition model is a normalized Markov kernel
 \begin{equation}
-Q:(\mathsf O_D\times\mathsf X)
-\longrightarrow\mathcal P(\mathsf Y_D),
+Q:(\mathsf O_D\times\mathsf X,
+\mathscr O_D\otimes\mathscr X)
+\longrightarrow\mathcal P(\mathsf Y_D,\mathscr Y_D),
 \qquad
 (o,X)\longmapsto Q_X(dY\mid o).
 \label{eq:recognition-kernel-type}

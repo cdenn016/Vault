@@ -4,7 +4,7 @@ This appendix collects the normalization conditions and algebraic conventions ne
 
 \section{Finite-design measure conventions}
 
-For the state-tier results, all latent and observation products are finite and carry the finite product sigma-algebras of Chapter~\ref{ch:probability-semantics}. Continuous coordinates use the declared Borel base measures, discrete coordinates use counting measures, and mixed coordinates use their product. Probability kernels are normalized before densities are introduced. Whenever a logarithmic density ratio is used, its numerator is absolutely continuous with respect to its denominator and both densities are taken relative to a declared dominating measure. These conventions do not define a measure on a continuum of sections.
+For the state-tier results, all latent and observation products are finite and carry the finite product sigma-algebras of Chapter~\ref{ch:probability-semantics}. The configuration space \((\mathsf X,\mathscr X)\) has one fixed design, incidence pattern, and set of identified latent and observation fibers, so every state kernel has the same measurable codomain. Continuous coordinates use the declared Borel base measures, discrete coordinates use counting measures, and mixed coordinates use their product. Probability kernels are normalized before densities are introduced. Whenever a logarithmic density ratio is used, its numerator is absolutely continuous with respect to its denominator and both densities are taken relative to a declared dominating measure. These conventions do not define a measure on a continuum of sections.
 
 \chapter{Gaussian Information and Mean-Field Identities}
 
@@ -55,25 +55,25 @@ Model recognition marginal and model prior section values at \(c\).\\
 \(\mathsf K_{i,c}\) and \(\mathsf M_{i,c}\) &
 Latent state and model samples. These are realizations, not probability measures or agents.\\
 \(Y(c),Y_D,\mathsf Y_D\) &
-\(Y(c)\in\prod_i(\mathsf K_{i,c}\times\mathsf M_{i,c})\); \(Y_D\) valued in \(\mathsf Y_D\) &
-Population sample at one context, finite-design random element, and its finite product sample space.\\
+\(Y(c)\in\prod_i(\mathsf K_{i,c}\times\mathsf M_{i,c})\) for \(c\in\bigcap_i\mathcal U_i\); \(Y_D\) valued in \(\mathsf Y_D\) &
+Population sample at one common-support context, finite-design random element, and its finite product sample space.\\
 \(o,\mathsf O_D\) &
 \(o\in\mathsf O_D=\prod_{a,i}\mathsf O_{i,c_a}\) &
 Finite-design observation and observation sample space.\\
-\(X,\mathsf X\) &
-\(X\in\mathsf X\) &
-Structural data conditioned upon by the state model, possibly including \(D\), supports, graph, deterministic frames or links, and fixed parameters.\\
+\(X,(\mathsf X,\mathscr X)\) &
+\(X\in\mathsf X\); \((\mathsf X,\mathscr X)\) measurable, with fixed \(D\), incidence, and identified fibers &
+Structural data conditioned upon by the state model. Only structural values on the fixed measurable design may vary.\\
 \(P_\theta,p_\theta\) &
-\(P_\theta:\mathsf X\to\mathcal P(\mathsf O_D\times\mathsf Y_D)\) &
-Normalized generative probability kernel and, when dominated, its density. No factor reads a live recognition marginal.\\
+\(P_\theta:(\mathsf X,\mathscr X)\to\mathcal P(\mathsf O_D\times\mathsf Y_D,\mathscr O_D\otimes\mathscr Y_D)\) &
+Normalized generative probability kernel and, when dominated, its density defined by \(P_\theta(do,dY\mid X)=p_\theta(o,y\mid X)\nu_D^O(do)\nu_D^Y(dy)\). No factor reads a live recognition marginal.\\
 \(Q_X(dY\mid o)\) &
-\(Q:(\mathsf O_D\times\mathsf X)\to\mathcal P(\mathsf Y_D)\) &
+\(Q:(\mathsf O_D\times\mathsf X,\mathscr O_D\otimes\mathscr X)\to\mathcal P(\mathsf Y_D,\mathscr Y_D)\) &
 Normalized, generally correlated recognition kernel whose coordinate pushforwards give \(q_i(c_a)\) and \(s_i(c_a)\).\\
 \(P_0(dX),R(dX\mid o)\) &
-\(P_0\in\mathcal P(\mathsf X)\); \(R:\mathsf O_D\to\mathcal P(\mathsf X)\), with \(R(\mathord\cdot\mid o)\ll P_0\) where required &
+\(P_0\in\mathcal P(\mathsf X,\mathscr X)\); \(R:(\mathsf O_D,\mathscr O_D)\to\mathcal P(\mathsf X,\mathscr X)\), with \(R(\mathord\cdot\mid o)\ll P_0\) where required &
 Configuration prior and configuration recognition law in the optional hierarchical tier.\\
 \(\rho_0(dX),P_{\mathcal F}(dX)\) &
-\(\rho_0,P_{\mathcal F}\in\mathcal P(\mathsf X)\) when the partition function is finite &
+\(\rho_0,P_{\mathcal F}\in\mathcal P(\mathsf X,\mathscr X)\) when the partition function is finite &
 Proper configuration reference law and an optional normalized configuration-Gibbs law.\\
 \(\widehat q_i,\widehat s_i\) &
 Declared measure-valued coordinates of a random \(X\), if that extension is used &
