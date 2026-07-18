@@ -6,6 +6,73 @@ This appendix records supporting coordinate and factor-assembly identities that 
 
 This appendix collects proof details and reference checks for claims introduced in the main text. It will make the corresponding assumptions and numerical oracles explicit when those derivations are added.
 
+\section{Full normalization proof for the fixed conditional joint}
+
+Let $\#_A$ denote counting measure on a finite set $A$.  In the local frames used to express the densities, the reference measure for the fixed-horizon construction is
+\begin{equation}
+\begin{aligned}
+\mu_T
+:={}&\left(\bigotimes_{t=1}^{T}\#_{\mathcal X}\right)
+\otimes\left(\bigotimes_{t=0}^{T}
+(\lambda_{z,t}\otimes\lambda_{m,t})\right)\\
+&\otimes\left(\bigotimes_{t=1}^{T}
+(\#_{\operatorname{Pa}_z(t)}\otimes
+\#_{\operatorname{Pa}_m(t)})\right).
+\end{aligned}
+\label{eq:full-joint-reference-measure}
+\end{equation}
+Each factor is measurable by the assumptions preceding \cref{eq:vfe4-generative-joint}.  The finite products are therefore measurable, and the density is nonnegative, so Tonelli's theorem permits every integration and summation below without a prior integrability assumption.
+
+For fixed earlier variables and fixed $\Gamma$, collect the factors at time $t$ into
+\begin{equation}
+\begin{aligned}
+F_t
+:={}&\pi_t^m(b_t)
+K^m_{\theta,tb_t}(m_t\given m_{b_t},x_{<t},\Gamma)
+\pi_t^z(a_t)\\
+&\times K^z_{\theta,ta_t}(z_t\given z_{a_t},m_t,x_{<t},\Gamma)
+L_{\theta,t}(x_t\given z_t,m_t,\Gamma).
+\end{aligned}
+\label{eq:time-slice-factor-for-normalization}
+\end{equation}
+Nested normalization gives the pointwise identity
+\begin{equation}
+\begin{aligned}
+&\sum_{b_t\in\operatorname{Pa}_m(t)}\pi_t^m(b_t)
+\int_{E_{m,t}}K^m_{\theta,tb_t}
+\sum_{a_t\in\operatorname{Pa}_z(t)}\pi_t^z(a_t)
+\int_{E_{z,t}}K^z_{\theta,ta_t}
+\sum_{x_t\in\mathcal X}L_{\theta,t}(x_t\given z_t,m_t,\Gamma)
+\mathop{\mathrm d\lambda_{z,t}(z_t)}
+\mathop{\mathrm d\lambda_{m,t}(m_t)}\\
+&\quad=
+\sum_{b_t\in\operatorname{Pa}_m(t)}\pi_t^m(b_t)
+\int_{E_{m,t}}K^m_{\theta,tb_t}
+\sum_{a_t\in\operatorname{Pa}_z(t)}\pi_t^z(a_t)
+\mathop{\mathrm d\lambda_{m,t}(m_t)}\\
+&\quad=
+\sum_{b_t\in\operatorname{Pa}_m(t)}\pi_t^m(b_t)
+\int_{E_{m,t}}K^m_{\theta,tb_t}
+\mathop{\mathrm d\lambda_{m,t}(m_t)}
+=1.
+\end{aligned}
+\label{eq:time-slice-nested-normalization}
+\end{equation}
+The unshown conditioning arguments of the two transition kernels are exactly those in \cref{eq:time-slice-factor-for-normalization}.  In the first equality, categorical emission normalization removes the innermost sum, state-kernel normalization removes the $z_t$ integral, and \cref{eq:normalized-causal-source-priors} removes the $a_t$ sum.  In the second equality, model-kernel normalization removes the $m_t$ integral and the same source-prior identity removes the $b_t$ sum.
+
+To apply \cref{eq:time-slice-nested-normalization} to the complete density, begin at the terminal vertex $T$.  There is no factor at an earlier time that depends on $x_T$, $z_T$, $m_T$, $a_T$, or $b_T$, because every parent index is strictly smaller than its receiver and every history is $x_{<t}$.  Factors at later times may depend on terminal-block variables at an intermediate stage, but reverse topological order removes all such factors before that stage is reached.  Hence the nested elimination at $T$ is pointwise in every earlier variable and replaces $F_T$ by one.
+
+After eliminating the terminal block, the same argument applies to $F_{T-1}$.  Induction removes $F_t$ for $t=T,T-1,\ldots,1$.  History dependence is harmless throughout: when the time-$t$ identity is evaluated, $x_{<t}$ is held fixed, and all factors that could depend on $x_t$ have already been eliminated.  What remains is
+\begin{equation}
+\int_{E_{z,0}\times E_{m,0}}
+p_{\theta,0}(z_0,m_0\given\Gamma)
+\mathop{\mathrm d\lambda_{z,0}(z_0)}
+\mathop{\mathrm d\lambda_{m,0}(m_0)}
+=1,
+\label{eq:normalization-proof-initial-remainder}
+\end{equation}
+by \cref{eq:normalized-initial-law}.  Thus the density in \cref{eq:vfe4-generative-joint} defines a probability measure with respect to \cref{eq:full-joint-reference-measure} for every fixed deterministic $\Gamma$.  Under a local frame change, \cref{eq:receiver-density-kernel-measure-invariance,eq:initial-density-gauge-jacobian} preserve this probability measure even though its coordinate density and Lebesgue representatives change.  \hfill$\square$
+
 \section{Bundle-map dimension and type oracle}
 
 The coordinate audit for \cref{eq:typed-associated-transports,eq:typed-model-state-morphism} begins with column vectors $z_j,z_t\in\mathbb R^{d_z}$ and $m_j,m_t\in\mathbb R^{d_m}$.  The represented state link has shape $d_z\times d_z$, the represented model link has shape $d_m\times d_m$, and the cross-channel morphism has shape $d_z\times d_m$.  Consequently,
