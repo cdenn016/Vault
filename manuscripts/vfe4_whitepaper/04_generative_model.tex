@@ -83,6 +83,16 @@ K^z_{\theta,ta_t}(z_t\given z_{a_t},m_t,x_{<t},\Gamma)\\
 \end{equation}
 The order inside each time slice is generative: the model state is drawn before the state kernel consumes $m_t$, and the observation is drawn after both continuous latents.  Dependence on $x_{<t}$ is causal history dependence, not conditioning on the target.  Equation~\eqref{eq:vfe4-generative-joint} contains no variationally moving factor.
 
+\begin{figure}[htbp]
+\centering
+\resizebox{\textwidth}{!}{\input{vfe4_whitepaper/figures/vfe4_factor_graph}}
+\caption{%
+\textbf{Normalized causal joint and recognition-only dependencies.}
+Solid navy arrows depict the directed dependencies in \cref{eq:vfe4-generative-joint}: each causal parent bank and its categorical selector are distinct co-parents of the receiving variable, $m_t$ is generated before $z_t$, and $(m_t,z_t)$ emit the observed token $x_t$. The single global $\Gamma$ lies outside the time plate, and its gray arrows show conditioning of the model transition, state transition, and emission on the same fixed geometric data rather than on time-replicated random variables. Teal dashed arrows show observation conditioning that belongs only to the recognition law. Circles are continuous variables, diamonds are categorical variables, a double rectangle is observed, and a hexagon is fixed rather than random.
+}
+\label{fig:vfe4-factor-graph}
+\end{figure}
+
 \section{Receiver-fiber Gaussian transitions}
 
 A minimal non-neural realization uses offsets $c_{\theta,t}^m\in E_{m,t}$ and $c_{\theta,t}^z\in E_{z,t}$ and receiver covariances

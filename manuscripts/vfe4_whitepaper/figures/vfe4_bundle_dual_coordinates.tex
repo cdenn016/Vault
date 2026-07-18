@@ -1,0 +1,104 @@
+\begin{tikzpicture}[
+  >={Stealth[length=2.2mm]},
+  every node/.style={font=\footnotesize},
+  token/.style={
+    rectangle,
+    draw=darkgray,
+    fill=lightgray,
+    rounded corners=2pt,
+    minimum width=21mm,
+    minimum height=7mm,
+    inner sep=2pt
+  },
+  modelfiber/.style={
+    rectangle,
+    draw=sciencegreen!85!black,
+    fill=lightgreen,
+    rounded corners=2pt,
+    minimum width=22mm,
+    minimum height=9mm,
+    inner sep=2pt
+  },
+  statefiber/.style={
+    ellipse,
+    draw=primaryblue,
+    fill=lightblue,
+    line width=0.8pt,
+    minimum width=22mm,
+    minimum height=9mm,
+    inner sep=2pt
+  },
+  natural/.style={
+    rectangle,
+    draw=primaryblue,
+    fill=lightblue,
+    line width=0.9pt,
+    minimum width=36mm,
+    minimum height=10mm,
+    align=center,
+    inner sep=3pt
+  },
+  expectation/.style={
+    rectangle,
+    draw=sciencegreen!85!black,
+    fill=lightgreen,
+    rounded corners=3pt,
+    line width=0.9pt,
+    minimum width=36mm,
+    minimum height=10mm,
+    align=center,
+    inner sep=3pt
+  },
+  moment/.style={
+    rectangle,
+    draw=cautionorange!85!black,
+    fill=lightorange,
+    dashed,
+    line width=0.9pt,
+    minimum width=36mm,
+    minimum height=10mm,
+    align=center,
+    inner sep=3pt
+  },
+  transportz/.style={-{Stealth[length=2.2mm]}, primaryblue, line width=1pt},
+  transportm/.style={-{Stealth[length=2.2mm]}, sciencegreen!85!black, line width=1pt},
+  morphism/.style={-{Stealth[length=2.2mm]}, cautionorange!85!black, dashed, line width=1pt},
+  dual/.style={{Stealth[length=2.1mm]}-{Stealth[length=2.1mm]}, primaryblue, double, double distance=0.6pt, line width=0.5pt},
+  conversion/.style={{Stealth[length=2.1mm]}-{Stealth[length=2.1mm]}, darkgray, line width=0.8pt}
+]
+  \node[token] (tokenj) {token $j$};
+  \node[modelfiber, above=10mm of tokenj] (emj) {$E_{m,j}$};
+  \node[statefiber, above=11mm of emj] (ezj) {$E_{z,j}$};
+
+  \node[token, right=42mm of tokenj] (tokent) {token $t$};
+  \node[modelfiber, above=10mm of tokent] (emt) {$E_{m,t}$};
+  \node[statefiber, above=11mm of emt] (ezt) {$E_{z,t}$};
+
+  \draw[darkgray, line width=0.8pt, -{Stealth[length=2.0mm]}] (tokenj) -- node[below] {$j<t$} (tokent);
+  \draw[darkgray, densely dotted, line width=0.8pt] (tokenj) -- (emj);
+  \draw[darkgray, densely dotted, line width=0.8pt] (emj) -- (ezj);
+  \draw[darkgray, densely dotted, line width=0.8pt] (tokent) -- (emt);
+  \draw[darkgray, densely dotted, line width=0.8pt] (emt) -- (ezt);
+
+  \draw[transportm] (emj) -- node[midway, below, fill=white, inner sep=1pt] {$\Omega^m_{tj}$} (emt);
+  \draw[transportz] (ezj) -- node[midway, above, fill=white, inner sep=1pt] {$\Omega^z_{tj}$} (ezt);
+  \draw[morphism] (emt) -- node[midway, left=2mm, fill=white, inner sep=1pt] {$B_t:E_{m,t}\to E_{z,t}$} (ezt);
+
+  \node[draw=mediumgray, rounded corners=3pt, fit=(tokenj)(ezj), inner sep=4mm,
+    label={[font=\scriptsize\bfseries, text=darkgray]above:two associated fibers over $j$}] (fiberj) {};
+  \node[draw=mediumgray, rounded corners=3pt, fit=(tokent)(ezt), inner sep=4mm,
+    label={[font=\scriptsize\bfseries, text=darkgray]above:two associated fibers over $t$}] (fibert) {};
+
+  \node[natural, right=33mm of ezt] (eta) {natural\\$(h,-J/2)$};
+  \node[expectation, below=23mm of eta] (tau) {expectation\\$(\mu,M)$};
+  \node[moment, below=23mm of tau] (mom) {moment view\\$(\mu,\Sigma)$};
+
+  \node[font=\scriptsize\bfseries, above=7mm of eta] (coordtitle) {three views of one conditional Gaussian law $q(y)$};
+  \draw[dual] (eta) -- node[midway, right=3mm, align=left] {Legendre/Fisher\\duality} (tau);
+  \draw[conversion] (tau) -- node[midway, right=3mm, align=left] {ordinary conversion\\$M=\Sigma+\mu\mu^\top$} (mom);
+
+  \coordinate[right=8mm of fibert.east] (separatorcenter);
+  \coordinate (separatornorth) at (separatorcenter |- coordtitle.north);
+  \coordinate (separatorsouth) at (separatorcenter |- mom.south);
+  \draw[mediumgray, densely dotted, line width=0.8pt] (separatornorth) -- (separatorsouth);
+\end{tikzpicture}
