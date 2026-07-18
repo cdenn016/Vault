@@ -4,33 +4,64 @@ This chapter maps the probabilistic factors and update roles already defined to 
 
 \section{Source posteriors as attention-like routing}
 
-The categorical variables $a_t$ and $b_t$ make source selection part of the probability model. Their recognition conditionals are the state-source weights $\beta_t$ and the model-source weights $\gamma_t$. Holding the other recognition coordinates fixed, the unrestricted coordinate optima implied by \cref{eq:source-markov-blanket-potentials} have the schematic forms
+The categorical variables $a_t$ and $b_t$ make source selection part of the probability model. Write $Y=(\boldsymbol z,\boldsymbol m,a,b)$, and let $Y_{\setminus a_t}$ and $Y_{\setminus b_t}$ denote the complete latent configuration with the named coordinate removed. If an unrestricted recognition block may condition pointwise on the entire complement, its ELBO-coordinate optimum is the corresponding posterior full conditional. The two source coordinates are therefore exactly
 \begin{equation}
 \begin{aligned}
-\log\beta_t(j)
+\log Q^\star(a_t=j\given Y_{\setminus a_t},x,\Gamma)
 ={}&\log\pi_t^z(j)
-+\mathbb E_{Q_{\setminus a_t}}
-\left[
-\log K^z_{\theta,tj}
++\log K^z_{\theta,tj}
 (z_t\given z_j,m_t,x_{<t},\Gamma)
-\right]
--\log Z^z_t,\\
-\log\gamma_t(j)
+-\log Z_t^z(Y_{\setminus a_t}),\\
+Z_t^z(Y_{\setminus a_t})
+:={}&\sum_{k\in\operatorname{Pa}_z(t)}
+\pi_t^z(k)
+K^z_{\theta,tk}
+(z_t\given z_k,m_t,x_{<t},\Gamma),\\
+\log Q^\star(b_t=j\given Y_{\setminus b_t},x,\Gamma)
 ={}&\log\pi_t^m(j)
-+\mathbb E_{Q_{\setminus b_t}}
-\left[
-\log K^m_{\theta,tj}
++\log K^m_{\theta,tj}
 (m_t\given m_j,x_{<t},\Gamma)
-\right]
--\log Z^m_t,
+-\log Z_t^m(Y_{\setminus b_t}),\\
+Z_t^m(Y_{\setminus b_t})
+:={}&\sum_{k\in\operatorname{Pa}_m(t)}
+\pi_t^m(k)
+K^m_{\theta,tk}
+(m_t\given m_k,x_{<t},\Gamma).
 \end{aligned}
 \label{eq:source-posterior-routing-logits}
 \end{equation}
-where the expectations retain the conditioning variables of the recognition family, and $Z_t^z$ and $Z_t^m$ normalize over the permitted causal parent sets. Thus each routing logit is the sum of a normalized source-prior log mass and expected conditional log evidence supplied by the corresponding transition. The source KL terms in \cref{eq:vfe4-local-elbo-decomposition} penalize departures from those priors with coefficient one.
+Only the source prior and selected transition appear in these pointwise full conditionals because, with the remaining realized variables fixed, no other generative factor contains $a_t$ or $b_t$. This statement is exact and imposes no mean-field factorization.
 
-Equation~\eqref{eq:source-posterior-routing-logits} gives $\beta_t$ and $\gamma_t$ an attention-like role. The state row allocates posterior mass among transported state sources $\Omega^z_{tj}z_j$, while the model row allocates posterior mass among transported model sources $\Omega^m_{tj}m_j$. Posterior expectations can use these masses to combine messages or component moments. Marginalizing the source variable, however, generally produces a mixture. Replacing that mixture by one moment-matched Gaussian is a declared projection and not an identity.
+The forward recognition factors called $\beta_t$ and $\gamma_t$ generally condition on less information than the full complements above. Their coordinate problem is different when a source choice also indexes a source-conditioned continuous recognition factor. To state that problem without dropping dependent terms, let $\mathcal C_t^z\subseteq Y_{\setminus a_t}$ be the variables exposed to $\beta_t$, let $\mathcal R_t^z:=Y_{\setminus a_t}\setminus\mathcal C_t^z$, and hold fixed a normalized component density $q^z_{t,j}(\mathcal R_t^z\given\mathcal C_t^z,x,\Gamma)$ for each source. Define its complete component-ELBO score by
+\begin{equation}
+\begin{aligned}
+\mathcal A^z_{t,j}(\mathcal C_t^z)
+:={}&\mathbb E_{q^z_{t,j}}
+\left[
+\log p_\theta
+(x,Y_{\setminus a_t},a_t=j\given\Gamma)
+-\log\pi_t^z(j)
+\right.\\
+&\left.\hspace{7em}
+-\log q^z_{t,j}
+(\mathcal R_t^z\given\mathcal C_t^z,x,\Gamma)
+\right],\\
+\beta_t^\star(j\given\mathcal C_t^z)
+={}&
+\frac{
+\pi_t^z(j)\exp\mathcal A^z_{t,j}(\mathcal C_t^z)
+}{
+\sum_{k\in\operatorname{Pa}_z(t)}
+\pi_t^z(k)\exp\mathcal A^z_{t,k}(\mathcal C_t^z)
+}.
+\end{aligned}
+\label{eq:restricted-source-component-softmax}
+\end{equation}
+The analogous model-channel construction replaces $(a_t,z,\pi^z,\mathcal C_t^z,\mathcal R_t^z,q^z)$ by $(b_t,m,\pi^m,\mathcal C_t^m,\mathcal R_t^m,q^m)$ and yields $\gamma_t^\star$. Because the score in \cref{eq:restricted-source-component-softmax} uses the complete joint log density and the component log density, it contains the conditional component entropy and every emission, transition, or descendant factor whose expectation changes with the source-conditioned component. An expected log transition alone is sufficient only in a special restricted family where all omitted contributions are source independent. If the component densities are updated jointly with the routing row, the coupled problem must be solved or accepted against the complete ELBO rather than treated as this fixed-component softmax.
 
-Scaled dot-product attention instead obtains its logits from query-key inner products and then uses the resulting categorical weights to average values \citep{Vaswani2017}. No equality between that construction and \cref{eq:source-posterior-routing-logits} has been proved here. Such an equality could hold only under a specified transition family for which the expected log kernel reduces, up to source-independent terms, to the chosen query-key score and for which the probabilistic source prior matches the attention bias. Similarity of the final softmax operation is not enough.
+Both exact objects retain an attention-like interpretation. The full conditional routes a realized configuration among causal source transitions. The limited-conditioning $\beta_t$ and $\gamma_t$ rows route component evidence after integrating variables hidden from the row. In either case, the state source selects transported information $\Omega^z_{tj}z_j$, and the model source selects $\Omega^m_{tj}m_j$. Marginalizing a source variable generally produces a mixture; replacing it by one moment-matched Gaussian is a declared projection and not an identity. The source KL terms in \cref{eq:vfe4-local-elbo-decomposition} retain coefficient one.
+
+Scaled dot-product attention instead obtains its logits from query-key inner products and then uses the resulting categorical weights to average values \citep{Vaswani2017}. No equality between that construction and \cref{eq:source-posterior-routing-logits,eq:restricted-source-component-softmax} has been proved here. Such an equality would require a specified transition and recognition family for which the applicable full-conditional or component-ELBO score reduces, up to source-independent terms, to the chosen query-key score, with a matching probabilistic source prior. Similarity of the final normalization is not enough.
 
 \section{State propagation, channel conversion, and inference depth}
 
@@ -52,7 +83,7 @@ These correspondences establish an architectural vocabulary. They do not establi
 
 \section{Executable V3 boundary}
 
-The V3 comparison is based on the executable baseline rather than on names inherited from the broader theory. V3 stores one \texttt{BeliefState} with tokenwise $\mu$, within-token diagonal or full $\Sigma$, and frame coordinates $\phi$; its pairwise routine returns an $N\times N$ or head-indexed $N\times N$ divergence array.\footnote{Live-source locations inspected on 2026-07-17 are \path{V3_Transformer/vfe3/belief.py}, lines 23 through 28, and \path{V3_Transformer/vfe3/free_energy.py}, lines 162 through 173.} The energy array is therefore a directed score grid. It is not a covariance matrix, an edge marginal, or an off-diagonal block of a joint precision.
+The V3 comparison is based on the executable baseline rather than on names inherited from the broader theory. V3 stores one \texttt{BeliefState} with tokenwise $\mu$, within-token diagonal or full $\Sigma$, and frame coordinates $\phi$; its pairwise routine returns an $N\times N$ or head-indexed $N\times N$ divergence array.\footnote{Live-source locations inspected on 2026-07-17 are \path{V3_Transformer/vfe3/belief.py}, lines 23 through 28, and \path{V3_Transformer/vfe3/free_energy.py}, lines 162 through 173.} The energy array is therefore a directed score grid, not a covariance matrix or an off-diagonal block of a joint precision. It and the derived $\beta$ and $\gamma$ maps are deterministic routing calculations and diagnostics, not persistent probabilistic edge latents or marginals of a declared joint $Q$.
 
 On the investigated training path, \texttt{forward\_beliefs} runs before the target is used, categorical cross-entropy is formed afterward, and the initial outer loss is set to that cross-entropy.\footnote{See \path{V3_Transformer/vfe3/model/model.py}, lines 1549 through 1611. The optional \texttt{log\_likelihood} input in \path{V3_Transformer/vfe3/free_energy.py}, lines 389 through 471, is not called by this production path.} The active model-channel refinement replaces the initial belief and its prior with the refined $s$ moments, after which the belief stack performs another refinement.\footnote{See \path{V3_Transformer/vfe3/model/model.py}, lines 1069 through 1113. The same-$K$ model table and broadcast hyperprior shapes appear at lines 821 through 839, and the prior handoff recurrence appears in \path{V3_Transformer/vfe3/model/stack.py}, lines 139 through 140.} These are deterministic replacement and refinement maps among same-dimensional parameter tuples. They are not four stochastic conditionals that by themselves instantiate $h\to s\to p\to q$.
 
@@ -80,7 +111,7 @@ State representation
 & A joint law over state and model paths, source variables, and optional geometry. A structured Gaussian component uses joint information coordinates $(h,J)$ with distinct state and model fibers allowed. \\
 \addlinespace
 Cross-token correlation
-& No cross-token covariance or edge belief is stored. The $N\times N$ energy grid contains directed pairwise divergence scores and is not a covariance.
+& \texttt{BeliefState} contains no cross-token covariance or persistent probabilistic edge latent. The $N\times N$ energies and derived $\beta$ and $\gamma$ maps are deterministic routing calculations or diagnostics, not marginals of a declared joint $Q$.
 & Off-diagonal token blocks of $J$ encode conditional dependence. The covariance may be dense even when $J$ is sparse, and source marginalization generally yields a mixture. \\
 \addlinespace
 Peer interaction
@@ -120,7 +151,7 @@ The state-level joint in \cref{eq:vfe4-generative-joint} is not the only possibl
 \begin{equation}
 \mathfrak X
 =
-(q,s,\alpha,\beta,\gamma,\phi,\ldots)
+(q,s,\alpha,\beta,\gamma,\phi,\ldots),
 \label{eq:configuration-gibbs-random-variable}
 \end{equation}
 collect the distributions, weights, and geometric coordinates of one settled population configuration. Let $c$ be an observed prefix, let $y$ be held-out token data, let $\rho_0(\mathop{\mathrm d\mathfrak X})$ be a proper reference probability, and let $\mathcal F_{\mathrm{vac}}(\mathfrak X;c)$ exclude the held-out observation term. If
@@ -139,7 +170,7 @@ P_{\mathcal F}(\mathop{\mathrm d\mathfrak X}\given c)
 =
 \frac{1}{Z_{\mathcal F}(c)}
 \exp\left[-\frac{\mathcal F_{\mathrm{vac}}(\mathfrak X;c)}{T_{\mathrm{cfg}}}\right]
-\rho_0(\mathop{\mathrm d\mathfrak X})
+\rho_0(\mathop{\mathrm d\mathfrak X}),
 \label{eq:configuration-gibbs-prior}
 \end{equation}
 is a normalized prior over configurations.
