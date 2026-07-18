@@ -12,7 +12,7 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-06-21
-updated: 2026-07-10
+updated: 2026-07-17
 ---
 
 # Mean-Field Approximation
@@ -153,6 +153,26 @@ mean-field ideas** that share a name and a heritage but operate at different lev
 > restore cross-agent correlations within that product family.
 > [[gl-k-attention-2026-07-09-review-revision]]
 
+## Beyond mean field
+
+The principled extension is a hierarchy of variational families and effective theories, not a
+single replacement slogan. A normalized structured posterior, such as a sparse block-Gaussian
+joint over agent or token states, retains the ordinary ELBO and restores selected cross-variable
+covariances. Region beliefs and counting numbers provide a cheaper intermediate construction:
+Bethe and generalized region-graph free energies retain local correlations and correct overlapping
+entropy contributions, with their message-passing stationary points derived by
+[[yedidia-freeman-weiss-2005-region-free-energy]]. Exactness applies to the appropriate acyclic
+region structures; generic loopy pseudomarginals do not automatically define a global posterior or
+an evidence lower bound.
+
+State-posterior correlation and configuration-level fluctuation theory answer different questions.
+The former improves $Q(z\mid x)$ inside a fixed generative model. The latter places a probability law
+over slow belief and gauge configurations, then studies connected structural fluctuations and their
+coarse-grained effective action. The [[Meta-entropy]] Gibbs lift and the proposed 2PI completion in
+[[participatory-it-from-bit]] occupy this second tier. They are warranted when configuration
+thermodynamics, phase structure, or scale dependence is part of the scientific target; they are not
+required merely to relax a product posterior.
+
 ## Relevance to this research
 
 The VFE transformer stores one diagonal-Gaussian marginal belief per token, a
@@ -204,3 +224,5 @@ derive the product factorization.
 - [[beal-2003-variational-bayesian]] — variational Bayesian EM; the factored posterior
   $q(x)q(\theta)$, closed-form conjugate-exponential updates, tightness of the mean-field bound iff
   the factorization is exact, and BIC recovery in the large-data limit.
+- [[yedidia-freeman-weiss-2005-region-free-energy]] — Bethe and region-graph free energies,
+  generalized belief propagation, and the exact-versus-loopy boundary for correlation corrections.

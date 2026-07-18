@@ -2,7 +2,7 @@
 type: index
 title: Index
 aliases: [Index, Home]
-updated: 2026-07-13
+updated: 2026-07-17
 ---
 
 # Index
@@ -10,7 +10,7 @@ updated: 2026-07-13
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **10** manuscripts · **12** themes · **11** field MOCs · **268** concepts · **11** methods · **539** papers · **100** references · **9** runs · **6** web/methodology
+> **3** projects · **10** manuscripts · **12** themes · **11** field MOCs · **268** concepts · **11** methods · **539** papers · **104** references · **9** runs · **6** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -854,6 +854,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[beal-2003-variational-bayesian|Variational Algorithms for Approximate Bayesian Inference]]
 - [[wainwright-2008-graphical-models-variational|Graphical Models, Exponential Families, and Variational Inference]]
 - [[bishop-2006-pattern-recognition-machine-learning|Pattern Recognition and Machine Learning]]
+- [[yedidia-freeman-weiss-2005-region-free-energy|Constructing Free-Energy Approximations and Generalized Belief Propagation Algorithms]]
 
 ### Gauge theory, Lie groups & geometric deep learning
 - [[adlam-2022-cross-perspective|Information is Physical: Cross-Perspective Links in Relational Quantum Mechanics]]
@@ -877,6 +878,8 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[georgi-1999-lie-algebras-particle-physics|Lie Algebras in Particle Physics: From Isospin to Unified Theories]]
 - [[woit-2017-quantum-theory-groups-representations|Quantum Theory, Groups and Representations: An Introduction]]
 - [[hall-2013-quantum-theory-mathematicians|Quantum Theory for Mathematicians]]
+- [[abbott-1982-background-field-method|Introduction to the Background Field Method]]
+- [[faddeev-popov-1967-gauge-fixing|Feynman Diagrams for the Yang-Mills Field]]
 
 ### Information geometry, divergences & natural gradient
 - [[amari-2016-information-geometry-applications|Information Geometry and Its Applications]]
@@ -952,6 +955,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[boettcher2012renormalization|Renormalization Group for Critical Phenomena in Complex Networks]]
 - [[jona-lasinio-2001-renormalization-probability|Renormalization Group and Probability Theory]]
 - [[milnor1976-characteristic-classes-spherical-fibre|On Characteristic Classes for Spherical Fibre Spaces]]
+- [[cornwall-jackiw-tomboulis-1974-2pi-effective-action|Effective Action for Composite Operators]]
 
 ### Participatory realism, quantum foundations, holography & consciousness
 - [[bell-2004-speakable-unspeakable|Speakable and Unspeakable in Quantum Mechanics]]

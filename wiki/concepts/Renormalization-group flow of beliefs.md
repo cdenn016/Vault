@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-09
+updated: 2026-07-17
 ---
 
 # Renormalization-group flow of beliefs
@@ -37,6 +37,14 @@ i.e. mean self-KL, mean belief-fiber alignment, mean model-fiber alignment, atte
 This concept is what lets the [[Gauge-Theoretic Multi-Agent VFE Model]] talk about *emergence across scales* as a controlled, measurable object rather than a metaphor. The same coarse-graining that builds [[Meta-agents and hierarchical emergence|meta-agents]] from blocks of consensus agents is reinterpreted as a Kadanoff/Wilson block-spin step (cf. [[wilson-1975-renormalization-group]], [[wilson-1971-rg-critical-phenomena]]): microscopic belief details wash out under blocking, and what survives is the universal flow of a handful of effective couplings. The module's docstring frames the three-phase picture the manuscript reports — independent $\to$ critical $\to$ hierarchical condensation — and ties RG fixed points to scale-invariant belief theories. Reading the blocking map as an RG on a learned representation rather than on a physical spin lattice follows the variational-RG / deep-learning correspondence of [[mehta-schwab-2014-variational-rg-deep-learning]], and its information-geometric formulation — coarse-graining as a flow on the space of distributions — is made precise by [[beny-osborne-2015-info-geometric-rg]].
 
 RG flow is the natural companion to [[Meta-entropy]] (a thermodynamic-limit counting of belief configurations) and to [[Ouroboros multi-scale dynamics]] (the bidirectional multi-scale tower): RG supplies the scale-by-scale coarse-graining language, meta-entropy supplies the extensive state count, and the Ouroboros tower supplies the running dynamics whose base-scale couplings the RG sweep measures. In the runtime it is exposed as `CONFIG['mode'] = 'rg'`, the **Renormalization-group flow with KL-proximity blocking** preset.
+
+The beyond-mean-field theory in [[participatory-it-from-bit]] separates an exact but generally
+intractable coarse-grained structural action from its projection onto a finite operator basis. The
+exact step integrates eliminated configuration modes in the regulated quotient or gauge-fixed
+measure; the practical step fits retained couplings and reports energy and force residuals. A
+2PI-style effective action based on [[cornwall-jackiw-tomboulis-1974-2pi-effective-action]] retains
+connected two-point structure before this projection. This reframes the existing KL closure as a
+testable truncation ansatz rather than a proved form-preserving RG flow.
 
 ## RG in the GL(K) attention manuscript
 
@@ -85,6 +93,7 @@ This page develops the multi-scale, coarse-graining facet of the model; for the 
 - [[belief-inertia]] — Fisher-precision-as-mass belief dynamics underlying per-scale equilibration.
 - [[degroot-1974-consensus]], [[friedkin1990-social-influence-opinions|friedkin-johnsen-1990]], [[deffuant2000-bounded-confidence|deffuant-2000-bounded-confidence]], [[hegselmann-2002-opinion|hegselmann-krause-2002]], [[galam-2008-sociophysics]] — opinion-dynamics / sociophysics precedents for coarse-grained collective belief behavior.
 - [[delamotte-2012-nonperturbative-rg]] — pedagogical functional (nonperturbative) RG: the Wetterich flow of the whole effective action, the formalism for making belief coarse-graining exact rather than schematic.
+- [[cornwall-jackiw-tomboulis-1974-2pi-effective-action]] — connected two-point effective-action hierarchy used by the proposed correlation-preserving configuration completion.
 
 ## See also
 

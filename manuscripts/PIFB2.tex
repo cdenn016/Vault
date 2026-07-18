@@ -3402,6 +3402,162 @@ Existence for the full Gaussian gauge system is more nuanced than the compact fi
 
 The practical consequence for this paper is limited. A prospective experiment should include both a $\gamma_{ij}=0$ slow-channel ablation and a predeclared nonzero slow-coupling arm, while retaining the fast-channel belief alignment. The cross-scale augmented joint supplies the closed, uniquely-solvable backbone of the dynamics, and Theorem~\ref{thm:self_consistent_source_equilibrium} proves existence for a uniformly positive finite-state equilibrium map. No perturbative bound on the within-scale corrections has been established, however, and no artifact-backed result presently quantifies how those terms perturb the Gaussian cross-scale fixed point. The open items are this perturbative control, compatibility of cyclic row models, and uniqueness and convergence for the fully coupled, state-dependent, $\mathrm{GL}^+(K_q)$ system.
 
+\section{Beyond Mean Field: Correlated Gauge-VFE and the Effective Theory}
+\label{sec:beyond_mean_field_gauge_vfe}
+
+Mean field enters the present construction at more than one logical level. The factorization $Q=\prod_i q_i$ suppresses state-posterior correlations. Deterministic minimization of one population functional selects a single configuration and suppresses configuration fluctuations. The exchangeable large-$N$ description replaces a finite labeled population by an empirical law, while the operational RG construction projects an exact pushforward back into a selected multi-agent functional class. These are four different approximations. Improving one does not remove the other three.
+
+The configuration-space Gibbs lift of Theorem~\ref{thm:belief_configuration_gibbs_lift} already incorporates the central meta-entropy construction: it places a probability law on whole belief configurations and introduces the distinct temperature $T_{\mathrm{cfg}}$. The Laplace term in Eq.~\eqref{eq:rg_laplace} also retains a local Gaussian fluctuation determinant when internal cluster variables are eliminated. Those results do not yet define a correlated posterior over the latent states of different agents, a generating functional for connected configuration correlations, a one-particle-irreducible effective action, or a self-consistent two-point theory. The extension below supplies the common mathematical architecture for those objects without reclassifying the live peer-KL functional as an ordinary state-level ELBO.
+
+\subsection{A Normalized Two-Level Variational Model}
+
+Let $X$ denote a slow generative configuration of prior and transition parameters, supports, graph or source priors, precision fields, and frame or edge-connection variables. It does not contain the variational posterior densities $q_i$ or $s_i$. Let $Y=(Y_1,\ldots,Y_N)$ denote the state-level and model-level latent variables, and let $o$ denote the observations. The state model is a fixed normalized conditional law
+\begin{equation}
+p_\theta(dY,o\mid X)
+:=p_\theta(dY\mid X)p_\theta(o\mid Y,X),
+\label{eq:beyond_mf_state_joint}
+\end{equation}
+whose factors do not depend on the variational posterior used to approximate them. For a possibly correlated conditional posterior $Q_X(dY)$, define the state variational free energy in nats by
+\begin{equation}
+\mathcal{F}_{\mathrm{state}}[Q_X;X,o]
+:=D_{\mathrm{KL}}\bigl(Q_X\|p_\theta(\cdot\mid X)\bigr)
+-\mathbb{E}_{Q_X}\log p_\theta(o\mid Y,X).
+\label{eq:beyond_mf_state_vfe}
+\end{equation}
+It obeys
+\begin{equation}
+\mathcal{F}_{\mathrm{state}}[Q_X;X,o]
+=-\log p_\theta(o\mid X)
++D_{\mathrm{KL}}\bigl(Q_X\|p_\theta(\cdot\mid o,X)\bigr),
+\label{eq:beyond_mf_state_elbo_identity}
+\end{equation}
+so correlated inference changes the approximation family without changing the evidence semantics.
+
+\begin{theorem}[Nested state and configuration VFE]
+\label{thm:nested_state_configuration_vfe}
+Let $P_0(dX)$ be a proper configuration prior, let Eq.~\eqref{eq:beyond_mf_state_joint} be normalized for $P_0$-almost every $X$, and define $p_\theta(o):=\int p_\theta(o\mid X)P_0(dX)\in(0,\infty)$. Let $R\ll P_0$ be a configuration posterior and let $X\mapsto Q_X$ be a measurable probability kernel with $Q_X\ll p_\theta(\cdot\mid X)$ for $R$-almost every $X$. Assume the terms below are finite, or interpret the identity in the extended-real sense without an indeterminate $\infty-\infty$. Then
+\begin{align}
+\mathcal{J}[R,Q]
+&:=T_{\mathrm{cfg}}D_{\mathrm{KL}}(R\|P_0)
++T_{\mathrm{cfg}}\int
+\mathcal{F}_{\mathrm{state}}[Q_X;X,o]R(dX)
+\nonumber\\
+&=-T_{\mathrm{cfg}}\log p_\theta(o)
++T_{\mathrm{cfg}}D_{\mathrm{KL}}
+\bigl(R(dX)Q_X(dY)\|P_\theta(dX,dY\mid o)\bigr).
+\label{eq:nested_state_configuration_identity}
+\end{align}
+Consequently, $-\mathcal{J}/T_{\mathrm{cfg}}$ is an evidence lower bound for one normalized hierarchical model, with equality if and only if the joint variational law equals the exact posterior almost everywhere.
+\end{theorem}
+
+\begin{proof}
+Expand the joint KL divergence by the chain rule, use $P_\theta(dX,dY,o)=P_0(dX)p_\theta(dY,o\mid X)$, and collect the conditional terms into Eq.~\eqref{eq:beyond_mf_state_vfe}.
+\end{proof}
+
+If $P_0$ is itself defined by a vacuum functional,
+\begin{equation}
+P_0(dX)
+:=Z_0^{-1}\exp[-\mathcal{F}_{\mathrm{vac}}(X)/T_{\mathrm{cfg}}]\nu_0(dX),
+\label{eq:beyond_mf_configuration_prior}
+\end{equation}
+then the first term of Eq.~\eqref{eq:nested_state_configuration_identity} is, up to the constant $T_{\mathrm{cfg}}\log Z_0$, the sum of $\mathbb{E}_R\mathcal{F}_{\mathrm{vac}}$ and $T_{\mathrm{cfg}}D_{\mathrm{KL}}(R\|\nu_0)$. This gives a precise nesting of state-level evidence inside the configuration ensemble. The vacuum functional may contain only observation-free structural energies in the declared variables $X$; it cannot contain live $q_i$, $s_i$, or their peer-KL terms without promoting separate measure-valued fields to generative variables and specifying their relation to $Q_X$. The held-out likelihood is excluded from $\mathcal{F}_{\mathrm{vac}}$ and enters once through Eq.~\eqref{eq:beyond_mf_state_vfe}. The construction remains valid with environmental variables represented as ordinary latent nodes or observed boundary conditions; it does not require treating a variational belief from another agent as a fixed generative factor.
+
+\subsection{Correlated State Posteriors and Region Free Energies}
+
+The first extension beyond mean field should preserve the normalized model above while enlarging $Q_X$. Suppose the conditional state prior has a gauge-covariant pairwise factorization on a graph $\mathcal{G}=(V,E)$,
+\begin{equation}
+p_\theta(Y\mid X)
+:=Z_X^{-1}
+\prod_{i\in V}\psi_i(Y_i;X)
+\prod_{(i,j)\in E}\psi_{ij}(Y_i,Y_j;X),
+\label{eq:beyond_mf_pairwise_joint}
+\end{equation}
+where each edge factor is a fixed model potential, rather than a function of live variational densities. Introduce node beliefs $b_i$ and edge beliefs $b_{ij}$ satisfying normalization and local marginal consistency. Their Bethe entropy is
+\begin{equation}
+H_{\mathrm{B}}[b]
+:=\sum_{(i,j)\in E}H[b_{ij}]
+-\sum_{i\in V}(d_i-1)H[b_i].
+\label{eq:beyond_mf_bethe_entropy}
+\end{equation}
+The corresponding region free energy is the expectation of the fixed node and edge energies $-\log\psi_i$ and $-\log\psi_{ij}$ minus $H_{\mathrm{B}}$. On a tree, minimizing this functional over the local marginal polytope returns the exact marginals and $-\log Z_X$. On a loopy graph it is the Bethe approximation; larger Kikuchi or region graphs form a family of more expressive approximations whose error need not improve monotonically~\cite{Wainwright2008,Yedidia2005}. Generic loopy pseudomarginals need not be the marginals of any global $Q_X$, and their region objective is not a generic upper or lower evidence bound. Bound-preserving constructions require additional structure, such as a globally realizable variational family or an appropriate tree-reweighted relaxation. Ordinary mean field is recovered by the restriction $b_{ij}=b_i b_j$ on every edge when those beliefs arise from a global product law. It is therefore a lower-complexity variational subfamily of the correlated theory, not the definition of the theory.
+
+Gauge covariance acts on the region beliefs as a joint pushforward. If $Y_i\mapsto G_iY_i$ and $Y_j\mapsto G_jY_j$, then $b_{ij}$ is pushed forward by $G_i\times G_j$, while the edge potential is transformed contragrediently so that its scalar energy is unchanged. Entropies must be defined relative to a covariantly transformed or quasi-invariant reference measure, including its Jacobian; a finite invariant reference is not generally available for noncompact $\mathrm{GL}^+(K_q)$. A factorization such as $\Omega_{ij}=U_iU_j^{-1}$ remains a pure-gauge connection with trivial loop holonomy. A correlated theory with physical curvature must instead retain the independent edge variables of Regime~II in Section~\ref{sec:discrete_regime_ii}; integrating only vertex frames cannot generate nontrivial holonomy.
+
+For the Gaussian sector, a computationally direct correlated family is
+\begin{equation}
+Q_X(Y)=\mathcal{N}(\bar{Y},C),
+\qquad
+C^{-1}=J,
+\label{eq:beyond_mf_block_gaussian}
+\end{equation}
+with a sparse block precision $J$ supported on the state interaction graph. The off-diagonal blocks $C_{ij}$ carry inter-agent correlations, and if $Y_i=(k_i,m_i)$ contains fast state and slow model variables, the within-node block $C_i^{(km)}$ carries cross-channel correlations that the present separate $q_i$ and $s_i$ factors discard. Under a local linear frame change, $C_{ij}\mapsto \rho_i(G_i)C_{ij}\rho_j(G_j)^\top$, where $\rho_i$ is block diagonal if the state and model channels use distinct representations, so the covariance family is closed under the gauge action. The block-diagonal restriction $C_{ij}=0$ for $i\ne j$ is the Gaussian mean-field limit. Sparse block-Gaussian inference is therefore the smallest extension that exposes a measurable connected two-point state function while retaining tractable linear algebra.
+
+The live alignment term $D_{\mathrm{KL}}(q_i\|\Omega_{ij}q_j)$ does not become an exact instance of Eq.~\eqref{eq:beyond_mf_pairwise_joint} merely because edge beliefs have been introduced: its target still moves with another variational factor, which is the obstruction proved by Theorem~\ref{thm:state_level_elbo_nogo}. It has two coherent placements. It may remain an engineered configuration-level consensus potential, or it may be replaced by a fixed state-transition or pair potential from which the correlated posterior is inferred. Using both for the same interaction would count that edge twice.
+
+\subsection{Configuration Correlators and the Effective Action}
+
+After the state family has been specified, define a state-reduced configuration action
+\begin{equation}
+\mathcal{A}_o[X]
+:=\mathcal{F}_{\mathrm{vac}}[X]
++T_{\mathrm{cfg}}
+\inf_{Q_X\in\mathcal{Q}_{\mathrm{corr}}}
+\mathcal{F}_{\mathrm{state}}[Q_X;X,o].
+\label{eq:beyond_mf_bare_action}
+\end{equation}
+With the unrestricted posterior family, the second term is $-T_{\mathrm{cfg}}\log p_\theta(o\mid X)$. With a genuine normalized family such as a sparse block-Gaussian $Q_X$, Eq.~\eqref{eq:beyond_mf_bare_action} is a variational upper approximation to that conditional surprisal. A generic Bethe or Kikuchi pseudomarginal optimization is not an infimum over normalized joint posteriors and therefore does not inherit this evidence-bound statement. The live five-term multi-agent functional cannot serve as $\mathcal{F}_{\mathrm{vac}}$ in Theorem~\ref{thm:nested_state_configuration_vfe}, because it depends on the variational $q_i,s_i$ and contains the observation term. The peer-KL sector is presently an engineered gauge-covariant consensus energy and, when its belief-configuration partition function is finite, an exact generalized-Bayesian energy on that separate sample space. Within the structural state-reduced action it is only a candidate consensus-operator truncation pending an explicit summary map from $Q_X$ to belief fields, fitted coefficients, and quantitative energy and force residuals. None of these placements converts it into the fixed configuration prior of the nested ELBO.
+
+Let $\mathfrak{X}_{\mathrm{phys}}$ be the physical configuration space after quotienting only the transformations declared to be redundancies. Active epistemic frame changes remain coordinates of $X$ and are not divided out. Around a background $\bar{X}$, write $X=\operatorname{Exp}_{\bar{X}}\xi$ in covariant normal coordinates on the quotient and define
+\begin{equation}
+Z_{\bar{X}}[J]
+:=\int_{\mathfrak{X}_{\mathrm{phys}}}
+\exp\left[-\frac{\mathcal{A}_o[\operatorname{Exp}_{\bar{X}}\xi]-J_A\xi^A}{T_{\mathrm{cfg}}}\right]
+d\nu_{\mathrm{phys}}(\xi),
+\qquad
+W_{\bar{X}}[J]:=T_{\mathrm{cfg}}\log Z_{\bar{X}}[J].
+\label{eq:beyond_mf_generating_functional}
+\end{equation}
+The mean displacement is $\varphi^A=\delta W/\delta J_A$, and the Legendre transform
+\begin{equation}
+\Gamma_{\bar{X}}[\varphi]
+:=J_A\varphi^A-W_{\bar{X}}[J]
+\label{eq:beyond_mf_effective_action}
+\end{equation}
+is a local configuration effective action in the chosen background chart. It is background- and base-point-dependent until compatible constructions on overlapping quotient charts have been supplied; the local Legendre transform alone does not establish a global gauge-invariant functional. Its Hessian generates the connected configuration covariance,
+\begin{equation}
+G^{AB}
+:=\left\langle(\xi^A-\varphi^A)(\xi^B-\varphi^B)\right\rangle
+=T_{\mathrm{cfg}}\frac{\delta^2W}{\delta J_A\delta J_B}
+=T_{\mathrm{cfg}}\left[\left(\Gamma^{(2)}\right)^{-1}\right]^{AB},
+\label{eq:beyond_mf_connected_propagator}
+\end{equation}
+on the nonzero physical modes. This $G^{AB}$ is a covariance across whole configurations; it is distinct from the state covariance $C_{ij}$ in Eq.~\eqref{eq:beyond_mf_block_gaussian}.
+
+When $\bar{X}$ is a nondegenerate saddle on the quotient and the constrained covariant Hessian $H_{AB}=\nabla_A\nabla_B\mathcal{A}_o[\bar{X}]$ is positive, the local loop expansion has the form
+\begin{equation}
+\Gamma[\bar{X}]
+=\mathcal{A}_o[\bar{X}]
++\frac{T_{\mathrm{cfg}}}{2}
+\operatorname{Tr}\log\left(\frac{g_{\mathrm{phys}}^{-1}H_{\mathrm{phys}}}{\mu^2}\right)
++\Gamma_{\mathrm{measure}}[\bar{X}]
++O(T_{\mathrm{cfg}}^2).
+\label{eq:beyond_mf_one_loop}
+\end{equation}
+Equation~\eqref{eq:beyond_mf_one_loop} uses direct quotient integration: $g_{\mathrm{phys}}$ and $H_{\mathrm{phys}}$ act only on physical tangent modes, and $\Gamma_{\mathrm{measure}}$ records the proper quotient measure. An equivalent redundant-field calculation instead imposes an explicit gauge condition, uses a primed constrained determinant, and includes one Faddeev--Popov factor; the direct-quotient and gauge-fixed prescriptions are alternatives and must not be multiplied together. A background-field construction is needed if the redundant-field expansion is to retain covariance under background gauge transformations~\cite{Abbott1982,FaddeevPopov1967}. Raw Haar integration over noncompact $\mathrm{GL}^+(K_q)$ is not admissible. Redundant noncompact directions require a quotient or gauge fixing, while noncompact active directions require a proper confining reference measure, so that Eq.~\eqref{eq:beyond_mf_generating_functional} exists. Equation~\eqref{eq:beyond_mf_one_loop} extends the cluster-specific log determinant in Eq.~\eqref{eq:rg_laplace} to the full physical configuration Hessian. It is a local asymptotic expansion, not a nonperturbative definition when the Hessian has additional soft or unstable modes.
+
+The one-particle-irreducible action closes equations for the mean configuration but treats $G$ as the inverse Hessian at the selected truncation. A two-particle-irreducible extension would introduce a symmetric bilocal source $K_{AB}$ in addition to $J_A$ and perform a double Legendre transform to $\Gamma_2[\varphi,G]$. Its stationarity equation $\delta\Gamma_2/\delta G=0$ would provide a self-consistent configuration covariance rather than a one-loop covariance evaluated at a fixed saddle~\cite{CornwallJackiwTomboulis1974}. In this framework the gauge-consistent 2PI construction is a proposed completion, not a result already derived by the five-term functional. It would become useful when soft collective modes make the one-loop determinant large or when correlation feedback changes the location and stability of the saddle.
+
+\subsection{RG Closure and the Status of the Complete Theory}
+
+The exact pushforward in the next section is the correct Wilsonian object. Eliminating short-scale variables generally generates every operator allowed by the retained symmetries, including higher-order region interactions, nonlocal kernels, covariance couplings, curvature terms, and measure contributions~\cite{Wilson1974}. Closure in the original five-term family is therefore a truncation hypothesis that must be tested by the calibrated energy residual $\delta_{I,0}$ and the independent force residual $\delta_{I,1}$ defined in Eq.~\eqref{eq:rg_closure}, not assumed from gauge covariance alone. A complete calculation should compare at least three nested truncations: the present mean-field saddle, a correlated state family with one-loop configuration corrections, and a 2PI or region-enlarged theory in which the two-point functions are varied self-consistently. The measured change in held-out evidence, connected correlations, spectra, and RG closure residuals determines whether the extra operators earn their place.
+
+\begin{remark}[No-double-counting conditions]
+\label{rem:beyond_mf_no_double_counting}
+The two-level construction fixes four bookkeeping rules. An observation likelihood enters the state VFE once and is not also included in the vacuum action. A physical interaction is represented either by a fixed state-model edge factor or by a peer-consensus configuration potential unless a separate derivation proves that the two are different terms. Attention rows are either integrated as random simplex variables or eliminated at their envelope optimum $\beta^*$; the same row entropy is not added again after elimination. Finally, marginal Gaussian belief entropies and the correlation correction are components of the single state-posterior entropy and must be combined once, while attention-row entropy and configuration meta-entropy belong to separate simplex and configuration sample spaces.
+\end{remark}
+
+Conditional on retaining fixed-joint state evidence semantics while adding configuration thermodynamics, connected configuration fluctuations, effective-action corrections, and RG coarse-graining, the resulting hierarchy is a principled proposed gauge-VFE completion. The nondegenerate Gibbs and effective-action tier is not required merely to move beyond a mean-field state posterior; it is required by the additional aim of describing fluctuating structural configurations and their scale dependence. A fixed normalized gauge-covariant state model supplies ordinary evidence semantics. Globally normalized correlated posteriors restore inter-agent and cross-channel correlations, while loopy region pseudomarginals remain non-bounding approximations unless strengthened. A configuration Gibbs law on structural fields supplies meta-entropy and collective fluctuations; the pre-existing Gibbs lift on live belief configurations is a distinct generalized-Bayesian ensemble unless those belief fields are explicitly promoted to generative variables. The effective action organizes loop corrections, a future gauge-consistent 2PI construction would make the configuration two-point sector self-consistent, and the exact RG pushforward determines which symmetry-allowed operators survive coarse-graining. This ordering defines a research program rather than a controlled approximation ladder. Mean field is formally recovered by factorizing the state posterior. The limits $T_{\mathrm{cfg}}\to0$, exchangeable empirical-measure closure, and projection of the RG image back to the five-term family are formal limits or truncations until concentration, large-deviation or propagation-of-chaos, and quantitative closure-residual hypotheses are established.
+
 \section{Renormalization-Group Construction for Meta-Agent Formation}
 \label{sec:meta_agent_rg}
 

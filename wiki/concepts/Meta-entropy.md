@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-12
+updated: 2026-07-17
 ---
 
 # Meta-entropy
@@ -97,6 +97,19 @@ gauge orbit diverges, so a proper construction needs a quotient or gauge fixing,
 coercive symmetry-breaking prior, or another proper reference law, together with exponential
 integrability in the remaining physical directions.
 
+**Effective-action completion beyond a configuration saddle.** The Gibbs lift supplies an exact
+configuration-level variational identity, but a saddle-point evaluation retains only one dominant
+configuration. The extension in [[participatory-it-from-bit]] introduces local sources for the slow
+structural fields, takes a Legendre transform to a configuration effective action, and proposes a
+two-particle-irreducible completion in which the connected two-point function is an independent
+variational object. [[cornwall-jackiw-tomboulis-1974-2pi-effective-action]] is the standard template
+for that correlation hierarchy. [[abbott-1982-background-field-method]] supplies the
+background-covariant organization of local fluctuations. A redundant-field construction additionally
+needs the gauge-slice Jacobian described by [[faddeev-popov-1967-gauge-fixing]], whereas direct
+quotient integration avoids that determinant but requires a well-defined quotient measure. None of
+these configuration constructions converts the live peer-KL scalar into the mean-field ELBO of a
+fixed joint on the original state variables.
+
 **Solvable Gaussian instance.** A means-only, trivial-gauge model with quadratic prior strength $\alpha$ and all-to-all coupling $J$ is solvable in closed form. Its zero-field magnetisation is $m^\star = 0$ and its susceptibility is
 
 $$
@@ -133,6 +146,9 @@ It sits atop the same belief-sector functional that the companion manuscripts bu
 - [[wilson-1975-renormalization-group]] — coarse-graining / thermodynamic-limit precedent for the multi-agent scaling story.
 - [[hall-2015-lie-groups]] — $\mathrm{GL}^+(K)$ as the identity component and the exponential-map subtleties underlying the gauge counting chart.
 - [[degroot-1974-consensus]], [[friedkin1990-social-influence-opinions|friedkin-johnsen-1990]] — classical consensus/opinion-dynamics models that the Gaussian consensus-transition question generalises.
+- [[cornwall-jackiw-tomboulis-1974-2pi-effective-action]] — effective action for means and connected two-point structure, the proposed configuration-correlation completion.
+- [[abbott-1982-background-field-method]] — background-covariant organization of the local fluctuation expansion.
+- [[faddeev-popov-1967-gauge-fixing]] — gauge-slice determinant required when configuration integrals retain redundant gauge coordinates.
 
 ## See also
 

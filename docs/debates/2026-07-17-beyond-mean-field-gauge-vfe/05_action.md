@@ -1,0 +1,7 @@
+# Action Taken
+
+The binding verdict was applied to `manuscripts/PIFB2.tex`. The section now makes the ranking conditional on a declared scientific target: retaining ordinary fixed-joint state evidence while also modeling configuration thermodynamics, connected structural fluctuations, effective-action corrections, and scale-dependent RG behavior. It states that a nondegenerate configuration Gibbs law is not required merely to replace a mean-field state posterior with a correlated posterior.
+
+The manuscript now gives the live peer-KL sector its narrower established status. It is an engineered gauge-covariant consensus energy in the live functional and, when the belief-configuration partition function is finite, an exact generalized-Bayesian energy on that separate sample space. It is only a candidate consensus-operator truncation of the structural state-reduced action until an explicit posterior-to-summary map, fitted coefficients, and quantitative energy and force residuals are supplied.
+
+The local quotient qualifications remain in place. The ordered sequence from a globally normalized correlated state family through state reduction, local 1PI and proposed 2PI constructions, exact RG pushforward, and tested finite-operator projection is now called a research program rather than a controlled approximation ladder. No claim of a global gauge-invariant effective action, monotone region hierarchy, or completed gauge-consistent 2PI theory was added.

@@ -403,3 +403,17 @@ Monographs/textbooks; no bulk legal-PDF route. Listed for completeness.
 - `wong2001asymptotic` — Asymptotic Approximations of Integrals (2001)
 - `Wooldridge2009` — An Introduction to Multiagent Systems (2009)
 - `wooldridge2009introduction` — An Introduction to MultiAgent Systems (2009)
+
+## Incremental acquisition — 2026-07-17
+
+This dated pass covered the four references added by the PIFB2 beyond-mean-field extension. The
+historical summary above describes the earlier 374-entry bibliography snapshot and is retained as
+provenance; the current bibliography contains 409 entries. After this pass the local cache contains
+221 verified PDFs totaling 459,971,401 bytes.
+
+| Key | Result | Verified source | SHA-256 / limitation |
+|---|---|---|---|
+| `Yedidia2005` | downloaded, 526,651 bytes | [MIT/MERL author copy](https://people.csail.mit.edu/billf/publications/Constructing_Free_Energy.pdf) | `0A9D26D7EBF9D282D8958A451CED38E2231BB0C1BF5AEEB593191CFE295C4629` |
+| `Abbott1982` | downloaded, 752,153 bytes | [Acta Physica Polonica archive](https://www.actaphys.uj.edu.pl/R/13/1/33/pdf) | `110D83F296D7FDFDA57911AD74ED10B1B6AADFADD60C20BE919CFC79B265AD9C` |
+| `CornwallJackiwTomboulis1974` | not automatically acquired | [OSTI](https://www.osti.gov/biblio/4236122), [INSPIRE](https://inspirehep.net/literature/1295), [CERN preprint record](https://cds.cern.ch/record/416634) | OSTI and INSPIRE expose metadata only; CERN required an interactive proof-of-work challenge. No unofficial mirror was used. |
+| `FaddeevPopov1967` | unavailable without purchase or institutional access | [publisher](https://www.sciencedirect.com/science/article/pii/0370269367900676), [OSTI](https://www.osti.gov/biblio/4297070), [INSPIRE](https://inspirehep.net/literature/51324), [CERN](https://cds.cern.ch/record/431589) | Repository records expose metadata but no downloadable full text. No unofficial copy was used. |
