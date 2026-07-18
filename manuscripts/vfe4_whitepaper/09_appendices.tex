@@ -176,7 +176,7 @@ Finally, direct multiplication verifies that the two matrices in \cref{eq:tridia
 
 \chapter{Proof Details and Verification Oracles}
 
-This appendix collects proof details and reference checks for claims introduced in the main text. It will make the corresponding assumptions and numerical oracles explicit when those derivations are added.
+This appendix collects proof details and reference checks for claims introduced in the main text. The derivations below state the corresponding assumptions and numerical oracles explicitly.
 
 \section{Full normalization proof for the fixed conditional joint}
 
@@ -443,4 +443,76 @@ This check uses a geometric walk in the underlying undirected graph or cell comp
 
 \chapter{Notation}
 
-This appendix reserves a stable location for the notation shared by the preceding construction. It does not introduce additional model assumptions beyond those defined in the main text.
+The symbols in \cref{tab:vfe4-notation} fix the notation path used throughout the construction. The table records exact mappings among coordinate views but introduces no model assumption beyond the definitions in the main text.
+
+{\small
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.18\textwidth} >{\raggedright\arraybackslash}p{0.27\textwidth} >{\raggedright\arraybackslash}p{0.45\textwidth}}
+\caption{Notation for the gauge-causal VFE 4.0 construction.}
+\label{tab:vfe4-notation}\\
+\toprule
+\textbf{Symbol} & \textbf{Domain or type} & \textbf{Meaning} \\
+\midrule
+\endfirsthead
+\multicolumn{3}{c}{\tablename\ \thetable\ continued}\\
+\toprule
+\textbf{Symbol} & \textbf{Domain or type} & \textbf{Meaning} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{Continued on the next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+$t,T$ & $t\in\{0,\ldots,T\}$ & Token position and fixed sequence horizon. \\
+\addlinespace
+$x_t,x_{<t}$ & $x_t\in\mathcal X$ & Observed token and realized causal prefix; $x_t$ is never a latent belief coordinate. \\
+\addlinespace
+$D_T=(V_T,E_T)$ & Directed acyclic graph & Causal token base with $(j,t)\in E_T$ only when $j<t$. \\
+\addlinespace
+$G,P$ & Matrix Lie group; principal $G$-bundle & Declared gauge group and the working product bundle $P=|D_T|\times G$. \\
+\addlinespace
+$E_z,E_m$ & Associated vector bundles & State and model bundles with fibers $E_{z,t}$ and $E_{m,t}$ of dimensions $d_z$ and $d_m$. \\
+\addlinespace
+$\rho_z,\rho_m$ & Representations of $G$ & Possibly distinct actions of the shared group on the state and model fibers. \\
+\addlinespace
+$z_t,m_t$ & $z_t\in E_{z,t}$, $m_t\in E_{m,t}$ & State and model latent variables; bold symbols $\boldsymbol z,\boldsymbol m$ denote their complete paths. \\
+\addlinespace
+$\Gamma$ & Deterministic geometric data in the exact core & Collection of declared frames, links, representations, morphisms, and other fixed geometric coefficients. \\
+\addlinespace
+$\Omega_{tj}$ & $G$-valued link & Group transport from source $j$ to receiver $t$; $\Omega^z_{tj}$ and $\Omega^m_{tj}$ are its represented state and model maps. \\
+\addlinespace
+$B_t$ & $\operatorname{Hom}(E_{m,t},E_{z,t})$ & Typed model-to-state morphism; no equality $d_m=d_z$ is assumed. \\
+\addlinespace
+$a_t,b_t$ & Finite categorical variables & State-source and model-source assignments on $\operatorname{Pa}_z(t)$ and $\operatorname{Pa}_m(t)$. \\
+\addlinespace
+$\pi_t^z,\pi_t^m$ & Normalized probability mass functions & Fixed generative priors for $a_t$ and $b_t$. \\
+\addlinespace
+$K^z_{\theta,tj},K^m_{\theta,tj}$ & Normalized Markov kernels & State and model transition densities for source $j$ and receiver $t$. \\
+\addlinespace
+$L_{\theta,t}$ & Categorical Markov kernel on $\mathcal X$ & Normalized token-emission law whose expected log probability is the observation term. \\
+\addlinespace
+$Y$ & $(\boldsymbol z,\boldsymbol m,a,b)$ & Complete latent inventory used in the evidence identity. \\
+\addlinespace
+$Q_\psi^{(r)}$ & Normalized mixed variational law & Filtering ($r=\mathrm f$) or smoothing ($r=\mathrm s$) recognition law over $Y$. \\
+\addlinespace
+$\beta_t,\gamma_t$ & Conditional categorical recognition laws & State-source and model-source routing factors; these are not the fixed priors $\pi_t^z,\pi_t^m$. \\
+\addlinespace
+$y$ & $\operatorname{col}(z_0,m_0,\ldots,z_T,m_T)\in\mathbb R^D$ & Token-major stacking of the continuous state and model paths in chosen local frames. \\
+\addlinespace
+$D$ & $(T+1)(d_z+d_m)$ & Dimension of the stacked continuous path $y$. \\
+\addlinespace
+$w(a,b),q(y\given a,b)$ & Categorical mass and conditional density & Disintegration of $Q(y,a,b)=w(a,b)q(y\given a,b)$; source marginalization generally gives a Gaussian mixture. \\
+\addlinespace
+$(h,J)$ & $h\in\mathbb R^D$, $J=J^\top\succ0$ & Information vector and precision; the Gaussian natural coordinates are $(h,-J/2)$. \\
+\addlinespace
+$(\mu,M)$ & $M=\mathbb E[yy^\top]$ & Expectation-coordinate pair exactly dual to $(h,-J/2)$. \\
+\addlinespace
+$(\mu,\Sigma)$ & $\Sigma=J^{-1}$ & Moment view, related to expectation coordinates by $M=\Sigma+\mu\mu^\top$. \\
+\addlinespace
+$\eta,\xi$ & $\eta=(h,-J/2)$, $\xi=(\mu,M)$ & Canonical natural and expectation charts. The separate symbol $\tau>0$ denotes a source-prior temperature, as in $\pi_{\tau,t}$. \\
+\addlinespace
+$\theta,\psi$ & Model and recognition parameters & Parameters of the normalized generative joint and normalized recognition law, respectively. \\
+\addlinespace
+$\ELBO,\VFE$ & Scalar functionals & Evidence lower bound and VFE 4.0 free energy, with $\VFE=-\ELBO$, under the stated support and integrability assumptions. \\
+\end{longtable}
+}

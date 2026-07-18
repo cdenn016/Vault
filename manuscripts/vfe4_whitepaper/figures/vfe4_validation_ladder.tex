@@ -41,24 +41,24 @@
   halt/.style={-{Stealth[length=2.2mm]}, cautionorange!85!black, dashed, line width=1pt}
 ]
   \node[draw=darkgray, fill=lightgray, rounded corners=2pt, align=center,
-    minimum width=75mm, minimum height=8mm] (rule) {Promotion requires recorded evidence at the current gate.};
+    minimum width=75mm, minimum height=8mm] (rule) {Promotion requires the declared decision rule at the current gate.};
 
-  \node[gate, below=7mm of rule] (identity) {Identity};
-  \node[gate, below=7mm of identity] (representation) {Representation};
-  \node[gate, below=7mm of representation] (posterior) {Posterior structure};
-  \node[gate, below=7mm of posterior] (optimization) {Optimization};
-  \node[gate, below=7mm of optimization] (prediction) {Prediction};
-  \node[gate, below=7mm of prediction] (gauge) {Gauge covariance};
-  \node[gate, below=7mm of gauge] (scale) {Scale};
+  \node[gate, below=7mm of rule] (identity) {H1: ELBO implementation};
+  \node[gate, below=7mm of identity] (representation) {H2: coordinate implementation};
+  \node[gate, below=7mm of representation] (posterior) {H3: structured-posterior adequacy};
+  \node[gate, below=7mm of posterior] (optimization) {H4--H5: cost hypothesis and update-label verification};
+  \node[gate, below=7mm of optimization] (prediction) {H6: held-out prediction};
+  \node[gate, below=7mm of prediction] (gauge) {H7: gauge implementation};
+  \node[gate, below=7mm of gauge] (scale) {H8: sparse systems};
   \node[outcome, below=7mm of scale] (advance) {bounded claim may advance};
 
-  \node[stop, right=26mm of identity] (stopidentity) {stop and revise};
-  \node[stop, right=26mm of representation] (stoprepresentation) {stop and revise};
-  \node[stop, right=26mm of posterior] (stopposterior) {stop and revise};
-  \node[stop, right=26mm of optimization] (stopoptimization) {stop and revise};
-  \node[stop, right=26mm of prediction] (stopprediction) {stop and revise};
-  \node[stop, right=26mm of gauge] (stopgauge) {stop and revise};
-  \node[stop, right=26mm of scale] (stopscale) {stop and revise};
+  \node[stop, right=26mm of identity] (stopidentity) {repair and report};
+  \node[stop, right=26mm of representation] (stoprepresentation) {repair and report};
+  \node[stop, right=26mm of posterior] (stopposterior) {revise and report};
+  \node[stop, right=26mm of optimization] (stopoptimization) {revise and report};
+  \node[stop, right=26mm of prediction] (stopprediction) {report unsupported};
+  \node[stop, right=26mm of gauge] (stopgauge) {repair and report};
+  \node[stop, right=26mm of scale] (stopscale) {report unsupported};
 
   \draw[pass] (identity) -- node[midway, left=2mm] {pass} (representation);
   \draw[pass] (representation) -- node[midway, left=2mm] {pass} (posterior);

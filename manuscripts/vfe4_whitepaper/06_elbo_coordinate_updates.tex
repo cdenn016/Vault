@@ -278,7 +278,21 @@ A temperature may parameterize a normalized source prior. For example,
 \qquad \tau>0,
 \label{eq:temperature-parameterized-source-prior}
 \end{equation}
-is a valid model factor, and its normalizer is already part of $\log\pi_{\tau,t}$. The ordinary ELBO still contains $\KL(q_t\Vert\pi_{\tau,t})$ with coefficient one. Multiplying only the categorical entropy or the entire source KL by an arbitrary coefficient changes \cref{eq:monolithic-to-local-log-ratio} and is not the ELBO of \cref{eq:vfe4-generative-joint}. A tempered likelihood, power posterior, or generalized-Bayes construction must instead declare its own normalized probability model, including every parameter-dependent partition function, and must be labeled as a different objective.
+is a valid model factor, and its normalizer is already part of $\log\pi_{\tau,t}$. The ordinary ELBO still contains $\KL(q_t\Vert\pi_{\tau,t})$ with coefficient one. Multiplying only the categorical entropy or the entire source KL by an arbitrary coefficient changes \cref{eq:monolithic-to-local-log-ratio} and is not the ELBO of \cref{eq:vfe4-generative-joint}.
+
+Generalized Bayes has a separate proper construction and does not require a normalized sampling model. Let $\Pi(\mathop{\mathrm d\omega})$ be a prior probability, let $\ell(\omega;x)$ be a measurable loss, and let $w>0$. If
+\begin{equation}
+0<Z_w(x):=\int\exp[-w\ell(\omega;x)]\Pi(\mathop{\mathrm d\omega})<\infty,
+\label{eq:generalized-bayes-finite-normalizer}
+\end{equation}
+then the loss posterior
+\begin{equation}
+\Pi_w(\mathop{\mathrm d\omega}\given x)
+:=\frac{\exp[-w\ell(\omega;x)]}{Z_w(x)}
+\Pi(\mathop{\mathrm d\omega}),
+\label{eq:generalized-bayes-loss-posterior}
+\end{equation}
+is normalized and minimizes $w\mathbb E_R[\ell(\omega;x)]+\KL(R\Vert\Pi)$ over absolutely continuous $R$ under the corresponding finiteness conditions \citep{BissiriHolmesWalker2016}. It is not the ordinary evidence ELBO in \cref{eq:vfe4-evidence-elbo-kl-identity} unless the loss is the negative log of the declared normalized likelihood with the matching scale. Learning or comparing parameterized loss families must account for their changing $Z_w(x)$ and must not relabel that normalizer as ordinary model evidence.
 
 \section{Separate latent-geometry extension}
 
@@ -410,7 +424,7 @@ For each conditional Gaussian component, use the canonical coordinates already f
 \begin{equation}
 \eta=\left(h,-\frac12J\right),
 \qquad
-\tau=(\mu,M).
+\xi=(\mu,M).
 \label{eq:canonical-natural-expectation-pairs}
 \end{equation}
 The corresponding open coordinate domains are
@@ -420,7 +434,7 @@ The corresponding open coordinate domains are
 &:=\left\{\left(h,-\frac12J\right):
 h\in\mathbb R^D,
 J=J^\top\succ0\right\},\\
-\mathcal D_\tau
+\mathcal D_\xi
 &:=\left\{(\mu,M):
 \mu\in\mathbb R^D,
 M=M^\top,
@@ -428,47 +442,64 @@ M-\mu\mu^\top\succ0\right\}.
 \end{aligned}
 \label{eq:gaussian-dual-open-domains}
 \end{equation}
-On these interiors of the regular Gaussian family, the log normalizer $A(\eta)$ and its Legendre dual $A^*(\tau)$ satisfy
+On these interiors of the regular Gaussian family, the log normalizer $A(\eta)$ and its Legendre dual $A^*(\xi)$ satisfy
 \begin{equation}
-\tau=\nabla_\eta A(\eta),
+\xi=\nabla_\eta A(\eta),
 \qquad
-\eta=\nabla_\tau A^*(\tau).
+\eta=\nabla_\xi A^*(\xi).
 \label{eq:legendre-coordinate-duality}
 \end{equation}
 Using the Euclidean pairing for vectors and the Frobenius pairing for symmetric matrix coordinates, the two Fisher matrices are
 \begin{equation}
 G_\eta
 :=\nabla_\eta^2A
-=\frac{\partial\tau}{\partial\eta},
+=\frac{\partial\xi}{\partial\eta},
 \qquad
-G_\tau
-:=\nabla_\tau^2A^*
-=\frac{\partial\eta}{\partial\tau}
+G_\xi
+:=\nabla_\xi^2A^*
+=\frac{\partial\eta}{\partial\xi}
 =G_\eta^{-1}.
 \label{eq:dual-fisher-hessians}
 \end{equation}
 For any differentiable scalar $\VFE$ on this family, the chain rule and symmetry of the Hessians give
 \begin{equation}
 \nabla_\eta\VFE
-=G_\eta\nabla_\tau\VFE,
+=G_\eta\nabla_\xi\VFE,
 \qquad
-\nabla_\tau\VFE
-=G_\tau\nabla_\eta\VFE.
+\nabla_\xi\VFE
+=G_\xi\nabla_\eta\VFE.
 \label{eq:dual-coordinate-gradient-chain-rule}
 \end{equation}
 Applying the inverse metric in each chart proves
 \begin{equation}
 \boxed{
 \widetilde\nabla_\eta\VFE
-=\nabla_\tau\VFE,
+=\nabla_\xi\VFE,
 \qquad
-\widetilde\nabla_\tau\VFE
+\widetilde\nabla_\xi\VFE
 =\nabla_\eta\VFE.}
 \label{eq:vfe4-natural-gradient-dual-identity}
 \end{equation}
-This is the natural-gradient identity for the declared statistical family, not a name for a coordinate system alone \citep{Amari1998,Amari2016}.
+This is the natural-gradient identity for one conditional Gaussian component at fixed source label, not a name for a coordinate system alone \citep{Amari1998,Amari2016}. For the labeled mixed law $Q(c,y)=w_cq_c(y)$ on the interior of the categorical simplex, the complete Fisher metric contains the categorical-simplex block and component blocks weighted by $w_c$. The source-marginal density $\sum_cw_cq_c(y)$ does not inherit a componentwise global dual chart because its labels have been marginalized and its component supports overlap.
 
-Three update classes must remain separate. When all factors touching a Gaussian block are conjugate quadratic factors, their information contributions add and an exact conditional update sets $(h,J)$ to the resulting information vector and precision. An explicitly Fisher-preconditioned proposal such as $\eta^{\mathrm{new}}=\eta-\rho G_\eta^{-1}\nabla_\eta\VFE$ is a natural-gradient step. Ordinary Euclidean SGD or Adam applied to the entries of $(h,J)$ is neither of these, and natural coordinates alone do not change that fact. The categorical softmax emission is nonconjugate to the Gaussian latent family, so it generally prevents an exact closed-form Gaussian information update. Every finite $\eta$-step or $\tau$-step must use a domain-preserving retraction or trust region, or be accepted only after the candidate satisfies $J^{\mathrm{new}}\succ0$ in $\mathcal D_\eta$ or $M^{\mathrm{new}}-\mu^{\mathrm{new}}\mu^{\mathrm{new}\top}\succ0$ in $\mathcal D_\tau$. A candidate outside these domains does not define a Gaussian law and has no valid ELBO value. Domain admissibility alone does not guarantee that a finite natural-gradient step lowers $\VFE$; that claim still requires an accepted objective evaluation or another verified ascent construction.
+Three update classes must remain separate. When all factors touching a Gaussian block are conjugate quadratic factors, their information contributions add and an exact conditional update sets $(h,J)$ to the resulting information vector and precision. An explicitly Fisher-preconditioned proposal such as $\eta^{\mathrm{new}}=\eta-\rho G_\eta^{-1}\nabla_\eta\VFE$ is a natural-gradient step. Ordinary Euclidean SGD or Adam applied to the entries of $(h,J)$ is neither of these, and natural coordinates alone do not change that fact. The categorical softmax emission is nonconjugate to the Gaussian latent family, so it generally prevents an exact closed-form Gaussian information update.
+
+The pure conjugate reference uses an SPD convex path. Given current $(h,J)$ and a conjugate target $(h_\star,J_\star)$ with $J,J_\star\succ0$, define
+\begin{equation}
+h_\rho=(1-\rho)h+\rho h_\star,
+\qquad
+J_\rho=(1-\rho)J+\rho J_\star,
+\qquad 0<\rho\leq1.
+\label{eq:spd-convex-damped-coordinate-path}
+\end{equation}
+Convexity of the SPD cone keeps $J_\rho$ positive definite in exact arithmetic. For a general proposed increment $(\Delta h,\Delta J)$, factor the current precision as $J=CC^\top$, symmetrize $\Delta J$, and form the whitened increment $\Delta\widehat J=C^{-1}\Delta JC^{-\top}$. Backtrack over $\rho=2^{-k}$ and test
+\begin{equation}
+J_\rho=C(I+\rho\Delta\widehat J)C^\top,
+\qquad
+h_\rho=h+\rho\Delta h.
+\label{eq:whitened-spd-backtracking-path}
+\end{equation}
+The candidate is accepted only when a checked factorization succeeds with the preregistered pivot and condition margins and the complete ELBO, including every affected factor, is nondecreasing beyond its declared evaluation error. Otherwise backtracking continues or the candidate is rejected. A rescaled or regularized candidate is a new proposal and must repeat the same checks. The corresponding $\xi$-proposal is converted to $(h,J)$ before this acceptance test. A candidate outside $\mathcal D_\eta$ or $\mathcal D_\xi$ does not define a Gaussian law, and domain admissibility alone does not imply that a finite natural-gradient step lowers $\VFE$.
 
 \section{Gauge invariance of the complete ELBO}
 

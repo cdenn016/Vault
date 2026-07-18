@@ -1,11 +1,13 @@
 \chapter*{Executive Summary}
 \addcontentsline{toc}{chapter}{Executive Summary}
 
-Training tokens are observations in a normalized autoregressive probability model. Their categorical negative log likelihood is cross-entropy. VFE 4.0 retains this observation term and augments it with the complexity of latent states, model states, source assignments, and, when geometry is random rather than fixed, geometric variables. The proposed construction is therefore a latent-variable language model whose observation semantics remain those of ordinary probabilistic language modeling.
+Realized token occurrences are observations in a normalized autoregressive probability model. Their categorical negative log likelihood is cross-entropy. VFE 4.0 retains this observation term and augments it with the complexity of latent states, model states, source assignments, and, when geometry is random rather than fixed, geometric variables. The proposed construction is therefore a latent-variable language model whose observation semantics remain those of ordinary probabilistic language modeling.
 
 The paper later fixes one normalized causal joint and one normalized structured variational law $Q$. Conditional on those definitions and their stated support and integrability assumptions, the evidence decomposition is an exact algebraic identity and its negative evidence lower bound is the VFE 4.0 objective. This identity does not establish that $Q$ equals the posterior, that a truncated or stochastic optimizer converges, or that the resulting model improves prediction.
 
-VFE 4.0 is a research proposal, not a report of VFE 4.0 experimental results. Perplexity, calibration, posterior collapse, curvature effects, and computational scaling remain empirical questions. The purpose of the construction is to make those questions falsifiable under one probabilistic objective rather than to answer them in advance.
+Three construction boundaries remain open. The conditional core treats $\Gamma$ as deterministic and therefore does not provide a normalizable latent law over a noncompact gauge volume. Its categorical softmax emission is nonconjugate to the conditional Gaussian family, so closed-form Gaussian coordinate updates generally do not survive the observation factor. Marginalizing the source assignments produces a mixture whose component count grows with the assignment space; truncation, projection, or restricted-source algorithms are additional approximations rather than consequences of the ELBO identity.
+
+VFE 4.0 is a research proposal, not a report of VFE 4.0 experimental results. Perplexity, calibration, posterior collapse, curvature effects, and computational scaling remain empirical questions. The construction places those questions under one jointly normalized, auditable probabilistic objective rather than answering them in advance.
 
 \usetikzlibrary{arrows.meta, backgrounds, calc, fit, positioning, shapes.geometric}
 \begin{figure}[htbp]
@@ -13,7 +15,7 @@ VFE 4.0 is a research proposal, not a report of VFE 4.0 experimental results. Pe
 \includegraphics[width=\textwidth]{vfe4_whitepaper/figures/vfe4_graphical_abstract.png}
 \caption{%
 \textbf{VFE 4.0 causal variational language-model construction.}
-The five stages separate the target-blind causal prior from observation-conditioned structured inference. The expected categorical log likelihood and every declared complexity contribution enter one ELBO, while next-token evaluation uses the prior-predictive law. Navy marks exact identities, teal marks variational approximations, and dashed orange marks empirical hypotheses; no V3 peer-consensus energy is represented as a generative edge.
+The five stages separate the target-blind causal prior from observation-conditioned structured inference. The expected categorical log likelihood and every declared complexity contribution enter one ELBO, while held-out next-token evaluation uses the prefix-filtered prior-predictive law. In Stage 5 the displayed bars sum to $0.85$ and the annotated omitted mass is $0.15$, so the depicted categorical vector sums to one. Navy marks exact identities, teal marks variational approximations, and dashed orange marks empirical hypotheses; no V3 peer-consensus energy is represented as a generative edge.
 }
 \label{fig:vfe4-graphical-abstract}
 \end{figure}
@@ -34,11 +36,15 @@ Definition & Causal token graph; principal and associated bundles; normalized tr
 \addlinespace
 Identity/Lemma & Normalization of the directed joint; the ELBO evidence identity and its factorwise decomposition; Gaussian coordinate conversion and factor assembly; gauge transformation laws. & Algebra from the later-defined normalized joint and $Q$, with every assumption stated. \\
 \addlinespace
-Proposition & Gauge invariance under simultaneous pushforward; preservation of token-block precision sparsity; Regime I flatness and identity loop holonomy; nonclosure of diagonal covariance under general $\mathrm{GL}(K)$. & Proof or proof sketch with the applicable group, family, and regularity conditions. \\
+Proposition & Gauge invariance under simultaneous pushforward; preservation of token-block precision sparsity; Regime I flatness and identity loop holonomy; nonclosure of diagonal covariance under general $\mathrm{GL}(K)$. & Proof or proof sketch with the applicable group, representation, support, measurability, integrability, and invertibility assumptions. \\
 \addlinespace
 Implementation choice & Sparse Cholesky or related sparse factorization; solver, damping, storage, and approximation choices. & Numerical specification and verification against analytic reference problems. \\
 \addlinespace
-Empirical hypothesis & Predictive perplexity, calibration, posterior collapse, curvature effects, and scaling behavior, together with posterior-structure and optimization hypotheses. & Preregistered controls, uncertainty across runs, and explicit falsification criteria. \\
+Implementation verification & ELBO decomposition, information--moment equality, complete-objective update acceptance, and numerical gauge covariance. & Deterministic high-precision references or declared error budgets, finite-precision contracts, and complete-path checks. \\
+\addlinespace
+Synthetic adequacy test & Structured versus factorized recognition on a model with an independently available exact posterior. & Matched optimization and a separately generated factorizing control. \\
+\addlinespace
+Empirical hypothesis & Information-form cost, held-out prediction, sparse execution, and any gauge-specific benefit. & Frozen comparison protocols, matched controls, uncertainty intervals, and explicit decision rules. \\
 \bottomrule
 \end{tabularx}
 \end{sciencetable}

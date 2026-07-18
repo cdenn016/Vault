@@ -168,7 +168,7 @@ which is generally a Gaussian mixture rather than one Gaussian.  If a later comp
 \end{aligned}
 \label{eq:mixture-moment-projection}
 \end{equation}
-Equation~\eqref{eq:mixture-moment-projection} defines an approximation to the mixture, not an identity of distributions.
+Equation~\eqref{eq:mixture-moment-projection} defines an approximation to the mixture, not an identity of distributions. Even when every component precision is sparse, the between-component term generally makes $\bar\Sigma$ dense, and $\bar J=\bar\Sigma^{-1}$ is generally dense as well. A sparse implementation must instead request only declared block marginals or solve a declared sparse information projection. The retained blocks, sparsity pattern, and projection error in moments, KL, or the complete objective must then be reported.
 
 \section{Natural, expectation, and moment coordinates}
 
@@ -184,9 +184,9 @@ T_2(y)&=yy^\top,
 \end{equation}
 The exact expectation coordinates dual to \cref{eq:gaussian-natural-coordinates} are
 \begin{equation}
-\tau_1=\mathbb E_q[y]=\mu,
+\xi_1=\mathbb E_q[y]=\mu,
 \qquad
-\tau_2=\mathbb E_q[yy^\top]
+\xi_2=\mathbb E_q[yy^\top]
 =M=\Sigma+\mu\mu^\top.
 \label{eq:gaussian-expectation-coordinates}
 \end{equation}
@@ -197,7 +197,7 @@ Matrix differentiation on the symmetric domain gives
 \nabla_JA=-\frac12M.
 \label{eq:gaussian-log-normalizer-gradients}
 \end{equation}
-Equivalently, differentiating with respect to $\eta_2=-J/2$ gives $\nabla_{\eta_2}A=M$.  The pair $(\mu,\Sigma)$ remains the most useful moment view for uncertainty summaries, sampling, and emissions, but it is not the exact Fisher-dual pair to $(h,-J/2)$ because the second sufficient statistic is the uncentered moment $M$, not the covariance $\Sigma$.  This exponential-family distinction follows the standard natural and mean-parameter geometry \citep{Wainwright2008,Amari2016}.
+Equivalently, differentiating with respect to $\eta_2=-J/2$ gives $\nabla_{\eta_2}A=M$.  The pair $(\mu,\Sigma)$ is the moment view used here for uncertainty summaries, sampling, and emissions, but it is not the exact Fisher-dual pair to $(h,-J/2)$ because the second sufficient statistic is the uncentered moment $M$, not the covariance $\Sigma$.  This exponential-family distinction follows the standard natural and mean-parameter geometry \citep{Wainwright2008,Amari2016}.
 
 \begin{figure}[htbp]
 \centering
@@ -380,4 +380,9 @@ y=\mu+L^{-\top}\epsilon,
 \end{equation}
 provide the determinant and sample interfaces without a dense covariance allocation.
 
-Positive definiteness is part of the family definition.  It may be preserved by assembling $J$ from normalized Gaussian factors or by parameterizing a valid sparse factorization, but an unconstrained entrywise update to $J$ is not an admissible default.  Ordinary Euclidean SGD or Adam on $(h,J)$ is likewise not a natural gradient merely because $(h,-J/2)$ are natural coordinates; that name requires the Fisher metric or the exact natural--expectation dual update developed in the next chapter.
+Positive definiteness is part of the family definition. In exact arithmetic, a strictly positive-definite anchor $J_0$ and positive-semidefinite Gaussian factor contributions $A_f^\top P_fA_f$ give
+\begin{equation}
+J=J_0+\sum_f A_f^\top P_fA_f\succ0.
+\label{eq:exact-spd-factor-assembly}
+\end{equation}
+This exact-arithmetic statement does not by itself guarantee a positive numerical pivot after float32 accumulation. The reference implementation must use checked square-root or Cholesky assembly, or accumulate the information factors in higher precision before conversion. It must record condition estimates and pivot margins and declare whether a failed candidate is rejected, rescaled, or regularized. Rescaling or regularization changes the numerical candidate and therefore requires a new complete-objective evaluation. An unconstrained entrywise update to $J$ is not an admissible default. Ordinary Euclidean SGD or Adam on $(h,J)$ is likewise not a natural gradient merely because $(h,-J/2)$ are natural coordinates; that name requires the Fisher metric or the exact natural--expectation dual update developed in the next chapter.

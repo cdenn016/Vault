@@ -1,21 +1,54 @@
-\chapter{Language Tokens as Observations}
+\chapter{Token Occurrences as Observations}
 
-Let $x_{1:T}$ be a token sequence over a finite vocabulary, with $x_{<t}$ denoting the realized prefix before position $t$. The training target $x_t$ is an observation, not a latent belief state. A normalized autoregressive language model assigns the sequence probability
+Let $x_{1:T}$ be a sequence of realized token occurrences over a finite vocabulary, with $x_{<t}$ denoting the realized prefix before position $t$. The training target $x_t$ is an observation, not a latent belief state. A normalized autoregressive language model assigns the sequence probability
 \begin{equation}
 p_\theta(x_{1:T})=\prod_{t=1}^{T}p_\theta(x_t\given x_{<t}).
 \label{eq:autoregressive-token-law}
 \end{equation}
 Each conditional factor in \cref{eq:autoregressive-token-law} is a categorical distribution over the vocabulary. Its negative log likelihood for the observed token is categorical cross-entropy, so summing these terms over positions yields the usual autoregressive cross-entropy objective. Introducing latent variables changes how each conditional probability is represented and bounded; it does not remove vocabulary normalization or replace the observation likelihood with a Gaussian loss.
 
-For latent state $z_t$, model state $m_t$, and deterministic geometric data $\Gamma$, the causal prediction is obtained from a target-blind predictive prior,
+For latent state $z_t$, model state $m_t$, and deterministic geometric data $\Gamma$, the causal prediction is obtained from a target-blind prefix filter. Define the complete latent history
 \begin{equation}
+U_t:=(z_{0:t},m_{0:t},a_{1:t},b_{1:t}),
+\label{eq:prefix-latent-history}
+\end{equation}
+and initialize the exact filtered law by
+\begin{equation}
+\alpha_{\theta,0}(\mathop{\mathrm dU_0}\given\Gamma)
+:=p_{\theta,0}(z_0,m_0\given\Gamma)
+\mathop{\mathrm d\lambda_{z,0}}\mathop{\mathrm d\lambda_{m,0}}.
+\label{eq:prefix-filter-initial-law}
+\end{equation}
+For $t\geq1$, the target-blind one-step prediction on the enlarged history is
+\begin{equation}
+\begin{aligned}
+\bar\alpha_{\theta,t}(\mathop{\mathrm dU_t}\given x_{<t},\Gamma)
+:={}&\alpha_{\theta,t-1}(\mathop{\mathrm dU_{t-1}}\given x_{<t},\Gamma)
+\pi_t^m(b_t)
+K^m_{\theta,tb_t}(m_t\given m_{b_t},x_{<t},\Gamma)
+\mathop{\mathrm d\lambda_{m,t}(m_t)}\\
+&\times\pi_t^z(a_t)
+K^z_{\theta,ta_t}(z_t\given z_{a_t},m_t,x_{<t},\Gamma)
+\mathop{\mathrm d\lambda_{z,t}(z_t)}.
+\end{aligned}
+\label{eq:exact-prefix-predictive-recursion}
+\end{equation}
+Summation over $(a_t,b_t)$ and integration over the complete history give the held-out conditional probability and the normalized filter update,
+\begin{equation}
+\begin{aligned}
 p_\theta(x_t\given x_{<t},\Gamma)
-=\int L_{\theta,t}(x_t\given z_t,m_t,\Gamma)
-p_\theta(z_t,m_t\given x_{<t},\Gamma)
-\mathop{\mathrm d z_t}\mathop{\mathrm d m_t}.
+&=\int L_{\theta,t}(x_t\given z_t,m_t,\Gamma)
+\bar\alpha_{\theta,t}(\mathop{\mathrm dU_t}\given x_{<t},\Gamma),\\
+\alpha_{\theta,t}(\mathop{\mathrm dU_t}\given x_{\leq t},\Gamma)
+&=\frac{L_{\theta,t}(x_t\given z_t,m_t,\Gamma)
+\bar\alpha_{\theta,t}(\mathop{\mathrm dU_t}\given x_{<t},\Gamma)}
+{p_\theta(x_t\given x_{<t},\Gamma)},
+\end{aligned}
 \label{eq:prior-predictive-token-law}
 \end{equation}
-Here ``target-blind'' means that neither the prior over $(z_t,m_t)$ nor any parameter used to form that prior depends on $x_t$. The normalized emission $L_{\theta,t}$ maps the sampled or integrated latent state to a categorical vocabulary distribution. Generation samples from this prior predictive law, and perplexity is computed from its causal conditional probabilities.
+whenever the displayed evidence is positive. Here ``target-blind'' means that \cref{eq:exact-prefix-predictive-recursion} is formed before $x_t$ is supplied. The normalized emission maps the predicted latent history to a categorical vocabulary law.
+
+Exact held-out likelihood uses \cref{eq:exact-prefix-predictive-recursion,eq:prior-predictive-token-law} with exact discrete enumeration and exact or controlled continuous integration. A sequential Monte Carlo or importance-sampling implementation is instead a declared estimator: it must specify proposals, incremental weights, resampling, particle count, and the bias or variance of the reported log-likelihood estimate. No such estimator is constructed in this paper. Free-running ancestral generation is a third operation: sample $U_t$ from the target-blind predictive law, sample $x_t$ from $L_{\theta,t}$, append that sampled occurrence to the prefix, and continue. A free-running rollout is not an estimator of the teacher-forced held-out likelihood of a fixed sequence.
 
 A training recognition law serves a different conditional role. A filtering posterior approximation may condition on $x_{\leq t}$, while a smoothing approximation may condition on $x_{1:T}$, because either law approximates a posterior after the relevant observations have been supplied. Allowing $Q_\psi$ to see $x_t$ during posterior inference is not target leakage: $Q_\psi$ appears inside a variational bound on the probability assigned by the target-blind generative model and does not provide $x_t$ to the predictive prior. Leakage would occur if generation or perplexity used the target-conditioned recognition state to form $p_\theta(x_t\given x_{<t})$. The proposed evaluation forbids that substitution.
 
