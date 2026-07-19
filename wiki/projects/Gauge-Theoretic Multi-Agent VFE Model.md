@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-07-13
+updated: 2026-07-19
 ---
 
 # Gauge-Theoretic Multi-Agent VFE Model
@@ -96,6 +96,8 @@ No new empirical validation is claimed by the theorem-first revision. The next s
 ## Cross-links
 
 **Sibling projects:** [[SocialPhysics]] · [[VFE Transformer Program]]
+
+**Reference curriculum:** [[Gauge VFE ELBO curriculum]]
 
 **Key concepts:** [[Agents as fibre-bundle sections|Agents as fiber-bundle sections]] · [[Multi-agent variational free energy]] · [[Belief inertia]] · [[Mass as Fisher information]] · [[Hamiltonian belief dynamics]] · [[Natural gradient]] · [[Fisher information metric]] · [[Ouroboros multi-scale dynamics]] · [[Meta-agents and hierarchical emergence]] · [[Renormalization-group flow of beliefs]] · [[Holonomy]]
 

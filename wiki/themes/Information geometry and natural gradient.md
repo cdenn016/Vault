@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-07-18
+updated: 2026-07-19
 ---
 
 # Information geometry and natural gradient
@@ -110,6 +110,7 @@ is intrinsically inferior. [[2026-07-18-phi-pullback-group-k10-partial-negative-
 
 ## See also
 
+- [[Gauge VFE ELBO curriculum]]
 - [[Quantum information geometry]] — the noncommutative extension of the Fisher-Rao metric, where the uniqueness theorem becomes Petz's family of monotone metrics.
 - [[Physics from Fisher information]] — physical laws recovered from Fisher-information variational principles.
 - [[Information bottleneck]] — the rate-distortion / information-theoretic view of representation learning, adjacent to the maximum-entropy and divergence machinery here.

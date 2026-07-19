@@ -8,7 +8,7 @@ tags:
   - project/transformer
 status: stable
 created: 2026-06-18
-updated: 2026-07-10
+updated: 2026-07-19
 ---
 
 # Variational free energy and predictive coding
@@ -87,6 +87,7 @@ with decode cross-entropy.
 
 ## See also
 
+- [[Gauge VFE ELBO curriculum]]
 - [[Bayesian mechanics]]
 - [[Markov blanket interpretation debate]]
 - [[Information bottleneck]]

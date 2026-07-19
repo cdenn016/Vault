@@ -18,7 +18,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-10
+updated: 2026-07-19
 ---
 
 # SPD-manifold geometry and Riemannian optimization
@@ -139,6 +139,7 @@ follows the model's own non-Fréchet path.
 
 ## See also
 
+- [[Gauge VFE ELBO curriculum]]
 - [[Symmetric spaces and the SPD cone]] — the SPD cone as the symmetric space GL(k)/O(k), placing the affine-invariant geometry in its homogeneous-space setting.
 
 Cross-cluster links drawn above: [[amari-1998-natural-gradient]] and the [[Fisher information metric]] / [[Natural gradient]] (information geometry); [[rao-1999-predictive-coding]] and [[friston-2010-free-energy-principle]] (precision weighting); [[vaswani-2017-attention]] and [[tsai-2019-kernel-attention]] (attention baselines); and the sibling themes [[Information geometry and natural gradient]], [[Gauge equivariance and geometric deep learning]], and [[Attention mechanisms — theory and positional structure]].

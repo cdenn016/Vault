@@ -12,7 +12,7 @@ tags:
   - project/transformer
 status: stable
 created: 2026-06-18
-updated: 2026-07-12
+updated: 2026-07-19
 ---
 
 # Inference machinery — variational EM and filtering
@@ -228,3 +228,7 @@ under parallel transport and holonomy (the cross-cluster theme
 Cross-cluster anchors drawn on above: [[amari-1998-natural-gradient]] for the
 Gaussian belief metric and [[li-turner-2016-renyi-vi]] as a distinct
 variational-bound comparison. Neither identifies the frame/decode M-step.
+
+## Curriculum
+
+The staged prerequisites and reference boundaries for this machinery are collected in [[Gauge VFE ELBO curriculum]].

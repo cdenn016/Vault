@@ -2,7 +2,7 @@
 type: index
 title: Index
 aliases: [Index, Home]
-updated: 2026-07-18
+updated: 2026-07-19
 ---
 
 # Index
@@ -10,7 +10,7 @@ updated: 2026-07-18
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **10** manuscripts · **12** themes · **11** field MOCs · **268** concepts · **11** methods · **539** papers · **104** references · **10** runs · **6** web/methodology
+> **3** projects · **10** manuscripts · **13** themes · **11** field MOCs · **268** concepts · **11** methods · **539** papers · **114** references · **10** runs · **6** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -41,6 +41,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 - [[Consciousness and the hard problem]]
 - [[Emergent spacetime and holography]]
 - [[Gauge equivariance and geometric deep learning]]
+- [[Gauge VFE ELBO curriculum]]
 - [[Inference machinery — variational EM and filtering]]
 - [[Information geometry and natural gradient]]
 - [[Participatory realism and quantum foundations]]
@@ -831,6 +832,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 ## 📚 Sources — references (cited by the manuscripts)
 
 ### Variational free energy, predictive coding & active inference
+- [[boyd-vandenberghe-2004-convex-optimization|Convex Optimization]]
 - [[bissiri-2016-general-bayesian-updating|A General Framework for Updating Belief Distributions]]
 - [[blei-2017-variational-inference|Variational Inference: A Review for Statisticians]]
 - [[clark-2016-surfing-uncertainty|Surfing Uncertainty: Prediction, Action, and the Embodied Mind]]
@@ -842,12 +844,17 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[hinton-2002-products-of-experts|Training Products of Experts by Minimizing Contrastive Divergence]]
 - [[hohwy-2013-predictive-mind|The Predictive Mind]]
 - [[kirchhoff-2018-markov-blankets-of-life|The Markov blankets of life: autonomy, active inference and the free energy principle]]
+- [[klenke-2020-probability-theory|Probability Theory: A Comprehensive Course]]
+- [[mackay-2003-information-theory-inference-learning|Information Theory, Inference, and Learning Algorithms]]
+- [[murphy-2022-probabilistic-machine-learning-introduction|Probabilistic Machine Learning: An Introduction]]
+- [[murphy-2023-probabilistic-machine-learning-advanced-topics|Probabilistic Machine Learning: Advanced Topics]]
 - [[parr-2022-active-inference|Active Inference: The Free Energy Principle in Mind, Brain, and Behavior]]
 - [[ramstead-2019-enactive-inference|A tale of two densities: active inference is enactive inference (variational neuroethology and Markov blankets)]]
 - [[sakthivadivel2022-bayesian-mechanics-geometry|Towards a Geometry and Analysis for Bayesian Mechanics]]
 - [[sengupta-2016-neuronal-gauge|Towards a Neuronal Gauge Theory]]
 - [[sengupta2017gauge|Approximate Bayesian inference as a gauge theory]]
 - [[smith-1979-steady-forecasting|A Generalization of the Bayesian Steady Forecasting Model]]
+- [[sarkka-svensson-2023-bayesian-filtering-smoothing|Bayesian Filtering and Smoothing]]
 - [[solms-friston-2018-how-consciousness-arises|How and Why Consciousness Arises: Some Considerations from Physics and Physiology]]
 - [[sonderby-2016-ladder-vae|Ladder Variational Autoencoders]]
 - [[west-harrison-1997-bayesian-forecasting|Bayesian Forecasting and Dynamic Models]]
@@ -869,10 +876,12 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[kogut-susskind-1975-hamiltonian-lattice-gauge|Hamiltonian Formulation of Wilson's Lattice Gauge Theories]]
 - [[milnor-1976-left-invariant-metrics|Curvatures of Left Invariant Metrics on Lie Groups]]
 - [[nakahara-2003-geometry-topology-physics|Geometry, Topology and Physics (Second Edition)]]
+- [[naber-2011-topology-geometry-gauge-fields-foundations|Topology, Geometry and Gauge Fields: Foundations]]
 - [[vanrietvelde-2020-qrf-perspective-neutral|A Change of Perspective: Switching Quantum Reference Frames via a Perspective-Neutral Framework]]
 - [[wilson-1974-confinement-quarks|Confinement of Quarks]]
 - [[yang-mills-1954|Conservation of Isotopic Spin and Isotopic Gauge Invariance]]
 - [[steinberg-2012-representation-theory-finite-groups|Representation Theory of Finite Groups]]
+- [[tu-2017-differential-geometry-connections-curvature|Differential Geometry: Connections, Curvature, and Characteristic Classes]]
 - [[fulton-harris-1991-representation-theory|Representation Theory: A First Course]]
 - [[bleecker-1981-gauge-theory-variational-principles|Gauge Theory and Variational Principles]]
 - [[georgi-1999-lie-algebras-particle-physics|Lie Algebras in Particle Physics: From Isospin to Unified Theories]]
@@ -936,6 +945,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[bateson-1972-steps-ecology-mind|Steps to an Ecology of Mind]]
 - [[bender-orszag-1999-asymptotic-methods|Advanced Mathematical Methods for Scientists and Engineers]]
 - [[cardy-1996-scaling-renormalization|Scaling and Renormalization in Statistical Physics]]
+- [[calzetta-hu-2022-nonequilibrium-quantum-field-theory|Nonequilibrium Quantum Field Theory]]
 - [[delamotte-2012-nonperturbative-rg|An Introduction to the Nonperturbative Renormalization Group]]
 - [[fenichel-1979-geometric-singular-perturbation|Geometric Singular Perturbation Theory for Ordinary Differential Equations]]
 - [[fiedler-1973-algebraic-connectivity|Algebraic Connectivity of Graphs]]
@@ -945,6 +955,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[nishimori-2001-spin-glasses-information|Statistical Physics of Spin Glasses and Information Processing]]
 - [[rissanen-1978-mdl|Modeling by Shortest Data Description]]
 - [[schwarz-1978-bic|Estimating the Dimension of a Model]]
+- [[sethna-2021-statistical-mechanics|Statistical Mechanics: Entropy, Order Parameters, and Complexity]]
 - [[sornette-2006-critical-phenomena|Critical Phenomena in Natural Sciences (2nd ed.)]]
 - [[strogatz-2015-nonlinear-dynamics|Nonlinear Dynamics and Chaos (2nd ed.)]]
 - [[swingle-2012-entanglement-renormalization-holography|Entanglement Renormalization and Holography]]

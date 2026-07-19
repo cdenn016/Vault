@@ -14,7 +14,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-18
-updated: 2026-07-18
+updated: 2026-07-19
 ---
 
 # VFE Transformer Program
@@ -127,6 +127,8 @@ Next steps, in rough priority order:
 > [!note] Plan (2026-07-11) — backprop-free learning track pre-registered ([[Nudged two-phase EM]]). A 14-agent adversarial investigation (recon / design / challenge / synthesis, file:line spot-verified) produced `V3_Transformer/docs/plans/2026-07-11-backprop-free-vfe-lm-plan.md` and the run note [[2026-07-11-backprop-free-plan-and-pure-fep-postmortem]]. Two banked results: (i) the adjudicated post-mortem of VFE_2.0's `pure_fep` clean-EM attempt (~25000 PPL): its target-blind fixed point structurally dropped the through-$q^*$ credit term $(\partial\mathrm{CE}/\partial q^*)(\partial q^*/\partial\theta)$ — everything but the prototype readout was reservoir computing — compounded by raw global-LR Euclidean M-steps at $1/\tau\sim 1/K$ gradient scale, encode/decode tying, and sign-monotone hyperparameter updates; (ii) a temperature degeneracy: $\partial F_{red}/\partial\tau=\mathrm{KL}(\beta\|\pi)\ge 0$ (sympy-verified), so softmax temperatures cannot be learned by descending $F$ — they need contrastive or held-out estimation. The prescription is a nudged two-phase EM (free phase = deployed inference; symmetric $\pm\lambda$ target-nudged continuations; EqProp contrasts carry all non-decode credit; analytic per-row Gauss-Newton decode; quarantine rule for sign-monotone knobs), realizing the [[participatory-it-from-bit|PIFB]]-canonical observation placement whose absence caused the 2026-06-29 sigma collapse. Design only — no training results; milestone gates run measured BPE unigram → KenLM 5-gram → the DFA band ([[launay-2020-dfa-transformers]], the only published backprop-free transformer LM PPLs) → 2x matched-K backprop vfe3.
 
 ## Cross-links
+
+**Reference curriculum:** [[Gauge VFE ELBO curriculum]]
 
 **Related project:** [[Gauge-Theoretic Multi-Agent VFE Model]] — the multi-agent, continuous-time instantiation of the same GL(K)-gauge VFE theory (this transformer is the language-model instantiation).
 

@@ -11,7 +11,7 @@ tags:
   - project/social-physics
 status: stable
 created: 2026-06-19
-updated: 2026-07-13
+updated: 2026-07-19
 ---
 
 # Statistical physics of social systems and collective behavior
@@ -89,6 +89,7 @@ The information-geometric mechanics neighborhood is equally important: [[chirco-
 
 ## See also
 
+- [[Gauge VFE ELBO curriculum]]
 - [[SocialPhysics]]
 - [[Sociophysics]]
 - [[Opinion dynamics]]

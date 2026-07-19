@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-11
+updated: 2026-07-19
 ---
 
 # Gauge equivariance and geometric deep learning
@@ -72,6 +72,7 @@ Holonomy is closed in strict Regime I: $\Omega_{ij}=U_iU_j^{-1}$ telescopes arou
 
 ### Related sources
 
+- [[Gauge VFE ELBO curriculum]]
 - [[bleecker-1981-gauge-theory-variational-principles]] — Canonical bundle-connection-and-variational-principle reference behind the gauge formalism.
 - [[fulton-harris-1991-representation-theory]] — Irrep classification and Clebsch-Gordan machinery behind `block_glk` gauge and isotypic head mixers.
 - [[steinberg-2012-representation-theory-finite-groups]] — Finite-group irrep/character theory behind the model's isotypic head mixers and CG coupling.
