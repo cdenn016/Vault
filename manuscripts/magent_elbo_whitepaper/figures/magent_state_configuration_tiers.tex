@@ -1,0 +1,37 @@
+\begin{tikzpicture}[
+  >={Latex[length=2.2mm]},
+  every node/.style={font=\small},
+  law/.style={draw=primaryblue,line width=0.8pt,rounded corners=2pt,fill=white,minimum width=4.55cm,minimum height=0.86cm,align=center},
+  stateentropy/.style={draw=darkgreen,line width=0.8pt,rounded corners=2pt,fill=lightgreen,minimum width=4.55cm,minimum height=0.92cm,align=center},
+  configentropy/.style={draw=recommendpurple,line width=0.8pt,rounded corners=2pt,fill=lightpurple,minimum width=4.55cm,minimum height=0.92cm,align=center},
+  sourceentropy/.style={draw=cautionorange,dashed,line width=0.8pt,rounded corners=2pt,fill=lightorange,minimum width=4.55cm,minimum height=0.92cm,align=center},
+  panel/.style={draw=darkgray,line width=0.9pt,rounded corners=3pt,fill=lightgray},
+  exactarrow/.style={->,line width=0.9pt,draw=darkgray}
+]
+\node[law] (pzero) {configuration prior \(P_0(dX)\)};
+\node[law,below=0.42cm of pzero] (rconfig) {configuration recognition \(R(dX\mid o)\)};
+\node[configentropy,below=0.42cm of rconfig] (hconfig)
+  {configuration entropy\\\(-\mathbb E_R[\log r_o(X)]\)};
+
+\node[law,right=5.55cm of pzero] (pstate) {state model \(P_\theta(do,dY\mid X)\)};
+\node[law,below=0.42cm of pstate] (qstate) {correlated state recognition \(Q_X(dY\mid o)\)};
+\node[stateentropy,below=0.42cm of qstate] (hstate)
+  {state entropy\\\(-\mathbb E_{Q_X}[\log q_X(Y\mid o)]\)};
+\node[sourceentropy,below=0.42cm of hstate] (hsource)
+  {optional categorical source entropy\\\(H(\beta_i)=-\sum_j\beta_{ij}\log\beta_{ij}\)};
+\node[below=0.10cm of hsource,font=\scriptsize,text=darkgray,align=center,text width=4.55cm] (sourcenote)
+  {present only with declared\\categorical source variables};
+
+\begin{scope}[on background layer]
+  \node[panel,fit=(pzero)(rconfig)(hconfig),inner sep=5mm,
+    label={[font=\bfseries\small,text=primaryblue]above:configuration tier on \(\mathsf X\)}] (configpanel) {};
+  \node[panel,fit=(pstate)(qstate)(hstate)(hsource)(sourcenote),inner sep=5mm,
+    label={[font=\bfseries\small,text=primaryblue]above:state tier on \(\mathsf Y_D\)}] (statepanel) {};
+\end{scope}
+
+\draw[exactarrow] (configpanel.east) --
+  node[midway,above=0.12cm,font=\scriptsize,align=center,fill=white,inner sep=1.5pt]
+  {measurable kernel\\\(X\longmapsto Q_X\)}
+  (statepanel.west);
+\path ([yshift=-0.32cm]statepanel.south) node[inner sep=0pt] (statepanelclearance) {};
+\end{tikzpicture}

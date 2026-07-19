@@ -1,0 +1,51 @@
+\begin{tikzpicture}[
+  >={Latex[length=2.2mm]},
+  every node/.style={font=\small},
+  stack/.style={
+    draw=primaryblue,
+    line width=0.8pt,
+    rounded corners=2pt,
+    minimum width=9.1cm,
+    minimum height=0.92cm,
+    align=center,
+    fill=lightblue
+  },
+  statistical/.style={stack,draw=darkgreen,fill=lightgreen},
+  probabilistic/.style={stack,draw=recommendpurple,fill=lightpurple},
+  graphvertex/.style={circle,draw=darkgray,fill=white,minimum size=5.5mm,inner sep=0pt,font=\scriptsize},
+  graphbox/.style={draw=darkgray,dashed,line width=0.8pt,rounded corners=2pt,fill=lightgray},
+  relation/.style={->,line width=0.8pt,draw=darkgray}
+]
+\node[stack] (base) {contextual base \(\mathcal C\)};
+\node[stack,above=0.52cm of base] (principal)
+  {principal bundle \(\pi:\mathcal P\to\mathcal C\) with structure group \(G\)};
+\node[statistical,above=0.52cm of principal] (associated)
+  {associated statistical bundles \(\mathcal E_{\mathrm{state}}\) and \(\mathcal E_{\mathrm{model}}\)};
+\node[statistical,above=0.52cm of associated] (sections)
+  {agent local sections \(q_i,p_i,s_i,r_i\in\Gamma(\mathcal U_i,\mathcal E|_{\mathcal U_i})\)};
+\node[probabilistic,above=0.58cm of sections] (evaluation)
+  {finite evaluation \(D\): pushforward marginal laws \((\operatorname{Ev}_D)_\#q_i\) and \((\operatorname{Ev}_D)_\#s_i\)};
+\node[probabilistic,above=0.58cm of evaluation] (joint)
+  {correlated population recognition law \(Q_X(dY\mid o)\) on the evaluated product fiber};
+
+\draw[relation] (principal.south) -- node[midway,right,font=\scriptsize,fill=white,inner sep=1pt]
+  {bundle projection \(\pi\)} (base.north);
+\draw[relation] (principal.north) -- node[midway,right,font=\scriptsize,fill=white,inner sep=1pt]
+  {association by \(\rho\)} (associated.south);
+\draw[relation] (associated.north) -- node[midway,right,font=\scriptsize,fill=white,inner sep=1pt]
+  {local section} (sections.south);
+\draw[relation] (sections.north) -- node[midway,right,font=\scriptsize,fill=white,inner sep=1pt]
+  {\(\operatorname{Ev}_D\)} (evaluation.south);
+\draw[relation] (joint.south) -- node[midway,right,font=\scriptsize,fill=white,inner sep=1pt]
+  {declared marginals} (evaluation.north);
+
+\node[graphvertex,right=1.35cm of principal.east] (g1) {1};
+\node[graphvertex,above right=0.48cm and 0.62cm of g1] (g2) {2};
+\node[graphvertex,below right=0.48cm and 0.62cm of g1] (g3) {3};
+\draw[line width=0.75pt,draw=darkgray] (g1) -- (g2) -- (g3) -- (g1);
+\begin{scope}[on background layer]
+  \node[graphbox,fit=(g1)(g2)(g3),inner sep=5mm,label={[font=\scriptsize,align=center]above:interaction graph \(\mathcal G_X\)}] (graph) {};
+\end{scope}
+\node[below=0.18cm of graph,font=\scriptsize,align=center,text=darkgray]
+  {finite incidence datum in \(X\)\\not a bundle base};
+\end{tikzpicture}

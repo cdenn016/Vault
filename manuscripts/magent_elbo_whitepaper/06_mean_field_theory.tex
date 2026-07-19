@@ -219,6 +219,13 @@ with equality if and only if every off-diagonal block under the declared partiti
 
 For Equation~\eqref{eq:agent-block-recognition-family}, the blocks are \((k_i^D,m_i^D)\), so the criterion removes only cross-agent posterior-precision blocks. For Equation~\eqref{eq:state-model-recognition-family}, the blocks are the separate \(k_i^D\) and \(m_i^D\) coordinates, so the criterion also removes every within-agent state--model precision block. The two determinant gaps refer to different partitions and need not agree.
 
+\begin{figure}[tbp]
+\centering
+\input{magent_elbo_whitepaper/figures/magent_precision_mean_field}
+\caption{\textbf{Gaussian mean field restricts conditional dependence, not posterior covariance.} The exact nondegenerate Gaussian posterior has full precision \(J\). Restricting recognition to the declared block-product family gives the exact reverse-KL optimum \(C_b^\star=J_{bb}^{-1}\) within that family and the displayed nonnegative determinant gap. This restriction removes off-diagonal conditional-dependence blocks from the variational precision description; it does not assert that the exact marginal covariance blocks \((J^{-1})_{bc}\) vanish. A block may collect one agent or split one agent's channels, so matrix blocks must not be identified with the agent ontology without the stated partition.}
+\label{fig:magent-precision-mean-field}
+\end{figure}
+
 \section{Partition-specific zero-coupling controls}
 
 The Gaussian reference joint supplies a direct precision audit. Write
