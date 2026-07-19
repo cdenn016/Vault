@@ -116,7 +116,16 @@ s_i,r_i&\in\Gamma\left(\mathcal U_i,
 \mathcal E_{\mathrm{model}}\vert_{\mathcal U_i}\right).
 \label{eq:agent-model-sections}
 \end{align}
-We use the convention that unindexed \(q_i,s_i,p_i,r_i\) describe one fixed theoretical state. When recognition-section values depend on an observation and structural configuration, that dependence is written explicitly as \(q_i^{o,X}\) and \(s_i^{o,X}\); it is never inferred from a finite marginal law. The agent also carries a group-valued local frame coordinate
+We use the convention that unindexed \(q_i,s_i,p_i,r_i\) describe one fixed theoretical state. When recognition sections depending on an observation and structural configuration are supplied, they are written explicitly and satisfy
+\begin{equation}
+q_i^{o,X}\in\Gamma\left(\mathcal U_i,
+\mathcal E_{\mathrm{state}}\vert_{\mathcal U_i}\right),
+\qquad
+s_i^{o,X}\in\Gamma\left(\mathcal U_i,
+\mathcal E_{\mathrm{model}}\vert_{\mathcal U_i}\right).
+\label{eq:observation-configuration-section-types}
+\end{equation}
+These sections are never inferred from a finite marginal law. The agent also carries a group-valued local frame coordinate
 \begin{equation}
 U_i:\mathcal U_i\longrightarrow G.
 \label{eq:agent-frame-field}
@@ -145,6 +154,13 @@ For a finite design \(D=\{c_a\}_{a=1}^{M}\subseteq\mathcal U_i\), continuum-sect
 &s_i^{o,X}&\longmapsto\bigl(s_i^{o,X}(c_a)\bigr)_{a=1}^{M}.
 \label{eq:continuum-model-section-sampling}
 \end{align}
+For concise pair notation, define
+\begin{equation}
+\operatorname{Samp}_{D,i}^{k,m}
+:=\left(\operatorname{Samp}_{D,i}^{k},
+\operatorname{Samp}_{D,i}^{m}\right).
+\label{eq:collective-continuum-section-sampling}
+\end{equation}
 Its outputs are tuples of probability measures in the statistical fibers over the selected points. This sampling operation is defined from the continuum sections and does not use the finite recognition kernel. The latter has separately defined coordinate marginals \(q_{i,a}^{o,X}\) and \(s_{i,a}^{o,X}\) in Equation~\eqref{eq:recognition-marginal-sections}. Equality of a sampled section value with the corresponding finite marginal is a compatibility hypothesis stated in Chapter~\ref{ch:probability-semantics}; it is not a definition supplied by \(Q_X\). These probability roles do not reduce the agent to any one section. The agent is the supported section-bearing object
 \begin{equation}
 \mathcal A^i=
@@ -166,7 +182,7 @@ Figure~\ref{fig:magent-geometry-type-stack} keeps the finite-design maps typed s
 \begin{figure}[tbp]
 \centering
 \input{magent_elbo_whitepaper/figures/magent_geometry_type_stack}
-\caption{\textbf{Geometry and probability occupy different typed layers.} The bundle projection and associated-bundle construction are exact geometric declarations. Finite sample evaluation sends a sample-field realization \(y\) to \(\operatorname{Ev}_D(y)=Y_D\in\mathsf Y_D\). Continuum sampling sends \(q_i^{o,X}\) and \(s_i^{o,X}\) to their values on \(D\), whereas finite marginalization sends \(Q_X(dY\mid o)\) to \(q_{i,a}^{o,X}\) and \(s_{i,a}^{o,X}\). The dashed equality is an additional compatibility hypothesis; neither map defines the other. The continuum sections do not generate the correlated joint law. The dashed interaction graph is only finite incidence data in \(X\), not the base of \(\mathcal P\), and neither its vertices nor the evaluated variables \(Y\) are agents.}
+\caption{\textbf{Geometry and probability occupy different typed layers.} The bundle projection and associated-bundle construction are exact geometric declarations. Finite sample evaluation sends a sample-field realization \(y\) to \(\operatorname{Ev}_D(y)=Y_D\in\mathsf Y_D\). Continuum sampling sends \(q_i^{o,X}\) and \(s_i^{o,X}\) to their values on \(D\), whereas finite marginalization sends \(Q_X(dY\mid o)\) to \(q_{i,a}^{o,X}\) and \(s_{i,a}^{o,X}\). The dashed relation has no direction: it records coordinatewise equality only under the additional compatibility hypothesis, and neither map defines the other. The continuum sections do not generate the correlated joint law. The dashed interaction graph is only finite incidence data in \(X\), not the base of \(\mathcal P\), and neither its vertices nor the evaluated variables \(Y\) are agents.}
 \label{fig:magent-geometry-type-stack}
 \end{figure}
 
