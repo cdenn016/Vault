@@ -59,17 +59,19 @@
 - Modify `manuscripts/magent_elbo_whitepaper/09_pifb2_crosswalk.tex`.
 - Modify `manuscripts/magent_elbo_whitepaper/10_executable_crosswalk.tex`.
 - Modify `manuscripts/magent_elbo_whitepaper/13_appendices.tex`.
+- Modify `manuscripts/magent_elbo_whitepaper/verification/test_elbo_oracles.py`.
 
 **Steps:**
 
-1. Qualify the entropy-suppressed response identity: `S_i` and the reduced row potential differ by the categorical KL response term and coincide when that term vanishes, including equal active energies under the declared prior.
-2. Replace the unrestricted third Fréchet derivative notation in the moving-peer theorem with the iterated pathwise derivative actually proved. Declare one admissible open parameter rectangle and carry positive coupling, nonconstant aggregate, differentiability/dominance, and no-cancellation hypotheses into the theorem statement.
+1. Qualify the entropy-suppressed response identity: `S_i` and the reduced row potential differ by the categorical KL response term and coincide when that term vanishes, including equal active energies under the declared prior. Extend the source-row oracle with the decomposition and equality-case regressions.
+2. Replace the unrestricted third Fréchet derivative notation in the moving-peer theorem with the iterated pathwise derivative actually proved. State a finite-design theorem for the weighted sum of sitewise peer KL terms and a continuum corollary for the base integral. Declare one admissible open parameter rectangle and carry positive coupling, nonconstant aggregate, pointwise zero-mass tangents, differentiability/dominance, positive integrated variance, and no-cancellation hypotheses into the appropriate statement.
 3. Prevent the duplicate `page.1` destination by disabling PDF page anchors only for the unnumbered title/front page and re-enabling them before numbered front matter.
 4. Add standard punctuation to the seven displays identified by the audit.
 5. Correct the active-configuration provenance: distinguish values assigned literally in `CONFIG` from omitted values inherited through dataclass defaults, and explain the `kl_regulariser_eps=None` runtime materialization.
 6. Add the active belief/model operator-construction anchors in `full_vfe.py`, preserve the transport-application anchor in `lie_groups.py`, and describe the gauge-fixed model-alignment short circuit.
-7. Relabel the historical Task-12 96-page statement as an unverified project record for an earlier artifact. Point to the new revision-bound verification record rather than transferring the old result to the repaired source.
-8. Run `git diff --check` and targeted lexical scans for banned manuscript phrases, British spellings in touched prose, forbidden LaTeX spacing macros, and unpunctuated edited displays.
+7. Reindex executable grid arrays with fixed-grid site notation rather than continuum section notation. Call the Frobenius plaquette quantity a fixed-frame link regularizer, not a gauge action under general `GL+(K)`, and avoid asserting a continuum target without a mesh family and convergence theorem.
+8. Relabel the historical Task-12 96-page statement as an unverified project record for an earlier artifact. Point to the new revision-bound verification record rather than transferring the old result to the repaired source.
+9. Run `git diff --check` and targeted lexical scans for banned manuscript phrases, British spellings in touched prose, forbidden LaTeX spacing macros, and unpunctuated edited displays.
 
 ## Task 4: Build a revision-bound evidence package and Research-vault record
 
