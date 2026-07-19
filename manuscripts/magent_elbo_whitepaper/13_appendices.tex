@@ -487,6 +487,156 @@ which proves Equation~\eqref{eq:fixed-source-row-kl-decomposition}. Write \(c_{i
 \end{equation}
 The stationary values obey \(\beta_{ij}=\pi_{ij}\exp(-c_{ij}-1-\lambda_i)\). Summing over \(j\) determines the multiplier and gives Equation~\eqref{eq:fixed-source-row-optimum}. Strict convexity of categorical relative entropy on the interior of the simplex makes this stationary row the unique minimizer.
 
+\chapter{Legacy Population-Functional Calculus}
+
+This appendix supplies the functional derivatives and simplex identities used in Chapter~\ref{ch:pifb2-crosswalk}. The calculations concern densities relative to declared base measures. They do not introduce a probability measure on a continuum of sections.
+
+\section{Typed moving-peer third variation}
+\label{sec:moving-peer-calculus-oracle}
+
+Use the assumptions and notation of Theorem~\ref{thm:magent-moving-peer-obstruction}. Set
+\begin{equation}
+r=T_{ij}q_j,
+\qquad
+u=T_{ij}h_j,
+\qquad
+q_i(s)=q_i+s a_i,
+\qquad
+q_j(t)=q_j+t h_j.
+\label{eq:appendix-moving-peer-paths}
+\end{equation}
+Linearity of \(T_{ij}\) gives \(T_{ij}q_j(t)=r+t u\). On a sufficiently small rectangle around \((s,t)=(0,0)\), the positivity, support, bounded-ratio, and integrability assumptions permit the following derivatives under the integral:
+\begin{align}
+\beta_{ij}\KL(q_i(s)\Vert T_{ij}q_j(t))
+={}&\beta_{ij}\int(q_i+s a_i)\log(q_i+s a_i)d\nu_i
+\notag\\
+&-\beta_{ij}\int(q_i+s a_i)\log(r+t u)d\nu_i,
+\label{eq:appendix-moving-peer-kl-split}\\
+\frac{\partial}{\partial t}
+\left[-\log(r+t u)\right]
+={}&-\frac{u}{r+t u},
+\label{eq:appendix-moving-peer-first-sender}\\
+\frac{\partial^2}{\partial t^2}
+\left[-\log(r+t u)\right]
+={}&\frac{u^2}{(r+t u)^2}.
+\label{eq:appendix-moving-peer-second-sender}
+\end{align}
+The receiver entropy in the first line of Equation~\eqref{eq:appendix-moving-peer-kl-split} has no \(t\) dependence. Applying \(\partial_s\partial_t^2\) to the second line and evaluating at the origin gives
+\begin{equation}
+\left.
+\frac{\partial^3}{\partial s\partial t^2}
+\beta_{ij}\KL(q_i(s)\Vert T_{ij}q_j(t))
+\right|_{s=t=0}
+=\beta_{ij}\int a_i
+\left(\frac{u}{r}\right)^2d\nu_i.
+\label{eq:appendix-moving-peer-third-variation}
+\end{equation}
+This confirms both the derivative order and the positive sign in Equation~\eqref{eq:moving-peer-mixed-third}.
+
+For the receiver tangent in Equation~\eqref{eq:moving-peer-receiver-tangent}, let
+\begin{equation}
+b_i=g_{ij}-\E_{q_i}g_{ij}.
+\label{eq:appendix-moving-peer-centered-g}
+\end{equation}
+Then \(a_i=q_i b_i\), \(\int a_i d\nu_i=0\), and \(b_i\in L^\infty(q_i)\). If \(b_i\neq0\), every \(s\) satisfying \(|s|\lVert b_i\rVert_\infty<1\) gives
+\begin{equation}
+q_i(s)=q_i(1+s b_i)>0,
+\qquad
+\int q_i(s)d\nu_i=1.
+\label{eq:appendix-moving-peer-positive-mixture}
+\end{equation}
+Mixture openness makes this path admissible. Substitution gives
+\begin{align}
+\int a_i g_{ij}d\nu_i
+&=\E_{q_i}\left[
+(g_{ij}-\E_{q_i}g_{ij})g_{ij}
+\right]
+\notag\\
+&=\E_{q_i}[g_{ij}^2]
+-\left(\E_{q_i}g_{ij}\right)^2
+=\operatorname{Var}_{q_i}(g_{ij}).
+\label{eq:appendix-moving-peer-variance-identity}
+\end{align}
+
+An exact two-state oracle makes the strictness concrete. Take counting measure, identity transport, and
+\begin{equation}
+q_i=\left(\frac25,\frac35\right),
+\qquad
+q_j=\left(\frac13,\frac23\right),
+\qquad
+h_j=\left(\frac16,-\frac16\right).
+\label{eq:appendix-moving-peer-discrete-data}
+\end{equation}
+Then
+\begin{equation}
+g_{ij}=\left(\frac14,\frac1{16}\right),
+\qquad
+\E_{q_i}g_{ij}=\frac{11}{80},
+\qquad
+a_i=\left(\frac9{200},-\frac9{200}\right),
+\label{eq:appendix-moving-peer-discrete-tangent}
+\end{equation}
+and
+\begin{equation}
+\int a_i g_{ij}d\nu_i
+=\operatorname{Var}_{q_i}(g_{ij})
+=\frac{27}{3200}>0.
+\label{eq:appendix-moving-peer-discrete-variance}
+\end{equation}
+For \(F(s,t)=\KL(q_i+s a_i\Vert q_j+t h_j)\), the centered directional-difference oracle is
+\begin{align}
+\Delta_{s,t}F
+:={}&\frac{1}{2st^2}\left[
+F(s,t)+F(s,-t)-2F(s,0)
+\right.\notag\\
+&\left.-F(-s,t)-F(-s,-t)+2F(-s,0)
+\right],
+\label{eq:appendix-moving-peer-finite-difference}\\
+\lim_{(s,t)\to(0,0)}\Delta_{s,t}F
+={}&\frac{27}{3200}.
+\label{eq:appendix-moving-peer-finite-difference-limit}
+\end{align}
+The finite difference differentiates once in the receiver direction and twice in the sender direction, matching the typed trilinear variation rather than a permutation of it.
+
+\section{Row-simplex envelope and channel normalization}
+\label{sec:pifb2-row-envelope-proof}
+
+Let the active row support be finite, let \(\widetilde\pi_{ij}\geq0\) sum to one, and require \(\beta_i\ll\widetilde\pi_i\). For finite edge energies \(E_{ij}\) and \(\tau>0\), define
+\begin{equation}
+Z_i=\sum_j\widetilde\pi_{ij}e^{-E_{ij}/\tau}.
+\label{eq:appendix-pifb2-row-partition}
+\end{equation}
+At least one positive prior entry makes \(Z_i>0\). The proposed optimum in Equation~\eqref{eq:pifb2-row-optimum} is normalized because
+\begin{equation}
+\sum_j\beta_{ij}^*
+=\frac{1}{Z_i}\sum_j\widetilde\pi_{ij}e^{-E_{ij}/\tau}
+=1.
+\label{eq:appendix-pifb2-beta-normalization}
+\end{equation}
+Its logarithmic ratio satisfies
+\begin{equation}
+\log\frac{\beta_{ij}^*}{\widetilde\pi_{ij}}
+=-\frac{E_{ij}}{\tau}-\log Z_i
+\label{eq:appendix-pifb2-optimal-log-ratio}
+\end{equation}
+on the active support. Substitution in the full row scalar gives
+\begin{align}
+\mathcal R_i(\beta_i^*,x)
+&=\sum_j\beta_{ij}^*E_{ij}
++\tau\sum_j\beta_{ij}^*
+\left(-\frac{E_{ij}}{\tau}-\log Z_i\right)
+\notag\\
+&=-\tau\log Z_i.
+\label{eq:appendix-pifb2-row-envelope-substitution}
+\end{align}
+Strict convexity of categorical relative entropy on the relative interior of the supported simplex gives uniqueness. Differentiating Equation~\eqref{eq:appendix-pifb2-row-envelope-substitution} yields
+\begin{equation}
+d\mathcal R_i^{\mathrm{red}}
+=\sum_j\beta_{ij}^*dE_{ij},
+\label{eq:appendix-pifb2-row-envelope-differential}
+\end{equation}
+because the row prior and temperature are fixed in this derivative. The model-channel proof follows after replacing the state-row symbols by \(\gamma\), \(E^{(s)}\), and \(\widetilde\pi^{(s)}\). Thus the \(\beta\) and \(\gamma\) rows each normalize separately; no shared denominator is implied.
+
 \chapter{Gauge Transformations and Verification Oracles}
 
 This appendix specifies the transformation rules and finite-dimensional test constructions used to audit covariance, precision, and probability-ratio calculations. These oracles verify declared formulas under controlled inputs and do not stand in for a claim about the active runtime.
