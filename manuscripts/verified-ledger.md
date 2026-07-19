@@ -1,7 +1,7 @@
 ---
 title: GL(K) Manuscript Verified Ledger
 kind: verified-ledger
-updated: 2026-07-10
+updated: 2026-07-18
 tags: [project/transformer, cluster/gauge-theory, cluster/info-geometry, cluster/vfe, cluster/attention]
 ---
 
@@ -483,6 +483,60 @@ This section governs the eleven GL(K) claim families below. Items 5.1 through 5.
 **Revised result.** At each fixed configuration with a unique positive gap, the response vanishes as `tau→0`; in the temperature-scaled near-tie layer it can remain finite. Exact ties, fixed positive gaps, and paths approaching a tie are distinct limits.
 
 **Surviving scope.** The fixed-gap pointwise hard-attention limit and the exact covariance-gap identity survive. The covariance and mean response discussions must retain the finite near-tie limit rather than assert uniform `O(tau)` decay.
+
+## 6. 2026-07-18 MAgent exact-ELBO white-paper Task 14 specialist verification
+
+This entry records the independent review and correction of `MAgent_exact_elbo_whitepaper.tex` and its modules after the complete standalone draft was assembled. The reviewed manuscript baseline was `e77ca3c781ac23051672d3ded4cad99e119bf15e`; executable statements were checked against the pinned MAgent source snapshot `3f5f094ab66c4f209fc3eb3c5b35f6f38dc13df0`. The checks establish bounded analytic identities, deterministic fixtures, and source-path classifications. They do not establish application-wide correctness, training behavior, predictive adequacy, a continuum construction, or an implementation of the new correlated-state architecture.
+
+### 6.1 Independently verified theory
+
+The finite directed generative kernel normalizes by successive integration of normalized conditional kernels. Under the declared positive finite evidence, posterior absolute continuity, common dominating measures, and logarithmic-integrability assumptions, the state identity has the verified orientation
+$$
+\log p_\theta(o\mid X)=\mathcal L_{\mathrm{state}}(Q_X;\theta,o,X)
++\operatorname{KL}\left(Q_X(\mathord\cdot\mid o)\middle\Vert
+P_\theta(\mathord\cdot\mid o,X)\right).
+$$
+Equality of the ELBO and log evidence means equality of the complete probability measures, not agreement of coordinate marginals. The exact recognition object remains the correlated law $Q_X(dY\mid o)$; agent-block and fully factorized families are declared restrictions of that law.
+
+The complete mean-field coordinate maximizer is the normalized exponential of the expected fixed log joint over the full Markov blanket. The state, model, and agent-block formulas retain receiving, observation, bridge, and child factors. For a Gaussian posterior $\mathcal N(m,J^{-1})$, independent differentiation confirmed the block-product reverse-KL optimum $\mu^\star=m$, $C_b^\star=J_{bb}^{-1}$, and the determinant gap
+$$
+\frac12\log\frac{\prod_b\det J_{bb}}{\det J}.
+$$
+Fischer's determinant inequality makes the gap nonnegative, with equality exactly when the declared off-diagonal precision blocks vanish. The zero-coupling control therefore concerns the fully assembled posterior precision, not one named coefficient in isolation.
+
+The fixed-source categorical construction verifies
+$$
+\operatorname{KL}(Q_i\Vert P_i)=
+\sum_j\beta_{ij}\operatorname{KL}(q_i\Vert f_{ij})
++\operatorname{KL}(\beta_i\Vert\pi_i)
+$$
+at unit ordinary-KL scale, with the normalized softmax row and log-sum-exp envelope following from simplex stationarity. A nonunit temperature is a separately normalized tempered model. Refreshing $f_{ij}$ from another live recognition marginal changes the model, so the exact fixed-source identity does not turn the moving-peer population scalar into a fixed-joint ELBO.
+
+The nested hierarchy verifies the joint-KL chain rule and the state/configuration evidence identity for the proper configuration prior $P_0(dX)$, recognition law $R(dX\mid o)$, and conditional state law $Q_X(dY\mid o)$. A common positive $T_{\mathrm{cfg}}$ scales the complete fixed-$P_0$ objective and does not change the relative state/configuration weighting or optimizer. State recognition entropy, configuration relative entropy, and an optional categorical source entropy remain distinct measure-typed sectors.
+
+The one-principal-bundle/two-representation construction, section/sample/marginal distinction, full-Gaussian congruence, inverse-congruence precision law, endpoint link law, readout transformation, and complete density-ratio Jacobian cancellation were independently checked. Numerical probes returned a full-Gaussian KL transformation residual of approximately $1.07\times10^{-14}$, Regime-I cocycle and loop residuals below $1.9\times10^{-15}$, and zero residual for the exact linked peer KL under its common receiver-frame pushforward. Full covariance is closed under general invertible congruence; a diagonal covariance family is not.
+
+### 6.2 Applied review corrections
+
+The PIFB2 crosswalk now distinguishes the gauge-invariant floor-free peer KL from the active $D_\varepsilon$ surrogate. With a fixed $\varepsilon I$ regulator, the surrogate is not invariant under general $\mathrm{GL}^{+}(K)$ changes; generic invariance is limited to orthogonal changes unless the regulator is removed or co-transformed. The executable chapter also states the gauge status of the complete active scalar: exact congruence makes the transport operation covariant, but the fixed identity observation readout, fixed isotropic regulator, and active Frobenius smoothness and plaquette penalties make $F_{\mathrm{live}}$ noninvariant under general $\mathrm{GL}^{+}(K)$ frame changes.
+
+Regime-I frame coboundaries are now assigned identity products only on same-context discrete loops. They do not determine the curvature of an independently declared smooth connection. Smooth flatness follows after the additional pure-gauge declaration $A=-(dU)U^{-1}$; the executable meta-scale finite-difference quantity is therefore classified as a pure-gauge frame-roughness or truncation diagnostic rather than independent curvature or Regime-II holonomy.
+
+The hierarchy figure now puts the configuration contribution $-\operatorname{KL}(R(\mathord\cdot\mid o)\Vert P_0)$, state recognition entropy, and optional categorical source entropy on separate spaces $\mathsf X$, $\mathsf Y_D$, and $\mathcal J_i$. The first corrected render was rejected because an annotation obscured the state-entropy box. The final layout separates all three panels, removes the obstruction, and states that the source sector enters only through a declared normalized joint.
+
+Chapter 10 now reserves $U_i,\widetilde U_i$ for stored per-agent frames and $\Omega_{ij},\widetilde\Omega_{ij}$ for computed pair transports. It uses the canonical $Q_X(dY\mid o)$, $P_\theta(do,dY\mid X)$, $R(dX\mid o)$, and $P_0(dX)$ notation at the exact/runtime boundary. The displayed group exponential is labeled the nominal pre-guard proposal because active trust-region and finite-precision branches can rescale or reject it. The existing `geometry_profile='pure'` is fenced as a geometry-and-numerics profile, not a population-ELBO selector; the checked-in literal contains three explicit conflicting values, and the profile constructs neither the paper's fixed joint nor its correlated recognition law. The active `covariance_collapse='moment'` branch omits between-mean dispersion, whereas the pure profile selects `moment_dispersion`.
+
+Chapter 12 no longer calls every executable oracle future. Twelve deterministic identity fixtures and four validation fixtures are recorded as implemented, while every table row states the remaining general contract. The full CAVI blanket audit, complete population gauge contract, preregistered moving-peer finite-difference sequence, conditioning envelopes, and executable source-anchor recheck remain partial or future. These fixtures are manuscript-algebra checks, not runtime or empirical validation.
+
+### 6.3 Adjudicated non-defects and residual boundaries
+
+Seven display-punctuation scan candidates are grammatical continuations and were deliberately left unchanged: `eq:smooth-statistical-actions`, `eq:observation-state-model-cross-precision`, `eq:moving-peer-g-definition`, `eq:moving-peer-admissible-path`, `eq:pifb2-entropy-suppressed-scalar`, `eq:appendix-covariance-block-objective`, and `eq:appendix-pifb2-optimal-log-ratio`. The VFE 4.0 comparison column's $Q_\psi^{(r)}$ is intentional foreign notation rather than MAgent notation drift. No critical or high mathematical defect survived the specialist review.
+
+The exact results remain finite-design statements. No probability law on a continuum of sections, normalized loopy population model, proper noncompact $\mathrm{GL}^{+}(K)$ configuration ensemble, global topology theorem, practical-optimizer convergence theorem, or runtime implementation of the correlated-state ELBO is claimed. Natural-gradient and retraction formulas define directions or proposals; finite-step monotonicity requires an exact coordinate update or an objective-based acceptance rule.
+
+### 6.4 Verification provenance
+
+Independent variational, geometry, runtime/configuration, and integration reviewers recomputed the load-bearing identities and traced the active executable path. A separate final verifier that did not draft the corrections passed all thirteen boundaries: bundle typing, state normalization and evidence, correlated recognition and CAVI, Gaussian mean-field projection, fixed-source versus moving-peer semantics, nested configuration inference, gauge and information geometry, hierarchy-figure typing, runtime concordance, VFE 4.0 separation, oracle status, limitations, and source integrity. The focused suite passed sixteen tests with cache and bytecode writes disabled. Source scans found 299 unique labels, no missing references, citations, or inputs, all forty-seven Chapter 10 source anchors in range, zero banned manuscript phrases or spacing macros, zero checked UK spellings, and a clean Git whitespace diff. A clean final release build and all-page visual inspection remain the separate Task 15 release gate.
 
 ## Provenance
 
