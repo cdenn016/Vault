@@ -42,9 +42,9 @@
   {finite coordinate marginals:\\
    \(q_{i,a}^{o,X}=\operatorname{Marg}_{i,a}^{k}(Q_X)\),\\
    \(s_{i,a}^{o,X}=\operatorname{Marg}_{i,a}^{m}(Q_X)\)};
-\node[probabilistic,minimum width=4.25cm,above=0.82cm of marginals] (joint)
+\node[probabilistic,minimum width=4.25cm,above=1.28cm of marginals,xshift=0.25cm] (joint)
   {correlated finite recognition law\\\(Q_X(dY\mid o)\) on \(\mathsf Y_D\)};
-\node[probabilistic,minimum width=4.25cm,above=0.82cm of sampled] (samplevector)
+\node[probabilistic,minimum width=4.25cm,above=1.28cm of sampled,xshift=-0.25cm] (samplevector)
   {finite sample vector \(Y_D\in\mathsf Y_D\)};
 \node[samplefield,left=0.75cm of samplevector] (samplefield)
   {sample-field\\realization \(y\)};
@@ -59,10 +59,12 @@
   {\(\operatorname{Samp}_{D,i}^{k,m}\)} (sampled.south);
 \draw[relation] (samplefield.east) -- node[midway,above,font=\scriptsize,fill=white,inner sep=1pt]
   {\(\operatorname{Ev}_D\)} (samplevector.west);
-\draw[relation] (joint.south) -- node[midway,font=\scriptsize,fill=white,inner sep=1.5pt,align=center]
-  {\(\operatorname{Marg}_{i,a}^{k,m}\)} (marginals.north);
-\draw[compatibility] (sampled.east) -- node[midway,above,font=\scriptsize,fill=white,inner sep=1pt,align=center]
-  {coordinatewise equality only under\\the compatibility hypothesis} (marginals.west);
+\draw[relation] (joint.south east) -- node[midway,right,font=\scriptsize,fill=white,inner sep=1pt]
+  {\(\operatorname{Marg}_{i,a}^{k,m}\)} (marginals.north east);
+\draw[compatibility] (sampled.north) -- ++(0,0.18cm)
+  -- node[midway,above,font=\scriptsize,fill=white,inner sep=1pt,align=center]
+  {coordinatewise equality only under\\the compatibility hypothesis}
+  ([yshift=0.18cm]marginals.north) -- (marginals.north);
 
 \node[graphvertex,right=1.35cm of principal.east] (g1) {1};
 \node[graphvertex,above right=0.48cm and 0.62cm of g1] (g2) {2};
