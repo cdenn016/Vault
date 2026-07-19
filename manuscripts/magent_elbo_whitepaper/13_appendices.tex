@@ -777,16 +777,26 @@ Equation~\eqref{eq:observation-parameter-gauge-laws} gives \(\delta_i^{o\prime}=
 
 The deterministic reference implementation is stored in
 \path{magent_elbo_whitepaper/verification/elbo_oracles.py}, with its
-independent checks in the adjacent test module.  The final focused run on
+independent checks in the adjacent test module.  The final focused correction run on
 2026-07-18 used Python 3.14.4, NumPy 2.4.4, SymPy 1.14.0, and pytest 9.0.2.
-The suite returned 16 passed tests in 0.45 seconds with no warnings.  Twelve
+The suite returned 16 passed tests in 0.43 seconds with no warnings.  Twelve
 tests instantiate the planned Gaussian, hierarchical, source-row, symbolic,
 and gauge identities.  Four additional validation tests enforce exact
 strict-lower-triangular structure for the directed Gaussian, active-support
 handling at nonunit source-row temperature, valid CAVI block indices, and
-invertible precision transports.  Symbolic identities use exact arithmetic;
-the floating-point checks use the tolerances declared in
-Table~\ref{tab:magent-verification-oracles}.
+invertible precision transports.  Symbolic identities use exact arithmetic.
+
+A post-implementation review found that eight NumPy closeness calls inherited
+at least one library-default tolerance and that two transport checks admitted
+a nonzero relative tolerance.  The correction sets \texttt{rtol=0.0} on every
+\texttt{isclose} and \texttt{allclose} assertion.  Fixed source-row,
+directed-Gaussian moment, analytic posterior-moment, CAVI block-covariance, and
+exact transport comparisons use \texttt{atol=1e-12}; the iterative CAVI mean
+check uses \texttt{atol=1e-10}.  Existing scalar residual checks retain their
+explicit absolute bounds.  These frozen, well-conditioned fixture checks are
+equal to or stricter than the applicable budgets in
+Table~\ref{tab:magent-verification-oracles}; they do not execute every
+full-oracle or conditioning-envelope obligation in the table.
 
 A forced LuaLaTeX and BibTeX build through \texttt{latexmk} exited zero and
 produced a stabilized 96-page manuscript.  Its log contained no undefined

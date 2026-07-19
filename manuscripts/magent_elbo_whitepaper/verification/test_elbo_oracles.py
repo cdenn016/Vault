@@ -102,7 +102,7 @@ def test_source_row_objective_equals_log_sum_exp_envelope() -> None:
 
     beta, objective, envelope = source_row_envelope(prior, energies)
 
-    assert np.isclose(beta.sum(), 1.0)
+    assert np.isclose(beta.sum(), 1.0, rtol=0.0, atol=1e-12)
     assert np.all(beta > 0.0)
     assert abs(objective - envelope) < 1e-12
 
@@ -118,7 +118,7 @@ def test_source_row_envelope_support_and_nonunit_temperature() -> None:
     )
 
     assert beta[0] == 0.0
-    assert np.isclose(beta.sum(), 1.0)
+    assert np.isclose(beta.sum(), 1.0, rtol=0.0, atol=1e-12)
     assert np.all(beta[1:] > 0.0)
     assert abs(objective - envelope) < 1e-12
 
@@ -145,7 +145,7 @@ def test_covariance_transport_is_gauge_equivariant() -> None:
         @ receiver_frame.T
     )
 
-    assert np.allclose(observed, expected, atol=1e-12, rtol=1e-12)
+    assert np.allclose(observed, expected, rtol=0.0, atol=1e-12)
 
 
 def test_symbolic_two_scalar_block_gap_under_spd_domain() -> None:
@@ -200,8 +200,18 @@ def test_directed_gaussian_joint_is_normalized_in_information_form() -> None:
         log_constant
         + gaussian_information_log_normalizer(information, precision)
     ) < 1e-12
-    assert np.allclose(np.linalg.solve(precision, information), structural_mean)
-    assert np.allclose(np.linalg.inv(precision), structural_covariance)
+    assert np.allclose(
+        np.linalg.solve(precision, information),
+        structural_mean,
+        rtol=0.0,
+        atol=1e-12,
+    )
+    assert np.allclose(
+        np.linalg.inv(precision),
+        structural_covariance,
+        rtol=0.0,
+        atol=1e-12,
+    )
 
 
 def test_directed_gaussian_requires_exact_strict_lower_structure() -> None:
@@ -264,10 +274,16 @@ def test_state_evidence_identity_and_analytic_posterior_moments() -> None:
     )
 
     assert abs(log_evidence - elbo - posterior_gap) < 1e-10
-    assert np.allclose(posterior_mean, expected_posterior_mean, atol=1e-12)
+    assert np.allclose(
+        posterior_mean,
+        expected_posterior_mean,
+        rtol=0.0,
+        atol=1e-12,
+    )
     assert np.allclose(
         posterior_covariance,
         expected_posterior_covariance,
+        rtol=0.0,
         atol=1e-12,
     )
 
@@ -290,9 +306,16 @@ def test_gaussian_cavi_uses_complete_markov_blanket_and_converges() -> None:
             assert np.allclose(
                 block_covariance,
                 np.linalg.inv(precision[np.ix_(block, block)]),
+                rtol=0.0,
+                atol=1e-12,
             )
 
-    assert np.allclose(mean, np.linalg.solve(precision, information), atol=1e-10)
+    assert np.allclose(
+        mean,
+        np.linalg.solve(precision, information),
+        rtol=0.0,
+        atol=1e-10,
+    )
 
 
 def test_gaussian_cavi_rejects_indices_outside_the_precision() -> None:
@@ -314,7 +337,7 @@ def test_precision_uses_dual_inverse_congruence() -> None:
     observed = transported_precision(omega, precision)
     expected = np.linalg.inv(transported_covariance(omega, covariance))
 
-    assert np.allclose(observed, expected, atol=1e-12, rtol=1e-12)
+    assert np.allclose(observed, expected, rtol=0.0, atol=1e-12)
 
 
 def test_precision_transport_rejects_singular_frame() -> None:
