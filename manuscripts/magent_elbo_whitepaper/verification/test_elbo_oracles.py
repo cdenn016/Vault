@@ -118,9 +118,10 @@ def test_source_row_objective_equals_log_sum_exp_envelope() -> None:
     assert envelope >= suppressed_response
 
 
-def test_source_row_equal_energies_saturate_response_inequality() -> None:
-    prior = np.array([0.2, 0.3, 0.5])
-    energies = np.full(3, 0.7)
+def test_source_row_equal_active_energies_saturate_response_inequality() -> None:
+    """An inactive component imposes no energy condition for scalar equality."""
+    prior = np.array([0.0, 0.3, 0.7])
+    energies = np.array([8.0, 0.7, 0.7])
 
     beta, objective, envelope = source_row_envelope(
         prior,
