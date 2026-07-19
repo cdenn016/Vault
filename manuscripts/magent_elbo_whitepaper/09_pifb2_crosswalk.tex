@@ -1,11 +1,11 @@
 \chapter{The PIFB2 Functional: Exact Sectors, Obstruction, and Exact Lifts}
 \label{ch:pifb2-crosswalk}
 
-This chapter locates the legacy PIFB2 population functional relative to the fixed-joint theory developed in Chapters~\ref{ch:generative-model}--\ref{ch:configuration-elbo}. The comparison is classificatory. A term can be an exact KL divergence, a normalized likelihood contribution, or the value of an exact simplex minimization without making the complete population scalar the negative ELBO of the fixed state model in Chapter~\ref{ch:generative-model}. Conversely, failure of that state-level identification does not invalidate the scalar as an engineered consensus objective or prevent an exact model on an enlarged sample space. Standard relative-entropy and mean-field claims below use the fixed-model convention of \citet{Kullback1951}, \citet{CoverThomas2006}, and \citet{Wainwright2008}; the PIFB2 source is used only to identify the project's formulas and declared executable profile.
+This chapter locates the legacy PIFB2 population functional relative to the fixed-joint theory developed in Chapters~\ref{ch:generative-model}--\ref{ch:configuration-elbo}. The comparison is classificatory. A term can be an exact KL divergence, a normalized likelihood contribution, or the value of an exact simplex minimization without making the complete population scalar the negative ELBO of the fixed state model in Chapter~\ref{ch:generative-model}. Conversely, failure of that state-level identification does not invalidate the scalar as an engineered consensus objective or prevent an exact model on an enlarged sample space. Standard relative-entropy and mean-field claims below use the fixed-model convention of \citet{Kullback1951}, \citet{CoverThomas2006}, and \citet{Wainwright2008}. Project-source statements are bound to the immutable PIFB2 snapshot \path{manuscripts/PIFB2.tex} at Research commit \texttt{b93d01f57dc0a55a11bf26ec13562f7019a5c84b} \citep{Dennis2026PIFB2Snapshot}; that source is used only to identify the project's formulas and declared executable profile.
 
 \section{The canonical entropy-retaining population scalar}
 
-Let \((\mathcal C,\mathscr C,\mu_{\mathcal C})\) be the contextual base equipped with a fixed sigma-finite Borel measure. All fields in this section are assumed measurable, and every displayed integral is taken with respect to \(d\mu_{\mathcal C}(c)\). The state sections \(q_i(c)\) and \(p_i(c)\) are probability laws on the state fiber, while \(s_i(c)\) and \(r_i(c)\) are probability laws on the model fiber. The represented state transport is \((\Omega_{ij})_{\#}\), and the model transport \((\widetilde\Omega_{ij})_{\#}\) is separately typed; it may be induced by a different representation or by an independent model-frame bundle. Let \(\zeta_i(dk_i,dm_i\mid c)\) be the declared joint state--model recognition marginal, with coordinate marginals \(q_i(c)\) and \(s_i(c)\). The fully factorized specialization is \(\zeta_i(c)=q_i(c)\otimes s_i(c)\). If the legacy observation model instead treats \(m_i\) as a fixed value \(\bar m_i(c)\), the corresponding specialization is \(\zeta_i(c)=q_i(c)\otimes\delta_{\bar m_i(c)}\). The observation factor \(p(o(c)\mid k_i,m_i)\) is a fixed normalized kernel whenever it is assigned state-model-factor status below; no model-fiber variable is left outside the expectation.
+Let \((\mathcal C,\mathscr C,\mu_{\mathcal C})\) be the contextual base equipped with a fixed sigma-finite Borel measure. All fields in this section are assumed measurable, and every displayed integral is taken with respect to \(d\mu_{\mathcal C}(c)\). The unindexed notation describes one fixed continuum theoretical state. The state sections \(q_i(c)\) and \(p_i(c)\) are probability laws on the state fiber, while \(s_i(c)\) and \(r_i(c)\) are probability laws on the model fiber; observation- and configuration-dependent versions would be written \(q_i^{o,X}(c)\) and \(s_i^{o,X}(c)\). The represented state transport is \((\Omega_{ij})_{\#}\), and the model transport \((\widetilde\Omega_{ij})_{\#}\) is separately typed; it may be induced by a different representation or by an independent model-frame bundle. Let \(\zeta_i(dk_i,dm_i\mid c)\) be the declared joint state--model recognition marginal, with coordinate marginals \(q_i(c)\) and \(s_i(c)\). The fully factorized specialization is \(\zeta_i(c)=q_i(c)\otimes s_i(c)\). If the legacy observation model instead treats \(m_i\) as a fixed value \(\bar m_i(c)\), the corresponding specialization is \(\zeta_i(c)=q_i(c)\otimes\delta_{\bar m_i(c)}\). The observation factor \(p(o(c)\mid k_i,m_i)\) is a fixed normalized kernel whenever it is assigned state-model-factor status below; no model-fiber variable is left outside the expectation.
 
 Write \(\chi_i:\mathcal C\to[0,1]\) for the agent-presence field and \(\chi_{ij}=\chi_i\chi_j\) for pair presence. Let \(\pi_{ij}\) and \(\pi_{ij}^{(s)}\) be nonnegative source-prior rows. First define the row normalizers
 \begin{align}
@@ -133,116 +133,158 @@ The coherence-weighted moment pool refreshes top-level priors from the active hi
 
 \section{The scoped moving-peer obstruction}
 
-The obstruction below concerns equality of functionals on an open product family. It does not assert that a live peer KL is ill-defined, noncovariant, or unusable as an optimization term.
+The obstruction below concerns equality of functionals on an open, fine design-point-factorized mean-field family. The finite-design theorem is the rigorous closure point for that family only. The following continuum statement is a conditional corollary for a base integral and does not construct a probability measure on a space of sections.
 
-\paragraph{Theorem (open-family moving-peer obstruction).}
+\paragraph{Theorem (finite-design moving-peer obstruction).}
 \label{thm:magent-moving-peer-obstruction}
-For each agent \(a\), let \((\mathsf Y_a,\mathscr Y_a,\nu_a)\) be a sigma-finite measure space, and let \(\mathcal Q_a\) be a mixture-open family of normalized densities. At the density \(q_a>0\), mixture openness means that every tangent \(h_a\) used below satisfies
+Fix an observation \(o\), a structural value \(X\), and the finite design \(D=\{c_a\}_{a=1}^{M}\). Define the comparison family to be the independently variable, fine design-point-factorized mean-field law
 \begin{equation}
-\int h_a d\nu_a=0,
+Q=\bigotimes_{\ell,b}q_{\ell,b},
 \qquad
-\frac{h_a}{q_a}\in L^\infty(q_a),
-\qquad
-q_a+t h_a\in\mathcal Q_a
-\quad\text{for all sufficiently small \(|t|\)}.
-\label{eq:moving-peer-mixture-openness}
+q_{\ell,b}\in\mathcal Q_{\ell,b},
+\label{eq:moving-peer-fine-comparison-family}
 \end{equation}
-Let the factors vary independently in the open product family \(Q_q=\bigotimes_aq_a\). Assume a fixed posterior-independent joint density \(p_\theta(o,y)\) has support containing every such \(Q_q\), and assume its logarithm and all differentiated expressions below are integrable so that differentiation under the integral is valid. Then, for distinct \(i\) and \(j\),
-\begin{equation}
-D^3_{q_iq_jq_j}\mathcal F_{\text{fixed joint}}
-[a_i,h_j,h_j]=0.
-\label{eq:fixed-joint-mixed-third-zero}
-\end{equation}
+where every \(\mathcal Q_{\ell,b}\) is mixture open. This additional factorization across design points is finer than both cross-design recognition families in Equations~\eqref{eq:agent-block-recognition-family} and~\eqref{eq:state-model-recognition-family}; the theorem makes no claim about those coarser families. For distinct agents \(i\) and \(j\), let the coordinate marginals \(q_{i,a}^{o,X}\) and \(q_{j,a}^{o,X}\) from Equation~\eqref{eq:recognition-marginal-sections} be the base-point factors of Equation~\eqref{eq:moving-peer-fine-comparison-family} and have positive densities with respect to sigma-finite measures \(\nu_{i,a}\) and \(\nu_{j,a}\). Let \(w_a>0\) be finite quadrature weights, let \(\lambda>0\), and let \(\mathfrak H_a\) be a nonempty finite set of peer channels. For every \(a\) and \(h\in\mathfrak H_a\), let \(b_{ij,a}^{(h)}>0\) and let
+\(T_{ij,a}^{(h)}:L^1(\nu_{j,a})\to L^1(\nu_{i,a})\) be fixed, positive, linear, and mass preserving.
 
-Let \(T_{ij}:L^1(\nu_j)\to L^1(\nu_i)\) be fixed, positive, linear, and mass preserving. Fix \(\beta_{ij}>0\). Assume \(q_i\ll T_{ij}q_j\), choose a tangent \(h_j\) satisfying Equation~\eqref{eq:moving-peer-mixture-openness}, and require \(T_{ij}q_j>0\) on the relevant \(q_i\)-support. Positivity and \(|h_j|\leq\lVert h_j/q_j\rVert_\infty q_j\) imply
+Choose sender tangents \(h_{j,a}\) with zero mass and bounded density ratios. Define receiver tangents below. Assume there are \(\delta_s,\delta_t>0\) for which the single open rectangle
 \begin{equation}
-|T_{ij}h_j|
-\leq\left\lVert\frac{h_j}{q_j}\right\rVert_\infty T_{ij}q_j,
+\mathcal U=(-\delta_s,\delta_s)\times(-\delta_t,\delta_t).
+\label{eq:moving-peer-admissible-rectangle}
+\end{equation}
+For each \(a\), let \(\Gamma_a:\mathcal U\to\prod_{\ell,b}\mathcal Q_{\ell,b}\) be the site-local path that holds every factor fixed except
+\begin{equation}
+q_{i,a}(s)=q_{i,a}^{o,X}+s a_{i,a},
+\qquad
+q_{j,a}(t)=q_{j,a}^{o,X}+t h_{j,a},
+\label{eq:moving-peer-finite-paths}
+\end{equation}
+and assume the same rectangle is admissible for every \(\Gamma_a\). For \((s,t)\in\mathcal U\), require every transported sender density on these site-local paths to be positive on the relevant receiver support and every nearby peer KL to be finite. Positivity and the bounded sender ratio imply the transported-tangent bound
+\begin{equation}
+\left|T_{ij,a}^{(h)}h_{j,a}\right|
+\leq
+\left\lVert\frac{h_{j,a}}{q_{j,a}^{o,X}}\right\rVert_\infty
+T_{ij,a}^{(h)}q_{j,a}^{o,X}.
 \label{eq:moving-peer-transported-tangent-bound}
 \end{equation}
-so \(T_{ij}(q_j+t h_j)>0\) there for all sufficiently small \(|t|\). Suppose
+Assume the resulting ratios are bounded and define
+\begin{align}
+g_{ij,a}^{(h)}
+&:=\left(
+\frac{T_{ij,a}^{(h)}h_{j,a}}
+{T_{ij,a}^{(h)}q_{j,a}^{o,X}}
+\right)^2,
+\label{eq:moving-peer-g-definition}\\
+G_{ij,a}
+&:=\sum_{h\in\mathfrak H_a}b_{ij,a}^{(h)}g_{ij,a}^{(h)}.
+\label{eq:moving-peer-aggregate-definition}
+\end{align}
+Require bounded measurable versions of these functions, domination sufficient to differentiate each sitewise finite sum through the order \(\partial_s\partial_t^2\) throughout \(\mathcal U\), and the nonconstancy condition
 \begin{equation}
-g_{ij}
-:=\left(\frac{T_{ij}h_j}{T_{ij}q_j}\right)^2
-\label{eq:moving-peer-g-definition}
+\sum_{a=1}^{M}w_a
+\operatorname{Var}_{q_{i,a}^{o,X}}(G_{ij,a})>0.
+\label{eq:moving-peer-finite-positive-variance}
 \end{equation}
-has a bounded measurable version and is nonconstant \(q_i\)-almost everywhere. Assume the nearby KL divergences are finite and that the boundedness and support conditions dominate the first three directional derivatives. Then
+Set
 \begin{equation}
-D^3_{q_iq_jq_j}
-\left[\beta_{ij}\KL(q_i\Vert T_{ij}q_j)\right]
-[a_i,h_j,h_j]
-=\beta_{ij}\int a_i g_{ij}d\nu_i.
-\label{eq:moving-peer-mixed-third}
-\end{equation}
-For
-\begin{equation}
-a_i=q_i\left(g_{ij}-\E_{q_i}g_{ij}\right),
+a_{i,a}=q_{i,a}^{o,X}
+\left(G_{ij,a}-\E_{q_{i,a}^{o,X}}G_{ij,a}\right).
 \label{eq:moving-peer-receiver-tangent}
 \end{equation}
-this variation equals
+These receiver tangents have zero mass and bounded ratios, and after reducing \(\delta_s\) if needed their paths remain in the mixture-open families. Consider
+\begin{align}
+\mathcal C_D(q)
+:={}&\lambda\sum_{a=1}^{M}w_a
+\sum_{h\in\mathfrak H_a}b_{ij,a}^{(h)}
+\KL\left(q_{i,a}\middle\Vert T_{ij,a}^{(h)}q_{j,a}\right)
++\mathcal H_D(q).
+\label{eq:moving-peer-finite-functional}
+\end{align}
+If the remainder has zero iterated derivative on every site-local path,
 \begin{equation}
-\beta_{ij}\operatorname{Var}_{q_i}(g_{ij})>0.
-\label{eq:moving-peer-positive-variance}
+\left.\partial_s\partial_t^2
+(\mathcal H_D\circ\Gamma_a)(s,t)\right|_{(0,0)}=0
+\quad\text{for every \(a\)},
+\label{eq:moving-peer-remainder-no-cancellation}
 \end{equation}
-Consequently, a scalar containing this active edge and otherwise having zero \((q_i,q_j,q_j)\) third variation cannot equal the negative ELBO of one fixed posterior-independent joint plus a constant throughout that open product neighborhood.
+then
+\begin{equation}
+\sum_{a=1}^{M}
+\left.\partial_s\partial_t^2
+(\mathcal C_D\circ\Gamma_a)(s,t)\right|_{(0,0)}
+=\lambda\sum_{a=1}^{M}w_a
+\operatorname{Var}_{q_{i,a}^{o,X}}(G_{ij,a})>0.
+\label{eq:moving-peer-mixed-third}
+\end{equation}
+For the negative ELBO of any fixed posterior-independent joint evaluated on the fine site-factorized mean-field family \(Q=\bigotimes_{\ell,b}q_{\ell,b}\), assume the support, log-integrability, and domination conditions needed to make the functional finite and differentiable along the images of the \(\Gamma_a\). Each site-local path then satisfies
+\begin{equation}
+\left.\partial_s\partial_t^2
+(\mathcal F_{\mathrm{fixed\ joint}}\circ\Gamma_a)(s,t)
+\right|_{(0,0)}=0
+\quad\text{for every \(a\)}.
+\label{eq:fixed-joint-mixed-third-zero}
+\end{equation}
+Consequently, on this fine site-factorized mean-field family, \(\mathcal C_D\) cannot equal that fixed-joint negative ELBO plus a constant throughout the open product neighborhood containing the images of the \(\Gamma_a\).
 
 \paragraph{Proof.}
-For a fixed joint, the product-family negative ELBO has the form
+Along \(\Gamma_a\), only the receiver factor \(q_{i,a}\) and sender factor \(q_{j,a}\) vary. A fixed-joint negative ELBO restricted to the fine site-factorized mean-field family in Equation~\eqref{eq:moving-peer-fine-comparison-family} is a sum of factor entropies minus an energy expectation that is affine in either selected factor while the other factors are held fixed. The second sender derivative of the energy vanishes, and the second sender derivative of the sender entropy is independent of the receiver factor, proving Equation~\eqref{eq:fixed-joint-mixed-third-zero} \citep{Wainwright2008}. For one site and channel, dominated pathwise differentiation gives
 \begin{equation}
-\mathcal F_{\text{fixed joint}}(q)
-=\sum_a\int q_a\log q_a d\nu_a
--\int\left(\prod_aq_a\right)\log p_\theta(o,y)d\nu_{1:N}.
-\label{eq:fixed-joint-product-structure}
-\end{equation}
-The entropy summands are factor-separable. The energy expectation is affine in each factor with the remaining factors held fixed. A second \(q_j\) derivative of the energy therefore vanishes, while the second derivative of the \(q_j\) entropy is independent of \(q_i\). Taking the \(q_i\) derivative proves Equation~\eqref{eq:fixed-joint-mixed-third-zero} \citep{Wainwright2008}.
-
-Set \(r=T_{ij}q_j\) and \(u=T_{ij}h_j\). Along \(q_i(s)=q_i+s a_i\) and \(q_j(t)=q_j+t h_j\), only the cross-entropy part of the KL contributes to the mixed derivative:
-\begin{align}
-\left.
-\frac{\partial^3}{\partial s\partial t^2}
-\beta_{ij}\KL(q_i(s)\Vert T_{ij}q_j(t))
-\right|_{s=t=0}
-&=\left.
-\frac{\partial}{\partial s}
-\beta_{ij}\int(q_i+s a_i)
-\frac{u^2}{(r+t u)^2}d\nu_i
-\right|_{s=t=0}\notag\\
-&=\beta_{ij}\int a_i\frac{u^2}{r^2}d\nu_i
-=\beta_{ij}\int a_i g_{ij}d\nu_i.
+\left.\partial_s\partial_t^2
+\KL\left(q_{i,a}(s)\middle\Vert
+T_{ij,a}^{(h)}q_{j,a}(t)\right)\right|_{(0,0)}
+=\int a_{i,a}g_{ij,a}^{(h)}d\nu_{i,a}.
 \label{eq:moving-peer-derivative-calculation}
+\end{equation}
+For a fixed \(a\), only the site-\(a\) peer terms contribute to the derivative of \(\mathcal C_D\circ\Gamma_a\). Summing these site-local derivatives and substituting Equation~\eqref{eq:moving-peer-receiver-tangent} yields the weighted sum of variances in Equation~\eqref{eq:moving-peer-mixed-third}. The remainder cannot cancel it by Equation~\eqref{eq:moving-peer-remainder-no-cancellation}, and Equation~\eqref{eq:moving-peer-finite-positive-variance} makes the result strict. Appendix~\ref{sec:moving-peer-calculus-oracle} gives the detailed calculation and the finite discrete directional-difference oracle. This conclusion is confined to the fine site-factorized mean-field family in Equation~\eqref{eq:moving-peer-fine-comparison-family}; extending it to either coarser Chapter~\ref{ch:mean-field-theory} family requires a separate argument. \(\square\)
+
+\paragraph{Corollary (conditional continuum base-integral obstruction).}
+Let the legacy continuum fields have measurable positive fiber densities \(q_i(c)\) and \(q_j(c)\) over \((\mathcal C,\mu_{\mathcal C})\), relative to fiber measures \(\nu_{i,c}\) and \(\nu_{j,c}\). Choose a measurable sender tangent \(h_j(c)\) with zero mass in every sender fiber and a bounded fiberwise ratio \(h_j(c)/q_j(c)\). Let \(\lambda>0\), let \(\mathfrak H\) be a nonempty finite channel set, and let the positive measurable coefficients \(b_{ij}^{(h)}(c)\) and positive linear mass-preserving fiber transports \(T_{ij}^{(h)}(c)\) be measurable in \(c\). Define
+\begin{align}
+G_{ij}(c)
+&:=\sum_{h\in\mathfrak H}b_{ij}^{(h)}(c)
+\left(
+\frac{T_{ij}^{(h)}(c)h_j(c)}
+{T_{ij}^{(h)}(c)q_j(c)}
+\right)^2,
+\label{eq:moving-peer-continuum-aggregate}\\
+a_i(c)
+&:=q_i(c)\left[
+G_{ij}(c)-\E_{q_i(c)}G_{ij}(c)
+\right].
+\label{eq:moving-peer-continuum-centered-tangent}
 \end{align}
-The sign is positive because the second sender derivative of \(-\log(r+t u)\) is \(u^2/(r+t u)^2\).
-
-Equation~\eqref{eq:moving-peer-receiver-tangent} has zero mass:
+Assume this exact centered tangent \(a_i(c)\) is jointly measurable in the base and receiver-fiber variables and has zero mass in every receiver fiber. Assume directly that there is one common open rectangle \(\mathcal U=(-\delta_s,\delta_s)\times(-\delta_t,\delta_t)\) on which the exact section paths
 \begin{equation}
-\int a_i d\nu_i
-=\E_{q_i}g_{ij}-\E_{q_i}g_{ij}=0.
-\label{eq:moving-peer-tangent-zero-mass}
+q_i(s,c)=q_i(c)+s a_i(c),
+\qquad
+q_j(t,c)=q_j(c)+t h_j(c),
+\label{eq:moving-peer-continuum-exact-path}
 \end{equation}
-Since \(g_{ij}\) is bounded, \(a_i/q_i=g_{ij}-\E_{q_i}g_{ij}\) is bounded. If this centered function is not identically zero, then
+are jointly admissible outside one common base-null set. A uniform essential bound on the centered ratio \(a_i(c)/q_i(c)=G_{ij}(c)-\E_{q_i(c)}G_{ij}(c)\) is sufficient for receiver positivity on a common \(s\)-interval, but it does not replace this common-rectangle hypothesis. Along this exact path, assume every nearby transported peer KL is finite almost everywhere, the transported ratios are bounded, and one common integrable envelope permits \(\partial_s\partial_t^2\) to pass through both the fiber and base integrals. If the continuum remainder has zero iterated derivative and
 \begin{equation}
-q_i+s a_i
-=q_i\left[1+s\left(g_{ij}-\E_{q_i}g_{ij}\right)\right]
-\label{eq:moving-peer-admissible-path}
+\int_{\mathcal C}
+\operatorname{Var}_{q_i(c)}\bigl(G_{ij}(c)\bigr)
+d\mu_{\mathcal C}(c)>0,
+\label{eq:moving-peer-continuum-positive-variance}
 \end{equation}
-is nonnegative and normalized for every sufficiently small \(|s|\), and mixture openness places it in \(\mathcal Q_i\). Substitution into Equation~\eqref{eq:moving-peer-mixed-third} gives Equation~\eqref{eq:moving-peer-positive-variance}; nonconstancy makes the variance strict. Appendix~\ref{sec:moving-peer-calculus-oracle} records the typed derivative and a finite discrete directional-difference oracle. \(\square\)
+then the exact centered path in Equations~\eqref{eq:moving-peer-continuum-centered-tangent} and~\eqref{eq:moving-peer-continuum-exact-path} gives a strictly positive \(\partial_s\partial_t^2\) derivative of the continuum peer base integral. Therefore this base integral cannot equal, on that exact section-path neighborhood, any separately defined comparison functional whose iterated derivative along the same path is zero. No fixed-joint continuum ELBO is asserted or constructed. This corollary differentiates a scalar integral against the fixed base measure \(\mu_{\mathcal C}\); it constructs neither a probability measure on a continuum of sections nor a continuum limit of the finite theorem.
 
-For the unreduced entropy-retaining functional, the theorem is applied on a slice where the row variables \(\beta\) and \(\gamma\) are held fixed. Their categorical relative entropies, the self terms, and fixed likelihood terms have zero mixed third variation of the required type. A reverse edge \(\KL(q_j\Vert T_{ji}q_i)\) is linear in \(q_j\) outside its separate entropy, so its second \(q_j\) derivative is independent of \(q_i\); unrelated edges omit at least one varied factor. The theorem does not by itself classify the already minimized envelope in which \(\beta^*(q)\) has been substituted, because that substitution changes the derivative structure.
+For the unreduced entropy-retaining functional, the finite theorem applies only on the fine site-factorized mean-field family in Equation~\eqref{eq:moving-peer-fine-comparison-family} and on a slice where the row variables \(\beta\) and \(\gamma\) are held fixed. Their categorical relative entropies, the self terms, and fixed likelihood terms have zero iterated derivative of the required order. A reverse edge is linear in the repeated sender factor outside its separate entropy, and unrelated edges omit at least one varied factor. The theorem does not classify either coarser Chapter~\ref{ch:mean-field-theory} recognition family or the minimized envelope obtained after substituting \(\beta^*(q)\), because those changes alter the factorization or pathwise derivative structure.
 
 \section{Why the scoped exceptions are genuine exceptions}
 
 \begin{samepage}
-Frozen source templates remove the sender variation. Replacing \(T_{ij}q_j\) by a fixed normalized \(f_{ij}\) makes the row an ordinary auxiliary source model. At unit temperature, Equations~\eqref{eq:fixed-source-row-joints}--\eqref{eq:fixed-source-row-optimum} give
+Frozen source templates remove the sender variation. Replacing \(T_{ij}q_j\) by a fixed normalized \(f_{ij}\) makes the row an ordinary auxiliary source model. Denote its generic receiver density by \(\varrho_i\), separately from the continuum section \(q_i\). At unit temperature, Equations~\eqref{eq:fixed-source-row-joints}--\eqref{eq:fixed-source-row-optimum} give
 \begin{equation}
 \KL(Q_i\Vert P_i)
-=\sum_j\beta_{ij}\KL(q_i\Vert f_{ij})
+=\sum_j\beta_{ij}\KL(\varrho_i\Vert f_{ij})
 +\KL(\beta_i\Vert\pi_i),
 \label{eq:pifb2-unit-temperature-frozen-row}
 \end{equation}
 with no live \(q_j\) direction. This is the exact Task~6 construction. A general \(\tau\) still defines a valid convex row scalar and the exact envelope derived below, but it is not the same unscaled joint KL. A probabilistic nonunit-temperature reading needs a separately normalized tempered model and its temperature-dependent normalizers; refreshing \(f_{ij}=T_{ij}q_j\) changes that model between updates \citep{BissiriHolmesWalker2016}.
 \end{samepage}
 
-Restricted parametric families can fail mixture openness. A finite-dimensional Gaussian, tied-covariance, or symmetry-reduced family may not contain the tangent in Equation~\eqref{eq:moving-peer-receiver-tangent}; the required \(g_{ij}\) may also be constant on its available tangent space. The theorem makes no claim outside the tangent cone it states.
+Restricted parametric families can fail mixture openness. A finite-dimensional Gaussian, tied-covariance, or symmetry-reduced family may not contain the tangent in Equation~\eqref{eq:moving-peer-receiver-tangent}; the required \(g_{ij}\) may also be constant on its available tangent space. The theorem makes no claim outside the tangent cone or the fine site-factorized mean-field family it states.
 
 Compatible auxiliary variables change the latent inventory and the factorization. A fixed normalized model with a source label, replicated row variables, or another declared auxiliary coordinate can have an exact ELBO if all conditionals are mutually compatible and the global normalization is proved. That construction is not equality with a fixed joint on only the original shared agent-state variables.
 
@@ -250,13 +292,13 @@ A model fixed after equilibrium selection reverses the quantifiers. One may firs
 
 The zero-within-scale hierarchical Gaussian joint removes the active edge assumption. When the raw within-scale belief and model couplings vanish, the cross-scale tree has fixed Gaussian transitions. A proper top prior and finite positive link variances make its stacked precision SPD, so ordinary mean-field inference and the state ELBO apply to that fixed hierarchy. This is an exact state-model construction rather than a representation of the active live-peer term.
 
-Correlated structured recognition removes the product-family assumption. The exact recognition law \(Q_X(dY\mid o)\) in Chapter~\ref{ch:structured-recognition-elbo} can retain cross-agent and cross-channel dependence. Its entropy is joint, and the separate-affinity calculation in Equation~\eqref{eq:fixed-joint-product-structure} is not the functional form being varied. The exact state evidence identity remains available for a fixed normalized joint.
+Correlated structured recognition removes the fine site-factorized product-family assumption. The exact recognition law \(Q_X(dY\mid o)\) in Chapter~\ref{ch:structured-recognition-elbo} can retain cross-agent and cross-channel dependence. Its entropy is joint, so the site-local separate-affinity calculation used by Theorem~\ref{thm:magent-moving-peer-obstruction} is not the functional form being varied. The same exclusion applies to Chapter~\ref{ch:mean-field-theory}'s coarser cross-design factors unless a separate obstruction is proved for those families. The exact state evidence identity remains available for a fixed normalized joint.
 
 Configuration-level Gibbs laws change both the random variable and the entropy tier. If a complete belief configuration is denoted by \(X\), a proper reference law and finite partition function produce the exact law in Equation~\eqref{eq:configuration-gibbs-prior}. Its variational identity contains configuration relative entropy. It does not turn the live peer scalar into the state ELBO over the original samples \(Y\).
 
 \section{Four row objects that must not be conflated}
 
-For one row, let \(E_{ij}(x)\) be differentiable edge energies, let \(\widetilde\pi_i\) be a fixed normalized prior on the row support, and let \(\tau>0\). The full entropy-retaining objective is the scalar
+For one row, let \(E_{ij}(x)\) be differentiable edge energies, let \(\widetilde\pi_i\) be a fixed normalized prior, define its positive support by \(\mathcal J_i^+:=\{j:\widetilde\pi_{ij}>0\}\), and let \(\tau>0\). The full entropy-retaining objective is the scalar
 \begin{equation}
 \mathcal R_i(\beta_i,x)
 =\sum_j\beta_{ij}E_{ij}(x)
@@ -283,10 +325,17 @@ Both \(\mathcal R_i\) and \(\mathcal R_i^{\mathrm{red}}\) are scalar potentials.
 
 The entropy-suppressed expression
 \begin{equation}
-S_i(x)=\sum_j\beta_{ij}^*(x)E_{ij}(x)
+S_i(x)=\sum_j\beta_{ij}^*(x)E_{ij}(x).
 \label{eq:pifb2-entropy-suppressed-scalar}
 \end{equation}
-is also a scalar potential, but it is a different scalar. Its differential is
+is also a scalar potential. The exact response identity is
+\begin{equation}
+\mathcal R_i^{\mathrm{red}}(x)
+=S_i(x)+\tau\KL\bigl(\beta_i^*(x)\Vert\widetilde\pi_i\bigr)
+\geq S_i(x).
+\label{eq:pifb2-response-decomposition}
+\end{equation}
+Equality holds if and only if \(\beta_i^*=\widetilde\pi_i\). By the Gibbs formula, this is equivalent to \(E_{ij}=E_{ik}\) for every \(j,k\in\mathcal J_i^+\). There is no condition on \(E_{ij}\) for \(j\notin\mathcal J_i^+\), because both \(\widetilde\pi_{ij}\) and \(\beta_{ij}^*\) vanish there. The differential of the entropy-suppressed scalar is
 \begin{equation}
 dS_i
 =\sum_j\beta_{ij}^*dE_{ij}
@@ -294,7 +343,7 @@ dS_i
 \operatorname{Cov}_{\beta_i^*}(E_{ij},dE_{ij}).
 \label{eq:pifb2-entropy-suppressed-differential}
 \end{equation}
-The response term does not make \(S_i\) nonintegrable; it proves only that \(S_i\neq\mathcal R_i^{\mathrm{red}}\).
+The response term does not make \(S_i\) nonintegrable. Its covariance can vanish along selected directions without making the categorical KL in Equation~\eqref{eq:pifb2-response-decomposition} vanish, so directional covariance cancellation does not establish equality of the two scalars.
 
 Finally, let \(x_i\) denote receiver coordinates in a population state and define the receiver-only field by retaining the derivative of receiver row \(i\) while discarding every contribution in which \(x_i\) appears as a sender in another row:
 \begin{equation}

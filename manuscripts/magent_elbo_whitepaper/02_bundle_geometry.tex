@@ -30,7 +30,7 @@ For the smooth associated-bundle construction, measurability alone is insufficie
 \begin{equation}
 (g,q)\longmapsto(\rho_k(g))_{\#}q,
 \qquad
-(g,s)\longmapsto(\rho_m(g))_{\#}s
+(g,s)\longmapsto(\rho_m(g))_{\#}s,
 \label{eq:smooth-statistical-actions}
 \end{equation}
 are smooth in the selected statistical-manifold coordinates. The formulas above then define smooth, family-preserving actions \(\rho_{\mathrm{state}}\) and \(\rho_{\mathrm{model}}\) on \(\mathcal B_{\mathrm{state}}\) and \(\mathcal B_{\mathrm{model}}\), respectively. The nondegenerate Gaussian families used below satisfy both closure and smoothness in \((\mu,\Sigma)\) coordinates under smooth invertible linear represented actions. Thus \(g\mathbin{\cdot}q=(\rho_k(g))_{\#}q\) and \(g\mathbin{\cdot}s=(\rho_m(g))_{\#}s\). The associated statistical bundles are
@@ -116,7 +116,16 @@ s_i,r_i&\in\Gamma\left(\mathcal U_i,
 \mathcal E_{\mathrm{model}}\vert_{\mathcal U_i}\right).
 \label{eq:agent-model-sections}
 \end{align}
-together with a group-valued local frame coordinate
+We use the convention that unindexed \(q_i,s_i,p_i,r_i\) describe one fixed theoretical state. When recognition sections depending on an observation and structural configuration are supplied, they are written explicitly and satisfy
+\begin{equation}
+q_i^{o,X}\in\Gamma\left(\mathcal U_i,
+\mathcal E_{\mathrm{state}}\vert_{\mathcal U_i}\right),
+\qquad
+s_i^{o,X}\in\Gamma\left(\mathcal U_i,
+\mathcal E_{\mathrm{model}}\vert_{\mathcal U_i}\right).
+\label{eq:observation-configuration-section-types}
+\end{equation}
+These sections are never inferred from a finite marginal law. The agent also carries a group-valued local frame coordinate
 \begin{equation}
 U_i:\mathcal U_i\longrightarrow G.
 \label{eq:agent-frame-field}
@@ -132,7 +141,27 @@ Each statistical section covers the identity on its support; for example,
 =\operatorname{id}_{\mathcal U_i}.
 \label{eq:agent-section-projections}
 \end{equation}
-At each evaluated design point \(c_a\), the symbols \(q_i(c_a)\) and \(s_i(c_a)\) denote the state and model coordinate-pushforward marginals of \(Q_X(\mathord\cdot\mid o)\) under the projections already defined in Equation~\eqref{eq:recognition-marginal-sections}, while \(p_i\) and \(r_i\) denote generatively specified prior sections. Those probability roles do not reduce the agent to any one section. The agent is the supported section-bearing object
+For a finite design \(D=\{c_a\}_{a=1}^{M}\subseteq\mathcal U_i\), continuum-section sampling is the map
+\begin{align}
+\operatorname{Samp}_{D,i}^{k}:
+\Gamma\left(\mathcal U_i,\mathcal E_{\mathrm{state}}\vert_{\mathcal U_i}\right)
+&\longrightarrow\prod_{a=1}^{M}\mathcal B_{\mathrm{state},c_a},
+&q_i^{o,X}&\longmapsto\bigl(q_i^{o,X}(c_a)\bigr)_{a=1}^{M},
+\label{eq:continuum-state-section-sampling}\\
+\operatorname{Samp}_{D,i}^{m}:
+\Gamma\left(\mathcal U_i,\mathcal E_{\mathrm{model}}\vert_{\mathcal U_i}\right)
+&\longrightarrow\prod_{a=1}^{M}\mathcal B_{\mathrm{model},c_a},
+&s_i^{o,X}&\longmapsto\bigl(s_i^{o,X}(c_a)\bigr)_{a=1}^{M}.
+\label{eq:continuum-model-section-sampling}
+\end{align}
+For concise pair notation, define
+\begin{equation}
+\operatorname{Samp}_{D,i}^{k,m}
+:=\left(\operatorname{Samp}_{D,i}^{k},
+\operatorname{Samp}_{D,i}^{m}\right).
+\label{eq:collective-continuum-section-sampling}
+\end{equation}
+Its outputs are tuples of probability measures in the statistical fibers over the selected points. This sampling operation is defined from the continuum sections and does not use the finite recognition kernel. The latter has separately defined coordinate marginals \(q_{i,a}^{o,X}\) and \(s_{i,a}^{o,X}\) in Equation~\eqref{eq:recognition-marginal-sections}. Equality of a sampled section value with the corresponding finite marginal is a compatibility hypothesis stated in Chapter~\ref{ch:probability-semantics}; it is not a definition supplied by \(Q_X\). These probability roles do not reduce the agent to any one section. The agent is the supported section-bearing object
 \begin{equation}
 \mathcal A^i=
 \left(\mathcal U_i;q_i,p_i,s_i,r_i,U_i\right).
@@ -148,12 +177,12 @@ Y(c)=\bigl((k_1(c),m_1(c)),\ldots,(k_N(c),m_N(c))\bigr).
 \end{equation}
 The random variable \(Y(c)\) is a population sample and is not an agent. Likewise, the vertex label \(i\) records population incidence but is not the geometric object \(\mathcal A^i\). This distinction permits two agents to carry different probability sections over overlapping regions of \(\mathcal C\) while their evaluated samples remain ordinary random variables in separate fibers.
 
-Figure~\ref{fig:magent-geometry-type-stack} keeps the finite-design maps typed separately: \(\operatorname{Ev}_D\) acts on sample-field realizations, pointwise section evaluation produces measure-valued section values, and coordinate projections of \(Q_X\) recover those values as marginal laws.
+Figure~\ref{fig:magent-geometry-type-stack} keeps the finite-design maps typed separately: \(\operatorname{Ev}_D\) acts on sample-field realizations, \(\operatorname{Samp}_{D,i}^{k,m}\) samples continuum sections, and coordinate marginalization acts on \(Q_X\). The last two outputs are joined only by the optional compatibility hypothesis.
 
 \begin{figure}[tbp]
 \centering
 \input{magent_elbo_whitepaper/figures/magent_geometry_type_stack}
-\caption{\textbf{Geometry and probability occupy different typed layers.} The bundle projection and associated-bundle construction are exact geometric declarations. Finite sample evaluation sends a sample-field realization \(y\) to \(\operatorname{Ev}_D(y)=Y_D\in\mathsf Y_D\), whereas pointwise evaluation of a distribution-valued section gives the laws \(q_i(c_a)\) and \(s_i(c_a)\). These laws are the coordinate pushforward marginals of \(Q_X(dY\mid o)\); they are not pushforwards of the sections under \(\operatorname{Ev}_D\). The sections do not generate the correlated joint law. The dashed interaction graph is only finite incidence data in \(X\), not the base of \(\mathcal P\), and neither its vertices nor the evaluated variables \(Y\) are agents.}
+\caption{\textbf{Geometry and probability occupy different typed layers.} The bundle projection and associated-bundle construction are exact geometric declarations. Finite sample evaluation sends a sample-field realization \(y\) to \(\operatorname{Ev}_D(y)=Y_D\in\mathsf Y_D\). Continuum sampling sends \(q_i^{o,X}\) and \(s_i^{o,X}\) to their values on \(D\), whereas finite marginalization sends \(Q_X(dY\mid o)\) to \(q_{i,a}^{o,X}\) and \(s_{i,a}^{o,X}\). The dashed relation has no direction: it records coordinatewise equality only under the additional compatibility hypothesis, and neither map defines the other. The continuum sections do not generate the correlated joint law. The dashed interaction graph is only finite incidence data in \(X\), not the base of \(\mathcal P\), and neither its vertices nor the evaluated variables \(Y\) are agents.}
 \label{fig:magent-geometry-type-stack}
 \end{figure}
 

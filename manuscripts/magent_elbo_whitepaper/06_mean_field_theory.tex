@@ -18,10 +18,32 @@ Q_{X,\mathrm{block}}(dY\mid o)
 &=\prod_{i=1}^{N}Q_{X,i}(dk_i^D,dm_i^D\mid o),
 \label{eq:agent-block-recognition-family}\\
 Q_{X,\mathrm{MF}}(dY\mid o)
-&=\prod_{i=1}^{N}q_i(dk_i^D\mid o)s_i(dm_i^D\mid o).
+&=\prod_{i=1}^{N}Q^k_{X,i}(dk_i^D\mid o)Q^m_{X,i}(dm_i^D\mid o).
 \label{eq:state-model-recognition-family}
 \end{align}
-Thus the first family removes dependence between distinct agents but permits dependence between the state and model channels of one agent. The second also removes state--model dependence within each agent. Neither equation requires factorization across the design points inside one displayed factor. A still finer design-point product would be an additional restriction and would require its own declared partition.
+Thus the first family removes dependence between distinct agents but permits dependence between the state and model channels of one agent. The second also removes state--model dependence within each agent. Write \(Q_{X,-(i,k)}\) for the product of every factor in Equation~\eqref{eq:state-model-recognition-family} except \(Q^k_{X,i}\), and write \(Q_{X,-(i,m)}\) for the corresponding complement of \(Q^m_{X,i}\). These finite-design factor measures are distinct from the continuum sections \(q_i\) and \(s_i\). Neither equation requires factorization across the design points inside one displayed factor. A still finer design-point product would be an additional restriction and would require its own declared partition.
+
+For the density-form CAVI equations, assume the finite factor measures are dominated by the corresponding design-product base measures
+\begin{equation}
+\nu_i^{k,D}:=\bigotimes_{a=1}^{M}\nu_{i,a}^{k},
+\qquad
+\nu_i^{m,D}:=\bigotimes_{a=1}^{M}\nu_{i,a}^{m},
+\label{eq:mean-field-factor-base-measures}
+\end{equation}
+and define their distinct density symbols by
+\begin{align}
+Q_{X,i}(dk_i^D,dm_i^D\mid o)
+&=\xi^{\mathrm{block}}_{X,i}(k_i^D,m_i^D\mid o)
+\left(\nu_i^{k,D}\otimes\nu_i^{m,D}\right)(dk_i^D,dm_i^D),
+\label{eq:agent-block-factor-density}\\
+Q^k_{X,i}(dk_i^D\mid o)
+&=\xi^k_{X,i}(k_i^D\mid o)\nu_i^{k,D}(dk_i^D),
+\label{eq:state-factor-density}\\
+Q^m_{X,i}(dm_i^D\mid o)
+&=\xi^m_{X,i}(m_i^D\mid o)\nu_i^{m,D}(dm_i^D).
+\label{eq:model-factor-density}
+\end{align}
+Thus \(Q_{X,i},Q^k_{X,i},Q^m_{X,i}\) are probability measures, whereas \(\xi^{\mathrm{block}}_{X,i},\xi^k_{X,i},\xi^m_{X,i}\) are their Radon--Nikodym densities. The three explicit Markov-blanket coordinate logarithms below apply to these densities, never to the capital factor measures.
 
 Let \(\mathfrak B\) denote any finite measurable partition of the coordinates of \(Y_D\), and write \(Y=(Y_b,Y_{-b})\) for one block and its complement. A product-family member has density
 \begin{equation}
@@ -102,8 +124,8 @@ Let \(\operatorname{ch}(i)=\{\ell\in V:i\in\operatorname{pa}(\ell)\}\). For each
 
 In the state--model family of Equation~\eqref{eq:state-model-recognition-family}, the exact coordinate for the complete state factor of agent \(i\) is
 \begin{align}
-\log q_i^\star(k_i^D\mid o)
-={}&\sum_{a=1}^{M}\E_{Q_{-q_i}}\left[
+\log \bigl(\xi^k_{X,i}\bigr)^\star(k_i^D\mid o)
+={}&\sum_{a=1}^{M}\E_{Q_{X,-(i,k)}}\left[
 \ell_{i,a}^{k}+\ell_{i,a}^{o}
 +\sum_{\ell\in\operatorname{ch}(i)}
 \log p_{\theta,\ell,a}^{k}
@@ -114,12 +136,11 @@ In the state--model family of Equation~\eqref{eq:state-model-recognition-family}
 \end{align}
 The child sum is present because \(k_i\) occurs as a conditioning variable in every outgoing state transition. Likewise, the complete model-factor coordinate is
 \begin{align}
-\log s_i^\star(m_i^D\mid o)
-={}&\sum_{a=1}^{M}\E_{Q_{-s_i}}\left[
+\log \bigl(\xi^m_{X,i}\bigr)^\star(m_i^D\mid o)
+={}&\sum_{a=1}^{M}\E_{Q_{X,-(i,m)}}\left[
 \ell_{i,a}^{m}+\ell_{i,a}^{k}+\ell_{i,a}^{o}
 +\sum_{\ell\in\operatorname{ch}(i)}
-\log p_{\theta,\ell,a}^{m}
-(m_{\ell,a}\mid m_{\operatorname{pa}(\ell),a},X)
+\ell_{\ell,a}^{m}
 \right]
 -\log Z_i^m.
 \label{eq:complete-model-cavi-coordinate}
@@ -128,11 +149,13 @@ Here \(\ell_{i,a}^{k}\) is the local state bridge or receiving transition, which
 
 For the coarser agent block, the corresponding complete coordinate combines both blankets:
 \begin{align}
-\log Q_{X,i}^\star(k_i^D,m_i^D\mid o)
-={}&\sum_{a=1}^{M}\E_{Q_{X,-i}}\left[
+&\log \bigl(\xi^{\mathrm{block}}_{X,i}\bigr)^\star
+\left(k_i^D,m_i^D\mid o\right)\notag\\
+&\quad={}
+\sum_{a=1}^{M}\E_{Q_{X,-i}}\left[
 \ell_{i,a}^{m}+\ell_{i,a}^{k}+\ell_{i,a}^{o}
 \right.\notag\\
-&\left.\quad+
+&\left.\qquad+
 \sum_{\ell\in\operatorname{ch}(i)}
 \left\{
 \ell_{\ell,a}^{m}+\ell_{\ell,a}^{k}
@@ -241,7 +264,7 @@ T_i^m=A_i^m\Omega_{ij}^m,
 \end{equation}
 for a nonroot edge \(j\to i\), with the root state precision denoted \(\Lambda_{r,0}^k=(Q_{r,0}^k)^{-1}\). Expanding the Gaussian residuals shows that a nonroot model transition contributes the cross-agent precision block \(-\Lambda_i^mT_i^m\) between \(m_i\) and \(m_j\). A nonroot state transition contributes \(-\Lambda_i^kT_i^k\) between \(k_i\) and \(k_j\), \(-\Lambda_i^kB_i\) between \(k_i\) and \(m_i\), and \((T_i^k)^\top\Lambda_i^kB_i\) between \(k_j\) and \(m_i\), together with their transposes. The local observation contributes
 \begin{equation}
-H_i^\top(R_i^o)^{-1}L_i
+H_i^\top(R_i^o)^{-1}L_i,
 \label{eq:observation-state-model-cross-precision}
 \end{equation}
 to the \((k_i,m_i)\) precision block. Appendix~\ref{sec:gaussian-zero-coupling-proof} derives these signs from the quadratic residuals.
@@ -270,11 +293,11 @@ so the exact posterior belongs to Equation~\eqref{eq:state-model-recognition-fam
 
 \section{A fixed-source categorical row model}
 
-Let \((\mathsf Y_i,\mathscr Y_i,\nu_i)\) be a state sample space. Fix normalized densities \(f_{ij}\) on this space and a normalized prior row \(\pi_i=(\pi_{ij})_{j\in\mathcal J_i}\) with \(\pi_{ij}>0\). Let \(q_i\) be a normalized density satisfying \(q_i\ll f_{ij}\) and \(\KL(q_i\Vert f_{ij})<\infty\) for every candidate source. Define two normalized joint laws on \(\mathsf Y_i\times\mathcal J_i\) by
+Let \((\mathsf Y_i,\mathscr Y_i,\nu_i)\) be a state sample space. Fix normalized densities \(f_{ij}\) on this space and a normalized prior row \(\pi_i=(\pi_{ij})_{j\in\mathcal J_i}\) with \(\pi_{ij}>0\). Let \(\varrho_i\) be a normalized density satisfying \(\varrho_i\ll f_{ij}\) and \(\KL(\varrho_i\Vert f_{ij})<\infty\) for every candidate source. Define two normalized joint laws on \(\mathsf Y_i\times\mathcal J_i\) by
 \begin{equation}
 P_i(y,j)=\pi_{ij}f_{ij}(y),
 \qquad
-Q_i(y,j)=\beta_{ij}q_i(y),
+Q_i(y,j)=\beta_{ij}\varrho_i(y),
 \qquad
 \sum_j\beta_{ij}=1.
 \label{eq:fixed-source-row-joints}
@@ -283,22 +306,22 @@ Direct expansion of the joint density ratio gives
 \begin{align}
 \KL(Q_i\Vert P_i)
 &=\sum_j\beta_{ij}
-\int q_i(y)
-\log\frac{\beta_{ij}q_i(y)}{\pi_{ij}f_{ij}(y)}\nu_i(dy)
+\int \varrho_i(y)
+\log\frac{\beta_{ij}\varrho_i(y)}{\pi_{ij}f_{ij}(y)}\nu_i(dy)
 \label{eq:fixed-source-row-kl-expansion}\\
-&=\sum_j\beta_{ij}\KL(q_i\Vert f_{ij})
+&=\sum_j\beta_{ij}\KL(\varrho_i\Vert f_{ij})
 +\KL(\beta_i\Vert\pi_i).
 \label{eq:fixed-source-row-kl-decomposition}
 \end{align}
 Minimizing this exact joint KL over the probability simplex and normalizing the Lagrange stationary equation yields
 \begin{equation}
 \beta_{ij}^\star
-=\frac{\pi_{ij}\exp[-\KL(q_i\Vert f_{ij})]}
+=\frac{\pi_{ij}\exp[-\KL(\varrho_i\Vert f_{ij})]}
 {\displaystyle\sum_{\ell\in\mathcal J_i}
-\pi_{i\ell}\exp[-\KL(q_i\Vert f_{i\ell})]}.
+\pi_{i\ell}\exp[-\KL(\varrho_i\Vert f_{i\ell})]}.
 \label{eq:fixed-source-row-optimum}
 \end{equation}
 This formula is exact for fixed normalized component densities and unit temperature. A nonunit temperature is not obtained by inserting a scale into Equation~\eqref{eq:fixed-source-row-optimum} while claiming the same joint KL. It requires a separately normalized tempered construction, including each component's temperature-dependent normalizer. Refreshing \(f_{ij}\) from live recognition marginals also changes \(P_i\) and therefore changes the model between updates.
 
-The categorical entropy of \(\beta_i\) is an auxiliary source-row entropy on \(\mathcal J_i\). It is distinct from the state entropy of \(q_i\) on \(\mathsf Y_i\), and both are distinct from the configuration entropy of a recognition law on \((\mathsf X,\mathscr X)\). Equation~\eqref{eq:fixed-source-row-kl-decomposition} supplies no license to merge or double count those sectors.
+The categorical entropy of \(\beta_i\) is an auxiliary source-row entropy on \(\mathcal J_i\). It is distinct from the state entropy of \(\varrho_i\) on \(\mathsf Y_i\), and both are distinct from the configuration entropy of a recognition law on \((\mathsf X,\mathscr X)\). Equation~\eqref{eq:fixed-source-row-kl-decomposition} supplies no license to merge or double count those sectors.
 The row-local construction is normalized for one receiver. Multiplying two or more such rows does not by itself define a normalized population joint when their state variables are shared; that would require a separately specified global construction.

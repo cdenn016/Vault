@@ -367,7 +367,7 @@ d\log\det C_b=\operatorname{tr}(C_b^{-1}dC_b),
 give the covariance derivative in Equation~\eqref{eq:gaussian-reverse-kl-derivatives}. The mean derivative follows from symmetry of \(J\). Every principal block \(J_{bb}\) is positive definite. The covariance-dependent objective
 \begin{equation}
 C_b\longmapsto
-\operatorname{tr}(J_{bb}C_b)-\log\det C_b
+\operatorname{tr}(J_{bb}C_b)-\log\det C_b,
 \label{eq:appendix-covariance-block-objective}
 \end{equation}
 is strictly convex on \(\mathbb S_{++}^{d_b}\), while the mean quadratic is strictly convex because \(J\succ0\). The stationary values in Equation~\eqref{eq:gaussian-block-reverse-kl-optimum} are therefore the unique global minimizers.
@@ -465,16 +465,16 @@ for a nonroot, with \(\Lambda_i^k\) replaced by \(\Lambda_{r,0}^k\) at a root. A
 Under the support and normalization assumptions preceding Equation~\eqref{eq:fixed-source-row-joints}, direct use of counting measure on \(\mathcal J_i\) gives
 \begin{align}
 \KL(Q_i\Vert P_i)
-&=\sum_j\int\beta_{ij}q_i(y)
+&=\sum_j\int\beta_{ij}\varrho_i(y)
 \left[
-\log\frac{q_i(y)}{f_{ij}(y)}
+\log\frac{\varrho_i(y)}{f_{ij}(y)}
 +\log\frac{\beta_{ij}}{\pi_{ij}}
 \right]\nu_i(dy)\notag\\
-&=\sum_j\beta_{ij}\KL(q_i\Vert f_{ij})
+&=\sum_j\beta_{ij}\KL(\varrho_i\Vert f_{ij})
 +\sum_j\beta_{ij}\log\frac{\beta_{ij}}{\pi_{ij}},
 \label{eq:appendix-fixed-source-row-kl}
 \end{align}
-which proves Equation~\eqref{eq:fixed-source-row-kl-decomposition}. Write \(c_{ij}=\KL(q_i\Vert f_{ij})\). The simplex Lagrangian has derivative
+which proves Equation~\eqref{eq:fixed-source-row-kl-decomposition}. Write \(c_{ij}=\KL(\varrho_i\Vert f_{ij})\). The simplex Lagrangian has derivative
 \begin{equation}
 \frac{\partial}{\partial\beta_{ij}}
 \left\{
@@ -491,72 +491,64 @@ The stationary values obey \(\beta_{ij}=\pi_{ij}\exp(-c_{ij}-1-\lambda_i)\). Sum
 
 This appendix supplies the functional derivatives and simplex identities used in Chapter~\ref{ch:pifb2-crosswalk}. The calculations concern densities relative to declared base measures. They do not introduce a probability measure on a continuum of sections.
 
-\section{Typed moving-peer third variation}
+\section{Typed moving-peer iterated path derivative}
 \label{sec:moving-peer-calculus-oracle}
 
-Use the assumptions and notation of Theorem~\ref{thm:magent-moving-peer-obstruction}. Set
+Use the assumptions and notation of Theorem~\ref{thm:magent-moving-peer-obstruction}. For each site \(a\) and channel \(h\), abbreviate
 \begin{equation}
-r=T_{ij}q_j,
+r_a^{(h)}=T_{ij,a}^{(h)}q_{j,a}^{o,X},
 \qquad
-u=T_{ij}h_j,
-\qquad
-q_i(s)=q_i+s a_i,
-\qquad
-q_j(t)=q_j+t h_j.
+u_a^{(h)}=T_{ij,a}^{(h)}h_{j,a}.
 \label{eq:appendix-moving-peer-paths}
 \end{equation}
-Linearity of \(T_{ij}\) gives \(T_{ij}q_j(t)=r+t u\). On a sufficiently small rectangle around \((s,t)=(0,0)\), the positivity, support, bounded-ratio, and integrability assumptions permit the following derivatives under the integral:
+Linearity gives \(T_{ij,a}^{(h)}q_{j,a}(t)=r_a^{(h)}+t u_a^{(h)}\). On the single open rectangle \(\mathcal U\) in Equation~\eqref{eq:moving-peer-admissible-rectangle}, the positivity, support, bounded-ratio, finiteness, and domination assumptions permit the pathwise derivatives
 \begin{align}
-\beta_{ij}\KL(q_i(s)\Vert T_{ij}q_j(t))
-={}&\beta_{ij}\int(q_i+s a_i)\log(q_i+s a_i)d\nu_i
+\KL\left(q_{i,a}(s)\middle\Vert
+T_{ij,a}^{(h)}q_{j,a}(t)\right)
+={}&\int(q_{i,a}^{o,X}+s a_{i,a})
+\log(q_{i,a}^{o,X}+s a_{i,a})d\nu_{i,a}
 \notag\\
-&-\beta_{ij}\int(q_i+s a_i)\log(r+t u)d\nu_i,
+&-\int(q_{i,a}^{o,X}+s a_{i,a})
+\log(r_a^{(h)}+t u_a^{(h)})d\nu_{i,a},
 \label{eq:appendix-moving-peer-kl-split}\\
-\frac{\partial}{\partial t}
-\left[-\log(r+t u)\right]
-={}&-\frac{u}{r+t u},
+\partial_t\left[-\log(r_a^{(h)}+t u_a^{(h)})\right]
+={}&-\frac{u_a^{(h)}}{r_a^{(h)}+t u_a^{(h)}},
 \label{eq:appendix-moving-peer-first-sender}\\
-\frac{\partial^2}{\partial t^2}
-\left[-\log(r+t u)\right]
-={}&\frac{u^2}{(r+t u)^2}.
+\partial_t^2\left[-\log(r_a^{(h)}+t u_a^{(h)})\right]
+={}&\frac{(u_a^{(h)})^2}
+{(r_a^{(h)}+t u_a^{(h)})^2}.
 \label{eq:appendix-moving-peer-second-sender}
 \end{align}
-The receiver entropy in the first line of Equation~\eqref{eq:appendix-moving-peer-kl-split} has no \(t\) dependence. Applying \(\partial_s\partial_t^2\) to the second line and evaluating at the origin gives
+The receiver entropy in Equation~\eqref{eq:appendix-moving-peer-kl-split} has no \(t\) dependence. Applying \(\partial_s\partial_t^2\) to the cross-entropy term and evaluating at the origin gives
 \begin{equation}
-\left.
-\frac{\partial^3}{\partial s\partial t^2}
-\beta_{ij}\KL(q_i(s)\Vert T_{ij}q_j(t))
-\right|_{s=t=0}
-=\beta_{ij}\int a_i
-\left(\frac{u}{r}\right)^2d\nu_i.
+\left.\partial_s\partial_t^2
+\KL\left(q_{i,a}(s)\middle\Vert
+T_{ij,a}^{(h)}q_{j,a}(t)\right)\right|_{(0,0)}
+=\int a_{i,a}g_{ij,a}^{(h)}d\nu_{i,a}.
 \label{eq:appendix-moving-peer-third-variation}
 \end{equation}
-This confirms both the derivative order and the positive sign in Equation~\eqref{eq:moving-peer-mixed-third}.
+This is the iterated pathwise derivative proved in the theorem; no unrestricted ambient third Fr\'echet derivative is invoked.
 
-For the receiver tangent in Equation~\eqref{eq:moving-peer-receiver-tangent}, let
+Let \(B_{i,a}=G_{ij,a}-\E_{q_{i,a}^{o,X}}G_{ij,a}\). Then \(a_{i,a}=q_{i,a}^{o,X}B_{i,a}\), \(\int a_{i,a}d\nu_{i,a}=0\), and \(B_{i,a}\) is bounded. After shrinking the common \(s\)-interval if necessary, the finite number of site paths obey
 \begin{equation}
-b_i=g_{ij}-\E_{q_i}g_{ij}.
-\label{eq:appendix-moving-peer-centered-g}
-\end{equation}
-Then \(a_i=q_i b_i\), \(\int a_i d\nu_i=0\), and \(b_i\in L^\infty(q_i)\). If \(b_i\neq0\), every \(s\) satisfying \(|s|\lVert b_i\rVert_\infty<1\) gives
-\begin{equation}
-q_i(s)=q_i(1+s b_i)>0,
+q_{i,a}(s)=q_{i,a}^{o,X}(1+sB_{i,a})>0,
 \qquad
-\int q_i(s)d\nu_i=1.
+\int q_{i,a}(s)d\nu_{i,a}=1.
 \label{eq:appendix-moving-peer-positive-mixture}
 \end{equation}
-Mixture openness makes this path admissible. Substitution gives
+Mixture openness makes every site-local path \(\Gamma_a\) admissible on the same rectangle. Multiplying Equation~\eqref{eq:appendix-moving-peer-third-variation} by the positive channel coefficients and quadrature weights, summing the derivatives of the separate site-local paths, and using the definition of \(G_{ij,a}\) yields
 \begin{align}
-\int a_i g_{ij}d\nu_i
-&=\E_{q_i}\left[
-(g_{ij}-\E_{q_i}g_{ij})g_{ij}
-\right]
-\notag\\
-&=\E_{q_i}[g_{ij}^2]
--\left(\E_{q_i}g_{ij}\right)^2
-=\operatorname{Var}_{q_i}(g_{ij}).
+\sum_{a=1}^{M}\left.\partial_s\partial_t^2
+(\mathcal C_D\circ\Gamma_a)(s,t)\right|_{(0,0)}
+&=\lambda\sum_{a=1}^{M}w_a
+\int q_{i,a}^{o,X}B_{i,a}G_{ij,a}d\nu_{i,a}\notag\\
+&=\lambda\sum_{a=1}^{M}w_a
+\operatorname{Var}_{q_{i,a}^{o,X}}(G_{ij,a})>0.
 \label{eq:appendix-moving-peer-variance-identity}
 \end{align}
+The first equality also uses the zero remainder derivative along every \(\Gamma_a\). It is a sum of site-local derivatives, not the derivative of one simultaneous path that varies all sites. The second equality is the centered-moment identity, and strict positivity is exactly Equation~\eqref{eq:moving-peer-finite-positive-variance}. This finite conclusion is restricted to the fine site-factorized mean-field comparison family in Equation~\eqref{eq:moving-peer-fine-comparison-family}; it does not cover Chapter~\ref{ch:mean-field-theory}'s coarser cross-design factors.
+
+For the continuum corollary, first choose the measurable sender tangent \(h_j(c)\), then form \(G_{ij}(c)\) in Equation~\eqref{eq:moving-peer-continuum-aggregate}, and then form the exact centered receiver tangent \(a_i(c)\) in Equation~\eqref{eq:moving-peer-continuum-centered-tangent}. The corollary directly assumes that this \(a_i(c)\) is jointly measurable, has zero mass in every receiver fiber, and shares one common admissible open rectangle with the sender path in Equation~\eqref{eq:moving-peer-continuum-exact-path}. Its nearby-KL, bounded-ratio, and common-envelope assumptions apply to that exact path. The common integrable envelope first permits the fiberwise derivatives and then permits \(\partial_s\partial_t^2\) to pass through the base integral. The centered receiver tangent gives the integral in Equation~\eqref{eq:moving-peer-continuum-positive-variance}, which is strictly positive by hypothesis. This step uses only the fixed base measure and dominated differentiation; it defines no law on the set of continuum fields and asserts no limiting relation to the finite designs.
 
 An exact two-state oracle makes the strictness concrete. Take counting measure, identity transport, and
 \begin{equation}
@@ -596,12 +588,12 @@ F(s,t)+F(s,-t)-2F(s,0)
 ={}&\frac{27}{3200}.
 \label{eq:appendix-moving-peer-finite-difference-limit}
 \end{align}
-The finite difference differentiates once in the receiver direction and twice in the sender direction, matching the typed trilinear variation rather than a permutation of it.
+The finite difference differentiates once in the receiver direction and twice in the sender direction, matching the iterated pathwise derivative rather than a permutation of it.
 
 \section{Row-simplex envelope and channel normalization}
 \label{sec:pifb2-row-envelope-proof}
 
-Let the active row support be finite, let \(\widetilde\pi_{ij}\geq0\) sum to one, and require \(\beta_i\ll\widetilde\pi_i\). For finite edge energies \(E_{ij}\) and \(\tau>0\), define
+Let the row index set be finite, let \(\widetilde\pi_{ij}\geq0\) sum to one, define \(\mathcal J_i^+:=\{j:\widetilde\pi_{ij}>0\}\), and require \(\beta_i\ll\widetilde\pi_i\). For finite edge energies \(E_{ij}\) and \(\tau>0\), define
 \begin{equation}
 Z_i=\sum_j\widetilde\pi_{ij}e^{-E_{ij}/\tau}.
 \label{eq:appendix-pifb2-row-partition}
@@ -616,10 +608,10 @@ At least one positive prior entry makes \(Z_i>0\). The proposed optimum in Equat
 Its logarithmic ratio satisfies
 \begin{equation}
 \log\frac{\beta_{ij}^*}{\widetilde\pi_{ij}}
-=-\frac{E_{ij}}{\tau}-\log Z_i
+=-\frac{E_{ij}}{\tau}-\log Z_i,
 \label{eq:appendix-pifb2-optimal-log-ratio}
 \end{equation}
-on the active support. Substitution in the full row scalar gives
+for \(j\in\mathcal J_i^+\). Substitution in the full row scalar gives
 \begin{align}
 \mathcal R_i(\beta_i^*,x)
 &=\sum_j\beta_{ij}^*E_{ij}
@@ -629,6 +621,17 @@ on the active support. Substitution in the full row scalar gives
 &=-\tau\log Z_i.
 \label{eq:appendix-pifb2-row-envelope-substitution}
 \end{align}
+Using Equation~\eqref{eq:appendix-pifb2-optimal-log-ratio} and \(S_i=\sum_j\beta_{ij}^*E_{ij}\), the categorical response term satisfies
+\begin{align}
+\tau\KL(\beta_i^*\Vert\widetilde\pi_i)
+&=\tau\sum_j\beta_{ij}^*
+\left(-\frac{E_{ij}}{\tau}-\log Z_i\right)\notag\\
+&=-S_i-\tau\log Z_i
+=\mathcal R_i^{\mathrm{red}}-S_i.
+\label{eq:appendix-pifb2-response-decomposition}
+\end{align}
+Nonnegativity of categorical relative entropy proves Equation~\eqref{eq:pifb2-response-decomposition}. Equality holds exactly when \(\beta_i^*=\widetilde\pi_i\). On \(\mathcal J_i^+\), the optimum formula then gives \(e^{-E_{ij}/\tau}=Z_i\), so equality is equivalent to \(E_{ij}=E_{ik}\) for every \(j,k\in\mathcal J_i^+\). Conversely, equal energies on \(\mathcal J_i^+\) make \(\beta_i^*=\widetilde\pi_i\). No condition is imposed on \(E_{ij}\) for \(j\notin\mathcal J_i^+\), where both row weights vanish. Vanishing of the covariance term in \(dS_i\) along one selected direction does not imply this equality condition.
+
 Strict convexity of categorical relative entropy on the relative interior of the supported simplex gives uniqueness. Differentiating Equation~\eqref{eq:appendix-pifb2-row-envelope-substitution} yields
 \begin{equation}
 d\mathcal R_i^{\mathrm{red}}
@@ -772,8 +775,13 @@ For the observation residual
 Equation~\eqref{eq:observation-parameter-gauge-laws} gives \(\delta_i^{o\prime}=\delta_i^o\) and \(R_i^{o\prime}=R_i^o\). Hence the observation density itself is unchanged. The same calculations apply to the root kernels after replacing the nonroot means and covariances by Equations~\eqref{eq:gaussian-model-root}--\eqref{eq:gaussian-state-root}. These identities provide a finite matrix oracle: sample invertible represented frame matrices and SPD covariances, transform every parameter by the displayed laws, and test the residual, quadratic-form, determinant, root-moment, and observation-mean equalities to numerical tolerance.
 
 
-\section{Executable oracle verification record}
+\section{Historical Task~12 verification record}
 \label{sec:executable-oracle-verification-record}
+
+This section preserves a historical project record only. The exact source revision and artifact hashes for the reported run were not recorded, and the manuscript has since changed. The statements below are therefore not current closure evidence. The revision-bound record for the present source is
+\path{sources/manuscripts/}\allowbreak
+\path{magent-exact-elbo-whitepaper-2026-07-19-}\allowbreak
+\path{continuum-finite-remediation.md}.
 
 The deterministic reference implementation is stored in
 \path{magent_elbo_whitepaper/verification/elbo_oracles.py}, with its
@@ -808,7 +816,7 @@ no box warning.
 
 \chapter{Notation}
 
-Table~\ref{tab:magent-notation} consolidates the geometric, probabilistic, and configuration-level types. A symbol in the middle column denotes a domain or mathematical type, not merely an informal role. The table reserves \(q_i\) and \(s_i\) for state- and model-level section values or recognition marginals. If a later random configuration contains measure-valued fields, they are written \(\widehat q_i,\widehat s_i\) and related to state-level marginals by an explicit model or summary map; they are never silently substituted for \(q_i,s_i\).
+Table~\ref{tab:magent-notation} consolidates the geometric, probabilistic, and configuration-level types. A symbol in the middle column denotes a domain or mathematical type, not merely an informal role. The table reserves \(q_i\) and \(s_i\) for continuum state and model sections in one fixed theoretical state. Observation- and configuration-dependent continuum sections carry superscripts, finite marginals carry both superscripts and the design index, and finite product-family factors use capital \(Q\). If a later random configuration contains measure-valued fields, they are written \(\widehat q_i,\widehat s_i\) and related to finite state-level marginals by an explicit model or summary map; they are never silently substituted for continuum sections or finite marginals.
 
 \small
 \begin{longtable}{>{\raggedright\arraybackslash}p{0.17\textwidth}>{\raggedright\arraybackslash}p{0.31\textwidth}>{\raggedright\arraybackslash}p{0.42\textwidth}}
@@ -839,10 +847,22 @@ Population incidence and oriented interaction links. The graph or complex is str
 Agent object carrying supported local statistical sections and a local group-valued frame coordinate. It is not a vertex label, latent vector, or variational factor alone.\\
 \(q_i(c),p_i(c)\) &
 \(\mathcal B_{\mathrm{state},c}\subseteq\mathcal P(\mathsf K_{i,c})\) &
-State recognition marginal and state prior section values at \(c\).\\
+Continuum state recognition and prior section values at \(c\) for one fixed theoretical state.\\
 \(s_i(c),r_i(c)\) &
 \(\mathcal B_{\mathrm{model},c}\subseteq\mathcal P(\mathsf M_{i,c})\) &
-Model recognition marginal and model prior section values at \(c\).\\
+Continuum model recognition and prior section values at \(c\) for one fixed theoretical state.\\
+\(q_i^{o,X}(c),s_i^{o,X}(c)\) &
+Values in \(\mathcal P(\mathsf K_{i,c})\) and \(\mathcal P(\mathsf M_{i,c})\) &
+Values of supplied continuum recognition sections \(q_i^{o,X}\in\Gamma(\mathcal U_i,\mathcal E_{\mathrm{state}}\vert_{\mathcal U_i})\) and \(s_i^{o,X}\in\Gamma(\mathcal U_i,\mathcal E_{\mathrm{model}}\vert_{\mathcal U_i})\).\\
+\(q_{i,a}^{o,X},s_{i,a}^{o,X}\) &
+Elements of \(\mathcal P(\mathsf K_{i,c_a})\) and \(\mathcal P(\mathsf M_{i,c_a})\) &
+Finite coordinate marginals of \(Q_X(dY\mid o)\). Equality to the corresponding sampled continuum-section values is an additional compatibility hypothesis.\\
+\(\operatorname{Samp}_{D,i}^{k,m}\) &
+Continuum sections to tuples of statistical-fiber values over \(D\) &
+Continuum sampling maps defined independently of the finite recognition law.\\
+\(\operatorname{Marg}_{i,a}^{k,m}\) &
+\(\mathcal P(\mathsf Y_D,\mathscr Y_D)\) to the relevant coordinate probability space &
+Finite marginalization maps induced by the coordinate projections of \(\mathsf Y_D\).\\
 \(k_i(c),m_i(c)\) &
 \(\mathsf K_{i,c}\) and \(\mathsf M_{i,c}\) &
 Latent state and model samples. These are realizations, not probability measures or agents.\\
@@ -860,7 +880,16 @@ Structural data conditioned upon by the state model. Only structural values on t
 Normalized generative probability kernel and, when dominated, its density defined by \(P_\theta(do,dY\mid X)=p_\theta(o,y\mid X)\nu_D^O(do)\nu_D^Y(dy)\). No factor reads a live recognition marginal.\\
 \(Q_X(dY\mid o)\) &
 \(Q:(\mathsf O_D\times\mathsf X,\mathscr O_D\otimes\mathscr X)\to\mathcal P(\mathsf Y_D,\mathscr Y_D)\) &
-Normalized, generally correlated recognition kernel whose coordinate pushforwards give \(q_i(c_a)\) and \(s_i(c_a)\).\\
+Normalized, generally correlated recognition kernel whose coordinate pushforwards give \(q_{i,a}^{o,X}\) and \(s_{i,a}^{o,X}\).\\
+\(Q_{X,i},Q^k_{X,i},Q^m_{X,i}\) &
+Finite-design agent-block, state, and model factor measures in the declared product families &
+Mean-field factor measures distinct from the continuum sections \(q_i,s_i\); the fine-factor complements are \(Q_{X,-(i,k)}\) and \(Q_{X,-(i,m)}\), while the agent-block complement is \(Q_{X,-i}\).\\
+\(\xi^{\mathrm{block}}_{X,i},\xi^k_{X,i},\xi^m_{X,i}\) &
+Radon--Nikodym densities relative to \(\nu_i^{k,D}\otimes\nu_i^{m,D}\), \(\nu_i^{k,D}\), and \(\nu_i^{m,D}\) &
+Dominated finite mean-field factor densities; these lowercase density symbols, rather than the capital factor measures, appear inside logarithms in the explicit Markov-blanket CAVI coordinates.\\
+\(\varrho_i\) &
+Normalized density on \((\mathsf Y_i,\mathscr Y_i,\nu_i)\) &
+Generic receiver density in the fixed-source categorical row model, distinct from the continuum state section \(q_i\).\\
 \(P_0(dX),R(dX\mid o)\) &
 \(P_0\in\mathcal P(\mathsf X,\mathscr X)\); \(R:(\mathsf O_D,\mathscr O_D)\to\mathcal P(\mathsf X,\mathscr X)\), with \(R(\mathord\cdot\mid o)\ll P_0\) where required &
 Configuration prior and configuration recognition law in the optional hierarchical tier.\\
@@ -869,7 +898,7 @@ Configuration prior and configuration recognition law in the optional hierarchic
 Proper configuration reference law and an optional normalized configuration-Gibbs law.\\
 \(\widehat q_i,\widehat s_i\) &
 Declared measure-valued coordinates of a random \(X\), if that extension is used &
-Configuration-level fields distinguished typographically from the state recognition marginals \(q_i,s_i\); an explicit map must relate the two levels.\\
+Configuration-level fields distinguished typographically from the finite state recognition marginals \(q_{i,a}^{o,X},s_{i,a}^{o,X}\); an explicit map must relate the two levels.\\
 \(U_i(c),g_i\) &
 \(U_i(c),g_i\in G\) &
 Local principal-frame coordinate and a principal-frame change. The exponential expression \(U_i=\exp\phi_i\) is only local.\\

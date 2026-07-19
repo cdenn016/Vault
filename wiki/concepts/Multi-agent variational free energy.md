@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-12
+updated: 2026-07-19
 ---
 
 # Multi-agent variational free energy
@@ -81,7 +81,9 @@ The covariance response has no universal homophily sign and cannot be substitute
 
 The social block is an **engineered gauge-covariant consensus energy**. A rowwise source-mixture identity can be written only after the substantive assumption that the transported source templates form an externally supplied candidate family for that row. Even then, the row identity does not make the whole population functional the mean-field ELBO of one fixed joint on the original agent-state variables because the sources are other variational beliefs.
 
-[[vfe-population-generative-status-2026-07-12]] proves the fixed-state mean-field obstruction and records three narrower constructions: the zero-within-scale Gaussian hierarchy, an equilibrium-frozen auxiliary source model, and a belief-configuration Gibbs lift when its partition function is finite. These constructions fence the probabilistic interpretation without weakening the scalar optimization result.
+[[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]] supplies the corrected obstruction. It works on the fine site-factorized family and sums iterated derivatives from separate site-local paths, yielding a positive weighted variance while every fixed-joint negative ELBO gives zero on the corresponding paths. The result excludes the coarser cross-design families, restricted families without the needed tangents, auxiliary-variable lifts, and the reduced functional after substituting state-dependent optimized attention. Its continuum corollary is conditional and does not construct a probability law on section space or a finite-to-continuum limit.
+
+[[vfe-population-generative-status-2026-07-12]] remains the immutable earlier record of the equilibrium-frozen auxiliary source model and a belief-configuration Gibbs lift when its partition function is finite. Its older obstruction account is refined by the site-local theorem above rather than silently rewritten.
 
 ## Primary dynamics
 
@@ -126,6 +128,7 @@ The optimized envelope force $c_0/(b_0+D_i)$ differs from the derivative $b_0c_0
 
 ## Sources
 
+- [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]] -- corrected fine-family/site-local obstruction, response identity, and conditional continuum corollary.
 - [[belief-inertia-2026-07-12-theorem-first-revision]] -- entropy-retaining social objective, envelope gradient, Fisher path, and conditional kinetics.
 - [[vfe-population-generative-status-2026-07-12]] -- exact generative-model scope and no-go result.
 - [[participatory-it-from-bit]] -- broader two-channel multi-agent framework.
