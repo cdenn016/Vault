@@ -293,6 +293,40 @@ Subtracting Equation~\eqref{eq:recognition-gaussian-log-normalizer} from the exp
 \end{equation}
 Positive definiteness of \(J\) is used both for integrability and for the existence of \(J^{-1}\). An off-diagonal block of \(J\) belongs to the conditional-dependence structure of the joint Gaussian law; the corresponding covariance block is obtained only after inversion of the full precision matrix.
 
+\subsection{Dual-coordinate differential}
+\label{sec:gaussian-dual-coordinate-proof}
+
+Treat \(h\) and \(J\) as independent variables and let \(dJ\) be symmetric. With \(C=J^{-1}\), the inverse differential \(dC=-C(dJ)C\) gives
+\begin{align}
+dA
+&=\frac12(dh)^\top Ch+\frac12h^\top C(dh)
+-\frac12h^\top C(dJ)Ch
+-\frac12\operatorname{tr}(C(dJ))\notag\\
+&=\mu^\top dh-\frac12\operatorname{tr}
+\left[\left(C+\mu\mu^\top\right)dJ\right]\notag\\
+&=\mu^\top d\eta_1+\operatorname{tr}(M(d\eta_2))\text{.}
+\label{eq:appendix-log-partition-full-differential}
+\end{align}
+The first equality uses \(d\log\det J=\operatorname{tr}(J^{-1}dJ)\), and the last uses \(d\eta_1=dh\), \(d\eta_2=-dJ/2\), and \(M=C+\mu\mu^\top\). Under the Frobenius pairing on \(\operatorname{Sym}(d)\), Equation~\eqref{eq:appendix-log-partition-full-differential} proves
+\begin{equation}
+\nabla_hA=\mu,
+\qquad
+\nabla_JA=-\frac12M,
+\qquad
+\nabla_{\eta_2}A=M.
+\label{eq:appendix-log-partition-coordinate-gradients}
+\end{equation}
+An \(svec\) chart with \(\sqrt2\)-scaled off-diagonal coordinates realizes the Frobenius pairing as the ordinary Euclidean dot product. If instead an unscaled independent coordinate \(J_{ab}=J_{ba}\), \(a<b\), is varied by \(dx\), then \(\operatorname{tr}(M(dJ))=2M_{ab}dx\) and \(\partial A/\partial x=-M_{ab}\). This coordinate factor does not change the symmetric-matrix gradient in Equation~\eqref{eq:appendix-log-partition-coordinate-gradients}.
+
+For completeness, let \(\tau=\nabla_\eta A\), so the Fisher matrices in the two dual charts are
+\begin{equation}
+g_\eta=\frac{\partial\tau}{\partial\eta},
+\qquad
+g_\tau=\frac{\partial\eta}{\partial\tau}=g_\eta^{-1}.
+\label{eq:appendix-dual-fisher-jacobians}
+\end{equation}
+The chain rule for a differentiable scalar \(\mathcal F\) gives \(\nabla_\eta\mathcal F=g_\eta\nabla_\tau\mathcal F\). Multiplication by \(g_\eta^{-1}\), and the same argument with the charts exchanged, proves Equation~\eqref{eq:natural-gradient-dual-coordinate-identities}. The ordinary derivatives on the right are covector components in the dual chart; their numerical equality to the natural-gradient vector components on the left is a coordinate identity mediated by the Fisher metric.
+
 \section{Block-product reverse-KL proof}
 \label{sec:gaussian-block-reverse-kl-proof}
 
@@ -456,6 +490,104 @@ The stationary values obey \(\beta_{ij}=\pi_{ij}\exp(-c_{ij}-1-\lambda_i)\). Sum
 \chapter{Gauge Transformations and Verification Oracles}
 
 This appendix specifies the transformation rules and finite-dimensional test constructions used to audit covariance, precision, and probability-ratio calculations. These oracles verify declared formulas under controlled inputs and do not stand in for a claim about the active runtime.
+
+\section{Population block-gauge oracle}
+\label{sec:population-block-gauge-oracle}
+
+Use the full finite-design block map \(\mathsf G_D\) from Equation~\eqref{eq:finite-design-population-frame-map}, and abbreviate it by \(\mathsf G\) in this section. The change \(y'=\mathsf Gy\) gives \(y=\mathsf G^{-1}y'\). Substitution into the information-form exponent yields
+\begin{equation}
+h^\top y-\frac12y^\top Jy
+=\left(\mathsf G^{-\top}h\right)^\top y'
+-\frac12y'^\top
+\left(\mathsf G^{-\top}J\mathsf G^{-1}\right)y',
+\label{eq:appendix-information-exponent-gauge-law}
+\end{equation}
+which proves the transformations of \(h\) and \(J\). Direct inversion gives
+\begin{equation}
+(J')^{-1}=\mathsf GJ^{-1}\mathsf G^\top,
+\qquad
+(J')^{-1}h'=\mathsf GJ^{-1}h.
+\label{eq:appendix-information-moment-gauge-compatibility}
+\end{equation}
+Thus \(C'=\mathsf GC\mathsf G^\top\), \(\mu'=\mathsf G\mu\), and \(M'=\mathsf GM\mathsf G^\top\).
+
+The quadratic term in the log normalizer is unchanged, while
+\begin{equation}
+\det J'
+=\det(\mathsf G)^{-2}\det J.
+\label{eq:appendix-information-determinant-gauge-law}
+\end{equation}
+Since \(J\) and \(J'\) are SPD, their determinants are positive, and Equation~\eqref{eq:recognition-gaussian-log-normalizer} gives
+\begin{equation}
+A(h',J')
+=A(h,J)+\log|\det\mathsf G|.
+\label{eq:appendix-log-normalizer-gauge-law}
+\end{equation}
+Combining Equations~\eqref{eq:appendix-information-exponent-gauge-law} and \eqref{eq:appendix-log-normalizer-gauge-law} shows that the information-form density in the primed frame equals \(|\det\mathsf G|^{-1}q(\mathsf G^{-1}y')\), including its normalization.
+
+For blocks \(b\) and \(c\), block diagonality of \(\mathsf G\) gives
+\begin{equation}
+J_{bc}'=G_b^{-\top}J_{bc}G_c^{-1}.
+\label{eq:appendix-precision-block-gauge-law}
+\end{equation}
+If \(J_{bc}=0\), then \(J_{bc}'=0\). Conversely, invertibility gives \(J_{bc}=G_b^\top J_{bc}'G_c\), so a zero primed block implies a zero unprimed block. This proves the equivalence in Equation~\eqref{eq:block-zero-precision-gauge-invariance} for every partition block respected by the represented frame map.
+
+The within-block diagonal family is not closed when the represented image includes unrestricted general linear changes. The explicit shear
+\begin{equation}
+G_b=
+\begin{bmatrix}
+1&1\\
+0&1
+\end{bmatrix},
+\qquad
+C_b=I_2,
+\qquad
+G_bC_bG_b^\top=
+\begin{bmatrix}
+2&1\\
+1&1
+\end{bmatrix}.
+\label{eq:appendix-diagonal-family-counterexample}
+\end{equation}
+has determinant one, and its transformed covariance has eigenvalues \((3-\sqrt5)/2\) and \((3+\sqrt5)/2\), both positive. It therefore leaves the diagonal subfamily while remaining inside the full SPD family.
+
+\section{Complete density-ratio Jacobian oracle}
+\label{sec:population-density-ratio-oracle}
+
+Let \(\Phi(y)=\mathsf G_Dy\), \(\Delta_D=|\det\mathsf G_D|\), and \(dy'=\Delta_Ddy\). The primed structural value \(X'\) contains the frame-dependent quantities obtained from the laws in Equations~\eqref{eq:generative-link-gauge-laws}--\eqref{eq:observation-parameter-gauge-laws}, together with the corresponding root laws. Those equations make each normalized Gaussian latent kernel the pushforward of its unprimed kernel, leave each observation kernel unchanged in the gauge-inert observation coordinate, and preserve the finite directed factorization. Hence the complete density generated by the primed parameters is
+\begin{equation}
+p_\theta'(o,y'\mid X')
+=\Delta_D^{-1}
+p_\theta(o,\Phi^{-1}(y')\mid X).
+\label{eq:appendix-generative-density-pushforward}
+\end{equation}
+Closure of the full Gaussian recognition family, including Equation~\eqref{eq:appendix-log-normalizer-gauge-law}, likewise gives
+\begin{equation}
+q_{X'}'(y'\mid o)
+=\Delta_D^{-1}
+q_X(\Phi^{-1}(y')\mid o).
+\label{eq:appendix-recognition-density-pushforward}
+\end{equation}
+Equations~\eqref{eq:appendix-generative-density-pushforward} and \eqref{eq:appendix-recognition-density-pushforward} show separately that \(p_\theta'(o,y'\mid X')dy'=p_\theta(o,y\mid X)dy\) and \(q_{X'}'(y'\mid o)dy'=q_X(y\mid o)dy\). They also give the pointwise ratio identity
+\begin{equation}
+\log\frac{q_{X'}'(y'\mid o)}
+{p_\theta'(o,y'\mid X')}
+=\log\frac{q_X(y\mid o)}
+{p_\theta(o,y\mid X)}.
+\label{eq:appendix-log-density-ratio-gauge-law}
+\end{equation}
+Multiplying Equation~\eqref{eq:appendix-log-density-ratio-gauge-law} by the transformed recognition density and changing variables proves Equation~\eqref{eq:complete-free-energy-gauge-invariance}. Reversing the ratio proves invariance of the state ELBO. Integrating Equation~\eqref{eq:appendix-generative-density-pushforward} over \(y'\) proves invariance of the evidence density in the gauge-inert observation coordinate.
+
+The separated density terms are not invariant. Their expectation laws are
+\begin{align}
+\E_{Q_{X'}'}[\log q_{X'}'(Y'\mid o)]
+&=\E_{Q_X}[\log q_X(Y\mid o)]-\log\Delta_D,
+\label{eq:appendix-recognition-log-density-shift}\\
+\E_{Q_{X'}'}[\log p_\theta'(o,Y'\mid X')]
+&=\E_{Q_X}[\log p_\theta(o,Y\mid X)]-\log\Delta_D.
+\label{eq:appendix-joint-log-density-shift}
+\end{align}
+The two expected log densities shift equally, so their difference is unchanged. Negating Equation~\eqref{eq:appendix-recognition-log-density-shift} gives the differential-entropy law \(H(Q_{X'}')=H(Q_X)+\log\Delta_D\). The entropy shift and either expected-log-density shift have equal magnitude and opposite sign; only the complete ratio supplies a scalar.
 
 \section{Gaussian kernel gauge oracle}
 \label{sec:gaussian-gauge-oracle}
