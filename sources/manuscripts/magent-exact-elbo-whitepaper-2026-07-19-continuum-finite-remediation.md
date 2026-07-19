@@ -25,7 +25,7 @@ updated: 2026-07-19
 
 ## Scope and immutable provenance
 
-This immutable record binds the continuum--finite remediation of `manuscripts/MAgent_exact_elbo_whitepaper.tex` to Research manuscript content commit `08b7b34b9050a23e7a9888fd3c60eb9641bfb050`, relative to baseline `b93d01f57dc0a55a11bf26ec13562f7019a5c84b`. The manuscript subtree is `88855bc8dc6d076bf1fa3f378d22dbe828ea9b86`. The master TeX file has Git blob `d9a67d5247d15bca1a263dae605fd9e3db48a11c` and SHA-256 `1595CFEA6A42C38A56E23B4821ECE7DDA5EC10969FCAB868E54D798310D30C34`. The committed bibliography at `manuscripts/references.bib` has Git blob `1b92941cb62c5f2c0e947e29bc1671b602386521` and SHA-256 `4B876F63130328D24A458815788D20E38A9222AFA1019EB836F103FB44B3E540`.
+This immutable record binds the continuum--finite remediation of `manuscripts/MAgent_exact_elbo_whitepaper.tex` to Research manuscript content commit `03c2e16bb4c6a70824056b25146f1b95e8f4df6d`, relative to baseline `b93d01f57dc0a55a11bf26ec13562f7019a5c84b`. The manuscript subtree is `4e6adf3776f105a920ae1a7ac7062f372116c3bf`. The master TeX file has Git blob `d9a67d5247d15bca1a263dae605fd9e3db48a11c` and SHA-256 `1595CFEA6A42C38A56E23B4821ECE7DDA5EC10969FCAB868E54D798310D30C34`. The committed bibliography at `manuscripts/references.bib` has Git blob `1b92941cb62c5f2c0e947e29bc1671b602386521` and SHA-256 `4B876F63130328D24A458815788D20E38A9222AFA1019EB836F103FB44B3E540`.
 
 The executable crosswalk is independently bound to the MAgent code snapshot `3f5f094ab66c4f209fc3eb3c5b35f6f38dc13df0`. The crosswalk does not assign that executable the new paper's exact ELBO semantics. Earlier immutable records, including [[participatory-it-from-bit]] and [[vfe-population-generative-status-2026-07-12]], remain unchanged.
 
@@ -124,14 +124,15 @@ At the base scale, $R_{\mathrm{YM}}$ is the fixed-frame Frobenius plaquette defi
 The finite-oracle command was
 
 ```powershell
-PYTHONDONTWRITEBYTECODE=1 python -m pytest manuscripts\magent_elbo_whitepaper\verification\test_elbo_oracles.py -q -p no:cacheprovider --junitxml=C:\tmp\magent-exact-elbo-oracles-08b7b34-10c40f9391c2432f94c271795e858c42.xml
+$env:PYTHONDONTWRITEBYTECODE = '1'
+& 'C:\Python314\python.exe' -m pytest manuscripts\magent_elbo_whitepaper\verification\test_elbo_oracles.py -q -p no:cacheprovider --junitxml=C:\tmp\magent-exact-elbo-oracles-03c2e16-95d969c5f8554e5dbb71ea587f60f178.xml
 ```
 
-Under Python 3.14.4 and pytest 9.0.2, the JUnit record reports 17 tests, 0 failures, 0 errors, 0 skipped, and 0.444 seconds. Its SHA-256 is `9BE6153BFFFAF8D55DA40AFDB77924BE25DEA252B5B79BED05C88A0757F7FC3B`.
+Under Python 3.14.4 and pytest 9.0.2, the JUnit record reports 17 tests, 0 failures, 0 errors, 0 skipped, and 0.487 seconds. Its SHA-256 is `D502C6CA55020FC8656326875DDE9F84D5952040EB0821FE47EC1C30C92BBD6B`.
 
-The clean isolated build used pdfTeX 1.40.27 from TeX Live 2025 and BibTeX 0.99d. The sequence was a first `pdflatex` pass, copying the committed `references.bib` into the isolated build directory, `bibtex`, and three further `pdflatex` convergence passes. The resulting 105-page PDF has SHA-256 `4460B842A3BDDC13A5C65283D1FA74000233DD5E9EF8A15BBA622595B9890334`. The final log, BBL, and BLG hashes are `0C9CCA10F8CDCB5F53D99891189ED6EF82F68BA88BD4148AC397B304E90A3F51`, `69E547749F84B0E7EF6B50080E781212B776D402CB40D899CD4A7689146AC6BD`, and `797D8EC5D572FB686B54A49EA0B7A3951FB3F93E11C4BCD5BABE0E922A57DF80`.
+The clean isolated build used pdfTeX 1.40.27 from TeX Live 2025 and BibTeX 0.99d. The sequence was a first `pdflatex` pass, copying the committed `references.bib` into the isolated build directory, `bibtex`, and three further `pdflatex` convergence passes. The resulting 105-page PDF has SHA-256 `AC7630AC03C96F1B730B5D674F1E0B57554812AA996FCAA985DB2C59863692CA`. The final log, BBL, and BLG hashes are `FA3E7110290711732332850618902D1087AB96A7C4D252833FF39547CBF54D40`, `69E547749F84B0E7EF6B50080E781212B776D402CB40D899CD4A7689146AC6BD`, and `797D8EC5D572FB686B54A49EA0B7A3951FB3F93E11C4BCD5BABE0E922A57DF80`.
 
-The final log contains 0 fatal errors, 0 undefined references or citations, 0 duplicate destinations, and 0 overfull boxes. Eight underfull bibliography lines from long immutable URLs are nonblocking. Visual inspection of pages 1, 16, 54, 60, 63--66, 74, and 104 found no clipping, overlap, unreadable glyphs, or broken page furniture.
+The final log contains 0 fatal errors, 0 undefined references or citations, 0 duplicate destinations, and 0 overfull boxes. Eight underfull bibliography lines from long immutable URLs are nonblocking. Visual inspection of pages 1, 16, 54, 64, 74, 80--84, and 104 found no clipping, overlap, unreadable glyphs, or broken page furniture.
 
 ## Residual limits
 
