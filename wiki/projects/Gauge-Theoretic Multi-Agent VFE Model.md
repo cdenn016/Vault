@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-07-13
+updated: 2026-07-19
 ---
 
 # Gauge-Theoretic Multi-Agent VFE Model
@@ -24,6 +24,10 @@ updated: 2026-07-13
 The Gauge-Theoretic Multi-Agent VFE Model (`MAgent_Model`) studies populations of Gaussian belief and model states carried by associated fibers with local $GL(K)$ frames. Inter-agent comparisons use gauge transport before divergence is measured. The canonical coupling is an engineered [[Multi-agent variational free energy]] with entropy-retaining attention. The primary belief dynamics are Fisher--Rao natural-gradient flow; a Hamiltonian path is a separate conditional kinetic extension.
 
 The project is the continuous-time multi-agent sibling of the [[VFE Transformer Program]]. Its broader mathematical framework is developed in [[participatory-it-from-bit]], while the focused social-dynamics status is recorded in [[belief-inertia-2026-07-12-theorem-first-revision]].
+
+## Continuum theory and finite realizations
+
+The theory-level agents are distribution-valued sections over a continuous contextual base. A finite experimental design supplies practical probability laws and CAVI factors, but section sampling and finite marginalization are distinct maps: sampled values of supplied sections equal posterior coordinate marginals only under an explicit compatibility hypothesis. The finite recognition law neither determines a unique off-design section nor constructs a probability law on the space of sections. A finite design is therefore not automatically a lattice gauge theory. That stronger construction requires a declared interaction complex, separately declared group-valued link variables on oriented edges, and declared two-cells or plaquettes. [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]] records the exact types and the remaining continuum-limit obligations.
 
 ## Agent and transport architecture
 
@@ -58,7 +62,7 @@ $$
 d\mathcal F_{i,\mathrm{red}}=\sum_j\beta_{ij}^*dE_{ij}.
 $$
 
-The entropy-suppressed scalar $\sum_j\beta_{ij}^*E_{ij}$ is a different objective with a covariance response. A rowwise source-mixture interpretation requires an explicit source-independence assumption, and the full population functional is not one fixed mean-field ELBO over the original agent states. [[vfe-population-generative-status-2026-07-12]] gives the exact obstruction and the permitted auxiliary/configuration-space constructions.
+The entropy-suppressed scalar $\sum_j\beta_{ij}^*E_{ij}$ is a different objective with a covariance response. A rowwise source-mixture interpretation requires an explicit source-independence assumption, and the full population functional is not one fixed mean-field ELBO over the original agent states. [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]] gives the corrected fine-family, site-local obstruction and its conditional continuum corollary; [[vfe-population-generative-status-2026-07-12]] retains the earlier auxiliary and configuration-space constructions.
 
 For adaptive prior precision, the complete sector is $\alpha_iD_i+b_0\alpha_i-c_0\log\alpha_i$. The optimized envelope coefficient $c_0/(b_0+D_i)$ differs from the derivative $b_0c_0/(b_0+D_i)^2$ of the bare product $\alpha_i^*D_i$.
 
@@ -94,6 +98,8 @@ The direct comparison set includes [[martins-2015-opinion-particles]], [[nevin-m
 No new empirical validation is claimed by the theorem-first revision. The next social tests must separately estimate or manipulate Fisher geometry, restoring stiffness, any kinetic metric, damping, source selection, and slow explanatory states. The broader project should also resolve the open code-concordance findings before treating participatory or hierarchical claims as runtime-validated.
 
 ## Cross-links
+
+**Revision record:** [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]]
 
 **Sibling projects:** [[SocialPhysics]] · [[VFE Transformer Program]]
 

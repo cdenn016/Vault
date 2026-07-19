@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-10
+updated: 2026-07-19
 ---
 
 # Evidence lower bound (ELBO)
@@ -116,6 +116,10 @@ deployed transformer this geometry supports the Gaussian belief update. It
 does not license the frame or decode M-step as a Fisher natural gradient;
 the audited frame table uses plain AdamW, with the configured heavy-ball and pullback fields inactive. [[gl-k-attention-2026-07-09-review-revision]]
 
+## MAgent exact finite ELBO
+
+The MAgent white paper now separates its continuum field theory from a finite probability construction. For fixed structural data $X$, a normalized finite joint kernel $P_\theta(do,dY\mid X)$ and normalized recognition kernel $Q_X(dY\mid o)$ satisfy the exact evidence decomposition under the stated absolute-continuity and integrability hypotheses. Capital symbols denote probability measures; lowercase Radon--Nikodym derivatives such as $\xi^{\mathrm{block}}$ denote their densities relative to declared product reference measures. The CAVI formula applies to those finite factors. It does not infer continuum sections from finite marginals, provide a probability law on section space, or establish a continuum limit. [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]]
+
 ## In this work
 
 The ELBO surfaces as a reference for the belief-side objective, not as one
@@ -145,6 +149,7 @@ functional optimized by the entire model:
 
 ## Sources
 
+- [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]] — revision-bound exact finite ELBO, typed CAVI measures and densities, and continuum/finite scope.
 - [[neal-1998-variational-em]] — EM as coordinate ascent on one negative-free-energy / ELBO functional.
 - [[friston-2010-free-energy-principle]] — Free energy as the negative ELBO / upper bound on surprise.
 - [[kingma-2013-auto-encoding-variational-bayes]] — The ELBO trained end-to-end via the reparameterization trick.

@@ -12,7 +12,7 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-06-21
-updated: 2026-07-17
+updated: 2026-07-19
 ---
 
 # Mean-Field Approximation
@@ -205,6 +205,8 @@ choice links the transformer analogy to [[Opinion dynamics]] and
 [[Mean-field games and continuum limits]], but aggregate coupling alone does not
 derive the product factorization.
 
+The exact-ELBO manuscript distinguishes agent-block factors, state/model channel-block factors, and a finer site-factorized comparison family. Agent-block and channel-block factors can retain dependence across all finite design points inside a factor. The moving-peer obstruction applies only to the fine family $Q=\bigotimes_{\ell,b}q_{\ell,b}$ and uses a separate site-local path for each design point. It does not cover the coarser cross-design families or restricted families lacking the required tangents. Its continuum corollary is conditional on the exact centered tangent, a common admissible rectangle, domination, and positive integrated variance; it does not construct a section-space probability law. [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]]
+
 ## Related
 
 [[Variational free energy]] · [[Evidence lower bound (ELBO)]] · [[Variational EM]] ·
@@ -215,6 +217,7 @@ derive the product factorization.
 
 ## Sources
 
+- [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]] — typed block/site factorizations and the corrected fine-family moving-peer obstruction.
 - [[blei-2017-variational-inference]] — VI as optimization; the mean-field family, CAVI updates,
   the closed-form $q_j^\*\propto\exp\mathbb{E}_{-j}[\log p(z_j,z_{-j},x)]$, non-convexity / local
   optima, and the systematic underestimation of posterior variance under reverse KL.

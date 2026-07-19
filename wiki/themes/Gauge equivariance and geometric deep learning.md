@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-11
+updated: 2026-07-19
 ---
 
 # Gauge equivariance and geometric deep learning
@@ -38,6 +38,8 @@ The crucial generalization for this research program is the move from *global* t
 **Local gauge symmetry and transport.** [[cohen-2019-gauge-cnn]] is the load-bearing source for the program's central metaphor. Once features carry a local frame, comparing features at different locations requires a connection, and the connection furnishes [[Parallel transport]] and, around closed loops, [[Holonomy]]. The VFE transformer reuses this to transport per-token Gaussian beliefs between tokens before they are compared in attention, so that the comparison is frame-independent. [[weiler-2021-coordinate-independent-cnns]] derives this same apparatus from first principles in monograph form, showing that requiring coordinate-independence together with weight-sharing *forces* local-gauge equivariance, and supplying the full G-structure, parallel-transport, and holonomy bookkeeping — the textbook-grade statements of the transport rule and the cocycle/holonomy conditions the program leans on. [[bronstein-2021-geometric-deep-learning]] frames the whole apparatus — frames, transport, holonomy — as a unifying vocabulary across architectures, which is why it serves as the conceptual anchor connecting this theme to attention and positional structure.
 
 ## How it lands in this work
+
+The MAgent exact-ELBO construction now types continuum bundle fields and finite realizations separately. Sampling a supplied section on a finite design is not the same operation as marginalizing a correlated finite recognition law, although an explicit compatibility hypothesis can identify their outputs at the design points. Finite site variables alone are not a lattice gauge theory: a genuine lattice construction also declares an interaction complex, group-valued links on oriented edges, and two-cells or plaquettes. No continuum reconstruction or continuum-limit theorem follows merely from the finite ELBO. [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]]
 
 The architecture uses block-$\mathrm{GL}(K)$ frames to transport Gaussian beliefs. The full-Gaussian divergence is exactly invariant under common invertible pushforwards, but the live diagonal family is closed only under monomial congruences and otherwise requires projection. Regime-I vertex transport has exact trivial holonomy. [[gl-k-attention-2026-07-09-review-revision]]
 

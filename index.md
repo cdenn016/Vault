@@ -2,7 +2,7 @@
 type: index
 title: Index
 aliases: [Index, Home]
-updated: 2026-07-18
+updated: 2026-07-19
 ---
 
 # Index
@@ -10,7 +10,7 @@ updated: 2026-07-18
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **10** manuscripts · **12** themes · **11** field MOCs · **268** concepts · **11** methods · **539** papers · **104** references · **10** runs · **6** web/methodology
+> **3** projects · **11** manuscripts · **12** themes · **11** field MOCs · **268** concepts · **11** methods · **539** papers · **104** references · **10** runs · **6** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -25,6 +25,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
   - [[VFE Transformer Research Directions (2026-06-21)]] — prioritized open-experiments roadmap (37 hypotheses)
 
 ## 📝 Manuscripts (in preparation)
+- [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation|MAgent Exact-ELBO White Paper: 2026-07-19 Continuum--Finite Remediation Record]] — continuum-primary fields, exact finite marginals and CAVI, corrected moving-peer obstruction, runtime crosswalk, and revision-bound verification
 - [[participatory-it-from-bit|A Gauge-Theoretic Framework Toward a Participatory \"It From Bit\" Program: Mathematical Foundations and Computational Implementation]]
 - [[participatory-it-from-bit-2026-07-11-code-concordance-review|A Gauge-Theoretic Framework Toward a Participatory "It From Bit" Program: 2026-07-11 Code-Concordance Review Record]] — major-review code-concordance record for MAgent baseline `779f96f`
 - [[vfe-population-generative-status-2026-07-12|Population VFE Generative-Model Status and Two-Hop Theory Record]] — state-level ELBO obstruction, equilibrium-frozen source construction, configuration-Gibbs lift, and V3 two-hop interpretation
