@@ -24,7 +24,7 @@ equipped with the corresponding finite product sigma-algebra \(\mathscr Y_D\). F
 \in\mathsf Y_D.
 \label{eq:sample-evaluation-map}
 \end{equation}
-Evaluating a distribution-valued section has a different codomain: \(q_i(c_a)\) is a probability measure on \(\mathsf K_{i,c_a}\), and \(s_i(c_a)\) is a probability measure on \(\mathsf M_{i,c_a}\). A section value is therefore not an element of \(\mathsf Y_D\). The finite random vector \(Y_D\) takes values in \(\mathsf Y_D\), while its component laws can agree with those evaluated section values.
+Evaluating a distribution-valued section has a different codomain: \(q_i^{o,X}(c_a)\) is a probability measure on \(\mathsf K_{i,c_a}\), and \(s_i^{o,X}(c_a)\) is a probability measure on \(\mathsf M_{i,c_a}\). A section value is therefore not an element of \(\mathsf Y_D\). The finite random vector \(Y_D\) takes values in \(\mathsf Y_D\), while its component laws may agree with those sampled continuum-section values only under the compatibility hypothesis stated below.
 
 Let \((\mathsf O_{i,c_a},\mathscr O_{i,c_a})\) be the observation space associated with agent \(i\) at \(c_a\). The finite observation space is
 \begin{equation}
@@ -41,7 +41,9 @@ The realized observation is denoted \(o\in\mathsf O_D\). Missing or aggregated o
 
 Fix a measurable configuration space \((\mathsf X,\mathscr X)\), and write \(\mathcal P(\mathsf S,\mathscr S)\) for the probability measures on a measurable space \((\mathsf S,\mathscr S)\). Every \(X\in\mathsf X\) uses the same design \(D\), agent index set, incidence pattern, and measurable identifications of its latent and observation fibers with the declared spaces \((\mathsf Y_D,\mathscr Y_D)\) and \((\mathsf O_D,\mathscr O_D)\). Accordingly, these sample spaces and sigma-algebras do not vary with \(X\). The configuration may contain a finite directed graph or forest on the fixed incidence structure, deterministic Regime-I frames or Regime-II link values, root and transition parameters, observation-kernel parameters, and other structural values. Conditioning on \(X\) is part of the type of every state-level kernel. A factor of the fixed generative model may not read a live marginal of the recognition law.
 
-Later configuration chapters may make \(X\) random only within this fixed measurable space. At that different probability level, \(P_0\in\mathcal P(\mathsf X,\mathscr X)\) will denote a configuration prior, \(R:(\mathsf O_D,\mathscr O_D)\to\mathcal P(\mathsf X,\mathscr X)\) a configuration recognition kernel, and \(\rho_0\in\mathcal P(\mathsf X,\mathscr X)\) a reference probability measure for a configuration-Gibbs construction. For every \(B\in\mathscr X\), the map \(o\mapsto R(B\mid o)\) is \(\mathscr O_D\)-measurable. Thus neither \(P_0\) nor \(R\) changes \(D\), the incidence pattern, or the identified fibers. None of these objects is denoted \(q_i\). The symbols \(q_i\) and \(s_i\) remain state- and model-section values or their finite-design marginals.
+Later configuration chapters may make \(X\) random only within this fixed measurable space. At that different probability level, \(P_0\in\mathcal P(\mathsf X,\mathscr X)\) will denote a configuration prior, \(R:(\mathsf O_D,\mathscr O_D)\to\mathcal P(\mathsf X,\mathscr X)\) a configuration recognition kernel, and \(\rho_0\in\mathcal P(\mathsf X,\mathscr X)\) a reference probability measure for a configuration-Gibbs construction. For every \(B\in\mathscr X\), the map \(o\mapsto R(B\mid o)\) is \(\mathscr O_D\)-measurable. Thus neither \(P_0\) nor \(R\) changes \(D\), the incidence pattern, or the identified fibers. None of these objects is denoted \(q_i\). The unindexed symbols \(q_i\) and \(s_i\) remain continuum state and model sections in one fixed theoretical state; finite recognition marginals carry both the design index and the \((o,X)\) dependence.
+
+The finite design is not by itself a lattice gauge theory. Its coordinate marginal laws are site or matter-field data. A lattice-gauge construction additionally requires a declared interaction complex with independent group-valued link variables on oriented edges; plaquette holonomy or discrete curvature further requires declared two-cells. These are the structural ingredients of the standard lattice formulation, not consequences of choosing finitely many contexts \citep{WilsonConfinement1974,KogutSusskind1975,Creutz1983}.
 
 \section{Reference measures and normalized kernels}
 
@@ -88,14 +90,39 @@ Q:(\mathsf O_D\times\mathsf X,
 (o,X)\longmapsto Q_X(dY\mid o).
 \label{eq:recognition-kernel-type}
 \end{equation}
-It is generally correlated across agents, design points, and channels. Its state and model component marginals are obtained by pushforward under the coordinate projections,
+It is generally correlated across agents, design points, and channels. Define the finite marginalization maps by
+\begin{align}
+\operatorname{Marg}_{i,a}^{k}:
+\mathcal P(\mathsf Y_D,\mathscr Y_D)
+&\longrightarrow\mathcal P(\mathsf K_{i,c_a},\mathscr K_{i,c_a}),
+&R&\longmapsto\left(\operatorname{pr}_{i,a}^{k}\right)_{\#}R,
+\label{eq:finite-state-marginalization-map}\\
+\operatorname{Marg}_{i,a}^{m}:
+\mathcal P(\mathsf Y_D,\mathscr Y_D)
+&\longrightarrow\mathcal P(\mathsf M_{i,c_a},\mathscr M_{i,c_a}),
+&R&\longmapsto\left(\operatorname{pr}_{i,a}^{m}\right)_{\#}R.
+\label{eq:finite-model-marginalization-map}
+\end{align}
+The state and model coordinate marginals of the recognition kernel are therefore
 \begin{equation}
-q_i(c_a)=\left(\operatorname{pr}_{i,a}^{k}\right)_{\#}Q_X(\mathord\cdot\mid o),
+q_{i,a}^{o,X}
+:=\operatorname{Marg}_{i,a}^{k}\left(Q_X(\mathord\cdot\mid o)\right)
+=\left(\operatorname{pr}_{i,a}^{k}\right)_{\#}Q_X(\mathord\cdot\mid o),
 \qquad
-s_i(c_a)=\left(\operatorname{pr}_{i,a}^{m}\right)_{\#}Q_X(\mathord\cdot\mid o).
+s_{i,a}^{o,X}
+:=\operatorname{Marg}_{i,a}^{m}\left(Q_X(\mathord\cdot\mid o)\right)
+=\left(\operatorname{pr}_{i,a}^{m}\right)_{\#}Q_X(\mathord\cdot\mid o).
 \label{eq:recognition-marginal-sections}
 \end{equation}
-Specifying all of these marginals does not specify \(Q_X\): their cross-agent, cross-design, and cross-channel dependence remains undetermined. The correlated population law is therefore primitive at the inference level, while the local section values are its summaries.
+Specifying all of these marginals does not specify \(Q_X\): their cross-agent, cross-design, and cross-channel dependence remains undetermined. The correlated finite population law is therefore primitive at the inference level. It does not define continuum sections. When the continuum theory is given observation- and configuration-dependent sections, agreement with the finite realization is the additional compatibility hypothesis
+\begin{equation}
+q_i^{o,X}(c_a)=q_{i,a}^{o,X},
+\qquad
+s_i^{o,X}(c_a)=s_{i,a}^{o,X}
+\quad\text{for every }i,a.
+\label{eq:continuum-finite-marginal-compatibility}
+\end{equation}
+Equivalently, the tuples produced by \(\operatorname{Samp}_{D,i}^{k,m}\) agree coordinatewise with those produced by \(\operatorname{Marg}_{i,a}^{k,m}\). Neither side constructs the other, and no unique smooth extension of the finite marginals is implied.
 
 \section{Support and finiteness conditions}
 
@@ -110,4 +137,4 @@ For an observed \(o\) and fixed \(X\), assume \(0<p_\theta(o\mid X)<\infty\). As
 \end{equation}
 These assumptions make the density ratios and expectations well-defined. If a later result permits extended-real relative entropy, that relaxation will be stated locally rather than hidden in the notation. The relative-entropy convention follows the measure-theoretic formulations of \citet{Kullback1951} and \citet{Csiszar1967}.
 
-The finite construction supplies only the probability spaces and kernels associated with the declared design \(D\). It does not supply a probability measure on the space of full sections over \(\mathcal C\). Such a continuum theory would need a measurable section space, a consistent family of finite-dimensional laws, an extension or direct construction of a probability measure, a reference measure for any density ratio, and a proof that the proposed interaction energy is normalizable. None of those conclusions follows from Equation~\eqref{eq:finite-population-sample-space} alone. All state-level ELBO claims in this paper therefore remain finite-context claims.
+The finite construction supplies only the probability spaces and kernels associated with the declared design \(D\). It does not supply a probability measure on the space of full sections over \(\mathcal C\), a unique smooth extension of the coordinate marginals, or a continuum limit. A continuum probabilistic theory would require refining designs; compatible finite laws, such as a projective system where appropriate; a reconstruction theorem and topology on the candidate section or distribution space; tightness or compactness hypotheses where needed; convergence of the relevant functionals and observables; and control of gauge choices and reference measures. It would also require a proof that any proposed continuum interaction energy is normalizable. None of those conclusions follows from Equation~\eqref{eq:finite-population-sample-space} or the compatibility hypothesis alone. All state-level ELBO claims in this paper therefore remain finite-context claims.

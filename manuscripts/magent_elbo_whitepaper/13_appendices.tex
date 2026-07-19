@@ -465,16 +465,16 @@ for a nonroot, with \(\Lambda_i^k\) replaced by \(\Lambda_{r,0}^k\) at a root. A
 Under the support and normalization assumptions preceding Equation~\eqref{eq:fixed-source-row-joints}, direct use of counting measure on \(\mathcal J_i\) gives
 \begin{align}
 \KL(Q_i\Vert P_i)
-&=\sum_j\int\beta_{ij}q_i(y)
+&=\sum_j\int\beta_{ij}\varrho_i(y)
 \left[
-\log\frac{q_i(y)}{f_{ij}(y)}
+\log\frac{\varrho_i(y)}{f_{ij}(y)}
 +\log\frac{\beta_{ij}}{\pi_{ij}}
 \right]\nu_i(dy)\notag\\
-&=\sum_j\beta_{ij}\KL(q_i\Vert f_{ij})
+&=\sum_j\beta_{ij}\KL(\varrho_i\Vert f_{ij})
 +\sum_j\beta_{ij}\log\frac{\beta_{ij}}{\pi_{ij}},
 \label{eq:appendix-fixed-source-row-kl}
 \end{align}
-which proves Equation~\eqref{eq:fixed-source-row-kl-decomposition}. Write \(c_{ij}=\KL(q_i\Vert f_{ij})\). The simplex Lagrangian has derivative
+which proves Equation~\eqref{eq:fixed-source-row-kl-decomposition}. Write \(c_{ij}=\KL(\varrho_i\Vert f_{ij})\). The simplex Lagrangian has derivative
 \begin{equation}
 \frac{\partial}{\partial\beta_{ij}}
 \left\{
@@ -808,7 +808,7 @@ no box warning.
 
 \chapter{Notation}
 
-Table~\ref{tab:magent-notation} consolidates the geometric, probabilistic, and configuration-level types. A symbol in the middle column denotes a domain or mathematical type, not merely an informal role. The table reserves \(q_i\) and \(s_i\) for state- and model-level section values or recognition marginals. If a later random configuration contains measure-valued fields, they are written \(\widehat q_i,\widehat s_i\) and related to state-level marginals by an explicit model or summary map; they are never silently substituted for \(q_i,s_i\).
+Table~\ref{tab:magent-notation} consolidates the geometric, probabilistic, and configuration-level types. A symbol in the middle column denotes a domain or mathematical type, not merely an informal role. The table reserves \(q_i\) and \(s_i\) for continuum state and model sections in one fixed theoretical state. Observation- and configuration-dependent continuum sections carry superscripts, finite marginals carry both superscripts and the design index, and finite product-family factors use capital \(Q\). If a later random configuration contains measure-valued fields, they are written \(\widehat q_i,\widehat s_i\) and related to finite state-level marginals by an explicit model or summary map; they are never silently substituted for continuum sections or finite marginals.
 
 \small
 \begin{longtable}{>{\raggedright\arraybackslash}p{0.17\textwidth}>{\raggedright\arraybackslash}p{0.31\textwidth}>{\raggedright\arraybackslash}p{0.42\textwidth}}
@@ -839,10 +839,22 @@ Population incidence and oriented interaction links. The graph or complex is str
 Agent object carrying supported local statistical sections and a local group-valued frame coordinate. It is not a vertex label, latent vector, or variational factor alone.\\
 \(q_i(c),p_i(c)\) &
 \(\mathcal B_{\mathrm{state},c}\subseteq\mathcal P(\mathsf K_{i,c})\) &
-State recognition marginal and state prior section values at \(c\).\\
+Continuum state recognition and prior section values at \(c\) for one fixed theoretical state.\\
 \(s_i(c),r_i(c)\) &
 \(\mathcal B_{\mathrm{model},c}\subseteq\mathcal P(\mathsf M_{i,c})\) &
-Model recognition marginal and model prior section values at \(c\).\\
+Continuum model recognition and prior section values at \(c\) for one fixed theoretical state.\\
+\(q_i^{o,X}(c),s_i^{o,X}(c)\) &
+Values in \(\mathcal P(\mathsf K_{i,c})\) and \(\mathcal P(\mathsf M_{i,c})\) &
+Continuum recognition-section values when observation and configuration dependence matters.\\
+\(q_{i,a}^{o,X},s_{i,a}^{o,X}\) &
+Elements of \(\mathcal P(\mathsf K_{i,c_a})\) and \(\mathcal P(\mathsf M_{i,c_a})\) &
+Finite coordinate marginals of \(Q_X(dY\mid o)\). Equality to the corresponding sampled continuum-section values is an additional compatibility hypothesis.\\
+\(\operatorname{Samp}_{D,i}^{k,m}\) &
+Continuum sections to tuples of statistical-fiber values over \(D\) &
+Continuum sampling maps defined independently of the finite recognition law.\\
+\(\operatorname{Marg}_{i,a}^{k,m}\) &
+\(\mathcal P(\mathsf Y_D,\mathscr Y_D)\) to the relevant coordinate probability space &
+Finite marginalization maps induced by the coordinate projections of \(\mathsf Y_D\).\\
 \(k_i(c),m_i(c)\) &
 \(\mathsf K_{i,c}\) and \(\mathsf M_{i,c}\) &
 Latent state and model samples. These are realizations, not probability measures or agents.\\
@@ -860,7 +872,13 @@ Structural data conditioned upon by the state model. Only structural values on t
 Normalized generative probability kernel and, when dominated, its density defined by \(P_\theta(do,dY\mid X)=p_\theta(o,y\mid X)\nu_D^O(do)\nu_D^Y(dy)\). No factor reads a live recognition marginal.\\
 \(Q_X(dY\mid o)\) &
 \(Q:(\mathsf O_D\times\mathsf X,\mathscr O_D\otimes\mathscr X)\to\mathcal P(\mathsf Y_D,\mathscr Y_D)\) &
-Normalized, generally correlated recognition kernel whose coordinate pushforwards give \(q_i(c_a)\) and \(s_i(c_a)\).\\
+Normalized, generally correlated recognition kernel whose coordinate pushforwards give \(q_{i,a}^{o,X}\) and \(s_{i,a}^{o,X}\).\\
+\(Q^k_{X,i},Q^m_{X,i}\) &
+Finite-design state and model factor measures in the declared product family &
+Mean-field factors distinct from the continuum sections \(q_i,s_i\); their complements are \(Q_{X,-(i,k)}\) and \(Q_{X,-(i,m)}\).\\
+\(\varrho_i\) &
+Normalized density on \((\mathsf Y_i,\mathscr Y_i,\nu_i)\) &
+Generic receiver density in the fixed-source categorical row model, distinct from the continuum state section \(q_i\).\\
 \(P_0(dX),R(dX\mid o)\) &
 \(P_0\in\mathcal P(\mathsf X,\mathscr X)\); \(R:(\mathsf O_D,\mathscr O_D)\to\mathcal P(\mathsf X,\mathscr X)\), with \(R(\mathord\cdot\mid o)\ll P_0\) where required &
 Configuration prior and configuration recognition law in the optional hierarchical tier.\\
@@ -869,7 +887,7 @@ Configuration prior and configuration recognition law in the optional hierarchic
 Proper configuration reference law and an optional normalized configuration-Gibbs law.\\
 \(\widehat q_i,\widehat s_i\) &
 Declared measure-valued coordinates of a random \(X\), if that extension is used &
-Configuration-level fields distinguished typographically from the state recognition marginals \(q_i,s_i\); an explicit map must relate the two levels.\\
+Configuration-level fields distinguished typographically from the finite state recognition marginals \(q_{i,a}^{o,X},s_{i,a}^{o,X}\); an explicit map must relate the two levels.\\
 \(U_i(c),g_i\) &
 \(U_i(c),g_i\in G\) &
 Local principal-frame coordinate and a principal-frame change. The exponential expression \(U_i=\exp\phi_i\) is only local.\\
