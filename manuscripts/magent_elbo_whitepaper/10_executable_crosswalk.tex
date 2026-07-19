@@ -27,20 +27,18 @@ The source also defines \texttt{geometry\_profile='pure'} as a geometry-and-nume
 \section{The scalar differentiated by the active dynamics}
 
 Let $c$ denote a grid site, $v(c)$ the spherical volume weight, and $\chi_i(c)$ the support field. Reserve $D_{\mathrm{KL}}$ for the floor-free mathematical Gaussian KL. The active executable instead uses $D_\varepsilon$ with $\varepsilon=10^{-4}$. For input covariance tensors, set
-\begin{equation}
+\begin{gather}
  S_q=\frac{\Sigma_q+\Sigma_q^{\mathsf T}}{2},
  \qquad
  S_{p,\varepsilon}=\frac{\Sigma_p+\Sigma_p^{\mathsf T}}{2}+\varepsilon I_K,
-\end{equation}
-and define
-\begin{equation}
+\\
  \mathcal E_\varepsilon(q\Vert p)
- =\frac12\left[
+ :=\frac12\left[
  \log\frac{\det S_{p,\varepsilon}}{\det S_q}
  +\operatorname{tr}(S_{p,\varepsilon}^{-1}S_q)
  +(\mu_p-\mu_q)^{\mathsf T}S_{p,\varepsilon}^{-1}(\mu_p-\mu_q)-K
  \right].
-\end{equation}
+\end{gather}
 After its finite-value and SPD gates, the source applies the bit-identical exact-zero shortcut and final nonnegative clamp. Let $\mathsf Z(q,p)$ denote the source predicate that the input shapes match and that both input pairs pass \texttt{torch.equal}. Then
 \begin{equation}
  D_\varepsilon(q\Vert p)=
@@ -175,6 +173,7 @@ Table~\ref{tab:runtime-three-way} separates the new finite population model, the
 Object & New finite design & Legacy continuum scalar & Active executable path \\
 \midrule
 \endfirsthead
+\multicolumn{4}{l}{\textit{Table \thetable\ continued}}\\
 \toprule
 Object & New finite design & Legacy continuum scalar & Active executable path \\
 \midrule
