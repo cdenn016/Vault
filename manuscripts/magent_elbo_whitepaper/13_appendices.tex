@@ -367,7 +367,7 @@ d\log\det C_b=\operatorname{tr}(C_b^{-1}dC_b),
 give the covariance derivative in Equation~\eqref{eq:gaussian-reverse-kl-derivatives}. The mean derivative follows from symmetry of \(J\). Every principal block \(J_{bb}\) is positive definite. The covariance-dependent objective
 \begin{equation}
 C_b\longmapsto
-\operatorname{tr}(J_{bb}C_b)-\log\det C_b
+\operatorname{tr}(J_{bb}C_b)-\log\det C_b,
 \label{eq:appendix-covariance-block-objective}
 \end{equation}
 is strictly convex on \(\mathbb S_{++}^{d_b}\), while the mean quadratic is strictly convex because \(J\succ0\). The stationary values in Equation~\eqref{eq:gaussian-block-reverse-kl-optimum} are therefore the unique global minimizers.
@@ -491,72 +491,64 @@ The stationary values obey \(\beta_{ij}=\pi_{ij}\exp(-c_{ij}-1-\lambda_i)\). Sum
 
 This appendix supplies the functional derivatives and simplex identities used in Chapter~\ref{ch:pifb2-crosswalk}. The calculations concern densities relative to declared base measures. They do not introduce a probability measure on a continuum of sections.
 
-\section{Typed moving-peer third variation}
+\section{Typed moving-peer iterated path derivative}
 \label{sec:moving-peer-calculus-oracle}
 
-Use the assumptions and notation of Theorem~\ref{thm:magent-moving-peer-obstruction}. Set
+Use the assumptions and notation of Theorem~\ref{thm:magent-moving-peer-obstruction}. For each site \(a\) and channel \(h\), abbreviate
 \begin{equation}
-r=T_{ij}q_j,
+r_a^{(h)}=T_{ij,a}^{(h)}q_{j,a}^{o,X},
 \qquad
-u=T_{ij}h_j,
-\qquad
-q_i(s)=q_i+s a_i,
-\qquad
-q_j(t)=q_j+t h_j.
+u_a^{(h)}=T_{ij,a}^{(h)}h_{j,a}.
 \label{eq:appendix-moving-peer-paths}
 \end{equation}
-Linearity of \(T_{ij}\) gives \(T_{ij}q_j(t)=r+t u\). On a sufficiently small rectangle around \((s,t)=(0,0)\), the positivity, support, bounded-ratio, and integrability assumptions permit the following derivatives under the integral:
+Linearity gives \(T_{ij,a}^{(h)}q_{j,a}(t)=r_a^{(h)}+t u_a^{(h)}\). On the single open rectangle \(\mathcal U\) in Equation~\eqref{eq:moving-peer-admissible-rectangle}, the positivity, support, bounded-ratio, finiteness, and domination assumptions permit the pathwise derivatives
 \begin{align}
-\beta_{ij}\KL(q_i(s)\Vert T_{ij}q_j(t))
-={}&\beta_{ij}\int(q_i+s a_i)\log(q_i+s a_i)d\nu_i
+\KL\left(q_{i,a}(s)\middle\Vert
+T_{ij,a}^{(h)}q_{j,a}(t)\right)
+={}&\int(q_{i,a}^{o,X}+s a_{i,a})
+\log(q_{i,a}^{o,X}+s a_{i,a})d\nu_{i,a}
 \notag\\
-&-\beta_{ij}\int(q_i+s a_i)\log(r+t u)d\nu_i,
+&-\int(q_{i,a}^{o,X}+s a_{i,a})
+\log(r_a^{(h)}+t u_a^{(h)})d\nu_{i,a},
 \label{eq:appendix-moving-peer-kl-split}\\
-\frac{\partial}{\partial t}
-\left[-\log(r+t u)\right]
-={}&-\frac{u}{r+t u},
+\partial_t\left[-\log(r_a^{(h)}+t u_a^{(h)})\right]
+={}&-\frac{u_a^{(h)}}{r_a^{(h)}+t u_a^{(h)}},
 \label{eq:appendix-moving-peer-first-sender}\\
-\frac{\partial^2}{\partial t^2}
-\left[-\log(r+t u)\right]
-={}&\frac{u^2}{(r+t u)^2}.
+\partial_t^2\left[-\log(r_a^{(h)}+t u_a^{(h)})\right]
+={}&\frac{(u_a^{(h)})^2}
+{(r_a^{(h)}+t u_a^{(h)})^2}.
 \label{eq:appendix-moving-peer-second-sender}
 \end{align}
-The receiver entropy in the first line of Equation~\eqref{eq:appendix-moving-peer-kl-split} has no \(t\) dependence. Applying \(\partial_s\partial_t^2\) to the second line and evaluating at the origin gives
+The receiver entropy in Equation~\eqref{eq:appendix-moving-peer-kl-split} has no \(t\) dependence. Applying \(\partial_s\partial_t^2\) to the cross-entropy term and evaluating at the origin gives
 \begin{equation}
-\left.
-\frac{\partial^3}{\partial s\partial t^2}
-\beta_{ij}\KL(q_i(s)\Vert T_{ij}q_j(t))
-\right|_{s=t=0}
-=\beta_{ij}\int a_i
-\left(\frac{u}{r}\right)^2d\nu_i.
+\left.\partial_s\partial_t^2
+\KL\left(q_{i,a}(s)\middle\Vert
+T_{ij,a}^{(h)}q_{j,a}(t)\right)\right|_{(0,0)}
+=\int a_{i,a}g_{ij,a}^{(h)}d\nu_{i,a}.
 \label{eq:appendix-moving-peer-third-variation}
 \end{equation}
-This confirms both the derivative order and the positive sign in Equation~\eqref{eq:moving-peer-mixed-third}.
+This is the iterated pathwise derivative proved in the theorem; no unrestricted ambient third Fr\'echet derivative is invoked.
 
-For the receiver tangent in Equation~\eqref{eq:moving-peer-receiver-tangent}, let
+Let \(B_{i,a}=G_{ij,a}-\E_{q_{i,a}^{o,X}}G_{ij,a}\). Then \(a_{i,a}=q_{i,a}^{o,X}B_{i,a}\), \(\int a_{i,a}d\nu_{i,a}=0\), and \(B_{i,a}\) is bounded. After shrinking the common \(s\)-interval if necessary, the finite number of site paths obey
 \begin{equation}
-b_i=g_{ij}-\E_{q_i}g_{ij}.
-\label{eq:appendix-moving-peer-centered-g}
-\end{equation}
-Then \(a_i=q_i b_i\), \(\int a_i d\nu_i=0\), and \(b_i\in L^\infty(q_i)\). If \(b_i\neq0\), every \(s\) satisfying \(|s|\lVert b_i\rVert_\infty<1\) gives
-\begin{equation}
-q_i(s)=q_i(1+s b_i)>0,
+q_{i,a}(s)=q_{i,a}^{o,X}(1+sB_{i,a})>0,
 \qquad
-\int q_i(s)d\nu_i=1.
+\int q_{i,a}(s)d\nu_{i,a}=1.
 \label{eq:appendix-moving-peer-positive-mixture}
 \end{equation}
-Mixture openness makes this path admissible. Substitution gives
+Mixture openness makes every site-local path \(\Gamma_a\) admissible on the same rectangle. Multiplying Equation~\eqref{eq:appendix-moving-peer-third-variation} by the positive channel coefficients and quadrature weights, summing the derivatives of the separate site-local paths, and using the definition of \(G_{ij,a}\) yields
 \begin{align}
-\int a_i g_{ij}d\nu_i
-&=\E_{q_i}\left[
-(g_{ij}-\E_{q_i}g_{ij})g_{ij}
-\right]
-\notag\\
-&=\E_{q_i}[g_{ij}^2]
--\left(\E_{q_i}g_{ij}\right)^2
-=\operatorname{Var}_{q_i}(g_{ij}).
+\sum_{a=1}^{M}\left.\partial_s\partial_t^2
+(\mathcal C_D\circ\Gamma_a)(s,t)\right|_{(0,0)}
+&=\lambda\sum_{a=1}^{M}w_a
+\int q_{i,a}^{o,X}B_{i,a}G_{ij,a}d\nu_{i,a}\notag\\
+&=\lambda\sum_{a=1}^{M}w_a
+\operatorname{Var}_{q_{i,a}^{o,X}}(G_{ij,a})>0.
 \label{eq:appendix-moving-peer-variance-identity}
 \end{align}
+The first equality also uses the zero remainder derivative along every \(\Gamma_a\). It is a sum of site-local derivatives, not the derivative of one simultaneous path that varies all sites. The second equality is the centered-moment identity, and strict positivity is exactly Equation~\eqref{eq:moving-peer-finite-positive-variance}.
+
+For the continuum corollary, the same calculation is performed in each measurable receiver fiber. The common integrable envelope first permits the fiberwise derivatives and then permits \(\partial_s\partial_t^2\) to pass through the base integral. The centered receiver tangent gives the integral in Equation~\eqref{eq:moving-peer-continuum-positive-variance}, which is strictly positive by hypothesis. This step uses only the fixed base measure and dominated differentiation; it defines no law on the set of continuum fields and asserts no limiting relation to the finite designs.
 
 An exact two-state oracle makes the strictness concrete. Take counting measure, identity transport, and
 \begin{equation}
@@ -596,7 +588,7 @@ F(s,t)+F(s,-t)-2F(s,0)
 ={}&\frac{27}{3200}.
 \label{eq:appendix-moving-peer-finite-difference-limit}
 \end{align}
-The finite difference differentiates once in the receiver direction and twice in the sender direction, matching the typed trilinear variation rather than a permutation of it.
+The finite difference differentiates once in the receiver direction and twice in the sender direction, matching the iterated pathwise derivative rather than a permutation of it.
 
 \section{Row-simplex envelope and channel normalization}
 \label{sec:pifb2-row-envelope-proof}
@@ -616,7 +608,7 @@ At least one positive prior entry makes \(Z_i>0\). The proposed optimum in Equat
 Its logarithmic ratio satisfies
 \begin{equation}
 \log\frac{\beta_{ij}^*}{\widetilde\pi_{ij}}
-=-\frac{E_{ij}}{\tau}-\log Z_i
+=-\frac{E_{ij}}{\tau}-\log Z_i,
 \label{eq:appendix-pifb2-optimal-log-ratio}
 \end{equation}
 on the active support. Substitution in the full row scalar gives
@@ -629,6 +621,17 @@ on the active support. Substitution in the full row scalar gives
 &=-\tau\log Z_i.
 \label{eq:appendix-pifb2-row-envelope-substitution}
 \end{align}
+Using Equation~\eqref{eq:appendix-pifb2-optimal-log-ratio} and \(S_i=\sum_j\beta_{ij}^*E_{ij}\), the categorical response term satisfies
+\begin{align}
+\tau\KL(\beta_i^*\Vert\widetilde\pi_i)
+&=\tau\sum_j\beta_{ij}^*
+\left(-\frac{E_{ij}}{\tau}-\log Z_i\right)\notag\\
+&=-S_i-\tau\log Z_i
+=\mathcal R_i^{\mathrm{red}}-S_i.
+\label{eq:appendix-pifb2-response-decomposition}
+\end{align}
+Nonnegativity of categorical relative entropy proves Equation~\eqref{eq:pifb2-response-decomposition}. Equality holds exactly when \(\beta_i^*=\widetilde\pi_i\) on the active support. If every active prior entry is positive, the optimum formula then gives \(e^{-E_{ij}/\tau}=Z_i\) for every active \(j\), which is equivalent to equal active energies; equal active energies also make \(\beta_i^*=\widetilde\pi_i\). Vanishing of the covariance term in \(dS_i\) along one selected direction does not imply this equality condition.
+
 Strict convexity of categorical relative entropy on the relative interior of the supported simplex gives uniqueness. Differentiating Equation~\eqref{eq:appendix-pifb2-row-envelope-substitution} yields
 \begin{equation}
 d\mathcal R_i^{\mathrm{red}}
@@ -772,8 +775,11 @@ For the observation residual
 Equation~\eqref{eq:observation-parameter-gauge-laws} gives \(\delta_i^{o\prime}=\delta_i^o\) and \(R_i^{o\prime}=R_i^o\). Hence the observation density itself is unchanged. The same calculations apply to the root kernels after replacing the nonroot means and covariances by Equations~\eqref{eq:gaussian-model-root}--\eqref{eq:gaussian-state-root}. These identities provide a finite matrix oracle: sample invertible represented frame matrices and SPD covariances, transform every parameter by the displayed laws, and test the residual, quadratic-form, determinant, root-moment, and observation-mean equalities to numerical tolerance.
 
 
-\section{Executable oracle verification record}
+\section{Historical Task~12 verification record}
 \label{sec:executable-oracle-verification-record}
+
+This section preserves a historical project record only. The exact source revision and artifact hashes for the reported run were not recorded, and the manuscript has since changed. The statements below are therefore not current closure evidence. The revision-bound record for the present source is
+\path{sources/manuscripts/magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation.md}.
 
 The deterministic reference implementation is stored in
 \path{magent_elbo_whitepaper/verification/elbo_oracles.py}, with its

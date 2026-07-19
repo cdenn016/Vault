@@ -96,15 +96,42 @@ def test_nested_state_configuration_identity_at_nonunit_common_scale() -> None:
 
 
 def test_source_row_objective_equals_log_sum_exp_envelope() -> None:
-    """The specified fixture uses a strictly positive prior and unit temperature."""
+    """The fixture detects a missing nonunit-temperature response coefficient."""
     prior = np.array([0.2, 0.3, 0.5])
     energies = np.array([1.4, 0.2, 0.9])
+    temperature = 2.3
 
-    beta, objective, envelope = source_row_envelope(prior, energies)
+    beta, objective, envelope = source_row_envelope(
+        prior,
+        energies,
+        temperature=temperature,
+    )
+    suppressed_response = float(beta @ energies)
+    categorical_kl = float(np.sum(beta * np.log(beta / prior)))
 
     assert np.isclose(beta.sum(), 1.0, rtol=0.0, atol=1e-12)
     assert np.all(beta > 0.0)
     assert abs(objective - envelope) < 1e-12
+    assert abs(
+        envelope - suppressed_response - temperature * categorical_kl
+    ) < 1e-12
+    assert envelope >= suppressed_response
+
+
+def test_source_row_equal_energies_saturate_response_inequality() -> None:
+    prior = np.array([0.2, 0.3, 0.5])
+    energies = np.full(3, 0.7)
+
+    beta, objective, envelope = source_row_envelope(
+        prior,
+        energies,
+        temperature=2.3,
+    )
+    suppressed_response = float(beta @ energies)
+
+    assert np.allclose(beta, prior, rtol=0.0, atol=1e-12)
+    assert abs(objective - envelope) < 1e-12
+    assert abs(envelope - suppressed_response) < 1e-12
 
 
 def test_source_row_envelope_support_and_nonunit_temperature() -> None:
