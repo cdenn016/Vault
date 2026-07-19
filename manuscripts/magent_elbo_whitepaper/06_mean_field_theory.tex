@@ -40,13 +40,13 @@ g_b(y_b)
 =\E_{Q_{-b}}\left[\log p_\theta(o,y_b,Y_{-b}\mid X)\right].
 \label{eq:cavi-expected-log-joint}
 \end{equation}
-Assume that \(g_b\) has a measurable finite version almost everywhere, that the product ELBO is well-defined under the componentwise absolute-log-integrability condition used in Equation~\eqref{eq:state-free-energy-factorization}, and that
+Assume that \(g_b\) has a measurable finite version \(\nu_b\)-almost everywhere, that the product ELBO is well-defined under the componentwise absolute-log-integrability condition used in Equation~\eqref{eq:state-free-energy-factorization}, and that
 \begin{equation}
 0<Z_b
 :=\int \exp\bigl(g_b(u_b)\bigr)\nu_b(du_b)<\infty.
 \label{eq:cavi-coordinate-existence}
 \end{equation}
-These conditions permit Fubini's theorem and define a normalized candidate. If the integral is zero or infinite, or if the expected log joint has no suitable finite version, the coordinate displayed below need not exist.
+These conditions permit Fubini's theorem and define a normalized candidate. If the integral is zero or infinite, or if the expected log joint has no measurable finite version \(\nu_b\)-almost everywhere, the coordinate displayed below need not exist.
 
 For a bounded signed perturbation \(\delta q_b\) with \(\int\delta q_b d\nu_b=0\), the terms of the state ELBO that depend on \(q_b\) are
 \begin{equation}
@@ -75,7 +75,7 @@ q_b^\star(y_b)
 \nu_b(du_b)}.
 \label{eq:cavi-normalized-coordinate-density}
 \end{align}
-The additive constant in Equation~\eqref{eq:cavi-normalized-coordinate-log} is explicitly the negative log integral \(-\log Z_b\), not an unspecified parameter. Equivalently, subtracting the value at \(q_b^\star\) from Equation~\eqref{eq:cavi-coordinate-functional} gives \(-\KL(q_b\Vert q_b^\star)\), so the stationary point is the unique coordinate maximizer up to base-measure null sets whenever the displayed relative entropy is defined \citep{Bishop2006,Blei2017,Wainwright2008}.
+The additive constant in Equation~\eqref{eq:cavi-normalized-coordinate-log} is explicitly the negative log integral \(-\log Z_b\), not an unspecified parameter. Equivalently, subtracting the value at \(q_b^\star\) from Equation~\eqref{eq:cavi-coordinate-functional} gives \(-\KL(q_b\Vert q_b^\star)\), so \(q_b^\star\nu_b\) is the unique coordinate-maximizing probability measure whenever the displayed relative entropy is defined; its density version is unique only up to \(\nu_b\)-null sets \citep{Bishop2006,Blei2017,Wainwright2008}.
 
 \section{Complete directed Markov blankets}
 
@@ -301,4 +301,4 @@ Minimizing this exact joint KL over the probability simplex and normalizing the 
 This formula is exact for fixed normalized component densities and unit temperature. A nonunit temperature is not obtained by inserting a scale into Equation~\eqref{eq:fixed-source-row-optimum} while claiming the same joint KL. It requires a separately normalized tempered construction, including each component's temperature-dependent normalizer. Refreshing \(f_{ij}\) from live recognition marginals also changes \(P_i\) and therefore changes the model between updates.
 
 The categorical entropy of \(\beta_i\) is an auxiliary source-row entropy on \(\mathcal J_i\). It is distinct from the state entropy of \(q_i\) on \(\mathsf Y_i\), and both are distinct from the configuration entropy of a recognition law on \((\mathsf X,\mathscr X)\). Equation~\eqref{eq:fixed-source-row-kl-decomposition} supplies no license to merge or double count those sectors.
-The row-local construction is normalized for one receiver. Multiplying several such rows does not by itself define a normalized population joint when their state variables are shared; that would require a separately specified global construction.
+The row-local construction is normalized for one receiver. Multiplying two or more such rows does not by itself define a normalized population joint when their state variables are shared; that would require a separately specified global construction.
