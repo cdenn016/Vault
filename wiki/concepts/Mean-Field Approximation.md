@@ -8,6 +8,7 @@ aliases:
   - "Mean Field Theory"
 tags:
   - cluster/vfe
+  - project/multi-agent
   - project/transformer
   - project/social-physics
 status: draft
