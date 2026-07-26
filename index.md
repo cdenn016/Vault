@@ -2,7 +2,7 @@
 type: index
 title: Index
 aliases: [Index, Home]
-updated: 2026-07-19
+updated: 2026-07-25
 ---
 
 # Index
@@ -10,7 +10,7 @@ updated: 2026-07-19
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **11** manuscripts · **13** themes · **11** field MOCs · **268** concepts · **11** methods · **539** papers · **114** references · **10** runs · **6** web/methodology
+> **3** projects · **11** manuscripts · **13** themes · **11** field MOCs · **269** concepts · **11** methods · **539** papers · **114** references · **15** runs · **6** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -98,6 +98,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Quantum reference frames]]
 
 ### Information geometry, divergences & natural gradient
+- [[Diagonal truncation as gauge regularization]]
 - [[Divergence clamp saturation]]
 - [[Fisher information metric]]
 - [[Hamiltonian belief dynamics]]
@@ -1100,3 +1101,9 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[2026-07-11-backprop-free-plan-and-pure-fep-postmortem|backprop-free vfe3 plan + pure_fep post-mortem (2026-07-11)]] (design / plan + adjudicated post-mortem, no training results; see [[Nudged two-phase EM]])
 - [[2026-07-12-partial-buildout-audit-remediation|partial-buildout audit remediation — seven completion plans (2026-07-12)]] (implementation record, no training metrics; efe_rollout live, sigma_mc four-identity gate stays FAIL-closed, phi/Metropolis objective parity, full-SPD model channel, CG covariance pushforward, family-consistent decode)
 - [[2026-07-18-phi-pullback-group-k10-partial-negative-result|K=10 phi pullback-group partial negative result (2026-07-18)]] (validation PPL 365.57 at step 9,000; stable geometry diagnostics; matched AdamW artifact and pullback LR sweep remain open)
+- [[2026-07-25-estep-character-and-channel-decomposition|The belief E-step is one attention aggregation — channel decomposition and depth attribution (2026-07-25)]] (checkpoint-only, K=20 and K=300; the model channel supplied 99.7% of the apparent depth pathology; fixed point is a 70–81% prior / 19–30% neighbor precision blend; the trained route is two attention layers despite `n_layers=1`) — **its two registered predictions and its "comparable perplexity" reading are superseded by [[2026-07-25-token-prior-estep-character-and-diagnostics]]**, **and every pair-precision share it reports is superseded by [[2026-07-26-b01-probe-defect-and-width-remeasurement]]** (the probe read the model channel's fusion as the belief's)
+- [[2026-07-25-token-prior-estep-character-and-diagnostics|Token-prior E-step character — a refuted prediction, and the diagnostics made permanent (2026-07-25)]] (K=20 `prior_source='token'` / `s_e_step=False`; depth curve flat as predicted at +0.099 nats but the pair-precision share FELL to 0.109 instead of rising above 0.30 — weight and displacement are decoupled; the 33-PPL gap is tuning-confounded; three probes promoted to end-of-run artifacts)
+- [[2026-07-26-b01-probe-defect-and-width-remeasurement|The E-step character probe measured the wrong channel — B-01 defect, re-measurement, and the width comparison re-established (2026-07-26)]] (the shipped probe read `_refine_s`'s fusion as the belief's and anchored on the centroid $r$; K=300 re-measured on the same checkpoint at pair share **0.196** vs a published 0.298 and a step-1 displacement share of **94%** vs 70%; the K=20 checkpoint was deleted so 0.190 is withdrawn, a PPL-matched re-training gives **0.153**; the width direction survives but is confounded with training length and head geometry, and the share is single-batch sample-sensitive)
+- [[2026-07-25-phi-table-and-beta-channel-measurements|Gauge-table ablations, frame-norm calibration, and the beta channel decomposition (2026-07-25)]] (checkpoint-only, K=300; `phi_embed` load-bearing but precision-redundant and rank-saturated; positional prior carries ~3× the content channel; five ranked hypotheses refuted)
+- [[2026-07-25-exact-congruence-truncation-tension|Exact congruence versus diagonal truncation — two covariance families and a negative result (2026-07-25)]] (K=20 training arms; the exact congruence energy scales as cond(Ω)² and saturates the clamp; the frame-intrinsic family disconnects the gauge table entirely; see [[Diagonal truncation as gauge regularization]])
+- [[2026-07-25-shadow-prior-refutation|Cross-scale shadow priors do not transfer to the transformer — six-expert refutation (2026-07-25)]] (design investigation, no training results; no gauge degeneracy for a likelihood to break, the token cannot be both prior and observation, Bethe-not-mean-field status, Ladder-VAE-on-text record)

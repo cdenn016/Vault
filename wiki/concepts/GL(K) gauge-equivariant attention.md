@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-07-10
+updated: 2026-07-25
 ---
 
 # GL(K) gauge-equivariant attention
@@ -206,6 +206,41 @@ development-provenance evidence, not a frozen benchmark or transferable scaling 
 matched-baseline and frozen-BERT numerical claims are not retained; only the shared-frame algebraic
 score comparison survives. [[gl-k-attention-2026-07-09-review-revision]]
 
+### Measured: how much of the score the derived energy actually carries (2026-07-25)
+
+Two checkpoint-only decompositions put numbers on the construction's central claims.
+
+**The precision blend is real and quantified.** The covariance fixed point above says each agent's
+precision is a $\beta$-weighted blend of its prior precision and its neighbors' transported
+precisions. Measured on the mean update at the trained operating point
+([[2026-07-25-estep-character-and-channel-decomposition]]), that blend puts **80 to 85% of the
+fused precision on the prior** and 15 to 20% on the transported neighbors, so the converged belief
+is $\mu^*pprox0.8\mu_p+0.2(	ext{attention-weighted transported neighbors})$ -- the derived
+attention operates as a layer with a dominant residual path. The neighbor share rises with width
+(0.153 at $K=20$ to 0.196 at $K=300$), though that pair is confounded with training length and
+head geometry and is not an isolated width effect.
+
+> [!warning] Superseded numbers
+> The shares first published here (70-81% prior; 0.190 -> 0.298 with width) came from a probe that
+> read the MODEL channel's fusion as the belief's, and anchored on the token-uniform centroid $r$
+> rather than the belief's prior. Corrected in [[2026-07-26-b01-probe-defect-and-width-remeasurement]];
+> the single-batch share is sample-sensitive, so quote it with its sample size.
+
+**The divergence score is a weaker router than the positional prior.** Under
+$\beta_{ij}=\mathrm{softmax}_j(\log\pi_{ij}-E_{ij}/\tau)$, ablating the entire belief-coupling
+energy $E$ costs 0.210 nats while flattening the positional prior $\log\pi$ costs 0.612
+([[2026-07-25-phi-table-and-beta-channel-measurements]]). The additive $+\log\pi_j$ prior — the slot
+the manuscript identifies with ALiBi/T5/causal biases — carries roughly three times what the derived
+KL score does. Zeroing the frame table costs about nine times what the whole content channel is
+worth, which locates the gauge's contribution in the **value** path (transporting $\mu_j$ into the
+query frame) rather than in the scores it also feeds.
+
+The mechanism behind the weak score is structural rather than a tuning failure: the E-step descends
+$\alpha\mathrm{KL}(q\Vert p)+\sum_j\beta\mathrm{KL}(q\Vert\Omega q)+\text{entropy}$ with no data
+term, so $E_{ij}$ measures belief *agreement* and nothing in the objective asks it to be
+discriminative for the next token. Moving the temperature toward the ELBO-exact $\tau=1$ was
+measured and is monotonically worse, so the "starved for content signal" reading is not supported.
+
 ## KL vs Bures: which distortion measures belief distance?
 
 The manuscript's load-bearing distortion is the **KL divergence** between transported Gaussians,
@@ -284,4 +319,7 @@ transformer attention is an exact special case. [[gl-k-attention-2026-07-09-revi
 [[bhatia-2007-positive-definite-matrices]] · [[amari-2016-information-geometry-applications]] ·
 [[cencov-1982-statistical-decision-rules]] · [[petz-1996-monotone-metrics]] ·
 [[parr-2022-active-inference]] · [[sengupta2017gauge|sengupta-friston-2017-bayesian-gauge-theory]] ·
-[[sengupta-2016-neuronal-gauge|sengupta-2016-neuronal-gauge-theory]] · [[participatory-it-from-bit]]
+[[sengupta-2016-neuronal-gauge|sengupta-2016-neuronal-gauge-theory]] · [[participatory-it-from-bit]] ·
+[[2026-07-25-estep-character-and-channel-decomposition]] ·
+[[2026-07-25-phi-table-and-beta-channel-measurements]] ·
+[[2026-07-25-exact-congruence-truncation-tension]]

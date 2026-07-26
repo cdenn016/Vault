@@ -18,7 +18,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-09
+updated: 2026-07-25
 ---
 
 # Precision weighting
@@ -65,6 +65,20 @@ Precision weighting surfaces at several points in the configured model:
 - **`family: gaussian_diagonal`** — the precision is a per-token diagonal `Sigma^{-1}`; the covariance itself lives on the SPD cone and is updated with the `spd_affine` retraction of [[pennec-2006-affine-invariant-tensor]].
 - **No data precision in the belief covariance (2026-06-29 finding).** Inverse-variance combination would set a posterior precision `Pi_post = Pi_prior + Pi_data`, but the deployed vfe3 belief E-step has **no `Pi_data` channel**: its $\nabla_\Sigma$ is only the self-coupling and belief-coupling KL terms — the observation/likelihood term is a gated stub with no live caller (a [[Variational EM|target-blind E-step]]). So `Sigma_q` is never contracted by per-token evidence; it stays pinned to a near-constant learned prior table (shrunk toward one shared centroid), collapsing the gate that would license $\sigma$ as an epistemic signal ([[2026-06-29-sigma-gate-fail-and-collapse]]). Precision here is *learned into the tables*, not *inferred per token from data* — the perceptual gain modulation above operates on the means, while the covariance is effectively static.
 - **Frame M-step** — the audited frame table uses plain AdamW; optional frame conditioning is inactive and is not Fisher precision weighting. [[gl-k-attention-2026-07-09-review-revision]]
+- **The mean-side blend, measured (2026-07-25).** Where the covariance side is inert, the *mean* side is where precision weighting does its work, and the split has now been measured. The `mm_exact` fusion $\mu^{*}=\big(a\mu_p/s_p+\sum_jw_{ij}\mu_t/s_t\big)/P$ allocates **80-85% of the fused precision to the prior** and 15-20% to the gauge-transported neighbors, so the converged belief is a convex blend dominated by its own prior -- precision weighting realized as an attention layer with a strong residual path. The neighbor share is larger at larger width (0.153 at $K=20$, 0.196 at $K=300$), though the two runs differ in training length and head geometry as well as width, so the rise is supported rather than isolated ([[2026-07-26-b01-probe-defect-and-width-remeasurement]]). The numbers first published here (70-81% prior; 0.190 -> 0.298) came from a probe that read the MODEL channel's fusion as the belief's and are superseded ([[2026-07-25-estep-character-and-channel-decomposition]] as originally recorded). The prior is also a *persistent* anchor rather than an initial condition: it enters every iteration with precision $a/s_p$, and its coefficient $\alpha^{*}=c_0/(b_0+D)$ was measured at 0.9998 across eight depths, so the anchor-decay mechanism sometimes attributed to it does not fire at this operating point.
+
+> [!warning] The precision share is not a measure of aggregation strength. It was natural to read a
+> larger neighbor share as "this channel is doing more of the mixing", and a registered prediction
+> on that reading failed. Removing the upstream consensus channel entirely
+> (`prior_source='token'`, `s_e_step=False`) was predicted to push the neighbor share above 0.30
+> because the belief update would have to carry all of the aggregation; measured, it **fell to
+> 0.109** while the belief's relative displacement *rose* from 0.147 to 0.521
+> ([[2026-07-25-token-prior-estep-character-and-diagnostics]]). Weight and displacement are
+> decoupled: displacement records how far the prior sat from the neighbor consensus, and the share
+> records only how the fixed point splits its precision. A prior that has already been aggregated
+> toward its neighbors moves little under a large weight; a raw per-token prior moves far under a
+> small one. Both quantities must be read together, and the width trend above carries the same
+> caveat.
 
 > [!note] Editorial (2026-06-18): The config flag named `precision_weighted_attention` is a naming trap. Verified against the code (`vfe3/config.py:309` default `False`; `vfe3/model/model.py:34–57,1192–1215`), it gates only a detached, query-independent reliability prior $-\log(b_0+\operatorname{tr}\Sigma_j)$ on the attention keys — it never enters the KL logit. The substantive precision weighting is the inverse-covariance Mahalanobis term *inside* the Gaussian KL divergence (`vfe3/families/gaussian.py:99–104` — the `abs(alpha-1)<1e-6` KL branch opens at line 99) and is always on in the theoretically-pure path. Established by multi-agent derivation + code reconciliation, 2026-06-18 (see [[log|Operations Log]]).
 
@@ -87,6 +101,7 @@ See [[VFE Transformer Program]] for the concrete configuration in which these te
 - [[pouget-2013-probabilistic-brains]] — probabilistic-population-code account of precision-weighted Bayesian cue combination, the inference reading of attention.
 - [[clark-2013-predictive-brains]] — predictive-processing account in which attention is the optimization of expected precision on prediction errors.
 - [[sengupta-2016-neuronal-gauge]] — neuronal gauge theory linking precision-weighted attention to the free-energy formulation.
+- [[2026-07-25-estep-character-and-channel-decomposition]] — the measured prior/neighbor split of the fused mean precision.
 
 ## See also
 
