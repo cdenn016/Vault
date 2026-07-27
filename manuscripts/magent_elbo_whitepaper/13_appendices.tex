@@ -487,6 +487,86 @@ which proves Equation~\eqref{eq:fixed-source-row-kl-decomposition}. Write \(c_{i
 \end{equation}
 The stationary values obey \(\beta_{ij}=\pi_{ij}\exp(-c_{ij}-1-\lambda_i)\). Summing over \(j\) determines the multiplier and gives Equation~\eqref{eq:fixed-source-row-optimum}. Strict convexity of categorical relative entropy on the interior of the simplex makes this stationary row the unique minimizer.
 
+\section{Tempered and labeled source constructions}
+\label{sec:tempered-and-labeled-source-proofs}
+
+This appendix proves the four statements of Sections~\ref{sec:tempered-source-row} and \ref{sec:source-label-augmented-model}.
+
+\paragraph{Tempered row decomposition.}
+Under the stated finiteness assumptions, the definition of \(f_{ij}^{(\tau)}\) in Equation~\eqref{eq:tempered-source-joint} gives
+\begin{equation}
+\KL\left(\varrho_i\middle\Vert f_{ij}^{(\tau)}\right)
+=-H(\varrho_i)-\int\varrho_i\log f_{ij}^{(\tau)}d\nu_i
+=-H(\varrho_i)-\frac1\tau\int\varrho_i\log f_{ij}d\nu_i
++\log Z_{ij}(\tau).
+\label{eq:appendix-tempered-expansion}
+\end{equation}
+Since \(\KL(\varrho_i\Vert f_{ij})=-H(\varrho_i)-\int\varrho_i\log f_{ij}d\nu_i\), substituting \(\int\varrho_i\log f_{ij}d\nu_i=-H(\varrho_i)-\KL(\varrho_i\Vert f_{ij})\) into Equation~\eqref{eq:appendix-tempered-expansion} and collecting terms yields Equation~\eqref{eq:tempered-kl-decomposition}. Applying Equation~\eqref{eq:fixed-source-row-optimum} to the normalized joint \(P_i^{(\tau)}\) and cancelling the source-free summand \((1/\tau-1)H(\varrho_i)\) between numerator and denominator gives Equation~\eqref{eq:tempered-source-row-optimum}. Nothing in the argument uses the Gaussian form.
+
+For the Gaussian normalizer, write \(f_{ij}=\mathcal N(m_{ij},S_{ij})\) on \(\R^{d}\). Then
+\begin{equation}
+f_{ij}(y)^{1/\tau}
+=(2\pi)^{-d/(2\tau)}\left(\det S_{ij}\right)^{-1/(2\tau)}
+\exp\left[-\frac{1}{2\tau}(y-m_{ij})^\top S_{ij}^{-1}(y-m_{ij})\right],
+\label{eq:appendix-tempered-gaussian-power}
+\end{equation}
+whose kernel integrates to \((2\pi)^{d/2}\det(\tau S_{ij})^{1/2}\). Multiplying the two factors gives Equation~\eqref{eq:tempered-gaussian-normalizer}, and the remaining normalized kernel is that of \(\mathcal N(m_{ij},\tau S_{ij})\), which identifies the tempered component.
+
+\paragraph{Label-graph normalization.}
+Let \(i\mapsto j_i\) assign exactly one parent to each of the finitely many agents. Iterating the parent map from any starting agent produces a sequence in a finite set, so some agent repeats, and the segment between two occurrences is a cycle. A directed factorization of a density requires an acyclic parent structure, so the unrestricted product of Equation~\eqref{eq:source-label-factors} is not one. If instead the source sets admit a topological order, then for each fixed \(J\) the parent relation is acyclic, every nonminimal agent contributes a normalized conditional and every minimal agent a normalized prior, and the reverse-topological integration of Appendix~\ref{sec:directed-normalization-proof} eliminates the agents one at a time with unit mass at each step. Hence the joint is normalized with partition function one for every \(J\) \citep{Lauritzen1996}.
+
+\paragraph{Singularity of a reciprocal cocycle pair.}
+Let \(A:=\Omega_{ij}\in GL(d,\R)\), let \(\Omega_{ji}=A^{-1}\) as the cocycle requires, and let \(\Lambda:=R^{-1}\) for any \(R\in\mathbb S_{++}^{d}\). Collecting the quadratic forms of the two link factors gives the assembled precision blocks
+\begin{equation}
+J_{ii}=\Lambda+A^{-\top}\Lambda A^{-1},
+\qquad
+J_{jj}=\Lambda+A^{\top}\Lambda A,
+\qquad
+J_{ij}=-\left(\Lambda A+A^{-\top}\Lambda\right).
+\label{eq:appendix-reciprocal-pair-precision}
+\end{equation}
+For arbitrary \(v\in\R^{d}\) take the candidate kernel vector \((v,A^{-1}v)\). Then
+\begin{align}
+J_{ii}v+J_{ij}A^{-1}v
+&=\Lambda v+A^{-\top}\Lambda A^{-1}v-\Lambda v-A^{-\top}\Lambda A^{-1}v=0,
+\label{eq:appendix-reciprocal-kernel-first}\\
+J_{ij}^{\top}v+J_{jj}A^{-1}v
+&=-A^{\top}\Lambda v-\Lambda A^{-1}v+\Lambda A^{-1}v+A^{\top}\Lambda v=0.
+\label{eq:appendix-reciprocal-kernel-second}
+\end{align}
+The assembled precision is therefore singular for every SPD link covariance, and the pair specification has infinite mass rather than an unknown finite normalizer. In one dimension with \(\Omega_{ij}=a\), \(\Omega_{ji}=b\) and \(R=r\), the assembled determinant is \((ab-1)^2/r^2\) and the total mass is \(\lvert ab-1\rvert^{-1}\), which equals one only on the locus \(\lvert ab-1\rvert=1\) and diverges exactly at \(ab=1\), the cocycle case. Adding a proper self-prior contributes a positive-definite block to each diagonal entry of Equation~\eqref{eq:appendix-reciprocal-pair-precision} and removes the degeneracy, at the cost of an undirected specification whose partition function depends on the label configuration.
+
+\paragraph{Exact label coordinate.}
+Apply Equation~\eqref{eq:cavi-normalized-coordinate-log} with the block taken to be the categorical factor \(\beta_i\) and counting measure on \(\mathcal J_i\). Among the factors of Equation~\eqref{eq:source-label-factors} only \(\pi_{ij_i}\) and agent \(i\)'s own link factor depend on \(j_i\); the state \(y_i\) also appears in the link factors of any agent having \(i\) as parent, but those factors are free of \(j_i\) and contribute to the normalizing constant only. Hence Equation~\eqref{eq:source-label-row-optimum} holds with the stated \(E_{ij}\). Under the product family, \(y_i-\Omega_{ij}y_j\) has mean \(\Delta_{ij}\) and covariance \(\Sigma_i+S_{ij}\), so
+\begin{equation}
+\E_{q_i\otimes q_j}\left[(y_i-\Omega_{ij}y_j)^\top R_{ij}^{-1}(y_i-\Omega_{ij}y_j)\right]
+=\Delta_{ij}^\top R_{ij}^{-1}\Delta_{ij}
++\operatorname{tr}\left(R_{ij}^{-1}\Sigma_i\right)
++\operatorname{tr}\left(R_{ij}^{-1}S_{ij}\right),
+\label{eq:appendix-label-quadratic-expectation}
+\end{equation}
+which gives Equation~\eqref{eq:source-label-edge-energy}. Setting \(R_{ij}=S_{ij}\) makes the final trace equal to \(d\), so
+\begin{equation}
+E_{ij}
+=\frac12\left[
+d\log 2\pi+\log\det S_{ij}
++\Delta_{ij}^\top S_{ij}^{-1}\Delta_{ij}
++\operatorname{tr}\left(S_{ij}^{-1}\Sigma_i\right)+d
+\right],
+\label{eq:appendix-label-tied-energy}
+\end{equation}
+while the Gaussian relative entropy between \(q_i\) and the pushforward \((\Omega_{ij})_{\#}q_j=\mathcal N(\Omega_{ij}\mu_j,S_{ij})\) is
+\begin{equation}
+\KL\left(q_i\middle\Vert(\Omega_{ij})_{\#}q_j\right)
+=\frac12\left[
+\operatorname{tr}\left(S_{ij}^{-1}\Sigma_i\right)
++\Delta_{ij}^\top S_{ij}^{-1}\Delta_{ij}-d
++\log\det S_{ij}-\log\det\Sigma_i
+\right].
+\label{eq:appendix-label-pushforward-kl}
+\end{equation}
+Subtracting Equation~\eqref{eq:appendix-label-pushforward-kl} from Equation~\eqref{eq:appendix-label-tied-energy} cancels both source-dependent groups and leaves Equation~\eqref{eq:source-label-tied-offset}. A source-free additive offset cancels between numerator and denominator of Equation~\eqref{eq:source-label-row-optimum}, which gives Equation~\eqref{eq:source-label-tied-row}. Finally, for the distinguished slot, \(-\E_{q_i}[\log p_i]=-H(q_i)-\E_{q_i}[\log p_i]+H(q_i)=\KL(q_i\Vert p_i)+H(q_i)\), which is Equation~\eqref{eq:source-label-self-slot}.
+
 \chapter{Legacy Population-Functional Calculus}
 
 This appendix supplies the functional derivatives and simplex identities used in Chapter~\ref{ch:pifb2-crosswalk}. The calculations concern densities relative to declared base measures. They do not introduce a probability measure on a continuum of sections.
@@ -890,6 +970,12 @@ Dominated finite mean-field factor densities; these lowercase density symbols, r
 \(\varrho_i\) &
 Normalized density on \((\mathsf Y_i,\mathscr Y_i,\nu_i)\) &
 Generic receiver density in the fixed-source categorical row model, distinct from the continuum state section \(q_i\).\\
+\(f_{ij}^{(\tau)},Z_{ij}(\tau)\) &
+\(f_{ij}^{(\tau)}=f_{ij}^{1/\tau}/Z_{ij}(\tau)\) with \(0<Z_{ij}(\tau)<\infty\) &
+Tempered source component and its normalizer. A nonunit temperature is realized by this separately normalized model, never by inserting a scale into the unit-temperature row optimum.\\
+\(j_i,R_{ij}\) &
+\(j_i\in\mathcal J_i\subseteq V\); \(R_{ij}\in\mathbb S_{++}^{d}\) &
+Declared source label and fixed link covariance of the augmented model. Both are generative objects; the label enlarges the latent inventory, so results about the augmented joint are not results about the original state variables alone.\\
 \(P_0(dX),R(dX\mid o)\) &
 \(P_0\in\mathcal P(\mathsf X,\mathscr X)\); \(R:(\mathsf O_D,\mathscr O_D)\to\mathcal P(\mathsf X,\mathscr X)\), with \(R(\mathord\cdot\mid o)\ll P_0\) where required &
 Configuration prior and configuration recognition law in the optional hierarchical tier.\\

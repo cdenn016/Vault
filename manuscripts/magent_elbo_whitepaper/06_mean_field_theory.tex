@@ -325,3 +325,146 @@ This formula is exact for fixed normalized component densities and unit temperat
 
 The categorical entropy of \(\beta_i\) is an auxiliary source-row entropy on \(\mathcal J_i\). It is distinct from the state entropy of \(\varrho_i\) on \(\mathsf Y_i\), and both are distinct from the configuration entropy of a recognition law on \((\mathsf X,\mathscr X)\). Equation~\eqref{eq:fixed-source-row-kl-decomposition} supplies no license to merge or double count those sectors.
 The row-local construction is normalized for one receiver. Multiplying two or more such rows does not by itself define a normalized population joint when their state variables are shared; that would require a separately specified global construction.
+
+\section{A tempered source row and its normalizer}
+\label{sec:tempered-source-row}
+
+Equation~\eqref{eq:fixed-source-row-optimum} is exact at unit ordinary-KL scale, so a nonunit temperature is not obtained by inserting a scale into it. This section supplies the separately normalized tempered construction that such a scale requires and records exactly what its normalizer contributes to the row. The device is the power-likelihood construction, whose normalized form is standard \citep{BissiriHolmesWalker2016}.
+
+Retain the setting of Equation~\eqref{eq:fixed-source-row-joints}. For \(\tau>0\) assume
+\begin{equation}
+0<Z_{ij}(\tau)
+:=\int_{\mathsf Y_i}f_{ij}(y)^{1/\tau}\nu_i(dy)<\infty
+\qquad\text{for every }j\in\mathcal J_i,
+\label{eq:tempered-component-normalizer}
+\end{equation}
+and define the tempered component and the tempered joint
+\begin{equation}
+f_{ij}^{(\tau)}:=\frac{f_{ij}^{1/\tau}}{Z_{ij}(\tau)},
+\qquad
+P_i^{(\tau)}(y,j)=\pi_{ij}f_{ij}^{(\tau)}(y).
+\label{eq:tempered-source-joint}
+\end{equation}
+Each \(f_{ij}^{(\tau)}\) is a normalized density by construction, so \(P_i^{(\tau)}\) is a normalized joint on \(\mathsf Y_i\times\mathcal J_i\) and the decomposition of Equation~\eqref{eq:fixed-source-row-kl-decomposition} applies verbatim with \(f_{ij}\) replaced by \(f_{ij}^{(\tau)}\).
+
+\paragraph{Proposition (tempered row decomposition).}
+\label{prop:tempered-row-decomposition}
+Assume \(\varrho_i\ll f_{ij}\), that \(\KL(\varrho_i\Vert f_{ij})\) is finite, that the differential entropy \(H(\varrho_i)=-\int\varrho_i\log\varrho_i d\nu_i\) is finite, and that Equation~\eqref{eq:tempered-component-normalizer} holds. Then
+\begin{equation}
+\KL\left(\varrho_i\middle\Vert f_{ij}^{(\tau)}\right)
+=\frac{1}{\tau}\KL(\varrho_i\Vert f_{ij})
++\left(\frac1\tau-1\right)H(\varrho_i)
++\log Z_{ij}(\tau),
+\label{eq:tempered-kl-decomposition}
+\end{equation}
+and consequently the exact simplex minimizer of \(\KL(Q_i\Vert P_i^{(\tau)})\) is
+\begin{equation}
+\beta_{ij}^{\star(\tau)}
+=\frac{\pi_{ij}Z_{ij}(\tau)^{-1}\exp\left[-\KL(\varrho_i\Vert f_{ij})/\tau\right]}
+{\displaystyle\sum_{\ell\in\mathcal J_i}
+\pi_{i\ell}Z_{i\ell}(\tau)^{-1}\exp\left[-\KL(\varrho_i\Vert f_{i\ell})/\tau\right]}.
+\label{eq:tempered-source-row-optimum}
+\end{equation}
+The proof is in Appendix~\ref{sec:tempered-and-labeled-source-proofs}.
+
+The middle term of Equation~\eqref{eq:tempered-kl-decomposition} carries no source index and therefore cancels under row normalization. The normalizer does not cancel, and its source dependence is the entire difference between Equation~\eqref{eq:tempered-source-row-optimum} and a tempered reading of Equation~\eqref{eq:fixed-source-row-optimum}.
+
+In the finite Gaussian reference regime this dependence is explicit. Let \(f_{ij}=\mathcal N(m_{ij},S_{ij})\) on \(\R^{d}\) with \(S_{ij}\in\mathbb S_{++}^{d}\). Then \(f_{ij}^{(\tau)}=\mathcal N(m_{ij},\tau S_{ij})\) and
+\begin{equation}
+\log Z_{ij}(\tau)
+=\frac d2\left(1-\frac1\tau\right)\log 2\pi
++\frac d2\log\tau
++\frac12\left(1-\frac1\tau\right)\log\det S_{ij},
+\label{eq:tempered-gaussian-normalizer}
+\end{equation}
+whose only source-dependent term is the last. Substituting into Equation~\eqref{eq:tempered-source-row-optimum} gives the tempered Gaussian row
+\begin{equation}
+\beta_{ij}^{\star(\tau)}
+\propto
+\pi_{ij}\exp\left[
+-\frac{1}{\tau}\KL(\varrho_i\Vert f_{ij})
+-\frac12\left(1-\frac1\tau\right)\log\det S_{ij}
+\right].
+\label{eq:tempered-gaussian-row}
+\end{equation}
+
+Equation~\eqref{eq:tempered-gaussian-row} coincides with a plain tempered softmax of the divergences if and only if \(\tau=1\), or \(\det S_{ij}\) does not depend on \(j\), or the declared categorical prior is \(\pi_{ij}Z_{ij}(\tau)^{-1}\) rather than \(\pi_{ij}\). Otherwise the exact tempered model carries an additional per-source log-determinant logit. For \(\tau>1\) its coefficient is positive, so the exact construction discounts sources whose component occupies more volume, beyond whatever the divergence already records. When the component arises as a linear pushforward \(S_{ij}=\Omega_{ij}\Sigma_j\Omega_{ij}^\top\) of a sender covariance, the term reads \(\log\det\Sigma_j+2\log\lvert\det\Omega_{ij}\rvert\). The transport enters only through \(\lvert\det\Omega_{ij}\rvert\), which the \(f\)-divergence invariance of Chapter~\ref{ch:information-geometry-gauge} cancels inside the divergence itself, so this logit is a property of the tempering and not a violation of that invariance.
+
+\section{A source-label augmented model and its exact attention row}
+\label{sec:source-label-augmented-model}
+
+Chapter~\ref{ch:pifb2-crosswalk} records that a fixed normalized model carrying a declared source label can possess an exact ELBO once mutual compatibility of its conditionals and its global normalization are proved. This section carries out that construction, states the normalization condition it actually requires, and identifies the resulting label coordinate. The construction enlarges the latent inventory and is therefore not an equality of functionals on the original shared agent-state variables; the scope statements of Chapter~\ref{ch:pifb2-crosswalk} continue to apply unchanged.
+
+Work at one design point and suppress the index \(a\), with state coordinates \(y_i\in\R^{d}\) for \(i\in V\). Adjoin to the state inventory a label \(j_i\in\mathcal J_i\subseteq V\) for each agent, and declare the normalized factors
+\begin{equation}
+p(J)=\prod_{i\in V}\pi_{ij_i},
+\qquad
+p(y_i\given y_{j_i},j_i)
+=\mathcal N\left(y_i;\Omega_{ij_i}y_{j_i},R_{ij_i}\right),
+\label{eq:source-label-factors}
+\end{equation}
+with \(\Omega_{ij}\in GL(d,\R)\) fixed transports and \(R_{ij}\in\mathbb S_{++}^{d}\) fixed link covariances. Both are generative parameters and neither reads a live recognition marginal.
+
+Global normalization is not automatic, and the obstruction is combinatorial rather than analytic.
+
+\paragraph{Proposition (label-graph normalization).}
+\label{prop:label-graph-normalization}
+For every finite \(V\) and every assignment \(i\mapsto j_i\) giving each agent exactly one parent, the induced parent map has a cycle, so the product of the factors in Equation~\eqref{eq:source-label-factors} is not a directed factorization of a probability density. If the source sets \(\mathcal J_i\) are restricted so that the parent relation admits a topological order, with the agents minimal in that order carrying declared normalized priors \(p_i(y_i)\) in place of a link factor, then for every label configuration \(J\) the product is a directed factorization of a normalized joint and its partition function equals one identically \citep{Lauritzen1996}.
+
+Excluding only the self edge is insufficient, since two-cycles survive that exclusion. A strictly ordered source mask, of which a causal mask is the canonical instance, is sufficient. The failure in the unordered case is not a matter of an unknown constant. Under a cocycle transport of the form \(\Omega_{ij}=U_iU_j^{-1}\), so that \(\Omega_{ji}=\Omega_{ij}^{-1}\), a reciprocal pair of link factors has a singular assembled precision for every \(R\in\mathbb S_{++}^{d}\), because both factors express the same linear agreement relation and the joint is flat along it. That statement and its kernel vector are proved in Appendix~\ref{sec:tempered-and-labeled-source-proofs}. Adjoining a proper self-prior to each agent restores positive definiteness but converts the model into an undirected specification whose partition function depends on \(J\), which is treated at the end of this section.
+
+Under the ordered mask the model of Equation~\eqref{eq:source-label-factors} is a fixed normalized joint on the enlarged inventory, so the state ELBO of Chapter~\ref{ch:structured-recognition-elbo} and the coordinate equation of Equation~\eqref{eq:cavi-normalized-coordinate-density} both apply. Take the product recognition family
+\begin{equation}
+Q=\prod_{i\in V}q_i(y_i)\prod_{i\in V}\beta_i(j_i),
+\qquad
+q_i=\mathcal N(\mu_i,\Sigma_i),
+\qquad
+\sum_{j\in\mathcal J_i}\beta_{ij}=1.
+\label{eq:source-label-recognition-family}
+\end{equation}
+
+\paragraph{Proposition (exact label coordinate).}
+\label{prop:exact-label-coordinate}
+For the family of Equation~\eqref{eq:source-label-recognition-family} the exact coordinate maximizer of the state ELBO in the factor \(\beta_i\) is
+\begin{equation}
+\beta_{ij}^\star\propto\pi_{ij}\exp\left(-E_{ij}\right),
+\qquad
+E_{ij}:=-\E_{q_i\otimes q_j}\left[\log\mathcal N\left(y_i;\Omega_{ij}y_j,R_{ij}\right)\right],
+\label{eq:source-label-row-optimum}
+\end{equation}
+and, writing \(\Delta_{ij}=\mu_i-\Omega_{ij}\mu_j\) and \(S_{ij}=\Omega_{ij}\Sigma_j\Omega_{ij}^\top\),
+\begin{equation}
+E_{ij}
+=\frac12\left[
+d\log 2\pi
++\log\det R_{ij}
++\Delta_{ij}^\top R_{ij}^{-1}\Delta_{ij}
++\operatorname{tr}\left(R_{ij}^{-1}\Sigma_i\right)
++\operatorname{tr}\left(R_{ij}^{-1}S_{ij}\right)
+\right].
+\label{eq:source-label-edge-energy}
+\end{equation}
+If in addition the link covariance is tied to the pushforward sender covariance, \(R_{ij}=S_{ij}\), then
+\begin{equation}
+E_{ij}-\KL\left(q_i\middle\Vert(\Omega_{ij})_{\#}q_j\right)
+=\frac d2\log 2\pi+\frac12\log\det\Sigma_i+d,
+\label{eq:source-label-tied-offset}
+\end{equation}
+which carries no source index, so in that case
+\begin{equation}
+\beta_{ij}^\star
+=\frac{\pi_{ij}\exp\left[-\KL\left(q_i\middle\Vert(\Omega_{ij})_{\#}q_j\right)\right]}
+{\displaystyle\sum_{\ell\in\mathcal J_i}
+\pi_{i\ell}\exp\left[-\KL\left(q_i\middle\Vert(\Omega_{i\ell})_{\#}q_\ell\right)\right]}.
+\label{eq:source-label-tied-row}
+\end{equation}
+The proofs are in Appendix~\ref{sec:tempered-and-labeled-source-proofs}.
+
+Equation~\eqref{eq:source-label-tied-row} is a divergence-scored attention row obtained as an exact variational coordinate of a fixed normalized joint, rather than as the value of an engineered simplex minimization. Its scope should be read precisely. The sender mean \(\mu_j\) is a free recognition quantity throughout and is never replaced by a template, which is a strictly weaker requirement than the frozen-source hypothesis of Equation~\eqref{eq:fixed-source-row-joints}. The sender covariance is not equally free, because the tie \(R_{ij}=S_{ij}\) constrains a generative parameter to agree with \(\Sigma_j\). Within a single coordinate update the generative model is fixed and Equation~\eqref{eq:source-label-tied-row} is exact; if \(R_{ij}\) is refreshed to follow a moved \(\Sigma_j\), the model changes between updates, which is the same caution recorded after Equation~\eqref{eq:fixed-source-row-optimum}. Holding \(R_{ij}\) genuinely fixed instead leaves Equation~\eqref{eq:source-label-tied-row} valid at the operating point where \(\Sigma_j\) agrees with the declared link covariance, and elsewhere the row is Equation~\eqref{eq:source-label-edge-energy} with untied \(R_{ij}\). Untied, the edge energy is a Mahalanobis term in the model's own link metric together with separate dispersion penalties on the receiver and on the pushforward sender; the tied case is its specialization and not the general form.
+
+Two further remarks bound the construction. First, adjoining a distinguished label value with \(p(y_i\given j_i=\varnothing)=p_i(y_i)\) keeps the model in the same class and contributes the slot energy
+\begin{equation}
+-\E_{q_i}\left[\log p_i\right]=\KL(q_i\Vert p_i)+H(q_i),
+\label{eq:source-label-self-slot}
+\end{equation}
+so a self term and the source terms become competing slots of one simplex, and moving a self term inside that simplex costs exactly one receiver entropy. Second, if the ordered mask is dropped in favor of a proper self-prior anchor, the resulting specification is undirected. Its partition function then depends on the label configuration, so \(-\log Z(J)\) enters the label objective and does not separate across receivers; in that route Equation~\eqref{eq:source-label-tied-row} holds only under the further declared approximation that this coupling is neglected.
