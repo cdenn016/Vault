@@ -168,12 +168,18 @@ def source_row_envelope(
     log_normalizer = maximum + float(
         np.log(np.exp(log_weights - maximum).sum())
     )
+    log_beta = log_weights - log_normalizer
     beta = np.zeros_like(prior_row)
-    beta[active] = np.exp(log_weights - log_normalizer)
+    beta[active] = np.exp(log_beta)
+    # Evaluate the entropy term in the log domain. Taking np.log of an already
+    # underflowed beta gives 0.0 * -inf = NaN whenever a row weight falls below
+    # the float64 subnormal floor (log_beta < -744.44), which happens for energy
+    # spreads of order 1e3 at unit temperature. Keeping log_beta exact makes the
+    # vanishing term 0.0 * finite = 0.0, the correct limit of beta log beta.
     objective = float(
         beta @ energy_row
         + temperature
-        * np.sum(beta[active] * np.log(beta[active] / prior_row[active]))
+        * np.sum(np.exp(log_beta) * (log_beta - np.log(prior_row[active])))
     )
     envelope = -temperature * log_normalizer
     return beta, objective, envelope
