@@ -460,7 +460,7 @@ which carries no source index, so in that case
 \end{equation}
 The proofs are in Appendix~\ref{sec:tempered-and-labeled-source-proofs}.
 
-Equation~\eqref{eq:source-label-tied-row} is a divergence-scored attention row obtained as an exact variational coordinate of a fixed normalized joint, rather than as the value of an engineered simplex minimization. Its scope should be read precisely. The sender mean \(\mu_j\) is a free recognition quantity throughout and is never replaced by a template, which is a strictly weaker requirement than the frozen-source hypothesis of Equation~\eqref{eq:fixed-source-row-joints}. The sender covariance is not equally free, because the tie \(R_{ij}=S_{ij}\) constrains a generative parameter to agree with \(\Sigma_j\). Within a single coordinate update the generative model is fixed and Equation~\eqref{eq:source-label-tied-row} is exact; if \(R_{ij}\) is refreshed to follow a moved \(\Sigma_j\), the model changes between updates, which is the same caution recorded after Equation~\eqref{eq:fixed-source-row-optimum}. Holding \(R_{ij}\) genuinely fixed instead leaves Equation~\eqref{eq:source-label-tied-row} valid at the operating point where \(\Sigma_j\) agrees with the declared link covariance, and elsewhere the row is Equation~\eqref{eq:source-label-edge-energy} with untied \(R_{ij}\). Untied, the edge energy is a Mahalanobis term in the model's own link metric together with separate dispersion penalties on the receiver and on the pushforward sender; the tied case is its specialization and not the general form.
+Equation~\eqref{eq:source-label-tied-row} is a divergence-scored attention row obtained as an exact variational coordinate of a fixed normalized joint, rather than as the value of an engineered simplex minimization. Its scope should be read precisely. The sender mean \(\mu_j\) is a free recognition quantity throughout and is never replaced by a template, which is a strictly weaker requirement than the frozen-source hypothesis of Equation~\eqref{eq:fixed-source-row-joints}. The sender covariance is not equally free, because the tie \(R_{ij}=S_{ij}\) constrains a generative parameter to agree with \(\Sigma_j\). Within a single coordinate update the generative model is fixed and Equation~\eqref{eq:source-label-tied-row} is exact; if \(R_{ij}\) is refreshed to follow a moved \(\Sigma_j\), the model changes between updates, which is the same caution recorded after Equation~\eqref{eq:fixed-source-row-optimum}. Holding \(R_{ij}\) genuinely fixed instead leaves Equation~\eqref{eq:source-label-tied-row} valid at the operating point where \(\Sigma_j\) agrees with the declared link covariance, and elsewhere the row is Equation~\eqref{eq:source-label-edge-energy} with untied \(R_{ij}\). Untied, the edge energy is a Mahalanobis term in the model's own link metric together with separate dispersion penalties on the receiver and on the pushforward sender. It should not be said that the tied case is a specialization of a family that also contains the deployed rule at a nonunit temperature: Section~\ref{sec:link-covariance-status} shows that no choice of \(R_{ij}\) delivers a divergence-scored row when \(\tau\neq1\).
 
 Two further remarks bound the construction. First, adjoining a distinguished label value with \(p(y_i\given j_i=\varnothing)=p_i(y_i)\) keeps the model in the same class and contributes the slot energy
 \begin{equation}
@@ -468,3 +468,50 @@ Two further remarks bound the construction. First, adjoining a distinguished lab
 \label{eq:source-label-self-slot}
 \end{equation}
 so a self term and the source terms become competing slots of one simplex, and moving a self term inside that simplex costs exactly one receiver entropy. Second, if the ordered mask is dropped in favor of a proper self-prior anchor, the resulting specification is undirected. Its partition function then depends on the label configuration, so \(-\log Z(J)\) enters the label objective and does not separate across receivers; in that route Equation~\eqref{eq:source-label-tied-row} holds only under the further declared approximation that this coupling is neglected.
+
+\section{The status of the link covariance}
+\label{sec:link-covariance-status}
+
+Equation~\eqref{eq:source-label-tied-row} rests on the tie \(R_{ij}=S_{ij}\), and that hypothesis can be graded rather than left standing as a convenience. Three results fix its status, and together they place it as a declared modeling postulate: a constrained-covariance choice of the kind that model-based clustering compares between candidate models rather than justifies as an estimator.
+
+The first result is that the tie and the unit temperature are one hypothesis rather than two. Require the offset \(E_{ij}-\tau^{-1}\KL(q_i\Vert\Omega_{ij\#}q_j)\) to be free of the source index as an identity in the sender mean, which is unconstrained and which sweeps \(\R^d\) because \(\Omega_{ij}\) is invertible. Only the quadratic form in \(\Delta_{ij}\) carries that dependence, and its coefficient \(\tfrac12(R_{ij}^{-1}-\tau^{-1}S_{ij}^{-1})\) vanishes identically only when
+\begin{equation}
+R_{ij}=\tau S_{ij}.
+\label{eq:link-covariance-forced-scale}
+\end{equation}
+Substituting Equation~\eqref{eq:link-covariance-forced-scale} back, the surviving term varies with \(\log\det S_{ij}\) at the rate \((\tau-1)/(2\tau)\), which vanishes only at \(\tau=1\). Fixing the scale therefore fixes the temperature. A corollary worth stating separately is that \(R_{ij}=cS_{ij}\) reproduces Equation~\eqref{eq:tempered-gaussian-row} exactly at \(\tau=c\), log-determinant logit included, so the link-covariance scale of the generative model and the softmax temperature of the recognition row are the same parameter seen from two sides. The consequence for the crosswalk of Chapter~\ref{ch:pifb2-crosswalk} is sharp: a divergence-scored row at a nonunit temperature is not the exact label coordinate of any model in this family, whether the link covariance is tied, scaled, or left free.
+
+The second result is that the tie is not a stationary point of the same objective, so it cannot be discharged by appeal to the slow timescale.
+
+\paragraph{Proposition (M-step optimum of the link covariance).} Since \(\Delta_{ij}^\top R^{-1}\Delta_{ij}=\operatorname{tr}(R^{-1}\Delta_{ij}\Delta_{ij}^\top)\), the edge energy of Equation~\eqref{eq:source-label-edge-energy} depends on \(R\) only through
+\begin{equation}
+E_{ij}(R)=\tfrac12\left[d\log2\pi+\log\det R+\operatorname{tr}\left(R^{-1}C_{ij}\right)\right],
+\qquad
+C_{ij}:=\Sigma_i+S_{ij}+\Delta_{ij}\Delta_{ij}^\top.
+\label{eq:link-covariance-sufficient-statistic}
+\end{equation}
+Maximizing the evidence lower bound over \(R\) at fixed recognition factors has the unique solution \(R^\star_{ij}=C_{ij}\). Hence
+\begin{equation}
+R^\star_{ij}-S_{ij}=\Sigma_i+\Delta_{ij}\Delta_{ij}^\top\succ0
+\label{eq:link-covariance-mstep-gap}
+\end{equation}
+for every configuration of the recognition family, so \(R_{ij}=S_{ij}\) is never stationary, and the evidence lower bound the tie forgoes on each edge is exactly the Stein loss
+\begin{equation}
+E_{ij}(S_{ij})-E_{ij}(R^\star_{ij})=\tfrac12\left[\operatorname{tr}\left(S_{ij}^{-1}C_{ij}\right)-\log\det\left(S_{ij}^{-1}C_{ij}\right)-d\right]>0.
+\label{eq:link-covariance-stein-deficit}
+\end{equation}
+
+Equality in Equation~\eqref{eq:link-covariance-mstep-gap} would require \(\Sigma_i=0\) together with \(\Delta_{ij}=0\), a point mass at exact gauge consensus, which lies outside the recognition family. The two terms the tie omits have plain readings. The receiver covariance \(\Sigma_i\) is the mean-field residual spread, present because the quantity being predicted is itself a belief rather than an observation; the outer product \(\Delta_{ij}\Delta_{ij}^\top\) is the squared prediction error that an M-step exists to absorb. Equation~\eqref{eq:link-covariance-stein-deficit} therefore carries an interpretation as well as a number: the divergence-scored row prices its sources as though the receiver were already certain and already in agreement.
+
+The third result closes the remaining escape route, and it matters because relaxing the mean-field pair factorization is an independently motivated direction rather than an artificial one.
+
+\paragraph{Proposition (stationarity and divergence scoring are exclusive).} Let the pair recognition factor be jointly Gaussian with cross-covariance \(C:=\operatorname{Cov}(y_i,y_j)\), so that the residual second moment becomes \(W_{ij}=\Sigma_i+S_{ij}-C\Omega_{ij}^\top-\Omega_{ij}C^\top+\Delta_{ij}\Delta_{ij}^\top\). Then the tie is an M-step fixed point if and only if
+\begin{equation}
+C\Omega_{ij}^\top+\Omega_{ij}C^\top=\Sigma_i+\Delta_{ij}\Delta_{ij}^\top,
+\label{eq:link-covariance-correlated-condition}
+\end{equation}
+which is solvable and admissible as a joint law on a nonempty set, while the exact label coordinate is a divergence-scored row if and only if \(\operatorname{tr}(S_{ij}^{-1}(C\Omega_{ij}^\top+\Omega_{ij}C^\top))\) does not depend on the source. Because Equation~\eqref{eq:link-covariance-correlated-condition} determines that symmetric combination uniquely, the two requirements hold together only on a nongeneric set. The mean-field factor \(C=0\) is the unique member of the family that yields the row, and it is exactly the member at which the tie fails to be stationary.
+
+A correlated recognition family therefore buys stationarity or divergence scoring, never both. Taken with the first result, this bounds what the construction of Section~\ref{sec:source-label-augmented-model} establishes. The divergence-scored row at unit temperature is realizable as the exact coordinate of a declared normalized joint under an ordered source mask, and \(R_{ij}=S_{ij}\) is the unique link covariance realizing it; but that uniqueness is a statement about the target rule, since the model was selected by requiring it, and it is not a derivation of the rule from independent principles. The proofs are in Appendix~\ref{sec:link-covariance-status-proofs}.
+
+One further remark forestalls a natural reading of the tie. Setting the link covariance to the transported sender covariance does not make the link reproduce the transported sender. Marginalizing the sender's belief through the link gives predictive covariance \(R_{ij}+S_{ij}=2S_{ij}\) under the tie, so the channel is twice as dispersed as the belief it is meant to carry, and the choice that would reproduce the transported belief exactly is \(R_{ij}=0\), outside the positive-definite cone.

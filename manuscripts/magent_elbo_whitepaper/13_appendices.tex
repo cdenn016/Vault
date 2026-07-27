@@ -567,6 +567,41 @@ while the Gaussian relative entropy between \(q_i\) and the pushforward \((\Omeg
 \end{equation}
 Subtracting Equation~\eqref{eq:appendix-label-pushforward-kl} from Equation~\eqref{eq:appendix-label-tied-energy} cancels both source-dependent groups and leaves Equation~\eqref{eq:source-label-tied-offset}. A source-free additive offset cancels between numerator and denominator of Equation~\eqref{eq:source-label-row-optimum}, which gives Equation~\eqref{eq:source-label-tied-row}. Finally, for the distinguished slot, \(-\E_{q_i}[\log p_i]=-H(q_i)-\E_{q_i}[\log p_i]+H(q_i)=\KL(q_i\Vert p_i)+H(q_i)\), which is Equation~\eqref{eq:source-label-self-slot}.
 
+\section{Status of the link covariance}
+\label{sec:link-covariance-status-proofs}
+
+This appendix proves the three statements of Section~\ref{sec:link-covariance-status}.
+
+\paragraph{Forced scale and forced temperature.} Write \(E_{ij}(R)\) as in Equation~\eqref{eq:source-label-edge-energy} and \(\mathcal K_{ij}:=\KL(q_i\Vert\Omega_{ij\#}q_j)\). Collecting the terms that involve the sender mean,
+\begin{equation}
+E_{ij}(R)-\tau^{-1}\mathcal K_{ij}
+=\tfrac12\Delta_{ij}^\top\left(R^{-1}-\tau^{-1}S_{ij}^{-1}\right)\Delta_{ij}+\kappa\left(\Sigma_i,\Sigma_j,\Omega_{ij}\right),
+\label{eq:appendix-link-mean-split}
+\end{equation}
+where \(\kappa\) does not involve \(\mu_j\). Since \(\Omega_{ij}\) is invertible, \(\mu_j\mapsto\Delta_{ij}\) is a bijection onto \(\R^d\), so as \(\mu_j\) ranges over the recognition family \(\Delta_{ij}\) sweeps \(\R^d\). A quadratic form vanishing on all of \(\R^d\) has zero symmetric matrix, so source-freeness forces \(R^{-1}=\tau^{-1}S_{ij}^{-1}\), which is Equation~\eqref{eq:link-covariance-forced-scale}. Substituting \(R=\tau S_{ij}\) into Equation~\eqref{eq:source-label-edge-energy} and subtracting \(\tau^{-1}\mathcal K_{ij}\) leaves
+\begin{equation}
+\tfrac12\left(1-\tau^{-1}\right)\log\det S_{ij}
++\tfrac12\left[d\log2\pi+d\log\tau+2d\tau^{-1}+\tau^{-1}\log\det\Sigma_i\right],
+\label{eq:appendix-link-leftover}
+\end{equation}
+whose only source-dependent term is the first. Its derivative with respect to \(\log\det S_{ij}\) is \((\tau-1)/(2\tau)\), which vanishes if and only if \(\tau=1\). Comparing Equation~\eqref{eq:appendix-link-leftover} with Equation~\eqref{eq:tempered-gaussian-row} identifies the two rows at \(\tau=c\).
+
+\paragraph{M-step optimum.} Equation~\eqref{eq:link-covariance-sufficient-statistic} follows from \(\Delta^\top R^{-1}\Delta=\operatorname{tr}(R^{-1}\Delta\Delta^\top)\) and linearity of the trace. Using \(\mathrm{d}\log\det R=\operatorname{tr}(R^{-1}\mathrm{d}R)\) and \(\mathrm{d}\operatorname{tr}(R^{-1}A)=-\operatorname{tr}(R^{-1}AR^{-1}\mathrm{d}R)\),
+\begin{equation}
+\mathrm{d}E_{ij}=\tfrac12\operatorname{tr}\left[\left(R^{-1}-R^{-1}C_{ij}R^{-1}\right)\mathrm{d}R\right],
+\label{eq:appendix-link-differential}
+\end{equation}
+so stationarity requires \(R^{-1}=R^{-1}C_{ij}R^{-1}\), and multiplying on both sides by \(R\) gives \(R=C_{ij}\). Uniqueness and global optimality follow because, in the precision coordinate \(\Lambda=R^{-1}\), the objective \(-\log\det\Lambda+\operatorname{tr}(\Lambda C_{ij})\) is strictly convex on the positive-definite cone with Hessian \(\Lambda^{-1}\otimes\Lambda^{-1}\). Equation~\eqref{eq:link-covariance-mstep-gap} is then immediate from \(C_{ij}-S_{ij}=\Sigma_i+\Delta_{ij}\Delta_{ij}^\top\), which is positive definite because \(\Sigma_i\) is. Substituting \(R=C_{ij}\) into Equation~\eqref{eq:link-covariance-sufficient-statistic} gives \(E_{ij}(C_{ij})=\tfrac12[d\log2\pi+\log\det C_{ij}+d]\), and subtracting this from \(E_{ij}(S_{ij})\) yields Equation~\eqref{eq:link-covariance-stein-deficit}. That expression is the Stein loss between \(C_{ij}\) and \(S_{ij}\), nonnegative with equality if and only if the two agree.
+
+\paragraph{Exclusivity under a correlated pair factor.} Let \(q(y_i,y_j)\) be jointly Gaussian with marginal covariances \(\Sigma_i,\Sigma_j\) and cross-covariance \(C\). The residual \(z=y_i-\Omega_{ij}y_j\) has mean \(\Delta_{ij}\) and covariance \(\Sigma_i+S_{ij}-C\Omega_{ij}^\top-\Omega_{ij}C^\top\), so its second moment is \(W_{ij}\) as stated. The argument of the preceding paragraph applies verbatim with \(C_{ij}\) replaced by \(W_{ij}\), giving \(R^\star_{ij}=W_{ij}\); setting \(W_{ij}=S_{ij}\) is Equation~\eqref{eq:link-covariance-correlated-condition}. That equation is solvable, for instance by \(C=\tfrac12(\Sigma_i+\Delta_{ij}\Delta_{ij}^\top)\Omega_{ij}^{-\top}\), and the resulting block matrix is a genuine covariance whenever the Schur complement \(\Sigma_i-C\Sigma_j^{-1}C^\top\) is positive semidefinite, which holds on a nonempty open set. For the row, substituting \(R=S_{ij}\) into the edge energy and subtracting \(\mathcal K_{ij}\) gives
+\begin{equation}
+E_{ij}-\mathcal K_{ij}
+=\tfrac12\left[d\log2\pi+2d+\log\det\Sigma_i\right]
+-\tfrac12\operatorname{tr}\left(S_{ij}^{-1}\left(C\Omega_{ij}^\top+\Omega_{ij}C^\top\right)\right),
+\label{eq:appendix-link-correlated-offset}
+\end{equation}
+whose first bracket is source-free. Hence the row is divergence-scored if and only if the trace is source-free. Under Equation~\eqref{eq:link-covariance-correlated-condition} that trace equals \(\operatorname{tr}(S_{ij}^{-1}(\Sigma_i+\Delta_{ij}\Delta_{ij}^\top))\), which depends on the source through both \(S_{ij}\) and \(\Delta_{ij}\). Since Equation~\eqref{eq:link-covariance-correlated-condition} fixes \(C\Omega_{ij}^\top+\Omega_{ij}C^\top\) uniquely, no residual freedom remains, and the two conditions coincide only where that trace happens to be constant across sources. Setting \(C=0\) recovers the mean-field case, where the trace vanishes identically and Equation~\eqref{eq:appendix-link-correlated-offset} reduces to Equation~\eqref{eq:source-label-tied-offset}.
+
 \chapter{Legacy Population-Functional Calculus}
 
 This appendix supplies the functional derivatives and simplex identities used in Chapter~\ref{ch:pifb2-crosswalk}. The calculations concern densities relative to declared base measures. They do not introduce a probability measure on a continuum of sections.
