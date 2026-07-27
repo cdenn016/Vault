@@ -120,6 +120,28 @@ the audited frame table uses plain AdamW, with the configured heavy-ball and pul
 
 The MAgent white paper now separates its continuum field theory from a finite probability construction. For fixed structural data $X$, a normalized finite joint kernel $P_\theta(do,dY\mid X)$ and normalized recognition kernel $Q_X(dY\mid o)$ satisfy the exact evidence decomposition under the stated absolute-continuity and integrability hypotheses. Capital symbols denote probability measures; lowercase Radon--Nikodym derivatives such as $\xi^{\mathrm{block}}$ denote their densities relative to declared product reference measures. The CAVI formula applies to those finite factors. It does not infer continuum sections from finite marginals, provide a probability law on section space, or establish a continuum limit. [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]]
 
+### Enlarging the inventory buys an exact attention row
+
+The paper's exact fixed-source row model holds only for **frozen** normalized templates and only at
+**unit** temperature, and a row-local construction does not define a normalized population joint when
+the state variables are shared. Those three limits are what kept the attention row classified as an
+engineered scalar rather than an ELBO term.
+
+Declaring a **source label** as an extra latent lifts all three, at a stated price
+([[magent-exact-elbo-whitepaper-2026-07-27-attention-derivation]]). Under a topologically ordered
+source mask the augmented model is a genuine directed factorization with partition function one, so
+the ordinary state ELBO and CAVI apply, and the exact label coordinate reproduces the KL-softmax row
+with the sender mean free. The price is four declared hypotheses: the label itself, the ordered mask
+(a **normalization requirement**, since every one-parent-per-agent assignment has a cycle and a
+reciprocal cocycle pair is non-normalizable), a link-noise tie in the covariance channel, and either
+unit temperature or a separately normalized tempered model whose normalizer contributes a per-source
+log-determinant logit.
+
+This is the general moral for this program: an "engineered scalar" verdict is a statement about a
+*given* latent inventory, and enlarging the inventory with compatible auxiliary variables can convert
+it into an exact ELBO term without contradicting the earlier obstruction, which was scoped to the
+smaller inventory.
+
 ## In this work
 
 The ELBO surfaces as a reference for the belief-side objective, not as one

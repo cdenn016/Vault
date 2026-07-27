@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-07-25
+updated: 2026-07-27
 ---
 
 # GL(K) gauge-equivariant attention
@@ -115,7 +115,8 @@ specialized here to the linear-frame ($\mathrm{GL}(K)$) reparameterizations the 
 - **Attention is derived, not assumed.** The full KL-plus-softmax rule above follows from a
   multi-agent VFE on a principal bundle with statistical-manifold fibers; the softmax is the KKT
   solution for the source-selection posterior and the KL is exact ([[gl-k-attention]],
-  [[Variational free energy]]).
+  [[Variational free energy]]). What that derivation costs, stated exactly, is settled in
+  [[magent-exact-elbo-whitepaper-2026-07-27-attention-derivation]] and summarized in the next section.
 
 - **The shared-frame Regime-I reduction is narrower than standard attention.** The vertex cocycle
   makes loop transport flat but does not force pairwise identity. If one transport is constant on
@@ -192,6 +193,58 @@ specialized here to the linear-frame ($\mathrm{GL}(K)$) reparameterizations the 
   itself force specialization, unequal Euclidean norms, or a phase transition. Those dynamical
   claims require a declared order parameter and evidence not supplied by the retained sweep.
   [[gl-k-attention-2026-07-09-review-revision]]
+
+### Derived from the exact ELBO: what it costs (2026-07-27)
+
+The [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation|MAgent exact-ELBO white
+paper]] originally graded the entropy-regularized attention row an *engineered scalar*, because its own
+exact row model needs frozen normalized templates and unit temperature, and because a row-local
+construction does not define a normalized population joint on shared state variables. Chapter 9 named
+a way out — a fixed normalized model carrying a **declared source label** can have an exact ELBO once
+compatibility and global normalization are proved — without carrying it out.
+[[magent-exact-elbo-whitepaper-2026-07-27-attention-derivation]] carries it out, and the result is that
+the rule is derivable **under four stated hypotheses**, three of which the theory does not itself
+select.
+
+**The temperature is not free.** A nonunit $\tau$ needs a separately normalized tempered model, whose
+normalizer contributes a per-source log-determinant logit:
+$$\beta_{ij}^{\star(\tau)}\propto\pi_{ij}\exp\left[-\tfrac1\tau D_{\mathrm{KL}}-\tfrac12\left(1-\tfrac1\tau\right)\left(\log\det\Sigma_j+2\log\lvert\det\Omega_{ij}\rvert\right)\right].$$
+For $\tau>1$ this discounts sources whose transported belief occupies more volume, beyond what the KL
+says. At the executable's $\tau=\kappa\sqrt K=\sqrt7$ the exact and posited rows differ by **0.069** in
+total variation, and by exactly $0$ at $\tau=1$. Because the transport enters only through
+$\lvert\det\Omega_{ij}\rvert$, which the $f$-divergence invariance theorem above cancels *inside* the
+divergence, this logit is a property of the tempering and not a breach of that invariance.
+
+**The live-peer problem narrows to the covariance channel.** With the label as a genuine latent, the
+exact CAVI coordinate for the source posterior reproduces the KL-softmax row **exactly** when the link
+noise is tied as $R_{ij}=\Omega_{ij}\Sigma_j\Omega_{ij}^\top$. The sender *mean* is free throughout and
+is never replaced by a template — strictly weaker than the frozen-template exception, which freezes
+both moments. The sender *covariance* is not, because the tie constrains a generative parameter to
+track $\Sigma_j$. Untying it moves the row by up to 0.99992, so the tie is substantive; untied, the
+edge energy is a Mahalanobis term in the model's own link metric plus dispersion penalties on both
+endpoints, of which the KL form is the specialization.
+
+**Normalization forces an ordered mask, and the cocycle is why.** Every one-parent-per-agent assignment
+has a cycle, so the augmented product is never a directed factorization unrestricted. Worse, under the
+program's own cocycle transport $\Omega_{ij}=U_iU_j^{-1}$ a *reciprocal* pair has a **singular**
+assembled precision for every SPD link covariance, with kernel vector $(v,\Omega_{ij}^{-1}v)$: both
+link factors express the same agreement relation, so the joint is flat along the gauge-consistent ray
+and has infinite mass. A topologically ordered source mask — a causal mask being the canonical case —
+restores $Z=1$ identically. Excluding only the self edge does not, since two-cycles survive.
+
+> [!important] The mask is a normalization requirement, not an architectural convenience.
+> This is comfortable for the causal language model and uncomfortable for the multi-agent setting,
+> where the source relation is bidirectional by design. The bidirectional route is available — adding
+> the self-prior anchor (PIFB2's $T_1$) restores positive definiteness — but yields a
+> [[Lattice gauge theory|Markov random field]] whose partition function depends on the label
+> configuration, so $-\log Z(J)$ enters the label objective and does not separate across receivers
+> (measured spread 1.76 nats at $N=3$). There the softmax row is exact only under a further declared
+> approximation.
+
+A fourth consequence ties the self term to the row: a distinguished label slot with
+$p(y_i\mid j_i=\varnothing)=p_i(y_i)$ contributes $D_{\mathrm{KL}}(q_i\Vert p_i)+H(q_i)$, so the
+self-coupling and the peer couplings are competing slots of **one** simplex and folding the self term
+inside costs exactly one belief entropy. See [[Multi-agent variational free energy]].
 
 ### Empirical anchor (audited development evidence)
 
@@ -322,4 +375,6 @@ transformer attention is an exact special case. [[gl-k-attention-2026-07-09-revi
 [[sengupta-2016-neuronal-gauge|sengupta-2016-neuronal-gauge-theory]] · [[participatory-it-from-bit]] ·
 [[2026-07-25-estep-character-and-channel-decomposition]] ·
 [[2026-07-25-phi-table-and-beta-channel-measurements]] ·
-[[2026-07-25-exact-congruence-truncation-tension]]
+[[2026-07-25-exact-congruence-truncation-tension]] ·
+[[magent-exact-elbo-whitepaper-2026-07-27-attention-derivation]] ·
+[[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]]

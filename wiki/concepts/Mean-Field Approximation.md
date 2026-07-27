@@ -194,6 +194,18 @@ mean field*:
   joint representation. The entropy-regularized softmax weights govern pairwise
   interactions, not the covariance structure of $q$.
 
+- **A discrete latent makes the attention row an honest CAVI coordinate.** Adjoining a categorical
+  **source label** per agent, so that the mean-field family is
+  $\prod_i q_i(y_i)\prod_i\beta_i(j_i)$, puts $\beta$ inside the variational family rather than
+  outside it. The standard discrete CAVI coordinate
+  $\log\beta_i^\star(j)=\mathbb E_{Q_{-\beta_i}}[\log p(Y,J)]+\text{const}$ then reproduces the
+  divergence-scored attention row exactly, provided the augmented model is normalized — which for a
+  one-parent-per-agent structure requires a topologically ordered source mask, since every such
+  assignment otherwise has a cycle
+  ([[magent-exact-elbo-whitepaper-2026-07-27-attention-derivation]]). This does not restore
+  cross-agent covariance; it relocates the attention weights from an engineered objective into the
+  recognition family.
+
 - **Changing pairwise divergence sensitivity.** The belief step can replace KL
   with an order-[[Renyi divergence|Rényi divergence]], changing sensitivity to
   density-ratio tails in each oriented pairwise term. This does not by itself

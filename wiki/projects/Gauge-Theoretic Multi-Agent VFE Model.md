@@ -64,6 +64,20 @@ $$
 
 The entropy-suppressed scalar $\sum_j\beta_{ij}^*E_{ij}$ is a different objective with a covariance response. A rowwise source-mixture interpretation requires an explicit source-independence assumption, and the full population functional is not one fixed mean-field ELBO over the original agent states. [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]] gives the corrected fine-family, site-local obstruction and its conditional continuum corollary; [[vfe-population-generative-status-2026-07-12]] retains the earlier auxiliary and configuration-space constructions.
 
+**The attention row now has an exact lift (2026-07-27).** On the inventory enlarged by a declared
+source label, and under a topologically ordered source mask, $\beta^*$ above is the exact CAVI
+coordinate of a fixed normalized joint rather than an engineered simplex value, with the sender mean
+free and the link noise tied as $R_{ij}=\Omega_{ij}\Sigma_j\Omega_{ij}^\top$
+([[magent-exact-elbo-whitepaper-2026-07-27-attention-derivation]]). Two findings bear directly on this
+project rather than on the transformer. First, the ordered mask is a **normalization requirement**:
+under the cocycle transport $\Omega_{ij}=U_iU_j^{-1}$ a reciprocal pair has singular assembled
+precision and infinite mass, so a bidirectional source relation — which is the natural multi-agent
+setting — cannot be lifted directly. Adding the $T_1$ self-prior anchor restores definiteness but
+yields a label-dependent partition function that does not separate across rows (spread 1.76 nats at
+$N=3$). Second, a nonunit $\tau$ requires a tempered model whose normalizer adds a per-source
+$-\tfrac12(1-1/\tau)\log\det(\Omega_{ij}\Sigma_j\Omega_{ij}^\top)$ logit, absent from the deployed
+row; at $\tau=\sqrt7$ the two rows differ by 0.069 in total variation.
+
 For adaptive prior precision, the complete sector is $\alpha_iD_i+b_0\alpha_i-c_0\log\alpha_i$. The optimized envelope coefficient $c_0/(b_0+D_i)$ differs from the derivative $b_0c_0/(b_0+D_i)^2$ of the bare product $\alpha_i^*D_i$.
 
 ## Primary and conditional dynamics

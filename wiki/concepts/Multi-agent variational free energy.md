@@ -81,6 +81,25 @@ The covariance response has no universal homophily sign and cannot be substitute
 
 The social block is an **engineered gauge-covariant consensus energy**. A rowwise source-mixture identity can be written only after the substantive assumption that the transported source templates form an externally supplied candidate family for that row. Even then, the row identity does not make the whole population functional the mean-field ELBO of one fixed joint on the original agent-state variables because the sources are other variational beliefs.
 
+> [!important] An exact lift exists on an enlarged inventory (2026-07-27)
+> The qualifier "on the original agent-state variables" is load-bearing, and dropping it changes the
+> verdict. If the latent inventory is **enlarged by a declared source label** $j_i$, then under a
+> topologically ordered source mask the divergence-scored row is the *exact* CAVI coordinate of a
+> fixed normalized joint, with the sender mean free throughout and the link noise tied as
+> $R_{ij}=\Omega_{ij}\Sigma_j\Omega_{ij}^\top$
+> ([[magent-exact-elbo-whitepaper-2026-07-27-attention-derivation]]). This is a *lift*, not an
+> equality of functionals on the original variables, so it does not contradict the moving-peer
+> obstruction. Two costs are real: the mask is a **normalization requirement** (under the cocycle
+> $\Omega_{ij}=U_iU_j^{-1}$ a reciprocal pair has singular assembled precision and infinite mass), and
+> a nonunit $\tau$ additionally requires a tempered model carrying a per-source
+> $-\tfrac12(1-1/\tau)\log\det(\Omega_{ij}\Sigma_j\Omega_{ij}^\top)$ logit.
+
+The same construction reads the **self term and the peer terms as competing slots of one simplex**. A
+distinguished label slot with $p(y_i\mid j_i=\varnothing)=p_i(y_i)$ contributes
+$D_{\mathrm{KL}}(q_i\Vert p_i)+H(q_i)$, so moving $T_1$ inside the attention row costs exactly one
+belief entropy per slot. That is the generative-side reading of the observations-as-agent-couplings
+parsimony question, reached independently of the direct computation.
+
 [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]] supplies the corrected obstruction. It works on the fine site-factorized family and sums iterated derivatives from separate site-local paths, yielding a positive weighted variance while every fixed-joint negative ELBO gives zero on the corresponding paths. The result excludes the coarser cross-design families, restricted families without the needed tangents, auxiliary-variable lifts, and the reduced functional after substituting state-dependent optimized attention. Its continuum corollary is conditional and does not construct a probability law on section space or a finite-to-continuum limit.
 
 [[vfe-population-generative-status-2026-07-12]] remains the immutable earlier record of the equilibrium-frozen auxiliary source model and a belief-configuration Gibbs lift when its partition function is finite. Its older obstruction account is refined by the site-local theorem above rather than silently rewritten.
