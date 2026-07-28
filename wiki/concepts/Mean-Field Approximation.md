@@ -216,6 +216,15 @@ mean field*:
   ([[magent-exact-elbo-whitepaper-2026-07-27-link-covariance-tie]]). Relaxing mean field is therefore
   worth pursuing on its own merits, not as a repair of the attention lift.
 
+  Two refinements of the hypothesis are worth recording, because they show what the mean-field
+  assumption is actually doing here. It is *not* Gaussianity of the factors: a Gaussian link makes the
+  edge energy affine in the residual second moment, so the M-step is blind to everything above second
+  order and the result holds for any product family with finite moments. And full independence is
+  stronger than needed — the gap survives whenever $\operatorname{sym}(C\Omega_{ij}^\top)=0$, which for
+  $d\geq2$ admits nonzero $C$ (take $C=A\Omega^{-\top}$ with $A$ antisymmetric) and collapses to $C=0$
+  only at $d=1$. So the operative hypothesis is a *vanishing symmetrized cross-covariance in the
+  transport frame*, not factorization as such.
+
 - **Changing pairwise divergence sensitivity.** The belief step can replace KL
   with an order-[[Renyi divergence|Rényi divergence]], changing sensitivity to
   density-ratio tails in each oriented pairwise term. This does not by itself

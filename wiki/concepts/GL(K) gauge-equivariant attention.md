@@ -264,6 +264,31 @@ $\beta_{ij}\propto\pi_{ij}\det(\Sigma_i+S_{ij}+\Delta\Delta^\top)^{-1/2}$ that s
 its logit grows like $\log(1+m^2)$ against $m^2/2$, so it cannot select on means, and at $\Delta=0$ it
 is Loewner-monotone in $S_{ij}$, ranking sender confidence rather than agreement.
 
+### The Gaussian assumption sits on the link, not the beliefs
+
+The governing statement is that **the M-step reads the recognition family only through the link's
+expected sufficient statistic**. A Gaussian link makes $-\log\mathcal N(y_i;\Omega_{ij}y_j,R)$ affine in
+$zz^\top$, so that statistic is the residual second moment and nothing above second order can enter.
+The M-step gap and its Stein-loss deficit therefore survive for any *product* recognition family with a
+mean and a finite nonsingular residual second moment, Gaussian or not — the sharp control being that a
+Gaussian with matched first two moments gives the same energy to Monte Carlo noise. The right weakening
+of the product hypothesis is $\operatorname{sym}(C\Omega_{ij}^\top)=0$, not independence, which for
+$d\geq2$ is strictly weaker than $C=0$.
+
+Non-Gaussian beliefs **cost** the divergence-scored row rather than rescuing the tie. Under the tie the
+offset is $H(q_i)+d/2+D_{ij}$, with $D_{ij}$ the m-projection defect of the transported sender against
+its own Gaussian moment match, so the row survives exactly when the receiver cannot separate each
+source from that match. And among elliptical families closed under linear pushforward, a source-free
+gauge-covariant link-covariance rule exists **iff the family is Gaussian**, in which case it is uniquely
+the tie. Gaussianity here is forced, not assumed for convenience.
+
+What does carry weight is Gaussianity of the *link*. For an elliptical link the stationarity condition
+becomes Maronna's weighted fixed point $R^\star=\mathbb E[w(Q)zz^\top]$, and the tie's necessary scalar
+condition is $\mathbb E[\psi(Q_S)]=d$ with $\psi(u)=uw(u)$ — the Gaussian obstruction being exactly
+$\psi=\mathrm{id}$. A heavy-tailed generator has $\psi$ bounded and admits a unique $\kappa^\star>1$, so
+the tie becomes attainable, though never as an identity, and there the row is a robust score rather
+than a Gaussian divergence ([[magent-exact-elbo-whitepaper-2026-07-27-link-covariance-tie]]).
+
 **Normalization forces an ordered mask, and the cocycle is why.** Every one-parent-per-agent assignment
 has a cycle, so the augmented product is never a directed factorization unrestricted. Worse, under the
 program's own cocycle transport $\Omega_{ij}=U_iU_j^{-1}$ a *reciprocal* pair has a **singular**

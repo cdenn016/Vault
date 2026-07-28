@@ -23,15 +23,15 @@ updated: 2026-07-27
 
 | Field | Value |
 |---|---|
-| Research commit | `70d4b9583f11581b277c9f71f04977340911baee` |
-| Whitepaper subtree | `48a2636a5c9f1af48b4982f6da1366b0e9ea8e10` |
-| `06_mean_field_theory.tex` blob | `a6f4c3368d025d3b47be64e5d61f30007707f910` |
+| Research commit | `70d4b9583f11581b277c9f71f04977340911baee`, addendum `fa9d192bcd2f34337e33b747cf9876e50ae358bd` |
+| Whitepaper subtree | `48a2636a5c9f1af48b4982f6da1366b0e9ea8e10`, addendum `a1e13ab10159d863b016048ede9c25472ebfc625` |
+| `06_mean_field_theory.tex` blob | `a6f4c3368d025d3b47be64e5d61f30007707f910`, addendum `c7e899fd72161e2bd3639c15bd4a02352cc92217` |
 | `09_pifb2_crosswalk.tex` blob | `3dfae187e4eb4228d2f8aef93fc911b3c31835df` |
 | `13_appendices.tex` blob | `d880d45fa90909129a96b67426ec77bbe48bb3e8` |
 | `PIFB2.tex` blob | `9f7aed8377e2f2ba3d6073381da091d4121d32a0` |
-| Oracle (MAgent) | `verification/b0_covariance_tie.py`, 15 checks, seed 20260727 |
-| Ledger (MAgent) | `.verification/ledger-b0a-tie-2026-07-27.json`, 6 claims, closure mode |
-| Build | whitepaper 115 pages, PIFB2 173 pages, 0 errors, 0 undefined |
+| Oracle (MAgent) | `verification/b0_covariance_tie.py`, 18 checks, seed 20260727 |
+| Ledger (MAgent) | `.verification/ledger-b0a-tie-2026-07-27.json`, 8 claims, closure mode |
+| Build | whitepaper 116 pages, PIFB2 173 pages, 0 errors, 0 undefined |
 
 Predecessor: [[magent-exact-elbo-whitepaper-2026-07-27-attention-derivation]], which
 constructed the source-label lift and left this tie explicitly open.
@@ -162,6 +162,53 @@ doing so merges two hypotheses that were being tracked separately. The impossibi
 the load-bearing item for planning: it tells the correlated-VFE track that relaxing mean field
 will not rescue the divergence-scored row, so that track should be pursued for its own reasons
 rather than as a repair of this one.
+
+## Addendum: the Gaussian assumption is narrower than it looks
+
+Added the same day, prompted by the author's note that Gaussians are assumed only for simplicity.
+
+**The governing statement.** The M-step reads the recognition family only through the **link's
+expected sufficient statistic**. For a Gaussian link, $-\log\mathcal N(y_i;\Omega_{ij}y_j,R)$ is affine
+in $zz^	op$, so that statistic is the residual second moment and nothing above second order can
+enter. This is a property of the link, not of variational inference.
+
+| Result | non-Gaussian beliefs | non-Gaussian link |
+|---|---|---|
+| $R^\star-S=\Sigma_i+\Delta\Delta^	op$ | survives | dies |
+| deficit $=$ Stein loss | survives | dies |
+| stationarity XOR the row | survives verbatim | dies twice |
+
+**Corrections.** The gap needs not mean-field independence but only $\operatorname{sym}(C\Omega^	op)=0$,
+strictly weaker than $C=0$ once $d\geq2$. A factor without a finite second moment is not an edge case
+but an excluded one, since $E_{ij}=+\infty$ on all of $\mathbb S_{++}^d$ at once, so the Gaussian link
+imposes the moment restriction by itself. And "a richer structured recognition family cannot rescue
+the tie" is **false** — *structured* means retaining dependence, and a dependent family is exactly
+what the impossibility result describes; the correct scope is *product* families.
+
+**Non-Gaussian beliefs cost the row rather than buying the tie.** Under the tie the offset is
+$H(q_i)+d/2+D_{ij}$ with $D_{ij}$ the **m-projection defect** of the transported sender against its own
+Gaussian moment match, so the row survives exactly when the receiver cannot separate each source from
+that match. Six sources at identical pushforward mean and variance give offset spread 0.143 nats
+overall and exactly 0.0 across the Gaussian senders.
+
+**Uniqueness theorem.** Among elliptical recognition families with a common generator closed under
+linear pushforward and with free source geometry, the offset admits a source-free gauge-covariant
+link-covariance rule **iff the family is Gaussian**, and then that rule is uniquely the tie; the
+minimal exponential-family version admits only $t(y)\subseteq\operatorname{span}\{y,yy^	op\}$. The
+Gaussian is not a convenient simplification here but the unique setting in which the construction
+closes, which strengthens the postulate verdict rather than qualifying it.
+
+**The open direction, now characterized.** For an elliptical link the M-step is Maronna's weighted
+fixed point $R^\star=\E[w(Q)zz^	op]$, $w=-2(\log g)'$, and the tie's necessary scalar condition is
+$\E[\psi(Q_S)]=d$ with $\psi(u)=uw(u)$. The Gaussian obstruction is exactly $\psi=\mathrm{id}$. For
+Student-t, $\psi$ is bounded and a unique $\kappa^\star>1$ solves it on the isotropic
+zero-mean-residual slice ($\kappa^\star=$ 2.6699, 1.5882, 1.4718, 1.2753, 1.2504, 1.0182 at
+$(d,
+u)=(1,1),(1,3),(2,3),(3,5),(5,4),(10,100)$, tending to 1 as $
+u	o\infty$), so the tie becomes
+attainable there. It never becomes an identity: a nonzero mean residual obstructs it, and demanding
+it identically forces $g(u)\propto u^{-d/2}$, not normalizable. Where it does hold the row is a
+robust score rather than a Gaussian divergence, so the exclusivity migrates rather than dissolving.
 
 ## Related
 
