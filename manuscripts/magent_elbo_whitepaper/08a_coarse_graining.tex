@@ -1,0 +1,111 @@
+\chapter{Coarse-Graining and the Scale Tower}
+\label{ch:coarse-graining}
+
+Every construction so far describes one population at one resolution. This chapter asks what a coarser description of the same population can be, and which coarser descriptions the exact bound of Chapter~\ref{ch:structured-recognition-elbo} actually licenses. The answer separates into operations that are routinely conflated, and the separation is the chapter's main organizing claim: two of them are legitimate, they move different quantities in opposite directions, and neither is the operation that a coarse-graining is usually imagined to be.
+
+Nothing here introduces a new latent inventory. Chapter~\ref{ch:generative-model} already admits a directed factorization with explicit parent coordinates, so a finite tower of scales is expressible in the declared generative model without amendment; a scale tower is a directed acyclic graph over agents, and that graph is already present. What the chapter supplies is the classification of coarsening operations on that structure, together with the one closure result the interaction family actually satisfies.
+
+\section{Three operations, not one}
+
+Let \(P_\theta\) be fixed with its declared latent inventory, and let \(o\) be observed. A first operation restricts the recognition family, replacing an admissible \(Q_X\) by one drawn from a smaller set, typically by demanding that groups of agents share a factor. Because the feasible set shrinks while the model is untouched, the evidence \(\log p_\theta(o)\) does not move and the attainable bound can only fall. The loss is the increase in the relative entropy of Equation~\eqref{eq:hierarchical-elbo-gap}, and in the Gaussian reference law of Chapter~\ref{ch:generative-model} it is a pure log-determinant quantity, so it depends on the coupling structure of the model and not on the realized observation.
+
+A second operation integrates a block of generative latents out of the declared joint. This does not change the evidence at all. Collapsing a block is associativity of integration,
+\begin{equation}
+p_\theta(o)
+=\int\!\!\int p_\theta(o\mid b,d)P_\theta(db,dd)
+=\int\left[\int p_\theta(o\mid b,d)P_\theta(dd\mid b)\right]P_\theta(db),
+\label{eq:coarse-marginalization-identity}
+\end{equation}
+so the number is the same object written two ways. What does change is the attainable bound, and it changes in the direction opposite to a family restriction: with a block integrated out there are fewer dependencies left for a product recognition family to sever, so the best attainable bound weakly rises. The two operations therefore move the bound in opposite senses while agreeing that the evidence is fixed, and that opposition is the sharpest available demonstration that they are not two descriptions of one procedure.
+
+A third construction is frequently mistaken for the second. Instead of integrating the eliminated variation out, one may discard it, retaining the coarse latents and leaving the observation kernel otherwise unchanged. This does change the evidence, because it defines a different normalized model, and the difference depends on the realized data. It is model replacement, and calling it coarse-graining is a category error. A bound computed for one model stands in no order relation to the evidence of a replaced model; the two quantities may be compared numerically but no inequality connects them, and a coarse bound must never be reported as a bound on a replaced model's evidence.
+
+\section{Tying preserves the interaction family}
+
+The interaction family of Chapter~\ref{ch:generative-model} carries, in the belief-mean sector, a block-diagonal positive part together with a matrix-weighted graph Laplacian whose edge weights are symmetric positive semidefinite. Ask which coarsening operations return a model in that same family.
+
+Integrating a cluster out does not, in general. A Schur complement manufactures couplings between agents that previously had none, and the manufactured blocks need not carry the sign structure the family requires, so form preservation is not available as an identity. A restriction of the recognition family, by contrast, does preserve it, and exactly.
+
+\paragraph{Proposition (closure under tying).}
+Let \(\Lambda\) be a precision of the stated form on \(N\) agents with fiber dimension \(K\), let the agents be partitioned into clusters, and let \(S\) be the associated \(0/1\) aggregation matrix that assigns to each cluster a single common value. Then \(\Lambda_{\mathrm{c}}=S^{\top}\Lambda S\) is again of the stated form. Its off-diagonal blocks are
+\begin{equation}
+(\Lambda_{\mathrm{c}})_{IJ}
+=-\sum_{i\in I,\;j\in J}W_{ij},
+\qquad
+(\Lambda_{\mathrm{c}})_{II}
+=\sum_{i\in I}A_i+\sum_{i\in I,\;j\notin I}W_{ij},
+\label{eq:coarse-tying-blocks}
+\end{equation}
+where \(A_i\) are the self terms and \(W_{ij}\) the edge weights of \(\Lambda\).
+
+The computation is direct. Writing the Laplacian part as a sum over edges of \(W_{ij}\) applied to the difference of the two endpoint coordinates, every edge internal to a cluster contributes a difference of two coordinates that tying has identified, so its contribution vanishes identically. Every cut edge contributes to the two cluster diagonal blocks and, with a minus sign, to the connecting off-diagonal block. The self terms add. Because a sum of positive semidefinite matrices is positive semidefinite, both displayed expressions inherit the sign structure the family requires, for every \(K\) and every topology.
+
+Two consequences deserve statement. The renormalized coupling between two coarse agents is exactly the sum of the fine weights on the edges cut between their clusters, so the coarsened model's parameters are determined rather than posited and no separate conductance ansatz is required. And the operation is a restriction of the recognition family in the sense of the previous section, so it costs bound and leaves the evidence alone; keeping the interaction form has a price, and the price is computable in closed form. This is a variational coarsening in the Kadanoff sense, carried out on the recognition side rather than on the generative side.
+
+The complementarity is worth stating plainly, because it is the chapter's practical conclusion. Marginalization preserves the evidence and breaks the interaction form. Tying preserves the interaction form and costs bound. A treatment that needs both must name both, and may not slide between them.
+
+\section{Sufficiency and the lossless reduction}
+
+When a coarse agent is introduced as a parent of a cluster through the Gaussian reference law, with constituents distributed as \(y_i\mid b\sim\mathcal N(\Omega_i b,R_i)\), the likelihood factors as
+\begin{equation}
+p(y\mid b)
+\propto
+\exp\left[
+b^{\top}\sum_i\Omega_i^{\top}R_i^{-1}y_i
+-\tfrac12 b^{\top}\left(\sum_i\Omega_i^{\top}R_i^{-1}\Omega_i\right)b
+\right].
+\label{eq:coarse-sufficient-statistic}
+\end{equation}
+By the factorization criterion, \(T(y)=\sum_i\Omega_i^{\top}R_i^{-1}y_i\) is sufficient for the coarse coordinate, and the matrix in the quadratic term is the sum of transported link precisions. Reduction to \(T\) therefore discards nothing about the parent, and a minimal sufficient statistic is unique up to bijection, so the reduction is canonical in a sense no competing rule can claim.
+
+A transported arithmetic mean of the constituents is a different statistic and is not sufficient. It retains strictly less Fisher information about the coarse coordinate whenever the constituents are heterogeneous, and recovers the full information exactly when their transports and link covariances coincide. The information gap between the two rules is therefore a measure of constituent heterogeneity, which is the precise sense in which averaging is safe on a coherent cluster and lossy otherwise.
+
+Nothing in the preceding paragraph selects the weights of a pooling rule. Any weight vector defines an admissible parameter under the maximization of Equation~\eqref{eq:exact-m-coordinate}, so a coherence-dependent weighting is a declared modeling choice and not a consequence of the bound.
+
+\section{Collapsing a parent dominates factorizing it away}
+
+Fix a joint posterior precision \(J\) over constituents together with their parent, write \(J_{II}\) for the parent block and \(J/J_{II}\) for its Schur complement. For the optimal block-diagonal recognition factor against a Gaussian target with matched mean, only diagonal blocks contribute to the trace term, so the relative-entropy gap of a block structure is \(\tfrac12[\sum_i\log\det\Lambda_{ii}-\log\det\Lambda]\). Applying this to the two structures and using \(\log\det J=\log\det J_{II}+\log\det(J/J_{II})\), every term cancels except
+\begin{equation}
+\mathcal G_{\mathrm{fact}}-\mathcal G_{\mathrm{coll}}
+=\tfrac12\sum_i\log
+\frac{\det J_{ii}}{\det (J/J_{II})_{ii}}
+\;\geq\;0,
+\label{eq:coarse-collapse-domination}
+\end{equation}
+nonnegative because \((J/J_{II})_{ii}\) is dominated by \(J_{ii}\) in the Loewner order, with equality exactly when no constituent couples to the parent. A recognition family that factorizes a coarse agent away from its constituents is therefore strictly dominated by one that collapses it, and the loss is available in closed form. The statement is about bounds at fixed model. It does not adjudicate between treating the coarse agent as a latent and treating it as a parameter, which are different joints with incomparable evidences.
+
+\section{The tower and its gap}
+
+For a recognition law that factorizes across scales, the evidence gap of a finite tower decomposes into a sum of per-scale conditional relative entropies. This is the chain rule for relative entropy applied to a scale-factorized law, and the paper claims no novelty for it. Its useful content is the accounting: the top scale contributes nothing, because it has no earlier scale to be conditioned on, so every nat of the gap is generated by the cross-scale dependence that the factorization discards. A tighter tower bound must therefore buy structure across scales, not within them.
+
+The identity is exact when each scale's recognition kernel is the conditional posterior of the block above it, which is the trivial case, and the paper states it as such rather than presenting the exactness as a result.
+
+\section{The frame sector is not identifiable}
+
+Suppose a coarse agent transmits to its constituents through the transport \(\Omega_{i,I}=U_iU_I^{-1}\), so that each constituent receives the pushforward of the coarse belief. Writing the coarse belief as \(\mathcal N(\mu_I,\Sigma_I)\), the received law is
+\begin{equation}
+\mathcal N\!\left(U_iU_I^{-1}\mu_I,\;U_iU_I^{-1}\Sigma_I U_I^{-\top}U_i^{\top}\right)
+=\mathcal N\!\left(U_i m,\;U_i S U_i^{\top}\right),
+\qquad
+m=U_I^{-1}\mu_I,
+\quad
+S=U_I^{-1}\Sigma_I U_I^{-\top}.
+\label{eq:coarse-frame-unidentifiable}
+\end{equation}
+The coarse frame has cancelled. Every constituent law depends on the triple \((U_I,\mu_I,\Sigma_I)\) only through the pair \((m,S)\), so the coarse frame occupies a \(K^2\)-dimensional orbit along which nothing observable varies. It is pure gauge, and only the frame-free combination is determined.
+
+A search for a canonical coarse frame is therefore a search for a canonical value of an unidentifiable quantity, and no metric or connection on the frame group can supply one, because there is nothing for a geometric criterion to be right about. Any convention fixing the coarse frame is a gauge choice, to be declared as such.
+
+An independent obstruction blocks the same construction from another direction. No left-equivariant, permutation-symmetric map \(\mathrm{GL}^+(K)^n\to\mathrm{GL}^+(K)\) exists for \(K\geq 2\) and \(n\geq 2\), and no continuity hypothesis is needed. Take \(U_j=v^{j-1}\) with \(v\) a rotation of order \(n\). Equivariance at \(v\) sends the tuple to \((v,v^2,\dots,v^n=I)\), a permutation of the original, so symmetry forces the value to be unchanged while equivariance forces it to be multiplied by \(v\). Hence \((v-I)M=0\), every column of \(M\) lies in a proper subspace, and \(M\) cannot be invertible. A construction that anchors the pooling against a declared reference escapes this only by being partial, undefined precisely on the tuples the argument excludes.
+
+Chapter~\ref{ch:configuration-elbo} separately declines to place a normalized ensemble on the noncompact frame group. The obstruction recorded here is independent of that refusal and is not repaired by supplying a proper reference measure.
+
+\section{What this chapter does not claim}
+
+It does not derive the formation of a coarse agent from the bound. No criterion here decides when a cluster should be coarsened; the operations are classified and their costs computed, and the decision to apply one remains external. A comparison of bounds across models with different latent inventories does not order those models, both being lower bounds on different evidences, and the temperature invariance recorded at Equation~\eqref{eq:common-temperature-optimizer-invariance} forbids treating the coefficient of a complexity term as a free parameter within a single objective.
+
+It does not establish closure of the interaction family under any operation other than tying. Whether an aggregating map that integrates rather than identifies can preserve the family is open, and the closure of the family under such a map is not determined here.
+
+It does not extend the published guarantees for scalar-weighted graph reduction to the matrix-weighted setting the belief-mean sector actually inhabits. The structural closure of Schur complementation under Kron reduction, and the corresponding characterization of when an aggregation preserves a combinatorial Laplacian, are established in the graph-reduction literature for scalar edge weights; the matrix-weighted case is not covered by those statements and is recorded here as unproved.
+
+It does not claim a monotone information-geometric flow, a coarse-graining channel selected by a uniqueness theorem, or any statement about the frame sector beyond the two obstructions above.
