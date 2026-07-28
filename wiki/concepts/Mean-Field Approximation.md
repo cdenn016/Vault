@@ -13,7 +13,7 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-06-21
-updated: 2026-07-19
+updated: 2026-07-27
 ---
 
 # Mean-Field Approximation
@@ -205,6 +205,16 @@ mean field*:
   ([[magent-exact-elbo-whitepaper-2026-07-27-attention-derivation]]). This does not restore
   cross-agent covariance; it relocates the attention weights from an engineered objective into the
   recognition family.
+
+  Mean field is not merely convenient here but **uniquely required**, and the reason is a genuine
+  trade-off rather than a limitation. Allowing the pair factor a cross-covariance $C$ makes the link
+  covariance tie $R_{ij}=\Omega_{ij}\Sigma_j\Omega_{ij}^\top$ attainable as an M-step fixed point —
+  it needs $C\Omega^\top+\Omega C^\top=\Sigma_i+\Delta\Delta^\top$, which is solvable and admissible
+  as a joint law — but the same condition fixes that symmetric combination uniquely and thereby makes
+  the row's offset source-dependent, destroying the divergence scoring. Correlation buys stationarity
+  or the KL row, never both, and $C=0$ is the unique member of the family delivering the row
+  ([[magent-exact-elbo-whitepaper-2026-07-27-link-covariance-tie]]). Relaxing mean field is therefore
+  worth pursuing on its own merits, not as a repair of the attention lift.
 
 - **Changing pairwise divergence sensitivity.** The belief step can replace KL
   with an order-[[Renyi divergence|Rényi divergence]], changing sensitivity to

@@ -35,6 +35,15 @@ $\tau>1$ discounts higher-volume components
 ([[magent-exact-elbo-whitepaper-2026-07-27-attention-derivation]], built on the standard
 power-likelihood construction).
 
+There is a sharper way to say this when the components arise as Gaussian link factors
+$\mathcal N(y_i;\Omega_{ij}y_j,R_{ij})$. **The temperature simply is the link-noise scale**:
+$R_{ij}=cS_{ij}$ reproduces the tempered row exactly at $\tau=c$, log-determinant logit included. So a
+softmax temperature is not a free knob layered on top of a probabilistic model; it is a statement about
+how noisy the model declares its channels to be. Demanding that the row reduce to a clean divergence
+score, as an identity in the unconstrained sender mean, forces $R_{ij}=\tau S_{ij}$ and then forces
+$\tau=1$ — divergence scoring and unit temperature are the same requirement
+([[magent-exact-elbo-whitepaper-2026-07-27-link-covariance-tie]]).
+
 ## Related
 [[Mechanistic interpretability of attention]], [[Attention mechanisms — theory and positional structure]], [[Precision weighting|Precision-weighted attention]], [[GL(K) gauge-equivariant attention]], [[Entropic regularization]], [[Mean-Field Approximation]], [[Maximum entropy]]
 

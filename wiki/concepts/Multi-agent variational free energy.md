@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-19
+updated: 2026-07-27
 ---
 
 # Multi-agent variational free energy
@@ -93,6 +93,14 @@ The social block is an **engineered gauge-covariant consensus energy**. A rowwis
 > $\Omega_{ij}=U_iU_j^{-1}$ a reciprocal pair has singular assembled precision and infinite mass), and
 > a nonunit $\tau$ additionally requires a tempered model carrying a per-source
 > $-\tfrac12(1-1/\tau)\log\det(\Omega_{ij}\Sigma_j\Omega_{ij}^\top)$ logit.
+>
+> Those two costs are **the same cost**
+> ([[magent-exact-elbo-whitepaper-2026-07-27-link-covariance-tie]]). Source-freeness as an identity in
+> the free sender mean forces $R_{ij}=\tau\Omega_{ij}\Sigma_j\Omega_{ij}^\top$ and then $\tau=1$, so
+> the tie and the unit temperature are one hypothesis and the lift does not reach the deployed
+> $\tau=\kappa\sqrt K$. The tie is a declared postulate: the unique M-step optimum is
+> $\Sigma_i+S_{ij}+\Delta_{ij}\Delta_{ij}^\top$, which exceeds it by a positive-definite amount, and a
+> correlated pair recognition factor buys stationarity or the divergence-scored row but never both.
 
 The same construction reads the **self term and the peer terms as competing slots of one simplex**. A
 distinguished label slot with $p(y_i\mid j_i=\varnothing)=p_i(y_i)$ contributes

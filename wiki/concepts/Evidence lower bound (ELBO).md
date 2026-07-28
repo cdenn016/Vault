@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-19
+updated: 2026-07-27
 ---
 
 # Evidence lower bound (ELBO)
@@ -136,6 +136,19 @@ with the sender mean free. The price is four declared hypotheses: the label itse
 reciprocal cocycle pair is non-normalizable), a link-noise tie in the covariance channel, and either
 unit temperature or a separately normalized tempered model whose normalizer contributes a per-source
 log-determinant logit.
+
+That price has since been paid down to three hypotheses rather than four, because the last two are
+**one** ([[magent-exact-elbo-whitepaper-2026-07-27-link-covariance-tie]]). Requiring the coordinate's
+offset to be source-free as an identity in the free sender mean forces the link covariance to be
+$\tau$ times the transported sender covariance, and the surviving term then forces $\tau=1$; the
+generative link-noise scale and the recognition temperature are the same parameter. The tie is graded
+a declared postulate rather than a derived identity, since the unique M-step optimum for the link
+covariance is $\Sigma_i+S_{ij}+\Delta\Delta^\top$ and exceeds the tied value by a positive-definite
+amount, the forgone bound being exactly a Stein loss. The general lesson for ELBO bookkeeping is worth
+isolating: the untied edge energy is a **cross-entropy** of the residual law against the link noise,
+$E_{ij}(R)=D_{\mathrm{KL}}(P_{ij}\Vert\mathcal N(0,R))+H(P_{ij})$, hence a proper scoring rule and not
+a divergence, and *a score induces a divergence-scored row exactly when its entropy part is
+source-free*.
 
 This is the general moral for this program: an "engineered scalar" verdict is a statement about a
 *given* latent inventory, and enlarging the inventory with compatible auxiliary variables can convert

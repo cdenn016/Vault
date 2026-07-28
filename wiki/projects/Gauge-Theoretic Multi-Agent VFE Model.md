@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-07-19
+updated: 2026-07-27
 ---
 
 # Gauge-Theoretic Multi-Agent VFE Model
@@ -77,6 +77,22 @@ yields a label-dependent partition function that does not separate across rows (
 $N=3$). Second, a nonunit $\tau$ requires a tempered model whose normalizer adds a per-source
 $-\tfrac12(1-1/\tau)\log\det(\Omega_{ij}\Sigma_j\Omega_{ij}^\top)$ logit, absent from the deployed
 row; at $\tau=\sqrt7$ the two rows differ by 0.069 in total variation.
+
+**The tie is a postulate, and it is the temperature (2026-07-27).**
+[[magent-exact-elbo-whitepaper-2026-07-27-link-covariance-tie]] grades the remaining hypothesis and
+collapses those two findings into one. Source-freeness of the offset, as an identity in the free sender
+mean, forces $R_{ij}=\tau\Omega_{ij}\Sigma_j\Omega_{ij}^\top$ and then forces $\tau=1$, so the lift
+covers the unit-temperature row and not the deployed $\tau=\kappa\sqrt K$. The tie is not an M-step
+fixed point — the unique optimum is $\Sigma_i+S_{ij}+\Delta_{ij}\Delta_{ij}^\top$, exceeding it by a
+positive-definite amount, with the forgone bound exactly a Stein loss — so it stands as a declared
+constrained-covariance postulate. Three consequences bear on this project specifically. A correlated
+pair recognition family, the natural next relaxation and one this project is already planning, buys
+stationarity or the divergence-scored row but never both, so it should be pursued on its own merits
+rather than as a repair. The ordered mask survives the non-flat toggle, because
+`gauge_agent/non_flat_connection.py` builds $V_{ji}=V_{ij}^{-1}$ and so preserves
+$\Omega_{ij}\Omega_{ji}=I$ even at large 3-cycle [[Holonomy|holonomy]]; the mask tracks edge
+reciprocity, not flatness, and escaping it means surrendering edge reversibility. And the tie does not
+mean what it appears to: the link predictive is $2S_{ij}$, not the transported belief.
 
 For adaptive prior precision, the complete sector is $\alpha_iD_i+b_0\alpha_i-c_0\log\alpha_i$. The optimized envelope coefficient $c_0/(b_0+D_i)$ differs from the derivative $b_0c_0/(b_0+D_i)^2$ of the bare product $\alpha_i^*D_i$.
 

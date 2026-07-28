@@ -222,7 +222,47 @@ is never replaced by a template — strictly weaker than the frozen-template exc
 both moments. The sender *covariance* is not, because the tie constrains a generative parameter to
 track $\Sigma_j$. Untying it moves the row by up to 0.99992, so the tie is substantive; untied, the
 edge energy is a Mahalanobis term in the model's own link metric plus dispersion penalties on both
-endpoints, of which the KL form is the specialization.
+endpoints.
+
+### The tie is a postulate, and it is the temperature (2026-07-27)
+
+[[magent-exact-elbo-whitepaper-2026-07-27-link-covariance-tie]] grades the tie and merges two
+hypotheses that were being tracked separately. The first result supersedes the earlier reading that the
+KL form is simply "the specialization" of the untied family.
+
+**The tie and the unit temperature are one hypothesis.** Demand that the offset be source-free *as an
+identity in the sender mean*, which is unconstrained and sweeps $\mathbb R^d$ since $\Omega_{ij}$ is
+invertible. The coefficient of the quadratic form in $\Delta_{ij}$ is
+$\tfrac12(R_{ij}^{-1}-\tau^{-1}S_{ij}^{-1})$, so source-freeness forces $R_{ij}=\tau S_{ij}$; the
+surviving term then varies with $\log\det S_{ij}$ at rate $(\tau-1)/(2\tau)$, vanishing only at
+$\tau=1$. So $R_{ij}=cS_{ij}$ reproduces the tempered row above *exactly* at $\tau=c$ — the generative
+link-covariance scale and the recognition softmax temperature are **the same parameter**, and the two
+findings above are one rather than two. A divergence-scored row at nonunit temperature is the exact
+coordinate of no model in the family, so the lift does not reach the deployed $\tau=\sqrt7$.
+
+**The tie is not an M-step fixed point.** The unique stationary point in the link covariance is
+$R^\star_{ij}=\Sigma_i+S_{ij}+\Delta_{ij}\Delta_{ij}^\top$, so $R^\star-S_{ij}\succ0$ always and the
+evidence lower bound forgone per edge is exactly the Stein loss between them. The row prices sources as
+though the receiver were already certain and already in agreement.
+
+**A correlated recognition family buys stationarity or the row, never both.** With a jointly Gaussian
+pair factor the tie becomes attainable, requiring
+$C\Omega^\top+\Omega C^\top=\Sigma_i+\Delta\Delta^\top$ — but that condition fixes the symmetric
+combination uniquely and thereby makes the row offset source-dependent. Mean field is the unique member
+yielding the row, and the member where the tie is not stationary. This closes the escape route rather
+than opening one, and it tells the correlated-VFE track to proceed on its own merits.
+
+> [!important] The tie is a declared postulate, not a derived identity.
+> It is a constrained-covariance modeling choice of the Celeux–Govaert kind. The uniqueness result that
+> does hold — that $R_{ij}=S_{ij}$ is the only link covariance producing the row — is a statement about
+> the target rule, since the model was selected by requiring it.
+
+Two corollaries worth keeping. Tying does **not** make the link reproduce the transported sender: the
+predictive covariance is $2S_{ij}$, and the choice reproducing it is $R_{ij}=0$, outside the SPD cone.
+And profiling $R$ out instead gives an exact, gauge-invariant, genuinely stationary rule
+$\beta_{ij}\propto\pi_{ij}\det(\Sigma_i+S_{ij}+\Delta\Delta^\top)^{-1/2}$ that should still be rejected:
+its logit grows like $\log(1+m^2)$ against $m^2/2$, so it cannot select on means, and at $\Delta=0$ it
+is Loewner-monotone in $S_{ij}$, ranking sender confidence rather than agreement.
 
 **Normalization forces an ordered mask, and the cocycle is why.** Every one-parent-per-agent assignment
 has a cycle, so the augmented product is never a directed factorization unrestricted. Worse, under the
