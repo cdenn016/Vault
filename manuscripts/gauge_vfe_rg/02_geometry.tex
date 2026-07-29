@@ -39,12 +39,19 @@ The frame is the primary object; $U_i$ is its group-valued coordinate, not a Lie
 
 Two distinct freedoms act on these data and are kept apart below. Agent $i$ may re-choose its frame within the fiber over $c$; since every point of that fiber is $\sigma_0(c)\cdot g$ for a unique $g$, and since $g\mapsto g^{-1}$ is a bijection of $G$, any re-choice may be written $U_i\mapsto g_iU_i$ for a smooth $g_i:\mathcal C_i\to G$, which by \eqref{eq:geo-frame-field} is the frame change $u_i\mapsto u_i\cdot g_i^{-1}$, and the represented fiber coordinates relabel by $\rho_k(g_i)$ and $\rho_m(g_i)$. Separately, the reference itself may be changed, $\sigma_0\mapsto\sigma_0\cdot h$ for a smooth $h:\mathcal C_0\to G$ with the frames held fixed, which sends every coordinate simultaneously to $U_i\mapsto U_ih$, since $u_i=\sigma_0\cdot U_i^{-1}=(\sigma_0\cdot h)\cdot(U_ih)^{-1}$. The first is a per-agent freedom and is the vertex gauge transformation of Section~\ref{sec:geo-regime-one}; the second is a single global relabeling of the trivialization, and Proposition 2.9 records that the comparisons do not see it at all.
 
-The supports $\mathcal C_i$ are indexed by agents, which is a modeling choice and not forced: nothing prevents two agents from sharing a support, and nothing requires the family $\{\mathcal C_i\}$ to be a good cover. What the trivialized regime requires in addition is that every frame be referable to the single reference section $\sigma_0$. Section~\ref{sec:geo-regime-one} records that requirement as an explicit hypothesis and says what it excludes, because it is the substantive content of what is later called flatness. Section~\ref{sec:geo-cech} then removes it: the supports are an open cover, the comparisons are a nonabelian \v{C}ech cochain on its nerve, and the requirement is proved equivalent to that cochain being a coboundary and to $P\vert_{\mathcal C_0}$ being trivial. The general case, in which only local sections exist, is developed there rather than declined.
+The supports $\mathcal C_i$ are indexed by agents, which is a modeling choice and not forced: nothing prevents two agents from sharing a support, and nothing requires the family $\{\mathcal C_i\}$ to be a good cover. What the trivialized regime requires in addition is that every frame be referable to the single reference section $\sigma_0$. Section~\ref{sec:geo-regime-one} records that requirement as an explicit hypothesis and says what it excludes. Section~\ref{sec:geo-cech} then removes it: the supports are an open cover, the comparisons are a nonabelian \v{C}ech cochain on its nerve, and the requirement is proved equivalent to that cochain being a coboundary and to $P\vert_{\mathcal C_0}$ being trivial. The later \emph{flat link regime} adds a different condition, identifying independently declared graph links with pointwise frame comparisons. Global bundle triviality and graph-link triviality are therefore not synonyms. The general case, in which only local sections exist, is developed rather than declined.
 
 \section{Two represented channels from one group element}
 \label{sec:geo-associated}
 
-Probability enters through associated bundles. Let $\mathsf K$ and $\mathsf M$ denote the state and model sample fibers in a local trivialization, and let $\mathcal B_{\mathrm{state}}$ and $\mathcal B_{\mathrm{model}}$ be statistical manifolds whose points are probability measures on $\mathsf K$ and on $\mathsf M$ respectively \citep{Amari2016,AmariNagaoka2000}. A point of $\mathcal B_{\mathrm{state}}$ is a law, not a draw from a law; the distinction is used in Section~\ref{sec:geo-agents} to keep agents apart from population samples.
+Probability enters through associated objects, but a probability fiber is not thereby a statistical manifold. Let $(\mathsf K,\mathscr K)$ and $(\mathsf M,\mathscr M)$ denote the state and model sample fibers in a local trivialization, and first declare only normalized-law fibers
+\begin{equation}
+\mathcal B_{\mathrm{state}}\subseteq\mathcal P(\mathsf K),
+\qquad
+\mathcal B_{\mathrm{model}}\subseteq\mathcal P(\mathsf M).
+\label{eq:geo-law-fibers}
+\end{equation}
+No topology, chart, tangent space, density, or Fisher metric follows from this declaration. A point of $\mathcal B_{\mathrm{state}}$ is a law, not a draw from a law; the distinction is used in Section~\ref{sec:geo-agents} to keep agents apart from population samples. A generative transition is a different type again: its fiber is a declared set of normalized Markov kernels from a source measurable space to a target measurable space, not either law fiber in \eqref{eq:geo-law-fibers}. Chapter~\ref{ch:expfamily} gives the full law--kernel hierarchy and introduces regular exponential families only as a tractable finite-dimensional subclass.
 
 Let
 \begin{equation}
@@ -62,23 +69,23 @@ be representations of the \emph{same} group $G$, with measurable action maps, so
 \end{equation}
 are defined. Equation~\eqref{eq:geo-pushforward-actions} is what the group does to a probability object. A matrix multiplied into a density is not the same operation and agrees with it only after the reference-measure Jacobian is carried along, a point made precise in Section~\ref{sec:prob-reference}.
 
-Measurability suffices for \eqref{eq:geo-pushforward-actions} but not for a smooth associated bundle, so the additional requirement is stated rather than assumed silently.
+Measurability suffices for \eqref{eq:geo-pushforward-actions} but not for a smooth associated bundle, so the differential tier is a separate hypothesis rather than part of the meaning of ``belief fiber.''
 
 \medskip
-\noindent\textbf{Hypothesis 2.3 (Smooth, family-preserving represented actions).} The chosen statistical families are closed under their represented pushforwards, and the induced maps
+\noindent\textbf{Hypothesis 2.3 (Selected smooth fibers and family-preserving represented actions).} For the differential tier used in this chapter, the chosen law fibers are finite-dimensional smooth manifolds of probability measures, are closed under their represented pushforwards, and the induced maps
 \begin{equation}
 (g,q)\longmapsto(\rho_k(g))_{\#}q,
 \qquad
 (g,s)\longmapsto(\rho_m(g))_{\#}s
 \label{eq:geo-smooth-actions}
 \end{equation}
-are smooth in the selected statistical-manifold coordinates. \status{HYPOTHESIS}
+are smooth in the selected manifold coordinates. \status{HYPOTHESIS}
 \medskip
 
-This is a choice, and it excludes families that a represented action carries outside themselves. It is used only to make the associated-bundle construction smooth rather than merely set theoretic, and it is discharged for the case this document actually uses: Proposition 2.6 verifies closure and smoothness for nondegenerate Gaussian families under invertible linear represented actions, so for the Gaussian realization the hypothesis is a theorem. For a general family it remains a restriction.
+This is a choice, and it excludes families that a represented action carries outside themselves. It is used only to make the associated construction a finite-dimensional smooth fiber bundle rather than a set-theoretic or measurable quotient, and it is discharged for the Gaussian specialization: Proposition 2.6 verifies closure and smoothness for nondegenerate Gaussian families under invertible linear represented actions. A stratified fiber instead requires a declared stratified category, smooth actions on strata, and compatibility with the incidence relations. An infinite-dimensional fiber requires its own model spaces, topology, differentiability calculus, and operator domains. Neither is silently included in Hypothesis 2.3, and no result below transfers to either merely because its points are laws.
 
 \medskip
-\noindent\textbf{Definition 2.4 (Associated statistical bundles).} With the actions of Hypothesis 2.3 written $\rho_{\mathrm{state}}$ and $\rho_{\mathrm{model}}$, set
+\noindent\textbf{Definition 2.4 (Associated law objects, and the selected smooth bundles).} Whenever the selected law fibers are invariant under their pushforward actions, write those restricted actions as $\rho_{\mathrm{state}}$ and $\rho_{\mathrm{model}}$ and set
 \begin{equation}
 \mathcal E_{\mathrm{state}}=P\times_{\rho_{\mathrm{state}}}\mathcal B_{\mathrm{state}},
 \qquad
@@ -94,7 +101,9 @@ each the quotient of $P\times\mathcal B$ by the relation
 \status{DEFINITION}
 \medskip
 
-The two bundles are built over one principal bundle, from two representations of one group. When a frame change $g_i\in G$ is applied at agent $i$, both channels move, by
+Invariance is a prerequisite even for the set-theoretic quotient: if a pushforward leaves the declared law fiber, that fiber does not carry the required $G$-action and Definition 2.4 does not apply to it. At the general law tier the displayed quotients are associated set-valued objects; with compatible measurable structures they may be treated as measurable associated bundles. Under Hypothesis 2.3 they are finite-dimensional smooth associated bundles in the ordinary sense. Thus the word ``bundle'' below is smooth only under that named hypothesis. No smoothness of the principal bundle $P$ upgrades an arbitrary law or kernel fiber by itself.
+
+The two associated objects are built over one principal bundle, from two representations of one group. When a frame change $g_i\in G$ is applied at agent $i$, both channels move, by
 \begin{equation}
 g_i^{k}=\rho_k(g_i),
 \qquad
@@ -155,17 +164,17 @@ Covariances therefore transform by congruence and precisions by the inverse-tran
 \medskip
 \noindent\textbf{Definition 2.7 (Agent).} Agent $i\in V$ is the tuple
 \begin{equation}
-\mathcal A^{i}=\bigl(\mathcal C_i;\ q_i,\ s_i,\ U_i\bigr),
+\mathcal A^{i}=\bigl(\mathcal C_i;\ q_i,\ s_i,\ u_i\bigr),
 \label{eq:geo-agent-object}
 \end{equation}
-where $U_i$ is the frame field \eqref{eq:geo-frame-field} and
+where $u_i:\mathcal C_i\to P$ is the frame section of Definition 2.2 and
 \begin{equation}
 q_i\in\Gamma\bigl(\mathcal C_i,\mathcal E_{\mathrm{state}}\vert_{\mathcal C_i}\bigr),
 \qquad
 s_i\in\Gamma\bigl(\mathcal C_i,\mathcal E_{\mathrm{model}}\vert_{\mathcal C_i}\bigr)
 \label{eq:geo-agent-sections}
 \end{equation}
-are distribution-valued sections covering the identity on the support, so that $\pi_{\mathrm{state}}\circ q_i=\operatorname{id}_{\mathcal C_i}$ and $\pi_{\mathrm{model}}\circ s_i=\operatorname{id}_{\mathcal C_i}$. When these sections depend on a realized observation $o$ and a structural configuration $X$ the dependence is written explicitly, as $q_i^{o,X}$ and $s_i^{o,X}$. \status{DEFINITION}
+are distribution-valued sections covering the identity on the support, so that $\pi_{\mathrm{state}}\circ q_i=\operatorname{id}_{\mathcal C_i}$ and $\pi_{\mathrm{model}}\circ s_i=\operatorname{id}_{\mathcal C_i}$. In the selected smooth tier, $\Gamma$ denotes smooth sections. At a merely measurable tier it must be replaced by measurable sections, and no differential conclusion is inherited. Under Hypothesis 2.10 the frame section has the coordinate $U_i$ of \eqref{eq:geo-frame-field}; without that hypothesis $u_i$ remains defined and $U_i$ does not. When the law sections depend on a realized observation $o$ and a structural configuration $X$ the dependence is written explicitly, as $q_i^{o,X}$ and $s_i^{o,X}$. \status{DEFINITION}
 \medskip
 
 Three consequences of this typing are used later. An agent is a field over a region of $\mathcal C$, so two agents may hold different laws about the same context wherever their supports overlap, and that multiplicity is where all relational structure comes from. Comparing $q_i$ with $q_j$ at a shared context is not subtraction: the two values live in fibers attached to different frames, and the comparison is defined only after the transport of Section~\ref{sec:geo-regime-one} has been applied. And a population sample is not an agent. At $c$ in a common support, writing $k_i(c)$ for a draw in the state sample fiber and $m_i(c)$ for a draw in the model sample fiber, the population sample
@@ -358,7 +367,7 @@ that is, $\Omega$ is the coboundary of a zero-cochain; (ii) the population admit
 
 (iii)$\Rightarrow$(i). A trivialization $\varphi:P\vert_{\mathcal C_0}\to\mathcal C_0\times G$ supplies the section $\sigma_0(c)=\varphi^{-1}(c,e_G)$, which is Hypothesis 2.10; the frame coordinates $U_i$ of \eqref{eq:geo-frame-field} then exist and Proposition 2.9 gives $\Omega_{ij}=U_iU_j^{-1}$, so \eqref{eq:geo-coboundary-form} holds with $V_i=U_i$. The equivalence of a global cross-section with triviality is the standard characterization of trivial principal bundles \citep{Steenrod1951,Husemoller1994,Kobayashi1963}. \hfill$\square$
 
-Hypothesis 2.10 is therefore not an auxiliary convenience layered on top of a topological condition. It is the topological condition, in coordinates. Saying that every frame is referable to one reference section, saying that the comparison cochain is a coboundary, and saying that $P\vert_{\mathcal C_0}$ is trivial are three phrasings of one hypothesis, and the substantive content of what Section~\ref{sec:geo-flatness} calls flatness is that hypothesis and nothing else.
+Hypothesis 2.10 is therefore not an auxiliary convenience layered on top of a topological condition. It is the global triviality condition in coordinates. Saying that every frame is referable to one reference section, saying that the smooth comparison cochain is a \v{C}ech coboundary, and saying that $P\vert_{\mathcal C_0}$ is trivial are three phrasings of one hypothesis. Section~\ref{sec:geo-flatness} subsequently assumes this condition and then adds Hypothesis 2.14, which identifies the graph links with pointwise comparisons. The added graph-link statement is not equivalent to Hypothesis 2.10 in the reverse direction.
 
 \medskip
 \noindent\textbf{Definition 2.20 (General cocycle regime).} The \emph{general regime} is the setting in which Definition 2.17 and Proposition 2.18 are retained and \eqref{eq:geo-coboundary-form} is not required. Each agent carries a frame over its own support only; there is a local section of $P$ over each $\mathcal C_i$ and, in general, none over $\mathcal C_0$; the associated bundles $\mathcal E_{\mathrm{state}}$ and $\mathcal E_{\mathrm{model}}$ are trivialized over each $\mathcal C_i$ by the frame there and are not trivialized over $\mathcal C_0$; and the comparison of agents' laws is available only through $\Omega_{ij}$ on overlaps, never through a common set of coordinates. \status{DEFINITION}
@@ -371,7 +380,7 @@ Hypothesis 2.10 is therefore not an auxiliary convenience layered on top of a to
 Definition 2.20 proves nothing; it names a setting, and the naming is all it does. Hypothesis 2.21 is where the choice is made, and it is a choice about which of two settings is the ambient one, so it is worth being exact about what it costs and what it does not. It excludes nothing about the bundle: every configuration admissible under Hypothesis 2.10 remains admissible, since a trivial class is a class. What it forfeits is the availability, by default, of the trivialized coordinate $z_i=\rho_k(U_i)^{-1}\mu_i$ of Proposition 2.15 and of every construction downstream that reads a residual as a plain difference, including the closure result of Part~III. Those constructions are not lost; they are made conditional, and Section~\ref{sec:geo-trivializing} identifies exactly the subfamilies of agents on which they remain available. The absence of a global section is not a defect of the construction. A principal bundle admits a global section precisely when it is trivial, so a construction that required one would be a construction that had assumed away all bundle topology in advance.
 
 \medskip
-\noindent\textbf{Proposition 2.22 (What the obstruction is, and what it is not).} Let $\mathcal G$ denote the sheaf of smooth $G$-valued functions on $\mathcal C_0$. Then the following two statements hold and are distinct.
+\noindent\textbf{Proposition 2.22 (What the obstruction is, and the Gaussian section result).} Let $\mathcal G$ denote the sheaf of smooth $G$-valued functions on $\mathcal C_0$. Then the following two statements hold and are distinct.
 
 First, the comparison cochain determines a class
 \begin{equation}
@@ -380,10 +389,10 @@ First, the comparison cochain determines a class
 \end{equation}
 the nonabelian first \v{C}ech cohomology of the cover, whose elements are cocycles modulo the equivalence $\Omega_{ij}\sim g_i\Omega_{ij}g_j^{-1}$ of \eqref{eq:geo-regime-one-gauge-law}. This object is a \emph{pointed set}, with distinguished element the class of the constant cocycle $e_G$, and for nonabelian $G$ it carries no natural group structure \citep{Serre1997Galois,Husemoller1994,Steenrod1951}. The class is the distinguished element if and only if the equivalent conditions of Proposition 2.19 hold, so $[\Omega]$ is precisely the obstruction to Hypothesis 2.10, and the isomorphism class of $P\vert_{\mathcal C_0}$ is recovered from it.
 
-Second, what \eqref{eq:geo-cech-class} obstructs is a global trivialization, and not the existence of global sections of the associated statistical bundles. For the Gaussian realization of Proposition 2.6 the fiber $\mathcal B^{\mathrm G}_{\mathrm{state}}\cong\R^{K}\times\Sym^{K}_{++}$ is contractible, and $\mathcal C_0$ is an open subset of a second countable Hausdorff manifold, hence paracompact and of the homotopy type of a CW complex; the successive obstructions to extending a cross-section over skeleta lie in $H^{n+1}(\mathcal C_0;\pi_n(\mathcal B^{\mathrm G}_{\mathrm{state}}))$, with local coefficients where the base is not simply connected, and all vanish because every homotopy group of a contractible space is trivial; so $\mathcal E_{\mathrm{state}}$ admits a global continuous cross-section whatever the class \eqref{eq:geo-cech-class} \citep{Steenrod1951}. \status{ESTABLISHED}
+Second, what \eqref{eq:geo-cech-class} obstructs is a global trivialization. It does not, by itself, prove that an associated law object has no global section. For the selected smooth Gaussian realization of Proposition 2.6 the fiber $\mathcal B^{\mathrm G}_{\mathrm{state}}\cong\R^{K}\times\Sym^{K}_{++}$ is contractible, and $\mathcal C_0$ is an open subset of a second countable Hausdorff manifold, hence paracompact and of the homotopy type of a CW complex; the successive obstructions to extending a cross-section over skeleta lie in $H^{n+1}(\mathcal C_0;\pi_n(\mathcal B^{\mathrm G}_{\mathrm{state}}))$, with local coefficients where the base is not simply connected, and all vanish because every homotopy group of a contractible space is trivial; so the Gaussian $\mathcal E_{\mathrm{state}}$ admits a global continuous cross-section whatever the class \eqref{eq:geo-cech-class} \citep{Steenrod1951}. This conclusion is not asserted for an arbitrary law fiber of \eqref{eq:geo-law-fibers}: such a fiber need not be contractible and need not even carry the smooth structure used by the obstruction argument. \status{ESTABLISHED}
 \medskip
 
-Both statements are established: the first by the standard classification of bundles trivialized over a cover, cited above rather than reproved here, and the second by the obstruction count given with it. The second is included because the opposite claim is easy to make and is false. What fails in the general regime is that the fibers of $\mathcal E_{\mathrm{state}}$ cannot be identified with one model fiber in a way valid over all of $\mathcal C_0$, so that two agents' laws at a shared context have no common coordinates in which to be subtracted; that failure is the content of the nontrivial class. It is not the claim that no distribution-valued field exists over $\mathcal C_0$, which for a contractible fiber is refuted by the obstruction count just given. The smooth refinement of that count is standard and is not used anywhere below, so nothing here rests on it.
+Both statements are established: the first by the standard classification of bundles trivialized over a cover, cited above rather than reproved here, and the second by the obstruction count for the explicitly named contractible Gaussian fiber. The second is included because the opposite claim is easy to make and is false in that specialization. What fails in the general cocycle regime is a global identification of every fiber with one model fiber, so that two agents' laws at a shared context have no common coordinates in which to be subtracted; that failure is the content of the nontrivial class. It is not, for a contractible selected fiber, the claim that no distribution-valued field exists over $\mathcal C_0$. The smooth refinement of that count is standard and is not used anywhere below. For a general measurable, stratified, or infinite-dimensional law fiber, section existence is a separate question in the declared category.
 
 \section{Holonomy, and the subfamilies that admit a common trivialization}
 \label{sec:geo-trivializing}
@@ -446,9 +455,11 @@ The definition proves nothing; its content is entirely inherited from Propositio
 
 \noindent\emph{Proof.} (a) With no edges there is no closed walk of positive length, and the empty product is $e_G$. (b) In a forest, a walk that never immediately retraces its last step never revisits a vertex, since a revisit would exhibit a cycle; hence every closed walk of positive length contains a step immediately followed by its reverse. Cancelling such a pair contributes $\Xi_{ij}\Xi_{ji}=\Xi_{ij}\Xi_{ij}^{-1}=e_G$ and leaves the ordered product unchanged while shortening the walk by two, so induction on length reduces every closed walk to the empty walk without changing its holonomy, which is therefore $e_G$. (c) Set $V_i=\Omega_{ii_\ast}(c)$ for a fixed $i_\ast\in F$; this is defined because $c$ lies in every support of $F$, so every needed overlap is nonempty. For $i,j\in F$ the point $c$ lies in $\mathcal C_{ii_\ast j}$, so Proposition 2.18 gives $V_iV_j^{-1}=\Omega_{ii_\ast}(c)\Omega_{i_\ast j}(c)=\Omega_{ij}(c)$, which is \eqref{eq:geo-trivializing-criterion}(i). (d) A closed walk internal to $F'\subseteq F$ is a closed walk internal to $F$, so triviality of all internal holonomies is inherited by subsets; maximal elements of a nonempty downward closed family of subsets of a finite set exist. Non-disjointness is not excluded by anything above, and no claim that it is excluded is made here. \hfill$\square$
 
-Part (c) is a limitation of the criterion and is stated as one rather than left for a reader to discover. Where the comparison assignment comes from a \v{C}ech cocycle evaluated at one context, the cocycle identity already supplies the coboundary, so the criterion holds automatically and detects nothing. Its content lies where Proposition 2.18 does not reach, and that is Regime~II: there the links are declared independently of the frames, no triple-overlap identity constrains them, and Proposition 2.13 exhibits an assignment whose holonomy is not the identity. Extending the Regime-I products to comparisons taken at different contexts would not evade this, because such a product is not defined by the data of Section~\ref{sec:geo-cech} at all; forming it requires the principal connection of Section~\ref{sec:geo-three-transports} to move between fibers, which is the separate object whose relation to link holonomy is Open 2.16. The genuine bundle obstruction \eqref{eq:geo-cech-class} is of a third kind again: it is a cohomological invariant of the cover, and no finite product of comparisons computes it. The three are distinct, and no result here treats any one of them as evidence about another.
+Part (c) is a limitation of the criterion and is stated as one rather than left for a reader to discover. Where the comparison assignment comes from a \v{C}ech cocycle evaluated at one context, the cocycle identity already supplies a \emph{pointwise graph} coboundary, so the criterion holds automatically and detects nothing. Its content lies where Proposition 2.18 does not reach, and that is Regime~II: there the links are declared independently of the frames, no triple-overlap identity constrains them, and Proposition 2.13 exhibits an assignment whose holonomy is not the identity. Extending the Regime-I products to comparisons taken at different contexts would not evade this, because such a product is not defined by the data of Section~\ref{sec:geo-cech} at all; forming it requires the principal connection of Section~\ref{sec:geo-three-transports} to move between fibers, which is the separate object whose relation to link holonomy is Open 2.16. The genuine bundle obstruction \eqref{eq:geo-cech-class} is of a third kind again: it is a cohomological invariant of the cover, and no finite product of comparisons computes it.
 
-Two consequences orient the rest of the development. The flat regime is exactly the case in which the entire population $V$ is a single trivializing subfamily, by Proposition 2.24 with $F=V$ together with Proposition 2.19; so flatness is not an extra condition alongside the trivializing property but the maximal instance of it. And in the general regime the population decomposes into trivializing subfamilies that are not canonical: the family of them is downward closed with maximal elements, by Proposition 2.27(d), but a choice of which maximal elements to use is a declaration, not a computation. Chapter~\ref{ch:coarsegraining} coarsens along such a choice, and the reader should carry Proposition 2.24 there as the statement of what a cluster must satisfy for its internal edges to be removable.
+The quantifiers make the separation exact. Proposition 2.24 at a fixed context supplies finitely many group elements $V_i$ satisfying edge equations there. Even its smooth clause supplies maps only on one common open set $\mathcal U\subseteq\bigcap_{i\in F}\mathcal C_i$. Proposition 2.19 instead requires smooth maps $V_i:\mathcal C_i\to G$ satisfying every overlap equation throughout the cover, so that the reframed sections glue over all of $\mathcal C_0$. A pointwise graph zero-cochain therefore cannot be substituted for a smooth \v{C}ech zero-cochain and gives no implication about global principal-bundle triviality.
+
+Two consequences orient the rest of the development. Hypotheses 2.10 and 2.14 imply that the entire interaction graph is a single trivializing subfamily at the declared common context: the globally defined smooth coordinates $U_i$ restrict there to the vertex elements required by Proposition 2.24. The converse is false without the additional smooth overlap data just identified. In the general regime the trivializing subfamilies form a downward-closed family with maximal elements by Proposition 2.27(d), but those maximal elements may overlap and need not form a decomposition. Choosing a partition or cover from that family is therefore a declaration, not a computation. Chapter~\ref{ch:coarsegraining} proves which such graph clusters are admissible for its aggregation and separately leaves scale and partition selection open.
 
 \section{Three transport structures, kept apart}
 \label{sec:geo-three-transports}
@@ -468,7 +479,7 @@ What would close it is explicit and is not supplied by anything above. One would
 \section{An induced connection from the frames}
 \label{sec:geo-induced-connection}
 
-Section~\ref{sec:geo-three-transports} introduced the principal connection $\boldsymbol\omega\in\Omega^{1}(P,\mathfrak g)$ abstractly, as an object the population's frames do not by themselves supply. This section supplies one canonically, built from nothing beyond the frames $u_i$ of Definition 2.2 and a partition of unity, and states exactly when the result is flat. It does not close Open 2.16: the connection constructed here is a functional of the frames alone and carries no reference to the declared graph $\mathfrak I$ or its links $L_{ij}$, so nothing below relates its holonomy to $\operatorname{Hol}(\gamma)$.
+Section~\ref{sec:geo-three-transports} introduced the principal connection $\boldsymbol\omega\in\Omega^{1}(P,\mathfrak g)$ abstractly, as an object the population's frames do not by themselves supply. This section supplies a family of such connections after an additional choice: the frames $u_i$ of Definition 2.2 determine local flat connections, while a subordinate partition of unity determines how they are averaged. The result is not canonical, because different partitions can produce different global connections and different curvature. It does not close Open 2.16: every connection constructed here is a functional of the smooth frames and the chosen partition alone and carries no reference to the declared graph $\mathfrak I$ or its links $L_{ij}$, so nothing below relates its holonomy to $\operatorname{Hol}(\gamma)$.
 
 \medskip
 \noindent\textbf{Definition 2.29 (Frame-induced local connection).} Fix $i\in V$. The frame $u_i:\mathcal C_i\to P$ identifies $P\vert_{\mathcal C_i}$ with the trivial bundle $\mathcal C_i\times G$ through $(c,g)\mapsto u_i(c)\cdot g$. Let $H_i$ be the distribution on $P\vert_{\mathcal C_i}$ tangent to the slices $\{u_i(c)\cdot g: c\in\mathcal C_i\}$, one slice for each fixed $g\in G$. Each slice is complementary to the vertical tangent space at every one of its points because $u_i$ is a section, and right translation by any $h\in G$ carries the slice at $g$ to the slice at $gh$, so $H_i$ is invariant under the principal action. A $G$-invariant distribution complementary to the vertical one is exactly a principal connection's horizontal distribution \citep{Kobayashi1963,Nakahara2003}, so $H_i$ determines a unique connection $A_i$ on $P\vert_{\mathcal C_i}$ with connection form $\omega_i\in\Omega^{1}(P\vert_{\mathcal C_i},\mathfrak g)$, called the connection \emph{for which $u_i$ is parallel}: by construction $u_i^{*}\omega_i=0$. \status{DEFINITION}
@@ -485,7 +496,7 @@ Nothing is proved by this declaration. Its content is that a single local sectio
 This is the precise sense in which declaring a frame parallel gives a local flat connection. What remains is to combine these local flat pieces, one per agent, into one global object on $\mathcal C_0$, and the combination is where curvature can appear.
 
 \medskip
-\noindent\textbf{Proposition 2.31 (Induced global connection, and when it is flat).} Principal connections on $P\vert_{\mathcal C_0}$ form an affine space modeled on the vector space of horizontal, $\operatorname{Ad}$-equivariant $\mathfrak g$-valued $1$-forms on $P\vert_{\mathcal C_0}$: the difference of two connection forms is exactly such a tensorial form, and adding such a form to a connection form gives another connection form \citep{Kobayashi1963}. Let $\{\chi_i\}$ be a smooth partition of unity subordinate to the cover $\{\mathcal C_i\}$ of $\mathcal C_0$, which exists because $\mathcal C_0$, an open subset of a second countable Hausdorff manifold, is paracompact. Then
+\noindent\textbf{Proposition 2.31 (Partition-dependent global connection, and a sufficient flatness criterion).} Principal connections on $P\vert_{\mathcal C_0}$ form an affine space modeled on the vector space of horizontal, $\operatorname{Ad}$-equivariant $\mathfrak g$-valued $1$-forms on $P\vert_{\mathcal C_0}$: the difference of two connection forms is exactly such a tensorial form, and adding such a form to a connection form gives another connection form \citep{Kobayashi1963}. Let $\{\chi_i\}$ be a smooth partition of unity subordinate to the cover $\{\mathcal C_i\}$ of $\mathcal C_0$, which exists because $\mathcal C_0$, an open subset of a second countable Hausdorff manifold, is paracompact. Then
 \begin{equation}
 A=\sum_i(\chi_i\circ\pi)\omega_i,
 \label{eq:geo-induced-connection}
@@ -502,12 +513,49 @@ Under the stated hypothesis this holds at every point of every relevant overlap.
 The hypothesis of Proposition 2.31 is a statement about how the frames vary relative to one another on overlaps, not about which regime declares the links, and it can fail, generically does fail, even when Hypothesis 2.14 holds. The transition appearing there is the comparison itself: under Hypothesis 2.10 and \eqref{eq:geo-frame-field}, Proposition 2.33 gives $t_{ij}=\Omega_{ij}$, so the hypothesis reads that the Regime-I comparison is locally constant on every overlap. The flat link regime fixes $L_{ij}=\Omega_{ij}=U_iU_j^{-1}$ at each context but places no constraint on how $U_i$ and $U_j$ vary as $c$ moves, so $t_{ij}$ is locally constant only for special choices of frame. The base holonomy of \eqref{eq:geo-induced-connection} is therefore a genuinely separate question from the triviality Proposition 2.11 establishes, which is a statement at one context and does not see how the frames vary over $\mathcal C$ at all.
 
 \medskip
-\noindent\textbf{Open 2.32 (Converse of the flatness criterion).} Whether disagreement of the local connections, $\omega_i\neq\omega_j$ somewhere on some overlap, forces the induced connection \eqref{eq:geo-induced-connection} to have nonvanishing curvature for \emph{every} choice of subordinate partition of unity is not settled here. \status{OPEN}
+\noindent\textbf{Proposition 2.32 (Local disagreement neither forces nor excludes curvature).} The converse of Proposition 2.31 is false: local frame-induced connections may disagree while every partition-of-unity average is flat. Conversely, local disagreement can produce a curved average for a specified partition. Both statements already occur for the one-dimensional structure group $G=\GL^{+}(1)$. The flat witness below also uses a one-dimensional base, while the curved witness uses a two-dimensional base, as a nonzero curvature $2$-form requires. \status{ESTABLISHED}
 \medskip
 
-Proposition 2.31 supplies only a sufficient condition; nothing above rules out a fortuitous choice of $\{\chi_i\}$ under which the curvature contributions of disagreeing patches cancel rather than accumulate. What would settle it is either such a cancelling example, exhibiting the converse as false, or a bound on the curvature of \eqref{eq:geo-induced-connection} in terms of the local disagreements that holds uniformly over partitions of unity. This restates Open 2.16 by inversion: that question asked whether a declared discrete holonomy could be realized as a base holonomy, and this one asks whether the absence of local disagreement is necessary for the base holonomy to vanish. Both remain open for the same reason, that the discrete and the base constructions are built from different data and no bridge between them has been supplied.
+\noindent\emph{Proof.} For the negative converse, let $\mathcal C_0=\R$, let $P=\R\times\GL^{+}(1)$ with reference section $\sigma(x)=(x,1)$, take two supports both equal to $\R$, and set
+\begin{equation}
+u_1=\sigma,
+\qquad
+u_2=\sigma\cdot e^{x}.
+\label{eq:geo-scalar-flat-frames}
+\end{equation}
+Let $a_i=\sigma^{*}\omega_i$ denote the local connection potential in the $\sigma$ gauge. By construction $a_1=0$. Since $u_1=u_2\cdot e^{-x}$ and $u_2^{*}\omega_2=0$, the change-of-section law used in the proof of Proposition 2.31 gives
+\begin{equation}
+a_2=(e^{-x})^{-1}d(e^{-x})=-dx.
+\label{eq:geo-scalar-potentials}
+\end{equation}
+Thus the local connections disagree everywhere. For any subordinate partition $\chi_1+\chi_2=1$, the average has potential $a=-\chi_2\,dx$. Because $\GL^{+}(1)$ is abelian its curvature is $F=da$, and because every $2$-form on the one-dimensional base vanishes,
+\begin{equation}
+F=-d\chi_2\wedge dx=0.
+\label{eq:geo-scalar-flat-average}
+\end{equation}
+The average is therefore flat for \emph{every} partition despite the local disagreement, which refutes the converse with the quantifier originally at issue.
 
-The chapter now has three constructions that are each sometimes shortened to the single word "holonomy," and keeping them apart is worth restating in one place now that all three exist. The first is the ordered product of Regime-I comparisons around a closed walk evaluated at one context, Proposition 2.11: it is always the identity, by the cocycle telescoping alone, regardless of how the frames vary over $\mathcal C$, and it carries no information about the population and none about the base. The second is the holonomy of a comparison assignment on a declared graph, Definition 2.23 and Proposition 2.24; in the Regime-II instance it is the object the coarse-graining criterion of Chapter~\ref{ch:coarsegraining} reads, and Proposition 2.13 exhibits it nontrivial. The third is the curvature-governed holonomy of the induced connection of this section, evaluated around a closed curve in $\mathcal C$ rather than around a closed walk in a population graph; Proposition 2.31 shows it can be nontrivial even under Hypothesis 2.14, precisely because it depends on how the frames vary over $\mathcal C$ rather than on their values at isolated contexts, which is the object Open 2.16 was reaching for and which Open 2.32 shows still has not been related to the second. No result above treats any one of these three as evidence about another, and Open 2.16 and Open 2.32 are exactly the two places where a bridge between them was sought and not found.
+For the positive witness, take instead the two-dimensional base $\mathcal C_0=\R\times(0,1)$, retain the same trivial group bundle and frames $u_1=\sigma$, $u_2=\sigma\cdot e^x$, and choose the subordinate partition $\chi_1=1-y$, $\chi_2=y$. Equation \eqref{eq:geo-scalar-potentials} still gives $a_1=0$ and $a_2=-dx$, but now
+\begin{equation}
+a=-y\,dx,
+\qquad
+F=da=-dy\wedge dx=dx\wedge dy\neq0.
+\label{eq:geo-two-dimensional-curved-average}
+\end{equation}
+The nontrivial base holonomy can be computed rather than inferred. Around the counterclockwise boundary of the rectangle $[0,\ell]\times[b,c]$, where $\ell>0$ and $0<b<c<1$,
+\begin{equation}
+\oint a=\ell(c-b),
+\qquad
+\operatorname{Hol}_{A}(\partial R)
+=\exp\!\left(-\oint a\right)
+=e^{-\ell(c-b)}\neq1.
+\label{eq:geo-two-dimensional-holonomy}
+\end{equation}
+The sign follows from the horizontal-lift equation $g^{-1}dg+a=0$ in the $\sigma$ trivialization. Hence disagreement can coexist with either zero or nonzero curvature; it does not determine which. \hfill$\square$
+
+Proposition 2.31 supplies a sufficient flatness condition only. Proposition 2.32 closes its converse negatively and separately supplies the explicit curved example that Proposition 2.31 itself did not. Neither proposition relates base curvature to the independently declared graph links: both scalar-group witnesses use no interaction complex, while Open 2.16 asks for an embedding of that complex and an equality of two independently typed transports.
+
+The chapter now has three constructions that are each sometimes shortened to the single word ``holonomy,'' and keeping them apart is worth restating in one place now that all three exist. The first is the ordered product of Regime-I comparisons around a closed walk evaluated at one context, Proposition 2.11: it is always the identity by cocycle telescoping, regardless of how the frames vary over $\mathcal C$, and it carries no information about base curvature. The second is the holonomy of a comparison assignment on a declared graph, Definition 2.23 and Proposition 2.24; in the Regime-II instance it is the object the coarse-graining criterion of Chapter~\ref{ch:coarsegraining} reads, and Proposition 2.13 exhibits it nontrivial. The third is the curvature-governed holonomy of a partition-dependent principal connection, evaluated around a closed curve in $\mathcal C$ rather than around a closed walk in a population graph; Proposition 2.32 exhibits it nontrivial even though the local pieces are flat. No result above treats any one of these three as evidence about another. Open 2.16 is the only proposed bridge between graph-link holonomy and base holonomy, and it remains open.
 
 \section{Flatness as a hypothesis, and what it buys}
 \label{sec:geo-flatness}
@@ -515,7 +563,7 @@ The chapter now has three constructions that are each sometimes shortened to the
 The distinction between Regimes~I and II is not a stylistic preference. It is the hypothesis on which a closure result in Part~III depends, and it is stated here so that the later result can be read against it rather than absorbing it silently.
 
 \medskip
-\noindent\textbf{Hypothesis 2.14 (Flat link regime).} For every pair of interacting agents the link is the Regime-I comparison,
+\noindent\textbf{Hypothesis 2.14 (Flat link regime).} Assume Hypothesis 2.10. For every pair of interacting agents the link is the Regime-I comparison,
 \begin{equation}
 L_{ij}=\Omega_{ij}=U_iU_j^{-1},
 \label{eq:geo-flat-regime}
@@ -525,7 +573,7 @@ evaluated at one common context. \status{HYPOTHESIS}
 
 This is a restriction, not a derivation. It excludes every configuration in which the links carry information beyond the frames, that is, by Proposition 2.13, every configuration with nontrivial loop holonomy. It is used in Part~III, where the behavior of the interaction family under coarse-graining is analyzed, and it enters there in exactly the form the following identity provides.
 
-In the vocabulary of Section~\ref{sec:geo-trivializing} the hypothesis has a compact reading: it says that the entire population is a single trivializing subfamily, since by Proposition 2.24 the coboundary form $L_{ij}=U_iU_j^{-1}$ on all of $V$ is equivalent to triviality of every closed-walk holonomy, and by Proposition 2.19 that is in turn equivalent to Hypothesis 2.10. Flatness is therefore the maximal case of a graded property rather than a separate condition, and the graded version is what remains when it is dropped. Under the general regime of Definition 2.20 the population still decomposes into trivializing subfamilies, each of which admits its own common trivialization by Proposition 2.24, and the following identity holds internally to each of them with $U_i$ replaced by the $V_i$ that the criterion supplies.
+In the vocabulary of Section~\ref{sec:geo-trivializing} the hypothesis has a compact one-way reading: the smooth \v{C}ech zero-cochain supplied by Hypothesis 2.10 restricts at the declared context to the vertex zero-cochain $U_i$ on the interaction graph, and $L_{ij}=U_iU_j^{-1}$ makes the entire population a trivializing subfamily by Proposition 2.24. Triviality of graph-link holonomy alone does not imply Hypothesis 2.10, because the finite vertex elements returned by Proposition 2.24 are not the smooth overlap maps required by Proposition 2.19. Under the general regime the available trivializing subfamilies form the downward-closed family of Proposition 2.27; they need not decompose the population. The following identity holds internally to any selected member of that family, with $U_i$ replaced by the $V_i$ that the graph criterion supplies.
 
 \medskip
 \noindent\textbf{Proposition 2.15 (Trivialized comparison and the Regime-II residue).} Let $\mu_i$ be a state-channel mean in agent $i$'s fiber and define the trivialized coordinate $z_i=\rho_k(U_i)^{-1}\mu_i$. Under Hypothesis 2.14,
@@ -560,7 +608,7 @@ Under Hypothesis 2.14 with $F=V$ this is \eqref{eq:geo-trivialized-residual} wit
 
 This is the form in which the geometry reaches Chapter~\ref{ch:coarsegraining}. Under flatness the trivializing subfamily is the whole population and every internal edge of every cluster reduces to a plain difference, which is what the closure result there consumes. Under the general regime the same reduction is available exactly on trivializing subfamilies, so a coarsening whose clusters are trivializing retains it cluster by cluster, while an edge cut between two clusters, or an edge internal to a cluster that is not trivializing, keeps its twist and with it the residue that the interaction family does not contain. The document claims neither more nor less than that: the identity above is proved, and the consequence for the coarse operator is stated and proved where the interaction family is declared, not here.
 
-Whether an analogue of that closure holds for a genuinely non-flat connection Laplacian is open, both in this development and in the literature on aggregation-based coarse operators that Part~III draws on. It is raised where it is used rather than here, since stating it requires the interaction family that Part~II declares.
+Whether an analogue of that closure holds for a genuinely non-flat \emph{graph-link} Laplacian is open, both in this development and in the literature on aggregation-based coarse operators that Part~III draws on. Here ``graph-link'' is essential: this is the discrete operator assembled from $L_{ij}$, not a principal connection on $P$. The question is raised where it is used rather than here, since stating it requires the interaction family that Part~II declares.
 
 \section{Status register}
 \label{sec:geo-register}
@@ -572,11 +620,11 @@ Whether an analogue of that closure holds for a genuinely non-flat connection La
 \midrule
 2.1 & Contextual base $\mathcal C$ & \textsc{definition} & Nothing proved; fixes a type \\
 2.2 & Bundle, supports, reference trivialization, frames $U_i$ & \textsc{definition} & Nothing proved; the reference-trivialization clause is conditional on 2.10, the frames are not \\
-2.3 & Smooth, family-preserving represented actions & \textsc{hypothesis} & A choice; discharged for Gaussians by 2.6, open for general families \\
-2.4 & Associated statistical bundles & \textsc{definition} & Nothing proved \\
+2.3 & Selected finite-dimensional smooth fibers and family-preserving represented actions & \textsc{hypothesis} & A choice; discharged for Gaussians by 2.6; arbitrary law, stratified, and infinite-dimensional fibers require separate structures \\
+2.4 & Associated law objects; smooth associated bundles in the selected tier & \textsc{definition} & Nothing proved; requires invariant law fibers, and the general quotient is set-theoretic or measurable, not automatically smooth \\
 2.5 & Intertwining criterion for cross-channel maps & \textsc{established} & Proved in text \\
 2.6 & Gaussian pushforward: congruence and dual precision law & \textsc{established} & Proved in text \\
-2.7 & Agent as section-bearing object & \textsc{definition} & Nothing proved \\
+2.7 & Agent as section-bearing object with frame section $u_i$ & \textsc{definition} & Nothing proved; the group coordinate $U_i$ exists only under 2.10 \\
 2.8 & Exponential chart is local only & \textsc{established} & Proved by explicit witness and \citet{culver1966existence} \\
 2.9 & Cocycle identity and coboundary form of $\Omega_{ij}$ & \textsc{established} & Proved in text \\
 2.10 & Common reference trivialization over $\mathcal C_0$ & \textsc{hypothesis} & A choice; proved equivalent to the coboundary form by 2.19; the excluded case is developed in Sections~\ref{sec:geo-cech} and \ref{sec:geo-trivializing}, not declined \\
@@ -601,7 +649,7 @@ Whether an analogue of that closure holds for a genuinely non-flat connection La
 2.19 & Coboundary $\Leftrightarrow$ global section $\Leftrightarrow$ trivial bundle & \textsc{established} & Proved in text; the standard section-versus-triviality step is cited \citep{Steenrod1951,Husemoller1994,Kobayashi1963} \\
 2.20 & General cocycle regime: local sections only & \textsc{definition} & Nothing proved; names the ambient setting \\
 2.21 & Cocycle without coboundary adopted by default & \textsc{hypothesis} & A choice of ambient setting; excludes no configuration but forfeits the trivialized coordinate except where 2.24 restores it \\
-2.22 & Obstruction is a class in nonabelian $\check H^1$, a pointed set; it does not obstruct sections of $\mathcal E_{\mathrm{state}}$ & \textsc{established} & Standard, cited \citep{Serre1997Galois,Husemoller1994,Steenrod1951}; the section-existence clause is the vanishing obstruction count for a contractible fiber, stated for continuous sections only \\
+2.22 & Obstruction is a class in nonabelian $\check H^1$, a pointed set; Gaussian associated bundle has a section & \textsc{established} & Standard, cited \citep{Serre1997Galois,Husemoller1994,Steenrod1951}; section existence uses the contractible Gaussian fiber and is not asserted for every general law fiber \\
 2.23 & Comparison assignment, internal walk, holonomy & \textsc{definition} & Nothing proved; the Regime-I instance carries a common-context hypothesis \\
 2.24 & Trivializing criterion: coboundary on $F$ $\Leftrightarrow$ trivial internal holonomy & \textsc{established} & Proved in text in both directions; the smooth version fixes one walk per vertex \\
 2.25 & Triviality of holonomy is gauge invariant & \textsc{established} & Proved in text; also independent of base point and orientation \\
@@ -620,8 +668,8 @@ Whether an analogue of that closure holds for a genuinely non-flat connection La
 \midrule
 2.29 & Frame-induced local connection $A_i$ & \textsc{definition} & Nothing proved; a single local section already trivializes its own patch \\
 2.30 & $A_i$ is flat & \textsc{established} & Proved in text via integrability of the induced foliation, citing the Frobenius form of Ambrose--Singer \\
-2.31 & Induced global connection by partition of unity; flat when local forms agree on overlaps & \textsc{established} & Proved in text; the sufficient condition is stated precisely, and holds independently of Hypothesis 2.14 \\
-2.32 & Converse of the flatness criterion & \textsc{open} & Needs either a cancelling example under some subordinate partition of unity or a partition-of-unity-uniform lower bound on curvature in terms of local disagreement; restates Open 2.16 by inversion \\
+2.31 & Partition-dependent global connection; flat when local forms agree on overlaps & \textsc{established} & Proved in text; the criterion is sufficient, and the result depends on the chosen subordinate partition \\
+2.32 & Local disagreement neither forces nor excludes curvature & \textsc{established} & Exact $\GL^{+}(1)$ witnesses: every average is flat on $\R$, while $a=-y\,dx$ on $\R\times(0,1)$ has $F=dx\wedge dy$ and nonidentity rectangular holonomy \\
 2.33 & Transition element, transport direction, and the reference coordinate & \textsc{established} & Proved in text from the right action of 2.2, the quotient convention of 2.4 and the frame parametrization; it derives $\Omega_{ij}=U_iU_j^{-1}$ as the $j$-to-$i$ transition rather than assuming it, and fixes the direction of every transport downstream \\
 \bottomrule
 \end{tabular}

@@ -860,3 +860,236 @@ The review used the following external sources to determine what is established 
 - Blei, Kucukelbir, and McAuliffe, [variational inference](https://www.cs.columbia.edu/~blei/papers/BleiKucukelbirMcAuliffe2017.pdf), Beal's [variational algorithms thesis](https://cse.buffalo.edu/faculty/mbeal/thesis/), and Dempster, Laird, and Rubin's [EM paper](https://rss.onlinelibrary.wiley.com/doi/10.1111/j.2517-6161.1977.tb01600.x), for the fixed-joint/fixed-evidence structure behind the standard ELBO and EM comparisons.
 
 These sources do not duplicate the manuscript's proposed synthesis. They do constrain novelty claims: the contribution should be framed as a typed compatibility/no-go theory joining these structures, plus new theorems for the specific gauge-covariant coarse category, rather than as the invention of its individual ingredients.
+
+## Remediation continuation — 2026-07-29
+
+This addendum records the continuation after the first referee report. It preserves the original
+findings as the historical review record and separately states what the revised manuscript now
+does. The working provenance is:
+
+- branch: `codex/gauge-vfe-rg-remediation-20260729`;
+- isolated worktree: `C:\tmp\Research-gauge-vfe-rg-remediation-20260729`;
+- reviewed base: `593dc9902e84cfece9187e7e0a143c30f8b44a65`;
+- source freeze: after the final independent variational/measure-theory rescan; and
+- publication target: the Research vault only after mechanical verification and the authorized
+  Git lifecycle complete.
+
+### Continuation protocol and expert lanes
+
+The remediation retained ten distinct expert lenses. Their purpose was not a vote: each lane was
+required to produce a derivation, counterexample, source boundary, or explicit open obligation.
+Independent verifier rebounds were applied after the first integration pass, and source was not
+frozen until the last scope defect was repaired.
+
+| Lane | Remediation responsibility |
+|---|---|
+| Measure theory and probability | RCP versions, absolute continuity, support claims, finite-design versus continuum typing |
+| Variational inference | Fixed-joint ELBO semantics, E/M-coordinate finiteness, acceptance and monotonicity |
+| Exponential families | Natural-domain boundaries, minimality, Bregman identities, operator versus probability layers |
+| Information geometry | Natural/expectation/moment charts, DQM/Fisher scope, generalized spectra |
+| Differential geometry and topology | Principal/associated-bundle conventions, Čech data, base connections and holonomy |
+| Gauge theory | Edgewise stabilizers, graph-link covariance, effective-support holonomy |
+| Gaussian matrix analysis | Projection regimes, Loewner comparisons, singular pencils, exact counterexamples |
+| Coarse-graining and RG | Closure, rescaling, theory-space typing, fixed rays, scheme and convergence obligations |
+| Numerical reproducibility | Claim inventory, stable check IDs, exact versus floating evidence, deterministic replacements |
+| Adversarial integration | Cross-chapter numbering, status registers, cross-references, overclaim and seam scan |
+
+### Central scope correction: Gaussian laws are a realization, not the theory
+
+The author's diagnosis was substantially right: the original draft repeatedly let the
+multivariate-Gaussian realization stand in for the ambient theory because it is computationally
+easy. The revision now enforces a hierarchy.
+
+1. A **state-recognition belief fiber** is a declared collection of normalized probability laws on
+   a measurable state space.
+2. A **model-belief fiber** is a separate collection of normalized laws on a model-parameter or
+   latent-model space.
+3. A **generative-kernel fiber** is a third type: a collection of Markov kernels with declared
+   source and target spaces. A model-belief law is not a generative kernel.
+4. A finite-dimensional **DQM/Fisher tier** is selected only after a parameter manifold,
+   differentiability in quadratic mean, square-integrable scores, and nondegeneracy of the Fisher
+   form have been proved or assumed.
+5. A regular minimal **exponential-family tier** adds a common dominating measure, an open natural
+   domain, minimal sufficient statistics, and finite log partition.
+6. The **nondegenerate Gaussian tier** is a tractable realization inside that exponential-family
+   tier. The Laplacian-plus-self-term interaction family is narrower again.
+
+Thus the fibers may indeed be general spaces of beliefs and models, but they are not automatically
+manifolds. Manifold, Fisher, covariance, natural-coordinate, and boundary language belongs only to
+a selected regular tier. This correction is implemented in `SPEC.md`, the foundations, the new
+exponential-family chapter, and every later scope statement.
+
+### R1–R21 disposition ledger
+
+`Addressed` below means that the false or overbroad manuscript statement was corrected, scoped, or
+replaced. It does not turn an explicitly retained open problem into a theorem.
+
+| ID | Disposition in the revised manuscript | Evidence in the revision | Remaining obligation |
+|---|---|---|---|
+| R1 | **Addressed; negative conclusion retained.** The \(A=0\) ray is a PSD operator ray, not a normalized Gaussian law. | Chapter 6 separates operator and probability layers; Proposition 11.16 proves singularity, nonnormalizability, absence of Fisher geometry, and absence of an ELBO instance. | A quotient, pin, or retained-mass repair must be constructed across scales before it can be called a law. |
+| R2 | **Addressed.** The right-principal/left-associated convention is made consistent. | Geometry now uses \(u_i=\sigma_0\!\cdot U_i^{-1}\), derives \(\Omega_{ij}=U_iU_j^{-1}\), and separately derives agent-frame and reference-frame changes. | None for the stated convention. |
+| R3 | **Addressed; negative conclusion retained.** | The pencil is called regular only after its common kernel is removed; Proposition 11.19 proves that the fixed-ray determinant is identically zero. | A quotient or reference/mass pencil is needed for a nontrivial spectral object. |
+| R4 | **Addressed as an open program.** A finite spectrum is not a density or exponent. | The RG chapter requires a declared hierarchical/thermodynamic family and limiting counting function; the singular endogenous pencil is rejected. | Existence, low-spectrum asymptotics, flow covariance, and scheme robustness of an IDS remain open. |
+| R5 | **Addressed.** Sum-only aggregation is not primitive on the full \(K>1\) matrix cone. | Invariant common-range faces and infinite projective diameter are proved; the viable Perron/Birkhoff statement is scoped to a scalarized cone with a primitive spatial map. | Attraction on a nontrivial matrix cone requires internal mixing or a proved quotient metric. |
+| R6 | **Addressed.** Relaxed factorwise, invertible factorwise, and global membership are separated. | The Gaussian chapter proves the orthogonal-projection criterion with singular gains, identity-only behavior for invertible idempotents, and an explicit globally admissible nonprojection witness. | The random sweep remains corroboration, not proof of generic measure zero. |
+| R7 | **Addressed; full-family question closed negatively.** | An exact rational \(N=3,K=2\) SPD witness produces a nonsymmetric manufactured coupling; a common-orthogonal-eigenbasis subfamily is proved closed. | Classify maximal iteratively Kron-closed subfamilies. |
+| R8 | **Addressed.** | Probability and ELBO chapters use a standard-Borel RCP, a marginal-full regular-observation set, and declared pointwise versions only when supplied as model data. | Every new parameterized comparison must still provide a common regular set or declared pointwise versions. |
+| R9 | **Addressed by scoping.** | The obstruction chapter rejects only the flat unanchored reciprocal Gaussian pair; anchored and globally normalized cyclic models are explicitly valid. | Closure of an enlarged nonflat pair-factor family remains open. |
+| R10 | **Addressed by withdrawal.** Component preservation no longer implies convergence, uniqueness, or scheme independence. | Proposition 11.12 proves only component preservation; later conclusions list convergence, basin uniqueness, and scheme robustness as antecedents. | All three dynamical obligations remain open. |
+| R11 | **Addressed and closed.** | Proposition 2.32 gives both a one-dimensional flat-disagreement counterexample and a two-dimensional curved partition-dependent example. | No remaining obligation for the former open claim. |
+| R12 | **Addressed and closed for the displayed exact schedule.** | Theorem 12.8 gives the exact fixed point and a geometric contraction rate for the anchored Gaussian star. | Delayed, noisy, asynchronous, and inexact schedules remain open. |
+| R13 | **Addressed.** | The restriction chapter uses the posterior-null-set criterion and includes the uniform \([0,\tfrac12]\) versus \([0,1]\) finite-KL counterexample. | None for the corrected claim. |
+| R14 | **Addressed.** | The scalar normalizer derivative is recomputed with the correct sign and kept distinct from a coordinate or model update. | No dynamical interpretation follows without a declared update rule. |
+| R15 | **Still `OPEN/INCONCLUSIVE`, deliberately.** | Introduction, RG, and philosophy chapters separate observational closure, arrival at a repaired fixed object, physical-law identification, and ontological closure. | Name a target system, estimator, noise model, baseline, tolerance, and risky cross-scale validation protocol. |
+| R16 | **Addressed.** | Pointwise graph zero-cochains, smooth Čech zero-cochains, graph-link holonomy, and principal-connection holonomy are separately typed. | A graph-to-base transport bridge remains open. |
+| R17 | **Addressed.** | Proposition 2.31 is only a sufficient flatness result; Proposition 2.32 supplies the separate explicit curved witness. | An operational population observable of base holonomy remains conjectural. |
+| R18 | **Addressed; mechanically closed for the numerical/status contract.** | Status registers were synchronized, historical unreconstructable magnitudes were removed or marked inconclusive, and stable `CHK-*` replacements were introduced. The adversarial verifier then caught a stale bare Chapter 12 star/fold row: it was replaced by `CHK-OBS-STAR-FOLD-NEW-PROTOCOL`, all six bare status cells were macro-wrapped, and the recursively bound source-frozen package passes with zero manifest mismatches as recorded below. | No numerical-package repair remains. `NUM-RG-PHYSICAL-LAW` remains deliberately `INCONCLUSIVE` because a scientific validation protocol, not another numerical check, is owed. |
+| R19 | **Addressed.** | The ELBO chapter distinguishes substituted free energy from the negative pseudo-ELBO and proves both total-correlation signs. | None. |
+| R20 | **Addressed.** | The subspace-supported conclusion is proved directly from a posterior-null set, without applying the dominated-density proposition outside its hypotheses. | None. |
+| R21 | **Addressed.** | Proposition 4.5 now proves only the no-distinguished-target result; Proposition 4.14 supplies a normalized binary family in which the three stronger readings fail. | Comparisons across moving models require a separately declared model-selection target. |
+
+### Corrections found by the continuation verifiers
+
+The post-integration verifier pass found several defects not isolated as separate R-items in the
+first report. They were repaired before the source freeze:
+
+- The general hierarchy now distinguishes state-belief laws, model-belief laws, and generative
+  kernels. Arbitrary law fibers are not called manifolds.
+- Proposition 3.12 now requires at least two nondegenerate real coordinates; singleton fibers are
+  the exact counterexample. Proposition 3.13 inherits that richness condition, and its section
+  nonuniqueness additionally requires an off-design point and a locally deformable selected fiber.
+- The exact M-coordinate requires (H1)–(H4) for every compared parameter. A countable heavy-tail
+  witness shows why two complete-log-likelihood values of \(-\infty\) cannot be compared by
+  canceling an infinite entropy. The generalized acceptance and evidence-monotonicity statements
+  require finite ELBOs at both endpoints.
+- The finite-step quadratic counterexample for an optimizer proposal is restricted to steps whose
+  start and endpoint both lie in the declared quadratic region.
+- The exponential-family operator/probability intersection records the empty-set exception to its
+  relative-closedness statement, and finite-step Gaussian interiority is no longer misread as a
+  classification of boundary mechanisms. An anisotropic \(2\times2\) node-matrix sequence supplies
+  the counterexample.
+- The diagonal-affinity/annihilation equivalence is stated only in effective minimal coordinates;
+  a nonminimal statistic gives an explicit nonzero-\(\Upsilon\) witness.
+- Bregman projection attainment no longer rests on the false claim that intersection with an open
+  mean domain destroys relative closedness. The actual obligations are nonemptiness, coercivity,
+  compactness, and escape to infinity or the natural-domain boundary.
+- The Gaussian block projection is described as changing the candidate \(Q\), setting its
+  cross-covariances to zero and its diagonal blocks to \(J_{bb}^{-1}\preceq(J^{-1})_{bb}\); it does
+  not alter any block of the fixed target \(P\).
+- Cross-model ELBO noncomparability now has finite normalized binary witnesses. A deterministic
+  unused coordinate makes the two latent inventories literally different without changing
+  evidence, KL, or ELBO.
+- Full fixed-\(K\) annihilation is equivalent to trivial graph holonomy only for positive-definite
+  internal weights. For PSD weights the exact criterion is
+  \(W_{ij}^{1/2}(I-\Theta_{ij})=0\), leaving an effective-support/quotient problem open.
+- The analyzed scale costs now have their correct endpoint behavior: the Gaussian mean-tie cost
+  favors the finest partition, while the factorization gap favors the coarsest. Mixtures require an
+  external coefficient; a general intrinsic selector remains open.
+
+### Extensions to the general theory
+
+#### 1. Formulate coarse-graining as a Markov morphism of statistical experiments
+
+This is the strongest route beyond Gaussians. Let an object be a statistical experiment
+\(\mathcal E=(\mathsf Y,\mathscr Y,\{P_\theta\}_{\theta\in\Theta})\), and let a coarse map be a
+Markov kernel \(K:\mathsf Y\rightsquigarrow\bar{\mathsf Y}\). The coarse experiment is
+\(K_\#\mathcal E=\{P_\theta K\}\). Composition of kernels gives a genuinely typed semigroup or
+category, so repeated coarse-graining no longer relies on identifying Euclidean parameter spaces
+by hand.
+
+A rigorous program should prove, in this order:
+
+1. **Functoriality:** gauge pushforwards and Markov coarse maps commute, or their failure is encoded
+   by an explicit natural transformation.
+2. **Information monotonicity:** KL and appropriate \(f\)-divergences contract under \(K\).
+3. **Sufficiency/equality:** characterize when a recovery kernel \(R\) satisfies
+   \(P_\theta K R=P_\theta\) for all \(\theta\), equivalently when coarse-graining loses no
+   information for the declared experiment.
+4. **Stable submodels:** classify exponential and Gaussian submodels invariant under \(K\), rather
+   than assuming closure from a matrix formula.
+5. **Differential consequence:** on a DQM stratum, identify the coarse score as a conditional
+   expectation and prove Fisher contraction; equality should correspond to local sufficiency under
+   stated regularity.
+6. **RG typing:** only after an identification of experiment families across scale should a fixed
+   object, attraction, or universality class be defined.
+
+This reframes the current theory as a special quadratic representation of a more general
+information-losing morphism theory. It also cleanly separates exact marginalization, sufficient
+statistics, model replacement, and recognition-family restriction.
+
+#### 2. Use stratified and nonparametric belief fibers, not one universal manifold
+
+The maximal ambient object should remain a measurable family of probability laws. Smooth geometry
+can then be added stratum by stratum:
+
+- finite-dimensional DQM strata for ordinary Fisher/Riemannian calculations;
+- regular exponential-family strata for dual affine geometry and exact Bregman identities;
+- Gaussian/SPD strata for closed matrix formulas;
+- singular boundary strata for degenerate laws, quotient measures, changing support, and rank
+  changes; and
+- optional infinite-dimensional exponential manifolds, such as a Pistone–Sempi/Orlicz model, only
+  inside a fixed mutual-absolute-continuity class with its integrability hypotheses declared.
+
+The last option is not a manifold of all probability laws. Different measure classes and
+support-changing limits require separate components or a stratified completion. Gauge actions
+should be defined by pushforward on measures, with isotropy and orbit-type strata retained rather
+than erased by a dimension count. Generative Markov kernels should remain a separate fibred
+category over these belief-law fibers.
+
+The principal theorem to seek is a **stratified coarse-map theorem**: conditions under which a
+gauge-covariant Markov morphism maps one regular stratum smoothly into another, the induced tangent
+map is conditional expectation on scores, Fisher information is monotone, and equality is
+equivalent to a declared recovery/sufficiency condition. Boundary crossings should be reported as
+stratum changes, not as points of the same Fisher manifold.
+
+#### 3. Effective-support holonomy and variable-rank coarse fibers
+
+The PSD-weight correction exposes a new problem not visible in the positive-definite theory.
+Classify graph-link data modulo directions invisible to every internal weight, define the
+effective holonomy on the resulting quotient or support bundle, and determine whether partial
+coarse fibers of dimension
+\(\dim\operatorname{Fix}(\operatorname{Hol}_I)\) compose under further merging. A successful theory
+would replace the current fixed-\(K\) family by a variable-rank category whose links are rectangular
+intertwiners and whose closure is proved rather than presumed.
+
+#### 4. Projective-limit probability before continuum RG
+
+For continuum belief sections, first construct a refining family of finite designs and a compatible
+projective system of normalized laws. Then prove tightness on a declared section-space topology,
+gauge compatibility, and convergence of the ELBO and coarse observables. An energy density written
+formally on a continuum section space is not enough: the reference measure and normalizer must
+exist before information geometry or RG language applies.
+
+### Verification after the source freeze
+
+The source-frozen numerical suite reports overall `PASS`. It inventories 39 literal
+`\status{NUMERICAL}` macros: 30 substantive claims, one taxonomy entry, and eight duplicate or
+current-summary status-register rows. There are zero bare `& NUMERICAL &` cells. The adversarial
+verifier found that the former Chapter 12 star/fold register row still named a historical protocol;
+the row now names `CHK-OBS-STAR-FOLD-NEW-PROTOCOL`, and all six bare status cells were macro-wrapped
+so the inventory is complete.
+
+The runner recursively binds all 14 TeX inputs together with `claims.json`, `run_checks.py`,
+`requirements.txt`, and `VERIFICATION.md` through a repository-relative SHA-256 manifest. An independent
+recheck found zero manifest mismatches. All 29 deterministic checks pass, with zero failures and
+zero inconclusive check executions; source-to-check mapping validation passes, and all six required
+supplemental checks are known and passing. The substantive dispositions are 29 `keep_exact` and one
+`retain_as_inconclusive`. The retained item is `NUM-RG-PHYSICAL-LAW`, intentionally
+`INCONCLUSIVE` because the manuscript still supplies no scientific protocol capable of validating
+a physical law. Two same-environment runs produced byte-identical `current-results.json` outputs.
+Its SHA-256 is
+`FCAF6443EC885336A421EF898C297713755EC807A5B5FD5852964F6A3CDEE638`.
+
+A final direct build on the same frozen source ran `pdflatex`, BibTeX, and two further `pdflatex`
+passes. It produced a 255-page, 1,581,568-byte PDF with SHA-256
+`DF66962CC6214089190C3643E3702DA62ADBC7CF1E59DE47954A9C284DB09E6B`. The final log contains no
+undefined citations, undefined references, compilation error, fatal error, oversized float, or
+overfull vertical box. The material 21-point and 24-point horizontal overflows found on the first
+integration build were repaired; the maximum remaining horizontal warning is 4.7456 points and was
+visually contained.
+
+The separate `.verification/ledger.json` is the 21-claim closure ledger, and its
+`artifact_revision` binds the evidence to the exact worktree snapshot. Ledger validation passes
+with 20 claims `EVIDENCE_VERIFIED` and one deliberate `INCONCLUSIVE` claim, R15, whose open
+obligation is the missing empirical protocol required to identify a repaired fixed object with a
+physical law.

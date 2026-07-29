@@ -1,0 +1,518 @@
+\chapter{Belief Fibers and Exponential Families}
+\label{ch:expfamily}
+
+\Cref{ch:elbo} produced an exact identity for a normalized generative joint and a normalized recognition law under its stated absolute-continuity and integrability hypotheses. Neither that identity nor the bundle construction of \Cref{ch:geometry} requires every belief fiber to be an exponential family. \Cref{ch:gaussian} later makes a much stronger choice: a finite-dimensional regular exponential family with a quadratic sufficient statistic. This chapter inserts the missing hierarchy. The general tier consists of declared spaces of normalized laws or normalized kernels, possibly accompanied by larger representational spaces containing parameters or operators that do not themselves denote probability objects. A finite-dimensional smooth statistical manifold is an additional differential tier. Regular exponential families form the main tractable finite-dimensional subclass used for the algebraic coarse-graining results. Multivariate Gaussians are the worked realization of that subclass.
+
+The hierarchy matters because four structures that coincide in the Gaussian interior separate in general. A belief law requires only a measurable sample space and normalization. A density additionally requires a dominating reference measure. A Fisher metric additionally requires a differentiable statistical model with square-integrable scores and a nondegenerate tangent representation. A closed convex cone and an affine parameter map are algebraic choices available for some finite-dimensional representations, not universal properties of spaces of beliefs. The boundary theorem below therefore applies only after the dominated regular exponential-family hypotheses and the operator cone have been declared. It does not turn every general belief fiber into a cone or give every fiber a log partition function.
+
+The graph calculation is similarly scoped. Precomposing an exponential-family energy with an identification map redistributes node and edge parameter blocks linearly. It is not a contravariant pullback of a probability law. A coarse probability law exists only after a coarse sample space and reference measure have been declared and the new normalizer has been proved finite. The Gaussian computation of \Cref{ch:coarsegraining} is the case in which these obligations can be discharged by positive definiteness.
+
+\section{Belief and model fibers before coordinates}
+\label{sec:exp-general-fibers}
+
+For each belief channel $r\in\{\mathrm{state},\mathrm{model}\}$ declare a measurable sample space $(\mathsf Z_r,\mathscr Z_r)$. Let $\mathcal P(\mathsf Z_r)$ denote its probability measures. The most general law fiber used here is a declared subset
+\begin{equation}
+\mathcal B_r\subseteq\mathcal P(\mathsf Z_r).
+\label{eq:exp-law-fiber}
+\end{equation}
+The two channels are typed separately because their sample spaces and represented actions may differ. A state-recognition law is not a model-belief law, and neither is a generative transition kernel. If a generative channel has source $(\mathsf Z_s,\mathscr Z_s)$ and target $(\mathsf Z_t,\mathscr Z_t)$, its fiber is instead a declared set
+\begin{equation}
+\mathcal M_{t\leftarrow s}
+\subseteq
+\operatorname{Markov}\bigl((\mathsf Z_s,\mathscr Z_s),(\mathsf Z_t,\mathscr Z_t)\bigr)
+\label{eq:exp-kernel-fiber}
+\end{equation}
+of normalized Markov kernels, as in \Cref{ch:generative}. Equations \eqref{eq:exp-law-fiber} and \eqref{eq:exp-kernel-fiber} are type declarations and supply no manifold, density, parameter, metric, or convex structure. \status{DEFINITION}
+
+An implementation may use a larger representational fiber $\mathfrak B_r$ together with a partial realization map
+\begin{equation}
+\mathfrak q_r:\mathfrak B_r\rightharpoonup\mathcal P(\mathsf Z_r),
+\qquad
+\mathfrak B_r^{\mathrm{law}}=\operatorname{dom}(\mathfrak q_r),
+\qquad
+\mathcal B_r=\mathfrak q_r\left(\mathfrak B_r^{\mathrm{law}}\right).
+\label{eq:exp-realization-map}
+\end{equation}
+The normalized-law locus $\mathfrak B_r^{\mathrm{law}}$ is the part of the representation that denotes laws. A direct law model takes $\mathfrak B_r=\mathcal B_r$ and $\mathfrak q_r$ to be the identity. An operator model may have a strictly larger $\mathfrak B_r$, in which case a point outside $\operatorname{dom}(\mathfrak q_r)$ remains an algebraic or analytic object but is not a belief law. The same distinction may be made for kernel representations, with realization required to produce a normalized kernel for every conditioning value.
+
+Let $\rho_r(g)$ act bimeasurably on $\mathsf Z_r$. The gauge action on laws is the pushforward
+\begin{equation}
+g\cdot Q=(\rho_r(g))_{\#}Q.
+\label{eq:exp-general-pushforward}
+\end{equation}
+For a kernel whose source and target carry actions $\rho_s$ and $\rho_t$, the corresponding relabeling is
+\begin{equation}
+(g\cdot K)(A\given z)
+=K\left(\rho_t(g)^{-1}A\given\rho_s(g)^{-1}z\right).
+\label{eq:exp-kernel-action}
+\end{equation}
+Closure of the declared law or kernel fiber under these actions is a hypothesis. If only measurability is declared, the associated object is set-theoretic or measurable. To obtain the smooth associated bundles of \Cref{ch:geometry}, the chosen fibers must be smooth manifolds and the induced actions must be smooth. For a stratified fiber, the corresponding requirement is a declared stratified action that is smooth on each stratum and compatible with the incidence relations. \status{HYPOTHESIS}
+
+\section{Dominated and non-dominated families; finite and infinite dimensions}
+\label{sec:exp-dominated-nondominated}
+
+A law fiber is \emph{dominated} only when a common sigma-finite measure $\nu_r$ has been declared with $Q\ll\nu_r$ for every $Q\in\mathcal B_r$. Then one may choose densities $q=dQ/d\nu_r$, with the usual qualification that a density is an equivalence class up to $\nu_r$-null sets. A gauge action on density coordinates additionally requires the pushforward of the reference measure to be tracked; the bare matrix action on a density is not the measure pushforward of \eqref{eq:exp-general-pushforward}. None of this is automatic from the existence of a law fiber.
+
+Non-dominated law fibers occur even in elementary settings. If $\mathsf Z$ is an uncountable standard Borel space, the family $\{\delta_z:z\in\mathsf Z\}$ cannot be dominated by one sigma-finite measure: domination would force every singleton to have positive reference mass, while a sigma-finite measure has at most countably many positive-mass atoms. Such a family still has well-defined pushforwards under bimeasurable sample transformations. Pairwise relative entropy remains a measure-theoretic functional, finite only under its own absolute-continuity and integrability conditions, but there is no common density chart, common log partition, or Hessian formula merely because the family consists of probability laws. \status{ESTABLISHED}
+
+The principal differential tier of this document is finite dimensional. A selected law fiber may be presented by a smooth parameter manifold of dimension $p$ and a differentiable map into probability measures on the declared sample space. Parametrized measure models provide such a framework without requiring a common null-set class \citep{AyJostLeSchwachhoefer2018}. A Fisher bilinear form is available only under an additional integrability condition: in a locally dominated chart this is supplied by differentiability in quadratic mean with scores in $L^2(Q)$, and the score map must be injective on tangent vectors for the form to be positive definite. Domination by itself does not imply any of these conditions. Likewise, smoothness of a parameterization does not turn a singular or redundant score map into a Riemannian metric. \status{HYPOTHESIS}
+
+Infinite-dimensional and stratified fibers are optional extensions rather than the default meaning of ``statistical manifold.'' An infinite-dimensional construction must declare its topology, model spaces, differentiability calculus, tangent spaces, and the domain and continuity properties of any metric or operator. The exponential Orlicz-manifold of laws equivalent to a fixed reference probability is one such nonparametric density geometry \citep{PistoneSempi1995}; it is not a canonical manifold on all probability measures. Support changes, rank changes, and mixtures of models with different dimensions are more naturally treated by declared strata, on which differential claims are made separately. No result below asserts that these extensions inherit a global Fisher--Rao metric, an affine natural coordinate, or a closed convex cone. \status{NOT-CLAIMED}
+
+\section{A tractable subclass: regular finite-dimensional exponential families}
+\label{sec:exp-family}
+
+Throughout the remainder of this chapter, until a broader scope is stated explicitly, $\langle\cdot,\cdot\rangle$ denotes the inner product of a finite-dimensional real parameter space, with the trace form $\langle A,B\rangle=\Tr(AB)$ on symmetric matrices. The log partition function is written $\mathsf A$, following \Cref{ch:gaussian}, so that it does not collide with the self terms $A_i$. These conventions belong to the subclass introduced next and not to the law and kernel fibers of \Cref{sec:exp-general-fibers}.
+
+\paragraph{Definition 6.1 (Reference measure, statistic, log partition, natural domain).}
+Let $(\mathsf Z,\mathscr Z)$ be a measurable space carrying a sigma-finite reference measure $\nu$ declared as in \Cref{ch:probability}, with $\nu$ not the zero measure; in the recognition-law application $(\mathsf Z,\mathscr Z)=(\mathsf Y_D,\mathscr Y_D)$ and $\nu=\nu^{Y}_{D}$. Let $\mathsf T$ be a finite-dimensional real inner-product space and $T:\mathsf Z\to\mathsf T$ measurable. The \emph{log partition function} and \emph{natural parameter domain} of this dominated canonical exponential-family subclass are
+\begin{equation}
+\mathsf A(\theta)=\log\int_{\mathsf Z}e^{\langle\theta,T(z)\rangle}\nu(dz)\in(-\infty,+\infty],
+\qquad
+\mathsf N=\left\{\theta\in\mathsf T:\mathsf A(\theta)<\infty\right\},
+\label{eq:exp-logpartition}
+\end{equation}
+and for $\theta\in\mathsf N$ the \emph{exponential family law} $Q_\theta$ is the probability measure with $\nu$-density
+\begin{equation}
+q(z\given\theta)=\exp\left(\langle\theta,T(z)\rangle-\mathsf A(\theta)\right).
+\label{eq:exp-density}
+\end{equation}
+Nothing is proved here; this declares types and a normalization convention, in the order \Cref{ch:probability} requires, namely a nonnegative kernel exhibited first and its normalizer shown finite second. It neither parameterizes every law in \eqref{eq:exp-law-fiber} nor applies to a non-dominated fiber without a further choice of reference measure. \status{DEFINITION}
+
+The density \eqref{eq:exp-density} is strictly positive on all of $\mathsf Z$, so $Q_\theta$ and $\nu$ are mutually absolutely continuous for every $\theta\in\mathsf N$. Statements about $\nu$-null sets and about $Q_\theta$-null sets may therefore be exchanged freely inside the family, which is used twice below and is exactly what fails at the boundary.
+
+\paragraph{Proposition 6.2 (Convexity and lower semicontinuity).}
+The function $\mathsf A$ is convex on $\mathsf T$ as a map into $(-\infty,+\infty]$ and lower semicontinuous, and $\mathsf N$ is convex. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+For $\theta_0,\theta_1\in\mathsf T$ and $\tau\in(0,1)$ write $\theta_\tau=(1-\tau)\theta_0+\tau\theta_1$. H\"older's inequality with conjugate exponents $1/(1-\tau)$ and $1/\tau$, applied to $e^{\langle\theta_\tau,T\rangle}=\bigl(e^{\langle\theta_0,T\rangle}\bigr)^{1-\tau}\bigl(e^{\langle\theta_1,T\rangle}\bigr)^{\tau}$, gives
+\begin{equation}
+\int e^{\langle\theta_\tau,T\rangle}d\nu
+\leq
+\left(\int e^{\langle\theta_0,T\rangle}d\nu\right)^{1-\tau}
+\left(\int e^{\langle\theta_1,T\rangle}d\nu\right)^{\tau}
+\label{eq:exp-holder}
+\end{equation}
+in $(0,+\infty]$, and taking logarithms yields $\mathsf A(\theta_\tau)\leq(1-\tau)\mathsf A(\theta_0)+\tau\mathsf A(\theta_1)$. Then $\mathsf N=\{\mathsf A<\infty\}$ is a sublevel set of a convex function, hence convex. For lower semicontinuity let $\theta_k\to\theta$; the integrands are nonnegative and converge pointwise, so Fatou's lemma gives $\int e^{\langle\theta,T\rangle}d\nu\leq\liminf_k\int e^{\langle\theta_k,T\rangle}d\nu$, and the logarithm is monotone and continuous on $(0,+\infty]$. Since $\nu\neq0$ the integral is strictly positive, so $\mathsf A>-\infty$ everywhere and $\mathsf A$ is proper whenever $\mathsf N\neq\emptyset$. The convex-analytic notions used in \Cref{sec:exp-repairs} are those of \citet{Rockafellar1970}. $\square$
+
+\paragraph{Proposition 6.3 (Smoothness and cumulants on the interior).}
+Suppose $\operatorname{int}\mathsf N\neq\emptyset$ and let $\theta\in\operatorname{int}\mathsf N$. Then every component of $T$ has moments of all orders under $Q_\theta$, the function $\mathsf A$ is infinitely differentiable on $\operatorname{int}\mathsf N$, and
+\begin{equation}
+\nabla\mathsf A(\theta)=\E_{Q_\theta}\left[T\right],
+\qquad
+\nabla^{2}\mathsf A(\theta)=\operatorname{Cov}_{Q_\theta}\left(T\right),
+\label{eq:exp-cumulants}
+\end{equation}
+where $\nabla^{2}\mathsf A(\theta)$ is also the Fisher information in the natural parameter, both as the covariance of the score and as the negative expected second derivative of the log density. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Fix an orthonormal basis $e_1,\dots,e_P$ of $\mathsf T$ and choose $\rho>0$ with $B(\theta,\rho)\subseteq\mathsf N$. Put $a=\rho/(4\sqrt P)$, write $s_j(z)=\langle e_j,T(z)\rangle$, and set $s=(s_1,\dots,s_P)$. For every multi-index $\alpha$ there is a finite constant $C_{\alpha,a}$ such that, whenever $|\langle e_j,\vartheta-\theta\rangle|\leq a$ for all $j$,
+\begin{equation}
+\left|s(z)^{\alpha}\right|e^{\langle\vartheta,T(z)\rangle}
+\leq
+C_{\alpha,a}
+\sum_{\epsilon\in\{-1,+1\}^{P}}
+e^{\left\langle\theta+2a\sum_{j=1}^{P}\epsilon_je_j,T(z)\right\rangle}.
+\label{eq:exp-domination}
+\end{equation}
+Indeed, the left side is bounded by a constant times $\exp(\langle\theta,T(z)\rangle+2a\sum_j|s_j(z)|)$, and on each sign orthant this exponential is one summand on the right. Every parameter in that finite sum lies within distance $2a\sqrt P=\rho/2$ of $\theta$, so the right side is $\nu$-integrable. It is independent of $\vartheta$ and therefore supplies the required local domination for derivatives of every order. Hence $T$ has moments of all orders under $Q_\vartheta$ in a neighborhood of $\theta$, and repeated differentiation under the integral sign is licensed. Differentiating $Z(\vartheta)=\int e^{\langle\vartheta,T\rangle}d\nu$ once and twice and using $\mathsf A=\log Z$ gives
+\begin{equation}
+\nabla\mathsf A=\frac{\int Te^{\langle\theta,T\rangle}d\nu}{Z},
+\qquad
+\nabla^{2}\mathsf A
+=\frac{\int TT^{\top}e^{\langle\theta,T\rangle}d\nu}{Z}
+-\left(\frac{\int Te^{\langle\theta,T\rangle}d\nu}{Z}\right)^{\otimes2},
+\label{eq:exp-diff-under-integral}
+\end{equation}
+which is \eqref{eq:exp-cumulants}. The log density \eqref{eq:exp-density} has score $T(z)-\nabla\mathsf A(\theta)$, of covariance $\operatorname{Cov}_{Q_\theta}(T)$, and deterministic second derivative $-\nabla^{2}\mathsf A(\theta)$, so the two standard expressions for the Fisher information agree inside this canonical family. The local exponential domination in \eqref{eq:exp-domination} is the regularity that licenses the calculation; it should not be inferred for an arbitrary dominated family from domination alone. That $\mathsf A$ is in fact real analytic on $\operatorname{int}\mathsf N$ is standard and is not used below \citep{Brown1986,BarndorffNielsen1978}. $\square$
+
+Two conventions follow from \eqref{eq:exp-cumulants} and are used without comment. The mean parameter is not a separate object requiring its own symbol but the image of $\operatorname{int}\mathsf N$ under $\nabla\mathsf A$; and the Hessian carries a probabilistic and a geometric reading at once, both of which \Cref{ch:infogeometry} uses. No new symbols are introduced: $\nabla\mathsf A$ and $\nabla^{2}\mathsf A$ are written throughout.
+
+\paragraph{Hypothesis 6.4 (Regularity and minimality).}
+Two restrictions are adopted by choice and named so that later statements can cite them individually. The family is \emph{regular}: $\mathsf N$ is open, so $\mathsf N=\operatorname{int}\mathsf N$ and no boundary point of $\mathsf N$ belongs to $\mathsf N$. The family is \emph{minimal}: there is no $a\neq0$ in $\mathsf T$ and no $b\in\R$ with $\langle a,T(z)\rangle=b$ for $\nu$-almost every $z$. \status{HYPOTHESIS}
+
+Each excludes something identifiable. Regularity excludes families whose domain contains part of its own boundary, the inverse Gaussian being the standard example; under this chosen restriction, a parameter in the closure of $\mathsf N$ is either in the open natural domain and indexes a law of Definition 6.1, or is on its boundary and does not. This is only a statement about the present canonical representation relative to $\nu$: the same limiting object may acquire a law interpretation after a new sample space, reference measure, or stratum has been declared. Minimality excludes families whose statistic satisfies an affine relation, so that distinct parameters index the same law; it is used for Proposition 6.5 and for reading a statement about coarse laws as a statement about coarse parameters in \Cref{sec:exp-aggregation}. Neither restriction is used in Propositions 6.2 or 6.3.
+
+\paragraph{Proposition 6.5 (Minimality and nondegenerate information).}
+Under Hypothesis 6.4 the Fisher information $\nabla^{2}\mathsf A(\theta)$ is positive definite at every $\theta\in\mathsf N$, $\mathsf A$ is strictly convex on $\mathsf N$, and $\theta\mapsto Q_\theta$ is injective. If the family is not minimal then $\nabla^{2}\mathsf A(\theta)$ is singular at every $\theta\in\mathsf N$. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+By Proposition 6.3, $\langle a,\nabla^{2}\mathsf A(\theta)a\rangle=\operatorname{Var}_{Q_\theta}\left(\langle a,T\rangle\right)$, which vanishes exactly when $\langle a,T\rangle$ is $Q_\theta$-almost surely constant. Since $q(\cdot\given\theta)>0$ everywhere, $Q_\theta$ and $\nu$ have the same null sets, so this is $\nu$-almost everywhere constancy, forbidden by minimality for $a\neq0$ and supplied by its failure otherwise. Positive definiteness on the open convex set $\mathsf N$ gives strict convexity. If $Q_\theta=Q_{\theta'}$ then $\langle\theta-\theta',T(z)\rangle=\mathsf A(\theta)-\mathsf A(\theta')$ for $\nu$-almost every $z$, and minimality forces $\theta=\theta'$. $\square$
+
+\section{The two layers, and the boundary between them}
+\label{sec:exp-layers}
+
+\paragraph{Definition 6.6 (Operator layer and probability layer).}
+In addition to Definition 6.1, suppose a closed convex cone $\mathcal K\subseteq\mathsf T$ is separately declared and preserved by the linear operations under study. Call it the \emph{operator layer} for this parameterized subclass. Its \emph{exponential-family probability layer} is $\mathcal K\cap\mathsf N$, the part at which \eqref{eq:exp-density} is a normalized law relative to $\nu$. Under Hypothesis 6.4 this probability layer is relatively open in $\mathcal K$. If it is nonempty, then, because the convex cone \(\mathcal K\) is connected, it is relatively closed in \(\mathcal K\) only when \(\mathcal K\subseteq\mathsf N\); the empty intersection is the separate trivial exception. For example, \(\mathsf N=(-\infty,0)\) and \(\mathcal K=[0,\infty)\) have \(\mathcal K\cap\mathsf N=\varnothing\), which is both open and closed in \(\mathcal K\) although \(\mathcal K\not\subseteq\mathsf N\). Nothing is proved by the declaration, and no cone $\mathcal K$ is asserted to exist for the general law or kernel fibers of \Cref{sec:exp-general-fibers}. \status{DEFINITION}
+
+The declaration is substantive in one respect: $\mathcal K$ is chosen for its behavior under the linear maps of interest, not for its behavior under normalization. In \Cref{ch:renormalization} it is a declared cone of coupling parameters closed under aggregation and rescaling; in \Cref{ch:gaussian} it is the interaction family $\mathcal I(V)$, a closed convex cone because the passage from a precision to its self terms and edge weights is a linear bijection onto its image and the sign conditions are the preimage of a closed cone under a continuous linear map. Normalizability was a criterion in neither declaration, and that is why the layers can come apart. A general natural domain $\mathsf N$ is convex by Proposition 6.2 but need not be a cone, and the operator cone need not equal the closure of $\mathsf N$.
+
+\paragraph{Proposition 6.7 (The boundary carries no law).}
+Assume the finite-dimensional dominated family of Definition 6.1 and the regularity clause of Hypothesis 6.4, and let $\theta^{\star}\in\partial\mathsf N$. Then
+\begin{equation}
+\int_{\mathsf Z}e^{\langle\theta^{\star},T(z)\rangle}\nu(dz)=+\infty,
+\label{eq:exp-boundary-diverges}
+\end{equation}
+so no constant $c\in\R$ makes $z\mapsto e^{\langle\theta^{\star},T(z)\rangle-c}$ a probability density with respect to $\nu$, and no measure of the form \eqref{eq:exp-density} has natural parameter $\theta^{\star}$. Moreover, for every $\theta_0\in\mathsf N$ the segment $\theta_\tau=(1-\tau)\theta_0+\tau\theta^{\star}$ lies in $\mathsf N$ for $\tau\in[0,1)$ and, with $g(\tau)=\mathsf A(\theta_\tau)$ and $w=\theta^{\star}-\theta_0$,
+\begin{equation}
+\lim_{\tau\uparrow1}g(\tau)=+\infty,
+\qquad
+\lim_{\tau\uparrow1}\left\langle w,\nabla\mathsf A(\theta_\tau)\right\rangle=+\infty,
+\qquad
+\int_{0}^{1}\operatorname{Var}_{Q_{\theta_\tau}}\left(\langle w,T\rangle\right)d\tau=+\infty,
+\label{eq:exp-boundary-blowup}
+\end{equation}
+so the mean of the statistic in the direction $w$ diverges and the directional Fisher information is unbounded as the boundary is approached. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Regularity gives $\partial\mathsf N\cap\mathsf N=\emptyset$, so $\theta^{\star}\notin\mathsf N$, which is \eqref{eq:exp-boundary-diverges}; a constant $c$ would leave the integral $e^{-c}\cdot(+\infty)=+\infty\neq1$. Since $\theta^{\star}$ lies in the closure of the convex set $\mathsf N$ and $\theta_0$ in its interior, the line-segment principle \citep{Rockafellar1970} places $\theta_\tau$ in $\operatorname{int}\mathsf N=\mathsf N$ for $\tau\in[0,1)$. Hence $g$ is finite and convex on $[0,1)$ and smooth on $(0,1)$ by Proposition 6.3, while lower semicontinuity from Proposition 6.2 gives $\liminf_{\tau\uparrow1}g(\tau)\geq\mathsf A(\theta^{\star})=+\infty$, the first limit. Convexity makes $g'$ nondecreasing; were $g'\leq C$ on $[0,1)$ then $g(\tau)\leq g(0)+\max(C,0)$ throughout, contradicting the first limit, so $g'(\tau)\to+\infty$. The chain rule gives $g'(\tau)=\langle w,\nabla\mathsf A(\theta_\tau)\rangle$ and $g''(\tau)=\langle w,\nabla^{2}\mathsf A(\theta_\tau)w\rangle=\operatorname{Var}_{Q_{\theta_\tau}}(\langle w,T\rangle)$ by Proposition 6.3. Since $g''\geq0$, monotone convergence gives $\int_0^1g''=\lim_{\sigma\uparrow1}\left(g'(\sigma)-g'(0)\right)=+\infty$; a function bounded on a bounded interval is integrable there, so $g''$ is also unbounded. $\square$
+
+\paragraph{Corollary 6.8 (One fact seen through four functionals).}
+Under Proposition 6.7, the following are all unavailable in the declared exponential-family representation, for the single reason \eqref{eq:exp-boundary-diverges}: there is no normalized law relative to $\nu$, so the log partition is not a real number but the value $+\infty$ of an extended-real convex function; there is no mean parameter and no Fisher metric from $\nabla\mathsf A$ and $\nabla^{2}\mathsf A$, which are defined only on $\operatorname{int}\mathsf N$; there is no relative entropy from $\theta^{\star}$ to any member of the family, relative entropy being a functional of two measures of which one does not exist; and there is no instance of the identity of \Cref{ch:elbo}, whose Hypotheses (H1) and (H3) require a normalized recognition kernel absolutely continuous with respect to the posterior. A separately rebuilt quotient or boundary stratum may define another law, but it is not the law $Q_{\theta^\star}$ of Definition 6.1. \status{ESTABLISHED}
+
+\paragraph{Proposition 6.9 (Limit points of an operator flow need not be laws).}
+Let $\mathcal K$ be an operator layer, $\Phi:\mathcal K\to\mathcal K$ continuous, and $\theta^{(\ell+1)}=\Phi(\theta^{(\ell)})$ with $\theta^{(0)}\in\mathcal K\cap\mathsf N$. Then it can happen that $\theta^{(\ell)}\in\mathcal K\cap\mathsf N$ for every $\ell$ while $\theta^{(\ell)}\to\theta^{\star}\in\partial\mathsf N$, with $\theta^{\star}$ the unique fixed point of $\Phi$ in $\mathcal K$. A witness: take $\mathsf Z=\R$ with Lebesgue measure, $\mathsf T=\R$, $T(z)=-\tfrac12z^{2}$, so that
+\begin{equation}
+\mathsf A(\theta)=-\tfrac12\log\theta+\tfrac12\log2\pi,
+\qquad
+\mathsf N=(0,\infty),
+\qquad
+\mathcal K=[0,\infty),
+\label{eq:exp-scale-witness}
+\end{equation}
+and $\Phi(\theta)=\theta/2$, which is linear and maps $\mathcal K$ into itself. From $\theta^{(0)}=1$ every iterate is the precision of a genuine centered Gaussian on $\R$, while $\theta^{(\ell)}=2^{-\ell}\to0$ and $\mathsf A(\theta^{(\ell)})=\tfrac{\ell}{2}\log2+\tfrac12\log2\pi\to+\infty$; at $\theta^{\star}=0$ the kernel is the constant $1$, of infinite Lebesgue integral. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+The displayed $\mathsf A$ is the Gaussian normalizer, finite exactly for $\theta>0$, so $\mathsf N$ is open, and the family is minimal because $z^{2}$ is not almost everywhere constant; Hypothesis 6.4 holds. The iterates and their images under $\mathsf A$ are elementary, $\Phi(\theta)=\theta$ only at $\theta=0$, and $0\in\partial\mathsf N$ because every neighborhood of $0$ meets both $(0,\infty)$ and its complement. The last assertion is Proposition 6.7 at $\theta^{\star}=0$. $\square$
+
+\paragraph{The boundary statement.}
+The content of this section is one conditional sentence, and every use of it later must carry the conditions of Definition 6.1 and Hypothesis 6.4.
+\begin{quote}
+\emph{For a declared finite-dimensional canonical exponential family and operator cone, a limit point of an operator flow need not lie in the exponential-family probability layer. When it lies on $\partial\mathsf N$, it does not denote a normalized law of that family relative to the declared reference measure. Consequently that representation supplies no finite log partition, mean parameter, Fisher metric, relative entropy, or evidence bound at the limit.}
+\end{quote}
+\status{ESTABLISHED} This is Corollary 6.8 together with Proposition 6.9. Its Gaussian instance is the scale-free ray of \Cref{ch:renormalization}, at which the self terms vanish and the quadratic form becomes singular; \Cref{sec:exp-gaussian} carries out that instantiation. In that instance, the divergent normalizer, unavailable exponential-family Fisher metric, unavailable exact bound, and singular generalized pencil have the same cause: the proposed full-space Gaussian law is absent. The generalized-pencil statement is quadratic and is not part of the general exponential-family theorem.
+
+\paragraph{Not claimed.}
+This chapter does not claim that a boundary parameter is meaningless, that the operator-layer flow is uninteresting, or that no probability model can be built from the limiting object. It declines only the undeclared identification of that parameter with $Q_{\theta^\star}$ on the original sample and reference-measure space. A quotient, compactification, change of reference measure, or separately defined boundary stratum is a different construction whose normalization and gauge compatibility must be proved anew. What the parameter is as an operator is a legitimate question for \Cref{ch:renormalization}; what it is not automatically is the original recognition law. \status{NOT-CLAIMED}
+
+\section{Three admissible repairs, and one that is not a repair}
+\label{sec:exp-repairs}
+
+For the finite-dimensional exponential and quadratic operator constructions used later, this section analyzes three explicit repairs, each a change of object rather than of notation. The list is not an exhaustive classification of repairs for arbitrary law, kernel, stratified, or infinite-dimensional fibers. Common to the three analyzed routes is that the change be declared before any functional is evaluated, because each alters the parameter, sample space, or model, and a bound computed after an undeclared change is a bound on a different number.
+
+\paragraph{Definition 6.10 (Repair one: pinning).}
+Fix $\theta_{\mathrm m}\in\mathsf N$, called the \emph{pin}, and replace the family indexed by $\mathcal K$ with the family indexed by $\theta_{\mathrm m}+\mathcal K$. The declared flow acts on $\mathcal K$ as before and the pin does not flow. \status{DEFINITION}
+
+\paragraph{Proposition 6.11 (Pinning is exact under a recession condition).}
+Suppose $\theta_{\mathrm m}\in\operatorname{int}\mathsf N$ and every element of $\mathcal K$ is a recession direction of $\mathsf N$, meaning $\vartheta+t\theta\in\mathsf N$ for every $\vartheta\in\mathsf N$, $\theta\in\mathcal K$ and $t\geq0$. Then $\theta_{\mathrm m}+\mathcal K\subseteq\operatorname{int}\mathsf N$, so every pinned parameter indexes a normalized law with finite log partition and, under the minimality clause of Hypothesis 6.4, positive definite Fisher information. The identity of \Cref{ch:elbo} applies only when its separate hypotheses relating this recognition law to the declared generative joint and posterior also hold. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Let $\theta\in\mathcal K$ and $B\subseteq\mathsf N$ an open ball around $\theta_{\mathrm m}$. Every $\vartheta\in B$ lies in $\mathsf N$, so $\vartheta+\theta\in\mathsf N$ by the recession hypothesis at $t=1$; hence the open set $B+\theta$ lies in $\mathsf N$ and contains $\theta_{\mathrm m}+\theta$, which is therefore interior. The rest is Propositions 6.3 and 6.5 at an interior point. $\square$
+
+The cost is a change in what is computed, and should be stated rather than absorbed. The pinned family is not the declared family, so a fixed point of the flow on $\mathcal K$ is not in general a fixed point of any flow on $\theta_{\mathrm m}+\mathcal K$: unless the flow commutes with translation by $\theta_{\mathrm m}$, which is a condition to verify and not a fact, the pinned problem has its own fixed set, and relating the two is exactly the content the repair must supply. Two further costs are specific. The pin is a declared datum with no derivation inside the construction, so any invariant computed in its presence depends on it and that independence must be proved or the dependence reported; and removing the pin does not in general commute with the limit of the flow, so a quantity computed at small pin and late flow time need not agree with the same quantity computed in the other order.
+
+\paragraph{Definition 6.12 (Repair two: quotienting).}
+Suppose $\mathsf Z=\R^{n}$ with Lebesgue reference measure $\nu$ and that at the parameter of interest the energy is invariant along a linear subspace $\mathcal V\subseteq\R^{n}$ of dimension $m\geq1$, meaning $\langle\theta,T(z+v)\rangle=\langle\theta,T(z)\rangle$ for every $z$ and every $v\in\mathcal V$. Declare a new sample space, the orthogonal complement $\mathcal W=\mathcal V^{\perp}$ with its own Lebesgue measure $\lambda_{\mathcal W}$, a new statistic $T\vert_{\mathcal W}$, and a new family built from them. \status{DEFINITION}
+
+\paragraph{Proposition 6.13 (What quotienting does and does not preserve).}
+Under Definition 6.12, with $\lambda_{\mathcal V}$ and $\lambda_{\mathcal W}$ the Lebesgue measures induced on $\mathcal V$ and $\mathcal W$,
+\begin{equation}
+\int_{\R^{n}}e^{\langle\theta,T(z)\rangle}\nu(dz)
+=\lambda_{\mathcal V}(\mathcal V)\int_{\mathcal W}e^{\langle\theta,T(w)\rangle}\lambda_{\mathcal W}(dw)
+=+\infty,
+\label{eq:exp-quotient-split}
+\end{equation}
+so the full-space log partition is infinite regardless of the second factor, while the quotient family has finite log partition exactly when that factor is finite. The quotient family is then an exponential family in the sense of Definition 6.1 on a sample space of dimension $n-m$. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Write $z=v+w$ with $v\in\mathcal V$, $w\in\mathcal W$; in an adapted orthonormal basis, Lebesgue measure on $\R^{n}$ is the product $\lambda_{\mathcal V}\otimes\lambda_{\mathcal W}$ and the change of variables has unit Jacobian. The integrand is nonnegative and, by invariance, independent of $v$, so Tonelli's theorem gives the first equality. The second factor is strictly positive because the integrand is, and $\lambda_{\mathcal V}(\mathcal V)=+\infty$ because $m\geq1$. That the restricted objects satisfy Definition 6.1 is immediate; openness and minimality of the quotient family are conditions on the restricted statistic, to be checked there rather than inherited. $\square$
+
+The cost of quotienting is the largest of the three, which is why it must be declared and not performed silently. The sample space has changed, so every object of \Cref{ch:probability} built over the old space has to be rebuilt: the generative kernel and its normalization, the recognition kernel, the reference measure, hypothesis (H3), and therefore the evidence the bound of \Cref{ch:elbo} bounds. The rebuilt bound bounds the evidence of a different model, and \Cref{ch:coarsegraining} has already recorded that bounds for models with different latent inventories stand in no order relation. Two compatibility questions arise and neither is answered here: whether $\mathcal V$ is preserved by the gauge action of \Cref{ch:geometry}, so that the quotient is frame independent, and whether quotienting commutes with aggregation. The second is Conjecture 6.27 below.
+
+\paragraph{Definition 6.14 (Repair three: retaining a mass sector).}
+In a parameterization equipped with a declared mass coordinate, enlarge the parameter so that this coordinate flows with the rest and impose the explicit trajectory condition that the resulting full parameter remain in $\operatorname{int}\mathsf N$. In the Gaussian precision realization with the remaining interaction contribution positive semidefinite, a uniform positive definite lower bound on the mass contribution is a sufficient way to meet that condition. No corresponding scalar criterion is asserted for a general exponential family. \status{DEFINITION}
+
+This differs from pinning in where the burden of proof sits. Under pinning the offset is exogenous and constant, so Proposition 6.11 settles interiority once. Under a retained mass the offset is a coordinate of the flowing object, so interiority at stage $\ell$ is a statement about the trajectory and must be proved for the declared flow; if the mass is a contracting direction, the repair holds at every finite stage and fails in the limit, which is the situation Proposition 6.9 exhibits in miniature. Whether the mass sector of the flow of \Cref{ch:renormalization} is expanding, marginal, or contracting is a question about that flow and is not settled here. \status{OPEN} Call this Open Problem 6.15; settling it requires the spectrum of the linearized flow restricted to the mass direction at the candidate fixed point, together with a statement of which blocking schemes the answer is stable under.
+
+\paragraph{Proposition 6.16 (Pseudoinverse and pseudodeterminant substitution is not a repair).}
+Assume Definition 6.12 at a boundary parameter $\theta^{\star}\in\partial\mathsf N$ whose energy is $\mathcal V$-invariant with $\dim\mathcal V=m\geq1$. Then no finite constant $c$ makes $z\mapsto\exp\left(\langle\theta^{\star},T(z)\rangle-c\right)$ a probability density on $(\R^{n},\nu)$. In the Gaussian quadratic realization, this excludes in particular a constant obtained by replacing the inverse and determinant in the interior formula for $\mathsf A$ with a Moore--Penrose pseudoinverse and a pseudodeterminant. There the finite pseudo-substituted expression is the log partition of the quotient family of Proposition 6.13, hence the correct normalizer for the sample space $\mathcal W$ of dimension $n-m$ and not for $\R^{n}$. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+The first assertion is \eqref{eq:exp-boundary-diverges} together with the fact that multiplying an infinite integral by $e^{-c}$ leaves it infinite. For the identification, the quotient log partition is the logarithm of the second factor of \eqref{eq:exp-quotient-split}, the integral of the same energy over $\mathcal W$; evaluating it in the realization of \Cref{sec:exp-gaussian} produces exactly the pseudo-substituted expression, with dimensional constant $\tfrac{n-m}{2}\log2\pi$ rather than $\tfrac n2\log2\pi$. $\square$
+
+The dimensional constant is the visible tell. A substitution performed inside the full-space formula leaves $\tfrac n2\log2\pi$ in place, and the result is then the normalizer of nothing: not of the full-space kernel, which has none, and not of the quotient kernel, whose normalizer carries the smaller dimension. The substitution changes the object without changing the declaration, which is the precise sense in which it is inadmissible. Quotienting produces the same formula and is admissible, but only because it also produces a different sample space and says so.
+
+\section{Graph-structured natural parameters}
+\label{sec:exp-graph}
+
+\paragraph{Definition 6.17 (Graph-structured exponential family).}
+Let $V=\{1,\dots,N\}$, let $(\mathsf Z_0,\mathscr Z_0)$ be a standard Borel node space with a nonzero sigma-finite reference measure $\nu_0$, and put $\mathsf Z=\mathsf Z_0^{V}$ with $\nu=\nu_0^{\otimes V}$. Let $E$ be a set of unordered pairs from $V$, let $t:\mathsf Z_0\to\mathsf T_0$ be a \emph{node statistic}, and let $u:\mathsf Z_0\times\mathsf Z_0\to\mathsf T_1$ be a \emph{pair statistic} with $u(z,z')=u(z',z)$, both measurable into finite-dimensional inner-product spaces. The natural parameter is $\theta=\left((\alpha_i)_{i\in V},(\beta_{ij})_{\{i,j\}\in E}\right)$ with $\alpha_i\in\mathsf T_0$ and $\beta_{ij}=\beta_{ji}\in\mathsf T_1$, extended by $\beta_{ij}=0$ off $E$, and the energy is
+\begin{equation}
+\mathcal E_\theta(z)
+=\sum_{i\in V}\left\langle\alpha_i,t(z_i)\right\rangle
++\sum_{\{i,j\}}\left\langle\beta_{ij},u(z_i,z_j)\right\rangle,
+\label{eq:exp-graph-energy}
+\end{equation}
+the second sum over unordered pairs. The family is that of Definition 6.1 with $\mathsf T=\mathsf T_0^{V}\oplus\mathsf T_1^{E}$ and $T$ the corresponding stacking, so $\mathcal E_\theta(z)=\langle\theta,T(z)\rangle$. Nothing is proved; normalizability is not assumed and is exactly the question of whether $\theta\in\mathsf N$. \status{DEFINITION}
+
+This is the pairwise Markov random field in exponential form, the object of the graphical and variational literatures \citep{Lauritzen1996,Wainwright2008}. Two features of \eqref{eq:exp-graph-energy} carry the weight of the rest of the chapter: the energy is a pairing, linear in $\theta$ and arbitrary in $z$, with nothing quadratic anywhere; and the parameter's block structure is indexed by vertices and edges, so a combinatorial operation on the graph has a chance of inducing an algebraic operation on the parameter. \Cref{sec:exp-aggregation} shows that it does, and that the induced operation is linear.
+
+\paragraph{Proposition 6.18 (Markov property).}
+For $\theta\in\mathsf N$, the law $Q_\theta$ with energy \eqref{eq:exp-graph-energy} satisfies the pairwise Markov property of $(V,E)$: if $\{i,j\}\notin E$ then $z_i$ and $z_j$ are conditionally independent under $Q_\theta$ given the remaining coordinates. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Fix the coordinates outside $\{i,j\}$. The conditional density of $(z_i,z_j)$ is proportional to $\exp$ of the terms of \eqref{eq:exp-graph-energy} involving $z_i$ or $z_j$. If $\{i,j\}\notin E$ then $\beta_{ij}=0$, no term involves both, and the exponent splits into a function of $z_i$ plus a function of $z_j$, so the conditional density factorizes. This is the factorization-implies-Markov direction of the standard theory \citep[Ch.~3]{Lauritzen1996}. $\square$
+
+\paragraph{Proposition 6.19 (Invariance and the shape of the pair statistic).}
+Let a group $\mathsf G$ act measurably on $\mathsf Z_0$ preserving $\nu_0$, and diagonally on $\mathsf Z$. The pair terms of \eqref{eq:exp-graph-energy} are $\mathsf G$-invariant for every parameter value if and only if $u$ is constant on the orbits of the diagonal action. If $\mathsf Z_0=\R^{K}$ and $\mathsf G$ is the translation group, the diagonal orbits are the level sets of $z_i-z_j$, so invariance holds if and only if $u(z,z')=\tilde u(z-z')$ for some measurable $\tilde u$. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Invariance of $\langle\beta,u(gz_i,gz_j)\rangle$ for every $\beta\in\mathsf T_1$ is invariance of $u$, and a function is invariant precisely when constant on orbits. For translations acting diagonally on $\R^{K}\times\R^{K}$, the orbit of $(z,z')$ is $\{(z+v,z'+v)\}$, which is exactly the level set of $z-z'$, so constancy on orbits is factorization through the difference map. $\square$
+
+Proposition 6.19 is what a selection principle for the interaction form looks like in general, and its scope should be read exactly. It says which pair statistics are compatible with a declared symmetry of the sample space; it does not say the statistic is quadratic, which is an independent declaration about the order of the statistic. The Gaussian interaction family is the intersection of the two declarations, and \Cref{sec:exp-aggregation} shows that only the first does work in the closure theorem.
+
+\section{Aggregation within the graph exponential subclass}
+\label{sec:exp-aggregation}
+
+\paragraph{Definition 6.20 (Aggregation as an identification of sample variables).}
+Let $\mathcal P$ be a partition of $V$ into clusters, $I(i)$ the cluster containing $i$, and $\mathsf Z_{\mathcal P}=\mathsf Z_0^{\mathcal P}$ the coarse sample space with reference measure $\nu_{\mathcal P}=\nu_0^{\otimes\mathcal P}$. The \emph{aggregation map} is
+\begin{equation}
+\iota_{\mathcal P}:\mathsf Z_{\mathcal P}\longrightarrow\mathsf Z,
+\qquad
+\left(\iota_{\mathcal P}\bar z\right)_i=\bar z_{I(i)},
+\label{eq:exp-aggregation-map}
+\end{equation}
+which identifies the variables within each cluster. When $\mathsf Z_0=\R^{K}$ it is the injective linear map $\bar z\mapsto S\bar z$ with $S=\hat S\otimes I_K$ the $0/1$ aggregation matrix of \Cref{ch:coarsegraining}. The algebraic operation studied here is precomposition of the unnormalized energy, $\mathcal E_\theta\circ\iota_{\mathcal P}$. It is not called a pullback of the probability law. \status{DEFINITION}
+
+The word identification is meant literally: aggregation integrates nothing out and modifies no observation channel. It composes an energy with a map into the fine sample space. Because the energy is affine in the natural parameter, with the parameter entering only through the pairing, precomposition changes the statistic; closure is the question whether the changed statistic is again of the declared type. When it is, the induced parameter map is linear because the original pairing was linear in $\theta$.
+
+This operation does not inherit normalization from the fine law. A coarse law exists only if
+\begin{equation}
+Z_{\mathcal P}(\theta)
+=\int_{\mathsf Z_{\mathcal P}}
+\exp\left(\mathcal E_\theta\left(\iota_{\mathcal P}\bar z\right)\right)
+\nu_{\mathcal P}(d\bar z)
+<\infty.
+\label{eq:exp-coarse-normalizer}
+\end{equation}
+If it exists, its pushforward by $\iota_{\mathcal P}$ is supported on the identified subset of the fine product space and can be singular with respect to $\nu_0^{\otimes V}$; it is not obtained by conditioning the fine law on that subset unless a separate regular-conditional construction proves the identification. Thus the closure theorem below has an unconditional energy-and-parameter conclusion and a conditional probability-law conclusion.
+
+\paragraph{Hypothesis 6.21 (Diagonal affinity of the pair statistic).}
+There exist a linear map $\Upsilon:\mathsf T_0\to\mathsf T_1$ and a constant $u_0\in\mathsf T_1$ with
+\begin{equation}
+u(z,z)=\Upsilon t(z)+u_0
+\qquad\text{for every }z\in\mathsf Z_0 .
+\label{eq:exp-diagonal-affinity}
+\end{equation}
+\status{HYPOTHESIS} This is a choice about the pair statistic. It excludes pair statistics whose restriction to the diagonal is not an affine function of the node statistic, for which the pullback of \eqref{eq:exp-graph-energy} is not of the declared type and closure fails at the first step. It is used only in Theorem 6.22 and its corollaries, and it is weak: any translation-invariant pair statistic satisfies it with $\Upsilon=0$ and $u_0=\tilde u(0)$, and $u(z,z')=zz'^{\top}$ satisfies it with $u_0=0$ and $\Upsilon$ the map extracting the second moment from the node statistic.
+
+\paragraph{Theorem 6.22 (Algebraic closure of graph-structured energies under aggregation).}
+Assume Definition 6.17 and Hypothesis 6.21, and let $\mathcal P$ be any partition of $V$. Then for every $\bar z\in\mathsf Z_{\mathcal P}$,
+\begin{equation}
+\mathcal E_\theta\left(\iota_{\mathcal P}\bar z\right)
+=\sum_{I\in\mathcal P}\left\langle\alpha_I,t(\bar z_I)\right\rangle
++\sum_{\{I,J\}\text{ with }I\neq J}\left\langle\beta_{IJ},u(\bar z_I,\bar z_J)\right\rangle
++c_{\mathcal P}(\theta),
+\label{eq:exp-coarse-energy}
+\end{equation}
+where
+\begin{equation}
+\alpha_I=\sum_{i\in I}\alpha_i
++\Upsilon^{\ast}\Bigl(\sum_{\{i,j\}\subseteq I}\beta_{ij}\Bigr),
+\qquad
+\beta_{IJ}=\sum_{i\in I \text{ and } j\in J}\beta_{ij},
+\qquad
+c_{\mathcal P}(\theta)=\Bigl\langle\sum_{I\in\mathcal P}\sum_{\{i,j\}\subseteq I}\beta_{ij},u_0\Bigr\rangle,
+\label{eq:exp-coarse-parameters}
+\end{equation}
+with $\Upsilon^{\ast}$ the adjoint of $\Upsilon$. The coarse energy is again of the form \eqref{eq:exp-graph-energy} on the index set $\mathcal P$, with the same node and pair statistics, up to the displayed additive constant; and the map $\theta\mapsto\theta_{\mathcal P}=\left((\alpha_I),(\beta_{IJ})\right)$ is linear. If and only if \eqref{eq:exp-coarse-normalizer} is finite, the energy defines a normalized coarse law relative to $\nu_{\mathcal P}$, and then $c_{\mathcal P}(\theta)$ is absorbed into its log partition without affecting that law. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Substitute $z_i=\bar z_{I(i)}$ into \eqref{eq:exp-graph-energy} and sort terms by whether a pair is internal to a cluster or cut between two. The node terms give $\sum_{I}\langle\sum_{i\in I}\alpha_i,t(\bar z_I)\rangle$ by linearity of the pairing in its first argument. A cut pair with $i\in I$, $j\in J$, $I\neq J$, contributes $\langle\beta_{ij},u(\bar z_I,\bar z_J)\rangle$, and summing over the pairs cut between fixed $I$ and $J$ gives $\langle\beta_{IJ},u(\bar z_I,\bar z_J)\rangle$. An internal pair $\{i,j\}\subseteq I$ contributes $\langle\beta_{ij},u(\bar z_I,\bar z_I)\rangle$, which Hypothesis 6.21 rewrites as $\langle\Upsilon^{\ast}\beta_{ij},t(\bar z_I)\rangle+\langle\beta_{ij},u_0\rangle$, the first term joining the coarse node parameter at $I$ and the second the constant. Collecting gives \eqref{eq:exp-coarse-energy} with \eqref{eq:exp-coarse-parameters}, and each coarse parameter is a finite sum of fine parameters composed with a fixed linear map. $\square$
+
+The algebraic proof used nothing about $t$ and $u$ beyond measurability and Hypothesis 6.21. It did not use that the statistic is second order, that the node space is Euclidean, that the reference measure is Lebesgue, or that anything is positive semidefinite. It used that \eqref{eq:exp-graph-energy} is a pairing linear in the parameter, so a substitution in the sample-space argument redistributes terms among parameter blocks without leaving the linear category. That is the reason node parameters add and edge parameters sum over cut pairs. None of those observations proves \eqref{eq:exp-coarse-normalizer}; the corresponding Gaussian computation of \Cref{ch:coarsegraining} is the realization in which positive definiteness supplies that separate conclusion.
+
+\paragraph{Corollary 6.23 (Annihilation of internal edges).}
+Under Theorem 6.22, choosing a diagonal-affinity representation with $\Upsilon=0$ makes the coarse node parameter the plain sum $\alpha_I=\sum_{i\in I}\alpha_i$ for every partition and every parameter value. A constant diagonal \(u(z,z)=u_0\) always permits such a choice. Conversely, for a fixed representation, plain coordinate equality for every edge parameter forces \(\Upsilon^\ast=0\), hence \(\Upsilon=0\) under the nondegenerate parameter pairing. Diagonal constancy forces the particular displayed \(\Upsilon\) to vanish only after quotienting node-statistic directions that are identically null on the effective affine span, or under an equivalent minimal/full-affine-span hypothesis. Without that qualification the representation need not be unique: for \(t(z)=(z,0)\), \(u(z,z')=(z-z')^2\), and \(\Upsilon(a,b)=b\), the diagonal is constant although this nonzero \(\Upsilon\) represents the same zero diagonal contribution. In an effective representation with \(\Upsilon=0\), internal edge parameters disappear from $\theta_{\mathcal P}$ apart from the additive constant \(c_{\mathcal P}(\theta)\). Translation invariance implies diagonal constancy and hence permits annihilation; the converse fails, since $u(z,z')=(z-z')^{\top}(z-z')f(z+z')$ with $f$ nonconstant is constant on the diagonal without being translation invariant. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Sufficiency is immediate from \eqref{eq:exp-coarse-parameters}. For the converse in fixed coordinates, merge exactly one pair $\{i,j\}$ into a cluster, leave all other nodes as singletons, and set $\beta_{ij}=\beta$ with all other components zero; then $\alpha_I=\Upsilon^{\ast}\beta$, and requiring this coordinate contribution to vanish for every $\beta$ gives $\Upsilon^{\ast}=0$. If \(u(z,z)\) is constant, Equation~\eqref{eq:exp-diagonal-affinity} holds with the choice \(\Upsilon=0\). A nonminimal node statistic admits other \(\Upsilon\) whose image pairs to zero on every effective statistic difference, as the stated witness shows; quotienting those null directions restores uniqueness. A translation-invariant statistic gives $u(z,z)=\tilde u(0)$, and the final counterexample vanishes on the diagonal while depending on $z+z'$. $\square$
+
+Corollary 6.23 sharpens a claim easy to state too strongly. The chain running from translation invariance through diagonal constancy to the availability of an effective representation with purely additive coarse node parameters is valid. Equivalence with a particular coordinate statement \(\Upsilon=0\) additionally requires minimal effective statistics or quotienting null parameter directions. Recovering translation invariance from annihilation still needs information about the pair statistic off the diagonal, which the closure computation does not supply.
+
+\paragraph{Proposition 6.24 (Closure is an operator statement: interiority is not inherited).}
+There is a graph-structured family satisfying Definition 6.17 and Hypothesis 6.21 with $\Upsilon=0$, and a partition, such that the fine parameter is interior to the fine natural domain while the coarse family has empty natural domain. A witness: $N=2$, $\mathsf Z_0=\R$ with Lebesgue measure, no node statistic, one edge, and
+\begin{equation}
+u(z,z')=\Bigl(-(z-z')^{2},\quad -(z-z')^{2}(z+z')^{4}\Bigr),
+\qquad
+\theta=(\beta_1,\beta_2).
+\label{eq:exp-interiority-witness}
+\end{equation}
+Then $\mathsf N=(0,\infty)^{2}$, open, and the family is minimal, so Hypothesis 6.4 holds and $(1,1)$ is interior. Merging the two nodes gives $u(\bar z,\bar z)=(0,0)$ for every $\bar z$, so the coarse energy vanishes identically for every coarse parameter and the coarse log partition is $\log\lambda(\R)=+\infty$ throughout. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Change variables to $s=(z+z')/2$ and $d=z-z'$, a linear bijection of $\R^{2}$ of unit Jacobian, under which the energy is $-d^{2}\left(\beta_1+16\beta_2s^{4}\right)$. For $\beta_1,\beta_2>0$ the inner Gaussian integral in $d$ is $\sqrt{\pi}\left(\beta_1+16\beta_2s^{4}\right)^{-1/2}$, continuous and decaying like $\sqrt{\pi}/\left(4\sqrt{\beta_2}s^{2}\right)$ as $|s|\to\infty$, hence integrable in $s$; so $(0,\infty)^{2}\subseteq\mathsf N$. If either component is negative then $\beta_1+16\beta_2s^{4}<0$ on a set of positive $s$-measure and the $d$-integral is infinite there. If $\beta_2=0$ and $\beta_1>0$ the inner integral is the constant $\sqrt{\pi/\beta_1}$ and the $s$-integral diverges; if $\beta_1=0$ and $\beta_2>0$ the inner integral behaves like $\sqrt{\pi}/\left(4\sqrt{\beta_2}s^{2}\right)$ near $s=0$ and the $s$-integral diverges. Hence $\mathsf N=(0,\infty)^{2}$ exactly, and the two components of $u$ satisfy no almost-everywhere affine relation, so the family is minimal. Both components vanish on the diagonal, so Hypothesis 6.21 holds with $\Upsilon=0$ and $u_0=0$, the coarse statistic is identically zero, and the coarse kernel is the constant $1$ on $\R$. $\square$
+
+\paragraph{Proposition 6.25 (In the quadratic realization interiority is inherited).}
+Let $\mathsf Z_0=\R^{K}$, $t(z)=\left(z,-\tfrac12zz^{\top}\right)$ and $u(z,z')=-\tfrac12(z-z')(z-z')^{\top}$, so that \eqref{eq:exp-graph-energy} is $h^{\top}y-\tfrac12y^{\top}\Lambda y$ with $\Lambda$ in the interaction family of \Cref{ch:gaussian}, and let $S$ be the aggregation matrix of any partition. Then $S^{\top}\Lambda S\succ0$ if and only if $\operatorname{range}(S)\cap\ker\Lambda=\{0\}$; in particular $\Lambda\succ0$ implies $S^{\top}\Lambda S\succ0$, so a single aggregation step never carries an interior parameter to the boundary. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+For $\Lambda\succeq0$, $\bar z^{\top}S^{\top}\Lambda S\bar z=0$ if and only if $\Lambda^{1/2}S\bar z=0$, that is $S\bar z\in\ker\Lambda$; so the coarse form is positive definite exactly when no nonzero $S\bar z$ lies in the kernel. If $\Lambda\succ0$ the kernel is trivial and $S$ is injective. $\square$
+
+\paragraph{Corollary 6.26 (Annihilation and confinement pull against each other).}
+Suppose $\Upsilon=0$, so that by Corollary 6.23 the internal edge parameters are annihilated. Then whatever confinement of the coarse variable those edges supplied in the fine model is absent from the coarse parameter, and the coarse parameter can fail to lie in the coarse natural domain even when the fine parameter is interior, as Proposition 6.24 shows. Memoryless coarse-graining and preservation of normalizability are therefore not automatically compatible, and which obtains must be checked for the family at hand rather than read off the closure computation. In the quadratic realization, Proposition 6.25 proves only the finite-step statement that aggregation carries a currently positive-definite \(\Lambda\) to a positive-definite coarse precision. It does not classify how a sequence of interior parameters can approach the boundary. Already for \(N=1\), \(K=2\), the sequence \(A^{(\ell)}=\operatorname{diag}(1,\ell^{-1})\succ0\) approaches \(\operatorname{diag}(1,0)\) although the node matrix never vanishes. Vanishing of the entire node sector is the specific boundary mechanism of the scalar/ray flow in Proposition 6.9 and \Cref{ch:renormalization}, not a consequence of Proposition 6.25. \status{ESTABLISHED}
+
+\paragraph{Conjecture 6.27 (Quotienting commutes with aggregation).}
+In the quadratic realization of Proposition 6.25 with vanishing node parameters, let $\mathcal V=\mathbf 1_N\otimes\R^{K}$ be the consensus subspace, along which the energy is invariant. The quotient repair of Definition 6.12 applied before aggregation and applied after it produce the same coarse family, in the sense that the quotient of $\operatorname{range}(S)$ by $\mathcal V$ carries the coarse energy of Theorem 6.22 and the induced reference measures agree up to a constant factor. \status{CONJECTURE} The evidence is of one kind and is stated as such: aggregation carries the coarse consensus subspace onto the fine one, since $S\left(\mathbf 1_{n_{\mathrm c}}\otimes v\right)=\mathbf 1_N\otimes v$ for every $v\in\R^{K}$, so the two quotients are at least taken along corresponding subspaces. That is a compatibility of subspaces, not of measures, and nothing about the induced Lebesgue normalizations or the pseudodeterminants has been checked. Settling it requires the Jacobian relating the induced measures on the two quotients and a verification that the coarse pseudodeterminant agrees by both routes; a failure would appear as a partition-dependent constant in the coarse log partition, making the quotient repair scheme dependent.
+
+\paragraph{Open problem 6.28 (Attainment of the mean-constrained information projection).}
+The divergence identity itself is not open. For $\theta,\vartheta\in\mathsf N$, direct integration of \eqref{eq:exp-density} gives
+\begin{equation}
+\KL\left(Q_\vartheta\Vert Q_\theta\right)
+=\mathsf A(\theta)-\mathsf A(\vartheta)
+-\left\langle\nabla\mathsf A(\vartheta),\theta-\vartheta\right\rangle
+=D_{\mathsf A}(\theta,\vartheta).
+\label{eq:exp-kl-bregman}
+\end{equation}
+Here $D_F(x,y)=F(x)-F(y)-\langle\nabla F(y),x-y\rangle$. Indeed, $\log(q_\vartheta/q_\theta)=\langle\vartheta-\theta,T\rangle-\mathsf A(\vartheta)+\mathsf A(\theta)$, and taking the $Q_\vartheta$ expectation with Proposition 6.3 gives \eqref{eq:exp-kl-bregman}.
+Where Legendre duality is valid at both mean parameters, this is equivalently
+\begin{equation}
+\KL\left(Q_\vartheta\Vert Q_\theta\right)
+=D_{\mathsf A^{\ast}}
+\left(\nabla\mathsf A(\vartheta),\nabla\mathsf A(\theta)\right).
+\label{eq:exp-kl-dual-bregman}
+\end{equation}
+\status{ESTABLISHED} These are exact Bregman divergences, not finite-displacement Fisher quadratics; the Fisher form is their second-order local term. The unresolved question needed by \Cref{ch:restrictions} is whether minimization over a declared affine constraint on $\nabla\mathsf A(\vartheta)$ attains a minimizer inside $\mathsf N$, and whether the constraint and minimizer are compatible with the declared aggregation and gauge actions. \status{OPEN} Closing Open Problem 6.28 requires domain and coercivity conditions that give attainment, a proof that the optimizer remains in the relevant mean and natural domains, and the stated compatibility checks. The Gaussian fixed-precision case is special: its mean displacement cost is exactly quadratic and \Cref{ch:restrictions} computes the coefficient as a Schur complement.
+
+\section{Minimum assumptions consumed downstream}
+\label{sec:exp-downstream-assumptions}
+
+The later coarse-graining and renormalization chapters use only selected layers of the hierarchy, and their assumptions are recorded here so that an algebraic result is not silently promoted to a probabilistic or geometric one.
+
+\emph{For algebraic graph closure,} one needs a finite graph, declared node and pair sample spaces, finite-dimensional statistic spaces, an energy of the affine pairing form \eqref{eq:exp-graph-energy}, the identification map \eqref{eq:exp-aggregation-map}, and diagonal affinity \eqref{eq:exp-diagonal-affinity}. A constant diagonal permits an effective representation with $\Upsilon=0$, which is the stronger condition needed for internal-edge annihilation; identifying this with a particular coordinate value of \(\Upsilon\) requires minimal effective statistics or quotienting null directions. These assumptions yield the linear parameter map of Theorem 6.22. They do not require a normalized law or a Fisher metric.
+
+\emph{For an operator RG map,} one must additionally declare a parameter subspace or cone preserved by aggregation and by the rescaling rule, a topology in which iteration or limits are taken, and any gauge action on that parameter space. Gauge covariance of a blocking step requires the identification and rescaling maps to intertwine the represented actions on every cluster where they are used. Differential fixed-point classifications or linearization claims require a smooth finite-dimensional parameter manifold, or a separately declared infinite-dimensional calculus and operator domain. None of these structures follows from \eqref{eq:exp-law-fiber}.
+
+\emph{For a probability-law interpretation,} each scale requires its own declared measurable sample space and reference measure, and the normalizer \eqref{eq:exp-coarse-normalizer} must be finite. Preservation of the normalized-law locus is a separate statement from preservation of the operator cone. For a non-dominated construction, the law must instead be supplied directly as a normalized measure or kernel and the coarse operation must be defined at that measure level.
+
+\emph{For a Fisher-geometric interpretation,} the scale-dependent law family must satisfy the differentiability and integrability conditions of \Cref{sec:exp-dominated-nondominated}; positive definiteness further requires a nondegenerate tangent representation. For an ELBO interpretation, the recognition object must be a normalized law or kernel and all hypotheses of \Cref{ch:elbo}, including its absolute-continuity and log-integrability requirements relative to the separately declared generative joint, must hold at that scale. Algebraic closure, by itself, discharges none of these obligations. \status{HYPOTHESIS}
+
+\section{The Gaussian instance}
+\label{sec:exp-gaussian}
+
+The finite-dimensional exponential-family, operator-layer, and graph-energy results above are now instantiated in the family of \Cref{ch:gaussian}. Nothing here claims that the optional stratified or infinite-dimensional extensions reduce to this example. The known Gaussian formulas are exhibited as the subclass statements evaluated at a quadratic statistic, and the Gaussian-only results are identified as such.
+
+Take $\mathsf Z=\R^{n}$ with Lebesgue reference measure, $\mathsf T=\R^{n}\oplus\Sym^{n}$ with the trace form on the second summand, and
+\begin{equation}
+T(y)=\left(y,-\tfrac12yy^{\top}\right),
+\qquad
+\theta=(h,J),
+\qquad
+\left\langle\theta,T(y)\right\rangle=h^{\top}y-\tfrac12y^{\top}Jy,
+\label{eq:exp-gauss-statistic}
+\end{equation}
+the information form of \Cref{ch:gaussian}. Definition 6.1 then gives $\mathsf N=\R^{n}\times\Sym_{++}^{n}$, the integral in \eqref{eq:exp-logpartition} being finite exactly when the quadratic form is positive definite, and completing the square gives
+\begin{equation}
+\mathsf A(h,J)=\tfrac12h^{\top}J^{-1}h-\tfrac12\log\det J+\tfrac n2\log2\pi,
+\label{eq:exp-gauss-lognorm}
+\end{equation}
+the log normalizer of that chapter. The set $\mathsf N$ is open and convex and the statistic \eqref{eq:exp-gauss-statistic} is affinely independent, so Hypothesis 6.4 holds and Propositions 6.3 and 6.5 return the familiar facts: the gradient of \eqref{eq:exp-gauss-lognorm} is the moment pair $\left(\mu,-\tfrac12\left(C+\mu\mu^{\top}\right)\right)$ with $\mu=J^{-1}h$ and $C=J^{-1}$, and its Hessian is the Fisher information, positive definite throughout. \status{ESTABLISHED}
+
+One convention deserves a sentence, being a standing source of sign confusion. Paired against the statistic $-\tfrac12yy^{\top}$ as in \eqref{eq:exp-gauss-statistic}, the second component of the natural parameter is $J$ and its domain is the positive definite cone. Paired against $yy^{\top}$, the second component is $-\tfrac12J$ and its domain is the \emph{negative} definite cone. The two are affine reparameterizations of one another; what must not happen is that a chart with an SPD second component be described as the natural coordinate for the statistic $yy^{\top}$, whose natural coordinate is negative definite. \status{DEFINITION}
+
+The boundary of $\mathsf N$ is exactly where the precision loses definiteness, and Proposition 6.7 applies there verbatim. The rate is worth displaying, because it shows that the two cases a direct analysis of the singular Gaussian produces are the two branches of one formula. Let $\Lambda\succeq0$ be singular with $m=\dim\ker\Lambda\geq1$, decompose $h=h_{\parallel}+h_{\perp}$ with $h_{\parallel}\in\ker\Lambda$, and take the pinned parameter $(h,\Lambda+\varepsilon I)$ with $\varepsilon\downarrow0$. Then
+\begin{equation}
+\mathsf A\left(h,\Lambda+\varepsilon I\right)
+=\frac{\lVert h_{\parallel}\rVert^{2}}{2\varepsilon}
++\frac{m}{2}\log\frac1\varepsilon
++\frac12h_{\perp}^{\top}\Lambda^{+}h_{\perp}
+-\tfrac12\log\operatorname{pdet}\Lambda
++\tfrac n2\log2\pi
++o(1),
+\label{eq:exp-gauss-boundary-rate}
+\end{equation}
+with $\operatorname{pdet}$ the product of the nonzero eigenvalues. \status{ESTABLISHED} The derivation is elementary: $\det(\Lambda+\varepsilon I)=\varepsilon^{m}\operatorname{pdet}\Lambda+O(\varepsilon^{m+1})$ gives the logarithmic term, and $(\Lambda+\varepsilon I)^{-1}$ acts as $\varepsilon^{-1}$ on $\ker\Lambda$ and converges to $\Lambda^{+}$ on the complement. When the information vector has a component along the kernel the divergence is of order $\varepsilon^{-1}$; when it does not, divergence remains at the slower rate $\tfrac m2\log(1/\varepsilon)$, from the flat directions of the exponent alone. Neither branch is a normalized law, and \eqref{eq:exp-gauss-boundary-rate} makes visible that the surviving finite part is the quotient log partition of Proposition 6.13 on $\ker\Lambda^{\perp}$, except that it carries the dimensional constant of the wrong sample space. That is Proposition 6.16 in coordinates.
+
+The graph-structured form instantiates as the self-terms-plus-edge-weights parameterization. Take $\mathsf Z_0=\R^{K}$, node statistic $t(z)=\left(z,-\tfrac12zz^{\top}\right)$ with parameter $\alpha_i=(h_i,A_i)$, and pair statistic $u(z,z')=-\tfrac12(z-z')(z-z')^{\top}$ with parameter $\beta_{ij}=W_{ij}$. Then \eqref{eq:exp-graph-energy} is
+\begin{equation}
+\mathcal E_\theta(y)
+=\sum_{i}h_i^{\top}y_i
+-\tfrac12\sum_{i}y_i^{\top}A_iy_i
+-\tfrac12\sum_{i<j}\left(y_i-y_j\right)^{\top}W_{ij}\left(y_i-y_j\right)
+=h^{\top}y-\tfrac12y^{\top}\Lambda y,
+\label{eq:exp-gauss-graph}
+\end{equation}
+with $\Lambda$ the interaction-family precision of \Cref{ch:gaussian}, and the sign requirements $A_i\succeq0$, $W_{ij}\succeq0$ are the declaration of the operator cone of Definition 6.6. The pair statistic is translation invariant, so Proposition 6.19 applies and Hypothesis 6.21 holds with $\Upsilon=0$ and $u_0=0$. Theorem 6.22 then returns, with no further computation,
+\begin{equation}
+A_I=\sum_{i\in I}A_i,
+\qquad
+h_I=\sum_{i\in I}h_i,
+\qquad
+W_{IJ}=\sum_{i\in I \text{ and } j\in J}W_{ij},
+\label{eq:exp-gauss-closure}
+\end{equation}
+with internal edges annihilated by Corollary 6.23, which is the algebraic aggregation-closure proposition of \Cref{ch:coarsegraining} read as an instance rather than as a separate theorem. Positive definiteness in Proposition 6.25 separately proves that the resulting finite-stage energy normalizes. \status{ESTABLISHED} The reformulation locates the algebraic reason for closure in the pairing and diagonal restriction of the pair statistic, while keeping normalizability as the additional family-specific check required by \eqref{eq:exp-coarse-normalizer}.
+
+The flat-comparison hypothesis is visible here too, as a statement about a statistic. That the pair statistic is a function of $z_i-z_j$ rather than of $z_i-\Omega_{ij}z_j$ is Hypothesis 7.8 of \Cref{ch:gaussian}; under a nontrivial twist the pair statistic is $\tilde u\left(z_i-\Theta_{ij}z_j\right)$, whose diagonal restriction is $\tilde u\left((I-\Theta_{ij})z\right)$. Trivialization makes this constant automatically. Outside it, diagonal affinity or constancy must be checked on the effective represented support; for a quadratic weight the exact condition is \(W_{ij}^{1/2}(I-\Theta_{ij})=0\), so a nonidentity twist in a weight-null direction can still annihilate. That is the general form of the residual computed in \Cref{ch:coarsegraining}.
+
+\paragraph{What is Gaussian and stays Gaussian.}
+Several results in the chapters that follow use the quadratic structure specifically and are realizations rather than instances of anything proved here. The determinant gap between a joint and a factorized recognition law, the Schur-complement form of the mean-restriction cost, the explicit Fisher chart formulas in the $(h,J)$ and $(\mu,C)$ coordinates, the classification of the coupling matrix up to congruence by rank alone through Sylvester's law of inertia, and the reciprocal-pair determinant identity of \Cref{ch:obstructions} all rely on the statistic being second order and on the log partition being expressible through a determinant. No general analogues of those closed forms are claimed. Equations \eqref{eq:exp-kl-bregman}--\eqref{eq:exp-kl-dual-bregman} give the exact exponential-family replacement for the mean-restriction divergence, while Open Problem 6.28 isolates the remaining attainment and compatibility obligations. \status{NOT-CLAIMED} Declining the other closed forms is not asserting that no analogue exists; it is a statement that none is proved here and that none should be inferred from the surrounding generality.
+
+\section{Status register}
+\label{sec:exp-register}
+
+{\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.11\linewidth}>{\raggedright\arraybackslash}p{0.31\linewidth}>{\raggedright\arraybackslash}p{0.14\linewidth}>{\raggedright\arraybackslash}p{0.35\linewidth}@{}}
+\caption{Epistemic status of the results of this chapter. Every entry not marked \textsc{established} names what is owed.}
+\label{tab:exp-register}\\
+\toprule
+\textbf{Item} & \textbf{Statement} & \textbf{Status} & \textbf{What is owed} \\
+\midrule
+\endfirsthead
+\multicolumn{4}{@{}l}{\emph{Status register for Chapter~\ref{ch:expfamily}, continued.}}\\
+\toprule
+\textbf{Item} & \textbf{Statement} & \textbf{Status} & \textbf{What is owed} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+\Cref{sec:exp-general-fibers} & State/model belief laws, generative kernels, partial realization, normalized-law locus, and gauge actions are distinct types & DEFINITION & Nothing proved; closure and smoothness of represented actions are separate hypotheses \\
+\Cref{sec:exp-dominated-nondominated} & Dominated and non-dominated fibers are distinct; the uncountable Dirac family is not sigma-finite dominated & ESTABLISHED & Elementary atom-count argument; no density or Fisher structure inferred \\
+\Cref{sec:exp-dominated-nondominated} & Finite-dimensional smooth models are the main differential tier; stratified and infinite-dimensional models require separately declared structures & HYPOTHESIS & Parametrized measure models and the fixed-measure-class exponential Orlicz manifold are cited constructions, not universal models \\
+\Cref{sec:exp-dominated-nondominated} & No universal global Fisher metric, natural coordinate, or closed convex cone on general belief fibers & NOT-CLAIMED & Each structure requires its own hypotheses \\
+Def.~6.1 & Dominated finite-dimensional canonical exponential family: reference measure, statistic, log partition, natural domain & DEFINITION & Nothing proved; fixes a subclass rather than all belief fibers \\
+Prop.~6.2 & $\mathsf A$ convex and lower semicontinuous, $\mathsf N$ convex & ESTABLISHED & Proved by H\"older and Fatou \\
+Prop.~6.3 & Smoothness inside the canonical family; gradient is the mean, Hessian is covariance and Fisher information & ESTABLISHED & Proved by local exponential domination; not inferred for arbitrary dominated families \\
+Hyp.~6.4 & Regularity and minimality of the canonical exponential family & HYPOTHESIS & Choices; regularity is used in Prop.~6.7, minimality in Prop.~6.5 and parameter identifiability \\
+Prop.~6.5 & Minimality equals nondegenerate Fisher information; identifiability & ESTABLISHED & Proved \\
+Def.~6.6 & Operator cone and exponential-family probability layer & DEFINITION & The cone is separately declared for a finite parameterization; none is asserted for general belief fibers \\
+Prop.~6.7 & In a regular dominated canonical family, a natural-domain boundary parameter carries no law of that representation; directional cumulants diverge along an interior segment & ESTABLISHED & Proved, with the line-segment principle cited \\
+Cor.~6.8 & The declared boundary representation supplies no normalizer, mean map, Fisher metric, relative entropy, or ELBO instance & ESTABLISHED & Immediate from Prop.~6.7; separately rebuilt strata or quotients are different constructions \\
+Prop.~6.9 & A flow can have every iterate a law and its unique fixed point not one & ESTABLISHED & Explicit witness \eqref{eq:exp-scale-witness} \\
+\Cref{sec:exp-layers} & Conditional boundary statement for the declared exponential family and operator cone & ESTABLISHED & Cor.~6.8 with Prop.~6.9; the singular-pencil clause is Gaussian only \\
+\Cref{sec:exp-layers} & No automatic probabilistic reading for a boundary parameter in the original representation & NOT-CLAIMED & A rebuilt quotient, reference measure, or boundary stratum is not ruled out \\
+Def.~6.10 & Repair one: pinning & DEFINITION & Nothing proved; the pin is declared \\
+Prop.~6.11 & Pinning remains in the natural domain when the cone consists of recession directions & ESTABLISHED & Proved; applying the ELBO still requires the hypotheses of \Cref{ch:elbo} \\
+Def.~6.12 & Repair two: quotienting & DEFINITION & Nothing proved; a new sample space is declared \\
+Prop.~6.13 & The full-space integral diverges, the quotient integral may not & ESTABLISHED & Proved by Tonelli; openness and minimality must be rechecked on the quotient \\
+Def.~6.14 & Repair three: retaining a declared mass sector while requiring the trajectory to remain interior & DEFINITION & A positive scalar lower bound is sufficient in the Gaussian precision realization, not universally \\
+Open~6.15 & Whether the mass sector of the declared flow is expanding, marginal or contracting & OPEN & The spectrum of the linearized flow on the mass direction at the candidate fixed point, and stability across blocking schemes \\
+Prop.~6.16 & No finite constant repairs a flat full-space density; Gaussian pseudoinverse and pseudodeterminant substitution normalizes only the quotient & ESTABLISHED & Proved; the dimensional constant is the tell in the quadratic realization \\
+Def.~6.17 & Graph-structured exponential family on a standard Borel node space & DEFINITION & Nothing proved; normalizability is not assumed \\
+Prop.~6.18 & Pairwise Markov property & ESTABLISHED & Proved and cited \\
+Prop.~6.19 & Invariance holds exactly for orbit-constant pair statistics; translations give difference statistics & ESTABLISHED & Proved; it selects the shape of $u$, not its order \\
+Def.~6.20 & Aggregation precomposes an energy with a sample-variable identification; it is not a law pullback & DEFINITION & A separate coarse reference measure and finite normalizer are required for a law \\
+Hyp.~6.21 & Diagonal affinity $u(z,z)=\Upsilon t(z)+u_0$ & HYPOTHESIS & A choice; excludes pair statistics whose diagonal restriction is not affine in $t$. Used only in Thm.~6.22 and its corollaries \\
+Thm.~6.22 & Algebraic graph-exponential closure: node parameters add with a fold-in term, edge parameters sum over cut pairs, and the induced map is linear & ESTABLISHED & Proved from bilinearity; the law conclusion is conditional on \eqref{eq:exp-coarse-normalizer} \\
+Cor.~6.23 & Constant diagonal permits an effective representation with $\Upsilon=0$ and internal-edge annihilation; translation invariance implies diagonal constancy and is not implied by it & ESTABLISHED & Equivalence with a particular coordinate \(\Upsilon=0\) requires minimal effective statistics or quotienting null parameter directions \\
+Prop.~6.24 & Closure does not preserve interiority: fine interior, coarse domain empty & ESTABLISHED & Explicit witness \eqref{eq:exp-interiority-witness}, domain computed exactly \\
+Prop.~6.25 & In the quadratic realization $S^{\top}\Lambda S\succ0$ exactly when $\operatorname{range}(S)$ misses $\ker\Lambda$ & ESTABLISHED & Proved \\
+Cor.~6.26 & Annihilation and confinement pull against each other; quadratic aggregation preserves finite-stage interiority but does not classify boundary mechanisms along parameter sequences & ESTABLISHED & Combination of 6.23, 6.24 and 6.25; anisotropic node-matrix witness separates finite-step interiority from the scalar/ray vanishing mechanism \\
+Conj.~6.27 & Quotienting commutes with aggregation in the quadratic realization & CONJECTURE & Not proved. The evidence is one subspace correspondence, $S(\mathbf 1_{n_{\mathrm c}}\otimes v)=\mathbf 1_N\otimes v$, silent about measures; owed are the Jacobian comparison and the coarse pseudodeterminant identity \\
+Open~6.28 & Attainment and interiority of the mean-constrained information projection & OPEN & The exact Bregman identities \eqref{eq:exp-kl-bregman}--\eqref{eq:exp-kl-dual-bregman} are established; owed are domain, coercivity, and gauge/aggregation compatibility conditions \\
+\Cref{sec:exp-downstream-assumptions} & Algebraic closure, operator RG, law normalization, Fisher geometry, and ELBO use distinct minimum assumptions & HYPOTHESIS & Each downstream chapter must cite the layer it consumes and discharge the additional obligations \\
+\Cref{sec:exp-gaussian} & Gaussian instantiation: domain, log normalizer, correctly scaled moment pair and Fisher information; boundary rate \eqref{eq:exp-gauss-boundary-rate}; closure \eqref{eq:exp-gauss-closure} as an instance of Thm.~6.22 & ESTABLISHED & The subclass propositions evaluated at \eqref{eq:exp-gauss-statistic}, plus an elementary expansion \\
+\Cref{sec:exp-gaussian} & Which natural chart has an SPD and which a negative definite second component & DEFINITION & A convention, recorded to prevent a sign error \\
+\Cref{sec:exp-gaussian} & Determinant gap, Schur-complement mean-tie cost, explicit Fisher charts, Sylvester classification, reciprocal-pair identity & NOT-CLAIMED & No general analogue asserted; declining is not asserting that none exists \\
+\end{longtable}
+}

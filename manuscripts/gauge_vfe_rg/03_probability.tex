@@ -111,6 +111,49 @@ When $Q_X(\cdot\given o)\ll\nu^{Y}_{D}$, its density is written $q_X(y\given o)$
 
 The order in Definition 3.6 is the content. A normalized kernel is declared, and only then is a density extracted; the reverse order, in which a nonnegative function is written down and a normalizer is invoked afterward, is a different construction whose normalizer must be shown finite before anything it appears in denotes a probability. This document uses the first order everywhere, and where a later chapter writes an unnormalized energy it says so and exhibits the normalizer.
 
+\medskip
+\noindent\textbf{Regular-conditional convention.} Whenever a later result conditions on a realized observation, assume in addition that $(\mathsf O_D,\mathscr O_D)$ and $(\mathsf Y_D,\mathscr Y_D)$ are standard Borel spaces. This holds for the finite products of Euclidean and countable discrete fibers used in the worked construction; it is an additional hypothesis for a general measurable fiber. For fixed $(\theta,X)$, write
+\begin{equation}
+P_{\theta,X}^{O}(A)
+:=P_\theta(A\times\mathsf Y_D\given X),
+\qquad A\in\mathscr O_D,
+\label{eq:prob-observation-marginal}
+\end{equation}
+for the observation marginal. The standard-Borel hypothesis supplies a regular conditional probability
+\begin{equation}
+\Pi_{\theta,X}(o,B)
+=P_\theta(B\given o,X),
+\qquad B\in\mathscr Y_D,
+\label{eq:prob-rcp}
+\end{equation}
+unique only for $P_{\theta,X}^{O}$-almost every $o$.
+
+When the domination in \eqref{eq:prob-generative-density} holds, Tonelli's theorem makes the function in \eqref{eq:prob-evidence} a density of $P_{\theta,X}^{O}$ relative to $\nu_D^O$. After altering it on a $\nu_D^O$-null set if necessary, there is a measurable set $\mathsf O_{\theta,X}^{\mathrm{reg}}$ with
+\begin{equation}
+P_{\theta,X}^{O}\bigl(\mathsf O_{\theta,X}^{\mathrm{reg}}\bigr)=1,
+\qquad
+0<p_\theta(o\given X)<\infty,
+\label{eq:prob-regular-observations}
+\end{equation}
+such that, for every $o\in\mathsf O_{\theta,X}^{\mathrm{reg}}$ and $B\in\mathscr Y_D$,
+\begin{equation}
+\Pi_{\theta,X}(o,B)
+=\frac{\displaystyle\int_B p_\theta(o,y\given X)\nu_D^Y(dy)}
+{\displaystyle p_\theta(o\given X)}.
+\label{eq:prob-rcp-density}
+\end{equation}
+The displayed version is obtained directly from the density on the positive-finite evidence set and completed arbitrarily off that set. Fubini's theorem shows why the qualification is unavoidable: changing a joint density on a $(\nu_D^O\otimes\nu_D^Y)$-null set can change an entire slice at an exceptional observation, while it changes \eqref{eq:prob-rcp-density} only on an observation-marginal-null set. An exact witness is available on $\R^2$. Let $\phi$ be the standard normal density and let $\psi$ be any different probability density. The functions
+\[
+p(o,y)=\phi(o)\phi(y),
+\qquad
+\widetilde p(o,y)=
+\begin{cases}
+\phi(o)\phi(y),&o\neq0,\\
+\phi(0)\psi(y),&o=0
+\end{cases}
+\]
+are versions of the same joint density because they differ only on the Lebesgue-null slice $\{0\}\times\R$. Both displayed evidence representatives equal $\phi(0)$ at $o=0$, but their density-ratio conditionals there are $\phi(y)\,dy$ and $\psi(y)\,dy$. The joint measure therefore determines neither pointwise posterior at that exceptional observation. Accordingly, every later fixed-observation posterior, ELBO, or free-energy statement is asserted for $P_{\theta,X}^{O}$-almost every $o$, represented by $o\in\mathsf O_{\theta,X}^{\mathrm{reg}}$. An everywhere pointwise statement instead requires a particular jointly measurable density, evidence representative, and regular-conditional version to be declared as part of the model data; its exceptional-point values then belong to that declaration and are not determined by the joint measure alone. \status{HYPOTHESIS}
+
 The same order is what makes the group action of Chapter~\ref{ch:geometry} well typed. The action \eqref{eq:geo-pushforward-actions} is defined on measures. A frame change that does not preserve the reference measure changes the density and the base-measure Jacobian together, and only their combination is invariant, so a rule that multiplies a matrix into a density and stops is not the represented action unless the Jacobian is identically one.
 
 \medskip
@@ -159,14 +202,21 @@ q=0\quad\nu\text{-almost everywhere on }Z .
 
 \noindent\emph{Proof.} First, $P(Z)=\int_Z p(x)\nu(dx)=0$. If $Q\ll P$ then $Q(Z)=0$ follows at once. Conversely suppose $Q(Z)=0$ and let $A$ satisfy $P(A)=0$, that is $\int_A p(x)\nu(dx)=0$ with $p\geq0$; then $\nu(A\cap\{p>0\})=0$, so $Q(A\cap\{p>0\})=\int_{A\cap\{p>0\}}q(x)\nu(dx)=0$, while $Q(A\cap Z)\leq Q(Z)=0$. Adding gives $Q(A)=0$. The second equivalence is immediate from $Q(Z)=\int_Z q(x)\nu(dx)$ and $q\geq0$. \hfill$\square$
 
-The consequence used later is direct. A candidate recognition law that places mass where the posterior places none fails the criterion, so by \eqref{eq:prob-kl-definition} its relative entropy to the posterior is $+\infty$, and by the exact bound of Chapter~\ref{ch:elbo} its free energy is $+\infty$ as well. Degenerate laws supported on a proper subspace, when the posterior is nondegenerate, are exactly of this kind: the subspace is a null set of the reference measure and hence carries no posterior density, so it lies inside $Z$ and receives full mass under the candidate law, and the criterion fails maximally. The specific instance, in which an identification of latent coordinates across a cluster is shown to be a generative construction rather than a restriction on the recognition law, is developed in Part~II; what is established here is only the general criterion it invokes.
+The consequence used later has two cases that must not be conflated. Proposition~3.9 applies when both measures are dominated by the same $\nu$. If a candidate $Q$ is singular relative to that reference measure, its failure of absolute continuity must instead be checked directly from sets. Namely, if there is a measurable $S$ with
+\begin{equation}
+Q(S)=1,
+\qquad
+P(S)=0,
+\label{eq:prob-direct-null-set}
+\end{equation}
+then $Q\not\ll P$ by the definition of absolute continuity, and \eqref{eq:prob-kl-definition} gives $\KL(Q\Vert P)=+\infty$. In particular, let $P$ be a nondegenerate Lebesgue-dominated law on $\R^d$ and let $Q$ be supported on a proper affine subspace $S$. The subspace is Lebesgue null, hence $P(S)=0$, whereas $Q(S)=1$; the direct argument \eqref{eq:prob-direct-null-set}, not Proposition~3.9, proves the claim. This distinction matters because a subspace-supported $Q$ has no Lebesgue density to which the density criterion could be applied. The specific instance, in which an identification of latent coordinates across a cluster is shown to be a generative construction rather than a restriction on the recognition law, is developed in Part~II.
 
 \medskip
-\noindent\textbf{Hypothesis 3.10 (Support and log-integrability).} For the observed $o$ and the fixed $X$,
+\noindent\textbf{Hypothesis 3.10 (Regular observation, support, and log-integrability).} For fixed $X$, the observation satisfies $o\in\mathsf O_{\theta,X}^{\mathrm{reg}}$ under the regular-conditional convention above, and
 \begin{equation}
 0<p_\theta(o\given X)<\infty,
 \qquad
-Q_X(\cdot\given o)\ll P_\theta(\cdot\given o,X),
+Q_X(\cdot\given o)\ll \Pi_{\theta,X}(o,\cdot),
 \label{eq:prob-support-condition}
 \end{equation}
 and
@@ -177,7 +227,7 @@ and
 \status{HYPOTHESIS}
 \medskip
 
-These are choices, and each excludes something identifiable. The lower bound in \eqref{eq:prob-support-condition} excludes observations the model deems impossible, for which no bound on the log evidence exists because the log evidence is $-\infty$. The absolute-continuity requirement excludes exactly the degenerate laws just described. Condition \eqref{eq:prob-integrability} excludes recognition laws whose tails make the two expectations individually infinite even when their difference would formally cancel, and it is what permits the decomposition in Chapter~\ref{ch:elbo} to be rearranged term by term. Where a later result tolerates an extended-real relative entropy, the relaxation is stated at that point rather than absorbed into the notation here.
+These are choices, and each excludes something identifiable. Membership in $\mathsf O_{\theta,X}^{\mathrm{reg}}$ makes the posterior the selected regular-conditional version and makes the statement invariant under changes of density version outside a marginal-full set. The lower bound in \eqref{eq:prob-support-condition} excludes observations the selected representative deems impossible, for which no bound on the log evidence exists because the log evidence is $-\infty$. The absolute-continuity requirement excludes exactly the degenerate laws just described. Condition \eqref{eq:prob-integrability} excludes recognition laws whose tails make the two expectations individually infinite even when their difference would formally cancel, and it is what permits the decomposition in Chapter~\ref{ch:elbo} to be rearranged term by term. Where a later result tolerates an extended-real relative entropy, the relaxation is stated at that point rather than absorbed into the notation here.
 
 \section{Recognition marginals and what they fail to determine}
 \label{sec:prob-marginals}
@@ -193,10 +243,10 @@ s^{o,X}_{i,a}=\operatorname{Marg}^{m}_{i,a}\bigl(Q_X(\cdot\given o)\bigr).
 \status{DEFINITION}
 \medskip
 
-The recognition law is not required to factor across agents, design points, or channels, and in the development that follows it does not. The marginals \eqref{eq:prob-recognition-marginals} are therefore a lossy summary, and the next statement says how lossy, by exhibiting the loss rather than asserting it.
+The recognition law is not required to factor across agents, design points, or channels. In the Gaussian realization with at least two nondegenerate real coordinates, the marginals \eqref{eq:prob-recognition-marginals} are therefore a lossy summary, and the next statement exhibits the loss. No such nonidentifiability is asserted for an arbitrary collection of fibers: if the finite latent space is a singleton, its unique law is determined by every marginal.
 
 \medskip
-\noindent\textbf{Proposition 3.12 (Coordinate marginals do not determine the joint).} There exist distinct probability measures on $\R^{2}$ with identical coordinate marginals. Consequently the family $\{q^{o,X}_{i,a},s^{o,X}_{i,a}\}$ does not determine $Q_X(\cdot\given o)$, and the correlated finite law is primitive at the inference level. \status{ESTABLISHED}
+\noindent\textbf{Proposition 3.12 (Coordinate marginals do not determine a sufficiently rich joint).} Suppose \(\mathsf Y_D\) contains at least two nondegenerate real coordinates, as it does in the nondegenerate Gaussian realization. Then there exist distinct probability measures on $\mathsf Y_D$ with identical coordinate marginals. Consequently the family $\{q^{o,X}_{i,a},s^{o,X}_{i,a}\}$ does not determine $Q_X(\cdot\given o)$ under this richness hypothesis. Without it the conclusion can fail: for one agent and one design point with \(\mathsf K_{i,a}=\mathsf M_{i,a}=\{0\}\), the space \(\mathsf Y_D\) is a singleton and its unique law is determined by its marginals. \status{ESTABLISHED}
 \medskip
 
 \noindent\emph{Proof.} Take $Q^{(0)}=\mathcal N(0,I_2)$ and $Q^{(r)}=\mathcal N(0,\Sigma_r)$ with $\Sigma_r=\begin{psmallmatrix}1&r\\r&1\end{psmallmatrix}$ for any $r\in(-1,1)$ with $r\neq0$; both are probability measures, since $\Sigma_r$ has eigenvalues $1\pm r>0$. The coordinate marginals of a centered Gaussian $\mathcal N(0,\Sigma)$ on $\R^2$ are $\mathcal N(0,\Sigma_{11})$ and $\mathcal N(0,\Sigma_{22})$, so both measures have standard normal marginals in both coordinates. They are distinct because a Gaussian law is determined by its mean and covariance and the covariances differ. Embedding this pair in any two coordinates of $\mathsf Y_D$ and keeping the remaining coordinates fixed produces two distinct elements of $\mathcal P(\mathsf Y_D,\mathscr Y_D)$ with the same family \eqref{eq:prob-recognition-marginals}. \hfill$\square$
@@ -222,16 +272,16 @@ s^{o,X}_i(c_a)=s^{o,X}_{i,a}
 \qquad\text{for every }(i,a)\in\mathfrak A
 \label{eq:prob-compatibility}
 \end{equation}
-holds. Then (i) \eqref{eq:prob-compatibility} does not determine $Q_X(\cdot\given o)$, and (ii) \eqref{eq:prob-compatibility} does not determine the sections $q^{o,X}_i$ and $s^{o,X}_i$. \status{ESTABLISHED}
+holds. Then (i), under the two-nondegenerate-coordinate richness hypothesis of Proposition 3.12, \eqref{eq:prob-compatibility} does not determine $Q_X(\cdot\given o)$; and (ii), if some support \(\mathcal C_i\) contains a point outside the finite design \(D\) and the selected section class admits a nonzero smooth deformation supported away from \(D\), the relation does not determine the sections $q^{o,X}_i$ and $s^{o,X}_i$. The positive-dimensional Gaussian tier supplies such deformations. If every support is zero-dimensional and exhausted by its design points, the finite values can instead determine a section pointwise. \status{ESTABLISHED}
 \medskip
 
-\noindent\emph{Proof.} (i) By Proposition 3.12 there are distinct laws in $\mathcal P(\mathsf Y_D,\mathscr Y_D)$ with the same coordinate marginals, and \eqref{eq:prob-compatibility} constrains $Q_X$ only through those marginals; both such laws satisfy it against the same sections. (ii) Fix a support $\mathcal C_i$ of positive dimension. Since $D$ is finite and $\mathcal C_i$ is open and nonempty, $\mathcal C_i\setminus D$ is nonempty and open, so there is a point $c^{\star}\in\mathcal C_i\setminus D$ and a smooth bump function $\chi:\mathcal C_i\to[0,1]$ with $\chi(c^{\star})=1$ and support contained in a neighborhood of $c^{\star}$ disjoint from the finite set $D$. In the Gaussian realization, where the state fiber is coordinatized by $(\mu,\Sigma)$, the section obtained from $q^{o,X}_i$ by replacing $\mu_i(c)$ with $\mu_i(c)+\chi(c)v$ for any fixed $v\neq0$ is a smooth section of the same bundle, differs from $q^{o,X}_i$ at $c^{\star}$, and agrees with it on all of $D$; it therefore satisfies \eqref{eq:prob-compatibility} against the same marginals. \hfill$\square$
+\noindent\emph{Proof.} (i) By Proposition 3.12 there are distinct laws in $\mathcal P(\mathsf Y_D,\mathscr Y_D)$ with the same coordinate marginals, and \eqref{eq:prob-compatibility} constrains $Q_X$ only through those marginals; both such laws satisfy it against the same sections. (ii) Fix \(c^{\star}\in\mathcal C_i\setminus D\). In the positive-dimensional Gaussian realization, choose a neighborhood of \(c^\star\) disjoint from the finite set \(D\) and a smooth bump function $\chi:\mathcal C_i\to[0,1]$ supported there with $\chi(c^{\star})=1$. The section obtained from $q^{o,X}_i$ by replacing $\mu_i(c)$ with $\mu_i(c)+\chi(c)v$ for any fixed $v\neq0$ is a smooth section of the same bundle, differs from $q^{o,X}_i$ at $c^{\star}$, and agrees with it on all of $D$; it therefore satisfies \eqref{eq:prob-compatibility} against the same marginals. By contrast, if \(\mathcal C_i=D\cap\mathcal C_i\) as a zero-dimensional support, equality at those points is pointwise equality of the section, so the nonuniqueness conclusion has no such witness and can fail. \hfill$\square$
 
 \medskip
 \noindent\textbf{Hypothesis 3.14 (Sampling and marginalization are compatible).} Where a result requires the continuum sections and the finite recognition law to describe the same coordinate laws, relation \eqref{eq:prob-compatibility} is adopted. \status{HYPOTHESIS}
 \medskip
 
-This is a choice and is named as one. It excludes configurations in which an agent's continuum section and the finite law disagree at a design point, which is a genuine possibility because the two objects are declared independently. It is invoked only where a statement about the finite law is transferred to the geometric layer, or the reverse; a result stated entirely about the finite construction does not need it. Proposition 3.13 records that adopting the hypothesis buys no determination in either direction, so it can never be used to construct one object from the other.
+This is a choice and is named as one. It excludes configurations in which an agent's continuum section and the finite law disagree at a design point, which is a genuine possibility because the two objects are declared independently. It is invoked only where a statement about the finite law is transferred to the geometric layer, or the reverse; a result stated entirely about the finite construction does not need it. Proposition 3.13 records that, under its richness hypothesis, adopting compatibility does not reconstruct the joint from its marginals and, when the support extends beyond the design and the selected fiber is locally deformable, does not reconstruct a continuum section from finite samples. Singleton finite fibers and zero-dimensional supports exhausted by the design are the explicit exceptions.
 
 \section{What the finite construction does not supply}
 \label{sec:prob-continuum}
@@ -258,13 +308,14 @@ The last item is where the obstruction is concrete rather than merely laborious.
 3.4 & Declared reference measures & \textsc{definition} & Nothing proved; sigma-finiteness required of every declared factor \\
 3.5 & Dominating measure for a mixed coordinate & \textsc{established} & Proved in text; excludes singular continuous components, which need their own declaration \\
 3.6 & Normalized kernels first, densities second & \textsc{definition} & Nothing proved \\
+RCP convention & Standard-Borel regular conditional probability and marginal-full regular-observation set & \textsc{hypothesis} & Fixed-observation claims are marginal-a.e.; an everywhere claim requires declared pointwise versions \\
 3.7 & Kernel integration preserves measurability & \textsc{established} & Proved in text; standard, see \citet{Kallenberg2021} \\
 3.8 & Standing absolute-continuity convention & \textsc{definition} & Nothing proved; assigns $+\infty$ where the relation fails \\
 3.9 & Density criterion for absolute continuity & \textsc{established} & Proved in text \\
-3.10 & Support and log-integrability conditions & \textsc{hypothesis} & A choice; excludes impossible observations, degenerate recognition laws, and non-integrable tails; used in Chapter~\ref{ch:elbo} \\
+3.10 & Regular-observation, support, and log-integrability conditions & \textsc{hypothesis} & A choice; fixes an a.e. conditional version and excludes impossible observations, degenerate recognition laws, and non-integrable tails; used in Chapter~\ref{ch:elbo} \\
 3.11 & Coordinate marginals of the recognition law & \textsc{definition} & Nothing proved \\
-3.12 & Marginals do not determine the joint & \textsc{established} & Proved by explicit witness \\
-3.13 & Compatibility determines neither side & \textsc{established} & Proved in text, both directions \\
+3.12 & In a finite latent space with at least two nondegenerate real coordinates, marginals do not determine the joint & \textsc{established} & Gaussian correlation witness; singleton-fiber counterexample records why the richness hypothesis is necessary \\
+3.13 & Under the corresponding richness and local-deformability hypotheses, compatibility determines neither the joint nor the continuum section & \textsc{established} & Proved in text; zero-dimensional supports exhausted by the design are the explicit exception to the section claim \\
 3.14 & Sampling and marginalization compatibility & \textsc{hypothesis} & A choice, not a consequence; invoked only when transferring statements between the geometric and finite layers \\
 3.15 & Continuum probabilistic theory & \textsc{open} & Needs refining designs, a projective system and extension theorem, a topology on the section space, tightness, convergence of functionals, control of gauge and reference choices, and a normalizable continuum energy \\
 \bottomrule

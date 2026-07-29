@@ -141,11 +141,13 @@ Orthonormal bases: `B` spans `\operatorname{range}(S)`, `B_\perp` its complement
 **Renormalization.** Rescaling `\zeta_\ell>0`. Flow
 `\Lambda^{(\ell+1)}=\zeta_\ell^{-1}S_\ell^\top\Lambda^{(\ell)}S_\ell`.
 Fixed-point data: node parameter `x_i` (additive), coupling matrix `M\succeq0`, self matrix `A`.
-Generalized spectrum of the pair `(L,\Lambda)` written `d_1,\dots,d_{NK}`.
+For a regular pencil `(L,\Lambda)`, write its finite generalized roots as `{d_a}`; there are exactly
+`NK` roots, written `d_1,\dots,d_{NK}`, only when `\Lambda` is invertible. At the singular fixed
+operator ray there is no unconditional full list; quotient, mass, and pinning are distinct repairs.
 
 ## 4. Label prefixes
 
-`eq:geo-*`, `eq:prob-*`, `eq:gen-*`, `eq:elbo-*`, `eq:gauss-*`, `eq:restrict-*`, `eq:ig-*`,
+`eq:geo-*`, `eq:prob-*`, `eq:gen-*`, `eq:elbo-*`, `eq:exp-*`, `eq:gauss-*`, `eq:restrict-*`, `eq:ig-*`,
 `eq:cg-*`, `eq:rg-*`, `eq:obs-*`. Chapters `ch:*`, sections `sec:*`, appendix `app:*`.
 
 ## 5. Results this document MUST contain, stated correctly
@@ -168,15 +170,26 @@ off-diagonal block that need be neither symmetric nor sign-correct. Give the cou
 gives `\begin{psmallmatrix}1&-2\\3&-1\end{psmallmatrix}`, not symmetric). State the form as a
 hypothesis with the condition that makes it hold.
 
-**Flatness is a hypothesis.** Closure under aggregation requires `\Omega_{ij}=U_iU_j^{-1}` so that
-trivialization turns residuals into plain differences. Under Regime II an internal edge leaves
-`(I-\Omega_{ij})^\top W_{ij}(I-\Omega_{ij})` in the coarse self term and the coarse operator leaves
-the family.
+**Flatness is a hypothesis.** Coboundary transports `\Omega_{ij}=U_iU_j^{-1}` give a clean
+gauge-covariant sufficient domain because trivialization turns residuals into plain differences.
+Under Regime II an internal edge contributes
+`(I-\Theta_{ij})^\top W_{ij}(I-\Theta_{ij})` to the coarse self term. This vanishes exactly when
+`W_ij^(1/2)(I-\Theta_ij)=0`; only positive-definite or otherwise faithful weights force
+`\Theta_ij=I`. A Regime-II coarse operator can therefore leave the family, but need not when its
+nonidentity transport lies entirely in weight-null directions. Cut blocks must separately satisfy
+symmetry, sign, and diagonal-representability conditions.
 
 **Aggregation closure (Proposition).** `(\Lambda_{\mathrm c})_{IJ}=-\sum_{i\in I,j\in J}W_{ij}` and
 `(\Lambda_{\mathrm c})_{II}=\sum_{i\in I}A_i+\sum_{i\in I,j\notin I}W_{ij}`. Internal edges are
 annihilated. **Cite, do not claim**: this is the Galerkin coarse operator of aggregation-based
 algebraic multigrid, and the block/matrix-weighted case is that method's systems setting.
+
+**Kron reduction is a different operation and is not closed in general.** Unrestricted
+matrix-weighted Kron reduction can leave the interaction family; the manuscript gives an exact
+rational three-agent counterexample. The common-orthogonal-eigenbasis subfamily, including its self
+terms, is closed because it reduces channelwise to scalar loopy-Laplacian elimination. The
+classification of maximal Kron-closed subfamilies remains open. Never describe unrestricted
+matrix-weighted Kron closure as an open conjecture.
 
 **Closure does not select the family.** The continuum `\Lambda_{ij}=-\lambda W_{ij}`,
 `\lambda\in[-1,1]`, is PSD and closed under every partition; `\lambda=-1` is the signless Laplacian,
@@ -190,9 +203,11 @@ consensus as a null direction of the interaction part.
 random graphs has force because its coarse-graining rule is *nonlinear* in the connection
 probability, so additivity of the node parameter must be forced out of a functional equation. Here
 the rule is linear and the Gaussian energy is additive from the start, so the same demand yields
-nothing. The genuine analogue is a **fixed point**: bi-additivity forces `w(x,y)=xy\,M` and
-`\alpha(x)=xA` under a **measurability hypothesis** (without which the Cauchy equation admits
-pathological solutions). State the measurability hypothesis.
+nothing. What the functional equation gives here is an **invariant bi-additive family**:
+`w(x,y)=xy\,M` and `\alpha(x)=xA` under a **measurability hypothesis** (without which the Cauchy
+equation admits pathological solutions). This is closure under additive push-forward, not by itself
+a fixed point. A fixed ray is typed only after a hierarchical identification makes the changing
+parameter spaces into one space and the pushed-forward size vector is a positive eigenvector.
 
 **Identification is not a recognition restriction.** A recognition law assigning each cluster one
 common value is supported on `\operatorname{range}(S)`, violating absolute continuity, so its cost is
@@ -203,10 +218,13 @@ recognition **mean**, with exact cost
 (Schur complement) of the identified directions, not the restriction `B_\perp^\top\Lambda B_\perp`.
 The two agree only when the identified and retained subspaces are `\Lambda`-orthogonal.
 
-**No bare cost is a coarsening criterion.** Bounds for models with different latent inventories are
-not comparable; the mean-tie cost is a cost at fixed cluster structure; the determinant gap decreases
-monotonically as clusters merge so its minimizer is degenerate. Choosing the number of clusters is
-model selection and needs an externally declared scale, not a coefficient tuned inside one objective.
+**The analyzed costs do not supply a nondegenerate scale.** The mean-tie cost is nonnegative and
+vanishes at the finest partition, so minimizing it across partitions selects the finest endpoint
+(with possible ties). The determinant gap decreases under merging and selects the coarsest endpoint.
+The volume term has partition-dependent scale behavior, and mixing the pieces requires a coefficient
+not supplied by the bound. This does **not** prove that no intrinsic selection functional exists;
+that general question remains OPEN and needs either a nonmonotone functional with a nondegenerate
+optimizer or an impossibility theorem.
 
 **Frame sector.** The coarse frame cancels: constituent laws depend on `(U_I,\mu_I,\Sigma_I)` only
 through `(m,S)`, so the frame occupies a `K^2`-dimensional orbit. With a **faithful** `\rho_k` the
@@ -223,33 +241,42 @@ and inadmissible; any invariant must be stated in generalized-eigenvalue form.
 **Sylvester collapse.** `M` is defined only up to congruence `M\mapsto h^\top Mh`. By Sylvester's law
 of inertia, congruence orbits of a PSD matrix are determined by **rank alone**, so the internal
 universality label is an integer `0\leq r\leq K` with exactly one class in the nondegenerate case.
-No continuous internal moduli. Variety must come from the spectral exponent, i.e. from connectivity.
+No continuous internal moduli survive in that one Gaussian coupling matrix. This does **not** prove
+that all remaining variety is one spectral exponent: existence, convergence, invariance, and
+completeness of any exponent are separate open obligations, and a general belief family has no
+reason to share the Sylvester collapse.
 
 **Rescaling is required and is a declaration.** Aggregation composes as a precision-increasing
 semigroup; without a declared `\zeta_\ell` there is no flow and the question of a fixed point does not
 arise. The document declares one and says so.
 
-**Fixed point and gate result.** `W_{ij}=x_ix_jM`, `A_i=x_iA` with `x` additive is invariant in
-parameter values (not merely in form): `W_{IJ}=x_Ix_JM`, `A_I=x_IA`. **Attraction is open.**
+**Bi-additive closure and the finite gate.** `W_{ij}=x_ix_jM`, `A_i=x_iA` with `x` additive is closed
+under additive push-forward: `W_{IJ}=x_Ix_JM`, `A_I=x_IA`. It is not invariant in one fixed parameter
+space until a hierarchical identification is declared. On the identified homogeneous complete-graph
+endomorphism, dense rescaling fixes the common coupling ray and contracts the self term.
+**Attraction on an infinite hierarchy is open.** A finite blocking sequence terminates and cannot
+establish asymptotic convergence.
 Numerical gate (report as numerical evidence, not proof): the homogeneous endomorphism
 `A'=bA`, `W'=b^2W` has spectrum `\{b^2\}` with multiplicity `K(K+1)/2` and `\{b\}` likewise, so the
 contraction ratio against the largest eigenvalue **outside the dominant eigenspace** is `1/b`
 (`=0.5` at `b=2`); self terms are irrelevant; within the coupling sector the map is a scalar so `M`
-is not selected, corroborating the Sylvester collapse. Heterogeneous flow moves toward the
-bi-additive form in both a matrix-separability and a spatial-rank-one measure, controlled against
+is not selected, corroborating the Sylvester collapse. Finite heterogeneous blocking moves the
+reported diagnostics toward the bi-additive form in both a matrix-separability and a spatial-rank-one measure, controlled against
 freshly drawn systems at matched size (flowed/null reaching 0.148 spatially and 0.014 in the matrix
 sector); the raw spatial measure rises at small `N` for finite-size reasons and that is why the null
-control is necessary. The `\lambda=-1` control is distinguished (its self sector grows rather than
-decays).
+control is necessary. These finite measurements neither supply an infinite orbit nor prove
+convergence. The `\lambda=-1` control is distinguished (its self sector grows rather than decays).
 
-**Universality, stated with its costs.** Classes labeled by a spectral exponent (continuous, from
-connectivity) and a rank (discrete, from Sylvester). Distinct fixed points require distinct
-components of the interaction graph, because `\Lambda` is block diagonal across components and an
-observation is an edge; so coupled agents share a flow by construction and other classes are not
-decidable from within a component. The construction therefore predicts **no observable variation** in
-the effective law — a constraint, not a testable consequence. The falsifiable residue is the
-**running** of effective couplings away from a fixed point. The identification of a fixed point with
-a physical law is a **declaration**, not a theorem.
+**Universality remains a program.** Rank is an established discrete label for the Gaussian coupling
+matrix under full congruence. A spectral exponent is only a candidate continuous label after a
+positive reference form, a thermodynamic family, and convergence of the normalized counting
+function have been declared and proved. No result shows that rank plus one exponent is complete,
+that an orbit converges, that a component has a unique limit, or that the result is
+blocking-scheme-independent. The component theorem gives independent operator orbits, not a shared
+reached law. The proposed **running** of effective couplings is therefore conditional on a declared
+flow and still lacks a quantitative prediction. R15, the identification of a repaired fixed object
+with a physical law or empirical regularity, remains **OPEN/INCONCLUSIVE**; it is not closed by a
+definition, numerical trend, or interpretive preference.
 
 ## 5b. Non-trivial topology, and the coarse-graining criterion (added 2026-07-28)
 
@@ -268,15 +295,21 @@ gauge invariant, since holonomy conjugates under per-agent reframing. Call such 
 *trivializing*; singletons and tree-shaped subfamilies are trivially such, and the flat regime is the
 case in which the whole population is one trivializing subfamily.
 
-**The coarse-graining criterion, derived and not posited.** A cluster is coarsenable if and only if
-its internal holonomy is trivial. This is the closure theorem read as a condition on partitions:
-internal edges annihilate exactly when the cluster's internal transports are a coboundary. Three
-things about it must be stated wherever it is used.
+**The coarse-graining criterion, derived and not posited.** Trivial internal holonomy is a clean,
+gauge-covariant sufficient condition for full fixed-dimension coarsening. For a connected cluster
+whose internal weights are positive definite on every represented direction, it is also necessary:
+the internal edges annihilate if and only if the transports are a coboundary. With merely
+positive-semidefinite weights, the exact edgewise condition is
+`W_ij^(1/2)(I-Theta_ij)=0`; nonidentity transport and even loop holonomy may survive entirely in
+invisible null directions. The present parameter recursion declares the stronger trivializing
+domain. Classification and iteration of the degenerate cases require a separately typed
+effective-support or quotient construction. Three things about this criterion must be stated
+wherever it is used.
 
 It is an **admissibility** criterion, not a **cost** criterion. It compares no bounds across latent
 inventories, needs no complexity coefficient, and needs no externally declared scale. The
-manuscript's argument that no bare cost can select a partition is untouched and still applies to
-cost criteria; the criterion here is a different kind of object.
+manuscript's analysis of the available costs remains separate: those costs select trivial endpoints
+or require an external coefficient, while the existence of some other intrinsic selector is open.
 
 It **does not select a partition**. Singletons are admissible. What is well posed is the family of
 maximal trivializing clusters, and choosing among admissible partitions remains subject to the cost
@@ -289,37 +322,120 @@ the interaction Laplacian and the degenerate mode the renormalization chapter pe
 hold sharply different beliefs while their frames trivialize, and identical beliefs under nontrivial
 holonomy. Prefer the phrase "common trivialization" and avoid "consensus" for the criterion.
 
-**What is genuinely open in the non-flat case** is not whether closure survives — coarsening is
-defined on trivializing subfamilies — but the **cut-edge rule** between distinct trivializing
-clusters, whose residual asymmetry is not determined. That is the content of the non-flat theory,
-not a leftover defect.
+**What is genuinely open in the non-flat case** has two layers. Coarsening is guaranteed on
+trivializing subfamilies, while positive-semidefinite null-direction exceptions require an
+effective-support classification. Between distinct clusters, the summed cut block must satisfy the
+actual symmetry, sign, and diagonal-representability conditions; a gauge-covariant coarse-link or
+quotient rule closed under another merge is not determined. That is the content of the non-flat
+theory, not a leftover defect.
 
-**The tension to record rather than resolve.** Coarse-graining requires trivial internal holonomy,
-while the reciprocal-pair degeneracy that makes cyclic closure fatal is *relieved* by nontrivial
-holonomy, since `dim ker J = dim ker(H - I)`. The two halves of the theory want opposite things from
-the topology.
+**The tension to record rather than resolve.** The declared sufficient coarse-graining domain uses
+trivial internal holonomy, and under nondegenerate weights that condition is necessary, while the
+reciprocal-pair degeneracy that makes cyclic closure fatal is *relieved* by visible nontrivial
+holonomy, since `dim ker J = dim ker(H - I)`. Holonomy confined to weight-null directions is a
+separate effective-support case. The two halves of the theory therefore pull in opposite directions
+only after the represented support is specified.
 
 ## 5c. The interpretive chapter
 
-Chapter 12 states interpretation and proves nothing. **No interpretive claim may carry
+Chapter 13 states interpretation and proves nothing. **No interpretive claim may carry
 `ESTABLISHED`.** Declared readings are `DEFINITION`; interpretive commitments the mathematics
 actually uses are `HYPOTHESIS`; readings with unsettled consequences are `OPEN`. Where a position is
-merely *available* rather than supported, say so and say what would support it. The sharpest content
-there is that a noumenal reading of the base becomes substantive exactly when the bundle is
-non-trivial, because a flat base leaves no detectable trace and parsimony removes it — a mathematical
-condition on an interpretive question. The participatory reading and the noumenal reading pull
-against each other and the formalism does not adjudicate; set out what each buys and costs.
+merely *available* rather than supported, say so and say what would support it. Graph-link holonomy
+on the finite interaction complex, smooth base-connection holonomy, and principal-bundle topology
+are different objects; no interpretive paragraph may infer one from another. The possibility that a
+specified base connection has an operational population-level trace is a conjectural extension, not
+a result. The participatory reading and the noumenal reading pull against each other and the
+formalism does not adjudicate; set out what each buys and costs.
+
+## 5d. The general theory, and the Gaussian as an example (added 2026-07-29)
+
+**The multivariate Gaussian is a worked realization, not the ambient theory.** The hierarchy below
+is mandatory. A statement may move down it only by naming the additional hypotheses it consumes.
+
+### 5d.1 Ambient fibers and the selected smooth tier
+
+At the most general tier, a state-recognition belief fiber is a declared collection of normalized
+probability laws on a declared measurable state space. A model-belief fiber is likewise a declared
+collection of normalized probability laws on its declared model-parameter or latent-model space.
+Distinct from both is a generative-kernel fiber: a declared collection of Markov kernels between
+specified source and target measurable spaces. Do not identify either law fiber with a kernel
+fiber, and do not infer a manifold, common dominating measure, affine chart, natural parameter,
+convex cone, boundary, or Fisher metric merely because the elements are beliefs or models.
+
+The selected differential tier is a finite-dimensional smooth **parametrized-measure model**. State
+its parameter manifold and require differentiability in quadratic mean, square-integrable score
+fields, the integrability needed by each tensor or derivative, and nondegeneracy of the Fisher form
+before calling that form a Riemannian metric. A degenerate Fisher tensor is still a tensor but not a
+Riemannian metric. These are hypotheses on the selected model; they are not inherited by arbitrary
+law or kernel fibers. Statements for changing supports or null sets must be formulated at this
+parametrized-measure level rather than smuggled through one fixed density chart.
+
+### 5d.2 Tractable subclasses
+
+A dominated finite-dimensional canonical exponential family is a further subclass, with declared
+reference measure `nu`, statistic `T`, natural parameter `theta`, log partition `A(theta)`, and
+natural domain `N={theta:A(theta)<infinity}`. Regularity and minimality are separate hypotheses.
+Only in this subclass do the affine natural chart, Bregman formulas, and Hessian representation of
+Fisher information follow.
+
+A graph-exponential representation is a further declaration: node and pair statistics, a
+graph-indexed affine energy, and a diagonal-affinity condition. A closed operator cone is yet another
+separately declared structure on that finite parameter space. Neither the graph representation nor
+the cone is universal, and the cone need not be the closure of the natural domain.
+
+The multivariate Gaussian is the quadratic realization of this chain. Its information parameter is
+`(h,J)` with `J` positive definite on the probability layer. The interaction family is a declared
+operator subcone of the Gaussian quadratic parameters, not a consequence of all Gaussian models.
+
+### 5d.3 Boundary statement and repairs
+
+The proposed scale-free ray with vanishing self terms is a boundary operator in the **Gaussian
+interaction representation**: its precision is singular, so it has no full-space Gaussian
+normalizer, no Gaussian Fisher metric there, no recognition law to which the exact ELBO applies, and
+an irregular endogenous pencil. These are one Gaussian natural-domain fact seen through four
+functionals. Do not promote this to a theorem that every general belief fiber has a natural-domain
+boundary, or that every flow on beliefs has the same failure.
+
+Do **not** silently substitute a pseudoinverse or pseudodeterminant. Pinning, quotienting, and
+retaining a mass sector each change or enlarge the object and must be declared. Their algebraic
+definitions do not complete the cross-scale probability theory: compatible quotient measures and
+bounds, pin dependence, and mass scaling remain open where the manuscript says they do.
+
+### 5d.4 Coarse maps and conditional closure
+
+For arbitrary laws, coarse-graining may be represented by a declared Markov kernel and its
+pushforward. For the graph-exponential operator subclass, the operation used in this manuscript is
+different: the sample-variable identification maps a coarse configuration into the fine sample
+space, and aggregation **precomposes the unnormalized energy** with that map. Affinity in the
+parameter and diagonal affinity of the pair statistic then induce a linear parameter map. A coarse
+reference measure, integrability of the pulled-back energy, and its finite normalizer are three
+separate obligations; none follows from the algebraic parameter calculation.
+
+Invariance of a pair statistic under a declared site action supplies a conditional selection
+principle. Translation invariance is the Gaussian difference-statistic instance. Internal-edge
+annihilation follows from constant diagonal restriction; translation invariance implies that
+condition but is not equivalent to it without an additional off-diagonal hypothesis.
+
+### 5d.5 What remains realization-specific
+
+The determinant gap, the Schur-complement mean-tie cost, explicit Gaussian Fisher charts, matrix
+pencils, Loewner-order arguments, the Sylvester classification, the reciprocal-pair determinant,
+and the exact Kron counterexample and common-eigenbasis theorem are **Gaussian quadratic results**.
+Where a general analogue is plausible but unproved, mark it `OPEN` and state its extra category,
+integrability, closure, and attainment obligations. General statement first, realization second;
+never use Gaussian notation as if it proved a theorem about all belief or model fibers.
 
 ## 6. Obstructions chapter — state these as results, not apologies
 
-**Cyclic closure is inadmissible.** A construction in which a top-level object's prior is built from
-the population's own beliefs faces a dilemma. If the fold is a generative factor, the scale graph
-carries a reciprocal pair, and under the cocycle a reciprocal pair has a singular assembled precision
-for every SPD link covariance, with the kernel exactly the globally consistent configuration — the
-one state the framework must penalize. If the fold is not a generative factor, no joint contains it,
-there is no evidence to bound, and there is no exact ELBO. Adding a proper self-prior restores
-definiteness but makes the log-partition function depend on the transport configuration, so it cannot
-be absorbed into per-agent constants.
+**The flat unanchored reciprocal fold is inadmissible; cyclic Gaussian models are not.** If the fold
+is represented by one unanchored reciprocal-pair energy and the cocycle makes its holonomy the
+identity, its assembled precision is singular for every SPD link covariance, with kernel the
+transport-consistent configurations. If the fold is not part of a fixed generative joint, there is
+no evidence for the exact ELBO to bound. Proper SPD anchors restore definiteness, and a globally
+normalized cyclic Gaussian Markov random field is legitimate; its partition function is part of
+the model and generally depends on the declared transports. Never generalize the scoped no-go to
+all cycles or all reciprocal models.
 
 **A posterior-indexed flow does not repair it.** Reformulating the top as a one-parameter family of
 posteriors indexed by an inverse observation count violates the typing prohibition directly, since
