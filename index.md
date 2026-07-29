@@ -10,7 +10,7 @@ updated: 2026-07-27
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **13** manuscripts · **13** themes · **11** field MOCs · **269** concepts · **11** methods · **539** papers · **114** references · **16** runs · **6** web/methodology
+> **3** projects · **13** manuscripts · **13** themes · **11** field MOCs · **269** concepts · **11** methods · **543** papers · **114** references · **16** runs · **6** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -967,6 +967,10 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[wilson-1975-renormalization-group|The Renormalization Group: Critical Phenomena and the Kondo Problem]]
 - [[wilson-kogut-1974-epsilon-expansion|The Renormalization Group and the Epsilon Expansion]]
 - [[wong-2001-asymptotic-integrals|Asymptotic Approximations of Integrals]]
+- [[berman-2023-bayesian-renormalization|Bayesian Renormalization]]
+- [[gabrielli-2025-network-renormalization|Network Renormalization]]
+- [[villegas-2023-laplacian-renormalization-group|Laplacian Renormalization Group for Heterogeneous Networks]]
+- [[garuccio-2023-multiscale-network-renormalization|Multiscale Network Renormalization: Scale-Invariance without Geometry]]
 - [[boettcher2012renormalization|Renormalization Group for Critical Phenomena in Complex Networks]]
 - [[jona-lasinio-2001-renormalization-probability|Renormalization Group and Probability Theory]]
 - [[milnor1976-characteristic-classes-spherical-fibre|On Characteristic Classes for Spherical Fibre Spaces]]

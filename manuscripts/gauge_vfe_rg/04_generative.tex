@@ -1,0 +1,419 @@
+\chapter[The Fixed Normalized Generative Law]{The Fixed Normalized\\Generative Law}
+\label{ch:generative}
+
+Everything downstream of this chapter refers back to one object: a normalized probability kernel on observations and latent variables, fixed before any inference is contemplated, and covariant under the local frame changes of \Cref{ch:geometry}. The order of construction is not a presentational preference. A bound is a comparison between two measures, and the comparison is empty unless one of them is settled first. This chapter settles it, states the requirement that keeps it settled, and records exactly how the construction responds to a change of frame.
+
+Two results carry the rest of the document. The first is a typing requirement: a generative kernel may not read a recognition law, a recognition parameter, or a posterior. The second is that the entire construction is covariant, so the number the next chapter bounds is a frame-independent number. Both are stated with their status, and both are used later as premises rather than as slogans.
+
+\section{Parameters, structure, and the conditioning type}
+\label{sec:gen-typing-setup}
+
+Fix the finite design \(D=\{c_a\}_{a=1}^{M}\subseteq\mathcal C\) with design index \(a\), the agent set \(V=\{1,\dots,N\}\), and the measurable spaces \((\mathsf Y_D,\mathscr Y_D)\) and \((\mathsf O_D,\mathscr O_D)\) declared in \Cref{ch:probability}, together with their sigma-finite reference measures \(\nu_D^Y\) and \(\nu_D^O\). The structural value \(X\in\mathsf X\) carries the discrete and geometric data: a finite directed acyclic graph \(\Gamma=(V,E)\) on the agent set, the incidence pattern of agents to design points, and either the local frames of Regime~I or the independently declared edge links of Regime~II. The symbol \(\theta\) carries the numerical parameters that a learning step is permitted to move.
+
+The split between \(\theta\) and \(X\) is a declaration and not a derived fact; a datum placed in \(X\) is held fixed by fiat, and a datum placed in \(\theta\) is exposed to the M-coordinate of \Cref{ch:elbo}. \status{DEFINITION} Nothing is proved by making the split, and the results below hold for any split, because the typing requirement of \Cref{sec:gen-typing} applies to both symbols equally. Call this Convention~4.1.
+
+For \(i\in V\) let \(\operatorname{pa}(i)\subseteq V\) be the parent set in \(\Gamma\), write \(m_{\operatorname{pa}(i)}=(m_j)_{j\in\operatorname{pa}(i)}\) and \(k_{\operatorname{pa}(i)}=(k_j)_{j\in\operatorname{pa}(i)}\), and let \(\mathcal R=\{r\in V:\operatorname{pa}(r)=\varnothing\}\) be the root set. Suppressing the design index for one design point, the model declares three normalized Markov kernels at each agent,
+\begin{equation}
+P_{\theta,i}^{m}(dm_i\given m_{\operatorname{pa}(i)},X),
+\qquad
+P_{\theta,i}^{k}(dk_i\given k_{\operatorname{pa}(i)},m_i,X),
+\qquad
+P_{\theta,i}^{o}(do_i\given k_i,m_i,X).
+\label{eq:gen-kernels}
+\end{equation}
+At a root the first is read as the proper law \(P_{\theta,r}^{m}(dm_r\given X)\) and the second as the normalized bridge \(P_{\theta,r}^{k}(dk_r\given m_r,X)\). These root readings are definitions. They are not conditionals on an invented null parent, and no vertex is given a fictitious ancestor to make the notation uniform.
+
+The two latent channels are typed differently on purpose. The state latent \(k_i\in\R^{K}\) lives in the fiber carrying the representation \(\rho_k\), the model latent \(m_i\in\R^{d_m}\) lives in the fiber carrying \(\rho_m\), and the model latent enters the state kernel of the same agent but not conversely. This asymmetry is what makes the bridge a map \(\R^{d_m}\to\R^{K}\) rather than a symmetric coupling, and it is what makes the reverse-topological integration of \Cref{sec:gen-normalization} terminate.
+
+\section{Iterated kernel composition}
+\label{sec:gen-composition}
+
+Let \(v_1,\dots,v_N\) be a topological ordering of \(\Gamma\), so that every parent precedes its child. The one-design-point law is the iterated composition
+\begin{equation}
+P_{\theta,a}(do_a,dY_a\given X)
+=\prod_{\ell=1}^{N}
+P_{\theta,v_\ell}^{m}(dm_{v_\ell}\given m_{\operatorname{pa}(v_\ell)},X)
+P_{\theta,v_\ell}^{k}(dk_{v_\ell}\given k_{\operatorname{pa}(v_\ell)},m_{v_\ell},X)
+P_{\theta,v_\ell}^{o}(do_{v_\ell}\given k_{v_\ell},m_{v_\ell},X).
+\label{eq:gen-composition}
+\end{equation}
+The product symbol in \eqref{eq:gen-composition} abbreviates successive application of probability kernels in the displayed order. It is not an untyped multiplication of measures, and reading it as one is the error that the explicit form below is written to prevent. For bounded measurable \(f\) on \(\mathsf O_{D,a}\times\mathsf Y_{D,a}\) the definition is the iterated integral
+\begin{equation}
+\int f dP_{\theta,a}
+=\int P_{\theta,v_1}^{m}(dm_{v_1}\given X)
+\int P_{\theta,v_1}^{k}(dk_{v_1}\given m_{v_1},X)
+\int P_{\theta,v_1}^{o}(do_{v_1}\given k_{v_1},m_{v_1},X)
+\cdots
+f(o_a,y_a),
+\label{eq:gen-iterated-integral}
+\end{equation}
+in which the innermost integrand is \(f\) and each kernel is applied only after all of its conditioning coordinates have been introduced by an earlier integration. The topological ordering is exactly the condition that makes this possible.
+
+Equation~\eqref{eq:gen-iterated-integral} defines a probability measure on the finite product space, and the assignment \(X\mapsto P_{\theta,a}(\cdot\given X)\) is again a probability kernel. \status{ESTABLISHED} Call this Construction~4.2. The proof is the finite case of the standard construction of a law from a finite sequence of transition kernels: each partial integral of a bounded measurable function against a kernel is again bounded and measurable in the remaining arguments, so the right side of \eqref{eq:gen-iterated-integral} is well defined and measurable in \(X\); linearity and monotone convergence transfer from the individual kernels to the composition; and taking \(f\equiv1\) with each kernel normalized gives total mass one. No projective limit and no consistency theorem is needed because the index set is finite \citep{Klenke2020}. This is the directed graphical-model construction in its measure-theoretic form \citep{Lauritzen1996,Wainwright2008}.
+
+Distinct design points are declared conditionally independent given \(X\),
+\begin{equation}
+P_\theta(do,dY\given X)
+=\bigotimes_{a=1}^{M}P_{\theta,a}(do_a,dY_a\given X).
+\label{eq:gen-design-product}
+\end{equation}
+This is a modeling hypothesis and not a consequence of evaluating at finitely many contexts. \status{HYPOTHESIS} Call it Hypothesis~4.3. It is a choice: it excludes every law in which the realization at \(c_b\) informs the realization at \(c_a\) beyond what \(X\) already carries, and a model with such dependence would replace \eqref{eq:gen-design-product} by normalized transition kernels whose conditioning arguments include the declared earlier design-point variables. The hypothesis is used in the normalization proof of \Cref{sec:gen-normalization}, in the factor count of \Cref{ch:elbo}, and nowhere else; results that do not invoke it are stated at one design point.
+
+When every component kernel is dominated by the component reference measures of \Cref{ch:probability}, \eqref{eq:gen-composition} has the all-density form
+\begin{equation}
+p_{\theta,a}(o_a,y_a\given X)
+=\prod_{i\in V}
+p_{\theta,i}^{m}(m_i\given m_{\operatorname{pa}(i)},X)
+p_{\theta,i}^{k}(k_i\given k_{\operatorname{pa}(i)},m_i,X)
+p_{\theta,i}^{o}(o_i\given k_i,m_i,X),
+\label{eq:gen-density}
+\end{equation}
+and the finite-design density and measure are
+\begin{equation}
+p_\theta(o,y\given X)=\prod_{a=1}^{M}p_{\theta,a}(o_a,y_a\given X),
+\qquad
+P_\theta(do,dY\given X)
+=p_\theta(o,y\given X)\nu_D^O(do)\nu_D^Y(dy).
+\label{eq:gen-design-density}
+\end{equation}
+In \eqref{eq:gen-density} the product genuinely is a pointwise product of nonnegative functions, because densities are functions; the displayed factorization of measures in \eqref{eq:gen-composition} is what had to be justified. The kernel \(P_\theta(\cdot\given X)\) is the authoritative object throughout, and the symbol \(p_\theta\) is reserved for a density in which observations and latent variables are both represented relative to their declared dominating measures.
+
+\section{The typing prohibition}
+\label{sec:gen-typing}
+
+The construction just given is closed. Every kernel in \eqref{eq:gen-kernels} through \eqref{eq:gen-design-density} is determined once \(\theta\) and \(X\) are chosen, and the following requirement declares that this is not an accident of the present notation but a condition on what counts as a generative model in this document.
+
+\begin{quote}
+\textbf{Requirement 4.4 (typing prohibition).}
+\emph{For every \(i\in V\) and every design index \(a\), each generative kernel in \eqref{eq:gen-kernels} is a function of \(\theta\), of \(X\), and of the displayed parent and same-agent latent coordinates, and of nothing else. In particular no generative kernel may take as an argument the recognition kernel \(Q_X\), any coordinate marginal of \(Q_X\), any parameter of the recognition family, or any posterior of the model.}
+\end{quote}
+\status{DEFINITION} This is a requirement of the construction, not a theorem; nothing is being proved by stating it. What it excludes is concrete. It excludes a generative transition at agent \(i\) whose conditional mean or covariance is built from a live peer marginal, that is, from the current recognition law's marginal at some \(j\neq i\). Such a transition is a perfectly good map from recognition laws to kernels, and it may well be a useful computational device; it is simply not a factor of a fixed joint, because it does not become a definite kernel until an inference state is supplied.
+
+The prohibition is load-bearing rather than fastidious, and the following proposition says why.
+
+\textbf{Proposition 4.5.} Let \(\mathcal Q\) be a nonempty set of recognition laws on \((\mathsf Y_D,\mathscr Y_D)\), and suppose at least one factor of \eqref{eq:gen-composition} is replaced by a family indexed by \(Q\in\mathcal Q\), so that the composition yields for each \(Q\) a normalized joint \(P_{\theta,Q}(\cdot\given X)\) with nonconstant dependence on \(Q\). Then the following hold. First, the evidence is a function \(Q\mapsto\log p_{\theta,Q}(o\given X)\), and in general it is nonconstant. Second, for each fixed \(Q\) the identity of \Cref{ch:elbo} applies to the pair \((Q,P_{\theta,Q})\) and reads
+\begin{equation}
+\log p_{\theta,Q}(o\given X)
+=\Lelbo(Q;X)
++\KL\left(Q\middle\Vert P_{\theta,Q}(\cdot\given o,X)\right),
+\label{eq:gen-moving-target}
+\end{equation}
+so that a decrease of the divergence term achieved by changing \(Q\) also changes the left side and therefore certifies no improvement in any fixed quantity. Third, there is no single normalized joint measure on \(\mathsf O_D\times\mathsf Y_D\) whose evidence the family \(\{\Lelbo(Q;X)\}_{Q\in\mathcal Q}\) bounds, so "the evidence of the model" is not defined and model comparison by evidence requires a further declaration that selects one member of the family. \status{ESTABLISHED}
+
+The proof of each part is immediate. The first and third parts are restatements of the supposition. The second holds because the identity of \Cref{ch:elbo} requires only that its two arguments be a fixed pair, which they are once \(Q\) is fixed; the content of the proposition is that fixing \(Q\) is precisely what an optimization over \(Q\) refuses to do. The situation is not that the algebra fails. It is that the algebra succeeds pointwise and delivers a family of exact statements about a moving quantity, which is not what a bound is for.
+
+Two further remarks keep the prohibition from being read more broadly than it is. It does not forbid a model in which the agents are coupled, and it does not forbid a construction in which each agent's effective prior is constituted by the rest of the population. Such coupling is available through a latent variable inside the joint, whose conditional laws are ordinary kernels and whose influence on agent \(i\) is mediated by the model rather than by a kernel reading an inference state. The distinction between these two is exactly the distinction \Cref{ch:obstructions} needs, where a construction that folds the population's own beliefs back in as a generative factor is shown to face a dilemma, and where a reformulation of that fold as a one-parameter family of posteriors is shown to violate Requirement~4.4 directly, since the flowing object is a posterior. That is the substantive obstruction the requirement generates; it is derived there and only announced here.
+
+\section{Normalization without a global partition function}
+\label{sec:gen-normalization}
+
+\textbf{Proposition 4.6.} Under the domination assumptions of \Cref{ch:probability} and Hypothesis~4.3,
+\begin{equation}
+P_\theta(\mathsf O_D\times\mathsf Y_D\given X)=1,
+\qquad
+\int_{\mathsf O_D\times\mathsf Y_D}
+p_\theta(o,y\given X)\nu_D^O(do)\nu_D^Y(dy)=1,
+\label{eq:gen-normalization}
+\end{equation}
+for every admissible \((\theta,X)\), with no side condition on the parameters and no global normalizing constant. \status{ESTABLISHED}
+
+\emph{Proof.} Work at one design point and drop the index \(a\). The integrand \eqref{eq:gen-density} is nonnegative and measurable, so Tonelli's theorem licenses iterated integration in any order \citep{Klenke2020}.
+
+Integrate every observation coordinate first. For fixed \((k_i,m_i,X)\) the factor \(p_{\theta,i}^{o}(\cdot\given k_i,m_i,X)\) is a probability density with respect to \(\nu_{i}^{o}\), and no other factor depends on \(o_i\), so each such integration contributes the value one and removes one factor. After \(N\) such steps only latent factors remain.
+
+Now traverse the nonroot vertices in reverse topological order and let \(i\) be the current vertex. Every child of \(i\), and hence every descendant of \(i\), occurs later in the forward order and has already been removed. The remaining factors that contain \(k_i\) at all are those whose conditioning arguments include it, and every such factor belongs to a descendant; since all descendants have been removed, the only remaining factor in which \(k_i\) appears is the one in which it is the sampled variable, namely \(p_{\theta,i}^{k}(k_i\given k_{\operatorname{pa}(i)},m_i,X)\). Its integral against \(\nu_i^k(dk_i)\) equals one for every fixed value of the conditioning arguments, so the integration removes the factor and leaves the rest of the integrand unchanged. Once \(k_i\) is gone, the same argument applies to \(m_i\): the model latent \(m_i\) appeared in the state kernel of agent \(i\) and in the model kernels of the children of \(i\), all of which have been removed, so the only surviving factor containing \(m_i\) is \(p_{\theta,i}^{m}(m_i\given m_{\operatorname{pa}(i)},X)\), whose integral against \(\nu_i^m(dm_i)\) is one. The pair of integrations removes vertex \(i\) entirely. Multiple parents cause no difficulty, because the parent coordinates are held fixed while the child kernel is integrated.
+
+After every nonroot has been removed only roots remain, and no root is a child of another root, since a root has no parent by definition. For each root \(r\), integrate the normalized bridge \(p_{\theta,r}^{k}(k_r\given m_r,X)\) and then the proper model law \(p_{\theta,r}^{m}(m_r\given X)\); each contributes one. The remaining scalar is one, which proves the density statement at one design point. The measure statement follows without domination by the same induction applied to \eqref{eq:gen-iterated-integral}, taking \(f\equiv1\) and using normalization of each kernel at each step. Finally, Hypothesis~4.3 multiplies \(M\) unit masses. \hfill\(\square\)
+
+Two features of this proof deserve to be named, since they are what the directed construction buys. Normalization holds identically in the parameters: there is no inequality on \(\theta\) that must be verified before the model exists, and no constant depending on \(\theta\) that must be computed before a likelihood can be evaluated. And the induction is finite and explicit, so the normalization of the whole is reduced to the normalization of the parts, which is where it was declared.
+
+\section{The loopy undirected alternative, stated honestly}
+\label{sec:gen-undirected}
+
+The directed construction is a choice, and the alternative is not incoherent. Given nonnegative measurable node and edge potentials, an undirected model with cycles is defined by
+\begin{align}
+\Psi_X(o,y)
+&=\prod_{i\in V}\psi_i(o_i,k_i,m_i;X)
+\prod_{\{i,j\}\in E}\psi_{ij}(k_i,m_i,k_j,m_j;X),
+\label{eq:gen-gibbs-potential}\\
+Z_X
+&=\int_{\mathsf O_D\times\mathsf Y_D}
+\Psi_X(o,y)\nu_D^O(do)\nu_D^Y(dy),
+\qquad
+0<Z_X<\infty,
+\label{eq:gen-gibbs-partition}\\
+p_\theta^{\mathrm{Gibbs}}(o,y\given X)
+&=Z_X^{-1}\Psi_X(o,y).
+\label{eq:gen-gibbs-density}
+\end{align}
+The finiteness and positivity assertion in \eqref{eq:gen-gibbs-partition} is part of the model's existence statement, on the same footing as the declaration of the potentials themselves. \status{DEFINITION} It is not implied by any local property of the factors, and the following makes that precise rather than asserting it.
+
+\textbf{Proposition 4.7.} There exists a two-vertex undirected model on \(\R^2\) in which every node potential is a normalized probability density and the single edge potential is strictly positive, finite, and continuous everywhere, and yet \(Z_X=\infty\). \status{ESTABLISHED}
+
+\emph{Proof.} Take \(V=\{1,2\}\) with a single edge, no observation coordinates, one-dimensional latent coordinates \(y_1,y_2\), and Lebesgue reference measure. Let
+\begin{equation}
+\psi_i(y_i)=(2\pi)^{-1/2}\exp\left(-\tfrac12y_i^2\right),
+\qquad
+\psi_{12}(y_1,y_2)=\exp\left(cy_1y_2\right),
+\qquad
+c\geq1.
+\label{eq:gen-gibbs-counterexample}
+\end{equation}
+Each \(\psi_i\) is a standard normal density, hence normalized, and \(\psi_{12}\) is positive, finite, and continuous on all of \(\R^2\). Their product is \((2\pi)^{-1}\exp(-\tfrac12y^\top\Theta y)\) with
+\begin{equation}
+\Theta=\begin{pmatrix}1&-c\\-c&1\end{pmatrix},
+\qquad
+\operatorname{spec}\Theta=\{1-c,1+c\}.
+\label{eq:gen-gibbs-counterexample-matrix}
+\end{equation}
+Change to the orthonormal coordinates \(s=(y_1+y_2)/\sqrt2\) and \(w=(y_1-y_2)/\sqrt2\) along the eigenvectors of \(\Theta\), a rotation and hence measure preserving. The product becomes \((2\pi)^{-1}\exp(-\tfrac12(1-c)s^2)\exp(-\tfrac12(1+c)w^2)\), and Tonelli gives \(Z_X=(2\pi)^{-1}\int_{\R}\exp(-\tfrac12(1-c)s^2)ds\int_{\R}\exp(-\tfrac12(1+c)w^2)dw\). The second factor is finite, and the first is infinite because \(1-c\leq0\) makes its integrand bounded below by one. Hence \(Z_X=\infty\). For \(|c|<1\) both eigenvalues are positive, \(\Theta\) is positive definite, and \(Z_X<\infty\), so the condition is not vacuous. \hfill\(\square\)
+
+The example is deliberately minimal, and its point is that \eqref{eq:gen-gibbs-partition} genuinely partitions the parameter space rather than restating a triviality. Local normalization of every factor and strict positivity of every interaction are together insufficient; the condition is global and must be checked. Nothing here says the undirected model is wrong. It says that its existence statement carries a parameter-dependent side condition, and that its log evidence contains a term \(-\log Z_X\) which depends on the parameters and therefore does not cancel when two parameter values are compared. The present document declines the undirected route for those two reasons and not because the route is invalid; the distinction between declining a construction and refuting it is one this document keeps throughout.
+
+\section{The linear-Gaussian realization}
+\label{sec:gen-gaussian}
+
+For an explicit analytic realization take
+\begin{equation}
+k_i\in\R^{K},
+\qquad
+m_i\in\R^{d_m},
+\qquad
+o_i\in\R^{d_{o,i}},
+\label{eq:gen-lg-domains}
+\end{equation}
+with the same fiber dimension \(K\) and model dimension \(d_m\) at every agent within a design point, and specialize \(\Gamma\) to a directed forest, so that each nonroot \(i\) has the unique parent \(j=\operatorname{par}(i)\). \status{DEFINITION} Call this Definition~4.8. The abstract construction of \Cref{sec:gen-composition} remains valid for a general finite DAG, and the multi-parent linear-Gaussian version replaces each single-parent contribution below by a finite sum over \(j\in\operatorname{pa}(i)\); the forest is displayed because it makes the shapes legible, not because the theory needs it.
+
+For a nonroot \(i\) with parent \(j\),
+\begin{align}
+m_i\given m_j,X
+&\sim\mathcal N\left(
+T_i^{m}\Omega_{ij}^{m}m_j+\eta_i^{m},
+\Sigma_i^{m}\right),
+\label{eq:gen-lg-model}\\
+k_i\given k_j,m_i,X
+&\sim\mathcal N\left(
+T_i^{k}\Omega_{ij}^{k}k_j+B_im_i+\eta_i^{k},
+\Sigma_i^{k}\right),
+\label{eq:gen-lg-state}\\
+o_i\given k_i,m_i,X
+&\sim\mathcal N\left(
+H_i^{k}k_i+H_i^{m}m_i+\eta_i^{o},
+\Sigma_i^{o}\right),
+\label{eq:gen-lg-obs}
+\end{align}
+with shapes
+\begin{align}
+&\Omega_{ij}^{k},T_i^{k}\in\R^{K\times K},
+&&\Omega_{ij}^{m},T_i^{m}\in\R^{d_m\times d_m},
+&&B_i\in\R^{K\times d_m},
+\label{eq:gen-lg-shapes-latent}\\
+&H_i^{k}\in\R^{d_{o,i}\times K},
+&&H_i^{m}\in\R^{d_{o,i}\times d_m},
+&&\eta_i^{k}\in\R^{K},
+\quad
+\eta_i^{m}\in\R^{d_m},
+\quad
+\eta_i^{o}\in\R^{d_{o,i}}.
+\label{eq:gen-lg-shapes-obs}
+\end{align}
+The represented links \(\Omega_{ij}^{k}\) and \(\Omega_{ij}^{m}\) are invertible, since they are values of a group representation. The self maps \(T_i^{k}\) and \(T_i^{m}\) need not be invertible, and the reason is worth stating rather than assuming: normalization of a Gaussian kernel is supplied by positive definiteness of the conditional covariance in the receiving space, not by the rank of the conditional mean map. A rank-deficient \(T_i^{k}\) collapses information from the parent and still leaves a nondegenerate density in \(k_i\).
+
+Each root \(r\) carries the proper laws
+\begin{align}
+m_r\given X
+&\sim\mathcal N\left(\bar m_r,\Sigma_{r,0}^{m}\right),
+\label{eq:gen-lg-root-model}\\
+k_r\given m_r,X
+&\sim\mathcal N\left(B_rm_r+\eta_{r,0}^{k},\Sigma_{r,0}^{k}\right),
+\label{eq:gen-lg-root-state}
+\end{align}
+followed by \eqref{eq:gen-lg-obs}, with \(\bar m_r\in\R^{d_m}\), \(B_r\in\R^{K\times d_m}\), and \(\eta_{r,0}^{k}\in\R^{K}\). Every covariance is symmetric positive definite in its receiving space,
+\begin{equation}
+\Sigma_i^{m},\Sigma_{r,0}^{m}\in\Sym_{++}^{d_m},
+\qquad
+\Sigma_i^{k},\Sigma_{r,0}^{k}\in\Sym_{++}^{K},
+\qquad
+\Sigma_i^{o}\in\Sym_{++}^{d_{o,i}}.
+\label{eq:gen-lg-spd}
+\end{equation}
+
+\textbf{Proposition 4.9.} Under \eqref{eq:gen-lg-spd} every kernel displayed in \eqref{eq:gen-lg-model} through \eqref{eq:gen-lg-root-state} is a nondegenerate normalized density on its stated Euclidean space, so Proposition~4.6 applies and the assembled law is a probability measure. The root state coordinate has the marginal moments
+\begin{equation}
+\bar k_r=B_r\bar m_r+\eta_{r,0}^{k},
+\qquad
+\Sigma_{r,0}^{k,\mathrm{marg}}
+=\Sigma_{r,0}^{k}+B_r\Sigma_{r,0}^{m}B_r^\top,
+\label{eq:gen-lg-root-marginal}
+\end{equation}
+which is a different object from the conditional covariance \(\Sigma_{r,0}^{k}\) and exceeds it in the positive semidefinite order. \status{ESTABLISHED}
+
+\emph{Proof.} A Gaussian density with positive definite covariance integrates to one on its own space for every value of its mean, which is the hypothesis of Proposition~4.6. For \eqref{eq:gen-lg-root-marginal}, the pair \((m_r,k_r)\) is jointly Gaussian by construction, and the tower property gives \(\E[k_r]=B_r\E[m_r]+\eta_{r,0}^{k}\) and \(\operatorname{Cov}(k_r)=\E[\operatorname{Cov}(k_r\given m_r)]+\operatorname{Cov}(\E[k_r\given m_r])=\Sigma_{r,0}^{k}+B_r\Sigma_{r,0}^{m}B_r^\top\). The second summand is positive semidefinite, which gives the ordering. \hfill\(\square\)
+
+The observation kernel \eqref{eq:gen-lg-obs} may be replaced by any normalized Markov kernel from \(\R^{K}\times\R^{d_m}\) to the observation space of agent \(i\). Such a replacement changes the likelihood and every numerical value computed from it, and changes none of the identities of \Cref{ch:elbo}, which use only that the joint is a normalized measure with the declared factorization. \status{ESTABLISHED}
+
+One warning belongs here, so that the Gaussian realization is not over-read. Assembling \eqref{eq:gen-lg-model} through \eqref{eq:gen-lg-root-state} into a joint law for the stacked latent \(Y\) produces a Gaussian with some precision matrix, but that precision is not, in general, of the Laplacian-plus-self-terms form used later in this document. An unrestricted state transition contributes an off-diagonal block that need be neither symmetric nor sign-correct. The interaction family is therefore a declared subfamily rather than a consequence of linear-Gaussian directedness; \Cref{ch:gaussian} states the additional hypothesis, exhibits the counterexample, and identifies the condition under which the form does hold. Nothing in the present chapter asserts the restricted form.
+
+\section{Gauge covariance}
+\label{sec:gen-gauge}
+
+Let the frames of \Cref{ch:geometry} be group elements \(u_i\in G\) with represented images
+\begin{equation}
+U_i=\rho_k(u_i)\in\GL^{+}(K),
+\qquad
+U_i^{m}=\rho_m(u_i)\in\GL(d_m),
+\label{eq:gen-frames}
+\end{equation}
+and let a change of local frame be a family \(g_i\in G\), \(i\in V\), acting by \(u_i\mapsto g_iu_i\), with represented actions
+\begin{equation}
+g_i^{k}=\rho_k(g_i)\in\GL^{+}(K),
+\qquad
+g_i^{m}=\rho_m(g_i)\in\GL(d_m).
+\label{eq:gen-rep-actions}
+\end{equation}
+The image of \(g_i\) under \(\rho_k\) lies in \(\GL^{+}(K)\) because the frames do and the action \(u_i\mapsto g_iu_i\) must preserve the declared frame set. The latent coordinates transform as \(k_i'=g_i^{k}k_i\) and \(m_i'=g_i^{m}m_i\). The two matrices in \eqref{eq:gen-rep-actions} are images of the same group element under two representations; choosing them independently would declare a different geometric model, in which the two channels carry unrelated structure groups. \status{DEFINITION} The observation coordinate is gauge inert, \(o_i'=o_i\), which is the statement that the data are not relabeled when the model's frames are.
+
+The parameter transformation laws are forced by requiring that the conditional means be covariant vectors in their receiving fibers and the conditional covariances be covariant two-tensors there. For a directed edge \(j\to i\),
+\begin{align}
+\Omega_{ij}^{k\prime}
+&=g_i^{k}\Omega_{ij}^{k}(g_j^{k})^{-1},
+&
+\Omega_{ij}^{m\prime}
+&=g_i^{m}\Omega_{ij}^{m}(g_j^{m})^{-1},
+\label{eq:gen-gauge-links}\\
+T_i^{k\prime}
+&=g_i^{k}T_i^{k}(g_i^{k})^{-1},
+&
+T_i^{m\prime}
+&=g_i^{m}T_i^{m}(g_i^{m})^{-1},
+\label{eq:gen-gauge-selfmaps}\\
+B_i'
+&=g_i^{k}B_i(g_i^{m})^{-1},
+&
+\eta_i^{k\prime}
+&=g_i^{k}\eta_i^{k},
+\qquad
+\eta_i^{m\prime}
+=g_i^{m}\eta_i^{m},
+\label{eq:gen-gauge-bridge-offsets}
+\end{align}
+and the conditional covariances transform by congruence in their receiving fibers,
+\begin{equation}
+\Sigma_i^{k\prime}=g_i^{k}\Sigma_i^{k}(g_i^{k})^\top,
+\qquad
+\Sigma_i^{m\prime}=g_i^{m}\Sigma_i^{m}(g_i^{m})^\top.
+\label{eq:gen-gauge-covariances}
+\end{equation}
+Writing \(g_i\) for whichever of \(g_i^{k}\) or \(g_i^{m}\) acts on the receiving channel, the corresponding precision obeys the dual inverse congruence
+\begin{equation}
+\Lambda_i=\Sigma_i^{-1},
+\qquad
+\Sigma_i'=g_i\Sigma_ig_i^\top,
+\qquad
+\Lambda_i'=(\Sigma_i')^{-1}=g_i^{-\top}\Lambda_ig_i^{-1}.
+\label{eq:gen-gauge-precision}
+\end{equation}
+Congruence preserves the positive definite cone and the inverse law is direct matrix inversion \citep{HornJohnson2013,Bhatia2007}, so \eqref{eq:gen-gauge-covariances} maps admissible covariances to admissible covariances and \eqref{eq:gen-lg-spd} is preserved. At a root the same reasoning gives
+\begin{align}
+\bar m_r'&=g_r^{m}\bar m_r,
+&
+\Sigma_{r,0}^{m\prime}&=g_r^{m}\Sigma_{r,0}^{m}(g_r^{m})^\top,
+\label{eq:gen-gauge-root-model}\\
+B_r'&=g_r^{k}B_r(g_r^{m})^{-1},
+&
+\eta_{r,0}^{k\prime}&=g_r^{k}\eta_{r,0}^{k},
+\qquad
+\Sigma_{r,0}^{k\prime}=g_r^{k}\Sigma_{r,0}^{k}(g_r^{k})^\top.
+\label{eq:gen-gauge-root-state}
+\end{align}
+Gauge inertness of the observations requires the observation parameters to carry compensating right actions,
+\begin{equation}
+H_i^{k\prime}=H_i^{k}(g_i^{k})^{-1},
+\qquad
+H_i^{m\prime}=H_i^{m}(g_i^{m})^{-1},
+\qquad
+\eta_i^{o\prime}=\eta_i^{o},
+\qquad
+\Sigma_i^{o\prime}=\Sigma_i^{o}.
+\label{eq:gen-gauge-observation}
+\end{equation}
+The loadings are maps out of the fibers rather than tensors within them, so they transform on the right only; the observation offset and covariance live entirely in the inert space and do not transform at all. A model that declared \(H_i^{k}\) frame-independent would break covariance at the observation kernel, and a model that declared \(\eta_i^{k}\) frame-independent would break it at the state kernel; the offsets must be vectors in their fibers, not constants.
+
+\textbf{Proposition 4.10.} Under \eqref{eq:gen-gauge-links} through \eqref{eq:gen-gauge-observation}, every transformed kernel is the pushforward of the original kernel into the receiving frame. Explicitly, for each nonroot \(i\) with parent \(j\) and all \(k_j\in\R^{K}\), \(m_i\in\R^{d_m}\), \(m_j\in\R^{d_m}\),
+\begin{align}
+P_{\theta',i}^{k}\left(\cdot\given g_j^{k}k_j,g_i^{m}m_i,X'\right)
+&=\left(g_i^{k}\right)_{\#}P_{\theta,i}^{k}\left(\cdot\given k_j,m_i,X\right),
+\label{eq:gen-gauge-pushforward-state}\\
+P_{\theta',i}^{m}\left(\cdot\given g_j^{m}m_j,X'\right)
+&=\left(g_i^{m}\right)_{\#}P_{\theta,i}^{m}\left(\cdot\given m_j,X\right),
+\label{eq:gen-gauge-pushforward-model}\\
+P_{\theta',i}^{o}\left(\cdot\given g_i^{k}k_i,g_i^{m}m_i,X'\right)
+&=P_{\theta,i}^{o}\left(\cdot\given k_i,m_i,X\right),
+\label{eq:gen-gauge-pushforward-obs}
+\end{align}
+and the analogous identities hold at roots. \status{ESTABLISHED}
+
+\emph{Proof.} The pushforward of \(\mathcal N(\nu,\Sigma)\) on \(\R^{n}\) under an invertible linear map \(g\) is \(\mathcal N(g\nu,g\Sigma g^\top)\). For \eqref{eq:gen-gauge-pushforward-state} the transformed covariance is \(g_i^{k}\Sigma_i^{k}(g_i^{k})^\top\) by \eqref{eq:gen-gauge-covariances}, and the transformed mean evaluated at the transformed parents is
+\begin{equation}
+T_i^{k\prime}\Omega_{ij}^{k\prime}\left(g_j^{k}k_j\right)
++B_i'\left(g_i^{m}m_i\right)+\eta_i^{k\prime}
+=g_i^{k}\left(T_i^{k}\Omega_{ij}^{k}k_j+B_im_i+\eta_i^{k}\right),
+\label{eq:gen-gauge-mean-identity}
+\end{equation}
+because the interior factors \((g_i^{k})^{-1}g_i^{k}\), \((g_j^{k})^{-1}g_j^{k}\), and \((g_i^{m})^{-1}g_i^{m}\) cancel in turn. Equation \eqref{eq:gen-gauge-pushforward-model} is the same computation with the superscript \(m\) throughout and no bridge term. For \eqref{eq:gen-gauge-pushforward-obs}, the transformed predictive mean is
+\begin{equation}
+H_i^{k\prime}\left(g_i^{k}k_i\right)
++H_i^{m\prime}\left(g_i^{m}m_i\right)
++\eta_i^{o\prime}
+=H_i^{k}k_i+H_i^{m}m_i+\eta_i^{o},
+\label{eq:gen-gauge-observation-identity}
+\end{equation}
+and the covariance is unchanged, so the kernel is unchanged, which is the pushforward under the identity map on the inert observation space. The root identities follow from \eqref{eq:gen-gauge-root-model} and \eqref{eq:gen-gauge-root-state} by the same cancellations, and \eqref{eq:gen-lg-root-marginal} then gives \(\bar k_r'=g_r^{k}\bar k_r\) and \(\Sigma_{r,0}^{k,\mathrm{marg}\prime}=g_r^{k}\Sigma_{r,0}^{k,\mathrm{marg}}(g_r^{k})^\top\), so conditional and marginal root moments have the same receiving-fiber type. \hfill\(\square\)
+
+\textbf{Corollary 4.11.} Let \(T(o,y)=(o,gy)\) where \(g=\bigoplus_{a,i}(g_i^{k}\oplus g_i^{m})\) is the block-diagonal linear bijection of \(\mathsf Y_D\) assembled from \eqref{eq:gen-rep-actions}. Then
+\begin{equation}
+P_{\theta'}(\cdot\given X')=T_{\#}P_\theta(\cdot\given X),
+\qquad
+p_{\theta'}(o,y'\given X')=\left|\det g\right|^{-1}p_\theta\left(o,g^{-1}y'\given X\right),
+\label{eq:gen-gauge-joint-pushforward}
+\end{equation}
+and consequently the observation marginals agree as measures, so the evidence is gauge invariant,
+\begin{equation}
+p_{\theta'}(o\given X')=p_\theta(o\given X)
+\qquad\text{for }\nu_D^O\text{-almost every }o\in\mathsf O_D,
+\label{eq:gen-gauge-evidence-invariance}
+\end{equation}
+\status{ESTABLISHED}
+
+\emph{Proof.} Apply Proposition~4.10 vertex by vertex along the topological order in \eqref{eq:gen-iterated-integral}: at each step the kernel to be applied is the pushforward under the corresponding block of \(g\) of the original kernel evaluated at the untransformed conditioning values, and those conditioning values are precisely what the previous steps have already produced in transformed form. The first identity in \eqref{eq:gen-gauge-joint-pushforward} follows, and the second is the change-of-variables formula for a linear bijection, with \(\det g=\prod_{a}\prod_{i}\det(g_i^{k})\det(g_i^{m})\). For \eqref{eq:gen-gauge-evidence-invariance}, integrate the second identity over \(y'\) and substitute \(y=g^{-1}y'\); the Jacobian factors cancel, and \(T\) acts as the identity on the observation coordinate, so the observation marginal is unchanged. \hfill\(\square\)
+
+Corollary~4.11 is what makes the next chapter's bound a bound on a frame-independent number, and it is what makes frame-dependent selection criteria inadmissible in \Cref{ch:coarsegraining}. It also fixes the empirical status of the covariance, and the fix cuts against overstatement. Because the group acts trivially on the observation space, gauge invariance of the evidence has no observational content by itself: no experiment can distinguish two frames. Its content is a constraint on admissible statements, namely that any quantity offered as a property of the model must be a gauge invariant, and any criterion that changes under \eqref{eq:gen-gauge-links} through \eqref{eq:gen-gauge-observation} is a property of a coordinate choice.
+
+Two regimes must be distinguished at this point, because they have different logical status. In Regime~I the links are the cocycle \(\Omega_{ij}^{k}=U_iU_j^{-1}\), and the transformation law \eqref{eq:gen-gauge-links} is a theorem: from \(u_i\mapsto g_iu_i\) one gets \(U_i'=g_i^{k}U_i\), hence \(\Omega_{ij}^{k\prime}=g_i^{k}U_iU_j^{-1}(g_j^{k})^{-1}\) directly. \status{ESTABLISHED} In Regime~II the \(\Omega_{ij}^{k}\) are independently declared invertible edge data, and \eqref{eq:gen-gauge-links} is then an imposed condition on how the declaration responds to reframing, not a consequence of anything. \status{DEFINITION} Call this Declaration~4.12. The difference has consequences: under Regime~I the composite of links around any cycle of the undirected skeleton is the identity, whereas under Regime~II it need not be, and that failure is exactly the obstruction that removes closure of the interaction family under aggregation in \Cref{ch:coarsegraining}. The present chapter records the distinction and defers the consequence.
+
+One question raised by this section is left unsettled here. The gauge group acts on the declared parameter tuple, and the model is properly a function on the orbits rather than on the tuple, but the orbit space has not been analyzed. The action need not be free. The stabilizer of a parameter tuple is the set of families \((g_i)_{i\in V}\) that simultaneously commute with every self map and every link, fix every conditional covariance under congruence, fix every offset, and satisfy \(H_i^{k}(g_i^{k})^{-1}=H_i^{k}\) and \(H_i^{m}(g_i^{m})^{-1}=H_i^{m}\). That subgroup can be nontrivial, for instance when all of those data are invariant under a common closed subgroup of the represented gauge group, and at such a tuple the quotient is not automatically a manifold and the dimension count obtained by subtracting \(N\dim G\) is not valid. Whether the quotient of the admissible parameter space by the gauge group is a manifold, and what the stabilizer subgroups are, is open. \status{OPEN} Call this Open Problem~4.13. Settling it requires identifying the stabilizer of a generic tuple under the simultaneous conjugation and congruence action of \eqref{eq:gen-gauge-selfmaps} and \eqref{eq:gen-gauge-covariances} and checking whether the action is proper and free on a dense invariant open subset; nothing later in this document depends on the answer, and no claim about parameter counting modulo gauge is made anywhere in what follows.
+
+\section{Status register}
+\label{sec:gen-register}
+
+\begin{sciencetable}{Status register for \Cref{ch:generative}. Every numbered item of the chapter appears with its epistemic status and, where the status is not \textsc{established}, the outstanding obligation.}
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}X l>{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Item} & \textbf{Statement} & \textbf{Status} & \textbf{What is owed} \\
+\midrule
+4.1 & Split of numerical parameters \(\theta\) from structural data \(X\) & \textsc{definition} & Nothing proved; results hold for any split \\
+4.2 & Iterated kernel composition \eqref{eq:gen-iterated-integral} defines a probability kernel & \textsc{established} & Proved in \Cref{sec:gen-composition} \\
+4.3 & Cross-design conditional product \eqref{eq:gen-design-product} & \textsc{hypothesis} & A choice; excludes cross-design dependence, used only in Proposition~4.6 and the factor count \\
+4.4 & Typing prohibition & \textsc{definition} & Requirement of the construction; nothing proved \\
+4.5 & What fails if a kernel reads a posterior & \textsc{established} & Proved in \Cref{sec:gen-typing} \\
+4.6 & Normalization by reverse-topological integration, no partition function & \textsc{established} & Proved in \Cref{sec:gen-normalization} \\
+4.7 & Local normalization does not give finite \(Z_X\) & \textsc{established} & Counterexample \eqref{eq:gen-gibbs-counterexample} \\
+4.8 & Linear-Gaussian realization on a directed forest & \textsc{definition} & Declared shapes and SPD requirements \\
+4.9 & Nondegeneracy and root marginal moments \eqref{eq:gen-lg-root-marginal} & \textsc{established} & Proved in \Cref{sec:gen-gaussian} \\
+4.10 & Frame change acts by pushforward on every kernel & \textsc{established} & Proved in \Cref{sec:gen-gauge} \\
+4.11 & Joint pushforward and gauge invariance of the evidence & \textsc{established} & Proved in \Cref{sec:gen-gauge} \\
+4.12 & Regime~II link transformation law is imposed, not derived & \textsc{definition} & Declared; Regime~I version is a theorem \\
+4.13 & Structure of the gauge quotient of parameter space & \textsc{open} & Needs stabilizer analysis and properness of the action; nothing later depends on it \\
+\bottomrule
+\end{tabularx}
+\end{sciencetable}

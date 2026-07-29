@@ -5,7 +5,7 @@ aliases: [kl_max clamp, kl_max saturation, K-width clamp problem, divergence sat
 tags: [cluster/vfe, cluster/info-geometry, project/transformer]
 status: draft
 created: 2026-06-21
-updated: 2026-06-21
+updated: 2026-07-25
 ---
 
 # Divergence clamp saturation
@@ -70,6 +70,32 @@ saturate.
 > ([[participatory-it-from-bit]], [[gl-k-attention]]), not a published external result; the empirical numbers come from
 > [[2026-06-21-k160-hyperprior-saturation]].
 
+## A sharper variant: saturation that destroys its own escape route
+
+The 2026-06-21 case is the benign form — a saturated regularizer goes silently inert while the model
+keeps training through other terms. A 2026-07-25 experiment produced the malignant form, in which
+**the saturated term is the one whose gradient maintains the conditioning that keeps it below the
+ceiling**, so saturation is self-reinforcing ([[2026-07-25-exact-congruence-truncation-tension]]).
+
+Replacing the truncated transported covariance with the exact congruence
+$\Omega\,\mathrm{diag}(s_j)\,\Omega^\top$ makes the pairwise energy scale as
+$\mathrm{cond}(\Omega)^2$ through the KL trace term, because the exact congruence is near-singular
+along the contracted directions of an ill-conditioned frame while the truncated
+$\sum_l\Omega_{kl}^2s_l$ is a sum of squares and never is. On a trained state the exact energy runs
+7.2$\times$ the truncated one at the median and 426$\times$ at p99, with a maximum of 10,912 nats
+against $k_\text{max}=160$. The pair mask `(energy > 0) & (energy < kl_max)` then zeroes the pair
+derivative for every saturated pair, removing the only term that would push $\phi$ back toward
+well-conditioned frames. Saturation climbed 0.06 → 0.15 → 0.20 → 0.80 → 0.97 → 0.979 over 7,900
+steps and the run never recovered, while the truncated baseline held saturation at exactly 0.0000
+for all 15,000 steps. Attention entropy washed back out toward uniform as the grid flattened onto
+the clamp.
+
+Scaling the clamp with width — remedy 1 below — does not help here: the required ceiling is not
+$cK$ but roughly 10,900 at $K=20$, set by the square of the worst frame condition number rather than
+by dimension. The load-bearing object turns out to be the truncation itself
+([[Diagonal truncation as gauge regularization]]), so the correct reading is that this energy should
+not be computed exactly under a non-compact gauge rather than that the clamp should be raised.
+
 ## In this work
 
 Controlled by the single global `cfg.kl_max` (`vfe3/config.py`), threaded to every divergence consumer — the
@@ -79,7 +105,9 @@ observed in [[2026-06-21-k160-hyperprior-saturation]] (the hyper-prior block pin
 
 ## Sources
 - [[2026-06-21-k160-hyperprior-saturation]] — empirical measurement at K=160
+- [[2026-07-25-exact-congruence-truncation-tension]] — the self-reinforcing variant, where the
+  saturated term's own gradient was the restoring force
 - [[participatory-it-from-bit]] · [[gl-k-attention]] — the $\tau=\kappa\sqrt{K}$ convention and the free-energy functional
 
 ## See also
-- [[Renyi divergence]] · [[Belief coupling]] · [[Natural gradient]] · [[Precision weighting]] · [[VFE Transformer Program]]
+- [[Renyi divergence]] · [[Belief coupling]] · [[Natural gradient]] · [[Precision weighting]] · [[Diagonal truncation as gauge regularization]] · [[VFE Transformer Program]]
