@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-17
+updated: 2026-07-28
 ---
 
 # Renormalization-group flow of beliefs
@@ -78,6 +78,22 @@ The RG machinery lives in `gauge_agent/renormalization.py` (Layer 7), alongside 
 
 This page develops the multi-scale, coarse-graining facet of the model; for the configuration-counting thermodynamics see [[Meta-entropy]], for the running multi-scale tower see [[Ouroboros multi-scale dynamics]], and for the inertial / Hamiltonian belief dynamics that drive equilibration at each scale see [[Belief inertia]] and [[Hamiltonian belief dynamics]] (manuscript [[belief-inertia]]).
 
+## What the renormalization literature supplies (2026-07-28)
+
+An application study against [[berman-2023-bayesian-renormalization]] and [[gabrielli-2025-network-renormalization]] with its two primaries, developed in the MAgent repo at `docs/derivations/2026-07-28-renormalization-literature-application.md` with oracle `verification/rg_literature_probe.py`. Five findings bear on this page.
+
+**The three constructions act on one matrix.** For a Gaussian recognition family the white paper's matrix-weighted interaction Laplacian **is** the [[Fisher information metric]] of the belief-mean sector: for $Y\sim\mathcal N(\mu,\Lambda^{-1})$ the Fisher information in $\mu$ is exactly $\Lambda$. So the Bayesian-RG eigenvalue cutoff, the tying log-determinant gap, and the Laplacian-RG density matrix $e^{-\tau\Lambda}/Z$ are functions of one spectrum. This also re-reads a fact the [[Ouroboros multi-scale dynamics|tower]] investigation reached three independent ways: global consensus is the Laplacian's null direction, hence the **zero-Fisher-eigenvalue** direction.
+
+**Precision pooling is not a coarse-graining.** Bayesian RG fixes the flow parameter as $\tau = 1/T$: coarse-graining widens the posterior, inference narrows it. Meta-agent formation *adds* precisions, so it runs the flow toward the UV — and the white paper independently proves the point by sufficiency, since $T(y)=\sum_i\Omega_i^\top R_i^{-1}y_i$ is sufficient for the parent and therefore integrates nothing out. Pooling is a sufficient reduction, a change of coordinates; only the family restriction is a renormalization step. This is the correct diagnosis of why a coarse agent comes out *more* certain than its constituents.
+
+**The intrinsic scale is computable from the shipped precision.** [[villegas-2023-laplacian-renormalization-group|Laplacian RG]] gives $\rho(\tau)=e^{-\tau L}/Z$, $S(\tau)$, and the entropic susceptibility $C(\tau) = -dS/d\log\tau$, whose peaks mark intrinsic scales and whose plateaus mark scale-invariant windows, with the blocking partition falling out of the propagator as diffusion-equivalence cells. On a planted three-cluster matrix-weighted Laplacian the susceptibility peaks recovered the planted weight ratio (47.8 against 50) and the cells recovered the planted partition exactly. This is a principled replacement for the KL-proximity agglomeration currently in `renormalization.py`, and `UniversalityTest.compare_flows` already exists to compare the two.
+
+**A selection criterion for *when* to coarsen.** Transplanting the Bayesian-RG cutoff correctly gives a subspace log-determinant rather than a diagonal threshold: tying kills the within-cluster *difference* subspace, and forcing a direction to a point is cheap exactly when its precision is *large*, so the objective is $\max_S \tfrac12\log\det(B_\perp^\top\Lambda B_\perp)$ over the complement of the tied subspace. Verified as the strict maximizer against 500 size-matched scrambles; greedy search on it needs the Laplacian-RG partition as an initializer, so the two papers compose.
+
+**The apex, reformulated.** The Ouroboros apex closure is refuted because the self-reference is a cycle in the *model*. Bayesian RG is a formalism in which the loop lives in the *inference* — a one-parameter family of posteriors indexed by $\tau$, with no top node and the $\tau\to\infty$ limit playing the role of the declared top prior. Wheeler-style self-reference becomes flow reversibility rather than a graph cycle, which bypasses every normalizability obstruction the refutation found rather than repairing it.
+
+> [!note] Editorial: three things this does NOT license. It is not a claim that tying is an ERG step — the Bayesian-RG program's only exact match to momentum-shell RG is a free scalar field theory dual to one infinitely-wide layer. It is not a monotone: the Petz/Chentsov citation problems already recorded against [[beny-osborne-2015-info-geometric-rg]] are untouched by it. And it must not use the diagonal Fisher, which is what [[berman-2023-bayesian-renormalization|BKS]] implement and which discards exactly the off-diagonal coupling that a matrix-weighted Laplacian is made of.
+
 ## Sources
 
 - [[wilson-1975-renormalization-group]] — Wilson's RG: scale-by-scale coarse-graining, fixed points, relevant/irrelevant operators, universality; the template this module adapts to beliefs.
@@ -94,6 +110,11 @@ This page develops the multi-scale, coarse-graining facet of the model; for the 
 - [[degroot-1974-consensus]], [[friedkin1990-social-influence-opinions|friedkin-johnsen-1990]], [[deffuant2000-bounded-confidence|deffuant-2000-bounded-confidence]], [[hegselmann-2002-opinion|hegselmann-krause-2002]], [[galam-2008-sociophysics]] — opinion-dynamics / sociophysics precedents for coarse-grained collective belief behavior.
 - [[delamotte-2012-nonperturbative-rg]] — pedagogical functional (nonperturbative) RG: the Wetterich flow of the whole effective action, the formalism for making belief coarse-graining exact rather than schematic.
 - [[cornwall-jackiw-tomboulis-1974-2pi-effective-action]] — connected two-point effective-action hierarchy used by the proposed correlation-preserving configuration completion.
+
+- [[berman-2023-bayesian-renormalization]] — the Fisher metric as an emergent RG scale; $\tau=1/T$ fixing the direction of the flow; inference as inverse ERG.
+- [[gabrielli-2025-network-renormalization]] — RG on heterogeneous networks; open problem 2 (renormalizing dynamics and topology together) is this program's problem.
+- [[villegas-2023-laplacian-renormalization-group]] — the entropic susceptibility scale detector and diffusion-equivalence blocking.
+- [[garuccio-2023-multiscale-network-renormalization]] — additivity as the renormalizability criterion; the scale-free versus scale-invariant demarcation; the $\alpha$-stable route to a two-sided flow.
 
 ## See also
 

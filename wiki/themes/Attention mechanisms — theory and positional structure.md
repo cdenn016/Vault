@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-10
+updated: 2026-07-25
 ---
 
 # Attention mechanisms — theory and positional structure
@@ -48,6 +48,8 @@ The direct precursor landscape also includes Structured Attention Networks; late
 The Regime-I vertex cocycle forces trivial loop holonomy but permits nonidentity pairwise transport. Identity follows in the shared-frame reduction, or when a single edge-independent transport occurs on every attended edge including a self edge or on all three edges of a transitive triple. The isotropic KL reduction at that identity-transport point is identity-bilinear plus a key-norm bias; arbitrary learned QK structure is separate. The full-Gaussian pushforward theorem remains exact, but the live diagonal family is closed only under monomial transport, so covariance transport and aggregation are projected or approximate under general frames. [[gl-k-attention-2026-07-09-review-revision]]
 
 Position enters twice over. The standard relative-position kernels (RoPE, ALiBi, T5 buckets) sit on top of the similarity smoother as positional kernels in the sense of [[tsai-2019-kernel-attention]]. But the program also carries a *learned* positional element living in the gauge Lie algebra, combined by BCH composition and with the rotary encoding — making positional structure a first-class gauge quantity transported alongside the beliefs, in the spirit of [[cohen-2019-gauge-cnn]] and [[finzi-2020-lieconv]]. Finally, the entire weighting is precision-modulated, fusing the attention matrix with the precision-weighted prediction-error dynamics of [[rao-1999-predictive-coding]] and [[bogacz-2017-free-energy-tutorial]], and an attention-entropy term regularizes how sharply the weights concentrate. The reference block-GL($k$) linear-mixing configuration documented in [[VFE Transformer Program]] is where these pieces are wired together.
+
+> [!note] Measurement (2026-07-25) — the positional kernel dominates the derived similarity. The question of how the additive positional prior and the divergence-based content score divide the work has now been measured on the program's $K=300$ WikiText-103 checkpoint. Writing $\beta_{ij}=\mathrm{softmax}_j(\log\pi_{ij}-E_{ij}/\tau)$, flattening $\log\pi$ (the `causal_alibi_noself` prior plus a detached precision bias and a folded model-channel term) costs **0.612 nats**, while ablating the entire belief-coupling energy $E$ costs **0.210** — the positional prior carries roughly three times what the content channel does, and the content channel is worth about 12.5% of what context is worth in total. Zeroing the gauge frame table costs about nine times the whole content channel, which locates the gauge's contribution in the **value** path rather than in the scores it feeds. Functionally the model is an ALiBi-weighted average of gauge-transported values with a modest content reweighting. Two proposed remedies were also measured and refuted: moving the temperature toward the ELBO-exact $\tau=1$ is monotonically worse, and the model's use of context saturates near 32 tokens (0.030 nats marginal from the 32–63 band to the 64–127 band), so extending the window is low-value. The structural reason the content channel is weak is that the belief objective carries no data term, so $E_{ij}$ measures belief agreement rather than predictive relevance. [[2026-07-25-phi-table-and-beta-channel-measurements]]
 
 ## Open questions / gaps
 

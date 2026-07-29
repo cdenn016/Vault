@@ -15,7 +15,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-06-19
+updated: 2026-07-28
 ---
 
 # Renormalization group flow
@@ -110,6 +110,17 @@ sandwich average for blocking (to avoid the multiplicative "veto"), so the RG bl
 here is a linear pool — a modeling decision the RG framework leaves open and the pooling
 literature adjudicates.
 
+## Renormalization without a lattice
+
+Everything above assumes the thing being coarse-grained sits on a lattice. Two recent lines drop that assumption in opposite directions, and between them they cover the situation the multi-agent program is actually in.
+
+**Networks.** [[gabrielli-2025-network-renormalization]] reviews how RG survives the loss of homogeneity, symmetry, geometry and locality. It factors renormalization into three steps — define coarse variables, marginalize fine detail, renormalize parameters — and places three frameworks against them: geometric renormalization takes its blocks from a latent hyperbolic embedding ([[garciaperez-2018-multiscale]]), [[villegas-2023-laplacian-renormalization-group|Laplacian RG]] takes them spectrally from diffusion, and the [[garuccio-2023-multiscale-network-renormalization|multiscale model]] is agnostic about blocks entirely, instead characterizing the unique connection probability invariant under *every* aggregation. The last of these yields the criterion worth carrying away: **a family is renormalizable when its defining parameter is additive under aggregation**, which is why the configuration model, degree-corrected SBM and preferential attachment are not — their defining quantity is the degree, which is neither preserved nor additively transformed. A corollary that the belief program should adopt: **scale-free and scale-invariant are different, largely orthogonal properties.**
+
+**Scale from statistics rather than from space.** [[berman-2023-bayesian-renormalization]] derives the RG scale from the [[Fisher information metric]] instead of from a momentum cutoff. Writing $T$ for the number of observations and $\tau = 1/T$, the posterior flow of Bayesian updating is a Fokker–Planck equation structurally identical to the Polchinski ERG equation, with the Fisher metric as diffusion kernel: inference and renormalization are the same equation with the flow reversed. Because $D_{KL}$ is Fisher to second order, the metric measures distinguishability, and a distinguishability scale *is* a correlation length — one that exists even where no physical scale does. Relevant/irrelevant becomes stiff/sloppy, i.e. large/small Fisher eigenvalue.
+
+> [!warning] The two schemes renormalize different spaces and keep opposite modes
+> Wilsonian and Laplacian schemes act on the **sample space** and retain the **soft**, small-eigenvalue modes. Bayesian renormalization acts on the **model space** and retains the **stiff**, large-Fisher directions. Applied to one and the same operator they select complementary subspaces. They are dual constructions, not rival answers — but the phrase "coarse-graining keeps the relevant directions" is ambiguous between them.
+
 ## Sources
 
 - [[wilson-1971-rg-critical-phenomena]] — the RG transformation realizing Kadanoff block-spin scaling; fixed points and the relevant/irrelevant/marginal operator taxonomy.
@@ -118,6 +129,10 @@ literature adjudicates.
 - [[cardy-1996-scaling-renormalization]] — standard pedagogy: Wilsonian effective action, Gaussian/saddle-point closure, finite-size scaling.
 - [[bialek2001predictability|bialek-2001-predictability-complexity]] — predictive information and its sub-extensive growth; the information-theoretic reading of what coarse-graining keeps versus discards.
 - [[geshkovski-2023-mathematical-transformers]] — attention as an interacting-particle consensus flow producing clusters; the microdynamics the belief-RG coarse-grains.
+- [[gabrielli-2025-network-renormalization]] — RG on heterogeneous networks: the three-step program; geometric, Laplacian and multiscale frameworks compared.
+- [[garuccio-2023-multiscale-network-renormalization]] — uniqueness of the aggregation-invariant model; additivity as the renormalizability criterion; scale-free versus scale-invariant.
+- [[villegas-2023-laplacian-renormalization-group]] — diffusion time as an intrinsic RG scale; entropic susceptibility as a scale detector.
+- [[berman-2023-bayesian-renormalization]] — the Fisher metric as an emergent RG scale; inference as the inverse of exact RG flow.
 - [[genest-zidek-1986-pooling]], [[dietrich-list-2016-opinion-pooling]], [[bordley-1982-multiplicative-pooling]] — opinion-pooling taxonomy fixing the aggregator used at the RG blocking step.
 
 ## See also

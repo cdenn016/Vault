@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-10
+updated: 2026-07-28
 ---
 
 # Fisher information metric
@@ -107,6 +107,14 @@ The Fisher information metric surfaces wherever the configuration declares an in
 
 Blockwise frame conditioning should not be called Fisher preconditioning. The established Fisher metric is the one on the Gaussian belief family; optional gauge-frame conditioners are separate optimizer preconditioners. The audited frame table uses plain AdamW, with those conditioners and the heavy-ball field inactive. [[gl-k-attention-2026-07-09-review-revision]]
 
+## The Fisher metric as a renormalization scale
+
+[[berman-2023-bayesian-renormalization]] promotes the metric from a preconditioner to a *scale*. Since $D_{KL}(\theta\Vert\theta') = \tfrac12\mathcal I_{ij}\delta\theta^i\delta\theta^j + O(\delta\theta^3)$, the metric converts parameter displacement into statistical distinguishability, and a distinguishability scale is a correlation length. Setting $\tau = 1/T$ with $T$ the observation count, the posterior flow $\pi_T = \mathcal N(\mu_T, T^{-1}\mathcal I^{-1})$ becomes a Fokker–Planck equation with the pushforward Fisher metric as diffusion kernel, structurally identical to the Polchinski exact-RG equation: **inference and renormalization are the same equation with the flow reversed.** Large Fisher eigenvalues are stiff directions (relevant); small ones are sloppy (irrelevant), and the operational scheme integrates out everything below a cutoff.
+
+Two consequences for this program. First, the multi-agent model's matrix-weighted interaction Laplacian *is* this metric in the belief-mean sector — for $Y\sim\mathcal N(\mu,\Lambda^{-1})$ the Fisher information in $\mu$ is exactly $\Lambda$ — so [[Coarse Graining|coarse-graining costs]], natural-gradient preconditioning, and the RG cutoff are all statements about one spectrum. Second, an exactly unidentifiable direction has *zero* Fisher eigenvalue, hence is maximally sloppy: the $K^2$-dimensional coarse-frame orbit the exact-ELBO white paper proves unidentifiable is not merely undetermined but the first thing any Bayesian renormalization discards. That is a stronger statement than "declare a convention," and it explains why no geometric criterion could ever have selected a canonical frame.
+
+> [!warning] Do not use the diagonal. [[berman-2023-bayesian-renormalization|BKS]] argue spectrally but implement with diagonal entries $\mathcal I_{ii}$, a discrepancy they never address; a set of individually sloppy but jointly stiff directions is then misclassified. For a coupled family the criterion must be a subspace determinant, not an entrywise threshold. Their construction also requires an invertible metric, so a degenerate sector must be quotiented before the machinery is imported.
+
 ## Sources
 
 - [[amari-1998-natural-gradient]] — establishes the Fisher metric as the preconditioner of the natural (steepest-descent) gradient on a statistical manifold.
@@ -129,6 +137,9 @@ Blockwise frame conditioning should not be called Fisher preconditioning. The es
 - [[frieden-1998-physics-fisher]] — derivation of physical laws by extremizing Fisher information (extreme physical information).
 - [[reginatto-1998-fisher-quantum]] — the Schrodinger equation obtained from a Fisher-information variational principle.
 - [[parr-2020-markov-blankets-thermodynamics]] — free-energy minimization read thermodynamically, the same extremal-information template applied to self-organizing systems.
+
+- [[berman-2023-bayesian-renormalization]] — the Fisher metric as an emergent RG scale; stiff/sloppy as relevant/irrelevant; the information-shell scheme.
+- [[gabrielli-2025-network-renormalization]] — §6.4 names Fisher information and information geometry as the route to parameter relevance on networks, without deriving it.
 
 ## See also
 

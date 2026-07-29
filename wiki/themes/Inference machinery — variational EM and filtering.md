@@ -12,7 +12,7 @@ tags:
   - project/transformer
 status: stable
 created: 2026-06-18
-updated: 2026-07-19
+updated: 2026-07-25
 ---
 
 # Inference machinery — variational EM and filtering
@@ -166,6 +166,17 @@ the two inner refinements and the outer update. The inference machinery is struc
 with distinct inner and decode objectives.
 [[gl-k-attention-2026-07-09-review-revision]]
 
+> [!note] Structural correction (2026-07-25): the two inner refinements are two attention layers.
+> `_refine_s` is not merely a preparatory step — it runs its own E-step with `lambda_gamma`
+> coupling, its own causal-ALiBi attention prior and its own temperature, and its output *is* the
+> belief's prior. Measured on two checkpoints, the model channel injects essentially all of the
+> representation's context dependence (relative displacement 0.000 raw → 0.812 after the $s$
+> refinement → 0.872 after the belief E-step at $K=300$), and the two channels are heavily
+> redundant, contributing 1.343 and 1.854 nats individually but 1.947 jointly. Despite `n_layers=1`
+> the trained route is therefore `token lookup → s-channel attention → belief attention → linear
+> decode`, which is why `prior_source='token'` with `s_e_step=False` reaches comparable perplexity.
+> [[2026-07-25-estep-character-and-channel-decomposition]]
+
 > [!note] Editorial (2026-07-10): The literal `"filtering"` label denotes the target-blind
 > belief-refinement component; the retained route precedes it with one model-channel refinement.
 > It is analogous to the iterative refinement of
@@ -176,10 +187,19 @@ with distinct inner and decode objectives.
 ## Open questions / gaps
 
 Several tensions remain unresolved by the available sources. First, **how many
-filtering iterations suffice.** The depth of the target-blind filter is an
-empirical compute/relaxation trade-off. Marino et al. provide a learned
-amortized-refinement comparison, but their amortization-gap result does not
-define the stopping rule for this nonamortized update.
+filtering iterations suffice** — now measured, and the answer dissolves the question rather than
+settling it. On the deployed `mm_exact` rule, which computes the closed-form stationary point of the
+attention-frozen objective, one belief refinement is worth about 1.4 nats of cross-entropy and
+depths 2 through 8 are worth 0.012 in total; the iteration is a nearly straight-line contraction
+whose first step covers about 70% of the displacement
+([[2026-07-25-estep-character-and-channel-decomposition]]). There is no compute/relaxation
+trade-off to map on this channel. What the measurement replaces it with is a sharper question: the
+fixed point allocates 70 to 81% of its fused precision to the prior and 19 to 30% to the transported
+neighbors, so the refinement is one precision-weighted aggregation with a dominant residual, and the
+binding constraint is what that single aggregation can express rather than how many times it runs.
+A methodological caution attaches: the diagnostic that first appeared to show strong depth
+sensitivity was sweeping a configuration field that two independent loops read, and 99.7% of the
+effect belonged to the model consensus channel rather than to belief inference.
 
 Second, **the structural-EM boundary.** The deployed objectives are already distinct at KL order,
 so no Neal–Hinton monotone-improvement guarantee applies before considering Renyi order.
@@ -224,6 +244,11 @@ under parallel transport and holonomy (the cross-cluster theme
   backpropagation under the source paper's schedule; this does not cover the one-step filter.
 - [[vfe-population-generative-status-2026-07-12]] — state-level ELBO obstruction,
   receiver-response equilibrium, configuration-Gibbs lift, and V3 two-hop update scope.
+- [[2026-07-25-estep-character-and-channel-decomposition]] — the measured depth attribution, the
+  closed-form character of the deployed update, the prior/neighbor precision split, and the
+  two-attention-layer structure of the two inner refinements.
+- [[2026-07-25-shadow-prior-refutation]] — why a top-down cross-scale prior does not supply the
+  missing observation channel, and the Bethe-versus-mean-field status of the shadow term.
 
 Cross-cluster anchors drawn on above: [[amari-1998-natural-gradient]] for the
 Gaussian belief metric and [[li-turner-2016-renyi-vi]] as a distinct

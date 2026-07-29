@@ -1,0 +1,497 @@
+\chapter{Renormalization, Scale Invariance, and Universality}
+\label{ch:renormalization}
+
+Chapter~\ref{ch:coarsegraining} established that the declared interaction family is closed under aggregation, and that closure is not what selects the family. This chapter asks the question closure leaves open. Aggregation can be applied again to its own output, so it generates a sequence of descriptions of one population at successively coarser resolutions. Whether that sequence is a renormalization group flow, whether it has a fixed point, whether generic models are carried toward that fixed point, and what a fixed point would label, are four separate questions with four different answers. Two of them are settled here, one is settled only numerically, and one is open. Keeping the four apart is the chapter's organizing discipline, because the temptation to let a proved invariance stand in for an unproved attraction is exactly the temptation that would make a universality claim look established when it is not.
+
+The development is a Regime~I statement throughout, and the next section fixes exactly what that means before any iteration is written down. The restriction is stated once there and is not repeated at every proposition.
+
+\section{Scope: the flow is defined on trivializing populations}
+\label{sec:rg-scope}
+
+The flow constructed in this chapter rests on closure under aggregation, and closure is a theorem of the flat regime. \Cref{ch:coarsegraining} shows that the declared interaction family is returned by $\Lambda\mapsto S^{\top}\Lambda S$ only when the transports entering the state residuals are coboundaries, and it therefore defines coarsening on \emph{trivializing subfamilies}: clusters inside which every cycle carries trivial holonomy. Since the flow is nothing but iteration of that operation, its domain is the domain of that operation.
+
+\paragraph{Hypothesis (trivializing domain).}
+At every level, every cluster $I$ produced by the blocking rule is trivializing: writing $\operatorname{Hol}(\gamma)$ for the ordered product of links around a closed walk in the sense of \Cref{ch:geometry},
+\begin{equation}
+\operatorname{Hol}(\gamma)=e_G
+\qquad\text{for every closed walk }\gamma\text{ whose vertices lie in }I .
+\label{eq:rg-trivializing}
+\end{equation}
+The flow below is therefore defined on populations that are trivializing outright, and on a general population only along its trivializing subfamilies.\status{HYPOTHESIS}
+
+What the hypothesis buys is the trivialization itself. Write $\Theta_{ij}$ for the trivialized twist of an edge, in the notation of \Cref{ch:coarsegraining}, so that the pair energy is a form in $z_i-\Theta_{ij}z_j$ and the flat case is $\Theta_{ij}=I_K$; as in that chapter the identity matrix is written $I_K$ in this section, the letter $I$ being in use for clusters. That chapter proves the equivalence this section consumes: a connected cluster has trivial internal holonomy if and only if some cluster-local frame choice makes every internal twist the identity, and if and only if aggregation of that cluster annihilates its internal edges. In such coordinates an internal edge contributes $(z_I-z_I)^{\top}W_{ij}(z_I-z_I)=0$ and disappears without residue, which is the step \eqref{eq:rg-closure} below depends on. That is the whole of what flatness contributes to this chapter, and it is contributed once.
+
+\paragraph{Non-flatness is a precondition failure, not a refinement.}
+Under an independently declared link the coarse operator leaves the family at the first step, and \Cref{ch:coarsegraining} computes the two defects. An edge internal to a cluster leaves
+\begin{equation}
+(I_K-\Theta_{ij})^{\top}W_{ij}(I_K-\Theta_{ij})\succeq0
+\label{eq:rg-nonflat-block}
+\end{equation}
+in the coarse self term instead of vanishing, and an edge cut between two clusters contributes $-W_{ij}\Theta_{ij}$ to the coarse off-diagonal block, which is in general not symmetric and therefore not of the form $-W_{IJ}$ with $W_{IJ}\succeq0$. Neither defect is a perturbation of the quantities the flow acts on; both abolish them. The congruence iteration $\Lambda\mapsto\zeta^{-1}S^{\top}\Lambda S$ remains perfectly well defined on symmetric operators in any regime, and everything this chapter proves at operator level survives with it; but the recursion in \emph{parameters}, which is the form in which every fixed-point, attraction and universality statement below is phrased, reads a pair $(A_I,W_{IJ})$ with $A_I\succeq0$ and $W_{IJ}=W_{JI}\succeq0$ off the output of the previous step, and after one non-flat step no such pair exists. The honest statement is therefore not that the flow behaves differently on a non-flat population but that there is no flow on one: non-flatness is a failure of the flow's precondition, not a regime in which its conclusions are modified.\status{ESTABLISHED}
+
+\paragraph{What a general flow would require.}
+A flow on a genuinely non-flat population would need a coarse link for the edges cut between clusters, and that link is not determined. The one step is analyzed in \Cref{ch:coarsegraining}, which is where the result belongs and which this chapter does not repeat: with $I$ and $J$ each carried into a common trivialization, so that internal twists are the identity and each cut edge carries a twist $\Theta_{ij}$, aggregation contributes
+\begin{equation}
+\sum_{i\in I, j\in J}\bigl(z_I-\Theta_{ij}z_J\bigr)^{\top}W_{ij}\bigl(z_I-\Theta_{ij}z_J\bigr)
+\label{eq:rg-cut-coarse}
+\end{equation}
+to the coarse operator, and that chapter shows that \eqref{eq:rg-cut-coarse} is a single pair energy of the same shape, with one coarse weight and one coarse link, if and only if the cut twists all coincide, the obstruction otherwise being a positive semidefinite excess equal to the weighted variance of the cut twists about their weighted mean, which survives in the coarse self term. It also shows that the weighted mean, the natural candidate for a coarse link, transforms correctly under reframing yet need not be invertible, so it is not a link. The consequence for this chapter is the one that matters here: after a single non-flat step there is no coarse link to iterate on, so the flow is not merely modified, it is not defined.\status{OPEN} What would close it is a rule assigning a coarse weight and a coarse link to the fine cut data that is equivariant under independent cluster reframings, permutation symmetric in the cut edges, valued in the group, and consistent in the sense that coarse loop holonomies are the fine holonomies of the corresponding lifted loops, together with either a proof that the excess can be carried as a declared extra self term without leaving whatever enlarged family the rule defines, or a demonstration that it cannot.
+
+One consequence of that analysis is specific to the iterated setting and is recorded here rather than there. The agreement condition on the cut twists is itself a flatness condition one level up. In the common trivializations of $I$ and $J$, a closed walk that leaves $I$ by the cut edge $(i,j)$, travels inside $J$, returns by $(i',j')$ and closes inside $I$ has holonomy $\Theta_{ij}\Theta_{i'j'}^{-1}$, because the internal legs are trivial; so the cut twists agree exactly when every such walk is trivial, which together with the two internal conditions is the statement that $I\cup J$ is trivializing. Exact closure across a cut therefore demands not that each cluster be trivializing but that each \emph{pair} of clusters be jointly trivializing.\status{ESTABLISHED}
+
+\paragraph{Flatness escalates with scale.}
+That pairwise demand is not a fixed price paid once. Trivializing is inherited under subsets, since a closed walk inside a subset of a cluster is a closed walk inside the cluster, so the admissible partitions form a down-set in the refinement order and the demand can only tighten as the description coarsens. A blocking sequence that is nontrivial at every level strictly decreases $n_{\mathrm c}$, so on a finite population it reaches a level with at most two clusters, at which point the pairwise condition applied to those clusters is the statement that $V$ itself is trivializing. A population that is not globally flat therefore admits the flow only up to a finite resolution, the coarsest level at which no cluster and no union of two clusters has yet absorbed a nontrivial cycle.\status{ESTABLISHED} There is no version of the flow that runs to arbitrarily coarse resolution on a non-flat population, and the restriction of this section is consequently not removable by a more careful choice of blocking rule. \Cref{ch:obstructions} draws the consequence of this for the fold construction, where the same topology is wanted in the opposite direction.
+
+The two holonomy computations behind the preceding paragraphs were checked at seed $20260728$ in double precision: a cluster with a trivial cycle product was carried to identity internal twists by the spanning-tree construction to $3.9\times10^{-16}$, a cluster with a broken cycle product could not be, its loop product moving only by conjugation under an arbitrary reframing to $1.8\times10^{-15}$, and the two-cut-edge walk returned $\Theta_{ij}\Theta_{i'j'}^{-1}$, equal to the identity exactly when the two twists agreed. These corroborate arguments given in full above and in \Cref{ch:coarsegraining}; computation is not proof.\status{NUMERICAL}
+
+\paragraph{What in this chapter depends on flatness, and what does not.}
+The restriction is not uniform across the chapter, and being conservative about which results actually consume it matters more than declaring the whole chapter scoped. Three groups of statements are independent of it. Proposition~10.1 is a Loewner-order argument about an arbitrary symmetric $\Lambda$ and a $0/1$ congruence, so spectrum inflation holds for a non-flat connection Laplacian exactly as stated. Proposition~10.9 needs only that $L$ and $\Lambda$ are bilinear forms transforming by the same congruence, which is a property of how a reframing acts and not of what the links are, so the gauge invariance of the generalized spectrum survives into the non-flat regime; the same holds of Definition~10.10 as a definition, though not of any claim that the exponent is constant along a flow. Proposition~10.12 is the statement that $\Lambda$ is block diagonal across components together with the fact that a non-straddling congruence preserves that decomposition, and both hold whether or not the off-diagonal blocks carry twists, since $-W_{ij}\Theta_{ij}$ vanishes exactly when $W_{ij}$ does. Half of Proposition~10.6 survives too: $\Lambda\mapsto S^{\top}\Lambda S$ is linear and preserves the positive semidefinite cone of symmetric matrices in every regime.
+
+The remainder consumes the hypothesis, and consumes it in the strong sense that the objects the statements are about cease to exist without it. Definition~10.2 is well typed as a recursion on operators in any regime, but its parameter form, which every later statement uses, requires the closure of \eqref{eq:rg-closure}. Proposition~10.3 bounds $\max_I\|A_I\|$ by reading $A_I=\sum_{i\in I}A_i$ off that closure; under a declared link the coarse self term acquires the source \eqref{eq:rg-nonflat-block} and the self sector need not decay at all, which is the same mechanism that makes the signless control of Section~\ref{sec:rg-gate} grow rather than decay. Proposition~10.4 is a statement about the parameters $(A_i,W_{ij})$ and is scoped with them, as are Conjecture~10.8 and the whole of Section~\ref{sec:rg-birkhoff}, whose cone $\mathcal K_N$ is a cone of parameter tuples. The universality discussion is scoped in a more specific way recorded in Section~\ref{sec:rg-universality}, since the residual freedom that Proposition~10.11 classifies is congruence only when the coupling blocks are symmetric. And the disconnection argument of Section~\ref{sec:rg-disconnection} has a flatness-free half and a scoped half: the block decomposition is flatness-free, while every sentence of the form ``coupled agents share a flow'' presupposes that a flow exists and inherits \eqref{eq:rg-trivializing} with it.
+
+\section{Aggregation is a semigroup, not a flow}
+\label{sec:rg-semigroup}
+
+Fix a population $V=\{1,\dots,N\}$ with fiber dimension $K$, and recall the parameterization of the declared family: self terms $A_i\succeq 0$ and edge weights $W_{ij}=W_{ji}\succeq 0$ in $\Sym^{K}$, assembled into
+\begin{equation}
+\Lambda_{ii}=A_i+\sum_{j\neq i}W_{ij},
+\qquad
+\Lambda_{ij}=-W_{ij}
+\quad (i\neq j).
+\label{eq:rg-family}
+\end{equation}
+Aggregation by a partition with $0/1$ matrix $S=\hat S\otimes I_K$ acts as the congruence $\Lambda\mapsto S^\top\Lambda S$, and in parameters as
+\begin{equation}
+A_I=\sum_{i\in I}A_i,
+\qquad
+W_{IJ}=\sum_{i\in I, j\in J}W_{ij},
+\label{eq:rg-closure}
+\end{equation}
+with internal edges annihilated. This is the Galerkin coarse operator of aggregation-based algebraic multigrid, and the block case is that method's systems setting \citep{VanekMandelBrezina1996,Lee2024AMGSystems}; the matrix-weighted graph Laplacian appearing in \eqref{eq:rg-family} is likewise an established object \citep{Trinh2018MatrixWeighted}. No novelty attaches to either.
+
+Composition is immediate: if $\hat S_1$ assigns fine nodes to intermediate clusters and $\hat S_2$ assigns intermediate clusters to coarse ones, then $\hat S_1\hat S_2$ is again a $0/1$ matrix with exactly one unit entry per row, hence the aggregation matrix of the composite partition, and $(S_1S_2)^\top\Lambda(S_1S_2)$ is the two-step coarse operator. Aggregation therefore composes as a semigroup indexed by the refinement order on partitions.\status{ESTABLISHED} It is a semigroup and not a group: the map is not injective, since \eqref{eq:rg-closure} discards the internal edges outright, and nothing recovers them.
+
+A semigroup is not yet a flow, and the obstruction is quantitative rather than formal. The coarse description is uniformly sharper than the fine one.
+
+\paragraph{Proposition 10.1 (aggregation inflates the spectrum).}
+Let all clusters have common size $b$, so that $S^\top S=b I_{n_{\mathrm c}K}$ with $n_{\mathrm c}=N/b$. Then for every symmetric $\Lambda$,
+\begin{equation}
+b \lambda_{\min}(\Lambda) \leq \lambda_{\min}(S^\top\Lambda S),
+\qquad
+\lambda_{\max}(S^\top\Lambda S) \leq b\lambda_{\max}(\Lambda).
+\label{eq:rg-growth}
+\end{equation}
+Consequently, after $\ell$ steps of equal-block aggregation the whole spectrum lies in $b^{\ell}[\lambda_{\min}(\Lambda),\lambda_{\max}(\Lambda)]$, and if $\Lambda\succ0$ every eigenvalue diverges geometrically.\status{ESTABLISHED}
+
+\paragraph{Proof.}
+From $\Lambda\succeq\lambda_{\min}(\Lambda)I$ and the fact that congruence preserves the Loewner order, $S^\top\Lambda S\succeq\lambda_{\min}(\Lambda)S^\top S=b\lambda_{\min}(\Lambda)I$, which is the left inequality; the right one is the same argument applied to $\lambda_{\max}(\Lambda)I-\Lambda\succeq0$. The composite of $\ell$ equal-block aggregations satisfies $S^\top S=b^{\ell}I$, so the two bounds iterate.
+
+The interpretation is that repeated aggregation conserves the total self mass, $\sum_I A_I=\sum_i A_i$, while reducing the number of carriers by a factor $b$ at each step, so the per-node parameters grow without bound and the marginal belief attached to a coarse node becomes arbitrarily sharp. Nothing converges. In the loopless case $A_i\equiv0$ the consensus direction remains a null direction at every level, because a coarse vector constant on clusters pulls back under $S$ to a fine vector constant on the population, so $\lambda_{\min}=0$ is preserved while the nonzero part of the spectrum still inflates by $b$ per step. Either way, comparing descriptions at different resolutions requires a normalization, and until one is supplied the question of a fixed point does not arise. Chapter~\ref{ch:coarsegraining} records that no earlier chapter supplies one.
+
+\section{The declared flow}
+\label{sec:rg-declaration}
+
+\paragraph{Definition 10.2 (rescaled aggregation flow).}
+A \emph{scheme} consists of a blocking rule, that is a sequence of partitions with aggregation matrices $S_\ell$, together with a sequence of positive scalars $\zeta_\ell$. The associated flow is
+\begin{equation}
+\Lambda^{(\ell+1)}=\zeta_\ell^{-1}S_\ell^{\top}\Lambda^{(\ell)}S_\ell,
+\qquad
+\zeta_\ell>0 .
+\label{eq:rg-flow}
+\end{equation}
+In parameters, $A^{(\ell+1)}_I=\zeta_\ell^{-1}\sum_{i\in I}A^{(\ell)}_i$ and $W^{(\ell+1)}_{IJ}=\zeta_\ell^{-1}\sum_{i\in I,j\in J}W^{(\ell)}_{ij}$.\status{DEFINITION}
+
+Nothing is being proved by this equation and nothing earlier in the document implies it. The rescaling is declared, in the sense in which Kadanoff's block construction declares one \citep{kadanoff1966scaling,Wilson1971}: a block transformation followed by a change of units, where the change of units is part of the scheme rather than a consequence of the block transformation. The document adopts \eqref{eq:rg-flow} and says so. Definition~10.2 is also the externally declared scale that Chapter~\ref{ch:coarsegraining} identifies as the missing ingredient in any attempt to choose a number of clusters from a bare cost, and it is supplied here in the only way it can be supplied, by declaration rather than by optimization inside an objective. What must be resisted is the reading under which the rescaling is a harmless bookkeeping convention, because a single positive scalar cannot act differently on the self sector and on the coupling sector. Any statement below that one sector decays relative to the other is therefore a statement about aggregation and not an artifact of the normalization, and this is the reason the declaration can be made without prejudging the results it enables.
+
+The freedom in $\zeta_\ell$ is narrower than it first appears, and it is worth recording exactly how narrow.
+
+\paragraph{Proposition 10.3 (boundedness, and the decay of the self sector).}
+Take equal blocks of size $b$ and $\zeta_\ell=b^2$, and write $\|\cdot\|$ for the spectral norm. Then
+\begin{equation}
+\max_{I\neq J}\bigl\|W^{(\ell+1)}_{IJ}\bigr\| \leq \max_{i\neq j}\bigl\|W^{(\ell)}_{ij}\bigr\|,
+\qquad
+\max_{I}\bigl\|A^{(\ell+1)}_{I}\bigr\| \leq \frac1b\max_{i}\bigl\|A^{(\ell)}_{i}\bigr\| .
+\label{eq:rg-bounded}
+\end{equation}
+In particular the coupling sector is bounded along the whole orbit, and the self sector obeys $\max_i\|A^{(\ell)}_i\|\leq b^{-\ell}\max_i\|A^{(0)}_i\|$, so it vanishes geometrically in absolute terms.\status{ESTABLISHED}
+
+\paragraph{Proof.}
+A cluster pair $(I,J)$ receives at most $b^2$ fine weights and a cluster receives exactly $b$ fine self terms, so the triangle inequality gives $\|\sum_{i\in I,j\in J}W_{ij}\|\leq b^2\max\|W_{ij}\|$ and $\|\sum_{i\in I}A_i\|\leq b\max\|A_i\|$. Dividing by $\zeta=b^2$ gives the two displayed bounds, and the second iterates.
+
+Two remarks fix the status of the choice $\zeta_\ell=b^2$. First, it is the only power of $b$ compatible with a nondegenerate limit, and this is immediate: on the homogeneous family, where every self term equals $A$ and every edge weight equals $W$ on the complete graph, one step sends $A\mapsto bA$ and $W\mapsto b^2W$ before rescaling, so $\zeta^{-1}b^2 W$ has a nonzero bounded limit exactly when $\zeta=b^2$, with couplings blowing up for smaller $\zeta$ and collapsing for larger.\status{ESTABLISHED} Second, that this pins the choice does not make the choice a derivation: what is being demanded is that the flow have a nondegenerate limit, and demanding it is itself part of the scheme. The honest summary is that the declaration is forced once one insists on a nontrivial limit, and that insisting is a modeling decision the earlier chapters do not make.
+
+The second half of \eqref{eq:rg-bounded} is the analytic content of the statement that self terms are irrelevant, in the renormalization-group sense of the word: they carry the subdominant power of $b$ and are driven to zero by the same normalization that holds the couplings fixed. What \eqref{eq:rg-bounded} does not give is that the self sector decays \emph{relative} to the coupling sector, because the coupling sector is only bounded above. A relative statement needs the couplings bounded below.
+
+\paragraph{Hypothesis (coarse completeness).}
+There is $w>0$ such that at every level $\max_{I\neq J}\|W^{(\ell)}_{IJ}\|\geq w$.\status{HYPOTHESIS}
+This is a restriction and not a consequence. It fails whenever the blocking rule produces a level at which every pair of clusters has all its connecting fine edges collapsed inside clusters, and it fails automatically once a cluster exhausts a connected component. Under it, combining with \eqref{eq:rg-bounded} gives $\max_I\|A_I^{(\ell)}\|/\max_{I\neq J}\|W^{(\ell)}_{IJ}\|\leq b^{-\ell}\max_i\|A^{(0)}_i\|/w$, so the self sector is negligible against the couplings at a geometric rate. That conclusion is established, and it is established only under the hypothesis just stated.\status{ESTABLISHED}
+
+One structural observation finishes the setup. The scalar $\zeta_\ell$ acts trivially on rays, so \eqref{eq:rg-flow} descends to a map of projectivized parameter spaces, and the choice of $\zeta_\ell$ is precisely the choice of a representative along each ray. The fixed-point question is therefore a question about fixed rays, on which the declaration has no bearing at all; the declaration bears only on whether the unnormalized orbit is bounded. Separating the two is what allows the rest of this chapter to make ray-level statements without their depending on the scheme.
+
+\section{The scale-free fixed point}
+\label{sec:rg-fixed-point}
+
+The candidate fixed point is bi-additive: a positive node parameter $x_i$ carrying all the population dependence, with the matrix structure carried by two fixed matrices.
+
+\paragraph{Proposition 10.4 (exact invariance in parameter values).}
+Let $x:V\to[0,\infty)$, let $M,A\in\PSD^{K}$, and set
+\begin{equation}
+W_{ij}=x_ix_jM
+\quad (i\neq j),
+\qquad
+A_i=x_iA .
+\label{eq:rg-fixed-point}
+\end{equation}
+Then for \emph{every} partition of $V$, with $x_I=\sum_{i\in I}x_i$, the coarse parameters produced by \eqref{eq:rg-closure} are
+\begin{equation}
+W_{IJ}=x_Ix_JM,
+\qquad
+A_I=x_IA .
+\label{eq:rg-fixed-coarse}
+\end{equation}
+The coarse model is the same bi-additive form with the \emph{same} matrices $M$ and $A$, not merely with the same shape, and the entire effect of the coarse-graining is the additive push-forward $x\mapsto x_I$ of the node parameter.\status{ESTABLISHED}
+
+\paragraph{Proof.}
+Both lines are the distributive law. For the couplings,
+\[
+W_{IJ}=\sum_{i\in I}\sum_{j\in J}x_ix_jM
+=\Bigl(\sum_{i\in I}x_i\Bigr)\Bigl(\sum_{j\in J}x_j\Bigr)M
+=x_Ix_J M,
+\]
+where $I\neq J$ guarantees that no diagonal term is omitted from either factor; for the self terms, $A_I=\sum_{i\in I}x_iA=x_IA$. Neither step uses positivity, a topology on $V$, or a property of the partition.
+
+The distinction the proposition draws is not pedantic. A form can be preserved while its parameters move; here they do not move at all, so \eqref{eq:rg-fixed-point} is a genuine fixed point of the parameter map, not a fixed submanifold on which the dynamics is nontrivial. On equal blocks of size $b$ with a homogeneous node parameter, $x_I=bx$ gives $W_{IJ}=b^2x^2M$ and $A_I=bxA$, so the declared rescaling $\zeta=b^2$ returns the coupling exactly and sends $A\mapsto A/b$. The exact fixed point of the \emph{rescaled} flow is therefore the bi-additive form with vanishing self sector,
+\begin{equation}
+W_{ij}=x_ix_jM,
+\qquad
+A_i=0,
+\label{eq:rg-fixed-ray}
+\end{equation}
+and this is consistent with, and is the sharp version of, the irrelevance recorded in Proposition~10.3. Both displays are statements about the parameters $(A_i,W_{ij})$ and are therefore scoped by \eqref{eq:rg-trivializing}: the proof is the distributive law and uses no property of the transports, but the parameters it distributes over exist only where aggregation returns the family.\status{HYPOTHESIS}
+
+What is not established is that anything is carried toward \eqref{eq:rg-fixed-ray}.
+
+\paragraph{Open Problem 10.5 (attraction).}
+Under a declared scheme, is there a set of initial parameters with nonempty interior in the cone $(\PSD^{K})^{N}\times(\PSD^{K})^{\binom N2}$ whose orbits under \eqref{eq:rg-flow} converge projectively to the ray of \eqref{eq:rg-fixed-ray}? The strong form asks for the whole interior; the weak form asks for a neighborhood.\status{OPEN}
+
+The gap between Proposition~10.4 and Open Problem~10.5 is the gap between invariance and attraction, and it is the whole distance between a fixed point and a universality class. Invariance is cheap: every fixed point of every map is invariant, including repelling ones, which attract nothing. It is also non-unique here, and demonstrably so. Chapter~\ref{ch:coarsegraining} exhibits the continuum $\Lambda^{(\lambda)}_{ij}=-\lambda W_{ij}$ with $\lambda\in[-1,1]$, every member of which is positive semidefinite and closed under every partition, so the property of being carried into itself by aggregation does not distinguish the declared family from the signless Laplacian at $\lambda=-1$. Universality is a statement about basins, and no basin has been exhibited. Section~\ref{sec:rg-birkhoff} says why the problem is nevertheless tractable, and Section~\ref{sec:rg-gate} reports what computation says about it.
+
+\section{Why attraction is tractable: linearity, cones, and Birkhoff}
+\label{sec:rg-birkhoff}
+
+Ordinary renormalization is hard in part because the parameter map is nonlinear, so that local analysis near a fixed point is usually the only available route and global statements are out of reach. That difficulty is absent here.
+
+\paragraph{Proposition 10.6 (the parameter map is linear and positive).}
+Write $\pi=\bigl((A_i)_{i\in V},(W_{ij})_{i<j}\bigr)$ for the parameter tuple and $\Phi_S$ for the map defined by \eqref{eq:rg-closure}. Then $\Phi_S$ is linear, with all coefficients in $\{0,1\}$, and it maps the cone
+\begin{equation}
+\mathcal K_N=(\PSD^{K})^{N}\times(\PSD^{K})^{\binom N2}
+\label{eq:rg-cone}
+\end{equation}
+into $\mathcal K_{n_{\mathrm c}}$. The cone is closed, convex, pointed, and has nonempty interior in the ambient vector space $(\Sym^{K})^{N+\binom N2}$.\status{ESTABLISHED}
+
+\paragraph{Proof.}
+Each coarse parameter in \eqref{eq:rg-closure} is a sum of fine parameters; no product, inverse, determinant, or Schur complement occurs, so $\Phi_S$ is a linear map with $0/1$ coefficient matrix. A sum of positive semidefinite matrices is positive semidefinite, so $\Phi_S(\mathcal K_N)\subseteq\mathcal K_{n_{\mathrm c}}$. The cone properties are inherited componentwise from $\PSD^{K}$, whose interior is the positive definite matrices.
+
+The contrast with marginalization is exact and is the reason the two coarsening operations behave so differently. Integrating a block out replaces $\Lambda$ by a Schur complement, which is nonlinear in $\Lambda$, manufactures couplings between agents that had none, and need not respect the sign structure of the family; identifying coordinates replaces $\Lambda$ by a congruence, which is linear and cone-preserving. Chapter~\ref{ch:coarsegraining} draws that distinction on the side of what is admissible; here it reappears as the reason a global attraction theorem is even conceivable.
+
+Linearity plus a cone is the hypothesis of Birkhoff's theorem. Equip the interior of a closed convex pointed cone $\mathcal K$ with Hilbert's projective metric,
+\begin{equation}
+d_{\mathrm H}(u,v)=\log\frac{\inf\{\alpha>0: u\preceq\alpha v\}}{\sup\{\beta>0: \beta v\preceq u\}},
+\label{eq:rg-hilbert}
+\end{equation}
+a metric on rays. If a linear $T$ satisfies $T(\mathcal K\setminus\{0\})\subseteq\operatorname{int}\mathcal K$ and its image has finite projective diameter $\Delta=\sup\{d_{\mathrm H}(Tu,Tv):u,v\in\mathcal K\setminus\{0\}\}$, then $T$ contracts $d_{\mathrm H}$ with modulus
+\begin{equation}
+\kappa(T)=\tanh(\Delta/4)<1,
+\label{eq:rg-birkhoff}
+\end{equation}
+so $T$ has a unique fixed ray in $\operatorname{int}\mathcal K$ and every orbit converges to it geometrically at rate $\kappa(T)$ \citep{Birkhoff1957,nussbaum1988hilbert}. Applied here this would deliver attraction and uniqueness in one stroke, and globally rather than locally: the fixed ray would be reached from every starting point in the cone, at a rate computable from the geometry of the image. That is a stronger conclusion than the linearization arguments available in the nonlinear setting, and it is why the route is worth naming even though it is not yet a proof.
+
+Two obstructions stand between Proposition~10.6 and that conclusion. Both are real, and neither is a technicality.
+
+The first is that $\Phi_S$ is not an endomorphism. It maps $\mathcal K_N$ to $\mathcal K_{n_{\mathrm c}}$ with $n_{\mathrm c}<N$, so source and target are different spaces, the phrase ``fixed ray of $\Phi_S$'' is not typed, and \eqref{eq:rg-birkhoff}, which is a statement about a self-map of one cone, does not apply. This is the same difficulty that makes renormalization awkward to make rigorous in general, and the standard resolution is to restrict first to structures on which coarse-graining genuinely is a self-map: hierarchical families, in the sense in which Dyson's hierarchical model and Migdal--Kadanoff recursions on hierarchical lattices are self-similar by construction \citep{Dyson1969,Kadanoff1976Migdal}. On such a family the coarse population is isomorphic to the fine one as a structure, the map acts on a fixed space, and Proposition~10.6 becomes usable as stated.
+
+The second is that $\Phi_S$ is positive but not strictly positive, and the failure occurs in two places that must be kept apart, because one of them is removable by reorganizing the argument and the other is not. The one that is not is sparsity: whenever no fine edge is cut between two clusters, $W_{IJ}=0$, so the image lies on the boundary of $\mathcal K_{n_{\mathrm c}}$, the projective diameter in \eqref{eq:rg-hilbert} is infinite, and the contraction modulus in \eqref{eq:rg-birkhoff} degenerates to one. Sparse populations violate the hypothesis at the first step. The one that is removable sits at the target ray, and it is the more serious of the two as usually stated, so it is worth stating exactly before it is repaired.
+
+\paragraph{The Birkhoff hypothesis fails at the target ray, not merely on sparse configurations.}
+Under the declared rescaling $\zeta=b^{2}$, which is chosen to hold the coupling sector fixed, Proposition~10.3 drives the self sector to zero, so the ray the flow approaches is \eqref{eq:rg-fixed-ray}, with $A_i=0$ for every $i$. The zero matrix is a boundary point of $\PSD^{K}$, so that ray lies on the boundary of $\mathcal K_N$ and not in its interior. A map satisfying Birkhoff's hypothesis carries $\mathcal K\setminus\{0\}$ into $\operatorname{int}\mathcal K$, so all of its orbits lie in the interior after one step, and its unique fixed ray, being the limit of such orbits under a contraction of the Hilbert metric on the interior, is interior as well. A Birkhoff contraction on $\mathcal K_N$ therefore cannot have \eqref{eq:rg-fixed-ray} as its fixed ray, for any population whatever. The obstruction is not a property of sparse or otherwise exceptional configurations; it sits at the one ray the argument exists to reach.\status{ESTABLISHED}
+
+The repair is available and it is not a weakening. It rests on the observation that the two sectors of the declared family never communicate.
+
+\paragraph{Proposition (the parameter map splits into sectors).}
+Write $\Phi_S=(\Phi^{A}_S,\Phi^{W}_S)$ for the parameter map of \eqref{eq:rg-closure} in its self and coupling components. Then
+\begin{equation}
+\Phi^{A}_S\bigl((A_i)_{i\in V}\bigr)=\Bigl(\sum_{i\in I}A_i\Bigr)_{I},
+\qquad
+\Phi^{W}_S\bigl((W_{ij})_{i<j}\bigr)=\Bigl(\sum_{i\in I, j\in J}W_{ij}\Bigr)_{I\neq J},
+\label{eq:rg-sector-split}
+\end{equation}
+so $\Phi_S$ is the direct sum of a map of self tuples with a map of coupling tuples: the coarse couplings do not depend on the fine self terms, and the coarse self terms do not depend on the fine couplings. Consequently the face $\{A=0\}$ is invariant, the coupling recursion is autonomous, and the self recursion is uncoupled from it.\status{ESTABLISHED}
+
+\paragraph{Proof.}
+Read \eqref{eq:rg-closure}: neither displayed sum contains a parameter of the other kind. Invariance of $\{A=0\}$ is the first display evaluated at $A=0$, and the scalar $\zeta_\ell$ of \eqref{eq:rg-flow} acts on both components alike, so the splitting descends to the rescaled flow.
+
+The splitting is a property of the declared family and not of aggregation in general, which is what makes it informative rather than a bookkeeping remark. On the closed continuum of Chapter~\ref{ch:coarsegraining} at $\lambda\neq1$ the coarse self term acquires a term proportional to $(1-\lambda)\sum_{i<j,\ i,j\in I}W_{ij}$, so the map is block triangular rather than block diagonal, the coupling sector remains autonomous but the self sector is driven by it, and the self sector consequently need not decay; that is the mechanism behind the signless control of Section~\ref{sec:rg-gate}, whose self sector grows while the declared family's decays. Under an independently declared link the same failure occurs through \eqref{eq:rg-nonflat-block}. At seed $20260728$ the splitting was checked directly: perturbing every fine self term left the coarse couplings unchanged to exactly zero, and adding a matrix of norm $10^{3}$ to an internal edge weight left the coarse self terms unchanged to exactly zero.\status{NUMERICAL}
+
+Attraction toward \eqref{eq:rg-fixed-ray} therefore splits into two independent questions rather than one, and neither of them is the question that failed. The self sector needs no contraction argument, since Proposition~10.3 already gives $\max_i\|A^{(\ell)}_i\|\leq b^{-\ell}\max_i\|A^{(0)}_i\|$, and under the coarse-completeness hypothesis that decay is relative to the couplings, which is what projective convergence to a ray with $A=0$ requires. The coupling sector is then treated on its own invariant sub-cone,
+\begin{equation}
+\mathcal K^{W}_N=(\PSD^{K})^{\binom N2},
+\qquad
+\Phi^{W}_S:\mathcal K^{W}_N\longrightarrow\mathcal K^{W}_{n_{\mathrm c}},
+\label{eq:rg-coupling-cone}
+\end{equation}
+and there the target is interior rather than boundary:
+\begin{equation}
+W_{ij}=x_ix_jM\succ0\ \text{ for all } i\neq j
+\qquad\Longleftrightarrow\qquad
+\min_{i}x_i>0
+\ \text{ and }\ \operatorname{rank}M=K .
+\label{eq:rg-interior-ray}
+\end{equation}
+\status{ESTABLISHED} The equivalence is immediate: $x_ix_jM\succ0$ forces $x_ix_j>0$ for every pair, which for $N\geq2$ forces every $x_i$ to be strictly positive, and then $M\succ0$, which for a positive semidefinite $M$ is $\operatorname{rank}M=K$; the converse is the same computation read backwards. Two consequences follow. The boundary contact that defeats the argument on $\mathcal K_N$ does not arise on $\mathcal K^{W}_N$, so the passage to the sub-cone is what makes a Birkhoff argument conceivable at all. And a Birkhoff limit on the sub-cone, if one exists, necessarily lands on $\operatorname{rank}M=K$, because its fixed ray is interior and by \eqref{eq:rg-interior-ray} the rank-deficient classes of Proposition~10.11 lie on the boundary.\status{ESTABLISHED}
+
+What the repair does not remove is the sparsity failure. The map $\Phi^{W}_S$ still sends points of the punctured sub-cone to its boundary whenever some pair of clusters has no cut edge, so strict positivity of a single step remains false and the missing hypothesis remains primitivity of a composition.
+
+\paragraph{Open Problem 10.7 (primitivity).}
+On a hierarchical family, does some iterate of the composed coupling map $\Phi^{W}$ carry the punctured sub-cone \eqref{eq:rg-coupling-cone} into its interior? Positivity of a single step is false in general, and the right condition is primitivity of the composition: after enough levels the coarse interaction graph is complete and every coarse weight is a sum over a nonempty cut, at which point \eqref{eq:rg-birkhoff} applies to that iterate and transfers to the flow. Establishing this requires a blocking rule under which the quotient graph becomes complete in a bounded number of levels, and a uniform lower bound on the surviving weights; neither is supplied here.\status{OPEN}
+
+Naming what is believed, precisely enough to be attacked, is the remaining obligation. The conjecture is stated on the sub-cone, which is where the sector splitting puts it.
+
+\paragraph{Conjecture 10.8 (Birkhoff attraction on the coupling sub-cone of a hierarchical family).}
+There is a hierarchical family of populations, on which the coupling map $\Phi^{W}$ of \eqref{eq:rg-sector-split} is an endomorphism of a fixed cone $\mathcal K^{W}$, and an integer $q$ such that the $q$-fold composition carries $\mathcal K^{W}\setminus\{0\}$ into $\operatorname{int}\mathcal K^{W}$ with finite projective diameter. On such a family the coupling flow has a unique fixed ray, attracting from all of $\mathcal K^{W}\setminus\{0\}$ at the geometric rate $\kappa$ of \eqref{eq:rg-birkhoff}, and that ray is the bi-additive one, $W_{ij}=x_ix_jM$ with $\min_ix_i>0$ and $\operatorname{rank}M=K$. Combined with the self-sector decay of Proposition~10.3 under the coarse-completeness hypothesis, which supplies the relative statement the projective limit needs, the full rescaled flow then converges projectively to \eqref{eq:rg-fixed-ray}. Like everything in this chapter the conjecture is stated under \eqref{eq:rg-trivializing}.\status{CONJECTURE}
+
+The evidence for the conjecture is of two kinds and neither is a proof. Proposition~10.6 supplies the hypothesis of linearity and cone positivity that Birkhoff's theorem needs, which is the part of the argument that ordinary renormalization does not have available; and Section~\ref{sec:rg-gate} reports a measured spectral gap of $1/b$ on the homogeneous endomorphism together with controlled numerical convergence toward the bi-additive form on heterogeneous systems. Against it stand the change of dimension, which the hierarchical restriction is designed to remove, and the sparsity failure of primitivity, which is Open Problem~10.7 and is now the only obstruction of the second kind. The boundary contact at the target ray is fatal on $\mathcal K_N$ and does not arise on $\mathcal K^{W}_N$, and \eqref{eq:rg-sector-split} is exactly what licenses the passage between them; that is why the conjecture is stated on the sub-cone and would be false as stated on the full one. Closing it requires, in order: a declared hierarchical family on which $\Phi^{W}$ is an endomorphism; a proof of primitivity for the composed coupling map on that family; and an identification of the resulting ray with the coupling part of \eqref{eq:rg-fixed-ray}, for which uniqueness plus Proposition~10.4 would suffice, the interiority condition \eqref{eq:rg-interior-ray} being available rather than assumed. Beyond that lie two further questions this chapter does not touch: whether the conclusion survives the passage from exact self-similarity to a limit of finite populations, and whether it is independent of the blocking sequence. Section~\ref{sec:rg-gate} shows why the last of these is the one the present evidence is weakest on.
+
+A negative outcome would be informative rather than empty, and this deserves saying because the reverse assumption is easy to make. If the contraction fails because the cone splits, or because sparse populations reach the boundary irrecoverably, then there are several fixed rays, hence genuinely distinct classes reachable from within one connected population, and the effective law is not determined by connectivity alone. That is a stronger and stranger conclusion than attraction. The problem is two-sided, and neither outcome is the null.
+
+\section{The numerical gate}
+\label{sec:rg-gate}
+
+A cheap computation decides whether the route of Section~\ref{sec:rg-birkhoff} is worth pursuing before any proof is attempted. It was run, and what follows reports it. Computation is not proof, and nothing in this section is offered as one; the claims here are supported by measurement only, and where a control was not run that is stated.
+
+The protocol was: fiber dimension $K=2$, block size $b=2$, seed $20260728$ with five seeds for the stochastic parts, double precision on the CPU. As a sanity check the explicit parameter map reproduced $S^\top\Lambda S$ to $1.4\times10^{-14}$ with coarse self terms and coarse weights positive semidefinite, so \eqref{eq:rg-closure} is being iterated and not some approximation of it.\status{NUMERICAL}
+
+\subsection*{The homogeneous endomorphism, and a trap in reading its spectrum}
+
+On the homogeneous family, where every self term equals a common $A$ and every edge weight a common $W$ on a complete graph, aggregation is exactly an endomorphism of $\Sym^{K}\oplus\Sym^{K}$, given before rescaling by
+\begin{equation}
+A\longmapsto bA,
+\qquad
+W\longmapsto b^2W .
+\label{eq:rg-homog-map}
+\end{equation}
+Its spectrum is therefore $\{b\}$ with multiplicity $K(K+1)/2$ on the self sector and $\{b^2\}$ with multiplicity $K(K+1)/2$ on the coupling sector, which at $K=2$ and $b=2$ is $\{4,4,4,2,2,2\}$. This is exact algebra, not measurement.\status{ESTABLISHED}
+
+The contraction test on this spectrum must be read correctly, and the correct reading is not the obvious one. The dominant eigenvalue $b^2$ carries multiplicity $K(K+1)/2>1$, so a comparison of the first two entries of the sorted eigenvalue list reads $4$ against $4$, returns a ratio of one, and reports no spectral gap. The quantity that governs contraction toward the dominant eigenspace is the largest eigenvalue \emph{outside} that eigenspace, which is $b$, giving a ratio $b/b^2=1/b$, equal to $0.5$ at $b=2$. The gap is real and the naive comparison is spurious. Recording this is not fastidiousness: a degenerate dominant eigenvalue is the generic situation whenever the flow acts by a scalar on a sector of dimension greater than one, which is exactly what happens here.
+
+Two consequences follow, and the second is a limitation rather than a result. The self sector carries the subdominant eigenvalue and is irrelevant in the renormalization-group sense, which is the same conclusion Proposition~10.3 reaches by a norm argument and without the homogeneity assumption. And within the coupling sector the map is the scalar $b^2$, so every direction of $\Sym^{K}$ is fixed and no particular $M$ is preferred: the homogeneous analysis does not select the coupling matrix, and cannot be made to. That is not a defect of the calculation. It is what Section~\ref{sec:rg-universality} shows must happen, since the congruence orbit of $M$ carries no continuous invariant for the flow to select.
+
+\subsection*{The heterogeneous flow, against matched nulls}
+
+Starting from generic positive semidefinite $(A,W)$ at $N=512$ and iterating \eqref{eq:rg-flow} with consecutive pairing, two independent departures from the bi-additive form of \eqref{eq:rg-fixed-point} were tracked. Matrix separability asks whether all $W_{ij}$ are proportional to a single $M$; spatial rank-one structure asks whether the scalar coefficients $c_{ij}$ factor as $x_ix_j$. Both are reported as ratios $\sigma_2/\sigma_1$ of the two leading singular values of the appropriate arrangement, so zero means exact bi-additivity in that sector and larger means further from it. Each was compared against a freshly drawn random system at the \emph{same} size, because a $\sigma_2/\sigma_1$ ratio is not comparable across dimensions.
+
+\begin{sciencetable}{Rescaled aggregation flow against size-matched null systems. Ratios below one indicate structure in the flowed system beyond what a random system of the same size exhibits. Standard deviations across five seeds are of order $10^{-3}$ for the flowed quantities. Numerical evidence only; $K=2$, $b=2$, seed $20260728$.}
+\label{tab:rg-gate}
+\begin{tabular}{rcccccc}
+\toprule
+& \multicolumn{3}{c}{spatial rank-one} & \multicolumn{3}{c}{matrix separability}\\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+$N$ & flowed & null & ratio & flowed & null & ratio\\
+\midrule
+512 & 0.0932 & 0.0939 & 0.992 & 0.5770 & 0.5777 & 0.999\\
+256 & 0.0676 & 0.1338 & 0.505 & 0.3683 & 0.5782 & 0.637\\
+128 & 0.0524 & 0.1881 & 0.279 & 0.2005 & 0.5737 & 0.349\\
+64 & 0.0470 & 0.2675 & 0.176 & 0.1028 & 0.5826 & 0.176\\
+32 & 0.0544 & 0.3672 & 0.148 & 0.0518 & 0.5390 & 0.096\\
+16 & 0.0806 & 0.5257 & 0.153 & 0.0261 & 0.5814 & 0.045\\
+8 & 0.1511 & 0.7107 & 0.213 & 0.0133 & 0.4770 & 0.028\\
+4 & 0.3388 & 0.7879 & 0.430 & 0.0066 & 0.4902 & 0.014\\
+\bottomrule
+\end{tabular}
+\end{sciencetable}
+
+The raw spatial column in Table~\ref{tab:rg-gate} falls and then rises, from $0.047$ at $N=64$ to $0.339$ at $N=4$, which read on its own says the flow is failing. It is not, and the null column is what shows why. A ratio of singular values grows in any small matrix for reasons that have nothing to do with the dynamics, and the null rises faster than the flowed system does, so the flowed-to-null ratio continues to fall to $0.148$ before finite-size effects at the very smallest sizes take over. This is exactly the circumstance in which an uncontrolled measurement would have been read backwards, and it is the reason a null is not optional here. The matrix sector is the cleaner of the two and carries no finite-size confound at all: the null sits near $0.5$ at every size, meaning random systems never become matrix-separable, while the flowed value falls monotonically by nearly two orders of magnitude to a ratio of $0.014$. Taken together, the two measures say that the flow moves a generic system toward the bi-additive form in both sectors.\status{NUMERICAL}
+
+The self sector agrees with the analytic result. The reported ratio of self-term norm to coupling norm falls monotonically from $4.40\times10^{-2}$ to $4.59\times10^{-3}$ across the flow, in the same direction as Proposition~10.3 and by a smaller factor than $b^{-\ell}$ would give, which is consistent with the coupling norm also decaying, as it may when coarse completeness is not enforced.\status{NUMERICAL}
+
+The control demanded by the non-uniqueness of Section~\ref{sec:rg-fixed-point} was run and it separates the two ends of the closed continuum. For $\lambda=-1$, the signless member, where collapsed internal edges feed the coarse self term instead of vanishing, the same ratio \emph{increases} across the flow, from $4.14\times10^{-2}$ to $1.14$. The flow therefore treats the declared family and the signless one differently in the self sector, and an argument that establishes attraction for the former will not automatically establish it for the latter. That is the outcome one wants from a control: it shows the measurement is capable of distinguishing, and it removes the concern that any argument proving attraction here would prove it for the whole continuum.\status{NUMERICAL}
+
+\subsection*{What the gate does and does not establish}
+
+It establishes a genuine spectral gap on the homogeneous endomorphism, and it supplies controlled numerical evidence that the heterogeneous flow moves toward the bi-additive form in both sectors. It proves nothing, and four limitations bound what may be read from it. The blocking rule was consecutive pairing on an exchangeable random draw, so scheme independence was not tested and adversarial blockings were not tried; this is the weakest point of the evidence and it bears directly on whether a universality class is a property of the population or of the coarse-graining choice. The evidence is at one fiber dimension and one block size. The $N=4$ endpoint is finite-size dominated and should not be read as part of the trend. And the homogeneous calculation, being a scalar on the coupling sector, says nothing about which $M$ is reached, so nothing here bears on the identity of the coupling matrix at the fixed point.
+
+\section{Universality: a continuous label and a discrete one}
+\label{sec:rg-universality}
+
+Granting a fixed point, what labels it? Two invariants present themselves, and their characters differ sharply: one is continuous and comes from how the population is connected, the other is discrete and collapses almost to nothing.
+
+\subsection*{The spectral label, and why it must be relative}
+
+The interaction operator and its Laplacian part $L$, obtained by deleting the self terms, are both bilinear forms on the same space, so a change of local trivialization acts on both by the same congruence. That is enough.
+
+\paragraph{Proposition 10.9 (gauge invariance of the generalized spectrum).}
+For any invertible $G$, the pencil $(G^\top LG, G^\top\Lambda G)$ has the same generalized eigenvalues $d_1,\dots,d_{NK}$ as $(L,\Lambda)$. In particular the generalized spectrum is unchanged by any block-diagonal reframing $G=\operatorname{diag}(g_1,\dots,g_N)$ with $g_i\in\GL(K)$.\status{ESTABLISHED}
+
+\paragraph{Proof.}
+The generalized eigenvalues are the roots of $\det(L-d\Lambda)=0$, and
+$\det\bigl(G^\top LG-dG^\top\Lambda G\bigr)=\det(G)^2\det(L-d\Lambda)$,
+which has the same roots because $\det(G)^2\neq0$.
+
+This is one of the results that owes nothing to \eqref{eq:rg-trivializing}. The proof uses only that $L$ and $\Lambda$ are bilinear forms on the same space, so that a reframing acts on both by the same congruence, and that is a fact about how frames act rather than about what the links are. The generalized spectrum is consequently a legitimate invariant of a non-flat population as well, even though no flow is defined on one.\status{ESTABLISHED}
+
+Two riders keep the statement honest. The invariance is a property of the \emph{pair}: absolute eigenvalue criteria applied to $\Lambda$ alone are frame-dependent on this family, since $\Lambda\mapsto G^\top\Lambda G$ moves the spectrum, so any invariant used to label the flow must be stated in generalized-eigenvalue form and a criterion stated in absolute eigenvalues is inadmissible here. And the group under which the interaction \emph{form} is preserved is smaller than the group under which the pencil is invariant: a common $g$ sends $W_{ij}\mapsto g^\top W_{ij}g$ and $A_i\mapsto g^\top A_ig$ and stays in the family, whereas an independent $g_i$ per fiber leaves the pencil invariant but destroys the Laplacian structure. Both statements are used below and they should not be conflated. A direct measurement over twelve independent frames of condition number $21.7$ found the generalized eigenvalues stable to $4.2\times10^{-12}$, which corroborates the proposition without being needed for it.\status{NUMERICAL}
+
+The label itself is then a declaration about the shape of that spectrum near zero.
+
+\paragraph{Definition 10.10 (spectral exponent).}
+If the density $\omega(d)$ of the generalized spectrum of $(L,\Lambda)$ behaves as $\omega(d)\sim d^{\gamma}$ as $d\to0$, call $\gamma$ the spectral exponent of the population. By Proposition~10.9 it is frame-independent, and by construction it is a property of how the population is connected rather than of what its agents carry in their fibers.\status{DEFINITION}
+
+Whether a fixed point of \eqref{eq:rg-flow} has a spectral density of power form, and whether $\gamma$ is constant along the flow rather than merely defined at each level, are not settled here.\status{OPEN} Closing this needs the attraction result of Open Problem~10.5 together with a computation of how $\omega$ transforms under one step of \eqref{eq:rg-flow}, neither of which is available. In the network setting the corresponding statement is that a scale-invariant network is one whose spectral density obeys a power law with exponent tied to a spectral dimension \citep{villegas2023laplacian}, which is the analogue being reached for and not a result imported.
+
+\subsection*{The internal label collapses}
+
+The coupling matrix $M$ of \eqref{eq:rg-fixed-point} is not a well-defined matrix. Trivialization leaves a residual global frame change, under which $M\mapsto h^\top Mh$ for $h\in\GL(K)$, which is congruence, so only the congruence orbit of $M$ can label anything. That orbit is far smaller than it looks.
+
+\paragraph{Proposition 10.11 (Sylvester collapse).}
+For $M\in\PSD^{K}$, the congruence orbit $\{h^\top Mh:h\in\GL(K)\}$ is exactly the set of positive semidefinite matrices of the same rank as $M$. Hence the orbits are indexed by an integer $0\leq r\leq K$, there are $K+1$ of them, and in the nondegenerate case $r=K$ there is exactly one. There are no continuous internal moduli.\status{ESTABLISHED}
+
+\paragraph{Proof.}
+By Sylvester's law of inertia, two real symmetric matrices are congruent if and only if they have the same inertia $(n_+,n_-,n_0)$ \citep{HornJohnson2013}. A positive semidefinite $M$ has $n_-=0$, so its inertia is determined by $n_+=\operatorname{rank}M$ alone, and $n_0=K-r$ is then determined too. Congruence preserves rank because $h$ is invertible, giving one inclusion; conversely two positive semidefinite matrices of equal rank have equal inertia and are therefore congruent. For the nondegenerate case the witness is explicit: $M\succ0$ gives $h=M^{-1/2}$ with $h^\top Mh=I_K$, so every positive definite $M$ is congruent to the identity.
+
+The consequence for universality is severe and should be stated as such rather than softened. The internal sector supplies at most $\log_2(K+1)$ bits of label. Whatever variety exists among fixed points must come from the spectral exponent, that is from connectivity, and not from the coupling matrix. This also explains, rather than conflicts with, the finding of Section~\ref{sec:rg-gate} that the flow acts by a scalar on the coupling sector and selects no particular $M$: there is nothing for it to select, because the candidates that differ from one another by congruence are the same point of the label space. A proof of attraction should be expected to determine $M$ only up to rank, and a proof that appears to determine more has either an error or an unstated frame convention.\status{ESTABLISHED}
+
+One caveat completes the statement. The collapse presumes the residual freedom really is the full congruence action. A construction that fixes a frame by an external declaration recovers moduli in $M$, but those moduli then label the declaration rather than the population, and they are not gauge invariant. The choice is between a frame-independent label with $K+1$ values and a frame-dependent label with more, and the framework's own commitments select the former.
+
+A second caveat is the flatness scoping, and it lands here more sharply than elsewhere in the chapter. Proposition~10.11 is correct linear algebra in every regime, since Sylvester's law does not know where $M$ came from. What is scoped is the identification of the residual freedom with congruence. Under \eqref{eq:rg-trivializing} the coupling parameter of an edge is a symmetric positive semidefinite $W_{ij}$ and a global reframing acts on it by $W_{ij}\mapsto g^{\top}W_{ij}g$, which is congruence and which Sylvester's law governs completely. Without \eqref{eq:rg-trivializing} an edge carries the pair $(W_{ij},\Theta_{ij})$, on which a global reframing acts by congruence in the first slot and conjugation in the second, $W_{ij}\mapsto g^{\top}W_{ij}g$ and $\Theta_{ij}\mapsto g^{-1}\Theta_{ij}g$. Conjugacy classes in $\GL^{+}(K)$ carry continuous invariants, so a collapse of the kind Proposition~10.11 establishes should not be assumed there. Whether the internal label of a twisted fixed point is finite or continuous is not determined here.\status{OPEN} What would settle it is a normal form for pairs $(W,\Theta)$ under the joint congruence-conjugation action, together with a flow on the enlarged class for the normal form to label, and the second of these is the open problem of Section~\ref{sec:rg-scope}.
+
+\section{Disconnection, and what the construction forbids}
+\label{sec:rg-disconnection}
+
+Granting labels, one asks how many classes a world can display. The answer the construction gives is restrictive, and in a direction opposite to what is usually assumed of a universality argument.
+
+\paragraph{Proposition 10.12 (the flow respects components).}
+If the interaction graph, whose edges are the pairs with $W_{ij}\neq0$, has connected components $C_1,\dots,C_p$, then $\Lambda$ is block diagonal with respect to the induced decomposition, and for any partition whose clusters do not straddle components the flow \eqref{eq:rg-flow} acts on each component's parameters independently. Consequently each component carries its own orbit and its own fixed point, and the fixed point of one component is unaffected by the presence of the others.\status{ESTABLISHED}
+
+\paragraph{Proof.}
+For $i\in C_a$ and $j\in C_{a'}$ with $a\neq a'$, $W_{ij}=0$ by definition of a component, so $\Lambda_{ij}=0$ and the diagonal block $\Lambda_{ii}$ receives no contribution from outside $C_a$; hence $\Lambda=\bigoplus_a\Lambda^{(a)}$. If no cluster straddles components then every sum in \eqref{eq:rg-closure} runs over pairs within a single component, so the coarse parameters decompose the same way, and the scalar $\zeta_\ell$ acts uniformly.
+
+The proposition itself is flatness-free, and this is worth recording since so little else in the chapter is. Its content is that $\Lambda$ is block diagonal across components and that a congruence by a non-straddling aggregation matrix preserves that decomposition, neither of which uses the form of the off-diagonal blocks; under an independently declared link the block $-W_{ij}\Theta_{ij}$ vanishes exactly when $W_{ij}$ does, since $\Theta_{ij}$ is invertible, so the components are the same components and the decomposition is the same decomposition.\status{ESTABLISHED} What is scoped is the reading below rather than the proposition, because every sentence asserting that coupled agents are carried by one flow presupposes a flow and therefore inherits \eqref{eq:rg-trivializing}.
+
+The premise that turns this into a statement about what is observable is the identification, declared in the Gaussian realization, of an observation between two agents with an edge of the interaction graph: an agent's observations are entries of the coupling structure, so agents in distinct components exchange nothing.\status{HYPOTHESIS} The hypothesis is an interpretive commitment and is named here because everything in the rest of this section rests on it.
+
+Given it, the conclusions follow without further argument. Two agents that exchange anything at all lie in one component, hence are carried by one flow, hence reach one fixed point; coupled agents share a class by construction and not by coincidence. A population operating under a different fixed point is, by the same token, a population with which nothing is exchanged. Whether other classes are occupied is therefore not decidable from inside a component, because deciding it would require an exchange, an exchange is an edge, and an edge merges the components into one. The construction predicts no observable variation in the effective law.
+
+That sentence is a constraint the theory places on itself and not a consequence it can be tested by, and the difference matters enough to spell out. A theory that predicts a specific value of an observable can be checked against it; a theory that predicts the absence of variation in a quantity no observer can see two values of has said something about its own structure, not about the world. This document declines to present the disconnection statement as a successful prediction. It also declines to present it as a defect: a construction that forbade what is not seen would be worse if it permitted it freely.
+
+What remains falsifiable is the approach to a fixed point rather than the identity of one. Away from a fixed point the parameters of \eqref{eq:rg-flow} depend on the resolution at which the population is described, so effective couplings run with scale, and the form of that running is a property of the flow rather than of the description. Making this a sharp test requires two things not available here: a prediction of the running, which needs the attraction result of Open Problem~10.5 together with a linearization of \eqref{eq:rg-flow} about the fixed ray to supply the exponents; and a declared blocking rule and rescaling, since without them ``the same population at two resolutions'' does not name two definite parameter sets.\status{OPEN} The falsifiable residue of the whole construction is therefore the running, and it is currently a conditional statement rather than a number.
+
+\section{The interpretive step, and its premise}
+\label{sec:rg-interpretation}
+
+The reading that motivates all of this can now be stated with its cost attached. If an agent's observations are the states of other agents, then the world an agent models is the remainder of the population, and a fixed point of \eqref{eq:rg-flow} is an effective law for that world at which the population has arrived rather than one it was handed. That is a coherent construction and it is the sense in which an emergent law could be called participatory.
+
+It is a declaration and not a theorem, and the gap is precise rather than atmospheric.\status{DEFINITION} The flow acts on models of the population. A fixed point of it is a statement about descriptions that reproduce themselves under a declared change of resolution. Calling such a fixed point a physical law adds the premise that there is nothing else for the agents to be modeling, so that the self-consistent description of the population exhausts the content of the law. The premise is available inside this framework, because the observations exchanged between agents are the only data any agent has and they are coordinates of the interaction structure itself, but availability is not derivation, and no chapter of this document argues for it.
+
+Two things must be kept apart here. The document does not claim the identification, and it does not claim the identification is false. What it claims is that the mathematics of Sections~\ref{sec:rg-semigroup} through~\ref{sec:rg-disconnection} is silent on the question, and that a reader who accepts the premise gets the participatory reading while a reader who declines it gets a theory of self-reproducing descriptions with no metaphysical remainder. Nothing downstream in this document depends on which reader one is.
+
+\section{Relation to the renormalization literature}
+\label{sec:rg-literature}
+
+Three bodies of work bear on this chapter and each is useful for something narrower than it is often used for. Setting the boundaries explicitly is part of the epistemic accounting.
+
+\subsection*{Bayesian renormalization}
+
+Berman, Klinger and Stapleton identify dynamical Bayesian updating with an exact renormalization group flow, with the Fisher information metric in the role of the diffusion kernel and an inverse observation count in the role of the scale, and they carry over the stiff/sloppy vocabulary of the sloppy-model literature to describe which parameter directions survive coarse-graining \citep{BermanKlingerStapleton2023}; the dynamical-Bayes flow equation they build on is developed separately \citep{BermanHeckmanKlinger2022}. Two things are taken from this. The first is the idea that an information metric can supply a scale where no physical length or energy exists, which is the situation here. The second is the stiff/sloppy language itself, which names the distinction Proposition~10.3 and Section~\ref{sec:rg-gate} make quantitative in this setting.
+
+The link to the present construction is real but must be stated in the right chart. For a Gaussian location submodel at fixed precision, the Fisher information in the mean coordinate is the precision itself, so the operator \eqref{eq:rg-family} that carries the flow is also an information metric on the mean sector. That identity holds in the moment parameterization and does not survive transport to the expectation chart, where the mean block of the metric is $(1+\mu^{\top}\Lambda\mu)\Lambda+\Lambda\mu\mu^{\top}\Lambda$ and coincides with $\Lambda$ only at $\mu=0$ \citep{PineleStrapassonCosta2020}. Chapter~\ref{ch:infogeometry} makes the chart distinction; it is repeated here because a coordinate identity that mixes the mean and covariance sectors is exactly where the two charts diverge.
+
+Three things are not taken, and the reasons are recorded because each is a place where the literature is easy to over-read. Their operational criterion is a threshold on the diagonal entries of the Fisher matrix, not on its eigenvalues, so it is not a spectral cutoff and must not be cited as one; a set of individually sloppy but jointly stiff parameters is classified differently by the two readings, and their paper supplies no bridge between them. Their construction requires the metric to be invertible, which is implicit in their notation from the appearance of the inverse Fisher matrix onward and is never stated as a limitation, so it is a reader's observation and not an author's caveat; that observation matters here because Chapter~\ref{ch:coarsegraining}'s frame sector is exactly an unidentifiable direction, hence an exactly singular direction of any such metric, and it must be quotiented before any construction requiring invertibility is applied. And their scheme is not conceded by them to be analogical: their discussion describes the construction as a one-to-one adaptation of Wilson's momentum-shell scheme, so the reservation that a hard threshold on diagonal entries is not literally an instance of the smooth-kernel formalism is our disagreement with them and is voiced here as ours.
+
+The direction of flow is where the two constructions genuinely differ, and the difference is instructive rather than an incompatibility. Their scale runs toward fewer effective observations, so their coarse-graining widens the posterior and discards information. Aggregation here runs the other way: Proposition~10.1 shows it sharpens, because pooling adds precisions rather than integrating them away. That is precisely why aggregation had to be rescaled before it could be called a flow at all, and it is the concrete content of the remark in Section~\ref{sec:rg-semigroup} that a precision-increasing semigroup is not a renormalization group.
+
+\subsection*{The Laplacian renormalization group}
+
+Villegas, Gili, Caldarelli and Gabrielli supply a coarse-graining for networks that needs neither a metric nor an embedding, by treating the graph Laplacian as a Hamiltonian, the diffusion propagator as a Gibbs density matrix at inverse temperature $\tau$, and the derivative of the resulting von Neumann entropy with respect to $\log\tau$ as an entropic susceptibility whose peaks are read as intrinsic scales \citep{villegas2023laplacian}. The construction is the natural source for a scale parameter in a setting like this one, and the diffusion-equivalence rule is a principled replacement for a heuristic blocking rule.
+
+The peak criterion, however, does not do what it is usually asked to do, and this chapter uses the spectral gap instead. Measured over $\tau\in[10^{-3},10^{4}]$ at 1200 points with seed $20260728$, the susceptibility peaks on structureless graphs as readily as on structured ones: a planted three-cluster operator with intra-to-inter weight ratio $50$ gave two peaks, a uniform-weight graph gave one, an Erd\H{o}s--R\'enyi graph gave one, and the complete graph on 24 nodes, which has no structure whatever, also gave one. Peak existence is therefore not evidence of an intrinsic scale.\status{NUMERICAL} What discriminated was the low end of the generalized spectrum: the largest gap was $1.90$ decades on the planted case against $0.08$ on the uniform graph and $0.00$ on the complete graph, and the number of generalized eigenvalues below the gap equaled $(p-1)K$ for $p$ planted clusters, recovering the cluster count exactly. The Erd\H{o}s--R\'enyi case returned a spurious reading of two, so the gap needs a significance threshold rather than a bare maximum.\status{NUMERICAL} An honest negative belongs beside this: a tie-strength interpolation $\Sigma(t)=(\Lambda+tL)^{-1}$ produces a finite coarsening cost whose derivative saturates at half the rank of $L$, measured at $10.999$ against a predicted $11.000$, but its second derivative does not discriminate structure at all, showing a single peak of essentially identical prominence on structured and null systems alike, because the bulk of the generalized spectrum sits in the same place in both.\status{NUMERICAL} The working diagnostic is the gap, and the specific heat is not one.
+
+By Proposition~10.9 any such diagnostic must be expressed through the generalized spectrum of the pair rather than through absolute eigenvalues, and this is where the present setting adds something rather than importing: the invariance is a property of matrix-weighted pencils under block congruence, and it is what makes a spectral criterion admissible on a gauge-carrying population at all.
+
+\subsection*{Network renormalization, as contrast rather than template}
+
+The multiscale model of Garuccio, Lalli and Garlaschelli obtains a uniqueness theorem: the only edge-independent connection probability whose functional form survives every partition is a specific product of an additive node fitness with a dyadic factor \citep{Garuccio2023Multiscale}, and the surrounding review sets that result beside the geometric and Laplacian schemes \citep{gabrielli2025network}. The theorem has force because their coarse-graining rule is nonlinear in the connection probability, so additivity of the node parameter has to be forced out of a functional equation. Here the rule is linear by Proposition~10.6 and the Gaussian energy is additive from the start, so the same demand yields nothing; Chapter~\ref{ch:coarsegraining} shows the corresponding closure statement to be nearly vacuous and identifies translation invariance, not closure, as what selects the family. The genuine analogue of their theorem is not a closure result but the fixed point of Proposition~10.4, and the two constructions match there: bi-additivity forces the product form under a measurability hypothesis in both settings, and without measurability the underlying Cauchy equation admits pathological solutions in both. Their demarcation of scale-free from scale-invariant transfers directly and should be adopted: a power law measured in a population is not evidence that the population is renormalizable.
+
+\subsection*{What is open in both literatures}
+
+Chapter~\ref{ch:coarsegraining} leaves two questions open that bear directly on this chapter and that are open in the surrounding literature as well: whether an aggregating map that integrates rather than identifies can preserve the interaction family, the matrix-weighted analogue of Kron reduction, settled only for scalar weights; and whether closure survives a non-flat connection. The first is recorded as inherited and is not re-opened. The second is the binding one here and is not merely inherited, since Section~\ref{sec:rg-scope} adds two things to it: the coarse link is determined, and closure is exact, whenever each pair of clusters is jointly trivializing, which is a strictly stronger demand than the internal trivialization \Cref{ch:coarsegraining} requires; and that demand escalates under iteration, so that a non-flat population supports the flow only up to a finite resolution. The question that remains open there is the one the literature also leaves open, namely a coarse link rule when the cut twists disagree.
+
+One further question is raised by this chapter and is not addressed in either literature. Aggregation is a semigroup because \eqref{eq:rg-closure} discards internal edges, and a two-sided flow would require the coarse parameters to be splittable back into constituents. Since the additive parameter here is a positive semidefinite matrix, the natural route is an infinitely divisible law on $\PSD^{K}$ under which a coarse weight decomposes into independent fine ones, which is the matrix analogue of the stable-law construction that makes the network flow invertible in the annealed case \citep{Garuccio2023Multiscale}. Whether the aggregation rule of \eqref{eq:rg-closure} admits such an inverse is unexplored.\status{OPEN} What would settle it is an infinitely divisible family on $\PSD^{K}$ whose convolution semigroup reproduces \eqref{eq:rg-closure} in distribution, together with a check that the resulting fine population lies in the declared family.
+
+\section{Status register}
+\label{sec:rg-register}
+
+\begin{sciencetable}[htbp]{Status register for Chapter~\ref{ch:renormalization}. For anything not established, the final column names what is owed. Numerical entries are itemized separately in Table~\ref{tab:rg-numerics}.}
+\label{tab:rg-register}
+\begin{tabular}{p{0.29\textwidth} p{0.14\textwidth} p{0.45\textwidth}}
+\toprule
+\textbf{Result} & \textbf{Status} & \textbf{What is owed} \\
+\midrule
+Trivializing domain, Eq.~\eqref{eq:rg-trivializing} & HYPOTHESIS & A choice of scope. The flow is defined on trivializing populations, or on the trivializing subfamilies of a general one. Excludes every population with a nontrivial cycle inside a cluster. Used by everything phrased in parameters. \\
+Non-flatness is a precondition failure, Eq.~\eqref{eq:rg-nonflat-block} & ESTABLISHED & Nothing. The congruence iteration on operators survives; the parameter recursion does not, so there is no flow rather than a different flow. \\
+Cut-twist agreement is joint trivialization of $I\cup J$ & ESTABLISHED & Nothing. A two-cut-edge walk has holonomy $\Theta_{ij}\Theta_{i'j'}^{-1}$, so exact closure across a cut demands a strictly stronger condition than internal trivialization: each \emph{pair} of clusters jointly trivializing. \\
+Coarse link rule for disagreeing cut edges, Sec.~\ref{sec:rg-scope} & OPEN & An equivariant, permutation-symmetric, group-valued, holonomy-consistent rule, plus a verdict on whether the cut excess of Ch.~\ref{ch:coarsegraining} can be carried as a declared self term. Without one there is no second step of the flow. \\
+Flatness escalates with scale & ESTABLISHED & Nothing. Admissibility is a down-set in refinement, and a nontrivial blocking sequence on a finite population reaches two clusters, so the demand becomes global flatness. A non-flat population supports the flow only to a finite resolution. \\
+Which results are flatness-free, Sec.~\ref{sec:rg-scope} & ESTABLISHED & Nothing. Props.~10.1, 10.9, 10.12 and the linearity half of Prop.~10.6 do not use Eq.~\eqref{eq:rg-trivializing}; Def.~10.2 in parameters, Props.~10.3 and 10.4, Conj.~10.8, Sec.~\ref{sec:rg-birkhoff} and the universality reading do. \\
+Semigroup composition, Sec.~\ref{sec:rg-semigroup} & ESTABLISHED & Nothing. \\
+Prop.~10.1, spectrum inflation, Eq.~\eqref{eq:rg-growth} & ESTABLISHED & Nothing. \\
+Def.~10.2, rescaled flow, Eq.~\eqref{eq:rg-flow} & DEFINITION & Declared, not derived. It is the externally declared scale Chapter~\ref{ch:coarsegraining} records as required and does not supply. \\
+Prop.~10.3, boundedness and self-sector decay, Eq.~\eqref{eq:rg-bounded} & ESTABLISHED & Nothing. \\
+$\zeta=b^2$ the only power of $b$ with a nondegenerate limit & ESTABLISHED & Nothing is proved about whether a nondegenerate limit ought to be demanded; that demand is part of the scheme. \\
+Coarse completeness & HYPOTHESIS & A restriction. Fails on sparse populations and once a cluster exhausts a component; used only for the relative decay statement. \\
+Prop.~10.4, exact parameter invariance, Eq.~\eqref{eq:rg-fixed-coarse} & ESTABLISHED & Nothing. Invariance only; attraction is Open~10.5. \\
+Open~10.5, attraction & OPEN & A basin. Needs an endomorphic family, then a contraction argument on it; see Open~10.7. \\
+Prop.~10.6, linearity and cone positivity, Eq.~\eqref{eq:rg-cone} & ESTABLISHED & Nothing. The linearity half is flatness-free; the parameter cone is not. \\
+Birkhoff fails at the target ray on $\mathcal K_N$ & ESTABLISHED & Nothing. Eq.~\eqref{eq:rg-fixed-ray} has $A=0$, a boundary point; a Birkhoff contraction has an interior fixed ray, so it cannot produce this one. Not confined to sparse configurations. \\
+Sector splitting, Eq.~\eqref{eq:rg-sector-split} & ESTABLISHED & Nothing. Special to the declared family: at $\lambda\neq1$, and under a declared link, the map is triangular rather than diagonal and the self sector is driven. \\
+Target ray is interior to the coupling sub-cone, Eq.~\eqref{eq:rg-interior-ray} & ESTABLISHED & Nothing. Interiority holds exactly for $\min_ix_i>0$ and $\operatorname{rank}M=K$, so a Birkhoff limit on the sub-cone necessarily lands on the nondegenerate Sylvester class. \\
+Open~10.7, primitivity & OPEN & A blocking rule making the quotient graph complete in a bounded number of levels, plus a uniform lower bound on surviving weights. Now the only obstruction of the second kind, the boundary contact having been removed by Eq.~\eqref{eq:rg-sector-split}. \\
+Conj.~10.8, Birkhoff attraction on the coupling sub-cone & CONJECTURE & Stated precisely in Sec.~\ref{sec:rg-birkhoff}, on $\mathcal K^{W}$ of Eq.~\eqref{eq:rg-coupling-cone}, not on $\mathcal K_N$, where it would be false. Evidence: the linearity hypothesis of Prop.~10.6 and the measured gap of Sec.~\ref{sec:rg-gate}. Against: the map changes dimension, and primitivity fails on sparse populations. Owed: a declared endomorphic family, primitivity of $\Phi^{W}$ on it, and identification of the ray. \\
+Homogeneous spectrum $\{b\}$, $\{b^2\}$, Eq.~\eqref{eq:rg-homog-map} & ESTABLISHED & Nothing. Exact algebra; contraction ratio $1/b$ read against the largest eigenvalue outside the dominant eigenspace. \\
+Heterogeneous flow moves toward bi-additivity & NUMERICAL & One blocking rule, one $K$, one $b$; $N=4$ finite-size dominated; scheme independence untested. Computation is not proof. \\
+Prop.~10.9, pencil gauge invariance & ESTABLISHED & Nothing. Holds for the pair; absolute eigenvalue criteria remain frame-dependent. Flatness-free: it uses only that both members transform by the same congruence. \\
+Def.~10.10, spectral exponent & DEFINITION & A declared label; nothing is proved by declaring it. \\
+Power-law spectral density at a fixed point & OPEN & Needs attraction, plus the transformation of $\omega$ under one step of Eq.~\eqref{eq:rg-flow}. \\
+Prop.~10.11, Sylvester collapse & ESTABLISHED & Nothing. Presumes the residual freedom is the full congruence action; an externally fixed frame restores moduli that are then not gauge invariant. \\
+Internal label of a twisted fixed point & OPEN & A normal form for pairs $(W,\Theta)$ under congruence in the first slot and conjugation in the second, plus a flow on the enlarged class for it to label. Conjugacy classes carry continuous invariants, so the collapse must not be assumed there. \\
+Prop.~10.12, flow respects components & ESTABLISHED & Nothing, for blocking rules whose clusters do not straddle components. Flatness-free as a decomposition; the reading that coupled agents share a flow inherits Eq.~\eqref{eq:rg-trivializing}. \\
+An observation is an edge & HYPOTHESIS & Interpretive commitment; everything in Sec.~\ref{sec:rg-disconnection} rests on it. \\
+No observable variation in the effective law & ESTABLISHED & Under the two preceding rows. A constraint the theory places on itself, not a test it can pass. \\
+Running of effective couplings as the falsifiable residue & OPEN & A predicted running. Needs attraction plus a linearization about the fixed ray, and a declared scheme to make two resolutions definite. \\
+A fixed point is a physical law & DEFINITION & A declaration, not a theorem. Neither claimed nor refuted here; the mathematics is silent and the premise is named in Sec.~\ref{sec:rg-interpretation}. \\
+Matrix-weighted Kron reduction & OPEN & Inherited from Chapter~\ref{ch:coarsegraining}; settled only for scalar weights. \\
+Closure under a non-flat connection & OPEN & Inherited from Chapter~\ref{ch:coarsegraining}, which settles the single step, and extended in Sec.~\ref{sec:rg-scope} to the iterated setting: exact under joint pairwise trivialization, and escalating to global flatness under iteration. Binding here, since without it there is no flow at all. \\
+Invertible aggregation via infinite divisibility & OPEN & An infinitely divisible family on $\PSD^{K}$ whose convolution semigroup reproduces Eq.~\eqref{eq:rg-closure}, plus a check that the split population stays in the family. \\
+\bottomrule
+\end{tabular}
+\end{sciencetable}
+
+\begin{sciencetable}[htbp]{Numerical evidence for Chapter~\ref{ch:renormalization}. All at seed $20260728$ in double precision, with five seeds for the stochastic parts. Each entry names its control; where none was run, that is stated. None of these is a proof.}
+\label{tab:rg-numerics}
+\begin{tabular}{p{0.30\textwidth} p{0.31\textwidth} p{0.31\textwidth}}
+\toprule
+\textbf{Claim} & \textbf{Measurement} & \textbf{Control} \\
+\midrule
+Parameter map iterates Eq.~\eqref{eq:rg-closure}, $K=2$, $b=2$ & agrees with $S^{\top}\Lambda S$ to $1.4\times10^{-14}$ & coarse $A_I$, $W_{IJ}$ checked positive semidefinite \\
+Sector splitting, Eq.~\eqref{eq:rg-sector-split} & perturbing every fine self term moves the coarse couplings by exactly $0$ & adding a matrix of norm $10^{3}$ to an internal edge weight moves the coarse self terms by exactly $0$ \\
+Spanning-tree trivialization of a trivializing cluster & internal twists carried to the identity to $3.9\times10^{-16}$ & a cluster with a broken cycle product cannot be, its loop product moving only by conjugation, checked to $1.8\times10^{-15}$ \\
+Two-cut-edge walk has holonomy $\Theta_{ij}\Theta_{i'j'}^{-1}$ & identity to $1.1\times10^{-16}$ when the two twists agree & norm $3.65$ when they are drawn independently \\
+Flow reaches spatial rank-one structure & flowed-to-null ratio falls to $0.148$ at $N=32$ & freshly drawn system at each matched $N$; raw measure rises at small $N$ without it \\
+Flow reaches matrix separability & flowed-to-null ratio falls to $0.014$ at $N=4$ & null flat near $0.5$ at every size, so no finite-size confound \\
+Self sector decays against couplings & norm ratio $4.40\times10^{-2}\to4.59\times10^{-3}$ & signless member $\lambda=-1$ instead rises, $4.14\times10^{-2}\to1.14$ \\
+Seed sensitivity of the flowed quantities & standard deviation of order $10^{-3}$ & five seeds \\
+Pencil invariance, Prop.~10.9 & generalized eigenvalues stable to $4.2\times10^{-12}$ & twelve independent frames at condition number $21.7$ \\
+Entropic susceptibility does not detect structure & peaks present on uniform, Erd\H{o}s--R\'enyi and complete graphs alike & planted three-cluster case gives two peaks; the null cases give one each \\
+Generalized spectral gap does detect it & $1.90$ decades planted against $0.08$ uniform and $0.00$ complete; count below gap $=(p-1)K$ & Erd\H{o}s--R\'enyi returns a spurious two, so a bare maximum is insufficient \\
+Tie-strength curvature is not a diagnostic & saturation at $10.999$ against a predicted $11.000$; peak prominence $0.9966$ against $0.9970$ & structured and null systems compared directly; the negative is reported \\
+\bottomrule
+\end{tabular}
+\end{sciencetable}

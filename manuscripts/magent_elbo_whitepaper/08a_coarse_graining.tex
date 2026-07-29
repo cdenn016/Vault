@@ -22,27 +22,83 @@ A third construction is frequently mistaken for the second. Instead of integrati
 
 \section{Tying preserves the interaction family}
 
-The interaction family of Chapter~\ref{ch:generative-model} carries, in the belief-mean sector, a block-diagonal positive part together with a matrix-weighted graph Laplacian whose edge weights are symmetric positive semidefinite. Ask which coarsening operations return a model in that same family.
+The results of this section concern a declared subfamily of the model of Chapter~\ref{ch:generative-model}, not that model in full generality. Two hypotheses are required, and both are restrictions rather than consequences.
 
-Integrating a cluster out does not, in general. A Schur complement manufactures couplings between agents that previously had none, and the manufactured blocks need not carry the sign structure the family requires, so form preservation is not available as an identity. A restriction of the recognition family, by contrast, does preserve it, and exactly.
+\paragraph{Hypothesis (interaction form).}
+The belief-mean sector of the assembled precision is
+\begin{equation}
+\Lambda_{ii}=A_i+\sum_{j\neq i}W_{ij},
+\qquad
+\Lambda_{ij}=-W_{ij}
+\quad(i\neq j),
+\qquad
+A_i\succeq 0,
+\quad
+W_{ij}=W_{ji}\succeq 0.
+\label{eq:interaction-family-hypothesis}
+\end{equation}
 
-\paragraph{Proposition (closure under tying).}
-Let \(\Lambda\) be a precision of the stated form on \(N\) agents with fiber dimension \(K\), let the agents be partitioned into clusters, and let \(S\) be the associated \(0/1\) aggregation matrix that assigns to each cluster a single common value. Then \(\Lambda_{\mathrm{c}}=S^{\top}\Lambda S\) is again of the stated form. Its off-diagonal blocks are
+\paragraph{Hypothesis (flat comparison).}
+The transports entering the belief-mean residuals are coboundaries, \(\Omega_{ij}=U_iU_j^{-1}\), so that the trivialization \(z_i=U_i^{-1}\mu_i\) converts every residual \(\mu_i-\Omega_{ij}\mu_j\) into a plain difference \(U_i(z_i-z_j)\).
+
+Neither hypothesis is automatic. The state transition of Equation~\eqref{eq:gaussian-state-transition} contributes the off-diagonal block \(-\Lambda_i^{k}A_i^{k}\Omega_{ij}^{k}\), and Chapter~\ref{ch:generative-model} places no invertibility or symmetry requirement on \(A_i^{k}\); taking \(\Lambda_i^{k}=\begin{psmallmatrix}2&1\\1&3\end{psmallmatrix}\) and \(A_i^{k}\Omega_{ij}^{k}=\begin{psmallmatrix}0&1\\-1&0\end{psmallmatrix}\) gives \(\begin{psmallmatrix}1&-2\\3&-1\end{psmallmatrix}\), which is not symmetric, and the scalar choice \(A_i^{k}=-I\) with \(\Omega_{ij}^{k}=\Lambda_i^{k}=I\) forces \(W=-1\prec 0\). Equation~\eqref{eq:interaction-family-hypothesis} therefore selects those parameter choices for which \(\Lambda_i^{k}A_i^{k}\Omega_{ij}^{k}\) is symmetric positive semidefinite, and says nothing about the rest. The second hypothesis is equally consequential: under a non-flat connection, in the sense of the Regime~II links of Chapter~\ref{ch:bundle-geometry}, no trivialization removes the transports, an internal edge leaves the residual \((I-\Omega_{ij})^{\top}W_{ij}(I-\Omega_{ij})\) in the coarse self term rather than vanishing, and the coarse operator leaves the family even though it remains positive semidefinite.
+
+Under both hypotheses, ask which coarsening operations return a model in the same family. Integrating a cluster out does not, in general. A Schur complement manufactures couplings between agents that previously had none, and the manufactured blocks need not carry the sign structure the family requires, so form preservation is not available as an identity. Identifying the coordinates within each cluster does preserve it, and exactly.
+
+\paragraph{Proposition (closure under aggregation).}
+Let \(\Lambda\) satisfy Equation~\eqref{eq:interaction-family-hypothesis} on \(N\) agents with fiber dimension \(K\), let the agents be partitioned into clusters, and let \(S\) be the associated \(0/1\) aggregation matrix. Then \(\Lambda_{\mathrm{c}}=S^{\top}\Lambda S\) again satisfies Equation~\eqref{eq:interaction-family-hypothesis}, with
 \begin{equation}
 (\Lambda_{\mathrm{c}})_{IJ}
-=-\sum_{i\in I,\;j\in J}W_{ij},
+=-\sum_{i\in I,\,j\in J}W_{ij},
 \qquad
 (\Lambda_{\mathrm{c}})_{II}
-=\sum_{i\in I}A_i+\sum_{i\in I,\;j\notin I}W_{ij},
+=\sum_{i\in I}A_i+\sum_{i\in I,\,j\notin I}W_{ij}.
 \label{eq:coarse-tying-blocks}
 \end{equation}
-where \(A_i\) are the self terms and \(W_{ij}\) the edge weights of \(\Lambda\).
 
-The computation is direct. Writing the Laplacian part as a sum over edges of \(W_{ij}\) applied to the difference of the two endpoint coordinates, every edge internal to a cluster contributes a difference of two coordinates that tying has identified, so its contribution vanishes identically. Every cut edge contributes to the two cluster diagonal blocks and, with a minus sign, to the connecting off-diagonal block. The self terms add. Because a sum of positive semidefinite matrices is positive semidefinite, both displayed expressions inherit the sign structure the family requires, for every \(K\) and every topology.
+The computation is direct. Writing the Laplacian part as a sum over edges of \(W_{ij}\) applied to the difference of the two endpoint trivialized coordinates, every edge internal to a cluster contributes a difference of two coordinates that aggregation has identified, so its contribution vanishes identically. Every cut edge contributes to the two cluster diagonal blocks and, with a minus sign, to the connecting off-diagonal block. The self terms add. Because a sum of positive semidefinite matrices is positive semidefinite, both displayed expressions inherit the sign structure the family requires, for every \(K\) and every topology.
 
-Two consequences deserve statement. The renormalized coupling between two coarse agents is exactly the sum of the fine weights on the edges cut between their clusters, so the coarsened model's parameters are determined rather than posited and no separate conductance ansatz is required. And the operation is a restriction of the recognition family in the sense of the previous section, so it costs bound and leaves the evidence alone; keeping the interaction form has a price, and the price is computable in closed form. This is a variational coarsening in the Kadanoff sense, carried out on the recognition side rather than on the generative side.
+No novelty is claimed for this proposition. The map \(\Lambda\mapsto S^{\top}\Lambda S\) with a piecewise-constant \(0/1\) prolongator is the Galerkin coarse operator of aggregation-based algebraic multigrid, and the block case, in which the operator carries matrix rather than scalar weights, is the systems-of-equations setting that method was built for \citep{VanekMandelBrezina1996,Lee2024AMGSystems}. The matrix-weighted graph Laplacian is likewise an established object with its own literature \citep{Trinh2018MatrixWeighted}. What the proposition supplies here is not the coarse operator but the observation that the renormalized coupling between two coarse agents is exactly the sum of the fine weights on the edges cut between their clusters, so the coarsened model's parameters are determined rather than posited and no separate conductance ansatz is required.
 
-The complementarity is worth stating plainly, because it is the chapter's practical conclusion. Marginalization preserves the evidence and breaks the interaction form. Tying preserves the interaction form and costs bound. A treatment that needs both must name both, and may not slide between them.
+\section{Closure does not select the interaction form}
+
+It is tempting to read the proposition as a characterization, and to conjecture that Equation~\eqref{eq:interaction-family-hypothesis} is the unique family of Gaussian interaction precisions closed under \(S^{\top}\Lambda S\) for every partition. That conjecture is false, and the reason is worth recording because it also explains what the proposition does and does not establish.
+
+Congruence is linear and preserves the positive semidefinite cone, so closure under aggregation is nearly vacuous: the full cone is closed, the block-diagonal cone is closed, and so is every family cut out by conditions that survive the triple product. A one-parameter counterexample makes the failure concrete. For \(\lambda\in[-1,1]\) set
+\begin{equation}
+\Lambda^{(\lambda)}_{ii}=A_i+\sum_{j\neq i}W_{ij},
+\qquad
+\Lambda^{(\lambda)}_{ij}=-\lambda W_{ij}
+\quad(i\neq j).
+\label{eq:lambda-continuum}
+\end{equation}
+Every member is positive semidefinite, because the two-agent block requires only \((1\mp\lambda)W\succeq 0\), and every member is closed under aggregation for every partition, with edge weights adding as before and the coarse self term acquiring \(2(1-\lambda)\sum_{i<j,\,i,j\in I}W_{ij}\). The value \(\lambda=1\) is Equation~\eqref{eq:interaction-family-hypothesis}; the value \(\lambda=-1\) is the signless Laplacian, whose off-diagonal blocks are \(+W_{ij}\) and which lies outside it. A further reduction removes the remaining force from the hypothesis: every aggregation matrix factors into successive pair merges, so closure under every partition is equivalent to closure under one pair merge, and no semigroup condition is doing work.
+
+What does select Equation~\eqref{eq:interaction-family-hypothesis} within the continuum is a symmetry. The following are equivalent for a family of the displayed local form, and each holds only at \(\lambda=1\): the interaction energy is invariant under a common translation \(z_i\mapsto z_i+v\) of every trivialized coordinate; the coarse self term is purely additive, \(A_I=\sum_{i\in I}A_i\); and the coarse self term retains no memory of the intra-cluster edges that aggregation collapsed. The chapter's organizing statement is therefore that closure under aggregation does not select the interaction form, translation invariance does, and closure is then automatic.
+
+This is the point at which the comparison with the network-renormalization literature should be made as a contrast rather than as a template. The uniqueness theorem for edge-independent random graphs obtains its force because the coarse-graining rule there is nonlinear in the connection probability, so additivity of the node parameter has to be forced out of a functional equation \citep{Garuccio2023Multiscale}. Here the rule is linear and the Gaussian energy is additive from the start, so the same demand yields nothing. The genuine analogue is not a closure theorem but a fixed point: parameterizing \(W_{ij}=w(x_i,x_j)\) and \(A_i=\alpha(x_i)\) by a scalar node parameter and requiring the coarse model to take the same form in \(x_I=\sum_{i\in I}x_i\) gives \(w\bigl(\sum_{I}x,\sum_{J}x\bigr)=\sum_{i\in I,\,j\in J}w(x_i,x_j)\), whose measurable solutions are \(w(x,y)=xy\,M\) and \(\alpha(x)=x\,A\) with \(M,A\succeq 0\). Without a measurability hypothesis the Cauchy equation admits pathological solutions, and the hypothesis must be stated.
+
+\section{What aggregation costs}
+
+The proposition is an identity about precisions. Converting it into a statement about bounds requires care, because the operation it describes is not admissible as a recognition family in the literal reading.
+
+A recognition law that assigns every member of a cluster one common value is supported on \(\operatorname{range}(S)\), a proper linear subspace. Against the nondegenerate Gaussian posterior of the reference law this violates the absolute continuity required at Equation~\eqref{eq:recognition-posterior-absolute-continuity}, so the relative entropy is infinite and the attainable bound is \(-\infty\). Regularizing the transverse variance at \(\varepsilon\) exhibits the divergence explicitly: the cost grows as \(\tfrac{m}{2}\log(1/\varepsilon)\) with \(m=NK-n_{\mathrm{c}}K\) the number of identified directions, and no finite limit exists. Identification is therefore a construction on the generative side, where \(S^{\top}\Lambda S\) is the precision of the coarse coordinate, and not a restriction of the recognition family.
+
+The admissible finite operation restricts the recognition \emph{mean}. Requiring \(\mu\in\operatorname{range}(S)\) while leaving the covariance free gives a family that remains absolutely continuous with respect to the posterior, and its exact cost is the bias term alone,
+\begin{equation}
+\mathcal G_{\mathrm{tie}}
+=\tfrac12\,m_\perp^{\top}
+\bigl(B_\perp^{\top}\Lambda^{-1}B_\perp\bigr)^{-1}
+m_\perp,
+\qquad
+m_\perp=B_\perp^{\top}\mu,
+\label{eq:mean-tie-cost}
+\end{equation}
+with \(B_\perp\) an orthonormal basis of \(\operatorname{range}(S)^{\perp}\). The matrix appearing here is the \emph{marginal} precision of the identified directions, a Schur complement, and not the restriction \(B_\perp^{\top}\Lambda B_\perp\); the two agree only when the identified and retained subspaces are \(\Lambda\)-orthogonal. Restricting the covariance to cluster blocks as well adds the determinant gap of Equation~\eqref{eq:hierarchical-elbo-gap} to Equation~\eqref{eq:mean-tie-cost}.
+
+Two features of Equation~\eqref{eq:mean-tie-cost} bear on any attempt to use it as a criterion. It depends on the realized observation through \(\mu\), so the observation independence available for a pure factorization restriction is not available here. And it is a cost at fixed cluster structure, not a quantity comparable across partitions with different numbers of clusters, for the reason recorded in the closing section of this chapter.
+
+The complementarity is worth stating plainly, because it is the chapter's practical conclusion. Marginalization preserves the evidence and breaks the interaction form. Identification preserves the interaction form, and it is a generative construction whose recognition-side counterpart is the mean restriction of Equation~\eqref{eq:mean-tie-cost}. A treatment that needs both must name both, and may not slide between them.
 
 \section{Sufficiency and the lossless reduction}
 
@@ -58,7 +114,7 @@ b^{\top}\sum_i\Omega_i^{\top}R_i^{-1}y_i
 \end{equation}
 By the factorization criterion, \(T(y)=\sum_i\Omega_i^{\top}R_i^{-1}y_i\) is sufficient for the coarse coordinate, and the matrix in the quadratic term is the sum of transported link precisions. Reduction to \(T\) therefore discards nothing about the parent, and a minimal sufficient statistic is unique up to bijection, so the reduction is canonical in a sense no competing rule can claim.
 
-A transported arithmetic mean of the constituents is a different statistic and is not sufficient. It retains strictly less Fisher information about the coarse coordinate whenever the constituents are heterogeneous, and recovers the full information exactly when their transports and link covariances coincide. The information gap between the two rules is therefore a measure of constituent heterogeneity, which is the precise sense in which averaging is safe on a coherent cluster and lossy otherwise.
+A transported arithmetic mean of the constituents is a different statistic and is in general not sufficient. It recovers the full Fisher information about the coarse coordinate exactly when the transported link precisions \(\Omega_i^{\top}R_i^{-1}\) agree across the cluster, and retains strictly less otherwise. That condition is strictly weaker than requiring the transports and the link covariances to coincide separately: taking \(\Omega_1=I\) with \(R_1=I\) and \(\Omega_2=2I\) with \(R_2=2I\) leaves both factors unequal while \(\Omega_i^{\top}R_i^{-1}=I\) for each, so \(T\) reduces to \(y_1+y_2\) and the mean is minimal sufficient. The information gap between the two rules is therefore a measure of heterogeneity in the transported link precisions rather than of constituent heterogeneity as such, which is the precise sense in which averaging is safe on a cluster whose members report through a common precision and lossy otherwise.
 
 Nothing in the preceding paragraph selects the weights of a pooling rule. Any weight vector defines an admissible parameter under the maximization of Equation~\eqref{eq:exact-m-coordinate}, so a coherence-dependent weighting is a declared modeling choice and not a consequence of the bound.
 
@@ -76,7 +132,7 @@ nonnegative because \((J/J_{II})_{ii}\) is dominated by \(J_{ii}\) in the Loewne
 
 \section{The tower and its gap}
 
-For a recognition law that factorizes across scales, the evidence gap of a finite tower decomposes into a sum of per-scale conditional relative entropies. This is the chain rule for relative entropy applied to a scale-factorized law, and the paper claims no novelty for it. Its useful content is the accounting: the top scale contributes nothing, because it has no earlier scale to be conditioned on, so every nat of the gap is generated by the cross-scale dependence that the factorization discards. A tighter tower bound must therefore buy structure across scales, not within them.
+For a recognition law that factorizes across scales, the evidence gap of a finite tower decomposes into a sum of per-scale conditional relative entropies. This is the chain rule for relative entropy applied to a scale-factorized law, and the paper claims no novelty for it. The accounting should not be read as making the top scale free. Whatever ordering the chain rule uses, its first term compares the top factor with a marginal rather than with a conditional, and that term is generically positive; at the Gaussian block optimum the factor is \(\mathcal N(m_b,J_{bb}^{-1})\) while the marginal is \(\mathcal N(m_b,(J^{-1})_{bb})\), and these differ strictly whenever the cross-scale precision blocks do not vanish. The correct statement of the accounting is the determinant form directly: the gap depends on the model only through the off-diagonal, hence cross-scale, precision blocks, and vanishes exactly when they do. A tighter tower bound must therefore buy structure across scales, not within them.
 
 The identity is exact when each scale's recognition kernel is the conditional posterior of the block above it, which is the trivial case, and the paper states it as such rather than presenting the exactness as a result.
 
@@ -92,7 +148,7 @@ m=U_I^{-1}\mu_I,
 S=U_I^{-1}\Sigma_I U_I^{-\top}.
 \label{eq:coarse-frame-unidentifiable}
 \end{equation}
-The coarse frame has cancelled. Every constituent law depends on the triple \((U_I,\mu_I,\Sigma_I)\) only through the pair \((m,S)\), so the coarse frame occupies a \(K^2\)-dimensional orbit along which nothing observable varies. It is pure gauge, and only the frame-free combination is determined.
+The coarse frame has cancelled. Every constituent law depends on the triple \((U_I,\mu_I,\Sigma_I)\) only through the pair \((m,S)\), so the coarse frame occupies a \(K^2\)-dimensional orbit along which nothing observable varies. When the state representation \(\rho_k\) is faithful the statement sharpens from unidentifiability to gauge redundancy: given two triples with the same \((m,S)\), the element \(g=U_2U_1^{-1}\) carries one to the other in all three slots, so the level set of the map is exactly one orbit of the frame group. Under a non-faithful representation the level set can be strictly larger than the orbit and only the weaker statement survives.
 
 A search for a canonical coarse frame is therefore a search for a canonical value of an unidentifiable quantity, and no metric or connection on the frame group can supply one, because there is nothing for a geometric criterion to be right about. Any convention fixing the coarse frame is a gauge choice, to be declared as such.
 
@@ -100,12 +156,39 @@ An independent obstruction blocks the same construction from another direction. 
 
 Chapter~\ref{ch:configuration-elbo} separately declines to place a normalized ensemble on the noncompact frame group. The obstruction recorded here is independent of that refusal and is not repaired by supplying a proper reference measure.
 
+\section{Scale invariance and universality}
+\label{sec:coarse-universality}
+
+The preceding sections describe a single coarsening step. Iterating it raises a question the chapter has so far avoided, and the answer requires one declaration the construction does not yet make.
+
+Aggregation composes as a semigroup, and it increases precision: the coarse self term of Equation~\eqref{eq:coarse-tying-blocks} is a sum of fine self terms together with the cut weights, so repeated application drives the description toward higher certainty rather than toward a limit. Comparing descriptions at different resolutions therefore requires a normalization. Declaring a positive scalar \(\zeta_\ell\) at each level and setting
+\begin{equation}
+\Lambda^{(\ell+1)}
+=\zeta_\ell^{-1}S_\ell^{\top}\Lambda^{(\ell)}S_\ell
+\label{eq:rescaled-aggregation-flow}
+\end{equation}
+converts the semigroup into a flow on the space of interaction models, in the sense of Kadanoff's block construction followed by a rescaling. Nothing in the earlier chapters selects \(\zeta_\ell\), and this paper adopts no choice. The development below is therefore conditional: it records what the structure would imply once a rescaling is declared, and it is not a result about the construction as it stands.
+
+Granting Equation~\eqref{eq:rescaled-aggregation-flow}, a fixed point is a model that reproduces itself under coarse-graining. The parameterized form recorded above is one: with \(W_{ij}=x_ix_jM\) and \(A_i=x_iA\) and \(x\) additive, aggregation gives \(W_{IJ}=\sum_{i\in I,\,j\in J}x_ix_jM=x_Ix_JM\), so the coupling matrix \(M\) is carried through unchanged and the rescaling acts on the scalar parameter alone. The form is invariant in parameter values and not merely in shape. What is not established here is that it is \emph{attracting}. Universality in the usual sense requires that generic models flow to a fixed point, and invariance of a form is weaker than attraction to it; the basin of Equation~\eqref{eq:rescaled-aggregation-flow} is not determined in this paper.
+
+Two invariants would label such a fixed point, and their characters differ sharply. The first is spectral. Because the interaction operator and its Laplacian part transform by the same congruence under a change of frame, the generalized spectrum of the pair is unchanged by any local reframing, so the eigenvalue data of the flow is frame-independent without a gauge fixing. If the density of that spectrum behaves as a power near zero, its exponent is a continuous label, and it is a property of how the population is connected rather than of what its agents are made of.
+
+The second invariant is internal, and it collapses. The matrix \(M\) is defined only up to the residual global frame change that trivialization leaves, under which \(M\mapsto h^{\top}Mh\) for invertible \(h\), which is congruence. By Sylvester's law of inertia the congruence orbits of a real symmetric matrix are determined by its inertia, so among positive semidefinite matrices the orbit is determined by the rank alone. The internal label is therefore an integer \(0\leq r\leq K\), and in the nondegenerate case \(r=K\) there is exactly one internal class. The internal sector supplies no continuous moduli, and any variety among fixed points must come from the spectral exponent, that is from connectivity, and not from the coupling matrix.
+
+This bears on the participatory reading, and it is worth stating what that reading costs. If an agent's observations are the states of other agents, then the world an agent models is the remainder of the population, and a fixed point of Equation~\eqref{eq:rescaled-aggregation-flow} is an effective law for that world which the population has arrived at rather than been given. That is a coherent construction and it is the sense in which an emergent law could be said to be participatory. It is an identification and not a theorem. The flow acts on models of the population; calling a fixed point of it a physical law adds the premise that there is nothing else for the agents to be modeling. The premise is available in this framework because observations are gauge-inert coordinates exchanged between agents, but it is a declaration, and the chapter marks it as one.
+
+Granting the identification, the framework constrains rather than multiplies the possibilities, in a way worth recording because the opposite is often assumed. Distinct fixed points require distinct components of the interaction graph. The interaction operator is block diagonal across components, so Equation~\eqref{eq:rescaled-aggregation-flow} acts within each block independently; and because an observation is an edge, no observation is exchanged between components. Agents that are coupled at all therefore share a flow and reach the same fixed point, while a population operating under a different fixed point is by construction one with which nothing is exchanged. A different effective law is not a different region of one world but a different component, and the question of which other fixed points are occupied is not decidable from inside a component. The construction thus predicts no observable variation in the effective law, which is a constraint on the theory rather than a consequence to be tested.
+
+What would be testable is the approach to a fixed point rather than the identity of one. Away from a fixed point the parameters of Equation~\eqref{eq:rescaled-aggregation-flow} depend on the resolution at which the population is described, so effective couplings run with scale, and the form of that running is a property of the flow. That running, and not the existence of alternative classes, is the falsifiable residue of this section.
+
 \section{What this chapter does not claim}
 
-It does not derive the formation of a coarse agent from the bound. No criterion here decides when a cluster should be coarsened; the operations are classified and their costs computed, and the decision to apply one remains external. A comparison of bounds across models with different latent inventories does not order those models, both being lower bounds on different evidences, and the temperature invariance recorded at Equation~\eqref{eq:common-temperature-optimizer-invariance} forbids treating the coefficient of a complexity term as a free parameter within a single objective.
+It does not derive the formation of a coarse agent from the bound. No criterion here decides when a cluster should be coarsened; the operations are classified and their costs computed, and the decision to apply one remains external. The obstruction is structural rather than a gap awaiting the right functional. A comparison of bounds across models with different latent inventories does not order those models, both being lower bounds on different evidences, and the temperature invariance recorded at Equation~\eqref{eq:common-temperature-optimizer-invariance} forbids treating the coefficient of a complexity term as a free parameter within a single objective. Selecting the number of clusters is therefore a model-selection problem, and no bare cost can serve: Equation~\eqref{eq:mean-tie-cost} is a cost at fixed cluster structure, and the determinant gap of Equation~\eqref{eq:hierarchical-elbo-gap} decreases monotonically as clusters merge, so its minimizer is degenerate. What a criterion would require is an externally declared scale rather than a coefficient tuned inside one objective, and no such scale is declared here.
 
-It does not establish closure of the interaction family under any operation other than tying. Whether an aggregating map that integrates rather than identifies can preserve the family is open, and the closure of the family under such a map is not determined here.
+It does not establish closure of the interaction family under any operation other than aggregation. Whether an aggregating map that integrates rather than identifies can preserve the family is open, and the closure of the family under such a map is not determined here. The uniqueness question for aggregation itself is settled in the negative above, and what selects the form is the translation invariance recorded there rather than closure.
 
-It does not extend the published guarantees for scalar-weighted graph reduction to the matrix-weighted setting the belief-mean sector actually inhabits. The structural closure of Schur complementation under Kron reduction, and the corresponding characterization of when an aggregation preserves a combinatorial Laplacian, are established in the graph-reduction literature for scalar edge weights; the matrix-weighted case is not covered by those statements and is recorded here as unproved.
+It does not extend the published guarantees for scalar-weighted graph reduction to the matrix-weighted setting the belief-mean sector inhabits. The structural closure of Schur complementation under Kron reduction, and the corresponding characterization of when an aggregation preserves a combinatorial Laplacian, are established in the graph-reduction literature for scalar edge weights; the matrix-weighted case is not covered by those statements and is recorded here as unproved. The aggregation direction is a different matter, and is covered by the algebraic-multigrid literature cited above rather than claimed here.
 
 It does not claim a monotone information-geometric flow, a coarse-graining channel selected by a uniqueness theorem, or any statement about the frame sector beyond the two obstructions above.
+
+It adopts no rescaling, and therefore establishes no renormalization-group flow. Section~\ref{sec:coarse-universality} is conditional throughout: it records what a declared rescaling would imply and does not supply one. Within that conditional development, the invariance of the scale-free form is proved and its attractivity is not, so no universality statement is established here; the identification of a fixed point with a physical law is marked there as a declaration rather than derived; and no specific law follows from any of it, since the construction fixes no dynamics, no signature, and no structure group beyond the one declared in Chapter~\ref{ch:bundle-geometry}. What the section supplies is the place such a derivation would occupy.
