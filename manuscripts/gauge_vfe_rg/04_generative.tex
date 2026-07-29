@@ -89,18 +89,56 @@ The construction just given is closed. Every kernel in \eqref{eq:gen-kernels} th
 \end{quote}
 \status{DEFINITION} This is a requirement of the construction, not a theorem; nothing is being proved by stating it. What it excludes is concrete. It excludes a generative transition at agent \(i\) whose conditional mean or covariance is built from a live peer marginal, that is, from the current recognition law's marginal at some \(j\neq i\). Such a transition is a perfectly good map from recognition laws to kernels, and it may well be a useful computational device; it is simply not a factor of a fixed joint, because it does not become a definite kernel until an inference state is supplied.
 
-The prohibition is load-bearing rather than fastidious, and the following proposition says why.
+The prohibition is load-bearing rather than fastidious, and the following proposition says what a recognition-indexed family actually costs. It says less than the obvious formulation would, and the gap is not rhetorical: Proposition~4.14 below exhibits a family satisfying the hypothesis for which three natural-sounding consequences all fail. The defensible statement is about the absence of a distinguished target, not about a moving evidence.
 
-\textbf{Proposition 4.5.} Let \(\mathcal Q\) be a nonempty set of recognition laws on \((\mathsf Y_D,\mathscr Y_D)\), and suppose at least one factor of \eqref{eq:gen-composition} is replaced by a family indexed by \(Q\in\mathcal Q\), so that the composition yields for each \(Q\) a normalized joint \(P_{\theta,Q}(\cdot\given X)\) with nonconstant dependence on \(Q\). Then the following hold. First, the evidence is a function \(Q\mapsto\log p_{\theta,Q}(o\given X)\), and in general it is nonconstant. Second, for each fixed \(Q\) the identity of \Cref{ch:elbo} applies to the pair \((Q,P_{\theta,Q})\) and reads
+\textbf{Proposition 4.5 (no distinguished target).} Let \(\mathcal Q\) be a nonempty set of recognition laws on \((\mathsf Y_D,\mathscr Y_D)\), and suppose at least one factor of \eqref{eq:gen-composition} is replaced by a family indexed by \(Q\in\mathcal Q\), so that the composition yields for each \(Q\) a normalized joint \(P_{\theta,Q}(\cdot\given X)\) with nonconstant dependence on \(Q\). Fix an observation \(o\) at which the densities of \Cref{ch:elbo} are declared, and write \(e(Q)=\log p_{\theta,Q}(o\given X)\) for the induced evidence map on \(\mathcal Q\). Then the following hold. First, for each fixed \(Q\) the identity of \Cref{ch:elbo} applies to the pair \((Q,P_{\theta,Q})\) and reads
 \begin{equation}
 \log p_{\theta,Q}(o\given X)
 =\Lelbo(Q;X)
 +\KL\left(Q\middle\Vert P_{\theta,Q}(\cdot\given o,X)\right),
 \label{eq:gen-moving-target}
 \end{equation}
-so that a decrease of the divergence term achieved by changing \(Q\) also changes the left side and therefore certifies no improvement in any fixed quantity. Third, there is no single normalized joint measure on \(\mathsf O_D\times\mathsf Y_D\) whose evidence the family \(\{\Lelbo(Q;X)\}_{Q\in\mathcal Q}\) bounds, so "the evidence of the model" is not defined and model comparison by evidence requires a further declaration that selects one member of the family. \status{ESTABLISHED}
+which is an exact statement about the pair and about nothing else. Second, the family distinguishes no member of itself, so the phrase ``the evidence of the model'' denotes nothing until a further declaration selects one \(Q_\star\in\mathcal Q\), or replaces the family by a single joint; in particular model comparison by evidence requires that declaration, and the construction does not supply it. Third, for any \(Q,Q'\in\mathcal Q\),
+\begin{equation}
+\begin{aligned}
+\Lelbo(Q';X)-\Lelbo(Q;X)
+={}&\bigl[e(Q')-e(Q)\bigr]\\
+&-\Bigl[
+\KL\bigl(Q'\big\Vert P_{\theta,Q'}(\cdot\given o,X)\bigr)
+-\KL\bigl(Q\big\Vert P_{\theta,Q}(\cdot\given o,X)\bigr)
+\Bigr],
+\end{aligned}
+\label{eq:gen-elbo-difference}
+\end{equation}
+so a decrease of the divergence term certifies an increase of the bound relative to one fixed reference quantity if and only if \(e(Q')=e(Q)\); off the level sets of \(e\) an ascent compares bounds on two different quantities and certifies nothing about either. \status{ESTABLISHED}
 
-The proof of each part is immediate. The first and third parts are restatements of the supposition. The second holds because the identity of \Cref{ch:elbo} requires only that its two arguments be a fixed pair, which they are once \(Q\) is fixed; the content of the proposition is that fixing \(Q\) is precisely what an optimization over \(Q\) refuses to do. The situation is not that the algebra fails. It is that the algebra succeeds pointwise and delivers a family of exact statements about a moving quantity, which is not what a bound is for.
+The proof of each part is immediate. The first holds because the identity of \Cref{ch:elbo} requires only that its two arguments be a fixed pair, which they are once \(Q\) is fixed. The second is a restatement of the supposition: the index set carries no distinguished point and the construction declares none. The third is the difference of two instances of \eqref{eq:gen-moving-target}, and the stated equivalence is the observation that the bracketed evidence difference vanishes exactly on a level set of \(e\). What the proposition therefore says is that the algebra succeeds pointwise and delivers a family of exact statements, each about its own quantity, with no rule attached for comparing them; whether the quantities happen to coincide is a further question about \(e\) and is not settled by the supposition.
+
+That last qualification is the whole content of the repair, and it is worth exhibiting rather than asserting, because the stronger reading is the natural one and it is false.
+
+\textbf{Proposition 4.14 (three consequences that do not follow).} There is a family satisfying the hypothesis of Proposition~4.5 for which all three of the following hold: the evidence map \(e\) is constant on \(\mathcal Q\); the divergence term of \eqref{eq:gen-moving-target} takes strictly decreasing values along a sequence in \(\mathcal Q\) and vanishes at the last of them, while \(\Lelbo\) takes correspondingly increasing values reaching the fixed value \(e\), so that the ascent does certify an improvement in a fixed quantity; and a single normalized joint, itself a member of the family, has evidence equal to \(\sup_{Q}\Lelbo(Q;X)\) and therefore bounds the entire family of bounds. Hence nonconstant dependence of the joint on \(Q\) implies none of the following: that the evidence moves, that no fixed quantity is being improved, or that no single normalized joint has the family of bounds beneath its evidence. \status{ESTABLISHED}
+
+\emph{Proof.} Take one agent at one design point. Let the model coordinate carry a fixed law and let every recognition law agree with it there, so that both sides of \eqref{eq:gen-moving-target} reduce to the state coordinate; write \(y\in\{0,1\}\) for that coordinate and \(o\in\{0,1\}\) for the observation, both with counting measure. Let the observation kernel be constant, \(p^{o}(o\given y)=\tfrac12\), which is a normalized Markov kernel, and replace the root state factor by the \(Q\)-indexed family. Index \(\mathcal Q\) by \(\beta\in(0,1)\) with \(Q_\beta=\mathrm{Ber}(\beta)\), and declare the replaced factor to be \(\mathrm{Ber}(g(\beta))\) with \(g(\beta)=\tfrac\beta2+\tfrac14\). The composed joint is
+\begin{equation}
+P_{\theta,Q_\beta}(o,y\given X)=\tfrac12\cdot\mathrm{Ber}\bigl(g(\beta)\bigr)(y),
+\label{eq:gen-moving-target-witness}
+\end{equation}
+which is normalized for every \(\beta\) and depends nonconstantly on \(\beta\) because \(g\) is injective, so the hypothesis of Proposition~4.5 is met.
+
+Under \eqref{eq:gen-moving-target-witness} the coordinates \(o\) and \(y\) are independent, so the observation marginal is uniform for every \(\beta\) and \(e(Q_\beta)=\log\tfrac12\) is constant, which is the first assertion. Independence also makes the posterior at either observation equal to the prior, \(P_{\theta,Q_\beta}(\cdot\given o,X)=\mathrm{Ber}(g(\beta))\), so the divergence term is \(\KL(\mathrm{Ber}(\beta)\Vert\mathrm{Ber}(g(\beta)))\). Its exact values at \(\beta=\tfrac9{10}\), \(\beta=\tfrac7{10}\) and \(\beta=\tfrac12\) are
+\begin{equation}
+\tfrac9{10}\log\tfrac97+\tfrac1{10}\log\tfrac13=0.1163218\ldots,
+\qquad
+\tfrac7{10}\log\tfrac76+\tfrac3{10}\log\tfrac34=0.0216009\ldots,
+\qquad
+0,
+\label{eq:gen-moving-target-values}
+\end{equation}
+strictly decreasing, and the last vanishes because \(\beta=\tfrac12\) is the unique fixed point of \(g\). By \eqref{eq:gen-moving-target} the bound is \(\Lelbo(Q_\beta;X)=\log\tfrac12-\KL(\mathrm{Ber}(\beta)\Vert\mathrm{Ber}(g(\beta)))\), which therefore takes strictly increasing values along that sequence and reaches the constant evidence at \(\beta=\tfrac12\), which is the second assertion. The supremum is attained at \(\beta=\tfrac12\), where the divergence vanishes, so \(\sup_\beta\Lelbo(Q_\beta;X)=\log\tfrac12=e(Q_{1/2})\), and the member \(P_{\theta,Q_{1/2}}\) is a single normalized joint whose evidence dominates every member of the family of bounds, which is the third. \hfill\(\square\)
+
+The values in \eqref{eq:gen-moving-target-values} are closed-form evaluations of the binary relative entropy and involve no simulation, hence no seed. Two things are worth separating in what they show. They do not rescue the recognition-indexed construction: Proposition~4.5's second part still holds in the witness, since the family designates no member and the value \(\log\tfrac12\) is the evidence of a joint that had to be picked out by hand. What they refute is a stronger claim that an earlier form of this section made and that the present one does not: that nonconstant dependence of the joint on \(Q\) forces the evidence to move, that a descent in the divergence therefore certifies no improvement in any fixed quantity, and that no single normalized joint has the family of bounds beneath its evidence. Each of those is false in the witness, and the first is false because the joint can vary in a direction the observation marginal does not see. \status{NOT-CLAIMED} The document therefore declines all three, and declines them as unproved rather than recording them as refuted in every instance: an evidence map that does move is entirely possible, and Proposition~4.5 covers that case through the level-set condition in \eqref{eq:gen-elbo-difference} rather than by assuming it.
+
+None of this weakens Requirement~4.4, which is a declaration about what counts as a generative model here and is not inferred from any of the above. What changes is the accompanying argument: the reason to keep the prohibition is that a recognition-indexed family supplies no target to bound and no certificate for comparing bounds across its members, not that it necessarily makes the evidence move.
 
 Two further remarks keep the prohibition from being read more broadly than it is. It does not forbid a model in which the agents are coupled, and it does not forbid a construction in which each agent's effective prior is constituted by the rest of the population. Such coupling is available through a latent variable inside the joint, whose conditional laws are ordinary kernels and whose influence on agent \(i\) is mediated by the model rather than by a kernel reading an inference state. The distinction between these two is exactly the distinction \Cref{ch:obstructions} needs, where a construction that folds the population's own beliefs back in as a generative factor is shown to face a dilemma, and where a reformulation of that fold as a one-parameter family of posteriors is shown to violate Requirement~4.4 directly, since the flowing object is a posterior. That is the substantive obstruction the requirement generates; it is derived there and only announced here.
 
@@ -257,6 +295,8 @@ One warning belongs here, so that the Gaussian realization is not over-read. Ass
 \section{Gauge covariance}
 \label{sec:gen-gauge}
 
+One typing note prevents a collision of symbols with \Cref{ch:geometry}. There $u_i$ names a section of the principal bundle and $U_i\in G$ its group-valued coordinate relative to the reference trivialization, with the parametrization $u_i=\sigma_0\cdot U_i^{-1}$ of Equation~\eqref{eq:geo-frame-field} and the per-agent reframing $U_i\mapsto g_iU_i$. In this section $u_i$ denotes that group-valued coordinate itself and nothing else, so the letter carries a different type here than there and no section of $P$ appears below. \status{DEFINITION} Read in those terms, the reframing displayed next is the vertex gauge transformation of \Cref{ch:geometry} written in the represented channels, and the transport law it forces is Equation~\eqref{eq:geo-regime-one-gauge-law}.
+
 Let the frames of \Cref{ch:geometry} be group elements \(u_i\in G\) with represented images
 \begin{equation}
 U_i=\rho_k(u_i)\in\GL^{+}(K),
@@ -405,7 +445,8 @@ One question raised by this section is left unsettled here. The gauge group acts
 4.2 & Iterated kernel composition \eqref{eq:gen-iterated-integral} defines a probability kernel & \textsc{established} & Proved in \Cref{sec:gen-composition} \\
 4.3 & Cross-design conditional product \eqref{eq:gen-design-product} & \textsc{hypothesis} & A choice; excludes cross-design dependence, used only in Proposition~4.6 and the factor count \\
 4.4 & Typing prohibition & \textsc{definition} & Requirement of the construction; nothing proved \\
-4.5 & What fails if a kernel reads a posterior & \textsc{established} & Proved in \Cref{sec:gen-typing} \\
+4.5 & No distinguished target & \textsc{established} & Proved in \Cref{sec:gen-typing}. Only that the pointwise identity survives, that the family designates no member, and that an ascent certifies an improvement in a fixed quantity exactly on a level set of the evidence map \\
+4.5 & The three stronger readings: that the evidence must move, that no fixed quantity is being improved, and that no single normalized joint has the family of bounds beneath its evidence & \textsc{not-claimed} & Declined as unproved rather than refuted in every instance. An earlier form of this section asserted them; Proposition~4.14 exhibits a witness in which all three fail, and Proposition~4.5's second part survives it \\
 4.6 & Normalization by reverse-topological integration, no partition function & \textsc{established} & Proved in \Cref{sec:gen-normalization} \\
 4.7 & Local normalization does not give finite \(Z_X\) & \textsc{established} & Counterexample \eqref{eq:gen-gibbs-counterexample} \\
 4.8 & Linear-Gaussian realization on a directed forest & \textsc{definition} & Declared shapes and SPD requirements \\
@@ -414,6 +455,7 @@ One question raised by this section is left unsettled here. The gauge group acts
 4.11 & Joint pushforward and gauge invariance of the evidence & \textsc{established} & Proved in \Cref{sec:gen-gauge} \\
 4.12 & Regime~II link transformation law is imposed, not derived & \textsc{definition} & Declared; Regime~I version is a theorem \\
 4.13 & Structure of the gauge quotient of parameter space & \textsc{open} & Needs stabilizer analysis and properness of the action; nothing later depends on it \\
+4.14 & Explicit family in which the evidence is constant, the ascent certifies a fixed quantity, and one member's evidence bounds the whole family & \textsc{established} & Exhibited by construction in \Cref{sec:gen-typing}; closed-form binary relative entropies, no simulation and hence no seed. It bounds what Proposition~4.5 may be read to assert \\
 \bottomrule
 \end{tabularx}
 \end{sciencetable}

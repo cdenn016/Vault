@@ -82,11 +82,11 @@ The witness settles the general question, because a quantity that varies in one 
 \section{A posterior-indexed flow does not repair it}
 \label{sec:obs-tau}
 
-A different repair suggests itself from the renormalization literature. Rather than folding the tower, one may replace its top by a one-parameter family of posteriors indexed by an inverse observation count, in which the uninformative end of the family plays the role of the missing top prior and the informative end recovers the data-driven law. The flow then has no top node, the cycle never forms, and the self-reference becomes reversibility of a flow rather than a loop in a graph. The construction is attractive and it does not work here, for three reasons that are independent of one another, so that repairing any one leaves the others standing.
+A different repair suggests itself from the renormalization literature. Rather than folding the tower, one may replace its top by a one-parameter family of posteriors indexed by an inverse observation count, in which the uninformative end of the family plays the role of the missing top prior and the informative end recovers the data-driven law. The flow then has no top node, the cycle never forms, and the self-reference becomes reversibility of a flow rather than a loop in a graph. The construction is attractive and it does not work here, for three reasons that are independent of one another, so that repairing any one leaves the others standing. The first and the third are self-contained statements about typing and about properness; only the second passes through Proposition 4.5, and it is stated below in the scoped form that proposition actually supports, so the refutation does not rest on anything stronger.
 
 The first is typing, and it is decisive by itself. Chapter~\ref{ch:generative} requires that a generative kernel be fixed once its parameters and structural data are fixed, and may not take a recognition law, a recognition parameter, or a posterior as an input. The flowing object in this construction is a posterior. The prohibition is violated directly, under its own noun, and not by an analogy that might be argued away.\status{ESTABLISHED} It is worth being clear about why the prohibition is not a stylistic preference: the exact identity of Chapter~\ref{ch:elbo} decomposes the log evidence of a fixed joint, and a joint that reads the posterior it induces is not a fixed joint, so there is no evidence for the identity to decompose.
 
-The second is that a one-parameter family of posteriors is a one-parameter family of models. Each member of the family is the posterior of a different likelihood, differing in the effective number of observations, so what the flow traverses is not one model at different resolutions but a curve of distinct models with distinct evidences. Bounds computed for different models stand in no order relation, so there is no single evidence for a single bound to bound, and the construction lands in the category error that Chapter~\ref{ch:coarsegraining} separates from coarse-graining proper: model replacement presented as a change of scale.\status{ESTABLISHED}
+The second is that a one-parameter family of posteriors is a one-parameter family of models. Each member of the family is the posterior of a different likelihood, differing in the effective number of observations, so what the flow traverses is not one model at different resolutions but a curve of distinct models, each carrying its own evidence. Proposition 4.5 applies to that curve and supplies exactly what survives and no more: the family distinguishes no member of itself, so no evidence is designated for a bound to bound, and by the difference identity proved there a comparison of bounds at two points of the curve certifies an improvement in one fixed quantity only when the evidences at those two points agree, which the construction neither arranges nor checks.\status{ESTABLISHED} The objection is not that the evidences must differ. Proposition 4.14 exhibits a recognition-indexed family that varies nontrivially while its evidence stays fixed, so the stronger claim is unavailable and is not made here.\status{NOT-CLAIMED} What is claimed is that nothing in the construction says which evidence, if any, is being bounded, and that no declaration selecting one is offered; on that reading the construction lands in the category error that Chapter~\ref{ch:coarsegraining} separates from coarse-graining proper, namely model replacement presented as a change of scale.
 
 The third is that the endpoint intended to serve as the declared top prior is improper. In the asymptotic regime where the construction is defined, the posterior at effective sample size $T$ has covariance of order $T^{-1}$ times an inverse information matrix, so as $T\to0$ the covariance diverges and there is no normalized limit law. An improper endpoint cannot be a prior in a construction whose entire content is that the joint is normalized.\status{ESTABLISHED} The source construction offers the uninformative-endpoint-as-prior reading informally in its own text; an informal reading is not an argument that the limit is a proper law, and the limit is not one. The disagreement is recorded here as ours.
 
@@ -140,7 +140,7 @@ exactly, for every $v\in\R^{K}$ and every choice of transports and link covarian
 \paragraph{Proof.}
 Every constituent residual $y_i-\Omega_ib$ vanishes on such a configuration, so the only surviving term of the quadratic form is $v^{\top}P_0v$.
 
-The three propositions together locate precisely what the fold destroyed and what restores it. By Corollary~11.2 the reciprocal pair charges nothing on the transport-consistent ray; by \eqref{eq:obs-coercivity} the star charges exactly $v^{\top}P_0v$ there, no more and no less, so the declared prior is not an arbitrary regularizer added to make a singular problem tractable but is precisely the coercivity the cycle removed, restored in the one direction it was missing. A direct check corroborates the contrast: over three hundred random draws the star's assembled precision had smallest eigenvalue at least $2.1\times10^{-3}$, against the fold's smallest eigenvalue at the level of double-precision zero, and \eqref{eq:obs-precision-addition} matched the assembled block to $7.1\times10^{-15}$. That is a corroboration of proofs already given and is not offered in place of one; computation is not proof.\status{NUMERICAL}
+The three propositions together locate precisely what the fold destroyed and what restores it. By Corollary~11.2 the reciprocal pair charges nothing on the transport-consistent ray; by \eqref{eq:obs-coercivity} the star charges exactly $v^{\top}P_0v$ there, no more and no less, so the declared prior is not an arbitrary regularizer added to make a singular problem tractable but is precisely the coercivity the cycle removed, restored in the one direction it was missing. A direct check corroborates the contrast: over three hundred random draws the star's assembled precision had smallest eigenvalue at least $2.1\times10^{-3}$, against the fold's smallest eigenvalue at the level of double-precision zero, and \eqref{eq:obs-precision-addition} matched the assembled block to $7.1\times10^{-15}$. The fold is the control. The seed of that run was not recorded, so the figures cannot be reproduced exactly from this document; the seed is stated as missing rather than supplied after the fact, and everywhere else in this chapter the seed is $20260728$. That is a corroboration of proofs already given and is not offered in place of one; computation is not proof.\status{NUMERICAL}
 
 That a prior must be declared somewhere is not a shortcoming of this particular construction, and it is worth recording as a general fact rather than as a concession.
 
@@ -253,12 +253,21 @@ Chapter~\ref{ch:geometry} now distinguishes three holonomies, and everything in 
 \section{Status register}
 \label{sec:obs-register}
 
-\begin{sciencetable}[htbp]{Status register for Chapter~\ref{ch:obstructions}. For anything not established, the final column names what is owed.}
-\label{tab:obs-register}
-\begin{tabular}{p{0.30\textwidth} p{0.14\textwidth} p{0.44\textwidth}}
+{\small
+\begin{longtable}{p{0.30\textwidth} p{0.14\textwidth} p{0.44\textwidth}}
+\caption{Status register for Chapter~\ref{ch:obstructions}. For anything not established, the final column names what is owed.}
+\label{tab:obs-register}\\
 \toprule
 \textbf{Result} & \textbf{Status} & \textbf{What is owed} \\
 \midrule
+\endfirsthead
+\multicolumn{3}{@{}l}{\emph{Status register for Chapter~\ref{ch:obstructions}, continued.}}\\
+\toprule
+\textbf{Result} & \textbf{Status} & \textbf{What is owed} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
 Prop.~11.1, reciprocal-pair kernel is $\ker(H-I)$, Eq.~\eqref{eq:obs-pair-kernel} & ESTABLISHED & Nothing. Independent of the link covariances. \\
 Cor.~11.2, the cocycle forces a $K$-dimensional kernel, Eq.~\eqref{eq:obs-cocycle-kernel} & ESTABLISHED & Nothing. \\
 The kernel is exactly the transport-consistent configuration & ESTABLISHED & Nothing; this is why the fold supplies no coercivity where it was meant to. \\
@@ -267,13 +276,14 @@ A non-factor fold has no evidence to bound & ESTABLISHED & Nothing, given the fi
 Prop.~11.3, the normalizer depends on the transports, Eq.~\eqref{eq:obs-det-witness} & ESTABLISHED & Nothing. One witness suffices to refute constancy. \\
 The normalizer acts as a potential toward trivial holonomy & ESTABLISHED & Shown at $K=1$ by Eq.~\eqref{eq:obs-det-witness}; the shape of the potential for general $K$ is not computed and is not needed for the refutation. \\
 A posterior-indexed flow violates the typing prohibition & ESTABLISHED & Nothing; the flowing object is a posterior, under the prohibition's own noun. \\
-A family of posteriors is a family of models & ESTABLISHED & Nothing; bounds for distinct models are not comparable. \\
+A family of posteriors is a family of models, so no evidence is designated for a bound to bound & ESTABLISHED & Nothing; this is Prop.~4.5 applied to the curve, with its difference identity, which certifies an improvement in one fixed quantity only where the two evidences agree. \\
+That the evidences along the curve must differ & NOT-CLAIMED & Declined, not refuted. Prop.~4.14 exhibits a recognition-indexed family whose evidence is constant, so the stronger reading is unavailable and is not asserted here. \\
 The uninformative endpoint is improper & ESTABLISHED & Nothing. The source's informal reading of that endpoint as a prior is not an argument that the limit is a law; the disagreement is ours. \\
 Declared top prior on a truncated tower & DEFINITION & A declaration. The top is given, not constituted; the closure ambition is abandoned. \\
 Prop.~11.4, the star precision is definite & ESTABLISHED & Nothing. \\
 Prop.~11.5, the exact coordinate is precision addition, Eq.~\eqref{eq:obs-precision-addition} & ESTABLISHED & Nothing. \\
 Prop.~11.6, consensus coercivity equals $v^{\top}P_0v$, Eq.~\eqref{eq:obs-coercivity} & ESTABLISHED & Nothing. \\
-Star and fold contrasted numerically & NUMERICAL & Measurement only, at one dimension setting: 300 draws, star $\lambda_{\min}\geq2.1\times10^{-3}$ against the fold at double-precision zero; Eq.~\eqref{eq:obs-precision-addition} matched to $7.1\times10^{-15}$. Corroborates proofs given in the text; computation is not proof. \\
+Star and fold contrasted numerically & NUMERICAL & Measurement only, at one dimension setting: 300 draws, star $\lambda_{\min}\geq2.1\times10^{-3}$ against the fold at double-precision zero, the fold being the control; Eq.~\eqref{eq:obs-precision-addition} matched to $7.1\times10^{-15}$. The seed of this run was not recorded and is owed. Corroborates proofs given in the text; computation is not proof. \\
 Prop.~11.7, a declared root is unavoidable & ESTABLISHED & Nothing. Finite acyclic models only; the statement says nothing about infinite towers. \\
 The participatory loop lives in the inference & ESTABLISHED & A statement about fixed points of coordinate ascent on a fixed acyclic joint. It asserts nothing about existence, uniqueness, or convergence of that scheme. \\
 Existence and convergence of that fixed point & OPEN & A convergence result for coordinate ascent on Eq.~\eqref{eq:obs-star}, which is not attempted here. \\
@@ -287,6 +297,5 @@ Holonomy relocates a declaration rather than removing one & ESTABLISHED & Nothin
 Locality cannot separate the two demands, Eq.~\eqref{eq:obs-tension} & ESTABLISHED & Nothing. Admissibility is a down-set in refinement, and a nontrivial blocking sequence on a finite population makes every cycle internal. \\
 The tension itself, Eq.~\eqref{eq:obs-tension} & OPEN & A coarsening rule valid under nontrivial holonomy, or a fold whose log partition function is constant in the transports, or an argument that one demand is dispensable. The star of Eq.~\eqref{eq:obs-star} evades the tension because a tree has no cycles; that is an evasion, not a resolution. \\
 The tension is internal to the second kind of holonomy alone & ESTABLISHED & Nothing. Neither side of Eq.~\eqref{eq:obs-tension} refers to the base holonomy of Ch.~\ref{ch:geometry}'s Props.~2.29--2.31, checked by inspection of what each side is built from. \\
-\bottomrule
-\end{tabular}
-\end{sciencetable}
+\end{longtable}
+}

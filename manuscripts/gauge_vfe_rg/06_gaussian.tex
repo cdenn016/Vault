@@ -265,7 +265,7 @@ so the associated precision lies in $\mathcal I(V)$, with each $W_{ij}$ symmetri
 \paragraph{Proof.}
 By Equation~\eqref{eq:gauss-flat-trivialization} the residual is $U_i(z_i-z_j)$, so the quadratic form $(\mu_i-\Omega_{ij}\mu_j)^\top R_{ij}^{-1}(\mu_i-\Omega_{ij}\mu_j)$ equals $(z_i-z_j)^\top U_i^\top R_{ij}^{-1}U_i(z_i-z_j)$. The matrix $U_i^\top R_{ij}^{-1}U_i$ is symmetric and positive definite because $R_{ij}^{-1}$ is and $U_i$ is invertible. Comparing with Equation~\eqref{eq:gauss-interaction-energy} identifies the parameters. $\square$
 
-Proposition 6.14 also makes the role of Hypothesis 6.8 concrete by contrast. Without trivialization the same agreement factor contributes the off-diagonal block $-R_{ij}^{-1}\Omega_{ij}$, which is symmetric only in special position; a random draw at $K=3$ (seed $20260728$) differed from its own transpose by a matrix of Frobenius norm $4.32$, while the corresponding trivialized weight was symmetric to $1.8\times10^{-16}$ with smallest eigenvalue $1.07\times10^{-2}$.
+Proposition 6.14 also makes the role of Hypothesis 6.8 concrete by contrast. Without trivialization the same agreement factor contributes the off-diagonal block $-R_{ij}^{-1}\Omega_{ij}$, which is symmetric only in special position; a random draw at $K=3$ (seed $20260728$) differed from its own transpose by a matrix of Frobenius norm $4.32$, while the corresponding trivialized weight was symmetric to $1.8\times10^{-16}$ with smallest eigenvalue $1.07\times10^{-2}$; the trivialized weight is the control, and it is the case Proposition 6.14 proves. Computation is not proof. \status{NUMERICAL}
 
 Conditioning is a different question and admits only computational evidence. Drawing $N=6$ agents at $K=3$ with each unordered pair present independently with probability $0.6$, edge weights $W_{ij}=MM^\top+0.1I$ and self terms $A_i=MM^\top/K$ for independent standard normal $M$ (seed $20260728$, $200$ draws), every assembled $\Lambda$ was positive definite, with smallest observed eigenvalue $4.6\times10^{-4}$ and condition numbers of median $93.4$ and maximum $4.0\times10^{4}$. Two controls were run. Setting $A_i=0$ produced exactly $K=3$ zero eigenvalues with $\lVert L(\mathbf 1\otimes I_K)\rVert_F=2.9\times10^{-15}$, which is the consensus null space predicted by Proposition 6.5. Drawing $200$ unstructured positive definite matrices of the same size produced zero matrices with symmetric off-diagonal blocks, corroborating Proposition 6.6. Computation is not proof: positive definiteness here is proved by Proposition 6.5 and thinness by Proposition 6.6, and the measurements speak only to the conditioning of one sampling scheme, for which no proof is offered and none is claimed. \status{NUMERICAL}
 
@@ -275,15 +275,25 @@ Conditioning is a different question and admits only computational evidence. Dra
 One question about the family itself is left open, and it is worth stating precisely because it is open in the algebraic-graph literature as well.
 
 \paragraph{Open problem 6.15 (marginalization).}
-Aggregation, treated in the coarse-graining chapter, merges agents. The complementary operation eliminates them by marginalization, replacing $\Lambda$ by the Schur complement $\Lambda_{RR}-\Lambda_{RE}\Lambda_{EE}^{-1}\Lambda_{ER}$ on a retained set $R$ with eliminated set $E$. In the scalar-weighted case this is Kron reduction and returns a Laplacian. The matrix-weighted case is not settled. What can be stated exactly is the obstruction for a single eliminated agent $e$: the new off-diagonal block between retained agents $i$ and $j$ is $-W_{ij}-W_{ie}\Lambda_{ee}^{-1}W_{ej}$, and since the block is determined there is no freedom in the edge assignment, so membership requires $W_{ie}\Lambda_{ee}^{-1}W_{ej}$ to be symmetric. That is the commutation condition $W_{ie}\Lambda_{ee}^{-1}W_{ej}=W_{ej}\Lambda_{ee}^{-1}W_{ie}$, automatic at $K=1$ and failing generically above it: over $200$ independent draws at $K=3$ (seed $20260728$) it held zero times, with relative asymmetry up to $1.53$, while the $K=1$ control held $200$ times out of $200$. \status{ESTABLISHED} What remains open is whether some structurally motivated subfamily, for instance one with simultaneously diagonalizable edge weights, is closed under marginalization, and whether the positive semidefinite row-sum condition survives when the symmetry condition is imposed. Settling it requires either such a closure proof or a demonstration that no subfamily larger than the commuting one works. \status{OPEN}
+Aggregation, treated in the coarse-graining chapter, merges agents. The complementary operation eliminates them by marginalization, replacing $\Lambda$ by the Schur complement $\Lambda_{RR}-\Lambda_{RE}\Lambda_{EE}^{-1}\Lambda_{ER}$ on a retained set $R$ with eliminated set $E$. In the scalar-weighted case this is Kron reduction and returns a Laplacian. The matrix-weighted case is not settled. What can be stated exactly is the obstruction for a single eliminated agent $e$: the new off-diagonal block between retained agents $i$ and $j$ is $-W_{ij}-W_{ie}\Lambda_{ee}^{-1}W_{ej}$, and since the block is determined there is no freedom in the edge assignment, so membership requires $W_{ie}\Lambda_{ee}^{-1}W_{ej}$ to be symmetric. That is the commutation condition $W_{ie}\Lambda_{ee}^{-1}W_{ej}=W_{ej}\Lambda_{ee}^{-1}W_{ie}$, which is automatic at $K=1$. \status{ESTABLISHED} That it fails generically above $K=1$ is measured rather than proved: over $200$ independent draws at $K=3$ (seed $20260728$) it held zero times, with relative asymmetry up to $1.53$, while the $K=1$ control held $200$ times out of $200$. Computation is not proof, and no proof of generic failure is offered. \status{NUMERICAL} What remains open is whether some structurally motivated subfamily, for instance one with simultaneously diagonalizable edge weights, is closed under marginalization, and whether the positive semidefinite row-sum condition survives when the symmetry condition is imposed. Settling it requires either such a closure proof or a demonstration that no subfamily larger than the commuting one works. \status{OPEN}
 
 \section{Status register}
 
-\begin{sciencetable}{Epistemic status of the results of this chapter. Every entry not marked \textsc{established} names what is owed.}
-\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.12\linewidth}>{\raggedright\arraybackslash}p{0.29\linewidth}>{\raggedright\arraybackslash}p{0.16\linewidth}>{\raggedright\arraybackslash}p{0.33\linewidth}@{}}
+{\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.12\linewidth}>{\raggedright\arraybackslash}p{0.29\linewidth}>{\raggedright\arraybackslash}p{0.16\linewidth}>{\raggedright\arraybackslash}p{0.33\linewidth}@{}}
+\caption{Epistemic status of the results of this chapter. Every entry not marked \textsc{established} names what is owed.}
+\label{tab:gauss-register}\\
 \toprule
 \textbf{Item} & \textbf{Statement} & \textbf{Status} & \textbf{What is owed} \\
 \midrule
+\endfirsthead
+\multicolumn{4}{@{}l}{\emph{Status register for Chapter~\ref{ch:gaussian}, continued.}}\\
+\toprule
+\textbf{Item} & \textbf{Statement} & \textbf{Status} & \textbf{What is owed} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
 Prop.~6.1 & Log normalizer, moments, convexity of the Gaussian information form & ESTABLISHED & Nothing; proved, with the regularity condition cited \\
 Prop.~6.2 & Conditional mean and covariance; zero precision block equals conditional independence & ESTABLISHED & Nothing; proved and cited \\
 Rem.~6.3 & A precision block is not a covariance value; marginal block is an inverse Schur complement & ESTABLISHED & Nothing; explicit witness given \\
@@ -298,9 +308,10 @@ Prop.~6.11 & Exact global condition for family membership & ESTABLISHED & Nothin
 Prop.~6.12 & Edge-local membership holds exactly for $\Lambda_i$-orthogonal projections & ESTABLISHED & Nothing; proved. The accompanying sweep is corroboration only \\
 Hyp.~6.13 & The interaction form is adopted as a restriction & HYPOTHESIS & A declared choice; excludes generic linear transitions. Every later use must name it \\
 Prop.~6.14 & The family is nonempty; explicit agreement-factor construction & ESTABLISHED & Nothing; proved \\
+Prop.~6.14 & Measured contrast between the untrivialized and trivialized agreement weights & NUMERICAL & Computation only, seed $20260728$, the trivialized weight serving as control; the statement is proved by Prop.~6.14 \\
 Sec.~6.5 & Conditioning of one sampling scheme & NUMERICAL & Computation only, with two controls; no conditioning bound is proved or claimed \\
-Open~6.15 & Symmetry obstruction to one-agent marginalization & ESTABLISHED & Nothing; computed and controlled \\
+Open~6.15 & Exact symmetry obstruction to one-agent marginalization & ESTABLISHED & Nothing; the reduced block is determined, so membership requires $W_{ie}\Lambda_{ee}^{-1}W_{ej}$ symmetric \\
+Open~6.15 & That the commutation condition fails generically above $K=1$ & NUMERICAL & Computation only, seed $20260728$, with the $K=1$ case as control; no proof of generic failure is offered \\
 Open~6.15 & Whether any subfamily is closed under marginalization & OPEN & A closure proof for a named subfamily, or a demonstration that none larger than the commuting case exists \\
-\bottomrule
-\end{tabular}
-\end{sciencetable}
+\end{longtable}
+}
