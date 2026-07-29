@@ -27,15 +27,17 @@ be a smooth principal $G$-bundle: $G$ acts smoothly on the right of $P$, freely 
 \begin{equation}
 U_i:\mathcal C_i\longrightarrow G,
 \qquad
-u_i=\sigma_0\cdot U_i .
+u_i=\sigma_0\cdot U_i^{-1} .
 \label{eq:geo-frame-field}
 \end{equation}
 Whether a reference section exists at all is Hypothesis 2.10, which Proposition 2.19 shows to be equivalent to triviality of $P\vert_{\mathcal C_0}$; the general regime, in which each frame is referred only to its own support and \eqref{eq:geo-frame-field} is unavailable, is Definition 2.20. \status{DEFINITION}
 \medskip
 
+The inverse in \eqref{eq:geo-frame-field} is not a cosmetic choice and is the one place in this chapter where the convention must be fixed by hand. The principal action is on the right and the associated-bundle quotient of Definition 2.4 identifies $(u\cdot g,b)$ with $(u,g\cdot b)$, so a $j$-to-$i$ transition is read off from the group element $t_{ij}$ with $u_j=u_i\cdot t_{ij}$, and that element acts on the left of represented fiber coordinates. Writing $u_i=\sigma_0\cdot U_i$ instead would give $t_{ij}=U_i^{-1}U_j$ and would make every downstream transport the inverse of the one the later chapters use. Proposition 2.33 below derives the transition from \eqref{eq:geo-frame-field} and shows that it is exactly the comparison $\Omega_{ij}=U_iU_j^{-1}$ of \eqref{eq:geo-omega-definition}, and that the trivialized coordinate $z_i=\rho_k(U_i)^{-1}\mu_i$ of Proposition 2.15 is then literally the coordinate of the same point of the associated bundle read in the reference trivialization. Both facts are consequences of the inverse, and both fail without it.
+
 The frame is the primary object; $U_i$ is its group-valued coordinate, not a Lie-algebra coordinate. In the Gaussian realization of Part~II the structure group is $G=\GL^{+}(K)$ and the state representation is the defining one, so $U_i$ takes values in $\GL^{+}(K)$ directly and the fiber dimension is $K$ throughout.
 
-Two distinct freedoms act on these data and are kept apart below. Agent $i$ may re-choose its frame within the fiber over $c$; since every point of that fiber is $\sigma_0(c)\cdot g$ for a unique $g$, any re-choice may be written $U_i\mapsto g_iU_i$ for a smooth $g_i:\mathcal C_i\to G$, and the represented fiber coordinates relabel by $\rho_k(g_i)$ and $\rho_m(g_i)$. Separately, the reference itself may be changed, $\sigma_0\mapsto\sigma_0\cdot h$ for a smooth $h:\mathcal C_0\to G$, which sends every coordinate simultaneously to $U_i\mapsto h^{-1}U_i$. The first is a per-agent freedom and is the vertex gauge transformation of Section~\ref{sec:geo-regime-one}; the second is a single global relabeling of the trivialization.
+Two distinct freedoms act on these data and are kept apart below. Agent $i$ may re-choose its frame within the fiber over $c$; since every point of that fiber is $\sigma_0(c)\cdot g$ for a unique $g$, and since $g\mapsto g^{-1}$ is a bijection of $G$, any re-choice may be written $U_i\mapsto g_iU_i$ for a smooth $g_i:\mathcal C_i\to G$, which by \eqref{eq:geo-frame-field} is the frame change $u_i\mapsto u_i\cdot g_i^{-1}$, and the represented fiber coordinates relabel by $\rho_k(g_i)$ and $\rho_m(g_i)$. Separately, the reference itself may be changed, $\sigma_0\mapsto\sigma_0\cdot h$ for a smooth $h:\mathcal C_0\to G$ with the frames held fixed, which sends every coordinate simultaneously to $U_i\mapsto U_ih$, since $u_i=\sigma_0\cdot U_i^{-1}=(\sigma_0\cdot h)\cdot(U_ih)^{-1}$. The first is a per-agent freedom and is the vertex gauge transformation of Section~\ref{sec:geo-regime-one}; the second is a single global relabeling of the trivialization, and Proposition 2.9 records that the comparisons do not see it at all.
 
 The supports $\mathcal C_i$ are indexed by agents, which is a modeling choice and not forced: nothing prevents two agents from sharing a support, and nothing requires the family $\{\mathcal C_i\}$ to be a good cover. What the trivialized regime requires in addition is that every frame be referable to the single reference section $\sigma_0$. Section~\ref{sec:geo-regime-one} records that requirement as an explicit hypothesis and says what it excludes, because it is the substantive content of what is later called flatness. Section~\ref{sec:geo-cech} then removes it: the supports are an open cover, the comparisons are a nonabelian \v{C}ech cochain on its nerve, and the requirement is proved equivalent to that cochain being a coboundary and to $P\vert_{\mathcal C_0}$ being trivial. The general case, in which only local sections exist, is developed there rather than declined.
 
@@ -191,6 +193,42 @@ Fix a context $c\in\mathcal C_i\cap\mathcal C_j$ and define the pointwise compar
 \end{equation}
 The represented comparisons in the two channels are $\Omega_{ij}^{k}(c)=\rho_k(\Omega_{ij}(c))$ and $\Omega_{ij}^{m}(c)=\rho_m(\Omega_{ij}(c))$. In the Gaussian realization $\rho_k$ is the defining representation of $\GL^{+}(K)$, so $\Omega^{k}_{ij}=\Omega_{ij}$ and the superscript is dropped whenever the state channel is meant. This object is called \emph{Regime~I}.
 
+Definition~\eqref{eq:geo-omega-definition} writes down a group element built from two frame coordinates. That it is the transport a section of an associated bundle actually undergoes is a separate statement, and it is a statement about the interaction of three declarations already made: the right principal action of Definition 2.2, the quotient convention \eqref{eq:geo-quotient-convention} of Definition 2.4, and the parametrization \eqref{eq:geo-frame-field}. The following proposition derives it rather than assuming it, because the derivation is what fixes the direction of every transport in the document.
+
+\medskip
+\noindent\textbf{Proposition 2.33 (Transition, transport direction, and the reference coordinate).} Assume Hypothesis 2.10 and the parametrization \eqref{eq:geo-frame-field}, and fix $c\in\mathcal C_i\cap\mathcal C_j$. Then the following hold, in either associated bundle of Definition 2.4.
+
+First, the unique transition element $t_{ij}(c)\in G$ defined by $u_j(c)=u_i(c)\cdot t_{ij}(c)$ is the comparison itself,
+\begin{equation}
+t_{ij}(c)=\Omega_{ij}(c)=U_i(c)U_j(c)^{-1}.
+\label{eq:geo-transition-is-comparison}
+\end{equation}
+
+Second, two representatives determine the same point of the associated bundle,
+\begin{equation}
+\bigl[u_j(c),b_j\bigr]=\bigl[u_i(c),b_i\bigr]
+\qquad\Longleftrightarrow\qquad
+b_i=\Omega_{ij}(c)\cdot b_j,
+\label{eq:geo-associated-transition}
+\end{equation}
+so $\Omega_{ij}$ is the change from agent $j$'s represented fiber coordinates to agent $i$'s, acting on the left, which is the convention Definition 2.17 records.
+
+Third, the coordinate of that point in the reference trivialization is
+\begin{equation}
+\bigl[u_i(c),b_i\bigr]=\bigl[\sigma_0(c),U_i(c)^{-1}\cdot b_i\bigr],
+\label{eq:geo-reference-coordinate}
+\end{equation}
+so in the state channel a mean $\mu_i$ carried in agent $i$'s frame has reference coordinate $\rho_k(U_i)^{-1}\mu_i$, which is exactly the trivialized coordinate $z_i$ of Proposition 2.15. \status{ESTABLISHED}
+\medskip
+
+\noindent\emph{Proof.} For \eqref{eq:geo-transition-is-comparison}, the right action is associative, so
+$u_i(c)\cdot\Omega_{ij}(c)=\bigl(\sigma_0(c)\cdot U_i(c)^{-1}\bigr)\cdot\bigl(U_i(c)U_j(c)^{-1}\bigr)=\sigma_0(c)\cdot U_j(c)^{-1}=u_j(c)$,
+and the element carrying $u_i(c)$ to $u_j(c)$ is unique because the action is free. For \eqref{eq:geo-associated-transition}, substitute \eqref{eq:geo-transition-is-comparison} into the quotient relation \eqref{eq:geo-quotient-convention}:
+$[u_j(c),b_j]=[u_i(c)\cdot\Omega_{ij}(c),b_j]=[u_i(c),\Omega_{ij}(c)\cdot b_j]$;
+two classes with the same principal representative are equal exactly when their fiber entries agree, again by freeness. For \eqref{eq:geo-reference-coordinate}, apply \eqref{eq:geo-quotient-convention} with $u=\sigma_0(c)$ and $g=U_i(c)^{-1}$, and read the state channel through $\rho_k$. \hfill$\square$
+
+The proposition is the reason \eqref{eq:geo-frame-field} carries an inverse. Under the alternative parametrization $u_i=\sigma_0\cdot U_i$ the same three computations return $t_{ij}=U_i^{-1}U_j$, the associated-fiber transition $b_i=(U_i^{-1}U_j)\cdot b_j$, and the reference coordinate $\rho_k(U_i)\mu_i$; each is the inverse of what the later chapters use, and the residual identity \eqref{eq:geo-trivialized-residual} then fails, since $\mu_i-\rho_k(\Omega_{ij})\mu_j$ would no longer be $\rho_k(U_i)$ applied to a difference of reference coordinates. The two conventions are related by $U_i\leftrightarrow U_i^{-1}$ throughout and neither is more correct in the abstract; what is not permitted is to declare one and compute with the other. Nothing else in the chapter changes: the vertex gauge law \eqref{eq:geo-regime-one-gauge-law}, the cocycle identity \eqref{eq:geo-cocycle}, the coboundary characterization of Proposition 2.19, and the trivialized residual \eqref{eq:geo-trivialized-residual} are recovered verbatim, and the reference-change law is the one stated in Proposition 2.9.
+
 \medskip
 \noindent\textbf{Proposition 2.9 (Cocycle identity and coboundary form).} On the domains where the terms are defined,
 \begin{equation}
@@ -206,10 +244,12 @@ so $(\Omega_{ij})$ is the coboundary of the zero-cochain $(U_i)$ in the nonabeli
 \Omega_{ij}'(c)=g_i(c)\Omega_{ij}(c)g_j(c)^{-1},
 \label{eq:geo-regime-one-gauge-law}
 \end{equation}
-whereas under a change of reference $\sigma_0\mapsto\sigma_0\cdot h$ it transforms by the single conjugation $\Omega_{ij}\mapsto h^{-1}\Omega_{ij}h$. \status{ESTABLISHED}
+whereas under a change of reference $\sigma_0\mapsto\sigma_0\cdot h$ with the frames held fixed it is invariant, $\Omega_{ij}\mapsto\Omega_{ij}$. \status{ESTABLISHED}
 \medskip
 
-\noindent\emph{Proof.} The three identities in \eqref{eq:geo-cocycle} are immediate from \eqref{eq:geo-omega-definition}, the third by cancellation of $U_j(c)^{-1}U_j(c)$; being of the form $U_iU_j^{-1}$ is exactly the statement that the family is a coboundary. Equation~\eqref{eq:geo-regime-one-gauge-law} follows by substituting $U_i'=g_iU_i$ into \eqref{eq:geo-omega-definition}, and the reference-change law follows from $U_i\mapsto h^{-1}U_i$, which gives $(h^{-1}U_i)(h^{-1}U_j)^{-1}=h^{-1}U_iU_j^{-1}h$. \hfill$\square$
+\noindent\emph{Proof.} The three identities in \eqref{eq:geo-cocycle} are immediate from \eqref{eq:geo-omega-definition}, the third by cancellation of $U_j(c)^{-1}U_j(c)$; being of the form $U_iU_j^{-1}$ is exactly the statement that the family is a coboundary. Equation~\eqref{eq:geo-regime-one-gauge-law} follows by substituting $U_i'=g_iU_i$ into \eqref{eq:geo-omega-definition}, and the reference-change law follows from $U_i\mapsto U_ih$, which gives $(U_ih)(U_jh)^{-1}=U_ihh^{-1}U_j^{-1}=U_iU_j^{-1}$. \hfill$\square$
+
+The invariance under a change of reference is not an accident either, and it is worth naming because the opposite is easy to expect. The comparison $\Omega_{ij}$ is determined by the pair of frames alone, through $u_j=u_i\cdot\Omega_{ij}$ of Proposition 2.33, and that equation mentions no third section; a transition between two fixed sections cannot depend on which reference was used to coordinatize them. The reference change moves each coordinate by $U_i\mapsto U_ih$ and moves the trivialized coordinates of Proposition 2.15 by the single relabeling $z_i\mapsto\rho_k(h)^{-1}z_i$, so it acts on the trivialized picture as one global change of basis and on the comparisons not at all.
 
 The coboundary form is not an accident of algebra. It is the direct consequence of Definition 2.2 having posited a single reference section $\sigma_0$ over $\mathcal C_0$, against which every frame is measured. That posit is a restriction and is stated as one. Proposition 2.19 below proves the converse as well, so the implication runs both ways and the coboundary form and the reference section are the same hypothesis in two notations.
 
@@ -364,9 +404,10 @@ Nothing is proved by Definition 2.23 either; it fixes the two instances so that 
 \medskip
 \noindent\textbf{Proposition 2.24 (Trivializing criterion).} Let $\Xi$ be a comparison assignment on $(F,E_F)$. The following are equivalent.
 \begin{equation}
-\text{(i)}\ \ \exists\ V_i\in G\ (i\in F)\ \text{ with }\ \Xi_{ij}=V_iV_j^{-1}\ \text{ for every }\{i,j\}\in E_F;
-\qquad
+\begin{gathered}
+\text{(i)}\ \ \exists\ V_i\in G\ (i\in F)\ \text{ with }\ \Xi_{ij}=V_iV_j^{-1}\ \text{ for every }\{i,j\}\in E_F;\\
 \text{(ii)}\ \ H(\gamma)=e_G\ \text{ for every closed walk }\gamma\text{ internal to }F .
+\end{gathered}
 \label{eq:geo-trivializing-criterion}
 \end{equation}
 When they hold, the reframing $g_i=V_i^{-1}$ sends every internal comparison to $e_G$, so the members of $F$ acquire a common trivialization: their fiber coordinates become comparable by plain equality. In the Regime~I instance, if \eqref{eq:geo-trivializing-criterion} holds at every context of an open $\mathcal U\subseteq\bigcap_{i\in F}\mathcal C_i$, then the $V_i$ may be taken smooth on $\mathcal U$. \status{ESTABLISHED}
@@ -458,7 +499,7 @@ For the flatness claim, fix $c'\in\mathcal C_i\cap\mathcal C_j$. Because $A_i$ i
 
 Under the stated hypothesis this holds at every point of every relevant overlap. Fix $p\in\pi^{-1}(\mathcal C_0)$ and $c=\pi(p)$; the partition of unity is locally finite, so only finitely many $\chi_k$ are nonzero on a neighborhood of $c$, and each such $k$ has $c\in\mathcal C_k$. By the previous paragraph, $\omega_k=\omega_l$ throughout $\pi^{-1}(\mathcal C_k\cap\mathcal C_l)$ for every pair $k,l$ among these finitely many indices, so on the corresponding neighborhood of $p$ every active $\omega_k$ agrees with a single common form $\omega$, and $A=\bigl(\sum_k\chi_k\circ\pi\bigr)\omega=\omega$ there. The curvature of $A$ at $p$ therefore equals the curvature of that common $\omega$ at $p$, which is zero by Proposition 2.30. Since $p$ was arbitrary, the curvature of $A$ vanishes on all of $\mathcal C_0$. \hfill$\square$
 
-The hypothesis of Proposition 2.31 is a statement about how the frames vary relative to one another on overlaps, not about which regime declares the links, and it can fail, generically does fail, even when Hypothesis 2.14 holds. The flat link regime fixes $L_{ij}=\Omega_{ij}=U_iU_j^{-1}$ at each context but places no constraint on how $U_i$ and $U_j$ vary as $c$ moves, so $t_{ij}$ is locally constant only for special choices of frame. The base holonomy of \eqref{eq:geo-induced-connection} is therefore a genuinely separate question from the triviality Proposition 2.11 establishes, which is a statement at one context and does not see how the frames vary over $\mathcal C$ at all.
+The hypothesis of Proposition 2.31 is a statement about how the frames vary relative to one another on overlaps, not about which regime declares the links, and it can fail, generically does fail, even when Hypothesis 2.14 holds. The transition appearing there is the comparison itself: under Hypothesis 2.10 and \eqref{eq:geo-frame-field}, Proposition 2.33 gives $t_{ij}=\Omega_{ij}$, so the hypothesis reads that the Regime-I comparison is locally constant on every overlap. The flat link regime fixes $L_{ij}=\Omega_{ij}=U_iU_j^{-1}$ at each context but places no constraint on how $U_i$ and $U_j$ vary as $c$ moves, so $t_{ij}$ is locally constant only for special choices of frame. The base holonomy of \eqref{eq:geo-induced-connection} is therefore a genuinely separate question from the triviality Proposition 2.11 establishes, which is a statement at one context and does not see how the frames vary over $\mathcal C$ at all.
 
 \medskip
 \noindent\textbf{Open 2.32 (Converse of the flatness criterion).} Whether disagreement of the local connections, $\omega_i\neq\omega_j$ somewhere on some overlap, forces the induced connection \eqref{eq:geo-induced-connection} to have nonvanishing curvature for \emph{every} choice of subordinate partition of unity is not settled here. \status{OPEN}
@@ -572,7 +613,7 @@ Whether an analogue of that closure holds for a genuinely non-flat connection La
 \label{tab:geo-register-topology}
 \end{sciencetable}
 
-\begin{sciencetable}[htbp]{Status register for Chapter~\ref{ch:geometry}, continued: the induced connection of Section~\ref{sec:geo-induced-connection}. Together with Tables~\ref{tab:geo-register} and~\ref{tab:geo-register-topology} this lists every numbered result of the chapter exactly once.}
+\begin{sciencetable}[htbp]{Status register for Chapter~\ref{ch:geometry}, continued: the induced connection of Section~\ref{sec:geo-induced-connection}, together with the transition convention of Proposition 2.33. Together with Tables~\ref{tab:geo-register} and~\ref{tab:geo-register-topology} this lists every numbered result of the chapter exactly once.}
 \begin{tabular}{@{}p{0.13\textwidth}p{0.33\textwidth}p{0.13\textwidth}p{0.32\textwidth}@{}}
 \toprule
 \textbf{Result} & \textbf{Content} & \textbf{Status} & \textbf{What is owed} \\
@@ -581,6 +622,7 @@ Whether an analogue of that closure holds for a genuinely non-flat connection La
 2.30 & $A_i$ is flat & \textsc{established} & Proved in text via integrability of the induced foliation, citing the Frobenius form of Ambrose--Singer \\
 2.31 & Induced global connection by partition of unity; flat when local forms agree on overlaps & \textsc{established} & Proved in text; the sufficient condition is stated precisely, and holds independently of Hypothesis 2.14 \\
 2.32 & Converse of the flatness criterion & \textsc{open} & Needs either a cancelling example under some subordinate partition of unity or a partition-of-unity-uniform lower bound on curvature in terms of local disagreement; restates Open 2.16 by inversion \\
+2.33 & Transition element, transport direction, and the reference coordinate & \textsc{established} & Proved in text from the right action of 2.2, the quotient convention of 2.4 and the frame parametrization; it derives $\Omega_{ij}=U_iU_j^{-1}$ as the $j$-to-$i$ transition rather than assuming it, and fixes the direction of every transport downstream \\
 \bottomrule
 \end{tabular}
 \label{tab:geo-register-connection}

@@ -48,19 +48,24 @@ gap, because a declared gap is honest and an undeclared one is not.
 ### 2.1 Every non-trivial claim carries a visible status
 
 Use the `\status{...}` macro (defined in `main.tex`) immediately after the statement it governs, and
-also name the status in the prose. Six values, and only these:
+also name the status in the prose. Seven values, and only these. The middle column below is the
+authority: it is reproduced verbatim as the second column of the taxonomy table in
+`01_introduction.tex` (`\label{tab:status-taxonomy}`), and the two must be kept word for word
+identical.
 
-| Status | Meaning | Obligation on you |
+| Status | What it promises the reader | Obligation on you |
 |---|---|---|
-| `ESTABLISHED` | Proved here or a standard result correctly cited. | Give the proof or the citation. A citation must be to a real source you have checked. |
-| `DEFINITION` | A declared type, construction, or convention. | Nothing to prove, but say plainly that nothing is being proved. |
-| `HYPOTHESIS` | A restriction the development chooses to adopt. | Say it is a choice, say what it excludes, and say where it is used. |
-| `CONJECTURE` | Believed, precisely stated, not proved. | State it precisely enough to be attacked, and give what evidence exists and of what kind. |
-| `NUMERICAL` | Supported by computation only. | Give the measurement, the control, the seed, and say explicitly that computation is not proof. |
-| `OPEN` | Not settled. | State exactly what would settle it, and what the obstruction is. |
+| `ESTABLISHED` | Proved here, or a standard result cited to a source that has been checked. | Give the proof or the citation. A citation must be to a real source you have checked. |
+| `DEFINITION` | A declared type, construction, or convention. Nothing is being proved and the text says so. | Nothing to prove, but say plainly that nothing is being proved. |
+| `HYPOTHESIS` | A restriction the development adopts by choice. What it excludes, and where it is used, are stated. | Say it is a choice, say what it excludes, and say where it is used. |
+| `CONJECTURE` | Believed and precisely stated, but not proved. Stated sharply enough to be attacked. | State it precisely enough to be attacked, and give what evidence exists and of what kind. |
+| `NUMERICAL` | Supported by computation only, with its measurement, seed, and control reported. Computation is not proof. | Give the measurement, the control, the seed, and say explicitly that computation is not proof. Tag the assertion where it is made, not only in the register. If a seed was not recorded, say that it was not recorded rather than supplying one. |
+| `OPEN` | Unsettled. What would settle it, and what obstructs it, are named. | State exactly what would settle it, and what the obstruction is. |
+| `NOT-CLAIMED` | A statement the development deliberately declines to make. Declining is not refuting, and the text says which it is doing. | Say that the development declines the statement, say why, and keep it separate from anything shown to be false. |
 
 A claim with no status is a defect. A `CONJECTURE` presented in the grammar of a theorem is a worse
-defect.
+defect. `NOT-CLAIMED` is the tag form of the distinction section 2.5 requires, and it must never be
+used for a statement the document refutes.
 
 ### 2.2 Hand-waving is a debt, not a style
 
@@ -84,15 +89,24 @@ or a control is not evidence for a structural claim. If a control was not run, s
 
 ### 2.4 Per-chapter status register
 
-**Every chapter ends with a short status register**: a `sciencetable` listing each numbered result in
-that chapter with its status and, for anything not `ESTABLISHED`, one line naming what is owed. This
-is the mechanism that makes the discipline checkable rather than aspirational. Keep it terse.
+**Every chapter ends with a short status register** listing each numbered result in that chapter with
+its status and, for anything not `ESTABLISHED`, one line naming what is owed. This is the mechanism
+that makes the discipline checkable rather than aspirational. Keep it terse. Chapter~1 is not exempt:
+its register covers the summary claims of its own overview section.
+
+Use `longtable` for a register, not the floating `sciencetable` environment. A register that does not
+fit on one page is the normal case, and a float cannot break, so an oversized `sciencetable` is
+silently clipped at the footer and its rows are lost from the compiled document. Keep the `\caption`
+and the `\label` inside the `longtable` so cross-references and the list of tables still work. A
+short table that genuinely fits may remain a `sciencetable`. After any change to a register, rebuild
+and confirm the log reports no "Float too large" warning.
 
 ### 2.5 Distinguish "not claimed" from "false"
 
 Where the development deliberately declines a statement, say that it declines it and why, and keep
 that separate from statements shown to be false. Both appear in this document and conflating them
-would misrepresent the state of the theory in opposite directions.
+would misrepresent the state of the theory in opposite directions. The tag for the first is
+`NOT-CLAIMED`; a refutation is an `ESTABLISHED` negative result and takes that tag instead.
 
 ## 3. Notation — fixed, do not deviate
 
@@ -357,7 +371,8 @@ and must contain **no preamble and no `\begin{document}`**. Start each with `\ch
 `\label{ch:...}`.
 
 Available: `amsmath`, `mathtools` (so `\begin{psmallmatrix}` works), `bm`, `mathrsfs`, `cleveref`,
-`natbib`, `tikz`, and the `sciencetable` environment from `scientific_report.sty`.
+`natbib`, `tikz`, `longtable`, and the `sciencetable` environment from `scientific_report.sty`.
+Status registers use `longtable` (section 2.4); `sciencetable` is for short tables that fit on a page.
 
 Macros already defined in `main.tex`: `\KL`, `\E`, `\R`, `\given`, `\Tr`, `\Sym`, `\PSD`, `\GL`.
 Use them.

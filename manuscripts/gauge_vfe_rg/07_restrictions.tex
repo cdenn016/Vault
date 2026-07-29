@@ -34,7 +34,7 @@ Neither the suprema nor the infima need be attained; the identities hold as stat
 \paragraph{Proof.}
 Equation~\eqref{eq:restrict-exact-identity} holds pointwise in $Q$, and its left side does not depend on $Q$. Taking the supremum of both sides over $\mathcal Q'$ converts the supremum of $\Lelbo$ into the constant minus the infimum of the relative entropy, which is Equation~\eqref{eq:restrict-sup-identity}. Subtracting the same identity for $\mathcal Q$ gives Equation~\eqref{eq:restrict-loss}, and the inequality holds because an infimum over a subset is at least the infimum over the set. $\square$
 
-The step that the left side of Equation~\eqref{eq:restrict-exact-identity} does not depend on $Q$ is not bookkeeping. It is where the typing prohibition of the preceding part does its work: a generative kernel is fixed once $(\theta,X)$ is fixed and may not take a recognition law, a recognition parameter, or a posterior as an input. Were the kernel permitted to read the recognition law, the evidence would move with the family, the two sides of Equation~\eqref{eq:restrict-loss} would not be the same comparison, and no statement of the form ``this restriction costs that many nats'' would be well posed. Every closed-form cost below inherits its meaning from that prohibition.
+The step that the left side of Equation~\eqref{eq:restrict-exact-identity} does not depend on $Q$ is not bookkeeping. It is where the typing prohibition of the preceding part does its work: a generative kernel is fixed once $(\theta,X)$ is fixed and may not take a recognition law, a recognition parameter, or a posterior as an input. Were the kernel permitted to read the recognition law, constancy of the evidence would no longer be guaranteed, and nothing in the construction would supply it: by Proposition 4.5 a recognition-indexed family designates no member and therefore no evidence, and by Proposition 4.14 the evidence of such a family may happen to be constant without the construction knowing it. Absent that guarantee the two sides of Equation~\eqref{eq:restrict-loss} need not be the same comparison, and no statement of the form ``this restriction costs that many nats'' is well posed. Every closed-form cost below inherits its meaning from that prohibition.
 
 \paragraph{Remark 7.2 (restrictions of infinite cost).}
 Equation~\eqref{eq:restrict-loss} is informative only when $\inf_{\mathcal Q'}\KL$ is finite. A restricted family every member of which is supported on a proper closed subset of the support of $P^\star$ fails absolute continuity, so $\KL(Q\Vert P^\star)=+\infty$ throughout $\mathcal Q'$ and the restricted supremum is $-\infty$. Such a restriction is not an expensive approximation but no approximation at all, and any finite number reported for it has been produced by a different construction than the one named. The document returns to this point where it matters, in the treatment of identification. \status{ESTABLISHED}
@@ -308,11 +308,21 @@ Propositions 7.17 and 7.18 leave a gap that this document does not close. There 
 
 \section{Status register}
 
-\begin{sciencetable}{Epistemic status of the results of this chapter. Every entry not marked \textsc{established} names what is owed.}
-\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.12\linewidth}>{\raggedright\arraybackslash}p{0.29\linewidth}>{\raggedright\arraybackslash}p{0.16\linewidth}>{\raggedright\arraybackslash}p{0.33\linewidth}@{}}
+{\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.12\linewidth}>{\raggedright\arraybackslash}p{0.29\linewidth}>{\raggedright\arraybackslash}p{0.16\linewidth}>{\raggedright\arraybackslash}p{0.33\linewidth}@{}}
+\caption{Epistemic status of the results of this chapter. Every entry not marked \textsc{established} names what is owed.}
+\label{tab:restrict-register}\\
 \toprule
 \textbf{Item} & \textbf{Statement} & \textbf{Status} & \textbf{What is owed} \\
 \midrule
+\endfirsthead
+\multicolumn{4}{@{}l}{\emph{Status register for Chapter~\ref{ch:restrictions}, continued.}}\\
+\toprule
+\textbf{Item} & \textbf{Statement} & \textbf{Status} & \textbf{What is owed} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
 Prop.~7.1 & Restricting the family cannot raise the bound; the loss is the increase in the minimized relative entropy & ESTABLISHED & Nothing; proved. Depends on the typing prohibition for constancy of the evidence \\
 Rem.~7.2 & A support-violating restriction has infinite cost, not a large one & ESTABLISHED & Nothing; absolute continuity fails by inspection \\
 Rem.~7.3 & The optimization is a reverse information projection; uniqueness comes from parameter convexity, not family convexity & ESTABLISHED & Nothing; discharged by Theorem 7.5 \\
@@ -333,6 +343,5 @@ Prop.~7.16 & Non-nested structures are not ordered; explicit reversing witness &
 Prop.~7.17 & The determinant gap is minimized at the trivial partition & ESTABLISHED & Nothing; proved \\
 Prop.~7.18 & Bounds on different latent inventories are not comparable & ESTABLISHED & Nothing; proved by nonidentifiability \\
 Open~7.19 & Whether an intrinsic criterion selects a nondegenerate structure & OPEN & A nonmonotone partition functional built from one fixed joint, or an impossibility proof for monotone functionals. The document declines rather than denies \\
-\bottomrule
-\end{tabular}
-\end{sciencetable}
+\end{longtable}
+}
