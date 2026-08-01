@@ -16,11 +16,13 @@ connection is a stronger specialization. Independent principal bundles with prod
 
 **PIFB2 does not appear.** Not as a source, not as a crosswalk, not as motivation, not in a remark.
 The author's earlier five-term consensus functional, the `T1..T6` term labels, the Ouroboros tower,
-the historical meta-agent barycenter, `beta_ij`/`gamma_ij` attention rows, and every executable
-detail are **out of scope**. This exclusion does not forbid a new result derived inside the present
-theory: the holonomy-conditioned projection of transported marginal laws onto an invariant parent
-family. That construction must be named as a marginal-law mode and kept distinct from partition
-selection, a normalized coarse channel, and exact joint-law recovery.
+the historical meta-agent barycenter, and every executable detail are **out of scope**. Historical
+`beta_ij`/`gamma_ij` formulas are not imported. The present theory may derive a new categorical
+source-label attention `beta_ij` from a fixed normalized interaction-record joint, but it must keep
+the generative posterior row, recognition row, receiver occupancy, and joint event law distinct.
+The exclusion also does not forbid the holonomy-conditioned projection of transported marginal
+laws onto an invariant parent family. That construction must be named as a marginal-law mode and
+kept distinct from partition selection, a normalized coarse channel, and exact joint-law recovery.
 
 **The executable does not appear.** No `gauge_agent/`, no `run_experiment.py`, no config toggles, no
 runtime crosswalk, no line-number citations to any repository.
@@ -165,6 +167,14 @@ dimension `d_m`. Equal dimensions are not assumed. Do not write `d_k` for the be
 **Probability.** Generative kernel `P_\theta(do,dY\mid X)`, density `p_\theta`. Recognition kernel
 `Q_X(dY\mid o)`, density `q_X`. Evidence `\log p_\theta(o\mid X)`. ELBO `\mathcal L(Q_X;X)`.
 Free energy `\mathcal F=-\mathcal L`. Relative entropy `\KL(\cdot\Vert\cdot)`.
+
+**Interaction records and attention.** A factor `a` owns one normalized record kernel
+`K_a(y_{\partial a},do_a)`. At a regular record its fixed negative log density is `E_{a,o}`.
+Coordinate-local VFEs include every incident factor, while the global joint owns each record once.
+For directed attention, `\pi_{ij}` is the generative source prior, `\beta^P_{ij}` the generative
+posterior row, `\beta^Q_{ij}` the recognition row, `\alpha_i` the receiver occupancy, and
+`\eta_{ij}=\alpha_i\beta_{ij}` the joint marked edge-event law. Exact coarse attention pushes
+`\eta`, not `\beta` alone.
 
 **Gaussian information form.** Natural parameters `(h,J)`, moments `\mu=J^{-1}h`, `C=J^{-1}`.
 Log normalizer `A(h,J)` — **note the clash**: use `\mathsf A(h,J)` for the log normalizer so it does
