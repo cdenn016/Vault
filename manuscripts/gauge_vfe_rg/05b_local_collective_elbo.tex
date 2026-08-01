@@ -1,0 +1,493 @@
+\chapter{Local and Collective Free Energy}
+\label{ch:local-collective-elbo}
+
+The bundle geometry of \Cref{ch:geometry} is the inherited foundation of this
+chapter.  The probabilistic construction below is additional structure.  It is
+not inferred from the existence of the principal bundle, its group, or its two
+associated statistical fibers.  The construction answers the local--global
+question by putting every interaction record in one fixed normalized joint law
+and then deriving each local objective by disintegration of that law.  In this
+sense local and collective free energies are compatible, but they are not the
+same accounting object: the local objectives are coordinate potentials, not
+summands of a canonical symmetric decomposition.
+
+\section{A normalized interaction-record model}
+\label{sec:local-interaction-record-model}
+
+\hypothesisheading{Agent state and interaction kernels}{hyp:local-interaction-kernels}
+Let $V$ be an arbitrary finite set of agents and $\mathcal A$ a finite set of
+interaction factors.  Agent $i$ has a standard Borel state space $\mathsf Y_i$.
+Its state may contain a belief-law point in $(\mathcal E_b)_{c_i}$, a model-law
+point in $(\mathcal E_m)_{c_i}$, and declared auxiliary latent variables.  Let
+$P_0$ be any normalized law on
+$\mathsf Y=\prod_{i\in V}\mathsf Y_i$.  Each factor $a$ has a finite scope
+$\partial a\subseteq V$, a standard Borel record space $\mathsf O_a$, and a
+normalized Markov kernel
+\begin{equation}
+K_a:\mathsf Y_{\partial a}\rightsquigarrow\mathsf O_a.
+\label{eq:obs-interaction-kernel}
+\end{equation}
+The kernels and $P_0$ are fixed by the generative parameters and structural
+data; none reads a recognition law, a variational parameter, or a live
+posterior.  Their local coordinate presentations are required to transform by
+the common passive pushforward induced by a change of bundle frames, so the
+underlying measures and record probabilities are frame independent.
+\status{HYPOTHESIS}
+
+This hypothesis permits correlated baseline states.  A graph-local Markov
+blanket requires the additional condition that the regular conditionals of
+$P_0$ have the corresponding locality.  Bundle covariance is imposed by
+requiring each $K_a$ to be invariant under simultaneous changes of the
+incident agent frames and the factor frame.  One concrete realization gives
+factor $a$ its own principal frame and incidence-leg transports
+$U^x_{a\leftarrow i}$ in each channel $x\in\{b,m\}$; the likelihood is then a
+measurable function of the dressed variables
+$\rho_x(U^x_{a\leftarrow i})y_i^x$.  The two representations remain distinct,
+and a belief--model comparison still requires the declared cross morphisms of
+\Cref{sec:geo-cross-morphisms}.  \status{DEFINITION}
+
+Conditional independence of the records given the agent configuration defines
+the joint law
+\begin{equation}
+P_\theta(dy,do\given X)
+=P_0(dy\given X)\prod_{a\in\mathcal A}
+K_a(y_{\partial a},do_a\given X).
+\label{eq:obs-interaction-joint}
+\end{equation}
+
+\propositionheading{Normalization on arbitrary interaction cycles}{prop:obs-interaction-normalization}
+The law in \eqref{eq:obs-interaction-joint} is normalized for every finite
+hypergraph, including cyclic ones.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Integrate the record coordinates in any order.  Each normalized kernel
+integrates to one, leaving the normalized baseline $P_0$.  The factor scopes
+are permitted to overlap because the record variables are conditionally independent
+children of one latent configuration.  This argument would not validate an
+arbitrary cycle of separately prescribed agent conditionals, which need not be
+compatible with any joint law.  $\square$
+
+For a dominated presentation, assume explicitly that each kernel family
+$\{K_a(y_{\partial a},\cdot):y_{\partial a}\in\mathsf Y_{\partial a}\}$
+has one fixed probability or sigma-finite dominating measure $\nu_a$, with a
+jointly measurable density, and write
+\begin{equation}
+\ell_a(o_a\given y_{\partial a})
+=\frac{dK_a(y_{\partial a},\cdot)}{d\nu_a}(o_a),
+\qquad
+H_o(y)=-\sum_{a\in\mathcal A}
+\log\ell_a(o_a\given y_{\partial a}).
+\label{eq:obs-interaction-energy}
+\end{equation}
+The negative log densities can be negative.  A binary success record with
+$K_a(1\given y)=\exp[-E_a(y)]$ is a valid special case only when
+$E_a\in[0,+\infty]$.  General observations are represented by the normalized
+kernels, not by treating an arbitrary exponential as a probability.
+\status{ESTABLISHED}
+
+\section{One collective VFE}
+\label{sec:local-collective-vfe}
+
+Fix a regular record $o$ for which
+\begin{equation}
+0<Z(o):=\int_{\mathsf Y}\exp[-H_o(y)]P_0(dy)<+\infty,
+\label{eq:obs-global-evidence}
+\end{equation}
+and let
+\begin{equation}
+\Pi_o(dy)=Z(o)^{-1}\exp[-H_o(y)]P_0(dy)
+\label{eq:obs-global-posterior}
+\end{equation}
+be the conditional posterior.  The regular-observation qualifications of
+\Cref{ch:elbo} apply.
+
+\theoremheading{Collective interaction VFE}{thm:obs-collective-vfe}
+Let $Q\ll P_0$ and suppose the displayed expectations are defined in the
+extended-real sense without an indeterminate $+\infty-\infty$.  Then
+\begin{equation}
+\begin{split}
+\Fenergy_o(Q)
+&:=\KL(Q\Vert P_0)+\E_Q H_o\\
+&=-\log Z(o)+\KL(Q\Vert\Pi_o).
+\end{split}
+\label{eq:obs-collective-vfe}
+\end{equation}
+Equivalently, $\Lelbo_o(Q)=-\Fenergy_o(Q)$ is a lower bound on the one
+collective log evidence $\log Z(o)$, with equality exactly when
+$Q=\Pi_o$ as measures.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+If $Q\not\ll\Pi_o$, then $Q$ assigns positive mass to a set on which
+$\exp[-H_o]=0$.  Under the stated no-indeterminate-form hypothesis, both
+$\E_QH_o$ and $\KL(Q\Vert\Pi_o)$ are then $+\infty$, so the extended-real
+identity holds.  Otherwise $Q\ll\Pi_o$, and on the posterior support,
+\[
+\log\frac{dQ}{d\Pi_o}
+=\log\frac{dQ}{dP_0}+H_o+\log Z(o).
+\]
+Integration under $Q$ gives \eqref{eq:obs-collective-vfe}.  Nonnegativity and
+the equality condition are the corresponding properties of relative entropy.
+$\square$
+
+There is one term in $H_o$ for each actual interaction record.  An undirected
+record shared by agents $i$ and $j$ occurs once.  Writing both $E_{ij}$ and
+$E_{ji}$ in the global law asserts two directed records, not two descriptions
+of one record.  \status{ESTABLISHED}
+
+\section{The conditional VFE of an agent or meta-agent}
+\label{sec:local-conditional-vfe}
+
+Let $B\subseteq V$ be nonempty and write $b=y_{B^c}$.  Define the incident
+factor set and incident energy by
+\begin{equation}
+\mathcal A_B=\{a\in\mathcal A:\partial a\cap B\ne\varnothing\},
+\qquad
+H_{B,o}(y_B;b)=\sum_{a\in\mathcal A_B}
+-\log\ell_a(o_a\given y_{\partial a}).
+\label{eq:obs-block-incident-energy}
+\end{equation}
+Write
+\begin{equation}
+H_{\bar B,o}(b)
+=\sum_{a:\,\partial a\cap B=\varnothing}
+-\log\ell_a(o_a\given b_{\partial a}),
+\qquad
+H_o(y)=H_{B,o}(y_B;b)+H_{\bar B,o}(b).
+\label{eq:obs-block-outside-energy}
+\end{equation}
+Let $P_{0,B}(dy_B\given b)$ be a regular conditional of the baseline and set
+\begin{equation}
+Z_B(b)=\int\exp[-H_{B,o}(y_B;b)]P_{0,B}(dy_B\given b).
+\label{eq:obs-local-evidence}
+\end{equation}
+
+\theoremheading{Local multi-agent ELBO}{thm:obs-local-multiagent-elbo}
+Suppose $Z_B(b)\in(0,+\infty)$ at the blanket value under consideration.  The
+recognition conditional must satisfy
+$r_B(\cdot\given b)\ll P_{0,B}(\cdot\given b)$, and all displayed
+expectations below are assumed defined in the extended-real sense without an
+indeterminate $+\infty-\infty$.  The
+posterior conditional and the block free energy are
+\begin{equation}
+\Pi_{o,B}(dy_B\given b)
+=Z_B(b)^{-1}\exp[-H_{B,o}(y_B;b)]P_{0,B}(dy_B\given b),
+\label{eq:obs-local-posterior}
+\end{equation}
+and
+\begin{equation}
+\begin{split}
+\Fenergy_{B,o}(r_B;b)
+&:=\KL\bigl(r_B(\cdot\given b)\Vert P_{0,B}(\cdot\given b)\bigr)
++\E_{r_B(\cdot\given b)}H_{B,o}(Y_B;b)\\
+&=-\log Z_B(b)
++\KL\bigl(r_B(\cdot\given b)\Vert\Pi_{o,B}(\cdot\given b)\bigr).
+\end{split}
+\label{eq:obs-local-vfe}
+\end{equation}
+Consequently $-\Fenergy_{B,o}$ is a local multi-agent ELBO on the conditional
+log evidence $\log Z_B(b)$.  The singleton $B=\{i\}$ is the local VFE of one
+agent.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Factors disjoint from $B$ are constant as functions of $y_B$ and cancel from
+the posterior conditional.  The remaining Radon--Nikodym calculation is the
+proof of \Cref{thm:obs-collective-vfe} with $P_{0,B}(\cdot\given b)$ as the
+baseline.  Explicitly, if $r_B\not\ll\Pi_{o,B}$, it charges a
+zero-likelihood set and both sides have the corresponding $+\infty$ term;
+otherwise the Radon--Nikodym derivative exists and the calculation applies.
+$\square$
+
+The value $Z_B(b)$ is conditional evidence, not the collective evidence
+$Z(o)$.  Positive collective evidence does not force $Z_B(b)>0$ on a blanket
+value that the posterior never visits.  Coordinate results therefore require
+$Q_{B^c}\ll\Pi_{o,B^c}$ and $Z_B>0$ $Q_{B^c}$-almost everywhere.
+\status{ESTABLISHED}
+
+\theoremheading{Exact local--global potential identity}{thm:obs-local-global-potential}
+Let $Q=Q_{B^c}r_B$ and $Q'=Q_{B^c}r'_B$ be two recognition laws with the same
+outside marginal, satisfying the preceding support hypotheses.  Assume in
+addition that the KL terms and the positive and negative energy parts appearing
+below are integrable for both laws, so every displayed quantity and difference
+is finite.  Each law obeys the exact decomposition
+\begin{equation}
+\begin{split}
+\Fenergy_o(Q)
+&=\KL(Q_{B^c}\Vert P_{0,B^c})\\
+&\quad+\E_{Q_{B^c}}\left[
+H_{\bar B,o}(Y_{B^c})
++\Fenergy_{B,o}(r_B;Y_{B^c})
+\right].
+\end{split}
+\label{eq:obs-local-global-decomposition}
+\end{equation}
+Consequently,
+\begin{equation}
+\Fenergy_o(Q')-\Fenergy_o(Q)
+=\E_{Q_{B^c}}
+\left[
+\Fenergy_{B,o}(r'_B;Y_{B^c})
+-\Fenergy_{B,o}(r_B;Y_{B^c})
+\right].
+\label{eq:obs-local-global-potential}
+\end{equation}
+Thus every exact local conditional update is a coordinate update of the same
+collective VFE.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+The relative-entropy chain rule gives
+\begin{equation}
+\KL(Q\Vert P_0)
+=\KL(Q_{B^c}\Vert P_{0,B^c})
++\E_{Q_{B^c}}
+\KL\bigl(r_B(\cdot\given Y_{B^c})
+\Vert P_{0,B}(\cdot\given Y_{B^c})\bigr).
+\label{eq:obs-block-kl-chain}
+\end{equation}
+Adding the energy split in \eqref{eq:obs-block-outside-energy} proves
+\eqref{eq:obs-local-global-decomposition}.  The outside energy and the first
+term on the right are identical for $Q$ and $Q'$.  Finite subtraction leaves
+exactly \eqref{eq:obs-local-global-potential}.  $\square$
+
+This theorem is the precise affirmative local/global statement.  It licenses
+sequential exact coordinate minimization, damped updates accepted by the
+collective objective, and continuous block-gradient dynamics.  Independently
+replacing all correlated full conditionals need not define any joint
+recognition law, so such a parallel prescription is not licensed.
+\status{ESTABLISHED}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[>=stealth]
+  \node[draw,circle,fill=lightblue,minimum size=0.85cm] (a1) at (0,1.5) {$1$};
+  \node[draw,circle,fill=lightblue,minimum size=0.85cm] (a2) at (2.1,2.3) {$2$};
+  \node[draw,circle,fill=lightgreen,minimum size=0.85cm] (a3) at (4.2,1.5) {$3$};
+  \node[draw,circle,fill=lightgreen,minimum size=0.85cm] (a4) at (5.2,-0.2) {$4$};
+  \node[draw,circle,fill=lightblue,minimum size=0.85cm] (a5) at (1.2,-0.5) {$5$};
+  \node[draw,rectangle,fill=lightorange,minimum size=0.52cm] (f12) at (1.05,1.9) {$o_a$};
+  \node[draw,rectangle,fill=lightorange,minimum size=0.52cm] (f235) at (2.65,0.45) {$o_b$};
+  \node[draw,rectangle,fill=lightorange,minimum size=0.52cm] (f34) at (4.7,0.65) {$o_c$};
+  \draw (a1)--(f12)--(a2);
+  \draw (a2)--(f235)--(a3);
+  \draw (a5)--(f235);
+  \draw (a3)--(f34)--(a4);
+  \draw[rounded corners,very thick,sciencegreen]
+    (3.55,2.15) rectangle (5.75,-0.85);
+  \node[text=sciencegreen] at (4.65,2.48) {block $B=\{3,4\}$};
+  \draw[->,very thick,primaryblue] (6.05,0.65)--(7.35,0.65);
+  \node[align=center,draw,rounded corners,fill=lightblue,text width=3.5cm]
+    at (9.25,0.65)
+    {$\Delta\Fenergy_o=\E_{Q_{B^c}}\Delta\Fenergy_{B,o}$\\
+     incident records: $o_b,o_c$};
+\end{tikzpicture}
+\caption{A block-local VFE contains every factor incident to the block.  The
+factor $o_b$ crosses the boundary and therefore enters the block conditional;
+$o_a$ is outside and cancels.  The equality is an exact-potential identity,
+not a sum of overlapping local objectives.}
+\label{fig:obs-local-global-potential}
+\end{figure}
+
+\section{Additive accounting is a different construction}
+\label{sec:local-additive-accounting}
+
+When $P_0=\bigotimes_i\rho_i$, define the total correlation
+\begin{equation}
+\operatorname{TC}(Q)=\KL\left(Q\middle\Vert\bigotimes_iQ_i\right).
+\label{eq:obs-total-correlation}
+\end{equation}
+The chain rule gives
+\begin{equation}
+\Fenergy_o(Q)
+=\operatorname{TC}(Q)
++\sum_i\KL(Q_i\Vert\rho_i)
++\E_Q\left[\sum_{a\in\mathcal A}E_{a,o}\right],
+\qquad E_{a,o}=-\log\ell_a(o_a\given Y_{\partial a}).
+\label{eq:obs-global-ledger}
+\end{equation}
+\status{ESTABLISHED}
+
+Equation~\eqref{eq:obs-global-ledger} is an additive ledger: each interaction
+appears once inside the pointwise finite factor sum.  It can be rewritten as
+$\sum_a\E_QE_{a,o}$ when every $E_{a,o}\in L^1(Q)$, or under another
+condition excluding opposing infinities.  By contrast, a coordinate-local objective contains every
+incident factor, so summing it over agents counts factor $a$ exactly
+$|\partial a|$ times.  A symmetric set of local objectives therefore cannot
+both add to the collective VFE and reproduce every unilateral derivative for
+a genuinely interacting factor.  Ordered KL chain rules or declared allocation
+weights can produce an additive split, but the result depends on the order or
+allocation and is not the symmetric local VFE of
+\Cref{thm:obs-local-multiagent-elbo}.  \status{ESTABLISHED}
+
+\section{Attention as a latent interaction label}
+\label{sec:local-attention-elbo}
+
+Attention enters the fixed joint by a latent source label, not by allowing the
+generative law to inspect recognition beliefs.  For a receiving agent $i$, let
+$J_i$ augment the baseline independently as
+\begin{equation}
+P_0^{\rm aug}(dy,dj)=P_0^Y(dy)\prod_i\pi_i(dj_i).
+\label{eq:obs-attention-augmented-baseline}
+\end{equation}
+Suppose $\pi_{ij}>0$ on the declared source set and that
+$\E_QD_{ij}$ is finite there.  At the selected regular interaction record,
+suppose its density has source-dependent energy
+\begin{equation}
+\ell_i(o_i\given y,J_i=j)
+=c_i(o_i,y)\exp[-D_{ij}(y)/\tau_i],
+\qquad \tau_i>0,
+\label{eq:obs-attention-likelihood}
+\end{equation}
+where $c_i$ is independent of $j$ and the normalized observation kernel is
+part of the model data.  The energy $D_{ij}$ is a fixed gauge-invariant
+function of latent sample-level states and declared transports.  It does not
+contain a live recognition distribution.  Equation~\eqref{eq:obs-attention-likelihood}
+is an identity on the selected observation slice; normalization of the kernel
+and its values away from that slice remain part of the declared generative
+model.  \status{HYPOTHESIS}
+
+\propositionheading{Exact posterior and recognition attention}{prop:obs-attention-elbo}
+Conditioned on $y$ and the interaction record, the generative posterior row is
+\begin{equation}
+\beta^P_{ij}(y)
+=\frac{\pi_{ij}\exp[-D_{ij}(y)/\tau_i]}
+{\sum_k\pi_{ik}\exp[-D_{ik}(y)/\tau_i]}.
+\label{eq:obs-attention-posterior}
+\end{equation}
+If a mean-field recognition row $\beta^Q_i$ is independent of $y$, its exact
+categorical contribution to the collective VFE is
+\begin{equation}
+-\E_Q\log c_i(o_i,Y)+\Fenergy_i^{\rm att}(\beta_i^Q),
+\label{eq:obs-attention-full-contribution}
+\end{equation}
+where the first term is independent of $\beta_i^Q$ and
+\begin{equation}
+\Fenergy_i^{\rm att}(\beta^Q_i)
+=\KL(\beta^Q_i\Vert\pi_i)
++\frac{1}{\tau_i}\sum_j\beta^Q_{ij}\E_QD_{ij}.
+\label{eq:obs-attention-vfe}
+\end{equation}
+Its unique interior minimizer on the positive-prior source simplex is
+\begin{equation}
+\beta^{Q\star}_{ij}
+=\frac{\pi_{ij}\exp[-\E_QD_{ij}/\tau_i]}
+{\sum_k\pi_{ik}\exp[-\E_QD_{ik}/\tau_i]}.
+\label{eq:obs-attention-recognition-optimum}
+\end{equation}
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+Bayes' formula gives \eqref{eq:obs-attention-posterior}.  Expanding the
+categorical relative entropy to that posterior gives
+\[
+\KL(\beta^Q_i\Vert\beta^P_i)
+=\KL(\beta^Q_i\Vert\pi_i)
++\tau_i^{-1}\sum_j\beta^Q_{ij}D_{ij}+\log Z_i(y).
+\]
+Subtracting $\log Z_i(y)$ and the source-independent log likelihood
+$\log c_i(o_i,y)$, then taking the recognition expectation, proves
+\eqref{eq:obs-attention-full-contribution} and
+\eqref{eq:obs-attention-vfe}.
+Lagrange multiplication under $\sum_j\beta^Q_{ij}=1$ proves
+\eqref{eq:obs-attention-recognition-optimum}.  $\square$
+
+The familiar row functional
+$\sum_j\beta_{ij}\E_QD_{ij}+\tau_i\KL(\beta_i\Vert\pi_i)$ is
+$\tau_i\Fenergy_i^{\rm att}$.  It has the same row minimizer, but for
+$\tau_i\ne1$ it is not an independently weighted sector of one standard
+global ELBO unless the entire objective is scaled or a different generalized
+free energy is declared.  \status{ESTABLISHED}
+
+Holding the latent recognition law $Q_Y$, and hence every $\E_QD_{ij}$, fixed
+during this row-coordinate flow, the Fisher natural gradient of
+\eqref{eq:obs-attention-vfe} on the open simplex is the replicator equation
+\begin{equation}
+\dot\beta^Q_{ij}
+=-\gamma_i\beta^Q_{ij}
+\left(c_{ij}-\sum_k\beta^Q_{ik}c_{ik}\right),
+\qquad
+c_{ij}=\log\frac{\beta^Q_{ij}}{\pi_{ij}}
++\frac{\E_QD_{ij}}{\tau_i}.
+\label{eq:obs-attention-replicator}
+\end{equation}
+for $\gamma_i\geq0$.  Its partial contribution to the row-free-energy rate is
+\begin{equation}
+\left.\frac{d}{dt}\Fenergy_i^{\rm att}\right|_{\beta_i}
+=-\gamma_i\operatorname{Var}_{\beta^Q_i}(c_{ij})\leq0.
+\label{eq:obs-attention-dissipation}
+\end{equation}
+If $Q_Y$ evolves simultaneously, its additional chain-rule term must be
+included.  \status{ESTABLISHED}
+
+\section{Local evolution is collective descent}
+\label{sec:local-natural-gradient}
+
+Let a regular product recognition family on an open parameter domain have
+coordinates $\eta=(\eta_i)_i$ and block-diagonal Fisher metric
+$G(\eta)=\bigoplus_iG_i(\eta_i)$, including categorical blocks when present.
+Assume $\Fenergy_o(\eta)\in\mathbb R$ is $C^1$, every $G_i(\eta_i)$ is positive
+definite, every $\gamma_i\geq0$, and the trajectory remains in this domain.
+By \Cref{thm:obs-local-global-potential}, the gradient of the outside-averaged
+local VFE is the corresponding block gradient of $\Fenergy_o$.  Hence
+\begin{equation}
+\dot\eta_i=-\gamma_iG_i^{-1}\nabla_{\eta_i}\Fenergy_o
+\label{eq:obs-local-natural-gradient}
+\end{equation}
+obeys
+\begin{equation}
+\frac{d}{dt}\Fenergy_o
+=-\sum_i\gamma_i
+(\nabla_{\eta_i}\Fenergy_o)^\top
+G_i^{-1}(\nabla_{\eta_i}\Fenergy_o)\leq0.
+\label{eq:obs-global-dissipation}
+\end{equation}
+Thus an agent following its exact local VFE follows a block of the collective
+VFE flow.  \status{ESTABLISHED}
+
+Block orthogonality is load bearing.  With a nondiagonal Fisher metric, the
+global natural gradient mixes agents and independent local inversions are a
+different dynamics.  Hard support boundaries and finite steps also require a
+separate projected flow, line search, damping, or acceptance test.
+\status{ESTABLISHED}
+
+\section{Are observations only agent--agent interactions?}
+\label{sec:local-observation-equivalence}
+
+\definitionheading{Operational environment node}{def:obs-operational-environment-node}
+An operational environment node is a standard Borel state space with a
+normalized state law and a measurable message kernel.  This definition does
+not assert autonomy, self-modeling, or biological agency.  \status{DEFINITION}
+
+\theoremheading{Observation--interaction kernel equivalence}{thm:obs-agent-interaction-equivalence}
+Every normalized standard-Borel observation kernel $K(do\given y)$ can be
+realized as a message from an operational environment node: there are
+$U\sim\operatorname{Unif}[0,1]$ and a measurable map $F$ such that
+\begin{equation}
+O=F(Y,U),
+\qquad
+\Pr(F(y,U)\in A)=K(A\given y).
+\label{eq:obs-randomization}
+\end{equation}
+Conversely, marginalizing any environment state and message policy produces a
+normalized observation kernel.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+The forward statement is the randomization lemma for kernels on standard
+Borel spaces \citep{Kallenberg2021}.  For the converse, if the environment has
+law $\rho(du)$ and policy $M(y,u,A)$, then
+$K(A\given y)=\int M(y,u,A)\rho(du)$ is measurable in $y$, countably additive
+in $A$, and normalized.  $\square$
+
+The theorem gives an exact operationally agent-only presentation when every
+datum is represented as a clamped state or message of a boundary node and all
+exogenous noise is included among those nodes.  It does not eliminate the
+conditioning role: the realized messages are still observations in the ELBO.
+Nor does it prove that a random seed is an autonomous agent.  If physical
+agency requires persistent state, a Markov blanket, action, or its own local
+VFE, those are additional hypotheses.  An $Y$-independent kernel is a boundary
+message with zero mutual information and therefore a null interaction in the
+informational sense.  \status{ESTABLISHED}
+
+The resulting answer is two-tiered.  The probability theory can be written
+entirely as interactions among agent and environment nodes, while the ELBO
+still conditions on interaction records.  Whether every environment node
+deserves the stronger ontological name ``agent'' is not determined by the
+principal bundle or by variational inference.  \status{NOT-CLAIMED}
