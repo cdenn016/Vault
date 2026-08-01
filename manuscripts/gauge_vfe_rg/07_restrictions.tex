@@ -1,59 +1,10 @@
-\chapter{Restrictions of the Recognition Family and Their Exact Cost}
+\chapter{Gaussian Recognition Restrictions}
 \label{ch:restrictions}
 
-The exact evidence identity of the preceding part holds for one recognition law at a time and says nothing about which laws one is willing to consider. At the general law-fiber tier of \Cref{ch:expfamily}, a restriction is simply a declared subfamily; there is no universal coordinate count, affine structure, covariance parameter, or information projection until the required structure has been supplied. The restriction principle below is measure theoretic and applies at that tier. Starting in \Cref{sec:restrict-block}, the chapter deliberately specializes to the nondegenerate multivariate-Gaussian subclass, where a law over $NK$ coupled coordinates carries $\binom{NK+1}{2}$ covariance parameters and the costs can be computed in closed form. Every factorization, tie between coordinates, or restriction of the mean is then a decision to search a smaller set. This chapter asks what those decisions cost at fixed generative model and fixed observation, and how far the resulting numbers can be pushed before they stop meaning anything.
-
-The organizing statement is a triviality with substantial consequences. Restricting the recognition family cannot raise the bound, and it cannot move the evidence, because the evidence is a functional of the model and the data alone. The loss is therefore not an approximation error in any vague sense but an exactly identified quantity: the increase in the minimized relative entropy between the recognition law and the exact conditional. Section~\ref{sec:restrict-principle} states this carefully. Sections~\ref{sec:restrict-block} and~\ref{sec:restrict-observation} then compute that quantity in closed form for the two restrictions this document actually uses, a factorization of the recognition law and a restriction of its mean, and establish the exact respect in which the two behave differently. Section~\ref{sec:restrict-comparison} asks when one recognition structure dominates another and records where such comparisons stop being defined.
-
-\section{The restriction principle}
-\label{sec:restrict-principle}
-
-Fix a generative parameter $\theta$ and structural data $X$. Select $o\in\mathsf O_{\theta,X}^{\mathrm{reg}}$ from the observation-marginal-full set of \Cref{ch:probability}, with $0<p_\theta(o\given X)<\infty$, and write $P^\star:=\Pi_{\theta,X}(o,\cdot)=P_\theta(\cdot\given o,X)$ for the selected regular conditional law of the latents and $\Lelbo(Q;X)$ for the evidence lower bound evaluated at a recognition law $Q$. Thus this chapter, like Theorem~5.6, is asserted for $P_{\theta,X}^{O}$-almost every observation unless an everywhere pointwise version is part of the model data. The exact identity of the preceding part reads
-\begin{equation}
-\log p_\theta(o\given X)=\Lelbo(Q;X)+\KL\left(Q\Vert P^\star\right),
-\label{eq:restrict-exact-identity}
-\end{equation}
-valid for every $Q$ with $Q\ll P^\star$ and the stated log-integrability, with equality of the bound and the evidence exactly when $Q=P^\star$ as measures.
-
-\paragraph{Proposition 8.1 (restriction principle).}
-Let $\mathcal Q'\subseteq\mathcal Q$ be sets of recognition laws, each member of which satisfies the hypotheses of Equation~\eqref{eq:restrict-exact-identity}. Then
-\begin{equation}
-\sup_{Q\in\mathcal Q'}\Lelbo(Q;X)
-=\log p_\theta(o\given X)-\inf_{Q\in\mathcal Q'}\KL\left(Q\Vert P^\star\right),
-\label{eq:restrict-sup-identity}
-\end{equation}
-and consequently
-\begin{equation}
-\sup_{\mathcal Q}\Lelbo-\sup_{\mathcal Q'}\Lelbo
-=\inf_{\mathcal Q'}\KL\left(Q\Vert P^\star\right)-\inf_{\mathcal Q}\KL\left(Q\Vert P^\star\right)
-\geq0.
-\label{eq:restrict-loss}
-\end{equation}
-Neither the suprema nor the infima need be attained; the identities hold as stated. \status{ESTABLISHED}
-
-\paragraph{Proof.}
-Equation~\eqref{eq:restrict-exact-identity} holds pointwise in $Q$, and its left side does not depend on $Q$. Taking the supremum of both sides over $\mathcal Q'$ converts the supremum of $\Lelbo$ into the constant minus the infimum of the relative entropy, which is Equation~\eqref{eq:restrict-sup-identity}. Subtracting the same identity for $\mathcal Q$ gives Equation~\eqref{eq:restrict-loss}, and the inequality holds because an infimum over a subset is at least the infimum over the set. $\square$
-
-The step that the left side of Equation~\eqref{eq:restrict-exact-identity} does not depend on $Q$ is not bookkeeping. It is where the typing prohibition of the preceding part does its work: a generative kernel is fixed once $(\theta,X)$ is fixed and may not take a recognition law, a recognition parameter, or a posterior as an input. Were the kernel permitted to read the recognition law, constancy of the evidence would no longer be guaranteed, and nothing in the construction would supply it: by Proposition 4.5 a recognition-indexed family designates no member and therefore no evidence, and by Proposition 4.14 the evidence of such a family may happen to be constant without the construction knowing it. Absent that guarantee the two sides of Equation~\eqref{eq:restrict-loss} need not be the same comparison, and no statement of the form ``this restriction costs that many nats'' is well posed. Every closed-form cost below inherits its meaning from that prohibition.
-
-\paragraph{Remark 8.2 (restrictions of infinite cost).}
-Equation~\eqref{eq:restrict-loss} is informative only when $\inf_{\mathcal Q'}\KL$ is finite. A sufficient and exact support obstruction is the existence, for each $Q\in\mathcal Q'$, of a measurable set $S_Q$ such that
-\begin{equation}
-Q(S_Q)=1,
-\qquad
-P^\star(S_Q)=0.
-\label{eq:restrict-posterior-null}
-\end{equation}
-Then $Q\not\ll P^\star$ directly from the definition of absolute continuity, so $\KL(Q\Vert P^\star)=+\infty$ throughout $\mathcal Q'$. Such a $Q$ is outside the declared domain of Equation~\eqref{eq:restrict-exact-identity}, rather than an admissible ELBO value. If one separately defines the extended functional
-\[
-\widetilde{\Lelbo}(Q;X):=\log p_\theta(o\given X)-\KL(Q\Vert P^\star)\in[-\infty,\infty),
-\]
-then its supremum over $\mathcal Q'$ is $-\infty$. A common Euclidean instance is support on a lower-dimensional affine subspace when $P^\star$ is a nondegenerate Lebesgue-dominated law.
-
-A proper closed subset of $\operatorname{supp}P^\star$ is not enough. Let $P^\star$ be uniform on $[0,1]$ and $Q$ uniform on $[0,\tfrac12]$. Then $\operatorname{supp}Q=[0,\tfrac12]$ is a proper closed subset of $\operatorname{supp}P^\star=[0,1]$, but $Q\ll P^\star$ with derivative $dQ/dP^\star=2$ on $[0,\tfrac12]$, and therefore $\KL(Q\Vert P^\star)=\log2<\infty$. The null-set condition \eqref{eq:restrict-posterior-null}, not proper closedness, is what makes a restriction no approximation at all. \status{ESTABLISHED}
-
-\paragraph{Remark 8.3 (what kind of optimization this is).}
-The quantity $\inf_{Q\in\mathcal Q'}\KL(Q\Vert P^\star)$ is a reverse information projection: the divergence carries the recognition law in its first argument, which is the orientation fixed by Equation~\eqref{eq:restrict-exact-identity} and not a modeling preference. Uniqueness of the minimizer does not follow from convexity of the family, because the families used below are not convex. The product family is closed under neither mixture nor convex combination of densities, since a mixture of products is not a product. What is available instead, and what is used, is strict convexity of $Q\mapsto\KL(Q\Vert P^\star)$ in the Gaussian moment chart $(\mu_Q,C_Q)$ actually optimized below, together with convexity of that parameter set; this is established directly in Theorem 8.5. No strict-convexity claim is made in the precision natural parameter. \status{ESTABLISHED}
+Fix the general restriction principle of \Cref{prop:restrict-principle}.
+This chapter specializes it to nondegenerate multivariate-Gaussian laws,
+computes the exact costs of block factorization and mean restriction, and
+states when comparisons between recognition structures are meaningful.
 
 \section{The block restriction and its exact optimum}
 \label{sec:restrict-block}
@@ -80,7 +31,7 @@ C_b\in\Sym_{++}^{n_b}\right\}.
 \end{equation}
 The blocks are whatever the declared partition says they are. A block may collect one agent's coordinates, may split one agent's state and model channels, or may collect several agents; nothing below identifies a matrix block with an agent, and every statement is relative to $\mathfrak B$.
 
-\paragraph{Proposition 8.4 (Gaussian reverse relative entropy).}
+\propositionheading{Gaussian reverse relative entropy}{prop:restrict-gaussian-reverse-kl}
 For $Q=\mathcal N(\mu_Q,C_Q)$ with $C_Q\succ0$ and $P^\star$ as in Equation~\eqref{eq:restrict-gaussian-target},
 \begin{equation}
 \KL\left(Q\Vert P^\star\right)
@@ -100,7 +51,7 @@ Write $\KL(Q\Vert P^\star)=\E_Q[\log q]-\E_Q[\log p^\star]$. The first term is t
 
 Equation~\eqref{eq:restrict-gaussian-kl} separates: the mean enters only through the quadratic term and the covariance only through the trace and the log determinant, with no cross term. That separation is used repeatedly below and is the reason the two kinds of restriction studied in this chapter have exactly the costs they have.
 
-\paragraph{Theorem 8.5 (exact block optimum).}
+\theoremheading{Exact block optimum}{thm:restrict-exact-block-optimum}
 Over the family of Equation~\eqref{eq:restrict-block-family} the objective of Equation~\eqref{eq:restrict-gaussian-kl} has a unique minimizer, given by
 \begin{equation}
 \mu_Q^\star=\mu,
@@ -136,8 +87,8 @@ The same optimum arrives from coordinate ascent, which is worth recording becaus
 \end{equation}
 which is Equation~\eqref{eq:gauss-conditional} read as an update rule. Any fixed point of the full sweep satisfies $J\mu_Q=h$, hence $\mu_Q=\mu$ \citep{Bishop2006,Blei2017}. The covariance is pinned in one step and the mean only at a fixed point, which is the standard asymmetry of Gaussian coordinate ascent.
 
-\paragraph{Theorem 8.6 (determinant gap).}
-Let $\Lelbo^\star_{\mathfrak B}$ denote the bound at the optimum of Theorem 8.5. Then
+\theoremheading{Determinant gap}{thm:restrict-determinant-gap}
+Let $\Lelbo^\star_{\mathfrak B}$ denote the bound at the optimum of \Cref{thm:restrict-exact-block-optimum}. Then
 \begin{equation}
 \log p_\theta(o\given X)-\Lelbo^\star_{\mathfrak B}
 =\frac12\left[\sum_{b\in\mathfrak B}\log\det J_{bb}-\log\det J\right]
@@ -162,7 +113,7 @@ For nonnegativity and the equality condition, two lemmas suffice. The first is t
 \end{equation}
 with the Schur complement positive definite \citep{Zhang2005Schur}. Since $J_{21}J_{11}^{-1}J_{12}\succeq0$, that Schur complement is $\preceq J_{22}$, so the first lemma gives $\det J\leq\det J_{11}\det J_{22}$, with equality if and only if $J_{21}J_{11}^{-1}J_{12}=0$, which since $J_{11}^{-1}\succ0$ holds if and only if $J_{11}^{-1/2}J_{12}=0$, that is if and only if $J_{12}=0$. Applying this with the first block of $\mathfrak B$ against the union of the rest, and then inducting on the number of blocks, gives Equation~\eqref{eq:restrict-determinant-gap} and the stated equality condition. This is Fischer's determinant inequality for positive definite matrices \citep[\S7.8]{HornJohnson2013}. $\square$
 
-\paragraph{Proposition 8.7 (the optimum is dominated by the exact marginal).}
+\propositionheading{The optimum is dominated by the exact marginal}{prop:restrict-optimum-vs-marginal}
 For every block $b$,
 \begin{equation}
 C_b^\star=J_{bb}^{-1}\preceq\left(J^{-1}\right)_{bb},
@@ -171,19 +122,19 @@ C_b^\star=J_{bb}^{-1}\preceq\left(J^{-1}\right)_{bb},
 with equality if and only if $J_{b,-b}=0$. \status{ESTABLISHED}
 
 \paragraph{Proof.}
-By Equation~\eqref{eq:gauss-marginal-block}, $(J^{-1})_{bb}=S_b^{-1}$ with $S_b=J_{bb}-J_{b,-b}J_{-b,-b}^{-1}J_{-b,b}$, and $S_b\preceq J_{bb}$ because the subtracted matrix is positive semidefinite. Inversion reverses the Loewner order on positive definite matrices: if $0\prec S\preceq T$ then $T^{-1/2}ST^{-1/2}\preceq I$, so the eigenvalues of $T^{1/2}S^{-1}T^{1/2}$ are at least one, giving $S^{-1}\succeq T^{-1}$ \citep[\S7.7]{HornJohnson2013}, \citep[Ch.~V]{Bhatia2007}. Applying this to $S_b\preceq J_{bb}$ gives Equation~\eqref{eq:restrict-underdispersion}. Equality forces $S_b=J_{bb}$, hence $J_{b,-b}J_{-b,-b}^{-1}J_{-b,b}=0$, hence $J_{b,-b}=0$ as in the proof of Theorem 8.6. $\square$
+By Equation~\eqref{eq:gauss-marginal-block}, $(J^{-1})_{bb}=S_b^{-1}$ with $S_b=J_{bb}-J_{b,-b}J_{-b,-b}^{-1}J_{-b,b}$, and $S_b\preceq J_{bb}$ because the subtracted matrix is positive semidefinite. Inversion reverses the Loewner order on positive definite matrices: if $0\prec S\preceq T$ then $T^{-1/2}ST^{-1/2}\preceq I$, so the eigenvalues of $T^{1/2}S^{-1}T^{1/2}$ are at least one, giving $S^{-1}\succeq T^{-1}$ \citep[\S7.7]{HornJohnson2013}, \citep[Ch.~V]{Bhatia2007}. Applying this to $S_b\preceq J_{bb}$ gives Equation~\eqref{eq:restrict-underdispersion}. Equality forces $S_b=J_{bb}$, hence $J_{b,-b}J_{-b,-b}^{-1}J_{-b,b}=0$, hence $J_{b,-b}=0$ as in the proof of \Cref{thm:restrict-determinant-gap}. $\square$
 
-Proposition 8.7 is the exact form of a statement usually made loosely, that a factorized reverse-relative-entropy approximation understates posterior uncertainty \citep{Bishop2006,Blei2017,TurnerSahani2011}. Here it is a Loewner inequality with a proof and an equality condition, and it holds blockwise rather than merely in some scalar summary. It also fixes what the restriction is and is not.
+\Cref{prop:restrict-optimum-vs-marginal} is the exact form of a statement usually made loosely, that a factorized reverse-relative-entropy approximation understates posterior uncertainty \citep{Bishop2006,Blei2017,TurnerSahani2011}. Here it is a Loewner inequality with a proof and an equality condition, and it holds blockwise rather than merely in some scalar summary. It also fixes what the restriction is and is not.
 
-\paragraph{Remark 8.8 (conditional dependence, not marginal covariance).}
-The family of Equation~\eqref{eq:restrict-block-family} constrains the recognition covariance, hence the recognition precision, to be block diagonal. By Proposition 7.2 that is a statement that the recognition law makes distinct blocks conditionally independent given the rest. It is not, and does not imply, the assertion that the target's marginal covariance blocks $(J^{-1})_{bc}$ vanish; by Remark 7.3 those can be large while $J_{bc}=0$. The reverse-relative-entropy projection changes only the candidate \(Q\): it sets \(C^\star_{bc}=0\) for \(b\neq c\) and \(C^\star_{bb}=J_{bb}^{-1}\preceq(J^{-1})_{bb}\). It neither leaves nor replaces any covariance block of the fixed target \(P=\mathcal N(\mu,J^{-1})\). Reading the block restriction as a claim about the target's marginal correlation is a category error, and it is the error that makes the determinant gap look like a correlation-strength measurement rather than what Theorem 8.6 says it is, a coupling-structure measurement. \status{ESTABLISHED}
+\paragraph{Conditional dependence, not marginal covariance.}
+The family of Equation~\eqref{eq:restrict-block-family} constrains the recognition covariance, hence the recognition precision, to be block diagonal. By \Cref{prop:gauss-conditional-precision} that is a statement that the recognition law makes distinct blocks conditionally independent given the rest. It is not, and does not imply, the assertion that the target's marginal covariance blocks $(J^{-1})_{bc}$ vanish; \eqref{eq:gauss-precision-not-covariance} shows that those can be nonzero while $J_{bc}=0$. The reverse-relative-entropy projection changes only the candidate \(Q\): it sets \(C^\star_{bc}=0\) for \(b\neq c\) and \(C^\star_{bb}=J_{bb}^{-1}\preceq(J^{-1})_{bb}\). It neither leaves nor replaces any covariance block of the fixed target \(P=\mathcal N(\mu,J^{-1})\). Reading the block restriction as a claim about the target's marginal correlation is a category error, and it is the error that makes the determinant gap look like a correlation-strength measurement rather than what \Cref{thm:restrict-determinant-gap} says it is, a coupling-structure measurement. \status{ESTABLISHED}
 
 \section{Observation independence, and its exact scope}
 \label{sec:restrict-observation}
 
-Theorem 8.6 expresses the cost as a pure log-determinant functional of $J$. Whether that makes the cost independent of the realized observation depends on where $J$ comes from, and the answer differs for the two kinds of restriction this document uses. Getting the difference right matters because a later chapter compares recognition structures across data and would draw the wrong conclusion from the wrong version.
+\Cref{thm:restrict-determinant-gap} expresses the cost as a pure log-determinant functional of $J$. Whether that makes the cost independent of the realized observation depends on where $J$ comes from, and the answer differs for the two kinds of restriction this document uses. Getting the difference right matters because a later chapter compares recognition structures across data and would draw the wrong conclusion from the wrong version.
 
-\paragraph{Proposition 8.9 (conditional precision is observation free).}
+\propositionheading{Conditional precision is observation free}{prop:restrict-conditional-precision-observation-free}
 Suppose the joint law of $(o,Y)$ given $X$ is Gaussian with precision $\mathcal J$ and information vector $\eta$, both functions of $(\theta,X)$ alone. Then the exact conditional law of $Y$ given $o$ has precision and mean
 \begin{equation}
 J=\mathcal J_{YY},
@@ -196,15 +147,15 @@ so $J$ does not depend on the realized value of $o$ while $\mu$ is an affine fun
 \paragraph{Proof.}
 Read the exponent of the joint density as a function of $y$ at fixed $o$. The quadratic part is $-\tfrac12y^\top\mathcal J_{YY}y$ and the linear part is $(\eta_Y-\mathcal J_{Yo}o)^\top y$, so by Equation~\eqref{eq:gauss-density} the conditional law is Gaussian in information form with the displayed natural parameters, and $\mu=J^{-1}h$. $\square$
 
-\paragraph{Corollary 8.10 (observation independence of the determinant gap).}
-Under the hypothesis of Proposition 8.9, the gap of Theorem 8.6 is a function of $(\theta,X)$ and the declared partition alone, and does not depend on the realized observation. \status{ESTABLISHED}
+\corollaryheading{Observation independence of the determinant gap}{cor:restrict-gap-observation-free}
+Under the hypothesis of \Cref{prop:restrict-conditional-precision-observation-free}, the gap of \Cref{thm:restrict-determinant-gap} is a function of $(\theta,X)$ and the declared partition alone, and does not depend on the realized observation. \status{ESTABLISHED}
 
 \paragraph{Proof.}
-The gap depends on $Q$ and $o$ only through $J$, by Theorem 8.6, and through nothing else, because the mean sector contributes exactly zero at the optimum by Theorem 8.5. Proposition 8.9 makes $J$ observation free. $\square$
+The gap depends on $Q$ and $o$ only through $J$, by \Cref{thm:restrict-determinant-gap}, and through nothing else, because the mean sector contributes exactly zero at the optimum by \Cref{thm:restrict-exact-block-optimum}. \Cref{prop:restrict-conditional-precision-observation-free} makes $J$ observation free. $\square$
 
-Two hypotheses are doing the work in Corollary 8.10 and both are load bearing. The first is joint Gaussianity with an observation-independent joint precision, which excludes, for instance, a model whose observation noise covariance is itself a function of the realized observation; without it Equation~\eqref{eq:restrict-conditional-from-joint} fails and $J$ carries data. The second, and the one more easily overlooked, is that the restriction is a \emph{factorization}, so that the optimal recognition mean coincides with the target mean and the quadratic term in Equation~\eqref{eq:restrict-gaussian-kl} vanishes identically at the optimum. A restriction that constrains the mean does not have that property, and the next proposition computes exactly what survives.
+Two hypotheses are doing the work in \Cref{cor:restrict-gap-observation-free} and both are load bearing. The first is joint Gaussianity with an observation-independent joint precision, which excludes, for instance, a model whose observation noise covariance is itself a function of the realized observation; without it Equation~\eqref{eq:restrict-conditional-from-joint} fails and $J$ carries data. The second, and the one more easily overlooked, is that the restriction is a \emph{factorization}, so that the optimal recognition mean coincides with the target mean and the quadratic term in Equation~\eqref{eq:restrict-gaussian-kl} vanishes identically at the optimum. A restriction that constrains the mean does not have that property, and the next proposition computes exactly what survives.
 
-\paragraph{Proposition 8.11 (cost of a mean restriction).}
+\propositionheading{Cost of a mean restriction}{prop:restrict-mean-cost}
 Let $[B\ B_\perp]$ be an orthogonal matrix with $B\in\R^{n\times r}$, and restrict the recognition family to
 \begin{equation}
 \mathcal Q_{B}=\left\{\mathcal N\left(\mu_Q,C_Q\right):
@@ -224,10 +175,10 @@ attained at $C_Q^\star=J^{-1}$ and $\mu_Q^\star=\mu-J^{-1}B_\perp(B_\perp^\top J
 \paragraph{Proof.}
 By the separation noted after Equation~\eqref{eq:restrict-gaussian-kl}, the covariance sector is unconstrained and its minimum is attained at $C_Q^\star=J^{-1}$, where it contributes zero. What remains is to minimize $\tfrac12(\mu_Q-\mu)^\top J(\mu_Q-\mu)$ subject to $B_\perp^\top\mu_Q=0$. Put $v=\mu_Q-\mu$, so the constraint reads $B_\perp^\top v=-\mu_\perp$. Stationarity of the Lagrangian gives $Jv=B_\perp\lambda$, hence $v=J^{-1}B_\perp\lambda$; imposing the constraint gives $\lambda=-(B_\perp^\top J^{-1}B_\perp)^{-1}\mu_\perp$, which is well defined because $B_\perp$ has full column rank and $J^{-1}\succ0$. The objective at that point is $\tfrac12v^\top Jv=\tfrac12\lambda^\top(B_\perp^\top J^{-1}B_\perp)\lambda$, which is Equation~\eqref{eq:restrict-mean-cost}, and the minimizer is as displayed. The final identification holds because $\operatorname{Cov}(B_\perp^\top Y)=B_\perp^\top J^{-1}B_\perp$ under $P^\star$. $\square$
 
-\paragraph{Corollary 8.12 (a mean restriction carries the data).}
-Under the hypothesis of Proposition 8.9, the cost in Equation~\eqref{eq:restrict-mean-cost} is a quadratic function of the realized observation, since $\mu_\perp=B_\perp^\top J^{-1}(\eta_Y-\mathcal J_{Yo}o)$ is affine in $o$. It is observation free if and only if $B_\perp^\top J^{-1}\mathcal J_{Yo}=0$. In particular the observation independence of Corollary 8.10 does not extend to restrictions of the mean, and a construction that reports one cost as though it were the other is reporting a data-dependent quantity as a structural one. \status{ESTABLISHED}
+\corollaryheading{A mean restriction carries the data}{cor:restrict-mean-cost-data}
+Under the hypothesis of \Cref{prop:restrict-conditional-precision-observation-free}, the cost in Equation~\eqref{eq:restrict-mean-cost} is a quadratic function of the realized observation, since $\mu_\perp=B_\perp^\top J^{-1}(\eta_Y-\mathcal J_{Yo}o)$ is affine in $o$. It is observation free if and only if $B_\perp^\top J^{-1}\mathcal J_{Yo}=0$. Thus the observation independence of \Cref{cor:restrict-gap-observation-free} does not extend to restrictions of the mean, and a construction that reports one cost as though it were the other is reporting a data-dependent quantity as a structural one. \status{ESTABLISHED}
 
-\paragraph{Proposition 8.13 (marginal precision against restricted precision).}
+\propositionheading{Marginal precision against restricted precision}{prop:restrict-marginal-vs-restricted-precision}
 With $[B\ B_\perp]$ as above,
 \begin{equation}
 B_\perp^\top JB_\perp-\left(B_\perp^\top J^{-1}B_\perp\right)^{-1}
@@ -246,9 +197,9 @@ Since $[B\ B_\perp]$ is orthogonal, conjugating by it gives $\widetilde J:=[B\ B
 \end{equation}
 where $\parallel$ and $\perp$ index the two groups of columns \citep{Zhang2005Schur}. Subtracting Equation~\eqref{eq:restrict-schur-in-basis} from $\widetilde J_{\perp\perp}=B_\perp^\top JB_\perp$ leaves exactly the displayed product, which is positive semidefinite and of rank at most $\operatorname{rank}(B^\top JB_\perp)\leq r$. It vanishes if and only if $(B^\top JB)^{-1/2}B^\top JB_\perp=0$, that is if and only if $B^\top JB_\perp=0$. $\square$
 
-Proposition 8.13 is the reason Equation~\eqref{eq:restrict-mean-cost} must be written with the marginal precision and not with the restriction of the precision. The two are different matrices, ordered but not equal, and substituting one for the other overstates the cost of a mean restriction by the rank-$r$ correction of Equation~\eqref{eq:restrict-marginal-vs-restricted} except in the $J$-orthogonal case. The deterministic replacement check \texttt{CHK-RESTRICTION-SCHUR} independently reconstructs the block-inversion and constrained-optimization endpoints and includes the orthogonal equality control. It corroborates the proved identities and is not evidence for them. \status{NUMERICAL}
+\Cref{prop:restrict-marginal-vs-restricted-precision} is the reason Equation~\eqref{eq:restrict-mean-cost} must be written with the marginal precision and not with the restriction of the precision. The two are different matrices, ordered but not equal, and substituting one for the other overstates the cost of a mean restriction by the rank-$r$ correction of Equation~\eqref{eq:restrict-marginal-vs-restricted} except in the $J$-orthogonal case. The deterministic replacement check \texttt{CHK-RESTRICTION-SCHUR} independently reconstructs the block-inversion and constrained-optimization endpoints and includes the orthogonal equality control. It corroborates the proved identities and is not evidence for them. \status{NUMERICAL}
 
-\paragraph{Corollary 8.14 (costs of combined restrictions add).}
+\corollaryheading{Costs of combined restrictions add}{cor:restrict-combined-costs-add}
 Restricting the mean to $\operatorname{range}(B)$ and the covariance to the block-diagonal set of Equation~\eqref{eq:restrict-block-family} simultaneously has exact cost
 \begin{equation}
 \frac12\left[\sum_{b\in\mathfrak B}\log\det J_{bb}-\log\det J\right]
@@ -258,14 +209,14 @@ Restricting the mean to $\operatorname{range}(B)$ and the covariance to the bloc
 the first term structural and the second data dependent. \status{ESTABLISHED}
 
 \paragraph{Proof.}
-Equation~\eqref{eq:restrict-gaussian-kl} has no term coupling $\mu_Q$ to $C_Q$, and the two constraint sets act on disjoint parameter blocks, so the minimizations are independent and their values add. Each value is supplied by Theorem 8.6 and Proposition 8.11 respectively. $\square$
+Equation~\eqref{eq:restrict-gaussian-kl} has no term coupling $\mu_Q$ to $C_Q$, and the two constraint sets act on disjoint parameter blocks, so the minimizations are independent and their values add. Each value is supplied by \Cref{thm:restrict-determinant-gap} and \Cref{prop:restrict-mean-cost} respectively. $\square$
 
 \section{Comparing recognition structures at fixed model}
 \label{sec:restrict-comparison}
 
 Equation~\eqref{eq:restrict-determinant-gap} assigns a number to a partition, which invites the question of whether one recognition structure is better than another. The question is well posed only under conditions that are easy to violate, and this section states both the affirmative result and its boundary.
 
-\paragraph{Proposition 8.15 (refinement monotonicity).}
+\propositionheading{Refinement monotonicity}{prop:restrict-refinement-monotonicity}
 Let $\mathfrak B'$ refine $\mathfrak B$, meaning every block of $\mathfrak B'$ is contained in a block of $\mathfrak B$. Then $\mathcal Q_{\mathfrak B'}\subseteq\mathcal Q_{\mathfrak B}$ and
 \begin{equation}
 \Lelbo^\star_{\mathfrak B}-\Lelbo^\star_{\mathfrak B'}
@@ -275,12 +226,12 @@ Let $\mathfrak B'$ refine $\mathfrak B$, meaning every block of $\mathfrak B'$ i
 \geq0,
 \label{eq:restrict-refinement}
 \end{equation}
-each summand being the determinant gap of the positive definite matrix $J_{bb}$ under the partition induced on $b$, and vanishing exactly when $J_{bb}$ is block diagonal under that induced partition. The coarser structure therefore always dominates the finer one at fixed model, and the mechanism is the Loewner ordering of Theorem 8.6: within each coarse block, a Schur complement is dominated by the corresponding diagonal block. \status{ESTABLISHED}
+each summand being the determinant gap of the positive definite matrix $J_{bb}$ under the partition induced on $b$, and vanishing exactly when $J_{bb}$ is block diagonal under that induced partition. The coarser structure therefore always dominates the finer one at fixed model, and the mechanism is the Loewner ordering of \Cref{thm:restrict-determinant-gap}: within each coarse block, a Schur complement is dominated by the corresponding diagonal block. \status{ESTABLISHED}
 
 \paragraph{Proof.}
-A block-diagonal matrix under $\mathfrak B'$ is block diagonal under $\mathfrak B$ when $\mathfrak B'$ refines $\mathfrak B$, giving the inclusion of families. Subtracting two instances of Equation~\eqref{eq:restrict-determinant-gap} cancels $\log\det J$ and regroups the remaining terms by coarse block, giving Equation~\eqref{eq:restrict-refinement}. Each bracket is Theorem 8.6 applied to $J_{bb}\succ0$ with the induced partition, hence nonnegative with the stated equality condition. $\square$
+A block-diagonal matrix under $\mathfrak B'$ is block diagonal under $\mathfrak B$ when $\mathfrak B'$ refines $\mathfrak B$, giving the inclusion of families. Subtracting two instances of Equation~\eqref{eq:restrict-determinant-gap} cancels $\log\det J$ and regroups the remaining terms by coarse block, giving Equation~\eqref{eq:restrict-refinement}. Each bracket is \Cref{thm:restrict-determinant-gap} applied to $J_{bb}\succ0$ with the induced partition, hence nonnegative with the stated equality condition. $\square$
 
-\paragraph{Proposition 8.16 (non-nested structures are not ordered).}
+\propositionheading{Non-nested structures are not ordered}{prop:restrict-nonnested-unordered}
 Refinement is a partial order, and outside it the bounds are not ordered by any structural feature such as the number or the sizes of the blocks. For $n=3$ take
 \begin{equation}
 J(a,b)=\begin{pmatrix}1&a&0\\a&1&b\\0&b&1\end{pmatrix},
@@ -293,16 +244,21 @@ which is positive definite, and compare the two partitions $\mathfrak B_1=\{\{1,
 \paragraph{Proof.}
 Positive definiteness follows from the leading minors $1$, $1-a^2$ and $1-a^2-b^2$. The gaps follow from Equation~\eqref{eq:restrict-determinant-gap} with $\det J=1-a^2-b^2$, $\det J_{\{1,2\}\{1,2\}}=1-a^2$, $\det J_{\{2,3\}\{2,3\}}=1-b^2$ and the remaining diagonal entries equal to one. The numerical values are $\tfrac12\log(0.36/0.32)$ and $\tfrac12\log(0.96/0.32)$. $\square$
 
-Proposition 8.16 says that a recognition structure is well chosen relative to a given coupling matrix, not well chosen in the abstract, and it is what makes any partition-selection rule an optimization over structures rather than a reading off of a scalar. It also disposes of the temptation to treat block count as a proxy for quality.
+\Cref{prop:restrict-nonnested-unordered} says that a recognition structure is well chosen relative to a given coupling matrix, not well chosen in the abstract, and it is what makes any partition-selection rule an optimization over structures rather than a reading off of a scalar. It also disposes of the temptation to treat block count as a proxy for quality.
 
-\paragraph{Proposition 8.17 (the gap does not select a structure).}
-Over the lattice of partitions of the $n$ coordinates, the gap of Equation~\eqref{eq:restrict-determinant-gap} is nonincreasing under coarsening by Proposition 8.15, and attains its minimum value zero at the trivial partition with one block, for every $J\succ0$. Minimizing the gap therefore selects the unrestricted family and returns no information about structure. \status{ESTABLISHED}
+\propositionheading{The gap does not select a structure}{prop:restrict-gap-no-selection}
+Over the lattice of partitions of the $n$ coordinates, the gap of Equation~\eqref{eq:restrict-determinant-gap} is nonincreasing under coarsening by \Cref{prop:restrict-refinement-monotonicity}, and attains its minimum value zero at the trivial partition with one block, for every $J\succ0$. Minimizing the gap therefore selects the unrestricted family and returns no information about structure. \status{ESTABLISHED}
 
 \paragraph{Proof.}
-For the one-block partition, $\sum_b\log\det J_{bb}=\log\det J$ and the gap is zero; nonnegativity is Theorem 8.6 and monotonicity is Proposition 8.15. $\square$
+For the one-block partition, $\sum_b\log\det J_{bb}=\log\det J$ and the gap is zero; nonnegativity is \Cref{thm:restrict-determinant-gap} and monotonicity is \Cref{prop:restrict-refinement-monotonicity}. $\square$
 
-\paragraph{Proposition 8.18 (bounds on different evidences are not comparable).}
-Let $P_\theta$ and $P_{\theta'}$ be normalized joints over the same observation but different latent inventories, with recognition families $\mathcal Q$ and $\mathcal Q'$ on their respective latent spaces. Assume the selected $o$ belongs to the regular-observation set of each joint, or that pointwise versions have been declared for both. Then
+\propositionheading{ELBO values do not order unrelated joints}{prop:restrict-unrelated-joint-elbo}
+Let $P_\theta$ and $P_{\theta'}$ be normalized joints over the same observation
+but possibly different latent inventories, with recognition families
+$\mathcal Q$ and $\mathcal Q'$ on their respective latent spaces. Assume the
+selected $o$ belongs to the regular-observation set of each joint, or that
+pointwise versions have been declared for both. If no evidence-preserving
+channel relating the two joints is given, then
 \begin{equation}
 \Lelbo^\star-\Lelbo'^\star
 =\left[\log p_\theta(o\given X)-\log p_{\theta'}(o\given X)\right]
@@ -336,47 +292,36 @@ give \(\Lelbo_1^\star=-1>\Lelbo_2^\star=-2\) although the evidence ordering is \
 \]
 again give \(\Lelbo_1^\star=-1>\Lelbo_2^\star=-2\), although the first recognition family has the larger gap and hence the less tight bound. Thus a bound ordering determines neither bracket in Equation~\eqref{eq:restrict-cross-model}. $\square$
 
-Proposition 8.18 is the boundary of everything else in this chapter. Equations~\eqref{eq:restrict-determinant-gap} and~\eqref{eq:restrict-mean-cost} are costs \emph{at fixed model}, and they are exact there. As soon as the comparison replaces one latent inventory by another, which is what an aggregation of agents into coarser agents does, the two bounds bound different numbers and their difference is not a cost. This is stated here rather than in the renormalization chapters because it is a property of the restriction principle and not of any particular coarse-graining scheme, and because it is the reason those chapters must declare a scale from outside rather than tune a coefficient inside a single objective.
+\Cref{prop:restrict-unrelated-joint-elbo} is a statement about unrelated joints, not about latent
+inventory by itself. If a normalized Markov kernel \(K:x\rightsquigarrow z\)
+defines the coarse joint
+\(\bar P=(\operatorname{id}_{O}\otimes K)_{\#}P\) and the coarse recognition
+law is \(\bar Q=QK\), then the observation marginal and evidence are unchanged
+and data processing gives
+\[
+\bar{\mathcal L}(\bar Q;o)
+=\log p(o)-\KL(QK\Vert P_oK)
+\geq\log p(o)-\KL(Q\Vert P_o)
+=\mathcal L(Q;o).
+\]
+Thus different latent spaces can carry ordered bounds when both laws are
+related by the same evidence-preserving channel. Absent such a relation, an
+ELBO difference mixes the evidence difference with the tightness difference
+as in \eqref{eq:restrict-cross-model}. The general hypotheses and equality
+conditions are stated in \Cref{ch:coarsegraining}. \status{ESTABLISHED}
 
-\paragraph{Open problem 8.19 (an intrinsic criterion).}
-Propositions 8.17 and 8.18 leave a gap that this document does not close. There is no criterion here, internal to a single evidence bound at a fixed model, that selects a nondegenerate recognition structure: the determinant gap is minimized at the trivial partition, the mean-restriction cost of Equation~\eqref{eq:restrict-mean-cost} is a cost at fixed structure rather than a comparison across structures, and comparisons across latent inventories are undefined by Proposition 8.18. The document declines to construct such a criterion rather than asserting that none exists, and these are different statements. What would settle it in the affirmative is a functional on partitions, expressible in terms of one fixed joint and one fixed evidence, that is not monotone under coarsening and whose optimizer is nondegenerate; what would settle it in the negative is a proof that any functional depending on $(\theta,X,o)$ only through the exact conditional and monotone under family inclusion must be extremized at a trivial structure. Absent either, the choice of structure is model selection and requires a declared scale, which is what the renormalization chapters supply. \status{OPEN}
-
-\section{Status register}
-
-{\small
-\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.12\linewidth}>{\raggedright\arraybackslash}p{0.29\linewidth}>{\raggedright\arraybackslash}p{0.16\linewidth}>{\raggedright\arraybackslash}p{0.33\linewidth}@{}}
-\caption{Epistemic status of the results of this chapter. Every entry not marked \textsc{established} names what is owed.}
-\label{tab:restrict-register}\\
-\toprule
-\textbf{Item} & \textbf{Statement} & \textbf{Status} & \textbf{What is owed} \\
-\midrule
-\endfirsthead
-\multicolumn{4}{@{}l}{\emph{Status register for Chapter~\ref{ch:restrictions}, continued.}}\\
-\toprule
-\textbf{Item} & \textbf{Statement} & \textbf{Status} & \textbf{What is owed} \\
-\midrule
-\endhead
-\bottomrule
-\endlastfoot
-Prop.~8.1 & Restricting the family cannot raise the bound; the loss is the increase in the minimized relative entropy & ESTABLISHED & Nothing; proved. Depends on the typing prohibition for constancy of the evidence \\
-Rem.~8.2 & A posterior-null restriction has infinite cost; proper closed support alone does not & ESTABLISHED & Direct null-set proof plus the uniform $[0,\tfrac12]$ finite-KL counterexample \\
-Rem.~8.3 & The optimization is a reverse information projection; uniqueness comes from parameter convexity, not family convexity & ESTABLISHED & Nothing; discharged by Theorem 8.5 \\
-Prop.~8.4 & Closed form for the Gaussian reverse relative entropy & ESTABLISHED & Nothing; proved \\
-Thm.~8.5 & Unique block optimum $\mu_Q^\star=\mu$, $C_b^\star=J_{bb}^{-1}$ & ESTABLISHED & Nothing; proved, with strict convexity supplied \\
-Thm.~8.6 & The determinant gap, its nonnegativity, and its equality condition & ESTABLISHED & Nothing; proved by Schur complements with the determinant equality case \\
-Prop.~8.7 & $J_{bb}^{-1}\preceq(J^{-1})_{bb}$, equality iff the block decouples & ESTABLISHED & Nothing; proved \\
-Rem.~8.8 & The restriction limits conditional dependence and asserts nothing about marginal covariance blocks & ESTABLISHED & Nothing; follows from Proposition 7.2, Remark 7.3 and Proposition 8.7 \\
-Prop.~8.9 & In a jointly Gaussian model the conditional precision is observation free & ESTABLISHED & Nothing; proved \\
-Cor.~8.10 & The determinant gap is observation free & ESTABLISHED & Nothing; proved, under the two named hypotheses \\
-Prop.~8.11 & Exact cost of a mean restriction, in marginal precision form & ESTABLISHED & Nothing; proved \\
-Cor.~8.12 & A mean restriction carries the data; exact condition for it not to & ESTABLISHED & Nothing; proved \\
-Prop.~8.13 & Marginal precision is dominated by restricted precision; equality iff $J$-orthogonal & ESTABLISHED & Nothing; proved. The accompanying check is corroboration only \\
-Sec.~8.3 & Numerical reproduction of Equations \eqref{eq:restrict-mean-cost} and \eqref{eq:restrict-marginal-vs-restricted} & \status{NUMERICAL} & Computation only; the identities themselves are proved above \\
-Cor.~8.14 & Costs of a mean restriction and a factorization add & ESTABLISHED & Nothing; proved \\
-Prop.~8.15 & Refinement monotonicity of the bound & ESTABLISHED & Nothing; proved \\
-Prop.~8.16 & Non-nested structures are not ordered; explicit reversing witness & ESTABLISHED & Nothing; computed \\
-Prop.~8.17 & The determinant gap is minimized at the trivial partition & ESTABLISHED & Nothing; proved \\
-Prop.~8.18 & Bounds on different latent inventories are not comparable & ESTABLISHED & Nothing; proved by nonidentifiability \\
-Open~8.19 & Whether an intrinsic criterion selects a nondegenerate structure & OPEN & A nonmonotone partition functional built from one fixed joint, or an impossibility proof for monotone functionals. The document declines rather than denies \\
-\end{longtable}
-}
+\openproblemheading{An intrinsic criterion}{open:restrict-intrinsic-criterion}
+\Cref{prop:restrict-gap-no-selection,prop:restrict-unrelated-joint-elbo} leave a gap that this document does not close.
+There is no criterion here, internal to a single evidence bound at a fixed
+model, that selects a nondegenerate recognition structure: the determinant
+gap is minimized at the trivial partition, the mean-restriction cost of
+Equation~\eqref{eq:restrict-mean-cost} is a cost at fixed structure, and an
+arbitrary replacement joint supplies no common evidence. Evidence-preserving
+Markov pushforwards are the important exception, but their data-processing
+order still does not select a nondegenerate partition. What would settle the
+problem positively is a functional on admissible channels or partitions,
+expressible relative to one fixed joint and not monotone to an endpoint, whose
+optimizer is nondegenerate. A negative result would have to prove endpoint
+degeneracy for a precisely stated class of functionals. Absent either, the
+choice of structure remains a model-selection or RG-scheme declaration.
+\status{OPEN}

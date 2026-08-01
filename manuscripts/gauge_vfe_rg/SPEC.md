@@ -6,15 +6,21 @@ prevent.
 
 ## 0. What this document is, and what it is not
 
-A self-contained development of the **general gauge-theoretic variational free energy theory**: one
-principal bundle, one fixed normalized generative law, one correlated recognition law, **one exact
-ELBO**, and the renormalization of that structure under coarse-graining.
+A self-contained development of the **general gauge-theoretic variational free energy theory**:
+one principal `G`-bundle inducing distinct belief and model associated bundles, one fixed normalized
+generative law, one correlated recognition law, **one exact ELBO**, and the renormalization of that
+structure under coarse-graining. Belief and model may use different representations, local frame
+sections, connections, and coarse maps on that common principal bundle. A common frame or equal
+connection is a stronger specialization. Independent principal bundles with product gauge group
+`G_b x G_m` are an optional extension, never the ambient theory.
 
 **PIFB2 does not appear.** Not as a source, not as a crosswalk, not as motivation, not in a remark.
 The author's earlier five-term consensus functional, the `T1..T6` term labels, the Ouroboros tower,
-the meta-agent barycenter, `beta_ij`/`gamma_ij` attention rows, and every executable detail are
-**out of scope**. If you find yourself reaching for one, you have taken a wrong turn: derive from
-the bundle and the bound instead.
+the historical meta-agent barycenter, `beta_ij`/`gamma_ij` attention rows, and every executable
+detail are **out of scope**. This exclusion does not forbid a new result derived inside the present
+theory: the holonomy-conditioned projection of transported marginal laws onto an invariant parent
+family. That construction must be named as a marginal-law mode and kept distinct from partition
+selection, a normalized coarse channel, and exact joint-law recovery.
 
 **The executable does not appear.** No `gauge_agent/`, no `run_experiment.py`, no config toggles, no
 runtime crosswalk, no line-number citations to any repository.
@@ -87,19 +93,14 @@ Where a claim rests on computation, say so in the sentence that makes the claim,
 Report the measurement, the seed, and — this matters — **the control**. A measurement without a null
 or a control is not evidence for a structural claim. If a control was not run, say that it was not.
 
-### 2.4 Per-chapter status register
+### 2.4 Central open-obligation ledger
 
-**Every chapter ends with a short status register** listing each numbered result in that chapter with
-its status and, for anything not `ESTABLISHED`, one line naming what is owed. This is the mechanism
-that makes the discipline checkable rather than aspirational. Keep it terse. Chapter~1 is not exempt:
-its register covers the summary claims of its own overview section.
-
-Use `longtable` for a register, not the floating `sciencetable` environment. A register that does not
-fit on one page is the normal case, and a float cannot break, so an oversized `sciencetable` is
-silently clipped at the footer and its rows are lost from the compiled document. Keep the `\caption`
-and the `\label` inside the `longtable` so cross-references and the list of tables still work. A
-short table that genuinely fits may remain a `sciencetable`. After any change to a register, rebuild
-and confirm the log reports no "Float too large" warning.
+The visible inline `\status{...}` tag remains mandatory at the claim it governs. The former
+per-chapter registers are replaced by one compact, nonduplicative appendix of unresolved
+obligations. It collects conjectures and open problems by topic and says what would close each one.
+Established theorems remain at their proofs, while numerical claims and their protocol metadata
+remain in the numerical-provenance appendix. The obligation ledger is an audit index, not a second
+exposition of the theory, and it must not duplicate every local result.
 
 ### 2.5 Distinguish "not claimed" from "false"
 
@@ -110,16 +111,56 @@ would misrepresent the state of the theory in opposite directions. The tag for t
 
 ## 3. Notation — fixed, do not deviate
 
-**Geometry.** Contextual base `\mathcal C` with points `c`. Principal `G`-bundle `\pi:P\to\mathcal C`.
-Representations `\rho_k`, `\rho_m` of `G`. Local frames `U_i\in\mathrm{GL}^+(K)`. Transports
-`\Omega_{ij}=U_iU_j^{-1}` (the cocycle / flat case, "Regime I"); an independently declared edge link
-is "Regime II".
+**Geometry.** Contextual base `\mathcal C` with points `c`. One principal bundle
+`\pi:P\to\mathcal C` with structure group `G` induces the belief and model associated bundles
+`\mathcal E_b=P\times_{\widehat\rho_b}\mathcal B_b` and
+`\mathcal E_m=P\times_{\widehat\rho_m}\mathcal B_m`. Use `\rho_b,\rho_m` for possibly inequivalent
+representations of `G` on the two sample fibers and `\widehat\rho_b,\widehat\rho_m` for their
+pushforward actions on law fibers. Local principal frames `u_i^b,u_i^m:\mathcal C_i\to P` are
+separate choices. The unique relative principal-frame field is `h_i:\mathcal C_i\to G`, defined by
+`u_i^m=u_i^b h_i`; it exists even when the representations have different dimensions, but it does
+not define a map between their representation spaces. At the general tier the cross maps are
+measurable and fiber preserving. Under the selected smooth-tier hypothesis, the two principal
+connections `\omega_b,\omega_m` on the same `P` induce Ehresmann horizontal
+distributions and parallel transports
+`\Omega_\gamma` on `\mathcal E_b` and `\widetilde\Omega_\gamma` on `\mathcal E_m` along a
+piecewise-smooth base curve `\gamma`. Cross-associated-bundle morphisms cover the identity and have
+the fixed directions
+`\Phi:\mathcal E_b\to\mathcal E_m` and
+`\widetilde\Phi:\mathcal E_m\to\mathcal E_b`; they are not principal-bundle morphisms, gauge
+automorphisms, same-channel transports, or assumed inverses. For a smooth nonlinear fiber map,
+define the defect by horizontal lifts:
+`(\mathcal D\Phi)_e(X)=T_e\Phi(H_e^bX)-H_{\Phi(e)}^mX`, and analogously for
+`\widetilde\Phi`. Only for fiberwise-linear vector-bundle morphisms may this be abbreviated as
+`D\Phi=\nabla^m\circ\Phi-\Phi\circ\nabla^b`, with the corresponding Hom-bundle left-right law.
+
+Pointwise comparisons between local frames at one base point are written `T^b_{ij},T^m_{ij}` and
+take values in the same `G`. The two frame atlases describe one principal-bundle Cech class; their
+cocycles are related by the relative field and are not independent topology classes. Independently
+declared graph-edge-copy links are written `\Theta^b_e,\Theta^m_e\in G`, with
+`\Theta_{\bar e}^x=(\Theta_e^x)^{-1}`, and transform under discrete vertex frame changes `h_i^x`.
+Endpoint notation `\Theta_{ij}^x` is permitted only when the edge copy is unique. A smooth local
+reframing `g_i^x(c)` induces that vertex gauge only after a vertex context
+`c_i\in\mathcal C_i` is chosen, by `h_i^x=g_i^x(c_i)`. Neither a pointwise comparison nor a graph
+link is a base parallel transport unless endpoint contexts, edge-labeled curves
+`\gamma_e:c_j\to c_i`, and an equality hypothesis are supplied.
+On a finite design, the full context-dependent product of passive frame-coordinate changes uses link copies
+`\Theta_{a,e}^x` (abbreviated by endpoints when unique) with
+`h_{a,i}^x=g_i^x(c_a)`. Constraining one shared link across all design points leaves the stabilizer
+for which `h_{a,i}^x\Theta_{ij}^x(h_{a,j}^x)^{-1}` is independent of `a`;
+context-independent rechoices are sufficient but need not exhaust that stabilizer. Any larger
+transformation law requires a separately declared compensation.
+This coordinate product does not replace the single principal structure group. A common-frame
+specialization sets `u_i^b=u_i^m`; equal connections and identified graph links are further,
+separate assumptions. Use two independent principal bundles only in a labeled product-gauge
+extension whose additional physical symmetry or independent topology is actually needed.
 
 **Population.** Agents `i\in V=\{1,\dots,N\}`. Design `D=\{c_a\}_{a=1}^M`, design index `a`.
 State latent `k_i\in\mathbb R^{K}`, model latent `m_i\in\mathbb R^{d_m}`, observation `o_i`.
 Stacked latents `Y`, observations `o`. Structural data `X`.
 
-**Fiber dimension is `K`** everywhere in the Gaussian development. Do not write `d_k` for it.
+**Gaussian dimensions.** The belief Gaussian fiber has dimension `K`; the model Gaussian fiber has
+dimension `d_m`. Equal dimensions are not assumed. Do not write `d_k` for the belief dimension.
 
 **Probability.** Generative kernel `P_\theta(do,dY\mid X)`, density `p_\theta`. Recognition kernel
 `Q_X(dY\mid o)`, density `q_X`. Evidence `\log p_\theta(o\mid X)`. ELBO `\mathcal L(Q_X;X)`.
@@ -138,9 +179,25 @@ Laplacian part `L`. Trivialized coordinates `z_i=U_i^{-1}\mu_i`.
 Coarse precision `\Lambda_{\mathrm c}=S^\top\Lambda S`. Cluster size `n_I`, block size `b`.
 Orthonormal bases: `B` spans `\operatorname{range}(S)`, `B_\perp` its complement.
 
-**Renormalization.** Rescaling `\zeta_\ell>0`. Flow
+**General scale diagram.** Choose one target category `\mathscr K`: deterministic maps, normalized
+Markov kernels, an appropriate operator category, or an explicitly declared product category for a
+mixed state. A state functor assigns `\mathfrak X_\ell`, which records the level base, the common
+principal bundle, both associated bundles and their induced connections, the cross-bundle morphisms and
+their defects, and any declared law or operator components. Every coarse arrow
+`C_{\ell k}:\mathfrak X_\ell\to\mathfrak X_k` is a morphism in `\mathscr K`; one symbol is never
+simultaneously treated as a map, a kernel, and an operator. A reference-space expression using
+`I_\ell^{-1}` requires declared isomorphisms
+`I_\ell:\mathfrak X_\ell\xrightarrow{\sim}\mathfrak X_\star`. Reference-measure transformations
+remain explicit, so a density Jacobian cannot be hidden inside a coupling rescaling. Only such
+identifications produce endomorphisms with ordinary fixed points. A scale-independent endomorphism
+is autonomous; a scale-dependent sequence is a cocycle, with periodic points, invariant sections,
+or monodromy fixed points as separately typed notions.
+
+**MVG operator component.** In the multivariate-Gaussian realization, with rescaling
+`\zeta_\ell>0`, the precision component of the scale diagram is
 `\Lambda^{(\ell+1)}=\zeta_\ell^{-1}S_\ell^\top\Lambda^{(\ell)}S_\ell`.
-Fixed-point data: node parameter `x_i` (additive), coupling matrix `M\succeq0`, self matrix `A`.
+This equation is not the definition of the general RG transformation. Fixed-ray data for this
+component are the additive node parameter `x_i`, coupling matrix `M\succeq0`, and self matrix `A`.
 For a regular pencil `(L,\Lambda)`, write its finite generalized roots as `{d_a}`; there are exactly
 `NK` roots, written `d_1,\dots,d_{NK}`, only when `\Lambda` is invertible. At the singular fixed
 operator ray there is no unconditional full list; quotient, mass, and pinning are distinct repairs.
@@ -149,6 +206,10 @@ operator ray there is no unconditional full list; quotient, mass, and pinning ar
 
 `eq:geo-*`, `eq:prob-*`, `eq:gen-*`, `eq:elbo-*`, `eq:exp-*`, `eq:gauss-*`, `eq:restrict-*`, `eq:ig-*`,
 `eq:cg-*`, `eq:rg-*`, `eq:obs-*`. Chapters `ch:*`, sections `sec:*`, appendix `app:*`.
+Use semantic labels `def:*`, `thm:*`, `prop:*`, `lem:*`, `cor:*`, `conj:*`, `open:*`, and
+`claim:*` for numbered statements; use `tab:*` and `fig:*` for tables and figures. The text must
+refer to labeled objects with `\cref` or `\Cref`, never by a hard-coded chapter or result number.
+Revision-order tokens such as `R15` are forbidden.
 
 ## 5. Results this document MUST contain, stated correctly
 
@@ -170,8 +231,11 @@ off-diagonal block that need be neither symmetric nor sign-correct. Give the cou
 gives `\begin{psmallmatrix}1&-2\\3&-1\end{psmallmatrix}`, not symmetric). State the form as a
 hypothesis with the condition that makes it hold.
 
-**Flatness is a hypothesis.** Coboundary transports `\Omega_{ij}=U_iU_j^{-1}` give a clean
-gauge-covariant sufficient domain because trivialization turns residuals into plain differences.
+**Graph flatness is a hypothesis.** Coboundary graph links
+`\Theta_{ij}=U_iU_j^{-1}` give a clean gauge-covariant sufficient domain because trivialization
+turns residuals into plain differences. Pointwise frame comparisons use `T_{ij}`. This graph
+condition is distinct from triviality of a principal bundle, zero curvature of a chosen connection,
+and trivial connection holonomy on a specified family of base loops.
 Under Regime II an internal edge contributes
 `(I-\Theta_{ij})^\top W_{ij}(I-\Theta_{ij})` to the coarse self term. This vanishes exactly when
 `W_ij^(1/2)(I-\Theta_ij)=0`; only positive-definite or otherwise faithful weights force
@@ -186,10 +250,13 @@ algebraic multigrid, and the block/matrix-weighted case is that method's systems
 
 **Kron reduction is a different operation and is not closed in general.** Unrestricted
 matrix-weighted Kron reduction can leave the interaction family; the manuscript gives an exact
-rational three-agent counterexample. The common-orthogonal-eigenbasis subfamily, including its self
-terms, is closed because it reduces channelwise to scalar loopy-Laplacian elimination. The
-classification of maximal Kron-closed subfamilies remains open. Never describe unrestricted
-matrix-weighted Kron closure as an open conjecture.
+rational three-agent counterexample. The broader fixed congruence-diagonal cone
+`\mathcal C_H={H D H^\top:D\succeq0\text{ diagonal}}`, including its self terms, is closed because a
+fixed congruence reduces elimination channelwise to scalar loopy-Laplacian elimination. Under the
+stated closed-convex-cone, SPD-order-unit, independent-coefficient, and positive-scaling
+hypotheses, this cone is also maximal. Classification beyond those hypotheses---including
+correlated or nonconvex sets, variable congruence charts, and nonflat links---remains open. Never
+describe unrestricted matrix-weighted Kron closure as an open conjecture.
 
 **Closure does not select the family.** The continuum `\Lambda_{ij}=-\lambda W_{ij}`,
 `\lambda\in[-1,1]`, is PSD and closed under every partition; `\lambda=-1` is the signless Laplacian,
@@ -204,7 +271,7 @@ random graphs has force because its coarse-graining rule is *nonlinear* in the c
 probability, so additivity of the node parameter must be forced out of a functional equation. Here
 the rule is linear and the Gaussian energy is additive from the start, so the same demand yields
 nothing. What the functional equation gives here is an **invariant bi-additive family**:
-`w(x,y)=xy\,M` and `\alpha(x)=xA` under a **measurability hypothesis** (without which the Cauchy
+`w(x,y)=xyM` and `\alpha(x)=xA` under a **measurability hypothesis** (without which the Cauchy
 equation admits pathological solutions). This is closure under additive push-forward, not by itself
 a fixed point. A fixed ray is typed only after a hierarchical identification makes the changing
 parameter spaces into one space and the pushed-forward size vector is a positive eigenvector.
@@ -227,7 +294,7 @@ that general question remains OPEN and needs either a nonmonotone functional wit
 optimizer or an impossibility theorem.
 
 **Frame sector.** The coarse frame cancels: constituent laws depend on `(U_I,\mu_I,\Sigma_I)` only
-through `(m,S)`, so the frame occupies a `K^2`-dimensional orbit. With a **faithful** `\rho_k` the
+through `(m,S)`, so the frame occupies a `K^2`-dimensional orbit. With a **faithful** `\rho_b` the
 level set is exactly one gauge orbit (pure gauge); without faithfulness only unidentifiability
 survives. Independent obstruction: no left-equivariant permutation-symmetric map
 `\mathrm{GL}^+(K)^n\to\mathrm{GL}^+(K)` exists for `K\geq2`, `n\geq2` (order-`n` rotation argument;
@@ -274,37 +341,40 @@ function have been declared and proved. No result shows that rank plus one expon
 that an orbit converges, that a component has a unique limit, or that the result is
 blocking-scheme-independent. The component theorem gives independent operator orbits, not a shared
 reached law. The proposed **running** of effective couplings is therefore conditional on a declared
-flow and still lacks a quantitative prediction. R15, the identification of a repaired fixed object
-with a physical law or empirical regularity, remains **OPEN/INCONCLUSIVE**; it is not closed by a
-definition, numerical trend, or interpretive preference.
+flow and still lacks a quantitative prediction. The claim labeled
+`claim:physical-law-identification`---identifying a repaired fixed object with a physical law or
+empirical regularity---remains **OPEN/INCONCLUSIVE**; it is not closed by a definition, numerical
+trend, or interpretive preference.
 
 ## 5b. Non-trivial topology, and the coarse-graining criterion (added 2026-07-28)
 
 The manuscript treats the flat and non-flat regimes **both**, and does not assume the flat one away.
+Every such statement is channel-typed. A belief-sector comparison or graph link does not determine
+its model-sector counterpart, and neither determines a cross-bundle morphism.
 
-**Cocycle general, coboundary special.** The comparisons form a nonabelian Cech 1-cochain on the
-nerve of the cover by agent supports. The cocycle condition is general. Being a *coboundary* is the
-special case, and it holds if and only if a global reference section exists, if and only if the
-bundle restricted to the union of supports is trivial. Requiring a global `sigma_0` is therefore
-exactly the flatness hypothesis, and the general regime has **only open local sections** of the
-associated statistical bundles.
+**Four independent notions.** The transition functions of the principal bundle form a nonabelian
+Cech cocycle. Belief- and model-frame atlases on the same `P` produce cohomologous cocycles, not
+two independent topology classes. The class being a coboundary is equivalent to principal-bundle
+triviality over the covered region and to the existence of a global principal section. Independently declared graph
+links `\Theta` are graph-flat on a subgraph exactly when every graph-loop product is the identity,
+equivalently when those links are a graph coboundary there. A chosen principal connection is flat
+when its curvature vanishes. Its holonomy is trivial only on the specified loops for which parallel
+transport is the identity; a flat connection can retain nontrivial monodromy on a noncontractible
+base. None of these implications may be substituted for another without the curve-assignment and
+transport-identification hypotheses. Singletons and trees are automatically graph-trivializing,
+but say nothing by themselves about bundle topology or connection curvature.
 
-**Holonomy is the local obstruction.** A subfamily of agents admits a common trivialization if and
-only if the holonomy of every closed walk internal to it is the identity. Triviality of holonomy is
-gauge invariant, since holonomy conjugates under per-agent reframing. Call such a subfamily
-*trivializing*; singletons and tree-shaped subfamilies are trivially such, and the flat regime is the
-case in which the whole population is one trivializing subfamily.
-
-**The coarse-graining criterion, derived and not posited.** Trivial internal holonomy is a clean,
-gauge-covariant sufficient condition for full fixed-dimension coarsening. For a connected cluster
-whose internal weights are positive definite on every represented direction, it is also necessary:
-the internal edges annihilate if and only if the transports are a coboundary. With merely
-positive-semidefinite weights, the exact edgewise condition is
-`W_ij^(1/2)(I-Theta_ij)=0`; nonidentity transport and even loop holonomy may survive entirely in
-invisible null directions. The present parameter recursion declares the stronger trivializing
-domain. Classification and iteration of the degenerate cases require a separately typed
-effective-support or quotient construction. Three things about this criterion must be stated
-wherever it is used.
+**The coarse-graining criterion, derived and not posited.** For a connected cluster with
+positive-definite represented internal edge weights, the exact coarse fixed-section fiber is
+`F_I=Fix(Hol_I)`, and its retained rank is `f_I=dim F_I`. Trivial represented holonomy is therefore
+necessary and sufficient for full fixed-dimension coarsening (`f_I=K`), while
+`0<f_I<K` gives exact partial fixed-section coarsening and `f_I=0` leaves no retained cluster
+degree. The proof must identify the kernel of the connection Laplacian with the holonomy-fixed
+space by spanning-tree transport. Principal holonomy may nevertheless be nontrivial when the
+selected representation is not faithful. With merely positive-semidefinite weights, the exact
+edgewise constraint is `W_e^(1/2)(z_i-Theta_e z_j)=0`; nonidentity transport and loop holonomy may
+survive in weight-null directions. Those effective-support cases require their own typed quotient
+or constraint fiber. Three things about this criterion must be stated wherever it is used.
 
 It is an **admissibility** criterion, not a **cost** criterion. It compares no bounds across latent
 inventories, needs no complexity coefficient, and needs no externally declared scale. The
@@ -322,23 +392,27 @@ the interaction Laplacian and the degenerate mode the renormalization chapter pe
 hold sharply different beliefs while their frames trivialize, and identical beliefs under nontrivial
 holonomy. Prefer the phrase "common trivialization" and avoid "consensus" for the criterion.
 
-**What is genuinely open in the non-flat case** has two layers. Coarsening is guaranteed on
-trivializing subfamilies, while positive-semidefinite null-direction exceptions require an
-effective-support classification. Between distinct clusters, the summed cut block must satisfy the
-actual symmetry, sign, and diagonal-representability conditions; a gauge-covariant coarse-link or
-quotient rule closed under another merge is not determined. That is the content of the non-flat
-theory, not a leftover defect.
+**What is closed, and what remains open, in the non-flat case.** Positive-definite internal weights
+give the exact fixed-section fiber above. Positive-semidefinite weights give the exact edgewise
+constraint space, but its canonical effective-support quotient is not classified. When an invariant
+quotient is available it may be used; without one, rectangular cellular-sheaf endpoint maps reproduce
+the Galerkin energy exactly and remain closed under nested blocking. If one insists on the original
+fixed-`K` link family, every cut block must still satisfy the symmetry, sign, and
+diagonal-representability conditions. Canonical minimal compression, compression to one invertible
+transporter and one SPD weight, compatibility with normalized laws, and RG rescaling remain open.
 
-**The tension to record rather than resolve.** The declared sufficient coarse-graining domain uses
-trivial internal holonomy, and under nondegenerate weights that condition is necessary, while the
-reciprocal-pair degeneracy that makes cyclic closure fatal is *relieved* by visible nontrivial
-holonomy, since `dim ker J = dim ker(H - I)`. Holonomy confined to weight-null directions is a
-separate effective-support case. The two halves of the theory therefore pull in opposite directions
-only after the represented support is specified.
+**The tension to record rather than resolve.** The declared full-`K` coarse-graining domain uses
+trivial represented internal holonomy, and under positive-definite weights that condition is
+necessary and sufficient for `f_I=K`. Nontrivial holonomy may still permit exact partial
+fixed-section or rectangular-sheaf coarsening. By contrast, the flat unanchored parallel-edge fold
+singularity is *relieved* by visible nontrivial holonomy, since
+`dim ker J = dim ker(H - I)`. Holonomy confined to weight-null directions is a separate
+effective-support case. The full-rank coarse sector and the unanchored fold therefore pull in
+opposite directions only after the represented support and edge copies are specified.
 
 ## 5c. The interpretive chapter
 
-Chapter 13 states interpretation and proves nothing. **No interpretive claim may carry
+The interpretive chapter states interpretation and proves nothing. **No interpretive claim may carry
 `ESTABLISHED`.** Declared readings are `DEFINITION`; interpretive commitments the mathematics
 actually uses are `HYPOTHESIS`; readings with unsettled consequences are `OPEN`. Where a position is
 merely *available* rather than supported, say so and say what would support it. Graph-link holonomy
@@ -362,6 +436,17 @@ Distinct from both is a generative-kernel fiber: a declared collection of Markov
 specified source and target measurable spaces. Do not identify either law fiber with a kernel
 fiber, and do not infer a manifold, common dominating measure, affine chart, natural parameter,
 convex cone, boundary, or Fisher metric merely because the elements are beliefs or models.
+
+The two law fibers are carried by the separate associated bundles
+`\mathcal E_b=P\times_{\widehat\rho_b}\mathcal B_b` and
+`\mathcal E_m=P\times_{\widehat\rho_m}\mathcal B_m`. The representations of the common group `G`
+may be inequivalent and may act on different-dimensional fibers. The cross maps `\Phi` and
+`\widetilde\Phi` are declared morphisms of these associated bundles over
+`\operatorname{id}_{\mathcal C}`. Their existence is additional structure: the relative principal
+frame `h_i` does not supply them, and inequivalent linear representations admit a nonzero linear
+cross map only when an appropriate intertwiner exists. Neither map forces equal ranks, inverse
+maps, or parallelness. A shared-frame model imposes `u_i^b=u_i^m`; it does not follow merely from
+using one `P`. Compatibility with either of the two connections remains a separate condition.
 
 The selected differential tier is a finite-dimensional smooth **parametrized-measure model**. State
 its parameter manifold and require differentiability in quadratic mean, square-integrable score
@@ -417,33 +502,43 @@ principle. Translation invariance is the Gaussian difference-statistic instance.
 annihilation follows from constant diagonal restriction; translation invariance implies that
 condition but is not equivalent to it without an additional off-diagonal hypothesis.
 
+For a channel-typed law fiber with bimeasurable represented transports, transport each marginal to
+one root and minimize weighted forward KL over a declared holonomy-fixed parent-law family. The
+resulting infimum is independent of paths, root, and frame. When the infimum is attained, it is zero
+exactly for a holonomy-stabilized parallel marginal-law section. An empty fixed family gives
+infinite distortion; without attainment, zero infimum proves only approximability. This theorem is
+a marginal-law statement. It neither selects a partition nor supplies a normalized coarse channel,
+and exact joint recovery still requires a parameter-independent coarse Markov kernel with a common
+recovery kernel.
+
 ### 5d.5 What remains realization-specific
 
 The determinant gap, the Schur-complement mean-tie cost, explicit Gaussian Fisher charts, matrix
 pencils, Loewner-order arguments, the Sylvester classification, the reciprocal-pair determinant,
 and the exact Kron counterexample and common-eigenbasis theorem are **Gaussian quadratic results**.
-Where a general analogue is plausible but unproved, mark it `OPEN` and state its extra category,
+Where a general analog is plausible but unproved, mark it `OPEN` and state its extra category,
 integrability, closure, and attainment obligations. General statement first, realization second;
 never use Gaussian notation as if it proved a theorem about all belief or model fibers.
 
 ## 6. Obstructions chapter — state these as results, not apologies
 
-**The flat unanchored reciprocal fold is inadmissible; cyclic Gaussian models are not.** If the fold
-is represented by one unanchored reciprocal-pair energy and the cocycle makes its holonomy the
-identity, its assembled precision is singular for every SPD link covariance, with kernel the
-transport-consistent configurations. If the fold is not part of a fixed generative joint, there is
-no evidence for the exact ELBO to bound. Proper SPD anchors restore definiteness, and a globally
-normalized cyclic Gaussian Markov random field is legitimate; its partition function is part of
-the model and generally depends on the declared transports. Never generalize the scoped no-go to
-all cycles or all reciprocal models.
+**The flat unanchored reciprocal fold is inadmissible; cyclic Gaussian models are not.** Represent
+the two-node fold by two distinct parallel edge copies traversed in opposite directions. Each copy
+separately obeys the inverse-orientation rule; the two copies need not be inverses. If their
+parallel-edge loop is flat, the assembled precision is singular for every SPD link covariance,
+with kernel the transport-consistent configurations. If the fold is not part of a fixed generative
+joint, there is no evidence for the exact ELBO to bound. Proper SPD anchors restore definiteness,
+and a globally normalized cyclic Gaussian Markov random field is legitimate; its partition
+function is part of the model and generally depends on the declared transports. Never generalize
+the scoped no-go to all cycles or all reciprocal models.
 
-**A posterior-indexed flow does not repair it.** Reformulating the top as a one-parameter family of
-posteriors indexed by an inverse observation count violates the typing prohibition directly, since
-the flowing object is a posterior; each member is the posterior of a *different* model, so a
-one-parameter family of evidences is not one evidence for a bound to bound; and the uninformative
-endpoint is improper. **What survives is a declared top prior on a truncated tower**, or an apex
-latent with a proper prior — a tree, so no cycle can form, whose exact mean-field coordinate is
-precision addition and whose declared prior supplies exactly the coercivity the fold destroyed.
+**Bayesian posterior flow is a separate construction.** It neither repairs nor violates the fold
+theorem by itself. Composing a posterior flow with this model requires an explicit transition
+between normalized models and a common comparison target; without one, differences of ELBOs mix
+evidence and tightness. A large-information covariance expansion supplies no conclusion at the
+zero-information endpoint. **What survives inside the present model is a declared top prior on a
+truncated tower**, or an apex latent with a proper prior — a tree whose exact mean-field coordinate
+is precision addition and whose declared prior supplies exactly the coercivity the fold lacks.
 
 **The participatory content survives in the inference, not as a cycle in the model.** At a
 variational fixed point each agent's effective prior is constituted by the population's beliefs,
@@ -476,9 +571,8 @@ you use it, use the spectral gap and say so.
 **Prior art that must be cited rather than claimed**: aggregation and smoothed-aggregation algebraic
 multigrid for the coarse operator; matrix-weighted consensus for the matrix-weighted Laplacian as an
 object; Sylvester's law of inertia; Birkhoff/Hilbert projective metric contraction for the flow
-argument. **What is genuinely open in both literatures** and may be claimed as such: matrix-weighted
-Kron reduction (whether marginalization can preserve the family), and closure for non-flat connection
-Laplacians.
+argument. **What remains genuinely open** and may be claimed as such is the classification beyond
+the qualified congruence-diagonal theorem and closure for nonflat connection Laplacians.
 
 ## 8. Mechanics
 
@@ -488,7 +582,7 @@ and must contain **no preamble and no `\begin{document}`**. Start each with `\ch
 
 Available: `amsmath`, `mathtools` (so `\begin{psmallmatrix}` works), `bm`, `mathrsfs`, `cleveref`,
 `natbib`, `tikz`, `longtable`, and the `sciencetable` environment from `scientific_report.sty`.
-Status registers use `longtable` (section 2.4); `sciencetable` is for short tables that fit on a page.
+The typed-notation appendix uses `longtable`; `sciencetable` is for short tables that fit on a page.
 
 Macros already defined in `main.tex`: `\KL`, `\E`, `\R`, `\given`, `\Tr`, `\Sym`, `\PSD`, `\GL`.
 Use them.

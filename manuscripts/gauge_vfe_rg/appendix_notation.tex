@@ -1,0 +1,130 @@
+\chapter{Typed Notation Contract}
+\label{app:notation-contract}
+
+This appendix is a type checker, not a second development of the theory.
+Superscripts \(b\) and \(m\) always denote the belief and model channels.
+They may have different representations, fiber dimensions, connections, and
+coarse maps, but the ambient theory induces both channels from one principal
+\(G\)-bundle.
+
+\footnotesize
+\renewcommand{\arraystretch}{1.05}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.23\textwidth}
+>{\raggedright\arraybackslash}p{0.27\textwidth}
+>{\raggedright\arraybackslash}p{0.43\textwidth}@{}}
+\toprule
+Symbol & Type & Meaning and prohibited identification \\
+\midrule
+\(\mathcal C\) &
+smooth base manifold &
+Context space.  It is neither the population graph nor a probability
+sample space. \\
+\(P\xrightarrow{\pi}\mathcal C\) &
+principal \(G\)-bundle &
+The common source of belief and model associated bundles. It is not either
+statistical bundle. \\
+\(\rho_b,\rho_m\) &
+actions on sample fibers &
+Both are representations of the same \(G\); they need not be equivalent,
+faithful, or of equal dimension. \(\rho_x(g)\) acts on a sample coordinate in
+channel \(x\). \\
+\(\widehat\rho_b,\widehat\rho_m\) &
+actions on laws &
+\(\widehat\rho_x(g)q=(\rho_x(g))_\#q\).  A hatted action is not an action
+on a sample vector. \\
+\(\mathcal E_b=P\times_{\widehat\rho_b}\mathcal B_b,\qquad
+  \mathcal E_m=P\times_{\widehat\rho_m}\mathcal B_m\) &
+associated law bundles over \(\mathcal C\) &
+Their fibers contain belief and model laws.  They are not principal
+bundles. \\
+\(u_i^b,u_i^m;\ h_i\) with \(u_i^m=u_i^b h_i\) &
+two local sections of \(P\); unique map \(h_i:\mathcal C_i\to G\) &
+The relative principal frame exists independently of \(\rho_b,\rho_m\). It
+does not define a map between their representation spaces. \\
+\(\Phi:\mathcal E_b\to\mathcal E_m\) &
+belief-to-model associated-bundle morphism &
+Covers \(\operatorname{id}_{\mathcal C}\).  It is not a gauge
+automorphism or a same-channel transport. \\
+\(\widetilde\Phi:\mathcal E_m\to\mathcal E_b\) &
+model-to-belief associated-bundle morphism &
+Covers \(\operatorname{id}_{\mathcal C}\).  It is independent of \(\Phi\)
+and is not presumed to be its inverse. \\
+\(\omega_b,\omega_m\), or \(H^b,H^m\) &
+two principal connections on \(P\), or induced horizontal distributions &
+They are separate geometric data on the same principal bundle. Vector-bundle covariant
+derivatives are a linear specialization. \\
+\(\Omega_\gamma,\widetilde\Omega_\gamma\) &
+\((\mathcal E_b)_{\gamma(0)}\to(\mathcal E_b)_{\gamma(1)}\) and
+\((\mathcal E_m)_{\gamma(0)}\to(\mathcal E_m)_{\gamma(1)}\) &
+Same-channel parallel transports induced by the two connections along a
+piecewise-smooth base curve \(\gamma\subset\mathcal C\). \\
+\(T_{ij}^b(c),T_{ij}^m(c)\) &
+elements of \(G\) at one \(c\in\mathcal C_i\cap\mathcal C_j\) &
+Transition functions computed from two frame atlases of the same \(P\).
+Their cocycles are cohomologous descriptions of one principal-bundle class.
+They use no nonconstant curve and are not graph links. \\
+\(\Theta_e^b,\Theta_e^m\) &
+oriented-edge-copy elements of \(G\) on
+\(\mathfrak I=(V,E,\bar{\ })\) &
+Channel-specific graph-link data, transforming under discrete vertex frame changes
+\(h_i^x\), with \(\Theta_{\bar e}^x=(\Theta_e^x)^{-1}\). Parallel copies
+retain distinct labels. Equality with represented base transport requires
+vertex contexts, assigned curves, \(h_i^x=g_i^x(c_i)\), and the explicit
+link--transport hypothesis. \\
+\(K:\mathsf X\rightsquigarrow\mathsf Y\) &
+normalized, parameter-independent Markov kernel &
+Pushes laws forward and obeys data processing.  It is not an energy
+restriction or a Galerkin matrix. \\
+\(\iota_{\mathcal P}\) &
+coarse-to-fine deterministic embedding &
+Imposes a hard block constraint on an energy family.  Normalization and
+an induced probability channel require separate proofs. \\
+\(C,P,H_c=CHP\) &
+compression, prolongation, and typed coarse propagator &
+Here \(CP=I\).  The matrix \(C\) is not the base \(\mathcal C\), and
+Galerkin closure is not automatically exact message passing. \\
+\(C_{\ell k}:\mathfrak X_\ell\to\mathfrak X_k\) &
+arrow in the scale diagram &
+Composes as \(C_{kr}C_{\ell k}=C_{\ell r}\).  A renormalization dynamics
+also needs comparison and rescaling maps. \\
+\(c_\ell,C_\ell^b,C_\ell^m\) &
+base and channelwise adjacent-scale maps &
+\(C_\ell^x\) covers \(c_\ell\).  Their failures to commute with
+\(\Phi_\ell,\widetilde\Phi_\ell\) or parallel transport are covariant
+defect diagrams. \\
+\(Q,R\) &
+coarse map and stochastic refinement kernel &
+For noninjective \(Q\), \(Q_\#R(c,\cdot)=\delta_c\) is only a stochastic
+right section; it does not recover the discarded realized microstate. \\
+\(P_b,P_m;\ G_b\times G_m\) &
+optional product-gauge extension &
+Used only when independent principal topology or independent physical gauge
+symmetries are intended. It is not required for separate frames,
+representations, or connections in the ambient theory. \\
+\bottomrule
+\end{longtable}
+
+\paragraph{Three transports that must remain distinct.}
+\(\Omega_\gamma\) and \(\widetilde\Omega_\gamma\) move laws between fibers
+over different base points in one channel. \(T_{ij}^x(c)\) compares two
+coordinates in the same principal fiber. \(\Theta_e^x\) is a declared
+edge-copy variable on the interaction complex. Only an explicit hypothesis
+may identify the represented \(\Theta_e^x\) with parallel transport along
+an assigned base curve.
+
+\paragraph{Finite-design link copies.}
+The full context-dependent product of frame-coordinate changes uses
+\(\Theta_{a,e}^x\) with discrete vertex action
+\(h_{a,i}^x=g_i^x(c_a)\), abbreviated as \(\Theta_{a,ij}^x\) when the
+edge copy is unique. A submodel that constrains one shared link across all
+\(a\) retains the stabilizer for which
+\(h_{a,i}^x\Theta_{ij}^x(h_{a,j}^x)^{-1}\) is independent of \(a\).
+Context-independent rechoices are sufficient but need not exhaust that
+stabilizer; any larger law requires a declared compensation.
+
+\paragraph{Two uses of ``coarse.''}
+A Markov channel discards sample information while preserving
+normalization.  A hard restriction substitutes a lower-dimensional
+configuration into an energy.  A Galerkin map compresses an operator.
+These operations can agree in a special realization, but no shared word
+changes their types or transfers a theorem from one to another.

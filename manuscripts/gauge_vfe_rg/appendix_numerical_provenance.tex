@@ -1,0 +1,47 @@
+\chapter{Numerical Provenance}
+\label{app:numerical-provenance}
+
+The reproducibility package is part of the manuscript record:
+\begin{center}
+\footnotesize
+\begin{tabularx}{0.94\textwidth}{@{}>{\raggedright\arraybackslash}p{0.40\textwidth}X@{}}
+\toprule
+\path{verification/claims.json} &
+claim inventory, seeds, sample counts, tolerances, mappings, and open
+obligations \\
+\path{verification/run_checks.py} &
+single deterministic CPU runner \\
+\path{verification/current-results.json} &
+current environment, source and protocol hashes, individual outcomes,
+residuals, and overall result \\
+\path{verification/VERIFICATION.md} &
+human-readable protocol and interpretation \\
+\bottomrule
+\end{tabularx}
+\normalsize
+\end{center}
+
+From the repository root, the declared run is
+\begin{verbatim}
+& "C:\Python314\python.exe" manuscripts/gauge_vfe_rg/verification/run_checks.py
+\end{verbatim}
+The generated JSON record is the authority for exact counts and numerical
+values; this appendix intentionally does not duplicate seed lists or result
+tables that can drift.
+
+\paragraph{What a passing run means.}
+It means that the current deterministic, double-precision CPU
+implementations satisfy their declared finite checks and controls within
+their recorded tolerances.  Those checks corroborate algebraic identities,
+exercise finite witnesses, and detect regressions in the encoded endpoints.
+They do not prove a theorem, genericity, an asymptotic limit, universality,
+or a physical interpretation.  Analytic claims rest on derivations or
+eligible cited results, not on numerical agreement.
+
+\paragraph{Freshness and scope.}
+The result artifact records interpreter and dependency versions and binds
+the discovered manuscript sources and verification protocol by SHA-256.
+Any source, protocol, input, dependency, or environment change requires a
+new run before the numerical evidence is current.  The suite uses no GPU and
+makes no GPU claim.  A missing protocol for an empirical statement remains
+inconclusive even when every implemented check passes.

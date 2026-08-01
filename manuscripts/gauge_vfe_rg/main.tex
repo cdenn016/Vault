@@ -9,12 +9,16 @@
 
 \setlength{\headheight}{22pt}
 \renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
+\makeatletter
+\renewcommand{\@pnumwidth}{2em}
+\renewcommand{\@tocrmarg}{3em}
+\makeatother
 
 \hypersetup{
-  pdftitle={Gauge-Covariant Variational Free Energy: A Single-ELBO Theory and Its Renormalization},
+  pdftitle={Gauge-Covariant Variational Free Energy and Renormalization},
   pdfauthor={Robert C. Dennis},
-  pdfsubject={One normalized joint, one exact evidence bound, and the renormalization of the interaction family under aggregation},
-  pdfkeywords={variational free energy, ELBO, principal bundle, gauge covariance, renormalization group, coarse-graining, universality}
+  pdfsubject={Belief and model associated bundles, one exact evidence bound, general coarse maps, and a multivariate-Gaussian realization},
+  pdfkeywords={variational free energy, ELBO, associated bundle, gauge covariance, Markov kernel, renormalization group, graph coarsening, multivariate Gaussian}
 }
 
 % ---- shared macros: chapters must use these and must not redefine them ----
@@ -30,6 +34,71 @@
 \newcommand{\Fenergy}{\mathcal F}
 \newcommand{\Lelbo}{\mathcal L}
 
+% ---- compact, semantic result headings with one chapter-scoped sequence ----
+% These preserve the manuscript's paragraph-style presentation while giving
+% every result a real typed counter and a stable label for cleveref.
+\newcounter{statementsequence}[chapter]
+\newcounter{definition}[chapter]
+\newcounter{lemma}[chapter]
+\newcounter{proposition}[chapter]
+\newcounter{theorem}[chapter]
+\newcounter{corollary}[chapter]
+\newcounter{conjecture}[chapter]
+\newcounter{openproblem}[chapter]
+\newcounter{hypothesis}[chapter]
+\newcounter{construction}[chapter]
+\newcounter{requirement}[chapter]
+\renewcommand{\thedefinition}{\thechapter.\arabic{definition}}
+\renewcommand{\thelemma}{\thechapter.\arabic{lemma}}
+\renewcommand{\theproposition}{\thechapter.\arabic{proposition}}
+\renewcommand{\thetheorem}{\thechapter.\arabic{theorem}}
+\renewcommand{\thecorollary}{\thechapter.\arabic{corollary}}
+\renewcommand{\theconjecture}{\thechapter.\arabic{conjecture}}
+\renewcommand{\theopenproblem}{\thechapter.\arabic{openproblem}}
+\renewcommand{\thehypothesis}{\thechapter.\arabic{hypothesis}}
+\renewcommand{\theconstruction}{\thechapter.\arabic{construction}}
+\renewcommand{\therequirement}{\thechapter.\arabic{requirement}}
+\crefname{definition}{definition}{definitions}
+\crefname{lemma}{lemma}{lemmas}
+\crefname{proposition}{proposition}{propositions}
+\crefname{theorem}{theorem}{theorems}
+\crefname{corollary}{corollary}{corollaries}
+\crefname{conjecture}{conjecture}{conjectures}
+\crefname{openproblem}{open problem}{open problems}
+\crefname{hypothesis}{hypothesis}{hypotheses}
+\crefname{construction}{construction}{constructions}
+\crefname{requirement}{requirement}{requirements}
+\Crefname{definition}{Definition}{Definitions}
+\Crefname{lemma}{Lemma}{Lemmas}
+\Crefname{proposition}{Proposition}{Propositions}
+\Crefname{theorem}{Theorem}{Theorems}
+\Crefname{corollary}{Corollary}{Corollaries}
+\Crefname{conjecture}{Conjecture}{Conjectures}
+\Crefname{openproblem}{Open Problem}{Open Problems}
+\Crefname{hypothesis}{Hypothesis}{Hypotheses}
+\Crefname{construction}{Construction}{Constructions}
+\Crefname{requirement}{Requirement}{Requirements}
+\newcommand{\syncstatementcounter}[1]{%
+  \stepcounter{statementsequence}%
+  \setcounter{#1}{\numexpr\value{statementsequence}-1\relax}%
+  \refstepcounter{#1}%
+}
+\newcommand{\resultheading}[4]{%
+  \syncstatementcounter{#2}%
+  \label{#4}%
+  \paragraph{#1~\csname the#2\endcsname\ (#3).}%
+}
+\newcommand{\definitionheading}[2]{\resultheading{Definition}{definition}{#1}{#2}}
+\newcommand{\lemmaheading}[2]{\resultheading{Lemma}{lemma}{#1}{#2}}
+\newcommand{\propositionheading}[2]{\resultheading{Proposition}{proposition}{#1}{#2}}
+\newcommand{\theoremheading}[2]{\resultheading{Theorem}{theorem}{#1}{#2}}
+\newcommand{\corollaryheading}[2]{\resultheading{Corollary}{corollary}{#1}{#2}}
+\newcommand{\conjectureheading}[2]{\resultheading{Conjecture}{conjecture}{#1}{#2}}
+\newcommand{\openproblemheading}[2]{\resultheading{Open Problem}{openproblem}{#1}{#2}}
+\newcommand{\hypothesisheading}[2]{\resultheading{Hypothesis}{hypothesis}{#1}{#2}}
+\newcommand{\constructionheading}[2]{\resultheading{Construction}{construction}{#1}{#2}}
+\newcommand{\requirementheading}[2]{\resultheading{Requirement}{requirement}{#1}{#2}}
+
 % ---- epistemic status tag: every non-trivial claim carries one ----
 \definecolor{statusfg}{RGB}{120,20,20}
 \newcommand{\status}[1]{{\small\textsc{\textcolor{statusfg}{[#1]}}}}
@@ -37,8 +106,8 @@
 \begin{document}
 \hypersetup{pageanchor=false}
 \makereporttitle
-  {Gauge-Covariant Variational Free Energy\\A Single-ELBO Theory and Its Renormalization}
-  {One Normalized Joint, One Exact Bound, and the Flow of the Interaction Family Under Aggregation}
+  {Gauge-Covariant Variational Free Energy\\and Renormalization}
+  {Two Associated Statistical Bundles, One Exact Bound, and a General-to-Gaussian Scale Theory}
   {Robert C. Dennis}
   {Independent Researcher}
   {July 2026}
@@ -50,27 +119,34 @@
 \clearpage
 \pagenumbering{arabic}
 
+\part{General Gauge-Variational Foundations}
 \input{01_introduction}
-
-\part{Foundations}
 \input{02_geometry}
 \input{03_probability}
 \input{04_generative}
 \input{05_elbo}
 \input{05a_expfamily}
 
-\part{The Gaussian Realization}
+\part{General Coarse Maps and Renormalization}
+\input{06_general_coarsegraining}
+\input{07_general_renormalization}
+
+\part{The Multivariate-Gaussian Realization}
+\input{06a_generative_gaussian}
 \input{06_gaussian}
 \input{07_restrictions}
 \input{08_infogeometry}
-
-\part{Renormalization}
 \input{09_coarsegraining}
 \input{10_renormalization}
 
-\part{Obstructions and Interpretation}
+\part{Boundaries, Evidence, and Interpretation}
 \input{11_obstructions}
 \input{12_philosophy}
+
+\appendix
+\input{appendix_notation}
+\input{appendix_claim_ledger}
+\input{appendix_numerical_provenance}
 
 \bibliographystyle{plainnat}
 \bibliography{../references}

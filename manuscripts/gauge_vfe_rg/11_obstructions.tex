@@ -3,39 +3,62 @@
 
 The construction developed in this document is deliberately narrow. Its general belief-law and model-law layers fix one normalized joint and one exact bound, with manifolds introduced only on selected finite-dimensional tiers; the concrete obstructions in this chapter concern particular Gaussian realizations and must not be promoted to no-go theorems for arbitrary belief or model fibers. Each statement below names its architecture, and the weaker constructions that survive it are kept explicit.
 
+Every discrete map in this chapter is a graph-link datum. We write
+\(\Theta^b_e\) and \(\Theta^m_e\) for belief- and model-sector links on an
+oriented edge copy \(e\); the Gaussian examples suppress the sector
+superscript. Reverse orientation of the same edge copy obeys
+\(\Theta_{\bar e}=\Theta_e^{-1}\). The reciprocal-pair example instead uses
+two \emph{distinct parallel edge copies} \(e\neq f\), traversed in opposite
+directions, so their link values are not required to be inverses. These
+symbols are distinct from the base-connection transports
+\(\Omega_\gamma,\widetilde\Omega_\gamma\) and from the cross-bundle
+morphisms \(\Phi,\widetilde\Phi\). No graph link is identified with base
+parallel transport without a curve assignment and an equality hypothesis.
+
 The material organizes around one temptation. A tower of scales in which every level's prior is supplied by the level above must terminate, and its top level has no level above. It is natural to try to close the tower by a reciprocal Gaussian agreement pair. The exact result is narrower than ``cycles fail'': the \emph{flat, unanchored reciprocal pair} is singular, and an objective that appends its energy while omitting a required global normalizer is not an evidence bound. Cyclic globally normalized Markov random fields with proper anchors are legitimate probability models; directed auxiliary-latent models and cycles of inference updates are legitimate as well. Sections~\ref{sec:obs-cycle} through~\ref{sec:obs-selfprior} isolate the failed architecture, Section~\ref{sec:obs-tau} separates it from a distinct Bayesian-renormalization construction, and Sections~\ref{sec:obs-survives} and~\ref{sec:obs-participatory} prove that an anchored Gaussian star supplies a unique, geometrically attracting coordinate-ascent fixed point. Section~\ref{sec:obs-flatness} finally shows that nontrivial graph-link holonomy can remove the kernel of this reciprocal pair, while making no claim about cyclic models in general.
 
 \section{The flat unanchored reciprocal Gaussian fold is singular}
 \label{sec:obs-cycle}
 
-Consider two latents $u,v\in\R^{K}$ joined by transported Gaussian links in both directions, which is the minimal form of a fold: $v$ supplies the prior for $u$, and $u$ in turn contributes to the prior for $v$. Each link is a Gaussian penalty on a transported residual, and the two together contribute to the assembled precision
+Consider two latents \(u,v\in\R^K\) joined by distinct parallel edge copies
+\(e:v\to u\) and \(f:u\to v\). This is the minimal reciprocal fold:
+\(v\) supplies a penalty for \(u\), and \(u\) supplies one for \(v\). The
+two residuals contribute the assembled precision
 \begin{equation}
-J=E_{uv}^{\top}R_{uv}^{-1}E_{uv}+E_{vu}^{\top}R_{vu}^{-1}E_{vu},
+J=E_e^{\top}R_e^{-1}E_e+E_f^{\top}R_f^{-1}E_f,
 \qquad
-E_{uv}=\begin{pmatrix}I&-\Omega_{uv}\end{pmatrix},
+E_e=\begin{pmatrix}I&-\Theta_e\end{pmatrix},
 \quad
-E_{vu}=\begin{pmatrix}-\Omega_{vu}&I\end{pmatrix},
+E_f=\begin{pmatrix}-\Theta_f&I\end{pmatrix},
 \label{eq:obs-pair-precision}
 \end{equation}
-with $R_{uv},R_{vu}\succ0$ the link covariances and $\Omega_{uv},\Omega_{vu}\in\GL^{+}(K)$ the transports. Write $H=\Omega_{vu}\Omega_{uv}$ for the holonomy of the two-cycle.
+with \(R_e,R_f\succ0\) and
+\(\Theta_e,\Theta_f\in\GL^+(K)\). Write
+\(H=\Theta_f\Theta_e\) for the graph holonomy of the parallel-edge
+two-cycle based at \(v\). The typed inverses
+\(\Theta_{\bar e}=\Theta_e^{-1}\) and
+\(\Theta_{\bar f}=\Theta_f^{-1}\) exist but do not appear in this loop.
 
-\paragraph{Proposition 12.1 (the kernel of a reciprocal pair).}
+\propositionheading{Kernel of a reciprocal pair}{prop:obs-reciprocal-pair-kernel}
 For every pair of positive definite link covariances,
 \begin{equation}
-\ker J=\bigl\{(\Omega_{uv}v, v) : v\in\ker(H-I)\bigr\},
+\ker J=\bigl\{(\Theta_ev, v) : v\in\ker(H-I)\bigr\},
 \qquad
 \dim\ker J=\dim\ker(H-I).
 \label{eq:obs-pair-kernel}
 \end{equation}
-The kernel does not depend on $R_{uv}$ or $R_{vu}$ at all: its dimension is the multiplicity of the eigenvalue one in the holonomy of the loop.\status{ESTABLISHED}
+The kernel does not depend on \(R_e\) or \(R_f\): its dimension is the
+multiplicity of the eigenvalue one in the loop holonomy.
+\status{ESTABLISHED}
 
 \paragraph{Proof.}
-$J$ is a sum of two positive semidefinite matrices, so $w\in\ker J$ if and only if $w$ lies in the kernel of each summand. For positive definite $R$, the form $w\mapsto w^{\top}E^{\top}R^{-1}Ew$ vanishes exactly when $Ew=0$, so $\ker J=\ker E_{uv}\cap\ker E_{vu}$. Writing $w=(u,v)$, the first condition is $u=\Omega_{uv}v$ and the second is $v=\Omega_{vu}u$; substituting gives $v=\Omega_{vu}\Omega_{uv}v=Hv$, and conversely any $v$ fixed by $H$ produces a solution with $u=\Omega_{uv}v$. The map $v\mapsto(\Omega_{uv}v,v)$ is injective, so the dimensions agree.
+$J$ is a sum of two positive semidefinite matrices, so $w\in\ker J$ if and only if $w$ lies in the kernel of each summand. For positive definite $R$, the form $w\mapsto w^{\top}E^{\top}R^{-1}Ew$ vanishes exactly when $Ew=0$, so $\ker J=\ker E_e\cap\ker E_f$. Writing $w=(u,v)$, the first condition is $u=\Theta_ev$ and the second is $v=\Theta_fu$; substituting gives $v=\Theta_f\Theta_ev=Hv$, and conversely any $v$ fixed by $H$ produces a solution with $u=\Theta_ev$. The map $v\mapsto(\Theta_ev,v)$ is injective, so the dimensions agree.
 
-\paragraph{Corollary 12.2 (under the cocycle, the fold is always singular).}
-If the transports satisfy the cocycle condition of Chapter~\ref{ch:geometry}, so that $\Omega_{vu}=\Omega_{uv}^{-1}$, then $H=I$ and
+\corollaryheading{A flat parallel-edge fold is singular}{cor:obs-flat-fold-singular}
+If the two distinct edge copies give the same flat endpoint comparison,
+equivalently \(\Theta_f=\Theta_e^{-1}\), then \(H=I\) and
 \begin{equation}
-\ker J=\bigl\{(\Omega_{uv}v, v):v\in\R^{K}\bigr\},
+\ker J=\bigl\{(\Theta_ev, v):v\in\R^{K}\bigr\},
 \qquad
 \dim\ker J=K .
 \label{eq:obs-cocycle-kernel}
@@ -43,23 +66,42 @@ If the transports satisfy the cocycle condition of Chapter~\ref{ch:geometry}, so
 The assembled precision is singular for every positive definite pair of link covariances, and its kernel is exactly the set of transport-consistent configurations.\status{ESTABLISHED}
 
 \paragraph{Boundary of the no-go.}
-Corollary~12.2 is not a theorem against cycles. If \(P_u,P_v\succ0\), then
+\Cref{cor:obs-flat-fold-singular} is not a theorem against cycles. If \(P_u,P_v\succ0\), then
 \begin{equation}
 J_{\mathrm{anch}}=J+\operatorname{diag}(P_u,P_v)\succ0,
 \label{eq:obs-anchored-cycle}
 \end{equation}
 because a positive definite matrix added to a positive semidefinite matrix is positive definite. Hence
 \[
-p(u,v)=Z^{-1}\exp\!\left[-\tfrac12(u,v)^\top J_{\mathrm{anch}}(u,v)+h^\top(u,v)\right]
+p(u,v)=Z^{-1}\exp\left[-\tfrac12(u,v)^\top J_{\mathrm{anch}}(u,v)+h^\top(u,v)\right]
 \]
-is a legitimate globally normalized Gaussian model built from the reciprocal two-link energy, with finite
+is a legitimate globally normalized Gaussian model built from the reciprocal
+parallel-edge energy, with finite
 \(Z=(2\pi)^K(\det J_{\mathrm{anch}})^{-1/2}
 \exp(\tfrac12h^\top J_{\mathrm{anch}}^{-1}h)\).
-The same proof covers a genuine finite cycle with any number of vertices: its Gaussian edge energies sum to a positive semidefinite precision, and adding an SPD block anchor at every vertex makes the total precision positive definite. What such a Markov random field loses is the convenience of a product of locally normalized directed kernels, not existence as a probability law. Likewise, Proposition~12.1 itself shows that the unanchored pair is definite when \(1\notin\operatorname{spec}(H)\). The obstruction proved here is therefore exactly the conjunction of a reciprocal-pair energy, no SPD anchor, and the flat cocycle \(H=I\). \status{ESTABLISHED}
+The same proof covers a finite cycle with any number of vertices: its Gaussian
+edge energies sum to a positive semidefinite precision, and an SPD block
+anchor at every vertex makes the total precision positive definite. Such a
+Markov random field loses the convenience of a product of locally normalized
+directed kernels, not existence as a probability law. Likewise,
+\Cref{prop:obs-reciprocal-pair-kernel} shows that the unanchored parallel-edge
+pair is definite when \(1\notin\operatorname{spec}(H)\). The obstruction is
+therefore exactly the conjunction of the reciprocal-pair energy, no SPD
+anchor, and flat parallel-edge holonomy \(H=I\). \status{ESTABLISHED}
 
 Within that scope the direction of the degeneracy is important. A Gaussian energy whose precision has a $K$-dimensional kernel does not define a normalized Lebesgue density, so the exact identity of Chapter~\ref{ch:elbo} has no joint to which it can apply. The flat direction consists precisely of those configurations in which $u$ and $v$ agree under transport. The unanchored flat pair charges exactly nothing there, so it supplies no coercivity along its intended agreement direction.
 
-There are two independent ways to restore definiteness. Equation~\eqref{eq:obs-anchored-cycle} adds declared coercivity and remains valid under the flat cocycle. Alternatively, by \eqref{eq:obs-pair-kernel}, the \emph{unanchored} pair is positive definite exactly when \(1\) is not an eigenvalue of \(H\), which requires abandoning the Regime-I coboundary and declaring at least one reciprocal link independently. That second route leaves the fixed-\(K\) flat interaction family used by the standard aggregation flow: an internal twisted edge leaves a self residue, and the cut sector needs the enlarged non-flat rule left open in \Cref{ch:coarsegraining}. This is a limitation of that declared flow, not a no-go for globally normalized cyclic models. \status{ESTABLISHED}
+There are two independent ways to restore definiteness.
+Equation~\eqref{eq:obs-anchored-cycle} adds declared coercivity and remains
+valid under flat parallel-edge holonomy. Alternatively,
+\eqref{eq:obs-pair-kernel} makes the unanchored pair positive definite
+exactly when \(1\) is not an eigenvalue of \(H\), which requires abandoning
+the Regime-I coboundary and declaring at least one of the two parallel edge
+copies independently. That route leaves the fixed-\(K\) flat interaction
+family used by the standard aggregation flow: an internal twisted cycle
+leaves a self residue, and the cut sector needs the enlarged nonflat rule
+left open in \Cref{ch:gaussian-coarsegraining}. This is a limitation of that flow,
+not a no-go for globally normalized cyclic models. \status{ESTABLISHED}
 
 An objective-only reading fails for a different reason. If the reciprocal energy is appended outside the declared joint, the evidence $\log p_\theta(o\given X)$ is determined by the factors that are in the joint and is unaffected, so the appended term has nothing to bound. If instead the energy is included in a globally normalized Markov random field, it is part of a legitimate joint whenever its global partition function is finite, but that partition function must be retained. Thus there are three distinct cases: the flat unanchored energy is improper; the properly anchored or non-flat energy with its global normalizer is a valid undirected model; and the energy appended while its normalizer is omitted is not an evidence bound. Chapter~\ref{ch:elbo} applies to the second case and not to the other two. \status{ESTABLISHED}
 
@@ -73,10 +115,12 @@ For a Gaussian in information form the log normalizer is
 \mathsf A(h,J)=\tfrac12 h^{\top}J^{-1}h-\tfrac12\log\det J+\tfrac{n}{2}\log 2\pi,
 \label{eq:obs-log-normalizer}
 \end{equation}
-so any dependence of $J$ on the transports passes directly into $\mathsf A$. In \eqref{eq:obs-pair-precision} the transports appear inside $E_{uv}$ and $E_{vu}$, and the question is whether their contribution to $\det J$ cancels. It does not.
+so any dependence of $J$ on the transports passes directly into $\mathsf A$. In \eqref{eq:obs-pair-precision} the transports appear inside $E_e$ and $E_f$, and the question is whether their contribution to $\det J$ cancels. It does not.
 
-\paragraph{Proposition 12.3 (the global normalizer depends on the model transport).}
-Take $K=1$, unit link variances, cocycle transports $\Omega_{uv}=a$ and $\Omega_{vu}=a^{-1}$ with $a>0$, and a coordinate-isotropic anchor precision $p_0>0$. Then
+\propositionheading{The global normalizer depends on the model graph link}{prop:obs-normalizer-link-dependence}
+Take \(K=1\), unit link variances, flat parallel-edge values
+\(\Theta_e=a\) and \(\Theta_f=a^{-1}\) with \(a>0\), and a
+coordinate-isotropic anchor precision $p_0>0$. Then
 \begin{equation}
 \det\bigl(J+p_0I\bigr)=p_0^{2}+p_0\bigl(a+a^{-1}\bigr)^{2},
 \label{eq:obs-det-witness}
@@ -84,11 +128,11 @@ Take $K=1$, unit link variances, cocycle transports $\Omega_{uv}=a$ and $\Omega_
 which is a nonconstant function of $a$, uniquely minimized on \(\GL^+(1)=(0,\infty)\) at $a=1$, with value $p_0^{2}+4p_0$.\status{ESTABLISHED}
 
 \paragraph{Proof.}
-With $E_{uv}=(1,-a)$ and $E_{vu}=(-a^{-1},1)$, the two rank-one contributions sum to
+With \(E_e=(1,-a)\) and \(E_f=(-a^{-1},1)\), the two rank-one contributions sum to
 \[
 J=\begin{pmatrix}1+a^{-2}&-(a+a^{-1})\\[2pt]-(a+a^{-1})&1+a^{2}\end{pmatrix},
 \]
-whose determinant is $(1+a^{-2})(1+a^{2})-(a+a^{-1})^{2}=(2+a^{2}+a^{-2})-(a^{2}+2+a^{-2})=0$, confirming Corollary~12.2 in this case. Adding $p_0I$ gives
+whose determinant is $(1+a^{-2})(1+a^{2})-(a+a^{-1})^{2}=(2+a^{2}+a^{-2})-(a^{2}+2+a^{-2})=0$, confirming \Cref{cor:obs-flat-fold-singular} in this case. Adding $p_0I$ gives
 $\det(J+p_0I)=p_0^{2}+p_0\bigl[(1+a^{-2})+(1+a^{2})\bigr]=p_0^{2}+p_0(2+a^{2}+a^{-2})$,
 and $2+a^{2}+a^{-2}=(a+a^{-1})^{2}$. Since \(a+a^{-1}\geq2\) for \(a>0\), with equality only at \(a=1\), the stated minimizer is unique.
 
@@ -107,17 +151,31 @@ Then
 \end{equation}
 Thus the identity is a strict \emph{maximum} of the isolated log-normalizer contribution, not a minimum. Minimizing the corresponding isolated contribution to the negative log density pushes away from \(a=1\); the quadratic and information-vector terms also vary with \(a\), so no universal direction follows for the complete objective. What is universal in this witness is only that the global term \(-\tfrac12\log\det(J+p_0I)\) cannot be absorbed into per-agent constants or dropped from a normalized joint. \status{ESTABLISHED}
 
-This variation is a change of model, not a pure coordinate change. It holds the coordinate matrices \(p_0I\), \(R_{uv}=R_{vu}=I\), and the reference Lebesgue coordinates fixed while varying \(a\). Under a genuine reframing, all covariances, precisions, information vectors, and the reference-density Jacobian transform together, and Corollary~4.11 leaves the probability measure and evidence invariant. Proposition~12.3 therefore proves transport-parameter dependence of a declared anchored model; it does not prove a force along a gauge orbit. \status{ESTABLISHED}
+This variation is a change of model, not a pure coordinate change. It holds the coordinate matrices \(p_0I\), \(R_e=R_f=I\), and the reference Lebesgue coordinates fixed while varying \(a\). Under a genuine reframing, all covariances, precisions, information vectors, and the reference-density Jacobian transform together, and \Cref{prop:gen-product-evidence-invariance} leaves the probability measure and evidence invariant. \Cref{prop:obs-normalizer-link-dependence} therefore proves transport-parameter dependence of a declared anchored model; it does not prove a force along a gauge orbit. \status{ESTABLISHED}
 
 \section{Bayesian posterior flow is a different construction}
 \label{sec:obs-tau}
 
 Bayesian renormalization, as formulated by \citet{BermanKlingerStapleton2023}, declares a prior and a likelihood and studies posterior and model-space descriptions indexed by an information-theoretic scale. A posterior is the output of that declared Bayesian model; the construction does not, merely by allowing the posterior to flow, make a generative kernel read its own posterior. The typing prohibition of Chapter~\ref{ch:generative} therefore does not refute Bayesian renormalization. \status{ESTABLISHED}
 
-The two frameworks nevertheless cannot be identified without an additional construction. If one takes a posterior from one scale and inserts it as the generative top factor at another, then one has declared either a new model at each scale or an explicit transition rule between models. That can be legitimate, but the evidence and ELBO at different scales then refer to different declared joints unless a common target and an exact comparison map are supplied. Proposition~4.5 gives the precise warning: a family of exact pointwise identities does not itself designate one member or one evidence, and comparing two bounds certifies an improvement in one fixed quantity only on an evidence level set. This is a condition on a proposed composition with the present model, not a criticism of a posterior flow considered on its own. \status{ESTABLISHED}
+The two frameworks nevertheless cannot be identified without an additional construction. If one takes a posterior from one scale and inserts it as the generative top factor at another, then one has declared either a new model at each scale or an explicit transition rule between models. That can be legitimate, but the evidence and ELBO at different scales then refer to different declared joints unless a common target and an exact comparison map are supplied. \Cref{prop:gen-no-distinguished-target} gives the precise warning: a family of exact pointwise identities does not itself designate one member or one evidence, and comparing two bounds certifies an improvement in one fixed quantity only on an evidence level set. This is a condition on a proposed composition with the present model, not a criticism of a posterior flow considered on its own. \status{ESTABLISHED}
 
-An earlier version of this chapter claimed that a large-sample covariance approximation of the form
-\(C_T=T^{-1}I^{-1}+o(T^{-1})\) implied an improper \(T\to0\) endpoint. That inference reverses the regime of an asymptotic expansion and is invalid. A statement proved as \(T\to\infty\) supplies no bound, limit, or even qualitative monotonicity as \(T\downarrow0\). Properness of a zero-information endpoint depends on the actually declared prior and normalizer; with a proper prior, the no-data posterior is ordinarily that proper prior. This document therefore makes no improper-endpoint claim about the construction of \citet{BermanKlingerStapleton2023}. \status{NOT-CLAIMED}
+The resulting boundary is narrower than a prohibition on comparing different
+latent inventories. If two normalized joints are declared independently, with
+no evidence-preserving channel between them, their optimized ELBO difference
+mixes an evidence difference with a tightness difference and supplies no
+universal order. By contrast, a normalized Markov pushforward applied to both
+the posterior and recognition law preserves the observation evidence and
+orders the bounds by data processing. The arbitrary-model caveat applies only
+in the absence of that relation. \status{ESTABLISHED}
+
+The asymptotic covariance
+\(C_T=T^{-1}I^{-1}+o(T^{-1})\) is a \(T\to\infty\) statement and supplies
+no bound, limit, or monotonicity as \(T\downarrow0\). Properness at zero
+information depends on the declared prior and normalizer; with a proper
+prior, the no-data posterior is that prior. Hence this expansion supports
+no improper-endpoint claim about Bayesian renormalization.
+\status{NOT-CLAIMED}
 
 Nor does a verbal contrast between ``posterior widening'' and ``precision addition'' establish that the two scale directions are opposites. The first depends on the declared Bayesian path, and the second is an unrescaled Gaussian aggregation identity. Relating them would require an explicit map between their scale parameters and an operator comparison in a common theory space; none is supplied here. \status{NOT-CLAIMED}
 
@@ -132,34 +190,34 @@ The second replaces the fold by an apex latent inside the joint. Let $b\in\R^{K}
 \begin{equation}
 b\sim\mathcal N(0,P_0^{-1}),
 \qquad
-y_i\given b\sim\mathcal N(\Omega_i b, R_i),
+y_i\given b\sim\mathcal N(\Theta_i b, R_i),
 \qquad
 i=1,\dots,n .
 \label{eq:obs-star}
 \end{equation}
-The scale graph is a star, hence a tree, so no cycle can form and Proposition~12.1 has nothing to act on. Three properties make this the right replacement rather than merely an admissible one.
+The scale graph is a star, hence a tree, so no cycle can form and \Cref{prop:obs-reciprocal-pair-kernel} has nothing to act on. Three properties make this the right replacement rather than merely an admissible one.
 
-\paragraph{Proposition 12.4 (definiteness).}
-The assembled precision $J_\star$ of \eqref{eq:obs-star} is positive definite for every choice of $\Omega_i\in\GL^{+}(K)$ and $R_i\succ0$.\status{ESTABLISHED}
+\propositionheading{Definiteness of the anchored star}{prop:obs-star-definite}
+The assembled precision $J_\star$ of \eqref{eq:obs-star} is positive definite for every choice of $\Theta_i\in\GL^{+}(K)$ and $R_i\succ0$.\status{ESTABLISHED}
 
 \paragraph{Proof.}
-The quadratic form is $b^{\top}P_0b+\sum_i(y_i-\Omega_ib)^{\top}R_i^{-1}(y_i-\Omega_ib)$, a sum of positive semidefinite terms. It vanishes only if $b^{\top}P_0b=0$ and each residual vanishes; the first forces $b=0$ because $P_0\succ0$, and then $y_i=\Omega_ib=0$. The kernel is trivial.
+The quadratic form is $b^{\top}P_0b+\sum_i(y_i-\Theta_ib)^{\top}R_i^{-1}(y_i-\Theta_ib)$, a sum of positive semidefinite terms. It vanishes only if $b^{\top}P_0b=0$ and each residual vanishes; the first forces $b=0$ because $P_0\succ0$, and then $y_i=\Theta_ib=0$. The kernel is trivial.
 
-\paragraph{Proposition 12.5 (the exact mean-field coordinate is precision addition).}
+\propositionheading{The exact mean-field coordinate is precision addition}{prop:obs-star-meanfield-coordinate}
 Under a mean-field recognition family factorizing over $b$ and the constituents, the optimal factor for $b$ at fixed remaining factors is Gaussian with precision
 \begin{equation}
-P_b=P_0+\sum_{i=1}^{n}\Omega_i^{\top}R_i^{-1}\Omega_i ,
+P_b=P_0+\sum_{i=1}^{n}\Theta_i^{\top}R_i^{-1}\Theta_i ,
 \label{eq:obs-precision-addition}
 \end{equation}
-independent of the remaining factors, and with mean $P_b^{-1}\sum_i\Omega_i^{\top}R_i^{-1}\E[y_i]$.\status{ESTABLISHED}
+independent of the remaining factors, and with mean $P_b^{-1}\sum_i\Theta_i^{\top}R_i^{-1}\E[y_i]$.\status{ESTABLISHED}
 
 \paragraph{Proof.}
-The coordinate-ascent optimum satisfies $\log q^{*}(b)=\E_{-b}[\log p(b,y)]+\text{const}$. Only terms quadratic in $b$ contribute to the precision, and taking expectations over the other factors leaves them unchanged, so the coefficient of $-\tfrac12 b^{\top}(\cdot)b$ is the $bb$ block of $J_\star$, which is $P_0+\sum_i\Omega_i^{\top}R_i^{-1}\Omega_i$. The linear coefficient is $\sum_i\Omega_i^{\top}R_i^{-1}\E[y_i]$.
+The coordinate-ascent optimum satisfies $\log q^{*}(b)=\E_{-b}[\log p(b,y)]+\text{const}$. Only terms quadratic in $b$ contribute to the precision, and taking expectations over the other factors leaves them unchanged, so the coefficient of $-\tfrac12 b^{\top}(\cdot)b$ is the $bb$ block of $J_\star$, which is $P_0+\sum_i\Theta_i^{\top}R_i^{-1}\Theta_i$. The linear coefficient is $\sum_i\Theta_i^{\top}R_i^{-1}\E[y_i]$.
 
-Equation~\eqref{eq:obs-precision-addition} is the transported precision-pooling rule, obtained here as an exact consequence of the joint rather than posited as an aggregation convention. It is also the sufficiency statement of Chapter~\ref{ch:coarsegraining} read in the recognition direction: the statistic that the constituents supply to the apex is $\sum_i\Omega_i^{\top}R_i^{-1}y_i$, and \eqref{eq:obs-precision-addition} is the precision that statistic carries.
+Equation~\eqref{eq:obs-precision-addition} is the transported precision-pooling rule, obtained here as an exact consequence of the joint rather than posited as an aggregation convention. It is also the sufficiency statement of Chapter~\ref{ch:coarsegraining} read in the recognition direction: the statistic that the constituents supply to the apex is $\sum_i\Theta_i^{\top}R_i^{-1}y_i$, and \eqref{eq:obs-precision-addition} is the precision that statistic carries.
 
-\paragraph{Proposition 12.6 (the declared prior supplies exactly the missing coercivity).}
-Let $w=(v,\Omega_1v,\dots,\Omega_nv)$ be a transport-consistent configuration of \eqref{eq:obs-star}. Then
+\propositionheading{The declared prior supplies exactly the missing coercivity}{prop:obs-anchor-coercivity}
+Let $w=(v,\Theta_1v,\dots,\Theta_nv)$ be a transport-consistent configuration of \eqref{eq:obs-star}. Then
 \begin{equation}
 w^{\top}J_\star w=v^{\top}P_0v
 \label{eq:obs-coercivity}
@@ -167,34 +225,34 @@ w^{\top}J_\star w=v^{\top}P_0v
 exactly, for every $v\in\R^{K}$ and every choice of transports and link covariances.\status{ESTABLISHED}
 
 \paragraph{Proof.}
-Every constituent residual $y_i-\Omega_ib$ vanishes on such a configuration, so the only surviving term of the quadratic form is $v^{\top}P_0v$.
+Every constituent residual $y_i-\Theta_ib$ vanishes on such a configuration, so the only surviving term of the quadratic form is $v^{\top}P_0v$.
 
-The three propositions together locate precisely what the flat unanchored pair lacks and what the star supplies. By Corollary~12.2 the pair charges nothing on the transport-consistent ray; by \eqref{eq:obs-coercivity} the star charges exactly $v^{\top}P_0v$ there, no more and no less. The historical random run is removed because its seed and matrices were not recorded. The deterministic replacement \texttt{CHK-OBS-STAR-FOLD-NEW-PROTOCOL} constructs emitted star and flat-pair instances and checks the precision-addition identity and coercivity contrast under a new declared protocol. The propositions, not the computation, establish the claim. \status{NUMERICAL}
+The three propositions together locate precisely what the flat unanchored pair lacks and what the star supplies. By \Cref{cor:obs-flat-fold-singular} the pair charges nothing on the transport-consistent ray; by \eqref{eq:obs-coercivity} the star charges exactly $v^{\top}P_0v$ there, no more and no less. The deterministic check \texttt{CHK-OBS-STAR-FOLD-NEW-PROTOCOL} constructs star and flat-pair instances and verifies the precision-addition identity and coercivity contrast under its declared protocol. The propositions, not the computation, establish the claim. \status{NUMERICAL}
 
 That a prior must be declared somewhere is not a shortcoming of this particular construction, and it is worth recording as a general fact rather than as a concession.
 
-\paragraph{Proposition 12.7 (a declared root is unavoidable).}
+\propositionheading{A declared root is unavoidable}{prop:obs-declared-root-unavoidable}
 In any finite directed acyclic generative model there is at least one latent with no parents, whose marginal law is therefore part of the declared parameters. Hence no finite acyclic construction can have every prior constituted by other latents.\status{ESTABLISHED}
 
 \paragraph{Proof.}
 A finite directed acyclic graph admits a topological order, and its first element has no incoming edges. Its factor in the joint is unconditional, so it is declared.
 
-The ambition behind the fold was to eliminate the declared root. Proposition~12.7 says that within finite acyclic models the ambition is unachievable for structural reasons rather than for want of ingenuity, and Corollary~12.2 says that the particular flat unanchored reciprocal-pair escape is improper. Properly anchored globally normalized cyclic models remain available, but their anchors and partition functions are declarations rather than derivations from the population.
+The ambition behind the fold was to eliminate the declared root. \Cref{prop:obs-declared-root-unavoidable} says that within finite acyclic models the ambition is unachievable for structural reasons rather than for want of ingenuity, and \Cref{cor:obs-flat-fold-singular} says that the particular flat unanchored reciprocal-pair escape is improper. Properly anchored globally normalized cyclic models remain available, but their anchors and partition functions are declarations rather than derivations from the population.
 
 \section{The participatory content survives in the inference}
 \label{sec:obs-participatory}
 
-What the fold was reaching for is nonetheless available, and it is available exactly where Propositions~12.5 and~12.7 jointly place it: in the inference rather than in the model.
+What the fold was reaching for is nonetheless available, and it is available exactly where \Cref{prop:obs-star-meanfield-coordinate,prop:obs-declared-root-unavoidable} jointly place it: in the inference rather than in the model.
 
-At a variational fixed point of \eqref{eq:obs-star}, the apex factor has the mean $P_b^{-1}\sum_i\Omega_i^{\top}R_i^{-1}\E[y_i]$ of Proposition~12.5, which is a transported pooling of every constituent's current belief; and each constituent's effective prior, in its own coordinate update, is that apex belief transported back down. Each agent's effective coordinate input is therefore constituted by the apex update, and the apex input is constituted by the agents' updates. This is a loop in an inference algorithm, not a cycle in the factorization of the model. Every step is a coordinate update of a recognition law against a joint that is fixed, acyclic, and normalized, so nothing reads a posterior into a generative kernel and the prohibition of Chapter~\ref{ch:generative} is respected throughout.\status{ESTABLISHED}
+At a variational fixed point of \eqref{eq:obs-star}, the apex factor has the mean $P_b^{-1}\sum_i\Theta_i^{\top}R_i^{-1}\E[y_i]$ of \Cref{prop:obs-star-meanfield-coordinate}, which is a transported pooling of every constituent's current belief; and each constituent's effective prior, in its own coordinate update, is that apex belief transported back down. Each agent's effective coordinate input is therefore constituted by the apex update, and the apex input is constituted by the agents' updates. This is a loop in an inference algorithm, not a cycle in the factorization of the model. Every step is a coordinate update of a recognition law against a joint that is fixed, acyclic, and normalized, so nothing reads a posterior into a generative kernel and the prohibition of Chapter~\ref{ch:generative} is respected throughout.\status{ESTABLISHED}
 
-The distinction being drawn is not verbal. A cycle in the model concerns the factorization or global potential of a joint; Corollary~12.2 rejects only one flat unanchored reciprocal Gaussian potential. A cycle in the inference is a property of an iterative scheme applied to a fixed joint. What the star gives up is the ambition that the apex prior be derived; what it keeps is a bidirectional dependence of exact mean-field coordinates during inference.
+The distinction being drawn is not verbal. A cycle in the model concerns the factorization or global potential of a joint; \Cref{cor:obs-flat-fold-singular} rejects only one flat unanchored reciprocal Gaussian potential. A cycle in the inference is a property of an iterative scheme applied to a fixed joint. What the star gives up is the ambition that the apex prior be derived; what it keeps is a bidirectional dependence of exact mean-field coordinates during inference.
 
-\paragraph{Theorem 12.8 (exact Gaussian-star fixed point and contraction).}
+\theoremheading{Exact Gaussian-star fixed point and contraction}{thm:obs-star-fixed-point-contraction}
 Allow arbitrary fixed information vectors \(r_b,r_1,\ldots,r_n\) by adding
 \(r_b^\top b+\sum_i r_i^\top y_i\) to the log density of \eqref{eq:obs-star}; the displayed centered star is the case \(r_b=r_i=0\). Define
 \begin{equation}
-B:=\sum_{i=1}^n\Omega_i^\top R_i^{-1}\Omega_i,
+B:=\sum_{i=1}^n\Theta_i^\top R_i^{-1}\Theta_i,
 \qquad
 P_b:=P_0+B,
 \qquad
@@ -204,36 +262,36 @@ M:=P_b^{-1}B .
 Consider the exact block schedule that updates every constituent factor from the current apex factor, in parallel or in any order, and then updates the apex factor. The factor covariances become \(R_i\) and \(P_b^{-1}\), respectively, on their first updates, and the means obey
 \begin{align}
 m_i^{(t+1)}
-&=\Omega_i m_b^{(t)}+R_ir_i,
+&=\Theta_i m_b^{(t)}+R_ir_i,
 \label{eq:obs-star-constituent-update}\\
 m_b^{(t+1)}
-&=P_b^{-1}\left(r_b+\sum_i\Omega_i^\top R_i^{-1}m_i^{(t+1)}\right)
+&=P_b^{-1}\left(r_b+\sum_i\Theta_i^\top R_i^{-1}m_i^{(t+1)}\right)
 =c+Mm_b^{(t)},
 \qquad
-c=P_b^{-1}\left(r_b+\sum_i\Omega_i^\top r_i\right).
+c=P_b^{-1}\left(r_b+\sum_i\Theta_i^\top r_i\right).
 \label{eq:obs-star-apex-update}
 \end{align}
 There is a unique fixed point,
 \begin{equation}
 m_b^\star
-=P_0^{-1}\left(r_b+\sum_i\Omega_i^\top r_i\right),
+=P_0^{-1}\left(r_b+\sum_i\Theta_i^\top r_i\right),
 \qquad
-m_i^\star=\Omega_i m_b^\star+R_ir_i ,
+m_i^\star=\Theta_i m_b^\star+R_ir_i ,
 \label{eq:obs-star-fixed-point}
 \end{equation}
 and, in the norm \(\lVert x\rVert_{P_b}=(x^\top P_bx)^{1/2}\),
 \begin{equation}
 \lVert m_b^{(t+1)}-m_b^\star\rVert_{P_b}
-\leq \rho\,
+\leq \rho
 \lVert m_b^{(t)}-m_b^\star\rVert_{P_b},
 \qquad
-\rho=\lambda_{\max}\!\left(P_b^{-1/2}BP_b^{-1/2}\right)<1 .
+\rho=\lambda_{\max}\left(P_b^{-1/2}BP_b^{-1/2}\right)<1 .
 \label{eq:obs-star-rate}
 \end{equation}
 Thus the exact schedule converges geometrically from every initial collection of means. \status{ESTABLISHED}
 
 \paragraph{Proof.}
-Taking the expectation of the joint log density over all factors except \(q_i\) leaves a quadratic in \(y_i\) with precision \(R_i^{-1}\) and information vector \(R_i^{-1}\Omega_i m_b^{(t)}+r_i\), which gives \eqref{eq:obs-star-constituent-update}. Proposition~12.5 with the added information vector gives the first expression in \eqref{eq:obs-star-apex-update}; substitution gives the affine recursion. Since
+Taking the expectation of the joint log density over all factors except \(q_i\) leaves a quadratic in \(y_i\) with precision \(R_i^{-1}\) and information vector \(R_i^{-1}\Theta_i m_b^{(t)}+r_i\), which gives \eqref{eq:obs-star-constituent-update}. \Cref{prop:obs-star-meanfield-coordinate} with the added information vector gives the first expression in \eqref{eq:obs-star-apex-update}; substitution gives the affine recursion. Since
 \[
 I-M=P_b^{-1}(P_b-B)=P_b^{-1}P_0,
 \]
@@ -254,7 +312,7 @@ which proves \eqref{eq:obs-star-rate}. After the first updates, each factor cova
 \(\KL(q_b^{(t)}\Vert q_b^\star)=\tfrac12\lVert e_t\rVert_{P_b}^2\) contracts by at least \(\rho^2\) per full sweep, and the sum of constituent divergences after their next update is
 \(\tfrac12e_t^\top Be_t\leq\tfrac12e_t^\top P_be_t\). This also proves convergence of the entire product factor in relative entropy. \(\square\)
 
-The strict anchor \(P_0\succ0\) is essential. If it is weakened to \(P_0\succeq0\), the symmetric matrix \(S\) can have eigenvalue one, and neither uniqueness nor geometric contraction follows. When \(B=0\), \(\rho=0\) and the apex reaches its fixed point in one update. Delayed, noisy, asynchronous, or inexact updates are not covered by Theorem~12.8 and remain a separate convergence problem. \status{OPEN}
+The strict anchor \(P_0\succ0\) is essential. If it is weakened to \(P_0\succeq0\), the symmetric matrix \(S\) can have eigenvalue one, and neither uniqueness nor geometric contraction follows. When \(B=0\), \(\rho=0\) and the apex reaches its fixed point in one update. Delayed, noisy, asynchronous, or inexact updates are not covered by \Cref{thm:obs-star-fixed-point-contraction} and remain a separate convergence problem. \status{OPEN}
 
 If a one-parameter family is genuinely wanted, for a construction that interpolates between an uninformative and a data-driven description, a legitimate one is available and does not repeat the failures of Section~\ref{sec:obs-tau}. Declare a tempering path $p_\beta\propto p(Y)p(o\given Y)^{\beta}$ for $\beta\in[0,1]$, whose endpoints are the prior and the posterior of one fixed model, both proper, and whose evidence satisfies the exact path-sampling identity
 \begin{equation}
@@ -266,10 +324,11 @@ If a one-parameter family is genuinely wanted, for a construction that interpola
 \section{In the reciprocal-pair architecture, the kernel is a flatness artifact}
 \label{sec:obs-flatness}
 
-Proposition~12.1 measures the obstruction of Section~\ref{sec:obs-cycle} by one number, $\dim\ker(H-I)$, and Corollary~12.2 evaluates that number under the cocycle, where it is $K$. Reading the corollary as a statement about cyclicity is a misreading, and the correct reading inverts the relation between the two halves of this document.
+\Cref{prop:obs-reciprocal-pair-kernel} measures the obstruction of Section~\ref{sec:obs-cycle} by one number, $\dim\ker(H-I)$, and \Cref{cor:obs-flat-fold-singular} evaluates that number under flat parallel-edge holonomy, where it is $K$. Reading the corollary as a statement about cyclicity is a misreading, and the correct reading inverts the relation between the two halves of this document.
 
-\paragraph{Corollary 12.9 (nontrivial holonomy shrinks this pair's kernel).}
-Under the hypotheses of Proposition~12.1, with $H=\Omega_{vu}\Omega_{uv}$ the holonomy of the two-cycle,
+\corollaryheading{Nontrivial holonomy shrinks the reciprocal-pair kernel}{cor:obs-holonomy-kernel-shrinkage}
+Under the hypotheses of \Cref{prop:obs-reciprocal-pair-kernel}, with
+\(H=\Theta_f\Theta_e\) the holonomy of the parallel-edge two-cycle,
 \begin{equation}
 \begin{aligned}
 \dim\ker J=K
@@ -288,36 +347,45 @@ All three statements are read off \eqref{eq:obs-pair-kernel}, which gives $\dim\
 
 The same computation controls the normalization, and in a form that makes the transport dependence of Section~\ref{sec:obs-selfprior} exact rather than exhibited at one witness.
 
-\paragraph{Proposition 12.10 (the assembled determinant is a function of the holonomy alone).}
+\propositionheading{Graph-link dependence of the determinant factors through holonomy}{prop:obs-holonomy-determinant-factorization}
 For the reciprocal pair of \eqref{eq:obs-pair-precision},
 \begin{equation}
-\det J=\frac{\bigl(\det(I-H)\bigr)^{2}}{\det R_{uv}\det R_{vu}} .
+\det J=\frac{\bigl(\det(I-H)\bigr)^{2}}{\det R_e\det R_f} .
 \label{eq:obs-holonomy-det}
 \end{equation}
-The transports enter the determinant only through the holonomy of the loop, and $J$ is singular exactly when $\det(I-H)=0$, in agreement with Proposition~12.1.\status{ESTABLISHED}
+The graph links enter the determinant only through the holonomy of the loop,
+and $J$ is singular exactly when $\det(I-H)=0$, in agreement with
+\Cref{prop:obs-reciprocal-pair-kernel}.\status{ESTABLISHED}
 
 \paragraph{Proof.}
-Stack the two residual maps as $\widetilde E=\begin{psmallmatrix}I&-\Omega_{uv}\\-\Omega_{vu}&I\end{psmallmatrix}$ and write $\widetilde R=\operatorname{diag}(R_{uv},R_{vu})$, so that $J=\widetilde E^{\top}\widetilde R^{-1}\widetilde E$ by definition of \eqref{eq:obs-pair-precision}. Hence $\det J=(\det\widetilde E)^{2}/(\det R_{uv}\det R_{vu})$, and the Schur formula applied with the invertible leading block gives $\det\widetilde E=\det(I)\det\bigl(I-\Omega_{vu}\Omega_{uv}\bigr)=\det(I-H)$.
+Stack the two residual maps as
+\(\widetilde E=\begin{psmallmatrix}I&-\Theta_e\\-\Theta_f&I\end{psmallmatrix}\)
+and write \(\widetilde R=\operatorname{diag}(R_e,R_f)\), so that
+\(J=\widetilde E^{\top}\widetilde R^{-1}\widetilde E\) by
+\eqref{eq:obs-pair-precision}. Hence
+\(\det J=(\det\widetilde E)^2/(\det R_e\det R_f)\), and the Schur formula
+gives
+\(\det\widetilde E=\det(I-\Theta_f\Theta_e)=\det(I-H)\).
 
 \paragraph{What holonomy removes.}
-Exactly one defect of this exact architecture: the unanchored pair's kernel. When $1\notin\operatorname{spec}(H)$ the assembled precision is positive definite, so the reciprocal energy with its global normalizer defines a Gaussian law and the failure recorded in Corollary~12.2 does not occur. By \eqref{eq:obs-pair-kernel}, the transport-consistent zero modes are
-\(\{(\Omega_{uv}v,v):v\in\ker(H-I)\}\), which collapse to the origin. Cyclicity did not produce that kernel; the flat loop product did. This statement concerns the two-residual precision \eqref{eq:obs-pair-precision} and is not generalized to other cyclic potentials. \status{ESTABLISHED}
+Exactly one defect of this exact architecture: the unanchored pair's kernel. When $1\notin\operatorname{spec}(H)$ the assembled precision is positive definite, so the reciprocal energy with its global normalizer defines a Gaussian law and the failure recorded in \Cref{cor:obs-flat-fold-singular} does not occur. By \eqref{eq:obs-pair-kernel}, the transport-consistent zero modes are
+\(\{(\Theta_ev,v):v\in\ker(H-I)\}\), which collapse to the origin. Cyclicity did not produce that kernel; the flat loop product did. This statement concerns the two-residual precision \eqref{eq:obs-pair-precision} and is not generalized to other cyclic potentials. \status{ESTABLISHED}
 
 \paragraph{What holonomy does not remove.}
-First, it does not turn the reciprocal energy into a pair of locally normalized directed kernels. It can instead define an undirected Gaussian potential, and then its \emph{global} partition function is part of the model. Section~\ref{sec:obs-selfprior} exhibits its parameter dependence in an anchored scalar model; Proposition~12.10 gives the unanchored non-flat determinant exactly. By \eqref{eq:obs-log-normalizer} the latter contains
+First, it does not turn the reciprocal energy into a pair of locally normalized directed kernels. It can instead define an undirected Gaussian potential, and then its \emph{global} partition function is part of the model. Section~\ref{sec:obs-selfprior} exhibits its parameter dependence in an anchored scalar model; \Cref{prop:obs-holonomy-determinant-factorization} gives the unanchored non-flat determinant exactly. By \eqref{eq:obs-log-normalizer} the latter contains
 \begin{equation}
 -\tfrac12\log\det J
 =-\log\bigl\lvert\det(I-H)\bigr\rvert
-+\tfrac12\log\det R_{uv}
-+\tfrac12\log\det R_{vu},
++\tfrac12\log\det R_e
++\tfrac12\log\det R_f,
 \label{eq:obs-holonomy-normalizer}
 \end{equation}
-a nonconstant model term that cannot be absorbed into per-agent constants. It diverges as \(H\) approaches the singular flat locus, exactly where the unanchored law ceases to exist. Retaining this term gives a legitimate normalized model; omitting it changes the objective. Proposition~12.3 and Equation~\eqref{eq:obs-holonomy-normalizer} both vary declared model transports while holding other coordinate parameters fixed, so neither is a statement about motion along a pure gauge orbit. \status{ESTABLISHED}
+a nonconstant model term that cannot be absorbed into per-agent constants. It diverges as \(H\) approaches the singular flat locus, exactly where the unanchored law ceases to exist. Retaining this term gives a legitimate normalized model; omitting it changes the objective. \Cref{prop:obs-normalizer-link-dependence} and Equation~\eqref{eq:obs-holonomy-normalizer} both vary declared model transports while holding other coordinate parameters fixed, so neither is a statement about motion along a pure gauge orbit. \status{ESTABLISHED}
 
 Second, nontrivial \(H\) does not eliminate declarations. A loop with $H\neq I$ requires at least one link declared independently of the pointwise frames, because a Regime-I loop product telescopes to the identity. Replacing a declared prior by a declared edge link relocates the declaration. \status{ESTABLISHED}
 
 \paragraph{A conditional incompatibility with the standard flat flow.}
-If one insists simultaneously on an \emph{unanchored} reciprocal pair and on the fixed-\(K\) flat aggregation flow, the two requirements conflict. The standard flow requires trivial graph-link holonomy on every cluster and, for exact cut closure, on every union of two clusters; Corollary~12.9 says the unanchored pair is definite only when \(1\notin\operatorname{spec}(H)\). In that scoped architecture,
+If one insists simultaneously on an \emph{unanchored} reciprocal pair and on the fixed-\(K\) flat aggregation flow, the two requirements conflict. The standard flow requires trivial graph-link holonomy on every cluster and, for exact cut closure, on every union of two clusters; \Cref{cor:obs-holonomy-kernel-shrinkage} says the unanchored pair is definite only when \(1\notin\operatorname{spec}(H)\). In that scoped architecture,
 \begin{equation}
 \begin{aligned}
 \text{standard coarsening needs}\quad
@@ -330,59 +398,18 @@ If one insists simultaneously on an \emph{unanchored} reciprocal pair and on the
 \end{equation}
 An SPD anchor removes the right-hand demand and therefore avoids this incompatibility, at the cost of explicitly declaring the coercive top term. The star avoids it for the same reason and also has no cycles. Equation~\eqref{eq:obs-tension} is not a constraint on all cyclic models or on the general belief-law and model-law theory. \status{ESTABLISHED}
 
-Placing the reciprocal cycle permanently between clusters does not evade the scoped conflict along a finite flow to the coarsest resolution. Admissibility is inherited under refinement, while each nontrivial blocking strictly decreases the number of clusters. At a level with at most two clusters, the pairwise cut-closure condition of \Cref{ch:renormalization} requires their union, the whole population, to be trivializing. Thus a non-flat reciprocal cycle can remain outside the standard flow only by stopping at a finite maximal resolution or by changing the coarse family. \status{ESTABLISHED}
+Placing the reciprocal cycle permanently between clusters does not evade the scoped conflict along a finite flow to the coarsest resolution. Admissibility is inherited under refinement, while each nontrivial blocking strictly decreases the number of clusters. At a level with at most two clusters, the pairwise cut-closure condition of \Cref{ch:gaussian-renormalization} requires their union, the whole population, to be trivializing. Thus a non-flat reciprocal cycle can remain outside the standard flow only by stopping at a finite maximal resolution or by changing the coarse family. \status{ESTABLISHED}
 
-\paragraph{Open extension (non-flat coarse family).}
-Whether an enlarged pair-factor family can carry the non-flat reciprocal model through repeated coarse-graining remains open.\status{OPEN} A solution must retain the global normalizer and must provide a gauge-covariant coarse rule for the cut data \((W_{ij},\Theta_{ij})\), including unequal twists, with closure under a further merge. This is the variable-link problem already isolated in \Cref{ch:coarsegraining,ch:renormalization}; it is not an open question about the validity of anchored cyclic Gaussian models, which Equation~\eqref{eq:obs-anchored-cycle} has already settled positively.
+\paragraph{Remaining non-flat compression problem.}
+The rectangular endpoint-map or cellular-sheaf category constructed in
+\Cref{ch:gaussian-coarsegraining} is already gauge covariant and closed under repeated
+linear-quadratic blocking. \status{ESTABLISHED} What remains open is
+compression of that richer cut datum to one invertible fixed-rank graph link,
+together with a normalized probability/RG lift that retains the global
+normalizer. A solution must preserve closure under another merge; it is not
+an open question about anchored cyclic Gaussian models, which
+\eqref{eq:obs-anchored-cycle} settles positively. \status{OPEN}
 
 Both new statements are proved above. The deterministic replacements \texttt{CHK-OBS-HOLONOMY-\allowbreak DET-KERNEL} and \texttt{CHK-OBS-NORMALIZER-WITNESS} construct their transports and covariances explicitly, check the determinant identity and prescribed fixed-space dimensions, and include a normalized anchored control. Rank tolerance remains part of the numerical protocol; the proofs settle the statements. \status{NUMERICAL}
 
 Chapter~\ref{ch:geometry} distinguishes three holonomies, and everything in this section uses only graph-link holonomy: the ordered product of a declared comparison assignment on a population graph. Neither side of \eqref{eq:obs-tension} refers to the base holonomy of a smooth connection along curves of \(\mathcal C\). No conclusion about bundle topology or base curvature follows from the reciprocal-pair calculation. \status{ESTABLISHED}
-
-\section{Status register}
-\label{sec:obs-register}
-
-{\small
-\begin{longtable}{p{0.30\textwidth} p{0.14\textwidth} p{0.44\textwidth}}
-\caption{Status register for Chapter~\ref{ch:obstructions}. For anything not established, the final column names what is owed.}
-\label{tab:obs-register}\\
-\toprule
-\textbf{Result} & \textbf{Status} & \textbf{What is owed} \\
-\midrule
-\endfirsthead
-\multicolumn{3}{@{}l}{\emph{Status register for Chapter~\ref{ch:obstructions}, continued.}}\\
-\toprule
-\textbf{Result} & \textbf{Status} & \textbf{What is owed} \\
-\midrule
-\endhead
-\bottomrule
-\endlastfoot
-Prop.~12.1, reciprocal-pair kernel is $\ker(H-I)$, Eq.~\eqref{eq:obs-pair-kernel} & ESTABLISHED & Nothing. Independent of the link covariances. \\
-Cor.~12.2, the cocycle forces a $K$-dimensional kernel, Eq.~\eqref{eq:obs-cocycle-kernel} & ESTABLISHED & Nothing. \\
-The flat unanchored pair has no Lebesgue-normalized Gaussian law & ESTABLISHED & Exact scope: reciprocal pair, no SPD anchor, \(H=I\). Not a theorem against cycles. \\
-Anchored cyclic Gaussian MRF, Eq.~\eqref{eq:obs-anchored-cycle} & ESTABLISHED & \(J+\operatorname{diag}(P_u,P_v)\succ0\); the finite global normalizer is displayed. \\
-Three readings of the reciprocal energy & ESTABLISHED & Flat unanchored is improper; a proper globally normalized MRF is legitimate; an objective-only term with omitted normalizer is not an evidence bound. \\
-Prop.~12.3, the global normalizer depends on the declared model transport & ESTABLISHED & Exact scalar witness; only constancy is refuted. \\
-Normalizer curvature at \(a=1\), Eq.~\eqref{eq:obs-normalizer-curvature} & ESTABLISHED & The isolated log-normalizer has a strict maximum, so the former ``push toward identity'' direction was reversed; the full objective has no universal direction. \\
-Variation in Prop.~12.3 is a model change, not a pure gauge orbit & ESTABLISHED & Other coordinate tensors and the base-measure Jacobian are held fixed in the witness. \\
-Bayesian renormalization violates the typing prohibition merely because a posterior flows & NOT-CLAIMED & Refused: \citet{BermanKlingerStapleton2023} declare a prior and likelihood; inserting a posterior as this model's generative factor would be a separate construction. \\
-Large-\(T\) covariance asymptotics determine the \(T\to0\) endpoint & NOT-CLAIMED & Invalid reversal of an asymptotic regime; endpoint properness requires the declared prior and normalizer. \\
-Declared top prior on a truncated tower & DEFINITION & A declaration. The top is given, not constituted; the closure ambition is abandoned. \\
-Prop.~12.4, the star precision is definite & ESTABLISHED & Nothing. \\
-Prop.~12.5, the exact coordinate is precision addition, Eq.~\eqref{eq:obs-precision-addition} & ESTABLISHED & Nothing. \\
-Prop.~12.6, consensus coercivity equals $v^{\top}P_0v$, Eq.~\eqref{eq:obs-coercivity} & ESTABLISHED & Nothing. \\
-Star and flat-pair control under the declared replacement protocol & \status{NUMERICAL} & \texttt{CHK-OBS-STAR-FOLD-NEW-PROTOCOL}, seed $20260728$, emits 300 samples and checks star definiteness, fold nullity, and precision addition at reported tolerances. It replaces, rather than reproduces, the omitted historical run; the propositions carry the proof. \\
-Prop.~12.7, a declared root is unavoidable & ESTABLISHED & Nothing. Finite acyclic models only; the statement says nothing about infinite towers. \\
-The participatory loop lives in exact inference coordinates & ESTABLISHED & A statement about updates on a fixed acyclic joint, not a cyclic model factorization. \\
-Thm.~12.8, exact Gaussian-star fixed point and geometric rate, Eqs.~\eqref{eq:obs-star-fixed-point} and \eqref{eq:obs-star-rate} & ESTABLISHED & Unique for \(P_0\succ0\); covariance fixed after one update; apex KL contracts by at least \(\rho^2\) per full sweep. \\
-Delayed, noisy, asynchronous, or inexact star schedules & OPEN & Require schedule-specific contraction or stochastic-approximation hypotheses; not covered by Thm.~12.8. \\
-Tempering path, Eq.~\eqref{eq:obs-path-sampling} & ESTABLISHED & A cited identity \citep{GelmanMeng1998}. Stated to show the legitimate version exists; not developed in this document. \\
-Cor.~12.9, nontrivial holonomy shrinks this pair's kernel, Eq.~\eqref{eq:obs-holonomy-kernel} & ESTABLISHED & Exact scope is the reciprocal pair of Prop.~12.1; no general cyclic-model claim. \\
-Prop.~12.10, $\det J$ depends on the model transports only through $H$, Eq.~\eqref{eq:obs-holonomy-det} & ESTABLISHED & Exact reciprocal-pair determinant; needs no anchor off the singular locus. \\
-The global normalizer must be retained, Eq.~\eqref{eq:obs-holonomy-normalizer} & ESTABLISHED & A legitimate model term, not a nonexistence theorem; it diverges as the unanchored pair approaches its singular flat locus. \\
-Nontrivial graph-link holonomy relocates a declaration & ESTABLISHED & A Regime-II link is declared independently; it does not derive a rootless model from the population. \\
-Conditional incompatibility, Eq.~\eqref{eq:obs-tension} & ESTABLISHED & Only when one demands both an unanchored reciprocal pair and the standard fixed-\(K\) flat flow. SPD anchors avoid it. \\
-Non-flat coarse family for reciprocal links & OPEN & Supply a gauge-covariant cut rule, retain the global normalizer, and prove closure under repeated merges. \\
-Graph-link holonomy is not base-connection holonomy or bundle topology & ESTABLISHED & The reciprocal-pair computation uses finite graph products only. \\
-\end{longtable}
-}
