@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-11
+updated: 2026-08-01
 ---
 
 # Meta-agents and hierarchical emergence
@@ -106,6 +106,37 @@ $$
 
 which is the first-order BCH approximation of the group-valued Karcher barycenter on the non-compact $GL^+(K)$ frame group. The covariance-sandwich pooling is the gauge-covariant analogue of the affine-invariant SPD geometric mean ([[Symmetric spaces and the SPD cone]], [[moakher-2005-geometric-mean]]), itself an instance of the Riemannian center of mass ([[karcher-1977-center-of-mass]]). The comments note $GL^+(K)$ has no bi-invariant metric (so this is an approximation, exact for commuting frames), guaranteed to land in $GL^+(K)$ because $\det(\exp M)=\exp(\mathrm{tr}\,M)>0$, and restoring the strict-consensus invariant (identical inputs $\to$ identical output) and inverse cancellation. Pooled moments are then re-expressed from the reference frame into the BCH meta-frame via $T=\Omega_{\mathrm{avg}}\Omega_{\mathrm{ref}}^{-1}$ so the stored $(\mu_I,\Omega_I)$ pair is internally consistent (KL is gauge-invariant, so weights are unchanged). The meta-agent's **support** is the no-transport coherence-weighted presence $\chi_\alpha(x)=\sum_i w_i\chi_i(x)/\sum_i w_i$ (fiber rotations do not act on the base-grid scalar $\chi$). On a lattice base, a coarse-grained connection $V_\alpha$ is pooled by the same BCH rule applied to the *bare* edge twists. Coarse-graining is intentionally non-differentiable (`@torch.no_grad()` + `.data.copy_`): meta-agent moments are independently optimized leaves, so pooling is an empirical-Bayes value injection, not a gradient path.
 
+### Inherited pullback geometry across scales
+
+A coarse statistical state does not automatically inherit the fine agents' perceived base geometry.
+Let a bundle morphism $\Psi:\mathcal E\to\bar{\mathcal E}$ cover a base coarse map
+$f:\mathcal C\to\bar{\mathcal C}$. If the sections are related by
+$\Psi\circ s=\bar s\circ f$ and the selected connections make $\Psi$ preserve horizontal lifts, then
+their covariant vertical first jets satisfy
+
+$$
+D^{\bar\omega}\bar s\circ Tf=T^V\Psi\circ D^\omega s.
+$$
+
+Without these hypotheses the exact formula contains a vertical mismatch term; neither the existing
+covariance-sandwich barycenter nor its runtime implementation establishes compatibility merely by
+being gauge-covariant. When the fiber map is also a normalized, parameter-independent Markov channel,
+Fisher data processing defines the vertical defect
+
+$$
+\Delta_F^\Psi=g^F-(T^V\Psi)^*\bar g^F\succeq0
+$$
+
+as the conditional covariance of the fine score. Its distinct base pullback is
+$\delta_\Psi=(D^\omega s)^*\Delta_F^\Psi=h_s^\omega-f^*h_{\bar s}^{\bar\omega}\succeq0$.
+Across two coarse steps the vertical defects obey
+$\Delta_F^{\Psi_{12}\circ\Psi_{01}}=\Delta_F^{\Psi_{01}}
++(T^V\Psi_{01})^*\Delta_F^{\Psi_{12}}$; under related sections and compatible connections the base
+defects obey $\delta_{02}=\delta_{01}+f_{01}^*\delta_{12}$. This theorem compares one fine section or
+history with its pushforward. Independently optimized fine and meta-agent VFE histories require the
+additional oriented vector-field semiconjugacy; metric contraction alone does not supply it.
+[[gauge-vfe-rg-pullback-geometry-2026-08-01]]
+
 ### Top-down feedback (closing the loop)
 
 `TopDownFeedback.propagate_prior` writes the meta-agent's collective belief back into the constituents' *priors* on both fibers:
@@ -164,6 +195,8 @@ These mechanisms live in two Layer-6/7 modules of `MAgent_Model`:
 It is exercised by the `'hierarchy'` preset (species × coalition gated membership + condensation, manuscript §4.2) and feeds the `'ouroboros'` multi-scale tower (§4.5–4.7). The construction grounds out in the source manuscript [[participatory-it-from-bit]], which develops the participatory "It From Bit" loop the meta-agent / top-down cycle realizes. It composes with the related concepts [[Multi-agent variational free energy]], [[Agents as fibre-bundle sections]], [[Meta-entropy]] (the thermodynamic counting of belief configurations, [[meta-entropy-manuscript]]), [[Renormalization-group flow of beliefs]], and [[Ouroboros multi-scale dynamics]]; the Hamiltonian / inertial belief regime is developed in [[Belief inertia]] and [[belief-inertia]].
 
 ## Sources
+
+- [[gauge-vfe-rg-pullback-geometry-2026-08-01]] — related-section first-jet naturality, coarse Fisher contraction, defect cocycle, and the independent-flow semiconjugacy boundary.
 
 - [[participatory-it-from-bit-2026-07-11-code-concordance-review]] — executable-status correction for detector temperature, covariance dispersion, the real-log domain of frame pooling, and one-shot hierarchy persistence.
 

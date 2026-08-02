@@ -2,7 +2,7 @@
 type: index
 title: Index
 aliases: [Index, Home]
-updated: 2026-07-27
+updated: 2026-08-01
 ---
 
 # Index
@@ -10,7 +10,7 @@ updated: 2026-07-27
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **13** manuscripts · **13** themes · **11** field MOCs · **269** concepts · **11** methods · **543** papers · **114** references · **16** runs · **6** web/methodology
+> **3** projects · **14** manuscripts · **13** themes · **11** field MOCs · **269** concepts · **11** methods · **543** papers · **114** references · **16** runs · **6** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -25,6 +25,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
   - [[VFE Transformer Research Directions (2026-06-21)]] — prioritized open-experiments roadmap (37 hypotheses)
 
 ## 📝 Manuscripts (in preparation)
+- [[gauge-vfe-rg-pullback-geometry-2026-08-01|Gauge-Covariant Variational Free Energy and Renormalization: 2026-08-01 Pullback Geometry and Timeless Inference Record]] — fixed-base vertical histories, covariant informational pullbacks, exact local--collective VFE geometry, Fisher information duration, and cross-scale Markov contraction
 - [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation|MAgent Exact-ELBO White Paper: 2026-07-19 Continuum--Finite Remediation Record]] — continuum-primary fields, exact finite marginals and CAVI, corrected moving-peer obstruction, runtime crosswalk, and revision-bound verification
 - [[magent-exact-elbo-whitepaper-2026-07-27-attention-derivation|MAgent Exact-ELBO White Paper: 2026-07-27 Attention-Row Derivation Record]] — the source-label augmented model, the tempered row and its log-determinant logit, the ordered-mask normalization requirement, and the attention target graded DERIVABLE UNDER STATED EXTRA HYPOTHESES
 - [[magent-exact-elbo-whitepaper-2026-07-27-link-covariance-tie|MAgent Exact-ELBO White Paper: 2026-07-27 Link-Covariance Tie Record]] — the tie graded a declared postulate, its identity with the unit-temperature hypothesis, the M-step refutation and its Stein-loss deficit, and the impossibility result closing the correlated-family route

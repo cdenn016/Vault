@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-27
+updated: 2026-08-01
 ---
 
 # Multi-agent variational free energy
@@ -112,6 +112,62 @@ parsimony question, reached independently of the direct computation.
 
 [[vfe-population-generative-status-2026-07-12]] remains the immutable earlier record of the equilibrium-frozen auxiliary source model and a belief-configuration Gibbs lift when its partition function is finite. Its older obstruction account is refined by the site-local theorem above rather than silently rewritten.
 
+## Exact local--collective histories and their geometry
+
+A pair of displayed belief/model marginals does not determine a joint recognition law. The exact
+history construction therefore declares a configuration map and a full-law lift
+
+$$
+\pi_i^{\mathrm{conf}}:\mathfrak R_B\to\mathcal Q_i,
+\qquad
+\iota_i:\mathcal Q_i\to\mathfrak R_B,
+\qquad
+\pi_i^{\mathrm{conf}}\circ\iota_i=\operatorname{id}.
+$$
+
+The right-inverse condition is load-bearing: the lifted conditional or full law must reproduce the
+agent's displayed configuration and carry any required correlation or copula data. Smoothness alone
+does not make a map a lift. The exact recognition Fisher metric is
+$\mathsf G_i^F=\iota_i^*G_{\mathfrak R_B}^F$; adding marginal Fisher metrics is exact only when block
+orthogonality or fixed dependence has separately been established.
+
+At fixed outside marginal, the coordinate-local objective that matches the restricted collective VFE
+is the outside-averaged conditional functional
+
+$$
+\overline{\mathcal F}_{B,o}(Q_i)
+=\mathbb E_{Q_{B^c}}
+\left[\mathcal F_{B,o}(r_B^{Q_i};Y_{B^c})\right].
+$$
+
+Under the stated support, positive conditional-evidence, finiteness, integrability, and dominated-
+differentiation hypotheses,
+
+$$
+\mathcal F_o(Q_{B^c}r_B^{Q_i})
+=C(Q_{B^c})+\overline{\mathcal F}_{B,o}(Q_i).
+$$
+
+The two differentials and their natural-gradient rays then agree under the same block metric. A
+single conditional VFE evaluated at one realized blanket value need not have the collective coordinate
+gradient.
+
+The observation--interaction equivalence is exact at the kernel level. By the randomization lemma,
+every normalized standard-Borel observation kernel $K(do\mid y)$ can be realized as a message
+$O=F(Y,U)$ from an operational environment node with $U\sim\operatorname{Unif}[0,1]$; conversely,
+marginalizing an environment state and message policy produces a normalized observation kernel. This
+gives an operationally agent-and-environment-node-only presentation when all data and exogenous noise
+are boundary messages. It does **not** erase observations from the ELBO: the realized messages remain
+its conditioning records. It also does not make every random seed or boundary node an autonomous
+agent; persistent state, a Markov blanket, action, or its own local VFE are additional agency
+hypotheses. [[gauge-vfe-rg-pullback-geometry-2026-08-01]]
+
+VFE descent supplies orientation only after a metric or mobility is declared. The ray
+$\dot Q=-v\,\operatorname{grad}^F\mathcal F_i$ with $v>0$ selects an oriented unparameterized orbit;
+positive scalar mobility changes its parameterization, while anisotropic mobility can change the path.
+Fisher arclength can then measure agent-relative information duration, but it is not imposed physical
+time.
+
 ## Primary dynamics
 
 For Gaussian belief coordinates, the primary update is Fisher--Rao natural-gradient flow:
@@ -154,6 +210,8 @@ $$
 The optimized envelope force $c_0/(b_0+D_i)$ differs from the derivative $b_0c_0/(b_0+D_i)^2$ of the bare product $\alpha_i^*D_i$. Whenever the adaptive sector is enabled, $R(\alpha_i)$ remains part of the canonical objective.
 
 ## Sources
+
+- [[gauge-vfe-rg-pullback-geometry-2026-08-01]] -- exact full-law lift, outside-averaged local VFE, local--collective differential identity, and timeless orbit geometry.
 
 - [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]] -- corrected fine-family/site-local obstruction, response identity, and conditional continuum corollary.
 - [[belief-inertia-2026-07-12-theorem-first-revision]] -- entropy-retaining social objective, envelope gradient, Fisher path, and conditional kinetics.

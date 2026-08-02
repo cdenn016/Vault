@@ -157,6 +157,34 @@ specialization sets `u_i^b=u_i^m`; equal connections and identified graph links 
 separate assumptions. Use two independent principal bundles only in a labeled product-gauge
 extension whose additional physical symmetry or independent topology is actually needed.
 
+**Pullback geometry and histories.** Write `\varpi_x:\mathcal E_x\to\mathcal C` for the
+associated-bundle projection, `V\mathcal E_x=\ker T\varpi_x`, and
+`\operatorname{ver}^{\omega_x}` for the vertical projection selected by the induced Ehresmann
+connection in channel `x\in\{b,m\}`. For a smooth agent section use
+`D^{\omega_b}q_i=\operatorname{ver}^{\omega_b}\circ Tq_i` and
+`D^{\omega_m}s_i=\operatorname{ver}^{\omega_m}\circ Ts_i`. The vertical Fisher tensors are
+`g_b^F,g_m^F`; their section pullbacks are
+`h_{i,b}^{\omega_b}=(D^{\omega_b}q_i)^*g_b^F` and
+`h_{i,m}^{\omega_m}=(D^{\omega_m}s_i)^*g_m^F`. Call these connection-relative vertical Fisher
+semimetrics unless injectivity has been proved. Gauge invariance under passive re-trivialization
+does not mean independence from the chosen connection. A combined belief--model tensor requires
+declared positive channel weights or a declared joint statistical metric; the common principal
+bundle and relative frame supply neither weights nor cross terms.
+
+For a curve `\Gamma:J\to\mathcal E_x`, reserve `\gamma=\varpi_x\circ\Gamma` for its base
+projection. The curve is vertical when `\gamma` is constant. It is horizontal only relative to a
+chosen `\omega_x`, when
+`\dot\Gamma=H^x_{\Gamma}\dot\gamma`, equivalently when its covariant vertical velocity vanishes.
+A curve with nonconstant base projection and nonzero covariant vertical velocity is mixed. A base
+curve itself needs no connection; its horizontal lift and the horizontal--vertical decomposition
+do. A curve in the section configuration space is a different object: its evaluation at every
+fixed `c` is vertical. Use `\mathfrak S_i` for a declared regular space of belief--model sections
+and `\mathscr H_i` for an oriented, unparameterized inference orbit in it. The adjoint history map
+has type `\Sigma_i:\mathscr H_i\times\mathcal C_i\to
+\mathcal E_b\times_{\mathcal C}\mathcal E_m` and obeys
+`\varpi\circ\Sigma_i(r,c)=c`. The base remains fixed and timeless. Any local parameter used to
+calculate a path integral is auxiliary and must disappear from the final arc length.
+
 **Population.** Agents `i\in V=\{1,\dots,N\}`. Design `D=\{c_a\}_{a=1}^M`, design index `a`.
 State latent `k_i\in\mathbb R^{K}`, model latent `m_i\in\mathbb R^{d_m}`, observation `o_i`.
 Stacked latents `Y`, observations `o`. Structural data `X`.
@@ -215,7 +243,7 @@ operator ray there is no unconditional full list; quotient, mass, and pinning ar
 ## 4. Label prefixes
 
 `eq:geo-*`, `eq:prob-*`, `eq:gen-*`, `eq:elbo-*`, `eq:exp-*`, `eq:gauss-*`, `eq:restrict-*`, `eq:ig-*`,
-`eq:cg-*`, `eq:rg-*`, `eq:obs-*`. Chapters `ch:*`, sections `sec:*`, appendix `app:*`.
+`eq:cg-*`, `eq:rg-*`, `eq:obs-*`, `eq:pb-*`, `eq:hist-*`. Chapters `ch:*`, sections `sec:*`, appendix `app:*`.
 Use semantic labels `def:*`, `thm:*`, `prop:*`, `lem:*`, `cor:*`, `conj:*`, `open:*`, and
 `claim:*` for numbered statements; use `tab:*` and `fig:*` for tables and figures. The text must
 refer to labeled objects with `\cref` or `\Cref`, never by a hard-coded chapter or result number.
@@ -529,6 +557,81 @@ and the exact Kron counterexample and common-eigenbasis theorem are **Gaussian q
 Where a general analog is plausible but unproved, mark it `OPEN` and state its extra category,
 integrability, closure, and attainment obligations. General statement first, realization second;
 never use Gaussian notation as if it proved a theorem about all belief or model fibers.
+
+## 5e. Covariant pullbacks and timeless inference histories (added 2026-08-01)
+
+**The base is fixed and timeless.** A curve in `\mathcal C` orders contexts; it is not an agent
+history. Belief/model updating at one `c` is a vertical curve in the product of the two statistical
+fibers. Evolution of the full agent over `\mathcal C_i` is an oriented curve in a declared section
+space, whose pointwise evaluation velocities are vertical. A curve over changing base points is
+horizontal only relative to a chosen connection; a general such curve is mixed. Tensors pull back
+through sections, while base curves push forward through them. A statistical-fiber curve descends
+to the base only when it lies in the section image, with local and global injectivity hypotheses
+stated separately.
+
+**The covariant pullback is connection-relative.** On the selected smooth tier, require the
+represented group action to preserve each vertical Fisher and Amari--Chentsov tensor. Then
+`(D^{\omega_x}\sigma)^*g_x^F` and the analogous cubic tensor are global and gauge invariant.
+Ordinary derivatives of local representatives are forbidden as global pullbacks. Under a change
+of connection `\omega_x' = \omega_x+a`, display the exact linear and quadratic correction terms;
+there is no connection-independent metric derived from the principal bundle alone.
+
+**Semimetric, quotient, and foliation are distinct.** With positive-definite vertical Fisher
+metric, the radical of the pullback is exactly `\ker D^{\omega_x}\sigma`. It is a Riemannian
+metric only when this map is injective. At constant rank the quotient vector bundle by the radical
+inherits a metric, but it is not automatically the tangent bundle of a quotient manifold.
+Frobenius involutivity, a simple regular foliation, and basicness of the tensor are separate
+hypotheses. Include a rank-jump witness and a constant-rank nonintegrable contact witness.
+
+**VFE selects an orbit only after a metric or mobility is declared.** Descent of `\mathcal F`
+alone supplies neither a path nor a speed. On a regular metric or quotient-metric configuration
+space, the positive ray of `-\operatorname{grad}\mathcal F` defines the oriented unparameterized
+natural-gradient orbit. Positive scalar mobility changes only parameterization; anisotropic
+mobility can change the orbit. A semidefinite metric may not be inverted before a justified
+quotient or separately declared regularization.
+
+**An exact multi-agent VFE requires a joint-law lift.** A pair of displayed marginal belief--model
+sections does not determine a correlated recognition law. Declare a smooth extraction map from an
+admissible conditional- or full-law manifold to the agent configuration and a smooth right-inverse
+`\iota_i`; require the lifted law to reproduce the displayed configuration. With the outside
+marginal fixed, the differentiable block objective is the outside-averaged conditional VFE, under
+the support, finiteness, integrability, and differentiation-under-expectation hypotheses of the
+local--global potential theorem. Its differential then equals the differential of the collective
+VFE restriction. The exact recognition Fisher metric is the pullback of the conditional/full-law
+Fisher metric along `\iota_i`, or its justified quotient. A weighted sum of marginal Fisher metrics
+is exact only after a separate block-orthogonality or fixed-dependence result.
+
+**Emergent duration is Fisher length on an already selected orbit.** The oriented inference orbit
+inherits the Fisher line element, and integration from a chosen origin defines an agent-relative
+information clock invariant under orientation-preserving reparameterization. Fisher supplies
+duration and the VFE natural-gradient ray supplies orientation. The clock can stall on null or
+critical segments and need not extend to a global scalar on configuration space. A global
+orthogonal unit-speed clock requires exactness of the normalized VFE one-form, including vanishing
+periods. Do not identify this construction with physical time. A continuum section-space clock
+also requires a declared base measure, channel weights, and gauge-quotient rule; without them only
+pointwise or finite-design clocks are defined.
+
+In an infinite-dimensional section space, free, proper, and isometric gauge action alone does not
+guarantee the quotient-speed formula. Require a smooth principal quotient, closed split
+orbit-tangent subbundles, and smooth orthogonal complements, equivalently a declared
+Riemannian-submersion or mechanical-connection structure. The familiar free/proper/isometric
+sufficiency applies directly only in the finite-dimensional regular case.
+
+**Operational and meta-agent geometry is a Markov statement.** A parameter-independent normalized
+record channel replaces a score by its conditional expectation and contracts Fisher information
+by the exact conditional-covariance defect. The result applies to the coarse image of the same
+fine orbit. It does not compare independently recomputed fine and meta natural-gradient orbits
+without an oriented semiconjugacy. A parameter-dependent channel, a fitted coarse approximation,
+a Galerkin restriction, and a generative-versus-recognition parameter mismatch lie outside the
+contraction theorem.
+
+**Cross-scale first jets require descent and connection compatibility.** A fine section determines
+only a section of a pulled-back coarse bundle until it is constant on fibers of the base coarse
+map. If fine and coarse sections are related and the bundle morphism preserves horizontal lifts,
+their covariant first jets commute. Otherwise retain the explicit vertical connection-mismatch
+term. Under a genuine Markov fiber map, the pulled-back coarse Fisher tensor is bounded by the
+fine tensor and the information-loss defects add under composition. This scale index is RG depth,
+not physical time.
 
 ## 6. Obstructions chapter — state these as results, not apologies
 

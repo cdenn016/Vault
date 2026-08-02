@@ -1,0 +1,848 @@
+\chapter{Connection-Relative Informational Pullback Geometry}
+\label{ch:pullback-geometry}
+
+The preceding chapters separate the principal bundle, the two associated law
+bundles, and the normalized probabilistic model.  This chapter adds a smooth
+information-geometric layer without identifying those objects.  A chosen
+connection converts the derivative of an agent section into a vertical first
+jet.  The Fisher metric and the Amari--Chentsov tensor can then be pulled back
+to the contextual base.  The resulting tensors are invariant under passive
+changes of frame, but they depend on the selected connection and may be
+degenerate.  These qualifications are part of the construction rather than
+defects to be removed by notation.
+
+The same construction also supplies the differential interface to
+coarse-graining.  A connection-compatible coarse morphism intertwines the
+covariant first jets, while a parameter-independent Markov channel contributes
+a positive-semidefinite Fisher defect.  The defect composes by an exact
+cocycle identity.  Deterministic energy precomposition and Galerkin
+aggregation do not satisfy the Markov hypothesis merely because they are
+called coarse maps.
+
+\section{Statistical tensors on the associated fibers}
+\label{sec:pb-statistical-tensors}
+
+\hypothesisheading{Regular channel models}{hyp:pb-regular-models}
+For each channel $x\in\{b,m\}$, let $\mathcal B_x$ be a finite-dimensional
+smooth parametrized-measure model satisfying the selected smooth-tier
+hypothesis of \Cref{hyp:geo-smooth-tier}.  Assume differentiability in
+quadratic mean, a positive-definite Fisher form, third-power integrability of
+every score direction used below, smooth dependence of the resulting second-
+and third-order tensors, and domination sufficient to differentiate the
+divergence expressions below through third order.  Assume also that the represented action
+$\widehat\rho_x(g)$ is induced by a parameter-independent bimeasurable change
+of sample coordinates and preserves $\mathcal B_x$.  These assumptions exclude
+singular statistical strata, changing-support models without the stated
+differentiability, and arbitrary actions on parameter coordinates.
+\status{HYPOTHESIS}
+
+At $p\in\mathcal B_x$, write $\ell_u$ for the score in direction
+$u\in T_p\mathcal B_x$.  Define
+\begin{align}
+g^F_{x,p}(u,v)
+&=\E_p[\ell_u\ell_v],
+\label{eq:pb-fiber-fisher}\\
+\mathcal T_{x,p}(u,v,w)
+&=\E_p[\ell_u\ell_v\ell_w].
+\label{eq:pb-fiber-amari}
+\end{align}
+The first is the Fisher metric and the second is the symmetric
+Amari--Chentsov tensor.  Their existence here is a statement about the
+selected parametrized-measure models, not about arbitrary law fibers.
+\status{DEFINITION}
+
+\propositionheading{Descent of the statistical tensors}{prop:pb-statistical-tensor-descent}
+Under \Cref{hyp:pb-regular-models}, the represented $G$-action
+preserves $g_x^F$ and $\mathcal T_x$.  Consequently they descend to smooth
+vertical tensors, denoted by the same symbols, on
+$\mathcal E_x=P\times_{\widehat\rho_x}\mathcal B_x$.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Let $r_g$ be the bimeasurable sample-coordinate change representing $g$.
+Pushforward defines the unitary map
+$L^2(p)\to L^2((r_g)_\#p)$ given by
+$f\mapsto f\circ r_g^{-1}$.  Because $r_g$ is independent of the statistical
+parameter, differentiability in quadratic mean identifies the score of the
+pushed-forward tangent direction with $\ell_u\circ r_g^{-1}$.  The
+pushforward integration identity preserves the second and third score moments in
+\eqref{eq:pb-fiber-fisher} and \eqref{eq:pb-fiber-amari}.  An invariant tensor
+on the fiber descends through the associated-bundle quotient.  $\square$
+
+The bimeasurable sample action in this proposition is load bearing.  Closure
+of a set of parameter values under an arbitrary diffeomorphism of its
+parameter chart would not prove statistical isometry and would not define the
+same descended tensors.  \status{ESTABLISHED}
+
+\section{Covariant first jets and pullback tensors}
+\label{sec:pb-covariant-jets}
+
+Fix one channel $x$ temporarily and write $E=\mathcal E_x$,
+$\mathcal B=\mathcal B_x$, $\varpi=\varpi_x$, $g^F=g_x^F$,
+$\mathcal T=\mathcal T_x$, and $\omega=\omega_x$.  The connection induces a
+horizontal subbundle $H^\omega E\subset TE$ and a vertical projection
+$\operatorname{ver}^{\omega}:TE\to VE$.  For a smooth section
+$s:\mathcal U\to E$ over an open set $\mathcal U\subseteq\mathcal C$, define
+\begin{equation}
+D^\omega s
+:=\operatorname{ver}^{\omega}\circ Ts
+:T\mathcal U\longrightarrow s^*VE.
+\label{eq:pb-covariant-first-jet}
+\end{equation}
+The connection-split first jet is the pair
+$j^1_\omega s=(s,D^\omega s)$.  For nonlinear statistical fibers,
+$D^\omega s$ is a vertical-valued one-form along $s$; it is not a linear
+covariant derivative on a vector space of sections.  \status{DEFINITION}
+
+\definitionheading{Covariant informational pullbacks}{def:pb-informational-pullbacks}
+The connection-relative Fisher and Amari pullbacks of $s$ are
+\begin{align}
+h_s^\omega(X,Y)
+&=g^F_{s(c)}(D^\omega s(X),D^\omega s(Y)),
+\label{eq:pb-fisher-pullback}\\
+c_s^\omega(X,Y,Z)
+&=\mathcal T_{s(c)}(D^\omega s(X),D^\omega s(Y),D^\omega s(Z)),
+\label{eq:pb-amari-pullback}
+\end{align}
+for $X,Y,Z\in T_c\mathcal C$.  Thus
+$h_s^\omega\in\Gamma(\operatorname{Sym}^2T^*\mathcal U)$ and
+$c_s^\omega\in\Gamma(\operatorname{Sym}^3T^*\mathcal U)$.  The first is called a
+semimetric until its nondegeneracy is proved.  \status{DEFINITION}
+
+\theoremheading{Gauge invariance of the covariant pullbacks}{thm:pb-pullback-gauge-invariance}
+Under a passive local change of principal frame, with the connection and
+section coordinates transformed by their associated laws, both
+$h_s^\omega$ and $c_s^\omega$ are unchanged as tensors on $\mathcal U$.
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+In a local frame, the vertical jet transforms by the tangent representation,
+\begin{equation}
+D^{\omega'}s'(X)
+=T\widehat\rho_x(g^{-1})D^\omega s(X),
+\label{eq:pb-covariant-jet-gauge-law}
+\end{equation}
+where $g:\mathcal U\to G$ is the frame change and the inverse follows from
+the quotient convention \eqref{eq:geo-quotient-convention}.  The connection
+law is \eqref{eq:geo-local-connection-b} or
+\eqref{eq:geo-local-connection-m}, according to the channel.  By
+\Cref{prop:pb-statistical-tensor-descent}, the tangent representation is an
+isometry of $g^F$ and preserves $\mathcal T$.  Substitution in
+\eqref{eq:pb-fisher-pullback} and \eqref{eq:pb-amari-pullback} cancels the
+frame change in every argument.  $\square$
+
+Gauge invariance in \Cref{thm:pb-pullback-gauge-invariance} concerns two
+coordinate descriptions of the same pair $(\omega,s)$.  It does not say that
+two different connections give the same pullback.  \status{ESTABLISHED}
+
+\section{Exact dependence on the chosen connection}
+\label{sec:pb-connection-dependence}
+
+Let $\omega'$ be a second principal connection on $P$.  Their difference is
+horizontal and $\operatorname{Ad}$-equivariant; denote its descended form by
+\begin{equation}
+a\in\Omega^1(\mathcal C,\operatorname{Ad}(P)).
+\label{eq:pb-connection-difference}
+\end{equation}
+For the associated action, let
+$\vartheta_e:\operatorname{Ad}(P)_{\varpi(e)}\to V_eE$ denote the fundamental
+vertical map.  Along $s$, set
+\begin{equation}
+R_a^s(X)=\vartheta_{s(c)}(a_c(X)).
+\label{eq:pb-connection-difference-vertical}
+\end{equation}
+The sign convention is fixed by the local formula
+$D_A=d+\widehat\rho_{x*}(A)$, which is compatible with
+\eqref{eq:geo-quotient-convention}.  \status{DEFINITION}
+
+\propositionheading{Connection-change formulas}{prop:pb-pullback-connection-change}
+The two vertical jets and their Fisher pullbacks obey
+\begin{align}
+D^{\omega'}s
+&=D^\omega s+R_a^s,
+\label{eq:pb-jet-connection-change}\\
+h_s^{\omega'}(X,Y)
+&=h_s^\omega(X,Y)
++g^F(R_a^sX,D^\omega sY)
++g^F(D^\omega sX,R_a^sY)
++g^F(R_a^sX,R_a^sY).
+\label{eq:pb-fisher-connection-change}
+\end{align}
+The Amari pullback satisfies the exact polarized identity
+\begin{equation}
+c_s^{\omega'}(X,Y,Z)
+=\mathcal T((D^\omega s+R_a^s)X,
+(D^\omega s+R_a^s)Y,
+(D^\omega s+R_a^s)Z).
+\label{eq:pb-amari-connection-change}
+\end{equation}
+It therefore contains the original term, three terms with one occurrence of
+$R_a^s$, three terms with two occurrences, and one term with three
+occurrences.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+In one local frame, replacing $A$ by $A+a$ in
+$d+\widehat\rho_{x*}(A)$ proves
+\eqref{eq:pb-jet-connection-change}.  Bilinearity of $g^F$ gives
+\eqref{eq:pb-fisher-connection-change}, and trilinearity of
+$\mathcal T$ gives \eqref{eq:pb-amari-connection-change}.  The formulas are
+independent of the selected local frame because $a$ is an
+$\operatorname{Ad}(P)$-valued one-form and every displayed contraction is
+gauge invariant.  $\square$
+
+The dependence can occur even in the simplest regular family.  Let
+$\mathcal C=\R$, let $P$ be the trivial principal translation bundle, and let
+$\mathcal B=\{\mathcal N(\mu,1):\mu\in\R\}$.  For the constant section
+$\mu=0$, the zero connection gives $h=0$, whereas the local connection
+$A'=a_0dx$ gives
+\begin{equation}
+h^{A'}=a_0^2dx^2.
+\label{eq:pb-connection-dependence-example}
+\end{equation}
+This example refutes a connection-independent interpretation of
+$h_s^\omega$; it does not refute the gauge invariance of a fixed
+connection--section pair.  \status{ESTABLISHED}
+
+\section{Two channel geometries and their types}
+\label{sec:pb-two-channels}
+
+Restoring the channel labels gives the ordered pair
+\begin{equation}
+(h_{i,b}^{\omega_b},h_{i,m}^{\omega_m})
+\in\Gamma(\operatorname{Sym}^2T^*\mathcal U)
+\times\Gamma(\operatorname{Sym}^2T^*\mathcal U),
+\label{eq:pb-two-channel-pair}
+\end{equation}
+and an analogous pair of cubic tensors.  This pair is determined by the two
+selected statistical models, sections, and connections.  A single scalar
+geometry is not part of those data.  \status{ESTABLISHED}
+
+\hypothesisheading{Weighted product geometry}{hyp:pb-weighted-product-geometry}
+If one joint geometry is required, choose constants $w_b,w_m>0$ and define
+\begin{equation}
+h^{\mathrm{prod}}
+=w_bh_{i,b}^{\omega_b}+w_mh_{i,m}^{\omega_m}.
+\label{eq:pb-weighted-channel-pullback}
+\end{equation}
+The weights fix the relative normalization of the two statistical channels.
+Unit weights are a specialization rather than a consequence of the common
+principal bundle.  \status{HYPOTHESIS}
+
+\propositionheading{Radical of the weighted product}{prop:pb-product-radical}
+Under \Cref{hyp:pb-regular-models,hyp:pb-weighted-product-geometry},
+\begin{equation}
+\operatorname{rad}h^{\mathrm{prod}}
+=\ker D^{\omega_b}q_i\cap\ker D^{\omega_m}s_i.
+\label{eq:pb-product-radical}
+\end{equation}
+Hence the two degenerate channel tensors can jointly be nondegenerate exactly
+when their null distributions have zero intersection.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+For every $X$,
+\[
+h^{\mathrm{prod}}(X,X)
+=w_bg_b^F(D^{\omega_b}q_iX,D^{\omega_b}q_iX)
++w_mg_m^F(D^{\omega_m}s_iX,D^{\omega_m}s_iX).
+\]
+Both summands are nonnegative and both weights are positive.  Their sum
+vanishes exactly when both vertical jets vanish.  Polarization then identifies
+the radical.  $\square$
+
+The common principal group acts separately through $\widehat\rho_b$ and
+$\widehat\rho_m$.  It supplies no bilinear cross tensor on
+$V\mathcal E_b\times V\mathcal E_m$.  Such a cross term requires a separately
+declared invariant bilinear form, and a comparison of channel points requires
+$\Phi$ or $\widetilde\Phi$ from \Cref{sec:geo-cross-morphisms}.  Neither the
+relative principal frame nor equal channel dimensions supplies either object.
+\status{ESTABLISHED}
+
+\section{Rank, radicals, and quotient geometry}
+\label{sec:pb-rank-quotient}
+
+\theoremheading{Constant-rank quotient theorem}{thm:pb-pullback-rank-quotient}
+Let $s:\mathcal U\to E$ satisfy
+\Cref{hyp:pb-regular-models}.  Pointwise,
+\begin{equation}
+\operatorname{rad}h_s^\omega
+=\ker D^\omega s,
+\qquad
+\operatorname{rank}h_s^\omega
+=\operatorname{rank}D^\omega s.
+\label{eq:pb-pullback-radical-rank}
+\end{equation}
+If $D^\omega s$ has constant rank on $\mathcal U$, then
+$K_s^\omega=\ker D^\omega s$ is a smooth subbundle and
+\begin{equation}
+Q_s^\omega=T\mathcal U/K_s^\omega,
+\label{eq:pb-pullback-quotient-bundle}
+\end{equation}
+has a positive-definite metric and a symmetric cubic tensor defined by
+\begin{align}
+\bar h_s^\omega([X],[Y])
+&=h_s^\omega(X,Y),
+\label{eq:pb-pullback-quotient-metric}\\
+\bar c_s^\omega([X],[Y],[Z])
+&=c_s^\omega(X,Y,Z).
+\label{eq:pb-pullback-quotient-amari}
+\end{align}
+The induced map $Q_s^\omega\to\operatorname{im}D^\omega s$ is an isometric
+vector-bundle isomorphism.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+If $D^\omega sX=0$, then \eqref{eq:pb-fisher-pullback} gives
+$h_s^\omega(X,Y)=0$ for all $Y$.  Conversely, if $X$ lies in the radical,
+then
+\[
+0=h_s^\omega(X,X)
+=g^F(D^\omega sX,D^\omega sX),
+\]
+and positive definiteness of $g^F$ forces $D^\omega sX=0$.  This proves
+\eqref{eq:pb-pullback-radical-rank}.  The constant-rank theorem makes the
+kernel and image smooth subbundles.  Replacing an argument of
+\eqref{eq:pb-pullback-quotient-metric} or
+\eqref{eq:pb-pullback-quotient-amari} by a representative differing by an
+element of $K_s^\omega$ leaves its vertical jet unchanged.  The quotient
+tensors are therefore well defined.  The factored map induced by
+$D^\omega s$ is injective onto its image and preserves the displayed tensors;
+the quotient metric is positive definite.  $\square$
+
+The quotient in \Cref{thm:pb-pullback-rank-quotient} is a vector bundle.  It
+is not automatically the tangent bundle of a quotient manifold.  For that
+interpretation, the null distribution must first be involutive,
+\begin{equation}
+D^\omega s([X,Y])=0
+\quad
+\text{for all }X,Y\in\Gamma(K_s^\omega),
+\label{eq:pb-null-involutivity}
+\end{equation}
+and its foliation must have a sufficiently regular leaf space.  Even an
+involutive distribution can have a non-Hausdorff leaf space.  Finally, the
+tensors must be basic for that foliation.  Their contraction with a null
+vector already vanishes by construction, but invariance along null leaves is
+an additional requirement:
+\begin{equation}
+\mathcal L_Zh_s^\omega=0,
+\qquad
+\mathcal L_Zc_s^\omega=0
+\quad\text{for every }Z\in\Gamma(K_s^\omega).
+\label{eq:pb-null-basicness}
+\end{equation}
+Without this condition, even a smooth Hausdorff leaf-space quotient need not
+carry tensors whose pullbacks are $h_s^\omega$ and $c_s^\omega$.
+\status{ESTABLISHED}
+
+\propositionheading{A constant-rank nonintegrable radical}{prop:pb-contact-null-counterexample}
+There is a regular one-dimensional statistical fiber, a smooth connection,
+and a section over $\R^3$ for which $h_s^\omega$ has constant rank one while
+$\ker D^\omega s$ is not involutive.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Use the normal location family and the trivial principal translation bundle
+over $\R^3$ with coordinates $(x,y,z)$.  In the constant section $\mu=0$,
+choose the local connection form
+\begin{equation}
+\alpha=\mathrm{d}z-x\mathrm{d}y.
+\label{eq:pb-contact-connection}
+\end{equation}
+Then $D^\omega s=\alpha$ and
+\begin{equation}
+h_s^\omega=(\mathrm{d}z-x\mathrm{d}y)^2.
+\label{eq:pb-contact-pullback}
+\end{equation}
+The rank is one everywhere, but
+\begin{equation}
+\alpha\wedge\mathrm{d}\alpha
+=-\mathrm{d}z\wedge\mathrm{d}x\wedge\mathrm{d}y\ne0.
+\label{eq:pb-contact-frobenius}
+\end{equation}
+The Frobenius criterion therefore shows that $\ker\alpha$ is a contact
+distribution rather than a foliation.  $\square$
+
+Constant rank is also necessary for the smooth quotient-bundle conclusion.
+For the same normal location family on $\mathcal C=\R$, with the zero
+connection and $s(x)=\mathcal N(x^2,1)$,
+\begin{equation}
+h_s=4x^2dx^2,
+\label{eq:pb-rank-jump-example}
+\end{equation}
+has rank one away from the origin and rank zero at the origin.  The pointwise
+quotients do not assemble into a vector bundle across that point.
+\status{ESTABLISHED}
+
+\section{Divergence jets and transported local comparison}
+\label{sec:pb-divergence-jets}
+
+Let $\mathscr D:\mathcal B\times\mathcal B\to\R$ be a $C^3$ contrast in a
+neighborhood of the diagonal: $\mathscr D(p,q)\geq0$ and
+$\mathscr D(p,q)=0$ exactly on the diagonal in that neighborhood.  For tangent
+vectors below, assume additionally that $\mathscr D$ is invariant under the
+simultaneous represented action,
+$\mathscr D(\widehat\rho(g)p,\widehat\rho(g)q)=\mathscr D(p,q)$, so that it
+defines an unambiguous comparison of two points in one associated-bundle
+fiber.  Without this invariance, the following jets are only local-frame
+objects.  Assume also that the mixed second form defined below is positive
+definite on the selected regular tier.  A contrast such as
+$\mathscr D(\mu,\nu)=(\mu-\nu)^4$ is positive off the diagonal but has a
+zero diagonal Hessian; it yields degenerate jets rather than a divergence-
+induced dualistic geometry. \status{HYPOTHESIS} For tangent
+vectors $u,v,w\in T_p\mathcal B$, let $(u,0)$ and $(0,u)$ denote their lifts
+to the first and second factors.  In one common local chart, extend these
+vectors as constant coordinate vector fields and define the mixed diagonal
+jets
+\begin{align}
+g_{\mathscr D}(u,v)
+&=-[(u,0)(0,v)\mathscr D]_{(p,p)},
+\label{eq:pb-divergence-metric-jet}\\
+\Gamma_{\mathscr D}(u,v,w)
+&=-[(u,0)(v,0)(0,w)\mathscr D]_{(p,p)},
+\label{eq:pb-divergence-first-connection-jet}\\
+\Gamma_{\mathscr D}^*(u,v,w)
+&=-[(0,u)(0,v)(w,0)\mathscr D]_{(p,p)},
+\label{eq:pb-divergence-dual-connection-jet}\\
+\mathcal T_{\mathscr D}
+&=\Gamma_{\mathscr D}-\Gamma_{\mathscr D}^*.
+\label{eq:pb-divergence-amari-jet}
+\end{align}
+The individual third-order arrays are connection coefficients in a chart;
+their difference is a cubic tensor.  The sign convention in
+\eqref{eq:pb-divergence-amari-jet} is chosen so that forward KL on an
+exponential family gives the score-third-moment tensor
+\eqref{eq:pb-fiber-amari}.  \status{DEFINITION}
+
+\propositionheading{KL divergence jets}{prop:pb-kl-divergence-jets}
+On a regular statistical model satisfying the integrability hypotheses of
+\Cref{hyp:pb-regular-models}, the mixed second jet of
+$\KL(p\Vert q)$ is the Fisher metric, and the difference of the two mixed
+third jets is the Amari--Chentsov tensor.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Use a local parameter $\theta$ for the first argument and $\eta$ for the
+second.  Write $\ell_i=\partial_i\log p_\theta$ and let primed derivatives
+act on $\eta$.  Normalization gives $\E_\theta[\ell_i]=0$, while
+$\partial_i p_\theta=p_\theta\ell_i$ and
+$\partial_i\partial_jp_\theta
+=p_\theta(\ell_i\ell_j+\partial_i\ell_j)$.  Direct differentiation at
+$\eta=\theta$ therefore gives
+\begin{align}
+-\partial_i\partial_j'\KL(p_\theta\Vert p_\eta)
+&=\E_\theta[\ell_i\ell_j],\\
+-\partial_i\partial_j\partial_k'\KL(p_\theta\Vert p_\eta)
+&=\E_\theta[(\ell_i\ell_j+\partial_i\ell_j)\ell_k],\\
+-\partial_i'\partial_j'\partial_k\KL(p_\theta\Vert p_\eta)
+&=\E_\theta[\ell_k\partial_i\ell_j].
+\label{eq:pb-kl-jet-calculation}
+\end{align}
+The score Hessian is symmetric in the chosen smooth chart, so subtracting
+the last line from the second cancels its score-derivative term and leaves
+$\E_\theta[\ell_i\ell_j\ell_k]$.  Polarization gives the asserted formulas
+for arbitrary $u,v,w$.  Differentiation under the integral is licensed by
+\Cref{hyp:pb-regular-models}; these are the standard divergence-induced
+dualistic structures of information geometry
+\citep{AmariNagaoka2000,AyJostLeSchwachhofer2017}.  $\square$
+
+For a smooth base curve $\gamma$ with $\gamma(0)=c$, let
+$\Omega^\omega_{0\to\epsilon}$ be the channel transport along
+$\gamma|_{[0,\epsilon]}$ and bring the section value back to the initial fiber by
+\begin{equation}
+\widehat s_\gamma(\epsilon)
+=(\Omega^\omega_{0\to\epsilon})^{-1}s(\gamma(\epsilon)).
+\label{eq:pb-transported-section-curve}
+\end{equation}
+Then
+\begin{equation}
+\left.\frac{d}{d\epsilon}\widehat s_\gamma(\epsilon)\right|_{\epsilon=0}
+=D^\omega s(\dot\gamma(0)).
+\label{eq:pb-transported-section-velocity}
+\end{equation}
+\status{ESTABLISHED}
+
+\corollaryheading{Quadratic transported divergence}{cor:pb-transported-divergence-quadratic}
+Let $g_{\mathscr D}$ be the metric induced by
+\eqref{eq:pb-divergence-metric-jet} and set
+$h_{s,\mathscr D}^\omega=(D^\omega s)^*g_{\mathscr D}$.  Then
+\begin{equation}
+\mathscr D(s(c),\widehat s_\gamma(\epsilon))
+=\frac{\epsilon^2}{2}h_{s,\mathscr D}^\omega
+(\dot\gamma(0),\dot\gamma(0))
++O(\epsilon^3).
+\label{eq:pb-transported-divergence-expansion}
+\end{equation}
+If $g_{\mathscr D}=g^F$, in particular for the regular KL contrast of
+\Cref{prop:pb-kl-divergence-jets}, then
+$h_{s,\mathscr D}^\omega=h_s^\omega$.
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+A contrast and its first derivative vanish on the diagonal.  Its quadratic
+Taylor term in the second argument is the induced metric.  Substituting
+\eqref{eq:pb-transported-section-velocity} gives
+\eqref{eq:pb-transported-divergence-expansion}.  $\square$
+
+The coefficient of $\epsilon^3$ in a one-sided expansion such as
+\eqref{eq:pb-transported-divergence-expansion} is not determined by
+$c_{s,\mathscr D}^\omega:=(D^\omega s)^*\mathcal T_{\mathscr D}$ alone.
+It also contains the covariant acceleration of
+$\widehat s_\gamma$ and the connection coefficient selected by the one-sided
+divergence jet.  The divergence-induced cubic is recovered from the
+difference of the two mixed third jets in
+\eqref{eq:pb-divergence-amari-jet}, not from an arbitrary one-sided cubic
+Taylor coefficient.  For regular KL, it is the Amari--Chentsov tensor and
+$c_{s,\mathscr D}^\omega=c_s^\omega$. \status{ESTABLISHED}
+
+\section{Vertical information length}
+\label{sec:pb-curve-taxonomy}
+
+For a smooth curve $\Gamma:J\to E$ over $\gamma=\varpi\circ\Gamma$, define its
+connection-relative vertical velocity by
+\begin{equation}
+v^\omega(\Gamma)
+=\operatorname{ver}^{\omega}(\dot\Gamma)
+=\dot\Gamma-H^\omega_\Gamma\dot\gamma,
+\label{eq:pb-curve-vertical-velocity}
+\end{equation}
+and its vertical Fisher length by
+\begin{equation}
+L^\omega(\Gamma)
+=\int_J\sqrt{g^F(v^\omega(\Gamma),v^\omega(\Gamma))}d\lambda.
+\label{eq:pb-vertical-fisher-length}
+\end{equation}
+Here $\lambda$ is an arbitrary curve parameter rather than a declared
+physical time.  \status{DEFINITION}
+
+If $\omega'=\omega+a$, define along the curve
+\begin{equation}
+R_a^\Gamma(\dot\gamma)
+=\vartheta_{\Gamma(\lambda)}
+\left(a_{\gamma(\lambda)}(\dot\gamma(\lambda))\right).
+\label{eq:pb-curve-connection-change}
+\end{equation}
+With the convention of \eqref{eq:pb-jet-connection-change}, the exact curve
+identity is
+$v^{\omega'}(\Gamma)=v^\omega(\Gamma)+R_a^\Gamma(\dot\gamma)$.
+\status{ESTABLISHED}
+
+\propositionheading{Vertical, horizontal, and section curves}{prop:pb-curve-taxonomy}
+The length $L^\omega$ is invariant under orientation-preserving $C^1$
+reparameterization with positive derivative.  If $\Gamma$ is vertical, then
+$L^\omega(\Gamma)$ is independent of the connection.  If $\Gamma$ is
+$\omega$-horizontal, then
+$L^\omega(\Gamma)=0$.  For a section curve $\Gamma=s\circ\gamma$,
+\begin{equation}
+L^\omega(s\circ\gamma)
+=\int_J\sqrt{h_s^\omega(\dot\gamma,\dot\gamma)}d\lambda.
+\label{eq:pb-section-curve-length}
+\end{equation}
+For a mixed curve, changing $\omega$ to $\omega'$ changes the vertical
+velocity by $R_a^\Gamma(\dot\gamma)$ in the convention of
+\eqref{eq:pb-jet-connection-change}; its length is therefore generally
+connection dependent.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Under a reparameterization $\lambda=\phi(r)$, vertical velocity is multiplied
+by $\phi'(r)$, and positive homogeneity of the square root converts that
+factor into the Jacobian in the one-dimensional change-of-variables formula.
+For a vertical curve, $\dot\gamma=0$, so the horizontal correction vanishes
+for every connection.  Horizontality is the equation
+$v^\omega(\Gamma)=0$.  If $\Gamma=s\circ\gamma$, then
+$v^\omega(\Gamma)=D^\omega s(\dot\gamma)$, and
+\eqref{eq:pb-section-curve-length} follows from
+\eqref{eq:pb-fisher-pullback}.  The connection-change statement is
+\eqref{eq:pb-jet-connection-change} along the curve.  $\square$
+
+The functional \eqref{eq:pb-vertical-fisher-length} measures only vertical
+statistical change.  It assigns zero length to horizontal displacement and
+does not define a metric on $TE$ without a separately chosen base metric.  It
+also selects neither an inference orbit nor an orientation.  Those require a
+declared objective and mobility on the appropriate configuration space.
+\status{NOT-CLAIMED}
+
+A base curve $\gamma$ orders contexts, and $s\circ\gamma$ evaluates one fixed
+section along that ordering; neither object is an agent inference history.
+Updating at one fixed $c$ is instead a vertical curve in the relevant
+statistical fiber, while evolution of a complete contextual agent is a curve
+in a separately declared section configuration space.
+\status{DEFINITION}
+
+The finite-dimensional length above applies pointwise or on a declared
+finite-design product.  It does not construct a continuum section-space
+length or a probability law on a continuum space of sections, because no base
+measure, channel weighting, or gauge-quotient rule has been declared here.
+\status{NOT-CLAIMED}
+
+\section{Coarse-morphism naturality}
+\label{sec:pb-coarse-naturality}
+
+Consider smooth associated bundles $E\to\mathcal C$ and
+$\bar E\to\bar{\mathcal C}$ with connections $\omega$ and $\bar\omega$.
+Let $f:\mathcal C\to\bar{\mathcal C}$ and let
+$\Psi:E\to\bar E$ be a smooth bundle morphism over $f$.  Suppose sections
+$s$ and $\bar s$ are related as follows.  Before that relation is imposed,
+$\Psi\circ s$ is only a section of the pullback bundle $f^*\bar E$ along
+$f$; a fine section does not by itself define a section on
+$\bar{\mathcal C}$.  \status{DEFINITION}
+
+We adopt the descent hypothesis that there exists a smooth coarse section
+$\bar s$ satisfying
+\begin{equation}
+\Psi\circ s=\bar s\circ f.
+\label{eq:pb-coarse-related-sections}
+\end{equation}
+For a surjective submersion $f$, this excludes fine sections whose
+$\Psi$-images vary along a fiber of $f$; constancy on those fibers and
+smoothness of the descended factor are the corresponding descent
+obligations.  \status{HYPOTHESIS}
+Write $T^V\Psi:VE\to V\bar E$ for the vertical differential.  Following the
+cross-channel defect of \eqref{eq:geo-nonlinear-defect-phi}, define
+\begin{equation}
+(\mathcal D\Psi)_e(X)
+=T_e\Psi(H_e^\omega X)
+-H_{\Psi(e)}^{\bar\omega}(T_cfX).
+\label{eq:pb-coarse-horizontal-defect}
+\end{equation}
+This difference is vertical.  \status{DEFINITION}
+
+\theoremheading{Covariant first-jet chain rule}{thm:pb-covariant-jet-naturality}
+Under \eqref{eq:pb-coarse-related-sections},
+\begin{equation}
+D^{\bar\omega}\bar s(TfX)
+=T^V\Psi(D^\omega sX)+(\mathcal D\Psi)_{s(c)}(X).
+\label{eq:pb-covariant-jet-chain-rule}
+\end{equation}
+Hence the square of covariant first jets commutes exactly when
+$\mathcal D\Psi$ vanishes along $s$.  In that case, every vertical covariant
+tensor $\bar\tau$ on $\bar E$ satisfies
+\begin{equation}
+f^*[(D^{\bar\omega}\bar s)^*\bar\tau]
+=(D^\omega s)^*[(T^V\Psi)^*\bar\tau].
+\label{eq:pb-covariant-tensor-naturality}
+\end{equation}
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+Differentiate \eqref{eq:pb-coarse-related-sections} and decompose
+$TsX=H_s^\omega X+D^\omega sX$.  Applying $T\Psi$ to the horizontal term
+gives the target horizontal lift plus
+$(\mathcal D\Psi)_{s(c)}(X)$ by
+\eqref{eq:pb-coarse-horizontal-defect}; applying it to the vertical term
+gives $T^V\Psi(D^\omega sX)$.  The vertical part of the other side is
+$D^{\bar\omega}\bar s(TfX)$, which proves
+\eqref{eq:pb-covariant-jet-chain-rule}.  When the defect vanishes, applying
+$\bar\tau$ to the intertwined vertical jets proves
+\eqref{eq:pb-covariant-tensor-naturality}.  $\square$
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[>=stealth]
+  \node[draw,rounded corners,fill=lightblue,minimum width=2.7cm,minimum height=0.9cm]
+    (tc) at (0,2.1) {$T_c\mathcal C$};
+  \node[draw,rounded corners,fill=lightgreen,minimum width=3.3cm,minimum height=0.9cm]
+    (ve) at (5.4,2.1) {$V_{s(c)}E$};
+  \node[draw,rounded corners,fill=lightblue,minimum width=2.7cm,minimum height=0.9cm]
+    (tcb) at (0,0) {$T_{f(c)}\bar{\mathcal C}$};
+  \node[draw,rounded corners,fill=lightgreen,minimum width=3.3cm,minimum height=0.9cm]
+    (veb) at (5.4,0) {$V_{\bar s(f(c))}\bar E$};
+  \draw[->,very thick,primaryblue] (tc)--node[above] {$D^\omega s$} (ve);
+  \draw[->,very thick,primaryblue] (tcb)--node[below] {$D^{\bar\omega}\bar s$} (veb);
+  \draw[->,very thick,sciencegreen] (tc)--node[left] {$T_cf$} (tcb);
+  \draw[->,very thick,sciencegreen] (ve)--node[right] {$T^V\Psi$} (veb);
+  \node[align=center,text width=7.0cm] at (2.7,-1.05)
+    {$\mathcal D\Psi=0$: the first-jet square commutes};
+\end{tikzpicture}
+\caption{Naturality of the connection-split first jet.  The square commutes
+only for a connection-compatible coarse morphism.  When the horizontal defect
+is nonzero, \eqref{eq:pb-covariant-jet-chain-rule} records the missing
+vertical term rather than suppressing it.}
+\label{fig:pb-pullback-naturality}
+\end{figure}
+
+\corollaryheading{Null directions under a parallel coarse morphism}{cor:pb-coarse-null-map}
+If $\mathcal D\Psi=0$ along $s$, then
+\begin{equation}
+Tf(\ker D^\omega s)\subseteq\ker D^{\bar\omega}\bar s.
+\label{eq:pb-coarse-null-inclusion}
+\end{equation}
+Thus a coarse morphism can create additional null directions; first-jet
+naturality does not imply rank preservation.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Set $D^\omega sX=0$ in
+\eqref{eq:pb-covariant-jet-chain-rule} and use
+$\mathcal D\Psi=0$.  $\square$
+
+\section{Fisher defects and their composition law}
+\label{sec:pb-fisher-defect}
+
+Suppose now that the fiber map underlying $\Psi$ is the pushforward of a
+parameter-independent Markov kernel between the two regular statistical
+experiments, and that it is equivariant under the represented gauge actions.
+The coarse Fisher metric $\bar g^F$ can then be pulled back by $T^V\Psi$.  Define
+the vertical Fisher defect by
+\begin{equation}
+\Delta_F^\Psi
+=g^F-(T^V\Psi)^*\bar g^F.
+\label{eq:pb-vertical-fisher-defect}
+\end{equation}
+\status{DEFINITION}
+
+\theoremheading{Fisher defect pullback and contraction}{thm:pb-pullback-fisher-defect}
+Assume the preceding Markov hypotheses and
+$\mathcal D\Psi=0$ along $s$.  Then
+\begin{align}
+\Delta_F^\Psi
+&\succeq0,
+\label{eq:pb-fisher-defect-positive}\\
+h_s^\omega-f^*h_{\bar s}^{\bar\omega}
+&=(D^\omega s)^*\Delta_F^\Psi\succeq0.
+\label{eq:pb-pullback-fisher-contraction}
+\end{align}
+Equality on a base tangent vector $X$ holds exactly when the fine score in
+the direction $D^\omega sX$ is measurable with respect to the coarse output.
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+For a parameter-independent Markov kernel, the coarse score is the
+conditional expectation of the fine score.  Orthogonal projection in
+$L^2$ gives
+\begin{equation}
+\Delta_F^\Psi(u,u)
+=\E\operatorname{Var}(\ell_u\given Y)\geq0,
+\label{eq:pb-fisher-defect-score-variance}
+\end{equation}
+with equality exactly when $\ell_u$ is $Y$-measurable.  This is the score
+projection theorem proved in \Cref{thm:cg-fisher-contraction}.  Under the
+vanishing horizontal defect,
+\eqref{eq:pb-covariant-tensor-naturality} applied to $\bar g^F$ gives
+\[
+f^*h_{\bar s}^{\bar\omega}
+=(D^\omega s)^*(T^V\Psi)^*\bar g^F.
+\]
+Subtracting this identity from \eqref{eq:pb-fisher-pullback} proves
+\eqref{eq:pb-pullback-fisher-contraction}.  $\square$
+
+\corollaryheading{Coarse or meta-agent perceived geometry}{cor:pb-meta-perceived-geometry}
+The coarse section $\bar s$ carries its own connection-relative semimetric
+\begin{equation}
+\bar h_{\bar s}^{\bar\omega}
+=(D^{\bar\omega}\bar s)^*\bar g^F.
+\label{eq:pb-meta-perceived-geometry}
+\end{equation}
+Under the exact section relation \eqref{eq:pb-coarse-related-sections} and
+the compatibility condition $\mathcal D\Psi=0$ along $s$,
+\begin{equation}
+f^*\bar h_{\bar s}^{\bar\omega}
+=(D^\omega s)^*(T^V\Psi)^*\bar g^F.
+\label{eq:pb-meta-perceived-naturality}
+\end{equation}
+If the fiber map is also a genuine parameter-independent Markov channel,
+then the fine-minus-coarse perceived-geometry defect is
+\begin{equation}
+h_s^\omega-f^*\bar h_{\bar s}^{\bar\omega}
+=(D^\omega s)^*\Delta_F^\Psi\succeq0.
+\label{eq:pb-meta-perceived-defect}
+\end{equation}
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+The first equation is the coarse-channel definition.  The second is
+\eqref{eq:pb-covariant-tensor-naturality} with
+$\bar\tau=\bar g^F$, and the third is
+\eqref{eq:pb-pullback-fisher-contraction}.  $\square$
+
+The inequality in \eqref{eq:pb-pullback-fisher-contraction} is
+contravariant: the coarse tensor is pulled back to the fine tangent space.
+No canonical pushforward of a Riemannian metric is being used.  If the coarse
+operation is a restriction along an embedding, an energy precomposition, a
+Galerkin map, or a parameter-dependent kernel, the Markov proof does not
+apply.  \status{ESTABLISHED}
+
+A perceived-geometry beta is not defined by subtracting tensors that live on
+different level bases.  If the reference-space declarations of
+\Cref{ch:renormalization} include base diffeomorphisms
+$i_\ell:\mathcal C_\ell\to\mathcal C_\star$ and a block factor
+$b_\ell>1$, then one may first define
+\begin{equation}
+\widetilde h_\ell=(i_\ell^{-1})^*h_\ell,
+\qquad
+\mathfrak B_{h,\ell}
+=\frac{\widetilde h_{\ell+1}-\widetilde h_\ell}{\log b_\ell}
+\quad\text{on }\mathcal C_\star.
+\label{eq:pb-metric-beta-reference}
+\end{equation}
+This is the exact discrete perceived-geometry beta in that scheme.  On a
+differentiable reference-space curve $s\mapsto\widetilde h_s$, its continuous
+counterpart is $\beta_h(s)=\partial_s\widetilde h_s$.  Both definitions are
+conditional on the declared identifications and scale normalization.
+\status{DEFINITION}
+Without those identifications, $h_{\ell+1}-h_\ell$ is ill typed rather than a
+beta function.  \status{ESTABLISHED}
+
+\theoremheading{Fisher defect cocycle}{thm:pb-fisher-defect-cocycle}
+Let
+$E_0\xrightarrow{\Psi_{01}}E_1\xrightarrow{\Psi_{12}}E_2$ be composable
+smooth statistical bundle morphisms, with vertical Fisher metrics
+$g_0^F,g_1^F,g_2^F$.  Whenever all three defects are defined,
+\begin{equation}
+\Delta_F^{\Psi_{12}\circ\Psi_{01}}
+=\Delta_F^{\Psi_{01}}
++(T^V\Psi_{01})^*\Delta_F^{\Psi_{12}}.
+\label{eq:pb-fisher-defect-cocycle}
+\end{equation}
+If both arrows are parameter-independent Markov coarse maps, the two terms on
+the right are positive semidefinite.  If the connections are compatible and
+the sections are related at each scale, pulling
+\eqref{eq:pb-fisher-defect-cocycle} back by the fine covariant jet gives the
+corresponding additive decomposition of information loss on the base.
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+Contravariance of tensor pullback gives
+\begin{align*}
+\Delta_F^{\Psi_{12}\circ\Psi_{01}}
+&=g_0^F-(T^V\Psi_{01})^*(T^V\Psi_{12})^*g_2^F\\
+&=g_0^F-(T^V\Psi_{01})^*g_1^F
++(T^V\Psi_{01})^*
+\left[g_1^F-(T^V\Psi_{12})^*g_2^F\right],
+\end{align*}
+which is \eqref{eq:pb-fisher-defect-cocycle}.  Positivity follows from
+\eqref{eq:pb-fisher-defect-positive} for each Markov arrow.  The final
+statement follows from \eqref{eq:pb-covariant-tensor-naturality}.  $\square$
+
+The Amari defect
+\begin{equation}
+\Delta_{\mathcal T}^\Psi
+=\mathcal T-(T^V\Psi)^*\bar{\mathcal T},
+\label{eq:pb-amari-defect}
+\end{equation}
+obeys the same algebraic cocycle identity.  It has no analogous
+positive-semidefinite order because a nonzero cubic changes sign under
+$u\mapsto-u$.  Exact Amari naturality therefore requires a
+$\mathcal T$-preserving statistical morphism; Markov coarse-graining alone
+does not supply a monotonicity statement for the cubic tensor.
+\status{ESTABLISHED}
+
+\section{Boundary of the construction}
+\label{sec:pb-boundary}
+
+The chapter has constructed vertical tensors and their functorial defects.  A
+scalar gauged sigma energy would additionally require a base cometric, a base
+density, channel weights, boundary conditions, and a decision about whether
+the connection is fixed or dynamical.  None is selected by
+$h_s^\omega$ or $c_s^\omega$.  \status{NOT-CLAIMED}
+
+Likewise, vertical Fisher length is invariant under reparameterization of a
+fixed regular curve, but it does not generate an orbit, identify a physical
+time coordinate, or compare independently evolved fine and coarse paths.
+Comparing such paths would require a semiconjugacy of their vector fields in
+addition to the pointwise contraction
+\eqref{eq:pb-pullback-fisher-contraction}.  Establishing such a
+semiconjugacy for the renormalization maps of this work remains open; it would
+require a declared configuration-space metric, a VFE-related coarse vector
+field, and a proof that the coarse morphism maps fine integral curves to
+coarse integral curves up to an orientation-preserving reparameterization.
+\status{OPEN}
+
+The general coarse-graining chapter uses the typed distinction exposed here.
+Its normalized Markov channels inherit the Fisher contraction theorem.  Its energy
+precompositions and operator restrictions require their own probability and
+closure arguments and do not inherit that theorem by terminology.
+\status{ESTABLISHED}

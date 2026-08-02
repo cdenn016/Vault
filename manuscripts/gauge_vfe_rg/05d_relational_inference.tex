@@ -1,0 +1,794 @@
+\chapter{Relational Inference Histories and Fisher Information Clocks}
+\label{ch:relational-inference}
+
+The contextual base $\mathcal C$ is fixed data in the present theory.  It
+organizes the domains on which agents are represented, but it carries no
+distinguished temporal parameter.  Inference therefore has to be described
+as change in a statistical fiber or as change of a section, rather than as
+motion of the base.  A curve in $\mathcal C$ orders contexts and can be used
+to probe a section; it is not, by that fact, an agent history.
+\status{HYPOTHESIS}
+
+This chapter supplies two structures that the preceding pullback construction
+deliberately left open.  A declared VFE gradient ray selects an oriented
+unparameterized inference orbit, and the Fisher line element assigns length
+to that already selected orbit.  The resulting information clock is
+agent-relative and invariant under orientation-preserving
+reparameterization.  It is neither a physical time coordinate nor a scalar
+that automatically exists on the whole configuration space.
+\status{DEFINITION}
+
+\section{Fixed-base kinematics}
+\label{sec:hist-fixed-base-kinematics}
+
+For agent $i$, restrict the belief and model bundles to its contextual domain
+$\mathcal C_i$ and form
+\begin{equation}
+\mathcal E_i
+=\mathcal E_b|_{\mathcal C_i}
+\times_{\mathcal C_i}
+\mathcal E_m|_{\mathcal C_i},
+\qquad
+\varpi_i:\mathcal E_i\longrightarrow\mathcal C_i.
+\label{eq:hist-agent-product-bundle}
+\end{equation}
+The pair $\boldsymbol\omega_i=(\omega_b,\omega_m)$ supplies a product
+horizontal distribution and a vertical projection
+$\operatorname{ver}^{\boldsymbol\omega_i}$.  Its vertical Fisher form is not
+fixed until positive channel weights or a joint statistical metric are
+declared.  The common bundle projection supplies neither choice.
+\status{DEFINITION}
+
+\definitionheading{Vertical, horizontal, and mixed curves}{def:hist-curve-types}
+Let $J$ be a connected interval and let
+$\Gamma:J\to\mathcal E_i$ be $C^1$, with
+$\gamma=\varpi_i\circ\Gamma$.  Relative to
+$\boldsymbol\omega_i$, its velocity has the unique splitting
+\begin{equation}
+\dot\Gamma
+=H^{\boldsymbol\omega_i}_{\Gamma}\dot\gamma
++v_{\boldsymbol\omega_i}(\Gamma),
+\qquad
+v_{\boldsymbol\omega_i}(\Gamma)
+=\operatorname{ver}^{\boldsymbol\omega_i}(\dot\Gamma).
+\label{eq:hist-total-curve-splitting}
+\end{equation}
+The curve is vertical when $\gamma$ is constant.  It is
+$\boldsymbol\omega_i$-horizontal when
+$v_{\boldsymbol\omega_i}(\Gamma)=0$.  It is mixed when $\dot\gamma$ and
+$v_{\boldsymbol\omega_i}(\Gamma)$ both occur: equivalently, $\gamma$ is
+nonconstant and $v_{\boldsymbol\omega_i}(\Gamma)$ is not identically zero.
+Verticality is intrinsic to the bundle projection;
+horizontality and the mixed decomposition depend on the selected connection.
+\status{DEFINITION}
+
+The definition agrees with the standard connection splitting of a bundle
+tangent space \citep{Kobayashi1963}.  Since
+$T\varpi_i\circ H^{\boldsymbol\omega_i}$ is the identity and
+$T\varpi_i\circ\operatorname{ver}^{\boldsymbol\omega_i}=0$, applying
+$T\varpi_i$ to \eqref{eq:hist-total-curve-splitting} recovers
+$\dot\gamma$.  Thus a vertical curve stays in one fiber, whereas a
+horizontal lift is a connection-selected comparison of points in different
+fibers.  Neither operation moves the fixed base itself.
+\status{ESTABLISHED}
+
+\propositionheading{Horizontality is connection relative}{prop:hist-horizontal-connection-dependence}
+The same nonvertical total-space curve can be mixed for one connection and
+horizontal for another.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Take the trivial line bundle
+$\R_x\times\R_y\to\R_x$ and the curve
+$\Gamma(r)=(r,r)$.  For the horizontal distribution
+$H_0=\operatorname{span}\{\partial_x\}$, its vertical velocity is
+$\partial_y$, so the curve is mixed.  For
+$H_1=\operatorname{span}\{\partial_x+\partial_y\}$, the same velocity is
+horizontal.  The base trace $x=r$ is unchanged.  $\square$
+
+\section{Curves of sections and pointwise vertical change}
+\label{sec:hist-section-curves}
+
+\hypothesisheading{Regular section configuration}{hyp:hist-regular-section-space}
+Let $\mathfrak S_i$ be a declared regular space of pairs of smooth sections
+$Q=(q,s)$ of $\mathcal E_i\to\mathcal C_i$.  Whenever a tangent-space
+calculation is used, assume either a finite-dimensional configuration
+submanifold or a specified smooth locally convex manifold structure for
+which evaluation is differentiable.  No such structure follows merely from
+writing down all smooth sections.  \status{HYPOTHESIS}
+
+For a $C^1$ representative $Q_i:I\to\mathfrak S_i$, define its adjoint
+family by
+\begin{equation}
+\widehat\Sigma_i:I\times\mathcal C_i\longrightarrow\mathcal E_i,
+\qquad
+\widehat\Sigma_i(\lambda,c)=Q_i(\lambda)(c),
+\qquad
+\varpi_i\circ\widehat\Sigma_i(\lambda,c)=c.
+\label{eq:hist-adjoint-section-family}
+\end{equation}
+Differentiation in the history parameter at fixed $c$ gives
+\begin{equation}
+T\varpi_i\left(\partial_\lambda\widehat\Sigma_i(\lambda,c)\right)=0,
+\qquad
+\partial_\lambda\widehat\Sigma_i(\lambda,c)
+\in V_{Q_i(\lambda)(c)}\mathcal E_i.
+\label{eq:hist-pointwise-history-verticality}
+\end{equation}
+Thus a curve of full sections produces a vertical statistical update at
+every fixed context, even though its state is an entire section.
+\status{ESTABLISHED}
+
+At each history position the instantaneous sections also induce a pair of
+connection-relative perceived geometries on the same fixed base:
+\begin{equation}
+\mathbf h_i(\lambda)
+=\left(
+h_{q_i(\lambda)}^{\omega_b},
+h_{s_i(\lambda)}^{\omega_m}
+\right).
+\label{eq:hist-perceived-geometry-family}
+\end{equation}
+Consequently a section history determines an ordered family of base
+semimetrics without making the base itself evolve.  Under
+$\widetilde Q_i=Q_i\circ\phi$, this family changes only by
+$\widetilde{\mathbf h}_i=\mathbf h_i\circ\phi$.  The connections are held
+fixed in this statement; allowing them to change would add a separately
+declared connection history and the correction terms of
+\Cref{prop:pb-pullback-connection-change}. \status{ESTABLISHED}
+
+\definitionheading{Oriented unparameterized history}{def:hist-oriented-history}
+Two regular representatives $Q_i:I\to\mathfrak S_i$ and
+$\widetilde Q_i:\widetilde I\to\mathfrak S_i$ represent the same oriented
+history when
+\begin{equation}
+\widetilde Q_i=Q_i\circ\phi,
+\qquad
+\phi:\widetilde I\longrightarrow I
+\text{ is an orientation-preserving $C^1$ diffeomorphism}.
+\label{eq:hist-oriented-reparameterization-equivalence}
+\end{equation}
+The resulting abstract oriented curve is denoted by $\mathscr H_i$.  Its
+adjoint evaluation has the required type
+\begin{equation}
+\Sigma_i:\mathscr H_i\times\mathcal C_i
+\longrightarrow
+\mathcal E_b\times_{\mathcal C}\mathcal E_m,
+\qquad
+\varpi_i\circ\Sigma_i(r,c)=c.
+\label{eq:hist-adjoint-unparameterized-history}
+\end{equation}
+If a representative is an embedding, $\mathscr H_i$ may be identified with
+its oriented image.  With self-intersections, $\mathscr H_i$ retains
+traversal order and multiplicity and is not merely the set-theoretic image.
+\status{DEFINITION}
+
+The distinction between a base probe and a section history is exposed by a
+diagonal evaluation.  Let $\gamma:I\to\mathcal C_i$ and set
+$\Gamma(\lambda)=Q_i(\lambda)(\gamma(\lambda))$.  Write
+\begin{equation}
+D^{\boldsymbol\omega_i}Q_i(\lambda)
+=\left(D^{\omega_b}q_i(\lambda),D^{\omega_m}s_i(\lambda)\right).
+\label{eq:hist-product-covariant-section-jet}
+\end{equation}
+The chain rule and the connection splitting give
+\begin{equation}
+v_{\boldsymbol\omega_i}(\Gamma)
+=\partial_\lambda\widehat\Sigma_i(\lambda,\gamma(\lambda))
++D^{\boldsymbol\omega_i}Q_i(\lambda)\dot\gamma(\lambda).
+\label{eq:hist-diagonal-evaluation-velocity}
+\end{equation}
+The first term is history change at a fixed context.  The second is the
+vertical response of one instantaneous section to a changing contextual
+probe.  If $\gamma$ is constant, only the pointwise history velocity remains;
+if $Q_i$ is constant, only the section jet remains.  When $\gamma$ is
+constant, the diagonal curve is vertical regardless of whether the remaining
+vertical velocity vanishes.  On an open subinterval where $\dot\gamma\ne0$,
+the diagonal curve is mixed exactly when the sum in
+\eqref{eq:hist-diagonal-evaluation-velocity} is nonzero, and it is horizontal
+when that sum vanishes. \status{ESTABLISHED}
+
+A smooth section is injective because
+$\varpi_i\circ Q=\operatorname{id}_{\mathcal C_i}$, and it is an embedding
+under the usual smooth-bundle hypotheses.  A total-space curve can therefore
+be written as $Q\circ\gamma$ exactly when it lies in the section image, in
+which case $\gamma=\varpi_i\circ\Gamma$ is unique.  For a general statistical
+parameterization that is not a section, such descent is only local under a
+local embedding hypothesis and is globally unique only under global
+injectivity.  In particular, a nonconstant curve confined to one statistical
+fiber cannot be the pushforward of a nonconstant base curve through a
+section.  \status{ESTABLISHED}
+
+\section{VFE selection of an oriented orbit}
+\label{sec:hist-vfe-orbit-selection}
+
+\hypothesisheading{Regular metric inference domain}{hyp:hist-regular-metric-domain}
+Let $\mathcal Q_i\subseteq\mathfrak S_i$ be a regular configuration manifold
+equipped with a positive-definite Fisher Riemannian metric
+$\mathsf G_i^F$.  In an infinite-dimensional realization, assume it is a
+strong metric so that the musical map is invertible on the covectors used
+below.  Let $\Fenergy_i:\mathcal Q_i\to\R$ be $C^2$.  A quotient-metric
+domain may replace $\mathcal Q_i$ only after the quotient has been
+constructed.  \status{HYPOTHESIS}
+
+\hypothesisheading{Exact multi-agent VFE lift}{hyp:hist-exact-vfe-lift}
+Calling the configuration objective an exact local or collective VFE requires
+more than its pair of marginal sections.  Fix a block $B$, an outside marginal
+$Q_{B^c}$, and a declared manifold $\mathfrak R_B$ of admissible conditional
+recognition kernels.  There must be a declared smooth marginalization or
+configuration-extraction map
+\begin{equation}
+\pi_i^{\mathrm{conf}}:\mathfrak R_B\longrightarrow\mathcal Q_i
+\label{eq:hist-configuration-extraction}
+\end{equation}
+on the admissible family.  Supply a smooth right-inverse lift
+\begin{equation}
+\iota_i:\mathcal Q_i\longrightarrow\mathfrak R_B,
+\qquad
+Q_i\longmapsto r_B^{Q_i}(\mathord{\cdot}\given b),
+\qquad
+\pi_i^{\mathrm{conf}}\circ\iota_i=\operatorname{id}_{\mathcal Q_i},
+\label{eq:hist-exact-vfe-lift}
+\end{equation}
+so the lifted conditional law actually reproduces the displayed agent
+configuration.  Equivalently, the full recognition law
+$Q_{B^c}(db)r_B^{Q_i}(dy_B\given b)$ must have the declared marginals or
+section statistics encoded by $Q_i$.  Without this commuting condition,
+$\iota_i$ is merely a parameterized family of laws, not a lift of the agent
+configuration.
+
+For every $Q_i$ in the inference domain, impose the support and finiteness
+hypotheses of \Cref{thm:obs-local-multiagent-elbo,thm:obs-local-global-potential}:
+$Q_{B^c}\ll\Pi_{o,B^c}$,
+$Z_B\in(0,+\infty)$ $Q_{B^c}$-almost everywhere,
+$r_B^{Q_i}(\cdot\given b)\ll P_{0,B}(\cdot\given b)$, and integrability of the
+KL terms and positive and negative energy parts, so the displayed local,
+collective, and difference functionals are finite.  Assume also that the
+lifted family is $C^2$ and dominated sufficiently to differentiate twice under
+the $Q_{B^c}$ expectation.  Then define the outside-averaged objective
+\begin{equation}
+\overline{\Fenergy}_{B,o}(Q_i)
+=\E_{Q_{B^c}}
+\left[\Fenergy_{B,o}
+(r_B^{Q_i};Y_{B^c})\right].
+\label{eq:hist-outside-averaged-local-vfe}
+\end{equation}
+The lift is responsible for all correlation or copula data not determined by
+the displayed marginal sections.  A fixed product or fixed-copula family is a
+special hypothesis that can supply it; the pair $(q,s)$ alone cannot.
+Alternatively, a population configuration may be lifted directly to a full
+recognition law and the collective VFE pulled back along that lift.
+If $\mathsf G_i^F$ is called the exact recognition Fisher metric, also require
+\begin{equation}
+\mathsf G_i^F=\iota_i^*G_{\mathfrak R_B}^F
+\label{eq:hist-exact-fisher-lift}
+\end{equation}
+on a nondegenerate tier, or use its justified metric quotient.  A weighted
+product of marginal-fiber metrics equals this joint pullback only under a
+separately proved block-orthogonality or fixed-dependence hypothesis.
+\status{HYPOTHESIS}
+
+By \Cref{thm:obs-local-global-potential},
+$\overline{\Fenergy}_{B,o}$ differs from the collective VFE restricted along
+$Q_i\mapsto Q_{B^c}r_B^{Q_i}$ only by a $Q_i$-independent outside term.
+Their differentials and natural-gradient rays therefore agree when the same
+block metric is used.  A single realized conditional objective
+$\Fenergy_{B,o}(r_B;b)$ need not have that gradient, and independently moving
+outside marginals do not define the same fixed objective. \status{ESTABLISHED}
+
+The Fisher natural gradient is characterized by
+\begin{equation}
+\mathsf G_i^F\left(\operatorname{grad}^F\Fenergy_i,Z\right)
+=d\Fenergy_i[Z]
+\quad\text{for every }Z\in T\mathcal Q_i.
+\label{eq:hist-fisher-gradient-definition}
+\end{equation}
+At a noncritical configuration $Q$, define the positive descent ray
+\begin{equation}
+\mathcal R^-_{\Fenergy_i}(Q)
+=\left\{-a\operatorname{grad}^F\Fenergy_i(Q):a>0\right\}.
+\label{eq:hist-vfe-descent-ray}
+\end{equation}
+A natural-gradient history for the declared objective is an oriented
+unparameterized history whose regular representatives satisfy
+\begin{equation}
+\dot Q_i(\lambda)
+=-a_i(\lambda)\operatorname{grad}^F\Fenergy_i(Q_i(\lambda)),
+\qquad a_i(\lambda)>0.
+\label{eq:hist-vfe-ray-representative}
+\end{equation}
+The objective alone does not select this ray: the metric, or an explicitly
+declared mobility replacing it, is load-bearing structure.
+When $\Fenergy_i$ is the pullback specified in
+\Cref{hyp:hist-exact-vfe-lift}, this is an exact VFE history; otherwise it is a
+history for a generic declared objective and no exact-VFE identification is
+asserted. \status{DEFINITION}
+
+\propositionheading{Scalar mobility preserves the oriented orbit}{prop:hist-scalar-mobility-orbit}
+On a noncritical domain, multiplication of the natural-gradient vector field
+by any smooth positive scalar mobility changes only its parameterization.
+A positive-definite anisotropic mobility can change the unparameterized
+orbit.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+If $X=-\operatorname{grad}^F\Fenergy_i$ and $X_a=aX$ with $a>0$, then the
+integral curves have the same tangent line and orientation.  Along an
+$X$-integral curve, the change of parameter defined by a positive integral of
+$a^{-1}$ converts one differential equation into the other.  For the second
+claim, use the Euclidean plane with
+\begin{equation}
+\Fenergy(x,y)=\frac{x^2+y^2}{2},
+\qquad
+M=\begin{pmatrix}1&0\\0&2\end{pmatrix}.
+\label{eq:hist-anisotropic-mobility-example}
+\end{equation}
+Ordinary gradient descent from $(x_0,y_0)$ satisfies
+$y=(y_0/x_0)x$, whereas
+$(\dot x,\dot y)^\top=-M\nabla\Fenergy$ satisfies
+\begin{equation}
+y=y_0\left(\frac{x}{x_0}\right)^2.
+\label{eq:hist-anisotropic-orbit-change}
+\end{equation}
+For generic nonzero initial data these are different images.  $\square$
+
+A VFE natural-gradient history is not generally a Fisher geodesic.  On the
+same Euclidean Fisher plane, choose
+\begin{equation}
+\Fenergy(x,y)=\frac{x^2+2y^2}{2}.
+\label{eq:hist-natural-gradient-nongeodesic}
+\end{equation}
+Its natural-gradient flow obeys $\dot x=-x$ and $\dot y=-2y$, hence follows
+the curved trajectory in \eqref{eq:hist-anisotropic-orbit-change}.  Euclidean
+geodesics are straight lines, so gradient selection and geodesic selection
+are distinct even in this elementary Fisher geometry.  \status{ESTABLISHED}
+
+\propositionheading{A semidefinite tensor cannot be silently inverted}{prop:hist-semidefinite-gradient-obstruction}
+If the proposed Fisher tensor on configuration space is semidefinite, the
+natural-gradient equation can fail to have a solution or can have nonunique
+solutions.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+On $\R^2$ let $\mathsf G=dx^2$.  For $\Fenergy=y$, the equation
+$\mathsf G(\operatorname{grad}\Fenergy,\cdot)=dy$ has no solution because
+the left side annihilates $\partial_y$.  For $\Fenergy=x$, every vector
+$\partial_x+b\partial_y$ solves the equation.  A justified metric quotient
+or a separately declared regularization is therefore required before an
+inverse or pseudoinverse is used.  $\square$
+
+\section{Fisher duration on a selected history}
+\label{sec:hist-fisher-duration}
+
+\definitionheading{Fisher length and information clock}{def:hist-fisher-clock}
+For a $C^1$ representative $Q:I\to\mathcal Q_i$, define its Fisher speed,
+length, and cumulative clock from a chosen origin $\lambda_0$ by
+\begin{align}
+\nu_F(\lambda)
+&=\sqrt{\mathsf G_i^F(\dot Q(\lambda),\dot Q(\lambda))},
+\label{eq:hist-fisher-speed}\\
+L_F(Q;[a,b])
+&=\int_a^b\nu_F(\lambda)d\lambda,
+\label{eq:hist-fisher-length}\\
+\tau_{Q,\lambda_0}(\lambda)
+&=\int_{\lambda_0}^{\lambda}\nu_F(u)du.
+\label{eq:hist-cumulative-fisher-clock}
+\end{align}
+The origin is relational data attached to the history.  The auxiliary
+parameter $\lambda$ is not part of the resulting arc length.
+\status{DEFINITION}
+
+\theoremheading{Reparameterization invariance and unit-speed form}{thm:hist-fisher-clock-invariance}
+Let $\widetilde Q=Q\circ\phi$, where
+$\phi:\widetilde I\to I$ is an orientation-preserving $C^1$
+diffeomorphism.  Then corresponding subarcs have the same Fisher length and
+their cumulative clocks obey
+\begin{equation}
+\tau_{\widetilde Q,\widetilde\lambda_0}(\widetilde\lambda)
+=\tau_{Q,\lambda_0}(\phi(\widetilde\lambda)),
+\qquad
+\lambda_0=\phi(\widetilde\lambda_0).
+\label{eq:hist-clock-reparameterization-law}
+\end{equation}
+If $\nu_F>0$, the cumulative clock is strictly increasing and gives the
+unit-speed representative of the oriented history.  If $Q$ satisfies
+\eqref{eq:hist-vfe-ray-representative}, then on its noncritical part
+\begin{align}
+\frac{d\tau}{d\lambda}
+&=a_i\left\|\operatorname{grad}^F\Fenergy_i\right\|_F,
+\label{eq:hist-vfe-clock-rate}\\
+\frac{dQ}{d\tau}
+&=-\frac{\operatorname{grad}^F\Fenergy_i}
+{\left\|\operatorname{grad}^F\Fenergy_i\right\|_F},
+\label{eq:hist-vfe-unit-tangent}\\
+\frac{d\Fenergy_i}{d\tau}
+&=-\left\|\operatorname{grad}^F\Fenergy_i\right\|_F.
+\label{eq:hist-vfe-dissipation-per-length}
+\end{align}
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+The chain rule gives
+$\dot{\widetilde Q}=(\dot Q\circ\phi)\phi'$ and hence
+$\widetilde\nu_F=(\nu_F\circ\phi)\phi'$ because $\phi'>0$.
+The substitution $u=\phi(\widetilde\lambda)$ proves both length invariance
+and \eqref{eq:hist-clock-reparameterization-law}.  Positive speed makes
+$\tau$ locally and globally invertible on the interval, and division by
+$d\tau/d\lambda$ gives unit speed.  Substitution of
+\eqref{eq:hist-vfe-ray-representative} into
+\eqref{eq:hist-fisher-speed} gives
+\eqref{eq:hist-vfe-clock-rate}.  The remaining identities follow from
+\eqref{eq:hist-fisher-gradient-definition}.  $\square$
+
+This is the standard Riemannian arc-length construction applied to the
+selected statistical configuration manifold
+\citep{AmariNagaoka2000,Pennec2006}.  Fisher geometry supplies duration;
+the VFE descent ray supplies orientation.  A null segment in a semimetric or
+a critical stationary segment has $\nu_F=0$, so the cumulative clock stalls
+and cannot be used as a coordinate there.  \status{ESTABLISHED}
+
+\propositionheading{Endpoints do not determine an update duration}{prop:hist-realized-length-versus-distance}
+Let $A$ and $B$ lie in one path component of a regular Fisher manifold.
+Those endpoints alone determine neither an update curve nor its realized
+duration.  For every actual update $Q$ from $A$ to $B$,
+\begin{equation}
+d_F(A,B)
+=\inf_{\substack{\Gamma(a)=A\\\Gamma(b)=B}}L_F(\Gamma;[a,b])
+\leq L_F(Q;[a,b]),
+\label{eq:hist-distance-versus-realized-length}
+\end{equation}
+and the inequality can be strict.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+The first equality is the definition of Riemannian distance as the infimum
+of curve lengths.  Since the realized update $Q$ is one admissible curve,
+the inequality follows.  In the Euclidean Fisher geometry of a two-parameter
+normal location family, a curved path between two points is longer than the
+straight geodesic joining them, which proves possible strictness.  $\square$
+
+The information clock is also distinct from the amount of auxiliary
+algorithmic parameter used to approach a limit.  In the unit-variance normal
+location family, the path $\mu(t)=e^{-t}$ has Fisher length
+\begin{equation}
+\int_0^\infty |\dot\mu(t)|dt
+=\int_0^\infty e^{-t}dt
+=1,
+\label{eq:hist-finite-length-infinite-parameter}
+\end{equation}
+although $t$ ranges over an unbounded interval.  No physical-time
+interpretation follows from the length construction.  \status{NOT-CLAIMED}
+
+\section{Pointwise, design, continuum, and quotient clocks}
+\label{sec:hist-clock-tiers}
+
+At one fixed $c\in\mathcal C_i$, choose positive belief and model weights
+$w_b(c)$ and $w_m(c)$.  The pointwise squared speed of a section history is
+\begin{equation}
+\nu_{i,c}^2
+=w_b(c)g_b^F(\partial_\lambda q_i(c),\partial_\lambda q_i(c))
++w_m(c)g_m^F(\partial_\lambda s_i(c),\partial_\lambda s_i(c)).
+\label{eq:hist-pointwise-clock-speed}
+\end{equation}
+Integration of $\nu_{i,c}$ defines a pointwise clock.  This uses only
+vertical evaluation velocities from
+\eqref{eq:hist-pointwise-history-verticality}; it does not integrate over
+the base.  \status{DEFINITION}
+
+For a finite design $D=\{c_a\}_{a=1}^M$, declare positive design weights
+$\rho_a$ and define
+\begin{equation}
+\nu_{i,D}^2
+=\sum_{a=1}^M\rho_a\left[
+w_b(c_a)g_b^F(\partial_\lambda q_i(c_a),\partial_\lambda q_i(c_a))
++w_m(c_a)g_m^F(\partial_\lambda s_i(c_a),\partial_\lambda s_i(c_a))
+\right].
+\label{eq:hist-finite-design-clock-speed}
+\end{equation}
+This is the product Fisher speed for the declared design and weights.
+It is not automatically a positive-definite metric on the full section
+space: any nonzero section variation vanishing at all $c_a$ lies in its
+radical.  On a smooth positive-dimensional base, a bump variation supported
+away from $D$ is an explicit witness whenever the vertical fiber has a
+nonzero local direction there.  \status{ESTABLISHED}
+
+A continuum clock requires a finite positive base measure $\mu_i$, measurable
+positive channel weights, square-integrable evaluation velocities, and a
+declared treatment of gauge redundancy.  Under those hypotheses its proposed
+squared speed is
+\begin{equation}
+\nu_{i,\mu}^2
+=\int_{\mathcal C_i}\left[
+w_b(c)g_b^F(\partial_\lambda q_i(c),\partial_\lambda q_i(c))
++w_m(c)g_m^F(\partial_\lambda s_i(c),\partial_\lambda s_i(c))
+\right]d\mu_i(c).
+\label{eq:hist-continuum-clock-speed}
+\end{equation}
+The contextual base, the common principal bundle, and the VFE functional do
+not by themselves select $\mu_i$, the relative channel weights, or a strong
+manifold topology.  Without those declarations,
+\eqref{eq:hist-continuum-clock-speed} is not an available clock and only the
+pointwise or finite-design constructions are defined.  \status{ESTABLISHED}
+
+On the finite-dimensional tier, let a finite-dimensional Lie group
+$\mathcal G_i$ act freely, properly, and isometrically on the regular
+Riemannian configuration manifold.  The quotient then carries the Riemannian
+submersion metric.  Its speed is
+\begin{equation}
+\|[\dot Q]\|_{\mathrm{quot}}^2
+=\inf_{\zeta\in T_Q(\mathcal G_i\mathbin{\cdot}Q)}
+\mathsf G_i^F(\dot Q-\zeta,\dot Q-\zeta),
+\label{eq:hist-quotient-gauge-speed}
+\end{equation}
+which equals the norm of the component orthogonal to the gauge orbit.  A
+history-parameter-dependent coordinate representative can acquire spurious velocity
+tangent to that orbit, while
+\eqref{eq:hist-quotient-gauge-speed} is representative independent.  Passive
+re-trivialization is a change of coordinates, not an additional physical
+segment of the history.  If the action is not free and proper, the orbit
+space can be stratified; a smooth quotient clock is then available only on a
+declared regular stratum or after a separate singular construction.
+\status{ESTABLISHED}
+
+In an infinite-dimensional realization, free, proper, and isometric action
+is not by itself enough for \eqref{eq:hist-quotient-gauge-speed}.  Require a
+smooth principal quotient, closed split orbit-tangent subbundles, and smooth
+orthogonal complements, equivalently a declared Riemannian-submersion or
+mechanical-connection structure.  Otherwise the infimum can vanish on a
+vector in the closure of a nonclosed orbit tangent without being attained,
+so no orthogonal gauge quotient clock has been constructed.
+\status{HYPOTHESIS}
+
+\section{The obstruction to a global unit-speed clock}
+\label{sec:hist-global-clock}
+
+On a connected noncritical open set $U\subseteq\mathcal Q_i$, set
+\begin{equation}
+N=\left\|\operatorname{grad}^F\Fenergy_i\right\|_F,
+\qquad
+U_F=-\frac{\operatorname{grad}^F\Fenergy_i}{N},
+\qquad
+\alpha_F=U_F^\flat=-\frac{d\Fenergy_i}{N}.
+\label{eq:hist-normalized-vfe-one-form}
+\end{equation}
+The form $\alpha_F$ evaluates to one on the unit descent field $U_F$ and
+annihilates the Fisher-orthogonal complement of that field.
+\status{DEFINITION}
+
+\theoremheading{Exact criterion for a global orthogonal clock}{thm:hist-global-clock-exactness}
+There is a smooth scalar $T:U\to\R$ satisfying
+\begin{equation}
+dT=\alpha_F,
+\label{eq:hist-global-clock-potential}
+\end{equation}
+if and only if $\alpha_F$ is exact.  Equivalently, it must be closed and have
+vanishing period around every piecewise $C^1$ closed curve in $U$:
+\begin{equation}
+d\alpha_F=0,
+\qquad
+\oint_\gamma\alpha_F=0
+\quad\text{for every closed }\gamma\subset U.
+\label{eq:hist-global-clock-period-criterion}
+\end{equation}
+On a simply connected $U$, closedness suffices.  Whenever $T$ exists, every
+unit-speed VFE history in $U$ obeys $dT/d\tau=1$, and the level sets of $T$
+are Fisher-orthogonal to the descent field.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+If \eqref{eq:hist-global-clock-potential} holds, exact forms are closed and
+have zero periods.  Conversely, fix $Q_0\in U$ and define $T(Q)$ as the
+integral of $\alpha_F$ from $Q_0$ to $Q$.  Closedness and vanishing periods
+make this integral path independent, and the standard line-integral argument
+gives $dT=\alpha_F$.  Since
+$\alpha_F(U_F)=\mathsf G_i^F(U_F,U_F)=1$, the asserted unit rate follows.
+The kernel of $dT=U_F^\flat$ is the orthogonal complement of $U_F$.
+$\square$
+
+The local differential obstruction is explicit:
+\begin{equation}
+d\alpha_F
+=\frac{1}{N^2}dN\wedge d\Fenergy_i.
+\label{eq:hist-normalized-form-curvature}
+\end{equation}
+Thus the norm of the gradient must be locally constant along each connected
+regular level set of $\Fenergy_i$ for the normalized form to be closed.
+Even after local closedness is established, the period condition in
+\eqref{eq:hist-global-clock-period-criterion} is the remaining global
+obligation.  \status{ESTABLISHED}
+
+For a concrete local obstruction, take the Euclidean plane with
+$\Fenergy(x,y)=xy$ on the first quadrant.  Then
+$N=(x^2+y^2)^{1/2}$ and
+\begin{equation}
+d\alpha_F
+=\frac{x^2-y^2}{(x^2+y^2)^{3/2}}dx\wedge dy,
+\label{eq:hist-nonexact-clock-example}
+\end{equation}
+which is not identically zero on any open neighborhood.  Every individual
+regular orbit still has its cumulative arc-length clock, but those orbitwise
+origins do not assemble into the orthogonal scalar
+\eqref{eq:hist-global-clock-potential}.  At critical points $N=0$ and
+$\alpha_F$ is undefined, so extension across critical strata is a separate
+problem.  The objective $\Fenergy_i$ itself may remain a Lyapunov scalar, but
+it is not generally a unit Fisher clock.  \status{ESTABLISHED}
+
+\section{Operational record clocks and exact Markov loss}
+\label{sec:hist-record-clocks}
+
+Let $\{P_\theta\}$ be a regular fine statistical experiment and let
+$K:\mathsf X\rightsquigarrow\mathsf Y$ be a normalized,
+parameter-independent Markov kernel.  Along a $C^1$ fine history
+$\theta=\theta(\lambda)$, write $\ell^X_\lambda$ for its directional score
+and define the record history by
+\begin{equation}
+P^Y_\lambda=P^X_\lambda K.
+\label{eq:hist-same-path-markov-image}
+\end{equation}
+This equation identifies the record family as the image of the same fine
+path; it does not define a separately optimized record trajectory.
+\status{HYPOTHESIS}
+
+\theoremheading{Same-path record and meta-agent clock contraction}{thm:hist-record-clock-contraction}
+Under the preceding regularity and Markov hypotheses, the record score and
+the exact Fisher-speed defect are
+\begin{align}
+\ell^Y_\lambda(Y)
+&=\E_\lambda[\ell^X_\lambda(X)\mid Y],
+\label{eq:hist-record-score-projection}\\
+(\nu^X_F)^2-(\nu^Y_F)^2
+&=\E_\lambda\operatorname{Var}_\lambda
+(\ell^X_\lambda(X)\mid Y)
+\geq0.
+\label{eq:hist-record-conditional-variance-defect}
+\end{align}
+Consequently, on every common parameter interval,
+\begin{equation}
+L_F(P^Y)\leq L_F(P^X),
+\qquad
+\tau_Y(\lambda_1)-\tau_Y(\lambda_0)
+\leq
+\tau_X(\lambda_1)-\tau_X(\lambda_0).
+\label{eq:hist-record-clock-contraction}
+\end{equation}
+Equality holds exactly when the fine directional score is measurable with
+respect to the record for almost every path position.  The same result
+applies to a meta-agent only when its statistical law is the normalized
+parameter-independent Markov image of this same fine history.
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+Attach $K$ to the fine experiment.  Because $K$ has no $\theta$ dependence,
+the joint score is $\ell^X_\lambda(X)$.  Projection onto the record sigma
+algebra gives \eqref{eq:hist-record-score-projection}.  The law of total
+variance gives \eqref{eq:hist-record-conditional-variance-defect}, including
+its equality condition.  Taking nonnegative square roots and integrating
+proves \eqref{eq:hist-record-clock-contraction}.  This is the pathwise form
+of the Fisher score-projection theorem
+\citep{AyJostLeSchwachhoefer2018}.  $\square$
+
+Parameter independence is load bearing.  If a dominated channel has density
+$k_\lambda(y\mid x)$, its output score is instead
+\begin{equation}
+\ell^Y_\lambda(Y)
+=\E_\lambda\left[
+\ell^X_\lambda(X)
++\partial_\lambda\log k_\lambda(Y\mid X)
+\mathrel{\big|}Y
+\right].
+\label{eq:hist-parameter-dependent-channel-score}
+\end{equation}
+The additional term can create Fisher information.  For example, a
+parameter-independent input combined with a channel that emits a
+Bernoulli variable of success probability
+$(1+e^{-\lambda})^{-1}$ has zero fine Fisher speed and positive output Fisher
+speed.  A fitted coarse approximation, an energy precomposition, a Galerkin
+restriction, or a mismatch between generative and recognition parameters is
+likewise outside
+\Cref{thm:hist-record-clock-contraction}.  \status{ESTABLISHED}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[>=stealth]
+  \node[draw,rounded corners,fill=lightblue,minimum width=3.3cm,minimum height=0.9cm]
+    (fine) at (0,3.2) {fine history $P_r$};
+  \node[draw,rounded corners,fill=lightgreen,minimum width=3.8cm,minimum height=0.9cm]
+    (image) at (6.2,3.2) {same-path image $P_rK$};
+  \draw[->,very thick,primaryblue] (fine)--(image);
+  \node[align=center,text=primaryblue,font=\small,text width=4.8cm]
+    at (3.1,4.15) {parameter-independent\\Markov channel};
+  \node[align=center,font=\small,text width=6.4cm] at (3.1,2.05)
+    {exact conditional-variance defect; $d\tau_{P K}\leq d\tau_P$};
+  \node[draw,rounded corners,fill=lightblue,minimum width=3.3cm,minimum height=0.9cm]
+    (fflow) at (0,0) {$\Phi_t(Q_0)$};
+  \node[draw,rounded corners,fill=lightgreen,minimum width=3.8cm,minimum height=0.9cm]
+    (mflow) at (6.2,0) {$\bar\Phi_u(\mathcal RQ_0)$};
+  \draw[->,very thick,dashed,sciencegreen] (fflow)--(mflow);
+  \node[align=center,text=sciencegreen,font=\small,text width=4.8cm]
+    at (3.1,0.95) {independent flows require\\oriented semiconjugacy};
+  \node[align=center,font=\small,text width=6.3cm] at (3.1,-1.05)
+    {$\mathcal C$ is fixed; the RG level $\ell$ is depth, not the history parameter $r$};
+\end{tikzpicture}
+\caption{The upper arrow is the same-path comparison covered by Fisher
+contraction.  The lower arrow compares independently generated flows and
+exists only after the additional semiconjugacy condition is proved.}
+\label{fig:hist-markov-clock-and-semiconjugacy}
+\end{figure}
+
+\section{Independently recomputed flows}
+\label{sec:hist-independent-flows}
+
+Let $X_f$ and $X_m$ be the declared fine and meta-agent natural-gradient
+vector fields on regular configuration manifolds $\mathcal Q_f$ and
+$\mathcal Q_m$, with local flows $\Phi_t$ and $\bar\Phi_u$.  Let
+$\mathcal R:\mathcal Q_f\to\mathcal Q_m$ be a smooth coarse map.  Pointwise
+contraction of $T\mathcal R$ does not state that $\mathcal R$ maps an
+$X_f$-orbit to an $X_m$-orbit.  \status{ESTABLISHED}
+
+\propositionheading{Oriented semiconjugacy criterion}{prop:hist-oriented-semiconjugacy}
+On a noncritical domain, $\mathcal R$ maps each fine integral curve to a meta
+integral curve up to an orientation-preserving change of parameter if
+\begin{equation}
+T_Q\mathcal R X_f(Q)
+=a(Q)X_m(\mathcal RQ),
+\qquad a(Q)>0.
+\label{eq:hist-oriented-vector-field-semiconjugacy}
+\end{equation}
+More precisely, uniqueness of the two local flows gives
+\begin{equation}
+\mathcal R\circ\Phi_t(Q)
+=\bar\Phi_{\sigma_Q(t)}(\mathcal RQ),
+\qquad
+\sigma_Q(t)=\int_0^t a(\Phi_s(Q))ds.
+\label{eq:hist-oriented-flow-semiconjugacy}
+\end{equation}
+Conversely, differentiating an oriented flow semiconjugacy of this form at
+$t=0$ yields \eqref{eq:hist-oriented-vector-field-semiconjugacy}.
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+The derivative of $\mathcal R\circ\Phi_t(Q)$ is
+$a(\Phi_tQ)X_m(\mathcal R\Phi_tQ)$ by
+\eqref{eq:hist-oriented-vector-field-semiconjugacy}.  Since
+$\dot\sigma_Q=a(\Phi_tQ)>0$, the right side of
+\eqref{eq:hist-oriented-flow-semiconjugacy} solves the same initial-value
+problem after the stated time change.  Flow uniqueness proves the identity.
+The converse is the chain rule at $t=0$.  $\square$
+
+For a meta-agent clock comparison between independently recomputed flows,
+two distinct facts are therefore required.  The coarse map must be a
+parameter-independent Markov pushforward to invoke
+\Cref{thm:hist-record-clock-contraction}, and it must satisfy
+\eqref{eq:hist-oriented-vector-field-semiconjugacy} to identify the
+independently recomputed meta orbit with the image of the fine orbit.  Either
+condition without the other is insufficient.  At a fine critical point,
+the same relation with $a>0$ also requires the image to be meta-critical.
+Establishing these conditions for the manuscript's independently recomputed
+RG flows remains an open obligation.  \status{OPEN}
+
+\section{RG depth is not inference time}
+\label{sec:hist-rg-depth-not-time}
+
+A hierarchy of coarse objects may be indexed by
+\begin{equation}
+Q^{(\ell+1)}=\mathcal R_\ell(Q^{(\ell)}),
+\qquad \ell=0,1,2,\ldots.
+\label{eq:hist-rg-depth-index}
+\end{equation}
+The integer $\ell$ records RG depth.  It is not a parameter on an inference
+history, and the sequence in \eqref{eq:hist-rg-depth-index} is not a temporal
+trajectory.  A history can instead be present at every level,
+$Q^{(\ell)}(r)$, with $r$ labeling positions on its oriented orbit.  Only
+when
+\begin{equation}
+Q^{(\ell+1)}(r)
+=\mathcal R_\ell(Q^{(\ell)}(r)),
+\label{eq:hist-levelwise-same-path-image}
+\end{equation}
+and $\mathcal R_\ell$ is a parameter-independent Markov map does the
+same-path clock contraction compare adjacent levels.  Independently
+recomputed levelwise histories additionally require
+\Cref{prop:hist-oriented-semiconjugacy}.  \status{ESTABLISHED}
+
+Cross-scale covariant first jets, their connection-mismatch term, and the
+additive Fisher-defect cocycle belong to
+\Cref{ch:pullback-geometry}.  They compare typed geometry across a scale map;
+they do not turn the scale index into time.  The construction in this chapter
+therefore yields oriented, parameter-free inference histories and
+agent-relative information duration while leaving any identification with
+physical time outside the established theory.  \status{NOT-CLAIMED}

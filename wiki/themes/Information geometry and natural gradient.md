@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-07-19
+updated: 2026-08-01
 ---
 
 # Information geometry and natural gradient
@@ -47,6 +47,16 @@ its joint Gaussian Fisher formula, whose covariance block is one-half
 conventional AIRM. Broader links to statistical mechanics,
 physics from Fisher information, and quantum monotone metrics remain comparison
 themes rather than optimizer identities.
+
+**Covariant informational pullback and inference duration.** A statistical fiber metric does not pull
+back along a bundle section by treating $Ts$ as purely vertical. A selected connection defines
+$D^\omega s=\operatorname{ver}^\omega\circ Ts$, and the perceived base tensor is
+$h_s^\omega=(D^\omega s)^*g^F$. Under the stated hypotheses it is passive-gauge invariant but
+connection-relative and generally degenerate. In configuration space, the Fisher metric also measures
+the length of a VFE-selected orbit. Fisher arclength is a reparameterization-invariant, agent-relative
+information duration; it is not a primitive or physical time variable. The full-law Fisher metric,
+not an unproved sum of marginal metrics, is the exact geometry when belief/model dependence matters.
+[[gauge-vfe-rg-pullback-geometry-2026-08-01]]
 
 ## How it lands in this work
 
@@ -91,6 +101,8 @@ current negative signal supports AdamW as the default without establishing that 
 is intrinsically inferior. [[2026-07-18-phi-pullback-group-k10-partial-negative-result]]
 
 ## Sources synthesized
+
+- [[gauge-vfe-rg-pullback-geometry-2026-08-01]] — covariant vertical Fisher pullbacks, semimetric radicals, exact joint-law geometry, and Fisher information duration.
 
 - [[amari-1998-natural-gradient]] — the natural gradient as inverse-Fisher-preconditioned, Fisher-efficient, reparameterization-invariant descent.
 - [[amari-2000-methods-information-geometry]] — the Fisher metric, dual/alpha-connections, and dually-flat exponential-family geometry for Amari divergences; order-Rényi is distinct.

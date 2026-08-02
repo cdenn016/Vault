@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-07-27
+updated: 2026-08-01
 ---
 
 # Gauge-Theoretic Multi-Agent VFE Model
@@ -28,6 +28,27 @@ The project is the continuous-time multi-agent sibling of the [[VFE Transformer 
 ## Continuum theory and finite realizations
 
 The theory-level agents are distribution-valued sections over a continuous contextual base. A finite experimental design supplies practical probability laws and CAVI factors, but section sampling and finite marginalization are distinct maps: sampled values of supplied sections equal posterior coordinate marginals only under an explicit compatibility hypothesis. The finite recognition law neither determines a unique off-design section nor constructs a probability law on the space of sections. A finite design is therefore not automatically a lattice gauge theory. That stronger construction requires a declared interaction complex, separately declared group-valued link variables on oriented edges, and declared two-cells or plaquettes. [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]] records the exact types and the remaining continuum-limit obligations.
+
+## Covariant pullback geometry and timeless inference
+
+The general theory now distinguishes three objects that older project prose sometimes merged. A law
+change at one context is a vertical curve in one statistical fiber. A spatially extended agent update
+is a curve of sections whose evaluation at every fixed context is vertical. A total-space curve over a
+moving base path admits horizontal/vertical components only after a connection is selected. The base
+$\mathcal C$ itself can remain fixed and timeless throughout.
+
+For a belief or model section $s$, the connection-relative covariant first jet
+$D^\omega s=\operatorname{ver}^\omega\circ Ts$ pulls the fiber Fisher metric back to the perceived
+base semimetric $h_s^\omega=(D^\omega s)^*g^F$. It is passive-gauge invariant under the theorem's
+hypotheses, but neither connection independent nor automatically nondegenerate. VFE natural-gradient
+descent can select an oriented unparameterized inference orbit, after which Fisher arclength supplies
+agent-relative information duration rather than imposed physical time.
+
+At the meta-agent level, first-jet naturality requires related fine/coarse sections and a
+connection-compatible bundle morphism. Markov Fisher contraction additionally requires a normalized,
+parameter-independent channel. These are conditional mathematical results; they do not by themselves
+certify the current runtime barycenter, hierarchy, or exploratory RG pipeline.
+[[gauge-vfe-rg-pullback-geometry-2026-08-01]]
 
 ## Agent and transport architecture
 
@@ -137,4 +158,4 @@ No new empirical validation is claimed by the theorem-first revision. The next s
 
 **Key concepts:** [[Agents as fibre-bundle sections|Agents as fiber-bundle sections]] · [[Multi-agent variational free energy]] · [[Belief inertia]] · [[Mass as Fisher information]] · [[Hamiltonian belief dynamics]] · [[Natural gradient]] · [[Fisher information metric]] · [[Ouroboros multi-scale dynamics]] · [[Meta-agents and hierarchical emergence]] · [[Renormalization-group flow of beliefs]] · [[Holonomy]]
 
-**Manuscripts:** [[participatory-it-from-bit]] · [[belief-inertia-2026-07-13-final-review-closure]] · [[belief-inertia-2026-07-13-final-verification-addendum]] · [[belief-inertia-2026-07-12-theorem-first-revision]] · [[belief-inertia]] · [[meta-entropy-manuscript]] · [[gl-k-attention]]
+**Manuscripts:** [[gauge-vfe-rg-pullback-geometry-2026-08-01]] · [[participatory-it-from-bit]] · [[belief-inertia-2026-07-13-final-review-closure]] · [[belief-inertia-2026-07-13-final-verification-addendum]] · [[belief-inertia-2026-07-12-theorem-first-revision]] · [[belief-inertia]] · [[meta-entropy-manuscript]] · [[gl-k-attention]]

@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-28
+updated: 2026-08-01
 ---
 
 # Fisher information metric
@@ -91,6 +91,40 @@ matrices.
 > covariance-only identity does not identify the full mean-covariance geometry
 > or the gauge-frame optimizer with AIRM. [[gl-k-attention-2026-07-09-review-revision]]
 
+## Covariant pullback and information duration
+
+For a section $s:\mathcal C\to\mathcal E_x$ of a statistical associated bundle, the ordinary
+differential $Ts$ contains a base component forced by $\varpi_x\circ s=\operatorname{id}$. A chosen
+connection removes that tautological component and defines the covariant vertical first jet
+
+$$
+D^\omega s=\operatorname{ver}^\omega\circ Ts.
+$$
+
+The rigorous agent-perceived tensor on the fixed base is therefore
+
+$$
+h_s^\omega(X,Y)=g^F(D^\omega sX,D^\omega sY).
+$$
+
+Under the stated equivariance hypotheses this tensor is global and passive-gauge invariant, but it is
+connection-relative. It is generally a semimetric: when the fiber Fisher metric is positive definite,
+$\operatorname{rad}h_s^\omega=\ker D^\omega s$. Constant rank gives a metric quotient of tangent
+vector bundles; descent to a quotient manifold additionally requires integrability, a regular leaf
+space, and tensor basicness. [[gauge-vfe-rg-pullback-geometry-2026-08-01]]
+
+A realized fixed-base law history $Q(\lambda)$ has Fisher length
+
+$$
+L_F[Q]=\int\sqrt{G^F_Q(\dot Q,\dot Q)}\,d\lambda,
+$$
+
+which is invariant under orientation-preserving reparameterization. Its endpoints determine only the
+Fisher--Rao distance, the infimum of lengths over admissible connecting curves; they do not determine
+the realized path, orientation, or duration. After VFE natural-gradient descent selects an oriented
+unparameterized orbit, Fisher arclength supplies an agent-relative **information duration**. This is
+not physical time, and natural-gradient orbits are not generally Fisher geodesics.
+
 ## In this work
 
 The Fisher information metric surfaces wherever the configuration declares an information-geometric or natural-gradient operation:
@@ -116,6 +150,8 @@ Two consequences for this program. First, the multi-agent model's matrix-weighte
 > [!warning] Do not use the diagonal. [[berman-2023-bayesian-renormalization|BKS]] argue spectrally but implement with diagonal entries $\mathcal I_{ii}$, a discrepancy they never address; a set of individually sloppy but jointly stiff directions is then misclassified. For a coupled family the criterion must be a subspace determinant, not an entrywise threshold. Their construction also requires an invertible metric, so a degenerate sector must be quotiented before the machinery is imported.
 
 ## Sources
+
+- [[gauge-vfe-rg-pullback-geometry-2026-08-01]] — connection-relative Fisher pullbacks, semimetric radicals, and reparameterization-invariant information duration.
 
 - [[amari-1998-natural-gradient]] — establishes the Fisher metric as the preconditioner of the natural (steepest-descent) gradient on a statistical manifold.
 - [[amari-2000-methods-information-geometry]] — canonical treatment of the Fisher metric, dual connections, $\alpha$-connections, and dually flat exponential-family geometry.
