@@ -18,7 +18,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-19
-updated: 2026-07-02
+updated: 2026-08-01
 ---
 
 # Emergent spacetime and holography
@@ -39,11 +39,29 @@ The first thread is **geometry as thermodynamics of horizons**: Einstein's equat
 
 The participatory program inhabits the same "information to geometry" spirit but runs on different — classical and gauge-theoretic — machinery, and the contrast is sharp enough to be load-bearing. Where the physics tradition builds geometry from *quantum entanglement entropy* on a boundary, the multi-agent model builds it from a *classical-information pullback*: the [[Fisher information metric]] on a statistical fibre, pulled back along an agent's belief section onto a noumenal base manifold, as set out in [[participatory-it-from-bit]] and [[Participatory realism (it from bit)]]. The MERA/holographic coarse-graining of [[swingle-2012-entanglement-renormalization-holography|swingle-2012-entanglement-renormalization]] and [[vidal-2007-entanglement-renormalization]] is the natural foil for the model's own multi-scale coarse-graining — the [[Ouroboros multi-scale dynamics]] tower and its [[Renormalization-group flow of beliefs]] — where meta-agents are coarse-grainings of clusters rather than tensor-network layers, and the "radial/holographic" direction becomes the model's scale index. The thermodynamic-equilibrium reading of [[jacobson-1995-einstein-equation-of-state|jacobson-1995-thermodynamics-spacetime]] and [[jacobson-2016-entanglement-equilibrium]] is the foil for the model's variational-free-energy stationarity: both make geometry a stationary point of an information functional, but the model's functional is a free energy over agent beliefs, not an entanglement entropy over horizons. The honest caveat, in the project's own house style, is that the model's pullback is a *structural analogue, not a derivation* of these results: it shares the slogan, reproduces the qualitative architecture (geometry from information, multi-scale holographic compression), and leaves the genuinely hard pieces — Lorentzian signature, the right dynamics, diffeomorphism invariance — exactly where [[carlip-2014-emergent-gravity|carlip-2014-challenges-emergent-gravity]] says the burden lies.
 
+The covariant theorem now makes the comparison more precise. The rigorous classical object is
+$h_s^\omega=(D^\omega s)^*g^F$: a passive-gauge-invariant, connection-relative,
+positive-semidefinite tensor on a fixed contextual base. A belief/model update is a vertical history
+in each fixed fiber, or a curve in section space, rather than motion of the base. VFE descent can
+orient that history and Fisher arclength can assign agent-relative information duration, but this is
+not the modular flow of [[connes-rovelli-1994-thermal-time]], a Lorentzian time coordinate, or a
+global physical clock. Likewise, RG depth labels scale rather than inference duration. These
+distinctions are proved and audited in [[gauge-vfe-rg-pullback-geometry-2026-08-01]].
+
 ## Open questions / gaps
 
 The signature problem is shared on both sides, but the participatory side is now sharper. The entanglement-geometry program lives natively in a Lorentzian bulk, whereas the Fisher *fibre* pullback is positive semi-definite by construction (Sylvester's law), so the signature must be carried by the horizontal frame-twist block $\mathrm{tr}(A_\mu A_\nu)$, which is already indefinite on $\mathfrak{gl}(K_q,\mathbb{R})$. The [[participatory-it-from-bit]] round-2 revision (2026-07-02) exhibits an **all-real, abelian-exact** four-generator construction (one skew temporal generator, three trace-orthogonal symmetric spatial generators, all commuting) giving a rank-four $(-,+,+,+)$ frame-twist metric with $\mathrm{SO}^+(1,3)$ frame group and *no* complexification, superseding the earlier claim that the program must postulate a complex frame to reach $(-,+,+,+)$. What remains genuinely open, and where [[carlip-2014-emergent-gravity|carlip-2014-challenges-emergent-gravity]]'s burden still bites, is that the construction is coordinate-flat (it settles signature *availability*, not curvature) and that no free-energy mechanism is shown to *select* the $1{+}3$ split. Whether the classical-information pullback can recover anything like the Ryu-Takayanagi area law — an entropy-area relation rather than a score-outer-product metric — is open; the model's entropy is configurational [[Meta-entropy|meta-entropy]] over beliefs, not boundary entanglement. It is unclear whether the model's free-energy stationarity can yield field equations in the manner of [[faulkner-2014-gravitation-from-entanglement]], or whether [[lloyd-2002-computational-capacity-universe|lloyd-2002-computational-capacity]]'s and [[susskind-2014-complexity-black-hole-horizons]]'s complexity bounds have any counterpart in the agent dynamics. These are the points at which the benchmark is most useful: it specifies precisely what a serious "emergent geometry from beliefs" claim would have to deliver before it could stand beside the quantum-holographic results rather than merely echo their slogans.
 
+The remaining physical burden is therefore stronger than finding a positive Fisher pullback. One
+would need a principle selecting a connection, a mechanism selecting a nondegenerate observable
+quotient and Lorentzian extension, and a theorem relating agent-relative information duration to a
+shared physical temporal structure. The separate frame-twist construction establishes signature
+availability under its own hypotheses; it is not a consequence of the covariant vertical Fisher
+tensor.
+
 ## Sources synthesized
+
+- [[gauge-vfe-rg-pullback-geometry-2026-08-01]] — fixed timeless base, connection-relative informational geometry, Fisher information duration, and the physical-time boundary.
 
 - [[jacobson-1995-einstein-equation-of-state|jacobson-1995-thermodynamics-spacetime]] — Einstein equations as a horizon equation of state (Clausius relation + area entropy).
 - [[jacobson-2016-entanglement-equilibrium]] — gravity from a maximal-vacuum-entanglement equilibrium variational principle.

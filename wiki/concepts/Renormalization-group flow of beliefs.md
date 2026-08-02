@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-28
+updated: 2026-08-01
 ---
 
 # Renormalization-group flow of beliefs
@@ -31,6 +31,12 @@ $$
 i.e. mean self-KL, mean belief-fiber alignment, mean model-fiber alignment, attention entropy, consensus score, free-energy density, correlation length, and order parameter. The RG map sends $g(s)\mapsto g(s+1)$ by coarse-graining, and the discrete **beta function** is the rate of change of $g$ per logarithmic change of scale.
 
 > [!note] Editorial: RG status, aligned with the manuscript (2026-06-19). The companion [[participatory-it-from-bit]] explicitly demarcates this as RG-*inspired*: it states the construction is "RG-inspired rather than a rigorous-RG analysis," that "we have not exhibited an analytic $\beta$-function ... nor proved scale invariance," that the functoriality result "is not an RG semigroup acting on a coupling space," and that the form-preserving closure class is conceded "empty in the operational regime" (so the five-term form-preservation posit fails there rather than merely being unproven). The `renormalization.py` pipeline that computes $\xi$, $\nu$, $d_f$, $\lambda_{\mathrm{eff}}$, and the discrete $\beta$-function is therefore **exploratory numerical machinery for probing the RG conjecture**, not a proof of an RG flow on a coupling space, and "fixed points / critical exponents" should be read as numerical candidates. An earlier version of this page asserted the hierarchy "*is* a real-space renormalization group" with exponents "computed directly"; that wording has been calibrated to the manuscript's position. The rigorous information-geometric backbones the program leans toward are [[beny-osborne-2015-info-geometric-rg]] (RG as Fisher-metric contraction per scale, the continuous monotone analogue of the closure residual) and [[mehta-schwab-2014-variational-rg-deep-learning]] (a variational coarse-graining that can be an exact RG step).
+
+The verdict above remains authoritative for the legacy PIFB/MAgent blocking ansatz and the
+`renormalization.py` runtime. It does not describe the newer, separate conditional construction in
+[[gauge-vfe-rg-pullback-geometry-2026-08-01]], which proves an abstract effective measure-pair theory
+for declared coarse channels. That theorem does not retroactively certify the operational barycenter,
+KL-proximity blocking, or fitted eight-coupling pipeline.
 
 ## Why it matters here
 
@@ -51,6 +57,62 @@ testable truncation ansatz rather than a proved form-preserving RG flow.
 The transformer-side Regime-I variables are vertex-shared. Equal-weight blocking therefore averages $n$ vertex fluctuations and gives RMS scaling $n^{-1/2}$, so $y_2=-1/2$. Its cocycle $\Omega_{ij}=U_iU_j^{-1}$ makes $H_{ijk}=I$ and $g_3=0$ identically, leaving no Regime-I holonomy exponent to fit. The rates $n^{-1}$ for a linear edge observable and $n^{-2}$ for its squared action apply only to an explicitly iid independent-edge ensemble. Generic edge relaxation permits nontrivial holonomy but does not establish those independence premises or rates. [[gl-k-attention-2026-07-09-review-revision]]
 
 > [!note] Editorial (2026-07-09): a nonzero graph-measured $y_3$ diagnoses an edge-relaxed graph observable; it cannot validate or falsify strict Regime I, where $g_3=0$ algebraically. Regime-I vertex fluctuations instead predict the RMS exponent $y_2=-1/2$. [[gl-k-attention-2026-07-09-review-revision]]
+
+## Exact general cross-scale theory (2026-08-01)
+
+For a connection-compatible bundle morphism $\Psi$ covering a coarse base map $f$, related fine and
+coarse sections obey the first-jet naturality equation
+
+$$
+D^{\bar\omega}\bar s\circ Tf=T^V\Psi\circ D^\omega s.
+$$
+
+If the fiber map is a normalized, parameter-independent Markov channel, Fisher data processing
+defines the vertical defect and its base pullback:
+
+$$
+\Delta_F^\Psi=g^F-(T^V\Psi)^*\bar g^F\succeq0,
+\qquad
+\delta_\Psi=(D^\omega s)^*\Delta_F^\Psi
+=h_s^\omega-f^*h_{\bar s}^{\bar\omega}\succeq0.
+$$
+
+The vertical defect is the conditional covariance of the fine score and satisfies the two-step
+cocycle
+
+$$
+\Delta_F^{\Psi_{12}\circ\Psi_{01}}
+=\Delta_F^{\Psi_{01}}+(T^V\Psi_{01})^*\Delta_F^{\Psi_{12}}.
+$$
+
+Under related sections and compatible connections, the typed base counterpart is
+$\delta_{02}=\delta_{01}+f_{01}^*\delta_{12}$.
+
+This is exact under its hypotheses. Parameter-dependent refitting, deterministic Galerkin restriction,
+or an arbitrary barycenter does not inherit Markov Fisher contraction merely because it is called
+coarse-graining. Likewise, contraction compares a fine path with its pushforward; separately
+recomputed fine and meta-agent VFE flows agree only when their oriented vector fields are
+semiconjugate.
+
+Levelwise tensors live on different spaces, so a geometric beta function becomes typed only after
+declared reference-base identifications. If $i_\ell:\mathcal C_\ell\to\mathcal C_\star$ is a
+diffeomorphism and $b_\ell>1$ is the block factor, define
+
+$$
+\widetilde h_\ell=(i_\ell^{-1})^*h_\ell,
+\qquad
+\mathfrak B_{h,\ell}
+=\frac{\widetilde h_{\ell+1}-\widetilde h_\ell}{\log b_\ell}
+\quad\text{on }\mathcal C_\star.
+$$
+
+On a differentiable reference-space curve the continuous beta is
+$\beta_h(s)=\partial_s\widetilde h_s$. For an autonomous differentiable reference-space flow near a
+fixed object, fixed points are its zeros and linearization on the declared operator space classifies
+relevant, irrelevant, and marginal perturbations. Periodic, stationary-random, and general cocycle
+flows instead require their corresponding cycles, invariant sections, or attracting sections; they
+do not share one fixed-point notion. RG depth is not the Fisher information duration of an inference
+history.
 
 ## Details
 
@@ -95,6 +157,8 @@ An application study against [[berman-2023-bayesian-renormalization]] and [[gabr
 > [!note] Editorial: three things this does NOT license. It is not a claim that tying is an ERG step — the Bayesian-RG program's only exact match to momentum-shell RG is a free scalar field theory dual to one infinitely-wide layer. It is not a monotone: the Petz/Chentsov citation problems already recorded against [[beny-osborne-2015-info-geometric-rg]] are untouched by it. And it must not use the diagonal Fisher, which is what [[berman-2023-bayesian-renormalization|BKS]] implement and which discards exactly the off-diagonal coupling that a matrix-weighted Laplacian is made of.
 
 ## Sources
+
+- [[gauge-vfe-rg-pullback-geometry-2026-08-01]] — exact conditional cross-scale operators, Markov Fisher defect and cocycle, reference-space beta function, and semiconjugacy boundary.
 
 - [[wilson-1975-renormalization-group]] — Wilson's RG: scale-by-scale coarse-graining, fixed points, relevant/irrelevant operators, universality; the template this module adapts to beliefs.
 - [[wilson-1971-rg-critical-phenomena]] — Wilson's foundational RG treatment of critical phenomena and the Kadanoff block picture.

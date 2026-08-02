@@ -169,7 +169,20 @@ The deterministic numerical route \texttt{CHK-IG-EXPECTATION-METRIC} uses the cl
 
 The renormalization chapters will import vocabulary from a literature that computes Fisher metrics of likelihoods with respect to \emph{model} parameters and reads their spectra as a scale \citep{BermanKlingerStapleton2023}. The object developed above is not that object, and keeping the two typed apart is a precondition for importing anything at all.
 
-Three spaces are in play. The latent sample space is $\R^{n}$, where $Y$ takes its values; the interaction energy $y\mapsto\tfrac12 y^\top\Lambda y$ is a quadratic form on it. The recognition parameter manifold is the set of laws \eqref{eq:ig-density}, coordinatized by any of the four charts of Section~\ref{sec:ig-expfam}; the Fisher metric \eqref{eq:ig-moment-metric} is a Riemannian metric on it. The model parameter space is where $\theta$ lives, indexing the generative kernel; the Fisher metric of the likelihood $\theta\mapsto p_\theta(o\given X)$ is a Riemannian metric on \emph{that}, and its dimension is the dimension of $\theta$, which has no relation to $n=NK$.
+Four spaces are in play. The latent sample space is $\R^{n}$, where $Y$ takes
+its values; the interaction energy
+$y\mapsto\tfrac12 y^\top\Lambda y$ is a quadratic form on it. The recognition
+parameter manifold is the set of laws \eqref{eq:ig-density}, coordinatized by
+any of the four charts of Section~\ref{sec:ig-expfam}; the Fisher metric
+\eqref{eq:ig-moment-metric} is a Riemannian metric on it. The model parameter
+space is where $\theta$ lives, indexing the generative kernel; the Fisher
+metric of the likelihood $\theta\mapsto p_\theta(o\given X)$ is a Riemannian
+metric on \emph{that}, and its dimension is the dimension of $\theta$, which
+has no relation to $n=NK$. Finally, the contextual base $\mathcal C$ indexes
+law-bundle sections. Once a connection and a statistical section are chosen,
+\Cref{def:pb-informational-pullbacks} gives a generally semidefinite tensor
+on $T\mathcal C$; it is not any of the preceding three objects.
+\status{ESTABLISHED}
 
 What makes the confusion easy is an exact but scoped component identity in this family, and stating it precisely is more useful than warning against it. The recognition family is a location family in its mean, so the mean parameter takes values in the same vector space $\R^{n}$ as the sample variable, and the mean block \eqref{eq:ig-moment-metric} of the parameter-space metric has the same components as the sample-space form $\Lambda$. The equality is of components in matched charts, not of objects: one is a metric on the tangent spaces of a manifold of probability laws, the other is a bilinear form on the latent vector space. For a family that is not a location family the two have different dimensions and no comparison arises. The identity is therefore a feature of the Gaussian mean sector and cannot be used as evidence that a construction defined on one space transfers to the other. \status{ESTABLISHED}
 
@@ -184,6 +197,24 @@ second-order term of transported KL \citep{AmariNagaoka2000}.  Outside these
 Gaussian or frozen-local hypotheses, a sample-space \(L\) is not a
 recognition Fisher tensor or a natural-gradient operator.
 \status{ESTABLISHED}
+
+For a smooth section of the full-Gaussian law bundle, the Fisher metric proved
+in \Cref{prop:ig-fisher-moment-chart} is the vertical tensor pulled back by the
+connection-relative first jet in \Cref{def:pb-informational-pullbacks}.  The
+resulting base tensor depends on the section and chosen connection, and its
+rank is the rank seen by that first jet.  The Gaussian component formulas do
+not identify the contextual base with the sample or parameter spaces.
+\status{ESTABLISHED}
+
+The word ``pullback'' consequently has three typed uses in this manuscript.
+First, the connection-relative construction of
+\Cref{ch:pullback-geometry} pulls a vertical statistical tensor back to the
+contextual base by $D^{\omega}s$. Second, the restriction below pulls a tensor
+back along an injective map of parameter manifolds. Third, the pullback
+attractor terminology in \Cref{sec:rg-dynamical-types} describes backward
+asymptotic dependence for a nonautonomous cocycle; it is not a tensor
+operation. No theorem transfers between these uses merely because the same
+word appears. \status{DEFINITION}
 
 The distinction has a sharp consequence for coarse-graining, which the next chapters will need. Restricting the recognition mean to a subspace and marginalizing onto that subspace are different operations and give different metrics.
 
@@ -288,6 +319,10 @@ Galerkin aggregation map. \status{NOT-CLAIMED} The established general statement
 metric contracts under a Markov kernel: pushing a family forward through a
 stochastic map cannot increase Fisher information
 \citep{AmariNagaoka2000,AyJostLeSchwachhofer2017}. \status{ESTABLISHED} That
+score-projection theorem yields the contextual-base tensor defect in
+\Cref{thm:pb-pullback-fisher-defect} only when the channel is realized by the
+stated connection-compatible bundle morphism and the fine and coarse sections
+obey \eqref{eq:pb-coarse-related-sections}. \status{ESTABLISHED} The
 theorem does not cover the aggregation operation of the following chapters,
 because by \Cref{prop:ig-pullback-vs-pushforward} the coarse operator is a
 restriction, a pullback along an inclusion of mean submodels, and not a
@@ -313,4 +348,8 @@ objective differential typed in the matching chart
 \citep{Amari1998,martens2020new}. The fixed-covariance Gaussian mean flow in
 \Cref{sec:cg-gaussian-fixed-relaxation} satisfies those requirements and is
 identified there. \status{ESTABLISHED} No broader identification for the remaining updates is
-claimed. \status{NOT-CLAIMED}
+claimed. \status{NOT-CLAIMED} Even for a declared natural-gradient flow, the
+metric does not turn its curve parameter into a clock. The oriented-history
+and Fisher-duration constructions of \Cref{ch:relational-inference} quotient
+that parameterization explicitly and make no physical-time identification.
+\status{ESTABLISHED} \status{NOT-CLAIMED}

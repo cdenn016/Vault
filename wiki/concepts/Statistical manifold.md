@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-10
+updated: 2026-08-01
 ---
 
 # Statistical manifold
@@ -60,7 +60,25 @@ The two great generalizations of the classical statistical manifold both matter 
 
 A recurring theme is that *distance on the statistical manifold has a cost*. [[crooks-2007-thermodynamic-length]] makes this thermodynamically precise — the Fisher–Rao length of a quasi-static path lower-bounds dissipation — which is the energetic shadow of the same metric the project uses for inertia and learning. The statistical manifold is thus the single object through which distinguishability, learning dynamics, coarse-graining, and physical cost are all expressed in one geometric language.
 
+### Law curves and section histories
+
+The statistical-manifold and bundle levels must be kept distinct. At one context $c$, a changing law
+is a curve $\Gamma:J\to(\mathcal E_x)_c$ inside a single statistical fiber and is intrinsically
+vertical. An agent changing across all contexts is a curve $r\mapsto s_r$ in a space of sections;
+evaluation at each fixed $c$ again gives a vertical fiber curve. A total-space curve whose base
+projection moves is a third object, and only its horizontal/vertical decomposition requires a
+connection. [[gauge-vfe-rg-pullback-geometry-2026-08-01]]
+
+The new construction is deliberately weaker than a derivation of physical time. A VFE metric and
+positive descent ray can select an oriented unparameterized inference orbit, after which Fisher
+arclength gives a reparameterization-invariant agent-relative information duration. The base manifold
+remains fixed and timeless; no global clock, Lorentzian time coordinate, or identification with the
+entropic-dynamics time of [[caticha-bartolomeo-reginatto-2015-entropic-dynamics]] follows without
+additional structure.
+
 ## Sources
+
+- [[gauge-vfe-rg-pullback-geometry-2026-08-01]] — fixed-fiber law curves, curves of sections, and emergent Fisher information duration.
 
 - [[cencov-1982-statistical-decision-rules]] — Fisher metric as the unique invariant metric on a statistical manifold; the canonicity result.
 - [[beny-osborne-2015-info-geometric-rg]] — RG as a monotone flow on the statistical manifold of states; information loss as metric contraction.

@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-09
+updated: 2026-08-01
 ---
 
 # Agents as fibre-bundle sections
@@ -78,6 +78,33 @@ This is exactly the transport law implemented as $\mu' = \Omega_{ij}\mu_j$, $\Si
 
 > [!note] Editorial: The manuscript explicitly flags that the partition/single-tree hypotheses behind the derived sections $p_i,r_i$ are idealizations the reported emergence simulation does not satisfy; in the single-scale runs $p_i,r_i$ are primitive boundary conditions and the slow subsystem $(s_i,r_i)$ is held fixed ($\gamma_{ij}=0$).
 
+### Vertical law change, horizontal transport, and histories of sections
+
+At a fixed context $c\in\mathcal C$, a law is one point of the fiber $(\mathcal E_x)_c$. A change
+from $A$ to $B$ is a curve $\Gamma:J\to(\mathcal E_x)_c$, not merely the ordered pair of endpoints.
+It is intrinsically vertical because $T\varpi_x(\dot\Gamma)=0$; no connection is needed for that
+statement. A connection is needed only when a total-space curve projects to a nonconstant base curve
+and one wants the split
+
+$$
+\dot\Gamma=H^\omega_\Gamma\dot\gamma+\operatorname{ver}^{\omega}\dot\Gamma.
+$$
+
+A whole-agent update is instead a curve $r\mapsto s_r$ in the space of sections. For
+$\Sigma(r,c)=s_r(c)$, the identity $\varpi_x\Sigma(r,c)=c$ makes
+$\partial_r\Sigma(r,c)$ vertical at every fixed $c$. Thus the contextual base can remain fixed and
+timeless while belief and model sections change. The curve parameter is disposable bookkeeping;
+orientation and an agent-relative information duration require the additional VFE/Fisher construction
+recorded in [[gauge-vfe-rg-pullback-geometry-2026-08-01]].
+
+Given a connection, the precise base-facing derivative of a section is its covariant vertical first
+jet $D^\omega s=\operatorname{ver}^\omega\circ Ts$. Pulling the vertical [[Fisher information metric]]
+back through this jet gives the connection-relative perceived tensor
+$h_s^\omega=(D^\omega s)^*g^F$. It is passive-gauge invariant under the stated equivariance
+hypotheses but generally only positive semidefinite, with
+$\operatorname{rad}h_s^\omega=\ker D^\omega s$. Passive gauge invariance therefore does not imply
+independence from the selected connection.
+
 ## In this work
 
 - **Manuscript.** The construction is developed in [[participatory-it-from-bit]] — §"Principal Bundles and Gauge Freedom", §"Associated Bundles", and §"Agents as Smooth Sections" (the Agent definition). The associated-bundle attachment of [[gl-k-attention]] is the same statistical-fibre-bundle picture specialized to the attention setting.
@@ -85,6 +112,8 @@ This is exactly the transport law implemented as $\mu' = \Omega_{ij}\mu_j$, $\Si
 - **Related concepts.** The transport of beliefs between sections is [[Parallel transport]] / [[Holonomy]]; the precision that anchors belief sections feeds [[Belief inertia]] and [[Mass as Fisher information]]; the derived priors realize [[Meta-agents and hierarchical emergence]] and [[Ouroboros multi-scale dynamics]]; the configuration-counting over populations of belief sections defines [[Meta-entropy]].
 
 ## Sources
+
+- [[gauge-vfe-rg-pullback-geometry-2026-08-01]] — fixed-base vertical histories, covariant vertical first jets, and connection-relative informational pullbacks.
 
 - [[participatory-it-from-bit]] — principal/associated bundles and the Agent-as-smooth-section definition (primary source).
 - [[gl-k-attention]] — attention as gauge-transported KL between Gaussian "agents" on a statistical fibre bundle.
