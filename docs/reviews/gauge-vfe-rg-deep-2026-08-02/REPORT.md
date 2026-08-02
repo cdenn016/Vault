@@ -22,8 +22,9 @@ no mathematical error at all. The build is clean at 215 pages with zero dangling
 undefined citations, and zero overfull boxes, and prior ledger item R18 is discharged.
 
 The adversarial tier mattered more than usual on this pass. Of nine findings raised at high or
-critical severity, **one survives at high, one at medium, four were downgraded to low, and three
-were refuted outright**, with two verdicts still pending at the time of writing. Two of the three
+critical severity, **one survives at high, one at medium, four were downgraded to low, and four
+were refuted outright**, and the review's only critical finding was refuted by two independent
+skeptics while spawning a new medium in its place. Two of the three
 findings inherited from the interrupted session also failed to survive: the total-correlation gap
 was killed by explicit computation, and the claimed cross-chapter gauge-convention conflict was a
 symbol confusion. The panel's raw severities ran hot, and the report below reflects the
@@ -31,9 +32,10 @@ adjudicated severities, not the raw ones.
 
 **Recommendation: minor revision.** No result is wrong. The genuine defects are one stale claim
 crediting a deleted proposition, one undefined symbol inside an `ESTABLISHED` theorem, a broken
-provenance chain in the verification ledger covering the manuscript's newest 1,642 lines, and a
-numerically unstable evaluation form in the manuscript's own check suite. Each has a bounded,
-mechanical fix.
+provenance chain in the verification ledger covering the manuscript's newest 1,642 lines, an
+undeclared perturbation class whose two readings disagree about whether the RG relevant branch is
+inhabited, and a numerically unstable evaluation form in the manuscript's own check suite. Each
+has a bounded, mechanical fix.
 
 ## Status of findings raised at high or critical
 
@@ -46,14 +48,16 @@ mechanical fix.
 | N-5 | `P_b` bundle vs. precision matrix | high | — | refuted |
 | N-6 | `\Theta` carries six meanings | high | — | refuted |
 | N-7 | `\mathcal R` carries six meanings | high | — | refuted |
-| RG-F1 | The "relevant" branch of the RG classification is empty | critical | pending | 1 of 3 skeptics returned: refuted on scope |
+| RG-F1 | The "relevant" branch of the RG classification is empty | critical | — | refuted, 2 of 3 (scope + mathematics) |
+| RG-F1′ | The perturbation class is undeclared and the two readings disagree | — | **medium** | new, raised by the mathematics skeptic |
 | RG-F2 | No isolated or hyperbolic RG fixed point | high | — | refuted |
 | RG-F3 | The additive constant `c_b` is forced to zero | med-high | — | refuted |
 | V1 | Symmetric local objectives *can* sum to the collective VFE | high | — | refuted |
 | V2 | `prop:obs-attention-elbo` missing a factorization hypothesis | high | — | refuted |
 
-Findings marked pending are recorded here as **unconfirmed candidates** and must not be treated
-as established until their skeptic verdicts land. See "Open at time of writing".
+Every row above is adjudicated. One of three skeptics on RG-F1 had not reported when this was
+written; it cannot change the verdict, and the reasoning is set out under "Open at time of
+writing".
 
 ## Major comments
 
@@ -212,6 +216,39 @@ reference measure, though the measure-level conclusion survives. And the text de
 residual group" as the stabilizer of the shared-link constraints, but that set is not closed under
 multiplication; an explicit `GL(2,R)` counterexample gives a design-dependent product.
 
+### 10. The RG perturbation class is undeclared, and the two readings give opposite answers (medium)
+
+`07b:756-759` declares the perturbation class as `L^∞` "or, more generally, perturbations with
+*conditional* exponential integrability". Those two readings are not equivalent, and they disagree
+about whether the relevant branch of the trichotomy at `07b:771-774` is inhabited.
+
+Under the conditional reading, which is what the text says, the branch is inhabited. An explicit
+witness is on file: on `S = ℕ₀` with `p = 1/2`, the advance-or-reset kernel `K(i, i-1) = 1` for
+`i ≥ 1` and `K(0, j) = (1-p)p^j`, with `ρ_* = m_* = π_i = (1-p)p^i` and `H_* ≡ 0`. All identities
+hold exactly in rational arithmetic (`πK = π`, reversal identity with zero violations,
+fixed-action residual exactly `0.0`). The perturbation `φ(i) = 1/3 + (2/3)·4^i` satisfies
+`max|Uφ - 2φ| = 0` exactly, giving `D_H R_b^H[φ] = 2φ` and, at `b = 2`, the exponent
+`y = log 2 / log 2 = +1`: relevant. The choice `b = 2` is principled, since the step destroys
+`H(Y|Z) = 0.693147` nats, exactly one bit, and the semigroup holds with `y = +1` at `b = 2, 4, 8`
+alike. The perturbation is admissible because `Π_*(·|z)` has two-point support, so its conditional
+moment generating function is finite for every real `t`. A weighted space `c_0(w)` with `w = 5^i`
+gives spectral radius `2.5`.
+
+Under the unconditional evidence-mass reading, `φ ∈ L¹(π_*)` and Jensen forces `|λ| ≤ 1`, so the
+branch is empty. The witness above has one-sided finite evidence mass only.
+
+A second structural point falls out and is worth stating in the text: for a positive unital
+operator on an action lattice with quasi-interior constants, `r(T) > 1` forces `r(T) = r_ess(T)`,
+verified here at `r = r_ess = 2.5` with point spectrum an open disk. Relevance therefore never
+arises from an isolated eigenoperator. `07b:768-770` already routes growth to the continuous and
+residual spectrum and `07b:774-776` fences generalized eigenspaces, so the manuscript's own
+hedging is what makes the classification survivable.
+
+**Fix.** Declare which integrability class the trichotomy is stated over, and state the
+`r(T) = r_ess(T)` consequence so the reader knows relevance is not an eigenvalue phenomenon here.
+This is the residual that survives from the review's only critical finding, and it is a
+well-posedness gap rather than an error.
+
 ## Minor comments
 
 Recorded in full in the per-lens files. The larger clusters: `h_i` versus `h_i^x` collide and the
@@ -306,23 +343,34 @@ risk in the added cross-scale hypothesis rather than in the theorems.
 
 ## Open at time of writing
 
-One finding remains partly unadjudicated at the time of writing:
+**RG-F1 is refuted**, two skeptics to zero, and the majority-survival rule closes it regardless of
+the third. The two refutations are independent and reach the same place by different routes.
 
-1. **RG-F1** (raised critical): the linearized RG map is a positive unital averaging operator, so
-   the "relevant" branch of the trichotomy at `07b:756-777` is empty. The scope skeptic returned
-   **refuted**, on the grounds that `07b:771-774` is a conditional naming convention with no
-   existential quantifier, the one applied instance is tagged OPEN at `05a:264-267`, `07b:801-806`
-   explicitly denies approach to a critical fixed point, "criticality" occurs zero times
-   manuscript-wide, and `y_a` is computed nowhere. The mathematics and literature skeptics were
-   still running. Two of three refutations settle it as refuted, with a low salvage: state the
-   spectral-radius-one and Crandall–Tartar nonexpansiveness result, which `07b:805` asks for, and
-   fix the trichotomy's `ESTABLISHED` tag to `DEFINITION` per `SPEC.md:67`.
-V1 and V2 have since returned **refuted** and are recorded under adjudicated rejections above.
+The scope skeptic found that `07b:771-774` is a conditional naming convention with no existential
+quantifier, the one applied instance is tagged OPEN at `05a:264-267`, `07b:801-806` explicitly
+denies approach to a critical fixed point, "criticality" occurs zero times manuscript-wide, and
+`y_a` is computed nowhere, so nothing downstream depends on the branch.
 
-Resume by reading `skeptic-rgf1-math.md` and `skeptic-rgf1-canon.md` in this directory once they
-land. If either upholds RG-F1, it becomes a one-against-two minority and RG-F1 still resolves as
-refuted under the majority-survival rule, with the two low salvage items carried forward. Only a
-concurring pair would reopen it.
+The mathematics skeptic went further and falsified RG-F1's central claim outright, by meeting the
+finding's own stated falsification condition: it constructed a concrete kernel with `|lambda| = 2`
+and an admissible perturbation, so the relevant branch is inhabited under the reading the text
+actually declares. RG-F1's numerics were correct but structurally blind, since on a finite space
+every function is bounded, and its quotation of the declared class as `L^inf` was a misquote of
+`07b:756-759`. Two subsidiary claims are also wrong: "every exponent short by exactly +1" holds
+only in the alpha-stable sector, and its `mu_0 = 1` contradicts `10:271-272`, which has
+`mu_0 = b^2`.
+
+What survives is major comment 10 above, a well-posedness gap at medium, plus two low items: state
+the spectral-radius-one and Crandall-Tartar nonexpansiveness result that `07b:805` asks for, and
+retag the trichotomy from `ESTABLISHED` to `DEFINITION` per `SPEC.md:67`.
+
+V1 and V2 also returned **refuted** and are recorded under adjudicated rejections above.
+
+The literature skeptic (`skeptic-rgf1-canon.md`) had not returned when this report was written. It
+cannot change the verdict. Read it only for whether it strengthens comment 10, or confirms the
+`JonaLasinio2001` gap that two skeptics independently noted: the entry sits at
+`references.bib:1103` with zero citations anywhere in the manuscript, and is the canonical
+reference for the construction Chapter 7b needs.
 
 ## Artifacts
 
