@@ -48,16 +48,14 @@ has a bounded, mechanical fix.
 | N-5 | `P_b` bundle vs. precision matrix | high | — | refuted |
 | N-6 | `\Theta` carries six meanings | high | — | refuted |
 | N-7 | `\mathcal R` carries six meanings | high | — | refuted |
-| RG-F1 | The "relevant" branch of the RG classification is empty | critical | — | refuted, 2 of 3 (scope + mathematics) |
-| RG-F1′ | The perturbation class is undeclared and the two readings disagree | — | **medium** | new, raised by the mathematics skeptic |
+| RG-F1 | The "relevant" branch of the RG classification is empty | critical | — | refuted, 3 of 3, unanimous |
+| RG-F1′ | The action-space norm is never declared, so the trichotomy swings between vacuous and unbounded | — | **medium-high** | new; two skeptics converged on it independently |
 | RG-F2 | No isolated or hyperbolic RG fixed point | high | — | refuted |
 | RG-F3 | The additive constant `c_b` is forced to zero | med-high | — | refuted |
 | V1 | Symmetric local objectives *can* sum to the collective VFE | high | — | refuted |
 | V2 | `prop:obs-attention-elbo` missing a factorization hypothesis | high | — | refuted |
 
-Every row above is adjudicated. One of three skeptics on RG-F1 had not reported when this was
-written; it cannot change the verdict, and the reasoning is set out under "Open at time of
-writing".
+Every row above is fully adjudicated; all seven skeptic verdicts are in.
 
 ## Major comments
 
@@ -216,7 +214,7 @@ reference measure, though the measure-level conclusion survives. And the text de
 residual group" as the stabilizer of the shared-link constraints, but that set is not closed under
 multiplication; an explicit `GL(2,R)` counterexample gives a design-dependent product.
 
-### 10. The RG perturbation class is undeclared, and the two readings give opposite answers (medium)
+### 10. The RG action-space norm is never declared (medium-high)
 
 `07b:756-759` declares the perturbation class as `L^∞` "or, more generally, perturbations with
 *conditional* exponential integrability". Those two readings are not equivalent, and they disagree
@@ -244,10 +242,37 @@ arises from an isolated eigenoperator. `07b:768-770` already routes growth to th
 residual spectrum and `07b:774-776` fences generalized eigenspaces, so the manuscript's own
 hedging is what makes the classification survivable.
 
-**Fix.** Declare which integrability class the trichotomy is stated over, and state the
-`r(T) = r_ess(T)` consequence so the reader knows relevance is not an eigenvalue phenomenon here.
-This is the residual that survives from the review's only critical finding, and it is a
-well-posedness gap rather than an error.
+A second skeptic reached the same conclusion from an unrelated construction, which is why this
+is recorded at medium-high rather than medium. In a Mehler realization satisfying every hypothesis
+of Chapter 7b — common space `R`, Markov `K_b` as block-sum plus rescale with `r = b^{-1/2}`,
+invariant `ρ_* = N(0,1)`, exact semigroup `K_2 K_2 = K_4` to `1.1e-15`, `H_* = 0` — the function
+`ψ(y) = e^{y²/2}` gives `D_H R_b^H[ψ](z) = b^{1/2} e^{z²/2}` (exact by sympy; relative error
+`3.4e-41` at 40 digits), hence `y_a = +1/2 > 0`. On the Banach space where it lives the operator is
+bounded with norm exactly `b^{1/2}`; but `φ_m = y^m e^{y²/2}` is triangular with diagonal
+`b^{(m+1)/2}`, so on that space the spectral radius is `+∞`. Two independent constructions, one on
+the naturals and one on the line, therefore put the trichotomy on either side of well-posedness
+depending on a norm the manuscript never fixes. Under the licensed class the manuscript does name
+elsewhere — "two required moments", forcing at most quadratic growth and hence `⊂ L²(π_*)` —
+Jensen closes it and the branch is empty.
+
+**Fix.** Declare the action-space norm the trichotomy is stated over. Note that simply asserting
+spectral radius one, as the refuted finding proposed, would enter the manuscript as a **false
+theorem** unless "bounded, in the declared class" is attached. Also state the
+`r(T) = r_ess(T)` consequence, so the reader knows relevance here is not an isolated-eigenvalue
+phenomenon.
+
+### 11. `JonaLasinio2001` is uncited and supplies two results the manuscript flags as missing (medium)
+
+The entry sits at `references.bib:1103` with zero citations anywhere in the manuscript, and three
+of this pass's agents independently arrived at it. Jona-Lasinio 2001 (arXiv:cond-mat/0009219) is
+the canonical treatment of the renormalization-group reading of the central limit theorem: eq.
+(2.14) gives the eigenvalues `λ_k = 2^{1-k/2}` with Hermite eigenfunctions, and eq. (5.10) names
+the conditional expectation as "the linearization of the RG at the fixed point", which is exactly
+the operator of `07b:756-777`. Beyond corroboration it supplies two things the manuscript is
+missing: eq. (7.4), the generalized eigenvalue between two tangent spaces, which resolves the
+non-endomorphism problem the trichotomy runs into; and eq. (7.5),
+`λ_k(m, R*P) λ_k(n, P) = λ_k(mn, P)`, the reference-direction cocycle that this review's RG lens
+separately reported as absent. Citing it closes two open items at once.
 
 ## Minor comments
 
@@ -343,8 +368,9 @@ risk in the added cross-scale hypothesis rather than in the theorems.
 
 ## Open at time of writing
 
-**RG-F1 is refuted**, two skeptics to zero, and the majority-survival rule closes it regardless of
-the third. The two refutations are independent and reach the same place by different routes.
+**RG-F1 is refuted unanimously**, three skeptics to zero. All seven skeptic verdicts for this
+pass are now in and nothing is outstanding. The three refutations are independent and reach the
+same place by different routes.
 
 The scope skeptic found that `07b:771-774` is a conditional naming convention with no existential
 quantifier, the one applied instance is tagged OPEN at `05a:264-267`, `07b:801-806` explicitly
@@ -366,11 +392,13 @@ retag the trichotomy from `ESTABLISHED` to `DEFINITION` per `SPEC.md:67`.
 
 V1 and V2 also returned **refuted** and are recorded under adjudicated rejections above.
 
-The literature skeptic (`skeptic-rgf1-canon.md`) had not returned when this report was written. It
-cannot change the verdict. Read it only for whether it strengthens comment 10, or confirms the
-`JonaLasinio2001` gap that two skeptics independently noted: the entry sits at
-`references.bib:1103` with zero citations anywhere in the manuscript, and is the canonical
-reference for the construction Chapter 7b needs.
+The literature skeptic refuted sub-claim (a) the same way the mathematics skeptic did, by explicit
+construction on a different space, and confirmed against primary sources that relevance in the
+canon is a property of the conjugate coupling carrying a volume factor `d` (Fisher, RMP 70, 653,
+eqs. 43 and 45-48; van Enter-Fernandez-Sokal on interaction spaces). It also corrected the refuted
+finding's arithmetic a second way: the deficit is `d`, not `1`, since `+1` presumes `b` is the
+volume ratio, which the RG lens separately reports as undeclared. Its verdict was
+survives-at-lower-severity under a rename, which is comment 10 above.
 
 ## Artifacts
 
