@@ -14,7 +14,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-18
-updated: 2026-07-25
+updated: 2026-08-03
 ---
 
 # VFE Transformer Program
@@ -154,7 +154,9 @@ Next steps, in rough priority order:
 
 **Themes:** [[Variational free energy and predictive coding]] · [[Gauge equivariance and geometric deep learning]] · [[Information geometry and natural gradient]] · [[SPD-manifold geometry and Riemannian optimization]] · [[Attention mechanisms — theory and positional structure]] · [[Inference machinery — variational EM and filtering]]
 
-**Methods:** [[Nudged two-phase EM]] — the pre-registered backprop-free learning prescription
+**Methods:** [[Nudged two-phase EM]] — the pre-registered backprop-free learning prescription ·
+[[Rigorous theory search]] — the truth-preserving proof and effective-theory search protocol used
+for research-level derivations
 
 **Key concepts:** [[Variational free energy]] · [[Evidence lower bound (ELBO)]] · [[Prediction error]] · [[Precision weighting]] · [[Gauge transformation]] · [[GL(K) gauge group]] · [[Holonomy]] · [[Non-flat connection and the photon analogy]] · [[Natural gradient]] · [[Fisher information metric]] · [[Renyi divergence]] · [[Divergence clamp saturation]] · [[Diagonal truncation as gauge regularization]] · [[Irreducible representation]] · [[Clebsch-Gordan coefficients]] · [[Expected Free Energy]] · [[Active Inference]]
 

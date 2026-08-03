@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-07-19
-updated: 2026-07-19
+updated: 2026-08-03
 ---
 
 # Gauge VFE ELBO curriculum
@@ -59,6 +59,16 @@ Ranks 1–13 form the defensible state-level ELBO, gauge, SPD, and optimization 
 
 > [!warning] Scope boundary
 > [[Evidence lower bound (ELBO)|An ELBO]], [[Active Inference|active inference]], a configuration Gibbs distribution, a 1PI/2PI effective action, and an [[Renormalization group flow|RG flow]] are related constructions but are not interchangeable. The final four books should not be presented as prerequisites for the basic gauge-covariant Gaussian ELBO.
+
+## Proof and construction discipline
+
+The curriculum supplies domain background; it does not certify a new derivation merely because the
+relevant books have been cited. Research-level constructions in this program use
+[[Rigorous theory search]] to freeze the target and hypotheses, maintain mechanism-diverse proof
+routes and an acyclic claim graph, distinguish exact effective theory from truncation, and require
+adversarial reconstruction plus search-prior erasure before release. The method's archived design,
+conditional mathematical reconstruction, and still-provisional behavioral baseline are recorded in
+[[2026-08-02-rigorous-theory-search-skill]].
 
 ## Suggested reading order
 

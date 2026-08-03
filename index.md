@@ -2,7 +2,7 @@
 type: index
 title: Index
 aliases: [Index, Home]
-updated: 2026-08-01
+updated: 2026-08-03
 ---
 
 # Index
@@ -10,7 +10,7 @@ updated: 2026-08-01
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **14** manuscripts · **13** themes · **11** field MOCs · **269** concepts · **11** methods · **543** papers · **114** references · **16** runs · **6** web/methodology
+> **3** projects · **14** manuscripts · **13** themes · **11** field MOCs · **269** concepts · **12** methods · **543** papers · **114** references · **17** runs · **6** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -379,6 +379,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[LieConv]]
 - [[Nudged two-phase EM]]
 - [[Predictive coding network]]
+- [[Rigorous theory search]]
 - [[Steerable CNN]]
 - [[Tensor Field Network]]
 - [[Variational EM]]
@@ -1114,3 +1115,4 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[2026-07-25-phi-table-and-beta-channel-measurements|Gauge-table ablations, frame-norm calibration, and the beta channel decomposition (2026-07-25)]] (checkpoint-only, K=300; `phi_embed` load-bearing but precision-redundant and rank-saturated; positional prior carries ~3× the content channel; five ranked hypotheses refuted)
 - [[2026-07-25-exact-congruence-truncation-tension|Exact congruence versus diagonal truncation — two covariance families and a negative result (2026-07-25)]] (K=20 training arms; the exact congruence energy scales as cond(Ω)² and saturates the clamp; the frame-intrinsic family disconnects the gauge table entirely; see [[Diagonal truncation as gauge regularization]])
 - [[2026-07-25-shadow-prior-refutation|Cross-scale shadow priors do not transfer to the transformer — six-expert refutation (2026-07-25)]] (design investigation, no training results; no gauge degeneracy for a likelihood to break, the token cannot be both prior and observation, Bethe-not-mean-field status, Ladder-VAE-on-text record)
+- [[2026-08-02-rigorous-theory-search-skill|Rigorous theory search global skill — sanitized design, evaluation boundary, and mathematical reconstruction record (2026-08-02)]] (method/implementation/audit record; paired behavioral grading remains provisional; no current theory or runtime claim is certified by the archive)

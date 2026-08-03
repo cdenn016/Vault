@@ -5,7 +5,7 @@ aliases: [field/physics, Physics sources]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-08-03
 ---
 
 # Physics MOC
@@ -13,8 +13,8 @@ updated: 2026-06-19
 > Map of Content for the **`field/physics`** discipline facet. The table is auto-populated by the
 > **Bases** core plugin from the `field/*` tags and updates itself as sources are added.
 
-Physics is the largest discipline in the corpus (**149** sources). Its notes occupy three regions of
-the program: the statistical-physics / sociophysics of collective behaviour (in [[Statistical physics of social systems and collective behavior|social-physics]]), the quantum-foundations and emergent-gravity wing of the
+Physics is the largest discipline in the corpus (**258** sources). Its notes occupy three regions of
+the program: the statistical-physics / sociophysics of collective behavior (in [[Statistical physics of social systems and collective behavior|social-physics]]), the quantum-foundations and emergent-gravity wing of the
 [[Participatory realism and quantum foundations|participatory]] program, and the gauge-theory /
 [[Information geometry and natural gradient|information-geometry]] core shared with the transformer.
 
