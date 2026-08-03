@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass
+from fractions import Fraction
 import hashlib
 import importlib.util
 import json
@@ -220,30 +221,213 @@ WITHIN_BOUND_CLIP_WITNESS = np.array([
 ])
 
 
-def canonical_correlation_clip_metrics(matrix: np.ndarray) -> tuple[float, float, float]:
-    np.linalg.cholesky(matrix)  # Full matrix must be numerically SPD before any clipping rule applies.
-    first, second, cross = matrix[:2, :2], matrix[2:, 2:], matrix[:2, 2:]
-    left, right = np.linalg.cholesky(first), np.linalg.cholesky(second)
-    canonical = np.linalg.solve(left, cross) @ np.linalg.solve(right, np.eye(2)).T
-    rho = float(np.linalg.svd(canonical, compute_uv=False)[0])
-    rho_squared_excess = max(0.0, rho * rho - 1.0)
-    solve_residual = np.linalg.norm(cross - left @ canonical @ right.T, ord=np.inf) / np.linalg.norm(cross, ord=np.inf)
-    # Weyl's bound applies at the normalized canonical-correlation matrix.  Do
-    # not multiply by cond(matrix): this witness is intentionally nearly
-    # singular and that would turn a one-ulp excursion into an O(10) license.
-    residual_derived_bound = 16.0 * (solve_residual + np.finfo(float).eps) * max(1.0, rho * rho)
-    return rho, rho_squared_excess, residual_derived_bound
+def exact_binary64_matrix(matrix: np.ndarray) -> list[list[Fraction]]:
+    """Interpret each frozen binary64 entry as its exact rational value."""
+    return [[Fraction.from_float(float(entry)) for entry in row] for row in matrix]
+
+
+def exact_determinant(matrix: list[list[Fraction]]) -> Fraction:
+    """Small exact determinant used only for the fixed 4-by-4 witness."""
+    if len(matrix) == 1:
+        return matrix[0][0]
+    return sum(
+        ((-1) ** column)
+        * matrix[0][column]
+        * exact_determinant([row[:column] + row[column + 1:] for row in matrix[1:]])
+        for column in range(len(matrix))
+    )
+
+
+def exact_leading_principal_minors(matrix: list[list[Fraction]]) -> tuple[Fraction, ...]:
+    return tuple(
+        exact_determinant([row[:order] for row in matrix[:order]])
+        for order in range(1, len(matrix) + 1)
+    )
+
+
+def exact_inverse_2x2(matrix: list[list[Fraction]]) -> list[list[Fraction]]:
+    determinant = exact_determinant(matrix)
+    return [
+        [matrix[1][1] / determinant, -matrix[0][1] / determinant],
+        [-matrix[1][0] / determinant, matrix[0][0] / determinant],
+    ]
+
+
+def exact_matmul(
+    left: list[list[Fraction]], right: list[list[Fraction]]
+) -> list[list[Fraction]]:
+    return [
+        [
+            sum(
+                (left[row][inner] * right[inner][column] for inner in range(len(right))),
+                Fraction(0),
+            )
+            for column in range(len(right[0]))
+        ]
+        for row in range(len(left))
+    ]
+
+
+def exact_transpose(matrix: list[list[Fraction]]) -> list[list[Fraction]]:
+    return [list(column) for column in zip(*matrix)]
+
+
+def exact_subtract(
+    left: list[list[Fraction]], right: list[list[Fraction]]
+) -> list[list[Fraction]]:
+    return [
+        [left[row][column] - right[row][column] for column in range(len(left[0]))]
+        for row in range(len(left))
+    ]
+
+
+def mpmath_fraction(value: Fraction) -> mpmath.mpf:
+    return mpmath.mpf(value.numerator) / value.denominator
+
+
+def outward_float_upper(value: Fraction) -> float:
+    """Round a positive exact rational upward to a binary64 upper bound."""
+    rounded = float(value)
+    if Fraction.from_float(rounded) < value:
+        rounded = math.nextafter(rounded, math.inf)
+    return rounded
+
+
+def canonical_correlation_clip_certificate(matrix: np.ndarray) -> dict[str, object]:
+    """Build an exact, witness-specific forward-error certificate.
+
+    This deliberately does not claim a general Cholesky/solve residual theorem.
+    Every binary64 input is treated as an exact rational.  For the fixed 2+2
+    partition, the squared canonical correlations are the eigenvalues of
+    A^{-1} C D^{-1} C^T, so their characteristic polynomial is exactly
+    x^2 - trace*x + determinant.  An integer-square-root enclosure of its
+    discriminant isolates the larger root to 180 decimal places.
+    """
+    exact = exact_binary64_matrix(matrix)
+    first = [row[:2] for row in exact[:2]]
+    second = [row[2:] for row in exact[2:]]
+    cross = [row[2:] for row in exact[:2]]
+    first_inverse = exact_inverse_2x2(first)
+    second_inverse = exact_inverse_2x2(second)
+    full_principal_minors = exact_leading_principal_minors(exact)
+    first_principal_minors = exact_leading_principal_minors(first)
+    second_principal_minors = exact_leading_principal_minors(second)
+    schur = exact_subtract(
+        first,
+        exact_matmul(exact_matmul(cross, second_inverse), exact_transpose(cross)),
+    )
+    canonical_squared = exact_matmul(
+        exact_matmul(exact_matmul(first_inverse, cross), second_inverse),
+        exact_transpose(cross),
+    )
+    trace = canonical_squared[0][0] + canonical_squared[1][1]
+    determinant = exact_determinant(canonical_squared)
+    discriminant = trace * trace - 4 * determinant
+
+    decimal_digits = 180
+    scale = 10**decimal_digits
+    scaled_discriminant_floor = (
+        discriminant.numerator * scale * scale // discriminant.denominator
+    )
+    sqrt_floor = math.isqrt(scaled_discriminant_floor)
+    sqrt_lower = Fraction(sqrt_floor, scale)
+    sqrt_upper = Fraction(sqrt_floor + 1, scale)
+    rho_squared_lower = (trace + sqrt_lower) / 2
+    rho_squared_upper = (trace + sqrt_upper) / 2
+
+    first_float, second_float, cross_float = (
+        matrix[:2, :2],
+        matrix[2:, 2:],
+        matrix[:2, 2:],
+    )
+    left = np.linalg.cholesky(first_float)
+    right = np.linalg.cholesky(second_float)
+    canonical_float = (
+        np.linalg.solve(left, cross_float)
+        @ np.linalg.solve(right, np.eye(2)).T
+    )
+    rho = float(np.linalg.svd(canonical_float, compute_uv=False)[0])
+    rho_squared = rho * rho
+    rho_squared_exact_float = Fraction.from_float(rho_squared)
+    forward_error_lower = rho_squared_exact_float - rho_squared_upper
+    forward_error_upper = rho_squared_exact_float - rho_squared_lower
+
+    mpmath_digits = 200
+    with mpmath.workdps(mpmath_digits):
+        high_precision_rho_squared = (
+            mpmath_fraction(trace) + mpmath.sqrt(mpmath_fraction(discriminant))
+        ) / 2
+        mpmath_agrees_with_exact_enclosure = (
+            mpmath_fraction(rho_squared_lower)
+            <= high_precision_rho_squared
+            < mpmath_fraction(rho_squared_upper)
+        )
+        # This value oracle is distinct from the clipping license above.  It
+        # evaluates the exact binary64 input determinants at high precision,
+        # so a finite but badly biased value after clipping is still rejected.
+        high_precision_gap = (
+            mpmath.log(mpmath_fraction(first_principal_minors[-1]))
+            + mpmath.log(mpmath_fraction(second_principal_minors[-1]))
+            - mpmath.log(mpmath_fraction(full_principal_minors[-1]))
+        ) / 2
+        high_precision_gap_float = float(high_precision_gap)
+        high_precision_gap_decimal = mpmath.nstr(
+            high_precision_gap, n=mpmath_digits
+        )
+
+    return {
+        "decimal_digits": decimal_digits,
+        "mpmath_digits": mpmath_digits,
+        "full_principal_minors": full_principal_minors,
+        "first_principal_minors": first_principal_minors,
+        "second_principal_minors": second_principal_minors,
+        "schur_principal_minors": exact_leading_principal_minors(schur),
+        "characteristic_trace": trace,
+        "characteristic_determinant": determinant,
+        "characteristic_discriminant": discriminant,
+        "characteristic_at_one": Fraction(1) - trace + determinant,
+        "sqrt_discriminant_lower": sqrt_lower,
+        "sqrt_discriminant_upper": sqrt_upper,
+        "rho_squared_lower": rho_squared_lower,
+        "rho_squared_upper": rho_squared_upper,
+        "mpmath_agrees_with_exact_enclosure": mpmath_agrees_with_exact_enclosure,
+        "high_precision_gap": high_precision_gap_float,
+        "high_precision_gap_decimal": high_precision_gap_decimal,
+        "rho": rho,
+        "rho_squared": rho_squared,
+        "rho_squared_excess": max(0.0, rho_squared - 1.0),
+        "forward_error_lower": forward_error_lower,
+        "forward_error_upper": forward_error_upper,
+        "forward_error_upper_float": outward_float_upper(forward_error_upper),
+    }
 
 
 def test_ordinary_no_clip_within_bound_clip_and_out_of_tolerance_excursion_are_not_silently_accepted():
+    certificate = canonical_correlation_clip_certificate(WITHIN_BOUND_CLIP_WITNESS)
+    exact_spd_minors = (
+        certificate["full_principal_minors"],
+        certificate["first_principal_minors"],
+        certificate["second_principal_minors"],
+        certificate["schur_principal_minors"],
+    )
+    assert all(all(minor > 0 for minor in minors) for minors in exact_spd_minors), "DEFECT [within-bound clipping fixture]: exact binary64 matrix, blocks, and Schur complement must be SPD by Sylvester's criterion"
+    assert certificate["characteristic_discriminant"] > 0 and 0 <= certificate["characteristic_determinant"] and 0 <= certificate["characteristic_trace"] < 2 and certificate["characteristic_at_one"] > 0, "DEFECT [within-bound clipping fixture]: exact characteristic polynomial must place both canonical rho^2 roots below one"
+    assert certificate["sqrt_discriminant_lower"] ** 2 <= certificate["characteristic_discriminant"] < certificate["sqrt_discriminant_upper"] ** 2, "DEFECT [within-bound clipping fixture]: integer-square-root bounds do not enclose the exact discriminant root"
+    assert certificate["decimal_digits"] >= 150 and certificate["rho_squared_upper"] - certificate["rho_squared_lower"] <= Fraction(1, 10**150), "DEFECT [within-bound clipping fixture]: exact rho^2 enclosure must resolve at least 150 decimal places"
+    assert certificate["mpmath_digits"] >= 200 and certificate["mpmath_agrees_with_exact_enclosure"] is True, "DEFECT [within-bound clipping fixture]: corroborating 200-digit mpmath rho^2 must lie in the exact rational enclosure"
+    assert math.isfinite(certificate["high_precision_gap"]) and certificate["high_precision_gap"] > 0, "DEFECT [within-bound clipping fixture]: 200-digit exact-input determinant-gap oracle must be finite and positive"
+    assert 0 <= certificate["rho_squared_lower"] < certificate["rho_squared_upper"] < 1, "DEFECT [within-bound clipping fixture]: exact canonical rho^2 must be strictly below one"
+    rho = certificate["rho"]
+    rho_squared_excess = certificate["rho_squared_excess"]
+    independent_bound = certificate["forward_error_upper_float"]
+    assert certificate["forward_error_lower"] > 0 and Fraction.from_float(independent_bound) >= certificate["forward_error_upper"], "DEFECT [within-bound clipping fixture]: binary64-to-exact rho^2 discrepancy must have an outward-rounded witness-specific bound"
+    assert rho > 1.0 and 0.0 < rho_squared_excess <= independent_bound, "DEFECT [within-bound clipping fixture]: exact-SPD witness must produce a positive but independently certified binary64 excursion"
     ordinary = require_runner_api("factorization_gap", "ordinary no-clip")(
         np.array([[2.0, 0.1], [0.1, 2.0]]), [[0], [1]]
     )
     for step in require_field(ordinary, "steps", "ordinary no-clip"):
         assert require_field(step, "clipping_amount", "ordinary no-clip") == pytest.approx(0.0), "DEFECT [ordinary no-clip]: well-conditioned input must not clip"
         assert require_field(step, "clipping_applied", "ordinary no-clip") is False, "DEFECT [ordinary no-clip]: clipping_applied must be false"
-    rho, rho_squared_excess, independent_bound = canonical_correlation_clip_metrics(WITHIN_BOUND_CLIP_WITNESS)
-    assert rho > 1.0 and 0.0 < rho_squared_excess <= independent_bound < 1.0e-12, "DEFECT [within-bound clipping fixture]: frozen SPD witness must be a one-ulp, materially bounded excursion"
     admitted = require_runner_api("factorization_gap", "within-bound clipping")(WITHIN_BOUND_CLIP_WITNESS, [[0, 1], [2, 3]])
     steps = require_field(admitted, "steps", "within-bound clipping")
     assert steps, "DEFECT [within-bound clipping]: admitted witness needs a nonempty diagnostic step list"
@@ -252,12 +436,19 @@ def test_ordinary_no_clip_within_bound_clip_and_out_of_tolerance_excursion_are_n
         bound = require_field(step, "residual_derived_clip_bound", "within-bound clipping")
         assert require_field(step, "clipping_applied", "within-bound clipping") is True, "DEFECT [within-bound clipping]: clipping must be explicitly reported"
         assert math.isfinite(clipping) and clipping > 0.0, "DEFECT [within-bound clipping]: clipping amount must be positive and finite"
-        assert clipping == pytest.approx(rho_squared_excess, rel=0.25, abs=0.0), "DEFECT [within-bound clipping]: clipping amount is inconsistent with measured rho^2-1"
-        assert rho_squared_excess <= bound <= independent_bound, "DEFECT [within-bound clipping]: reported clipping bound is loose or not residual-derived"
+        assert rho_squared_excess <= clipping <= bound, "DEFECT [within-bound clipping]: clipping amount is inconsistent with measured rho^2-1 or exceeds its reported allowance"
+        # The field retains the planned public name, but this test licenses it
+        # only against the frozen witness's exact forward discrepancy; it is
+        # not evidence for a general residual-derived perturbation theorem.
+        assert rho_squared_excess <= bound <= independent_bound, "DEFECT [within-bound clipping]: reported allowance exceeds the exact witness-specific forward-error certificate"
         assert math.isfinite(require_field(step, "min_one_minus_rho_squared", "within-bound clipping")) and require_field(step, "min_one_minus_rho_squared", "within-bound clipping") > 0.0, "DEFECT [within-bound clipping]: post-clip log1p domain must be finite and positive"
         assert math.isfinite(result_value(step, "within-bound clipping")), "DEFECT [within-bound clipping]: clipped step value must be finite"
-    assert math.isfinite(result_value(admitted, "within-bound clipping")), "DEFECT [within-bound clipping]: clipped total gap must be finite"
+    admitted_value = result_value(admitted, "within-bound clipping")
+    assert math.isfinite(admitted_value), "DEFECT [within-bound clipping]: clipped total gap must be finite"
+    assert admitted_value == pytest.approx(certificate["high_precision_gap"], rel=5e-12, abs=math.ulp(certificate["high_precision_gap"])), "DEFECT [within-bound clipping]: finite clipped value disagrees with the 200-digit exact-input determinant-gap oracle"
     excursion = np.array([[1.0, 1.0 + 1e-10], [1.0 + 1e-10, 1.0]])
+    excursion_cross = Fraction.from_float(float(excursion[0, 1]))
+    assert excursion_cross * excursion_cross - 1 > certificate["forward_error_upper"], "DEFECT [out-of-tolerance excursion fixture]: rejected excursion must materially exceed the witness-specific certificate"
     with pytest.raises((ValueError, TypeError)):
         require_runner_api("factorization_gap", "out-of-tolerance excursion")(excursion, [[0], [1]])
 
