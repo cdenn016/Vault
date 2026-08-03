@@ -108,7 +108,18 @@ def regenerate_matrix_and_partition(case: FrozenCase) -> tuple[np.ndarray, tuple
         elif case.stratum == "permutation":
             permutation = rng.permutation(case.dimension)
             matrix = matrix[np.ix_(permutation, permutation)]
-            partition = tuple(tuple(sorted(permutation[list(indices)])) for indices in partition)
+            # New coordinate j contains old coordinate permutation[j], so an
+            # old block moves through P^{-1}, not through P.
+            inverse_permutation = np.argsort(permutation)
+            original_partition = partition
+            partition = tuple(
+                tuple(sorted(int(inverse_permutation[index]) for index in indices))
+                for indices in original_partition
+            )
+            assert all(
+                {int(permutation[index]) for index in moved_indices} == set(original_indices)
+                for original_indices, moved_indices in zip(original_partition, partition)
+            ), "DEFECT [permutation coordinate map]: inverse permutation does not preserve original blocks"
     matrix = (matrix + matrix.T) / 2.0
     np.linalg.cholesky(matrix)
     return matrix, partition
