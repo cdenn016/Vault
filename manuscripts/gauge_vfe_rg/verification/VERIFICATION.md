@@ -50,12 +50,49 @@ not bind the bibliography, PDF, installed dependency binaries, or external
 sources. Those are checked separately by the manuscript build and source
 audit.
 
+## Stable factorization-gap protocol
+
+`CHK-CG-FACTOR-GAP-STRESS-3138` is a new frozen protocol with seed `20260803`.
+It regenerates 3,138 case-bound SPD matrices and partitions across dimensions
+2 through 16 and condition-number tiers from 1 through `1e14`, records matrix
+and partition SHA-256 digests, and includes 18 exact-input controls evaluated at
+100 decimal digits. Repeated calls with the same schedule are byte-for-byte
+deterministic at the record level.
+
+The ordinary implementation uses Cholesky factors, SciPy triangular solves,
+canonical-correlation singular values, and `log1p(-rho**2)`. It does not form an
+explicit inverse or subtract log determinants. A value within
+`64*n*epsilon` of the singular-value boundary is routed to a 200-decimal-digit
+evaluation of the exact binary64 input. A second binary64 solve backend defines
+the raw-excursion diagnostic as the maximum observed across those two declared
+binary64 backends. Exact-input domain violations and
+raw excursions whose discrepancies exceed the operational guard fail closed.
+The exact-input value path is also used when
+`kappa_2(precision)*epsilon >= 1e-4`. This is a frozen-suite conditioning
+trigger, not a universal perturbation radius; an ill-conditioned in-domain case
+is reevaluated rather than rejected merely for triggering it. Cholesky and
+solve residuals remain local backward diagnostics only. Their finite-health
+gate is `64*gamma_n`, where `gamma_n=n*u/(1-n*u)` and binary64 unit roundoff is
+`u=epsilon/2`; this gate is not used as a forward bound on `rho` or the gap.
+
+The compatibility field `residual_derived_clip_bound` does not assert a general
+residual-to-forward-error theorem. On the boundary path it reports the
+outward-rounded discrepancy between the maximum raw binary64 `rho**2` and its
+high-precision exact-input value. The frozen admitted witness has a positive
+raw excursion of `4.440892098500626e-16`, an allowance of at most
+`9.432369402326953e-16`, and a returned gap from the exact-input evaluator; a
+nearest-below-one clipped value is not accepted as the gap. The compatibility
+fields `clipping_applied` and `clipping_amount` identify an admitted positive
+cross-backend excursion and its maximum excess above one; they do not describe
+a numerical adjustment used to obtain the returned value.
+
 ## Coverage
 
-The suite contains **29 deterministic checks** covering:
+The suite contains **30 deterministic checks** covering:
 
 - Gaussian interaction structure, conditioning, and exact Kron witnesses;
-- Gaussian restriction identities and information-geometric charts;
+- Gaussian restriction identities, the 3,138-case stable determinant-gap
+  protocol, and information-geometric charts;
 - generalized-spectrum gauge invariance;
 - exact aggregation, holonomy, admissible partitions, associativity,
   bi-additivity, singular limits, frame cancellation, and equivariance;

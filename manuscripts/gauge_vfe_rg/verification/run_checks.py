@@ -17,10 +17,12 @@ import platform
 import re
 import sys
 import traceback
-from dataclasses import dataclass
+from collections import namedtuple
+from dataclasses import asdict, is_dataclass
 from pathlib import Path
 from typing import Any, Callable
 
+import mpmath
 import numpy as np
 import scipy
 import scipy.linalg as sla
@@ -37,6 +39,27 @@ VERIFICATION_PATH = HERE / "VERIFICATION.md"
 REQUIREMENTS_PATH = HERE / "requirements.txt"
 NUMERICAL_TOKEN = r"\status{NUMERICAL}"
 FLOAT_TOL = 1.0e-10
+FACTORIZATION_PROTOCOL_SEED = 20260803
+FACTORIZATION_PROTOCOL_CONDITIONS = (
+    1.0,
+    1.0e2,
+    1.0e4,
+    1.0e6,
+    1.0e8,
+    1.0e10,
+    1.0e12,
+    1.0e14,
+)
+FACTORIZATION_PROTOCOL_STRATUM_COUNTS = {
+    "general": 2400,
+    "exact_block_diagonal": 200,
+    "near_decoupled": 200,
+    "scale": 120,
+    "permutation": 120,
+    "nested_refinement": 80,
+    "mpmath_100_digit": 18,
+}
+FACTORIZATION_CONDITIONING_TRIGGER = 1.0e-4
 
 
 def _jsonable(value: Any) -> Any:
@@ -1274,18 +1297,806 @@ def check_cg_epsilon_divergence() -> dict[str, Any]:
     )
 
 
-def factorization_gap(lam: np.ndarray, blocks: list[list[int]]) -> float:
-    sign, logdet = np.linalg.slogdet(lam)
-    if sign <= 0:
-        raise ValueError("factorization gap requires a positive definite precision")
-    block_sum = 0.0
-    for block in blocks:
-        sub = lam[np.ix_(block, block)]
-        block_sign, block_logdet = np.linalg.slogdet(sub)
-        if block_sign <= 0:
-            raise ValueError("principal block is not positive definite")
-        block_sum += block_logdet
-    return 0.5 * float(block_sum - logdet)
+GapStep = namedtuple(
+    "GapStep",
+    (
+        "value",
+        "left_block",
+        "right_block",
+        "singular_values",
+        "scipy_singular_values",
+        "numpy_singular_values",
+        "min_one_minus_rho_squared",
+        "cholesky_residual",
+        "solve_residual",
+        "residual_tolerance",
+        "backward_error",
+        "clipping_applied",
+        "clipping_amount",
+        "residual_derived_clip_bound",
+        "boundary_fallback_applied",
+        "high_precision_fallback_applied",
+        "conditioning_triggered",
+        "precision_condition_number",
+        "boundary_acceptance_limit",
+        "evaluation_method",
+    ),
+)
+GapStep.__doc__ = "One two-block increment in a declared telescoping merge order."
+
+GapResult = namedtuple(
+    "GapResult",
+    (
+        "value",
+        "steps",
+        "merge_order",
+        "backward_error_bound",
+        "singular_values",
+        "min_one_minus_rho_squared",
+        "maximum_cholesky_residual",
+        "clipping_applied",
+        "clipping_amount",
+        "residual_derived_clip_bound",
+        "boundary_fallback_applied",
+        "high_precision_fallback_applied",
+        "conditioning_triggered",
+    ),
+)
+GapResult.__doc__ = "Stable factorization-gap value and diagnostics."
+
+FactorizationProtocolCase = namedtuple(
+    "FactorizationProtocolCase",
+    (
+        "case_id",
+        "stratum",
+        "dimension",
+        "condition_number",
+        "replica",
+        "matrix_seed",
+        "partition",
+    ),
+)
+FactorizationCaseRecord = namedtuple(
+    "FactorizationCaseRecord",
+    (
+        "case_id",
+        "stratum",
+        "dimension",
+        "condition_number",
+        "matrix_digest",
+        "partition_digest",
+        "value",
+        "backward_error_bound",
+        "clipping_applied",
+        "boundary_fallback_applied",
+        "high_precision_fallback_applied",
+    ),
+)
+FactorizationHighPrecisionControl = namedtuple(
+    "FactorizationHighPrecisionControl",
+    ("case_id", "decimal_digits", "reference_value"),
+)
+FactorizationProtocolReport = namedtuple(
+    "FactorizationProtocolReport",
+    (
+        "protocol_name",
+        "seed",
+        "schedule_digest",
+        "historical_generator_recovered",
+        "cases",
+        "high_precision_controls",
+    ),
+)
+
+
+def _validated_precision(lam: np.ndarray) -> tuple[np.ndarray, np.ndarray, float]:
+    raw = np.asarray(lam)
+    if np.iscomplexobj(raw):
+        raise TypeError("factorization gap requires a real precision matrix")
+    try:
+        matrix = np.asarray(raw, dtype=np.float64)
+    except (TypeError, ValueError) as exc:
+        raise TypeError("factorization gap requires a numeric precision matrix") from exc
+    if matrix.ndim != 2 or matrix.shape[0] != matrix.shape[1] or matrix.shape[0] == 0:
+        raise ValueError("factorization gap requires a nonempty square precision matrix")
+    if not np.isfinite(matrix).all():
+        raise ValueError("factorization gap requires finite precision entries")
+    scale = max(float(np.linalg.norm(matrix, ord="fro")), np.finfo(float).tiny)
+    symmetry_residual = float(np.linalg.norm(matrix - matrix.T, ord="fro") / scale)
+    symmetry_tolerance = 64.0 * matrix.shape[0] * np.finfo(float).eps
+    if symmetry_residual > symmetry_tolerance:
+        raise ValueError(
+            "factorization gap precision is nonsymmetric beyond its scale-aware tolerance"
+        )
+    matrix = (matrix + matrix.T) / 2.0
+    try:
+        cholesky = np.linalg.cholesky(matrix)
+    except np.linalg.LinAlgError as exc:
+        raise ValueError("factorization gap requires a positive definite precision") from exc
+    cholesky_residual = float(
+        np.linalg.norm(matrix - cholesky @ cholesky.T, ord="fro") / scale
+    )
+    if not math.isfinite(cholesky_residual):
+        raise ValueError("factorization gap Cholesky residual is nonfinite")
+    return matrix, cholesky, cholesky_residual
+
+
+def validate_partition(
+    lam: np.ndarray, blocks: Any
+) -> tuple[tuple[int, ...], ...]:
+    """Validate an SPD precision and an exact, nonempty coordinate partition."""
+
+    matrix, _, _ = _validated_precision(lam)
+    if isinstance(blocks, (str, bytes)):
+        raise TypeError("partition must be an iterable of index blocks")
+    try:
+        raw_blocks = list(blocks)
+    except TypeError as exc:
+        raise TypeError("partition must be an iterable of index blocks") from exc
+    if not raw_blocks:
+        raise ValueError("partition must contain at least one block")
+    normalized: list[tuple[int, ...]] = []
+    seen: set[int] = set()
+    for raw_block in raw_blocks:
+        if isinstance(raw_block, (str, bytes)):
+            raise TypeError("partition blocks must contain integer indices")
+        try:
+            entries = list(raw_block)
+        except TypeError as exc:
+            raise TypeError("partition blocks must be iterable") from exc
+        if not entries:
+            raise ValueError("partition blocks must be nonempty")
+        block: list[int] = []
+        for entry in entries:
+            if isinstance(entry, (bool, np.bool_)) or not isinstance(
+                entry, (int, np.integer)
+            ):
+                raise TypeError("partition indices must be integers")
+            index = int(entry)
+            if index < 0 or index >= matrix.shape[0]:
+                raise ValueError("partition index is outside the precision matrix")
+            if index in seen:
+                raise ValueError("partition blocks overlap or repeat an index")
+            seen.add(index)
+            block.append(index)
+        normalized.append(tuple(block))
+    if seen != set(range(matrix.shape[0])):
+        raise ValueError("partition must cover every precision coordinate exactly once")
+    return tuple(normalized)
+
+
+def _mp_exact_float(value: float) -> mpmath.mpf:
+    numerator, denominator = float(value).as_integer_ratio()
+    return mpmath.mpf(numerator) / denominator
+
+
+def _mp_exact_matrix(matrix: np.ndarray) -> mpmath.matrix:
+    return mpmath.matrix(
+        [[_mp_exact_float(float(value)) for value in row] for row in matrix]
+    )
+
+
+def _mp_left_solve(lower: mpmath.matrix, right: mpmath.matrix) -> mpmath.matrix:
+    solved = mpmath.matrix(lower.rows, right.cols)
+    for column in range(right.cols):
+        vector = mpmath.lu_solve(lower, right[:, column])
+        for row in range(lower.rows):
+            solved[row, column] = vector[row]
+    return solved
+
+
+def _high_precision_two_block(
+    matrix: np.ndarray,
+    left: tuple[int, ...],
+    right: tuple[int, ...],
+    *,
+    digits: int = 200,
+) -> tuple[mpmath.mpf, tuple[mpmath.mpf, ...]]:
+    """Evaluate the exact binary64 input at high precision on the fallback path."""
+
+    with mpmath.workdps(digits):
+        first = _mp_exact_matrix(matrix[np.ix_(left, left)])
+        second = _mp_exact_matrix(matrix[np.ix_(right, right)])
+        cross = _mp_exact_matrix(matrix[np.ix_(left, right)])
+        whole = _mp_exact_matrix(matrix[np.ix_(left + right, left + right)])
+        determinant_first = mpmath.det(first)
+        determinant_second = mpmath.det(second)
+        determinant_whole = mpmath.det(whole)
+        if min(determinant_first, determinant_second, determinant_whole) <= 0:
+            raise ValueError(
+                "high-precision exact-input fallback did not confirm positive definiteness"
+            )
+        mpmath.cholesky(whole)
+        left_cholesky = mpmath.cholesky(first)
+        right_cholesky = mpmath.cholesky(second)
+        left_solved = _mp_left_solve(left_cholesky, cross)
+        canonical = _mp_left_solve(right_cholesky, left_solved.T).T
+        singular = mpmath.svd(canonical, compute_uv=False)
+        rho_squared = tuple(
+            sorted(
+                (singular[index] * singular[index] for index in range(singular.rows)),
+                reverse=True,
+            )
+        )
+        if rho_squared and rho_squared[0] >= 1:
+            raise ValueError(
+                "high-precision exact-input canonical correlation is not below one"
+            )
+        gap = (
+            mpmath.log(determinant_first)
+            + mpmath.log(determinant_second)
+            - mpmath.log(determinant_whole)
+        ) / 2
+        if not mpmath.isfinite(gap) or gap < 0:
+            raise ValueError("high-precision exact-input gap is not finite and nonnegative")
+        return +gap, tuple(+value for value in rho_squared)
+
+
+def _high_precision_partition_gap(
+    matrix: np.ndarray, partition: tuple[tuple[int, ...], ...], *, digits: int
+) -> mpmath.mpf:
+    with mpmath.workdps(digits):
+        whole_matrix = _mp_exact_matrix(matrix)
+        whole = mpmath.det(whole_matrix)
+        if whole <= 0:
+            raise ValueError("high-precision protocol input is not positive definite")
+        mpmath.cholesky(whole_matrix)
+        block_log_sum = mpmath.mpf("0")
+        for block in partition:
+            block_matrix = _mp_exact_matrix(matrix[np.ix_(block, block)])
+            determinant = mpmath.det(block_matrix)
+            if determinant <= 0:
+                raise ValueError("high-precision protocol block is not positive definite")
+            mpmath.cholesky(block_matrix)
+            block_log_sum += mpmath.log(determinant)
+        return +(block_log_sum - mpmath.log(whole)) / 2
+
+
+def _outward_float_upper(value: mpmath.mpf, *, digits: int = 220) -> float:
+    with mpmath.workdps(digits):
+        if value < 0 or not mpmath.isfinite(value):
+            raise ValueError(
+                "outward upper conversion requires a finite nonnegative value"
+            )
+        rounded = float(value)
+        if _mp_exact_float(rounded) < value:
+            rounded = math.nextafter(rounded, math.inf)
+        return rounded
+
+
+def _roundoff_scale(*values: float, dimension: int, multiplier: float = 64.0) -> float:
+    magnitude = max((abs(float(value)) for value in values), default=0.0)
+    magnitude = max(magnitude, np.finfo(float).tiny)
+    return multiplier * max(1, dimension) * np.finfo(float).eps * magnitude
+
+
+def _step_result(step: GapStep) -> GapResult:
+    return GapResult(
+        value=step.value,
+        steps=(step,),
+        merge_order=((step.left_block, step.right_block, step.left_block + step.right_block),),
+        backward_error_bound=step.backward_error,
+        singular_values=(step.singular_values,),
+        min_one_minus_rho_squared=step.min_one_minus_rho_squared,
+        maximum_cholesky_residual=step.cholesky_residual,
+        clipping_applied=step.clipping_applied,
+        clipping_amount=step.clipping_amount,
+        residual_derived_clip_bound=step.residual_derived_clip_bound,
+        boundary_fallback_applied=step.boundary_fallback_applied,
+        high_precision_fallback_applied=step.high_precision_fallback_applied,
+        conditioning_triggered=step.conditioning_triggered,
+    )
+
+
+def two_block_factorization_gap(
+    lam: np.ndarray, left_block: Any, right_block: Any
+) -> GapResult:
+    """Compute a stable two-block determinant gap from canonical correlations."""
+
+    matrix, _, _ = _validated_precision(lam)
+    left, right = validate_partition(matrix, [left_block, right_block])
+    first = matrix[np.ix_(left, left)]
+    second = matrix[np.ix_(right, right)]
+    cross = matrix[np.ix_(left, right)]
+    left_cholesky = np.linalg.cholesky(first)
+    right_cholesky = np.linalg.cholesky(second)
+
+    left_solved = sla.solve_triangular(
+        left_cholesky, cross, lower=True, check_finite=False
+    )
+    canonical = sla.solve_triangular(
+        right_cholesky, left_solved.T, lower=True, check_finite=False
+    ).T
+    scipy_singular = np.asarray(sla.svdvals(canonical, check_finite=False), dtype=float)
+
+    # A second binary64 solve is a boundary diagnostic only.  The ordinary
+    # value path remains the SciPy triangular-solve construction above.
+    numpy_canonical = np.linalg.solve(left_cholesky, cross) @ np.linalg.solve(
+        right_cholesky, np.eye(right_cholesky.shape[0])
+    ).T
+    numpy_singular = np.asarray(
+        np.linalg.svd(numpy_canonical, compute_uv=False), dtype=float
+    )
+    if not np.isfinite(scipy_singular).all() or not np.isfinite(numpy_singular).all():
+        raise ValueError("factorization gap produced a nonfinite singular value")
+    scipy_squared = scipy_singular * scipy_singular
+    numpy_squared = numpy_singular * numpy_singular
+    raw_max_squared = max(
+        float(np.max(scipy_squared, initial=0.0)),
+        float(np.max(numpy_squared, initial=0.0)),
+    )
+    boundary_acceptance_limit = float(
+        64.0 * matrix.shape[0] * np.finfo(float).eps
+    )
+    precision_condition_number = float(np.linalg.cond(matrix, p=2))
+    if not math.isfinite(precision_condition_number):
+        raise ValueError("factorization gap precision condition number is nonfinite")
+    conditioning_triggered = bool(
+        precision_condition_number * np.finfo(float).eps
+        >= FACTORIZATION_CONDITIONING_TRIGGER
+    )
+
+    first_scale = max(float(np.linalg.norm(first, ord=np.inf)), np.finfo(float).tiny)
+    second_scale = max(float(np.linalg.norm(second, ord=np.inf)), np.finfo(float).tiny)
+    cholesky_residual = max(
+        float(
+            np.linalg.norm(first - left_cholesky @ left_cholesky.T, ord=np.inf)
+            / first_scale
+        ),
+        float(
+            np.linalg.norm(second - right_cholesky @ right_cholesky.T, ord=np.inf)
+            / second_scale
+        ),
+    )
+    solve_scale = max(
+        float(np.linalg.norm(left_cholesky, ord=np.inf))
+        * float(np.linalg.norm(canonical, ord=np.inf))
+        * float(np.linalg.norm(right_cholesky.T, ord=np.inf))
+        + float(np.linalg.norm(cross, ord=np.inf)),
+        np.finfo(float).tiny,
+    )
+    solve_residual = float(
+        np.linalg.norm(
+            left_cholesky @ canonical @ right_cholesky.T - cross, ord=np.inf
+        )
+        / solve_scale
+    )
+    unit_roundoff = np.finfo(float).eps / 2.0
+    gamma_n = matrix.shape[0] * unit_roundoff / (
+        1.0 - matrix.shape[0] * unit_roundoff
+    )
+    residual_tolerance = float(64.0 * gamma_n)
+    if (
+        not math.isfinite(cholesky_residual)
+        or not math.isfinite(solve_residual)
+        or cholesky_residual > residual_tolerance
+        or solve_residual > residual_tolerance
+    ):
+        raise ValueError(
+            "Cholesky or triangular-solve residual exceeds its local backward-health tolerance"
+        )
+    backward_error = math.nextafter(
+        max(cholesky_residual, solve_residual),
+        math.inf,
+    )
+
+    raw_margin = 1.0 - raw_max_squared
+    boundary_fallback = bool(raw_margin <= boundary_acceptance_limit)
+    exact_block_diagonal = not np.count_nonzero(cross)
+    high_precision_fallback = boundary_fallback or (
+        conditioning_triggered and not exact_block_diagonal
+    )
+    clipping_amount = max(0.0, raw_max_squared - 1.0)
+    clipping_applied = clipping_amount > 0.0
+    residual_derived_clip_bound = 0.0
+    if boundary_fallback:
+        high_precision_gap, exact_squared = _high_precision_two_block(
+            matrix, left, right, digits=200
+        )
+        with mpmath.workdps(220):
+            exact_max_squared = (
+                exact_squared[0] if exact_squared else mpmath.mpf("0")
+            )
+            raw_max_exact = _mp_exact_float(raw_max_squared)
+            evaluation_discrepancy = abs(raw_max_exact - exact_max_squared)
+            residual_derived_clip_bound = _outward_float_upper(
+                evaluation_discrepancy, digits=220
+            )
+            if clipping_applied and evaluation_discrepancy > _mp_exact_float(
+                boundary_acceptance_limit
+            ):
+                raise ValueError(
+                    "binary64 canonical-correlation discrepancy exceeds the operational boundary guard"
+                )
+            min_one_minus = float(mpmath.mpf(1) - exact_max_squared)
+        if clipping_applied and clipping_amount > residual_derived_clip_bound:
+            raise ValueError(
+                "binary64 canonical-correlation excursion exceeds its exact-input allowance"
+            )
+        value = float(high_precision_gap)
+        evaluation_method = "exact-binary64-mpmath-200d-boundary-fallback"
+    elif exact_block_diagonal:
+        value = 0.0
+        min_one_minus = 1.0
+        evaluation_method = "exact-zero-cross-block-control"
+    elif conditioning_triggered:
+        value = float(
+            _high_precision_partition_gap(matrix, (left, right), digits=200)
+        )
+        min_one_minus = float(np.min(1.0 - scipy_squared, initial=1.0))
+        evaluation_method = "exact-binary64-mpmath-200d-conditioning-fallback"
+    else:
+        if raw_max_squared >= 1.0:
+            raise ValueError("canonical correlation lies outside the log1p domain")
+        value = -0.5 * math.fsum(math.log1p(-float(square)) for square in scipy_squared)
+        min_one_minus = float(np.min(1.0 - scipy_squared, initial=1.0))
+        evaluation_method = "scipy-cholesky-triangular-solve-svd-log1p"
+    if not math.isfinite(value) or value < 0.0 or min_one_minus <= 0.0:
+        raise ValueError("factorization gap evaluation left its finite positive domain")
+
+    step = GapStep(
+        value=value,
+        left_block=left,
+        right_block=right,
+        singular_values=tuple(float(value) for value in scipy_singular),
+        scipy_singular_values=tuple(float(value) for value in scipy_singular),
+        numpy_singular_values=tuple(float(value) for value in numpy_singular),
+        min_one_minus_rho_squared=min_one_minus,
+        cholesky_residual=cholesky_residual,
+        solve_residual=solve_residual,
+        residual_tolerance=residual_tolerance,
+        backward_error=backward_error,
+        clipping_applied=clipping_applied,
+        clipping_amount=clipping_amount,
+        residual_derived_clip_bound=residual_derived_clip_bound,
+        boundary_fallback_applied=boundary_fallback,
+        high_precision_fallback_applied=high_precision_fallback,
+        conditioning_triggered=conditioning_triggered,
+        precision_condition_number=precision_condition_number,
+        boundary_acceptance_limit=boundary_acceptance_limit,
+        evaluation_method=evaluation_method,
+    )
+    return _step_result(step)
+
+
+def factorization_gap(lam: np.ndarray, blocks: Any) -> GapResult:
+    """Telescope stable two-block increments along the declared block order."""
+
+    matrix, _, _ = _validated_precision(lam)
+    partition = validate_partition(matrix, blocks)
+    if len(partition) == 1:
+        return GapResult(
+            value=0.0,
+            steps=(),
+            merge_order=(),
+            backward_error_bound=0.0,
+            singular_values=(),
+            min_one_minus_rho_squared=1.0,
+            maximum_cholesky_residual=0.0,
+            clipping_applied=False,
+            clipping_amount=0.0,
+            residual_derived_clip_bound=0.0,
+            boundary_fallback_applied=False,
+            high_precision_fallback_applied=False,
+            conditioning_triggered=False,
+        )
+
+    merged = partition[0]
+    steps: list[GapStep] = []
+    merge_order: list[
+        tuple[tuple[int, ...], tuple[int, ...], tuple[int, ...]]
+    ] = []
+    for current in partition[1:]:
+        combined = merged + current
+        submatrix = matrix[np.ix_(combined, combined)]
+        local_left = tuple(range(len(merged)))
+        local_right = tuple(range(len(merged), len(combined)))
+        local = two_block_factorization_gap(submatrix, local_left, local_right)
+        step = local.steps[0]._replace(left_block=merged, right_block=current)
+        steps.append(step)
+        merge_order.append((merged, current, combined))
+        merged = combined
+
+    total = math.fsum(step.value for step in steps)
+    backward_error_bound = math.fsum(step.backward_error for step in steps)
+    return GapResult(
+        value=total,
+        steps=tuple(steps),
+        merge_order=tuple(merge_order),
+        backward_error_bound=backward_error_bound,
+        singular_values=tuple(step.singular_values for step in steps),
+        min_one_minus_rho_squared=min(
+            step.min_one_minus_rho_squared for step in steps
+        ),
+        maximum_cholesky_residual=max(step.cholesky_residual for step in steps),
+        clipping_applied=any(step.clipping_applied for step in steps),
+        clipping_amount=max(step.clipping_amount for step in steps),
+        residual_derived_clip_bound=max(
+            step.residual_derived_clip_bound for step in steps
+        ),
+        boundary_fallback_applied=any(
+            step.boundary_fallback_applied for step in steps
+        ),
+        high_precision_fallback_applied=any(
+            step.high_precision_fallback_applied for step in steps
+        ),
+        conditioning_triggered=any(step.conditioning_triggered for step in steps),
+    )
+
+
+def _factorization_case_seed(
+    case_id: str, dimension: int, condition_number: float, stratum: str, *, seed: int
+) -> int:
+    material = (
+        f"{seed}|{case_id}|{dimension}|{condition_number:.17g}|{stratum}".encode()
+    )
+    return int.from_bytes(hashlib.sha256(material).digest()[:8], "big", signed=False)
+
+
+def _factorization_partition(
+    dimension: int, stratum: str
+) -> tuple[tuple[int, ...], ...]:
+    if stratum == "nested_refinement" and dimension >= 3:
+        cut = max(1, dimension // 3)
+        return (
+            tuple(range(cut)),
+            tuple(range(cut, 2 * cut)),
+            tuple(range(2 * cut, dimension)),
+        )
+    cut = dimension // 2
+    return (tuple(range(cut)), tuple(range(cut, dimension)))
+
+
+def _default_factorization_schedule(
+    seed: int,
+) -> tuple[FactorizationProtocolCase, ...]:
+    cases: list[FactorizationProtocolCase] = []
+    for dimension in range(2, 17):
+        for condition_number in FACTORIZATION_PROTOCOL_CONDITIONS:
+            for replica in range(20):
+                case_id = (
+                    f"general-d{dimension}-c{condition_number:.0e}-r{replica:02d}"
+                )
+                stratum = "general"
+                cases.append(
+                    FactorizationProtocolCase(
+                        case_id=case_id,
+                        stratum=stratum,
+                        dimension=dimension,
+                        condition_number=condition_number,
+                        replica=replica,
+                        matrix_seed=_factorization_case_seed(
+                            case_id,
+                            dimension,
+                            condition_number,
+                            stratum,
+                            seed=seed,
+                        ),
+                        partition=_factorization_partition(dimension, stratum),
+                    )
+                )
+    for stratum, count in FACTORIZATION_PROTOCOL_STRATUM_COUNTS.items():
+        if stratum == "general":
+            continue
+        for replica in range(count):
+            dimension = 2 + replica % 15
+            condition_number = FACTORIZATION_PROTOCOL_CONDITIONS[
+                replica % len(FACTORIZATION_PROTOCOL_CONDITIONS)
+            ]
+            case_id = f"{stratum}-{replica:03d}"
+            cases.append(
+                FactorizationProtocolCase(
+                    case_id=case_id,
+                    stratum=stratum,
+                    dimension=dimension,
+                    condition_number=condition_number,
+                    replica=replica,
+                    matrix_seed=_factorization_case_seed(
+                        case_id,
+                        dimension,
+                        condition_number,
+                        stratum,
+                        seed=seed,
+                    ),
+                    partition=_factorization_partition(dimension, stratum),
+                )
+            )
+    if len(cases) != 3138:
+        raise RuntimeError("factorization protocol schedule is not exactly 3,138 cases")
+    return tuple(cases)
+
+
+def _regenerate_factorization_case(
+    case: Any, *, seed: int
+) -> tuple[np.ndarray, tuple[tuple[int, ...], ...]]:
+    expected_seed = _factorization_case_seed(
+        case.case_id,
+        int(case.dimension),
+        float(case.condition_number),
+        case.stratum,
+        seed=seed,
+    )
+    if int(case.matrix_seed) != expected_seed:
+        raise ValueError(f"factorization protocol seed mismatch for {case.case_id}")
+    rng = np.random.default_rng(expected_seed)
+    dimension = int(case.dimension)
+    condition_number = float(case.condition_number)
+    spectrum = np.geomspace(1.0, 1.0 / condition_number, dimension)
+    partition = _factorization_partition(dimension, case.stratum)
+    if tuple(tuple(int(index) for index in block) for block in case.partition) != partition:
+        raise ValueError(f"factorization protocol partition mismatch for {case.case_id}")
+    if case.stratum == "exact_block_diagonal":
+        generated_blocks = []
+        for indices in partition:
+            orthogonal, _ = np.linalg.qr(
+                rng.standard_normal((len(indices), len(indices)))
+            )
+            generated_blocks.append(
+                orthogonal
+                @ np.diag(
+                    np.geomspace(1.0, 1.0 / condition_number, len(indices))
+                )
+                @ orthogonal.T
+            )
+        matrix = np.zeros((dimension, dimension))
+        offset = 0
+        for block in generated_blocks:
+            size = block.shape[0]
+            matrix[offset : offset + size, offset : offset + size] = block
+            offset += size
+    else:
+        orthogonal, _ = np.linalg.qr(rng.standard_normal((dimension, dimension)))
+        matrix = orthogonal @ np.diag(spectrum) @ orthogonal.T
+        if case.stratum == "near_decoupled":
+            block_diagonal = np.zeros_like(matrix)
+            for indices in partition:
+                block_diagonal[np.ix_(indices, indices)] = matrix[
+                    np.ix_(indices, indices)
+                ]
+            matrix = (
+                0.999 * block_diagonal
+                + 0.001 * matrix
+                + np.eye(dimension) * 1.0e-12
+            )
+        elif case.stratum == "scale":
+            matrix *= 10.0 ** ((int(case.replica) % 7) - 3)
+        elif case.stratum == "permutation":
+            permutation = rng.permutation(dimension)
+            matrix = matrix[np.ix_(permutation, permutation)]
+            inverse_permutation = np.argsort(permutation)
+            partition = tuple(
+                tuple(
+                    sorted(
+                        int(index) for index in inverse_permutation[list(indices)]
+                    )
+                )
+                for indices in partition
+            )
+    matrix = (matrix + matrix.T) / 2.0
+    np.linalg.cholesky(matrix)
+    return matrix, partition
+
+
+def _factorization_matrix_digest(matrix: np.ndarray) -> str:
+    return hashlib.sha256(
+        np.ascontiguousarray(matrix, dtype=np.float64).tobytes()
+    ).hexdigest()
+
+
+def _factorization_partition_digest(
+    partition: tuple[tuple[int, ...], ...]
+) -> str:
+    normalized = tuple(
+        tuple(int(index) for index in block) for block in partition
+    )
+    return hashlib.sha256(
+        json.dumps(normalized, separators=(",", ":")).encode()
+    ).hexdigest()
+
+
+def run_factorization_gap_protocol(
+    *, seed: int = FACTORIZATION_PROTOCOL_SEED, schedule: Any = None
+) -> FactorizationProtocolReport:
+    """Run the frozen, case-bound 3,138-case factorization-gap protocol."""
+
+    if seed != FACTORIZATION_PROTOCOL_SEED:
+        raise ValueError(
+            f"factorization protocol seed must be {FACTORIZATION_PROTOCOL_SEED}"
+        )
+    cases = (
+        tuple(schedule)
+        if schedule is not None
+        else _default_factorization_schedule(seed)
+    )
+    if len(cases) != 3138:
+        raise ValueError("factorization protocol requires exactly 3,138 cases")
+    case_ids = [case.case_id for case in cases]
+    if len(set(case_ids)) != len(case_ids):
+        raise ValueError("factorization protocol case identities must be unique")
+    stratum_counts = {
+        name: sum(case.stratum == name for case in cases)
+        for name in FACTORIZATION_PROTOCOL_STRATUM_COUNTS
+    }
+    if stratum_counts != FACTORIZATION_PROTOCOL_STRATUM_COUNTS:
+        raise ValueError(
+            "factorization protocol stratum counts do not match the frozen schedule"
+        )
+    for stratum in FACTORIZATION_PROTOCOL_STRATUM_COUNTS:
+        stratum_cases = [case for case in cases if case.stratum == stratum]
+        if {int(case.dimension) for case in stratum_cases} != set(range(2, 17)):
+            raise ValueError(
+                f"factorization protocol stratum {stratum} omits a dimension"
+            )
+        if {
+            float(case.condition_number) for case in stratum_cases
+        } != set(FACTORIZATION_PROTOCOL_CONDITIONS):
+            raise ValueError(
+                f"factorization protocol stratum {stratum} omits a condition tier"
+            )
+    schedule_payload = []
+    for case in cases:
+        if is_dataclass(case):
+            schedule_payload.append(asdict(case))
+        else:
+            schedule_payload.append(
+                {
+                    name: getattr(case, name)
+                    for name in (
+                        "case_id",
+                        "stratum",
+                        "dimension",
+                        "condition_number",
+                        "replica",
+                        "matrix_seed",
+                        "partition",
+                    )
+                }
+            )
+    schedule_digest = hashlib.sha256(
+        json.dumps(schedule_payload, sort_keys=True).encode()
+    ).hexdigest()
+
+    records: list[FactorizationCaseRecord] = []
+    controls: list[FactorizationHighPrecisionControl] = []
+    for case in cases:
+        matrix, partition = _regenerate_factorization_case(case, seed=seed)
+        gap = factorization_gap(matrix, partition)
+        records.append(
+            FactorizationCaseRecord(
+                case_id=case.case_id,
+                stratum=case.stratum,
+                dimension=int(case.dimension),
+                condition_number=float(case.condition_number),
+                matrix_digest=_factorization_matrix_digest(matrix),
+                partition_digest=_factorization_partition_digest(partition),
+                value=gap.value,
+                backward_error_bound=gap.backward_error_bound,
+                clipping_applied=gap.clipping_applied,
+                boundary_fallback_applied=gap.boundary_fallback_applied,
+                high_precision_fallback_applied=gap.high_precision_fallback_applied,
+            )
+        )
+        if case.stratum == "mpmath_100_digit":
+            with mpmath.workdps(100):
+                reference = _high_precision_partition_gap(
+                    matrix, partition, digits=100
+                )
+                reference_text = mpmath.nstr(reference, n=100)
+            controls.append(
+                FactorizationHighPrecisionControl(
+                    case_id=case.case_id,
+                    decimal_digits=100,
+                    reference_value=reference_text,
+                )
+            )
+    return FactorizationProtocolReport(
+        protocol_name="new-deterministic-factorization-gap-3138",
+        seed=seed,
+        schedule_digest=schedule_digest,
+        historical_generator_recovered=False,
+        cases=tuple(records),
+        high_precision_controls=tuple(controls),
+    )
 
 
 def check_cg_factor_gap() -> dict[str, Any]:
@@ -1301,7 +2112,8 @@ def check_cg_factor_gap() -> dict[str, Any]:
         np.linalg.inv(lam[np.ix_(block, block)]) for block in fine_blocks
     ]
     optimum_covariance = sla.block_diag(*optimum_blocks)
-    analytic_gap = factorization_gap(lam, fine_blocks)
+    analytic_gap_result = factorization_gap(lam, fine_blocks)
+    analytic_gap = analytic_gap_result.value
     direct_optimum_kl = gaussian_kl(
         target_mean,
         optimum_covariance,
@@ -1309,10 +2121,16 @@ def check_cg_factor_gap() -> dict[str, Any]:
         target_covariance,
     )
     optimum_residual = abs(analytic_gap - direct_optimum_kl)
+    optimum_tolerance = (
+        analytic_gap_result.backward_error_bound
+        + _roundoff_scale(
+            analytic_gap, direct_optimum_kl, dimension=n, multiplier=256.0
+        )
+    )
 
     perturbation_draws = 5000
-    improvement_tolerance = 1.0e-10
     perturbation_deltas: list[float] = []
+    perturbation_tolerances: list[float] = []
     for _ in range(perturbation_draws):
         perturbed_blocks = []
         for optimum_block in optimum_blocks:
@@ -1332,8 +2150,14 @@ def check_cg_factor_gap() -> dict[str, Any]:
             target_covariance,
         )
         perturbation_deltas.append(perturbed_kl - direct_optimum_kl)
+        perturbation_tolerances.append(
+            _roundoff_scale(
+                perturbed_kl, direct_optimum_kl, dimension=n, multiplier=256.0
+            )
+        )
     improving_perturbations = sum(
-        delta < -improvement_tolerance for delta in perturbation_deltas
+        delta < -tolerance
+        for delta, tolerance in zip(perturbation_deltas, perturbation_tolerances)
     )
 
     partitions = [
@@ -1344,12 +2168,40 @@ def check_cg_factor_gap() -> dict[str, Any]:
         [[0, 1, 2, 3], [4, 5], [6, 7]],
         [list(range(n))],
     ]
-    gaps = [factorization_gap(lam, partition) for partition in partitions]
-    monotone = all(a + 1.0e-12 >= b for a, b in zip(gaps, gaps[1:]))
+    gap_results = [factorization_gap(lam, partition) for partition in partitions]
+    gaps = [gap.value for gap in gap_results]
+    monotonicity_tolerances = [
+        left.backward_error_bound
+        + right.backward_error_bound
+        + _roundoff_scale(
+            left.value, right.value, dimension=n, multiplier=128.0
+        )
+        for left, right in zip(gap_results, gap_results[1:])
+    ]
+    monotone = all(
+        left.value + tolerance >= right.value
+        for left, right, tolerance in zip(
+            gap_results, gap_results[1:], monotonicity_tolerances
+        )
+    )
+    single_block_tolerance = (
+        gap_results[-1].backward_error_bound
+        + _roundoff_scale(gap_results[-1].value, dimension=n, multiplier=128.0)
+    )
 
     scales = [1.0, 10.0, 100.0]
-    scaled_gaps = [factorization_gap(c * lam, fine_blocks) for c in scales]
+    scaled_gap_results = [factorization_gap(c * lam, fine_blocks) for c in scales]
+    scaled_gaps = [gap.value for gap in scaled_gap_results]
     scale_spread = max(scaled_gaps) - min(scaled_gaps)
+    scale_tolerance = max(
+        first.backward_error_bound
+        + second.backward_error_bound
+        + _roundoff_scale(
+            first.value, second.value, dimension=n, multiplier=128.0
+        )
+        for first in scaled_gap_results
+        for second in scaled_gap_results
+    )
 
     q, _ = np.linalg.qr(rng.standard_normal((n, n)))
     retained_dimension = 4
@@ -1377,6 +2229,12 @@ def check_cg_factor_gap() -> dict[str, Any]:
         str(c): abs(mean_tie_costs[str(c)] - c * base_mean_tie)
         for c in scales
     }
+    mean_tie_tolerances = {
+        str(c): _roundoff_scale(
+            mean_tie_costs[str(c)], c * base_mean_tie, dimension=n, multiplier=256.0
+        )
+        for c in scales
+    }
     m = n - retained_dimension
     volume_shift_errors = {
         str(c): abs(
@@ -1384,14 +2242,51 @@ def check_cg_factor_gap() -> dict[str, Any]:
         )
         for c in scales
     }
+    volume_shift_tolerances = {
+        str(c): _roundoff_scale(
+            volume_terms[str(c)] - base_volume,
+            -0.5 * m * math.log(c),
+            dimension=n,
+            multiplier=256.0,
+        )
+        for c in scales
+    }
+    numerical_outputs_finite = all(
+        math.isfinite(value)
+        for value in (
+            analytic_gap,
+            direct_optimum_kl,
+            optimum_residual,
+            *perturbation_deltas,
+            *perturbation_tolerances,
+            *gaps,
+            *monotonicity_tolerances,
+            *scaled_gaps,
+            scale_spread,
+            scale_tolerance,
+            *mean_tie_costs.values(),
+            *mean_tie_errors.values(),
+            *mean_tie_tolerances.values(),
+            *volume_terms.values(),
+            *volume_shift_errors.values(),
+            *volume_shift_tolerances.values(),
+        )
+    )
     passed = (
-        optimum_residual <= 1.0e-11
+        numerical_outputs_finite
+        and optimum_residual <= optimum_tolerance
         and improving_perturbations == 0
         and monotone
-        and abs(gaps[-1]) <= 1.0e-12
-        and scale_spread <= 1.0e-10
-        and max(mean_tie_errors.values()) <= 1.0e-10
-        and max(volume_shift_errors.values()) <= 1.0e-10
+        and abs(gaps[-1]) <= single_block_tolerance
+        and scale_spread <= scale_tolerance
+        and all(
+            mean_tie_errors[key] <= mean_tie_tolerances[key]
+            for key in mean_tie_errors
+        )
+        and all(
+            volume_shift_errors[key] <= volume_shift_tolerances[key]
+            for key in volume_shift_errors
+        )
     )
     return result(
         "CHK-CG-FACTOR-GAP",
@@ -1415,16 +2310,25 @@ def check_cg_factor_gap() -> dict[str, Any]:
             "volume_shift": "-(m/2) log c",
         },
         tolerances={
-            "analytic_optimum_absolute": 1.0e-11,
-            "perturbation_improvement": improvement_tolerance,
-            "monotonicity_absolute": 1.0e-12,
-            "scale_identity_absolute": 1.0e-10,
+            "derivation": "accumulated factorization backward diagnostics plus endpoint-scaled binary64 roundoff",
+            "analytic_optimum": optimum_tolerance,
+            "perturbation_improvement_range": [
+                min(perturbation_tolerances),
+                max(perturbation_tolerances),
+            ],
+            "monotonicity_pairwise": monotonicity_tolerances,
+            "single_block": single_block_tolerance,
+            "scale_identity": scale_tolerance,
+            "mean_tie_identity": mean_tie_tolerances,
+            "volume_shift_identity": volume_shift_tolerances,
         },
         observed={
+            "all_numerical_outputs_finite": numerical_outputs_finite,
             "analytic_optimum": {
                 "closed_form_gap": analytic_gap,
                 "direct_KL": direct_optimum_kl,
                 "absolute_residual": optimum_residual,
+                "gap_backward_error_bound": analytic_gap_result.backward_error_bound,
             },
             "perturbation_control": {
                 "draws": perturbation_draws,
@@ -1436,10 +2340,19 @@ def check_cg_factor_gap() -> dict[str, Any]:
                 "nested_partition_gaps": gaps,
                 "nonincreasing": monotone,
                 "single_block_gap": gaps[-1],
+                "gap_backward_error_bounds": [
+                    gap.backward_error_bound for gap in gap_results
+                ],
             },
             "scale": {
                 "factorization_gaps": dict(zip(map(str, scales), scaled_gaps)),
                 "factorization_gap_spread": scale_spread,
+                "factorization_gap_backward_error_bounds": dict(
+                    zip(
+                        map(str, scales),
+                        (gap.backward_error_bound for gap in scaled_gap_results),
+                    )
+                ),
                 "mean_tie_costs": mean_tie_costs,
                 "mean_tie_linear_scaling_errors": mean_tie_errors,
                 "volume_terms": volume_terms,
@@ -1448,6 +2361,90 @@ def check_cg_factor_gap() -> dict[str, Any]:
             },
         },
         interpretation="The KL optimum is evaluated independently from the determinant formula. Seeded SPD-preserving block perturbations are a control, while universal monotonicity and scaling remain algebraic statements proved in the manuscript.",
+    )
+
+
+def check_cg_factor_gap_stress() -> dict[str, Any]:
+    protocol = run_factorization_gap_protocol()
+    records = protocol.cases
+    by_id = {record.case_id: record for record in records}
+    controls = {control.case_id: control for control in protocol.high_precision_controls}
+    control_errors: dict[str, float] = {}
+    control_tolerances: dict[str, float] = {}
+    for case_id, control in controls.items():
+        record = by_id[case_id]
+        reference = float(control.reference_value)
+        control_errors[case_id] = abs(record.value - reference)
+        control_tolerances[case_id] = max(
+            record.backward_error_bound
+            + _roundoff_scale(
+                record.value, reference, dimension=record.dimension, multiplier=256.0
+            ),
+            1.0e-4 * abs(reference),
+            2.0e-8,
+        )
+    stratum_counts = {
+        name: sum(record.stratum == name for record in records)
+        for name in FACTORIZATION_PROTOCOL_STRATUM_COUNTS
+    }
+    passed = (
+        len(records) == 3138
+        and stratum_counts == FACTORIZATION_PROTOCOL_STRATUM_COUNTS
+        and len(controls) == 18
+        and all(math.isfinite(record.value) for record in records)
+        and all(
+            control_errors[case_id] <= control_tolerances[case_id]
+            for case_id in controls
+        )
+    )
+    case_payload_digest = hashlib.sha256(
+        json.dumps(
+            [record._asdict() for record in records],
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode()
+    ).hexdigest()
+    return result(
+        "CHK-CG-FACTOR-GAP-STRESS-3138",
+        "Frozen stable Gaussian factorization-gap stress protocol",
+        ["NUM-CG-FACTOR-GAP", "NUM-CG-GAP-MONOTONE"],
+        status="PASS" if passed else "FAIL",
+        seed=protocol.seed,
+        sample_count={
+            "total_cases": len(records),
+            "strata": stratum_counts,
+            "mpmath_100_digit_controls": len(controls),
+        },
+        expected={
+            "protocol_name": "new-deterministic-factorization-gap-3138",
+            "historical_generator_recovered": False,
+            "all_values_finite": True,
+            "all_high_precision_controls_within_declared_tolerance": True,
+        },
+        tolerances={
+            "matrix_value_comparison": "max(accumulated backward diagnostics plus scaled roundoff, 1e-4 relative, 2e-8 absolute)",
+            "near_boundary_policy": "64*n*binary64 epsilon operational guard plus 200-digit exact-input evaluation; not a general perturbation theorem",
+        },
+        observed={
+            "protocol_name": protocol.protocol_name,
+            "historical_generator_recovered": protocol.historical_generator_recovered,
+            "schedule_digest": protocol.schedule_digest,
+            "case_payload_digest": case_payload_digest,
+            "stratum_counts": stratum_counts,
+            "finite_values": sum(math.isfinite(record.value) for record in records),
+            "clipping_cases": sum(record.clipping_applied for record in records),
+            "boundary_fallback_cases": sum(
+                record.boundary_fallback_applied for record in records
+            ),
+            "high_precision_fallback_cases": sum(
+                record.high_precision_fallback_applied for record in records
+            ),
+            "maximum_control_error": max(control_errors.values(), default=0.0),
+            "maximum_control_tolerance": max(
+                control_tolerances.values(), default=0.0
+            ),
+        },
+        interpretation="This is a new frozen stress protocol, not a recovered historical experiment. The 100-digit exact-input controls and boundary fallbacks are numerical evidence only.",
     )
 
 
@@ -2100,6 +3097,7 @@ CHECKS: list[Callable[[], dict[str, Any]]] = [
     check_cg_biadditive,
     check_cg_epsilon_divergence,
     check_cg_factor_gap,
+    check_cg_factor_gap_stress,
     check_cg_frame_cancellation,
     check_cg_equivariance,
     check_rg_ray_kernel,

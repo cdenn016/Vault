@@ -113,6 +113,60 @@ For nonnegativity and the equality condition, two lemmas suffice. The first is t
 \end{equation}
 with the Schur complement positive definite \citep{Zhang2005Schur}. Since $J_{21}J_{11}^{-1}J_{12}\succeq0$, that Schur complement is $\preceq J_{22}$, so the first lemma gives $\det J\leq\det J_{11}\det J_{22}$, with equality if and only if $J_{21}J_{11}^{-1}J_{12}=0$, which since $J_{11}^{-1}\succ0$ holds if and only if $J_{11}^{-1/2}J_{12}=0$, that is if and only if $J_{12}=0$. Applying this with the first block of $\mathfrak B$ against the union of the rest, and then inducting on the number of blocks, gives Equation~\eqref{eq:restrict-determinant-gap} and the stated equality condition. This is Fischer's determinant inequality for positive definite matrices \citep[\S7.8]{HornJohnson2013}. $\square$
 
+\paragraph{Canonical-correlation form and stable realization.}
+For a two-block precision, write
+\begin{equation}
+J=\begin{pmatrix}A&C\\C^\top&D\end{pmatrix},
+\qquad
+A=L_A L_A^\top,
+\qquad
+D=L_D L_D^\top,
+\qquad
+R:=L_A^{-1}C L_D^{-\top}.
+\label{eq:restrict-canonical-correlation-factor}
+\end{equation}
+Both diagonal blocks are positive definite.  The Schur complement factorizes as
+\begin{equation}
+D-C^\top A^{-1}C
+=L_D\left(I-R^\top R\right)L_D^\top,
+\qquad
+\det J=\det A\,\det D\,\det\left(I-R^\top R\right).
+\label{eq:restrict-stable-schur-factor}
+\end{equation}
+If $\rho_a$ are the singular values of $R$, positive definiteness of the
+Schur complement gives $0\leq\rho_a<1$, and the two-block increment is exactly
+\begin{equation}
+\Delta(A,D;C)
+=-\frac12\log\det\left(I-R^\top R\right)
+=-\frac12\sum_a\log\left(1-\rho_a^2\right).
+\label{eq:restrict-canonical-correlation-gap}
+\end{equation}
+For more than two blocks, successively merging the first block with the next
+block in the declared partition order telescopes these increments to
+Equation~\eqref{eq:restrict-determinant-gap}; no ordering claim beyond this
+exact telescoping identity is needed.
+
+The ordinary numerical path computes $L_A$ and $L_D$ by Cholesky
+factorization, obtains $R$ by triangular solves, computes its singular values,
+and evaluates each summand as
+\texttt{-0.5*log1p(-rho**2)}.  It neither forms $A^{-1}$ or $D^{-1}$ nor
+subtracts large floating-point log determinants.  A separate boundary policy
+handles a squared singular value within an operational $64n\epsilon_{\rm mach}$
+neighborhood of one.  There the exact stored binary64 entries are reevaluated
+at 200 decimal digits, including the determinant-gap value; a second
+binary64 solve backend makes the diagnostic the maximum excursion observed
+across the two declared binary64 backends.
+The code rejects an exact-input value outside the Schur domain and rejects a
+raw binary64 excursion above one when its discrepancy exceeds that operational
+guard.  It also uses the exact-input value path when
+$\kappa_2(J)\epsilon_{\rm mach}\geq10^{-4}$, an explicitly operational
+conditioning trigger selected for the frozen protocol rather than asserted as
+a universal error threshold.  An ill-conditioned but in-domain value is
+reevaluated rather than rejected merely for triggering that path.  These
+guarded fallbacks are declared finite-precision procedures, not theorems that
+Cholesky or solve residuals universally control canonical-correlation or gap
+forward error.
+
 \propositionheading{The optimum is dominated by the exact marginal}{prop:restrict-optimum-vs-marginal}
 For every block $b$,
 \begin{equation}
