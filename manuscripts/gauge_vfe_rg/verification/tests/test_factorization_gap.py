@@ -220,15 +220,19 @@ WITHIN_BOUND_CLIP_WITNESS = np.array([
 ])
 
 
-def canonical_correlation_and_allowance(matrix: np.ndarray) -> tuple[float, float]:
+def canonical_correlation_clip_metrics(matrix: np.ndarray) -> tuple[float, float, float]:
     np.linalg.cholesky(matrix)  # Full matrix must be numerically SPD before any clipping rule applies.
     first, second, cross = matrix[:2, :2], matrix[2:, 2:], matrix[:2, 2:]
     left, right = np.linalg.cholesky(first), np.linalg.cholesky(second)
     canonical = np.linalg.solve(left, cross) @ np.linalg.solve(right, np.eye(2)).T
     rho = float(np.linalg.svd(canonical, compute_uv=False)[0])
-    residual = np.linalg.norm(matrix - np.linalg.cholesky(matrix) @ np.linalg.cholesky(matrix).T, ord=np.inf) / np.linalg.norm(matrix, ord=np.inf)
-    allowance = 8.0 * (residual + np.finfo(float).eps) * np.linalg.cond(matrix)
-    return rho, allowance
+    rho_squared_excess = max(0.0, rho * rho - 1.0)
+    solve_residual = np.linalg.norm(cross - left @ canonical @ right.T, ord=np.inf) / np.linalg.norm(cross, ord=np.inf)
+    # Weyl's bound applies at the normalized canonical-correlation matrix.  Do
+    # not multiply by cond(matrix): this witness is intentionally nearly
+    # singular and that would turn a one-ulp excursion into an O(10) license.
+    residual_derived_bound = 16.0 * (solve_residual + np.finfo(float).eps) * max(1.0, rho * rho)
+    return rho, rho_squared_excess, residual_derived_bound
 
 
 def test_ordinary_no_clip_within_bound_clip_and_out_of_tolerance_excursion_are_not_silently_accepted():
@@ -238,15 +242,21 @@ def test_ordinary_no_clip_within_bound_clip_and_out_of_tolerance_excursion_are_n
     for step in require_field(ordinary, "steps", "ordinary no-clip"):
         assert require_field(step, "clipping_amount", "ordinary no-clip") == pytest.approx(0.0), "DEFECT [ordinary no-clip]: well-conditioned input must not clip"
         assert require_field(step, "clipping_applied", "ordinary no-clip") is False, "DEFECT [ordinary no-clip]: clipping_applied must be false"
-    rho, allowance = canonical_correlation_and_allowance(WITHIN_BOUND_CLIP_WITNESS)
-    assert rho > 1.0 and rho - 1.0 <= allowance, "DEFECT [within-bound clipping fixture]: frozen full-Cholesky SPD witness is not a within-bound excursion"
+    rho, rho_squared_excess, independent_bound = canonical_correlation_clip_metrics(WITHIN_BOUND_CLIP_WITNESS)
+    assert rho > 1.0 and 0.0 < rho_squared_excess <= independent_bound < 1.0e-12, "DEFECT [within-bound clipping fixture]: frozen SPD witness must be a one-ulp, materially bounded excursion"
     admitted = require_runner_api("factorization_gap", "within-bound clipping")(WITHIN_BOUND_CLIP_WITNESS, [[0, 1], [2, 3]])
     steps = require_field(admitted, "steps", "within-bound clipping")
     assert steps, "DEFECT [within-bound clipping]: admitted witness needs a nonempty diagnostic step list"
     for step in steps:
         clipping = require_field(step, "clipping_amount", "within-bound clipping")
         bound = require_field(step, "residual_derived_clip_bound", "within-bound clipping")
-        assert clipping <= bound, "DEFECT [within-bound clipping]: clipping exceeds independently derived backward-error bound"
+        assert require_field(step, "clipping_applied", "within-bound clipping") is True, "DEFECT [within-bound clipping]: clipping must be explicitly reported"
+        assert math.isfinite(clipping) and clipping > 0.0, "DEFECT [within-bound clipping]: clipping amount must be positive and finite"
+        assert clipping == pytest.approx(rho_squared_excess, rel=0.25, abs=0.0), "DEFECT [within-bound clipping]: clipping amount is inconsistent with measured rho^2-1"
+        assert rho_squared_excess <= bound <= independent_bound, "DEFECT [within-bound clipping]: reported clipping bound is loose or not residual-derived"
+        assert math.isfinite(require_field(step, "min_one_minus_rho_squared", "within-bound clipping")) and require_field(step, "min_one_minus_rho_squared", "within-bound clipping") > 0.0, "DEFECT [within-bound clipping]: post-clip log1p domain must be finite and positive"
+        assert math.isfinite(result_value(step, "within-bound clipping")), "DEFECT [within-bound clipping]: clipped step value must be finite"
+    assert math.isfinite(result_value(admitted, "within-bound clipping")), "DEFECT [within-bound clipping]: clipped total gap must be finite"
     excursion = np.array([[1.0, 1.0 + 1e-10], [1.0 + 1e-10, 1.0]])
     with pytest.raises((ValueError, TypeError)):
         require_runner_api("factorization_gap", "out-of-tolerance excursion")(excursion, [[0], [1]])
@@ -281,17 +291,24 @@ def test_new_protocol_records_each_case_identity_nonconstant_oracle_and_repeats_
     assert require_field(first, "cases", "repeat equality") == require_field(second, "cases", "repeat equality"), "DEFECT [repeat equality]: same seed and schedule must yield identical records"
 
 
-def test_protocol_representative_values_and_100_digit_controls_are_independent_and_case_bound():
+def test_protocol_all_3138_matrix_values_and_100_digit_controls_are_independent_and_case_bound():
     schedule = frozen_cases()
     report = require_runner_api("run_factorization_gap_protocol", "100-digit controls")(seed=PROTOCOL_SEED, schedule=schedule)
-    records = {require_field(record, "case_id", "representative record"): record for record in require_field(report, "cases", "representative records")}
-    representatives = tuple(next(case for case in schedule if case.stratum == stratum) for stratum in STRATUM_COUNTS)
-    for case in representatives:
-        observed = result_value(records[case.case_id], "representative oracle")
+    records = {require_field(record, "case_id", "full protocol record"): record for record in require_field(report, "cases", "full protocol records")}
+    assert set(records) == {case.case_id for case in schedule}, "DEFECT [full protocol oracle]: protocol records are not case-bound"
+    observed_coverage = {(case.stratum, case.dimension, case.condition_number) for case in schedule}
+    for stratum in STRATUM_COUNTS:
+        assert {dimension for observed_stratum, dimension, _ in observed_coverage if observed_stratum == stratum} == set(range(2, 17)), f"DEFECT [full protocol oracle]: {stratum} omits a declared dimension"
+        assert {condition for observed_stratum, _, condition in observed_coverage if observed_stratum == stratum} == set(CONDITIONS), f"DEFECT [full protocol oracle]: {stratum} omits a declared condition tier"
+    for case in schedule:
+        record = records[case.case_id]
+        observed = result_value(record, "full protocol oracle")
         matrix, partition = regenerate_matrix_and_partition(case)
-        assert require_field(records[case.case_id], "matrix_digest", "representative oracle") == matrix_digest(matrix), f"DEFECT [representative oracle]: {case.case_id} uses a different matrix"
-        assert require_field(records[case.case_id], "partition_digest", "representative oracle") == partition_digest(partition), f"DEFECT [representative oracle]: {case.case_id} uses a different partition"
-        assert observed == pytest.approx(independent_matrix_gap(matrix, partition), rel=1e-11, abs=1e-13), f"DEFECT [representative oracle]: {case.case_id} disagrees with independent matrix-based 100-digit value"
+        assert require_field(record, "matrix_digest", "full protocol oracle") == matrix_digest(matrix), f"DEFECT [full protocol oracle]: {case.case_id} uses a different matrix"
+        assert require_field(record, "partition_digest", "full protocol oracle") == partition_digest(partition), f"DEFECT [full protocol oracle]: {case.case_id} uses a different partition"
+        expected = independent_matrix_gap(matrix, partition)
+        assert math.isfinite(observed), f"DEFECT [full protocol oracle]: {case.case_id} emitted a nonfinite scalar"
+        assert observed == pytest.approx(expected, rel=1e-4, abs=2e-8), f"DEFECT [full protocol oracle]: {case.case_id} disagrees with its independent matrix-based 100-digit value"
     controls = require_field(report, "high_precision_controls", "100-digit controls")
     selected = [case for case in schedule if case.stratum == "mpmath_100_digit"]
     assert len(controls) == len(selected), "DEFECT [100-digit controls]: every selected case needs an evaluated control"

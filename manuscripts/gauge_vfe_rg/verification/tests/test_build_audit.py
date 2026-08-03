@@ -67,11 +67,20 @@ def validate_pdf_fixture(path: Path) -> None:
     assert b"/Type /Page /Parent 2 0 R" in raw and b"stream\nBT /F1 12 Tf" in raw and b"endstream" in raw, "DEFECT [PDF fixture]: page content stream is malformed"
 
 
+def validate_tex_fixture(root: Path, build: Path) -> None:
+    source = (root / "main.tex").read_text(encoding="utf-8")
+    auxiliary = (build / "main.aux").read_text(encoding="utf-8")
+    bibliography = (build / "main.bbl").read_text(encoding="utf-8")
+    assert r"\n" not in source and source.count("\n") == 4, "DEFECT [TeX fixture]: source must use actual line breaks and contain no literal \\n command"
+    assert r"\label{one}" in source and r"\newlabel{one}" in auxiliary, "DEFECT [TeX fixture]: source and auxiliary label records disagree"
+    assert r"\cite{x}" in source and r"\bibitem{x}" in bibliography, "DEFECT [TeX fixture]: source and bibliography citation records disagree"
+
+
 def artifacts(tmp_path: Path, log: str | None = None) -> tuple[Path, Path, dict[str, object]]:
     root, build = tmp_path / "repo", tmp_path / "build"
     root.mkdir()
     build.mkdir()
-    (root / "main.tex").write_text("\\documentclass{article}\n\\begin{document}\n\\label{one}Audit~\\cite{x}.\\n\\end{document}\n", encoding="utf-8")
+    (root / "main.tex").write_text("\\documentclass{article}\n\\begin{document}\n\\label{one}Audit~\\cite{x}.\n\\end{document}\n", encoding="utf-8")
     pdf_bytes = one_page_pdf()
     (build / "main.pdf").write_bytes(pdf_bytes)
     validate_pdf_fixture(build / "main.pdf")
@@ -81,6 +90,7 @@ def artifacts(tmp_path: Path, log: str | None = None) -> tuple[Path, Path, dict[
     (build / "main.aux").write_text("\\relax \n\\newlabel{one}{{1}{1}}\n", encoding="utf-8")
     (build / "main.bbl").write_text("\\begin{thebibliography}{1}\n\\bibitem{x} X.\n\\end{thebibliography}\n", encoding="utf-8")
     (build / "main.toc").write_text("\\contentsline {section}{Audit}{1}{}%\n", encoding="utf-8")
+    validate_tex_fixture(root, build)
     commands = [
         {"argv": ["pdflatex", "-interaction=nonstopmode", "main.tex"], "returncode": 0, "tool_version": "fixture-pdftex-1"},
         {"argv": ["bibtex", "main"], "returncode": 0, "tool_version": "fixture-bibtex-1"},
