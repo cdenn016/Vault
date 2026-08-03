@@ -5,7 +5,7 @@ aliases: [field/cs-ml, CS-ML sources, Machine learning MOC, CS/ML MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-08-03
 ---
 
 # CS-ML MOC
@@ -13,7 +13,7 @@ updated: 2026-06-19
 > Map of Content for the **`field/cs-ml`** discipline facet (computer science & machine learning).
 > Auto-populated by the **Bases** core plugin from the `field/*` tags.
 
-Computer science & machine learning (**80** sources) covers the transformer / attention literature
+Computer science & machine learning (**259** sources) covers the transformer / attention literature
 (in [[Attention mechanisms — theory and positional structure|attention]] and
 [[Transformer interpretability and scaling]]), neural-network optimization and information-bottleneck
 theory, and computational network science.
