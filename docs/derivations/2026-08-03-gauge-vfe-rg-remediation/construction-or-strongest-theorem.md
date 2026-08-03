@@ -27,7 +27,7 @@ At a finite interaction scale whose normalized law is equivalent to the declared
 
 $$
 M_\ell(g_\ell)
-=P_{\ell+1}\overline U_\ell(g_\ell)E_\ell,
+=P_{\ell+1}\overline U_\ell(E_\ell g_\ell),
 $$
 
 while a retained projection is separately
