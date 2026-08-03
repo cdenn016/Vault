@@ -67,18 +67,26 @@ def test_each_real_bound_file_byte_mutation_is_rejected(tmp_path: Path, relative
     assert_rejected(result, root, f"byte mutation {relative}")
 
 
-@pytest.mark.parametrize("kind", ["malformed", "missing", "extra", "newline", "semantic", "unknown_check", "duplicate_check", "revision", "nan", "infinity"])
+@pytest.mark.parametrize("kind", ["malformed", "missing_bound_file", "extra_bound_file", "missing_result_field", "extra_result_field", "newline", "semantic", "unknown_check", "duplicate_check", "revision", "nan", "infinity"])
 def test_real_tree_and_result_mutations_fail_closed(tmp_path: Path, kind: str):
     root, result = tree(tmp_path), tmp_path / "result.json"
     document = golden(root, result)
     if kind == "malformed":
         (root / "manuscripts/gauge_vfe_rg/verification/claims.json").write_text("{", encoding="utf-8")
-    elif kind == "missing":
+    elif kind == "missing_bound_file":
         (root / BOUND_FILES[0]).unlink()
-    elif kind == "extra":
+    elif kind == "extra_bound_file":
         extra = root / "manuscripts/gauge_vfe_rg/chapters/unexpected.tex"
         extra.parent.mkdir(parents=True, exist_ok=True)
         extra.write_text("unexpected\n", encoding="utf-8")
+    elif kind == "missing_result_field":
+        required = next((field for field in ("source_revision", "semantic_payload_digest", "checks") if field in document), None)
+        assert required is not None, "DEFECT [missing result field fixture]: build_result must emit a required result field"
+        document.pop(required)
+        result.write_text(json.dumps(document) + "\n", encoding="utf-8")
+    elif kind == "extra_result_field":
+        document["unrecognized_result_field"] = {"must": "fail closed"}
+        result.write_text(json.dumps(document) + "\n", encoding="utf-8")
     elif kind == "newline":
         path = root / BOUND_FILES[0]
         path.write_bytes(path.read_bytes().replace(b"\n", b"\r\n"))

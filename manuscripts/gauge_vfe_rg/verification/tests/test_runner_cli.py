@@ -8,6 +8,7 @@ import json
 import shutil
 import subprocess
 import sys
+import threading
 from pathlib import Path
 
 import pytest
@@ -33,6 +34,13 @@ def runner_api(name: str, defect: str):
 
 def files(root: Path) -> dict[str, str]:
     return {path.relative_to(root).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest() for path in sorted(root.rglob("*")) if path.is_file()}
+
+
+def assert_only_report_added(before: dict[str, str], after: dict[str, str], report: Path, defect: str) -> None:
+    expected = dict(before)
+    expected[report.name] = after.get(report.name, "")
+    assert report.name in after, f"DEFECT [{defect}]: explicit report was not written"
+    assert after == expected, f"DEFECT [{defect}]: verify changed existing bytes or wrote outside its explicit report"
 
 
 def invoke(root: Path, *args: str) -> subprocess.CompletedProcess[str]:
@@ -80,7 +88,7 @@ def test_update_then_verify_preserves_result_and_writes_only_explicit_report(tmp
     verify = invoke(root, "--verify", str(result), "--report", str(report))
     assert verify.returncode == 0, f"DEFECT [verify]: positional --verify RESULT failed: {verify.stderr}"
     assert result.read_bytes() == before, "DEFECT [verify immutability]: verify rewrote its input result"
-    assert set(files(tmp_path)) - set(before_inventory) == {"report.json"}, "DEFECT [verify writes]: only explicit report may be created"
+    assert_only_report_added(before_inventory, files(tmp_path), report, "verify writes")
 
 
 @pytest.mark.parametrize("corruption", ["newline", "semantic", "revision", "nan", "infinity"])
@@ -103,7 +111,7 @@ def test_each_real_result_corruption_fails_without_mutating_input_or_other_files
     verify = invoke(root, "--verify", str(result), "--report", str(report))
     assert verify.returncode != 0, f"DEFECT [{corruption}]: verifier accepted a real corrupted result"
     assert result.read_bytes() == before, f"DEFECT [{corruption}]: verifier rewrote corrupted input"
-    assert set(files(tmp_path)) - set(inventory) == {report.name}, f"DEFECT [{corruption}]: verify wrote beyond explicit report"
+    assert_only_report_added(inventory, files(tmp_path), report, f"{corruption} immutability")
 
 
 def test_atomic_update_replaces_sentinel_and_failure_leaves_sentinel_and_no_temp_leak(tmp_path: Path):
@@ -114,17 +122,32 @@ def test_atomic_update_replaces_sentinel_and_failure_leaves_sentinel_and_no_temp
     assert not list(tmp_path.glob("*.tmp")), "DEFECT [atomic replace]: successful replacement leaked a temporary file"
 
 
-def test_atomic_write_failure_preserves_existing_bytes_and_removes_staged_temp(tmp_path: Path, monkeypatch):
+def test_public_atomic_write_is_all_or_nothing_under_success_serialization_failure_and_reader_race(tmp_path: Path):
     target = tmp_path / "result.json"
-    target.write_bytes(b"SENTINEL")
-    loaded = runner_module()
-    atomic_write = getattr(loaded, "atomic_write_json", None)
-    assert callable(atomic_write), "DEFECT [interrupted update]: run_checks.py must export atomic_write_json"
-    assert hasattr(loaded, "os"), "DEFECT [interrupted update]: atomic replacement must use an interceptable os.replace boundary"
-    def interrupted_replace(*_args):
-        raise OSError("simulated replacement interruption")
-    monkeypatch.setattr(loaded.os, "replace", interrupted_replace)
-    with pytest.raises(OSError):
-        atomic_write(target, {"replacement": True})
-    assert target.read_bytes() == b"SENTINEL", "DEFECT [interrupted update]: failed replacement changed original bytes"
-    assert not list(tmp_path.glob("*.tmp")), "DEFECT [interrupted update]: failed replacement leaked temporary bytes"
+    target.write_text(json.dumps({"state": "old"}), encoding="utf-8")
+    atomic_write = runner_api("atomic_write_json", "public atomic write")
+    observed_errors: list[str] = []
+    start, stop = threading.Event(), threading.Event()
+
+    def reader() -> None:
+        start.wait()
+        while not stop.is_set():
+            try:
+                json.loads(target.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError) as exc:
+                observed_errors.append(type(exc).__name__)
+
+    thread = threading.Thread(target=reader, daemon=True)
+    thread.start()
+    start.set()
+    atomic_write(target, {"state": "new", "payload": "x" * 1_000_000})
+    stop.set()
+    thread.join(timeout=2)
+    assert not thread.is_alive(), "DEFECT [public atomic write]: reader thread did not terminate"
+    assert json.loads(target.read_text(encoding="utf-8"))["state"] == "new", "DEFECT [public atomic write]: successful write did not replace the document"
+    assert not observed_errors, f"DEFECT [public atomic write]: reader observed partial JSON: {observed_errors}"
+    before_failure = target.read_bytes()
+    with pytest.raises((TypeError, ValueError)):
+        atomic_write(target, {"unserializable": object()})
+    assert target.read_bytes() == before_failure, "DEFECT [serialization failure]: failed public write changed existing bytes"
+    assert list(tmp_path.iterdir()) == [target], "DEFECT [serialization failure]: failed public write leaked temporary files"
