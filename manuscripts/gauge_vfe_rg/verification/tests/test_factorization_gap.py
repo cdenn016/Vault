@@ -35,7 +35,8 @@ class FrozenCase:
     dimension: int
     condition_number: float
     replica: int
-    rho: float
+    matrix_seed: int
+    partition: tuple[tuple[int, ...], ...]
 
 
 def runner_module():
@@ -57,9 +58,76 @@ def require_field(value, name: str, defect: str):
     return getattr(value, name)
 
 
-def rho_for(index: int) -> float:
-    # Identity-stable, nonconstant inputs that remain safely SPD.
-    return 0.05 + 0.80 * ((index * 37 + 11) % 997) / 996
+def case_seed(case_id: str, dimension: int, condition_number: float, stratum: str) -> int:
+    material = f"{PROTOCOL_SEED}|{case_id}|{dimension}|{condition_number:.17g}|{stratum}".encode()
+    return int.from_bytes(hashlib.sha256(material).digest()[:8], "big", signed=False)
+
+
+def partition_for(dimension: int, stratum: str) -> tuple[tuple[int, ...], ...]:
+    if stratum == "nested_refinement" and dimension >= 3:
+        cut = max(1, dimension // 3)
+        return (tuple(range(cut)), tuple(range(cut, 2 * cut)), tuple(range(2 * cut, dimension)))
+    cut = dimension // 2
+    return (tuple(range(cut)), tuple(range(cut, dimension)))
+
+
+def make_case(case_id: str, stratum: str, dimension: int, condition_number: float, replica: int) -> FrozenCase:
+    return FrozenCase(case_id, stratum, dimension, condition_number, replica, case_seed(case_id, dimension, condition_number, stratum), partition_for(dimension, stratum))
+
+
+def regenerate_matrix_and_partition(case: FrozenCase) -> tuple[np.ndarray, tuple[tuple[int, ...], ...]]:
+    """Independent test oracle: all numerical inputs come from frozen identity fields."""
+    seed = case_seed(case.case_id, case.dimension, case.condition_number, case.stratum)
+    assert seed == case.matrix_seed, "DEFECT [case matrix seed]: frozen case has an unbound matrix seed"
+    rng = np.random.default_rng(seed)
+    spectrum = np.geomspace(1.0, 1.0 / case.condition_number, case.dimension)
+    partition = partition_for(case.dimension, case.stratum)
+    if case.stratum == "exact_block_diagonal":
+        blocks = []
+        for indices in partition:
+            q, _ = np.linalg.qr(rng.standard_normal((len(indices), len(indices))))
+            blocks.append(q @ np.diag(np.geomspace(1.0, 1.0 / case.condition_number, len(indices))) @ q.T)
+        matrix = np.zeros((case.dimension, case.dimension))
+        offset = 0
+        for block in blocks:
+            size = block.shape[0]
+            matrix[offset:offset + size, offset:offset + size] = block
+            offset += size
+    else:
+        q, _ = np.linalg.qr(rng.standard_normal((case.dimension, case.dimension)))
+        matrix = q @ np.diag(spectrum) @ q.T
+        if case.stratum == "near_decoupled":
+            # Blend with the block diagonal while retaining a positive-definite convex combination.
+            block = np.zeros_like(matrix)
+            for indices in partition:
+                block[np.ix_(indices, indices)] = matrix[np.ix_(indices, indices)]
+            matrix = 0.999 * block + 0.001 * matrix + np.eye(case.dimension) * 1e-12
+        elif case.stratum == "scale":
+            matrix *= 10.0 ** ((case.replica % 7) - 3)
+        elif case.stratum == "permutation":
+            permutation = rng.permutation(case.dimension)
+            matrix = matrix[np.ix_(permutation, permutation)]
+            partition = tuple(tuple(sorted(permutation[list(indices)])) for indices in partition)
+    matrix = (matrix + matrix.T) / 2.0
+    np.linalg.cholesky(matrix)
+    return matrix, partition
+
+
+def matrix_digest(matrix: np.ndarray) -> str:
+    return hashlib.sha256(np.ascontiguousarray(matrix, dtype=np.float64).tobytes()).hexdigest()
+
+
+def partition_digest(partition: tuple[tuple[int, ...], ...]) -> str:
+    return hashlib.sha256(json.dumps(partition, separators=(",", ":")).encode()).hexdigest()
+
+
+def independent_matrix_gap(matrix: np.ndarray, partition: tuple[tuple[int, ...], ...], digits: int = 100) -> float:
+    with mpmath.workdps(digits):
+        whole = mpmath.log(mpmath.det(mpmath.matrix(matrix.tolist())))
+        block_terms = []
+        for indices in partition:
+            block_terms.append(mpmath.log(mpmath.det(mpmath.matrix(matrix[np.ix_(indices, indices)].tolist()))))
+        return float((sum(block_terms) - whole) / 2)
 
 
 def frozen_cases() -> tuple[FrozenCase, ...]:
@@ -67,14 +135,15 @@ def frozen_cases() -> tuple[FrozenCase, ...]:
     for dimension in range(2, 17):
         for condition in CONDITIONS:
             for replica in range(20):
-                index = len(cases)
-                cases.append(FrozenCase(f"general-d{dimension}-c{condition:.0e}-r{replica:02d}", "general", dimension, condition, replica, rho_for(index)))
+                case_id = f"general-d{dimension}-c{condition:.0e}-r{replica:02d}"
+                cases.append(make_case(case_id, "general", dimension, condition, replica))
     for stratum, count in STRATUM_COUNTS.items():
         if stratum == "general":
             continue
         for replica in range(count):
-            index = len(cases)
-            cases.append(FrozenCase(f"{stratum}-{replica:03d}", stratum, 2 + replica % 15, CONDITIONS[replica % len(CONDITIONS)], replica, rho_for(index)))
+            dimension = 2 + replica % 15
+            condition = CONDITIONS[replica % len(CONDITIONS)]
+            cases.append(make_case(f"{stratum}-{replica:03d}", stratum, dimension, condition, replica))
     assert len(cases) == 3138, "DEFECT [frozen schedule]: exact case count must be 3138"
     return tuple(cases)
 
@@ -83,12 +152,6 @@ def spectral_witness(condition_number: float) -> np.ndarray:
     theta = math.pi / 7
     q = np.array([[math.cos(theta), -math.sin(theta)], [math.sin(theta), math.cos(theta)]])
     return q @ np.diag([1.0, 1.0 / condition_number]) @ q.T
-
-
-def independent_gap_100_digits(case: FrozenCase) -> float:
-    with mpmath.workdps(100):
-        rho = mpmath.mpf(str(case.rho))
-        return float(-mpmath.log1p(-(rho * rho)) / 2)
 
 
 def result_value(result, defect: str) -> float:
@@ -149,12 +212,41 @@ def test_gap_steps_are_nonempty_and_have_load_bearing_numerical_diagnostics():
     assert result_value(multi, "multiblock telescoping") == pytest.approx(sum(result_value(step, "multiblock step") for step in require_field(multi, "steps", "multiblock diagnostics"))), "DEFECT [multiblock telescoping]: step values do not sum to result"
 
 
-def test_ordinary_no_clip_and_out_of_tolerance_excursion_are_not_silently_accepted():
+WITHIN_BOUND_CLIP_WITNESS = np.array([
+    [0.012995137302571503, -0.08809796529646897, -0.01062753379868217, 0.07034656148572713],
+    [-0.08809796529646897, 0.5974163750322803, 0.07207680102574178, -0.47702552029541695],
+    [-0.01062753379868217, 0.07207680102574178, 0.008696311837782767, -0.05755126421432782],
+    [0.07034656148572713, -0.47702552029541695, -0.05755126421432782, 0.3808968174377439],
+])
+
+
+def canonical_correlation_and_allowance(matrix: np.ndarray) -> tuple[float, float]:
+    np.linalg.cholesky(matrix)  # Full matrix must be numerically SPD before any clipping rule applies.
+    first, second, cross = matrix[:2, :2], matrix[2:, 2:], matrix[:2, 2:]
+    left, right = np.linalg.cholesky(first), np.linalg.cholesky(second)
+    canonical = np.linalg.solve(left, cross) @ np.linalg.solve(right, np.eye(2)).T
+    rho = float(np.linalg.svd(canonical, compute_uv=False)[0])
+    residual = np.linalg.norm(matrix - np.linalg.cholesky(matrix) @ np.linalg.cholesky(matrix).T, ord=np.inf) / np.linalg.norm(matrix, ord=np.inf)
+    allowance = 8.0 * (residual + np.finfo(float).eps) * np.linalg.cond(matrix)
+    return rho, allowance
+
+
+def test_ordinary_no_clip_within_bound_clip_and_out_of_tolerance_excursion_are_not_silently_accepted():
     ordinary = require_runner_api("factorization_gap", "ordinary no-clip")(
         np.array([[2.0, 0.1], [0.1, 2.0]]), [[0], [1]]
     )
     for step in require_field(ordinary, "steps", "ordinary no-clip"):
         assert require_field(step, "clipping_amount", "ordinary no-clip") == pytest.approx(0.0), "DEFECT [ordinary no-clip]: well-conditioned input must not clip"
+        assert require_field(step, "clipping_applied", "ordinary no-clip") is False, "DEFECT [ordinary no-clip]: clipping_applied must be false"
+    rho, allowance = canonical_correlation_and_allowance(WITHIN_BOUND_CLIP_WITNESS)
+    assert rho > 1.0 and rho - 1.0 <= allowance, "DEFECT [within-bound clipping fixture]: frozen full-Cholesky SPD witness is not a within-bound excursion"
+    admitted = require_runner_api("factorization_gap", "within-bound clipping")(WITHIN_BOUND_CLIP_WITNESS, [[0, 1], [2, 3]])
+    steps = require_field(admitted, "steps", "within-bound clipping")
+    assert steps, "DEFECT [within-bound clipping]: admitted witness needs a nonempty diagnostic step list"
+    for step in steps:
+        clipping = require_field(step, "clipping_amount", "within-bound clipping")
+        bound = require_field(step, "residual_derived_clip_bound", "within-bound clipping")
+        assert clipping <= bound, "DEFECT [within-bound clipping]: clipping exceeds independently derived backward-error bound"
     excursion = np.array([[1.0, 1.0 + 1e-10], [1.0 + 1e-10, 1.0]])
     with pytest.raises((ValueError, TypeError)):
         require_runner_api("factorization_gap", "out-of-tolerance excursion")(excursion, [[0], [1]])
@@ -181,7 +273,9 @@ def test_new_protocol_records_each_case_identity_nonconstant_oracle_and_repeats_
         for case in schedule:
             record = by_id[case.case_id]
             assert require_field(record, "stratum", f"{label} record identity") == case.stratum, f"DEFECT [{label} record identity]: stratum not bound to case"
-            assert require_field(record, "input_digest", f"{label} record identity"), f"DEFECT [{label} record identity]: input digest is required"
+            matrix, partition = regenerate_matrix_and_partition(case)
+            assert require_field(record, "matrix_digest", f"{label} record identity") == matrix_digest(matrix), f"DEFECT [{label} record identity]: matrix digest does not bind regenerated input"
+            assert require_field(record, "partition_digest", f"{label} record identity") == partition_digest(partition), f"DEFECT [{label} record identity]: partition digest does not bind regenerated input"
             values.append(result_value(record, f"{label} record value"))
         assert len({round(value, 15) for value in values}) > 1, f"DEFECT [{label} nonconstant oracle]: constant/echo results are forbidden"
     assert require_field(first, "cases", "repeat equality") == require_field(second, "cases", "repeat equality"), "DEFECT [repeat equality]: same seed and schedule must yield identical records"
@@ -191,10 +285,13 @@ def test_protocol_representative_values_and_100_digit_controls_are_independent_a
     schedule = frozen_cases()
     report = require_runner_api("run_factorization_gap_protocol", "100-digit controls")(seed=PROTOCOL_SEED, schedule=schedule)
     records = {require_field(record, "case_id", "representative record"): record for record in require_field(report, "cases", "representative records")}
-    representatives = (schedule[0], schedule[997], schedule[-1])
+    representatives = tuple(next(case for case in schedule if case.stratum == stratum) for stratum in STRATUM_COUNTS)
     for case in representatives:
         observed = result_value(records[case.case_id], "representative oracle")
-        assert observed == pytest.approx(independent_gap_100_digits(case), rel=1e-12, abs=1e-15), f"DEFECT [representative oracle]: {case.case_id} disagrees with independent 100-digit value"
+        matrix, partition = regenerate_matrix_and_partition(case)
+        assert require_field(records[case.case_id], "matrix_digest", "representative oracle") == matrix_digest(matrix), f"DEFECT [representative oracle]: {case.case_id} uses a different matrix"
+        assert require_field(records[case.case_id], "partition_digest", "representative oracle") == partition_digest(partition), f"DEFECT [representative oracle]: {case.case_id} uses a different partition"
+        assert observed == pytest.approx(independent_matrix_gap(matrix, partition), rel=1e-11, abs=1e-13), f"DEFECT [representative oracle]: {case.case_id} disagrees with independent matrix-based 100-digit value"
     controls = require_field(report, "high_precision_controls", "100-digit controls")
     selected = [case for case in schedule if case.stratum == "mpmath_100_digit"]
     assert len(controls) == len(selected), "DEFECT [100-digit controls]: every selected case needs an evaluated control"
@@ -203,4 +300,5 @@ def test_protocol_representative_values_and_100_digit_controls_are_independent_a
     for case in selected:
         control = control_by_id[case.case_id]
         assert require_field(control, "decimal_digits", "100-digit controls") == 100, "DEFECT [100-digit controls]: precision must be exactly 100"
-        assert float(require_field(control, "reference_value", "100-digit controls")) == pytest.approx(independent_gap_100_digits(case), rel=1e-12), "DEFECT [100-digit controls]: reference is not independent"
+        matrix, partition = regenerate_matrix_and_partition(case)
+        assert float(require_field(control, "reference_value", "100-digit controls")) == pytest.approx(independent_matrix_gap(matrix, partition), rel=1e-11), "DEFECT [100-digit controls]: reference is not independent"

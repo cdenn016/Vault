@@ -13,9 +13,17 @@ import pytest
 AUDIT_PATH = Path(__file__).resolve().parents[1] / "build_audit.py"
 
 
+class MissingAudit:
+    def __init__(self, name: str):
+        self.name = name
+
+    def __call__(self, **_kwargs):
+        return self
+
+
 def audit_module():
     if not AUDIT_PATH.is_file():
-        pytest.fail("DEFECT [build audit module]: missing planned build_audit.py")
+        return None
     spec = importlib.util.spec_from_file_location("build_audit_contract", AUDIT_PATH)
     assert spec and spec.loader, "DEFECT [build audit module]: build_audit.py must be importable"
     loaded = importlib.util.module_from_spec(spec)
@@ -24,9 +32,9 @@ def audit_module():
 
 
 def audit_api():
-    value = getattr(audit_module(), "audit_build", None)
-    assert callable(value), "DEFECT [build audit API]: build_audit.py must export audit_build"
-    return value
+    loaded = audit_module()
+    value = getattr(loaded, "audit_build", None) if loaded is not None else None
+    return value if callable(value) else MissingAudit("audit_build")
 
 
 def one_page_pdf() -> bytes:
@@ -59,25 +67,39 @@ def validate_pdf_fixture(path: Path) -> None:
     assert b"/Type /Page /Parent 2 0 R" in raw and b"stream\nBT /F1 12 Tf" in raw and b"endstream" in raw, "DEFECT [PDF fixture]: page content stream is malformed"
 
 
-def artifacts(tmp_path: Path, log: str = "This is pdfTeX\nOutput written on main.pdf (1 page, 600 bytes).\n") -> tuple[Path, Path]:
+def artifacts(tmp_path: Path, log: str | None = None) -> tuple[Path, Path, dict[str, object]]:
     root, build = tmp_path / "repo", tmp_path / "build"
     root.mkdir()
     build.mkdir()
     (root / "main.tex").write_text("\\documentclass{article}\n\\begin{document}\n\\label{one}Audit~\\cite{x}.\\n\\end{document}\n", encoding="utf-8")
-    (build / "main.pdf").write_bytes(one_page_pdf())
+    pdf_bytes = one_page_pdf()
+    (build / "main.pdf").write_bytes(pdf_bytes)
     validate_pdf_fixture(build / "main.pdf")
+    if log is None:
+        log = f"This is pdfTeX\nOutput written on main.pdf (1 page, {len(pdf_bytes)} bytes).\n"
     (build / "main.log").write_text(log, encoding="utf-8")
     (build / "main.aux").write_text("\\relax \n\\newlabel{one}{{1}{1}}\n", encoding="utf-8")
     (build / "main.bbl").write_text("\\begin{thebibliography}{1}\n\\bibitem{x} X.\n\\end{thebibliography}\n", encoding="utf-8")
     (build / "main.toc").write_text("\\contentsline {section}{Audit}{1}{}%\n", encoding="utf-8")
     commands = [
-        {"argv": ["pdflatex", "-interaction=nonstopmode", "main.tex"], "returncode": 0},
-        {"argv": ["bibtex", "main"], "returncode": 0},
-        {"argv": ["pdflatex", "-interaction=nonstopmode", "main.tex"], "returncode": 0},
-        {"argv": ["pdflatex", "-interaction=nonstopmode", "main.tex"], "returncode": 0},
+        {"argv": ["pdflatex", "-interaction=nonstopmode", "main.tex"], "returncode": 0, "tool_version": "fixture-pdftex-1"},
+        {"argv": ["bibtex", "main"], "returncode": 0, "tool_version": "fixture-bibtex-1"},
+        {"argv": ["pdflatex", "-interaction=nonstopmode", "main.tex"], "returncode": 0, "tool_version": "fixture-pdftex-1"},
+        {"argv": ["pdflatex", "-interaction=nonstopmode", "main.tex"], "returncode": 0, "tool_version": "fixture-pdftex-1"},
     ]
     (build / "commands.json").write_text(json.dumps(commands), encoding="utf-8")
-    return root, build
+    inventory = {"main.tex": hashlib.sha256((root / "main.tex").read_bytes()).hexdigest()}
+    expected = {
+        "commands": commands,
+        "tool_versions": {"pdflatex": "fixture-pdftex-1", "bibtex": "fixture-bibtex-1"},
+        "input_inventory": inventory,
+        "source_manifest_digest": hashlib.sha256(json.dumps(inventory, sort_keys=True, separators=(",", ":")).encode()).hexdigest(),
+        "pdf_sha256": hashlib.sha256(pdf_bytes).hexdigest(),
+        "pdf_byte_count": len(pdf_bytes),
+        "page_count": 1,
+        "artifact_hashes": {path.name: hashlib.sha256(path.read_bytes()).hexdigest() for path in sorted(build.iterdir()) if path.is_file()},
+    }
+    return root, build, expected
 
 
 def run_audit(root: Path, build: Path, defect: str):
@@ -90,34 +112,28 @@ def require_field(value, name: str, defect: str):
 
 
 def test_clean_parseable_artifacts_emit_verified_metadata_not_fabricated_defaults(tmp_path: Path):
-    root, build = artifacts(tmp_path)
+    root, build, expected = artifacts(tmp_path)
     outcome = run_audit(root, build, "clean artifact audit")
     required = ("ok", "tool_versions", "commands", "input_inventory", "source_manifest_digest", "pdf_sha256", "pdf_byte_count", "page_count", "artifact_hashes", "changed_pages", "duplicate_labels", "undefined_references", "undefined_citations", "rerun_requests", "fatal_errors", "overfull_boxes", "literal_double_question_marks", "invalid_status_tags", "stale_auxiliary_files")
     for field in required:
         require_field(outcome, field, "clean artifact audit")
     pdf = build / "main.pdf"
     assert require_field(outcome, "ok", "clean artifact audit") is True, "DEFECT [clean artifact audit]: valid artifacts must pass"
-    assert require_field(outcome, "pdf_sha256", "clean artifact audit") == hashlib.sha256(pdf.read_bytes()).hexdigest(), "DEFECT [clean artifact audit]: fabricated PDF hash"
-    assert require_field(outcome, "pdf_byte_count", "clean artifact audit") == pdf.stat().st_size, "DEFECT [clean artifact audit]: fabricated PDF byte count"
-    assert require_field(outcome, "page_count", "clean artifact audit") == 1, "DEFECT [clean artifact audit]: page count must come from parseable PDF"
-    assert len(require_field(outcome, "commands", "clean artifact audit")) == 4 and all(command["returncode"] == 0 for command in require_field(outcome, "commands", "clean artifact audit")), "DEFECT [clean artifact audit]: four successful command records required"
-    assert require_field(outcome, "tool_versions", "clean artifact audit"), "DEFECT [clean artifact audit]: tool versions required"
-    assert require_field(outcome, "input_inventory", "clean artifact audit"), "DEFECT [clean artifact audit]: inventory required"
-    assert require_field(outcome, "source_manifest_digest", "clean artifact audit"), "DEFECT [clean artifact audit]: digest required"
-    assert require_field(outcome, "artifact_hashes", "clean artifact audit"), "DEFECT [clean artifact audit]: artifact hashes required"
+    for field in ("pdf_sha256", "pdf_byte_count", "page_count", "commands", "tool_versions", "input_inventory", "source_manifest_digest", "artifact_hashes"):
+        assert require_field(outcome, field, "clean artifact audit") == expected[field], f"DEFECT [clean artifact audit]: exact {field} does not match fixture bytes/records"
     assert require_field(outcome, "changed_pages", "clean artifact audit") == [1], "DEFECT [clean artifact audit]: changed-page selection must identify page 1"
 
 
 @pytest.mark.parametrize("kind, log", [("undefined_reference", "LaTeX Warning: Reference `missing' undefined.\n"), ("undefined_citation", "LaTeX Warning: Citation `missing' undefined.\n"), ("rerun", "LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.\n"), ("fatal", "! Emergency stop.\n"), ("overfull", "Overfull \\hbox (2.0pt too wide)\n"), ("question_marks", "output ??\n"), ("invalid_status", "STATUS: NOT_A_STATUS\n")])
 def test_each_real_bad_log_fixture_fails_closed(tmp_path: Path, kind: str, log: str):
-    root, build = artifacts(tmp_path, log)
+    root, build, _ = artifacts(tmp_path, log)
     outcome = run_audit(root, build, f"{kind} log fixture")
     assert require_field(outcome, "ok", f"{kind} log fixture") is False, f"DEFECT [{kind} log fixture]: audit accepted real bad log"
 
 
 @pytest.mark.parametrize("kind", ["missing_pdf", "missing_aux", "duplicate_label", "failed_command", "fabricated_metadata", "stale_aux"])
 def test_missing_or_fabricated_real_artifacts_fail_closed(tmp_path: Path, kind: str):
-    root, build = artifacts(tmp_path)
+    root, build, _ = artifacts(tmp_path)
     if kind == "missing_pdf":
         (build / "main.pdf").unlink()
     elif kind == "missing_aux":

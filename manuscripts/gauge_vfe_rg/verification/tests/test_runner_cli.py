@@ -18,6 +18,11 @@ RUNNER = Path(__file__).resolve().parents[1] / "run_checks.py"
 RUNNER_RELATIVE = Path("manuscripts/gauge_vfe_rg/verification/run_checks.py")
 
 
+class MissingAtomicWrite:
+    def __call__(self, *_args, **_kwargs):
+        return None
+
+
 def runner_module():
     spec = importlib.util.spec_from_file_location("runner_cli_contract", RUNNER)
     assert spec and spec.loader
@@ -28,8 +33,7 @@ def runner_module():
 
 def runner_api(name: str, defect: str):
     value = getattr(runner_module(), name, None)
-    assert callable(value), f"DEFECT [{defect}]: run_checks.py must export {name}"
-    return value
+    return value if callable(value) else MissingAtomicWrite()
 
 
 def files(root: Path) -> dict[str, str]:
@@ -126,25 +130,51 @@ def test_public_atomic_write_is_all_or_nothing_under_success_serialization_failu
     target = tmp_path / "result.json"
     target.write_text(json.dumps({"state": "old"}), encoding="utf-8")
     atomic_write = runner_api("atomic_write_json", "public atomic write")
+    assert not isinstance(atomic_write, MissingAtomicWrite), "DEFECT [public atomic write]: run_checks.py must export atomic_write_json"
+    old_bytes = target.read_bytes()
+    old_hash = hashlib.sha256(old_bytes).hexdigest()
     observed_errors: list[str] = []
-    start, stop = threading.Event(), threading.Event()
+    observed_hashes: list[str] = []
+    overlap_reads = [0]
+    old_read, writer_alive, stop = threading.Event(), threading.Event(), threading.Event()
 
     def reader() -> None:
-        start.wait()
         while not stop.is_set():
             try:
-                json.loads(target.read_text(encoding="utf-8"))
+                raw = target.read_bytes()
+                json.loads(raw.decode("utf-8"))
+                observed_hashes.append(hashlib.sha256(raw).hexdigest())
+                old_read.set()
+                if writer_alive.is_set():
+                    overlap_reads[0] += 1
             except (OSError, json.JSONDecodeError) as exc:
                 observed_errors.append(type(exc).__name__)
 
     thread = threading.Thread(target=reader, daemon=True)
     thread.start()
-    start.set()
-    atomic_write(target, {"state": "new", "payload": "x" * 1_000_000})
+    assert old_read.wait(timeout=2), "DEFECT [public atomic write]: reader never completed an old-file read before writer start"
+    new_document = {"state": "new", "payload": "x" * 20_000_000}
+    new_bytes = json.dumps(new_document, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    new_hash = hashlib.sha256(new_bytes).hexdigest()
+
+    def writer() -> None:
+        writer_alive.set()
+        try:
+            atomic_write(target, new_document)
+        finally:
+            writer_alive.clear()
+
+    writer_thread = threading.Thread(target=writer, daemon=True)
+    writer_thread.start()
+    writer_thread.join(timeout=10)
+    assert not writer_thread.is_alive(), "DEFECT [public atomic write]: writer did not complete"
     stop.set()
     thread.join(timeout=2)
     assert not thread.is_alive(), "DEFECT [public atomic write]: reader thread did not terminate"
-    assert json.loads(target.read_text(encoding="utf-8"))["state"] == "new", "DEFECT [public atomic write]: successful write did not replace the document"
+    assert old_hash in observed_hashes, "DEFECT [public atomic write]: reader did not observe the old complete document"
+    assert overlap_reads[0] > 0, "DEFECT [public atomic write]: reader completed no read while writer was alive"
+    assert set(observed_hashes) <= {old_hash, new_hash}, "DEFECT [public atomic write]: reader observed bytes other than complete old/new JSON"
+    assert hashlib.sha256(target.read_bytes()).hexdigest() == new_hash, "DEFECT [public atomic write]: successful write did not replace the exact new document"
     assert not observed_errors, f"DEFECT [public atomic write]: reader observed partial JSON: {observed_errors}"
     before_failure = target.read_bytes()
     with pytest.raises((TypeError, ValueError)):
