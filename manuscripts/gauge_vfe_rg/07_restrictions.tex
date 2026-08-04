@@ -189,8 +189,12 @@ conditioning trigger selected for the frozen protocol rather than asserted as
 a universal error threshold.  A nonfinite binary64 condition estimate is also
 a fallback trigger, not a rejection criterion.  An ill-conditioned but
 in-domain value is reevaluated rather than rejected merely for triggering that
-path.  These
-guarded fallbacks are declared finite-precision procedures, not theorems that
+path.  When a pure high-precision fallback bypasses the ordinary binary64
+factorization, its Cholesky residual, solve residual, residual tolerance, and
+backward-error diagnostics are recorded as \texttt{null}: they were not
+evaluated, and \texttt{null} denotes neither failure nor zero.  The zero-step
+one-block case retains its exact zero diagnostics.  These guarded fallbacks are
+declared finite-precision procedures, not theorems that
 Cholesky or solve residuals universally control canonical-correlation or gap
 forward error. \status{DEFINITION}
 

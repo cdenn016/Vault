@@ -1380,6 +1380,8 @@ FactorizationCaseRecord = namedtuple(
         "partition_digest",
         "value",
         "backward_error_bound",
+        "maximum_cholesky_residual",
+        "evaluation_methods",
         "clipping_applied",
         "boundary_fallback_applied",
         "high_precision_fallback_applied",
@@ -1735,6 +1737,7 @@ def _high_precision_only_two_block_result(
     *,
     precision_condition_number: float,
     reason: str,
+    conditioning_triggered: bool = False,
 ) -> GapResult:
     """Fail over to an exact-dyadic MP value when binary64 diagnostics fail."""
 
@@ -1749,11 +1752,6 @@ def _high_precision_only_two_block_result(
         min_one_minus = _positive_mp_to_float(
             mpmath.mpf(1) - exact_max_squared
         )
-    unit_roundoff = np.finfo(float).eps / 2.0
-    gamma_n = matrix.shape[0] * unit_roundoff / (
-        1.0 - matrix.shape[0] * unit_roundoff
-    )
-    residual_tolerance = float(64.0 * gamma_n)
     step = GapStep(
         value=float(high_precision_gap),
         left_block=left,
@@ -1762,16 +1760,16 @@ def _high_precision_only_two_block_result(
         scipy_singular_values=(),
         numpy_singular_values=(),
         min_one_minus_rho_squared=min_one_minus,
-        cholesky_residual=0.0,
-        solve_residual=0.0,
-        residual_tolerance=residual_tolerance,
-        backward_error=0.0,
+        cholesky_residual=None,
+        solve_residual=None,
+        residual_tolerance=None,
+        backward_error=None,
         clipping_applied=False,
         clipping_amount=0.0,
         residual_derived_clip_bound=0.0,
         boundary_fallback_applied=False,
         high_precision_fallback_applied=True,
-        conditioning_triggered=True,
+        conditioning_triggered=conditioning_triggered,
         precision_condition_number=precision_condition_number,
         boundary_acceptance_limit=float(
             64.0 * matrix.shape[0] * np.finfo(float).eps
@@ -1818,6 +1816,7 @@ def two_block_factorization_gap(
             right,
             precision_condition_number=precision_condition_number,
             reason="range-or-condition",
+            conditioning_triggered=conditioning_triggered,
         )
 
     try:
@@ -1857,6 +1856,7 @@ def two_block_factorization_gap(
             right,
             precision_condition_number=precision_condition_number,
             reason="binary64-linear-algebra",
+            conditioning_triggered=conditioning_triggered,
         )
     if not np.isfinite(scipy_singular).all() or not np.isfinite(numpy_singular).all():
         return _high_precision_only_two_block_result(
@@ -1865,6 +1865,7 @@ def two_block_factorization_gap(
             right,
             precision_condition_number=precision_condition_number,
             reason="binary64-svd",
+            conditioning_triggered=conditioning_triggered,
         )
     scipy_squared = scipy_singular * scipy_singular
     numpy_squared = numpy_singular * numpy_singular
@@ -1927,6 +1928,7 @@ def two_block_factorization_gap(
             right,
             precision_condition_number=precision_condition_number,
             reason="binary64-residual-health",
+            conditioning_triggered=conditioning_triggered,
         )
     backward_error = math.nextafter(
         max(cholesky_residual, solve_residual),
@@ -2060,7 +2062,16 @@ def factorization_gap(lam: np.ndarray, blocks: Any) -> GapResult:
         merged = combined
 
     total = math.fsum(step.value for step in steps)
-    backward_error_bound = math.fsum(step.backward_error for step in steps)
+    backward_error_bound = (
+        None
+        if any(step.backward_error is None for step in steps)
+        else math.fsum(step.backward_error for step in steps)
+    )
+    maximum_cholesky_residual = (
+        None
+        if any(step.cholesky_residual is None for step in steps)
+        else max(step.cholesky_residual for step in steps)
+    )
     return GapResult(
         value=total,
         steps=tuple(steps),
@@ -2070,7 +2081,7 @@ def factorization_gap(lam: np.ndarray, blocks: Any) -> GapResult:
         min_one_minus_rho_squared=min(
             step.min_one_minus_rho_squared for step in steps
         ),
-        maximum_cholesky_residual=max(step.cholesky_residual for step in steps),
+        maximum_cholesky_residual=maximum_cholesky_residual,
         clipping_applied=any(step.clipping_applied for step in steps),
         clipping_amount=max(step.clipping_amount for step in steps),
         residual_derived_clip_bound=max(
@@ -2350,6 +2361,10 @@ def run_factorization_gap_protocol(
                     partition_digest=_factorization_partition_digest(partition),
                     value=gap.value,
                     backward_error_bound=gap.backward_error_bound,
+                    maximum_cholesky_residual=gap.maximum_cholesky_residual,
+                    evaluation_methods=tuple(
+                        step.evaluation_method for step in gap.steps
+                    ),
                     clipping_applied=gap.clipping_applied,
                     boundary_fallback_applied=gap.boundary_fallback_applied,
                     high_precision_fallback_applied=gap.high_precision_fallback_applied,
@@ -2780,23 +2795,28 @@ def check_cg_factor_gap_stress() -> dict[str, Any]:
     protocol_case_failures = list(protocol.case_failures)
 
     all_case_oracle_failures: list[dict[str, Any]] = []
+    all_case_oracle_attempts = 0
+    all_case_reference_evaluations = 0
     all_case_oracle_cases = 0
     all_case_oracle_errors: list[float] = []
     all_case_oracle_tolerances: list[float] = []
     for case in schedule:
-        all_case_oracle_cases += 1
+        all_case_oracle_attempts += 1
         matrix = None
         partition = None
         try:
             matrix, partition = _regenerate_factorization_case(
                 case, seed=protocol.seed
             )
-            record = by_id.get(case.case_id)
-            if record is None:
-                raise ValueError("production record is missing")
             reference_mp = _high_precision_partition_gap(
                 matrix, partition, digits=100
             )
+            if not mpmath.isfinite(reference_mp):
+                raise ValueError("100-digit exact-input reference is nonfinite")
+            all_case_reference_evaluations += 1
+            record = by_id.get(case.case_id)
+            if record is None:
+                raise ValueError("production record is missing")
             reference = float(reference_mp)
             error = abs(record.value - reference)
             tolerance = max(
@@ -2811,6 +2831,7 @@ def check_cg_factor_gap_stress() -> dict[str, Any]:
             )
             all_case_oracle_errors.append(error)
             all_case_oracle_tolerances.append(tolerance)
+            all_case_oracle_cases += 1
             if (
                 not math.isfinite(record.value)
                 or not math.isfinite(reference)
@@ -2970,6 +2991,8 @@ def check_cg_factor_gap_stress() -> dict[str, Any]:
         and stratum_counts == FACTORIZATION_PROTOCOL_STRATUM_COUNTS
         and len(controls) == 18
         and not protocol_case_failures
+        and all_case_oracle_attempts == 3138
+        and all_case_reference_evaluations == 3138
         and all_case_oracle_cases == 3138
         and not all_case_oracle_failures
         and witness_passed
@@ -2999,9 +3022,10 @@ def check_cg_factor_gap_stress() -> dict[str, Any]:
         seed=protocol.seed,
         sample_count={
             "total_cases": len(records),
+            "attempted_schedule_cases": len(schedule),
             "strata": stratum_counts,
             "mpmath_100_digit_controls": len(controls),
-            "all_case_100_digit_references": all_case_oracle_cases,
+            "all_case_100_digit_references": all_case_reference_evaluations,
             "focused_positive_excursion_witnesses": 1,
         },
         expected={
@@ -3050,6 +3074,8 @@ def check_cg_factor_gap_stress() -> dict[str, Any]:
             "maximum_control_tolerance": max(
                 control_tolerances.values(), default=0.0
             ),
+            "all_case_oracle_attempts": all_case_oracle_attempts,
+            "all_case_reference_evaluations": all_case_reference_evaluations,
             "all_case_oracle_cases": all_case_oracle_cases,
             "all_case_oracle_failures": len(all_case_oracle_failures),
             "all_case_oracle_failure_details": all_case_oracle_failures,

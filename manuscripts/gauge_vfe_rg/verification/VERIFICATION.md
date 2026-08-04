@@ -34,8 +34,8 @@ source inventory, claim mapping, supplemental checks, or numerical endpoints
 fail.
 
 The checked-in `current-results.json` is still the older 29-check artifact. It
-is not evidence for the 30-check package described below; Task 4 must regenerate
-it under the governed result lifecycle.
+is not evidence for the 30-check package described below. A governed 30-check
+regeneration remains required before that evidence is current.
 
 ## Files and binding
 
@@ -82,10 +82,12 @@ The achieved 2-norm condition-number ranges are:
 Only the global schedule is claimed to reach achieved conditioning near
 `1e14`. Dimension-two exact-block cases contain two scalar blocks and therefore
 do not realize their nominal targets; the near-decoupled stratum likewise does
-not attain its high nominal labels. The runtime check evaluates an independent
-100-digit exact-binary64 reference for every one of the 3,138 cases and retains
-complete case identities and diagnostics for every failure. The 18 controls
-remain a designated stratum, not the sole all-case evidence.
+not attain its high nominal labels. The runtime check separately counts all
+3,138 attempted schedule cases, successfully evaluated 100-digit exact-binary64
+references, and completed production-reference comparisons. PASS requires
+3,138 in each category and zero failures, while every failure retains its
+complete case identity and diagnostics. The 18 controls remain a designated
+stratum, not the sole all-case evidence.
 
 The ordinary implementation uses Cholesky factors, SciPy triangular solves,
 canonical-correlation singular values, and `log1p(-rho**2)`. It does not form an
@@ -108,7 +110,12 @@ gate is `64*gamma_n`, where `gamma_n=n*u/(1-n*u)` and binary64 unit roundoff is
 relative entropy, monotonicity, scale invariance, or any oracle comparison.
 Forward comparisons use independent exact-binary64 high-precision references
 and separately labeled endpoint-roundoff or declared protocol-acceptance
-policies.
+policies. When a pure high-precision fallback bypasses the ordinary binary64
+factorization, `cholesky_residual`, `solve_residual`, `residual_tolerance`,
+`backward_error`, the aggregate `backward_error_bound`, and the aggregate
+`maximum_cholesky_residual` are `null`. Here `null` means that the ordinary
+binary64 diagnostic was not evaluated; it denotes neither failure nor zero.
+The zero-step one-block result continues to report numeric zero diagnostics.
 
 The compatibility field `residual_derived_clip_bound` does not assert a general
 residual-to-forward-error theorem. On the boundary path it reports the

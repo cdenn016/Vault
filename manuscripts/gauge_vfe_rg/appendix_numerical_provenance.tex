@@ -41,21 +41,34 @@ legacy field \texttt{condition\_number} stores that nominal label, while every
 digest-bound record also stores \texttt{achieved\_condition\_number}, defined
 as \texttt{numpy.linalg.cond} of the regenerated matrix.  The observed global
 range is $[1,1.015265553314175\times10^{14}]$, but this is only a global
-coverage claim.  The per-stratum achieved ranges are: general
-$[1,1.015265553314175\times10^{14}]$; exactly block diagonal
-$[1,1.0075938532153164\times10^{14}]$; nearly decoupled
-$[1.0000000000000002,9.273791153286738\times10^8]$; scale
-$[1,1.0036120669923527\times10^{14}]$; permutation
-$[1,1.0071935024197442\times10^{14}]$; nested refinement
-$[1,1.0077056571347422\times10^{14}]$; and the 100-digit-control stratum
-$[1.0000000000000004,1.0048132000124055\times10^{14}]$.  In particular, the
-two scalar blocks in the dimension-two exactly-block-diagonal cases cannot
+coverage claim.  The achieved ranges are:
+\begin{center}
+\footnotesize
+\begin{tabularx}{0.94\textwidth}{@{}>{\raggedright\arraybackslash}X>{\raggedleft\arraybackslash}X>{\raggedleft\arraybackslash}X@{}}
+\toprule
+Stratum & Minimum & Maximum \\
+\midrule
+Global & $1$ & $1.015265553314175\times10^{14}$ \\
+General & $1$ & $1.015265553314175\times10^{14}$ \\
+Exactly block diagonal & $1$ & $1.0075938532153164\times10^{14}$ \\
+Nearly decoupled & $1.0000000000000002$ & $9.273791153286738\times10^8$ \\
+Scale & $1$ & $1.0036120669923527\times10^{14}$ \\
+Permutation & $1$ & $1.0071935024197442\times10^{14}$ \\
+Nested refinement & $1$ & $1.0077056571347422\times10^{14}$ \\
+100-digit controls & $1.0000000000000004$ & $1.0048132000124055\times10^{14}$ \\
+\bottomrule
+\end{tabularx}
+\normalsize
+\end{center}
+The two scalar blocks in the dimension-two exactly-block-diagonal cases cannot
 realize their nominal targets, and the nearly-decoupled transformation does
 not attain its high nominal tiers.  Each record binds the regenerated binary64
 matrix and partition by SHA-256, and repeated executions must agree exactly.
-The named runtime check compares all $3{,}138$ production values with
-independent 100-decimal-digit exact-binary64 references; the $18$ designated
-controls remain a named stratum rather than the sole accuracy evidence.
+The named runtime check separately records all $3{,}138$ attempted schedule
+cases, successfully evaluated 100-decimal-digit exact-binary64 references, and
+completed production-reference comparisons.  PASS requires $3{,}138$ in each
+category and zero failures; the $18$ designated controls remain a named stratum
+rather than the sole accuracy evidence.
 
 The ordinary value path uses Cholesky triangular solves, canonical-correlation
 singular values, and \texttt{log1p(-rho**2)}.  Near the floating-point boundary,
@@ -93,7 +106,11 @@ use independent exact-binary64 high-precision references plus separately
 declared endpoint-roundoff or protocol-acceptance policies.  Their
 finite-health gate is $64\gamma_n$, with
 $\gamma_n=n u/(1-n u)$ and binary64 unit roundoff
-$u=\epsilon_{\rm mach}/2$. \status{NUMERICAL}
+$u=\epsilon_{\rm mach}/2$.  If a pure high-precision fallback bypasses the
+ordinary binary64 factorization, unavailable residual, tolerance, and
+backward-error diagnostics serialize as \texttt{null}; this means ``not
+evaluated,'' not failure or zero.  The exact zero diagnostics for a one-block,
+zero-step result remain numeric zero. \status{NUMERICAL}
 
 \paragraph{What a passing run means.}
 It means that the current deterministic, double-precision CPU
@@ -113,6 +130,6 @@ makes no GPU claim.  A missing protocol for an empirical statement remains
 inconclusive even when every implemented check passes.
 
 The checked-in \path{verification/current-results.json} is the older
-29-check artifact.  It is not evidence for this 30-check package; Task~4 must
-regenerate it under the governed result lifecycle.  This appendix does not
-claim that deferred artifact is current.
+29-check artifact.  It is not evidence for this 30-check package.  A governed
+30-check regeneration remains required before that evidence is current.  This
+appendix does not claim that deferred artifact is current.
