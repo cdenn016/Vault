@@ -602,9 +602,11 @@ nor physical time. \status{ESTABLISHED} \status{NOT-CLAIMED}
 \label{sec:cg-gaussian-marginal-law}
 
 Specialize \Cref{thm:cg-holonomy-kl-marginal} after transporting every
-constituent marginal to one root. Suppose the admissible parent family is the
-full nondegenerate Gaussian family, as it is under trivial represented
-holonomy. Write the transported marginals as
+constituent marginal to one root. For this specialization, declare the
+admissible parent family to be the full nondegenerate Gaussian family.
+Trivial represented holonomy then makes the holonomy-fixed admissible
+subfamily equal to that declared parent; it does not itself select the parent
+family. Write the transported marginals as
 \(q_i^{(r)}=\mathcal N(m_i,C_i)\), with \(C_i\succ0\), and choose weights
 \(a_i>0\) satisfying \(\sum_i a_i=1\). \status{HYPOTHESIS}
 
@@ -667,9 +669,13 @@ Haar-constrained optimizer below is instead
 active even when there is no pairwise disagreement among the transported
 constituents.
 
-\corollaryheading{Compact-holonomy Gaussian barycenter}{cor:cg-compact-holonomy-barycenter}
-Let \(\mathcal H\subset\GL(K)\) be a compact represented holonomy group with
-normalized Haar probability measure \(\mu_{\mathcal H}\). Define
+\corollaryheading{Compact-closure holonomy Gaussian barycenter}{cor:cg-compact-holonomy-barycenter}
+Let \(\mathcal H\subset\GL(K)\) be a represented holonomy group whose closure
+\(\overline{\mathcal H}\) is compact in \(\GL(K)\), and let
+\(\mu_{\overline{\mathcal H}}\) be normalized Haar probability measure on
+\(\overline{\mathcal H}\). A nondegenerate Gaussian is
+\(\mathcal H\)-invariant exactly when it is
+\(\overline{\mathcal H}\)-invariant. Define
 \begin{equation}
 a=\sum_i a_im_i,\qquad
 M_2=\sum_i a_i(C_i+m_im_i^\top),
@@ -677,44 +683,52 @@ M_2=\sum_i a_i(C_i+m_im_i^\top),
 \end{equation}
 and their Haar projections
 \begin{equation}
-a_{\mathcal H}
-=\int_{\mathcal H}ha d\mu_{\mathcal H}(h),\qquad
-M_{2,\mathcal H}
-=\int_{\mathcal H}hM_2h^\top d\mu_{\mathcal H}(h),\qquad
-C_{\mathcal H}=M_{2,\mathcal H}-a_{\mathcal H}a_{\mathcal H}^\top.
+a_{\overline{\mathcal H}}
+=\int_{\overline{\mathcal H}}ha
+d\mu_{\overline{\mathcal H}}(h),\qquad
+M_{2,\overline{\mathcal H}}
+=\int_{\overline{\mathcal H}}hM_2h^\top
+d\mu_{\overline{\mathcal H}}(h),\qquad
+C_{\overline{\mathcal H}}
+=M_{2,\overline{\mathcal H}}
+-a_{\overline{\mathcal H}}a_{\overline{\mathcal H}}^\top.
 \label{eq:cg-gaussian-haar-moments}
 \end{equation}
-Then \(C_{\mathcal H}\succ0\), and
-\(\mathcal N(a_{\mathcal H},C_{\mathcal H})\) is the unique minimizer of
+Then \(C_{\overline{\mathcal H}}\succ0\), and
+\(\mathcal N(a_{\overline{\mathcal H}},C_{\overline{\mathcal H}})\) is the unique minimizer of
 \eqref{eq:cg-gaussian-barycenter-objective} over all
 \(\mathcal H\)-invariant nondegenerate Gaussians. Its score retains the
 log-determinant form
 \begin{equation}
-\mathcal D_{I,\mathcal H}^\star
+\mathcal D_{I,\overline{\mathcal H}}^\star
 =\frac12\left[
-\log\det C_{\mathcal H}-\sum_i a_i\log\det C_i
+\log\det C_{\overline{\mathcal H}}-\sum_i a_i\log\det C_i
 \right].
 \label{eq:cg-gaussian-haar-score}
 \end{equation}
 \status{ESTABLISHED}
 
 \paragraph{Proof.}
-For every \(\mathcal H\)-invariant candidate \(q\), invariance of KL under a
-common invertible pushforward gives
+The stabilizer of a Gaussian under the continuous \(\GL(K)\) pushforward
+action is closed. Hence invariance under \(\mathcal H\) is equivalent to
+invariance under \(\overline{\mathcal H}\). For every such invariant
+candidate \(q\), invariance of KL under a common invertible pushforward gives
 \begin{equation}
 \sum_i a_i\KL(q_i^{(r)}\Vert q)
-=\int_{\mathcal H}\sum_i a_i
-\KL(h_\#q_i^{(r)}\Vert q)d\mu_{\mathcal H}(h).
+=\int_{\overline{\mathcal H}}\sum_i a_i
+\KL(h_\#q_i^{(r)}\Vert q)d\mu_{\overline{\mathcal H}}(h).
 \label{eq:cg-haar-objective-average}
 \end{equation}
 The orbit-averaged source ensemble on the right has first moment
-\(a_{\mathcal H}\) and second moment \(M_{2,\mathcal H}\). Haar invariance
-makes both moments \(\mathcal H\)-invariant, so its moment-matched Gaussian
+\(a_{\overline{\mathcal H}}\) and second moment
+\(M_{2,\overline{\mathcal H}}\). Haar invariance makes both moments
+\(\overline{\mathcal H}\)-invariant, so its moment-matched Gaussian
 is an admissible candidate. Its covariance is positive definite because it
 contains the Haar average of the positive-definite matrices \(hC_ih^\top\).
 The calculation in
 \Cref{prop:cg-gaussian-forward-kl-barycenter} therefore proves uniqueness.
-Every element of a compact matrix group has \(\lvert\det h\rvert=1\), so
+Every element of the compact matrix group
+\(\overline{\mathcal H}\) has \(\lvert\det h\rvert=1\), so
 \(\log\det(hC_ih^\top)=\log\det C_i\), which yields
 \eqref{eq:cg-gaussian-haar-score}. \(\square\)
 
@@ -789,7 +803,9 @@ the dimension of the state-independent structural fixed section.
 
 Let \(P=\widehat S\in\{0,1\}^{n\times m}\), with nonempty cluster sizes
 \(s_1,\ldots,s_m\), \(D=\operatorname{diag}(s_i)\),
-\(s=(s_i)\), and \(n=\sum_i s_i\). On the translation quotient, the metric
+\(s=(s_i)\), and \(n=\sum_i s_i\). For a positive-semidefinite matrix,
+\(\operatorname{pdet}\) denotes the product of its positive eigenvalues.
+On the translation quotient, the metric
 induced from the fine Euclidean quotient is
 \begin{equation}
 H=D-\frac{ss^\top}{n},\qquad
@@ -825,15 +841,29 @@ If
 \]
 the quotient Gaussian is proper and its generalized determinant satisfies
 \begin{equation}
-\det(G^{-1}Q)
-=\frac{\operatorname{pdet}\Lambda_{\rm c}}
+\det_{H\otimes I_K}(\Lambda_{\rm c})
+:=\frac{\operatorname{pdet}\Lambda_{\rm c}}
 {(\operatorname{pdet}H)^K}
 =\frac{\operatorname{pdet}\Lambda_{\rm c}}{J_{\mathcal P}^2}.
 \label{eq:cg-quotient-generalized-determinant}
 \end{equation}
-Consequently
-\(Z_{\rm ind}=J_{\mathcal P}Z_{\rm std}\), and the factor cancels from the
-normalized law because the measure changes by the same amount.
+This is the determinant of the precision relative to the quotient metric
+\(H\otimes I_K\). For the common unnormalized factor
+\(\exp(-x^\top\Lambda_{\rm c}x/2)\), let \(d_q=(m-1)K\). Its normalizers are
+\begin{equation}
+\begin{aligned}
+Z_{\rm std}
+&=(2\pi)^{d_q/2}
+(\operatorname{pdet}\Lambda_{\rm c})^{-1/2},\\
+Z_{\rm ind}
+&=(2\pi)^{d_q/2}
+\det_{H\otimes I_K}(\Lambda_{\rm c})^{-1/2}
+=J_{\mathcal P}Z_{\rm std}.
+\end{aligned}
+\label{eq:cg-quotient-normalizers}
+\end{equation}
+The factor cancels from the normalized law because the measure changes by
+the same amount.
 \status{ESTABLISHED} Raw partition functions differ by
 \(\log J_{\mathcal P}\), so a partition score needs a fixed volume convention,
 an exact correction, or a compensating prior.
@@ -841,23 +871,20 @@ an exact correction, or a compensating prior.
 \section{Recognition-side costs}
 \label{sec:cg-restriction-costs}
 
-A recognition law supported on \(\operatorname{range}S\) is singular against
-a nondegenerate full-space Gaussian posterior. Its relative entropy is
-\(+\infty\). Giving the transverse directions variance \(\varepsilon\) yields
-\begin{equation}
-\mathcal G_\varepsilon
-=\frac{r}{2}\log\frac1\varepsilon-\frac r2
-+\frac12\log\det(B_\perp^\top\Lambda^{-1}B_\perp)
-+\mathcal G_{\rm tie}+O(\varepsilon),
-\label{eq:cg-epsilon-divergence}
-\end{equation}
-where \(r=NK-mK\). \status{ESTABLISHED} Thus identification is a
-generative construction, not a finite recognition restriction.
+Let \(B\in\R^{NK\times mK}\) have orthonormal columns spanning
+\(\operatorname{range}S\), let
+\(B_\perp\in\R^{NK\times r}\), \(r=NK-mK\), complete it so that
+\([B\ B_\perp]\) is orthogonal, and write
+\(p=\mathcal N(\mu,\Lambda^{-1})\). These definitions apply throughout this
+section.
 
 The admissible mean-only family leaves covariance unrestricted. For
-\(P=\mathcal N(\mu,\Lambda^{-1})\), its exact optimized cost is
+\(q=\mathcal N(\nu,\Sigma)\), \(\nu\in\operatorname{range}S\), its exact
+optimized cost is
 \begin{equation}
 \mathcal G_{\rm tie}
+=\inf_{\nu\in\operatorname{range}S,\ \Sigma\succ0}
+\KL\bigl(\mathcal N(\nu,\Sigma)\Vert p\bigr)
 =\frac12m_\perp^\top
 \left(B_\perp^\top\Lambda^{-1}B_\perp\right)^{-1}m_\perp,
 \qquad
@@ -871,14 +898,61 @@ Optimizing the Gaussian KL over covariance gives
 \(\Lambda^{-1}\), leaving
 \(\frac12(\nu-\mu)^\top\Lambda(\nu-\mu)\). Minimizing over
 \(\nu=Ba\) gives the \(\Lambda\)-projection of \(\mu\). In the orthogonal
-basis \([B,B_\perp]\), its remaining block is the Schur complement
+basis \([B\ B_\perp]\), its remaining block is the Schur complement
 \[
 \Lambda_{22}-\Lambda_{21}\Lambda_{11}^{-1}\Lambda_{12}
 =\left(B_\perp^\top\Lambda^{-1}B_\perp\right)^{-1}.
 \]
-This proves \eqref{eq:cg-mean-tie-cost}. The regularized formula follows by
-splitting the covariance determinant and trace into retained and transverse
-blocks and optimizing the retained block. \(\square\)
+This proves \eqref{eq:cg-mean-tie-cost}. \(\square\)
+
+A recognition law supported exactly on \(\operatorname{range}S\) is singular
+against \(p\), so its relative entropy to \(p\) is \(+\infty\). The following
+declared full-rank regularization makes the divergence and every finite term
+explicit. Let \(\nu_\star\) be the mean optimizer above and set
+\begin{equation}
+\Sigma_\varepsilon
+=B(B^\top\Lambda B)^{-1}B^\top
++\varepsilon B_\perp B_\perp^\top,
+\qquad
+q_\varepsilon=\mathcal N(\nu_\star,\Sigma_\varepsilon),
+\qquad \varepsilon>0.
+\label{eq:cg-epsilon-regularized-law}
+\end{equation}
+Then, exactly,
+\begin{equation}
+\begin{aligned}
+\mathcal G_\varepsilon
+:=\KL(q_\varepsilon\Vert p)
+={}&\mathcal G_{\rm tie}
++\frac{r}{2}\log\frac1\varepsilon-\frac r2
++\frac12\log\det(B_\perp^\top\Lambda^{-1}B_\perp)\\
+&+\frac{\varepsilon}{2}
+\Tr(B_\perp^\top\Lambda B_\perp).
+\end{aligned}
+\label{eq:cg-epsilon-divergence}
+\end{equation}
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+In the orthogonal basis \([B\ B_\perp]\), the covariance in
+\eqref{eq:cg-epsilon-regularized-law} has determinant
+\(\det(B^\top\Lambda B)^{-1}\varepsilon^r\), while
+\[
+\Tr(\Lambda\Sigma_\varepsilon)
+=mK+\varepsilon\Tr(B_\perp^\top\Lambda B_\perp).
+\]
+The Gaussian KL formula and the optimized mean term give all terms in
+\eqref{eq:cg-epsilon-divergence} after using
+\[
+\det\Lambda
+=\det(B^\top\Lambda B)
+\det\left(B_\perp^\top\Lambda^{-1}B_\perp\right)^{-1},
+\]
+which is the block determinant identity. \(\square\)
+
+Thus \(\mathcal G_\varepsilon\to+\infty\) as
+\(\varepsilon\downarrow0\): identification is a generative construction, not
+a finite recognition restriction.
 
 The marginal precision in \eqref{eq:cg-mean-tie-cost} obeys
 \begin{equation}

@@ -251,17 +251,30 @@ local maps satisfying the overlap laws
 \end{aligned}
 \label{eq:geo-cross-map-gluing}
 \end{equation}
-When the selected regularity category equips the relevant map space with a suitable structure,
-this compatible family is equivalently a section of the associated map bundle with action
-$f\mapsto\widehat\rho_m(g)\circ f\circ\widehat\rho_b(g)^{-1}$.  In neither description does
-$h_i$ replace the intertwiner.  For example, if $\Phi$ is induced by the first map in
-\eqref{eq:geo-induced-cross-morphisms}, its representative from the $u_i^b$ coordinates to the
-$u_i^m$ coordinates is $\widehat\rho_m(h_i^{-1})\circ\phi$.  The factor involving $h_i$ only
-converts model coordinates after $\phi$ has supplied the cross-fiber map.
+In any selected regularity category admitting the two mapping objects and the composition actions
+displayed below, their local representatives first require conversion to one principal-frame
+atlas.  In the belief atlas define
+\begin{equation}
+f_i:=\widehat\rho_m(h_i)\circ\phi_i,
+\qquad
+\widetilde f_i:=\widetilde\phi_i\circ\widehat\rho_m(h_i^{-1}).
+\label{eq:geo-map-bundle-frame-conversion}
+\end{equation}
+Then $f_i$ is the local representative of a section of the associated map bundle with action
+$f\mapsto\widehat\rho_m(g)\circ f\circ\widehat\rho_b(g)^{-1}$, and
+$\widetilde f_i$ obeys the analogous law with the two channels interchanged.  Indeed,
+\eqref{eq:geo-cross-map-gluing} and
+$T_{ij}^m=h_i^{-1}T_{ij}^b h_j$ give
+$f_i\widehat\rho_b(T_{ij}^b)=\widehat\rho_m(T_{ij}^b)f_j$ and
+$\widetilde f_i\widehat\rho_m(T_{ij}^b)=\widehat\rho_b(T_{ij}^b)\widetilde f_j$.
+Thus the compatible family is a map-bundle section only after the displayed conversion, and
+$h_i$ does not replace the cross-fiber map.  For example, if $\Phi$ is induced by the first map in
+\eqref{eq:geo-induced-cross-morphisms}, then
+$\phi_i=\widehat\rho_m(h_i^{-1})\circ\phi$ and hence $f_i=\phi$.
+\status{ESTABLISHED}
 
 \section{Chosen connections, parallel transport, and covariant defects}
 \label{sec:geo-three-transports}
-\label{sec:geo-induced-connection}
 
 \definitionheading{Two connections on the common principal bundle}{def:geo-connections}
 Under \Cref{hyp:geo-smooth-tier}, choose
@@ -358,11 +371,21 @@ D\Phi=\nabla^m\circ\Phi-\Phi\circ\nabla^b,
 D\widetilde\Phi=\nabla^b\circ\widetilde\Phi-\widetilde\Phi\circ\nabla^m.
 \label{eq:geo-linear-covariant-defects}
 \end{equation}
-If $R_b,R_m$ denote the represented coordinate changes, their matrices obey
+Write $V_b,V_m$ for the two representation spaces in this linear specialization.  The
+old-to-new coordinate maps induced by \eqref{eq:geo-local-reframing} are, by definition,
 \begin{equation}
-(D\Phi)'=R_m(D\Phi)R_b^{-1},
+R_i^b:=\rho_b(a_i)^{-1}:V_b\longrightarrow V_b,
 \qquad
-(D\widetilde\Phi)'=R_b(D\widetilde\Phi)R_m^{-1}.
+R_i^m:=\rho_m(b_i)^{-1}:V_m\longrightarrow V_m,
+\label{eq:geo-linear-coordinate-maps}
+\end{equation}
+so that $v_b'=R_i^bv_b$ and $v_m'=R_i^mv_m$.  These are invertible coordinate maps, not
+cross-channel morphisms or coarse restriction operators.  In these coordinates the defect
+matrices obey
+\begin{equation}
+(D\Phi)_i'=R_i^m(D\Phi)_i(R_i^b)^{-1},
+\qquad
+(D\widetilde\Phi)_i'=R_i^b(D\widetilde\Phi)_i(R_i^m)^{-1}.
 \label{eq:geo-defect-gauge-laws}
 \end{equation}
 \status{ESTABLISHED} The matrix laws are not asserted for nonlinear law manifolds.  The
@@ -400,16 +423,22 @@ compatibility is a hypothesis in the probability chapter.
 Let a belief law $q$ on $\R^K$ have finite mean $\mu$ and covariance $\Sigma$, and let
 $R=\rho_b(g)$ be invertible and linear for $g\in G$. Then
 \begin{equation}
-R_\#q\ \text{has mean }R\mu
-\quad\text{and covariance}\quad
-R\Sigma R^\top.
+\mu'=R\mu,
+\qquad
+\Sigma'=R\Sigma R^\top.
 \label{eq:geo-moment-pushforward}
+\end{equation}
+If $\Sigma\succ0$ and $J=\Sigma^{-1}$, the pushed law has precision
+\begin{equation}
+J'=(\Sigma')^{-1}=R^{-\top}JR^{-1}.
+\label{eq:geo-precision-inverse-congruence}
 \end{equation}
 The model channel has the same statement in its own dimension. \status{ESTABLISHED}
 
 \noindent\emph{Proof.}
 For $X\sim q$, linearity gives $\mathbb E[RX]=R\mu$ and
-$\mathbb E[(RX-R\mu)(RX-R\mu)^\top]=R\Sigma R^\top$. \hfill$\square$
+$\mathbb E[(RX-R\mu)(RX-R\mu)^\top]=R\Sigma R^\top$.  Inverting the latter identity gives
+\eqref{eq:geo-precision-inverse-congruence}. \hfill$\square$
 
 \section{Pointwise frame comparisons}
 \label{sec:geo-regime-one}
@@ -544,7 +573,11 @@ Under independently changed channel coordinates at the vertices,
 Here the $a_i^x\in G$ are passive vertex-coordinate choices.  They are induced by smooth frame
 rechoices only after vertices are anchored at contexts $c_i\in\mathcal C_i$, in which case
 $a_i^b=a_i(c_i)$ and $a_i^m=b_i(c_i)$.  Allowing two coordinate descriptions of two graph-link
-data sets does not enlarge the principal gauge group to $G\times G$. \status{DEFINITION}
+data sets does not enlarge the principal gauge group to $G\times G$.  In the old-to-new
+sample-coordinate convention of \Cref{sec:gen-gauge}, the contextual elements denoted there by
+$h_i^x$ satisfy $h_i^x=(a_i^x)^{-1}$.  The superscripted $h_i^x$ is a discrete contextual
+coordinate re-expression and is unrelated to the relative principal-frame field $h_i$ of
+\eqref{eq:geo-relative-frame}. \status{DEFINITION}
 
 The links are channel-specific data.  Neither is determined by the other, by $h_i$, by $\Phi$ or
 $\widetilde\Phi$, by pointwise frame comparison, or by a principal connection.  For a closed
@@ -658,12 +691,16 @@ u_i^b=u_i^m=u_i,
 \label{eq:geo-diagonal-principal}
 \end{equation}
 Even then the represented frame changes generally differ:
+choose a common old-to-new sample-coordinate re-expression $g_i:\mathcal C_i\to G$, so that the
+corresponding principal-section rechoice is $u_i'=u_i\cdot g_i^{-1}$.  Then
 \begin{equation}
 R_i^b=\rho_b(g_i),
 \qquad
 R_i^m=\rho_m(g_i).
 \label{eq:geo-represented-frame-change}
 \end{equation}
+Thus $R_i^b$ and $R_i^m$ have the same principal source $g_i$ but act within different
+representation spaces; neither is a map between the belief and model fibers.
 An independent \emph{equal-connection} specialization declares $\omega_b=\omega_m=\omega$.  The
 underlying principal holonomy is then common, while its actions on belief and model laws remain
 $\widehat\rho_b$ and $\widehat\rho_m$.  A further common-link specialization declares
@@ -672,8 +709,10 @@ others. \status{HYPOTHESIS}
 
 The cross maps remain extra equivariant structure governed by
 \eqref{eq:geo-intertwining}; they are not forced to be inverses or parallel.  Thus
-inequivalent representations do not obstruct a common principal frame, but they may obstruct the
-existence of a nontrivial linear intertwiner.
+inequivalent representations do not obstruct a common principal frame.  In a linear
+associated-vector-bundle specialization they may obstruct a nonzero sample-fiber intertwiner.
+Law-level equivariance is weaker: an equivariant Markov kernel may induce an equivariant map on
+laws without supplying a linear map between the sample fibers.
 
 \section{Optional product-gauge extension}
 \label{sec:geo-product-extension}

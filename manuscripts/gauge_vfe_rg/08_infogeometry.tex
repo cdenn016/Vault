@@ -73,7 +73,7 @@ are the same matrix.
 \section{The chart correction}
 \label{sec:ig-chart}
 
-It is often asserted that the mean sector of the Fisher metric of a Gaussian family \emph{is} the precision. The assertion is true, and it is the standard statement of Gaussian information geometry, but it is true in the moment chart. It is false in the expectation chart, which is the chart the exponential-family duality of Section~\ref{sec:ig-expfam} actually delivers. Both facts are proved below, and the discrepancy between them is not a small correction.
+It is often asserted that the mean sector of the Fisher metric of a Gaussian family \emph{is} the precision. The assertion is true for the mean block in the moment chart. In the expectation chart it is false for the restriction to the coordinate mean directions, while the metric induced on the quotient by the second-moment directions is again exactly the precision. Thus ``the mean sector'' is ambiguous in the expectation chart until restriction or quotient is named. Both readings are computed below.
 
 \medskip
 \propositionheading{Fisher metric in the moment chart}{prop:ig-fisher-moment-chart}
@@ -135,6 +135,36 @@ u^\top\Lambda u+\left(\mu^\top\Lambda\mu\right)\left(u^\top\Lambda u\right)+\lef
 which is \eqref{eq:ig-meanblock}. For the cross block pair $(u,0)$ with $(0,B)$: the mean parts do not meet, and the covariance parts contribute $\tfrac12\Tr\left(\Lambda\left[-(u\mu^\top+\mu u^\top)\right]\Lambda B\right)=-u^\top\Lambda B\Lambda\mu$, which is \eqref{eq:ig-crossblock}. For the second block take $u=0$, so $\delta C=B$ and nothing changes. \hfill$\square$
 
 \medskip
+\corollaryheading{Restriction and quotient mean sectors}{cor:ig-expectation-mean-quotient}
+\emph{Decompose the expectation-chart tangent space as
+$\R^n\oplus\Sym^n$, with the second summand tangent to $M_2$. The metric
+induced on the quotient by the second-moment directions is the Schur
+complement}
+\begin{equation}
+g_{\mu}^{\rm quot}
+=g_{[\mu\mu]}
+-g_{[\mu M_2]}g_{[M_2M_2]}^{-1}g_{[M_2\mu]}
+=\Lambda.
+\label{eq:ig-expectation-mean-quotient}
+\end{equation}
+\emph{Equivalently, it is the restriction of $g_\tau$ to the
+$g_\tau$-orthogonal complement of the second-moment directions, expressed
+through the quotient coordinate $\mu$.} \status{ESTABLISHED}
+
+\noindent\emph{Proof.} The Fisher metric is positive definite on this minimal
+Gaussian family, so the second block and its Schur complement are invertible.
+The block-inverse identity gives
+\[
+\left(g_{\mu}^{\rm quot}\right)^{-1}
+=\left(g_\tau^{-1}\right)_{[hh]}.
+\]
+By \eqref{eq:ig-dual-inverse}, $g_\tau^{-1}=g_\eta$, and its $hh$ block is
+$\operatorname{Cov}_q(Y)=C=\Lambda^{-1}$ by
+\eqref{eq:ig-fisher-hessian}. Inverting proves
+\eqref{eq:ig-expectation-mean-quotient}. The Schur complement is the standard
+formula for the metric on the orthogonal quotient. \hfill$\square$
+
+\medskip
 \corollaryheading{Size of the discrepancy and the exact equality case}{cor:ig-mean-block-discrepancy}
 \emph{Write $v=\Lambda^{1/2}\mu$. Then}
 \begin{equation}
@@ -147,14 +177,14 @@ g_{[\mu\mu]}=\Lambda^{1/2}\left[\left(1+\|v\|^2\right)I_{n}+vv^\top\right]\Lambd
 \noindent\emph{Proof.} Equation \eqref{eq:ig-meanblock-factored} is \eqref{eq:ig-meanblock} rewritten. The bracket is $\left(1+\|v\|^2\right)I+vv^\top$, whose eigenvalues are $1+\|v\|^2+\|v\|^2$ along $v$ and $1+\|v\|^2$ on $v^\perp$; since $\Lambda^{-1}g_{[\mu\mu]}=\Lambda^{-1/2}\left[\cdot\right]\Lambda^{1/2}$ is similar to the bracket, its spectrum is that list. For the equality case, $g_{[\mu\mu]}-\Lambda=\left(\mu^\top\Lambda\mu\right)\Lambda+\Lambda\mu\mu^\top\Lambda$ is a sum of two positive semidefinite matrices, so it vanishes only if both vanish; the first forces $\mu^\top\Lambda\mu=0$ and hence $\mu=0$ because $\Lambda\succ0$. The converse is immediate. \hfill$\square$
 
 \medskip
-The discrepancy is therefore governed by the squared Mahalanobis norm of the mean, $\mu^\top\Lambda\mu$, and it is unbounded. It is not a normalization constant and it does not disappear in any limit that keeps the mean away from the origin.
+The discrepancy between the two \emph{restriction} mean blocks is therefore governed by the squared Mahalanobis norm of the mean, $\mu^\top\Lambda\mu$, and it is unbounded. It is not a normalization constant and it does not disappear in any limit that keeps the mean away from the origin. This statement does not concern the quotient metric, which equals $\Lambda$ exactly by \Cref{cor:ig-expectation-mean-quotient}.
 
 The mechanism behind the discrepancy is worth stating plainly, because it is what makes the error easy to commit. Both charts call their first coordinate $\mu$, but they do not have the same coordinate vector fields. The vector $\partial/\partial\mu$ at fixed $C$ moves the mean while holding the covariance fixed, so \(M_2\) changes; the vector $\partial/\partial\mu$ at fixed $M_2$ moves the mean and compensates in $C$. These are different tangent vectors at the same point of the manifold, and a metric assigns them different lengths. Writing $g_{[\mu\mu]}$ without saying which of the two is meant does not denote anything.
 
-The same observation disposes of the phrase ``the mean sector'' in the expectation chart. A metric tensor has a well defined restriction to a subspace of the tangent space only once that subspace is declared; what is not chart independent is the \emph{complement}. In the moment chart the covariance directions are Fisher-orthogonal to the mean directions, by the vanishing third-moment argument in the proof of \Cref{prop:ig-fisher-moment-chart}, so ``the mean sector'' can be taken to mean either the restriction to the mean directions or the orthogonal quotient, and the two agree. In the expectation chart \eqref{eq:ig-crossblock} is nonzero, the mean and second-moment directions are not Fisher-orthogonal, and the restriction \eqref{eq:ig-meanblock} differs from the quotient obtained by projecting out the second-moment directions. Absent a declared splitting, ``the mean sector'' in that chart names no unique object.
+The same observation resolves the phrase ``the mean sector'' in the expectation chart. A metric tensor has a well defined restriction to a subspace of the tangent space only once that subspace is declared; what is not chart independent is the \emph{complement}. In the moment chart the covariance directions are Fisher-orthogonal to the mean directions, by the vanishing third-moment argument in the proof of \Cref{prop:ig-fisher-moment-chart}, so ``the mean sector'' can be taken to mean either the restriction to the mean directions or the orthogonal quotient, and the two agree. In the expectation chart \eqref{eq:ig-crossblock} is nonzero, the mean and second-moment directions are not Fisher-orthogonal. The restriction is \eqref{eq:ig-meanblock}, whereas the orthogonal quotient is \eqref{eq:ig-expectation-mean-quotient}; the former differs from $\Lambda$ away from $\mu=0$, and the latter equals $\Lambda$ at every point. Absent a declared reading, ``the mean sector'' in that chart names no unique object.
 
 \medskip
-\noindent\textbf{The chart discipline.} A coordinate identity that mixes the mean and covariance sectors of a Gaussian family must name the chart in which it holds. Identity \eqref{eq:ig-moment-metric} holds in $(\mu,C)$; identities \eqref{eq:ig-meanblock} and \eqref{eq:ig-crossblock} hold in $(\mu,M_2)$; by \Cref{cor:ig-mean-block-discrepancy} the two mean blocks agree only at $\mu=0$. \status{ESTABLISHED}
+\noindent\textbf{The chart discipline.} A coordinate identity that mixes the mean and covariance sectors of a Gaussian family must name the chart and whether it uses restriction or quotient. Identity \eqref{eq:ig-moment-metric} holds in $(\mu,C)$; identities \eqref{eq:ig-meanblock} and \eqref{eq:ig-crossblock} give the expectation-chart restriction and cross blocks; and \eqref{eq:ig-expectation-mean-quotient} gives its quotient mean metric. By \Cref{cor:ig-mean-block-discrepancy} the two restriction mean blocks agree only at $\mu=0$, while the quotient mean metric equals $\Lambda$ everywhere. \status{ESTABLISHED}
 
 \subsection*{Verification}
 
@@ -175,11 +205,30 @@ $y\mapsto\tfrac12 y^\top\Lambda y$ is a quadratic form on it. The recognition
 parameter manifold is the set of laws \eqref{eq:ig-density}, coordinatized by
 any of the four charts of Section~\ref{sec:ig-expfam}; the Fisher metric
 \eqref{eq:ig-moment-metric} is a Riemannian metric on it. The model parameter
-space is where $\theta$ lives, indexing the generative kernel; the Fisher
-metric of the likelihood $\theta\mapsto p_\theta(o\given X)$ is a Riemannian
-metric on \emph{that}, and its dimension is the dimension of $\theta$, which
-has no relation to $n=NK$. Finally, the contextual base $\mathcal C$ indexes
-law-bundle sections. Once a connection and a statistical section are chosen,
+space is where $\theta$ lives and indexes the generative kernel. For a regular
+conditional model and a declared fixed input $X$, its conditional Fisher
+tensor is
+\begin{equation}
+I_X(\theta)(u,v)
+=\mathbb E_\theta\left[
+\partial_u\log p_\theta(O\given X)
+\partial_v\log p_\theta(O\given X)
+\mathrel{\big|}X
+\right].
+\label{eq:ig-conditional-model-fisher}
+\end{equation}
+If inputs are randomized or a design ensemble is used, a declared probability
+law $r(dX)$ supplies the averaged tensor
+\begin{equation}
+I_r(\theta)=\int I_X(\theta)r(dX).
+\label{eq:ig-averaged-model-fisher}
+\end{equation}
+Different choices of $X$ or $r$ can change both the tensor and its rank.
+Only where the selected tensor is nondegenerate is it a Riemannian metric on
+the model parameter space; that space has the dimension of $\theta$, which
+has no relation to $n=NK$ \citep{Amari1998,AmariNagaoka2000}. Finally, the
+contextual base $\mathcal C$ indexes law-bundle sections. Once a connection
+and a statistical section are chosen,
 \Cref{def:pb-informational-pullbacks} gives a generally semidefinite tensor
 on $T\mathcal C$; it is not any of the preceding three objects.
 \status{ESTABLISHED}
@@ -187,14 +236,22 @@ on $T\mathcal C$; it is not any of the preceding three objects.
 What makes the confusion easy is an exact but scoped component identity in this family, and stating it precisely is more useful than warning against it. The recognition family is a location family in its mean, so the mean parameter takes values in the same vector space $\R^{n}$ as the sample variable, and the mean block \eqref{eq:ig-moment-metric} of the parameter-space metric has the same components as the sample-space form $\Lambda$. The equality is of components in matched charts, not of objects: one is a metric on the tangent spaces of a manifold of probability laws, the other is a bilinear form on the latent vector space. For a family that is not a location family the two have different dimensions and no comparison arises. The identity is therefore a feature of the Gaussian mean sector and cannot be used as evidence that a construction defined on one space transfers to the other. \status{ESTABLISHED}
 
 There is a corresponding exact but scoped relation to the interaction
-Laplacian \(L\).  If transported Gaussian laws have covariance fixed within
-the mean submodel and parallel along each edge, and the edge quadratic uses
-that transported precision, their pairwise KL is exactly the associated
-mean-sector Fisher quadratic; summing over edges gives the connection
-Laplacian form.  For a regular non-Gaussian family, freezing the Fisher
-tensor at one parallel base law gives the analogous form only as the local
-second-order term of transported KL \citep{AmariNagaoka2000}.  Outside these
-Gaussian or frozen-local hypotheses, a sample-space \(L\) is not a
+Laplacian \(L\). If the transported endpoint laws on an edge $(i,j)$ have
+means in $\R^K$ and share one fixed covariance
+$C_{ij}=J_{ij}^{-1}\in\Sym_{++}^K$ within the mean submodel, then
+\begin{equation}
+\KL\bigl(\mathcal N(\mu_i,C_{ij})\Vert\mathcal N(\mu_j,C_{ij})\bigr)
+=\frac12(\mu_i-\mu_j)^\top J_{ij}(\mu_i-\mu_j)
+=\frac12g^{\rm mean}_{(\mu,C_{ij})}(\mu_i-\mu_j,\mu_i-\mu_j).
+\label{eq:ig-fixed-covariance-kl-fisher}
+\end{equation}
+Thus pairwise KL is exactly one half of the associated mean-sector Fisher
+quadratic. Summing these typed edge quadratics defines the corresponding
+$NK\times NK$ connection-Laplacian energy; the assembled matrix $L$ is not
+inserted into a single $K$-dimensional edge term. For a regular non-Gaussian family, freezing the
+Fisher tensor at one parallel base law gives the analogous form only as the
+local second-order term of transported KL \citep{AmariNagaoka2000}. Outside
+these Gaussian or frozen-local hypotheses, a sample-space $L$ is not a
 recognition Fisher tensor or a natural-gradient operator.
 \status{ESTABLISHED}
 
@@ -231,6 +288,47 @@ B^\top\Lambda B-\left(B^\top\Lambda^{-1}B\right)^{-1}
 \status{ESTABLISHED}
 
 \noindent\emph{Proof.} The matrix $\left[B\quad B_\perp\right]$ is orthogonal, so in that basis $\Lambda$ has blocks $\Lambda_{11}=B^\top\Lambda B$, $\Lambda_{12}=B^\top\Lambda B_\perp$, $\Lambda_{22}=B_\perp^\top\Lambda B_\perp$. The block inversion formula gives $B^\top\Lambda^{-1}B=\left(\Lambda_{11}-\Lambda_{12}\Lambda_{22}^{-1}\Lambda_{21}\right)^{-1}$ \citep{HornJohnson2013}, and inverting again yields \eqref{eq:ig-restriction-marginal}. The right side is a congruence of $\Lambda_{22}^{-1}\succ0$ and is therefore positive semidefinite, and it vanishes exactly when $\Lambda_{12}=0$. The identification of the two sides as pullback and pushforward metrics is the Gaussian conditional and marginal precision respectively \citep{Lauritzen1996}. \hfill$\square$
+
+\medskip
+\corollaryheading{Full-rank inclusion and averaging}{cor:ig-full-rank-restriction-pushforward}
+\emph{Let $S\in\R^{n\times k}$ have full column rank, set
+$M_S=S^\top S$, and let
+$S^\dagger=M_S^{-1}S^\top$. The mean submodel
+$\mu=S\bar\mu$ has Fisher matrix $S^\top\Lambda S$, while the mean of
+the pushforward under $y\mapsto S^\dagger y$ has Fisher matrix}
+\begin{equation}
+\Lambda_{\rm av}
+=M_S\left(S^\top\Lambda^{-1}S\right)^{-1}M_S.
+\label{eq:ig-full-rank-average-precision}
+\end{equation}
+\emph{Writing $B=SM_S^{-1/2}$, so that $B^\top B=I_k$, and completing
+$B$ to an orthogonal matrix $[B\ B_\perp]$ gives}
+\begin{equation}
+\begin{aligned}
+S^\top\Lambda S-\Lambda_{\rm av}
+&=M_S^{1/2}\left[
+B^\top\Lambda B-\left(B^\top\Lambda^{-1}B\right)^{-1}
+\right]M_S^{1/2}\succeq0.
+\end{aligned}
+\label{eq:ig-full-rank-restriction-marginal}
+\end{equation}
+\emph{Equality holds exactly when
+$B^\top\Lambda B_\perp=0$, equivalently when
+$\operatorname{range}(S)$ and its Euclidean orthogonal complement are
+$\Lambda$-orthogonal.} \status{ESTABLISHED}
+
+\noindent\emph{Proof.} Pulling the mean metric back along
+$\bar\mu\mapsto S\bar\mu$ gives $S^\top\Lambda S$. The pushforward
+covariance is
+\[
+S^\dagger\Lambda^{-1}(S^\dagger)^\top
+=M_S^{-1}S^\top\Lambda^{-1}SM_S^{-1},
+\]
+whose inverse is \eqref{eq:ig-full-rank-average-precision}. Substituting
+$S=BM_S^{1/2}$ into both matrices yields
+\eqref{eq:ig-full-rank-restriction-marginal}, and
+\Cref{prop:ig-pullback-vs-pushforward} supplies its positivity and equality
+condition. \hfill$\square$
 
 \medskip
 Restriction is a pullback along an injective map of parameters, and it makes the metric larger in the Loewner order; marginalization is a pushforward along a map of the sample space, and it makes the metric smaller. The monotonicity theorems of information geometry govern the second operation, not the first, a point taken up in Section~\ref{sec:ig-notclaimed}. The deterministic replacement check \texttt{CHK-IG-PULLBACK-PUSHFORWARD} tests the Schur identity and Loewner order over a specified ensemble and includes the $\Lambda$-orthogonal equality control. Computation is not proof and the proof is above. \status{NUMERICAL}
@@ -281,10 +379,14 @@ so the full-space determinant does not define an $n$-element generalized spectru
 
 \medskip
 \propositionheading{Localization and endpoints}{prop:ig-generalized-spectrum-localization}
-\emph{If in addition $L\succeq0$ and $A=\Lambda-L\succeq0$, then every generalized eigenvalue of \eqref{eq:ig-pencil} lies in $[0,1]$. The value $0$ is attained exactly on $\ker L$, whose dimension is at least $K$ because every configuration constant across agents lies in it, and the value $1$ exactly on $\ker A$.}
+\emph{If in addition $L\succeq0$ and $A=\Lambda-L\succeq0$, then every generalized eigenvalue of \eqref{eq:ig-pencil} lies in $[0,1]$. The value $0$ is attained exactly on $\ker L$, and the value $1$ exactly on $\ker A$. If, further, $L$ is the matrix-weighted Laplacian part of \eqref{eq:gauss-interaction-family}, with $W_{ij}\succeq0$, then every configuration constant across agents lies in $\ker L$, and hence $\dim\ker L\geq K$.}
 \status{ESTABLISHED}
 
-\noindent\emph{Proof.} By the Rayleigh characterization, each generalized eigenvalue is a value of $d(x)=x^\top Lx/x^\top\Lambda x$ at a stationary point, and $x^\top\Lambda x=x^\top Lx+x^\top Ax$ with both terms nonnegative and the sum positive. Hence $0\le d(x)\le1$ for all $x\neq0$, with $d(x)=0$ iff $x^\top Lx=0$, which for $L\succeq0$ is $x\in\ker L$, and $d(x)=1$ iff $x\in\ker A$. That the constant configurations $\mathbf 1\otimes w$, $w\in\R^{K}$, lie in $\ker L$ follows from the difference form $x^\top Lx=\sum_{i<j}\left(x_i-x_j\right)^\top W_{ij}\left(x_i-x_j\right)$. \hfill$\square$
+\noindent\emph{Proof.} By the Rayleigh characterization, each generalized eigenvalue is a value of $d(x)=x^\top Lx/x^\top\Lambda x$ at a stationary point, and $x^\top\Lambda x=x^\top Lx+x^\top Ax$ with both terms nonnegative and the sum positive. Hence $0\le d(x)\le1$ for all $x\neq0$, with $d(x)=0$ iff $x^\top Lx=0$, which for $L\succeq0$ is $x\in\ker L$, and $d(x)=1$ iff $x\in\ker A$. Under the additional interaction-Laplacian hypothesis, the difference form
+\[
+x^\top Lx=\sum_{i<j}\left(x_i-x_j\right)^\top W_{ij}\left(x_i-x_j\right)
+\]
+vanishes on every $x=\mathbf1\otimes w$, $w\in\R^K$. These $K$ independent configurations lie in $\ker L$, proving the dimension clause. \hfill$\square$
 
 \medskip
 The generalized eigenvalue is therefore readable, and its reading is frame independent: $d_k$ is the fraction of the total precision along the $k$-th pencil direction that is supplied by interaction rather than by self terms. The consensus directions sit at $d=0$ because interaction supplies no precision there; a direction that no self term constrains sits at $d=1$.
@@ -312,7 +414,17 @@ The consequence is a prohibition, and it is the reason this section exists. A re
 \section{What is not claimed}
 \label{sec:ig-notclaimed}
 
-The Fisher metric is used here as a declared choice of geometry on the recognition manifold, and the classical uniqueness results are not strong enough to make that choice forced in this setting. On a finite sample space the Fisher metric is, up to a positive scale, the unique Riemannian metric invariant under Markov morphisms; this is Chentsov's theorem \citep{Cencov1982}, with the extension to non-normalized measures due to \citet{Campbell1986}. \status{ESTABLISHED} The latent space here is $\R^{n}$, so that theorem does not apply directly. Extensions to general sample spaces exist and are established, but they carry their own hypotheses: \citet{Ay2015} and \citet{Le2017} obtain uniqueness under a strong-continuity assumption on the information metric, and the monograph treatment collects the required regularity \citep{AyJostLeSchwachhofer2017}. \status{ESTABLISHED} The development therefore adopts the Fisher metric because it is the Hessian of the exponential-family potential \eqref{eq:ig-fisher-hessian} and because that is the structure the calculations use, and it does not claim that no other invariant metric is available in the continuous setting. \status{HYPOTHESIS}
+The Fisher metric is used here as a declared choice of geometry on the recognition manifold, and the classical uniqueness results are not strong enough to make that choice forced in this setting. On a finite normalized simplex the Fisher metric is, up to a positive scale, the unique Riemannian metric invariant under congruent Markov embeddings; this is Chentsov's theorem \citep{Cencov1982}. Campbell's extension to the positive cone of nonnormalized measures is a characterization, but not uniqueness up to scale: writing $s=\sum_i x_i$, every metric in the characterized family has coordinate components
+\begin{equation}
+g_x(\partial_i,\partial_j)
+=A(s)+\delta_{ij}\frac{sB(s)}{x_i},
+\qquad
+B(s)>0,
+\qquad
+A(s)+B(s)>0,
+\label{eq:ig-campbell-cone-family}
+\end{equation}
+for two otherwise arbitrary smooth functions $A$ and $B$, and conversely every such pair defines an invariant family \citep{Campbell1986}. On the normalized simplex, tangent vectors satisfy $\sum_i u_i=\sum_i v_i=0$, so the $A$ term vanishes and \eqref{eq:ig-campbell-cone-family} restricts to $B(1)\sum_i u_iv_i/x_i$, a constant multiple of Fisher. Thus simplex uniqueness and the larger nonnormalized cone family are separate statements. \status{ESTABLISHED} The latent space here is $\R^{n}$, so neither finite-sample statement applies directly. Extensions to general sample spaces exist and are established, but they carry their own hypotheses: \citet{Ay2015} and \citet{Le2017} obtain uniqueness under a strong-continuity assumption on the information metric, and the monograph treatment collects the required regularity \citep{AyJostLeSchwachhofer2017}. \status{ESTABLISHED} The development therefore adopts the Fisher metric because it is the Hessian of the exponential-family potential \eqref{eq:ig-fisher-hessian} and because that is the structure the calculations use, and it does not claim that no other invariant metric is available in the continuous setting. \status{HYPOTHESIS}
 
 No Markov/data-processing monotonicity theorem is asserted for the deterministic
 Galerkin aggregation map. \status{NOT-CLAIMED} The established general statement is that the Fisher

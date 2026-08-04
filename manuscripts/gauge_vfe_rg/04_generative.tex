@@ -270,52 +270,99 @@ parameters, not because normalized cyclic Gaussian Markov random fields are inva
 
 At each design point $c_a$ and vertex, independently re-express the belief and
 model frame coordinates by
-$g_{a,i}^b=g_i^b(c_a)\in G$ and $g_{a,i}^m=g_i^m(c_a)\in G$, and write
+$g_{a,i}^b=g_i^b(c_a)\in G$ and $g_{a,i}^m=g_i^m(c_a)\in G$.  Define the
+old-to-new represented sample-coordinate maps
 \begin{equation}
-R_{a,i}^b=\rho_b(g_{a,i}^b),
+R_{a,i}^b:=\rho_b(g_{a,i}^b):\mathsf K\longrightarrow\mathsf K,
 \qquad
-R_{a,i}^m=\rho_m(g_{a,i}^m).
+R_{a,i}^m:=\rho_m(g_{a,i}^m):\mathsf M\longrightarrow\mathsf M.
 \label{eq:gen-rep-actions}
 \end{equation}
 With the passive-section convention of
 \eqref{eq:geo-local-reframing}, this sample-coordinate transformation
 corresponds to the section rechoice
-$u_i^{x\prime}=u_i^x\cdot(g_{a,i}^x)^{-1}$. Thus the represented matrix
-$R_{a,i}^x$ multiplies sample coordinates, while its inverse multiplies the
-principal frame on the right.
+$u_i^{x\prime}=u_i^x\cdot(g_i^x)^{-1}$, whose value at $c_a$ uses
+$(g_{a,i}^x)^{-1}$.  Thus $R_{a,i}^x$ acts within the
+channel's sample fiber, while the group element $(g_i^x)^{-1}\in G$, not the
+represented operator $(R_{a,i}^x)^{-1}$, multiplies the principal frame on the right.  This
+distinction remains necessary when the representation is not faithful.
 Within a formula for one design point, suppress the index $a$ and write $g_i^x,R_i^x$.
 They act on latent coordinates as $k_i'=R_i^bk_i$ and $m_i'=R_i^mm_i$, while observations are
 gauge inert. To permit all such independent coordinate changes, the finite-design structural
 data carry graph-link copies \(\Theta_{a,ij}^x\), one for each design
 incidence. At fixed \(a\) write \(\Theta_{ij}^x\); their discrete vertex
-frame changes are \(h_{a,i}^x=g_i^x(c_a)\), abbreviated \(h_i^x\), and the
-suppressed one-design-point law is
+frame changes are
+\begin{equation}
+h_{a,i}^x:=g_{a,i}^x=g_i^x(c_a),
+\qquad
+a_{a,i}^x:=(h_{a,i}^x)^{-1},
+\label{eq:gen-contextual-frame-change}
+\end{equation}
+in the notation of \eqref{eq:geo-regime-two-gauge-law}.  The contextual coordinate element
+$h_{a,i}^x$, abbreviated $h_i^x$ at one design point, is unrelated to the relative
+principal-frame field $h_i$ defined by \eqref{eq:geo-relative-frame}.  The suppressed
+one-design-point law is
 \begin{equation}
 \Theta_{ij}^{b\prime}=h_i^b\Theta_{ij}^b(h_j^b)^{-1},
 \qquad
 \Theta_{ij}^{m\prime}=h_i^m\Theta_{ij}^m(h_j^m)^{-1}.
 \label{eq:gen-gauge-links}
 \end{equation}
+Consequently the represented links obey
+\begin{equation}
+\rho_x(\Theta_{ij}^{x\prime})
+=R_i^x\rho_x(\Theta_{ij}^x)(R_j^x)^{-1},
+\qquad x\in\{b,m\},
+\label{eq:gen-represented-gauge-links}
+\end{equation}
+and the inverse-orientation rule is preserved.  Equations
+\eqref{eq:geo-regime-two-gauge-law} and \eqref{eq:gen-gauge-links} are therefore the same passive
+law written with mutually inverse rechoice conventions.
 If instead one structural link is constrained to be identical at every
 design point, an admissible frame rechoice must preserve that constraint:
 for every two design indices \(a,a'\) and every constrained edge,
-
-\[
+\begin{equation}
 h_{a,i}^x\Theta_{ij}^x(h_{a,j}^x)^{-1}
 =h_{a',i}^x\Theta_{ij}^x(h_{a',j}^x)^{-1}.
-\]
+\label{eq:gen-shared-link-admissibility}
+\end{equation}
 
 Context-independent rechoices are a sufficient subgroup, but they are not
-necessary; the full residual group is the stabilizer of the shared-link
-constraints. A larger transformation law requires an explicitly declared
-parameter compensation.
-Across the unconstrained finite design the passive coordinate group is
-$\prod_{a,i}(G\times G)$. This product records two independently chosen
-trivializations of associated bundles induced from the same $P$; it is not a
-second principal structure group. The active principal gauge group is
-$\operatorname{Aut}_G(P)$ over $\operatorname{id}_{\mathcal C}$; it acts
-diagonally on both associated bundles through $\rho_b$ and $\rho_m$. It is
-not the principal right $G$-action itself. A
+necessary.  The admissible rechoices at one fixed shared-link datum form the solution set of
+\eqref{eq:gen-shared-link-admissibility}; for nonabelian $G$ this set need not be a subgroup.  The
+group that acts on the entire constrained submodel is instead the setwise stabilizer of the
+shared-link constraint set, which can be a proper subset of that solution set.  A larger
+transformation law requires an explicitly declared parameter compensation.
+
+\propositionheading{Shared-link admissibility need not be closed under composition}{prop:gen-shared-link-nonclosure}
+For $G=\GL(2,\R)$, two design points, one constrained edge, and
+$\Theta_{ij}=I$, the solution set of \eqref{eq:gen-shared-link-admissibility} is not closed under
+pointwise multiplication. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Let $S=\operatorname{diag}(2,1)$ and
+$C=\begin{psmallmatrix}1&1\\0&1\end{psmallmatrix}$.  The rechoice
+$h_{1,i}=h_{1,j}=I$, $h_{2,i}=h_{2,j}=S$ sends the shared link to $I$ at both design points.
+The rechoice $\widetilde h_{a,i}=C$, $\widetilde h_{a,j}=I$ sends it to $C$ at both points.
+For their pointwise product $h\widetilde h$, the two transformed links are $C$ and
+$SCS^{-1}=\begin{psmallmatrix}1&2\\0&1\end{psmallmatrix}$, respectively, so the product violates
+\eqref{eq:gen-shared-link-admissibility}. \hfill$\square$
+
+At the unconstrained finite-design level, declaring the coordinate re-expressions independently
+gives the passive product $\prod_{a,i}(G\times G)$.  If they must arise as values of smooth maps
+$g_i^x:\mathcal C_i\to G$, the realized group is the image of the corresponding evaluation map;
+it equals the displayed product whenever that evaluation map is surjective.  For example, this
+holds for a smooth positive-dimensional base at finitely many distinct design points when $G$ is
+connected, by smooth interpolation in disjoint coordinate neighborhoods.  This product records two independently chosen
+trivializations of associated bundles induced from the same $P$; it is not a second principal
+structure group. The active principal gauge group is $\operatorname{Aut}_G(P)$ over
+$\operatorname{id}_{\mathcal C}$; one automorphism acts on both associated bundles, with local
+functions related by \eqref{eq:geo-diagonal-gauge-functions}.  Its image in the passive product is
+contained in the pointwise $h_i$-twisted diagonal and is contained in the ordinary diagonal in the
+common-frame specialization $h_i=e_G$.  Equality with the corresponding pointwise diagonal holds
+only when the relevant active-gauge evaluation map is surjective; disconnected structure groups
+or global bundle constraints can obstruct that surjectivity.  It is not the principal right
+$G$-action itself. A
 context-independent frame re-expression is the subgroup for which
 $g_{a,i}^x$ does not depend on $a$.
 \status{DEFINITION}\label{def:gen-product-action}
@@ -350,31 +397,64 @@ root it implies that the induced law map \eqref{eq:gen-root-law-bridge} obeys
 \eqref{eq:geo-tildephi-gauge-law}; at a nonroot it remains a parent-indexed kernel law unless an
 enlarged cross-bundle domain is declared. Neither route uses $\Phi$.
 
-\propositionheading{Joint covariance and evidence invariance}{prop:gen-product-evidence-invariance}
+\propositionheading{Joint measure covariance and evidence invariance}{prop:gen-product-evidence-invariance}
 Let
 $T(o,y)=(o,Ry)$, where
 $R=\bigoplus_{a,i}(R_{a,i}^b\oplus R_{a,i}^m)$.  Under
 \Cref{hyp:gen-kernel-covariance},
 \begin{equation}
 P_{\theta'}(\cdot\given X')=T_{\#}P_\theta(\cdot\given X),
-\qquad
-p_{\theta'}(o,y'\given X')
-=|\det R|^{-1}p_\theta(o,R^{-1}y'\given X),
 \label{eq:gen-gauge-joint-pushforward}
 \end{equation}
-when the local actions are linear and densities exist.  The observation marginals agree:
+as probability measures, without a density or reference-measure hypothesis.  Because $T$ is the
+identity on observations, the observation marginals agree.  Relative to the common observation
+reference measure this gives
 \begin{equation}
 p_{\theta'}(o\given X')=p_\theta(o\given X)
 \quad\text{for }\nu_D^O\text{-almost every }o.
 \label{eq:gen-gauge-evidence-invariance}
 \end{equation}
+If latent densities exist and $R_\#\nu_D^Y\ll\nu_D^Y$, define
+\begin{equation}
+j_R(y'):=\frac{d(R_\#\nu_D^Y)}{d\nu_D^Y}(y').
+\label{eq:gen-gauge-reference-rn}
+\end{equation}
+Then the density statement is
+\begin{equation}
+p_{\theta'}(o,y'\given X')
+=p_\theta(o,R^{-1}y'\given X)j_R(y')
+\quad\text{for }(\nu_D^O\otimes\nu_D^Y)\text{-almost every }(o,y').
+\label{eq:gen-gauge-rn-density}
+\end{equation}
+On the further differentiable equal-dimensional Euclidean tier, when every represented block is
+an invertible linear map and $\nu_D^Y$ is product Lebesgue measure,
+$j_R=|\det R|^{-1}$ and hence
+\begin{equation}
+p_{\theta'}(o,y'\given X')
+=|\det R|^{-1}p_\theta(o,R^{-1}y'\given X).
+\label{eq:gen-gauge-lebesgue-density}
+\end{equation}
+Equal dimensionality here is between the source and target coordinates within each channel; it
+does not impose $K=d_m$.  The determinant formula is not asserted for mixed or atomic reference
+measures.
 \status{ESTABLISHED}
 
 \noindent\emph{Proof.}
 Apply \eqref{eq:gen-gauge-pushforward-model}--\eqref{eq:gen-gauge-pushforward-obs} along the
 topological ordering.  Each factor is the receiving-coordinate pushforward of the original factor,
-so the composed law is $T_{\#}P_\theta$.  The density formula is change of variables.  Integrating
-over $y'$ cancels its Jacobian because $T$ is the identity on observations. \hfill$\square$
+so the composed law is $T_{\#}P_\theta$.  Projection to the observation coordinate commutes with
+this pushforward, so the observation measures agree and their densities satisfy
+\eqref{eq:gen-gauge-evidence-invariance}.  For a bounded measurable test function $F$ on the joint
+observation--latent space,
+\[
+\int F(o,y')p_{\theta'}(o,y'\given X')\nu_D^O(do)\nu_D^Y(dy')
+=\int F(o,Ry)p_\theta(o,y\given X)\nu_D^O(do)\nu_D^Y(dy),
+\]
+by the measure identity.  Rewriting the right side against $R_\#\nu_D^Y$ and applying
+\eqref{eq:gen-gauge-reference-rn} gives \eqref{eq:gen-gauge-rn-density}.  On the stated Lebesgue
+tier, linear change of variables gives
+$d(R_\#\nu_D^Y)/d\nu_D^Y=|\det R|^{-1}$, proving
+\eqref{eq:gen-gauge-lebesgue-density}. \hfill$\square$
 
 Evidence invariance is a redundancy constraint, not an empirical prediction: the action changes
 latent coordinates while leaving the observation law fixed.  The linear-Gaussian chapter verifies

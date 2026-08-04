@@ -304,8 +304,14 @@ When the interaction parameters are required to be readable from the generative 
 
 A declared subfamily is worthless if it is empty or numerically degenerate, so both should be checked. Nonemptiness is a construction, not an experiment.
 
-\propositionheading{Constructive nonemptiness}{prop:gauss-interaction-nonempty}
-Under \Cref{hyp:gauss-flat-comparison}, let each edge of a graph on $V$ carry an agreement factor with residual $\mu_i-\Theta_{ij}\mu_j$ and link covariance $R_{ij}\in\Sym_{++}^{K}$, and let each agent carry a proper prior of precision $A_i\succeq0$ in the trivialized coordinates. Then the assembled trivialized energy is
+\propositionheading{Constructive nonemptiness and exact kernel}{prop:gauss-interaction-nonempty}
+Under \Cref{hyp:gauss-flat-comparison}, let each edge of a graph
+$G=(V,E)$ carry an agreement factor with residual
+$\mu_i-\Theta_{ij}\mu_j$ and link covariance
+$R_{ij}\in\Sym_{++}^{K}$, and let each vertex carry a quadratic self
+term $A_i\succeq0$ in the trivialized coordinates. A self term is the
+precision of a proper full-dimensional Gaussian prior at vertex $i$ only
+when $A_i\succ0$. The assembled trivialized energy is
 \begin{equation}
 E(z)=\tfrac12\sum_{i}z_i^\top A_iz_i
 +\tfrac12\sum_{i<j}\left(z_i-z_j\right)^\top W_{ij}\left(z_i-z_j\right),
@@ -313,14 +319,36 @@ E(z)=\tfrac12\sum_{i}z_i^\top A_iz_i
 W_{ij}=U_i^\top R_{ij}^{-1}U_i,
 \label{eq:gauss-nonempty-construction}
 \end{equation}
-so the associated precision lies in $\mathcal I(V)$, with each $W_{ij}$ symmetric positive definite by construction. \status{ESTABLISHED}
+where the edge sum is over $E$. The associated precision
+$\Lambda$ lies in $\mathcal I(V)\cap\PSD^{NK}$, every represented edge
+weight is positive definite, and
+\begin{equation}
+\ker\Lambda
+=\left\{z:A_iz_i=0\text{ for every }i,
+\quad z_i=z_j\text{ for every }(i,j)\in E\right\}.
+\label{eq:gauss-nonempty-kernel}
+\end{equation}
+If $V_\alpha$ are the connected components of $G$, then equivalently
+\begin{equation}
+\ker\Lambda
+=\bigoplus_\alpha
+\left\{\mathbf1_{V_\alpha}\otimes v:
+v\in\bigcap_{i\in V_\alpha}\ker A_i\right\}.
+\label{eq:gauss-nonempty-component-kernel}
+\end{equation}
+Consequently $\Lambda\succ0$ exactly when
+$\bigcap_{i\in V_\alpha}\ker A_i=\{0\}$ for every connected component.
+In particular, one positive-definite self term in each component suffices;
+taking every $A_i\succ0$ makes every vertex self term a proper prior and
+constructs an element of
+$\mathcal I(V)\cap\Sym_{++}^{NK}$. \status{ESTABLISHED}
 
 \paragraph{Proof.}
-By \eqref{eq:gauss-flat-trivialization} the residual is $U_i(z_i-z_j)$, so the quadratic form $(\mu_i-\Theta_{ij}\mu_j)^\top R_{ij}^{-1}(\mu_i-\Theta_{ij}\mu_j)$ equals $(z_i-z_j)^\top U_i^\top R_{ij}^{-1}U_i(z_i-z_j)$. The matrix $U_i^\top R_{ij}^{-1}U_i$ is symmetric and positive definite because $R_{ij}^{-1}$ is and $U_i$ is invertible. Comparing with \eqref{eq:gauss-interaction-energy} identifies the parameters. $\square$
+By \eqref{eq:gauss-flat-trivialization} the residual is $U_i(z_i-z_j)$, so the quadratic form $(\mu_i-\Theta_{ij}\mu_j)^\top R_{ij}^{-1}(\mu_i-\Theta_{ij}\mu_j)$ equals $(z_i-z_j)^\top U_i^\top R_{ij}^{-1}U_i(z_i-z_j)$. The matrix $U_i^\top R_{ij}^{-1}U_i$ is symmetric and positive definite because $R_{ij}^{-1}$ is and $U_i$ is invertible. Comparing with \eqref{eq:gauss-interaction-energy} identifies the parameters and proves positive semidefiniteness. Equality in the energy holds exactly when $A_iz_i=0$ at every vertex and, because every $W_{ij}\succ0$, when $z_i=z_j$ on every edge. The latter conditions make $z$ constant on each connected component, which proves \eqref{eq:gauss-nonempty-kernel} and \eqref{eq:gauss-nonempty-component-kernel}. A positive-semidefinite matrix is positive definite exactly when its kernel is trivial, yielding the final criterion and the stated proper witnesses. $\square$
 
 \Cref{prop:gauss-interaction-nonempty} also makes the role of \Cref{hyp:gauss-flat-comparison} concrete by contrast. Without trivialization the same agreement factor contributes the off-diagonal block $-R_{ij}^{-1}\Theta_{ij}$, which is symmetric only in special position. The deterministic replacement check \texttt{CHK-GAUSS-TRIVIALIZATION} emits its matrices and compares that asymmetric raw block with the symmetric positive-definite trivialized weight. It corroborates the proposition and is not part of its proof. \status{NUMERICAL}
 
-Conditioning is a different question and admits only protocol-specific computational evidence. The deterministic replacement check \texttt{CHK-GAUSS-CONDITIONING} specifies and runs a $200$-draw interaction ensemble together with a zero-self consensus control and $200$ unstructured positive-definite controls. Its output concerns only that sampler. Positive definiteness is proved by \Cref{prop:gauss-interaction-energy-kernel} and thinness by \Cref{prop:gauss-interaction-family-thin}; no universal conditioning theorem is claimed. \status{NUMERICAL}
+Conditioning is a different question and admits only protocol-specific computational evidence. The deterministic replacement check \texttt{CHK-GAUSS-CONDITIONING} specifies and runs a $200$-draw interaction ensemble together with a zero-self consensus control and $200$ unstructured positive-definite controls. Its output concerns only that sampler. Positive semidefiniteness and the general null-space criterion are proved by \Cref{prop:gauss-interaction-energy-kernel}; \Cref{prop:gauss-interaction-nonempty} specializes that criterion to the constructed positive-definite edge weights and supplies explicit proper witnesses. Thinness is proved by \Cref{prop:gauss-interaction-family-thin}; no universal conditioning theorem is claimed. \status{NUMERICAL}
 
 \section{Marginalization belongs to the Gaussian coarse chapter}
 \label{sec:gauss-open}
