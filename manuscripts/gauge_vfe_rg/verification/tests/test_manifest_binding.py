@@ -7,13 +7,14 @@ import importlib.util
 import json
 from pathlib import Path
 import re
+import subprocess
 
 import pytest
 
 
 RUNNER_PATH = Path(__file__).resolve().parents[1] / "run_checks.py"
 BOUND_FILES = (
-    "manuscripts/gauge_vfe_rg/main.tex", "manuscripts/gauge_vfe_rg/chapters/child.tex", "manuscripts/gauge_vfe_rg/SPEC.md", "manuscripts/references.bib", "manuscripts/gauge_vfe_rg/scientific_report.sty", "manuscripts/gauge_vfe_rg/build.ps1", "manuscripts/gauge_vfe_rg/verification/claims.json", "manuscripts/gauge_vfe_rg/verification/run_checks.py", "manuscripts/gauge_vfe_rg/verification/requirements.txt", "manuscripts/gauge_vfe_rg/verification/VERIFICATION.md", "manuscripts/gauge_vfe_rg/verification/result.schema.json", "manuscripts/gauge_vfe_rg/verification/manifest-policy.json", "manuscripts/gauge_vfe_rg/verification/lifecycle_gate.py", "manuscripts/gauge_vfe_rg/verification/build_audit.py", "manuscripts/gauge_vfe_rg/verification/tests/test_factorization_gap.py", "manuscripts/gauge_vfe_rg/verification/tests/test_runner_cli.py", "manuscripts/gauge_vfe_rg/verification/tests/test_manifest_binding.py", "manuscripts/gauge_vfe_rg/verification/tests/test_lifecycle_gate.py", "manuscripts/gauge_vfe_rg/verification/tests/test_build_audit.py",
+    "manuscripts/gauge_vfe_rg/main.tex", "manuscripts/gauge_vfe_rg/chapters/child.tex", "manuscripts/gauge_vfe_rg/SPEC.md", "manuscripts/references.bib", "manuscripts/gauge_vfe_rg/scientific_report.sty", "manuscripts/scientific_report.sty", "manuscripts/gauge_vfe_rg/build.ps1", "manuscripts/gauge_vfe_rg/verification/claims.json", "manuscripts/gauge_vfe_rg/verification/run_checks.py", "manuscripts/gauge_vfe_rg/verification/requirements.txt", "manuscripts/gauge_vfe_rg/verification/VERIFICATION.md", "manuscripts/gauge_vfe_rg/verification/result.schema.json", "manuscripts/gauge_vfe_rg/verification/manifest-policy.json", "manuscripts/gauge_vfe_rg/verification/lifecycle_gate.py", "manuscripts/gauge_vfe_rg/verification/build_audit.py", "manuscripts/gauge_vfe_rg/verification/tests/test_factorization_gap.py", "manuscripts/gauge_vfe_rg/verification/tests/test_runner_cli.py", "manuscripts/gauge_vfe_rg/verification/tests/test_manifest_binding.py", "manuscripts/gauge_vfe_rg/verification/tests/test_lifecycle_gate.py", "manuscripts/gauge_vfe_rg/verification/tests/test_build_audit.py",
 )
 TEST_RESULT_SCHEMA = {
     "type": "object",
@@ -128,6 +129,29 @@ def canonical_fixture_bytes(value: object) -> bytes:
     return json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False).encode("utf-8")
 
 
+def git(root: Path, *args: str) -> str:
+    completed = subprocess.run(
+        ["git", *args],
+        cwd=root,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    assert completed.returncode == 0, f"git {' '.join(args)} failed: {completed.stderr}"
+    return completed.stdout.strip()
+
+
+def commit_all(root: Path, message: str) -> str:
+    git(root, "add", "--all")
+    git(
+        root,
+        "-c", "user.name=Manifest Contract",
+        "-c", "user.email=manifest-contract@example.invalid",
+        "commit", "--quiet", "-m", message,
+    )
+    return git(root, "rev-parse", "HEAD")
+
+
 def seeded_json(relative: str) -> object:
     if relative.endswith("result.schema.json"):
         return TEST_RESULT_SCHEMA
@@ -144,6 +168,12 @@ def tree(tmp_path: Path) -> Path:
         path = root / relative
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(canonical_fixture_bytes(seeded_json(relative)) + b"\n" if path.suffix == ".json" else f"bound:{relative}\n".encode())
+    root.mkdir(parents=True, exist_ok=True)
+    git(root, "init", "--quiet")
+    commit_all(root, "fixture parent with distinct governed blob")
+    main = root / BOUND_FILES[0]
+    main.write_bytes(main.read_bytes() + b"source-boundary\n")
+    commit_all(root, "source revision S")
     return root
 
 
@@ -163,15 +193,24 @@ def independent_golden(root: Path, source_revision: str) -> dict:
         "checks": [{"check_id": "CHK-FIXTURE-PASS", "status": "PASS", "evidence_kind": "reproduced_output", "observed": {"fixture_complete": True}}],
         "semantic_payload_digest": "",
     }
-    payload = {key: value for key, value in document.items() if key not in {"generated_at_utc", "semantic_payload_digest"}}
-    document["semantic_payload_digest"] = hashlib.sha256(canonical_fixture_bytes(payload)).hexdigest()
+    refresh_semantic_digest(document)
     return document
 
 
-def golden(root: Path, result: Path):
-    document = api("build_result", "golden bound result")(root, "a" * 40)
+def refresh_semantic_digest(document: dict) -> None:
+    payload = {key: value for key, value in document.items() if key not in {"generated_at_utc", "semantic_payload_digest"}}
+    document["semantic_payload_digest"] = hashlib.sha256(canonical_fixture_bytes(payload)).hexdigest()
+
+
+def write_result(result: Path, document: dict) -> None:
+    result.write_bytes(canonical_fixture_bytes(document))
+
+
+def golden(root: Path, result: Path, source_revision: str | None = None):
+    revision = source_revision or git(root, "rev-parse", "HEAD")
+    document = api("build_result", "golden bound result")(root, revision)
     if not isinstance(document, dict):
-        document = independent_golden(root, "a" * 40)
+        document = independent_golden(root, revision)
     errors = schema_errors(document, TEST_RESULT_SCHEMA)
     assert not errors, f"DEFECT [golden fixture shape]: complete baseline violates independent result schema: {errors}"
     assert set(document["manifest"]["bound_inputs"]) == set(BOUND_FILES), "DEFECT [golden fixture shape]: complete baseline must bind every governed path"
@@ -182,9 +221,75 @@ def golden(root: Path, result: Path):
     return document
 
 
-def assert_rejected(result: Path, root: Path, defect: str):
+def issue_codes(report: object) -> set[str]:
+    codes: set[str] = set()
+    for issue in getattr(report, "issues", ()):
+        code = issue.get("code") if isinstance(issue, dict) else getattr(issue, "code", None)
+        if isinstance(code, str):
+            codes.add(code)
+    return codes
+
+
+def assert_accepted(result: Path, root: Path, defect: str):
+    report = api("verify_result", defect)(result, root)
+    assert getattr(report, "ok", None) is True, f"DEFECT [{defect}]: verifier rejected the unmodified golden result"
+    assert not issue_codes(report), f"DEFECT [{defect}]: accepted golden result retained issues: {sorted(issue_codes(report))}"
+
+
+def assert_rejected(result: Path, root: Path, defect: str, expected_code: str | None = None):
     report = api("verify_result", defect)(result, root)
     assert getattr(report, "ok", None) is False, f"DEFECT [{defect}]: verifier accepted mutation"
+    if expected_code is not None:
+        assert expected_code in issue_codes(report), f"DEFECT [{defect}]: expected {expected_code}, got {sorted(issue_codes(report))}"
+
+
+def test_unmodified_golden_result_is_accepted(tmp_path: Path):
+    root, result = tree(tmp_path), tmp_path / "result.json"
+    golden(root, result)
+    assert_accepted(result, root, "positive golden acceptance")
+
+
+def advance_to_evidence_revision(root: Path) -> str:
+    evidence = root / "docs/evidence/task-4.json"
+    evidence.parent.mkdir(parents=True, exist_ok=True)
+    evidence.write_text('{"evidence_only":true}\n', encoding="utf-8")
+    return commit_all(root, "evidence revision E")
+
+
+def test_source_revision_s_is_accepted_at_e(tmp_path: Path):
+    root, result = tree(tmp_path), tmp_path / "result.json"
+    source_revision = git(root, "rev-parse", "HEAD")
+    golden(root, result, source_revision)
+    advance_to_evidence_revision(root)
+    assert git(root, "rev-parse", "HEAD") != source_revision
+    assert_accepted(result, root, "source S accepted at evidence E")
+
+
+@pytest.mark.parametrize("drift", ["source_revision", "bound_blob"])
+def test_source_at_e_rejects_coherent_git_binding_drift(tmp_path: Path, drift: str):
+    root, result = tree(tmp_path), tmp_path / "result.json"
+    source_revision = git(root, "rev-parse", "HEAD")
+    original = golden(root, result, source_revision)
+    advance_to_evidence_revision(root)
+
+    changed = json.loads(json.dumps(original))
+    if drift == "source_revision":
+        changed["source_revision"] = git(root, "rev-parse", f"{source_revision}^")
+        defect = "coherent source revision drift"
+    else:
+        bound_path = root / BOUND_FILES[0]
+        bound_path.write_bytes(bound_path.read_bytes() + b"evidence-source-drift\n")
+        commit_all(root, "forbidden governed blob drift after E")
+        raw = bound_path.read_bytes()
+        changed["source_dirty"] = True
+        changed["manifest"]["bound_inputs"][BOUND_FILES[0]] = {
+            "byte_count": len(raw),
+            "sha256": hashlib.sha256(raw).hexdigest(),
+        }
+        defect = "coherent governed blob drift after E"
+    refresh_semantic_digest(changed)
+    write_result(result, changed)
+    assert_rejected(result, root, defect, "SOURCE_BLOB_MISMATCH")
 
 
 def test_discovery_recursively_finds_every_governed_class_and_no_constant_allowlist(tmp_path: Path):
@@ -194,6 +299,57 @@ def test_discovery_recursively_finds_every_governed_class_and_no_constant_allowl
     paths = set(found)
     assert set(BOUND_FILES) <= paths, "DEFECT [recursive governed discovery]: missing governed inputs"
     assert "manuscripts/gauge_vfe_rg/chapters/child.tex" in paths, "DEFECT [recursive governed discovery]: recursive TeX omitted"
+
+
+def test_build_manifest_matches_independent_raw_byte_inventory(tmp_path: Path):
+    root = tree(tmp_path)
+    manifest = api("build_manifest", "raw-byte manifest construction")(root)
+    assert isinstance(manifest, dict), "DEFECT [raw-byte manifest construction]: missing public build_manifest interface"
+    assert set(manifest) == {"hash_algorithm", "hash_domain", "path_semantics", "bound_inputs"}
+    assert manifest["hash_algorithm"] == "SHA-256"
+    assert manifest["hash_domain"] == "raw file bytes"
+    assert manifest["path_semantics"] == "repository-relative POSIX paths"
+    assert set(manifest["bound_inputs"]) == set(BOUND_FILES)
+    for relative in BOUND_FILES:
+        raw = (root / relative).read_bytes()
+        assert manifest["bound_inputs"][relative] == {
+            "byte_count": len(raw),
+            "sha256": hashlib.sha256(raw).hexdigest(),
+        }
+
+
+def test_semantic_payload_removes_only_two_top_level_fields_without_mutation():
+    document = {
+        "generated_at_utc": "excluded",
+        "semantic_payload_digest": "excluded",
+        "nested": {
+            "generated_at_utc": "retained",
+            "semantic_payload_digest": "retained",
+        },
+        "value": 7,
+    }
+    before = json.loads(json.dumps(document))
+    payload = api("semantic_payload", "semantic exclusion boundary")(document)
+    assert document == before, "DEFECT [semantic exclusion boundary]: semantic_payload mutated its input"
+    assert payload == {"nested": before["nested"], "value": 7}, "DEFECT [semantic exclusion boundary]: exclusions were not exactly the two top-level fields"
+
+
+def test_canonical_json_bytes_are_compact_sorted_utf8_and_reject_nonfinite():
+    canonical = api("canonical_json_bytes", "canonical JSON bytes")
+    assert canonical({"z": 1, "alpha": "β"}) == '{"alpha":"β","z":1}'.encode("utf-8"), "DEFECT [canonical JSON bytes]: encoding is not compact sorted UTF-8"
+    with pytest.raises((TypeError, ValueError)):
+        canonical({"bad": float("nan")})
+
+
+def test_validate_result_shape_accepts_golden_and_rejects_one_extra_field(tmp_path: Path):
+    root, result = tree(tmp_path), tmp_path / "result.json"
+    document = golden(root, result)
+    validate = api("validate_result_shape", "public shape validator")
+    assert validate(document) == [], "DEFECT [public shape validator]: schema-valid golden result was rejected"
+    malformed = json.loads(json.dumps(document))
+    malformed["extra"] = True
+    errors = validate(malformed)
+    assert isinstance(errors, list) and errors, "DEFECT [public shape validator]: undeclared top-level field was accepted"
 
 
 @pytest.mark.parametrize("relative", BOUND_FILES)
@@ -224,19 +380,33 @@ def test_real_tree_and_result_mutations_fail_closed(tmp_path: Path, kind: str):
         result.write_text(json.dumps(document) + "\n", encoding="utf-8")
     elif kind == "extra_result_field":
         document["unrecognized_result_field"] = {"must": "fail closed"}
-        result.write_text(json.dumps(document) + "\n", encoding="utf-8")
+        refresh_semantic_digest(document)
+        write_result(result, document)
     elif kind == "newline":
         path = root / BOUND_FILES[0]
         path.write_bytes(path.read_bytes().replace(b"\n", b"\r\n"))
     elif kind == "semantic":
         document["semantic_payload_digest"] = "0" * 64
-        result.write_text(json.dumps(document) + "\n", encoding="utf-8")
+        write_result(result, document)
     elif kind in {"unknown_check", "duplicate_check"}:
-        document["checks"] = [{"check_id": "UNKNOWN"}] if kind == "unknown_check" else [{"check_id": "DUP"}, {"check_id": "DUP"}]
-        result.write_text(json.dumps(document) + "\n", encoding="utf-8")
+        valid = json.loads(json.dumps(document["checks"][0]))
+        if kind == "unknown_check":
+            valid["check_id"] = "CHK-UNKNOWN"
+            document["checks"] = [valid]
+        else:
+            document["checks"] = [valid, json.loads(json.dumps(valid))]
+        refresh_semantic_digest(document)
+        write_result(result, document)
     elif kind == "revision":
         document["source_revision"] = "0" * 40
-        result.write_text(json.dumps(document) + "\n", encoding="utf-8")
+        refresh_semantic_digest(document)
+        write_result(result, document)
     else:
         result.write_text('{"value": ' + ("NaN" if kind == "nan" else "Infinity") + "}\n", encoding="utf-8")
-    assert_rejected(result, root, f"real {kind} mutation")
+    expected_codes = {
+        "semantic": "SEMANTIC_DIGEST_MISMATCH",
+        "unknown_check": "CHECK_ID_UNKNOWN",
+        "duplicate_check": "CHECK_ID_DUPLICATE",
+        "revision": "SOURCE_REVISION_NOT_FOUND",
+    }
+    assert_rejected(result, root, f"real {kind} mutation", expected_codes.get(kind))
