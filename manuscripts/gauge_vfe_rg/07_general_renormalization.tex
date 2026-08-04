@@ -58,6 +58,79 @@ reference measure. A law-level arrow is a normalized Markov kernel as in
 coarse reference measure, its Radon--Nikodym or Jacobian rule, and a finite
 normalizer. Algebraic closure does not supply those data. \status{HYPOTHESIS}
 
+\section{Exact measure-pair arrows}
+\label{sec:rg-measure-pair-arrows}
+
+\definitionheading{Scale-indexed measure pair}{def:rg-measure-pair}
+For each scale \(\ell\), let \((\mathsf X_\ell,\mathscr X_\ell)\) be a
+standard-Borel space, let \(\rho_\ell\) be a probability measure, and let
+\(m_\ell\ll\rho_\ell\) be a finite positive measure.  Write
+\begin{equation}
+m_\ell(dx)=\exp[-H_\ell(x)]\rho_\ell(dx),
+\qquad
+0<M_\ell:=m_\ell(\mathsf X_\ell)<\infty,
+\qquad
+\pi_\ell=\frac{m_\ell}{M_\ell}.
+\label{eq:rg-measure-pair-normalization}
+\end{equation}
+The extended-value convention is \(\exp(-\infty)=0\); thus the action is
+defined only \(\rho_\ell\)-almost everywhere and no finite action is
+silently assumed.  A scale arrow is a normalized, parameter-independent
+Markov kernel
+\begin{equation}
+K_\ell:\mathsf X_\ell\rightsquigarrow\mathsf X_{\ell+1},
+\qquad
+\rho_{\ell+1}=\rho_\ell K_\ell,
+\qquad
+m_{\ell+1}=m_\ell K_\ell.
+\label{eq:rg-measure-pair-arrow}
+\end{equation}
+The downstream action is the Radon--Nikodym representative
+\begin{equation}
+H_{\ell+1}=-\log\frac{dm_{\ell+1}}{d\rho_{\ell+1}}
+\quad \rho_{\ell+1}\text{-almost everywhere}.
+\label{eq:rg-measure-pair-action}
+\end{equation}
+This is a definition of an exact law-level RG arrow.  The requirement that
+the spaces be standard Borel is used later to choose regular conditional
+versions; it does not identify distinct scale spaces or produce an
+autonomous operator. \status{DEFINITION}
+
+\propositionheading{Exact composition and normalized law}{prop:rg-measure-pair-composition}
+For two composable normalized kernels \(K_\ell\) and \(K_{\ell+1}\), the
+measure-pair arrows compose exactly:
+\begin{equation}
+(\rho_\ell,m_\ell)(K_\ell K_{\ell+1})
+=\bigl((\rho_\ell K_\ell)K_{\ell+1},
+(m_\ell K_\ell)K_{\ell+1}\bigr).
+\label{eq:rg-measure-pair-composition}
+\end{equation}
+Moreover \(m_{\ell+1}\ll\rho_{\ell+1}\),
+\(m_{\ell+1}(\mathsf X_{\ell+1})=M_\ell\), and
+\begin{equation}
+\pi_{\ell+1}=\pi_\ell K_\ell.
+\label{eq:rg-normalized-law-pushforward}
+\end{equation}
+Thus the normalized law and the unnormalized evidence mass are distinct
+components of the same exact construction. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Kernel composition and Tonelli's theorem give
+\eqref{eq:rg-measure-pair-composition}.  If
+\((\rho_\ell K_\ell)(A)=0\), then
+\(K_\ell(x,A)=0\) for \(\rho_\ell\)-almost every \(x\), hence also for
+\(m_\ell\)-almost every \(x\), which proves absolute continuity at the
+next scale.  Normalization of \(K_\ell\) preserves the mass of
+\(m_\ell\); division by that same mass gives
+\eqref{eq:rg-normalized-law-pushforward}.  \(\square\)
+
+The subsequent finite-network realization takes each
+\(\mathsf X_\ell\) to be a finite product of agent coordinate spaces and
+supplies the action calculus, contraction theorems, and interaction content
+that this general arrow does not itself supply.  In particular, a scale
+sequence is a cocycle until the comparison data of
+\Cref{sec:rg-scale-category} identify its varying spaces. \status{ESTABLISHED}
+
 \section{The common-principal geometric state}
 \label{sec:rg-common-principal-state}
 

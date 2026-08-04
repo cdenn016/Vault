@@ -75,23 +75,33 @@ explicitly.  \status{ESTABLISHED}
 \section{The exact effective likelihood and action}
 \label{sec:rg-effective-action}
 
-Let $\rho=P_0$ be a probability reference and let
+Fix one adjacent scale arrow and suppress its index temporarily.  Its fine
+space is a finite product of standard-Borel agent spaces, so it is itself
+standard Borel.  Let $\rho=P_0$ be a probability reference and let
 \begin{equation}
 m_o(dy)=L_o(y)\rho(dy),
 \qquad
-L_o(y)=\exp[-H_o(y)]
+L_o(y)=\exp[-H_o(y)],
+\qquad
+0<M_o:=m_o(\mathsf Y)<\infty,
+\qquad
+\pi(dy)=M_o^{-1}m_o(dy)
 \label{eq:rg-success-submeasure}
 \end{equation}
-be the unnormalized evidence submeasure.  Its mass is $Z(o)$.  Push both
-measures through $C$:
+be the unnormalized evidence submeasure, its normalized law, and its
+strictly positive finite mass.  The action may be extended valued; the
+displayed density convention is $e^{-\infty}=0$ and all equalities involving
+actions are therefore almost-everywhere statements.  Push both measures
+through the normalized, recognition-independent channel $C$:
 \begin{equation}
 \rho^c=\rho C,
+\qquad m_o^c=m_oC,
 \qquad
-m_o^c=m_oC.
+\pi^c=\pi C=M_o^{-1}m_o^c.
 \label{eq:rg-reference-evidence-pair}
 \end{equation}
-Absolute continuity $m_o^c\ll\rho^c$ follows from
-$m_o\ll\rho$.  Define
+Absolute continuity $m_o^c\ll\rho^c$ follows from $m_o\ll\rho$, and the
+channel preserves the evidence mass.  Define
 \begin{equation}
 L_o^c(z)=\frac{dm_o^c}{d\rho^c}(z),
 \qquad
@@ -135,6 +145,408 @@ density relative to the pushed probability reference, although it need not be
 bounded by one.  An infinite Lebesgue reference cannot be pushed through an
 arbitrary projection without checking sigma-finiteness; this is why the
 probability pair $(\rho,m_o)$ is primary.  \status{ESTABLISHED}
+
+\subsection{Local bounded action chart and its derivatives}
+\label{sec:rg-local-action-calculus}
+
+The unnormalized pair tracks the evidence mass, while the local action
+calculus is based at its normalized law.  Because the fine and coarse spaces
+are standard Borel, fix a jointly measurable reverse kernel
+\(\Pi(z,dy)\) for the normalized joint law:
+\begin{equation}
+\pi(dy)C(y,dz)=\pi^c(dz)\Pi(z,dy).
+\label{eq:rg-normalized-reverse-kernel}
+\end{equation}
+Values of \(\Pi\) on a \(\pi^c\)-null set are not used.  Write
+\(\mathfrak B=L^\infty(\pi;\mathbb R)\) and choose
+\(0<\epsilon<\log 2\).  The local chart is the open ball
+\begin{equation}
+\mathcal U_\epsilon=
+\{\varphi\in\mathfrak B:\Vert\varphi\Vert_\infty<\epsilon\}.
+\label{eq:rg-bounded-action-chart}
+\end{equation}
+For every \(\varphi\in\mathfrak B\), a perturbation acts on the complete
+measure pair by \(m_o^\varphi=e^{-\varphi}m_o\).  Its exact coarse action
+increment is
+\begin{equation}
+Q(\varphi)(z)
+=-\log\frac{d\bigl((e^{-\varphi}m_o)C\bigr)}{dm_oC}(z)
+=-\log\int e^{-\varphi(y)}\Pi(z,dy).
+\label{eq:rg-local-action-map}
+\end{equation}
+The last expression is finite and belongs to
+\(L^\infty(\pi^c;\mathbb R)\): it lies between
+\(-\Vert\varphi\Vert_\infty\) and
+\(\Vert\varphi\Vert_\infty\).  Thus the Radon--Nikodym formula defines
+\(Q:\mathfrak B\to L^\infty(\pi^c;\mathbb R)\) on the entire bounded
+space.  The real-analytic theorem below is asserted on
+\(\mathcal U_\epsilon\), not on a general \(L^p\) neighborhood.  Where both
+actions are finite, it equals the literal
+difference \(\mathcal R^H[H_o+\varphi;\rho]-
+\mathcal R^H[H_o;\rho]\).  For an extended-valued base action, the
+Radon--Nikodym ratio in \eqref{eq:rg-local-action-map} is the definition and
+no expression of the form \(+\infty-(+\infty)\) is used. \status{DEFINITION}
+
+\theoremheading{Exact bounded action calculus}{thm:rg-bounded-action-calculus}
+The map
+\begin{equation}
+Q:\mathcal U_\epsilon\longrightarrow
+L^\infty(\pi^c;\mathbb R)
+\label{eq:rg-local-action-map-typed}
+\end{equation}
+is real analytic.  If
+\begin{equation}
+(U\varphi)(z)=\int\varphi(y)\Pi(z,dy),
+\label{eq:rg-reverse-conditional-expectation}
+\end{equation}
+then its first two Fr\'echet derivatives at the origin are the bounded typed
+maps
+\begin{align}
+DQ(0)[\varphi]&=U\varphi,
+\label{eq:rg-action-first-frechet}\\
+D^2Q(0)[\varphi,\psi]
+&=-\operatorname{Cov}_{\Pi(z,\cdot)}(\varphi,\psi).
+\label{eq:rg-action-second-frechet}
+\end{align}
+More generally, with
+\begin{equation}
+\Pi^\varphi(z,dy)=
+\frac{e^{-\varphi(y)}\Pi(z,dy)}
+{\int e^{-\varphi(u)}\Pi(z,du)},
+\label{eq:rg-tilted-reverse-kernel}
+\end{equation}
+the derivatives at \(\varphi\in\mathcal U_\epsilon\) are
+\begin{align}
+DQ(\varphi)[h](z)&=\int h(y)\Pi^\varphi(z,dy),
+\label{eq:rg-action-first-frechet-general}\\
+D^2Q(\varphi)[h,k](z)&=
+-\operatorname{Cov}_{\Pi^\varphi(z,\cdot)}(h,k).
+\label{eq:rg-action-second-frechet-general}
+\end{align}
+All covariance expressions are in
+\(L^\infty(\pi^c;\mathbb R)\). \status{ESTABLISHED}
+
+\paragraph{Proof.}
+For \(\Vert\varphi\Vert_\infty<\epsilon\), the exponential power series
+converges in \(L^\infty(\pi)\), and positivity plus unitality of \(U\)
+give
+\begin{equation}
+\Vert U(e^{-\varphi})-1\Vert_\infty
+\leq e^\epsilon-1<1.
+\label{eq:rg-action-log-series-radius}
+\end{equation}
+The Banach-algebra logarithm series therefore converges in
+\(L^\infty(\pi^c)\), proving analyticity of
+\(Q=-\log U(e^{-\varphi})\).  Differentiating the convergent series, or
+using the ordinary Fr\'echet chain rule for the exponential, bounded linear
+operator \(U\), and logarithm, gives
+\eqref{eq:rg-action-first-frechet-general}.  Differentiating that normalized
+integral in direction \(k\) gives
+\begin{equation}
+\frac{d}{dt}\bigg|_{t=0}
+\int h d\Pi^{\varphi+tk}
+=-\int hk d\Pi^\varphi
++\left(\int h d\Pi^\varphi\right)
+\left(\int k d\Pi^\varphi\right),
+\label{eq:rg-action-covariance-derivation}
+\end{equation}
+which is \eqref{eq:rg-action-second-frechet-general}.  Setting
+\(\varphi=0\) proves \eqref{eq:rg-action-first-frechet} and
+\eqref{eq:rg-action-second-frechet}.  The uniform lower bound
+\(U(e^{-\varphi})\geq e^{-\epsilon}\) and boundedness of \(h,k\) make
+every displayed derivative a bounded map into the stated target.  \(\square\)
+
+For \(\varphi,\psi\in\mathfrak B\), the nonlinear map is order preserving
+and additively homogeneous.  Indeed,
+\(\varphi\leq\psi+c\) implies
+\(e^{-\varphi}\geq e^{-c}e^{-\psi}\), and positivity of \(U\) gives
+\(Q(\varphi)\leq Q(\psi)+c\).  Applying this implication in both
+directions with \(c=\Vert\varphi-\psi\Vert_\infty\) proves the exact
+bounded-action estimate
+\begin{equation}
+\Vert Q(\varphi)-Q(\psi)\Vert_\infty
+\leq\Vert\varphi-\psi\Vert_\infty.
+\label{eq:rg-nonlinear-action-sup-contraction}
+\end{equation}
+Under isometric cross-scale identifications, this prevents relevance from
+arising in the bounded measure-pair action sector.  It does not constrain an
+extensive interaction lift or a separately proved weighted action space.
+\status{ESTABLISHED}
+
+The full action space remembers the perturbed mass
+\(m_o^\varphi(\mathsf Y)\).  If an application deliberately discards that
+scalar, it instead uses the projective action space
+\begin{equation}
+\overline{\mathfrak B}=\mathfrak B/\mathbb R1.
+\label{eq:rg-projective-action-space}
+\end{equation}
+Since \(Q(\varphi+c)=Q(\varphi)+c\) and \(U1=1\), both \(Q\) and \(U\)
+descend to the quotient.  The quotient is not used to erase an evidence
+constant in the normalized measure-pair theory. \status{ESTABLISHED}
+
+For comparison, normalize the perturbed fine law itself:
+\begin{equation}
+\widehat\pi^\varphi
+=\frac{e^{-\varphi}\pi}{\pi(e^{-\varphi})},
+\qquad
+\widehat Q(\varphi)
+:=-\log\frac{d(\widehat\pi^\varphi C)}{d\pi^c}
+=Q(\varphi)+\log\pi(e^{-\varphi}).
+\label{eq:rg-normalized-perturbation-action}
+\end{equation}
+The two action increments therefore agree only modulo a constant.  Their
+derivatives make that distinction explicit:
+\begin{align}
+D\widehat Q(0)[h]&=Uh-\pi(h),
+\label{eq:rg-normalized-action-first-derivative}\\
+D^2\widehat Q(0)[h,k]&=
+-\operatorname{Cov}_{\Pi(z,\cdot)}(h,k)
++\operatorname{Cov}_{\pi}(h,k).
+\label{eq:rg-normalized-action-second-derivative}
+\end{align}
+The score of the normalized path \(t\mapsto\widehat\pi^{th}\) is
+\(-h+\pi(h)\), and its coarse score is
+\(-Uh+\pi(h)\).  Consequently the defect in
+\eqref{eq:rg-action-l2-conditional-defect}, applied to the centered score,
+is exactly the Fisher-information loss under the fixed Markov channel.  This
+score statement remains an \(L^2\) tangent result; it does not enlarge the
+nonlinear bounded action chart. \status{ESTABLISHED}
+
+At a boundary where an action representative is infinite, or outside the
+open chart \eqref{eq:rg-bounded-action-chart}, neither a literal action
+difference nor a differential beta functional is defined by this theorem.
+The primary object there is the measure pair and its Radon--Nikodym action;
+an action beta requires the separately declared finite-valued vector space
+and subtraction hypotheses of \Cref{sec:rg-beta-function}. \status{ESTABLISHED}
+
+\subsection{Canonical contraction and the bounded Dobrushin certificate}
+\label{sec:rg-action-contraction}
+
+\theoremheading{Conditional-expectation contraction and exact defect}{thm:rg-action-lp-contraction}
+For every \(1\leq p\leq\infty\), the operator in
+\eqref{eq:rg-reverse-conditional-expectation} extends uniquely to a
+contraction
+\begin{equation}
+U:L^p(\pi;\mathbb R)\longrightarrow L^p(\pi^c;\mathbb R),
+\qquad
+\Vert U\varphi\Vert_{L^p(\pi^c)}
+\leq\Vert\varphi\Vert_{L^p(\pi)}.
+\label{eq:rg-action-lp-contraction}
+\end{equation}
+For finite \(p\), it preserves the mean and hence maps centered tangent
+spaces to centered tangent spaces.  At \(p=2\), the loss is exactly
+\begin{equation}
+\Vert\varphi\Vert_{L^2(\pi)}^2
+-\Vert U\varphi\Vert_{L^2(\pi^c)}^2
+=\int\operatorname{Var}_{\Pi(z,\cdot)}(\varphi)\pi^c(dz)
+\geq0.
+\label{eq:rg-action-l2-conditional-defect}
+\end{equation}
+Equality holds exactly when there is a measurable \(g\) on the coarse space
+such that \(\varphi(y)=g(z)\) for
+\(\pi(dy)C(y,dz)\)-almost every \((y,z)\).  For a deterministic coarse map
+\(z=c(y)\), this is precisely \(\varphi=g\circ c\) almost everywhere
+under \(\pi\). \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Conditional Jensen gives
+\(\lvert U\varphi\rvert^p\leq U\lvert\varphi\rvert^p\) for finite
+\(p\); integrating the disintegration
+\eqref{eq:rg-normalized-reverse-kernel} proves
+\eqref{eq:rg-action-lp-contraction}.  The \(p=\infty\) case follows from
+the pointwise bound by the essential supremum.  The same disintegration gives
+\(\int U\varphi d\pi^c=\int\varphi d\pi\).  Finally, the conditional
+variance identity
+\begin{equation}
+\int\varphi^2d\pi
+=\int(U\varphi)^2d\pi^c
++\int\operatorname{Var}_{\Pi(z,\cdot)}(\varphi)\pi^c(dz)
+\label{eq:rg-action-total-conditional-variance}
+\end{equation}
+proves \eqref{eq:rg-action-l2-conditional-defect}.  A nonnegative
+conditional variance integrates to zero exactly when it is zero
+\(\pi^c\)-almost everywhere, which is equivalent to the stated joint
+measurability condition.  \(\square\)
+
+On \(L^\infty(\pi)/\mathbb R1\), use
+\begin{equation}
+\Vert[\varphi]\Vert_{\mathrm{osc}}
+=\inf_{c\in\mathbb R}\Vert\varphi-c\Vert_\infty
+=\frac12\left(
+\operatorname*{ess sup}\varphi-
+\operatorname*{ess inf}\varphi\right).
+\label{eq:rg-action-oscillation-norm}
+\end{equation}
+For the fixed reverse-kernel version, define its Dobrushin coefficient by
+\begin{equation}
+\delta=
+\operatorname*{ess sup}_{(z,z')\sim(\pi^c)^{\otimes2}}
+\sup_{A\in\mathscr Y}
+\left|\Pi(z,A)-\Pi(z',A)\right|.
+\label{eq:rg-action-dobrushin-coefficient}
+\end{equation}
+
+\propositionheading{Dobrushin contraction is a sufficient cocycle certificate}{prop:rg-dobrushin-cocycle}
+The quotient map satisfies
+\begin{equation}
+\Vert\overline U\Vert_{\mathrm{osc}\to\mathrm{osc}}
+\leq\delta.
+\label{eq:rg-action-dobrushin-contraction}
+\end{equation}
+For a nonautonomous sequence of such arrows with block factors
+\(b_k>1\), set
+\begin{equation}
+B_{n\leftarrow\ell}=\prod_{k=\ell}^{n-1}b_k,
+\qquad
+\overline U_{n\leftarrow\ell}
+=\overline U_{n-1}\cdots\overline U_\ell.
+\label{eq:rg-action-cocycle-scale}
+\end{equation}
+If \(B_{n\leftarrow\ell}\to\infty\) and
+\begin{equation}
+\limsup_{n\to\infty}
+\frac{\sum_{k=\ell}^{n-1}\log\delta_k}
+{\log B_{n\leftarrow\ell}}<0,
+\qquad \log0=-\infty,
+\label{eq:rg-action-dobrushin-irrelevance}
+\end{equation}
+then every bounded projective perturbation has strictly negative upper growth
+rate in this oscillation norm.  With a fixed isometric cross-scale
+identification, fixed \(b>1\), and \(\delta<1\), this gives the autonomous
+bound \(\log\delta/\log b<0\).  The condition is sufficient only: failure
+of \eqref{eq:rg-action-dobrushin-irrelevance} proves neither marginality nor
+relevance. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+For probability measures \(\mu,\nu\),
+\(\left|\int f d\mu-\int f d\nu\right|\) is at most
+\(\operatorname{osc}(f)\sup_A|\mu(A)-\nu(A)|\).  Apply this to the two
+reverse laws in \eqref{eq:rg-action-dobrushin-coefficient}, divide by two,
+and take the essential supremum to obtain
+\eqref{eq:rg-action-dobrushin-contraction}.  Iteration gives
+\begin{equation}
+\Vert\overline U_{n\leftarrow\ell}\Vert_{\mathrm{osc}\to\mathrm{osc}}
+\leq\prod_{k=\ell}^{n-1}\delta_k.
+\label{eq:rg-action-dobrushin-product-bound}
+\end{equation}
+Taking logarithms with the stated zero convention proves the claimed upper
+growth bound.  Two controls show why neither one-step behavior nor failure
+of the displayed certificate can be promoted to a necessary condition.  For
+the first, take reverse matrices
+\begin{equation}
+R_0=
+\begin{pmatrix}
+1&0\\0&1\\1/2&1/2
+\end{pmatrix},
+\qquad
+R_1=
+\begin{pmatrix}
+1/2&1/2&0\\0&0&1
+\end{pmatrix},
+\label{eq:rg-dobrushin-nonnecessity-witness}
+\end{equation}
+with compatible laws
+\(\pi_0=(1/2,1/2)\),
+\(\pi_1=(1/3,1/3,1/3)\), and
+\(\pi_2=(2/3,1/3)\).  Both one-step coefficients are one, but the two rows
+of \(R_1R_0\) are both \((1/2,1/2)\), so the composed coefficient is zero.
+Thus individual strict Dobrushin contraction is not necessary for complete
+two-step forgetting.  For the opposite control, take
+\(\pi_k=(1/2,1/2)\) at every scale and let \(J\) have both rows
+\((1/2,1/2)\).  Each matrix below is then a reverse kernel compatible with
+these laws:
+\begin{equation}
+R_k=(1-a_k)I+a_kJ,
+\qquad a_k=2^{-k-2}.
+\label{eq:rg-dobrushin-one-step-insufficient-witness}
+\end{equation}
+Then \(\delta_k=1-a_k<1\) at every step, but
+\(\prod_k\delta_k>0\).  With fixed \(b_k=b>1\), the normalized accumulated
+logarithmic rate can therefore be zero.  One-step strict contraction is not
+sufficient for the nonautonomous conclusion.  The identity channel has
+\(\delta=1\) and leaves every bounded mode marginal, while a two-cycle has
+an eigenvalue \(-1\); these controls also prevent a phase-blind conclusion.
+\(\square\)
+
+\subsection{Essential spectrum and topology dependence}
+\label{sec:rg-action-spectrum-topology}
+
+\theoremheading{Qualified positive-unital essential-spectrum theorem}{thm:rg-unital-essential-spectrum}
+Let \(X\) be a complex Banach lattice with quasi-interior unit
+\(\mathbf1\in X_+\), let \(U\in\mathcal L(X)\) be positive and unital,
+and write \(q:\mathcal L(X)\to\mathcal L(X)/\mathcal K(X)\) for the
+Calkin quotient by the compact-operator ideal.  Use the convention
+\begin{equation}
+r_{\mathrm{ess}}(U)=r\bigl(q(U)\bigr).
+\label{eq:rg-calkin-essential-radius}
+\end{equation}
+Assume that whenever \(r(U)>r_{\mathrm{ess}}(U)\), the value \(r(U)\) is a
+pole of the resolvent and \(U^*\) has a nonzero positive eigenfunctional
+\(\lambda\) satisfying \(U^*\lambda=r(U)\lambda\).  Then
+\begin{equation}
+r(U)>1\quad\Longrightarrow\quad r(U)=r_{\mathrm{ess}}(U).
+\label{eq:rg-unital-essential-spectrum-result}
+\end{equation}
+This does not assert quasi-compactness or a Perron theorem under weaker
+hypotheses. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+The quotient map is contractive, so
+\(r_{\mathrm{ess}}(U)\leq r(U)\).  Suppose that \(r(U)>1\) and that the
+inequality is strict.  The stated hypothesis gives \(\lambda\geq0\),
+\(\lambda\ne0\), and \(U^*\lambda=r(U)\lambda\).  Quasi-interiority
+implies \(\lambda(\mathbf1)>0\): otherwise positivity makes \(\lambda\)
+zero on the principal ideal generated by \(\mathbf1\), hence on its dense
+closure.  But unitality yields
+\begin{equation}
+r(U)\lambda(\mathbf1)
+=(U^*\lambda)(\mathbf1)
+=\lambda(U\mathbf1)=\lambda(\mathbf1),
+\label{eq:rg-unital-functional-pairing}
+\end{equation}
+a contradiction.  Therefore strict inequality is impossible, and the two
+radii agree.  \(\square\)
+
+\propositionheading{Circle witness for norm-dependent radius}{prop:rg-circle-norm-witness}
+Let \(\mathbb T=\mathbb R/\mathbb Z\) carry its geodesic metric and Haar
+probability \(\lambda\), let \(D(z)=2z\bmod1\), and set
+\begin{equation}
+K(y,A)=\frac12\sum_{z\in D^{-1}\{y\}}\mathbf1_A(z)
+\qquad(A\subseteq\mathbb T\text{ Borel}).
+\label{eq:rg-circle-forward-kernel}
+\end{equation}
+The kernel preserves Haar measure and its reverse is
+\(\Pi(z,dy)=\delta_{D(z)}(dy)\), so the conditional-expectation operator is
+\(Uf=f\circ D\).  Its spectral radius is one on
+\(L^\infty(\lambda)\).  For every \(0<\alpha\leq1\), its spectral radius
+on complex periodic \(C^\alpha(\mathbb T)\) equipped with the sup-plus-H\"older
+norm is \(2^\alpha\).  At \(\alpha=1\), this means the Lipschitz space
+\(C^{0,1}\), not \(C^1\).  The H\"older space with this standard norm is
+not the Banach lattice of \Cref{thm:rg-unital-essential-spectrum}; the
+witness is a separate topology comparison.  Hence the same exact kernel has
+distinct spectral conclusions in two declared topologies. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+For bounded \(f\), Haar preservation gives
+\(\Vert f\circ D^n\Vert_\infty=\Vert f\Vert_\infty\), so
+\(\Vert U^n\Vert=1\) and the first radius is one.  With
+\([f]_\alpha\) the H\"older seminorm,
+\begin{equation}
+[f\circ D^n]_\alpha\leq2^{\alpha n}[f]_\alpha,
+\qquad
+\Vert U^nf\Vert_\infty\leq\Vert f\Vert_\infty,
+\label{eq:rg-circle-holder-upper-bound}
+\end{equation}
+so the second radius is at most \(2^\alpha\).  For the fixed Fourier mode
+\(f(t)=e^{2\pi it}\), evaluate \(f\circ D^n\) at \(0\) and
+\(2^{-(n+1)}\).  Their values differ by two while their circle distance is
+\(2^{-(n+1)}\), whence
+\begin{equation}
+[f\circ D^n]_\alpha\geq2^{1+\alpha(n+1)}.
+\label{eq:rg-circle-holder-lower-bound}
+\end{equation}
+After division by the fixed nonzero \(C^\alpha\) norm of \(f\), this gives
+the matching lower spectral-radius bound.  \(\square\)
 
 \section{Exact closure generates hyperedges}
 \label{sec:rg-hypergraph-closure}
@@ -747,16 +1159,28 @@ that freedom.  Disintegration of a fixed $\eta$ gives the final statement.
 $\square$
 
 At a fixed pair, additionally require $H_*$ to lie in the declared
-finite-valued action Banach space and
+finite-valued action Banach space.  Set
+\begin{equation}
+m_*(dy)=e^{-H_*(y)}\rho_*(dy),\qquad
+M_*=m_*(\mathsf Y),\qquad
+\pi_*=M_*^{-1}m_*,\qquad
+\pi_*^c=\pi_*K_b,
+\label{eq:rg-fixed-normalized-reverse-data}
+\end{equation}
+and fix the standard-Borel reverse-kernel version \(\Pi_*\) defined by
+\begin{equation}
+\pi_*(dy)K_b(y,dz)=\pi_*^c(dz)\Pi_*(z,dy).
+\label{eq:rg-fixed-normalized-reverse-kernel}
+\end{equation}
+Also require
 \begin{equation}
 0<L_*^c(z)=\E_{\rho_*}[e^{-H_*}\given Z=z]<\infty
 \quad \rho_*^c\text{-almost everywhere}.
 \label{eq:rg-linearization-positive-likelihood}
 \end{equation}
-For bounded perturbations $\varphi\in L^\infty$ (or, more
-generally, perturbations with conditional exponential integrability in a
-neighborhood of zero and the first two required moments), the first two
-variations of one exact conditional-partition step are
+For bounded perturbations
+$\varphi\in L^\infty(\pi_*)$, the first two variations of one exact
+conditional-partition step are, \(\pi_*^c\)-almost everywhere,
 \begin{equation}
 D_H\mathcal R_b^H\big|_{(H_*,\rho_*)}[\varphi](z)
 =\E_{\Pi_*(dy\given z)}\varphi(Y),
@@ -765,16 +1189,29 @@ D_H^2\mathcal R_b^H\big|_{(H_*,\rho_*)}[\varphi,\varphi](z)
 =-\operatorname{Var}_{\Pi_*(dy\given z)}\varphi(Y),
 \label{eq:rg-linearized-action}
 \end{equation}
-followed by the declared rescaling.  On an infinite-dimensional Banach or
-Hilbert action space, growth is classified by the full spectrum and spectral
-radius of this derivative, including continuous and residual spectrum.  For an
-isolated eigenoperator satisfying $D_H\mathcal R_b^H[\psi_a]
-=\lambda_a\psi_a$, the exponent $y_a=\log|\lambda_a|/\log b$ is relevant,
-marginal, or irrelevant according as it is positive, zero, or negative; the
-sign or complex phase is retained.  Generalized eigenspaces are used only in
-finite dimensions or for isolated point spectrum with the requisite spectral
-projections.
-\status{ESTABLISHED}
+for the composite kernel \(K_b=C_bI_b\), which already includes the declared
+rescaling.  The bounded-chart derivation of these two variations is
+\Cref{thm:rg-bounded-action-calculus}; the displayed
+conditional-expectation and covariance formulas are exact on that stated
+domain. \status{ESTABLISHED}
+
+\definitionheading{Spectral and cocycle relevance conventions}{def:rg-action-relevance-conventions}
+An ordinary spectrum is used only after a fixed point, an autonomous blocking
+ratio $b>1$, and declared bounded isometric identifications turn the
+linearization into one bounded endomorphism $T$ of one complex Banach action
+space.  An isolated eigenoperator $T\psi_a=\lambda_a\psi_a$ then has the
+defined exponent $y_a=\log|\lambda_a|/\log b$; it is called relevant,
+marginal, or irrelevant according as this number is positive, zero, or
+negative, while its sign or complex phase is retained.  Generalized
+eigenspaces are used only in finite dimensions or for isolated point spectrum
+with the required spectral projections.
+
+Without those identifications, the derivative is a typed cocycle between
+different action spaces.  A generalized mode and its Lyapunov growth rate
+must then be stated with the comparison maps and the chosen norms, rather than
+written as an eigenvalue equation in one unnamed space.  These are
+classification definitions; no autonomous spectrum, mode, or exponent is
+asserted for a general nonautonomous sequence. \status{DEFINITION}
 
 The equations characterize all fixed points without claiming that every model
 class admits a closed-form enumeration.  The following exact sectors illustrate
@@ -864,8 +1301,8 @@ differentiability, positivity, and dual-pairing hypotheses stated before
 require the stated Schauder or Riesz basis and interchange conditions.  For
 action fixed points retain invariance of the reference component.  For
 linearization require \eqref{eq:rg-linearization-positive-likelihood} and use
-the bounded or conditionally exponentially integrable perturbations stated
-before \eqref{eq:rg-linearized-action}.  Then the
+the bounded perturbations in $L^\infty(\pi_*)$ stated before
+\eqref{eq:rg-linearized-action}.  Then the
 effective actions, discrete and continuous beta functionals, component flows,
 action fixed-point equations, and linearized scaling operators are exact on
 their declared analytic domains.  \status{ESTABLISHED}
