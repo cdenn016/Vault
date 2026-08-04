@@ -107,12 +107,12 @@ Authorized wiki revision `W`:
 
 **Interfaces:** Consumes the approved design and referee report; produces a canonical claim inventory, typed dependency DAG, approach-family registry, falsifiers, and release gates used by all later agents.
 
-- [ ] **Step 1: Create `problem-contract.json` with exact quantifiers and types.** Record arbitrary finite standard-Borel networks, measure pairs, positive Markov kernels, action quotient spaces, full interaction spaces, selected projections, gauge data, score tangents, configuration manifolds, and the `SEARCH_PRIOR_AFFIRMATIVE` label. Record countably infinite networks, thermodynamic limits, physical time, and unproved universality as exclusions.
-- [ ] **Step 2: Create one claim-ledger entry per theorem or correction.** Include stable IDs for measure/action map, derivative, `L^p` contraction, Fisher defect, Dobrushin criterion, essential spectrum, circle norm witness, Hoeffding inverse theorem, exact/projected interactions, score lift, Hermite spectrum, generalized modes, cocycle, beta functions, fixed objects, pullback compatibility, history semiconjugacy, extended ELBO, probability hypotheses, gauge laws, Gaussian positivity, and all referee minor repairs.
-- [ ] **Step 3: Encode the proof-obligation DAG.** Every conclusion must list its exact hypotheses and parent claims; no compatibility edge may be dismissed without proof.
-- [ ] **Step 4: Register genuinely distinct approach families.** Start at least normalized action quotients, full Hoeffding interactions, weighted action spaces, score/DQM tangents, Gaussian/Hermite spectral realization, transfer-operator/cocycle formulations, category/diagram type checking, and counterexample/falsifier search. Mark weighted-one-space unification as a competing route, not the favored answer.
-- [ ] **Step 5: Dispatch independent mechanism-diverse theorem agents and adversarial agents.** Require each return to contain concrete lemmas/equations or a falsifying example. Record convergence by mathematical family and redirect duplicate approaches to underexplored families.
-- [ ] **Step 6: Validate artifact structure and commit.** Run:
+- [x] **Step 1: Create `problem-contract.json` with exact quantifiers and types.** Record arbitrary finite standard-Borel networks, measure pairs, positive Markov kernels, action quotient spaces, full interaction spaces, selected projections, gauge data, score tangents, configuration manifolds, and the `SEARCH_PRIOR_AFFIRMATIVE` label. Record countably infinite networks, thermodynamic limits, physical time, and unproved universality as exclusions.
+- [x] **Step 2: Create one claim-ledger entry per theorem or correction.** Include stable IDs for measure/action map, derivative, `L^p` contraction, Fisher defect, Dobrushin criterion, essential spectrum, circle norm witness, Hoeffding inverse theorem, exact/projected interactions, score lift, Hermite spectrum, generalized modes, cocycle, beta functions, fixed objects, pullback compatibility, history semiconjugacy, extended ELBO, probability hypotheses, gauge laws, Gaussian positivity, and all referee minor repairs.
+- [x] **Step 3: Encode the proof-obligation DAG.** Every conclusion must list its exact hypotheses and parent claims; no compatibility edge may be dismissed without proof.
+- [x] **Step 4: Register genuinely distinct approach families.** Start at least normalized action quotients, full Hoeffding interactions, weighted action spaces, score/DQM tangents, Gaussian/Hermite spectral realization, transfer-operator/cocycle formulations, category/diagram type checking, and counterexample/falsifier search. Mark weighted-one-space unification as a competing route, not the favored answer.
+- [x] **Step 5: Dispatch independent mechanism-diverse theorem agents and adversarial agents.** Require each return to contain concrete lemmas/equations or a falsifying example. Record convergence by mathematical family and redirect duplicate approaches to underexplored families.
+- [x] **Step 6: Validate artifact structure and commit.** Run:
 
 ```powershell
 & "C:\Python314\python.exe" -m json.tool docs\derivations\2026-08-03-gauge-vfe-rg-remediation\problem-contract.json > $null
@@ -129,8 +129,14 @@ Expected: all JSON parses; the final search returns no placeholders or unsupport
 
 **Interfaces:** Consumes the approved verifier contract; produces deterministic red tests for stable determinants, fail-closed CLI behavior, manifest coverage, lifecycle purity, and build auditing.
 
-- [ ] **Step 1: Pin required test dependencies.** Add explicit compatible constraints for `numpy`, `scipy`, `mpmath`, `jsonschema`, and `pytest`.
-- [ ] **Step 2: Encode scalar and high-condition determinant witnesses.** Include this exact scalar oracle:
+- [x] **Step 1: Pin every dependency the protocol actually uses.** Record the
+  exact authenticated versions of `numpy`, `scipy`, `sympy`, `mpmath`,
+  `pypdf`, and `pytest` with strict `name==version` requirements; require each
+  declared distribution to be present with exact-one authenticated provenance
+  and the identical metadata version in production.  Do not declare the
+  absent and unused `jsonschema` package merely because the verifier consumes
+  a JSON Schema document: the protocol's strict validator is self-contained.
+- [x] **Step 2: Encode scalar and high-condition determinant witnesses.** Include this exact scalar oracle:
 
 ```python
 @pytest.mark.parametrize("epsilon", [1e-3, 1e-6, 1e-9])
@@ -141,11 +147,11 @@ def test_scalar_gap_uses_log1p(epsilon):
     assert got.value == pytest.approx(want, rel=5e-12, abs=0.0)
 ```
 
-- [ ] **Step 3: Freeze a deterministic 3,138-draw replacement protocol.** Cover dimensions 2--16, condition numbers through `1e14`, exact block-diagonal, near-decoupled, scale, permutation, nested-refinement, and selected 100-digit mpmath controls; name it as a new protocol rather than a reproduction of a lost historical generator.
-- [ ] **Step 4: Encode CLI and manifest mutation tests.** Parameterize TeX, `SPEC.md`, bibliography, style, build script, claim map, runner, requirements, schema, policy, lifecycle code, build audit, and tests. Assert malformed JSON, missing/extra fields and paths, line-ending changes, semantic changes, unknown/duplicate checks, revision mismatch, NaN, and infinity all fail.
-- [ ] **Step 5: Prove verify-mode immutability in tests.** Hash the result before and after every passing and failing invocation; assert neither mode and both modes fail, update writes atomically, and verify writes only an explicitly separate report.
-- [ ] **Step 6: Encode `S/E/C/W` allowlist tests and build-log fixtures.** Cover correct diffs and injected forbidden files at every boundary.
-- [ ] **Step 7: Run the red suite and save JUnit.** Run:
+- [x] **Step 3: Freeze a deterministic 3,138-draw replacement protocol.** Cover dimensions 2--16, condition numbers through `1e14`, exact block-diagonal, near-decoupled, scale, permutation, nested-refinement, and selected 100-digit mpmath controls; name it as a new protocol rather than a reproduction of a lost historical generator.
+- [x] **Step 4: Encode CLI and manifest mutation tests.** Parameterize TeX, `SPEC.md`, bibliography, style, build script, claim map, runner, requirements, schema, policy, lifecycle code, build audit, and tests. Assert malformed JSON, missing/extra fields and paths, line-ending changes, semantic changes, unknown/duplicate checks, revision mismatch, NaN, and infinity all fail.
+- [x] **Step 5: Prove verify-mode immutability in tests.** Hash the result before and after every passing and failing invocation; assert neither mode and both modes fail, update writes atomically, and verify writes only an explicitly separate report.
+- [x] **Step 6: Encode `S/E/C/W` allowlist tests and build-log fixtures.** Cover correct diffs and injected forbidden files at every boundary.
+- [x] **Step 7: Run the red suite and save JUnit.** Run:
 
 ```powershell
 & "C:\Python314\python.exe" -m pytest manuscripts\gauge_vfe_rg\verification\tests --junitxml C:\tmp\gauge-vfe-rg-red.junit.xml
@@ -159,18 +165,18 @@ Expected: failures identify the absent interfaces, not import/syntax defects. Co
 
 **Interfaces:** Produces `GapStep`, `GapResult`, `validate_partition`, `two_block_factorization_gap`, and stable multiblock `factorization_gap` diagnostics.
 
-- [ ] **Step 1: Validate SPD inputs and partitions.** Reject overlaps, omissions, empty blocks, bad indices, nonsymmetry beyond tolerance, failed Cholesky, NaN, and infinity.
-- [ ] **Step 2: Implement the two-block formula.** Use Cholesky factors and `scipy.linalg.solve_triangular` to compute `R=L_A^{-1} C L_D^{-T}`, its singular values `rho`, and `-0.5*sum(log1p(-rho**2))`; never subtract large log determinants or form an explicit inverse.
-- [ ] **Step 3: Implement multiblock telescoping.** Merge along a declared refinement order, sum two-block increments, and return singular values, minimum `1-rho**2`, residual-derived clipping decisions, Cholesky residuals, backward-error bounds, and the merge order.
-- [ ] **Step 4: Replace absolute thresholds in `check_cg_factor_gap`.** Derive scale-aware tolerances from accumulated backward error and make every nonfinite or excessive singular-value excursion a failed check.
-- [ ] **Step 5: State the stable manuscript formula.** In `07_restrictions.tex`, retain the exact determinant identity, derive `\Delta=-\frac12\sum_a\log(1-\rho_a^2)` from the Schur complement, and specify Cholesky solves with `log1p(-\rho_a^2)` as the numerical realization. Update the numerical provenance and claim map to identify the new frozen stress protocol.
-- [ ] **Step 6: Run the focused tests.** Expected: all determinant tests pass, including all 3,138 draws and mpmath controls:
+- [x] **Step 1: Validate SPD inputs and partitions.** Reject overlaps, omissions, empty blocks, bad indices, nonsymmetry beyond tolerance, failed Cholesky, NaN, and infinity.
+- [x] **Step 2: Implement the two-block formula.** Use Cholesky factors and `scipy.linalg.solve_triangular` to compute `R=L_A^{-1} C L_D^{-T}`, its singular values `rho`, and `-0.5*sum(log1p(-rho**2))`; never subtract large log determinants or form an explicit inverse.
+- [x] **Step 3: Implement multiblock telescoping.** Merge along a declared refinement order, sum two-block increments, and return singular values, minimum `1-rho**2`, residual-derived clipping decisions, Cholesky residuals, backward-error bounds, and the merge order.
+- [x] **Step 4: Replace absolute thresholds in `check_cg_factor_gap`.** Derive scale-aware tolerances from accumulated backward error and make every nonfinite or excessive singular-value excursion a failed check.
+- [x] **Step 5: State the stable manuscript formula.** In `07_restrictions.tex`, retain the exact determinant identity, derive `\Delta=-\frac12\sum_a\log(1-\rho_a^2)` from the Schur complement, and specify Cholesky solves with `log1p(-\rho_a^2)` as the numerical realization. Update the numerical provenance and claim map to identify the new frozen stress protocol.
+- [x] **Step 6: Run the focused tests.** Expected: all determinant tests pass, including all 3,138 draws and mpmath controls:
 
 ```powershell
 & "C:\Python314\python.exe" -m pytest manuscripts\gauge_vfe_rg\verification\tests\test_factorization_gap.py -q
 ```
 
-- [ ] **Step 7: Commit.** Commit `fix: stabilize Gaussian factorization gaps`.
+- [x] **Step 7: Commit.** Commit `fix: stabilize Gaussian factorization gaps`.
 
 ### Task 4: Implement the Fail-Closed Result, Manifest, Lifecycle, and Build Interfaces
 
@@ -189,27 +195,38 @@ verify_result(result_path: Path, repo_root: Path) -> VerificationReport
 atomic_write_json(path: Path, value: object) -> None
 ```
 
-- [ ] **Step 1: Define an exhaustive manifest policy.** Recursively bind all manuscript TeX plus `SPEC.md`, parent bibliography/style, build script, core verifier files, schemas, lifecycle/build code, and every verification test. Reject unexpected governed extensions instead of silently excluding them.
-- [ ] **Step 2: Replace the CLI contract.** Implement a required mutually exclusive group:
+- [x] **Step 1: Define an exhaustive manifest policy.** Recursively bind all manuscript TeX plus `SPEC.md`, parent bibliography/style, build script, core verifier files, schemas, lifecycle/build code, and every verification test. Reject unexpected governed extensions instead of silently excluding them.
+- [x] **Step 2: Replace the CLI contract.** Implement a required mutually exclusive group:
 
 ```text
 run_checks.py --update RESULT [--source-revision SHA] [--report REPORT]
 run_checks.py --verify RESULT [--report REPORT]
 ```
 
-Remove implicit output rewriting. Verify in memory and preserve the input bytes on success and failure.
-- [ ] **Step 3: Bind provenance and semantics.** Record UTC timestamp, full source Git revision, dirty state, exact dependency versions, canonical semantic-payload SHA-256, schema version, complete path set, and finite JSON numbers. Exclude only the timestamp and digest field from the semantic digest.
-- [ ] **Step 4: Compare bytes to source revision `S`.** In evidence mode allow `HEAD=E` while proving each bound source path equals its Git blob at `S`; reject revision, manifest, payload, check-ID, and shape drift.
-- [ ] **Step 5: Implement lifecycle allowlists.** Parse `git diff --name-status -z`, enforce source-to-evidence, evidence-to-closure, closure-to-wiki, and optional wiki-to-publication byte identity.
-- [ ] **Step 6: Implement build auditing.** Record tool versions, exact command sequence and exit codes, complete inputs/digest, PDF hash/bytes/pages/metadata, log/aux/bbl/toc hashes, duplicate labels, unresolved references/citations, rerun requests, fatal errors, overfull boxes, literal `??`, invalid statuses, stale auxiliaries, and changed-page render selection.
-- [ ] **Step 7: Extend `build.ps1`.** Accept explicit output, audit, and source-revision parameters; require a nonmutating numerical verification before four TeX passes; fail on any audit finding.
-- [ ] **Step 8: Run the complete suite.** Run:
+Remove implicit output rewriting. Verify in memory and preserve the input bytes
+on success and failure. In update mode, stage both result and report, perform
+all closing checks before publishing either, atomically replace the valid result
+first, and publish only a report that binds that exact result and run receipt.
+A pre-commit failure must preserve existing result/report bytes; a partial
+two-file publication must be mechanically unauthenticatable rather than being
+misrepresented as a portable joint atomic rename.
+- [x] **Step 3: Bind provenance and semantics.** Record UTC timestamp, full source Git revision, dirty state, exact dependency versions, canonical semantic-payload SHA-256, schema version, complete path set, and finite JSON numbers. Exclude only the timestamp and digest field from the semantic digest.
+- [x] **Step 4: Compare bytes to source revision `S`.** In evidence mode allow `HEAD=E` while proving each bound source path equals its Git blob at `S`; reject revision, manifest, payload, check-ID, and shape drift.
+- [x] **Step 5: Implement lifecycle allowlists.** Parse `git diff --name-status -z`, enforce source-to-evidence, evidence-to-closure, closure-to-wiki, and optional wiki-to-publication byte identity.
+- [x] **Step 6: Implement build auditing.** Record tool versions, exact command sequence and exit codes, complete inputs/digest, PDF hash/bytes/pages/metadata, log/aux/bbl/toc hashes, duplicate labels, unresolved references/citations, rerun requests, fatal errors, overfull boxes, literal `??`, invalid statuses, stale auxiliaries, and changed-page render selection.
+- [x] **Step 7: Add the non-circular release bootstrap and extend `build.ps1`.** Treat exact approved external PowerShell transport bytes as the public trust root with typed `Build`, `NumericalUpdate`, and `NumericalVerify` modes. Keep a readable ASCII bootstrap body plus a deterministic one-line ASCII `ScriptBlock.Create`/base64 transport, and mechanically require that decoding the transport reproduces the body byte-for-byte without dynamic-expression evaluation. Because the body exceeds the Windows command-line limit and multiline `-Command -` is statement-streamed, pre-hash the one-line transport externally and feed those exact raw bytes on binary standard input to fixed PowerShell `-NoProfile -NonInteractive -Command -`. Carry the twelve untrusted invocation values plus the externally computed transport digest and byte count only in a closed exact `GAUGE_VFE_BOOTSTRAP_*` environment schema; bind that independent transport identity into the checked receipt without claiming self-authentication. Lock fixed PowerShell/Git/Python as applicable, validate controlled Git metadata and full `S`, and authenticate the exact source-revision driver before launch. Build mode materializes the exact `S:build.ps1` blob through one retained `CreateNew` handle under a fixed non-reparse temporary base and verifies its Git object identity. Because that write-capable creation handle cannot be safely downgraded for a child path reopen, read the exact authenticated bytes through the still-held handle, generate a one-line ASCII `ScriptBlock.Create`/base64 child transport, and stream it in binary mode to fixed child PowerShell under an exact closed `GAUGE_VFE_BUILD_*` environment. The inner script receives explicit repository/materialized source identities and never treats its in-memory `$PSCommandPath` as provenance. Retain all handles and check M1 plus the typed report before cleanup. Numerical modes instead S-bind and lock the exact checkout `run_checks.py` path and execute that same path under fixed Python `-I -S`, preserving its repository-root semantics. Production must not resolve evidence tools through caller `PATH` or inner-driver defaults. Direct checkout-script execution is unauthenticated convenience only. The inner build driver accepts explicit output, audit, repository/source, tool, and source-revision parameters; requires a nonmutating numerical verification; and discovers external TeX/BibTeX inputs by repeating the complete disposable command sequence to a bounded monotone fixed point while retaining deny-write/delete locks. It snapshots every pdfTeX pass recorder, unions pass-one/pass-three/pass-four plus BibTeX inputs, discards discovery outputs, and runs the four evidence passes from a fresh directory with `-no-shell-escape`, rejecting any evidence input outside the prelocked external envelope. Bind the numerical report to the authenticated runner's exact canonical stdout and bind the build audit to an authenticated auditor digest marker before trusting either pathname. The numerical runner locks the policy first, transactionally retains the complete rediscovered governed set through M1, and stages result/report output until all closing checks pass. Before build launch, the outer bootstrap retains the exact fresh output-directory identity. Afterward it requires the audit's complete artifact map to equal a recursive non-reparse output inventory, retains every artifact (including `main.pdf`) against write/delete/substitution, rejects additions, and rechecks the exact set through M1. The outer bootstrap then retains and same-handle validates the typed result/report/audit relationship through its own M1 and receipt. Fail on any bootstrap, verifier, tool, source-envelope, governed-handle, output-transaction, process-channel binding, external-input, artifact-set, or audit finding. Require command-length, stdin/env transport, decoded-body equality, exact inner-payload handoff, tampered-driver, write/delete/rename, object-mismatch, PATH-spoof, reparse-temp, early-failure, path-replacement, forged valid report/audit substitution, governed A-to-B-to-A, existing-target transaction failure, output-artifact substitution/addition, external A-to-B-to-A, new evidence-input, first/final-pass-only input, and nonconvergence red witnesses.
+- [x] **Step 8: Run the complete suite.** Run:
 
 ```powershell
-& "C:\Python314\python.exe" -m pytest manuscripts\gauge_vfe_rg\verification\tests --junitxml C:\tmp\gauge-vfe-rg-verification.junit.xml
+$task4Temp = "C:\tmp\gauge-vfe-rg-task4-final-20260804"
+& "C:\Python314\python.exe" -m pytest `
+  -p no:cacheprovider `
+  --basetemp "$task4Temp\pytest" `
+  --junitxml "$task4Temp\gauge-vfe-rg-verification.junit.xml" `
+  manuscripts\gauge_vfe_rg\verification\tests
 ```
 
-Expected: zero failures/errors/skips; report counts only by parsing the JUnit XML. Commit `feat: make gauge VFE RG verification fail closed`.
+Create the fresh external `$task4Temp` directory before the run and refuse to reuse an existing path. Expected: zero failures/errors/skips; report counts only by parsing the JUnit XML, and record the XML SHA-256 with the exact source hashes. Commit `feat: make gauge VFE RG verification fail closed`.
 
 ### Task 5: Repair Probability Semantics and the Exact Extended ELBO
 
@@ -339,13 +356,19 @@ Expected: no placeholders, unsupported shortcuts, unresolved markers, or doubled
 **Interfaces:** Produces deterministic evidence that names and byte-binds `S` while running from the evidence worktree.
 
 - [ ] **Step 1: Run the full tests against `S`.** Save JUnit under `docs/derivations/.../evidence/`; parse counts from XML, not terminal output.
-- [ ] **Step 2: Generate the result explicitly.** Run:
-
-```powershell
-& "C:\Python314\python.exe" manuscripts\gauge_vfe_rg\verification\run_checks.py --update manuscripts\gauge_vfe_rg\verification\current-results.json --source-revision S --report docs\derivations\2026-08-03-gauge-vfe-rg-remediation\evidence\numerical-update.json
-```
-
-- [ ] **Step 3: Verify without mutation.** Hash `current-results.json`, run `--verify`, hash again, and require byte identity.
+- [ ] **Step 2: Generate the result through the authenticated bootstrap.**
+  Obtain the independently approved raw-ASCII bootstrap literal, verify its
+  out-of-band SHA-256 and byte count, start fixed PowerShell with argv exactly
+  `-NoProfile -NonInteractive -Command -` and the closed exact bootstrap
+  environment in `NumericalUpdate` mode, and feed the approved bytes directly
+  to binary standard input.  Require zero child status, a matching typed
+  result/report transaction, M1 closure, and an independently validated
+  bootstrap receipt.  Direct checkout execution of `run_checks.py` is a
+  convenience diagnostic only and cannot generate production evidence.
+- [ ] **Step 3: Verify without mutation through the authenticated bootstrap.**
+  Hash `current-results.json`, repeat the same external procedure in
+  `NumericalVerify` mode with a fresh report and receipt, hash the result again,
+  and require byte identity plus exact report/result/receipt digest binding.
 - [ ] **Step 4: Rerun PB-1 through PB-4.** Bind only files present at `S`; retain historical ledgers in Git history and create a new current evidence record rather than relabeling old evidence.
 - [ ] **Step 5: Record environment and stress diagnostics.** Include Python/dependency versions, seed schedule, 3,138-draw protocol, high-precision controls, and all failure thresholds.
 
@@ -356,7 +379,13 @@ Expected: no placeholders, unsupported shortcuts, unresolved markers, or doubled
 **Interfaces:** Produces a fresh four-pass PDF and machine/visual proof of document integrity.
 
 - [ ] **Step 1: Create a fresh detached build worktree at `S` and empty output directory.** Record `pdflatex`, BibTeX, `pdfinfo`, and `pdftoppm` versions.
-- [ ] **Step 2: Run the four-pass build.** Execute `pdflatex -> bibtex -> pdflatex -> pdflatex` through `build.ps1`; require all exit codes zero and no stale auxiliaries at start.
+- [ ] **Step 2: Run the four-pass build through the authenticated bootstrap.**
+  Use the externally approved one-line bootstrap transport in `Build` mode;
+  require its exact source-revision inner-payload handoff, fixed tool identities,
+  external-input fixed-point discovery, fresh evidence-pass directory, per-pass
+  recorder union, all four zero exit codes, no stale auxiliaries, M1 closure,
+  typed audit/report binding, and independently validated receipt.  Direct
+  checkout execution of `build.ps1` is a convenience diagnostic only.
 - [ ] **Step 3: Run the build audit.** Require zero undefined references/citations, duplicate labels, fatal controls/errors, emergency stops, rerun requests, literal `??`, invalid/doubled statuses, and new overfull boxes; record PDF SHA-256, bytes, page count, title, subject, and auxiliary hashes.
 - [ ] **Step 4: Render changed pages and neighbors at 160 dpi.** If exact page mapping is uncertain, render all pages with `pdftoppm`. Inspect clipping, overlap, equation/table overflow, status wrapping, TikZ readability, headings, footers, and page transitions.
 - [ ] **Step 5: Record zero-defect visual evidence.** Any layout correction changes source and therefore requires returning to Task 12 for a new `S` and rerunning all evidence.

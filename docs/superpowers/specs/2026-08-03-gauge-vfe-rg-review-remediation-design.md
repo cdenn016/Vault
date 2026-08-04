@@ -840,6 +840,280 @@ No item may be closed by prose alone. A source edit after its evidence run inval
 
 ## 7. Verification architecture
 
+### 7.0 Amendment A: trusted production mode and current-tip identity
+
+This amendment records fail-closed consequences of the already approved
+source/evidence/closure/wiki contract.  It narrows implementation freedom; it
+does not broaden the theorem or publication scope.
+
+1. Every ordinary command-line entry point is production mode.  Production
+   mode requires the exact production profile independently in policy, claims,
+   results, reports, and build context.  Synthetic relaxation is available
+   only through an explicit in-process test-fixture argument that is not
+   exposed by a production CLI, and fixture mode rejects a production-shaped
+   source envelope.  No tracked file or current branch tip may select weaker
+   verification semantics.
+2. Git identity is resolved through the fixed regular executable
+   `C:\Program Files\Git\cmd\git.exe`; Python build verification uses the fixed
+   regular executable `C:\Python314\python.exe`.  Their paths and raw-byte
+   hashes are recorded where they contribute evidence.  Every Git subprocess
+   removes caller-supplied `GIT_*` variables, disables replacement objects, and
+   rejects nonempty or reparse-mediated graft, shallow, local-alternate, and
+   HTTP-alternate metadata before and after the relevant reads.  A caller's
+   `PATH` cannot replace Git or Python.  These point checks assume no separate
+   process creates, uses, and deletes Git identity metadata wholly inside one
+   child-process interval; persistent or boundary-visible changes fail.  A
+   stronger active-writer threat model would require a fail-closed recursive
+   `ReadDirectoryChangesW` watcher (including overflow/error handling) on the
+   administrative and common Git directories.  That watcher is outside this
+   artifact protocol, so the no-concurrent-metadata-writer condition is an
+   explicit release-run assumption rather than an unproved security claim.
+3. Ancestry is necessary but not sufficient at the release tip.  Lifecycle
+   validation compares the protected union at `W` with current `HEAD` whenever
+   `HEAD` descends from `W`.  Publication validation compares that union at
+   both `W` and `P` with current `HEAD` whenever descendants are admitted.
+   This permits unrelated integration commits while rejecting protected-byte,
+   type, mode, existence, and canonical-path drift after a named endpoint.
+   Every intermediate commit tree on the validated ancestry paths must retain
+   the same protected union: changing a protected path and later restoring its
+   endpoint bytes remains an overlap and restarts the corresponding gate.  The
+   three phase histories are validated on every parent-to-child edge of the
+   relevant ancestry subgraph, in addition to comparing each intermediate tree
+   with its phase baseline.  Thus add-delete-re-add and merge-side-parent
+   sequences cannot disappear from an endpoint diff; the complete required
+   artifact envelope remains an endpoint condition.
+4. The production TeX audit requires a closed command and build-context
+   envelope, a mandatory recorder file with the exact build working directory,
+   and a stable classified inventory of every repository, build-directory,
+   and external input.  There is no repository-scan fallback.  A repository
+   script cannot authenticate itself before it executes, so the public build
+   entry point is an exact, approved, external literal PowerShell program in
+   the release procedure, not a tracked launcher.  The literal exceeds the
+   Windows `CreateProcess` command-line limit, while Windows PowerShell consumes
+   multiline `-Command -` input as separate interactive statements.  The
+   governed artifact therefore contains both a readable ASCII body and a
+   deterministic one-line ASCII transport whose fixed
+   `ScriptBlock.Create` loader decodes an embedded base64 copy of those exact
+   body bytes.  Mechanical tests require the decoded transport payload to equal
+   the readable body byte-for-byte and forbid dynamic-expression evaluation.
+   The exact pre-hashed one-line transport is supplied as a binary standard-input
+   stream to fixed PowerShell invoked with `-NoProfile -NonInteractive -Command
+   -`; the twelve untrusted invocation
+   values plus the externally computed literal digest and byte count travel in
+   one closed, exact, case-insensitive
+   `GAUGE_VFE_BOOTSTRAP_*` environment schema.  Missing, malformed, or
+   unexpected prefixed variables fail.  The outer release procedure validates
+   and records the approved transport digest before launch and later requires the
+   receipt to assert that same digest; the literal does not circularly claim to
+   authenticate its own input stream.  That transport and decoded body form the
+   bootstrap trust root: it
+   holds deny-write/delete handles for the fixed absolute PowerShell
+   and Git executables; validates full `S` and the controlled Git-metadata
+   envelope; resolves the exact `S:manuscripts/gauge_vfe_rg/build.ps1` blob;
+   and streams that blob into a single retained `CreateNew` handle in a fresh,
+   non-reparse directory under a fixed checked temporary base.  Before launch
+   it checks the raw byte count and Git blob object identity through that same
+   handle.  A write-capable creation handle cannot be atomically downgraded to
+   a deny-write read handle that a second process can reopen by path.  The
+   bootstrap therefore retains the sole `CreateNew` handle, reads those exact
+   authenticated bytes through it, embeds them into a generated one-line ASCII
+   `ScriptBlock.Create`/base64 transport, and writes that transport in binary
+   mode to the standard input of fixed child PowerShell.  The child receives
+   explicit repository-source and materialized-source identities through an
+   exact closed `GAUGE_VFE_BUILD_*` environment schema; the inner driver never
+   treats its empty in-memory `$PSCommandPath` as authenticated provenance.
+   This launches the exact `S:build.ps1` payload with `-NoProfile
+   -NonInteractive -Command -` while retaining the creation, directory, Git,
+   and PowerShell handles and without an unlocked path interval.  It also
+   supplies explicit absolute, non-reparse
+   pdfTeX, BibTeX, and bibliography-style paths; a production build never
+   resolves evidence tools through caller `PATH` or an inner-driver default.
+   Those tool identities join the receipt and remain locked by the inner
+   driver.  A successful numerical verifier handoff is accepted only when its
+   process stdout equals the canonical verification-report bytes plus one LF.
+   The build auditor emits one exact raw-byte digest marker over its published
+   report, and the inner driver requires that marker to equal the report bytes
+   it subsequently locks and parses.  Thus a valid-looking pathname
+   substitution between child exit and parent read is not evidence.  Before
+   releasing its own locks the inner driver emits exactly one
+   `BUILD_AUDIT_SHA256=<lower64>` and one
+   `BUILD_VERIFICATION_REPORT_SHA256=<lower64>` over the process channel.  The
+   outer bootstrap opens those outputs (and the result where applicable) with
+   retained deny-write/delete handles, hashes and parses those same handles,
+   and requires equality with the child handoff and their typed cross-binding.
+   Before child launch it creates or opens the exact fresh empty output
+   directory and retains a deny-delete handle to that identity.  After the
+   authenticated audit, it treats the audit's sorted artifact-hash map as a
+   complete recursive namespace: the map must equal a fresh non-reparse output
+   inventory, every listed file (including `main.pdf`) is opened with a
+   deny-write/delete handle and checked against its reported digest, additions
+   are forbidden, and the same set and identities are rechecked at M1.
+   Final same-handle hashes, NTFS file identities,
+   lexical-path identities, child status, and the typed build report are
+   checked before the handles are released and a bootstrap receipt is
+   accepted.  Direct execution of a checkout copy is not an authenticated
+   production build.  The one-line transport bytes, their byte-exact decoded
+   body, and their external feeder,
+   fixed PowerShell/.NET
+   runtime, fixed Git runtime, Windows kernel, local NTFS share/file-ID
+   semantics, verifier process integrity, trusted `S`, and repository object
+   database are the explicit bootstrap TCB; administrator/kernel/raw-volume,
+   offline, and code-injection attacks remain outside the artifact protocol.
+   The authenticated driver does not inherit caller TeX or BibTeX search paths,
+   binds every other executable source file to `S` before its execution, and
+   distinguishes process exit status from the report's typed `ok` status.
+   Before any verifier or TeX pass, it opens
+   the candidate result read-only and uses that result's manifest as a
+   candidate source envelope; it holds deny-write/delete handles for the result
+   and every candidate input, S-binds each source input, and retains those
+   handles through the final audit.  The production verifier must independently
+   prove that the candidate envelope exactly equals policy and current
+   discovery, while the build auditor rejects every repository input not in
+   the recorded prelocked envelope.  Consequently a source swap restored
+   before recorder/audit time cannot determine the PDF invisibly.  External
+   TeX inputs are not closed by a post-build recorder inventory alone.  Before
+   evidence passes, the driver therefore runs the complete four-command
+   sequence in disposable fresh directories, monotonically locks every
+   recorder- or BibTeX-discovered external input with deny-write/delete
+   handles, and repeats from an empty directory until the discovered set has
+   reached a bounded fixed point under the retained locks.  It then discards
+   every discovery output and performs the evidence sequence from a fresh
+   empty directory with `-no-shell-escape`; every evidence-pass external input
+   must belong to the prelocked fixed-point envelope.  Nonconvergence, a new
+   evidence input, a missing input, a reparse, or any held identity change
+   fails.  Because pdfTeX overwrites the conventional `main.fls` path, the
+   driver snapshots the recorder immediately after each pdfTeX pass and takes
+   the union of the first, third, and fourth pass inventories together with
+   the separately parsed BibTeX inventory.  Both discovery and evidence use
+   this per-pass union; a final-pass recorder alone is not a complete build
+   envelope.  TeX engine/runtime libraries that its recorder does not classify
+   as document inputs remain in the explicitly disclosed executable-runtime
+   TCB.
+
+Each control requires a failing finite witness before implementation, a fresh
+machine-readable passing result afterward, and an independent source review.
+
+### 7.0.1 Amendment B: run-scoped provenance and isolated dependency closure
+
+The adversarial controls for Amendment A exposed four further consequences of
+the same fail-closed contract.
+
+1. Current-tip and executable identity are run-scoped invariants.  Every
+   production verifier captures the exact current `HEAD` and the raw-byte and
+   filesystem identities of each fixed executable at M0, uses exact object IDs
+   rather than a moving symbolic `HEAD` in subsequent Git queries, and repeats
+   the checks at M1.  A mid-run change fails.  Machine-readable lifecycle and
+   verification reports record the production profile, validated current tip,
+   fixed executable paths, and raw SHA-256 identities.  The persistent
+   source-bound numerical result continues to record `S`, not the moving tip,
+   so it remains verifiable at authorized descendants.  A stable executable
+   read binds the opened handle by pre-open path metadata, immediate `fstat`,
+   post-read `fstat`, and post-close path metadata.  The resolved pdfTeX and
+   BibTeX executables are run-fixed evidence tools too: the driver compares
+   their private byte and filesystem identities immediately before and after
+   every pass and again at final M1, while command records expose the matching
+   public byte identities.  On Windows the verifier holds a read-only handle
+   that denies write and delete sharing across each launch (or the complete
+   run), hashes and identifies that same handle, launches the same absolute
+   non-reparse path, and proves at M1 that the path still names the held file.
+   The trust boundary is the Windows kernel, local NTFS share-mode and file-ID
+   semantics, and verifier-process integrity; administrator/kernel/raw-volume,
+   offline, and code-injection attacks are outside this artifact protocol.
+   Transitive runtime libraries are environment metadata, not falsely claimed
+   as part of an executable's raw-byte identity unless separately inventoried.
+2. Ordinary Python command-line evidence starts with
+   `C:\Python314\python.exe -I -S`.  Both isolated and no-site flags are
+   mandatory, so global `.pth` or `sitecustomize` code cannot execute before
+   the verifier establishes its dependency M0.  After that startup, the S-bound verifier
+   admits only the fixed non-reparse Python 3.14 user-site directory required
+   by the installed scientific packages.  Imported module and dist-info roots
+   must lie in that exact site.  Every actual file named by each authenticated
+   distribution RECORD is read stably, checked against any declared size and
+   hash, constrained to the fixed pip user-data root, and included in one
+   canonical actual-byte inventory digest.  Caller `PYTHONPATH`, user
+   `sitecustomize`, an unchanged RECORD over changed package bytes, and a
+   duplicate dist-info location cannot establish evidence.  The first
+   dependency inventory is constructed with the standard library before any
+   third-party initializer executes; after import, exact module origins and
+   versions are bound to that same M0 inventory, and the complete inventory is
+   compared again at M1.  Every file advertised as stably read uses the same
+   opened-handle binding as an executable snapshot.  Production requires one
+   and only one authenticated installation of every distribution declared in
+   `requirements.txt`; an absent package or nullable provenance is not a
+   successful environment claim, and unused packages are not declared.  The
+   requirements file uses a strict fixed `normalized-name==exact-version`
+   grammar, and authenticated distribution metadata must equal those pins.  A
+   fixed-site import guard admits only origins present in those M0 inventories
+   and binds each delegated loader execution to the expected source or
+   extension bytes.  A fresh empty non-reparse `sys.pycache_prefix` together
+   with `sys.dont_write_bytecode` prevents ambient, unrecorded bytecode caches
+   from supplying executed code.  Optional undeclared transitive packages are
+   blocked rather than silently executed outside the dependency closure.
+3. TeX and BibTeX subprocesses receive controlled search paths rather than
+   caller-derived Kpathsea state.  This includes `TEXINPUTS`, `BIBINPUTS`,
+   `BSTINPUTS`, the complete relevant font/format/graphics path-variable set,
+   and explicit build-owned `TEXMFHOME`, `TEXMFVAR`, and `TEXMFCONFIG` roots;
+   case variants are equivalent on Windows.  The driver records the controlled
+   environment and restores the caller environment exactly.  The recorded
+   environment is the complete effective child map, including the minimal
+   operating-system allowlist, tool-specific `PATH`, controlled temporary
+   roots, and Kpathsea variables; an unrecorded ambient variable is never
+   inherited.  BibTeX style and database dependencies are separately declared
+   in `main.aux`/`main.blg`, bound to `S` or an exact external byte identity,
+   and retained in M0/M1 classified inventories because pdfTeX recorder output
+   alone is incomplete.
+4. Every in-process synthetic selector is an exact Boolean, rejects the full
+   production envelope, and is unavailable from the ordinary CLI.  Filesystem
+   enumeration errors and reparse-mediated input components are terminal; a
+   partial directory walk is never a complete manifest or build inventory.
+5. The same externally approved literal bootstrap has three typed modes:
+   `Build`, `NumericalUpdate`, and `NumericalVerify`.  Numerical modes first
+   authenticate and retain the fixed Python and Git executables, controlled
+   Git metadata, full source revision `S`, and the exact
+   `S:manuscripts/gauge_vfe_rg/verification/run_checks.py` checkout path.  They
+   execute that same absolute, non-reparse checkout path under fixed Python
+   with `-I -S`, a closed environment, and a deny-write/delete handle retained
+   through M1.  They do not copy the runner to a temporary directory, because
+   its repository-root semantics are intentionally derived from its source
+   location.  The bootstrap checks the runner's same-handle bytes, length, Git
+   object identity, filesystem identity, exit status, typed report, and
+   result/report relationship before accepting a receipt.  Update mode uses
+   the child's canonical report/digest handoff before opening the newly
+   published result; verify and build modes prelock the immutable result before
+   child launch.  Direct checkout
+   invocation remains a convenience diagnostic and is not authenticated
+   production evidence.
+6. Inside the numerical runner, governed-input identity is a run-scoped
+   retained-handle invariant rather than two path snapshots.  At M0 the runner
+   opens the hard-coded manifest-policy path first, denies write/delete sharing,
+   and binds its same-handle bytes to `S`.  It discovers the complete governed
+   set under that policy; transactionally opens and S-binds every member;
+   repeats discovery; and requires exact equality among policy, discovery, and
+   the retained registry.  All semantic reads are from, or explicitly checked
+   against, those retained handles.  The handles remain live through staged
+   output creation, closing evidence checks, report construction, and M1.  Any
+   partial acquisition, path replacement, same-path A-to-B-to-A substitution,
+   reparse, disappearance, raw-byte drift, Git-object drift, or closing-identity
+   mismatch fails with complete cleanup.
+7. Update mode uses a staged two-artifact commit protocol.  It serializes the
+   candidate result and its report into fresh retained temporary files, checks
+   those exact staged bytes, and performs every closing source, dependency,
+   executable, Git-metadata, and governed-handle check before publishing either
+   success artifact.  A pre-commit failure deletes the stages and preserves any
+   existing result and report byte-for-byte.  After closure it atomically
+   replaces the result first and the final report second.  Every success report
+   binds the exact published result digest and a unique run/receipt identity;
+   consumers reject a pre-existing or partially published report whose binding
+   does not match the current result.  This explicit commit order avoids
+   pretending that two arbitrary filesystem paths have a portable joint atomic
+   rename.  A report-publication failure is nonzero and cannot authenticate the
+   newly valid result until a matching report is produced; it never leaves a
+   newly written unbound `ok:true` report.  Verify mode never rewrites the
+   supplied result.
+
+These requirements use the same red-witness, machine-readable green, and
+independent-review closure rule as Amendment A.
+
 ### 7.1 Rigorous-theory-search record
 
 The durable run directory will be
