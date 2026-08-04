@@ -332,6 +332,83 @@ def test_residual_health_fallback_preserves_measured_binary64_diagnostics(monkey
     assert require_field(result, "maximum_cholesky_residual", "measured residual-health fallback") == measured["cholesky_residual"], "DEFECT [measured residual-health fallback]: GapResult dropped the measured step Cholesky residual"
 
 
+def test_nonfinite_cholesky_component_forces_json_safe_residual_fallback(monkeypatch):
+    module = runner_module()
+    two_block_factorization_gap = getattr(
+        module, "two_block_factorization_gap", None
+    )
+    assert callable(two_block_factorization_gap), "DEFECT [nonfinite residual component]: public two-block factorization-gap API is missing"
+
+    matrix = np.array([[2.0, 0.25], [0.25, 3.0]])
+    original_norm = module.np.linalg.norm
+    matching_norm_calls = 0
+    injection_occurred = False
+
+    def inject_second_cholesky_residual_nan(value, *args, **kwargs):
+        nonlocal matching_norm_calls, injection_occurred
+        order = kwargs.get("ord", args[0] if args else None)
+        if np.asarray(value).shape == (1, 1) and order == np.inf:
+            matching_norm_calls += 1
+            if matching_norm_calls == 4:
+                injection_occurred = True
+                return math.nan
+        return original_norm(value, *args, **kwargs)
+
+    monkeypatch.setattr(module.np.linalg, "norm", inject_second_cholesky_residual_nan)
+    result = two_block_factorization_gap(matrix, [0], [1])
+    step = require_field(result, "steps", "nonfinite residual component")[0]
+
+    assert injection_occurred, "DEFECT [nonfinite residual fixture]: the fourth scalar infinity-norm call was not reached"
+    determinant = matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0]
+    independent_reference = 0.5 * math.log(
+        (matrix[0, 0] * matrix[1, 1]) / determinant
+    )
+    assert result_value(result, "nonfinite residual component") == pytest.approx(independent_reference, rel=5e-12, abs=0.0), "DEFECT [nonfinite residual component]: fallback value disagrees with the independent determinant reference"
+    assert require_field(step, "evaluation_method", "nonfinite residual component") == "exact-binary64-mpmath-200d-binary64-residual-health-fallback", "DEFECT [nonfinite residual component]: a nonfinite block residual was masked instead of selecting the residual-health fallback"
+    assert require_field(step, "high_precision_fallback_applied", "nonfinite residual component") is True, "DEFECT [nonfinite residual component]: nonfinite residual health must trigger high-precision evaluation"
+
+    cholesky_residual = require_field(
+        step, "cholesky_residual", "nonfinite residual component"
+    )
+    solve_residual = require_field(
+        step, "solve_residual", "nonfinite residual component"
+    )
+    residual_tolerance = require_field(
+        step, "residual_tolerance", "nonfinite residual component"
+    )
+    backward_error = require_field(
+        step, "backward_error", "nonfinite residual component"
+    )
+    maximum_cholesky_residual = require_field(
+        result, "maximum_cholesky_residual", "nonfinite residual component"
+    )
+    backward_error_bound = require_field(
+        result, "backward_error_bound", "nonfinite residual component"
+    )
+    assert cholesky_residual is None, "DEFECT [nonfinite residual component]: an unavailable aggregate Cholesky residual must be null"
+    assert maximum_cholesky_residual is None, "DEFECT [nonfinite residual component]: GapResult must preserve the unavailable Cholesky residual as null"
+    assert solve_residual is not None and math.isfinite(solve_residual), "DEFECT [nonfinite residual component]: the independently measured solve residual must remain finite"
+    assert residual_tolerance is not None and math.isfinite(residual_tolerance) and residual_tolerance > 0.0, "DEFECT [nonfinite residual component]: the finite residual tolerance must be retained"
+    assert backward_error is None, "DEFECT [nonfinite residual component]: backward error is unavailable when a residual component is nonfinite"
+    assert backward_error_bound is None, "DEFECT [nonfinite residual component]: GapResult must preserve the unavailable backward error as null"
+
+    diagnostics = {
+        "cholesky_residual": cholesky_residual,
+        "solve_residual": solve_residual,
+        "residual_tolerance": residual_tolerance,
+        "backward_error": backward_error,
+        "maximum_cholesky_residual": maximum_cholesky_residual,
+        "backward_error_bound": backward_error_bound,
+    }
+    for field, value in diagnostics.items():
+        assert value is None or (
+            isinstance(value, (int, float, np.floating))
+            and not isinstance(value, bool)
+            and math.isfinite(float(value))
+        ), f"DEFECT [nonfinite residual component]: diagnostic {field!r} must be finite or null, never NaN, infinity, or text"
+    json.dumps(step._asdict(), allow_nan=False)
+
+
 def test_well_conditioned_linear_algebra_fallback_does_not_claim_conditioning(monkeypatch):
     module = runner_module()
     matrix = np.array([[2.0, 0.25], [0.25, 3.0]])
