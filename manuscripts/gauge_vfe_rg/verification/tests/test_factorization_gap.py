@@ -244,33 +244,20 @@ def test_extreme_finite_spd_block_diagonals_and_huge_correlated_scale_remain_val
     assert huge_gap == pytest.approx(expected, rel=5e-12, abs=0.0), "DEFECT [huge correlated scale]: factorization gap must be invariant under finite positive scaling"
 
 
-def test_pure_high_precision_fallback_marks_binary64_diagnostics_unavailable():
+def test_range_and_mixed_multiblock_fallbacks_mark_binary64_diagnostics_unavailable():
     module = runner_module()
     factorization_gap = getattr(module, "factorization_gap", None)
-    high_precision_only = getattr(
-        module, "_high_precision_only_two_block_result", None
-    )
     assert callable(factorization_gap), "DEFECT [pure high-precision diagnostics]: public factorization_gap API is missing"
-    assert callable(high_precision_only), "DEFECT [pure high-precision diagnostics]: high-precision fallback seam is missing"
 
     smallest_positive = np.nextafter(0.0, 1.0)
     subnormal = np.diag([1.0, smallest_positive])
     subnormal_result = factorization_gap(subnormal, [[0], [1]])
-    forced_matrix = np.array([[1.0, 0.25], [0.25, 1.0]])
-    forced_result = high_precision_only(
-        forced_matrix,
-        (0,),
-        (1,),
-        precision_condition_number=float(np.linalg.cond(forced_matrix)),
-        reason="binary64-residual-health",
-    )
     multiblock_result = factorization_gap(
         np.diag([1.0, smallest_positive, 1.0]), [[0], [1], [2]]
     )
 
     cases = (
         (subnormal_result, "range-or-condition", True, "subnormal public fallback"),
-        (forced_result, "binary64-residual-health", False, "forced residual-health fallback"),
         (multiblock_result, "range-or-condition", True, "multiblock fallback aggregation"),
     )
     for result, reason, conditioning_triggered, defect in cases:
@@ -292,6 +279,57 @@ def test_pure_high_precision_fallback_marks_binary64_diagnostics_unavailable():
                 assert require_field(step, field, defect) is None, f"DEFECT [{defect}]: unavailable binary64 diagnostic {field!r} must be null, never fabricated as zero"
         assert require_field(result, "backward_error_bound", defect) is None, f"DEFECT [{defect}]: GapResult must propagate an unavailable step backward error as null"
         assert require_field(result, "maximum_cholesky_residual", defect) is None, f"DEFECT [{defect}]: GapResult must propagate an unavailable step Cholesky residual as null"
+
+
+def test_residual_health_fallback_preserves_measured_binary64_diagnostics(monkeypatch):
+    module = runner_module()
+    two_block_factorization_gap = getattr(
+        module, "two_block_factorization_gap", None
+    )
+    assert callable(two_block_factorization_gap), "DEFECT [measured residual-health fallback]: public two-block factorization-gap API is missing"
+
+    matrix = np.array([[2.0, 0.25], [0.25, 3.0]])
+    achieved_condition = float(np.linalg.cond(matrix))
+    assert achieved_condition < 2.0, "DEFECT [measured residual-health fixture]: fixture must remain independently well conditioned"
+    original_solve_triangular = module.sla.solve_triangular
+    solve_call_count = 0
+
+    def perturb_second_scipy_solve(*args, **kwargs):
+        nonlocal solve_call_count
+        solved = original_solve_triangular(*args, **kwargs)
+        solve_call_count += 1
+        if solve_call_count == 2:
+            return solved * (1.0 + 1.0e-8)
+        return solved
+
+    monkeypatch.setattr(module.sla, "solve_triangular", perturb_second_scipy_solve)
+    result = two_block_factorization_gap(matrix, [0], [1])
+    step = require_field(result, "steps", "measured residual-health fallback")[0]
+
+    determinant = matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0]
+    independent_reference = 0.5 * math.log(
+        (matrix[0, 0] * matrix[1, 1]) / determinant
+    )
+    assert result_value(result, "measured residual-health fallback") == pytest.approx(independent_reference, rel=5e-12, abs=0.0), "DEFECT [measured residual-health fallback]: fallback value disagrees with the independent determinant reference"
+    assert require_field(step, "evaluation_method", "measured residual-health fallback") == "exact-binary64-mpmath-200d-binary64-residual-health-fallback", "DEFECT [measured residual-health fallback]: the real residual-health branch was not selected"
+    assert require_field(step, "conditioning_triggered", "measured residual-health fallback") is False, "DEFECT [measured residual-health fallback]: a residual failure on a well-conditioned matrix must not be relabeled as conditioning-triggered"
+    assert require_field(step, "high_precision_fallback_applied", "measured residual-health fallback") is True, "DEFECT [measured residual-health fallback]: residual-health failure must retain its high-precision fallback flag"
+
+    measured = {
+        field: require_field(step, field, "measured residual-health fallback")
+        for field in (
+            "cholesky_residual",
+            "solve_residual",
+            "residual_tolerance",
+            "backward_error",
+        )
+    }
+    for field, value in measured.items():
+        assert value is not None and math.isfinite(value), f"DEFECT [measured residual-health fallback]: measured diagnostic {field!r} must remain finite and numeric"
+    assert measured["solve_residual"] > measured["residual_tolerance"] > 0.0, "DEFECT [measured residual-health fallback]: the injected solve residual must exceed the measured health tolerance"
+    assert measured["backward_error"] >= measured["solve_residual"], "DEFECT [measured residual-health fallback]: backward error must retain the measured solve residual"
+    assert require_field(result, "backward_error_bound", "measured residual-health fallback") == measured["backward_error"], "DEFECT [measured residual-health fallback]: GapResult dropped the measured step backward error"
+    assert require_field(result, "maximum_cholesky_residual", "measured residual-health fallback") == measured["cholesky_residual"], "DEFECT [measured residual-health fallback]: GapResult dropped the measured step Cholesky residual"
 
 
 def test_well_conditioned_linear_algebra_fallback_does_not_claim_conditioning(monkeypatch):
