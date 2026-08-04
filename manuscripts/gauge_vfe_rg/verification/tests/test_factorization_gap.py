@@ -244,6 +244,155 @@ def test_extreme_finite_spd_block_diagonals_and_huge_correlated_scale_remain_val
     assert huge_gap == pytest.approx(expected, rel=5e-12, abs=0.0), "DEFECT [huge correlated scale]: factorization gap must be invariant under finite positive scaling"
 
 
+def test_pure_high_precision_fallback_marks_binary64_diagnostics_unavailable():
+    module = runner_module()
+    factorization_gap = getattr(module, "factorization_gap", None)
+    high_precision_only = getattr(
+        module, "_high_precision_only_two_block_result", None
+    )
+    assert callable(factorization_gap), "DEFECT [pure high-precision diagnostics]: public factorization_gap API is missing"
+    assert callable(high_precision_only), "DEFECT [pure high-precision diagnostics]: high-precision fallback seam is missing"
+
+    smallest_positive = np.nextafter(0.0, 1.0)
+    subnormal = np.diag([1.0, smallest_positive])
+    subnormal_result = factorization_gap(subnormal, [[0], [1]])
+    forced_matrix = np.array([[1.0, 0.25], [0.25, 1.0]])
+    forced_result = high_precision_only(
+        forced_matrix,
+        (0,),
+        (1,),
+        precision_condition_number=float(np.linalg.cond(forced_matrix)),
+        reason="binary64-residual-health",
+    )
+    multiblock_result = factorization_gap(
+        np.diag([1.0, smallest_positive, 1.0]), [[0], [1], [2]]
+    )
+
+    cases = (
+        (subnormal_result, "range-or-condition", True, "subnormal public fallback"),
+        (forced_result, "binary64-residual-health", False, "forced residual-health fallback"),
+        (multiblock_result, "range-or-condition", True, "multiblock fallback aggregation"),
+    )
+    for result, reason, conditioning_triggered, defect in cases:
+        assert math.isfinite(result_value(result, defect)) and result_value(result, defect) >= 0.0, f"DEFECT [{defect}]: high-precision gap must remain finite and nonnegative"
+        domain_margin = require_field(result, "min_one_minus_rho_squared", defect)
+        assert math.isfinite(domain_margin) and domain_margin > 0.0, f"DEFECT [{defect}]: high-precision canonical-correlation domain must remain finite and positive"
+        steps = require_field(result, "steps", defect)
+        assert steps, f"DEFECT [{defect}]: fallback diagnostics require at least one step"
+        for step in steps:
+            assert require_field(step, "high_precision_fallback_applied", defect) is True, f"DEFECT [{defect}]: pure high-precision evaluation must retain its fallback flag"
+            assert require_field(step, "evaluation_method", defect) == f"exact-binary64-mpmath-200d-{reason}-fallback", f"DEFECT [{defect}]: evaluation method lost the fallback reason"
+            assert require_field(step, "conditioning_triggered", defect) is conditioning_triggered, f"DEFECT [{defect}]: fallback reason must not be relabeled as a conditioning trigger"
+            for field in (
+                "cholesky_residual",
+                "solve_residual",
+                "residual_tolerance",
+                "backward_error",
+            ):
+                assert require_field(step, field, defect) is None, f"DEFECT [{defect}]: unavailable binary64 diagnostic {field!r} must be null, never fabricated as zero"
+        assert require_field(result, "backward_error_bound", defect) is None, f"DEFECT [{defect}]: GapResult must propagate an unavailable step backward error as null"
+        assert require_field(result, "maximum_cholesky_residual", defect) is None, f"DEFECT [{defect}]: GapResult must propagate an unavailable step Cholesky residual as null"
+
+
+def test_well_conditioned_linear_algebra_fallback_does_not_claim_conditioning(monkeypatch):
+    module = runner_module()
+    matrix = np.array([[2.0, 0.25], [0.25, 3.0]])
+    achieved_condition = float(np.linalg.cond(matrix))
+    assert achieved_condition < 2.0, "DEFECT [well-conditioned fallback fixture]: fixture must remain independently well conditioned"
+    marker = "forced secondary binary64 solve failure"
+
+    def fail_binary64_solve(*args, **kwargs):
+        raise np.linalg.LinAlgError(marker)
+
+    monkeypatch.setattr(module.sla, "solve_triangular", fail_binary64_solve)
+    result = module.two_block_factorization_gap(matrix, [0], [1])
+    step = require_field(result, "steps", "well-conditioned linear-algebra fallback")[0]
+    assert math.isfinite(result_value(result, "well-conditioned linear-algebra fallback")), "DEFECT [well-conditioned linear-algebra fallback]: high-precision value must remain finite"
+    assert require_field(step, "evaluation_method", "well-conditioned linear-algebra fallback") == "exact-binary64-mpmath-200d-binary64-linear-algebra-fallback", "DEFECT [well-conditioned linear-algebra fallback]: injected binary64 failure reason was not retained"
+    assert require_field(step, "conditioning_triggered", "well-conditioned linear-algebra fallback") is False, "DEFECT [well-conditioned linear-algebra fallback]: an independent solve failure on a well-conditioned matrix must not be mislabeled as conditioning-triggered"
+    for field in (
+        "cholesky_residual",
+        "solve_residual",
+        "residual_tolerance",
+        "backward_error",
+    ):
+        assert require_field(step, field, "well-conditioned linear-algebra fallback") is None, f"DEFECT [well-conditioned linear-algebra fallback]: unavailable diagnostic {field!r} must be null"
+
+
+def test_protocol_record_preserves_pure_high_precision_nulls_and_methods(monkeypatch):
+    module = runner_module()
+    schedule = frozen_cases()
+    target = schedule[0]
+    target_matrix, target_partition = regenerate_matrix_and_partition(target)
+    target_digest = matrix_digest(target_matrix)
+    ordinary_factorization_gap = module.factorization_gap
+
+    def force_one_pure_high_precision_record(matrix, partition):
+        if matrix_digest(matrix) == target_digest:
+            assert tuple(tuple(block) for block in partition) == target_partition, "DEFECT [protocol pure-HP fixture]: target partition drifted"
+            return module._high_precision_only_two_block_result(
+                matrix,
+                tuple(partition[0]),
+                tuple(partition[1]),
+                precision_condition_number=float(np.linalg.cond(matrix)),
+                reason="binary64-linear-algebra",
+            )
+        return ordinary_factorization_gap(matrix, partition)
+
+    monkeypatch.setattr(
+        module, "factorization_gap", force_one_pure_high_precision_record
+    )
+    report = module.run_factorization_gap_protocol(
+        seed=PROTOCOL_SEED, schedule=schedule
+    )
+    records = {
+        require_field(record, "case_id", "protocol pure-HP record"): record
+        for record in require_field(report, "cases", "protocol pure-HP record")
+    }
+    record = records[target.case_id]
+    assert require_field(record, "matrix_digest", "protocol pure-HP record") == target_digest, "DEFECT [protocol pure-HP record]: serialized diagnostics are not bound to the forced frozen matrix"
+    assert math.isfinite(result_value(record, "protocol pure-HP record")), "DEFECT [protocol pure-HP record]: serialized high-precision value must remain finite"
+    assert require_field(record, "backward_error_bound", "protocol pure-HP record") is None, "DEFECT [protocol pure-HP record]: unavailable aggregate backward error must serialize as null"
+    assert require_field(record, "maximum_cholesky_residual", "protocol pure-HP record") is None, "DEFECT [protocol pure-HP record]: unavailable maximum Cholesky residual must serialize as null"
+    assert require_field(record, "evaluation_methods", "protocol pure-HP record") == ("exact-binary64-mpmath-200d-binary64-linear-algebra-fallback",), "DEFECT [protocol pure-HP record]: deterministic fallback evaluation method was dropped"
+
+
+def test_two_block_secondary_numpy_backend_uses_direct_rhs_solves_without_inverse(monkeypatch):
+    module = runner_module()
+    original_solve = module.np.linalg.solve
+    original_inverse = module.np.linalg.inv
+    solve_right_hand_sides: list[np.ndarray] = []
+    inverse_arguments: list[np.ndarray] = []
+
+    def recording_solve(matrix, right_hand_side, *args, **kwargs):
+        solve_right_hand_sides.append(np.array(right_hand_side, copy=True))
+        return original_solve(matrix, right_hand_side, *args, **kwargs)
+
+    def recording_inverse(matrix, *args, **kwargs):
+        inverse_arguments.append(np.array(matrix, copy=True))
+        return original_inverse(matrix, *args, **kwargs)
+
+    monkeypatch.setattr(module.np.linalg, "solve", recording_solve)
+    monkeypatch.setattr(module.np.linalg, "inv", recording_inverse)
+    result = module.two_block_factorization_gap(
+        np.array([[2.0, 0.25], [0.25, 3.0]]), [0], [1]
+    )
+
+    assert math.isfinite(result_value(result, "direct secondary solves")), "DEFECT [direct secondary solves]: ordinary two-block path must return a finite gap"
+    assert len(solve_right_hand_sides) == 2, "DEFECT [direct secondary solves]: the secondary NumPy diagnostic must execute its two direct solves"
+    identity_solve_calls = [
+        index
+        for index, right_hand_side in enumerate(solve_right_hand_sides)
+        if right_hand_side.ndim == 2
+        and right_hand_side.shape[0] == right_hand_side.shape[1]
+        and np.array_equal(
+            right_hand_side, np.eye(right_hand_side.shape[0], dtype=right_hand_side.dtype)
+        )
+    ]
+    assert not identity_solve_calls, f"DEFECT [direct secondary solves]: solve calls {identity_solve_calls} form an explicit inverse by solving against an identity"
+    assert not inverse_arguments, "DEFECT [direct secondary solves]: two_block_factorization_gap must not call a matrix inverse"
+
+
 def test_gap_steps_are_nonempty_and_have_load_bearing_numerical_diagnostics():
     lam = np.array([[2.0, 0.2, 0.1], [0.2, 3.0, 0.3], [0.1, 0.3, 4.0]])
     two = require_runner_api("two_block_factorization_gap", "two-block Schur API")(lam, [0], [1, 2])
@@ -628,3 +777,59 @@ def test_runtime_stress_binds_boundary_witness_and_all_case_oracle_failures():
     assert require_mapping_field(boundary, "status", "runtime boundary witness") == "PASS", "DEFECT [runtime boundary witness]: bound witness must report PASS"
     assert require_mapping_field(observed, "all_case_oracle_cases", "runtime all-case oracle") == len(frozen_cases()), "DEFECT [runtime all-case oracle]: report must bind the all-case claim to all 3138 frozen cases"
     assert require_mapping_field(observed, "all_case_oracle_failures", "runtime all-case oracle") == 0, "DEFECT [runtime all-case oracle]: an all-case accuracy claim requires zero independently evaluated oracle failures"
+
+
+def test_runtime_stress_separates_attempted_and_completed_reference_accounting(monkeypatch):
+    module = runner_module()
+    regenerate = getattr(module, "_regenerate_factorization_case", None)
+    assert callable(regenerate), "DEFECT [reference accounting fixture]: production regeneration seam is missing"
+    target = frozen_cases()[0]
+    marker = f"forced single-case regeneration failure: {target.case_id}"
+
+    def fail_one_frozen_case(case, *, seed):
+        if case.case_id == target.case_id:
+            raise RuntimeError(marker)
+        return regenerate(case, seed=seed)
+
+    monkeypatch.setattr(
+        module, "_regenerate_factorization_case", fail_one_frozen_case
+    )
+    result_record = module.check_cg_factor_gap_stress()
+    assert require_mapping_field(result_record, "status", "reference accounting") == "FAIL", "DEFECT [reference accounting]: one failed frozen case must force the runtime check to FAIL"
+    sample_count = require_mapping_field(
+        result_record, "sample_count", "reference accounting"
+    )
+    observed = require_mapping_field(
+        result_record, "observed", "reference accounting"
+    )
+    assert require_mapping_field(sample_count, "all_case_100_digit_references", "evaluated reference accounting") == len(frozen_cases()) - 1, "DEFECT [evaluated reference accounting]: a failed attempt must not be counted as a successfully evaluated 100-digit reference"
+    assert require_mapping_field(observed, "all_case_oracle_attempts", "attempted reference accounting") == len(frozen_cases()), "DEFECT [attempted reference accounting]: every frozen case must be counted as attempted"
+    assert require_mapping_field(observed, "all_case_oracle_cases", "completed reference accounting") == len(frozen_cases()) - 1, "DEFECT [completed reference accounting]: a failed attempt must not be counted as a completed oracle comparison"
+    assert require_mapping_field(observed, "all_case_oracle_failures", "reference failure accounting") == 1, "DEFECT [reference failure accounting]: exactly one injected oracle failure must be reported"
+
+    oracle_failures = require_mapping_field(
+        observed, "all_case_oracle_failure_details", "oracle failure detail"
+    )
+    protocol_failures = require_mapping_field(
+        observed, "protocol_case_failures", "protocol failure detail"
+    )
+    assert len(oracle_failures) == 1, "DEFECT [oracle failure detail]: exactly one complete oracle failure object is required"
+    assert len(protocol_failures) == 1, "DEFECT [protocol failure detail]: exactly one complete protocol failure object is required"
+    expected_common = {
+        "case_id": target.case_id,
+        "stratum": target.stratum,
+        "dimension": target.dimension,
+        "nominal_condition_number": target.condition_number,
+        "matrix_digest": None,
+        "partition_digest": None,
+        "exception_type": "RuntimeError",
+        "exception_message": marker,
+    }
+    oracle_failure = oracle_failures[0]
+    protocol_failure = protocol_failures[0]
+    for field, expected in expected_common.items():
+        assert require_mapping_field(oracle_failure, field, "oracle failure detail") == expected, f"DEFECT [oracle failure detail]: field {field!r} is not bound to the injected frozen case"
+        assert require_mapping_field(protocol_failure, field, "protocol failure detail") == expected, f"DEFECT [protocol failure detail]: field {field!r} is not bound to the injected frozen case"
+    assert require_mapping_field(oracle_failure, "disposition", "oracle failure detail") == "ERROR", "DEFECT [oracle failure detail]: regeneration exception needs an ERROR disposition"
+    json.dumps(oracle_failure, allow_nan=False)
+    json.dumps(protocol_failure, allow_nan=False)
