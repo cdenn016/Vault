@@ -106,11 +106,26 @@ use independent exact-binary64 high-precision references plus separately
 declared endpoint-roundoff or protocol-acceptance policies.  Their
 finite-health gate is $64\gamma_n$, with
 $\gamma_n=n u/(1-n u)$ and binary64 unit roundoff
-$u=\epsilon_{\rm mach}/2$.  If a pure high-precision fallback bypasses the
-ordinary binary64 factorization, unavailable residual, tolerance, and
-backward-error diagnostics serialize as \texttt{null}; this means ``not
-evaluated,'' not failure or zero.  The exact zero diagnostics for a one-block,
-zero-step result remain numeric zero. \status{NUMERICAL}
+$u=\epsilon_{\rm mach}/2$.  Early high-precision fallbacks selected before
+residual evaluation serialize the residual, tolerance, and backward-error
+diagnostics as \texttt{null} because they were not evaluated.  A
+residual-health fallback instead retains each finite binary64 measurement,
+including finite values that exceed the health gate.  A field is
+\texttt{null} only when it has no finite usable numeric value, either because
+an attempted measurement is nonfinite or because a derived diagnostic requires
+an unavailable constituent; finite sibling fields remain numeric.  The
+evaluation method distinguishes the finite threshold case from nonfinite
+Cholesky, solve, or tolerance causes and lists multiple causes in that fixed
+order.  These retained measurements remain local backward diagnostics and do
+not enter a forward-error tolerance.  In every branch, \texttt{null} denotes
+neither failure nor zero.  The exact zero diagnostics for a one-block,
+zero-step result remain numeric zero.  The \texttt{GapStep} API retains the
+fieldwise residual quartet.  A \texttt{FactorizationCaseRecord} serializes only
+the aggregate backward diagnostic, maximum Cholesky residual, and ordered
+evaluation-method tuple, not per-step solve or tolerance values.  The
+compatibility field \texttt{backward\_error\_bound} is a sum of one-ULP-up
+summaries of already rounded local residual measurements; it is not a
+certified perturbation or forward-error bound. \status{NUMERICAL}
 
 \paragraph{What a passing run means.}
 It means that the current deterministic, double-precision CPU

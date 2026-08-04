@@ -1730,6 +1730,15 @@ def _positive_mp_to_float(value: mpmath.mpf) -> float:
     return rounded if rounded > 0.0 else math.nextafter(0.0, 1.0)
 
 
+def _finite_diagnostic_or_none(value: Any) -> float | None:
+    """Normalize one attempted diagnostic to a finite binary64 value or null."""
+
+    if value is None:
+        return None
+    numeric = float(value)
+    return numeric if math.isfinite(numeric) else None
+
+
 def _high_precision_only_two_block_result(
     matrix: np.ndarray,
     left: tuple[int, ...],
@@ -1738,6 +1747,10 @@ def _high_precision_only_two_block_result(
     precision_condition_number: float,
     reason: str,
     conditioning_triggered: bool = False,
+    cholesky_residual: float | None = None,
+    solve_residual: float | None = None,
+    residual_tolerance: float | None = None,
+    backward_error: float | None = None,
 ) -> GapResult:
     """Fail over to an exact-dyadic MP value when binary64 diagnostics fail."""
 
@@ -1760,10 +1773,10 @@ def _high_precision_only_two_block_result(
         scipy_singular_values=(),
         numpy_singular_values=(),
         min_one_minus_rho_squared=min_one_minus,
-        cholesky_residual=None,
-        solve_residual=None,
-        residual_tolerance=None,
-        backward_error=None,
+        cholesky_residual=_finite_diagnostic_or_none(cholesky_residual),
+        solve_residual=_finite_diagnostic_or_none(solve_residual),
+        residual_tolerance=_finite_diagnostic_or_none(residual_tolerance),
+        backward_error=_finite_diagnostic_or_none(backward_error),
         clipping_applied=False,
         clipping_amount=0.0,
         residual_derived_clip_bound=0.0,
@@ -1882,44 +1895,77 @@ def two_block_factorization_gap(
     second_scale = max(
         float(np.linalg.norm(second_scaled, ord=np.inf)), np.finfo(float).tiny
     )
-    cholesky_residual = max(
-        float(
-            np.linalg.norm(
-                first_scaled - left_cholesky @ left_cholesky.T, ord=np.inf
-            )
-            / first_scale
-        ),
-        float(
-            np.linalg.norm(
-                second_scaled - right_cholesky @ right_cholesky.T,
-                ord=np.inf,
-            )
-            / second_scale
-        ),
+    left_cholesky_residual = _finite_diagnostic_or_none(
+        np.linalg.norm(
+            first_scaled - left_cholesky @ left_cholesky.T, ord=np.inf
+        )
+        / first_scale
     )
-    solve_scale = max(
+    right_cholesky_residual = _finite_diagnostic_or_none(
+        np.linalg.norm(
+            second_scaled - right_cholesky @ right_cholesky.T,
+            ord=np.inf,
+        )
+        / second_scale
+    )
+    cholesky_residual = (
+        max(left_cholesky_residual, right_cholesky_residual)
+        if left_cholesky_residual is not None
+        and right_cholesky_residual is not None
+        else None
+    )
+    raw_solve_scale = (
         float(np.linalg.norm(left_cholesky, ord=np.inf))
         * float(np.linalg.norm(canonical, ord=np.inf))
         * float(np.linalg.norm(right_cholesky.T, ord=np.inf))
-        + float(np.linalg.norm(cross_scaled, ord=np.inf)),
-        np.finfo(float).tiny,
+        + float(np.linalg.norm(cross_scaled, ord=np.inf))
     )
-    solve_residual = float(
+    solve_scale = (
+        max(raw_solve_scale, np.finfo(float).tiny)
+        if math.isfinite(raw_solve_scale)
+        else None
+    )
+    raw_solve_residual = (
         np.linalg.norm(
             left_cholesky @ canonical @ right_cholesky.T - cross_scaled,
             ord=np.inf,
         )
         / solve_scale
+        if solve_scale is not None
+        else None
     )
+    solve_residual = _finite_diagnostic_or_none(raw_solve_residual)
     unit_roundoff = np.finfo(float).eps / 2.0
     gamma_n = matrix.shape[0] * unit_roundoff / (
         1.0 - matrix.shape[0] * unit_roundoff
     )
-    residual_tolerance = float(64.0 * gamma_n)
-    if (
-        not math.isfinite(cholesky_residual)
-        or not math.isfinite(solve_residual)
-        or cholesky_residual > residual_tolerance
+    residual_tolerance = _finite_diagnostic_or_none(64.0 * gamma_n)
+    backward_error = (
+        _finite_diagnostic_or_none(
+            math.nextafter(max(cholesky_residual, solve_residual), math.inf)
+        )
+        if cholesky_residual is not None and solve_residual is not None
+        else None
+    )
+    nonfinite_residual_causes = tuple(
+        name
+        for name, diagnostic in (
+            ("cholesky", cholesky_residual),
+            ("solve", solve_residual),
+            ("tolerance", residual_tolerance),
+        )
+        if diagnostic is None
+    )
+    if nonfinite_residual_causes:
+        # Fixed field order retains every unusable cause deterministically.
+        residual_health_reason = (
+            "binary64-residual-health-nonfinite-"
+            + "-and-".join(nonfinite_residual_causes)
+        )
+    else:
+        residual_health_reason = "binary64-residual-health"
+    if nonfinite_residual_causes or (
+        cholesky_residual > residual_tolerance
         or solve_residual > residual_tolerance
     ):
         return _high_precision_only_two_block_result(
@@ -1927,13 +1973,13 @@ def two_block_factorization_gap(
             left,
             right,
             precision_condition_number=precision_condition_number,
-            reason="binary64-residual-health",
+            reason=residual_health_reason,
             conditioning_triggered=conditioning_triggered,
+            cholesky_residual=cholesky_residual,
+            solve_residual=solve_residual,
+            residual_tolerance=residual_tolerance,
+            backward_error=backward_error,
         )
-    backward_error = math.nextafter(
-        max(cholesky_residual, solve_residual),
-        math.inf,
-    )
 
     raw_margin = 1.0 - raw_max_squared
     boundary_fallback = bool(raw_margin <= boundary_acceptance_limit)

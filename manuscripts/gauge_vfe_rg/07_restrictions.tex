@@ -189,12 +189,25 @@ conditioning trigger selected for the frozen protocol rather than asserted as
 a universal error threshold.  A nonfinite binary64 condition estimate is also
 a fallback trigger, not a rejection criterion.  An ill-conditioned but
 in-domain value is reevaluated rather than rejected merely for triggering that
-path.  When a pure high-precision fallback bypasses the ordinary binary64
-factorization, its Cholesky residual, solve residual, residual tolerance, and
-backward-error diagnostics are recorded as \texttt{null}: they were not
-evaluated, and \texttt{null} denotes neither failure nor zero.  The zero-step
-one-block case retains its exact zero diagnostics.  These guarded fallbacks are
-declared finite-precision procedures, not theorems that
+path.  An early high-precision fallback selected before residual evaluation
+records the Cholesky residual, solve residual, residual tolerance, and
+backward-error diagnostics as \texttt{null} because they were not evaluated.
+If the residual-health gate is reached, every finite measurement is retained.
+A field is \texttt{null} only when it has no finite usable numeric value,
+either because an attempted measurement is nonfinite or because a derived
+diagnostic requires an unavailable constituent; finite sibling fields remain
+numeric.  The evaluation method distinguishes a finite threshold
+excursion from nonfinite Cholesky, solve, or tolerance diagnostics and lists
+multiple nonfinite causes in that fixed order.  Thus \texttt{null} denotes
+neither failure nor zero, and the zero-step one-block case retains its exact
+zero diagnostics.  The \texttt{GapStep} API retains this fieldwise quartet;
+the \texttt{FactorizationCaseRecord} protocol surface stores only the aggregate
+backward diagnostic, maximum Cholesky residual, and ordered evaluation-method
+tuple, not per-step solve or tolerance values.  Despite the compatibility name
+\texttt{backward\_error\_bound}, the numeric quantity is a one-ULP-up summary
+of already rounded local residual measurements, not a certified perturbation
+or forward-error bound.  These guarded fallbacks are declared
+finite-precision procedures, not theorems that
 Cholesky or solve residuals universally control canonical-correlation or gap
 forward error. \status{DEFINITION}
 

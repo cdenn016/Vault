@@ -110,12 +110,28 @@ gate is `64*gamma_n`, where `gamma_n=n*u/(1-n*u)` and binary64 unit roundoff is
 relative entropy, monotonicity, scale invariance, or any oracle comparison.
 Forward comparisons use independent exact-binary64 high-precision references
 and separately labeled endpoint-roundoff or declared protocol-acceptance
-policies. When a pure high-precision fallback bypasses the ordinary binary64
-factorization, `cholesky_residual`, `solve_residual`, `residual_tolerance`,
-`backward_error`, the aggregate `backward_error_bound`, and the aggregate
-`maximum_cholesky_residual` are `null`. Here `null` means that the ordinary
-binary64 diagnostic was not evaluated; it denotes neither failure nor zero.
-The zero-step one-block result continues to report numeric zero diagnostics.
+policies. Early `range-or-condition`, `binary64-linear-algebra`, and
+`binary64-svd` fallbacks occur before residual evaluation, so
+`cholesky_residual`, `solve_residual`, `residual_tolerance`, `backward_error`,
+and their corresponding aggregates are `null`. A residual-health fallback
+instead retains each finite binary64 measurement, including finite values above
+the health threshold. A field is `null` only when no finite usable numeric
+diagnostic exists, either because an attempted measurement is nonfinite or
+because a derived diagnostic requires an unavailable constituent;
+independently finite siblings remain numeric. The finite threshold method
+retains the
+`binary64-residual-health` reason. Nonfinite method suffixes identify
+`nonfinite-cholesky`, `nonfinite-solve`, or `nonfinite-tolerance`, listing
+multiple causes in fixed Cholesky, solve, tolerance order. These local backward
+diagnostics do not become forward-error bounds or enter a forward tolerance.
+In all cases, `null` denotes neither failure nor zero. The zero-step one-block
+result continues to report numeric zero diagnostics. The `GapStep` API retains
+the fieldwise residual quartet. `FactorizationCaseRecord` serializes only the
+aggregate `backward_error_bound`, `maximum_cholesky_residual`, and ordered
+`evaluation_methods` tuple, not per-step solve or tolerance values. Despite
+its compatibility name, numeric `backward_error_bound` is an aggregate of
+one-ULP-up summaries of already rounded local residual measurements; it is
+not a certified perturbation or forward-error bound.
 
 The compatibility field `residual_derived_clip_bound` does not assert a general
 residual-to-forward-error theorem. On the boundary path it reports the
