@@ -256,6 +256,50 @@ which is \eqref{eq:rg-action-second-frechet-general}.  Setting
 \(U(e^{-\varphi})\geq e^{-\epsilon}\) and boundedness of \(h,k\) make
 every displayed derivative a bounded map into the stated target.  \(\square\)
 
+\propositionheading{Bounded recentering gives analyticity at every bounded action}
+\label{prop:rg-action-bounded-recentering}
+For every \(\varphi\in\mathfrak B\), define the positive unital operator
+\begin{equation}
+ U^\varphi h
+ :=\frac{U(e^{-\varphi}h)}{U(e^{-\varphi})}.
+ \label{eq:rg-action-recentered-operator}
+\end{equation}
+The denominator lies between
+\(e^{-\lVert\varphi\rVert_\infty}\) and
+\(e^{\lVert\varphi\rVert_\infty}\), so this is a bounded
+\(L^\infty(\pi)\to L^\infty(\pi^c)\) operator.  For every bounded increment
+\(h\),
+\begin{equation}
+ Q(\varphi+h)-Q(\varphi)
+ =-\log U^\varphi(e^{-h}).
+ \label{eq:rg-action-recentering-identity}
+\end{equation}
+Consequently, for each \(0<\epsilon<\log2\), the left side is real analytic
+as a function of \(h\) on
+\(\lVert h\rVert_\infty<\epsilon\), and
+\begin{equation}
+ DQ(\varphi)[h]=U^\varphi h.
+ \label{eq:rg-action-everywhere-bounded-derivative}
+\end{equation}
+Thus \(Q\) is locally Fr\'echet analytic at every bounded action, even though
+\eqref{eq:rg-bounded-action-chart} was the one origin-centered chart used in
+\Cref{thm:rg-bounded-action-calculus}. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+The bounds follow from positivity and unitality of \(U\).  Substitution in
+\eqref{eq:rg-local-action-map} gives
+\[
+ -\log U(e^{-\varphi-h})+\log U(e^{-\varphi})
+ =-\log\frac{U(e^{-\varphi}e^{-h})}{U(e^{-\varphi})},
+\]
+which is \eqref{eq:rg-action-recentering-identity}.  Positivity and
+unitality of \(U^\varphi\) imply
+\(\lVert U^\varphi(e^{-h})-1\rVert_\infty
+\leq e^\epsilon-1<1\).  The same Banach-algebra exponential and logarithm
+series used in \Cref{thm:rg-bounded-action-calculus} therefore converge on
+this increment ball.  Their first derivative at \(h=0\) is
+\(U^\varphi h\). \(\square\)
+
 For \(\varphi,\psi\in\mathfrak B\), the nonlinear map is order preserving
 and additively homogeneous.  Indeed,
 \(\varphi\leq\psi+c\) implies
@@ -313,11 +357,13 @@ score statement remains an \(L^2\) tangent result; it does not enlarge the
 nonlinear bounded action chart. \status{ESTABLISHED}
 
 At a boundary where an action representative is infinite, or outside the
-open chart \eqref{eq:rg-bounded-action-chart}, neither a literal action
-difference nor a differential beta functional is defined by this theorem.
-The primary object there is the measure pair and its Radon--Nikodym action;
-an action beta requires the separately declared finite-valued vector space
-and subtraction hypotheses of \Cref{sec:rg-beta-function}. \status{ESTABLISHED}
+bounded action space, neither a literal action difference nor a differential
+beta functional is supplied by this calculus.  Within the bounded space,
+\Cref{prop:rg-action-bounded-recentering} supplies local analyticity at every
+center.  At an extended-valued boundary the primary object remains the
+measure pair and its Radon--Nikodym action; an action beta requires the
+separately declared finite-valued vector space and subtraction hypotheses of
+\Cref{sec:rg-beta-function}. \status{ESTABLISHED}
 
 \subsection{Canonical contraction and the bounded Dobrushin certificate}
 \label{sec:rg-action-contraction}
@@ -547,6 +593,339 @@ so the second radius is at most \(2^\alpha\).  For the fixed Fourier mode
 \end{equation}
 After division by the fixed nonzero \(C^\alpha\) norm of \(f\), this gives
 the matching lower spectral-radius bound.  \(\square\)
+
+\section{Exact finite-network interaction coordinates}
+\label{sec:rg-finite-network-interactions}
+
+The following construction is an action-coordinate construction, not a
+claim that an arbitrary coarse channel preserves a product law.  At every
+scale \(\ell\), let \(V_\ell\) be an arbitrary finite set, let
+\(\mathsf X_{\ell i}\) be standard Borel for \(i\in V_\ell\), and put
+\begin{equation}
+ \mathsf X_\ell=\prod_{i\in V_\ell}\mathsf X_{\ell i},\qquad
+ \nu_\ell=\bigotimes_{i\in V_\ell}\nu_{\ell i},\qquad
+ \pi_\ell\sim\nu_\ell.
+ \label{eq:rg-interaction-product-reference}
+\end{equation}
+Here each \(\nu_{\ell i}\) is a probability law and \(\sim\) denotes
+mutual absolute continuity.  Thus \(L^\infty(\pi_\ell)\) and
+\(L^\infty(\nu_\ell)\) have the same equivalence classes and the same
+essential-supremum norm, without requiring bounded Radon--Nikodym ratios.
+The product structure of \(\nu_\ell\), rather than equivalence alone, makes
+the coordinate integrals below representative-independent by Fubini.  For a scale arrow, the target premise
+\(\pi_{\ell+1}=\pi_\ell K_\ell\sim\nu_{\ell+1}\) is separately required;
+it does not follow from \(\pi_\ell\sim\nu_\ell\).  The evidence mass
+\(M_\ell\) of \Cref{def:rg-measure-pair} is retained independently of
+these normalized references. \status{DEFINITION}
+
+For \(V_\ell=\varnothing\), the product is the one-point probability
+space, \(\mathcal G_\ell=\{0\}\), and all assembly, extraction, and
+interaction maps below are the unique zero maps.  The nontrivial estimates
+that divide by \(3^{|V_\ell|}-1\) are stated only when
+\(V_\ell\ne\varnothing\).
+
+\propositionheading{Product equivalence is an admitted, not an automatic, scale premise}
+\label{prop:rg-product-equivalence-not-preserved}
+Let \(\mathsf X_0=\{0,1\}\) with its uniform law \(\pi_0=\nu_0\), and
+let \(K\) be the deterministic diagonal-cloning channel
+\begin{equation}
+ K(x,\{(x,x)\})=1
+ \quad\hbox{from }\{0,1\}\hbox{ to }\{0,1\}^2.
+ \label{eq:rg-diagonal-cloning-counterexample}
+\end{equation}
+Then \(\pi_1=\pi_0K\) is supported on \(\{(0,0),(1,1)\}\).  There is no
+product probability \(\nu_1=\nu_{11}\otimes\nu_{12}\) on \(\{0,1\}^2\)
+equivalent to \(\pi_1\).  In particular the uniform product reference gives
+positive mass to all four points and is not equivalent.  No target Hoeffding
+decomposition relative to a product reference is admitted at this target.
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+Equivalence would make both diagonal atoms positive under \(\nu_1\).  Thus
+each marginal would charge both \(0\) and \(1\), forcing both off-diagonal
+atoms to have positive product mass.  But \(\pi_1\) assigns them mass zero,
+contradicting equivalence.  The uniform product is the stated special case.
+\(\square\)
+
+For \(A\subseteq V_\ell\), let \(C_{\ell,A}\) be conditional integration
+against the product complement, lifted back to \(\mathsf X_\ell\):
+\begin{equation}
+ (C_{\ell,A}f)(x_A)
+ =\int f(x_A,y_{A^c}) \nu_{\ell,A^c}(dy_{A^c}),
+ \qquad C_{\ell,\varnothing}f=\nu_\ell(f).
+ \label{eq:rg-coordinate-expectation}
+\end{equation}
+The operators commute and obey
+\(C_{\ell,A}C_{\ell,B}=C_{\ell,A\cap B}\).  Their Boolean-lattice
+Mobius projectors are
+\begin{equation}
+ P_{\ell,A}
+ =\sum_{B\subseteq A}(-1)^{|A|-|B|}C_{\ell,B}
+ =\prod_{i\in A}(I-C_{\ell,V_\ell\setminus\{i\}})
+ C_{\ell,A},
+ \qquad A\subseteq V_\ell.
+ \label{eq:rg-hoeffding-mobius-projectors}
+\end{equation}
+The second expression only records the commuting-product identity; the
+first is the definition.  Let
+\begin{equation}
+ \mathcal H_{\ell,A}=P_{\ell,A}L^\infty(\nu_\ell),\qquad
+ \mathcal G_\ell=
+ \bigoplus_{\varnothing\ne A\subseteq V_\ell}^{\ell^1}
+ \mathcal H_{\ell,A},\qquad
+ \lVert g\rVert_{\mathcal G_\ell}
+ =\sum_{\varnothing\ne A\subseteq V_\ell}\lVert g_A\rVert_\infty.
+ \label{eq:rg-full-interaction-banach-space}
+\end{equation}
+Thus \(g_A\) depends only on \(x_A\) and has zero product-reference mean
+in every active coordinate.  This includes every nonempty hyperedge; it is
+finite at each \(\ell\), with no bound imposed on \(\lvert V_\ell\rvert\).
+Define the action quotient and its assembly/extraction maps by
+\begin{equation}
+ \overline{\mathfrak B}_\ell=L^\infty(\nu_\ell)/\mathbb R1,\qquad
+ \phi_g:=\sum_{\varnothing\ne A\subseteq V_\ell}g_A,\qquad
+ E_\ell g=[\phi_g],\qquad
+ P_\ell[f]=(P_{\ell,A}f)_{\varnothing\ne A\subseteq V_\ell}.
+ \label{eq:rg-interaction-assembly-extraction}
+\end{equation}
+
+\theoremheading{Hoeffding assembly is an exact finite-network action isomorphism}
+\label{thm:rg-hoeffding-action-isomorphism}
+For every finite \(V_\ell\), \(E_\ell\) and \(P_\ell\) in
+\eqref{eq:rg-interaction-assembly-extraction} are bounded inverse linear
+isomorphisms,
+\begin{equation}
+ P_\ell E_\ell=I_{\mathcal G_\ell},\qquad
+ E_\ell P_\ell=I_{\overline{\mathfrak B}_\ell},\qquad
+ \lVert E_\ell\rVert\leq1,\qquad
+ \lVert P_\ell\rVert\leq3^{|V_\ell|}-1.
+ \label{eq:rg-hoeffding-inverse-and-bounds}
+\end{equation}
+The latter bound is valid for every finite network but is not dimension-free.
+Its exponential dependence is sharp in the worst case: for biased Rademacher
+product coordinates and \(f(x)=\prod_i x_i\), the sum of component norms
+approaches the bound at the corresponding product scale as the bias tends to
+one. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+The commuting conditional expectations give
+\(P_{\ell,A}P_{\ell,B}=\mathbf1_{A=B}P_{\ell,A}\) and
+\(\sum_{A\subseteq V_\ell}P_{\ell,A}=I\).  Hence nonempty components
+recover \(g\), while their sum is \(f-C_{\ell,\varnothing}f\), which is
+the class \([f]\).  The triangle inequality gives \(\lVert E_\ell\rVert
+\leq1\).  Since \(P_{\ell,A}\) is an alternating sum of \(2^{|A|}\)
+contractive coordinate expectations, its norm is at most \(2^{|A|}\).
+Summing over nonempty \(A\) gives
+\(\sum_{A\ne\varnothing}2^{|A|}=3^{|V_\ell|}-1\).  For independent
+\(\{-1,1\}\)-coordinates with \(\Pr(X_i=1)=p\geq1/2\), set
+\(n=|V_\ell|\) and \(f=\prod_iX_i\).  Direct expansion gives
+\(\sum_{\varnothing\ne A\subseteq V_\ell}\lVert P_Af\rVert_\infty
+=(4p-1)^n-(2p-1)^n\), which tends to \(3^n-1\) as \(p\uparrow1\).
+\(\square\)
+
+\paragraph{Gauge covariance and its necessary realization hypothesis.}
+Let a gauge transformation at scale \(\ell\) be realized by a Borel
+coordinate permutation \(\sigma\) and coordinate Borel isomorphisms whose
+product map \(\vartheta_\ell\) sends \(\nu_\ell\) to
+\(\widehat\nu_\ell\).  Write
+\(\Theta_\ell f=f\circ\vartheta_\ell^{-1}\) and let
+\(\overline\Theta_\ell\) be its action on the quotient by constants.
+Fubini then gives
+\begin{equation}
+ \Theta_\ell C_{\ell,A}^{\nu}
+ =C_{\ell,\sigma A}^{\widehat\nu}\Theta_\ell,\qquad
+ \Theta_\ell P_{\ell,A}^{\nu}
+ =P_{\ell,\sigma A}^{\widehat\nu}\Theta_\ell,\qquad
+ \overline\Theta_\ell E_\ell
+ =\widehat E_\ell\Theta_\ell^{\mathcal G},
+ \qquad
+ \Theta_\ell^{\mathcal G}P_\ell
+ =\widehat P_\ell\overline\Theta_\ell.
+ \label{eq:rg-hoeffding-gauge-covariance}
+\end{equation}
+Fubini proves the first identity and the rest follow by finite Mobius sums.
+Consequently coordinate expectations and interaction components are
+gauge-covariant under this componentwise/permutation realization.  Product
+measure preservation alone is insufficient: a product-Haar-preserving shear
+of \(\mathbb T^2\), for example \((x_1,x_2)\mapsto
+(x_1,x_1+x_2)\), sends a singleton function of \(x_2\) to one depending on
+both coordinates and mixes a singleton component into a pair component.  A
+grading-intertwining hypothesis is therefore necessary for a claim that
+hyperedge degree is gauge covariant; componentwise/permutation realization is
+the declared sufficient hypothesis here, not the only logically possible one.
+If only almost-everywhere reverse-kernel equivariance is supplied, the valid
+statement is instead covariance of the \(L^\infty\) equivalence classes;
+it must not be promoted to pointwise covariance of a selected reverse-kernel
+version. \status{ESTABLISHED}
+
+\propositionheading{Radon--Nikodym covariance of the nonlinear interaction step}
+\label{prop:rg-interaction-rn-gauge-covariance}
+At adjacent scales, suppose
+\(\vartheta_\ell:\mathsf X_\ell\to\widehat{\mathsf X}_\ell\) and
+\(\vartheta_{\ell+1}:\mathsf X_{\ell+1}\to
+\widehat{\mathsf X}_{\ell+1}\) have the componentwise/permutation Borel
+realizations above.  Transform the complete measure-pair data by
+\begin{equation}
+ \widehat\rho_\ell=(\vartheta_\ell)_\#\rho_\ell,\qquad
+ \widehat m_\ell=(\vartheta_\ell)_\#m_\ell,\qquad
+ \widehat\pi_\ell=(\vartheta_\ell)_\#\pi_\ell,
+ \label{eq:rg-interaction-transformed-measure-pair}
+\end{equation}
+and suppose the transformed normalized kernel obeys
+\begin{equation}
+ \widehat K_\ell(\vartheta_\ell x,\vartheta_{\ell+1}B)
+ =K_\ell(x,B)
+ \label{eq:rg-interaction-kernel-gauge-covariance}
+\end{equation}
+for every Borel \(B\).
+Then, as Radon--Nikodym equivalence classes,
+\begin{align}
+ \widehat Q_\ell(\Theta_\ell\varphi)
+ &=\Theta_{\ell+1}Q_\ell(\varphi),
+ \label{eq:rg-action-rn-gauge-covariance}\\
+ \widehat U_\ell^{\Theta_\ell\varphi}\Theta_\ell h
+ &=\Theta_{\ell+1}U_\ell^\varphi h.
+ \label{eq:rg-tilted-derivative-gauge-covariance}
+\end{align}
+Consequently
+\begin{equation}
+ \widehat T_\ell^{\mathcal G}\Theta_\ell^{\mathcal G}
+ =\Theta_{\ell+1}^{\mathcal G}T_\ell^{\mathcal G}.
+ \label{eq:rg-nonlinear-interaction-gauge-covariance}
+\end{equation}
+If the retained projections also intertwine,
+\(\widehat R_k\Theta_k^{\mathcal G}
+=\Theta_k^{\mathcal G}R_k\) for \(k=\ell,\ell+1\), then both residuals
+are covariant:
+\begin{align}
+ \widehat r_{\ell+1}^{\mathcal G}
+   (\Theta_\ell^{\mathcal G}g)
+ &=\Theta_{\ell+1}^{\mathcal G}r_{\ell+1}^{\mathcal G}(g),
+ \label{eq:rg-coordinate-residual-gauge-covariance}\\
+ \widehat{\overline r}_{\ell+1}^{Q}
+   (\Theta_\ell^{\mathcal G}g)
+ &=\overline\Theta_{\ell+1}\overline r_{\ell+1}^{Q}(g).
+ \label{eq:rg-action-residual-gauge-covariance}
+\end{align}
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+Kernel covariance gives
+\[
+ \widehat m_\ell\widehat K_\ell
+ =(\vartheta_{\ell+1})_\#(m_\ell K_\ell),\qquad
+ (e^{-\Theta_\ell\varphi}\widehat m_\ell)\widehat K_\ell
+ =(\vartheta_{\ell+1})_\#((e^{-\varphi}m_\ell)K_\ell).
+\]
+The Radon--Nikodym derivative of two measures pushed through the same Borel
+isomorphism is the transported original derivative.  Applying \(-\log\)
+proves \eqref{eq:rg-action-rn-gauge-covariance} without selecting a
+pointwise reverse conditional.  Differentiate this identity at an arbitrary
+bounded \(\varphi\), using
+\Cref{prop:rg-action-bounded-recentering}, to obtain
+\eqref{eq:rg-tilted-derivative-gauge-covariance}.  Compose the first identity
+with the assembly and extraction intertwinings in
+\eqref{eq:rg-hoeffding-gauge-covariance} to prove
+\eqref{eq:rg-nonlinear-interaction-gauge-covariance}.  Finally insert the
+retained-projection intertwining into \(I-R_{\ell+1}\) and into the exact
+residual identity \eqref{eq:rg-interaction-action-residual}; this proves the
+two residual formulas. \(\square\)
+
+\subsection{Exact nonlinear interaction RG and retained projections}
+\label{sec:rg-exact-nonlinear-interaction-rg}
+
+Let \(Q_\ell\) be the RN-first bounded action map of
+\Cref{sec:rg-local-action-calculus}; additive homogeneity makes its quotient
+map \(\overline Q_\ell:\overline{\mathfrak B}_\ell\to
+\overline{\mathfrak B}_{\ell+1}\) well-defined on the full bounded domain.
+The exact nonlinear finite-network interaction step is
+\begin{equation}
+ T_\ell^{\mathcal G}
+ =P_{\ell+1}\overline Q_\ell E_\ell:
+ \mathcal G_\ell\longrightarrow\mathcal G_{\ell+1},
+ \qquad
+ g_{\ell+1}^{\mathrm{ex}}=T_\ell^{\mathcal G}(g_\ell).
+ \label{eq:rg-exact-nonlinear-interaction-map}
+\end{equation}
+It is exact as a change of the bounded action class, conditional on the
+product-equivalence premises at both scales; it does not assert that a
+pairwise or finite retained ansatz is closed.  The displayed sum
+\(\phi_g\) is the canonical zero-\(\nu_\ell\)-mean representative of
+\(E_\ell g\), so the separately tracked perturbed evidence mass is
+\begin{equation}
+ M_\ell(g)=M_\ell \pi_\ell\bigl(e^{-\phi_g}\bigr),
+ \qquad M_{\ell+1}(g)=M_\ell(g),
+ \label{eq:rg-interaction-evidence-mass}
+\end{equation}
+where the second equality is normalization of \(K_\ell\), not an
+identification of the action quotient with a normalized probability path.
+
+At \(g\), define the tilted conditional-expectation operator on bounded
+classes by
+\begin{equation}
+ U_\ell^{\phi_g}h
+ =\frac{U_\ell(e^{-\phi_g}h)}{U_\ell(e^{-\phi_g})}.
+ \label{eq:rg-interaction-tilted-conditional-expectation}
+\end{equation}
+It is unchanged when a constant is added to \(\phi_g\), and therefore
+descends to the action quotient.  The chain rule and
+\Cref{prop:rg-action-bounded-recentering} give the correctly typed derivative
+\begin{equation}
+ D T_\ell^{\mathcal G}(g)
+ =P_{\ell+1} \overline{U_\ell^{\phi_g}} E_\ell:
+ \mathcal G_\ell\longrightarrow\mathcal G_{\ell+1}.
+ \label{eq:rg-nonlinear-interaction-derivative}
+\end{equation}
+Only at \(g=0\) may \(U_\ell^{\phi_g}\) be replaced by the fixed reverse
+conditional expectation \(U_\ell\).  Along an exact orbit these derivatives
+form a typed cocycle, rather than an ordinary eigenvalue equation across
+unequal network spaces. \status{ESTABLISHED}
+
+Let \(R_\ell:\mathcal G_\ell\to\mathcal G_\ell\) be a declared bounded
+idempotent retained projection which intertwines the componentwise/permutation
+gauge action in \eqref{eq:rg-hoeffding-gauge-covariance}.  Define the exact
+and retained coordinate outputs and the coordinate/action-quotient residuals:
+\begin{align}
+ g_{\ell+1}^{\mathrm{ret}}&=R_{\ell+1}T_\ell^{\mathcal G}(g_\ell),
+ &r_{\ell+1}^{\mathcal G}(g_\ell)
+ &=(I-R_{\ell+1})T_\ell^{\mathcal G}(g_\ell),
+ \label{eq:rg-interaction-coordinate-residual}\\
+ \overline r_{\ell+1}^{Q}(g_\ell)
+ &=\overline Q_\ell E_\ell g_\ell
+ -E_{\ell+1}R_{\ell+1}P_{\ell+1}\overline Q_\ell E_\ell g_\ell
+ &=E_{\ell+1}r_{\ell+1}^{\mathcal G}(g_\ell).
+ \label{eq:rg-interaction-action-residual}
+\end{align}
+The second line is the exact projected-residual identity in the action
+quotient.  Since \(E_{\ell+1}\) is injective,
+\(\overline r_{\ell+1}^{Q}(g)=0\) if and only if
+\(r_{\ell+1}^{\mathcal G}(g)=0\).  Consequently
+\begin{equation}
+ T_\ell^{\mathcal G}(\operatorname{Ran}R_\ell)
+ \subseteq\operatorname{Ran}R_{\ell+1}
+ \quad\Longleftrightarrow\quad
+ r_{\ell+1}^{\mathcal G}(g)=0
+ \quad\text{for every }g\in\operatorname{Ran}R_\ell.
+ \label{eq:rg-interaction-exact-image-invariance}
+\end{equation}
+Thus a retained update is exact precisely under this exact-image-invariance
+condition; otherwise it is a projection scheme with the displayed residual.
+Moreover extraction and assembly give the exact coordinate identity and the
+two-sided finite-network norm control, for \(V_{\ell+1}\ne\varnothing\),
+\begin{equation}
+ P_{\ell+1}\overline r_{\ell+1}^Q
+ =r_{\ell+1}^{\mathcal G},
+ \qquad
+ \frac{\lVert r_{\ell+1}^{\mathcal G}\rVert_{\mathcal G_{\ell+1}}}
+ {3^{|V_{\ell+1}|}-1}
+ \leq\lVert\overline r_{\ell+1}^Q\rVert_{\overline{\mathfrak B}_{\ell+1}}
+ \leq\lVert r_{\ell+1}^{\mathcal G}\rVert_{\mathcal G_{\ell+1}}.
+\label{eq:rg-interaction-residual-norm-control}
+\end{equation}
+Under the full transformed-measure, kernel, and retained-projection
+intertwining hypotheses of
+\Cref{prop:rg-interaction-rn-gauge-covariance}, both residuals are gauge
+covariant. \status{ESTABLISHED}
 
 \section{Exact closure generates hyperedges}
 \label{sec:rg-hypergraph-closure}
