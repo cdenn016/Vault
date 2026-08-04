@@ -244,6 +244,37 @@ def test_extreme_finite_spd_block_diagonals_and_huge_correlated_scale_remain_val
     assert huge_gap == pytest.approx(expected, rel=5e-12, abs=0.0), "DEFECT [huge correlated scale]: factorization gap must be invariant under finite positive scaling"
 
 
+def test_one_block_factorization_gap_has_exact_zero_empty_diagnostics():
+    module = runner_module()
+    factorization_gap = getattr(module, "factorization_gap", None)
+    assert callable(factorization_gap), "DEFECT [one-block control]: public factorization-gap API is missing"
+
+    result = factorization_gap(
+        np.array([[2.0, 0.25], [0.25, 3.0]]), [[0, 1]]
+    )
+    assert result_value(result, "one-block control") == 0.0, "DEFECT [one-block control]: a single declared block must have exact zero factorization gap"
+    assert require_field(result, "steps", "one-block control") == (), "DEFECT [one-block control]: a single block must not fabricate merge steps"
+    assert require_field(result, "merge_order", "one-block control") == (), "DEFECT [one-block control]: a single block must have an empty merge order"
+    assert require_field(result, "singular_values", "one-block control") == (), "DEFECT [one-block control]: a single block must not fabricate singular values"
+    assert require_field(result, "min_one_minus_rho_squared", "one-block control") == 1.0, "DEFECT [one-block control]: the empty canonical-correlation margin must be exactly one"
+    for field in (
+        "backward_error_bound",
+        "maximum_cholesky_residual",
+        "clipping_amount",
+        "residual_derived_clip_bound",
+    ):
+        value = require_field(result, field, "one-block control")
+        assert isinstance(value, (int, float, np.floating)) and not isinstance(value, bool) and value == 0.0, f"DEFECT [one-block control]: aggregate {field!r} must be exact numeric zero"
+    for field in (
+        "clipping_applied",
+        "boundary_fallback_applied",
+        "high_precision_fallback_applied",
+        "conditioning_triggered",
+    ):
+        assert require_field(result, field, "one-block control") is False, f"DEFECT [one-block control]: flag {field!r} must be false"
+    json.dumps(result._asdict(), allow_nan=False)
+
+
 def test_range_and_mixed_multiblock_fallbacks_mark_binary64_diagnostics_unavailable():
     module = runner_module()
     factorization_gap = getattr(module, "factorization_gap", None)
@@ -327,7 +358,15 @@ def test_residual_health_fallback_preserves_measured_binary64_diagnostics(monkey
     for field, value in measured.items():
         assert value is not None and math.isfinite(value), f"DEFECT [measured residual-health fallback]: measured diagnostic {field!r} must remain finite and numeric"
     assert measured["solve_residual"] > measured["residual_tolerance"] > 0.0, "DEFECT [measured residual-health fallback]: the injected solve residual must exceed the measured health tolerance"
-    assert measured["backward_error"] >= measured["solve_residual"], "DEFECT [measured residual-health fallback]: backward error must retain the measured solve residual"
+    unit_roundoff = np.finfo(float).eps / 2.0
+    gamma_n = 2.0 * unit_roundoff / (1.0 - 2.0 * unit_roundoff)
+    expected_residual_tolerance = 64.0 * gamma_n
+    expected_backward_error = math.nextafter(
+        max(measured["cholesky_residual"], measured["solve_residual"]),
+        math.inf,
+    )
+    assert measured["residual_tolerance"] == expected_residual_tolerance, "DEFECT [measured residual-health fallback]: residual tolerance must equal the declared 64-gamma_n health gate exactly"
+    assert measured["backward_error"] == expected_backward_error, "DEFECT [measured residual-health fallback]: backward error must be the exact outward nextafter of the maximum measured residual"
     assert require_field(result, "backward_error_bound", "measured residual-health fallback") == measured["backward_error"], "DEFECT [measured residual-health fallback]: GapResult dropped the measured step backward error"
     assert require_field(result, "maximum_cholesky_residual", "measured residual-health fallback") == measured["cholesky_residual"], "DEFECT [measured residual-health fallback]: GapResult dropped the measured step Cholesky residual"
 
@@ -483,6 +522,133 @@ def test_nonfinite_solve_residual_forces_cause_specific_json_safe_fallback(monke
     json.dumps(result._asdict(), allow_nan=False)
 
 
+def test_simultaneous_nonfinite_residuals_keep_exact_tolerance_and_null_diagnostics(monkeypatch):
+    module = runner_module()
+    two_block_factorization_gap = getattr(
+        module, "two_block_factorization_gap", None
+    )
+    assert callable(two_block_factorization_gap), "DEFECT [simultaneous nonfinite residuals]: public two-block factorization-gap API is missing"
+
+    matrix = np.array([[2.0, 0.25], [0.25, 3.0]])
+    original_norm = module.np.linalg.norm
+    matching_norm_calls = 0
+    injected_calls: list[int] = []
+
+    def inject_cholesky_and_solve_nans(value, *args, **kwargs):
+        nonlocal matching_norm_calls
+        order = kwargs.get("ord", args[0] if args else None)
+        if np.asarray(value).shape == (1, 1) and order == np.inf:
+            matching_norm_calls += 1
+            if matching_norm_calls in (4, 9):
+                injected_calls.append(matching_norm_calls)
+                return math.nan
+        return original_norm(value, *args, **kwargs)
+
+    monkeypatch.setattr(module.np.linalg, "norm", inject_cholesky_and_solve_nans)
+    result = two_block_factorization_gap(matrix, [0], [1])
+    step = require_field(result, "steps", "simultaneous nonfinite residuals")[0]
+
+    assert injected_calls == [4, 9], "DEFECT [simultaneous nonfinite fixture]: both the second Cholesky residual and solve residual injections must execute"
+    determinant = matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0]
+    independent_reference = 0.5 * math.log(
+        (matrix[0, 0] * matrix[1, 1]) / determinant
+    )
+    assert result_value(result, "simultaneous nonfinite residuals") == pytest.approx(independent_reference, rel=5e-12, abs=0.0), "DEFECT [simultaneous nonfinite residuals]: fallback value disagrees with the independent determinant reference"
+    assert require_field(step, "evaluation_method", "simultaneous nonfinite residuals") == "exact-binary64-mpmath-200d-binary64-residual-health-nonfinite-cholesky-and-solve-fallback", "DEFECT [simultaneous nonfinite residuals]: combined nonfinite causes require a deterministic cause-specific method"
+    assert require_field(step, "high_precision_fallback_applied", "simultaneous nonfinite residuals") is True, "DEFECT [simultaneous nonfinite residuals]: combined nonfinite residuals must trigger high-precision evaluation"
+
+    unit_roundoff = np.finfo(float).eps / 2.0
+    gamma_n = 2.0 * unit_roundoff / (1.0 - 2.0 * unit_roundoff)
+    expected_residual_tolerance = 64.0 * gamma_n
+    diagnostics = {
+        "cholesky_residual": require_field(step, "cholesky_residual", "simultaneous nonfinite residuals"),
+        "solve_residual": require_field(step, "solve_residual", "simultaneous nonfinite residuals"),
+        "residual_tolerance": require_field(step, "residual_tolerance", "simultaneous nonfinite residuals"),
+        "backward_error": require_field(step, "backward_error", "simultaneous nonfinite residuals"),
+        "maximum_cholesky_residual": require_field(result, "maximum_cholesky_residual", "simultaneous nonfinite residuals"),
+        "backward_error_bound": require_field(result, "backward_error_bound", "simultaneous nonfinite residuals"),
+    }
+    assert diagnostics["residual_tolerance"] == expected_residual_tolerance, "DEFECT [simultaneous nonfinite residuals]: the finite tolerance must retain the exact declared 64-gamma_n value"
+    for field in (
+        "cholesky_residual",
+        "solve_residual",
+        "backward_error",
+        "maximum_cholesky_residual",
+        "backward_error_bound",
+    ):
+        assert diagnostics[field] is None, f"DEFECT [simultaneous nonfinite residuals]: unavailable diagnostic {field!r} must serialize as null"
+    for field, value in diagnostics.items():
+        assert value is None or (
+            isinstance(value, (int, float, np.floating))
+            and not isinstance(value, bool)
+            and math.isfinite(float(value))
+        ), f"DEFECT [simultaneous nonfinite residuals]: diagnostic {field!r} must be finite or null"
+    json.dumps(step._asdict(), allow_nan=False)
+    json.dumps(result._asdict(), allow_nan=False)
+
+
+def test_multiblock_mixed_residual_health_steps_preserve_exact_aggregates(monkeypatch):
+    module = runner_module()
+    factorization_gap = getattr(module, "factorization_gap", None)
+    assert callable(factorization_gap), "DEFECT [multiblock residual provenance]: public factorization-gap API is missing"
+
+    matrix = np.array(
+        [[2.0, 0.2, 0.1], [0.2, 3.0, 0.3], [0.1, 0.3, 4.0]]
+    )
+    original_solve_triangular = module.sla.solve_triangular
+    solve_call_count = 0
+    perturbation_applied = False
+
+    def perturb_only_first_merge_second_solve(*args, **kwargs):
+        nonlocal solve_call_count, perturbation_applied
+        solved = original_solve_triangular(*args, **kwargs)
+        solve_call_count += 1
+        if solve_call_count == 2:
+            perturbation_applied = True
+            return solved * (1.0 + 1.0e-8)
+        return solved
+
+    monkeypatch.setattr(
+        module.sla, "solve_triangular", perturb_only_first_merge_second_solve
+    )
+    result = factorization_gap(matrix, [[0], [1], [2]])
+    steps = require_field(result, "steps", "multiblock residual provenance")
+
+    assert perturbation_applied, "DEFECT [multiblock residual fixture]: the first merge's second SciPy solve was not perturbed"
+    assert len(steps) == 2, "DEFECT [multiblock residual provenance]: three singleton blocks must produce exactly two merge steps"
+    methods = tuple(
+        require_field(step, "evaluation_method", "multiblock residual provenance")
+        for step in steps
+    )
+    assert any("binary64-residual-health" in method for method in methods), "DEFECT [multiblock residual provenance]: at least one merge must retain the residual-health fallback"
+    assert methods[0] == "exact-binary64-mpmath-200d-binary64-residual-health-fallback", "DEFECT [multiblock residual provenance]: the perturbed first merge must take the finite residual-health fallback"
+    assert methods[1] == "scipy-cholesky-triangular-solve-svd-log1p", "DEFECT [multiblock residual provenance]: the unperturbed later merge must remain on the ordinary binary64 path"
+
+    for step in steps:
+        for field in (
+            "cholesky_residual",
+            "solve_residual",
+            "residual_tolerance",
+            "backward_error",
+        ):
+            value = require_field(step, field, "multiblock residual provenance")
+            assert value is not None and math.isfinite(value), f"DEFECT [multiblock residual provenance]: step diagnostic {field!r} must remain finite"
+    expected_backward_error_bound = math.fsum(step.backward_error for step in steps)
+    expected_maximum_cholesky_residual = max(
+        step.cholesky_residual for step in steps
+    )
+    assert require_field(result, "backward_error_bound", "multiblock residual provenance") == expected_backward_error_bound, "DEFECT [multiblock residual provenance]: aggregate backward error must be the exact fsum of step errors"
+    assert require_field(result, "maximum_cholesky_residual", "multiblock residual provenance") == expected_maximum_cholesky_residual, "DEFECT [multiblock residual provenance]: aggregate Cholesky residual must be the exact maximum step residual"
+
+    a, b, c = matrix[0]
+    d, e, f = matrix[1]
+    g, h, i = matrix[2]
+    determinant = a * (e * i - f * h) - b * (d * i - f * g) + c * (d * h - e * g)
+    independent_reference = 0.5 * math.log((a * e * i) / determinant)
+    assert result_value(result, "multiblock residual provenance") == pytest.approx(independent_reference, rel=5e-12, abs=0.0), "DEFECT [multiblock residual provenance]: telescoped gap disagrees with the independent determinant reference"
+    json.dumps(result._asdict(), allow_nan=False)
+
+
 def test_well_conditioned_linear_algebra_fallback_does_not_claim_conditioning(monkeypatch):
     module = runner_module()
     matrix = np.array([[2.0, 0.25], [0.25, 3.0]])
@@ -544,6 +710,105 @@ def test_protocol_record_preserves_pure_high_precision_nulls_and_methods(monkeyp
     assert require_field(record, "backward_error_bound", "protocol pure-HP record") is None, "DEFECT [protocol pure-HP record]: unavailable aggregate backward error must serialize as null"
     assert require_field(record, "maximum_cholesky_residual", "protocol pure-HP record") is None, "DEFECT [protocol pure-HP record]: unavailable maximum Cholesky residual must serialize as null"
     assert require_field(record, "evaluation_methods", "protocol pure-HP record") == ("exact-binary64-mpmath-200d-binary64-linear-algebra-fallback",), "DEFECT [protocol pure-HP record]: deterministic fallback evaluation method was dropped"
+
+
+def test_protocol_record_preserves_digest_bound_residual_health_aggregates(monkeypatch):
+    module = runner_module()
+    schedule = frozen_cases()
+    target = schedule[0]
+    target_matrix, target_partition = regenerate_matrix_and_partition(target)
+    target_digest = matrix_digest(target_matrix)
+    ordinary_factorization_gap = module.factorization_gap
+    ordinary_solve_triangular = module.sla.solve_triangular
+    wrapper_calls = 0
+    target_calls = 0
+    captured: dict[str, object] = {}
+
+    def perturb_only_digest_bound_target(matrix, partition):
+        nonlocal wrapper_calls, target_calls
+        wrapper_calls += 1
+        if matrix_digest(matrix) != target_digest:
+            return ordinary_factorization_gap(matrix, partition)
+
+        target_calls += 1
+        captured["partition_matches"] = (
+            tuple(tuple(block) for block in partition) == target_partition
+        )
+        solve_call_count = 0
+        perturbation_applied = False
+
+        def perturb_second_scipy_solve(*args, **kwargs):
+            nonlocal solve_call_count, perturbation_applied
+            solved = ordinary_solve_triangular(*args, **kwargs)
+            solve_call_count += 1
+            if solve_call_count == 2:
+                perturbation_applied = True
+                return solved * (1.0 + 1.0e-8)
+            return solved
+
+        monkeypatch.setattr(
+            module.sla, "solve_triangular", perturb_second_scipy_solve
+        )
+        try:
+            gap = ordinary_factorization_gap(matrix, partition)
+        finally:
+            monkeypatch.setattr(
+                module.sla, "solve_triangular", ordinary_solve_triangular
+            )
+        captured["perturbation_applied"] = perturbation_applied
+        captured["gap"] = gap
+        return gap
+
+    monkeypatch.setattr(
+        module, "factorization_gap", perturb_only_digest_bound_target
+    )
+    report = module.run_factorization_gap_protocol(
+        seed=PROTOCOL_SEED, schedule=schedule
+    )
+
+    assert wrapper_calls == len(schedule), "DEFECT [protocol residual-health propagation]: every frozen case must pass through the case-bound wrapper exactly once"
+    assert target_calls == 1, "DEFECT [protocol residual-health propagation]: exactly one digest-bound target case must be perturbed"
+    assert captured.get("partition_matches") is True, "DEFECT [protocol residual-health propagation]: target digest resolved to the wrong partition"
+    assert captured.get("perturbation_applied") is True, "DEFECT [protocol residual-health propagation]: the target's second SciPy solve was not perturbed"
+    assert module.sla.solve_triangular is ordinary_solve_triangular, "DEFECT [protocol residual-health propagation]: target-local solve perturbation leaked into later cases"
+    assert not require_field(report, "case_failures", "protocol residual-health propagation"), "DEFECT [protocol residual-health propagation]: the digest-bound perturbation must remain a successful protocol case"
+
+    captured_gap = captured.get("gap")
+    assert captured_gap is not None, "DEFECT [protocol residual-health propagation]: target GapResult was not captured"
+    captured_steps = require_field(
+        captured_gap, "steps", "protocol residual-health propagation"
+    )
+    assert len(captured_steps) == 1, "DEFECT [protocol residual-health propagation]: the two-block target must have exactly one diagnostic step"
+    captured_step = captured_steps[0]
+    expected_method = "exact-binary64-mpmath-200d-binary64-residual-health-fallback"
+    assert require_field(captured_step, "evaluation_method", "protocol residual-health propagation") == expected_method, "DEFECT [protocol residual-health propagation]: target did not take the finite residual-health fallback"
+    for field in (
+        "cholesky_residual",
+        "solve_residual",
+        "residual_tolerance",
+        "backward_error",
+    ):
+        value = require_field(
+            captured_step, field, "protocol residual-health propagation"
+        )
+        assert value is not None and math.isfinite(value), f"DEFECT [protocol residual-health propagation]: captured step diagnostic {field!r} must remain finite"
+
+    records = {
+        require_field(record, "case_id", "protocol residual-health propagation"): record
+        for record in require_field(
+            report, "cases", "protocol residual-health propagation"
+        )
+    }
+    record = records[target.case_id]
+    assert require_field(record, "matrix_digest", "protocol residual-health propagation") == target_digest, "DEFECT [protocol residual-health propagation]: serialized record is not bound to the perturbed matrix"
+    assert require_field(record, "backward_error_bound", "protocol residual-health propagation") == require_field(captured_gap, "backward_error_bound", "protocol residual-health propagation"), "DEFECT [protocol residual-health propagation]: protocol record dropped the numeric aggregate backward error"
+    assert require_field(record, "maximum_cholesky_residual", "protocol residual-health propagation") == require_field(captured_gap, "maximum_cholesky_residual", "protocol residual-health propagation"), "DEFECT [protocol residual-health propagation]: protocol record dropped the numeric maximum Cholesky residual"
+    assert require_field(record, "evaluation_methods", "protocol residual-health propagation") == (expected_method,), "DEFECT [protocol residual-health propagation]: protocol record dropped the target evaluation method"
+    for field in ("backward_error_bound", "maximum_cholesky_residual"):
+        value = require_field(record, field, "protocol residual-health propagation")
+        assert isinstance(value, (int, float, np.floating)) and not isinstance(value, bool) and math.isfinite(float(value)), f"DEFECT [protocol residual-health propagation]: serialized aggregate {field!r} must remain finite and numeric"
+    json.dumps(captured_gap._asdict(), allow_nan=False)
+    json.dumps(record._asdict(), allow_nan=False)
 
 
 def test_two_block_secondary_numpy_backend_uses_direct_rhs_solves_without_inverse(monkeypatch):
