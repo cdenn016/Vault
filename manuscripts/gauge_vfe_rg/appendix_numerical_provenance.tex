@@ -36,8 +36,26 @@ protocol, not a reconstruction of an undocumented historical run.  Seed
 $200$ exactly block diagonal, $200$ nearly decoupled, $120$ scale, $120$
 permutation, $80$ nested-refinement, and $18$ 100-decimal-digit control cases.
 Every stratum covers dimensions 2 through 16 and condition-number tiers
-$1,10^2,\ldots,10^{14}$.  Each record binds the regenerated binary64 matrix and
-partition by SHA-256, and repeated executions must agree exactly.
+$1,10^2,\ldots,10^{14}$ as nominal pre-transform generator labels.  The
+legacy field \texttt{condition\_number} stores that nominal label, while every
+digest-bound record also stores \texttt{achieved\_condition\_number}, defined
+as \texttt{numpy.linalg.cond} of the regenerated matrix.  The observed global
+range is $[1,1.015265553314175\times10^{14}]$, but this is only a global
+coverage claim.  The per-stratum achieved ranges are: general
+$[1,1.015265553314175\times10^{14}]$; exactly block diagonal
+$[1,1.0075938532153164\times10^{14}]$; nearly decoupled
+$[1.0000000000000002,9.273791153286738\times10^8]$; scale
+$[1,1.0036120669923527\times10^{14}]$; permutation
+$[1,1.0071935024197442\times10^{14}]$; nested refinement
+$[1,1.0077056571347422\times10^{14}]$; and the 100-digit-control stratum
+$[1.0000000000000004,1.0048132000124055\times10^{14}]$.  In particular, the
+two scalar blocks in the dimension-two exactly-block-diagonal cases cannot
+realize their nominal targets, and the nearly-decoupled transformation does
+not attain its high nominal tiers.  Each record binds the regenerated binary64
+matrix and partition by SHA-256, and repeated executions must agree exactly.
+The named runtime check compares all $3{,}138$ production values with
+independent 100-decimal-digit exact-binary64 references; the $18$ designated
+controls remain a named stratum rather than the sole accuracy evidence.
 
 The ordinary value path uses Cholesky triangular solves, canonical-correlation
 singular values, and \texttt{log1p(-rho**2)}.  Near the floating-point boundary,
@@ -46,25 +64,36 @@ backends, applies a $64n\epsilon_{\rm mach}$ operational rejection guard, and
 uses a 200-decimal-digit evaluation of the exact stored binary64 input for the
 reported gap.  The value path also falls back when
 $\kappa_2(J)\epsilon_{\rm mach}\geq10^{-4}$; this is a frozen-protocol
-conditioning trigger, not a proved perturbation radius, and an in-domain case
-is reevaluated rather than rejected merely because the trigger fires.  The
+conditioning trigger, not a proved perturbation radius.  A nonfinite binary64
+condition estimate also triggers exact-input evaluation, rather than
+rejection, after high-precision Cholesky certification of positive
+definiteness.  The
 public diagnostic name
 \texttt{residual\_derived\_clip\_bound} is retained for protocol compatibility,
 but on this boundary path its value is the outward-rounded discrepancy between
 the maximum raw binary64 $\rho^2$ and the high-precision exact-input $\rho^2$.
-It is not presented as a general residual perturbation bound.  The frozen
-admitted witness has raw excursion $2^{-51}$ and reported allowance no greater
-than $9.432369402326953\times10^{-16}$; its value comes from the exact-input
-fallback rather than from clipping $\rho^2$ below one.  The compatibility
+It is not presented as a general residual perturbation bound.  The positive
+excursion witness is a separate focused regression fixture, not an outcome of
+the ordinary $3{,}138$-case schedule.  Its matrix digest is
+\texttt{45310a74550d3759fed0f83f71a6cf3b0f45942499361d723a2248bbe243e2e3},
+its 200-digit exact-input gap rounds to $22.777105858844084$, its raw excursion
+is $4.440892098500626\times10^{-16}$, and its outward allowance is
+$9.432369402326953\times10^{-16}$.  The check mechanically recomputes all four
+quantities and requires PASS.  Its value comes from the exact-input fallback
+rather than from clipping $\rho^2$ below one.  The compatibility
 fields \texttt{clipping\_applied} and \texttt{clipping\_amount} record that a
 positive cross-backend excursion was admitted and its maximum excess above
 one; they do not say that this amount was substituted into the returned value.
 Exact-input domain violations and raw excursions whose discrepancies exceed
 the guard are rejected.  Cholesky and solve residuals remain local backward
 diagnostics; the protocol does not promote them to canonical-correlation or
-gap forward-error bounds.  Their finite-health gate is $64\gamma_n$, with
+gap, relative-entropy, monotonicity, scale, or oracle-comparison forward-error
+bounds, and no forward tolerance includes them.  Forward comparisons instead
+use independent exact-binary64 high-precision references plus separately
+declared endpoint-roundoff or protocol-acceptance policies.  Their
+finite-health gate is $64\gamma_n$, with
 $\gamma_n=n u/(1-n u)$ and binary64 unit roundoff
-$u=\epsilon_{\rm mach}/2$.
+$u=\epsilon_{\rm mach}/2$. \status{NUMERICAL}
 
 \paragraph{What a passing run means.}
 It means that the current deterministic, double-precision CPU
@@ -82,3 +111,8 @@ Any source, protocol, input, dependency, or environment change requires a
 new run before the numerical evidence is current.  The suite uses no GPU and
 makes no GPU claim.  A missing protocol for an empirical statement remains
 inconclusive even when every implemented check passes.
+
+The checked-in \path{verification/current-results.json} is the older
+29-check artifact.  It is not evidence for this 30-check package; Task~4 must
+regenerate it under the governed result lifecycle.  This appendix does not
+claim that deferred artifact is current.

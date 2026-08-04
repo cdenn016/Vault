@@ -60,6 +60,18 @@ FACTORIZATION_PROTOCOL_STRATUM_COUNTS = {
     "mpmath_100_digit": 18,
 }
 FACTORIZATION_CONDITIONING_TRIGGER = 1.0e-4
+FACTORIZATION_BOUNDARY_WITNESS = (
+    (0.012995137302571503, -0.08809796529646897, -0.01062753379868217, 0.07034656148572713),
+    (-0.08809796529646897, 0.5974163750322803, 0.07207680102574178, -0.47702552029541695),
+    (-0.01062753379868217, 0.07207680102574178, 0.008696311837782767, -0.05755126421432782),
+    (0.07034656148572713, -0.47702552029541695, -0.05755126421432782, 0.3808968174377439),
+)
+FACTORIZATION_BOUNDARY_WITNESS_DIGEST = (
+    "45310a74550d3759fed0f83f71a6cf3b0f45942499361d723a2248bbe243e2e3"
+)
+FACTORIZATION_BOUNDARY_WITNESS_GAP = 22.777105858844084
+FACTORIZATION_BOUNDARY_WITNESS_EXCURSION = 4.440892098500626e-16
+FACTORIZATION_BOUNDARY_WITNESS_ALLOWANCE = 9.432369402326953e-16
 
 
 def _jsonable(value: Any) -> Any:
@@ -1363,6 +1375,7 @@ FactorizationCaseRecord = namedtuple(
         "stratum",
         "dimension",
         "condition_number",
+        "achieved_condition_number",
         "matrix_digest",
         "partition_digest",
         "value",
@@ -1385,8 +1398,73 @@ FactorizationProtocolReport = namedtuple(
         "historical_generator_recovered",
         "cases",
         "high_precision_controls",
+        "case_failures",
     ),
 )
+
+
+def _even_power_of_two_exponent(matrix: np.ndarray) -> int:
+    """Return an even binary exponent that range-normalizes ``matrix``."""
+
+    maximum = float(np.max(np.abs(matrix), initial=0.0))
+    if maximum == 0.0:
+        return 0
+    exponent = math.frexp(maximum)[1]
+    return exponent if exponent % 2 == 0 else exponent + 1
+
+
+def _power_of_two_scaled(matrix: np.ndarray, exponent: int) -> np.ndarray:
+    """Scale by an exact power of two while suppressing harmless underflow."""
+
+    with np.errstate(under="ignore"):
+        return np.ldexp(matrix, -exponent)
+
+
+def _power_of_two_scaling_loses_nonzero(
+    matrix: np.ndarray, scaled: np.ndarray
+) -> bool:
+    return bool(np.any((matrix != 0.0) & (scaled == 0.0)))
+
+
+def _safe_symmetric_midpoint(matrix: np.ndarray) -> np.ndarray:
+    """Midpoint transpose pairs without changing already equal entries."""
+
+    transposed = matrix.T
+    with np.errstate(under="ignore"):
+        midpoint = 0.5 * matrix + 0.5 * transposed
+    return np.where(matrix == transposed, matrix, midpoint)
+
+
+def _adaptive_mp_digits(matrix: np.ndarray, *, minimum: int) -> int:
+    """Resolve the full binary64 dynamic range with guard digits."""
+
+    nonzero = np.abs(matrix[matrix != 0.0])
+    if nonzero.size == 0:
+        return minimum
+    largest_exponent = math.frexp(float(np.max(nonzero)))[1]
+    smallest_exponent = math.frexp(float(np.min(nonzero)))[1]
+    dynamic_decimal_digits = math.ceil(
+        (largest_exponent - smallest_exponent) * math.log10(2.0)
+    )
+    return max(minimum, dynamic_decimal_digits + 80)
+
+
+def _stable_relative_matrix_residual(
+    reference: np.ndarray, approximation: np.ndarray
+) -> float:
+    """Compute a range-safe Frobenius relative residual."""
+
+    exponent = _even_power_of_two_exponent(reference)
+    reference_scaled = _power_of_two_scaled(reference, exponent)
+    approximation_scaled = _power_of_two_scaled(approximation, exponent)
+    denominator = max(
+        float(np.linalg.norm(reference_scaled, ord="fro")),
+        np.finfo(float).tiny,
+    )
+    return float(
+        np.linalg.norm(reference_scaled - approximation_scaled, ord="fro")
+        / denominator
+    )
 
 
 def _validated_precision(lam: np.ndarray) -> tuple[np.ndarray, np.ndarray, float]:
@@ -1401,20 +1479,75 @@ def _validated_precision(lam: np.ndarray) -> tuple[np.ndarray, np.ndarray, float
         raise ValueError("factorization gap requires a nonempty square precision matrix")
     if not np.isfinite(matrix).all():
         raise ValueError("factorization gap requires finite precision entries")
-    scale = max(float(np.linalg.norm(matrix, ord="fro")), np.finfo(float).tiny)
-    symmetry_residual = float(np.linalg.norm(matrix - matrix.T, ord="fro") / scale)
+    exponent = _even_power_of_two_exponent(matrix)
+    matrix_scaled = _power_of_two_scaled(matrix, exponent)
+    scaling_lost_nonzero = _power_of_two_scaling_loses_nonzero(
+        matrix, matrix_scaled
+    )
+    scaled_norm = max(
+        float(np.linalg.norm(matrix_scaled, ord="fro")),
+        np.finfo(float).tiny,
+    )
+    symmetry_residual = float(
+        np.linalg.norm(matrix_scaled - matrix_scaled.T, ord="fro") / scaled_norm
+    )
     symmetry_tolerance = 64.0 * matrix.shape[0] * np.finfo(float).eps
     if symmetry_residual > symmetry_tolerance:
         raise ValueError(
             "factorization gap precision is nonsymmetric beyond its scale-aware tolerance"
         )
-    matrix = (matrix + matrix.T) / 2.0
+    # Work on a globally range-normalized matrix whenever that exact power-of-
+    # two scaling preserves every nonzero.  If the dynamic range is too large,
+    # keep the exact binary64 entries and require an exact-dyadic MP Cholesky
+    # certificate before any binary64 diagnostic can accept the input.
+    matrix = _safe_symmetric_midpoint(
+        matrix if scaling_lost_nonzero else matrix_scaled
+    )
+    high_precision_cholesky = None
+    if scaling_lost_nonzero:
+        try:
+            with mpmath.workdps(_adaptive_mp_digits(matrix, minimum=200)):
+                high_precision_cholesky = mpmath.cholesky(
+                    _mp_exact_matrix(matrix), tol=mpmath.mpf("0")
+                )
+        except (ValueError, ZeroDivisionError) as high_precision_exc:
+            raise ValueError(
+                "factorization gap requires a positive definite precision"
+            ) from high_precision_exc
     try:
         cholesky = np.linalg.cholesky(matrix)
     except np.linalg.LinAlgError as exc:
-        raise ValueError("factorization gap requires a positive definite precision") from exc
-    cholesky_residual = float(
-        np.linalg.norm(matrix - cholesky @ cholesky.T, ord="fro") / scale
+        # A finite binary64 SPD matrix can outstrip a binary64 diagnostic even
+        # though its exact stored entries remain positive definite.  Confirm
+        # that exact input by high-precision Cholesky before rejecting it.
+        try:
+            if high_precision_cholesky is None:
+                with mpmath.workdps(_adaptive_mp_digits(matrix, minimum=200)):
+                    high_precision_cholesky = mpmath.cholesky(
+                        _mp_exact_matrix(matrix), tol=mpmath.mpf("0")
+                    )
+            cholesky = np.asarray(
+                [
+                    [
+                        float(high_precision_cholesky[row, column])
+                        for column in range(matrix.shape[0])
+                    ]
+                    for row in range(matrix.shape[0])
+                ],
+                dtype=float,
+            )
+        except (ValueError, ZeroDivisionError) as high_precision_exc:
+            raise ValueError(
+                "factorization gap requires a positive definite precision"
+            ) from high_precision_exc
+    cholesky_exponent = _even_power_of_two_exponent(matrix)
+    matrix_for_residual = _power_of_two_scaled(matrix, cholesky_exponent)
+    cholesky_for_residual = _power_of_two_scaled(
+        cholesky, cholesky_exponent // 2
+    )
+    cholesky_residual = _stable_relative_matrix_residual(
+        matrix_for_residual,
+        cholesky_for_residual @ cholesky_for_residual.T,
     )
     if not math.isfinite(cholesky_residual):
         raise ValueError("factorization gap Cholesky residual is nonfinite")
@@ -1485,6 +1618,21 @@ def _mp_left_solve(lower: mpmath.matrix, right: mpmath.matrix) -> mpmath.matrix:
     return solved
 
 
+def _mp_cholesky_logdet(
+    matrix: mpmath.matrix,
+) -> tuple[mpmath.matrix, mpmath.mpf]:
+    """Certify MP positive definiteness and return its Cholesky logdet."""
+
+    cholesky = mpmath.cholesky(matrix, tol=mpmath.mpf("0"))
+    logdet = 2 * mpmath.fsum(
+        mpmath.log(cholesky[index, index])
+        for index in range(cholesky.rows)
+    )
+    if not mpmath.isfinite(logdet):
+        raise ValueError("high-precision SPD log determinant is nonfinite")
+    return cholesky, +logdet
+
+
 def _high_precision_two_block(
     matrix: np.ndarray,
     left: tuple[int, ...],
@@ -1494,21 +1642,14 @@ def _high_precision_two_block(
 ) -> tuple[mpmath.mpf, tuple[mpmath.mpf, ...]]:
     """Evaluate the exact binary64 input at high precision on the fallback path."""
 
-    with mpmath.workdps(digits):
+    with mpmath.workdps(_adaptive_mp_digits(matrix, minimum=digits)):
         first = _mp_exact_matrix(matrix[np.ix_(left, left)])
         second = _mp_exact_matrix(matrix[np.ix_(right, right)])
         cross = _mp_exact_matrix(matrix[np.ix_(left, right)])
         whole = _mp_exact_matrix(matrix[np.ix_(left + right, left + right)])
-        determinant_first = mpmath.det(first)
-        determinant_second = mpmath.det(second)
-        determinant_whole = mpmath.det(whole)
-        if min(determinant_first, determinant_second, determinant_whole) <= 0:
-            raise ValueError(
-                "high-precision exact-input fallback did not confirm positive definiteness"
-            )
-        mpmath.cholesky(whole)
-        left_cholesky = mpmath.cholesky(first)
-        right_cholesky = mpmath.cholesky(second)
+        _, logdet_whole = _mp_cholesky_logdet(whole)
+        left_cholesky, logdet_first = _mp_cholesky_logdet(first)
+        right_cholesky, logdet_second = _mp_cholesky_logdet(second)
         left_solved = _mp_left_solve(left_cholesky, cross)
         canonical = _mp_left_solve(right_cholesky, left_solved.T).T
         singular = mpmath.svd(canonical, compute_uv=False)
@@ -1522,11 +1663,7 @@ def _high_precision_two_block(
             raise ValueError(
                 "high-precision exact-input canonical correlation is not below one"
             )
-        gap = (
-            mpmath.log(determinant_first)
-            + mpmath.log(determinant_second)
-            - mpmath.log(determinant_whole)
-        ) / 2
+        gap = (logdet_first + logdet_second - logdet_whole) / 2
         if not mpmath.isfinite(gap) or gap < 0:
             raise ValueError("high-precision exact-input gap is not finite and nonnegative")
         return +gap, tuple(+value for value in rho_squared)
@@ -1535,21 +1672,15 @@ def _high_precision_two_block(
 def _high_precision_partition_gap(
     matrix: np.ndarray, partition: tuple[tuple[int, ...], ...], *, digits: int
 ) -> mpmath.mpf:
-    with mpmath.workdps(digits):
+    with mpmath.workdps(_adaptive_mp_digits(matrix, minimum=digits)):
         whole_matrix = _mp_exact_matrix(matrix)
-        whole = mpmath.det(whole_matrix)
-        if whole <= 0:
-            raise ValueError("high-precision protocol input is not positive definite")
-        mpmath.cholesky(whole_matrix)
+        _, whole_logdet = _mp_cholesky_logdet(whole_matrix)
         block_log_sum = mpmath.mpf("0")
         for block in partition:
             block_matrix = _mp_exact_matrix(matrix[np.ix_(block, block)])
-            determinant = mpmath.det(block_matrix)
-            if determinant <= 0:
-                raise ValueError("high-precision protocol block is not positive definite")
-            mpmath.cholesky(block_matrix)
-            block_log_sum += mpmath.log(determinant)
-        return +(block_log_sum - mpmath.log(whole)) / 2
+            _, block_logdet = _mp_cholesky_logdet(block_matrix)
+            block_log_sum += block_logdet
+        return +(block_log_sum - whole_logdet) / 2
 
 
 def _outward_float_upper(value: mpmath.mpf, *, digits: int = 220) -> float:
@@ -1588,6 +1719,68 @@ def _step_result(step: GapStep) -> GapResult:
     )
 
 
+def _positive_mp_to_float(value: mpmath.mpf) -> float:
+    """Preserve the sign of a positive MP diagnostic after binary64 cast."""
+
+    if value <= 0 or not mpmath.isfinite(value):
+        raise ValueError("high-precision positive diagnostic left its domain")
+    rounded = float(value)
+    return rounded if rounded > 0.0 else math.nextafter(0.0, 1.0)
+
+
+def _high_precision_only_two_block_result(
+    matrix: np.ndarray,
+    left: tuple[int, ...],
+    right: tuple[int, ...],
+    *,
+    precision_condition_number: float,
+    reason: str,
+) -> GapResult:
+    """Fail over to an exact-dyadic MP value when binary64 diagnostics fail."""
+
+    high_precision_gap, exact_squared = _high_precision_two_block(
+        matrix, left, right, digits=200
+    )
+    with mpmath.workdps(_adaptive_mp_digits(matrix, minimum=220)):
+        singular_values = tuple(
+            float(mpmath.sqrt(value)) for value in exact_squared
+        )
+        exact_max_squared = exact_squared[0] if exact_squared else mpmath.mpf("0")
+        min_one_minus = _positive_mp_to_float(
+            mpmath.mpf(1) - exact_max_squared
+        )
+    unit_roundoff = np.finfo(float).eps / 2.0
+    gamma_n = matrix.shape[0] * unit_roundoff / (
+        1.0 - matrix.shape[0] * unit_roundoff
+    )
+    residual_tolerance = float(64.0 * gamma_n)
+    step = GapStep(
+        value=float(high_precision_gap),
+        left_block=left,
+        right_block=right,
+        singular_values=singular_values,
+        scipy_singular_values=(),
+        numpy_singular_values=(),
+        min_one_minus_rho_squared=min_one_minus,
+        cholesky_residual=0.0,
+        solve_residual=0.0,
+        residual_tolerance=residual_tolerance,
+        backward_error=0.0,
+        clipping_applied=False,
+        clipping_amount=0.0,
+        residual_derived_clip_bound=0.0,
+        boundary_fallback_applied=False,
+        high_precision_fallback_applied=True,
+        conditioning_triggered=True,
+        precision_condition_number=precision_condition_number,
+        boundary_acceptance_limit=float(
+            64.0 * matrix.shape[0] * np.finfo(float).eps
+        ),
+        evaluation_method=f"exact-binary64-mpmath-200d-{reason}-fallback",
+    )
+    return _step_result(step)
+
+
 def two_block_factorization_gap(
     lam: np.ndarray, left_block: Any, right_block: Any
 ) -> GapResult:
@@ -1598,27 +1791,81 @@ def two_block_factorization_gap(
     first = matrix[np.ix_(left, left)]
     second = matrix[np.ix_(right, right)]
     cross = matrix[np.ix_(left, right)]
-    left_cholesky = np.linalg.cholesky(first)
-    right_cholesky = np.linalg.cholesky(second)
-
-    left_solved = sla.solve_triangular(
-        left_cholesky, cross, lower=True, check_finite=False
+    exact_block_diagonal = not np.count_nonzero(cross)
+    global_exponent = _even_power_of_two_exponent(matrix)
+    global_probe = _power_of_two_scaled(matrix, global_exponent)
+    global_scaling_lost = _power_of_two_scaling_loses_nonzero(
+        matrix, global_probe
     )
-    canonical = sla.solve_triangular(
-        right_cholesky, left_solved.T, lower=True, check_finite=False
-    ).T
-    scipy_singular = np.asarray(sla.svdvals(canonical, check_finite=False), dtype=float)
-
-    # A second binary64 solve is a boundary diagnostic only.  The ordinary
-    # value path remains the SciPy triangular-solve construction above.
-    numpy_canonical = np.linalg.solve(left_cholesky, cross) @ np.linalg.solve(
-        right_cholesky, np.eye(right_cholesky.shape[0])
-    ).T
-    numpy_singular = np.asarray(
-        np.linalg.svd(numpy_canonical, compute_uv=False), dtype=float
+    try:
+        with np.errstate(over="ignore", under="ignore", invalid="ignore"):
+            precision_condition_number = (
+                math.inf
+                if global_scaling_lost
+                else float(np.linalg.cond(global_probe, p=2))
+            )
+    except np.linalg.LinAlgError:
+        precision_condition_number = math.inf
+    conditioning_triggered = bool(
+        not math.isfinite(precision_condition_number)
+        or precision_condition_number * np.finfo(float).eps
+        >= FACTORIZATION_CONDITIONING_TRIGGER
     )
+    if global_scaling_lost or not math.isfinite(precision_condition_number):
+        return _high_precision_only_two_block_result(
+            matrix,
+            left,
+            right,
+            precision_condition_number=precision_condition_number,
+            reason="range-or-condition",
+        )
+
+    try:
+        left_exponent = _even_power_of_two_exponent(first)
+        right_exponent = _even_power_of_two_exponent(second)
+        first_scaled = _power_of_two_scaled(first, left_exponent)
+        second_scaled = _power_of_two_scaled(second, right_exponent)
+        cross_scaled = _power_of_two_scaled(
+            cross, left_exponent // 2 + right_exponent // 2
+        )
+        left_cholesky = np.linalg.cholesky(first_scaled)
+        right_cholesky = np.linalg.cholesky(second_scaled)
+
+        left_solved = sla.solve_triangular(
+            left_cholesky, cross_scaled, lower=True, check_finite=False
+        )
+        canonical = sla.solve_triangular(
+            right_cholesky, left_solved.T, lower=True, check_finite=False
+        ).T
+        scipy_singular = np.asarray(
+            sla.svdvals(canonical, check_finite=False), dtype=float
+        )
+
+        # A second binary64 solve is a boundary diagnostic only.  The ordinary
+        # value path remains the SciPy triangular-solve construction above.
+        numpy_left_solved = np.linalg.solve(left_cholesky, cross_scaled)
+        numpy_canonical = np.linalg.solve(
+            right_cholesky, numpy_left_solved.T
+        ).T
+        numpy_singular = np.asarray(
+            np.linalg.svd(numpy_canonical, compute_uv=False), dtype=float
+        )
+    except (np.linalg.LinAlgError, ValueError, FloatingPointError):
+        return _high_precision_only_two_block_result(
+            matrix,
+            left,
+            right,
+            precision_condition_number=precision_condition_number,
+            reason="binary64-linear-algebra",
+        )
     if not np.isfinite(scipy_singular).all() or not np.isfinite(numpy_singular).all():
-        raise ValueError("factorization gap produced a nonfinite singular value")
+        return _high_precision_only_two_block_result(
+            matrix,
+            left,
+            right,
+            precision_condition_number=precision_condition_number,
+            reason="binary64-svd",
+        )
     scipy_squared = scipy_singular * scipy_singular
     numpy_squared = numpy_singular * numpy_singular
     raw_max_squared = max(
@@ -1628,23 +1875,24 @@ def two_block_factorization_gap(
     boundary_acceptance_limit = float(
         64.0 * matrix.shape[0] * np.finfo(float).eps
     )
-    precision_condition_number = float(np.linalg.cond(matrix, p=2))
-    if not math.isfinite(precision_condition_number):
-        raise ValueError("factorization gap precision condition number is nonfinite")
-    conditioning_triggered = bool(
-        precision_condition_number * np.finfo(float).eps
-        >= FACTORIZATION_CONDITIONING_TRIGGER
+    first_scale = max(
+        float(np.linalg.norm(first_scaled, ord=np.inf)), np.finfo(float).tiny
     )
-
-    first_scale = max(float(np.linalg.norm(first, ord=np.inf)), np.finfo(float).tiny)
-    second_scale = max(float(np.linalg.norm(second, ord=np.inf)), np.finfo(float).tiny)
+    second_scale = max(
+        float(np.linalg.norm(second_scaled, ord=np.inf)), np.finfo(float).tiny
+    )
     cholesky_residual = max(
         float(
-            np.linalg.norm(first - left_cholesky @ left_cholesky.T, ord=np.inf)
+            np.linalg.norm(
+                first_scaled - left_cholesky @ left_cholesky.T, ord=np.inf
+            )
             / first_scale
         ),
         float(
-            np.linalg.norm(second - right_cholesky @ right_cholesky.T, ord=np.inf)
+            np.linalg.norm(
+                second_scaled - right_cholesky @ right_cholesky.T,
+                ord=np.inf,
+            )
             / second_scale
         ),
     )
@@ -1652,12 +1900,13 @@ def two_block_factorization_gap(
         float(np.linalg.norm(left_cholesky, ord=np.inf))
         * float(np.linalg.norm(canonical, ord=np.inf))
         * float(np.linalg.norm(right_cholesky.T, ord=np.inf))
-        + float(np.linalg.norm(cross, ord=np.inf)),
+        + float(np.linalg.norm(cross_scaled, ord=np.inf)),
         np.finfo(float).tiny,
     )
     solve_residual = float(
         np.linalg.norm(
-            left_cholesky @ canonical @ right_cholesky.T - cross, ord=np.inf
+            left_cholesky @ canonical @ right_cholesky.T - cross_scaled,
+            ord=np.inf,
         )
         / solve_scale
     )
@@ -1672,8 +1921,12 @@ def two_block_factorization_gap(
         or cholesky_residual > residual_tolerance
         or solve_residual > residual_tolerance
     ):
-        raise ValueError(
-            "Cholesky or triangular-solve residual exceeds its local backward-health tolerance"
+        return _high_precision_only_two_block_result(
+            matrix,
+            left,
+            right,
+            precision_condition_number=precision_condition_number,
+            reason="binary64-residual-health",
         )
     backward_error = math.nextafter(
         max(cholesky_residual, solve_residual),
@@ -1682,7 +1935,6 @@ def two_block_factorization_gap(
 
     raw_margin = 1.0 - raw_max_squared
     boundary_fallback = bool(raw_margin <= boundary_acceptance_limit)
-    exact_block_diagonal = not np.count_nonzero(cross)
     high_precision_fallback = boundary_fallback or (
         conditioning_triggered and not exact_block_diagonal
     )
@@ -1693,14 +1945,15 @@ def two_block_factorization_gap(
         high_precision_gap, exact_squared = _high_precision_two_block(
             matrix, left, right, digits=200
         )
-        with mpmath.workdps(220):
+        fallback_digits = _adaptive_mp_digits(matrix, minimum=220)
+        with mpmath.workdps(fallback_digits):
             exact_max_squared = (
                 exact_squared[0] if exact_squared else mpmath.mpf("0")
             )
             raw_max_exact = _mp_exact_float(raw_max_squared)
             evaluation_discrepancy = abs(raw_max_exact - exact_max_squared)
             residual_derived_clip_bound = _outward_float_upper(
-                evaluation_discrepancy, digits=220
+                evaluation_discrepancy, digits=fallback_digits
             )
             if clipping_applied and evaluation_discrepancy > _mp_exact_float(
                 boundary_acceptance_limit
@@ -1708,7 +1961,9 @@ def two_block_factorization_gap(
                 raise ValueError(
                     "binary64 canonical-correlation discrepancy exceeds the operational boundary guard"
                 )
-            min_one_minus = float(mpmath.mpf(1) - exact_max_squared)
+            min_one_minus = _positive_mp_to_float(
+                mpmath.mpf(1) - exact_max_squared
+            )
         if clipping_applied and clipping_amount > residual_derived_clip_bound:
             raise ValueError(
                 "binary64 canonical-correlation excursion exceeds its exact-input allowance"
@@ -1720,10 +1975,17 @@ def two_block_factorization_gap(
         min_one_minus = 1.0
         evaluation_method = "exact-zero-cross-block-control"
     elif conditioning_triggered:
-        value = float(
-            _high_precision_partition_gap(matrix, (left, right), digits=200)
+        high_precision_gap, exact_squared = _high_precision_two_block(
+            matrix, left, right, digits=200
         )
-        min_one_minus = float(np.min(1.0 - scipy_squared, initial=1.0))
+        value = float(high_precision_gap)
+        with mpmath.workdps(_adaptive_mp_digits(matrix, minimum=220)):
+            exact_max_squared = (
+                exact_squared[0] if exact_squared else mpmath.mpf("0")
+            )
+            min_one_minus = _positive_mp_to_float(
+                mpmath.mpf(1) - exact_max_squared
+            )
         evaluation_method = "exact-binary64-mpmath-200d-conditioning-fallback"
     else:
         if raw_max_squared >= 1.0:
@@ -1994,6 +2256,24 @@ def _factorization_partition_digest(
     ).hexdigest()
 
 
+def _factorization_schedule_payload(cases: Any) -> list[dict[str, Any]]:
+    fields = (
+        "case_id",
+        "stratum",
+        "dimension",
+        "condition_number",
+        "replica",
+        "matrix_seed",
+        "partition",
+    )
+    return [
+        asdict(case)
+        if is_dataclass(case)
+        else {name: getattr(case, name) for name in fields}
+        for case in cases
+    ]
+
+
 def run_factorization_gap_protocol(
     *, seed: int = FACTORIZATION_PROTOCOL_SEED, schedule: Any = None
 ) -> FactorizationProtocolReport:
@@ -2033,61 +2313,81 @@ def run_factorization_gap_protocol(
             raise ValueError(
                 f"factorization protocol stratum {stratum} omits a condition tier"
             )
-    schedule_payload = []
-    for case in cases:
-        if is_dataclass(case):
-            schedule_payload.append(asdict(case))
-        else:
-            schedule_payload.append(
-                {
-                    name: getattr(case, name)
-                    for name in (
-                        "case_id",
-                        "stratum",
-                        "dimension",
-                        "condition_number",
-                        "replica",
-                        "matrix_seed",
-                        "partition",
-                    )
-                }
-            )
+    schedule_payload = _factorization_schedule_payload(cases)
+    frozen_schedule_payload = _factorization_schedule_payload(
+        _default_factorization_schedule(seed)
+    )
+    if schedule_payload != frozen_schedule_payload:
+        raise ValueError(
+            "factorization protocol schedule differs from the frozen case-bound schedule"
+        )
     schedule_digest = hashlib.sha256(
         json.dumps(schedule_payload, sort_keys=True).encode()
     ).hexdigest()
 
     records: list[FactorizationCaseRecord] = []
     controls: list[FactorizationHighPrecisionControl] = []
+    case_failures: list[dict[str, Any]] = []
     for case in cases:
-        matrix, partition = _regenerate_factorization_case(case, seed=seed)
-        gap = factorization_gap(matrix, partition)
-        records.append(
-            FactorizationCaseRecord(
-                case_id=case.case_id,
-                stratum=case.stratum,
-                dimension=int(case.dimension),
-                condition_number=float(case.condition_number),
-                matrix_digest=_factorization_matrix_digest(matrix),
-                partition_digest=_factorization_partition_digest(partition),
-                value=gap.value,
-                backward_error_bound=gap.backward_error_bound,
-                clipping_applied=gap.clipping_applied,
-                boundary_fallback_applied=gap.boundary_fallback_applied,
-                high_precision_fallback_applied=gap.high_precision_fallback_applied,
-            )
-        )
-        if case.stratum == "mpmath_100_digit":
-            with mpmath.workdps(100):
-                reference = _high_precision_partition_gap(
-                    matrix, partition, digits=100
+        matrix = None
+        partition = None
+        try:
+            matrix, partition = _regenerate_factorization_case(case, seed=seed)
+            achieved_condition_number = float(np.linalg.cond(matrix))
+            if not math.isfinite(achieved_condition_number):
+                raise ValueError(
+                    "digest-bound achieved condition number is nonfinite"
                 )
-                reference_text = mpmath.nstr(reference, n=100)
-            controls.append(
-                FactorizationHighPrecisionControl(
+            gap = factorization_gap(matrix, partition)
+            records.append(
+                FactorizationCaseRecord(
                     case_id=case.case_id,
-                    decimal_digits=100,
-                    reference_value=reference_text,
+                    stratum=case.stratum,
+                    dimension=int(case.dimension),
+                    condition_number=float(case.condition_number),
+                    achieved_condition_number=achieved_condition_number,
+                    matrix_digest=_factorization_matrix_digest(matrix),
+                    partition_digest=_factorization_partition_digest(partition),
+                    value=gap.value,
+                    backward_error_bound=gap.backward_error_bound,
+                    clipping_applied=gap.clipping_applied,
+                    boundary_fallback_applied=gap.boundary_fallback_applied,
+                    high_precision_fallback_applied=gap.high_precision_fallback_applied,
                 )
+            )
+            if case.stratum == "mpmath_100_digit":
+                with mpmath.workdps(100):
+                    reference = _high_precision_partition_gap(
+                        matrix, partition, digits=100
+                    )
+                    reference_text = mpmath.nstr(reference, n=100)
+                controls.append(
+                    FactorizationHighPrecisionControl(
+                        case_id=case.case_id,
+                        decimal_digits=100,
+                        reference_value=reference_text,
+                    )
+                )
+        except Exception as exc:
+            case_failures.append(
+                {
+                    "case_id": case.case_id,
+                    "stratum": case.stratum,
+                    "dimension": int(case.dimension),
+                    "nominal_condition_number": float(case.condition_number),
+                    "matrix_digest": (
+                        _factorization_matrix_digest(matrix)
+                        if matrix is not None
+                        else None
+                    ),
+                    "partition_digest": (
+                        _factorization_partition_digest(partition)
+                        if partition is not None
+                        else None
+                    ),
+                    "exception_type": type(exc).__name__,
+                    "exception_message": str(exc),
+                }
             )
     return FactorizationProtocolReport(
         protocol_name="new-deterministic-factorization-gap-3138",
@@ -2096,6 +2396,7 @@ def run_factorization_gap_protocol(
         historical_generator_recovered=False,
         cases=tuple(records),
         high_precision_controls=tuple(controls),
+        case_failures=tuple(case_failures),
     )
 
 
@@ -2114,6 +2415,13 @@ def check_cg_factor_gap() -> dict[str, Any]:
     optimum_covariance = sla.block_diag(*optimum_blocks)
     analytic_gap_result = factorization_gap(lam, fine_blocks)
     analytic_gap = analytic_gap_result.value
+    analytic_gap_reference = float(
+        _high_precision_partition_gap(
+            lam,
+            tuple(tuple(block) for block in fine_blocks),
+            digits=200,
+        )
+    )
     direct_optimum_kl = gaussian_kl(
         target_mean,
         optimum_covariance,
@@ -2121,11 +2429,19 @@ def check_cg_factor_gap() -> dict[str, Any]:
         target_covariance,
     )
     optimum_residual = abs(analytic_gap - direct_optimum_kl)
+    analytic_gap_reference_error = abs(analytic_gap - analytic_gap_reference)
+    direct_kl_reference_error = abs(direct_optimum_kl - analytic_gap_reference)
+    analytic_gap_endpoint_tolerance = _roundoff_scale(
+        analytic_gap, analytic_gap_reference, dimension=n, multiplier=512.0
+    )
+    direct_kl_endpoint_tolerance = _roundoff_scale(
+        direct_optimum_kl,
+        analytic_gap_reference,
+        dimension=n,
+        multiplier=1024.0,
+    )
     optimum_tolerance = (
-        analytic_gap_result.backward_error_bound
-        + _roundoff_scale(
-            analytic_gap, direct_optimum_kl, dimension=n, multiplier=256.0
-        )
+        analytic_gap_endpoint_tolerance + direct_kl_endpoint_tolerance
     )
 
     perturbation_draws = 5000
@@ -2149,10 +2465,13 @@ def check_cg_factor_gap() -> dict[str, Any]:
             target_mean,
             target_covariance,
         )
-        perturbation_deltas.append(perturbed_kl - direct_optimum_kl)
+        perturbation_deltas.append(perturbed_kl - analytic_gap_reference)
         perturbation_tolerances.append(
             _roundoff_scale(
-                perturbed_kl, direct_optimum_kl, dimension=n, multiplier=256.0
+                perturbed_kl,
+                analytic_gap_reference,
+                dimension=n,
+                multiplier=1024.0,
             )
         )
     improving_perturbations = sum(
@@ -2170,37 +2489,87 @@ def check_cg_factor_gap() -> dict[str, Any]:
     ]
     gap_results = [factorization_gap(lam, partition) for partition in partitions]
     gaps = [gap.value for gap in gap_results]
-    monotonicity_tolerances = [
-        left.backward_error_bound
-        + right.backward_error_bound
-        + _roundoff_scale(
-            left.value, right.value, dimension=n, multiplier=128.0
+    gap_references = [
+        float(
+            _high_precision_partition_gap(
+                lam,
+                tuple(tuple(block) for block in partition),
+                digits=200,
+            )
         )
-        for left, right in zip(gap_results, gap_results[1:])
+        for partition in partitions
     ]
-    monotone = all(
+    gap_reference_errors = [
+        abs(gap.value - reference)
+        for gap, reference in zip(gap_results, gap_references)
+    ]
+    gap_reference_tolerances = [
+        _roundoff_scale(
+            gap.value, reference, dimension=n, multiplier=512.0
+        )
+        for gap, reference in zip(gap_results, gap_references)
+    ]
+    monotonicity_tolerances = [
+        left_tolerance + right_tolerance
+        for left_tolerance, right_tolerance in zip(
+            gap_reference_tolerances, gap_reference_tolerances[1:]
+        )
+    ]
+    high_precision_monotone = all(
+        left >= right
+        for left, right in zip(gap_references, gap_references[1:])
+    )
+    binary64_monotone = all(
         left.value + tolerance >= right.value
         for left, right, tolerance in zip(
             gap_results, gap_results[1:], monotonicity_tolerances
         )
     )
-    single_block_tolerance = (
-        gap_results[-1].backward_error_bound
-        + _roundoff_scale(gap_results[-1].value, dimension=n, multiplier=128.0)
+    monotone = (
+        high_precision_monotone
+        and binary64_monotone
+        and all(
+            error <= tolerance
+            for error, tolerance in zip(
+                gap_reference_errors, gap_reference_tolerances
+            )
+        )
     )
+    single_block_tolerance = gap_reference_tolerances[-1]
 
     scales = [1.0, 10.0, 100.0]
     scaled_gap_results = [factorization_gap(c * lam, fine_blocks) for c in scales]
     scaled_gaps = [gap.value for gap in scaled_gap_results]
-    scale_spread = max(scaled_gaps) - min(scaled_gaps)
-    scale_tolerance = max(
-        first.backward_error_bound
-        + second.backward_error_bound
-        + _roundoff_scale(
-            first.value, second.value, dimension=n, multiplier=128.0
+    scaled_gap_references = [
+        float(
+            _high_precision_partition_gap(
+                c * lam,
+                tuple(tuple(block) for block in fine_blocks),
+                digits=200,
+            )
         )
-        for first in scaled_gap_results
-        for second in scaled_gap_results
+        for c in scales
+    ]
+    scaled_gap_reference_errors = [
+        abs(gap.value - reference)
+        for gap, reference in zip(scaled_gap_results, scaled_gap_references)
+    ]
+    scaled_gap_endpoint_tolerances = [
+        _roundoff_scale(
+            gap.value, reference, dimension=n, multiplier=512.0
+        )
+        for gap, reference in zip(scaled_gap_results, scaled_gap_references)
+    ]
+    scale_spread = max(scaled_gaps) - min(scaled_gaps)
+    scale_reference_spread = max(scaled_gap_references) - min(
+        scaled_gap_references
+    )
+    scale_reference_roundoff_tolerance = _roundoff_scale(
+        *scaled_gap_references, dimension=n, multiplier=1024.0
+    )
+    scale_tolerance = (
+        scale_reference_roundoff_tolerance
+        + 2.0 * max(scaled_gap_endpoint_tolerances)
     )
 
     q, _ = np.linalg.qr(rng.standard_normal((n, n)))
@@ -2256,13 +2625,24 @@ def check_cg_factor_gap() -> dict[str, Any]:
         for value in (
             analytic_gap,
             direct_optimum_kl,
+            analytic_gap_reference,
+            analytic_gap_reference_error,
+            direct_kl_reference_error,
             optimum_residual,
             *perturbation_deltas,
             *perturbation_tolerances,
             *gaps,
+            *gap_references,
+            *gap_reference_errors,
+            *gap_reference_tolerances,
             *monotonicity_tolerances,
             *scaled_gaps,
+            *scaled_gap_references,
+            *scaled_gap_reference_errors,
+            *scaled_gap_endpoint_tolerances,
             scale_spread,
+            scale_reference_spread,
+            scale_reference_roundoff_tolerance,
             scale_tolerance,
             *mean_tie_costs.values(),
             *mean_tie_errors.values(),
@@ -2274,10 +2654,19 @@ def check_cg_factor_gap() -> dict[str, Any]:
     )
     passed = (
         numerical_outputs_finite
+        and analytic_gap_reference_error <= analytic_gap_endpoint_tolerance
+        and direct_kl_reference_error <= direct_kl_endpoint_tolerance
         and optimum_residual <= optimum_tolerance
         and improving_perturbations == 0
         and monotone
         and abs(gaps[-1]) <= single_block_tolerance
+        and all(
+            error <= tolerance
+            for error, tolerance in zip(
+                scaled_gap_reference_errors, scaled_gap_endpoint_tolerances
+            )
+        )
+        and scale_reference_spread <= scale_reference_roundoff_tolerance
         and scale_spread <= scale_tolerance
         and all(
             mean_tie_errors[key] <= mean_tie_tolerances[key]
@@ -2310,14 +2699,18 @@ def check_cg_factor_gap() -> dict[str, Any]:
             "volume_shift": "-(m/2) log c",
         },
         tolerances={
-            "derivation": "accumulated factorization backward diagnostics plus endpoint-scaled binary64 roundoff",
-            "analytic_optimum": optimum_tolerance,
+            "policy": "independent 200-digit exact-binary64 references with separately declared endpoint-roundoff allowances; backward residuals are health diagnostics only",
+            "analytic_gap_endpoint_roundoff": analytic_gap_endpoint_tolerance,
+            "direct_KL_endpoint_roundoff": direct_kl_endpoint_tolerance,
+            "analytic_optimum_cross_endpoint": optimum_tolerance,
             "perturbation_improvement_range": [
                 min(perturbation_tolerances),
                 max(perturbation_tolerances),
             ],
             "monotonicity_pairwise": monotonicity_tolerances,
             "single_block": single_block_tolerance,
+            "scale_exact_input_reference_roundoff": scale_reference_roundoff_tolerance,
+            "scale_production_endpoint_roundoff": scaled_gap_endpoint_tolerances,
             "scale_identity": scale_tolerance,
             "mean_tie_identity": mean_tie_tolerances,
             "volume_shift_identity": volume_shift_tolerances,
@@ -2327,6 +2720,9 @@ def check_cg_factor_gap() -> dict[str, Any]:
             "analytic_optimum": {
                 "closed_form_gap": analytic_gap,
                 "direct_KL": direct_optimum_kl,
+                "exact_binary64_reference_200d": analytic_gap_reference,
+                "gap_reference_absolute_error": analytic_gap_reference_error,
+                "direct_KL_reference_absolute_error": direct_kl_reference_error,
                 "absolute_residual": optimum_residual,
                 "gap_backward_error_bound": analytic_gap_result.backward_error_bound,
             },
@@ -2338,7 +2734,11 @@ def check_cg_factor_gap() -> dict[str, Any]:
             },
             "monotonicity": {
                 "nested_partition_gaps": gaps,
+                "exact_binary64_references_200d": gap_references,
+                "reference_absolute_errors": gap_reference_errors,
                 "nonincreasing": monotone,
+                "high_precision_reference_nonincreasing": high_precision_monotone,
+                "binary64_nonincreasing_with_endpoint_allowance": binary64_monotone,
                 "single_block_gap": gaps[-1],
                 "gap_backward_error_bounds": [
                     gap.backward_error_bound for gap in gap_results
@@ -2346,7 +2746,14 @@ def check_cg_factor_gap() -> dict[str, Any]:
             },
             "scale": {
                 "factorization_gaps": dict(zip(map(str, scales), scaled_gaps)),
+                "exact_binary64_references_200d": dict(
+                    zip(map(str, scales), scaled_gap_references)
+                ),
+                "production_reference_absolute_errors": dict(
+                    zip(map(str, scales), scaled_gap_reference_errors)
+                ),
                 "factorization_gap_spread": scale_spread,
+                "exact_input_reference_spread": scale_reference_spread,
                 "factorization_gap_backward_error_bounds": dict(
                     zip(
                         map(str, scales),
@@ -2365,10 +2772,91 @@ def check_cg_factor_gap() -> dict[str, Any]:
 
 
 def check_cg_factor_gap_stress() -> dict[str, Any]:
-    protocol = run_factorization_gap_protocol()
+    schedule = _default_factorization_schedule(FACTORIZATION_PROTOCOL_SEED)
+    protocol = run_factorization_gap_protocol(schedule=schedule)
     records = protocol.cases
     by_id = {record.case_id: record for record in records}
     controls = {control.case_id: control for control in protocol.high_precision_controls}
+    protocol_case_failures = list(protocol.case_failures)
+
+    all_case_oracle_failures: list[dict[str, Any]] = []
+    all_case_oracle_cases = 0
+    all_case_oracle_errors: list[float] = []
+    all_case_oracle_tolerances: list[float] = []
+    for case in schedule:
+        all_case_oracle_cases += 1
+        matrix = None
+        partition = None
+        try:
+            matrix, partition = _regenerate_factorization_case(
+                case, seed=protocol.seed
+            )
+            record = by_id.get(case.case_id)
+            if record is None:
+                raise ValueError("production record is missing")
+            reference_mp = _high_precision_partition_gap(
+                matrix, partition, digits=100
+            )
+            reference = float(reference_mp)
+            error = abs(record.value - reference)
+            tolerance = max(
+                _roundoff_scale(
+                    record.value,
+                    reference,
+                    dimension=record.dimension,
+                    multiplier=512.0,
+                ),
+                1.0e-4 * abs(reference),
+                2.0e-8,
+            )
+            all_case_oracle_errors.append(error)
+            all_case_oracle_tolerances.append(tolerance)
+            if (
+                not math.isfinite(record.value)
+                or not math.isfinite(reference)
+                or error > tolerance
+            ):
+                all_case_oracle_failures.append(
+                    {
+                        "case_id": case.case_id,
+                        "stratum": case.stratum,
+                        "dimension": int(case.dimension),
+                        "nominal_condition_number": float(
+                            case.condition_number
+                        ),
+                        "achieved_condition_number": record.achieved_condition_number,
+                        "matrix_digest": record.matrix_digest,
+                        "partition_digest": record.partition_digest,
+                        "production_value": record.value,
+                        "reference_value_100d": mpmath.nstr(reference_mp, n=100),
+                        "absolute_error": error,
+                        "declared_acceptance": tolerance,
+                        "disposition": "FAIL",
+                    }
+                )
+        except Exception as exc:
+            all_case_oracle_failures.append(
+                {
+                    "case_id": case.case_id,
+                    "stratum": case.stratum,
+                    "dimension": int(case.dimension),
+                    "nominal_condition_number": float(case.condition_number),
+                    "matrix_digest": (
+                        _factorization_matrix_digest(matrix)
+                        if matrix is not None
+                        else None
+                    ),
+                    "partition_digest": (
+                        _factorization_partition_digest(partition)
+                        if partition is not None
+                        else None
+                    ),
+                    "exception_type": type(exc).__name__,
+                    "exception_message": str(exc),
+                    "disposition": "ERROR",
+                }
+            )
+
     control_errors: dict[str, float] = {}
     control_tolerances: dict[str, float] = {}
     for case_id, control in controls.items():
@@ -2376,8 +2864,7 @@ def check_cg_factor_gap_stress() -> dict[str, Any]:
         reference = float(control.reference_value)
         control_errors[case_id] = abs(record.value - reference)
         control_tolerances[case_id] = max(
-            record.backward_error_bound
-            + _roundoff_scale(
+            _roundoff_scale(
                 record.value, reference, dimension=record.dimension, multiplier=256.0
             ),
             1.0e-4 * abs(reference),
@@ -2387,11 +2874,111 @@ def check_cg_factor_gap_stress() -> dict[str, Any]:
         name: sum(record.stratum == name for record in records)
         for name in FACTORIZATION_PROTOCOL_STRATUM_COUNTS
     }
+    achieved_condition_ranges = {
+        name: {
+            "minimum": min(
+                record.achieved_condition_number
+                for record in records
+                if record.stratum == name
+            ),
+            "maximum": max(
+                record.achieved_condition_number
+                for record in records
+                if record.stratum == name
+            ),
+        }
+        for name in FACTORIZATION_PROTOCOL_STRATUM_COUNTS
+        if any(record.stratum == name for record in records)
+    }
+    achieved_global_range = {
+        "minimum": min(
+            (record.achieved_condition_number for record in records),
+            default=math.nan,
+        ),
+        "maximum": max(
+            (record.achieved_condition_number for record in records),
+            default=math.nan,
+        ),
+    }
+    nominal_versus_achieved_controls = {
+        case_id: {
+            "nominal_condition_number": by_id[case_id].condition_number,
+            "achieved_condition_number": by_id[case_id].achieved_condition_number,
+        }
+        for case_id in (
+            "exact_block_diagonal-015",
+            "near_decoupled-015",
+        )
+        if case_id in by_id
+    }
+
+    witness_matrix = np.asarray(FACTORIZATION_BOUNDARY_WITNESS, dtype=float)
+    witness_partition = ((0, 1), (2, 3))
+    try:
+        witness_gap = factorization_gap(witness_matrix, witness_partition)
+        witness_step = witness_gap.steps[0]
+        witness_exact_value = float(
+            _high_precision_partition_gap(
+                witness_matrix, witness_partition, digits=200
+            )
+        )
+        witness_digest = _factorization_matrix_digest(witness_matrix)
+        witness_excursion = witness_step.clipping_amount
+        witness_allowance = witness_step.residual_derived_clip_bound
+        witness_passed = (
+            witness_digest == FACTORIZATION_BOUNDARY_WITNESS_DIGEST
+            and math.isclose(
+                witness_exact_value,
+                FACTORIZATION_BOUNDARY_WITNESS_GAP,
+                rel_tol=0.0,
+                abs_tol=math.ulp(FACTORIZATION_BOUNDARY_WITNESS_GAP),
+            )
+            and witness_excursion == FACTORIZATION_BOUNDARY_WITNESS_EXCURSION
+            and witness_allowance == FACTORIZATION_BOUNDARY_WITNESS_ALLOWANCE
+            and witness_step.clipping_applied
+            and math.isclose(
+                witness_gap.value,
+                witness_exact_value,
+                rel_tol=0.0,
+                abs_tol=math.ulp(witness_exact_value),
+            )
+        )
+        boundary_witness = {
+            "matrix_digest": witness_digest,
+            "exact_input_value": witness_exact_value,
+            "rho_squared_excursion": witness_excursion,
+            "outward_allowance": witness_allowance,
+            "production_value": witness_gap.value,
+            "clipping_diagnostic_applied": witness_step.clipping_applied,
+            "evaluation_method": witness_step.evaluation_method,
+            "status": "PASS" if witness_passed else "FAIL",
+        }
+    except Exception as exc:
+        witness_passed = False
+        boundary_witness = {
+            "matrix_digest": _factorization_matrix_digest(witness_matrix),
+            "exception_type": type(exc).__name__,
+            "exception_message": str(exc),
+            "status": "FAIL",
+        }
+
+    global_near_1e14 = math.isfinite(achieved_global_range["maximum"]) and math.isclose(
+        achieved_global_range["maximum"], 1.0e14, rel_tol=2.0e-2
+    )
     passed = (
         len(records) == 3138
         and stratum_counts == FACTORIZATION_PROTOCOL_STRATUM_COUNTS
         and len(controls) == 18
+        and not protocol_case_failures
+        and all_case_oracle_cases == 3138
+        and not all_case_oracle_failures
+        and witness_passed
+        and global_near_1e14
         and all(math.isfinite(record.value) for record in records)
+        and all(
+            math.isfinite(record.achieved_condition_number)
+            for record in records
+        )
         and all(
             control_errors[case_id] <= control_tolerances[case_id]
             for case_id in controls
@@ -2407,22 +2994,34 @@ def check_cg_factor_gap_stress() -> dict[str, Any]:
     return result(
         "CHK-CG-FACTOR-GAP-STRESS-3138",
         "Frozen stable Gaussian factorization-gap stress protocol",
-        ["NUM-CG-FACTOR-GAP", "NUM-CG-GAP-MONOTONE"],
+        ["NUM-CG-FACTOR-GAP-BOUNDARY-PROTOCOL"],
         status="PASS" if passed else "FAIL",
         seed=protocol.seed,
         sample_count={
             "total_cases": len(records),
             "strata": stratum_counts,
             "mpmath_100_digit_controls": len(controls),
+            "all_case_100_digit_references": all_case_oracle_cases,
+            "focused_positive_excursion_witnesses": 1,
         },
         expected={
             "protocol_name": "new-deterministic-factorization-gap-3138",
             "historical_generator_recovered": False,
             "all_values_finite": True,
+            "all_3138_values_within_declared_100_digit_reference_acceptance": True,
             "all_high_precision_controls_within_declared_tolerance": True,
+            "boundary_witness": {
+                "matrix_digest": FACTORIZATION_BOUNDARY_WITNESS_DIGEST,
+                "exact_input_value": FACTORIZATION_BOUNDARY_WITNESS_GAP,
+                "rho_squared_excursion": FACTORIZATION_BOUNDARY_WITNESS_EXCURSION,
+                "outward_allowance": FACTORIZATION_BOUNDARY_WITNESS_ALLOWANCE,
+                "status": "PASS",
+            },
+            "achieved_condition_coverage_near_1e14": "global only",
         },
         tolerances={
-            "matrix_value_comparison": "max(accumulated backward diagnostics plus scaled roundoff, 1e-4 relative, 2e-8 absolute)",
+            "matrix_value_comparison": "independent 100-digit exact-binary64 reference; max(endpoint-scaled binary64 roundoff, 1e-4 relative, 2e-8 absolute)",
+            "backward_error_role": "health diagnostic only; excluded from every forward-value acceptance",
             "near_boundary_policy": "64*n*binary64 epsilon operational guard plus 200-digit exact-input evaluation; not a general perturbation theorem",
         },
         observed={
@@ -2431,6 +3030,14 @@ def check_cg_factor_gap_stress() -> dict[str, Any]:
             "schedule_digest": protocol.schedule_digest,
             "case_payload_digest": case_payload_digest,
             "stratum_counts": stratum_counts,
+            "nominal_condition_number_range": {
+                "minimum": min(FACTORIZATION_PROTOCOL_CONDITIONS),
+                "maximum": max(FACTORIZATION_PROTOCOL_CONDITIONS),
+            },
+            "achieved_condition_number_range_global": achieved_global_range,
+            "achieved_condition_number_ranges_by_stratum": achieved_condition_ranges,
+            "achieved_condition_coverage_near_1e14_global_only": global_near_1e14,
+            "nominal_versus_achieved_controls": nominal_versus_achieved_controls,
             "finite_values": sum(math.isfinite(record.value) for record in records),
             "clipping_cases": sum(record.clipping_applied for record in records),
             "boundary_fallback_cases": sum(
@@ -2443,8 +3050,19 @@ def check_cg_factor_gap_stress() -> dict[str, Any]:
             "maximum_control_tolerance": max(
                 control_tolerances.values(), default=0.0
             ),
+            "all_case_oracle_cases": all_case_oracle_cases,
+            "all_case_oracle_failures": len(all_case_oracle_failures),
+            "all_case_oracle_failure_details": all_case_oracle_failures,
+            "maximum_all_case_oracle_error": max(
+                all_case_oracle_errors, default=0.0
+            ),
+            "maximum_all_case_oracle_acceptance": max(
+                all_case_oracle_tolerances, default=0.0
+            ),
+            "protocol_case_failures": protocol_case_failures,
+            "boundary_witness": boundary_witness,
         },
-        interpretation="This is a new frozen stress protocol, not a recovered historical experiment. The 100-digit exact-input controls and boundary fallbacks are numerical evidence only.",
+        interpretation="This is a new frozen stress protocol, not a recovered historical experiment. Every one of the 3,138 schedule cases is compared with its own 100-digit exact-input reference; the 18 designated controls remain a named stratum. The separate 4-by-4 positive-excursion fixture binds the declared boundary policy but was not produced by the ordinary 3,138-case schedule.",
     )
 
 
