@@ -335,6 +335,82 @@ Restriction is a pullback along an injective map of parameters, and it makes the
 
 Whether the scale-setting construction of the model-space literature transfers to $\Lambda$ is therefore not settled by observing that both are called Fisher metrics. The transfer requires a declaration that makes the coarse recognition mean a parameter of the generative law fitted against the bound, after which the relevant Fisher metric is the one with respect to that parameter and the import becomes a statement rather than an analogy. This section records the requirement and does not discharge it. What would close it is that declaration together with a check that the resulting parameter-space metric is nondegenerate, since the construction in that literature is written throughout with an inverted metric and does not treat the singular case. \status{OPEN}
 
+\subsection{Ambient score tangents and exponential action charts}
+\label{sec:ig-score-charts}
+
+A third distinction is needed before the renormalization chapters use the word
+``tangent''. At a fixed Gaussian law three objects are in play, and they are
+nested rather than equal. The first is the finite-dimensional tangent space of
+the declared regular exponential family, whose metric is
+\eqref{eq:ig-fisher-hessian}; its dimension is that of the chart
+$(h,J)$. The second is the ambient centered score Hilbert space
+$L^2_0(\gamma)$ of \eqref{eq:rg-centered-tangent}, which contains every
+quadratic-mean score of every path through the law, whether or not that path
+stays in the Gaussian family. The third is the bounded action quotient
+$L^\infty/\R\mathbf 1$, which is the domain of the nonlinear action calculus of
+\Cref{thm:rg-bounded-action-calculus}. By
+\Cref{lem:rg-dqm-realization} every element of the second space is an actual
+two-sided score, and by \Cref{prop:rg-action-score-isometry} the third embeds
+isometrically into the second with dense but generally proper range. The first
+is a finite-dimensional subspace of the second, of dimension
+$n+n(n+1)/2$ by \eqref{eq:ig-score}, and is a proper subspace whenever
+$L^2_0(\gamma)$ is infinite dimensional, which holds for every nondegenerate
+Gaussian on $\R^{n}$. \status{DEFINITION}
+
+The gap between the second and third objects is not a technicality, and the
+Hermite directions show exactly where it opens.
+
+\medskip
+\propositionheading{Exact two-sided domain of a Hermite exponential action}{prop:ig-hermite-exponential-domain}
+\emph{Let $\gamma=N(0,1)$, let $\mathrm{He}_k$ be the probabilists' Hermite
+polynomial of degree $k\geq1$, and set}
+\begin{equation}
+N_k(t)=\int e^{-t\mathrm{He}_k(x)}\gamma(dx)\in(0,+\infty].
+\label{eq:ig-hermite-normalizer}
+\end{equation}
+\emph{Then $N_1(t)<\infty$ for every real $t$; $N_2(t)<\infty$ exactly for
+$t>-\tfrac12$, where $N_2(t)=e^t(1+2t)^{-1/2}$; for odd $k\geq3$,
+$N_k(t)=+\infty$ for every $t\neq0$; and for even $k\geq4$, $N_k(t)<\infty$
+exactly for $t\geq0$. Consequently every $\mathrm{He}_k$ with $k\geq1$ lies in
+$L^2_0(\gamma)$ and is realized as a two-sided quadratic-mean score, while for
+$k\geq3$ no two-sided exponential action neighborhood of the origin contains
+it.}
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.} For $k=1$ the integral is the Gaussian
+moment-generating function $e^{t^2/2}$, finite for every $t$. For $k=2$,
+$\mathrm{He}_2(x)=x^2-1$, so
+$N_2(t)=e^t\int e^{-tx^2}\gamma(dx)$, and the Gaussian integral
+$\int e^{-tx^2}\gamma(dx)$ converges exactly when $t+\tfrac12>0$, with value
+$(1+2t)^{-1/2}$. For $k\geq3$ write $\mathrm{He}_k(x)=x^k+O(x^{k-2})$, so the
+exponent of the integrand of \eqref{eq:ig-hermite-normalizer} against the
+Gaussian density is $-t\mathrm{He}_k(x)-x^2/2$, whose leading behavior is
+$-tx^k$ because $k\geq3$ dominates degree two. For odd $k$ and any $t\neq0$,
+exactly one of the two tails has $-tx^k\to+\infty$, so the integrand grows
+superpolynomially there and the integral diverges. For even $k$ and $t<0$, both
+tails have $-tx^k\to+\infty$ and the integral diverges; for $t>0$ both tails have
+$-tx^k\to-\infty$, so the integrand is eventually bounded by $e^{-cx^k}$ for
+some $c>0$ and the integral converges; and $N_k(0)=1$. Membership in
+$L^2_0(\gamma)$ holds because Hermite polynomials are square integrable against
+$\gamma$ and orthogonal to the constants, and the realization is
+\Cref{lem:rg-dqm-realization}. \hfill$\square$
+
+\medskip
+The two Gaussian score directions of \eqref{eq:ig-score} sit inside the benign
+part of this classification. At $n=1$, $\mu=0$, and $\Lambda=1$, that score reads
+$u x+\tfrac A2(x^2-1)=u\mathrm{He}_1+\tfrac A2\mathrm{He}_2$, so the mean and
+variance directions occupy Hermite degrees one and two, and by
+\Cref{prop:ig-hermite-exponential-domain} both admit two-sided exponential
+neighborhoods; the constraint $t>-\tfrac12$ in the variance direction is the
+natural-domain boundary $J\succ0$ seen through the exponential chart. Every
+ambient direction of degree three or higher behaves differently. A complete
+Hermite basis of $L^2_0(\gamma)$ is therefore not a chart of the Gaussian model
+and not a set of directions of the bounded action space. In particular the
+spectral statement of \Cref{thm:rg-gaussian-hermite-spectrum} is a theorem about
+the $L^2_0$ tangent, and it must not be read as a statement about the nonlinear
+bounded action map, whose domain is the third object above.
+\status{ESTABLISHED}
+
 \section{Gauge invariants of the interaction precision}
 \label{sec:ig-gauge}
 

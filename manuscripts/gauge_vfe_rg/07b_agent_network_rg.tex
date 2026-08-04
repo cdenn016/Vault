@@ -256,8 +256,7 @@ which is \eqref{eq:rg-action-second-frechet-general}.  Setting
 \(U(e^{-\varphi})\geq e^{-\epsilon}\) and boundedness of \(h,k\) make
 every displayed derivative a bounded map into the stated target.  \(\square\)
 
-\propositionheading{Bounded recentering gives analyticity at every bounded action}
-\label{prop:rg-action-bounded-recentering}
+\propositionheading{Bounded recentering gives analyticity at every bounded action}{prop:rg-action-bounded-recentering}
 For every \(\varphi\in\mathfrak B\), define the positive unital operator
 \begin{equation}
  U^\varphi h
@@ -514,6 +513,488 @@ sufficient for the nonautonomous conclusion.  The identity channel has
 an eigenvalue \(-1\); these controls also prevent a phase-blind conclusion.
 \(\square\)
 
+\subsection{Score tangents, the extensive block lift, and an inhabited spectrum}
+\label{sec:rg-score-lift}
+
+Estimate \eqref{eq:rg-nonlinear-action-sup-contraction} shows that the bounded
+measure-pair action sector is nonexpansive, so under isometric cross-scale
+identifications no bounded action mode in that sector can grow.  A growing mode
+must therefore come from somewhere else, and this subsection identifies the
+first of the two places where it does: the score tangent carries an
+\emph{extensive} replication factor that the one-arrow contraction theorem
+cannot see.  The second place is the extensive interaction assembly of
+\Cref{sec:rg-finite-network-interactions}.
+
+\definitionheading{Quadratic-mean differentiability and score}{def:rg-dqm-score}
+Let \((\mathsf W,\mathscr W,\mu)\) be a probability space and write
+\begin{equation}
+ L^2_0(\mu)
+ =\left\{h\in L^2(\mu):\int h\,d\mu=0\right\}.
+ \label{eq:rg-centered-tangent}
+\end{equation}
+A family \((\mu_t)_{\lvert t\rvert<t_0}\) of probability laws with
+\(\mu_t\ll\mu\) and \(\mu_0=\mu\) is differentiable in quadratic mean at
+\(t=0\) with score \(h\in L^2(\mu)\) when
+\begin{equation}
+ \left\lVert
+ \sqrt{\frac{d\mu_t}{d\mu}}-1-\frac t2h
+ \right\rVert_{L^2(\mu)}
+ =o(\lvert t\rvert),
+ \qquad t\to0,
+ \label{eq:rg-dqm-definition}
+\end{equation}
+where both one-sided limits are required.  The Fisher information of the path
+at \(t=0\) is \(\lVert h\rVert_{L^2(\mu)}^2\).  Nothing is proved by this
+declaration. \status{DEFINITION}
+
+Centering is forced rather than assumed.  Writing \(p_t=d\mu_t/d\mu\) and using
+\(\int p_t\,d\mu=1\) gives the exact identity
+\(\int(\sqrt{p_t}-1)\,d\mu=-\tfrac12\int(\sqrt{p_t}-1)^2\,d\mu\).  Inserting
+\eqref{eq:rg-dqm-definition} makes the left side
+\(\tfrac t2\int h\,d\mu+o(\lvert t\rvert)\) and the right side
+\(-\tfrac{t^2}8\lVert h\rVert_2^2+o(t^2)\), so \(\int h\,d\mu=0\).  The
+quadratic-mean tangent set is therefore contained in \(L^2_0(\mu)\).
+\status{ESTABLISHED}
+
+\lemmaheading{Every centered square-integrable score is realized two-sided}{lem:rg-dqm-realization}
+Let \(h\in L^2_0(\mu)\) and put \(a=\lVert h\rVert_2^2/4\).  For every real
+\(t\), define
+\begin{equation}
+ p_t=\frac{(1+th/2)^2}{1+at^2},
+ \qquad
+ \mu_t=p_t\mu.
+ \label{eq:rg-quadratic-score-path}
+\end{equation}
+Then every \(\mu_t\) is a probability law, \(\mu_0=\mu\), and the path is
+differentiable in quadratic mean at \(t=0\) with score \(h\), for
+\(t\to0^+\) and for \(t\to0^-\).  No exponential moment, and no boundedness of
+\(h\), is used. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Centering gives
+\(\int(1+th/2)^2\,d\mu=1+t\mu(h)+\tfrac{t^2}4\mu(h^2)=1+at^2\), so \(p_t\geq0\)
+integrates to one.  Put \(s_t=1+th/2\) and \(N_t=1+at^2\geq1\), so that
+\(\sqrt{p_t}=\lvert s_t\rvert/\sqrt{N_t}\) and
+\begin{equation}
+ \sqrt{p_t}-s_t
+ =\frac{\lvert s_t\rvert-s_t}{\sqrt{N_t}}
+ +s_t\left(\frac1{\sqrt{N_t}}-1\right).
+ \label{eq:rg-quadratic-path-split}
+\end{equation}
+On \(\{s_t<0\}\) one has \(th/2<-1\), hence \(\lvert h\rvert>2/\lvert t\rvert\)
+and \(\lvert s_t\rvert=\lvert th/2\rvert-1\leq\lvert th\rvert/2\), so
+\(\lvert s_t\rvert-s_t=2\lvert s_t\rvert\leq\lvert th\rvert\) there and the
+difference vanishes elsewhere.  Since \(N_t\geq1\),
+\begin{equation}
+ \frac1{t^2}\left\lVert
+ \frac{\lvert s_t\rvert-s_t}{\sqrt{N_t}}
+ \right\rVert_2^2
+ \leq\int h^2\mathbf1_{\{\lvert h\rvert>2/\lvert t\rvert\}}\,d\mu
+ \longrightarrow0
+ \label{eq:rg-quadratic-path-tail}
+\end{equation}
+by dominated convergence, because \(h^2\) is integrable.  For the second term,
+\(\lVert s_t\rVert_2=\sqrt{N_t}\), so its norm is exactly
+\(\lvert1-\sqrt{N_t}\rvert=O(t^2)\).  Adding the two bounds and using
+\(s_t=1+\tfrac t2h\) gives \eqref{eq:rg-dqm-definition}. \(\square\)
+
+\propositionheading{Independent block replication of a differentiable path}{prop:rg-score-block-lift}
+Fix an integer \(b\geq1\).  Let \((\mu_t)\) be any path satisfying
+\eqref{eq:rg-dqm-definition} with score \(h\), and form the product path
+\(\mu_t^{\otimes b}\) at \(\mu^{\otimes b}\).  Then the product path is
+differentiable in quadratic mean at \(t=0\) with score
+\begin{equation}
+ (\mathscr I_bh)(x_1,\dots,x_b)=\sum_{i=1}^bh(x_i),
+ \label{eq:rg-score-replication}
+\end{equation}
+and the replication map is a bounded linear injection
+\begin{equation}
+ \mathscr I_b:L^2_0(\mu)\longrightarrow L^2_0(\mu^{\otimes b}),
+ \qquad
+ \lVert\mathscr I_bh\rVert_{L^2(\mu^{\otimes b})}^2
+ =b\lVert h\rVert_{L^2(\mu)}^2,
+ \label{eq:rg-score-replication-norm}
+\end{equation}
+so \(\lVert\mathscr I_b\rVert=\sqrt b\) and \(b^{-1/2}\mathscr I_b\) is an
+isometry onto its range.  The symbol \(\mathscr I_b\) is the score replication
+lift; it is not the Hoeffding assembly \(E_\ell\) of
+\eqref{eq:rg-interaction-assembly-extraction}. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Write \(r_t=\sqrt{d\mu_t/d\mu}=1+\tfrac t2h+t\varepsilon_t\) with
+\(\lVert\varepsilon_t\rVert_{L^2(\mu)}\to0\), which is
+\eqref{eq:rg-dqm-definition}.  The product amplitude is
+\(\prod_{i=1}^br_t(x_i)=\prod_{i=1}^b(1+u_i)\) with
+\(u_i(x)=\tfrac t2h(x_i)+t\varepsilon_t(x_i)\).  Expanding the finite product,
+\begin{equation}
+ \prod_{i=1}^b(1+u_i)
+ =1+\sum_{i=1}^bu_i
+ +\sum_{\lvert S\rvert\geq2}\prod_{i\in S}u_i .
+ \label{eq:rg-product-amplitude-expansion}
+\end{equation}
+Because the coordinates are independent and each factor depends on one
+coordinate, \(L^2(\mu^{\otimes b})\) norms of products factor, so
+\(\lVert\prod_{i\in S}u_i\rVert_2=\prod_{i\in S}\lVert u_i\rVert_2
+=O(\lvert t\rvert^{\lvert S\rvert})\), and every term with
+\(\lvert S\rvert\geq2\) is \(O(t^2)\).  The linear part is
+\(\tfrac t2\mathscr I_bh+t\sum_i\varepsilon_t(x_i)\), whose remainder has norm at
+most \(b\lvert t\rvert\lVert\varepsilon_t\rVert_2=o(\lvert t\rvert)\) by the
+triangle inequality.  This proves quadratic-mean differentiability with score
+\(\mathscr I_bh\).  Independence and centering give
+\(\E(\mathscr I_bh)^2=\sum_i\E h(X_i)^2+\sum_{i\neq j}\E h(X_i)\E h(X_j)
+=b\lVert h\rVert_2^2\), which is
+\eqref{eq:rg-score-replication-norm}. \(\square\)
+
+The replication is extensive.  Replacing \eqref{eq:rg-score-replication} by the
+arithmetic mean without simultaneously rescaling the path parameter would change
+the Fisher information from \(b\lVert h\rVert_2^2\) to
+\(\lVert h\rVert_2^2/b\), which is a different theory.
+\status{ESTABLISHED}
+
+\theoremheading{Pushed score and the exact extensive Fisher defect}{thm:rg-score-pushforward-defect}
+Let \(C_b:\mathsf W^b\rightsquigarrow\mathsf Z\) be a normalized,
+parameter-independent Markov kernel between standard-Borel spaces, put
+\(\mu^{(b)}=\mu^{\otimes b}\),
+\(J_b(dx,dz)=\mu^{(b)}(dx)C_b(x,dz)\), and
+\(\mu^{(b),c}=\mu^{(b)}C_b\).  Let
+\(U_b:L^2(\mu^{(b)})\to L^2(\mu^{(b),c})\) be the reverse conditional
+expectation of \Cref{thm:rg-action-lp-contraction} for this arrow.  Then the
+pushed path \(\mu_t^{\otimes b}C_b\) is differentiable in quadratic mean at
+\(\mu^{(b),c}\) with score
+\begin{equation}
+ \mathscr L_bh:=U_b\mathscr I_bh
+ =\E_{J_b}\left[\sum_{i=1}^bh(X_i)\,\middle|\,Z\right],
+ \label{eq:rg-score-renormalization-operator}
+\end{equation}
+so that \(\mathscr L_b:L^2_0(\mu)\to L^2_0(\mu^{(b),c})\) is linear with
+\(\lVert\mathscr L_b\rVert\leq\sqrt b\).  Moreover the exact information budget
+is
+\begin{equation}
+ b\lVert h\rVert_{L^2(\mu)}^2
+ -\lVert\mathscr L_bh\rVert_{L^2(\mu^{(b),c})}^2
+ =\int\operatorname{Var}_{J_b}\left(\mathscr I_bh\,\middle|\,Z=z\right)
+ \mu^{(b),c}(dz)
+ \geq0,
+ \label{eq:rg-extensive-fisher-defect}
+\end{equation}
+with equality exactly when \(\mathscr I_bh\) agrees \(J_b\)-almost surely with a
+measurable function of \(Z\).  Equivalently
+\(b^{-1/2}\mathscr L_b\) is a contraction of \(L^2_0\) norms.
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+Suppose first that \(h\) is bounded and use the path
+\eqref{eq:rg-quadratic-score-path}.  For \(\lvert t\rvert\) small,
+\(s_t\geq1-\lvert t\rvert\lVert h\rVert_\infty/2>0\), so
+\(p_t=s_t^2/N_t=1+th+O(t^2)\) uniformly, and the product density is
+\(\prod_ip_t(x_i)=1+t\mathscr I_bh+O(t^2)\) uniformly.  Conditional expectation
+of a uniformly \(O(t^2)\) remainder is uniformly \(O(t^2)\), and
+\begin{equation}
+ \frac{d(\mu_t^{\otimes b}C_b)}{d\mu^{(b),c}}(z)
+ =\E_{J_b}\left[
+ \frac{d\mu_t^{\otimes b}}{d\mu^{(b)}}(X)\,\middle|\,Z=z\right]
+ =1+t\mathscr L_bh(z)+O(t^2)
+ \label{eq:rg-pushed-density-expansion}
+\end{equation}
+uniformly, exactly as in \eqref{eq:rg-conditional-partition}.  Since
+\(\sqrt{1+w}=1+w/2+O(w^2)\) uniformly for \(\lvert w\rvert\leq1/2\), the square
+root of \eqref{eq:rg-pushed-density-expansion} is
+\(1+\tfrac t2\mathscr L_bh+O(t^2)\) uniformly, hence in
+\(L^2(\mu^{(b),c})\).  This is \eqref{eq:rg-dqm-definition} for the pushed path.
+
+For general \(h\in L^2_0(\mu)\), choose bounded centered \(h_n\to h\) in
+\(L^2(\mu)\) and let \(\mu_t^{(n)}\) be their paths
+\eqref{eq:rg-quadratic-score-path}.  Squared Hellinger distance is an
+\(f\)-divergence with the convex \(f(u)=(\sqrt u-1)^2\), so conditional Jensen
+applied to the disintegration of the pushed joint law gives the data-processing
+bound
+\begin{equation}
+ \left\lVert
+ \sqrt{\frac{d(\mu_t^{\otimes b}C_b)}{d\mu^{(b),c}}}
+ -\sqrt{\frac{d((\mu_t^{(n)})^{\otimes b}C_b)}{d\mu^{(b),c}}}
+ \right\rVert_{2}
+ \leq
+ \left\lVert
+ \sqrt{\frac{d\mu_t^{\otimes b}}{d\mu^{(b)}}}
+ -\sqrt{\frac{d(\mu_t^{(n)})^{\otimes b}}{d\mu^{(b)}}}
+ \right\rVert_{2}.
+ \label{eq:rg-hellinger-contraction}
+\end{equation}
+Both input paths are differentiable in quadratic mean with scores
+\(\mathscr I_bh\) and \(\mathscr I_bh_n\), so the right side divided by
+\(\lvert t\rvert\) has limit superior \(\tfrac12\lVert\mathscr I_b(h-h_n)\rVert_2
+=\tfrac{\sqrt b}2\lVert h-h_n\rVert_2\).  Adding and subtracting the bounded-case
+expansion, and using
+\(\lVert\mathscr L_b(h-h_n)\rVert_2\leq\sqrt b\lVert h-h_n\rVert_2\),
+\begin{equation}
+ \limsup_{t\to0}\frac1{\lvert t\rvert}
+ \left\lVert
+ \sqrt{\frac{d(\mu_t^{\otimes b}C_b)}{d\mu^{(b),c}}}
+ -1-\frac t2\mathscr L_bh
+ \right\rVert_2
+ \leq\sqrt b\lVert h-h_n\rVert_2 .
+ \label{eq:rg-pushed-score-approximation}
+\end{equation}
+The left side does not depend on \(n\), so letting \(n\to\infty\) makes it zero,
+which is the general case.
+
+Conditional Jensen gives \(\lVert U_b\rVert\leq1\) and preservation of the mean,
+so \(\mathscr L_b\) has the stated type and
+\(\lVert\mathscr L_b\rVert\leq\lVert\mathscr I_b\rVert=\sqrt b\).  Finally
+\eqref{eq:rg-action-total-conditional-variance} applied to
+\(\mathscr I_bh\), together with
+\eqref{eq:rg-score-replication-norm}, is exactly
+\eqref{eq:rg-extensive-fisher-defect}, and a nonnegative conditional variance
+integrates to zero precisely when it vanishes almost everywhere.
+\(\square\)
+
+Two boundaries of \eqref{eq:rg-extensive-fisher-defect} deserve a sentence.  A
+channel that maps every block to one point sends every score to zero, so a fixed
+channel can annihilate the entire tangent.  In the opposite direction, Fisher
+equality at one parameter is not recovery of the experiment: let \(A\) and \(B\)
+be independent with \(\Pr_\theta(A=1)=\tfrac12+\tfrac\theta4\) and
+\(\Pr_\theta(B=1)=\tfrac12+\tfrac{\theta^2}4\), and let the channel retain only
+\(A\).  At \(\theta=0\) the \(B\)-score vanishes, so the full score is
+\(A\)-measurable and equality holds, yet the conditional law of \(B\) varies with
+\(\theta\) and no parameter-independent reverse kernel reconstructs the
+experiment. \status{ESTABLISHED}
+
+\propositionheading{Bounded action classes embed isometrically in the Fisher tangent}{prop:rg-action-score-isometry}
+For \(\varphi\in\mathfrak B=L^\infty(\pi;\R)\), the normalized exponential path
+\(\widehat\pi^{t\varphi}\) of
+\eqref{eq:rg-normalized-perturbation-action} is differentiable in quadratic mean
+with score
+\begin{equation}
+ \mathscr S_\pi[\varphi]=-\varphi+\pi(\varphi),
+ \label{eq:rg-action-score-map}
+\end{equation}
+which depends only on the class \([\varphi]\in\overline{\mathfrak B}\).  Equip
+the action quotient with the Fisher norm
+\begin{equation}
+ \lVert[\varphi]\rVert_F
+ =\inf_{c\in\R}\lVert\varphi-c\rVert_{L^2(\pi)}
+ =\lVert\varphi-\pi(\varphi)\rVert_{L^2(\pi)}.
+ \label{eq:rg-action-fisher-norm}
+\end{equation}
+Then \(\mathscr S_\pi:(\overline{\mathfrak B},\lVert\cdot\rVert_F)\to L^2_0(\pi)\)
+is a linear isometry whose range is the bounded centered subspace; that range is
+dense but generally proper, so the Fisher-norm completion of the bounded action
+quotient is canonically \(L^2_0(\pi)\).  The two quotient norms are ordered by
+\(\lVert[\varphi]\rVert_F\leq\lVert[\varphi]\rVert_{\mathrm{osc}}\).  Moreover
+the centering square commutes,
+\begin{equation}
+ \mathscr S_{\pi^c}\bigl(\overline U[\varphi]\bigr)
+ =U\mathscr S_\pi[\varphi],
+ \label{eq:rg-score-action-square}
+\end{equation}
+and for the replicated block action
+\(\Phi_\varphi(x_1,\dots,x_b)=\sum_i\varphi(x_i)\) one has
+\(\mathscr S_{\mu^{(b)}}[\Phi_\varphi]=\mathscr I_b\mathscr S_\mu[\varphi]\) and,
+after the block arrow, \(\mathscr L_b\mathscr S_\mu[\varphi]\).
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+Boundedness gives the uniform expansions \(e^{-t\varphi}=1-t\varphi+O(t^2)\) and
+\(\pi(e^{-t\varphi})=1-t\pi(\varphi)+O(t^2)\), so the density ratio of
+\(\widehat\pi^{t\varphi}\) is \(1-t[\varphi-\pi(\varphi)]+O(t^2)\) uniformly and
+its square root is \(1+\tfrac t2\mathscr S_\pi[\varphi]+O(t^2)\), which is
+\eqref{eq:rg-dqm-definition}.  Adding a constant to \(\varphi\) leaves
+\eqref{eq:rg-action-score-map} unchanged.  The \(L^2\) minimizer over constants
+is the mean, giving \eqref{eq:rg-action-fisher-norm} and hence the isometry;
+\(\inf_c\lVert\varphi-c\rVert_2\leq\inf_c\lVert\varphi-c\rVert_\infty\) gives the
+norm ordering.  Bounded functions are dense in \(L^2(\pi)\) and centering is
+continuous, so the range is dense; it is proper whenever \(L^2_0(\pi)\) contains
+an unbounded element, as for \(\pi=N(0,1)\) and \(h(x)=x\).  Identity
+\eqref{eq:rg-score-action-square} is mean preservation of \(U\) together with
+linearity, and the replication statement is
+\eqref{eq:rg-score-replication}. \(\square\)
+
+The two norms on \(\overline{\mathfrak B}\) do different work and must not be
+exchanged.  The oscillation norm of
+\eqref{eq:rg-action-oscillation-norm} controls the nonlinear map \(Q\); the
+Fisher norm controls the quadratic-mean tangent.  Completing in the Fisher norm
+introduces unbounded scores on which the nonlinear bounded action map of
+\Cref{thm:rg-bounded-action-calculus} is not defined.  A spectral statement
+proved on \(L^2_0\) is therefore not a statement about the nonlinear bounded
+action chart, and conversely. \status{ESTABLISHED}
+
+\theoremheading{Gaussian block spectrum in the normalized Hermite basis}{thm:rg-gaussian-hermite-spectrum}
+Let \(\gamma=N(0,1)\), let \(b\geq2\) be an integer, let \(X_1,\dots,X_b\) be
+independent with law \(\gamma\), and let the block channel be the deterministic
+normalized sum
+\begin{equation}
+ Z=b^{-1/2}\sum_{i=1}^bX_i,
+ \label{eq:rg-gaussian-block-statistic}
+\end{equation}
+whose law is again \(\gamma\).  It is that normalization, and not a general
+theorem, that makes source and target the same space and hence makes
+\begin{equation}
+ \mathscr L_b=U_b\mathscr I_b:L^2_0(\gamma)\longrightarrow L^2_0(\gamma)
+ \label{eq:rg-gaussian-score-operator}
+\end{equation}
+an endomorphism.  Let \(\mathrm{He}_k\) be the probabilists' Hermite
+polynomials and \(e_k=\mathrm{He}_k/\sqrt{k!}\).  Then \(\{e_k\}_{k\geq1}\) is a
+complete orthonormal basis of \(L^2_0(\gamma)\) and
+\begin{equation}
+ \mathscr L_be_k=b^{1-k/2}e_k,
+ \qquad k\geq1.
+ \label{eq:rg-hermite-eigenvalues}
+\end{equation}
+Consequently \(\mathscr L_b\) is self-adjoint, positive, and diagonal in that
+basis; it is Hilbert--Schmidt with
+\(\sum_{k\geq1}b^{2-k}=b^2/(b-1)\), hence compact; its norm and spectral radius
+are \(\sqrt b\); and
+\begin{equation}
+ \sigma(\mathscr L_b)
+ =\left\{b^{1-k/2}:k\geq1\right\}\cup\{0\}.
+ \label{eq:rg-hermite-spectrum}
+\end{equation}
+Every displayed nonzero value is a simple eigenvalue.  The value \(0\) is
+\emph{not} an eigenvalue: it is the unique accumulation point of the spectrum
+and belongs to the continuous spectrum.  This is a linear tangent-space
+statement about the derivative at the Gaussian law; it is not a nonlinear
+convergence theorem. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Completeness of the normalized Hermite system in \(L^2(\gamma)\) is standard,
+and deleting \(e_0=1\) gives a complete orthonormal basis of the centered
+subspace.  For each \(i\), the pair \((X_i,Z)\) is jointly centered Gaussian
+with unit variances and \(\operatorname{Cov}(X_i,Z)=b^{-1/2}\), so
+\(X_i\mid Z=z\sim N(z/\sqrt b,1-1/b)\).  Taking the conditional expectation of
+the generating function \(\exp(tx-t^2/2)\) and completing the square,
+\begin{equation}
+ \E\left[e^{tX_i-t^2/2}\,\middle|\,Z=z\right]
+ =\exp\left(\frac{tz}{\sqrt b}+\frac{t^2}2\left(1-\frac1b\right)
+ -\frac{t^2}2\right)
+ =\exp\left(sz-\frac{s^2}2\right),
+ \quad s=\frac t{\sqrt b}.
+ \label{eq:rg-mehler-generating}
+\end{equation}
+The generating identity
+\(\exp(sz-s^2/2)=\sum_{k\geq0}\mathrm{He}_k(z)s^k/k!\) converges in
+\(L^2(\gamma)\) locally uniformly in \(s\), and conditional expectation is
+\(L^2\) continuous, so the two power series in \(t\) may be compared coefficient
+by coefficient.  This gives the Mehler regression identity
+\(\E[\mathrm{He}_k(X_i)\mid Z]=b^{-k/2}\mathrm{He}_k(Z)\).  Summing over the
+\(b\) replicated coordinates and dividing by \(\sqrt{k!}\) proves
+\eqref{eq:rg-hermite-eigenvalues}; the argument is uniform in \(b\) and is not an
+induction from the binary case.
+
+Since \(\mathscr L_b\) is bounded and agrees with the displayed diagonal action
+on a complete orthonormal basis, it is that diagonal operator, hence
+self-adjoint and positive with eigenvalues \(b^{1-k/2}\downarrow0\).  Square
+summability of the eigenvalues is the stated geometric series, so
+\(\mathscr L_b\) is Hilbert--Schmidt and compact, and its norm is the largest
+eigenvalue \(b^{1/2}\).  The spectrum of a diagonal operator is the closure of
+its eigenvalue set, which is \eqref{eq:rg-hermite-spectrum}, and the eigenvalues
+are pairwise distinct so each is simple.  Every eigenvalue is strictly positive,
+so \(\ker\mathscr L_b=\{0\}\) and \(0\) is not an eigenvalue.  The range contains
+every finite Hermite expansion and is therefore dense, but it is proper: the
+vector \(y=\sum_{k\geq1}b^{1-k/2}e_k\) lies in \(L^2_0(\gamma)\) because the
+coefficients are square summable, while any preimage would have every Hermite
+coefficient equal to one, which is not square summable.  An injective operator
+with dense, nonclosed range has \(0\) in its continuous spectrum. \(\square\)
+
+\definitionheading{Relevance conventions for the Gaussian block spectrum}{def:rg-hermite-relevance}
+Fix the replication sum \eqref{eq:rg-score-replication}, the block statistic
+\eqref{eq:rg-gaussian-block-statistic}, the same Fisher norm
+\(\lVert\cdot\rVert_{L^2(\gamma)}\) at every scale, and the cumulative log block
+scale \(\Delta s=\log b\) of \eqref{eq:rg-cumulative-log-scale}.  Then the
+exponent of the degree-\(k\) mode is
+\(y_k=\log_b b^{1-k/2}=1-k/2\).  Degree one is relevant with
+\(y_1=\tfrac12\), degree two is marginal with \(y_2=0\), and every degree
+\(k\geq3\) is irrelevant with \(y_k=1-k/2<0\).  The constant mode
+\(k=0\) would have eigenvalue \(b\) on the full space \(L^2(\gamma)\) but is
+absent from the normalized probability tangent, where scores are centered.
+\status{DEFINITION}
+
+This is the promised inhabited relevance spectrum, and it locates precisely
+where the growth comes from.  The one-arrow operator \(U_b\) is a contraction by
+\Cref{thm:rg-action-lp-contraction}, and the bounded action sector is
+nonexpansive by \eqref{eq:rg-nonlinear-action-sup-contraction}.  The eigenvalue
+\(b^{1-k/2}\) exceeds one for \(k=1\) only because the replication factor
+\(\lVert\mathscr I_b\rVert=\sqrt b\) of
+\eqref{eq:rg-score-replication-norm} is extensive while the norm is held fixed
+across scales.  Relevance in this theory is therefore a joint property of the
+operator, the extensive normalization, the declared norms, and the block scale,
+in exactly the sense of \Cref{def:rg-mode-exponents}.  Removing any one of the
+four removes the conclusion. \status{ESTABLISHED}
+
+\propositionheading{Convention dependence and forbidden extensions}{prop:rg-hermite-scope}
+The spectrum \eqref{eq:rg-hermite-spectrum} is specific to the scalar
+independent Gaussian realization and its declared normalization.  Four exact
+boundaries hold.  First, if the coordinates are jointly centered Gaussian with
+unit variances and common pairwise correlation \(\rho>-1/(b-1)\), and the
+statistic is normalized to unit variance as
+\(Z=(\sum_iX_i)/\sqrt{b[1+(b-1)\rho]}\), then
+\(\operatorname{Corr}(X_i,Z)=\alpha=\sqrt{[1+(b-1)\rho]/b}\) and
+\begin{equation}
+ \mathscr L_{b,\rho}e_k=b\alpha^ke_k
+ =b^{1-k/2}\left[1+(b-1)\rho\right]^{k/2}e_k,
+ \label{eq:rg-hermite-correlated}
+\end{equation}
+which differs from \eqref{eq:rg-hermite-eigenvalues} for every \(\rho\neq0\);
+keeping the uncorrelated normalization instead destroys the property that the
+output law is \(\gamma\), so the operator is then not an endomorphism at all.
+Second, for independent \(N(0,I_d)\) coordinates and componentwise normalized
+sums the tensor Hermite functions satisfy
+\(\mathscr L_be_\alpha=b^{1-\lvert\alpha\rvert/2}e_\alpha\), so degree \(k\) has
+multiplicity \(\binom{d+k-1}{k}\) rather than one.  Third, a common orthogonal
+action commutes with the componentwise normalized sum and preserves each degree
+space, whereas a general \(\GL(d)\) transformation changes the reference
+covariance and therefore requires an explicitly transported family of laws and
+tangent norms; no gauge link, holonomy, or curvature datum enters the scalar
+theorem.  Fourth, \eqref{eq:rg-score-replication} is the score of an independent
+product perturbation and is a restricted direction inside
+\(L^2_0(\gamma^{\otimes b})\); the theorem says nothing about interaction scores
+or higher Hoeffding sectors, which are the subject of
+\Cref{sec:rg-finite-network-interactions}. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+For the first statement, \((X_i,Z)\) is again jointly centered Gaussian with
+unit variances and correlation \(\alpha\), so
+\(X_i\mid Z=z\sim N(\alpha z,1-\alpha^2)\); the computation
+\eqref{eq:rg-mehler-generating} with \(b^{-1/2}\) replaced by \(\alpha\) gives
+\(\E[\mathrm{He}_k(X_i)\mid Z]=\alpha^k\mathrm{He}_k(Z)\), and summing over
+\(i\) gives \eqref{eq:rg-hermite-correlated}.  Substituting
+\(\alpha^2=[1+(b-1)\rho]/b\) gives the second form.  For the second statement,
+tensor Hermite functions factor over coordinates and each factor obeys the
+scalar identity with the same \(b^{-1/2}\), so the eigenvalue depends only on
+the total degree \(\lvert\alpha\rvert\), and the number of multi-indices of
+total degree \(k\) in \(d\) variables is \(\binom{d+k-1}{k}\).  For the third,
+an orthogonal map preserves \(N(0,I_d)\) and commutes with the componentwise
+sum, hence preserves each finite-dimensional degree space, while a general
+invertible linear map sends \(N(0,I_d)\) to \(N(0,QQ^\top)\), which is a
+different reference law.  The fourth statement is the definition of
+\(\mathscr I_b\). \(\square\)
+
+The linearization also does not by itself establish nonlinear convergence.  The
+spectrum controls the derivative at the Gaussian law, while a basin of
+attraction, a remainder estimate, and the behavior of the marginal direction are
+separate obligations recorded in \Cref{app:claim-ledger}. \status{OPEN} The same
+qualification is made in the primary source: \citet{JonaLasinio2001} obtains the
+binary case of \eqref{eq:rg-hermite-eigenvalues} and states that the nonlinear
+terms required to complete a limit theorem are not pursued there.
+\status{ESTABLISHED}
+
+\paragraph{Source scope.}
+Section 2 of \citet{JonaLasinio2001} treats the binary normalized sum, linearizes
+the induced map on laws around a centered unit-variance Gaussian under
+normalization, centering, and variance constraints, and states the Hermite
+eigenvalues \(2^{1-k/2}\); Section 5 identifies the linearized renormalization
+at a self-similar Gaussian fixed point with a conditional expectation and states
+the corresponding generalized Hermite eigenvalue equation; and Section 7 gives
+the two-tangent-space form of that eigenvalue equation together with its
+multiplicative composition law across scales.  Those four items are what the
+citation supports.  The arbitrary-integer statement
+\eqref{eq:rg-hermite-eigenvalues}, the quadratic-mean realization of
+\Cref{lem:rg-dqm-realization}, the extensive Fisher budget
+\eqref{eq:rg-extensive-fisher-defect}, the exact spectrum
+\eqref{eq:rg-hermite-spectrum} including the status of \(0\), the correlated
+boundary \eqref{eq:rg-hermite-correlated}, and the typed cocycle of
+\Cref{sec:rg-generalized-modes} are proved here and are not attributed to that
+source. \status{ESTABLISHED}
+
 \subsection{Essential spectrum and topology dependence}
 \label{sec:rg-action-spectrum-topology}
 
@@ -624,8 +1105,7 @@ interaction maps below are the unique zero maps.  The nontrivial estimates
 that divide by \(3^{|V_\ell|}-1\) are stated only when
 \(V_\ell\ne\varnothing\).
 
-\propositionheading{Product equivalence is an admitted, not an automatic, scale premise}
-\label{prop:rg-product-equivalence-not-preserved}
+\propositionheading{Product equivalence is an admitted, not an automatic, scale premise}{prop:rg-product-equivalence-not-preserved}
 Let \(\mathsf X_0=\{0,1\}\) with its uniform law \(\pi_0=\nu_0\), and
 let \(K\) be the deterministic diagonal-cloning channel
 \begin{equation}
@@ -689,8 +1169,7 @@ Define the action quotient and its assembly/extraction maps by
  \label{eq:rg-interaction-assembly-extraction}
 \end{equation}
 
-\theoremheading{Hoeffding assembly is an exact finite-network action isomorphism}
-\label{thm:rg-hoeffding-action-isomorphism}
+\theoremheading{Hoeffding assembly is an exact finite-network action isomorphism}{thm:rg-hoeffding-action-isomorphism}
 For every finite \(V_\ell\), \(E_\ell\) and \(P_\ell\) in
 \eqref{eq:rg-interaction-assembly-extraction} are bounded inverse linear
 isomorphisms,
@@ -758,8 +1237,7 @@ statement is instead covariance of the \(L^\infty\) equivalence classes;
 it must not be promoted to pointwise covariance of a selected reverse-kernel
 version. \status{ESTABLISHED}
 
-\propositionheading{Radon--Nikodym covariance of the nonlinear interaction step}
-\label{prop:rg-interaction-rn-gauge-covariance}
+\propositionheading{Radon--Nikodym covariance of the nonlinear interaction step}{prop:rg-interaction-rn-gauge-covariance}
 At adjacent scales, suppose
 \(\vartheta_\ell:\mathsf X_\ell\to\widehat{\mathsf X}_\ell\) and
 \(\vartheta_{\ell+1}:\mathsf X_{\ell+1}\to
@@ -880,6 +1358,59 @@ Only at \(g=0\) may \(U_\ell^{\phi_g}\) be replaced by the fixed reverse
 conditional expectation \(U_\ell\).  Along an exact orbit these derivatives
 form a typed cocycle, rather than an ordinary eigenvalue equation across
 unequal network spaces. \status{ESTABLISHED}
+
+\definitionheading{Interaction modes along an exact orbit}{def:rg-interaction-modes}
+Instantiate \Cref{def:rg-derivative-cocycle} with \(X_\ell=\mathcal G_\ell\),
+\(T_\ell=T_\ell^{\mathcal G}\), and an exact interaction orbit
+\(g_{\ell+1}=T_\ell^{\mathcal G}(g_\ell)\), so that
+\begin{equation}
+ M_\ell=DT_\ell^{\mathcal G}(g_\ell)
+ =P_{\ell+1}\overline{U_\ell^{\phi_{g_\ell}}}E_\ell:
+ \mathcal G_\ell\longrightarrow\mathcal G_{\ell+1}.
+ \label{eq:rg-interaction-mode-generator}
+\end{equation}
+A generalized interaction mode of index \(a\) is a compatible line
+\(M_\ell v_{\ell,a}=\lambda_{\ell,a}v_{\ell+1,a}\) in the sense of
+\Cref{def:rg-mode-line}, and its finite-step coefficient is the ordered product
+\eqref{eq:rg-mode-product} taken with respect to the cumulative log block scale
+\eqref{eq:rg-cumulative-log-scale} of the same blocking sequence.  No eigenvalue
+equation is written inside one unnamed interaction space.
+\status{DEFINITION}
+
+\corollaryheading{Temperedness of interaction comparison trivializations}{cor:rg-interaction-tempered}
+Suppose the declared comparison isomorphisms
+\(J_\ell:\mathcal G_\star\to\mathcal G_\ell\) obey the growth bound
+\begin{equation}
+ \log^+\lVert J_n\rVert+\log^+\lVert J_n^{-1}\rVert
+ \leq c\left(1+\lvert V_n\rvert\right)
+ \label{eq:rg-interaction-trivialization-growth}
+\end{equation}
+for a constant \(c\) independent of \(n\).  This bound holds for every
+trivialization assembled from the maps of
+\eqref{eq:rg-hoeffding-inverse-and-bounds} together with a bounded gauge
+realization, because \(\lVert E_\ell\rVert\leq1\) and
+\(\lVert P_\ell\rVert\leq3^{\lvert V_\ell\rvert}-1\).  Then the tempering
+hypothesis \eqref{eq:rg-tempered-trivialization} of
+\Cref{thm:rg-tempered-comparison} holds whenever
+\(\lvert V_n\rvert/s_{n\leftarrow\ell}\to0\).  In particular it holds for every
+blocking sequence whose vertex counts do not increase and whose block ratios
+satisfy \(b_k\geq b>1\). \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Insert \eqref{eq:rg-interaction-trivialization-growth} into the left side of
+\eqref{eq:rg-tempered-trivialization} and divide by \(s_{n\leftarrow\ell}\); the
+constant term vanishes because \(s_{n\leftarrow\ell}\to\infty\).  If the vertex
+counts do not increase then \(\lvert V_n\rvert\leq\lvert V_\ell\rvert\) while
+\(s_{n\leftarrow\ell}\geq(n-\ell)\log b\to\infty\).  The stated operator bounds
+are \eqref{eq:rg-hoeffding-inverse-and-bounds}. \(\square\)
+
+This corollary is the point at which the sharp finite-size extraction bound of
+\Cref{thm:rg-hoeffding-action-isomorphism} becomes a hypothesis of the mode
+theory rather than a curiosity: the bound is exponential in
+\(\lvert V_\ell\rvert\), so a scheme in which the network grows fast enough with
+depth can violate \eqref{eq:rg-tempered-trivialization} and change the reported
+exponents, exactly as in
+\Cref{prop:rg-superexponential-distortion}. \status{ESTABLISHED}
 
 Let \(R_\ell:\mathcal G_\ell\to\mathcal G_\ell\) be a declared bounded
 idempotent retained projection which intertwines the componentwise/permutation
@@ -1352,40 +1883,178 @@ and gauge covariant when the required spatial transports and, for a separately
 declared dynamical model, parameter-direction transports are included.  It
 need not be first-order Markov.  \status{ESTABLISHED}
 
-For a deterministic state partition $c$ and a fine transition kernel $T$, a
-coarse first-order kernel $T^c$ exists for every initial law exactly under
-strong lumpability:
+\theoremheading{Standard-Borel strong lumpability}{thm:rg-strong-lumpability}
+Let $(\mathsf Y,\mathscr Y)$ and $(\mathsf Z,\mathscr Z)$ be standard Borel, let
+$c:\mathsf Y\to\mathsf Z$ be Borel and surjective, and let $T$ be a Markov
+kernel on $\mathsf Y$.  Consider
 \begin{equation}
 T(y,c^{-1}B)=T(y',c^{-1}B)
-\quad\text{whenever }c(y)=c(y')
+\quad\text{whenever }c(y)=c(y'),
+\qquad\text{for every }B\in\mathscr Z.
 \label{eq:rg-strong-lumpability}
 \end{equation}
-for every coarse measurable set $B$.  Otherwise the exact effective action is
-not first-order Markov for at least one initial law.  Particular weakly
-lumpable initial laws can still yield a first-order coarse kernel even when
-strong lumpability fails.  \status{ESTABLISHED}
-
-On a linear observable tier with resolved projection $\Pi=\mathsf P\mathsf C$
-and $\mathsf Q=I-\Pi$, elimination of the unresolved recurrence produces the
-memory operators
+If a Markov kernel $T^c$ on $\mathsf Z$ satisfies
 \begin{equation}
-\mathsf CT\mathsf Q(\mathsf QT\mathsf Q)^n
-\mathsf QT\mathsf P,
-\qquad n\geq0,
+c_\#(\mu T)=(c_\#\mu)T^c
+\qquad\text{for every probability }\mu\text{ on }\mathsf Y,
+\label{eq:rg-lumped-kernel}
+\end{equation}
+then \eqref{eq:rg-strong-lumpability} holds and $T^c$ is unique.  Conversely, if
+\eqref{eq:rg-strong-lumpability} holds and $c$ admits a Borel right inverse
+$\varsigma:\mathsf Z\to\mathsf Y$ with $c\circ\varsigma=\operatorname{id}$, then
+\begin{equation}
+T^c(z,B)=T\bigl(\varsigma(z),c^{-1}B\bigr)
+\label{eq:rg-lumped-kernel-formula}
+\end{equation}
+is a Markov kernel satisfying \eqref{eq:rg-lumped-kernel}.  A Borel right
+inverse exists in the two cases used in this chapter: a countable coarse space,
+and a product projection $\mathsf Y=\mathsf Z\times\mathsf Y'$ with $\mathsf Y'$
+nonempty, for which one fixes any point of $\mathsf Y'$.  Without a measurable
+selection, \eqref{eq:rg-lumped-kernel-formula} still defines the coarse
+transition on the range of $c$ and the selection must be declared separately.
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+Assume \eqref{eq:rg-lumped-kernel} and take $\mu=\delta_y$.  Then
+$c_\#(\delta_yT)(B)=T(y,c^{-1}B)$ while
+$((c_\#\delta_y)T^c)(B)=T^c(c(y),B)$, so
+\begin{equation}
+T(y,c^{-1}B)=T^c(c(y),B)
+\qquad\text{for every }y\in\mathsf Y,\ B\in\mathscr Z,
+\label{eq:rg-lumpability-pointwise}
+\end{equation}
+whose right side depends on $y$ only through $c(y)$; this is
+\eqref{eq:rg-strong-lumpability}.  Surjectivity of $c$ and
+\eqref{eq:rg-lumpability-pointwise} determine $T^c$ at every $z$, so it is
+unique.
+
+Conversely assume \eqref{eq:rg-strong-lumpability} and a Borel $\varsigma$.  For
+fixed $z$, the set map $B\mapsto T(\varsigma(z),c^{-1}B)$ is a probability
+measure, because $c^{-1}$ commutes with countable disjoint unions and
+$c^{-1}\mathsf Z=\mathsf Y$.  For fixed $B$, the map
+$z\mapsto T(\varsigma(z),c^{-1}B)$ is the composition of the Borel map
+$\varsigma$ with the measurable map $y\mapsto T(y,c^{-1}B)$, hence measurable.
+So \eqref{eq:rg-lumped-kernel-formula} is a Markov kernel.  Since
+$c(\varsigma(c(y)))=c(y)$, hypothesis \eqref{eq:rg-strong-lumpability} gives
+$T^c(c(y),B)=T(y,c^{-1}B)$ for every $y$.  Therefore, for any probability
+$\mu$,
+\[
+c_\#(\mu T)(B)
+=\int T(y,c^{-1}B)\mu(dy)
+=\int T^c(c(y),B)\mu(dy)
+=\int T^c(z,B)(c_\#\mu)(dz),
+\]
+which is \eqref{eq:rg-lumped-kernel}.  $\square$
+
+Strong lumpability is exactly the every-initial-law condition, and it is not
+necessary for a single initial law.  Take $\mathsf Y=\{1,2,3\}$ with
+$c(1)=c(2)=a$ and $c(3)=\beta$, and let $T$ send $1$ to $3$, send $2$ to $1$ or
+$2$ with equal probability, and send $3$ to $1$ or $3$ with equal probability.
+Then $T(1,\{1,2\})=0$ while $T(2,\{1,2\})=1$, so
+\eqref{eq:rg-strong-lumpability} fails.  Started at $\delta_3$, however, the
+chain never leaves $\{1,3\}$, on which $c$ is injective, so the coarse process is
+a Markov chain with transitions $a\mapsto\beta$ surely and
+$\beta\mapsto a$ or $\beta$ with equal probability.  Weak lumpability at a
+selected initial law is therefore a strictly weaker statement, and it is the
+only one available when \eqref{eq:rg-strong-lumpability} fails.
+\status{ESTABLISHED} The finite-state form of the biconditional is classical and
+is the lumpability criterion of \citet[Ch.~6]{KemenySnell1976}; that source is
+cited only at its finite-state scope, and the standard-Borel statement above is
+proved here. \status{ESTABLISHED}
+
+\theoremheading{Exact discrete projection-memory recurrence}{thm:rg-projection-memory}
+Let $\mathsf X$ and $\mathsf W$ be vector spaces, let $T:\mathsf X\to\mathsf X$,
+$\mathsf C:\mathsf X\to\mathsf W$, and $\mathsf P:\mathsf W\to\mathsf X$ be
+linear with $\mathsf C\mathsf P=I_{\mathsf W}$, and set
+\begin{equation}
+\Pi^{\mathrm{res}}=\mathsf P\mathsf C,
+\qquad
+\mathsf Q=I-\Pi^{\mathrm{res}},
+\label{eq:rg-resolved-projection}
+\end{equation}
+so that $\Pi^{\mathrm{res}}$ is idempotent.  For the fine recursion
+$x_{n+1}=Tx_n$ write $w_n=\mathsf Cx_n$, so that
+$\Pi^{\mathrm{res}}x_n=\mathsf Pw_n$.  Then for every $n\geq0$
+\begin{equation}
+\mathsf Qx_n
+=(\mathsf QT\mathsf Q)^n\mathsf Qx_0
++\sum_{k=0}^{n-1}
+(\mathsf QT\mathsf Q)^{n-1-k}\mathsf QT\mathsf Pw_k,
+\label{eq:rg-unresolved-solution}
+\end{equation}
+and the resolved coordinate obeys the exact closed recurrence
+\begin{equation}
+w_{n+1}
+=\mathsf CT\mathsf Pw_n
++\sum_{k=0}^{n-1}
+\mathsf CT\mathsf Q(\mathsf QT\mathsf Q)^{n-1-k}\mathsf QT\mathsf Pw_k
++\mathsf CT\mathsf Q(\mathsf QT\mathsf Q)^{n}\mathsf Qx_0 .
+\label{eq:rg-memory-recurrence}
+\end{equation}
+The operators
+\begin{equation}
+\mathsf CT\mathsf Q(\mathsf QT\mathsf Q)^{m}\mathsf QT\mathsf P,
+\qquad m\geq0,
 \label{eq:rg-memory-operators}
 \end{equation}
-together with terms depending on the unresolved initial state.  Autonomous
-resolved dynamics on an admitted initial class holds exactly when all the
-relevant memory and noise operators vanish there.  On the resolved initial
-class $\mathsf Qx_0=0$, the stronger condition
-$\mathsf QT\mathsf P=0$ is sufficient but not necessary.  For a general admitted
-initial class one must additionally require
+are the memory kernels and the last term of
+\eqref{eq:rg-memory-recurrence} is the unresolved initial-state term.  Equation
+\eqref{eq:rg-memory-recurrence} is exact; no closure or Markov assumption is
+used. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Apply $\Pi^{\mathrm{res}}$ and $\mathsf Q$ to $x_{n+1}=Tx_n$ and use
+$x_n=\Pi^{\mathrm{res}}x_n+\mathsf Qx_n=\mathsf Pw_n+\mathsf Qx_n$ together with
+$\mathsf Q\mathsf Qx_n=\mathsf Qx_n$.  This gives the coupled system
+\[
+w_{n+1}=\mathsf CT\mathsf Pw_n+\mathsf CT\mathsf Q\,\mathsf Qx_n,
+\qquad
+\mathsf Qx_{n+1}=\mathsf QT\mathsf Q\,\mathsf Qx_n+\mathsf QT\mathsf Pw_n,
+\]
+where both lines used idempotence of $\mathsf Q$ to write
+$\mathsf Q x_n=\mathsf Q(\mathsf Qx_n)$.  Solving the
+second line by induction on $n$ gives
+\eqref{eq:rg-unresolved-solution}: it is an identity at $n=0$, and applying
+$\mathsf QT\mathsf Q$ to the case $n$ and adding
+$\mathsf QT\mathsf Pw_n$ reproduces the case $n+1$ with the index shifted.
+Substituting \eqref{eq:rg-unresolved-solution} into the first line gives
+\eqref{eq:rg-memory-recurrence}. $\square$
+
+\corollaryheading{Autonomy of the resolved recursion}{cor:rg-resolved-autonomy}
+Let $\mathcal X_0$ be an admitted initial class.  The resolved recursion is
+autonomous on $\mathcal X_0$, meaning $w_{n+1}=\mathsf CT\mathsf Pw_n$ for every
+$n\geq0$ and every $x_0\in\mathcal X_0$, if and only if the total correction in
+\eqref{eq:rg-memory-recurrence} vanishes for every such $n$ and $x_0$.  Two
+sufficient conditions are that all memory kernels
+\eqref{eq:rg-memory-operators} vanish and that
 \begin{equation}
-\mathsf CT\mathsf Q(\mathsf QT\mathsf Q)^n\mathsf Qx_0=0,
+\mathsf CT\mathsf Q(\mathsf QT\mathsf Q)^{n}\mathsf Qx_0=0,
 \qquad n\geq0,
 \label{eq:rg-initial-noise-vanishing}
 \end{equation}
-throughout that class.  \status{ESTABLISHED}
+throughout $\mathcal X_0$.  On the resolved class $\mathsf Qx_0=0$ the family
+\eqref{eq:rg-initial-noise-vanishing} is vacuous, and there
+$\mathsf QT\mathsf P=0$ is sufficient but not necessary: on
+$\mathsf X=\R^2$ with $\mathsf W=\R$, $\mathsf C(x,y)=x$,
+$\mathsf P(w)=(w,0)$, and $T(x,y)=(x,x)$, one has
+$\mathsf QT\mathsf Pw=(0,w)\neq0$ for $w\neq0$ while
+$\mathsf CT\mathsf Q=0$, so every memory kernel vanishes and the resolved
+recursion $w_{n+1}=w_n$ is exactly autonomous. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+The biconditional is \eqref{eq:rg-memory-recurrence} read as an identity.  The
+two displayed families are exactly the two correction sums, so their vanishing
+is sufficient.  For the witness, $\mathsf Q(x,y)=(0,y)$ and
+$T(0,y)=(0,0)$ give $\mathsf CT\mathsf Q=0$, while
+$T(w,0)=(w,w)$ gives $\mathsf QT\mathsf Pw=(0,w)$. $\square$
+
+Recurrence \eqref{eq:rg-memory-recurrence} is proved here for the discrete
+linear observable tier.  The projection-operator method of eliminating
+unresolved coordinates in favor of a memory kernel and an initial-state term
+originates with \citet{Nakajima1958} and \citet{Zwanzig1960}, who work in
+continuous time on ensemble densities; those sources are cited as the historical
+antecedent of the method and not as proofs of
+\eqref{eq:rg-memory-recurrence}. \status{ESTABLISHED}
 
 \section{The RG transformation and beta functions}
 \label{sec:rg-beta-function}
@@ -1437,7 +2106,218 @@ function on a truncated coupling vector exists only after invariance of that
 finite family is proved; otherwise omitted hyperedges contribute an explicit
 residual.  \status{ESTABLISHED}
 
-Suppose instead that scale is a genuine continuous semigroup and that, relative
+\propositionheading{Change of reference is an inhomogeneous law for the action beta}{prop:rg-action-beta-reference-change}
+Fix one arrow with rescaled kernel $K_b$ and reverse conditional
+$R_\rho(z,dy)$ as in \Cref{thm:rg-effective-action}.  Let $H$ be an action with
+$m=e^{-H}\rho$ finite and positive, let $\Delta$ be bounded and measurable with
+$\rho(e^{-\Delta})=1$, and set
+\begin{equation}
+\rho'=e^{-\Delta}\rho,
+\qquad
+H'=H-\Delta,
+\qquad\text{so that}\qquad
+e^{-H'}\rho'=e^{-H}\rho=m.
+\label{eq:rg-reference-change-pair}
+\end{equation}
+Then $\rho'$ is again a probability reference for the same measure pair, and
+$(\rho'K_b)$-almost everywhere
+\begin{equation}
+\mathcal R_b^H[H';\rho']
+=\mathcal R_b^H[H;\rho]-\mathcal R_b^H[\Delta;\rho].
+\label{eq:rg-action-reference-change}
+\end{equation}
+On a declared finite-valued action vector space containing $H$, $\Delta$, and
+their images, the discrete beta functional of
+\eqref{eq:rg-discrete-beta-functional} therefore obeys the inhomogeneous law
+\begin{equation}
+\mathfrak B_b^H[H';\rho']
+=\mathfrak B_b^H[H;\rho]-\mathfrak B_b^H[\Delta;\rho].
+\label{eq:rg-beta-reference-change}
+\end{equation}
+The added term is not a linear reparameterization of the beta functional, and it
+vanishes exactly when the reference-change increment is itself a fixed action,
+$\mathcal R_b^H[\Delta;\rho]=\Delta$.  A beta functional is therefore a joint
+statement about the action and the declared reference trajectory.
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+Since $\rho(e^{-\Delta})=1$ and $\Delta$ is bounded, $\rho'$ is a probability
+measure equivalent to $\rho$, and \eqref{eq:rg-reference-change-pair} holds by
+construction.  Both $\rho K_b$ and $\rho'K_b$ dominate $mK_b$, and the chain
+rule for Radon--Nikodym derivatives gives
+\[
+\frac{d(mK_b)}{d(\rho'K_b)}
+=\frac{d(mK_b)}{d(\rho K_b)}
+\cdot\left[\frac{d(\rho'K_b)}{d(\rho K_b)}\right]^{-1}
+\]
+almost everywhere.  By \Cref{thm:rg-effective-action} applied to the pair
+$(\rho,e^{-\Delta}\rho)$, the bracketed factor equals
+$\int e^{-\Delta(y)}R_\rho(z,dy)=\exp(-\mathcal R_b^H[\Delta;\rho])$, which is
+strictly positive and finite because $\Delta$ is bounded.  Taking $-\log$ of the
+display and using \eqref{eq:rg-reference-dependent-action-map} twice gives
+\eqref{eq:rg-action-reference-change}.  Subtracting
+$H'=H-\Delta$, dividing by $\log b$, and regrouping gives
+\eqref{eq:rg-beta-reference-change}.  The vanishing criterion is
+$\mathcal R_b^H[\Delta;\rho]-\Delta=0$.  $\square$
+
+\definitionheading{Typed discrete interaction beta}{def:rg-interaction-beta}
+Let $\mathcal G_\star$ be a declared reference interaction space and let
+\begin{equation}
+J_\ell:\mathcal G_\star\xrightarrow{\ \sim\ }\mathcal G_\ell
+\label{eq:rg-interaction-trivialization}
+\end{equation}
+be bounded isomorphisms with bounded inverses.  This is the inverse orientation
+of the reference identifications $I_\ell$ of
+\eqref{eq:rg-reference-cocycle}, so $J_\ell=I_\ell^{-1}$ whenever both are
+declared.  The pulled exact interaction map and the exact discrete interaction
+beta are
+\begin{equation}
+\widehat T_\ell^{\mathcal G}
+=J_{\ell+1}^{-1}T_\ell^{\mathcal G}J_\ell:
+\mathcal G_\star\longrightarrow\mathcal G_\star,
+\qquad
+\beta_\ell^{\mathrm{ex}}(g)
+=\frac{\widehat T_\ell^{\mathcal G}(g)-g}{\Delta s_\ell},
+\qquad
+\Delta s_\ell=\log b_\ell .
+\label{eq:rg-interaction-beta}
+\end{equation}
+Both terms of the numerator lie in $\mathcal G_\star$; the subtraction
+$T_\ell^{\mathcal G}(g)-g$ is not formed, because its two terms inhabit
+$\mathcal G_{\ell+1}$ and $\mathcal G_\ell$.  The symbol
+$\widehat T_\ell^{\mathcal G}$ is not the retained projection $R_\ell$ of
+\eqref{eq:rg-interaction-coordinate-residual}, and no beta functional is written
+before \eqref{eq:rg-interaction-trivialization} is declared.  If the coupling
+object is a manifold rather than a Banach space, the difference must be replaced
+by a declared chart difference, logarithm, or retraction into one tangent space.
+\status{DEFINITION}
+
+\propositionheading{Exact, retained, and residual interaction beta}{prop:rg-retained-beta-residual}
+With $\widehat R_\ell=J_\ell^{-1}R_\ell J_\ell$ for the bounded idempotent
+retained projections of \eqref{eq:rg-interaction-coordinate-residual}, define for
+$g\in\operatorname{Ran}\widehat R_\ell$
+\begin{equation}
+\beta_\ell^{\mathrm{ret}}(g)
+=\frac{\widehat R_{\ell+1}\widehat T_\ell^{\mathcal G}(g)-g}{\Delta s_\ell},
+\qquad
+\delta\beta_\ell(g)
+=\beta_\ell^{\mathrm{ex}}(g)-\beta_\ell^{\mathrm{ret}}(g).
+\label{eq:rg-retained-beta}
+\end{equation}
+Then the omitted part of the flow is exactly the transported coordinate residual
+divided by the log block step,
+\begin{equation}
+\delta\beta_\ell(g)
+=\frac{(I-\widehat R_{\ell+1})\widehat T_\ell^{\mathcal G}(g)}{\Delta s_\ell}
+=\frac{J_{\ell+1}^{-1}r_{\ell+1}^{\mathcal G}(J_\ell g)}{\Delta s_\ell},
+\label{eq:rg-beta-residual-identity}
+\end{equation}
+and its action-quotient partner is
+\begin{equation}
+\delta\overline\beta_{\ell+1}^{Q}(g)
+=\frac{E_{\ell+1}r_{\ell+1}^{\mathcal G}(J_\ell g)}{\Delta s_\ell},
+\qquad
+P_{\ell+1}\delta\overline\beta_{\ell+1}^{Q}(g)
+=\frac{r_{\ell+1}^{\mathcal G}(J_\ell g)}{\Delta s_\ell}.
+\label{eq:rg-beta-residual-quotient}
+\end{equation}
+Consequently $\delta\beta_\ell$ vanishes on the whole retained sector if and
+only if the exact image of the retained sector is retained,
+\begin{equation}
+\delta\beta_\ell\big|_{\operatorname{Ran}\widehat R_\ell}=0
+\quad\Longleftrightarrow\quad
+T_\ell^{\mathcal G}(\operatorname{Ran}R_\ell)\subseteq\operatorname{Ran}R_{\ell+1},
+\label{eq:rg-beta-exactness-criterion}
+\end{equation}
+which is \eqref{eq:rg-interaction-exact-image-invariance}.  Boundedness and
+idempotence of $R_\ell$ do not imply this invariance, so a retained beta is
+called exact only after \eqref{eq:rg-beta-exactness-criterion} is proved, and
+otherwise carries $\delta\beta_\ell$ with the two-sided norm control of
+\eqref{eq:rg-interaction-residual-norm-control}. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Subtracting the two displays in \eqref{eq:rg-retained-beta} cancels $g$ and
+leaves $(I-\widehat R_{\ell+1})\widehat T_\ell^{\mathcal G}(g)/\Delta s_\ell$.
+Substituting $\widehat R_{\ell+1}=J_{\ell+1}^{-1}R_{\ell+1}J_{\ell+1}$ and
+$\widehat T_\ell^{\mathcal G}=J_{\ell+1}^{-1}T_\ell^{\mathcal G}J_\ell$ gives
+$J_{\ell+1}^{-1}(I-R_{\ell+1})T_\ell^{\mathcal G}(J_\ell g)/\Delta s_\ell$, which
+is \eqref{eq:rg-beta-residual-identity} by the definition of
+$r_{\ell+1}^{\mathcal G}$.  Applying $E_{\ell+1}$ and $P_{\ell+1}$ and using the
+inverse identities of \Cref{thm:rg-hoeffding-action-isomorphism} together with
+\eqref{eq:rg-interaction-action-residual} gives
+\eqref{eq:rg-beta-residual-quotient}.  Since $J_{\ell+1}^{-1}$ is injective and
+$\Delta s_\ell>0$, $\delta\beta_\ell(g)=0$ is equivalent to
+$r_{\ell+1}^{\mathcal G}(J_\ell g)=0$, and $J_\ell$ maps
+$\operatorname{Ran}\widehat R_\ell$ onto $\operatorname{Ran}R_\ell$; quantifying
+over that sector and using
+\eqref{eq:rg-interaction-exact-image-invariance} gives
+\eqref{eq:rg-beta-exactness-criterion}.  $\square$
+
+A projected fixed point is not an exact fixed point.  On
+$\mathcal G_\star=\R^2$ with $b=e$, take $R(x,y)=(x,0)$ and $T(x,y)=(x,x)$.  For
+every retained input $g=(x,0)$ one has $\beta^{\mathrm{ret}}(g)=(0,0)$ while
+$\beta^{\mathrm{ex}}(g)=(0,x)$, so the retained flow reports a line of fixed
+points although the exact step generates an omitted component whenever
+$x\neq0$. \status{ESTABLISHED}
+
+The interaction beta is also scheme dependent, and its scheme dependence is
+larger than the coupling reparameterization of
+\eqref{eq:rg-beta-change}.  If $J_\ell'=J_\ell S_\ell$ for bounded isomorphisms
+$S_\ell$ of $\mathcal G_\star$, then
+$\widehat T_\ell'=S_{\ell+1}^{-1}\widehat T_\ell S_\ell$ and
+\begin{equation}
+\beta_\ell'(g)
+=\frac{S_{\ell+1}^{-1}\widehat T_\ell^{\mathcal G}(S_\ell g)-g}{\Delta s_\ell},
+\label{eq:rg-interaction-beta-scheme-change}
+\end{equation}
+which reduces to the usual pushforward relation only for a scale-independent
+$S_\ell\equiv S$.  Even the identity native step acquires a nonzero beta in a
+moving comparison frame: on $\mathcal G_\ell=\R$ with $T_\ell=\operatorname{id}$,
+$b_\ell=e$, and $J_\ell u=a_\ell u$, formula \eqref{eq:rg-interaction-beta} gives
+$\beta_\ell(g)=(a_\ell/a_{\ell+1}-1)g$, which is zero for $a_\ell\equiv1$ and
+nonzero otherwise.  The comparison scheme is therefore part of the statement of
+any reported beta function. \status{ESTABLISHED}
+
+\definitionheading{Smooth scale bundle, scale connection, and continuous beta}{def:rg-scale-connection}
+A continuous beta function is a construction on a separately declared tier and
+is not obtained from a discrete sequence.  Declare an oriented one-dimensional
+$C^1$ scale manifold $S$ with coordinate $s$, a $C^1$ Banach vector bundle
+$\pi_S:\mathscr G\to S$ whose fibers are the coupling spaces, and a scale
+connection, that is a covariant derivative
+$\nabla^{\mathrm{scale}}$ on sections of $\mathscr G$ satisfying the usual
+linearity and Leibniz rules.  For a $C^1$ running coupling section
+$g(s)\in\mathscr G_s$, the continuous beta is
+\begin{equation}
+\beta^{\mathrm{scale}}(s)=\nabla^{\mathrm{scale}}_{\partial_s}g(s)
+\in\mathscr G_s .
+\label{eq:rg-covariant-scale-beta}
+\end{equation}
+In a local trivialization $I_s:\mathscr G_s\to\mathcal G_\star$ with connection
+form $A_s\in\mathcal L(\mathcal G_\star)$ and $\widetilde g(s)=I_sg(s)$,
+\begin{equation}
+I_s\beta^{\mathrm{scale}}(s)
+=\partial_s\widetilde g(s)+A_s\widetilde g(s),
+\qquad
+A'_s=S_sA_sS_s^{-1}-(\partial_sS_s)S_s^{-1}
+\ \text{ under }I'_s=S_sI_s .
+\label{eq:rg-scale-connection-form}
+\end{equation}
+A raw coordinate derivative does not obey that transformation law.  On the
+trivial line bundle with $g(s)=1$ parallel in a frame with $A_s=0$, the frame
+change $S_s=e^{s^2}$ gives raw derivative $2se^{s^2}\neq0$ while
+$A_s'=-2s$ and the covariant derivative
+$\partial_s(e^{s^2})-2se^{s^2}$ is zero.
+The scale connection is a different object from the two contextual principal
+connections $\omega_b,\omega_m$ of \Cref{def:rg-geometric-state}: the former has
+base $S$ and compares coupling fibers at different resolutions, the latter have
+base $\mathcal C_\ell$ at one fixed resolution and compare associated
+statistical fibers along directions in $T\mathcal C_\ell$.  It is also distinct
+from the inference-orbit parameter and the Fisher duration of
+\Cref{ch:relational-inference}.  Nothing is proved by this declaration.
+\status{DEFINITION}
+
+One realization of that tier is the following density calculation.
+Suppose that scale is a genuine continuous semigroup and that, relative
 to one common dominating measure, the positive densities
 $r_t,p_t\in\operatorname{Dom}(\mathcal A^*)$ are differentiable in a topology
 that permits pointwise ratios and the following dual pairings, with
@@ -1473,6 +2353,50 @@ coefficients of the right side of \eqref{eq:rg-continuous-beta-functional}:
 \end{equation}
 This is exact for the stated complete convergent basis.  A truncated basis
 defines a projection and leaves an explicit residual.  \status{ESTABLISHED}
+
+\propositionheading{Discrete endpoints do not determine a continuous beta}{prop:rg-continuous-beta-underdetermined}
+Let a scale evolution family on the tier of
+\Cref{def:rg-scale-connection} consist of maps
+\begin{equation}
+\mathsf V(s,t):\mathscr G_t\longrightarrow\mathscr G_s,
+\qquad
+\mathsf V(r,s)\circ\mathsf V(s,t)=\mathsf V(r,t),
+\qquad
+\mathsf V(t,t)=I_{\mathscr G_t},
+\label{eq:rg-scale-evolution-family}
+\end{equation}
+which is the continuous analogue of \eqref{eq:rg-cocycle-composition} and is
+again two-parameter.  Restriction to integer endpoints does not determine the
+family, hence does not determine
+\eqref{eq:rg-covariant-scale-beta}.  On $S=\R$ with the trivial line bundle and
+zero connection form, the two families
+\begin{equation}
+\mathsf V^{(0)}(s,t)=1,
+\qquad
+\mathsf V^{(\epsilon)}(s,t)
+=\exp\bigl\{\epsilon[\sin(2\pi s)-\sin(2\pi t)]\bigr\}
+\label{eq:rg-scale-interpolation-witness}
+\end{equation}
+both satisfy \eqref{eq:rg-scale-evolution-family} and agree at every pair of
+integer endpoints, while their generators are $0$ and
+$2\pi\epsilon\cos(2\pi s)$.  The one-parameter semigroup form, in which
+$\mathsf V(s,t)$ depends only on $s-t$, additionally requires a stationary
+trivialization, a stationary connection, an autonomous vertical field, and a
+global existence domain; it is not a consequence of
+\eqref{eq:rg-scale-evolution-family}. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Both displayed families satisfy the composition and identity laws by inspection,
+because each is of the form $f(s)/f(t)$ with $f$ positive.  At integer $s$ and
+$t$ the sine terms vanish, so
+$\mathsf V^{(\epsilon)}(s,t)=1=\mathsf V^{(0)}(s,t)$.
+Differentiating $\mathsf V^{(\epsilon)}(s,t)$ in $s$ at $s=t$ gives
+$2\pi\epsilon\cos(2\pi t)$, which is not identically zero for
+$\epsilon\neq0$. $\square$
+
+The smooth scale base, the bundle, the interpolation, and the connection are
+therefore additional declared input.  A discrete blocking sequence supplies
+\eqref{eq:rg-interaction-beta} and nothing more. \status{ESTABLISHED}
 
 Attention flows primarily through the joint event law.  Along a differentiable
 path on $\{\alpha_I>0\}$, since
@@ -1592,6 +2516,107 @@ written as an eigenvalue equation in one unnamed space.  These are
 classification definitions; no autonomous spectrum, mode, or exponent is
 asserted for a general nonautonomous sequence. \status{DEFINITION}
 
+\definitionheading{Typed invariant and fixed objects}{def:rg-typed-fixed-objects}
+Write $Y_\ell^{(\tau)}$ for the object of one declared tier $\tau$ and
+$F_\ell^{(\tau)}:Y_\ell^{(\tau)}\to Y_{\ell+1}^{(\tau)}$ for its declared step.
+The general invariant object of a nonautonomous scale diagram is an
+\emph{invariant section}, namely a sequence with
+\begin{equation}
+y_{\ell+1}=F_\ell^{(\tau)}(y_\ell),
+\label{eq:rg-invariant-section}
+\end{equation}
+which needs no identification.  After declared isomorphisms
+$J_\ell:Y_\star^{(\tau)}\to Y_\ell^{(\tau)}$, a \emph{reference fixed object} is
+a $y_\star$ with
+\begin{equation}
+J_{\ell+1}^{-1}F_\ell^{(\tau)}J_\ell(y_\star)=y_\star
+\qquad\text{for every }\ell,
+\label{eq:rg-reference-fixed-object}
+\end{equation}
+which in an autonomous scheme is the ordinary equation
+$\widehat F^{(\tau)}(y_\star)=y_\star$.  If the identified maps are
+$p$-periodic, the base-$\ell$ monodromy is
+\begin{equation}
+\mathcal M_\ell
+=\widehat F_{\ell+p-1}^{(\tau)}\circ\cdots\circ\widehat F_\ell^{(\tau)},
+\label{eq:rg-monodromy-map}
+\end{equation}
+and a \emph{monodromy object} satisfies $\mathcal M_\ell(y_\ell)=y_\ell$; its
+successive images form a $p$-cycle and need not be fixed by any one-step map.
+Without a common object the expression $F_\ell^{(\tau)}(y)=y$ is ill typed, and
+no subtraction across tiers or scales is formed.  A fixed ray additionally
+requires a declared cone and projectivization. \status{DEFINITION}
+
+The tiers of this chapter are the following, and each carries its own step and
+its own invariance equation.  The law tier carries the normalized law
+$\pi_\ell$, the tracked measure pair $(\rho_\ell,m_\ell)$ of
+\Cref{def:rg-measure-pair}, and the marked attention event law $\eta_\ell$ of
+\eqref{eq:rg-attention-event-law}; its fixed objects are characterized by
+\Cref{thm:rg-fixed-point-equations}.  The action tier carries $H_\ell$ relative
+to $\rho_\ell$ and separately the additive class $[H_\ell]$; the two are related
+by \eqref{eq:rg-fixed-action} and \eqref{eq:rg-fixed-action-ray}, and by
+\Cref{prop:rg-action-beta-reference-change} the action tier is meaningful only
+together with its reference trajectory.  The full interaction tier carries
+$g_\ell\in\mathcal G_\ell$ with step $T_\ell^{\mathcal G}$, and its reference
+fixed objects use $\widehat T_\ell^{\mathcal G}$ of
+\eqref{eq:rg-interaction-beta}.  The retained interaction tier carries
+$\operatorname{Ran}R_\ell$, and a retained fixed object is exact only under
+\eqref{eq:rg-beta-exactness-criterion}.  The bundle tier carries the geometric
+state \eqref{eq:rg-full-state}, and the configuration tier carries the section
+manifolds of \Cref{ch:relational-inference} with their own smooth comparison
+maps; neither is the law, action, or interaction map.
+\status{DEFINITION}
+
+\propositionheading{Fixedness does not transfer between tiers}{prop:rg-fixed-object-nonimplication}
+None of the following implications holds, and each is refuted by a finite
+witness.  A fixed normalized law does not give a fixed reference-dependent
+action: on a two-point set hold $\mu=(1/2,1/2)$ fixed while the reference
+alternates between $\rho_0=(1/4,3/4)$ and $\rho_1=(3/4,1/4)$, so that the
+actions $H_i=-\log(d\mu/d\rho_i)$ are interchanged.  A fixed action class does
+not give a fixed tracked pair: $H$ and $H+c$ are the same class, while
+$e^{-H}\rho$ and $e^{-c}e^{-H}\rho$ have evidence masses differing by the factor
+$e^{-c}$, which is why \eqref{eq:rg-fixed-action-ray} is strictly weaker than
+\eqref{eq:rg-fixed-measure-pair} until mass preservation forces $c_b=0$.  A
+fixed retained interaction does not give a fixed exact interaction: the witness
+$R(x,y)=(x,0)$ and $T(x,y)=(x,x)$ of
+\Cref{prop:rg-retained-beta-residual} has zero retained beta at every $(x,0)$
+and nonzero exact residual for $x\neq0$.  A fixed law does not give a fixed
+configuration: take the configuration manifold $S^1$ with antipodal step
+$q\mapsto-q$ and a constant configuration-to-law extraction, so that the law is
+fixed while the configuration step has no fixed point.  A fixed conditional
+attention row does not give a fixed event law: holding $\beta$ fixed while the
+receiver occupancy $\alpha_\ell$ alternates makes
+$\eta_\ell=\alpha_\ell\beta$ alternate, which is the disintegration clause of
+\Cref{thm:rg-fixed-point-equations}.  Finally a monodromy object is not a
+one-step fixed object: the period-two maps $F_0(x)=x+1$ and $F_1(x)=x-1$ on $\R$
+have monodromy $F_1\circ F_0=\operatorname{id}$, which fixes every point, while
+neither one-step map has a fixed point. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Each clause is the displayed computation.  For the first,
+$d\mu/d\rho_0=(2,2/3)$ and $d\mu/d\rho_1=(2/3,2)$ are distinct.  For the second,
+$(e^{-c}e^{-H}\rho)(\mathsf Y)=e^{-c}m(\mathsf Y)$.  The third is
+\eqref{eq:rg-beta-residual-identity} evaluated at $g=(x,0)$, which gives
+$(0,x)$.  For the fourth, a constant extraction sends both $q$ and $-q$ to the
+same law, while $q\mapsto-q$ has no fixed point on $S^1$.  The fifth is
+$\eta_\ell=\alpha_\ell\beta$ with $\alpha_\ell$ nonconstant in $\ell$.  For the
+sixth, $F_1(F_0(x))=x$ while $F_0(x)=x$ and $F_1(x)=x$ have no
+solutions. $\square$
+
+Two prohibitions follow.  First, relevance, marginality, and irrelevance are
+properties of a mode relative to declared norms, a declared extensive
+normalization, the declared block ratios, and the declared comparison maps, in
+the sense of \Cref{def:rg-mode-exponents} and
+\Cref{def:rg-hermite-relevance}; \Cref{prop:rg-superexponential-distortion} and
+\Cref{cor:rg-interaction-tempered} show that changing the comparison data alone
+can change the reported exponent.  Second, none of the objects above is a
+physical law.  A fixed measure pair, a fixed action class, a fixed interaction
+coordinate, a monodromy object, and a fixed configuration are mathematical
+invariants of a declared scale diagram; identifying any of them with an
+empirical regularity requires the separate apparatus listed at
+\Cref{claim:physical-law-identification}, which this document does not supply.
+\status{NOT-CLAIMED}
+
 The equations characterize all fixed points without claiming that every model
 class admits a closed-form enumeration.  The following exact sectors illustrate
 them.  The identity channel fixes every law.  A terminal channel followed by
@@ -1674,7 +2699,15 @@ make the fine--meta, meta--fine, meta--meta, cross-channel, and attention
 operators exact and compositional on their stated domains; the Hom moments
 also require \eqref{eq:rg-attention-bochner-domain}.  For the discrete beta
 require a declared reference trajectory and a finite-valued action vector
-space closed under the reference-dependent action map.  For the continuous beta require the generator-domain,
+space closed under the reference-dependent action map; a change of that
+reference trajectory then obeys the inhomogeneous law
+\eqref{eq:rg-beta-reference-change}.  For the discrete interaction beta require
+in addition the comparison isomorphisms
+\eqref{eq:rg-interaction-trivialization}, and report the residual
+\eqref{eq:rg-beta-residual-identity} unless
+\eqref{eq:rg-beta-exactness-criterion} is proved.  For the continuous beta
+require the separately declared smooth scale bundle and scale connection of
+\Cref{def:rg-scale-connection}, together with the generator-domain,
 differentiability, positivity, and dual-pairing hypotheses stated before
 \eqref{eq:rg-continuous-beta-functional}.  For component beta functions
 require the stated Schauder or Riesz basis and interchange conditions.  For

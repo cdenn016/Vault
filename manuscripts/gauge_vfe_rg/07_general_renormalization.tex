@@ -468,6 +468,275 @@ d_H(
 where defined \citep{Birkhoff1957,nussbaum1988hilbert}. This proves forgetting
 of initial rays, not time independence of the attracting section.
 
+\subsection{Ordered derivative cocycles and generalized cross-scale modes}
+\label{sec:rg-generalized-modes}
+
+A scale sequence by itself supplies no eigenvalue problem. It supplies an
+ordered family of maps between different spaces, and the invariant content of
+that family is a composition law together with compatible mode sections. This
+subsection fixes those types once, so that the interaction realization of
+\Cref{ch:agent-network-rg} can instantiate them without inventing an ambient
+common space.
+
+\definitionheading{Scale-indexed evolution and its derivative cocycle}{def:rg-derivative-cocycle}
+Let \((X_\ell,\lVert\cdot\rVert_\ell)_{\ell\geq0}\) be Banach spaces and let
+\(T_\ell:D_\ell\to X_{\ell+1}\) be continuously Fr\'echet differentiable on an
+open set \(D_\ell\subseteq X_\ell\). The ordered nonlinear evolution is
+\begin{equation}
+\Phi_{n\leftarrow\ell}=T_{n-1}\circ\cdots\circ T_\ell,
+\qquad
+\Phi_{\ell\leftarrow\ell}=\operatorname{id}_{X_\ell},
+\label{eq:rg-ordered-evolution}
+\end{equation}
+defined at those points whose successive forward images remain in the
+successive domains. Along an exact orbit \(x_{\ell+1}=T_\ell(x_\ell)\) contained
+in those domains, write
+\begin{equation}
+M_\ell=DT_\ell(x_\ell)\in\mathcal L(X_\ell,X_{\ell+1}),
+\qquad
+M_{n\leftarrow\ell}=M_{n-1}\cdots M_\ell,
+\qquad
+M_{\ell\leftarrow\ell}=I_{X_\ell}.
+\label{eq:rg-derivative-cocycle}
+\end{equation}
+The rightmost factor acts first. Nothing is proved here; the display fixes
+domains, codomains, and order. \status{DEFINITION}
+
+\propositionheading{Ordered composition of the evolution and its derivative}{prop:rg-cocycle-composition}
+For \(\ell\leq n\leq r\) and an exact orbit as above,
+\begin{equation}
+\Phi_{r\leftarrow n}\circ\Phi_{n\leftarrow\ell}=\Phi_{r\leftarrow\ell},
+\qquad
+M_{n\leftarrow\ell}=D\Phi_{n\leftarrow\ell}(x_\ell),
+\qquad
+M_{r\leftarrow n}M_{n\leftarrow\ell}=M_{r\leftarrow\ell}.
+\label{eq:rg-cocycle-composition}
+\end{equation}
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+The first identity is associativity of composition of maps. The second is
+proved by induction on \(n-\ell\): it is the definition when \(n=\ell\), and if
+it holds at \(n\) then the Fr\'echet chain rule applied to
+\(\Phi_{n+1\leftarrow\ell}=T_n\circ\Phi_{n\leftarrow\ell}\) at \(x_\ell\), using
+\(\Phi_{n\leftarrow\ell}(x_\ell)=x_n\), gives
+\(D\Phi_{n+1\leftarrow\ell}(x_\ell)=DT_n(x_n)M_{n\leftarrow\ell}
+=M_nM_{n\leftarrow\ell}\). The third identity is the associativity of the
+ordered operator product, which is also the second identity applied to the
+first. \(\square\)
+
+The composition law in \eqref{eq:rg-cocycle-composition} is a two-parameter law,
+not a one-parameter semigroup. It reduces to a discrete semigroup only after
+declared isomorphisms \(J_\ell:X_\star\to X_\ell\) make the identified maps
+\(\widehat T_\ell=J_{\ell+1}^{-1}T_\ell J_\ell\) independent of \(\ell\); a
+\(p\)-periodic identified sequence produces a monodromy rather than a one-step
+autonomous map, in the sense of \Cref{def:rg-dynamical-type}. Writing a general
+segment as a power of one unnamed operator erases the base scale and, when the
+factors do not commute, also reverses the order: for
+\(A=\begin{psmallmatrix}1&1\\0&1\end{psmallmatrix}\) and
+\(B=\begin{psmallmatrix}1&0\\1&1\end{psmallmatrix}\) one has
+\(BA=\begin{psmallmatrix}1&1\\1&2\end{psmallmatrix}\) and
+\(AB=\begin{psmallmatrix}2&1\\1&1\end{psmallmatrix}\), which differ.
+\status{ESTABLISHED}
+
+For a mixed state in the sense of \Cref{def:rg-scale-diagram}, the composition
+law is owed in every declared component category. Composition of one linear
+derivative tier proves nothing about the base, principal, law-fiber,
+associated-bundle, action, or configuration components. \status{HYPOTHESIS}
+
+\definitionheading{Compatible cross-scale mode line}{def:rg-mode-line}
+A rank-one mode line of index \(a\) along the orbit is a family of nonzero
+vectors \(v_{\ell,a}\in X_\ell\) together with scalars
+\(\lambda_{\ell,a}\in\mathbb C\) satisfying
+\begin{equation}
+M_\ell v_{\ell,a}=\lambda_{\ell,a}v_{\ell+1,a}.
+\label{eq:rg-mode-line}
+\end{equation}
+This is a compatibility equation between adjacent fibers. The expression
+\(M_\ell v=\lambda v\) is not used: its two sides inhabit \(X_{\ell+1}\) and
+\(X_\ell\), which are different spaces unless an identification has been
+declared. For a mode subbundle of finite rank \(d_a\), choose injective frames
+\(V_{\ell,a}:\mathbb C^{d_a}\to X_\ell\) and matrices \(A_{\ell,a}\) with
+\begin{equation}
+M_\ell V_{\ell,a}=V_{\ell+1,a}A_{\ell,a}.
+\label{eq:rg-mode-frame}
+\end{equation}
+\status{DEFINITION}
+
+\propositionheading{Ordered product law for mode coefficients}{prop:rg-mode-product}
+Under \eqref{eq:rg-mode-line},
+\begin{equation}
+M_{n\leftarrow\ell}v_{\ell,a}=\lambda_{n\leftarrow\ell,a}v_{n,a},
+\qquad
+\lambda_{n\leftarrow\ell,a}=\prod_{k=\ell}^{n-1}\lambda_{k,a},
+\label{eq:rg-mode-product}
+\end{equation}
+with the empty product equal to one. Under \eqref{eq:rg-mode-frame} the
+corresponding finite-step matrix is the ordered product
+\(A_{n-1,a}\cdots A_{\ell,a}\). If one factor vanishes, the propagated mode is
+annihilated from that step onward. The complex phase or real sign of each
+factor is retained separately from any growth exponent. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Induction on \(n-\ell\) using \eqref{eq:rg-cocycle-composition} and
+\eqref{eq:rg-mode-line}: the case \(n=\ell\) is the empty product, and
+\(M_{n+1\leftarrow\ell}v_{\ell,a}=M_nM_{n\leftarrow\ell}v_{\ell,a}
+=\lambda_{n\leftarrow\ell,a}M_nv_{n,a}
+=\lambda_{n\leftarrow\ell,a}\lambda_{n,a}v_{n+1,a}\). The frame case is the same
+induction with matrix factors, whose order is fixed by
+\eqref{eq:rg-mode-frame}. \(\square\)
+
+An ill-typed eigenvalue equation is not repaired by notation. With
+\(X_0=\R\), \(X_1=\R^2\), and \(M_0x=(x,0)\), the expression \(M_0v=\lambda v\)
+equates an element of \(\R^2\) with one of \(\R\); the compatible line
+\(v_0=1\), \(v_1=(1,0)\), \(\lambda_0=1\) is well typed and carries the same
+information. \status{ESTABLISHED}
+
+\definitionheading{Cumulative log block scale and growth rates}{def:rg-mode-exponents}
+Let \(b_k>1\) be the declared adjacent block ratios and set
+\begin{equation}
+\Delta s_k=\log b_k,
+\qquad
+s_{n\leftarrow\ell}=\sum_{k=\ell}^{n-1}\Delta s_k,
+\label{eq:rg-cumulative-log-scale}
+\end{equation}
+and assume \(s_{n\leftarrow\ell}\to\infty\). For \(u\in X_\ell\setminus\{0\}\)
+with \(M_{n\leftarrow\ell}u\neq0\), the finite-time growth rate relative to the
+declared norms is
+\begin{equation}
+\chi_{n\leftarrow\ell}(u)
+=\frac{\log\lVert M_{n\leftarrow\ell}u\rVert_n
+-\log\lVert u\rVert_\ell}{s_{n\leftarrow\ell}},
+\label{eq:rg-finite-time-rate}
+\end{equation}
+with the convention that the rate is \(-\infty\) once the image vanishes. Its
+upper and lower asymptotic rates are the corresponding limit superior and limit
+inferior; a Lyapunov exponent is asserted only when the two agree. For a mode
+line, the scalar finite-time exponent is
+\begin{equation}
+y_{n\leftarrow\ell,a}
+=\frac{\log\lvert\lambda_{n\leftarrow\ell,a}\rvert}{s_{n\leftarrow\ell}}
+=\frac{\sum_{k=\ell}^{n-1}\log\lvert\lambda_{k,a}\rvert}{s_{n\leftarrow\ell}},
+\qquad \log 0=-\infty.
+\label{eq:rg-scalar-exponent}
+\end{equation}
+A mode is called relevant, marginal, or irrelevant according as the declared
+asymptotic version of \eqref{eq:rg-scalar-exponent} is positive, zero, or
+negative. That trichotomy is a classification relative to the declared norms,
+the declared extensive normalization of the mode sections, the declared block
+ratios, and the declared comparison maps; it is not an intrinsic property of the
+scale sequence. \status{DEFINITION}
+
+\propositionheading{Scalar and norm growth agree for tempered mode sections}{prop:rg-mode-tempered-normalization}
+For a mode line and every \(n>\ell\) with \(\lambda_{n\leftarrow\ell,a}\neq0\),
+\begin{equation}
+\chi_{n\leftarrow\ell}(v_{\ell,a})
+=y_{n\leftarrow\ell,a}
++\frac{\log\lVert v_{n,a}\rVert_n-\log\lVert v_{\ell,a}\rVert_\ell}
+{s_{n\leftarrow\ell}}.
+\label{eq:rg-mode-exponent-relation}
+\end{equation}
+The two rates therefore have the same asymptotic upper and lower values whenever
+the mode sections are normalized to unit norm, or more generally whenever
+\(\log\lVert v_{n,a}\rVert_n\) is sublinear in \(s_{n\leftarrow\ell}\). Under a
+scalar regauging \(v_{\ell,a}'=c_{\ell,a}v_{\ell,a}\) with
+\(c_{\ell,a}\neq0\),
+\begin{equation}
+\lambda_{\ell,a}'=\lambda_{\ell,a}\frac{c_{\ell,a}}{c_{\ell+1,a}},
+\qquad
+\lambda_{n\leftarrow\ell,a}'
+=\lambda_{n\leftarrow\ell,a}\frac{c_{\ell,a}}{c_{n,a}},
+\label{eq:rg-mode-scalar-gauge}
+\end{equation}
+so the scalar exponent is unchanged exactly when
+\(\lvert\log\lvert c_{n,a}\rvert\rvert/s_{n\leftarrow\ell}\to0\).
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+Take norms in \eqref{eq:rg-mode-product} and substitute into
+\eqref{eq:rg-finite-time-rate}; the displayed remainder is exactly the endpoint
+norm difference divided by \(s_{n\leftarrow\ell}\). Substituting
+\(v'_{\ell,a}=c_{\ell,a}v_{\ell,a}\) into \eqref{eq:rg-mode-line} and comparing
+coefficients gives the first equality in \eqref{eq:rg-mode-scalar-gauge}, and
+the telescoping product gives the second. Dividing
+\(\log\lvert\lambda'_{n\leftarrow\ell,a}\rvert\) by \(s_{n\leftarrow\ell}\)
+isolates the stated tempering condition. \(\square\)
+
+\theoremheading{Exponent invariance under tempered comparison trivializations}{thm:rg-tempered-comparison}
+Let \(J_k:X_\star\to X_k\) be bounded linear isomorphisms with bounded inverses,
+and set
+\begin{equation}
+\widehat M_k=J_{k+1}^{-1}M_kJ_k,
+\qquad
+\widehat M_{n\leftarrow\ell}=J_n^{-1}M_{n\leftarrow\ell}J_\ell.
+\label{eq:rg-transported-cocycle}
+\end{equation}
+If the complete trivializations and their inverses are tempered relative to the
+cumulative log block scale,
+\begin{equation}
+\frac{\log^+\lVert J_n\rVert+\log^+\lVert J_n^{-1}\rVert}{s_{n\leftarrow\ell}}
+\longrightarrow0,
+\label{eq:rg-tempered-trivialization}
+\end{equation}
+then for every \(u\in X_\ell\setminus\{0\}\) the asymptotic upper and lower
+rates of \(u\) in the native norms coincide with those of \(J_\ell^{-1}u\)
+computed for \(\widehat M_{n\leftarrow\ell}\) in the reference norm. Together
+with the scalar tempering condition of
+\Cref{prop:rg-mode-tempered-normalization}, this preserves both the scalar mode
+exponent and the norm growth rate. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Write \(x_n=M_{n\leftarrow\ell}u\) and
+\(\widehat x_n=J_n^{-1}x_n=\widehat M_{n\leftarrow\ell}J_\ell^{-1}u\), which is
+the second identity in \eqref{eq:rg-transported-cocycle}. Bounded invertibility
+gives
+\begin{equation}
+\frac{\lVert x_n\rVert_n}{\lVert J_n\rVert}
+\leq\lVert\widehat x_n\rVert_\star
+\leq\lVert J_n^{-1}\rVert\lVert x_n\rVert_n.
+\label{eq:rg-trivialization-two-sided}
+\end{equation}
+Taking logarithms changes the numerator of \eqref{eq:rg-finite-time-rate} by at
+most \(\log^+\lVert J_n\rVert+\log^+\lVert J_n^{-1}\rVert\), and the fixed
+initial scale contributes the constant
+\(\lvert\log\lVert J_\ell\rVert\rvert+\lvert\log\lVert J_\ell^{-1}\rVert\rvert\).
+Dividing by \(s_{n\leftarrow\ell}\) and using
+\eqref{eq:rg-tempered-trivialization} and \(s_{n\leftarrow\ell}\to\infty\)
+makes the difference of the two finite-time rates tend to zero, so their limits
+superior and inferior agree. The scalar statement is
+\eqref{eq:rg-mode-scalar-gauge}. \(\square\)
+
+\propositionheading{Superexponential distortion changes the apparent exponent}{prop:rg-superexponential-distortion}
+Tempering the scalar mode representatives alone is not sufficient. Let
+\(X_k=\R\) with the native absolute value, let every \(M_k\) be the identity, let
+\(b_k=e\), and let every scalar gauge factor be one, so that the native exponent
+is zero and the scalar normalization is tempered. Take
+\(J_ku=e^{k^2}u\). Then \(\widehat M_k=e^{-2k-1}I\) and
+\(\widehat M_{n\leftarrow0}=e^{-n^2}I\), so the apparent reference-space rate is
+\(-n^2/n=-n\to-\infty\). The complete comparison trivialization and its inverse,
+not only the mode normalization, must satisfy
+\eqref{eq:rg-tempered-trivialization}. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+\(\widehat M_k=J_{k+1}^{-1}J_k=e^{k^2-(k+1)^2}=e^{-2k-1}\), and the telescoping
+product over \(k=0,\dots,n-1\) is \(e^{-n^2}\). Here
+\(s_{n\leftarrow0}=n\), so \eqref{eq:rg-finite-time-rate} gives \(-n\), while
+the native rate is zero. Condition
+\eqref{eq:rg-tempered-trivialization} fails because
+\(\log\lVert J_n\rVert=n^2\). \(\square\)
+
+The definitions above are deliberately weaker than an existence statement. A
+multiplicative ergodic theorem would supply a measurable splitting into
+finitely or countably many exponent subspaces, but it requires data this scale
+diagram does not contain: a measure-preserving base flow, measurability of the
+cocycle in the base variable, integrability of \(\log^+\lVert M\rVert\) and, for
+the two-sided splitting, of \(\log^+\lVert M^{-1}\rVert\), and either finite
+dimension or a compactness or quasi-compactness hypothesis in the
+infinite-dimensional case \citep{Arnold1998}. A deterministic scale sequence
+supplies none of these by itself. This document therefore defines the growth
+rates above and does not assert an Oseledets splitting for the RG cocycle.
+\status{NOT-CLAIMED}
+
 \section{Scheme dependence and invariant candidates}
 \label{sec:rg-scheme-dependence}
 
