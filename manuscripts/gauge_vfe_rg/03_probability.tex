@@ -81,10 +81,29 @@ Each continuous Euclidean coordinate carries its Borel sigma-algebra and Lebesgu
 
 Sigma-finiteness of every component is required and is not decoration. It is the hypothesis of the Radon-Nikodym theorem, without which the densities of Section~\ref{sec:prob-kernels} need not exist, and it is the hypothesis of the Fubini-Tonelli theorem, without which the iterated integrals used to marginalize $Y$ out of the joint need not agree with the product integral. A finite product of sigma-finite measures is sigma-finite, so \eqref{eq:prob-reference-measures} inherits the property from its factors; this is the reason the construction is stated on a finite design and is one of the reasons the continuum question of Section~\ref{sec:prob-continuum} stays open.
 
-Mixed coordinates are the case where a declaration is genuinely needed rather than conventional, and the following statement supplies it.
+Mixed coordinates are the case where a declaration is genuinely needed rather than conventional.  A reference measure used by a parameterized family must be fixed for the whole family; choosing a new atomic reference after seeing the parameter would not define one density model.
 
 \medskip
-\propositionheading{Dominating measure for a mixed coordinate}{prop:prob-mixed-coordinate-dominating-measure}
+\theoremheading{Common domination for a mixed family}{thm:prob-mixed-family-common-domination}
+Let $(\mu_t)_{t\in T}$ be any family of Borel probability measures on $\R$ with no singular-continuous part, written
+\[
+\mu_t=f_t\lambda+\sum_{a\in A_t}p_t(a)\delta_a,
+\qquad
+A_t:=\{a\in\R:\mu_t(\{a\})>0\}.
+\]
+There exists a single sigma-finite Borel measure dominating every $\mu_t$ if and only if $A_*:=\bigcup_{t\in T}A_t$ is countable. When $A_*=\{a_1,a_2,\ldots\}$, one such parameter-independent measure is
+\begin{equation}
+\nu_{\mathrm{mix}}
+:=\lambda+\sum_{n\geq1}2^{-n}\delta_{a_n}.
+\label{eq:prob-mixed-family-reference}
+\end{equation}
+In particular, the moving-atom mixed family $\mu_t=\tfrac12\mathcal N(0,1)+\tfrac12\delta_t$, $t\in\R$, has no common sigma-finite dominating measure. \status{ESTABLISHED}
+\medskip
+
+\noindent\emph{Proof.} If $A_*$ is countable, \eqref{eq:prob-mixed-family-reference} is sigma-finite and a $\nu_{\mathrm{mix}}$-null set is both Lebesgue null and contains no point of $A_*$. Hence every continuous and atomic term of every $\mu_t$ vanishes on it, so $\mu_t\ll\nu_{\mathrm{mix}}$. Conversely, suppose a sigma-finite $\xi$ dominates every $\mu_t$. For each $a\in A_*$ some $t$ has $\mu_t(\{a\})>0$, whence $\xi(\{a\})>0$. A sigma-finite measure has at most countably many positive-mass point atoms: on each finite-measure member of a countable cover, the points of mass at least $1/n$ are finite, and the countable union over the cover and $n$ exhausts them. Thus $A_*$ is countable. The displayed moving-atom family has $A_*=\R$, proving the last assertion. \hfill$\square$
+
+\medskip
+\corollaryheading{Dominating measure for one mixed coordinate}{prop:prob-mixed-coordinate-dominating-measure}
 Let $\mu$ be a Borel probability measure on $\R$ whose Lebesgue decomposition has no singular continuous part, so that $\mu=\mu_{\mathrm{ac}}+\mu_{\mathrm d}$ with $\mu_{\mathrm{ac}}\ll\lambda$ and $\mu_{\mathrm d}$ carried by a countable set $A$. Put
 \begin{equation}
 \nu=\lambda+\sum_{x\in A}\delta_x .
@@ -93,9 +112,9 @@ Let $\mu$ be a Borel probability measure on $\R$ whose Lebesgue decomposition ha
 Then $\nu$ is sigma-finite and $\mu\ll\nu$. \status{ESTABLISHED}
 \medskip
 
-\noindent\emph{Proof.} For sigma-finiteness, write $\R=\bigl(\bigcup_{n\geq1}([-n,n]\setminus A)\bigr)\cup\bigcup_{x\in A}\{x\}$, a countable union; $\nu([-n,n]\setminus A)=\lambda([-n,n]\setminus A)\leq2n<\infty$ and $\nu(\{x\})=\lambda(\{x\})+1=1<\infty$. For absolute continuity, let $\nu(B)=0$. Then $\lambda(B)=0$ and $B\cap A=\emptyset$, since a single atom of $A$ inside $B$ would contribute $1$. Hence $\mu_{\mathrm{ac}}(B)=0$ because $\mu_{\mathrm{ac}}\ll\lambda$, and $\mu_{\mathrm d}(B)=\mu_{\mathrm d}(B\cap A)=0$ because $\mu_{\mathrm d}$ is carried by $A$. Therefore $\mu(B)=0$. \hfill$\square$
+\noindent\emph{Proof.} Apply \Cref{thm:prob-mixed-family-common-domination} to the singleton family $\{\mu\}$. The measure displayed here and the weighted atomic reference in \eqref{eq:prob-mixed-family-reference} have the same null sets, so either dominates $\mu$. \hfill$\square$
 
-The hypothesis excluding a singular continuous part is a real restriction and is stated rather than assumed. A coordinate whose law carries a singular continuous component, of which the Cantor distribution is the standard example, is not dominated by \eqref{eq:prob-mixed-reference}, and this development supplies no generic reference measure for it. Such a coordinate would require its own declaration, and the declaration would have to be made before any density on that coordinate is written.
+The hypothesis excluding a singular-continuous part is a restriction on this particular Lebesgue-plus-atoms formula, not an intrinsic nondominability claim. A family carrying Cantor-type or other singular-continuous components can be dominated when a common sigma-finite singular reference is available, but that reference must be declared as part of the family before any density is written. Equation~\eqref{eq:prob-mixed-family-reference} supplies no such component.
 
 \section{Kernels first, densities second}
 \label{sec:prob-kernels}
@@ -163,6 +182,117 @@ are versions of the same joint density because they differ only on the Lebesgue-
 The same order is what makes the group action of Chapter~\ref{ch:geometry} well typed. The action \eqref{eq:geo-pushforward-actions} is defined on measures. A frame change that does not preserve the reference measure changes the density and the base-measure Jacobian together, and only their combination is invariant, so a rule that multiplies a matrix into a density and stops is not the represented action unless the Jacobian is identically one.
 
 \medskip
+\theoremheading{Jointly measurable Radon--Nikodym version for a dominated kernel}{thm:prob-kernel-rn-measurable-version}
+Let $(\mathsf E,\mathscr E)$ be a measurable space, let $(\mathsf F,\mathscr F)$ be standard Borel, and let $K$ and $L$ be probability kernels from $\mathsf E$ to $\mathsf F$ satisfying $K(x,\cdot)\ll L(x,\cdot)$ for every $x$. Then there is a finite-valued $\mathscr E\otimes\mathscr F$-measurable $r:\mathsf E\times\mathsf F\to[0,\infty)$ such that
+\[
+K(x,B)=\int_B r(x,y)L(x,dy)
+\quad\text{for every }x\in\mathsf E, B\in\mathscr F.
+\]
+The theorem supplies one simultaneous version; independently selecting an RN derivative for each $x$ does not establish joint measurability. \status{ESTABLISHED}
+\medskip
+
+\noindent\emph{Proof.} Standard Borelness gives finite refining measurable partitions $(\mathcal P_n)_{n\geq1}$ whose generated sigma-algebras increase to $\mathscr F$. With $0/0:=0$, set
+\begin{equation}
+ r_n(x,y)
+=\sum_{A\in\mathcal P_n}
+  \frac{K(x,A)}{L(x,A)}\mathbf 1_A(y),
+\qquad
+r(x,y)=
+\begin{cases}
+\limsup_{n\to\infty}r_n(x,y),&\limsup_n r_n(x,y)<\infty,\\
+0,&\limsup_n r_n(x,y)=+\infty.
+\end{cases}
+\label{eq:prob-kernel-rn-partitions}
+\end{equation}
+Every $r_n$ and therefore the finite-valued $r$ is jointly measurable. For each fixed $x$, if $h_x=dK(x,\cdot)/dL(x,\cdot)$, then $r_n(x,\cdot)$ is the conditional expectation of $h_x$ on the finite sigma-algebra generated by $\mathcal P_n$. Martingale convergence gives $r_n(x,\cdot)\to h_x$ at $L(x,\cdot)$-almost every point. Because $h_x$ is finite $L(x,\cdot)$-almost everywhere, the second branch of \eqref{eq:prob-kernel-rn-partitions} changes only an $L(x,\cdot)$-null set, and $r(x,\cdot)$ is the required derivative for every $x$. \hfill$\square$
+
+\medskip
+\corollaryheading{Joint densities against one reference}{cor:prob-common-reference-joint-density}
+Let $\nu$ be a fixed sigma-finite measure on a standard Borel $(\mathsf F,\mathscr F)$, and let $K$ be a probability kernel from $(\mathsf E,\mathscr E)$ to $\mathsf F$ with $K(x,\cdot)\ll\nu$ for every $x$. Then $K$ has a finite jointly measurable density $k(x,y)$ against $\nu$. Consequently every finite or countable declared collection of kernels dominated by the same fixed $\nu$ may be represented by jointly measurable densities against that common reference. In particular this applies to the generative and recognition kernels in \eqref{eq:prob-generative-signature}--\eqref{eq:prob-recognition-signature} when they are dominated by the declared product references. \status{ESTABLISHED}
+\medskip
+
+\noindent\emph{Proof.} Sigma-finiteness supplies measurable $w$ with $0<w<\infty$ $\nu$-almost everywhere and $\int w d\nu=1$. The constant probability kernel $L(x,dy)=w(y)\nu(dy)$ is equivalent to $\nu$. Apply \Cref{thm:prob-kernel-rn-measurable-version} to $(K,L)$ to obtain finite jointly measurable $r=dK/dL$ and set $k(x,y)=r(x,y)w(y)$, completing $w$ arbitrarily on its $\nu$-null exceptional set. Applying this construction to each member proves the collection statement. \hfill$\square$
+
+\medskip
+\propositionheading{Integration against a fixed sigma-finite measure}{prop:prob-sigmafinite-integration-measurability}
+If $f:\mathsf E\times\mathsf F\to[0,\infty]$ is $\mathscr E\otimes\mathscr F$-measurable and $\nu$ is a fixed sigma-finite measure on $(\mathsf F,\mathscr F)$, then
+\[
+x\longmapsto\int_{\mathsf F}f(x,y)\nu(dy)
+\]
+is $\mathscr E$-measurable.  For an extended signed integrand the same conclusion holds whenever at least one of the positive- and negative-part integrals is finite; no expression of the form $+\infty-\infty$ is defined. \status{ESTABLISHED}
+\medskip
+
+\noindent\emph{Proof.} Choose a measurable disjoint partition
+$\mathsf F=\bigsqcup_{m\geq1}F_m$ with $\nu(F_m)<\infty$.  For fixed $m$, let
+\[
+ \mathscr D_m=\left\{C\in\mathscr E\otimes\mathscr F:
+ x\longmapsto\nu(C_x\cap F_m)\text{ is }\mathscr E\text{-measurable}\right\}.
+\]
+This class contains every measurable rectangle.  It is a Dynkin system:
+$\nu((C^c)_x\cap F_m)=\nu(F_m)-\nu(C_x\cap F_m)$, where finiteness of
+$\nu(F_m)$ makes the complement step legitimate, and section measures of a
+countable disjoint union are the corresponding pointwise sums.  The
+$\pi$--$\lambda$ theorem therefore gives
+$\mathscr D_m=\mathscr E\otimes\mathscr F$.  Hence, for every product-measurable
+$C$,
+\[
+ x\longmapsto\nu(C_x)=\sum_{m\geq1}\nu(C_x\cap F_m)
+\]
+is measurable.  This proves the assertion for indicators; linearity proves it
+for nonnegative simple functions, and monotone convergence proves it for every
+nonnegative measurable $f$.  Apply that result to $f^+$ and $f^-$ for the
+signed statement.  On the measurable domain where they are not both infinite,
+their extended-real difference is measurable and no infinity cancellation is
+used. \hfill$\square$
+
+\medskip
+\corollaryheading{Measurability of kernel relative entropy}{cor:prob-kernel-kl-measurability}
+Let $\kappa$ and $\eta$ be probability kernels from $(\mathsf E,\mathscr E)$ to a standard Borel space $(\mathsf F,\mathscr F)$.  Then $x\mapsto\KL(\kappa(x,\cdot)\Vert\eta(x,\cdot))$ is $\mathscr E$-measurable as an $[0,\infty]$-valued map.  More explicitly, for finite refining partitions $(\mathcal P_n)$ generating $\mathscr F$,
+\begin{equation}
+\KL(\kappa(x,\cdot)\Vert\eta(x,\cdot))
+=\sup_{n\geq1}\sum_{A\in\mathcal P_n}
+\kappa(x,A)\log\frac{\kappa(x,A)}{\eta(x,A)},
+\label{eq:prob-kernel-kl-partitions}
+\end{equation}
+with $0\log(0/b)=0$ and $a\log(a/0)=+\infty$ for $a>0$. \status{ESTABLISHED}
+\medskip
+
+\noindent\emph{Proof.} Put $L=(\kappa+\eta)/2$.  Applying
+\Cref{thm:prob-kernel-rn-measurable-version} to $(\kappa,L)$ and $(\eta,L)$
+gives finite jointly measurable densities $a=d\kappa/dL$ and $b=d\eta/dL$.
+Fix $x$ and abbreviate $L_x=L(x,\cdot)$.  If
+$\mathscr G_n=\sigma(\mathcal P_n)$, then the cellwise ratios in
+\eqref{eq:prob-kernel-kl-partitions} are versions of
+\[
+ a_n=\E_{L_x}[a(x,\cdot)\mid\mathscr G_n],\qquad
+ b_n=\E_{L_x}[b(x,\cdot)\mid\mathscr G_n].
+\]
+Define the nonnegative lower-semicontinuous convex perspective
+\[
+ \Phi(u,v)=u\log(u/v)-u+v,
+\]
+with $\Phi(0,v)=v$, $\Phi(u,0)=+\infty$ for $u>0$, and
+$\Phi(0,0)=0$.  Because both kernels have unit mass, the $n$th partition
+expression $D_n(x)$ equals
+$\int\Phi(a_n,b_n) dL_x$.  Conditional Jensen under refinement makes
+$D_n(x)$ nondecreasing, while the log-sum inequality gives
+\[
+ D_n(x)\leq \KL(\kappa(x,\cdot)\Vert\eta(x,\cdot)).
+\]
+Martingale convergence gives $(a_n,b_n)\to(a,b)$ $L_x$-almost everywhere.
+Fatou's lemma and the preceding upper bound yield
+\[
+ \KL(\kappa(x,\cdot)\Vert\eta(x,\cdot))
+ =\int\Phi(a,b) dL_x
+ \leq\liminf_nD_n(x)
+ \leq\limsup_nD_n(x)
+ \leq\KL(\kappa(x,\cdot)\Vert\eta(x,\cdot)).
+\]
+Thus $D_n(x)\uparrow\KL(\kappa(x,\cdot)\Vert\eta(x,\cdot))$, proving
+\eqref{eq:prob-kernel-kl-partitions} without a cofinality assertion.  Each
+$D_n$ is measurable in $x$, so its countable supremum is measurable. \hfill$\square$
+
+\medskip
 \propositionheading{Kernel integration preserves measurability}{prop:prob-kernel-integration-measurability}
 Let $\kappa$ be a probability kernel from $(\mathsf E,\mathscr E)$ to $(\mathsf F,\mathscr F)$ and let $f:\mathsf E\times\mathsf F\to[0,\infty]$ be $\mathscr E\otimes\mathscr F$-measurable. Then
 \begin{equation}
@@ -221,14 +351,23 @@ P(S)=0,
 then $Q\not\ll P$ by the definition of absolute continuity, and \eqref{eq:prob-kl-definition} gives $\KL(Q\Vert P)=+\infty$. For example, let $P$ be a nondegenerate Lebesgue-dominated law on $\R^d$ and let $Q$ be supported on a proper affine subspace $S$. The subspace is Lebesgue null, hence $P(S)=0$, whereas $Q(S)=1$; the direct argument \eqref{eq:prob-direct-null-set}, not \Cref{prop:prob-density-absolute-continuity}, proves the claim. This distinction matters because a subspace-supported $Q$ has no Lebesgue density to which the density criterion could be applied. The specific instance, in which an identification of latent coordinates across a cluster is shown to be a generative construction rather than a restriction on the recognition law, is developed in Part~II.
 
 \medskip
-\hypothesisheading{Regular observation, support, and log-integrability}{hyp:prob-regular-observation}
-For fixed $X$, the observation satisfies $o\in\mathsf O_{\theta,X}^{\mathrm{reg}}$ under the regular-conditional convention above, and
+\hypothesisheading{Regular positive-finite observation}{hyp:prob-regular-observation}
+For fixed $(\theta,X)$, the selected observation satisfies $o\in\mathsf O_{\theta,X}^{\mathrm{reg}}$ under the regular-conditional convention above, and
 \begin{equation}
-0<p_\theta(o\given X)<\infty,
-\qquad
-Q_X(\cdot\given o)\ll \Pi_{\theta,X}(o,\cdot),
+0<p_\theta(o\given X)<\infty.
 \label{eq:prob-support-condition}
 \end{equation}
+\status{HYPOTHESIS}
+\medskip
+
+This hypothesis selects a pointwise posterior version and a finite real log evidence.  It imposes no support or entropy condition on a candidate recognition law; those conditions are needed only for the classical split representation below.
+
+\medskip
+\hypothesisheading{Classical split-ELBO domain}{hyp:prob-classical-split-elbo}
+In addition to \Cref{hyp:prob-regular-observation}, the recognition law satisfies
+\[
+Q_X(\cdot\given o)\ll \Pi_{\theta,X}(o,\cdot)
+\]
 and
 \begin{equation}
 \E_{Q_X}\Bigl[\bigl|\log p_\theta(o,Y\given X)\bigr|+\bigl|\log q_X(Y\given o)\bigr|\Bigr]<\infty .
@@ -237,7 +376,7 @@ and
 \status{HYPOTHESIS}
 \medskip
 
-These are choices, and each excludes something identifiable. Membership in $\mathsf O_{\theta,X}^{\mathrm{reg}}$ makes the posterior the selected regular-conditional version and makes the statement invariant under changes of density version outside a marginal-full set. The lower bound in \eqref{eq:prob-support-condition} excludes observations the selected representative deems impossible, for which no bound on the log evidence exists because the log evidence is $-\infty$. The absolute-continuity requirement excludes exactly the degenerate laws just described. Condition \eqref{eq:prob-integrability} excludes recognition laws whose tails make the two expectations individually infinite even when their difference would formally cancel, and it is what permits the decomposition in Chapter~\ref{ch:elbo} to be rearranged term by term. Where a later result tolerates an extended-real relative entropy, the relaxation is stated at that point rather than absorbed into the notation here.
+These are choices, and each excludes something identifiable. Membership in $\mathsf O_{\theta,X}^{\mathrm{reg}}$ makes the posterior the selected regular-conditional version and makes the statement invariant under changes of density version outside a marginal-full set. The lower bound in \eqref{eq:prob-support-condition} excludes observations the selected representative deems impossible, for which the log evidence is $-\infty$. The separate absolute-continuity requirement in \Cref{hyp:prob-classical-split-elbo} excludes exactly the degenerate laws just described. Condition \eqref{eq:prob-integrability} excludes recognition laws whose tails make the two classical expectations individually infinite even when their formal difference suggests cancellation.  Chapter~\ref{ch:elbo} first defines an extended functional for every probability law and invokes \Cref{hyp:prob-classical-split-elbo} only when splitting it into separate expected-log-joint and entropy terms.
 
 \section{Recognition marginals and what they fail to determine}
 \label{sec:prob-marginals}

@@ -105,6 +105,12 @@ Q_\theta(dz)=q_\theta(z)\nu(dz).
 \end{equation}
 Nothing is asserted for \(\theta\notin\mathsf N\). \status{DEFINITION}
 
+\propositionheading{Finite-domain interface to ELBO coordinates}{prop:exp-finite-domain-elbo-interface}
+The map $(\theta,z)\mapsto q_\theta(z)$ in \eqref{eq:exp-density} is jointly measurable on $\mathsf N\times\mathsf Z$, and every law, density ratio, Fisher tensor, or ELBO coordinate built from this canonical representation is restricted to parameters in $\mathsf N$. For a comparison of several canonical representations, either the comparison is made intrinsically at the measure level or the representations must have one declared common sigma-finite base measure; its density domain is the intersection of their natural domains. An extended-ELBO update additionally requires a positive-finite selected evidence slice at every compared parameter, while the classical expected-log-density representation separately requires \Cref{hyp:prob-classical-split-elbo}. An algebraic operator that leaves $\mathsf N$ therefore ceases to define a probability or ELBO coordinate even if it remains an element of the operator cone. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Lower semicontinuity makes $\mathsf A$ Borel measurable, and measurability of $T$ makes $(\theta,z)\mapsto\langle\theta,T(z)\rangle$ jointly measurable; exponentiation proves the first claim. Normalization is finite exactly on $\mathsf N$ by \eqref{eq:exp-logpartition}. The remaining statements are direct domain checks against \Cref{def:exp-partial-realization,def:elbo-extended,hyp:prob-classical-split-elbo}: a density comparison needs a fixed reference, the extended functional needs a normalized posterior slice with finite positive mass, and its classical split needs the additional support and log-integrability hypotheses. \(\square\)
+
 \propositionheading{Convexity and lower semicontinuity}{prop:exp-logpartition-convex-lsc}
 \(\mathsf A\) is convex and lower semicontinuous as an extended-real
 function, and \(\mathsf N\) is convex. \status{ESTABLISHED}

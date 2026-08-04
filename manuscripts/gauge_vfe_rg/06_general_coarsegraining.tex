@@ -62,6 +62,26 @@ experiments. \status{DEFINITION}
 \section{KL contraction, equality, and recovery}
 \label{sec:cg-kl-recovery}
 
+\theoremheading{Extended KL data processing}{thm:cg-kl-dpi-extended}
+For arbitrary probability laws $P,Q\in\mathcal P(\mathsf X)$ and every Markov kernel $K:\mathsf X\rightsquigarrow\mathsf Y$,
+\begin{equation}
+\KL(PK\Vert QK)\leq\KL(P\Vert Q)
+\qquad\text{in }[0,+\infty].
+\label{eq:cg-kl-dpi-extended}
+\end{equation}
+No absolute-continuity or finiteness hypothesis is required. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+If $P\not\ll Q$, the right side is $+\infty$ and the inequality is immediate. If $P\ll Q$, put $r=dP/dQ$ and form $\mathbb Q(dx,dy)=Q(dx)K(x,dy)$. The calculation against bounded test functions gives $d(PK)/d(QK)=\bar r$, where $\bar r(Y)=\E_{\mathbb Q}[r(X)\mid Y]$. For the nonnegative convex generator $\phi_0(t)=t\log t-t+1$, conditional Jensen and monotone approximation give
+\[
+\KL(PK\Vert QK)
+=\E_{\mathbb Q}\phi_0(\bar r(Y))
+\leq\E_{\mathbb Q}\phi_0(r(X))
+=\KL(P\Vert Q),
+\]
+including the case in which the last expectation is $+\infty$. No signed integral is rearranged. \(\square\)
+
+\medskip
 \theoremheading{Data processing with its exact equality condition}{thm:cg-dpi-equality}
 Let \(P,Q\in\mathcal P(\mathsf X)\), \(P\ll Q\), and
 \(\KL(P\Vert Q)<\infty\). For a Markov kernel
@@ -118,6 +138,18 @@ Disintegration gives the first identity. Under equality,
 \]
 The converse follows by applying data processing through \(K\) and then
 \(R\). \(\square\)
+
+\corollaryheading{Infinite equality carries no recovery conclusion}{cor:cg-dpi-infinite-equality-warning}
+The finiteness hypothesis of \Cref{thm:cg-dpi-equality} cannot be removed from its equality characterization. Equality $\KL(PK\Vert QK)=\KL(P\Vert Q)=+\infty$ alone need not imply a common reverse kernel recovering $P$ and $Q$. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Let $\mathsf X=\{a,b,c\}$, $\mathsf Y=\{u,v\}$, and let the deterministic channel send $a$ to $u$ and both $b,c$ to $v$. Set
+\[
+P=\tfrac12\delta_a+\tfrac12\delta_b,
+\qquad
+Q=\tfrac12\delta_b+\tfrac12\delta_c.
+\]
+Both fine and coarse divergences $\KL(P\Vert Q)$ and $\KL(PK\Vert QK)$ are $+\infty$, because $P(a)>0=Q(a)$ and $(PK)(u)>0=(QK)(u)$. If one reverse kernel $R$ recovered both, $QK=\delta_v$ would force $R(v,\cdot)=Q$. But then $(PK)R=\tfrac12R(u,\cdot)+\tfrac12Q$ assigns at least $1/4$ to $c$, contradicting $P(c)=0$. \(\square\)
 
 This recovery is pairwise. It may depend on the chosen reference \(Q\).
 For a dominated experiment, one common dominating probability \(P_0\) and
@@ -195,31 +227,49 @@ parameter-independent reverse kernel can recover the whole experiment.
 \label{sec:cg-elbo}
 
 \theoremheading{Evidence-preserving coarse channel}{thm:cg-evidence-preserving-channel}
-Fix one normalized joint \(P(do,dx)\), a regular observation \(o\), posterior
-\(P_o\), recognition law \(Q_o\), and normalized channel
-\(K:\mathsf X\rightsquigarrow\mathsf Y\) that does not read \(Q_o\). Define
+Let $\mathsf O$, $\mathsf X$, and $\mathsf Y$ be standard Borel.  Fix one
+normalized joint $P(do,dx)$ and fix a measurable regular-conditional kernel
+$o\mapsto P_o$ of $X$ given $O$ under $P$.  Let
+$K:\mathsf X\rightsquigarrow\mathsf Y$ be a normalized channel that does not
+read the arbitrary recognition law $Q_o$.  Define
 \begin{equation}
 \bar P(do,dy)=\int K(x,dy)P(do,dx),\qquad
-\bar Q_o=Q_oK.
+\bar P_o:=P_oK\ \text{ for every }o,\qquad
+\bar Q_o:=Q_oK.
 \label{eq:cg-fixed-joint-pushforward}
 \end{equation}
-Then \(\bar P^O=P^O\), \(\bar P_o=P_oK\) almost surely,
-\(Q_o\ll P_o\) implies \(\bar Q_o\ll\bar P_o\), and the extended ELBOs satisfy
+The declared kernel $o\mapsto\bar P_o$ is a regular conditional law of $Y$
+given $O$ under $\bar P$, including its selected exceptional-point values.
+Fix a selected regular observation $o$ and use the same declared evidence
+density representative $p(o)$ for the fine and coarse slices.  Then
+$\bar P^O=P^O$ and the extended ELBO of \Cref{def:elbo-extended} satisfies
 \begin{equation}
-\bar{\mathcal L}^{\rm ext}(\bar Q_o;o)
+\bar\Lelbo^{\mathrm{ext}}(Q_oK;o)
 =\log p(o)-\KL(Q_oK\Vert P_oK)
 \geq
 \log p(o)-\KL(Q_o\Vert P_o)
-=\mathcal L^{\rm ext}(Q_o;o).
+=\Lelbo^{\mathrm{ext}}(Q_o;o).
 \label{eq:cg-elbo-monotone}
 \end{equation}
 \status{ESTABLISHED}
 
 \paragraph{Proof.}
-Normalization of \(K\) preserves the observation marginal. Disintegration
-commutes with the parameter-independent channel. Absolute continuity and
-\eqref{eq:cg-elbo-monotone} follow from the preceding data-processing
-theorem. \(\square\)
+Normalization of $K$ preserves the observation marginal.  Kernel integration
+makes $o\mapsto(P_oK)(B)$ measurable for every measurable $B\subseteq\mathsf Y$.
+Moreover, for measurable $A\subseteq\mathsf O$ and $B\subseteq\mathsf Y$,
+\[
+ \int_A(P_oK)(B) P^O(do)
+ =\int_A\int_{\mathsf X}K(x,B)P_o(dx) P^O(do)
+ =\bar P(A\times B).
+\]
+A $\pi$--$\lambda$ extension proves the regular-conditional identity.  Thus
+the pointwise declaration $\bar P_o:=P_oK$ selects a compatible version rather
+than applying an almost-sure identity at an arbitrarily fixed exceptional
+observation.  Since the same evidence representative is used and
+$\bar P^O=P^O$, Equation~\eqref{eq:cg-elbo-monotone} follows pointwise for the
+selected versions from \Cref{thm:cg-kl-dpi-extended}; when
+$Q_o\not\ll P_o$ its rightmost value is $-\infty$, and the inequality remains
+valid without any undefined sum. \(\square\)
 
 Thus different latent inventories are not by themselves a prohibition.
 ELBOs are comparable under an evidence-preserving common Markov pushforward
