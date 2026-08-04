@@ -59,6 +59,12 @@ def require_field(value, name: str, defect: str):
     return getattr(value, name)
 
 
+def require_mapping_field(value, name: str, defect: str):
+    assert isinstance(value, dict), f"DEFECT [{defect}]: expected a mapping"
+    assert name in value, f"DEFECT [{defect}]: required field {name!r} is missing"
+    return value[name]
+
+
 def case_seed(case_id: str, dimension: int, condition_number: float, stratum: str) -> int:
     material = f"{PROTOCOL_SEED}|{case_id}|{dimension}|{condition_number:.17g}|{stratum}".encode()
     return int.from_bytes(hashlib.sha256(material).digest()[:8], "big", signed=False)
@@ -201,6 +207,41 @@ def test_factorization_api_rejects_nonsymmetric_non_spd_and_nonfinite_inputs(bad
     factorization_gap = require_runner_api("factorization_gap", "invalid precision rejection")
     with pytest.raises((ValueError, TypeError)):
         factorization_gap(bad_lam, [[0], [1]])
+
+
+def test_extreme_finite_spd_block_diagonals_and_huge_correlated_scale_remain_valid():
+    factorization_gap = require_runner_api(
+        "factorization_gap", "extreme finite SPD inputs"
+    )
+    exact_block_diagonals = {
+        "huge": np.diag([1.0e308, 1.0e308]),
+        "subnormal": np.diag([1.0, np.nextafter(0.0, 1.0)]),
+    }
+    for label, matrix in exact_block_diagonals.items():
+        assert np.all(np.isfinite(matrix)), f"DEFECT [{label} SPD fixture]: fixture must be finite"
+        np.linalg.cholesky(matrix)
+        try:
+            result = factorization_gap(matrix, [[0], [1]])
+        except (ValueError, TypeError, FloatingPointError, np.linalg.LinAlgError) as exc:
+            pytest.fail(f"DEFECT [{label} finite SPD]: production rejected a finite positive-definite input: {type(exc).__name__}: {exc}")
+        observed = result_value(result, f"{label} finite SPD")
+        assert math.isfinite(observed), f"DEFECT [{label} finite SPD]: exact block-diagonal gap must be finite"
+        assert observed == 0.0, f"DEFECT [{label} finite SPD]: exact block-diagonal gap must be exactly zero"
+
+    correlation = 0.25
+    ordinary = np.array([[1.0, correlation], [correlation, 1.0]])
+    huge = 8.0e307 * ordinary
+    assert np.all(np.isfinite(huge)), "DEFECT [huge correlated fixture]: scaled fixture must remain finite"
+    expected = -0.5 * math.log1p(-(correlation * correlation))
+    ordinary_gap = result_value(
+        factorization_gap(ordinary, [[0], [1]]), "ordinary correlated scale"
+    )
+    huge_gap = result_value(
+        factorization_gap(huge, [[0], [1]]), "huge correlated scale"
+    )
+    assert math.isfinite(huge_gap), "DEFECT [huge correlated scale]: scalar gap must be finite"
+    assert ordinary_gap == pytest.approx(expected, rel=5e-12, abs=0.0), "DEFECT [ordinary correlated scale]: scalar oracle mismatch"
+    assert huge_gap == pytest.approx(expected, rel=5e-12, abs=0.0), "DEFECT [huge correlated scale]: factorization gap must be invariant under finite positive scaling"
 
 
 def test_gap_steps_are_nonempty_and_have_load_bearing_numerical_diagnostics():
@@ -521,3 +562,69 @@ def test_protocol_all_3138_matrix_values_and_100_digit_controls_are_independent_
         assert require_field(control, "decimal_digits", "100-digit controls") == 100, "DEFECT [100-digit controls]: precision must be exactly 100"
         matrix, partition = regenerate_matrix_and_partition(case)
         assert float(require_field(control, "reference_value", "100-digit controls")) == pytest.approx(independent_matrix_gap(matrix, partition), rel=1e-11), "DEFECT [100-digit controls]: reference is not independent"
+
+
+def test_protocol_records_independently_recomputed_achieved_condition_numbers():
+    schedule = frozen_cases()
+    report = require_runner_api(
+        "run_factorization_gap_protocol", "achieved condition provenance"
+    )(seed=PROTOCOL_SEED, schedule=schedule)
+    records = {
+        require_field(record, "case_id", "achieved condition provenance"): record
+        for record in require_field(report, "cases", "achieved condition provenance")
+    }
+    achieved_by_id: dict[str, float] = {}
+    for case in schedule:
+        record = records[case.case_id]
+        # This legacy field is the requested schedule tier, not evidence that
+        # the regenerated binary64 matrix attained that condition number.
+        assert require_field(record, "condition_number", "nominal condition tier") == case.condition_number, f"DEFECT [nominal condition tier]: {case.case_id} lost its scheduled condition tier"
+        matrix, _ = regenerate_matrix_and_partition(case)
+        assert require_field(record, "matrix_digest", "achieved condition provenance") == matrix_digest(matrix), f"DEFECT [achieved condition provenance]: {case.case_id} is not bound to its regenerated matrix"
+        achieved = float(np.linalg.cond(matrix))
+        reported = float(
+            require_field(record, "achieved_condition_number", "achieved condition provenance")
+        )
+        assert math.isfinite(reported), f"DEFECT [achieved condition provenance]: {case.case_id} reported a nonfinite achieved condition number"
+        assert reported == pytest.approx(achieved, rel=5e-13, abs=0.0), f"DEFECT [achieved condition provenance]: {case.case_id} does not match np.linalg.cond of its digest-bound regenerated matrix"
+        achieved_by_id[case.case_id] = achieved
+
+    assert max(achieved_by_id.values()) == pytest.approx(1.0e14, rel=2e-2), "DEFECT [achieved condition coverage]: the protocol does not globally exercise an achieved condition near 1e14"
+    assert achieved_by_id["exact_block_diagonal-015"] == pytest.approx(1.0), "DEFECT [nominal versus achieved condition]: the d=2 scalar-block control should expose nominal 1e14 separately from achieved condition 1"
+    near_decoupled_achieved = [
+        achieved_by_id[case.case_id]
+        for case in schedule
+        if case.stratum == "near_decoupled"
+    ]
+    assert max(near_decoupled_achieved) < 1.0e12, "DEFECT [near-decoupled condition fixture]: frozen cases unexpectedly invalidate the global-only 1e14 coverage contract"
+
+
+def test_runtime_stress_binds_boundary_witness_and_all_case_oracle_failures():
+    result_record = require_runner_api(
+        "check_cg_factor_gap_stress", "runtime stress provenance"
+    )()
+    assert require_mapping_field(result_record, "status", "runtime stress provenance") == "PASS", "DEFECT [runtime stress provenance]: runtime check must pass only with complete evidence"
+    observed = require_mapping_field(
+        result_record, "observed", "runtime stress provenance"
+    )
+    boundary = require_mapping_field(
+        observed, "boundary_witness", "runtime boundary witness"
+    )
+    certificate = canonical_correlation_clip_certificate(WITHIN_BOUND_CLIP_WITNESS)
+    assert require_mapping_field(boundary, "matrix_digest", "runtime boundary witness") == matrix_digest(WITHIN_BOUND_CLIP_WITNESS), "DEFECT [runtime boundary witness]: matrix digest does not bind the frozen exact input"
+    exact_input_value = float(
+        require_mapping_field(boundary, "exact_input_value", "runtime boundary witness")
+    )
+    assert exact_input_value == pytest.approx(certificate["high_precision_gap"], rel=5e-12, abs=math.ulp(certificate["high_precision_gap"])), "DEFECT [runtime boundary witness]: reported value is not the 200-digit exact-input determinant gap"
+    excursion = float(
+        require_mapping_field(boundary, "rho_squared_excursion", "runtime boundary witness")
+    )
+    assert excursion == certificate["rho_squared_excess"] and excursion > 0.0, "DEFECT [runtime boundary witness]: positive binary64 rho^2 excursion is missing or incorrect"
+    outward_allowance = float(
+        require_mapping_field(boundary, "outward_allowance", "runtime boundary witness")
+    )
+    assert outward_allowance == certificate["forward_error_upper_float"], "DEFECT [runtime boundary witness]: allowance must be the independently recomputed outward binary64 bound"
+    assert Fraction.from_float(outward_allowance) >= certificate["forward_error_upper"], "DEFECT [runtime boundary witness]: reported allowance rounded inward"
+    assert require_mapping_field(boundary, "status", "runtime boundary witness") == "PASS", "DEFECT [runtime boundary witness]: bound witness must report PASS"
+    assert require_mapping_field(observed, "all_case_oracle_cases", "runtime all-case oracle") == len(frozen_cases()), "DEFECT [runtime all-case oracle]: report must bind the all-case claim to all 3138 frozen cases"
+    assert require_mapping_field(observed, "all_case_oracle_failures", "runtime all-case oracle") == 0, "DEFECT [runtime all-case oracle]: an all-case accuracy claim requires zero independently evaluated oracle failures"
