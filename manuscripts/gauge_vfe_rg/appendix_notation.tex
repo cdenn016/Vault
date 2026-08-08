@@ -178,7 +178,7 @@ smooth coarse configuration map &
 Separately declared data.  It is not the sample kernel \(K_\ell\), the law map
 \(N_\star\), the bundle morphism \(\Psi\) or \(C_{\ell,s}\), the nonlinear
 action map \(\mathcal R^H\), the block measure-pair map \(\mathcal R_b\), the
-derivative \(M_\ell\), the reference-space endomorphism
+derivative \(D_\ell\), the reference-space endomorphism
 \(\widehat{\mathcal R}_\ell\), the conjugated retained projection
 \(\widehat R_\ell\), the root-vertex set \(\mathcal R\), or the descent ray
 \(\mathcal R^-_{\Fenergy_i}\).  A pointwise bundle morphism induces it only on
@@ -250,6 +250,13 @@ normalized, parameter-independent Markov kernel &
 It satisfies \(K(x,\mathsf Y)=1\) for every \(x\), pushes laws forward, and
 obeys data processing.  It is not an energy
 restriction or a Galerkin matrix. \\
+\(I_{\mathbb R^b};\ I_b\) &
+the \(b\)-dimensional identity covariance; declared rescaling/identification
+kernel &
+The covariance \(I_{\mathbb R^b}\) occurs in replicated Gaussian laws. The
+plain \(I_b\) is a normalized kernel composed with \(C_b\) in the RG
+measure-pair map; it is neither that covariance nor the score lift
+\(\mathscr I_b\). \\
 \(\iota_{\mathcal P}\) &
 coarse-to-fine deterministic embedding &
 Imposes a hard block constraint on an energy family.  Normalization and
@@ -274,6 +281,37 @@ normalized law &
 Here \(M_\ell=m_\ell(\mathsf X_\ell)\in(0,\infty)\) and
 \(\pi_\ell=m_\ell/M_\ell\).  The measure pair is the primary law-level RG
 state; normalization does not discard the separately tracked evidence mass. \\
+\(c_{\mathrm{ray}}(b);\ n_{\mathrm{cut}}(b)\) &
+additive fixed-action-ray shift; cut-edge count for the declared block ratio \(b\) &
+It is present only on the projective action tier of the \(b\)-step map
+\(\mathcal R_b^H\). A fixed tracked measure pair restores mass preservation
+and forces \(c_{\mathrm{ray}}(b)=0\). The count
+\(n_{\mathrm{cut}}(b)\) occurs only in the operator-scale counting law. \\
+\(B(b);\ \partial B(b)\) &
+typical block at ratio \(b\); its coarse cut &
+Local notation for the weighted scaling comparison. Neither object is fixed by
+the block ratio alone; both belong to the declared weighted graph family. \\
+\(W_{\partial}(b),A_B(b);\ s_W,s_A\) &
+cut-coupling and block-self sums; their declared norm-growth exponents &
+\(W_{\partial}(b)=\sum_{e\in\partial B(b)}W_e\) and
+\(A_B(b)=\sum_{i\in B(b)}A_i\). The exponents satisfy
+\(\lVert W_{\partial}(b)\rVert\asymp b^{s_W}\) and
+\(\lVert A_B(b)\rVert\asymp b^{s_A}\) in the declared norm; edge count alone
+does not determine them. \\
+\(b>1;\ C_b,\ I_b,\ K_b=C_bI_b\) &
+block-RG structural coarse kernel, rescaling/identification kernel, and
+composite kernel &
+\(C_b\) is the structural coarse Markov kernel and \(I_b\) the declared
+rescaling/identification kernel returning its target to the common measurable
+state space; their right-acting composite is \(K_b=C_bI_b\). \\
+\(\mathcal R_b,\mathcal R_b^\rho;\ \mathcal R_b^H,\mathfrak B_b^H\) &
+block-RG measure-pair and reference maps; finite-action map and action beta &
+\(\mathcal R_b(\rho,m)=(\rho K_b,mK_b)\) is the primary measure-pair map and
+\(\mathcal R_b^\rho\rho=\rho K_b\) its reference component. On the dominated,
+finite-action tier, \(\mathcal R_b^H[H;\rho]\) is the reference-dependent
+action map and \(\mathfrak B_b^H[H;\rho]=(\mathcal R_b^H[H;\rho]-H)/\log b\).
+Neither the action nor its beta is defined outside its stated finite-action
+domain. \\
 \(K_\ell;\ \Pi_\ell(z,dx)\) &
 normalized forward scale kernel; reverse conditional for
 \(\pi_\ell(dx)K_\ell(x,dz)\) &
@@ -356,21 +394,23 @@ exponential action neighborhood. \\
 adjacent and cumulative log block scale &
 \(s_{n\leftarrow\ell}=\log B_{n\leftarrow\ell}\).  It is a scale index, not a
 duration; every reported growth rate is divided by it. \\
-\(M_\ell=DT_\ell(x_\ell);\ M_{n\leftarrow\ell}=M_{n-1}\cdots M_\ell\) &
+\(D_\ell=DT_\ell(x_\ell);\ D_{n\leftarrow\ell}=D_{n-1}\cdots D_\ell;\ \widehat D_{n\leftarrow\ell}\) &
 derivative along an exact orbit and its ordered composition &
-The rightmost factor acts first.  These are maps between different spaces; an
-ordinary spectrum requires a declared identification. \\
+The rightmost factor acts first. The hatted cocycle is the one transported by
+the declared comparison trivializations. These are maps between different
+spaces; an ordinary spectrum requires a declared identification. \\
 \(v_{\ell,a},\lambda_{\ell,a};\ \lambda_{n\leftarrow\ell,a}\) &
 compatible cross-scale mode line and its coefficients &
-Defined by \(M_\ell v_{\ell,a}=\lambda_{\ell,a}v_{\ell+1,a}\) and the ordered
-product law.  The equation \(M_\ell v=\lambda v\) is ill typed and is not
+Defined by \(D_\ell v_{\ell,a}=\lambda_{\ell,a}v_{\ell+1,a}\) and the ordered
+product law. The equation \(D_\ell v=\lambda v\) is ill typed and is not
 used. \\
-\(\chi_{n\leftarrow\ell}(u);\ y_{n\leftarrow\ell,a}\) &
+\(\chi_{n\leftarrow\ell}(u);\ \upsilon_{n\leftarrow\ell,a}\) &
 finite-time norm growth rate and scalar mode exponent &
 Both are relative to the declared norms, the declared extensive normalization,
 the block ratios, and the comparison maps.  A Lyapunov exponent is asserted only
 when the upper and lower asymptotic rates agree; no Oseledets splitting is
-claimed. \\
+claimed. The exponent \(\upsilon_a\) is distinct from the generative latent
+variable \(y_a\). \\
 \(J_\ell:\mathcal G_\star\to\mathcal G_\ell;\
   \widehat T_\ell^{\mathcal G}=J_{\ell+1}^{-1}T_\ell^{\mathcal G}J_\ell\) &
 comparison trivialization and the pulled exact interaction map &

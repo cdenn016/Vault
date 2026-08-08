@@ -17,11 +17,12 @@ parameter-smooth conditional-score versions.
 ## Primary source
 
 - David Pollard, "A note on insufficiency and the preservation of Fisher
-  information," *IMS Collections* **9** (2013), 266–275, Theorem 3.
+  information," *IMS Collections* **9** (2013), 266–275, the preservation
+  theorem in Section 3.
 - DOI: [10.1214/12-IMSCOLL919](https://doi.org/10.1214/12-IMSCOLL919).
 - Preprint: [arXiv:1107.3797](https://arxiv.org/abs/1107.3797).
 
-Pollard's Theorem 3 gives the DQM score of a statistic as the conditional
+Pollard's preservation theorem in Section 3 gives the DQM score of a statistic as the conditional
 expectation of the original score and characterizes Fisher equality by
 statistic-measurability of that score.
 
@@ -43,7 +44,7 @@ Then \(\nu\) is \(\sigma\)-finite: for a \(\mu\)-finite exhaustion
 \(\nu(\mathsf X_n\times\mathsf Y)=\mu(\mathsf X_n)\).  Moreover
 \(\mathrm dJ_\theta/\mathrm d\nu=p_\theta(x)\).  Hence the DQM remainder
 for \(J_\theta\) has exactly the same squared \(L^2(\nu)\) norm as the DQM
-remainder for \(P_\theta\).  Apply Pollard's Theorem 3 to the deterministic
+remainder for \(P_\theta\).  Apply Pollard's preservation theorem in Section 3 to the deterministic
 statistic \(T(x,y)=y\).  Its image experiment is precisely \(P_\theta K\), and
 for a fine directional score \(\ell_w(X)\) its DQM score is
 

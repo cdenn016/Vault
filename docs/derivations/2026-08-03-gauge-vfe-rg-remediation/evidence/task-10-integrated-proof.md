@@ -49,7 +49,7 @@ Their digests, recomputed here on the working-tree bytes:
 | `evidence/task-10-timeless-history-analysis.md` | `e1bbfa7c32dbcae010e4e2f62e5a8e356907c4ecabf0e604ae4a461e3f57f7f4` | typed-history route |
 | `evidence/task-10-bundle-pullback-analysis.md` | `124010f91e7bc2a7569d5d85bc9dcf5ba44581da508eb246a836ca222b00e63b` | superseded bundle route |
 | `evidence/task-10-score-configuration-analysis.md` | `9161b0f0941ed7b2061ba1102b2a5df5acbe318a8c2d57fc391003f7a782de4f` | superseded score/configuration route |
-| `evidence/task-10-dqm-transfer-source-map.md` | `98804488d6b03022f39e1b0a87f6ed35fc3997dbf8fcce869090c1d462301cfb` | Pollard primary-source transfer map |
+| `evidence/task-10-dqm-transfer-source-map.md` | `2776d62ca12633d10ddf91c57f9327e51e60dda22d9b63aaad59203bc5996794` | Pollard primary-source transfer map |
 
 The digests of the four shared inputs agree with the binding tables of both the
 reconciliation and the adversarial pass. **No input drift is reported.**
@@ -66,29 +66,30 @@ Section 9 records the erasure audit.
 
 ## 3. Final source digests
 
-Working-tree bytes, which for these tracked files means CRLF line endings, the
-same basis on which the pre-edit table of Section 1 was computed. The digest
-convention is stated explicitly here because the control plane uses two of them
-(Section 3.1). The table is deliberately acyclic: it binds the edited sources
-and the forward control artifacts that do not themselves bind this record.
+These are SHA-256 digests of the committed Git-blob bytes in the immutable
+Task 11 provenance snapshot. The final column records the exact counts of CRLF
+pairs and bare LF bytes returned by `git show REVISION:path`; every row has
+zero bare CR bytes. The table is
+deliberately acyclic: it binds the edited sources and the forward control
+artifacts that do not themselves bind this record.
 `claim-ledger.json` and `adversarial-report.json` are excluded because each
 carries the digest of this proof; after this file is frozen, those two controls
 bind it in the reverse direction. Including either digest here would require a
 cryptographic fixed point rather than an auditable dependency graph.
 
-| Path | Post-edit SHA-256 |
-| --- | --- |
-| `manuscripts/gauge_vfe_rg/05c_pullback_geometry.tex` | `69c97142d757997f2d861965ba96150a1b5c127932cfc784cb831a8b532400b5` |
-| `manuscripts/gauge_vfe_rg/05d_relational_inference.tex` | `4c4670545715cf89365772400471c22440f16a5f8009ab0bb76ef4fcda002b5c` |
-| `manuscripts/gauge_vfe_rg/07_general_renormalization.tex` | `aeffcc85818d22cdeccb8814299ee1daf70b684dc91e9949637da0f2ce7ddf68` |
-| `manuscripts/gauge_vfe_rg/07b_agent_network_rg.tex` | `fffd22159e13c11309773ac62f8e778a5c54595511f2071d7be7f83ac2ed6c8d` |
-| `manuscripts/gauge_vfe_rg/08_infogeometry.tex` | `3d15708e8d84430f6b02b48d1a5cb32986f1ef9c9d18a6bd071de45fb9a897bf` |
-| `manuscripts/gauge_vfe_rg/appendix_notation.tex` | `872ed011cfafcad8cbd301b2c2eae7e71e3e1cacab6e3e973daf74200de4b20d` |
-| `manuscripts/gauge_vfe_rg/appendix_claim_ledger.tex` | `575b13833b0f052a9c712e84d4e02479ef6ae63926d57e9ae760b2fe13cbc944` |
-| `docs/derivations/2026-08-03-gauge-vfe-rg-remediation/dependency-dag.json` | `9d917912a5596fbecd855742c96b44ea77c53aa359c56e8417da0ccff1b1a0db` |
-| `docs/derivations/2026-08-03-gauge-vfe-rg-remediation/approach-registry.json` | `6344e6115f16a0246a947c65c21a368733b4b899ed9ef5a18ffb6be2c6dcb0ee` |
-| `docs/derivations/2026-08-03-gauge-vfe-rg-remediation/counterexample-register.md` | `9f56d36bb40463fe48f8106905f218156e5007e2f46aa138594d8a505a18b468` |
-| `docs/derivations/2026-08-03-gauge-vfe-rg-remediation/evidence/task-10-dqm-transfer-source-map.md` | `98804488d6b03022f39e1b0a87f6ed35fc3997dbf8fcce869090c1d462301cfb` |
+| Path | Post-edit SHA-256 | Committed-blob EOL counts (CRLF; bare LF) |
+| --- | --- | --- |
+| `manuscripts/gauge_vfe_rg/05c_pullback_geometry.tex` | `de8bac720312cb6c9d4c1dfaaa26574ceb692f7d2c76de91acef487a08b0aaff` | `0; 1380` |
+| `manuscripts/gauge_vfe_rg/05d_relational_inference.tex` | `fc78ad04d241818b5e2a3c20304fc70b62b4da8ed9e8336fc86523070d17f51a` | `0; 1549` |
+| `manuscripts/gauge_vfe_rg/07_general_renormalization.tex` | `c995a4543312932513566ae8c592fb4692b32a128f5680853c5240d95b9d862f` | `0; 1034` |
+| `manuscripts/gauge_vfe_rg/07b_agent_network_rg.tex` | `7b1528bbabe9849644c777e740ec9f2e6accf944178fdb267e537e8fe759851f` | `0; 2788` |
+| `manuscripts/gauge_vfe_rg/08_infogeometry.tex` | `8a3917fd8ac4861df6ae7ced72368bd31d3a98cfac3acb95e251badf60ec5ee0` | `0; 574` |
+| `manuscripts/gauge_vfe_rg/appendix_notation.tex` | `11fffe9a9b36cc071d280a40ab277e5ad3260337462f02eb1d33bb679591ab24` | `0; 515` |
+| `manuscripts/gauge_vfe_rg/appendix_claim_ledger.tex` | `096057eb33f02ea659f914bad3befaedc280cfa15c27e5587500e5d3926ab596` | `0; 302` |
+| `docs/derivations/2026-08-03-gauge-vfe-rg-remediation/dependency-dag.json` | `1d7ab02e05f8e95ee1e4be7e5d03308ed07863315c05378ae99ea5ad210de711` | `0; 166` |
+| `docs/derivations/2026-08-03-gauge-vfe-rg-remediation/approach-registry.json` | `6d020b5769853e4293019bb9bb7e51e4c2c80b057a2d2fce32e14474ff88d611` | `0; 393` |
+| `docs/derivations/2026-08-03-gauge-vfe-rg-remediation/counterexample-register.md` | `37d92b1ca801c37218dbb6e668ce948cf014017d8eac87fc46036820199c15dd` | `0; 83` |
+| `docs/derivations/2026-08-03-gauge-vfe-rg-remediation/evidence/task-10-dqm-transfer-source-map.md` | `2776d62ca12633d10ddf91c57f9327e51e60dda22d9b63aaad59203bc5996794` | `0; 72` |
 
 ### 3.1 Two digest conventions are in use, and one of them silently drifts
 
@@ -112,19 +113,20 @@ and confirming that every bound value equals the LF-normalized and Git-blob
 digest and none equals the raw working-tree digest. There is no content drift in
 any of those artifacts.
 
-The six Task 10 evidence records in the ledger (the integrated proof and
-symbolic control share one file, and the DQM source map is the sixth record)
-are written with LF line endings, so their raw and LF-normalized digests coincide
-and their bindings are correct under either reading. They will remain correct
-after a commit, because Git stores the LF form. The working-tree line endings of
-every file this pass edited were left as they were found, so no whole-file
-line-ending change is introduced anywhere; `git diff --numstat` shows
-content-only changes on all twelve modified files.
+The Task 11 provenance correction uses the **committed Git-blob convention**
+for every row in the forward table and for the proof digest bound in reverse by
+`claim-ledger.json` and `adversarial-report.json`. These are SHA-256 digests of
+the LF-normalized bytes returned by `git show REVISION:path`, so the immutable
+review revision reproduces them independently of `core.autocrlf`. The source
+map and this proof are also normalized to LF before the final snapshot, making
+their current working-tree digests equal to their committed-blob digests.
+Existing historical Task 5 through Task 9 evidence rows were not reinterpreted
+or rewritten.
 
-Recommendation for Task 12 or Task 16, not applied here: state the digest
-convention once in the schema and make the lifecycle gate hash the Git blob
-rather than the working-tree bytes, so that the two conventions cannot diverge
-on a Windows checkout.
+Recommendation for Task 12 or Task 16: state the digest convention once in the
+schema and migrate the remaining historical rows to the committed Git-blob
+convention, so a validator never compares a blob digest with platform-specific
+working-tree bytes.
 
 ## 4. The type table
 
@@ -327,8 +329,8 @@ pair the local representative carries the context-dependent factor
 `evidence/task-10-dqm-transfer-source-map.md`: form
 `J_theta(dx,dy) = P_theta(dx) N(x,dy)` and
 `nu(dx,dy) = mu(dx) N(x,dy)`, so `dJ_theta/dnu = p_theta(x)`. The fine DQM
-remainder therefore has the same squared `L^2(nu)` norm, and Pollard (2013),
-Theorem 3, applied to the statistic `(x,y) -> y`, gives the score
+remainder therefore has the same squared `L^2(nu)` norm, and the preservation
+theorem in Section 3 of Pollard (2013), applied to the statistic `(x,y) -> y`, gives the score
 `E[l_w(X) | Y]`. Hellinger contraction is corroboration only, not a sufficient
 substitute for this score identification. The law of total variance gives the
 displayed identity, and pulling back by `D^omega s` preserves positive
@@ -1002,11 +1004,11 @@ state and nothing mathematical.
 | `\widehat R_\ell` already assigned | yes, `07b:2196`, recurring at `07b:2198, 2227, 2251` — the recommended rename would have collided |
 | assignments of `\mathcal R` before the edit | six: `04_generative.tex:22`; `05_elbo.tex:388-434`; `05d:287`; `05d:719-783`; `07b:185`; `07b:2074`; plus `\widehat{\mathcal R}_\ell` at `07_general_renormalization.tex:45-48` |
 | assignments of `\mathcal R` in `05d` after the edit | only the descent ray `\mathcal R^-_{\Fenergy_i}` and the explicit non-identification list |
-| "connection-compatible" / "the connections are compatible" | five sites before the edit, defined at none; three now read the isotropy criterion, two are outside this pass's permitted files |
+| "connection-compatible" / "the connections are compatible" | five sites before the edit, defined at none; three were repaired in Task 10, and Task 11 subsequently made the remaining Chapter 6 use explicit through the isotropy and related-section criteria |
 | undefined `\cref`/`\eqref` targets across all chapters | zero |
 | duplicate labels across all chapters | zero |
 | banned spacing macros in the edited files | zero introduced; the pre-existing `\,` occurrences in `07b` are outside the edited regions |
-| doubled `\status` on one line in the edited files | zero introduced; the three pre-existing occurrences in `08_infogeometry.tex` are Task 11 scope |
+| doubled `\status` on one line in the edited files | zero introduced at the Task 10 freeze; Task 11 subsequently split all multi-status prose paragraphs, and its current scan reports zero outside the explicit taxonomy table |
 | British spellings, banned phrases in the edited files | none |
 
 ## 9. Search-prior isolation
@@ -1028,19 +1030,19 @@ proves nothing.
 
 ## 10. Residual obligations and provenance
 
-**Outside this pass's permitted files, and therefore still owed.**
+**Outside the Task 10 pass at the time, and closed downstream by Task 11.**
 
-1. `06_general_coarsegraining.tex:170`, `thm:cg-fisher-contraction`, remains a
-   Task 11 source-wording repair. Task 10 provenance is source-closed by
-   `task-10-dqm-transfer-source-map.md`, which records Pollard (2013), Theorem
-   3, DOI `10.1214/12-IMSCOLL919`, arXiv `1107.3797`, and the exact reduction
-   `J_theta=P_theta K` followed by projection to `Y`. Common domination is the
-   declared sufficient tier; jointly measurable parameter-smooth conditional
-   score versions remain separate bundle hypotheses. Hellinger contraction is
-   corroboration only, not a sufficient DQM-score proof. Thus the
-   DQM-transfer conclusion used by T6 is source-closed, while
-   `H-DQM-TRANSFER` contains only its applicability data and no out-of-scope
-   edit to `06` is claimed here.
+1. `06_general_coarsegraining.tex:170`, `thm:cg-fisher-contraction`, was outside
+   the Task 10 permitted file set. Task 11 now supplies the full nondominated
+   joint-lift proof and the Pollard citation at that anchor. The narrower Task
+   10 application remains source-closed by
+   `task-10-dqm-transfer-source-map.md`, which records the preservation theorem
+   in Section 3 of Pollard (2013), DOI `10.1214/12-IMSCOLL919`, arXiv
+   `1107.3797`, and the exact common-dominated reduction
+   `J_theta=P_theta K` followed by projection to `Y`. Jointly measurable
+   parameter-smooth conditional-score versions remain separate bundle
+   hypotheses. Hellinger contraction is corroboration only, not a sufficient
+   DQM-score proof. `H-DQM-TRANSFER` contains only its applicability data.
 
 <!-- SUPERSEDED historical text retained only to record the prior erroneous
 external-owed characterization; it is not support for any repaired claim.
@@ -1052,7 +1054,7 @@ external-owed characterization; it is not support for any repaired claim.
    applied to two probability laws and a normalized Markov kernel — together
    with rigidity of the quadratic-mean derivative. `05c_pullback_geometry.tex`
    now records that argument and its two ingredients at the point of use; the
-   repair at the cited anchor is Task 11 or Task 12 scope. **This is the single
+   repair at the cited anchor was assigned to Task 11 or Task 12 scope. **This was the single
    external input on which T6 rests and it is not re-derived here.** It is
    carried visibly in the bound ledger as the declared premise
    `H-DQM-TRANSFER`, attached to `bundle-fisher-defect`,
@@ -1060,23 +1062,28 @@ external-owed characterization; it is not support for any repaired claim.
    `configuration-coarse-map-compatibility`, `history-duration-relation`, and
    the target, so that no claim closes over it silently. The frozen contract
    admits it under `permitted_theorems`; a checked primary-source statement for
-   it is still owed and is a Task 12 or Task 15 obligation.
+   it was then still owed as a Task 12 or Task 15 obligation.
 -->
-2. `06_general_coarsegraining.tex:202` and `08_infogeometry.tex:512`: two of the
-   five "connection-compatible" sites. The `08` site is inside this pass's
-   permitted files and now reads the isotropy criterion; the `06` site is not.
+2. At the Task 10 freeze, `06_general_coarsegraining.tex` and
+   `08_infogeometry.tex` contained two of the five formerly informal
+   "connection-compatible" sites. Task 10 repaired the `08` site. Task 11
+   subsequently repaired the Chapter 6 anchor following
+   `thm:cg-fisher-contraction` by
+   naming `eq:pb-isotropy-criterion` and
+   `eq:pb-coarse-related-sections` explicitly.
 3. `manuscripts/gauge_vfe_rg/main.pdf` has not been regenerated and does not
    render the current sources, so `pullback-ledger-provenance` and
    `minor-emergent-time-keyword` cannot close. Task 13 and Task 14 scope.
 4. Route-C evidence line anchors have shifted against the current ledger digest
    and must be re-anchored before any citation of those lines is entered as
    evidence.
-5. The control plane uses two digest conventions, so a working-tree-bytes
-   validator reports apparent drift on all twenty-one Task 5 through Task 9
-   evidence bindings. There is no content drift; the finding and its
-   recommended repair are in Section 3.1 and are Task 12 or Task 16 scope.
-6. Two of the five "connection-compatible" sites lie outside this pass's
-   permitted files; see item 2.
+5. At the time of the Task 10 pass, the control plane used two digest
+   conventions, so a working-tree-bytes validator reported apparent drift on
+   all twenty-one Task 5 through Task 9 evidence bindings. Task 11 adopts the
+   committed-Git-blob convention for the Task 10 forward and reverse bindings;
+   broader historical-ledger normalization remains Task 12 or Task 16 scope.
+6. The remaining connection-compatibility wording lay outside the Task 10
+   permitted files; its downstream Task 11 closure is recorded in item 2.
 
 **Inside the theory, and recorded as `OPEN` in the manuscript's obligation
 appendix.**
@@ -1110,9 +1117,10 @@ metrics, in either direction. No duration comparison from any fiberwise
 contraction theorem. No identification of Fisher duration with physical time, no
 clock potential without a closed zero-period one-form, no Lorentzian signature,
 no causal structure, and no canonical connection anywhere. The scale index is
-renormalization depth and nothing else. Task 11's citation, notation, status,
-and minor-repair scope is untouched by every edit in this pass, as is the
-interaction tier, the retained projection, the beta data, and the fixed objects.
+renormalization depth and nothing else. The Task 10 pass did not alter the
+then-pending citation, notation, status, or minor-repair scope; Task 11 closes
+those downstream items separately. The interaction tier, retained projection,
+beta data, and fixed objects remain outside the Task 10 edit set.
 
 ## 12. Ledger dispositions assigned by this pass
 
@@ -1140,10 +1148,10 @@ because the compound target is not atomized without them.
 | `natural-gradient-semiconjugacy` (new) | EVIDENCE_VERIFIED | T19, stated as sufficiency and never as automatic. |
 | `coordinate-independence` (new) | EVIDENCE_VERIFIED | T20. Its regularity and selected-metric data are in the quantifier; `H-HISTORY` is only the nonphysical-time modeling scope. |
 
-No Task 10 claim is left `CANDIDATE`. The claims still `CANDIDATE` in the bound
-ledger belong to Task 11 minor repairs, Task 13 numerical and manifest
-evidence, Task 14 build integrity, and the target itself, none of which is this
-pass's to close. Nothing here asserts terminal release.
+No Task 10 claim is left `CANDIDATE`. At the Task 10 freeze, the remaining
+`CANDIDATE` claims belonged to Task 11 minor repairs, Task 13 numerical and
+manifest evidence, Task 14 build integrity, and the target itself. Task 11 now
+closes its downstream subset; nothing here asserts terminal release.
 
 ## 13. Falsification conditions for this record
 

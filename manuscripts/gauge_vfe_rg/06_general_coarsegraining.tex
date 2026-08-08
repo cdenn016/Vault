@@ -170,13 +170,14 @@ prove that stronger statement. \status{ESTABLISHED}
 \theoremheading{Score projection and Fisher loss}{thm:cg-fisher-contraction}
 Let \(\{P_\theta\}_{\theta\in\Theta\subseteq\R^d}\) be differentiable in
 quadratic mean at \(\theta_0\), with score
-\(\ell_{\theta_0}\in L^2_0(P_{\theta_0};\R^d)\), and let \(K\) be
-parameter independent. Under the joint law
-\(\mathbb P_{\theta_0}(dx,dy)=P_{\theta_0}(dx)K(x,dy)\), the coarse family is
-differentiable in quadratic mean with score
+\(\ell_{\theta_0}\in L^2_0(P_{\theta_0};\R^d)\), and let \(K\) be a
+parameter-independent Markov kernel normalized for every input. Under the
+joint law \(J_{\theta_0}(dx,dy)=P_{\theta_0}(dx)K(x,dy)\), the coarse family
+is differentiable in quadratic mean with score
 \begin{equation}
-\bar\ell_{\theta_0}(y)
-=\E_{\mathbb P_{\theta_0}}[\ell_{\theta_0}(X)\mid Y=y].
+\bar\ell_{\theta_0}(Y)
+=\E_{J_{\theta_0}}[\ell_{\theta_0}(X)\mid\sigma(Y)]
+\quad (P_{\theta_0}K)\text{-almost surely},
 \label{eq:cg-score-projection}
 \end{equation}
 Its Fisher information obeys
@@ -190,26 +191,54 @@ Equality holds exactly when the score is \(Y\)-measurable.
 \status{ESTABLISHED}
 
 \paragraph{Proof.}
-Attach the parameter-independent channel to obtain the joint family. Its
-score is \(\ell_{\theta_0}(X)\). Projection onto \(Y\) preserves quadratic
-mean differentiability and replaces a score by its conditional expectation;
-this is the \(L^2\)-projection theorem for parametrized-measure models
-\citep{AyJostLeSchwachhoefer2018}. Taking second moments and using total
-covariance proves \eqref{eq:cg-fisher-loss}. Conditional expectation is an
-orthogonal projection, so equality holds precisely on its range. \(\square\)
+Write Pollard's Le Cam DQM decomposition at \(\theta_0\) as
+\(P_{\theta_0+h}=p_hP_{\theta_0}+P_h^\perp\), where
+\(P_h^\perp\perp P_{\theta_0}\),
+\(P_h^\perp(\mathsf X)=o(\lVert h\rVert^2)\), and
+\[
+\int\left(\sqrt{p_h}-1-\tfrac12h^\top\ell_{\theta_0}\right)^2
+dP_{\theta_0}=o(\lVert h\rVert^2).
+\]
+Choose a \(P_{\theta_0}\)-null set \(A_h\) supporting \(P_h^\perp\). The
+lifted joint family has the decomposition
+\[
+J_{\theta_0+h}=p_h(x)J_{\theta_0}+J_h^\perp,
+\qquad J_h^\perp:=P_h^\perp K.
+\]
+The singular term is supported on \(A_h\times\mathsf Y\), which is
+\(J_{\theta_0}\)-null because the kernel is normalized, and its mass is
+\(J_h^\perp(\mathsf X\times\mathsf Y)=P_h^\perp(\mathsf X)
+=o(\lVert h\rVert^2)\). The squared square-root remainder of the absolutely
+continuous term is unchanged by the lift, since integration against
+\(J_{\theta_0}\) integrates the kernel to one. Thus the joint experiment is
+DQM with score \(\ell_{\theta_0}(X)\), without a common dominating measure.
+Applying Pollard's preservation theorem for measurable statistics
+\citep{Pollard2013} to the deterministic statistic \((x,y)\mapsto y\)
+gives DQM of \(P_\theta K\) and the displayed conditional score as an
+\(L^2(P_{\theta_0}K;\R^d)\) equivalence class. Although the projected singular
+term can acquire an absolutely continuous part, its total mass remains
+\(o(\lVert h\rVert^2)\). Taking second moments and using total covariance
+proves \eqref{eq:cg-fisher-loss}.
+Conditional expectation is an orthogonal projection, so equality holds
+precisely when the fine score is \(Y\)-measurable; in a direction \(v\), equality
+holds precisely when \(v^\top\ell_{\theta_0}(X)\) is \(Y\)-measurable. \(\square\)
 
-When the fine and coarse experiments form smooth statistical law bundles and
-the Markov channel extends to a connection-compatible bundle morphism whose
-fine and coarse sections satisfy the exact related-section condition
+When the fine and coarse experiments form smooth statistical law bundles, the
+Markov channel is realized by a bundle morphism satisfying the exact isotropy
+criterion \eqref{eq:pb-isotropy-criterion}, and the fine and coarse sections
+satisfy the related-section condition
 \eqref{eq:pb-coarse-related-sections},
 \Cref{thm:pb-pullback-fisher-defect} pulls this same score-variance defect
 back to a positive-semidefinite defect between contextual-base tensors.  Along
 one declared inference path, the corresponding record-level Fisher-clock
-contraction is \Cref{thm:hist-record-clock-contraction}.  Neither statement
-proves that a natural-gradient flow recomputed after coarse-graining traces the
-image of the fine orbit; that stronger comparison requires the oriented
-semiconjugacy conditions of \Cref{prop:hist-oriented-semiconjugacy}.
-\status{ESTABLISHED} \status{NOT-CLAIMED}
+contraction is \Cref{thm:hist-record-clock-contraction}.
+\status{ESTABLISHED}
+
+Neither statement proves that a natural-gradient flow recomputed after
+coarse-graining traces the image of the fine orbit; that stronger comparison
+requires the oriented semiconjugacy conditions of
+\Cref{prop:hist-oriented-semiconjugacy}.
+\status{NOT-CLAIMED}
 
 Fisher equality at one parameter is local score sufficiency, not global
 recovery. Let \(X=(A,B)\) with independent Bernoulli coordinates,
@@ -277,6 +306,7 @@ ELBOs are comparable under an evidence-preserving common Markov pushforward
 applied to the posterior and recognition law. Absent that relation,
 separately declared models may have different evidences, and an ELBO
 difference mixes evidence with variational tightness. \status{ESTABLISHED}
+
 The increase in \eqref{eq:cg-elbo-monotone} reflects discarded information;
 it is not model improvement or EM evidence ascent. \status{NOT-CLAIMED}
 
@@ -330,9 +360,10 @@ Assume the diagonal-affinity hypothesis
 u(z,z)=\Upsilon t(z)+u_0
 \label{eq:cg-diagonal-affinity}
 \end{equation}
-for a linear \(\Upsilon:\mathsf T_0\to\mathsf T_1\).
-\status{HYPOTHESIS} This excludes pair statistics whose diagonal restriction
-cannot be represented by the declared node statistic.
+for a linear \(\Upsilon:\mathsf T_0\to\mathsf T_1\). \status{HYPOTHESIS}
+
+This excludes pair statistics whose diagonal restriction cannot be represented
+by the declared node statistic. \status{ESTABLISHED}
 
 \theoremheading{Graph-exponential trace closure}{thm:cg-graph-exponential-closure}
 Under \eqref{eq:cg-diagonal-affinity},
@@ -494,9 +525,11 @@ inversion. Assume that the parent-law family
 rechoice \(g_i^x\), also assume that the represented coordinate map
 \(\chi_i^x=\rho_x(g_i^x)\) gives
 \(\mathscr M_i^{x\prime}=((\chi_i^x)^{-1})_\#\mathscr M_i^x\).
-\status{HYPOTHESIS} Bimeasurability excludes lossy transports, and
-family equivariance excludes parent classes tied to one root or frame; both
-hypotheses are used in the invariance proof below.
+\status{HYPOTHESIS}
+
+Bimeasurability excludes lossy transports, and family equivariance excludes
+parent classes tied to one root or frame; both hypotheses are used in the
+invariance proof below. \status{ESTABLISHED}
 
 Choose a root \(r\in I\), paths \(\gamma_i:i\to r\), marginal laws
 \(q_i^x\in\mathcal P(\mathsf Z_i^x)\), and weights \(w_i>0\) with
@@ -609,7 +642,9 @@ The score matches marginal laws after transport. The cluster and its weights
 are inputs, so it does not select a partition. It supplies neither a Markov
 kernel nor a normalized coarse channel, and it does not recover the
 dependence structure of a joint law. These stronger conclusions are not
-claimed. \status{NOT-CLAIMED} For a statistical experiment
+claimed. \status{NOT-CLAIMED}
+
+For a statistical experiment
 \(\{P_\theta\}_{\theta\in\Theta}\), exact common recovery instead requires
 parameter-independent Markov kernels \(C\) and \(R\) satisfying
 \begin{equation}
@@ -620,7 +655,9 @@ P_\theta C R=P_\theta
 Here \(C,R\) are local kernel notation, not the Galerkin reduction and
 reference form in \eqref{eq:cg-galerkin-data}.
 This is the common-recovery condition, not a consequence of
-\eqref{eq:cg-holonomy-kl-score}. \status{DEFINITION} Under the richness
+\eqref{eq:cg-holonomy-kl-score}. \status{DEFINITION}
+
+Under the richness
 hypothesis of \Cref{prop:prob-marginals-do-not-determine-joint}, distinct
 joint laws can have identical coordinate marginals. Identical transported
 marginals therefore do not imply \eqref{eq:cg-holonomy-common-recovery}.
@@ -641,7 +678,9 @@ declared graph paths, \eqref{eq:cg-cross-morphism-path-intertwining} is an
 additional link-intertwining hypothesis and does not follow from smooth
 parallelness. Assume also
 \(\Phi_r(\mathscr M_r^b)\subseteq\mathscr M_r^m\).
-\status{HYPOTHESIS} Then
+\status{HYPOTHESIS}
+
+Then
 \begin{equation}
 \Phi_r\bigl(\mathscr Q_{I,\mathrm{fix}}^b(r)\bigr)
 \subseteq\mathscr Q_{I,\mathrm{fix}}^m(r).

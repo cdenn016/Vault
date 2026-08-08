@@ -61,6 +61,11 @@ authority: it is reproduced verbatim as the second column of the taxonomy table 
 `01_introduction.tex` (`\label{tab:status-taxonomy}`), and the two must be kept word for word
 identical.
 
+Each visible tag governs one visibly delimited semantic claim: end that claim with its tag and begin
+the next claim in a new prose paragraph. Adjacent status tags and multiple statuses in one prose
+paragraph are forbidden. The rows of the explicitly captioned Status taxonomy table are the sole
+structural exception.
+
 | Status | What it promises the reader | Obligation on you |
 |---|---|---|
 | `ESTABLISHED` | Proved here, or a standard result cited to a source that has been checked. | Give the proof or the citation. A citation must be to a real source you have checked. |
@@ -325,8 +330,9 @@ The two agree only when the identified and retained subspaces are `\Lambda`-orth
 
 **The analyzed costs do not supply a nondegenerate scale.** The mean-tie cost is nonnegative and
 vanishes at the finest partition, so minimizing it across partitions selects the finest endpoint
-(with possible ties). The determinant gap decreases under merging and selects the coarsest endpoint.
-The volume term has partition-dependent scale behavior, and mixing the pieces requires a coefficient
+(with possible ties). The determinant gap decreases under merging, so the coarsest endpoint is a
+generally nonunique minimizer rather than a nondegenerate selector. The volume term has
+partition-dependent scale behavior, and mixing the pieces requires a coefficient
 not supplied by the bound. This does **not** prove that no intrinsic selection functional exists;
 that general question remains OPEN and needs either a nonmonotone functional with a nondegenerate
 optimizer or an impossibility theorem.

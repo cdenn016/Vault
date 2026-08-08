@@ -20,7 +20,13 @@ Q:\left(\mathsf O_D\times\mathsf X,\mathscr O_D\otimes\mathscr X\right)
 (o,X)\longmapsto Q_X(dY\given o),
 \label{eq:elbo-recognition-kernel}
 \end{equation}
-so that \(Q_X(\mathsf Y_D\given o)=1\) and, for every \(B\in\mathscr Y_D\), the map \((o,X)\mapsto Q_X(B\given o)\) is \(\mathscr O_D\otimes\mathscr X\)-measurable. \status{DEFINITION} The law is permitted to correlate agents with one another, the state channel with the model channel, and one design point with another. No factorization is imposed here; the restrictions that impose one are the subject of \Cref{ch:restrictions}, and they are restrictions on this object rather than replacements for it.
+so that \(Q_X(\mathsf Y_D\given o)=1\) and, for every \(B\in\mathscr Y_D\), the map \((o,X)\mapsto Q_X(B\given o)\) is \(\mathscr O_D\otimes\mathscr X\)-measurable. \status{DEFINITION}
+
+The law is permitted to correlate agents with one another, the state channel
+with the model channel, and one design point with another. No factorization is
+imposed here; the restrictions that impose one are the subject of
+\Cref{ch:restrictions}, and they are restrictions on this object rather than
+replacements for it. \status{DEFINITION}
 
 Write \(q^{o,X}_{i,a}\) and \(s^{o,X}_{i,a}\) for the coordinate
 marginals defined in \Cref{def:prob-recognition-marginals}. By
@@ -385,7 +391,12 @@ Relative entropy is invariant under a common bimeasurable bijection. In the abso
 \label{sec:elbo-factorization}
 
 \hypothesisheading{Factorwise log-integrability}{hyp:elbo-factorwise-integrability}
-Restore the design index \(a\) suppressed in \Cref{ch:generative} and let \(\mathcal R\subseteq V\) be the root set. To display the factor expectations separately, assume in this section that the absolute logarithm of every component density in the finite directed factorization is \(Q_X\)-integrable. \status{HYPOTHESIS} This is strictly stronger than (H4), which controls only the complete log joint, and it is what excludes cancellation between individually undefined extended-real summands; a decomposition displayed without it can be a formal rearrangement of divergent quantities.
+Restore the design index \(a\) suppressed in \Cref{ch:generative} and let \(\mathcal R\subseteq V\) be the root set. To display the factor expectations separately, assume in this section that the absolute logarithm of every component density in the finite directed factorization is \(Q_X\)-integrable. \status{HYPOTHESIS}
+
+This is strictly stronger than (H4), which controls only the complete log
+joint, and it excludes cancellation between individually undefined
+extended-real summands; a decomposition displayed without it can be a formal
+rearrangement of divergent quantities. \status{ESTABLISHED}
 
 \propositionheading{Exact factorwise decomposition}{prop:elbo-factorwise-decomposition}
 Under \Cref{hyp:elbo-evidence-domain,hyp:elbo-factorwise-integrability}, substituting the normalized directed density \eqref{eq:gen-design-density} into \eqref{eq:elbo-free-energy} yields exactly one decomposition,
@@ -548,7 +559,17 @@ An extended-real argmax of the expected complete log-likelihood therefore treats
 \]
 Thus cancellation of a parameter-independent infinite entropy does not justify the M-coordinate claim.
 
-The existence proviso in \eqref{eq:elbo-m-coordinate} is a hypothesis and not a formality. \status{HYPOTHESIS} The covariance parameters of \Cref{ch:generative} range over an open cone, and the expected complete log-likelihood is unbounded above along sequences that drive a conditional covariance to the boundary whenever the corresponding expected residual second moment is singular. In that situation the supremum is not attained and \eqref{eq:elbo-m-coordinate} defines nothing. Under a nondegenerate \(Q_X\) the expected residual second moments are positive definite and the maximizer exists, so the hypothesis is mild in the Gaussian realization; it is stated because it is the hypothesis, not because it usually fails.
+The existence proviso in \eqref{eq:elbo-m-coordinate} is a hypothesis and not a formality. \status{HYPOTHESIS}
+
+The covariance parameters of \Cref{ch:generative} range over an open cone, and
+the expected complete log-likelihood is unbounded above along sequences that
+drive a conditional covariance to the boundary whenever the corresponding
+expected residual second moment is singular. In that situation the supremum
+is not attained and \eqref{eq:elbo-m-coordinate} defines nothing. Under a
+nondegenerate \(Q_X\) the expected residual second moments are positive
+definite and the maximizer exists, so the hypothesis is mild in the Gaussian
+realization; it is stated because it is a hypothesis, not because it usually
+fails. \status{ESTABLISHED}
 
 \definitionheading{Generalized M-coordinate acceptance}{def:elbo-generalized-m-acceptance}
 A generalized M-coordinate need not attain the maximum, but it must pass an acceptance condition:
@@ -558,7 +579,13 @@ A generalized M-coordinate need not attain the maximum, but it must pass an acce
 \Lelbo^{\mathrm{ext}}_{\theta^{\mathrm{old}}}(Q_X;X,o).
 \label{eq:elbo-acceptance}
 \end{equation}
-\status{DEFINITION} The condition is a declaration about what counts as a step; it is checkable for arbitrary $Q_X$ whenever each candidate has a selected positive-finite slice as in (H1)--(H2). No recognition density or (H4) is required. On the classical split domain it reduces to the same inequality for \eqref{eq:elbo-definition}; in particular, the expected-complete-log-likelihood update of \Cref{prop:elbo-exact-m-coordinate} is a finite-domain sufficient condition.
+The condition is a declaration about what counts as a step; it is checkable
+for arbitrary $Q_X$ whenever each candidate has a selected positive-finite
+slice as in (H1)--(H2). No recognition density or (H4) is required. On the
+classical split domain it reduces to the same inequality for
+\eqref{eq:elbo-definition}; in particular, the expected-complete-log-likelihood
+update of \Cref{prop:elbo-exact-m-coordinate} is a finite-domain sufficient
+condition. \status{DEFINITION}
 
 \propositionheading{Evidence monotonicity}{prop:elbo-evidence-monotonicity}
 Suppose (H1)--(H2) hold for the fixed \(Q_X\) at both \(\theta^{\mathrm{old}}\) and \(\theta^{\mathrm{new}}\); thus \(o\) lies in both regular-observation sets, or common pointwise density, slice, and conditional versions have been declared as model data. If the E-coordinate is exact at the old parameter, so that \(Q_X=P_{\theta^{\mathrm{old}}}(\cdot\given o,X)\), and the M-coordinate satisfies \eqref{eq:elbo-acceptance}, then
@@ -571,7 +598,12 @@ Suppose (H1)--(H2) hold for the fixed \(Q_X\) at both \(\theta^{\mathrm{old}}\) 
 =\log p_{\theta^{\mathrm{old}}}(o\given X).
 \label{eq:elbo-monotonicity}
 \end{equation}
-\status{ESTABLISHED} The first inequality is \Cref{thm:elbo-extended-gap} at \(\theta^{\mathrm{new}}\), the second is \eqref{eq:elbo-acceptance}, and the final equality is the zero-gap case at \(\theta^{\mathrm{old}}\). This proof never writes the undefined singular-branch sum $\Lelbo^{\mathrm{ext}}+\KL$. Under (H3)--(H4) at both candidates it reduces to the classical conclusion \citep{Dempster1977,Neal1998}.
+The first inequality is \Cref{thm:elbo-extended-gap} at \(\theta^{\mathrm{new}}\),
+the second is \eqref{eq:elbo-acceptance}, and the final equality is the zero-gap
+case at \(\theta^{\mathrm{old}}\). This proof never writes the undefined
+singular-branch sum $\Lelbo^{\mathrm{ext}}+\KL$. Under (H3)--(H4) at both
+candidates it reduces to the classical conclusion
+\citep{Dempster1977,Neal1998}. \status{ESTABLISHED}
 
 A natural-gradient direction and an ordinary optimizer direction are proposals, not accepted coordinates. The distinction is not pedantic, and the following states exactly what is and is not guaranteed.
 
@@ -603,4 +635,26 @@ Three limits of the development are recorded so that later chapters do not inher
 
 The third limit is a genuine open problem.
 \openproblemheading{Convergence of the alternating scheme}{open:elbo-alternating-convergence}
-Whether the alternating scheme built from block E-coordinates \eqref{eq:elbo-e-coordinate} and accepted M-coordinates \eqref{eq:elbo-acceptance} converges to a stationary point of the common extended ELBO under the present hypotheses is not settled. \status{OPEN} Block E-coordinates at fixed target and accepted parameter proposals make the compared objective values nondecreasing when their acceptance tests are evaluated on that same functional. They do not by themselves make the evidence nondecreasing. The evidence chain \eqref{eq:elbo-monotonicity} additionally requires a full exact E phase, $Q_X=P_{\theta^{\mathrm{old}}}(\cdot\given o,X)$, before each accepted M phase. Under that stronger schedule the evidence values are nondecreasing and converge when bounded above; convergence of the parameter sequence is a separate question requiring regularity conditions of the type identified for the classical algorithm \citep{Wu1983}, and global optimality does not follow even when they hold. Closing the problem in the present setting requires either verifying those conditions for the declared parameter space, which is an open cone so that compactness of the relevant level sets must be checked rather than assumed, or exhibiting a counterexample within the declared family. Nothing in \Cref{ch:coarsegraining} or \Cref{ch:renormalization} depends on the answer, because those chapters analyze the structure of the objective and its transformation under aggregation rather than the trajectory of any optimizer.
+Whether the alternating scheme built from block E-coordinates \eqref{eq:elbo-e-coordinate} and accepted M-coordinates \eqref{eq:elbo-acceptance} converges to a stationary point of the common extended ELBO under the present hypotheses is not settled. \status{OPEN}
+
+Block E-coordinates at fixed target and accepted parameter proposals make the
+compared objective values nondecreasing when their acceptance tests are
+evaluated on that same functional. They do not by themselves make the evidence
+nondecreasing. The evidence chain \eqref{eq:elbo-monotonicity} additionally
+requires a full exact E phase,
+$Q_X=P_{\theta^{\mathrm{old}}}(\cdot\given o,X)$, before each accepted M phase.
+Under that stronger schedule the evidence values are nondecreasing and converge
+when bounded above; convergence of the parameter sequence is a separate
+question requiring regularity conditions of the type identified for the
+classical algorithm \citep{Wu1983}, and global optimality does not follow even
+when they hold. \status{ESTABLISHED}
+
+Closing the problem in the present setting requires either verifying those
+conditions for the declared parameter space, which is an open cone so that
+compactness of the relevant level sets must be checked rather than assumed, or
+exhibiting a counterexample within the declared family. \status{OPEN}
+
+Nothing in \Cref{ch:coarsegraining} or \Cref{ch:renormalization} depends on the
+answer, because those chapters analyze the structure of the objective and its
+transformation under aggregation rather than the trajectory of any optimizer.
+\status{ESTABLISHED}

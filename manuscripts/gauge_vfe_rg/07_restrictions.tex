@@ -314,8 +314,11 @@ Equation~\eqref{eq:restrict-gaussian-kl} has no term coupling $\mu_Q$ to $C_Q$, 
 
 Equation~\eqref{eq:restrict-determinant-gap} assigns a number to a partition, which invites the question of whether one recognition structure is better than another. The question is well posed only under conditions that are easy to violate, and this section states both the affirmative result and its boundary.
 
-\propositionheading{Refinement monotonicity}{prop:restrict-refinement-monotonicity}
-Let $\mathfrak B'$ refine $\mathfrak B$, meaning every block of $\mathfrak B'$ is contained in a block of $\mathfrak B$. Then $\mathcal Q_{\mathfrak B'}\subseteq\mathcal Q_{\mathfrak B}$ and
+\propositionheading{Refinement monotonicity for every comparable pair}{prop:restrict-refinement-monotonicity}
+Let \(\mathfrak B\) and \(\mathfrak B'\) be any two partitions such that
+\(\mathfrak B'\) refines \(\mathfrak B\), meaning every block of
+\(\mathfrak B'\) is contained in a block of \(\mathfrak B\). Then
+\(\mathcal Q_{\mathfrak B'}\subseteq\mathcal Q_{\mathfrak B}\) and
 \begin{equation}
 \Lelbo^\star_{\mathfrak B}-\Lelbo^\star_{\mathfrak B'}
 =\sum_{b\in\mathfrak B}\frac12\left[
@@ -324,10 +327,14 @@ Let $\mathfrak B'$ refine $\mathfrak B$, meaning every block of $\mathfrak B'$ i
 \geq0,
 \label{eq:restrict-refinement}
 \end{equation}
-each summand being the determinant gap of the positive definite matrix $J_{bb}$ under the partition induced on $b$, and vanishing exactly when $J_{bb}$ is block diagonal under that induced partition. The coarser structure therefore always dominates the finer one at fixed model, and the mechanism is the Loewner ordering of \Cref{thm:restrict-determinant-gap}: within each coarse block, a Schur complement is dominated by the corresponding diagonal block. \status{ESTABLISHED}
+each summand being the determinant gap of the positive definite matrix $J_{bb}$ under the partition induced on $b$, and vanishing exactly when $J_{bb}$ is block diagonal under that induced partition. Thus the coarser structure dominates the finer one for every comparable pair in the refinement partial order. The mechanism is the Loewner ordering of \Cref{thm:restrict-determinant-gap}: within each coarse block, a Schur complement is dominated by the corresponding diagonal block. \status{ESTABLISHED}
+
+The selected hierarchy invokes this proposition only on its declared edges or,
+by composition, on comparable nodes of its declared chain or rooted tree. It
+imposes no ordering on nonnested partitions. \status{DEFINITION}
 
 \paragraph{Proof.}
-A block-diagonal matrix under $\mathfrak B'$ is block diagonal under $\mathfrak B$ when $\mathfrak B'$ refines $\mathfrak B$, giving the inclusion of families. Subtracting two instances of Equation~\eqref{eq:restrict-determinant-gap} cancels $\log\det J$ and regroups the remaining terms by coarse block, giving Equation~\eqref{eq:restrict-refinement}. Each bracket is \Cref{thm:restrict-determinant-gap} applied to $J_{bb}\succ0$ with the induced partition, hence nonnegative with the stated equality condition. $\square$
+A block-diagonal matrix under $\mathfrak B'$ is block diagonal under $\mathfrak B$ whenever $\mathfrak B'$ refines $\mathfrak B$, giving the inclusion of families. Subtracting two instances of Equation~\eqref{eq:restrict-determinant-gap} cancels $\log\det J$ and regroups the remaining terms by coarse block, giving Equation~\eqref{eq:restrict-refinement}. Each bracket is \Cref{thm:restrict-determinant-gap} applied to $J_{bb}\succ0$ with the induced partition, hence nonnegative with the stated equality condition. $\square$
 
 \propositionheading{Non-nested structures are not ordered}{prop:restrict-nonnested-unordered}
 Refinement is a partial order, and outside it the bounds are not ordered by any structural feature such as the number or the sizes of the blocks. For $n=3$ take
@@ -345,10 +352,16 @@ Positive definiteness follows from the leading minors $1$, $1-a^2$ and $1-a^2-b^
 \Cref{prop:restrict-nonnested-unordered} says that a recognition structure is well chosen relative to a given coupling matrix, not well chosen in the abstract, and it is what makes any partition-selection rule an optimization over structures rather than a reading off of a scalar. It also disposes of the temptation to treat block count as a proxy for quality.
 
 \propositionheading{The gap does not select a structure}{prop:restrict-gap-no-selection}
-Over the lattice of partitions of the $n$ coordinates, the gap of Equation~\eqref{eq:restrict-determinant-gap} is nonincreasing under coarsening by \Cref{prop:restrict-refinement-monotonicity}, and attains its minimum value zero at the trivial partition with one block, for every $J\succ0$. Minimizing the gap therefore selects the unrestricted family and returns no information about structure. \status{ESTABLISHED}
+Along any declared nested refinement chain containing the one-block partition,
+the gap of Equation~\eqref{eq:restrict-determinant-gap} is nonincreasing
+under coarsening by \Cref{prop:restrict-refinement-monotonicity}, and it
+attains its minimum value zero at that one-block partition for every
+$J\succ0$. This monotonicity supplies no ordering of nonnested partitions.
+Minimizing the gap therefore selects the unrestricted family and returns no
+information about structure. \status{ESTABLISHED}
 
 \paragraph{Proof.}
-For the one-block partition, $\sum_b\log\det J_{bb}=\log\det J$ and the gap is zero; nonnegativity is \Cref{thm:restrict-determinant-gap} and monotonicity is \Cref{prop:restrict-refinement-monotonicity}. $\square$
+For the one-block partition, $\sum_b\log\det J_{bb}=\log\det J$ and the gap is zero; nonnegativity is \Cref{thm:restrict-determinant-gap}, while monotonicity holds along the declared chain by \Cref{prop:restrict-refinement-monotonicity}. \Cref{prop:restrict-nonnested-unordered} supplies the nonnested boundary. $\square$
 
 \propositionheading{ELBO values do not order unrelated joints}{prop:restrict-unrelated-joint-elbo}
 Let $P_\theta$ and $P_{\theta'}$ be normalized joints over the same observation

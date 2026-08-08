@@ -14,6 +14,12 @@ Local chapter status registers were removed. Bare table cells such as
 the manuscript source root and fails closed if the number or order of tokens,
 the declared check mapping, or the source manifest drifts.
 
+Each mapped numerical token must be the sole status in its prose paragraph
+(apart from the explicitly captioned Status taxonomy table), and its
+`source_line_at_inventory` value in `claims.json` must equal the current
+literal source line. This binds one semantic numerical claim to one token and
+one source location.
+
 ## Run
 
 The authenticated production entry is the externally approved one-line
