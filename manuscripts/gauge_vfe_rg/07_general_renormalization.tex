@@ -242,9 +242,20 @@ Scale change must also be typed. Let
 =\mathcal P_\ell(p)\cdot\kappa_\ell(g).
 \label{eq:rg-principal-scale-map}
 \end{equation}
-For \(s\in\{b,m\}\), a fiber map
+Existence of such a map is a genuine topological condition on the declared
+data, not a normalization: an equivariant \(\mathcal P_\ell\) over \(c_\ell\)
+exists if and only if the extended bundle
+\(P_\ell\times_{\kappa_\ell}G_{\ell+1}\) is isomorphic to the pullback
+\(c_\ell^*P_{\ell+1}\) as a principal \(G_{\ell+1}\)-bundle over
+\(\mathcal C_\ell\).  It can fail, for instance for the Hopf bundle over
+\(S^2\) against the trivial bundle with \(c_\ell\) the identity.  This is a
+scope note on a declared datum rather than a defect of any theorem below, and
+every statement that uses \(\mathcal P_\ell\) inherits it.
+\status{ESTABLISHED}
+For \(s\in\{b,m\}\), given a declared \(\kappa_\ell\)-equivariant
+\(\mathcal P_\ell\), a fiber map
 \(q_{\ell,s}:\mathcal B_{\ell,s}\to\mathcal B_{\ell+1,s}\) descends to a
-bundle map only if
+bundle map if and only if
 \begin{equation}
 q_{\ell,s}\circ\widehat\rho_{\ell,s}(g)
 =\widehat\rho_{\ell+1,s}(\kappa_\ell(g))\circ q_{\ell,s}.
@@ -257,11 +268,40 @@ C_{\ell,s}:\mathcal E_{\ell,s}\to\mathcal E_{\ell+1,s},
 C_{\ell,s}[p,z]=[\mathcal P_\ell(p),q_{\ell,s}(z)],
 \label{eq:rg-associated-scale-map}
 \end{equation}
-covering \(c_\ell\). More general associated-bundle maps may be declared
+covering \(c_\ell\).  The biconditional is a two-line computation on
+representatives.  Two representatives of one point of
+\(\mathcal E_{\ell,s}\) are \((p,z)\) and
+\((pg,\widehat\rho_{\ell,s}(g)^{-1}z)\); their images under the displayed
+formula are \([\mathcal P_\ell(p),q_{\ell,s}(z)]\) and
+\([\mathcal P_\ell(p)\kappa_\ell(g),
+q_{\ell,s}(\widehat\rho_{\ell,s}(g)^{-1}z)]\), and the second equals
+\([\mathcal P_\ell(p),\widehat\rho_{\ell+1,s}(\kappa_\ell(g))
+q_{\ell,s}(\widehat\rho_{\ell,s}(g)^{-1}z)]\).  These agree for every
+\((p,z,g)\) exactly when \eqref{eq:rg-scale-intertwiner} holds, which proves
+both directions.  One degenerate case must be recorded rather than absorbed: if
+\(\mathcal B_{\ell+1,s}\) reduces to a single \(G_{\ell+1}\)-fixed point, then
+\eqref{eq:rg-scale-intertwiner} is vacuously true and is therefore not
+necessary in any informative sense.  Two further hypotheses are consumed
+whenever the induced morphism is used at the information-geometric tier, and
+neither follows from affinity of the law pushforward on the cone of measures:
+family closure of the underlying kernel, meaning that the pushed laws remain in
+the declared coarse model, and smoothness of \(q_{\ell,s}\) between the two
+declared parametrized-measure models.
+\status{ESTABLISHED}
+More general associated-bundle maps may be declared
 directly, but they owe the same transition compatibility. For a genuine
 multi-step scale functor, the maps \(c\), \(\kappa\), \(\mathcal P\), and
-\(q_{\ell,s}\) also obey their respective composition laws; adjacent maps without
-these laws form only a sequence of coarse steps. If local comparison functions
+\(q_{\ell,s}\) also obey their respective composition laws.  Explicitly, for
+composable steps the required identities are
+\(c_{\ell+1}\circ c_\ell\), \(\kappa_{\ell+1}\circ\kappa_\ell\),
+\(\mathcal P_{\ell+1}\circ\mathcal P_\ell\),
+\(q_{\ell+1,s}\circ q_{\ell,s}\), and consequently
+\(C_{\ell+1,s}\circ C_{\ell,s}\), with the rightmost factor acting first at
+every level; at the law-fiber level the composite is the pushforward of the
+composed kernel by the Chapman--Kolmogorov identity.  Identity arrows have
+identity components, so these laws make the family a functor on the thin
+category of the finite scale set.  Adjacent maps without
+these laws form only a sequence of coarse steps. \status{ESTABLISHED} If local comparison functions
 \(a^s_\ell\) satisfy
 \[
 \mathcal P_\ell(u^s_\ell(x))
@@ -320,6 +360,31 @@ for \(\mathbf D^s_{\ell,\gamma}\) to vanish is
 \end{equation}
 If a representation is not faithful, vanishing of its represented transport
 defect need not imply this principal-level identity.
+
+The infinitesimal object measuring failure of
+\eqref{eq:rg-principal-connection-naturality} is the scale-connection defect
+form
+\(\mathfrak A_{\mathcal P_\ell}
+=\mathcal P_\ell^*\omega_{\ell+1,s}-\mathrm d\kappa_\ell\circ\omega_{\ell,s}\)
+of \eqref{eq:pb-scale-connection-defect}, and by
+\Cref{thm:pb-isotropy-criterion} the represented horizontal defect vanishes
+along a coarse section exactly under the isotropy condition
+\eqref{eq:pb-isotropy-criterion}, which is strictly weaker than
+\eqref{eq:rg-principal-connection-naturality} whenever the represented action
+fails to be infinitesimally effective there.  Across composable steps these
+defects obey an \emph{ordered} law, not a sum:
+\begin{equation}
+\mathfrak A_{\mathcal P_{02}}
+=\mathcal P_{01}^*\mathfrak A_{\mathcal P_{12}}
++\mathrm d\kappa_{12}\circ\mathfrak A_{\mathcal P_{01}},
+\label{eq:rg-scale-connection-defect-cocycle}
+\end{equation}
+whose represented form is \eqref{eq:pb-anomaly-composition}.  Writing the
+composite defect as an unweighted sum of the two stage defects is a type error
+before it is an error of fact: the two take values in different vertical
+bundles, the earlier one must be pushed forward by the later vertical
+differential, and the later one must be evaluated at the image point on the
+pushed base tangent.  \status{ESTABLISHED}
 
 \propositionheading{Covariance of the defect diagrams}{prop:rg-defect-covariance}
 Under admissible local-frame changes in the belief and model associated
