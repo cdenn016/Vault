@@ -41,9 +41,15 @@ bundles. \\
 two local sections of \(P\); unique map \(h_i:\mathcal C_i\to G\) &
 The relative principal frame exists independently of \(\rho_b,\rho_m\). It
 does not define a map between their representation spaces. \\
-\(R_i^x=\rho_x(g_i^x)\), with \(x\in\{b,m\}\) &
-old-to-new sample-coordinate map within channel \(x\) &
-If \(v_x'=R_i^xv_x\), then a linear cross-channel map transforms by
+\(u_i^{x\prime}=u_i^x a_i^x;\quad
+R_i^x=\rho_x(a_i^x)^{-1}=\rho_x(g_i^x)\), with
+\(g_i^x=(a_i^x)^{-1}\) &
+passive section rechoice and old-to-new sample-coordinate map in channel \(x\) &
+If \(v_x'=R_i^xv_x\), then \(q_i^{x\prime}=(R_i^x)_\#q_i^x\) and a
+same-channel transport obeys
+\(T_{r\leftarrow i}^{x\prime}
+=R_r^x\circ T_{r\leftarrow i}^x\circ(R_i^x)^{-1}\).
+A linear cross-channel map transforms by
 \(F_i'=R_i^mF_i(R_i^b)^{-1}\), covariance by
 \(\Sigma_i'=R_i^x\Sigma_i(R_i^x)^\top\), and precision by inverse
 congruence.  This \(R_i^x\) is neither a belief--model map nor an RG
@@ -248,8 +254,17 @@ finite-domain corollaries. \\
 \(K:\mathsf X\rightsquigarrow\mathsf Y\) &
 normalized, parameter-independent Markov kernel &
 It satisfies \(K(x,\mathsf Y)=1\) for every \(x\), pushes laws forward, and
-obeys data processing.  It is not an energy
-restriction or a Galerkin matrix. \\
+obeys data processing.  For right-acting scale kernels,
+\(K_{\ell r}:=K_{\ell k}K_{kr}\) means
+\((\mu K_{\ell k})K_{kr}=\mu K_{\ell r}\), representing the abstract
+composite \(K_{kr}\circ K_{\ell k}\).  A kernel is not an energy restriction
+or a Galerkin matrix. \\
+\(\mathscr K_{\mathrm{op}}\) &
+declared operator category &
+Its objects are topological vector spaces and its morphisms are continuous
+linear maps; the analytic tier uses Banach spaces and bounded linear maps.
+Abstract arrows compose with \(\circ\), not with right-acting kernel
+juxtaposition. \\
 \(I_{\mathbb R^b};\ I_b\) &
 the \(b\)-dimensional identity covariance; declared rescaling/identification
 kernel &
@@ -275,6 +290,17 @@ coordinate-local VFEs without being duplicated in the joint. \\
 receiver occupancy, conditional source attention, and joint edge-event law &
 Exact meta-attention pushes \(\eta\) and then disintegrates.  A row
 \(\beta\) alone does not determine receiver weights. \\
+\(\mathscr P_\ell\xrightarrow{\varpi_\ell}\mathcal C_\ell\) &
+scale-\(\ell\) principal bundle and its principal projection &
+\(\mathscr P_\ell\) is distinct from the root-level notation \(P\), from the
+normalized law \(\pi_\ell\), and from every interaction-coordinate operator.
+The projection is \(\varpi_\ell\), not \(\pi_\ell\). \\
+\(\boldsymbol\Xi_\ell^{\mathrm{MVG}}
+=((A_i^{(\ell)}),(W_{ij}^{(\ell)}))\) &
+scale-\(\ell\) MVG operator-parameter tuple &
+It determines the assembled interaction precision in
+Chapter~\ref{ch:gaussian-renormalization}.
+It is neither the normalized law \(\pi_\ell\) nor a bundle projection. \\
 \((\rho_\ell,m_\ell);\ M_\ell,\pi_\ell\) &
 scale-\(\ell\) probability reference, finite evidence measure, its mass, and
 normalized law &
@@ -338,17 +364,17 @@ Hoeffding projector &
 The interaction tier separately assumes \(\nu_\ell\sim\pi_\ell\) at every
 admitted scale.  A normalized Markov kernel need not preserve this premise;
 the diagonal-cloning channel is the exact obstruction. \\
-\(\mathcal G_\ell,\phi_g;\ E_\ell,P_\ell\) &
+\(\mathcal G_\ell,\phi_g;\ E_\ell,\mathsf H_\ell\) &
 full nonempty-subset interaction Banach space and canonical representative;
 quotient assembly and Hoeffding extraction &
 Here \(\phi_g=\sum_{A\ne\varnothing}g_A\), \(E_\ell g=[\phi_g]\), and
-\(P_\ell E_\ell=E_\ell P_\ell=I\) on their typed spaces.  The extraction
+\(\mathsf H_\ell E_\ell=E_\ell\mathsf H_\ell=I\) on their typed spaces.  The extraction
 bound \(3^{|V_\ell|}-1\) is finite for every finite network but is not
 dimension-free. \\
 \(T_\ell^{\mathcal G};\ U_\ell^{\phi_g}\) &
 exact nonlinear interaction RG and its tilted conditional-expectation factor &
-\(T_\ell^{\mathcal G}=P_{\ell+1}\overline Q_\ell E_\ell\), while
-\(DT_\ell^{\mathcal G}(g)=P_{\ell+1}\overline{U_\ell^{\phi_g}}E_\ell\).
+\(T_\ell^{\mathcal G}=\mathsf H_{\ell+1}\overline Q_\ell E_\ell\), while
+\(DT_\ell^{\mathcal G}(g)=\mathsf H_{\ell+1}\overline{U_\ell^{\phi_g}}E_\ell\).
 The untilted \(U_\ell\) occurs only at \(g=0\). \\
 \(R_\ell;r_{\ell+1}^{\mathcal G},\overline r_{\ell+1}^{Q}\) &
 bounded idempotent retained projection; coordinate and action-quotient
@@ -430,10 +456,12 @@ covariant scale derivative, and a scale evolution family &
 The scale connection has base the scale manifold and is not either contextual
 principal connection \(\omega_b,\omega_m\), nor the inference-orbit parameter,
 nor Fisher duration.  Discrete endpoint data do not determine it. \\
-\(\mathcal M_\ell\) &
-base-\(\ell\) monodromy of a \(p\)-periodic identified scale sequence &
-A monodromy object is fixed by \(\mathcal M_\ell\) and generally by no one-step
-map; its images form a \(p\)-cycle. \\
+\(\widehat{\mathcal M}_\ell^{(\tau)}\) &
+base-\(\ell\) reference monodromy of a \(p\)-periodic identified scale sequence &
+It is an endomorphism of the declared reference space
+\(Y_\star^{(\tau)}\).  A reference monodromy fixed object and all points of
+its \(p\)-cycle lie in that space and need not be fixed by any one-step
+reference map. \\
 \(\Pi^{\mathrm{res}}=\mathsf P\mathsf C;\ \mathsf Q=I-\Pi^{\mathrm{res}}\) &
 resolved projection and its complement on the linear observable tier &
 Idempotent by \(\mathsf C\mathsf P=I\).  This projection is not the reverse
@@ -447,7 +475,8 @@ the action beta.  It is neither the retained projection \(R_\ell\) nor the
 stochastic refinement kernel \(R\) below. \\
 \(C_{\ell k}:\mathfrak X_\ell\to\mathfrak X_k\) &
 arrow in the scale diagram &
-Composes as \(C_{kr}C_{\ell k}=C_{\ell r}\).  A renormalization dynamics
+Composes abstractly as \(C_{kr}\circ C_{\ell k}=C_{\ell r}\).  Right-acting
+kernel juxtaposition is the separate convention stated above.  A renormalization dynamics
 also needs comparison and rescaling maps. \\
 \(c_\ell,C_\ell^b,C_\ell^m\) &
 base and channelwise adjacent-scale maps &

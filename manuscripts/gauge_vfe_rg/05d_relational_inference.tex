@@ -402,8 +402,29 @@ $Z_B\in(0,+\infty)$ $Q_{B^c}$-almost everywhere,
 $r_B^{Q_i}(\cdot\given b)\ll P_{0,B}(\cdot\given b)$, and integrability of the
 KL terms and positive and negative energy parts, so the displayed local,
 collective, and difference functionals are finite.  Assume also that the
-lifted family is $C^2$ and dominated sufficiently to differentiate twice under
-the $Q_{B^c}$ expectation.  Then define the outside-averaged objective
+lifted family is $C^2$ and satisfies the following chartwise domination
+condition.  For every chart $\kappa:V\to\mathbb R^d$ of $\mathcal Q_i$ and
+every multi-index $\alpha$ with $|\alpha|\leq2$, require a jointly measurable
+version in $(\xi,b)$ of
+$\partial_\xi^\alpha
+\Fenergy_{B,o}(r_B^{\kappa^{-1}(\xi)};b)$.
+For every compact $K\subset\kappa(V)$, there is a
+$G_K\in L^1(Q_{B^c})$ such that, for every multi-index $\alpha$ with
+$|\alpha|\leq2$,
+\begin{equation}
+\sup_{\xi\in K}
+\left|
+\partial_\xi^\alpha
+\Fenergy_{B,o}
+\left(r_B^{\kappa^{-1}(\xi)};b\right)
+\right|
+\leq G_K(b)
+\quad\text{for }Q_{B^c}\text{-almost every }b.
+\label{eq:hist-chartwise-vfe-envelope}
+\end{equation}
+The case $|\alpha|=0$ controls the objective integrand, and the cases
+$|\alpha|=1,2$ justify two differentiations under the $Q_{B^c}$ expectation.
+Then define the outside-averaged objective
 \begin{equation}
 \overline{\Fenergy}_{B,o}(Q_i)
 =\E_{Q_{B^c}}
@@ -451,10 +472,16 @@ $\Lambda=\begin{psmallmatrix}1&\rho\\\rho&1\end{psmallmatrix}$ the difference
 $\Lambda-(1-\rho^2)I_2
 =\begin{psmallmatrix}\rho^2&\rho\\\rho&\rho^2\end{psmallmatrix}$ has determinant
 $\rho^2(\rho^2-1)<0$, taking the value $2\rho(1+\rho)$ along $(1,1)$ and
-$2\rho(\rho-1)$ along $(1,-1)$.  Finally, two different smooth right inverses of
-the same extraction map $\pi_i^{\mathrm{conf}}$ give different pullback metrics,
-so the configuration Fisher metric is not a function of the displayed
-configuration; the lift is data.  \status{ESTABLISHED}
+$2\rho(\rho-1)$ along $(1,-1)$.  Finally, distinct smooth right inverses of
+the same extraction map $\pi_i^{\mathrm{conf}}$ can, but need not, induce
+different pullback metrics.  For the two-parameter normal-location family with
+Fisher metric $d\theta^2+d\eta^2$ and extraction $\pi(\theta,\eta)=\theta$, the
+distinct lifts $\iota_0(x)=(x,0)$ and $\iota_c(x)=(x,c)$, for $c\ne 0$, both
+induce $dx^2$, whereas $\iota_\Delta(x)=(x,x)$ induces $2dx^2$.  Thus the
+configuration Fisher metric is not in general determined by the displayed
+configuration alone; a selected lift must be supplied unless a separately
+proved canonicity or lift-independence theorem removes that choice.
+\status{ESTABLISHED}
 
 By \Cref{thm:obs-local-global-potential},
 $\overline{\Fenergy}_{B,o}$ differs from the collective VFE restricted along
@@ -951,17 +978,19 @@ $\widehat R_\ell$, the root-vertex set $\mathcal R$, or the descent ray
 $\mathcal R^-_{\Fenergy_i}$.  The notation appendix carries the corresponding
 row.  \status{DEFINITION}
 
-Declaring $\mathsf R_\ell$ separately is not a convenience.  A pointwise bundle
-morphism induces a map on configurations only on the projectable set of
-\Cref{thm:pb-section-descent}, and by
-\Cref{prop:pb-nonfunctorial-descent} that set is a proper subset whenever the
-base map collapses a direction on which the vertical differential does not
-vanish; in the linear tier it can have empty interior.  Whether the projectable
-set is a smooth submanifold carrying a smooth induced arrow needs a
-transversality or elliptic-regularity hypothesis that is not supplied here, so
-this manuscript does not route its configuration coarse map through that
-construction.  Where the two are both defined they agree.
-\status{HYPOTHESIS}
+A pointwise bundle morphism induces a map on configurations only on the
+projectable set of \Cref{thm:pb-section-descent}.  Under the reachability
+hypotheses of \Cref{prop:pb-nonfunctorial-descent}, including a global smooth
+section through the witnessing fiber point, that set is a proper subset whenever
+the base map collapses a direction on which the vertical differential does not
+vanish; in the linear tier it can have empty interior.
+\status{ESTABLISHED}
+
+No result here establishes that the projectable set is a smooth submanifold
+carrying a smooth induced arrow; that would require an additional
+transversality or elliptic-regularity hypothesis.  The generic separately
+declared map $\mathsf R_\ell$ is therefore neither constructed nor identified
+through section descent. \status{NOT-CLAIMED}
 
 The averaging construction is the standard separately declared instance, and it
 carries an exact defect rather than an unconditional contraction.  Let
@@ -977,6 +1006,14 @@ integrable and the barycenter inside the fiber.  Define
 =\int_{f^{-1}(\bar c)}\Psi\left(s(c)\right)\kappa_{\bar c}(\mathrm dc).
 \label{eq:hist-averaging-coarse-map}
 \end{equation}
+\status{DEFINITION}
+
+For this averaging instance, if $\Psi\circ s$ is $f$-basic with unique
+descended section $\bar s$, then, for $\bar\mu$-almost every $\bar c$, the
+integrand equals $\bar s(\bar c)$ for $\kappa_{\bar c}$-almost every point of
+the fiber.  Normalization of the disintegration therefore gives
+$(\mathsf R_\ell s)(\bar c)=\bar s(\bar c)$ for $\bar\mu$-almost every
+$\bar c$. \status{ESTABLISHED}
 
 \hypothesisheading{Chart joint convexity}{hyp:hist-joint-convexity}
 In the declared affine chart of the coarse fiber, the map
@@ -1141,11 +1178,18 @@ a_\ell(Q)
 {\left\lVert X_{\ell+1}(\mathsf R_\ell Q)\right\rVert^2_{\mathsf G_{\ell+1}}},
 \label{eq:hist-semiconjugacy-factor-formula}
 \end{equation}
-so $a_\ell$ is $C^k$ wherever $\mathsf R_\ell$, $X_\ell$, $X_{\ell+1}$, and
-$\mathsf G_{\ell+1}$ are $C^k$.  If instead $X_{\ell+1}(\mathsf R_\ell Q)=0$,
+so, for any integer $k\geq0$, $a_\ell$ is $C^k$ wherever the maps
+$Q\mapsto T_Q\mathsf R_\ell X_\ell(Q)$,
+$Q\mapsto X_{\ell+1}(\mathsf R_\ell Q)$, and the pulled-back metric
+coefficients are $C^k$.  Sufficient primitive hypotheses are
+$\mathsf R_\ell\in C^{k+1}$ and $X_\ell$, $X_{\ell+1}$, and
+$\mathsf G_{\ell+1}$ of class $C^k$, with the displayed compositions defined.
+If instead $X_{\ell+1}(\mathsf R_\ell Q)=0$,
 then \eqref{eq:hist-oriented-vector-field-semiconjugacy} forces
-$T_Q\mathsf R_\ell X_\ell(Q)=0$ and every positive number satisfies it, so the
-factor is undetermined and the requirement $a_\ell>0$ is vacuous there.
+$T_Q\mathsf R_\ell X_\ell(Q)=0$ and imposes no algebraic pointwise value on
+$a_\ell(Q)$.  The definition still requires a positive continuous function
+on $U$: limits from the noncritical set may determine the value at $Q$, or may
+obstruct any continuous positive extension.
 \status{ESTABLISHED}
 
 \paragraph{Proof.}
@@ -1176,7 +1220,21 @@ $\Sigma_Q\ni0$, and
 \label{eq:hist-oriented-flow-semiconjugacy}
 \end{equation}
 where $\bar J^{\max}$ is the maximal interval of the coarse flow through
-$\mathsf R_\ell Q$.  Conversely, differentiating an oriented flow
+$\mathsf R_\ell Q$.  More explicitly, write
+$J_Q=(\alpha_Q,\beta_Q)$ and
+$\bar J^{\max}_{\mathsf R_\ell Q}=(\bar\alpha_Q,\bar\beta_Q)$, with endpoints
+in the extended real line.  Then
+\begin{equation}
+\Sigma_Q
+=\left(
+\lim_{t\downarrow\alpha_Q}\sigma_Q(t),
+\lim_{t\uparrow\beta_Q}\sigma_Q(t)
+\right),
+\label{eq:hist-semiconjugacy-endpoint-image}
+\end{equation}
+and the full maximal coarse orbit is traversed if and only if the two limits
+equal $\bar\alpha_Q$ and $\bar\beta_Q$, respectively.  Conversely,
+differentiating an oriented flow
 semiconjugacy of this form at $t=0$ yields
 \eqref{eq:hist-oriented-vector-field-semiconjugacy}.  \status{ESTABLISHED}
 
@@ -1195,11 +1253,21 @@ first and the coarse flow is then shown to extend over $\Sigma_Q$, rather than
 the coarse flow being assumed defined at $\sigma_Q(t)$.  The converse is the
 chain rule at $t=0$.  $\square$
 
-Completeness does not transfer without a positive infimum of the factor.  If
-\eqref{eq:hist-oriented-vector-field-semiconjugacy} holds on all of
-$\mathcal Q_\ell$, if $J_Q^{\max}=\R$, and if
-$\inf_ta_\ell(\Phi_tQ)>0$, then $\Sigma_Q=\R$ and the coarse orbit is traversed
-in full.  Without that infimum the inclusion is proper: on $\R$ with
+When the semiconjugacy holds along the entire complete fine orbit
+\((J_Q=\mathbb R)\) and the coarse maximal interval is also \(\mathbb R\), the
+endpoint criterion is equivalently
+\begin{equation}
+\int_0^{+\infty}a_\ell(\Phi_sQ)\mathrm{d}s=+\infty,
+\qquad
+\int_{-\infty}^{0}a_\ell(\Phi_sQ)\mathrm{d}s=+\infty.
+\label{eq:hist-complete-semiconjugacy-integrals}
+\end{equation}
+A positive lower bound for $a_\ell$ is sufficient, but it is not necessary:
+for $X_\ell=\partial_x$, $X_{\ell+1}=\partial_y$, and
+$\mathsf R_\ell=\operatorname{arsinh}$ on $\mathbb R$, one has
+$a_\ell(x)=(1+x^2)^{-1/2}$ and $\inf a_\ell=0$, while
+$\sigma_0(t)=\operatorname{arsinh}(t)$ maps $\mathbb R$ onto $\mathbb R$.
+Nor does positivity alone guarantee full traversal: on $\R$ with
 $X_\ell=\partial_x$, $X_{\ell+1}=\partial_y$, and
 $\mathsf R_\ell=\arctan$, the factor $a_\ell=(1+x^2)^{-1}$ is positive while
 $\Sigma_0=(-\pi/2,\pi/2)$ is a proper subinterval of $\R$ even though both
@@ -1218,8 +1286,10 @@ coarse Fisher duration is zero.  A nonconstant shared oriented history
 therefore additionally requires $T_Q\mathsf R_\ell X_\ell(Q)\ne0$ on every
 nontrivial subarc, equivalently $X_{\ell+1}(\mathsf R_\ell Q)\ne0$ there given
 $a_\ell>0$, together with the maximal-interval condition of
-\Cref{thm:hist-oriented-semiconjugacy}, upgraded to $\Sigma_Q=\bar J^{\max}$
-only when $J_Q^{\max}=\R$ and $\inf a_\ell>0$.  Neither is implied by
+\Cref{thm:hist-oriented-semiconjugacy}, namely the endpoint equalities in
+\eqref{eq:hist-semiconjugacy-endpoint-image}; for complete real-line flows
+these are the two divergence conditions in
+\eqref{eq:hist-complete-semiconjugacy-integrals}.  Neither is implied by
 \eqref{eq:hist-oriented-vector-field-semiconjugacy}.  \status{ESTABLISHED}
 
 \theoremheading{The semiconjugacy parameter rate cancels from geometric length}{thm:hist-duration-relation}
@@ -1316,7 +1386,8 @@ $\Fenergy_\ell=\tfrac12(x^2+y^2)$ and
 $\Fenergy_{\ell+1}=\tfrac12(x^2+4y^2)$ give the fine history
 $(e^{-t},e^{-t})$ of total duration $\sqrt2$ and the independently recomputed
 coarse history $(e^{-t},e^{-4t})$, which is not a straight segment and has
-strictly greater length, approximately $1.6002$; and
+strictly greater length
+$\int_0^1\sqrt{1+16u^6}\mathrm{d}u>\sqrt2$; and
 \eqref{eq:hist-oriented-vector-field-semiconjugacy} itself fails there, since
 $(-x,-y)=a(-x,-4y)$ forces $a=1$ and then $y=4y$.  The two mechanisms are
 logically independent and neither implies the other, which is the exact content
@@ -1394,11 +1465,15 @@ assume \Cref{hyp:hist-functional-compatibility}.  If $\mathsf R_\ell$ is a
 Riemannian submersion, meaning that $T\mathsf R_\ell|_{\mathcal H}$ is a linear
 isometry onto $T\mathcal Q_{\ell+1}$, then
 \eqref{eq:hist-oriented-vector-field-semiconjugacy} holds with
-$a_\ell=\chi_\ell'>0$.  More generally, if $\mathsf R_\ell$ is horizontally
+$a_\ell(Q)=\chi_\ell'(\Fenergy_{\ell+1}(\mathsf R_\ell Q))>0$.  More generally,
+if $\mathsf R_\ell$ is horizontally
 conformal with dilation $\varphi_\ell>0$, then
 \eqref{eq:hist-oriented-vector-field-semiconjugacy} holds with
 \begin{equation}
-a_\ell=\chi_\ell'\varphi_\ell^2>0.
+a_\ell(Q)
+=\chi_\ell'\left(\Fenergy_{\ell+1}(\mathsf R_\ell Q)\right)
+\varphi_\ell(Q)^2>0,
+\qquad Q\in U.
 \label{eq:hist-conformal-semiconjugacy-factor}
 \end{equation}
 \status{ESTABLISHED}
@@ -1513,7 +1588,7 @@ Scale depth $\ell$, an orbit parameter $r$, and Fisher duration
 $\tau^{(\ell)}$ are distinct typed quantities: $\ell$ is a discrete scale
 index, $r$ is a chosen oriented parameter on a selected orbit, and $\tau$ is
 metric-relative arc length from a chosen origin.  After a metric, origin,
-orientation, and parameterized path have been chosen, $\tau$ can of course be a
+orientation, and parameterized path have been chosen, $\tau$ can be a
 function of $r$.  It is nevertheless not canonically determined by an
 unparameterized orbit or by scale depth: changing the metric rescales it, and
 changing the origin or orientation changes its parameterized representation.

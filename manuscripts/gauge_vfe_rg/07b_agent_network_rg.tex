@@ -378,7 +378,7 @@ U:L^p(\pi;\mathbb R)\longrightarrow L^p(\pi^c;\mathbb R),
 \leq\Vert\varphi\Vert_{L^p(\pi)}.
 \label{eq:rg-action-lp-contraction}
 \end{equation}
-For finite \(p\), it preserves the mean and hence maps centered tangent
+For every \(1\leq p\leq\infty\), it preserves the mean and hence maps centered tangent
 spaces to centered tangent spaces.  At \(p=2\), the loss is exactly
 \begin{equation}
 \Vert\varphi\Vert_{L^2(\pi)}^2
@@ -827,9 +827,21 @@ finite.  The witness that separates the two must therefore be a direction whose
 exponential normalizer diverges on \emph{both} sides.  The correct witness is an
 odd Hermite polynomial of degree at least three: for
 \(\varphi=\mathrm{He}_3(x)=x^3-3x\in L^2_0(\gamma)\), the log integrand
-\(-t\mathrm{He}_3(x)-x^2/2\) behaves like \(t|x|^3\) and tends to
-\(+\infty\) as \(x\to-\infty\) when \(t>0\) and as \(x\to+\infty\) when
-\(t<0\), so \(N_3(t)=+\infty\) for \emph{every} \(t\ne0\) while
+\(-t\mathrm{He}_3(x)-x^2/2\) has an exact divergent tail on either side.
+For \(t>0\), substitute \(x=-r\) to obtain
+\[
+-t\mathrm{He}_3(-r)-\frac{r^2}{2}
+=tr^3-\frac{r^2}{2}-3tr\longrightarrow+\infty
+\qquad(r\to+\infty),
+\]
+for \(t<0\), substitute \(x=r\) to obtain
+\[
+-t\mathrm{He}_3(r)-\frac{r^2}{2}
+=|t|r^3-\frac{r^2}{2}-3|t|r\longrightarrow+\infty.
+\]
+The leading cubic is positive in both cases, so the exponential integrand is
+eventually at least one on an infinite tail and \(N_3(t)=+\infty\) for
+\emph{every} \(t\ne0\), while
 \(\mathrm{He}_3\) is a perfectly good Fisher tangent direction with
 \(\E_\gamma[\mathrm{He}_3]=0\) and \(\E_\gamma[\mathrm{He}_3^2]=6\).  The
 degree-two direction \(\varphi=-x^2\) is \emph{not} such a witness and must not
@@ -1205,19 +1217,19 @@ Define the action quotient and its assembly/extraction maps by
  \overline{\mathfrak B}_\ell=L^\infty(\nu_\ell)/\mathbb R1,\qquad
  \phi_g:=\sum_{\varnothing\ne A\subseteq V_\ell}g_A,\qquad
  E_\ell g=[\phi_g],\qquad
- P_\ell[f]=(P_{\ell,A}f)_{\varnothing\ne A\subseteq V_\ell}.
+ \mathsf H_\ell[f]=(P_{\ell,A}f)_{\varnothing\ne A\subseteq V_\ell}.
  \label{eq:rg-interaction-assembly-extraction}
 \end{equation}
 
 \theoremheading{Hoeffding assembly is an exact finite-network action isomorphism}{thm:rg-hoeffding-action-isomorphism}
-For every finite \(V_\ell\), \(E_\ell\) and \(P_\ell\) in
+For every finite \(V_\ell\), \(E_\ell\) and \(\mathsf H_\ell\) in
 \eqref{eq:rg-interaction-assembly-extraction} are bounded inverse linear
 isomorphisms,
 \begin{equation}
- P_\ell E_\ell=I_{\mathcal G_\ell},\qquad
- E_\ell P_\ell=I_{\overline{\mathfrak B}_\ell},\qquad
+ \mathsf H_\ell E_\ell=I_{\mathcal G_\ell},\qquad
+ E_\ell\mathsf H_\ell=I_{\overline{\mathfrak B}_\ell},\qquad
  \lVert E_\ell\rVert\leq1,\qquad
- \lVert P_\ell\rVert\leq3^{|V_\ell|}-1.
+ \lVert\mathsf H_\ell\rVert\leq3^{|V_\ell|}-1.
  \label{eq:rg-hoeffding-inverse-and-bounds}
 \end{equation}
 The latter bound is valid for every finite network but is not dimension-free.
@@ -1258,8 +1270,8 @@ Fubini then gives
  \overline\Theta_\ell E_\ell
  =\widehat E_\ell\Theta_\ell^{\mathcal G},
  \qquad
- \Theta_\ell^{\mathcal G}P_\ell
- =\widehat P_\ell\overline\Theta_\ell.
+ \Theta_\ell^{\mathcal G}\mathsf H_\ell
+ =\widehat{\mathsf H}_\ell\overline\Theta_\ell.
  \label{eq:rg-hoeffding-gauge-covariance}
 \end{equation}
 Fubini proves the first identity and the rest follow by finite Mobius sums.
@@ -1359,7 +1371,7 @@ map \(\overline Q_\ell:\overline{\mathfrak B}_\ell\to
 The exact nonlinear finite-network interaction step is
 \begin{equation}
  T_\ell^{\mathcal G}
- =P_{\ell+1}\overline Q_\ell E_\ell:
+ =\mathsf H_{\ell+1}\overline Q_\ell E_\ell:
  \mathcal G_\ell\longrightarrow\mathcal G_{\ell+1},
  \qquad
  g_{\ell+1}^{\mathrm{ex}}=T_\ell^{\mathcal G}(g_\ell).
@@ -1377,6 +1389,7 @@ pairwise or finite retained ansatz is closed.  The displayed sum
 \end{equation}
 where the second equality is normalization of \(K_\ell\), not an
 identification of the action quotient with a normalized probability path.
+\status{ESTABLISHED}
 
 At \(g\), define the tilted conditional-expectation operator on bounded
 classes by
@@ -1390,7 +1403,7 @@ descends to the action quotient.  The chain rule and
 \Cref{prop:rg-action-bounded-recentering} give the correctly typed derivative
 \begin{equation}
  D T_\ell^{\mathcal G}(g)
- =P_{\ell+1} \overline{U_\ell^{\phi_g}} E_\ell:
+ =\mathsf H_{\ell+1} \overline{U_\ell^{\phi_g}} E_\ell:
  \mathcal G_\ell\longrightarrow\mathcal G_{\ell+1}.
  \label{eq:rg-nonlinear-interaction-derivative}
 \end{equation}
@@ -1405,7 +1418,7 @@ Instantiate \Cref{def:rg-derivative-cocycle} with \(X_\ell=\mathcal G_\ell\),
 \(g_{\ell+1}=T_\ell^{\mathcal G}(g_\ell)\), so that
 \begin{equation}
  D_\ell=DT_\ell^{\mathcal G}(g_\ell)
- =P_{\ell+1}\overline{U_\ell^{\phi_{g_\ell}}}E_\ell:
+ =\mathsf H_{\ell+1}\overline{U_\ell^{\phi_{g_\ell}}}E_\ell:
  \mathcal G_\ell\longrightarrow\mathcal G_{\ell+1}.
  \label{eq:rg-interaction-mode-generator}
 \end{equation}
@@ -1429,7 +1442,7 @@ for a constant \(c\) independent of \(n\).  This bound holds for every
 trivialization assembled from the maps of
 \eqref{eq:rg-hoeffding-inverse-and-bounds} together with a bounded gauge
 realization, because \(\lVert E_\ell\rVert\leq1\) and
-\(\lVert P_\ell\rVert\leq3^{\lvert V_\ell\rvert}-1\).  Then the tempering
+\(\lVert\mathsf H_\ell\rVert\leq3^{\lvert V_\ell\rvert}-1\).  Then the tempering
 hypothesis \eqref{eq:rg-tempered-trivialization} of
 \Cref{thm:rg-tempered-comparison} holds whenever
 \(\lvert V_n\rvert/s_{n\leftarrow\ell}\to0\).  In particular it holds for every
@@ -1463,7 +1476,7 @@ and retained coordinate outputs and the coordinate/action-quotient residuals:
  \label{eq:rg-interaction-coordinate-residual}\\
  \overline r_{\ell+1}^{Q}(g_\ell)
  &=\overline Q_\ell E_\ell g_\ell
- -E_{\ell+1}R_{\ell+1}P_{\ell+1}\overline Q_\ell E_\ell g_\ell
+ -E_{\ell+1}R_{\ell+1}\mathsf H_{\ell+1}\overline Q_\ell E_\ell g_\ell
  &=E_{\ell+1}r_{\ell+1}^{\mathcal G}(g_\ell).
  \label{eq:rg-interaction-action-residual}
 \end{align}
@@ -1484,7 +1497,7 @@ condition; otherwise it is a projection scheme with the displayed residual.
 Moreover extraction and assembly give the exact coordinate identity and the
 two-sided finite-network norm control, for \(V_{\ell+1}\ne\varnothing\),
 \begin{equation}
- P_{\ell+1}\overline r_{\ell+1}^Q
+ \mathsf H_{\ell+1}\overline r_{\ell+1}^Q
  =r_{\ell+1}^{\mathcal G},
  \qquad
  \frac{\lVert r_{\ell+1}^{\mathcal G}\rVert_{\mathcal G_{\ell+1}}}
@@ -1849,10 +1862,17 @@ $\mathsf A^{x,\mathrm{att}}_{IJ}
 =\beta^c_{IJ}\overline{\mathsf U}^x_{IJ}$.  On
 $\{\alpha_I^c>0,\eta^c_{IJ}=0\}$, the attention-weighted block is zero and
 $\overline{\mathsf U}_{IJ}^x$ is left undefined as a null-event conditional.
-For $z'=R_{x,c}^{-1}z$, covariance is pointwise:
+For passive root-frame rechoices with no node relabeling
+$(\sigma=\id)$, corresponding transported conditional versions, and the
+transformed coarse Borel state $z'=\vartheta_{\ell+1}(z)$, covariance holds
+$\Pi_o^c$-almost everywhere in $z$ (equivalently, under the transformed
+coarse law, almost everywhere in $z'$):
 $\mathsf T_{IJ}^{x\prime}(z')=R_x(a_{r_I}^x)^{-1}\mathsf T_{IJ}^x(z)
 R_x(a_{r_J}^x)$, so these operators transform from the $J$ root frame to
-the $I$ root frame.  The conditional mean need not belong to $R_x(G)$: the
+the $I$ root frame.  The symbol $R_{x,c}$ remains the direct-sum coordinate
+operator on the separately declared linear feature fiber in
+\eqref{eq:rg-linear-cross-scale-covariance}; it is not an action on the Borel
+state $z$.  The conditional mean need not belong to $R_x(G)$: the
 average of rotations by $\pi/2$ and $-\pi/2$ is the zero matrix.  Moreover,
 this Hom operator is exact only for its stated first operator moment on a
 common source input.  If marks and source features are correlated, their means
@@ -2258,7 +2278,7 @@ and its action-quotient partner is
 \delta\overline\beta_{\ell+1}^{Q}(g)
 =\frac{E_{\ell+1}r_{\ell+1}^{\mathcal G}(J_\ell g)}{\Delta s_\ell},
 \qquad
-P_{\ell+1}\delta\overline\beta_{\ell+1}^{Q}(g)
+\mathsf H_{\ell+1}\delta\overline\beta_{\ell+1}^{Q}(g)
 =\frac{r_{\ell+1}^{\mathcal G}(J_\ell g)}{\Delta s_\ell}.
 \label{eq:rg-beta-residual-quotient}
 \end{equation}
@@ -2283,7 +2303,8 @@ Substituting $\widehat R_{\ell+1}=J_{\ell+1}^{-1}R_{\ell+1}J_{\ell+1}$ and
 $\widehat T_\ell^{\mathcal G}=J_{\ell+1}^{-1}T_\ell^{\mathcal G}J_\ell$ gives
 $J_{\ell+1}^{-1}(I-R_{\ell+1})T_\ell^{\mathcal G}(J_\ell g)/\Delta s_\ell$, which
 is \eqref{eq:rg-beta-residual-identity} by the definition of
-$r_{\ell+1}^{\mathcal G}$.  Applying $E_{\ell+1}$ and $P_{\ell+1}$ and using the
+$r_{\ell+1}^{\mathcal G}$.  Applying $E_{\ell+1}$ and
+$\mathsf H_{\ell+1}$ and using the
 inverse identities of \Cref{thm:rg-hoeffding-action-isomorphism} together with
 \eqref{eq:rg-interaction-action-residual} gives
 \eqref{eq:rg-beta-residual-quotient}.  Since $J_{\ell+1}^{-1}$ is injective and
@@ -2568,23 +2589,42 @@ y_{\ell+1}=F_\ell^{(\tau)}(y_\ell),
 \label{eq:rg-invariant-section}
 \end{equation}
 which needs no identification.  After declared isomorphisms
-$J_\ell:Y_\star^{(\tau)}\to Y_\ell^{(\tau)}$, a \emph{reference fixed object} is
-a $y_\star$ with
+$J_\ell:Y_\star^{(\tau)}\to Y_\ell^{(\tau)}$, define the typed reference-space
+step
 \begin{equation}
-J_{\ell+1}^{-1}F_\ell^{(\tau)}J_\ell(y_\star)=y_\star
+\widehat F_\ell^{(\tau)}
+=J_{\ell+1}^{-1}\circ F_\ell^{(\tau)}\circ J_\ell
+:Y_\star^{(\tau)}\longrightarrow Y_\star^{(\tau)}.
+\label{eq:rg-reference-step}
+\end{equation}
+A \emph{reference fixed object} is a \(y_\star\in Y_\star^{(\tau)}\) with
+\begin{equation}
+\widehat F_\ell^{(\tau)}(y_\star)=y_\star
 \qquad\text{for every }\ell,
 \label{eq:rg-reference-fixed-object}
 \end{equation}
 which in an autonomous scheme is the ordinary equation
 $\widehat F^{(\tau)}(y_\star)=y_\star$.  If the identified maps are
-$p$-periodic, the base-$\ell$ monodromy is
+$p$-periodic, the base-$\ell$ reference monodromy is the endomorphism
 \begin{equation}
-\mathcal M_\ell
-=\widehat F_{\ell+p-1}^{(\tau)}\circ\cdots\circ\widehat F_\ell^{(\tau)},
+\widehat{\mathcal M}_\ell^{(\tau)}
+=\widehat F_{\ell+p-1}^{(\tau)}\circ\cdots\circ
+\widehat F_\ell^{(\tau)}
+:Y_\star^{(\tau)}\longrightarrow Y_\star^{(\tau)},
 \label{eq:rg-monodromy-map}
 \end{equation}
-and a \emph{monodromy object} satisfies $\mathcal M_\ell(y_\ell)=y_\ell$; its
-successive images form a $p$-cycle and need not be fixed by any one-step map.
+and a \emph{reference monodromy fixed object} satisfies
+$\widehat{\mathcal M}_\ell^{(\tau)}(y_{\star,0})=y_{\star,0}$.  Its reference
+\(p\)-cycle is
+\[
+y_{\star,j+1}
+=\widehat F_{\ell+j}^{(\tau)}(y_{\star,j})
+\quad(0\leq j<p),
+\qquad
+y_{\star,p}=y_{\star,0},
+\]
+entirely in \(Y_\star^{(\tau)}\); its points need not be fixed by any
+one-step reference map.
 Without a common object the expression $F_\ell^{(\tau)}(y)=y$ is ill typed, and
 no subtraction across tiers or scales is formed.  A fixed ray additionally
 requires a declared cone and projectivization. \status{DEFINITION}

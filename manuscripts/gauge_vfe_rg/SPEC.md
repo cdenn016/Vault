@@ -223,12 +223,16 @@ Coarse precision `\Lambda_{\mathrm c}=S^\top\Lambda S`. Cluster size `n_I`, bloc
 Orthonormal bases: `B` spans `\operatorname{range}(S)`, `B_\perp` its complement.
 
 **General scale diagram.** Choose one target category `\mathscr K`: deterministic maps, normalized
-Markov kernels, an appropriate operator category, or an explicitly declared product category for a
-mixed state. A state functor assigns `\mathfrak X_\ell`, which records the level base, the common
+Markov kernels, topological vector spaces with continuous linear maps for an operator state, or an
+explicitly declared product category for a mixed state. The analytic operator tier uses Banach
+spaces and bounded linear maps. A state functor assigns `\mathfrak X_\ell`, which records the level base, the common
 principal bundle, both associated bundles and their induced connections, the cross-bundle morphisms and
 their defects, and any declared law or operator components. Every coarse arrow
 `C_{\ell k}:\mathfrak X_\ell\to\mathfrak X_k` is a morphism in `\mathscr K`; one symbol is never
-simultaneously treated as a map, a kernel, and an operator. A reference-space expression using
+simultaneously treated as a map, a kernel, and an operator. Abstract arrows compose as
+`C_{kr}\circ C_{\ell k}=C_{\ell r}`. Separately, right-acting kernels use
+`K_{\ell r}:=K_{\ell k}K_{kr}` so that
+`(\mu K_{\ell k})K_{kr}=\mu K_{\ell r}`. A reference-space expression using
 `I_\ell^{-1}` requires declared isomorphisms
 `I_\ell:\mathfrak X_\ell\xrightarrow{\sim}\mathfrak X_\star`. Reference-measure transformations
 remain explicit, so a density Jacobian cannot be hidden inside a coupling rescaling. Only such

@@ -15,21 +15,31 @@ of one operator cannot stand for that full state.
 Let \(\mathsf S\) be a category whose objects are resolutions \(\ell\).
 Choose a target category \(\mathscr K\): sets and maps for a deterministic
 state, standard Borel spaces and Markov kernels for a stochastic state, an
-appropriate linear category for an operator state, or an explicitly declared
-product of such categories for a mixed state. A state functor
+explicitly declared category of topological vector spaces and continuous
+linear maps for an operator state, or an explicitly declared product of such
+categories for a mixed state.  In the analytic tier used below, the operator
+objects are Banach spaces and the morphisms are bounded linear maps. A state functor
 \(F:\mathsf S\to\mathscr K\) assigns an object
 \(\mathfrak X_\ell=F(\ell)\) and morphisms
 \begin{equation}
 C_{\ell k}\in
 \operatorname{Hom}_{\mathscr K}(\mathfrak X_\ell,\mathfrak X_k),
 \qquad
-C_{kr}C_{\ell k}=C_{\ell r}.
+C_{kr}\circ C_{\ell k}=C_{\ell r}.
 \label{eq:rg-scale-diagram}
 \end{equation}
-The arrow denotes the appropriate composition in \(\mathscr K\), including
-kernel composition in the stochastic case and componentwise composition in a
-product category. One symbol is never asked to be simultaneously a map, a
-kernel, and an operator. \status{DEFINITION}
+Here \(\circ\) denotes abstract composition in \(\mathscr K\), with
+componentwise composition in a product category.  Separately, for the
+stochastic component only, use right-acting kernel juxtaposition
+\begin{equation}
+K_{\ell r}:=K_{\ell k}K_{kr},
+\qquad
+(\mu K_{\ell k})K_{kr}=\mu K_{\ell r},
+\label{eq:rg-right-acting-kernel-composition}
+\end{equation}
+this is the kernel representing the abstract composite
+\(K_{kr}\circ K_{\ell k}\). One symbol is never asked to be simultaneously a
+map, a kernel, and an operator. \status{DEFINITION}
 
 Comparison requires more data. Either choose levelwise re-embeddings
 \(\jmath_\ell:\mathfrak X_{\ell+1}\to\mathfrak X_\ell\), or identify each
@@ -143,22 +153,22 @@ a scale sequence is a cocycle until the comparison data of
 \definitionheading{Geometric RG state}{def:rg-geometric-state}
 At level \(\ell\), declare a smooth base \(\mathcal C_\ell\), a Lie group
 \(G_\ell\), and one principal right \(G_\ell\)-bundle
-\(\pi_\ell:P_\ell\to\mathcal C_\ell\). Let
+\(\varpi_\ell:\mathscr P_\ell\to\mathcal C_\ell\). Let
 \(\mathcal B_{\ell,b}\) and \(\mathcal B_{\ell,m}\) be statistical fibers with
 possibly different left actions
 \(\widehat\rho_{\ell,b}\) and \(\widehat\rho_{\ell,m}\) of the same group. The
 belief and model bundles are
 \begin{equation}
 \mathcal E_{\ell,b}
-=P_\ell\times_{\widehat\rho_{\ell,b}}\mathcal B_{\ell,b},
+=\mathscr P_\ell\times_{\widehat\rho_{\ell,b}}\mathcal B_{\ell,b},
 \qquad
 \mathcal E_{\ell,m}
-=P_\ell\times_{\widehat\rho_{\ell,m}}\mathcal B_{\ell,m}.
+=\mathscr P_\ell\times_{\widehat\rho_{\ell,m}}\mathcal B_{\ell,m}.
 \label{eq:rg-associated-bundles}
 \end{equation}
 Choose two principal connections
 \(\omega_{\ell,b},\omega_{\ell,m}\in
-\Omega^1(P_\ell,\mathfrak g_\ell)\). They induce horizontal distributions
+\Omega^1(\mathscr P_\ell,\mathfrak g_\ell)\). They induce horizontal distributions
 \(H^b_\ell,H^m_\ell\) and parallel transports
 \(\Omega_{\ell,\gamma}\) and
 \(\widetilde\Omega_{\ell,\gamma}\) on the two associated bundles. Thus the
@@ -167,7 +177,7 @@ general geometric state contains
 \mathfrak X_\ell=
 \left(
 \mathcal C_\ell;\
-G_\ell,P_\ell;\
+G_\ell,\mathscr P_\ell;\
 \mathcal E_{\ell,b},H^b_\ell;\
 \mathcal E_{\ell,m},H^m_\ell;\
 \Phi_\ell,\widetilde\Phi_\ell;\
@@ -212,7 +222,7 @@ to the common reference space. \status{ESTABLISHED}
 
 Local belief and model frames may nevertheless be chosen separately. On a
 common trivializing neighborhood, two sections
-\(u^b_{\ell,i},u^m_{\ell,i}:U_i\to P_\ell\) determine a unique smooth relative
+\(u^b_{\ell,i},u^m_{\ell,i}:U_i\to\mathscr P_\ell\) determine a unique smooth relative
 principal-frame field
 \begin{equation}
 u^m_{\ell,i}=u^b_{\ell,i}\cdot h_{\ell,i},
@@ -232,13 +242,13 @@ matrix quotient of the associated frames and no cross-fiber identification
 without extra intertwining data such as \eqref{eq:rg-cross-intertwiner}.
 If only associated-frame data are given and either action is nonfaithful, the
 principal element \(h_{\ell,i}\) need not be reconstructible without chosen
-lifts to \(P_\ell\).
+lifts to \(\mathscr P_\ell\).
 \status{ESTABLISHED}
 
 Scale change must also be typed. Let
 \(c_\ell:\mathcal C_\ell\to\mathcal C_{\ell+1}\) be smooth, let
 \(\kappa_\ell:G_\ell\to G_{\ell+1}\) be a Lie-group homomorphism, and let
-\(\mathcal P_\ell:P_\ell\to P_{\ell+1}\) cover \(c_\ell\) and obey
+\(\mathcal P_\ell:\mathscr P_\ell\to\mathscr P_{\ell+1}\) cover \(c_\ell\) and obey
 \begin{equation}
 \mathcal P_\ell(p\cdot g)
 =\mathcal P_\ell(p)\cdot\kappa_\ell(g).
@@ -247,8 +257,8 @@ Scale change must also be typed. Let
 Existence of such a map is a genuine topological condition on the declared
 data, not a normalization: an equivariant \(\mathcal P_\ell\) over \(c_\ell\)
 exists if and only if the extended bundle
-\(P_\ell\times_{\kappa_\ell}G_{\ell+1}\) is isomorphic to the pullback
-\(c_\ell^*P_{\ell+1}\) as a principal \(G_{\ell+1}\)-bundle over
+\(\mathscr P_\ell\times_{\kappa_\ell}G_{\ell+1}\) is isomorphic to the pullback
+\(c_\ell^*\mathscr P_{\ell+1}\) as a principal \(G_{\ell+1}\)-bundle over
 \(\mathcal C_\ell\).  It can fail, for instance for the Hopf bundle over
 \(S^2\) against the trivial bundle with \(c_\ell\) the identity.  This is a
 scope note on a declared datum rather than a defect of any theorem below, and
@@ -869,20 +879,146 @@ maximal-depth, and diagonal limits are different:
 \end{equation}
 \status{DEFINITION}
 
-\propositionheading{The two limits need not commute}{prop:rg-noncommuting-limits}
-For path graphs with hard blocks of size \(b\), one coarse step maps
-\(P_{b^n}\) to \(P_{b^{n-1}}\), up to endpoint convention. At each fixed
-\(\ell\), \(n\to\infty\) yields the infinite path, whose lower spectral edge
-has counting behavior \(N(\lambda)-N(0)\asymp\lambda^{1/2}\). Along
-\(\ell=n\), every graph collapses to one vertex and the spectral measure is
-\(\delta_0\). \status{ESTABLISHED}
+\propositionheading{Fixed-depth and maximal-depth limits need not agree}{prop:rg-noncommuting-limits}
+Fix an integer \(b\geq2\).  For \(n\geq0\), put \(m=b^n\) and let
+\(\operatorname{Path}_m\)
+be the unweighted path on \(\{1,\ldots,m\}\), with combinatorial Laplacian
+\(L_m\).  At depth \(0\leq\ell\leq n\), form the consecutive blocks
+\begin{equation}
+B_j^{(\ell)}
+=\{(j-1)b^\ell+1,\ldots,jb^\ell\},
+\qquad
+1\leq j\leq b^{n-\ell}.
+\label{eq:rg-path-consecutive-blocks}
+\end{equation}
+Join two blocks exactly when a path edge crosses between them.  The resulting
+simple quotient is exactly \(\operatorname{Path}_{b^{n-\ell}}\).
+For any \(m\) divisible by \(b\), let the unnormalized contiguous
+block-indicator prolongation be
+\begin{equation}
+S_{m,b}\in\mathbb R^{m\times(m/b)},
+\qquad
+(S_{m,b})_{ij}
+=\mathbf1_{\{(j-1)b+1,\ldots,jb\}}(i).
+\label{eq:rg-path-block-indicator}
+\end{equation}
+It realizes the exact operator quotient
+\begin{equation}
+S_{m,b}^{\mathsf T}L_mS_{m,b}=L_{m/b}.
+\label{eq:rg-path-galerkin-quotient}
+\end{equation}
+Set \(S_{m,1}=I_m\).  At depth \(1\leq\ell\leq n\), define
+\begin{equation}
+S_{m,b^\ell}
+:=S_{m,b}S_{m/b,b}\cdots S_{m/b^{\ell-1},b},
+\label{eq:rg-path-depth-block-indicator}
+\end{equation}
+this is the indicator of the blocks in
+\eqref{eq:rg-path-consecutive-blocks} and obeys
+\begin{equation}
+S_{m,b^\ell}^{\mathsf T}L_mS_{m,b^\ell}=L_{m/b^\ell}.
+\label{eq:rg-path-depth-galerkin-quotient}
+\end{equation}
+The identities use unnormalized indicators.  With orthonormalized one-step
+indicators \(\widetilde S_{m,b}=b^{-1/2}S_{m,b}\), the left side of
+\eqref{eq:rg-path-galerkin-quotient} is instead \(b^{-1}L_{m/b}\), and the
+depth-\(\ell\) factor is \(b^{-\ell}\).
+
+For every \(m\geq1\), the eigenvalues of \(L_m\), including multiplicity, are
+\begin{equation}
+\lambda_{m,k}=2-2\cos\left(\frac{\pi k}{m}\right),
+\qquad 0\leq k\leq m-1.
+\label{eq:rg-path-laplacian-eigenvalues}
+\end{equation}
+Let
+\begin{equation}
+\mu_m=\frac1m\sum_{k=0}^{m-1}\delta_{\lambda_{m,k}},
+\qquad
+N_m(\lambda)=\mu_m((-\infty,\lambda]),
+\qquad
+U_m(\lambda)=\frac1m
+\#\{1\leq k\leq m-1:\lambda_{m,k}\leq\lambda\}.
+\label{eq:rg-path-spectral-counts}
+\end{equation}
+These are right-continuous full and zero-mode-excluded counts, and
+\(U_m=N_m-m^{-1}\mathbf1_{[0,\infty)}\).  More explicitly, for
+\(0\leq\lambda\leq4\), set
+\(\theta(\lambda)=\arccos(1-\lambda/2)\); then
+\begin{equation}
+N_m(\lambda)
+=\frac{1+\min\{m-1,\lfloor m\theta(\lambda)/\pi\rfloor\}}{m},
+\qquad
+U_m(\lambda)
+=\frac{\min\{m-1,\lfloor m\theta(\lambda)/\pi\rfloor\}}{m}.
+\label{eq:rg-path-exact-counts}
+\end{equation}
+Both counts vanish for \(\lambda<0\); for \(\lambda>4\), they equal
+\(1\) and \(1-m^{-1}\), respectively.  Specifically, for \(m\geq2\),
+\(N_m(\lambda)=m^{-1}\) on
+\([0,\lambda_{m,1})\), while \(U_m\) is zero there and jumps to \(m^{-1}\)
+at the included threshold \(\lambda_{m,1}\); at the included upper endpoint
+\(\lambda_{m,m-1}\), the counts are \(1\) and \(1-m^{-1}\).
+
+For every fixed \(\ell\), \(b^{n-\ell}\to\infty\) as \(n\to\infty\), and both
+counts converge pointwise to the right-continuous function
+\begin{equation}
+N_\infty(\lambda)=U_\infty(\lambda)
+=
+\begin{cases}
+0,&\lambda<0,\\[2pt]
+\displaystyle\frac1\pi\arccos\left(1-\frac{\lambda}{2}\right),
+&0\leq\lambda\leq4,\\[7pt]
+1,&\lambda>4.
+\end{cases}
+\label{eq:rg-path-thermodynamic-count}
+\end{equation}
+Thus the zero-mode-excluded lower-edge count obeys
+\begin{equation}
+U_\infty(\lambda)
+=\frac1\pi\arccos\left(1-\frac{\lambda}{2}\right)
+\sim\frac1\pi\sqrt{\lambda}
+\qquad(\lambda\downarrow0).
+\label{eq:rg-path-lower-edge-count}
+\end{equation}
+At maximal depth \(\ell=n\), however, the exact quotient is
+\(\operatorname{Path}_1\) for every
+\(n\), so \(\mu_1=\delta_0\),
+\(N_1=\mathbf1_{[0,\infty)}\), and \(U_1\equiv0\).  Hence the fixed-depth
+thermodynamic limit and the maximal-depth \(\operatorname{Path}_1\) limit are
+different.
+\status{ESTABLISHED}
 
 \paragraph{Proof.}
-Hard aggregation of consecutive path vertices preserves the path incidence
-pattern. At fixed \(\ell\), the number of remaining vertices tends to
-infinity; at \(\ell=n\), it is one. The finite path eigenvalues have the
-standard small-wave-number quadratic behavior, yielding the square-root
-counting edge. The one-vertex operator is zero. \(\square\)
+Each block in \eqref{eq:rg-path-consecutive-blocks} is connected, and exactly
+one original edge joins block \(j\) to block \(j+1\), with no other interblock
+edge; this proves the exact quotient statement.  More explicitly, for every
+\(z\in\mathbb R^{m/b}\),
+\[
+z^{\mathsf T}S_{m,b}^{\mathsf T}L_mS_{m,b}z
+=\sum_{i=1}^{m-1}\bigl((S_{m,b}z)_{i+1}-(S_{m,b}z)_i\bigr)^2
+=\sum_{j=1}^{m/b-1}(z_{j+1}-z_j)^2
+=z^{\mathsf T}L_{m/b}z.
+\]
+Equality of the symmetric quadratic forms proves
+\eqref{eq:rg-path-galerkin-quotient}; iteration proves
+\eqref{eq:rg-path-depth-galerkin-quotient}, and scalar normalization gives the
+stated factors.  The discrete cosine
+eigenvectors of the path Laplacian give
+\eqref{eq:rg-path-laplacian-eigenvalues}.  Monotonicity of \(k\mapsto
+\lambda_{m,k}\) then gives \eqref{eq:rg-path-exact-counts}, including its
+threshold and upper endpoint.  For every bounded continuous \(f\),
+\[
+\int f\mathrm{d}\mu_m
+=\frac1m\sum_{k=0}^{m-1}
+f\left(2-2\cos\frac{\pi k}{m}\right)
+\longrightarrow
+\frac1\pi\int_0^\pi f(2-2\cos\theta)\mathrm{d}\theta .
+\]
+The limiting distribution has the continuous cumulative function in
+\eqref{eq:rg-path-thermodynamic-count}; removing the one zero atom changes a
+finite count by \(m^{-1}\) and hence has the same limit.  Finally,
+\(\arccos(1-\lambda/2)\sim\sqrt\lambda\), while \(L_1=0\).
+\(\square\)
 
 Therefore a thermodynamic RG claim must specify a triangular family,
 projective consistency at fixed depth, uniform control of the coarse error,

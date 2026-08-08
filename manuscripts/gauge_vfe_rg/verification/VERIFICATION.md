@@ -3,9 +3,9 @@
 This directory makes the manuscript's computational claims auditable without
 confusing numerical agreement with mathematical proof.
 
-The post-review source contains **12 literal `\status{NUMERICAL}` tokens**:
+The post-review source contains **13 literal `\status{NUMERICAL}` tokens**:
 
-- 10 substantive, current-protocol claims;
+- 11 substantive, current-protocol claims;
 - one scope summary; and
 - one status-taxonomy entry.
 
