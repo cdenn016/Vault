@@ -88,3 +88,11 @@ The diagonal-product, horizontal-anomaly, section-descent, orbit-collapse, durat
 Two arithmetic corrections were made against prior Task 10 artifacts and are recorded here rather than silently absorbed. First, the exact coarse-to-fine ratio in `CE-AVG-NONCONTRACTION` is $20000/10201$, not $5000/10201$; the decimal value $1.9605921$ reported in the interface-reconciliation artifact is correct, but the fraction printed beside it is not. Second, the Hessian determinant of the Gaussian moment-chart Fisher integrand is $-A^2\Sigma^{-6}$, not $-4A^2\Sigma^{-6}$; the sign, and therefore every conclusion drawn from it, is unaffected. Both were recomputed symbolically during the Task 10 integration pass.
 
 Three of the newly certified witnesses refute a reading that appeared in earlier Task 10 material rather than in the manuscript: generic averaging as a configuration-tier contraction, the convention-mixed base-cocycle correction, and the degree-two Hermite direction as a witness for absence of a two-sided exponential-action neighborhood. Each replacement is recorded in the row it repairs.
+
+Task 15 replayed the register against the complete finite conditional
+construction. The product-diagonal, observation-deletion, horizontal-anomaly,
+section-descent, history-collapse, duration-mismatch, moving-comparison,
+monodromy, and right-inverse witnesses remain decisive against their stronger
+automatic readings. None satisfies the premises of the narrower theorem it
+attacks, so no new counterexample row was added. This is a scope
+recertification, not an inference from failure to find a counterexample.
