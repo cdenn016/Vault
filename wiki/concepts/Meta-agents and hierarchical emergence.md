@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-08-01
+updated: 2026-08-08
 ---
 
 # Meta-agents and hierarchical emergence
@@ -127,8 +127,11 @@ $$
 \Delta_F^\Psi=g^F-(T^V\Psi)^*\bar g^F\succeq0
 $$
 
-as the conditional covariance of the fine score. Its distinct base pullback is
-$\delta_\Psi=(D^\omega s)^*\Delta_F^\Psi=h_s^\omega-f^*h_{\bar s}^{\bar\omega}\succeq0$.
+as the conditional covariance of the fine score. Its pullback
+$(D^\omega s)^*\Delta_F^\Psi$ is positive semidefinite. When the horizontal anomaly vanishes this
+equals the clean base difference
+$\delta_\Psi=h_s^\omega-f^*h_{\bar s}^{\bar\omega}$; otherwise that base difference contains the
+exact anomaly residual and need not be positive.
 Across two coarse steps the vertical defects obey
 $\Delta_F^{\Psi_{12}\circ\Psi_{01}}=\Delta_F^{\Psi_{01}}
 +(T^V\Psi_{01})^*\Delta_F^{\Psi_{12}}$; under related sections and compatible connections the base
@@ -136,6 +139,26 @@ defects obey $\delta_{02}=\delta_{01}+f_{01}^*\delta_{12}$. This theorem compare
 history with its pushforward. Independently optimized fine and meta-agent VFE histories require the
 additional oriented vector-field semiconjugacy; metric contraction alone does not supply it.
 [[gauge-vfe-rg-pullback-geometry-2026-08-01]]
+
+### Exact conditional blocks, bridges, and attention
+
+The terminal finite theory does not replace the canonical barycenter definition. It supplies an
+exact conditional block-coordinate theorem in which a singleton is one local-agent VFE coordinate
+and any nonempty block can play the meta-agent coordinate role for the same joint VFE. With finite
+posterior KL and a shared outside marginal, collective-VFE differences are outside expectations of
+block-VFE differences; they are not sums of independently normalized local objectives.
+
+Posterior disintegration supplies Bayes-adjoint fine/block bridge kernels for exact pair marginals.
+Reconstruction of the full fine posterior needs an additional sufficiency or conditional-independence
+condition. For a declared root-framed feature representation, normalized aggregation $C_x$ and
+prolongation $P_x$ satisfy $C_xP_x=I$, and the typed fine-to-block interaction is the sandwich
+$C_xA_xP_x$. Attention coarsens associatively only when the measurable weights are first treated as
+one normalized joint marked-event law and only then row-normalized.
+
+These results do not certify the runtime detector, BCH/covariance barycenter, or hierarchy. A concrete
+application must still supply the coarse channel, posterior bridge, feature representation, bundle
+and configuration maps, related sections, and any claimed flow semiconjugacy.
+[[gauge-vfe-rg-terminal-theory-closure-2026-08-08]]
 
 ### Top-down feedback (closing the loop)
 
@@ -195,6 +218,9 @@ These mechanisms live in two Layer-6/7 modules of `MAgent_Model`:
 It is exercised by the `'hierarchy'` preset (species × coalition gated membership + condensation, manuscript §4.2) and feeds the `'ouroboros'` multi-scale tower (§4.5–4.7). The construction grounds out in the source manuscript [[participatory-it-from-bit]], which develops the participatory "It From Bit" loop the meta-agent / top-down cycle realizes. It composes with the related concepts [[Multi-agent variational free energy]], [[Agents as fibre-bundle sections]], [[Meta-entropy]] (the thermodynamic counting of belief configurations, [[meta-entropy-manuscript]]), [[Renormalization-group flow of beliefs]], and [[Ouroboros multi-scale dynamics]]; the Hamiltonian / inertial belief regime is developed in [[Belief inertia]] and [[belief-inertia]].
 
 ## Sources
+
+- [[gauge-vfe-rg-terminal-theory-closure-2026-08-08]] — exact finite block VFE, posterior bridge
+  kernels, typed interaction sandwiches, marked-event attention, and application boundary.
 
 - [[gauge-vfe-rg-pullback-geometry-2026-08-01]] — related-section first-jet naturality, coarse Fisher contraction, defect cocycle, and the independent-flow semiconjugacy boundary.
 

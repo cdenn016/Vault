@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-08-01
+updated: 2026-08-08
 ---
 
 # Renormalization-group flow of beliefs
@@ -33,10 +33,11 @@ i.e. mean self-KL, mean belief-fiber alignment, mean model-fiber alignment, atte
 > [!note] Editorial: RG status, aligned with the manuscript (2026-06-19). The companion [[participatory-it-from-bit]] explicitly demarcates this as RG-*inspired*: it states the construction is "RG-inspired rather than a rigorous-RG analysis," that "we have not exhibited an analytic $\beta$-function ... nor proved scale invariance," that the functoriality result "is not an RG semigroup acting on a coupling space," and that the form-preserving closure class is conceded "empty in the operational regime" (so the five-term form-preservation posit fails there rather than merely being unproven). The `renormalization.py` pipeline that computes $\xi$, $\nu$, $d_f$, $\lambda_{\mathrm{eff}}$, and the discrete $\beta$-function is therefore **exploratory numerical machinery for probing the RG conjecture**, not a proof of an RG flow on a coupling space, and "fixed points / critical exponents" should be read as numerical candidates. An earlier version of this page asserted the hierarchy "*is* a real-space renormalization group" with exponents "computed directly"; that wording has been calibrated to the manuscript's position. The rigorous information-geometric backbones the program leans toward are [[beny-osborne-2015-info-geometric-rg]] (RG as Fisher-metric contraction per scale, the continuous monotone analogue of the closure residual) and [[mehta-schwab-2014-variational-rg-deep-learning]] (a variational coarse-graining that can be an exact RG step).
 
 The verdict above remains authoritative for the legacy PIFB/MAgent blocking ansatz and the
-`renormalization.py` runtime. It does not describe the newer, separate conditional construction in
-[[gauge-vfe-rg-pullback-geometry-2026-08-01]], which proves an abstract effective measure-pair theory
-for declared coarse channels. That theorem does not retroactively certify the operational barycenter,
-KL-proximity blocking, or fitted eight-coupling pipeline.
+`renormalization.py` runtime. It does not describe the newer, separate finite conditional theory,
+whose initial pullback result is recorded in [[gauge-vfe-rg-pullback-geometry-2026-08-01]] and whose
+terminal closure is recorded in [[gauge-vfe-rg-terminal-theory-closure-2026-08-08]]. That theorem
+does not retroactively certify the operational barycenter, KL-proximity blocking, or fitted
+eight-coupling pipeline.
 
 ## Why it matters here
 
@@ -58,24 +59,35 @@ The transformer-side Regime-I variables are vertex-shared. Equal-weight blocking
 
 > [!note] Editorial (2026-07-09): a nonzero graph-measured $y_3$ diagnoses an edge-relaxed graph observable; it cannot validate or falsify strict Regime I, where $g_3=0$ algebraically. Regime-I vertex fluctuations instead predict the RMS exponent $y_2=-1/2$. [[gl-k-attention-2026-07-09-review-revision]]
 
-## Exact general cross-scale theory (2026-08-01)
+## Exact finite conditional theory (terminal 2026-08-08)
 
-For a connection-compatible bundle morphism $\Psi$ covering a coarse base map $f$, related fine and
-coarse sections obey the first-jet naturality equation
+For a bundle morphism $\Psi$ covering a coarse base map $f$, related fine and coarse sections obey
+the exact covariant-jet chain rule
 
 $$
-D^{\bar\omega}\bar s\circ Tf=T^V\Psi\circ D^\omega s.
+D^{\bar\omega}\bar s\circ Tf
+=T^V\Psi\circ D^\omega s+A_{\Psi,s}.
 $$
+
+The horizontal anomaly $A_{\Psi,s}$ vanishes precisely under the required connection compatibility
+along the section. Merely calling $\Psi$ a bundle morphism does not remove it.
 
 If the fiber map is a normalized, parameter-independent Markov channel, Fisher data processing
-defines the vertical defect and its base pullback:
+always defines the vertical defect
 
 $$
-\Delta_F^\Psi=g^F-(T^V\Psi)^*\bar g^F\succeq0,
-\qquad
+\Delta_F^\Psi=g^F-(T^V\Psi)^*\bar g^F\succeq0.
+$$
+
+When the horizontal anomaly vanishes, its base pullback is also the clean base difference,
+
+$$
 \delta_\Psi=(D^\omega s)^*\Delta_F^\Psi
 =h_s^\omega-f^*h_{\bar s}^{\bar\omega}\succeq0.
 $$
+
+For nonzero anomaly the base difference contains the exact cross and quadratic anomaly residual and
+need not be positive.
 
 The vertical defect is the conditional covariance of the fine score and satisfies the two-step
 cocycle
@@ -113,6 +125,21 @@ relevant, irrelevant, and marginal perturbations. Periodic, stationary-random, a
 flows instead require their corresponding cycles, invariant sections, or attracting sections; they
 do not share one fixed-point notion. RG depth is not the Fisher information duration of an inference
 history.
+
+The terminal theorem extends this geometry to the full finite effective theory. At every admitted
+product-reference scale, bounded actions modulo constants are exactly represented by the complete
+family of nonempty-subset Hoeffding interactions. Exact coarse graining closes in that full space;
+a retained pairwise or sparse family has an explicit residual, which vanishes exactly under
+retained-image invariance. The exact nonlinear derivatives form an ordered nonautonomous cocycle.
+Generalized modes are scale-indexed lines, while beta data and fixed objects become typed only after
+declared comparison isomorphisms. Periodic scale sequences may instead be organized by monodromy
+fixed objects and cycles.
+
+For a DQM statistical family the coarse score is $\mathbb E[\ell(Y)\mid Z]$, so the Fisher loss is
+$\mathbb E[\operatorname{Cov}(\ell(Y)\mid Z)]\succeq0$. This is exact for the common normalized,
+parameter-independent channel under the theorem's regularity hypotheses. It does not prove sparse
+closure, runtime realization, nonlinear attraction, universality, or an infinite-volume limit.
+[[gauge-vfe-rg-terminal-theory-closure-2026-08-08]]
 
 ## Details
 
@@ -157,6 +184,10 @@ An application study against [[berman-2023-bayesian-renormalization]] and [[gabr
 > [!note] Editorial: three things this does NOT license. It is not a claim that tying is an ERG step — the Bayesian-RG program's only exact match to momentum-shell RG is a free scalar field theory dual to one infinitely-wide layer. It is not a monotone: the Petz/Chentsov citation problems already recorded against [[beny-osborne-2015-info-geometric-rg]] are untouched by it. And it must not use the diagonal Fisher, which is what [[berman-2023-bayesian-renormalization|BKS]] implement and which discards exactly the off-diagonal coupling that a matrix-weighted Laplacian is made of.
 
 ## Sources
+
+- [[gauge-vfe-rg-terminal-theory-closure-2026-08-08]] — terminal finite conditional measure-pair,
+  interaction, bundle, history, and nonautonomous RG construction, with exact residual and limiting
+  boundaries.
 
 - [[gauge-vfe-rg-pullback-geometry-2026-08-01]] — exact conditional cross-scale operators, Markov Fisher defect and cocycle, reference-space beta function, and semiconjugacy boundary.
 

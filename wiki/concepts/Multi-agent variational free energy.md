@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-08-01
+updated: 2026-08-08
 ---
 
 # Multi-agent variational free energy
@@ -162,6 +162,13 @@ its conditioning records. It also does not make every random seed or boundary no
 agent; persistent state, a Markov blanket, action, or its own local VFE are additional agency
 hypotheses. [[gauge-vfe-rg-pullback-geometry-2026-08-01]]
 
+The terminal construction closes this finite conditional tier: a singleton and a nonempty block are
+respectively local-agent and meta-agent coordinates of the same joint VFE, and the full finite
+interaction family is exact modulo constants. A retained pairwise or sparse ansatz has an explicit
+truncation residual. This does not turn the deployed engineered population energy into an
+unconditional fixed-joint ELBO, nor does it construct the application-specific joint-law lift,
+coarse channel, or configuration map. [[gauge-vfe-rg-terminal-theory-closure-2026-08-08]]
+
 VFE descent supplies orientation only after a metric or mobility is declared. The ray
 $\dot Q=-v\,\operatorname{grad}^F\mathcal F_i$ with $v>0$ selects an oriented unparameterized orbit;
 positive scalar mobility changes its parameterization, while anisotropic mobility can change the path.
@@ -210,6 +217,9 @@ $$
 The optimized envelope force $c_0/(b_0+D_i)$ differs from the derivative $b_0c_0/(b_0+D_i)^2$ of the bare product $\alpha_i^*D_i$. Whenever the adaptive sector is enabled, $R(\alpha_i)$ remains part of the canonical objective.
 
 ## Sources
+
+- [[gauge-vfe-rg-terminal-theory-closure-2026-08-08]] -- terminal finite conditional local/block
+  VFE closure, full-interaction representation, exact residuals, and application boundary.
 
 - [[gauge-vfe-rg-pullback-geometry-2026-08-01]] -- exact full-law lift, outside-averaged local VFE, local--collective differential identity, and timeless orbit geometry.
 

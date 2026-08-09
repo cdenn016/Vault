@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-08-03
+updated: 2026-08-08
 ---
 
 # Gauge-Theoretic Multi-Agent VFE Model
@@ -49,6 +49,22 @@ connection-compatible bundle morphism. Markov Fisher contraction additionally re
 parameter-independent channel. These are conditional mathematical results; they do not by themselves
 certify the current runtime barycenter, hierarchy, or exploratory RG pipeline.
 [[gauge-vfe-rg-pullback-geometry-2026-08-01]]
+
+## Finite conditional theory closure (2026-08-08)
+
+The general finite theory is now terminally closed for arbitrary admitted standard-Borel agent
+networks and finite composable scale sequences. It includes common-channel evidence preservation,
+conditional log-Laplace actions, DQM/Fisher contraction, exact local/block VFE coordinates, the
+complete finite interaction representation and retained residual, posterior meta-agent bridges,
+marked-event attention, covariant pullback anomalies, information duration, nonautonomous
+derivative cocycles, and reference-typed beta and fixed-object data.
+
+This is a conditional mathematical framework, not runtime certification. Applying it to MAgent
+still requires explicit principal scale maps, target product references, exact recognition lifts,
+configuration manifolds and coarse maps, related sections, objective and metric compatibility,
+comparison isomorphisms, and any claimed natural-gradient semiconjugacy. It does not establish
+automatic sparse closure, physical time, universality, or an infinite-volume limit.
+[[gauge-vfe-rg-terminal-theory-closure-2026-08-08]]
 
 ## Agent and transport architecture
 
@@ -146,6 +162,11 @@ The direct comparison set includes [[martins-2015-opinion-particles]], [[nevin-m
 
 ## Status and next steps
 
+The finite conditional theorem itself is complete. The next theory-to-model step is a minimal
+two-scale finite instantiation that supplies the application data above and measures the exact
+retained residual and semiconjugacy defect before any universality or thermodynamic-limit program is
+attempted. [[gauge-vfe-rg-terminal-theory-closure-2026-08-08]]
+
 No new empirical validation is claimed by the theorem-first revision. The next social tests must separately estimate or manipulate Fisher geometry, restoring stiffness, any kinetic metric, damping, source selection, and slow explanatory states. The broader project should also resolve the open code-concordance findings before treating participatory or hierarchical claims as runtime-validated.
 
 ## Cross-links
@@ -162,4 +183,4 @@ constructions in this project
 
 **Key concepts:** [[Agents as fibre-bundle sections|Agents as fiber-bundle sections]] · [[Multi-agent variational free energy]] · [[Belief inertia]] · [[Mass as Fisher information]] · [[Hamiltonian belief dynamics]] · [[Natural gradient]] · [[Fisher information metric]] · [[Ouroboros multi-scale dynamics]] · [[Meta-agents and hierarchical emergence]] · [[Renormalization-group flow of beliefs]] · [[Holonomy]]
 
-**Manuscripts:** [[gauge-vfe-rg-pullback-geometry-2026-08-01]] · [[participatory-it-from-bit]] · [[belief-inertia-2026-07-13-final-review-closure]] · [[belief-inertia-2026-07-13-final-verification-addendum]] · [[belief-inertia-2026-07-12-theorem-first-revision]] · [[belief-inertia]] · [[meta-entropy-manuscript]] · [[gl-k-attention]]
+**Manuscripts:** [[gauge-vfe-rg-terminal-theory-closure-2026-08-08]] · [[gauge-vfe-rg-pullback-geometry-2026-08-01]] · [[participatory-it-from-bit]] · [[belief-inertia-2026-07-13-final-review-closure]] · [[belief-inertia-2026-07-13-final-verification-addendum]] · [[belief-inertia-2026-07-12-theorem-first-revision]] · [[belief-inertia]] · [[meta-entropy-manuscript]] · [[gl-k-attention]]

@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-08-01
+updated: 2026-08-08
 ---
 
 # Information geometry and natural gradient
@@ -58,6 +58,16 @@ information duration; it is not a primitive or physical time variable. The full-
 not an unproved sum of marginal metrics, is the exact geometry when belief/model dependence matters.
 [[gauge-vfe-rg-pullback-geometry-2026-08-01]]
 
+**DQM, Fisher loss, and cross-scale anomalies.** Differentiability in quadratic mean supplies the
+$L^2$ score tangent needed for local Fisher geometry. Under one normalized,
+parameter-independent Markov channel, the coarse score is conditional expectation and the lost
+Fisher information is the positive-semidefinite conditional score covariance. Pulling this result to
+agent-perceived base geometry is subtler: the exact covariant-jet chain rule contains a horizontal
+anomaly, so clean base positivity requires that anomaly to vanish. Configuration-space natural-flow
+comparisons likewise require a declared smooth configuration manifold, recognition lift, objective,
+metric or mobility, and coarse map; equality of objective names alone does not imply
+semiconjugacy. [[gauge-vfe-rg-terminal-theory-closure-2026-08-08]]
+
 ## How it lands in this work
 
 In the VFE transformer, Gaussian belief updates use information geometry. At each recorded source SHA, the committed gate and stored configuration route the frame table through AdamW; every provenance record marks a dirty worktree, so the exact executed optimizer cannot be reconstructed. Heavy-ball belongs only to the disabled custom outer optimizer. The exponential-coordinate pullback can condition either optional frame route, but both are off; BCH/retraction belongs only to the disabled in-E-step route. Optional Cartan/Killing or pullback conditioning is extrinsic and is not a Fisher, K-FAC, or reparameterization-invariant natural gradient. [[gl-k-attention-2026-07-09-review-revision]]
@@ -101,6 +111,9 @@ current negative signal supports AdamW as the default without establishing that 
 is intrinsically inferior. [[2026-07-18-phi-pullback-group-k10-partial-negative-result]]
 
 ## Sources synthesized
+
+- [[gauge-vfe-rg-terminal-theory-closure-2026-08-08]] — DQM score transfer, conditional-covariance
+  Fisher defect, anomaly-corrected base pullback, and conditional configuration-flow geometry.
 
 - [[gauge-vfe-rg-pullback-geometry-2026-08-01]] — covariant vertical Fisher pullbacks, semimetric radicals, exact joint-law geometry, and Fisher information duration.
 
