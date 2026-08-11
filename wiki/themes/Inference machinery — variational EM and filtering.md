@@ -12,7 +12,7 @@ tags:
   - project/transformer
 status: stable
 created: 2026-06-18
-updated: 2026-07-25
+updated: 2026-08-10
 ---
 
 # Inference machinery — variational EM and filtering
@@ -216,6 +216,23 @@ Fourth, **amortization under gauge structure.** The recognition network of
 transports beliefs across learned gauge frames; whether an amortized encoder can remain consistent
 under parallel transport and holonomy (the cross-cluster theme
 [[Gauge equivariance and geometric deep learning]]) is unexamined by any source in this digest.
+
+## Exact-oracle-to-algorithm bridge (2026-08-10)
+
+The MultiAgentELBO finite evaluator is an oracle, not yet an inference engine. The missing bridge is
+now typed by source. [[matthews-2016-stochastic-process-kl]] governs process-level variational
+extensions; [[ay-2025-natural-gradient-elbo]] governs when constrained ELBO and target-KL natural
+gradients agree; and [[senoz-2021-local-constraint-vmp]] plus
+[[heskes-2006-bethe-kikuchi-convexity]] govern constrained-Bethe message passing and loopy
+optimization. Tree exactness belongs to ordinary sum-product BP. Mean-field VMP, EP, Laplace, and
+other form-constrained variants retain separate approximation error even on a tree.
+
+The implementation comparators are [[tran-2015-copula-variational-inference]] for compatible
+continuous dependence, [[wilkinson-2023-bayes-newton]] for positive-semidefinite covariance-safe
+second-order updates, [[hasenclever-2017-snep-posterior-server]] for asynchronous distributed EP,
+and [[bagaev-2023-reactive-message-passing]] for reactive scheduling. None changes the exact global
+recognition-law semantics of the current oracle by citation; each would be a separately declared
+approximate layer with normalization, stationarity, residual, and oracle-error tests.
 
 ## Sources synthesized
 

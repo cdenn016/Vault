@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-07-19
-updated: 2026-08-03
+updated: 2026-08-10
 ---
 
 # Gauge VFE ELBO curriculum
@@ -59,6 +59,30 @@ Ranks 1–13 form the defensible state-level ELBO, gauge, SPD, and optimization 
 
 > [!warning] Scope boundary
 > [[Evidence lower bound (ELBO)|An ELBO]], [[Active Inference|active inference]], a configuration Gibbs distribution, a 1PI/2PI effective action, and an [[Renormalization group flow|RG flow]] are related constructions but are not interchangeable. The final four books should not be presented as prerequisites for the basic gauge-covariant Gaussian ELBO.
+
+## Bridge modules for MultiAgentELBO
+
+The 2026-08-10 literature ingest adds five modules after the ranked core rather than replacing it:
+
+1. **Exact finite oracle to approximate inference:** [[senoz-2021-local-constraint-vmp]],
+   [[heskes-2006-bethe-kikuchi-convexity]], [[malioutov-2006-walk-sums-gabp]], and
+   [[wilkinson-2023-bayes-newton]].
+2. **Finite to process/population laws:** [[matthews-2016-stochastic-process-kl]],
+   [[lovasz-szegedy-2006-dense-graph-limits]], [[sznitman-1991-propagation-chaos]], and
+   [[bayraktar-2023-graphon-mean-field-systems]].
+3. **Recovery, partitioning, and quotient geometry:** [[blackwell-1953-experiment-comparison]],
+   [[geiger-2013-kl-aggregation]], [[watanabe-2002-singularities]], and
+   [[lukashchuk-2025-quotient-bayesian-learning]].
+4. **Gauge synchronization and sampling:** [[ahn-2017-gauging-variational-inference]],
+   [[gao-2021-synchronization-geometry]], [[singer-2012-vector-diffusion-maps]],
+   [[bandeira-2013-connection-cheeger]], and [[gerdes-2025-trivializing-flows-lattice-gauge]].
+5. **Distributed and collective epistemics:** [[campbell-how-2014-decentralized-bayes]],
+   [[battistelli-chisci-2014-kl-density-consensus]], [[duchi-2014-distributed-estimation]],
+   [[jadbabaie-2012-non-bayesian-social-learning]], and [[aumann-1976-agreeing-disagree]].
+
+These modules supply hypotheses, comparators, and failure modes. They do not close the project's
+continuum, regular-quotient, experiment-recovery, intrinsic-partition, DLR, or Oseledets obligations
+without constructing the objects to which the cited theorems apply.
 
 ## Proof and construction discipline
 

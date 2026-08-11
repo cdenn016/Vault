@@ -11,7 +11,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-18
+updated: 2026-08-10
 ---
 
 # Natural gradient
@@ -106,6 +106,20 @@ Natural gradient surfaces wherever the VFE transformer optimizes a distribution:
 
 The operative natural-gradient claim in the reference configuration is the Gaussian belief update, not per-block Fisher preconditioning of the frame M-step. [[gl-k-attention-2026-07-09-review-revision]]
 
+## Constrained ELBO geometry
+
+An equality of scalar ELBO and KL objectives does not automatically imply equality of their
+natural-gradient vector fields after restriction to a model family. [[ay-2025-natural-gradient-elbo]]
+separates the ambient joint-distribution statement from the constrained-model statement and gives
+a cylindrical-model condition under which the ELBO and target-KL natural gradients remain
+compatible under marginalization. A structured, coarse, quotient, or gauge-constrained recognition
+family must verify the corresponding tangent compatibility; cylindricity is not automatic.
+
+[[lukashchuk-2025-quotient-bayesian-learning]] supplies a complementary quotient construction for
+specified marginal families. It is a comparator for [[Quotient Bayesian learning]], not a proof
+that the project's noncompact passive-frame quotient is regular or that its deployed update is the
+quotient natural gradient.
+
 ## Sources
 
 - [[amari-1998-natural-gradient]] — the natural gradient as Fisher-preconditioned steepest descent; reparameterization invariance and Fisher efficiency.
@@ -119,6 +133,11 @@ The operative natural-gradient claim in the reference configuration is the Gauss
 - [[sra-hosseini-2015-conic-geometric-optimization]] — conic geometric optimization on the SPD cone as a symmetric space; geodesic convexity and affine-invariant descent.
 - [[nielsen-2020-elementary-introduction-information-geometry]] — pedagogical grounding for KL geometry and Gaussian belief natural gradients. [[gl-k-attention-2026-07-09-review-revision]]
 - [[martens-2010-hessian-free-optimization]] — truncated-Newton background; no audited frame-Fisher M-step is inferred.
+
+- [[ay-2025-natural-gradient-elbo]] — the ambient/constrained distinction and a sufficient
+  cylindrical-model condition for ELBO/target-KL natural-gradient compatibility.
+- [[lukashchuk-2025-quotient-bayesian-learning]] — a quotient Bayesian learning rule for declared
+  marginal families, with scope distinct from the project's passive-frame quotient.
 
 ## See also
 

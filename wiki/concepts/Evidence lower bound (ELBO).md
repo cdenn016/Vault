@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-27
+updated: 2026-08-10
 ---
 
 # Evidence lower bound (ELBO)
@@ -182,6 +182,20 @@ functional optimized by the entire model:
 > grant its one-step filter Neal–Hinton monotonicity.
 > [[gl-k-attention-2026-07-09-review-revision]]
 
+## Process-space and constrained-family boundaries
+
+For stochastic processes, a collection of finite marginals is not by itself the whole variational
+problem. [[matthews-2016-stochastic-process-kl]] formulates KL at process level and shows why an
+augmentation must preserve the relevant marginal/process relation, not merely look consistent on a
+chosen finite design. This sharpens the open continuum obligations in
+[[Process-space variational inference]]: projective consistency is necessary, while tightness,
+topology, reference control, and admissible process-level recognition laws remain separate.
+
+Model restriction also matters geometrically. [[ay-2025-natural-gradient-elbo]] gives a sufficient
+cylindrical-model condition for the constrained ELBO natural gradient to agree with the target-KL
+natural gradient. The result does not license that identification for every structured, quotient,
+or coarse recognition family.
+
 ## Sources
 
 - [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]] — revision-bound exact finite ELBO, typed CAVI measures and densities, and continuum/finite scope.
@@ -199,6 +213,11 @@ functional optimized by the entire model:
 - [[bishop-2006-pattern-recognition-machine-learning]] — Ch. 10 textbook variational inference, ELBO, and mean-field EM used here as comparison material; the deployed filter does not instantiate that full coordinate-ascent scheme.
 - [[wainwright-2008-graphical-models-variational|wainwright-jordan-2008-graphical-models-variational-inference]] — Exponential-family convex-duality foundation of mean-field variational inference / free energy.
 - [[beal-2003-variational-bayesian|beal-2003-variational-algorithms-approximate-bayesian-inference]] — Variational Bayesian EM and the free-energy bound — direct antecedent of iterative VFE minimization.
+
+- [[matthews-2016-stochastic-process-kl]] — process-space KL and the additional consistency
+  requirements for variational augmentation beyond a finite marginal design.
+- [[ay-2025-natural-gradient-elbo]] — constrained-family conditions for relating ELBO and
+  target-KL natural gradients.
 
 ## See also
 

@@ -8,7 +8,7 @@ tags:
   - project/transformer
 status: stable
 created: 2026-06-18
-updated: 2026-07-19
+updated: 2026-08-10
 ---
 
 # Variational free energy and predictive coding
@@ -64,6 +64,20 @@ with decode cross-entropy.
 - **Backprop-equivalence in a future shared objective.** Extending the source theorem to manifold-valued beliefs would first require a shared predictive-coding/decode objective and a converged schedule. The deployed two-objective filter lacks that premise before curvature is considered.
 - **Precision learning vs. attention learning.** Predictive coding learns precisions explicitly ([[bogacz-2017-free-energy-tutorial]]); transformers learn attention weights implicitly. The architecture conflates the two via precision-weighted attention, but the digest contains no source quantifying when learned attention faithfully recovers the optimal precisions.
 - **Depth of the inner loop.** Filter depth remains an empirical relaxation-versus-compute choice. Marino et al.'s amortization-gap result concerns a learned amortized optimizer and does not establish when this target-blind filter makes the separate decode gradient trustworthy.
+
+## Future-objective and collective-policy boundary (2026-08-10)
+
+[[millidge-2021-whence-expected-free-energy]] is necessary counterevidence to any claim that expected
+free energy follows uniquely by applying present variational free energy to the future or resolves
+exploration and exploitation without additional modeling choices. The correction is scoped: it
+challenges derivational routes, not every model that uses an expected-free-energy functional.
+
+[[ruiz-serra-2025-factorised-active-inference]] reports strategic-game examples in which ensemble
+EFE is not necessarily minimized at aggregate level, and
+[[fukuoka-2026-variational-bayes-naming-game]] supplies a decentralized symbol-emergence comparator.
+Both belong in [[Collective active inference]], but neither licenses an active-policy interpretation
+of the current MultiAgentELBO code. A policy layer would need its own generative model, preference
+semantics, individual-versus-joint objective, and negative controls.
 
 ## Sources synthesized
 

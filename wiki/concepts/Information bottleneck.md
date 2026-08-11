@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-08-10
 ---
 
 # Information bottleneck
@@ -37,7 +37,20 @@ The IB Lagrangian is the participatory free energy of [[participatory-it-from-bi
 
 The conceptual core of the IB family is **distributional clustering**: grouping objects by the similarity of their associated conditional distributions $p(y\mid x)$ — typically in KL or Jensen-Shannon divergence — rather than by feature vectors, so clusters preserve mutual information with the relevance variable while compressing the input. In the program this is the route by which meta-agents form: units with similar predictive/belief distributions are grouped, the information-theoretic version of coarse-graining (see [[Meta-agents and hierarchical emergence]]). The original IB is a *soft* assignment; its **deterministic** limit replaces $I(X;T)$ with the code entropy $H(T)$, collapsing the optimum to a hard clustering — the variational account of PIFB's low-temperature ($\tau = \kappa\sqrt{K}$) attention and crisp meta-agent membership. The **Gaussian IB** solves the trade-off in closed form when $X, Y$ are jointly Gaussian: the optimum is a noisy linear projection along eigenvectors of $\Sigma_{x\mid y}\Sigma_x^{-1}$, switching on one at a time as $\beta$ grows. This is the case nearest PIFB, whose representations are Gaussian belief tuples $(\mu, \Sigma, \phi)$, tying the trade-off to a covariance-eigenstructure problem on the SPD manifold (see [[Information geometry and natural gradient]]). The **agglomerative** IB — merge the cluster pair losing the least relevant information — is the coarse-graining cousin of [[Meta-agents and hierarchical emergence]] formation. And **predictive information**, the mutual information between past and future, supplies the currency for PIFB's $h \to s \to p \to q$ hierarchy: each level captures the sub-extensive, learnable structure that predicts the level below.
 
+## Markov aggregation boundary
+
+[[geiger-2013-kl-aggregation]] uses an information-bottleneck objective to search for state
+aggregations that control a KL divergence rate, with tightness tied to lumpability in the source
+setting. This makes IB a concrete partition-selection baseline for finite Markov dynamics. It does
+not make the selected partition intrinsic to a different gauge-covariant agent model, and an
+unregularized information objective can admit degenerate selectors. [[Coarse Graining]] therefore
+combines the IB score with exact lumpability, retained-interaction residual, and gauge/relabeling
+checks.
+
 ## Sources
+
+- [[geiger-2013-kl-aggregation]] — information-bottleneck search for KL-rate Markov aggregation,
+  with scope restricted to the declared finite Markov setting.
 
 - [[tishby-1999-information-bottleneck]] — founding IB variational principle; KL-distortion softmax assignment and the information plane.
 - [[bialek2001predictability|bialek-2001-predictability-complexity]] — predictive information as a complexity measure; the $\tfrac{K}{2}\log T$ counting law, currency for the $h \to s \to p \to q$ hierarchy.

@@ -14,7 +14,7 @@ tags:
   - project/social-physics
 status: stable
 created: 2026-06-19
-updated: 2026-07-12
+updated: 2026-08-10
 ---
 
 # Collective active inference
@@ -35,6 +35,29 @@ The polarization mechanisms must remain distinct. [[albarracin-2022-epistemic-co
 
 Passive attention therefore does not inherit the persistent-polarization result of an active-sampling model. Exact separation needs severed support, persistent anchors with a proved separated equilibrium, signed influence, or an explicit active selection policy. See [[Echo chambers and polarization]].
 
+## Strategic and decentralized comparators
+
+[[ruiz-serra-2025-factorised-active-inference]] gives each agent explicit factorized beliefs about
+other agents in iterated two- and three-player general-sum games. In that model's numerical
+analysis, ensemble expected free energy is not necessarily minimized at the aggregate level. This
+is a model-specific result about the simulated game and EFE construction, not a theorem that no
+collective potential can arise from individual objectives.
+
+[[fukuoka-2026-variational-bayes-naming-game]] provides a different finite comparator: agents with
+partial observations exchange discrete signs and use local variational-Bayes updates to approximate
+a shared-symbol posterior. The paper compares the decentralized protocol with a centralized VB
+topline and a sampling-based naming game. Its categorical/multinomial model and communication
+protocol do not establish an exact decomposition for an arbitrary correlated gauge-coupled law.
+
+These two sources should remain distinct. Ruiz-Serra et al. study strategic policy selection with
+EFE; Fukuoka et al. study decentralized variational inference for a shared latent sign. Neither is
+implemented by the current MultiAgentELBO exact finite evaluator.
+
+> [!important] Current code scope
+> MultiAgentELBO has no active-policy engine, game dynamics, naming-game protocol, posterior server,
+> or reactive message scheduler. These papers define future comparators and negative controls, not
+> current code behavior.
+
 ## Sources
 
 - [[friston-2024-federated-inference]] -- federated belief sharing.
@@ -42,6 +65,8 @@ Passive attention therefore does not inherit the persistent-polarization result 
 - [[waade-2025-as-one-and-many]] -- group-level active-inference agents.
 - [[albarracin-2022-epistemic-communities]] -- active confirmation-biased sampling and epistemic-community segregation.
 - [[belief-inertia-2026-07-12-theorem-first-revision]] -- passive-attention metastability and kinetic scope.
+- [[ruiz-serra-2025-factorised-active-inference]] -- strategic factorized beliefs and model-specific ensemble-EFE dynamics.
+- [[fukuoka-2026-variational-bayes-naming-game]] -- decentralized variational inference for shared signs.
 
 ## See also
 

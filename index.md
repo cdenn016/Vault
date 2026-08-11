@@ -2,7 +2,7 @@
 type: index
 title: Index
 aliases: [Index, Home]
-updated: 2026-08-08
+updated: 2026-08-10
 ---
 
 # Index
@@ -10,7 +10,7 @@ updated: 2026-08-08
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **15** manuscripts · **13** themes · **11** field MOCs · **269** concepts · **12** methods · **543** papers · **114** references · **17** runs · **6** web/methodology
+> **3** projects · **16** manuscripts · **13** themes · **11** field MOCs · **283** concepts · **12** methods · **584** papers · **114** references · **17** runs · **6** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -25,6 +25,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
   - [[VFE Transformer Research Directions (2026-06-21)]] — prioritized open-experiments roadmap (37 hypotheses)
 
 ## 📝 Manuscripts (in preparation)
+- [[multiagentelbo-literature-gap-review-2026-08-10|MultiAgentELBO Literature-Gap Review: 2026-08-10 Ingest Record]] — revision-bound 41-source bridge from the exact finite oracle to approximate inference, recovery, synchronization, communication, social learning, and population-limit obligations
 - [[gauge-vfe-rg-pullback-geometry-2026-08-01|Gauge-Covariant Variational Free Energy and Renormalization: 2026-08-01 Pullback Geometry and Timeless Inference Record]] — fixed-base vertical histories, covariant informational pullbacks, exact local--collective VFE geometry, Fisher information duration, and cross-scale Markov contraction
 - [[gauge-vfe-rg-terminal-theory-closure-2026-08-08|Gauge-Covariant Variational Free Energy and Renormalization: 2026-08-08 Terminal Theory Closure Record]] — complete finite conditional VFE/ELBO and gauge-covariant scale theory, with exact application boundaries and ordinary private-research closure evidence
 - [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation|MAgent Exact-ELBO White Paper: 2026-07-19 Continuum--Finite Remediation Record]] — continuum-primary fields, exact finite marginals and CAVI, corrected moving-peer obstruction, runtime crosswalk, and revision-bound verification
@@ -67,6 +68,22 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Wiki Status Board]] — synthesis-page maturity (stub → draft → stable)
 
 ## 💡 Concepts
+
+### MultiAgentELBO literature interfaces (2026-08-10)
+- [[Process-space variational inference]]
+- [[Decentralized Bayesian inference]]
+- [[Statistical experiment comparison and deficiency]]
+- [[Graph synchronization and connection Laplacians]]
+- [[Singular statistical models]]
+- [[Quotient Bayesian learning]]
+- [[Communication-constrained inference]]
+- [[Conservative information fusion]]
+- [[Graphon limits of agent networks]]
+- [[Propagation of chaos]]
+- [[Non-Bayesian social learning]]
+- [[Common knowledge and Bayesian agreement]]
+- [[O-information]]
+- [[Partial information decomposition]]
 
 ### Variational free energy, predictive coding & active inference
 - [[Active Inference]]
@@ -387,6 +404,55 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Variational autoencoder (VAE)]]
 
 ## 📄 Sources — papers
+
+### MultiAgentELBO literature-gap ingest (2026-08-10)
+
+#### Variational, active-inference, and singular-learning sources
+- [[ay-2025-natural-gradient-elbo]]
+- [[matthews-2016-stochastic-process-kl]]
+- [[senoz-2021-local-constraint-vmp]]
+- [[millidge-2021-whence-expected-free-energy]]
+- [[watanabe-2002-singularities]]
+- [[hasenclever-2017-snep-posterior-server]]
+- [[wilkinson-2023-bayes-newton]]
+- [[bagaev-2023-reactive-message-passing]]
+- [[ruiz-serra-2025-factorised-active-inference]]
+- [[fukuoka-2026-variational-bayes-naming-game]]
+- [[heskes-2006-bethe-kikuchi-convexity]]
+- [[tran-2015-copula-variational-inference]]
+
+#### Gauge, recovery, quotient, and renormalization sources
+- [[blackwell-1953-experiment-comparison]]
+- [[ahn-2017-gauging-variational-inference]]
+- [[gao-2021-synchronization-geometry]]
+- [[singer-2012-vector-diffusion-maps]]
+- [[bandeira-2013-connection-cheeger]]
+- [[geiger-2013-kl-aggregation]]
+- [[geiger-temmel-2013-information-preserving-aggregation]]
+- [[lukashchuk-2025-quotient-bayesian-learning]]
+- [[williamson-2024-information-risk-bridge]]
+- [[ahn-2018-bucket-renormalization]]
+- [[gerdes-2025-trivializing-flows-lattice-gauge]]
+- [[lovasz-szegedy-2006-dense-graph-limits]]
+- [[blumenthal-2016-banach-multiplicative-ergodic]]
+- [[froyland-2013-semi-invertible-oseledets]]
+
+#### Decentralized, social-learning, and population-limit sources
+- [[campbell-how-2014-decentralized-bayes]]
+- [[battistelli-chisci-2014-kl-density-consensus]]
+- [[bandyopadhyay-chung-2018-logop-filtering]]
+- [[julier-uhlmann-1997-covariance-intersection]]
+- [[malioutov-2006-walk-sums-gabp]]
+- [[bayraktar-2023-graphon-mean-field-systems]]
+- [[sznitman-1991-propagation-chaos]]
+- [[duchi-2014-distributed-estimation]]
+- [[lalitha-2018-distributed-hypothesis-testing]]
+- [[jadbabaie-2012-non-bayesian-social-learning]]
+- [[aumann-1976-agreeing-disagree]]
+- [[rosas-2019-o-information]]
+- [[williams-beer-2010-pid]]
+- [[lyu-2026-pid-inconsistencies]]
+- [[caines-huang-2021-graphon-mean-field-games]]
 
 ### Recently added (2026-06-21 — dedup reconcile)
 - [[ramstead-2019-enactive-inference]] · [[ramstead2020variational]] — active inference / Bayesian mechanics

@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-08-08
+updated: 2026-08-10
 ---
 
 # Information geometry and natural gradient
@@ -109,6 +109,21 @@ same K=10 model and outer objective, compare AdamW against the registered pullba
 grid, and carry only surviving settings to multiple seeds. Until that control is complete, the
 current negative signal supports AdamW as the default without establishing that tuned group descent
 is intrinsically inferior. [[2026-07-18-phi-pullback-group-k10-partial-negative-result]]
+
+## Recovery, quotients, and constrained flows (2026-08-10)
+
+Three new boundaries sharpen the program. First, [[ay-2025-natural-gradient-elbo]] shows that a
+scalar ELBO identity is weaker than natural-gradient equivalence after model restriction. Second,
+[[watanabe-2002-singularities]] places Fisher degeneracy and nonidentifiability inside singular
+learning theory without proving regularity of the project's global quotient. Third,
+[[blackwell-1953-experiment-comparison]] distinguishes recovery of one law or score direction from
+a common recovery kernel for a whole statistical experiment.
+
+[[lukashchuk-2025-quotient-bayesian-learning]] gives a concrete quotient-natural-gradient
+construction for declared marginal families, while [[williamson-2024-information-risk-bridge]]
+connects information-processing equalities with operational decision risk. They supply comparator
+theorems and falsifiable targets; neither automatically regularizes the passive-frame `GL(K)`
+quotient or closes experiment-level recovery for MultiAgentELBO.
 
 ## Sources synthesized
 

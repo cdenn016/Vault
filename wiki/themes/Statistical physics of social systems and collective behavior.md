@@ -11,7 +11,7 @@ tags:
   - project/social-physics
 status: stable
 created: 2026-06-19
-updated: 2026-07-19
+updated: 2026-08-10
 ---
 
 # Statistical physics of social systems and collective behavior
@@ -76,6 +76,28 @@ The information-geometric mechanics neighborhood is equally important: [[chirco-
 ## Continuum and multi-scale directions
 
 [[Kinetic theory of opinion dynamics]] and [[Mean-field games and continuum limits]] are natural external tools for passing from finite populations to field descriptions, but no Boltzmann or Hamilton--Jacobi--Bellman equation is derived here. [[Meta-entropy]] and [[Renormalization-group flow of beliefs]] supply internal coarse-graining directions; they should be treated as adjacent mathematical programs until explicit continuum equivalences are proved.
+
+## Inference, communication, and population-limit bridge (2026-08-10)
+
+The decentralized literature separates inference error from network error. [[campbell-how-2014-decentralized-bayes]]
+addresses fusion of separately approximated posteriors; [[battistelli-chisci-2014-kl-density-consensus]]
+and [[bandyopadhyay-chung-2018-logop-filtering]] address logarithmic pooling and density consensus;
+[[julier-uhlmann-1997-covariance-intersection]] handles unknown cross-correlation conservatively;
+and [[duchi-2014-distributed-estimation]] makes bit/message budgets part of the statistical problem.
+These distinctions are banked in [[Decentralized Bayesian inference]],
+[[Communication-constrained inference]], and [[Conservative information fusion]].
+
+Social learning adds different assumptions again. [[lalitha-2018-distributed-hypothesis-testing]],
+[[jadbabaie-2012-non-bayesian-social-learning]], and [[aumann-1976-agreeing-disagree]] separate
+network learning rates, heuristic belief aggregation, and common-prior/common-knowledge agreement.
+The assumptions do not transfer automatically to Gaussian bundle-valued beliefs.
+
+For large populations, [[lovasz-szegedy-2006-dense-graph-limits]],
+[[bayraktar-2023-graphon-mean-field-systems]], [[sznitman-1991-propagation-chaos]], and
+[[caines-huang-2021-graphon-mean-field-games]] type distinct deterministic, stochastic, and strategic
+routes. For higher-order diagnostics, [[rosas-2019-o-information]],
+[[williams-beer-2010-pid]], and [[lyu-2026-pid-inconsistencies]] require estimator and axiom choices;
+compact algebra is not evidence of scalable or unique empirical decomposition.
 
 ## Sources synthesized
 

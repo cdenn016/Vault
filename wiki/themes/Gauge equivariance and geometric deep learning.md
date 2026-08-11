@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-19
+updated: 2026-08-10
 ---
 
 # Gauge equivariance and geometric deep learning
@@ -56,6 +56,22 @@ Hierarchical closure creates a second domain problem. Legal bounded products of 
 The main realized-family gap is exact: a single real exponential chart misses part of $\mathrm{GL}^+(K)$. Stored group elements (`omega_direct`) or multiple-chart constructions can cover transformations that the phi chart cannot. This is separate from LieConv's valid theorem under its own surjectivity premise. [[gl-k-attention-2026-07-09-review-revision]]
 
 Holonomy is closed in strict Regime I: $\Omega_{ij}=U_iU_j^{-1}$ telescopes around every loop. The open holonomy question belongs to independent-edge or otherwise nonflat transport, not stacked vertex-cocycle attention. [[gl-k-attention-2026-07-09-review-revision]]
+
+## Synchronization and variational gauge boundaries (2026-08-10)
+
+[[ahn-2017-gauging-variational-inference]] uses factor reparameterizations to improve a
+graphical-model variational approximation. That is a useful algorithmic analogy, but it is not automatically
+the passive principal-bundle gauge of the MultiAgentELBO theory. [[gao-2021-synchronization-geometry]]
+connects synchronization, flat bundles, and holonomy; [[singer-2012-vector-diffusion-maps]] and
+[[bandeira-2013-connection-cheeger]] supply spectral connection-Laplacian diagnostics under their
+orthogonal or compact hypotheses.
+
+Those spectral guarantees do not transfer directly to noncompact `GL^+(2)` links. A project
+application first needs a declared fiber metric and proofs of self-adjointness,
+positive-semidefiniteness, and the relevant comparison inequality. Link synchronizability also
+remains distinct from operational belief agreement. [[gerdes-2025-trivializing-flows-lattice-gauge]]
+is a future equivariant sampling comparator for compact lattice groups, not a ready-made sampler for
+the project's noncompact group.
 
 ## Sources synthesized
 

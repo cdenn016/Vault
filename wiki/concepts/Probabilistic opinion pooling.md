@@ -8,7 +8,7 @@ tags:
   - project/social-physics
 status: stable
 created: 2026-06-19
-updated: 2026-07-09
+updated: 2026-08-10
 ---
 
 # Probabilistic opinion pooling
@@ -31,7 +31,27 @@ Opinion pooling is the static, axiomatic counterpart to the *dynamical* [[Belief
 
 > [!note] Editorial (2026-07-09): forward KL gives the stated log-linear pooling identity, but uniqueness is conditional. A fixed admissible witness must realize a nonempty open essential density-ratio range, or overlapping configurations must force their constants to agree. Closure then selects the positive ray $f_c(t)=c(t\log t-t+1)$ up to divergence-null affine terms; $f''(1)=1$, or fixed exponent/coefficient conventions, sets $c=1$. The live diagonal family under general transport does not automatically satisfy this richness condition. [[gl-k-attention-2026-07-09-review-revision]]
 
+## Dynamic density consensus and common-information risk
+
+The weighted Kullback--Leibler average
+
+$$
+p_\star=\arg\min_p\sum_i w_i\,D_{\mathrm{KL}}(p\|p_i)
+\propto\prod_i p_i^{w_i}
+$$
+
+is the geometric pool, but the variational characterization does not make it the centralized Bayesian posterior. [[battistelli-chisci-2014-kl-density-consensus]] implements this target through repeated graph-local Kullback--Leibler averaging. It establishes density consensus under its connectivity and weight assumptions; the agreed density is determined by the pool of initial densities, not automatically by the joint likelihood of all raw observations.
+
+Dynamic filtering adds evidence lineage. [[bandyopadhyay-chung-2018-logop-filtering]] distinguishes pooling normalized likelihood information from pooling entire local posteriors and analyzes communication-aware variants. That distinction matters because recirculating a posterior can count historical evidence multiple times. When the cross-correlation is unknown, [[julier-uhlmann-1997-covariance-intersection]] supplies a conservative Gaussian baseline rather than pretending independence.
+
+Four objects should therefore remain separate: an exact centralized Bayesian posterior, a one-shot static opinion pool, a distributed algorithm that converges to a chosen pool, and a conservative fusion rule for unknown common information. Agreement among agents is a protocol property; posterior correctness and calibration are additional statistical properties.
+
 ## Sources
+
+- [[battistelli-chisci-2014-kl-density-consensus]] — distributed consensus on a Kullback--Leibler average of densities.
+- [[bandyopadhyay-chung-2018-logop-filtering]] — logarithmic pooling for Bayesian filtering with explicit likelihood/posterior and communication distinctions.
+- [[julier-uhlmann-1997-covariance-intersection]] — conservative Gaussian fusion under unknown cross-correlation.
+- [[campbell-how-2014-decentralized-bayes]] — decentralized approximate posterior multiplication with shared-prior correction and symmetry alignment.
 
 - [[genest-zidek-1986-pooling]] — the canonical survey and taxonomy of opinion pooling; linear vs logarithmic families and their characterizing axioms (marginalization vs external Bayesianity).
 - [[bordley-1982-multiplicative-pooling]] — original Bayesian derivation of the multiplicative (log-linear) pool $p \propto \prod_i p_i^{w_i}$; the ancestor of product-of-experts and the zero-preserving veto property.

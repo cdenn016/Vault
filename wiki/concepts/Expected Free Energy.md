@@ -13,23 +13,21 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-21
-updated: 2026-06-21
+updated: 2026-08-10
 ---
 
 # Expected Free Energy
 
-**Expected free energy** (EFE), written $G(\pi)$, is the free-energy functional evaluated over
-*future* outcomes that have not yet occurred. Whereas [[Variational free energy]] (VFE) scores how
-well an agent's current beliefs explain outcomes it has *already* observed, expected free energy
-scores a candidate course of action — a **policy** $\pi$ (a sequence of control states) — by the
-free energy the agent *expects* to incur if it follows that policy into the future. In
-[[Active inference]], action selection is cast as inference over policies: an agent prefers
-policies that minimize expected free energy, and the central result is that this single quantity
-decomposes into an exploratory (epistemic) term and a goal-directed (pragmatic) term, giving
-active inference a built-in, principled resolution of the explore–exploit dilemma without any
-hand-engineered exploration bonus or separate reward function
+**Expected free energy** (EFE), written $G(\pi)$, is a policy-selection functional defined over
+predicted future outcomes, hidden states, and preferences. Whereas [[Variational free energy]]
+(VFE) scores a recognition law against outcomes already observed, EFE scores a candidate
+**policy** $\pi$ under a specified predictive generative model. In common [[Active inference]]
+formulations, EFE admits epistemic and pragmatic terms that favor both information gain and
+preferred outcomes. This construction is not simply ordinary VFE evaluated at a future time: its
+exploratory term depends on how future predictions, preferences, and approximate posteriors enter
+the objective
 ([[friston-2017-active-inference-process-theory]], [[friston-2016-active-inference-learning]],
-[[smith-2022-active-inference-tutorial]]).
+[[smith-2022-active-inference-tutorial]], [[millidge-2021-whence-expected-free-energy]]).
 
 ## Definition
 
@@ -45,25 +43,26 @@ $$
 F = \mathbb{E}_{q(s)}\!\left[\ln q(s) - \ln p(o, s)\right],
 $$
 
-an upper bound on surprisal $-\ln p(o)$ whose minimization drives $q(s)$ toward the true posterior
-$p(s\mid o)$ ([[smith-2022-active-inference-tutorial]]; see [[Variational free energy]]). Because
-future outcomes are not yet known, they must be treated as **random variables** distributed under
-the agent's predictions $q(o_\tau \mid \pi)$. Taking the expectation of the future free energy
-under those predicted outcomes yields the expected free energy of policy $\pi$ at future time
-$\tau$,
+an upper bound on surprisal $-\ln p(o)$ whose unconstrained minimum is the true posterior
+$p(s\mid o)$; a restricted family reaches its best available KL projection instead
+([[smith-2022-active-inference-tutorial]]; see [[Variational free energy]]). Because
+future outcomes are not yet known, they are random variables under the agent's predictions
+$q(o_\tau \mid \pi)$. One commonly used EFE convention for policy $\pi$ at future time $\tau$ is
 
 $$
 G(\pi) = \mathbb{E}_{q(o_\tau, s_\tau \mid \pi)}\!\left[\ln q(s_\tau \mid \pi) - \ln p(o_\tau, s_\tau \mid \pi)\right],
 $$
 
-where the posterior preferences over outcomes $p(o\mid C)$ enter in place of a generic prior — this
-is the formal device by which "what the agent wants" is folded into the same inferential objective
-that governs "what the agent believes" ([[friston-2017-active-inference-process-theory]]).
+where a preference-biased generative law places $p(o\mid C)$ in the future model. That substitution
+is a modeling choice, not a consequence of time-indexing present VFE alone
+([[friston-2017-active-inference-process-theory]],
+[[millidge-2021-whence-expected-free-energy]]).
 
 ## The epistemic + pragmatic decomposition
 
-The single expression for $G(\pi)$ admits two complementary, exactly-equivalent rearrangements that
-are the heart of why active inference behaves intelligently.
+Under conventional factorization and posterior-identification assumptions, $G(\pi)$ admits two
+familiar rearrangements. Their equivalence is conditional on those definitions and approximations,
+not an assumption-free identity shared by every quantity called EFE.
 
 **Epistemic + pragmatic value.** Grouping terms so that the preference distribution $p(o\mid C)$ is
 isolated gives
@@ -99,11 +98,28 @@ outcomes the agent *prefers*: it penalizes policies likely to land the agent in 
 states. **Ambiguity** is the expected entropy of the likelihood $p(o\mid s)$ — the residual outcome
 uncertainty that remains even when the hidden state is known — and minimizing it drives the agent
 toward states where observations are maximally informative about (i.e. maximally diagnostic of) the
-hidden cause. The two decompositions are algebraically equivalent: risk corresponds to the negated
+hidden cause. Within this convention, the two decompositions are algebraically equivalent: risk corresponds to the negated
 pragmatic value plus a predictive-entropy term, and ambiguity is the complement that, together with
 risk, reconstructs the epistemic/pragmatic split ([[smith-2022-active-inference-tutorial]]). Which
 form one writes is a matter of which grouping is most convenient — risk/ambiguity is natural for
-the discrete POMDP code, epistemic/pragmatic for the conceptual explore–exploit reading.
+the discrete POMDP code, epistemic/pragmatic for the conceptual explore–exploit reading. Across
+derivations, equality can additionally use an approximation such as
+$q(s\mid o,\pi)\approx p(s\mid o,\pi)$; changing the predictive or preference model changes the
+objective and its decomposition.
+
+## Derivational scope and counterevidence
+
+[[millidge-2021-whence-expected-free-energy]] shows that a natural candidate obtained by extending
+present VFE to uncertain future observations can discourage rather than encourage exploration. The
+authors therefore argue that EFE is not simply "free energy in the future" and propose the free
+energy of the expected future (FEEF), a divergence between predicted and desired future laws.
+
+> [!warning] Contested derivational route
+> The standard EFE decompositions remain valid within their stated active-inference construction.
+> The disputed point is stronger: whether EFE follows uniquely or automatically from present-time
+> VFE minimization. [[millidge-2021-whence-expected-free-energy]] argues that it does not. This source
+> is counterevidence to an automatic derivation, not a universal refutation of EFE as a policy
+> objective.
 
 ## Policy selection: $\pi = \mathrm{softmax}(-G)$
 
@@ -136,11 +152,12 @@ weights elsewhere in this program (see *Relevance* below).
 
 ## Key results
 
-- **Explore–exploit is solved by construction.** Minimizing one functional, $G$, simultaneously
-  maximizes goal-attainment (pragmatic value / negative risk) and information gain (epistemic value
-  / negative ambiguity), so exploratory behavior is not bolted on but falls out of Bayes-optimal
-  policy inference ([[friston-2016-active-inference-learning]],
-  [[friston-2017-active-inference-process-theory]]).
+- **One construction couples exploration and preference satisfaction.** Under the standard EFE
+  model and posterior approximations, minimizing $G$ favors both pragmatic value and expected
+  information gain without a separately added curiosity reward. This does not show that every
+  future-VFE construction explores or that the EFE route is uniquely mandated
+  ([[friston-2016-active-inference-learning]], [[friston-2017-active-inference-process-theory]],
+  [[millidge-2021-whence-expected-free-energy]]).
 - **Epistemic foraging emerges with no curiosity reward.** Simulated agents seek out
   information-rich observations purely because doing so lowers expected free energy; in the
   two-armed-bandit-with-hint task of [[smith-2022-active-inference-tutorial]], varying preference
@@ -151,34 +168,32 @@ weights elsewhere in this program (see *Relevance* below).
   (repetition suppression, mismatch negativity, place-cell activity, dopaminergic transfer), with
   variational free energy serving as a Lyapunov function for the dynamics
   ([[friston-2017-active-inference-process-theory]]).
-- **Same objective, three timescales.** Perception (state inference), action (policy selection via
-  $G$), and learning (Dirichlet parameter updates) are all gradient flows on free energy, differing
-  only in *what* is optimized and on *what* timescale — the fast E-step / slow M-step separation
-  ([[friston-2016-active-inference-learning]], [[smith-2022-active-inference-tutorial]]).
+- **Related objectives operate on several timescales.** Standard active-inference schemes use VFE
+  for state inference, EFE for policy selection, and parameter-learning updates on slower
+  timescales. These are coupled free-energy constructions, not literally one unchanged scalar
+  objective evaluated on three parameter blocks
+  ([[friston-2016-active-inference-learning]], [[smith-2022-active-inference-tutorial]],
+  [[millidge-2021-whence-expected-free-energy]]).
 
 ## Relevance to this research
 
-Expected free energy is the action-selection layer that the present program reuses and generalizes.
+Expected free energy is a prospective action-selection comparator for this research program. It is
+not part of the exact finite MultiAgentELBO implementation.
 
-The softmax-over-negative-EFE policy rule $\pi = \sigma(-\gamma G)$ is the structural ancestor of
-the temperature-scaled attention weights that fall out of the multi-agent free-energy functional in
-[[GL(K) gauge-equivariant attention]]: there, an information-geometric divergence between
-gauge-transported beliefs plays the role of the per-policy score $G$, and the inverse-temperature
-$\beta$ plays the role of the policy precision $\gamma$. The epistemic/pragmatic (equivalently
-risk/ambiguity) split is the reference decomposition against which the program's attention-entropy
-and meta-entropy couplings should be read — the ambiguity term (expected likelihood entropy) is the
-discrete cousin of the entropy regularizer on the attention distribution.
+The softmax-over-negative-EFE policy rule $\pi = \sigma(-\gamma G)$ motivates an analogy with the
+temperature-scaled attention weights in [[GL(K) gauge-equivariant attention]]. That analogy does
+not derive attention from EFE: an attention divergence is not a policy objective unless a future
+generative model, preferences, actions, and policy-conditioned predictions are separately defined.
 
-Because policy precision $\gamma$ here is exactly an inverse temperature on a free-energy score, EFE
-also connects to the program's information-geometric machinery: the curvature of these free-energy
-landscapes is governed by the [[Fisher information metric]], gradient flows on them are
-[[Natural gradient]] flows, and the precision/temperature parameters are the action-side analogue of
-the [[Precision weighting]] that the transformer applies on the perception side. The single-agent
-EFE of [[friston-2017-active-inference-process-theory]] supplies the **baseline that the multi-agent
-generalization must reduce to**: coupling many such agents yields
-[[Multi-agent variational free energy]] and the group-level objective of
-[[Collective active inference]], where each agent's expected free energy is augmented by terms
-coupling its predicted outcomes to its neighbors' beliefs. See
+Policy precision $\gamma$ is an inverse temperature on the policy score and can be compared with
+the program's [[Precision weighting]]. For a declared smooth policy or belief family, the
+[[Fisher information metric]] supplies one intrinsic geometry and [[Natural gradient]] supplies one
+possible optimizer; the definition of EFE alone does not force that optimizer. The single-agent
+EFE of [[friston-2017-active-inference-process-theory]] would be one reduction baseline for a
+separately specified multi-agent policy extension. The existing
+[[Multi-agent variational free energy]] is an inference objective over finite laws, not automatically
+an EFE, and [[Collective active inference]] covers several distinct generative and communication
+constructions. See
 [[Variational free energy and predictive coding]] and
 [[Inference machinery — variational EM and filtering]] for where this template plugs into the
 [[VFE Transformer Program]] and the [[Gauge-Theoretic Multi-Agent VFE Model]].
@@ -209,6 +224,11 @@ the E-step covariance gradient — the canonical-vs-reduced choice the manuscrip
 > Fisher/natural-gradient reading, and the multi-agent generalization are *this program's* synthesis,
 > not claims of the cited papers.
 
+> [!important] Current code scope
+> MultiAgentELBO currently contains no active-policy variable, EFE evaluator, preference model, or
+> policy selector. EFE, FEEF, and strategic multi-agent active inference are literature comparators
+> for a separately specified future layer, not descriptions of current code behavior.
+
 ## Related
 
 [[Variational free energy]] · [[Active inference]] · [[Free-energy principle active inference]] ·
@@ -220,4 +240,5 @@ the E-step covariance gradient — the canonical-vs-reduced choice the manuscrip
 
 [[friston-2017-active-inference-process-theory]] ·
 [[friston-2016-active-inference-learning]] ·
-[[smith-2022-active-inference-tutorial]]
+[[smith-2022-active-inference-tutorial]] ·
+[[millidge-2021-whence-expected-free-energy]]

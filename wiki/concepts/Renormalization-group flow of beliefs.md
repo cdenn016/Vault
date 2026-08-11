@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-08-08
+updated: 2026-08-10
 ---
 
 # Renormalization-group flow of beliefs
@@ -183,7 +183,29 @@ An application study against [[berman-2023-bayesian-renormalization]] and [[gabr
 
 > [!note] Editorial: three things this does NOT license. It is not a claim that tying is an ERG step — the Bayesian-RG program's only exact match to momentum-shell RG is a free scalar field theory dual to one infinitely-wide layer. It is not a monotone: the Petz/Chentsov citation problems already recorded against [[beny-osborne-2015-info-geometric-rg]] are untouched by it. And it must not use the diagonal Fisher, which is what [[berman-2023-bayesian-renormalization|BKS]] implement and which discards exactly the off-diagonal coupling that a matrix-weighted Laplacian is made of.
 
+## Limit-theorem prerequisites (2026-08-10)
+
+Three external theorem families now make the remaining obligations more precise without closing
+them. [[lovasz-szegedy-2006-dense-graph-limits]] supplies a deterministic dense-graph limit up to
+measure-preserving relabeling. [[blumenthal-2016-banach-multiplicative-ergodic]] and
+[[froyland-2013-semi-invertible-oseledets]] supply infinite-dimensional and semi-invertible
+multiplicative-ergodic routes. An application still requires an actual measure-preserving base,
+measurable cocycle, integrability, and the correct finite- or infinite-dimensional hypotheses;
+fitted matrices along one deterministic scale path do not supply those objects.
+
+At the finite algorithmic level, [[ahn-2018-bucket-renormalization]] provides a factor-graph
+approximate-inference/RG comparator, while [[geiger-2013-kl-aggregation]] supplies a KL-rate
+partition baseline. Neither proves exact Bayesian-RG equivalence, an intrinsic gauge-compatible
+selector, or natural-gradient semiconjugacy for this project.
+
 ## Sources
+
+- [[lovasz-szegedy-2006-dense-graph-limits]] — deterministic dense-graph limit foundation.
+- [[blumenthal-2016-banach-multiplicative-ergodic]] — Banach-space multiplicative ergodic theorem.
+- [[froyland-2013-semi-invertible-oseledets]] — semi-invertible Oseledets theorem for declared
+  operator cocycles.
+- [[ahn-2018-bucket-renormalization]] — approximate-inference/RG comparator.
+- [[geiger-2013-kl-aggregation]] — KL-rate finite Markov aggregation baseline.
 
 - [[gauge-vfe-rg-terminal-theory-closure-2026-08-08]] — terminal finite conditional measure-pair,
   interaction, bundle, history, and nonautonomous RG construction, with exact residual and limiting

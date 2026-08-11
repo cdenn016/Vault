@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-07-28
+updated: 2026-08-10
 ---
 
 # Coarse Graining
@@ -56,11 +56,38 @@ so **the coarse coupling is exactly the sum of the fine couplings on cut edges**
 > [!warning] Contradiction in orientation, and it is only apparent
 > Laplacian/Wilsonian schemes renormalize the **sample space** and keep the **soft** (small-eigenvalue) modes. Bayesian/[[berman-2023-bayesian-renormalization|BKS]] schemes renormalize the **model space** and keep the **stiff** (large-Fisher) directions. On one and the same matrix these select opposite subspaces. They are dual constructions on different spaces, not rival answers; but a sentence of the form "coarse-graining keeps the relevant directions" is ambiguous between them and, read the wrong way, is false.
 
+## Recovery and partition selection
+
+Losslessness has at least three strengths. A statistic can preserve one law, a channel can preserve
+one tangent or score direction, or one parameter-independent recovery kernel can reconstruct an
+entire statistical experiment. [[blackwell-1953-experiment-comparison]] supplies the last and
+strongest comparison; [[Statistical experiment comparison and deficiency]] records quantitative
+relaxations when exact recovery fails. The project's finite Fisher-equality diagnostics therefore do
+not by themselves establish experiment-level recovery.
+
+For finite Markov dynamics, [[geiger-2013-kl-aggregation]] proposes a KL-divergence-rate objective
+and information-bottleneck search for candidate partitions, while
+[[geiger-temmel-2013-information-preserving-aggregation]] gives conditions for lossless aggregation
+in its declared finite-chain setting. These are useful partition baselines, not intrinsic selectors
+for the gauge-VFE model. Candidate blocks should still be graded by lumpability, KL rate,
+retained-interaction residual, and gauge/relabeling invariance. [[ahn-2018-bucket-renormalization]]
+is a complementary factor-graph/tensor-network approximate-inference comparator; it does not prove
+the project's open Bayesian-RG equivalence or natural-gradient semiconjugacy.
+
 ## Related
 
 [[Renormalization group flow]], [[Renormalization-group flow of beliefs]], [[Meta-agents and hierarchical emergence]], [[Ouroboros multi-scale dynamics]], [[Fisher information metric]], [[Graph Laplacian]], [[Entropic Force]], [[Mean-Field Approximation]], [[Evidence lower bound (ELBO)]]
 
 ## Sources
+
+- [[blackwell-1953-experiment-comparison]] — experiment-level comparison by common
+  parameter-independent garbling/recovery kernels.
+- [[geiger-2013-kl-aggregation]] — KL-rate Markov aggregation and an information-bottleneck
+  partition-search baseline.
+- [[geiger-temmel-2013-information-preserving-aggregation]] — lossless finite-chain aggregation
+  under explicit structural conditions.
+- [[ahn-2018-bucket-renormalization]] — bucket-renormalization approximate inference as a
+  factor-graph/RG comparator.
 
 - [[garuccio-2023-multiscale-network-renormalization]] — uniqueness of the aggregation-invariant connection probability; additivity as the renormalizability criterion; the scale-free vs. scale-invariant demarcation.
 - [[villegas-2023-laplacian-renormalization-group]] — diffusion time as an intrinsic RG scale; entropic susceptibility as a scale detector; diffusion-equivalence supernodes.

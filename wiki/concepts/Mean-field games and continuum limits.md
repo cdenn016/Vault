@@ -11,7 +11,7 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-06-19
-updated: 2026-07-13
+updated: 2026-08-10
 ---
 
 # Mean-field games and continuum limits
@@ -52,7 +52,19 @@ $$
 $$
 is the Wasserstein gradient flow of the free energy $\mathcal{E}[\rho] = \int U(\rho)\,dx + \tfrac12\iint W(x-y)\rho(x)\rho(y)\,dx\,dy$, with the convex diffusive part $U$ competing against the concentrating nonlocal kernel $W$ to decide whether mass disperses, settles into a steady state, or blows up. This is the closest continuum analogue to the program's free-energy-functional viewpoint, and the structural map (coupling $\leftrightarrow$ attraction, entropy $\leftrightarrow$ diffusion) is genuinely illuminating, with the caveat that porting it requires a Wasserstein-gradient-flow formulation over measures on a curved manifold with gauge transport in the interaction kernel. The single most on-target derivation is the intention-field paper ([[degond-liu-merino-tardiveau-2017-intention-field-social-interaction]]): from a stochastic agent model in which each individual carries an intention $\omega$ gently pulled toward local consensus, a grazing-collision (small-jump, high-frequency) limit produces a Fokker–Planck equation $\partial_t f + \dots = \nabla_\omega\cdot[D\nabla_\omega f + (\omega - \Omega[f])f]$ for the intention distribution, which is then closed into an evolution equation for the macroscopic mean-intention field whose equilibrium manifold is analyzed for the loss of stability of the uniform state and the appearance of structured (non-uniform) opinion states. The grazing-collision route is directly analogous to how a population of small, frequent $\beta_{ij}$-weighted belief updates would aggregate into a continuum equation for the mean belief, and the equilibrium analysis is exactly the consensus-versus-structured-state characterization the program needs — supplying the derivation pattern and the analysis style, though not a ready-made belief-field PDE, since the program's beliefs are Gaussian tuples on a GL(K) manifold coupled through gauge-transported KL divergences rather than a scalar intention under plain attraction. Taken together, these works locate the program's continuum ambitions squarely within the broader [[Statistical physics of social systems and collective behavior]] tradition: a rigorous, multiscale account of when many coupled agents organize into consensus, structured equilibria, or persistent fragmentation.
 
+## Heterogeneous graph limits and propagation of chaos
+
+Homogeneous mean-field closure is not the only population-limit route. A graphon \(W(u,v)\) can retain continuum agent types and heterogeneous interaction strengths when a declared sequence of dense or suitably rescaled graphs converges to that kernel. [[bayraktar-2023-graphon-mean-field-systems]] develops this route for stochastic interacting systems and proves graphon-indexed mean-field and [[Propagation of chaos|propagation-of-chaos]] results under its hypotheses. [[sznitman-1991-propagation-chaos]] supplies the foundational meaning: for every fixed \(k\), finite-particle marginals approach a product of limiting laws, even though the population interaction survives through the nonlinear law.
+
+A strategically different graphon route is [[caines-huang-2021-graphon-mean-field-games]]. There each continuum type solves a noncooperative control problem, the graphon mean-field-game equations have existence and uniqueness results under stated assumptions, and their solution yields approximate Nash equilibria in large finite networks. This is not a theorem about inference-gradient dynamics: costs, controls, equilibrium deviations, and the finite-graph approximation must be specified.
+
+These results apply only to an explicit stochastic graphon or graphon-game construction. An arbitrary \(N\to\infty\) statement, a fixed finite graph, or a deterministic VFE flow does not automatically satisfy their exchangeability, scaling, convergence, regularity, or independence hypotheses. A MultiAgentELBO extension would need to declare the graph sequence, kernel convergence, interaction normalization, stochastic dynamics and initial law, then measure finite-to-limit error rather than infer a graphon theorem from qualitative similarity.
+
 ## Sources
+
+- [[bayraktar-2023-graphon-mean-field-systems]] — heterogeneous stochastic graphon systems and propagation of chaos.
+- [[sznitman-1991-propagation-chaos]] — foundational criteria and coupling methods for propagation of chaos.
+- [[caines-huang-2021-graphon-mean-field-games]] — graphon MFG equations and the finite-network epsilon-Nash bridge.
 
 - [[lasry-lions-2007-mean-field-games]] — founding MFG paper; the coupled forward–backward HJB/Fokker–Planck system and the monotonicity-uniqueness condition.
 - [[huang-malhame-caines-2006-nash-certainty-equivalence]] — independent control-theory origin of MFG; the Nash Certainty Equivalence micro/macro consistency closure and $\varepsilon_N$-Nash limit.
@@ -66,6 +78,9 @@ is the Wasserstein gradient flow of the free energy $\mathcal{E}[\rho] = \int U(
 - [[degond-liu-merino-tardiveau-2017-intention-field-social-interaction]] — kinetic-to-macroscopic derivation of a continuum intention field; the strongest template for a VFE-derived belief-field equation.
 
 ## See also
+
+- [[Graphon limits of agent networks]] — typed heterogeneous-network continuum route.
+- [[Propagation of chaos]] — fixed-marginal asymptotic independence for interacting stochastic agents.
 
 - [[Multi-agent variational free energy]] — the finite-agent functional for which a continuum limit remains to be derived.
 - [[belief-inertia]] · [[Belief inertia]] — the founding manuscript and the inertial-belief claim that Cucker–Smale prototypes.

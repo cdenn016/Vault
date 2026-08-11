@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-08-08
+updated: 2026-08-10
 ---
 
 # Gauge-Theoretic Multi-Agent VFE Model
@@ -159,6 +159,39 @@ The repository exposes `basic`, `ouroboros`, `hierarchy`, and `rg` modes. Natura
 Under the primary unweighted product Fisher metric, the revised social theory derives continuous-time DeGroot only for fixed symmetric coupling. Matching a standard nonuniform reversible transient requires an additional $\rho$-weighted product metric, a fixed-label joint family, or equivalent agent-specific rates. The restricted anchored Friedkin--Johnsen stationary equilibrium is independent of the positive flow metric; only its standard transient retains that requirement. Gibbs attention is a soft bounded-confidence analog. Positive finite-temperature attractive attention yields metastable clustering in the stated unanchored, symmetric reciprocal two-cluster reduction, not exact stable polarization. Social Impact Theory remains interpretive, and diffusion requires an explicit adoption state and hazard.
 
 The direct comparison set includes [[martins-2015-opinion-particles]], [[nevin-mandell-atak-1983-behavioral-momentum]], [[xue-hirche-cao-2020-opinion-port-hamiltonian]], [[baumann-sokolov-tyloo-2020-second-order-consensus]], [[bass-1969-product-growth]], and [[sampson-porter-restrepo-2025-oscillatory-opinion]]. Oscillation or resonance alone does not identify the proposed kinetic mechanism.
+
+## Literature-backed extension map (2026-08-10)
+
+The source-backed gap review [[multiagentelbo-literature-gap-review-2026-08-10]] separates four
+extension layers that older project language sometimes blended:
+
+1. **Inference approximation.** [[Process-space variational inference]], [[Belief Propagation]],
+   [[Gaussian Belief Propagation]], and [[Approximate Bayesian inference]] specify process-level,
+   constrained-Bethe, walk-summable Gaussian, copula, and covariance-safe baselines. The present
+   code remains the exact finite oracle; locally consistent pseudomarginals are not its exact global
+   recognition law.
+2. **Gauge, recovery, and quotient geometry.** [[Statistical experiment comparison and deficiency]],
+   [[Graph synchronization and connection Laplacians]], [[Singular statistical models]], and
+   [[Quotient Bayesian learning]] provide external comparison theorems. Graphical-model gauge
+    reparameterization is not automatically passive principal-bundle gauge, and compact
+    connection-Laplacian guarantees do not automatically extend to noncompact `GL^+(2)`.
+3. **Communication and collective epistemics.** [[Decentralized Bayesian inference]],
+   [[Communication-constrained inference]], [[Conservative information fusion]],
+   [[Non-Bayesian social learning]], and [[Common knowledge and Bayesian agreement]] distinguish
+   posterior approximation, density consensus, information recycling, bit budgets, network
+   learning, common priors, and common knowledge. None follows from an attractive VFE interaction
+   energy alone.
+4. **Population and higher-order limits.** [[Graphon limits of agent networks]],
+   [[Propagation of chaos]], [[O-information]], and [[Partial information decomposition]] supply
+   stochastic-limit and diagnostic routes. They require declared indexed models and estimator or
+   axiom choices; deterministic graph limits, graphon diffusions, games, O-information, and PID are
+   not interchangeable.
+
+[[Expected Free Energy]] and [[Collective active inference]] now carry the corresponding
+derivational and aggregate-objective counterevidence. Active-policy selection remains outside the
+current code scope. The literature sharpens the open continuum, DLR, regular-quotient,
+experiment-recovery, intrinsic-partition, and Oseledets obligations; it does not close them by
+citation.
 
 ## Status and next steps
 

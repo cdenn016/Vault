@@ -13,7 +13,7 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-06-21
-updated: 2026-07-27
+updated: 2026-08-10
 ---
 
 # Mean-Field Approximation
@@ -239,6 +239,17 @@ derive the product factorization.
 
 The exact-ELBO manuscript distinguishes agent-block factors, state/model channel-block factors, and a finer site-factorized comparison family. Agent-block and channel-block factors can retain dependence across all finite design points inside a factor. The moving-peer obstruction applies only to the fine family $Q=\bigotimes_{\ell,b}q_{\ell,b}$ and uses a separate site-local path for each design point. It does not cover the coarser cross-design families or restricted families lacking the required tangents. Its continuum corollary is conditional on the exact centered tangent, a common admissible rectangle, domination, and positive integrated variance; it does not construct a section-space probability law. [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]]
 
+## Constraint manipulation is an approximation choice
+
+[[senoz-2021-local-constraint-vmp]] makes posterior form and factorization constraints explicit in a
+constrained Bethe objective. Mean-field VMP, structured VMP, BP, EM, Laplace, and EP-like rules can
+therefore be compared inside one design language, but they do not inherit one another's exactness.
+In particular, exact sum-product BP on a tree does not make a mean-field or moment-projected update
+exact on that tree. [[tran-2015-copula-variational-inference]] relaxes independence through a copula
+constraint, but that source does not automatically supply an arbitrary discrete/tabular or
+gauge-compatible recognition law; each proposed family still needs a normalized construction and
+an exact-oracle error measurement.
+
 ## Related
 
 [[Variational free energy]] · [[Evidence lower bound (ELBO)]] · [[Variational EM]] ·
@@ -261,3 +272,7 @@ The exact-ELBO manuscript distinguishes agent-block factors, state/model channel
   the factorization is exact, and BIC recovery in the large-data limit.
 - [[yedidia-freeman-weiss-2005-region-free-energy]] — Bethe and region-graph free energies,
   generalized belief propagation, and the exact-versus-loopy boundary for correlation corrections.
+- [[senoz-2021-local-constraint-vmp]] — constrained-Bethe derivation of several message-passing and
+  approximation families, with exactness determined by the chosen constraints and graph.
+- [[tran-2015-copula-variational-inference]] — a copula-based relaxation of mean-field independence;
+  applicability to the project's recognition space remains conditional.

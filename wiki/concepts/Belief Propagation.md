@@ -10,7 +10,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-21
-updated: 2026-07-17
+updated: 2026-08-10
 ---
 
 # Belief Propagation
@@ -35,8 +35,18 @@ belief discrepancies and from the configuration-level Gibbs law in [[Meta-entrop
 retains conventional ELBO semantics, while a region approximation trades global normalization for
 local tractability.
 
+[[senoz-2021-local-constraint-vmp]] provides a unifying constrained-Bethe account in which choices
+of factorization and local form recover BP, structured or mean-field VMP, EM, Laplace, and EP-like
+updates. The unification is variational, not an exactness transfer. Ordinary sum-product BP on a
+tree supplies the exact oracle. Mean-field, form-constrained, and EP variants can remain approximate
+on that same tree and must be tested against the exact global law separately. For loopy objectives,
+[[heskes-2006-bethe-kikuchi-convexity]] identifies conditions and constructions relevant to convex
+Bethe/Kikuchi optimization; it does not make an arbitrary region graph convex.
+
 ## Related
 [[Free-energy principle active inference]], [[Variational free energy]], [[Bayesian Inference|Belief Updating]], [[Attention mechanisms — theory and positional structure]], [[Mean-Field Approximation]]
 
 ## Sources
-[[yedidia-freeman-weiss-2005-region-free-energy]], [[friston2017graphical]], [[friston-2017-active-inference-process-theory]], [[friston2008hierarchical]], [[foerster-2016-dial]]
+[[yedidia-freeman-weiss-2005-region-free-energy]], [[senoz-2021-local-constraint-vmp]],
+[[heskes-2006-bethe-kikuchi-convexity]], [[malioutov-2006-walk-sums-gabp]],
+[[friston2017graphical]], [[friston-2017-active-inference-process-theory]], [[friston2008hierarchical]], [[foerster-2016-dial]]
