@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-08-13
 ---
 
 # Physics from Fisher information
@@ -24,9 +24,29 @@ updated: 2026-06-19
 
 ## Why it matters here
 
-This program is the closest external precedent for the Level-3 thesis of [[participatory-it-from-bit]] — that physics-like structure can be *induced* from information geometry rather than presupposed. Where the manuscript builds an emergent metric on a noumenal base by pulling back the Fisher–Rao fibre metric along an agent's belief section (see [[Participatory realism (it from bit)]]), these authors run a parallel inferential gambit one level up: a variational principle on the *same* statistical geometry yields dynamical law. The shared commitment is Fisher-as-metric and inference-as-physics; the participatory framework adopts both. The point of contact with [[Mass as Fisher information]] is sharper still — both that construction and Reginatto's quantum-potential derivation read a precision/Fisher tensor as a physically inertial or dynamical object, and both descend the Fisher metric by [[Natural gradient]] flow rather than by Newtonian force.
+This program is the closest external precedent for the Level-3 thesis of [[participatory-it-from-bit]] — that physics-like structure can be *induced* from information geometry rather than presupposed. Where the manuscript builds an emergent metric on a noumenal base by pulling back the Fisher–Rao fiber metric along an agent's belief section (see [[Participatory realism (it from bit)]]), these authors run a parallel inferential gambit one level up: a variational principle on the *same* statistical geometry yields dynamical law. The shared commitment is Fisher-as-metric and inference-as-physics; the participatory framework adopts both. The point of contact with [[Mass as Fisher information]] is sharper still — both that construction and Reginatto's quantum-potential derivation read a precision/Fisher tensor as a physically inertial or dynamical object, and both descend the Fisher metric by [[Natural gradient]] flow rather than by Newtonian force.
 
 The manuscript also positions itself *against* the strongest version of this lineage. EPI's universality claim — that a single $I-J$ principle generates all of physics — is exactly the kind of derivation the participatory program disclaims. PIFB is explicit that it exhibits "information-geometric analogues of physics-like structures," a structural correspondence, not a theorem. So the relationship is selective adoption: take Jaynes/Caticha's inferential ontology and Fisher-as-canonical-metric (grounded in the Čencov uniqueness result that the participatory pages also invoke), decline Frieden's claim that the principle is uniquely fixed and exhaustive.
+
+## Current program boundary (2026-08-13)
+
+The rigorous internal prototype is
+$h_s^\omega=(D^\omega s)^*g^F$, a passive-gauge-invariant but connection-relative
+positive-semidefinite tensor. It is generally a semimetric, not automatically a physical metric.
+Belief and model channels yield separate tensors, as do different agents. A shared candidate geometry
+therefore needs a declared joint or collective section, channel combination, connection choice,
+nondegeneracy or quotient construction, and agreement theorem.
+
+The physicalization program is broader than pullback. Fiber scalars and covariant tensors have
+natural composition or pullback routes, whereas causal cones, connections, operators,
+representations, action coefficients, and constants require different typed constructions. No
+present result derives base topology or dimension, Lorentzian signature, causality, field equations,
+or physical time.
+
+A bit is dimensionless and one bit equals `ln 2` nats, while $\hbar$ has action dimension. Thus
+"one bit equals $\hbar$" is at most a calibration after supplying an action-per-nat conversion scale;
+it is not a Fisher-pullback identity or a current derivation. See
+[[multiagentelbo-agent-only-ontology-2026-08-13]].
 
 ## Details
 
@@ -34,6 +54,7 @@ The strands differ in how much they claim. Jaynes ([[jaynes-1957-information-sta
 
 ## Sources
 
+- [[multiagentelbo-agent-only-ontology-2026-08-13]] - current bounded physicalization program and dimension/unit/constant typing.
 - [[frieden-1998-physics-fisher]] — Extreme Physical Information; the universalist claim PIFB positions against.
 - [[reginatto-1998-fisher-quantum]] — Schrödinger equation from minimum Fisher information under an energy constraint.
 - [[caticha-bartolomeo-reginatto-2015-entropic-dynamics]] — entropic dynamics reconstructing quantum theory from inference plus geometry.

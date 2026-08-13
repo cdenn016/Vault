@@ -25,6 +25,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
   - [[VFE Transformer Research Directions (2026-06-21)]] — prioritized open-experiments roadmap (37 hypotheses)
 
 ## 📝 Manuscripts (in preparation)
+- [[multiagentelbo-agent-only-ontology-2026-08-13|MultiAgentELBO Agent-Only Ontology and Informational Physicalization: 2026-08-13 Ingest Record]] — revision-bound synthesis of general law-section agents, endogenous interaction records, timeless inference, typed physicalization, and the open units/constant bridge
 - [[multiagentelbo-literature-gap-review-2026-08-10|MultiAgentELBO Literature-Gap Review: 2026-08-10 Ingest Record]] — revision-bound 41-source bridge from the exact finite oracle to approximate inference, recovery, synchronization, communication, social learning, and population-limit obligations
 - [[gauge-vfe-rg-pullback-geometry-2026-08-01|Gauge-Covariant Variational Free Energy and Renormalization: 2026-08-01 Pullback Geometry and Timeless Inference Record]] — fixed-base vertical histories, covariant informational pullbacks, exact local--collective VFE geometry, Fisher information duration, and cross-scale Markov contraction
 - [[gauge-vfe-rg-terminal-theory-closure-2026-08-08|Gauge-Covariant Variational Free Energy and Renormalization: 2026-08-08 Terminal Theory Closure Record]] — complete finite conditional VFE/ELBO and gauge-covariant scale theory, with exact application boundaries and ordinary private-research closure evidence

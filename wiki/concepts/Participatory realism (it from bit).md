@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-08-01
+updated: 2026-08-13
 ---
 
 # Participatory realism (it from bit)
@@ -34,6 +34,16 @@ The manuscript [[participatory-it-from-bit]] is explicit that this is a *structu
 > Changing a representative is not a change of perceived geometry. The indefinite horizontal
 > frame-twist term below is a separate, additionally postulated block and does not follow from the
 > positive-semidefinite Fisher pullback.
+
+> [!important] Agent-only ontology and physicalization boundary (2026-08-13)
+> The current target treats paired normalized-law sections as the only state-bearing relata;
+> Gaussians are a computational realization. The base, bundle, gauge action, interaction incidence,
+> normalized record kernels, and variational rule remain relational or nomological scaffolding.
+> Observations are endogenous interaction records, not extra substances and not automatically
+> autonomous agents. Rock, photon, contact, force, mass, and inertia language may guide candidate
+> constructions, but none is a primitive of the formalism or a presently derived consequence. The
+> broader target is typed physicalization, with the covariant Fisher pullback as one rigorous
+> prototype rather than a universal recipe. [[multiagentelbo-agent-only-ontology-2026-08-13]]
 
 ## Why it matters here
 
@@ -88,6 +98,21 @@ vertical. The base remains fixed and timeless. VFE descent can orient an unparam
 orbit, and Fisher arclength can measure an agent-relative information duration on that orbit, but this
 does not produce physical time, a Lorentzian direction, or a global clock.
 
+### Units, calibration, and constants
+
+The current units proposal distinguishes a dimension from its numerical unit. A physical dimension
+is modeled as a one-dimensional type line, while a unit is an agent- or community-relative nonzero
+basis choice in that line. Unit changes can then be treated as a scale gauge without changing the
+typed quantity or dimensionless predictions. This remains a programmatic physicalization hypothesis.
+
+Bits and nats are dimensionless and log-base dependent. Consequently, neither a Fisher pullback nor
+a Bayesian update can by itself produce a dimensionful action constant. A relation
+$S_{\mathrm{phys}}=\kappa_A I_{\mathrm{nat}}$ requires a conversion scale with units of action per
+nat. Setting one bit equal to $\hbar$ would merely calibrate
+$\kappa_A=\hbar/\ln 2$; it would not derive $\hbar$, and the current theory does not supply a
+smallest nonzero update. The stronger target is a log-base- and unit-invariant dimensionless relation
+plus an independent theorem fixing the conversion scale.
+
 ### Passive gauge changes and the separate frame-twist block
 
 The frame-twist block is *not* gauge-invariant: under $U_i \to U_i\,g(c)$ the connection picks up a Maurer–Cartan piece, so $\mathcal{K}(A_\mu,A_\nu)$ transforms with cross terms. This is a feature, not a bug — it is exactly the mechanism by which "different gauge fixings of the same agent yield different horizontal contributions," giving the *observer-dependent reality* reading. Genuinely agent-independent geometry, if it exists, must be recovered through a regulated **consensus / Haar-averaged metric** restricted to the gauge frames realized within a cognitive species; as constructed that average over a non-compact subgroup of $\mathrm{GL}(K)$ is *regulator-dependent*, so the consensus metric is a heuristic target rather than a finite gauge-invariant observable.
@@ -98,7 +123,7 @@ The symmetric tensor $G_i(c)$ admits a spectral decomposition $G_i(c)=\sum_a \la
 
 A central problem is signature: the vertical Fisher block is positive **semi-definite**, and the fiber congruence $\Sigma \mapsto \Omega\Sigma\Omega^\top$ stays positive-definite for real $\Omega$ (Sylvester's law of inertia), yet observed spacetime is Lorentzian $(-,+,+,+)$. The indefinite signature must therefore live in the *horizontal frame-twist block* $\mathrm{tr}(A_\mu A_\nu)$, which is already indefinite on $\mathfrak{gl}(K_q,\mathbb{R})$: negative-definite on the skew subalgebra $\mathfrak{so}(K_q)$, positive-definite on its symmetric complement. The manuscript's 2D abelian-exact worked example reaches $\mathrm{SO}^+(1,1)$ by *postulating* a complexified frame ($\phi_\tau = i\psi_\tau T$, $T$ symmetric with $\mathrm{tr}(T^2)>0$), a $+\mathrm{tr}(AB)$ bilinear form, and a real-part projection $G^{\mathrm{Lor}}_{\mu\nu}:=\mathrm{Re}(G_{\mu\nu})$; free-energy minimization is *not* shown to select this configuration, so it demonstrates structural compatibility, not derivation. The round-2 revision (below) shows the complexification is dispensable in four dimensions.
 
-> [!note] Editorial: PIFB round-8 review corrections (2026-06-20). A deep adversarial pass corrected two participatory-program claims. (1) **Worked-example representation.** The 2D abelian-exact signature toy realises the two-dimensional vector representation of $\mathrm{SO}^+(1,1)$ in $\mathrm{GL}(2,\mathbb{R})$ (single generator $T=\mathrm{diag}(1,-1)$, $K_q=2$, 2D base), *not* the four-dimensional vector representation of $\mathrm{SO}^+(1,3)$; the 4D Lorentz case is available inside the complexified $\mathrm{GL}(K_q,\mathbb{C})$ only through a four-generator extension the manuscript does not carry out. (PIFB had attached the 4D $\mathrm{SO}^+(1,3)$ rep to the worked example; corrected at the signature-resolution and open-problems statements.) *(The four-generator extension is now carried out, and in the real sector, by the round-2 result below.)* (2) **Gauge-curvature falsifier sign.** The conditional (Regime-II) gauge-curvature-minimisation conjecture reads curvature as transport *inefficiency*, so it entails a strictly **positive** partial correlation between the plaquette-averaged Wilson curvature $1-W_{ijk}/K_q$ (zero at flatness, growing as holonomy departs from $I$) and corpus cross-entropy per token (a cost; lower = more efficient), with a non-positive partial correlation as the falsifier. PIFB's pre-registered test had the sign inverted (predicted negative, "non-negative falsifies"), so it would have confirmed the conjecture exactly when false; now corrected.
+> [!note] Editorial: PIFB round-8 review corrections (2026-06-20). A deep adversarial pass corrected two participatory-program claims. (1) **Worked-example representation.** The 2D abelian-exact signature toy realizes the two-dimensional vector representation of $\mathrm{SO}^+(1,1)$ in $\mathrm{GL}(2,\mathbb{R})$ (single generator $T=\mathrm{diag}(1,-1)$, $K_q=2$, 2D base), *not* the four-dimensional vector representation of $\mathrm{SO}^+(1,3)$; the 4D Lorentz case is available inside the complexified $\mathrm{GL}(K_q,\mathbb{C})$ only through a four-generator extension the manuscript does not carry out. (PIFB had attached the 4D $\mathrm{SO}^+(1,3)$ rep to the worked example; corrected at the signature-resolution and open-problems statements.) *(The four-generator extension is now carried out, and in the real sector, by the round-2 result below.)* (2) **Gauge-curvature falsifier sign.** The conditional (Regime-II) gauge-curvature-minimization conjecture reads curvature as transport *inefficiency*, so it entails a strictly **positive** partial correlation between the plaquette-averaged Wilson curvature $1-W_{ijk}/K_q$ (zero at flatness, growing as holonomy departs from $I$) and corpus cross-entropy per token (a cost; lower = more efficient), with a non-positive partial correlation as the falsifier. PIFB's pre-registered test had the sign inverted (predicted negative, "non-negative falsifies"), so it would have confirmed the conjecture exactly when false; now corrected.
 
 > [!note] Editorial: PIFB2 round-2 review result (2026-07-02) — the 4D signature is reachable in the all-real sector. The deep review closed the flagged four-dimensional gap. For $K_q \ge 6$, take one **real skew** generator $S$ supported on two coordinates ($\mathrm{tr}(S^2) = -2 < 0$, the temporal direction) together with **three traceless, mutually trace-orthogonal symmetric diagonal** generators on the remaining coordinates (the spatial directions). All four generators commute, so $\phi = \psi_\tau S + \sum_a \psi_a T_a$ is confined to an abelian subalgebra and the connection is abelian-exact, $A_\mu = \partial_\mu\phi$ (Regime I, $F_{\mu\nu} = 0$). Because $\mathrm{tr}(SX) = 0$ identically for skew $S$ and symmetric $X$, every temporal–spatial cross term vanishes *with no projection*, and the frame-twist metric $G_{\mu\nu} = \mathrm{tr}(A_\mu A_\nu)$ is real, diagonal, rank four, of signature $(-,+,+,+)$ wherever the four differentials are independent, with orthonormal-frame group $\mathrm{SO}^+(1,3)$. This eliminates the imaginary-frame, complex-bilinear-pairing, and real-part-projection postulates entirely; they survive only in the 2D single-generator example, where abelian exactness confines $\phi$ to one generator whose real trace form carries a single sign. Verified numerically this session (signature exact; abelian exactness of $U^{-1}\mathrm{d}U = \mathrm{d}\phi$ to $7\times10^{-7}$). Honest limits: the resulting metric is $\mathrm{d}s^2 = -(\mathrm{d}\chi_0)^2 + \sum_a (\mathrm{d}\chi_a)^2$, the pullback of the Minkowski metric along $\psi:\mathcal{C}\to\mathbb{R}^{1,3}$, hence *coordinate-flat* — the construction settles signature **availability**, not curvature. The open problem sharpens accordingly: no longer whether an indefinite pullback exists in 4D, but whether free-energy dynamics **select** one compact and three non-compact commuting frame directions (the $1{+}3$ split). Source: [[participatory-it-from-bit]] round-2 revision (Proposition `prop:4d_signature`).
 
@@ -110,16 +135,17 @@ $$
 \mathcal{I}_{s\to s+1} = \sum_{I,\,i\in I}\mathrm{KL}\!\big(q_i^{(s)} \,\big\|\, \Omega_{i,I}[q_I^{(s+1)}]\big) \ge 0,
 $$
 
-vanishing only at perfect post-detection consensus. In the single reported run, far-from-equilibrium operation is *transient*: the non-equilibrium score spikes to $\approx 0.63$ during reorganisation then returns to $\approx 0.05$, so sustained non-equilibrium ("self-excited circuit") is *not* demonstrated by that configuration.
+vanishing only at perfect post-detection consensus. In the single reported run, far-from-equilibrium operation is *transient*: the non-equilibrium score spikes to $\approx 0.63$ during reorganization then returns to $\approx 0.05$, so sustained non-equilibrium ("self-excited circuit") is *not* demonstrated by that configuration.
 
 ## In this work
 
 - **Manuscript.** The page is developed in [[participatory-it-from-bit]] (Dennis), principally in the "It From Bit: The Pullback Construction" section (the boxed induced-metric equations), the three-tiers / observable-sectors sections, and the signature-problem analysis. The RG-spine successor `PIFB2.tex` restructures the epistemic hedges into a single numbered fence register (F1–F6) and gives Part II a consolidated postulate register (P1–P10) with the pullback, signature, and consensus results stated as numbered theorems and propositions (round-2 deep review, 2026-07-02). The README ([[Gauge-Theoretic Multi-Agent VFE Model]]) frames the whole repository as "Wheeler's 'It From Bit' implemented as a participatory loop of agents observing themselves into existence."
-- **Code.** The induced geometry lives in `gauge_agent/pullback.py` (`PullbackMetric.induced_metric(agent, tier=...)`, with a `MetricDecomposition` classifier splitting eigenvalues into observable/dark/internal masks). Per the manuscript's *Implementation scope* note, the codebase realises only the **belief-tier, flat-frame ($A^{(i)}=0$) score-only pullback** plus a participation-ratio effective dimension and a uniform-mean consensus surrogate; the structural/prior/raw tiers, the frame-twist block, and the Haar-averaged consensus metric are theory-only and exercised only by the test suite. The pullback module is listed as `[Layer 8]` in the module map alongside `manifolds.py` and `manifold_system.py`.
+- **Code.** The induced geometry lives in `gauge_agent/pullback.py` (`PullbackMetric.induced_metric(agent, tier=...)`, with a `MetricDecomposition` classifier splitting eigenvalues into observable/dark/internal masks). Per the manuscript's *Implementation scope* note, the codebase realizes only the **belief-tier, flat-frame ($A^{(i)}=0$) score-only pullback** plus a participation-ratio effective dimension and a uniform-mean consensus surrogate; the structural/prior/raw tiers, the frame-twist block, and the Haar-averaged consensus metric are theory-only and exercised only by the test suite. The pullback module is listed as `[Layer 8]` in the module map alongside `manifolds.py` and `manifold_system.py`.
 - **Related model constructs.** The participatory loop is carried by [[Ouroboros multi-scale dynamics]] and [[Meta-agents and hierarchical emergence]]; the multi-scale read-off relates to [[Renormalization-group flow of beliefs]]. The dynamical substrate is [[Multi-agent variational free energy]] minimized by [[Natural gradient]] descent on the [[Fisher information metric]], with agents formalized via [[Agents as fibre-bundle sections|Agents as fiber-bundle sections]] and inter-agent [[Gauge transformation|gauge]] transport $\Omega_{ij}=\exp(\phi_i)\exp(-\phi_j)$.
 
 ## Sources
 
+- [[multiagentelbo-agent-only-ontology-2026-08-13]] - agent-only state-bearing ontology, endogenous observations, typed physicalization, and the units/constant bridge.
 - [[gauge-vfe-rg-pullback-geometry-2026-08-01]] — rigorous covariant vertical pullback, connection dependence, fixed-base histories, and the boundary between information duration and physical time.
 
 - [[participatory-it-from-bit]] — the manuscript that defines the pullback "it from bit" construction, the three induced-geometry tiers, observable sectors, and the participatory loop.
@@ -131,7 +157,7 @@ vanishing only at perfect post-detection consensus. In the single reported run, 
 - [[brukner-2018-no-go-observer-facts]], [[adlam-2022-cross-perspective|adlam-rovelli-2022-cross-perspective]] — the no-go theorem against observer-independent facts and the cross-perspective links restoring consistency, sharpening the "observer-dependent reality" / consensus-metric tier.
 - [[caticha-bartolomeo-reginatto-2015-entropic-dynamics]] — the entropic-dynamics reconstruction of quantum theory from information geometry, the precedent for inducing physics-like structure the pullback construction follows.
 - [[ladyman-ross-2007-every-thing-must-go]], [[cassirer-1910-substance-function]] — the structural-realist and relational ("function over substance") ontological backing for a framework where geometry is induced relationally rather than presupposed.
-- [[lahav-2022-relativistic-consciousness|lahav-neemeh-2022-relativistic-consciousness]] — the observer-relative ("relativistic") account of conscious experience, a neighbour to the agent-dependent structural-tier geometry $G^{(s)}_i$.
+- [[lahav-2022-relativistic-consciousness|lahav-neemeh-2022-relativistic-consciousness]] — the observer-relative ("relativistic") account of conscious experience, a neighbor to the agent-dependent structural-tier geometry $G^{(s)}_i$.
 - [[zenil-2013-computable-universe]] — survey anthology of the digital-physics / "nature as computation" lineage (Zuse, Wolfram, 't Hooft, Lloyd; Penrose foreword), the computational wing of "it from bit" the framework inherits and positions against.
 
 ## See also
