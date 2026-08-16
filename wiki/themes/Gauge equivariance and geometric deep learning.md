@@ -27,6 +27,8 @@ The crucial generalization for this research program is the move from *global* t
 
 > [!note] Editorial: The defining design choice of this research program is to read the per-token belief frame as a fiber over the token, with GL(k) as the structure group. Under that reading, "attention between tokens" is literally the comparison of objects living in different fibers, which is ill-defined until a connection supplies parallel transport — exactly the apparatus geometric deep learning was built to provide.
 
+There is one further step past Cohen and Weiler that this theme long left implicit: what happens when the fiber is not a vector space carrying a linear representation but a *space of probability distributions*. That is the bridge from the gauge-CNN literature above to [[Information geometry and natural gradient|information geometry]], and the Heidelberg group of Schnörr and collaborators has been building both ends of it — [[Sigma flow|sigma flows]] on the information-geometric side, [[Bundle scale space|bundle scale spaces]] and discrete Yang–Mills on the gauge side. The section *Statistical fibers meet local gauge* below records what can be imported from that work and where this program's construction genuinely differs.
+
 ## Key threads
 
 **From global groups to compact-group harmonic analysis.** [[cohen-2016-gcnn]] handled discrete groups by enumeration. [[kondor-2018-compact-group-conv]] supplied the deep theorem: using representation theory and harmonic analysis, group convolution is *necessary and sufficient* for a linear layer to be equivariant under any compact group, and admissible operations are organized by [[Irreducible representation|irreducible representations]] (irreps). This licenses the project's irrep-structured, group-equivariant attention — the claim that equivariant linear maps are not a design choice but the only option, and that they decompose along irreps. [[cohen-2019-general-theory-equivariant]] gives this its most rigorous footing, placing the whole construction on a fiber-bundle and induced-representation (Mackey-theory) foundation in which equivariant linear maps correspond one-to-one with convolutions by steerable kernels constrained per irrep, classifying G-CNNs by symmetry group, base space, and field type — the bundle-theoretic grounding for the program's per-token GL(k) frame-as-fibre and irrep-block decomposition. [[weiler-2019-e2-steerable]] turned this into engineering: for the Euclidean group E(2), arbitrary representation-level kernel constraints reduce to *per-irrep* constraints, yielding a reusable irrep-indexed steerable basis. This is directly the bookkeeping the VFE transformer needs for its irreps and [[Clebsch-Gordan coefficients|Clebsch-Gordan]] block coupling.
@@ -73,6 +75,72 @@ remains distinct from operational belief agreement. [[gerdes-2025-trivializing-f
 is a future equivariant sampling comparator for compact lattice groups, not a ready-made sampler for
 the project's noncompact group.
 
+## Statistical fibers meet local gauge — the Heidelberg programme (2026-08-12)
+
+The gauge-CNN lineage above ends at vector-space fibers: features transform under a linear
+representation, and the whole theory of steerable kernels is a theory of intertwiners between
+representations. The program pursued here takes a different fiber — a
+[[Statistical manifold|statistical manifold]] of Gaussian laws — and asks for the same local-frame
+apparatus on top of it. Until now this theme had no external comparator for that combination. It
+now has one, and it is close.
+
+**What the four papers contain.** [[cassel-2024-sigma-flows]] introduces the
+[[Sigma flow|sigma flow]]: the Riemannian gradient flow of a generalized harmonic energy, whose
+stationary points are [[Harmonic map|harmonic maps]] from a closed Riemannian domain manifold into
+the open probability simplex carrying the Fisher–Rao metric. Its distinctive ingredient is that the
+*domain* metric depends on the evolving state and is realized by a compact, time-variant
+parametrization learned from data; geometric integration of the flow produces a network, and the
+paper draws explicit structural comparisons to transformer architectures. Its discrete precursor is
+the [[Assignment flow|assignment flow]], extended in
+[[gonzalez-alvarado-2025-patch-assignment]] to patch dictionaries with an action-functional
+characterization. On the other side, [[cassel-2025-bundle-scale-spaces]] models node features as
+sections of associated vector bundles, equivariant under *local* actions of a general group $G$, and
+defines a diffusion whose non-trivial fixed points are harmonic sections of the bundle — in explicit
+contrast to Gaussian scale space, whose only fixed points are constants. [[cassel-2025-yang-mills-data]]
+supplies the full finite-graph apparatus underneath: discrete vector bundles, graph voltages as
+discretized gauge fields, gauged Laplacians and their heat kernels (closely related to, but
+distinguished from, graph connection Laplacians), an axiomatic characterization of those kernels
+among all gauge-invariant node-feature transformations, a spanning-tree nullspace theorem, and a
+**discrete Yang–Mills energy** whose holonomy-based curvature certifies synchronizability.
+
+**What is importable rather than re-derivable.** Four things. (i) The smooth-to-discrete appendix of
+[[cassel-2025-yang-mills-data]] — graph voltages obtained from parallel transport, discrete
+Laplacians obtained from covariant derivatives — is exactly the bridge this theme's *How it lands in
+this work* section says a finite construction owes before it can call itself a lattice gauge theory.
+(ii) The axiomatic characterization is a uniqueness argument for the gauge-covariant diffusion
+vertex, i.e. a principled answer to "why *this* covariant Dirichlet term". (iii) The
+Yang–Mills-energy-as-synchronizability-certificate result is a ready-made diagnostic for the
+curvature regularizers described in [[Non-flat connection and the photon analogy]], and connects
+directly to the material already recorded on
+[[Graph synchronization and connection Laplacians]]. (iv) The harmonic-section fixed-point statement
+tells you what a gauge-covariant smoothing term actually converges to, which is not obvious and is
+not "the constant field".
+
+**Where this program genuinely differs.** The sigma flow has a statistical-manifold target but **no
+principal bundle, no gauge group, no connection, and no curvature term**; the map is a plain map,
+not a section, and there is no local frame freedom to transport. The bundle papers have a genuine
+local gauge structure but **vector-space fibers**, not statistical ones, and their gauge field is a
+voltage to be analysed or parametrized rather than a dynamical connection co-optimized inside an
+inference objective. Neither side has a variational free energy: there is no likelihood, no
+accuracy/complexity decomposition, no population of agents with overlapping supports, and no
+local/global free-energy split. Finally, the concrete machinery is developed for $\mathrm{SO}(d)$,
+a compact group — the caveat already recorded on
+[[Graph synchronization and connection Laplacians]] about noncompact $\mathrm{GL}^{+}$ links applies
+unchanged.
+
+**And what is honestly missing on their side too.** [[cassel-2024-sigma-flows]] states in §1.3 that
+its setting violates the standing assumptions of the harmonic-map literature — the target is open,
+has positive sectional curvature, and carries a non-metric affine connection — and therefore leaves
+existence and global convergence of the gradient flow to future work, proving only a Lyapunov
+decrease. This is a real gap, not a technicality, and it should not be cited as well-posedness.
+
+> [!note] Editorial: The framing "this group holds the statistical-fiber half and the local-gauge
+> half in separate papers, and has not yet combined them" is the vault's own reading across the four
+> sources. The papers cite one another and
+> [[gonzalez-alvarado-2025-patch-assignment]] points forward to bundle scale spaces as the next
+> step, but none of them states the combination as an achieved result, and none mentions variational
+> free energy.
+
 ## Sources synthesized
 
 - [[participatory-it-from-bit-2026-07-11-code-concordance-review]] — MAgent/PIFB2 code-concordance review of optimizer equivariance and the frame-log domain of hierarchical pooling.
@@ -87,6 +155,10 @@ the project's noncompact group.
 - [[cohen-2019-general-theory-equivariant]] — A General Theory of Equivariant CNNs on Homogeneous Spaces: fiber-bundle / induced-representation (Mackey-theory) foundation classifying G-CNNs by group, base space, and field type, grounding the frame-as-fibre and irrep-block decomposition.
 - [[finzi-2021-emlp-arbitrary-matrix-groups]] — A Practical Method for Constructing Equivariant MLPs for Arbitrary Matrix Groups: Lie-algebra nullspace construction of layers equivariant to arbitrary (including non-compact) matrix groups, addressing the GL(k) non-compactness gap.
 - [[weiler-2021-coordinate-independent-cnns]] — Coordinate Independent Convolutional Networks: monograph deriving gauge equivariance from coordinate-independence plus weight-sharing, with the transport and cocycle/holonomy bookkeeping the program leans on.
+- [[cassel-2025-bundle-scale-spaces]] — Bundle Scale Spaces: node features as sections of associated vector bundles, locally $G$-equivariant architectures by construction, generalized-Laplacian diffusion with harmonic sections as non-trivial fixed points.
+- [[cassel-2025-yang-mills-data]] — Yang-Mills Meets Data: discrete vector bundles, graph voltages, gauged Laplacians / heat kernels with an axiomatic characterization, and a discrete Yang–Mills energy certifying synchronizability (for $\mathrm{SO}(d)$).
+- [[cassel-2024-sigma-flows]] — Sigma Flows: Riemannian gradient flow of a generalized harmonic energy giving harmonic maps into the Fisher–Rao simplex, with a learnable state-dependent domain metric; existence and global convergence explicitly left open.
+- [[gonzalez-alvarado-2025-patch-assignment]] — Riemannian Patch Assignment Gradient Flows: the discrete assignment-flow precursor, with label-interaction dictionaries and a Lagrangian action-functional characterization.
 
 ### Related sources
 

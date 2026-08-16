@@ -125,6 +125,45 @@ connects information-processing equalities with operational decision risk. They 
 theorems and falsifiable targets; neither automatically regularizes the passive-frame `GL(K)`
 quotient or closes experiment-level recovery for MultiAgentELBO.
 
+## Fisher–Rao as a *target* geometry: fields of distributions (2026-08-12)
+
+Everything above treats the Fisher metric as the geometry a *single* parameter point moves through:
+one belief, one preconditioned descent direction. A fourth reading, previously absent from this
+vault, treats the statistical manifold as the **target** of a field. Ask not how one distribution
+moves but how a whole field $c\mapsto q(c)$ of distributions over a base space should be regularized,
+and the natural answer is the [[Harmonic map|harmonic energy]]: the Dirichlet integral of the field,
+with the target norm supplied by Fisher–Rao. Its Riemannian gradient flow is the
+[[Sigma flow|sigma flow]] of [[cassel-2024-sigma-flows]], a nonlinear geometric PDE whose stationary
+points are harmonic maps from a closed Riemannian domain manifold into the open probability simplex
+with the Fisher–Rao metric. The discrete precursor is the [[Assignment flow|assignment flow]], whose
+state space is a product of Fisher–Rao simplices and whose defining **replicator operator**
+$R_w(x)=w\circ x-\langle x,w\rangle w$ is nothing other than the inverse Fisher metric tensor written
+in ambient coordinates — so an assignment flow is a natural-gradient flow by construction
+([[gonzalez-alvarado-2025-patch-assignment]]).
+
+Three consequences are worth carrying forward. **First**, natural-gradient descent and
+information-geometric PDEs are the same object at different arities; the replicator identity is the
+cleanest demonstration in the vault that "multiply by the inverse Fisher" and "flow on the simplex"
+are one operation. **Second**, the Fisher–Rao simplex is an *awkward* target: it is open, it has
+positive sectional curvature, and it carries a non-metric affine connection, which is exactly why
+[[cassel-2024-sigma-flows]] (§1.3) reports that its setting violates the standing hypotheses of the
+harmonic-map existence literature and leaves existence and global convergence for future work,
+proving only a Lyapunov decrease. Any construction in this program that treats a statistical manifold
+as a fiber or target of a field theory inherits that openness and that curvature. **Third**, adding
+an entropic potential is what turns a smooth information-geometric flow into a decision procedure by
+driving the state to the simplex boundary ([[cassel-2024-sigma-flows]]) — a design pattern relevant
+wherever this program wants a belief field to commit rather than hover.
+
+> [!note] Editorial: The claim that natural-gradient descent and the sigma/assignment flows are "the
+> same operation at different arities" is the vault's synthesis; the sources establish the replicator
+> operator as the inverse Fisher tensor and the flows as Riemannian gradient flows, but do not draw
+> the comparison to this program's Gaussian belief update.
+
+What these sources do **not** supply is any gauge structure over the statistical fiber: there is no
+principal bundle, no local frame, no connection, and no curvature term in the sigma flow. That half
+of the picture lives in the same group's bundle papers and is recorded under
+[[Gauge equivariance and geometric deep learning]].
+
 ## Sources synthesized
 
 - [[gauge-vfe-rg-terminal-theory-closure-2026-08-08]] — DQM score transfer, conditional-covariance
@@ -147,9 +186,13 @@ quotient or closes experiment-level recovery for MultiAgentELBO.
 - [[jaynes-1957-information-statistical-mechanics]] — the maximum-entropy foundation of statistical mechanics, the information-theoretic root of the exponential-family geometry used here.
 - [[nielsen-2020-elementary-introduction-information-geometry]] — pedagogical grounding for KL geometry and Gaussian belief natural gradients. [[gl-k-attention-2026-07-09-review-revision]]
 - [[cover-thomas-2006-elements-information-theory]] — defines entropy, KL/relative entropy, and mutual information underpinning the free-energy KL and attention-entropy terms.
+- [[cassel-2024-sigma-flows]] — Fisher–Rao simplex as the *target* of a harmonic map; sigma flow as its Riemannian gradient flow, with a learnable state-dependent domain metric, an entropic variant for decision, and existence/global convergence explicitly left open.
+- [[gonzalez-alvarado-2025-patch-assignment]] — assignment manifold as a product of Fisher–Rao simplices; the replicator operator as the inverse Fisher tensor, making assignment flows natural-gradient flows by construction.
 
 ## See also
 
+- [[Sigma flow]] · [[Assignment flow]] · [[Harmonic map]] — Fisher–Rao geometry as the target of a
+  field theory rather than the preconditioner of a single descent step.
 - [[Gauge VFE ELBO curriculum]]
 - [[Quantum information geometry]] — the noncommutative extension of the Fisher-Rao metric, where the uniqueness theorem becomes Petz's family of monotone metrics.
 - [[Physics from Fisher information]] — physical laws recovered from Fisher-information variational principles.

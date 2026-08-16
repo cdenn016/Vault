@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-08-10
+updated: 2026-08-16
 ---
 
 # Gauge-Theoretic Multi-Agent VFE Model
@@ -24,6 +24,32 @@ updated: 2026-08-10
 The Gauge-Theoretic Multi-Agent VFE Model (`MAgent_Model`) studies populations of Gaussian belief and model states carried by associated fibers with local $GL(K)$ frames. Inter-agent comparisons use gauge transport before divergence is measured. The canonical coupling is an engineered [[Multi-agent variational free energy]] with entropy-retaining attention. The primary belief dynamics are Fisher--Rao natural-gradient flow; a Hamiltonian path is a separate conditional kinetic extension.
 
 The project is the continuous-time multi-agent sibling of the [[VFE Transformer Program]]. Its broader mathematical framework is developed in [[participatory-it-from-bit]], while the focused social-dynamics status is recorded in [[belief-inertia-2026-07-12-theorem-first-revision]].
+
+## Current primary focus: recursive graph renormalization
+
+> [!note] Editorial (author-specified focus, 2026-08-16). At one fixed contextual point $c_*$, begin
+> with scale-0 agents connected by the directed belief-attention weights $\beta_{ij}$ and
+> model-attention weights $\gamma_{ij}$. These two row-normalized layers, together with their
+> gauge transports and transported belief/model divergences, define an informational network even
+> though there is no physical length or momentum. Small $\beta_{ij}$ or $\gamma_{ij}$ means weak
+> directed proximity; $1/\beta_{ij}$ has the intended monotonic interpretation but is not generally
+> a metric, while $-\tau\log(\beta_{ij}/\pi_{ij})$ recovers the corresponding transported energy up
+> to a receiver-row constant. The primary problem is to prove when joint VFE descent yields stable
+> two-channel blocks, when each block admits a holonomy-blind parent satisfying $h_\#Q_I=Q_I$ or
+> instead must retain holonomy data, how $\beta$, $\gamma$, and the gauge transports descend to the
+> quotient graph, and when the construction recurses to higher scales. See
+> [[Renormalization-group flow of beliefs#Primary fixed-point graph-RG problem (2026-08-16)]].
+
+The scale in this problem is organizational resolution on a directed multiplex graph. It is not
+assumed to be spatial. The desired hierarchy is also not guaranteed by the current descent equations:
+a selector, persistence or time-scale-separation theorem, quotient-closure result, and composable or
+nested partition rule remain required. The holonomy condition is central on cyclic blocks but does
+not itself choose those blocks.
+
+This focus is separate from the water-like fluid/diffusion limit, the infinite-volume Gibbs/DLR
+limit with free-energy-density convergence, and a continuous RG-scale semigroup. Those are three
+additional and mutually non-equivalent obligations; none is a substitute for the finite recursive
+graph-RG construction.
 
 ## Continuum theory and finite realizations
 
