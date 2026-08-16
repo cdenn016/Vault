@@ -21,7 +21,12 @@ updated: 2026-08-16
 
 ## Goal
 
-The Gauge-Theoretic Multi-Agent VFE Model (`MAgent_Model`) studies populations of Gaussian belief and model states carried by associated fibers with local $GL(K)$ frames. Inter-agent comparisons use gauge transport before divergence is measured. The canonical coupling is an engineered [[Multi-agent variational free energy]] with entropy-retaining attention. The primary belief dynamics are Fisher--Rao natural-gradient flow; a Hamiltonian path is a separate conditional kinetic extension.
+The Gauge-Theoretic Multi-Agent VFE Model studies populations of paired belief/model law sections
+carried by associated bundles with local gauge frames. Gaussians are the principal computational
+realization, not the theory-level ontology. Inter-agent comparisons use gauge transport before
+divergence is measured. The canonical coupling is an engineered [[Multi-agent variational free energy]]
+with entropy-retaining attention. Fisher--Rao natural-gradient flow and conditional action or
+Hamiltonian branches require separately declared dynamical structure.
 
 The project is the continuous-time multi-agent sibling of the [[VFE Transformer Program]]. Its broader mathematical framework is developed in [[participatory-it-from-bit]], while the focused social-dynamics status is recorded in [[belief-inertia-2026-07-12-theorem-first-revision]].
 
@@ -54,6 +59,32 @@ graph-RG construction.
 ## Continuum theory and finite realizations
 
 The theory-level agents are distribution-valued sections over a continuous contextual base. A finite experimental design supplies practical probability laws and CAVI factors, but section sampling and finite marginalization are distinct maps: sampled values of supplied sections equal posterior coordinate marginals only under an explicit compatibility hypothesis. The finite recognition law neither determines a unique off-design section nor constructs a probability law on the space of sections. A finite design is therefore not automatically a lattice gauge theory. That stronger construction requires a declared interaction complex, separately declared group-valued link variables on oriented edges, and declared two-cells or plaquettes. [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]] records the exact types and the remaining continuum-limit obligations.
+
+## Agent-only ontology and physicalization program (2026-08-13)
+
+The intended ontology takes
+$z_i=(q_i,s_i)\in\Gamma(\mathcal E_b\times_{\mathcal C}\mathcal E_m|_{\mathcal C_i})$
+as the primitive state-bearing content of agent $i$. "Agent-only" means only agents bear state; it
+does not yet reconstruct the contextual base, bundle, gauge action, incidence, normalized
+interaction-record kernels, or variational rule. Observations are endogenous records of scoped
+interactions rather than an extra physical substance; an operational environment-node presentation
+does not by itself prove autonomy or agency for every boundary node. A full finite recognition law may carry
+dependence absent from its displayed marginal sections, so an exact section-level VFE additionally
+requires a declared lift to the joint-law space.
+
+Apparent history is a curve in section/configuration space over a fixed, potentially timeless base.
+A VFE selects an oriented orbit only after a metric or mobility is declared; its Fisher length is
+information duration rather than physical time. Stationary-action, Hamiltonian, and quantum-phase
+branches require their own additional structures.
+
+The physicalization target is a typed family of natural gauge-invariant maps from relational section
+data modulo gauge to candidate observables. The established example
+$h_s^\omega=(D^\omega s)^*g^F$ is a connection-relative positive-semidefinite semigeometry. Shared
+physical geometry still needs a collective or joint-law section, connection and channel choices,
+nondegeneracy or quotient control, and an inter-agent agreement theorem. Physical dimensions may be
+modeled as type lines and units as perspective-relative bases, but information is dimensionless: an
+information-to-action scale and any identification involving $\hbar$ remain open bridge data, not a
+derived pullback identity. [[multiagentelbo-agent-only-ontology-2026-08-13]]
 
 ## Covariant pullback geometry and timeless inference
 
