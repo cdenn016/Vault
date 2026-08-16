@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-08-10
+updated: 2026-08-16
 ---
 
 # Renormalization-group flow of beliefs
@@ -38,6 +38,145 @@ whose initial pullback result is recorded in [[gauge-vfe-rg-pullback-geometry-20
 terminal closure is recorded in [[gauge-vfe-rg-terminal-theory-closure-2026-08-08]]. That theorem
 does not retroactively certify the operational barycenter, KL-proximity blocking, or fitted
 eight-coupling pipeline.
+
+## Primary fixed-point graph-RG problem (2026-08-16)
+
+The current primary question is narrower than a spatial or momentum-shell RG. Fix one contextual
+point $c_*$ and a finite set of scale-0 agents. No physical length, momentum coordinate, or base
+displacement is assumed. The fine system is instead a directed two-layer weighted network. Agent
+$i$ carries a belief law $q_i^b$ and a law $q_i^m$ over generative-model presentations (historically
+$q_i$ and $s_i$ in parts of the manuscript). In each channel $x\in\{q,m\}$, the vertex frame is
+$U_i^x$ (or its Lie-algebra coordinate $\phi_i^x$), the receiver-frame transport is
+
+$$
+\Omega_{ij}^x=U_i^x(U_j^x)^{-1},
+$$
+
+and the transported divergences are
+
+$$
+D_{ij}^q=\mathrm{KL}\left(q_i^b\middle\|(\Omega_{ij}^q)_\#q_j^b\right),
+\qquad
+D_{ij}^m=\mathrm{KL}\left(q_i^m\middle\|(\Omega_{ij}^m)_\#q_j^m\right).
+$$
+
+The symbol $\Theta_{ij}^{IJ}$ used in the RG appendix has a more specific role: it is a microscopic
+edge transport re-expressed in parent coordinates. It is not an independent frame $\Theta_i$ at
+each vertex.
+
+For entropy-retaining Gibbs rows,
+
+$$
+\beta_{ij}
+=\frac{\pi_{ij}^q e^{-D_{ij}^q/\tau_q}}{Z_i^q},
+\qquad
+\gamma_{ij}
+=\frac{\pi_{ij}^m e^{-D_{ij}^m/\tau_m}}{Z_i^m}.
+$$
+
+Thus $\beta_{ij}\ll1$ makes agent $j$ operationally far from receiver $i$ in the belief-attention
+network, and likewise for $\gamma_{ij}$ in the model network. The inverse $1/\beta_{ij}$ has the
+right monotonic direction but is not a canonical metric: it diverges at zero, is row-relative and
+directed, changes when competing neighbors are added, and need not satisfy a triangle inequality.
+The logarithmic directed cost is better behaved,
+
+$$
+a_{ij}^q
+:=-\tau_q\log\frac{\beta_{ij}}{\pi_{ij}^q}
+=D_{ij}^q+\tau_q\log Z_i^q,
+$$
+
+with the analogous $a_{ij}^m$ for $\gamma$. Within a fixed receiver row this differs from the
+transported divergence only by a constant. Across receiver rows, the unnormalized conductance
+$\kappa_{ij}^q=\pi_{ij}^q e^{-D_{ij}^q/\tau_q}$ or the divergence itself is the more stable pair
+quantity. A genuine graph metric is optional: the two directed conductance layers already define a
+Markov or diffusion geometry. Under a declared stationary receiver occupancy with detailed balance,
+$\eta_{ij}^q=\alpha_i^q\beta_{ij}=\eta_{ji}^q$, one may derive symmetrized diffusion, commute-time,
+or effective-resistance distances. None of these is a physical length unless a separate operational
+identification is proved.
+
+> [!note] Editorial: current author focus. The intended renormalization problem is to characterize
+> when joint VFE descent of $(q^b,q^m,\beta,\gamma)$ produces stable two-channel blocks, construct a
+> well-typed parent for every admitted block, push the two conductance layers and gauge transports
+> to a quotient network, and iterate this construction to scale 1, scale 2, and beyond. The graph
+> may be dense, directed, and cyclic; it is not assumed to be a tree. This is the program's primary
+> graph-RG question, not yet an established spontaneous-hierarchy theorem.
+
+## External closure templates for the two edge layers
+
+[[garuccio-2023-multiscale-network-renormalization]] and
+[[zheng-2024-geometric-renormalization-weighted-networks]] supply different closure templates.
+The former proves functional-family closure for independent binary edges under an OR coarse map and
+arbitrary prescribed partitions; its additive hidden fitness is specific to that model and protocol.
+The latter derives a rescaled $\phi$-norm family for weighted links in a latent geometric model, with
+ordinary summation at $\phi=1$ and maximum-weight aggregation as $\phi\to\infty$. Thus
+renormalizability is protocol-relative; additivity is not a universal criterion.
+
+For the present VFE construction, linear aggregation has a narrower but exact justification. If
+$\eta$ is the directed edge-event probability law and $K$ is one normalized endpoint Markov kernel,
+then
+
+$$
+\sum_{I,J}\sum_{i,j}\eta_{ij}K(I,J\mid i,j)
+=\sum_{i,j}\eta_{ij}\sum_{I,J}K(I,J\mid i,j)=1.
+$$
+
+Within the $\phi$-norm family, $\phi=1$ is the unique member that is a fixed linear Markov-kernel
+pushforward. A nonlinear aggregate followed by a global normalization constant can still define a
+normalized coarse statistic, but it is no longer this fixed-channel pushforward, and the exact KL
+chain rule does not follow from it.
+
+> [!note] Editorial: candidate fifth mechanism, not an imported theorem. Effective resistance or
+> commute time on the symmetrized conductance graph can provide a graph-derived scale for proposing
+> blocks without a physical embedding. A max-weight coarse statistic can then be tested alongside
+> the existing mechanisms. This does not reproduce Zheng et al.'s consecutive angular sectors,
+> hidden-degree recursion, or self-similarity result, and symmetrization discards directionality.
+> The directed two-channel version and persistent block selection under VFE descent remain open.
+
+Cycles make holonomy central. For a candidate block $I$, loop transports generate channel-specific
+holonomy groups $\mathrm{Hol}_q(I)$ and $\mathrm{Hol}_m(I)$. A parent that forgets the internal root
+and transport path must satisfy
+
+$$
+h_\#Q_I^x=Q_I^x
+\qquad
+\text{for every }h\in\mathrm{Hol}_x(I),\quad x\in\{q,m\},
+$$
+
+for the relevant parent laws. This is a block-admissibility and path-independence condition, but it
+is not a block selector. It is checked only after proposing $I$, and it neither proves that descent
+will find $I$ nor forces $h=I$. If stabilization fails, the alternatives are to reject the
+holonomy-blind quotient or to retain the root, path, representation, or holonomy mark as parent
+internal state.
+
+The present manuscript already supplies the shape of the inter-block update. Using raw belief
+conductances,
+
+$$
+\kappa_{IJ}^{q,R}
+=\sum_{i\in I}w_i^I\sum_{j\in J}\kappa_{ij}^q,
+\qquad
+\beta_{IJ}^{R}
+=\frac{\kappa_{IJ}^{q,R}}{\sum_L\kappa_{IL}^{q,R}},
+$$
+
+with an analogous model-channel construction for $\gamma^R$. Microscopic edge transports expressed
+in parent coordinates can be pooled into $\Omega_{IJ}^R$, while the dispersion of those transported
+edges is a holonomy/closure residual. The unresolved theorem must join four statements: VFE descent
+creates persistent two-layer communities; an intrinsic compression-retention objective selects a
+partition rather than singleton or global collapse; the parent laws, transports, and weights descend
+with controlled residual; and the resulting partitions are nested or otherwise compose so the
+quotient construction can recurse. VFE descent alone does not presently imply any of these. It may
+homogenize the whole graph, reorganize attention without producing quotient variables, or yield
+non-nested transient communities.
+
+This graph-RG problem is independent of three continuum limits. A fluid or diffusion limit concerns
+convergence of stochastic paths and yields continuous effective state and time. An infinite-volume
+thermodynamic limit concerns projectively consistent cylinder laws or DLR specifications and
+convergence of free-energy densities. A continuous RG-scale limit concerns interpolation or a
+semigroup in scale. None implies either of the others. The fixed-$c_*$ recursive graph problem can
+be posed and solved at finite size and discrete scale before any of these limits is attempted.
+[[gauge-vfe-rg-terminal-theory-closure-2026-08-08]]
 
 ## Why it matters here
 
@@ -231,7 +370,7 @@ selector, or natural-gradient semiconjugacy for this project.
 - [[berman-2023-bayesian-renormalization]] — the Fisher metric as an emergent RG scale; $\tau=1/T$ fixing the direction of the flow; inference as inverse ERG.
 - [[gabrielli-2025-network-renormalization]] — RG on heterogeneous networks; open problem 2 (renormalizing dynamics and topology together) is this program's problem.
 - [[villegas-2023-laplacian-renormalization-group]] — the entropic susceptibility scale detector and diffusion-equivalence blocking.
-- [[garuccio-2023-multiscale-network-renormalization]] — additivity as the renormalizability criterion; the scale-free versus scale-invariant demarcation; the $\alpha$-stable route to a two-sided flow.
+- [[garuccio-2023-multiscale-network-renormalization]] — exact independent-edge closure under an OR coarse map with additive hidden fitness; the scale-free versus scale-invariant demarcation; the $\alpha$-stable route to a two-sided flow.
 
 ## See also
 

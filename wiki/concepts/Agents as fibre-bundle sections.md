@@ -122,6 +122,29 @@ hypotheses but generally only positive semidefinite, with
 $\operatorname{rad}h_s^\omega=\ker D^\omega s$. Passive gauge invariance therefore does not imply
 independence from the selected connection.
 
+### The nearest external construction (2026-08-12)
+
+The features-as-sections move is not unique to this program, and it is worth knowing exactly how far
+the external version goes. [[cassel-2025-bundle-scale-spaces]] models node features on a graph as
+sections of an **associated vector bundle** precisely so that architectures are equivariant under
+*local* actions of a symmetry group $G$ — $G$ acting on the feature at each node by an individual
+$g_v$ — and argues, as this page does, that sections preserve local symmetry *by construction*
+rather than by penalty. [[cassel-2025-yang-mills-data]] then carries that to a fully finite
+formalism: a section assigns to each node a class $\phi_i=[\xi_i,x_i]$ pairing a frame
+$\xi_i\in\mathrm{SO}(d)$ with a feature $x_i$, which is the same equivalence-class device used above
+for $(n\cdot g, b)\sim(n,\rho(g)b)$.
+
+The differences are structural rather than cosmetic. Their fiber is a **vector space** carrying a
+linear representation; here the fiber is a [[Statistical manifold|statistical manifold]] of Gaussian
+laws, with congruence acting on covariance. Their objective is a diffusion semigroup or a discrete
+Yang–Mills energy; here it is a [[Multi-agent variational free energy|population variational free
+energy]]. And nothing on their side corresponds to overlapping agent supports, derived priors from a
+meta-agent one scale up, or the frame's Role-B reading as internal state.
+
+> [!note] Editorial: The comparison above is the vault's own; the Heidelberg papers make no claim
+> about variational inference, agents, or free energy, and this page's constructions are not
+> discussed by them.
+
 ## In this work
 
 - **Manuscript.** The construction is developed in [[participatory-it-from-bit]] — §"Principal Bundles and Gauge Freedom", §"Associated Bundles", and §"Agents as Smooth Sections" (the Agent definition). The associated-bundle attachment of [[gl-k-attention]] is the same statistical-fiber-bundle picture specialized to the attention setting.

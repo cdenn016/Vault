@@ -59,13 +59,36 @@ Several joints in this synthesis are under-specified by the available sources. F
 
 Third, equivariance and attention are reconciled only at the level of blueprint ([[bronstein-2021-geometric-deep-learning]]); a concrete statement of which attention affinities are gauge-equivariant under block-GL(k), and how Clebsch–Gordan coupling [[thomas-2018-tensor-field-networks]] constrains the value mixture, is not worked out in these sources. Fourth, the trade-off between the curved affine-invariant geometry [[pennec-2006-affine-invariant-tensor]] and the flat, commutative [[arsigny-2006-log-euclidean]] alternative is unexplored *specifically for attention affinities*, where the cheaper Log-Euclidean distance might suffice for the similarity kernel even if the affine-invariant metric is needed for the belief dynamics.
 
+## Geometric flows as an alternative derivation of transformer structure (2026-08-12)
+
+A fifth route to attention is worth flagging here because it arrives from geometry rather than from
+kernels. [[cassel-2024-sigma-flows]] devotes a section to structural similarities between transformer
+network architectures and the networks obtained by **geometric integration of a
+[[Sigma flow|sigma flow]]** — a Riemannian gradient flow of a harmonic energy whose state is a field
+of probability distributions carrying the Fisher–Rao metric, and whose learnable component is the
+metric of the domain manifold rather than a stack of projection matrices. Discretizing the flow in
+time yields layers; the non-local interaction plays the role of token mixing. Its discrete precursor,
+the [[Assignment flow|assignment flow]], is described by the same group as a "neural ODE on graphs"
+with a learnable interaction matrix ([[gonzalez-alvarado-2025-patch-assignment]]).
+
+This is a genuinely different generative story for the architecture than the kernel-smoother reading
+of [[tsai-2019-kernel-attention]], and it is closer to this program's own instincts: the mixing
+weights come out of a geometry rather than being posited. Two cautions. The similarity is asserted as
+structural, not proved as an equivalence, and [[cassel-2024-sigma-flows]] carries no gauge group and
+no connection, so nothing in it addresses the frame-transport question that motivates
+[[GL(K) gauge-equivariant attention]]. See
+[[Gauge equivariance and geometric deep learning]] for the fuller comparison.
+
 ## Sources synthesized
 
 Core attention theory and the existing linked sources remain as above. The 2026-07-09 revision adds the direct precursor families listed in the big-picture section and corrects the Schild's-ladder attribution without introducing unresolved source-note slugs. [[gl-k-attention-2026-07-09-review-revision]]
 
+- [[cassel-2024-sigma-flows]] — transformer-like structure derived by geometric integration of an information-geometric gradient flow; a non-kernel route to the same architecture.
+- [[gonzalez-alvarado-2025-patch-assignment]] — assignment flows as learnable neural ODEs on graphs, the discrete ancestor of that derivation.
+
 ## See also
 
-[[Neural scaling laws]], [[Mechanistic interpretability of attention]].
+[[Neural scaling laws]], [[Mechanistic interpretability of attention]], [[Sigma flow]].
 
 ## Related sources (ingested 2026-06-20)
 

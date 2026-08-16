@@ -2,7 +2,7 @@
 type: index
 title: Index
 aliases: [Index, Home]
-updated: 2026-08-10
+updated: 2026-08-16
 ---
 
 # Index
@@ -10,7 +10,7 @@ updated: 2026-08-10
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **16** manuscripts · **13** themes · **11** field MOCs · **283** concepts · **12** methods · **584** papers · **114** references · **17** runs · **6** web/methodology
+> **3** projects · **17** manuscripts · **13** themes · **11** field MOCs · **287** concepts · **12** methods · **589** papers · **114** references · **17** runs · **6** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -69,6 +69,12 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Wiki Status Board]] — synthesis-page maturity (stub → draft → stable)
 
 ## 💡 Concepts
+
+### Heidelberg statistical-fiber / discrete-gauge programme (2026-08-12)
+- [[Assignment flow]]
+- [[Bundle scale space]]
+- [[Harmonic map]]
+- [[Sigma flow]]
 
 ### MultiAgentELBO literature interfaces (2026-08-10)
 - [[Process-space variational inference]]
@@ -405,6 +411,12 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Variational autoencoder (VAE)]]
 
 ## 📄 Sources — papers
+
+### Heidelberg statistical-fiber / discrete-gauge programme (2026-08-12)
+- [[cassel-2024-sigma-flows|Sigma Flows for Image and Data Labeling and Learning Structured Prediction]]
+- [[cassel-2025-bundle-scale-spaces|Bundle Scale Spaces and Local Gauge Symmetries for Graph Networks]]
+- [[cassel-2025-yang-mills-data|Yang-Mills Meets Data]]
+- [[gonzalez-alvarado-2025-patch-assignment|Riemannian Patch Assignment Gradient Flows]]
 
 ### MultiAgentELBO literature-gap ingest (2026-08-10)
 
@@ -1041,6 +1053,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[gabrielli-2025-network-renormalization|Network Renormalization]]
 - [[villegas-2023-laplacian-renormalization-group|Laplacian Renormalization Group for Heterogeneous Networks]]
 - [[garuccio-2023-multiscale-network-renormalization|Multiscale Network Renormalization: Scale-Invariance without Geometry]]
+- [[zheng-2024-geometric-renormalization-weighted-networks|Geometric Renormalization of Weighted Networks]]
 - [[boettcher2012renormalization|Renormalization Group for Critical Phenomena in Complex Networks]]
 - [[jona-lasinio-2001-renormalization-probability|Renormalization Group and Probability Theory]]
 - [[milnor1976-characteristic-classes-spherical-fibre|On Characteristic Classes for Spherical Fibre Spaces]]

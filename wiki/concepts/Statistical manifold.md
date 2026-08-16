@@ -76,9 +76,37 @@ remains fixed and timeless; no global clock, Lorentzian time coordinate, or iden
 entropic-dynamics time of [[caticha-bartolomeo-reginatto-2015-entropic-dynamics]] follows without
 additional structure.
 
+### The statistical manifold as a *target* manifold
+
+A construction the vault previously lacked reverses the usual role. Instead of asking how a *point*
+moves on a statistical manifold, one can ask for a whole **field** of distributions over a base
+space and require that field to be as smooth as possible. Formally: take a closed Riemannian domain
+$(M,h)$ and a map $f:M\to N$ whose target $N$ is the relative interior of the probability simplex
+with the Fisher–Rao metric, and minimize the [[Harmonic map|harmonic energy]] of $f$. The
+Euler–Lagrange equation makes $f$ a harmonic map into the statistical manifold; the corresponding
+Riemannian gradient flow is the [[Sigma flow|sigma flow]] ([[cassel-2024-sigma-flows]]). The discrete
+counterpart replaces $M$ by a graph and the field by one simplex per vertex, giving the
+[[Assignment flow|assignment manifold]] $\mathcal{S}_c^n$ with the Fisher–Rao product metric
+([[gonzalez-alvarado-2025-patch-assignment]]).
+
+Two properties of the simplex-with-Fisher–Rao target are load-bearing and easy to overlook. It is
+**open** — the interesting labelings live on the boundary, which the metric pushes to infinite
+distance, so a separate entropic term is needed to make a flow actually decide
+([[cassel-2024-sigma-flows]]). And it has **positive sectional curvature**, together with a
+non-metric affine connection, which is exactly why the standard harmonic-map existence theory (which
+wants nonpositive curvature, or a closed target) does not apply
+([[cassel-2024-sigma-flows]], §1.3). Any construction in this vault that treats a statistical
+manifold as the fiber or target of a field theory inherits both facts.
+
 ## Sources
 
 - [[gauge-vfe-rg-pullback-geometry-2026-08-01]] — fixed-fiber law curves, curves of sections, and emergent Fisher information duration.
+
+- [[cassel-2024-sigma-flows]] — the open simplex with Fisher–Rao metric as the *target* manifold of a
+  harmonic map; the openness / positive-curvature / non-metric-connection obstruction to standard
+  existence theory.
+- [[gonzalez-alvarado-2025-patch-assignment]] — the assignment manifold: a finite product of
+  Fisher–Rao simplices, with the replicator operator as the inverse metric tensor.
 
 - [[cencov-1982-statistical-decision-rules]] — Fisher metric as the unique invariant metric on a statistical manifold; the canonicity result.
 - [[beny-osborne-2015-info-geometric-rg]] — RG as a monotone flow on the statistical manifold of states; information loss as metric contraction.
@@ -94,6 +122,8 @@ additional structure.
 
 ## See also
 
+- [[Sigma flow]] · [[Assignment flow]] · [[Harmonic map]] — the statistical manifold as the target of
+  a field theory rather than the home of a single moving point.
 - [[Fisher information metric]]
 - [[Information geometry and natural gradient]]
 - [[Natural gradient]]
