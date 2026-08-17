@@ -15,7 +15,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-07-28
+updated: 2026-08-17
 ---
 
 # Renormalization group flow
@@ -121,6 +121,26 @@ Everything above assumes the thing being coarse-grained sits on a lattice. Two r
 > [!warning] The two schemes renormalize different spaces and keep opposite modes
 > Wilsonian and Laplacian schemes act on the **sample space** and retain the **soft**, small-eigenvalue modes. Bayesian renormalization acts on the **model space** and retains the **stiff**, large-Fisher directions. Applied to one and the same operator they select complementary subspaces. They are dual constructions, not rival answers — but the phrase "coarse-graining keeps the relevant directions" is ambiguous between them.
 
+## Composability is the exception, not the rule
+
+A step of the flow and the *composability of steps* are different properties, and the second is
+rarer than textbook pictures suggest. Exact composability of real-space maps holds for pure
+decimation (marginalization composes trivially), asymptotically at fixed points where the
+couplings outside the retained family have died, and on the hierarchical lattices of
+[[berker-1979-hierarchical-lattice-rg]] and [[kadanoff-1976-migdal-recursion]], which compose
+exactly because the substrate is built self-similarly. Away from those cases,
+[[griffiths-1979-rg-transformations]] and [[van-enter-1993-rg-pathologies]] show that real-space
+maps can fail even to produce well-defined renormalized theories; the probabilistic cousin is
+the exceptional character of Markov-chain lumpability
+([[kemeny-snell-1960-finite-markov-chains]]). The MultiAgentELBO finite laboratory measured
+exactly this on the gauge-VFE system (2026-08-17): the pre-registered compatibility check C3
+failed by $0.204$ against $10^{-10}$ with a lossless intermediate projection, so the belief-RG
+flow is a **typed cocycle** — one map per level pair — rather than an autonomous semigroup, its
+per-ratio fixed structures are factorized and ratio-dependent, and the triviality is
+architectural (thin single-edge block boundaries make instances quasi-one-dimensional). The
+synthesis, the measurements, and the open bundled-tower question live in
+[[Staged hierarchy formation and RG composability]].
+
 ## Sources
 
 - [[wilson-1971-rg-critical-phenomena]] — the RG transformation realizing Kadanoff block-spin scaling; fixed points and the relevant/irrelevant/marginal operator taxonomy.
@@ -134,9 +154,14 @@ Everything above assumes the thing being coarse-grained sits on a lattice. Two r
 - [[villegas-2023-laplacian-renormalization-group]] — diffusion time as an intrinsic RG scale; entropic susceptibility as a scale detector.
 - [[berman-2023-bayesian-renormalization]] — the Fisher metric as an emergent RG scale; inference as the inverse of exact RG flow.
 - [[genest-zidek-1986-pooling]], [[dietrich-list-2016-opinion-pooling]], [[bordley-1982-multiplicative-pooling]] — opinion-pooling taxonomy fixing the aggregator used at the RG blocking step.
+- [[griffiths-1979-rg-transformations]], [[van-enter-1993-rg-pathologies]] — rigorous limits of real-space RG: renormalized interactions need not exist; non-Gibbsian images.
+- [[berker-1979-hierarchical-lattice-rg]], [[kadanoff-1976-migdal-recursion]] — hierarchical lattices, the self-similar substrates on which real-space RG composes exactly.
+- [[kemeny-snell-1960-finite-markov-chains]] — lumpability as the exceptional condition for a coarse-grained Markov chain to stay Markov.
+- [[csiszar-1975-i-divergence-geometry]] — I-projection and IPF convergence, the theorem behind the laboratory's variational coupling read-back.
 
 ## See also
 
+- [[Staged hierarchy formation and RG composability]]
 - [[Renormalization-group flow of beliefs]]
 - [[Meta-agents and hierarchical emergence]]
 - [[Ouroboros multi-scale dynamics]]

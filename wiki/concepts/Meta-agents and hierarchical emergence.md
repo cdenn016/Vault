@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-08-08
+updated: 2026-08-17
 ---
 
 # Meta-agents and hierarchical emergence
@@ -56,6 +56,20 @@ Second, the current frame pool is not defined on every frame the active updates 
 ## Why it matters here
 
 This is the layer of the [[Gauge-Theoretic Multi-Agent VFE Model]] that turns a flat population of [[Agents as fibre-bundle sections]] into a genuine *hierarchy*. The base layers supply [[Multi-agent variational free energy]] dynamics among peers; this construction (Layer 6/7 in the module map: `meta_agents.py` and `hierarchical_emergence.py`) is what lets the model build new scales rather than only updating beliefs at one scale. It is the mechanism behind the `'hierarchy'` preset (species × coalition gated soft membership + condensation) and underpins the `'ouroboros'` multi-scale tower, where meta-agent formation and top-down feedback close the participatory loop ([[participatory-it-from-bit]]).
+
+Formation is also a *staged* process in every empirical and theoretical tradition that has
+looked: assembly through stable subassemblies outpaces all-at-once assembly
+([[simon-1962-architecture-complexity]]), evolution's major transitions always combine
+previously stabilized units ([[maynard-smith-1995-major-transitions]]), real social groups grow
+by accretion with size-dependent persistence ([[palla-2007-social-group-evolution]]) and layer
+into a discrete hierarchy with branching ratio near three
+([[zhou-2005-discrete-hierarchy-group-sizes]]), and connection costs are what drive evolved
+networks to become hierarchical at all ([[mengistu-2016-evolutionary-origins-hierarchy]]) —
+resonant with this construction's priced formation (retention charge, Wilson term, partition
+prior). The 2026-08-17 rescaling-map measurements make the staging question internal to the
+model: coarse descriptions are path-dependent (the flow is a typed cocycle), so which
+aggregation path free energy favors is now a lab measurement — see
+[[Staged hierarchy formation and RG composability]].
 
 It also connects the project to social and statistical physics. The consensus/condensation picture sits alongside opinion-dynamics consensus models ([[degroot-1974-consensus]], [[friedkin1990-social-influence-opinions|friedkin-johnsen-1990]], [[hegselmann-2002-opinion|hegselmann-krause-2002]]) and the renormalization-group, coarse-graining tradition ([[wilson-1975-renormalization-group]], [[galam-2008-sociophysics]]): a meta-agent *is* a coarse-grained block, and the closure diagnostic decides whether a candidate block is a legitimate coarse-graining target. See [[Renormalization-group flow of beliefs]] and [[Ouroboros multi-scale dynamics]] for the surrounding multi-scale machinery. The covariance-sandwich barycenter is a geometric (KL/transport-aware) opinion pool ([[Collective active inference]], [[dietrich-list-2016-opinion-pooling]], [[genest-zidek-1986-pooling]]), and the cluster-acceptance test is a model-selection question — when does collapsing a block to one meta-agent pay for its description length? ([[MDL and BIC model selection]], [[Community detection and modularity]]).
 
@@ -235,9 +249,14 @@ It is exercised by the `'hierarchy'` preset (species × coalition gated membersh
 - [[waade-2025-as-one-and-many]] — collective active inference treating a group as a single agent, the active-inference framing of the meta-agent / top-down feedback loop.
 - [[newman-girvan-2004-community-structure]] — modularity-based community detection, the graph-theoretic precedent for the pair-edge `find_clusters` consensus-graph scheme.
 - [[geshkovski-2023-mathematical-transformers]] — clustering/condensation dynamics of tokens in transformers, a mathematical analogue of the meta-agent condensation phase transition.
+- [[simon-1962-architecture-complexity]], [[maynard-smith-1995-major-transitions]] — staged assembly through stable subassemblies as the canonical account of why hierarchies exist.
+- [[zhou-2005-discrete-hierarchy-group-sizes]], [[palla-2007-social-group-evolution]] — empirical layering (branching ratio near three) and accretion dynamics of human groups.
+- [[smoluchowski-1916-coagulation]] — binary-merger kinetics, the physics prototype of staged aggregation.
+- [[mengistu-2016-evolutionary-origins-hierarchy]] — connection costs as the driver of evolved hierarchy, the external evidence that priced formation produces structure.
 
 ## See also
 
+- [[Staged hierarchy formation and RG composability]]
 - [[Multi-agent variational free energy]]
 - [[Agents as fibre-bundle sections]]
 - [[Ouroboros multi-scale dynamics]]
