@@ -10,7 +10,7 @@ updated: 2026-08-16
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **17** manuscripts · **13** themes · **11** field MOCs · **287** concepts · **12** methods · **589** papers · **114** references · **17** runs · **6** web/methodology
+> **3** projects · **17** manuscripts · **14** themes · **11** field MOCs · **287** concepts · **12** methods · **599** papers · **116** references · **17** runs · **6** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -53,6 +53,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 - [[Information geometry and natural gradient]]
 - [[Participatory realism and quantum foundations]]
 - [[SPD-manifold geometry and Riemannian optimization]]
+- [[Staged hierarchy formation and RG composability]]
 - [[Statistical physics of social systems and collective behavior]]
 - [[Structural realism and philosophy of science]]
 - [[Transformer interpretability and scaling]]
@@ -411,6 +412,18 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Variational autoencoder (VAE)]]
 
 ## 📄 Sources — papers
+
+### Staged assembly & RG composability ingest (2026-08-17)
+- [[simon-1962-architecture-complexity|The Architecture of Complexity]]
+- [[zhou-2005-discrete-hierarchy-group-sizes|Discrete hierarchical organization of social group sizes]]
+- [[palla-2007-social-group-evolution|Quantifying social group evolution]]
+- [[smoluchowski-1916-coagulation|Drei Vorträge über Diffusion, Brownsche Molekularbewegung und Koagulation]]
+- [[mengistu-2016-evolutionary-origins-hierarchy|The Evolutionary Origins of Hierarchy]]
+- [[csiszar-1975-i-divergence-geometry|I-Divergence Geometry of Probability Distributions and Minimization Problems]]
+- [[griffiths-1979-rg-transformations|Mathematical properties of position-space renormalization-group transformations]]
+- [[van-enter-1993-rg-pathologies|Regularity properties and pathologies of position-space RG transformations]]
+- [[berker-1979-hierarchical-lattice-rg|Renormalisation-group calculations of finite systems (hierarchical lattices)]]
+- [[kadanoff-1976-migdal-recursion|Notes on Migdal's recursion formulas]]
 
 ### Heidelberg statistical-fiber / discrete-gauge programme (2026-08-12)
 - [[cassel-2024-sigma-flows|Sigma Flows for Image and Data Labeling and Learning Structured Prediction]]
@@ -1030,6 +1043,8 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 ### Multi-agent dynamics, RG & emergence
 - [[bateson-1972-steps-ecology-mind|Steps to an Ecology of Mind]]
 - [[bender-orszag-1999-asymptotic-methods|Advanced Mathematical Methods for Scientists and Engineers]]
+- [[kemeny-snell-1960-finite-markov-chains|Finite Markov Chains]]
+- [[maynard-smith-1995-major-transitions|The Major Transitions in Evolution]]
 - [[cardy-1996-scaling-renormalization|Scaling and Renormalization in Statistical Physics]]
 - [[calzetta-hu-2022-nonequilibrium-quantum-field-theory|Nonequilibrium Quantum Field Theory]]
 - [[delamotte-2012-nonperturbative-rg|An Introduction to the Nonperturbative Renormalization Group]]
