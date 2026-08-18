@@ -95,6 +95,17 @@ $\eta_{ij}^q=\alpha_i^q\beta_{ij}=\eta_{ji}^q$, one may derive symmetrized diffu
 or effective-resistance distances. None of these is a physical length unless a separate operational
 identification is proved.
 
+On the tempting "quasi-metric $d_{ij} \sim 1/\beta_{ij}$" reading (2026-08-18 discussion): the
+asymmetry of the directed divergences is real, but it is not a Finsler structure — a Finsler
+metric needs asymmetry at first order in the norm, and divergences are second-order flat at
+coincidence, so the infinitesimal geometry is Fisher-Riemannian with the asymmetry living at
+third order in the [[Alpha-divergence|Amari dual-connection]] structure, not in the metric.
+And consensus does not send attention to a spike: at $D_{ij} \to 0$ the softmax row
+normalizes to *uniform* attention, so condensation appears as divergence collapse, not
+attention blowup — and the full-collapse limit is the epistemic-death foil, so the
+condensed-matter picture is a condensate with repulsion: binding without collapse, the
+Cooper-pair reading ([[bcs-1957-theory-of-superconductivity]]).
+
 > [!note] Editorial: current author focus. The intended renormalization problem is to characterize
 > when joint VFE descent of $(q^b,q^m,\beta,\gamma)$ produces stable two-channel blocks, construct a
 > well-typed parent for every admitted block, push the two conductance layers and gauge transports

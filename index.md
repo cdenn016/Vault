@@ -10,7 +10,7 @@ updated: 2026-08-16
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **17** manuscripts · **14** themes · **11** field MOCs · **287** concepts · **12** methods · **602** papers · **116** references · **19** runs · **6** web/methodology
+> **3** projects · **17** manuscripts · **14** themes · **11** field MOCs · **287** concepts · **12** methods · **602** papers · **116** references · **20** runs · **6** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -1219,3 +1219,4 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[2026-08-02-rigorous-theory-search-skill|Rigorous theory search global skill — sanitized design, evaluation boundary, and mathematical reconstruction record (2026-08-02)]] (method/implementation/audit record; paired behavioral grading remains provisional; no current theory or runtime claim is certified by the archive)
 - [[2026-08-18-rescaling-audit-capacity-reversal|The rescaling-lab audit and the capacity reversal — a gauge-dependent sector charge retired, root-framed retention rises (2026-08-18)]] (MultiAgentELBO audit F1–F9 remediated at `4eed61f`; the amendment-6 sector charge failed sample-shift covariance, the root-framed charge is invariant to 2e-16 and reverses the published capacity null: R_cap 0.209/0.568 vs nine-state 0.156/0.441, old 0.144/0.406 retired as frame artifacts; every other published amendment 3–7 number reproduced)
 - [[2026-08-18-minfo-information-retention|M-info: boundary mutual-information retention deflates the sup-norm capacity story (2026-08-18)]] (amendment 9, committed `f904d5c`; R_MI ≤ 1 by data processing, measured 0.023/0.067 nine-state and 0.025/0.070 sectored — the blocking transmits 2–7% of boundary information, sup norm overstates by an order of magnitude, sector gain deflates to +10%/+5%; regeneration restores interaction without restoring information)
+- [[2026-08-18-mpart-participatory-blocking|M-part: offered its own choice of blocking, the flow declines to aggregate (2026-08-18)]] (amendment 10, committed `fd71d0b`; the flow-averaged Proposition-4 posterior puts modal mass on singletons 0.586 over direct 0.306 over staged 0.08/0.025, null control within 1% — no aggregation favored at this seed, selection prior-and-kernel dominated; bounded-sight proposability recorded as the open split)

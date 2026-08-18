@@ -33,6 +33,38 @@ an element of the structure group `G`. The connection is **flat** (curvature zer
 
 Generic non-abelian connections and curved SPD manifolds can have nontrivial holonomy. The realized transformer Regime-I connection is more restrictive: $\Omega_{ij}=U_iU_j^{-1}$ telescopes on every closed loop, so $H=I$ exactly despite the noncommutativity of $\mathrm{GL}(K)$. Nontrivial model holonomy requires an independent-edge or otherwise nonflat Regime-II connection. [[gl-k-attention-2026-07-09-review-revision]]
 
+## Detection by embedded agents (2026-08-18)
+
+Holonomy lives on loops, so an agent whose visibility is its Markov blanket cannot measure it
+directly: depth-1 sight closes no loop, and even depth-2 sight only suffices given
+*provenance* — comparing two routes from an identified common source ($\Omega_{ij}\Omega_{jk}$
+against $\Omega_{ik}$ requires knowing both messages originate at $k$). What an embedded agent
+does have access to are gauge-invariant *signatures*, each confounded with dynamics:
+
+- **Irreducible frustration.** On a loop with nontrivial holonomy no belief assignment zeroes
+  all pairwise transported divergences simultaneously — the agent experiences an unresolvable
+  residual free energy no local move removes. This is source-backed in the finite lab: a block
+  with nontrivial holonomy has an empty orbit-family fixed sector, so frustration *is* the
+  local shadow of loop curvature.
+- **Loop non-closure among identified peers** — A agrees with B, B with C, C disagrees with A —
+  the smallest observable Wilson-loop signature, available at depth 2 with provenance.
+- **Self-return distortion**: one's own past state coming back transformed around a loop (the
+  telephone game is a holonomy experiment run on the social connection), available at depth 1
+  with memory and self-recognition.
+
+The confound is the geometric-versus-dynamical-phase problem: an embedded agent cannot freeze
+the other agents' updates, so it cannot cleanly factor observed loop distortion into connection
+curvature and source dynamics. In the theory the clean measurement belongs to the level above:
+the mark-carrying parent retains its block's interior holonomy groups as declared data, and C2
+conserves the Wilson charge under blocking, so the coarse level literally carries as *local*
+marks what no constituent could see — hierarchy is the theory's holonomy-measurement
+instrument, one more face of "a level-$\ell$ parent with depth-1 sight commands depth-$r^\ell$
+in the fine graph" ([[Meta-agents and hierarchical emergence]]).
+
+> [!note] Editorial: the frustration/empty-fixed-sector fact and mark-retention/C2 are
+> implemented, tested lab constructions; the human-scale readings (intransitivity detection,
+> the telephone game as a Wilson loop) are interpretive glosses, not measurements.
+
 ## Details
 
 **Holonomy and curvature.** For a connection with curvature `F`, the holonomy of a small loop bounding an oriented area element `Σ` is

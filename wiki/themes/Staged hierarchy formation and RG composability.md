@@ -118,6 +118,21 @@ boundary information dies at roughly $t^2 \approx 2\%$ per step
 ([[Data processing inequality]]). Hierarchies of this kind keep structure all the way up and information only
 locally, which is the composability strand's path-dependence stated in a second instrument.
 
+M-part (amendment 10, [[2026-08-18-mpart-participatory-blocking]]) then asked the staged-vs-direct
+question inside the theory's own selection mechanism: the Proposition-4 partition posterior,
+flow-averaged to the level and offered every cycle blocking, puts its modal mass on the
+*singleton* partition (0.586) at the declared seed — no aggregation is favored, direct collapse
+outranks staged among the aggregates, and the pair-free null control sits within 1% of the
+coupled posteriors. The formation-kinetics hypothesis is unsupported at this seed in its
+free-energy form, for the same reason M-info found: nothing to bind. The open split that
+survives is sharper than the original question: free-energy preference at full sight (measured,
+negative here) versus proposability under bounded sight — a depth-limited agent cannot propose
+a block beyond its sight radius, so bounded visibility forces staged aggregation kinetically
+regardless of the full-sight ranking, and hierarchy is what extends sight (a level-$\ell$
+parent with depth-1 coarse sight commands depth-$r^\ell$ fine structure, and carries its
+block's interior [[Holonomy]] as marks). The strongly coupled seed and the sight-limited
+variant are the declared follow-ups.
+
 ## The synthesis
 
 The two strands are one phenomenon seen from two sides. Because coarse descriptions are
