@@ -107,6 +107,17 @@ fixed structures remain ratio-typed ($0.64$ relative sup). The staged-assembly m
 strengthens: which aggregation grain a hierarchy uses matters in both channels, all the way to
 the endpoints.
 
+The same day's M-info measurement (amendment 9,
+[[2026-08-18-minfo-information-retention]]) put the retention story in law units: boundary
+mutual-information retention is bounded by one as a data-processing theorem, measures 2–7% at
+the declared seed against sup-norm readings of 0.156–0.568, and deflates the sector gain to
++10%/+5% (mostly anchored-coordinate inflation in the sup norm). The sharp reading:
+**regeneration restores interaction without restoring information** — the rebuilt glue is
+synthesized per level from the conserved connection and coarse beliefs, while microscale
+boundary information dies at roughly $t^2 \approx 2\%$ per step
+([[Data processing inequality]]). Hierarchies of this kind keep structure all the way up and information only
+locally, which is the composability strand's path-dependence stated in a second instrument.
+
 ## The synthesis
 
 The two strands are one phenomenon seen from two sides. Because coarse descriptions are

@@ -33,7 +33,19 @@ $$
 W_{i\alpha}(x) = S_{i\sigma(\alpha)}(x)\cdot C_{i\alpha}(x),
 $$
 
-with $S$ the slow species gate (from model alignment) and $C$ the fast coalition membership (from belief alignment). The code likens this to Cooper pairing: condensation requires matching quantum numbers (species) before pairing (meta-agent formation) can occur.
+with $S$ the slow species gate (from model alignment) and $C$ the fast coalition membership (from belief alignment). The code likens this to Cooper pairing: condensation requires matching quantum numbers (species) before pairing (meta-agent formation) can occur ([[bcs-1957-theory-of-superconductivity]]). The analogy sharpened in the 2026-08-18 rescaling-laboratory amendments: a sector-carrying parent $(p, s)$ treats the block as a bona fide particle carrying its transport-invariant charge — the $Z_3$ sector label plays total spin ($2 \otimes 2 = 1 \oplus 3$; the label no gauge transport can change) while the within-block configuration is discarded like the constituent electronic state, and the effective theory's couplings are regenerated from coarse state exactly as BCS/Ginzburg–Landau couplings are functionals of the condensate rather than transmitted electron data.
+
+**The hierarchical information budget.** A meta-agent's state update *consumes* the full
+bandwidth of its constituents (pooling is constituent-only) while its own *emission* is far
+smaller — levels are compressors that generate, not amplifiers that relay. The laboratory
+version is exact: boundary mutual-information retention through one blocking step is 2–7%,
+bounded by one via the [[Data processing inequality]], while regenerated attention rebuilds
+interacting coarse structure from coarse state
+([[2026-08-18-minfo-information-retention]]). The neuroscience anchor is
+[[zheng-meister-2025-unbearable-slowness]] ($10^9$ bits/s in, ~10 bits/s out); the senses in
+which a higher level nonetheless "has more" — synergistic readout of joint statistics
+([[Partial information decomposition]]) and interventional causal emergence
+([[hoel-2013-causal-emergence]]) — are compatible with, not exceptions to, the DPI.
 
 ## Definitional hierarchy in the source manuscript
 
