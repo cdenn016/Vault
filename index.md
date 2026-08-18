@@ -10,7 +10,7 @@ updated: 2026-08-16
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **17** manuscripts · **14** themes · **11** field MOCs · **287** concepts · **12** methods · **599** papers · **116** references · **17** runs · **6** web/methodology
+> **3** projects · **17** manuscripts · **14** themes · **11** field MOCs · **287** concepts · **12** methods · **599** papers · **116** references · **18** runs · **6** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -1212,3 +1212,4 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[2026-07-25-exact-congruence-truncation-tension|Exact congruence versus diagonal truncation — two covariance families and a negative result (2026-07-25)]] (K=20 training arms; the exact congruence energy scales as cond(Ω)² and saturates the clamp; the frame-intrinsic family disconnects the gauge table entirely; see [[Diagonal truncation as gauge regularization]])
 - [[2026-07-25-shadow-prior-refutation|Cross-scale shadow priors do not transfer to the transformer — six-expert refutation (2026-07-25)]] (design investigation, no training results; no gauge degeneracy for a likelihood to break, the token cannot be both prior and observation, Bethe-not-mean-field status, Ladder-VAE-on-text record)
 - [[2026-08-02-rigorous-theory-search-skill|Rigorous theory search global skill — sanitized design, evaluation boundary, and mathematical reconstruction record (2026-08-02)]] (method/implementation/audit record; paired behavioral grading remains provisional; no current theory or runtime claim is certified by the archive)
+- [[2026-08-18-rescaling-audit-capacity-reversal|The rescaling-lab audit and the capacity reversal — a gauge-dependent sector charge retired, root-framed retention rises (2026-08-18)]] (MultiAgentELBO audit F1–F9 remediated at `4eed61f`; the amendment-6 sector charge failed sample-shift covariance, the root-framed charge is invariant to 2e-16 and reverses the published capacity null: R_cap 0.209/0.568 vs nine-state 0.156/0.441, old 0.144/0.406 retired as frame artifacts; every other published amendment 3–7 number reproduced)

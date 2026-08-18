@@ -81,13 +81,19 @@ on the declared two-channel gauge system:
 
 ## The 2026-08-18 reversal: regeneration restores interaction, typing survives
 
-The follow-up measurements (amendments 3–6 of the design) bounded the triviality result to the
+The follow-up measurements (amendments 3–8 of the design) bounded the triviality result to the
 **passive channel** — coupling inherited through blocking with attention frozen — and reversed
-the headline. Structural rescues of the passive channel fail: one-step pair retention grows
-sublinearly with boundary multiplicity ($0.156$, $0.441$, $0.564$ at $k = 1, 3, 6$ cut
-couplings per block boundary) and saturates below one, and the smallest sector enlargement of
+the headline. Structural rescues leave the passive channel below one: one-step pair retention
+grows sublinearly with boundary multiplicity ($0.156$, $0.441$, $0.564$ at $k = 1, 3, 6$ cut
+couplings per block boundary) and saturates below one, while the smallest sector enlargement of
 the parent alphabet (the block's belief-channel $Z_3$ charge, the singlet/triplet reading of
-marks) leaves retention unchanged within dilution, with the constant-sector control exact. What
+marks, root-framed through the spanning-tree transport) **raises** retention without crossing
+one — $0.209$ against $0.156$ at $k = 1$, $0.568$ against $0.441$ at $k = 3$, constant-sector
+control exact. The 2026-08-17 capacity null ($0.144$/$0.406$) was a frame artifact: the
+original charge was referenced to the first family member and shifted under the sample-shift
+gauge, and the 2026-08-18 audit retired it
+([[2026-08-18-rescaling-audit-capacity-reversal]]) — a measurement failing the covariance
+discipline the theory imposes on everything else. What
 restores interaction is the theory's own **re-binding rule**: regenerating each level's
 attention from the flow-averaged transported divergence over the conserved connection
 ($\beta \propto e^{-\overline D/\tau}$) and folding the alignment energy into the coarse
