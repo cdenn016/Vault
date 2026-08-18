@@ -130,8 +130,23 @@ negative here) versus proposability under bounded sight — a depth-limited agen
 a block beyond its sight radius, so bounded visibility forces staged aggregation kinetically
 regardless of the full-sight ranking, and hierarchy is what extends sight (a level-$\ell$
 parent with depth-1 coarse sight commands depth-$r^\ell$ fine structure, and carries its
-block's interior [[Holonomy]] as marks). The strongly coupled seed and the sight-limited
-variant are the declared follow-ups.
+block's interior [[Holonomy]] as marks).
+
+The follow-ups ran the same day and closed the story with scopes attached. M-bind
+([[2026-08-18-mbind-coupling-sweep]]) swept the coupling four decades and found no formation
+transition — the singleton preference is structural, not weak-coupling, and the blocking
+channel is kernel-limited (the $t \approx 0.15$ transmission does not adapt to signal). The
+resolution came from the agent-only ontology: observations are couplings to environmental
+agents, and the lab had been integrating those agents out after level zero. Restoring the
+environment as a blockable class ([[2026-08-18-environmental-blocking]]) licenses binding on
+clean controls — uniform anchors flip the modal class to direct collapse, distinct anchors
+anti-bind, shared-pair anchors pull the *anchor-aligned placement* eightfold — and running the
+theory as a process (joint annealed dynamics on states and partition) reverses the quenched
+verdict even on the bare instance. **Condensation follows shared evidence, not mutual
+attraction**, and the formation negatives of M-part/M-bind stand as true statements about the
+quenched update on environment-free levels. The staged-assembly question is now live rather
+than refuted: the annealed process favors aggregation, bounded sight forces it to be staged,
+and the anchor-sharing pattern selects which blocks form.
 
 ## The synthesis
 
