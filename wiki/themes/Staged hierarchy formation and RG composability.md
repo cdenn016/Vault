@@ -79,6 +79,28 @@ on the declared two-channel gauge system:
   directed $\beta_{ij}$ agent network, the lattice question "in what dimension does interaction
   survive" becomes "**which architectures renormalize to interacting fixed structures**".
 
+## The 2026-08-18 reversal: regeneration restores interaction, typing survives
+
+The follow-up measurements (amendments 3–6 of the design) bounded the triviality result to the
+**passive channel** — coupling inherited through blocking with attention frozen — and reversed
+the headline. Structural rescues of the passive channel fail: one-step pair retention grows
+sublinearly with boundary multiplicity ($0.156$, $0.441$, $0.564$ at $k = 1, 3, 6$ cut
+couplings per block boundary) and saturates below one, and the smallest sector enlargement of
+the parent alphabet (the block's belief-channel $Z_3$ charge, the singlet/triplet reading of
+marks) leaves retention unchanged within dilution, with the constant-sector control exact. What
+restores interaction is the theory's own **re-binding rule**: regenerating each level's
+attention from the flow-averaged transported divergence over the conserved connection
+($\beta \propto e^{-\overline D/\tau}$) and folding the alignment energy into the coarse
+action. Under that rule — itself gauge covariant to $10^{-11}$ — the per-ratio composites
+converge to interacting fixed structures (pairwise sup $0.579$ at ratio two, $0.625$ at ratio
+three, each about a quarter above its own one-step injection), so horizontal glue in a tall
+hierarchy is actively re-established per level from the two objects blocking conserves, the
+connection and the coarse beliefs, rather than inherited. Regeneration does not restore
+composability: defects stay order one across factorizations ($0.17$–$0.27$) and the interacting
+fixed structures remain ratio-typed ($0.64$ relative sup). The staged-assembly moral
+strengthens: which aggregation grain a hierarchy uses matters in both channels, all the way to
+the endpoints.
+
 ## The synthesis
 
 The two strands are one phenomenon seen from two sides. Because coarse descriptions are
