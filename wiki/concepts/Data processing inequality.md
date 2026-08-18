@@ -24,7 +24,8 @@ through the per-block Bayes kernels, and each parent label depends only on its o
 children, so the DPI applies across any block boundary: $I(P_1;P_2) \le I(X_{B_1};X_{B_2})$,
 making the mutual-information retention $R_{\mathrm{MI}} \le 1$ a theorem rather than a
 measurement ([[2026-08-18-minfo-information-retention]], amendment 9). Measured retention is
-2–7% at the declared seed — an order of magnitude below the sup-norm coupling retention,
+2–7% at the declared seed (tentative: a single-implementation lab finding, not independently
+verified — the bound is a theorem, the values are not) — an order of magnitude below the sup-norm coupling retention,
 because mutual information is quadratic in weak coupling. The structural consequence: the
 regenerated-attention mechanism restores *interaction* at coarse levels without restoring
 *information* — nothing operating on the coarse law can recover what the pushforward

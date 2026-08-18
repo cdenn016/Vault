@@ -19,6 +19,13 @@ updated: 2026-08-18
 
 # M-anchor and M-flow: the environment binds, and the process reorders the landscape (2026-08-18)
 
+> [!warning] Tentative — not independently verified
+> A single-implementation finding: reproduced and cross-checked only inside the MultiAgentELBO
+> codebase (the M-flow sampler is validated against the exactly computed marginal, but both
+> live in the same implementation). No independent implementation, external replication,
+> cross-model verification, or verification-ledger closure exists; treat every number and
+> verdict as tentative. This applies to the entire 2026-08-17/18 rescaling-laboratory chain.
+
 > [!info] Provenance and evidence boundary
 > Repository `MultiAgentELBO`, amendment 12 pre-registered before running; implementation
 > `src/multiagent_elbo/finite/environmental_blocking.py`, committed at `e14b6b2`. Motivated by

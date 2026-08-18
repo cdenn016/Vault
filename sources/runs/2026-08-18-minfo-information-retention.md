@@ -18,6 +18,13 @@ updated: 2026-08-18
 
 # M-info: boundary mutual-information retention deflates the sup-norm capacity story (2026-08-18)
 
+> [!warning] Tentative — not independently verified
+> A single-implementation finding: reproduced and cross-checked only inside the MultiAgentELBO
+> codebase. No independent implementation, external replication, cross-model verification, or
+> verification-ledger closure exists; treat every number and verdict as tentative. This
+> applies to the entire 2026-08-17/18 rescaling-laboratory chain. The DPI bound itself is a
+> theorem; the measured values and readings are what remain tentative.
+
 > [!info] Provenance and evidence boundary
 > Repository `MultiAgentELBO`, amendment 9 pre-registered in
 > `docs/superpowers/specs/2026-08-17-rescaling-map-design.md` before running; implementation

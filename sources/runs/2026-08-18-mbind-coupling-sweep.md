@@ -18,6 +18,12 @@ updated: 2026-08-18
 
 # M-bind: the coupling-scale sweep finds no formation transition and a kernel-limited channel (2026-08-18)
 
+> [!warning] Tentative — not independently verified
+> A single-implementation finding: reproduced and cross-checked only inside the MultiAgentELBO
+> codebase. No independent implementation, external replication, cross-model verification, or
+> verification-ledger closure exists; treat every number and verdict as tentative. This
+> applies to the entire 2026-08-17/18 rescaling-laboratory chain.
+
 > [!info] Provenance and evidence boundary
 > Repository `MultiAgentELBO`, amendment 11 pre-registered before running; results committed
 > at `8bb657d`. The validated seed's pair table scaled by $\lambda \in \{0, 1, 3, 10, 30,

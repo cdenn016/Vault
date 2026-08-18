@@ -62,8 +62,10 @@ instrument, one more face of "a level-$\ell$ parent with depth-1 sight commands 
 in the fine graph" ([[Meta-agents and hierarchical emergence]]).
 
 > [!note] Editorial: the frustration/empty-fixed-sector fact and mark-retention/C2 are
-> implemented, tested lab constructions; the human-scale readings (intransitivity detection,
-> the telephone game as a Wilson loop) are interpretive glosses, not measurements.
+> implemented, tested lab constructions — but single-implementation and not independently
+> verified, so tentative like the rest of the 2026-08-17/18 lab chain; the human-scale
+> readings (intransitivity detection, the telephone game as a Wilson loop) are interpretive
+> glosses, not measurements.
 
 ## Details
 

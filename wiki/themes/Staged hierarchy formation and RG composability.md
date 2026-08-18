@@ -81,6 +81,15 @@ on the declared two-channel gauge system:
 
 ## The 2026-08-18 reversal: regeneration restores interaction, typing survives
 
+> [!warning] Verification status: everything in this section and below is tentative.
+> The entire 2026-08-17/18 rescaling-laboratory chain (regeneration, the capacity reversal,
+> M-info, M-part, M-bind, M-anchor, M-flow, M-cross-env, M-share) is a single-implementation
+> body of findings: numbers were reproduced and cross-checked inside the MultiAgentELBO
+> codebase, but no independent implementation, external replication, cross-model
+> verification, or verification-ledger closure exists. Treat the verdicts as tentative; the
+> only claims exempt are the actual theorems (e.g. $R_{\mathrm{MI}} \le 1$ by data
+> processing), whose *measured values* remain tentative all the same.
+
 The follow-up measurements (amendments 3–8 of the design) bounded the triviality result to the
 **passive channel** — coupling inherited through blocking with attention frozen — and reversed
 the headline. Structural rescues leave the passive channel below one: one-step pair retention
@@ -147,6 +156,19 @@ attraction**, and the formation negatives of M-part/M-bind stand as true stateme
 quenched update on environment-free levels. The staged-assembly question is now live rather
 than refuted: the annealed process favors aggregation, bounded sight forces it to be staged,
 and the anchor-sharing pattern selects which blocks form.
+
+The last measurement of the arc ([[2026-08-18-mshare-finite-inertia]]) sharpened the
+shared-evidence mechanism itself: a point-mass environment aligns but cannot correlate (the
+per-site field factorizes), and finite-inertia shared agents — integrated out exactly — do
+carry the correlation channel (ninefold over private duplicates at zero inertia) yet never
+beat pure alignment for the aligned-placement statistic at this seed. Alignment and
+correlation are competing channels, not composing ones; in the
+[[Mass as Fisher information|mass-as-Fisher-information]] language, evidence with infinite
+mass is a frame, not a bond, and evidence light enough to move anchors nothing. The formation
+barrier that survives every instrument of the week is the derived energy's width penalty,
+which points at the level-invariant kernel family itself. The chain is rendered as a
+reviewable figure suite in the repository (`figures/rescaling-lab/`, seven figures with
+captions, regenerated live from the validated seed).
 
 ## The synthesis
 

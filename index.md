@@ -10,7 +10,7 @@ updated: 2026-08-16
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **17** manuscripts · **14** themes · **11** field MOCs · **287** concepts · **12** methods · **602** papers · **116** references · **22** runs · **6** web/methodology
+> **3** projects · **17** manuscripts · **14** themes · **11** field MOCs · **287** concepts · **12** methods · **602** papers · **116** references · **23** runs · **6** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -1222,3 +1222,4 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[2026-08-18-mpart-participatory-blocking|M-part: offered its own choice of blocking, the flow declines to aggregate (2026-08-18)]] (amendment 10, committed `fd71d0b`; the flow-averaged Proposition-4 posterior puts modal mass on singletons 0.586 over direct 0.306 over staged 0.08/0.025, null control within 1% — no aggregation favored at this seed, selection prior-and-kernel dominated; bounded-sight proposability recorded as the open split)
 - [[2026-08-18-mbind-coupling-sweep|M-bind: the coupling-scale sweep finds no formation transition and a kernel-limited channel (2026-08-18)]] (amendment 11, committed `8bb657d`; ceiling grows as lambda² across four decades yet singletons stay modal at every lambda and R_MI is flat-to-declining — the singleton preference is structural, transmission is kernel-limited, the weak-coupling excuse retracted)
 - [[2026-08-18-environmental-blocking|M-anchor and M-flow: the environment binds, and the process reorders the landscape (2026-08-18)]] (amendment 12, committed `e14b6b2`; the environment restored as a blockable agent class — uniform anchors flip modal to direct 0.55/0.84, distinct control anti-binds 0.90, shared pairs pull the aligned placement eightfold; annealed joint dynamics reverse the quenched verdict on the bare instance, sampler validated against the exact marginal — condensation follows shared evidence)
+- [[2026-08-18-mshare-finite-inertia|M-share: alignment and correlation compete, and alignment wins at this seed (2026-08-18)]] (amendment 14, committed `3548cc5`; finite-inertia shared environments by exact marginalization — correlation binding not licensed, aligned mass rises monotonically to the pinned plateau, but shared beats duplicated 9× at zero inertia and free strong sharing tips direct modal; figure suite of the whole chain at `figures/rescaling-lab/`, committed `9171363`. NOTE: all 2026-08-17/18 lab findings carry tentative status — single implementation, not independently verified)

@@ -38,9 +38,10 @@ with $S$ the slow species gate (from model alignment) and $C$ the fast coalition
 **The hierarchical information budget.** A meta-agent's state update *consumes* the full
 bandwidth of its constituents (pooling is constituent-only) while its own *emission* is far
 smaller — levels are compressors that generate, not amplifiers that relay. The laboratory
-version is exact: boundary mutual-information retention through one blocking step is 2–7%,
-bounded by one via the [[Data processing inequality]], while regenerated attention rebuilds
-interacting coarse structure from coarse state
+version is exact in construction though tentative in status (single-implementation, not
+independently verified): boundary mutual-information retention through one blocking step is
+2–7%, bounded by one via the [[Data processing inequality]], while regenerated attention
+rebuilds interacting coarse structure from coarse state
 ([[2026-08-18-minfo-information-retention]]). The neuroscience anchor is
 [[zheng-meister-2025-unbearable-slowness]] ($10^9$ bits/s in, ~10 bits/s out); the senses in
 which a higher level nonetheless "has more" — synergistic readout of joint statistics

@@ -19,6 +19,12 @@ updated: 2026-08-18
 
 # The rescaling-lab audit and the capacity reversal: a gauge-dependent sector charge retired, root-framed retention rises (2026-08-18)
 
+> [!warning] Tentative — not independently verified
+> A single-implementation finding: reproduced and cross-checked only inside the MultiAgentELBO
+> codebase. No independent implementation, external replication, cross-model verification, or
+> verification-ledger closure exists; treat every number and verdict as tentative. This
+> applies to the entire 2026-08-17/18 rescaling-laboratory chain.
+
 > [!info] Provenance and evidence boundary
 > Repository `MultiAgentELBO`, audit frozen at `9743962`, remediation and re-measurement
 > committed at `4eed61f` (report: `docs/audits/2026-08-18-rescaling-lab-audit.md`; declaration:

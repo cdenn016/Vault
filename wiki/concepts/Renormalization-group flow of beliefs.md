@@ -95,7 +95,8 @@ $\eta_{ij}^q=\alpha_i^q\beta_{ij}=\eta_{ji}^q$, one may derive symmetrized diffu
 or effective-resistance distances. None of these is a physical length unless a separate operational
 identification is proved.
 
-On the tempting "quasi-metric $d_{ij} \sim 1/\beta_{ij}$" reading (2026-08-18 discussion): the
+On the tempting "quasi-metric $d_{ij} \sim 1/\beta_{ij}$" reading (2026-08-18 discussion; the
+lab results it draws on are tentative, single-implementation findings): the
 asymmetry of the directed divergences is real, but it is not a Finsler structure — a Finsler
 metric needs asymmetry at first order in the norm, and divergences are second-order flat at
 coincidence, so the infinitesimal geometry is Fisher-Riemannian with the asymmetry living at
