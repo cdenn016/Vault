@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-08-08
+updated: 2026-08-20
 ---
 
 # Multi-agent variational free energy
@@ -111,6 +111,21 @@ parsimony question, reached independently of the direct computation.
 [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]] supplies the corrected obstruction. It works on the fine site-factorized family and sums iterated derivatives from separate site-local paths, yielding a positive weighted variance while every fixed-joint negative ELBO gives zero on the corresponding paths. The result excludes the coarser cross-design families, restricted families without the needed tangents, auxiliary-variable lifts, and the reduced functional after substituting state-dependent optimized attention. Its continuum corollary is conditional and does not construct a probability law on section space or a finite-to-continuum limit.
 
 [[vfe-population-generative-status-2026-07-12]] remains the immutable earlier record of the equilibrium-frozen auxiliary source model and a belief-configuration Gibbs lift when its partition function is finite. Its older obstruction account is refined by the site-local theorem above rather than silently rewritten.
+
+## External collective and distributed comparators (2026-08-20)
+
+The closest exact collective comparator is [[heins-2023-spin-glass-active-inference]]: a deliberately restricted agent model with symmetric mutual precisions and asynchronous updates reproduces spin-glass sampling. It demonstrates that exact collective reductions exist under explicit structural assumptions, while its fragility prevents extrapolation to a generic coupled-agent functional. [[friston-2024-federated-inference]] also defines a specialized joint free energy over agents and explicitly distinguishes that object from Bayesian belief updating. The existence of that joint functional must be acknowledged without treating it as a universal multi-agent ELBO.
+
+Higher-order agency is a separate obligation. [[palacios-2020-hierarchical-markov-blankets]] and [[waade-2025-as-one-and-many]] make a group-level Markov blanket conditional rather than automatic. Distributed variational methods such as [[ashman-2022-partitioned-variational-inference]] begin from a declared shared target and decompose it into owned site factors; this differs from interpreting reciprocal peer matching as a likelihood term after the fact. The 2026 preprints [[bouchaffra-2026-collective-variational-principle]] and [[bouchaffra-2026-coalition-free-energy]] are terminology-adjacent watchlist items, not foundations used by the present construction.
+### Structural map into Gauge-VFE
+
+The external papers occupy different layers of the live theory. [[heins-2023-spin-glass-active-inference]] is a discrete, flat or gauge-fixed positive control for exact collective reduction. [[friston-2024-federated-inference]] is a specialized belief-sharing potential and source-message comparator. [[palacios-2020-hierarchical-markov-blankets]], [[waade-2025-as-one-and-many]], and [[maisto-2025-flock-joint-agency]] supply conditional group-blanket constructions and diagnostics. [[ashman-2022-partitioned-variational-inference]] and [[paritosh-2025-distributed-variational-inference]] supply algorithms around a declared centralized target. None of these layers by itself supplies the combined normalized-joint, correlated-recognition, gauge, holonomy, and RG construction.
+
+The individual-to-group free-energy question has a conditional answer in the exact theory. One normalized interaction-record law gives one collective VFE; disintegration gives exact conditional VFEs for a singleton or declared block, and a unilateral conditional update is a coordinate update of the same scalar when the outside marginal is fixed. Independently defined incident objectives do not generally sum to that scalar because they overcount interactions. At the next scale, the parent VFE is defined by pushing the generative and recognition laws through the same declared coarse channel, not by summing arbitrary child free energies. This addresses the question left open by [[waade-2025-as-one-and-many]] only after a partition, channel, and hierarchical factorization have been declared.
+
+The strongest direct overlap with the 2026 Bouchaffra preprints is the separate `grand_canonical_meta_agent_formation.tex` note. A coalition is equivalent to a binary membership vector; inverse temperature maps to membership temperature; a chemical-potential term can be absorbed into coalition energy; and a Harsanyi or Möbius expansion maps to a full hyperedge expansion of occupation energy. Gauge-transported divergences then provide a special invariant interaction coefficient. This shared Gibbs variational form rules out broad priority claims about collective variational principles or Gibbs coalition laws. It does not erase the distinction that [[bouchaffra-2026-collective-variational-principle]] declares a coalition energy alongside local free energies, while the core Gauge-VFE theory begins from one normalized agent-and-record law and separately proves its local and coarse identities.
+
+The literature also fixes the Bayesian-mechanics boundary. Gauge covariance and natural-gradient VFE descent do not establish stationary stochastic dynamics, Markov blankets, synchronization maps, or physical time. A genuine multi-agent Bayesian mechanics must prove individual and group blankets and construct equivariant synchronization maps compatible with the coarse channel and retained holonomy. Until then, Gauge-VFE is a multi-agent variational and geometric extension program adjacent to Bayesian mechanics, not a completed generalization of it.
 
 ## Exact local--collective histories and their geometry
 
@@ -228,6 +243,10 @@ The optimized envelope force $c_0/(b_0+D_i)$ differs from the derivative $b_0c_0
 - [[vfe-population-generative-status-2026-07-12]] -- exact generative-model scope and no-go result.
 - [[participatory-it-from-bit]] -- broader two-channel multi-agent framework.
 - [[gl-k-attention]] and [[gl-k-attention-2026-07-09-review-revision]] -- gauge-attention derivation and corrected canonical-versus-surrogate scope.
+- [[heins-2023-spin-glass-active-inference]] -- exact but fragile collective special case.
+- [[palacios-2020-hierarchical-markov-blankets]] -- conditional higher-order Markov-blanket construction.
+- [[ashman-2022-partitioned-variational-inference]] -- explicit site-factor decomposition of a declared global variational target.
+- [[bouchaffra-2026-collective-variational-principle]] -- unreviewed terminology-adjacent preprint.
 
 ## See also
 

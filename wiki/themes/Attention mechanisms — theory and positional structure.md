@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-25
+updated: 2026-08-20
 ---
 
 # Attention mechanisms — theory and positional structure
@@ -79,7 +79,13 @@ no connection, so nothing in it addresses the frame-transport question that moti
 [[GL(K) gauge-equivariant attention]]. See
 [[Gauge equivariance and geometric deep learning]] for the fuller comparison.
 
+## Multi-agent attention-synergy watchlist (2026-08-20)
+
+[[bouchaffra-2026-attention-synergy]] proposes a game-theoretic free-energy account of attention and reports an interaction-information quantity as synergy. Because interaction information is not a unique partial-information-decomposition synergy atom and the preprint is recent and unreviewed, it is retained as a terminology and mechanism watchlist rather than evidence that attention entropy, collective free energy, or emergent group information are generally equivalent.
+
 ## Sources synthesized
+
+- [[bouchaffra-2026-attention-synergy]] — unreviewed game-theoretic attention/free-energy preprint with a bounded interaction-information claim.
 
 Core attention theory and the existing linked sources remain as above. The 2026-07-09 revision adds the direct precursor families listed in the big-picture section and corrects the Schild's-ladder attribution without introducing unresolved source-note slugs. [[gl-k-attention-2026-07-09-review-revision]]
 

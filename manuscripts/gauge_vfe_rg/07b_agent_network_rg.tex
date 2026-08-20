@@ -72,6 +72,187 @@ the evidence event.  An invertible or evidence-sufficient observation channel
 is an exception, but its preserved event and posterior must be proved
 explicitly.  \status{ESTABLISHED}
 
+\medskip
+\theoremheading{Full pointwise probabilistic datum for a candidate parent}{thm:rg-pointwise-parent-datum}
+Fix a nonempty finite child block $I$, a parent label $A$, the common domain
+\begin{equation}
+\mathcal U_A=\bigcap_{i\in I}\mathcal C_i,
+\qquad r_*\in\mathcal U_A,
+\label{eq:rg-pointwise-parent-overlap}
+\end{equation}
+and structural data $X$ with $X_A=\chi_A(X)$. Let
+$\mathsf O,\mathsf Y_I,\mathsf B_A,\mathsf M_A,\boldsymbol\Xi_A,$ and
+$\mathsf H_A$ be nonempty standard-Borel spaces, and put
+\begin{equation}
+\mathsf Z_A=\mathsf B_A\times\mathsf M_A\times\boldsymbol\Xi_A\times\mathsf H_A.
+\label{eq:rg-pointwise-parent-space}
+\end{equation}
+Keep $X$ and $X_A$ outside the random channel. Supply the fixed normalized generative joint
+\[
+\mathbb P_I(Do,DY\mid X),
+\]
+and its selected measurable posterior-version kernel $o\mapsto\boldsymbol\Pi_{I,o,X}$.
+At an admitted $o$ with a finite positive evidence representative, supply a normalized correlated recognition law
+$\mathbb Q_{I,o,X}\ll\boldsymbol\Pi_{I,o,X}$. Declare one normalized measurable
+Markov-kernel channel:
+\begin{equation}
+C_A:\mathsf Y_I\rightsquigarrow\mathsf Z_A.
+\label{eq:rg-pointwise-parent-channel}
+\end{equation}
+It is fixed independently of recognition, posterior, recognition
+parameters, and realized observation. It acts only on the fine random variables and leaves the
+observation coordinate in $\mathsf O$ unchanged. Define
+\begin{align}
+\mathbb P_A(Do,Dz\mid X)
+&=\int_{\mathsf Y_I}C_A(Y,Dz)\mathbb P_I(Do,DY\mid X),
+\label{eq:rg-pointwise-parent-generative}\\
+\boldsymbol\Pi_{A,o,X}&=\boldsymbol\Pi_{I,o,X}C_A,\\
+\mathbb Q_{A,o,X}&=\mathbb Q_{I,o,X}C_A
+\quad\text{(same normalized Markov-kernel channel).}
+\label{eq:rg-pointwise-parent-triple}
+\end{align}
+Then all three parent laws are normalized, the parent observation marginal equals the fine one,
+$o\mapsto\boldsymbol\Pi_{A,o,X}$ is the selected parent posterior-version kernel, and
+$\mathbb Q_{A,o,X}\ll\boldsymbol\Pi_{A,o,X}$.
+
+Declare a jointly measurable normalized parent evaluator
+\begin{equation}
+\operatorname{ev}_A:\mathsf M_A\longrightarrow
+\operatorname{Kern}(\boldsymbol\Xi_A,
+\mathsf B_A\times\mathsf O\times\mathsf H_A),
+\qquad m_A\longmapsto K^{X_A}_{A,m_A}.
+\label{eq:rg-pointwise-parent-evaluator}
+\end{equation}
+It is compatible with the parent generative law either when it is the family induced by a selected
+standard-Borel disintegration, or, for a family declared independently of $\mathbb P_A$, under the
+separate almost-sure compatibility hypothesis
+\begin{equation}
+\mathbb P_A(db_A,do,dh_A\mid\xi_A,m_A,X)
+=K^{X_A}_{A,m_A}(\xi_A;db_A,do,dh_A),
+\label{eq:rg-pointwise-parent-evaluator-compatibility}
+\end{equation}
+for the parent $(M_A,\Xi_A)$ marginal almost surely. Disintegration proves existence of the induced
+tier; it does not validate an arbitrary predeclared evaluator, select its null extension canonically,
+make evaluation injective, or regularize a quotient of presentations.
+
+With $\mathbb P_A^Z(D\mid X)=\mathbb P_A(\mathsf O\times D\mid X)$ and locally fixed $(o,X)$,
+the parent recognition, prior, and posterior marginals are the coordinate pushforwards
+\begin{align}
+q_A^b&=(\operatorname{pr}_b)_\#\mathbb Q_{A,o,X},
+&q_A^m&=(\operatorname{pr}_m)_\#\mathbb Q_{A,o,X},
+\label{eq:rg-pointwise-parent-recognition-marginals}\\
+p_A^b&=(\operatorname{pr}_b)_\#\mathbb P_A^Z(\cdot\mid X),
+&p_A^m&=(\operatorname{pr}_m)_\#\mathbb P_A^Z(\cdot\mid X),
+\label{eq:rg-pointwise-parent-prior-marginals}\\
+\boldsymbol\Pi_{A,o,X}^b&=(\operatorname{pr}_b)_\#\boldsymbol\Pi_{A,o,X},
+&\boldsymbol\Pi_{A,o,X}^m&=(\operatorname{pr}_m)_\#\boldsymbol\Pi_{A,o,X}.
+\label{eq:rg-pointwise-parent-posterior-marginals}
+\end{align}
+Under the richness hypothesis of \Cref{prop:prob-marginals-do-not-determine-joint} --- that the
+relevant parent coordinate space carry at least two nondegenerate coordinates --- no displayed
+marginal pair reconstructs the corresponding full law. The hypothesis is necessary and not
+decorative: if $\mathsf Z_A$ degenerates to a single point, its unique law is trivially determined by
+its marginals, and the released finite witnesses exhibit nonreconstruction only in the nondegenerate
+case.
+
+Apply the same normalized Markov-kernel channel $C_A$ to the fine recognition and posterior laws and
+disintegrate both lifts in
+$Y$ conditional on $z$. The additive identity in $[0,+\infty]$ is
+\begin{equation}
+\KL(\mathbb Q_{I,o,X}\Vert\boldsymbol\Pi_{I,o,X})
+=\KL(\mathbb Q_{A,o,X}\Vert\boldsymbol\Pi_{A,o,X})+\Delta_A(o,X),
+\label{eq:rg-pointwise-parent-kl-chain}
+\end{equation}
+where
+\begin{equation}
+\Delta_A(o,X)=\int_{\mathsf Z_A}
+\KL\left(
+\widehat{\mathbb Q}_{I,o,X}(dY\given z)
+\middle\Vert
+\widehat{\boldsymbol\Pi}_{I,o,X}(dY\given z)
+\right)\mathbb Q_{A,o,X}(dz)\geq0.
+\label{eq:rg-pointwise-parent-defect}
+\end{equation}
+Adding the same finite real $-\log p_X(o)$ to both KL terms gives the extended-real identity
+$\Fenergy_I=\Fenergy_A+\Delta_A$; when finite, a VFE may be negative. Without a finite-fine-KL
+premise, $\Delta_A=0$ exactly when the two discarded conditional laws in
+\eqref{eq:rg-pointwise-parent-defect} agree $\mathbb Q_{A,o,X}$-almost surely. Finite fine KL is
+required for the ordinary subtraction $\Fenergy_I-\Fenergy_A=\Delta_A$ and for the stated two-way
+pairwise common-recovery equivalence. Family-wide common recovery requires simultaneous hypotheses
+for every family member. A bare equality $+\infty=+\infty$ supplies neither the zero-defect
+criterion nor a recovery consequence. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Normalization and the observation marginal.  Since $C_A(Y,\mathsf Z_A)=1$ for every
+$Y\in\mathsf Y_I$, integrating \eqref{eq:rg-pointwise-parent-generative} against the constant
+function gives $\mathbb P_A(\mathsf O\times\mathsf Z_A\mid X)=1$, and the same computation applied
+to $\boldsymbol\Pi_{I,o,X}$ and $\mathbb Q_{I,o,X}$ normalizes the other two laws in
+\eqref{eq:rg-pointwise-parent-triple}.  Testing
+\eqref{eq:rg-pointwise-parent-generative} with a bounded measurable function of $o$ alone gives
+$\mathbb P_A^{\mathsf O}=\mathbb P_I^{\mathsf O}$, because $C_A$ leaves the observation coordinate
+unchanged.
+
+Posterior version.  Let $f$ be bounded measurable on $\mathsf Z_A$ and $g$ bounded measurable on
+$\mathsf O$, and put $h(Y)=\int f(z)C_A(Y,dz)$, which is bounded and measurable because $C_A$ is a
+kernel.  Then
+\[
+\int g\Bigl(\int f\,d\boldsymbol\Pi_{A,o,X}\Bigr)\mathbb P_A^{\mathsf O}(do)
+=\int g\Bigl(\int h\,d\boldsymbol\Pi_{I,o,X}\Bigr)\mathbb P_I^{\mathsf O}(do)
+=\int g(o)h(Y)\,\mathbb P_I(do,dY\mid X)
+=\int g(o)f(z)\,\mathbb P_A(do,dz\mid X),
+\]
+using the preserved observation marginal, then the defining property of the selected fine version,
+then \eqref{eq:rg-pointwise-parent-generative}.  Hence $o\mapsto\boldsymbol\Pi_{A,o,X}$ is a selected
+parent posterior version, including at its declared exceptional points.  The step uses that $C_A$
+acts on the conditioned variable only; a channel that also coarsened $\mathsf O$ would not descend.
+
+Absolute continuity.  If $\boldsymbol\Pi_{A,o,X}(N)=0$ then
+$\int C_A(Y,N)\boldsymbol\Pi_{I,o,X}(dY)=0$, so $C_A(\cdot,N)=0$ holds
+$\boldsymbol\Pi_{I,o,X}$-almost surely, hence $\mathbb Q_{I,o,X}$-almost surely by
+$\mathbb Q_{I,o,X}\ll\boldsymbol\Pi_{I,o,X}$, and therefore
+$\mathbb Q_{A,o,X}(N)=\int C_A(Y,N)\mathbb Q_{I,o,X}(dY)=0$.
+
+Evaluator.  On standard-Borel spaces a selected disintegration of $\mathbb P_A(\cdot\mid X)$ over
+$(M_A,\Xi_A)$ exists and is jointly measurable, which supplies the induced tier of
+\eqref{eq:rg-pointwise-parent-evaluator} together with
+\eqref{eq:rg-pointwise-parent-evaluator-compatibility} by construction.  For a family declared
+independently of $\mathbb P_A$, \eqref{eq:rg-pointwise-parent-evaluator-compatibility} is the stated
+separate hypothesis; disintegration alone does not supply it.
+
+Marginals.  Equations \eqref{eq:rg-pointwise-parent-recognition-marginals} and the accompanying
+prior and posterior displays are coordinate pushforwards by definition, obtained by testing each
+parent law with functions of a single coordinate.
+
+Chain identity and defect.  Form the joint lifts of
+\eqref{eq:rg-bridge-lifts} with $C=C_A$, $Q_o=\mathbb Q_{I,o,X}$ and
+$\Pi_o=\boldsymbol\Pi_{I,o,X}$.  Applying \Cref{thm:rg-exact-coarse-vfe} verbatim yields
+\eqref{eq:rg-pointwise-parent-defect} and the extended-real additive identity, every term lying in
+$[0,+\infty]$ with no infinite quantity subtracted.  Adding the common finite real $-\log p_X(o)$ to
+both KL terms gives $\Fenergy_I=\Fenergy_A+\Delta_A$ in the extended reals; the sum of a finite real
+and a nonnegative extended real is no longer nonnegative, which is why a finite VFE may be negative.
+
+Zero defect.  $\Delta_A$ is the integral of a nonnegative measurable integrand against
+$\mathbb Q_{A,o,X}$, so it vanishes exactly when that integrand vanishes
+$\mathbb Q_{A,o,X}$-almost surely; the integrand is a relative entropy, which vanishes exactly when
+its two arguments agree.  No finiteness hypothesis enters here.
+
+Finite tier.  If the fine KL is finite then both right-hand terms are finite, so the subtraction
+$\Fenergy_I-\Fenergy_A=\Delta_A$ is an ordinary difference of reals.  On that tier the selected
+posterior reverse kernel recovers both declared laws under $\Delta_A=0$; conversely, one normalized
+kernel $R$ recovering both laws sandwiches the fine and coarse KL values by data processing through
+$C_A$ and then through $R$, forcing equality and hence $\Delta_A=0$.  This is the equality case of
+data processing, i.e.\ sufficiency of $C_A$ for the pair, and it is pairwise: a single kernel serving
+an entire family requires the hypothesis for every member simultaneously.  If both KL values are
+$+\infty$ the equality is vacuous and yields neither conclusion.  $\square$
+
+\medskip
+
+This theorem constructs a full normalized, generally lossy pointwise probabilistic datum. The coarse
+channel and child membership are declared inputs, not canonical selections. The theorem supplies no
+parent local sections over $\mathcal U_A$, patch gluing, geometric meta-agent, autonomous dynamics,
+agency, nonequilibrium persistence, continuum limit, physical time, unique latent DAG, unique
+microscopic physics, or ontology. Those are separate obligations. \status{NOT-CLAIMED}
+
 \section{The exact effective likelihood and action}
 \label{sec:rg-effective-action}
 
@@ -1672,6 +1853,46 @@ nested trees with the compatibility below give strict composition, while
 arbitrary choices give a root-gauge-equivariant isomorphism of presentations.
 \status{ESTABLISHED}
 
+\paragraph{Full-law holonomy alternatives.}
+The full pointwise datum of \Cref{thm:rg-pointwise-parent-datum} has two declared alternatives,
+which need not be logically exclusive at different retained-coordinate or quotient levels. For a
+holonomy-blind parent, supply bimeasurable typed groupoid actions on the complete fine random space,
+the parent space $\mathsf Z_A$, the unchanged observation space, and structural data; require the
+fine generative and recognition laws to be covariant; select a posterior-version family compatible
+with those actions; require
+\begin{equation}
+C_A(g\mathbin{\cdot}Y,g\mathbin{\cdot}D)=C_A(Y,D),
+\label{eq:rg-pointwise-parent-holonomy-channel}
+\end{equation}
+for every admitted arrow and measurable parent event; and require evaluator covariance for the
+typed actions on $(m_A,\xi_A)$ and $(B_A,O,H_A)$. Under those hypotheses, substitution in
+\eqref{eq:rg-pointwise-parent-generative} and
+\eqref{eq:rg-pointwise-parent-triple} makes the complete parent generative, posterior, and
+recognition laws covariant. Same-slice invariance at a fixed $(o,X)$ follows only for isotropy arrows
+that fix $(o,X)$ and the selected posterior versions. Separate invariance of $q_A^b$ and $q_A^m$ is
+only a projection consequence and does not replace these full-law hypotheses.
+
+On the retention alternative, the raw root-framed state above places component roots, the complete
+based holonomy representations, and the dressed boundary marks in $\mathsf H_A$ and pushes their
+joint law forward without a holonomy-blind claim. This alternative preserves path information; it
+does not select $I$, $A$, a partition, or a membership kernel. \status{ESTABLISHED}
+
+\paragraph{Scope of the word ``holonomy'' in the blindness alternative.}
+The name is inherited from
+\Cref{thm:cg-holonomy-kl-marginal}, where the acting object is the genuine based-loop transport group
+$\mathfrak h_I^x(r)=\{T_\lambda:\lambda\ \text{a loop at}\ r\}$ and the statement is about parallel
+marginal-law sections. The full-law alternative above generalizes that statement by widening the
+acting object to an \emph{arbitrary typed groupoid of bimeasurable isomorphisms}, and no connection
+form, horizontal distribution, lift, loop, or curvature enters its hypotheses or its proof: the
+argument is substitution of an equivariant channel into
+\eqref{eq:rg-pointwise-parent-generative} and \eqref{eq:rg-pointwise-parent-triple}. What is proved is
+therefore \emph{covariance of the full parent laws under a declared groupoid action}, with
+same-slice invariance on the isotropy subgroup of $(o,X)$; it is not a statement that a holonomy has
+been computed or quotiented away. Loop transports are one admissible instance of that groupoid, which
+is why the inherited name is retained, but a reader should not infer connection-theoretic content
+from it. The retention alternative, by contrast, does carry literal holonomy data: the based holonomy
+representations are stored in $\mathsf H_A$ as raw records. \status{ESTABLISHED}
+
 On a separately declared linear feature fiber $V_x$, let
 $R_x:G\to\operatorname{GL}(V_x)$ be a linear representation.  Choose
 $w_{Ii}\geq0$ with $\sum_{i\in I}w_{Ii}=1$ and set
@@ -2024,6 +2245,23 @@ is the lumpability criterion of \citet[Ch.~6]{KemenySnell1976}; that source is
 cited only at its finite-state scope, and the standard-Borel statement above is
 proved here. \status{ESTABLISHED}
 
+\medskip
+\openproblemheading{Dynamic closure of the pointwise parent}{open:rg-pointwise-parent-dynamics}
+The static construction of \Cref{thm:rg-pointwise-parent-datum} supplies no fine evolution and no
+parent evolution. In a separately declared differentiable special case with fine field $V_t$, moving
+deterministic coarse map $c_t$, and candidate parent field $\overline V_t$, the exact semiconjugacy
+defect is
+\begin{equation}
+\delta_t=\partial_tc_t+Dc_tV_t-\overline V_t\circ c_t.
+\label{eq:rg-pointwise-parent-semiconjugacy-defect}
+\end{equation}
+For a Markov evolution the corresponding exact condition is semigroup intertwining; a generator
+identity is an alternative criterion only on a declared invariant domain or core, with generation
+and uniqueness hypotheses sufficient to lift it to the semigroups. Proving either condition for the
+released static datum, together with any autonomy, moving-membership, path-law, stochastic,
+delayed, memory, or nonequilibrium claim, remains open. The parameter $t$ is not thereby physical
+time. \status{OPEN}
+
 \theoremheading{Exact discrete projection-memory recurrence}{thm:rg-projection-memory}
 Let $\mathsf X$ and $\mathsf W$ be vector spaces, let $T:\mathsf X\to\mathsf X$,
 $\mathsf C:\mathsf X\to\mathsf W$, and $\mathsf P:\mathsf W\to\mathsf X$ be
@@ -2128,7 +2366,7 @@ kernel $K_b=C_bI_b$.  Compatibility means, after the declared canonical
 identifications,
 \begin{equation}
 K_{b_1b_2}=K_{b_1}K_{b_2}.
-\label{eq:rg-kernel-semigroup}
+\label{eq:rg-kernel-compatibility}
 \end{equation}
 On the primary measure pair,
 define
@@ -2140,9 +2378,36 @@ define
 \end{equation}
 Write $\mathcal R_b^\rho\rho=(\rho C_b)I_b=\rho K_b$ for its reference
 component.
-Equation~\eqref{eq:rg-kernel-semigroup} makes
+Equation~\eqref{eq:rg-kernel-compatibility} makes
 $\mathcal R_{b_1b_2}=\mathcal R_{b_2}\mathcal R_{b_1}$; otherwise the sequence
 is a typed cocycle rather than an autonomous semigroup.  \status{ESTABLISHED}
+
+The dichotomy is no longer hypothetical: the compatibility law was
+instantiated and tested, and it failed.  On 2026-08-17 the finite categorical
+laboratory declared the identification kernels for the nested-cycle family
+(the Wilson-line coarse connection composed from retained dressed boundary
+generators, the cyclic graph identification, and the identity state
+identification), verified gauge covariance of the composite step to $10^{-12}$
+and exact holonomy conservation, and then tested
+\eqref{eq:rg-kernel-compatibility} against a tolerance of $10^{-10}$ fixed
+before measurement.  Blocking six agents by the full ratio against blocking in
+declared stages disagrees by $0.204$ in sup norm on the final couplings, with
+a provably lossless intermediate projection, so the defect is the Bayes
+blocking kernel composition itself: the declared downward-kernel family is not
+closed under composition across levels, for the same generic reason that
+lumped Markov chains are not Markov.  The defect is order one, between $0.12$
+and $0.19$, at every accessible depth and factorization, including
+two-then-three against three-then-two on a homogeneous six-cycle where both
+orderings are legitimate consecutive blockings.  For the exhibited
+construction the second branch of the dichotomy is therefore the operative
+one: the scale maps of this chapter form a typed cocycle, and every statement
+below that assumes \eqref{eq:rg-kernel-compatibility} is a hypothesis that the
+first exhibited rescaling construction fails.  Implementation, pre-registered
+design, and measurements:
+\texttt{src/multiagent\_elbo/finite/rescaling.py},
+\texttt{coupling\_readback.py}, \texttt{cocycle\_flow.py}, and
+\texttt{docs/superpowers/specs/2026-08-17-rescaling-map-design.md}.
+\status{NUMERICAL}
 
 On a dominated tier, the action map retains its reference argument:
 \begin{equation}
@@ -2579,6 +2844,59 @@ written as an eigenvalue equation in one unnamed space.  These are
 classification definitions; no autonomous spectrum, mode, or exponent is
 asserted for a general nonautonomous sequence. \status{DEFINITION}
 
+On the declared finite family the autonomous branch of these conventions is
+not available, because its blocking-ratio hypothesis is the compatibility law
+that the measurements following \eqref{eq:rg-kernel-compatibility} refute.
+What the cocycle branch licenses was measured instead.  For each declared
+ratio, the composite of the blocking with the self-similar re-tiling
+identification is a self-map of the reduced homogeneous coupling space, and it
+is a local contraction: spectral radius $0.78$ at the declared seed and
+$0.83$ at its fixed point for ratio two, with every eigenvalue inside the unit
+circle.  Iterating converges to a fixed structure whose pairwise block is zero
+at machine precision.  That factorized subspace is invariant by construction,
+since the block-local Bayes kernel sends factorized theories to factorized
+theories, and the measurements show it is attracting, with pair-sector
+eigenvalues near $0.17$; in the level-local sense of the cocycle conventions
+above, interaction between parents is irrelevant at every declared ratio.
+The ratio-two and ratio-three fixed structures differ by $0.81$ in relative
+sup norm, so the fixed structures themselves are typed by the ratio.  The
+cause is architectural rather than dynamical: the declared family joins
+adjacent blocks through single boundary agents, its instances are
+quasi-one-dimensional, and a one-dimensional finite-range system with strictly
+positive weights has a Perron--Frobenius transfer matrix and no interacting
+fixed structure.  These are numerical results on declared finite instances,
+level-local by construction; they license no universality claim and no
+relevance exponent.  \status{NUMERICAL}
+
+Every statement in the preceding paragraph describes the \emph{passive} map,
+in which the coarse pairwise coupling is inherited through blocking with
+attention frozen as declared data, and later measurements on 2026-08-17/18
+bounded that reading sharply.  Thickening the coupling boundary alone does not
+rescue the passive channel: the one-step pair retention rises sublinearly with
+the number of cut couplings per block boundary ($0.156$, $0.441$, $0.564$ at
+one, three, and six) and saturates below one.  Enlarging the parent alphabet
+with the smallest sector label, the block's belief-channel $Z_3$ charge
+root-framed through the spanning-tree transport, raises retention ($0.209$
+against $0.156$ at one cut coupling, $0.568$ against $0.441$ at three, with
+the constant-sector control reproducing the nine-state values exactly) while
+remaining below one; an earlier null ($0.144$) used a family-referenced
+charge that shifts under the sample-shift gauge and was retired by the
+2026-08-18 audit.  What
+does restore interaction is the theory's own regeneration rule: recomputing
+attention at each level from the flow-averaged transported divergence over
+the conserved connection and folding the alignment energy into the coarse
+action.  Under that declared rule, whose coarse action satisfies the same
+gauge-covariance identity to $10^{-11}$, the per-ratio composites converge to
+\emph{interacting} fixed structures — pairwise sup $0.579$ at ratio two and
+$0.625$ at ratio three, each a quarter above its own one-step injection — so
+horizontal coupling in this theory is maintained by active re-binding rather
+than by inheritance, and the passive triviality is a statement about the
+frozen-attention channel only.  The typing survives regeneration: the
+composition defect remains order one across factorizations ($0.17$--$0.27$)
+and the interacting fixed structures remain ratio-typed ($0.64$ relative
+sup), so the cocycle reading of this chapter stands in both channels.
+\status{NUMERICAL}
+
 \definitionheading{Typed invariant and fixed objects}{def:rg-typed-fixed-objects}
 Write $Y_\ell^{(\tau)}$ for the object of one declared tier $\tau$ and
 $F_\ell^{(\tau)}:Y_\ell^{(\tau)}\to Y_{\ell+1}^{(\tau)}$ for its declared step.
@@ -2749,7 +3067,7 @@ root-framed holonomy maps, root features, and dressed boundary generators;
 joint marked attention-event laws; every
 induced effective hyperedge; full path laws or their exact memory kernels; and
 rescaling kernels satisfying
-\eqref{eq:rg-kernel-semigroup}.  Then the global and local ELBOs,
+\eqref{eq:rg-kernel-compatibility}.  Then the global and local ELBOs,
 agent--meta bridge kernels, meta-agent interaction kernels, meta-attention,
 effective likelihoods, measure-pair scale composition, and measure-pair fixed
 equations defined in this and the preceding chapter are simultaneously
@@ -2770,6 +3088,20 @@ disintegration of $\eta$ give exact attention.  Path pushforward supplies
 dynamic closure, and the explicit common-space kernel identity types and
 composes the measure-pair RG.  Each operation is closed in the stated
 collection, so their finite composition is closed.  $\square$
+
+The rescaling-kernel hypothesis deserves one caution the other hypotheses do
+not need.  Every other premise is satisfied by the declared finite
+constructions of this and the preceding chapter, but rescaling kernels
+satisfying \eqref{eq:rg-kernel-compatibility} are, as of 2026-08-17, not
+exhibited: the first declared rescaling construction fails the compatibility
+law at order one on its pre-registered criterion, as recorded after
+\eqref{eq:rg-kernel-compatibility}.  The theorem is unaffected as a
+conditional statement, and every clause of it except scale composition
+applies to the exhibited construction per level pair.  But its
+scale-composition clause is currently satisfied by no exhibited instance, and
+a reader instantiating the theorem must either supply a kernel family proved
+closed under composition, which is a separate open design, or restate the
+composed clauses in typed-cocycle form.  \status{NUMERICAL}
 
 \corollaryheading{Exact analytic action, beta, and scaling tier}{cor:rg-complete-analytic-tier}
 In addition to the hypotheses of \Cref{thm:rg-complete-effective-theory},
