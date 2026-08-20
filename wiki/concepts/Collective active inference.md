@@ -14,7 +14,7 @@ tags:
   - project/social-physics
 status: stable
 created: 2026-06-19
-updated: 2026-08-10
+updated: 2026-08-20
 ---
 
 # Collective active inference
@@ -53,6 +53,14 @@ These two sources should remain distinct. Ruiz-Serra et al. study strategic poli
 EFE; Fukuoka et al. study decentralized variational inference for a shared latent sign. Neither is
 implemented by the current MultiAgentELBO exact finite evaluator.
 
+## Exact special cases, shared goals, and emergent collectives (2026-08-20)
+
+The closest exact positive control is [[heins-2023-spin-glass-active-inference]]. Under a deliberately factorized generative model, symmetric pairwise precisions, and asynchronous updates, the agent ensemble reproduces Glauber or Boltzmann sampling. The equivalence is explicitly fragile: it does not license a generic collective free energy when symmetry, update scheduling, or the generative model changes. [[maisto-2024-interactive-inference]] and [[albarracin-2024-shared-protentions]] instead model reciprocal prediction and compositional shared goals. They clarify mechanisms of joint action without proving a fixed-joint ELBO for arbitrary interacting agents.
+
+A second line treats communication as distributed inference over shared representations. [[taniguchi-2024-collective-predictive-coding]] frames symbol emergence as collective predictive coding, while [[hoang-2024-mh-naming-game]] supplies a Metropolis--Hastings naming-game construction. These categorical and communicative models are comparators for decentralized inference; their discrete label alignment is not the same mathematical problem as continuous gauge-frame transport.
+
+Group agency remains conditional. [[palacios-2020-hierarchical-markov-blankets]] demonstrates a simulated micro-to-macro blanket construction for suitably equipped systems and explicitly does not claim that every coupled system forms a higher-order blanket. [[maisto-2025-flock-joint-agency]] reports an emergent flock-level blanket and synergistic information in simulation, complementing [[waade-2025-as-one-and-many]], but neither supplies a general emergence theorem. The recent preprints [[bouchaffra-2026-collective-variational-principle]] and [[bouchaffra-2026-coalition-free-energy]] use terminology close to a collective variational principle; they remain an unreviewed watchlist rather than established foundations.
+
 > [!important] Current code scope
 > MultiAgentELBO has no active-policy engine, game dynamics, naming-game protocol, posterior server,
 > or reactive message scheduler. These papers define future comparators and negative controls, not
@@ -67,6 +75,15 @@ implemented by the current MultiAgentELBO exact finite evaluator.
 - [[belief-inertia-2026-07-12-theorem-first-revision]] -- passive-attention metastability and kinetic scope.
 - [[ruiz-serra-2025-factorised-active-inference]] -- strategic factorized beliefs and model-specific ensemble-EFE dynamics.
 - [[fukuoka-2026-variational-bayes-naming-game]] -- decentralized variational inference for shared signs.
+- [[heins-2023-spin-glass-active-inference]] -- exact but fragile spin-glass equivalence under explicit structural assumptions.
+- [[maisto-2024-interactive-inference]] -- reciprocal prediction and cooperative joint action.
+- [[albarracin-2024-shared-protentions]] -- compositional treatment of shared goals.
+- [[taniguchi-2024-collective-predictive-coding]] -- collective predictive coding and symbol emergence.
+- [[hoang-2024-mh-naming-game]] -- Metropolis--Hastings naming game as decentralized inference.
+- [[palacios-2020-hierarchical-markov-blankets]] -- conditional micro-to-macro Markov-blanket construction.
+- [[maisto-2025-flock-joint-agency]] -- simulated higher-order blanket and collective information.
+- [[bouchaffra-2026-collective-variational-principle]] -- unreviewed collective-variational-principle preprint.
+- [[bouchaffra-2026-coalition-free-energy]] -- unreviewed coalition-free-energy preprint.
 
 ## See also
 

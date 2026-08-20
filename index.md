@@ -2,7 +2,7 @@
 type: index
 title: Index
 aliases: [Index, Home]
-updated: 2026-08-16
+updated: 2026-08-20
 ---
 
 # Index
@@ -10,7 +10,7 @@ updated: 2026-08-16
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **17** manuscripts · **14** themes · **11** field MOCs · **287** concepts · **12** methods · **602** papers · **116** references · **23** runs · **6** web/methodology
+> **3** projects · **17** manuscripts · **14** themes · **11** field MOCs · **287** concepts · **12** methods · **622** papers · **116** references · **23** runs · **6** web/methodology
 
 ## 🧭 Start here
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
@@ -412,6 +412,28 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Variational autoencoder (VAE)]]
 
 ## 📄 Sources — papers
+
+### Multi-agent VFE, Bayesian mechanics, and distributed inference ingest (2026-08-20)
+- [[heins-2023-spin-glass-active-inference|Spin glass systems as collective active inference]]
+- [[maisto-2024-interactive-inference|Interactive Inference: A Multi-Agent Model of Cooperative Joint Actions]]
+- [[albarracin-2024-shared-protentions|Shared Protentions in Multi-Agent Active Inference]]
+- [[taniguchi-2024-collective-predictive-coding|Collective Predictive Coding as Model-Based Science]]
+- [[hoang-2024-mh-naming-game|Metropolis-Hastings Naming Game: Inter-Agent Symbol Emergence as Distributed Bayesian Inference]]
+- [[maisto-2025-flock-joint-agency|What the flock knows that the birds do not]]
+- [[palacios-2020-hierarchical-markov-blankets|On Markov blankets and hierarchical self-organisation]]
+- [[bouchaffra-2026-collective-variational-principle|A Collective Variational Principle Unifying Bayesian Inference, Game Theory, and Thermodynamics]]
+- [[bouchaffra-2026-coalition-free-energy|Coalition Free Energy and Adaptive Precision in Multi-Agent Cooperation]]
+- [[bouchaffra-2026-attention-synergy|Attention, Synergy, and Free Energy in Multi-Agent Systems]]
+- [[hua-li-2016-distributed-variational-bayes|A Distributed Variational Bayesian Algorithm over Sensor Networks]]
+- [[masegosa-2016-distributed-vmp|Distributed Variational Message Passing]]
+- [[vehtari-2020-ep-partitioned-data|Expectation Propagation as a Way of Life: A Framework for Bayesian Inference on Partitioned Data]]
+- [[ashman-2022-partitioned-variational-inference|Partitioned Variational Inference: A Framework for Probabilistic Federated Learning]]
+- [[heikkila-2023-dp-partitioned-vi|Differentially Private Partitioned Variational Inference]]
+- [[mildner-2025-fedgvi|Federated Generalised Variational Inference: A Robust Probabilistic Federated Learning Framework]]
+- [[wu-uribe-2025-distributed-inference-guarantees|Frequentist Guarantees of Distributed Bayesian Inference]]
+- [[paritosh-2025-distributed-variational-inference|Distributed Variational Inference for Online Supervised Learning]]
+- [[cao-2024-multi-robot-slam-vi|Distributed Variational Inference for Online Multi-Robot Cooperative Localization]]
+- [[rao-2026-federated-variational-mixtures|Federated Variational Inference for Bayesian Mixture Models]]
 
 ### Hierarchical information budget ingest (2026-08-18)
 - [[zheng-meister-2025-unbearable-slowness|The unbearable slowness of being: Why do we live at 10 bits/s?]] (throughput anchor: 10^9 bits/s consumed, ~10 bits/s emitted)

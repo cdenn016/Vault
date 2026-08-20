@@ -3,13 +3,14 @@ type: concept
 title: "Decentralized Bayesian inference"
 aliases:
   - "Distributed Bayesian inference"
+  - "Federated Bayesian inference"
 tags:
   - cluster/vfe
   - cluster/multi-agent
   - project/multi-agent
 status: draft
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-08-20
 ---
 
 # Decentralized Bayesian inference
@@ -37,10 +38,16 @@ MultiAgentELBO currently supplies an exact finite joint-law oracle and variation
 - **Likelihood consensus or Bayesian filtering:** exchange new likelihood information separately from historical posteriors. [[bandyopadhyay-chung-2018-logop-filtering]] makes this distinction explicit for dynamic filtering.
 - **Conservative fusion:** when dependence or common-information lineage is unknown, use a rule such as [[Conservative information fusion|covariance intersection]] that sacrifices sharpness to avoid unjustified information gain.
 - **Communication-limited protocols:** treat the messages and bit budget as part of the statistical model rather than assuming free exchange; see [[Communication-constrained inference]].
+- **Site-factor and partitioned inference:** represent a global approximation through local factors and update them with EP- or VI-style schedules. [[hasenclever-2017-snep-posterior-server]], [[vehtari-2020-ep-partitioned-data]], and [[ashman-2022-partitioned-variational-inference]] make factor ownership and the declared global target explicit.
+- **Distributed variational optimization:** distribute ELBO or message-passing updates over a graph or compute network. [[hua-li-2016-distributed-variational-bayes]], [[masegosa-2016-distributed-vmp]], and [[paritosh-2025-distributed-variational-inference]] supply representative batch, message-passing, and online constructions.
+- **Private, robust, and generalized federated inference:** [[heikkila-2023-dp-partitioned-vi]] adds differential privacy, while [[mildner-2025-fedgvi]] generalizes local losses and divergence choices. [[wu-uribe-2025-distributed-inference-guarantees]] studies frequentist guarantees under networked belief updates.
+- **Structured applications:** [[cao-2024-multi-robot-slam-vi]] treats cooperative localization and mapping; [[rao-2026-federated-variational-mixtures]] exposes mixture-component alignment in a federated setting.
 
 ## Diagnostics and baselines
 
 A decentralized experiment should report distance to a centralized exact or high-accuracy posterior, calibration and coverage, consensus disagreement separately from posterior error, sensitivity to graph connectivity and dropped messages, communication volume or bits, and a data-lineage stress test with duplicated observations. Negative controls should include naive posterior multiplication, missing prior correction, and deliberately permuted local mixture labels. A low inter-agent disagreement is not evidence that the agreed distribution is correct.
+
+Evidence lineage belongs in the formal state rather than in bookkeeping outside the model. Each site or factor should carry an immutable identity, owner, prior exponent, version, and ancestry sufficient to determine whether a received update contains evidence already incorporated locally. Cyclic communication otherwise permits repeated reuse of the same observation even after density consensus is reached.
 
 ## Scope boundaries
 
@@ -53,6 +60,17 @@ Static [[Probabilistic opinion pooling]] aggregates opinions without specifying 
 - [[bandyopadhyay-chung-2018-logop-filtering]] — logarithmic pooling for distributed Bayesian filtering with communication-aware variants.
 - [[julier-uhlmann-1997-covariance-intersection]] — conservative fusion when cross-correlation is unknown.
 - [[duchi-2014-distributed-estimation]] — minimax communication limits for distributed estimation.
+- [[hasenclever-2017-snep-posterior-server]] — asynchronous natural-gradient EP with site factors and a posterior server.
+- [[hua-li-2016-distributed-variational-bayes]] — distributed variational Bayes over a sensor network.
+- [[masegosa-2016-distributed-vmp]] — distributed variational message passing.
+- [[vehtari-2020-ep-partitioned-data]] — expectation propagation for partitioned data and local approximations.
+- [[ashman-2022-partitioned-variational-inference]] — site-factor formulation of partitioned variational inference.
+- [[heikkila-2023-dp-partitioned-vi]] — differentially private partitioned variational inference.
+- [[mildner-2025-fedgvi]] — federated generalized variational inference.
+- [[wu-uribe-2025-distributed-inference-guarantees]] — asymptotic guarantees for distributed Bayesian inference.
+- [[paritosh-2025-distributed-variational-inference]] — online distributed ELBO and consensus optimization.
+- [[cao-2024-multi-robot-slam-vi]] — distributed VI for online multi-robot cooperative localization.
+- [[rao-2026-federated-variational-mixtures]] — federated variational inference for Bayesian mixture models.
 
 ## See also
 

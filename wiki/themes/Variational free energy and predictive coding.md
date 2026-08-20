@@ -8,7 +8,7 @@ tags:
   - project/transformer
 status: stable
 created: 2026-06-18
-updated: 2026-08-10
+updated: 2026-08-20
 ---
 
 # Variational free energy and predictive coding
@@ -105,7 +105,18 @@ convergence open) are questions this program also owes for the same term in cont
 > sources make no claim about variational free energy. See
 > [[Non-flat connection and the photon analogy]] for the implementation-side account of that term.
 
+## Collective and distributed free-energy boundary (2026-08-20)
+
+The collective literature separates three uses of free-energy language that should not be collapsed. [[heins-2023-spin-glass-active-inference]] gives an exact but fragile collective reduction under symmetric precisions, a particular factorized generative model, and asynchronous updates. [[palacios-2020-hierarchical-markov-blankets]] and [[waade-2025-as-one-and-many]] make group-level agency conditional on a higher-order Markov blanket rather than a consequence of coupling alone. [[friston-2024-federated-inference]] defines a specialized joint free energy over agents while distinguishing it from Bayesian belief updating.
+
+Distributed variational inference starts from a different object: a declared shared posterior or global approximation whose factors are partitioned across sites. [[ashman-2022-partitioned-variational-inference]] is the cleanest site-factor comparator. Its evidence accounting and update schedules do not make the sites embodied active-inference agents, but they supply the relevant exactness standard for any claim that local objectives optimize one global ELBO. The recent [[bouchaffra-2026-collective-variational-principle]] and [[bouchaffra-2026-coalition-free-energy]] preprints remain an unreviewed watchlist.
+
 ## Sources synthesized
+
+- [[heins-2023-spin-glass-active-inference]] — exact collective special case and its structural failure conditions.
+- [[palacios-2020-hierarchical-markov-blankets]] — conditional construction of a macro-level Markov blanket.
+- [[ashman-2022-partitioned-variational-inference]] — explicit site-factor decomposition of a global variational approximation.
+- [[bouchaffra-2026-collective-variational-principle]] and [[bouchaffra-2026-coalition-free-energy]] — unreviewed terminology-adjacent preprints.
 
 - [[cassel-2024-sigma-flows]] — the harmonic-energy gradient flow on a field of Fisher–Rao distributions: the program's Dirichlet term studied as a complete objective in its own right, with no likelihood and no evidence bound.
 - [[cassel-2025-bundle-scale-spaces]] — the bundle-valued counterpart, whose equilibria are harmonic sections.

@@ -12,7 +12,7 @@ tags:
   - project/transformer
 status: stable
 created: 2026-06-18
-updated: 2026-08-10
+updated: 2026-08-20
 ---
 
 # Inference machinery — variational EM and filtering
@@ -234,7 +234,25 @@ and [[bagaev-2023-reactive-message-passing]] for reactive scheduling. None chang
 recognition-law semantics of the current oracle by citation; each would be a separately declared
 approximate layer with normalization, stationarity, residual, and oracle-error tests.
 
+## Distributed and federated variational inference (2026-08-20)
+
+Distributed variational methods differ chiefly in how they declare and update a shared target. Site-factor methods such as [[hasenclever-2017-snep-posterior-server]], [[vehtari-2020-ep-partitioned-data]], and [[ashman-2022-partitioned-variational-inference]] attach local factors to a global approximation and schedule EP- or VI-like updates. [[hua-li-2016-distributed-variational-bayes]], [[masegosa-2016-distributed-vmp]], and [[paritosh-2025-distributed-variational-inference]] instead emphasize graph-distributed parameter or message updates, including an explicit online distributed ELBO in the latter case.
+
+Privacy and robustness change the target as well as the protocol. [[heikkila-2023-dp-partitioned-vi]] perturbs site updates for differential privacy; [[mildner-2025-fedgvi]] permits generalized local losses and divergences; [[wu-uribe-2025-distributed-inference-guarantees]] studies frequentist guarantees for networked Bayesian learning. [[cao-2024-multi-robot-slam-vi]] and [[rao-2026-federated-variational-mixtures]] show the application boundary in cooperative localization and mixture modeling. The mixture setting's discrete permutation alignment is not continuous gauge transport, and agreement among sites is not evidence of centralized-posterior correctness when factor ancestry permits information recycling.
+
 ## Sources synthesized
+
+- [[hasenclever-2017-snep-posterior-server]] — asynchronous distributed EP with site ownership.
+- [[hua-li-2016-distributed-variational-bayes]] — distributed variational Bayes for sensor networks.
+- [[masegosa-2016-distributed-vmp]] — distributed variational message passing.
+- [[vehtari-2020-ep-partitioned-data]] — EP as a partitioned-data inference framework.
+- [[ashman-2022-partitioned-variational-inference]] — partitioned VI through explicit site factors.
+- [[heikkila-2023-dp-partitioned-vi]] — differentially private partitioned VI.
+- [[mildner-2025-fedgvi]] — federated generalized variational inference.
+- [[wu-uribe-2025-distributed-inference-guarantees]] — frequentist guarantees for distributed Bayesian inference.
+- [[paritosh-2025-distributed-variational-inference]] — online distributed ELBO optimization.
+- [[cao-2024-multi-robot-slam-vi]] — distributed VI for multi-robot cooperative localization.
+- [[rao-2026-federated-variational-mixtures]] — federated VI for Bayesian mixture models.
 
 - [[neal-1998-variational-em]] — EM as coordinate ascent on a single free-energy/ELBO functional;
   partial-update guarantees apply only while both coordinates improve that functional.

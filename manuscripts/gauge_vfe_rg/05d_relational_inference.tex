@@ -235,7 +235,7 @@ metric; it builds both from the bundle data already declared.
 \definitionheading{An exhibited finite-dimensional configuration tier}{def:hist-finite-configuration-tier}
 Declare at scale $\ell$ a compact smooth base $\mathcal C_\ell$ with a finite
 positive Borel measure $\mu_\ell$; a trivial principal bundle
-$P=\mathcal C_\ell\times G$ with $G=(\R^K,+)$ acting on the fiber by
+$\mathscr P_\ell=\mathcal C_\ell\times G$ with $G=(\R^K,+)$ acting on the fiber by
 translation of the mean and $\omega$ the flat connection; the fiber
 $\mathcal B=\{\mathcal N(m,\Sigma_0):m\in\R^K\}$ with fixed $\Sigma_0\succ0$,
   whose fiber Fisher form is the constant $g^F=\Sigma_0^{-1}$; a measurable
@@ -484,12 +484,1240 @@ proved canonicity or lift-independence theorem removes that choice.
 \status{ESTABLISHED}
 
 By \Cref{thm:obs-local-global-potential},
-$\overline{\Fenergy}_{B,o}$ differs from the collective VFE restricted along
-$Q_i\mapsto Q_{B^c}r_B^{Q_i}$ only by a $Q_i$-independent outside term.
+\(\overline{\Fenergy}_{B,o}\) differs from the collective VFE restricted along
+\(Q_i\mapsto Q_{B^c}r_B^{Q_i}\) only by a \(Q_i\)-independent outside term.
 Their differentials and natural-gradient rays therefore agree when the same
 block metric is used.  A single realized conditional objective
-$\Fenergy_{B,o}(r_B;b)$ need not have that gradient, and independently moving
+\(\Fenergy_{B,o}(r_B;b)\) need not have that gradient, and independently moving
 outside marginals do not define the same fixed objective. \status{ESTABLISHED}
+
+\section{A finite correlated right-inverse witness}
+\label{sec:hist-finite-parity-lift}
+
+\definitionheading{Three-agent parity lift}{def:hist-three-agent-parity-lift}
+Let
+\begin{equation}
+\mathcal I_6=\{1,2,3\}\times\{b,m\},
+\qquad
+x=(x_j)_{j\in\mathcal I_6}\in\{0,1\}^{\mathcal I_6},
+\qquad
+\theta=(\theta_j)_{j\in\mathcal I_6}\in(0,1)^{\mathcal I_6}.
+\label{eq:hist-parity-indexing}
+\end{equation}
+The channel label in a typed agent permutation is preserved.  Define
+\begin{align}
+p_0(x;\theta)
+&=\prod_{j\in\mathcal I_6}\theta_j^{x_j}(1-\theta_j)^{1-x_j},
+&
+D(\theta)
+&=\prod_{j\in\mathcal I_6}\theta_j(1-\theta_j),
+\label{eq:hist-parity-product-and-amplitude}\\
+\chi(x)
+&=(-1)^{\sum_{j\in\mathcal I_6}x_j},
+&
+p_\kappa(x;\theta)
+&=p_0(x;\theta)+\kappa\chi(x)D(\theta),
+\qquad |\kappa|<1.
+\label{eq:hist-parity-lift-law}
+\end{align}
+The map \(\iota_\kappa:(0,1)^6\to\Delta^\circ_{63}\) sends \(\theta\)
+to \(p_\kappa(\mathord{\cdot};\theta)\).  In this definition \(\kappa\)
+is fixed relational or nomological data, not an inferred coordinate.
+\status{DEFINITION}
+
+\theoremheading{Positive smooth lift with the declared even relabeling symmetry}{thm:hist-three-agent-parity-lift}
+For every fixed \(|\kappa|<1\), the law in
+\eqref{eq:hist-parity-lift-law} is strictly positive and normalized.  Every
+proper marginal is the corresponding product-Bernoulli marginal of \(p_0\).
+Consequently the map \(\iota_\kappa\) is a smooth right inverse of the map
+that extracts the six one-bit marginals, and it is an immersion.
+
+Let \(H_{\rm pair}=(\mathbb Z_2)^3\rtimes S_3\) act by simultaneous
+complement of the two channel bits of any selected agent and by typed agent
+permutations \((a,r)\mapsto(\sigma(a),r)\).  Apply the same complements and
+permutations to the coordinates of \(\theta\).  Then
+\begin{equation}
+\iota_\kappa(g\theta)=g_\#\iota_\kappa(\theta)
+\qquad\text{for every }g\in H_{\rm pair}.
+\label{eq:hist-parity-paired-equivariance}
+\end{equation}
+For an odd single-channel complement \(F_j\), by contrast,
+\begin{equation}
+(F_j)_\#p_\kappa(\mathord{\cdot};\theta)
+=p_{-\kappa}(\mathord{\cdot};F_j\theta).
+\label{eq:hist-parity-odd-pseudoscalar}
+\end{equation}
+Thus odd independent complements are equivariant only if \(\kappa\) is
+promoted to a pseudoscalar that changes sign, or if \(\kappa=0\).
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+For each atom,
+\begin{equation}
+\frac{p_0(x;\theta)}{D(\theta)}
+=\prod_{j:x_j=1}\frac{1}{1-\theta_j}
+\times
+\prod_{j:x_j=0}\frac{1}{\theta_j}>1.
+\label{eq:hist-parity-positivity-ratio}
+\end{equation}
+Hence
+\(p_\kappa\geq p_0-|\kappa|D>(1-|\kappa|)D>0\).
+Normalization follows from
+\(\sum_x\chi(x)=\prod_{j\in\mathcal I_6}(1-1)=0\).  If a marginal sums out at
+least one coordinate, its parity term contains the same zero factor, so the
+entire perturbation cancels and the remaining law is the product marginal.
+Writing \(\pi\) for extraction of the one-bit success probabilities gives
+\(\pi\circ\iota_\kappa=\operatorname{id}_{(0,1)^6}\).  Polynomial
+dependence gives smoothness, and differentiation of the right-inverse
+identity gives
+\(D\pi_{\iota_\kappa(\theta)}D\iota_{\kappa,\theta}=I_6\), so
+\(D\iota_{\kappa,\theta}\) is injective.
+
+A paired complement changes two bits, so it preserves \(\chi\); it also
+preserves \(D\), while the product law transforms by ordinary Bernoulli
+relabeling.  A typed agent permutation preserves all three expressions in
+\eqref{eq:hist-parity-product-and-amplitude}--\eqref{eq:hist-parity-lift-law}.
+This proves \eqref{eq:hist-parity-paired-equivariance}.  A single-channel
+complement changes the sign of \(\chi\), proving
+\eqref{eq:hist-parity-odd-pseudoscalar}.  \(\square\)
+
+For a fixed interior tuple \(\theta\), the Frechet fiber of positive laws
+with those six one-bit marginals has dimension \(63-6=57\); varying
+\(\kappa\) traces only its one-dimensional parity line.  The theorem therefore
+exhibits one correlated lift direction and does not classify or parameterize
+the other fifty-six dependence directions.  For \(\kappa\ne0\), it also gives
+an exact same-marginal control against any claim that pairwise independence
+forces the full joint to be a product.  \status{ESTABLISHED}
+
+\corollaryheading{Agent-block local--global VFE identity}{cor:hist-parity-agent-block-vfe}
+Fix an agent block \(B_a=\{(a,b),(a,m)\}\), fix the four outside
+parameters \(\theta_{B_a^c}\), and let
+\begin{equation}
+r_{a,\theta_{B_a}}(x_{B_a}\mid x_{B_a^c})
+=\frac{p_\kappa(x;\theta)}
+{p_{0,B_a^c}(x_{B_a^c};\theta_{B_a^c})}.
+\label{eq:hist-parity-agent-conditional}
+\end{equation}
+For any two interior block parameters \(\theta_{B_a}\) and
+\(\theta'_{B_a}\), and any fixed strictly positive posterior target
+\(\Pi_o\) on the Boolean cube, all relative entropies are finite and
+\begin{align}
+&\Fenergy_o^{\rm ext}
+\left(p_\kappa(\mathord{\cdot};\theta'_{B_a},\theta_{B_a^c})\right)
+-\Fenergy_o^{\rm ext}
+\left(p_\kappa(\mathord{\cdot};\theta_{B_a},\theta_{B_a^c})\right)
+\notag\\
+&\quad
+=\E_{p_{0,B_a^c}}\left[
+\Fenergy_{B_a,o}^{\rm ext}
+\left(r_{a,\theta'_{B_a}};X_{B_a^c}\right)
+-\Fenergy_{B_a,o}^{\rm ext}
+\left(r_{a,\theta_{B_a}};X_{B_a^c}\right)
+\right].
+\label{eq:hist-parity-agent-local-global-vfe}
+\end{align}
+Thus the outside-averaged agent-block conditional VFE is exactly the
+restriction of one global VFE up to a block-parameter-independent constant.
+For every block tangent \(V\in T_{\theta_{B_a}}(0,1)^2\), differentiation
+gives
+\begin{equation}
+d\Fenergy_o^{\rm ext}[V]
+=\E_{p_{0,B_a^c}}\left[
+d\Fenergy_{B_a,o}^{\rm ext}[V]
+\right],
+\label{eq:hist-parity-agent-local-global-differential}
+\end{equation}
+where both differentials are evaluated at the same lifted conditional law
+and the outside expectation is fixed.
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+The proper-marginal statement in
+\Cref{thm:hist-three-agent-parity-lift} makes the outside marginal exactly
+\(p_{0,B_a^c}\), independent of \(\theta_{B_a}\), and strict positivity
+makes \eqref{eq:hist-parity-agent-conditional} a positive conditional law.
+The finite state space and positive target make every KL term finite.
+Equation \eqref{eq:hist-parity-agent-local-global-vfe} is then
+\Cref{thm:obs-local-global-potential} with this fixed outside marginal.
+The summands are smooth on the finite positive family, so differentiating
+that finite identity proves
+\eqref{eq:hist-parity-agent-local-global-differential}.
+\(\square\)
+
+\propositionheading{Exact joint-versus-weighted-marginal score residual}{prop:hist-general-score-residual}
+Let \(P_u\) be a regular dominated joint family on
+\((Y_1,\ldots,Y_m)\), with square-integrable joint score
+\(L=\nabla_u\log p_u(Y)\).  Let
+\(L_i=\E[L\mid Y_i]\) be the embedded score of its \(i\)-th marginal and
+let \(w_i\) be fixed scalar weights.  Define
+\begin{align}
+G_J&=\E[LL^\top],
+&G_i&=\E[L_iL_i^\top],
+&G_w&=\sum_iw_iG_i,
+\label{eq:hist-score-metrics}\\
+R&=L-\sum_iL_i,
+&K&=\E[RR^\top],
+&C&=\sum_{i\ne j}\E[L_iL_j^\top].
+\label{eq:hist-score-residual-tensors}
+\end{align}
+The ordered sum makes \(C\) symmetric, but it can be indefinite.  The exact
+identity is
+\begin{equation}
+G_J-G_w
+=K-C+\sum_i(1-w_i)G_i.
+\label{eq:hist-joint-weighted-marginal-residual}
+\end{equation}
+On a declared tangent subspace \(T\), equality \(G_J=G_w\) holds exactly
+when the bilinear restriction
+\begin{equation}
+\left.
+\left(K-C+\sum_i(1-w_i)G_i\right)
+\right|_{T\times T}=0.
+\label{eq:hist-score-residual-equality-criterion}
+\end{equation}
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+The marginal-score identity gives
+\(\E[LL_i^\top]=\E[L_iL_i^\top]=G_i\), and likewise after transpose.
+Expanding \(K=\E[(L-\sum_iL_i)(L-\sum_iL_i)^\top]\) therefore gives
+\(K=G_J-\sum_iG_i+C\).  Rearrangement proves
+\eqref{eq:hist-joint-weighted-marginal-residual}.  \(\square\)
+
+\corollaryheading{Parity-family Fisher residual}{cor:hist-parity-fisher-residual}
+For the family in \Cref{def:hist-three-agent-parity-lift}, every pair of bits
+is independent, so \(C=0\).  With unit marginal weights,
+\begin{equation}
+G_J-\sum_{j\in\mathcal I_6}G_j=K\succ0
+\qquad\text{when }\kappa\ne0.
+\label{eq:hist-parity-positive-fisher-residual}
+\end{equation}
+At \(\theta_j=1/2\) for all \(j\), set \(c=\kappa/64\).  Then
+\begin{equation}
+G_J=\frac{4}{1-c^2}I_6,
+\qquad
+G_J-\sum_{j\in\mathcal I_6}G_j
+=\frac{4c^2}{1-c^2}I_6.
+\label{eq:hist-parity-center-fisher}
+\end{equation}
+In particular, \(\kappa=1/2\) gives the residual
+\begin{equation}
+G_J-\sum_{j\in\mathcal I_6}G_j=\frac{4}{16383}I_6.
+\label{eq:hist-parity-half-fisher-residual}
+\end{equation}
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+All two-bit marginals are product by
+\Cref{thm:hist-three-agent-parity-lift}; centered marginal scores from
+distinct bits therefore have zero cross expectation.  If \(s_j\) is the
+one-bit Bernoulli score and \(L\) the joint score, direct differentiation
+gives
+\begin{equation}
+R_j=L_j^{\rm joint}-s_j
+=\frac{\kappa\chi(x)D(\theta)}{p_\kappa(x;\theta)}
+\times
+\left(\frac{1-x_j}{\theta_j}-\frac{x_j}{1-\theta_j}\right).
+\label{eq:hist-parity-score-residual-coordinate}
+\end{equation}
+If \(v^\top R\) vanishes on every atom, positivity and
+\(\kappa D\ne0\) imply that the sum of the six bracketed one-bit functions,
+weighted by \(v_j\), vanishes on the Boolean cube.  Comparing two atoms that
+differ only in coordinate \(j\) forces \(v_j=0\).  Thus no nonzero \(v\)
+lies in the null space of \(K=\E[RR^\top]\), proving positive definiteness.
+
+At the center, \(D=1/4096\) and
+\begin{equation}
+p_\kappa(x;\tfrac12\mathbf1)
+=\frac1{64}\left(1+c\chi(x)\right).
+\label{eq:hist-parity-center-law}
+\end{equation}
+The derivative of \(D\) vanishes there, each product-marginal score has
+squared magnitude \(4\), and averaging
+\((1+c\chi)^{-1}=(1-c\chi)/(1-c^2)\) over the Boolean cube gives
+\eqref{eq:hist-parity-center-fisher}.  Substitution of
+\(c=(1/2)/64=1/128\) gives
+\eqref{eq:hist-parity-half-fisher-residual}.  \(\square\)
+
+At the parity center, the six unit-coordinate marginal tensors are
+\(G_j=4e_je_j^\top\).  Therefore equality \(G_J=G_w\) on the full
+six-dimensional tangent space holds exactly when
+\begin{equation}
+w_j=\frac{1}{1-c^2}
+\qquad\text{for every }j\in\mathcal I_6.
+\label{eq:hist-parity-center-weight-equality}
+\end{equation}
+For unit weights this holds exactly when \(c=0\), equivalently
+\(\kappa=0\).  \status{ESTABLISHED}
+
+The positive-semidefinite ordering in
+\eqref{eq:hist-parity-positive-fisher-residual} is specific to this parity
+family.  The older two-bit signed Fisher witness at the symmetric point has
+joint pullback
+\(63^{-1}\begin{psmallmatrix}256&-32\\-32&256\end{psmallmatrix}\) and
+product-marginal metric \(4I_2\); their difference is
+\(63^{-1}\begin{psmallmatrix}4&-32\\-32&4\end{psmallmatrix}\), with
+eigenvalues \(36/63\) and \(-28/63\).  Hence the parity-family ordering does
+not support a general Loewner-order claim.  \status{ESTABLISHED}
+
+\definitionheading{Declared three-agent parity hyperedge}{def:hist-parity-hyperedge}
+At the symmetric point of \eqref{eq:hist-parity-center-law}, let the latent
+prior be \(U(x)=1/64\) and supply the binary record kernel
+\begin{equation}
+K_{\rm hyp}(1\mid x)=\frac12\left(1+c\chi(x)\right),
+\qquad
+K_{\rm hyp}(0\mid x)=\frac12\left(1-c\chi(x)\right).
+\label{eq:hist-parity-hyperedge-kernel}
+\end{equation}
+This is a normalized three-agent hyperedge record by declaration.
+\status{DEFINITION}
+
+\propositionheading{Exact posterior and tight VFE for the declared hyperedge}{prop:hist-parity-hyperedge-vfe}
+The evidence of record \(O=1\) is \(P(O=1)=1/2\), and its posterior is
+exactly \(p_\kappa(\mathord{\cdot};\tfrac12\mathbf1)\).  For
+\begin{equation}
+\Fenergy_1(Q)
+=\KL(Q\Vert U)-\E_Q\log K_{\rm hyp}(1\mid X),
+\label{eq:hist-parity-hyperedge-vfe}
+\end{equation}
+the posterior attains the tight value \(\Fenergy_1=\log2\).  The product
+lift of its six one-bit marginals is \(U\), and its exact excess is
+\begin{equation}
+\Fenergy_1(U)-\log2=-\frac12\log(1-c^2).
+\label{eq:hist-parity-product-lift-excess}
+\end{equation}
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+Exactly half of the atoms have each parity, so averaging
+\eqref{eq:hist-parity-hyperedge-kernel} under \(U\) gives evidence \(1/2\).
+Bayes' rule then gives posterior
+\(64^{-1}(1+c\chi)\), which is
+\eqref{eq:hist-parity-center-law}.  The standard VFE gap identity gives the
+tight posterior value \(-\log P(O=1)=\log2\).  Every posterior one-bit
+marginal is uniform, so its product lift is \(U\), and
+\begin{equation}
+-\E_U\log K_{\rm hyp}(1\mid X)
+=\log2-\frac12\log(1-c^2),
+\label{eq:hist-parity-uniform-vfe}
+\end{equation}
+because the two parities have equal \(U\)-mass.  This proves
+\eqref{eq:hist-parity-product-lift-excess}.  \(\square\)
+
+The hyperedge kernel in \eqref{eq:hist-parity-hyperedge-kernel} is supplied
+generative data.  No derivation from pairwise locality, conditional
+independence, autonomous agency, or a canonical agent inventory is claimed.
+No within-pair belief--model swap is used as a universal typed symmetry.
+\status{NOT-CLAIMED}
+
+The finite group action above supplies no principal \(\GL(K)\) action, Lie
+algebra, connection, parallel transport, or holonomy.  The promoted-family
+rank calculation in \Cref{cor:hist-promoted-parity-rank} identifies \(\kappa\)
+as a full-joint direction invisible to singleton retention, but rank alone
+does not make that direction an agent or intervention variable.
+\status{NOT-CLAIMED}
+
+\openproblemheading{Scope beyond the finite parity witness}{open:hist-parity-lift-scope}
+\Cref{thm:hist-three-agent-parity-lift} closes one finite categorical
+right-inverse instance.  Arbitrary-family existence on a separately declared
+restricted morphism class, coarse-preserving nonproduct selection,
+\(\GL(K)\)-equivariance, agency, a continuum or section-space lift, physical
+geometry, physical time, units, and renormalization remain open.  The absolute
+single-valued selector on the admitted split class is not open: it is refuted
+by \Cref{thm:hist-correlated-refinement-nogo}.  \status{OPEN}
+
+\section{Canonical dependence selection: exact finite boundary}
+\label{sec:hist-canonical-dependence-selection}
+
+The following finite results are bound to the released certificate with
+target digest
+\texttt{8112f0083a554a4d}\allowbreak%
+\texttt{f3b5de3875174d0b}\allowbreak%
+\texttt{0cbfeee36a7bc2ea}\allowbreak%
+\texttt{20e78c8cf9da6b39}.
+They distinguish an absolute selector, a reference-relative selector, and a
+retained Fisher quotient.  None supplies autonomous agency, continuum
+dynamics, or physical units.
+
+\definitionheading{Finite marginal selection problem}{def:hist-finite-marginal-selection}
+For a finite nonempty typed list \(X=(X_i)_{i=1}^n\), set
+\begin{equation}
+\mathcal J_X=\Delta\!\left(\prod_iX_i\right),
+\qquad
+\mathcal M_X=\prod_i\Delta(X_i),
+\qquad
+m_X:\mathcal J_X\longrightarrow\mathcal M_X,
+\label{eq:hist-cds-marginalization}
+\end{equation}
+where \(m_X\) extracts the singleton marginals.  A law-valued section is a
+map \(S_X:\mathcal M_X\to\mathcal J_X\) with \(m_XS_X=\operatorname{id}\).  A fixed-arity
+local morphism is an independently tensored finite Markov kernel
+\(K=\bigotimes_iK_i\).  An admitted arity-changing kernel
+\(K:\prod_iX_i\rightsquigarrow\prod_jY_j\) is marginal compatible when a
+specified \(\bar K:\mathcal M_X\to\mathcal M_Y\) satisfies
+\begin{equation}
+m_YK_\#=\bar K m_X.
+\label{eq:hist-cds-marginal-compatibility}
+\end{equation}
+Naturality on a declared morphism class means
+\(K_\#S_X=S_Y\bar K\) for every morphism in that class.  This definition does
+not admit all finite stochastic kernels silently.  \status{DEFINITION}
+
+\theoremheading{Tensor-local naturality uniquely selects product law}{thm:hist-local-markov-product-uniqueness}
+If \((S_X)_X\) is natural under every fixed-arity coordinatewise finite
+Markov kernel with independently tensored randomness, then
+\begin{equation}
+S_X(\mu_1,\ldots,\mu_n)=\bigotimes_{i=1}^n\mu_i.
+\label{eq:hist-cds-product-selector}
+\end{equation}
+This conclusion is throughout the declared local morphism class, not all of
+\(\mathrm{FinStoch}\).  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+For each \(i\), let the preparation kernel from a singleton typed space send
+its unique point to \(\mu_i\).  Their tensor product sends the unique law on
+the singleton product to \(\bigotimes_i\mu_i\), while the induced marginal
+map sends the unique marginal tuple to \((\mu_i)_i\).  Naturality forces
+\eqref{eq:hist-cds-product-selector}.  \(\square\)
+
+\corollaryheading{Maximal product-preserving category}{cor:hist-maximal-product-preserving-category}
+Among wide marginal-compatible categories on the frozen typed objects that
+contain every fixed-arity local kernel, a natural section exists exactly when
+every added kernel preserves product laws.  When it exists it is uniquely the
+product section, so the product-preserving marginal-compatible kernels form
+the maximal such morphism class.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+The preceding theorem forces the product section.  Its naturality for an
+added kernel is precisely the assertion that the kernel sends each product
+law to the product of its pushed singleton marginals.  \(\square\)
+
+\theoremheading{Admitted correlated refinements refute an absolute selector}{thm:hist-correlated-refinement-nogo}
+For a typed source bit and typed target bits \((Y,Z)\), explicitly admit both
+split kernels
+\begin{equation}
+R_\rho(y,z\mid x)
+=\mathbf1_{\{y=x\}}\begin{cases}
+(1+\rho)/2,&z=x,\\
+(1-\rho)/2,&z\ne x,
+\end{cases}
+\qquad \rho\in\{1/3,1/2\}.
+\label{eq:hist-cds-split-kernel}
+\end{equation}
+Both are normalized and marginal compatible; admitting them is a declaration.  No
+single-valued marginal section can be natural under both.  This no-go uses
+single-valuedness and the admission of both displayed splits, but it uses no
+local-naturality premise.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Push the fair source law through the two splits.  Both descended target data
+are the same fair/fair marginal pair, while the joint atom multisets are
+\begin{equation}
+\{1/3,1/3,1/6,1/6\}
+\quad\text{and}\quad
+\{3/8,3/8,1/8,1/8\}.
+\label{eq:hist-cds-split-multisets}
+\end{equation}
+Naturality would require one value of the target section at that marginal
+pair to equal both laws.  Their atom multisets are unequal even after any
+sample relabeling, a contradiction.  \(\square\)
+
+\corollaryheading{No faithful marginal recovery of every joint law}{cor:hist-faithful-marginal-recovery-nogo}
+Marginalization is noninjective even on strictly positive binary laws.
+Consequently no marginal section can also satisfy
+\(S_X(m_XQ)=Q\) for every compatible positive full joint law.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+The two positive split-output laws in
+\eqref{eq:hist-cds-split-multisets} have the same singleton marginals and are
+distinct.  A function of their common marginal datum cannot return both.
+\(\square\)
+
+\propositionheading{Singleton marginals do not determine full VFE}{prop:hist-marginal-vfe-nonfactorization}
+There is no function of only the recognition singleton tuple, posterior
+singleton tuple, and positive evidence \(z\) that equals
+\(-\log z+\KL(Q\Vert P)\) for every compatible full recognition law \(Q\)
+and positive posterior law \(P\).  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+On two fair bits take \(P\) to be the uniform product law, first take
+\(Q_0=P\), and then take the positive \(\rho=1/2\) split-output law \(Q_1\).
+Both recognition inputs have the same singleton marginals and the posterior
+and evidence inputs are unchanged.  Nevertheless
+\(\KL(Q_0\Vert P)=0\) while \(\KL(Q_1\Vert P)>0\) by strictness of finite KL.
+\(\square\)
+
+\propositionheading{Singleton families do not determine full Fisher tensor}{prop:hist-marginal-fisher-nonfactorization}
+For \(\theta\in(0,1)^6\), write
+\begin{equation}
+P_\theta(x)=\prod_{i=1}^6\theta_i^{x_i}(1-\theta_i)^{1-x_i},
+\qquad
+Q_{\theta,\kappa}(x)
+=P_\theta(x)\bigl[1+\kappa\chi(x)P_\theta(\bar x)\bigr],
+\label{eq:hist-cds-promoted-parity-law}
+\end{equation}
+where \(\chi(x)=(-1)^{\sum_i x_i}\) and \(|\kappa|<1\).  The fixed
+families \(\kappa=0\) and \(\kappa=1/2\) have identical singleton-family
+maps, but at \(\theta_i=1/2\) their full-joint Fisher tensors are
+\begin{equation}
+4I_6
+\quad\text{and}\quad
+\frac{65536}{16383}I_6.
+\label{eq:hist-cds-parity-fisher-witness}
+\end{equation}
+Thus no rule of only the complete singleton-family map recovers every
+full-joint Fisher tensor.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Since \(P_\theta(x)P_\theta(\bar x)=\prod_i\theta_i(1-\theta_i)\), the
+bracket in \eqref{eq:hist-cds-promoted-parity-law} is positive.  Summing over
+any missing bit cancels the parity term, so every proper marginal, and hence
+every singleton-family map, is independent of \(\kappa\).  Direct finite
+score summation at the symmetric point gives
+\eqref{eq:hist-cds-parity-fisher-witness}.  \(\square\)
+
+The finite intervention result below is bound to the released certificate
+with target digest
+\texttt{efe715cba81c2000}\allowbreak%
+\texttt{403811015e6cecb5}\allowbreak%
+\texttt{99f4023133543b5c}\allowbreak%
+\texttt{b0ae77288bccc874}.
+It closes one universal target inside the declared finite category; it does
+not make that category ontologically canonical.  \status{ESTABLISHED}
+
+\definitionheading{Finite typed-intervention presentations}{def:hist-finite-typed-intervention-presentation}
+Let \(\mathsf{FinTIP}_{R,O}^{\mathrm{iso}}\) be the groupoid whose objects are
+tuples
+\begin{equation}
+P=\bigl(V,\tau,(X_v)_{v\in V},D,(\kappa_v)_{v\in V},r,o\bigr).
+\label{eq:hist-intervention-raw-presentation}
+\end{equation}
+Here \(V\) is finite and nonempty, every state space \(X_v\) is finite and
+nonempty, \(\tau:V\to\mathcal T\) is the declared role/type map,
+\(D=(V,E_D)\) is a finite DAG, the distinguished nodes \(r,o\) have the
+retained-state and record roles under \(\tau\), and each
+\(\kappa_v:X_{\operatorname{pa}(v)}\rightsquigarrow X_v\) is a normalized
+finite Markov kernel.  A hard intervention replaces exactly the selected
+local kernels by point masses.  An isomorphism is a type-preserving node
+bijection with state-space bijections that fixes the retained roles, carries
+the DAG and every local kernel to the target presentation, and intertwines
+all hard interventions and their induced laws.  Let
+\(\mathsf{FinObs}_{R,O}^{\mathrm{iso}}\) contain the complete retained
+objects \((X_R,X_O,P_{RO})\) with typed boundary relabelings.  Passive
+marginalization defines
+\(U_{\mathrm{pass}}:\mathsf{FinTIP}_{R,O}^{\mathrm{iso}}
+\to\mathsf{FinObs}_{R,O}^{\mathrm{iso}}\).  Complete joint tables are used
+even when intervened cells vanish, so no conditioning on a null event is
+introduced.  \status{DEFINITION}
+
+\definitionheading{Right-override intervention monoid}{def:hist-intervention-action-monoid}
+For \(P\), let \(A_P\) be the set of all partial sections
+\(i:\operatorname{dom}i\to\coprod_{v\in V}X_v\) with
+\(i(v)\in X_v\).  Sequential hard interventions compose by total right
+override:
+\begin{equation}
+(i\star j)(v)=
+\begin{cases}
+j(v),&v\in\operatorname{dom}j,\\
+i(v),&v\in\operatorname{dom}i\setminus\operatorname{dom}j,\\
+\text{undefined},&v\notin\operatorname{dom}i\cup\operatorname{dom}j.
+\end{cases}
+\label{eq:hist-intervention-right-override}
+\end{equation}
+The empty section is the identity, and associativity holds pointwise because
+both parenthesizations return the last assignment that names \(v\).
+Writing \(P^i\) for the intervened presentation, one has
+\((P^i)^j=P^{i\star j}\).  Its retained response is
+\begin{equation}
+\Phi_P(i)=\bigl(p_{P^i}\bigr)_{RO}.
+\label{eq:hist-intervention-response}
+\end{equation}
+Thus \((A_P,\star,\varnothing)\) is a finite monoid acting by hard-kernel
+replacement.  \status{ESTABLISHED}
+
+\definitionheading{Two-sided operational reduction}{def:hist-intervention-behavioral-congruence}
+Contexts are behaviorally equivalent when their complete response signatures
+agree in every left and right context:
+\begin{equation}
+i\equiv_P j
+\quad\Longleftrightarrow\quad
+\Phi_P(u\star i\star v)=\Phi_P(u\star j\star v)
+\quad\text{for all }u,v\in A_P.
+\label{eq:hist-intervention-behavioral-equivalence}
+\end{equation}
+This formula defines the two-sided behavioral relation.  \status{DEFINITION}
+
+\propositionheading{Behavioral quotient is well-defined}{prop:hist-intervention-behavioral-quotient}
+The relation \(\equiv_P\) is an equivalence relation.  Associativity of
+\(\star\) also gives
+\(a\star i\star b\equiv_P a\star j\star b\), so it is a two-sided
+monoid congruence.  Hence
+\(\bar A_P=A_P/{\equiv_P}\) is a monoid and
+\(\bar\Phi_P([i])=\Phi_P(i)\) is well-defined.  Define
+\begin{equation}
+\operatorname{Red}(P)
+=\bigl(X_R,X_O,\bar A_P,[\varnothing],\bar\Phi_P\bigr).
+\label{eq:hist-intervention-reduced-experiment}
+\end{equation}
+The groupoid \(\mathsf{FinRIE}_{R,O}^{\mathrm{iso}}\) has these reduced
+experiments as objects; its arrows are identity-preserving monoid
+isomorphisms together with typed boundary relabelings that intertwine every
+retained response.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Reflexivity, symmetry, and transitivity follow pointwise from equality of the
+complete signature indexed by \((u,v)\).  If \(i\equiv_P j\), then for all
+\(u,v,a,b\in A_P\), associativity gives
+\[
+\Phi_P\bigl(u\star(a\star i\star b)\star v\bigr)
+=\Phi_P\bigl((u\star a)\star i\star(b\star v)\bigr)
+=\Phi_P\bigl((u\star a)\star j\star(b\star v)\bigr)
+=\Phi_P\bigl(u\star(a\star j\star b)\star v\bigr).
+\]
+Thus the relation is a two-sided congruence and quotient multiplication is
+representative independent.  Taking \(u=v=\varnothing\) in
+\eqref{eq:hist-intervention-behavioral-equivalence} proves that
+\(\bar\Phi_P\) is well-defined.  \(\square\)
+
+\propositionheading{Universal property of the contextual operational quotient}{prop:hist-operational-quotient-universal-property}
+Let \(A\) be any monoid with identity \(1\), let \(Y\) be a response set,
+and let \(\Phi:A\to Y\).  Define
+\begin{equation}
+a\sim_\Phi b
+\quad\Longleftrightarrow\quad
+\Phi(uav)=\Phi(ubv)
+\quad\text{for every }u,v\in A.
+\label{eq:hist-operational-contextual-equivalence}
+\end{equation}
+Then \(\sim_\Phi\) is the largest two-sided monoid congruence contained in
+the kernel relation of \(\Phi\).  Write
+\(\operatorname{Syn}(\Phi)=A/{\sim_\Phi}\), with quotient map \(\pi\) and
+response \(\bar\Phi([a])=\Phi(a)\).  If
+\(q:A\to B\) is a surjective unital monoid homomorphism and
+\(\Phi=\psi q\), there is one unique surjective unital homomorphism
+\begin{equation}
+h:B\longrightarrow\operatorname{Syn}(\Phi),
+\qquad
+\pi=hq,
+\qquad
+\bar\Phi h=\psi.
+\label{eq:hist-operational-quotient-factor}
+\end{equation}
+Thus the contextual quotient is terminal when arrows point from finer
+response-compatible quotients to coarser ones, and is contextually fully
+abstract relative to the fixed data \((A,\Phi,Y)\).  If \(A\) is finite, it
+has minimum protocol-class cardinality; equality of cardinalities makes
+\(h\) an isomorphism uniquely over \(A\).  The cardinality conclusion is
+finite-only and does not minimize a latent state space, DAG, kernel family,
+parameterization, or computational realization.  After forgetting the map
+from \(A\), a bare response monoid need not be rigid.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Equation \eqref{eq:hist-operational-contextual-equivalence} is an equivalence
+relation, and associativity shows that \(a\sim_\Phi b\) implies
+\(xay\sim_\Phi xby\).  Taking \(u=v=1\) places it inside the kernel of
+\(\Phi\).  Conversely, if \(\approx\) is a two-sided congruence contained in
+that kernel and \(a\approx b\), then \(uav\approx ubv\) for all \(u,v\), so
+\(a\sim_\Phi b\).  Hence it is the largest such congruence.  The kernel
+congruence of \(q\) is therefore contained in \(\sim_\Phi\), and
+\(h(q(a))=[a]\) is well-defined, unital, multiplicative, surjective, and the
+only map satisfying \(hq=\pi\).  The response identity follows from
+\(\Phi=\psi q\).  When \(A\) is finite, \(q\) makes \(B\) finite and the
+surjection \(h\) gives
+\(|B|\geq|\operatorname{Syn}(\Phi)|\); equality makes \(h\) bijective.
+Uniqueness over \(A\) follows from surjectivity of \(q\).  \(\square\)
+
+\paragraph{Attribution.}
+This proposition is not new.  Relation
+\eqref{eq:hist-operational-contextual-equivalence} is the classical
+\emph{syntactic congruence}, \(\operatorname{Syn}(\Phi)\) is the
+\emph{syntactic monoid}, and the terminality and finite-minimality statements
+are the standard universal property of that construction, due to
+\citet{Myhill1957} and \citet{Nerode1958} and developed by
+\citet{Schutzenberger1965}; textbook treatments are
+\citet[Ch.~B.II]{Eilenberg1976} and \citet[Ch.~2]{Pin1986}.  The proof above is
+included because it is short and because the quantifiers matter downstream, not
+because the result is original here.  What is specific to this setting is only
+the reading of \(A\) as a protocol monoid and of \(\Phi\) as a retained
+operational response, together with the explicit fence that the cardinality
+conclusion is finite-only and minimizes no latent realization.
+
+\theoremheading{Compact operational quotient}{thm:hist-compact-operational-quotient}
+Suppose that \(A\) is a compact metrizable monoid with jointly continuous
+multiplication, \(Y\) is metrizable Hausdorff, and \(\Phi:A\to Y\) is
+continuous.  For any countable dense \(D\subseteq A\) containing \(1\), the
+signature
+\begin{equation}
+S_D(a)=\bigl(\Phi(uav)\bigr)_{(u,v)\in D\times D}
+\label{eq:hist-operational-countable-signature}
+\end{equation}
+has kernel \(\sim_\Phi\).  Its compact metrizable image is homeomorphic to
+\(\operatorname{Syn}(\Phi)\), whose descended multiplication and response
+are continuous.  Only the coding depends on \(D\); multiplication on the
+image is induced by \(S_D(ab)\), not coordinatewise multiplication.  If a
+topological response-compatible triple has compact Hausdorff monoid \(B\),
+continuous \(q\) and \(\psi\), and quotient map \(q:A\to B\), then the
+factor \(h\) in \eqref{eq:hist-operational-quotient-factor} is the unique
+continuous surjection with those identities.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Contextual equivalence implies equal signatures.  Conversely, approximate
+arbitrary \(u,v\in A\) by sequences in \(D\); continuity of multiplication
+and \(\Phi\) promotes equality on \(D\times D\) to equality in all contexts.
+The signature therefore factors to a continuous bijection from the compact
+quotient onto the Hausdorff image \(S_D(A)\), hence a homeomorphism.  The
+image is compact metrizable.  The product quotient map
+\(\pi\times\pi\) is quotient because it is a continuous surjection from a
+compact space to a Hausdorff space, so
+\(\bar m(\pi\times\pi)=\pi m\) proves continuity of quotient
+multiplication; \(\bar\Phi\pi=\Phi\) proves continuity of the response.
+Finally, \(hq=\pi\) and the quotient property of \(q\) prove continuity of
+the algebraically unique factor.  \(\square\)
+
+\propositionheading{Functorial operational reduction}{prop:hist-intervention-reduction-functor}
+Typed transport of nodes and states carries contexts, right override, and
+complete retained responses compatibly.  It therefore descends through
+\(\equiv_P\), and the assignments
+\begin{equation}
+\operatorname{Red}:\mathsf{FinTIP}_{R,O}^{\mathrm{iso}}
+\longrightarrow\mathsf{FinRIE}_{R,O}^{\mathrm{iso}},
+\qquad
+\overline U_{\mathrm{pass}}:\mathsf{FinRIE}_{R,O}^{\mathrm{iso}}
+\longrightarrow\mathsf{FinObs}_{R,O}^{\mathrm{iso}},
+\label{eq:hist-intervention-reduced-functors}
+\end{equation}
+are functors, where \(\overline U_{\mathrm{pass}}\) retains the response of
+the identity class.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+A raw isomorphism induces a bijective homomorphism of context monoids and
+pushes each retained response through its boundary relabeling.  Surjectivity
+of that context map transports the two universal quantifiers in
+\eqref{eq:hist-intervention-behavioral-equivalence}; applying the inverse
+gives the converse.  The induced quotient map preserves multiplication,
+identity, and responses, and respects identity arrows and composition.  The
+identity class is preserved, which makes \(\overline U_{\mathrm{pass}}\)
+well-typed.  \(\square\)
+
+\propositionheading{Independent-null operational collapse}{prop:hist-null-intervention-collapse}
+Let \(S\) be the split chain on \(\{R,E,O\}\), and let \(S^N\) add an
+independent isolated binary node \(N\).  Forgetting the \(N\)-coordinate
+induces an identity- and response-preserving quotient-monoid isomorphism
+\(\operatorname{Red}(S^N)\cong\operatorname{Red}(S)\).  Consequently,
+the empty context, \(\operatorname{do}(N=0)\), and
+\(\operatorname{do}(N=1)\) lie in one behavioral class.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Let \(\pi:A_{S^N}\to A_S\) forget \(N\).  It is a surjective monoid
+homomorphism.  Independence and normalization give
+\(\Phi_{S^N}(i)=\Phi_S(\pi i)\) for every context; equivalently, the
+independent \(N\)-factor sums to one whether unassigned or replaced by
+either point mass.  Therefore
+\(i\equiv_{S^N}j\) exactly when \(\pi i\equiv_S\pi j\), and \(\pi\)
+descends to the claimed isomorphism.  The exact finite control checks both
+values of \(N\) against all \(3^3=27\) partial contexts on
+\(\{R,E,O\}\).  \(\square\)
+
+\propositionheading{Conditional intervention-recovery no-go}{prop:hist-conditional-intervention-recovery-nogo}
+Let \(U:\mathcal E\to\mathcal B\) be a declared forgetful functor.  If two
+admitted enriched objects \(E_0,E_1\) over one observational datum satisfy
+\(U(E_0)=U(E_1)\) but are not type-preservingly intervention-isomorphic, then
+there is no reconstruction \(R:\mathcal B\to\mathcal E\) with
+\begin{equation}
+R\,U(E)\cong E
+\quad\text{for every compatible }E.
+\label{eq:hist-cds-two-sided-intervention-recovery}
+\end{equation}
+A conventional right-inverse choosing one representative per observational
+fiber is not excluded.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Equation \eqref{eq:hist-cds-two-sided-intervention-recovery} would make both
+\(E_0\) and \(E_1\) isomorphic to \(R(U(E_0))=R(U(E_1))\), hence isomorphic
+to each other, contradicting the hypothesis.  \(\square\)
+
+\theoremheading{Finite typed-intervention nonidentifiability}{thm:hist-finite-typed-intervention-nonidentifiability}
+In the declared binary-symmetric-channel subcategory, equality of the
+complete passive retained law does not determine the reduced
+protocol-indexed retained response experiment.  Write
+\begin{equation}
+C_e(y\mid x)=
+\begin{cases}
+1-e,&y=x,\\
+e,&y\ne x,
+\end{cases}
+\label{eq:hist-intervention-bsc-kernel}
+\end{equation}
+and let \(L(a,b)\) denote the chain \(R\to E\to O\) with
+\(R\sim\operatorname{Bernoulli}(1/2)\), kernel \(C_a\) on
+\(R\to E\), and kernel \(C_b\) on \(E\to O\).  Set
+\begin{equation}
+L_1=L(a=1/4,b=1/3),
+\qquad
+L_2=L(a=1/3,b=1/4).
+\label{eq:hist-intervention-same-signature-laws}
+\end{equation}
+They have the same node roles, binary state cardinalities, edges, and
+mediator intervention target, and both have passive crossover \(5/12\) and
+retained law.  In every response vector below, coordinates are ordered
+lexicographically as \((R,O)=(0,0),(0,1),(1,0),(1,1)\):
+\begin{equation}
+\Phi_{L_1}(\varnothing)=\Phi_{L_2}(\varnothing)
+=(7/24,5/24,5/24,7/24).
+\label{eq:hist-intervention-passive-law}
+\end{equation}
+Each reduced protocol monoid has fifteen behavioral classes, yet the
+\(L_1\) response
+\begin{equation}
+\Phi_{L_1}\bigl(\operatorname{do}(E=0)\bigr)
+=(1/3,1/6,1/3,1/6),
+\label{eq:hist-intervention-unmatched-response}
+\end{equation}
+is absent from the complete \(L_2\) reduced response image under all four
+independent typed binary boundary relabelings of \(R\) and \(O\).
+Therefore \(\operatorname{Red}(L_1)\) and
+\(\operatorname{Red}(L_2)\) are nonisomorphic.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+BSC composition gives \(a+b-2ab=5/12\) for both parameter pairs.  Direct
+two-sided reduction gives fifteen classes in each model.  The full-support
+laws in the complete \(L_2\) response image are exactly
+\begin{equation}
+(7/24,5/24,5/24,7/24),\qquad
+(3/8,1/8,3/8,1/8),\qquad
+(1/8,3/8,1/8,3/8);
+\label{eq:hist-intervention-ltwo-full-support-image}
+\end{equation}
+every other \(L_2\) response has at least one zero entry.  The four boundary
+flips send the displayed \(L_1\) response only to itself or to
+\((1/6,1/3,1/6,1/3)\).  Both are strictly positive and neither equals one
+of the three displayed \(L_2\) laws, so neither occurs in the complete
+\(L_2\) response image.  A reduced isomorphism would have to map the
+\(\operatorname{do}(E=0)\) class to a class with exactly such a relabeled
+response, a contradiction.  The mediator-output total-variation contrasts,
+\(1/3\) for \(L_1\) and \(1/2\) for \(L_2\), are diagnostics only:
+an arbitrary protocol-class bijection need not preserve the named mediator
+pair.  The complete response-image mismatch is the proof invariant.
+\(\square\)
+
+\corollaryheading{No universal two-sided finite recovery}{cor:hist-finite-typed-intervention-recovery-nogo}
+The functor \(\overline U_{\mathrm{pass}}\) is not essentially injective on
+the declared BSC subcategory.  Consequently there is no functor
+\(\mathcal R:\mathsf{FinObs}_{R,O}^{\mathrm{iso}}
+\to\mathsf{FinRIE}_{R,O}^{\mathrm{iso}}\) with
+\(\mathcal R\overline U_{\mathrm{pass}}\cong
+\operatorname{id}_{\mathsf{FinRIE}_{R,O}^{\mathrm{iso}}}\) on that
+subcategory.  This does not exclude the conventional representative-selecting
+condition
+\(\overline U_{\mathrm{pass}}\mathcal R\cong
+\operatorname{id}_{\mathsf{FinObs}_{R,O}^{\mathrm{iso}}}\).
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+Apply \Cref{prop:hist-conditional-intervention-recovery-nogo} to the equal
+passive images and nonisomorphic reduced experiments in
+\Cref{thm:hist-finite-typed-intervention-nonidentifiability}.  \(\square\)
+
+The operational extensions below are bound to the released certificate with
+target digest
+\texttt{af08539e}\allowbreak%
+\texttt{8868b09e}\allowbreak%
+\texttt{5165943d}\allowbreak%
+\texttt{91c488c6}\allowbreak%
+\texttt{e06a00ac}\allowbreak%
+\texttt{7a00b1d4}\allowbreak%
+\texttt{08ae22dd}\allowbreak%
+\texttt{ca6ee7e1}.  They retain one ordered external boundary,
+target/type coloring where retained, and one protocol-independent response intertwiner.
+They do not make those choices canonical.  \status{ESTABLISHED}
+
+\definitionheading{Normalized soft-intervention monoid}{def:hist-normalized-soft-intervention-monoid}
+For a finite DAG on finite state spaces, let \(J_v\) be a compact subset of
+the normalized stochastic-kernel polytope at node \(v\), with its Euclidean,
+equivalently evaluation-subspace, topology.  Adjoin an isolated symbol
+\(\bot_v\) selecting the baseline kernel and set
+\begin{equation}
+\mathcal A_J=\prod_v\bigl(\{\bot_v\}\sqcup J_v\bigr),
+\qquad
+(a\star b)_v=
+\begin{cases}
+b_v,&b_v\ne\bot_v,\\
+a_v,&b_v=\bot_v.
+\end{cases}
+\label{eq:hist-normalized-soft-right-override}
+\end{equation}
+This is a compact metrizable topological monoid.  Every replacement is a
+normalized kernel, and every coordinate of the retained response is a finite
+sum of finite products of continuous kernel evaluations.  Hence its response
+is continuous and
+\Cref{thm:hist-compact-operational-quotient} supplies a compact operational
+quotient.  \status{ESTABLISHED}
+
+\theoremheading{Marked soft BSC nonidentifiability}{thm:hist-soft-bsc-target-face-nonidentifiability}
+Retain the mediator-replacement face, the ordered roles \(R\) as
+input/parameter and \(O\) as output/observation, and one global typed response
+intertwiner for every protocol.  For \(0<\epsilon<1/2\), replace the mediator
+kernel in \(L(a,b)\) by
+\begin{equation}
+K_t(E=0\mid R=r)=t_r,
+\qquad
+t\in[\epsilon,1-\epsilon]^2,
+\label{eq:hist-soft-bsc-mediator-face}
+\end{equation}
+and write \(Q_b(t)\) for the retained \((R,O)\)-law.  Then
+\begin{equation}
+\operatorname{TV}\!\left(Q_b(t),Q_b(t')\right)
+=\frac{|1-2b|}{2}\bigl(|t_0-t'_0|+|t_1-t'_1|\bigr),
+\label{eq:hist-soft-bsc-tv}
+\end{equation}
+so the marked-face diameters for \(L_1=L(1/4,1/3)\) and
+\(L_2=L(1/3,1/4)\) are respectively
+\begin{equation}
+\frac{1-2\epsilon}{3}
+\qquad\text{and}\qquad
+\frac{1-2\epsilon}{2}.
+\label{eq:hist-soft-bsc-diameters}
+\end{equation}
+The passive retained laws agree, but the marked soft experiments are nonisomorphic in
+this category.  The obstruction is not confined to hard endpoints: for every
+\(\epsilon<s_-<s_+<1-\epsilon\), the two parent-independent interior
+preparations have separation \(|1-2b|(s_+-s_-)\).  Target erasure, exchange
+of \(R\) with \(O\), and time reversal are not admitted.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Conditionally on \(R=r\), one has
+\(Q_b(t)(O=0\mid R=r)=b+(1-2b)t_r\).  Since \(R\) is uniform, summing the
+absolute changes in both output atoms of each row gives
+\eqref{eq:hist-soft-bsc-tv}.  Its diameter gives
+\eqref{eq:hist-soft-bsc-diameters}.  A typed boundary bijection preserves
+total variation and an admitted protocol map preserves the marked mediator
+face, so unequal diameters forbid an isomorphism.  Substituting the two
+constant interior preparations gives the final formula.  \(\square\)
+
+\definitionheading{Affine independently randomized interventions}{def:hist-affine-randomized-intervention-monoid}
+For a finite hard reduced protocol monoid \(S\), put
+\(\operatorname{Rand}(S)=\Delta(S)\).  Independent sequential selectors
+compose by convolution and the unobserved response is affine:
+\begin{equation}
+(p*q)(z)=\sum_{xy=z}p(x)q(y),
+\qquad
+\Phi_{\mathrm R}(p)=\sum_{x\in S}p(x)\phi(x).
+\label{eq:hist-affine-randomized-convolution}
+\end{equation}
+The unit is the point mass at the hard identity.  This semantics assumes
+independent selector draws; a correlated or shared-noise selector requires a
+joint selector object.  \status{DEFINITION}
+
+\theoremheading{Randomized hard-intervention nonidentifiability}{thm:hist-randomized-hard-intervention-nonidentifiability}
+For each released fifteen-class BSC monoid, the deterministic complete
+two-sided contextual vectors are linearly independent.  An exact
+fifteen-coordinate minor, with \(\delta\) denoting passive crossover, has
+\begin{equation}
+\det M(b,\delta)
+=\frac{(2b-1)^6(2\delta-1)^3}{32},
+\label{eq:hist-randomized-contextual-minor}
+\end{equation}
+which is nonzero for both models at \(\delta=5/12\).  Therefore randomized
+contextual equivalence is equality.  Any admitted response-compatible affine
+unital convolution-monoid isomorphism maps simplex vertices to vertices and
+restricts to a response-compatible hard-monoid isomorphism, already ruled out
+by \Cref{thm:hist-finite-typed-intervention-nonidentifiability}.  Equal
+passive retained laws therefore do not identify the independently randomized response
+experiment.  Convexification does invalidate the old unmatched-response
+invariant: the response in \eqref{eq:hist-intervention-unmatched-response} is
+the mixture with weights \(5/6\) and \(1/6\) of the two mediator-point
+responses of \(L_2\).  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Equality in every deterministic left and right context gives
+\(\sum_x(p(x)-q(x))c_x=0\), where \(c_x\) is the complete contextual vector.
+The nonzero determinant in
+\eqref{eq:hist-randomized-contextual-minor} forces \(p=q\).  An affine
+bijection of finite simplices preserves their extreme points; convolution
+and unit preservation then make its vertex permutation a unital hard-monoid
+isomorphism.  The single global response intertwiner makes that restriction
+response-compatible, giving the contradiction.  \(\square\)
+
+\propositionheading{Standard-Borel intervention semantics}{prop:hist-standard-borel-intervention-semantics}
+Let a finite DAG have standard-Borel node spaces and standard-Borel
+replacement palettes.  Assume that every baseline and replacement mechanism
+is a declared normalized pointwise kernel and that, for every measurable
+output set \(C\), its evaluation
+\((\theta,x_{\operatorname{pa}(v)})\mapsto
+K_v(\theta,x_{\operatorname{pa}(v)};C)\) is jointly measurable.  Finite
+topological-order recursion then produces a normalized joint law for every
+protocol and a Borel retained response when the retained-law space carries
+its evaluation sigma-algebra.  The construction supplies an algebraic
+contextual quotient but does not by itself establish a standard-Borel
+quotient; that requires an exhibited smooth classifier or stronger
+topological hypotheses.  No conditional on a passive-law null set is inferred
+by this construction.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Iterate the declared kernels in topological order.  The standard monotone
+class argument for parameterized kernel integration makes the integral of
+every bounded measurable cylinder function measurable in the protocol.
+Finite induction gives a normalized joint kernel, and retained-set
+evaluations remain measurable.  These evaluations generate the declared law
+sigma-algebra.  Standard Borelness alone does not make the uncountable
+contextual equivalence relation smooth.  \(\square\)
+
+\corollaryheading{Compact-Feller operational quotient}{cor:hist-compact-feller-operational-quotient}
+If the node spaces are compact Polish, the palettes are compact metrizable,
+each \(\bot_v\) is isolated, and all baseline and replacement kernels are
+jointly Feller in state and palette parameter, then the finite-coordinate
+right-override monoid in
+\eqref{eq:hist-normalized-soft-right-override} has weakly continuous retained
+response.  Its contextual quotient is compact metrizable with continuous
+multiplication and response.  Finite-coordinate does not mean finite
+cardinality.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Successive reverse-topological integration sends every continuous test
+function to a continuous function of the remaining state and palette
+parameters.  Thus protocol evaluation of every continuous retained test
+function is continuous, which is weak continuity.  Apply
+\Cref{thm:hist-compact-operational-quotient}.  \(\square\)
+
+\theoremheading{Circle heat-intervention nonidentifiability}{thm:hist-circle-heat-intervention-nonidentifiability}
+Let \(\mathbb T=\mathbb R/(2\pi\mathbb Z)\), let \(m\) be normalized Haar
+law, and let \(H_\tau e_n=e^{-n^2\tau}e_n\) be its heat kernels.  For
+\(0<s<t\), the ordered chains
+\begin{equation}
+P_1=m(dR)H_s(R,dE)H_t(E,dO),
+\qquad
+P_2=m(dR)H_t(R,dE)H_s(E,dO)
+\label{eq:hist-circle-heat-chains}
+\end{equation}
+have the same passive retained law
+\(m(dR)H_{s+t}(R,dO)\).  Give the marked mediator the palette
+\(\mathcal P(\mathbb T)\) in the weak topology and constant-parent
+replacements \(K_\nu(dE\mid R=r)=\nu(dE)\).  The palette is compact
+metrizable, and the family \((K_\nu)_{\nu\in\mathcal P(\mathbb T)}\) is
+jointly Feller.  Nevertheless,
+\begin{equation}
+H_t=H_sH_{t-s},
+\qquad
+\text{but no Markov kernel }L\text{ satisfies }H_s=H_tL,
+\label{eq:hist-circle-heat-blackwell}
+\end{equation}
+and the soft output sets obey
+\begin{equation}
+\{\nu H_t:\nu\in\mathcal P(\mathbb T)\}
+\subsetneq
+\{\nu H_s:\nu\in\mathcal P(\mathbb T)\}.
+\label{eq:hist-circle-heat-response-inclusion}
+\end{equation}
+For every fixed \(x_0\) and \(0<\rho<t-s\), the positive smooth law
+\(\nu_\rho=H_\rho(x_0,\mathord\cdot)\) supplies a strictness witness.
+Hence passive retained-law equality does not identify this compact-Feller mediator
+experiment under maps that preserve the marked mediator, circle heat
+geometry, ordered \(R\)-to-\(O\) roles, compatible protocol map, and one
+global response intertwiner.  Boundary exchange and time reversal are not
+admitted.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+The heat-semigroup law proves passive retained-law equality and the forward garbling in
+\eqref{eq:hist-circle-heat-blackwell}.  If \(H_s=H_tL\), put
+\(g=Le_1\).  Markov positivity gives \(|g|\leq1\), while the first Fourier
+coefficient of \(H_tg=e^{-s}e_1\) would satisfy
+\(|\widehat g(1)|=e^{t-s}>1\), a contradiction.  The forward garbling gives
+the inclusion in \eqref{eq:hist-circle-heat-response-inclusion}.  If
+\(H_{\rho+s}(x_0,\mathord\cdot)=\nu H_t\), comparison of first Fourier
+magnitudes gives \(|\widehat\nu(1)|=e^{t-s-\rho}>1\), again impossible.
+Since \(\rho>0\), the witness has a positive smooth heat density.  \(\square\)
+
+\openproblemheading{Category-independent typed-intervention recovery}{open:hist-typed-intervention-recovery}
+The hard theorem and its extensions establish protocol-class minimality
+relative to fixed operational data, finite normalized marked-soft and
+independently randomized no-go results, declared standard-Borel response
+semantics, a compact-Feller positive tier, and the frozen circle heat-kernel
+no-go.  They do not choose the protocol category, targets, or ordered boundary
+canonically; prove a target-erasing soft theorem; cover correlated,
+shared-noise, or adaptive selectors; identify point interventions from
+almost-sure observational conditionals; supply a noncompact quotient theorem;
+compare every latent dilation; or construct a minimal raw DAG/generative
+realization.  They give no fixed-observation ELBO or VFE equality, no
+criterion for autonomous agency, and no continuum base-manifold, gauge/RG,
+or physical bridge.  Those category-independent and interpretive recovery
+questions remain open.  \status{OPEN}
+
+\theoremheading{Finite reference-relative I-projection}{thm:hist-reference-relative-iprojection}
+Let \(A\) be finite, let \(p\in\Delta(A)\), let
+\(T:A\to\R^d\), and prescribe \(m\in\R^d\).  A finite-KL feasible law with
+\(\E_qT=m\) exists, and the minimizer of \(\KL(q\Vert p)\) exists, exactly
+when
+\begin{equation}
+m\in\operatorname{conv}T(\operatorname{supp}p).
+\label{eq:hist-cds-iprojection-feasibility}
+\end{equation}
+The minimizing law \(q_{p,m}\) is unique relative to \((p,T,m)\).  Its support is the inverse image
+in \(\operatorname{supp}p\) of the minimal face containing \(m\), and every
+finite-KL feasible \(q\) satisfies
+\begin{equation}
+\KL(q\Vert p)
+=\KL(q\Vert q_{p,m})+\KL(q_{p,m}\Vert p).
+\label{eq:hist-cds-iprojection-pythagorean}
+\end{equation}
+After removing affine redundancies, the exponential multiplier is unique and
+the selected law is analytic on each fixed relative-interior face stratum.
+Equivariance requires coherent transport of the reference and the complete
+constraint diagram.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Condition \eqref{eq:hist-cds-iprojection-feasibility} is exactly finite
+convex feasibility on \(\operatorname{supp}p\).  Restriction to the minimal
+face gives a compact feasible simplex; lower semicontinuity gives attainment
+and strict convexity gives uniqueness of the law.  The finite exponential
+family calculation on that face gives
+\eqref{eq:hist-cds-iprojection-pythagorean} and the stated stratum
+regularity.  \(\square\)
+
+\theoremheading{Deterministic reference completion}{thm:hist-deterministic-reference-completion}
+Let \(f:A\to B\) be deterministic, let \(p\in\Delta(A)\), and let
+\(r\ll f_\#p\).  The unique KL-minimizing completion with \(f_\#q=r\) is
+\begin{equation}
+L_f^p(r)(x)=
+\begin{cases}
+r(f(x))p(x)/(f_\#p)(f(x)),&(f_\#p)(f(x))>0,\\
+0,&(f_\#p)(f(x))=0.
+\end{cases}
+\label{eq:hist-cds-deterministic-completion}
+\end{equation}
+For another deterministic map \(g:B\to C\) and
+\(s\ll(g\circ f)_\#p\), completion composes strictly when the intermediate
+stage uses the pushed reference:
+\begin{equation}
+L_f^p\!\left(L_g^{f_\#p}(s)\right)=L_{g\circ f}^p(s).
+\label{eq:hist-cds-completion-composition}
+\end{equation}
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+The finite conditional KL chain rule separates the divergence into the
+fixed coarse divergence plus a nonnegative conditional term, which vanishes
+only when the conditional law within each positive-reference fiber equals
+that of \(p\).  This gives \eqref{eq:hist-cds-deterministic-completion};
+substitution proves \eqref{eq:hist-cds-completion-composition}.  \(\square\)
+
+\corollaryheading{Qualified retained VFE selection and descent}{cor:hist-retained-vfe-selection-descent}
+Under the complete retained-joint and retained-conditioning equivalence,
+positive evidence, common feasible retained constraints, and the support
+condition in \Cref{thm:hist-reference-relative-iprojection}, the unique
+retained optimizer and optimized VFE value descend.  Deterministic posterior
+completion minimizes the full auxiliary VFE, but the presentation-specific
+auxiliary law need not descend.  The retained envelope differential descends
+only for a positive \(C^1\) parameterized family with a common locally fixed
+feasible set and support stratum and a unique \(C^1\) optimizer.
+\status{ESTABLISHED}
+
+\theoremheading{Retained Fisher radical and quotient}{thm:hist-retained-fisher-quotient}
+For a smooth retained-law map \(\rho:\Theta\to N\), a positive-semidefinite
+target tensor \(g\), and \(h=\rho^*g\),
+\begin{equation}
+\operatorname{rad}h_\theta
+=(d\rho_\theta)^{-1}(\operatorname{rad}g_{\rho(\theta)}).
+\label{eq:hist-cds-fisher-radical}
+\end{equation}
+Hence \(\operatorname{rad}h_\theta=\ker d\rho_\theta\) exactly when
+\(\operatorname{im}d\rho_\theta\cap\operatorname{rad}g_{\rho(\theta)}
+=\{0\}\).  On a stratum where the radical has locally constant rank,
+\(T\Theta/\operatorname{rad}h\) is a smooth positive-definite quotient
+bundle.  A global quotient manifold additionally requires a simple Hausdorff
+null-leaf quotient.  Under the preceding transversality equality
+\(\operatorname{rad}h=\ker d\rho\) and a regular connected-leaf quotient, the
+specific pullback \(h\) is basic because \(\rho\) factors through that
+quotient; basicness remains extra for arbitrary tensors and declared block
+projectors.
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+For every \(v\in T_\theta\Theta\), positivity and Cauchy--Schwarz for the
+semidefinite form give
+\(h_\theta(v,\cdot)=0\) exactly when
+\(d\rho_\theta v\in\operatorname{rad}g\), proving
+\eqref{eq:hist-cds-fisher-radical}.  The remaining statements are the
+constant-rank quotient construction and the separate regular-leaf-space
+hypothesis.  \(\square\)
+
+\propositionheading{Declared-block quotient boundary}{prop:hist-declared-block-quotient-boundary}
+Assume the transversality case
+\(K=\ker d\rho=\operatorname{rad}h\) on a constant-rank stratum and declare
+a smooth splitting \(T\Theta=\bigoplus_aB_a\).  The following are equivalent:
+the quotient images of the \(B_a\) form a direct sum, their retained images
+form a direct sum, \(K=\bigoplus_a(K\cap B_a)\), and every quotient tangent
+has a unique block decomposition.  Additive Fisher energy further requires
+pairwise Fisher orthogonality.  With \(D_a=B_a+K\), local block-distribution
+projectability is
+\begin{equation}
+[\Gamma(K),\Gamma(D_a)]\subseteq\Gamma(D_a),
+\label{eq:hist-cds-block-projectability}
+\end{equation}
+and invariance across disconnected components of a retained fiber is an
+additional global requirement.  Smooth pointwise directness and
+orthogonality alone do not imply descent.  \status{ESTABLISHED}
+
+\propositionheading{Law and Fisher geometry do not canonically agentize blocks}{prop:hist-law-fisher-agentization-nogo}
+At the uniform seven-outcome law, no rule depending only on the unlabeled law
+and its Fisher metric and natural under every outcome relabeling can select
+an unordered decomposition of the six-dimensional tangent space into three
+two-dimensional blocks.  Declared typing or other symmetry-breaking data can
+supply blocks, but the law and Fisher tensor alone do not.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Such a rule would induce a homomorphism \(S_7\to S_3\).  Its restriction to
+the perfect group \(A_7\) is trivial.  The sum-zero six-dimensional
+\(A_7\)-representation is irreducible: an equivariant endomorphism extends by
+zero on the invariant \(\R\mathbf1\) line, and the resulting permutation
+commutant calculation makes it scalar.  No invariant rank-two summand can
+therefore exist.  \(\square\)
+
+\corollaryheading{Promoted parity has one hidden retained direction}{cor:hist-promoted-parity-rank}
+For the seven-parameter family
+\((\theta,\kappa)\mapsto Q_{\theta,\kappa}\) in
+\eqref{eq:hist-cds-promoted-parity-law}, the full-joint derivative has rank
+seven everywhere on \((0,1)^6\times(-1,1)\).  The singleton-retained map has
+rank six and
+\begin{equation}
+\ker d(mQ)=\operatorname{span}\{\partial_\kappa\}.
+\label{eq:hist-cds-promoted-parity-kernel}
+\end{equation}
+Thus \(\kappa\) is identifiable from the full law and invisible to singleton
+retention; this does not agentize it.  \status{ESTABLISHED}
+
+\paragraph{Proof.}
+The singleton means are exactly \(\theta_i\), so a zero full-law derivative
+first has zero \(\theta\)-components.  The remaining derivative is a scalar
+multiple of \(\partial_\kappa Q=\chi\prod_i\theta_i(1-\theta_i)\), which is
+nonzero in the open domain; hence the full derivative is injective.  The same
+singleton identity gives rank six and
+\eqref{eq:hist-cds-promoted-parity-kernel}.  \(\square\)
+
+Local Markov naturality therefore selects the product law uniquely, while
+under the declared full naturality and canonicity requirements, selecting
+nonproduct dependence requires either restricting the admitted morphism class
+or adding declared relational, constraint, or reference data.
+A positive reference supplies a unique relative selector only under the
+feasibility and support hypotheses above, and the retained Fisher quotient
+identifies only directions visible at the declared retained scope.  The
+absolute split-selector target depends only on
+\Cref{thm:hist-correlated-refinement-nogo}; none of the positive replacements
+is a premise.  Arbitrary-family coarse-preserving nonproduct selection,
+autonomous agency, continuum and renormalization limits, physical geometry,
+units, and time remain open.  The finite hard BSC recovery target is refuted
+by \Cref{thm:hist-finite-typed-intervention-nonidentifiability}.  Relative to
+fixed target coloring where retained, ordered boundary roles, and admitted morphisms, its
+operational quotient is universal and minimal as stated in
+\Cref{prop:hist-operational-quotient-universal-property}; marked soft and
+independently randomized extensions remain nonidentifiable by
+\Cref{thm:hist-soft-bsc-target-face-nonidentifiability,thm:hist-randomized-hard-intervention-nonidentifiability},
+and \Cref{thm:hist-circle-heat-intervention-nonidentifiability} supplies a
+compact-Feller continuous witness.  Category-independent intervention
+semantics remains open as stated in
+\Cref{open:hist-typed-intervention-recovery}.
+
+\section{Natural-gradient selection of an oriented orbit}
+\label{sec:hist-natural-gradient-oriented-orbit}
 
 The Fisher natural gradient is characterized by
 \begin{equation}

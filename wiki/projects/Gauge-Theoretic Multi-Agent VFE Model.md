@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-08-16
+updated: 2026-08-20
 ---
 
 # Gauge-Theoretic Multi-Agent VFE Model
@@ -249,6 +249,24 @@ derivational and aggregate-objective counterevidence. Active-policy selection re
 current code scope. The literature sharpens the open continuum, DLR, regular-quotient,
 experiment-recovery, intrinsic-partition, and Oseledets obligations; it does not close them by
 citation.
+
+## Multi-agent inference literature map (2026-08-20)
+
+The surrounding literature is organized into three overlapping traditions. [[Collective active inference]] studies interacting embodied agents and supplies exact special cases, shared-goal mechanisms, and conditional group blankets. [[Bayesian mechanics]] provides the partition--map--flow construction for one blanketed stationary system; an explicitly coupled multi-agent theorem with compatible individual and group synchronization maps remains open. [[Decentralized Bayesian inference]] provides mature algorithms for a declared shared posterior or variational approximation under distributed data and communication.
+
+For this project, the exact finite joint-law evaluator remains the central oracle. Distributed algorithms should be measured against it with factor identity, ownership, prior exponent, version, and ancestry retained so communication cycles cannot silently reuse evidence. Mixture-label alignment is a discrete permutation problem; gauge alignment is a continuous frame-transport problem with equivariance and path-consistency obligations. Neither identification solves the other.
+
+The exact spin-glass reduction in [[heins-2023-spin-glass-active-inference]], the conditional blanket construction in [[palacios-2020-hierarchical-markov-blankets]], and the site-factor construction in [[ashman-2022-partitioned-variational-inference]] are the most useful positive controls. The 2026 Bouchaffra preprints are retained as an unreviewed watchlist because their terminology overlaps the project's novelty claim, but they do not currently change the project's proof obligations.
+
+### Theory-level relation to the 2026-08-20 corpus
+
+The closest external results are components and controls, not a pre-existing version of the live theory. The exact center remains one posterior-independent normalized population law, generally correlated recognition, exact conditional singleton and block VFEs, and common-channel law-level RG. The gauge layer adds separately typed belief and model fibers, equivariant transports, and retention of non-flat holonomy. The inspected corpus contains no paper combining all of those objects, although that is a corpus-bounded positioning statement rather than a historical-priority proof. See [[Multi-agent variational free energy]] and the durable review `docs/reviews/2026-08-20-multi-agent-vfe-bayesian-mechanics-inference-literature-review.md`.
+
+The literature sharpens three theorem boundaries. First, the individual-to-group VFE is not generically a sum: incident local objectives overcount interactions, while the exact local theorem is a coordinate-potential identity at fixed outside marginal and the exact parent law is a common-channel pushforward. Second, group agency is conditional: the blanket and flock papers provide candidate partition priors and diagnostics, not a canonical selector or persistence theorem. Third, Gauge-VFE is not yet multi-agent [[Bayesian mechanics]] because it has not derived stationary stochastic dynamics, individual and group blankets, compatible synchronization maps, or physical time.
+
+The direct overlap with [[bouchaffra-2026-collective-variational-principle]] lies in the standalone grand-canonical membership note. Coalition subsets and binary membership vectors carry the same finite Gibbs variational form after matching temperature and absorbing chemical potential into coalition energy; Harsanyi terms map to a hyperedge occupation expansion. This removes any safe claim to the first collective variational principle or Gibbs coalition law. The remaining distinction is the core normalized-joint, correlated-recognition, gauge, holonomy, and RG structure. The Bouchaffra preprints add a game-theoretic and Harsanyi layer that this project does not presently prove and remain subject to a separate theorem audit.
+
+For implementation, distributed inference is a layer around the exact finite oracle. The preferred ladder is the Heins spin-glass positive control, centralized correlated-versus-mean-field comparisons, PVI-style owned-factor updates, and only then learned partitions or lossy communication. Posterior error, consensus error, gauge-alignment or holonomy error, and evidence-lineage error must be reported separately.
 
 ## Status and next steps
 
