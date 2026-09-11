@@ -5,7 +5,7 @@ aliases: [field/statistics, Statistics sources, Information theory MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-08-03
+updated: 2026-09-11
 ---
 
 # Statistics MOC
@@ -36,3 +36,54 @@ views:
 ## Cross-facet pivots
 Compose with the topic facet via tag search — e.g. `tag:#field/statistics tag:#cluster/info-geometry`
 or `tag:#field/statistics tag:#cluster/vfe`. See the [[Disciplines MOC]] hub for all fields.
+
+## MultiAgentELBO research ingestion, September 11, 2026
+
+[[Gauge-VFE RG research synthesis September 2026]] connects the following new source records to the current theory. Existing sources are reused through [[multiagentelbo-2026-09-11-reference-register]].
+
+- [[multiagentelbo-2026-09-11-conditional-geometry]]
+- [[multiagentelbo-2026-09-11-continuum]]
+- [[multiagentelbo-2026-09-11-formation]]
+- [[multiagentelbo-2026-09-11-gaussian-closure]]
+- [[multiagentelbo-2026-09-11-geometry-feedback]]
+- [[multiagentelbo-2026-09-11-memory]]
+- [[multiagentelbo-2026-09-11-neighborhoods]]
+- [[multiagentelbo-2026-09-11-normalized-core]]
+- [[multiagentelbo-2026-09-11-reference-register]]
+- [[multiagentelbo-2026-09-11-research-snapshot]]
+- [[multiagentelbo-2026-09-11-scale-and-inference]]
+- [[multiagentelbo-2026-09-11-spatial]]
+- [[multiagentelbo-2026-09-11-thermodynamic-fisher]]
+- [[ay-2015-parametrized-measure-models]]
+- [[bauschke-2003-duality-for-bregman-projections-onto-translated-cones-and-affine]]
+- [[berman-2022-on-the-dynamics-of-inference-and-learning]]
+- [[bertsekas-1983-distributed-asynchronous-computation-of-fixed-points]]
+- [[bruveris-2016-geometry-of-the-fisher-rao-metric-on-the-space-of-smooth-densities-on]]
+- [[casanellas-2020-the-embedding-problem-for-markov-matrices]]
+- [[chigansky-undated-intrinsic-methods-in-filter-stability]]
+- [[cho-2017-disintegration-and-bayesian-inversion-via-string-diagrams]]
+- [[chojnowska-michalik-2002-symmetric-ornstein-uhlenbeck-semigroups-and-their-generators]]
+- [[csiszar-2004-information-theory-and-statistics-a-tutorial]]
+- [[davies-2010-embeddable-markov-matrices]]
+- [[feray-2013-mod-phi-convergence-i-normality-zones-and-precise-deviations]]
+- [[fritz-2019-a-synthetic-approach-to-markov-kernels-conditional-independence-and-th]]
+- [[gagne-2017-a-categorical-characterization-of-relative-entropy-on-standard-borel-s]]
+- [[gentner-2011-palm-theory-mass-transports-and-ergodic-theory-for-group-stationa]]
+- [[le-2013-the-uniqueness-of-the-fisher-metric-as-information-metric]]
+- [[levin-undated-markov-chains-and-mixing-times-retrieved-author-text]]
+- [[lunardi-2020-the-ornstein-uhlenbeck-semigroup-in-finite-dimension]]
+- [[mayerhofer-2010-on-the-parameter-domain-of-wishart-distributions-and-their-infinite-di]]
+- [[owhadi-2015-conditioning-gaussian-measure-on-hilbert-space]]
+- [[pollard-2011-a-note-on-insufficiency-and-the-preservation-of-fisher-information]]
+- [[polyanskiy-2014-dissipation-of-information-in-channels-with-input-constraints]]
+- [[polyanskiy-2024-information-theory-august-2024-prepublication-version]]
+- [[rasmussen-2006-gaussian-processes-for-machine-learning-appendix-a-mathematical-b]]
+- [[rebeschini-2013-comparison-theorems-for-gibbs-measures]]
+- [[shalizi-1999-computational-mechanics-pattern-and-prediction-structure-and-simplicit]]
+- [[travers-2012-exponential-bounds-for-convergence-of-entropy-rate-approximations-in-h]]
+- [[tsitsiklis-1986-distributed-asynchronous-deterministic-and-stochastic-gradient-op]]
+- [[turner-2011-two-problems-with-variational-expectation-maximisation-for-time-s]]
+- [[multiagentelbo-2026-09-11-critical-comparisons]]
+- [[multiagentelbo-2026-09-11-extension-studies]]
+- [[multiagentelbo-2026-09-11-finite-program]]
+- [[multiagentelbo-2026-09-11-implementation]]

@@ -12,10 +12,14 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-08-10
+updated: 2026-09-11
 ---
 
 # Coarse Graining
+
+> [!note] Current scope, September 11, 2026
+> The normalized construction now gives exact common-channel VFE accounting with correlated recognition and posterior-fiber equality conditions; see [[multiagentelbo-2026-09-11-normalized-core]]. Compatible channels compose without a fixed-point assumption. Precision pooling, a coordinate statistic, a probability pushforward, an action-family projection and a changed experiment remain distinct operations; no universal RG orientation follows just from a tighter Gaussian covariance. [[multiagentelbo-2026-09-11-neighborhoods]] supplies normalized overlap and boundary contracts, while [[multiagentelbo-2026-09-11-gaussian-closure]] records Gaussian and Kron closure conditions.
+
 
 Coarse graining is the procedure of integrating out or aggregating microscopic degrees of freedom to obtain an effective description at a larger scale, discarding detail while preserving relevant macroscopic behavior. It is the operational heart of statistical mechanics, the [[Renormalization group flow|renormalization group]], and emergent (entropic) descriptions of dynamics, and underlies the program's meta-agent hierarchy and [[Renormalization-group flow of beliefs|renormalization-group flow of beliefs]].
 

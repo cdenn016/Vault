@@ -14,10 +14,14 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-08-01
+updated: 2026-09-11
 ---
 
 # Fisher information metric
+
+> [!note] Current scope, September 11, 2026
+> The new results distinguish information contraction, full statistical sufficiency and regular geometric descent. Fisher preservation alone need not imply sufficiency, and a weak Fisher metric does not automatically supply a strong Hilbert norm or invertible natural-gradient mobility. [[multiagentelbo-2026-09-11-conditional-geometry]] records the quotient and projectability hypotheses; [[multiagentelbo-2026-09-11-thermodynamic-fisher]] records the thermodynamic and joint-depth limit conditions. Geometry feedback also has explicit obstruction cases in [[multiagentelbo-2026-09-11-geometry-feedback]].
+
 
 ## Definition
 

@@ -14,10 +14,14 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-18
-updated: 2026-06-19
+updated: 2026-09-11
 ---
 
 # Lattice gauge theory
+
+> [!note] Current scope, September 11, 2026
+> The program now distinguishes frame-derived transition cocycles from independently supplied connection links. Nontrivial relational loop records can coexist with identical singleton beliefs. A graph, oriented links and declared plaquette or continuum structure must be specified before importing lattice-curvature claims. [[multiagentelbo-2026-09-11-spatial]] and [[multiagentelbo-2026-09-11-continuum]] supply particular normalized constructions and their hypotheses; [[multiagentelbo-2026-09-11-formation]] supplies the finite observational example.
+
 
 ## Definition
 

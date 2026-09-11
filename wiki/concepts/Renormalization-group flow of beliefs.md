@@ -13,10 +13,14 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-08-16
+updated: 2026-09-11
 ---
 
 # Renormalization-group flow of beliefs
+
+> [!note] Current scope, September 11, 2026
+> The opening RG-inspired assessment below describes the earlier MAgent manuscript and exploratory pipeline. It is not the current status of the separate MultiAgentELBO construction: [[multiagentelbo-2026-09-11-normalized-core]] records exact normalized channel composition, and [[multiagentelbo-2026-09-11-spatial]] and [[multiagentelbo-2026-09-11-continuum]] record additional conditional constructions. These results do not retroactively prove the old five-term Gaussian closure ansatz. Pathwise reuse requires the emitted-kernel or memory conditions in [[multiagentelbo-2026-09-11-memory]].
+
 
 ## Definition
 

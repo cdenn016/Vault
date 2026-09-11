@@ -12,10 +12,14 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-09
+updated: 2026-09-11
 ---
 
 # Holonomy
+
+> [!note] Current scope, September 11, 2026
+> The current [[multiagentelbo-2026-09-11-formation|finite relational-record theorem]] exhibits nontrivial cycle holonomy with exactly matching singleton marginals and zero transported marginal KL. Record equivalence agrees with gauge equivalence only for the stated noisy relational experiment and its admitted preparations. Transition cocycles and independently specified connection links must not be conflated. Also, a flat connection can have nontrivial holonomy around a noncontractible loop: the older statement below identifying every nontrivial holonomy with curvature needs this topological qualification. [[multiagentelbo-2026-09-11-continuum]] keeps discrete loops and continuum curvature claims separate.
+
 
 ## Definition
 

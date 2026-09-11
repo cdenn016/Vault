@@ -11,10 +11,14 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-09-11
 ---
 
 # Process-space variational inference
+
+> [!note] Current scope, September 11, 2026
+> The current exact path statement is an all-preparation, all-admitted-policy emitted-kernel lumpability theorem. Equality of stationary laws or single-time marginals is insufficient. When closure fails, a fine-state posterior filter or a proved sufficient memory restores prediction. If actions reveal hidden controller state, the observer must condition on the selected action before averaging transition rows. See [[multiagentelbo-2026-09-11-memory]] and the counterexample and repair retained in [[multiagentelbo-2026-09-11-formation]].
+
 
 ## Definition
 

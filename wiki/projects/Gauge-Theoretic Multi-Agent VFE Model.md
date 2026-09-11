@@ -14,10 +14,14 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-08-20
+updated: 2026-09-11
 ---
 
 # Gauge-Theoretic Multi-Agent VFE Model
+
+> [!note] Current scope, September 11, 2026
+> [[Gauge-VFE RG research synthesis September 2026]] is the current MultiAgentELBO RG and parent-formation entry point. Its [[multiagentelbo-2026-09-11-research-snapshot|source snapshot]] covers all 89 current reports, the Theory bundle and the uncommitted finite-formation continuation, preserving their distinct revisions. Exact normalized composition, boundary contracts, memory, closure classifications and scoped continuum results are supplied; unrestricted agency and arbitrary RG families are not claimed. [[multiagentelbo-2026-09-11-reference-register]] provides this week's literature reconciliation and accessible primary texts. Earlier MAgent and V3 results below retain their own scope.
+
 
 ## Goal
 
