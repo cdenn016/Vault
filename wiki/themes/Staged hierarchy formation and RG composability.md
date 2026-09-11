@@ -12,10 +12,14 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-08-17
-updated: 2026-08-17
+updated: 2026-09-11
 ---
 
 # Staged hierarchy formation and RG composability
+
+> [!note] Current scope, September 11, 2026
+> Exact normalized channels compose along compatible types at every admitted stage; fixed points and self-similar substrates are not prerequisites. Statements below suggesting otherwise are superseded in that general reading. A frozen action family, a reference chosen afresh at each scale, a learned boundary or an incomplete retained state can still fail to give an autonomous common-carrier semigroup. The earlier measured defects must be interpreted at that narrower scope. [[multiagentelbo-2026-09-11-normalized-core]] supplies exact composition; [[multiagentelbo-2026-09-11-formation]] supplies 16-to-9-to-5 staged reductions of one coupled finite process without claiming a uniquely selected hierarchy.
+
 
 Two literatures meet at one question the multi-agent program can now measure: does it matter in
 what stages a hierarchy is built? The kinetic literature says the *path* matters for what forms;

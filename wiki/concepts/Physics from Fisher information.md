@@ -13,10 +13,14 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-19
-updated: 2026-08-13
+updated: 2026-09-11
 ---
 
 # Physics from Fisher information
+
+> [!note] Current scope, September 11, 2026
+> [[multiagentelbo-2026-09-11-geometry-feedback]] records normalized geometry-feedback constructions and explicit field obstructions. [[multiagentelbo-2026-09-11-thermodynamic-fisher]] and [[multiagentelbo-2026-09-11-continuum]] give conditional limits tied to specific models and source families. They do not identify a physical system or derive physical units and constants from the generic VFE formalism. Historical physical interpretations below remain interpretations unless the particular map, normalization and limit are supplied.
+
 
 ## Definition
 

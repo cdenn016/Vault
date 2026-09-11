@@ -15,10 +15,14 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-08-17
+updated: 2026-09-11
 ---
 
 # Renormalization group flow
+
+> [!note] Current scope, September 11, 2026
+> The September construction supplies exact typed normalized RG towers and several scoped scale, spatial and continuum results. It supersedes any general reading below that RG composition requires a fixed point or self-similar substrate. Fixed points and universal large-scale behavior remain additional properties; exact composition does not establish them. The old finite reduction defects concern the particular state/action family retained in those experiments. See [[multiagentelbo-2026-09-11-normalized-core]], [[multiagentelbo-2026-09-11-scale-and-inference]] and [[Gauge-VFE RG research synthesis September 2026]].
+
 
 ## Definition
 

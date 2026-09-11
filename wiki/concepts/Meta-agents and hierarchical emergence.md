@@ -13,10 +13,14 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-08-17
+updated: 2026-09-11
 ---
 
 # Meta-agents and hierarchical emergence
+
+> [!note] Current scope, September 11, 2026
+> The current reusable-parent definition is operational: a parent must carry a joint law, evaluator, boundary access, structural marks and sufficient memory. The species gate and pairing analogies below describe particular earlier models, not necessary conditions for every parent. [[multiagentelbo-2026-09-11-formation]] proves finite observational quotients and exact staged reductions, while also showing that stationary agreement and minimum state count do not establish autonomous agency or select a unique intermediate hierarchy. [[multiagentelbo-2026-09-11-neighborhoods]] supplies the overlapping-neighborhood parent contract.
+
 
 ## Definition
 
