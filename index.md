@@ -2,7 +2,7 @@
 type: index
 title: Index
 aliases: [Index, Home]
-updated: 2026-09-11
+updated: 2026-09-12
 ---
 
 # Index
@@ -10,7 +10,7 @@ updated: 2026-09-11
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **4** projects · **30** manuscripts · **15** themes · **11** field MOCs · **287** concepts · **12** methods · **695** papers · **116** references · **27** runs · **6** web/methodology
+> **4** projects · **32** manuscripts · **15** themes · **11** field MOCs · **287** concepts · **12** methods · **695** papers · **116** references · **27** runs · **6** web/methodology
 
 ## 🧭 Start here
 - [[Gauge-VFE RG research synthesis September 2026]] — current normalized RG theory, finite formation, evidence scope and this week's primary-source archive
@@ -26,6 +26,8 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
   - [[VFE Transformer Research Directions (2026-06-21)]] — prioritized open-experiments roadmap (37 hypotheses)
 
 ## 📝 Manuscripts (in preparation)
+- [[multiagentelbo-2026-09-12-nonlinear-dynamical-rg]] — common kinetics, successive coalescence and two nonlinear parent reductions with controlled conditional VFE and boundary errors
+- [[multiagentelbo-2026-09-12-dynamical-rg]] — finite VFE-driven coherence and two inherited reductions; exact parent costs, controlled paths, supplied-rate and transient-KL limits
 - [[multiagentelbo-agent-only-ontology-2026-08-13|MultiAgentELBO Agent-Only Ontology and Informational Physicalization: 2026-08-13 Ingest Record]] — revision-bound synthesis of general law-section agents, endogenous interaction records, timeless inference, typed physicalization, and the open units/constant bridge
 - [[multiagentelbo-literature-gap-review-2026-08-10|MultiAgentELBO Literature-Gap Review: 2026-08-10 Ingest Record]] — revision-bound 41-source bridge from the exact finite oracle to approximate inference, recovery, synchronization, communication, social learning, and population-limit obligations
 - [[gauge-vfe-rg-pullback-geometry-2026-08-01|Gauge-Covariant Variational Free Energy and Renormalization: 2026-08-01 Pullback Geometry and Timeless Inference Record]] — fixed-base vertical histories, covariant informational pullbacks, exact local--collective VFE geometry, Fisher information duration, and cross-scale Markov contraction

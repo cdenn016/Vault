@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-09-11
+updated: 2026-09-12
 ---
 
 # Meta-agents and hierarchical emergence
@@ -21,6 +21,16 @@ updated: 2026-09-11
 > [!note] Current scope, September 11, 2026
 > The current reusable-parent definition is operational: a parent must carry a joint law, evaluator, boundary access, structural marks and sufficient memory. The species gate and pairing analogies below describe particular earlier models, not necessary conditions for every parent. [[multiagentelbo-2026-09-11-formation]] proves finite observational quotients and exact staged reductions, while also showing that stationary agreement and minimum state count do not establish autonomous agency or select a unique intermediate hierarchy. [[multiagentelbo-2026-09-11-neighborhoods]] supplies the overlapping-neighborhood parent contract.
 
+
+## Intrinsic successive coalescence, September 12 nonlinear continuation
+
+[[multiagentelbo-2026-09-12-nonlinear-dynamical-rg]] supplies a finite compact example in which common local VFE kinetics first brings two agents into coherence and later joins the third. Parent rates follow from the supplied interaction energy and inherited metric; they are not prescribed again at the new scale. Exact law/evaluator kernels compose, and separate entropy estimates control discarded conditional VFE on the stated time windows. Positive-temperature coherence and path reduction carry explicit exceptional-event bounds. This is an open finite-family existence result, not unique or permanent grouping, learned interaction contrast, or infinite hierarchy. It adds no external capability or storage criterion.
+
+## Intrinsic VFE-driven formation, September 12, 2026
+
+[[multiagentelbo-2026-09-12-dynamical-rg]] supplies an admitted dynamical example in which intrinsic two-channel interactions and a normalized evaluator produce an open coherent basin with independent link motion. Positive conditional Hessians then license eliminating restoring constituent matter modes in two successive normalized parents. This uses the section-valued ontology at one base point. Capability gains, storage charges, and the priced licensing rules of earlier special models are not general formation requirements.
+
+Normalized observations yield collective response, and a sufficiently strong mismatch force yields departure from the local coherence regime. The result permits temporary validity of a parent approximation; it does not yet give unrestricted membership turnover or a uniquely discovered sequence of groups. Kinetic rates and the elimination order are supplied. Parent priors and evaluators are inherited from the original generative law, while the optimized recognition conditional remains a separate object. Exact conditional VFE accounting and approximate retained-path dynamics carry different guarantees.
 
 ## Definition
 

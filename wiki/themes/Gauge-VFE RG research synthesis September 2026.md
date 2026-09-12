@@ -4,12 +4,28 @@ title: Gauge-VFE RG research synthesis September 2026
 tags: [cluster/multi-agent, cluster/coarse-graining, cluster/gauge-theory, cluster/info-geometry, project/multi-agent]
 status: stable
 created: 2026-09-11
-updated: 2026-09-11
+updated: 2026-09-12
 ---
 
 # Gauge-VFE RG research synthesis September 2026
 
 The September 4-11 work supplies an exact normalized RG construction at the admitted finite and conditional scopes, with explicit closure classes, information losses, memory conditions and several continuum constructions. It also supplies obstructions where the proposed reduction cannot have the requested properties. This is the current synthesis of the MultiAgentELBO program; older vault pages describe earlier MAgent heuristics and earlier finite laboratories and should be read with the dated corrections linked here.
+
+## Nonlinear successive coalescence with inherited kinetics, September 12
+
+[[multiagentelbo-2026-09-12-nonlinear-dynamical-rg]] extends the earlier finite construction in a ten-angle, three-node compact model with two law channels and independent moving links. One common microscopic mobility and supplied strong/weak interaction weights produce a pair-only episode followed by whole-group coherence. The exact nonlinear parents inherit their metrics, forces and temperature through reductions from ten to five to three coordinates. Full conditional-integral interactions and branch identifications are retained; the first parent generates a nonzero cross interaction on a nonempty open subset of the admitted regime.
+
+The new proof controls the actual first conditional KL after its initial layer and later controls both conditional losses of the fine law, the separately evolved first parent, and scalar objectives of the autonomous parents. These entropy estimates are separate from path estimates. A common positive-temperature regime joins both formation episodes, conditional entropy, inherited paths and a finite observation horizon. The local final-root Brownian comparison includes exceptional chart exits and global face identifications.
+
+This closes the earlier supplied-rate and transient-KL gaps within the newly specified finite family. It does not derive the interaction contrast, select a unique hierarchy, prove permanent agreement, arbitrary-depth closure or a universal physical clock. The Gaussian translation-link predecessor and its exact final projection remain a separate scope record. The earlier source below remains an immutable account of its own model and limitations; no storage price or external capability requirement is introduced.
+
+## Finite dynamical coalescence and two reductions, September 12
+
+[[multiagentelbo-2026-09-12-dynamical-rg]] extends the operational formation results with a finite dynamical construction at one base point. The same compact three-agent model joins normalized local mechanisms, correlated recognition, two law channels, independent dynamic SO(2) links, an open attracting coherent basin, collective response and departure, and two successive reductions. Positive conditional Hessians show that the eliminated constituent variables are restoring matter modes. Complete link marks and induced conditional-integral interactions survive the reductions $\mathbb T^{12}\to\mathbb T^{10}\to\mathbb T^8$. The separate radial SO($d$) example supplies additional stabilizer-holonomy results within its own scope.
+
+The generative parent is the pushforward of the original generative law. Its evaluator and downward prior come from that same law. The recognition optimizer instead contains the evaluator's variational tilt; integrating it yields an exact augmented conditional-family parent objective plus an explicit nonnegative conditional-KL residual for arbitrary fine recognition. This distinction survives the second reduction. Finite-horizon path estimates use inherited mobility and conditional-integral forces, with a proved common regime for coherence and both reductions at sufficiently separated supplied rates and small positive temperature.
+
+The result does not require storage costs or an external capability criterion. Its microscopic rates and reduction order are assumptions; it does not select a unique grouping, derive universal parent slowdown, or establish infinite depth. Controlled retained paths also do not bound the fine transient conditional KL or reproduce the entire fine VFE trajectory. The dated source preserves the exact finite completion status, independent reconstructions, and those open extensions.
 
 ## What is established, and what carries the evidence
 
