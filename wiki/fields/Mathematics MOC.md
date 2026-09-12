@@ -5,7 +5,7 @@ aliases: [field/mathematics, Mathematics sources, Math MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-09-11
+updated: 2026-09-12
 ---
 
 # Mathematics MOC
@@ -13,7 +13,7 @@ updated: 2026-09-11
 > Map of Content for the **`field/mathematics`** discipline facet. Auto-populated by the **Bases**
 > core plugin from the `field/*` tags.
 
-Mathematics (**235** sources) supplies the geometric and analytic backbone of the program:
+Mathematics (**236** sources) supplies the geometric and analytic backbone of the program:
 SPD / Riemannian geometry, Lie theory and gauge geometry, [[Information geometry and natural gradient|information geometry]],
 and the kinetic-PDE / mean-field-game machinery behind [[Statistical physics of social systems and collective behavior|opinion dynamics]].
 
@@ -137,3 +137,10 @@ or `tag:#field/mathematics tag:#cluster/social-physics/opinion-dynamics`. See th
 - [[multiagentelbo-2026-09-11-extension-studies]]
 - [[multiagentelbo-2026-09-11-finite-program]]
 - [[multiagentelbo-2026-09-11-implementation]]
+
+## Finite dynamical RG, September 12, 2026
+
+[[multiagentelbo-2026-09-12-dynamical-rg]] records the normalized two-channel construction, coherence and two inherited reductions, including exact conditional VFE accounting and the limits of its finite-time approximation. Its discipline tags also include it in the automatic Bases view.
+
+
+[[multiagentelbo-2026-09-12-nonlinear-dynamical-rg]] adds common microscopic kinetics, actual successive formation, nonlinear inherited parents and separate conditional-entropy control at finite scope.

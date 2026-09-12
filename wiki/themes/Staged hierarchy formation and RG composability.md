@@ -12,7 +12,7 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-08-17
-updated: 2026-09-11
+updated: 2026-09-12
 ---
 
 # Staged hierarchy formation and RG composability
@@ -26,6 +26,16 @@ what stages a hierarchy is built? The kinetic literature says the *path* matters
 the renormalization literature says the *description* of the aggregate depends on the path taken
 to coarse-grain it. On 2026-08-17 the MultiAgentELBO finite laboratory measured both halves of
 this on its own declared system, and this page records the synthesis.
+
+## Two actual formation episodes under common kinetics
+
+[[multiagentelbo-2026-09-12-nonlinear-dynamical-rg]] proves a pair-only interval and a later whole-group interval in one compact three-agent preparation. The first nonlinear parent has its own later merger under inherited equations. Exact conditional laws and costs compose through ten-to-five-to-three retentions, while force, path and conditional-entropy errors are separately bounded in one positive-temperature regime. Supplied strong/weak interactions generate the separation of relaxation modes; no parent clock is inserted. This advances beyond the earlier supplied-rate construction below without asserting unique grouping, all-time persistence or arbitrary depth. Compact face identifications remain part of the exact parent law.
+
+## Dynamical construction, September 12, 2026
+
+[[multiagentelbo-2026-09-12-dynamical-rg]] now joins intrinsic coalescence and two inherited reductions in one compact three-agent law/link model. Exact generative pushforwards and derived conditional variational costs compose by the tower property. Separate finite-horizon arguments compare both reduced processes with the retained microscopic paths in a common coherence regime. Thus algebraic composition and dynamical approximation are checked at their respective scopes.
+
+This is an existential two-stage construction with supplied rates and reduction order, not evidence that a first pair forms before the third agent joins or that the dynamics selects one partition. Complete generated interactions are retained. Path error does not bound the hidden conditional KL or the full transient VFE. The cost-driven assembly studies below remain particular historical mechanisms; an external resource price is not necessary for the admitted intrinsic VFE construction.
 
 ## The kinetic strand: hierarchies are built in stages
 

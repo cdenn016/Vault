@@ -5,7 +5,7 @@ aliases: [field/statistics, Statistics sources, Information theory MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-09-11
+updated: 2026-09-12
 ---
 
 # Statistics MOC
@@ -13,7 +13,7 @@ updated: 2026-09-11
 > Map of Content for the **`field/statistics`** discipline facet (statistics & information theory).
 > Auto-populated by the **Bases** core plugin from the `field/*` tags.
 
-Statistics & information theory (**155** sources) underpins the variational-inference and
+Statistics & information theory (**156** sources) underpins the variational-inference and
 information-geometry layers of the program: Bayesian inference, divergences, model selection
 (MDL / BIC), forecasting, and the information bottleneck. Statistics is rarely a source's headline
 field but pervades the corpus through cross-disciplinary tags.
@@ -87,3 +87,10 @@ or `tag:#field/statistics tag:#cluster/vfe`. See the [[Disciplines MOC]] hub for
 - [[multiagentelbo-2026-09-11-extension-studies]]
 - [[multiagentelbo-2026-09-11-finite-program]]
 - [[multiagentelbo-2026-09-11-implementation]]
+
+## Finite dynamical RG, September 12, 2026
+
+[[multiagentelbo-2026-09-12-dynamical-rg]] records the normalized two-channel construction, coherence and two inherited reductions, including exact conditional VFE accounting and the limits of its finite-time approximation. Its discipline tags also include it in the automatic Bases view.
+
+
+[[multiagentelbo-2026-09-12-nonlinear-dynamical-rg]] adds common microscopic kinetics, actual successive formation, nonlinear inherited parents and separate conditional-entropy control at finite scope.

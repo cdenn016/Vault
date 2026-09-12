@@ -15,7 +15,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-09-11
+updated: 2026-09-12
 ---
 
 # Renormalization group flow
@@ -23,6 +23,16 @@ updated: 2026-09-11
 > [!note] Current scope, September 11, 2026
 > The September construction supplies exact typed normalized RG towers and several scoped scale, spatial and continuum results. It supersedes any general reading below that RG composition requires a fixed point or self-similar substrate. Fixed points and universal large-scale behavior remain additional properties; exact composition does not establish them. The old finite reduction defects concern the particular state/action family retained in those experiments. See [[multiagentelbo-2026-09-11-normalized-core]], [[multiagentelbo-2026-09-11-scale-and-inference]] and [[Gauge-VFE RG research synthesis September 2026]].
 
+
+## Nonlinear inherited dynamics and conditional entropy
+
+[[multiagentelbo-2026-09-12-nonlinear-dynamical-rg]] joins two actual coalescence episodes to two normalized nonlinear reductions at one base point. The common microscopic mobility induces both parent metrics and forces. Full compact integrals retain generated interactions and conditional variational costs. Uniform first-interface entropy control and later separate fine/parent entropy decay complement the path bounds; neither is inferred from the other. The result is finite and conditional on supplied interaction contrast, preparation and a controlled horizon. It does not establish universal scaling or infinite-depth closure.
+
+## Finite dynamical reduction at one base point, September 12, 2026
+
+[[multiagentelbo-2026-09-12-dynamical-rg]] constructs two compatible reductions of a compact three-agent model whose law and link dynamics approach a coherent manifold. The maps eliminate restoring internal matter modes while preserving root laws, independent links and generated interactions. Exact normalized generative laws and conditional parent costs compose; conditional averaging derives the parent mobilities and forces, with finite-horizon path estimates on a stated common regime.
+
+The reduction order and microscopic rate hierarchy are declared inputs. The theorem does not imply fixed points, universal slowdown, unique grouping or infinite-depth attraction. Nor does path accuracy control the discarded conditional KL: the full transient fine VFE retains that explicit residual. These qualifications distinguish the dynamic result from exact static channel composition and from closure in a truncated action family.
 
 ## Definition
 

@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-09-11
+updated: 2026-09-12
 ---
 
 # Gauge-Theoretic Multi-Agent VFE Model
@@ -22,6 +22,16 @@ updated: 2026-09-11
 > [!note] Current scope, September 11, 2026
 > [[Gauge-VFE RG research synthesis September 2026]] is the current MultiAgentELBO RG and parent-formation entry point. Its [[multiagentelbo-2026-09-11-research-snapshot|source snapshot]] covers all 89 current reports, the Theory bundle and the uncommitted finite-formation continuation, preserving their distinct revisions. Exact normalized composition, boundary contracts, memory, closure classifications and scoped continuum results are supplied; unrestricted agency and arbitrary RG families are not claimed. [[multiagentelbo-2026-09-11-reference-register]] provides this week's literature reconciliation and accessible primary texts. Earlier MAgent and V3 results below retain their own scope.
 
+
+## September 12 nonlinear dynamical continuation
+
+[[multiagentelbo-2026-09-12-nonlinear-dynamical-rg]] records the completed finite common-kinetics construction: two law channels and independent moving links, a pair-then-whole trajectory, exact normalized nonlinear parents, inherited geometry, generated interactions, and controlled discarded conditional VFE. The witness is compact and pointwise; the ambient section-valued ontology is unchanged. The interaction contrast is supplied, positive-temperature errors and compact boundary terms are retained, and general depth and uniquely selected hierarchy remain open. The earlier Gaussian construction is preserved separately rather than used to certify the nonlinear interfaces.
+
+## Finite dynamical RG result, September 12, 2026
+
+[[multiagentelbo-2026-09-12-dynamical-rg]] completes a finite existential construction from local normalized mechanisms through VFE-driven coherence, collective response and departure, and two compatible normalized parent reductions with inherited dynamics. The example uses paired Gaussian law sections at one base point and independent SO(2) links; its compact regular regime and supplied kinetics are explicit. The research does not impose capability or storage costs as general formation gates.
+
+The parent objective is an exact augmented conditional-family ELBO with a remaining fine conditional-KL residual. Finite retained-path control does not eliminate that residual. Unique grouping, a rate hierarchy derived without supplied microscopic clocks, unrestricted noncompact dynamics, general membership turnover and infinite depth remain open. This is a mathematical construction and retained proof record, not a new production implementation or empirical validation.
 
 ## Goal
 
