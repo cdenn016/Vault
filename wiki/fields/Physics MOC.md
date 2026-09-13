@@ -5,7 +5,7 @@ aliases: [field/physics, Physics sources]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-09-12
+updated: 2026-09-13
 ---
 
 # Physics MOC
@@ -13,7 +13,7 @@ updated: 2026-09-12
 > Map of Content for the **`field/physics`** discipline facet. The table is auto-populated by the
 > **Bases** core plugin from the `field/*` tags and updates itself as sources are added.
 
-Physics is the largest discipline in the corpus (**261** sources). Its notes occupy three regions of
+Physics is the largest discipline in the corpus (**262** sources). Its notes occupy three regions of
 the program: the statistical-physics / sociophysics of collective behavior (in [[Statistical physics of social systems and collective behavior|social-physics]]), the quantum-foundations and emergent-gravity wing of the
 [[Participatory realism and quantum foundations|participatory]] program, and the gauge-theory /
 [[Information geometry and natural gradient|information-geometry]] core shared with the transformer.
@@ -97,3 +97,7 @@ See the [[Disciplines MOC]] hub for all fields.
 
 
 [[multiagentelbo-2026-09-12-nonlinear-dynamical-rg]] adds common microscopic kinetics, actual successive formation, nonlinear inherited parents and separate conditional-entropy control at finite scope.
+
+## Nonlinear adaptive cyclic RG, September 13
+
+[[multiagentelbo-2026-09-13-nonlinear-adaptive-attention-rg]] adds the scoped nonlinear adaptive construction, full marked activation and analytical conditional and path bounds.

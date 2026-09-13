@@ -5,7 +5,7 @@ aliases: [field/mathematics, Mathematics sources, Math MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-09-12
+updated: 2026-09-13
 ---
 
 # Mathematics MOC
@@ -13,7 +13,7 @@ updated: 2026-09-12
 > Map of Content for the **`field/mathematics`** discipline facet. Auto-populated by the **Bases**
 > core plugin from the `field/*` tags.
 
-Mathematics (**238** sources) supplies the geometric and analytic backbone of the program:
+Mathematics (**239** sources) supplies the geometric and analytic backbone of the program:
 SPD / Riemannian geometry, Lie theory and gauge geometry, [[Information geometry and natural gradient|information geometry]],
 and the kinetic-PDE / mean-field-game machinery behind [[Statistical physics of social systems and collective behavior|opinion dynamics]].
 
@@ -150,3 +150,7 @@ or `tag:#field/mathematics tag:#cluster/social-physics/opinion-dynamics`. See th
 
 
 [[multiagentelbo-2026-09-12-nonlinear-dynamical-rg]] adds common microscopic kinetics, actual successive formation, nonlinear inherited parents and separate conditional-entropy control at finite scope.
+
+## Nonlinear adaptive cyclic RG, September 13
+
+[[multiagentelbo-2026-09-13-nonlinear-adaptive-attention-rg]] adds the scoped nonlinear adaptive construction, full marked activation and analytical conditional and path bounds.

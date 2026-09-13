@@ -4,10 +4,16 @@ title: Gauge-VFE RG research synthesis September 2026
 tags: [cluster/multi-agent, cluster/coarse-graining, cluster/gauge-theory, cluster/info-geometry, project/multi-agent]
 status: stable
 created: 2026-09-11
-updated: 2026-09-12
+updated: 2026-09-13
 ---
 
 # Gauge-VFE RG research synthesis September 2026
+
+## Nonlinear adaptive cyclic formation, September 13
+
+[[multiagentelbo-2026-09-13-nonlinear-adaptive-attention-rg]] constructs, for every fixed finite L>=2, nonlinear cyclic coalescence with exact marked parents and actual-law model learning. A model-posterior source row changes by TV greater than 0.37, and physical and optimizing hidden conditionals change by KL greater than 1/200 on the same 2/epsilon horizon. Conditional KL is O_L(epsilon^2), with separate complete-score and retained-path bounds. Every parent starts from the full actual retained joint law.
+
+Source assignments are retained discrete coordinates with zero mobility. Their recognition masses stay fixed; changing model-posterior attention is distinguished from the actual recognition conditional that weights the marginal force. This admission repairs the collapsed proposal's marked-activation gap. Supplied contrasts, internal-neighbor support, calibration, small fixed standardized nonlinearity, and a shrinking amplitude/temperature regime remain explicit. All loops survive and base transport remains deferred. Earlier dated sections retain their original scopes.
 
 The September 4-11 work supplies an exact normalized RG construction at the admitted finite and conditional scopes, with explicit closure classes, information losses, memory conditions and several continuum constructions. It also supplies obstructions where the proposed reduction cannot have the requested properties. This is the current synthesis of the MultiAgentELBO program; older vault pages describe earlier MAgent heuristics and earlier finite laboratories and should be read with the dated corrections linked here.
 

@@ -12,10 +12,16 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-09-12
+updated: 2026-09-13
 ---
 
 # Coarse Graining
+
+## Nonlinear adaptive cyclic formation, September 13
+
+[[multiagentelbo-2026-09-13-nonlinear-adaptive-attention-rg]] constructs, for every fixed finite L>=2, nonlinear cyclic coalescence with exact marked parents and actual-law model learning. A model-posterior source row changes by TV greater than 0.37, and physical and optimizing hidden conditionals change by KL greater than 1/200 on the same 2/epsilon horizon. Conditional KL is O_L(epsilon^2), with separate complete-score and retained-path bounds. Every parent starts from the full actual retained joint law.
+
+Source assignments are retained discrete coordinates with zero mobility. Their recognition masses stay fixed; changing model-posterior attention is distinguished from the actual recognition conditional that weights the marginal force. This admission repairs the collapsed proposal's marked-activation gap. Supplied contrasts, internal-neighbor support, calibration, small fixed standardized nonlinearity, and a shrinking amplitude/temperature regime remain explicit. All loops survive and base transport remains deferred. Earlier dated sections retain their original scopes.
 
 > [!note] Current scope, September 11, 2026
 > The normalized construction now gives exact common-channel VFE accounting with correlated recognition and posterior-fiber equality conditions; see [[multiagentelbo-2026-09-11-normalized-core]]. Compatible channels compose without a fixed-point assumption. Precision pooling, a coordinate statistic, a probability pushforward, an action-family projection and a changed experiment remain distinct operations; no universal RG orientation follows just from a tighter Gaussian covariance. [[multiagentelbo-2026-09-11-neighborhoods]] supplies normalized overlap and boundary contracts, while [[multiagentelbo-2026-09-11-gaussian-closure]] records Gaussian and Kron closure conditions.
