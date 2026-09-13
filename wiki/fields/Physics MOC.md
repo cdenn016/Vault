@@ -13,7 +13,7 @@ updated: 2026-09-13
 > Map of Content for the **`field/physics`** discipline facet. The table is auto-populated by the
 > **Bases** core plugin from the `field/*` tags and updates itself as sources are added.
 
-Physics is the largest discipline in the corpus (**263** sources). Its notes occupy three regions of
+Physics is the largest discipline in the corpus (**264** sources). Its notes occupy three regions of
 the program: the statistical-physics / sociophysics of collective behavior (in [[Statistical physics of social systems and collective behavior|social-physics]]), the quantum-foundations and emergent-gravity wing of the
 [[Participatory realism and quantum foundations|participatory]] program, and the gauge-theory /
 [[Information geometry and natural gradient|information-geometry]] core shared with the transformer.
@@ -105,3 +105,7 @@ See the [[Disciplines MOC]] hub for all fields.
 ## Finite-rate adaptive cyclic RG, September 13
 
 [[multiagentelbo-2026-09-13-finite-rate-adaptive-cyclic-rg]] supplies the accelerated-energy positive-rate source construction, exact marked activations and full assignment-history comparison.
+
+## Weakest-one adaptive cyclic RG, September 13
+
+[[multiagentelbo-2026-09-13-fixed-weakest-energy-adaptive-cyclic-rg]] supplies the fixed-weakest-energy positive-rate construction, exact marked activations, joint entropy and full assignment-history comparison.

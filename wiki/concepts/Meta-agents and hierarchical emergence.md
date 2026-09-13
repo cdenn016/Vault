@@ -18,6 +18,14 @@ updated: 2026-09-13
 
 # Meta-agents and hierarchical emergence
 
+## Positive-rate cyclic formation with weakest energy one, September 13
+
+[[multiagentelbo-2026-09-13-fixed-weakest-energy-adaptive-cyclic-rg]] removes the growing weakest-energy assumption from the preceding finite-depth positive-rate construction. With J_L=1, source proposals and continuous mobility both have rate one. Exact normalized parents activate from complete actual retained laws, retain every loop and source assignment, and learn from their own actual law. For every finite L>=2, the construction has L actual formation episodes, recognition-source TV greater than one half from each activation, and fixed positive changes of the first physical and optimizing hidden kernels.
+
+Uniform joint diffusion-plus-jump entropy contraction controls the terminal conditional error after logarithmic entrance time. An exact source-relevant fast marginal, common to every parent, supports a complete proposal-history coupling under actual evolving environments. Terminal conditional KL is O_L(epsilon^2), complete-score error O_L(T epsilon), history disagreement O_L(epsilon^6), and the separate continuous-path error O_L(A epsilon^2). Early conditional KL is O_L(epsilon^14).
+
+Supplied energy contrasts, internal-neighbor source support, calibration, small fixed standardized nonlinearity and shrinking preparation/temperature remain assumptions. This result does not establish that source learning creates the hierarchy. Mixed-level source dependence would require a new fast-marginal and history argument. Exact probability composition, approximate dynamics and physical-time interpretation remain distinct; base transport is deferred. Earlier dated sections retain their original scopes.
+
 ## Finite-rate adaptive cyclic formation, September 13
 
 [[multiagentelbo-2026-09-13-finite-rate-adaptive-cyclic-rg]] extends the nonlinear finite-depth construction to moving actual source assignments with microscopic proposal rate one. Exact parents inherit optimizer-conditioned rates and activate from the complete actual retained law. Actual recognition-source TV exceeds one half, discarded-conditional KL is O_L(epsilon^8), complete-score error is O_L(T epsilon^4), and the probability of any disagreement over entire assignment histories is O_L(epsilon^7 log(1/epsilon)). Continuous paths have a separate O_L(A epsilon^2) bound. All loops and assignments survive every reduction.
