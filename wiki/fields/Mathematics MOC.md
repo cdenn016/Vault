@@ -13,7 +13,7 @@ updated: 2026-09-13
 > Map of Content for the **`field/mathematics`** discipline facet. Auto-populated by the **Bases**
 > core plugin from the `field/*` tags.
 
-Mathematics (**240** sources) supplies the geometric and analytic backbone of the program:
+Mathematics (**241** sources) supplies the geometric and analytic backbone of the program:
 SPD / Riemannian geometry, Lie theory and gauge geometry, [[Information geometry and natural gradient|information geometry]],
 and the kinetic-PDE / mean-field-game machinery behind [[Statistical physics of social systems and collective behavior|opinion dynamics]].
 
@@ -158,3 +158,7 @@ or `tag:#field/mathematics tag:#cluster/social-physics/opinion-dynamics`. See th
 ## Finite-rate adaptive cyclic RG, September 13
 
 [[multiagentelbo-2026-09-13-finite-rate-adaptive-cyclic-rg]] supplies the accelerated-energy positive-rate source construction, exact marked activations and full assignment-history comparison.
+
+## Weakest-one adaptive cyclic RG, September 13
+
+[[multiagentelbo-2026-09-13-fixed-weakest-energy-adaptive-cyclic-rg]] supplies the fixed-weakest-energy positive-rate construction, exact marked activations, joint entropy and full assignment-history comparison.
