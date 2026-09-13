@@ -13,7 +13,7 @@ updated: 2026-09-12
 > Map of Content for the **`field/mathematics`** discipline facet. Auto-populated by the **Bases**
 > core plugin from the `field/*` tags.
 
-Mathematics (**237** sources) supplies the geometric and analytic backbone of the program:
+Mathematics (**238** sources) supplies the geometric and analytic backbone of the program:
 SPD / Riemannian geometry, Lie theory and gauge geometry, [[Information geometry and natural gradient|information geometry]],
 and the kinetic-PDE / mean-field-game machinery behind [[Statistical physics of social systems and collective behavior|opinion dynamics]].
 
@@ -23,6 +23,8 @@ only, existence and global convergence explicitly open), [[cassel-2025-bundle-sc
 [[cassel-2025-yang-mills-data]] (discrete vector bundles, gauged Laplacians, a discrete Yang-Mills
 energy), and [[gonzalez-alvarado-2025-patch-assignment]] (Riemannian gradient flows on products of
 simplices, characterised as critical points of a Lagrangian action).
+
+The adaptive cyclic Gaussian construction [[multiagentelbo-2026-09-12-adaptive-cyclic-rg]] adds normalized changing-conditional learning, exact loop-preserving parents and finite-depth dynamical bounds in its admitted scope.
 
 ```base
 filters:

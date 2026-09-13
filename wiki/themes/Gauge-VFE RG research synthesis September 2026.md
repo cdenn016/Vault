@@ -11,6 +11,12 @@ updated: 2026-09-12
 
 The September 4-11 work supplies an exact normalized RG construction at the admitted finite and conditional scopes, with explicit closure classes, information losses, memory conditions and several continuum constructions. It also supplies obstructions where the proposed reduction cannot have the requested properties. This is the current synthesis of the MultiAgentELBO program; older vault pages describe earlier MAgent heuristics and earlier finite laboratories and should be read with the dated corrections linked here.
 
+## Adaptive cyclic formation with changing conditionals, September 12
+
+[[multiagentelbo-2026-09-12-adaptive-cyclic-rg]] joins cyclic marked parents to genuine normalized model learning in a Gaussian family. For every finite L>=2, a chain of triangles has L actual coalescence levels, retaining all original loops. The two-level example has 6 -> 2 -> 1 agents and 19 -> 9 -> 8 coordinates. Over 2/epsilon, the learned parameter changes the physical and optimizing hidden conditionals by a fixed positive KL. Parents start from actual retained laws and use their own evolving laws, complete scores and inherited metrics.
+
+Direct conditional KL is O_L(epsilon^2), separately learned parameter error is O_L(epsilon^4), and an independent path maximum argument controls the retained trajectory. Physical evidence, restricted-objective offset and the prior/posterior/optimizer kernels remain distinct. Fixed interaction contrasts, compatible observations, calibration-assisted scalar learning, a correlated proper reference and finite depth remain assumptions. The normalized attention rows are fixed and no loop penalty is inserted. This Gaussian adaptive result and the earlier nonlinear fixed-coefficient result do not jointly establish nonlinear adaptive RG.
+
 ## Finite-depth nonlinear formation and sequential parents, September 12
 
 [[multiagentelbo-2026-09-12-finite-depth-dynamical-rg]] extends the earlier two-stage construction to every prescribed finite L>=3. Its compact two-channel path family has L actual successive coalescence windows under fixed interaction weights and common microscopic kinetics, including 8 -> 4 -> 2 -> 1. The exact normalized marked parents retain full nonlinear interactions, inherited metrics and compact identifications. Each next-parent restoring condition is proved within this family. Parents may be activated successively from the actual retained laws, with separate quantitative conditional-VFE, force, path and exceptional-event bounds.

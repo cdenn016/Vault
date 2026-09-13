@@ -22,6 +22,10 @@ updated: 2026-09-12
 > The current reusable-parent definition is operational: a parent must carry a joint law, evaluator, boundary access, structural marks and sufficient memory. The species gate and pairing analogies below describe particular earlier models, not necessary conditions for every parent. [[multiagentelbo-2026-09-11-formation]] proves finite observational quotients and exact staged reductions, while also showing that stationary agreement and minimum state count do not establish autonomous agency or select a unique intermediate hierarchy. [[multiagentelbo-2026-09-11-neighborhoods]] supplies the overlapping-neighborhood parent contract.
 
 
+## Cyclic formation during model adaptation
+
+[[multiagentelbo-2026-09-12-adaptive-cyclic-rg]] constructs L successive coalescence levels for each finite L>=2 in a Gaussian network with independent dynamic links. A learned generative coefficient changes the eliminated conditional over a nonvanishing adaptation period, while each parent inherits complete law/evaluator kernels and learns from its own actual law. The 6 -> 2 -> 1 example retains two loop coordinates through 19 -> 9 -> 8 configuration dimensions. Formation has quantitative conditional-VFE and separate path-error bounds. Supplied contrast, compatible observations and calibration-assisted scalar learning are assumptions; capabilities, storage prices and permanent intermediate groups are not prerequisites.
+
 ## Repeated nonlinear formation at finite depth
 
 [[multiagentelbo-2026-09-12-finite-depth-dynamical-rg]] supplies actual repeated coalescence at every prescribed finite depth in a compact two-channel path model. Complete marked parents inherit normalized law/evaluator kernels, metrics and full nonlinear forces. Sequential activation uses the preceding process's actual retained law. Agreement is measured by the inherited expected original transported-KL statistic, without identifying a full marked mixture with a single Gaussian. Supplied weights and preparation yield an open finite regime with controlled conditional VFE and path errors. Learned hierarchy, unique grouping and infinite depth remain separate obligations.

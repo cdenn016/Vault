@@ -13,10 +13,12 @@ updated: 2026-09-12
 > Map of Content for the **`field/physics`** discipline facet. The table is auto-populated by the
 > **Bases** core plugin from the `field/*` tags and updates itself as sources are added.
 
-Physics is the largest discipline in the corpus (**260** sources). Its notes occupy three regions of
+Physics is the largest discipline in the corpus (**261** sources). Its notes occupy three regions of
 the program: the statistical-physics / sociophysics of collective behavior (in [[Statistical physics of social systems and collective behavior|social-physics]]), the quantum-foundations and emergent-gravity wing of the
 [[Participatory realism and quantum foundations|participatory]] program, and the gauge-theory /
 [[Information geometry and natural gradient|information-geometry]] core shared with the transformer.
+
+The adaptive cyclic Gaussian construction [[multiagentelbo-2026-09-12-adaptive-cyclic-rg]] adds normalized changing-conditional learning, exact loop-preserving parents and finite-depth dynamical bounds in its admitted scope.
 
 ```base
 filters:
