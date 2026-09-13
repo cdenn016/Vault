@@ -13,10 +13,12 @@ updated: 2026-09-12
 > Map of Content for the **`field/statistics`** discipline facet (statistics & information theory).
 > Auto-populated by the **Bases** core plugin from the `field/*` tags.
 
-Statistics & information theory (**157** sources) underpins the variational-inference and
+Statistics & information theory (**158** sources) underpins the variational-inference and
 information-geometry layers of the program: Bayesian inference, divergences, model selection
 (MDL / BIC), forecasting, and the information bottleneck. Statistics is rarely a source's headline
 field but pervades the corpus through cross-disciplinary tags.
+
+The adaptive cyclic Gaussian construction [[multiagentelbo-2026-09-12-adaptive-cyclic-rg]] adds normalized changing-conditional learning, exact loop-preserving parents and finite-depth dynamical bounds in its admitted scope.
 
 ```base
 filters:

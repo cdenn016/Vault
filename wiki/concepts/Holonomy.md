@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-09-11
+updated: 2026-09-12
 ---
 
 # Holonomy
@@ -20,6 +20,10 @@ updated: 2026-09-11
 > [!note] Current scope, September 11, 2026
 > The current [[multiagentelbo-2026-09-11-formation|finite relational-record theorem]] exhibits nontrivial cycle holonomy with exactly matching singleton marginals and zero transported marginal KL. Record equivalence agrees with gauge equivalence only for the stated noisy relational experiment and its admitted preparations. Transition cocycles and independently specified connection links must not be conflated. Also, a flat connection can have nontrivial holonomy around a noncontractible loop: the older statement below identifying every nontrivial holonomy with curvature needs this topological qualification. [[multiagentelbo-2026-09-11-continuum]] keeps discrete loops and continuum curvature claims separate.
 
+
+## Retained loops in adaptive coalescence, September 12
+
+[[multiagentelbo-2026-09-12-adaptive-cyclic-rg]] proves cyclic Gaussian formation while retaining every original triangle circulation through each parent. No independent Wilson or curvature penalty is imposed. The translation-law witness has trivial stabilizers, so small mismatch entails small fluctuating frustrated holonomies; this is a representation-specific property, not a general flatness condition. Its separate circle-law calculation permits exact coherent nonidentity stabilizer holonomy. Full correlated cut-mark kernels survive reduction rather than being replaced by conditional means. The construction concerns interaction loops above one fixed base point, not transport across the contextual base.
 
 ## Definition
 

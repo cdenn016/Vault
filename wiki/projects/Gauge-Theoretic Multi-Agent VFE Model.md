@@ -23,6 +23,12 @@ updated: 2026-09-12
 > [[Gauge-VFE RG research synthesis September 2026]] is the current MultiAgentELBO RG and parent-formation entry point. Its [[multiagentelbo-2026-09-11-research-snapshot|source snapshot]] covers all 89 current reports, the Theory bundle and the uncommitted finite-formation continuation, preserving their distinct revisions. Exact normalized composition, boundary contracts, memory, closure classifications and scoped continuum results are supplied; unrestricted agency and arbitrary RG families are not claimed. [[multiagentelbo-2026-09-11-reference-register]] provides this week's literature reconciliation and accessible primary texts. Earlier MAgent and V3 results below retain their own scope.
 
 
+## September 12 adaptive cyclic completion
+
+[[multiagentelbo-2026-09-12-adaptive-cyclic-rg]] completes the admitted adaptive Gaussian phase: every finite L>=2 has actual cyclic coalescence, normalized marked parents retaining loops, and model learning that changes both physical and optimizing hidden conditionals over 2/epsilon. Parents use their own actual retained laws, complete model scores and inherited metrics; direct conditional-VFE and separate path bounds control their replacement.
+
+The theorem assumes supplied contrasts, compatible heterogeneous observations, calibration-assisted scalar learning and a proper correlated reference. It does not learn normalized attention rows or prove nonlinear adaptive formation; the earlier nonlinear fixed-coefficient theorem remains a separate result. Base transport is still deferred. [[Gauge-VFE RG research synthesis September 2026]] records this distinction and the source progression.
+
 ## September 12 finite-depth continuation
 
 [[multiagentelbo-2026-09-12-finite-depth-dynamical-rg]] completes the declared finite-depth nonlinear construction at one base point: L actual formation levels, normalized complete parents, inherited dynamics and quantitative conditional-VFE, force and path bounds, including sequential activation from actual retained laws. Eight agents forming four pairs, two blocks and one root is the concrete three-level case. The result retains supplied fixed interaction weights and depth-dependent constants. Learning the interaction hierarchy and maintaining coherence during that learning remain beyond this theorem; general gauge groups, loops and infinite depth also remain open. The previous two-stage sections describe earlier results.

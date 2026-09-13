@@ -27,6 +27,12 @@ the renormalization literature says the *description* of the aggregate depends o
 to coarse-grain it. On 2026-08-17 the MultiAgentELBO finite laboratory measured both halves of
 this on its own declared system, and this page records the synthesis.
 
+## Adaptive cyclic sequential parents
+
+[[multiagentelbo-2026-09-12-adaptive-cyclic-rg]] extends the completed progression to changing hidden conditionals. Each prescribed finite L>=2 has L cyclic coalescence windows under one common microscopic metric, with exact marked parents initialized from actual retained laws. Each parent learns its own coefficient from its own law and inherited normalized objective. Conditional entropy and path error are bounded separately through 2/epsilon. The activation times describe already formed objects; they do not switch the microscopic coefficients.
+
+The result is Gaussian, uses supplied contrast and compatible observations, and does not select unique first-hitting histories. Most appreciable model adaptation occurs after the short formation windows while coherence and the approximation persist. Nonlinear adaptive formation remains an extension of the separately scoped nonlinear result below.
+
 ## Finite-depth successive activation
 
 [[multiagentelbo-2026-09-12-finite-depth-dynamical-rg]] proves L formation levels for every prescribed finite L>=3 in one compact path family, with 8 -> 4 -> 2 -> 1 as the first three-level example. Each exact nonlinear parent can start from the current retained law at an admitted formation time and continue through later mergers under its inherited generator. Fixed microscopic interaction weights produce the separated windows; no scheduled coefficient switch is inserted. Exact normalized kernels compose, while sequential force, path and conditional-entropy estimates control the approximation. The result does not give depth-uniform constants, learned interaction contrast or permanent positive-temperature grouping. The two-stage result below is the earlier scope record.

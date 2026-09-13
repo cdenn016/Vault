@@ -23,6 +23,12 @@ updated: 2026-09-12
 
 Coarse graining is the procedure of integrating out or aggregating microscopic degrees of freedom to obtain an effective description at a larger scale, discarding detail while preserving relevant macroscopic behavior. It is the operational heart of statistical mechanics, the [[Renormalization group flow|renormalization group]], and emergent (entropic) descriptions of dynamics, and underlies the program's meta-agent hierarchy and [[Renormalization-group flow of beliefs|renormalization-group flow of beliefs]].
 
+## Changing conditionals and actual parent learning
+
+[[multiagentelbo-2026-09-12-adaptive-cyclic-rg]] makes the adaptive Gaussian distinction explicit: physical prior/posterior kernels determine the generative parent and its evaluator; the variational optimizer conditional defines the inherited restricted-family objective. The latter retains its original scalar offset and its derivative. Differentiating the optimizing lift gives each parent the complete model covector evaluated under its own law; replacing it with a bare marginal score would change the kinetics.
+
+Noncommuting covariance barriers and moving mean defects bound discarded conditional KL directly. Actual-law activation preserves those bounds without covariance resets. Exact retained paths require inherited memory and colored noise; the autonomous parent has a separate finite-horizon approximation. Required raw cut marks remain full correlated kernels whenever they are not retained coordinates.
+
 ## Successive dynamical reduction with controlled conditional cost
 
 [[multiagentelbo-2026-09-12-finite-depth-dynamical-rg]] gives exact normalized parent laws and conditional-family VFE identities through any prescribed finite depth in a compact path family. The sequential reduced process activates each parent from the actual current retained law. Its conditional KL, force and path errors are bounded separately; conditional losses at different times are not combined into a fictitious telescoping objective. Generated interactions and compact boundary identifications are retained. Approximate dynamical closure does not follow from exact static channel composition alone.
