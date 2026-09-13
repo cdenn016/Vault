@@ -13,7 +13,7 @@ updated: 2026-09-12
 > Map of Content for the **`field/statistics`** discipline facet (statistics & information theory).
 > Auto-populated by the **Bases** core plugin from the `field/*` tags.
 
-Statistics & information theory (**156** sources) underpins the variational-inference and
+Statistics & information theory (**157** sources) underpins the variational-inference and
 information-geometry layers of the program: Bayesian inference, divergences, model selection
 (MDL / BIC), forecasting, and the information bottleneck. Statistics is rarely a source's headline
 field but pervades the corpus through cross-disciplinary tags.
@@ -32,6 +32,10 @@ views:
       - title
       - year
 ```
+
+## Finite-depth dynamical RG continuation
+
+[[multiagentelbo-2026-09-12-finite-depth-dynamical-rg]] records repeated nonlinear formation, exact normalized parent composition and separate finite-depth entropy and path estimates. Supplied weights and depth-dependent constants remain explicit.
 
 ## Cross-facet pivots
 Compose with the topic facet via tag search — e.g. `tag:#field/statistics tag:#cluster/info-geometry`

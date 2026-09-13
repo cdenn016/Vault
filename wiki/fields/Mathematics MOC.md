@@ -13,7 +13,7 @@ updated: 2026-09-12
 > Map of Content for the **`field/mathematics`** discipline facet. Auto-populated by the **Bases**
 > core plugin from the `field/*` tags.
 
-Mathematics (**236** sources) supplies the geometric and analytic backbone of the program:
+Mathematics (**237** sources) supplies the geometric and analytic backbone of the program:
 SPD / Riemannian geometry, Lie theory and gauge geometry, [[Information geometry and natural gradient|information geometry]],
 and the kinetic-PDE / mean-field-game machinery behind [[Statistical physics of social systems and collective behavior|opinion dynamics]].
 
@@ -38,6 +38,10 @@ views:
       - title
       - year
 ```
+
+## Finite-depth dynamical RG continuation
+
+[[multiagentelbo-2026-09-12-finite-depth-dynamical-rg]] records repeated nonlinear formation, exact normalized parent composition and separate finite-depth entropy and path estimates. Supplied weights and depth-dependent constants remain explicit.
 
 ## Cross-facet pivots
 Compose with the topic facet via tag search — e.g. `tag:#field/mathematics tag:#cluster/spd-geometry`
