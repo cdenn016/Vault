@@ -11,6 +11,12 @@ updated: 2026-09-12
 
 The September 4-11 work supplies an exact normalized RG construction at the admitted finite and conditional scopes, with explicit closure classes, information losses, memory conditions and several continuum constructions. It also supplies obstructions where the proposed reduction cannot have the requested properties. This is the current synthesis of the MultiAgentELBO program; older vault pages describe earlier MAgent heuristics and earlier finite laboratories and should be read with the dated corrections linked here.
 
+## Finite-depth nonlinear formation and sequential parents, September 12
+
+[[multiagentelbo-2026-09-12-finite-depth-dynamical-rg]] extends the earlier two-stage construction to every prescribed finite L>=3. Its compact two-channel path family has L actual successive coalescence windows under fixed interaction weights and common microscopic kinetics, including 8 -> 4 -> 2 -> 1. The exact normalized marked parents retain full nonlinear interactions, inherited metrics and compact identifications. Each next-parent restoring condition is proved within this family. Parents may be activated successively from the actual retained laws, with separate quantitative conditional-VFE, force, path and exceptional-event bounds.
+
+This closes finite-depth repeatability in the declared model. Constants and preparation neighborhoods depend on depth; supplied interaction contrast, finite horizons and positive-temperature exceptions remain explicit. Learned interaction hierarchy, unique grouping, general gauge/loop sectors and infinite-depth control remain open. Earlier dated sections below retain their original scopes.
+
 ## Nonlinear successive coalescence with inherited kinetics, September 12
 
 [[multiagentelbo-2026-09-12-nonlinear-dynamical-rg]] extends the earlier finite construction in a ten-angle, three-node compact model with two law channels and independent moving links. One common microscopic mobility and supplied strong/weak interaction weights produce a pair-only episode followed by whole-group coherence. The exact nonlinear parents inherit their metrics, forces and temperature through reductions from ten to five to three coordinates. Full conditional-integral interactions and branch identifications are retained; the first parent generates a nonzero cross interaction on a nonempty open subset of the admitted regime.

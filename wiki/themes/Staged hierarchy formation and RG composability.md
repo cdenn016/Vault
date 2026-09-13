@@ -27,6 +27,10 @@ the renormalization literature says the *description* of the aggregate depends o
 to coarse-grain it. On 2026-08-17 the MultiAgentELBO finite laboratory measured both halves of
 this on its own declared system, and this page records the synthesis.
 
+## Finite-depth successive activation
+
+[[multiagentelbo-2026-09-12-finite-depth-dynamical-rg]] proves L formation levels for every prescribed finite L>=3 in one compact path family, with 8 -> 4 -> 2 -> 1 as the first three-level example. Each exact nonlinear parent can start from the current retained law at an admitted formation time and continue through later mergers under its inherited generator. Fixed microscopic interaction weights produce the separated windows; no scheduled coefficient switch is inserted. Exact normalized kernels compose, while sequential force, path and conditional-entropy estimates control the approximation. The result does not give depth-uniform constants, learned interaction contrast or permanent positive-temperature grouping. The two-stage result below is the earlier scope record.
+
 ## Two actual formation episodes under common kinetics
 
 [[multiagentelbo-2026-09-12-nonlinear-dynamical-rg]] proves a pair-only interval and a later whole-group interval in one compact three-agent preparation. The first nonlinear parent has its own later merger under inherited equations. Exact conditional laws and costs compose through ten-to-five-to-three retentions, while force, path and conditional-entropy errors are separately bounded in one positive-temperature regime. Supplied strong/weak interactions generate the separation of relaxation modes; no parent clock is inserted. This advances beyond the earlier supplied-rate construction below without asserting unique grouping, all-time persistence or arbitrary depth. Compact face identifications remain part of the exact parent law.

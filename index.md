@@ -10,7 +10,7 @@ updated: 2026-09-12
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **4** projects · **32** manuscripts · **15** themes · **11** field MOCs · **287** concepts · **12** methods · **695** papers · **116** references · **27** runs · **6** web/methodology
+> **4** projects · **33** manuscripts · **15** themes · **11** field MOCs · **287** concepts · **12** methods · **695** papers · **116** references · **27** runs · **6** web/methodology
 
 ## 🧭 Start here
 - [[Gauge-VFE RG research synthesis September 2026]] — current normalized RG theory, finite formation, evidence scope and this week's primary-source archive
@@ -26,6 +26,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
   - [[VFE Transformer Research Directions (2026-06-21)]] — prioritized open-experiments roadmap (37 hypotheses)
 
 ## 📝 Manuscripts (in preparation)
+- [[multiagentelbo-2026-09-12-finite-depth-dynamical-rg]] — finite-depth nonlinear coalescence and sequential inherited parents; exact laws, controlled conditional VFE and paths, supplied weights
 - [[multiagentelbo-2026-09-12-nonlinear-dynamical-rg]] — common kinetics, successive coalescence and two nonlinear parent reductions with controlled conditional VFE and boundary errors
 - [[multiagentelbo-2026-09-12-dynamical-rg]] — finite VFE-driven coherence and two inherited reductions; exact parent costs, controlled paths, supplied-rate and transient-KL limits
 - [[multiagentelbo-agent-only-ontology-2026-08-13|MultiAgentELBO Agent-Only Ontology and Informational Physicalization: 2026-08-13 Ingest Record]] — revision-bound synthesis of general law-section agents, endogenous interaction records, timeless inference, typed physicalization, and the open units/constant bridge

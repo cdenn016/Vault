@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-09-11
+updated: 2026-09-12
 ---
 
 # Coarse Graining
@@ -22,6 +22,10 @@ updated: 2026-09-11
 
 
 Coarse graining is the procedure of integrating out or aggregating microscopic degrees of freedom to obtain an effective description at a larger scale, discarding detail while preserving relevant macroscopic behavior. It is the operational heart of statistical mechanics, the [[Renormalization group flow|renormalization group]], and emergent (entropic) descriptions of dynamics, and underlies the program's meta-agent hierarchy and [[Renormalization-group flow of beliefs|renormalization-group flow of beliefs]].
+
+## Successive dynamical reduction with controlled conditional cost
+
+[[multiagentelbo-2026-09-12-finite-depth-dynamical-rg]] gives exact normalized parent laws and conditional-family VFE identities through any prescribed finite depth in a compact path family. The sequential reduced process activates each parent from the actual current retained law. Its conditional KL, force and path errors are bounded separately; conditional losses at different times are not combined into a fictitious telescoping objective. Generated interactions and compact boundary identifications are retained. Approximate dynamical closure does not follow from exact static channel composition alone.
 
 ## Three operations that are routinely conflated
 
