@@ -13,7 +13,7 @@ updated: 2026-09-13
 > Map of Content for the **`field/statistics`** discipline facet (statistics & information theory).
 > Auto-populated by the **Bases** core plugin from the `field/*` tags.
 
-Statistics & information theory (**159** sources) underpins the variational-inference and
+Statistics & information theory (**160** sources) underpins the variational-inference and
 information-geometry layers of the program: Bayesian inference, divergences, model selection
 (MDL / BIC), forecasting, and the information bottleneck. Statistics is rarely a source's headline
 field but pervades the corpus through cross-disciplinary tags.
@@ -104,3 +104,7 @@ or `tag:#field/statistics tag:#cluster/vfe`. See the [[Disciplines MOC]] hub for
 ## Nonlinear adaptive cyclic RG, September 13
 
 [[multiagentelbo-2026-09-13-nonlinear-adaptive-attention-rg]] adds the scoped nonlinear adaptive construction, full marked activation and analytical conditional and path bounds.
+
+## Finite-rate adaptive cyclic RG, September 13
+
+[[multiagentelbo-2026-09-13-finite-rate-adaptive-cyclic-rg]] supplies the accelerated-energy positive-rate source construction, exact marked activations and full assignment-history comparison.
