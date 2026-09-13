@@ -13,10 +13,16 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-09-12
+updated: 2026-09-13
 ---
 
 # Meta-agents and hierarchical emergence
+
+## Nonlinear adaptive cyclic formation, September 13
+
+[[multiagentelbo-2026-09-13-nonlinear-adaptive-attention-rg]] constructs, for every fixed finite L>=2, nonlinear cyclic coalescence with exact marked parents and actual-law model learning. A model-posterior source row changes by TV greater than 0.37, and physical and optimizing hidden conditionals change by KL greater than 1/200 on the same 2/epsilon horizon. Conditional KL is O_L(epsilon^2), with separate complete-score and retained-path bounds. Every parent starts from the full actual retained joint law.
+
+Source assignments are retained discrete coordinates with zero mobility. Their recognition masses stay fixed; changing model-posterior attention is distinguished from the actual recognition conditional that weights the marginal force. This admission repairs the collapsed proposal's marked-activation gap. Supplied contrasts, internal-neighbor support, calibration, small fixed standardized nonlinearity, and a shrinking amplitude/temperature regime remain explicit. All loops survive and base transport remains deferred. Earlier dated sections retain their original scopes.
 
 > [!note] Current scope, September 11, 2026
 > The current reusable-parent definition is operational: a parent must carry a joint law, evaluator, boundary access, structural marks and sufficient memory. The species gate and pairing analogies below describe particular earlier models, not necessary conditions for every parent. [[multiagentelbo-2026-09-11-formation]] proves finite observational quotients and exact staged reductions, while also showing that stationary agreement and minimum state count do not establish autonomous agency or select a unique intermediate hierarchy. [[multiagentelbo-2026-09-11-neighborhoods]] supplies the overlapping-neighborhood parent contract.

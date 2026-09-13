@@ -14,10 +14,16 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-09-12
+updated: 2026-09-13
 ---
 
 # Gauge-Theoretic Multi-Agent VFE Model
+
+## Nonlinear adaptive cyclic formation, September 13
+
+[[multiagentelbo-2026-09-13-nonlinear-adaptive-attention-rg]] constructs, for every fixed finite L>=2, nonlinear cyclic coalescence with exact marked parents and actual-law model learning. A model-posterior source row changes by TV greater than 0.37, and physical and optimizing hidden conditionals change by KL greater than 1/200 on the same 2/epsilon horizon. Conditional KL is O_L(epsilon^2), with separate complete-score and retained-path bounds. Every parent starts from the full actual retained joint law.
+
+Source assignments are retained discrete coordinates with zero mobility. Their recognition masses stay fixed; changing model-posterior attention is distinguished from the actual recognition conditional that weights the marginal force. This admission repairs the collapsed proposal's marked-activation gap. Supplied contrasts, internal-neighbor support, calibration, small fixed standardized nonlinearity, and a shrinking amplitude/temperature regime remain explicit. All loops survive and base transport remains deferred. Earlier dated sections retain their original scopes.
 
 > [!note] Current scope, September 11, 2026
 > [[Gauge-VFE RG research synthesis September 2026]] is the current MultiAgentELBO RG and parent-formation entry point. Its [[multiagentelbo-2026-09-11-research-snapshot|source snapshot]] covers all 89 current reports, the Theory bundle and the uncommitted finite-formation continuation, preserving their distinct revisions. Exact normalized composition, boundary contracts, memory, closure classifications and scoped continuum results are supplied; unrestricted agency and arbitrary RG families are not claimed. [[multiagentelbo-2026-09-11-reference-register]] provides this week's literature reconciliation and accessible primary texts. Earlier MAgent and V3 results below retain their own scope.

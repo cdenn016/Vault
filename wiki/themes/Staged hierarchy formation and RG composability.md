@@ -12,10 +12,16 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-08-17
-updated: 2026-09-12
+updated: 2026-09-13
 ---
 
 # Staged hierarchy formation and RG composability
+
+## Nonlinear adaptive cyclic formation, September 13
+
+[[multiagentelbo-2026-09-13-nonlinear-adaptive-attention-rg]] constructs, for every fixed finite L>=2, nonlinear cyclic coalescence with exact marked parents and actual-law model learning. A model-posterior source row changes by TV greater than 0.37, and physical and optimizing hidden conditionals change by KL greater than 1/200 on the same 2/epsilon horizon. Conditional KL is O_L(epsilon^2), with separate complete-score and retained-path bounds. Every parent starts from the full actual retained joint law.
+
+Source assignments are retained discrete coordinates with zero mobility. Their recognition masses stay fixed; changing model-posterior attention is distinguished from the actual recognition conditional that weights the marginal force. This admission repairs the collapsed proposal's marked-activation gap. Supplied contrasts, internal-neighbor support, calibration, small fixed standardized nonlinearity, and a shrinking amplitude/temperature regime remain explicit. All loops survive and base transport remains deferred. Earlier dated sections retain their original scopes.
 
 > [!note] Current scope, September 11, 2026
 > Exact normalized channels compose along compatible types at every admitted stage; fixed points and self-similar substrates are not prerequisites. Statements below suggesting otherwise are superseded in that general reading. A frozen action family, a reference chosen afresh at each scale, a learned boundary or an incomplete retained state can still fail to give an autonomous common-carrier semigroup. The earlier measured defects must be interpreted at that narrower scope. [[multiagentelbo-2026-09-11-normalized-core]] supplies exact composition; [[multiagentelbo-2026-09-11-formation]] supplies 16-to-9-to-5 staged reductions of one coupled finite process without claiming a uniquely selected hierarchy.

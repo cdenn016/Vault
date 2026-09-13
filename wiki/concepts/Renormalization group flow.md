@@ -15,10 +15,16 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-09-12
+updated: 2026-09-13
 ---
 
 # Renormalization group flow
+
+## Nonlinear adaptive cyclic formation, September 13
+
+[[multiagentelbo-2026-09-13-nonlinear-adaptive-attention-rg]] constructs, for every fixed finite L>=2, nonlinear cyclic coalescence with exact marked parents and actual-law model learning. A model-posterior source row changes by TV greater than 0.37, and physical and optimizing hidden conditionals change by KL greater than 1/200 on the same 2/epsilon horizon. Conditional KL is O_L(epsilon^2), with separate complete-score and retained-path bounds. Every parent starts from the full actual retained joint law.
+
+Source assignments are retained discrete coordinates with zero mobility. Their recognition masses stay fixed; changing model-posterior attention is distinguished from the actual recognition conditional that weights the marginal force. This admission repairs the collapsed proposal's marked-activation gap. Supplied contrasts, internal-neighbor support, calibration, small fixed standardized nonlinearity, and a shrinking amplitude/temperature regime remain explicit. All loops survive and base transport remains deferred. Earlier dated sections retain their original scopes.
 
 > [!note] Current scope, September 11, 2026
 > The September construction supplies exact typed normalized RG towers and several scoped scale, spatial and continuum results. It supersedes any general reading below that RG composition requires a fixed point or self-similar substrate. Fixed points and universal large-scale behavior remain additional properties; exact composition does not establish them. The old finite reduction defects concern the particular state/action family retained in those experiments. See [[multiagentelbo-2026-09-11-normalized-core]], [[multiagentelbo-2026-09-11-scale-and-inference]] and [[Gauge-VFE RG research synthesis September 2026]].

@@ -12,10 +12,16 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-09-12
+updated: 2026-09-13
 ---
 
 # Holonomy
+
+## Nonlinear adaptive cyclic formation, September 13
+
+[[multiagentelbo-2026-09-13-nonlinear-adaptive-attention-rg]] constructs, for every fixed finite L>=2, nonlinear cyclic coalescence with exact marked parents and actual-law model learning. A model-posterior source row changes by TV greater than 0.37, and physical and optimizing hidden conditionals change by KL greater than 1/200 on the same 2/epsilon horizon. Conditional KL is O_L(epsilon^2), with separate complete-score and retained-path bounds. Every parent starts from the full actual retained joint law.
+
+Source assignments are retained discrete coordinates with zero mobility. Their recognition masses stay fixed; changing model-posterior attention is distinguished from the actual recognition conditional that weights the marginal force. This admission repairs the collapsed proposal's marked-activation gap. Supplied contrasts, internal-neighbor support, calibration, small fixed standardized nonlinearity, and a shrinking amplitude/temperature regime remain explicit. All loops survive and base transport remains deferred. Earlier dated sections retain their original scopes.
 
 > [!note] Current scope, September 11, 2026
 > The current [[multiagentelbo-2026-09-11-formation|finite relational-record theorem]] exhibits nontrivial cycle holonomy with exactly matching singleton marginals and zero transported marginal KL. Record equivalence agrees with gauge equivalence only for the stated noisy relational experiment and its admitted preparations. Transition cocycles and independently specified connection links must not be conflated. Also, a flat connection can have nontrivial holonomy around a noncontractible loop: the older statement below identifying every nontrivial holonomy with curvature needs this topological qualification. [[multiagentelbo-2026-09-11-continuum]] keeps discrete loops and continuum curvature claims separate.
