@@ -19,6 +19,12 @@ updated: 2026-09-13
 
 # Gauge-Theoretic Multi-Agent VFE Model
 
+## Finite-rate adaptive cyclic formation, September 13
+
+[[multiagentelbo-2026-09-13-finite-rate-adaptive-cyclic-rg]] extends the nonlinear finite-depth construction to moving actual source assignments with microscopic proposal rate one. Exact parents inherit optimizer-conditioned rates and activate from the complete actual retained law. Actual recognition-source TV exceeds one half, discarded-conditional KL is O_L(epsilon^8), complete-score error is O_L(T epsilon^4), and the probability of any disagreement over entire assignment histories is O_L(epsilon^7 log(1/epsilon)). Continuous paths have a separate O_L(A epsilon^2) bound. All loops and assignments survive every reduction.
+
+The positive theorem uses an explicit accelerated-energy family with weakest strength J_L=epsilon^-8. The original J_L=1 case remains open. Supplied contrasts, internal-neighbor support, calibration, small fixed standardized nonlinearity and shrinking preparation/temperature are assumptions; most switching occurs after the short formation windows. This does not show that source learning creates the hierarchy. Exact probability composition, approximate dynamics and physical-time interpretation remain distinct; base transport is deferred. Earlier dated sections retain their original scopes.
+
 ## Nonlinear adaptive cyclic formation, September 13
 
 [[multiagentelbo-2026-09-13-nonlinear-adaptive-attention-rg]] constructs, for every fixed finite L>=2, nonlinear cyclic coalescence with exact marked parents and actual-law model learning. A model-posterior source row changes by TV greater than 0.37, and physical and optimizing hidden conditionals change by KL greater than 1/200 on the same 2/epsilon horizon. Conditional KL is O_L(epsilon^2), with separate complete-score and retained-path bounds. Every parent starts from the full actual retained joint law.

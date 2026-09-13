@@ -10,7 +10,7 @@ updated: 2026-09-13
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **4** projects · **35** manuscripts · **15** themes · **11** field MOCs · **287** concepts · **12** methods · **695** papers · **116** references · **27** runs · **6** web/methodology
+> **4** projects · **36** manuscripts · **15** themes · **11** field MOCs · **287** concepts · **12** methods · **695** papers · **116** references · **27** runs · **6** web/methodology
 
 ## 🧭 Start here
 - [[Gauge-VFE RG research synthesis September 2026]] — current normalized RG theory, finite formation, evidence scope and this week's primary-source archive
@@ -26,6 +26,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
   - [[VFE Transformer Research Directions (2026-06-21)]] — prioritized open-experiments roadmap (37 hypotheses)
 
 ## 📝 Manuscripts (in preparation)
+- [[multiagentelbo-2026-09-13-finite-rate-adaptive-cyclic-rg]] — positive-rate recognition sources, actual parent activation and full assignment-history bounds under growing weakest energy
 - [[multiagentelbo-2026-09-13-nonlinear-adaptive-attention-rg]] — nonlinear adaptive formation, full retained source marks, posterior attention and separate conditional/path bounds
 - [[multiagentelbo-2026-09-12-adaptive-cyclic-rg]] — adaptive cyclic finite-depth coalescence, changing hidden conditionals, self-learning normalized parents and controlled VFE/path errors
 - [[multiagentelbo-2026-09-12-finite-depth-dynamical-rg]] — finite-depth nonlinear coalescence and sequential inherited parents; exact laws, controlled conditional VFE and paths, supplied weights
