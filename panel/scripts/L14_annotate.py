@@ -1,0 +1,80 @@
+"""L14: add attribution-fidelity verdicts and verified corrections to L14_cites.json.
+Run after L14_cites.py.  Verdicts: SUPPORTED, PARTIAL, UNSUPPORTED, MISATTRIBUTED,
+METADATA_ERROR, MISSING_ENTRY, NOT_CITED (bib entry exists but PIFB2 does not cite it)."""
+import json
+from pathlib import Path
+
+P = Path(r"C:/Users/chris and christine/Desktop/Research/manuscripts/reviews/2026-09-24-pifb2/scripts/L14_cites.json")
+d = json.loads(P.read_text(encoding="utf-8"))
+d["attribution"] = {
+    "Friston2010": ["SUPPORTED", "L75,518,522,659,879,918,2606"],
+    "Friston2017": ["PARTIAL", "L75,134 supported; L1675,3165,3265 cite a single-level MDP process theory for hierarchical AIF (use friston2008hierarchical); L1882 attributes an 'interface carrier' position the paper does not state"],
+    "parr2022active": ["SUPPORTED", "all uses"],
+    "Ramstead2019": ["PARTIAL+METADATA_ERROR", "L1775 content broadly matches (enactive reading); 'multi-agent realization on a transformer' is the author's inflation. Record: Adaptive Behavior 28(4):225-239 (2020, online 2019), doi 10.1177/1059712319862774; bib has 27:369-385 (2019)"],
+    "Sengupta2016NeuronalGauge": ["SUPPORTED", "L132; checked against PLoS Biol 14(3):e1002400 text; single-system, not multi-agent"],
+    "sengupta2017gauge": ["NOT_CITED", "arXiv:1705.06614 (Schild's-ladder transport of sufficient statistics) in bib, uncited"],
+    "Sakthivadivel2022": ["SUPPORTED", "L132"],
+    "KirchhoffParrPalaciosFristonKiverstein2018": ["SUPPORTED", "L132 multi-scale blankets"],
+    "Amari1998": ["PARTIAL", "L1761: natural gradient is Amari's; the claim that standard active inference arrives at natural-gradient descent needs Da Costa et al. 2021 Entropy 23:454 ('approximate')"],
+    "Amari2016": ["SUPPORTED/PARTIAL", "L466,945,2559,2670,3916 plausible; L2328 two-parameter SPD family not the primary source"],
+    "AyJostLeSchwachhofer2017": ["SUPPORTED", "L178"],
+    "Cencov1982": ["SUPPORTED", "L178 finite sample spaces"],
+    "Pennec2006": ["MISATTRIBUTED", "L2328 two-parameter GL-invariant SPD metric family: primary is Pennec2009 (LNCS 5416), per Thanwerdas-Pennec 2019 (arXiv:1906.01349 Sec 2.1)"],
+    "Bhatia2007": ["MISATTRIBUTED", "L2328 same as above"],
+    "BonnabelSepulchre2009": ["MISATTRIBUTED", "L1573 cited for left-invariant metrics on GL(K); paper is fixed-rank PSD quotient geometry (SIMAX 31(3):1055-1070). Use Andruchow et al. 2014 J Geom Phys 86:241-257"],
+    "Nakahara2003": ["SUPPORTED", "L87,214,225 associated-bundle convention"],
+    "frankel2011geometry": ["SUPPORTED", "L214"],
+    "Hall2015": ["SUPPORTED", "L1573,1655 BCH"],
+    "Skovgaard1984": ["SUPPORTED", "L429,462 mixed-sign curvature (secondary confirmation)"],
+    "Wilson1971": ["SUPPORTED", "L1681,2146,3572,3723"],
+    "Wilson1974": ["SUPPORTED", "Wilson-Kogut Phys Rep 12:75-199 (1974); L1681,3560,3723"],
+    "WilsonConfinement1974": ["SUPPORTED (pin-cite Eq.12 not checked)", "L380,385"],
+    "vaswani2017attention": ["SUPPORTED", "L61,1233,1262,1267"],
+    "tsai2019transformer": ["SUPPORTED", "L1771 kernel reading"],
+    "ramsauer2021hopfield": ["SUPPORTED", "L1771 modern-Hopfield reading"],
+    "millidge2021predictive": ["UNSUPPORTED", "L1771: review mentions transformers only as an open integration question (full text searched: 5 hits, 0 'self-attention'); use Pinchetti et al. NeurIPS 35 (2022) 1280-1293"],
+    "su2024roformer": ["SUPPORTED", "L1275"],
+    "press2022train": ["SUPPORTED", "L633 slopes 2^(-8h/H) verified"],
+    "du2018balanced": ["SUPPORTED", "L1212 conservation law recomputed in PIFB2 index convention"],
+    "Sonderby2016": ["PARTIAL", "L3267: top-down Gaussian conditional is generic to hierarchical VAEs; LVAE prior is diagonal not isotropic; 'precise' overstated; pages 3738-3746 missing"],
+    "Caticha2015": ["METADATA_ERROR", "monograph, Entropic Inference and the Foundations of Physics, USP Press, Sao Paulo, 2012 (EBEB-2012); bib says AIP Conf. Proc. 2015"],
+    "Caticha2019": ["PARTIAL", "L132 'single-agent manifold' is not Caticha's framing; L2084 supported"],
+    "beny2015information": ["SUPPORTED", "PRA 92, 022330 (2015) crossref"],
+    "mehta2014exact": ["SUPPORTED", "L1683; Theory uses key MehtaSchwab2014 for the same paper"],
+    "Yedidia2005": ["SUPPORTED (non-monotonicity statement not re-read)", "L3490"],
+    "HoffmannChinchilla2022": ["NOT_CITED", "not needed; WikiText section disclaims scaling-law claims"],
+}
+d["missing_entry_fixes"] = {
+    "Kendall1990": "Kendall, W. S., Probability, convexity, and harmonic maps with small image I: uniqueness and fine existence, Proc. London Math. Soc. s3-61(2):371-406 (1990), doi 10.1112/plms/s3-61.2.371",
+    "Afsari2011": "Afsari, B., Riemannian L^p center of mass: existence, uniqueness, and convexity, Proc. Amer. Math. Soc. 139(2):655-673 (2011), doi 10.1090/S0002-9939-2010-10541-5",
+    "DorflerBullo2013": "rename cite key to existing DorflerBullo2013Kron (IEEE TCAS-I 60(1):150-163, 2013)",
+}
+d["prior_art_status"] = {
+    "WilsonConfinement1974": "in bib, cited",
+    "beny2015information": "in bib, cited",
+    "mehta2014exact": "in bib, cited",
+    "Yedidia2005": "in bib, cited",
+    "ramstead2023bayesian": "in bib, cited",
+    "BermanKlingerStapleton2023": "in bib, NOT cited",
+    "cohen2019gauge": "in bib, NOT cited",
+    "Yang1954": "in bib, NOT cited (Yang-Mills named ~10 times)",
+    "kadanoff1966scaling": "in bib, NOT cited",
+    "villegas2023laplacian": "in bib, NOT cited",
+    "HansenGhrist2019": "in bib, NOT cited",
+    "He2021GaugeEquivariantTransformer": "in bib, NOT cited",
+    "friston2008hierarchical": "in bib, NOT cited",
+    "Machta2013 (Science 342:604-607)": "absent",
+    "FieldsFristonGlazebrookLevin2022 (Prog Biophys Mol Biol 173:36-59)": "absent",
+    "Wootters1981 (PRD 23:357)": "absent",
+    "BraunsteinCaves1994 (PRL 72:3439)": "absent",
+    "vanEnterFernandezSokal1993 (J Stat Phys 72:879-1167)": "absent",
+    "Kikuchi1951 (Phys Rev 81:988)": "absent",
+    "WuYang1975 (PRD 12:3845)": "absent",
+    "KochJanuszRingel2018 (Nat Phys 14:578)": "absent",
+    "HansenGhrist2021Discourse / SingerWu2012": "absent from Research bib (present in Theory bib)",
+    "DaCosta2021 (Entropy 23:454)": "absent",
+    "Pinchetti2022 (NeurIPS 35:1280-1293)": "absent",
+    "Andruchow2014 (J Geom Phys 86:241-257)": "absent",
+}
+P.write_text(json.dumps(d, indent=1), encoding="utf-8")
+print("annotated", len(d["attribution"]), "keys;", len(d["prior_art_status"]), "prior-art rows")
