@@ -1,0 +1,700 @@
+\begingroup
+\input{thermodynamic_fisher_status}
+\chapter[Thermodynamic Fisher Geometry of Retained Ensembles]{Thermodynamic Fisher Geometry\\of Retained Ensembles}
+\label{ch:thermodynamic-fisher-draft}
+
+The results in this chapter hold on the stated finite supports, compact
+positive source boxes, and fixed blocking words. Strict phases, pressure
+ties, and reciprocal-volume experiments retain their separate hypotheses;
+none supplies a regular metric across arbitrary ties or at all depths.
+
+The finite geometry label is retained as an observed component of the
+statistical experiment. Its score contributes information even when the
+conditional branch laws coincide. This chapter fixes the complete finite
+experiment and its exact information accounting before considering a
+volume limit. The accompanying proof appendix distinguishes actual
+finite free laws, exact fixed-word pushes, and marginals of an infinite
+law. It then treats strict phases, pressure ties, and their different
+parameter scales without identifying these regimes.\thermoestablishedstatus
+
+
+\section{Normalized finite experiments and retained information}
+\label{sec:rg-thermo-finite-experiment}
+
+The finite geometry ensembles of \Cref{def:rg-geometry-ensemble} are the
+starting point. This section keeps the geometry label in the sample space,
+allows every declared generative factor to vary with a statistical
+parameter, and distinguishes the complete observation joint from its
+latent marginal and a selected posterior. The structural descriptive data
+remain outside the stochastic channel. No volume limit or metric inverse
+is part of these finite definitions. \status{DEFINITION}
+
+\definitionheading{Smooth finite branch data}
+{def:rg-thermo-finite-branch}
+Let $\Theta\subset\R^d$ be open, with $1\leq d<\infty$, and let
+$\mathfrak G$ be a finite nonempty geometry catalog. Each label has a
+finite nonempty declared carrier $\mathsf X_\gamma$. On a fixed nonempty
+subset $\mathsf X_\gamma^+$, let $\nu_{\gamma,\theta}$ be a positive
+probability reference and let the physical raw factor be
+$r_{\gamma,\theta}=s_{\gamma,\theta}\widehat r_{\gamma,\theta}>0$.
+The scalar $s_\gamma$ is part of the physical factor. Retained carrier atoms
+outside $\mathsf X_\gamma^+$ have zero reference mass; raw-density
+quotients there are undefined and are never evaluated. Define
+\begin{equation}
+ Z_\gamma=\sum_{x\in\mathsf X_\gamma^+}\nu_\gamma(x)r_\gamma(x),
+ \qquad
+ p_\gamma(x)=\frac{\nu_\gamma(x)r_\gamma(x)}{Z_\gamma}
+ \quad (x\in\mathsf X_\gamma^+),
+ \label{eq:rg-thermo-finite-branch}
+\end{equation}
+and set $p_\gamma(x)=0$ on the remaining declared atoms. All parameter
+arguments are suppressed only after their dependence has been declared.
+A native free square is the special case of
+\Cref{def:rg-pressure-native}: $V=L^2$, all $2V$ signs, exactly
+$(L-1)^2$ internal plaquettes, and reference $4^{-V}$ on its complete
+carrier. Its source notation is $b_\gamma=\tanh h_\gamma$ and
+$t_\gamma=\tanh j_\gamma$. \status{DEFINITION}
+
+\hypothesisheading{Finite differentiable support stratum}
+{hyp:rg-thermo-finite-support}
+The reference masses, positive raw factors, scalars, positive geometry
+weights $a_{\gamma,\theta}$, and likelihood entries on active reference atoms are actual $C^3$
+functions on $\Theta$. Every zero reference or likelihood entry is
+identically zero throughout this stratum; every other likelihood entry is
+strictly positive there. Each likelihood row
+$\ell_{\gamma,\theta}(o\mid x)$ sums to one on one fixed finite
+observation alphabet $\mathsf O$. These are generative inputs independent
+of recognition. The fixed-support restriction excludes a family that
+creates or removes an atom at the parameter under consideration. It is
+used when differentiating scores and conditional laws; it is not an
+assumption of positive Fisher rank. \status{HYPOTHESIS}
+
+\definitionheading{Two normalization modes and their complete joints}
+{def:rg-thermo-finite-modes}
+Write $A_0=\sum_\delta a_\delta$ and
+$Z_{\mathrm{all}}=\sum_\delta a_\delta Z_\delta$. The hierarchical and
+global-factor label weights are respectively
+\begin{equation}
+ W_\gamma^{\mathrm h}=\frac{a_\gamma}{A_0},
+ \qquad
+ W_\gamma^{\mathrm f}=\frac{a_\gamma Z_\gamma}{Z_{\mathrm{all}}}.
+ \label{eq:rg-thermo-finite-mode-weights}
+\end{equation}
+A separately prescribed positive normalized hierarchy $w_\gamma$ instead
+uses $W_\gamma^{\mathrm h}=w_\gamma$ directly. For either chosen mode,
+the latent and observation laws are
+\begin{equation}
+ \mathbb P^{\mathrm{lat}}(\gamma,x)=W_\gamma p_\gamma(x),
+ \qquad
+ \mathbb P(\gamma,x,o)=W_\gamma p_\gamma(x)
+                           \ell_\gamma(o\mid x).
+ \label{eq:rg-thermo-finite-full-joint}
+\end{equation}
+The displayed joint product is evaluated only on active reference atoms;
+on all remaining declared atoms its mass is defined to be zero without
+evaluating a raw factor or likelihood. The same convention applies to
+selected posterior masses below.
+The sample space is the disjoint union of the labeled branch carriers;
+identical branch distributions do not erase their labels. These formulas
+use the two modes of
+\cref{eq:rg-geometry-hierarchy,eq:rg-geometry-factor}, with an explicit
+physical scalar and structural-zero convention. \status{DEFINITION}
+
+\propositionheading{Normalization and physical scalar dependence}
+{prop:rg-thermo-finite-normalization}
+Each law in \cref{eq:rg-thermo-finite-full-joint} is normalized.
+Multiplying $r_\gamma$ by a positive branch scalar $d_\gamma$ leaves
+$p_\gamma$ unchanged. It leaves the hierarchy unchanged and changes the
+global-factor label masses by the corresponding relative factors
+$d_\gamma$, unless the geometry weights are compensated. One common
+scalar cancels from both modes.\thermoestablishedstatus
+
+
+\paragraph{Proof.}
+Every $Z_\gamma$ is finite and positive because its reference is a
+probability law and its factor is positive on a finite nonempty support.
+Summing the joint over $o$, then $x$, then $\gamma$ gives one. Under the
+rescaling, $Z_\gamma$ becomes $d_\gamma Z_\gamma$, so the same factor
+cancels between the numerator and denominator of $p_\gamma$. Substitution
+in \cref{eq:rg-thermo-finite-mode-weights} gives the assertions about
+labels. Replacing $a_\gamma$ by $a_\gamma/d_\gamma$ compensates the
+global-factor change. Thus omitting $s_\gamma$ from a physical partition
+is not justified by its cancellation within a conditional branch.
+$\square$
+
+\definitionheading{Effective label log masses and complete scores}
+{def:rg-thermo-finite-score}
+For the chosen latent law use an effective log-mass representative
+$\lambda_\gamma$ with
+\begin{equation}
+ W_\gamma=\frac{e^{\lambda_\gamma}}
+                 {\sum_\delta e^{\lambda_\delta}},
+ \qquad
+ \lambda_\gamma^{\mathrm f}=\log a_\gamma+\log Z_\gamma,
+ \qquad
+ \lambda_\gamma^{\mathrm h}=\log a_\gamma.
+ \label{eq:rg-thermo-finite-log-masses}
+\end{equation}
+For a prescribed hierarchy use $\lambda_\gamma=\log w_\gamma$.
+On positive atoms set $\xi_\gamma=\nabla\lambda_\gamma$,
+$\overline\xi=\sum_\gamma W_\gamma\xi_\gamma$, and
+$T_\gamma(x)=\nabla\log p_\gamma(x)$. The Fisher tensor of a finite
+fixed-support law $P_\theta$ is
+\begin{equation}
+ I(P_\theta)=\sum_{z:P_\theta(z)>0}P_\theta(z)
+       S_\theta(z)S_\theta(z)^\top,
+ \qquad S_\theta(z)=\nabla_\theta\log P_\theta(z).
+ \label{eq:rg-thermo-finite-fisher-definition}
+\end{equation}
+A structural zero has no score and contributes no summand. The tensor is
+positive semidefinite. A Riemannian metric additionally requires positive
+definiteness. \status{DEFINITION}
+
+\propositionheading{Complete labeled Fisher decomposition}
+{prop:rg-thermo-finite-labeled-fisher}
+The latent score and Fisher tensor satisfy
+\begin{align}
+ S(\gamma,x)
+ &=\xi_\gamma-\overline\xi+T_\gamma(x),
+ \label{eq:rg-thermo-finite-complete-score}\\
+ I(\mathbb P^{\mathrm{lat}})
+ &=\operatorname{Cov}_W(\xi_\gamma)
+     +\sum_\gamma W_\gamma I(p_\gamma).
+ \label{eq:rg-thermo-finite-labeled-fisher}
+\end{align}
+For every ordinary multi-index $\alpha$ with $|\alpha|\leq2$, the
+within-branch contribution differentiates as
+\begin{equation}
+ \partial^\alpha\left(\sum_\gamma W_\gamma I(p_\gamma)\right)
+ =\sum_\gamma\sum_{\beta\leq\alpha}
+ {\alpha\choose\beta}
+ (\partial^\beta W_\gamma)
+ (\partial^{\alpha-\beta}I(p_\gamma)).
+ \label{eq:rg-thermo-finite-weighted-fisher-derivatives}
+\end{equation}
+A common parameter-dependent additive scalar in every
+$\lambda_\gamma$ leaves these identities and their derivatives unchanged.\thermoestablishedstatus
+
+
+\paragraph{Proof.}
+Differentiating the finite softmax gives
+$\nabla\log W_\gamma=\xi_\gamma-\overline\xi$.
+Differentiating $\sum_xp_\gamma(x)=1$ on its fixed support gives
+$\sum_xp_\gamma(x)T_\gamma(x)=0$. Expanding the outer product of
+\cref{eq:rg-thermo-finite-complete-score} and summing within each branch
+therefore removes both cross terms and yields
+\cref{eq:rg-thermo-finite-labeled-fisher}. The conditional score includes
+all varying factors:
+\begin{equation}
+ T_\gamma(x)=\nabla\log\nu_\gamma(x)
+ +\nabla\log s_\gamma+\nabla\log\widehat r_\gamma(x)
+ -\nabla\log Z_\gamma.
+ \label{eq:rg-thermo-finite-branch-score}
+\end{equation}
+Every positive denominator is locally bounded away from zero because the
+support is finite. The $C^3$ mass family consequently has a $C^2$ Fisher
+tensor, and the ordinary product rule gives
+\cref{eq:rg-thermo-finite-weighted-fisher-derivatives}.
+Keeping only $W_\gamma$ times a derivative of $I(p_\gamma)$ would omit
+terms. A common shift cancels from the normalized weights and adds the
+same vector to each $\xi_\gamma$, leaving its covariance unchanged.
+These are identities of parameter-dependent functions, so the same
+cancellation holds after differentiation. Finally,
+$v^\top I(P)v=\sum_zP(z)(v^\top S(z))^2\geq0$ proves semidefiniteness
+without an inverse or rank assumption. $\square$
+
+\definitionheading{Selected finite posterior}
+{def:rg-thermo-finite-posterior}
+For a fixed observation $o$, define
+\begin{equation}
+ Z_\gamma^o=\sum_{x\in\mathsf X_\gamma^+}
+              \nu_\gamma(x)r_\gamma(x)\ell_\gamma(o\mid x),
+ \qquad e_\gamma(o)=\frac{Z_\gamma^o}{Z_\gamma},
+ \qquad E_o=\sum_\gamma W_\gamma e_\gamma(o).
+ \label{eq:rg-thermo-finite-evidence}
+\end{equation}
+On a region where $E_o>0$, the posterior is
+\begin{equation}
+ \boldsymbol\Pi_o(\gamma,x)
+ =\frac{W_\gamma p_\gamma(x)\ell_\gamma(o\mid x)}{E_o},
+ \qquad W_\gamma^o=\frac{W_\gamma e_\gamma(o)}{E_o}.
+ \label{eq:rg-thermo-finite-posterior}
+\end{equation}
+When $Z_\gamma^o>0$, its conditional branch is
+$p_\gamma^o(x)=\nu_\gamma(x)r_\gamma(x)\ell_\gamma(o\mid x)/Z_\gamma^o$.
+When $Z_\gamma^o=0$, that label remains on the declared carrier with zero
+posterior mass, but $p_\gamma^o$ and its conditional Fisher tensor are
+undefined. Zero total evidence leaves the entire selected posterior
+undefined. \status{DEFINITION}
+
+\propositionheading{Posterior normalization and complete generative score}
+{prop:rg-thermo-finite-posterior-score}
+On occupied posterior labels, the unnormalized positive label masses are
+\begin{equation}
+ e^{\lambda_\gamma^{o,\mathrm f}}=a_\gamma Z_\gamma^o,
+ \qquad
+ e^{\lambda_\gamma^{o,\mathrm h}}
+       =a_\gamma\frac{Z_\gamma^o}{Z_\gamma}.
+ \label{eq:rg-thermo-finite-posterior-labels}
+\end{equation}
+For a prescribed hierarchy replace $a_\gamma$ in the second expression
+by $w_\gamma$. On the positive posterior support the complete score is
+\begin{equation}
+ S^o(\gamma,x)=S^{\mathrm{lat}}(\gamma,x)
+       +\nabla\log\ell_\gamma(o\mid x)-\nabla\log E_o.
+ \label{eq:rg-thermo-finite-posterior-score}
+\end{equation}
+Its labeled decomposition is
+\cref{eq:rg-thermo-finite-labeled-fisher}, applied to the occupied
+posterior labels and their conditional posterior laws. An empty label
+contributes zero weighted information and no assigned conditional score.\thermoestablishedstatus
+
+
+\paragraph{Proof.}
+Summing \cref{eq:rg-thermo-finite-posterior} over all labeled atoms gives
+one. Substitution of the two prior weights gives
+\cref{eq:rg-thermo-finite-posterior-labels}; the common prior normalizer
+cancels, but the hierarchical branch divisor $Z_\gamma$ remains.
+Taking the logarithm of the positive posterior mass and differentiating
+gives \cref{eq:rg-thermo-finite-posterior-score}. Within an occupied branch,
+\begin{equation}
+ \nabla\log p_\gamma^o(x)
+ =\nabla\log\nu_\gamma(x)+\nabla\log r_\gamma(x)
+   +\nabla\log\ell_\gamma(o\mid x)-\nabla\log Z_\gamma^o.
+ \label{eq:rg-thermo-finite-conditional-posterior-score}
+\end{equation}
+The fixed zero pattern of the likelihood makes each unoccupied posterior
+fiber identically zero on the stratum. Thus its mass derivatives vanish;
+there is no division by zero. On occupied fibers the normalization proof
+of \Cref{prop:rg-thermo-finite-labeled-fisher} applies verbatim to the
+actual conditional posterior, including the varying likelihood and
+evidence terms. $\square$
+
+For the native all-positive edge sensor of
+\Cref{prop:rg-pressure-sensor}, write
+$A_\gamma^{\mathrm{sens}}=(1+b_\gamma\eta_\gamma)/2$ and
+$b'_\gamma=(b_\gamma+\eta_\gamma)/(1+b_\gamma\eta_\gamma)$.
+The finite identity and its branch normalizers are
+\begin{equation}
+ (1+bz)\frac{1+\eta z}{2}
+ =A^{\mathrm{sens}}(1+b'z),
+ \qquad
+ Z_{\gamma,L}^o=(A_\gamma^{\mathrm{sens}})^{2V}
+                          Z_L(b'_\gamma,t_\gamma).
+ \label{eq:rg-thermo-finite-sensor-shift}
+\end{equation}
+Here the scalar-free native raw factor is used; any additional physical
+scalar multiplies both its original and observed partitions. Substituting
+\cref{eq:rg-thermo-finite-sensor-shift} into
+\cref{eq:rg-thermo-finite-posterior-labels} retains
+$Z_L(b_\gamma,t_\gamma)$ in the hierarchical denominator.\thermoestablishedstatus
+
+
+\paragraph{Proof.}
+Expand the first product using $z^2=1$, then multiply over the actual
+$2V$ free edge signs. Plaquette factors and their finite boundary inventory
+are unchanged, giving the second identity after summing against normalized
+counting. For $|b|<1$ and $|\eta|<1$, the scalar is positive and
+$1-(b')^2=(1-b^2)(1-\eta^2)/(1+b\eta)^2>0$. Parameter-dependent sensor
+strengths remain inside these expressions when derivatives are taken.
+This finite calculation neither invokes an infinite all-positive event
+nor supplies a thermodynamic derivative theorem for an arbitrary positive
+likelihood. $\square$
+
+\definitionheading{Fixed stochastic channel retaining geometry}
+{def:rg-thermo-finite-channel}
+For each label choose a finite nonempty target carrier
+$\mathsf Y_\gamma$ and a nonnegative row-stochastic matrix
+$C_\gamma(x,y)$, independent of $\theta$ and recognition. Its lifted
+channel is zero between different geometry labels. In the right-acting
+convention of \Cref{def:cg-coarse-channel}, a labeled law $P$ pushes to
+\begin{equation}
+ P^C(\gamma,y)=\sum_xP(\gamma,x)C_\gamma(x,y).
+ \label{eq:rg-thermo-finite-channel}
+\end{equation}
+The chosen source law can be the latent prior or a positive selected
+posterior. For the complete random observation joint, retain $o$ as well
+and apply this channel only to $x$. Conditioning in the following score
+formula then uses $(\gamma,y,o)$. \status{DEFINITION}
+
+\propositionheading{Stochastic score projection and retained-label loss}
+{prop:rg-thermo-finite-fisher-loss}
+For an admitted source law $P$, its coarse score on positive targets and
+its Fisher loss satisfy
+\begin{align}
+ S^C(\gamma,y)
+ &=\E_{P C}[S(\gamma,X)\mid\gamma,y],
+ \label{eq:rg-thermo-finite-score-projection}\\
+ I(P)-I(P^C)
+ &=\E_{P C}\bigl[(S-S^C)(S-S^C)^\top\bigr]\succeq0.
+ \label{eq:rg-thermo-finite-fisher-loss}
+\end{align}
+Every geometry marginal, including its parameter derivatives, is retained.
+If $P(\gamma,x)=W_\gamma p_\gamma(x)$ on its occupied fibers, then
+\begin{equation}
+ I(P)-I(P^C)=\sum_{\gamma:W_\gamma>0}W_\gamma
+                  \bigl[I(p_\gamma)-I(p_\gamma C_\gamma)\bigr].
+ \label{eq:rg-thermo-finite-within-loss}
+\end{equation}
+These are finite specializations of
+\Cref{thm:cg-fisher-contraction,prop:rg-geometry-score}.\thermoestablishedstatus
+
+
+\paragraph{Proof.}
+For every positive target, differentiate
+\cref{eq:rg-thermo-finite-channel}. The channel has no parameter
+derivative, so division by $P^C(\gamma,y)$ gives the conditional
+expectation in \cref{eq:rg-thermo-finite-score-projection}.
+Under the augmented law $P(\gamma,x)C_\gamma(x,y)$, write
+$S=S^C+(S-S^C)$. The residual has zero conditional expectation given the
+target, so both cross terms in its second moment vanish. This proves
+\cref{eq:rg-thermo-finite-fisher-loss}. A directional loss is zero exactly
+when the corresponding fine score equals its target conditional
+expectation almost surely.
+
+Summing each channel row gives
+$\sum_yP^C(\gamma,y)=\sum_xP(\gamma,x)=W_\gamma$ as a function of
+$\theta$. Hence every available derivative of the label marginal is
+unchanged. Its score is already measurable from the retained label and
+cancels from $S-S^C$; equivalently subtract the two complete labeled Fisher
+decompositions to obtain \cref{eq:rg-thermo-finite-within-loss}.
+If a target has zero mass, nonnegativity forces every incidence into it
+from a positive source atom to vanish. It is consequently a structural
+zero, and no reverse probability or score is assigned to it. A channel
+varying with $\theta$ would contribute a channel derivative and is outside
+this proof. Positive-semidefinite loss at order zero does not impose a
+sign on its parameter derivatives. $\square$
+
+\propositionheading{Transport of the complete observation experiment}
+{prop:rg-thermo-finite-observation-push}
+The complete push preserves $E_o$ and obeys
+$\boldsymbol\Pi_o^C=\boldsymbol\Pi_o C$. It uses the actual induced
+likelihood of \Cref{thm:rg-geometry-transport}, not an independently
+chosen likelihood on coarse states. Within a branch, on a reachable
+reference target, define the following quantities. Sums containing a raw
+factor or likelihood run over $\mathsf X_\gamma^+$; the branch label
+is suppressed within these formulas:
+\begin{align}
+ \nu^C(y)&=\sum_x\nu(x)C(x,y),
+ &r^C(y)&=\frac{\sum_x\nu(x)r(x)C(x,y)}{\nu^C(y)},
+ \label{eq:rg-thermo-finite-raw-push}\\
+ B_p(x\mid y)&=\frac{p(x)C(x,y)}{p^C(y)},
+ &\ell^C(o\mid y)&=\sum_xB_p(x\mid y)\ell(o\mid x).
+ \label{eq:rg-thermo-finite-induced-likelihood}
+\end{align}
+The physical partition stays $Z$. For $r=s\widehat r$, let
+$\widehat r^C=(\sum_x\nu(x)\widehat r(x)C(x,\cdot))/\nu^C$
+on reachable targets. At a reachable anchor $y_*$ set
+\begin{equation}
+ \zeta_C=\widehat r^C(y_*),\qquad
+ \widehat r_{\mathrm{new}}=\widehat r^C/\zeta_C,\qquad
+ s_{\mathrm{new}}=s\zeta_C.
+ \label{eq:rg-thermo-finite-anchor}
+\end{equation}
+The physical product is unchanged, as in \Cref{prop:rg-geometry-scalar}.\thermoestablishedstatus
+
+
+\paragraph{Proof.}
+The reference sums to one, and positivity of the physical raw factor
+makes its reachable support the same as the prior's. Multiplying the
+first line by $\nu^C$ and summing gives $\sum_y\nu^C(y)r^C(y)=Z$.
+The prior reverse row $B_p$ sums to one, so its averaged likelihood is
+normalized. Moreover,
+\begin{equation}
+ p^C(y)\ell^C(o\mid y)
+       =\sum_xp(x)\ell(o\mid x)C(x,y).
+ \label{eq:rg-thermo-finite-joint-push}
+\end{equation}
+Multiply by the retained $W_\gamma$, sum over targets and labels, and
+use row normalization to obtain the same evidence $E_o$. Division by
+$E_o>0$ proves posterior commutation. This is an identity of $C^3$
+functions, so its existing derivatives agree as well. The reference
+reverse row proportional to $\nu(x)C(x,y)$ is generally different from
+$B_p$ and cannot replace it in the likelihood. An anchor division changes
+the representative only when the compensating scalar is retained; their
+product recovers the original physical push. On a reference-null target
+both raw quotient and reverse row remain undefined. Such a target
+contributes zero to every pushed law, even if a subsequent channel has a
+nonzero row there. Finite-sum associativity proves composition along any
+fixed finite word. $\square$
+
+\definitionheading{Exact selected-observation free energy}
+{def:rg-thermo-finite-vfe}
+At a fixed parameter and $E_o>0$, let
+$\mathbb Q(\gamma,x)=q_\gamma Q_\gamma(x)$ be a recognition law on the
+complete labeled carrier. The conditional $Q_\gamma$ is defined only
+when $q_\gamma>0$. With $0\log0=0$ and a positive recognition mass over
+zero selected joint mass assigned infinite cost, define
+\begin{equation}
+ \Fenergy_o(\mathbb Q)
+ =\sum_{\gamma,x:\mathbb Q(\gamma,x)>0}
+ \mathbb Q(\gamma,x)
+ \log\frac{\mathbb Q(\gamma,x)}{\mathbb P(\gamma,x,o)}.
+ \label{eq:rg-thermo-finite-vfe-definition}
+\end{equation}
+The exact ELBO is $-\Fenergy_o$. This is the same finite selected-joint
+objective as \cref{eq:rg-geometry-vfe-h,eq:rg-geometry-vfe-f}, before any
+restriction of the recognition family. \status{DEFINITION}
+
+\propositionheading{Full recognition entropy and the posterior form}
+{prop:rg-thermo-finite-vfe-expansion}
+On the finite dominated support $\mathbb Q\ll\boldsymbol\Pi_o$,
+\begin{align}
+ \Fenergy_o(\mathbb Q)
+ &=\KL(q\Vert W)+\sum_{\gamma:q_\gamma>0}q_\gamma
+       \KL(Q_\gamma\Vert p_\gamma)
+   -\sum_{\gamma:q_\gamma>0}q_\gamma
+       \E_{Q_\gamma}\log\ell_\gamma(o\mid X)
+ \label{eq:rg-thermo-finite-vfe-expansion}\\
+ &=-\log E_o+\KL(\mathbb Q\Vert\boldsymbol\Pi_o).
+ \label{eq:rg-thermo-finite-vfe-posterior}
+\end{align}
+No additional recognition-entropy or correlation-entropy term is required.\thermoestablishedstatus
+
+
+\paragraph{Proof.}
+Insert the factors in \cref{eq:rg-thermo-finite-full-joint} into the
+logarithm in \cref{eq:rg-thermo-finite-vfe-definition}. Split
+$\log\mathbb Q=\log q_\gamma+\log Q_\gamma(x)$ on positive
+recognition atoms and sum by label. This gives the first expression,
+including both parts of the single joint recognition entropy. Alternatively,
+use $\mathbb P(\gamma,x,o)=E_o\boldsymbol\Pi_o(\gamma,x)$ inside
+the same logarithm. Since $\sum\mathbb Q=1$, its common scalar contributes
+$-\log E_o$ and gives the second expression. Domination makes every
+logarithm at a recognition-positive atom finite. If domination fails, the
+second expression is still valid as an extended value $+\infty$; no
+difference of infinities is used. $\square$
+
+\propositionheading{Exact stochastic conditional-KL loss}
+{prop:rg-thermo-finite-vfe-loss}
+Use the same fixed channel $C$ for recognition and the selected posterior,
+and let $\mathbb Q^C=\mathbb Q C$. Define the coarse objective from
+the full induced observation experiment. If
+$\mathbb Q\ll\boldsymbol\Pi_o$, then
+\begin{equation}
+ \Fenergy_o(\mathbb Q)-\Fenergy_o^C(\mathbb Q^C)
+ =\sum_{\gamma,y:\mathbb Q^C(\gamma,y)>0}
+   \mathbb Q^C(\gamma,y)
+   \KL\bigl(\mathbb Q(X\mid\gamma,y)\Vert
+             \boldsymbol\Pi_o(X\mid\gamma,y)\bigr)\geq0.
+ \label{eq:rg-thermo-finite-vfe-loss}
+\end{equation}
+The reverse conditionals are those of the augmented recognition and
+posterior laws. The loss vanishes exactly when they coincide on every
+recognition-positive target. This is the finite stochastic chain rule
+underlying \Cref{prop:rg-geometry-fiber-vfe}.\thermoestablishedstatus
+
+
+\paragraph{Proof.}
+Define the two augmented laws explicitly by
+\begin{equation}
+ \overline Q(\gamma,x,y)=\mathbb Q(\gamma,x)C_\gamma(x,y),
+ \qquad
+ \overline\Pi(\gamma,x,y)=\boldsymbol\Pi_o(\gamma,x)C_\gamma(x,y).
+ \label{eq:rg-thermo-finite-augmented-laws}
+\end{equation}
+On every $\overline Q$-positive pair, the common channel factor cancels
+from the likelihood ratio. Summing over $y$ therefore gives
+$\KL(\overline Q\Vert\overline\Pi)
+ =\KL(\mathbb Q\Vert\boldsymbol\Pi_o)$.
+For a positive coarse recognition atom, domination implies a positive
+coarse posterior atom, and the same ratio also factors as
+\begin{equation}
+ \frac{\overline Q(\gamma,x,y)}{\overline\Pi(\gamma,x,y)}
+ =\frac{\mathbb Q^C(\gamma,y)}{\boldsymbol\Pi_o^C(\gamma,y)}
+   \frac{\mathbb Q(x\mid\gamma,y)}
+        {\boldsymbol\Pi_o(x\mid\gamma,y)}.
+ \label{eq:rg-thermo-finite-kl-factorization}
+\end{equation}
+Taking logarithms and summing yields the coarse KL plus the displayed
+conditional KL. The evidence term $-\log E_o$ is identical by
+\Cref{prop:rg-thermo-finite-observation-push}, so
+\cref{eq:rg-thermo-finite-vfe-posterior} gives
+\cref{eq:rg-thermo-finite-vfe-loss}.
+For finite normalized probability vectors, $\log t\leq t-1$ implies
+$\KL(q\Vert p)\geq0$, with equality only for $q=p$; applying this on
+each occupied reverse fiber proves the sign and equality statements.
+Applying the same identity successively telescopes the finite-word loss
+on the same complete experiment. $\square$
+
+If fine recognition is not dominated but its coarse image is dominated,
+a violating fine atom reaches a positive coarse recognition atom whose
+posterior reverse fiber is defined and assigns zero probability to that
+fine atom. Its conditional KL is infinite. The additive identity
+$\Fenergy_o(\mathbb Q)=\Fenergy_o^C(\mathbb Q^C)
+ +\text{conditional KL}$ then remains an extended-value identity.
+If coarse recognition instead charges a posterior-null target, both
+fine and coarse VFE are infinite, the posterior fiber at that target is
+undefined, and their subtraction is not a numerical loss. A target with
+zero coarse recognition weight contributes zero without defining its
+recognition reverse fiber. These cases are separate from zero evidence,
+where no selected posterior exists.\thermoestablishedstatus
+
+\paragraph{Stochastic loss and deterministic minimization have different types.}
+The preceding identity compares one fine recognition law and its actual
+stochastic image. It does not assert
+\begin{equation}
+ \Fenergy_o^C(q')
+   =\inf_{\mathbb Q:\mathbb Q C=q'}\Fenergy_o(\mathbb Q)
+ \label{eq:rg-thermo-finite-unwarranted-infimum}
+\end{equation}
+for an arbitrary stochastic channel. For a deterministic retained-label
+statistic $c$, a prescribed $q'\ll c_\#\boldsymbol\Pi_o$ does admit
+the fine law
+$\mathbb Q_*(\gamma,x)
+ =q'(\gamma,c_\gamma(x))
+   \boldsymbol\Pi_o(x\mid\gamma,c_\gamma(x))$.
+Define this expression to be zero when $q'(\gamma,c_\gamma(x))=0$,
+without evaluating a posterior fiber at a null target.
+Its deterministic image is $q'$ and its occupied reverse fibers equal
+the posterior fibers, so the chain rule gives equality with the coarse
+objective and proves the corresponding deterministic infimum statement
+when all such fine probability laws are allowed. A restricted recognition
+family need not contain this lift. For a stochastic channel, prescribing
+the output and choosing posterior reverse fibers need not define a joint
+with the required conditional channel $C$ given the fine input.\thermoestablishedstatus
+
+\paragraph{Finite witness.}
+Take one geometry label, a one-point observation alphabet with likelihood
+one, $\boldsymbol\Pi_o=(1/2,1/2)$, and
+\begin{equation}
+ C=\begin{pmatrix}3/4&1/4\\1/4&3/4\end{pmatrix},
+ \qquad \mathbb Q=(1,0),
+ \qquad q'=\mathbb Q C=(3/4,1/4).
+ \label{eq:rg-thermo-finite-stochastic-infimum-witness}
+\end{equation}
+The matrix has determinant $1/2$, so $\mathbb Q$ is the unique fine
+probability vector with output $q'$. Its VFE is $\log2$, since $E_o=1$,
+whereas the coarse VFE is
+$(3/4)\log(3/2)+(1/4)\log(1/2)$.
+Their difference is $2\log2-(3/4)\log3>0$, because
+$2^8>3^3$. Thus \cref{eq:rg-thermo-finite-unwarranted-infimum} is false
+for this positive stochastic channel even though the exact conditional-KL
+loss identity holds. No failure of normalization or discarded geometry
+label is involved. $\square$\thermoestablishedstatus
+
+
+% The finite identities do not themselves supply thermodynamic smoothness,
+% regular inverses, or all-depth conclusions. Those require the separate
+% limiting statements below; a test result is not their proof.
+
+\section{Volume limits and exact renormalization}
+\label{sec:rg-thermo-draft-limit-organization}
+
+The arguments in Appendix~\ref{app:thermodynamic-fisher-draft-proofs} apply to
+actual finite laws. For the native model in
+\Cref{def:rg-pressure-native}, the source map
+$\chi_\gamma:\Theta\to\R^2$, with
+$\chi_\gamma(\theta)=(h_\gamma(\theta),j_\gamma(\theta))$, is $C^4$ and
+has image in a compact positive high-temperature box. The native
+pressure theorem obtains $C^4$ convergence from local response, and its
+Fisher consequence is
+\begin{equation}
+ \frac{I(p_{\gamma,L,\theta})}{V}
+ \longrightarrow
+ g_\gamma(\theta)
+ =(D\chi_\gamma)^\top
+   (D^2\mathsf A\circ\chi_\gamma)D\chi_\gamma
+ \quad\hbox{in }C^2,\qquad V=L^2.
+ \label{eq:rg-thermo-draft-native-density}
+\end{equation}
+Here $\mathsf A$ is the natural log-partition density. The raw-factor
+pressure differs by the explicit edge and plaquette normalization
+terms in \Cref{thm:rg-thermo-native-cfour-pressure}. The pullback in
+\Cref{prop:rg-thermo-native-ctwo-metric} therefore does not identify
+Fisher information with a Hessian of the raw pressure after a nonlinear
+source substitution. The separate free-boundary theorem
+\Cref{thm:rg-thermo-native-free-push-ctwo} supplies the derivative limit
+for actual fixed-word pushes. Neither a matching bulk pressure nor a
+surface bound on log-density ratios supplies that conclusion by itself;
+\Cref{prop:rg-thermo-native-boundary-score-counterexample} gives a
+counterexample to that inference.\thermoestablishedstatus
+
+For the retained-label family, write its actual effective log masses as
+$\lambda_{\gamma,L}$ and use the hypotheses of
+\Cref{eq:rg-thermo-label-effective-growth}:
+$\lambda_{\gamma,L}/V\to s_\gamma$ in $C^3$, with $C^3$ norms of the
+log masses bounded by a constant times $V$ on each admitted compact
+neighborhood. The global-factor convention includes $\log Z_{\gamma,L}$
+in $\lambda_{\gamma,L}$; the prescribed hierarchy does not. A common
+label-independent representative cancels from the normalized weights
+and their scores. These choices affect the bulk functions and therefore
+which branch dominates. If one fixed label has a uniform positive gap
+in $s_\gamma$ over the other labels, and all actual branch densities
+converge in $C^2$, then
+\Cref{thm:rg-thermo-label-strict} gives
+\begin{equation}
+ \frac{I(P_{L,\theta})}{V}\longrightarrow g_{\gamma_*}(\theta)
+ \quad\hbox{in }C^2.
+ \label{eq:rg-thermo-draft-strict-density}
+\end{equation}
+This remains a semimetric statement unless the limiting tensor has a
+positive lower bound on the declared chart. Only on such charts do the
+inverse metric, Levi-Civita connection, and Fisher curvature inherit
+the convergence proved in \Cref{prop:rg-thermo-label-regular-geometry}.
+A two-source branch pulled back into a higher-dimensional parameter
+space does not acquire a full-rank metric from this argument.\thermoestablishedstatus
+
+At a tie $\theta_0$, actual finite-volume weights are additional data.
+If they converge to $w_\gamma$, let
+$v_\gamma=\nabla s_\gamma(\theta_0)$. Under the branch $O(V)$ bound,
+\Cref{eq:rg-thermo-label-tie-limit} gives
+\begin{equation}
+ \frac{I(P_{L,\theta_0})}{V^2}
+ \longrightarrow \operatorname{Cov}_{w}(v_\gamma).
+ \label{eq:rg-thermo-draft-tie-density}
+\end{equation}
+A positive covariance direction has order-$V^2$ information. A zero
+direction implies only $o(V^2)$; it does not imply an order-$V$ bound.
+Residual log-weight gradients and rare labels enter before score
+squaring. The examples in \Cref{sec:rg-thermo-label-proof} show why
+bulk pressure data alone cannot determine their contribution or the
+existence of the tie-weight limit.\thermoestablishedstatus
+
+A different experiment uses $u=V(\theta-\theta_0)$. Assume the actual
+center ratios in \Cref{eq:rg-thermo-label-center-ratios} converge to
+positive $\kappa_\gamma$ on the tied set $S$, and retain the branch
+$C^2$ and effective-log-mass $C^3$ hypotheses. Then
+\Cref{thm:rg-thermo-label-crossover} identifies
+\begin{align}
+ \pi_\gamma(u)
+ &=\frac{\kappa_\gamma e^{u\cdot v_\gamma}}
+         {\sum_{\eta\in S}\kappa_\eta e^{u\cdot v_\eta}},
+ \qquad \gamma\in S,
+ \label{eq:rg-thermo-draft-window-weights}\\
+ I_L^{(u)}(u)
+ &=V^{-2}I(P_{L,\theta_0+u/V})
+ \longrightarrow\operatorname{Cov}_{\pi(u)}(v_\gamma)
+ \quad\hbox{in }C^2.
+ \label{eq:rg-thermo-draft-window-metric}
+\end{align}
+The appendix constructs the comparison kernels for this experiment and
+its identifiable quotient. It also treats an actual moving center for a
+transverse two-label tie. The reciprocal-volume chart is not a smooth
+extension of the extensive density across every tie, nor a universal
+physical time parameter.\thermoestablishedstatus
+
+Exact renormalization retains one normalized fine experiment, its
+reference, its observation, and its declared recognition law. For a
+fixed word of total block factor $B$, the fine and coarse cell counts
+are $M=B^2V$. The finite score and conditional-KL identities above
+therefore give the scale accounting in
+\Cref{sec:rg-thermo-accounting-proof}: an extensive density carries
+$B^2$, while a density normalized by squared volume carries $B^4$.
+The denominator, parameter coordinate, and observed experiment must be
+the same on both sides of each comparison. Every limiting argument
+keeps the word fixed before volume tends to infinity. The exact finite
+VFE difference is a posterior conditional relative entropy; a general
+stochastic channel does not turn it into an equality of variational
+infima.\thermoestablishedstatus
+
+Prescribed geometry actions change the declared raw weights. Their
+relative center values, as well as their volume orders and derivative
+bounds, govern the resulting label experiments. Gauge connection
+curvature, statistical Fisher curvature, and curvature of the base
+manifold remain distinct inputs with separate metric and measure
+conventions. This mapping does not solve a self-consistent curvature
+action. Unbounded-depth regular inverses, critical or continuum limits,
+arbitrary local-law gluing, and physical identification require
+additional constructions outside the present chapter.\thermoestablishedstatus
+\endgroup

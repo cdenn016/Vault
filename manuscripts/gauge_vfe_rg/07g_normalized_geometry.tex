@@ -1,0 +1,345 @@
+\chapter{Normalized Geometry and the Variational Objective}
+\label{ch:normalized-geometry}
+
+Geometry can be an external input or a random variable of the generative
+model. This chapter declares a finite geometry catalog and derives the
+resulting VFE before taking any volume limit. A catalog label specifies a
+branch; it is neither an additional agent nor a replacement for the common
+principal bundle. The letter $\gamma\in\mathfrak G$ denotes a catalog label
+only in this chapter and the next, not a curve in the contextual base.
+\status{DEFINITION}
+
+\section{Two normalized geometry models}
+\label{sec:rg-geometry-normalization}
+
+\definitionheading{Finite geometry ensemble}{def:rg-geometry-ensemble}
+Let $\mathfrak G$ be finite and nonempty. For each $\gamma$, declare a finite
+nonempty carrier $\mathsf X_\gamma$, a strictly positive probability reference
+$\nu_\gamma$, a positive raw factor $r_\gamma$, and a positive weight
+$a_\gamma$. Let $\ell_\gamma(o\mid x)$ be a normalized, possibly vanishing,
+likelihood on a common finite observation alphabet. All are fixed generative
+data, independent of recognition. On the disjoint union of the branch
+carriers put
+\begin{equation}
+ Z_\gamma=\sum_x\nu_\gamma(x)r_\gamma(x),\qquad
+ p_\gamma(x)=\frac{\nu_\gamma(x)r_\gamma(x)}{Z_\gamma},\qquad
+ w_\gamma=\frac{a_\gamma}{\sum_\delta a_\delta}.
+ \label{eq:rg-geometry-branch}
+\end{equation}
+The hierarchical and global-factor joints are respectively
+\begin{align}
+ \mathbb P_{\mathrm h}(\gamma,x,o)
+ &=w_\gamma p_\gamma(x)\ell_\gamma(o\mid x),
+ \label{eq:rg-geometry-hierarchy}\\
+ \mathbb P_{\mathrm f}(\gamma,x,o)
+ &=\frac{a_\gamma\nu_\gamma(x)r_\gamma(x)
+              \ell_\gamma(o\mid x)}{Z_{\mathrm{all}}},\qquad
+ Z_{\mathrm{all}}=\sum_\delta a_\delta Z_\delta.
+ \label{eq:rg-geometry-factor}
+\end{align}
+These are two declared models. \status{DEFINITION}
+
+\propositionheading{Branch normalization changes geometry weights}
+{prop:rg-geometry-weights}
+Both joints are normalized. Their conditional branch laws coincide, but the
+factor-model geometry weight is $a_\gamma Z_\gamma/Z_{\mathrm{all}}$.
+For the same positive $a_\gamma$, the joints coincide exactly when all
+$Z_\gamma$ coincide. Replacing $r_\gamma$ by $d_\gamma r_\gamma$ leaves
+the hierarchical joint unchanged and reweights the factor ensemble by
+$d_\gamma$; one common $d_\gamma=d$ cancels in both. These statements are
+established by the following calculation. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Sum either joint first over $o$, then over $x$, then over $\gamma$.
+Equality of the joint implies equality of its label marginal, hence
+$Z_\gamma=Z_{\mathrm{all}}/\sum_\delta a_\delta$ for every $\gamma$;
+the converse follows by substitution. A branch rescaling changes
+$Z_\gamma$ to $d_\gamma Z_\gamma$ and cancels in $p_\gamma$.
+Thus compensating the factor weight by $a_\gamma/d_\gamma$ preserves the
+joint. In particular the choice $a_\gamma/Z_\gamma$ converts the factor
+model to the hierarchy, but is a change of generative data.
+$\square$
+
+For a positive catalog reference $m_\gamma$ write
+$a_\gamma=m_\gamma e^{-A_\gamma}$ and $r_\gamma=e^{-H_\gamma}$.
+Fix positive evidence $E_o=\sum_{\gamma,x}\mathbb P(\gamma,x,o)$ and a
+recognition law $\mathbb Q(\gamma,x)=q_\gamma Q_\gamma(x)$, defining
+$Q_\gamma$ only when $q_\gamma>0$. Direct expansion gives
+\begin{align}
+ \mathcal F_{\mathrm h,o}(\mathbb Q)
+ &=\KL(q\Vert m)+\E_q A_\gamma+\log\sum_\delta a_\delta
+ \nonumber\\
+ &\quad+\sum_\gamma q_\gamma
+ \left[\KL(Q_\gamma\Vert\nu_\gamma)+\E_{Q_\gamma}H_\gamma
+       +\log Z_\gamma-\E_{Q_\gamma}\log\ell_\gamma(o\mid X)\right],
+ \label{eq:rg-geometry-vfe-h}\\
+ \mathcal F_{\mathrm f,o}(\mathbb Q)
+ &=\KL(q\Vert m)+\E_q A_\gamma+\log Z_{\mathrm{all}}
+ \nonumber\\
+ &\quad+\sum_\gamma q_\gamma
+ \left[\KL(Q_\gamma\Vert\nu_\gamma)+\E_{Q_\gamma}H_\gamma
+       -\E_{Q_\gamma}\log\ell_\gamma(o\mid X)\right].
+ \label{eq:rg-geometry-vfe-f}
+\end{align}
+Here $\mathcal F_o=\KL(\mathbb Q\Vert\boldsymbol\Pi_o)-\log E_o$.
+The convention $0\log0=0$ is used; a recognition-positive atom with zero
+selected likelihood gives $+\infty$. These established identities contain
+one full recognition entropy, decomposed by its conditional chain. There is
+no second correlation-entropy term to append. \status{ESTABLISHED}
+
+\section{Transport of reference, scalar, and experiment}
+\label{sec:rg-geometry-transport}
+
+\theoremheading{Complete finite transport}{thm:rg-geometry-transport}
+For each branch let $C_\gamma(x,y)$ be a fixed normalized channel retaining
+$\gamma$. Suppress that label within this proof and define, on reachable
+$y$,
+\begin{equation}
+ \nu'(y)=\sum_x\nu(x)C(x,y),\qquad
+ r'(y)=\frac{\sum_x\nu(x)r(x)C(x,y)}{\nu'(y)},\qquad
+ p'(y)=\frac{\nu'(y)r'(y)}{Z}.
+ \label{eq:rg-geometry-raw-push}
+\end{equation}
+Then $\sum_y\nu'(y)r'(y)=Z$. The actual induced likelihood is
+\begin{equation}
+ B_p(x\mid y)=\frac{p(x)C(x,y)}{p'(y)},\qquad
+ \ell'(o\mid y)=\sum_xB_p(x\mid y)\ell(o\mid x).
+ \label{eq:rg-geometry-likelihood}
+\end{equation}
+It preserves the observation evidence and pushes the selected posterior by
+the same channel. Reference, prior, posterior, recognition, and the full
+observation joint compose along finite channel words. This establishes a
+transport of the complete experiment. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+The reference row sums to one. Strict positivity of the source reference
+and raw factor implies $\nu'(y)>0$ exactly on the prior's reachable support.
+Multiplication and summation in \cref{eq:rg-geometry-raw-push} prove the
+partition identity. The prior reverse row $B_p$ is normalized and
+$p'(y)\ell'(o\mid y)=\sum_xp(x)C(x,y)\ell(o\mid x)$.
+Summing over $y$ proves evidence preservation; division by positive $E_o$
+proves the posterior assertion. For a following channel $D$, interchange
+the finite sums over $x,y$ to obtain the composite $CD$. Every assertion
+then follows for the complete joint and its coordinate marginals. The
+reference reverse row $\nu(x)C(x,y)/\nu'(y)$ is generally different from
+$B_p$ and cannot replace it in the likelihood formula. On a null target,
+the raw quotient and reverse row are undefined; that column contributes
+zero, even if the next channel has a nonzero row there.
+$\square$
+
+\propositionheading{Anchor scalar cocycle}{prop:rg-geometry-scalar}
+Choose a reachable reference anchor and write $r=s\widehat r$, with
+$\widehat r(x_*)=1$. Denote the raw push relative to $\nu C$ by
+$C_\nu\widehat r$, and choose a reachable target anchor $y_*$.
+Then
+\begin{equation}
+ \zeta_C=(C_\nu\widehat r)(y_*),\qquad
+ \widehat r'=\frac{C_\nu\widehat r}{\zeta_C},\qquad
+ s'=s\zeta_C,
+ \label{eq:rg-geometry-anchor}
+\end{equation}
+and, using the same final reference and anchor,
+\begin{equation}
+ \zeta_{CD}(\nu,\widehat r)
+ =\zeta_C(\nu,\widehat r)
+   \zeta_D(\nu C,\widehat r').
+ \label{eq:rg-geometry-scalar-cocycle}
+\end{equation}
+The factor-model weight must absorb $s'$ if only $\widehat r'$ is used as
+the branch factor. The scalar cancels within a hierarchical conditional
+branch. These are established representative identities, not changes of
+principal gauge frame. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+The numerator of the two-stage raw push is
+$\sum_{x,y}\nu(x)\widehat r(x)C(x,y)D(y,z)$ and its denominator is
+$(\nu CD)(z)$. Linearity allows the first anchor scalar to be pulled outside
+the second push. Evaluation at the final anchor gives the cocycle, and the
+product $s'\widehat r'$ recovers the complete raw factor. Substitution into
+\cref{eq:rg-geometry-hierarchy,eq:rg-geometry-factor} gives the two weight
+rules. Identity has scalar one only for an unchanged anchored representative.
+$\square$
+
+\propositionheading{VFE loss on posterior fibers}{prop:rg-geometry-fiber-vfe}
+If $\mathbb Q\ll\boldsymbol\Pi_o$, let $\mathbb Q'=\mathbb Q C$ and
+$\boldsymbol\Pi'_o=\boldsymbol\Pi_o C$. Then
+\begin{equation}
+ \mathcal F_o(\mathbb Q)=\mathcal F'_o(\mathbb Q')+
+ \sum_{\gamma,y}\mathbb Q'(\gamma,y)
+ \KL\bigl(\mathbb Q(X\mid\gamma,y)\Vert
+                 \boldsymbol\Pi_o(X\mid\gamma,y)\bigr).
+ \label{eq:rg-geometry-fiber-vfe}
+\end{equation}
+The loss is nonnegative and vanishes exactly when the two reverse fibers
+agree on every recognition-positive target. Finite-word losses add.
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+Augment both laws by the same channel. Their joint likelihood ratio is
+\begin{equation}
+ \frac{\mathbb Q(\gamma,x)}{\boldsymbol\Pi_o(\gamma,x)}.
+\end{equation}
+Factor this ratio into the target ratio and conditional-fiber ratio, take logs,
+and sum. All terms are finite on the stated finite dominated support.
+Evidence preservation yields \cref{eq:rg-geometry-fiber-vfe}; applying it
+successively proves the telescope.
+$\square$
+
+If fine recognition is not dominated but its coarse image is, the fine
+VFE and a posterior-fiber loss are infinite while the coarse VFE is finite.
+If coarse recognition itself charges a posterior-null target, its posterior
+fiber is undefined and the difference of infinite VFEs is not a numerical
+loss. An arbitrary null-fiber version does not identify that loss. Zero
+total evidence is a separate undefined-posterior case. These support
+boundaries follow by inspecting a positive channel incidence from each
+violating fine atom. \status{ESTABLISHED}
+
+\section{Scores and the three geometric structures}
+\label{sec:rg-geometry-curvatures}
+
+\propositionheading{Normalized derivatives and information loss}
+{prop:rg-geometry-score}
+Let the finite inputs be actual $C^3$ families on a fixed support over an
+open parameter set. For unnormalized weights $u_i$, $Z=\sum_i u_i>0$,
+and $p_i=u_i/Z$, all ordinary derivatives through order three satisfy
+\begin{equation}
+ \partial^\alpha p_i=\frac{1}{Z}
+ \left[\partial^\alpha u_i-
+ \sum_{0<\beta\leq\alpha}{\alpha\choose\beta}
+ (\partial^\beta Z)(\partial^{\alpha-\beta}p_i)\right].
+ \label{eq:rg-geometry-derivatives}
+\end{equation}
+For a parameter-independent channel the score $s=\partial\log p$ becomes
+$s'(Y)=\E[s(X)\mid Y]$, and
+\begin{equation}
+ I(p)-I(pC)=\E_{pC}\operatorname{Cov}_p(s\mid Y)\succeq0.
+ \label{eq:rg-geometry-fisher-loss}
+\end{equation}
+These identities retain reference, raw-factor, label-weight, anchor,
+and likelihood derivatives. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Differentiate $Zp_i=u_i$ and isolate the term $Z\partial^\alpha p_i$.
+Increasing total derivative order gives the recurrence. Differentiating
+the finite push and dividing by its positive mass gives the conditional
+score. Write $s=(s-s')+s'$; conditional centering kills both mixed outer
+products. Differentiating total mass proves score centering. An observation
+posterior has score $s-\partial\log E_o$, where
+$\partial\log E_o=\E_{\boldsymbol\Pi_o}s$.
+$\square$
+
+A parameter-dependent channel has an additional transition-score term.
+A one-state source followed by a Bernoulli$(\theta)$ channel has zero input
+Fisher information and output information $1/[\theta(1-\theta)]$.
+Thus the unchanged contraction assertion is false for that channel class.
+\status{ESTABLISHED}
+
+For a positive $C^3$ mass family the Fisher tensor
+$g_{ij}=\sum_x(\partial_i p_x)(\partial_jp_x)/p_x$ is $C^2$.
+On a neighborhood where it is positive definite it has a $C^1$ Levi-Civita
+connection and continuous curvature. The mass Jacobian has full parameter
+rank there: its positive weighted Gram matrix is $g$. Choosing a left
+inverse at a point and shrinking a convex neighborhood makes the derivative
+of the resulting coordinate map differ from the identity by less than
+$1/2$; integration along segments proves local injectivity. This establishes
+regular local statistical geometry. It supplies no inverse on a singular
+stratum or uniform lower eigenvalue bound over unbounded RG depth.
+\status{ESTABLISHED}
+
+\definitionheading{Admitted curvature factor}{def:rg-geometry-curvature-factor}
+Gauge curvature is the curvature $F_{\omega}$ of a declared principal
+connection. Base curvature is that of a declared nondegenerate metric on
+$\mathcal C$. Fisher curvature is that of a declared regular normalized
+statistical family. A curvature action requires the relevant connection,
+pairing, metric contraction, measure, coupling, and a finite normalizer.
+It enters as a specified $H_\gamma$, $A_\gamma$, or likelihood factor.
+These are distinct generative choices. \status{DEFINITION}
+
+For a unitary representation of dimension $n$, the pairing
+$-\operatorname{Re}\Tr(XY)/n$ is positive on represented anti-Hermitian
+matrices, and the loop action
+$\operatorname{Re}\Tr(2I-U-U^*)/(2n)$ is nonnegative because it equals
+$\Tr((I-U)^*(I-U))/(2n)$. With a Riemannian base, a curvature-square
+action can therefore be declared as
+\begin{equation}
+ \mathscr S_{\mathrm g}=
+ -\frac{\kappa_{\mathrm g}}{4n}\int_{\mathcal C}
+ \operatorname{Re}\Tr(F_{\mu\nu}F^{\mu\nu})d\operatorname{vol}_g,
+ \qquad \kappa_{\mathrm g}\geq0.
+ \label{eq:rg-geometry-gauge-action}
+\end{equation}
+The integrand's nonnegativity is established in an orthonormal base frame by
+summing squared matrix norms. Normalizability of a probability law on
+connections is an additional hypothesis, not a consequence of this sign.
+\status{ESTABLISHED}
+
+No positive norm on all of $\mathfrak{gl}(n,\R)$, $n\geq2$, is invariant
+under every conjugation: conjugating $E_{12}$ by
+$\operatorname{diag}(s,1,\ldots,1)$ multiplies it by $s$, contradicting
+positive norm invariance for $s\ne1$. A separately specified SPD fiber
+metric $H$ instead gives
+$\Tr(H^{-1}F^\top HF)\geq0$, invariant under the simultaneous changes
+$F\mapsto gFg^{-1}$ and $H\mapsto g^{-\top}Hg^{-1}$ by cyclicity of
+trace. The additional metric is part of the model. \status{ESTABLISHED}
+
+If links are random with normalized reference $m$ and prior
+$e^{-\mathscr S_{\mathrm g}}m/Z_{\mathrm g}$, recognition
+$R(d\Theta)Q_\Theta(dy)$ gives
+\begin{equation}
+ \mathcal F=\E_R\mathcal F_{\mathrm{matter}}(Q_\Theta;o,\Theta)
+ +\E_R\mathscr S_{\mathrm g}+\KL(R\Vert m)+\log Z_{\mathrm g}.
+ \label{eq:rg-geometry-random-link-vfe}
+\end{equation}
+This follows by expanding the normalized joint density. Dropping the field
+entropy or partition changes that VFE. For an externally fixed link,
+a state-independent action cancels in the normalized conditional model.
+\status{ESTABLISHED}
+
+A Fisher-curvature action computed from the same unknown law that it
+reweights poses a self-consistency problem. Existence, uniqueness,
+normalizability, and regularity of its solutions remain to be proved.
+No such action, continuum random-field limit, or physical identification is
+asserted by the finite construction. \status{OPEN}
+
+\section{A global geometry label cannot always be erased}
+\label{sec:rg-geometry-erasure}
+
+\theoremheading{Product-branch erasure can destroy Gibbs regularity}
+{thm:rg-geometry-erasure}
+On a countably infinite lattice choose $0<p<q<1$ and $0<w<1$. Let
+$\mu_p,\mu_q$ be independent Bernoulli product laws. The mixture
+$\mu=w\mu_p+(1-w)\mu_q$ has no continuous singleton conditional version
+in the product topology. In particular it has no absolutely summable
+finite-alphabet Gibbs interaction. Both branches can lie in an arbitrarily
+small positive neighborhood of the fair product law. This obstruction is
+established for erasure of one shared global label. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Enumerate the exterior sites and let $T_r$ be the event that their empirical
+mean tends to $r$. Independence gives
+$\E(\sum_{j=1}^n(X_j-r))^4\leq n^2/4$. Thus the probability of a mean
+deviation exceeding $\epsilon$ is at most $1/(4n^2\epsilon^4)$.
+Summing this bound over $n\geq N$ and then taking $N\to\infty$ proves
+$\mu_r(T_r)=1$. Removing finitely many sites does not alter that limit.
+The exterior therefore identifies the branch almost surely. Independence
+within a branch shows that a version of the singleton conditional is $p$
+on $T_p$ and $q$ on $T_q$.
+
+Every nonempty finite exterior cylinder has positive probability under
+both branches, hence positive mixture mass intersecting each of $T_p,T_q$.
+Any other conditional version agrees off a mixture-null set, so each
+cylinder still contains both values. Continuity at any exterior would
+require a cylinder on which the oscillation is less than $q-p$, a
+contradiction. An absolutely summable interaction gives a uniformly
+convergent singleton energy sum of cylinder functions; its normalized
+exponential is continuous and would be such a version. Finally the
+one-site fields $\tfrac12\log[r/(1-r)]$ tend to zero as $r\to1/2$.
+Distinct $p,q$ sufficiently close to $1/2$ make both branch norms
+arbitrarily small without changing the argument.
+$\square$
+
+The full labeled joint remains normalized, and its finite erasure remains
+an ordinary stochastic push with the posterior-fiber loss of
+\cref{eq:rg-geometry-fiber-vfe}. What fails is the inference that an erased
+mixture belongs to the same infinite Gibbs class as each branch.
+\status{ESTABLISHED}

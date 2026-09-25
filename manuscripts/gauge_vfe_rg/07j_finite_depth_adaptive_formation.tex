@@ -1,0 +1,952 @@
+\chapter{Finite-Depth Adaptive Formation at One Base Point}
+\label{ch:finite-depth-formation}
+
+The normalized parent construction and the memory results of
+\Cref{ch:agent-network-rg,ch:inference-memory} distinguish an exact
+probability reduction from an autonomous reduced dynamics. This chapter
+constructs a finite family in which successive reductions can actually be
+used during inference. The family has independent moving interaction
+links, retained network loops, a nonlinear observation of source-dependent
+belief mismatch, and positive-rate changes of the actual source
+assignments. Every new parent begins with the preceding actual retained
+law and subsequently learns from its own law. The quantitative result is
+\Cref{thm:finite-depth-adaptive-formation}; its estimates are proved in
+\Cref{app:finite-depth-formation-proofs}. \status{ESTABLISHED}
+
+The construction adopts one fixed base point \(c_*\), a finite
+triangle-chain graph, supplied interaction-energy contrasts, a proper
+correlated reference, a compatible observation, and calibration-assisted
+learning of one scalar model parameter. It is a realization inside the
+principal/associated-bundle framework, with no base transport. The
+continuous mobility, categorical proposal rule, and model metric are
+declared inference kinetics. A scalar VFE alone does not choose them.
+\status{HYPOTHESIS}
+
+\section{The pointwise carrier and its restoring flag}
+\label{sec:rg-formation-carrier}
+
+Fix an integer \(L\ge2\), set \(b=2^{L-1}\), and arrange \(b\) disjoint
+triangles in a chain. A bridge joins each consecutive pair of triangles.
+Each triangle is cyclically oriented; every other edge has one fixed
+orientation. The graph has \(n=3b\) vertices and \(4b-1\) edges. Bridge
+number \(j\), between triangles \(j\) and \(j+1\), has level
+\(\ell(j)=2+v_2(j)\), where \(v_2(j)\) is the exponent of two dividing
+\(j\). Triangle edges have level one. The numbers \(J_1\ge\cdots\ge
+J_L>0\) introduced below are energy strengths, not categorical source
+probabilities. \status{DEFINITION}
+
+Use the translation action of \((\R,+)\) on two scalar law fibers at
+\(c_*\), and fix \(0<c<1\). A configuration and its law presentations are
+\begin{equation}
+\begin{aligned}
+x&=(u,v,\zeta)\in\R^{2n+4b-1}=\R^{10b-1},\\
+q_i^b(\cdot\mid x)&=\mathcal N(u_i,1),&
+q_i^m(\cdot\mid x)&=\mathcal N(v_i,c),\\
+\Theta_e(k)&=k+\zeta_e,&
+d_i(x)&=u_i-v_i,\\
+r_e(x)&=u_i-u_j-\zeta_e\quad(e:j\to i).
+\end{aligned}
+\label{eq:rg-formation-configuration}
+\end{equation}
+Here \(x\) is a random configuration of law presentations; it is not the
+fixed structural datum \(X\) of the general construction. The same local
+translation acts on both fibers in this specialization. The independent
+coordinates \(\zeta_e\) are graph links, with
+\(\zeta_{\bar e}=-\zeta_e\). No inter-agent model-alignment record is
+included. This choice leaves the local model evaluator and model learning
+present. \status{DEFINITION}
+
+Under a passive vertex-frame translation \(a_i\), the means become
+\(u_i+a_i,v_i+a_i\) and an edge coordinate becomes
+\(\zeta_e+a_i-a_j\). Thus \(d_i\) and \(r_e\) are invariant. Reference
+centers and observation records transform with the same passive change;
+holding those centers fixed while moving the configuration would instead
+change the model. The proper reference used below is not an invariant
+Haar probability on a noncompact group. These are the coordinate and
+reference conventions of this specialization. \status{DEFINITION}
+
+For triangle \(q\), let \(\mathfrak h_q=\sum_{e\in q}\zeta_e\) be its
+oriented translation holonomy and put \(h_q=\mathfrak h_q/\sqrt3\).
+The normalized loop vector is \(h=(h_q)_{q=1}^b\). With
+\begin{equation}
+Q_\triangle=
+\begin{pmatrix}
+1/\sqrt2&-1/\sqrt2&0\\
+1/\sqrt6&1/\sqrt6&-2/\sqrt6
+\end{pmatrix},
+\qquad
+|r_q|^2=|Q_\triangle r_q|^2+h_q^2,
+\label{eq:rg-formation-loop-decomposition}
+\end{equation}
+the second identity follows from
+\(\sum_{e\in q}r_e=-\mathfrak h_q\). In particular the loop energy
+in this decomposition belongs to the original sum of edge mismatches.
+It is not an additional flattening term. \status{ESTABLISHED}
+
+Let \(B_1\) stack the \(n\) rows \(d_i\) and the \(2b\) internal
+contrast rows \(Q_\triangle r_q\). For \(s\ge2\), let \(B_s\) stack
+the bridge residuals of level \(s\), and write \(B\) for their stack.
+The link-coordinate columns in a linear dependence among these rows force
+all contrast and bridge coefficients to vanish. The model-mean columns
+then force the remaining coefficients to vanish. Hence
+\(\operatorname{rank}B=6b-1\). Every normalized loop covector is
+orthogonal to every row of \(B\). If \(D\) is the oriented graph
+incidence matrix, define
+\begin{equation}
+\begin{aligned}
+\mathcal K&=\{(t,t,Dt):t\in\R^n\},&
+\mathcal H&=\operatorname{span}\{\text{normalized loop covectors}\},\\
+\mathcal N&=\operatorname{range}B^\top,&
+\R^{10b-1}&=\mathcal N\oplus\mathcal H\oplus\mathcal K,\\
+H&=B^\top\operatorname{diag}(J_sI)B+J_1P_{\mathcal H}.
+\end{aligned}
+\label{eq:rg-formation-orthogonal-split}
+\end{equation}
+The direct sum is orthogonal. The matrix \(H\) has kernel
+\(\mathcal K\), and
+\(x^\top Hx=J_1\sum_i d_i(x)^2+\sum_eJ_{\ell(e)}r_e(x)^2\).
+These are established finite-dimensional identities.
+\status{ESTABLISHED}
+
+Define the nested retained spaces and projections by
+\begin{equation}
+\begin{aligned}
+W_s&=\ker(B_1,\ldots,B_s),&
+\mathcal N_s&=W_s\cap\mathcal N,&
+M_s&=\mathcal N_s\oplus\mathcal H,\\
+P_s&:\R^{10b-1}\longrightarrow W_s,&
+P_0&=I,&
+P_sP_p&=P_s\quad(p<s).
+\end{aligned}
+\label{eq:rg-formation-projections}
+\end{equation}
+Each \(P_s\) is the Euclidean orthogonal projection. All loop coordinates
+and all of \(\mathcal K\) survive. The final space is
+\(W_L=\mathcal H\oplus\mathcal K\). Write \(k_p=\dim M_p\) and
+\(d_p=\dim W_p^\perp\); the latter is the cumulative eliminated
+dimension. The elementary row count gives
+\begin{equation}
+\dim W_s=4b-1+\frac{b}{2^{s-1}}\quad(1\le s\le L),
+\qquad
+\dim W_L=4b.
+\label{eq:rg-formation-dimensions}
+\end{equation}
+These dimensions count retained continuous coordinates rather than
+agents. \status{ESTABLISHED}
+
+Choose orthonormal columns \(\mathsf Q_s\) spanning
+\(\mathcal N_{s-1}\cap\mathcal N_s^\perp\), and write
+\(x_{\mathcal N}=\sum_s\mathsf Q_sw_s\). The matrix
+\(\mathsf B=B[\mathsf Q_1\cdots\mathsf Q_L]\), including its inverse, is block lower
+triangular. Conjugation by
+\(\operatorname{diag}(\sqrt{J_s}I)\) cannot enlarge a permitted lower
+block by a factor greater than one. Therefore
+\begin{equation}
+\|\mathsf B^{-1}\|_F^{-2}\sum_sJ_s|w_s|^2
+\le x_{\mathcal N}^{\top}Hx_{\mathcal N}
+\le\|\mathsf B\|_F^2\sum_sJ_s|w_s|^2.
+\label{eq:rg-formation-weighted-flag}
+\end{equation}
+Minimizing this quadratic form over an initial group of normal layers
+gives the same bounds for its Schur complement. These explicit finite
+matrix constants underlie the restoring estimates in the proof appendix.
+\status{ESTABLISHED}
+
+\section{One normalized experiment with a nonlinear source record}
+\label{sec:rg-formation-normalized-model}
+
+At each vertex the model sample is \(m_i\sim\mathcal N(v_i,c)\), and
+the evaluator sends \(m_i\) to \(\mathcal N(m_i,1-c)\) on the belief
+sample \(k_i\). Among couplings with the prescribed marginals
+\(\mathcal N(v_i,c)\) and \(\mathcal N(u_i,1)\), define
+\begin{equation}
+m_i=v_i+\xi_i,\qquad
+k_i=u_i+\xi_i+\varepsilon_i,\qquad
+\xi_i\sim\mathcal N(0,c),\quad
+\varepsilon_i\sim\mathcal N(0,1-c),
+\label{eq:rg-formation-evaluator-lift}
+\end{equation}
+where the two Gaussian noises are independent. This is the chosen
+conditional recognition coupling at a fixed configuration.
+\status{DEFINITION}
+
+Its log-density ratio to the physical model/evaluator coupling is
+\(\{d_i(k_i-m_i)-d_i^2/2\}/(1-c)\). Its expectation is fixed by
+the two prescribed marginals. Thus, for any other admissible coupling
+\(\nu_i\), subtracting this ratio gives
+\begin{equation}
+\KL(\nu_i\Vert
+  \mathcal N(v_i,c)\operatorname{ev}_i)
+=\KL(\nu_i\Vert\nu_i^*)+\frac{d_i^2}{2(1-c)}.
+\label{eq:rg-formation-evaluator-optimum}
+\end{equation}
+Here \(\nu_i^*\) is the law in
+\cref{eq:rg-formation-evaluator-lift}. This proves its optimality and
+the total restriction cost
+\(d^{\mathrm{ev}}(x)=x^\top Rx/2\), where
+\(R=b_d^\top b_d/(1-c)\) and \(b_dx=u-v\).
+\status{ESTABLISHED}
+
+Let \(\vartheta\) be the learned scalar parameter. The physical
+configuration prior and its Lebesgue normalizer are
+\begin{equation}
+\begin{aligned}
+A_0(\vartheta)&=\vartheta H+P_{\mathcal K}-TR,\\
+\mathbb P^0_\vartheta(dx)
+&=Z_0(\vartheta)^{-1}
+  \exp\left[-\frac{x^\top A_0(\vartheta)x}{2T}\right]dx,\\
+Z_0(\vartheta)&=(2\pi T)^{(10b-1)/2}
+  \det A_0(\vartheta)^{-1/2}.
+\end{aligned}
+\label{eq:rg-formation-physical-prior}
+\end{equation}
+Assume \(T>0\), \(1\le\vartheta\le21/10\), and
+\(T\le J_1(1-c)/2\). Then \(TR\preceq H/2\), so
+\(A_0(\vartheta)\succeq(\vartheta/2)H+P_{\mathcal K}\succ0\).
+The prior is a normalized correlated Gaussian. Its projector
+\(P_{\mathcal K}\) is generally dense; no incident-edge-only force
+evaluation is claimed. \status{ESTABLISHED}
+
+Fix \(0<\kappa\le1\) and a nonzero \(z_\star\in\mathcal K\) whose
+node entries are not all equal. Declare the observation kernels
+\begin{equation}
+O\mid x\sim
+  \mathcal N_{\mathcal K}(P_{\mathcal K}x,(T/\kappa)I_{\mathcal K}),
+\qquad
+Y_{\mathrm{cal}}\mid\vartheta\sim\mathcal N(\vartheta,T),
+\label{eq:rg-formation-observation-kernels}
+\end{equation}
+and retain the records \(O=z_\star\), \(Y_{\mathrm{cal}}=2\).
+The first Gaussian is a density on the \(n\)-dimensional carrier
+\(\mathcal K\), not a singular full-space density. Its compatibility
+with the coherent root and the separate calibration record are modeling
+assumptions. \status{HYPOTHESIS}
+
+Each receiver \(i\) has the two candidate sources
+\(\mathcal N_i^\triangle\) inside its own triangle. The complete
+assignment is \(S=(S_i)_i\in\mathcal J=\prod_i\mathcal N_i^\triangle\),
+with \(|\mathcal J|=2^n\). Every bridge retains its original interaction
+energy but is excluded from these source palettes. Choose one
+distinguished receiver \(i_0\) and label its two sources \(+\) and
+\(-\). The independent source priors are
+\begin{equation}
+\begin{aligned}
+\pi_{i_0,+}(\vartheta)
+  &=\operatorname{sigmoid}(4(\vartheta-3/2)),&
+\pi_{i_0,-}(\vartheta)&=1-\pi_{i_0,+}(\vartheta),\\
+\pi_{i,j}(\vartheta)&=\tfrac12\quad(i\ne i_0),&
+\pi_S(\vartheta)&=\prod_i\pi_{i,S_i}(\vartheta).
+\end{aligned}
+\label{eq:rg-formation-source-priors}
+\end{equation}
+This internal-neighbor support and the supplied prior parameterization
+are adopted restrictions. \status{HYPOTHESIS}
+
+Set \(B_0=10^{-4}\), \(\delta=B_0/n\), and
+\(f(r)=1-e^{-r^2/2}\). At each receiver add a binary observation
+\(E_i\), conditionally independent given \((x,S)\), with
+\begin{equation}
+\begin{aligned}
+\Pr(E_i=1\mid x,S_i=j)
+  &=q_0\exp\left[-\delta
+       f\left(\sqrt{J_1/T}r_{ij}(x)\right)\right],
+       \qquad q_0=\tfrac12,\\
+\phi_S(x)&=\delta\sum_i
+       f\left(\sqrt{J_1/T}r_{i,S_i}(x)\right),
+       \qquad 0\le\phi_S\le B_0.
+\end{aligned}
+\label{eq:rg-formation-source-record}
+\end{equation}
+The complementary probability defines \(E_i=0\), and the observed
+record is \(E_i=1\) for every \(i\). The standardized square satisfies
+\(J_1r_{ij}^2/(2T)=(J_1/T)
+\KL(\mathcal N(u_i,1)\Vert\mathcal N(u_j+\zeta_{ij},1))\).
+The bounded function \(f\) specifies an additional normalized
+observation of that mismatch; it is not identified with the mismatch
+itself. The coefficient \(\delta\) is fixed at every prescribed depth
+and is not taken to zero in the theorem. \status{DEFINITION}
+
+Multiplying the normalized prior, the two observation kernels, the
+source priors, the Bernoulli kernels, and the model/evaluator kernels
+defines one complete generative joint:
+\begin{equation}
+\begin{aligned}
+\mathbb P_\vartheta
+={}&\mathbb P^0_\vartheta(dx)
+ L_O(dO\mid x)L_{\mathrm{cal}}(dY_{\mathrm{cal}}\mid\vartheta)\\
+&{}\times\prod_i\left[
+ \pi_i(dS_i\mid\vartheta)L_i(dE_i\mid x,S_i)
+ \mathcal N(dm_i;v_i,c)
+ \mathcal N(dk_i;m_i,1-c)\right].
+\end{aligned}
+\label{eq:rg-formation-full-joint}
+\end{equation}
+Iterated integration of its conditional factors gives total mass one.
+None of its kernels takes a recognition law as an input. The selected
+observation has a strictly positive density. This establishes the
+normalized experiment used throughout the chapter.
+\status{ESTABLISHED}
+
+\section{Physical posterior, restricted optimizer, and actual recognition}
+\label{sec:rg-formation-laws}
+
+Write \(\mathsf o=(z_\star,2,\mathbf1)\). The chapter-local actual
+outer law has a smooth positive density \(q(x,S)\) relative to
+Lebesgue measure times counting measure. Its conditional evaluator
+coupling is \(\prod_i\nu_i^*\) from
+\cref{eq:rg-formation-evaluator-lift}. The outer density is otherwise
+unrestricted: assignments and configurations may be correlated. It is
+not required to use the source posterior as its conditional assignment
+law. This is the recognition family on which the restricted VFE is
+defined. \status{DEFINITION}
+
+Set
+\begin{equation}
+\begin{aligned}
+\widehat K_\vartheta&=\vartheta H+(1+\kappa)P_{\mathcal K},&
+G_\vartheta(x)&=\tfrac12x^\top\widehat K_\vartheta x
+                  -\kappa z_\star^\top x,\\
+G_\vartheta^{\mathrm{phys}}(x)
+   &=G_\vartheta(x)-\tfrac T2x^\top Rx,&
+U_{\vartheta,S}(x)&=G_\vartheta(x)+T\phi_S(x),\\
+Z_{\mathrm{opt}}(\vartheta)
+   &=\sum_S\pi_S(\vartheta)
+      \int e^{-G_\vartheta(x)/T-\phi_S(x)}dx,&
+Z_{\mathrm{phys}}(\vartheta)
+   &=\sum_S\pi_S(\vartheta)
+      \int e^{-G_\vartheta^{\mathrm{phys}}(x)/T-\phi_S(x)}dx.
+\end{aligned}
+\label{eq:rg-formation-partition-integrals}
+\end{equation}
+Gaussian domination and \(0\le\phi_S\le B_0\) make these integrals
+finite and positive. The local symbol \(\pi_\vartheta\) denotes the
+normalized restricted optimizer
+\(\pi_S(\vartheta)e^{-U_{\vartheta,S}(x)/T}/Z_{\mathrm{opt}}(\vartheta)\).
+The physical posterior \(\boldsymbol\Pi_{\vartheta,\mathsf o}\) on
+\((x,S)\) instead uses \(G_\vartheta^{\mathrm{phys}}\) and
+\(Z_{\mathrm{phys}}\). Both have full support, and their conditional
+assignment row at fixed \(x\) is
+\begin{equation}
+b_S(x,\vartheta)=
+\frac{\pi_S(\vartheta)e^{-\phi_S(x)}}
+     {\sum_{S'}\pi_{S'}(\vartheta)e^{-\phi_{S'}(x)}}.
+\label{eq:rg-formation-full-source-row}
+\end{equation}
+It is the product of the receiver posterior rows. Equality of these
+conditional source rows does not identify the two full laws or their
+hidden-coordinate conditionals. \status{ESTABLISHED}
+
+For explicit scalar accounting, define
+\begin{equation}
+\begin{aligned}
+c_O&=(\kappa/(2\pi T))^{n/2},&
+c_{\mathrm{cal}}&=(2\pi T)^{-1/2},\\
+B_T(\vartheta)
+ &=T\log Z_0(\vartheta)-T\log(c_Oc_{\mathrm{cal}}q_0^n)
+   +\tfrac12\kappa|z_\star|^2+\tfrac12(\vartheta-2)^2,\\
+C_T(\vartheta)&=B_T(\vartheta)-T\log Z_{\mathrm{opt}}(\vartheta),&
+p_\vartheta(\mathsf o)&=e^{-B_T(\vartheta)/T}
+                         Z_{\mathrm{phys}}(\vartheta).
+\end{aligned}
+\label{eq:rg-formation-evidence-scalar}
+\end{equation}
+Expansion of the complete joint and
+\cref{eq:rg-formation-evaluator-optimum} gives
+\begin{equation}
+\begin{aligned}
+F_T(q,\vartheta)
+ &=T\sum_S\int q(x,S)\log q(x,S)dx\\
+ &\quad+\E_q[
+       G_\vartheta(x)+T\phi_S(x)-T\log\pi_S(\vartheta)]
+       +B_T(\vartheta)\\
+ &=T\KL(q\Vert\pi_\vartheta)+C_T(\vartheta).
+\end{aligned}
+\label{eq:rg-formation-restricted-vfe}
+\end{equation}
+The scalar is the scaled negative ELBO of the declared evaluator
+restriction. Its difference from the unconstrained physical optimum is
+\(C_T+T\log p_\vartheta(\mathsf o)
+=T\log(Z_{\mathrm{phys}}/Z_{\mathrm{opt}})\ge0\).
+The ratio, including its parameter derivative, is retained. These are
+exact identities, not Gaussian approximations to the nonlinear law.
+\status{ESTABLISHED}
+
+For clarity, the actual conditional assignment density is
+\(\rho_q(S\mid x)=q(x,S)/\sum_{S'}q(x,S')\). Its receiver row is
+\(\beta^Q_{ij}(x)=\sum_{S:S_i=j}\rho_q(S\mid x)\); the model posterior
+row \(\beta^P_{ij}(x,\vartheta)\) is obtained from
+\cref{eq:rg-formation-full-source-row}. Receiver occupancy may be fixed
+at \(1/n\) by a readout that selects a receiver and reports its current
+source. The resulting event law is the pushforward of the complete
+marked input law. It is not a product of independently averaged
+occupancies, source rows, and memberships. These are the event and
+recognition conventions of this family. \status{DEFINITION}
+
+\section{Exact marked parents and their inherited inference}
+\label{sec:rg-formation-parents}
+
+The parent carrier at level \(p\) is \(W_p\times\mathcal J\).
+For \(p<s\), define the normalized deterministic Markov kernel
+\begin{equation}
+C_{s\leftarrow p}((y,S),\cdot)=\delta_{(P_sy,S)},
+\qquad C_s=C_{s\leftarrow0}.
+\label{eq:rg-formation-marked-channel}
+\end{equation}
+The matrices \(P_s\) and the probability kernels \(C_{s\leftarrow p}\)
+are different typed objects. Their composition follows from
+\(P_sP_p=P_s\); no assignment is erased. The same channel, extended
+by the identity on observations, pushes the generative joint, physical
+posterior, restricted optimizer, and actual recognition. This is a
+declared pointwise coarse construction. \status{DEFINITION}
+
+Let \(\pi_\vartheta^p=(C_p)_\#\pi_\vartheta\), and similarly denote
+the physical and actual pushes by
+\(\boldsymbol\Pi_{\vartheta,\mathsf o}^p\) and \((C_p)_\#q\).
+Full evaluator and boundary-mark kernels are obtained by disintegrating
+the same physical joint. A raw mark which is not a retained coordinate
+is retained through its complete joint conditional kernel, including
+its correlations with the other marks. Its value is not replaced by
+evaluation at \(P_px\). The physical reverse conditional, the optimizer
+reverse conditional, and the actual recognition conditional have their
+own roles. Finite Gaussian domination supplies positive smooth versions
+of the integrals in this realization. These exact probability
+constructions retain all original loop data and all source assignments.
+\status{ESTABLISHED}
+
+For an original edge \(e\), its inherited mismatch observable under
+either the physical posterior or the restricted optimizer is
+\begin{equation}
+\mathcal D_e^{p,\mu}(y,S)
+=\E_{\mu_\vartheta}
+ \left[\tfrac12r_e(X)^2\mid P_pX=y,S\right],
+\qquad
+\mu_\vartheta\in
+\{\boldsymbol\Pi_{\vartheta,\mathsf o},\pi_\vartheta\}.
+\label{eq:rg-formation-inherited-edge-statistic}
+\end{equation}
+This defines two conditional observables, not one common reverse
+kernel. Coherence of a retained description refers to their
+root-mean-square original residuals
+\(\sqrt{2\mathcal D_e^{p,\mu}}\); the local \(d_i\) observables
+are defined by the same conditional construction. At \(p=0\) these
+reduce to the original configuration residuals. This definition does
+not identify a single residual cost with the KL of two full parent
+mixtures. \status{DEFINITION}
+
+The root factor of \(\pi_\vartheta^p\) is independent of the assignment
+and of \(\vartheta\). On \(M_p\), let \(H_p\) be the Schur complement
+of \(H|_{\mathcal K^\perp}\), and let
+\(\gamma_{p,\vartheta}(dz\mid y)\) be the cumulative hidden Gaussian
+conditional of the quadratic optimizer. Its mean is independent of
+\(\vartheta\); its covariance is \(T/\vartheta\) times a fixed
+inverse precision. Integrating at fixed \(S\) gives the exact sheet
+potential
+\begin{equation}
+\begin{aligned}
+V_{p,S}(y,\vartheta)
+ &=\tfrac12\vartheta y^\top H_py+C_p^{\mathrm G}(\vartheta)
+       +T\psi_{p,S}(y,\vartheta),\\
+\psi_{p,S}(y,\vartheta)
+ &=-\log\E_{\gamma_{p,\vartheta}(\cdot\mid y)}
+                  e^{-\phi_S},&
+0&\le\psi_{p,S}\le B_0,\\
+\frac{d}{d\vartheta}C_p^{\mathrm G}(\vartheta)
+ &=\frac{Td_p}{2\vartheta}.
+\end{aligned}
+\label{eq:rg-formation-parent-potential}
+\end{equation}
+Here \(C_0^{\mathrm G}=0\), \(\psi_{0,S}=\phi_S\); the unchanged
+root potential is appended on \(W_p\).
+The Gaussian integration scalar \(C_p^{\mathrm G}\) is distinct from
+the common objective offset \(C_T\). The potential is an exact
+conditional integral, with every generated interaction retained.
+\status{ESTABLISHED}
+
+For a density \(q^p\) on the marked parent carrier define
+\begin{equation}
+F_T^p(q^p,\vartheta)
+  =T\KL(q^p\Vert\pi_\vartheta^p)+C_T(\vartheta).
+\label{eq:rg-formation-parent-vfe}
+\end{equation}
+The conditional KL chain rule gives, at one common parameter and one
+common time,
+\begin{equation}
+\begin{aligned}
+\Delta_{p:s}(q^p,\vartheta)
+ &=\E_{(C_{s\leftarrow p})_\#q^p}
+   \KL\left(q^p(dz\mid y,S)
+        \middle\Vert\pi_\vartheta^p(dz\mid y,S)\right),\\
+F_T^p(q^p,\vartheta)
+ &-F_T^s((C_{s\leftarrow p})_\#q^p,\vartheta)
+   =T\Delta_{p:s}(q^p,\vartheta).
+\end{aligned}
+\label{eq:rg-formation-conditional-cost}
+\end{equation}
+In the displayed conditional, \(z\) consists only of the discarded
+continuous normal coordinates; loops and \(S\) remain in the retained
+state. Nested conditional losses telescope at that same law and time.
+Costs evaluated at different activation times are not summed as one
+telescoping objective. \status{ESTABLISHED}
+
+Declare unit continuous mobility on every microscopic coordinate and a
+rate-one Poisson proposal clock. At a proposal, redraw the whole
+assignment from \(b(x,\vartheta)\) without changing any continuous
+coordinate. A proposal may return the current assignment. The microscopic
+generator is
+\begin{equation}
+\mathcal L_\vartheta^0 f(x,S)
+=T\Delta_x f-\nabla_x U_{\vartheta,S}\cdot\nabla_xf
+ +\sum_{S'}b_{S'}(x,\vartheta)[f(x,S')-f(x,S)].
+\label{eq:rg-formation-microscopic-generator}
+\end{equation}
+The diffusion covariance is \(2TI dt\). This is a continuous-time
+inference prescription on global Euclidean space times a finite set,
+with integrable decay at infinity and no reflecting or chart boundary.
+No discretization is being defined. \status{DEFINITION}
+
+The inherited parent proposal row and generator are
+\begin{equation}
+\begin{aligned}
+R^p_{SS'}(y,\vartheta)
+ &=\E_{\pi_\vartheta}
+     [b_{S'}(X,\vartheta)\mid P_pX=y,S],\\
+\mathcal L_\vartheta^pf(y,S)
+ &=T\Delta_yf-\nabla_yV_{p,S}\cdot\nabla_yf
+   +\sum_{S'}R^p_{SS'}(y,\vartheta)[f(y,S')-f(y,S)].
+\end{aligned}
+\label{eq:rg-formation-parent-generator}
+\end{equation}
+The unchanged root drift is included when \(y\) denotes all of \(W_p\).
+Self-proposals are retained, so every row sums to one and every actual
+exit rate is at most one. The conservative jump diagonal is
+\(R^p_{SS}-1\). These conditional expectations specify the chosen
+autonomous parent kinetics; they do not assert exact temporal projection
+of the fine process. \status{DEFINITION}
+
+Multiplying the microscopic row by \(\pi_\vartheta(x,S)\) gives a
+quantity symmetric in \(S,S'\). Conditional integration therefore
+proves detailed balance of \(R^p\) with \(\pi_\vartheta^p\).
+Furthermore
+\begin{equation}
+\begin{aligned}
+R^p_{SS'}(y,\vartheta)
+ &\ge e^{-B_0}\pi_{S'}(\vartheta)>0,\\
+\E_{\pi_\vartheta^p}
+ [R^p_{SS'}(Y,\vartheta)\mid P_sY=z,S]
+ &=R^s_{SS'}(z,\vartheta).
+\end{aligned}
+\label{eq:rg-formation-rate-composition}
+\end{equation}
+The second identity is the conditional-expectation tower. Thus both
+normalized laws and optimizer-conditioned rates compose exactly at a
+fixed parameter, while comparisons between their independently evolved
+histories still require estimates. \status{ESTABLISHED}
+
+\section{Complete model scores and dissipation}
+\label{sec:rg-formation-learning}
+
+Differentiate the complete normalized experiment before conditioning on
+the observed record. The prior, calibration, and categorical scores
+have mean zero and vanishing cross terms: the categorical draws and
+calibration are independent of the configuration at fixed
+\(\vartheta\), and the remaining conditional kernels have no explicit
+\(\vartheta\)-dependence. The complete generative Fisher metric is
+therefore
+\begin{equation}
+M(\vartheta)
+=\frac1T+\frac12\Tr[(A_0(\vartheta)^{-1}H)^2]
+ +16\pi_{i_0,+}(\vartheta)
+       [1-\pi_{i_0,+}(\vartheta)].
+\label{eq:rg-formation-model-fisher}
+\end{equation}
+The quadratic-prior term follows by the variance of its centered
+Gaussian quadratic score. This establishes the metric of the original
+full experiment; it is not the Fisher metric of a fitted coarse
+observation model. \status{ESTABLISHED}
+
+Declare \(m(\vartheta)=TM(\vartheta)\) and the model metric
+\(m(\vartheta)/\epsilon\) for the scaled objective, with
+\(\epsilon>0\). At every level the actual coupled system is
+\begin{equation}
+\partial_tq_t^p=(\mathcal L_{\vartheta_p(t)}^p)^*q_t^p,
+\qquad
+\dot\vartheta_p(t)
+  =-\epsilon m(\vartheta_p(t))^{-1}
+        g_p(q_t^p,\vartheta_p(t)),
+\qquad
+g_p=\left.\partial_\vartheta F_T^p\right|_{q^p}.
+\label{eq:rg-formation-own-law-dynamics}
+\end{equation}
+The density is the complete actual law of that level. Its parameter
+path is deterministic because this feedback takes an exact-law
+expectation, rather than a sampled score. Parents inherit this metric;
+neither a new rate multiplier nor a marginal-model Fisher metric is
+inserted at activation. \status{DEFINITION}
+
+Expanding \cref{eq:rg-formation-parent-vfe} by
+\cref{eq:rg-formation-parent-potential} gives the full covector
+\begin{equation}
+\begin{aligned}
+g_p(q^p,\vartheta)
+={}&\vartheta-2+\tfrac12\E_{q^p}y^\top H_py
+       +\frac{Td_p}{2\vartheta}
+       +T\E_{q^p}\partial_\vartheta\psi_{p,S}(y,\vartheta)\\
+ &-\frac T2\Tr(A_0(\vartheta)^{-1}H)
+       -T\E_{q^p}\partial_\vartheta\log\pi_S(\vartheta).
+\end{aligned}
+\label{eq:rg-formation-complete-score}
+\end{equation}
+The root has no parameter score. The derivative is partial at fixed
+actual law, so time derivatives of actual assignment masses are not
+extra terms. Prior normalization, hidden determinant, source prior, and
+nonlinear conditional normalization are all included. At \(p=0\),
+\(d_0=0\) and \(\partial_\vartheta\phi_S=0\); this gives the
+microscopic score directly. \status{ESTABLISHED}
+
+For positive smooth densities with finite entropy and moments, write
+\(u_S=q^p_S/\pi_\vartheta^p(\cdot,S)\) and
+\(c^p_{SS'}(y)=\pi_\vartheta^p(y,S)R^p_{SS'}(y,\vartheta)\).
+Integration by parts and the symmetry of this conductance yield
+\begin{equation}
+\begin{aligned}
+\frac{d}{dt}F_T^p
+={}&-T^2\sum_S\int q_S^p
+       \left|\nabla\log
+           \frac{q_S^p}{\pi_{\vartheta_p}^p(\cdot,S)}\right|^2dy\\
+ &-\frac T2\int\sum_{S,S'}c^p_{SS'}
+       (u_S-u_{S'})(\log u_S-\log u_{S'})dy\\
+ &-\epsilon m(\vartheta_p)^{-1}g_p(q^p,\vartheta_p)^2
+ \le0.
+\end{aligned}
+\label{eq:rg-formation-dissipation}
+\end{equation}
+To obtain the middle line, interchange \(S,S'\) in one copy of the
+jump contribution and average. The resulting integrand is nonnegative.
+At the microscopic level the same term is
+\(-T\int q_X[\KL(\rho_q\Vert b)+\KL(b\Vert\rho_q)]dx\).
+The confining moment bounds and cutoff passage in
+\Cref{lem:formation-prepared-continuation,lem:formation-conditional-entropy}
+justify these identities for the admitted actual solutions. Thus the
+declared coupled inference decreases its own complete VFE. This does
+not assert that a discarded-conditional KL decreases separately.
+\status{ESTABLISHED}
+
+\section{Preparation and successive actual-law activation}
+\label{sec:rg-formation-preparation}
+
+The preparation uses a finite nonzero residual margin. Include each
+internal edge covector on \(\mathcal N\), and for each bridge \(e\)
+include \(r_eP_s|_{\mathcal N}\) for \(s<\ell(e)\), in a list of
+\(m_0\) linear functionals. Each is nonzero by residual-row
+independence. In a fixed orthonormal basis of \(\mathcal N\), evaluate
+these functionals on \((1,t,\ldots,t^{\dim\mathcal N-1})\).
+There are at most \(m_0(\dim\mathcal N-1)\) forbidden integers, so
+at least one of the integers from zero through that bound is a
+simultaneous nonroot. Normalize the resulting vector to obtain
+\(v_\star\in\mathcal N\) and a margin
+\begin{equation}
+m_L=\min_{e,\ s<\ell(e)}
+       |r_e(P_sv_\star)|>0.
+\label{eq:rg-formation-preparation-margin}
+\end{equation}
+Internal edges enter this minimum only at \(s=0\). A fixed sufficiently
+small neighborhood of \(v_\star\) preserves a margin at least \(m_L/2\).
+This is an explicit construction of preparation data, not a time-dependent
+merger instruction. \status{ESTABLISHED}
+
+For \(0<\epsilon<1\), fix the parameter family
+\begin{equation}
+Q_L=0,\qquad Q_s=2Q_{s+1}+20,\qquad
+J_s=\epsilon^{-Q_s},\qquad
+A^2=\epsilon^{3Q_1+20},\qquad
+T=A^2\epsilon^6,\qquad H_*=\frac2\epsilon.
+\label{eq:rg-formation-weakest-one-regime}
+\end{equation}
+The \(Q_s\) are scalar exponents; the orthonormal flag matrices are
+\(\mathsf Q_s\). The weakest energy is exactly \(J_L=1\). There is no
+common acceleration of every energy, no vanishing source rate, and no
+decrease of the standardized nonlinearity \(\delta\).
+\status{DEFINITION}
+
+Start \(\vartheta(0)=1\). The root is independent of the non-root
+coordinates and assignments, with law
+\(\mathcal N_{\mathcal K}(\kappa z_\star/(1+\kappa),
+T(1+\kappa)^{-1}I_{\mathcal K})\). On every assignment sheet the
+reference non-root law has common mean \(Av_0\), zero loop mean, and
+covariance \(T(H|_{\mathcal K^\perp})^{-1}\), where \(v_0\) lies in
+the strict-margin neighborhood just constructed. Choose positive
+assignment masses near the product prior at \(\vartheta=1\), so
+\(|\lambda_{i_0,+}(0)-\operatorname{sigmoid}(-2)|<10^{-2}\).
+Allow smooth within-sheet transports of this reference with coupling
+\begin{equation}
+|\widehat K_1^{1/2}(X_0-X_0^{\mathrm G})|
+ <\epsilon\sqrt T
+\quad\hbox{almost surely},
+\label{eq:rg-formation-preparation-transport}
+\end{equation}
+and bounded log-density ratio, retaining the independent root factor.
+Small smooth compactly supported diffeomorphisms in standardized
+non-root coordinates supply such transports. The resulting neighborhood
+of positive smooth correlated initial laws is understood in this weighted
+transport and bounded-log-density topology. Its size may depend on
+\(\epsilon\) and finite \(L\). These are preparation hypotheses;
+the later actual law is not constrained to remain Gaussian or to
+factor across assignment sheets. \status{HYPOTHESIS}
+
+Choose one finite entrance constant \(k_L\) as in the theorem below,
+and set
+\begin{equation}
+t_s=\frac{k_L\log(1/\epsilon)}{J_s},
+\qquad I_s=[t_s,2t_s],\qquad
+\tau_0=0,\quad\tau_s=2t_s.
+\label{eq:rg-formation-activation-times}
+\end{equation}
+At \(\tau_s\), push the complete actual level-\((s-1)\) law through
+\(C_{s\leftarrow s-1}\), copy its actual parameter, and thereafter
+evolve the new law by
+\cref{eq:rg-formation-own-law-dynamics}. An independently continued
+source process retains its own law and parameter after that time.
+These deterministic times choose when to use a reduced description;
+they do not change the microscopic graph, energy hierarchy, or
+inference rule. \status{DEFINITION}
+
+\section{The finite-depth formation theorem}
+\label{sec:rg-formation-theorem}
+
+\theoremheading{Adaptive formation with weakest energy one}
+{thm:finite-depth-adaptive-formation}
+For every prescribed finite \(L\ge2\), fix the graph, evaluator,
+source support, priors, observations, and microscopic kinetics above.
+There exist positive finite constants, depending on these fixed data
+and \(L\), and \(\epsilon_L>0\), such that for every
+\(0<\epsilon<\epsilon_L\) the regime
+\cref{eq:rg-formation-weakest-one-regime} and the declared initial-law
+neighborhood admit all \(L\) successive actual-law activations.
+Choose
+\begin{equation}
+\begin{aligned}
+k_L&>k_{\mathrm{geom},L},&
+\tfrac12c_{\mathrm{early},L}k_L&>Q_1+20,\\
+c_{\mathrm{joint},L}k_L&>Q_1+8,&
+c_{\mathrm{fast},L}k_L&>Q_1/2+12,
+\end{aligned}
+\label{eq:rg-formation-common-entrance}
+\end{equation}
+where the positive restoring, joint-entropy, and fast-mixing constants
+are those constructed in
+\Cref{lem:formation-coherence,lem:formation-conditional-entropy,lem:formation-history-coupling}.
+The finite geometric entrance constant is constructed from
+\cref{eq:rg-formation-weighted-flag,eq:rg-formation-preparation-margin}
+in the coherence lemma. The following conclusions are established
+for the resulting actual processes. \status{ESTABLISHED}
+
+The coupled diffusion, finite-state proposals, and exact-law parameter
+equation have a unique nonexplosive solution through \(H_*\).
+Every activated parent retains positive smooth densities and satisfies
+\begin{equation}
+\begin{aligned}
+1&\le\vartheta_p(t)\le21/10,&
+|\dot\vartheta_p(t)|&\le C_L\epsilon,\\
+|\vartheta_p(t)-(2-e^{-\epsilon t})|
+ &\le C_Lr_\epsilon,&
+r_\epsilon&=A^2J_1+
+       T[1+\log(1/\epsilon)]^2.
+\end{aligned}
+\label{eq:rg-formation-parameter-bound}
+\end{equation}
+Here the time in the comparison is absolute time, including after
+activation. The reference \(2-e^{-\epsilon t}\) is an estimate
+deduced from the complete own-law equation, not a prescribed update.
+\status{ESTABLISHED}
+
+Choose a fixed residual tolerance \(\eta_LA\) smaller than the
+strict prepared separation margin. Except on an event of probability
+at most
+\begin{equation}
+C_L(1+H_*)\exp(-c_L/\epsilon^6),
+\label{eq:rg-formation-coherence-probability}
+\end{equation}
+the microscopic process and its sequential parent descriptions have
+the successive coherent components
+\begin{equation}
+3\cdot2^{L-1}\longrightarrow2^{L-1}
+\longrightarrow2^{L-2}\longrightarrow\cdots\longrightarrow1.
+\label{eq:rg-formation-agent-counts}
+\end{equation}
+On \(I_s\), edges already assigned to levels at most \(s\), and the
+within-node model discrepancies, satisfy the coherence tolerance;
+future bridges remain separated by a fixed positive multiple of \(A\).
+The retained description uses
+\cref{eq:rg-formation-inherited-edge-statistic} and its local
+model-discrepancy counterpart. The final coherent state persists through the
+finite horizon on this event. All loop coordinates remain random and
+retained; no identity-holonomy constraint is imposed.
+\status{ESTABLISHED}
+
+On each active interval \(I_s\), let
+\(\Delta_{s-1:s}\) be the actual discarded conditional loss of
+\cref{eq:rg-formation-conditional-cost}. At the same current law
+and parameter,
+\begin{equation}
+\begin{aligned}
+\Delta_{s-1:s}
+ &\le
+ \begin{cases}
+C_L\epsilon^{14},&s<L,\\
+C_L\epsilon^2,&s=L,
+\end{cases}\\
+|g_{s-1}(q,\vartheta)
+ -g_s((C_{s\leftarrow s-1})_\#q,\vartheta)|
+ &\le
+ \begin{cases}
+C_LT\epsilon^7,&s<L,\\
+C_LT\epsilon,&s=L.
+\end{cases}
+\end{aligned}
+\label{eq:rg-formation-conditional-score-bounds}
+\end{equation}
+Multiplication of the first bound by \(T\) gives the discarded
+restricted VFE. These are conditional-entropy and complete-score
+estimates, independently derived from the actual evolving laws.
+\status{ESTABLISHED}
+
+Let \(\lambda^p_{i_0,+}(t)\) be the actual distinguished receiver
+source mass in a fine, parent, or sequential process. For each actual
+activation time from which that process is continued,
+\begin{equation}
+\lambda^p_{i_0,+}(H_*)-
+  \lambda^p_{i_0,+}(\tau_s)>\tfrac12.
+\label{eq:rg-formation-source-movement}
+\end{equation}
+Thus the actual binary recognition-source row changes by total
+variation greater than one half. Moreover, between
+\(\vartheta=1\) and the final learned parameter, both the first hidden
+physical conditional and the first hidden optimizing conditional change
+by KL greater than \(1/200\), at every fixed retained input and
+assignment. These compare their own normalized kernels, not one kernel
+substituted for another. \status{ESTABLISHED}
+
+For any source process and its inherited parent begun from a common
+actual marked activation sample at time \(\tau\), there exists a
+coupling preserving that sample for which
+\begin{equation}
+\begin{aligned}
+\Pr\{S_t\ne\overline S_t
+       \text{ for some }t\in[\tau,H_*]\}
+ &\le C_L\epsilon^6,\\
+\Pr\left\{\sup_{\tau\le t\le H_*}
+       |P_sX_t-\overline X_t|>C_LA\epsilon^2\right\}
+ &\le C_L(1+H_*)e^{-c_L/\epsilon^2}.
+\end{aligned}
+\label{eq:rg-formation-two-path-bounds}
+\end{equation}
+The first comparison is of the complete assignment path, with every
+receiver retained. The second is a uniform continuous-coordinate
+displacement bound under a compatible coupling. A finite number of
+successive replacements changes only the constants. No total variation
+convergence of continuous path laws or exact Markov lumpability is
+asserted. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+The exact physical normalization, restricted scalar, and marked
+composition have been calculated in
+\cref{eq:rg-formation-full-joint,eq:rg-formation-evidence-scalar,eq:rg-formation-conditional-cost,eq:rg-formation-rate-composition}.
+\Cref{lem:formation-parent-score} proves the uniform differentiated
+parent bounds, including their hidden determinant and source terms.
+\Cref{lem:formation-prepared-continuation} constructs the coupled
+solution, uses stopped moments to keep the parameter in its positive
+interval, and propagates the admitted moments through actual
+activations. \Cref{lem:formation-coherence} proves the strict
+formation margins from the weighted flag.
+\Cref{lem:formation-parameter-comparison} gives
+\cref{eq:rg-formation-parameter-bound} for separately learning
+parents. These arguments use neither conditional equilibration nor
+history averaging.
+
+For early interfaces, \Cref{lem:formation-conditional-entropy}
+keeps the finite positive jump contribution in the conditional balance.
+The contrast identity \(J_{s+1}^2/J_s=\epsilon^{20}\) and the
+entrance condition in \cref{eq:rg-formation-common-entrance} give
+the first early bound in
+\cref{eq:rg-formation-conditional-score-bounds}. At the terminal
+interface the same lemma instead uses joint diffusion-plus-jump
+entropy contraction after logarithmic time. Conditional KL is bounded
+by that full entropy through the chain rule. The complete normalized
+hidden score then bounds the score difference by
+\(C_LT(\sqrt\Delta+\Delta)\), giving the second line of
+\cref{eq:rg-formation-conditional-score-bounds}.
+
+\Cref{lem:formation-source-envelope} bounds the actual source mass
+at every activation, including the final logarithmic activation, and
+integrates its positive-rate equation on the last ten units of the
+horizon to prove \cref{eq:rg-formation-source-movement}. The same
+parameter continuation supplies the hidden-kernel comparison proved
+there. \Cref{lem:formation-fast-marginal} integrates later triangular
+residuals exactly, leaving a common source-relevant fast optimizer
+marginal at every level. \Cref{lem:formation-history-coupling}
+then compares conditional proposal-prefix kernels under the actual
+evolving environment. Its error is \(C_L\epsilon^6\), with the
+common actual activation information retained. Finally
+\Cref{lem:formation-continuous-path} supplies the separate
+continuous bound on a coupling compatible with those histories.
+Each lemma uses the same preparation, parameter regime, and finite
+choice \cref{eq:rg-formation-common-entrance}; the final window is
+of order \(\log(1/\epsilon)\) and lies before \(H_*=2/\epsilon\)
+for small \(\epsilon\). This proves the conjunction. \(\square\)
+
+\section{A two-triangle instance and the remaining scope}
+\label{sec:rg-formation-example-scope}
+
+For \(L=2\), take triangles \((1,2,3)\) and \((4,5,6)\), with a
+single bridge \((3,4)\). The retained carriers are
+\begin{equation}
+\R^{19}\times\mathcal J
+\longrightarrow\R^9\times\mathcal J
+\longrightarrow\R^8\times\mathcal J,
+\qquad |\mathcal J|=64,
+\label{eq:rg-formation-two-triangle-carrier}
+\end{equation}
+and the coherent agent counts are \(6\to2\to1\).
+Both loops survive both maps. The exact regime becomes
+\begin{equation}
+J_1=\epsilon^{-20},\qquad J_2=1,\qquad
+A=\epsilon^{40},\qquad T=\epsilon^{86}.
+\label{eq:rg-formation-two-triangle-regime}
+\end{equation}
+The first window has order
+\(\epsilon^{20}\log(1/\epsilon)\), and the second has order
+\(\log(1/\epsilon)\). The source and model changes occur over the
+longer horizon \(2/\epsilon\). These are exact substitutions into
+the finite-\(L\) theorem, not numerical evidence for it.
+\status{ESTABLISHED}
+
+The source-dependent term is nonquadratic in the declared
+configuration coordinates. For a direction with selected internal
+residual slope \(\lambda\ne0\),
+\(f(\lambda t)=\lambda^2t^2/2-\lambda^4t^4/8+O(t^6)\).
+Every assignment selects an internal edge with nonzero first-normal
+projection, so its hidden log density has a nonzero fourth derivative
+in some first-normal direction. Exact marginalization retains its full
+conditional integral and the negative covariance term in its Hessian.
+Thus neither the physical nor optimizing first hidden conditional is
+silently replaced by a Gaussian conditional. This is an established
+coordinate-specific nonlinearity statement. \status{ESTABLISHED}
+
+The theorem keeps the supplied energy hierarchy and its internal source
+support. It does not prove that source learning creates those contrasts.
+Allowing sources on different bridge levels would require a new
+fast-marginal and evolving-environment estimate. Uniform control as
+\(L\to\infty\), a nondegenerate intrinsic partition selector,
+permanent membership under arbitrary later forcing, and autonomous
+agency remain separate open construction problems. The finite
+constants and admissible preparation neighborhoods need not be uniform
+in depth. \status{OPEN}
+
+The parameter \(t\) in the generators is the declared inference time.
+This chapter declines to identify it with physical time or with Fisher
+length, and it does not claim computational savings or a
+depth-independent resource bound. Exact common-channel probability
+composition, approximate continuous trajectories, and complete
+assignment-history comparison retain the separate meanings used in
+\Cref{ch:agent-network-rg,ch:relational-inference}.
+\status{NOT-CLAIMED}

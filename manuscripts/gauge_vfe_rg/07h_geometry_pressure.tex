@@ -1,0 +1,565 @@
+\chapter{Geometry Pressure and Specific VFE under Renormalization}
+\label{ch:geometry-pressure}
+
+This chapter retains the finite catalog $\mathfrak G$ of
+\Cref{ch:normalized-geometry} and places every branch on the same square
+cell lattice. It constructs pressure from finite volumes and distinguishes
+convergence of a VFE density from convergence of its labeled target law.
+The spatial hypotheses are those of \Cref{ch:constructive-spatial-rg};
+no unrestricted mixture is presumed to be one Gibbs branch.
+\status{HYPOTHESIS}
+
+\section{Carrier, boundary convention, and pressure}
+\label{sec:rg-pressure-carrier}
+
+\definitionheading{Native cell model}{def:rg-pressure-native}
+A cell $x\in\mathbb Z^2$ contains the outgoing signs $z_{x,1},z_{x,2}$.
+For $\Lambda_L=\{0,\ldots,L-1\}^2$ use normalized counting reference
+$4^{-L^2}$, all $2L^2$ outgoing signs, and the $(L-1)^2$ fully internal
+plaquettes. A branch has raw factor
+\begin{equation}
+ r_{\gamma,L}(z)=\prod_{e\in\Lambda_L\times\{1,2\}}(1+b_\gamma z_e)
+ \prod_{\square\subset\Lambda_L}(1+t_\gamma z_{\partial\square}),
+ \qquad 0<b_\gamma<1,\quad 0<t_\gamma<1/12.
+ \label{eq:rg-pressure-native-factor}
+\end{equation}
+Here $b_\gamma=\tanh h_\gamma$ and $t_\gamma=\tanh j_\gamma$ are
+branch-local parameters; $t_\gamma$ is not a process coordinate. Their
+finite catalog lies in a fixed compact subdomain. An all-touching
+fixed-exterior model includes every plaquette meeting the free cells;
+it is a different finite boundary convention. Normalized independent gauge
+frames contribute total reference mass one. These are declared model data.
+\status{DEFINITION}
+
+For local convergence, center the coarse square at
+$-\lfloor L/2\rfloor$ in both coordinates and the fine $BL$ square at
+$-B\lfloor L/2\rfloor$. Every fixed cylinder then has diverging boundary
+distance. The all-exterior estimate of
+\Cref{thm:rg-spatial-constrained-specification} makes free, fixed-boundary,
+and actual-marginal approximations converge to the same unique branch law
+on these cylinders. Integrate its uniform estimate over exterior mixtures
+to include free and marginal boundaries. A fixed corner of an uncentered
+positive-quadrant box does not exhaust $\mathbb Z^2$ and supplies no such
+claim. This is an established consequence of the spatial comparison.
+\status{ESTABLISHED}
+
+\theoremheading{Constructive pressure and surface comparison}
+{thm:rg-pressure-boundary}
+Let $\Psi$ be a translation-invariant cell interaction with
+\begin{equation}
+ K(\Psi)=\sum_{A\ni0}\|\Psi_A\|_\infty<\infty,\qquad
+ M(\Psi)=\sum_{A\ni0}\operatorname{diam}(A)\|\Psi_A\|_\infty<\infty,
+ \label{eq:rg-pressure-moments}
+\end{equation}
+using cell Chebyshev diameter. Write $Z_L$ for its free partition relative
+to normalized counting and $\mu_{\Lambda_L}$ for the marginal of a Gibbs
+law with that interaction. Then
+\begin{align}
+ \mathfrak p(\Psi)&=\lim_{L\to\infty}L^{-2}\log Z_L,
+ &\left|\mathfrak p(\Psi)-n^{-2}\log Z_n\right|&\leq\frac{4M(\Psi)}n,
+ \label{eq:rg-pressure-limit}\\
+ \left|\log\frac{\mu_{\Lambda_L}(z)}{p_L^{\mathrm{free}}(z)}\right|
+ &\leq8M(\Psi)L.
+ \label{eq:rg-pressure-surface}
+\end{align}
+The same mass-ratio bound holds for any fixed exterior. These conclusions
+are established without an infinite partition function.
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+Put $T(d)=\sum_{A\ni0,\operatorname{diam}(A)\geq d}\|\Psi_A\|_\infty$.
+A support crossing the square and containing $x$ has diameter at least
+$\operatorname{dist}(x,\Lambda_L^c)$. At most $4L$ cells occur at each
+positive boundary distance. Summing nonnegative bounds gives crossing
+energy at most $4L\sum_{d\geq1}T(d)=4LM$. Adding the exterior therefore
+changes the free Hamiltonian by at most $4LM$, its log partition by the
+same amount, and its normalized log mass by at most $8LM$. Integration
+over an exterior law preserves the multiplicative bounds.
+
+Tile a large square by $n$-squares and a leftover region $D$. Interactions
+touching $D$ have total norm at most $K|D|$. Crossings of the small squares
+cost at most $4Mn$ per tile. Assign independent normalized counting to
+$D$ and compare partition sums exponentially. For fixed $n$, the leftover
+fraction tends to zero with the large square. Both limiting upper and
+lower pressures lie within $4M/n$ of $n^{-2}\log Z_n$.
+Their difference is at most $8M/n$ for every $n$, so they agree. The
+finite pressure bound and the surface comparison follow.
+$\square$
+
+The parameter-derivative extension is a separate open certification
+obligation. The proposed native $C^4$ pressure and actual fixed-word
+$C^2$ Fisher statements in
+\Cref{thm:rg-thermo-native-cfour-pressure,thm:rg-thermo-native-free-push-ctwo}
+include local-response and boundary arguments for the explicitly
+admitted native source families. Their written arguments await evidence
+adjudication; the scalar surface estimate above does not discharge that
+obligation. \status{OPEN}
+
+For the native interaction, the singleton energy is
+$-\log[(1+bz_1)(1+bz_2)]$ and each plaquette contributes
+$-\log(1+tz_{\partial\square})$. Its three incident cell supports give
+\begin{equation}
+ K\leq\frac{2b}{1-b}+\frac{3t}{1-t},\qquad
+ M\leq\frac{3t}{1-t}.
+ \label{eq:rg-pressure-native-moment}
+\end{equation}
+Indeed $-\log(1-u)\leq u/(1-u)$ follows by integrating $(1-u)^{-1}$;
+$\log(1+u)\leq-\log(1-u)$ for $0\leq u<1$.
+Thus the bounds, and native pressure, are explicit.
+\status{ESTABLISHED}
+
+\propositionheading{Finite rational approximation of pressure}
+{prop:rg-pressure-rational}
+For rational native parameters and a positive rational tolerance,
+\cref{eq:rg-pressure-limit,eq:rg-pressure-native-moment} give a terminating
+finite approximation procedure with sufficient finite resources.
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+Choose $n$ so that $4M/n$ is below half the tolerance. Enumerate the
+$4^{n^2}$ rational positive raw factors to obtain $Z_n$ exactly.
+For a positive rational $x$, find an integer $e$ with $u=x/2^e\in[1,2)$
+and set $v=(u-1)/(u+1)\in[0,1/3)$. The integrated finite geometric series
+bounds its logarithm by
+\begin{equation}
+ 0\leq\log u-2\sum_{j=0}^{N-1}\frac{v^{2j+1}}{2j+1}
+ \leq\frac{2v^{2N+1}}{(2N+1)(1-v^2)}.
+ \label{eq:rg-pressure-log-bound}
+\end{equation}
+Use $v=1/3$ for $\log2$, and $\log x=e\log2+\log u$, reversing interval
+endpoints in the first term if $e<0$. Increasing $N$ attains the remaining
+scaled tolerance. Each inventory and arithmetic operation is finite;
+there is no claim of a small state count or a uniform fixed resource cap.
+$\square$
+
+\section{Pressure of the complete coarse interaction}
+\label{sec:rg-pressure-coarse}
+
+Fix an integer block size $B$ before taking volume to infinity. Let
+$\Psi_B$ be the canonical vacuum interaction for the full pushed law
+$\mu_B$, supplied by \Cref{thm:rg-spatial-generated-interaction}, with
+vacuum $*= (+,+)$. For compact upper bounds $b_+,t_+$, enlarged to include
+the observation-shifted field below, set
+\begin{align}
+ q_0&=\frac{1+12t_+}{2},&
+ \tau&=\frac{24t_+}{1+12t_+},& C_0&=\frac{16q_0}{1-q_0},
+ \label{eq:rg-pressure-locality-constants}\\
+ \rho&=\frac{b_+(1+t_+^2)+2t_+}{1+t_+^2+2b_+t_+},&
+ m_0&=\frac{(1-\rho)^2}{4},&D_B&=\frac{2C_0B^2}{m_0}.
+ \label{eq:rg-pressure-positive-constants}
+\end{align}
+Both $\tau$ and $\rho$ lie in $(0,1)$. The spatial comparison gives target
+variation at most $C_0|A|B^2(R+1)\tau^{R+1}$ when boundary changes are
+outside radius $R$. Revealing the two disjoint target paths successively
+gives each cell probability at least $m_0$: conditional on other fine
+signs, a path contains independent signs with field magnitude at most
+$\operatorname{atanh}b_++2\operatorname{atanh}t_+$, and its parity mean
+has magnitude at most $\rho^B$. These established bounds use a common
+positive-coupling domain independent of $B$. \status{ESTABLISHED}
+
+The canonical lexicographic vacuum construction writes its singleton term
+as a conditional log-odds and each radius-$r$ term as the difference of
+successive such odds. Logarithmic Lipschitz continuity on $[m_0,1]$ gives
+\begin{equation}
+ \|\Psi_{B,(x,0)}\|_\infty\leq\frac{4\rho^B}{1-\rho^2},\qquad
+ \|\Psi_{B,(x,r)}\|_\infty\leq D_Br\tau^r\quad(r\geq1).
+ \label{eq:rg-pressure-shell}
+\end{equation}
+At most $(2r+1)^2$ translated supports of radius $r$ contain a fixed cell,
+and each has diameter at most $2r$. Consequently an explicit first moment
+bound is
+\begin{equation}
+ M(\Psi_B)\leq\overline M_B
+ :=2D_B\sum_{r\geq1}r^2(2r+1)^2\tau^r<\infty.
+ \label{eq:rg-pressure-coarse-moment}
+\end{equation}
+The analogous omitted interaction norm is bounded by
+$D_B\sum_{r>N}r(2r+1)^2\tau^r$. These are rationally computable series:
+apply $(\tau d/d\tau)^j$ to $1/(1-\tau)$ and expand
+$(N+1+r)^j$ to evaluate every polynomial tail. This proves the required
+finite first moment at each fixed depth, rather than assuming it from a
+finite interaction truncation. \status{ESTABLISHED}
+
+\theoremheading{Vacuum-cylinder pressure construction}
+{thm:rg-pressure-vacuum}
+Let $q_{n,R}$ be the probability that all $2n^2$ retained path parities
+in an $n$-square are positive, evaluated under a finite native all-touching
+law with a radius-$R$ whole-block buffer and fixed exterior. All other
+parities are unconstrained. Then
+\begin{equation}
+ \left|\mathfrak p(\Psi_B)+\log4+n^{-2}\log q_{n,R}\right|
+ \leq\frac{12\overline M_B}{n}
+       +\frac{C_0B^2(R+1)\tau^{R+1}}{m_0^{n^2}}.
+ \label{eq:rg-pressure-vacuum-oracle}
+\end{equation}
+For fixed $B$ this constructs pressure to every positive tolerance by
+finite rational summation and directed logarithms. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+The free vacuum atom of $\Psi_B$ is $4^{-n^2}/Z_{B,n}$ because every
+vacuum interaction vanishes there. Its actual marginal differs in log
+mass by at most $8\overline M_Bn$. Add the $4\overline M_B/n$ pressure
+error after dividing by $n^2$ to obtain the first term. Sequential
+conditional positivity gives both actual and finite vacuum probabilities
+at least $m_0^{n^2}$. The spatial comparison bounds their difference by
+$C_0n^2B^2(R+1)\tau^{R+1}$. Apply the mean-value bound for $\log$ and
+divide by $n^2$. First choose $n$, then $R$, then logarithmic precision.
+Every choice terminates. Include all free signs, unused signs, and touching
+plaquettes in the finite sum; a product approximation would change it.
+$\square$
+
+The separate product case $t=0$ has native pressure zero and vacuum
+pressure $-2\log(1+b^B)$. These differ by a real normalization scalar;
+no positive-$t$ contraction argument is needed for this control.
+\status{ESTABLISHED}
+
+\section{Geometry weights, selection, and ties}
+\label{sec:rg-pressure-selection}
+
+\hypothesisheading{Controlled label growth}{hyp:rg-pressure-label-growth}
+For the global ensemble suppose
+$\log a_{\gamma,L}=L^2\alpha_\gamma+u_{\gamma,L}$, with
+$|u_{\gamma,L}|\leq U_\gamma(L)=o(L^2)$ and a supplied modulus for this
+sublinear bound. Use each branch's matching free partition and law, or
+its matching fixed-exterior pair. These hypotheses exclude arbitrary
+uncontrolled volume-dependent weights. \status{HYPOTHESIS}
+
+For the proposed Fisher-density extension, choose the stronger
+parameter-regularity hypotheses in
+\Cref{eq:rg-thermo-label-effective-growth}: actual $C^3$ effective
+log-mass representatives with norms $O(V)$ and $C^3$ convergence after
+division by $V=L^2$. That choice excludes uncontrolled derivatives of
+subextensive terms and is used in the strict-phase and crossover
+arguments. It is not part of the scalar-growth hypothesis above.
+\status{HYPOTHESIS}
+
+\theoremheading{Strict selection and the exact tie condition}
+{thm:rg-pressure-selection}
+Write $s_\gamma=\alpha_\gamma+\mathfrak p_\gamma$ and
+$W_{\gamma,L}=a_{\gamma,L}Z_{\gamma,L}/\sum_\delta a_{\delta,L}Z_{\delta,L}$.
+For free boundaries let
+$E_\gamma(L)=U_\gamma(L)+4\overline M_\gamma L$; for fixed exteriors
+replace $4$ by $8$. If $\gamma_*$ uniquely maximizes $s_\gamma$, then
+\begin{equation}
+ 1-W_{\gamma_*,L}\leq\sum_{\delta\ne\gamma_*}
+ \exp\left[-L^2(s_{\gamma_*}-s_\delta)
+                  +E_\delta(L)+E_{\gamma_*}(L)\right]\longrightarrow0.
+ \label{eq:rg-pressure-selection-bound}
+\end{equation}
+Let $S$ instead be the full maximal-score set, and put
+$v_{\gamma,L}=u_{\gamma,L}+\log Z_{\gamma,L}-L^2\mathfrak p_\gamma$.
+The labeled local law converges exactly when the finite vector
+\begin{equation}
+ \left(\frac{e^{v_{\gamma,L}}}
+ {\sum_{\delta\in S}e^{v_{\delta,L}}}\right)_{\gamma\in S}
+ \label{eq:rg-pressure-tie-vector}
+\end{equation}
+converges. Pressure equality alone does not determine it.
+These conclusions are established under
+\Cref{hyp:rg-pressure-label-growth}. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+The pressure error bounds give
+$|\log(a_{\gamma,L}Z_{\gamma,L})-L^2s_\gamma|\leq E_\gamma(L)$.
+Divide each competing weight by that of $\gamma_*$ and bound the common
+denominator below by its largest term. This proves
+\cref{eq:rg-pressure-selection-bound}. For a tied maximal set its
+complement has a positive gap, if nonempty, and hence vanishing mass.
+Within $S$ the relative weights are exactly
+\cref{eq:rg-pressure-tie-vector}. Branch cylinder limits exist by the
+centered spatial comparison. Finite summation proves sufficiency; testing
+the cylinder consisting only of a label proves necessity.
+$\square$
+
+With certified pressure intervals, a strict lower separation identifies a
+winner and the displayed growth moduli give a finite leakage threshold.
+Overlapping intervals establish neither equality nor a tie. Effective tied
+weights require a separate convergence modulus for
+\cref{eq:rg-pressure-tie-vector}. For two identical positive-coupling
+branches, take $a_{1,L}=v_L/Z_L$, $a_{2,L}=1/Z_L$.
+Choosing $v_L$ to alternate between $1$ and $2$ gives identical bulk scores
+and label weights alternating between $1/2$ and $2/3$.
+Choosing $v_L=e^{-L}$ instead removes one label with zero bulk score gap.
+These established examples preserve the positive-coupling domain.
+\status{ESTABLISHED}
+
+A fixed hierarchy $w_\gamma\mu_\gamma$ is a finite sum of probability
+laws and requires no infinite partition. At finite volume the factor
+weights $a_{\gamma,L}=w_\gamma/Z_{\gamma,L}$ reproduce it exactly.
+Compensation using only $e^{-L^2\mathfrak p_\gamma}$ leaves the surface
+term $\log Z_{\gamma,L}-L^2\mathfrak p_\gamma$. In the explicitly
+permitted boundary-scalar class, multiplying one of two identical raw
+branches by $e^L$ leaves both pressures unchanged but makes this residual
+select that label. Thus a bulk counterterm does not generally restore
+prescribed tied weights. This is a proved scalar example, not a claim
+about the sign of a bare native boundary correction. \status{ESTABLISHED}
+
+\section{Observation, entropy, and specific VFE}
+\label{sec:rg-pressure-vfe}
+
+\propositionheading{Positive sensor and posterior branch}
+{prop:rg-pressure-sensor}
+For $0<\eta_\gamma<1$ declare an independent edge sensor
+$\ell_{\eta_\gamma}(o\mid z)=(1+\eta_\gamma oz)/2$.
+On the finite all-positive observation define
+\begin{equation}
+ A_\gamma=\frac{1+b_\gamma\eta_\gamma}{2},\qquad
+ b'_\gamma=\frac{b_\gamma+\eta_\gamma}{1+b_\gamma\eta_\gamma},\qquad
+ Z^{\mathrm{obs}}_{\gamma,L}
+ =A_\gamma^{2L^2}Z_L(b'_\gamma,t_\gamma).
+ \label{eq:rg-pressure-sensor}
+\end{equation}
+The selected free or fixed-boundary posterior is the matching shifted
+branch. Reweighting actual infinite-law marginals has the same centered
+local posterior limit. Its evidence density is
+\begin{equation}
+ e_\gamma=2\log A_\gamma+
+ \mathfrak p(b'_\gamma,t_\gamma)-\mathfrak p(b_\gamma,t_\gamma).
+ \label{eq:rg-pressure-evidence}
+\end{equation}
+This is an established finite-observation limit, not conditioning on the
+null infinite all-positive event. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+The identity $(1+bz)(1+\eta z)/2=A(1+b'z)$ follows from $z^2=1$.
+Multiply it over the observed free edges; plaquette factors are unchanged.
+The shifted compact field bound remains below one and the coupling $t$
+remains below $1/12$. For an actual marginal, condition the finite
+reweighted full-space law on the window's exterior. Its conditional is
+exactly the shifted all-touching specification. Apply the uniform interior
+comparison and integrate over that reweighted exterior to prove local
+convergence. A mere surface log-ratio bound would not prove this step.
+
+For densities, the prior actual/free log-ratio is bounded by $8ML$.
+Multiplication by the same positive likelihood bounds the evidence
+log-ratio by $8ML$ and the posterior log-ratio by $16ML$.
+The shifted free/actual comparison adds $8M'L$. These bounds vanish after
+division by $L^2$, giving \cref{eq:rg-pressure-evidence}. The infinite
+all-positive event is null because finite likelihoods are bounded by
+$[(1+\eta_+)/2]^{2L^2}\to0$.
+$\square$
+
+For the proposed thermodynamic Fisher application of this sensor,
+choose $C^4$ original and shifted source maps whose images remain in
+compact positive native high-temperature boxes. Use the actual
+posterior representatives in
+\Cref{eq:rg-thermo-label-posterior-factor,eq:rg-thermo-label-posterior-hierarchy};
+the hierarchical representative retains its original physical
+partition divisor. These are the additional input choices for the
+proposed derivative bridge, not consequences of positivity of an
+arbitrary likelihood. \status{HYPOTHESIS}
+
+For fixed positive hierarchical label weights, total evidence density is
+$\max_\gamma e_\gamma$ and posterior label scores are $e_\gamma$.
+For global weights satisfying \Cref{hyp:rg-pressure-label-growth}, total
+evidence density and posterior scores are respectively
+\begin{equation}
+ \max_\gamma(\alpha_\gamma+\mathfrak p_\gamma^{\mathrm{obs}})
+   -\max_\gamma(\alpha_\gamma+\mathfrak p_\gamma),\qquad
+ \alpha_\gamma+\mathfrak p_\gamma^{\mathrm{obs}},
+ \label{eq:rg-pressure-evidence-global}
+\end{equation}
+where $\mathfrak p_\gamma^{\mathrm{obs}}=\mathfrak p_\gamma+e_\gamma$.
+The largest exponent and the logarithm of a finite exponential sum differ
+by at most $\log|\mathfrak G|$. This proves these rates; posterior ties
+still require their own subextensive ratios. \status{ESTABLISHED}
+
+\theoremheading{Stationary specific relative entropy}
+{thm:rg-pressure-specific-kl}
+For a stationary law $Q$ on the four-state cell lattice, define its square
+entropy $H(Q_{\Lambda_L})$ with $0\log0=0$. For a Gibbs law $\mu$ with
+interaction satisfying \cref{eq:rg-pressure-moments},
+\begin{align}
+ s(Q)&=\lim_{L\to\infty}L^{-2}H(Q_{\Lambda_L})
+       =\inf_{n\geq1}n^{-2}H(Q_{\Lambda_n}),
+ \label{eq:rg-pressure-entropy}\\
+ e_\Psi(Q)&=\sum_{A\ni0}\frac{\E_Q\Psi_A}{|A|},
+ \label{eq:rg-pressure-energy}\\
+ h(Q\Vert\mu)&:=\lim_{L\to\infty}L^{-2}
+       \KL(Q_{\Lambda_L}\Vert\mu_{\Lambda_L})
+       =\log4-s(Q)+e_\Psi(Q)+\mathfrak p(\Psi).
+ \label{eq:rg-pressure-specific-kl}
+\end{align}
+These established limits need neither ergodicity nor positive recognition
+atoms. They concern specific relative entropy, not ordinary KL between
+infinite laws. \status{ESTABLISHED}
+
+\paragraph{Proof.}
+Tile a large square by $n$-squares. Entropy subadditivity and stationarity
+bound its entropy by the number of tiles times $H(Q_{\Lambda_n})$ plus
+$|D|\log4$. Thus the limiting upper density is no greater than every
+$n$-square density, whereas their infimum is no greater than the limiting
+lower density. For energy allocate each interaction equally among its
+sites. Absolute summability and stationarity give
+\cref{eq:rg-pressure-energy}; omitted boundary allocations are bounded by
+$4ML$. The finite free KL equals
+$-H(Q_{\Lambda_L})+L^2\log4+\E_QH_L^{\mathrm{free}}+\log Z_L$.
+Changing the comparison to the actual marginal costs at most $8ML$.
+Divide by $L^2$ and apply \Cref{thm:rg-pressure-boundary}.
+$\square$
+
+Stationarity alone gives no uniform finite-query entropy certificate.
+A uniformly random $K$-square four-symbol array, repeated periodically,
+is stationary, has zero entropy density, and has the fair independent
+marginal on every square of side at most $K$. A procedure terminating
+after finitely many cylinder queries on the fair infinite field receives
+identical answers from such an array when $K$ exceeds every queried
+coordinate span. Their entropy densities differ by $\log4$. Hence no
+such procedure can uniformly certify error below $\log4/2$ for all
+stationary laws. A quantitative VFE approximation needs additional
+recognition entropy or expectation bounds. \status{ESTABLISHED}
+
+\theoremheading{Retained-label specific VFE}
+{thm:rg-pressure-vfe-density}
+Fix recognition $\mathbb Q=q_\gamma Q_\gamma$ with each $Q_\gamma$
+stationary. Let $h_\gamma=h(Q_\gamma\Vert\mu_\gamma)$ and
+$\ell_\gamma^Q=\E_{Q_\gamma}\sum_{a=1}^2
+\log\ell_{\eta_\gamma}(+\mid z_{0,a})$.
+Writing $s_* =\max_\gamma s_\gamma$, the finite-ensemble VFE densities are
+\begin{equation}
+ f_{\mathrm h}=\sum_\gamma q_\gamma(h_\gamma-\ell_\gamma^Q),\qquad
+ f_{\mathrm f}=\sum_\gamma q_\gamma
+       (h_\gamma-\ell_\gamma^Q+s_*-s_\gamma).
+ \label{eq:rg-pressure-vfe-density}
+\end{equation}
+They exist under the stated branch and label-growth hypotheses.
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+Disintegrate finite KL over the label. For the hierarchy,
+$\KL(q\Vert w)/L^2\to0$, and branch KL limits follow from
+\Cref{thm:rg-pressure-specific-kl}. Stationarity evaluates the likelihood
+sum per cell exactly. For global factors,
+$-L^{-2}\log W_{\gamma,L}\to s_*-s_\gamma$ by the finite exponential
+bounds. The finite recognition label entropy again vanishes per cell.
+Summing finitely many branch terms proves the formulas. Matching
+fixed-exterior or explicitly compared actual-marginal versions have the
+same density by the surface bounds.
+$\square$
+
+If $W_{\gamma,L}\to0$ while $q_\gamma>0$, the limiting labeled joint
+gives zero mass to a recognition-positive label, so KL to that limiting
+joint is infinite even on a finite state window. Formula
+\cref{eq:rg-pressure-vfe-density} can remain finite; the $e^{-L}$ tied
+example even has zero label-rate penalty. Density convergence therefore
+does not identify VFE against a limiting joint and does not require that
+the label weights converge. Erasing the label instead remains subject to
+\Cref{thm:rg-geometry-erasure}. \status{ESTABLISHED}
+
+\section{Scalar composition and the induced VFE density}
+\label{sec:rg-pressure-scalar}
+
+\theoremheading{Normalization density along fixed blocking words}
+{thm:rg-pressure-scalar}
+Let $\Psi$ and $\mathsf R_a\Psi$ be the complete canonical vacuum
+representatives of a law and its exact $a$-path push, each with finite
+first moment. For the finite raw push and its matching vacuum anchor
+scalar $\zeta_{a,L}$,
+\begin{align}
+ \sigma_a(\Psi)&:=\lim_{L\to\infty}L^{-2}\log\zeta_{a,L}
+        =a^2\mathfrak p(\Psi)-\mathfrak p(\mathsf R_a\Psi),
+ \label{eq:rg-pressure-scalar-density}\\
+ \sigma_{ad}(\Psi)&=d^2\sigma_a(\Psi)
+                       +\sigma_d(\mathsf R_a\Psi).
+ \label{eq:rg-pressure-scalar-word}
+\end{align}
+These are established for a finite word fixed before the volume limit,
+with coherent references, anchors, and centered embeddings.
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+Disjoint parity paths push normalized counting to normalized counting.
+The exact finite identity is
+$Z_{\mathrm{fine},aL}=\zeta_{a,L}\widehat Z_L$.
+The fine free/actual comparison costs $8MaL$ in log mass; pushing preserves
+the multiplicative bound. The coarse actual/free comparison adds $8M'L$.
+Thus the pushed free law and canonical coarse free law differ by at most
+$8(aM+M')L$ in log mass. Both anchored factors equal one at the vacuum,
+so evaluating that bound there compares $\log\widehat Z_L$ and the
+canonical $\log Z'_L$ by the same amount. Divide the partition identity
+by $L^2$ and use their pressure limits. Substitution and cancellation
+prove \cref{eq:rg-pressure-scalar-word}; its $d^2$ counts the intermediate
+cells per final cell. An unchanged canonical identity has $\sigma_1=0$.
+$\square$
+
+The initial native factor has vacuum logarithm per cell
+$\chi=2\log(1+b)+\log(1+t)$. Dividing by its vacuum value gives a
+finite-range vacuum representative. Its free partition and that of the
+canonical vacuum representative differ only by a surface term: compare
+both to their common actual marginal and evaluate at the vacuum.
+Consequently
+\begin{equation}
+ \mathfrak p(\Psi_1)=\mathfrak p_{\mathrm{native}}-\chi,\qquad
+ \widetilde\sigma_B=B^2\mathfrak p_{\mathrm{native}}
+                            -\mathfrak p(\Psi_B),\qquad
+ \alpha'_B=B^2\alpha+\widetilde\sigma_B.
+ \label{eq:rg-pressure-native-scalar}
+\end{equation}
+It follows that $\alpha'_B+\mathfrak p(\Psi_B)
+=B^2(\alpha+\mathfrak p_{\mathrm{native}})$.
+This establishes preservation of geometry scores with their scalar and
+area factor. Equality of infinite laws alone would not specify a raw
+normalizer or a representative conversion. \status{ESTABLISHED}
+
+\theoremheading{Specific VFE transport of the complete experiment}
+{thm:rg-pressure-induced-vfe}
+Retain the label and the complete fine observation alphabet through a fixed
+word of product block size $B$. Let $Q_{\gamma,B}$ be the stationary path
+push of $Q_\gamma$, and let $h^{\mathrm{post}}_{\gamma,B}$ denote its
+specific KL to the pushed shifted branch. Then
+\begin{equation}
+ B^2 f_{\mathrm{fine}}
+   =f_{\mathrm{coarse,induced}}+k_{\mathrm{fiber}},\qquad
+ k_{\mathrm{fiber}}=\sum_\gamma q_\gamma
+ \left[B^2h^{\mathrm{post}}_{\gamma,1}
+             -h^{\mathrm{post}}_{\gamma,B}\right]\geq0.
+ \label{eq:rg-pressure-induced-vfe}
+\end{equation}
+The identity is established for each of the two ensembles above, using
+limits of finite quantities rather than subtraction of infinite-law KLs.
+\status{ESTABLISHED}
+
+\paragraph{Proof.}
+On a finite window the induced likelihood is
+$\ell'_\gamma(o\mid y)=E_{\gamma,L}(o)
+ p_{\gamma,L}^{\mathrm{post,push}}(y)/p_{\gamma,L}^{\mathrm{prior,push}}(y)$
+on its positive support, by \Cref{thm:rg-geometry-transport}.
+Apply \Cref{prop:rg-geometry-fiber-vfe}. The coarse recognition marginal
+is exactly the push of its $BL$-square fine marginal. The actual-posterior
+comparison in \Cref{prop:rg-pressure-sensor} is $O(BL)$ uniformly in
+state and is preserved by the push. After division by $L^2$ it vanishes,
+so \Cref{thm:rg-pressure-specific-kl} gives both posterior state-KL
+limits. For the hierarchy the coarse VFE density is
+$\sum_\gamma q_\gamma(h^{\mathrm{post}}_{\gamma,B}-B^2e_\gamma)$;
+for global factors it is
+$\sum_\gamma q_\gamma[h^{\mathrm{post}}_{\gamma,B}
+ +B^2(s_*-\alpha_\gamma-\mathfrak p_\gamma^{\mathrm{obs}})]$.
+Subtract the separately finite density limits from $B^2$ times their fine
+formulas. Evidence and geometry rates cancel, leaving the displayed fiber
+term. Every finite fiber loss is nonnegative, hence so is its limit.
+$\square$
+
+Choosing a new local sensor on coarse edges changes the experiment and
+need not preserve this identity. Likewise, a prescribed order-one
+geometry action $A_\gamma$ has zero bulk rate but can affect tied weights;
+an extensive factor $e^{-L^2A_\gamma}$ shifts $\alpha_\gamma$ by
+$-A_\gamma$. A state-dependent curvature action changes the branch
+specification and requires its own admission proof. These established
+normalization distinctions prevent an unaccounted geometric penalty from
+being appended to VFE. \status{ESTABLISHED}
+
+The proposed thermodynamic Fisher construction in
+\Cref{ch:thermodynamic-fisher-draft} distinguishes strict-phase $C^2$
+densities, fixed-tie tensors normalized by $V^2$, and a separate
+reciprocal-volume statistical experiment with actual center-ratio
+hypotheses. Its certification remains open pending adjudication of the
+written native, label, and interface proofs. None of those proposed
+statements asserts a nonsingular extensive metric across every tie.
+\status{OPEN}
+
+Uniform invertibility at unbounded depth, unrestricted simultaneous
+volume/depth limits for the full labeled experiment, self-consistent
+curvature actions, critical universality, and continuum field measures
+remain open. Each needs its own regularity, limiting, or existence
+construction. Identification of a physical clock or physical law also
+requires a separate operational bridge. \status{OPEN}
