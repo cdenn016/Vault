@@ -1,0 +1,395 @@
+\section{One Rung: Statistical Manifolds, Bundles, Gauge Transport, and Working Simplifications}\label{sec:one_rung}
+
+This section assembles the geometry of a single level, the unit on which the hierarchical coarse-graining of Sections~\ref{sec:meta_agent_formation}--\ref{sec:ouroboros} operates. We build it in one linear pass: the base manifold of contexts, the statistical fibers that carry beliefs and models, the principal and associated bundles that organize the frame freedom, agents as smooth sections, the transport operator that compares them, the three group actions that the construction distinguishes, the connection forms and curvature, the independent links on the interaction graph, and the working simplifications. At one base point these constructions are the Gaussian, $\mathrm{GL}^+(K_q)$ specialization of those of the companion Theory~\cite[Ch.~2]{DennisGaugeVFE2026}.
+
+\paragraph{A convention fixed once: Regime~I versus Regime~II.}
+\label{sec:regime_convention}
+Two regimes for the links between agents govern every later statement about holonomy. In \emph{Regime~I} the links are frame aligned: $\Omega_{ij} = U_iU_j^{-1}$ is built from the agents' frames $U_i = \exp\phi_i$, the links form a cocycle, and every loop product is the identity (Lemma~\ref{thm:vanishing_holonomy}). Along the base the frame gradient $A^{(i)}_\mu(c) = U_i^{-1}(c)\partial_\mu U_i(c)$ is pure gauge, and its curvature $F^{(i)}_{\mu\nu}$ vanishes identically by the Maurer-Cartan identity (Section~\ref{sec:connection_forms}). In \emph{Regime~II} the links are independent variables on the oriented edges of the interaction graph, subject to orientation reversal $\Omega_{ji} = \Omega_{ij}^{-1}$ (Section~\ref{sec:discrete_regime_ii}); their loop products are graph holonomies, which can be nontrivial when every agent sits at a single base point. Graph links are not base transport, and graph-link holonomy is neither the holonomy of a base connection nor a property of the topology of the principal bundle~\cite[Ch.~1]{DennisGaugeVFE2026}. An independent connection on $\mathcal{C}$, with path-ordered transport along base curves and a nonzero field strength, is a separate extension that belongs to base-transport theory and is deferred to the companion Supplement~B~\cite{DennisGaugeVFESuppB2026}. All constructions of Part~I use Regime~I. The worked signature example of Section~\ref{sec:signature_resolution} also lives in Regime~I; its frame-twist form $\operatorname{tr}(A_\mu A_\nu)$ is not a curvature invariant (Section~\ref{sec:dual_role_rigor}). Each Regime~II passage is marked where it appears.
+
+\subsection{The Base Manifold: Parameter / Index Space of Contexts}
+
+Agents form beliefs about something, and we call the index domain of those beliefs the base manifold $\mathcal{C}$: the parameter or index space of contexts to which agent fields are referred. The base manifold is presupposed. It is a smooth index manifold carrying no physical metric, called noumenal only by analogy with Kant's things-in-themselves, and it plays a role loosely analogous to Whitehead's extensive continuum~\cite{Whitehead1929}. It is neither derived from agentic structure nor an observer-independent physical substrate; in the language of Section~\ref{sec:introduction}, $\mathcal{C}$ is a domain of inquiry, not a thing.
+
+\begin{definition}[Base Manifold]
+\label{def:base_manifold}
+The base space $\mathcal{C}$ is a smooth $n$-dimensional manifold serving as the parameter / index domain over which agent sections (beliefs, priors, gauge frames, generative models, hyper-priors) are defined.
+\end{definition}
+
+The base manifold $\mathcal{C}$ is not physical spacetime. Metric structure available to agents enters only through pullbacks of belief sections (Section~\ref{sec:pullback}), which give agent-relative metric data on a given base; the pullback construction is derived here, and any spacetime reading of it is a structural correspondence (Table~\ref{tab:claim_status}). The topology, dimension, and smooth structure of $\mathcal{C}$ are inputs. This is a deliberate departure from Wheeler, who answers the regress of structure beneath structure with a loop and counts ``no continuum'' among his four no's~\cite{Wheeler1990}: the construction stops the regress with a presupposed index manifold and keeps a continuum index space (W5). We use local coordinates $c = (c^1, \ldots, c^n)$ on $\mathcal{C}$. The background structures that the construction does place on $\mathcal{C}$, a chart density for integration and a fiducial chart metric, are declared with the working simplifications (Section~\ref{sec:flat_base}).
+
+\subsection{Statistical Manifolds: Beliefs and Models}
+\label{sec:statistical_manifolds}
+
+At each point $c \in \mathcal{C}$, agents maintain probability distributions on two information-geometric arenas. The first holds distributions over the latent state $k$ that an agent is trying to infer; the second holds distributions over the parameters $m$ of the agent's generative model. Beliefs and the priors that anchor them live on the first arena, while generative models and their hyper-priors live on the second. Beliefs $q_i$ are fast variables and generative models $s_i$ are slow variables in the two-timescale typing of the companion Theory~\cite[Ch.~8]{DennisGaugeVFE2026}. Priors $p_i$ and hyper-priors $r_i$ are not independent dynamical variables: they are supplied by the level immediately above as one-episode-lagged predictive priors (Section~\ref{sec:cross_scale_shadows}).
+
+\begin{definition}[Statistical Manifolds]
+Let
+\begin{equation}
+\mathcal{B}_{\mathrm{state}} = \{\mathcal{N}(\mu, \Sigma) : \mu \in \mathbb{R}^{K_q}, \Sigma \succ 0\},
+\qquad
+\mathcal{B}_{\mathrm{model}} = \{\mathcal{N}(\mu, \Sigma) : \mu \in \mathbb{R}^{K_m}, \Sigma \succ 0\}
+\end{equation}
+denote the finite-dimensional manifolds of Gaussian distributions over the latent state $k \in \mathbb{R}^{K_q}$ and over the generative-model parameters $m \in \mathbb{R}^{K_m}$, respectively. Each is equipped with the Fisher-Rao metric, given in the coordinates $\theta = (\mu, \Sigma)$ by
+\begin{equation}
+g_{\mathcal{B}}(\partial_a, \partial_b) = \mathbb{E}\left[(\partial_a \log \rho_\theta)(\partial_b \log \rho_\theta)\right],
+\end{equation}
+with $\rho_\theta$ the corresponding Gaussian density and indices $a, b$ ranging over the coordinates $(\mu, \Sigma)$.
+\end{definition}
+
+The same coordinate formula extends formally to any smooth finite-dimensional parametric family with square-integrable score ($\mathbb{E}_{\rho_\theta}[(\partial_a \log\rho_\theta)^2] < \infty$ for each coordinate, the resulting Gram matrix positive-definite); a rigorous extension to the full nonparametric space of distributions requires additional structure we do not need, since the fibers $\mathcal{B}_{\mathrm{state}}$ and $\mathcal{B}_{\mathrm{model}}$ are Gaussian and the Fisher-Rao metric is evaluated only on them. The Gaussian form of the two fibers is a working choice (Section~\ref{sec:working_framework}), and the construction extends to an exponential-family fiber once a family-preserving pushforward action and a computable divergence are supplied. Non-Gaussian objects appear elsewhere as auxiliary constructions, including the finite Gaussian mixtures of the mixture-of-sources energy (Eq.~\eqref{eq:mixture_joint}) and of the moment-matched coarse-graining covariance (Section~\ref{sec:meta_agent_state_construction}), and the categorical attention distributions $\beta(z)$; none of these carries the fibers' Fisher-Rao structure.
+
+Beliefs $q_i$ and priors $p_i$ both take values in $\mathcal{B}_{\mathrm{state}}$, while generative models $s_i$ and hyper-priors $r_i$ both take values in $\mathcal{B}_{\mathrm{model}}$. The two manifolds are generically distinct because the latent state $k$ and the model parameters $m$ are different objects with different sample spaces, and they have dimensions $K_q(K_q+3)/2$ and $K_m(K_m+3)/2$.
+
+The Fisher-Rao metric measures how statistically distinguishable nearby distributions are: distributions with sharper peaks lie further apart. It is unique up to scaling as the Riemannian metric on probability spaces invariant under sufficient statistics; Chentsov's original theorem~\cite{Cencov1982} covers finite sample spaces, and the continuous-parametric extension relevant to the Gaussian families used here is supplied by Ay, Jost, L\^{e}, and Schwachh\"{o}fer~\cite{AyJostLeSchwachhofer2017}. The relative entropy between two distributions $q$ and $p$ on the same manifold,
+\begin{equation}
+D_{\mathrm{KL}}(q \| p) = \int q(x) \log\frac{q(x)}{p(x)} dx \geq 0,
+\end{equation}
+is not symmetric, $D_{\mathrm{KL}}(q \| p) \neq D_{\mathrm{KL}}(p \| q)$, but its second-order expansion recovers the Fisher metric, $D_{\mathrm{KL}}(\rho_\theta \| \rho_{\theta+d\theta}) = \tfrac{1}{2} g_{ab} d\theta^a d\theta^b + O(\|d\theta\|^3)$, and the natural gradient $\tilde{\nabla}_q f = g^{-1}_{\mathcal{B}} \nabla_q f$ gives the steepest-descent direction in this metric. For Gaussian distributions the divergence has the closed form
+\begin{equation}
+D_{\mathrm{KL}}(\mathcal{N}(\mu_1, \Sigma_1) \| \mathcal{N}(\mu_2, \Sigma_2)) = \frac{1}{2}\left[\log\frac{|\Sigma_2|}{|\Sigma_1|} + \operatorname{tr}(\Sigma_2^{-1}\Sigma_1) + (\mu_2 - \mu_1)^\top\Sigma_2^{-1}(\mu_2 - \mu_1) - K_q\right],
+\label{eq:gaussian_kl}
+\end{equation}
+used throughout for belief and prior alignment. The Fisher information matrix of the Gaussian fiber is recorded in Appendix~\ref{app:math}, and the fixed-point analysis of the covariance dynamics is in Appendix~\ref{app:covariance_dynamics}.
+
+\subsection{Principal Bundles and Gauge Freedom}
+\label{sec:agents_as_sections}
+
+Different agents use different internal reference frames when representing beliefs and models. A physicist measuring particle spin uses basis vectors in a laboratory frame; another physicist with a rotated laboratory measures the same physics but obtains different numerical values, and the two descriptions are related by a transformation. Agents likewise represent beliefs in internal coordinate systems, which we call their gauge frames. The framework uses these frames in two roles that must be kept separate.
+
+\paragraph{Two roles for the gauge frame.} The symbol $\phi_i$ does double duty, and conflating the two roles produces apparent contradictions, in which a frame called pure gauge in one sentence carries content in another. In its \emph{transport role} (Role~A) the frame is redundant. The functional depends on frames only through the links $\Omega_{ij}$, which are unchanged by a common right translation $U_i \mapsto U_i g$ (Section~\ref{sec:gauge_covariance_principle}), and in Regime~I every frame can be removed from the interaction terms by the change of variables of Proposition~\ref{prop:regime1_removability}; an isolated frame carries no physical content. In its \emph{relational role} (Role~B) the frame matters only relative to fields held in a fixed frame: an observation channel, a fixed-frame environmental agent (Section~\ref{sec:symmetry_breaking}), or a frozen prior. In Regime~I at a single base point this exhausts the content of a frame, since every interaction term depends on $(q_i, U_i)$ only through the frame-stripped law $\tilde q_i = (U_i^{-1})_\# q_i$ (Proposition~\ref{prop:regime1_removability}). Quantities built from base derivatives of the frames, such as the frame-twist form $\operatorname{tr}(A^{(i)}_\mu A^{(i)}_\nu)$ and the ordinary fixed-frame pullbacks of Section~\ref{sec:pullback}, depend on the frames relative to the fixed reference section (next paragraph). The interpretive readings of Section~\ref{sec:consciousness} use Role~B and carry status S. We reserve gauge invariant for quantities unchanged under passive re-expression and change of reference (Section~\ref{sec:gauge_covariance_principle}), gauge covariant for quantities transforming by a fixed representation, and frame dependent for quantities that depend on the choice of reference section.
+
+\paragraph{Precedents and the frame-twist form.}
+\label{sec:dual_role_rigor}
+The Role-A / Role-B treatment of $\phi_i$ has precedents in gauge theory and in quantum reference frames, cited as motivation and not as constructions reproduced here. Edge modes in gauge theory~\cite{DonnellyFreidel2016} promote would-be pure-gauge boundary data to physical degrees of freedom when a region's interior is treated as a subsystem. Quantum reference frames~\cite{BartlettRudolphSpekkens2007, Vanrietvelde2020, giacomini2019qrf} formalize this for finite quantum systems: a reference frame is gauge from a perspective-neutral viewpoint but a physical system carrying state from its own perspective, and Rovelli's relational interpretation~\cite{Rovelli1996} sits in the same family. In each case the frame becomes physical when it is referred to something held fixed, a boundary or a reference system; in the present construction the analogous fixed structures are the observation channel and the fixed-frame environmental agents, which is Role~B. We do not construct the corresponding structures, since there is no boundary symplectic form, no conjugate charge, and no theorem forcing Role-B data from a subsystem decomposition. The closer precedent in the physics literature is the dressing-field method~\cite{Fournel2014Dressing}, discussed after Proposition~\ref{prop:regime1_removability}. What the framework does state is which transformation acts on which quantity. The frame-twist form $\operatorname{tr}(A^{(i)}_\mu A^{(i)}_\nu)$, with $A^{(i)} = U_i^{-1}dU_i$, is invariant under constant per-agent actions: a constant right translation sends $A \mapsto g^{-1}Ag$, which leaves the trace unchanged by cyclicity, and a constant left translation leaves $A$ unchanged. It is not invariant under the local change of reference $U_i(c) \mapsto U_i(c)g(c)$, applied to all agents with one base-dependent $g$, under which
+\begin{equation}
+A^{(i)} \longmapsto g^{-1}A^{(i)}g + g^{-1}dg .
+\end{equation}
+That transformation leaves every link $\Omega_{ij}(c) = U_i(c)U_j(c)^{-1}$ unchanged, and the functional contains no frame-gradient term (Section~\ref{sec:frame_evolution}), so the functional is unchanged as well; the choice $g = U_1^{-1}$ sets the frame-twist form of agent~1 to zero at every point. The frame-twist form therefore measures agent $i$'s frame relative to the fixed reference section. It is a property of a declared reference section, not an observable, and the signature construction of Section~\ref{sec:signature_resolution} and the ordinary fixed-frame pullbacks carry this qualification. The covariant Fisher pullback $G^{(q)}_i$ of Section~\ref{sec:pullback}, formed with covariant derivatives, is passively gauge invariant without any orbit average, relative to the chosen connection~\cite[Ch.~B2]{DennisGaugeVFESuppB2026}.
+
+\begin{definition}[Principal Bundle]
+Let $\pi: \mathcal{N} \to \mathcal{C}$ be a principal $G$-bundle, where $\mathcal{N}$ is the total space of all gauge choices at all base points, $\mathcal{C}$ is the base manifold, and $G$ is the structure group acting freely on the right on $\mathcal{N}$. The projection satisfies $\pi(n \cdot g) = \pi(n)$ for all $g \in G$, so the group action preserves fibers; $G$ acts freely and transitively on each fiber $\pi^{-1}(c)$, so $\mathcal{N}/G \cong \mathcal{C}$; and the bundle is locally trivial, $\mathcal{N}|_{\mathcal{U}} \cong \mathcal{U} \times G$ as $G$-spaces for sufficiently small open $\mathcal{U} \subseteq \mathcal{C}$.
+\end{definition}
+
+The structure group used throughout is $\mathrm{GL}^+(K_q)$, with the compact subgroups $\mathrm{SO}(N)$ as special cases (Section~\ref{sec:gauge_group_choice}). Each point $c\in\mathcal{C}$ sits below a fiber $\pi^{-1}(c)\cong G$ of frame choices, and moving within a fiber changes reference frame without changing the base point. For a physicist this is the fiber-bundle description of a gauge potential~\cite{WuYang1975, Nakahara2003}; here a frame encodes an agent's representational axes.
+
+\paragraph{Local trivializations and the scope of the bundle formalism.}
+\label{sec:local_trivialization}
+A general principal $G$-bundle does not admit a global section: a globally defined frame field $U: \mathcal{C} \to G$ exists if and only if the bundle is trivializable, and writing such a $U$ as a single exponential $U = \exp\phi$ of a Lie-algebra field is a further restriction, treated in the next paragraph. The framework operates in local trivializing patches $\{\mathcal{U}_i\}$ that cover $\mathcal{C}$, with each $U_i = \exp(\phi_i): \mathcal{U}_i \to G$ a local section in the fixed reference trivialization, parameterized by the Lie-algebra field $\phi_i: \mathcal{U}_i \to \mathfrak{g}$ and restricted to agent~$i$'s domain. On overlaps the operator $\Omega_{ij} = U_iU_j^{-1}$ satisfies the cocycle condition $\Omega_{ij}\Omega_{jk} = \Omega_{ik}$ on triple overlaps (Lemma~\ref{thm:vanishing_holonomy}); at a single base point these are the frame comparisons of the companion Theory~\cite[Ch.~2]{DennisGaugeVFE2026}. Because each $U_i$ is defined on the whole of its patch, this cocycle is the coboundary of the family $\{U_i\}$, so the reconstructed bundle is canonically trivializable. We accordingly assume a fixed reference trivialization throughout, and the bundle language is organizational, not a source of topological generality. Transition data that is not a coboundary (nontrivial bundle topology) is out of scope. The links $\Omega_{ij}$ play a second role that must not be confused with gluing: the agent beliefs $q_i$ are \emph{distinct} sections compared within a common frame, with $D_{\mathrm{KL}}(q_i \| \Omega_{ij} q_j) > 0$ generically, so $\Omega_{ij}$ enters as a transport operator between agents and not as a map identifying local representatives of one section. Independent links on the interaction graph (Section~\ref{sec:discrete_regime_ii}) replace the frame-aligned links by edge variables that can carry graph holonomy; they leave the base bundle unchanged.
+
+Two technical caveats accompany this restriction. First, the exponential parameterization $U_i(c)=\exp[\phi_i(c)]$ is only locally bijective and does not cover all of $\mathrm{GL}^+(K_q)$ for $K_q \geq 2$ (Section~\ref{sec:gauge_group_choice}). Second, the Maurer-Cartan one-form $\theta=U^{-1}dU$ of Section~\ref{sec:connection_forms} is well defined on each local patch whether or not the global bundle is trivializable; the patchwise cocycle structure is what the framework requires, and references to a global frame field $\phi$ are to be read in the local-trivialization sense unless explicitly noted otherwise.
+
+\subsection{Associated Bundles: Attaching Probability Distributions to Gauge Structure}
+
+Having established the principal bundle, we attach the two statistical manifolds $\mathcal{B}_{\mathrm{state}}$ and $\mathcal{B}_{\mathrm{model}}$ through the standard associated-bundle construction~\cite{Kobayashi1963, Nakahara2003, frankel2011geometry}. A change of frame must transform the probability distributions accordingly, which requires specifying how $G$ acts on each statistical manifold.
+
+\begin{definition}[Representations and Associated Bundles]
+Let $\rho_{\mathrm{state}}: G \to \mathrm{Diff}(\mathcal{B}_{\mathrm{state}})$ and $\rho_{\mathrm{model}}: G \to \mathrm{Diff}(\mathcal{B}_{\mathrm{model}})$ be smooth representations of $G$ by diffeomorphisms of the two statistical manifolds. The associated bundles are
+\begin{align}
+\mathcal{E}_{\mathrm{state}} &:= \mathcal{N} \times_{\rho_{\mathrm{state}}} \mathcal{B}_{\mathrm{state}}, \\
+\mathcal{E}_{\mathrm{model}} &:= \mathcal{N} \times_{\rho_{\mathrm{model}}} \mathcal{B}_{\mathrm{model}},
+\end{align}
+where the equivalence relation $(n \cdot g, b) \sim (n, \rho(g)b)$ identifies gauge-transformed pairs and the appropriate $\rho$ is determined by which manifold $b$ inhabits.
+\end{definition}
+
+The equivalence relation $(n\cdot g, b) \sim (n, \rho(g)b)$ treats $\rho: G \to \mathrm{Aut}(\mathcal{B})$ as a left action paired with the right principal action $n \mapsto n\cdot g$ on $\mathcal{N}$, the convention of~\cite{Nakahara2003} and of the companion Theory. It is equivalent, under $g \mapsto g^{-1}$ and the homomorphism property, to the alternative $(n\cdot g, b) \sim (n, \rho(g^{-1})b)$ found in some texts; we use the former consistently. For Gaussian distributions with $G = \mathrm{GL}(K_q)$ (or any subgroup such as $\mathrm{SO}(N)$), the representation acts by linear transformation of means and congruence of covariances:
+\begin{equation}
+\rho_{\mathrm{state}}(g) \cdot \mathcal{N}(\mu, \Sigma) = \mathcal{N}(g\mu, g\Sigma g^\top),
+\end{equation}
+and analogously for $\rho_{\mathrm{model}}$. For this congruence action each $\rho(g)$ is an isometry of the Fisher-Rao metric: common pushforward leaves every $f$-divergence invariant (Theorem~\ref{thm:glk_invariance} and the remark following it), and $g_{\mathcal{B}}$ is the Hessian of the relative entropy along the diagonal, so the associated bundles carry a fiberwise Fisher-Rao metric invariant under the structure group and every transport $\Omega_{ij}$ acts isometrically on fibers. When the fiber dimensions differ, the congruence form is type-correct on the $K_m$-dimensional model fiber only if $\rho_{\mathrm{model}}$ is a $K_m$-dimensional representation of $G$, and no canonical choice exists for generic $K_m \neq K_q$, so we fix it explicitly. For $G = \mathrm{SO}(3)$, $\rho_{\mathrm{model}}$ is a direct sum of irreducible representations of total dimension $K_m$; for $G = \mathrm{GL}(K_q)$ we take $K_m = K_q$ with the fundamental representation. Alternatively, the model fiber may carry its own principal bundle with structure group $\mathrm{GL}(K_m)$ and an independent frame field $\tilde{\phi}_i$, so that $\tilde{\Omega}_{ij} = \exp(\tilde{\phi}_i)\exp(-\tilde{\phi}_j)$ is a transport in its own right and not the image of $\Omega_{ij}$ under a representation; this is the independent-frame option of the envelope-gradient discussion following Eq.~\eqref{eq:envelope_gradient_model}. That the two channels may share one frame is a gauge choice in the companion Theory's treatment~\cite[Ch.~2]{DennisGaugeVFE2026}. The associated bundles $\mathcal{E}_{\mathrm{state}}$ and $\mathcal{E}_{\mathrm{model}}$ are fiber bundles over $\mathcal{C}$ with fibers isomorphic to $\mathcal{B}_{\mathrm{state}}$ and $\mathcal{B}_{\mathrm{model}}$, and the four agent fields $(q_i, p_i)$ and $(s_i, r_i)$ are sections of these two bundles, with the prior and hyper-prior supplied by the parent level via Eq.~\eqref{eq:cross_scale_shadow}.
+
+\subsection{Agents as Smooth Sections}
+\label{sec:agent_definition}
+
+We now define agents as sections of these associated bundles, smooth by hypothesis at the primitive level; the companion Theory's definition of an agent is the single-point version~\cite[Ch.~2]{DennisGaugeVFE2026}. For the meta-agents of higher levels, whose fields are constructed by coarse-graining and not posited, the available regularity is weaker: smooth on the interior of the formation support under the smooth-bump convention of Section~\ref{sec:complete_free_energy}, and only measurable and piecewise smooth across support boundaries (Section~\ref{sec:meta_agent_formation}).
+
+\begin{definition}[Agent]
+An agent $\mathcal{A}^i$ at level $\ell$ with support domain $\mathcal{U}_i \subseteq \mathcal{C}$ consists of two primitive smooth sections, two derived sections, and a gauge-frame field:
+\begin{align}
+q_i &: \mathcal{U}_i \to \mathcal{E}_{\mathrm{state}}|_{\mathcal{U}_i}, &&\text{(belief, primitive)} \\
+s_i &: \mathcal{U}_i \to \mathcal{E}_{\mathrm{model}}|_{\mathcal{U}_i}, &&\text{(generative model, primitive)} \\
+p_i &= \Omega_{iI}\big[q_I^{(\ell+1)}\big] \in \Gamma\left(\mathcal{E}_{\mathrm{state}}|_{\mathcal{U}_i}\right), &&\text{(prior, derived)} \\
+r_i &= \tilde\Omega_{iI}\big[s_I^{(\ell+1)}\big] \in \Gamma\left(\mathcal{E}_{\mathrm{model}}|_{\mathcal{U}_i}\right), &&\text{(hyper-prior, derived)} \\
+\phi_i &: \mathcal{U}_i \to \mathfrak{g}, &&\text{(gauge frame field)}
+\end{align}
+where $\mathfrak{g}=\mathrm{Lie}(G)$ and $I=\mathrm{pa}(i)$ indexes the level-$(\ell+1)$ meta-agent, if any, containing agent $i$ (the appendices write the parent map as $\pi(i)$). The parent laws $q_I^{(\ell+1)}$ and $s_I^{(\ell+1)}$ are those of the preceding episode, so $p_i$ and $r_i$ are the one-episode-lagged predictive priors of the episode-indexed joint under a transported-copy transition; no generative factor reads a posterior of the same episode~\cite[Ch.~12]{DennisGaugeVFE2026}. The derived sections are conditional on a parent existing. The appendices assume a finite tree induced by measurable partitions; whether the formation criterion of Section~\ref{sec:meta_agent_formation} produces persistent structures satisfying those assumptions is open (Table~\ref{tab:claim_status}). Without a parent, the prior and hyper-prior are primitive boundary conditions, as in the single-level construction. The four statistical sections form the hierarchy
+\[
+r_i \to s_i \to p_i \to q_i \to \text{observations},
+\]
+connected across levels by Eq.~\eqref{eq:cross_scale_shadow}: $r_i^{(\ell)}$ regularizes $s_i^{(\ell)}$ because it is the transported parent model, and $p_i^{(\ell)}$ regularizes $q_i^{(\ell)}$ because it is the transported parent belief. At the top level the prior $r_i^{(\ell_{\max})}$ is a declared root, a fixed boundary condition of the hierarchy~\cite[Ch.~12]{DennisGaugeVFE2026}; at the bottom level, cross-level relations act only downward.
+\end{definition}
+
+Each agent maintains smooth probability distributions $q_i(c)$ and $p_i(c)$ over its domain $\mathcal{U}_i$ (Fig.~\ref{fig:bundle_sections_surface}). For Gaussian agents, $q_i(c)=\mathcal{N}(\mu_i(c),\Sigma_i(c))$ and $p_i(c)=\mathcal{N}(\mu_i^p(c),\Sigma_i^p(c))$ live on the latent-state fiber, while $s_i(c)=\mathcal{N}(\mu_i^s(c),\Sigma_i^s(c))$ and $r_i(c)=\mathcal{N}(\mu_i^r(c),\Sigma_i^r(c))$ live on the model fiber. The pairs $(\mu_i^p,\Sigma_i^p)$ and $(\mu_i^r,\Sigma_i^r)$ are obtained from the parent fields by Eq.~\eqref{eq:cross_scale_shadow}, and $\phi_i(c)=\phi_i^a(c)G_a$ defines the local frame. Different agents may therefore maintain distinct beliefs and frames over overlapping regions of $\mathcal{C}$.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+  >={Stealth[length=2mm]},
+  every node/.style={font=\small},
+  belief/.style={thick, minimum width=1.3cm, minimum height=0.72cm}
+]
+\coordinate (base-left) at (0,0);
+\coordinate (base-right) at (10,0);
+\coordinate (overlap) at (5,-0.55);
+\shade[top color=gray!15, bottom color=gray!5, draw=gray!60, thick]
+  (base-left) .. controls (3,-0.35) and (7,0.35) .. (base-right)
+  -- (9.7,-1.25) .. controls (6.5,-1.45) and (2.5,-1.35) .. (-0.3,-1.05) -- cycle;
+\draw[thick, blue!60, fill=blue!10, fill opacity=0.55, rounded corners]
+  (0.6,-0.88) rectangle (5.35,0.55);
+\draw[thick, red!60, fill=red!10, fill opacity=0.55, rounded corners]
+  (4.65,-0.88) rectangle (9.4,0.55);
+\node[blue!70!black, font=\small\bfseries] (ui-label) at (2.6,0.82) {$\mathcal{U}_i$};
+\node[red!70!black, font=\small\bfseries] (uj-label) at (7.4,0.82) {$\mathcal{U}_j$};
+\node[purple!70!black, fill=white, inner sep=1.5pt, font=\footnotesize] (overlap-label) at (5,1.15) {$\mathcal{U}_i \cap \mathcal{U}_j$};
+\filldraw[purple!70!black] (overlap) circle (2pt);
+\node[below=2pt of overlap, purple!70!black] (cstar-label) {$c_*$};
+\node[below=8mm of cstar-label, font=\small\bfseries] (base-label) {Base manifold $\mathcal{C}$};
+\draw[thick, dashed, gray!55] (overlap) -- ++(0,5.05) node[above, font=\footnotesize] {belief fiber $\mathcal{B}_{\mathrm{state}}$};
+\node[belief, ellipse, draw=blue!70, fill=blue!20] (qi) at (5,2.25) {};
+\filldraw[blue!70] (qi.center) circle (1.5pt);
+\draw[-{Stealth[length=1.5mm]}, blue!70, thick] (qi.center) -- ++(0.38,0.16);
+\node[left=4mm of qi, blue!70!black] (qi-label) {$q_i(c_*)$};
+\node[right=1mm of qi, blue!70!black, font=\scriptsize] (phii-label) {$\phi_i$};
+\node[belief, ellipse, draw=red!70, fill=red!20, rotate=32] (qj) at (5,4.0) {};
+\filldraw[red!70] (qj.center) circle (1.5pt);
+\draw[-{Stealth[length=1.5mm]}, red!70, thick] (qj.center) -- ++(0.28,0.28);
+\node[left=4mm of qj, red!70!black] (qj-label) {$q_j(c_*)$};
+\node[right=1mm of qj, red!70!black, font=\scriptsize] (phij-label) {$\phi_j$};
+\draw[thick, blue!70] (1.0,-0.12) .. controls (2.5,0.25) and (3.7,1.45) .. (qi.west);
+\draw[thick, red!70, dashed] (9.0,-0.10) .. controls (7.6,0.50) and (6.4,2.75) .. (qj.east);
+\draw[-{Stealth[length=3mm,width=2mm]}, very thick, black!70]
+  (qj.east) to[bend left=38] node[midway, right=6mm, draw, rounded corners, fill=yellow!10,
+  inner sep=4pt, align=center, font=\footnotesize] (transport-label)
+  {$\Omega_{ij}(c_*)=\exp(\phi_i)\exp(-\phi_j)$\\$q_j \mapsto \Omega_{ij}[q_j]$} (qi.east);
+\end{tikzpicture}
+\caption{%
+\textbf{Overlapping agent sections and gauge transport.} Agents $i$ and $j$ define Gaussian belief sections over neighborhoods $\mathcal{U}_i$ and $\mathcal{U}_j$ of the base manifold $\mathcal{C}$. At $c_* \in \mathcal{U}_i \cap \mathcal{U}_j$, the beliefs occupy the same statistical fiber but use local frames $\phi_i$ and $\phi_j$. The transport $\Omega_{ij}(c_*)=\exp(\phi_i)\exp(-\phi_j)$ maps $q_j(c_*)$ into agent $i$'s frame before $D_{\mathrm{KL}}(q_i\|\Omega_{ij}[q_j])$ is evaluated. In the zero-dimensional limit the neighborhoods collapse to one base point and the comparison remains entirely within one fiber.
+}
+\label{fig:bundle_sections_surface}
+\end{figure}
+
+\subsection{Cognitive Reference Frames as Gauge Frames}
+\label{sec:cognitive_reference_frames}
+
+Lahav and Neemeh~\cite{LahavNeemeh2022, LahavNeemeh2025} argue that phenomenal consciousness is observer-relative in the way simultaneity and velocity are observer-relative in special relativity: a cognitive system's experience is a property of that system viewed from its own cognitive frame of reference. Their account writes an explicit transformation only for the degenerate case of functionally identical cognitive systems, where it reduces to a delta-function identification (Eqs.~26 and~35 of the 2022 paper), and leaves the transformation law between distinct cognitive frames unspecified. The construction gives a formal counterpart for the nondegenerate case, as a structural correspondence (status S): each agent $i$ carries a smooth frame field $\phi_i: \mathcal{U}_i \to \mathfrak{g}$ in the role of its cognitive frame of reference, the transport $\Omega_{ij} = \exp(\phi_i)\exp(-\phi_j)$ defined below is the transformation between frames, and $D_{\mathrm{KL}}(q_i \| \Omega_{ij}[q_j])$ is a scalar measuring belief disagreement after transport, invariant under passive re-expression. In Regime~I this scalar equals the divergence between the frame-stripped laws (Proposition~\ref{prop:regime1_removability}), so the residual disagreement is disagreement between the laws the agents present, and the frames themselves carry no content at a point. The structure group $\mathrm{GL}^+(K_q)$ is a modeling commitment justified on information-geometric grounds (Section~\ref{sec:gauge_group_choice}), not by Lahav and Neemeh, who invoke the Lorentz transformation only as a structural analogy; Section~\ref{sec:consciousness} develops the correspondence with its caveats, including that invariance places no constraint on which frame produces which phenomenal quale.
+
+The analogy with coordinate changes in general relativity is a working correspondence, not an identity: the transformation group is $\mathrm{GL}^+(K_q)$ acting on probability distributions on a statistical manifold, not a group of coordinate changes of a Lorentzian spacetime. The frame $\phi_i(c)$ specifies the agent's internal axes for representing belief content at base point $c$, a basis in its representational space, not an orientation in physical space. For example, two agents perceiving the same colored surface may represent color along different internal bases, agreeing about the spectral content of the stimulus but differing in the components in which they represent it; their frames differ by the basis change relating the two schemes, and after transport the residual $D_{\mathrm{KL}}(q_i \| \Omega_{ij}[q_j])$ is the part of the disagreement that does not reduce to a basis choice.
+
+\subsubsection{Transport Operators: Translating Between Frames}
+\label{sec:transport}
+
+When agents $i$ and $j$ overlap at a point $c \in \mathcal{U}_i \cap \mathcal{U}_j$, the inter-agent transport operator is
+\begin{equation}
+\Omega_{ij}(c) = \exp[\phi_i(c)] \exp[-\phi_j(c)] \in G.
+\label{eq:transport_def}
+\end{equation}
+This group element carries agent $j$'s representations into agent $i$'s frame, acting on probability distributions through the representation $\rho: G \to \mathrm{Aut}(\mathcal{B})$ as $\Omega_{ij}[q_j](c) := \rho(\Omega_{ij}(c)) q_j(c)$. The product of two exponentials is what gives $\Omega_{ij}$ its range. A single exponential misses part of $\mathrm{GL}^+(K_q)$ for $K_q \geq 2$ (Section~\ref{sec:gauge_group_choice}), whereas the pair $\exp(\phi_i)\exp(-\phi_j)$ attains every element of $\mathrm{GL}^+(K_q)$ for a single pair considered in isolation: by polar decomposition $A = RP$ with $R \in \mathrm{SO}(K_q) = \exp(\mathfrak{so}(K_q))$ and $P$ symmetric positive-definite with $-\phi_j = \log P$. Across the coupled system the same $\phi_i$ enters every pair, so the joint transports are constrained to the cocycle family. The same construction makes $\Omega_{ij}$ a genuinely relative operator: demanding a single constant, pair-independent transport forces $\Omega^2 = \Omega$ through the cocycle $\Omega_{ij}\Omega_{jk} = \Omega_{ik}$, hence $\Omega = I$ whenever at least three agents are present, and $\Omega = I$ collapses all frames to a common $U$; for exactly two agents only the weaker involution condition $\Omega^2 = I$ survives, admitting nonidentity involutions such as $\Omega = -I$ for even $K_q$. For Gaussian beliefs $q_j = \mathcal{N}(\mu_j, \Sigma_j)$, transport acts as $\mu_j \mapsto \Omega_{ij}\mu_j$ and $\Sigma_j \mapsto \Omega_{ij}\Sigma_j \Omega_{ij}^\top$, and the transported belief $\Omega_{ij}[q_j](c)$ is agent $j$'s belief at $c$ expressed in agent $i$'s coordinates, which makes the comparison $D_{\mathrm{KL}}(q_i \| \Omega_{ij}[q_j])$ meaningful.
+
+The vertex-local form of Eq.~\eqref{eq:transport_def} carries an immediate cocycle theorem, invoked throughout the manuscript.
+
+\begin{lemma}[Vanishing Holonomy]
+\label{thm:vanishing_holonomy}
+For gauge transport of the form $\Omega_{ij} = g_ig_j^{-1}$ with vertex-local group elements $g_i \in G$, the holonomy around any closed loop vanishes:
+\begin{equation}
+H_{ijk} = \Omega_{ij}\Omega_{jk}\Omega_{ki}
+= g_ig_j^{-1}g_jg_k^{-1}g_kg_i^{-1}
+= I.
+\label{eq:holonomy}
+\end{equation}
+Equivalently, the cocycle condition $\Omega_{ij}\Omega_{jk} = \Omega_{ik}$ holds for all triples $(i,j,k)$.
+\end{lemma}
+
+\begin{proof}
+Direct computation. The consecutive inverse pairs cancel identically: $g_j^{-1} g_j = I$ and $g_k^{-1} g_k = I$.
+\end{proof}
+
+This is an identity of the vertex-local parameterization $\Omega_{ij} = U_iU_j^{-1}$, not an approximation: transport from agent $k$ to agent $i$ is path independent whatever the frames $\phi_i$, the direct route $\Omega_{ik}$ and the indirect route $\Omega_{ij}\Omega_{jk}$ giving identical results, and it is the graph form of the Regime~I flatness stated in Section~\ref{sec:connection_forms}. Nontrivial loop products require the independent links of Section~\ref{sec:discrete_regime_ii}, of which the cocycle here is the special case $\delta_{ij} = 0$. The converse also holds: independent links whose products around every closed walk are the identity are frame aligned for some choice of frames, unique up to one common right translation on each connected component (the trivializing criterion of~\cite[Ch.~2]{DennisGaugeVFE2026}).
+
+In Regime~I the frames are more than path independent: they can be removed from every term that compares two agents.
+
+\begin{proposition}[Removability of Regime~I frames]
+\label{prop:regime1_removability}
+Let all links be frame aligned, $\Omega_{ij} = U_iU_j^{-1}$ within a level and $\Omega_{iI} = U_iU_I^{-1}$ between an agent and its parent, and define the frame-stripped laws $\tilde q_i := (U_i^{-1})_\# q_i$ and $\tilde q_I := (U_I^{-1})_\# q_I$, with $\tilde s_i$ and $\tilde s_I$ defined in the same way from the model-channel frames. Then for every pair
+\begin{equation}
+D_{\mathrm{KL}}(q_i \| \Omega_{ij} q_j) = D_{\mathrm{KL}}(\tilde q_i \| \tilde q_j),
+\qquad
+D_{\mathrm{KL}}(q_i \| \Omega_{iI} q_I) = D_{\mathrm{KL}}(\tilde q_i \| \tilde q_I),
+\label{eq:regime1_removability}
+\end{equation}
+and the same identities hold in the model channel. Consequently the alignment energies, the attention and model-coupling rows built from them, and the cross-level prior terms of the functional~\eqref{eq:free_energy_functional_final} are functions of the frame-stripped laws alone. The frames enter the functional only through terms that pair a belief with a field held in a fixed frame, such as an observation likelihood, a fixed-frame environmental agent, or a frozen prior, and after the change of variables they appear there as compensating fields: for a likelihood $\ell_i(k) = p(o_i \mid k)$ written in agent $i$'s coordinates, $\mathbb{E}_{q_i}[-\log \ell_i(k)] = \mathbb{E}_{\tilde q_i}[-\log \ell_i(U_i\tilde k)]$.
+\end{proposition}
+
+\begin{proof}
+Relative entropy is invariant under a common measurable bijection of both arguments (Theorem~\ref{thm:glk_invariance} for the Gaussian case and the $f$-divergence extension following it). Applying $U_i^{-1}$ to both arguments gives $D_{\mathrm{KL}}(q_i \| \Omega_{ij} q_j) = D_{\mathrm{KL}}((U_i^{-1})_\# q_i \| (U_i^{-1}\Omega_{ij})_\# q_j)$, and $U_i^{-1}\Omega_{ij} = U_j^{-1}$; the parent case is identical with $j$ replaced by $I$, and the model channel is identical with the model frames. The rows are functions of these energies and of frame-free source priors, so they inherit the property. The last identity is the change of variables $k = U_i\tilde k$.
+\end{proof}
+
+Frame content at a point is therefore relative to the fields held fixed (Section~\ref{sec:symmetry_breaking}); where every field is co-transformed the frames are pure redundancy. The frame $U_i$ acts here as a dressing field in the sense of the dressing-field method of gauge theory~\cite{Fournel2014Dressing}: it transforms as $U_i \mapsto g_iU_i$ under passive re-expression, so the composite $\tilde q_i$ is invariant, and the per-agent frame symmetry can be eliminated by a dressing built from the construction's own fields, which is Fran\c{c}ois's criterion for an artificial gauge symmetry~\cite{Francois2019Artificial}. The same substitution removes the parent frame $U_I$ from every constituent prior, which is the non-identifiability of the parent frame discussed in Section~\ref{sec:meta_agent_formation}.
+
+\subsubsection{Passive Re-expression, Change of Reference, and the Active Group}
+\label{sec:gauge_covariance_principle}
+
+Three different group actions are each called a gauge transformation in the literature on constructions of this kind, and we keep them apart, following the companion Theory~\cite[Ch.~2]{DennisGaugeVFE2026}. \emph{Passive re-expression} lets each agent change its own frame, $U_i \mapsto g_iU_i$ with an independent $g_i \in G$, its laws changing coordinates by $q_i \mapsto \rho(g_i)q_i$; links transform as $\Omega_{ij} \mapsto g_i\Omega_{ij}g_j^{-1}$ (Eq.~\eqref{eq:omega_gauge_law}), so $\Omega_{ij}q_j$ acquires $\rho(g_i)$ on the left and every divergence $D_{\mathrm{KL}}(q_i \| \Omega_{ij}q_j)$ is unchanged by Theorem~\ref{thm:glk_invariance}. The tuple $(g_i)$ ranges over $\prod_i G$, and these transformations are bookkeeping, a change of coordinates on each fiber. A \emph{change of reference} is a common right translation $U_i \mapsto U_ig$ by one $g \in G$ with the laws held fixed; it leaves every frame-aligned link unchanged, $\Omega_{ij} = U_iU_j^{-1} \mapsto U_igg^{-1}U_j^{-1} = \Omega_{ij}$, corresponds to moving the fixed reference point of the principal fiber against which frames are recorded, and conjugates every per-edge twist by $g$ (Section~\ref{sec:discrete_regime_ii}). The \emph{active gauge group} at a base point, the group of right-equivariant bijections of the principal fiber over that point, is a single copy of $G$ inside $\prod_i G$, a proper subgroup of dimension $\dim G$ against $|V|\dim G$ for $|V|$ agents~\cite[Ch.~2]{DennisGaugeVFE2026}. At one base point the active group is therefore one global $G$.
+
+Each action is stated at the group level. The Lie-algebra shift $\phi_i \mapsto \phi_i + \xi$ agrees with the group-level right translation $U_i \mapsto U_i\exp\xi$ only when $\xi$ commutes with $\phi_i$, since the Zassenhaus formula $\exp(\phi_i + \xi) = \exp(\phi_i)\exp(\xi)\exp(-\tfrac12 [\phi_i, \xi])\cdots$ collapses to $\exp(\phi_i)\exp(\xi)$ only when the commutator vanishes; the additive shift is a gauge transformation only for abelian groups or central $\xi$, and for the non-abelian groups used here the group-level forms are the correct statements. The attention and meta-level entropies of the functional~\eqref{eq:free_energy_functional_final} are invariant under passive re-expression because $\beta$ and $\gamma$ are functions of invariant divergences. The functional as a whole is invariant under passive re-expression exactly when all statistical fields, including the observation model and any frozen hyper-prior, are re-expressed together, and it fails to be invariant only when a fixed field is exempted from the action. It is invariant under change of reference with the observation term included, since that term contains no frame. Because the functional depends on frames only through the pointwise links $\Omega_{ij}(c)$, the change of reference may even depend on the base point, $U_i(c) \mapsto U_i(c)g(c)$, which is the fact used in Section~\ref{sec:dual_role_rigor}. What survives all three actions at a point is the relative entropy between frame-stripped laws, the per-edge twist classes of independent links, and the conjugacy classes of loop holonomies.
+
+\subsubsection{Connection Forms and Parallel Transport}
+\label{sec:connection_forms}
+
+Under the Regime~I / Regime~II convention fixed at the head of this section, the connection-form discussion below develops the vocabulary of base-direction structure; in Regime~I it is dynamically trivial. The gauge frame $\phi_i$ induces a Lie-algebra-valued one-form on agent $i$'s domain,
+\begin{equation}
+\theta^{(i)}_\mu(c) := U_i^{-1}(c) \partial_\mu U_i(c) \in \mathfrak{g},
+\label{eq:connection_form}
+\end{equation}
+where $U_i(c) = \exp[\phi_i(c)] \in G$ and $\partial_\mu = \partial/\partial c^\mu$. This is the left Maurer-Cartan form pulled back along the agent's local section $U_i: \mathcal{U}_i \to G$ on the trivializing patch $\mathcal{U}_i$, not an independent gauge potential: its curvature $d\theta + \theta \wedge \theta$ vanishes identically. This is the canonical statement of Regime~I flatness, established once here and assumed thereafter. We use the symbol $A^{(i)}_\mu$ for $\theta^{(i)}_\mu$ when the context is the frame-gradient reading; an independent gauge potential in the sense of Yang and Mills~\cite{Yang1954, Utiyama1956} would be an independent connection on the base, which is deferred base-transport structure. On overlapping regions the relation between the two agents' frame gradients follows from $U_i = \Omega_{ij} U_j$ and the chain rule,
+\begin{equation}
+\theta^{(i)}_\mu = \mathrm{Ad}(U_j^{-1})\big[\Omega_{ij}^{-1} \partial_\mu \Omega_{ij}\big] + \theta^{(j)}_\mu,
+\label{eq:theta_overlap_relation}
+\end{equation}
+where $\mathrm{Ad}(U_j^{-1})$ is the adjoint action of $U_j^{-1}$ on $\mathfrak{g}$. Equivalently, $\theta^{(i)} = h^{-1}\theta^{(j)}h + h^{-1}dh$ with $h = U_j^{-1}U_i$, the standard transformation law of a connection for a right principal action~\cite{Nakahara2003, WuYang1975}; the right Maurer-Cartan form $-(dU)U^{-1}$ obeys the same law in the form $A^{(i)} = gA^{(j)}g^{-1} - (dg)g^{-1}$ with $g = \Omega_{ij}$. The two forms differ by the left or right convention, not by any property of pure-gauge connections.
+
+\subsubsection{Gauge Field Strength: Path-Dependent Information Transport}
+\label{sec:field_strength}
+
+The field strength (curvature two-form) measures the path dependence of parallel transport along the base,
+\begin{equation}
+F^{(i)}_{\mu\nu}(c) = \partial_\mu A^{(i)}_\nu - \partial_\nu A^{(i)}_\mu + [A^{(i)}_\mu, A^{(i)}_\nu] \in \mathfrak{g}.
+\label{eq:field_strength}
+\end{equation}
+Under Regime~I the connection has the pure-gauge form $A = U^{-1}dU$, the Maurer-Cartan identity forces $F^{(i)}_{\mu\nu} = 0$ identically (Section~\ref{sec:connection_forms}), and transport around any closed base loop returns the original belief unchanged. A nonzero $F^{(i)}_{\mu\nu}$ requires an independent connection on $\mathcal{C}$, and then beliefs transported around closed base loops acquire holonomy, as a vector parallel transported around a closed triangle on a sphere returns rotated. That is base holonomy, distinct from the graph holonomy of Section~\ref{sec:discrete_regime_ii}, and no result of this paper requires it.
+
+\subsubsection{Independent Links on the Interaction Graph}
+\label{sec:discrete_regime_ii}
+
+Independently of any base connection, the interaction graph at one base point carries independent link variables, whose loop products are graph holonomies~\cite[Ch.~2]{DennisGaugeVFE2026}; in the zero-dimensional limit they are the only holonomy available. Beginning from the frame-aligned links $\Omega_{ij} = U_iU_j^{-1}$ of Regime~I, one introduces an edge variable $\delta_{ij} \in \mathbb{R}^{n_{\mathrm{gen}}}$ valued in the Lie-algebra coordinates and writes
+\begin{equation}
+\Omega_{ij} = U_i \exp\big(\delta_{ij}\cdot G\big) U_j^{-1},
+\qquad
+\delta_{ij}\cdot G \equiv \sum_{a=1}^{n_{\mathrm{gen}}} \delta_{ij}^{a} G_a \in \mathfrak{g},
+\label{eq:edge_relaxed_omega}
+\end{equation}
+with $\{G_a\}$ the structure-group generators, subject to orientation reversal
+\begin{equation}
+\delta_{ji} = -\delta_{ij},
+\qquad\text{equivalently}\qquad
+\Omega_{ji} = \Omega_{ij}^{-1},
+\label{eq:orientation_reversal}
+\end{equation}
+which is part of the companion Theory's definition of graph links~\cite[Ch.~2]{DennisGaugeVFE2026}. Without it a backtrack $i \to j \to i$ would carry holonomy and a loop and its reverse would carry unrelated traces. Setting $\delta_{ij}=0$ recovers the Regime~I cocycle and the vanishing-holonomy lemma; allowing $\delta_{ij}\neq 0$ admits nontrivial holonomy on closed cycles. With Eq.~\eqref{eq:orientation_reversal} imposed, Eq.~\eqref{eq:edge_relaxed_omega} is the lattice-gauge link variable~\cite{WilsonConfinement1974, KogutSusskind1975, Creutz1983} on the edges of an abstract interaction graph, written in a vertex-trivialized parameterization that exposes the Regime~I skeleton as a special case. Under passive re-expression $U_i \to g_i U_i$ the link is multiplied on the left by $g_i$ and on the right by $g_j^{-1}$,
+\begin{equation}
+\Omega_{ij} \longmapsto g_i \Omega_{ij} g_j^{-1},
+\label{eq:omega_gauge_law}
+\end{equation}
+the lattice-gauge transformation law for link variables~\cite[Eqs.~(3.27)--(3.28)]{WilsonConfinement1974}; see also~\cite{Creutz1983}. The link $\Omega_{ij}$ is gauge covariant, not gauge invariant. Its per-edge twist $U_i^{-1}\Omega_{ij}U_j = \exp(\delta_{ij}\cdot G)$ is unchanged by passive re-expression and is conjugated by $g$ under a change of reference $U_i \mapsto U_ig$, so each edge carries the conjugacy class of its twist, invariant under all passive and active changes at the point; for example $\operatorname{tr}\exp(\delta_{ij}\cdot G)$ is a per-edge invariant. Loop holonomies carry the remaining invariant content (the per-edge twist-invariance proposition of~\cite[Ch.~2]{DennisGaugeVFE2026}).
+
+Around a 3-cycle $i\to j\to k\to i$ on the interaction graph, the holonomy is
+\begin{equation}
+H_{ijk}
+:= \Omega_{ij}\Omega_{jk}\Omega_{ki}
+= U_i \cdot \exp(\delta_{ij}\cdot G) \exp(\delta_{jk}\cdot G) \exp(\delta_{ki}\cdot G) \cdot U_i^{-1},
+\label{eq:discrete_holonomy}
+\end{equation}
+with the interior vertex factors $U_j^{-1}U_j$ and $U_k^{-1}U_k$ collapsing as in the vanishing-holonomy lemma. Under the transformation~\eqref{eq:omega_gauge_law}, $H_{ijk} \to g_i H_{ijk} g_i^{-1}$ is conjugated at the base vertex, and orientation reversal gives $H_{ikj} = H_{ijk}^{-1}$, so the trace
+\begin{equation}
+W_{ijk} := \operatorname{Re}\operatorname{Tr}(H_{ijk})
+= \operatorname{Re}\operatorname{Tr}\big[\exp(\delta_{ij}\cdot G) \exp(\delta_{jk}\cdot G) \exp(\delta_{ki}\cdot G)\big],
+\label{eq:wilson_observable}
+\end{equation}
+is the gauge-invariant Wilson observable of the triangle. The corresponding Wilson-style holonomy penalty, driving the links toward Regime~I, is
+\begin{equation}
+S_{\mathrm{Wilson}}[\delta]
+= \beta_{\mathrm{W}} \sum_{(i,j,k)} \Big(1 - \tfrac{1}{K_q} W_{ijk}\Big),
+\label{eq:wilson_action}
+\end{equation}
+where the sum runs over the triangles of the interaction graph, each with a chosen orientation, $\beta_{\mathrm{W}}$ is the lattice coupling, and $K_q$ is the dimension of the defining representation. For compact $G$ (for example $\mathrm{SO}(N)$) the orientation does not matter, since $\operatorname{Tr}(H^{-1}) = \operatorname{Tr}(H^\top) = \operatorname{Tr}(H)$ for orthogonal $H$; moreover $\operatorname{Re}\operatorname{Tr}(H_{ijk})\le K_q$ with equality only at the identity, so the compact action is nonnegative, minimized at $H_{ijk}=I$, and forces $H_{ijk} \to I$ as $\beta_{\mathrm{W}} \to \infty$. This conclusion does not extend to noncompact $\mathrm{GL}^+(K_q)$, where the trace action is unbounded below. The conjugacy-invariant eigenvalue deviation
+\begin{equation}
+d_{\mathrm{ss}}(H):=\sum_a|\lambda_a(H)-1|
+\end{equation}
+is only a semisimple diagnostic. For
+\begin{equation}
+H_t=\begin{pmatrix}1&t\\0&1\end{pmatrix},\qquad t\ne0,
+\end{equation}
+both eigenvalues equal one although $H_t\ne I$, so $d_{\mathrm{ss}}(H_t)=0$. The Frobenius penalty detects the same shear, $\|H_t-I\|_F^2=t^2$, but it is not invariant under general conjugation: for $g=\operatorname{diag}(a,a^{-1})$, $\|gH_tg^{-1}-I\|_F^2=a^4t^2$. For $K_q\geq2$, no continuous conjugacy-invariant function of holonomy alone can be both faithful and zero only at $I$ on all of $\mathrm{GL}^+(K_q)$, because a nonidentity unipotent shear, embedded as a $2\times2$ block when $K_q>2$, can be conjugated along an orbit that accumulates at the identity. The one-dimensional group $\mathrm{GL}^+(1)=\mathbb{R}_{>0}$ is an exception: $|H-1|$ is continuous, conjugacy invariant, and vanishes only at the identity. A nonnegative plaquette penalty on $\mathrm{GL}^+(K_q)$ must therefore give up either faithfulness or conjugation invariance. A scalar relaxation parameter $\epsilon_{\mathrm{rel}}\in[0,1]$ in $\Omega_{ij}(\epsilon_{\mathrm{rel}})=U_i\exp(\epsilon_{\mathrm{rel}}\delta_{ij}\cdot G)U_j^{-1}$ interpolates between frame-aligned and independent links. We call Eq.~\eqref{eq:wilson_action} a Wilson-style holonomy penalty on an abstract graph and do not assert a continuum Yang-Mills field theory~\cite{Yang1954}. A link may also be declared a function of the agents' states, provided it satisfies Eq.~\eqref{eq:orientation_reversal} and the transformation law~\eqref{eq:omega_gauge_law}; a link computed from means expressed in a common ambient frame satisfies the latter only if that frame is itself re-expressed. For the frame-aligned links of Part~I every twist is the identity and these diagnostics vanish.
+
+\paragraph{A structural parallel: the boundary of a boundary.}
+\label{sec:boundary_of_boundary}
+Wheeler lists ``the boundary of a boundary is zero'' among the clues to it from bit~\cite{Wheeler1990}. Two identities of this section have that form. Lemma~\ref{thm:vanishing_holonomy} says that a coboundary has trivial coboundary: $\Omega_{ij} = U_iU_j^{-1}$ implies that the product around every triangle is the identity, the lowest nonabelian instance of $\delta\circ\delta = 0$. For independent links with orientation reversal~\eqref{eq:orientation_reversal}, write $P_{abc} := \Omega_{ab}\Omega_{bc}\Omega_{ca}$ for the holonomy of the face $(a,b,c)$ based at $a$. The four faces of any 3-simplex $(i,j,k,l)$ of the interaction complex satisfy the lattice Bianchi identity
+\begin{equation}
+P_{ijk} P_{ikl} P_{ilj} \big(\Omega_{ij} P_{jlk} \Omega_{ji}\big) = I,
+\label{eq:lattice_bianchi}
+\end{equation}
+whatever the individual face holonomies are: writing out the product, every edge of the boundary of the boundary is traversed once in each direction, and each pair $\Omega_{ba}\Omega_{ab} = I$ cancels. These are structural parallels only (status S). Wheeler used the principle, through the Bianchi identities of electrodynamics and geometrodynamics, to make conservation laws automatic; that route needs a source coupled to the connection, which the present construction does not have, and no conservation law is derived here.
+
+\subsection{The Hierarchy of Transport Operators}
+\label{sec:transport_hierarchy}
+
+The multi-agent, multilevel structure uses several types of transport. Intra-level belief transport $\Omega_{ij}: \mathcal{B}_{\mathrm{state}} \to \mathcal{B}_{\mathrm{state}}$ is the operator of Eq.~\eqref{eq:transport_def}, carrying agent $j$'s belief into agent $i$'s frame within one level; because $p$ and $q$ both inhabit $\mathcal{B}_{\mathrm{state}}$, the same operator transports priors, and we use the single symbol $\Omega_{ij}$ for both. The model-coupling term $\gamma_{ij}D_{\mathrm{KL}}(s_i\|\tilde{\Omega}_{ij}s_j)$ uses the model-fiber transport $\tilde{\Omega}_{ij}: \mathcal{B}_{\mathrm{model}} \to \mathcal{B}_{\mathrm{model}}$, equal to $\Omega_{ij}$ as a group element in the shared-frame configuration but acting on a different fiber; since hyper-priors $r$ and generative models $s$ both inhabit $\mathcal{B}_{\mathrm{model}}$, $\tilde{\Omega}_{ij}$ also transports hyper-priors. Cross-level transport connects hierarchical levels: bottom-up transport $\Lambda^{\ell \to \ell+1}$ aggregates transported constituent beliefs when meta-agent $I$ forms at level $\ell+1$ (Section~\ref{sec:meta_agent_formation}), with a model-channel analog aggregating constituent generative models, and top-down transport in the reverse direction supplies the lagged predictive priors of Eq.~\eqref{eq:cross_scale_shadow}.
+
+The parent-to-constituent transport $\Omega_{iI} = \exp(\phi_i^{(\ell)})\exp(-\phi_I^{(\ell+1)})$, which carries the parent's laws into agent $i$'s frame for the top-down priors, and its inverse $\Omega_{Ii}$, which carries constituent beliefs into the parent frame for the bottom-up aggregation that builds $\bar{\mu}_I$ and $\bar{\Sigma}_I$, are special cases of the general law $\Omega_{ab} = \exp(\phi_a)\exp(-\phi_b)$ with $a$ and $b$ at different levels. Any parent frame $U_I \in G$ makes $\Omega_{iI}$ a well-defined group element, so intra-level and cross-level re-expressions act through the same group. By Proposition~\ref{prop:regime1_removability} the parent frame cancels from every constituent prior in Regime~I, so its choice is a gauge convention; the construction of a parent frame from constituent frames, and its noncompact $\mathrm{GL}^+(K_q)$ caveats, are in Sections~\ref{sec:meta_agent_formation} and~\ref{sec:meta_agent_variational}.
+
+\subsection{Curvature Structure: Four Notions}
+
+Four distinct notions of curvature appear, and only the first is active in Part~I. \emph{Fiber curvature}: the fiber $\mathcal{B}$ is a Riemannian manifold, and the manifold of Gaussian distributions under the Fisher-Rao metric has sectional curvature of mixed sign for $K_q \geq 2$~\cite{Skovgaard1984}. The SPD covariance sector $\mathbb{S}^+_{K_q}$ is a Riemannian symmetric space of nonpositive curvature, and the univariate case and the location-scale family with fixed correlation reduce to hyperbolic geometry of constant negative curvature, but the full joint mean-covariance manifold admits 2-planes of strictly positive curvature: for orthonormal pure-mean directions the sectional curvature equals $+1/4$, a value that is not the supremum, since mixed mean-covariance planes reach slightly larger values. This fiber curvature governs natural-gradient flow within each fiber. \emph{Group curvature}: the Riemannian curvature of the structure group depends on the metric chosen on it. $\mathrm{SO}(3) \cong \mathbb{RP}^3$ with its bi-invariant metric has constant positive curvature, whereas $\mathrm{GL}^+(K_q)$ for $K_q \geq 2$ carries no bi-invariant Riemannian metric, so any curvature assigned to it depends on a non-canonical choice of left- or right-invariant metric~\cite{Milnor1976}. Noncommutativity is a separate, metric-free property: the order of unrelated transports matters ($\Omega_{ab}\Omega_{cd} \neq \Omega_{cd}\Omega_{ab}$ for disjoint pairs), while for chained transports through a common intermediate agent the cocycle $\Omega_{ij}\Omega_{jk} = \Omega_{ik}$ holds identically whatever the commutators. \emph{Gauge-field curvature}: the field strength $F^{(i)}_{\mu\nu}$ of Eq.~\eqref{eq:field_strength} vanishes identically in Regime~I (Section~\ref{sec:connection_forms}); a nonzero field strength requires an independent base connection, which is deferred, and the graph holonomy of independent links is a different object. \emph{Base curvature}: $\mathcal{C}$ carries no physical metric, the fiducial chart metric of the working framework is flat, and metrics that represent agent-relative geometry are induced by beliefs through pullback (Section~\ref{sec:pullback}). Reading induced curvature as gravity is a structural placeholder of Part~II (Section~\ref{sec:speculative_physics}).
+
+\subsection{Working Framework: Simplifications and Scope}
+\label{sec:working_framework}
+
+One structural fact and four simplifications keep every quantity computable in closed form. The structural fact: beliefs and priors share the latent-state manifold $\mathcal{B}_{\mathrm{state}}$, and generative models and hyper-priors share the model-parameter manifold $\mathcal{B}_{\mathrm{model}}$, both \emph{by construction} from the cross-level prior relation~\eqref{eq:cross_scale_shadow} and not as separate assumptions (Section~\ref{sec:cross_scale_shadows}). The four simplifications follow. Both fibers are Gaussian. The structure group is $G = \mathrm{GL}^+(K_q, \mathbb{R})$ acting on the belief fiber, with the compact subgroups $\mathrm{SO}(N) \subset \mathrm{GL}(N)$, including $\mathrm{SO}(3)$, as special cases for analytic clarity; a complexified group appears only in the worked signature example of Section~\ref{sec:signature_resolution}. The base manifold is flat, $\mathcal{C} = \mathbb{R}^2$ with its Euclidean chart. Gauge frames are smooth, and the field strength vanishes identically in Regime~I however fast the frames vary (Section~\ref{sec:connection_forms}).
+
+These choices give closed-form relative entropies, known curvature of the Gaussian fibers, and transparent group actions. They keep gauge covariance with nontrivial transport operators, information-geometric dynamics through Fisher metrics, multilevel hierarchical structure, curved statistical manifolds, and non-commutative group structure; they give up graph and base holonomy, non-Gaussian belief structures, heterogeneous agent types, curved base geometry, and gauge-field curvature $F_{\mu\nu}$ (Regime~I flatness).
+
+\paragraph{Matched bundles on the two-manifold structure.}
+Beliefs and priors share $\mathcal{B}_{\mathrm{state}} =: \mathcal{B}$, the representation $\rho_{\mathrm{state}} =: \rho$, and one associated bundle $\mathcal{E}_{\mathrm{state}} =: \mathcal{E}$, and models and hyper-priors share $\mathcal{B}_{\mathrm{model}}$ and $\mathcal{E}_{\mathrm{model}}$. Setting the slow subsystem aside, each agent $i$ is represented by a single section $\sigma^i: \mathcal{U}_i \to \mathcal{E}$ carrying $\sigma^i(c) = (q_i(c), p_i(c))$. This is reasonable because beliefs and priors are both probability distributions over the same underlying space, distinguished by separate components and not by separate bundle structure; what is given up is the ability to model qualitatively different belief and prior types, for example Gaussian beliefs with categorical priors. Equivalently, the canonical functional~\eqref{eq:free_energy_functional_final} contains no cross-bundle morphism coupling the model and belief channels; the two channels couple only through the frame sector and the within-channel cross-level priors of Eq.~\eqref{eq:cross_scale_shadow}. In the shared-frame configuration $\Omega_{ij}$ and $\tilde{\Omega}_{ij}$ act as the same element of $G$ in two representations; in the independent-frame configuration the model fiber carries its own $\mathrm{GL}(K_m)$ bundle and frame field $\tilde{\phi}_i$ (the option following Eq.~\eqref{eq:envelope_gradient_model}), $\tilde{\Omega}_{ij}$ becomes an independent transport, and even the structure-group identification is absent, leaving the cross-level priors as the only inter-channel coupling.
+
+\paragraph{Gaussian probability manifold.}
+The fiber is $\mathcal{B} = \{\mathcal{N}(\mu, \Sigma) : \mu \in \mathbb{R}^{K_q}, \Sigma \in \mathbb{S}^+_{K_q}\}$, with relative entropy in the closed form of Eq.~\eqref{eq:gaussian_kl}. Gaussians are the maximum-entropy distributions for given mean and covariance. They are a simplifying choice (Section~\ref{sec:statistical_manifolds}), and a non-Gaussian exponential-family fiber requires a common bijective sample-space action that preserves the family and leaves the chosen divergence computable. The Gaussian theorem below supplies this closure for linear pushforwards of Gaussian states; mixture models, heavy-tailed distributions, and density-operator fibers require separate closure and computation proofs. A complex or quantum fiber with complex-valued amplitudes is a separate program (Section~\ref{sec:open_problems}).
+
+\paragraph{Gauge group: $\mathrm{GL}(K_q)$ and its compact subgroups.}
+\label{sec:gauge_group_choice}
+The full Gaussian family on $\mathbb{R}^{K_q}$ is preserved under the affine group $x \mapsto Ax + b$ with $A \in \mathrm{GL}(K_q)$, $b \in \mathbb{R}^{K_q}$, and the relative entropy (indeed every $f$-divergence) is invariant under any common bijective change of variables, since the Jacobian factors cancel in the density ratio. Restricting to the origin-preserving linear subgroup $G = \mathrm{GL}(K_q) \subset \mathrm{Aff}(K_q)$, equivalently treating mean vectors as frame coordinates and not as elements of an affine space with translation freedom, gives the working gauge group. This is a modeling choice: $\mathrm{GL}(K_q)$ is the linear sector of the Gaussian symmetry, and the translation sector $b$, which would correspond to frame-dependent shifts of agent means, is available without being used. The invariance theorem below is the standard linear-pushforward statement~\cite{Amari2016}.
+
+\begin{theorem}[$\mathrm{GL}(K_q)$ Gauge Invariance]
+\label{thm:glk_invariance}
+For any two Gaussian distributions $P = \mathcal{N}(\mu_P, \Sigma_P)$ and $Q = \mathcal{N}(\mu_Q, \Sigma_Q)$ on $\mathbb{R}^{K_q}$, and any invertible linear transformation $\Omega \in \mathrm{GL}(K_q)$, the relative entropy is invariant under simultaneous pushforward:
+\begin{equation}
+D_{\mathrm{KL}}(\Omega_* P \| \Omega_* Q) = D_{\mathrm{KL}}(P \| Q),
+\label{eq:glk_invariance}
+\end{equation}
+where $\Omega_* P = \mathcal{N}(\Omega\mu_P, \Omega\Sigma_P\Omega^\top)$ denotes the pushforward of $P$ under $\Omega$. We assume $\Sigma_P, \Sigma_Q \succ 0$ throughout; the pushforward $\Omega\Sigma\Omega^\top$ remains positive-definite by Sylvester's law of inertia for $\Omega$ invertible. Singular $\Omega$ ($\det\Omega = 0$) is excluded by the assumption $\Omega \in \mathrm{GL}(K_q)$, which would otherwise make the pushforward degenerate.
+\end{theorem}
+
+\begin{proof}
+We use the Gaussian closed form of Eq.~\eqref{eq:gaussian_kl} (recorded again in Appendix~\ref{app:gaussian_kl}). Under the pushforwards $\Omega_* P = \mathcal{N}(\Omega\mu_P, \Omega\Sigma_P\Omega^\top)$ and $\Omega_* Q = \mathcal{N}(\Omega\mu_Q, \Omega\Sigma_Q\Omega^\top)$, the trace term satisfies
+\begin{equation}
+\operatorname{tr}\big[(\Omega\Sigma_Q\Omega^\top)^{-1}(\Omega\Sigma_P\Omega^\top)\big] = \operatorname{tr}\big[\Omega^{-\top}\Sigma_Q^{-1}\Omega^{-1}\Omega\Sigma_P\Omega^\top\big] = \operatorname{tr}(\Sigma_Q^{-1}\Sigma_P),
+\end{equation}
+the quadratic term satisfies
+\begin{align}
+&(\Omega\mu_P - \Omega\mu_Q)^\top (\Omega\Sigma_Q\Omega^\top)^{-1} (\Omega\mu_P - \Omega\mu_Q) \nonumber\\
+&= (\mu_P - \mu_Q)^\top \Omega^\top \Omega^{-\top}\Sigma_Q^{-1}\Omega^{-1}\Omega (\mu_P - \mu_Q) = (\mu_P - \mu_Q)^\top \Sigma_Q^{-1}(\mu_P - \mu_Q),
+\end{align}
+and the log-determinant term satisfies
+\begin{equation}
+\log\frac{\det(\Omega\Sigma_Q\Omega^\top)}{\det(\Omega\Sigma_P\Omega^\top)} = \log\frac{(\det\Omega)^2 \det\Sigma_Q}{(\det\Omega)^2 \det\Sigma_P} = \log\frac{\det\Sigma_Q}{\det\Sigma_P},
+\end{equation}
+the $(\det\Omega)^2$ factors canceling identically. Since all three components are invariant,
+\begin{equation}
+D_{\mathrm{KL}}(\Omega_* P \| \Omega_* Q)
+= D_{\mathrm{KL}}(P \| Q).
+\end{equation}
+\end{proof}
+
+The proof extends to all $f$-divergences: for any convex $f$ with $f(1) = 0$,
+\begin{equation}
+D_f(\Omega_* P \| \Omega_* Q) = D_f(P \| Q), \quad \forall \Omega \in \mathrm{GL}(K_q),
+\end{equation}
+since the factors $|\det\Omega|$ from the density transformation cancel in the ratio $p(x)/q(x)$. Transport operators therefore need only satisfy $\det(\Omega_{ij}) \neq 0$, and the full $\mathrm{GL}(K_q)$ acts by passive re-expression without changing any divergence. The consequence for Regime~I is Proposition~\ref{prop:regime1_removability}: applied with $\Omega = U_i^{-1}$, the theorem removes the frames from every pairwise term. The exponential parameterization $e^{\phi}$ used throughout restricts to $\det > 0$, since $\det(\exp\phi) = \exp(\operatorname{tr}\phi) > 0$, and the canonical statement of its coverage limitation is this: for $K_q \ge 2$ the real matrix exponential $\exp: \mathfrak{gl}(K_q, \mathbb{R}) \to \mathrm{GL}(K_q, \mathbb{R})$ is \emph{not} surjective onto $\mathrm{GL}^+(K_q, \mathbb{R})$. Its image is the set of matrices admitting a real logarithm, a proper subset of the identity component (matrices with negative real eigenvalues of odd algebraic multiplicity, for instance, admit no real logarithm). The parameterization includes a neighborhood of the identity but is not a global parameterization of $\mathrm{GL}^+(K_q, \mathbb{R})$; products of two exponentials are required, and by the polar factorization following Eq.~\eqref{eq:transport_def} sufficient, for full coverage of $\mathrm{GL}^+$, while the component $\det < 0$ is not reached and is reserved for future study.
+
+The gauge action on Gaussian states is $\rho(\Omega)\cdot(\mu,\Sigma)=(\Omega\mu,\Omega\Sigma\Omega^\top)$, the fundamental representation of $\mathrm{GL}(K_q)$. For belief vectors of dimension $d>3$ with $\mathrm{SO}(3)$ structure, $\rho$ decomposes into irreducibles with $d=\sum_k n_k(2j_k+1)$, where $j_k$ is the spin of the $k$-th irreducible block.
+
+\paragraph{Flat base manifold.}
+\label{sec:flat_base}
+For base-space constructions we use a flat Euclidean background chart, $\mathcal{C} = \mathbb{R}^2$ with $g_{\mathcal{C}} = \delta_{\mu\nu}$. Every integral over $\mathcal{C}$ in the functional is taken against the Lebesgue density $dc$ of this chart, and the sector thresholds of Section~\ref{sec:collective_geometry} use its metric; these are fixed background structures, so the base is not free of structure that the agents did not produce. The chart metric is a device for integration, differentiation, and support placement, not a property of the index manifold, which carries no physical metric; the metrics that represent agent-relative geometry are the pullbacks induced by beliefs (Section~\ref{sec:pullback}). Those pullbacks enter no term of the functional, so the arc of Wheeler's loop that runs from the induced geometry back to the agents is not constructed here (W5); closing it would require the induced geometry to enter the dynamics, for example as the integration measure, which is base-transport work deferred to Supplement~B~\cite{DennisGaugeVFESuppB2026}. An induced pullback has rank at most $\dim\mathcal{C}$, so on the working base $\mathbb{R}^2$ it has at most two nonzero eigenvalues. Agents occupy compact support regions $\mathcal{U}_i \subset \mathbb{R}^2$. The degenerate case $\dim\mathcal{C}=0$, with all agents at a single base point $c_*$, is the setting in which the companion Theory develops the construction~\cite[Ch.~2]{DennisGaugeVFE2026}; there coarse-graining is purely informational. These choices give up intrinsic curvature of the base, global topological effects, and compact base manifolds without boundary; curved base manifolds are deferred with the rest of the base-transport theory.
+
+\paragraph{Gauge-covariant relative entropy and the zero-dimensional limit.}
+With these simplifications the transported relative entropy $D_{\mathrm{KL}}[q_i(c) \| \Omega_{ij}(c)q_j(c)]$ is invariant under simultaneous re-expression of both arguments (Theorem~\ref{thm:glk_invariance}). When the base manifold collapses to a single point ($\dim\mathcal{C} = 0$), all frames are constants $\phi_i(c) = \phi_i$, the frame gradients and curvature vanish, $A_\mu = F_{\mu\nu} = 0$, and the integral over $\mathcal{C}$ reduces to evaluation at $c_*$. The active gauge group is then one global copy of $G$ (Section~\ref{sec:gauge_covariance_principle}), and in Regime~I the frames are removable (Proposition~\ref{prop:regime1_removability}), so the construction at a point is a system of interacting probability laws related by passive re-expressions, not a gauge theory in the physicist's sense. Its gauge content at a point consists of the independent links of Regime~II, with their per-edge twist classes and graph holonomies, and of the frames' relation to fields held in a fixed frame.
+
+With these simplifications the rung carries gauge-covariant transport between agents, information-geometric dynamics on curved statistical manifolds, and the cross-level structure on which multilevel meta-agent formation and top-down priors are built in Sections~\ref{sec:meta_agent_formation}--\ref{sec:ouroboros}. The results of this section have status P or D (Table~\ref{tab:claim_status}); the physical readings of the induced metrics (Section~\ref{sec:pullback}) and of the signature construction carry status S. With the rung's geometry fixed, the next section equips it with the consensus free-energy functional, whose descent drives the dynamics of the rest of the paper.

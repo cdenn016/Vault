@@ -1,0 +1,188 @@
+\section{The Single-Scale Consensus Free-Energy Functional}\label{sec:free_energy}
+
+A single agent that minimizes the variational free energy $F[q] = \mathbb{E}_{q}[\log q(x) - \log p(o, x)] \geq -\log p(o)$ performs approximate Bayesian inference: the bound is tight exactly when $q$ equals the posterior $p(x \mid o)$, and the functional decomposes into a complexity term $D_{\mathrm{KL}}(q \| p)$ that anchors beliefs to the prior and an accuracy term $-\mathbb{E}_{q}[\log p(o \mid x)]$ that rewards explaining observations~\cite{Friston2010, parr2022active} (preliminaries in Appendix~\ref{app:variational_prelim}). This section extends the single-agent functional to a population of agents, obtains the inter-agent coupling and its Gibbs (softmax) attention weights from a source-selection construction, and assembles the complete functional whose descent defines the dynamics of the rest of the paper. We call that object the consensus free-energy functional. It is a composite potential: it is assembled from relative entropies and has the energy-minus-entropy form of a free energy, but unlike $F[q]$ it is not an upper bound on the surprisal of any single normalized model (Section~\ref{sec:complete_free_energy}), and the name ``variational free energy'' is reserved for the single-agent bound. Its stationary points are the consensus states that serve as the paper's formal model of Wheeler's question of how one world arises out of many observer-participants (W3), a structural correspondence (status S), not a derivation.
+
+\subsection{Multi-Agent Extension: From Single Inference to Collective Dynamics}
+
+The inter-agent belief-coupling terms $\sum_{ij}\beta_{ij}D_{\mathrm{KL}}(q_i\|\Omega_{ij}q_j)$, the attention-entropy term $\tau\beta_{ij}\log(\beta_{ij}/\pi_{ij})$, and the model-channel analog with $\gamma$ do not appear in closed variational form with an inter-frame transport law in the standard free-energy-principle literature~\cite{Friston2010, parr2022active}. The closest precedent is federated inference and belief sharing~\cite{friston2024federated}, in which an agent treats a neighbor's broadcast posterior as an observation and integrates it by variational updating, with precision deciding whom to attend to. In the flat-transport case $\Omega_{ij} = I$ the alignment block satisfies $\sum_j \beta_{ij}D_{\mathrm{KL}}(q_i\|q_j) = -H(q_i) - \sum_j \beta_{ij}\mathbb{E}_{q_i}[\log q_j]$, so it equals federated inference's treatment of broadcast posteriors as observation likelihoods up to the source-independent belief entropy $-H(q_i)$, with the attention weights in the normalized-precision role; we do not match the two precision dynamics exactly. Relative to federated inference the new ingredient is the $\mathrm{GL}(K_q)$ transport, not the coupling; relative to consensus with edge maps on graphs and to gauge-equivariant networks (Section~\ref{sec:related_work}), it is the coupling of probability laws through a relative-entropy functional with state-dependent attention weights. The multi-agent functional is therefore an engineered consensus energy, not a derivation from the free-energy principle alone; we retain the principle's citations for its conceptual backbone (variational inference, the evidence lower bound, and the complexity and accuracy decomposition).
+
+The cross-scale prior has a different status. Section~\ref{sec:cross_scale_shadows} shows that the prior $p_i^{(\ell)}=\Omega_{iI}[q_I^{(\ell+1)}]$ is exact as the one-episode-lagged predictive prior of an episode-indexed joint~\cite[Ch.~12]{DennisGaugeVFE2026}; its same-time use in the energy is an energy-level simplification (Table~\ref{tab:claim_status}).
+
+The extension introduces several ingredients. Each agent $i$ carries a belief $q_i(c)$ and a prior $p_i(c)$, local sections over the base manifold $\mathcal{C}$ that this paper analyzes at a fixed point; agents carry gauge frames $\phi_i(c) \in \mathfrak{gl}(K_q)$ that encode their internal coordinate systems (Section~\ref{sec:gauge_group_choice}); transport operators $\Omega_{ij} \in \mathrm{GL}^+(K_q)$, defined as in~\eqref{eq:transport_def}, translate between frames; and presence functions $\chi_i(c)$ indicate where agents maintain beliefs. The functional combines self terms, which align each belief with its prior through $D_{\mathrm{KL}}(q_i \| p_i)$ and each generative model with its hyper-prior through $D_{\mathrm{KL}}(s_i \| r_i)$; belief coupling $\beta_{ij}D_{\mathrm{KL}}(q_i\|\Omega_{ij}q_j)$, which penalizes disagreement after transport; model coupling $\gamma_{ij}D_{\mathrm{KL}}(s_i\|\tilde{\Omega}_{ij}s_j)$, which aligns generative models; and observation terms, through which beliefs explain sensory data.
+
+Pairwise potentials $\psi_{ij}(q_i, \Omega_{ij}[q_j])$ could be chosen freely, but an arbitrary choice fixes neither the pairwise energies nor the weights with which each agent attends to them, and it has no connection to variational inference or information geometry. The construction below fixes both. The weights follow exactly from entropy-regularized minimization of a source-selection relative entropy. The pairwise energy is the relative entropy $D_{\mathrm{KL}}(q_i\|\Omega_{ij}q_j)$, with the receiver's law in the first slot (the variational, or I-projection, direction); the scope of its selection by the conditional representation theorem is stated in the status paragraph following the Gibbs solution.
+
+\subsection{Attention from a Mixture-of-Sources Consensus Energy}
+\label{sec:mixture_derivation}
+
+We obtain the inter-agent coupling and its attention weights from a source-selection construction over transported neighbors. The construction is stated at a single base point $c \in \mathcal{C}$, and all distributions and group elements below are evaluated there; integrating the pointwise functional against agent supports gives the functional over $\mathcal{C}$ of Section~\ref{sec:complete_free_energy}.
+
+\paragraph{Mixture-of-sources construction.}
+Agent $i$ (the receiver) updates its belief $q_i(k)$ by attending to a set of source agents $j$. For the purpose of the alignment energy, the construction treats agent $i$'s latent state $k$ as if drawn from one of the neighboring agents, selected by a categorical latent variable $z \in \{1, \ldots, N\}$:
+\begin{equation}
+P(k, z) = P(k \mid z) P(z),
+\label{eq:mixture_joint}
+\end{equation}
+where $P(z = j) = \pi_j$ is the prior probability of attending to agent $j$ (the source prior), and $P(k \mid z = j) = \mathcal{N}(k; \Omega_{ij}\mu_j, \Omega_{ij}\Sigma_j\Omega_{ij}^\top)$ is agent $j$'s belief transported into agent $i$'s frame by $\Omega_{ij}$. Agent $j$'s belief $q_j(k_j)$ lives in $j$'s local frame, and $\Omega_{ij}q_j$ is agent $i$'s representation of what agent $j$ believes. The model contains no observed variable: the alignment energy below is a relative entropy to the prior joint $P(k,z)$. The attention row obtained from it is the recognition-optimal source row, constant in $k$, and not the posterior source row $P(z = j \mid k) \propto \pi_j (\Omega_{ij}q_j)(k)$, which varies with $k$; the two differ by a nonnegative Jensen gap~\cite[Ch.~6]{DennisGaugeVFE2026} (the proposition on the cost of the constant-row restriction).
+
+\paragraph{Variational family.}
+We restrict the variational family to the product
+\begin{equation}
+Q(k, z) = q_i(k) \beta(z)
+\label{eq:mixture_posterior}
+\end{equation}
+and minimize its relative entropy to $P(k,z)$, where $\beta(z = j) \equiv \beta_{ij} \geq 0$ are attention weights with $\sum_j \beta_{ij} = 1$. The factorization $Q(k \mid z) = q_i(k)$ for all $z$ is a substantive structural restriction and not a tractability simplification: it imposes source independence on the consensus belief, requiring that the one belief $q_i$ serve under every candidate source $j$. Without it the minimizer of $D_{\mathrm{KL}}(Q \| P)$ over unconstrained $Q(k,z)$ is $Q = P$, with $\beta = \pi$, $Q(k \mid z{=}j) = \Omega_{ij}q_j$, and zero alignment energy, so no divergence-dependent weights and no consensus pressure on a single belief arise. The Gibbs form $\beta_{ij} \propto \pi_j \exp[-D_{\mathrm{KL}}(q_i \| \Omega_{ij}q_j)/\tau]$ derived below is therefore the exact consequence of the source-independence restriction together with the entropy-regularized relative-entropy energy, and not of the variational principle alone.
+
+\paragraph{Alignment energy.}
+For a fixed row of source templates $P(k\mid z{=}j)$, the alignment component is the relative entropy of the restricted variational law to the source-selection model,
+\begin{equation}
+\mathcal{F}_{\text{align}} = D_{\mathrm{KL}}\big(Q(k,z) \| P(k,z)\big) = \sum_j \beta_{ij} \int q_i(k) \log \frac{q_i(k) \beta_{ij}}{P(k \mid z{=}j) \pi_j} \mathrm{d}k.
+\end{equation}
+Decomposing the logarithm yields
+\begin{equation}
+\mathcal{F}_{\text{align}} = \sum_j \beta_{ij} \left[ \underbrace{\int q_i(k) \log \frac{q_i(k)}{P(k \mid z{=}j)} \mathrm{d}k}_{= D_{\mathrm{KL}}(q_i \| \Omega_{ij} q_j)} + \log \beta_{ij} - \log \pi_j \right].
+\label{eq:mixture_free_energy}
+\end{equation}
+The identification of the integral with $D_{\mathrm{KL}}(q_i \| \Omega_{ij} q_j)$ follows from the definition of the relative entropy after setting $P(k \mid z{=}j) = (\Omega_{ij} q_j)(k)$. It is an exact row identity for fixed templates; the dependence of the templates on the other agents' beliefs is addressed in the status paragraph below. Defining the alignment energy $E_{ij} \equiv D_{\mathrm{KL}}(q_i \| \Omega_{ij} q_j)$ gives
+\begin{equation}
+\mathcal{F}_{\text{align}} = \sum_j \beta_{ij} \big( E_{ij} + \log \beta_{ij} - \log \pi_j \big).
+\label{eq:mixture_energy_entropy}
+\end{equation}
+For a uniform source prior $\pi_j = 1/N$ this has the energy-minus-entropy form $\mathcal{F}_{\text{align}} = \langle E \rangle_\beta - H(\beta) + \text{const}$, with $H(\beta) = -\sum_j \beta_{ij} \log \beta_{ij}$ the entropy of the attention distribution. For a non-uniform prior the prior term depends on $\beta$, and $\mathcal{F}_{\text{align}} = \langle E \rangle_\beta - H(\beta) - \sum_j \beta_{ij} \log \pi_j = \langle E \rangle_\beta + D_{\mathrm{KL}}(\beta_i \| \pi)$.
+
+\paragraph{Minimization and the Gibbs solution.}
+Minimizing $\mathcal{F}_{\text{align}}$ with respect to $\beta_{ij}$ subject to $\sum_j \beta_{ij} = 1$ with a Lagrange multiplier,
+\begin{equation}
+\mathcal{L} = \sum_j \beta_{ij}(E_{ij} + \log \beta_{ij} - \log \pi_j) - \lambda\left(\sum_j \beta_{ij} - 1\right),
+\end{equation}
+the stationarity condition $\partial \mathcal{L} / \partial \beta_{ik} = 0$ gives
+\begin{equation}
+E_{ik} + \log \beta_{ik} + 1 - \log \pi_k - \lambda = 0.
+\end{equation}
+Solving and normalizing gives Gibbs weights over the sources, at unit temperature with energies $E_{ik}$ and prior weights $\pi_k$,
+\begin{equation}
+\beta_{ik} = \frac{\pi_k \exp(-E_{ik})}{\sum_m \pi_m \exp(-E_{im})}.
+\label{eq:softmax_attention_general}
+\end{equation}
+With $\operatorname{softmax}_k(x_k) = e^{x_k}/\sum_m e^{x_m}$, a uniform source prior $\pi_k = 1/N$ gives
+\begin{equation}
+\boxed{\beta_{ik} = \operatorname{softmax}_k(-E_{ik}) = \operatorname{softmax}_k\big(-D_{\mathrm{KL}}(q_i \| \Omega_{ik} q_k)\big).}
+\label{eq:mixture_softmax}
+\end{equation}
+A temperature $\tau>0$ is introduced by writing the entropy-regularized objective as $\sum_j\beta_{ij}E_{ij}+\tau\sum_j\beta_{ij}\log(\beta_{ij}/\pi_j)$, whose minimizer is the Gibbs row at temperature $\tau$,
+\begin{equation}
+\beta_{ik}
+= \frac{\pi_k\exp(-E_{ik}/\tau)}{\sum_m \pi_m\exp(-E_{im}/\tau)}.
+\end{equation}
+The energy carries the factor $1/\tau$, while the prior $\pi_k$ enters at unit log-weight. The energies, the temperature, and the weights are dimensionless, with relative entropies measured in nats. For $\tau \neq 1$ the tempered objective is not the relative entropy of the source-selection model above; that identification holds only at $\tau = 1$.
+
+In the special case of a single base point with isotropic Gaussian beliefs of a common covariance and trivial frames, the energies reduce to scaled squared distances between means, and with a separately introduced bilinear compatibility between the compared vectors the Gibbs row reduces to the scaled dot-product attention of machine-learning sequence models~\cite{vaswani2017attention}. That limit, its variants, and its empirical study are developed in a companion paper~\cite{DennisGLKAttention2026}; none of it is used in the present paper.
+
+\paragraph{Status of the construction.} The mixture-of-sources construction is a consensus-energy ansatz, not a derivation from a fixed state-level generative model: the component laws $P(k \mid z{=}j) = \Omega_{ij}q_j$ depend on the variational beliefs $q_j$ of other agents, so the row model moves when the population state moves. Retaining the entropy and prior term makes the resulting population functional a scalar potential whose row optimum has the log-partition value derived in Section~\ref{sec:complete_free_energy}. The choice of divergence is characterized by the conditional representation theorem (Appendix~\ref{app:conditional_representation}, Theorem~\ref{thm:representation_app}) within the class fixed by that appendix's assumptions (an $f$-divergence coupling, linear coupling in the weights, and exponential-family closure of the minimizer) and the real-analyticity hypothesis on the generator $f$. Within that class, the relative entropy $D_{\mathrm{KL}}(q_i\|\Omega_{ij}q_j)$ is the unique $f$-divergence for which agent $i$'s best response, with neighbor beliefs and attention held fixed, is the geometric-mean Boltzmann form. In the joint scalar functional, where each belief is also a transported template in its neighbors' rows, no nonzero $f$-divergence yields free-form exponential-family closure, and a Gaussian family imposes closure by restriction. The theorem therefore does not select the divergence of the joint functional; that divergence is declared here, as it is in the companion theory~\cite[Chs.~6 and~12]{DennisGaugeVFE2026}. Theorem~\ref{thm:state_level_elbo_nogo} proves that the within-level terms cannot, on an open mean-field family, equal the negative evidence lower bound of one fixed joint on the original agent-state variables. The obstruction does not exclude the exact zero-coupling hierarchical joint, the equilibrium-frozen auxiliary construction of Theorem~\ref{thm:self_consistent_source_equilibrium}, or the belief-configuration Gibbs lift of Theorem~\ref{thm:belief_configuration_gibbs_lift}.
+
+\paragraph{Non-uniform source priors.} The source prior $\pi_j$ in~\eqref{eq:softmax_attention_general} carries structural prior knowledge about which sources are available and how likely each is to be relevant, independently of the current beliefs. Zero prior mass removes a source from the row altogether, so an availability or ordering restriction is a prior with restricted support; a prior that decays with a declared distance between agents encodes locality; and any such prior enters the logits additively as $\log\pi_j$, outside the factor $1/\tau$. If the self pair is admitted, $\Omega_{ii} = I$ gives $E_{ii} = 0$, the smallest energy in the row, so under a prior uniform on the support the self pair carries the largest weight; a prior that removes or down-weights $j = i$ is a separate modeling choice. The source prior is an input of the model; only the Gibbs form of the row is derived.
+
+\subsection{Transport and Frame Redundancy}
+\label{sec:gauge_transport_arbitrary}
+
+The transport operators are pointwise frame transformations defined as in~\eqref{eq:transport_def}, with $\Omega_{ij}(c) \in \mathrm{GL}^+(K_q)$ and $\phi_i: \mathcal{U}_i \to \mathfrak{gl}(K_q)$ agent $i$'s frame field. They act on latent vectors through a representation $\rho$, $\Omega_{ij}[k_j] := \rho(\Omega_{ij}) k_j \in \mathbb{R}^{K_q}$ and $\tilde{\Omega}_{ij}[m_j] := \rho(\tilde{\Omega}_{ij}) m_j \in \mathbb{R}^{K_m}$; in the fundamental representation this is multiplication by an invertible matrix.
+
+Under a common right translation $U_i(c) \mapsto U_i(c) g(c)$ of all frames every transport operator is unchanged, $\Omega_{ij}(c) \mapsto U_i(c) g(c) g(c)^{-1} U_j(c)^{-1} = \Omega_{ij}(c)$, so this change of reference (Section~\ref{sec:gauge_covariance_principle}) changes no term of the functional; the additive form $\phi_i \mapsto \phi_i + \xi$ represents it only when $\xi$ commutes with every $\phi_i$. At a single base point the active symmetry is one global copy of $G$ acting on frames and beliefs together, and the Regime~I frames can be removed from every alignment term by transporting each belief into a common frame (Proposition~\ref{prop:regime1_removability}), since $D_{\mathrm{KL}}(q_i \| U_iU_j^{-1}q_j) = D_{\mathrm{KL}}(U_i^{-1}q_i \| U_j^{-1}q_j)$ by Theorem~\ref{thm:glk_invariance}. On a base of dimension at least one the frame fields also induce the connection form of Eq.~\eqref{eq:connection_form} and the field strength of Eq.~\eqref{eq:field_strength}, flat in Regime~I (Section~\ref{sec:connection_forms}), with path-ordered transport $\Omega_\gamma = \mathcal{P}\exp(-\int_\gamma A_\mu \mathrm{d}x^\mu)$ along a path $\gamma$ and trivial holonomy for the vertex-local transport (Lemma~\ref{thm:vanishing_holonomy}). Transport along the base lies outside the single-point analysis of this paper and is deferred to the companion treatment of covers and connection descent~\cite[Ch.~B4]{DennisGaugeVFESuppB2026}.
+
+\subsection{Base Priors and the Population Construction}
+
+At intermediate levels each agent's prior $p_i$ and hyper-prior $r_i$ are set by the parent meta-agent through Eq.~\eqref{eq:cross_scale_shadow}, exact in the one-episode-lagged sense and used at the same time in the energy: $p_i^{(\ell)}(k_i; c) = \mathcal{N}(k_i; \mu_{0,i}^{(q)}(c), \Sigma_{0,i}^{(q)}(c))$ regularizes the latent state $k_i$ with parameters determined by $\Omega_{iI}[q_I^{(\ell+1)}]$, and $r_i^{(\ell)}(m_i; c) = \mathcal{N}(m_i; \mu_{0,i}^{(s)}(c), \Sigma_{0,i}^{(s)}(c))$ regularizes the generative-model parameters $m_i$ with parameters determined by $\tilde\Omega_{iI}[s_I^{(\ell+1)}]$. Different agents receive different prior parameters through different transport operators $\Omega_{iI}$ and the spatial profile of the parent's belief field, not through independent inductive biases. Because $p_i$ moves with the parent belief, treating it as fixed on the fast timescale requires the parent laws to enter only between episodes (Section~\ref{sec:timescales}), a schedule that is assumed and not derived. The population construction at each point $c$ combines the single-agent terms~\cite{Friston2010, parr2022active} with the two row-wise source-selection alignments derived above: the belief channel uses $\beta_{ij}(c)$ and $\Omega_{ij}(c)$, and the model channel uses $\gamma_{ij}(c)$ and $\tilde{\Omega}_{ij}(c)$. At the top level, where no parent exists, $r_i^{(\ell_{\max})}$ is a declared root (Section~\ref{sec:ouroboros}).
+
+\subsection{The Pointwise Consensus Functional}
+
+At a single point $c \in \mathcal{C}$ the consensus free-energy functional is
+\begin{equation}
+\begin{aligned}
+\mathcal{F}(c) &= \sum_i D_{\mathrm{KL}}(q_i(c) \| p_i(c)) + \lambda_h \sum_i D_{\mathrm{KL}}(s_i(c) \| r_i(c)) \\
+&\quad + \sum_{i,j} \beta_{ij}(c) D_{\mathrm{KL}}\big(q_i(c) \big\| \Omega_{ij}(c)q_j(c)\big) + \tau \sum_{i,j} \beta_{ij}(c) \log\frac{\beta_{ij}(c)}{\pi_{ij}(c)} \\
+&\quad + \sum_{i,j} \gamma_{ij}(c) D_{\mathrm{KL}}\big(s_i(c) \big\| \tilde{\Omega}_{ij}(c)s_j(c)\big) + \tau_\gamma \sum_{i,j} \gamma_{ij}(c) \log\frac{\gamma_{ij}(c)}{\pi^{(s)}_{ij}(c)} \\
+&\quad - \sum_i \mathbb{E}_{q_i(c) \otimes s_i(c)}\big[\log p(o_i(c) \mid k_i, m_i)\big],
+\end{aligned}
+\label{eq:pointwise_free_energy}
+\end{equation}
+where $\beta_{ij}(c)$ and $\gamma_{ij}(c)$ are free variational parameters (one normalized row per agent and channel), $\pi_{ij}(c)$ and $\pi^{(s)}_{ij}(c)$ are the source priors of the two channels (Section~\ref{sec:mixture_derivation}), and $\tau > 0$ and $\tau_\gamma > 0$ are the belief-channel and model-channel temperatures. In the observation term $k_i \sim q_i(c)$ is agent $i$'s latent state, $m_i \sim s_i(c)$ its generative-model parameter, and $o_i(c)$ its observation at $c$; a record shared by all agents is the special case $o_i = o$.
+
+\paragraph{Typing of the observation term.} The observation term is typed jointly in $(k_i, m_i)$ because the evidence bound forces this typing. For agent $i$'s private block, with prior $p_i(\mathrm{d}k) r_i(\mathrm{d}m)$, likelihood $p(o_i \mid k, m)$, and any recognition law $\zeta_i$ on $(k_i, m_i)$ with marginals $q_i$ and $s_i$, the negative evidence lower bound is $D_{\mathrm{KL}}(\zeta_i \| p_i \otimes r_i) - \mathbb{E}_{\zeta_i}[\log p(o_i \mid k_i, m_i)]$, the energy form of the collective free energy~\cite[Ch.~5]{DennisGaugeVFE2026}, and
+\begin{equation}
+D_{\mathrm{KL}}(\zeta_i \| p_i \otimes r_i) = D_{\mathrm{KL}}(q_i \| p_i) + D_{\mathrm{KL}}(s_i \| r_i) + I_{\zeta_i}(K; M),
+\label{eq:observation_typing_ledger}
+\end{equation}
+which follows by writing $\log[\zeta_i/(p_i r_i)] = \log[\zeta_i/(q_i s_i)] + \log(q_i/p_i) + \log(s_i/r_i)$ and taking the $\zeta_i$-expectation. Under the product restriction $\zeta_i = q_i \otimes s_i$ the mutual information vanishes, and the block contributes the two self terms, with $\lambda_h = 1$, and the observation term of~\eqref{eq:pointwise_free_energy}. The predictive form $-\mathbb{E}_{q_i}[\log \int p(o_i \mid k_i, m) s_i(\mathrm{d}m)]$ lies below the joint term by the Jensen gap $\mathbb{E}_{q_i}[D_{\mathrm{KL}}(s_i \| s_i^{(o,k)})] \geq 0$, where $s_i^{(o,k)}(\mathrm{d}m) \propto p(o_i \mid k, m) s_i(\mathrm{d}m)$; paired with $D_{\mathrm{KL}}(s_i \| r_i)$ it is not the negative evidence lower bound of the block and can fall below the block's surprisal.
+
+\paragraph{Temperature.} The temperature may be parameterized as $\tau = \kappa\sqrt{K_q}$ with a dimensionless constant $\kappa$. For independent coordinates the spread of the energies $E_{ij}$ across sources grows as $\sqrt{K_q}$, so this choice keeps logit differences of order one as $K_q$ varies; it does not normalize the absolute logits. On the model fiber the same rule gives $\tau_\gamma = \kappa\sqrt{K_m}$, which equals $\tau$ only when $K_m = K_q$ or when one temperature is declared for both channels. The temperature is not a variational parameter of $\mathcal{F}$. With $Z_i = \sum_j \pi_{ij} e^{-E_{ij}/\tau}$, the row value at the Gibbs weights is $-\tau \log Z_i$ (Section~\ref{sec:complete_free_energy}), and, using $\log(\beta^*_{ij}/\pi_{ij}) = -E_{ij}/\tau - \log Z_i$,
+\begin{equation}
+\frac{\partial}{\partial \tau}\big(-\tau \log Z_i\big) = -\log Z_i - \frac{\langle E_i \rangle_{\beta_i^*}}{\tau} = D_{\mathrm{KL}}(\beta_i^* \| \pi_i) \geq 0,
+\end{equation}
+the analog of $\partial F/\partial T = -S$ with $S = -D_{\mathrm{KL}}(\beta_i^* \| \pi_i) \leq 0$. Minimizing $\mathcal{F}$ over $\tau$ therefore drives $\tau \to 0^+$, where $-\tau \log Z_i \to \min_j E_{ij}$ on the support of $\pi_i$ and each row collapses onto its lowest-energy source. The constant $\kappa$ is accordingly declared as part of the model, and an objective that adapts it must be external to $\mathcal{F}$.
+
+\subsection{The Complete Consensus Functional}
+\label{sec:complete_free_energy}
+
+\paragraph{Status of the functional.} The functional displayed below is an ansatz, not a theorem. Its form was fixed by requiring every term to transform covariantly under the frame changes of Section~\ref{sec:one_rung}, together with the source-selection reading of Section~\ref{sec:mixture_derivation}; it is not obtained from a single normalized generative model over the joint population state (Theorem~\ref{thm:state_level_elbo_nogo}). In the terminology of the companion theory it is a composite potential, a descent potential assembled from normalized pieces that carries no evidence interpretation of its own~\cite[Ch.~12]{DennisGaugeVFE2026}. Where normalized laws are required the companion supersedes it: its population objective is one collective evidence bound~\cite[Ch.~5]{DennisGaugeVFE2026}, and pairwise divergences enter an evidence bound there only as terms of a normalized Gibbs prior inside the tower free energy~\cite[Ch.~12]{DennisGaugeVFE2026}. Given the functional, the Gibbs attention row~\eqref{eq:beta_optimal} and the reduced row value $-\tau \log Z_i$ follow exactly, as shown below and in Appendix~\ref{app:gradients}. The geometric-mean Boltzmann form of the belief update holds only for the frozen-neighbor best response of Section~\ref{sec:mixture_derivation}; at a stationary point of the complete functional each belief also responds to the rows in which it is a sender, and the geometric pool is not stationary there. Because the belief entropy enters through the self term and through each of agent $i$'s alignment rows, the functional weights $H(q_i)$ by $1 + B_i$ with $B_i := \sum_j \beta_{ij} = 1$, so the frozen-row best response is a Gibbs state at temperature two in units in which Bayesian updating has temperature one (Appendix~\ref{app:covariance_dynamics}).
+
+The exact probabilistic status of the attention row is established in the companion theory, and it bounds what may be claimed here. On a sample space enlarged by a source label with prior $\pi_i$ and a record likelihood proportional to $\exp(-D_{ij}/\tau)$, the optimal recognition row held constant in the latent state is the Gibbs row of the expected energies, and the row contributes $D_{\mathrm{KL}}(\beta_i \| \pi_i) + \tau^{-1}\sum_j \beta_{ij} \mathbb{E} D_{ij}$ to the negative evidence lower bound~\cite[Ch.~6]{DennisGaugeVFE2026} (the proposition on exact posterior and recognition attention). The row block of Eq.~\eqref{eq:free_energy_functional_final} is $\tau$ times this quantity, so for $\tau \neq 1$ it is not a sector of one evidence bound alongside the unit-weight self and observation terms~\cite[Ch.~12]{DennisGaugeVFE2026} (the proposition on Gibbs rows). A second condition arises when the source records are Gaussian links. Let $y_i \mid y_j, J_i = j \sim \mathcal{N}(\Omega_{ij} y_j, L_{ij})$, with the sources topologically ordered so that the links define a normalized directed joint, and let the recognition be mean-field Gaussian with $q_j = \mathcal{N}(\mu_j, \Sigma_j)$. With $A_{ij} = \Omega_{ij}\Sigma_j\Omega_{ij}^\top$, the coordinate update of the label is
+\begin{equation}
+\log \beta_{ij} = \log \pi_{ij} - \tfrac{1}{2}\log\det L_{ij} - \tfrac{1}{2}\operatorname{tr}\big[L_{ij}^{-1}(\Sigma_i + A_{ij})\big] - \tfrac{1}{2}(\mu_i - \Omega_{ij}\mu_j)^\top L_{ij}^{-1}(\mu_i - \Omega_{ij}\mu_j) + \text{const},
+\end{equation}
+while $-E_{ij}/\tau = -\frac{1}{2\tau}[\operatorname{tr}(A_{ij}^{-1}\Sigma_i) + (\mu_i - \Omega_{ij}\mu_j)^\top A_{ij}^{-1}(\mu_i - \Omega_{ij}\mu_j) - K_q + \log\det A_{ij} - \log\det\Sigma_i]$. Matching the two as an identity in the unconstrained sender mean forces $L_{ij} = \tau A_{ij}$; the trace terms then agree up to a source-independent constant, and the log-determinants leave the extra source-dependent logit $-\tfrac{1}{2}(1 - 1/\tau)\log\det(\Omega_{ij}\Sigma_j\Omega_{ij}^\top)$, which vanishes for every configuration only at $\tau = 1$. The row at the operating temperature is therefore the exact coordinate update of no model in this family, and the tie $L_{ij} = \tau A_{ij}$ sets a generative parameter equal to a recognition covariance, so the joint is fixed only if $\Sigma_j$ is frozen at its current value during the update; the tie is a declared postulate and not a stationary point of the same objective. None of this alters the status of the functional as an ansatz, and none of it is needed for the consequences derived below, which follow from the functional as posited.
+
+Extending to fields over the base manifold $\mathcal{C}$ with presence functions $\chi_i(c)$, we obtain the canonical functional of this paper:
+\begin{equation}
+\boxed{
+\begin{aligned}
+\mathcal{F}[\{q_i\}, \{p_i\}, \{s_i\}, \{r_i\}, \{\phi_i\}, \{\beta_{ij}\}, \{\gamma_{ij}\}]
+&= \sum_i \int_{\mathcal{C}} \chi_i(c) D_{\mathrm{KL}}(q_i(c) \| p_i(c)) \mathrm{d}c \\
+&\quad + \lambda_h \sum_i \int_{\mathcal{C}} \chi_i(c) D_{\mathrm{KL}}(s_i(c) \| r_i(c)) \mathrm{d}c \\
+&\quad + \sum_{i} \int_{\mathcal{C}} \chi_i(c) \sum_j \Big[\beta_{ij}(c) D_{\mathrm{KL}}(q_i \| \Omega_{ij} q_j) + \tau \beta_{ij}(c) \log\tfrac{\beta_{ij}(c)}{\tilde{\pi}_{ij}(c)}\Big] \mathrm{d}c \\
+&\quad + \sum_{i} \int_{\mathcal{C}} \chi_i(c) \sum_j \Big[\gamma_{ij}(c) D_{\mathrm{KL}}(s_i \| \tilde{\Omega}_{ij} s_j) + \tau_\gamma \gamma_{ij}(c) \log\tfrac{\gamma_{ij}(c)}{\tilde{\pi}^{(s)}_{ij}(c)}\Big] \mathrm{d}c \\
+&\quad - \sum_i \int_{\mathcal{C}} \chi_i(c) \mathbb{E}_{q_i(c) \otimes s_i(c)}\big[\log p(o_i(c) \mid k_i, m_i)\big] \mathrm{d}c,
+\end{aligned}
+}
+\label{eq:free_energy_functional_final}
+\end{equation}
+where the sender-presence-weighted prior is $\tilde{\pi}_{ij}(c) := \chi_j(c)\pi_{ij}(c) / \sum_k \chi_k(c)\pi_{ik}(c)$, defined where $\chi_i(c) > 0$ and the denominator is positive (and analogously $\tilde{\pi}^{(s)}_{ij}$), and the observation term carries the joint typing of the pointwise functional. The weight $\lambda_h > 0$ on the model-channel self term equals $1$ when the self and observation terms form the evidence bound of each agent's private block (the typing paragraph above); setting $\lambda_h = 0$ freezes the slow subsystem, a special case that a prospective test must declare explicitly. The same $\lambda_h$ weights the depth-one model coupling of Eq.~\eqref{eq:ouroboros_F} and is held fixed across levels by assumption in the hierarchical coarse-graining of Section~\ref{sec:rg_status}; the exact coarse-graining is not shown to preserve it, and at one loop it shifts a coefficient of the same kind, the parent's entropy weight, in proportion to cluster size (Eq.~\eqref{eq:rg_entropy_shift}). The belief self term $D_{\mathrm{KL}}(q_i \| p_i)$ is shown with unit weight, the $\alpha = 1$ specialization of the per-agent self-coupling weight $\alpha_i(c)$; promoting this weight to a state-dependent variational parameter is the generalization developed in Section~\ref{sec:precision_envelope}. Differentiating the row Lagrangian $L_i = \int \chi_i \sum_j[\beta_{ij}D_{\mathrm{KL}}(q_i \| \Omega_{ij} q_j) + \tau\beta_{ij}\log(\beta_{ij}/\tilde{\pi}_{ij})] - \lambda_i(c)(\sum_j \beta_{ij} - 1)$ and imposing the row-normalization constraint $\sum_j \beta_{ij}(c) = 1$ yields the closed-form Gibbs row
+\begin{equation}
+\beta_{ij}^*(c) =
+\frac{
+  \chi_{j}(c)\pi_{ij}(c)\exp\left[
+    -\tfrac{1}{\tau}D_{\mathrm{KL}}\big(q_i(c) \big\| \Omega_{ij}q_j(c)\big)
+  \right]
+}{
+  \displaystyle\sum_{k}
+  \chi_{k}(c)\pi_{ik}(c)\exp\left[
+    -\tfrac{1}{\tau}D_{\mathrm{KL}}\big(q_i(c) \big\| \Omega_{ik}q_k(c)\big)
+  \right]
+}.
+\label{eq:beta_optimal}
+\end{equation}
+The receiver presence $\chi_i(c)$ multiplies the whole row and does not affect its minimizer. The sender presence $\chi_j(c)$ enters multiplicatively in numerator and denominator, so $\beta^*_{ij}(c)$ vanishes where $\chi_j(c) = 0$ and reduces to the prior-weighted Gibbs row where all senders are fully present; for hard masks $\chi_j \in \{0, 1\}$ it is the Gibbs row restricted to the active set $\mathcal{J}_i(c) = \{j : \chi_j(c) = 1\}$. The result is the general solution~\eqref{eq:softmax_attention_general} in pair-indexed form, and a uniform prior on the active set recovers~\eqref{eq:mixture_softmax}. The model-channel weights $\gamma_{ij}^*(c)$ have the analogous form, with $\tau_\gamma$, $\tilde{\Omega}_{ij}$, $s_j$, and $\pi^{(s)}_{ij}$ in place of $\tau$, $\Omega_{ij}$, $q_j$, and $\pi_{ij}$.
+
+Here $\chi_i(c) \in [0, 1]$ is agent $i$'s presence function. Each alignment row is weighted by its receiver's presence, as the self and observation terms are, and the sender presences are carried inside $\tilde{\pi}_{ij}$, so that the row-simplex constraint $\sum_j \beta_{ij}(c) = 1$ is uniform across pairs. Absorbing the full pairwise presence $\chi_i\chi_j$ into the prior instead would cancel $\chi_i$ between numerator and denominator and leave the row with unit weight where agent $i$ is absent, which is why the receiver presence multiplies the row explicitly. This bookkeeping is the convention for every later restatement of the alignment terms. We adopt the smooth-section convention $\chi_i: \mathcal{C} \to [0, 1]$ in place of a hard $\{0, 1\}$ indicator, because the bundle language of Section~\ref{sec:agents_as_sections} requires agents to be smooth sections over open domains, and a discontinuous $\chi_i$ would make the integrands distributional at support boundaries; the informal $\chi_i \in \{0, 1\}$ is the sharply localized limit.
+
+Setting $\gamma_{ij} = 0$ freezes model alignment, a case that a prospective test must declare separately from an active model channel. The model-alignment term is retained because consensus on generative models, the content of $\gamma_{ij}D_{\mathrm{KL}}(s_i\|\tilde{\Omega}_{ij}s_j)$, is required by the meta-agent and declared-root constructions of Sections~\ref{sec:meta_agent_formation}--\ref{sec:ouroboros}. Stiffness terms (Section~\ref{sec:mass}) are optional additions at a point. A Yang-Mills penalty~\cite{Yang1954} on the curvature of Eq.~\eqref{eq:field_strength} vanishes identically for Regime-I frames by the Maurer-Cartan identity (Section~\ref{sec:connection_forms}); a nonzero lattice action belongs to the independent-link sector of Section~\ref{sec:discrete_regime_ii}; and base-direction regularizers such as frame-field smoothness belong to base transport, deferred to~\cite[Ch.~B4]{DennisGaugeVFESuppB2026}.
+
+\paragraph{Complete functional versus the entropy-suppressed surrogate.}
+The boxed functional~\eqref{eq:free_energy_functional_final} includes the attention entropy and prior terms explicitly. For one row, write
+\begin{equation}
+\mathcal{F}_{i,\mathrm{full}}(\beta,x)=\sum_j\beta_{ij}E_{ij}(x)+\tau\sum_j\beta_{ij}\log\frac{\beta_{ij}}{\tilde\pi_{ij}},
+\qquad
+Z_i(x)=\sum_j\tilde\pi_{ij}\exp\left[-\frac{E_{ij}(x)}{\tau}\right].
+\label{eq:attention_full_reduced_identity}
+\end{equation}
+Minimization on the row simplex gives $\beta_{ij}^*=\tilde\pi_{ij}\exp(-E_{ij}/\tau)/Z_i$ and the exact identity
+\begin{equation}
+\mathcal{F}_{i,\mathrm{full}}(\beta^*(x),x)=\mathcal{F}_{i,\mathrm{red}}(x)=-\tau\log Z_i(x).
+\label{eq:attention_full_equals_reduced}
+\end{equation}
+The row stationarity condition makes the explicit $\mathrm{d}\beta^*/\mathrm{d}x$ terms cancel, so
+\begin{equation}
+\mathrm{d}\mathcal{F}_{i,\mathrm{red}}=\sum_j\beta_{ij}^*\mathrm{d}E_{ij}.
+\label{eq:attention_envelope_differential}
+\end{equation}
+The entropy-suppressed quantity $S_i(x):=\sum_j\beta_{ij}^*(x)E_{ij}(x)$ is a different scalar potential. Differentiating every occurrence of $x$ gives $\mathrm{d}S_i=\sum_j\beta_{ij}^*\mathrm{d}E_{ij}-\tau^{-1}\operatorname{Cov}_{\beta_i^*}(E_{ij},\mathrm{d}E_{ij})$. Its Hessian remains symmetric wherever the energies are twice continuously differentiable; the response term shows only that $S_i\neq\mathcal{F}_{i,\mathrm{red}}$, not that $S_i$ is nonintegrable. A nonintegrable field arises only after an additional asymmetric approximation that keeps the receiver-row derivatives and drops the sender-row derivatives of the same scalar. The dynamics of this paper descend the complete functional: the reduced rows~\eqref{eq:attention_full_reduced_identity} of both alignment channels are added to one scalar, and that scalar is differentiated. Neither the entropy-suppressed surrogate nor the receiver-only field is used.
+
