@@ -1,0 +1,17 @@
+# Cross-chunk notes addressed to C03
+
+(from C00) The table asserts corrected statuses that owning chunks must match: Regime I removability and one active global G (C01, P); cocycle/Bianchi parallel (C01, P/S); observations break the diagonal left action, not U_i->U_i g (C03, P); adaptive precision a declared penalty (C03, D); adiabatic hierarchy C; stiffness/friction and unit frequency under kinetic postulate (C05); Karcher uniqueness for rotation angle < pi/2 (C06, P); licensing C, detector S (C06); shadow = one-episode-lagged predictive prior D, same-time form S (C07); declared root P, apex feedback structure S (C07); clock identity autonomous single-rate only (C09, P); binary registration proposition inside sec:time_info (C09, D); meta-clock ratio D, contraction P, arc length C (C09); covariant Fisher block invariant (P, Supp. B Ch. B2); signature P under P4, pure gauge in Regime I, selection C (C09); consensus-metric obstruction restricted to frame-twist block and continuum/noncompact limits (C10); rock covariance reduced by 1/(1+beta) (C11, D); rho(L)<2 (C12, P); Banach contraction isotropic only (C13).
+
+(from C01) C03: C01 states the functional is invariant under change of reference with observations included (L04-1) and cites sec:timescales for 'no frame-gradient term' (orig 958 must survive) and sec:symmetry_breaking for fixed-frame environmental agents; frame-flow equivariance (L01-8) is C03's.
+
+(from C02) C00/C03/C08/C10/C11/abstract: F is now named 'the consensus free-energy functional', a composite potential (Theory Ch. 12), not a bound; 'variational free energy' reserved for the single-agent bound; section/subsection titles changed (labels kept); abstract must not call F a variational free energy.
+
+(from C02) C03: observation terms at 750, 918, 941 should use joint typing -E_{q_i⊗s_i}[log p(o_i(c)|k_i,m_i)]; 834/846 must cite eq:attention_full_reduced_identity (tempered row) not eq:mixture_energy_entropy (L04-8a); envelope gradient 852-854 needs receiver presence chi_i and tilde-pi_ij = chi_j pi_ij / sum_k chi_k pi_ik (L04-5); model channel temperature is tau_gamma; prior timescale assignments 931/937/947/994 must match p_i as lagged parent shadow held fixed only under an assumed slower parent schedule (L07-4); L07-5 frame metric is C03's.
+
+(from C08) C03: C08 uses eq:gauge_natural_gradient and the notation G_eta. C09: C08 cites sec:time_info and eq:clock_dissipation (single-rate form) and says Part II adds a binary registration channel. C07: C08 names sec:ouroboros as the home of the declared root, and describes eq:cross_scale_shadow as the one-episode-lagged predictive prior under a transported-copy transition.
+
+(from C11) C03: Appendix A now states the frame-update equivariance (L01-8: left-equivariant body-covector update, right translations only by orthogonal g, neither descends to the right quotient) and uses xi = U^{-1} grad_U F; C03 should agree or refer to App. A.
+
+(from C13) C02 (522) and C03 (594, 659, 963) cite app:augmented_joint, lem:shadow_mf_optimum, rem:shadow_marginal_vs_mf, and app:mf_fixedpoint_status. All of these labels survive, but any sentence there that calls the shadow derived or the cross-scale construction 'settled' must change.
+
+(from C13) C03 owns eq:pullback_metric. App H now states that this Frobenius frame metric is not invariant under the right redundancy U_i -> U_i g, so a right-invariant metric is needed for the GL+ quotient measure.

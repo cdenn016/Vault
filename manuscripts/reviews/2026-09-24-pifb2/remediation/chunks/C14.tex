@@ -1,0 +1,461 @@
+\section{Exact Coarse-Graining for Meta-Agent Formation}
+\label{sec:meta_agent_rg}
+
+The free-energy improvement criterion~\eqref{eq:meta_agent_FE_criterion}, the M-projection barycenter~\eqref{eq:meta_agent_barycenter}, and the frame Karcher mean~\eqref{eq:meta_agent_frame_barycenter} fit into an exact coarse-graining construction whose structure this appendix records. In the vocabulary of statistical physics the construction is a Kadanoff block-variable map~\cite{kadanoff1966scaling} applied to a posited configuration ensemble and followed by a projection onto an ansatz; Kadanoff's variational renormalization group~\cite{Kadanoff1975, KadanoffHoughtonYalabik1976} is the closest precedent for that combination. No rescaling is defined, no coupling space is identified across levels, and no flow or fixed point is constructed. On a finite network none can be: with blocking ratio at least $b>1$ the tower has at most $\log_b N$ levels, and for finite agent spaces the interaction spaces before and after a reducing step have different dimensions and admit no comparison identification~\cite[Ch.~11]{DennisGaugeVFE2026}. The companion theory accordingly constructs no renormalization semigroup with rescaling, fixed points, or beta functions at one base point~\cite[Ch.~1]{DennisGaugeVFE2026}, and treats that apparatus, for infinite networks, in its base-transport supplement~\cite[Chs.~B5 and B6]{DennisGaugeVFESuppB2026}. The one coupling that the construction does renormalize is the parent's entropy weight, which integrating out the internal modes shifts at one loop in proportion to cluster size (Eq.~\eqref{eq:rg_entropy_shift}). Throughout, $\ell$ is the level index of the hierarchy, and the coarse-graining map $\mathcal{R}_\ell$ carries the state at level $\ell$ to the state at level $\ell+1$.
+
+Three claims are kept separate. The pushforward step is exact: any measurable coarse-graining map carries the level-$\ell$ Gibbs measure to a level-$(\ell+1)$ measure with the same partition function and the same retained observables, and in the companion theory's conditional-partition form it needs no coarea density and no separately chosen parent reference~\cite[Ch.~11]{DennisGaugeVFE2026}. Closure, meaning that the coarse energy again lies in the multi-agent functional class, is proved here only for the mean sector at fixed covariances, frames, and couplings (Lemma~\ref{thm:rg_exact_closure}); elsewhere it is an ansatz whose error is measured by the residuals~\eqref{eq:rg_closure}, and exact closure generically generates hyperedges~\cite[Ch.~11]{DennisGaugeVFE2026}. The threshold detector is a candidate filter, and the conditional theorem that links a strengthened detector to a positive retention gain rests on a hypothesis with no identified source (Remark~\ref{rem:rg_detector_saving}). Standard results are cited in place: Laplace's method for the saddle-point step~\cite{wong2001asymptotic}, the Schur complement~\cite{HornJohnson2013}, Fenichel's theorem for the slow manifold~\cite{fenichel1979geometric}, and the Riemannian center of mass~\cite{Karcher1977, Afsari2011}. The status of each claim is recorded in Section~\ref{sec:rg_status} and in Table~\ref{tab:claim_status}.
+
+\paragraph{Status of the Gibbs ensemble.}
+The pushforward construction is stated for a configuration-space Gibbs measure $d\mathbb{P}_\ell = Z_\ell^{-1}\exp[-\mathcal{F}_\ell/T_{\mathrm{cfg}}]d\nu_\ell$. This is a hypothetical thermal ensemble. The framework's deterministic natural-gradient dynamics descend $\mathcal{F}_\ell$ along a single trajectory and do not sample it, and we do not posit a Langevin or maximum-entropy mechanism that would make this Gibbs law the distribution of agent states. The partition-function and observable-preservation results below are exact statements about the posited ensemble when it is normalizable, and contact with the deterministic dynamics is made only in the zero-configuration-temperature limit $T_{\mathrm{cfg}}\to0$. The symbol $T_{\mathrm{cfg}}$ is distinct from the attention temperature $\tau$.
+
+\begin{theorem}[Belief-configuration Gibbs lift]
+\label{thm:belief_configuration_gibbs_lift}
+Let $(\mathfrak{X},\mathcal{A},\nu_0)$ be a measurable configuration space with proper reference probability measure $\nu_0$, let $\mathcal{F}:\mathfrak{X}\to(-\infty,+\infty]$ be measurable, and let $T_{\mathrm{cfg}}>0$. Define
+\begin{equation}
+Z_{\mathcal{F}}
+:=\int_{\mathfrak{X}}
+\exp[-\mathcal{F}(X)/T_{\mathrm{cfg}}]d\nu_0(X).
+\label{eq:belief_configuration_partition}
+\end{equation}
+A probability measure $\mathbb{P}_{\mathcal{F}}\ll\nu_0$ with density
+\begin{equation}
+\frac{d\mathbb{P}_{\mathcal{F}}}{d\nu_0}(X)
+=Z_{\mathcal{F}}^{-1}
+\exp[-\mathcal{F}(X)/T_{\mathrm{cfg}}]
+\label{eq:belief_configuration_gibbs_density}
+\end{equation}
+exists if and only if $0<Z_{\mathcal{F}}<\infty$. For every probability measure $R\ll\nu_0$ for which the terms are finite,
+\begin{equation}
+\mathbb{E}_{R}[\mathcal{F}]
++T_{\mathrm{cfg}}D_{\mathrm{KL}}(R\|\nu_0)
+=T_{\mathrm{cfg}}D_{\mathrm{KL}}(R\|\mathbb{P}_{\mathcal{F}})
+-T_{\mathrm{cfg}}\log Z_{\mathcal{F}}.
+\label{eq:belief_configuration_vfe_identity}
+\end{equation}
+Consequently,
+\begin{equation}
+-T_{\mathrm{cfg}}\log Z_{\mathcal{F}}
+=\inf_{R\ll\nu_0}
+\left\{
+\mathbb{E}_{R}[\mathcal{F}]
++T_{\mathrm{cfg}}D_{\mathrm{KL}}(R\|\nu_0)
+\right\},
+\label{eq:belief_configuration_gibbs_variational_principle}
+\end{equation}
+with unique minimizer $R=\mathbb{P}_{\mathcal{F}}$. If $\mathcal{F}$ is bounded below $\nu_0$-almost surely and finite on a set of positive $\nu_0$-measure, then $0<Z_{\mathcal{F}}<\infty$.
+\end{theorem}
+
+\begin{proof}
+The condition $0<Z_{\mathcal{F}}<\infty$ is necessary and sufficient to normalize Eq.~\eqref{eq:belief_configuration_gibbs_density}. When it holds,
+\begin{equation}
+\log\frac{dR}{d\mathbb{P}_{\mathcal{F}}}
+=\log\frac{dR}{d\nu_0}
++\frac{\mathcal{F}}{T_{\mathrm{cfg}}}
++\log Z_{\mathcal{F}}.
+\label{eq:gibbs_lift_radon_nikodym_identity}
+\end{equation}
+Integration under $R$ proves Eq.~\eqref{eq:belief_configuration_vfe_identity}. Nonnegativity of relative entropy gives the infimum and its unique minimizer. If $\mathcal{F}\ge m$ almost surely, then $Z_{\mathcal{F}}\le\exp(-m/T_{\mathrm{cfg}})<\infty$; finiteness of $\mathcal{F}$ on a positive-measure set gives $Z_{\mathcal{F}}>0$.
+\end{proof}
+
+\begin{remark}[Probabilistic level and gauge volume]
+\label{rem:gibbs_lift_interpretation}
+Theorem~\ref{thm:belief_configuration_gibbs_lift} proves the existence of a generative model over belief configurations $X$, not over only the original state latents $k_i$. The exact density relation is $\mathcal{F}(X)/T_{\mathrm{cfg}}=-\log[d\mathbb{P}_{\mathcal{F}}/d\nu_0](X)-\log Z_{\mathcal{F}}$, so $\mathcal{F}$ is the configuration energy, equivalently the temperature-scaled negative log Radon-Nikodym density up to normalization. Equation~\eqref{eq:belief_configuration_vfe_identity} is the resulting exact meta-level variational free energy; it does not convert the pointwise population functional into the state-level ELBO excluded by Theorem~\ref{thm:state_level_elbo_nogo}. A hierarchical model may treat the beliefs $q_i$ themselves as random latent measures, draw $X\sim\mathbb{P}_{\mathcal{F}}$, then draw $k_i\sim q_i$ and observations from a fixed likelihood. Its ELBO necessarily contains the configuration entropy $T_{\mathrm{cfg}}D_{\mathrm{KL}}(R\|\nu_0)$ in addition to $\mathbb{E}_R[\mathcal{F}]$, so the original functional is the prior energy or MAP objective inside the enlarged model. This is also the loss-based generalized-Bayesian reading of the Gibbs law~\cite{BissiriHolmesWalker2016}. The companion theory lists five conditions that a normalized prior on law points must meet~\cite[Ch.~3]{DennisGaugeVFE2026}: a $\sigma$-finite reference, a finite normalizer, the transformation law under the active gauge action, record kernels that read law points, and compatibility of the law-point posterior with the sample-level recognition marginals. For finite-dimensional Gaussian presentations the lift supplies the first two, the next paragraph addresses the third, and the last two remain open.
+
+A proper reference probability makes the existence condition transparent. Raw invariant volume on a noncompact gauge orbit does not. If $\mathcal{F}$ is gauge-invariant and $\nu_0$ disintegrates into a quotient measure times Haar measure on $G=\mathrm{GL}^+(K_q)$, the Haar factor has infinite volume. A proper construction must therefore quotient or gauge-fix with the appropriate Jacobian, impose a compact container, add a coercive symmetry-breaking prior, or choose a proper non-Haar reference measure. No unregulated $\mathrm{GL}^+(K_q)$ Haar ensemble is claimed below.
+\end{remark}
+
+\paragraph{Exact pushforward.}
+Let $X_\ell = \{q_i, s_i, U_i, \chi_i\}_{i \in \mathcal{I}_\ell}$ denote the state at level $\ell$, consisting of beliefs, model sections, frames, and presence masks, and write the Gibbs measure as $d\mathbb{P}_\ell = Z_\ell^{-1}\exp[-\mathcal{F}_\ell/T_{\mathrm{cfg}}]d\nu_\ell$ with a proper reference probability $\nu_\ell$, or a normalized quotient or gauge-fixed reference, on the Gaussian parameters, masks, and frames. For each admissible cluster $I \subset \mathcal{I}_\ell$, a connected component of the pairwise overlap graph, the parent state $Y_I = (q_I, s_I, U_I, \chi_I)$ is defined by the M-projection barycenter~\eqref{eq:meta_agent_barycenter}, the Karcher frame~\eqref{eq:meta_agent_frame_barycenter}, and the multi-child overlap mask $\chi_I(c) = \mathbb{1}\{\sum_{i \in I}\chi_i(c) \ge 2\}$; the cluster maps assemble into the coarse-graining map $\mathcal{R}_\ell$. The pushed reference $\nu^c_{\ell+1}:=(\mathcal{R}_\ell)_*\nu_\ell$ is again a probability measure. The pushforward $\widetilde{\rho}_{\ell+1} = (\mathcal{R}_\ell)_*\big(e^{-\mathcal{F}_\ell/T_{\mathrm{cfg}}}d\nu_\ell\big)$ of the unnormalized Gibbs measure is absolutely continuous with respect to it, with density given by the conditional partition function
+\begin{equation}
+\exp[-\mathcal{F}^{c}_{\ell+1}(Y)/T_{\mathrm{cfg}}]
+=\frac{d\widetilde{\rho}_{\ell+1}}{d\nu^c_{\ell+1}}(Y)
+=\mathbb{E}_{\nu_\ell}\big[e^{-\mathcal{F}_\ell/T_{\mathrm{cfg}}}\big|\mathcal{R}_\ell=Y\big].
+\label{eq:rg_conditional_partition}
+\end{equation}
+This is the companion theory's conditional-partition formula for the deterministic kernel of $\mathcal{R}_\ell$~\cite[Ch.~11]{DennisGaugeVFE2026}. It preserves the partition function, $Z_{\ell+1} = Z_\ell$, and every observable that depends only on retained variables, $\mathbb{E}_{\ell+1}[A(Y)] = \mathbb{E}_\ell[A(\mathcal{R}_\ell(X))]$, and it composes along any chain of levels. If a different proper parent reference $\nu_{\ell+1}$ with $\nu^c_{\ell+1}\ll\nu_{\ell+1}$ is declared, the coarse energy acquires a reference-change term, $\mathcal{F}_{\ell+1}=\mathcal{F}^c_{\ell+1}-T_{\mathrm{cfg}}\log(d\nu^c_{\ell+1}/d\nu_{\ell+1})$, and we write $\mathcal{F}^{\mathrm{exact}}_{\ell+1}$ for the coarse energy against whichever parent reference is declared. When $\nu_\ell$ and $\nu_{\ell+1}$ have smooth strictly positive densities relative to Riemannian volume on each fixed-dimensional positive-weight stratum, and $\mathcal{R}_\ell$ is almost everywhere a $C^1$ submersion on the mean, covariance, and frame sector, the coarea formula writes the same density as a fiber integral,
+\begin{equation}
+\exp[-\mathcal{F}_{\ell+1}(Y)/T_{\mathrm{cfg}}] = \frac{d\widetilde{\rho}_{\ell+1}}{d\nu_{\ell+1}}(Y) = \int_{\mathcal{R}_\ell^{-1}(Y)} e^{-\mathcal{F}_\ell/T_{\mathrm{cfg}}}d\mathcal{H}_Y,
+\label{eq:rg_exact_free_energy}
+\end{equation}
+where $d\mathcal{H}_Y$ denotes the conditional fiber measure, including the normal-Jacobian factor and the ratio of the source and target reference densities. The fiber form is used below only for the Laplace step. In the zero-configuration-temperature limit the coarse energy reduces to the fiber profile
+\begin{equation}
+\mathcal{F}_{\mathrm{eff}}(Y) := \inf_{X : \mathcal{R}_\ell(X) = Y} \mathcal{F}_\ell(X),
+\label{eq:rg_zero_temperature_profile}
+\end{equation}
+up to terms of order $T_{\mathrm{cfg}}\log T_{\mathrm{cfg}}$, the leading one of which is displayed in Eq.~\eqref{eq:rg_laplace}. None of these identities claims that $\mathcal{F}^{\mathrm{exact}}_{\ell+1}$ has multi-agent form.
+
+\paragraph{Gauge actions at one base point.}
+Every statement of this appendix is pointwise in the base point. A finite grid of base points enters only through the presence fraction of the detector, and no base transport is used. At a fixed base point three operations must be kept apart~\cite[Ch.~2]{DennisGaugeVFE2026}. A passive re-expression replaces $(U_i,q_i)$ by $(g_iU_i,(g_i)_\#q_i)$ for an arbitrary tuple $(g_i)$; it sends $\Omega_{ij}\mapsto g_i\Omega_{ij}g_j^{-1}$ and $\Omega_{ij}q_j\mapsto(g_i)_\#(\Omega_{ij}q_j)$, so every transported divergence is unchanged by Theorem~\ref{thm:glk_invariance}, and in Regime~I the frames can be removed from the functional altogether. A change of reference, $U_i\mapsto U_ig$ for one $g$ shared by all agents with the beliefs held fixed, leaves every $\Omega_{ij}=U_iU_j^{-1}$ unchanged. The active gauge group at one base point is a single copy of $G$, not the product of per-agent copies~\cite[Ch.~2]{DennisGaugeVFE2026}. The equivariance statement proved below concerns the diagonal action of one $g\in G$, $U_i\mapsto gU_i$ and $q_i\mapsto g_\#q_i$ for every agent, which is the passive re-expression with all $g_i=g$. It transports the parent frame as $U_I\mapsto gU_I$ and acts on transports and beliefs as
+\begin{equation}
+\Omega_{ij} \mapsto g \Omega_{ij} g^{-1}, \qquad q_j \mapsto g_\# q_j, \qquad \Omega_{ij} q_j \mapsto g_\#(\Omega_{ij} q_j),
+\end{equation}
+so KL-based observables transform by common pushforward and are invariant. Under this action the M-projection barycenter and the Karcher frame commute with the pushforward, $\mathcal{R}_I(g \cdot X) = g \cdot \mathcal{R}_I(X)$ (Theorem~\ref{thm:rg_covariance}), and $\mathcal{F}^{\mathrm{exact}}_{\ell+1}(g \cdot Y) = \mathcal{F}^{\mathrm{exact}}_{\ell+1}(Y)$ when the reference measure $\nu_\ell$ is gauge-invariant. For compact $G = \mathrm{SO}(K_q)$ the normalized bi-invariant Haar measure provides such a reference. For the noncompact $\mathrm{GL}^+(K_q)$, Haar measure is still bi-invariant, since the group is unimodular, but it has infinite total mass, and the Lebesgue factors of the reference measure on the Gaussian parameters are only quasi-invariant under the action, with per-agent Jacobian density $|\det g|^{K_q+2}$ ($|\det g|$ from the mean, $\mu \mapsto g\mu$, and $|\det g|^{K_q+1}$ from the covariance congruence $\Sigma \mapsto g\Sigma g^\top$), so a gauge slice or Radon-Nikodym correction is required.
+
+\paragraph{Closure ansatz on the multi-agent class.}
+The pushforward construction defines $\mathcal{F}^{\mathrm{exact}}_{\ell+1}$ exactly. Whether $\mathcal{F}^{\mathrm{exact}}_{\ell+1}$ retains the multi-agent functional form of $\mathcal{F}_\ell$ is a separate claim. Only the normalized Gibbs probability $Z^{-1}e^{-\mathcal{F}/T_{\mathrm{cfg}}}d\nu$ is invariant under $\mathcal{F}\mapsto\mathcal{F}+c$: the unnormalized density is multiplied by $e^{-c/T_{\mathrm{cfg}}}$ and its partition function changes by the same factor. We therefore separate quotient closure, partition-function calibration, uniform energy error, and force error. On a parent neighborhood $\mathcal{N}_I$, let $Z_I^{\mathrm{exact}}$ and $Z_I^{\mathrm{agent}}$ be the corresponding local partition functions and define
+\begin{align}
+\delta_{I,0}^{\mathrm{quot}}
+ &= \inf_{c\in\mathbb{R}}\big\|\mathcal{F}^{\mathrm{exact}}_{\ell+1}-\mathcal{F}^{\mathrm{agent}}_{\ell+1}-c\big\|_{L^\infty(\mathcal{N}_I)}, \nonumber\\
+c_I^Z
+ &= T_{\mathrm{cfg}}\log\frac{Z_I^{\mathrm{agent}}}{Z_I^{\mathrm{exact}}}, \qquad
+\widehat{\mathcal{F}}^{\mathrm{agent}}_{\ell+1}=\mathcal{F}^{\mathrm{agent}}_{\ell+1}+c_I^Z, \nonumber\\
+r_I
+ &= \mathcal{F}^{\mathrm{exact}}_{\ell+1}-\widehat{\mathcal{F}}^{\mathrm{agent}}_{\ell+1}, \qquad
+\delta_{I,0}=\|r_I\|_{L^\infty(\mathcal{N}_I)}, \nonumber\\
+r_I^{(0)}
+ &= \mathcal{F}_{\mathrm{eff}}-\widehat{\mathcal{F}}^{\mathrm{agent}}_{\ell+1}, \qquad
+\delta_{I,1}
+ = \|dr_I^{(0)}\|_{L^\infty(\mathcal{N}_I;G_{\mathrm{slow}}^{-1})}.
+\label{eq:rg_closure}
+\end{align}
+The choice $c_I^Z$ makes the calibrated agent partition function equal to the exact one. Writing $D=\mathcal{F}^{\mathrm{exact}}_{\ell+1}-\mathcal{F}^{\mathrm{agent}}_{\ell+1}$, one has $c_I^Z=T_{\mathrm{cfg}}\log\mathbb{E}^{\mathrm{exact}}_{\mathcal{N}_I}[e^{D/T_{\mathrm{cfg}}}]\in[\inf D,\sup D]$ under the normalized local exact Gibbs law, while $\delta^{\mathrm{quot}}_{I,0}=\tfrac12\operatorname{osc}_{\mathcal{N}_I}D$; hence the two energy residuals satisfy $\delta^{\mathrm{quot}}_{I,0}\le\delta_{I,0}\le2\delta^{\mathrm{quot}}_{I,0}$. The force residual $\delta_{I,1}$ is measured against the zero-temperature profile~\eqref{eq:rg_zero_temperature_profile}, because the deterministic flow descends that profile; the finite-temperature energy $\mathcal{F}^{\mathrm{exact}}_{\ell+1}$ differs from it by the fluctuation determinant of Eq.~\eqref{eq:rg_laplace}, whose gradient the deterministic flow does not feel (see the discussion after Eq.~\eqref{eq:rg_schur_flow}). The calibrated residual $\delta_{I,0}$ is used for the static Gibbs statements. For reporting across levels, choose a fixed energy scale $E_{\mathrm{ref}}>0$, by default $E_{\mathrm{ref}}=T_{\mathrm{cfg}}$, and use the shift-invariant dimensionless diagnostic
+\begin{equation}
+\varepsilon_I=\frac{\delta_{I,0}}{E_{\mathrm{ref}}+\operatorname{osc}_{\mathcal{N}_I}(\mathcal{F}^{\mathrm{exact}}_{\ell+1})}, \qquad
+\operatorname{osc}_{\mathcal{N}_I}(\mathcal{F})=\sup_{\mathcal{N}_I}\mathcal{F}-\inf_{\mathcal{N}_I}\mathcal{F}.
+\label{eq:rg_closure_dimensionless}
+\end{equation}
+The dimensionful residual $\delta_{I,0}$ controls calibrated scalar-energy estimates, while $\delta_{I,1}$ controls perturbations of the gradient flow; $\varepsilon_I$ is a reporting diagnostic and is not added to an energy or a vector field. Conditions (i)~Gaussian children, (ii)~coherent cluster, $V_I = \sum_i w_i^I D_{\mathrm{KL}}(\widetilde{q}_i^I \| q_I) \ll 1$, (iii)~positive constrained weighted gap $\lambda_{I,w} > 0$ defined below, (iv)~edge-marginal compatibility of cluster weights, and (v)~compact gauge group with the constituent frames in a geodesic ball of radius below the convexity radius $r_{\mathrm{cx}}$ of the coarse-graining-map paragraph, or explicit gauge fixing or regulation for noncompact $G$, support the schematic $C^0$ quotient estimate of Proposition~\ref{thm:rg_residual}. They do not control $\delta_{I,1}$: a small force residual is an independent local $C^1$ closure hypothesis, because a small uniform energy error alone gives no derivative bound. The scalar approximations below are therefore $C^0$ closure statements, and the reduced-flow estimate~\eqref{eq:rg_schur_flow} is conditional on separately establishing or measuring a small $\delta_{I,1}$. Deriving such a force-level estimate from explicit derivative-regularity assumptions remains open.
+
+Working in the native mean and covariance coordinates of the Gaussian family around $q_I$, write the transported child belief as $\widetilde{q}_i^I = q_I + \xi_i$ with the barycentric constraint $\sum_i w_i^I \xi_i = 0$, which is exact in the mean sector and holds to leading order in $\xi$ in the covariance sector. When the surrounding functional carries fixed-parameter couplings $\beta_{ij}$, the intra-cluster alignment energy expands as
+\begin{equation}
+\mathcal{F}_I^{\mathrm{int}} = \tfrac{1}{2}\xi^\top H_I^\perp(q_I)\xi + O(\|\xi\|^3), \qquad H_I^\perp(q_I) \approx L_I \otimes F(q_I),
+\label{eq:rg_internal_hessian}
+\end{equation}
+where $L_I$ is the weighted graph Laplacian of the symmetrized internal couplings $(\beta_{ij} + \beta_{ji})/2$ and $F(q_I)$ is the Fisher information at the parent in these coordinates; in the mean sector $F(q_I)=\Sigma_I^{-1}$. When instead $\beta_{ij}$ has been envelope-eliminated as the softmax-optimized attention $\beta^*_{ij} = \pi_{ij} \exp(-E_{ij}/\tau) / \sum_k \pi_{ik} \exp(-E_{ik}/\tau)$, the reduced free energy $F_{\mathrm{red},i} = -\tau \log \sum_j \pi_{ij} \exp(-E_{ij}/\tau)$ has gradient $\nabla F_{\mathrm{red},i} = \sum_j \beta^*_{ij} \nabla E_{ij}$ and full Hessian
+\begin{equation}
+\nabla^2 F_{\mathrm{red},i} = \sum_j \beta^*_{ij} \nabla^2 E_{ij} - \tau^{-1} \mathrm{Cov}_{\beta^*}\big(\nabla E_{ij}, \nabla E_{ij}\big),
+\label{eq:rg_reduced_hessian}
+\end{equation}
+where the covariance is taken under the optimized attention; this is $\tau$ times the curvature of the companion theory's attention-reduced potential~\cite[Ch.~6]{DennisGaugeVFE2026}. The first term is the $\beta^*$-weighted Hessian of the edge energies; the second is a Fisher-type correction that lowers curvature along directions in which the per-edge gradients $\nabla E_{ij}$ disagree across $j \in I$. The block decomposition $H_I^\perp \approx L_I \otimes F$ is therefore a coherent-cluster leading-order approximation, valid when $\tau^{-1}\|\mathrm{Cov}_{\beta^*}(\nabla E_{ij})\| \ll \|\sum_j \beta^*_{ij} \nabla^2 E_{ij}\|$, that is, when the within-cluster gradient dispersion is small relative to the temperature-scaled curvature. The covariance correction vanishes identically when all $\nabla E_{ij}$ for $j \in I$ are equal, the regime targeted by condition~(ii). The stiffness of the internal modes on the constraint subspace is
+\begin{equation}
+\lambda_{I,w} = \inf_{\xi \neq 0\ \text{with}\ \sum_i w_i \xi_i = 0} \frac{\xi^\top L_I \xi}{\xi^\top \xi}, \qquad m_I = \lambda_{I,w}\lambda_{\min}\big(F(q_I)\big),
+\label{eq:rg_constrained_gap}
+\end{equation}
+so that $m_I$ bounds from below the fiber Hessian $L_I\otimes F(q_I)$ on the constraint subspace in these Euclidean fiber coordinates. It is an inverse susceptibility of the internal modes: it bounds the inverse fiber Hessian, $\|H^{-1}\|\le m_I^{-1}$, and controls the Laplace remainder. The constrained gap is comparable to the algebraic connectivity $\lambda_2(L_I)$,
+\begin{equation}
+\frac{\lambda_2(L_I)}{|I|\cdot\|w\|^2}\le\lambda_{I,w}\le\lambda_2(L_I),
+\label{eq:rg_gap_interlacing}
+\end{equation}
+applied componentwise in the fiber index. For the lower bound, write $\xi=a\mathbf{1}/\sqrt{n}+\eta$ with $\eta\perp\mathbf{1}$ and $n=|I|$; the constraint and $\mathbf{1}^\top w=1$ give $a=-\sqrt{n}(w-\mathbf{1}/n)^\top\eta$, so $\xi^\top\xi\le(1+n\|w-\mathbf{1}/n\|^2)|\eta|^2=n\|w\|^2|\eta|^2$, while $\xi^\top L_I\xi=\eta^\top L_I\eta\ge\lambda_2|\eta|^2$. The upper bound is the Courant-Fischer principle, since the constraint cuts out a subspace of codimension one. Equality on the right holds for uniform weights and also for some nonuniform ones, and concentrated weights lower the constrained gap by at most a factor $|I|$. The internal relaxation rate of the dynamics is a different quantity. Under the natural-gradient flow with mobility $\eta$ and child metric blocks $g_iF(q_I)$, the internal modes relax at the nonzero generalized eigenvalues of $L_Iv=\lambda W_gv$ with $W_g=\operatorname{diag}(g_i)$, which do not depend on the barycentric weights, and the slowest internal rate is $t_{\mathrm{int}}^{-1}=\eta\lambda_2(L_I;W_g)$ (for equal Fisher blocks, $\eta\lambda_2(L_I)$). The two quantities coincide when $w_i^I\propto g_i$ and the fiber is measured in the $g$-weighted norm. Internal disagreement modes are stiff when $m_I > 0$, and the parent variable is then the surviving collective coordinate.
+
+Integrating out the internal modes by Laplace's method~\cite{wong2001asymptotic} yields
+\begin{equation}
+\mathcal{F}^{\mathrm{exact}}_{\ell+1}(Y_I) = \mathcal{F}_{\mathrm{eff}}(Y_I) + \tfrac{T_{\mathrm{cfg}}}{2}\log\det{}'H_I^\perp(Y_I) + \mathrm{const} + \mathcal{E}_{\mathrm{anh}},
+\label{eq:rg_laplace}
+\end{equation}
+where $\det{}'$ is the product of the nonzero eigenvalues of $H_I^\perp$ on the full internal space, whose kernel is the common translation $\mathbf{1}\otimes\mathbb{R}^{d}$, with $d$ the dimension of one child's parameter block; with the normal-Jacobian factor of $d\mathcal{H}_Y$ this pseudo-determinant is independent of the barycentric weights. The anharmonic remainder $\mathcal{E}_{\mathrm{anh}} = O(T_{\mathrm{cfg}}^2 \|H^{-1}\|^3 \|T_3\|^2 + T_{\mathrm{cfg}}^2 \|H^{-1}\|^2 \|T_4\|)$ is controlled by the cubic and quartic derivative tensors $T_3, T_4$ of $\mathcal{F}_\ell$ at the saddle (the cubic enters squared by parity, the quartic linearly). The one-loop term renormalizes a coupling. For the internal mean deviations at fixed couplings, $H_I^\perp\approx L_I\otimes\Sigma_I^{-1}$, whose nonzero eigenvalues are the products of the nonzero Laplacian eigenvalues $\lambda_2,\ldots,\lambda_{|I|}$ with the eigenvalues of $\Sigma_I^{-1}$, so $\log\det{}'(L_I\otimes\Sigma_I^{-1})=K_q\log\det{}'L_I-(|I|-1)\log\det\Sigma_I$ and
+\begin{equation}
+\frac{T_{\mathrm{cfg}}}{2}\log\det{}'H_I^\perp=\mathrm{const}-\frac{(|I|-1)T_{\mathrm{cfg}}}{2}\log\det\Sigma_I
+\label{eq:rg_entropy_shift}
+\end{equation}
+as a function of the retained parent covariance. Integrating out the internal modes therefore shifts the coefficient of $\log\det\Sigma_I$, the entropy-like term of the parent's Gaussian relative entropies, by an amount proportional to $|I|-1$. This induced renormalization is absent at $T_{\mathrm{cfg}}=0$, and at finite configuration temperature it contradicts any assumption that the coefficients of the functional are the same at every level; such coefficients can be held fixed across levels only by assumption.
+
+Coarse inter-cluster couplings are pooled at the level of raw conductances, because $\beta_{ij}$ is a row-normalized softmax distribution and summing it across cluster pairs would destroy that normalization. Define the unnormalized edge conductance $\kappa_{ij} := \pi_{ij}\exp(-E_{ij}/\tau)$, so that $\beta_{ij} = \kappa_{ij}/\sum_k \kappa_{ik}$ and the envelope-eliminated free energy is $F_{\mathrm{red},i} = -\tau \log \sum_k \kappa_{ik}$. Coarse-graining with cluster weights $w_i^I \ge 0$ subject to $\sum_{i \in I} w_i^I = 1$ gives
+\begin{equation}
+\kappa_{IJ}^R = \sum_{i \in I} w_i^I \sum_{j \in J} \kappa_{ij}, \qquad \beta_{IJ}^R = \frac{\kappa_{IJ}^R}{\sum_L \kappa_{IL}^R},
+\label{eq:rg_inter_cluster}
+\end{equation}
+where the sum over $L$ includes $L=I$: the pooled intra-cluster conductance $\kappa_{II}^R$ acts as an effective parent self-loop, which has no transported-divergence energy of its own in the five-term family. This pooling is the exact block row of the companion theory's single-edge label model, with receiver weights $w_i^I$ and unit evidence factors; in its per-receiver model the exact block row is instead the selection-weighted average of normalized rows, and in general the object pushed from level to level is the joint edge-event law, under which events with both endpoints in $I$ become meta-self events~\cite[Ch.~11]{DennisGaugeVFE2026}. The self-loop is required for the identical-children identity: when $\kappa_{ij}$ does not depend on $i \in I$, the parent reduced free energy $F_{\mathrm{red},I} = -\tau \log \sum_L \kappa_{IL}^R$ equals the common child value $F_{\mathrm{red},i} = -\tau \log \sum_k \kappa_{ik}$ only when the term $L=I$ is kept. An unweighted row sum would instead introduce a spurious $-\tau \log |I|$ entropy-of-mixture offset, a convex weighting on the column index would shrink each partner conductance by a factor of order $1/|J|$ and bias the parent attention $\beta_{IJ}^R$ toward small partner clusters, and summing $\beta_{ij}$ directly would yield $\sum_J \beta_{IJ}^R = |I|$ in place of $1$. The first-order energy residual in the linearized expansion of $\kappa_{IJ}^R$ around the parent saddle vanishes on the row side when the cluster weights satisfy the edge-marginal compatibility $w_i^I = r_i/\sum_{i'} r_{i'}$, with row edge marginals $r_i = \sum_{j \in J} \kappa_{ij}$; on the column side the summed rule leaves a residual controlled by the mismatch between the partner's barycentric weights $w_j^J$ and its conductance-weighted column profile $\sum_{i \in I} w_i^I \kappa_{ij}$, which contributes to the $C^0$ quotient closure residual, as does the partner-to-partner mismatch of row weights quantified in the edge-marginal paragraph of Section~\ref{app:rigorous_rg}. Controlling their derivative contribution to $\delta_{I,1}$ would require a separate uniform derivative estimate that is not supplied here.
+
+\paragraph{Adiabatic elimination.}
+The slow-manifold reduction uses the hypotheses that the companion theory states for its rate-separated flow~\cite[Ch.~8]{DennisGaugeVFE2026}: (a)~$\mathcal{F}_\ell\in C^2$, and in a chart $(Y,\xi)$ the metric is block diagonal, $G=G_{\xi\xi}\oplus G_{\mathrm{slow}}$, with symmetric positive-definite $C^1$ blocks and $G_{\mathrm{slow}}$ independent of $\xi$; (b)~on a compact parent region the branch $\xi^*(Y)$ of conditional minimizers satisfies the uniform fast-curvature bound $\partial^2_{\xi\xi}\mathcal{F}_\ell\succeq c_1G_{\xi\xi}$ with $c_1>0$; and (c)~the reduced flow stays in the interior of that region and the initial internal state lies in the basin of $\xi^*$ for the frozen internal flow. Let $\epsilon_{\mathrm{ts}}=t_{\mathrm{int}}/t_{\mathrm{slow}}$ with $t_{\mathrm{int}}^{-1}=\eta\lambda_2(L_I;W_g)$. For a smooth one-parameter singularly perturbed family with $\epsilon_{\mathrm{ts}}\ll1$, Fenichel's theorem~\cite{fenichel1979geometric} gives a locally invariant manifold $\mathcal{M}_{\epsilon_{\mathrm{ts}}}$ that is $O(\epsilon_{\mathrm{ts}})$-close to a compact normally hyperbolic piece of the critical manifold and can locally be written as a graph over $Y$. The companion theory records the application of these hypotheses to the collective free energy as open: no recognition family of the program is known to satisfy (b) on the slow states it visits, and (b) can fail after the attention rows are optimized even when every edge energy and every frozen-weight curvature is positive. In a general chart the metric has off-diagonal blocks, and the metric induced on the graph $\xi=\xi^*(Y)$ is
+\begin{equation}
+G_{\mathrm{slow}}=G_{YY}+G_{Y\xi}D\xi^*+(D\xi^*)^\top G_{\xi Y}+(D\xi^*)^\top G_{\xi\xi}D\xi^*.
+\label{eq:rg_slow_graph_metric}
+\end{equation}
+The distinct quotient, or horizontal, metric obtained by minimizing the ambient quadratic form over an unconstrained internal velocity is
+\begin{equation}
+G_{\mathrm{quot}}=G_{YY}-G_{Y\xi}G_{\xi\xi}^{-1}G_{\xi Y}.
+\end{equation}
+Completing the square gives $G_{\mathrm{slow}}-G_{\mathrm{quot}}=(D\xi^*-C^*)^\top G_{\xi\xi}(D\xi^*-C^*)\succeq0$ with $C^*=-G_{\xi\xi}^{-1}G_{\xi Y}$, so the graph pullback equals the quotient metric exactly when $D\xi^*=C^*$; normal hyperbolicity alone does not impose that identity. This metric Schur complement is also distinct from the Hessian Schur complement $A_{\mathrm{eff}}$ of Lemma~\ref{thm:rg_exact_closure}. In the barycentric chart with child metric weights $g_i$ the metric is block diagonal, so that $G_{\mathrm{quot}}=G_{\mathrm{slow}}$ and the barycenter fibers coincide with the linearized Fenichel fibers, exactly when $w_i^I\propto g_i$. Because the internal energy is invariant under a common translation of the children, the fast flow conserves the $g$-weighted mean $\sum_ig_ix_i$ and relaxes a cluster to it. Under the edge-marginal weights of condition~(iv), which are generically not proportional to $g_i$, the parent that $\mathcal{R}_\ell$ assigns to a cluster off the slow manifold therefore differs from the dynamically reached parent at first order in the internal displacement. Written with the calibrated agent ansatz, the parent flow has the form
+\begin{align}
+\dot{Y}_I
+ &= -\eta\mathrm{grad}_{G_{\mathrm{slow}}}\widehat{\mathcal{F}}^{\mathrm{agent}}_{\ell+1}(Y_I)+R_{\mathrm{ts}}+R_{\mathrm{cl}}, \nonumber\\
+\|R_{\mathrm{cl}}\|_{G_{\mathrm{slow}}}
+ &\leq \eta\delta_{I,1}, \qquad
+\|R_{\mathrm{ts}}\|_{G_{\mathrm{slow}}}=O(\epsilon_{\mathrm{ts}})\eta\|d\widehat{\mathcal{F}}^{\mathrm{agent}}_{\ell+1}\|_{G_{\mathrm{slow}}^{-1}},
+\label{eq:rg_schur_flow}
+\end{align}
+with $\eta$ the mobility of the natural-gradient flow. On the slow manifold the reduced vector field is $-\eta\mathrm{grad}_{G_{\mathrm{slow}}}\mathcal{F}_{\mathrm{eff}}$ by the envelope identity $d\mathcal{F}_{\mathrm{eff}}=\partial_Y\mathcal{F}_\ell(Y,\xi^*(Y))$, so $R_{\mathrm{cl}}=-\eta\mathrm{grad}_{G_{\mathrm{slow}}}r_I^{(0)}$ and its norm is at most $\eta\delta_{I,1}$. The sum $R_{\mathrm{ts}}+R_{\mathrm{cl}}$ is the semiconjugacy defect of the coarse map for the parent field $-\eta\mathrm{grad}_{G_{\mathrm{slow}}}\widehat{\mathcal{F}}^{\mathrm{agent}}_{\ell+1}$, the exact dynamical closure notion of the companion theory~\cite[Ch.~11]{DennisGaugeVFE2026}. A residual built from $\mathcal{F}^{\mathrm{exact}}_{\ell+1}$ in place of $\mathcal{F}_{\mathrm{eff}}$ would not bound $R_{\mathrm{cl}}$ at $T_{\mathrm{cfg}}>0$. For $\mathcal{F}_\ell(Y,\xi)=bY^2/2+a_0e^{kY}\xi^2/(2\epsilon)$ one finds $\mathcal{F}^{\mathrm{exact}}_{\ell+1}(Y)=bY^2/2+T_{\mathrm{cfg}}kY/2+\mathrm{const}$; with the agent ansatz equal to this exact energy the finite-temperature force residual vanishes, while the deterministic flow relaxes $\xi$ to zero and gives $\dot Y=-\eta bY$, so the flow residual is $\eta T_{\mathrm{cfg}}k/2$ at every $\epsilon$. Failure of (a)--(c) removes the Fenichel reduction and does not merely contribute an undefined additive error.
+
+\paragraph{Retention.}
+A Wilsonian relevance classification~\cite{Wilson1971, Wilson1974} linearizes a flow at a fixed point $\theta^*=R(\theta^*)$ of a self-map of one coupling space. The present construction has no such self-map: $\mathcal{R}_\ell$ maps a state space with $|\mathcal{I}_\ell|$ agents to one with fewer, no comparison map between the parameter spaces of different levels is declared, a finite network admits only finitely many reducing steps, and for finite agent spaces no comparison identification of the interaction spaces exists across such a step~\cite[Ch.~11]{DennisGaugeVFE2026}. Relevance is therefore undefined here; an asymptotic classification needs infinite networks and is deferred to the companion supplement~\cite[Chs.~B5 and B6]{DennisGaugeVFESuppB2026}. The retention criterion used is the description-length gain~\cite{Schwarz1978, Rissanen1978}
+\begin{equation}
+\Delta_I = \mathcal{L}_{\mathrm{micro}}(I) - \mathcal{L}_{\mathrm{parent}}(I), \qquad \mathcal{L}_{\mathrm{parent}}(I) = \widehat{\mathcal{F}}_{\ell+1}^{\mathrm{agent},*}(I) + C_{\mathrm{parent}}(I),
+\label{eq:rg_retention_gain}
+\end{equation}
+with complexity penalty $C(I)$ chosen as a Bayesian evidence prior $-T_{\mathrm{cfg}}\log P(I)$, a BIC penalty $\tfrac{T_{\mathrm{cfg}}}{2} k_I \log n_I$, or a variational complexity $D_{\mathrm{KL}}(Q_I \| P_I)$. The free-energy improvement criterion~\eqref{eq:meta_agent_FE_criterion} of Section~\ref{sec:meta_agent_variational} is the special case $\Delta_I > 0$ at unspecified $C(I)$. Under an exact parent this criterion is degenerate: the fine variational free energy equals the coarse one plus the discarded conditional information, which is nonnegative, so a decrease under exact coarse-graining measures information discarded at unchanged evidence and neither model improvement nor evidence ascent~\cite[Ch.~9]{DennisGaugeVFE2026}. The criterion can discriminate between clusters only through the projected agent parent and the penalty $C(I)$, and no cost analyzed in the companion theory selects a partition~\cite[Ch.~9]{DennisGaugeVFE2026}.
+
+\paragraph{Detector as candidate-selection surrogate.}
+Under conditions~(i)--(v) and timescale separation, the exact coarse energy is expected to admit an agent-form approximation in the $C^0$ quotient sense, with the contributions to $\delta_{I,0}^{\mathrm{quot}}$ listed in Proposition~\ref{thm:rg_residual} and gauge-fixing corrections for noncompact groups. The threshold detector of Section~\ref{sec:meta_agent_threshold} is a candidate-selection filter for these $C^0$ conditions of the closure ansatz, not a test of the exact pushforward. Energy retention further requires the calibrated residual $\delta_{I,0}$, checked after partition-function normalization, to be small, and force-level accuracy requires an independent bound on $\delta_{I,1}$, which neither the detector nor the residual proposition supplies.
+
+\subsection{Statements and Proofs}
+\label{app:rigorous_rg}
+
+This subsection gives the statements and proofs behind the working forms of the preceding part of this appendix and behind Section~\ref{sec:rg_status}, keeping the three claims of the opening (exact pushforward, closure, retention) separate. The construction is finite-dimensional, and no continuum limit is constructed. The statements are proved for a compact gauge group $G = \mathrm{SO}(K_q)$ with a bi-invariant Riemannian metric; the covariance theorem extends to any Lie group with a left-invariant Riemannian metric, and the noncompact $\mathrm{GL}^+(K_q)$ Gibbs ensemble requires a gauge slice or Radon-Nikodym correction, as stated in the gauge-action paragraph. The closure hypotheses used repeatedly below are collected once.
+
+\begin{assumption}[Closure regime]
+\label{ass:closure_regime}
+(A1)--(A5) are conditions~(i)--(v) of the working-form part, with (A2) quantified as $V_I \le v_0 \ll 1$, the gap in (A3) positive uniformly on the parent neighborhood $\mathcal{N}_I$, (A4) the proportionality $w_i^I \propto r_i$, and the convexity radius $r_{\mathrm{cx}}$ of (A5) defined in the coarse-graining-map paragraph below.
+\end{assumption}
+
+Two further hypotheses that a closure theorem for the full parent state might add are not used. Exact conditional Gaussianity on the complete fiber is either unsatisfiable for the map that retains $\Sigma_I$ or satisfiable by any map in a suitably chosen chart (remark after Lemma~\ref{thm:rg_exact_closure}), and flat transport across cluster pairs holds identically in Regime~I (Eq.~\eqref{eq:rg_holonomy_trivial}).
+
+\paragraph{State and reference measure.}
+Fix a finite grid $\Lambda_\ell \subset \mathcal{C}$ of base points at level $\ell$ and an index set $\mathcal{I}_\ell$ of agents. The level-$\ell$ state is $X_\ell = \{x_i\}_{i \in \mathcal{I}_\ell}$ with $x_i = (q_i, s_i, U_i, \chi_i)$, where $q_i(c) = \mathcal{N}(\mu_i(c), \Sigma_i(c))$ is the belief, $s_i(c)$ a nondegenerate Gaussian model section on the model fiber, $U_i(c) \in G$ the frame, and $\chi_i(c) \in \{0, 1\}$ the presence mask. Inter-agent transport is $\Omega_{ij} = U_i U_j^{-1}$ with $\Omega_{ij} q_j = \mathcal{N}(\Omega_{ij}\mu_j, \Omega_{ij}\Sigma_j\Omega_{ij}^\top)$, and $\widetilde{\Omega}_{ij}$ acts on the model fiber through its own representation of the same frames. The functional $\mathcal{F}_\ell : X_\ell \to \mathbb{R} \cup \{+\infty\}$ takes the multi-agent KL form of Section~\ref{sec:one_rung}, and the Gibbs measure is $d\mathbb{P}_\ell = Z_\ell^{-1}\exp[-\mathcal{F}_\ell/T_{\mathrm{cfg}}]d\nu_\ell$, with $\nu_\ell$ a proper probability reference or a normalized quotient or gauge-fixed measure (Remark~\ref{rem:gibbs_lift_interpretation}).
+
+\paragraph{Coarse-graining map.}
+A candidate parent cluster $I \subset \mathcal{I}_\ell$ satisfies $|I| \ge 2$, connected overlap subgraph, nonempty multi-child support $\chi_I(c) = \mathbb{1}\{\sum_{i \in I}\chi_i(c) \ge 2\}$, constituent frames in an open geodesic ball of $G$ of radius below $r_{\mathrm{cx}}$, and finite belief and model dispersions. The selected partition is $\mathcal{P}_\ell = \{I_1, \ldots, I_{N_{\ell+1}}\}$. For each $I$, the parent frame is the Riemannian center of mass
+\begin{equation}
+U_I(c) = \arg\min_{U \in G} \sum_{i \in I} w_i^I(c) d_G(U, U_i(c))^2,
+\end{equation}
+with $G = \mathrm{SO}(K_q)$ and $d_G(U, V)^2 = \|\log(U^{-1}V)\|_F^2$ under the bi-invariant metric. It exists and is unique, as the global minimizer over $G$, whenever the weighted frames lie in an open geodesic ball of radius $\rho<r_{\mathrm{cx}}=\tfrac12\min\{\operatorname{inj}G,\pi/\sqrt{\Delta}\}$, with $\Delta$ an upper bound on the sectional curvature~\cite[Thm.~2.1]{Afsari2011}. For $\mathrm{SO}(K_q)$ with this metric, $r_{\mathrm{cx}}=\pi/\sqrt2$ in $d_G$, a rotation angle of $\pi/2$; Kendall~\cite{Kendall1990} obtains the larger radius $\min\{\operatorname{inj}G,\pi/(2\sqrt{\Delta})\}$ only for the mean defined with the distance restricted to the ball, which is not the global minimizer used here. The weights and the detector are built from gauge-invariant divergences, so they cannot see how far apart the frames are, and the radius condition must be imposed separately. When it fails the frame mean can be set-valued, but the frame-free parent pair does not depend on the choice of $U_I$: with $\Omega_{Ii}=U_IU_i^{-1}$ one has $U_I^{-1}\mu_I=\sum_iw_i^IU_i^{-1}\mu_i=:m_I$ and $U_I^{-1}\Sigma_IU_I^{-\top}=\sum_iw_i^I[U_i^{-1}\Sigma_iU_i^{-\top}+(U_i^{-1}\mu_i-m_I)(U_i^{-1}\mu_i-m_I)^\top]$. Child-to-parent transport is $\Omega_{Ii}(c) = U_I(c)U_i(c)^{-1}$. The parent belief is the M-projection (moment-matching) barycenter of the transported children,
+\begin{equation}
+q_I(c) = \arg\min_{q \in \mathcal{G}_{K_q}} \sum_{i \in I} w_i^I(c) D_{\mathrm{KL}}\big(\Omega_{Ii}q_i \| q\big),
+\end{equation}
+which by moment matching has $\mu_I = \sum_i w_i^I \widetilde{\mu}_i^I$ and
+\begin{equation}
+\Sigma_I = \sum_{i \in I} w_i^I\big[\widetilde{\Sigma}_i^I + (\widetilde{\mu}_i^I - \mu_I)(\widetilde{\mu}_i^I - \mu_I)^\top\big],
+\end{equation}
+with the second term the between-child dispersion that must be retained in the exact Gaussian barycenter; dropping it is a high-coherence approximation, not an identity. The parent model section $s_I$ is defined analogously. The coarse-graining map is $\mathcal{R}_\ell : X_\ell \mapsto \{Y_I = (q_I, s_I, U_I, \chi_I) : I \in \mathcal{P}_\ell\}$.
+
+\paragraph{Exact pushforward.}
+The working-form part of this appendix states the exact pushforward identities~\eqref{eq:rg_conditional_partition} and~\eqref{eq:rg_exact_free_energy}. Their structural content is recorded as two theorems, which are the deterministic-map cases of the companion theory's composition and functoriality statements~\cite[Chs.~9 and 11]{DennisGaugeVFE2026}.
+
+\begin{theorem}[Partition function and observable preservation]
+\label{thm:rg_pushforward}
+Let $\mathcal{R}_\ell : X_\ell \to X_{\ell+1}$ be measurable, let $d\rho_\ell = e^{-\mathcal{F}_\ell/T_{\mathrm{cfg}}}d\nu_\ell$ denote the unnormalized Gibbs measure on $X_\ell$ with finite positive total mass $Z_\ell := \rho_\ell(X_\ell)$, and define the unnormalized pushforward $\rho_{\ell+1} := (\mathcal{R}_\ell)_*\rho_\ell$. Then $Z_{\ell+1} := \rho_{\ell+1}(X_{\ell+1}) = Z_\ell$, and the normalized pushforward $\mathbb{P}_{\ell+1} := (\mathcal{R}_\ell)_*\mathbb{P}_\ell$ of $\mathbb{P}_\ell = Z_\ell^{-1}\rho_\ell$ satisfies $\mathbb{E}_{\ell+1}[A(Y)] = \mathbb{E}_\ell[A(\mathcal{R}_\ell(X))]$ for every bounded measurable parent observable $A : X_{\ell+1} \to \mathbb{R}$.
+\end{theorem}
+
+\begin{proof}
+Pushforward preserves total mass: $\rho_{\ell+1}(X_{\ell+1}) = \rho_\ell(\mathcal{R}_\ell^{-1}(X_{\ell+1})) = \rho_\ell(X_\ell) = Z_\ell$, so $Z_{\ell+1} = Z_\ell$. The observable identity is the standard change of variables for the normalized pushforward, $\int A  d\mathbb{P}_{\ell+1} = \int A\circ\mathcal{R}_\ell  d\mathbb{P}_\ell$.
+\end{proof}
+
+\begin{theorem}[Functoriality of the exact pushforward]
+\label{thm:rg_semigroup}
+For the exact pushforward, $(\mathcal{R}_{\ell+1})_*(\mathcal{R}_\ell)_*\mathbb{P}_\ell = (\mathcal{R}_{\ell+1} \circ \mathcal{R}_\ell)_*\mathbb{P}_\ell$. The maps $\mathcal{R}_\ell$ act between distinct state spaces, and the identity holds for any measurable maps between measure spaces; it expresses composability of the coarse-graining morphisms, not a semigroup acting on a coupling space $\Theta$.
+\end{theorem}
+
+\begin{proof}
+For any measurable $A \subset X_{\ell+2}$,
+\begin{align*}
+\big[(\mathcal{R}_{\ell+1})_*(\mathcal{R}_\ell)_*\mathbb{P}_\ell\big](A)
+ &= (\mathcal{R}_\ell)_*\mathbb{P}_\ell\big(\mathcal{R}_{\ell+1}^{-1}(A)\big) \\
+ &= \mathbb{P}_\ell\big(\mathcal{R}_\ell^{-1}(\mathcal{R}_{\ell+1}^{-1}(A))\big) \\
+ &= \mathbb{P}_\ell\big((\mathcal{R}_{\ell+1} \circ \mathcal{R}_\ell)^{-1}(A)\big) \\
+ &= (\mathcal{R}_{\ell+1} \circ \mathcal{R}_\ell)_*\mathbb{P}_\ell(A).
+\end{align*}
+\end{proof}
+
+On a chain of levels this composability imposes no condition~\cite[Ch.~9]{DennisGaugeVFE2026}. The statement with content is the semigroup property that two successive blockings equal one blocking with the merged partition, and it fails for $\mathcal{R}_\ell$ even for frozen partitions. The belief sector composes: given a common final frame, the two-stage M-projection equals the one-stage M-projection with product weights, because each stage matches the first two moments of a mixture and a mixture of mixtures is the mixture with product weights. The frame sector does not compose. The Karcher equation $\sum_iw_i\log(U^{-1}U_i)=0$ is nonlinear in the data on a curved group, so the Karcher mean of the Karcher means of a partition is in general not the Karcher mean of the whole set; for six $\mathrm{SO}(3)$ frames within $0.5$ rad of the identity, grouped into two triples, the two-stage and one-stage means differ by the geodesic distance $7.3\times10^{-3}$. For commuting data the Karcher equation reduces to averaging in the Lie algebra and does compose. Since the frames enter the belief transport, the full map inherits the failure.
+
+A semigroup acting on a coupling space would require exact closure modulo constants ($\delta_{I,0}^{\mathrm{quot}}=0$). It is available in one setting: on the Gaussian interaction family, aggregation of agents, which is conditioning on zero internal disagreement and not marginalization, maps couplings to couplings and satisfies the semigroup law under a declared rescaling, whereas marginalization in general leaves the family~\cite[Chs.~G7 and G9]{DennisGaugeVFESuppG2026}. If the partition $\mathcal{P}_\ell$ is selected adaptively by a threshold detector, the exact pushforward still exists whenever the selection rule is measurable, but the map is then state-dependent and not a homogeneous flow.
+
+\paragraph{Gauge covariance.}
+At one base point the equivariance of $\mathcal{R}_\ell$ concerns the diagonal action of one $g\in G$ described in the gauge-action paragraph. For compact $G$ with a bi-invariant metric the change of reference $U_i\mapsto U_ig$ is also compatible with $\mathcal{R}_\ell$, sending $U_I\mapsto U_Ig$ and leaving every transport unchanged.
+
+\begin{theorem}[Gauge covariance of $\mathcal{R}_\ell$ at one base point]
+\label{thm:rg_covariance}
+Let $G$ be a Lie group with a left-invariant Riemannian distance $d_G$, and assume that the constituent frames of each cluster lie in an open geodesic ball of radius below the convexity radius $r_{\mathrm{cx}}$ of that metric, that the weights satisfy $w_i^I(g \cdot X_\ell) = w_i^I(X_\ell)$ for the diagonal action of one $g\in G$ (as holds for weights built from transported divergences and support masks), and that the belief and model parent states are M-projection barycenters of the children transported to the parent frame. Then $\mathcal{R}_\ell(g \cdot X_\ell) = g \cdot \mathcal{R}_\ell(X_\ell)$.
+\end{theorem}
+
+\begin{proof}
+Left invariance gives $d_G(gU, gU_i) = d_G(U, U_i)$, so $gU_I$ attains the minimum of the transformed Karcher objective. Left translation is an isometry, so it carries a ball of radius $\rho<r_{\mathrm{cx}}$ containing $\{U_i\}$ onto a ball of the same radius containing $\{gU_i\}$, and the uniqueness theorem~\cite[Thm.~2.1]{Afsari2011} makes $gU_I$ the unique global minimizer that $\mathcal{R}_\ell$ returns. Child-to-parent transport transforms as $\Omega_{Ii} \mapsto g\Omega_{Ii}g^{-1}$, transported children transform by common pushforward, and the M-projection barycenter is equivariant under common invertible pushforward because $D_{\mathrm{KL}}(g_\# a \| g_\# b) = D_{\mathrm{KL}}(a \| b)$ and $g_\#$ preserves the Gaussian family. Uniqueness in the Gaussian family transfers $q_I \mapsto g_\# q_I$ and $s_I \mapsto g_\# s_I$. The support mask is unchanged. Hence $\mathcal{R}_\ell$ commutes with the diagonal action.
+\end{proof}
+
+Compactness enters only through the normalizability of the Gibbs reference measure, not through the equivariance of the map. Equivariance does not single out the M-projection barycenter and the Karcher frame: the precision-weighted product of experts and the barycenter in the opposite divergence direction are equally equivariant under common pushforward, so the theorem establishes these constructions as frame-consistent, not as uniquely correct. The companion theory takes kernel equivariance as a hypothesis for coarse channels~\cite[Ch.~9]{DennisGaugeVFE2026}; the theorem verifies that hypothesis for the present map. With independent links carrying loop holonomy, the parent law must be fixed by the holonomy group, and for noncompact $\mathrm{GL}$ links this generically leaves no admissible Gaussian parent~\cite[Ch.~10]{DennisGaugeVFE2026}.
+
+\paragraph{Closure ansatz and projection.}
+The exact $\mathcal{F}_{\ell+1}^{\mathrm{exact}}$ generally contains all interactions allowed by symmetry, including hyperedges among parents, non-Gaussian terms, long-range couplings, and memory; marginalizing an internal variable multiplies every incident factor and generically produces a factor on the union of the remaining scopes~\cite[Ch.~11]{DennisGaugeVFE2026}. Whether it lies in the multi-agent Gaussian KL functional class $\mathfrak{M} = \{\mathcal{F}_\theta : \theta \in \Theta\}$ is a separate claim. The projection back to $\mathfrak{M}$ is $\Pi_\mathfrak{M}(\mathcal{F}) = \arg\min_{\theta \in \Theta} \inf_{a \in \mathbb{R}}\|\mathcal{F} - \mathcal{F}_\theta - a\|_\mathcal{B}$, with quotient closure residual $\delta_{\ell+1,0}^{\mathrm{quot}}$ as in~\eqref{eq:rg_closure}, and the projected coarse-graining map is $R_\mathfrak{M}(\theta_\ell) := \Pi_\mathfrak{M}(\mathcal{F}_{\ell+1}^{\mathrm{exact}})$. It maps the level-$\ell$ parameter space to the level-$(\ell+1)$ parameter space, a different space, so it is not a self-map. For a retained projection the companion theory gives an exact residual identity in place of a schematic bound~\cite[Ch.~11]{DennisGaugeVFE2026}.
+
+\paragraph{Exact closure in the mean sector.}
+
+\begin{lemma}[Mean-sector Gaussian elimination]
+\label{thm:rg_exact_closure}
+Consider the mean-only linear coarse-graining $Y=\mu_I=\sum_{i\in I}w_i^I\Omega_{Ii}\mu_i$ at fixed covariances, frames, and non-envelope couplings, with fiber coordinates $\xi\in\mathbb{R}^r$, $r=(|I|-1)K_q$, on the affine fiber, and Lebesgue reference in the native mean coordinates (the Gibbs density below is normalizable when the block matrix is positive definite). The mean-sector functional is then a quadratic form with constant blocks,
+\begin{equation}
+\mathcal{F}_\ell(Y,\xi)
+=\frac12
+\begin{bmatrix}Y\\ \xi\end{bmatrix}^{\top}
+\begin{bmatrix}A_{YY}&A_{Y\xi}\\ A_{\xi Y}&A_{\xi\xi}\end{bmatrix}
+\begin{bmatrix}Y\\ \xi\end{bmatrix}
+-\begin{bmatrix}h_Y\\ h_\xi\end{bmatrix}^{\top}\begin{bmatrix}Y\\ \xi\end{bmatrix}+c_0 .
+\end{equation}
+If the block matrix is positive definite, the exact pushforward of the mean-sector Gibbs density is Gaussian, and
+\begin{equation}
+\mathcal{F}^{\mathrm{exact}}_{\ell+1}(Y)=\tfrac12Y^\top A_{\mathrm{eff}}Y-h_{\mathrm{eff}}^\top Y+c_{\mathrm{eff}},
+\qquad
+A_{\mathrm{eff}}=A_{YY}-A_{Y\xi}A_{\xi\xi}^{-1}A_{\xi Y},
+\label{eq:rg_app_schur_complement}
+\end{equation}
+with $h_{\mathrm{eff}}=h_Y-A_{Y\xi}A_{\xi\xi}^{-1}h_\xi$, $c_{\mathrm{eff}}=c_0-\tfrac12h_\xi^\top A_{\xi\xi}^{-1}h_\xi+\tfrac{T_{\mathrm{cfg}}}{2}\log\det A_{\xi\xi}-\tfrac{rT_{\mathrm{cfg}}}{2}\log(2\pi T_{\mathrm{cfg}})$, and saddle $\xi^*(Y)=A_{\xi\xi}^{-1}(h_\xi-A_{\xi Y}Y)$.
+\end{lemma}
+
+\begin{proof}
+With fixed covariances and frames, each transported relative entropy between Gaussians is a quadratic function of the means plus a constant, and so are the self terms against fixed priors and the linear-Gaussian observation terms, which gives the displayed form; the map $(\mu_i)\mapsto\mu_I$ is linear and surjective, so its fibers are complete affine spaces and the normal-Jacobian factor is constant. The Gaussian integral
+\begin{equation}
+\int_{\mathbb{R}^r}\exp\left[-\frac{1}{T_{\mathrm{cfg}}}\left(\tfrac12\xi^\top A_{\xi\xi}\xi+\xi^\top b\right)\right]d\xi
+=(2\pi T_{\mathrm{cfg}})^{r/2}(\det A_{\xi\xi})^{-1/2}\exp\left[\frac{b^\top A_{\xi\xi}^{-1}b}{2T_{\mathrm{cfg}}}\right],
+\end{equation}
+with $b=A_{\xi Y}Y-h_\xi$, followed by $-T_{\mathrm{cfg}}\log$ and collection of terms in $Y$, gives Eq.~\eqref{eq:rg_app_schur_complement} without a Laplace approximation. This is the normalized Schur marginal of the companion supplement~\cite[Ch.~G7]{DennisGaugeVFESuppG2026}.
+\end{proof}
+
+\begin{remark}[Why closure is not claimed beyond the mean sector]
+A closure statement for the full parent state would need exact conditional Gaussianity on the complete fiber with a $Y$-dependent precision $A_{\xi\xi}(Y)$. For the map that retains the parent covariance that hypothesis cannot hold: fixing $\Sigma_I=\sum_iw_i^I\widetilde{\Sigma}_i^I+\sum_iw_i^I\xi_i\xi_i^\top$ with $\widetilde{\Sigma}_i^I\succ0$ forces $\sum_iw_i^I\xi_i\xi_i^\top\prec\Sigma_I$ and bounds the child covariances, so every fiber is bounded. If instead an arbitrary fiber chart is allowed, the hypothesis is empty, since any smooth positive density on a fiber diffeomorphic to $\mathbb{R}^r$ is carried onto a standard Gaussian by the triangular change of variables built from its successive conditional distribution functions. A $Y$-dependent term $\tfrac{T_{\mathrm{cfg}}}{2}\log\det A_{\xi\xi}(Y)$ is moreover not quadratic (for example, $\partial_y^4\log(a_0+a_1y^2)\neq0$), so the next-level fiber density is not Gaussian and the class would not be preserved under iteration. Only the constant-block case of the lemma iterates, and there each step is Gaussian decimation. In the operational state-dependent-precision regime the functional is only locally quadratic, Eq.~\eqref{eq:rg_laplace} applies, and $\mathcal{E}_{\mathrm{anh}}$ must be retained. Membership of $A_{\mathrm{eff}}$ in the multi-agent Gaussian KL class proper is not asserted, since whether it decomposes into transported-difference KL terms with nonnegative row-structured couplings remains open.
+\end{remark}
+
+\paragraph{Anharmonic remainder.}
+Outside the mean sector, let $\xi^*(Y)$ be a nondegenerate internal saddle of the effective fiber action $\Phi_\ell$, including the coarea density, defined by $\nabla_\xi\Phi_\ell(Y,\xi^*(Y))=0$, and set $\zeta=\xi-\xi^*(Y)$. Under the standard uniform regularity and tail conditions, Laplace's method~\cite{wong2001asymptotic} gives the anharmonic remainder $\mathcal{E}_{\mathrm{anh}}$ of~\eqref{eq:rg_laplace} with the schematic bound
+\begin{equation}
+|\mathcal{E}_{\mathrm{anh}}|
+=O\left(T_{\mathrm{cfg}}^2\|H^{-1}\|^3\|T_3\|^2+T_{\mathrm{cfg}}^2\|H^{-1}\|^2\|T_4\|\right),
+\end{equation}
+where $T_3,T_4$ are the cubic and quartic derivative tensors at the saddle. With $\|H^{-1}\|\leq m_I^{-1}$ from~\eqref{eq:rg_constrained_gap}, perturbative control requires $\sqrt{T_{\mathrm{cfg}}}\|T_3\|m_I^{-3/2}\ll1$ and $T_{\mathrm{cfg}}\|T_4\|m_I^{-2}\ll1$. This formalizes the high-coherence, spectrally gapped, weakly anharmonic regime in which the working-form approximation of the preceding part applies.
+
+\paragraph{Parent-parent transport.}
+Besides the pooled raw conductance $\kappa_{IJ}^R$ of~\eqref{eq:rg_inter_cluster}, closure also requires a single transport $\Omega_{IJ}^R$ for each cluster pair. Transport the microscopic edge into parent coordinates as $\Theta_{ij}^{IJ} = \Omega_{Ii}\Omega_{ij}\Omega_{jJ}$ and define the parent transport by the weighted Karcher mean
+\begin{equation}
+\Omega_{IJ}^R = \arg\min_{\Omega \in G} \sum_{i \in I}\sum_{j \in J} w_i^I \kappa_{ij} d_G(\Omega, \Theta_{ij}^{IJ})^2,
+\end{equation}
+with weights matching the row-convex, column-summed rule~\eqref{eq:rg_inter_cluster}, and the transport spread
+\begin{equation}
+\mathcal{H}_{IJ} = \sum_{i \in I}\sum_{j \in J} w_i^I \kappa_{ij} d_G(\Omega_{IJ}^R, \Theta_{ij}^{IJ})^2 .
+\end{equation}
+In Regime~I, where every transport is built from the same frames, the spread vanishes identically:
+\begin{equation}
+\Theta_{ij}^{IJ}=U_IU_i^{-1}U_iU_j^{-1}U_jU_J^{-1}=U_IU_J^{-1}\quad\text{for all } i\in I,\ j\in J,
+\qquad\text{so}\qquad \mathcal{H}_{IJ}\equiv0 .
+\label{eq:rg_holonomy_trivial}
+\end{equation}
+The state space $X_\ell$ of this appendix contains no independent links, so $\mathcal{H}_{IJ}$ is not a closure error here. It becomes one only with independent links on the interaction graph (Regime~II), where it measures their failure to descend to a single parent-parent transport; the law-level treatment of that case is the companion theory's holonomy-conditioned parent~\cite[Ch.~10]{DennisGaugeVFE2026}.
+
+\paragraph{Edge-marginal compatibility.}
+Let the row and column conductance marginals for a cluster pair $(I, J)$ be $r_i^{I \to J} = \sum_{j \in J}\kappa_{ij}$ and $\bar{r}_j^{J \leftarrow I} = \sum_{i \in I}\kappa_{ij}$. The first-order energy residual identified in the working-form part vanishes when the cluster weights match the row marginals, $w_i^I = r_i^{I \to J}/\sum_{i'}r_{i'}^{I \to J}$. A single cluster typically interacts with several partners $J_1, \ldots, J_m$, and one set of weights cannot satisfy every partner-specific marginal condition unless the marginals are colinear. The mismatch $\delta_I^{\mathrm{marg}} = \sum_J \rho_{IJ}\sum_{i \in I}|w_i^I - r_i^{I \to J}/\sum_{i'}r_{i'}^{I \to J}|$, with $\rho_{IJ}$ normalized partner weights, contributes to the quotient $C^0$ closure residual.
+
+\paragraph{Structural decomposition of the closure residual.}
+The working-form quotient $C^0$ closure residual~\eqref{eq:rg_closure} admits a structural decomposition into the residuals identified above. The proposition below collects that zeroth-order decomposition; its multiplicative constants depend on the smoothness class, in the standard form of schematic asymptotic bounds~\cite{wong2001asymptotic}, and a quantitatively tight version requires specifying the closure norm and the parent regularity class. It does not bound the derivative residual $\delta_{I,1}$.
+
+\begin{proposition}[Schematic closure-residual bound]
+\label{thm:rg_residual}
+Assume Assumption~\ref{ass:closure_regime}; small belief and model dispersions $V_I^{(q)} = \sum_i w_i^I D_{\mathrm{KL}}(\Omega_{Ii}q_i \| q_I)$ and $V_I^{(s)} = \sum_i w_i^I D_{\mathrm{KL}}(\widetilde{\Omega}_{Ii}s_i \| s_I)$; small inter-cluster transport spread $\mathcal{H}_{IJ}$; small edge-marginal mismatch $\delta_I^{\mathrm{marg}}$; uniformly positive stiffness $m_I$ as in~\eqref{eq:rg_constrained_gap}; bounded anharmonic derivatives; small non-Gaussian closure error $\mathcal{E}_{\mathrm{nonG}}^{(I)}$, defined as the $L^\infty(\mathcal{N}_I)$ magnitude, modulo additive constants as in~\eqref{eq:rg_closure}, of the third- and higher-cumulant corrections to the transported child marginals $\Omega_{Ii}q_i$ (the failure of the Gaussian-children condition~(i), distinct from $\mathcal{E}_{\mathrm{anh}}$, which records anharmonicity of $\mathcal{F}_\ell$ at the internal saddle); and slow parent modes separated from internal modes. Then the quotient closure residual obeys
+\begin{multline}
+\delta_{\ell+1,0}^{\mathrm{quot}} \le C_1\sum_I \big(V_I^{(q)} + V_I^{(s)}\big)^{3/2} + C_2\sum_{I,J}\mathcal{H}_{IJ} + C_3\sum_I \delta_I^{\mathrm{marg}} \\
+ + C_4\sum_I m_I^{-1}\|A_{Y\xi}^{(I)}\|^2 + C_5\sum_I \mathcal{E}_{\mathrm{anh}}^{(I)} + C_6\sum_I \mathcal{E}_{\mathrm{nonG}}^{(I)},
+\end{multline}
+with constants $C_1, \ldots, C_6$ depending on the closure norm $\|\cdot\|_\mathcal{B}$ and the regularity of the parent ansatz. The $C_2$ term vanishes identically in Regime~I by Eq.~\eqref{eq:rg_holonomy_trivial}.
+\end{proposition}
+
+This is stated as a schematic proposition because the constants $C_k$, the closure norm $\|\cdot\|_\mathcal{B}$, and the regularity class of the parent ansatz are not pinned down, and tightness is not established; its status is conjectural. The exponent $3/2$ of the dispersion term is the scaling suggested by the leading third-cumulant correction once the first two moments are matched; it is not derived here, and no explicit value of $C_1$ is claimed. The qualitative content is that small dispersion, compatible weights, large internal stiffness, weak anharmonicity, and approximate Gaussianity together are expected to imply a small quotient $C^0$ closure residual.
+
+\begin{proposition}[Two-loop anharmonic constants, one internal mode]
+\label{thm:rg_residual_explicit}
+Restrict the Laplace integral to one constrained internal mode, $r=1$, a condition stronger than $K_q=1$ that freezes all other internal belief, covariance, model, and frame directions. Suppose the fiber action is $C^4$ near a nondegenerate saddle with stiffness $m_I>0$ and satisfies the standard tail conditions of Laplace's method. Then
+\begin{equation}
+\limsup_{T_{\mathrm{cfg}}\to0^+}\frac{|\mathcal{E}_{\mathrm{anh}}^{(I)}|}{T_{\mathrm{cfg}}^2} \leq \frac{1}{8} \cdot \frac{\|T_4\|_{\mathrm{op}}}{m_I^2} + \frac{5}{24} \cdot \frac{\|T_3\|_{\mathrm{op}}^2}{m_I^3}.
+\label{eq:rg_C5_explicit}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+For one mode, $-T_{\mathrm{cfg}}\log(Z/Z_0)=T_{\mathrm{cfg}}^2\big(t_4/(8m_I^2)-5t_3^2/(24m_I^3)\big)+o(T_{\mathrm{cfg}}^2)$, where $Z_0$ is the Gaussian integral and $t_3,t_4$ are the third and fourth derivatives at the saddle~\cite{BenderOrszag1999, wong2001asymptotic}; the coefficient $\tfrac{5}{24}=\tfrac{1}{12}+\tfrac{1}{8}$ collects the two two-loop contractions of the cubic vertex (the sunset and dumbbell diagrams), and $\tfrac18$ is the single contraction of the quartic vertex. The triangle inequality gives the bound.
+\end{proof}
+
+The multiplier $C_5$ of Proposition~\ref{thm:rg_residual} is then an absolute constant of order one. These are integrated free-energy coefficients of the Laplace expansion; the Edgeworth coefficients of the perturbed Gaussian density are different objects and do not enter the free energy. For $r>1$, including multi-mode clusters even when $K_q=1$, the contractions $T_4 \mathbin{:} (H^{-1} \otimes H^{-1})$ and $T_3 H^{-1} T_3$ carry dimension-dependent trace factors that the operator norms alone do not control, so the displayed values do not extend verbatim beyond $r=1$.
+
+\paragraph{Bounded exponential detector with a gap condition.}
+The threshold detector of Section~\ref{sec:meta_agent_threshold} is written here in bounded exponential form with the model channel. With $C_q(I) = \exp[-V_I^{(q)}/\tau_q]$, $C_s(I) = \exp[-V_I^{(s)}/\tau_s]$, and presence $P_I = |\Lambda_\ell|^{-1}\sum_{c \in \Lambda_\ell}\chi_I(c) \in [0, 1]$, define $\Gamma_I = P_I C_q(I) C_s(I) \in [0, 1]$. The strengthened detector selects $I$ if $\Gamma_I > \Gamma_{\min}$, $|I| \ge N_{\min}$, and $m_I > m_{\min}$; the gap condition is what makes it test a closure condition and not only a similarity threshold, since the anharmonic constants of Proposition~\ref{thm:rg_residual_explicit} scale as $m_I^{-2}$ and $m_I^{-3}$ and the remainder is uncontrolled as $m_I \to 0$. The detector of Section~\ref{sec:meta_agent_threshold} tests only $\Gamma_I > \Gamma_{\min}$ and $|I| \ge N_{\min}$, without the gap condition. It is therefore a similarity filter, the clusters it admits carry no lower bound on $m_I$, and Theorem~\ref{thm:rg_detector_retention} below does not cover it.
+
+\begin{remark}[Status of the Lipschitz bound and of the saving term]
+\label{rem:rg_detector_saving}
+The Lipschitz bound in the hypothesis of Theorem~\ref{thm:rg_detector_retention} is an assumption, not a result of this appendix. A first-order Taylor expansion of the parent free energy around the high-coherence configuration under conditions~(i)--(v) motivates it, with local Lipschitz constants bounded by operator norms of the parent Fisher information~\cite{Amari2016}, $L_q \le \lambda_{\max}(F(q_I)) \cdot \max_i\|w_i^I\|$ and $L_s \le \lambda_{\max}(F(s_I)) \cdot \max_i\|w_i^I\|$; these identifications are not derived here. The saving term $A_I>0$, the assertion that coarse-graining lowers the optimized free energy at all, has no identified source. At Gibbs-optimal rows each row value is $-\tau\log Z_i$ with $Z_i=\sum_j\pi_{ij}e^{-E_{ij}/\tau}$, and deleting the coherent low-energy intra-cluster sources raises it: with the prior left unnormalized, removing positive terms lowers $Z_i$; with the prior normalized again over the surviving sources, $Z_i$ falls exactly when the $\pi$-average of $e^{-E_{ij}/\tau}$ over the cluster exceeds its average over the other sources, which holds whenever the intra-cluster energies are the smaller ones. Any net gain must therefore come from the rows of agents outside the cluster, which couple to one parent in place of $|I|$ constituents, or from the parent's prior term, and neither is derived here. Under an exact parent, moreover, a gain in the variational free energy is discarded conditional information (paragraph on retention). The identification $A_I=T_{\mathrm{cfg}}m_I$ in the leading-order Laplace approximation, which would tie the saving to the gap, is likewise not derived. The theorem is correct as a conditional statement, and its hypothesis $A_I>0$ is open.
+\end{remark}
+
+\begin{theorem}[Strengthened detector implies positive retention gain, conditionally]
+\label{thm:rg_detector_retention}
+Suppose, for candidate cluster $I$, the calibrated agent parent satisfies the local Lipschitz bound $\widehat{\mathcal{F}}_{\ell+1}^{\mathrm{agent},*}(I) \le \mathcal{F}_{\mathrm{micro}}^*(I) - A_I + L_q V_I^{(q)} + L_s V_I^{(s)} + \delta_{I,0}$, where $A_I > 0$ is the saving term, $L_q, L_s$ are the local Lipschitz constants in belief and model dispersion, and $\delta_{I,0}$ is the single uniform calibrated energy error from~\eqref{eq:rg_closure}. Let $C_I = C_{\mathrm{parent}}(I) - C_{\mathrm{micro}}(I)$, with $\mathcal{L}_{\mathrm{micro}}(I) = \mathcal{F}_{\mathrm{micro}}^*(I) + C_{\mathrm{micro}}(I)$. If
+\begin{equation}
+\max(L_q\tau_q, L_s\tau_s)\log(1/\Gamma_{\min}) + \delta_{I,0} + C_I < A_I,
+\label{eq:rg_app_detector_retention}
+\end{equation}
+then $\Gamma_I > \Gamma_{\min}$ implies $\Delta_I = \mathcal{L}_{\mathrm{micro}}(I) - \mathcal{L}_{\mathrm{parent}}(I) > 0$.
+\end{theorem}
+
+\begin{proof}
+The Lipschitz bound together with the definitions of $\Delta_I$ and $\mathcal{L}_{\mathrm{parent}}$ in~\eqref{eq:rg_retention_gain} gives $\Delta_I \ge A_I - L_q V_I^{(q)} - L_s V_I^{(s)} - \delta_{I,0} - C_I$. The detector condition $\Gamma_I > \Gamma_{\min}$, with $P_I \le 1$, implies $V_I^{(q)}/\tau_q + V_I^{(s)}/\tau_s < \log(1/\Gamma_{\min})$, so $L_q V_I^{(q)} + L_s V_I^{(s)} \le \max(L_q\tau_q, L_s\tau_s)\log(1/\Gamma_{\min})$. Substituting and applying~\eqref{eq:rg_app_detector_retention} gives $\Delta_I > 0$.
+\end{proof}
+
+The gap condition $m_I>m_{\min}$ does not appear in the proof; it enters through the regime in which the Lipschitz bound and the calibrated residual $\delta_{I,0}$ are meaningful.
+
+\paragraph{Slow manifold.}
+The working-form reduction of the adiabatic-elimination paragraph is Fenichel's normal-hyperbolicity argument~\cite{fenichel1979geometric} under hypotheses (a)--(c), with $t_{\mathrm{int}}^{-1}=\eta\lambda_2(L_I;W_g)$ and $\epsilon_{\mathrm{ts}}=t_{\mathrm{int}}/t_{\mathrm{slow}}\ll1$. Its metric is the graph pullback $G_{\mathrm{slow}}$ of~\eqref{eq:rg_slow_graph_metric}, which exceeds the quotient metric in the Loewner order unless $D\xi^*=C^*$, and the closure perturbation of the reduced vector field is bounded by $\eta\delta_{I,1}$ in~\eqref{eq:rg_schur_flow}. Establishing a quantitative $C^1$ closure estimate, and applying the hypotheses to the collective free energy~\cite[Ch.~8]{DennisGaugeVFE2026}, are open.
+
+\paragraph{Finite-size scaling.}
+A phase-transition or universality claim would require finite-size scaling tests, which in turn require a sequence of networks of growing size $N$; infinite networks belong to the companion supplement~\cite[Ch.~B5]{DennisGaugeVFESuppB2026}. Candidate observables include the mean cluster size $S_N = N^{-1}\sum_I |I|^2$, which is itself the susceptibility in the percolation convention (computed without the largest cluster above threshold), the correlation length on the overlap graph, the exponential coherence order parameter $M_N = N^{-2}\sum_{i,j}\exp[-D_{\mathrm{KL}}(q_i \| \Omega_{ij}q_j)/\tau_q]$, and the largest meta-agent fraction $P_\infty = N^{-1}\max_I |I|$. On a graph without a dimension the scaling exponents in $N$ must be declared as quantities in their own right, as in complete-graph scaling: a finite-size scaling ansatz takes the form $M_N(g) = N^{-a_M}\Phi_M((g - g_c)N^{b})$ and $S_N(g) = N^{a_S}\Phi_S((g - g_c)N^{b})$ for a control parameter $g$, with declared exponents $a_M$, $a_S$, and $b$; on a $d$-dimensional lattice with $N\sim L^d$ they would be $\hat{\beta}/(d\hat{\nu})$, $\hat{\gamma}/(d\hat{\nu})$, and $1/(d\hat{\nu})$ in terms of the standard exponents $\hat{\beta},\hat{\gamma},\hat{\nu}$. Evidence for universality requires curve collapse across $N$ and robustness across microscopic details. This is a program for future work, not a delivered result, and the main text accordingly speaks of a formation event (Section~\ref{sec:participatory}), not of a phase transition in the statistical-mechanical sense.
+
+\paragraph{Summary.}
+The gauge-covariant map $\mathcal{R}_\ell$ carries the agent Gibbs measure to a parent measure with the same partition function and retained observables (Theorems~\ref{thm:rg_pushforward}, \ref{thm:rg_semigroup}, and~\ref{thm:rg_covariance}; status P), as deterministic cases of the companion theory's conditional-partition formula~\cite[Chs.~9 and 11]{DennisGaugeVFE2026}; the map is not a semigroup in the frame sector. Closure in the multi-agent class is proved only in the mean sector (Lemma~\ref{thm:rg_exact_closure}; P). Beyond it the coarse energy is given by the Laplace formula~\eqref{eq:rg_laplace}, whose one-loop term shifts the parent's entropy weight (Eq.~\eqref{eq:rg_entropy_shift}; D); the quotient $C^0$ residual bound of Proposition~\ref{thm:rg_residual} is conjectural (C), its two-loop constants for one internal mode are proved (Proposition~\ref{thm:rg_residual_explicit}), and no $C^1$ force-residual estimate is proved. The strengthened detector implies a positive retention gain as a conditional statement (Theorem~\ref{thm:rg_detector_retention}) whose saving hypothesis has no identified source, and the detector of Section~\ref{sec:meta_agent_threshold}, which lacks the gap condition, is not covered.
+
+\section{Notation and Symbol Conventions}\label{sec:notation}
+
+Several symbols are overloaded across the framework's distinct mathematical strata. Table~\ref{tab:notation} collects the conventions.
+
+{\small
+\setlength{\LTcapwidth}{\textwidth}
+\begin{longtable}{@{}p{0.24\textwidth}p{0.70\textwidth}@{}}
+\caption{Symbols used in this paper. Where a letter carries more than one meaning, the decoration or the section that uses it disambiguates.}\label{tab:notation}\\
+\toprule
+Symbol & Meaning \\
+\midrule
+\endfirsthead
+\toprule
+Symbol & Meaning \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+$\mathcal{C}$, $c$, $c_*$ & Base manifold, a presupposed smooth index manifold carrying no physical metric; a base point; the fixed base point of the single-point analysis. \\
+$G$, $\mathfrak{g}$ & Structure group ($\mathrm{GL}^+(K_q)$, or $\mathrm{SO}(K_q)$ where stated) and its Lie algebra. \\
+$U_i$, $\phi_i$; $U_I$, $\mathcal{U}_I$ & Frame of agent $i$ and its Lie-algebra coordinate; parent frame of cluster $I$ and support region of the meta-agent (Eq.~\eqref{eq:meta_agent_support}). \\
+$\Omega_{ij}$, $\widetilde{\Omega}_{ij}$ & Transport from agent $j$ to agent $i$ of Eq.~\eqref{eq:transport_def}, $U_iU_j^{-1}$ in Regime~I and an independent link with $\Omega_{ji}=\Omega_{ij}^{-1}$ in Regime~II; its action on the model fiber. \\
+$\Omega_{Ii}$, $\Omega_{IJ}^R$ & Child-to-parent transport $U_IU_i^{-1}$; parent-parent transport (Appendix~\ref{sec:meta_agent_rg}). \\
+$q_i$, $p_i$, $s_i$, $r_i$ & Belief on the state fiber, prior on the state fiber (in the hierarchy, the lagged predictive prior of Section~\ref{sec:cross_scale_shadows}), generative-model section on the model fiber, hyper-prior on the model fiber. The letters $q$, $p$, $s$, $r$ refer to these fields throughout. \\
+$(q)$, $(s)$ & Channel decorations, never level indices: belief channel and model channel, as in $V_I^{(q)}$, $V_I^{(s)}$, $C_q$, $C_s$, $\tau_q$, $\tau_s$, the coupling strengths $c^{(q)}_{ij}$, $c^{(s)}_{ij}$ and coupling precisions $W^{(q)}_{ij}$, $W^{(s)}_{ij}$ of the quadratic-form appendix (Section~\ref{sec:raw_alignment_weights}), and the pullbacks $G^{(q)}_i$, $G^{(s)}_i$. \\
+$\tilde\beta_{ij}$, $\tilde\gamma_{ij}$ & Raw alignment weights $c^{(q)}_{ij}/2$, $c^{(s)}_{ij}/2$ (Section~\ref{sec:raw_alignment_weights}), distinct from the row-normalized $\beta_{ij}$, $\gamma_{ij}$. \\
+$G^{(q)}_i$; $\widetilde{G}^{(q)}_i$ & Covariant Fisher block of the pullback; the pullback with horizontal block $\kappa\operatorname{tr}(A_\mu A_\nu)$ (Section~\ref{sec:it_from_bit}). \\
+$\kappa$ & Unindexed, a declared dimensionless constant: the horizontal coupling of Section~\ref{sec:it_from_bit}, or the temperature scale $\tau=\kappa\sqrt{K_q}$ of the gradient appendix; the section disambiguates. \\
+$L_0$; $x^0,\ldots,x^3$; $\psi_0,\ldots,\psi_3$ & Physical length scale of a line element; base coordinates and frame components in the signature examples (Section~\ref{sec:signature_resolution}). \\
+$K_q$, $K_m$ & Dimensions of the state and model fibers. \\
+$D_{\mathrm{KL}}(p\|q)$ & Relative entropy, first argument the receiving or variational law. \\
+$\beta_{ij}$, $\gamma_{ij}$ & Attention weight on belief alignment and coupling on the model channel; both are row-normalized and not interchangeable. \\
+$\pi_{ij}$; $\pi$ & Attention prior; the bundle projection $\pi:\mathcal{N}\to\mathcal{C}$. \\
+$\tau$, $\tau_\gamma$ & Attention and entropy temperatures of the belief and model channels in Eq.~\eqref{eq:pointwise_free_energy}; $\tau$ is never a clock. \\
+$\tau_q$, $\tau_s$ & Detector dispersion temperatures (Section~\ref{sec:meta_agent_threshold}). \\
+$T_{\mathrm{cfg}}$ & Configuration temperature of the Gibbs ensemble over belief configurations (Appendix~\ref{sec:meta_agent_rg}). \\
+$\vartheta_i$ & Information clock of agent $i$, the Fisher arc length of its belief history (Section~\ref{sec:time_info}). \\
+$t$; $t_q$, $t_s$, $t_\phi$ & External flow parameter, and the coarse-grained shared update parameter of postulate P5; characteristic belief, model, and frame relaxation times (Section~\ref{sec:timescales}). \\
+$\eta_\mu$, $\eta_\Sigma$, $\eta_\phi$, $\eta$ & Mobilities of the natural-gradient flow; $\eta$ for the parent flow of Appendix~\ref{sec:meta_agent_rg}. \\
+$\alpha_i$ & Per-agent precision weight on $\alpha_iD_{\mathrm{KL}}(q_i\|p_i)$. \\
+$\beta_{\mathrm{W}}$ & Wilson lattice coupling. \\
+$\ell$, $\ell_{\max}$ & Index of the level in the coarse-graining hierarchy and top level; a superscript $(\ell)$ marks a level. \\
+$\mathcal{R}_\ell$ & Coarse-graining map from level $\ell$ to level $\ell+1$. \\
+$\mathcal{I}_\ell$; $I$, $J$ & Agent index set at level $\ell$; clusters of agents, with $|I|$ the cluster size. \\
+$w_i^I$ & Aggregation weight of constituent $i$ in cluster $I$. \\
+$\chi_i$ & Presence mask of agent $i$. \\
+$\Gamma(I)$ or $\Gamma_I$, $\Gamma_{\min}$, $N_{\min}$ & Consensus score of the detector, its threshold, and the minimum cluster size. \\
+$\Gamma$, $\Gamma_{\mathrm{2PI}}$ & One-particle-irreducible effective action and two-particle-irreducible action of the configuration ensemble (Appendix~\ref{sec:beyond_mean_field_gauge_vfe}); distinct from the detector score. \\
+$\mathcal{K}^{(\ell)}_{i,\pi(i)}$, $\sigma^2$, $p_{\mathrm{top}}$ & Gaussian link kernel of the augmented hierarchical joint, its link stiffness, and the declared top-level prior (Appendix~\ref{app:augmented_joint}). \\
+$\mathsf{T}_{ij}$; $\mathcal{C}_{\mathrm{cons}}$ & Fixed mass-preserving positive linear transport induced by $(\Omega_{ij})_*$; consensus functional of the state-level obstruction theorem (Appendix~\ref{app:augmented_joint}). \\
+$\Lambda_i$, $A_i$, $a$, $\mathcal{L}$ & Belief precision $\Sigma_i^{-1}$, prior-and-sensory anchor, alignment coupling strength, and the linear precision-transport map on $\mathrm{Sym}(K)^N$ (Appendix~\ref{app:covariance_dynamics}); the anchor $A_i$ is distinct from the saving term $A_I$ of Appendix~\ref{sec:meta_agent_rg}. \\
+$\operatorname{cond}(\cdot)$; $\mathcal{D}$ & Condition number, written so to avoid a collision with $\kappa$; duplication matrix (Appendix~\ref{app:math}). \\
+$\mathrm{ph}$; $j$ & Photon channel of the rock example (Appendix~\ref{app:examples}); spin label of an irreducible $\mathrm{SO}(3)$ representation (Appendix~\ref{app:math}), distinct from the agent index $j$. \\
+$\kappa_{ij}$, $\kappa^R_{IJ}$ & Raw edge conductances and pooled parent conductances (Appendix~\ref{sec:meta_agent_rg}); distinct from any unindexed $\kappa$. \\
+$m_I$, $\lambda_{I,w}$ & Stiffness of the internal modes of cluster $I$ and the constrained weighted gap (Eq.~\eqref{eq:rg_constrained_gap}). \\
+$T_3$, $T_4$ & Cubic and quartic derivative tensors at an internal saddle; distinct from $T_{\mathrm{cfg}}$ and $\mathsf{T}_{ij}$. \\
+$M_{\mu\mu}$, $M_{\Sigma\Sigma}$, $M_i$; $M_K$ & Stiffness (Hessian) blocks of Section~\ref{sec:mass}; kinetic metric of the kinetic-metric postulate (Section~\ref{sec:velocity_quadratic}). \\
+$\rho_{\mathrm{state}}$, $\rho_{\mathrm{model}}$ & Representations of $G$ on the state and model fibers. \\
+$B(X,Y)$ & Killing form $2K_q\operatorname{tr}(XY)-2\operatorname{tr}(X)\operatorname{tr}(Y)$ on $\mathfrak{gl}(K_q)$, indefinite and degenerate; the horizontal tensor of Part~II uses the distinct trace form $\operatorname{tr}(XY)$, also indefinite on real $\mathfrak{gl}(K_q)$, and only $-\operatorname{tr}(XY)$ on a compact skew-symmetric subalgebra is positive. On $\mathfrak{so}(K_q)$, $B$ denotes that algebra's own Killing form $(K_q-2)\operatorname{tr}(XY)$ (Section~\ref{sec:velocity_quadratic}). \\
+\end{longtable}}
+
+\bibliographystyle{unsrt}
+\bibliography{references}
+\end{document}

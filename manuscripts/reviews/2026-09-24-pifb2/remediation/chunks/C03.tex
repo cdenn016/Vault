@@ -1,0 +1,321 @@
+\section{State-Dependent Precision, the Envelope Theorem, Environmental Agents, and Symmetry Breaking}\label{sec:precision_envelope}
+
+The canonical functional~\eqref{eq:free_energy_functional_final} fixes the belief self-coupling weight at unity. This section first promotes that weight to a state-dependent variational parameter, then performs the envelope reduction that substitutes the optimal attention weights back into the functional, then recasts the external observation terms as couplings to environmental agents, and finally identifies the global symmetry that observations break explicitly.
+
+\subsection{State-Dependent Prior Precision}
+\label{sec:state_dependent_precision}
+
+The self-coupling term $D_{\mathrm{KL}}(q_i(c)\|p_i(c))$ in Eq.~\eqref{eq:free_energy_functional_final} carries an implicit unit weight, equivalent to assuming that each agent's prior precision is fixed and uniform in context. In a generative hierarchy this is restrictive: the trust an agent should place in its prior depends on how far its current belief has moved from it, and this varies across the manifold and with the agent's beliefs. Promoting the self-coupling weight to a per-agent variational parameter $\alpha_i(c) > 0$ reproduces the precision-weighted prediction-error form of the self-coupling gradient. Here $\alpha_i(c)$ acts as a state-dependent scalar gain on the prior-precision metric, not as the optimized precision matrix itself, so the correspondence with predictive coding is structural and does not recover its precision update exactly.
+
+\paragraph{Precision as a variational parameter.}
+With $\alpha_i$ a per-agent variational parameter and $R(\alpha_i)$ a precision regularizer preventing degenerate $\alpha_i \to 0$ or $\alpha_i \to \infty$ solutions, the self-coupling sector of Eq.~\eqref{eq:free_energy_functional_final} generalizes to
+\begin{equation}
+\mathcal{F}_i^{\mathrm{adaptive}}
+= \int_\mathcal{C} \chi_i(c)\Big[\alpha_i(c) D_{\mathrm{KL}}(q_i(c)\|p_i(c)) + R(\alpha_i(c))\Big] dc
++ \mathcal{F}_i^{\mathrm{align}}
+- \int_\mathcal{C} \chi_i(c) \mathbb{E}_{q_i(c)\otimes s_i(c)}[\log p(o_i(c)\mid k_i,m_i)] dc,
+\label{eq:free_energy_adaptive}
+\end{equation}
+where $\mathcal{F}_i^{\mathrm{align}}$ collects the alignment terms unchanged from Eq.~\eqref{eq:free_energy_functional_final}. We take the log-barrier regularizer
+\begin{equation}
+R(\alpha_i) = b_0 \alpha_i - c_0 \log \alpha_i, \qquad b_0 > 0, \quad c_0 > 0,
+\label{eq:precision_regularizer}
+\end{equation}
+in which the linear term penalizes arbitrarily large precision and the logarithmic term enforces $\alpha_i > 0$ and penalizes vanishing precision. For the rate-parameterized density $p(\alpha_i\mid b_0,c_0)=b_0^{c_0+1}\alpha_i^{c_0}\exp(-b_0\alpha_i)/\Gamma(c_0+1)$, the full negative log-density is
+\begin{equation}
+-\log p(\alpha_i\mid b_0,c_0)
+=b_0\alpha_i-c_0\log\alpha_i+\log\Gamma(c_0+1)-(c_0+1)\log b_0.
+\label{eq:precision_gamma_normalized}
+\end{equation}
+The last two terms may be dropped only when $b_0$ and $c_0$ are fixed. Holding $\alpha_i$ fixed, their hyperparameter derivatives are
+\begin{equation}
+\partial_{b_0}[-\log p]=\alpha_i-\frac{c_0+1}{b_0},
+\qquad
+\partial_{c_0}[-\log p]=-\log\alpha_i+\psi(c_0+1)-\log b_0,
+\label{eq:precision_gamma_hyper_derivatives}
+\end{equation}
+where $\psi$ is the digamma function. Learning $b_0$ and $c_0$ would require these terms together with a hyperprior on them, and it is not pursued here: the hyperparameters are fixed throughout. The stationary point~\eqref{eq:state_dependent_alpha} derived next is the minimizer of the declared penalty $\alpha_i D_{\mathrm{KL}}(q_i\|p_i)+R(\alpha_i)$ at fixed hyperparameters. It is not the MAP precision of a normalized hierarchical model, because the term $\alpha_i D_{\mathrm{KL}}(q_i\|p_i)$ carries no $\alpha_i$-dependent normalizer. For comparison, the normalized hierarchical Gaussian model $k_i\sim\mathcal{N}(\mu_{p,i},\Sigma_{p,i}/\alpha_i)$ with the same Gamma prior has, at stationarity of $\mathbb{E}_{q_i}[-\log p(k_i\mid\alpha_i)]-\log p(\alpha_i\mid b_0,c_0)$, the precision $\alpha_i=(c_0+K_q/2)/(b_0+Q_i)$ with $Q_i=\tfrac{1}{2}\mathbb{E}_{q_i}[(k_i-\mu_{p,i})^\top\Sigma_{p,i}^{-1}(k_i-\mu_{p,i})]$, which differs from Eq.~\eqref{eq:state_dependent_alpha} in both numerator and denominator.
+
+\paragraph{Optimal precision.}
+Stationarity of $\mathcal{F}_i^{\mathrm{adaptive}}$ with respect to $\alpha_i$ at fixed beliefs gives $D_{\mathrm{KL}}(q_i\|p_i) + b_0 - c_0/\alpha_i = 0$, with closed-form solution
+\begin{equation}
+\boxed{
+\alpha_i^*(c) = \frac{c_0}{b_0 + D_{\mathrm{KL}}(q_i(c)\|p_i(c))}.
+}
+\label{eq:state_dependent_alpha}
+\end{equation}
+The per-agent objective $g(\alpha_i) = (b_0 + D_{\mathrm{KL}}(q_i\|p_i))\alpha_i - c_0\log\alpha_i$ has $g''(\alpha_i) = c_0/\alpha_i^2 > 0$ for all $\alpha_i > 0$, so it is strictly convex on the positive ray and $\alpha_i^*$ is its unique global minimizer. When an agent's belief is close to its prior, $D_{\mathrm{KL}}(q_i\|p_i) \approx 0$ and $\alpha_i^* \approx c_0/b_0$ takes its maximum value, so the agent trusts its prior strongly and resists displacement by the alignment and observation terms; when the belief has drifted far, $D_{\mathrm{KL}}(q_i\|p_i)$ is large and $\alpha_i^* \to 0$, so the prior's influence is reduced and the alignment and observation terms dominate. The hyperparameter $b_0$ controls sensitivity, and the ratio $c_0/b_0$ sets the maximum precision attained when beliefs match the prior exactly. Substituting the optimum gives the reduced self term in closed form,
+\begin{equation}
+\min_{\alpha_i>0}\big[\alpha_i D + R(\alpha_i)\big] = c_0 + c_0\log\frac{b_0 + D}{c_0},
+\qquad D = D_{\mathrm{KL}}(q_i\|p_i),
+\end{equation}
+a logarithmic penalty that is concave in $D$. Its slope $c_0/(b_0+D)=\alpha_i^*$ decreases as the belief drifts, which is the weakening of the anchor described above stated in one formula.
+
+\paragraph{Adaptive anchoring and the uniform limit.}
+With isotropic prior covariance $\bar\Sigma_{p,i} = \sigma_p^2 I$ and narrow Gaussian beliefs $q_i = \mathcal{N}(\mu_i, \sigma_q^2 I)$ with $\sigma_q^2 \ll \sigma_p^2$, the adaptive prior term contributes the $\mu_i$-dependent quadratic anchoring $\frac{\alpha_i}{2\sigma_p^2}\|\mu_i - \mu_{\mathrm{prior}}\|^2$ with per-agent stiffness $\lambda_{p,i} \equiv \alpha_i/\sigma_p^2$. Substituting the optimum~\eqref{eq:state_dependent_alpha} makes this stiffness state dependent in the way just described. The constant-precision specialization $\alpha_i \to \alpha = 1$ collapses Eq.~\eqref{eq:free_energy_adaptive} to the canonical functional~\eqref{eq:free_energy_functional_final} and gives a uniform quadratic penalty with stiffness $\lambda_p = \alpha/\sigma_p^2$, the product of two quantities the framework treats independently, a precision gain and a prior width. This specialization connects to the precision-as-stiffness interpretation of Section~\ref{sec:mass}.
+
+\paragraph{Per-coordinate precision for diagonal Gaussians.}
+\label{par:per_coord_alpha}
+For agents whose belief and prior are diagonal Gaussians in a fixed frame, $q_i = \mathcal{N}(\mu_i, \operatorname{diag}(\sigma_{q,i}))$ and $p_i = \mathcal{N}(\mu_{p,i}, \operatorname{diag}(\sigma_{p,i}))$, the joint distributions factorize and the relative entropy inherits the additive decomposition
+\begin{equation}
+D_{\mathrm{KL}}(q_i \| p_i) = \sum_{k=1}^{K_q} D_{\mathrm{KL}}^{(k)}(q_i^{(k)} \| p_i^{(k)}),
+\quad
+D_{\mathrm{KL}}^{(k)} = \tfrac{1}{2}\left[ \frac{\sigma_{q,i}^{(k)}}{\sigma_{p,i}^{(k)}} + \frac{(\mu_{q,i}^{(k)} - \mu_{p,i}^{(k)})^2}{\sigma_{p,i}^{(k)}} - 1 + \log \frac{\sigma_{p,i}^{(k)}}{\sigma_{q,i}^{(k)}} \right].
+\label{eq:kl_decomposition_per_coord}
+\end{equation}
+The standard mean-field treatment of a product of univariate Gaussians under Gamma-Normal conjugacy~\cite[\S 10.1.3, \S 2.3.6]{Bishop2006} places an independent Gamma prior on each coordinate precision with hyperparameters $(c_0^{(k)}, b_0^{(k)})$. Here $\alpha_i^{(k)}$ weights an entire divergence and does not parameterize a Gaussian precision, so the correspondence is structural and is not an exact conjugacy. Promoting the precision parameter from a scalar $\alpha_i$ to a per-coordinate vector $\alpha_i^{(k)} > 0$ replaces the self-coupling term by
+\begin{equation}
+\alpha_i  D_{\mathrm{KL}}(q_i \| p_i) + R(\alpha_i)
+\longmapsto
+\sum_{k=1}^{K_q} \Big[\alpha_i^{(k)} D_{\mathrm{KL}}^{(k)} + R_k(\alpha_i^{(k)})\Big],
+\qquad
+R_k(\alpha_i^{(k)}) = b_0^{(k)} \alpha_i^{(k)} - c_0^{(k)} \log \alpha_i^{(k)},
+\label{eq:adaptive_self_coupling_per_coord}
+\end{equation}
+with stationary solution
+\begin{equation}
+\boxed{
+\alpha_i^{(k)*}(c) = \frac{c_0^{(k)}}{b_0^{(k)} + D_{\mathrm{KL}}^{(k)}(q_i^{(k)}(c) \| p_i^{(k)}(c))}.
+}
+\label{eq:state_dependent_alpha_per_coord}
+\end{equation}
+This per-coordinate analog of Eq.~\eqref{eq:state_dependent_alpha} behaves in the same way coordinate by coordinate, with maximum precision $c_0^{(k)}/b_0^{(k)}$. The scalar form is recovered by tying $(c_0^{(k)}, b_0^{(k)}) = (c_0, b_0)$ across $k$ and using one shared scalar gain on the summed divergence, yielding $\alpha_i^* = c_0 / (b_0 + \sum_k D_{\mathrm{KL}}^{(k)})$. The per-coordinate form is an optional refinement; the rest of the paper uses the scalar form with fixed $b_0$ and $c_0$.
+
+\paragraph{Product rule and envelope cancellation.}
+The closed form~\eqref{eq:state_dependent_alpha} makes $\alpha_i^*$ a function of the belief through $D_{\mathrm{KL}}(q_i \| p_i)$. Differentiating with respect to any belief parameter $\theta \in \{\mu_i, \Sigma_i\}$,
+\begin{equation}
+\frac{\partial \alpha_i^*}{\partial \theta} = -\frac{(\alpha_i^*)^2}{c_0} \frac{\partial D_{\mathrm{KL}}(q_i \| p_i)}{\partial \theta},
+\label{eq:alpha_chain_rule_itfb}
+\end{equation}
+and applying the product rule to the self-coupling term $\alpha_i^* D_{\mathrm{KL}}(q_i \| p_i)$ in isolation gives
+\begin{equation}
+\frac{\partial}{\partial \theta}\bigl(\alpha_i^* D_{\mathrm{KL}}(q_i \| p_i)\bigr) = \alpha_i^* \frac{\partial D_{\mathrm{KL}}}{\partial \theta} - \frac{(\alpha_i^*)^2}{c_0} D_{\mathrm{KL}} \frac{\partial D_{\mathrm{KL}}}{\partial \theta} = (\alpha_i^*)^2 \frac{b_0}{c_0} \frac{\partial D_{\mathrm{KL}}}{\partial \theta}.
+\label{eq:alpha_product_rule_itfb}
+\end{equation}
+Equation~\eqref{eq:alpha_product_rule_itfb} is the derivative of $\alpha_i^* D_{\mathrm{KL}}$ alone, not of the complete adaptive sector, which also carries the regularizer $R(\alpha_i^*)$. Differentiating $R(\alpha_i^*)$ with the same chain rule and using the stationarity identity $b_0 - c_0/\alpha_i^* = -D_{\mathrm{KL}}$ gives $\partial R(\alpha_i^*)/\partial\theta = +(\alpha_i^*)^2 c_0^{-1} D_{\mathrm{KL}}  \partial D_{\mathrm{KL}}/\partial\theta$, which combines with Eq.~\eqref{eq:alpha_product_rule_itfb} to
+\begin{equation}
+\frac{\partial}{\partial\theta}\bigl(\alpha_i^* D_{\mathrm{KL}} + R(\alpha_i^*)\bigr) = \frac{(\alpha_i^*)^2}{c_0}\bigl(b_0 + D_{\mathrm{KL}}\bigr)\frac{\partial D_{\mathrm{KL}}}{\partial\theta} = \alpha_i^*\frac{\partial D_{\mathrm{KL}}}{\partial\theta},
+\label{eq:alpha_envelope_cancel_itfb}
+\end{equation}
+the envelope form, since $b_0 + D_{\mathrm{KL}} = c_0/\alpha_i^*$. The product-rule correction is therefore canceled exactly by the regularizer's $\theta$-dependence: differentiating the complete adaptive functional~\eqref{eq:free_energy_adaptive}, with $R$ included, gives $\alpha_i^* \partial D_{\mathrm{KL}}/\partial\theta$, and no correction term survives in the precision sector. The canonical attention block has the same cancellation structure: differentiating its complete energy-plus-entropy scalar yields Eq.~\eqref{eq:attention_envelope_differential}, whereas differentiating the entropy-suppressed scalar $S_i$ yields the separate covariance response term.
+
+\subsection{The Envelope Theorem and the Reduced Free Energy}
+\label{sec:envelope_theorem}
+
+The boxed functional~\eqref{eq:free_energy_functional_final} is the complete (un-minimized) consensus functional, in which $\beta_{ij}$ and $\gamma_{ij}$ are optimized jointly with the belief and model fields. Substituting the optimal weights $\beta_{ij}^* = \operatorname{softmax}_j(-E_{ij}/\tau + \log\pi_{ij})$ from~\eqref{eq:beta_optimal} into the tempered row~\eqref{eq:attention_full_reduced_identity} yields the reduced alignment energy $-\tau\log Z_i$ of Eq.~\eqref{eq:attention_full_equals_reduced}, where $Z_i = \sum_j \pi_{ij}\exp(-E_{ij}/\tau)$. For a physicist the row is the Helmholtz free energy of one discrete source variable at temperature $\tau$ with reference measure $\pi_i$,
+\begin{equation}
+-\tau\log Z_i = \langle E_i\rangle_{\beta_i^*} - \tau S_i,
+\qquad
+S_i = -D_{\mathrm{KL}}(\beta_i^*\|\pi_i),
+\end{equation}
+and the softmax is its Gibbs state by the Gibbs variational principle. The unit-temperature row~\eqref{eq:mixture_energy_entropy} is a different function: evaluated at the same tempered weights it gives $(1-1/\tau)\langle E_i\rangle_{\beta_i^*}-\log Z_i$, so the two rows agree only at $\tau=1$. Holding the model sections fixed and setting aside the model-channel alignment terms (which carry an analogous structure in $s_i$ and $\gamma_{ij}$), the reduced free energy at point $c$ is
+\begin{equation}
+\boxed{
+\begin{aligned}
+\mathcal{F}_{\mathrm{red}}[\{q_i\}]
+&=\sum_i D_{\mathrm{KL}}(q_i\|p_i)
+-\tau\sum_i \log Z_i
+-\sum_i \mathbb{E}_{q_i\otimes s_i}[\log p(o_i\mid k_i,m_i)],
+\end{aligned}
+}
+\label{eq:free_energy_reduced}
+\end{equation}
+with $E_{ij} = D_{\mathrm{KL}}(q_i \| \Omega_{ij} q_j)$ and $Z_i = \sum_j \pi_{ij} \exp(-E_{ij}/\tau)$; the presence weights $\chi_i$ are suppressed for readability in the display and restored in the gradient below.
+
+The envelope theorem~\cite{MilgromSegal2002} guarantees that the gradient of $\mathcal{F}_{\mathrm{red}}$ contains only explicit derivatives of the complete functional evaluated at the optimal attention weights, with the sector receiving the derivative matching the variable being varied. With each row weighted by its receiver presence as in Eq.~\eqref{eq:free_energy_functional_final}, for belief variables $x_i \in \{\mu_i,\Sigma_i\}$ the model-channel terms do not contribute unless the fibers are explicitly tied, and
+\begin{equation}
+\begin{aligned}
+\nabla_{x_i}\mathcal{F}_{\mathrm{red}}
+&= \chi_i(c)\nabla_{x_i}D_{\mathrm{KL}}(q_i\|p_i)
++ \chi_i(c)\sum_j \beta^*_{ij}(c)\nabla_{x_i}E_{ij}
++ \sum_\ell \chi_\ell(c)\beta^*_{\ell i}(c)\nabla_{x_i}E_{\ell i} \\
+&\quad - \chi_i(c)\nabla_{x_i}\mathbb{E}_{q_i\otimes s_i}[\log p(o_i\mid k_i,m_i)],
+\end{aligned}
+\label{eq:envelope_gradient_belief}
+\end{equation}
+and for model-fiber variables $y_i \in \{\mu^s_i,\Sigma^s_i\}$,
+\begin{equation}
+\begin{aligned}
+\nabla_{y_i}\mathcal{F}_{\mathrm{red}}
+&= \lambda_h\chi_i(c)\nabla_{y_i}D_{\mathrm{KL}}(s_i\|r_i)
++ \chi_i(c)\sum_j \gamma^*_{ij}(c)\nabla_{y_i}\tilde E_{ij}
++ \sum_\ell \chi_\ell(c)\gamma^*_{\ell i}(c)\nabla_{y_i}\tilde E_{\ell i} \\
+&\quad - \chi_i(c)\nabla_{y_i}\mathbb{E}_{q_i\otimes s_i}[\log p(o_i\mid k_i,m_i)].
+\end{aligned}
+\label{eq:envelope_gradient_model}
+\end{equation}
+For shared frame variables $\phi_i$, both channels contribute only when the same frame field induces both $\Omega_{ij}$ and $\tilde{\Omega}_{ij}$; with independent frame fields the belief-channel derivative is taken with respect to $\phi_i$ and the model-channel derivative with respect to $\tilde{\phi}_i$. The envelope reduction applies to the adaptive functional~\eqref{eq:free_energy_adaptive} in the same way it applies to~\eqref{eq:free_energy_functional_final}, with the inner optimum over $\alpha_i$ absorbed by the closed form~\eqref{eq:state_dependent_alpha}, so $\mathcal{F}_{\mathrm{red}}$ is available for gradient computation without an explicit Lagrange multiplier on $\alpha_i$.
+
+The stationary formula predicts that $\beta_{ij}(c)$ concentrates where the transported divergence $D_{\mathrm{KL}}(q_i(c)\|\Omega_{ij}(c)[q_j(c)])$ is small relative to competing senders under the same prior and temperature. This is a prediction of the formula, not an observed spatial attention field.
+
+\subsection{Interpretation of the Free Energy Terms}
+
+Two readings of Eq.~\eqref{eq:free_energy_functional_final} are load-bearing. First, the prior $p_i$ that the self-consistency term anchors against is the transported parent law of Eq.~\eqref{eq:cross_scale_shadow}, $p_i^{(\ell)} = \Omega_{iI}[q_I^{(\ell+1)}]$, not an independent learned object, and it is exact only in the one-episode-lagged reading, as the predictive prior of an episode-indexed joint (Section~\ref{sec:cross_scale_shadows};~\cite[Ch.~12]{DennisGaugeVFE2026}); where the energy evaluates it at the current parent law, that is the energy-level simplification of Table~\ref{tab:claim_status} (status S) and not a prior of one joint. The agent's own model section $s_i$ is regulated separately by its hyper-prior $r_i$ on the model fiber through $D_{\mathrm{KL}}(s_i\|r_i)$, so $s_i$ does not act through $p_i$ at the same level. Second, the per-agent priors $p_i$ are not coupled across agents in this formulation; inter-agent agreement at the slow level is carried by the model coupling on $s_i$. The observation term anchors the system to its records and breaks the global belief-rotation symmetry explicitly (Section~\ref{sec:symmetry_breaking}): without it, the population could rotate rigidly into a configuration that is self-consistent but agrees with no record.
+
+\subsection{Recasting External Observations as Environmental-Agent Couplings}
+
+The functional as presented includes observation terms $-\mathbb{E}_{q_i\otimes s_i}[\log p(o_i(c)\mid k_i,m_i)]$, where $o_i$ is a record of external data. This form connects to standard active inference~\cite{Friston2010, parr2022active} but introduces an asymmetry: agents are internal to the framework while observations come from outside. At the level of kernels the asymmetry can be removed at no cost. Every normalized observation kernel is the message of an operational environment node, exactly for the joint law of latent state and record, and conversely every environment state with a message policy yields a normalized kernel; this presentation keeps the conditioning on the record and is not exact for a variational problem over the enlarged state~\cite[Ch.~5]{DennisGaugeVFE2026} (the observation-interaction kernel equivalence theorem). This section gives the Gaussian counterpart inside the consensus functional: observation terms with Gaussian linear sensors are represented by couplings to environmental agents, exactly at the level of the mean gradient and exactly for the full belief flow after one substitution.
+
+\subsubsection{Environmental Agents}
+
+We replace each observation by an environmental agent $e_k \in \mathcal{E}$ whose belief $q_{e_k}(c)$ is concentrated around the state encoded by observation $o_k$, coupled to agent $i$ through the standard information-theoretic term $\sum_{k \in \mathcal{E}} \beta_{i,e_k}  D_{\mathrm{KL}}(q_i(c) \| \Omega_{i,e_k}[q_{e_k}(c)])$. When environmental agents have sharp beliefs, the coupling drives agent $i$'s belief mean toward the encoded values exactly as observation terms would; the covariance channel differs by the entropy term derived below. Environmental agents enter as a boundary class of constituent agents whose dynamics are fixed by construction ($q_{e_k} = p_{e_k}$, with $\beta_{i,e_k} = 1$ a fixed coupling outside the row-normalized simplex $\sum_j \beta_{ij} = 1$); they carry sensory information and do not minimize $\mathcal{F}$ themselves. The asymmetry between agent and environment is therefore relocated to the choice of which agents are dynamic and which are boundary; it is not removed.
+
+\subsubsection{Formal Equivalence}
+
+\begin{proposition}[Gaussian-sensor equivalence]\label{prop:gaussian_sensor_equivalence}
+Consider observation terms whose likelihood does not depend on the model parameter $m_i$, so that the $s_i$-expectation is trivial, with Gaussian linear likelihood $o_k = H k + w_k$ with $w_k \sim \mathcal{N}(0, R)$, $R \succ 0$, and $\Lambda_o := H^\top R^{-1} H \succ 0$, entering
+\begin{equation}
+\mathcal{F}_{\text{obs}} = \mathcal{F}_{\text{internal}}[\{q_i\}] - \sum_{i,k} \int \chi_{ik}(c)  \mathbb{E}_{q_i(c)}[\log p(o_k\mid k_i)]  dc .
+\end{equation}
+Set $m_k := \Lambda_o^{-1} H^\top R^{-1} o_k$ and define environmental agents $q_{e_k} = p_{e_k} = \mathcal{N}(m_k, \Sigma_o)$ with $\Sigma_o := \Lambda_o^{-1}$, couplings $\beta_{i,e_k} = 1$, and links $\Omega_{i,e_k} = I$, entering
+\begin{equation}
+\mathcal{F}_{\text{agent}} = \mathcal{F}_{\text{internal}}[\{q_i\}] + \sum_{i,k} \int \chi_{ik}(c)  \beta_{i,e_k}(c)  D_{\mathrm{KL}}\big(q_i(c) \| \Omega_{i,e_k}[q_{e_k}(c)]\big)  dc .
+\end{equation}
+Then for Gaussian beliefs $q_i = \mathcal{N}(\mu_i, \Sigma_i)$: (i) $\partial_{\mu_i}\mathcal{F}_{\text{obs}} = \partial_{\mu_i}\mathcal{F}_{\text{agent}}$; (ii) at each point and for each coupled environmental agent, the covariance gradients differ by $-\tfrac{1}{2}\Sigma_i^{-1}$; (iii) replacing each environmental relative entropy by the cross-entropy $-\mathbb{E}_{q_i}[\log q_{e_k}]$ makes $\mathcal{F}_{\text{agent}} - \mathcal{F}_{\text{obs}}$ independent of $\{q_i\}$, so the two belief flows coincide. The sensor covariance $\Sigma_o$ is fixed by $(H, R)$ and is not a free parameter.
+\end{proposition}
+
+\noindent\emph{Proof.} Completing the square, $-\log p(o_k\mid k) = \tfrac{1}{2}(k - m_k)^\top \Lambda_o (k - m_k) + c_k$ with $c_k$ independent of $k$, so
+\begin{equation}
+-\mathbb{E}_{q_i}[\log p(o_k\mid k_i)] = \tfrac{1}{2}\big[(\mu_i - m_k)^\top \Lambda_o (\mu_i - m_k) + \mathrm{tr}(\Lambda_o \Sigma_i)\big] + c_k,
+\end{equation}
+while for Gaussian $q_i$ in the sensor's frame
+\begin{equation}
+D_{\mathrm{KL}}\big(q_i \| q_{e_k}\big) = \tfrac{1}{2}\big[(\mu_i - m_k)^\top \Lambda_o (\mu_i - m_k) + \mathrm{tr}(\Lambda_o \Sigma_i) + \log\tfrac{|\Sigma_o|}{|\Sigma_i|} - K_q\big].
+\end{equation}
+Both have mean gradient $\Lambda_o(\mu_i - m_k)$, which is (i). Differentiating with respect to $\Sigma_i$ gives
+\begin{equation}
+\partial_{\Sigma_i}D_{\mathrm{KL}}(q_i \| q_{e_k}) = \tfrac{1}{2}\big(\Lambda_o - \Sigma_i^{-1}\big),
+\end{equation}
+against $\partial_{\Sigma_i}[-\mathbb{E}_{q_i}\log p(o_k \mid k_i)] = \tfrac{1}{2}\Lambda_o$, which is (ii); the discrepancy comes from the entropy term $-\tfrac{1}{2}\log|\Sigma_i|$ inside the relative entropy. The cross-entropy $-\mathbb{E}_{q_i}[\log q_{e_k}] = \tfrac{1}{2}[(\mu_i - m_k)^\top \Lambda_o (\mu_i - m_k) + \mathrm{tr}(\Lambda_o \Sigma_i)] + \tfrac{1}{2}\log|2\pi\Sigma_o|$ differs from the expected negative log-likelihood by a constant independent of $q_i$, which is (iii). $\square$
+
+The scope of the proposition is sharp. If $\operatorname{rank} H < K_q$, the induced precision $H^\top R^{-1}H$ is singular, $q_{e_k}$ is not a normalized density, and the relative entropy is undefined. For a nonlinear or non-Gaussian likelihood, such as a readout $o = \tanh(2k) + w$, the expected mean gradient of the observation term is in general not affine in $\mu_i$, whereas the mean gradient $\Lambda_o(\mu_i - m)$ of every Gaussian environmental coupling is affine, so no Gaussian environmental agent reproduces it. Outside the Gaussian linear case the exact statement is the kernel-level equivalence cited above.
+
+\textbf{Construction.} Since $q_i(c)$ is a density over the latent fiber $\mathbb{R}^{K_q}$, the environmental agent is specified in fiber variables, and $m_k \in \mathbb{R}^{K_q}$ is the fiber encoding of $o_k$ under the sensor model (for identity readout, $m_k = o_k$). The active-inference special case $\mathcal{B}_{\mathrm{state}} \cong \mathcal{C}$ with $K_q = \dim\mathcal{C}$ and $m_k = c_k$ recovers the reading in which beliefs range over noumenal locations directly, whereas any configuration with $K_q \ne \dim\mathcal{C}$ lies outside that case. A Dirac choice $q_{e_k}(c) = \delta(k - m_k)$ gives an infinite relative entropy, since a belief with a density is not absolutely continuous with respect to a point mass, so environmental agents carry finite sensory precision and the standard active-inference identification is recovered in the high-precision limit $\Sigma_o \to 0$. For each observation $o_k$ at noumenal location $c_k$ the support $\chi_{e_k}$ is concentrated near $c_k$. The equality $p_{e_k} = q_{e_k}$ is stipulated as a boundary condition and is not derived through the cross-scale relation of Eq.~\eqref{eq:cross_scale_shadow}; environmental agents do not inherit a prior from a meta-agent, and we do not specify primitive model or hyper-prior sections for them, so the environmental sub-class is a degenerate special case of the agent definition (Section~\ref{sec:agent_definition}). The choice $\Omega_{i,e_k} = I$ declares that the sensor's frame coincides with the receiving agent's frame, that is, that the observation kernel is written in agent $i$'s own coordinates. It is a choice of coordinates for a datum that is then held fixed, and it changes no physical quantity; Section~\ref{sec:symmetry_breaking} shows that data held fixed in this way act as external fields.
+
+The cross-entropy form of part (iii),
+\begin{equation}
+\mathcal{F}_{\text{agent}}^{\mathrm{xent}}(q_i, q_{e_k}) := -\mathbb{E}_{q_i}[\log q_{e_k}] = D_{\mathrm{KL}}(q_i \| q_{e_k}) + H(q_i),
+\label{eq:xent_resolution}
+\end{equation}
+recovers the negative log-likelihood up to a constant when $q_{e_k}$ is the Gaussian sensor density, and equals the relative entropy plus the agent's entropy $H(q_i) = \tfrac{1}{2}\log|2\pi e \Sigma_i|$. It is structurally identical to the observation operator $-\mathbb{E}_{q_i\otimes s_i}[\log p(o_i(c)\mid k_i, m_i)]$ of the canonical functional~\eqref{eq:free_energy_functional_final}~\cite{Friston2010, parr2022active}, so the substitution identifies the environmental coupling with the existing observation slot. Under this substitution every term in the free energy is written as an agent-to-agent or agent-to-environmental-agent coupling, with no explicit observation symbol $o$. The dependence on external information is not eliminated, since $q_{e_k}$ carries the location $c_k$ in exactly the role $o_k$ played, and Section~\ref{sec:symmetry_breaking} identifies environmental agents as external fields that break the global belief-rotation symmetry. The Markov-blanket-of-sensors picture, in which sensory blankets are themselves composed of sensory blankets down to single bits, is a heuristic composition with the cross-scale machinery of Eq.~\eqref{eq:cross_scale_shadow}; an equation-level cross-scale construction with $e_k$ carrying a level label $\ell' < \ell$ is not given here.
+
+Like physical action principles, the consensus functional is a scalar integrated over a manifold, invariant under the redundancies of Section~\ref{sec:gauge_covariance_principle}, and rendered stationary by the dynamics. The analogy holds at the level of variational stationarity only. The dynamics here is a first-order natural-gradient flow, not the second-order Euler-Lagrange system of classical mechanics, general relativity, or Yang-Mills theory~\cite{Yang1954}, and $\mathcal{F}$ is dimensionless in nats while a physical action carries units of action.
+
+\subsection{Explicit Breaking of the Global Belief-Rotation Symmetry}
+\label{sec:symmetry_breaking}
+
+The functional has two global invariances at fixed structural data, and observations break only one of them. In the trichotomy of Section~\ref{sec:gauge_covariance_principle}~\cite[Ch.~2]{DennisGaugeVFE2026}, per-agent frame changes $U_i \mapsto g_i U_i$ with every datum of agent $i$ re-expressed are passive re-expressions, a common right translation $U_i \mapsto U_i g$ is a change of reference, and the active group at one base point is a single global copy of $G$.
+
+The right translation $U_i\mapsto U_i g$ leaves every transport $\Omega_{ij}=U_iU_j^{-1}$, every belief, every model section, and every transported prior unchanged. The observation term contains no frame, so it is invariant as well, and no term of the functional breaks this action: configurations related by it are the same physical state, and the action is a labeling redundancy. It can be broken only by exempting some frame from the transformation, for instance the frame $U_{e_k}$ of an environmental agent, which then becomes a fixed background field; the links $\Omega_{i,e_k}=U_iU_{e_k}^{-1}$ change under $U_i\mapsto U_ig$ when $U_{e_k}$ is held fixed.
+
+The symmetry that observations do break is the diagonal left action
+\begin{equation}
+U_i\mapsto hU_i,\qquad
+q_i\mapsto h_\# q_i,\qquad
+p_i\mapsto h_\# p_i,\qquad
+s_i\mapsto h_\# s_i,\qquad
+r_i\mapsto h_\# r_i,
+\qquad h\in G,
+\end{equation}
+with one $h$ for all agents and the model-channel pushforwards taken through $\rho_{\mathrm{model}}$. It maps $\Omega_{ij}\mapsto h\Omega_{ij}h^{-1}$, so by the invariance of relative entropy under a common pushforward (Theorem~\ref{thm:glk_invariance}) every self, alignment, and attention term is unchanged, and the observation-free functional is invariant. The action rotates the collective belief configuration rigidly and moves the consensus belief, so configurations related by it are physically distinct states that the observation-free functional cannot tell apart. A fixed observation kernel $p(o\mid k)$, written in agent $i$'s coordinates and not transformed with the agents, is not invariant, since $\mathbb{E}_{h_\# q_i}[\log p(o\mid k)]\neq\mathbb{E}_{q_i}[\log p(o\mid k)]$ in general. It therefore breaks this global symmetry explicitly, in the sense of an external field in statistical mechanics. The same holds for every other datum held fixed while the agents are rotated: the frame and belief of an environmental agent, and a declared root prior at the top of the hierarchy that is not transformed. If the observation kernel were instead re-expressed along with the agents, the transformation would reduce to a passive change of coordinates and nothing would be broken; the physical content of the breaking is the relation of the population to data held fixed. This also separates explicit breaking from gauge fixing: setting $\Omega_{i,e_k}=I$ in the environmental-agent construction chooses coordinates in which the sensor's frame coincides with agent $i$'s frame and changes no physical quantity.
+
+These statements concern the functional. They do not establish that numerical trajectories converge to a common orbit of the belief-rotation symmetry. Orbit membership must be tested by an orbit-sensitive residual, such as the minimum pairwise Procrustes residual over a declared compact subgroup, since equality of belief norms does not suffice. No spontaneous-symmetry-breaking or Goldstone claim follows without an internal selection mechanism and an analysis of the fluctuation spectrum, and whether source-induced specialization yields stable multi-child clusters is left to the prospective validation of Section~\ref{sec:participatory}.
+
+\section{Two-Timescale Dynamics and the Adiabatic Hypothesis}\label{sec:timescales}
+
+\subsection{An Imposed Time-Scale Separation}
+
+Physical systems often exhibit widely separated timescales, and such separation licenses hierarchical descriptions in which fast variables equilibrate on the frozen background of slow ones. We adopt this structure for the consensus functional as a declaration: the functional does not choose the fast-slow split, the rate ratio, or the block mobilities~\cite[Ch.~8]{DennisGaugeVFE2026}. Following the typing of that chapter, the fast block consists of the beliefs $\{q_i(c)\}$, which respond to observations, together with the attention rows held at their Gibbs optimum; the slow block consists of the model sections $\{s_i(c)\}$ and the prior parameters. The priors $\{p_i(c)\}$ and hyper-priors $\{r_i(c)\}$ are prior parameters in this sense: in the lagged reading of Section~\ref{sec:cross_scale_shadows} they are fixed within an episode and updated between episodes from the parent laws of the previous episode, and they have no dynamics of their own beyond that schedule. At the top level the hyper-prior is a fixed boundary condition, the declared root of the hierarchy (Section~\ref{sec:ouroboros}). At one base point the frames are not a separate block (Section~\ref{sec:frame_evolution}).
+
+\subsection{Fast Subsystem: Belief Dynamics}
+
+On the fast timescale, agents update beliefs $q_i$ to explain new observations while the priors $p_i$, the model sections, and the frames are held fixed. The relevant free energy is
+\begin{align}
+\mathcal{F}_{\text{fast}}[\{q_i\}] = {}& \sum_i \int \chi_i(c)  D_{\mathrm{KL}}(q_i(c) \| p_i(c))  dc \nonumber\\
+&+ \sum_{ij} \int \chi_i(c)\beta_{ij}(c)  D_{\mathrm{KL}}(q_i(c) \| \Omega_{ij}[q_j(c)])  dc \nonumber\\
+&- \sum_i \int \chi_i(c)  \mathbb{E}_{q_i\otimes s_i}[\log p(o_i(c) \mid k_i, m_i)]  dc,
+\end{align}
+where the attention weights $\beta_{ij}$ are held at the softmax optimum $\beta^*_{ij}$ of Eq.~\eqref{eq:beta_optimal} during the belief updates, each row is weighted by its receiver presence $\chi_i$, and sender presence is carried inside the attention prior $\tilde{\pi}_{ij}$ as in Section~\ref{sec:complete_free_energy}. Under this block-coordinate convention the attention-entropy block $\tau\beta_{ij}\log(\beta_{ij}/\tilde{\pi}_{ij})$ of the canonical functional~\eqref{eq:free_energy_functional_final} is independent of $q_i$ and is omitted from the displayed scalar. The omission leaves the belief gradient unchanged, so the fast flow is block-coordinate descent of Eq.~\eqref{eq:free_energy_functional_final} in $q$ at fixed $\beta = \beta^*$, which by the envelope theorem (Section~\ref{sec:envelope_theorem}) coincides with the gradient of the reduced free energy $\mathcal{F}_{\mathrm{red}}$. The displayed $\mathcal{F}_{\text{fast}}$ is therefore gradient-equivalent bookkeeping at fixed $\beta^*$, not the entropy-suppressed surrogate of Section~\ref{sec:complete_free_energy}, whose $\beta^*(q)$ dependence is differentiated through. We omit explicit base-space integrals in the equations below for clarity, but they are understood to be present.
+
+Natural-gradient descent on beliefs follows $\partial q_i/\partial t = -\eta_q  \tilde{\nabla}_{q_i} \mathcal{F}_{\text{fast}}$ (we write $t$ for the flow time throughout this section, reserving $\tau$ for the attention temperature), where $\tilde{\nabla}_{q_i} = g_{\mathcal{B}}^{-1} \nabla_{q_i}$ is the natural gradient with respect to the Fisher-Rao metric $g_{\mathcal{B}}$ on $\mathcal{B}_{\mathrm{state}}$. For Gaussian beliefs $q_i = \mathcal{N}(\mu_i, \Sigma_i)$ the Fisher metric in the moment parameterization $(\mu_i, \Sigma_i)$ is block-diagonal with $g_{\mu\mu} = \Sigma_i^{-1}$ on the mean block and $g_{\Sigma\Sigma}[V, W] = \tfrac{1}{2}\mathrm{tr}(\Sigma_i^{-1} V \Sigma_i^{-1} W)$ on the covariance block~\cite{Amari2016}. The block rate $\eta_q$ is a mobility: it fixes the unit of flow time, and only ratios of block rates enter the timescale argument below. This subsystem performs variational inference, with agents adjusting beliefs to explain observations while respecting their current priors and coordinating with nearby agents.
+
+\subsection{Slow Subsystem: Model Learning}
+
+On longer timescales, agents update their model sections $s_i$ to reflect long-term statistical structure, regularized by the model hyper-priors $r_i$, coupled to neighbors through the model-alignment term, and tied to the records through the jointly typed observation term:
+\begin{equation}
+\mathcal{F}_{\text{slow}}[\{s_i\}] = \lambda_h \sum_i \int \chi_i(c)  D_{\mathrm{KL}}(s_i(c) \| r_i(c))  dc
++ \sum_{ij} \int \chi_i(c)\gamma_{ij}(c)  D_{\mathrm{KL}}(s_i(c) \| \tilde{\Omega}_{ij}[s_j(c)])  dc
+- \sum_i \int \chi_i(c)  \mathbb{E}_{q_i\otimes s_i}[\log p(o_i(c) \mid k_i, m_i)]  dc,
+\end{equation}
+where $r_i$ are the model hyper-priors, supplied by the parent's model section at the previous episode (Section~\ref{sec:cross_scale_shadows}) and by the fixed root at the top level. The same block-coordinate and absorbed-prior conventions apply: sender presence is carried inside $\tilde{\pi}^{(s)}_{ij}$ (Section~\ref{sec:complete_free_energy}), and $\gamma_{ij}$ is held at its softmax optimum $\gamma^*_{ij}$ during the $s$-updates, so the omitted entropy block $\tau_\gamma\gamma_{ij}\log(\gamma_{ij}/\tilde{\pi}^{(s)}_{ij})$ is independent of $s_i$ and the displayed scalar is gradient-equivalent to Eq.~\eqref{eq:free_energy_functional_final} in $s$ at fixed $\gamma = \gamma^*$. Natural-gradient descent on models follows $\partial s_i/\partial t = -\eta_s  \tilde{\nabla}_{s_i} \mathcal{F}_{\text{slow}}$ with block rate $\eta_s = \epsilon\eta_q$, $\epsilon \ll 1$, on which agents adjust their expectations about how the world works and move toward shared models.
+
+Within an episode the fast subsystem sees $p_i$ and $r_i$ as constants. Whether an episode is long enough for the fast block to relax is a hypothesis on the schedule and is not derived. A same-time assignment, in which $p_i$ follows the current parent belief during the fast updates, is not adopted for the dynamics, because for coherent clusters the parent belief moves at a rate comparable to that of its constituents (Proposition~\ref{prop:meta_clock_slowdown}), so that assignment would close the loop $q_i \to q_I \to p_i \to q_i$ on the fast timescale and remove the separation exactly when meta-agents exist.
+
+\subsection{Gauge Frames at One Base Point}
+\label{sec:frame_evolution}
+
+Frames $\phi_i(c)$ may also be evolved to lower the functional, but at one base point they are not an independent slow variable. In Regime I every alignment, attention, and transported-prior term depends on the pair $(q_i, U_i)$ only through the frame-free law point $(U_i^{-1})_\# q_i$, by the invariance of relative entropy under a common pushforward (Theorem~\ref{thm:glk_invariance}). Evolving a frame at fixed coordinate belief therefore moves the law point along its $G$-orbit, and the frame flow acts as an additional anisotropic mobility on beliefs. Frame content at a point is relative to data held fixed. The observation kernel reads $q_i$ in agent $i$'s own coordinates, so $U_i$ is the link between the agent's observation leg and its interaction legs, and evolving frames amounts to learning that link; the record kernels of~\cite[Ch.~5]{DennisGaugeVFE2026} give this its typing, since a record may carry its own frame and a link on each of its legs. For independent links on the interaction graph (Regime II), the links are genuine interaction variables, and whether they are learned, and on which schedule, is part of the declaration. In either case the frame rate $\eta_\phi$ is a block mobility, and a rate ratio between blocks is an anisotropic mobility that can change the selected orbit, not only the speed along it~\cite[Chs.~7 and~8]{DennisGaugeVFE2026}. Its value is a modeling choice with consequences.
+
+When frames are evolved, no frame regularizer is included: they move only through the terms of $\mathcal{F}$ in which they appear, under the metric-preconditioned group flow $\dot U_i = -\eta_\phi U_i \xi_i$, where $\xi_i$ is the left-trivialized Lie-algebra velocity of Eq.~\eqref{eq:gauge_natural_gradient_def}. A gradient penalty $\lambda_\phi \sum_i \int \|\nabla \phi_i(c)\|^2  dc$ would couple frames at different base points; it belongs to base-transport theory and is deferred~\cite{DennisGaugeVFESuppB2026}. The chart form $\partial\phi_i/\partial t = -\eta_\phi v_{\phi_i}$ in the parameterization $U_i = \exp(\phi_i)$ agrees with the group flow to first order in the step, as shown below.
+
+\subsection{Timescale Separation and the Adiabatic Hypothesis}
+\label{sec:adiabatic_hierarchy}
+
+We declare the rate ratio $\eta_s/\eta_q = \epsilon$ with $\epsilon \ll 1$ between the slow and fast blocks. Write $f$ for the fast coordinates, $s$ for the slow ones, and $\mathsf G_{\mathrm f}$, $\mathsf G_{\mathrm s}$ for their block metrics. For every $\epsilon > 0$ the rate-separated natural gradient, $\epsilon\dot f = -\mathsf G_{\mathrm f}^{-1}\partial_f\mathcal{F}$ and $\dot s = -\mathsf G_{\mathrm s}^{-1}\partial_s\mathcal{F}$ in flow time measured in slow units, decreases the functional. On the graph $\mathcal{S}^\star = \{(f^\star(s), s)\}$ of a branch of conditional minimizers its fast component vanishes and its slow component is the natural gradient of the reduced functional $\mathcal{F}_{\mathrm{red}}(s) = \min_f \mathcal{F}(f, s)$, by the envelope identity $d\mathcal{F}_{\mathrm{red}} = \partial_s\mathcal{F}(f^\star(s), s)$~\cite[Ch.~8]{DennisGaugeVFE2026} (the envelope lemma and the rate-separated natural-gradient proposition). This holds for every $\epsilon$, but the orbit can depend on $\epsilon$, and it does not by itself say that trajectories starting off $\mathcal{S}^\star$ approach it.
+
+That tracking statement is the adiabatic reduction proper, and it requires Tikhonov's hypotheses: a compact slow region $\mathcal{K}$ on which a $C^1$ branch of conditional minimizers satisfies the uniform fast-curvature bound $\partial^2_{ff}\mathcal{F}(f^\star(s), s) \succeq c_1 \mathsf G_{\mathrm f}$ for some $c_1 > 0$, a reduced slow orbit that stays in the interior of $\mathcal{K}$, and a fast initial state in the basin of the frozen fast flow. Under these hypotheses the fast variables track the conditional minimizer as $\epsilon \to 0$~\cite{Tikhonov1952}, and for smooth data a locally invariant slow manifold exists $O(\epsilon)$-close to $\mathcal{S}^\star$~\cite{fenichel1979geometric}. The effective small parameter is the fastest slow relaxation rate divided by the slowest fast relaxation rate, that is, the block rates multiplied by the spectra of $\mathsf G^{-1}\partial^2\mathcal{F}$ in each block, and not the bare ratio $\eta_s/\eta_q$.
+
+For the recognition families of this paper these hypotheses are not established, and the Theory declares the reduction open at one base point~\cite[Ch.~8]{DennisGaugeVFE2026} (the open problem on slow-manifold reduction). The uniform fast-curvature bound is certified only in restricted regimes: zero within-scale coupling, where the cross-scale joint is a proper Gaussian with a unique optimum, and frozen isotropic couplings with $\mathrm{SO}(N)$ transport, where the mean update is a contraction; no interior fixed point is established for the fully coupled, state-dependent $\mathrm{GL}^+(K_q)$ system (Appendix~\ref{app:mf_fixedpoint_status}). The bound also fails generically where attention switches. After the rows are optimized, the curvature of the reduced row $-\tau\log Z_i$ is $\sum_j\beta^*_{ij}\nabla^2E_{ij} - \tau^{-1}\operatorname{Cov}_{\beta_i^*}(\nabla E_i)$, and the covariance correction can make it indefinite even when every frozen-weight curvature is positive~\cite[Ch.~6]{DennisGaugeVFE2026} (the attention-reduced potential proposition). A one-agent example exhibits the resulting fold. With a slow prior mean $m$, anchor strength $\alpha = 0.2$, two unit-precision neighbors at $x = \pm 1$, and $\tau = 0.05$, the reduced energy
+\begin{equation}
+\mathcal{F}_{\mathrm{red}}(\mu; m) = \frac{\alpha}{2}(\mu - m)^2 - \tau\log\sum_{j=\pm1}\exp\Big[-\frac{(\mu - x_j)^2}{2\tau}\Big]
+\end{equation}
+has two fast minima and a saddle for moderate $m$, and at $m \approx 4.22$ the left minimum and the saddle merge in a saddle-node, so the fast state must jump. At such folds the reduction must be replaced by jump or relaxation-oscillation analysis. Outside the restricted regimes above the adiabatic hierarchy is therefore a conjecture (status C in Table~\ref{tab:claim_status}); where the hypotheses hold, it supports a perturbative expansion in powers of $\epsilon$. The Born-Oppenheimer separation of electronic and nuclear motion~\cite{Born1927} is an analogy for the slaving of fast to slow variables, with a different mechanism (slaving to instantaneous eigenstates).
+
+\subsection{Fisher Natural Gradient on Beliefs and Metric-Preconditioned Frame Retraction}
+
+The system evolves by Fisher-Rao natural-gradient flow on the Gaussian belief sector and, when frames are evolved, by a metric-preconditioned group retraction on the frame sector. On the product manifold $\mathcal{M} = (\mathbb{R}^{K_q} \times \mathbb{S}^+_{K_q} \times G)^N$, the block-Fisher form for Gaussian beliefs (Appendix~\ref{app:fisher_gaussian}) gives $\tilde\nabla_\mu\mathcal{F} = \Sigma\nabla_\mu\mathcal{F}$ and $\tilde\nabla_\Sigma\mathcal{F} = 2\Sigma(\nabla_\Sigma\mathcal{F})\Sigma$, whose sandwich keeps covariance updates within $\mathbb{S}^+_{K_q}$ under an affine-invariant retraction. For the group sector write $U_i = \exp(\phi_i)$ and let $\xi_i \in \mathfrak{g}$ denote the left-trivialized Lie-algebra velocity consumed by the group equation. The local flow is
+\begin{align}
+\frac{d\mu_i}{dt} &= -\eta_\mu \tilde{\nabla}_\mu \mathcal{F}, \\
+\frac{d\Sigma_i}{dt} &= -2\eta_\Sigma \Sigma_i (\nabla_\Sigma \mathcal{F}) \Sigma_i, \\
+\frac{dU_i}{dt} &= -\eta_\phi U_i \xi_i,
+\label{eq:gauge_natural_gradient}
+\end{align}
+with the pullback-preconditioned chart vector and its corresponding group velocity defined by
+\begin{equation}
+v_{\phi_i} := \mathcal{G}_{\mathrm{pull}}^{-1}(\phi_i) \nabla_{\phi_i} \mathcal{F},
+\qquad
+\xi_i := \mathrm{dexp}_{\phi_i}^{L}(v_{\phi_i}),
+\label{eq:gauge_natural_gradient_def}
+\end{equation}
+where $\mathrm{dexp}_{\phi}^{L}(v) = \exp(-\phi)D\exp_{\phi}[v]$ is the left-trivialized differential of the exponential map, pairing with the right-multiplication retraction of Eq.~\eqref{eq:gauge_group_retraction}. With separate rates $\eta_\mu \neq \eta_\Sigma$ the belief flow is the natural gradient of the rate-weighted metric $G_\eta := (\Sigma_i^{-1}/\eta_\mu) \oplus (g_{\Sigma\Sigma}/\eta_\Sigma)$ and coincides with a single-rate Fisher natural gradient only when $\eta_\mu = \eta_\Sigma$. Identities that assume one scalar rate in the Fisher metric, such as the clock-dissipation identity of Section~\ref{sec:time_info}, hold exactly in the rate-weighted metric and block by block, and in the Fisher metric itself only at a single rate.
+
+A chart gradient $\nabla_{\phi_i}\mathcal{F}$, or even the chart vector $v_{\phi_i}$, is not inserted directly into a group retraction unless it has been converted to the trivialized velocity $\xi_i$. On a compact semisimple Lie algebra one may use the negative Killing form, which is bi-invariant and positive-definite, to precondition the left-trivialized gradient directly. For a compact algebra with central or abelian factors, the Killing form is degenerate on those directions and must be supplemented by a separately chosen positive Ad-invariant inner product, such as the negative trace form in the defining matrix representation of $\mathfrak{so}(2)$. For non-compact $G$ the Killing form is indefinite, and $\mathrm{GL}^+(K_q)$ admits no bi-invariant Riemannian metric~\cite[Lemma~7.5]{Milnor1976}, so the positive-definite substitute used in exponential coordinates is the position-dependent pullback of the ambient flat Frobenius metric on $\mathrm{GL}^+(K_q)$ through the exponential map,
+\begin{equation}
+\begin{aligned}
+\mathcal{G}_{\mathrm{pull},ab}(\phi)
+&= \langle D\exp_\phi[T_a], D\exp_\phi[T_b] \rangle_F \\
+&= \mathrm{tr}\left(
+\Psi_R(\mathrm{ad}_\phi)(T_a)^\top
+\Psi_R(\mathrm{ad}_\phi)(T_b)
+\exp(\phi)\exp(\phi)^\top
+\right), \\
+\Psi_R(z) &= \frac{e^{z} - 1}{z},
+\end{aligned}
+\label{eq:pullback_metric}
+\end{equation}
+where $\langle\cdot,\cdot\rangle_F$ is the ambient Frobenius inner product and $D\exp_\phi[H] = \Psi_R(\mathrm{ad}_\phi)(H)\exp(\phi)$ is the right-trivialized differential of the exponential map, so the weight $\exp(\phi)\exp(\phi)^\top = UU^\top$ is the right $\exp(\phi)$ factor of that differential. This form is positive definite exactly where $\mathrm{dexp}^{L}_\phi$ is regular. As the pullback of a flat metric by a local diffeomorphism it is flat, and it is invariant under neither left nor right translations by non-orthogonal elements of $G$. By contrast, for variations $\delta U=U\xi$, the quantity $U^\top\nabla_U\mathcal{F}$ is the left-trivialized, or body, covector. Identifying it with a velocity through a fixed Frobenius inner product on the algebra induces a left-invariant metric on $\mathrm{GL}^+(K_q)$. That metric is also right invariant only if the inner product is Ad-invariant, which no positive inner product on $\mathfrak{gl}(K_q)$ is; a right-invariant metric by itself exists on any Lie group and gives the mirror convention below. The position-dependent ambient pullback above is a third, distinct construction.
+\begin{proposition}[dexp regularity]\label{prop:dexp_regularity}
+The operator $\mathrm{dexp}^{L}_\phi$ is singular exactly when $\mathrm{spec}(\mathrm{ad}_\phi)$ contains a nonzero element of $2\pi i\mathbb{Z}$; equivalently, the pullback metric of Eq.~\eqref{eq:pullback_metric} is positive definite exactly away from that spectral locus.
+\end{proposition}
+Clipping $\|\mathrm{ad}_\phi\|$ below $2\pi$ is a sufficient guard. On the full $\mathfrak{gl}(K_q)$ chart a skew frame of rotation angle $\theta$ has $\mathrm{ad}_\phi$-eigenvalues $0$, $\pm i\theta$, and $\pm 2i\theta$, so $\mathrm{dexp}^{L}_\phi$ is singular already at $\theta = \pi$; the familiar $2\pi$ locus applies only to the chart restricted to $\mathfrak{so}(3)$. The mirror right-trivialized velocity convention would instead pair with a left-multiplication retraction $\exp(-\eta_\phi\xi_i)U_i$; we use the left-trivialized velocity because Eq.~\eqref{eq:gauge_natural_gradient} and Eq.~\eqref{eq:gauge_group_retraction} multiply the update on the right. The discrete analog of Eq.~\eqref{eq:gauge_natural_gradient} is the group-level retraction
+\begin{equation}
+U_i^{t+1} = U_i^t \exp\big(-\eta_\phi \xi_i^t\big),
+\label{eq:gauge_group_retraction}
+\end{equation}
+which keeps $U_i \in G$ exactly at every step and is the canonical group update once $\xi_i$ has been computed.
+
+For $G = \mathrm{GL}^+(K_q)$, which is open in $\mathfrak{gl}(K_q)$, the metric of Eq.~\eqref{eq:pullback_metric} is the exact pullback of the ambient Frobenius metric and $D\exp_\phi$ is surjective wherever $\mathrm{dexp}^{L}_\phi$ is regular. The pullback-preconditioned chart vector $v_{\phi_i} = \mathcal{G}_{\mathrm{pull}}^{-1}\nabla_{\phi_i}\mathcal{F}$ therefore pushes forward to the ambient gradient, $D\exp_{\phi_i}[v_{\phi_i}] = \nabla_{U_i}\mathcal{F}$, and its left-trivialized velocity telescopes exactly to $\xi_i = \mathrm{dexp}^{L}_{\phi_i}(v_{\phi_i}) = U_i^{-1}\nabla_{U_i}\mathcal{F}$. On the full $\mathfrak{gl}(K_q)$ this preconditioning reproduces ambient Euclidean descent on $U_i$, $U_i\exp(-\eta_\phi U_i^{-1}\nabla_{U_i}\mathcal{F}) = U_i - \eta_\phi\nabla_{U_i}\mathcal{F} + O(\eta_\phi^2)$, and it carries no Fisher content. In computation $\xi_i$ is formed directly from $\nabla_{U_i}\mathcal{F}$; the $K_q^2\times K_q^2$ metric $\mathcal{G}_{\mathrm{pull}}$ need never be assembled, and inverting it explicitly would square the condition number of $D\exp_\phi$. On a proper subgroup such as $\mathrm{SO}(K_q)$, $D\exp_\phi$ maps onto $T_{U_i}G$ only, and the same construction gives the tangent projection $\xi_i = U_i^{-1}P_{T_{U_i}G}\nabla_{U_i}\mathcal{F}$. The additive chart step $\phi_i^{t+1} = \phi_i^t - \eta_\phi v_{\phi_i}$ and the group step~\eqref{eq:gauge_group_retraction} agree to $O(\eta_\phi^2)$ at every $\phi_i$, by definition of $\mathrm{dexp}^{L}$; the conversion is needed only when a chart vector is inserted into the group exponential. The retraction stays in $G$ at every discrete step, but global existence of the continuous frame flow in $\mathrm{GL}^+(K_q)$ is not established. The functional is constant along the noncompact orbits of the change-of-reference redundancy, so its sublevel sets are not compact, and nothing in the ambient flow keeps $U_i$ away from singular matrices. A gauge slice, a coercive frame prior, or an invariant bounded set is required (Appendix~\ref{app:mf_fixedpoint_status}).
+
+\paragraph{Frame-flow covariance.}
+The Gaussian sector thus has an intrinsic Fisher-Rao natural gradient, while the frame sector has a coordinate- and trivialization-dependent metric preconditioning. Because $\mathrm{GL}^+(K_q)$ has no bi-invariant Riemannian metric, no single frame metric respects both the per-agent left translations and the global right translation. The ambient-pullback flow, which equals the Euclidean flow $\dot U_i = -\eta_\phi\nabla_{U_i}\mathcal{F}$, is equivariant only under orthogonal left and right translations. The left-invariant (body) flow $\dot U_i = -\eta_\phi U_iU_i^\top\nabla_{U_i}\mathcal{F}$ is equivariant under per-agent left translations with beliefs co-transformed, and under right translations only by orthogonal $g$. The right-trivialized flow $\dot U_i = -\eta_\phi(\nabla_{U_i}\mathcal{F}U_i^\top)U_i$, paired with the left-multiplication retraction, is equivariant under the change-of-reference redundancy $U_i\mapsto U_ig$, so its trajectories descend to the quotient by that redundancy, at the cost of left equivariance. Under the first two choices, gauge-equivalent initial data evolve to physically different transports, and the linearized frame relaxation rates are not invariant under $U_i\mapsto U_ig$. In a two-agent example with $K_q = 2$ and $\mathcal{F} = D_{\mathrm{KL}}(q_1\|\Omega_{12}q_2)$ at a minimizer, the slowest nonzero frame rate of the ambient flow is $1.07\eta_\phi$ in one gauge and $0.023\eta_\phi$ after $g = \mathrm{diag}(10, 1)$, with $\mathcal{F}$ unchanged, whereas the right-invariant metric gives the rates $(0.93, 4.01, 6.29, 7.04)\eta_\phi$ in every gauge. Any timescale assigned to the frame block is therefore gauge invariant only with a right-invariant frame metric. The choice of frame metric is a declared option, and a covariant flow exists for either quotient. Gauge-covariant trajectory claims for the other choices require compact (Ad-invariant), abelian, or near-identity hypotheses; under them the Gaussian update transforms covariantly as $\Sigma_i(\nabla_\Sigma\mathcal{F})\Sigma_i \to \rho(g)[\Sigma_i(\nabla_\Sigma\mathcal{F})\Sigma_i]\rho(g)^\top$.
+
