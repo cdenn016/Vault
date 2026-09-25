@@ -1,0 +1,1545 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\usepackage[round]{natbib}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\geometry{margin=1in}
+\setlength{\emergencystretch}{2em}
+\newcommand{\KL}{\operatorname{KL}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\Sig}{\Sigma}
+\newcommand{\SigQ}{\Sigma^q}
+\newcommand{\SigP}{\Sigma^p}
+\newcommand{\muQ}{\mu^q}
+\newcommand{\muP}{\mu^p}
+\newcommand{\Dmu}{\Delta\mu}
+\newcommand{\vech}{\mathrm{vech}}
+\newcommand{\Prec}{P}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{prediction}[theorem]{Prediction}
+
+\title{The Inertia of Belief:\\Gauge-Covariant Variational Free Energy for Social Dynamics}
+
+\author{
+Robert C. Dennis\\
+\texttt{cdenn016@gmail.com}
+}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+
+
+\begin{abstract}
+We formulate an engineered gauge-covariant consensus energy for distribution-valued beliefs represented in heterogeneous local frames. Its relational weights follow from entropy-retaining attention optimization, whose rowwise elimination yields a reduced log-partition functional. Around local Gaussian consensus, the corresponding loss Hessian separates into prior, sensory, incoming relational, and outgoing relational or recoil stiffness. We take the unweighted product Fisher--Rao metric as the primary first-order geometry. That primary flow yields continuous-time DeGroot only for fixed symmetric coupling; a reversible nonuniform extension requires an additional stationary-measure-weighted product Fisher metric, equivalently a fixed-label joint family or agent-specific rates. Persistent anchors give a restricted Friedkin--Johnsen stationary equilibrium independently of the positive flow metric, although matching the standard transient generator retains the same weighted-metric or rate requirement. Finite-temperature attention gives a soft analog of bounded confidence. Belief inertia enters only through a separate kinetic-metric postulate: a positive local restriction of the stiffness may be adopted as kinetic geometry, but if the same functional supplies both kinetic mass $M$ and restoring Hessian $H_F$, then $M=H_F$ makes the generalized harmonic spectrum degenerate, $\omega^2=1$ up to scale. In the stated unanchored, symmetric reciprocal two-cluster reduction, separated clusters retain nonzero mutual influence and are metastable rather than stably polarized. This construction is a local mathematical model: it distinguishes intrinsic Fisher geometry, loss curvature, and optional kinetic structure, and it treats social and psychological interpretations as mechanism-specific hypotheses whose empirical status remains open.
+\end{abstract}
+
+
+
+\noindent\textbf{Keywords:} gauge-covariant variational free energy $\cdot$ opinion dynamics $\cdot$ information geometry $\cdot$ natural gradient $\cdot$ relational stiffness $\cdot$ belief inertia
+
+\section{Introduction}
+
+Social beliefs are often represented by point estimates in a common coordinate system. That representation suppresses two features that matter when heterogeneous agents exchange information: an agent may hold a distribution rather than a single opinion, and different agents may encode the same latent content in different local frames. Comparing such beliefs therefore requires both uncertainty-aware divergence and an explicit transport law. We study this problem for local Gaussian belief families, using gauge transport to compare probability distributions without identifying their coordinates by fiat.
+
+The relevant landscape is already broad. Classical DeGroot and Friedkin--Johnsen models describe linear averaging and anchored influence \citep{degroot1974,friedkin1990}, while Hegselmann--Krause and Deffuant models impose bounded-confidence interaction rules \citep{hegselmann2002opinion,deffuant2000}. The closest direct opinion-inertia predecessor is Martins: his Bayesian-inspired opinion particles already possess force, inertia, and a harmonic-oscillator example \citep{Martins2015OpinionParticles}. Behavioral momentum instead operationalizes resistance to disruption in conditioned behavior and does not establish opinion-level Hamiltonian dynamics \citep{NevinMandellAtak1983}. Active-inference models supply further collective precedents. Federated inference treats communicated posteriors as evidence in shared-model inference \citep{friston2024federated}, whereas confirmation-biased policy selection can generate epistemic communities and echo chambers \citep{albarracin2022epistemic}; neither construction supplies the inter-frame transport studied here. Xue, Hirche, and Cao apply port-Hamiltonian systems and passivity to media-influenced opinion networks, but their state-space control model is not a gauge-coupled geometry of probabilistic beliefs \citep{XueHircheCao2020}.
+
+Information-geometric mechanics also predates the present work. Pistone constructs Lagrangian dynamics on a finite-state statistical bundle \citep{Pistone2018StatisticalBundle}, and Chirco, Malag\`o, and Pistone develop Lagrangian and Hamiltonian probability dynamics that include accelerated natural-gradient motion \citep{ChircoMalagoPistone2022}. Leok and Zhang relate divergence functions to discrete Lagrangians under explicit geometric conditions rather than identifying every divergence with a unique kinetic energy \citep{LeokZhang2017}. Girolami and Calderhead use a position-dependent Fisher or Riemannian metric in Hamiltonian sampling, providing a clear precedent for metric-dependent kinetic geometry while keeping that metric conceptually distinct from objective curvature \citep{GirolamiCalderhead2011}. At the network level, periodically modulated second-order consensus already exhibits Laplacian-mode resonance \citep{BaumannSokolovTyloo2020}. Oscillatory social behavior is not diagnostic of inertia by itself: Sampson, Restrepo, and Porter obtain self-sustained and excitable opinion motion from feedback between individual and group opinions without the kinetic mechanism proposed here \citep{SampsonPorterRestrepo2025}.
+
+Against these precedents, the gap is specific. We have not identified an earlier model that combines Gaussian KL consensus across heterogeneous local frames with an explicit local four-part stiffness decomposition into prior, sensory, incoming relational, and outgoing relational or recoil terms. The outgoing term is especially important because it records the curvature contributed when an agent serves as the source in other agents' relational energies. The contribution is this transported consensus and curvature construction, together with a strict separation between first-order inference and an optional kinetic extension; it is not the invention of opinion inertia, Hamiltonian probability dynamics, or oscillatory consensus.
+
+The paper makes three contributions. First, it gives a gauge-covariant population consensus functional for distribution-valued beliefs in heterogeneous local frames, with a canonical log-partition reduction of attention. Second, it establishes a local Gaussian stiffness theorem separating prior, sensory, incoming relational, and outgoing relational/recoil curvature, including the reduced-Hessian covariance correction away from frozen consensus. Third, it gives a conditional kinetic extension and a proof-status map for social dynamics: DeGroot flow for fixed symmetric coupling under the primary metric, reversible DeGroot transients only under an additional stationary-measure-weighted metric, a restricted Friedkin--Johnsen stationary equilibrium that is independent of the positive flow metric, soft bounded confidence, metastable clustering in the stated unanchored, symmetric reciprocal two-cluster reduction, and mechanism-specific falsification tests.
+
+The scope is consequently narrow. This is a local Gaussian theory and model paper in mathematical sociophysics and computational social science, not a general psychology of belief perseverance or confirmation bias and not a participatory-physics theory. It does not infer adoption dynamics from individual belief trajectories; a diffusion claim would require an explicit adoption state and population hazard, as in the Bass model \citep{Bass1969}. Psychological constructs enter only as candidate mechanisms to be distinguished by controlled perturbations and matched alternative models.
+
+\section{Epistemic Status and Scope}\label{sec:epistemic_status}
+
+Table~\ref{tab:epistemic-status} fixes the claim-status contract for the manuscript. Each fence distinguishes a mathematical result or modeling choice from a stronger interpretation that the present construction does not establish.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Epistemic-status fences governing the paper's claims.}
+\label{tab:epistemic-status}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.08\textwidth}>{\raggedright\arraybackslash}p{0.84\textwidth}@{}}
+\toprule
+Fence & Claim status \\
+\midrule
+E1 & The population interaction term is an engineered consensus energy, not the evidence lower bound of a fixed population generative model. \\
+E2 & The four-part stiffness is a local frozen-attention, consensus-point loss Hessian, not a global intrinsic metric. \\
+E3 & The kinetic metric is an additional modeling postulate rather than a consequence of variational free energy. \\
+E4 & Under the primary unweighted product Fisher metric, transient DeGroot recovery requires fixed symmetric coupling. A standard nonuniform reversible transient requires an additional $\rho$-weighted product Fisher metric (or an equivalent fixed-label joint family or agent-specific rate choice). The restricted anchored Friedkin--Johnsen equilibrium is a stationary point of the reversible scalar energy and is independent of the positive flow metric; the general directed iteration is not derived. \\
+E5 & In the stated unanchored, symmetric reciprocal two-cluster reduction, finite-temperature attractive attention supports metastable clustering, not exact stable polarization. \\
+E6 & Psychological constructs are candidate mechanisms, not established explanations. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Later definitions, propositions, and interpretations cite the applicable fence whenever their validity depends on one of these restrictions. The fence reference is part of the claim itself: dropping it does not strengthen the result, but changes it into an unsupported statement.
+
+\section{Mathematical Framework}
+
+\subsection{Gaussian Beliefs and Local Frames}
+
+Agent $i$ carries a Gaussian belief $q_i=\mathcal N(\mu_i,\Sigma_i)$ and a quasi-static Gaussian prior $p_i=\mathcal N(\bar\mu_i,\bar\Sigma_i)$ on a common latent dimension $d$, with $\Sigma_i,\bar\Sigma_i\in\mathrm{SPD}(d)$. The coordinates are local: an invertible frame $U_i\in\mathrm{GL}(d)$ specifies how agent $i$ represents the latent variables. For any invertible affine map $T(x)=Ax+a$, Gaussian pushforward gives
+\begin{equation}
+T_{\#}\mathcal N(\mu,\Sigma)
+=\mathcal N(A\mu+a,A\Sigma A^{\top}).
+\label{eq:affine_gaussian_pushforward}
+\end{equation}
+The inter-agent transport used below is the linear specialization
+\begin{equation}
+\Omega_{ij}=U_iU_j^{-1},
+\qquad
+\Omega_{ij\#}q_j
+=\mathcal N(\Omega_{ij}\mu_j,\Omega_{ij}\Sigma_j\Omega_{ij}^{\top}).
+\label{eq:transport_cov}
+\end{equation}
+Thus both means and covariances are compared only after they have been expressed in the receiver's frame. This is the focused social-dynamics use of the gauge construction; no participatory-physics interpretation is required.
+
+\begin{definition}[Transported edge energy]
+The directed disagreement energy from source $j$ to receiver $i$ is
+\begin{equation}
+E_{ij}=\KL\!\left(q_i\,\middle\|\,\Omega_{ij\#}q_j\right),
+\qquad
+\Omega_{ij}=U_iU_j^{-1}.
+\label{eq:transported_edge_energy}
+\end{equation}
+For Gaussians, this is the ordinary closed-form Gaussian KL evaluated using the transported mean and covariance in Eq.~\eqref{eq:transport_cov}.
+\end{definition}
+
+\begin{proposition}[Gauge covariance of the edge energy]
+Under independent local frame changes $g_i\in\mathrm{GL}(d)$, let $q_i'=g_{i\#}q_i$ and $U_i'=g_iU_i$. Then $E_{ij}'=E_{ij}$.
+\end{proposition}
+
+\begin{proof}
+The transformed transport is $\Omega_{ij}'=g_i\Omega_{ij}g_j^{-1}$, so functoriality of pushforward gives
+\begin{equation}
+\Omega_{ij\#}'q_j'
+=(g_i\Omega_{ij}g_j^{-1})_{\#}(g_{j\#}q_j)
+=g_{i\#}(\Omega_{ij\#}q_j).
+\end{equation}
+KL divergence is invariant when both arguments are pushed forward by the same invertible measurable map. Therefore
+\begin{equation}
+E_{ij}'
+=\KL\!\left(g_{i\#}q_i\,\middle\|\,g_{i\#}(\Omega_{ij\#}q_j)\right)
+=E_{ij}.
+\end{equation}
+This proves gauge covariance of the scalar edge energy. It does not imply that an ordinary coordinate Hessian is invariant under arbitrary nonlinear reparameterization; such Hessians are used later only as local affine-coordinate stiffnesses, consistently with fence E2 in Table~\ref{tab:epistemic-status}.
+\end{proof}
+
+\subsection{Canonical Entropy-Retaining Population Objective}
+
+For each receiver $i$, let the attention-prior coefficients satisfy $\pi_{ij}>0$ and $\sum_j\pi_{ij}=1$ on its finite candidate-source set, let $\beta_i$ lie in the same probability simplex, and fix $\tau>0$. A hard mask is represented by removing an index from that set rather than assigning a positive-weight formula at $\pi_{ij}=0$. The authoritative scalar objective is
+\begin{equation}
+\boxed{
+\mathcal F_{\mathrm{full}}
+=\sum_i\KL(q_i\|p_i)
+-\sum_i\mathbb E_{q_i}\log p(o_i\mid c_i)
++\sum_{i,j}\left[
+\beta_{ij}E_{ij}
++\tau\beta_{ij}\log\frac{\beta_{ij}}{\pi_{ij}}
+\right].}
+\label{eq:canonical_full_vfe}
+\end{equation}
+The inter-agent block is an engineered, gauge-covariant consensus energy. In particular, $\mathcal F_{\mathrm{full}}$ is not claimed to be the negative evidence lower bound of one fixed population generative model over the original agent-state variables, as required by fence E1 in Table~\ref{tab:epistemic-status}. Its exact rowwise source-selection identity at unit categorical temperature is narrower than that population-level claim; Appendix~\ref{app:social_coupling} records the distinction.
+
+\subsection{Optimized Attention and the Reduced Objective}
+
+\begin{definition}[Rowwise source-independence assumption]
+For the source-selection interpretation of a fixed row $i$, introduce a source label $z$ and factor the variational row as $Q_i(c,z=j)=q_i(c)\beta_{ij}$. Thus the focal belief $q_i(c)$ is independent of the source label under $Q_i$. During the row optimization, $q_i$, the transported source templates $\Omega_{ij\#}q_j$, the prior weights $\pi_{ij}$, and $\tau$ are held fixed. This is a substantive mean-field assumption at the mixture-to-softmax seam, not a statement that all agents' variational beliefs are fixed generative-model factors.
+\end{definition}
+
+The part of Eq.~\eqref{eq:canonical_full_vfe} that depends on row $i$ is
+\begin{equation}
+\Phi_i(\beta_i)
+=\sum_j\left[
+\beta_{ij}E_{ij}
++\tau\beta_{ij}\log\frac{\beta_{ij}}{\pi_{ij}}
+\right],
+\qquad
+\sum_j\beta_{ij}=1.
+\label{eq:attention_row_objective}
+\end{equation}
+Introducing a multiplier $\lambda_i$ for the simplex constraint gives the interior stationarity equations
+\begin{equation}
+E_{ij}+\tau\left(\log\frac{\beta_{ij}}{\pi_{ij}}+1\right)+\lambda_i=0.
+\label{eq:attention_row_stationarity}
+\end{equation}
+Exponentiation and normalization therefore yield
+\begin{equation}
+\boxed{
+\beta_{ij}^*=\frac{\pi_{ij}e^{-E_{ij}/\tau}}{Z_i},
+\qquad
+Z_i=\sum_k\pi_{ik}e^{-E_{ik}/\tau}.}
+\label{eq:attention_weights}
+\end{equation}
+Strict convexity of the categorical KL term on the simplex makes this stationary point the unique minimizer. More directly, substituting Eq.~\eqref{eq:attention_weights} into Eq.~\eqref{eq:attention_row_objective} gives the exact decomposition
+\begin{equation}
+\Phi_i(\beta_i)
+=-\tau\log Z_i+\tau\KL(\beta_i\|\beta_i^*).
+\label{eq:attention_row_kl_decomposition}
+\end{equation}
+Consequently the optimized row and the fully reduced population objective are
+\begin{align}
+\mathcal F_{i,\mathrm{red}}&=-\tau\log Z_i,
+\label{eq:canonical_row_reduced_vfe}\\
+\mathcal F_{\mathrm{red}}
+&=\sum_i\KL(q_i\|p_i)
+-\sum_i\mathbb E_{q_i}\log p(o_i\mid c_i)
++\sum_i\mathcal F_{i,\mathrm{red}}.
+\label{eq:canonical_reduced_vfe}
+\end{align}
+
+When the coefficients $\pi_{ij}$ and the temperature $\tau$ are fixed, direct differentiation of the log-partition function proves the envelope identity
+\begin{equation}
+\boxed{
+d\mathcal F_{i,\mathrm{red}}
+=-\tau\frac{dZ_i}{Z_i}
+=\sum_j\beta_{ij}^*\,dE_{ij}.}
+\label{eq:reduced_vfe_envelope}
+\end{equation}
+No derivative of $\beta_i^*$ appears in Eq.~\eqref{eq:reduced_vfe_envelope}; its contribution has already canceled through conditional minimization.
+
+\subsection{Entropy-Suppressed Surrogate}
+
+Dropping the categorical entropy and prior term after substituting optimized attention defines a different scalar,
+\begin{equation}
+S_i=\sum_j\beta_{ij}^*E_{ij}.
+\label{eq:entropy_suppressed_surrogate}
+\end{equation}
+For fixed $\pi_{ij}$ and $\tau$, Eq.~\eqref{eq:attention_weights} gives
+\begin{equation}
+d\beta_{ij}^*
+=-\tau^{-1}\beta_{ij}^*
+\left(dE_{ij}-\mathbb E_{\beta_i^*}[dE_{ij}]\right).
+\label{eq:attention_weight_differential}
+\end{equation}
+Applying the product rule to Eq.~\eqref{eq:entropy_suppressed_surrogate} then yields
+\begin{equation}
+\boxed{
+dS_i
+=\mathbb E_{\beta_i^*}[dE_{ij}]
+-\tau^{-1}\operatorname{Cov}_{\beta_i^*}(E_{ij},dE_{ij}).}
+\label{eq:entropy_suppressed_differential}
+\end{equation}
+Here the covariance between the scalar $E_{ij}$ and the one-form $dE_{ij}$ is understood componentwise. It has no universal sign in a direction identified with increasing or decreasing social similarity. The surrogate response therefore neither equals the canonical envelope response in general nor implies a sign-definite strengthening of similarity selection.
+
+\subsection{Adaptive Prior Precision}
+\label{sec:state_dependent_precision}
+
+The canonical objective in Eq.~\eqref{eq:canonical_full_vfe} uses unit prior weight. Its adaptive-precision extension replaces the $i$th prior summand by the complete sector
+\begin{equation}
+\Psi_i(\alpha_i,D_i)
+=\alpha_iD_i+R(\alpha_i),
+\qquad
+D_i=\KL(q_i\|p_i),
+\qquad
+R(\alpha_i)=b_0\alpha_i-c_0\log\alpha_i,
+\label{eq:adaptive_self_coupling}
+\end{equation}
+where $b_0,c_0>0$ and $\alpha_i>0$. Because
+\begin{equation}
+\partial_{\alpha_i}\Psi_i
+=D_i+b_0-\frac{c_0}{\alpha_i},
+\qquad
+\partial_{\alpha_i}^2\Psi_i=\frac{c_0}{\alpha_i^2}>0,
+\end{equation}
+the unique conditional optimum is
+\begin{equation}
+\boxed{\alpha_i^*=\frac{c_0}{b_0+D_i}.}
+\label{eq:state_dependent_alpha}
+\end{equation}
+
+Two derivatives that have previously been conflated belong to different scalar objectives. For the bare product $B_i(D)=\alpha_i^*(D)D$ and the reduced regularized sector $\bar\Psi_i(D)=\Psi_i(\alpha_i^*(D),D)$, respectively,
+\begin{align}
+\partial_D(\alpha_i^*D)
+&=\frac{b_0c_0}{(b_0+D)^2},
+\label{eq:adaptive_bare_product_derivative}\\
+\partial_D[\alpha_i^*D+R(\alpha_i^*)]
+&=\frac{c_0}{b_0+D}=\alpha_i^*.
+\label{eq:adaptive_envelope_derivative}
+\end{align}
+The second identity is the envelope theorem. Except at $D=0$, Eqs.~\eqref{eq:adaptive_bare_product_derivative} and~\eqref{eq:adaptive_envelope_derivative} produce different force coefficients and therefore generate distinct dynamics.
+
+Let $\bar\Lambda_{p_i}=\bar\Sigma_i^{-1}$ and $\Lambda_{q_i}=\Sigma_i^{-1}$. At fixed $\alpha_i$, the adaptive sector contributes
+\begin{align}
+\nabla_{\mu_i}\Psi_i
+&=\alpha_i\bar\Lambda_{p_i}(\mu_i-\bar\mu_i),
+\label{eq:adaptive_prior_mean_gradient}\\
+\nabla_{\Sigma_i}\Psi_i
+&=\frac{\alpha_i}{2}(\bar\Lambda_{p_i}-\Lambda_{q_i}).
+\label{eq:adaptive_prior_covariance_gradient}
+\end{align}
+For the reduced regularized sector, the same formulas hold with $\alpha_i=\alpha_i^*$ by Eq.~\eqref{eq:adaptive_envelope_derivative}. Thus the prior coefficient is carried consistently through both the mean and covariance gradients; any corresponding fixed-$\alpha_i$ prior Hessian block carries the same factor.
+
+The response of $\alpha_i^*$ matters when one differentiates the reduced regularized sector a second time. Holding $\Sigma_i$, $p_i$, $b_0$, and $c_0$ fixed, and writing $g_i=\bar\Lambda_{p_i}(\mu_i-\bar\mu_i)$, its mean-coordinate Hessian is
+\begin{equation}
+\nabla_{\mu_i}^2\bar\Psi_i
+=\alpha_i^*\bar\Lambda_{p_i}
+-\frac{(\alpha_i^*)^2}{c_0}g_ig_i^{\top}.
+\label{eq:adaptive_prior_reduced_hessian}
+\end{equation}
+The negative rank-one term in Eq.~\eqref{eq:adaptive_prior_reduced_hessian} belongs specifically to the mean block of the envelope-reduced, regularized prior sector. It is not a correction to the bare product, the covariance block, the full population Hessian, or an intrinsic Fisher metric. Its possible loss of positive definiteness therefore limits only an interpretation that treats this reduced coordinate curvature itself as a positive stiffness; it does not invalidate the scalar objective.
+
+%==============================================================================
+\subsection{Fisher Arc Length as an Information-Theoretic Clock}
+\label{sec:proper_time}
+%==============================================================================
+
+A fundamental issue in any dynamical theory of belief is the definition of time. Wall-clock time is unsuitable because cognitive processes operate on different timescales for different agents and contexts. We propose defining a Fisher arc-length clock as the information-theoretic arc length traversed on the statistical manifold whereby time is taken as "a difference which makes a difference". We use the symbol $\ell$ for this clock to keep it distinct from the attention temperature $\tau$ and from the dynamical relaxation times introduced later.
+
+For an infinitesimal belief change $d\mu$, the arc-length increment is
+
+\begin{equation}
+\boxed{d\ell = \sqrt{d\mu^T \Sigma^{-1} d\mu} = \|d\mu\|_{\Sigma^{-1}}}
+\end{equation}
+
+This definition has several appealing properties:
+
+\paragraph{Scale dependence.} For a high-precision agent ($\Sigma$ small, $\Sigma^{-1}$ large), a small change in $\mu$ corresponds to a large arc-length increment such that "time moves fast" in the sense that each update is cognitively significant. For a low-precision agent, the same parametric change corresponds to a small arc-length increment whereby updates are relatively insignificant or slow. A single bit of information is enormous for a simple, small-scale agent but imperceptible for a complex one such as humans.
+
+\paragraph{Information-theoretic interpretation.} To second order, both KL directions give the same result
+
+\begin{equation}
+\text{KL}(q + dq \| q) \approx \text{KL}(q \| q + dq) \approx \frac{1}{2} d\mu^T \Sigma^{-1} d\mu = \frac{1}{2} d\ell^2 .
+\end{equation}
+
+Thus the arc-length clock measures accumulated information change. The choice between KL directions is immaterial at this order.
+
+\paragraph{Invariance.} The Fisher arc length is invariant under reparameterization of the belief space, depending only on the intrinsic geometry of the statistical manifold.
+
+For a trajectory $\mu(t)$ parameterized by some external parameter $t$, the total arc length elapsed is
+
+\begin{equation}
+\ell = \int \sqrt{\dot{\mu}^T \Sigma^{-1} \dot{\mu}}\ dt .
+\end{equation}
+
+This Fisher arc-length clock plays a role loosely comparable to proper time in special relativity, in that different agents accumulate it at different rates depending on their precision; we draw the comparison only as an analogy and do not claim a Lorentzian metric structure, which would require a derived signature and is not established here. The velocity through belief space determines how quickly arc length accumulates, with high-precision agents accumulating it faster for identical parametric motion. The intrinsic metric that defines this arc length does not, by itself, select a kinetic energy or an inertial mass.
+
+%==============================================================================
+\subsection{Fisher--Rao Natural Gradient as the Primary Dynamics}
+\label{sec:natural_gradient_dynamics}
+%==============================================================================
+
+The primary belief dynamics are first order.  For each Gaussian factor, the inverse Fisher metric in affine $(\mu_i,\Sigma_i)$ coordinates maps the Euclidean coordinate derivatives of the canonical objective to
+\begin{equation}
+\boxed{
+\dot\mu_i=-\eta_\mu\Sigma_i\nabla_{\mu_i}\mathcal F,
+\qquad
+\dot\Sigma_i=-2\eta_\Sigma\Sigma_i
+(\nabla_{\Sigma_i}\mathcal F)\Sigma_i,}
+\label{eq:primary_fisher_flow}
+\end{equation}
+with $\eta_\mu,\eta_\Sigma>0$ and symmetric covariance derivative.  Equation~\eqref{eq:primary_fisher_flow} is the Fisher--Rao steepest-descent flow on the Gaussian statistical manifold, not inverse-loss-Hessian or Newton flow \citep{Amari2016}.  In particular, the four-part loss stiffness derived below does not replace the intrinsic Fisher preconditioner in Eq.~\eqref{eq:primary_fisher_flow}.
+
+The metric in Eq.~\eqref{eq:primary_fisher_flow} is the unweighted product metric over the agent-indexed Gaussian factors.  In the fixed common-covariance mean sector its stacked block is $\mathbf G_{\mathrm{prod}}=\sigma^{-2}(I_N\otimes I_d)$.  A stationary-measure-weighted block $\mathbf G_\rho=\sigma^{-2}(D_\rho\otimes I_d)$ is an additional geometry: it is the Fisher metric of the fixed-label joint family $P(i,x)=\rho_iq_i(x)$, and it is not the unmodified primary product flow when $\rho$ is nonuniform.
+
+An overdamped mechanical analogy reproduces this flow only after a tensor friction has been specified.  If one separately postulates a kinetic block $\mathbf M=\mathbf G$ and writes $\mathbf M\ddot x+\boldsymbol\Gamma\dot x+\nabla_x\mathcal F=0$, then choosing $\boldsymbol\Gamma=\mathbf M/\eta$ gives $\dot x=-\eta\mathbf G^{-1}\nabla_x\mathcal F$ on the slow manifold.  Distinct mean and covariance learning rates give the corresponding blockwise choices $\boldsymbol\Gamma^\mu=\mathbf G^\mu/\eta_\mu$ and $\boldsymbol\Gamma^\Sigma=\mathbf G^\Sigma/\eta_\Sigma$.  For a general independently chosen kinetic metric $\mathbf M\ne\mathbf G$, the choice $\boldsymbol\Gamma=\mathbf M/\eta$ instead produces an $\mathbf M$-metric flow and must not be called the Fisher natural gradient.  A scalar damping coefficient cannot establish either identification.
+
+
+%------------------------------------------------------------------------------
+\subsection{Local Gaussian Stiffness and the Three Geometries}
+%------------------------------------------------------------------------------
+
+Let $x=(\mu_1,\ldots,\mu_N,\Sigma_1,\ldots,\Sigma_N)$ denote affine Gaussian coordinates. Three geometric objects must be distinguished. The intrinsic Fisher--Rao metric $\mathbf G(q)$ depends only on the statistical family and the point $q$. The coordinate loss Hessian
+\begin{equation}
+\mathbf H_F(x)=\nabla_x^2\mathcal F(x)
+\label{eq:loss_hessian_definition}
+\end{equation}
+is the local stiffness of the selected scalar objective. Outside a critical point it is an affine-coordinate stiffness, not a tensor under arbitrary nonlinear reparameterizations. The symbol $\mathbf M(x)$ is reserved for a positive kinetic metric introduced only if the kinetic postulate is adopted. Thus $\mathbf G$, $\mathbf H_F$, and $\mathbf M$ are not interchangeable notation.
+
+The {\v C}encov--Chentsov theorem justifies $\mathbf G$, up to scale, as the classical monotone metric under sufficient-statistic maps \citep{Cencov1982}; it does not identify the Hessian of a prior, likelihood, and relational objective with that intrinsic metric. A matched KL term has the Fisher quadratic form at its minimum, and a fixed-covariance Gaussian KL is quadratic in its mean. Consequently $\mathbf H_F=\mathbf G$ can hold on an explicitly identified matching block or in a declared quadratic regime, but it does not hold globally for the summed population objective merely because both objects contain precision matrices.
+
+For the primary first-order dynamics, linearization at a critical point gives $\dot\delta=-\eta\mathbf G^{-1}\mathbf H_F\delta$.  At fixed $\mathbf G$ and $\eta$, increasing a positive modal stiffness reduces the static displacement under a matched constant force and increases the linear relaxation rate.  Stiffness therefore does not by itself imply slower revision.  Slower dynamics require an independently specified mobility or learning rate, damping law, kinetic metric, or slow explanatory state.
+
+\begin{theorem}[Four-part local Gaussian stiffness]
+\label{thm:four_part_stiffness}
+Consider the objective in Eq.~\eqref{eq:canonical_full_vfe}, with the Gaussian observation model used in this paper. Fix the transports and covariances. Evaluate the optimized attention weights in Eq.~\eqref{eq:attention_weights}, then freeze those values while differentiating the Gaussian coordinates. Also hold $\alpha_i$ fixed, with $\alpha_i=1$ in the canonical prior sector and $\alpha_i=\alpha_i^*$ when a conditionally optimized adaptive value is frozen. At a gauge-consensus point $q_i=\Omega_{ik\#}q_k$ on every active edge, the mean-sector block of the full stacked loss Hessian has diagonal blocks
+\begin{equation}
+\boxed{
+[\mathbf H_{\mu\mu}]_{ii}
+=\underbrace{\alpha_i\bar\Lambda_{p_i}}_{\text{prior stiffness}}
++\underbrace{\Lambda_{o_i}}_{\text{sensory stiffness}}
++\underbrace{\sum_k\beta_{ik}\widetilde\Lambda_{q_k}}_{\text{incoming relational stiffness}}
++\underbrace{\sum_j\beta_{ji}\Lambda_{q_i}}_{\text{outgoing relational/recoil stiffness}},}
+\label{eq:stiffness_diagonal}
+\end{equation}
+where $\widetilde\Lambda_{q_k}=\Omega_{ik}^{-\top}\Lambda_{q_k}\Omega_{ik}^{-1}$. For $i\ne k$, its off-diagonal sender--receiver blocks are
+\begin{equation}
+\boxed{
+[\mathbf H_{\mu\mu}]_{ik}
+=-\beta_{ik}\Omega_{ik}^{-\top}\Lambda_{q_k}
+-\beta_{ki}\Lambda_{q_i}\Omega_{ki}^{-1}.}
+\label{eq:stiffness_offdiagonal}
+\end{equation}
+The assembled matrix is symmetric, including when the frozen attention matrix is asymmetric.
+\end{theorem}
+
+\begin{proof}
+For one directed edge from sender $k$ to receiver $i$, write $r_{ik}=\mu_i-\Omega_{ik}\mu_k$. The mean-dependent part of its Gaussian KL is
+\begin{equation}
+E_{ik}^{(\mu)}=\frac12 r_{ik}^{\top}\widetilde\Lambda_{q_k}r_{ik}.
+\label{eq:edge_mean_quadratic}
+\end{equation}
+Direct differentiation gives
+\begin{align}
+\nabla_{\mu_i}E_{ik}^{(\mu)}
+&=\widetilde\Lambda_{q_k}r_{ik},
+&
+\nabla_{\mu_k}E_{ik}^{(\mu)}
+&=-\Omega_{ik}^{\top}\widetilde\Lambda_{q_k}r_{ik},
+\label{eq:edge_mean_gradients}\\
+\nabla_{\mu_i\mu_i}^2E_{ik}^{(\mu)}
+&=\widetilde\Lambda_{q_k},
+&
+\nabla_{\mu_k\mu_k}^2E_{ik}^{(\mu)}
+&=\Lambda_{q_k},
+\label{eq:edge_mean_diagonal_hessians}\\
+\nabla_{\mu_i\mu_k}^2E_{ik}^{(\mu)}
+&=-\Omega_{ik}^{-\top}\Lambda_{q_k},
+&
+\nabla_{\mu_k\mu_i}^2E_{ik}^{(\mu)}
+&=-\Lambda_{q_k}\Omega_{ik}^{-1}.
+\label{eq:edge_mean_cross_hessians}
+\end{align}
+The prior and observation quadratics contribute $\alpha_i\bar\Lambda_{p_i}$ and $\Lambda_{o_i}$ to the $i$th diagonal block. Every edge received by $i$ contributes its transported sender precision, while every edge on which $i$ is the sender contributes its untransported precision $\Lambda_{q_i}$. Summing these terms proves Eq.~\eqref{eq:stiffness_diagonal}. For $i\ne k$, the edge received by $i$ contributes the first term of Eq.~\eqref{eq:stiffness_offdiagonal}, and the reciprocal edge received by $k$ contributes the second. Equation~\eqref{eq:edge_mean_cross_hessians} then gives $[\mathbf H_{\mu\mu}]_{ki}=[\mathbf H_{\mu\mu}]_{ik}^{\top}$ without requiring $\beta_{ik}=\beta_{ki}$.
+
+The same calculation exposes the full frozen-attention force balance:
+\begin{align}
+\nabla_{\mu_i}\mathcal F_{\mathrm{full}}
+={}&\alpha_i\bar\Lambda_{p_i}(\mu_i-\bar\mu_i)
++\Lambda_{o_i}(\mu_i-o_i)\nonumber\\
+&+\sum_k\beta_{ik}\widetilde\Lambda_{q_k}
+(\mu_i-\Omega_{ik}\mu_k)
++\sum_j\beta_{ji}\Lambda_{q_i}
+(\mu_i-\Omega_{ji}^{-1}\mu_j).
+\label{eq:stiffness_force_balance}
+\end{align}
+Differentiating this stacked force reproduces both block formulas. At consensus the mean--covariance cross blocks of the edge KLs vanish, so the displayed mean sector decouples locally from covariance variations. This completes the proof.
+\end{proof}
+
+The theorem concerns the complete scalar and includes both receiver and sender derivatives. The outgoing term is therefore a recoil contribution to local curvature, not accumulated memory and not an inertial effect by itself. If the envelope-reduced adaptive prior of Eq.~\eqref{eq:adaptive_prior_reduced_hessian} is differentiated rather than frozen, its stated negative rank-one response must be added to the prior mean block.
+
+\begin{proposition}[Reduced-attention Hessian correction]
+\label{prop:reduced_attention_hessian}
+For any affine coordinate vector on which the row energies depend, the exact Hessian of the optimized row in Eq.~\eqref{eq:canonical_row_reduced_vfe} is
+\begin{equation}
+\boxed{
+\nabla^2\mathcal F_{i,\mathrm{red}}
+=\mathbb E_{\beta_i^*}[\nabla^2E_{ij}]
+-\tau^{-1}\operatorname{Cov}_{\beta_i^*}
+(\nabla E_{ij},\nabla E_{ij}).}
+\label{eq:reduced_row_hessian}
+\end{equation}
+Here the covariance is the matrix-valued covariance of the edge gradients.
+\end{proposition}
+
+\begin{proof}
+Differentiate the envelope identity in Eq.~\eqref{eq:reduced_vfe_envelope} and substitute Eq.~\eqref{eq:attention_weight_differential}. The derivative of each edge gradient gives the expected edge Hessian, while the derivative of the Gibbs weights gives the negative covariance term in Eq.~\eqref{eq:reduced_row_hessian}.
+\end{proof}
+
+The covariance term is positive semidefinite before its minus sign, so attention response can reduce curvature and can create indefinite directions away from consensus. No global positive-definiteness claim follows for the reduced Hessian. At exact edgewise consensus the KL gradients vanish and so does this covariance correction; freezing the optimized weights omits the correction by construction.
+
+\begin{proposition}[Locally positive covariance diagonal block]
+\label{prop:covariance_stiffness}
+Under the same frozen-attention and edgewise-consensus assumptions as Theorem~\ref{thm:four_part_stiffness}, the clean diagonal covariance block, represented on symmetric matrix coordinates, is
+\begin{equation}
+\boxed{
+[\mathbf H_{\Sigma\Sigma}]_{ii}
+=\frac12(\Lambda_{q_i}\otimes\Lambda_{q_i})
+\left(\alpha_i+\sum_k\beta_{ik}+\sum_j\beta_{ji}\right).}
+\label{eq:stiffness_covariance}
+\end{equation}
+The sensory term contributes no covariance Hessian because it is affine in $\Sigma_i$.
+\end{proposition}
+
+\begin{proof}
+For a symmetric covariance variation $U$, each matched Gaussian KL in which $q_i$ is receiver or sender has second variation $\frac12\operatorname{tr}(\Lambda_{q_i}U\Lambda_{q_i}U)$. The prior supplies the same form with coefficient $\alpha_i$, incoming edges supply coefficients $\beta_{ik}$, and outgoing edges supply coefficients $\beta_{ji}$. Their sum gives Eq.~\eqref{eq:stiffness_covariance}. Since
+\begin{equation}
+\operatorname{tr}(\Lambda_{q_i}U\Lambda_{q_i}U)
+=\|\Lambda_{q_i}^{1/2}U\Lambda_{q_i}^{1/2}\|_F^2,
+\end{equation}
+this diagonal block is positive definite on nonzero symmetric $U$ whenever its scalar coefficient is positive. This is a local block statement only: it does not establish positive definiteness of the full stacked covariance Hessian or of the envelope-reduced Hessian.
+\end{proof}
+
+%------------------------------------------------------------------------------
+\subsection{Kinetic Geometry as a Conditional Extension}
+\label{sec:hamiltonian}
+%------------------------------------------------------------------------------
+
+The objective determines forces and local loss curvature, whereas a second-order theory additionally requires a positive kinetic metric.  We reserve $\mathbf M(x)$ for that metric.  Statistical-bundle Lagrangians and Hamiltonian probability dynamics provide precedents for such an additional construction, including accelerated natural-gradient mechanics, but they begin by specifying the mechanical structure rather than deriving a unique kinetic energy from a divergence \citep{Pistone2018StatisticalBundle,ChircoMalagoPistone2022}.  Likewise, the information-geometric/discrete-mechanical bridge of Leok and Zhang holds under explicit Hessian-manifold and variational conditions, and Riemann-manifold Hamiltonian Monte Carlo chooses a position-dependent Fisher or Riemannian kinetic geometry for an algorithmic purpose \citep{LeokZhang2017,GirolamiCalderhead2011}.  These precedents motivate, but do not prove, the following assumption.
+
+\begin{tcolorbox}[colback=gray!5,colframe=gray!75,title=Kinetic-metric postulate]
+\textbf{Assumption.} In a reciprocal, frozen-attention, local-consensus regime, a positive restriction of the gauge-VFE stiffness may be adopted as a kinetic metric for belief-configuration change.
+\end{tcolorbox}
+
+This is a modeling choice, not a theorem of variational free energy or information geometry.  It applies only after the chosen restriction is positive definite; it does not identify the intrinsic Fisher metric $\mathbf G$, the affine-coordinate loss Hessian $\mathbf H_F$, and the kinetic metric $\mathbf M$ globally.
+
+The postulate also exposes a degeneracy that any oscillator interpretation must confront.  If the same local objective supplies the restoring stiffness, a normal mode $v\ne0$ solves
+\begin{equation}
+\mathbf H_Fv=\omega^2\mathbf Mv.
+\label{eq:hessian_mass_spectrum}
+\end{equation}
+Consequently,
+\begin{equation}
+\boxed{
+\mathbf M=\mathbf H_F
+\quad\Longrightarrow\quad
+\omega^2=1,}
+\label{eq:hessian_mass_degeneracy}
+\end{equation}
+up to the declared conversion scale (more generally, $\mathbf M=c\mathbf H_F$ gives $\omega^2=c^{-1}$).  Thus the four-part stiffness spectrum cannot simultaneously serve as an identical mass spectrum and yield nontrivial mode-dependent frequencies.  Such dependence requires an operationally independent kinetic metric and restoring stiffness, for example a frozen pre-intervention $\mathbf M$ followed by manipulated evidence curvature, or the intrinsic Fisher metric $\mathbf G$ paired with a distinct local objective Hessian $\mathbf H_F$.  The conditional formulas below therefore use a positive kinetic metric $\mathbf M$ and a separately specified positive restoring stiffness $\mathbf K$.
+
+\section{Results}
+
+%==============================================================================
+\subsection{Conditional Kinetic Mechanics and Full Coupled Momentum}
+\label{sec:cognitive-momentum}
+%==============================================================================
+
+The second-order extension is conditional on the postulate in Section~\ref{sec:hamiltonian}; it is not the primary inference law.  Opinion particles with force and inertia, including a harmonic example, already appear in Martins's Bayesian-inspired construction, while Xue, Hirche, and Cao use port-Hamiltonian and passivity methods for a controlled opinion network \citep{Martins2015OpinionParticles,XueHircheCao2020}.  The present mechanism is narrower: it applies a separately declared kinetic metric to the gauge-transported VFE potential.
+
+Let $\boldsymbol\mu=(\mu_1^\top,\ldots,\mu_N^\top)^\top$ and let the locally constant mean-sector kinetic metric have blocks $\mathbf M_{ik}^\mu$.  The Lagrangian and conjugate momentum are
+\begin{equation}
+L=\frac12\dot{\boldsymbol\mu}^{\top}\mathbf M^\mu
+\dot{\boldsymbol\mu}-\mathcal F(\boldsymbol\mu),
+\qquad
+\boldsymbol\pi^\mu
+=\frac{\partial L}{\partial\dot{\boldsymbol\mu}}
+=\mathbf M^\mu\dot{\boldsymbol\mu}.
+\label{eq:conditional_mean_lagrangian}
+\end{equation}
+Therefore the momentum assigned to agent $i$ is the full coupled row
+\begin{equation}
+\boxed{
+\pi_i^\mu=\sum_k\mathbf M_{ik}^\mu\dot\mu_k.}
+\label{eq:full_coupled_momentum}
+\end{equation}
+The simpler expression $\pi_i^\mu=M_i\dot\mu_i$ is valid only under an explicit block-diagonal approximation $\mathbf M_{ik}^\mu=\delta_{ik}M_i$.  In particular, the four diagonal stiffness contributions in Eq.~\eqref{eq:stiffness_diagonal} do not separately define four momenta, and off-diagonal sender--receiver blocks cannot be dropped when the full coupled kinetic metric is used.  Covariance motion has the analogous cotangent variable $\Pi_i^\Sigma$ described in Appendix~\ref{app:hamiltonian}.
+
+For positive $\mathbf M$ the corresponding local Hamiltonian is
+\begin{equation}
+\boxed{
+H(\boldsymbol\mu,\boldsymbol\pi)
+=\frac12\boldsymbol\pi^{\top}\mathbf M^{-1}\boldsymbol\pi
++\mathcal F(\boldsymbol\mu).}
+\label{eq:conditional_local_hamiltonian}
+\end{equation}
+If $\mathbf M$ varies with the state, Hamilton's momentum equation includes the metric-derivative term given in Appendix~\ref{app:hamiltonian}; the constant-metric oscillator laws below do not apply without that term.
+
+\subsection{Belief Overshoot and Perseverance}\label{sec:overshoot}
+
+Linearize about a local equilibrium and independently specify a positive kinetic metric $\mathbf M$, a positive restoring stiffness $\mathbf K$, and a positive-semidefinite damping tensor $\boldsymbol\Gamma$.  The conditional driven equation is
+\begin{equation}
+\mathbf M\ddot{\delta\boldsymbol\mu}
++\boldsymbol\Gamma\dot{\delta\boldsymbol\mu}
++\mathbf K\delta\boldsymbol\mu
+=f(t).
+\label{eq:conditional_matrix_oscillator}
+\end{equation}
+For a nonzero modal vector $v$, set $\delta\boldsymbol\mu=zv$ and define
+\begin{equation}
+m=v^\top\mathbf Mv,
+\qquad
+k=v^\top\mathbf Kv,
+\qquad
+\gamma=v^\top\boldsymbol\Gamma v,
+\qquad
+f_v(t)=v^\top f(t).
+\label{eq:conditional_modal_scalars}
+\end{equation}
+Premultiplying Eq.~\eqref{eq:conditional_matrix_oscillator} by $v^\top$ yields
+\begin{equation}
+\boxed{m\ddot z+\gamma\dot z+kz=f_v(t).}
+\label{eq:conditional_modal_oscillator}
+\end{equation}
+If $v$ satisfies $\mathbf Kv=\omega_0^2\mathbf Mv$, then $k=\omega_0^2m$.  An exact one-mode reduction additionally requires the span of $v$ to be invariant under the relevant operators; otherwise this is a projected modal equation.  These hypotheses are essential: a state-dependent metric, evolving attention, indefinite reduced Hessian, or nonmodal damping requires the full coupled equations rather than the scalar formulas below.
+
+In the nearly conservative harmonic case, set $f_v=0$ during the coast and neglect damping over the stopping interval.  Energy conversion gives
+\begin{equation}
+\frac12m v_0^2=\frac12k d_{\mathrm{over}}^2,
+\qquad
+\boxed{d_{\mathrm{over}}=|v_0|\sqrt{\frac{m}{k}}.}
+\label{eq:conditional_harmonic_overshoot}
+\end{equation}
+Thus $d_{\mathrm{over}}\propto\sqrt m$ only when the initial velocity $v_0$, restoring stiffness $k$, and damping protocol are held fixed.  If initial momentum $p_0=mv_0$ is held fixed instead, then $d_{\mathrm{over}}=|p_0|/\sqrt{mk}$ decreases as $m^{-1/2}$.  Neither scaling follows from the four-part loss stiffness unless the kinetic metric and the post-intervention restoring stiffness have been independently operationalized.
+
+A different protocol applies a constant opposing force of magnitude $f_0>0$ with no spring.  Integrating $m\ddot z=-f_0$ until the velocity reaches zero yields
+\begin{equation}
+\boxed{
+d_{\mathrm{stop}}=\frac{m v_0^2}{2f_0}
+=\frac{p_0^2}{2mf_0}.}
+\label{eq:conditional_ballistic_stop}
+\end{equation}
+The first form is linear in $m$ at fixed initial velocity and force; the second is inverse in $m$ at fixed initial momentum and force.  The harmonic overshoot and constant-force stopping laws are distinct interventions and must not be used interchangeably.
+
+%------------------------------------------------------------------------------
+\subsection{Belief Oscillation}
+%------------------------------------------------------------------------------
+
+Equation~\eqref{eq:conditional_matrix_oscillator}, rather than the primary Fisher flow, supplies the conditional oscillator.  Second-order opinion motion is not novel by itself: Martins gives an inferential opinion-particle harmonic oscillator, and network-level second-order consensus can exhibit Laplacian-mode parametric resonance under periodic coupling \citep{Martins2015OpinionParticles,BaumannSokolovTyloo2020}.  The distinctive question here is whether an independently defined kinetic metric improves predictions once the gauge-VFE restoring stiffness is manipulated.
+
+\subsubsection{The Damped Epistemic Oscillator}
+
+For one modal coordinate, the characteristic roots of $m\ddot z+\gamma\dot z+kz=0$ are
+\begin{equation}
+r_\pm=\frac{-\gamma\pm\sqrt{\gamma^2-4mk}}{2m}.
+\label{eq:conditional_modal_roots}
+\end{equation}
+When $\gamma^2<4mk$, the damped angular frequency and envelope time are
+\begin{equation}
+\boxed{
+\omega_d=\sqrt{\frac{k}{m}-\frac{\gamma^2}{4m^2}},
+\qquad
+\tau_{\mathrm{env}}=\frac{2m}{\gamma}.}
+\label{eq:conditional_damped_frequency}
+\end{equation}
+These dependences compare modes or interventions at fixed $k$ and $\gamma$.  Holding a damping ratio rather than $\gamma$ fixed changes the scaling.  Moreover, setting $m=k$ because both are the same loss Hessian collapses the undamped frequency to the unit value already shown in Eq.~\eqref{eq:hessian_mass_degeneracy}.
+
+\subsubsection{Three Dynamical Regimes}
+
+The discriminant $\Delta=\gamma^2-4mk$ yields overdamped ($\Delta>0$), critically damped ($\Delta=0$), and underdamped ($\Delta<0$) conditional regimes.  These are exact statements about the postulated scalar mechanical mode.  They are neither consequences of information geometry alone nor evidence that observed nonmonotonic opinion trajectories uniquely identify this mechanism; feedback systems and time-dependent network coupling can also oscillate or resonate.
+
+\subsection{Resonant Response to Periodic Evidence}
+
+For a sinusoidal modal force $f_v(t)=f_0\cos(\omega t)$, with force amplitude $f_0$, mass $m$, stiffness $k$, and damping $\gamma$ all held fixed while the driving frequency is varied, the steady-state displacement amplitude is
+\begin{equation}
+A(\omega)=\frac{f_0}
+{\sqrt{(k-m\omega^2)^2+(\gamma\omega)^2}}.
+\label{eq:conditional_resonance_amplitude}
+\end{equation}
+Differentiating $A^{-2}$ shows that a positive-frequency displacement peak exists when $\gamma^2<2mk$ and occurs at
+\begin{equation}
+\boxed{
+\omega_{\mathrm{res}}
+=\sqrt{\frac{k}{m}-\frac{\gamma^2}{2m^2}}.}
+\label{eq:conditional_resonance_frequency}
+\end{equation}
+This is a forced-response result under a fixed-force protocol.  The velocity-amplitude response instead peaks at $\sqrt{k/m}$, and a periodically modulated coupling produces the parametric network resonance studied by Baumann, Sokolov, and Tyloo rather than the additive-force response in Eq.~\eqref{eq:conditional_resonance_amplitude} \citep{BaumannSokolovTyloo2020}.
+
+
+\subsubsection{Amplitude at Resonance}
+
+Substitution of Eq.~\eqref{eq:conditional_resonance_frequency} gives the exact peak
+\begin{equation}
+\boxed{
+A_{\mathrm{res}}
+=\frac{f_0}{\gamma\sqrt{k/m-\gamma^2/(4m^2)}}.}
+\label{eq:conditional_resonance_peak}
+\end{equation}
+Only in the light-damping limit does this reduce to $(f_0/\gamma)\sqrt{m/k}$.  That square-root comparison holds at fixed force amplitude, stiffness, and damping coefficient; it does not hold at fixed acceleration amplitude $f_0/m$, fixed input energy, or fixed damping ratio.  Because $m$ and $k$ must be operationally independent, the formula cannot be interpreted by substituting the same four-part loss Hessian for both.
+
+
+%------------------------------------------------------------------------------
+\subsection{Belief Perseverance in Social Embeddings}
+%------------------------------------------------------------------------------
+
+When the restoring force and external drive are removed after an intervention, the conditional modal equation becomes $m\ddot z+\gamma\dot z=0$.  Its velocity decays as
+\begin{equation}
+\dot z(t)=\dot z(0)e^{-t/\tau_{\mathrm{coast}}},
+\qquad
+\boxed{\tau_{\mathrm{coast}}=\frac{m}{\gamma}.}
+\label{eq:conditional_coasting_time}
+\end{equation}
+Thus the coasting time is proportional to $m$ only when the damping coefficient $\gamma$ is held fixed.  Under a fixed damping ratio $\zeta=\gamma/(2\sqrt{mk})$, it scales instead as $\sqrt{m/k}$.  The coasting time in Eq.~\eqref{eq:conditional_coasting_time} is also distinct from the underdamped displacement-envelope time $2m/\gamma$ in Eq.~\eqref{eq:conditional_damped_frequency} and from the spring-dominated overdamped slow time $\gamma/k$.  None of these times may be inferred directly from precision without an independently specified kinetic metric and damping protocol.
+
+\subsubsection{The Debunking Problem}
+
+Interpreting this mathematical coast as belief perseverance is a falsifiable mechanism-specific hypothesis, not a consequence of the primary Fisher flow \citep{anderson1980perseverance}.  A test would have to manipulate or estimate $m$ separately from $k$ and $\gamma$ and then compare the observed post-drive velocity decay with Eq.~\eqref{eq:conditional_coasting_time}.
+
+
+%------------------------------------------------------------------------------
+\subsection{Sociology and Multi-Agent Momentum Transfer}
+%------------------------------------------------------------------------------
+
+The complete coupled momentum balance follows from the scalar potential and the full momentum in Eq.~\eqref{eq:full_coupled_momentum}.  This differs from a receiver-only influence update: every directed edge contributes both a receiver force and a sender recoil in the sender's cotangent frame.
+
+\subsubsection{Coupled Equations of Motion}
+
+For locally constant $\mathbf M$ and a damping tensor $\boldsymbol\Gamma$, the stacked equation is
+\begin{equation}
+\boxed{
+\dot{\boldsymbol\pi}
+=-\nabla_{\boldsymbol\mu}\mathcal F
+-\boldsymbol\Gamma\dot{\boldsymbol\mu}
++f_{\mathrm{ext}},
+\qquad
+\boldsymbol\pi=\mathbf M\dot{\boldsymbol\mu}.}
+\label{eq:full_coupled_momentum_balance}
+\end{equation}
+This formula remains coupled even if damping is block diagonal.  For state-dependent $\mathbf M$, the Hamiltonian metric-derivative force must be restored, so Eq.~\eqref{eq:full_coupled_momentum_balance} is the local constant-metric form rather than a global identity.
+
+\paragraph{Dynamic attention.} The expansion above assumes fixed attention weights. When attention is optimized inside the entropy-retaining row objective, its canonical gradient is the envelope response in Eq.~\eqref{eq:reduced_vfe_envelope}, with no additional first-order attention-reallocation term. Applying a product rule after dropping the categorical term instead differentiates the distinct surrogate $S_i$ and produces Eq.~\eqref{eq:entropy_suppressed_differential}. The covariance correction in that equation has no universal homophily sign and cannot by itself establish accelerated polarization.
+
+\paragraph{Regime of validity.} When attention weights or the postulated kinetic metric vary with the belief state, the Hamiltonian is generally nonseparable.  The modal formulas above apply only after $\mathbf M$, $\mathbf K$, and $\boldsymbol\Gamma$ have been frozen locally and the resulting positive modes identified.  Large-amplitude or rapidly adapting trajectories require the full state-dependent equations.
+
+
+\subsubsection{Epistemic Momentum Transfer}
+
+
+For the directed edge $k\to i$, define the receiver-frame current
+\begin{equation}
+\boxed{
+J_{k\to i}
+=\beta_{ik}\widetilde\Lambda_{q_k}
+(\Omega_{ik}\mu_k-\mu_i).}
+\label{eq:directed_edge_current}
+\end{equation}
+The force on the sender generated by this same directed edge is not a second copy of $J_{k\to i}$; it is the cotangent recoil $-\Omega_{ik}^{\top}J_{k\to i}$.  Consequently the complete local balance is
+\begin{align}
+\dot\pi_i^\mu
+&+(\boldsymbol\Gamma\dot{\boldsymbol\mu})_i
++\alpha_i\bar\Lambda_{p_i}(\mu_i-\bar\mu_i)
++\Lambda_{o_i}(\mu_i-o_i)\nonumber\\
+&=\sum_kJ_{k\to i}
+-\sum_j\Omega_{ji}^{\top}J_{i\to j}
++f_{i,\mathrm{ext}}.
+\label{eq:complete_current_balance}
+\end{align}
+Integrating Eq.~\eqref{eq:complete_current_balance} gives the momentum change over a declared interval.  It does not reduce to the incoming-current sum unless sender variables have explicitly been detached.
+
+
+\subsubsection{Conservation and Non-Conservation}
+
+Fixed asymmetric attention does not by itself destroy conservativity.  With the weights frozen, the sum of all directed edge energies is still one scalar potential, and Eqs.~\eqref{eq:edge_mean_gradients} and \eqref{eq:complete_current_balance} retain both receiver and sender derivatives.  Nonconservative behavior arises only after a declared truncation, such as treating each sender as detached and applying only the receiver current, or from explicit time dependence, damping, or external forcing.  This distinction parallels the systems-and-control separation between a Hamiltonian storage function and its dissipative ports \citep{XueHircheCao2020}.
+
+Momentum conservation requires a continuous symmetry, not symmetric weights alone.  Let $a=(a_1,\ldots,a_N)$ be a covariantly constant translation generator satisfying $a_i=\Omega_{ik}a_k$ on every active edge.  If priors and observations are absent or translated with the state, $\boldsymbol\Gamma=0$, $f_{\mathrm{ext}}=0$, and the kinetic metric shares this symmetry, Noether's theorem gives
+\begin{equation}
+\boxed{
+Q_a=\sum_i a_i^\top\pi_i^\mu,
+\qquad
+\frac{dQ_a}{dt}=0.}
+\label{eq:covariant_momentum_conservation}
+\end{equation}
+In a flat common frame, $\Omega_{ik}=I$ and $a_i=a$, so Eq.~\eqref{eq:covariant_momentum_conservation} reduces componentwise to $d(\sum_i\pi_i^\mu)/dt=0$.  Anchoring terms, damping, external forcing, or the receiver-only detached truncation supply the exact nonconservation terms in Eq.~\eqref{eq:complete_current_balance}.  Attention asymmetry alone does not.
+
+Finally, a loop holonomy $W_\gamma=\Omega_{ij}\Omega_{jk}\cdots\Omega_{\ell i}$ transforms by conjugation, $W_\gamma\mapsto g_iW_\gamma g_i^{-1}$.  Its conjugacy data---for example $\operatorname{tr}(W_\gamma^r)$ and characteristic-polynomial coefficients---are gauge invariant.  Wilson traces are the conventional compact-group observables.  By contrast, $\|W_\gamma-I\|_F$ is invariant under orthogonal or unitary conjugation but is frame dependent under a general $\mathrm{GL}(d)$ gauge transformation, so it cannot serve as a general gauge-invariant curvature magnitude.
+
+%------------------------------------------------------------------------------
+\subsection{Summary}
+%------------------------------------------------------------------------------
+
+\begin{table}[ht]
+\centering
+\caption{Conditional kinetic predictions and the quantities held fixed.  Every row assumes locally constant, independently specified positive $m$ and $k$ where a restoring stiffness is present.}
+\label{tab:predictions}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{} p{3cm} p{5cm} p{5cm} @{}}
+\toprule
+\textbf{Protocol} & \textbf{Conditional formula} & \textbf{Controlled quantities} \\
+\midrule
+Harmonic overshoot & $d_{\mathrm{over}}=|v_0|\sqrt{m/k}$ & Initial velocity, $k$, damping protocol \\[6pt]
+Ballistic stopping & $d_{\mathrm{stop}}=mv_0^2/(2f_0)$ & Initial velocity and opposing force \\[6pt]
+Free oscillation & $\omega_d^2=k/m-\gamma^2/(4m^2)$ & $k$ and damping coefficient \\[6pt]
+Forced resonance & $\omega_{\mathrm{res}}^2=k/m-\gamma^2/(2m^2)$ & Force amplitude, $k$, and damping coefficient \\[6pt]
+Underdamped envelope & $\tau_{\mathrm{env}}=2m/\gamma$ & Damping coefficient \\[6pt]
+Force-free coast & $\tau_{\mathrm{coast}}=m/\gamma$ & Damping coefficient \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+These formulas characterize the conditional kinetic extension, not the primary Fisher natural-gradient flow.  Their empirical content lies in interventions that vary one operationally defined ingredient while holding the listed quantities fixed; replacing both $m$ and $k$ by the same VFE Hessian removes the claimed spectral dependence.
+
+%==============================================================================
+\subsection{Analytic Predictions and Falsification Tests}
+\label{sec:computational_validation}
+%==============================================================================
+
+The preceding equations provide analytic predictions, not validation.  A useful test must estimate the kinetic metric $\mathbf M$ and restoring stiffness $\mathbf K$ through different interventions.  One protocol can estimate $\mathbf K$ from small static displacements around equilibrium, using the local slope of the restoring force while the pre-intervention state is held fixed.  A separate impulse or free-coast protocol can then estimate $\mathbf M$ and $\boldsymbol\Gamma$ from acceleration and velocity decay without reusing that static slope as mass.  Only after these measurements may Eqs.~\eqref{eq:conditional_damped_frequency} and \eqref{eq:conditional_resonance_frequency} be treated as parameter-free predictions for an independently driven trial.
+
+The kinetic hypothesis is falsified if the independently measured tensors do not predict the observed modal frequencies, damping boundary, overshoot, or fixed-force response within prespecified uncertainty.  In particular, observing nonmonotonic motion is insufficient: Sampson, Restrepo, and Porter obtain oscillatory and excitable opinion dynamics without the kinetic mechanism posited here \citep{SampsonPorterRestrepo2025}.  A matched first-order feedback model, a time-varying-network model, and the conditional second-order model must therefore be compared on held-out trajectories under the same forcing schedule.  The kinetic account gains mechanism-specific support only if its independently estimated $\mathbf M$, $\mathbf K$, and $\boldsymbol\Gamma$ predict the intervention response better than those alternatives.
+
+The social reduction below supplies a separate falsification target.  With fixed symmetric weights, no anchors, and the primary unweighted product metric, the predicted decay rates are $\eta_\mu\lambda_s\ell_k$.  For nonuniform reversible weights, the same DeGroot generator and rate statement require the additional metric $\mathbf G_\rho$ (or agent-specific rates $\eta_i\propto\rho_i^{-1}$); the primary unweighted flow instead retains a $D_\rho$ factor.  In the stated unanchored, symmetric reciprocal two-cluster reduction, persistent separation under a connected, positive, finite-temperature kernel would contradict the purely attractive model.  Conversely, persistence accompanied by a measured hard support break, a persistent anchor, signed influence, or active sampling would test an extended mechanism rather than the theorem proved here.
+
+%==============================================================================
+\section{Restricted Social-Dynamics Reductions}
+\label{sec:classical_limits}
+%==============================================================================
+
+The social reductions start from Fisher--Rao flow, not Hessian-preconditioned descent and not an overdamped limit of the optional kinetic theory.  The primary metric is the unweighted product metric in Eq.~\eqref{eq:primary_fisher_flow}; it gives the symmetric DeGroot case below.  The nonuniform reversible extension changes the geometry to a stationary-measure-weighted product Fisher metric, or equivalently changes the agent-specific rates.  Row-normalized attention specifies relative allocation among candidate sources, so we introduce an unnormalized social strength $\lambda_s>0$ outside the attention row.  This parameter changes the rate of social relaxation without being erased by row normalization.
+
+\subsection{Symmetric and Reversible DeGroot Flow}
+
+\begin{proposition}[Stationary-measure-weighted reversible DeGroot reduction]
+\label{prop:reversible_degroot}
+Let $W=[w_{ij}]$ be a fixed row-stochastic matrix that is reversible with respect to a strictly positive stationary distribution $\rho$, so $\rho_iw_{ij}=\rho_jw_{ji}$.  Assume flat transport, fixed common covariance $\Sigma_i=\sigma^2I$, no prior or sensory anchors, and fixed attention $\beta_{ij}=w_{ij}$.  Define the reciprocal relational loss
+\begin{equation}
+\mathcal F_{\mathrm{DG}}
+=\frac{\lambda_s}{2}\sum_i\rho_i\sum_jw_{ij}\KL(q_i\|q_j)
+=\frac{\lambda_s}{4\sigma^2}
+\sum_{i,j}\rho_iw_{ij}\|\mu_i-\mu_j\|^2,
+\label{eq:reversible_dirichlet_energy}
+\end{equation}
+and use the additional $\rho$-weighted product Fisher metric
+$\mathbf G_\rho=\sigma^{-2}(D_\rho\otimes I)$.  Equivalently, this is the mean block of the fixed-label joint family $P(i,x)=\rho_iq_i(x)$; the same cancellation can be implemented under the unweighted product metric by choosing agent-specific learning rates $\eta_i=\eta_\mu/\rho_i$.  The resulting natural-gradient flow is
+\begin{equation}
+\boxed{\dot{\boldsymbol\mu}
+=-\eta_\mu\lambda_s[(I-W)\otimes I]\boldsymbol\mu.}
+\label{eq:reversible_degroot_flow}
+\end{equation}
+For symmetric row-stochastic $W$, $\rho$ is uniform and $\mathbf G_\rho$ differs from the primary product metric only by an absorbable global scale.  Forward Euler with $h\eta_\mu\lambda_s=1$ after that scale is absorbed gives the discrete DeGroot step $\boldsymbol\mu^{n+1}=W\boldsymbol\mu^n$.
+\end{proposition}
+
+\begin{proof}
+Detailed balance makes $c_{ij}=\rho_iw_{ij}$ symmetric.  Differentiating Eq.~\eqref{eq:reversible_dirichlet_energy} therefore gives
+\begin{equation}
+\nabla_{\mu_i}\mathcal F_{\mathrm{DG}}
+=\frac{\lambda_s\rho_i}{\sigma^2}
+\left(\mu_i-\sum_jw_{ij}\mu_j\right).
+\end{equation}
+The inverse $i$th block of the additional weighted metric is $\sigma^2\rho_i^{-1}I$.  Substitution into the natural-gradient law cancels both $\sigma^{-2}$ and $\rho_i$, yielding Eq.~\eqref{eq:reversible_degroot_flow}.  The Euler statement follows directly.
+\end{proof}
+
+The metric qualification is load bearing.  If the unweighted primary block $\mathbf G_{\mathrm{prod}}=\sigma^{-2}(I_N\otimes I_d)$ is retained with one common learning rate, the same energy gives
+\begin{equation}
+\dot{\boldsymbol\mu}
+=-\eta_\mu\lambda_s[D_\rho(I-W)\otimes I]\boldsymbol\mu,
+\label{eq:unweighted_reversible_flow}
+\end{equation}
+so $D_\rho$ does not cancel.  Equation~\eqref{eq:reversible_degroot_flow} is therefore not the unmodified primary flow for a general nonuniform reversible chain.
+
+This proposition is a subclass result.  A general directed row-stochastic matrix need not be reversible and need not arise as the complete gradient of this reciprocal scalar energy.  Dropping the sender derivative would manufacture a receiver-only directed update, but that is the detached truncation excluded in Section~\ref{sec:epistemic_status}, not a derivation of general DeGroot dynamics.
+
+\subsection{Restricted Friedkin--Johnsen Equilibrium}
+
+\begin{proposition}[Metric-independent anchored reversible equilibrium]
+\label{prop:restricted_fj}
+Retain the reversible matrix, flat-transport, fixed-common-covariance, and reciprocal-energy assumptions of Proposition~\ref{prop:reversible_degroot}, but do not fix a flow metric.  Let $u_i$ be a persistent prior mean and let $a_i\geq0$ be an agent-indexed anchor precision or coupling, with at least one anchor in every connected component.  Add
+\begin{equation}
+\mathcal F_{\mathrm{anchor}}
+=\frac{1}{2\sigma^2}\sum_i\rho_i a_i\|\mu_i-u_i\|^2.
+\label{eq:fj_anchor_energy}
+\end{equation}
+Writing $A=\operatorname{diag}(a_i)$, the unique equilibrium satisfies
+\begin{equation}
+\boxed{[A+\lambda_s(I-W)]\boldsymbol\mu^*=A\boldsymbol u,}
+\label{eq:restricted_fj_linear_system}
+\end{equation}
+or, agentwise,
+\begin{equation}
+\mu_i^*=s_i u_i+(1-s_i)\sum_jw_{ij}\mu_j^*,
+\qquad
+s_i=\frac{a_i}{a_i+\lambda_s}.
+\label{eq:restricted_fj_equilibrium}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+The equilibrium condition for $\mathcal F_{\mathrm{anchor}}+\mathcal F_{\mathrm{DG}}$ is
+$a_i(\mu_i^*-u_i)+\lambda_s(\mu_i^*-\sum_jw_{ij}\mu_j^*)=0$ after cancelling the common factor $\rho_i/\sigma^2$.  Rearrangement gives Eqs.~\eqref{eq:restricted_fj_linear_system} and \eqref{eq:restricted_fj_equilibrium}.  The operator $A+\lambda_s(I-W)$ is self-adjoint and positive definite in the $D_\rho$-weighted inner product; equivalently, $D_\rho[A+\lambda_s(I-W)]$ is symmetric positive definite when every connected component contains an anchor.  The operator is therefore invertible, which gives uniqueness.
+\end{proof}
+
+Because every positive-definite flow metric has the same zero set as the scalar-energy gradient, Eq.~\eqref{eq:restricted_fj_equilibrium} is independent of that metric.  The qualification reappears only for transient matching: $\mathbf G_\rho$ or $\eta_i\propto\rho_i^{-1}$ gives the standard reversible Friedkin--Johnsen generator, whereas the primary unweighted metric retains a left factor $D_\rho$.  The result is an equilibrium correspondence, not a derivation of the general directed Friedkin--Johnsen iteration.  A common anchor precision produces only a common susceptibility.  Heterogeneous $s_i$ requires agent-indexed prior precision $a_i$, agent-indexed social coupling, or another explicitly heterogeneous mechanism; row normalization alone cannot produce it.
+
+\subsection{Finite-Temperature Selectivity and Metastable Clustering}
+
+For flat, isotropic beliefs the Gibbs rule is
+\begin{equation}
+\beta_{ij}
+=\frac{\pi_{ij}\exp[-\|\mu_i-\mu_j\|^2/(2\sigma^2\tau)]}
+{\sum_k\pi_{ik}\exp[-\|\mu_i-\mu_k\|^2/(2\sigma^2\tau)]}.
+\label{eq:social_gibbs_kernel}
+\end{equation}
+It is similarity decreasing, conditional on the chosen kernel and candidate set.  If $\tau>0$ and every candidate prior $\pi_{ij}$ is positive, every candidate retains positive attention.  Similarity weighting therefore gives selective exposure, but it does not by itself remove cross-cluster attraction.
+
+\begin{proposition}[Finite-temperature two-cluster contraction]
+\label{prop:finite_temperature_contraction}
+Consider an invariant two-cluster reduction with internally coincident means $a(t)$ and $b(t)$, common covariance $\sigma^2I$, flat transport, no anchors, and the symmetric reciprocal loss of Proposition~\ref{prop:reversible_degroot} with $\lambda_s>0$.  For either attention row, define the aggregate candidate-prior masses $\Pi_{\mathrm{in}}=\sum_{j\in\mathrm{same}}\pi_{ij}$ and $\Pi_{\mathrm{cross}}=\sum_{j\in\mathrm{other}}\pi_{ij}$.  Equal effective cluster priors means operationally that each row assigns equal aggregate prior mass to within-cluster and cross-cluster candidates, $\Pi_{\mathrm{in}}=\Pi_{\mathrm{cross}}>0$.  Before that specialization, the total cross-cluster attention is
+\begin{equation}
+p(d)=\left[1+\frac{\Pi_{\mathrm{in}}}{\Pi_{\mathrm{cross}}}
+\exp\!\left(\frac{d^2}{2\sigma^2\tau}\right)\right]^{-1}.
+\label{eq:unequal_cluster_cross_attention}
+\end{equation}
+Under equal effective cluster priors this becomes
+\begin{equation}
+p(d)=\frac{1}{1+\exp[d^2/(2\sigma^2\tau)]}>0,
+\qquad d=\|b-a\|>0.
+\label{eq:equal_cluster_cross_attention}
+\end{equation}
+The Fisher flow satisfies
+\begin{equation}
+\dot a=\eta_\mu\lambda_s p(d)(b-a),
+\qquad
+\dot b=\eta_\mu\lambda_s p(d)(a-b),
+\end{equation}
+and hence
+\begin{equation}
+\boxed{\dot d
+=-2\eta_\mu\lambda_s p(d)d<0.}
+\label{eq:strict_cluster_contraction}
+\end{equation}
+Thus a separated state is not an equilibrium of the positive finite-temperature attractive model.
+\end{proposition}
+
+\begin{proof}
+The envelope identity in Eq.~\eqref{eq:reduced_vfe_envelope} permits differentiation at the optimized Gibbs weights without an additional first-order weight-response term.  Within-cluster residuals vanish.  Each remaining cross-cluster residual points from one cluster mean toward the other and has a strictly positive coefficient.  Subtracting the two mean equations gives
+$\frac{d}{dt}(b-a)=-2\eta_\mu\lambda_s p(d)(b-a)$; differentiating its norm yields Eq.~\eqref{eq:strict_cluster_contraction}.
+\end{proof}
+
+The exact time to merge from $d_0$ to a declared tolerance $\delta\in(0,d_0)$ is
+\begin{equation}
+T_\delta
+=\frac{1}{2\eta_\mu\lambda_s}
+\left[
+\log\frac{d_0}{\delta}
++\frac12\left\{\operatorname{Ei}\!\left(\frac{d_0^2}{2\sigma^2\tau}\right)
+-\operatorname{Ei}\!\left(\frac{\delta^2}{2\sigma^2\tau}\right)\right\}
+\right].
+\label{eq:tolerance_merger_time}
+\end{equation}
+This time can be exponentially large when $d_0^2/(2\sigma^2\tau)$ is large, which justifies the term \emph{metastable}.  A tolerance $\varepsilon\in(0,1/2)$ for cross-cluster attention defines the boundary
+\begin{equation}
+d_\varepsilon^2
+=2\sigma^2\tau\log\frac{1-\varepsilon}{\varepsilon}.
+\label{eq:attention_tolerance_boundary}
+\end{equation}
+The earlier logarithmic rule is therefore a tolerance-defined merger-timescale boundary, not a stability or phase-transition threshold.  Taking $\varepsilon=1/N$ merely gives the special factor $\log(N-1)$.
+
+Persistent polarization requires additional structure: hard support or severed network edges, persistent anchors with a separately proved separated equilibrium, signed or repulsive influence, or active confirmation-biased sampling that changes which evidence enters the candidate set.  None follows from positive finite-temperature attraction alone.
+
+
+\subsection{Soft Bounded Confidence}
+
+The Hegselmann--Krause rule uniformly averages agents inside a fixed confidence ball, while Deffuant dynamics update randomly selected pairs inside a hard bound \citep{hegselmann2002opinion,deffuant2000}.  Equation~\eqref{eq:social_gibbs_kernel} is related only at the level of graded selectivity: at finite temperature it assigns smoothly decreasing, generally nonzero weight as dissimilarity grows.  A reporting tolerance $\varepsilon$ can define an effective radius through Eq.~\eqref{eq:attention_tolerance_boundary}, but that radius depends on the chosen tolerance and is not a support boundary of the model.
+
+The zero-temperature limit does not repair the difference.  Gibbs attention concentrates on the minimizing candidate or tied minimizers; it does not converge to a uniform average over a fixed Hegselmann--Krause confidence ball.  We therefore call the construction a finite-temperature, similarity-decreasing analog of bounded confidence, not an exact recovery of either classical rule.
+
+\subsection{Confirmation Bias}
+
+Within the present model, confirmation bias has one narrow correspondence: if the candidate set and similarity kernel in Eq.~\eqref{eq:social_gibbs_kernel} are imposed, consistent sources receive more attention than discrepant sources.  This is similarity-weighted selective exposure conditional on the kernel.  It does not derive the broader confirmation-bias taxonomy of active evidence seeking, biased likelihood evaluation, memory distortion, or asymmetric acceptance of equally diagnostic evidence \citep{nickerson1998confirmation}.  Those mechanisms require an explicit sampling policy or observation model, as active-inference accounts of confirmation-biased policy selection make clear \citep{albarracin2022epistemic}.
+
+\subsection{Social Impact Theory}
+
+The relational force sums precision-weighted, attention-modulated source discrepancies, so source precision, similarity, and multiplicity admit a loose interpretation in the vocabulary of Social Impact Theory \citep{latane1981psychology}.  The correspondence is interpretive only.  Because each attention row is normalized, adding sources redistributes a fixed allocation unless the separate strength $\lambda_s$ is changed; the construction therefore does not derive Latan\'e's number law or its multiplicative strength--immediacy--number form.
+
+\subsection{Diffusion of Innovations}
+
+The present continuous belief state contains neither a binary adoption variable nor an adoption hazard.  It therefore yields no S-curve proposition and no adopter-category derivation.  A diffusion extension would need an explicit transition from belief to adoption and a population hazard with independently identified innovation and imitation channels, as in the Bass model \citep{Bass1969}.  Deriving that extension is future work rather than a consequence of the current attention dynamics.
+
+\subsection{Proof-Status Summary}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{@{}p{3.1cm}p{3.2cm}p{6.1cm}@{}}
+\toprule
+\textbf{Claim} & \textbf{Status} & \textbf{Valid scope} \\
+\midrule
+DeGroot & Derived subclass & Primary unweighted metric for fixed symmetric $W$; nonuniform reversible $W$ only with $\mathbf G_\rho$ or $\eta_i\propto\rho_i^{-1}$; general directed $W$ excluded. \\
+Friedkin--Johnsen & Restricted equilibrium & Stationary point of the reversible anchored scalar energy, independent of the positive flow metric; matching the standard transient requires $\mathbf G_\rho$ or $\eta_i\propto\rho_i^{-1}$; heterogeneous susceptibility requires agent-indexed anchor precision or coupling. \\
+Bounded confidence & Soft analog & Finite-temperature similarity-decreasing attention; no hard support and no HK zero-temperature ball average. \\
+Polarization & Metastability theorem & In the stated unanchored, symmetric reciprocal two-cluster reduction, positive finite-temperature attraction strictly contracts separation; persistence requires an added mechanism. \\
+Confirmation bias & Conditional interpretation & Similarity-weighted selective exposure only. \\
+Social Impact Theory & Interpretive only & No derivation of the number law under row normalization. \\
+Diffusion of innovations & Not derived & Requires an adoption state and hazard model. \\
+\bottomrule
+\end{tabular}
+\caption{Proof status of the social-dynamics claims.  The symmetric DeGroot transient uses the primary unweighted product metric; the standard nonuniform reversible transient requires the additional $\rho$-weighted metric or its equivalent rate convention.  The anchored stationary point is metric-independent.  None depends on the kinetic postulate.}
+\label{tab:rigor}
+\end{table}
+
+
+\section{Related Work}
+
+Martins's Bayesian-inspired opinion particles are the closest direct predecessor to the conditional kinetic construction: they already combine probabilistic opinions, force, inertia, and a harmonic example \citep{Martins2015OpinionParticles}. The overlap is therefore second-order opinion motion, not its mere discovery here. The present paper instead builds its potential from gauge-transported Gaussian KL disagreement, derives entropy-retaining attention by rowwise optimization, and identifies the four local prior, sensory, incoming, and outgoing stiffness contributions before any kinetic metric is postulated.
+
+Behavioral momentum theory operationalizes persistence as resistance to disruption in conditioned behavior, while dynamic attitude models and belief-oscillation studies use restoring and feedback variables to describe nonmonotonic response \citep{NevinMandellAtak1983,kaplowitz1983,kaplowitz1992,fink2002}. Those traditions motivate measurable inertia-like or oscillatory phenomena but do not make them unique signatures of a Hamiltonian belief law. Here the residual claim is conditional and narrower: if a positive kinetic metric is independently specified, the gauge-VFE restoring landscape yields explicit modal tests that must be compared with feedback alternatives.
+
+Information geometry supplies the intrinsic Fisher--Rao metric and natural gradient, and statistical-bundle work develops Lagrangian or Hamiltonian mechanics directly on spaces of probability distributions \citep{Pistone2018StatisticalBundle,ChircoMalagoPistone2022,LeokZhang2017,GirolamiCalderhead2011}. The present construction shares that geometric setting but distinguishes three objects that those analogies can otherwise blur: the intrinsic Fisher metric $\mathbf G$, the objective Hessian $\mathbf H_F$, and a separately chosen kinetic metric $\mathbf M$. Its additional contribution is the explicit gauge-transported multi-agent Gaussian objective and the four-part relational stiffness derived from it.
+
+Collective active-inference models provide a first-order inferential comparison. Federated inference treats communicated posteriors as evidence for a shared model, while policy-based active-inference accounts can generate epistemic communities through selective evidence acquisition \citep{friston2024federated,albarracin2022epistemic}. The present paper does not derive a sampling policy or a common population generative model. Its distinct object is an engineered gauge-covariant consensus energy whose optimized source weights remain rowwise and whose primary dynamics are Fisher--Rao natural-gradient flow.
+
+Port-Hamiltonian opinion systems, passivity-based control, and second-order consensus models already support energy storage, dissipation, and network resonance \citep{XueHircheCao2020,BaumannSokolovTyloo2020}. Related feedback models can also oscillate without an inertial kinetic term \citep{SampsonPorterRestrepo2025}. The overlap is the systems-level language of storage, damping, and modal response. The residual novelty here lies in using gauge-transported probabilistic disagreement as the scalar potential and in requiring the kinetic tensor to be independently identified rather than inferred from oscillation or equated automatically with loss curvature.
+
+Classical opinion dynamics provides the first-order baseline: DeGroot averaging, Friedkin--Johnsen anchoring, and the hard-support Hegselmann--Krause and Deffuant bounded-confidence rules \citep{degroot1974,friedkin1990,hegselmann2002opinion,deffuant2000}. This paper does not recover those families in full. It proves DeGroot for fixed symmetric coupling under the primary unweighted metric and for nonuniform reversible coupling only under the additional $\rho$-weighted metric, derives the corresponding restricted anchored equilibrium, and treats finite-temperature Gibbs attention only as soft similarity selectivity. The comparative contribution is thus not a universal replacement for classical models, but one gauge-transported Gaussian KL consensus framework that links a precise first-order subclass to optimized attention, four-part local stiffness, and a separately conditional kinetic extension.
+
+\section{Discussion}
+
+The theorem-level result is a gauge-covariant Gaussian consensus objective with entropy-retaining optimized attention and a local four-part loss stiffness. Its primary dynamics use the unweighted product Fisher--Rao metric. In the flat, fixed-covariance case, that primary flow yields continuous-time DeGroot for symmetric coupling; a standard nonuniform reversible DeGroot transient requires $\mathbf G_\rho$ or equivalent agent-specific rates. Persistent anchors yield a restricted Friedkin--Johnsen stationary equilibrium independently of the positive flow metric, while the same weighted-metric or rate choice is needed only to match its standard transient generator. Finite-temperature Gibbs attention is a soft bounded-confidence analog, and its positive tail gives metastable rather than stable separation only in the stated unanchored, symmetric reciprocal two-cluster reduction.
+
+The social and psychological correspondences stop at their modeled mechanisms. Similarity-weighted attention represents selective exposure conditional on the kernel, not active confirmation-biased search or asymmetric evaluation. The outgoing relational block is contemporaneous source-role curvature, not stored leadership history. A force-free kinetic coast can be tested as one component of perseverance, but explanatory perseverance requires an additional slow state. Social Impact Theory remains interpretive because normalized attention does not derive a number law, and diffusion requires an adoption state and hazard.
+
+The kinetic theory has a separate epistemic status. A positive $\mathbf M$ is a modeling choice, not a consequence of Fisher geometry or $\mathbf H_F$; setting $\mathbf M=\mathbf H_F$ makes the same-functional spectrum degenerate up to scale. Oscillation is not mechanism-identifying, because feedback and time-dependent coupling can also generate nonmonotonic response. The kinetic hypothesis therefore requires distinct interventions that estimate $\mathbf M$, $\mathbf K$, and $\boldsymbol\Gamma$, followed by held-out forced-response comparisons with matched first-order and feedback controls.
+
+\subsection{Limitations}
+
+\textbf{Local coordinates.} The ordinary loss Hessian is treated as affine-coordinate stiffness under the stated linear frame changes. Away from critical points it is not asserted to be a tensor under arbitrary nonlinear reparameterization, and the constant-metric oscillator formulas apply only within a local chart.
+
+\textbf{Gaussian family.} Gaussian beliefs make transport, KL derivatives, and Fisher blocks analytic, but exclude multimodal or singular posterior structure. No non-Gaussian extension is proved here.
+
+\textbf{Consensus objective.} The interacting row objectives form an engineered consensus energy, not the negative ELBO of one fixed joint population generative model. The exact source-selection identity in Appendix~\ref{app:social_coupling} is conditional on frozen row templates.
+
+\textbf{Frozen attention.} The four-part stiffness theorem freezes optimized attention during Gaussian-coordinate differentiation. Envelope elimination adds the negative covariance correction in Proposition~\ref{prop:reduced_attention_hessian}; rapidly adapting or state-dependent attention requires the full reduced Hessian and may be locally indefinite.
+
+\textbf{Reciprocity and social reductions.} The derived social limits require flat transport and common fixed covariance. The primary unweighted product metric yields the standard DeGroot transient only for symmetric coupling; matching the nonuniform reversible transient additionally requires $\mathbf G_\rho$ or equivalent agent-specific rates. The restricted anchored stationary equilibrium is metric-independent, but general directed DeGroot or Friedkin--Johnsen dynamics, hard bounded confidence, persistent polarization, signed influence, diffusion, and active evidence selection require additional structure.
+
+\textbf{Kinetic identifiability.} The manuscript supplies no empirical estimate of $\mathbf M$, $\mathbf K$, or $\boldsymbol\Gamma$. Its oscillator formulas are testable only after these objects are independently operationalized; observed overshoot or oscillation alone cannot identify the kinetic postulate.
+
+\textbf{Construct validity.} Gaussian means, covariances, attention weights, and transport maps are mathematical state variables. Interpreting them as attitudes, confidence, trust, framing, confirmation bias, or perseverance requires independent measurement models and discriminant validation against competing psychological mechanisms.
+
+\textbf{No new data.} This theoretical study reports no new empirical data and performs no empirical validation. The protocols in Section~\ref{sec:computational_validation} are prospective falsification designs rather than completed tests.
+
+
+
+\section{Conclusion}
+
+This paper establishes a gauge-covariant Gaussian KL consensus energy, the unique Gibbs attention minimizer of its entropy-retaining row objective, and a local four-part mean stiffness comprising prior, sensory, incoming relational, and outgoing relational contributions. The primary dynamics use the unweighted product Fisher--Rao metric. Under flat common covariance they yield continuous-time DeGroot for fixed symmetric coupling; matching a standard nonuniform reversible transient requires the additional $\rho$-weighted product metric. The anchored Friedkin--Johnsen stationary equilibrium is independent of the positive flow metric, although its standard transient retains that metric or rate qualification. Finite-temperature attention supplies soft similarity selectivity and, in the stated two-cluster reduction, metastable rather than stable separation.
+
+Belief inertia is the paper's conditional extension, not a theorem of variational inference or information geometry. The intrinsic Fisher metric $\mathbf G$, loss stiffness $\mathbf H_F$, and kinetic metric $\mathbf M$ remain distinct, and the kinetic formulas acquire empirical content only when $\mathbf M$, $\mathbf K$, and damping are independently identified. The resulting focused contribution is therefore a first-order gauge-VFE consensus model with derived attention and relational stiffness, together with an explicitly testable kinetic postulate whose scope and alternatives are stated in advance.
+
+\subsection*{Data Availability}
+No new empirical data are reported or analyzed in this theoretical study.
+
+
+\subsection*{Acknowledgments}
+Claude was used for organizational and manuscript-clarity assistance.  The author takes responsibility for the mathematical statements and declares no funding or conflicts of interest.
+
+\appendix
+
+%==============================================================================
+% APPENDIX: AFFINE GAUGE COVARIANCE AND LOOP OBSERVABLES
+%==============================================================================
+
+\section{Affine Gauge Covariance and Loop Observables}
+\label{app:gauge}
+
+This appendix records only the covariance identities used by the focused Gaussian argument. Each $g_i\in G\subseteq\mathrm{GL}(d)$ is an invertible change of local belief frame, and each $\Omega_{ik}$ transports coordinates from agent $k$ to agent $i$. No dynamics for the frames or connection is introduced.
+
+%------------------------------------------------------------------------------
+\subsection{Beliefs, Transports, and Stiffness}
+%------------------------------------------------------------------------------
+The belief parameters transform as
+\begin{align}
+\mu_i &\mapsto \mu_i' = g_i \mu_i \\
+\Sigma_i &\mapsto \Sigma_i' = g_i \Sigma_i g_i^T \\
+\Lambda_{q_i} &\mapsto \Lambda_{q_i}' = (g_i \Sigma_i g_i^T)^{-1} = g_i^{-T} \Lambda_{q_i} g_i^{-1}
+\end{align}
+The precision transforms contragrediently to the covariance because $\Lambda_{q_i} = \Sigma_i^{-1}$; on the metric-preserving subgroup $\mathrm{SO}(d)$, where $g_i^{-T} = g_i$, this reduces to $g_i \Lambda_{q_i} g_i^T$.
+The prior and observation models are expressed in the same local frame, so their precision matrices transform similarly: $\bar\Lambda_{p_i}'=g_i^{-T}\bar\Lambda_{p_i}g_i^{-1}$ and $\Lambda_{o_i}'=g_i^{-T}\Lambda_{o_i}g_i^{-1}$.
+
+The transport operators transform as:
+\begin{equation}
+\Omega_{ik} \mapsto \Omega_{ik}' = g_i \Omega_{ik} g_k^{-1}
+\end{equation}
+
+This ensures that the transported belief $\tilde{q}_k = \Omega_{ik}\cdot q_k$ transforms consistently:
+\begin{equation}
+\tilde{\mu}_k' = g_i \tilde{\mu}_k, \quad \tilde{\Lambda}_{q_k}' = g_i^{-T} \tilde{\Lambda}_{q_k} g_i^{-1}
+\end{equation}
+
+%------------------------------------------------------------------------------
+\subsection{Transformation of the Affine Stiffness Blocks}
+%------------------------------------------------------------------------------
+
+\subsubsection{Mean Sector}
+
+Because the local gauge-frame changes are affine linear, the frozen-attention mean-stiffness blocks transform by congruence. This does not extend ordinary Hessian covariance to arbitrary nonlinear reparameterizations away from a critical point.
+
+\paragraph{Diagonal blocks:}
+\begin{align}
+[\mathbf H_F^\mu]_{ii}' &= \alpha_i\bar{\Lambda}_{p_i}' + \Lambda_{o_i}' + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k}' + \sum_j \beta_{ji}\Lambda_{q_i}' \nonumber\\
+&= \alpha_i g_i^{-T}\bar{\Lambda}_{p_i} g_i^{-1} + g_i^{-T}\Lambda_{o_i}g_i^{-1} + \sum_k \beta_{ik} g_i^{-T}\tilde{\Lambda}_{q_k} g_i^{-1} + \sum_j \beta_{ji} g_i^{-T}\Lambda_{q_i} g_i^{-1} \nonumber\\
+&= g_i^{-T} \left[\alpha_i\bar{\Lambda}_{p_i} + \Lambda_{o_i} + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k} + \sum_j \beta_{ji}\Lambda_{q_i}\right] g_i^{-1} \nonumber\\
+&= g_i^{-T} [\mathbf H_F^\mu]_{ii} g_i^{-1}
+\end{align}
+
+\paragraph{Off-diagonal blocks:}
+With the off-diagonal form $[\mathbf H_F^\mu]_{ik}=-\beta_{ik}\Omega_{ik}^{-T}\Lambda_{q_k}-\beta_{ki}\Lambda_{q_i}\Omega_{ki}^{-1}$ from Eq.~\eqref{eq:mass_offdiagonal},
+\begin{align}
+[\mathbf H_F^\mu]_{ik}' &= -\beta_{ik}(\Omega_{ik}')^{-T}\Lambda_{q_k}' - \beta_{ki}\Lambda_{q_i}'(\Omega_{ki}')^{-1} \nonumber\\
+&= -\beta_{ik}(g_i\Omega_{ik}g_k^{-1})^{-T}(g_k^{-T}\Lambda_{q_k} g_k^{-1}) - \beta_{ki}(g_i^{-T}\Lambda_{q_i} g_i^{-1})(g_k\Omega_{ki}g_i^{-1})^{-1} \nonumber\\
+&= -\beta_{ik} g_i^{-T}\Omega_{ik}^{-T}\Lambda_{q_k} g_k^{-1} - \beta_{ki} g_i^{-T}\Lambda_{q_i}\Omega_{ki}^{-1} g_k^{-1} \nonumber\\
+&= g_i^{-T} [\mathbf H_F^\mu]_{ik} g_k^{-1}
+\end{align}
+
+\paragraph{Block matrix form:}
+
+Define the block-diagonal mean-coordinate gauge matrix:
+\begin{equation}
+\mathsf g=\operatorname{diag}(g_1,g_2,\ldots,g_N)\in G^N.
+\end{equation}
+
+Then the full mean-sector stiffness transforms as
+\begin{equation}
+\boxed{(\mathbf H_F^\mu)' = \mathsf g^{-T}\mathbf H_F^\mu\mathsf g^{-1}}.
+\end{equation}
+
+This is the affine congruence law contragredient to $\mu'=\mathsf g\mu$. On $\mathrm{SO}(d)$ it reduces to $\mathsf g\mathbf H_F^\mu\mathsf g^T$.
+
+\subsubsection{Covariance Sector}
+
+For full vectorization, $\operatorname{vec}(\Sigma_i')=(g_i\otimes g_i)\operatorname{vec}(\Sigma_i)$. The stacked covariance-coordinate Jacobian is therefore
+\begin{equation}
+\mathsf g_\Sigma
+=\operatorname{diag}(g_1\otimes g_1,\ldots,g_N\otimes g_N).
+\label{eq:stacked_covariance_jacobian}
+\end{equation}
+The locally matched covariance-stiffness block involves the same Kronecker factors. Using the contragredient precision law $\Lambda_{q_i}'=g_i^{-T}\Lambda_{q_i}g_i^{-1}$ gives
+\begin{align}
+[\mathbf H_F^\Sigma]_{ii}' &= \frac{1}{2}(\Lambda_{q_i}' \otimes \Lambda_{q_i}') \cdot \left(\alpha_i + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right) \nonumber\\
+&= \frac{1}{2}(g_i^{-T}\Lambda_{q_i} g_i^{-1} \otimes g_i^{-T}\Lambda_{q_i} g_i^{-1}) \cdot \left(\alpha_i + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right) \nonumber\\
+&= \frac{1}{2}(g_i^{-T} \otimes g_i^{-T})(\Lambda_{q_i} \otimes \Lambda_{q_i})(g_i^{-1} \otimes g_i^{-1}) \cdot \left(\alpha_i + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right)
+\end{align}
+
+The stacked full-vectorization transformation law is
+\begin{equation}
+\boxed{(\mathbf H_F^\Sigma)'=\mathsf g_\Sigma^{-T}\mathbf H_F^\Sigma\mathsf g_\Sigma^{-1}.}
+\label{eq:stacked_covariance_hessian_congruence}
+\end{equation}
+
+Equations~\eqref{eq:stacked_covariance_jacobian}--\eqref{eq:stacked_covariance_hessian_congruence} use full $\operatorname{vec}$ coordinates. For independent $\operatorname{vech}$ coordinates, let $D_d$ be the duplication matrix and $L_d=(D_d^\top D_d)^{-1}D_d^\top$ the elimination matrix. The $i$th covariance Jacobian is then $L_d(g_i\otimes g_i)D_d$, and the Hessian congruence uses the block-diagonal assembly of these duplication/elimination-matrix pullbacks rather than $\mathsf g_\Sigma$ directly.
+
+\subsubsection{Cross Blocks}
+
+In the same full-vectorization convention, the mean-covariance cross blocks transform as
+\begin{equation}
+\boxed{(\mathbf H_F^{\mu\Sigma})'=\mathsf g^{-T}\mathbf H_F^{\mu\Sigma}\mathsf g_\Sigma^{-1}.}
+\label{eq:stacked_mixed_hessian_congruence}
+\end{equation}
+
+%------------------------------------------------------------------------------
+\subsection{Transformation of Momenta}
+%------------------------------------------------------------------------------
+
+For Hamilton's equations to be covariant, momenta must transform contragrediently to positions.  With a coupled kinetic metric their definition is the full cotangent relation, not a per-agent diagonal product.
+
+\subsubsection{Mean Momentum}
+
+For the stacked mean coordinate,
+\begin{equation}
+\boldsymbol\pi^\mu=\mathbf M^\mu\dot{\boldsymbol\mu},
+\qquad
+\boxed{\pi_i^\mu=\sum_k\mathbf M_{ik}^\mu\dot\mu_k.}
+\end{equation}
+Only a declared block-diagonal approximation gives $\pi_i^\mu=M_i\dot\mu_i$.  The mean momentum transforms as a covector, contragrediently to the position $\mu'=g\mu$:
+\begin{equation}
+\boxed{(\pi_i^\mu)' = g_i^{-T} \pi_i^\mu}
+\end{equation}
+
+This ensures the pairing $\langle\pi^\mu, \dot{\mu}\rangle$ is gauge-invariant, with velocities $\dot{\mu}' = g_i\dot{\mu}_i$ transforming as vectors:
+\begin{equation}
+\langle(\pi^\mu)', \dot{\mu}'\rangle = (g_i^{-T}\pi_i^\mu)^T(g_i\dot{\mu}_i) = (\pi_i^\mu)^T g_i^{-1} g_i \dot{\mu}_i = (\pi_i^\mu)^T\dot{\mu}_i = \langle\pi^\mu, \dot{\mu}\rangle
+\end{equation}
+
+\subsubsection{Covariance Momentum}
+
+The covariance momentum $\Pi^\Sigma \in \mathrm{Sym}(d)$ transforms contragrediently to $\Sigma' = g_i\Sigma_i g_i^T$:
+\begin{equation}
+\boxed{(\Pi_i^\Sigma)' = g_i^{-T} \Pi_i^\Sigma g_i^{-1}}
+\end{equation}
+
+The pairing with $\dot{\Sigma}$ uses the trace:
+\begin{equation}
+\mathrm{tr}[(\Pi^\Sigma)'\dot{\Sigma}'] = \mathrm{tr}[(g_i^{-T}\Pi_i^\Sigma g_i^{-1})(g_i\dot{\Sigma}_i g_i^T)] = \mathrm{tr}[\Pi_i^\Sigma\dot{\Sigma}_i]
+\end{equation}
+where we used cyclicity of the trace and $g_i^{-1} g_i = I$, valid for any $g_i \in \mathrm{GL}(d)$.
+
+%------------------------------------------------------------------------------
+\subsection{Covariance of Hamilton's Equations}
+%------------------------------------------------------------------------------
+
+\subsubsection{Velocity Equation}
+
+The velocity equation $\dot{\mu} = (\mathbf{M}^\mu)^{-1}\pi^\mu$ transforms as:
+\begin{align}
+\dot{\mu}' &= ((\mathbf{M}^\mu)')^{-1}(\pi^\mu)' \nonumber\\
+&= (\mathsf g^{-T}\mathbf{M}^\mu\mathsf g^{-1})^{-1}\mathsf g^{-T}\pi^\mu \nonumber\\
+&= \mathsf g(\mathbf{M}^\mu)^{-1}\mathsf g^{T}\mathsf g^{-T}\pi^\mu \nonumber\\
+&= \mathsf g(\mathbf{M}^\mu)^{-1}\pi^\mu = \mathsf g\dot{\mu}
+\end{align}
+
+Velocities therefore transform as vectors, $\dot{\mu}'=\mathsf g\dot{\mu}$, consistently with $\mu'=\mathsf g\mu$, for any $G\subseteq\mathrm{GL}(d)$. If a mean-sector kinetic block $\mathbf M^\mu$ is separately chosen with $(\mathbf M^\mu)'=\mathsf g^{-T}\mathbf M^\mu\mathsf g^{-1}$, then its quadratic kinetic term is gauge invariant. The full-state kinetic metric requires the larger Jacobian stated in the summary below.
+
+\subsubsection{Force Equation}
+
+The force equation involves the free energy gradient. Since $F$ is gauge-invariant and $\mu' = g_i\mu_i$, the gradient transforms as a covector under the chain rule:
+\begin{equation}
+\left(\frac{\partial F}{\partial\mu_i}\right)' = g_i^{-T} \frac{\partial F}{\partial\mu_i}
+\end{equation}
+
+This follows from the chain rule and the invariance of $F$ under gauge transformations when transport operators transform consistently.
+
+The geodesic force transforms the same way, ensuring full covariance with the momentum law $(\pi^\mu)'=\mathsf g^{-T}\pi^\mu$:
+\begin{equation}
+\boxed{\dot{\pi}'=\mathsf g^{-T}\dot{\pi}}
+\end{equation}
+
+%------------------------------------------------------------------------------
+\subsection{Loop Holonomy and Wilson Observables}
+%------------------------------------------------------------------------------
+
+For a closed path $\gamma=(i_0,i_1,\ldots,i_m=i_0)$, define
+\begin{equation}
+W_\gamma
+=\Omega_{i_0i_1}\Omega_{i_1i_2}\cdots\Omega_{i_{m-1}i_0}.
+\end{equation}
+Substitution of $\Omega_{ik}'=g_i\Omega_{ik}g_k^{-1}$ cancels every intermediate frame factor and gives
+\begin{equation}
+W_\gamma'=g_{i_0}W_\gamma g_{i_0}^{-1}.
+\end{equation}
+Thus loop holonomy is covariant by conjugation. The traces $\operatorname{tr}(W_\gamma^r)$ and characteristic-polynomial coefficients are invariant; Wilson traces are the conventional compact-group class functions. By contrast, $\|W_\gamma-I\|_F$ is invariant under orthogonal or unitary conjugation but not under general $\mathrm{GL}(d)$ conjugation.
+
+For the optional full-state kinetic metric, the mean and full-vectorized covariance Jacobians combine as
+\begin{equation}
+J=\operatorname{diag}(\mathsf g,\mathsf g_\Sigma),
+\qquad
+\boxed{\mathbf M'=J^{-T}\mathbf M J^{-1}.}
+\label{eq:full_state_kinetic_congruence}
+\end{equation}
+This congruence is a required covariance law for a chosen kinetic metric, not a derivation of that metric from the gauge structure.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Appendix: Hamiltonian Mechanics on Statistical Manifolds
+% With Explicit Sensory Likelihood
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Gaussian Loss Stiffness and Conditional Mechanics}
+\label{app:hamiltonian}
+
+This appendix records the detailed first and second derivatives of the Gaussian objective with explicit sensory evidence. The second variations define the affine-coordinate loss stiffness $\mathbf H_F$; they do not, by themselves, define the positive kinetic metric $\mathbf M$. We work in the quasi-static approximation where prior parameters $(\bar{\mu}_i, \bar{\Sigma}_i)$ evolve slowly relative to beliefs $(\mu_i, \Sigma_i)$.
+
+%-----------------------------------------------------------------------
+\subsection{Setup and Notation}
+%-----------------------------------------------------------------------
+
+Each agent $i$ maintains a belief distribution $q_i = \mathcal{N}(\mu_i, \Sigma_i)$ anchored to a fixed prior $p_i = \mathcal{N}(\bar{\mu}_i, \bar{\Sigma}_i)$ and receives observations $o_i$ through a likelihood $p(o_i \mid \theta) = \mathcal{N}(o_i; \theta, \Sigma_{o_i})$. Define:
+%
+\begin{align}
+\Lambda_{q_i} &= \Sigma_i^{-1} & &\text{(belief precision)} \\
+\bar{\Lambda}_{p_i} &= \bar{\Sigma}_i^{-1} & &\text{(prior precision)} \\
+\Lambda_{o_i} &= \Sigma_{o_i}^{-1} & &\text{(observation precision)} \\
+\tilde{\mu}_k &= \Omega_{ik}\mu_k & &\text{(transported mean)} \\
+\tilde{\Lambda}_{q_k} &= \left(\Omega_{ik}\Sigma_k\Omega_{ik}^T\right)^{-1} = \Omega_{ik}^{-T}\Lambda_{q_k}\Omega_{ik}^{-1} & &\text{(transported precision)}
+\end{align}
+%
+where $\Omega_{ik}\in G\subseteq\mathrm{GL}(d)$ is the gauge transport operator from agent $k$'s frame to agent $i$'s frame, given canonically by $\Omega_{ik}=U_iU_k^{-1}$. In the restricted exponential-chart specialization $U_i=e^{\phi_i}$ with $\phi_i\in\mathfrak g$, this becomes $\Omega_{ik}=e^{\phi_i}e^{-\phi_k}$; this chart does not represent every $\mathrm{GL}(d)$ frame.
+
+%-----------------------------------------------------------------------
+\subsection{The Extended Free Energy Functional}
+%-----------------------------------------------------------------------
+
+The complete scalar is Eq.~\eqref{eq:canonical_full_vfe}; this appendix does not define a second population objective. For the fixed-attention derivatives below, the entropy term is retained in $\mathcal F_{\mathrm{full}}$ but contributes no Gaussian-coordinate derivative. We write $\mathcal F=\mathcal F_{\mathrm{full}}$ for compactness and allow the explicit adaptive-prior replacement in Eq.~\eqref{eq:adaptive_self_coupling}. Accordingly, $\alpha_i=1$ denotes the canonical prior sector, while a fixed adaptive value carries the factor $\alpha_i$ through both belief-coordinate gradients and Hessian blocks. If $\alpha_i$ has already been optimized, envelope derivatives instead use $\alpha_i^*$ as specified in Eqs.~\eqref{eq:adaptive_envelope_derivative}--\eqref{eq:adaptive_prior_covariance_gradient}.
+
+%-----------------------------------------------------------------------
+\subsection{Component Free Energies for Gaussians}
+%-----------------------------------------------------------------------
+
+\subsubsection{KL Divergence Between Gaussians}
+
+For $q = \mathcal{N}(\mu_q, \Sigma_q)$ and $p = \mathcal{N}(\mu_p, \Sigma_p)$:
+%
+\begin{equation}
+D_{\mathrm{KL}}(q \| p) = \frac{1}{2}\left[\mathrm{tr}(\Sigma_p^{-1}\Sigma_q) + (\mu_p - \mu_q)^T\Sigma_p^{-1}(\mu_p - \mu_q) - d + \ln\frac{|\Sigma_p|}{|\Sigma_q|}\right]
+\label{eq:kl_gaussian}
+\end{equation}
+
+\subsubsection{Expected Log-Likelihood}
+
+For the Gaussian likelihood $p(o_i \mid \theta) = \mathcal{N}(o_i; \theta, \Sigma_{o_i})$:
+%
+\begin{align}
+\mathbb{E}_{q_i}[\log p(o_i \mid \theta)] &= -\frac{d}{2}\log(2\pi) - \frac{1}{2}\log|\Sigma_{o_i}| - \frac{1}{2}\mathbb{E}_{q_i}\left[(o_i - \theta)^T\Lambda_{o_i}(o_i - \theta)\right]
+\end{align}
+%
+The quadratic expectation evaluates to:
+%
+\begin{equation}
+\mathbb{E}_{q_i}\left[(o_i - \theta)^T\Lambda_{o_i}(o_i - \theta)\right] = (o_i - \mu_i)^T\Lambda_{o_i}(o_i - \mu_i) + \mathrm{tr}(\Lambda_{o_i}\Sigma_i)
+\end{equation}
+%
+Therefore:
+%
+\begin{equation}
+\boxed{
+-\mathbb{E}_{q_i}[\log p(o_i \mid \theta)] = \frac{1}{2}(o_i - \mu_i)^T\Lambda_{o_i}(o_i - \mu_i) + \frac{1}{2}\mathrm{tr}(\Lambda_{o_i}\Sigma_i) + \mathrm{const}
+}
+\label{eq:neg_log_likelihood}
+\end{equation}
+
+%-----------------------------------------------------------------------
+\subsection{First Variations (Gradient)}
+%-----------------------------------------------------------------------
+
+\subsubsection{Prior Term: $\alpha_iD_{\mathrm{KL}}(q_i \| p_i)$}
+
+\begin{align}
+\frac{\partial [\alpha_iD_{\mathrm{KL}}(q_i \| p_i)]}{\partial \mu_i} &= \alpha_i\bar{\Lambda}_{p_i}(\mu_i - \bar{\mu}_i) \label{eq:grad_prior_mu} \\[6pt]
+\frac{\partial [\alpha_iD_{\mathrm{KL}}(q_i \| p_i)]}{\partial \Sigma_i} &= \frac{\alpha_i}{2}(\bar{\Lambda}_{p_i} - \Lambda_{q_i}) \label{eq:grad_prior_sigma}
+\end{align}
+Here $\alpha_i=1$ in the canonical sector, while the envelope-reduced adaptive sector uses $\alpha_i=\alpha_i^*$.
+
+\subsubsection{Consensus Term: $D_{\mathrm{KL}}(q_i \| \tilde{q}_k)$}
+
+With respect to receiver $i$:
+\begin{align}
+\frac{\partial D_{\mathrm{KL}}(q_i \| \tilde{q}_k)}{\partial \mu_i} &= \tilde{\Lambda}_{q_k}(\mu_i - \tilde{\mu}_k) \label{eq:grad_consensus_mu_i} \\[6pt]
+\frac{\partial D_{\mathrm{KL}}(q_i \| \tilde{q}_k)}{\partial \Sigma_i} &= \frac{1}{2}(\tilde{\Lambda}_{q_k} - \Lambda_{q_i}) \label{eq:grad_consensus_sigma_i}
+\end{align}
+
+With respect to sender $k$:
+\begin{align}
+\frac{\partial D_{\mathrm{KL}}(q_i \| \tilde{q}_k)}{\partial \mu_k} &= \Lambda_{q_k}\Omega_{ik}^{-1}(\tilde{\mu}_k - \mu_i) \label{eq:grad_consensus_mu_k} \\[6pt]
+\frac{\partial D_{\mathrm{KL}}(q_i \| \tilde{q}_k)}{\partial \Sigma_k} &= \frac{1}{2}\Omega_{ik}^T\left[\tilde{\Lambda}_{q_k} - \tilde{\Lambda}_{q_k}\Sigma_i\tilde{\Lambda}_{q_k}\right]\Omega_{ik} \label{eq:grad_consensus_sigma_k}
+\end{align}
+
+\subsubsection{Sensory Term: $-\mathbb{E}_{q_i}[\log p(o_i \mid \theta)]$}
+
+\begin{align}
+\frac{\partial}{\partial \mu_i}\left[-\mathbb{E}_{q_i}[\log p(o_i \mid \theta)]\right] &= \Lambda_{o_i}(\mu_i - o_i) \label{eq:grad_sensory_mu} \\[6pt]
+\frac{\partial}{\partial \Sigma_i}\left[-\mathbb{E}_{q_i}[\log p(o_i \mid \theta)]\right] &= \frac{1}{2}\Lambda_{o_i} \label{eq:grad_sensory_sigma}
+\end{align}
+
+\subsubsection{Total Gradient}
+
+\begin{equation}
+\boxed{
+\frac{\partial \mathcal{F}}{\partial \mu_i} = \alpha_i\bar{\Lambda}_{p_i}(\mu_i - \bar{\mu}_i) + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k}(\mu_i - \tilde{\mu}_k) + \sum_j \beta_{ji}\Lambda_{q_i}\Omega_{ji}^{-1}(\tilde{\mu}_i^{(j)} - \mu_j) + \Lambda_{o_i}(\mu_i - o_i)
+}
+\label{eq:total_gradient_mu}
+\end{equation}
+%
+where $\tilde{\mu}_i^{(j)} = \Omega_{ji}\mu_i$ is agent $i$'s mean transported into agent $j$'s frame.
+
+\begin{equation}
+\boxed{
+\frac{\partial \mathcal{F}}{\partial \Sigma_i} = \frac{\alpha_i}{2}(\bar{\Lambda}_{p_i} - \Lambda_{q_i}) + \sum_k \frac{\beta_{ik}}{2}(\tilde{\Lambda}_{q_k} - \Lambda_{q_i}) + \sum_j \frac{\beta_{ji}}{2}\Omega_{ji}^T\left[\tilde{\Lambda}_{qi}^{(j)} - \tilde{\Lambda}_{qi}^{(j)}\Sigma_j\tilde{\Lambda}_{qi}^{(j)}\right]\Omega_{ji} + \frac{1}{2}\Lambda_{o_i}
+}
+\label{eq:total_gradient_sigma}
+\end{equation}
+
+%-----------------------------------------------------------------------
+\subsection{Second Variations and the Loss Hessian}
+%-----------------------------------------------------------------------
+
+The coordinate Hessian $\mathbf H_F=\partial^2\mathcal F/\partial\xi\partial\xi^\top$ is the local stiffness of the selected objective. It is distinct from the intrinsic Fisher--Rao metric $\mathbf G$ and from any separately postulated kinetic metric $\mathbf M$.
+
+\subsubsection{Mean Sector: $\partial^2\mathcal{F}/\partial\mu\partial\mu^T$}
+
+\paragraph{Diagonal blocks $(i = k)$:}
+
+From prior:
+\begin{equation}
+\frac{\partial^2 D_{\mathrm{KL}}(q_i \| p_i)}{\partial \mu_i \partial \mu_i^T} = \bar{\Lambda}_{p_i}
+\end{equation}
+
+From consensus (as receiver):
+\begin{equation}
+\frac{\partial^2 D_{\mathrm{KL}}(q_i \| \tilde{q}_k)}{\partial \mu_i \partial \mu_i^T} = \tilde{\Lambda}_{q_k} = \Omega_{ik}^{-T}\Lambda_{q_k}\Omega_{ik}^{-1} = \left(\Omega_{ik}\Sigma_k\Omega_{ik}^T\right)^{-1}
+\end{equation}
+
+From consensus (as sender to agent $j$):
+\begin{equation}
+\frac{\partial^2 D_{\mathrm{KL}}(q_j \| \tilde{q}_i)}{\partial \mu_i \partial \mu_i^T} = \Omega_{ji}^T\tilde{\Lambda}_{qi}^{(j)}\Omega_{ji} = \Lambda_{q_i}
+\end{equation}
+
+From sensory evidence:
+\begin{equation}
+\frac{\partial^2}{\partial \mu_i \partial \mu_i^T}\left[-\mathbb{E}_{q_i}[\log p(o_i \mid \theta)]\right] = \Lambda_{o_i}
+\end{equation}
+
+\textbf{Total diagonal stiffness:}
+\begin{equation}
+\boxed{
+[\mathbf{H}_F^\mu]_{ii} = \underbrace{\alpha_i\bar{\Lambda}_{p_i}}_{\text{prior}} + \underbrace{\sum_k \beta_{ik}\tilde{\Lambda}_{q_k}}_{\text{incoming relational}} + \underbrace{\sum_j \beta_{ji}\Lambda_{q_i}}_{\text{outgoing recoil}} + \underbrace{\Lambda_{o_i}}_{\text{sensory}}
+}
+\label{eq:mass_diagonal}
+\end{equation}
+
+\paragraph{Off-diagonal blocks $(i \neq k)$:}
+
+From $D_{\mathrm{KL}}(q_i \| \tilde{q}_k)$, using $\tilde{\Lambda}_{q_k} = \Omega_{ik}^{-T}\Lambda_{q_k}\Omega_{ik}^{-1}$ and the Jacobian $\partial\tilde{\mu}_k/\partial\mu_k = \Omega_{ik}$:
+\begin{equation}
+\frac{\partial^2 D_{\mathrm{KL}}(q_i \| \tilde{q}_k)}{\partial \mu_i \partial \mu_k^T} = -\tilde{\Lambda}_{q_k}\Omega_{ik} = -\Omega_{ik}^{-T}\Lambda_{q_k}
+\end{equation}
+
+From $D_{\mathrm{KL}}(q_k \| \tilde{q}_i)$ (if $k$ also listens to $i$):
+\begin{equation}
+\frac{\partial^2 D_{\mathrm{KL}}(q_k \| \tilde{q}_i)}{\partial \mu_i \partial \mu_k^T} = -\Lambda_{q_i}\Omega_{ki}^{-1}
+\end{equation}
+
+The sensory term does not couple different agents. Therefore:
+\begin{equation}
+\boxed{
+[\mathbf{H}_F^\mu]_{ik} = -\beta_{ik}\Omega_{ik}^{-T}\Lambda_{q_k} - \beta_{ki}\Lambda_{q_i}\Omega_{ki}^{-1} \quad (i \neq k)
+}
+\label{eq:mass_offdiagonal}
+\end{equation}
+
+
+By Schwarz's theorem, this Hessian is symmetric: using $\Lambda=\Lambda^T$ one verifies that $[\mathbf H_F^\mu]_{ik}=([\mathbf H_F^\mu]_{ki})^T$ for any frozen $\beta_{ik}$ and invertible $\Omega_{ik}$. The sender/recoil derivative is required because the scalar objective contains every directed edge on which agent $i$ appears; asymmetry of the frozen attention weights does not make this complete scalar potential nonconservative.
+
+
+%-----------------------------------------------------------------------
+\subsubsection{Covariance Sector: $\partial^2\mathcal{F}/\partial\Sigma\partial\Sigma$}
+%-----------------------------------------------------------------------
+
+For matrix-valued variables, we use the directional derivative convention:
+\begin{equation}
+\frac{\partial^2 f}{\partial \Sigma \partial \Sigma}[V, W] = \lim_{\epsilon \to 0} \frac{1}{\epsilon}\left(\left.\frac{\partial f}{\partial \Sigma}\right|_{\Sigma + \epsilon W} - \left.\frac{\partial f}{\partial \Sigma}\right|_{\Sigma}\right)[V]
+\end{equation}
+
+\paragraph{Key identity:}
+\begin{equation}
+\frac{\partial}{\partial \Sigma}(\Sigma^{-1}) = -\Sigma^{-1} \otimes \Sigma^{-1}
+\end{equation}
+
+\paragraph{Diagonal blocks $(i = k)$:}
+
+From prior:
+\begin{equation}
+\frac{\partial^2 D_{\mathrm{KL}}(q_i \| p_i)}{\partial \Sigma_i \partial \Sigma_i}[V, W] = \frac{1}{2}\mathrm{tr}\left[\Lambda_{q_i}V\Lambda_{q_i}W\right]
+\end{equation}
+
+In tensor notation:
+\begin{equation}
+\frac{\partial^2 D_{\mathrm{KL}}(q_i \| p_i)}{\partial \Sigma_i \partial \Sigma_i} = \frac{1}{2}(\Lambda_{q_i} \otimes \Lambda_{q_i})
+\end{equation}
+
+At edgewise consensus, the receiver and sender covariance Hessians reduce to the same local quadratic form. The prior contribution carries the self-coupling weight $\alpha_i$, because its scalar term is $\alpha_i D_{\mathrm{KL}}(q_i\|p_i)$.
+
+\textbf{Critical observation:} The sensory term $\frac{1}{2}\mathrm{tr}(\Lambda_{o_i}\Sigma_i)$ is \textit{linear} in $\Sigma_i$, so its second derivative \textbf{vanishes}:
+\begin{equation}
+\frac{\partial^2}{\partial \Sigma_i \partial \Sigma_i}\left[\mathrm{tr}(\Lambda_{o_i}\Sigma_i)\right] = 0
+\end{equation}
+
+Therefore:
+\begin{equation}
+\boxed{
+[\mathbf{H}_F^\Sigma]_{ii} = \frac{1}{2}(\Lambda_{q_i} \otimes \Lambda_{q_i}) \cdot \left(\alpha_i + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right)
+}
+\label{eq:mass_covariance}
+\end{equation}
+
+The sensory precision $\Lambda_{o_i}$ does \textbf{not} contribute to this covariance-sector stiffness.
+
+This clean covariance block is local to the frozen-attention, edgewise-consensus calculation. Away from consensus the sender Hessian carries additional residual-dependent terms, and envelope elimination adds the covariance correction in Eq.~\eqref{eq:reduced_row_hessian}. Equation~\eqref{eq:mass_covariance} therefore does not assert that the fully reduced covariance Hessian is globally positive definite.
+
+%-----------------------------------------------------------------------
+\subsubsection{Mean-Covariance Cross Blocks}
+%-----------------------------------------------------------------------
+
+\paragraph{Prior term:}
+\begin{equation}
+\frac{\partial^2 D_{\mathrm{KL}}(q_i \| p_i)}{\partial \mu_i \partial \Sigma_i} = 0
+\end{equation}
+
+\paragraph{Sensory term:} The sensory free energy decomposes into a component quadratic in $\mu_i$, namely $(o_i - \mu_i)^T\Lambda_{o_i}(o_i - \mu_i)$, and a component linear in $\Sigma_i$, namely $\mathrm{tr}(\Lambda_{o_i}\Sigma_i)$. These are independent, so:
+\begin{equation}
+[\mathbf{H}_F^{\mu\Sigma}]_{ii}^{\text{sensory}} = 0
+\end{equation}
+
+\paragraph{Consensus (cross-agent):} From $\partial D_{\mathrm{KL}}(q_i \| \tilde{q}_k)/\partial \mu_i = \tilde{\Lambda}_{q_k}(\mu_i - \tilde{\mu}_k)$, varying $\Sigma_k$:
+\begin{equation}
+\frac{\partial^2 D_{\mathrm{KL}}(q_i \| \tilde{q}_k)}{\partial \mu_i \partial \Sigma_k}[V] = -\Omega_{ik}^{-T}\Lambda_{q_k}V\Lambda_{q_k}\Omega_{ik}^{-1}(\mu_i - \tilde{\mu}_k)
+\end{equation}
+
+This vanishes at consensus ($\mu_i = \tilde{\mu}_k$):
+\begin{equation}
+[\mathbf{H}_F^{\mu\Sigma}]_{ik} = 0 \quad \text{when } \mu_i = \tilde{\mu}_k
+\end{equation}
+
+%-----------------------------------------------------------------------
+\subsection{The Hamiltonian}
+%-----------------------------------------------------------------------
+
+After independently choosing a positive kinetic metric $\mathbf M$, define conjugate momenta $\pi=(\pi^\mu,\Pi^\Sigma)=\mathbf M\dot\xi$ and the conditional Hamiltonian
+\begin{equation}
+\boxed{
+H = \frac{1}{2}\langle\pi, \mathbf{M}^{-1}\pi\rangle + \mathcal{F}[\xi]
+}
+\label{eq:hamiltonian}
+\end{equation}
+
+%-----------------------------------------------------------------------
+\subsection{Hamilton's Equations}
+%-----------------------------------------------------------------------
+
+\subsubsection{Equations of Motion}
+
+\begin{align}
+\dot{\mu}_i &= \sum_k [\mathbf{M}^{-1}]_{ik}^{\mu\mu}\pi_k^\mu + \sum_k [\mathbf{M}^{-1}]_{ik}^{\mu\Sigma}\Pi_k^\Sigma \label{eq:hamilton_mu} \\[6pt]
+\dot{\Sigma}_i &= \sum_k [\mathbf{M}^{-1}]_{ik}^{\Sigma\mu}\pi_k^\mu + \sum_k [\mathbf{M}^{-1}]_{ik}^{\Sigma\Sigma}\Pi_k^\Sigma \label{eq:hamilton_sigma} \\[6pt]
+\dot{\pi}_i^\mu &= -\frac{\partial \mathcal{F}}{\partial \mu_i} - \frac{1}{2}\pi^T\frac{\partial \mathbf{M}^{-1}}{\partial \mu_i}\pi \label{eq:hamilton_pi_mu} \\[6pt]
+\dot{\Pi}_i^\Sigma &= -\frac{\partial \mathcal{F}}{\partial \Sigma_i} - \frac{1}{2}\pi^T\frac{\partial \mathbf{M}^{-1}}{\partial \Sigma_i}\pi \label{eq:hamilton_pi_sigma}
+\end{align}
+
+\subsubsection{Force Decomposition}
+
+The potential forces decompose into four distinct contributions:
+\begin{equation}
+\boxed{
+-\frac{\partial \mathcal{F}}{\partial \mu_i} = \underbrace{-\alpha_i\bar{\Lambda}_{p_i}(\mu_i - \bar{\mu}_i)}_{\text{prior restoring}} \underbrace{- \sum_k \beta_{ik}\tilde{\Lambda}_{q_k}(\mu_i - \tilde{\mu}_k)}_{\text{consensus}} \underbrace{- \sum_j \beta_{ji}\Lambda_{q_i}\Omega_{ji}^{-1}(\tilde{\mu}_i^{(j)} - \mu_j)}_{\text{reciprocal}} \underbrace{- \Lambda_{o_i}(\mu_i - o_i)}_{\text{sensory evidence}}
+}
+\label{eq:force_decomposition}
+\end{equation}
+
+The metric-derivative force $f_i^{\text{geo}}=-\frac12\sum_{jkl}(\pi_j^\mu)^T\frac{\partial[\mathbf M^{-1}]_{jk}^{\mu\mu}}{\partial\mu_i}\pi_k^\mu$ is present whenever the independently chosen kinetic metric varies with the mean coordinates.  It vanishes in the locally constant kinetic approximation used for the modal formulas.  Freezing attention in the potential does not, by itself, determine whether the separately postulated $\mathbf M$ is state dependent.
+
+\subsubsection{Compact Form}
+
+\begin{equation}
+\boxed{
+\begin{aligned}
+\dot{\xi} &= \mathbf{M}^{-1}\pi \\
+\dot{\pi} &= -\nabla\mathcal{F} - \frac{1}{2}\nabla_\xi\langle\pi, \mathbf{M}^{-1}\pi\rangle
+\end{aligned}
+}
+\end{equation}
+
+If the chosen $\mathbf M$ depends on $\Sigma$, the Hamiltonian is nonseparable and requires an integrator that retains the metric-derivative terms.  The local oscillator formulas in the main text instead freeze $\mathbf M$.
+
+%-----------------------------------------------------------------------
+\subsection{Damped Dynamics}
+%-----------------------------------------------------------------------
+
+With locally constant $\mathbf M$, dissipation is represented by a positive-semidefinite tensor $\boldsymbol\Gamma$:
+\begin{equation}
+\boxed{
+\mathbf M\ddot{\boldsymbol\mu}
++\boldsymbol\Gamma\dot{\boldsymbol\mu}
++\nabla_{\boldsymbol\mu}\mathcal F
+=f_{\mathrm{ext}}.}
+\label{eq:damped_dynamics}
+\end{equation}
+Linearization introduces the restoring stiffness $\mathbf K$.  Nontrivial oscillator spectra require $\mathbf K$ to be operationally independent of $\mathbf M$; if both are the same $\mathbf H_F$, Eq.~\eqref{eq:hessian_mass_degeneracy} gives a unit spectrum up to scale.  Only after projection onto a positive modal pair $(m,k)$ with modal damping $\gamma$ does the scalar discriminant $\gamma^2-4mk$ classify over-, critical-, and underdamping.
+
+%-----------------------------------------------------------------------
+\section{Attention, Adaptive Precision, and Rowwise Scope Checks}
+\label{app:social_coupling}
+
+This appendix records the limited probabilistic identity that motivates the engineered consensus row without repeating the authoritative optimization in Eqs.~\eqref{eq:attention_row_objective}--\eqref{eq:reduced_vfe_envelope}. Fix receiver $i$ and define the transported source templates $r_{ij}=\Omega_{ij\#}q_j$. Under the rowwise source-independence assumption, set
+\begin{equation}
+Q_i(c,j)=q_i(c)\beta_{ij},
+\qquad
+P_i(c,j)=r_{ij}(c)\pi_{ij}.
+\label{eq:row_source_models}
+\end{equation}
+Both distributions are normalized when $q_i$ and every $r_{ij}$ are normalized, $\sum_j\beta_{ij}=1$, and $\sum_j\pi_{ij}=1$. Direct expansion gives the exact unit-temperature identity
+\begin{equation}
+\KL(Q_i\|P_i)
+=\sum_j\beta_{ij}\KL(q_i\|r_{ij})
++\sum_j\beta_{ij}\log\frac{\beta_{ij}}{\pi_{ij}}.
+\label{eq:row_source_kl_identity}
+\end{equation}
+Thus a fixed row has an ordinary joint-KL interpretation when the categorical coefficient is one. For general $\tau$, Eq.~\eqref{eq:attention_row_objective} is instead a tempered loss-based row objective; multiplying only its categorical KL by $\tau$ does not preserve the single-KL identity in Eq.~\eqref{eq:row_source_kl_identity}.
+
+The scope restriction is essential. The templates $r_{ij}=\Omega_{ij\#}q_j$ are other agents' variational beliefs, not fixed factors of one population generative model. Equation~\eqref{eq:row_source_kl_identity} is therefore exact conditional on frozen row templates, but it does not establish that the sum over interacting rows is the negative ELBO of one fixed joint distribution over the original agent states. Nor does it establish existence, uniqueness, or convergence of a simultaneous population fixed point. This is precisely fence E1 in Table~\ref{tab:epistemic-status}.
+
+The canonical consequences are consequently taken from the scalar objective itself, not from a stronger generative-model claim. The row minimizer is Eq.~\eqref{eq:attention_weights}, the entropy-retaining reduced value is Eq.~\eqref{eq:canonical_row_reduced_vfe}, and its differential is Eq.~\eqref{eq:reduced_vfe_envelope}. The entropy-suppressed $S_i$ in Eq.~\eqref{eq:entropy_suppressed_surrogate} remains a distinct comparator with the covariance response in Eq.~\eqref{eq:entropy_suppressed_differential}.
+
+The corresponding symbolic checks are short but decisive. Differentiating $-\tau\log Z_i$ yields $\sum_j\beta_{ij}^*dE_{ij}$, whereas differentiating $S_i=\sum_j\beta_{ij}^*E_{ij}$ yields the additional covariance term in Eq.~\eqref{eq:entropy_suppressed_differential}; the two scalars therefore cannot share a product-rule derivative. Likewise, minimizing the complete adaptive sector gives $\alpha_i^*=c_0/(b_0+D_i)$ and the envelope derivative $d\bar\Psi_i/dD_i=\alpha_i^*$, not the derivative of the bare product $\alpha_i^*D_i$. A second mean derivative gives the negative rank-one correction in Eq.~\eqref{eq:adaptive_prior_reduced_hessian}. These identities delimit the canonical attention, surrogate, fixed-precision, and optimized-precision calculations used in the main text.
+
+\bibliographystyle{apalike}
+\bibliography{references}
+
+\end{document}
