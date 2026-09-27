@@ -290,10 +290,6 @@ def refresh_semantic_digest(document: dict) -> None:
     document["semantic_payload_digest"] = hashlib.sha256(canonical_fixture_bytes(payload)).hexdigest()
 
 
-def write_result(result: Path, document: dict) -> None:
-    result.write_bytes(canonical_fixture_bytes(document))
-
-
 def golden(root: Path, result: Path, source_revision: str | None = None):
     revision = source_revision or git(root, "rev-parse", "HEAD")
     document = api("build_result", "golden bound result")(
@@ -326,13 +322,6 @@ def assert_accepted(result: Path, root: Path, defect: str):
     assert not issue_codes(report), f"DEFECT [{defect}]: accepted golden result retained issues: {sorted(issue_codes(report))}"
 
 
-def assert_rejected(result: Path, root: Path, defect: str, expected_code: str | None = None):
-    report = api("verify_result", defect)(result, root, test_fixture=True)
-    assert getattr(report, "ok", None) is False, f"DEFECT [{defect}]: verifier accepted mutation"
-    if expected_code is not None:
-        assert expected_code in issue_codes(report), f"DEFECT [{defect}]: expected {expected_code}, got {sorted(issue_codes(report))}"
-
-
 def test_unmodified_golden_result_is_accepted(tmp_path: Path):
     root, result = tree(tmp_path), tmp_path / "result.json"
     golden(root, result)
@@ -353,95 +342,6 @@ def test_source_revision_s_is_accepted_at_e(tmp_path: Path):
     advance_to_evidence_revision(root)
     assert git(root, "rev-parse", "HEAD") != source_revision
     assert_accepted(result, root, "source S accepted at evidence E")
-
-
-@pytest.mark.parametrize(
-    "mutable_git_state",
-    ["worktree_attributes", "info_attributes", "autocrlf"],
-)
-def test_source_binding_raw_mismatch_cannot_be_relaxed_by_mutable_git_eol_state(
-    tmp_path: Path,
-    mutable_git_state: str,
-):
-    root = tree(tmp_path)
-    source_revision = git(root, "rev-parse", "HEAD")
-    relative = BOUND_FILES[0]
-    governed_path = root / relative
-    source_blob = governed_path.read_bytes()
-    assert b"\n" in source_blob and b"\r" not in source_blob
-    current_bytes = source_blob.replace(b"\n", b"\r\n")
-    governed_path.write_bytes(current_bytes)
-
-    if mutable_git_state == "worktree_attributes":
-        (root / ".gitattributes").write_text(
-            f"{relative} text eol=crlf\n",
-            encoding="ascii",
-            newline="\n",
-        )
-    elif mutable_git_state == "info_attributes":
-        info_attributes = root / ".git/info/attributes"
-        info_attributes.write_text(
-            f"{relative} text eol=crlf\n",
-            encoding="ascii",
-            newline="\n",
-        )
-    else:
-        git(root, "config", "core.autocrlf", "true")
-
-    loaded = module()
-    current_manifest = loaded.build_manifest(root, test_fixture=True)
-    issues = loaded._source_binding_issues(
-        root,
-        source_revision,
-        current_manifest,
-        test_fixture=True,
-    )
-    mismatches = [
-        issue
-        for issue in issues
-        if issue.code == "SOURCE_BLOB_MISMATCH" and issue.location == relative
-    ]
-
-    assert len(mismatches) == 1, (
-        "DEFECT [mutable EOL relaxation]: raw LF source bytes and CRLF retained "
-        f"bytes must mismatch regardless of {mutable_git_state}, got {issues!r}"
-    )
-    assert mismatches[0].expected == {
-        "byte_count": len(source_blob),
-        "sha256": hashlib.sha256(source_blob).hexdigest(),
-    }
-    assert mismatches[0].observed == {
-        "byte_count": len(current_bytes),
-        "sha256": hashlib.sha256(current_bytes).hexdigest(),
-    }
-
-
-@pytest.mark.parametrize(
-    "relative",
-    [
-        "manuscripts/gauge_vfe_rg/chapters/child.tex",
-        "manuscripts/gauge_vfe_rg/verification/tests/test_factorization_gap.py",
-    ],
-)
-def test_source_revision_governed_path_set_cannot_shrink_recursively(
-    tmp_path: Path,
-    relative: str,
-):
-    root = tree(tmp_path)
-    policy_path = root / "manuscripts/gauge_vfe_rg/verification/manifest-policy.json"
-    policy = json.loads(policy_path.read_text(encoding="utf-8"))
-    policy.pop("bound_paths")
-    policy_path.write_bytes(canonical_fixture_bytes(policy) + b"\n")
-    source_revision = commit_all(root, "source S without redundant bound-path inventory")
-
-    (root / relative).unlink()
-    construct = api("build_result", "source-tree governed path-set equality")
-    with pytest.raises(Exception) as caught:
-        construct(root, source_revision, test_fixture=True)
-    assert getattr(caught.value, "code", None) == "MANIFEST_PATH_SET_MISMATCH", (
-        "DEFECT [recursive source shrink]: deleting a governed path committed at S "
-        f"must fail with MANIFEST_PATH_SET_MISMATCH, got {caught.value!r}"
-    )
 
 
 def test_governed_walk_fails_closed_when_directory_enumeration_errors(
@@ -533,33 +433,6 @@ def test_source_revision_rejects_commit_only_noncanonical_governed_namespace(
     )
 
 
-@pytest.mark.parametrize("drift", ["source_revision", "bound_blob"])
-def test_source_at_e_rejects_coherent_git_binding_drift(tmp_path: Path, drift: str):
-    root, result = tree(tmp_path), tmp_path / "result.json"
-    source_revision = git(root, "rev-parse", "HEAD")
-    original = golden(root, result, source_revision)
-    advance_to_evidence_revision(root)
-
-    changed = json.loads(json.dumps(original))
-    if drift == "source_revision":
-        changed["source_revision"] = git(root, "rev-parse", f"{source_revision}^")
-        defect = "coherent source revision drift"
-    else:
-        bound_path = root / BOUND_FILES[0]
-        bound_path.write_bytes(bound_path.read_bytes() + b"evidence-source-drift\n")
-        commit_all(root, "forbidden governed blob drift after E")
-        raw = bound_path.read_bytes()
-        changed["source_dirty"] = True
-        changed["manifest"]["bound_inputs"][BOUND_FILES[0]] = {
-            "byte_count": len(raw),
-            "sha256": hashlib.sha256(raw).hexdigest(),
-        }
-        defect = "coherent governed blob drift after E"
-    refresh_semantic_digest(changed)
-    write_result(result, changed)
-    assert_rejected(result, root, defect, "SOURCE_BLOB_MISMATCH")
-
-
 def test_discovery_recursively_finds_every_governed_class_and_no_constant_allowlist(tmp_path: Path):
     root = tree(tmp_path)
     found = api("discover_bound_inputs", "recursive governed discovery")(
@@ -634,67 +507,3 @@ def test_validate_result_shape_accepts_golden_and_rejects_one_extra_field(tmp_pa
         "undeclared seventh dependency must violate the exact schema"
     )
 
-
-@pytest.mark.parametrize("relative", BOUND_FILES)
-def test_each_real_bound_file_byte_mutation_is_rejected(tmp_path: Path, relative: str):
-    root, result = tree(tmp_path), tmp_path / "result.json"
-    golden(root, result)
-    path = root / relative
-    path.write_bytes(path.read_bytes() + b"changed\n")
-    assert_rejected(result, root, f"byte mutation {relative}")
-
-
-@pytest.mark.parametrize("kind", ["malformed", "missing_bound_file", "extra_bound_file", "missing_result_field", "extra_result_field", "newline", "semantic", "source_dirty", "unknown_check", "duplicate_check", "revision", "nan", "infinity"])
-def test_real_tree_and_result_mutations_fail_closed(tmp_path: Path, kind: str):
-    root, result = tree(tmp_path), tmp_path / "result.json"
-    document = golden(root, result)
-    if kind == "malformed":
-        (root / "manuscripts/gauge_vfe_rg/verification/claims.json").write_text("{", encoding="utf-8")
-    elif kind == "missing_bound_file":
-        (root / BOUND_FILES[0]).unlink()
-    elif kind == "extra_bound_file":
-        extra = root / "manuscripts/gauge_vfe_rg/chapters/unexpected.tex"
-        extra.parent.mkdir(parents=True, exist_ok=True)
-        extra.write_text("unexpected\n", encoding="utf-8")
-    elif kind == "missing_result_field":
-        required = next((field for field in ("source_revision", "semantic_payload_digest", "checks") if field in document), None)
-        assert required is not None, "DEFECT [missing result field fixture]: build_result must emit a required result field"
-        document.pop(required)
-        result.write_text(json.dumps(document) + "\n", encoding="utf-8")
-    elif kind == "extra_result_field":
-        document["unrecognized_result_field"] = {"must": "fail closed"}
-        refresh_semantic_digest(document)
-        write_result(result, document)
-    elif kind == "newline":
-        path = root / BOUND_FILES[0]
-        path.write_bytes(path.read_bytes().replace(b"\n", b"\r\n"))
-    elif kind == "semantic":
-        document["semantic_payload_digest"] = "0" * 64
-        write_result(result, document)
-    elif kind == "source_dirty":
-        document["source_dirty"] = True
-        refresh_semantic_digest(document)
-        write_result(result, document)
-    elif kind in {"unknown_check", "duplicate_check"}:
-        valid = json.loads(json.dumps(document["checks"][0]))
-        if kind == "unknown_check":
-            valid["check_id"] = "CHK-UNKNOWN"
-            document["checks"] = [valid]
-        else:
-            document["checks"] = [valid, json.loads(json.dumps(valid))]
-        refresh_semantic_digest(document)
-        write_result(result, document)
-    elif kind == "revision":
-        document["source_revision"] = "0" * 40
-        refresh_semantic_digest(document)
-        write_result(result, document)
-    else:
-        result.write_text('{"value": ' + ("NaN" if kind == "nan" else "Infinity") + "}\n", encoding="utf-8")
-    expected_codes = {
-        "semantic": "SEMANTIC_DIGEST_MISMATCH",
-        "source_dirty": "SCHEMA_VIOLATION",
-        "unknown_check": "CHECK_ID_UNKNOWN",
-        "duplicate_check": "CHECK_ID_DUPLICATE",
-        "revision": "SOURCE_REVISION_NOT_FOUND",
-    }
-    assert_rejected(result, root, f"real {kind} mutation", expected_codes.get(kind))

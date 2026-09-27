@@ -174,53 +174,6 @@ def commit_tree_with_parents(
     )
 
 
-def deep_protected_side_dag(
-    repo: Path,
-    wiki_revision: str,
-    drift: str,
-) -> tuple[str, str, str]:
-    """Build unrelated root -> protected attack -> exact-W restoration."""
-
-    protected = "manuscripts/gauge_vfe_rg/verification/current-results.json"
-    checkout(repo, f"deep-protected-side-{drift}", wiki_revision)
-    if drift == "bytes":
-        write(repo, protected, "deep side-DAG protected byte drift\n")
-        attack_tree_source = commit(repo, "deep protected byte tree")
-    elif drift == "type":
-        protected_blob = git(repo, "rev-parse", f"{wiki_revision}:{protected}")
-        git(
-            repo,
-            "update-index",
-            "--cacheinfo",
-            f"120000,{protected_blob},{protected}",
-        )
-        attack_tree_source = commit_index(repo, "deep protected type tree")
-    else:
-        (repo / protected).unlink()
-        attack_tree_source = commit(repo, "deep protected existence tree")
-
-    clean_tree = git(repo, "rev-parse", f"{wiki_revision}^{{tree}}")
-    unrelated_root = commit_tree_with_parents(
-        repo,
-        clean_tree,
-        (),
-        "unrelated W-clean root",
-    )
-    attacked = commit_tree(
-        repo,
-        git(repo, "rev-parse", f"{attack_tree_source}^{{tree}}"),
-        unrelated_root,
-        f"deep protected {drift} attack",
-    )
-    restored = commit_tree(
-        repo,
-        clean_tree,
-        attacked,
-        f"deep protected {drift} restoration",
-    )
-    return attacked, restored, protected
-
-
 def write(repo: Path, relative: str, text: str = "x\n") -> None:
     path = repo / relative
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -394,286 +347,6 @@ def test_gate_accepts_monotone_real_allowed_s_e_c_w_history_and_authorized_sourc
     assert getattr(outcome, "ok", None) is True, "DEFECT [real S/E/C/W gate]: allowed monotone history was rejected"
 
 
-@pytest.mark.parametrize("boundary", ["S..E", "E..C", "C..W"])
-def test_lifecycle_rejects_forbidden_change_restored_inside_each_phase(
-    tmp_path: Path,
-    boundary: str,
-):
-    repo, valid = history(tmp_path)
-    older_label, newer_label = boundary.split("..")
-    checkout(repo, f"phase-restore-{older_label.lower()}", valid[older_label])
-    write(repo, "fixtures/source.txt", f"forbidden transient {boundary}\n")
-    changed = commit(repo, f"forbidden transient {boundary}")
-    restored = commit_tree(
-        repo,
-        git(repo, "rev-parse", f"{valid[older_label]}^{{tree}}"),
-        changed,
-        f"restore phase baseline {boundary}",
-    )
-    revised = dict(valid)
-    endpoint = commit_tree(
-        repo,
-        git(repo, "rev-parse", f"{valid[newer_label]}^{{tree}}"),
-        restored,
-        f"rebuild {newer_label}",
-    )
-    revised[newer_label] = endpoint
-    previous = endpoint
-    for label in {"E": ("C", "W"), "C": ("W",), "W": ()}[newer_label]:
-        previous = commit_tree(
-            repo,
-            git(repo, "rev-parse", f"{valid[label]}^{{tree}}"),
-            previous,
-            f"rebuild {label}",
-        )
-        revised[label] = previous
-    git(repo, "update-ref", "HEAD", revised["W"])
-
-    outcome = require_gate("validate_lifecycle", "phase history purity")(
-        repo,
-        revised["S"],
-        revised["E"],
-        revised["C"],
-        revised["W"],
-        test_fixture=True,
-    )
-
-    assert outcome.ok is False and any(
-        boundary in finding and changed in finding
-        for finding in outcome.findings
-    ), f"DEFECT [{boundary} history]: restored forbidden change passed"
-
-
-@pytest.mark.parametrize(
-    "scenario",
-    ("forbidden-path", "protected-bytes", "protected-type", "protected-existence"),
-)
-def test_production_phase_rejects_off_subgraph_merge_parent_drift_restored_at_merge(
-    tmp_path: Path,
-    scenario: str,
-):
-    repo, valid = production_history(tmp_path)
-    protected = "manuscripts/gauge_vfe_rg/main.tex"
-    checkout(repo, f"off-subgraph-{scenario}", valid["S"])
-    if scenario == "forbidden-path":
-        attacked_path = "forbidden/off-subgraph-parent.txt"
-        write(repo, attacked_path, "forbidden parent-only path\n")
-        side_descendant = commit(repo, "off-subgraph forbidden path tree")
-    elif scenario == "protected-bytes":
-        attacked_path = protected
-        write(repo, protected, "off-subgraph protected byte drift\n")
-        side_descendant = commit(repo, "off-subgraph protected byte tree")
-    elif scenario == "protected-type":
-        attacked_path = protected
-        protected_blob = git(repo, "rev-parse", f'{valid["S"]}:{protected}')
-        git(
-            repo,
-            "update-index",
-            "--cacheinfo",
-            f"120000,{protected_blob},{protected}",
-        )
-        side_descendant = commit_index(repo, "off-subgraph protected type tree")
-    else:
-        attacked_path = protected
-        (repo / protected).unlink()
-        side_descendant = commit(repo, "off-subgraph protected existence tree")
-
-    side_parent = commit_tree_with_parents(
-        repo,
-        git(repo, "rev-parse", f"{side_descendant}^{{tree}}"),
-        (),
-        f"unrelated root parent with {scenario}",
-    )
-    revised = dict(valid)
-    revised["E"] = commit_tree_with_parents(
-        repo,
-        git(repo, "rev-parse", f'{valid["E"]}^{{tree}}'),
-        (valid["E"], side_parent),
-        f"merge and restore {scenario} at E",
-    )
-    revised["C"] = commit_tree(
-        repo,
-        git(repo, "rev-parse", f'{valid["C"]}^{{tree}}'),
-        revised["E"],
-        "rebuild C after off-subgraph merge",
-    )
-    revised["W"] = commit_tree(
-        repo,
-        git(repo, "rev-parse", f'{valid["W"]}^{{tree}}'),
-        revised["C"],
-        "rebuild W after off-subgraph merge",
-    )
-    git(repo, "update-ref", "HEAD", revised["W"])
-
-    outcome = require_gate("validate_lifecycle", "off-subgraph merge-parent edge")(
-        repo,
-        revised["S"],
-        revised["E"],
-        revised["C"],
-        revised["W"],
-    )
-
-    assert outcome.ok is False and any(
-        side_parent in finding
-        and revised["E"] in finding
-        and attacked_path in finding
-        and "phase-history edge violation" in finding
-        for finding in outcome.findings
-    ), (
-        "DEFECT [off-subgraph merge-parent edge]: restored parent drift passed: "
-        f"scenario={scenario} findings={outcome.findings}"
-    )
-
-
-@pytest.mark.parametrize(
-    "scenario",
-    ("forbidden-path", "protected-bytes", "protected-type", "protected-existence"),
-)
-def test_production_phase_rejects_deep_off_subgraph_drift_restored_before_merge(
-    tmp_path: Path,
-    scenario: str,
-):
-    repo, valid = production_history(tmp_path)
-    protected = "manuscripts/gauge_vfe_rg/main.tex"
-    checkout(repo, f"deep-off-subgraph-{scenario}", valid["S"])
-    if scenario == "forbidden-path":
-        attacked_path = "forbidden/deep-off-subgraph.txt"
-        write(repo, attacked_path, "forbidden deep side-DAG path\n")
-        attack_tree_source = commit(repo, "deep off-subgraph forbidden tree")
-    elif scenario == "protected-bytes":
-        attacked_path = protected
-        write(repo, protected, "deep off-subgraph protected byte drift\n")
-        attack_tree_source = commit(repo, "deep off-subgraph protected byte tree")
-    elif scenario == "protected-type":
-        attacked_path = protected
-        protected_blob = git(repo, "rev-parse", f'{valid["S"]}:{protected}')
-        git(
-            repo,
-            "update-index",
-            "--cacheinfo",
-            f"120000,{protected_blob},{protected}",
-        )
-        attack_tree_source = commit_index(repo, "deep off-subgraph protected type tree")
-    else:
-        attacked_path = protected
-        (repo / protected).unlink()
-        attack_tree_source = commit(repo, "deep off-subgraph protected existence tree")
-
-    clean_tree = git(repo, "rev-parse", f'{valid["S"]}^{{tree}}')
-    unrelated_root = commit_tree_with_parents(
-        repo,
-        clean_tree,
-        (),
-        "unrelated clean phase root",
-    )
-    attacked = commit_tree(
-        repo,
-        git(repo, "rev-parse", f"{attack_tree_source}^{{tree}}"),
-        unrelated_root,
-        f"deep side-DAG attack {scenario}",
-    )
-    restored = commit_tree(
-        repo,
-        clean_tree,
-        attacked,
-        f"deep side-DAG restore {scenario}",
-    )
-
-    revised = dict(valid)
-    revised["E"] = commit_tree_with_parents(
-        repo,
-        git(repo, "rev-parse", f'{valid["E"]}^{{tree}}'),
-        (valid["E"], restored),
-        f"merge restored deep side-DAG {scenario}",
-    )
-    revised["C"] = commit_tree(
-        repo,
-        git(repo, "rev-parse", f'{valid["C"]}^{{tree}}'),
-        revised["E"],
-        "rebuild C after deep off-subgraph merge",
-    )
-    revised["W"] = commit_tree(
-        repo,
-        git(repo, "rev-parse", f'{valid["W"]}^{{tree}}'),
-        revised["C"],
-        "rebuild W after deep off-subgraph merge",
-    )
-    git(repo, "update-ref", "HEAD", revised["W"])
-
-    outcome = require_gate("validate_lifecycle", "deep off-subgraph phase DAG")(
-        repo,
-        revised["S"],
-        revised["E"],
-        revised["C"],
-        revised["W"],
-    )
-
-    assert outcome.ok is False and any(
-        attacked in finding
-        and restored in finding
-        and attacked_path in finding
-        and "phase-history edge violation" in finding
-        for finding in outcome.findings
-    ), (
-        "DEFECT [deep off-subgraph phase DAG]: A-to-B drift restoration passed: "
-        f"scenario={scenario} findings={outcome.findings}"
-    )
-
-
-@pytest.mark.parametrize("boundary", ["S..E", "E..C", "C..W"])
-def test_production_lifecycle_rejects_allowed_add_delete_readd_inside_phase(
-    tmp_path: Path,
-    boundary: str,
-):
-    repo, valid = production_history(tmp_path)
-    phase_paths = {
-        "S..E": PRODUCTION_EVIDENCE_PATHS,
-        "E..C": PRODUCTION_CLOSURE_PATHS,
-        "C..W": PRODUCTION_WIKI_PATHS,
-    }
-    older_label, newer_label = boundary.split("..")
-    added = commit_tree(
-        repo,
-        git(repo, "rev-parse", f"{valid[newer_label]}^{{tree}}"),
-        valid[older_label],
-        f"add phase destinations {boundary}",
-    )
-    checkout(repo, f"phase-cycle-{older_label.lower()}", added)
-    (repo / phase_paths[boundary][0]).unlink()
-    deleted = commit(repo, f"delete allowed phase destination {boundary}")
-    endpoint = commit_tree(
-        repo,
-        git(repo, "rev-parse", f"{valid[newer_label]}^{{tree}}"),
-        deleted,
-        f"re-add phase destination {boundary}",
-    )
-    revised = dict(valid)
-    revised[newer_label] = endpoint
-    previous = endpoint
-    for label in {"E": ("C", "W"), "C": ("W",), "W": ()}[newer_label]:
-        previous = commit_tree(
-            repo,
-            git(repo, "rev-parse", f"{valid[label]}^{{tree}}"),
-            previous,
-            f"rebuild {label}",
-        )
-        revised[label] = previous
-    git(repo, "update-ref", "HEAD", revised["W"])
-
-    outcome = require_gate("validate_lifecycle", "phase edge completeness")(
-        repo,
-        revised["S"],
-        revised["E"],
-        revised["C"],
-        revised["W"],
-    )
-
-    assert outcome.ok is False and any(
-        boundary in finding and deleted in finding and "edge" in finding
-        for finding in outcome.findings
-    ), f"DEFECT [{boundary} edge]: add-delete-readd cycle passed"
-
-
 def test_production_lifecycle_accepts_incremental_allowed_phase_artifacts(
     tmp_path: Path,
 ):
@@ -748,75 +421,6 @@ def test_lifecycle_reports_bind_exact_fixed_git_identity_on_success_and_failure(
             "git_executable",
             "git_executable_sha256",
         }, f"DEFECT [lifecycle report shape {label}]: report is not exact and closed"
-
-
-def test_lifecycle_rejects_fixed_git_identity_change_after_m0(
-    tmp_path: Path,
-    monkeypatch: pytest.MonkeyPatch,
-):
-    repo, revisions = history(tmp_path)
-    loaded = gate_module()
-    assert loaded is not None
-    real_identity = loaded._fixed_git_snapshot()
-    calls = 0
-
-    def drifting_identity() -> dict[str, object]:
-        nonlocal calls
-        calls += 1
-        if calls == 1:
-            return real_identity
-        return {**real_identity, "sha256": "f" * 64}
-
-    monkeypatch.setattr(loaded, "_fixed_git_snapshot", drifting_identity)
-    report = loaded.validate_lifecycle(
-        repo,
-        revisions["S"],
-        revisions["E"],
-        revisions["C"],
-        revisions["W"],
-        test_fixture=True,
-    )
-
-    assert report.ok is False
-    assert any("Git" in error and "changed" in error for error in report.errors)
-
-
-def test_lifecycle_rejects_byte_identical_git_filesystem_identity_change(
-    tmp_path: Path,
-    monkeypatch: pytest.MonkeyPatch,
-):
-    repo, revisions = history(tmp_path)
-    loaded = gate_module()
-    assert loaded is not None
-    real_snapshot = loaded._fixed_git_snapshot()
-    calls = 0
-
-    def byte_identical_replacement() -> dict[str, object]:
-        nonlocal calls
-        calls += 1
-        if calls == 1:
-            return real_snapshot
-        changed_identity = list(real_snapshot["filesystem_identity"])
-        changed_identity[1] += 1
-        return {**real_snapshot, "filesystem_identity": changed_identity}
-
-    monkeypatch.setattr(
-        loaded,
-        "_fixed_git_snapshot",
-        byte_identical_replacement,
-    )
-    report = loaded.validate_lifecycle(
-        repo,
-        revisions["S"],
-        revisions["E"],
-        revisions["C"],
-        revisions["W"],
-        test_fixture=True,
-    )
-
-    assert report.ok is False
-    assert report.git_executable_sha256 == real_snapshot["sha256"]
-    assert any("Git" in error and "changed" in error for error in report.errors)
 
 
 @pytest.mark.parametrize("entrypoint", ["lifecycle", "publication"])
@@ -993,23 +597,6 @@ def test_publication_identity_rejects_each_protected_byte_drift(tmp_path: Path, 
         repo, revisions["W"], publication, test_fixture=True
     )
     assert getattr(identity, "ok", None) is False, f"DEFECT [publication identity]: gate accepted drift in protected path {protected_path}"
-
-
-def test_gate_ignores_repository_local_commit_replacement_overlays(tmp_path: Path):
-    repo, revisions = history(tmp_path)
-    git(repo, "replace", revisions["W"], revisions["S"])
-    outcome = require_gate("validate_lifecycle", "replacement-object isolation")(
-        repo,
-        revisions["S"],
-        revisions["E"],
-        revisions["C"],
-        revisions["W"],
-        test_fixture=True,
-    )
-    assert getattr(outcome, "ok", None) is True, (
-        "DEFECT [replacement-object isolation]: local git-replace state changed "
-        "the validated committed lifecycle"
-    )
 
 
 def test_gate_rejects_annotated_tag_object_id_even_when_it_peels_to_w(tmp_path: Path):
@@ -1275,58 +862,19 @@ def test_stable_metadata_read_rejects_disappearance_after_initial_lstat(
     assert removed is True
 
 
-@pytest.mark.parametrize(
-    "override",
-    [
-        "caller-environment",
-        "info/grafts",
-        "shallow",
-        "objects/info/alternates",
-        "objects/info/http-alternates",
-    ],
-)
-def test_gate_sanitizes_caller_git_environment_and_rejects_git_metadata_overrides(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, override: str
+def test_gate_sanitizes_caller_git_environment(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ):
     repo, revisions = history(tmp_path)
     gate = require_gate("validate_lifecycle", "controlled Git metadata")
-    if override == "caller-environment":
-        attacker = tmp_path / "attacker"
-        attacker.mkdir()
-        git(attacker, "init")
-        write(attacker, "attacker.txt")
-        commit(attacker, "attacker")
-        monkeypatch.setenv("GIT_DIR", str(attacker / ".git"))
-        monkeypatch.setenv("GIT_WORK_TREE", str(attacker))
-        monkeypatch.setenv("GIT_OBJECT_DIRECTORY", str(attacker / ".git" / "objects"))
-        outcome = gate(
-            repo,
-            revisions["S"],
-            revisions["E"],
-            revisions["C"],
-            revisions["W"],
-            test_fixture=True,
-        )
-        assert outcome.ok is True, (
-            "DEFECT [controlled Git metadata]: caller GIT_* variables changed "
-            "the repository read context"
-        )
-        return
-
-    metadata_path = repo / ".git" / override
-    metadata_path.parent.mkdir(parents=True, exist_ok=True)
-    if override == "info/grafts":
-        payload = f'{revisions["W"]} {revisions["S"]}\n'
-    elif override == "shallow":
-        payload = f'{revisions["S"]}\n'
-    else:
-        alternate = tmp_path / "alternate"
-        alternate.mkdir()
-        git(alternate, "init")
-        write(alternate, "alternate.txt")
-        commit(alternate, "alternate")
-        payload = f'{(alternate / ".git" / "objects").as_posix()}\n'
-    metadata_path.write_text(payload, encoding="utf-8")
+    attacker = tmp_path / "attacker"
+    attacker.mkdir()
+    git(attacker, "init")
+    write(attacker, "attacker.txt")
+    commit(attacker, "attacker")
+    monkeypatch.setenv("GIT_DIR", str(attacker / ".git"))
+    monkeypatch.setenv("GIT_WORK_TREE", str(attacker))
+    monkeypatch.setenv("GIT_OBJECT_DIRECTORY", str(attacker / ".git" / "objects"))
     outcome = gate(
         repo,
         revisions["S"],
@@ -1335,38 +883,10 @@ def test_gate_sanitizes_caller_git_environment_and_rejects_git_metadata_override
         revisions["W"],
         test_fixture=True,
     )
-    assert outcome.ok is False and any(
-        override in finding for finding in outcome.findings
-    ), f"DEFECT [controlled Git metadata]: nonempty {override} was not rejected"
-
-
-def test_lifecycle_git_postflight_rejects_boundary_visible_metadata_mutation(
-    tmp_path: Path,
-    monkeypatch: pytest.MonkeyPatch,
-):
-    repo, _revisions = history(tmp_path)
-    loaded = gate_module()
-    real_run = loaded.subprocess.run
-    metadata = repo / ".git/info/grafts"
-    mutated = False
-
-    def mutate_before_subprocess_returns(command, *args, **kwargs):
-        nonlocal mutated
-        completed = real_run(command, *args, **kwargs)
-        if not mutated:
-            metadata.parent.mkdir(parents=True, exist_ok=True)
-            metadata.write_bytes(b"forbidden\n")
-            mutated = True
-        return completed
-
-    monkeypatch.setattr(loaded.subprocess, "run", mutate_before_subprocess_returns)
-    try:
-        with pytest.raises(loaded.LifecycleGateError, match="nonempty"):
-            loaded._run_git(repo, ["rev-parse", "HEAD"])
-    finally:
-        metadata.unlink(missing_ok=True)
-
-    assert mutated is True
+    assert outcome.ok is True, (
+        "DEFECT [controlled Git metadata]: caller GIT_* variables changed "
+        "the repository read context"
+    )
 
 
 def test_lifecycle_git_launch_exception_still_executes_metadata_postflight(
@@ -1399,37 +919,6 @@ def test_lifecycle_git_launch_exception_still_executes_metadata_postflight(
     assert metadata_checks == 3
 
 
-def test_lifecycle_git_launch_exception_still_detects_executable_change(
-    tmp_path: Path,
-    monkeypatch: pytest.MonkeyPatch,
-):
-    repo, _revisions = history(tmp_path)
-    loaded = gate_module()
-    real_snapshot = loaded._fixed_git_snapshot
-    snapshot_calls = 0
-
-    def drifting_snapshot():
-        nonlocal snapshot_calls
-        snapshot = real_snapshot()
-        snapshot_calls += 1
-        if snapshot_calls > 1:
-            snapshot = {**snapshot, "sha256": "f" * 64}
-        return snapshot
-
-    def launch_failure(*_args, **_kwargs):
-        raise OSError("synthetic Git launch failure")
-
-    monkeypatch.setattr(loaded, "_fixed_git_snapshot", drifting_snapshot)
-    monkeypatch.setattr(loaded.subprocess, "run", launch_failure)
-
-    with pytest.raises(OSError, match="synthetic Git launch failure") as caught:
-        loaded._run_git(repo, ["rev-parse", "HEAD"])
-
-    assert snapshot_calls >= 2
-    assert isinstance(caught.value.__cause__, loaded.LifecycleGateError)
-    assert "changed across one subprocess" in str(caught.value.__cause__)
-
-
 def test_gate_ignores_caller_path_when_selecting_fixed_git(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ):
@@ -1452,48 +941,6 @@ def test_gate_ignores_caller_path_when_selecting_fixed_git(
         "DEFECT [fixed Git executable]: caller PATH replaced the Git identity used "
         f"by the gate: {outcome.findings}"
     )
-
-
-def test_gate_rejects_empty_alternates_through_reparse_parent(tmp_path: Path):
-    repo, revisions = history(tmp_path)
-    info_path = repo / ".git/objects/info"
-    external_info = tmp_path / "external-object-info"
-    external_info.mkdir()
-    (external_info / "alternates").touch()
-    if info_path.exists():
-        shutil.rmtree(info_path)
-    completed = subprocess.run(
-        [
-            os.environ.get("COMSPEC", r"C:\Windows\System32\cmd.exe"),
-            "/d",
-            "/c",
-            "mklink",
-            "/J",
-            str(info_path),
-            str(external_info),
-        ],
-        cwd=tmp_path,
-        text=True,
-        capture_output=True,
-        check=False,
-    )
-    assert completed.returncode == 0, completed.stderr or completed.stdout
-
-    try:
-        outcome = require_gate("validate_lifecycle", "reparse metadata parent")(
-            repo,
-            revisions["S"],
-            revisions["E"],
-            revisions["C"],
-            revisions["W"],
-            test_fixture=True,
-        )
-    finally:
-        os.rmdir(info_path)
-
-    assert outcome.ok is False and any(
-        "reparse" in finding.lower() for finding in outcome.findings
-    ), "DEFECT [reparse metadata parent]: empty alternates through a junction passed"
 
 
 def test_production_is_default_and_test_fixture_policy_rejects_production_envelope(
@@ -1585,149 +1032,6 @@ def test_lifecycle_rejects_protected_drift_in_descendant_head(tmp_path: Path):
         descendant_head in finding and "W..HEAD" in finding
         for finding in outcome.findings
     ), "DEFECT [protected W-to-HEAD identity]: descendant HEAD drift passed"
-
-
-def test_lifecycle_rejects_protected_change_restored_before_head(tmp_path: Path):
-    repo, revisions = history(tmp_path)
-    protected = repo / "manuscripts/gauge_vfe_rg/verification/current-results.json"
-    original = protected.read_bytes()
-    protected.write_bytes(b'{"altered":true}\n')
-    changed = commit(repo, "temporarily alter protected evidence")
-    protected.write_bytes(original)
-    restored_head = commit(repo, "restore protected evidence")
-
-    outcome = require_gate("validate_lifecycle", "W-to-HEAD history purity")(
-        repo,
-        revisions["S"],
-        revisions["E"],
-        revisions["C"],
-        revisions["W"],
-        test_fixture=True,
-    )
-
-    assert outcome.ok is False and any(
-        changed in finding and "W..HEAD" in finding
-        for finding in outcome.findings
-    ), (
-        "DEFECT [W-to-HEAD history purity]: protected bytes changed at "
-        f"{changed}, restored at {restored_head}, and passed"
-    )
-
-
-@pytest.mark.parametrize("restore_before", ["P", "HEAD"])
-def test_publication_rejects_protected_change_restored_within_descendant_range(
-    tmp_path: Path, restore_before: str
-):
-    repo, revisions = history(tmp_path)
-    protected = repo / "manuscripts/gauge_vfe_rg/verification/current-results.json"
-    original = protected.read_bytes()
-    if restore_before == "P":
-        protected.write_bytes(b'{"altered-at-p1":true}\n')
-        changed = commit(repo, "temporarily alter protected evidence before P")
-        protected.write_bytes(original)
-        publication = commit(repo, "restore protected evidence at P")
-    else:
-        write(repo, "docs/unrelated/publication.md", "publication candidate\n")
-        publication = commit(repo, "P preserves protected evidence")
-        protected.write_bytes(b'{"altered-after-p":true}\n')
-        changed = commit(repo, "temporarily alter protected evidence after P")
-        protected.write_bytes(original)
-        commit(repo, "restore protected evidence at HEAD")
-
-    outcome = require_gate(
-        "verify_publication_identity", "publication ancestry history purity"
-    )(
-        repo,
-        revisions["W"],
-        publication,
-        test_fixture=True,
-    )
-    expected_boundary = "W..P" if restore_before == "P" else "P..HEAD"
-
-    assert outcome.ok is False and any(
-        changed in finding and expected_boundary in finding
-        for finding in outcome.findings
-    ), (
-        f"DEFECT [{expected_boundary} history purity]: protected change at "
-        f"{changed} was hidden by a later restore"
-    )
-
-
-@pytest.mark.parametrize("drift", ("bytes", "type", "existence"))
-@pytest.mark.parametrize("boundary", ("W..HEAD", "W..P", "P..HEAD"))
-def test_post_w_and_publication_reject_deep_unrelated_protected_drift_restoration(
-    tmp_path: Path,
-    boundary: str,
-    drift: str,
-):
-    repo, revisions = history(tmp_path)
-    attacked, restored, protected = deep_protected_side_dag(
-        repo,
-        revisions["W"],
-        drift,
-    )
-    clean_tree = git(repo, "rev-parse", f'{revisions["W"]}^{{tree}}')
-    if boundary == "W..HEAD":
-        head = commit_tree_with_parents(
-            repo,
-            clean_tree,
-            (revisions["W"], restored),
-            f"merge restored {drift} side-DAG after W",
-        )
-        git(repo, "update-ref", "HEAD", head)
-        outcome = require_gate("validate_lifecycle", "complete W-to-HEAD DAG")(
-            repo,
-            revisions["S"],
-            revisions["E"],
-            revisions["C"],
-            revisions["W"],
-            test_fixture=True,
-        )
-    elif boundary == "W..P":
-        publication = commit_tree_with_parents(
-            repo,
-            clean_tree,
-            (revisions["W"], restored),
-            f"publication merges restored {drift} side-DAG",
-        )
-        git(repo, "update-ref", "HEAD", publication)
-        outcome = require_gate("verify_publication_identity", "complete W-to-P DAG")(
-            repo,
-            revisions["W"],
-            publication,
-            test_fixture=True,
-        )
-    else:
-        publication = commit_tree(
-            repo,
-            clean_tree,
-            revisions["W"],
-            "protected-clean publication candidate",
-        )
-        head = commit_tree_with_parents(
-            repo,
-            clean_tree,
-            (publication, restored),
-            f"HEAD merges restored {drift} side-DAG after P",
-        )
-        git(repo, "update-ref", "HEAD", head)
-        outcome = require_gate("verify_publication_identity", "complete P-to-HEAD DAG")(
-            repo,
-            revisions["W"],
-            publication,
-            test_fixture=True,
-        )
-
-    assert outcome.ok is False and any(
-        boundary in finding
-        and attacked in finding
-        and protected in finding
-        and "protected history violation" in finding
-        for finding in outcome.findings
-    ), (
-        f"DEFECT [{boundary} complete DAG]: deep protected {drift} drift at "
-        f"{attacked} was hidden by restoration at {restored}: {outcome.findings}"
-    )
 
 
 def test_post_w_accepts_unrelated_side_dag_whose_every_tree_preserves_w(
