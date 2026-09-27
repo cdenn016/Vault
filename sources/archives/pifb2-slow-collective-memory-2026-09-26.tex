@@ -1,0 +1,73 @@
+\subsection{A collective slow coordinate in one statistical state}
+\label{sec:slow_collective_memory_graph}
+
+A joint statistical description can support fast internal adjustment and a slower collective belief without introducing a second bundle or a mechanical momentum. The following exact example specifies where this separation comes from. Work at one base point with a fixed connected undirected network of $N\geq2$ nodes. Let $W_{ij}=W_{ji}\geq0$, $W_{ii}=0$, and suppose every weighted degree is the same positive number $d=\sum_jW_{ij}$. Its graph Laplacian is $L=dI-W$, with eigenvalues $0=\lambda_1<\lambda_2\leq\cdots\leq\lambda_N$. For supplied constants $\epsilon,k>0$, set
+\begin{equation}
+ H=\epsilon I+kL,\qquad
+ p(z)=\frac{\det(H)^{1/2}}{(2\pi)^{N/2}}
+       \exp\left(-\frac12z^THz\right),\qquad z\in\mathbb R^N.
+ \label{eq:collective_memory_target}
+\end{equation}
+Thus $p=\mathcal N(0,H^{-1})$ is a normalized, correlated prior. There are no observations in this example. Equivalently, the normalized VFE below is the complexity contribution of an unobserved model. The graph and the weak collective curvature $\epsilon$ are inputs, not inferred here.
+
+Restrict the joint belief to the node-factorized family
+\begin{equation}
+ q(z)=\prod_{i=1}^N\mathcal N(z_i;\mu_i,s_i),\qquad
+ (\mu,s)\in\mathbb R^N\times(0,\infty)^N.
+ \label{eq:collective_memory_family}
+\end{equation}
+For this single joint state, the exact normalized VFE is
+\begin{equation}
+ \mathcal F_V=\mathrm{KL}(q\Vert p)
+ =\frac12\left[
+   \mu^TH\mu+\sum_iH_{ii}s_i-N
+   -\log\det H-\sum_i\log s_i
+ \right].
+ \label{eq:collective_memory_vfe}
+\end{equation}
+Use continuous natural-gradient descent with one common rate $\eta>0$ and the Fisher metric of the specified product family. Its mean and variance blocks are $G_{\mu_i\mu_i}=s_i^{-1}$ and $G_{s_is_i}=(2s_i^2)^{-1}$, with zero cross-block terms. In particular, the covariance convention is $\dot\Sigma=-2\eta\Sigma(\partial_\Sigma\mathcal F_V)\Sigma$ before restriction to diagonal coordinates. Differentiating the displayed VFE gives the exact equations
+\begin{equation}
+ \dot\mu=-\eta\operatorname{diag}(s_i)H\mu,\qquad
+ \dot s_i=\eta(s_i-H_{ii}s_i^2).
+ \label{eq:collective_memory_flow}
+\end{equation}
+There is no stochastic forcing or temporal discretization in this construction. Its time parameter is the supplied learning time. Along its solutions,
+\begin{equation}
+ \frac{d\mathcal F_V}{dt}
+ =-\eta\sum_i s_i(\partial_{\mu_i}\mathcal F_V)^2
+   -2\eta\sum_i s_i^2(\partial_{s_i}\mathcal F_V)^2\leq0.
+ \label{eq:collective_memory_dissipation}
+\end{equation}
+
+Regularity of the graph makes every diagonal entry $H_{ii}=\alpha:=\epsilon+kd$ equal. The precision variables $h_i=s_i^{-1}$ solve
+\begin{equation}
+ \dot h_i=\eta(\alpha-h_i),\qquad
+ h_i(t)=\alpha+[h_i(0)-\alpha]e^{-\eta t}.
+ \label{eq:collective_memory_precision}
+\end{equation}
+For every positive initial variance this remains positive for all $t\geq0$, and hence defines a global positive variance solution. The mean equation is then a linear equation with continuous bounded coefficients on every finite time interval, so the full solution exists uniquely for all $t\geq0$. The covariance manifold $s_i=\alpha^{-1}$ is invariant. On that manifold,
+\begin{equation}
+ \dot\mu=-\frac\eta\alpha(\epsilon I+kL)\mu.
+ \label{eq:collective_memory_linear}
+\end{equation}
+Choose an orthonormal eigenbasis $v_j$ of $L$, with $v_1=N^{-1/2}\boldsymbol1$. Each coordinate $a_j=v_j^T\mu$ then satisfies the exact law
+\begin{equation}
+ a_j(t)=a_j(0)\exp\left[-\frac{\eta(\epsilon+k\lambda_j)}{\epsilon+kd}t\right].
+ \label{eq:collective_memory_modes}
+\end{equation}
+In particular, the collective mean $X=N^{-1}\sum_i\mu_i$ obeys
+\begin{equation}
+ \dot X=-\frac{\eta\epsilon}{\epsilon+kd}X,\qquad
+ \frac{\tau_{\mathrm{collective}}}{\tau_{\mathrm{internal}}}
+ =\frac{\epsilon+k\lambda_2}{\epsilon}.
+ \label{eq:collective_memory_separation}
+\end{equation}
+Here $\tau_{\mathrm{internal}}=(\epsilon+kd)/[\eta(\epsilon+k\lambda_2)]$ is the longest relaxation time among mean modes orthogonal to $\boldsymbol1$. Consequently, for any requested factor $R>1$, the separation is at least $R$ whenever $k\lambda_2\geq(R-1)\epsilon$. Equal initial variances away from the invariant manifold retain these eigenvectors with a time-dependent common rate. Unequal variances generally prevent an autonomous equation for $X$ during the covariance transient. On an irregular graph the diagonal fixed variances differ, so the simple arithmetic-mean law above is not claimed.
+
+The separation also depends on the variational family. If instead $q$ is an unrestricted full Gaussian and its covariance starts at $\Sigma=H^{-1}$, then
+\begin{equation}
+ \dot\Sigma=\eta(\Sigma-\Sigma H\Sigma)=0,\qquad
+ \dot\mu=-\eta\Sigma H\mu=-\eta\mu.
+ \label{eq:collective_memory_full_family}
+\end{equation}
+Every mean direction now relaxes at rate $\eta$, despite the identical correlated target. In the factorized family, local Fisher resistance cannot cancel the target's off-diagonal curvature; the weaker collective restoring direction therefore remains slow. This supplies a conditional mechanism for a persistent collective belief within one statistical state. It does not select the network, the factorization, or the collective observable, establish recursive agent formation, or derive Newtonian inertia. Those require further structure and evidence.

@@ -12,7 +12,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-07-25
-updated: 2026-07-25
+updated: 2026-09-27
 ---
 
 # Diagonal truncation as gauge regularization
@@ -80,7 +80,7 @@ The frame table receives no gradient at all. Closure is bought by making the gau
 an ablation rather than a fix.
 
 > [!note] Editorial: this page generalizes a measured result in one codebase into a design
-> principle. The measurements are in [[2026-07-25-exact-congruence-truncation-tension]]; the claim
+> principle. The measurements come from the 2026-07-25 exact-congruence training arms; the claim
 > that the same tension holds for any non-compact structure group with a congruence-transported
 > divergence is an argument from the $\mathrm{cond}(\Omega)^2$ scaling of the Gaussian KL trace
 > term, not a theorem with an independent published source.
@@ -110,9 +110,6 @@ whole covariance, at cubic cost.
 
 ## Sources
 
-- [[2026-07-25-exact-congruence-truncation-tension]] — the measurements and both family
-  implementations
-- [[2026-06-21-k160-hyperprior-saturation]] — the original clamp-saturation instance
 - [[gl-k-attention]] — the congruence action and the $\mathrm{GL}(K)$ invariance theorem the exact
   identity relies on
 - [[pennec-2006-affine-invariant-tensor]] · [[bhatia-2007-positive-definite-matrices]] — the

@@ -1,0 +1,874 @@
+\chapter{Coarse Channels}
+\label{ch:coarsegraining}
+
+Part II asks what a coarse description of the agent network at $c_*$ keeps of the joint of
+\Cref{ch:generative}, of its posterior, and of a recognition law. For one coarse channel the answer
+is \Cref{thm:rg-exact-coarse-vfe}: a channel that pushes all three laws preserves the evidence and
+the posterior version, and splits the free energy into the coarse free energy plus the expected
+relative entropy of the discarded conditional laws. \Cref{thm:rg-pointwise-parent-datum}
+specializes it to a candidate parent of a block of agents, and the exact results of
+\Cref{ch:network-state,ch:agent-network-rg,ch:full-graph-meta-agent-vfe,ch:finite-depth-formation}
+rest on both. The chapter also separates Markov pushforward, precomposition, and Galerkin
+restriction (\Cref{sec:cg-three-operations}) and closes with finite labeled families, in which a
+retained label carries information of order $N^2$ at a tie among $N$ agents
+(\Cref{sec:cg-retained-label-asymptotics}). Fisher contraction under a channel is
+\Cref{thm:cg-fisher-contraction} and is not restated. The longer proofs of the chapter are
+deferred to \cref{app:deferred-proofs}.
+
+\paragraph{Scope.} The common-channel identity concerns one channel applied to all three laws with
+the observation unchanged. It does not compare different generative and recognition channels, a
+coarse joint fitted rather than pushed forward, or a channel that also coarsens the observation, even
+an invertible or evidence-sufficient one, because each changes the comparison target or the evidence
+event; nor is a Fisher tensor of a labeled family used as the metric of a dynamics.
+\status{NOT-CLAIMED} A natural selector of partitions or membership laws is
+\Cref{open:cg-natural-selector}, and equivariant Bayes versions beyond the finite and compact cases
+are \Cref{open:cg-equivariant-versions}.
+
+\section{Markov coarse maps}
+\label{sec:cg-markov-category}
+
+\definitionheading{Coarse channel}{def:cg-coarse-channel}
+\label{eq:cg-markov-pushforward}
+A coarse channel between standard Borel spaces $\mathsf X$ and $\mathsf Y$ is a Markov kernel
+$K:\mathsf X\rightsquigarrow\mathsf Y$ in the sense of \Cref{sec:intro-conventions}. It sends a law
+$P$ on $\mathsf X$ to $(PK)(B)=\int_{\mathsf X}K(x,B)P(dx)$ and a statistical experiment
+$(\mathsf X,\{P_\theta\}_{\theta\in\Theta})$ to $(\mathsf Y,\{P_\theta K\}_{\theta\in\Theta})$. A
+measurable statistic $c:\mathsf X\to\mathsf Y$ is the deterministic kernel
+$K_c(x,B)=\mathbf 1_B(c(x))$. A family $K_\theta$ that varies with the parameter is a
+parameter-dependent model transformation, not one channel between experiments.
+
+\propositionheading{Markov kernels form a category}{prop:cg-markov-category}
+\label{eq:cg-kernel-composition}
+If $K:\mathsf X\rightsquigarrow\mathsf Y$ and $L:\mathsf Y\rightsquigarrow\mathsf Z$ are Markov
+kernels, then $(KL)(x,D)=\int_{\mathsf Y}L(y,D)K(x,dy)$ is a Markov kernel, composition is
+associative with the deterministic identity as unit, and
+\begin{equation}
+P(KL)=(PK)L
+\label{eq:cg-law-functor}
+\end{equation}
+for every law $P$ on $\mathsf X$. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Kernel integration gives measurability in $x$, and monotone convergence gives countable additivity
+in $D$. By Tonelli's theorem $[P(KL)](D)=\int_{\mathsf X}\int_{\mathsf Y}L(y,D)K(x,dy)P(dx)$, which
+equals $\int_{\mathsf Y}L(y,D)(PK)(dy)$; this is \eqref{eq:cg-law-functor}, and applied to point
+masses and a third kernel it proves associativity. These are the morphisms and the composition of
+the Kleisli category of the Giry probability monad \citep{Giry1982}. $\square$
+
+\section{KL contraction, equality, and recovery}
+\label{sec:cg-kl-recovery}
+
+Every Markov kernel contracts relative entropy in $[0,+\infty]$ (\Cref{thm:cg-kl-dpi-extended});
+the equality case needs finiteness.
+
+\theoremheading{Data processing with its exact equality condition}{thm:cg-dpi-equality}
+\label{eq:cg-kl-dpi}
+\label{eq:cg-kl-equality}
+Let $P,Q$ be laws on $\mathsf X$ with $P\ll Q$ and $\KL(P\Vert Q)<\infty$, let
+$K:\mathsf X\rightsquigarrow\mathsf Y$ be a Markov kernel, and put $\mathbb J(dx,dy)=Q(dx)K(x,dy)$,
+$r=dP/dQ$, and $\bar r(y)=\E_{\mathbb J}[r(X)\given Y=y]$. Then $d(PK)/d(QK)=\bar r$ and
+$\KL(PK\Vert QK)\leq\KL(P\Vert Q)$, with equality exactly when $r(X)=\bar r(Y)$
+$\mathbb J$-almost surely. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+For bounded measurable $f$ on $\mathsf Y$,
+$\int f d(PK)=\E_{\mathbb J}[f(Y)r(X)]=\E_{\mathbb J}[f(Y)\bar r(Y)]$, which is the
+Radon-Nikodym formula. Conditional Jensen for the strictly convex function $t\mapsto t\log t$
+gives $\E_{\mathbb J}[\bar r(Y)\log\bar r(Y)]\leq\E_{\mathbb J}[r(X)\log r(X)]$, and finite divergence
+and strict convexity make equality equivalent to $r(X)=\bar r(Y)$ almost surely. This is the
+information-loss theorem of \citet{Kullback1951,Csiszar1967} in kernel form. $\square$
+
+\corollaryheading{Pairwise Bayes recovery}{cor:cg-pairwise-bayes-recovery}
+In the setting of \Cref{thm:cg-dpi-equality}, let $R_Q(y,dx)$ be a regular conditional law of $X$
+given $Y=y$ under $\mathbb J$. Then $QKR_Q=Q$, and at equality in the data-processing inequality
+also $PKR_Q=P$. Conversely, any one Markov kernel $R$ that recovers both $P$ and $Q$ forces that
+equality. For a dominated experiment $\{P_\theta\}$ with one common dominating law $P_0$,
+simultaneous finite equalities $\KL(P_\theta K\Vert P_0K)=\KL(P_\theta\Vert P_0)$ for every $\theta$
+make the single kernel $R_{P_0}$ recover every $P_\theta$. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Disintegration gives $QKR_Q=Q$. At equality,
+$(PKR_Q)(A)=\int\bar r(y)R_Q(y,A)(QK)(dy)=\iint\mathbf 1_A(x)r(x)\mathbb J(dx,dy)=P(A)$. The converse
+follows by data processing through $K$ and then through $R$, and the family statement is the pairwise
+statement with $Q=P_0$ for each $\theta$. This is the commutative case of the channel-sufficiency
+theorem of \citet{Petz1988}, whose reference-dependent reverse map is here the Bayes kernel $R_Q$.
+$\square$
+
+\corollaryheading{Infinite equality carries no recovery conclusion}{cor:cg-dpi-infinite-equality-warning}
+The finiteness hypothesis of \Cref{thm:cg-dpi-equality} cannot be removed from its equality
+characterization: $\KL(PK\Vert QK)=\KL(P\Vert Q)=+\infty$ does not imply that one reverse kernel
+recovers $P$ and $Q$. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Let $\mathsf X=\{a,b,c\}$ and $\mathsf Y=\{u,v\}$, let the deterministic channel send $a$ to $u$
+and $b,c$ to $v$, and set $P=\tfrac12\delta_a+\tfrac12\delta_b$ and
+$Q=\tfrac12\delta_b+\tfrac12\delta_c$. Both divergences are $+\infty$, because $P(a)>0=Q(a)$ and
+$(PK)(u)>0=(QK)(u)$. A reverse kernel $R$ recovering $Q$ has $R(v,\cdot)=Q$, since $QK=\delta_v$;
+then $(PK)R=\tfrac12R(u,\cdot)+\tfrac12Q$ assigns at least $1/4$ to $c$, while $P(c)=0$. $\square$
+
+\section{The common-channel VFE identity and the pointwise parent datum}
+\label{sec:cg-elbo}
+\label{sec:rg-law-level-vfe}
+\label{eq:rg-coarse-channel}
+
+Fix the joint $\mathbb P(do,dy)$ on $\mathsf O\times\mathsf Y$ of \Cref{ch:generative} with
+$(\theta,V,X)$ suppressed, an admitted observation $o$ with evidence density representative $p(o)$,
+the selected posterior-version kernel $o\mapsto\boldsymbol\Pi_o$, a recognition law $\mathbb Q_o$ on
+$\mathsf Y$, and a coarse channel $C:\mathsf Y\rightsquigarrow\mathsf Z$ on the latent coordinates,
+which reads neither $\mathbb Q_o$ nor the observation. The common pushforward of the three laws is
+\begin{equation}
+\mathbb P^c(do,dz)=\int_{\mathsf Y}C(y,dz)\mathbb P(do,dy),
+\qquad
+\boldsymbol\Pi^c_o=\boldsymbol\Pi_oC,
+\qquad
+\mathbb Q^c_o=\mathbb Q_oC,
+\label{eq:rg-common-pushforward}
+\end{equation}
+and free energies are the extended values $\Fenergy_{\mathbb P}(\mathbb Q_o)=-\log p(o)
++\KL(\mathbb Q_o\Vert\boldsymbol\Pi_o)$ of \Cref{def:elbo-extended}, defined for every law on the
+latent space.
+
+\theoremheading{Exact coarse VFE and discarded conditional information}{thm:rg-exact-coarse-vfe}
+\label{eq:rg-bridge-lifts}
+In the setting of \eqref{eq:rg-common-pushforward}, the following hold. (i) The law $\mathbb P^c$
+is normalized and has the observation marginal of $\mathbb P$, so the same evidence representative
+$p(o)$ serves both scales. The kernel $o\mapsto\boldsymbol\Pi_oC$ is a selected posterior version of
+$\mathbb P^c$, including at the exceptional observations of the fine version. If
+$\mathbb Q_o\ll\boldsymbol\Pi_o$, then $\mathbb Q^c_o\ll\boldsymbol\Pi^c_o$. (ii) With the bridge
+lifts $\widehat{\mathbb Q}_o(dy,dz)=\mathbb Q_o(dy)C(y,dz)$ and
+$\widehat{\boldsymbol\Pi}_o(dy,dz)=\boldsymbol\Pi_o(dy)C(y,dz)$ and their disintegrations over $z$,
+the free energies satisfy, in $(-\infty,+\infty]$ and with no absolute-continuity hypothesis,
+\begin{equation}
+\Fenergy_{\mathbb P}(\mathbb Q_o)
+=\Fenergy_{\mathbb P^c}(\mathbb Q^c_o)+\Delta(o),
+\qquad
+\Delta(o)=\int_{\mathsf Z}
+\KL\bigl(\widehat{\mathbb Q}_o(dy\given z)\Vert\widehat{\boldsymbol\Pi}_o(dy\given z)\bigr)
+\mathbb Q^c_o(dz)\in[0,+\infty],
+\label{eq:rg-vfe-chain-rule}
+\end{equation}
+so the fine free energy is at least the coarse one. (iii) $\Delta(o)=0$ exactly when the two
+discarded conditional laws in \eqref{eq:rg-vfe-chain-rule} agree $\mathbb Q^c_o$-almost surely.
+(iv) If $\KL(\mathbb Q_o\Vert\boldsymbol\Pi_o)<\infty$, then
+$\Fenergy_{\mathbb P}(\mathbb Q_o)-\Fenergy_{\mathbb P^c}(\mathbb Q^c_o)=\Delta(o)$ is an
+ordinary difference of real numbers, and $\Delta(o)=0$ exactly when one Markov kernel
+$R:\mathsf Z\rightsquigarrow\mathsf Y$ recovers both laws, $\mathbb Q^c_oR=\mathbb Q_o$ and
+$\boldsymbol\Pi^c_oR=\boldsymbol\Pi_o$. This recovery is pairwise; one kernel recovering every
+member of a family of laws requires the hypothesis for each member simultaneously.
+\status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-coarse-channels}.
+
+\corollaryheading{Evidence-preserving coarse channel}{thm:cg-evidence-preserving-channel}
+\label{eq:cg-fixed-joint-pushforward}
+In the setting of \Cref{thm:rg-exact-coarse-vfe}, $\mathbb P^c(do\times\mathsf Z)=\mathbb P(do\times\mathsf Y)$,
+$p^c(o)=p(o)$, and $\boldsymbol\Pi^c_o=\boldsymbol\Pi_oC$ for every declared $o$, and the extended ELBO
+of \Cref{def:elbo-extended} satisfies, in $[-\infty,\log p(o)]$,
+\begin{equation}
+\Lelbo^{\mathrm{ext}}_{\mathbb P^c}(\mathbb Q_oC)
+=\log p(o)-\KL(\mathbb Q_oC\Vert\boldsymbol\Pi_oC)
+\geq\log p(o)-\KL(\mathbb Q_o\Vert\boldsymbol\Pi_o)
+=\Lelbo^{\mathrm{ext}}_{\mathbb P}(\mathbb Q_o).
+\label{eq:cg-elbo-monotone}
+\end{equation}
+When the fine ELBO is finite, the difference of the two ELBOs is $\Delta(o)$: the rise is the
+discarded conditional information at unchanged evidence, neither model improvement nor evidence
+ascent. For two separately declared models with evidences $p_1(o),p_2(o)$ and finite gaps, the
+difference of their ELBOs is $\log p_1(o)-\log p_2(o)$ minus the difference of their gaps, so it
+compares variational tightness only when the evidences agree, as they do under one
+evidence-preserving common pushforward. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The first three identities are part (i) of the theorem. The inequality is data processing in
+$[0,+\infty]$ (\Cref{thm:cg-kl-dpi-extended}), and the difference is part (ii) written for
+$\Lelbo^{\mathrm{ext}}=-\Fenergy$. The statement on separately declared models is the gap identity
+of \Cref{thm:elbo-extended-gap} for each model. $\square$
+
+\remarkheading{Support boundaries of the discarded term}{rem:cg-support-boundaries}
+If $\mathbb Q_o\not\ll\boldsymbol\Pi_o$ while $\KL(\mathbb Q^c_o\Vert\boldsymbol\Pi^c_o)<\infty$,
+then the fine free energy is $+\infty$, the coarse one is finite, and $\Delta(o)=+\infty$. If
+$\mathbb Q^c_o\not\ll\boldsymbol\Pi^c_o$, both free energies are $+\infty$; the conditional law
+$\widehat{\boldsymbol\Pi}_o(dy\given z)$ is then undetermined on a $\mathbb Q^c_o$-positive set of
+targets, so $\Delta(o)$ depends there on an arbitrary version and the difference of the two
+infinite free energies is not a numerical loss. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+In the first case \eqref{eq:rg-vfe-chain-rule} reads $+\infty=\text{finite}+\Delta(o)$. In the
+second, a $\boldsymbol\Pi^c_o$-null set $B$ with $\mathbb Q^c_o(B)>0$ gives
+$\widehat{\mathbb Q}_o(\mathsf Y\times B)>0=\widehat{\boldsymbol\Pi}_o(\mathsf Y\times B)$, so both
+divergences are infinite, and a disintegration of $\widehat{\boldsymbol\Pi}_o$ over $z$ is
+determined only $\boldsymbol\Pi^c_o$-almost surely. $\square$
+
+\propositionheading{Stochastic loss and deterministic minimization}{prop:cg-stochastic-infimum}
+\label{eq:rg-thermo-finite-unwarranted-infimum}
+\label{eq:rg-thermo-finite-stochastic-infimum-witness}
+Let $\mathsf Y$ and $\mathsf Z$ be finite and write
+$\Fenergy^c(q')=-\log p(o)+\KL(q'\Vert\boldsymbol\Pi_oC)$ for a law $q'$ on $\mathsf Z$. (i) For a
+deterministic statistic $c:\mathsf Y\to\mathsf Z$ and $q'\ll c_\#\boldsymbol\Pi_o$, the fine law
+$\mathbb Q_*(y)=q'(c(y))\boldsymbol\Pi_o(y\given c(y))$, defined to be zero where $q'(c(y))=0$
+without evaluating a posterior fiber at a null target, has image $q'$ and satisfies
+$\Fenergy_{\mathbb P}(\mathbb Q_*)=\Fenergy^c(q')=\min\{\Fenergy_{\mathbb P}(\mathbb Q):
+\mathbb QK_c=q'\}$. (ii) For a stochastic channel the statement
+$\Fenergy^c(q')=\inf_{\mathbb Q:\mathbb QC=q'}\Fenergy_{\mathbb P}(\mathbb Q)$ can fail: with a
+one-point observation alphabet, $\boldsymbol\Pi_o=(1/2,1/2)$,
+$C=\begin{psmallmatrix}3/4&1/4\\1/4&3/4\end{psmallmatrix}$, $\mathbb Q=(1,0)$, and
+$q'=\mathbb QC=(3/4,1/4)$, the law $\mathbb Q$ is the only fine law with image $q'$, its free
+energy is $\log2$, the coarse free energy is $\tfrac34\log\tfrac32+\tfrac14\log\tfrac12$, and the gap
+is $2\log2-\tfrac34\log3>0$. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) Summing $\mathbb Q_*$ over a fiber $c^{-1}(z)$ with $q'(z)>0$ gives $q'(z)$, because the
+posterior fiber $\boldsymbol\Pi_o(\cdot\given z)$ is a law on $c^{-1}(z)$; so $\mathbb Q_*$ is a
+probability law with image $q'$. By \eqref{eq:rg-vfe-chain-rule}, every $\mathbb Q$ with image $q'$
+has $\Fenergy_{\mathbb P}(\mathbb Q)=\Fenergy^c(q')+\Delta\geq\Fenergy^c(q')$, and $\Delta=0$ for
+$\mathbb Q_*$ because its occupied reverse fibers are the posterior fibers. (ii) The matrix $C$ has
+determinant $1/2$, so $\mathbb Q$ is the unique probability vector with image $q'$. The evidence is
+one, $\boldsymbol\Pi_oC=(1/2,1/2)$, and direct evaluation gives the two free energies, whose
+difference $2\log2-\tfrac34\log3$ is positive because $2^8>3^3$. $\square$
+
+\corollaryheading{Full pointwise probabilistic datum for a candidate parent}{thm:rg-pointwise-parent-datum}
+\label{eq:rg-pointwise-parent-overlap}
+\label{eq:rg-pointwise-parent-space}
+\label{eq:rg-pointwise-parent-channel}
+\label{eq:rg-pointwise-parent-kl-chain}
+\label{eq:rg-pointwise-parent-defect}
+\label{eq:rg-pointwise-parent-evaluator}
+\label{eq:rg-pointwise-parent-evaluator-compatibility}
+\label{eq:rg-pointwise-parent-recognition-marginals}
+\label{eq:rg-pointwise-parent-prior-marginals}
+\label{eq:rg-pointwise-parent-posterior-marginals}
+Fix a nonempty finite block $I\subseteq V$ of agents with $c_*\in\bigcap_{i\in I}\mathcal C_i$, a
+parent label $A$, and structural data $X$ with $X_A=\chi_A(X)$ kept outside the random channel. Let
+the parent state space
+$\mathsf Z_A=\mathsf B_A\times\mathsf M_A\times\boldsymbol\Xi_A\times\mathsf H_A$ have nonempty
+standard Borel factors for parent belief samples, parent model presentations, the inputs read by
+the parent evaluator, and retained marks such as the rooted-holonomy and dressed-boundary data of
+\Cref{sec:rg-gauge-cross-scale}. Supply the joint $\mathbb P_I(do,dy\given X)$ of the block with
+its selected posterior-version kernel $o\mapsto\boldsymbol\Pi_{I,o,X}$, a recognition law
+$\mathbb Q_{I,o,X}\ll\boldsymbol\Pi_{I,o,X}$ at an admitted $o$, and one parent coarse kernel
+$C_A:\mathsf Y_I\rightsquigarrow\mathsf Z_A$, a declared input like $I$, not a canonical selection.
+Define
+\begin{align}
+\mathbb P_A(do,dz\given X)&=\int_{\mathsf Y_I}C_A(y,dz)\mathbb P_I(do,dy\given X),
+\label{eq:rg-pointwise-parent-generative}\\
+\boldsymbol\Pi_{A,o,X}=\boldsymbol\Pi_{I,o,X}C_A,&\qquad
+\mathbb Q_{A,o,X}=\mathbb Q_{I,o,X}C_A.
+\label{eq:rg-pointwise-parent-triple}
+\end{align}
+Then the following hold. (i) All three parent laws are normalized, the parent observation marginal
+and evidence equal the fine ones, $o\mapsto\boldsymbol\Pi_{A,o,X}$ is the selected parent posterior
+version, $\mathbb Q_{A,o,X}\ll\boldsymbol\Pi_{A,o,X}$, and in $[0,+\infty]$
+$\KL(\mathbb Q_{I,o,X}\Vert\boldsymbol\Pi_{I,o,X})
+=\KL(\mathbb Q_{A,o,X}\Vert\boldsymbol\Pi_{A,o,X})+\Delta_A(o,X)$, where $\Delta_A(o,X)\geq0$ is
+the discarded term $\Delta(o)$ of \eqref{eq:rg-vfe-chain-rule} for
+$\mathbb P=\mathbb P_I$ and $C=C_A$. Adding $-\log p_X(o)$ gives $\Fenergy_I=\Fenergy_A+\Delta_A$ in
+the extended reals, where a finite free energy may be negative. The zero-defect and recovery
+statements of \Cref{thm:rg-exact-coarse-vfe} hold with $C=C_A$; a bare equality
+$+\infty=+\infty$ supplies neither. (ii) The parent model coordinate is generative only through a
+jointly measurable normalized evaluator
+$\operatorname{ev}_A:\mathsf M_A\to\operatorname{Kern}(\boldsymbol\Xi_A,\mathsf B_A\times\mathsf
+O\times\mathsf H_A)$, $m_A\mapsto K^{X_A}_{A,m_A}$. A selected standard-Borel disintegration of
+$\mathbb P_A$ over $(m_A,\xi_A)$ supplies one such evaluator; an evaluator declared independently of
+$\mathbb P_A$ is compatible with it only under the separate hypothesis that
+$\mathbb P_A(db_A,do,dh_A\given\xi_A,m_A,X)=K^{X_A}_{A,m_A}(\xi_A;db_A,do,dh_A)$ almost surely for
+the parent $(m_A,\xi_A)$ marginal. Disintegration neither validates an arbitrary declared
+evaluator nor selects its null extension or makes evaluation injective. (iii) With
+$\mathbb P^Z_A(D\given X)=\mathbb P_A(\mathsf O\times D\given X)$, the parent recognition, prior, and
+posterior marginals in channel $x\in\{b,m\}$ are the coordinate pushforwards
+$q_A^x=(\operatorname{pr}_x)_\#\mathbb Q_{A,o,X}$,
+$p_A^x=(\operatorname{pr}_x)_\#\mathbb P^Z_A(\cdot\given X)$, and
+$\boldsymbol\Pi^x_{A,o,X}=(\operatorname{pr}_x)_\#\boldsymbol\Pi_{A,o,X}$. If both laws of a
+marginal pair are non-Dirac, or if $\boldsymbol\Xi_A\times\mathsf H_A$ has at least two points, the
+pair does not determine the full law on $\mathsf Z_A$. If $\boldsymbol\Xi_A\times\mathsf H_A$ is a
+point and one marginal is a point mass, the coupling class of the pair is a single law.
+\status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-coarse-channels}.
+
+\section{Pushforward, precomposition, and Galerkin restriction}
+\label{sec:cg-three-operations}
+
+Three operations share the name coarse-graining. A Markov pushforward
+(\Cref{def:cg-coarse-channel}) moves laws and obeys data processing; precomposition identifies
+variables inside an energy and defines a new model; Galerkin restriction compresses an operator and
+needs further data before it propagates signals. A proof about one of them does not transfer to
+another.
+
+\definitionheading{Energy precomposition}{def:cg-energy-precomposition}
+For a measurable injection $\iota:\mathsf Z\to\mathsf X$ and an energy $E$ on $\mathsf X$, the
+precomposed model is
+\begin{equation}
+\bar E(z)=E(\iota z),
+\qquad
+\bar P(dz)=\frac{e^{-\bar E(z)}}{\bar Z}\bar\nu(dz),
+\label{eq:cg-energy-precomposition}
+\end{equation}
+defined once a reference $\bar\nu$ on $\mathsf Z$ and a finite normalizer $\bar Z$ are declared;
+the reference, its Radon-Nikodym or Jacobian rule, and the normalizer are part of the construction.
+
+\propositionheading{Hard identification is conditioning}{prop:cg-hard-identification}
+(i) On a finite or countable $\mathsf X$, with counting references on $\mathsf Z$ and $\mathsf X$
+and $E=-\log p$ for the mass function of a law $P$, the precomposed law is
+$\bar P(z)=p(\iota z)/P(\iota(\mathsf Z))$: the law of $X$ conditioned on $X\in\iota(\mathsf Z)$,
+transported by $\iota^{-1}$. (ii) Conditioning can increase relative entropy. On
+$\mathsf X=\{1,2,3\}$ with $\iota(\mathsf Z)=\{1,2\}$, the laws $P=(1,1,98)/100$ and
+$Q=(1,2,97)/100$ have $\KL(P\Vert Q)\approx0.0031$, while their conditioned laws $(1/2,1/2)$ and
+$(1/3,2/3)$ have relative entropy $\approx0.0589$. Hence no Markov kernel sends $P$ and $Q$ to their
+precomposed laws, and data processing, evidence preservation, and \eqref{eq:cg-elbo-monotone} do not
+transfer to precomposition. (iii) When $\iota(\mathsf Z)$ is null for the fine reference, as for
+block-constant configurations of a continuous fiber, the fine law defines no conditional law on it,
+and different references give different precomposed laws: for $\bar E(z)=z^2$ on $\mathsf Z=\R$,
+Lebesgue reference gives $\mathcal N(0,1/2)$ and the reference $e^{-z^2}dz$ gives
+$\mathcal N(0,1/4)$. Exact marginalization is a Markov pushforward, and restricting a recognition
+family keeps the joint and optimizes the same ELBO over a subset, which is neither pushforward nor
+precomposition. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) Substitution in \eqref{eq:cg-energy-precomposition} gives $\bar P(z)\propto p(\iota z)$, with
+normalizer $P(\iota(\mathsf Z))$. (ii) The values are direct evaluation; every Markov kernel
+contracts relative entropy (\Cref{thm:cg-kl-dpi-extended}), and the conditioned pair has larger
+relative entropy. (iii) Conditioning on a null event is not defined by the law, and the densities
+$e^{-z^2}$ and $e^{-2z^2}$ are proportional to the stated Gaussians. The last sentence restates the
+definitions. $\square$
+
+\subsection{Galerkin operators and message passing}
+\label{sec:cg-galerkin}
+
+\definitionheading{Galerkin data}{def:cg-galerkin-data}
+\label{eq:cg-galerkin-data}
+Let $S:V_c\to V_f$ be an injective linear map of finite-dimensional real spaces, let $M\succ0$ be a
+fine reference form, and let $L$ be a fine bilinear form. Put $M_c=S^\top MS$,
+$S^+=M_c^{-1}S^\top M$, $H=M^{-1}L$, and $H_c=S^+HS=M_c^{-1}S^\top LS$. The form $S^\top LS$
+is the Galerkin coarse form of aggregation-based algebraic multigrid
+\citep[Eqs.~(2.1) and (2.2)]{Notay2010Aggregation}, \citep[Sec.~2]{LivneBrandt2012LAMG}, here for
+an arbitrary injective prolongation as in smoothed aggregation \citep{VanekMandelBrezina1996}; the
+map $H_c$ is the coarse propagator.
+
+\propositionheading{Exact message-passing residual}{prop:cg-message-passing-residual}
+\label{eq:cg-message-residual}
+The data of \Cref{def:cg-galerkin-data} satisfy $S^+S=I$ and $S^+H-H_cS^+=S^+H(I-SS^+)$. The
+idempotent $SS^+$ is the $M$-orthogonal projector onto $\operatorname{range}S$, with kernel
+$\ker S^+=(\operatorname{range}S)^{\perp_M}$. Hence exact coarse message passing, $S^+H=H_cS^+$ on
+all fine signals, holds exactly when
+\begin{equation}
+H\bigl((\operatorname{range}S)^{\perp_M}\bigr)\subseteq(\operatorname{range}S)^{\perp_M}.
+\label{eq:cg-galerkin-exactness}
+\end{equation}
+The operator $H$ is self-adjoint in the $M$-inner product exactly when $L$ is symmetric, and then
+\eqref{eq:cg-galerkin-exactness} is equivalent to $H$-invariance of $\operatorname{range}S$.
+Without symmetry the two invariance conditions are independent: with $M=I$, $S=e_1$, and
+$L=\begin{psmallmatrix}2&1&0\\0&3&0\\0&0&4\end{psmallmatrix}$, the subspace $\operatorname{range}S$
+is invariant but the residual $S^+H(I-SS^+)=(0,1,0)$ is nonzero, while $L^\top$ leaves the
+complement invariant and gives zero residual although $\operatorname{range}S$ is not invariant.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+$S^+S=M_c^{-1}S^\top MS=I$, and substituting $H_c=S^+HS$ gives the residual identity. The map
+$SS^+$ is idempotent with range $\operatorname{range}S$ and kernel $\ker S^+$; since $M_c$ is
+invertible, $S^+y=0$ exactly when $S^\top My=0$, that is, when $y$ is $M$-orthogonal to
+$\operatorname{range}S$. The residual vanishes exactly when $S^+Hy=0$ for every
+$y\in\operatorname{range}(I-SS^+)=\ker S^+$, which is \eqref{eq:cg-galerkin-exactness}. Next
+$\langle Hx,y\rangle_M=x^\top L^\top y$ and $\langle x,Hy\rangle_M=x^\top Ly$, and for an
+$M$-self-adjoint operator a subspace is invariant exactly when its $M$-orthogonal complement is.
+The two witnesses are direct computations. $\square$
+
+\section{Gauge and permutation equivariance}
+\label{sec:cg-equivariance}
+
+\propositionheading{Equivariant Markov channels}{prop:cg-equivariant-channels}
+\label{eq:cg-law-equivariance}
+\label{eq:cg-kernel-equivariance}
+Let a group $\mathbb G$ act bimeasurably on $\mathsf X$ and $\mathsf Y$, and let
+$K:\mathsf X\rightsquigarrow\mathsf Y$ be equivariant, $K(gx,B)=K(x,g^{-1}B)$. Then
+$(g_\#P)K=g_\#(PK)$ for every law $P$ on $\mathsf X$, and composites of equivariant kernels are
+equivariant. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+For measurable $B$ the law $(g_\#P)K$ gives $B$ the mass $\int K(gx,B)P(dx)$, which by
+equivariance equals $\int K(x,g^{-1}B)P(dx)=[g_\#(PK)](B)$. Substitution in the composition of
+\Cref{prop:cg-markov-category} proves closure under composition. $\square$
+
+At $c_*$ a principal gauge transformation acts on belief and model coordinates through $\rho_b(g)$
+and $\rho_m(g)$ of one $g\in G$ (\Cref{prop:geo-active-image-point}), and each passive
+re-expression $g_i$ acts on both channels; a coarse channel on joint belief and model coordinates is
+gauge covariant when it is equivariant for these actions, and for agent relabelings the acting group
+is a permutation group.
+
+\propositionheading{Equivariant transport of Bayes recovery kernels}{prop:cg-equivariant-bayes-versions}
+\label{eq:cg-bayes-version-transport}
+\label{eq:cg-finite-equivariant-bayes}
+\label{eq:cg-haar-averaged-bayes}
+Let $\mathbb G$ act on $\mathsf X$ and $\mathsf Y$ by bimeasurable bijections, let $K$ be
+equivariant as in \Cref{prop:cg-equivariant-channels}, let $Q$ be a law on $\mathsf X$, let $R_Q$ be a regular
+conditional law of $X$ given $Y$ under $\mathbb J_Q(dx,dy)=Q(dx)K(x,dy)$, and put
+$R_Q^g(y,A)=R_Q(g^{-1}y,g^{-1}A)$ for $g\in\mathbb G$. (i) $R_Q^g$ is a regular conditional law of
+$X$ given $Y$ under $\mathbb J_{g_\#Q}$ for every $g$. (ii) If $PKR_Q=P$, then
+$(g_\#P)KR_Q^g=g_\#P$, and $\KL((g_\#P)K\Vert(g_\#Q)K)=\KL(PK\Vert QK)$ and
+$\KL(g_\#P\Vert g_\#Q)=\KL(P\Vert Q)$. (iii) If $\mathsf X$ and $\mathsf Y$ are finite and
+$\mathbb G$ acts by permutations, the rule $R_Q(y,\{x\})=Q(\{x\})K(x,\{y\})/(QK)(\{y\})$ where
+$(QK)(\{y\})>0$ and $R_Q(y,\{x\})=1/\lvert\mathsf X\rvert$ where $(QK)(\{y\})=0$ selects a version
+for every $Q$, depends Borel measurably on $(Q,y)$, and satisfies
+$R_{g_\#Q}(gy,\{gx\})=R_Q(y,\{x\})$ for all $g,Q,y,x$. (iv) If $\mathbb G$ is a topological group
+acting jointly measurably and the stabilizer $\mathbb G_Q=\{h:h_\#Q=Q\}$ is a compact metrizable
+group with Haar probability $dh$, then $\bar R_Q(y,A)=\int_{\mathbb G_Q}R_Q^h(y,A)dh$ is a version
+of $R_Q$ with $\bar R_Q(hy,hA)=\bar R_Q(y,A)$ for $h\in\mathbb G_Q$, and $R_{g_\#Q}:=\bar R_Q^g$ is
+well defined on the orbit of $Q$ and satisfies $R_{k_\#Q'}(ky,kA)=R_{Q'}(y,A)$ for every $Q'$ in
+that orbit and every $k\in\mathbb G$. \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-coarse-channels}.
+
+\corollaryheading{Continuous posterior versions are equivariant}{cor:cg-continuous-version-equivariant}
+In the setting of \Cref{prop:cg-equivariant-bayes-versions}, let $\mathsf X$ and $\mathsf Y$ be Polish,
+let every $h\in\mathbb G_Q$ act on both by homeomorphisms, and let $S$ be the support of $QK$. If some
+version of $R_Q$ is weakly continuous on $S$, then $R(y,\cdot)=R_Q(y,\cdot)$ for $y\in S$ and
+$R(y,\cdot)=Q$ for $y\notin S$ is a version of $R_Q$ with $R(hy,hA)=R(y,A)$ for every
+$h\in\mathbb G_Q$, every $y\in\mathsf Y$, and every measurable $A$, whether or not the stabilizer is
+compact. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+By \Cref{prop:cg-equivariant-channels}, $h_\#(QK)=(h_\#Q)K=QK$ for $h\in\mathbb G_Q$, so $S$ is a
+closed $\mathbb G_Q$-invariant set, and $R$ is a Markov kernel that agrees with $R_Q$ on the full-measure
+set $S$. For $h\in\mathbb G_Q$ the kernel $R_Q^h$ is a version of $R_Q$ by part (i) of the proposition,
+and $y\mapsto R_Q^h(y,\cdot)=h_\#R_Q(h^{-1}y,\cdot)$ is weakly continuous on $S$, because $h^{-1}$ is a
+homeomorphism of $\mathsf Y$ preserving $S$ and pushforward by the homeomorphism $h$ of $\mathsf X$ is
+weakly continuous. Two versions agree $QK$-almost everywhere, and the set where two weakly continuous
+maps from $S$ into the Hausdorff space of laws agree is closed in $S$; its complement in $S$ is an open
+$QK$-null subset of the support, hence empty. So $R_Q^h=R_Q$ on $S$, which is the equivariance identity
+at $y\in S$; for $y\notin S$ also $h^{-1}y\notin S$, and $R(h^{-1}y,h^{-1}A)=Q(h^{-1}A)=Q(A)=R(y,A)$.
+$\square$
+
+\openproblemheading{Equivariant Bayes versions beyond the finite and compact cases}{open:cg-equivariant-versions}
+\Cref{prop:cg-equivariant-bayes-versions} settles equivariant Bayes versions for finite spaces and
+along orbits with compact stabilizer, and \Cref{cor:cg-continuous-version-equivariant} settles them for
+every stabilizer when the posterior has a weakly continuous version on the support of $QK$. Two cases
+remain open in the class of a locally compact second countable group acting continuously on Polish
+spaces, an equivariant channel $K$, and laws $Q$ whose stabilizer is noncompact, so that no Haar
+probability averages versions, and whose posterior has no weakly continuous version on the support of
+$QK$: an everywhere-defined version equivariant under the stabilizer; and a version that is
+simultaneously equivariant and jointly measurable across a measurable family of such laws meeting
+several orbits, which also needs a measurable choice of orbit representatives. The problem is settled
+by an equivariant measurable selection theorem giving, for every member of that class, an
+everywhere-defined version equivariant under the stabilizer, jointly measurable across every measurable
+family of such laws meeting several orbits, or by a pair $(Q,K)$ of the class with no everywhere-defined
+version equivariant under the stabilizer.
+
+\openproblemheading{A natural selector of partitions and membership laws}{open:cg-natural-selector}
+\label{eq:cg-partition-naturality}
+A data-dependent hard partition selector $S(X)$ must be natural under agent relabeling: for every
+fine permutation $P$ there must exist a coarse relabeling $Q=Q(P,X)$ with
+$S(P\cdot X)=PS(X)Q^\top$, that is, the unlabeled partition is equivariant. The quantifier on $Q$
+is existential because coarse labels are arbitrary; a universal one would force $S(X)=S(X)Q^\top$
+for every $Q$ at $P=\mathrm{id}$, which no partition into two or more blocks satisfies.
+Gauge-carrying inputs must enter through invariant assignment scores, while represented messages
+transform equivariantly. These conditions type an admissible selector of a partition, a membership
+law, or a structural channel, and select none. The costs analyzed so far do not select one: an
+unpenalized sum of nonnegative within-block divergences is minimized by the singleton partition
+(\Cref{rem:cg-structural-vs-marginal}), the Gaussian recognition costs of the Gaussian supplement
+select trivial endpoints or need an external coefficient, and one common recovery kernel for a
+whole statistical experiment, \eqref{eq:cg-holonomy-common-recovery}, is available only under
+simultaneous family hypotheses. The problem is settled by a relabeling-natural, gauge-compatible
+functional of the laws, not monotone under refinement, with a nondegenerate optimizer, or by a
+theorem that no such selector exists in a stated class.
+
+\section{Scale diagrams}
+\label{sec:rg-scale-category}
+
+\definitionheading{Scale diagram}{def:rg-scale-diagram}
+\label{eq:rg-scale-diagram}
+Let $\mathsf S$ be a category whose objects are resolutions $\ell$, and choose one target category
+$\mathscr K$: sets and maps for a deterministic state, standard Borel spaces and Markov kernels for
+a stochastic state, or a declared category of Banach spaces and bounded linear maps, or a declared
+product of such categories, for an operator or mixed state. A scale diagram is a functor
+$\mathfrak X:\mathsf S\to\mathscr K$, with objects $\mathfrak X_\ell$ and arrows
+$C_{\ell k}\in\operatorname{Hom}_{\mathscr K}(\mathfrak X_\ell,\mathfrak X_k)$ satisfying
+$C_{kr}\circ C_{\ell k}=C_{\ell r}$, where $\circ$ is composition in $\mathscr K$, componentwise in
+a product. For a stochastic component, kernels act on the right,
+\begin{equation}
+K_{\ell r}:=K_{\ell k}K_{kr},
+\qquad
+(\mu K_{\ell k})K_{kr}=\mu K_{\ell r},
+\label{eq:rg-right-acting-kernel-composition}
+\end{equation}
+so that $K_{\ell k}K_{kr}$ represents the abstract composite $K_{kr}\circ K_{\ell k}$. One symbol is
+never at once a map, a kernel, and an operator. An expression on a reference space needs declared
+isomorphisms, and transformations of reference measures stay explicit.
+
+\propositionheading{When functoriality has content}{prop:rg-scale-functoriality}
+(i) On a chain of resolutions $0<1<\cdots<L$, any family of adjacent arrows $C_{\ell,\ell+1}$
+extends uniquely to a scale diagram, by $C_{\ell k}=C_{k-1,k}\circ\cdots\circ C_{\ell,\ell+1}$ and
+$C_{\ell\ell}=\operatorname{id}$; the composition law imposes no condition. (ii) On a poset of
+resolutions that is not a chain, functoriality requires any two routes between the same
+resolutions to agree. For a family of kernels generated by one blocking rule indexed by block
+factors, functoriality is the semigroup law $K_{b_1b_2}=K_{b_1}K_{b_2}$. (iii) Deterministic arrows
+that keep the complete block configuration, or an additive block statistic such as block sums,
+satisfy both conditions. Majority with ties resolved by the first block member does not: on six
+agents it sends $(0,0,1,0,1,0)$ to $1$ by pairs and then triples, and to $0$ by triples and then
+pairs. (iv) Mutually inverse Markov kernels between finite spaces are permutation matrices, so no
+stochastic isomorphism exists between finite levels with different numbers of configurations.
+\status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-coarse-channels}.
+
+\section{Labeled families and retained label information}
+\label{sec:rg-thermo-finite-experiment}
+
+A finite mixture that keeps its label in the sample space is the elementary model of a random
+partition or random link pattern among agents at $c_*$; its Fisher tensor splits into a label part
+and a weighted branch part.
+
+\definitionheading{Finite labeled family}{def:rg-thermo-label-family}
+\label{def:rg-thermo-finite-score}
+\label{hyp:rg-thermo-finite-support}
+\label{eq:rg-thermo-label-family}
+\label{eq:rg-thermo-finite-fisher-definition}
+Let $\Theta\subseteq\R^d$ be open, $1\leq d<\infty$, and let $\mathfrak G$ be a finite nonempty
+set of labels $\gamma$, for instance partitions of a block of agents or link patterns. Each label
+has a finite nonempty carrier $\mathsf X_\gamma$, and the sample space is the disjoint union of the
+$\{\gamma\}\times\mathsf X_\gamma$, so that labels stay distinct when branch laws coincide. A finite
+labeled family on $\Theta$ consists of effective log masses $\lambda_\gamma\in C^3(\Theta)$ and
+branch laws $p_{\gamma,\theta}$ on $\mathsf X_\gamma$, with
+\begin{equation}
+P_\theta(\gamma,x)=W_\gamma(\theta)p_{\gamma,\theta}(x),
+\qquad
+W_\gamma=\frac{e^{\lambda_\gamma}}{\sum_{\delta\in\mathfrak G}e^{\lambda_\delta}},
+\label{eq:rg-thermo-finite-log-masses}
+\end{equation}
+on a fixed support stratum: every branch mass is either identically zero on $\Theta$, a structural
+zero that carries no score, or positive and $C^3$ in $\theta$. A common additive function of
+$\theta$ in all $\lambda_\gamma$ is a change of representative. When the family comes from a
+normalization model, the effective log masses absorb its label weights and branch partitions
+(\Cref{prop:rg-geometry-weights}). For a fixed-support finite family $\theta\mapsto R_\theta$ the
+score is $\mathbf s_R=\nabla_\theta\log R_\theta$ on positive atoms and the Fisher tensor is
+$g^F(R)=\sum_{z:R_\theta(z)>0}R_\theta(z)\mathbf s_R(z)\mathbf s_R(z)^\top$; write
+$\xi_\gamma=\nabla\lambda_\gamma$ and $\bar\xi=\sum_\gamma W_\gamma\xi_\gamma$. An observation model
+is a record kernel $K^{\mathrm{obs}}(o\given\gamma,x)$ on a finite alphabet $\mathsf O$, of the same
+fixed-support $C^3$ type and independent of recognition; it defines the complete observation law
+$P^{\mathrm{obs}}_\theta(\gamma,x,o)=P_\theta(\gamma,x)K^{\mathrm{obs}}(o\given\gamma,x)$ and the
+evidence $p_\theta(o)=\sum_{\gamma,x}P^{\mathrm{obs}}_\theta(\gamma,x,o)$. The complete latent,
+complete observation, and observed-data experiments are $\theta\mapsto P_\theta$,
+$\theta\mapsto P^{\mathrm{obs}}_\theta$, and $\theta\mapsto p_\theta$. An extensive labeled family
+is a sequence $P_N=(W_{\gamma,N}p_{\gamma,N})$ of finite labeled families indexed by an extensive
+size $N\geq1$, such as the number of agents, with carriers that may depend on $N$. On a compact
+$\mathsf K\subset\Theta$ it has extensive label growth with bulk log-mass densities
+$\mathsf s_\gamma$ if, on an open neighborhood of $\mathsf K$,
+\begin{equation}
+\|\lambda_{\gamma,N}\|_{C^3(\mathsf K)}\leq\mathrm C_{\mathsf K}N,
+\qquad
+\lambda_{\gamma,N}/N\longrightarrow\mathsf s_\gamma\quad\text{in }C^3(\mathsf K),
+\label{eq:rg-thermo-label-effective-growth}
+\end{equation}
+where $\|f\|_{C^k(\mathsf K)}$ is the largest supremum over $\mathsf K$ of the ordinary coordinate
+derivatives of $f$ through order $k$, including order zero, with fixed norms on vector and matrix
+entries.
+
+\propositionheading{Complete labeled Fisher decomposition}{prop:rg-thermo-finite-labeled-fisher}
+\label{eq:rg-thermo-finite-branch-score}
+For a finite labeled family, the branch score $\mathbf s_{p_\gamma}=\nabla\log p_\gamma$ on the
+positive atoms of $\mathsf X_\gamma$ satisfies $\sum_{x}p_\gamma(x)\mathbf s_{p_\gamma}(x)=0$, and
+the latent score, the Fisher tensor, and, for every multi-index $\alpha$ with
+$\lvert\alpha\rvert\leq2$, the derivatives of its weighted branch term satisfy
+\begin{align}
+\mathbf s_P(\gamma,x)&=\xi_\gamma-\bar\xi+\mathbf s_{p_\gamma}(x),
+\label{eq:rg-thermo-finite-complete-score}\\
+g^F(P)&=\operatorname{Cov}_W(\xi_\gamma)+\sum_\gamma W_\gamma g^F(p_\gamma),
+\label{eq:rg-thermo-finite-labeled-fisher}\\
+\partial^\alpha\Bigl(\sum_\gamma W_\gamma g^F(p_\gamma)\Bigr)
+&=\sum_\gamma\sum_{\beta\leq\alpha}\binom{\alpha}{\beta}
+(\partial^\beta W_\gamma)(\partial^{\alpha-\beta}g^F(p_\gamma)).
+\label{eq:rg-thermo-finite-weighted-fisher-derivatives}
+\end{align}
+The first term of $g^F(P)$ is the Fisher tensor of the label marginal $W$. A common additive
+function in every $\lambda_\gamma$ leaves these identities and their derivatives unchanged, and
+$g^F(P)\succeq0$ with no rank assumption. \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-coarse-channels}.
+
+\propositionheading{Selected posterior and its complete score}{prop:rg-thermo-finite-posterior-score}
+\label{def:rg-thermo-finite-posterior}
+\label{eq:rg-thermo-finite-evidence}
+\label{eq:rg-thermo-finite-posterior}
+\label{eq:rg-thermo-finite-posterior-labels}
+For a finite labeled family with an observation model and a record $o$, let
+$e_\gamma(o)=\sum_xp_\gamma(x)K^{\mathrm{obs}}(o\given\gamma,x)$ be the branch evidence, so that
+$p_\theta(o)=\sum_\gamma W_\gamma e_\gamma(o)$, and where $p_\theta(o)>0$ define the selected
+posterior $\boldsymbol\Pi_o(\gamma,x)=W_\gamma p_\gamma(x)K^{\mathrm{obs}}(o\given\gamma,x)/p_\theta(o)$
+and its label weights $W^o_\gamma=W_\gamma e_\gamma(o)/p_\theta(o)$. A label with $e_\gamma(o)=0$
+stays on the carrier with zero posterior mass and has no conditional
+branch; zero evidence leaves the posterior undefined. On occupied labels $W^o$ is the softmax of
+$\lambda^o_\gamma=\lambda_\gamma+\log e_\gamma(o)$. On the positive posterior support the complete
+score and, within an occupied branch
+$p^o_\gamma(x)=p_\gamma(x)K^{\mathrm{obs}}(o\given\gamma,x)/e_\gamma(o)$, the branch score are
+\begin{align}
+\mathbf s_{\boldsymbol\Pi_o}(\gamma,x)
+&=\mathbf s_P(\gamma,x)+\nabla\log K^{\mathrm{obs}}(o\given\gamma,x)-\nabla\log p_\theta(o),
+\label{eq:rg-thermo-finite-posterior-score}\\
+\nabla\log p^o_\gamma(x)&=\mathbf s_{p_\gamma}(x)+\nabla\log K^{\mathrm{obs}}(o\given\gamma,x)
+-\nabla\log e_\gamma(o),
+\label{eq:rg-thermo-finite-conditional-posterior-score}
+\end{align}
+and the decomposition \eqref{eq:rg-thermo-finite-labeled-fisher} holds for the posterior family
+$\theta\mapsto\boldsymbol\Pi_{o,\theta}$, with the weights $W^o$ and the branches $p^o_\gamma$.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Summing the posterior over all labeled atoms gives one, and the label weights
+are proportional to $e^{\lambda_\gamma}e_\gamma(o)$. Differentiating the logarithm of the positive
+posterior mass gives \eqref{eq:rg-thermo-finite-posterior-score}, and the same computation within
+one branch gives \eqref{eq:rg-thermo-finite-conditional-posterior-score}. The fixed zero patterns of
+branch laws and record kernel keep the occupied labels and atoms fixed on the stratum, so no
+division by zero occurs, and the proof of \Cref{prop:rg-thermo-finite-labeled-fisher} applies to the
+posterior family. $\square$
+
+\propositionheading{Observed-data information and missing information}{prop:rg-thermo-finite-missing-information}
+For a finite labeled family with an observation model, let $\mathsf O^+=\{o:p_\theta(o)>0\}$, fixed
+on the stratum, let $\mathbf s^c=\nabla\log P^{\mathrm{obs}}$ be the complete score on the positive
+support of the complete observation law, and let
+$g^F(p)=\sum_{o\in\mathsf O^+}p_\theta(o)\nabla\log p_\theta(o)\nabla\log p_\theta(o)^\top$ be the
+observed-data Fisher tensor. Then
+\begin{align}
+g^F(P^{\mathrm{obs}})
+&=g^F(P)+\sum_\gamma W_\gamma\sum_xp_\gamma(x)g^F\bigl(K^{\mathrm{obs}}(\cdot\given\gamma,x)\bigr),
+\label{eq:rg-thermo-finite-complete-observation-fisher}\\
+\nabla\log p_\theta(o)
+&=\E_{\boldsymbol\Pi_o}\bigl[\mathbf s^c(\gamma,X,o)\bigr],
+\qquad
+g^F(p)=g^F(P^{\mathrm{obs}})-\sum_{o\in\mathsf O^+}p_\theta(o)
+\operatorname{Cov}_{\boldsymbol\Pi_o}(\mathbf s^c).
+\label{eq:rg-thermo-finite-missing-information}
+\end{align}
+In particular $g^F(p)\preceq g^F(P^{\mathrm{obs}})$, and positive definiteness of $g^F(P)$ or of
+$g^F(P^{\mathrm{obs}})$ does not imply that of $g^F(p)$: for a one-point alphabet $p_\theta(o)=1$
+identically and $g^F(p)=0$ for all branch data. \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-coarse-channels}.
+
+Fisher contraction requires a channel that does not depend on the parameter; the constant-input
+Bernoulli witness of \Cref{thm:hist-record-clock-contraction} shows that a parameter-dependent
+channel can create information that its input does not carry.
+
+\corollaryheading{Stochastic score projection and retained-label loss}{prop:rg-thermo-finite-fisher-loss}
+\label{def:rg-thermo-finite-channel}
+\label{eq:rg-thermo-finite-channel}
+\label{eq:rg-thermo-finite-score-projection}
+\label{eq:rg-thermo-finite-fisher-loss}
+A label-preserving channel is given by row-stochastic matrices $C_\gamma(x,y)$ from
+$\mathsf X_\gamma$ to finite nonempty targets $\mathsf Y_\gamma$, independent of $\theta$ and of
+recognition, and lifted as zero between different labels, so that
+$P^C(\gamma,y)=\sum_xP(\gamma,x)C_\gamma(x,y)$. The source law may be the latent family or a
+positive selected posterior; on the complete observation law the channel acts on $x$ and keeps $o$.
+For such a channel, on positive targets, the score projection
+$\mathbf s_{P^C}(\gamma,y)=\E_{P\otimes C}[\mathbf s_P(\gamma,X)\given\gamma,y]$ and the Fisher loss
+$g^F(P)-g^F(P^C)=\E_{P\otimes C}[(\mathbf s_P-\mathbf s_{P^C})(\mathbf s_P-\mathbf s_{P^C})^\top]\succeq0$
+hold, and for $P=(W_\gamma p_\gamma)$
+\begin{equation}
+g^F(P)-g^F(P^C)=\sum_{\gamma:W_\gamma>0}W_\gamma\bigl[g^F(p_\gamma)-g^F(p_\gamma C_\gamma)\bigr],
+\qquad
+0\preceq g^F(P)-g^F(P^C)\preceq\sum_\gamma W_\gamma g^F(p_\gamma),
+\label{eq:rg-thermo-finite-within-loss}
+\end{equation}
+while the label marginal and all its derivatives are unchanged. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The score projection and the Fisher loss are \Cref{thm:cg-fisher-contraction} for the finite
+fixed-support family, or directly: differentiating $P^C$ at a positive target and dividing by its
+mass gives the conditional expectation, and the residual $\mathbf s_P-\mathbf s_{P^C}$ has zero
+conditional mean given the target, so the cross terms vanish. Row sums give
+$\sum_yP^C(\gamma,y)=W_\gamma$ as functions of $\theta$. Subtracting the two decompositions
+\eqref{eq:rg-thermo-finite-labeled-fisher} gives the first part of
+\eqref{eq:rg-thermo-finite-within-loss}, and $g^F(p_\gamma C_\gamma)\succeq0$ gives the upper bound.
+A zero-mass target receives no incidence from a positive atom and is a structural zero. $\square$
+
+\propositionheading{Finite-word score and VFE telescopes}{prop:rg-thermo-account-word}
+\label{eq:rg-thermo-account-score-telescope}
+\label{eq:rg-thermo-account-vfe-telescope}
+\label{eq:rg-thermo-account-vfe-area}
+Let $C_1,\ldots,C_m$ be parameter-independent Markov kernels between finite spaces, let $P_0$ be a
+fixed-support finite family, and put $P_j=P_0C_1\cdots C_j$ on its fixed positive support, with
+score $\mathbf s_j$ and Fisher tensor $g_j=g^F(P_j)$. Then $g_0-g_m=\sum_{j=1}^mD_j$ with
+$D_j=g_{j-1}-g_j\succeq0$, and on the path law $P_0(x_0)C_1(x_0,x_1)\cdots C_m(x_{m-1},x_m)$ the
+increments $\varepsilon^{\mathrm{sc}}_j=\mathbf s_{j-1}(X_{j-1})-\mathbf s_j(X_j)$ are orthogonal
+with $\E[\varepsilon^{\mathrm{sc}}_j(\varepsilon^{\mathrm{sc}}_j)^\top]=D_j$, so
+$\E[(\mathbf s_0(X_0)-\mathbf s_m(X_m))(\mathbf s_0(X_0)-\mathbf s_m(X_m))^\top]=\sum_jD_j$. For a
+record with positive evidence, a selected posterior $\boldsymbol\Pi_0$, and a recognition law
+$\mathbb Q_0\ll\boldsymbol\Pi_0$, push both laws and the joint by the same word and set
+$\Fenergy_j=-\log p(o)+\KL(\mathbb Q_j\Vert\boldsymbol\Pi_j)$. Then
+$\Fenergy_0-\Fenergy_m=\sum_{j=1}^mK^{\mathrm{KL}}_j$, where $K^{\mathrm{KL}}_j\geq0$ is the
+discarded conditional relative entropy of step $j$. If the fine and
+coarse families have extensive sizes $N_0$ and $N_m$, the per-agent bookkeeping reads
+$\tfrac{N_0}{N_m}\cdot\tfrac{\Fenergy_0}{N_0}=\tfrac{\Fenergy_m}{N_m}+\tfrac{1}{N_m}\sum_{j=1}^mK^{\mathrm{KL}}_j$.
+\status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-coarse-channels}.
+
+\section{Retained-label Fisher asymptotics}
+\label{sec:cg-retained-label-asymptotics}
+
+When log masses grow like the number of agents $N$, the softmax calculus of
+\Cref{prop:rg-thermo-finite-labeled-fisher} has three regimes with different hypotheses and
+coordinates: a strict winner, a tie with converging weights, and a window of width $1/N$ at a tie.
+Fix an extensive labeled family with weights $W_{\gamma,N}$, log masses
+$\lambda_{\gamma,N}$, gradients $\xi_{\gamma,N}=\nabla\lambda_{\gamma,N}$, Fisher density
+$g_N=N^{-1}g^F(P_N)$, and branch densities $\mathcal I_{\gamma,N}=N^{-1}g^F(p_{\gamma,N})$ with limits
+$\mathcal I_\gamma$ when they converge; $\mathrm C_{\mathsf K}$ depends on $\mathsf K$ and the family
+and may change from line to line, and limits are taken at a fixed label set.
+
+\theoremheading{Strict-phase convergence with both metric derivatives}{thm:rg-thermo-label-strict}
+\label{eq:rg-thermo-label-strict-limit}
+\label{eq:rg-thermo-label-native-floor-input}
+\label{eq:rg-thermo-label-weight-first}
+\label{eq:rg-thermo-label-mean-derivative}
+\label{eq:rg-thermo-label-weight-second}
+\label{eq:rg-thermo-label-losing-derivatives}
+\label{eq:rg-thermo-label-strict-centered-covariance}
+\label{eq:rg-thermo-label-strict-branch-error}
+Assume extensive label growth \eqref{eq:rg-thermo-label-effective-growth} on a neighborhood of a
+compact $\mathsf K$, and $\mathcal I_{\gamma,N}\to\mathcal I_\gamma$ in $C^2(\mathsf K)$ for every
+label. Suppose a label $\gamma_*$ satisfies
+$\mathsf s_{\gamma_*}-\mathsf s_\gamma\geq\delta_{\mathsf K}>0$ on $\mathsf K$ for every
+$\gamma\neq\gamma_*$. Then $\|g_N-\mathcal I_{\gamma_*}\|_{C^2(\mathsf K)}\to0$. More precisely, for
+$j=0,1,2$ and all large $N$,
+\begin{equation}
+\Bigl\|D^j\Bigl[N^{-1}\operatorname{Cov}_{W_N}(\xi_{\gamma,N})\Bigr]\Bigr\|_{\mathsf K}
+\leq\mathrm C_{\mathsf K}N^{j+1}e^{-\delta_{\mathsf K}N/2},
+\label{eq:rg-thermo-label-strict-covariance-bound}
+\end{equation}
+and the weighted branch error $\sum_\gamma W_{\gamma,N}\mathcal I_{\gamma,N}-\mathcal I_{\gamma_*,N}$
+has $C^2(\mathsf K)$ norm at most $\mathrm C_{\mathsf K}N^2e^{-\delta_{\mathsf K}N/2}$. Only three
+derivatives of the effective log masses are used. If moreover
+$\mathcal I_{\gamma_*}\succeq\mathrm c_{\min}\mathrm{Id}_d$ on $\mathsf K$ for a constant
+$\mathrm c_{\min}>0$, then $g_N(\theta)\succeq\tfrac12\mathrm c_{\min}\mathrm{Id}_d$ for all
+$\theta\in\mathsf K$ and all large $N$. \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-coarse-channels}.
+
+\propositionheading{Squared-size Fisher tensor at a finite-weight tie}{prop:rg-thermo-label-tie-scale}
+\label{eq:rg-thermo-label-tie-direction}
+\label{eq:rg-thermo-label-tie-limit}
+Fix $\theta_0$ and assume \eqref{eq:rg-thermo-label-effective-growth} on a neighborhood of
+$\theta_0$. Let $S$ be the nonempty set of labels maximizing $\mathsf s_\gamma(\theta_0)$, suppose
+the weights satisfy $W_{\gamma,N}(\theta_0)\to\bar{\mathsf p}_\gamma$, and assume
+$g^F(p_{\gamma,N})(\theta_0)=O(N)$ for every label. Write
+$\mathsf v_\gamma=\nabla\mathsf s_\gamma(\theta_0)$ and
+$\bar{\mathsf v}=\sum_\gamma\bar{\mathsf p}_\gamma\mathsf v_\gamma$. Then $\bar{\mathsf p}$ is
+supported on $S$ and $N^{-2}g^F(P_N)(\theta_0)\to\operatorname{Cov}_{\bar{\mathsf p}}(\mathsf v_\gamma)
+=\sum_\gamma\bar{\mathsf p}_\gamma(\mathsf v_\gamma-\bar{\mathsf v})(\mathsf v_\gamma-\bar{\mathsf v})^\top$.
+Its rank is the dimension of the span of the differences $\mathsf v_\gamma-\mathsf v_\eta$ over
+pairs with positive limiting weights, at most
+$\min(d,\lvert\operatorname{supp}\bar{\mathsf p}\rvert-1)$. A direction with positive variance has
+Fisher information asymptotic to a positive multiple of $N^2$; zero variance gives only $o(N^2)$ in
+that direction. \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-coarse-channels}.
+
+\theoremheading{Center ratios, smooth weights, and the full Fisher limit}{thm:rg-thermo-label-crossover}
+\label{eq:rg-thermo-label-window}
+Assume \eqref{eq:rg-thermo-label-effective-growth} and $\mathcal I_{\gamma,N}\to\mathcal I_\gamma$
+in $C^2$ on a neighborhood of $\theta_0$. Let $S$ be the maximizing set of
+$\mathsf s_\gamma(\theta_0)$, choose $\gamma_0\in S$, and assume the center-ratio condition
+\begin{equation}
+\exp\bigl[\lambda_{\gamma,N}(\theta_0)-\lambda_{\gamma_0,N}(\theta_0)\bigr]\longrightarrow
+\mathrm c_\gamma\in(0,\infty)\quad(\gamma\in S),
+\qquad\mathrm c_{\gamma_0}=1.
+\label{eq:rg-thermo-label-center-ratios}
+\end{equation}
+Set $\mathsf v_\gamma=\nabla\mathsf s_\gamma(\theta_0)$ and define the window experiment on the
+original labeled carrier by $\theta_N(\mathsf w)=\theta_0+\mathsf w/N$ and
+$\mathcal E_N(\mathsf w)=P_{N,\theta_N(\mathsf w)}$. On every compact set of $\mathsf w$ its label
+law converges in $C^3$ to
+\begin{equation}
+\bar{\mathsf p}_\gamma(\mathsf w)=
+\frac{\mathrm c_\gamma e^{\mathsf w\cdot\mathsf v_\gamma}}{\sum_{\eta\in S}\mathrm c_\eta e^{\mathsf w\cdot\mathsf v_\eta}}
+\quad(\gamma\in S),
+\qquad
+\bar{\mathsf p}_\gamma(\mathsf w)=0\quad(\gamma\notin S),
+\label{eq:rg-thermo-label-limiting-weights}
+\end{equation}
+and its Fisher tensor in the coordinate $\mathsf w$ converges in $C^2$:
+\begin{equation}
+g^F_{\mathsf w}(\mathcal E_N)(\mathsf w)=N^{-2}g^F(P_N)(\theta_N(\mathsf w))
+\longrightarrow
+\operatorname{Cov}_{\bar{\mathsf p}(\mathsf w)}(\mathsf v_\gamma)
+=D^2_{\mathsf w}\log\sum_{\gamma\in S}\mathrm c_\gamma e^{\mathsf w\cdot\mathsf v_\gamma}.
+\label{eq:rg-thermo-label-crossover-fisher}
+\end{equation}
+The center-ratio condition is additional data at finite $N$; equality of the bulk densities
+supplies no such condition. \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-coarse-channels}.
+
+\propositionheading{Ties that diverge or do not converge}{prop:rg-thermo-label-tie-counterexamples}
+\label{eq:rg-thermo-label-linear-tie-example}
+\label{eq:rg-thermo-label-oscillatory-data}
+\label{eq:rg-thermo-label-oscillatory-failure}
+Extensive label growth, even with identical parameter-independent branches, implies neither a
+finite extensive Fisher density at a tie, nor convergence of the label law, nor $C^2$ convergence
+of a uniformly convergent Fisher density. For two labels $0,1$ with one common branch law
+independent of $\theta$ and log-odds $\omega_N=\lambda_{1,N}-\lambda_{0,N}$,
+\begin{equation}
+W_{1,N}=\frac{e^{\omega_N}}{1+e^{\omega_N}},
+\qquad
+g^F(P_N)=\operatorname{bv}(\omega_N)(\omega'_N)^2,
+\qquad
+\operatorname{bv}(x)=\frac{e^x}{(1+e^x)^2}=\frac1{4\cosh^2(x/2)},
+\label{eq:rg-thermo-label-binary-formula}
+\end{equation}
+and each of the following families has extensive label growth on every compact interval. (a) For
+$\omega_N=N\theta$ the tie at $\theta=0$ has $g^F(P_N)(\theta)=N^2/[4\cosh^2(N\theta/2)]$ and
+$g^F(P_N)(0)/N=N/4$, so the extensive density diverges, and $N^{-2}g^F(P_N)$ tends to $1/4$ at zero
+and to zero elsewhere. (b) For $\omega_N$ equal to $0$ at even $N$ and $\log2$ at odd $N$, the
+Fisher tensor vanishes identically while $W_{1,N}$ alternates between $1/2$ and $2/3$. (c) For
+$\omega_N=N^{\mathrm c}\theta$ with $0<\mathrm c<1$, both bulk densities vanish and
+\begin{equation}
+\frac{g^F(P_N)(0)}N=\frac14N^{2\mathrm c-1},
+\label{eq:rg-thermo-label-subextensive-example}
+\end{equation}
+which is below, at, or above the extensive scale according as $\mathrm c<1/2$, $\mathrm c=1/2$, or
+$\mathrm c>1/2$; for $\omega_N=\mathrm c_N+\sqrt N\theta$ with $\mathrm c_N$ alternating between $0$
+and $\log2$, the density at zero alternates between $1/4$ and $2/9$. (d) For
+$\omega_N=N\theta-\mathrm c\log N$ with $\mathrm c>0$, the tied label is rare,
+$W_{1,N}(0)=(1+N^{\mathrm c})^{-1}\to0$, yet
+\begin{equation}
+\frac{g^F(P_N)(0)}N=\frac{N^{1+\mathrm c}}{(1+N^{\mathrm c})^2}\sim N^{1-\mathrm c},
+\label{eq:rg-thermo-label-rare-example}
+\end{equation}
+so the limiting $N^2$ coefficient is zero while the density diverges for $\mathrm c<1$, tends to one
+for $\mathrm c=1$, and vanishes for $\mathrm c>1$. (e) For
+$\omega_N(\theta)=N^{-1/6}\sin(N^{1/3}\theta)$ both weights converge uniformly to $1/2$ and
+$F_N=N^{-1}g^F(P_N)$ converges uniformly to zero, while
+\begin{equation}
+F''_N=\frac1N\Bigl[\operatorname{bv}''(\omega_N)(\omega'_N)^4+5\operatorname{bv}'(\omega_N)(\omega'_N)^2\omega''_N
++2\operatorname{bv}(\omega_N)(\omega''_N)^2+2\operatorname{bv}(\omega_N)\omega'_N\omega'''_N\Bigr]
+\label{eq:rg-thermo-label-oscillatory-derivative}
+\end{equation}
+satisfies $F''_N(0)=-\tfrac12-\tfrac18N^{-1/3}\to-\tfrac12$. \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-coarse-channels}.
+
+\remarkheading{The retained label is observed information}{rem:cg-label-observation}
+The covariance term of \eqref{eq:rg-thermo-finite-labeled-fisher} is the Fisher tensor of the label
+marginal, so the $N^2$ scales of \Cref{prop:rg-thermo-label-tie-scale,thm:rg-thermo-label-crossover}
+are information about the label. When all carriers are one common set, the experiment that observes
+only the configuration, through $(\gamma,x)\mapsto x$, loses exactly the expected conditional
+covariance of $\mathbf s_P$ given $X$, which vanishes when $X$ determines the label; for a record
+the loss is given by \Cref{prop:rg-thermo-finite-missing-information}. In the binary families of
+\Cref{prop:rg-thermo-label-tie-counterexamples} the configuration alone has a law independent of
+$\theta$ and zero Fisher information, while for $\omega_N=N\theta$ the labeled window experiment has
+Fisher tensor $\operatorname{bv}(\mathsf w)$ in $\mathsf w$ for every $N$. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The label marginal has score $\xi_\gamma-\bar\xi$. The map $(\gamma,x)\mapsto x$ is a
+parameter-independent statistic, so \Cref{thm:cg-fisher-contraction} gives the loss as the expected
+conditional covariance, which vanishes when the score is a function of $X$, in particular when $X$
+determines $(\gamma,x)$. With one common $\theta$-independent branch law $p$, the configuration has
+law $\sum_\gamma W_\gamma p=p$. For $\omega_N=N\theta$ at $\theta=\mathsf w/N$,
+\eqref{eq:rg-thermo-label-binary-formula} gives $N^{-2}\operatorname{bv}(\mathsf w)N^2$. $\square$
+
+\paragraph{Physicist's summary.}
+A coarse channel is a noisy detector on latent coordinates, under which relative entropy and Fisher
+information can only drop. Applied to the generative joint, the posterior, and the recognition law at
+once, it leaves the evidence untouched, and the free energy drops by exactly what it discarded about
+the disagreement of recognition and posterior inside each coarse cell, which is bookkeeping, not
+learning. A retained discrete label, such as which partition is present, carries its own Fisher
+information: with $N$ agents a strict winner hides it, a tie exposes information of order $N^2$, and
+near a tie the natural coordinate is $N(\theta-\theta_0)$, as in the finite-volume rounding of a
+first-order transition.

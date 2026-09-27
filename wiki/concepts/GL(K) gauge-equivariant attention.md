@@ -19,22 +19,45 @@ updated: 2026-09-27
 
 # GL(K) gauge-equivariant attention
 
-**GL(K) gauge-equivariant attention** is the central construction of the program's
-[[gl-k-attention|GL(K) attention manuscript]] (*"Attention as Gauge-Theoretic Variational
-Inference"*). It constructs an attention rule as **variational inference over information
-sources** and compares scoped limits of that rule with transformer attention: each token is a Gaussian "agent"
-$q_i=\mathcal N(\mu_i,\Sigma_i)$ living on a statistical fiber bundle, and the attention weight
-between tokens is *derived* by minimizing a multi-agent [[Variational free energy]]. The
-mechanism is built so that those weights are **invariant** to a per-token change of feature
-basis drawn from the general linear group $\mathrm{GL}(K)$ — the structure (gauge) group of the
-construction (see [[GL(K) gauge group]]). This page states the construction precisely and
-records what is proven versus conjectured. The analytic attention derivation is a belief-channel
-reduction. The retained empirical sweep is instead a same-scale two-channel route with one model
-refinement before one belief refinement. [[gl-k-attention-2026-07-09-review-revision]]
+The program studies Gaussian routing and predictive communication between locally framed agents. The current manuscript is *Gauge-Covariant Gaussian Attention and Predictive Communication*; the immutable [[gl-k-attention]] note records an earlier version. [[dennis-2026-glk-matrix-links-2026-09-20]] records the September matrix-link revision.
 
 ## Moment-matched predictive covariance, September 27, 2026
 
 On the [[Projected predictive attention|projected predictive route]] the evaluated model passes the covariance through, so $\Sigma$ stays the encoded token-type lookup at every depth. The v2 exact-status theorem already gives the moment-matched covariance of the predictive kernel; it is now implemented as the opt-in `predictive_covariance="moment_matched"`, with cross-head terms, between-source spread, residual persistence and self-edge terms, and a covariant reference floor $\epsilon(\mathrm{Tr}\,C_i/K)I$ ([[dennis-2026-projected-predictive]]). It is positive definite, obeys the passive law $\Sigma_i^+\mapsto g_i\Sigma_i^+g_i^\top$, and depends on context through the spread of the attended sources. Tests match a brute-force enumeration of the kernel; no training run uses it yet.
+
+## Positioning in the v2 revision, September 23, 2026
+
+The v2 revision, *Gauge-Covariant Gaussian Attention through Projected Matrix Links* (`manuscripts/GL(K)_attention_v2.tex`), adds citations that fix what the construction does and does not claim. The learned frames $U_i$ are a local dressing field in the sense of [[fournel-2014-gauge-invariant-composite-fields]], and the reference moments $(\xi_i,C_i)$ are the dressed variables. By criterion (C1) of [[francois-2019-artificial-gauge-symmetries]] the passive $\mathrm{GL}(K)$ covariance is therefore artificial, the kind of covariance Kretschmann objected to ([[norton-1993-general-covariance]]). The frames fix an $\{e\}$-structure ([[weiler-2021-coordinate-independent-cnns]]), and the covariance constrains none of $S_Q$, $S_K$, $T$, $O$. See [[Dressing field method]].
+
+The Section 4 shared-covariance reduction and its compensating prior have a point-query precedent in [[movellan-2020-probabilistic-transformers]]: the independent content law (Eq. 7), the mixture-mean readout (Eq. 14), and the key-norm-linked prior (Eq. 16 with Eqs. 20–21). The same reading appears in [[gabbur-2021-probabilistic-attention]] and, as mixture responsibilities, in [[nguyen-2022-probabilistic-attention-keys]]. The isotropic case of the reduction is L2 self-attention ([[kim-2021-lipschitz-self-attention]]), so L2 attention rather than dot-product attention is the natural transformer limit of Gaussian-KL routing. The Gaussian token prior bank has its precedent in the KL-scored Gaussian word embeddings of [[vilnis-2015-gaussian-embeddings]].
+
+Entropy-regularized Gibbs routing has attention-specific precedents in [[niculae-2017-regularized-attention]] and [[litman-2025-entropic-optimal-transport-attention]]. The Section 2.6 row objective with a KL divergence to a prior is Proposition 3.1 of the concurrent [[litman-2026-attention-priors]], whose learned prior has the function class of term (d) of [[dai2019transformerxl]]. The Section 2.6.1 positional priors follow [[bianchessi-2026-bayesian-attention-mechanism]], where NoPE and ALiBi are uniform and Laplace priors.
+
+A binary compatibility record with $P(o=1\mid J=j)=\exp(-D_{ij}/\tau)$ is a valid probability because $D_{ij}\ge0$. Conditioning on $o=1$ makes Gibbs routing the exact source-label posterior at every temperature. This is the optimality-variable device of [[levine-2018-control-as-inference]] (Section 2.2, Eq. 3) and [[toussaint-storkey-2006-probabilistic-inference-mdp]]. In [[kappen-2012-optimal-control-inference]] the Boltzmann optimum has cost $-\log Z$, which parallels the minimum routing free energy $-\tau\log Z_i$.
+
+A remark in Section 5.2 of the revision contrasts this with noisy-query routing. There the projected query mean is treated as a noisy measurement, with noise covariance $V_{Q,i}$, of a draw from the key law. The exact source posterior is then $\beta_{ij}\propto\pi_{ij}\mathcal N(a_i;b_j,V_{Q,i}+V_{K,j})$, the expected likelihood kernel of [[jebara-2004-probability-product-kernels]]. Gibbs routing does not flatten when the query is uncertain, but this rule does: with shared key covariance it is whitened L2 routing with $V_*$ replaced by $V_{Q,i}+V_*$. It has the same frame covariance and comparison-map redundancy as Gibbs routing. The evaluated model does not implement it.
+
+The comparison cospan $E_i\to H^{\mathrm{cmp}}\leftarrow E_j$ is a pair of restriction maps into an edge stalk, so cellular sheaves ([[hansen-2018-toward-a-spectral-theory-of-cellular-sheaves]], [[bodnar-2022-neural-sheaf-diffusion]]) are a closer counterpart than [[Lattice gauge theory]]. The comparison maps carry a cogredient $\mathrm{GL}(r_h)$ redundancy, under which gradient flow conserves $S_QS_Q^\top+S_KS_K^\top$ ([[kunin-2021-neural-mechanics]]); the content maps have the balance invariant $T_hT_h^\top-O_h^\top O_h$ ([[du-2018-balanced-layers]]). The revision reports that AdamW without weight decay drifted along this orbit in the reported run, so raw conditioning diagnostics depend on the basis, and that AdamW's decoupled weight decay ([[loshchilov-hutter-2019-adamw]]) on the stored log-variances drove the variances from 15 to about 1.045. [[das-2019-tarmac]] is cited as the precedent for reading tokens as communicating agents. The experiment's components are cited to [[merity2017-pointer-sentinel]] (WikiText-103), [[hendrycks2016gaussian]] (GELU), [[ba-2016-layer-normalization]] (LayerNorm), and AdamW, and the locator for the Rényi-divergence invariance is [[vanerven-2014-renyi-kl]] (Theorem 9, data processing for every order; Theorem 28, additivity).
+
+## Selective interfaces and collective formation, September 20, 2026
+
+[[multiagentelbo-2026-selective-communication-formation]] applies the existing communication construction to the multi-agent formation question. Comparison maps $S_Q,S_K$ determine routing observables, while $T$ and $O$ select transmitted content and receiving directions. A small comparison KL permits private disagreement; distinct role maps do not even compare a common measurement. Independent invertible interaction links remain separate from local processing through $\mathcal L_e=F_i\rho(\Theta_e)$.
+
+The proposed collective coordinates comprise a shared interface together with the private states or conditional laws required by the parent. Complete-law formation bounds, a Markov blanket and autonomous reduced dynamics do not follow from low-rank communication alone. This is a source-based connection and a proposed extension, with no new formation theorem or population-VFE descent claim for the predictive residual. See [[Staged hierarchy formation and RG composability]] and [[Markov blanket interpretation debate]].
+
+## Predictive communication and matrix links, September 20, 2026
+
+[[dennis-2026-glk-matrix-links-2026-09-20]] records the current full-Gaussian construction. At fixed layer, independent comparison maps act on $\xi_i=U_i^{-1}\mu_i$ and $C_i=U_i^{-1}\Sigma_iU_i^{-\top}$. Their projected Gaussian KL determines routing; separate content maps give
+
+$$L_{ij}^{(h)}=U_iO_hT_hU_j^{-1},\qquad
+\mathcal C_{ij}=\sum_h\beta_{ij}^{(h)}L_{ij}^{(h)},\qquad
+m_i=\sum_j\mathcal C_{ij}\mu_j.$$
+
+Under independent passive site changes, with all moments and frames transformed consistently, $L_{ij}'=g_iL_{ij}g_j^{-1}$ and $m_i'=g_im_i$. This concerns unrestricted full Gaussian covariances. The diagonal implementation and fixed-coordinate normalization, MLP, and decoder do not establish whole-stack GL(K) equivariance.
+
+A head may be rank deficient while the routed sum is full rank. Attention heads describe communication channels and need not coincide with frame blocks. Sending and receiving subspaces may overlap; the maps also specify gains and correspondence. The frame transport $\Omega_{ij}=U_iU_j^{-1}$ remains flat, while the communication links need not obey its composition law. See [[Lattice gauge theory]] and [[Holonomy]] for the precise loop and path scope.
+
+The matrix-link algebra is established by the displayed factorization. It does not select an invariant action, a normalized population model, or an MLP theory. The user has left the MLP interpretation open. Earlier sections below describe historical constructions and their dated evidence; they are not a specification of the September predictive-content architecture. In particular, the older identification of heads with gauge blocks and the older width sweep should not be carried over to this full-width, independently parameterized layer construction. [[dennis-2026-glk-matrix-links-2026-09-20]]
 
 ## Setup: tokens as Gaussian agents on a bundle
 
@@ -62,7 +85,7 @@ This $\Omega_{ij}$ is the bundle's discrete analogue of [[Parallel transport]]: 
 applied to a neighbor's belief before that belief is compared to one's own. The full-Gaussian
 pushforward is exact under common $\mathrm{GL}(K)$ changes of frame. The live diagonal covariance
 family is closed exactly only under monomial transports; a general congruence leaves that family and
-therefore requires projection or approximation. [[gl-k-attention-2026-07-09-review-revision]]
+therefore requires projection or approximation.
 
 ## Definition: the congruence-transformed, GL(K)-invariant score
 
@@ -120,14 +143,14 @@ specialized here to the linear-frame ($\mathrm{GL}(K)$) reparameterizations the 
   multi-agent VFE on a principal bundle with statistical-manifold fibers; the softmax is the KKT
   solution for the source-selection posterior and the KL is exact ([[gl-k-attention]],
   [[Variational free energy]]). What that derivation costs, stated exactly, is settled in
-  [[magent-exact-elbo-whitepaper-2026-07-27-attention-derivation]] and summarized in the next section.
+  the MAgent exact-ELBO attention-row derivation (2026-07-27) and summarized in the next section.
 
 - **The shared-frame Regime-I reduction is narrower than standard attention.** The vertex cocycle
   makes loop transport flat but does not force pairwise identity. If one transport is constant on
   every attended edge including a self edge, or on all three edges of a transitive triple, then
   $\Omega_{ij}=I$. With isotropic covariance, the Gaussian KL then gives an identity-bilinear score
   plus a key-norm bias. An arbitrary learned $M=W_QW_K^\top$ is an additional structural map, not a
-  transport factor recovered from this limit. [[gl-k-attention-2026-07-09-review-revision]]
+  transport factor recovered from this limit.
 
 - **Architectural choices can be compared with the geometry.** Approximately constant key norms can
   cancel the key-norm bias in the strict identity-transport reduction, but this is not a derivation of
@@ -137,7 +160,6 @@ specialized here to the linear-frame ($\mathrm{GL}(K)$) reparameterizations the 
   position-dependent gauge frames; and ALiBi/T5/causal biases are non-uniform attention priors
   $\pi_j$ entering the logits additively as $+\log\pi_j$ ([[gl-k-attention]],
   [[Attention mechanisms — theory and positional structure]]).
-  [[gl-k-attention-2026-07-09-review-revision]]
 
 - **Covariance fixed point and SPD dynamics.** Minimizing the free energy in $\Sigma_i$ yields the
   matrix precision fixed point
@@ -154,14 +176,14 @@ specialized here to the linear-frame ($\mathrm{GL}(K)$) reparameterizations the 
   An edge-relaxed extension
   $\Omega_{ij}=\exp(\phi_i)\exp(\delta_{ij}G)\exp(-\phi_j)$ promotes the bundle to non-trivial
   holonomy (Regime II), reserved for the companion participatory program ([[participatory-it-from-bit]]).
-  No nonzero Regime-I holonomy exponent exists. [[gl-k-attention-2026-07-09-review-revision]]
+  No nonzero Regime-I holonomy exponent exists.
 
 - **Forward-KL uniqueness is conditional.** For a fixed admissible witness, the density-ratio range
   must contain a nonempty open essential interval, or overlapping configurations must identify their
   integration constants. Under that richness condition, closure selects the positive ray
   $f_c(t)=c(t\log t-t+1)$ up to divergence-null affine terms. The convention $f''(1)=1$, or fixed
   exponents and coefficients, sets $c=1$. A diagonal family under general transport does not
-  automatically supply the required witness. [[gl-k-attention-2026-07-09-review-revision]]
+  automatically supply the required witness.
 
 - **The nested attention envelope uses optimized costs, not a differentiated product.** For
   $F_i(\beta_i)=\min_{q_i}\{D_{\mathrm{KL}}(q_i\|p_i)+\sum_j\beta_{ij}C_{ij}(q_i)\}$,
@@ -169,7 +191,7 @@ specialized here to the linear-frame ($\mathrm{GL}(K)$) reparameterizations the 
   At fixed $q_i$, the attention-coordinate objective is linear in $\beta_i$ plus its entropy
   regularizer and gives the Gibbs row. After eliminating $q_i$, this becomes an implicit Gibbs
   fixed point. One must not differentiate $\sum_j\beta_{ij}C_{ij}(q_i^*(\beta_i))$ as though it
-  were $F_i$. [[gl-k-attention-2026-07-09-review-revision]]
+  were $F_i$.
 
 - **The retained sweep is two-channel and same-scale.** Every archived configuration activates
   `prior_source=model_channel` and `s_e_step=true`. One target-blind $s$ refinement toward a
@@ -178,35 +200,32 @@ specialized here to the linear-frame ($\mathrm{GL}(K)$) reparameterizations the 
   differentiates through both paths; the inner hyper-prior and gamma terms are not scored again.
   The learned route includes the model tables, $r$, token and learned positional frames, output
   projection and bias, and the active mixer. This does not establish a slower model timescale or
-  the full multiscale PIFB hierarchy. [[gl-k-attention-2026-07-09-review-revision]]
+  the full multiscale PIFB hierarchy.
 
 - **Coarse-grained mean dispersion is covariance broadening, not necessarily anisotropy.** The
   law-of-total-covariance contribution $\operatorname{Var}_A(\mu)$ is positive semidefinite and may
   be proportional to the identity. The historical sum of its norm and the block-averaged input
   deviation is only a triangle-inequality upper-bound proxy for the actual block deviation.
-  [[gl-k-attention-2026-07-09-review-revision]]
 
 - **The isotropic geometric bias measures scale and shape distortion.** The bias vanishes exactly
   for orthogonal transport, but $\Omega=cR$ with $R\in\mathrm{O}(K)$ preserves isotropic shape
   while changing covariance scale and gives nonzero bias unless $c=1$. A nonzero bias therefore
-  does not by itself diagnose directional anisotropy. [[gl-k-attention-2026-07-09-review-revision]]
+  does not by itself diagnose directional anisotropy.
 
 - **The vacuum/training language is interpretive and stabilizer-dependent.** An observation-free
   divergence sector may have gauge redundancy when its priors are transport-compatible. A fixed
   non-invariant likelihood generally reduces that redundancy to its stabilizer; it does not by
   itself force specialization, unequal Euclidean norms, or a phase transition. Those dynamical
   claims require a declared order parameter and evidence not supplied by the retained sweep.
-  [[gl-k-attention-2026-07-09-review-revision]]
 
 ### Derived from the exact ELBO: what it costs (2026-07-27)
 
-The [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation|MAgent exact-ELBO white
-paper]] originally graded the entropy-regularized attention row an *engineered scalar*, because its own
+The MAgent exact-ELBO white paper (2026-07-19 continuum-finite remediation record) originally graded the entropy-regularized attention row an *engineered scalar*, because its own
 exact row model needs frozen normalized templates and unit temperature, and because a row-local
 construction does not define a normalized population joint on shared state variables. Chapter 9 named
 a way out — a fixed normalized model carrying a **declared source label** can have an exact ELBO once
 compatibility and global normalization are proved — without carrying it out.
-[[magent-exact-elbo-whitepaper-2026-07-27-attention-derivation]] carries it out, and the result is that
+The MAgent exact-ELBO attention-row derivation (2026-07-27) carries it out, and the result is that
 the rule is derivable **under four stated hypotheses**, three of which the theory does not itself
 select.
 
@@ -230,7 +249,7 @@ endpoints.
 
 ### The tie is a postulate, and it is the temperature (2026-07-27)
 
-[[magent-exact-elbo-whitepaper-2026-07-27-link-covariance-tie]] grades the tie and merges two
+The MAgent exact-ELBO link-covariance-tie record (2026-07-27) grades the tie and merges two
 hypotheses that were being tracked separately. The first result supersedes the earlier reading that the
 KL form is simply "the specialization" of the untied family.
 
@@ -291,7 +310,7 @@ becomes Maronna's weighted fixed point $R^\star=\mathbb E[w(Q)zz^\top]$, and the
 condition is $\mathbb E[\psi(Q_S)]=d$ with $\psi(u)=uw(u)$ — the Gaussian obstruction being exactly
 $\psi=\mathrm{id}$. A heavy-tailed generator has $\psi$ bounded and admits a unique $\kappa^\star>1$, so
 the tie becomes attainable, though never as an identity, and there the row is a robust score rather
-than a Gaussian divergence ([[magent-exact-elbo-whitepaper-2026-07-27-link-covariance-tie]]).
+than a Gaussian divergence.
 
 **Normalization forces an ordered mask, and the cocycle is why.** Every one-parent-per-agent assignment
 has a cycle, so the augmented product is never a directed factorization unrestricted. Worse, under the
@@ -326,7 +345,7 @@ The archived configurations and committed code at their recorded SHAs reconstruc
 $s\to q$ route, but the SHAs do not identify the exact executed bytes. The trend is therefore
 development-provenance evidence, not a frozen benchmark or transferable scaling law. Historical
 matched-baseline and frozen-BERT numerical claims are not retained; only the shared-frame algebraic
-score comparison survives. [[gl-k-attention-2026-07-09-review-revision]]
+score comparison survives.
 
 ### Measured: how much of the score the derived energy actually carries (2026-07-25)
 
@@ -334,8 +353,8 @@ Two checkpoint-only decompositions put numbers on the construction's central cla
 
 **The precision blend is real and quantified.** The covariance fixed point above says each agent's
 precision is a $\beta$-weighted blend of its prior precision and its neighbors' transported
-precisions. Measured on the mean update at the trained operating point
-([[2026-07-25-estep-character-and-channel-decomposition]]), that blend puts **80 to 85% of the
+precisions. Measured on the mean update at the trained operating point,
+that blend puts **80 to 85% of the
 fused precision on the prior** and 15 to 20% on the transported neighbors, so the converged belief
 is $\mu^*pprox0.8\mu_p+0.2(	ext{attention-weighted transported neighbors})$ -- the derived
 attention operates as a layer with a dominant residual path. The neighbor share rises with width
@@ -345,13 +364,13 @@ head geometry and is not an isolated width effect.
 > [!warning] Superseded numbers
 > The shares first published here (70-81% prior; 0.190 -> 0.298 with width) came from a probe that
 > read the MODEL channel's fusion as the belief's, and anchored on the token-uniform centroid $r$
-> rather than the belief's prior. Corrected in [[2026-07-26-b01-probe-defect-and-width-remeasurement]];
+> rather than the belief's prior. Corrected in the 2026-07-26 B-01 re-measurement;
 > the single-batch share is sample-sensitive, so quote it with its sample size.
 
 **The divergence score is a weaker router than the positional prior.** Under
 $\beta_{ij}=\mathrm{softmax}_j(\log\pi_{ij}-E_{ij}/\tau)$, ablating the entire belief-coupling
-energy $E$ costs 0.210 nats while flattening the positional prior $\log\pi$ costs 0.612
-([[2026-07-25-phi-table-and-beta-channel-measurements]]). The additive $+\log\pi_j$ prior — the slot
+energy $E$ costs 0.210 nats while flattening the positional prior $\log\pi$ costs 0.612.
+The additive $+\log\pi_j$ prior — the slot
 the manuscript identifies with ALiBi/T5/causal biases — carries roughly three times what the derived
 KL score does. Zeroing the frame table costs about nine times what the whole content channel is
 worth, which locates the gauge's contribution in the **value** path (transporting $\mu_j$ into the
@@ -420,7 +439,7 @@ The construction derives its own KL-softmax attention rule rather than positing 
 shared-frame, isotropic limit yields an identity-bilinear score plus a key-norm bias; a general
 transformer compatibility $W_QW_K^\top$ and value map remain structural additions. It is therefore
 the formal pivot for a scoped comparison with transformer attention, not a theorem that arbitrary
-transformer attention is an exact special case. [[gl-k-attention-2026-07-09-review-revision]]
+transformer attention is an exact special case.
 
 ## Related
 
@@ -431,7 +450,7 @@ transformer attention is an exact special case. [[gl-k-attention-2026-07-09-revi
 [[Fisher information metric]] · [[Natural gradient]] · [[Holonomy]] · [[Parallel transport]] ·
 [[Gauge transformation]] · [[Agents as fibre-bundle sections]] · [[Group equivariance]] ·
 [[Gauge equivariant CNN]] · [[Gauge equivariance and geometric deep learning]] ·
-[[Quantum information geometry]] · [[Statistical manifold]]
+[[Quantum information geometry]] · [[Statistical manifold]] · [[Dressing field method]]
 
 ## Sources
 
@@ -441,9 +460,6 @@ transformer attention is an exact special case. [[gl-k-attention-2026-07-09-revi
 [[bhatia-2007-positive-definite-matrices]] · [[amari-2016-information-geometry-applications]] ·
 [[cencov-1982-statistical-decision-rules]] · [[petz-1996-monotone-metrics]] ·
 [[parr-2022-active-inference]] · [[sengupta2017gauge|sengupta-friston-2017-bayesian-gauge-theory]] ·
-[[sengupta-2016-neuronal-gauge|sengupta-2016-neuronal-gauge-theory]] · [[participatory-it-from-bit]] ·
-[[2026-07-25-estep-character-and-channel-decomposition]] ·
-[[2026-07-25-phi-table-and-beta-channel-measurements]] ·
-[[2026-07-25-exact-congruence-truncation-tension]] ·
-[[magent-exact-elbo-whitepaper-2026-07-27-attention-derivation]] ·
-[[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]]
+[[sengupta-2016-neuronal-gauge|sengupta-2016-neuronal-gauge-theory]] · [[participatory-it-from-bit]]
+
+v2 revision positioning (2026-09-23): [[francois-2019-artificial-gauge-symmetries]] · [[fournel-2014-gauge-invariant-composite-fields]] · [[norton-1993-general-covariance]] · [[weiler-2021-coordinate-independent-cnns]] · [[movellan-2020-probabilistic-transformers]] · [[gabbur-2021-probabilistic-attention]] · [[nguyen-2022-probabilistic-attention-keys]] · [[kim-2021-lipschitz-self-attention]] · [[niculae-2017-regularized-attention]] · [[litman-2025-entropic-optimal-transport-attention]] · [[litman-2026-attention-priors]] · [[bianchessi-2026-bayesian-attention-mechanism]] · [[vilnis-2015-gaussian-embeddings]] · [[levine-2018-control-as-inference]] · [[toussaint-storkey-2006-probabilistic-inference-mdp]] · [[kappen-2012-optimal-control-inference]] · [[hansen-2018-toward-a-spectral-theory-of-cellular-sheaves]] · [[bodnar-2022-neural-sheaf-diffusion]] · [[kunin-2021-neural-mechanics]] · [[du-2018-balanced-layers]] · [[loshchilov-hutter-2019-adamw]] · [[das-2019-tarmac]] · [[dai2019transformerxl]] · [[vanerven-2014-renyi-kl]] · [[merity2017-pointer-sentinel]] · [[hendrycks2016gaussian]] · [[ba-2016-layer-normalization]] · [[jebara-2004-probability-product-kernels]]

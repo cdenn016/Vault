@@ -90,4 +90,3 @@ These results apply only to an explicit stochastic graphon or graphon-game const
 - [[Opinion dynamics]] · [[Bounded confidence]] — restricted averaging correspondence and soft analog; no general overdamped recovery.
 - [[Sociophysics]] · [[SocialPhysics]] — the broader programme and the founding project page.
 - [[Statistical manifold]] · [[Fisher information metric]] · [[Gauge transformation]] — the curved geometry that complicates a direct continuum port.
-- [[belief-inertia-2026-07-13-final-review-closure]] — authoritative status of mean-field and continuum models as methodological templates.

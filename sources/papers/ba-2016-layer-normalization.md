@@ -1,7 +1,7 @@
 ---
 type: paper
 title: "Layer Normalization"
-aliases: ["Ba 2016", "Layer Normalization"]
+aliases: ["Ba 2016", "Layer Normalization", "ba2016layernorm"]
 authors: ["Jimmy Lei Ba", "Jamie Ryan Kiros", "Geoffrey E. Hinton"]
 year: 2016
 arxiv: 1607.06450

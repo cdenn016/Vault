@@ -5,7 +5,7 @@ aliases: [kl_max clamp, kl_max saturation, K-width clamp problem, divergence sat
 tags: [cluster/vfe, cluster/info-geometry, project/transformer]
 status: draft
 created: 2026-06-21
-updated: 2026-07-25
+updated: 2026-09-27
 ---
 
 # Divergence clamp saturation
@@ -68,14 +68,14 @@ saturate.
 
 > [!note] Editorial: items 1–3 are an engineering/theory analysis grounded in the code and the manuscripts
 > ([[participatory-it-from-bit]], [[gl-k-attention]]), not a published external result; the empirical numbers come from
-> [[2026-06-21-k160-hyperprior-saturation]].
+> the 2026-06-21 K=160 runs.
 
 ## A sharper variant: saturation that destroys its own escape route
 
 The 2026-06-21 case is the benign form — a saturated regularizer goes silently inert while the model
 keeps training through other terms. A 2026-07-25 experiment produced the malignant form, in which
 **the saturated term is the one whose gradient maintains the conditioning that keeps it below the
-ceiling**, so saturation is self-reinforcing ([[2026-07-25-exact-congruence-truncation-tension]]).
+ceiling**, so saturation is self-reinforcing.
 
 Replacing the truncated transported covariance with the exact congruence
 $\Omega\,\mathrm{diag}(s_j)\,\Omega^\top$ makes the pairwise energy scale as
@@ -101,12 +101,9 @@ not be computed exactly under a non-compact gauge rather than that the clamp sho
 Controlled by the single global `cfg.kl_max` (`vfe3/config.py`), threaded to every divergence consumer — the
 self-coupling, the per-head pairwise energy, the hyper-prior $\mathrm{KL}(s\|r)$, and decode. There is no per-block
 seam. Applied fix: `config["kl_max"] = 8 * embed_dim` in `train_vfe3.py`, so the safety net auto-tracks width. First
-observed in [[2026-06-21-k160-hyperprior-saturation]] (the hyper-prior block pinned at 100 for K=160).
+observed in the 2026-06-21 K=160 runs (the hyper-prior block pinned at 100).
 
 ## Sources
-- [[2026-06-21-k160-hyperprior-saturation]] — empirical measurement at K=160
-- [[2026-07-25-exact-congruence-truncation-tension]] — the self-reinforcing variant, where the
-  saturated term's own gradient was the restoring force
 - [[participatory-it-from-bit]] · [[gl-k-attention]] — the $\tau=\kappa\sqrt{K}$ convention and the free-energy functional
 
 ## See also

@@ -1,0 +1,1050 @@
+\chapter{Comparison Data, Modes, and Interaction Beta Functions}
+\label{ch:renormalization}
+
+The main manuscript coarse-grains a finite agent network at \(c_*\) by exact
+channels, retaining an effective action, a closure residual, finite-step
+multipliers, and a native growth bound
+(\cref{ch:coarsegraining,ch:agent-network-rg}). A renormalization flow in the
+Wilsonian sense adds maps that compare each blocked theory with the original
+units, and only then speaks of modes, exponents, relevance, beta functions,
+and fixed points. This part asks which comparison data those words require,
+what they license, and which of them a finite network at \(c_*\) can carry.
+
+Comparison data are declared structure independent of the channels, and the
+finite networks of the main manuscript do not inhabit the asymptotic
+classification: finite levels with different numbers of configurations admit
+no stochastic comparison, blocking terminates, and the sign of an exponent
+depends on the declared block schedule
+(\cref{prop:rg-finite-depth-no-asymptotics}). Where the
+classification is available, its canonical content is the forward Lyapunov
+filtration (\cref{prop:rg-lyapunov-filtration}); exponents are invariant
+only under tempered comparisons
+(\cref{thm:rg-tempered-comparison,prop:rg-superexponential-distortion}); and
+the exact interaction cocycle has no relevant direction under tempered
+comparisons (\cref{cor:rg-interaction-no-relevant-mode}), so a relevant
+direction needs an extensive normalization, as in the Gaussian block spectrum
+(\cref{def:rg-hermite-relevance}). A beta function is a difference quotient on
+one reference space. It depends on the reference trajectory
+(\cref{prop:rg-action-beta-reference-change}) and on the comparison scheme
+(\cref{prop:rg-scheme-dependence}), and a retained beta differs from the exact
+one by the transported closure residual of the main manuscript
+(\cref{prop:rg-retained-beta-residual}). These results are used in
+\cref{ch:wilsonian-limits}, which adds continuous scale, fixed points,
+spectra, and two-index limits.
+
+Throughout this part \(b_k>1\) are declared block ratios, \(\varsigma\) is the
+cumulative log block scale, \(J_\ell\) are comparison isomorphisms into the
+scale-\(\ell\) objects, \(I_b\) and \(K_b\) are identification and rescaled
+kernels, and beta functions are written \(\mathfrak b\), so that they are not
+confused with the attention rows \(\beta^x_{ij}\) of the main manuscript. The
+measure pairs \((\varrho,\mathsf m)\), the reverse conditional expectations
+\(\mathsf U\), the finite-step multipliers \(D_\ell\) and
+\(D_{n\leftarrow\ell}\) on Banach spaces \(\mathscr X_\ell\), and the
+interaction objects \(\mathcal G_\ell\), \(\mathsf g\), \(\mathcal T_\ell\),
+\(\operatorname{asm}_\ell\), \(\operatorname{hd}_\ell\),
+\(\mathsf P^{\mathrm{ret}}_\ell\), and \(r^{\mathcal G}_{\ell+1}\) are those of
+the main manuscript.
+
+\paragraph{Scope.}
+This part asserts no existence theorem for exponents. No Oseledets splitting
+of a scale cocycle is claimed: a multiplicative ergodic theorem
+\citep{Oseledets1968} requires a measure-preserving base flow, measurability of
+the cocycle in the base variable, integrability of \(\log^+\lVert D\rVert\)
+and, for the two-sided splitting, of \(\log^+\lVert D^{-1}\rVert\), and either
+finite dimension \citep[Chapters~3 and~4]{Arnold1998} or, in infinite
+dimensions, compactness of the operators on a Hilbert space
+\citep{Ruelle1982} or quasi-compactness on a separable Banach space
+\citep{LianLu2010}, and a deterministic scale sequence supplies none of these.
+No autonomous spectrum, mode, or exponent is asserted for a nonautonomous
+sequence; no continuous beta function is derived from a discrete blocking
+sequence; no universality class is identified; and none of the invariant or
+fixed objects of this part is identified with a physical law, which would
+need the apparatus of \cref{claim:physical-law-identification}.
+\status{NOT-CLAIMED}
+The open constructions are
+\cref{open:rg-rescaling-compatibility,open:rg-multiplicative-ergodic,open:rg-hermite-extensive-relevance,open:rg-hermite-nonlinear-attraction}
+in this chapter and
+\cref{open:rg-continuous-beta,open:rg-two-index-limits,open:rg-scalarized-attraction}
+in \cref{ch:wilsonian-limits}.
+
+\section{Comparison data and dynamical types}
+\label{sec:rg-dynamical-types}
+
+\definitionheading{Comparison data and reference cocycle}{def:rg-comparison-data}
+Let a scale diagram in the sense of \cref{def:rg-scale-diagram} have objects
+\(\mathfrak X_\ell\) and adjacent arrows \(C_{\ell,\ell+1}\) in a declared
+target category \(\mathscr K\). Comparison data are a reference object
+\(\mathfrak X_\star\) and declared isomorphisms
+\(J_\ell:\mathfrak X_\star\xrightarrow{\sim}\mathfrak X_\ell\) in
+\(\mathscr K\). Field, base, unit, and reference-measure rescalings are
+components of \(J_\ell\), and so is the parameter rescaling of a separately
+supplied dynamical model. The reference cocycle is
+\begin{equation}
+\widehat{\mathfrak R}_\ell
+=J_{\ell+1}^{-1}\circ C_{\ell,\ell+1}\circ J_\ell:
+\mathfrak X_\star\longrightarrow\mathfrak X_\star,
+\label{eq:rg-reference-cocycle}
+\end{equation}
+where \(\circ\) is composition in \(\mathscr K\); in a stochastic component it
+is represented by right-acting kernel juxtaposition
+\eqref{eq:rg-right-acting-kernel-composition}. A positive scalar
+\(\zeta_\ell\) can be one component of \(J_\ell\) but not all of it, since
+multiplication by \(\zeta_\ell\) maps each object to itself and identifies no
+two distinct objects.
+
+\definitionheading{Dynamical type}{def:rg-dynamical-type}
+The reference cocycle \eqref{eq:rg-reference-cocycle} is autonomous when
+\(\widehat{\mathfrak R}_\ell=\widehat{\mathfrak R}\) for every \(\ell\),
+periodic of period \(p\) when
+\(\widehat{\mathfrak R}_{\ell+p}=\widehat{\mathfrak R}_\ell\), stationary
+random when it is a measurable stationary cocycle over a measure-preserving
+base, and general otherwise. The invariant object depends on the type. An
+autonomous fixed object satisfies \(\widehat{\mathfrak R}x=x\); a periodic
+scheme has a fixed object of its monodromy
+\(\widehat{\mathfrak R}_{\ell+p-1}\circ\cdots\circ\widehat{\mathfrak R}_\ell\)
+or an attracting \(p\)-cycle; a stationary random scheme may have a random
+invariant section; a general cocycle may have pullback or forward attracting
+sections. A fixed ray additionally requires a positive cone and its
+projectivization. An ordered segment
+\(\widehat{\mathfrak R}_{n-1}\circ\cdots\circ\widehat{\mathfrak R}_\ell\) is a
+two-parameter family, a power of one map only in the autonomous case; writing
+it as a power otherwise loses the base scale and, for noncommuting factors,
+the order, since
+\(A=\begin{psmallmatrix}1&1\\0&1\end{psmallmatrix}\) and
+\(B=\begin{psmallmatrix}1&0\\1&1\end{psmallmatrix}\) give
+\(BA=\begin{psmallmatrix}1&1\\1&2\end{psmallmatrix}\neq
+AB=\begin{psmallmatrix}2&1\\1&1\end{psmallmatrix}\). For a mixed state the
+composition law is owed in every declared component category.
+
+\propositionheading{Uniform contraction need not give one fixed ray}{prop:rg-contraction-no-fixed-ray}
+If every \(\widehat{\mathfrak R}_\ell\) is a positive map on the interior of a
+proper cone that contracts Hilbert's projective metric \(d_H\) by a factor at
+most \(\mathrm c<1\), then
+\begin{equation}
+d_H\bigl(
+\widehat{\mathfrak R}_{\ell-1}\cdots\widehat{\mathfrak R}_0x,
+\widehat{\mathfrak R}_{\ell-1}\cdots\widehat{\mathfrak R}_0y\bigr)
+\leq\mathrm c^\ell d_H(x,y),
+\label{eq:rg-cocycle-contraction}
+\end{equation}
+so initial rays are forgotten, but the attracting section need not be one
+scale-independent ray: for the alternating cocycle \(A,B,A,B,\ldots\) on
+\(\R^2_{>0}\) with
+\(A=\begin{psmallmatrix}2&1\\1&1\end{psmallmatrix}\) and
+\(B=\begin{psmallmatrix}1&1\\1&2\end{psmallmatrix}\), even iterates converge
+projectively to the ray \([1,\sqrt2]\) and odd iterates to the distinct ray
+\(A[1,\sqrt2]\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The bound is the iterated one-step contraction
+\citep{Birkhoff1957,nussbaum1988hilbert}. Both matrices have strictly positive
+entries, hence finite projective diameter and a common contraction factor
+below one. The product
+\(BA=\begin{psmallmatrix}3&2\\4&3\end{psmallmatrix}\) has eigenvalues
+\(3\pm2\sqrt2\) with Perron eigenvector \((1,\sqrt2)\), so even iterates
+\((BA)^kx\) converge projectively to \([1,\sqrt2]\) for every \(x\) in the open
+cone, and odd iterates, their images under \(A\), converge to
+\((2+\sqrt2,1+\sqrt2)\), which is not proportional to \((1,\sqrt2)\).
+\(\square\)
+
+\subsection{The rescaled measure-pair step}
+
+\definitionheading{Rescaled kernel and measure-pair step}{def:rg-rescaled-kernel}
+For a blocking ratio \(b>1\), a rescaled step consists of a coarse channel
+\(C_b\) and a declared identification kernel \(I_b\) that returns the coarse
+space to one common standard Borel space; the rescaled kernel is
+\(K_b=C_bI_b\). On measure pairs \((\varrho,\mathsf m)\) in the sense of
+\cref{def:rg-measure-pair} the step is
+\begin{equation}
+\mathfrak R_b(\varrho,\mathsf m)
+=\bigl((\varrho C_b)I_b,(\mathsf mC_b)I_b\bigr)
+=(\varrho K_b,\mathsf mK_b),
+\label{eq:rg-measure-pair-map}
+\end{equation}
+with reference component \(\mathfrak R^\varrho_b\varrho=\varrho K_b\). The family is
+compatible when, after the declared identifications of the ratios,
+\begin{equation}
+K_{b_1b_2}=K_{b_1}K_{b_2}.
+\label{eq:rg-kernel-compatibility}
+\end{equation}
+Under compatibility
+\(\mathfrak R_{b_1b_2}=\mathfrak R_{b_2}\circ\mathfrak R_{b_1}\), because
+\((\varrho K_{b_1})K_{b_2}=\varrho K_{b_1b_2}\); otherwise the steps form a cocycle
+in the sense of \cref{def:rg-dynamical-type}. Compatibility is the rule
+semigroup in which the functor axiom of \cref{def:rg-scale-diagram} has
+content.
+
+\remarkheading{A declared family that fails compatibility}{rem:rg-compatibility-computation}
+For one declared rescaling family on nested-cycle instances of six categorical
+agents, whose identification kernels compose a Wilson-line coarse connection
+from the retained dressed boundary generators with a cyclic graph
+identification and the identity state identification, blocking by the full
+ratio and blocking in declared stages gave coarse laws at total variation
+distance \(0.042\) and relative entropy \(0.0050\) (check
+\texttt{CHK-RG-RESCALING-COMPATIBILITY}, \cref{tab:base-numerical}). This
+family therefore fails \eqref{eq:rg-kernel-compatibility}, and its scale maps
+form a cocycle; the computation decides nothing about other families.
+\status{NUMERICAL}
+
+\openproblemheading{Compatible rescaling kernels on agent networks}{open:rg-rescaling-compatibility}
+The measure-pair steps compose exactly under
+\eqref{eq:rg-kernel-compatibility}, the family of
+\cref{rem:rg-compatibility-computation} fails that law, and the compatible
+cover and path-blocking constructions of
+\cref{ch:neighborhood-parents,ch:constructive-spatial-rg} live on their own
+domains and supply no identification kernels for the agent network. It is not
+known whether identification kernels acting on the gauge-retained network
+state of the main manuscript satisfy \eqref{eq:rg-kernel-compatibility} on a
+declared class of finite networks at \(c_*\). The problem is settled by such a
+family with a proof of \eqref{eq:rg-kernel-compatibility}, or by a proof that
+none exists for a stated class, whose composed statements are then stated in
+cocycle form.
+
+\section{Generalized cross-scale modes and exponents}
+\label{sec:rg-generalized-modes}
+
+A scale sequence supplies no eigenvalue problem. Along an exact orbit it
+supplies the finite-step multipliers
+\(D_\ell\in\mathcal L(\mathscr X_\ell,\mathscr X_{\ell+1})\) and their ordered products
+\(D_{n\leftarrow\ell}\) of \cref{def:rg-derivative-cocycle}, which compose by
+\eqref{eq:rg-cocycle-composition} between different Banach spaces
+\((\mathscr X_\ell,\lVert\cdot\rVert_\ell)\). This section fixes the mode and exponent
+types relative to those declared norms.
+
+\definitionheading{Compatible cross-scale mode line}{def:rg-mode-line}
+A rank-one mode line of index \(a\) along the orbit is a family of nonzero
+vectors \(v_{\ell,a}\in \mathscr X_\ell\) (in the complexification when \(\mathscr X_\ell\) is
+real) and scalars \(\lambda_{\ell,a}\in\mathbb C\) with
+\begin{equation}
+D_\ell v_{\ell,a}=\lambda_{\ell,a}v_{\ell+1,a}.
+\label{eq:rg-mode-line}
+\end{equation}
+This compatibility equation relates adjacent fibers. The expression
+\(D_\ell v=\lambda v\) equates vectors of \(\mathscr X_{\ell+1}\) and \(\mathscr X_\ell\) and is
+not used unless an identification is declared: with \(\mathscr X_0=\R\), \(\mathscr X_1=\R^2\),
+and \(D_0x=(x,0)\), the line \(v_0=1\), \(v_1=(1,0)\), \(\lambda_0=1\) is well
+typed while \(D_0v=\lambda v\) is not. For a mode subbundle of finite rank
+\(d_a\), choose injective frames \(V_{\ell,a}:\mathbb C^{d_a}\to \mathscr X_\ell\) and
+matrices \(A_{\ell,a}\) with
+\begin{equation}
+D_\ell V_{\ell,a}=V_{\ell+1,a}A_{\ell,a}.
+\label{eq:rg-mode-frame}
+\end{equation}
+
+\propositionheading{Ordered product law for mode coefficients}{prop:rg-mode-product}
+Under \eqref{eq:rg-mode-line},
+\begin{equation}
+D_{n\leftarrow\ell}v_{\ell,a}=\lambda_{n\leftarrow\ell,a}v_{n,a},
+\qquad
+\lambda_{n\leftarrow\ell,a}=\prod_{k=\ell}^{n-1}\lambda_{k,a},
+\label{eq:rg-mode-product}
+\end{equation}
+with the empty product equal to one, and under \eqref{eq:rg-mode-frame} the
+finite-step matrix is the ordered product \(A_{n-1,a}\cdots A_{\ell,a}\). A
+vanishing factor annihilates the propagated mode from that step on, and the
+phase or sign of each factor is retained separately from any growth exponent.
+Conversely, the definition constrains nothing by itself: for every
+\(u\in \mathscr X_\ell\) whose forward images \(D_{k\leftarrow\ell}u\) are nonzero, the
+unit vectors \(v_k=D_{k\leftarrow\ell}u/\lVert D_{k\leftarrow\ell}u\rVert_k\)
+and scalars
+\(\lambda_k=\lVert D_{k+1\leftarrow\ell}u\rVert_{k+1}/
+\lVert D_{k\leftarrow\ell}u\rVert_k\) form a mode line. The index \(a\)
+therefore acquires content only from an additional declared constraint, such
+as invariance of a declared subbundle, equivariance under a declared symmetry,
+or a comparison identification under which the mode section is constant.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Induction on \(n-\ell\) with \eqref{eq:rg-cocycle-composition}:
+\(D_{n+1\leftarrow\ell}v_{\ell,a}=D_nD_{n\leftarrow\ell}v_{\ell,a}
+=\lambda_{n\leftarrow\ell,a}\lambda_{n,a}v_{n+1,a}\). The frame case is the
+same induction with matrix factors in the order fixed by
+\eqref{eq:rg-mode-frame}. For the converse,
+\(D_kv_k=D_{k+1\leftarrow\ell}u/\lVert D_{k\leftarrow\ell}u\rVert_k
+=\lambda_kv_{k+1}\). \(\square\)
+
+The object carried by the multiplier cocycle alone is the forward filtration
+of \cref{prop:rg-lyapunov-filtration}.
+
+\definitionheading{Cumulative log block scale, growth rates, and relevance}{def:rg-mode-exponents}
+\label{def:rg-action-relevance-conventions}
+Let \(b_k>1\) be declared adjacent block ratios and set
+\begin{equation}
+\Delta\varsigma_k=\log b_k,
+\qquad
+\varsigma_{n\leftarrow\ell}=\sum_{k=\ell}^{n-1}\Delta\varsigma_k,
+\label{eq:rg-cumulative-log-scale}
+\end{equation}
+with \(\varsigma_{n\leftarrow\ell}\to\infty\). For
+\(u\in \mathscr X_\ell\setminus\{0\}\) the finite-time growth rate relative to the
+declared norms is
+\begin{equation}
+\chi_{n\leftarrow\ell}(u)
+=\frac{\log\lVert D_{n\leftarrow\ell}u\rVert_n-\log\lVert u\rVert_\ell}
+{\varsigma_{n\leftarrow\ell}},
+\label{eq:rg-finite-time-rate}
+\end{equation}
+equal to \(-\infty\) once the image vanishes. The upper rate
+\(\bar\chi_\ell(u)\) and the lower rate are its limit superior and limit
+inferior as \(n\to\infty\), with \(\bar\chi_\ell(0)=-\infty\); a Lyapunov
+exponent is asserted only when they agree. For a mode line the scalar
+finite-time exponent is
+\begin{equation}
+\upsilon_{n\leftarrow\ell,a}
+=\frac{\log\lvert\lambda_{n\leftarrow\ell,a}\rvert}{\varsigma_{n\leftarrow\ell}}
+=\frac{\sum_{k=\ell}^{n-1}\log\lvert\lambda_{k,a}\rvert}
+{\varsigma_{n\leftarrow\ell}},
+\qquad\log0=-\infty.
+\label{eq:rg-scalar-exponent}
+\end{equation}
+A nonzero direction \(u\) is relevant, marginal, or irrelevant according as
+\(\bar\chi_\ell(u)\) is positive, zero, or negative, and a mode line according
+as the limit superior of \(\upsilon_{n\leftarrow\ell,a}\) is positive, zero, or
+negative. The classification is relative to the declared norms, the declared
+extensive normalization of the mode sections, the declared block ratios, and
+the declared comparison maps; it is not a property of the scale sequence
+alone. In the autonomous case, where a fixed point, one ratio \(b_k=b\), and
+bounded isometric identifications make the linearization one bounded
+endomorphism \(T\) of one complex Banach space, an isolated eigenvector
+\(T\psi_a=\lambda_a\psi_a\) is a constant mode line with exponent
+\(\log\lvert\lambda_a\rvert/\log b\), its sign or phase is retained, and
+generalized eigenspaces are used only in finite dimension or for isolated
+points of the spectrum with their spectral projections.
+
+\propositionheading{Forward Lyapunov filtration}{prop:rg-lyapunov-filtration}
+Under \cref{def:rg-mode-exponents}, set, for \(c\in[-\infty,+\infty]\),
+\begin{equation}
+V_\ell^{\leq c}=\{u\in \mathscr X_\ell:\bar\chi_\ell(u)\leq c\}.
+\label{eq:rg-lyapunov-filtration}
+\end{equation}
+Then every \(V_\ell^{\leq c}\) is a linear subspace,
+\(V_\ell^{\leq c}\subseteq V_\ell^{\leq c'}\) for \(c\leq c'\), and
+\begin{equation}
+\bar\chi_{\ell+1}(D_\ell u)=\bar\chi_\ell(u)\quad(D_\ell u\neq0),
+\qquad
+D_\ell V_\ell^{\leq c}\subseteq V_{\ell+1}^{\leq c}.
+\label{eq:rg-filtration-invariance}
+\end{equation}
+If \(\mathscr X_\ell\) is finite dimensional, \(\bar\chi_\ell\) takes at most
+\(\dim \mathscr X_\ell\) distinct values on \(\mathscr X_\ell\setminus\{0\}\). The irrelevant
+directions are the nonzero vectors of the forward-invariant subspace
+\(V_\ell^{<0}=\bigcup_{c<0}V_\ell^{\leq c}\), the marginal ones those of
+\(V_\ell^{\leq0}\setminus V_\ell^{<0}\), and relevant directions are canonical
+only as nonzero classes of \(\mathscr X_\ell/V_\ell^{\leq0}\); a complementary subspace
+of relevant directions is not determined by the forward cocycle.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Since \(\varsigma_{n\leftarrow\ell}\to\infty\), the term
+\(\log\lVert u\rVert_\ell/\varsigma_{n\leftarrow\ell}\) vanishes in the limit.
+The triangle inequality gives
+\(\log\lVert D(u+w)\rVert\leq\log2
++\max\{\log\lVert Du\rVert,\log\lVert Dw\rVert\}\) for
+\(D=D_{n\leftarrow\ell}\); after division by \(\varsigma_{n\leftarrow\ell}\)
+the constant disappears, and the limit superior of a maximum of two sequences
+is the maximum of their limit superiors, so
+\(\bar\chi_\ell(u+w)\leq\max\{\bar\chi_\ell(u),\bar\chi_\ell(w)\}\). With
+\(\bar\chi_\ell(tu)=\bar\chi_\ell(u)\) for \(t\neq0\), each
+\(V_\ell^{\leq c}\) is a subspace, and monotonicity in \(c\) is immediate. For
+invariance, \(D_{n\leftarrow\ell+1}D_\ell u=D_{n\leftarrow\ell}u\) and
+\(\varsigma_{n\leftarrow\ell}/\varsigma_{n\leftarrow\ell+1}\to1\), so the two
+limit superiors agree, including infinite values. If
+\(c_1<\cdots<c_k\) are attained at \(u_1,\ldots,u_k\), then
+\(u_j\in V_\ell^{\leq c_j}\setminus V_\ell^{\leq c_{j-1}}\), so the subspaces
+increase strictly and \(k\leq\dim \mathscr X_\ell\). A nested union of subspaces is a
+subspace, and invariance passes to it. For the last assertion take
+\(D_k=\operatorname{diag}(2,1/2)\) on \(\R^2\) with \(b_k=e\): the vector
+\(e_2\) has rate \(-\log2\) and every vector outside
+\(\operatorname{span}(e_2)\) has rate \(\log2\), so every line other than
+\(\operatorname{span}(e_2)\) is a complement of relevant directions.
+\(\square\)
+
+\propositionheading{Scalar and norm growth agree for tempered mode sections}{prop:rg-mode-tempered-normalization}
+For a mode line and every \(n>\ell\) with \(\lambda_{n\leftarrow\ell,a}\neq0\),
+\begin{equation}
+\chi_{n\leftarrow\ell}(v_{\ell,a})
+=\upsilon_{n\leftarrow\ell,a}
++\frac{\log\lVert v_{n,a}\rVert_n-\log\lVert v_{\ell,a}\rVert_\ell}
+{\varsigma_{n\leftarrow\ell}}.
+\label{eq:rg-mode-exponent-relation}
+\end{equation}
+The two rates therefore have the same upper and lower limits whenever the mode
+sections have unit norm, or more generally whenever
+\(\log\lVert v_{n,a}\rVert_n\) is sublinear in \(\varsigma_{n\leftarrow\ell}\).
+Under a scalar regauging \(v'_{\ell,a}=c_{\ell,a}v_{\ell,a}\) with
+\(c_{\ell,a}\neq0\),
+\begin{equation}
+\lambda'_{\ell,a}=\lambda_{\ell,a}\frac{c_{\ell,a}}{c_{\ell+1,a}},
+\qquad
+\lambda'_{n\leftarrow\ell,a}
+=\lambda_{n\leftarrow\ell,a}\frac{c_{\ell,a}}{c_{n,a}},
+\label{eq:rg-mode-scalar-gauge}
+\end{equation}
+so the upper and lower limits of the scalar exponent are unchanged whenever
+\(\lvert\log\lvert c_{n,a}\rvert\rvert/\varsigma_{n\leftarrow\ell}\to0\). This
+tempering condition is sufficient but not necessary for preserving those two
+values; when the original scalar exponent converges to a finite limit, it is necessary
+for the regauged exponent to converge to that same finite limit. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Taking norms in \eqref{eq:rg-mode-product} and substituting into
+\eqref{eq:rg-finite-time-rate} gives the remainder as the endpoint norm
+difference divided by \(\varsigma_{n\leftarrow\ell}\). Substituting
+\(v'_{\ell,a}=c_{\ell,a}v_{\ell,a}\) into \eqref{eq:rg-mode-line} gives the
+first equality in \eqref{eq:rg-mode-scalar-gauge}, and telescoping gives the
+second, so
+\(\upsilon'_{n\leftarrow\ell,a}=\upsilon_{n\leftarrow\ell,a}
++(\log\lvert c_{\ell,a}\rvert-\log\lvert c_{n,a}\rvert)/\varsigma_{n\leftarrow\ell}\),
+which proves sufficiency; if \(\upsilon\) and \(\upsilon'\) converge to the
+same finite limit, their difference forces
+\(\log\lvert c_{n,a}\rvert/\varsigma_{n\leftarrow\ell}\to0\). For an infinite limit
+this need not hold: with \(b_k=e\), \(\lambda_{k,a}=e^{-(2k+1)}\), and
+\(c_{k,a}=e^k\), the rates at \(\ell=0\) are \(-n\) and \(-n-1\), both tending
+to \(-\infty\), while \(\lvert\log c_{n,a}\rvert/n=1\). Necessity also fails
+for nonconvergent exponents: take \(\ell=0\), \(b_k=e\), \(c_{0,a}=1\),
+\(\log\lvert\lambda_{n\leftarrow0,a}\rvert=nu_n\) and
+\(\log\lvert c_{n,a}\rvert=nd_n\), where \((u_n,d_n)\) is \((0,0)\),
+\((-1,0)\), \((-1/2,1/2)\), \((-1/2,-1/2)\) for \(n\equiv0,1,2,3\pmod4\). The
+regauged exponent \(u_n-d_n\) runs through \(0,-1,-1,0\), with the same limit
+superior \(0\) and limit inferior \(-1\) as \(u_n\), while
+\(\lvert\log\lvert c_{n,a}\rvert\rvert/n=1/2\) for \(n\equiv2,3\pmod4\).
+\(\square\)
+
+For a unit-norm mode line the scalar exponent is exactly the rate of
+\(v_{\ell,a}\), so the two clauses of \cref{def:rg-mode-exponents} agree. A
+splitting of \(\mathscr X_\ell\) into relevant, marginal, and irrelevant subspaces
+requires backward data, such as an exponential dichotomy or the hypotheses of
+a multiplicative ergodic theorem (\cref{open:rg-multiplicative-ergodic}).
+
+\theoremheading{Exponent invariance under tempered comparison trivializations}{thm:rg-tempered-comparison}
+Let \(J_k:\mathscr X_\star\to \mathscr X_k\) be bounded linear isomorphisms with bounded
+inverses, and set
+\begin{equation}
+\widehat D_k=J_{k+1}^{-1}D_kJ_k,
+\qquad
+\widehat D_{n\leftarrow\ell}=J_n^{-1}D_{n\leftarrow\ell}J_\ell.
+\label{eq:rg-transported-cocycle}
+\end{equation}
+If the trivializations and their inverses are tempered relative to the
+cumulative log block scale,
+\begin{equation}
+\frac{\log^+\lVert J_n\rVert+\log^+\lVert J_n^{-1}\rVert}{\varsigma_{n\leftarrow\ell}}
+\longrightarrow0,
+\label{eq:rg-tempered-trivialization}
+\end{equation}
+then for every \(u\in \mathscr X_\ell\setminus\{0\}\) the upper and lower rates of
+\(u\) in the native norms coincide with those of \(J_\ell^{-1}u\) computed for
+\(\widehat D_{n\leftarrow\ell}\) in the reference norm. Together with the
+scalar tempering condition of \cref{prop:rg-mode-tempered-normalization}, this
+preserves both the scalar mode exponent and the norm growth rate.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Write \(x_n=D_{n\leftarrow\ell}u\) and
+\(\widehat x_n=J_n^{-1}x_n=\widehat D_{n\leftarrow\ell}J_\ell^{-1}u\), the second
+identity in \eqref{eq:rg-transported-cocycle}. Bounded invertibility gives
+\begin{equation}
+\frac{\lVert x_n\rVert_n}{\lVert J_n\rVert}
+\leq\lVert\widehat x_n\rVert_\star
+\leq\lVert J_n^{-1}\rVert\lVert x_n\rVert_n.
+\label{eq:rg-trivialization-two-sided}
+\end{equation}
+Taking logarithms changes the numerator of \eqref{eq:rg-finite-time-rate} by
+at most \(\log^+\lVert J_n\rVert+\log^+\lVert J_n^{-1}\rVert\), and the fixed
+initial scale contributes the constant
+\(\lvert\log\lVert J_\ell\rVert\rvert+\lvert\log\lVert J_\ell^{-1}\rVert\rvert\).
+Dividing by \(\varsigma_{n\leftarrow\ell}\) and using
+\eqref{eq:rg-tempered-trivialization} makes the difference of the two
+finite-time rates tend to zero. The scalar statement is
+\eqref{eq:rg-mode-scalar-gauge}. \(\square\)
+
+\propositionheading{Superexponential distortion changes the apparent exponent}{prop:rg-superexponential-distortion}
+Tempering the scalar mode representatives alone is not sufficient. Let
+\(\mathscr X_k=\R\) with the absolute value, every \(D_k\) the identity, \(b_k=e\), and
+every scalar gauge factor one, so that the native exponent is zero and the
+scalar normalization is tempered. With \(J_ku=e^{k^2}u\), the transported
+cocycle is \(\widehat D_{n\leftarrow0}=e^{-n^2}I\) and the apparent reference
+rate is \(-n\to-\infty\). The comparison trivialization and its inverse, not
+only the mode normalization, must satisfy
+\eqref{eq:rg-tempered-trivialization}. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+\(\widehat D_k=J_{k+1}^{-1}J_k=e^{-2k-1}\), whose product over
+\(k=0,\ldots,n-1\) is \(e^{-n^2}\); with \(\varsigma_{n\leftarrow0}=n\),
+\eqref{eq:rg-finite-time-rate} gives \(-n\), and
+\eqref{eq:rg-tempered-trivialization} fails because
+\(\log\lVert J_n\rVert=n^2\). \(\square\)
+
+\openproblemheading{Multiplicative ergodic structure of scale cocycles}{open:rg-multiplicative-ergodic}
+For every deterministic multiplier cocycle with
+\(\varsigma_{n\leftarrow\ell}\to\infty\), the forward filtration of
+\cref{prop:rg-lyapunov-filtration} is canonical, and exponents are invariant
+under tempered comparisons (\cref{thm:rg-tempered-comparison}). Existence of
+exact exponents and of a splitting into exponent subspaces is not established
+for any cocycle of this part, because a deterministic blocking sequence
+supplies none of the hypotheses of a multiplicative ergodic theorem listed in
+the scope paragraph. The problem is settled by a declared stationary family of
+blocking data over a measure-preserving base whose multiplier cocycle meets
+those hypotheses, or by a proof that no such family exists for the exact
+interaction cocycle of the main manuscript.
+
+\propositionheading{Finite single-point networks do not inhabit the asymptotic classification}{prop:rg-finite-depth-no-asymptotics}
+Let \(V_0\) be a finite set of agents at \(c_*\). (i) No stochastic comparison
+isomorphism exists between finite levels with different numbers of
+configurations. (ii) If every coarse
+agent is a block of at least two agents, the depth is at most
+\(\lfloor\log_2\lvert V_0\rvert\rfloor\), so the limits \(n\to\infty\) and
+the hypothesis \(\varsigma_{n\leftarrow\ell}\to\infty\) of
+\cref{def:rg-mode-exponents} are unavailable whatever ratios are declared,
+and only the finite-time rates \eqref{eq:rg-finite-time-rate} over the
+declared depth are defined; if the spaces \(\mathscr X_\ell\) are finite dimensional
+and \(\dim \mathscr X_\ell\) is not constant along the sequence, no linear isomorphisms
+\(J_\ell:\mathscr X_\star\to \mathscr X_\ell\) exist, and \cref{thm:rg-tempered-comparison} has
+no instance. (iii) The signs of the asymptotic rates depend on the declared
+schedule unless it is two-sided bounded: if
+\(0<\log b\leq\Delta\varsigma_k,\Delta\varsigma'_k\leq\log B<\infty\), the
+upper rates of the two schedules have the same sign and so do the lower
+rates, whereas a mode with \(\lambda_k=2\) has exponent \(1\) under
+\(b_k=2\) and exponent \(2/(n+1)\to0\) under \(b_k=2^{k+1}\).
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) Mutually inverse Markov kernels between finite sets are permutation
+matrices (\cref{prop:rg-scale-functoriality}). (ii) If
+\(\lvert V_{\ell+1}\rvert\leq\lvert V_\ell\rvert/2\) and
+\(\lvert V_L\rvert\geq1\), then \(2^L\leq\lvert V_0\rvert\); linear isomorphisms
+preserve dimension. For the interaction spaces of the main manuscript the
+dimension count and the termination of vertex-ratio blocking are
+\cref{prop:rg-interaction-finite-network-obstruction}. (iii) For two bounded
+schedules,
+\(\varsigma_{n\leftarrow\ell}/\varsigma'_{n\leftarrow\ell}\in
+[\log b/\log B,\log B/\log b]\), and the two rates have the same numerator.
+Multiplying a sequence by factors in a fixed compact subinterval of
+\((0,\infty)\) keeps a positive limit superior positive and a negative one
+negative; the relation is symmetric, so a zero limit superior stays zero, and
+the same holds for limits inferior. In the example,
+\(\varsigma_{n\leftarrow0}=\tfrac12n(n+1)\log2\) while
+\(\log\lvert\lambda_{n\leftarrow0}\rvert=n\log2\). \(\square\)
+
+For a finite agent network at \(c_*\), only finite-time rates over the
+declared depth are therefore used, and the asymptotic classification of
+\cref{def:rg-mode-exponents,prop:rg-lyapunov-filtration,thm:rg-tempered-comparison}
+is reserved for the two-index limits of \cref{sec:rg-two-index-limits}, in
+which system size grows with depth. An inhabited instance needs unboundedly
+many sites and a normalization that identifies the spaces, as in
+\cref{def:rg-hermite-relevance}, where \(n\) steps consume \(b^n\) independent
+coordinates. Whether a family of finite networks at \(c_*\) has a two-index
+limit with nonvacuous comparison maps and nontrivial exponents is part of
+\cref{open:rg-two-index-limits}.
+
+\subsection{Contraction certificates and the exact interaction cocycle}
+
+\propositionheading{Dobrushin contraction is a sufficient cocycle certificate}{prop:rg-dobrushin-cocycle}
+For a reverse-kernel version of \cref{thm:rg-action-lp-contraction} with
+Dobrushin coefficient \(\delta\) of \eqref{eq:rg-action-dobrushin-coefficient},
+the reverse conditional expectation induces an operator \(\overline{\mathsf U}\) on the
+quotient by constants with, in the oscillation norm
+\eqref{eq:rg-action-oscillation-norm},
+\begin{equation}
+\Vert\overline{\mathsf U}\Vert_{\mathrm{osc}\to\mathrm{osc}}\leq\delta.
+\label{eq:rg-action-dobrushin-contraction}
+\end{equation}
+For a sequence of such arrows with coefficients \(\delta_k\) and declared
+ratios \(b_k>1\), write
+\begin{equation}
+\overline{\mathsf U}_{n\leftarrow\ell}=\overline{\mathsf U}_{n-1}\cdots\overline{\mathsf U}_\ell,
+\qquad
+\varsigma_{n\leftarrow\ell}=\sum_{k=\ell}^{n-1}\log b_k.
+\label{eq:rg-action-cocycle-scale}
+\end{equation}
+If \(\varsigma_{n\leftarrow\ell}\to\infty\) and
+\begin{equation}
+\limsup_{n\to\infty}
+\frac{\sum_{k=\ell}^{n-1}\log\delta_k}{\varsigma_{n\leftarrow\ell}}<0,
+\qquad\log0=-\infty,
+\label{eq:rg-action-dobrushin-irrelevance}
+\end{equation}
+then every nonzero bounded class has negative upper rate in the oscillation
+norms, so every direction is irrelevant in the sense of
+\cref{def:rg-mode-exponents}; for one ratio \(b\) and \(\delta_k\leq\delta<1\)
+the upper rate is at most \(\log\delta/\log b\). The condition is sufficient
+only: one-step coefficients equal to one do not prevent complete two-step
+forgetting, one-step coefficients below one do not give a negative normalized
+rate, and failure of \eqref{eq:rg-action-dobrushin-irrelevance} proves neither
+marginality nor relevance. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The one-step bound \eqref{eq:rg-action-dobrushin-contraction} and its
+iteration are the Dobrushin clauses of \cref{thm:rg-action-lp-contraction}:
+\begin{equation}
+\Vert\overline{\mathsf U}_{n\leftarrow\ell}\Vert_{\mathrm{osc}\to\mathrm{osc}}
+\leq\prod_{k=\ell}^{n-1}\delta_k,
+\label{eq:rg-action-dobrushin-product-bound}
+\end{equation}
+and taking logarithms with the zero convention proves the rate bound. For the
+first witness take the reverse matrices
+\begin{equation}
+R_0=
+\begin{pmatrix}
+1&0\\0&1\\1/2&1/2
+\end{pmatrix},
+\qquad
+R_1=
+\begin{pmatrix}
+1/2&1/2&0\\0&0&1
+\end{pmatrix},
+\label{eq:rg-dobrushin-nonnecessity-witness}
+\end{equation}
+compatible with the laws \((1/2,1/2)\), \((1/3,1/3,1/3)\), and \((2/3,1/3)\).
+Both one-step coefficients are one, but both rows of \(R_1R_0\) are
+\((1/2,1/2)\), so the composed coefficient is zero. For the second, take the
+law \((1/2,1/2)\) at every scale, let \(J\) have both rows \((1/2,1/2)\), and
+set
+\begin{equation}
+R_k=(1-a_k)I+a_kJ,
+\qquad a_k=2^{-k-2}.
+\label{eq:rg-dobrushin-one-step-insufficient-witness}
+\end{equation}
+Each \(R_k\) is a compatible reverse kernel with \(\delta_k=1-a_k<1\), but
+\(\prod_k\delta_k>0\), so with fixed \(b_k=b\) the normalized rate is zero.
+The identity channel has \(\delta=1\) and leaves every bounded direction
+marginal, and a two-cycle has eigenvalue \(-1\), so \(\delta\) carries no
+phase information. \(\square\)
+
+\corollaryheading{Temperedness of interaction comparison trivializations}{cor:rg-interaction-tempered}
+Suppose declared comparison isomorphisms
+\(J_\ell:\mathcal G_\star\to\mathcal G_\ell\) obey
+\begin{equation}
+\log^+\lVert J_n\rVert+\log^+\lVert J_n^{-1}\rVert
+\leq\mathrm c\left(1+\lvert V_n\rvert\right)
+\label{eq:rg-interaction-trivialization-growth}
+\end{equation}
+for a constant \(\mathrm c\) independent of \(n\). This bound holds for every
+trivialization assembled from the maps of
+\eqref{eq:rg-hoeffding-inverse-and-bounds} together with a bounded gauge
+realization, because \(\lVert\operatorname{asm}_\ell\rVert\leq1\) and
+\(\lVert\operatorname{hd}_\ell\rVert\leq3^{\lvert V_\ell\rvert}-1\). Then the tempering
+hypothesis \eqref{eq:rg-tempered-trivialization} of
+\cref{thm:rg-tempered-comparison} holds whenever
+\(\lvert V_n\rvert/\varsigma_{n\leftarrow\ell}\to0\), in particular for every
+infinite blocking sequence whose vertex counts do not increase and whose
+declared ratios satisfy \(b_k\geq b>1\). If those ratios are the vertex ratios
+\(\lvert V_k\rvert/\lvert V_{k+1}\rvert\), a finite network admits only
+finitely many such steps (\cref{prop:rg-interaction-finite-network-obstruction}),
+so no such infinite sequence exists and the clause is vacuous; it has
+asymptotic content only for ratios declared independently of the vertex
+counts, and every exponent computed with them scales inversely with that
+declaration. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Insert \eqref{eq:rg-interaction-trivialization-growth} into the left side of
+\eqref{eq:rg-tempered-trivialization} and divide by
+\(\varsigma_{n\leftarrow\ell}\); the constant term vanishes because
+\(\varsigma_{n\leftarrow\ell}\to\infty\). If the vertex counts do not increase,
+\(\lvert V_n\rvert\leq\lvert V_\ell\rvert\) while
+\(\varsigma_{n\leftarrow\ell}\geq(n-\ell)\log b\to\infty\). The operator bounds
+are \eqref{eq:rg-hoeffding-inverse-and-bounds}. \(\square\)
+
+The extraction bound is exponential in \(\lvert V_n\rvert\), so the corollary
+gives no tempering when the network grows at least linearly in
+\(\varsigma_{n\leftarrow\ell}\), and
+\cref{prop:rg-superexponential-distortion} shows that an untempered comparison
+can change the reported exponent.
+
+\corollaryheading{No relevant exact interaction mode under tempered comparisons}{cor:rg-interaction-no-relevant-mode}
+Assume \(\varsigma_{n\leftarrow\ell}\to\infty\) and
+\(\lvert V_n\rvert/\varsigma_{n\leftarrow\ell}\to0\). Along an exact
+interaction orbit, with the multipliers \eqref{eq:rg-interaction-mode-generator}
+and the native norms of \cref{prop:rg-interaction-native-growth-bound}, every
+finite-time rate obeys
+\begin{equation}
+\chi_{n\leftarrow\ell}(u)\leq
+\frac{\lvert V_n\rvert\log3}{\varsigma_{n\leftarrow\ell}},
+\label{eq:rg-interaction-rate-bound}
+\end{equation}
+so every native upper rate is at most zero and no direction is relevant in the
+sense of \cref{def:rg-mode-exponents}. If the comparison isomorphisms satisfy
+\eqref{eq:rg-tempered-trivialization}, the same holds in the reference norm,
+and every mode line of \cref{def:rg-mode-line} for these multipliers whose
+sections satisfy the tempering condition of
+\cref{prop:rg-mode-tempered-normalization} has scalar exponent with limit
+superior at most zero. A positive exponent can arise only from a declared
+comparison family or mode normalization that violates these tempering
+conditions, that is, from a declared extensive normalization; the exact step
+supplies none. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+If \(D_{n\leftarrow\ell}u=0\) the rate is \(-\infty\). Otherwise
+\(\chi_{n\leftarrow\ell}(u)\leq\log\lVert D_{n\leftarrow\ell}\rVert/
+\varsigma_{n\leftarrow\ell}\), and \eqref{eq:rg-interaction-native-growth-bound}
+with \(\log(3^{\lvert V_n\rvert}-1)<\lvert V_n\rvert\log3\) gives
+\eqref{eq:rg-interaction-rate-bound}, whose right side tends to zero. The
+reference-norm statement is \cref{thm:rg-tempered-comparison}. For a mode
+line, \eqref{eq:rg-mode-exponent-relation} writes the scalar exponent as the
+native rate of \(v_{\ell,a}\) minus the endpoint-norm correction, which the
+tempering condition sends to zero. \(\square\)
+
+\subsection{An inhabited spectrum: the Gaussian block}
+
+\definitionheading{Relevance conventions for the Gaussian block spectrum}{def:rg-hermite-relevance}
+Take the replication sum \eqref{eq:rg-score-replication}, the block statistic
+\eqref{eq:rg-gaussian-block-statistic}, the Fisher norm
+\(\lVert\cdot\rVert_{L^2(\nu)}\) on \(L^2_0(\nu)\) at every scale, and one
+ratio \(b_k=b\), so that \(\Delta\varsigma_k=\log b\) in
+\eqref{eq:rg-cumulative-log-scale}. By
+\cref{thm:rg-gaussian-hermite-spectrum}, each normalized Hermite function
+\(\widehat{\mathrm{He}}_k\) is a constant mode line of the score operator
+\eqref{eq:rg-gaussian-score-operator} with coefficient \(b^{1-k/2}\), and its
+exponent in the sense of \cref{def:rg-mode-exponents} is
+\(\upsilon_k=1-k/2\): degree one is relevant with \(\upsilon_1=\tfrac12\),
+degree two is marginal with \(\upsilon_2=0\), and every degree \(k\geq3\) is
+irrelevant. The constant mode \(k=0\) would have coefficient \(b\) on
+\(L^2(\nu)\) but is absent from the centered tangent space.
+
+The degree-one growth comes from the extensive normalization alone: the score
+operator is \(\mathsf U_b\mathscr I_b\) with \(\mathsf U_b\) a contraction
+(\cref{thm:rg-action-lp-contraction}) and
+\(\lVert\mathscr I_b\rVert=\sqrt b\) by \eqref{eq:rg-score-replication-norm},
+while no exact arrow supplies growth
+(\cref{prop:rg-interaction-native-growth-bound}).
+
+\propositionheading{Convention dependence and forbidden extensions}{prop:rg-hermite-scope}
+The spectrum \eqref{eq:rg-hermite-spectrum} is specific to the scalar
+independent Gaussian realization and its normalization, and four boundaries
+hold. (i) If the coordinates are jointly centered Gaussian with unit variances
+and common pairwise correlation \(\mathrm r>-1/(b-1)\), and the statistic is
+\(\bar\xi_{\mathrm r}=(\sum_i\xi_i)/\sqrt{b[1+(b-1)\mathrm r]}\), then
+\(\operatorname{Corr}(\xi_i,\bar\xi_{\mathrm r})=\mathrm c_{\mathrm r}=\sqrt{[1+(b-1)\mathrm r]/b}\).
+With \(\mathsf U_{b,\mathrm r}\) the reverse conditional expectation under the
+correlated block law, the operator
+\(\mathscr L_{b,\mathrm r}=\mathsf U_{b,\mathrm r}\mathscr I_b\), applied to the
+replicated sum \(\sum_ih(\xi_i)\), which is a centered direction of that law but
+not the score of the independent replication of
+\cref{prop:rg-score-block-lift}, satisfies
+\begin{equation}
+\mathscr L_{b,\mathrm r}\widehat{\mathrm{He}}_k=b\mathrm c_{\mathrm r}^k\widehat{\mathrm{He}}_k
+=b^{1-k/2}\left[1+(b-1)\mathrm r\right]^{k/2}\widehat{\mathrm{He}}_k,
+\label{eq:rg-hermite-correlated}
+\end{equation}
+which differs from \eqref{eq:rg-hermite-eigenvalues} for every
+\(\mathrm r\neq0\); keeping the uncorrelated normalization instead changes the
+output law away from \(\nu\), and the operator is then not an endomorphism.
+(ii) For independent \(\mathcal N(0,I_d)\) coordinates and componentwise normalized
+sums the tensor Hermite functions satisfy
+\(\mathscr L_b\widehat{\mathrm{He}}_\alpha=b^{1-\lvert\alpha\rvert/2}\widehat{\mathrm{He}}_\alpha\), so degree \(k\)
+has multiplicity \(\binom{d+k-1}{k}\). (iii) A common orthogonal action
+commutes with the componentwise normalized sum and preserves each degree
+space, whereas a general \(\GL(d)\) transformation changes the reference
+covariance and needs an explicitly transported family of laws and tangent
+norms; no gauge link, holonomy, or curvature datum enters the scalar theorem.
+(iv) \eqref{eq:rg-score-replication} is the score of an independent product
+perturbation, a restricted direction in \(L^2_0(\nu^{\otimes b})\); the
+theorem says nothing about interaction scores or higher Hoeffding sectors
+(\cref{sec:rg-finite-network-interactions}). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) The pair \((\xi_i,\bar\xi_{\mathrm r})\) is jointly centered Gaussian with unit variances and
+correlation \(\mathrm c_{\mathrm r}\), so
+\(\xi_i\mid \bar\xi_{\mathrm r}=z\sim \mathcal N(\mathrm c_{\mathrm r} z,1-\mathrm c_{\mathrm r}^2)\); the
+generating-function computation \eqref{eq:rg-mehler-generating} with
+\(b^{-1/2}\) replaced by \(\mathrm c_{\mathrm r}\) gives
+\(\E[\mathrm{He}_k(\xi_i)\mid \bar\xi_{\mathrm r}]=\mathrm c_{\mathrm r}^k\mathrm{He}_k(\bar\xi_{\mathrm r})\), and
+summing over \(i\) gives \eqref{eq:rg-hermite-correlated}. (ii) Tensor Hermite
+functions factor over coordinates and each factor obeys the scalar identity
+with the same \(b^{-1/2}\), so the eigenvalue depends only on the total degree,
+and \(\binom{d+k-1}{k}\) multi-indices have total degree \(k\) in \(d\)
+variables. (iii) An orthogonal map preserves \(\mathcal N(0,I_d)\) and commutes with the
+componentwise sum, while a general invertible \(Q\) sends \(\mathcal N(0,I_d)\) to
+\(\mathcal N(0,QQ^\top)\). (iv) is the definition of \(\mathscr I_b\). \(\square\)
+
+\citet[Sections~2, 5 and~7]{JonaLasinio2001} obtains the binary case \(b=2\)
+of \eqref{eq:rg-hermite-eigenvalues} by linearizing the induced map on laws at
+the centered unit-variance Gaussian, identifies the linearized renormalization
+at a self-similar Gaussian fixed point with a conditional expectation, and
+gives the two-tangent-space form of the eigenvalue equation with its
+composition law across scales, leaving the nonlinear terms of a limit theorem
+unpursued. The arbitrary-integer eigenvalues, \cref{lem:rg-dqm-realization},
+the Fisher budget \eqref{eq:rg-extensive-fisher-defect}, the exact spectrum
+\eqref{eq:rg-hermite-spectrum}, the correlated boundary
+\eqref{eq:rg-hermite-correlated}, and the typed cocycle of
+\cref{sec:rg-generalized-modes} are not attributed to that source.
+
+\openproblemheading{Extensive relevance beyond the scalar Gaussian block}{open:rg-hermite-extensive-relevance}
+\Cref{def:rg-hermite-relevance} inhabits all three relevance classes for
+independent scalar Gaussian coordinates under the replication sum, the block
+statistic, and a fixed Fisher norm, and \cref{prop:rg-hermite-scope} shows
+that correlated coordinates, multivariate covariance, and general \(\GL(d)\)
+actions each leave that setting. The corresponding spectrum for a correlated,
+anisotropic, or gauge-mixed block is not known. The problem is settled by a
+declared transported family of laws and tangent norms for such a block,
+together with a diagonalization of its score operator.
+
+\openproblemheading{Nonlinear attraction at the Gaussian block law}{open:rg-hermite-nonlinear-attraction}
+The spectrum of \cref{thm:rg-gaussian-hermite-spectrum} controls the
+derivative of the normalized block map at \(\nu\). The normalized sum maps
+each \(\mathcal N(0,\sigma^2)\) to itself, and the tangent of that curve at
+\(\sigma^2=1\) is \(\tfrac12\mathrm{He}_2\), so the marginal degree-two
+coefficient is carried by a curve of fixed laws. No remainder estimate for the
+nonlinear block map in the score-tangent topology of this part is proved here,
+so the spectrum does not by itself give a basin of attraction or the behavior
+of the map transverse to that curve. The problem is settled by such an
+estimate on a declared neighborhood of \(\nu\).
+
+\section{Beta functions and scheme dependence}
+\label{sec:rg-beta-function}
+
+A beta function is a difference quotient formed on one space. It therefore
+exists only after the comparison data of \cref{def:rg-comparison-data} or the
+rescaled kernel of \cref{def:rg-rescaled-kernel} have been declared.
+
+\definitionheading{Reference-dependent action map and discrete action beta}{def:rg-action-beta}
+Fix a rescaled kernel \(K_b\). On a dominated tier the action map keeps its
+reference argument,
+\begin{equation}
+\mathfrak R^H_b[H;\varrho]
+:=-\log\frac{d\bigl((e^{-H}\varrho)K_b\bigr)}{d(\varrho K_b)},
+\label{eq:rg-reference-dependent-action-map}
+\end{equation}
+so that
+\(\mathfrak R_b(\varrho,e^{-H}\varrho)=(\varrho K_b,e^{-\mathfrak R^H_b[H;\varrho]}\varrho K_b)\).
+On a declared vector space of finite-valued actions that is closed under this
+map along a declared reference trajectory and carries subtraction, the
+discrete action beta is
+\begin{equation}
+\mathfrak b^H_b[H;\varrho]
+=\frac{\mathfrak R^H_b[H;\varrho]-H}{\log b}.
+\label{eq:rg-discrete-beta-functional}
+\end{equation}
+If the evidence mass is deliberately forgotten and finite actions are
+quotiented by additive constants, the same formula is read in the quotient.
+For extended-valued actions, including points at which the numerator would be
+\(+\infty-(+\infty)\), no beta is defined and the measure-pair step
+\eqref{eq:rg-measure-pair-map} is the primary object. A beta function on a
+truncated coupling vector requires invariance of that finite family; otherwise
+the omitted hyperedges contribute an explicit residual
+(\cref{prop:rg-retained-beta-residual}).
+
+\propositionheading{Change of reference is an inhomogeneous law for the action beta}{prop:rg-action-beta-reference-change}
+Let \(H\) be an action with \(\mathsf m=e^{-H}\varrho\) finite and positive, let
+\(\Delta\) be bounded and measurable with \(\varrho(e^{-\Delta})=1\), and set
+\begin{equation}
+\varrho'=e^{-\Delta}\varrho,
+\qquad
+H'=H-\Delta,
+\qquad\text{so that}\qquad
+e^{-H'}\varrho'=e^{-H}\varrho=\mathsf m.
+\label{eq:rg-reference-change-pair}
+\end{equation}
+Then \(\varrho'\) is a probability reference for the same measure, and
+\((\varrho'K_b)\)-almost everywhere
+\begin{equation}
+\mathfrak R^H_b[H';\varrho']
+=\mathfrak R^H_b[H;\varrho]-\mathfrak R^H_b[\Delta;\varrho].
+\label{eq:rg-action-reference-change}
+\end{equation}
+On a declared finite-valued action vector space containing \(H\), \(\Delta\),
+and their images, the discrete action beta therefore obeys the inhomogeneous
+law
+\begin{equation}
+\mathfrak b^H_b[H';\varrho']
+=\mathfrak b^H_b[H;\varrho]-\mathfrak b^H_b[\Delta;\varrho].
+\label{eq:rg-beta-reference-change}
+\end{equation}
+The added term is not a linear reparameterization, and it vanishes exactly
+when the increment is itself fixed, \(\mathfrak R^H_b[\Delta;\varrho]=\Delta\). A
+beta function is therefore a joint statement about the action and the
+declared reference trajectory. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Since \(\varrho(e^{-\Delta})=1\) and \(\Delta\) is bounded, \(\varrho'\) is a
+probability measure with
+\(e^{-\sup\Delta}\varrho\leq\varrho'\leq e^{-\inf\Delta}\varrho\), and
+\eqref{eq:rg-reference-change-pair} holds by construction. Pushing these
+inequalities through \(K_b\) shows that \(\varrho K_b\) and \(\varrho'K_b\) are
+equivalent and that \(d(\varrho'K_b)/d(\varrho K_b)\) lies in
+\([e^{-\sup\Delta},e^{-\inf\Delta}]\); by
+\eqref{eq:rg-reference-dependent-action-map} it equals
+\(\exp(-\mathfrak R^H_b[\Delta;\varrho])\). Both references dominate \(\mathsf mK_b\), and
+the chain rule for Radon--Nikodym derivatives gives
+\(d(\mathsf mK_b)/d(\varrho'K_b)=\bigl[d(\mathsf mK_b)/d(\varrho K_b)\bigr]
+\bigl[d(\varrho'K_b)/d(\varrho K_b)\bigr]^{-1}\) almost everywhere. Taking \(-\log\)
+gives \eqref{eq:rg-action-reference-change}; subtracting \(H'=H-\Delta\) and
+dividing by \(\log b\) gives \eqref{eq:rg-beta-reference-change}, and the
+vanishing criterion is \(\mathfrak R^H_b[\Delta;\varrho]-\Delta=0\). \(\square\)
+
+\definitionheading{Typed discrete interaction beta}{def:rg-interaction-beta}
+Let \(\mathcal G_\star\) be a declared reference interaction space and let
+\begin{equation}
+J_\ell:\mathcal G_\star\xrightarrow{\ \sim\ }\mathcal G_\ell
+\label{eq:rg-interaction-trivialization}
+\end{equation}
+be bounded isomorphisms with bounded inverses, the comparison data of
+\cref{def:rg-comparison-data} for the interaction tier. The pulled exact
+interaction map and the exact discrete interaction beta are
+\begin{equation}
+\widehat{\mathcal T}_\ell
+=J_{\ell+1}^{-1}\mathcal T_\ell J_\ell:
+\mathcal G_\star\longrightarrow\mathcal G_\star,
+\qquad
+\mathfrak b^{\mathrm{ex}}_\ell(\mathsf g)
+=\frac{\widehat{\mathcal T}_\ell(\mathsf g)-\mathsf g}{\Delta\varsigma_\ell},
+\qquad
+\Delta\varsigma_\ell=\log b_\ell,
+\label{eq:rg-interaction-beta}
+\end{equation}
+with \(\mathcal T_\ell\) the exact step
+\eqref{eq:rg-exact-nonlinear-interaction-map}. Both terms of the numerator lie
+in \(\mathcal G_\star\); the difference \(\mathcal T_\ell(\mathsf g)-\mathsf g\) of
+elements of \(\mathcal G_{\ell+1}\) and \(\mathcal G_\ell\) is not formed. If
+the coupling object is a manifold, the difference is replaced by a declared
+chart difference, logarithm, or retraction into one tangent space.
+
+The definition has no instance on a finite-alphabet step that reduces the
+support cardinality, because the two interaction spaces then have different
+dimensions (\cref{prop:rg-interaction-finite-network-obstruction}); on such
+steps the untransported residual \eqref{eq:rg-interaction-coordinate-residual}
+is used.
+
+\propositionheading{Exact, retained, and residual interaction beta}{prop:rg-retained-beta-residual}
+Let \(\mathsf P^{\mathrm{ret}}_\ell\) be the bounded idempotent retained projections
+of \eqref{eq:rg-interaction-coordinate-residual}, put
+\(\widehat{\mathsf P}_\ell=J_\ell^{-1}\mathsf P^{\mathrm{ret}}_\ell J_\ell\), and define, for
+\(\mathsf g\in\operatorname{Ran}\widehat{\mathsf P}_\ell\),
+\begin{equation}
+\mathfrak b^{\mathrm{ret}}_\ell(\mathsf g)
+=\frac{\widehat{\mathsf P}_{\ell+1}\widehat{\mathcal T}_\ell(\mathsf g)-\mathsf g}{\Delta\varsigma_\ell},
+\qquad
+\delta\mathfrak b_\ell(\mathsf g)
+=\mathfrak b^{\mathrm{ex}}_\ell(\mathsf g)-\mathfrak b^{\mathrm{ret}}_\ell(\mathsf g).
+\label{eq:rg-retained-beta}
+\end{equation}
+Then the omitted part of the flow is the transported coordinate residual
+divided by the log block step,
+\begin{equation}
+\delta\mathfrak b_\ell(\mathsf g)
+=\frac{(I-\widehat{\mathsf P}_{\ell+1})\widehat{\mathcal T}_\ell(\mathsf g)}{\Delta\varsigma_\ell}
+=\frac{J_{\ell+1}^{-1}r^{\mathcal G}_{\ell+1}(J_\ell\mathsf g)}{\Delta\varsigma_\ell},
+\label{eq:rg-beta-residual-identity}
+\end{equation}
+and its action-quotient partner is
+\begin{equation}
+\delta\overline{\mathfrak b}^{\mathcal A}_{\ell+1}(\mathsf g)
+=\frac{\operatorname{asm}_{\ell+1}r^{\mathcal G}_{\ell+1}(J_\ell\mathsf g)}{\Delta\varsigma_\ell},
+\qquad
+\operatorname{hd}_{\ell+1}\delta\overline{\mathfrak b}^{\mathcal A}_{\ell+1}(\mathsf g)
+=\frac{r^{\mathcal G}_{\ell+1}(J_\ell\mathsf g)}{\Delta\varsigma_\ell}.
+\label{eq:rg-beta-residual-quotient}
+\end{equation}
+Consequently \(\delta\mathfrak b_\ell\) vanishes on the retained sector if and
+only if the exact image of the retained sector is retained,
+\begin{equation}
+\delta\mathfrak b_\ell\big|_{\operatorname{Ran}\widehat{\mathsf P}_\ell}=0
+\quad\Longleftrightarrow\quad
+\mathcal T_\ell(\operatorname{Ran}\mathsf P^{\mathrm{ret}}_\ell)
+\subseteq\operatorname{Ran}\mathsf P^{\mathrm{ret}}_{\ell+1},
+\label{eq:rg-beta-exactness-criterion}
+\end{equation}
+which is \eqref{eq:rg-interaction-exact-image-invariance}, and otherwise
+\(\delta\mathfrak b_\ell\) obeys the two-sided norm control of
+\eqref{eq:rg-interaction-residual-norm-control}. Boundedness and idempotence do
+not imply this invariance, and a retained fixed point need not be an exact
+one: on \(\mathcal G_\star=\R^2\) with \(b=e\), \(\widehat{\mathsf P}(x,y)=(x,0)\), and
+\(\widehat{\mathcal T}(x,y)=(x,x)\), every retained input \((x,0)\) has
+\(\mathfrak b^{\mathrm{ret}}=(0,0)\) while
+\(\mathfrak b^{\mathrm{ex}}=(0,x)\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Subtracting the two displays of \eqref{eq:rg-retained-beta} cancels \(\mathsf g\) and
+leaves \((I-\widehat{\mathsf P}_{\ell+1})\widehat{\mathcal T}_\ell(\mathsf g)/\Delta\varsigma_\ell\).
+Substituting the conjugated forms of \(\widehat{\mathsf P}_{\ell+1}\) and
+\(\widehat{\mathcal T}_\ell\) gives
+\(J_{\ell+1}^{-1}(I-\mathsf P^{\mathrm{ret}}_{\ell+1})\mathcal T_\ell(J_\ell\mathsf g)/
+\Delta\varsigma_\ell\), which is \eqref{eq:rg-beta-residual-identity} by the
+definition of \(r^{\mathcal G}_{\ell+1}\). Applying \(\operatorname{asm}_{\ell+1}\) and
+\(\operatorname{hd}_{\ell+1}\) and using the inverse identities of
+\cref{thm:rg-hoeffding-action-isomorphism} with
+\eqref{eq:rg-interaction-action-residual} gives
+\eqref{eq:rg-beta-residual-quotient}. Since \(J_{\ell+1}^{-1}\) is injective and
+\(\Delta\varsigma_\ell>0\), \(\delta\mathfrak b_\ell(\mathsf g)=0\) exactly when
+\(r^{\mathcal G}_{\ell+1}(J_\ell\mathsf g)=0\), and \(J_\ell\) maps
+\(\operatorname{Ran}\widehat{\mathsf P}_\ell\) onto
+\(\operatorname{Ran}\mathsf P^{\mathrm{ret}}_\ell\); quantifying over that sector
+and using \eqref{eq:rg-interaction-exact-image-invariance} gives
+\eqref{eq:rg-beta-exactness-criterion}. The witness is direct substitution:
+\(\widehat{\mathcal T}(x,0)=(x,x)\) and \(\widehat{\mathsf P}(x,x)=(x,0)\). \(\square\)
+
+\subsection{Scheme dependence and invariant candidates}
+\label{sec:rg-scheme-dependence}
+
+\propositionheading{Scheme dependence of beta functions}{prop:rg-scheme-dependence}
+(i) Let \(g(t)\) be running coordinates with beta function
+\(\mathfrak b(g)=dg/dt\). Under a smooth reparameterization \(g'=f(g)\) and a
+scale change \(t'=\mathrm ct\) with \(\mathrm c>0\),
+\begin{equation}
+\mathfrak b'(g')=\frac1{\mathrm c}Df(g)\mathfrak b(g).
+\label{eq:rg-beta-change}
+\end{equation}
+(ii) If the comparison isomorphisms of \cref{def:rg-interaction-beta} are
+replaced by \(J'_\ell=J_\ell\mathcal S_\ell\) for bounded isomorphisms
+\(\mathcal S_\ell\) of \(\mathcal G_\star\), then
+\(\widehat{\mathcal T}'_\ell=\mathcal S_{\ell+1}^{-1}\widehat{\mathcal T}_\ell\mathcal S_\ell\)
+and
+\begin{equation}
+\mathfrak b'_\ell(\mathsf g)
+=\frac{\mathcal S_{\ell+1}^{-1}\widehat{\mathcal T}_\ell(\mathcal S_\ell\mathsf g)-\mathsf g}
+{\Delta\varsigma_\ell},
+\label{eq:rg-interaction-beta-scheme-change}
+\end{equation}
+which reduces to the pushforward relation
+\(\mathfrak b'_\ell(\mathsf g)=\mathcal S^{-1}\mathfrak b^{\mathrm{ex}}_\ell(\mathcal S\mathsf g)\)
+only for a scale-independent \(\mathcal S_\ell\equiv\mathcal S\); in a moving
+comparison frame even the identity step has nonzero beta: on
+\(\mathcal G_\ell=\R\) with \(\mathcal T_\ell=\operatorname{id}\), \(b_\ell=e\), and
+\(J_\ell u=a_\ell u\), \eqref{eq:rg-interaction-beta} gives
+\(\mathfrak b_\ell(\mathsf g)=(a_\ell/a_{\ell+1}-1)\mathsf g\). (iii) For a differentiable
+positive endomorphism homogeneous of degree one with a fixed ray, radial
+eigenvalue \(\mu_0\), and transverse eigenvalue \(\mu_a\), define for a
+declared block factor \(b\)
+\begin{equation}
+r_a=\frac{\mu_a}{\mu_0},\qquad
+\upsilon_a=\frac{\log\lvert r_a\rvert}{\log b}.
+\label{eq:rg-projective-dimensions}
+\end{equation}
+The ratios \(r_a\) are the eigenvalues at the fixed ray of the derivative of
+the induced map on rays, and \(r_a\) and \(\upsilon_a\) are invariant under
+conjugation of the induced map by a \(C^1\) diffeomorphism near the fixed ray
+with invertible derivative there, provided the same \(b\) is used and, when a
+declared gauge group has an orbit of fixed rays through the ray, the conjugacy
+maps that orbit to the corresponding orbit and transverse eigenvalues are
+computed on the quotient by its tangent space. Invertibility of the derivative
+is needed: \(x\mapsto x^3\) conjugates \(x\mapsto2x\) to \(y\mapsto8y\).
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) By the chain rule,
+\(dg'/dt'=Df(g)(dg/dt)(dt/dt')=\mathrm c^{-1}Df(g)\mathfrak b(g)\). (ii)
+Substitution gives
+\(\widehat{\mathcal T}'_\ell=\mathcal S_{\ell+1}^{-1}J_{\ell+1}^{-1}\mathcal T_\ell
+J_\ell\mathcal S_\ell\) and then \eqref{eq:rg-interaction-beta-scheme-change};
+for constant \(\mathcal S\) the numerator is
+\(\mathcal S^{-1}(\widehat{\mathcal T}_\ell(\mathcal S\mathsf g)-\mathcal S\mathsf g)\). In
+the example \(\widehat{\mathcal T}_\ell=J_{\ell+1}^{-1}J_\ell=a_\ell/a_{\ell+1}\) and
+\(\Delta\varsigma_\ell=1\). (iii) Differentiating \(F(tx)=tF(x)\) in \(t\)
+gives Euler's relation \(DF(x)x=F(x)\), so at a fixed ray \(F(x_*)=\mu_0x_*\)
+the ray is an eigendirection of \(DF(x_*)\) with eigenvalue \(\mu_0\), and in
+an affine chart of rays the derivative of the induced map is \(DF(x_*)/\mu_0\)
+on the quotient by the ray, with eigenvalues \(r_a\). Under a \(C^1\)
+conjugacy with invertible derivative at the ray, the chain rule makes the
+conjugated derivative similar to the original; a conjugacy mapping the orbit
+of fixed rays to the corresponding orbit carries the tangent space of the
+orbit to its counterpart, so the induced quotient maps are similar as well.
+For the last claim, \((2y^{1/3})^3=8y\), and the derivative of \(x^3\) vanishes
+at the fixed point. \(\square\)
+
+Raw couplings, beta components, and a chosen blocking statistic are
+therefore scheme-dependent coordinates; they are diagnostics once their scheme
+is stated. Candidate cross-scheme quantities are conjugacy classes, invariant
+manifolds, projective ratios, dimensionless amplitude ratios, and matched
+spectral or heat exponents. Their existence, convergence, and completeness in a
+given realization, on which any universality statement rests, are part of
+\cref{open:rg-two-index-limits}.

@@ -14,10 +14,64 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-09-13
+updated: 2026-09-27
 ---
 
 # Gauge-Theoretic Multi-Agent VFE Model
+
+## Pairing-selection proof and literature archive, September 26, 2026
+
+[[multiagentelbo-2026-09-26-selection-and-reference-review]] records the independently reconstructed proof for the actual law-driven shared-edge four-cycle: at sufficiently small fixed temperature, initially uniform source rows select one perfect matching for almost every fixed Gaussian initial mean as mobility vanishes, uniformly on the stated learning window. The frozen-prior arm has asymptotically equal matching masses for every positive temperature and every mean. The proof binds a concrete local manuscript revision; it does not establish general graph selection, recursive formation, or a joint temperature/mobility limit. The accompanying five primary mathematics references are downloaded or reused with exact reviewed locators and separate scope statements.
+
+## Joint temperature and mobility continuation, September 26
+
+[[multiagentelbo-2026-09-26-joint-temperature-selection]] proves a common implicit joint schedule for almost every fixed Gaussian mean in the original four-cycle. The learned law approaches its selected matching Gaussian and the frozen matching probabilities approach one half each; the selected matching can vary with temperature. An explicit entropy bound separately proves tracking for epsilon_L=T^a, a>7/2. It does not prove selection on that power law, first coherent-block formation, or inherited parent closure. Those distinctions preserve the scope of the preceding fixed-temperature result.
+
+## Selected coherence and first-block comparison, September 26
+
+[[multiagentelbo-2026-09-26-selected-coherence]] transfers late one-time matching selection to actual-path persistence at Euclidean residual resolution T^(1/4) over duration T^(-1/4). The learned/frozen coherent-partition TV tends to one half, but this event is restored equilibrium coherence. On the original early contrast window, their conditional first-block TV instead vanishes for epsilon_L=o(T^(1/4)), using an explicit native-path coupling and the existing positive seeded floor. The original faster-learning regime and conditioned parent errors remain open.
+
+[[multiagentelbo-2026-09-26-conditioned-parent]] activates the existing assignment- and loop-retaining parent from the actual recognition law conditioned on the completed late coherence prefix, with no Gaussian reset; the parent inherits the rows at activation and then learns from its own law. The discarded optimizing conditional KL is at most (eta+h_b(rho))/(1-rho) for rho<1/2 (physical, evaluator-retaining loss adds at most T), and complete retained/source path TV over a following T^(-1/4) window is at most 2rho+(h+3)delta+4hd/(1-4d), giving O(T^(1/4)log(1/T)) and O(T^(1/4)) on the joint schedule. This is a parent after restored equilibrium coherence; a hidden-sign example (KL log 2) shows why a high-probability prefix is needed. First-contrast parent closure, arbitrary-history closure, and recursive formation remain open.
+
+## Restructured Theory manuscript, September 24, 2026
+
+[[multiagentelbo-2026-09-24-theory-restructure]] records the outcome of the streamlining that followed the September 23 review. `Theory/` at `623e4fe`, merged as pull request #81, now consists of three documents built from one source directory. The main manuscript, *Gauge-Covariant Variational Free Energy and Exact Coarse-Graining*, develops the theory at one base point $c_*$ in 247 pages, of which Chapters 1–15 take about 181. Supplement G (118 pages) holds the multivariate-Gaussian realization, and Supplement B (187 pages) holds base transport, infinite networks and the lattice cluster. The main manuscript refers to no supplement label, Supplement G cites only the main manuscript, and Supplement B may cite both. Under the author's decisions D1–D13, status tags sit only on numbered statements, each agent carries one common local frame at $c_*$ as a gauge choice, the single-point renormalization is called exact coarse-graining, the interaction graph at $c_*$ is the support of the source prior with discrete edge creation left as an open problem, and the formation theorem stays in the main manuscript with its supplied-hierarchy scope. The restructuring and its checks are Claude Opus 5.5 agent work with no cross-model check, at the author's choice, and none of it is adjudicated.
+
+| Topic | Where it lives at `623e4fe` |
+|---|---|
+| Agents as local sections, one common frame, independent links, edge twists, the active gauge image, the three agreements, the running three-agent loop | Main, Ch. 2 |
+| Probability semantics, levels of description, access restriction | Main, Ch. 3 |
+| The normalized generative law, typed fast and slow blocks | Main, Ch. 4 |
+| Extended evidence bound, local–collective free energy | Main, Ch. 5 |
+| Attention as a latent source label, the two label models, selective communication, the transformer correspondence table, edge creation (open) | Main, Ch. 6 |
+| Fisher-metric characterizations, divergence jets, the orbit Fisher form, inference histories and Fisher clocks | Main, Ch. 7 |
+| Block descent, the rate-separated natural gradient, slow-manifold reduction (open), the prepared parent history | Main, Ch. 8 |
+| Coarse channels, the common-channel coarse VFE, pushforward versus precomposition versus Galerkin restriction, labeled-mixture Fisher asymptotics | Main, Ch. 9 |
+| Gauge-retained network state, holonomy-conditioned law scores, kernel–holonomy fixed sectors, cut closure, the frame sector, an operational loop-holonomy record | Main, Ch. 10 |
+| Effective action, bounded action calculus, Hoeffding interaction coordinates, the native growth bound, the meta-attention pushforward, lumpability and memory | Main, Ch. 11 |
+| Multiscale graph VFE, the depth-Markov factorization, the random partition catalog $R_\ell$, coarse links, the declared root, episode-indexed delayed feedback | Main, Ch. 12 |
+| The finite-depth formation theorem and the endogenous four-cycle witness | Main, Ch. 13, proofs in Appendix C |
+| Interpretation and the one conjecture (contrast formation under source learning); related work | Main, Chs. 14–15 |
+| Exponential families, the Gaussian realization, the interaction family and gain absorption, recognition restrictions, Gaussian Fisher geometry, the Hermite spectrum, Kron closure and the Galerkin pushforward, operator coarse-graining, reciprocal pairs | Supplement G, Chs. G1–G10 |
+| Base geometry and multi-point designs, the relative frame, base-direction information geometry, section-space histories, covers and connection descent | Supplement B, Part B-I |
+| Infinite networks, mode exponents, interaction beta functions, Wilsonian fixed points and spectra | Supplement B, Part B-II |
+| The $\mathbb Z^2$ lattice cluster (its typing open), label pressure and specific VFE, the lattice thermodynamic Fisher theorems | Supplement B, Part B-III |
+
+The dated sections below cite pre-split file names (`07j`, `07b`, `05b` and others); read them through this table, by label. The scope qualification of the September 23 section is now the manuscript's own: the Chapter 13 theorem is titled "Finite-depth formation under a supplied energy hierarchy", and its saturation, calibration and quantifier corrections are recorded in [[Gauge-VFE RG research synthesis September 2026]]. The vault mirror `manuscripts/gauge_vfe_rg/` predates the restructure.
+
+## Theory streamlining review, September 23, 2026
+
+[[multiagentelbo-2026-09-23-theory-streamlining-review]] records a read-only review of the `Theory/` manuscript at revision `59c1987`. It recommends a single-point main manuscript with separate Gaussian and base-transport supplements, finds the exact single-point core reproducible, and finds several framings that overreach. For this page the main qualification concerns the September 13 section below: the finite-depth theorem demonstrates the consistency of exact marked parents, actual-law activation and own-law feedback, but its formation is linear relaxation of a prepared mean, with source attention and learning perturbative. The synthesis and the individual results are in [[Gauge-VFE RG research synthesis September 2026]]. All findings are investigator recomputations by one model family (Claude Opus 5.5), not adjudicated.
+
+## Selective collective interfaces, September 20, 2026
+
+[[multiagentelbo-2026-selective-communication-formation]] records the proposed connection between [[GL(K) gauge-equivariant attention]] and collective formation: agents can coordinate on communicated observables while retaining private degrees of freedom. At $c_*$, the existing independent belief/model links can precede local processing, $\mathcal L_e=F_i\rho(\Theta_e)$, and normalized interaction records can depend on declared reduced observables. These constructions preserve the ambient local-section model.
+
+The immediate calculation proposed in that assessment is a communicated/private-coordinate extension of the normalized four-cycle model, deriving the actual restoring directions and the private states, conditionals and structural marks the parent must retain. Reduced agreement alone gives neither complete-law coherence nor a blanket nor autonomous inherited dynamics. No new formation result or repeated endogenous episode is asserted by this ingest. The earlier dated formation results below retain their own scopes. [[Staged hierarchy formation and RG composability]]
+
+## Matrix communication interface, September 20, 2026
+
+The attention manuscript record [[dennis-2026-glk-matrix-links-2026-09-20]] supplies a related interaction construction for full Gaussian agents: covariant sending/receiving maps compose into potentially singular matrix links. A normalized affine-Gaussian channel permits such low-rank mean maps when its noise covariance is positive definite. Independent connection links and local processing can be kept distinct. This is a theoretical interface with [[Lattice gauge theory]], not a change to the MultiAgentELBO model, its normalized population law, or its formation results. An MLP interpretation remains undecided.
 
 ## Positive-rate cyclic formation with weakest energy one, September 13
 
@@ -41,7 +95,6 @@ Source assignments are retained discrete coordinates with zero mobility. Their r
 
 > [!note] Current scope, September 11, 2026
 > [[Gauge-VFE RG research synthesis September 2026]] is the current MultiAgentELBO RG and parent-formation entry point. Its [[multiagentelbo-2026-09-11-research-snapshot|source snapshot]] covers all 89 current reports, the Theory bundle and the uncommitted finite-formation continuation, preserving their distinct revisions. Exact normalized composition, boundary contracts, memory, closure classifications and scoped continuum results are supplied; unrestricted agency and arbitrary RG families are not claimed. [[multiagentelbo-2026-09-11-reference-register]] provides this week's literature reconciliation and accessible primary texts. Earlier MAgent and V3 results below retain their own scope.
-
 
 ## September 12 adaptive cyclic completion
 
@@ -72,7 +125,7 @@ divergence is measured. The canonical coupling is an engineered [[Multi-agent va
 with entropy-retaining attention. Fisher--Rao natural-gradient flow and conditional action or
 Hamiltonian branches require separately declared dynamical structure.
 
-The project is the continuous-time multi-agent sibling of the [[VFE Transformer Program]]. Its broader mathematical framework is developed in [[participatory-it-from-bit]], while the focused social-dynamics status is recorded in [[belief-inertia-2026-07-12-theorem-first-revision]].
+The project is the continuous-time multi-agent sibling of the [[VFE Transformer Program]]. Its broader mathematical framework is developed in [[participatory-it-from-bit]], while the focused social-dynamics status comes from the theorem-first revision of the belief-inertia manuscript (2026-07-12).
 
 ## Current primary focus: recursive graph renormalization
 
@@ -102,7 +155,7 @@ graph-RG construction.
 
 ## Continuum theory and finite realizations
 
-The theory-level agents are distribution-valued sections over a continuous contextual base. A finite experimental design supplies practical probability laws and CAVI factors, but section sampling and finite marginalization are distinct maps: sampled values of supplied sections equal posterior coordinate marginals only under an explicit compatibility hypothesis. The finite recognition law neither determines a unique off-design section nor constructs a probability law on the space of sections. A finite design is therefore not automatically a lattice gauge theory. That stronger construction requires a declared interaction complex, separately declared group-valued link variables on oriented edges, and declared two-cells or plaquettes. [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]] records the exact types and the remaining continuum-limit obligations.
+The theory-level agents are distribution-valued sections over a continuous contextual base. A finite experimental design supplies practical probability laws and CAVI factors, but section sampling and finite marginalization are distinct maps: sampled values of supplied sections equal posterior coordinate marginals only under an explicit compatibility hypothesis. The finite recognition law neither determines a unique off-design section nor constructs a probability law on the space of sections. A finite design is therefore not automatically a lattice gauge theory. That stronger construction requires a declared interaction complex, separately declared group-valued link variables on oriented edges, and declared two-cells or plaquettes. The MAgent exact-ELBO continuum-finite remediation (2026-07-19) records the exact types and the remaining continuum-limit obligations.
 
 ## Agent-only ontology and physicalization program (2026-08-13)
 
@@ -149,7 +202,6 @@ At the meta-agent level, first-jet naturality requires related fine/coarse secti
 connection-compatible bundle morphism. Markov Fisher contraction additionally requires a normalized,
 parameter-independent channel. These are conditional mathematical results; they do not by themselves
 certify the current runtime barycenter, hierarchy, or exploratory RG pipeline.
-[[gauge-vfe-rg-pullback-geometry-2026-08-01]]
 
 ## Finite conditional theory closure (2026-08-08)
 
@@ -165,7 +217,6 @@ still requires explicit principal scale maps, target product references, exact r
 configuration manifolds and coarse maps, related sections, objective and metric compatibility,
 comparison isomorphisms, and any claimed natural-gradient semiconjugacy. It does not establish
 automatic sparse closure, physical time, universality, or an infinite-volume limit.
-[[gauge-vfe-rg-terminal-theory-closure-2026-08-08]]
 
 ## Agent and transport architecture
 
@@ -200,13 +251,13 @@ $$
 d\mathcal F_{i,\mathrm{red}}=\sum_j\beta_{ij}^*dE_{ij}.
 $$
 
-The entropy-suppressed scalar $\sum_j\beta_{ij}^*E_{ij}$ is a different objective with a covariance response. A rowwise source-mixture interpretation requires an explicit source-independence assumption, and the full population functional is not one fixed mean-field ELBO over the original agent states. [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]] gives the corrected fine-family, site-local obstruction and its conditional continuum corollary; [[vfe-population-generative-status-2026-07-12]] retains the earlier auxiliary and configuration-space constructions.
+The entropy-suppressed scalar $\sum_j\beta_{ij}^*E_{ij}$ is a different objective with a covariance response. A rowwise source-mixture interpretation requires an explicit source-independence assumption, and the full population functional is not one fixed mean-field ELBO over the original agent states. The MAgent exact-ELBO continuum-finite remediation (2026-07-19) gives the corrected fine-family, site-local obstruction and its conditional continuum corollary; the earlier population-VFE generative-status record (2026-07-12) gave the auxiliary and configuration-space constructions.
 
 **The attention row now has an exact lift (2026-07-27).** On the inventory enlarged by a declared
 source label, and under a topologically ordered source mask, $\beta^*$ above is the exact CAVI
 coordinate of a fixed normalized joint rather than an engineered simplex value, with the sender mean
-free and the link noise tied as $R_{ij}=\Omega_{ij}\Sigma_j\Omega_{ij}^\top$
-([[magent-exact-elbo-whitepaper-2026-07-27-attention-derivation]]). Two findings bear directly on this
+free and the link noise tied as $R_{ij}=\Omega_{ij}\Sigma_j\Omega_{ij}^\top$.
+Two findings bear directly on this
 project rather than on the transformer. First, the ordered mask is a **normalization requirement**:
 under the cocycle transport $\Omega_{ij}=U_iU_j^{-1}$ a reciprocal pair has singular assembled
 precision and infinite mass, so a bidirectional source relation — which is the natural multi-agent
@@ -217,7 +268,7 @@ $-\tfrac12(1-1/\tau)\log\det(\Omega_{ij}\Sigma_j\Omega_{ij}^\top)$ logit, absent
 row; at $\tau=\sqrt7$ the two rows differ by 0.069 in total variation.
 
 **The tie is a postulate, and it is the temperature (2026-07-27).**
-[[magent-exact-elbo-whitepaper-2026-07-27-link-covariance-tie]] grades the remaining hypothesis and
+The MAgent exact-ELBO link-covariance-tie record (2026-07-27) grades the remaining hypothesis and
 collapses those two findings into one. Source-freeness of the offset, as an identity in the free sender
 mean, forces $R_{ij}=\tau\Omega_{ij}\Sigma_j\Omega_{ij}^\top$ and then forces $\tau=1$, so the lift
 covers the unit-temperature row and not the deployed $\tau=\kappa\sqrt K$. The tie is not an M-step
@@ -253,7 +304,7 @@ The optional Hamiltonian integrator requires a declared kinetic metric. If the s
 
 ## Run modes and code scope
 
-The repository exposes `basic`, `ouroboros`, `hierarchy`, and `rg` modes. Natural-gradient and Hamiltonian integrators are selected independently from the run mode. The Ouroboros, meta-agent, renormalization, nonflat-connection, reflection, and Yang--Mills paths remain opt-in project extensions with their own code-concordance limits. The July 11 review [[participatory-it-from-bit-2026-07-11-code-concordance-review]] remains the governing record for frame-update equivariance, real-log-domain closure, detector-temperature/covariance consistency, belief shadows, lineage persistence, nonequilibrium observables, and provenance.
+The repository exposes `basic`, `ouroboros`, `hierarchy`, and `rg` modes. Natural-gradient and Hamiltonian integrators are selected independently from the run mode. The Ouroboros, meta-agent, renormalization, nonflat-connection, reflection, and Yang--Mills paths remain opt-in project extensions with their own code-concordance limits. The July 11 code-concordance review remains the governing record for frame-update equivariance, real-log-domain closure, detector-temperature/covariance consistency, belief shadows, lineage persistence, nonequilibrium observables, and provenance.
 
 ## Social-science scope
 
@@ -263,7 +314,7 @@ The direct comparison set includes [[martins-2015-opinion-particles]], [[nevin-m
 
 ## Literature-backed extension map (2026-08-10)
 
-The source-backed gap review [[multiagentelbo-literature-gap-review-2026-08-10]] separates four
+The source-backed literature-gap review of 2026-08-10 separates four
 extension layers that older project language sometimes blended:
 
 1. **Inference approximation.** [[Process-space variational inference]], [[Belief Propagation]],
@@ -304,7 +355,7 @@ The exact spin-glass reduction in [[heins-2023-spin-glass-active-inference]], th
 
 ### Theory-level relation to the 2026-08-20 corpus
 
-The closest external results are components and controls, not a pre-existing version of the live theory. The exact center remains one posterior-independent normalized population law, generally correlated recognition, exact conditional singleton and block VFEs, and common-channel law-level RG. The gauge layer adds separately typed belief and model fibers, equivariant transports, and retention of non-flat holonomy. The inspected corpus contains no paper combining all of those objects, although that is a corpus-bounded positioning statement rather than a historical-priority proof. See [[Multi-agent variational free energy]] and the durable review `docs/reviews/2026-08-20-multi-agent-vfe-bayesian-mechanics-inference-literature-review.md`.
+The closest external results are components and controls, not a pre-existing version of the live theory. The exact center remains one posterior-independent normalized population law, generally correlated recognition, exact conditional singleton and block VFEs, and common-channel law-level RG. The gauge layer adds separately typed belief and model fibers, equivariant transports, and retention of non-flat holonomy. The inspected corpus contains no paper combining all of those objects, although that is a corpus-bounded positioning statement rather than a historical-priority proof. See [[Multi-agent variational free energy]] and the 2026-08-20 literature review (removed in the 2026-09 cleanup; last present at commit 975c75b).
 
 The literature sharpens three theorem boundaries. First, the individual-to-group VFE is not generically a sum: incident local objectives overcount interactions, while the exact local theorem is a coordinate-potential identity at fixed outside marginal and the exact parent law is a common-channel pushforward. Second, group agency is conditional: the blanket and flock papers provide candidate partition priors and diagnostics, not a canonical selector or persistence theorem. Third, Gauge-VFE is not yet multi-agent [[Bayesian mechanics]] because it has not derived stationary stochastic dynamics, individual and group blankets, compatible synchronization maps, or physical time.
 
@@ -317,13 +368,11 @@ For implementation, distributed inference is a layer around the exact finite ora
 The finite conditional theorem itself is complete. The next theory-to-model step is a minimal
 two-scale finite instantiation that supplies the application data above and measures the exact
 retained residual and semiconjugacy defect before any universality or thermodynamic-limit program is
-attempted. [[gauge-vfe-rg-terminal-theory-closure-2026-08-08]]
+attempted.
 
 No new empirical validation is claimed by the theorem-first revision. The next social tests must separately estimate or manipulate Fisher geometry, restoring stiffness, any kinetic metric, damping, source selection, and slow explanatory states. The broader project should also resolve the open code-concordance findings before treating participatory or hierarchical claims as runtime-validated.
 
 ## Cross-links
-
-**Revision record:** [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]]
 
 **Sibling projects:** [[SocialPhysics]] · [[VFE Transformer Program]]
 
@@ -335,4 +384,4 @@ constructions in this project
 
 **Key concepts:** [[Agents as fibre-bundle sections|Agents as fiber-bundle sections]] · [[Multi-agent variational free energy]] · [[Belief inertia]] · [[Mass as Fisher information]] · [[Hamiltonian belief dynamics]] · [[Natural gradient]] · [[Fisher information metric]] · [[Ouroboros multi-scale dynamics]] · [[Meta-agents and hierarchical emergence]] · [[Renormalization-group flow of beliefs]] · [[Holonomy]]
 
-**Manuscripts:** [[gauge-vfe-rg-terminal-theory-closure-2026-08-08]] · [[gauge-vfe-rg-pullback-geometry-2026-08-01]] · [[participatory-it-from-bit]] · [[belief-inertia-2026-07-13-final-review-closure]] · [[belief-inertia-2026-07-13-final-verification-addendum]] · [[belief-inertia-2026-07-12-theorem-first-revision]] · [[belief-inertia]] · [[meta-entropy-manuscript]] · [[gl-k-attention]]
+**Manuscripts:** [[participatory-it-from-bit]] · [[belief-inertia]] · [[gl-k-attention]]

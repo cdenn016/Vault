@@ -12,7 +12,7 @@ tags:
   - project/transformer
 status: stable
 created: 2026-06-18
-updated: 2026-08-20
+updated: 2026-09-27
 ---
 
 # Inference machinery — variational EM and filtering
@@ -28,7 +28,6 @@ and on each backward pass, updates parameters through a separate decode loss. Th
 architecture borrows the alternating skeleton of [[Variational EM]], but its target-blind
 belief filter and decode cross-entropy do not optimize a single shared functional.
 “Structural EM” names that organization, not a coordinate-ascent guarantee.
-[[gl-k-attention-2026-07-09-review-revision]]
 
 The unifying observation, due to [[neal-1998-variational-em]], is that the
 Expectation-Maximization algorithm is not two unrelated operations but coordinate
@@ -39,7 +38,7 @@ parameters. Neal and Hinton show this functional view licenses *incremental*
 and *partial* updates: you need not run either step to convergence before switching.
 That permission applies to textbook shared-functional EM. The transformer's target-blind
 belief objective and decode cross-entropy are distinct, so its one-step filter is not
-licensed by Neal–Hinton monotonicity. [[gl-k-attention-2026-07-09-review-revision]]
+licensed by Neal–Hinton monotonicity.
 
 Where Neal and Hinton supply the algorithmic justification, [[friston-2010-free-energy-principle]]
 supplies the semantics. Friston's free-energy principle casts perception, attention,
@@ -48,7 +47,7 @@ surprise (negative log model evidence). In this reading the E-step is *perceptio
 (inferring hidden causes of the input), the M-step is *learning* (improving the
 generative model), and the precision terms that weight prediction errors are *attention*.
 For the VFE transformer this is conceptual background, not a literal single-objective
-description of its structural-EM schedule. [[gl-k-attention-2026-07-09-review-revision]]
+description of its structural-EM schedule.
 
 For the discrete (POMDP)
 incarnation of the same scheme, [[smith-2022-active-inference-tutorial]] is the standard
@@ -62,7 +61,7 @@ from the predictive-coding lineage. [[rao-1999-predictive-coding]], [[bogacz-201
 and [[millidge-2020-pc-approximates-backprop]] turn the abstract free-energy functional
 into explicit, local, precision-weighted [[Prediction error]] dynamics on Gaussian
 variables. Exact-backprop recovery is a convergence result for the source model; it does
-not certify the transformer's truncated, two-objective filtering loop. [[gl-k-attention-2026-07-09-review-revision]]
+not certify the transformer's truncated, two-objective filtering loop.
 
 ## Key threads
 
@@ -105,7 +104,7 @@ Bishop/Beal ELBO canon to the Friston-style free-energy claims that the filterin
 [[millidge-2020-pc-approximates-backprop]] proves exact-gradient recovery for the source
 model under its convergence and scheduling assumptions. The transformer's finite one-$s$/one-$q$
 inner schedule, separate decode objective, and no-neural-network pure path do not satisfy that
-theorem by description alone. [[gl-k-attention-2026-07-09-review-revision]]
+theorem by description alone.
 
 **Population representability separates filtering from smoothing.** A fixed-model mean-field ELBO
 has zero mixed third variation $D^3_{q_iq_jq_j}$, whereas a nondegenerate transported consensus
@@ -116,10 +115,9 @@ that filtering equilibrium is not thereby stationary for the global smoothing sc
 configuration-space Gibbs lift is exact when its partition function is finite; it changes the
 latent variable from token states to whole belief configurations. These distinctions govern which
 fixed-point, CAVI, and evidence-bound claims can accompany each executable update mode.
-[[vfe-population-generative-status-2026-07-12]]
 
 **Credit assignment by inference: the backprop-free track.** The 2026-07-11 plan
-([[Nudged two-phase EM]], banked in [[2026-07-11-backprop-free-plan-and-pure-fep-postmortem]])
+([[Nudged two-phase EM]])
 turns the structural-EM caveats above into a constructive prescription: restore the observation
 term to the belief update (the [[participatory-it-from-bit|PIFB]]-canonical placement) in a pair
 of symmetric target-nudged continuations of the free E-step, and estimate the through-$q^*$
@@ -136,7 +134,7 @@ recognition-network and learned-optimizer precedents. The pure transformer conta
 it carries model and belief states explicitly and applies finite target-blind refinements.
 Amortization is therefore a comparison, not the precise template or a demonstrated gap-closing result for
 `filtering`. See [[Amortized inference]], [[Variational autoencoder (VAE)]], and
-[[Iterative amortized inference]]. [[gl-k-attention-2026-07-09-review-revision]]
+[[Iterative amortized inference]].
 
 ## How it lands in this work
 
@@ -146,14 +144,13 @@ gamma-weighted model consensus. It then sets $q_i^{(0)}=p_i=s_i^{(1)}$ and perfo
 target-blind natural-gradient $q$ refinement on alignment/self-coupling terms. Neither is an
 argmin or CAVI update. The outer stage minimizes decode cross-entropy through both unrolled
 paths. See the structural-EM disclosure in [[Variational EM]]; no shared-functional monotonicity
-or exact-backprop guarantee applies to this loop. [[gl-k-attention-2026-07-09-review-revision]]
+or exact-backprop guarantee applies to this loop.
 
 The belief machinery uses the Gaussian-family Fisher metric. At each recorded source SHA, the frame
 table is routed through AdamW by the committed gate and stored configuration, although dirty provenance
 prevents byte-level reconstruction. Heavy-ball is confined to the disabled custom outer frame optimizer;
 BCH/retraction is confined to disabled in-E-step frame revision; and the shared pullback conditioner is
 inactive because both optional routes are off. Optional frame conditioning is not a Fisher natural gradient.
-[[gl-k-attention-2026-07-09-review-revision]]
 
 Because `Sigma` is symmetric-positive-definite, the belief-covariance updates
 live on the SPD manifold and use Riemannian retractions rather than naive
@@ -164,7 +161,6 @@ Rényi bound of [[li-turner-2016-renyi-vi]]. The decoder is trained by a separat
 cross-entropy objective, so no single ELBO or Rényi bound is jointly ascended by
 the two inner refinements and the outer update. The inference machinery is structural EM
 with distinct inner and decode objectives.
-[[gl-k-attention-2026-07-09-review-revision]]
 
 > [!note] Structural correction (2026-07-25): the two inner refinements are two attention layers.
 > `_refine_s` is not merely a preparatory step — it runs its own E-step with `lambda_gamma`
@@ -175,7 +171,6 @@ with distinct inner and decode objectives.
 > redundant, contributing 1.343 and 1.854 nats individually but 1.947 jointly. Despite `n_layers=1`
 > the trained route is therefore `token lookup → s-channel attention → belief attention → linear
 > decode`, which is why `prior_source='token'` with `s_e_step=False` reaches comparable perplexity.
-> [[2026-07-25-estep-character-and-channel-decomposition]]
 
 > [!note] Editorial (2026-07-10): The literal `"filtering"` label denotes the target-blind
 > belief-refinement component; the retained route precedes it with one model-channel refinement.
@@ -191,8 +186,8 @@ filtering iterations suffice** — now measured, and the answer dissolves the qu
 settling it. On the deployed `mm_exact` rule, which computes the closed-form stationary point of the
 attention-frozen objective, one belief refinement is worth about 1.4 nats of cross-entropy and
 depths 2 through 8 are worth 0.012 in total; the iteration is a nearly straight-line contraction
-whose first step covers about 70% of the displacement
-([[2026-07-25-estep-character-and-channel-decomposition]]). There is no compute/relaxation
+whose first step covers about 70% of the displacement.
+There is no compute/relaxation
 trade-off to map on this channel. What the measurement replaces it with is a sharper question: the
 fixed point allocates 70 to 81% of its fused precision to the prior and 19 to 30% to the transported
 neighbors, so the refinement is one precision-weighted aggregation with a dominant residual, and the
@@ -203,7 +198,6 @@ effect belonged to the model consensus channel rather than to belief inference.
 
 Second, **the structural-EM boundary.** The deployed objectives are already distinct at KL order,
 so no Neal–Hinton monotone-improvement guarantee applies before considering Renyi order.
-[[gl-k-attention-2026-07-09-review-revision]]
 
 Third, **the backprop-equivalence boundary.**
 [[millidge-2020-pc-approximates-backprop]] proves recovery under a converged
@@ -277,13 +271,6 @@ Privacy and robustness change the target as well as the protocol. [[heikkila-202
   template that identifies the deployed filter.
 - [[millidge-2020-pc-approximates-backprop]] — converged predictive-coding updates recover
   backpropagation under the source paper's schedule; this does not cover the one-step filter.
-- [[vfe-population-generative-status-2026-07-12]] — state-level ELBO obstruction,
-  receiver-response equilibrium, configuration-Gibbs lift, and V3 two-hop update scope.
-- [[2026-07-25-estep-character-and-channel-decomposition]] — the measured depth attribution, the
-  closed-form character of the deployed update, the prior/neighbor precision split, and the
-  two-attention-layer structure of the two inner refinements.
-- [[2026-07-25-shadow-prior-refutation]] — why a top-down cross-scale prior does not supply the
-  missing observation channel, and the Bethe-versus-mean-field status of the shadow term.
 
 Cross-cluster anchors drawn on above: [[amari-1998-natural-gradient]] for the
 Gaussian belief metric and [[li-turner-2016-renyi-vi]] as a distinct

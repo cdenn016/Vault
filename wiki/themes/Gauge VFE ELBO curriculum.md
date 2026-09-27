@@ -91,8 +91,8 @@ relevant books have been cited. Research-level constructions in this program use
 [[Rigorous theory search]] to freeze the target and hypotheses, maintain mechanism-diverse proof
 routes and an acyclic claim graph, distinguish exact effective theory from truncation, and require
 adversarial reconstruction plus search-prior erasure before release. The method's archived design,
-conditional mathematical reconstruction, and still-provisional behavioral baseline are recorded in
-[[2026-08-02-rigorous-theory-search-skill]].
+conditional mathematical reconstruction, and still-provisional behavioral baseline were recorded in
+a 2026-08-02 skill record.
 
 ## Suggested reading order
 

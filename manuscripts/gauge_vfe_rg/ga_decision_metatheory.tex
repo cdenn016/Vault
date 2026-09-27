@@ -1,0 +1,730 @@
+\chapter{Decision Metatheory}
+\label{app:decision-metatheory}
+
+When is the question whether every admitted fine Gaussian has an admitted
+coarse presentation of its exact marginal decidable, and what does a decision
+procedure deliver? For families given by finite semialgebraic descriptions,
+real quantifier elimination decides it and constructs the exact good and
+failure loci (\Cref{thm:cg-semialgebraic-kron-classification}); the same holds
+for singular Gaussian laws on a declared quotient reference with variable rank
+(\Cref{thm:cg-variable-support-classification}). The decision does not extend
+to families given by programs that enumerate them
+(\Cref{prop:cg-kron-enumerator-obstruction}); selectors are measurable but in
+general neither continuous nor equivariant
+(\Cref{prop:cg-kron-selector-boundary}); and a change of rank destroys
+statistical regularity (\Cref{prop:cg-rank-change-statistical-obstruction}).
+The appendix supplies the last two rows of \Cref{tab:cg-kron-regimes} and the
+only treatment of singular Gaussian laws in this supplement; no result of the
+main manuscript depends on it. Notation follows
+\Cref{ch:gaussian-coarsegraining}; in addition \(x\) and \(y\) denote tuples of
+real variables of first-order formulas, \(x\) for the fine family and \(y\) for
+a retained presentation.
+
+This appendix claims no complexity bound useful at any practical scale, no
+numerical sign tolerance, no decision procedure for parameters known only
+through approximations, no closed-form catalog of closed families, and no limit
+or fixed-point theorem for iterated compositions. The classification of
+families outside finite encodings is open
+(\Cref{open:cg-kron-classification-beyond-finite}). \status{NOT-CLAIMED}
+
+\section{Finite semialgebraic classification}
+\label{sec:cg-semialgebraic-kron}
+
+\definitionheading{Finite semialgebraic description}{def:cg-semialgebraic-description}
+A finite semialgebraic description of a Kron problem fixes finitely many
+labeled nodes with finite coordinate spaces and coordinate Lebesgue
+references, a finite list of oriented edge copies and loops, and a finite list
+of retained coordinate sets. The fine parameters \(x\in\R^p\) range over the set
+defined by a finite formula \(\mathrm{Adm}(x)\), a Boolean combination of
+polynomial equalities and strict or weak inequalities, possibly with
+existentially quantified auxiliary variables, whose coefficients are real
+algebraic numbers, each given by a defining integer polynomial and a rational
+isolating interval. The fine precision \(\Lambda(x)\) and source
+\(\mathsf h(x)\) have entries that are rational functions of \(x\) on an
+explicitly specified nonzero-denominator domain, and every admitted
+\(\Lambda(x)\) is SPD. A retained presentation is a tuple \(y\in\R^q\) with a
+semialgebraic admissibility formula \(\mathrm{Adm}_{\mathrm c}(y)\), rational
+coarse precision and source \(\Lambda_{\mathrm c}(y)\) and
+\(\mathsf h_{\mathrm c}(y)\), and a finite semialgebraic compatibility formula
+\(\mathrm{Comp}(x,y)\). Correlated weights, nonconvex domains, variable anchors,
+nonflat links, polynomial path identities, and finite unions of graph
+inventories are allowed; singular or rank-changing supports are treated in
+\Cref{sec:cg-variable-support-quotients}.
+
+\propositionheading{Real quantifier elimination}{prop:cg-real-quantifier-elimination}
+There is an algorithm that transforms every first-order formula in the language
+of ordered fields with integer coefficients into a quantifier-free formula in
+the same free variables that is equivalent to it in every real closed field. In
+particular the truth of every such closed sentence over \(\R\), and over the
+field of real algebraic numbers, is decidable, and the two truth values agree.
+\status{STANDARD}
+
+This is Tarski's decision method for elementary algebra \citep{Tarski1951};
+\citet[pp.~533--562]{BasuPollackRoy2006} treat quantifier elimination
+algorithmically, and \citet[Sec.~6]{CohenMahboubi2012LMCS} give a formally
+verified proof over real closed fields with decidable comparison. The decision
+theorem below uses only termination.
+
+\lemmaheading{Polynomial encoding of the exact Gaussian marginal}{lem:cg-semialgebraic-encoding}
+Under \Cref{def:cg-semialgebraic-description}, with \(M=\Lambda_{\mathrm{hh}}(x)\)
+for a nonempty hidden coordinate set, put
+\begin{equation}
+\begin{aligned}
+\widetilde\Lambda_{\mathrm r}(x)&=(\det M)\Lambda_{\mathrm{rr}}-\Lambda_{\mathrm{rh}}(\operatorname{adj}M)\Lambda_{\mathrm{hr}},\\
+\widetilde{\mathsf h}_{\mathrm r}(x)&=(\det M)\mathsf h_{\mathrm r}-\Lambda_{\mathrm{rh}}(\operatorname{adj}M)\mathsf h_{\mathrm h},\\
+(\det M)\Lambda_{\mathrm c}(y)&=\widetilde\Lambda_{\mathrm r}(x),\qquad
+(\det M)\mathsf h_{\mathrm c}(y)=\widetilde{\mathsf h}_{\mathrm r}(x),
+\end{aligned}
+\label{eq:cg-semialgebraic-schur}
+\end{equation}
+and for an empty hidden set use \(\det M=1\), \(\widetilde\Lambda_{\mathrm r}=\Lambda\),
+and \(\widetilde{\mathsf h}_{\mathrm r}=\mathsf h\). Let \(\mathrm{Rep}(x,y)\) be the
+conjunction of \(\mathrm{Adm}_{\mathrm c}(y)\), \(\mathrm{Comp}(x,y)\), the SPD
+condition on \(\Lambda_{\mathrm c}(y)\), all denominator admissions, and the last
+line of \eqref{eq:cg-semialgebraic-schur}. After finitely many auxiliary
+variables are introduced, \(\mathrm{Rep}\) and \(\mathrm{Adm}\) are finite
+first-order formulas with integer coefficients, equivalent to the originals at
+every real parameter. For admitted \(x\), \(\mathrm{Rep}(x,y)\) holds exactly when
+\((\Lambda_{\mathrm c}(y),\mathsf h_{\mathrm c}(y))\) are the natural parameters of the
+exact normalized marginal of
+\(\mathcal N(\Lambda(x)^{-1}\mathsf h(x),\Lambda(x)^{-1})\) on the retained
+coordinates and the presentation is admitted; that marginal precision is SPD,
+\begin{equation}
+z^\top\Lambda^{\mathrm{eff}}z
+=\min_u (z,u)^\top\Lambda(z,u)>0,
+\qquad
+u_{\min}=-M^{-1}\Lambda_{\mathrm{hr}}z,
+\qquad z\neq0 .
+\label{eq:cg-semialgebraic-schur-positive}
+\end{equation}
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The adjugate identity \(M^{-1}=\operatorname{adj}M/\det M\) with
+\Cref{prop:cg-normalized-schur-action} shows that the last line of
+\eqref{eq:cg-semialgebraic-schur} is equality of marginal precision and source,
+and for nonsingular Gaussian laws this is equality of laws, since covariance
+determines precision and \(\mathsf h=\Lambda\mu\) then determines the source,
+while the explicit densities give the converse. The admissions have polynomial
+encodings. A symmetric matrix is SPD exactly when its leading principal minors
+are positive: completing the square in the first coordinate gives a positive
+first pivot and a Schur block whose leading minors are the subsequent leading
+minors divided by that pivot, and induction proves the claim. A symmetric
+matrix is PSD exactly when it equals \(TT^\top\) for some \(T\), by orthogonal
+diagonalization and \(v^\top TT^\top v=\|T^\top v\|^2\). Invertibility of a link
+is \((\det\Theta)^2>0\). A denominator \(q\) is replaced by a variable \(u\) with
+\(uq=1\), which keeps its nonzero domain; multiplying an equation by a nonzero
+denominator is valid, whereas an inequality needs this variable or a split into
+the two sign cases. An algebraic coefficient with defining polynomial \(f\) and
+isolating interval \((a_0,b_0)\) is replaced by an existentially quantified
+variable \(v\) with \(f(v)=0\) and \(a_0<v<b_0\), and clearing the rational
+denominators leaves integer coefficients; the equivalence holds at every real
+parameter because the constant is the unique root in its interval. Finally, the
+minimum in \eqref{eq:cg-semialgebraic-schur-positive} is attained at
+\(u_{\min}\), and its minimizing vector has nonzero retained part.
+\(\square\)
+
+\theoremheading{Exact finite semialgebraic Kron classification}{thm:cg-semialgebraic-kron-classification}
+Under \Cref{def:cg-semialgebraic-description}, there is an algorithm producing
+a quantifier-free formula \(\mathrm{Good}(x)\) for exactly the admissible fine
+parameters whose exact marginal has an admitted retained presentation, and the
+failure locus, and deciding universal closure and nonemptiness:
+\begin{equation}
+\begin{aligned}
+\mathrm{Good}(x)&\ \Longleftrightarrow\
+ \mathrm{Adm}(x)\wedge\exists y\bigl[\mathrm{Rep}(x,y)\bigr],\\
+\mathrm{Fail}(x)&=\mathrm{Adm}(x)\wedge\neg\mathrm{Good}(x),\\
+&\forall x\bigl(\mathrm{Adm}(x)\Rightarrow\exists y\bigl[\mathrm{Rep}(x,y)\bigr]\bigr),
+\qquad
+\exists x\bigl[\mathrm{Adm}(x)\bigr].
+\end{aligned}
+\label{eq:cg-semialgebraic-classification}
+\end{equation}
+The witnesses include the auxiliary inverse and Gram variables, and
+nonemptiness is decided separately, since vacuous closure is not an inhabited
+construction. A nonempty failure locus contains a point with real algebraic
+coordinates. The raw scalar is carried outside the formula by
+\begin{equation}
+\mathfrak c_{\mathrm c}
+=\mathfrak c+\frac12\log\det M
+-\frac{\dim z_{\mathrm h}}{2}\log(2\pi)
+-\frac12\mathsf h_{\mathrm h}^\top M^{-1}\mathsf h_{\mathrm h},
+\label{eq:cg-semialgebraic-raw-scalar}
+\end{equation}
+and the observed experiment of a linear Gaussian sensor with algebraic matrix
+data and SPD noise is included by keeping the observation coordinates among the
+retained ones. For a fixed finite acyclic diagram of retained coordinate sets,
+with one tuple \(y_v\) at each object and all arrow relations, path identities,
+and structural conditions collected in one formula
+\(\mathrm{Rep}_{\mathrm{diag}}\), the same algorithm decides
+\begin{equation}
+\forall x\Bigl(\mathrm{Adm}(x)\Rightarrow
+\exists (y_v)_{v}
+\mathrm{Rep}_{\mathrm{diag}}\bigl(x,(y_v)_{v}\bigr)\Bigr).
+\label{eq:cg-semialgebraic-diagram}
+\end{equation}
+For a fixed finite list of rational operations on one declared domain, totality
+and universal one-step domain invariance imply admission of every finite
+composition. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+By \Cref{lem:cg-semialgebraic-encoding}, \(\mathrm{Adm}\) and \(\mathrm{Rep}\) are
+finite integer-coefficient formulas, and \(\mathrm{Rep}(x,y)\) holds exactly when
+\(y\) is an admitted presentation of the exact marginal, so
+\Cref{prop:cg-real-quantifier-elimination} produces \(\mathrm{Good}\) and
+\(\mathrm{Fail}\) and decides the two closed sentences. The existential sentence
+\(\exists x\bigl[\mathrm{Fail}(x)\bigr]\) has the same truth value over \(\R\) and over the
+real algebraic numbers by the same proposition, so a nonempty failure locus has
+an algebraic point, which enumeration of finite tuples of algebraic numbers with
+exact sign evaluation of \(\mathrm{Fail}\) eventually finds; the point need not
+be rational or small. The raw scalar is the third line of
+\eqref{eq:cg-kron-complete-schur}; it is a transcendental identity rather than an
+ordered-field constraint, and conditions on logarithms, exponentials, or
+normalizers enter the decision only after a valid polynomial reduction has been
+supplied. For a linear sensor with SPD noise covariance \(\Sigma_o\), the joint
+of latent and observation coordinates is a proper Gaussian with rational natural
+parameters, its quadratic being the prior quadratic plus
+\((o-\mathsf Cz)^\top\Sigma_o^{-1}(o-\mathsf Cz)\), so the classification applies to
+it; pushing the whole observed joint preserves its evidence and the
+conditional-KL identity of \Cref{sec:cg-kl-recovery}. For a diagram, one formula
+with shared variables is decided, whereas separate witnesses for each arrow
+would not give a compatible value at a shared object; coordinate
+marginalization composes by the equality of iterated Gaussian integrals, sources
+and raw scalars included. The composition statement is induction on the number
+of operations, undefined denominators counting as failures of totality.
+\(\square\)
+
+\paragraph{Bounding an unmarked positive presentation.}
+An unrestricted number of independently scalable unmarked summands can also be
+reduced to finite input. Let \(\R^n=\bigoplus_{i\in V}\R^{d_i}\) with coordinate
+projections \(\operatorname{pr}_i\). An anchor contributes
+\(\operatorname{pr}_i^\top A_i\operatorname{pr}_i\) with \(A_i\succeq0\), and for
+nodes of equal dimension a link contributes
+\begin{equation}
+\mathsf Q_e=(\operatorname{pr}_i-\Theta_e\operatorname{pr}_j)^\top W_e(\operatorname{pr}_i-\Theta_e\operatorname{pr}_j),
+\qquad W_e\succ0,\quad\det\Theta_e\neq0.
+\label{eq:cg-finite-pair-generator}
+\end{equation}
+Allowed endpoint types form a fixed finite list, every generator may be
+independently rescaled by a positive number, and unmarked copies may be deleted.
+
+\propositionheading{Finite positive pair-presentation bound}{prop:cg-finite-pair-presentation-bound}
+If \(Q\in\Sym^n\) is a finite sum of the anchors and links just declared, it is
+such a sum with at most \(n(n+1)/2\) nonzero summands, and with unrestricted PSD
+anchors it has at most one anchor at each node and no self-loops; every weight
+stays SPD and every link invertible. Membership in this unmarked presentation
+class is equivalent to one finite disjunction of existential polynomial
+systems, whose projection onto the entries of \(Q\) is semialgebraic and
+decidable at exact algebraic inputs. The scaling and deletion hypotheses are
+material: in one scalar dimension, generators restricted to the value \(1\)
+represent \(2\) with two copies but not within the bound \(1\). The class need
+not be closed, and replacing SPD weights by PSD ones changes membership: for two
+two-dimensional nodes and \(u=(1,0)^\top\), the matrix
+\begin{equation}
+Q_\partial=\begin{pmatrix}u\\-u\end{pmatrix}
+\begin{pmatrix}u\\-u\end{pmatrix}^{\top}
+\label{eq:cg-finite-pair-strict-boundary}
+\end{equation}
+is a limit of single links with \(\Theta=I\) and
+\(W=\operatorname{diag}(1,\delta)\), \(\delta\downarrow0\), but is not a sum of
+admitted generators. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+A loop is the PSD anchor
+\(\operatorname{pr}_i^\top(I-\Theta_e)^\top W_e(I-\Theta_e)\operatorname{pr}_i\).
+Absorb unmarked loops into anchors, sum the anchors at each node, and delete zero
+terms. Reversing a non-loop orientation replaces \((\Theta,W)\) by
+\((\Theta^{-1},\Theta^\top W\Theta)\) and preserves the residual quadratic, so
+one orientation suffices when the link domain is the whole general linear group;
+a restricted domain keeps its finite orientation types. Write the remaining sum
+as \(Q=\sum_{r=1}^mt_r\mathsf Q_r\), initially with \(t_r=1\). If
+\(m>n(n+1)/2=\dim\Sym^n\), choose a nonzero dependence
+\(\sum_r\xi_r\mathsf Q_r=0\); every nonzero PSD matrix has positive trace, so the
+\(\xi_r\) have both signs, and with
+\begin{equation}
+\bar t=\min_{\xi_r>0}\frac{t_r}{\xi_r},
+\qquad t'_r=t_r-\bar t\xi_r,
+\label{eq:cg-finite-pair-support-reduction}
+\end{equation}
+all \(t'_r\geq0\), one vanishes, and \(\sum_rt'_r\mathsf Q_r=Q\). Repetition
+terminates, and each surviving coefficient is absorbed into its \(A_i\) or
+\(W_e\) without changing the admissions. This is Carath\'eodory's theorem
+\citep[Thm.~17.1]{Rockafellar1970} applied to \(Q/\Tr Q\) in the convex hull of
+the normalized generators \(\mathsf Q_r/\Tr\mathsf Q_r\), which lie in an affine
+hyperplane of dimension \(n(n+1)/2-1\). Only finitely many endpoint and anchor
+patterns have at most \(n(n+1)/2\) terms; for each, with symmetric anchor and
+weight variables and unrestricted link variables, impose
+\begin{equation}
+\begin{aligned}
+Q&=\sum_i\operatorname{pr}_i^\top A_i\operatorname{pr}_i+\sum_e
+(\operatorname{pr}_i-\Theta_e\operatorname{pr}_j)^\top W_e(\operatorname{pr}_i-\Theta_e\operatorname{pr}_j),\\
+A_i&=F_iF_i^\top,\qquad
+\Tr(F_iF_i^\top)>0,\\
+&\text{all leading principal minors of }W_e\text{ positive},
+\qquad(\det\Theta_e)^2>0,
+\end{aligned}
+\label{eq:cg-finite-pair-polynomial-system}
+\end{equation}
+with the factors \(F_i\) existential. By the encodings of
+\Cref{lem:cg-semialgebraic-encoding} every solution is a permitted presentation,
+and the reduction puts every finite presentation into one listed pattern, so the
+disjunction is necessary and sufficient; quantifier elimination makes its
+projection semialgebraic. The scalar example has \(\dim\Sym^1=1\). The matrix
+\(Q_\partial\) has rank one and a nonzero cross block, while every non-loop
+generator on those nodes has rank two, because \((I,-\Theta)\) has full row rank
+and \(W\succ0\); PSD summands of \(Q_\partial\) vanish on its kernel, so their
+ranges lie in its one-dimensional range, which excludes every non-loop term, and
+anchors and loops have zero cross blocks. The links with
+\(W=\operatorname{diag}(1,\delta)\) converge to \(Q_\partial\). \(\square\)
+
+If \(Q\succ0\), repacking \(Q\) while carrying \(\mathsf h\), \(\mathfrak c\), and
+the reference unchanged keeps the complete Gaussian action, its mass, and its
+normalized law, whereas independently normalized local factors introduce
+determinant scalars that must be compensated when raw equality is required.
+Individually marked edges, their inventories, and prescribed loop products
+cannot be discarded; such problems keep their finite inventory in
+\Cref{thm:cg-semialgebraic-kron-classification}, and the proper example of
+\Cref{prop:cg-kron-positive-pair-obstruction} excludes even the larger class of
+PSD two-node forms.
+
+\propositionheading{Measurable selection and structural obstructions}{prop:cg-kron-selector-boundary}
+For the good locus of \Cref{thm:cg-semialgebraic-kron-classification} there is
+a semialgebraic, hence Borel, selector \(s\) with \(\mathrm{Rep}(x,s(x))\) for every
+\(x\) in the locus. Neither a continuous selector nor a gauge-equivariant
+structural selector follows from these hypotheses, even when every accompanying
+Gaussian law is proper and identical. For the parameter
+\((\cos t,\sin t)\in S^1\) and the polynomial condition \(O\in\mathrm{SO}(2)\),
+\(O^2=R_t\), each fiber has two points and no continuous selection exists,
+while the state law may stay \(\mathcal N(0,I_2)\). For the input covariance
+\(I_2\) and a factor \(O\) with \(OO^\top=I_2\), acted on by
+\(O\mapsto gO\), \(g\in\mathrm{SO}(2)\), no equivariant selector exists.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The semialgebraic sets are the definable sets of the real field, an o-minimal
+expansion of an ordered group, which has definable choice \citep[Ch.~6, pp.~93--94]{vandenDries1998}: the
+semialgebraic family of fibers \(\{y:\mathrm{Rep}(x,y)\}\), \(x\) in the good
+locus, has a semialgebraic selector. A semialgebraic map is Borel, since
+preimages of rational open boxes are semialgebraic and such boxes form a
+countable base. The solutions of \(O^2=R_t\) in \(\mathrm{SO}(2)\) are
+\(\pm R_{t/2}\), so along \(t\in[0,2\pi]\) a continuous selection is
+\(\sigma R_{t/2}\) with \(\sigma\in\{I,-I\}\) continuous, hence constant, and
+then its value at \(2\pi\) is minus its value at \(0\) although the parameter has
+returned. The covariance \(I_2\) is fixed by every \(g\in\mathrm{SO}(2)\), so an
+equivariant selector would satisfy \(O=gO\) for every \(g\), and \(g=-I_2\)
+forces \(O=0\), contradicting \(OO^\top=I_2\). \(\square\)
+
+The selected tuple is a measurable presentation of the exact marginal; it is not
+a smooth frame, an equivariant section, or a construction compatible with an
+unstated global composition law. Finite diagram compatibility is handled by
+\eqref{eq:cg-semialgebraic-diagram} with its shared variables.
+
+\propositionheading{Obstruction for computably enumerated domains}{prop:cg-kron-enumerator-obstruction}
+There is no terminating algorithm which, from arbitrary code for a total
+computable sequence of rational parameters, decides whether every member of the
+sequence has a positive pairwise coarse presentation. This remains true when the
+topology and node dimensions are fixed, every fine law is proper, and the range
+is promised to lie in one fixed two-point set; the obstruction concerns the
+input description, although every such range is finite and semialgebraic as a
+set. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Use the four-agent, two-dimensional star of
+\Cref{prop:cg-kron-positive-pair-obstruction}. Let \(x_{\mathrm{bad}}\) be its
+rational edge data with retained anchors \(\delta I\), \(\delta=1/20000\), whose
+proper marginal has no positive one-node or two-node presentation. Let
+\(x_{\mathrm{good}}\) have the same topology and anchors and all three star
+weights equal to \(I\); the hidden pivot is \(3I\), the retained blocks are
+\(2I/3\) on the diagonal and \(-I/3\) off it, and the complete retained graph with
+weights \(I/3\) together with the anchors is an exact positive presentation. For
+a program \(\mathtt p\) define
+\begin{equation}
+x_k(\mathtt p)=
+\begin{cases}
+x_{\mathrm{bad}},&\mathtt p\text{ halts within }k\text{ steps},\\
+x_{\mathrm{good}},&\text{otherwise}.
+\end{cases}
+\label{eq:cg-kron-enumerator-reduction}
+\end{equation}
+Computing a term takes \(k\) simulation steps, so this is a total computable
+rational sequence with range in \(\{x_{\mathrm{good}},x_{\mathrm{bad}}\}\), and all
+its members admit positive pairwise presentations exactly when \(\mathtt p\) never
+halts. An algorithm deciding the property would therefore decide halting. No
+machine decides whether an arbitrary machine ever prints a given symbol
+\citep[Sec.~8]{Turing1937}, and a program that simulates a machine and halts when
+the machine first prints that symbol reduces this problem to halting, so no such
+algorithm exists. \(\square\)
+
+There is no conflict with \Cref{thm:cg-semialgebraic-kron-classification}: an
+explicit semialgebraic formula for the range is different input from code that
+enumerates it. The proposition does not exclude a theorem about a particular
+infinite family, a nonalgorithmic classification, or exact full-Gaussian
+marginalization.
+
+\section{Finite Gaussian quotients with variable support}
+\label{sec:cg-variable-support-quotients}
+
+The full-SPD assumption of \Cref{thm:cg-semialgebraic-kron-classification} can
+be replaced by an explicit quotient reference, which gives a finite
+classification that includes variable ranks.
+
+\definitionheading{Quotient Gaussian data}{def:cg-quotient-reference}
+Quotient Gaussian data on \(\R^n\) consist of a symmetric PSD form \(Q\), an SPD
+reference metric \(\mathsf G_{\mathrm{ref}}\), a covector
+\(\mathsf h\in\operatorname{range}Q\), an affine origin \(z_0\in\R^n\), and a
+real scalar \(\mathfrak c\). The representative slice and the action on it are
+\begin{equation}
+\mathcal S=(\ker Q)^{\perp_{\mathsf G_{\mathrm{ref}}}},\qquad
+\mathsf E(z_0+s)=\mathfrak c+\frac12s^\top Qs-\mathsf h^\top s,\quad s\in\mathcal S,
+\label{eq:cg-quotient-reference-action}
+\end{equation}
+with the volume induced by \(\mathsf G_{\mathrm{ref}}\) on \(\mathcal S\),
+translated to \(z_0+\mathcal S\), and unit mass on the point in dimension zero.
+Since \(Q\) is symmetric, \(\operatorname{range}Q=(\ker Q)^\perp\), so both
+energies descend to \(\R^n/\ker Q\). The metric, origin, and volume specify a
+law on a representative slice, not a normalization of a singular ambient
+Lebesgue density; a law on the discarded null coordinates would define a
+different completion.
+
+\propositionheading{Polynomial quotient covariance}{prop:cg-quotient-covariance-polynomial}
+For every such \(Q\) and \(\mathsf G_{\mathrm{ref}}\) there is exactly one
+symmetric \(\Sigma_Q\) with
+\begin{equation}
+Q\Sigma_QQ=Q,\qquad \Sigma_QQ\Sigma_Q=\Sigma_Q,\qquad
+\mathsf G_{\mathrm{ref}}\Sigma_QQ=Q\Sigma_Q\mathsf G_{\mathrm{ref}}.
+\label{eq:cg-quotient-covariance-graph}
+\end{equation}
+With the whitened forms
+\begin{equation}
+\widehat Q=\mathsf G_{\mathrm{ref}}^{-1/2}Q\mathsf G_{\mathrm{ref}}^{-1/2},\qquad
+\widehat\Sigma=\mathsf G_{\mathrm{ref}}^{1/2}\Sigma_Q\mathsf G_{\mathrm{ref}}^{1/2},
+\label{eq:cg-quotient-whitened-graph}
+\end{equation}
+it is
+\begin{equation}
+\Sigma_Q=\mathsf G_{\mathrm{ref}}^{-1/2}\widehat Q^+\mathsf G_{\mathrm{ref}}^{-1/2},
+\label{eq:cg-quotient-metric-inverse}
+\end{equation}
+where \(\widehat Q^+\) inverts the positive eigenvalues and vanishes on the
+kernel. \(\Sigma_Q\) is PSD with range \(\mathcal S\), and
+\(\Pi_Q=\Sigma_QQ\) is the \(\mathsf G_{\mathrm{ref}}\)-orthogonal projection onto
+\(\mathcal S\) with kernel \(\ker Q\). The equations
+\eqref{eq:cg-quotient-covariance-graph} are the defining equations of the
+weighted Moore--Penrose inverse of \(Q\) with weights
+\(\mathsf G_{\mathrm{ref}}^{-1}\) and \(\mathsf G_{\mathrm{ref}}\), because for
+symmetric \(\Sigma_Q\) and \(Q\) both weighted symmetry conditions reduce to the
+third equation, and they specify the covariance at every rank.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The SPD square root of \(\mathsf G_{\mathrm{ref}}\) exists by orthogonal
+diagonalization, and in the variables \eqref{eq:cg-quotient-whitened-graph} the
+equations become \(\widehat Q\widehat\Sigma\widehat Q=\widehat Q\),
+\(\widehat\Sigma\widehat Q\widehat\Sigma=\widehat\Sigma\), and
+\(\widehat\Sigma\widehat Q=\widehat Q\widehat\Sigma\), with \(\widehat\Sigma\)
+symmetric. Decompose into the positive eigenspace of \(\widehat Q\) and its
+kernel; commutation makes the off-diagonal blocks vanish, the first equation
+gives \(\widehat\Sigma=\widehat Q^{-1}\) on the positive block, and the second
+gives \(\widehat\Sigma=0\) on the kernel. This proves uniqueness,
+\eqref{eq:cg-quotient-metric-inverse}, and positivity. In whitened coordinates
+\(\widehat\Sigma\widehat Q\) is the Euclidean orthogonal projection onto
+\(\operatorname{range}\widehat Q\), and since
+\(\ker\widehat Q=\mathsf G_{\mathrm{ref}}^{1/2}\ker Q\), undoing the isometry
+\(s\mapsto\mathsf G_{\mathrm{ref}}^{1/2}s\) gives the stated projection and range.
+For the weighted conditions, multiplying
+\((\mathsf G_{\mathrm{ref}}^{-1}Q\Sigma_Q)^\top=\mathsf G_{\mathrm{ref}}^{-1}Q\Sigma_Q\)
+on both sides by \(\mathsf G_{\mathrm{ref}}\) gives the third equation, and
+\((\mathsf G_{\mathrm{ref}}\Sigma_QQ)^\top=\mathsf G_{\mathrm{ref}}\Sigma_QQ\) is the
+third equation itself. \(\square\)
+
+The PSD and SPD admissions have the finite encodings of
+\Cref{lem:cg-semialgebraic-encoding}, and \(\mathsf h\in\operatorname{range}Q\)
+is the existential equation \(Qv=\mathsf h\); the square root and the spectral
+inverse fix the meaning of the equations and are not operations of the
+polynomial input.
+
+\theoremheading{Normalized quotient Gaussian law}{thm:cg-quotient-gaussian-law}
+Let \(r=\operatorname{rank}Q\) and let \(\det_+(\widehat Q)\) be the product of the
+positive eigenvalues of \(\widehat Q\), with empty product one. Relative to the
+volume on \(z_0+\mathcal S\), the action \eqref{eq:cg-quotient-reference-action}
+has positive finite mass and defines the Gaussian probability measure with
+ambient mean \(\mu\), covariance \(\Sigma_Q\), and characteristic function
+\begin{equation}
+\begin{aligned}
+Z_Q&=e^{-\mathfrak c}(2\pi)^{r/2}
+       \det\nolimits_+(\widehat Q)^{-1/2}
+       \exp\Bigl(\frac12\mathsf h^\top\Sigma_Q\mathsf h\Bigr),\\
+\mu&=z_0+\Sigma_Q\mathsf h,\\
+\widehat{\mathbb P}_Q(\xi)
+ &=\exp\Bigl(i\xi^\top\mu-\frac12\xi^\top\Sigma_Q\xi\Bigr).
+\end{aligned}
+\label{eq:cg-quotient-gaussian-law}
+\end{equation}
+For \(Q=0\) these give \(\mathsf h=\Sigma_Q=0\), \(Z_Q=e^{-\mathfrak c}\), and the point
+mass at \(z_0\). Under an invertible passive change \(z'=gz\) with all data
+transformed,
+\begin{equation}
+Q'=g^{-\top}Qg^{-1},\quad
+\mathsf G_{\mathrm{ref}}'=g^{-\top}\mathsf G_{\mathrm{ref}}g^{-1},\quad
+\mathsf h'=g^{-\top}\mathsf h,\quad z_0'=gz_0,
+\label{eq:cg-quotient-gauge-data}
+\end{equation}
+one has \(\Sigma_Q'=g\Sigma_Qg^\top\), \(\mu'=g\mu\), and
+\(\mathbb P'=g_\#\mathbb P\), with \(Z_Q\) and \(\mathfrak c\) unchanged. The
+reference metric must transform with the data: for \(Q=\operatorname{diag}(1,0)\),
+\(\mathsf G_{\mathrm{ref}}=I_2\), and
+\(g=\begin{psmallmatrix}1&1\\0&1\end{psmallmatrix}\), the pushed covariance is
+\(\operatorname{diag}(1,0)\), while resetting the transformed metric to \(I_2\)
+gives
+\begin{equation}
+Q'=\begin{pmatrix}1&-1\\-1&1\end{pmatrix},
+\qquad
+(Q')^+_{\mathrm{Euclidean}}
+=\frac14\begin{pmatrix}1&-1\\-1&1\end{pmatrix},
+\label{eq:cg-quotient-reference-counterexample}
+\end{equation}
+a different slice and law. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+In the coordinates \(y=\mathsf G_{\mathrm{ref}}^{1/2}s\) the slice becomes
+\(\operatorname{range}\widehat Q\) and its volume becomes Euclidean volume; the
+restriction of \(\widehat Q\) there is positive definite, and the source
+\(\mathsf G_{\mathrm{ref}}^{-1/2}\mathsf h\) lies in that range because it
+annihilates \(\ker\widehat Q\). Diagonalizing and completing \(r\) scalar squares
+gives the first line of \eqref{eq:cg-quotient-gaussian-law}; transforming the
+mean and covariance back gives \(\Sigma_Q\mathsf h\) and \(\Sigma_Q\), and
+translation adds \(z_0\). The same one-dimensional integrations give the
+characteristic function, and in dimension zero the integral is over one point,
+so \(0<Z_Q<\infty\) in all cases. Substituting \eqref{eq:cg-quotient-gauge-data}
+into \eqref{eq:cg-quotient-covariance-graph} and using uniqueness gives
+\(\Sigma_Q'=g\Sigma_Qg^\top\); \(g\) is an isometry between the two representative
+metrics, so it pushes their volume measures and leaves \(Z_Q\) unchanged. The
+counterexample is direct computation. \(\square\)
+
+\propositionheading{Pushforwards of quotient Gaussian laws}{prop:cg-quotient-pushforward}
+(i) Every affine map \(z\mapsto\mathsf F z+\mathfrak b\), including rectangular or
+rank-deficient \(\mathsf F\), pushes the law of
+\Cref{thm:cg-quotient-gaussian-law} to the Gaussian with
+\begin{equation}
+\mu_{\mathrm{push}}=\mathsf F(z_0+\Sigma_Q\mathsf h)+\mathfrak b,\qquad
+\Sigma_{\mathrm{push}}=\mathsf F\Sigma_Q\mathsf F^\top .
+\label{eq:cg-quotient-affine-push}
+\end{equation}
+Two Gaussian measures on one finite ambient space, singular or not, agree
+exactly when their means and covariances agree, so target data
+\((Q_{\mathrm c},\mathsf G_{\mathrm{ref,c}},\mathsf h_{\mathrm c},z_{0,\mathrm c})\) with
+covariance \(\Sigma_{\mathrm c}\) represent this push exactly when
+\begin{equation}
+\Sigma_{\mathrm c}=\mathsf F\Sigma_Q\mathsf F^\top,\qquad
+z_{0,\mathrm c}+\Sigma_{\mathrm c}\mathsf h_{\mathrm c}=\mathsf F(z_0+\Sigma_Q\mathsf h)+\mathfrak b,
+\label{eq:cg-quotient-ambient-law-equality}
+\end{equation}
+as equalities of probability measures, supports included.
+(ii) A map \([z]\mapsto[\mathsf F z]\) between the energy quotients is well defined
+exactly when \(\mathsf F\ker Q\subseteq\ker Q_{\mathrm c}\), that is,
+\begin{equation}
+Q_{\mathrm c}\mathsf F(I-\Sigma_QQ)=0.
+\label{eq:cg-quotient-map-descent}
+\end{equation}
+With \(\Pi_{\mathrm c}=\Sigma_{\mathrm c}Q_{\mathrm c}\) and a declared quotient
+offset \(\mathfrak b_0\), the target representative map
+\(z_0+s\mapsto z_{0,\mathrm c}+\Pi_{\mathrm c}(\mathsf F s+\mathfrak b_0)\) pushes the law
+to the target law exactly when
+\begin{equation}
+\Sigma_{\mathrm c}=\Pi_{\mathrm c}\mathsf F\Sigma_Q\mathsf F^\top\Pi_{\mathrm c}^\top,\qquad
+\Sigma_{\mathrm c}\mathsf h_{\mathrm c}=\Pi_{\mathrm c}(\mathsf F\Sigma_Q\mathsf h+\mathfrak b_0);
+\label{eq:cg-quotient-intrinsic-law-equality}
+\end{equation}
+choosing a map on one slice alone does not prove descent.
+(iii) For three scalar nodes with two unit edges, no anchors, zero source, and
+\(\mathsf G_{\mathrm{ref}}=I_3\),
+\begin{equation}
+Q_{\mathrm f}=\begin{pmatrix}
+1&-1&0\\-1&2&-1\\0&-1&1
+\end{pmatrix},\qquad
+\Sigma_{\mathrm f}=\frac19\begin{pmatrix}
+5&-1&-4\\-1&2&-1\\-4&-1&5
+\end{pmatrix},
+\label{eq:cg-quotient-chain-data}
+\end{equation}
+and \(\mathsf F\) selecting the first and third coordinates, with
+\(\mathsf G_{\mathrm{ref,c}}=I_2\),
+\begin{equation}
+Q_{\mathrm c}=\Sigma_{\mathrm c}=\Pi_{\mathrm c}
+=\frac12\begin{pmatrix}1&-1\\-1&1\end{pmatrix},\qquad
+\mathsf F\Sigma_{\mathrm f}\mathsf F^\top
+=\frac19\begin{pmatrix}5&-4\\-4&5\end{pmatrix};
+\label{eq:cg-quotient-chain-push}
+\end{equation}
+the map descends and
+\(\Pi_{\mathrm c}\mathsf F\Sigma_{\mathrm f}\mathsf F^\top\Pi_{\mathrm c}^\top=\Sigma_{\mathrm c}\),
+so the coarse edge of weight \(1/2\) is an exact quotient push with zero sources
+and offsets, whereas the unprojected endpoint covariance differs from
+\(\Sigma_{\mathrm c}\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) Substitute \(\mathsf F^\top\xi\) in the characteristic function and multiply by
+\(e^{i\xi^\top\mathfrak b}\). Equal means and covariances give equal
+characteristic functions, and the converse follows from finite first and second
+moments. (ii) Replacing \(z\) by \(z+k\) with \(k\in\ker Q\) shows necessity of
+\(\mathsf F\ker Q\subseteq\ker Q_{\mathrm c}\), and the same calculation shows
+sufficiency; \(I-\Sigma_QQ\) projects onto \(\ker Q\) by
+\Cref{prop:cg-quotient-covariance-polynomial}, which gives
+\eqref{eq:cg-quotient-map-descent}. The representative map is affine, so (i)
+applied to it gives \eqref{eq:cg-quotient-intrinsic-law-equality}, the target
+mean being \(z_{0,\mathrm c}+\Sigma_{\mathrm c}\mathsf h_{\mathrm c}\). (iii)
+Multiplication gives \(Q_{\mathrm f}\Sigma_{\mathrm f}=I_3-\mathbf1\mathbf1^\top/3\)
+and the covariance equations; the fine common-translation kernel maps into the
+coarse one, and direct multiplication gives the projected covariance.
+Equivalently, the fine residuals \(z_1-z_2\) and \(z_2-z_3\) are independent
+standard normals, and their sum has variance two. \(\square\)
+
+A target metric or projection that varies with a model parameter does not by
+itself define one parameter-independent statistical channel, so Fisher
+contraction for a family requires that admission separately.
+
+\theoremheading{Finite variable-support Gaussian classification}{thm:cg-variable-support-classification}
+Fix finite ambient dimensions, finitely many declared affine or intrinsic
+quotient maps, and finite semialgebraic input and target predicates over
+effectively represented real algebraic coefficients, with rational matrix
+expressions on explicit nonzero-denominator domains. At each object require
+\(Q\succeq0\), \(\mathsf G_{\mathrm{ref}}\succ0\), and
+\(\mathsf h\in\operatorname{range}Q\), with reference and origin as in
+\Cref{def:cg-quotient-reference}; ranks and supports may vary with the
+parameters. Then an algorithm constructs the exact good and failure loci for
+quotient-Gaussian representability,
+\begin{equation}
+\begin{aligned}
+\mathrm{Good}_{\mathrm{quot}}(x)&\Longleftrightarrow
+\mathrm{Adm}(x)\wedge\exists y\bigl[\mathrm{Rep}_{\mathrm{quot}}(x,y)\bigr],\\
+\mathrm{Fail}_{\mathrm{quot}}(x)&=\mathrm{Adm}(x)\wedge\neg\mathrm{Good}_{\mathrm{quot}}(x),
+\end{aligned}
+\label{eq:cg-variable-support-good-locus}
+\end{equation}
+and decides universal closure, separate nonemptiness, and any finite
+simultaneous diagram with its supplied polynomial structural compatibilities;
+for affine maps it uses \eqref{eq:cg-quotient-ambient-law-equality}, and for
+intrinsic maps both \eqref{eq:cg-quotient-map-descent} and
+\eqref{eq:cg-quotient-intrinsic-law-equality}. The asserted equivalence is
+equality of the normalized measures on their representative spaces. The raw
+finite measures are carried by the analytic normalizer at each object: with
+\begin{equation}
+\begin{aligned}
+\mathsf A_i^{\mathrm{mass}}
+&=\frac{r_i}{2}\log(2\pi)
+-\frac12\log\det\nolimits_+(\widehat Q_i)
++\frac12\mathsf h_i^\top\Sigma_{Q_i}\mathsf h_i,\\
+\mathfrak c_{\mathrm c}
+&=\mathfrak c_{\mathrm f}
++\mathsf A_{\mathrm c}^{\mathrm{mass}}
+-\mathsf A_{\mathrm f}^{\mathrm{mass}},
+\end{aligned}
+\label{eq:cg-quotient-raw-scalar}
+\end{equation}
+a free target scalar gives \(Z_{\mathrm c}=Z_{\mathrm f}\), and equality of the
+normalized laws then gives equality of the pushed raw finite measures. An
+observed experiment is included by keeping its observation coordinates in the
+finite joint and requiring the representative map to leave them unchanged,
+which preserves its observation marginal, singular or not.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Introduce a symmetric covariance variable at each object and impose
+\eqref{eq:cg-quotient-covariance-graph}, \(Qv=\mathsf h\), and the PSD and SPD
+admissions; uniqueness in \Cref{prop:cg-quotient-covariance-polynomial} ensures
+that an existential covariance cannot select a different law. Denominators are
+handled as in \Cref{lem:cg-semialgebraic-encoding}, so the map equations are
+finite polynomial relations, and by \Cref{prop:cg-quotient-pushforward} they are
+necessary and sufficient for the normalized pushforward, descent included when
+an intrinsic map is requested. A prescribed rank \(r>0\) is the vanishing of
+all \((r+1)\)-minors and positivity of the sum of squares of the \(r\)-minors,
+rank zero is the vanishing of all entries, and the finitely many ranks form a
+finite disjunction; \(\operatorname{range}U\subseteq\operatorname{range}U'\) is
+the existential equation \(U=U'C\), and affine support relations add membership
+of the displacement. \Cref{prop:cg-real-quantifier-elimination} then produces
+\eqref{eq:cg-variable-support-good-locus} and decides the closed sentences. For
+a diagram, one target tuple and its unique covariance at each object carry all
+arrow equations simultaneously, with descent and the declared identities of the
+induced quotient maps for quotient arrows; equality modulo a target null
+direction is encoded as such, and composable representative maps compose their
+moment transformations by affine substitution. No nonsingular inverse or common
+support is assumed. The raw-scalar choice gives \(Z_{\mathrm c}=Z_{\mathrm f}\) by
+\eqref{eq:cg-quotient-gaussian-law}, and a common positive mass factor cancels
+from a normalized law, so raw equality is a separate requirement that this
+choice meets. \(\square\)
+
+A preferred positive pair factorization is an extra target condition,
+expressible by \eqref{eq:cg-finite-pair-polynomial-system} when its hypotheses
+hold, or through a supplied marked inventory; variable support does not relax
+positive definiteness of edge weights, erase holonomy marks, or enlarge a
+prescribed target domain. Logarithms, positive pseudodeterminants, and
+rank-dependent normalizers enter the polynomial decision only through such a
+reduction.
+
+\propositionheading{Rank change obstructs statistical regularity}{prop:cg-rank-change-statistical-obstruction}
+Finite semialgebraic feasibility across ranks does not imply total-variation
+continuity, differentiability in quadratic mean, or a smooth positive Fisher
+geometry, even for a smooth PSD coefficient path whose quotient law is
+normalized at every parameter. Even the smooth covariance path
+\(\operatorname{diag}(1,t^2)\) has total-variation distance one from its
+line-supported law at \(t=0\), although these laws converge weakly.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Take
+\begin{equation}
+Q(t)=\operatorname{diag}(1,t^2),\qquad
+\mathsf G_{\mathrm{ref}}=I_2,\qquad \mathsf h=z_0=0.
+\label{eq:cg-rank-change-example}
+\end{equation}
+For \(t\neq0\) the covariance is \(\operatorname{diag}(1,t^{-2})\) and the
+support is \(\R^2\); at zero the covariance is \(\operatorname{diag}(1,0)\) and the
+support is the first coordinate axis, which has probability zero for every
+\(t\neq0\) and one at zero, so with
+\(\|\mathbb P-\mathbb P'\|_{\mathrm{TV}}=\sup_B|\mathbb P(B)-\mathbb P'(B)|\) the
+distance is exactly one. For every finite \(R_0\),
+\begin{equation}
+\mathbb P_t(|X_2|\leq R_0)
+=\mathbb P(|\varsigma|\leq R_0|t|)\longrightarrow0,
+\qquad \varsigma\sim\mathcal N(0,1),
+\label{eq:cg-rank-change-escape}
+\end{equation}
+so there is no weak probability limit as \(t\to0\): the bounded continuous
+positive function \(e^{-X_2^2}\) has expectation \(|t|/\sqrt{t^2+2}\to0\),
+whereas its integral against any probability measure on \(\R^2\) is positive.
+On \(t>0\) the second-coordinate log density has derivative \(1/t-tX_2^2\), with
+mean zero and variance \(2/t^2\), the Fisher information. Two-dimensional
+Lebesgue measure plus the one-dimensional measure on the axis dominates all
+these laws. Differentiability in quadratic mean at zero would require a
+square-integrable score \(\mathbf s_0\) with
+\(\|\sqrt{p_t}-\sqrt{p_0}-\frac t2\mathbf s_0\sqrt{p_0}\|_2=o(|t|)\); the triangle
+inequality would give \(\|\sqrt{p_t}-\sqrt{p_0}\|_2\to0\), and Cauchy--Schwarz
+applied to \((\sqrt{p_t}-\sqrt{p_0})(\sqrt{p_t}+\sqrt{p_0})\) would give
+\(\|\mathbb P_t-\mathbb P_0\|_{\mathrm{TV}}\leq\|\sqrt{p_t}-\sqrt{p_0}\|_2\to0\),
+contradicting the distance-one calculation. For the covariance path
+\(\operatorname{diag}(1,t^2)\) the same support argument gives distance one,
+and the coupling \((\varsigma_1,t\varsigma_2)\) with dominated convergence gives weak
+convergence; its quotient precisions satisfy
+\eqref{eq:cg-quotient-covariance-graph}, so weak convergence alone does not
+supply a regular statistical geometry. \(\square\)
+
+\openproblemheading{Kron classification beyond finite encodings}{open:cg-kron-classification-beyond-finite}
+Finite algebraically encoded full-SPD problems are decided by
+\Cref{thm:cg-semialgebraic-kron-classification}, and declared metric quotient
+laws with variable rank and support by
+\Cref{thm:cg-variable-support-classification}; correlated, nonconvex,
+variable-anchor, and branching nonflat domains are included when their
+constraints fit the finite input, and the scalar formulas are exact analytic
+outputs outside the polynomial formulas. Universal continuity and equivariance
+of selectors (\Cref{prop:cg-kron-selector-boundary}), smooth passage between
+support strata (\Cref{prop:cg-rank-change-statistical-obstruction}), and a
+universal decision procedure for enumerated inputs
+(\Cref{prop:cg-kron-enumerator-obstruction}) are refuted. Unproved is any
+classification, closed form or algorithmic, of families outside finite
+encodings, such as nonalgebraic domains, changing-dimension limits, and
+alternative completions of the null coordinates, and any construction with a
+global regularity target, such as a smooth, equivariant, or functorial
+structural selection. For a stated family, a declaration of its domain and
+compatibility conditions together with a proof of the requested invariance,
+limit, or global construction would settle it, as would a reduction of the
+family to a finite encoding covered by the two theorems.

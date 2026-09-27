@@ -105,7 +105,7 @@ The VFE transformer uses a structural-EM skeleton. In the retained sweep, its in
 forward stage performs one target-blind model-channel refinement and then one
 target-blind Fisher-preconditioned belief refinement with
 $q_i^{(0)}=p_i=s_i^{(1)}$. Neither update is a Neal–Hinton incremental step on the
-decode objective. [[gl-k-attention-2026-07-09-review-revision]]
+decode objective.
 
 - **What it borrows.** Each token carries diagonal-Gaussian model and belief states.
   The retained **inner stage** first refines $s_i$ toward the learned global $r$ and
@@ -114,7 +114,7 @@ decode objective. [[gl-k-attention-2026-07-09-review-revision]]
   [[bogacz-2017-free-energy-tutorial]] and [[rao-1999-predictive-coding]], and
   surfaces as [[Precision weighting|precision-weighted attention]]. The **M-step**
   updates the learned parameters against decode cross-entropy through both unrolled
-  refinements, a distinct objective. [[gl-k-attention-2026-07-09-review-revision]]
+  refinements, a distinct objective.
 
   The per-token Gaussian beliefs are explicit optimized state variables. The
   architecture has no neural recognition network, so the VAE amortization theorem
@@ -126,7 +126,7 @@ decode objective. [[gl-k-attention-2026-07-09-review-revision]]
   a Fisher/K-FAC natural gradient, and the decode optimizer is separate. The
   configured order-[[Renyi divergence|Rényi]] term is a pairwise belief
   discrepancy with KL at order one; it is neither a Li–Turner variational bound
-  nor an Amari alpha-connection. [[gl-k-attention-2026-07-09-review-revision]]
+  nor an Amari alpha-connection.
 
 - **Where it departs from textbook VEM (2026-06-29).** Neal and Hinton's defining
   property is that the E-step and M-step ascend the **same** functional. The deployed
@@ -143,14 +143,13 @@ decode objective. [[gl-k-attention-2026-07-09-review-revision]]
   canonical [[participatory-it-from-bit|PIFB]] functional, where the observation term
   lives in the fast belief subsystem the beliefs descend. The measured consequence is
   that the belief covariance gets no per-token data precision and collapses to a near-
-  constant learned prior, failing the $\sigma$-validation gate
-  ([[2026-06-29-sigma-gate-fail-and-collapse]]).
+  constant learned prior, failing the $\sigma$-validation gate.
 
 > [!note] Editorial (2026-07-10): “Structural EM” names the alternating schedule,
 > not a proof that the two inner refinements and outer decode optimize one ELBO. The
 > retained one-$s$/one-$q$ schedule has no
 > Neal–Hinton monotonicity or converged predictive-coding/backpropagation
-> guarantee. [[gl-k-attention-2026-07-09-review-revision]]
+> guarantee.
 
 ## Sources
 

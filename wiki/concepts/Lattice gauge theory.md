@@ -14,10 +14,30 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-18
-updated: 2026-09-11
+updated: 2026-09-23
 ---
 
 # Lattice gauge theory
+
+## Matrix communication links, September 20, 2026
+
+The group-valued connection formulation below is one case. General matrix links are also legitimate gauge-covariant fields; [[wetterich-2014-linear-lattice-gauge-theory]] supplies a compact-group precedent. The current manuscript construction is
+
+$$\mathsf S_{j,h}=T_hU_j^{-1},\qquad
+\mathsf R_{i,h}=U_iO_h,\qquad
+L_{ij}^{(h)}=\mathsf R_{i,h}\mathsf S_{j,h},\qquad
+L_{ij}^{(h)\prime}=g_iL_{ij}^{(h)}g_j^{-1}.$$
+
+These links can be singular. At fixed routing, $\mathcal C_{ij}=U_i(\sum_h\beta_{ij}^{(h)}O_hT_h)U_j^{-1}$ is a covariant multi-head edge operator and can be full rank. Shared reference matrices constrain its edge dependence. This construction concerns full multivariate Gaussian site states; diagonal storage is an implementation approximation. [[dennis-2026-glk-matrix-links-2026-09-20]]
+
+For one head, $L_{ij}L_{jk}-L_{ik}=U_iO(TO-I_s)TU_k^{-1}$. The condition $TO=I_s$ gives flat identifications on $U_i\operatorname{im}O$. For shared unweighted maps, an $r$-edge path is $U_{i_0}(OT)^rU_{i_r}^{-1}$, so equal-length paths with equal endpoints agree. Its failure to identify one-edge and two-edge processing alone is not arbitrary edge curvature.
+
+Ordered loop products transform by conjugation, making their traces invariant even for singular links. Invertible connection holonomy is a more specific object. Causal attention supplies no directed cycles through distinct token positions, so additional loop edges must be declared. The underlying $\Omega_{ij}=U_iU_j^{-1}$ remains flat. An independent connection extension can instead use $F_{i,h}\Theta_{ij}$ with $F_{i,h}=U_iO_hT_hU_i^{-1}$; it is not part of the reported parameterization. [[dennis-2026-glk-matrix-links-2026-09-20]]
+
+An endpoint law alone is not a complete lattice gauge theory. A GL(K)-invariant action, normalized measure or dynamics, and graph structure remain to be supplied. Euclidean link norms are not generally invariant under GL(K). Neither the MLP interpretation nor a continuum limit follows from this construction.
+
+The v2 revision (September 23, 2026) names a closer counterpart. The comparison cospan $E_i\to H^{\mathrm{cmp}}\leftarrow E_j$ is a pair of restriction maps into an edge stalk, which is the structure of a cellular sheaf rather than of a group-valued link field ([[hansen-2018-toward-a-spectral-theory-of-cellular-sheaves]], [[bodnar-2022-neural-sheaf-diffusion]]). Sheaf restriction maps need not be invertible, and sheaves with orthogonal restriction maps are discrete $O(d)$ bundles with the connection Laplacian ([[Graph synchronization and connection Laplacians]]).
+
 
 > [!note] Current scope, September 11, 2026
 > The program now distinguishes frame-derived transition cocycles from independently supplied connection links. Nontrivial relational loop records can coexist with identical singleton beliefs. A graph, oriented links and declared plaquette or continuum structure must be specified before importing lattice-curvature claims. [[multiagentelbo-2026-09-11-spatial]] and [[multiagentelbo-2026-09-11-continuum]] supply particular normalized constructions and their hypotheses; [[multiagentelbo-2026-09-11-formation]] supplies the finite observational example.

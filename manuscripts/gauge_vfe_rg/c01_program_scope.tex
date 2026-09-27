@@ -1,0 +1,224 @@
+\chapter{Program, Scope, and Standing Conventions}
+\label{ch:introduction}
+
+This manuscript asks what collective inference is available to agents that are local sections of a
+belief and a model associated bundle of one principal bundle, placed at one base point and interacting
+through independent links under one normalized joint law, and which parts of that inference survive
+exact coarse-graining of the agents into meta-agents. The answer has four main parts. The whole
+population has one evidence bound, an identity in the extended reals whose gap vanishes exactly at the
+posterior as a measure (\Cref{thm:elbo-extended-gap,cor:elbo-bound-tightness}). Each agent's local
+objective is a conditional free energy whose differential is that of the collective free energy
+(\Cref{thm:obs-local-global-potential}). Coarse channels of the agent network preserve the evidence and
+decompose the free energy exactly (\Cref{thm:rg-exact-coarse-vfe}), with an effective action for the
+retained coordinates (\Cref{thm:rg-effective-action}). A finite-depth family forms successive
+meta-agents under free-energy descent with learning, in a stated scope
+(\Cref{thm:finite-depth-adaptive-formation}). \Cref{sec:intro-reading-map} maps these results to the
+chapters, and \Cref{sec:intro-conventions} fixes, once for the whole manuscript, the defaults and the
+claims it declines.
+
+\section{Program aim}
+\label{sec:intro-program-aim}
+
+The program is a participatory multi-agent theory. Agents are local sections of associated bundles,
+collectives form through the agents' coupled inference, and parents act back on their children through
+normalized laws rather than through quantities that read the children's beliefs. Three requirements
+follow from that aim, and the manuscript is organized around them. Every collective object must be a
+complete probability object, constructed from the agents' mechanisms and interaction records or selected
+explicitly, never an additional agent and never a sum of local objectives that happens to look like one.
+Every statement about a parent must hold for the normalized parent law that coarse-graining actually
+produces. And formation of a parent must be a theorem about a declared family, with its scope stated,
+rather than a reading of a formula.
+
+The present phase fixes one base point $c_*$ and settles the theory there before any transport across the
+base is considered. At $c_*$ the exact normalized parent law exists for every coarse channel of the
+agent network (\Cref{thm:rg-pointwise-parent-datum}), and \Cref{thm:finite-depth-adaptive-formation} gives
+a formation witness under a supplied hierarchy of interaction strengths. On a homogeneous four-cycle a
+random initial source assignment already makes a collective form from every Gaussian initial law, with
+source learning idle (\Cref{prop:phil-seeded-contrast-formation}). At each sufficiently small fixed
+temperature, slow source learning selects one matching in the assignment law for almost every Gaussian
+initial mean, while the frozen-prior pairing difference vanishes at long times
+(\Cref{conj:phil-contrast-formation}). How a
+parent's own dynamics are determined by the network it summarizes is
+\Cref{open:rg-pointwise-parent-dynamics}, the defining open problem of the phase.
+
+\section{Objects and the local-first architecture}
+\label{sec:intro-objects}
+
+Agent $i$ is the object $\mathcal A^i=(\mathcal C_i;q_i^b,q_i^m,u_i)$ of \Cref{def:geo-agent}: a belief
+section and a model section of the associated bundles $\mathcal E_b$ and $\mathcal E_m$ of one principal
+$G$-bundle, expressed in one common frame $u_i$, a gauge choice by \Cref{prop:geo-common-frame-gauge}. The
+two channels may carry inequivalent representations, and cross morphisms between them are additional
+structure (\Cref{def:geo-cross-morphisms}). Interactions are normalized record kernels $K_a$ on the scopes
+of an interaction multigraph, and the links $\Theta_e^x$ on its edge copies are independent data with loop
+holonomy and per-edge invariant classes (\Cref{prop:geo-edge-twist-invariance}). The primitive descriptive
+data are the agents, their local recognition laws, their evaluated mechanisms, and the record kernels.
+Population laws enter only by construction (\Cref{prop:gen-exact-normalization}) or by an explicit
+selection (\Cref{hyp:prob-measurable-coupling-selector}). The architecture is
+\begin{equation}
+\left\{
+\mathcal A^i,G_{\theta,i},\mathbb Q_{i,o,X},K_a
+\right\}_{i\in V,a\in\mathfrak A}
+\longrightarrow
+\begin{cases}
+\mathbb P_{\theta,V} & \text{normalized construction},\\
+\mathbb Q_{V,o,X}\in\operatorname{Cpl}(\mathbb Q_{\bullet,o,X})
+& \text{measurable selection},
+\end{cases}
+\longrightarrow
+\Lelbo_V,
+\label{eq:intro-local-to-global-architecture}
+\end{equation}
+so the constructed joint and the selected coupling precede every local and collective objective. On the
+evidence domain of \Cref{hyp:elbo-evidence-domain} there is one identity,
+\begin{equation}
+\log p_{\theta,V}(o\given X)
+=\Lelbo_V(\mathbb Q_{V,o,X};X,o)
++\KL\bigl(\mathbb Q_{V,o,X}\big\Vert\boldsymbol\Pi_{\theta,V,o,X}\bigr),
+\label{eq:elbo-intro-identity}
+\end{equation}
+with equality of the bound and the log evidence exactly when the recognition coupling is the posterior as
+a measure, which matching coordinate marginals does not achieve (\Cref{cor:elbo-bound-tightness}). The
+identity is invariant under passive re-expression of the frames when the kernels are covariant
+(\Cref{prop:gen-product-evidence-invariance,cor:elbo-independent-frame-invariance}). Excluding the
+posterior from a recognition family makes every pointwise gap positive, but it does not make the optimized
+gap positive or attained (\Cref{sec:restrict-principle}).
+
+\section{Results and reading map}
+\label{sec:intro-reading-map}
+
+Part I builds the single-point foundations. \Cref{ch:geometry} fixes the geometry at $c_*$: the active gauge
+group is one copy of $G$, links carry per-edge twist classes, and three notions of agreement are separated.
+\Cref{ch:probability} fixes kernels before densities, proves the chain rule used everywhere, and
+distinguishes sample, law-point, and configuration levels. \Cref{ch:generative} builds the normalized joint
+on arbitrary record cycles and states the typing prohibition. \Cref{ch:elbo} derives the evidence bound and
+the local-collective potential identity, with observations entering as interaction records
+(\Cref{thm:obs-agent-interaction-equivalence}). \Cref{ch:selective-communication} places attention inside
+the fixed joint as a latent source label (\Cref{prop:obs-attention-elbo}), builds selective communication,
+and records its correspondence with transformer attention (\Cref{tab:obs-transformer-correspondence}).
+\Cref{ch:relational-inference} develops fiber information geometry, Fisher contraction under Markov
+morphisms (\Cref{thm:cg-fisher-contraction}), and inference histories measured by a Fisher duration that is
+invariant under reparameterization (\Cref{thm:hist-fisher-clock-invariance}). \Cref{ch:two-timescales} types
+fast beliefs and slow models (\Cref{def:obs-fast-slow-blocks}) and proves the reduced slow flow
+(\Cref{prop:obs-rate-separated-flow}).
+
+Part II coarse-grains at one base point. \Cref{ch:coarsegraining} separates Markov coarse channels, energy
+restriction, and parameter aggregation (\Cref{sec:cg-three-operations}) and proves the exact coarse free
+energy and the pointwise parent datum (\Cref{thm:rg-exact-coarse-vfe,thm:rg-pointwise-parent-datum}).
+\Cref{ch:network-state} gives the gauge-retained network state, the kernel--holonomy fixed sectors
+(\Cref{prop:cg-kernel-holonomy}), and the holonomy-conditioned marginal law
+(\Cref{thm:cg-holonomy-kl-marginal}). \Cref{ch:agent-network-rg} is exact coarse-graining of the agent
+network: effective action, residual, finite-step multipliers, and the native growth bound
+(\Cref{thm:rg-effective-action,thm:rg-bounded-action-calculus,prop:rg-interaction-native-growth-bound}),
+with the retained state collected in \Cref{tab:rg-retained-state} and a parent-sensitive mechanism with
+path laws and an exact finite-memory cost (\Cref{sec:rg-memory-parent-mechanism}).
+\Cref{ch:full-graph-meta-agent-vfe} assembles the multiscale free energy and closes a tower of priors
+(\Cref{sec:full-graph-closing-tower}).
+
+Part III turns to formation and interpretation. \Cref{ch:finite-depth-formation} constructs, for every
+finite depth, a family in which successive coherence episodes come from linear relaxation of a prepared mean
+through a supplied hierarchy of interaction strengths; source jumps and learning are perturbations the proof
+controls, not the cause of formation, and a separate witness produces a four-cycle endogenously
+(\Cref{prop:rg-formation-endogenous-cycle}). \Cref{ch:philosophy} states what the mathematics does and does
+not support, and \Cref{ch:related-work} positions the construction. The appendices hold measure-theoretic
+lemmas (\Cref{app:measure-lemmas}), the formation proofs (\Cref{app:finite-depth-formation-proofs}), the
+notation (\Cref{app:notation-contract}), the open problems (\Cref{app:claim-ledger}), and the numerical index
+(\Cref{app:numerical-provenance}).
+
+Two supplements accompany the manuscript, and no result here depends on them. Supplement G develops the
+multivariate-Gaussian realization. Supplement B collects base transport, covers and connection descent,
+multi-point designs, infinite networks with their asymptotic apparatus, and the lattice cluster.
+
+A first reading can take \Cref{ch:geometry,ch:probability,ch:generative} for the objects and the joint, then
+\Cref{ch:elbo} for the bound and \Cref{ch:selective-communication} for attention, then
+\Cref{ch:coarsegraining,ch:agent-network-rg} for exact coarse-graining and
+\Cref{ch:finite-depth-formation} for formation; proofs, witnesses, and the ledger can be recovered through
+their cross-references on a second reading.
+
+\section{Standing conventions and scope}
+\label{sec:intro-conventions}
+
+Everything takes place at one base point. The design is $\{c_*\}$, design and incidence indices are dropped,
+and every agent's frame, beliefs, and models are points of the fibers over $c_*$. Base maps and base curves,
+neighborhoods, connection descent, transport along the base, section spaces over $\mathcal C$, and continuum
+law theory are deferred to the base supplement named in \Cref{sec:intro-reading-map}.
+
+The following defaults hold throughout, and a statement mentions only departures from them. Measurable spaces
+are nonempty and standard Borel, and $\mathcal P(\mathsf S)$ denotes the probability laws on a measurable
+space $\mathsf S$. Laws and kernels are normalized and measurable. A coarse channel is a Markov
+kernel on latent coordinates that does not depend on the recognition law, leaves observations unchanged, and
+is vertical over the identity of $c_*$. An admitted observation has finite positive evidence. Structural data
+are parameters unless a configuration prior or a structural channel is declared, and the declaration names
+its law. The interaction graph at $c_*$ is the support of the source prior, a structural parameter that is
+complete unless masked. Gibbs attention weights are strictly positive on positive-prior edges when their
+costs are finite; the extended-cost rows of \Cref{prop:full-graph-gibbs-rows} can assign zero weight to
+infinite-cost edges. Dynamic structure is carried by attention weights and link values. Discrete creation and deletion of edges is not part of the model; it is
+\Cref{open:obs-edge-creation}. Coarse multigraphs are induced structure. Absolute continuity of a recognition
+law with respect to the posterior is not a default: it is clause (H3) of \Cref{hyp:elbo-evidence-domain}, and
+its failure is the singular branch of the extended bound.
+
+Three transports must remain distinct. A pointwise comparison $T_{ij}$ relates two frames in the same
+principal fiber and involves no curve (\Cref{prop:geo-frame-comparisons}). A link $\Theta_e^x$ is an
+independent variable on an edge copy of the interaction multigraph (\Cref{def:geo-graph-links}). Parallel
+transport along a base curve is not used. Graph links are not base transport, and graph-link holonomy is
+neither the holonomy of a base connection nor a property of the topology of the principal bundle.
+
+The word coarse has two uses that must not be merged. A Markov channel discards sample information while
+preserving normalization; a hard restriction substitutes a lower-dimensional configuration into an energy.
+They can agree in a special realization, but a shared word transfers no theorem, and parameter aggregation
+inside a closed family is a third operation (\Cref{sec:cg-three-operations}). Likewise, an inference history
+is an oriented unparameterized orbit in a configuration space, an ordered interaction-record path retained by
+exact coarse-graining is a sample coordinate, coarse-graining depth is a scale index, and a Fisher duration is
+a statistical length.
+
+\paragraph{Scope.}
+The manuscript declines the following claims. None of the inference index, flow parameter, transition index,
+ordered path coordinate, coarse-graining depth, or Fisher duration is identified with physical time; such an
+identification would need a named target clock, a calibration map with an uncertainty model, causal and
+compositional consistency, and discriminating evidence against alternative parameterizations. The contextual
+base is not spacetime and carries no Lorentzian structure. Sections, laws, and meta-agents are mathematical
+objects: calling a boundary node an agent is a naming decision, no claim of autonomous agency or of what
+exists is made, and population laws, population samples, and blocks are not agents. No canonical coupling
+selector, partition, or membership selector is asserted. No renormalization semigroup with rescaling, fixed
+points, or beta functions is constructed; Supplement B holds that asymptotic apparatus. The identification of
+any limiting object with a physical law is \Cref{claim:physical-law-identification}. Declining a claim is not
+refuting it, and a refuted statement appears instead as an established negative result. \status{NOT-CLAIMED}
+
+\section{Status of statements}
+\label{sec:intro-status}
+
+Every definition, standing hypothesis, lemma, proposition, theorem, corollary, conjecture, open problem, and
+claim-bearing remark is a numbered statement. Definitions, standing hypotheses, conjectures, and open problems
+carry their status in their heading type. Every lemma, proposition, theorem, corollary, and claim-bearing
+remark carries exactly one of three tags, one for all of its conclusions. Text that motivates, summarizes, or
+points carries no tag and makes no new claim. The fourth tag of \Cref{tab:status-taxonomy}, for declined
+claims, appears once in each scope paragraph and nowhere else. Open problems are collected in \Cref{tab:open-problems}, and
+numerical statements with their checks in \Cref{tab:numerical-index}.
+
+\begin{sciencetable}{Status of statements.}
+\label{tab:status-taxonomy}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.24\textwidth}>{\raggedright\arraybackslash}X}
+\toprule
+\textbf{Tag or heading} & \textbf{Meaning} \\
+\midrule
+\status{ESTABLISHED} & Proved in this manuscript. A refutation is an established negative statement. \\
+\status{STANDARD} & A known result, cited to a checked primary source with a theorem or section locator. \\
+\status{NUMERICAL} & Supported only by a named computation, indexed with its control and seed; computation is not proof. \\
+Definition & A declared type, construction, or convention; nothing is proved. \\
+Hypothesis & A standing restriction adopted for a chapter or part; it states what it excludes. \\
+Conjecture & A precise unproved statement with a named observation that would refute it. \\
+Open problem & An unsettled question with what holds, what is unproved, and what would settle it. \\
+\status{NOT-CLAIMED} & A claim declined in a scope paragraph; declining is not refuting. \\
+\bottomrule
+\end{tabularx}
+\end{sciencetable}
+
+\section*{Physicist's summary}
+
+The manuscript studies agents that are local sections of belief and model bundles, all at one base point,
+coupled through independent links and interaction records under a single normalized joint law. There is one
+evidence bound for the whole population, the local objectives are exact conditional pieces of it, and
+coarse-graining the agent network into meta-agents is done with Markov channels that preserve the evidence
+and split the free energy exactly. Formation of meta-agents is proved for a declared finite-depth family in a
+stated regime and conjectured more generally. Physical time, spacetime, agency, and transport across the base
+are not claimed; they are either deferred to the base supplement or declined, and the defaults stated above
+are not repeated in later chapters.

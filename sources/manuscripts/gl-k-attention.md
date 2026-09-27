@@ -80,7 +80,7 @@ This manuscript is the attention-mechanism cornerstone of the gauge-theoretic va
 - [[Attention mechanisms — theory and positional structure]] — the core theme this paper anchors; RoPE-as-gauge-frame and multi-head-as-block-algebra results.
 - [[Meta-agents and hierarchical emergence]], [[Renormalization-group flow of beliefs]], [[Ouroboros multi-scale dynamics]] — the coarse-graining/RG conjecture and meta-agent consensus connect to the companion [[participatory-it-from-bit]] manuscript (cited in-text as the source of the cross-scale prior-propagation and Regime-II holonomy program). The "learning as symmetry breaking" reading also touches [[Participatory realism (it from bit)]].
 
-Related program manuscripts: [[belief-inertia]], [[meta-entropy-manuscript]].
+Related program manuscripts: [[belief-inertia]], `meta-entropy-manuscript`.
 
 ## Peer review (2026-06-19)
 

@@ -1,0 +1,1009 @@
+\chapter{Continuous Scale, Fixed Points, Spectra, and Two-Index Limits}
+\label{ch:wilsonian-limits}
+
+Given the comparison data of \cref{ch:renormalization}, a renormalization
+flow usually carries four further constructions: a continuous scale with its
+beta function, fixed points with their linearization, spectra, and limits in
+which system size and depth grow together. This chapter asks what each
+requires and what survives for the finite networks of the main manuscript.
+Over an interval, a continuous beta function is a \(C^1\) family of comparison
+maps that discrete endpoints do not determine
+(\cref{prop:rg-continuous-beta-underdetermined}). A fixed measure pair of a
+rescaled kernel with a unique invariant law has constant action
+(\cref{prop:rg-fixed-pair-unique-ergodicity}), and fixedness does not transfer
+between the law, action, interaction, configuration, and attention tiers
+(\cref{prop:rg-fixed-object-nonimplication}). The positive-unital
+essential-spectrum theorem has a hypothesis that no exact arrow satisfies
+(\cref{thm:rg-unital-essential-spectrum}), and one exact kernel has different
+spectral radii in two topologies (\cref{prop:rg-circle-norm-witness}).
+Fixed-depth and maximal-depth limits need not agree
+(\cref{prop:rg-noncommuting-limits}). On Gaussian operator hierarchies, dense
+scaling leads to a boundary operator ray
+(\cref{prop:rg-gaussian-dense-scaling}), and under one primitive
+identification Perron--Frobenius attraction fixes the fiber matrix without
+selecting it (\cref{conj:grg-fixed-b-attraction}). The open problems of the
+chapter state what an infinite-network theory of the agent network would have
+to supply.
+
+Beyond the symbols of \cref{ch:renormalization}, this chapter writes \(t\) for
+a scale coordinate, \(\mathfrak b^{\mathrm{scale}}\) for the continuous beta,
+\((\varrho_*,\mathsf m_*)\) for a fixed measure pair, \(\mathrm T\) for a tier label,
+\(\mathcal N\) for spectral counting functions, \(\mathcal W\) for operator
+cones, and \(\xi\) for growth exponents of block sums.
+
+\paragraph{Scope.}
+The statements this part declines are listed in the scope paragraph of
+\cref{ch:renormalization}. The open constructions of this chapter are a
+canonical continuous beta (\cref{open:rg-continuous-beta}), two-index limits
+and universality (\cref{open:rg-two-index-limits}), and a primitive
+hierarchical identification for Gaussian operator hierarchies
+(\cref{open:rg-scalarized-attraction}); the continuum theory of laws is
+\cref{open:prob-continuum-theory}.
+
+\section{Continuous scale}
+
+\definitionheading{Smooth scale bundle, scale connection, and continuous beta}{def:rg-scale-connection}
+A continuous beta function lives on a separately declared tier. Declare an
+oriented one-dimensional \(C^1\) scale manifold \(S\) with coordinate \(t\), a
+\(C^1\) Banach vector bundle \(\pi_S:\mathscr G\to S\) whose fibers are coupling
+spaces, and a scale connection, a covariant derivative
+\(\nabla^{\mathrm{scale}}\) on sections of \(\mathscr G\) with the usual
+linearity and Leibniz rules. For a \(C^1\) running coupling section
+\(g(t)\in\mathscr G_t\), the continuous beta is
+\begin{equation}
+\mathfrak b^{\mathrm{scale}}(t)=\nabla^{\mathrm{scale}}_{\partial_t}g(t)
+\in\mathscr G_t.
+\label{eq:rg-covariant-scale-beta}
+\end{equation}
+In a local \(C^1\) trivialization \(J_t:\mathcal G_\star\to\mathscr G_t\) with
+connection form \(A_t\in\mathcal L(\mathcal G_\star)\) and
+\(\widetilde g(t)=J_t^{-1}g(t)\),
+\begin{equation}
+J_t^{-1}\mathfrak b^{\mathrm{scale}}(t)
+=\partial_t\widetilde g(t)+A_t\widetilde g(t),
+\qquad
+A'_t=\mathcal S_tA_t\mathcal S_t^{-1}-(\partial_t\mathcal S_t)\mathcal S_t^{-1}
+\ \text{ under }J'_t=J_t\mathcal S_t^{-1}.
+\label{eq:rg-scale-connection-form}
+\end{equation}
+A raw coordinate derivative does not obey this law: on the trivial line bundle
+with \(g=1\) parallel in a frame with \(A=0\), the frame change
+\(\mathcal S_t=e^{t^2}\) gives raw derivative \(2te^{t^2}\neq0\), while
+\(A'_t=-2t\) and the covariant derivative
+\(\partial_t(e^{t^2})-2te^{t^2}\) vanishes. The scale connection compares
+coupling fibers at different resolutions. It is distinct from the principal
+connections of \cref{ch:base-geometry}, which compare statistical fibers along
+the base at one resolution, and from the inference-orbit parameter and the
+Fisher duration of \cref{ch:relational-inference}.
+
+\propositionheading{Density realization of the continuous beta}{prop:rg-density-beta}
+Suppose scale is a continuous semigroup and that, relative to one common
+dominating measure, positive densities
+\(r_t,p_t\in\operatorname{Dom}(\mathcal A^*)\) are differentiable in a topology
+that permits pointwise ratios and the dual pairings below, with
+\(p_t=r_t\exp[-H_t]\), \(\dot r_t=\mathcal A^*r_t\), and
+\(\dot p_t=\mathcal A^*p_t\). Then, almost everywhere wherever the displayed
+ratios are defined,
+\begin{equation}
+\dot H_t
+=-\frac{\mathcal A^*(r_t\exp[-H_t])}{r_t\exp[-H_t]}
++\frac{\mathcal A^*r_t}{r_t},
+\label{eq:rg-continuous-beta-functional}
+\end{equation}
+and the second term vanishes for a stationary reference. If, on a declared
+Banach action space with a Schauder basis \(\{\psi_A\}\) and continuous
+coordinate functionals \(\{\psi_A^*\}\), or a Hilbert space with a Riesz basis,
+the expansion \(H_t=\sum_Ag_A(t)\psi_A\) converges and differentiation and
+coefficient extraction can be interchanged, then the component beta functions
+are
+\begin{equation}
+\dot g_A=\left\langle\psi_A^*,
+-\frac{\mathcal A^*(r_te^{-H_t})}{r_te^{-H_t}}
++\frac{\mathcal A^*r_t}{r_t}\right\rangle,
+\label{eq:rg-component-beta}
+\end{equation}
+and a truncated basis defines a projection with an explicit residual.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Differentiate \(H_t=-\log(p_t/r_t)\) and substitute the two forward equations;
+apply \(\psi_A^*\) to both sides and use the interchange hypothesis. \(\square\)
+
+\propositionheading{Discrete endpoints do not determine a continuous beta}{prop:rg-continuous-beta-underdetermined}
+(i) On an interval of \(S\) carrying a \(C^1\) trivialization \(J_t\) whose
+connection form \(t\mapsto A_t\) is continuous in operator norm, the equation
+\(\partial_t\mathcal S_t=\mathcal S_tA_t\), \(\mathcal S_{t_0}=I\), has a unique
+\(C^1\) solution by bounded invertible operators, and in the frame
+\(J'_t=J_t\mathcal S_t^{-1}\) the connection form vanishes and
+\(\mathfrak b^{\mathrm{scale}}(t)=J'_t\partial_t\bigl(J'^{-1}_tg(t)\bigr)\); over
+an interval the scale tier is therefore equivalent to a \(C^1\) family of
+comparison isomorphisms. (ii) A scale evolution family
+\begin{equation}
+\mathsf V(t,t'):\mathscr G_{t'}\longrightarrow\mathscr G_t,
+\qquad
+\mathsf V(t,t')\circ\mathsf V(t',t'')=\mathsf V(t,t''),
+\qquad
+\mathsf V(t,t)=I_{\mathscr G_t},
+\label{eq:rg-scale-evolution-family}
+\end{equation}
+the continuous analogue of \eqref{eq:rg-cocycle-composition} and again a
+two-parameter law, is not determined by its restriction to integer endpoints,
+and neither is \eqref{eq:rg-covariant-scale-beta}: on \(S=\R\) with the trivial
+line bundle and zero connection form, the families
+\begin{equation}
+\mathsf V^{(0)}(t,t')=1,
+\qquad
+\mathsf V^{(\epsilon)}(t,t')
+=\exp\bigl\{\epsilon[\sin(2\pi t)-\sin(2\pi t')]\bigr\}
+\label{eq:rg-scale-interpolation-witness}
+\end{equation}
+both satisfy \eqref{eq:rg-scale-evolution-family} and agree at every pair of
+integer endpoints, while their generators are \(0\) and
+\(2\pi\epsilon\cos(2\pi t)\). The one-parameter form, in which
+\(\mathsf V(t,t')\) depends only on \(t-t'\), is not a consequence of
+\eqref{eq:rg-scale-evolution-family}. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) On a compact subinterval, \(\sup_t\lVert A_t\rVert<\infty\) and
+\(\lVert\mathcal SA_t-\mathcal S'A_t\rVert\leq\lVert A_t\rVert
+\lVert\mathcal S-\mathcal S'\rVert\), so Picard iteration for the linear equation
+in the Banach algebra \(\mathcal L(\mathcal G_\star)\) converges to a unique
+\(C^1\) solution, and the solutions on nested compact subintervals agree. The
+solution \(\mathcal T_t\) of \(\partial_t\mathcal T_t=-A_t\mathcal T_t\),
+\(\mathcal T_{t_0}=I\), satisfies
+\(\partial_t(\mathcal S_t\mathcal T_t)=\mathcal S_tA_t\mathcal T_t
+-\mathcal S_tA_t\mathcal T_t=0\), so \(\mathcal S_t\mathcal T_t=I\); and
+\(\mathcal U_t=\mathcal T_t\mathcal S_t\) solves
+\(\partial_t\mathcal U_t=\mathcal U_tA_t-A_t\mathcal U_t\) with
+\(\mathcal U_{t_0}=I\), whose unique solution is \(I\), so
+\(\mathcal T_t\mathcal S_t=I\). By \eqref{eq:rg-scale-connection-form},
+\(A'_t=\mathcal S_tA_t\mathcal S_t^{-1}-\mathcal S_tA_t\mathcal S_t^{-1}=0\).
+(ii) Both families have the form \(f(t)/f(t')\) with \(f\) positive, so they
+satisfy the composition and identity laws. At integer \(t\) and \(t'\) the sine
+terms vanish. Differentiating \(\mathsf V^{(\epsilon)}(t,t')\) in \(t\) at
+\(t=t'\) gives \(2\pi\epsilon\cos(2\pi t')\), which is not identically zero for
+\(\epsilon\neq0\), so \(\mathsf V^{(\epsilon)}\) is not a function of \(t-t'\).
+\(\square\)
+
+The smooth scale base, the bundle, the interpolation, and the connection are
+therefore declared input; a discrete blocking sequence supplies the discrete
+beta \eqref{eq:rg-interaction-beta} and nothing more.
+
+\openproblemheading{Canonical continuous beta}{open:rg-continuous-beta}
+\Cref{def:rg-scale-connection} declares the tier a continuous beta requires,
+and \cref{prop:rg-continuous-beta-underdetermined} shows that over an interval
+the tier is a \(C^1\) comparison family which a discrete blocking sequence does
+not determine. No canonical interpolation of a discrete sequence is known, and
+no reported continuous beta has been shown independent of the interpolation
+inside a declared class. The problem is settled by a canonical interpolation
+with a proof of its uniqueness in a declared class, or by a proof that the
+continuous beta is the same for every member of that class.
+
+\section{Fixed points, flows, and scaling operators}
+\label{sec:rg-fixed-points}
+
+\definitionheading{Fixed measure pair}{thm:rg-fixed-point-equations}
+For a declared family of ratios \(b\) and rescaled kernels \(K_b\) on one
+common standard Borel space \(\mathsf Y\) (\cref{def:rg-rescaled-kernel}), a
+fixed theory is a measure pair \((\varrho_*,\mathsf m_*)\) with
+\(0<\mathsf m_*(\mathsf Y)<\infty\) and
+\begin{equation}
+\mathfrak R_b(\varrho_*,\mathsf m_*)=(\varrho_*,\mathsf m_*)
+\quad\text{for every declared }b.
+\label{eq:rg-fixed-measure-pair}
+\end{equation}
+On the dominated tier, \(\mathsf m_*=e^{-H_*}\varrho_*\), and by uniqueness of
+Radon--Nikodym derivatives and \eqref{eq:rg-reference-dependent-action-map} this
+is equivalent to
+\begin{equation}
+\mathfrak R^\varrho_b\varrho_*=\varrho_*,
+\qquad
+\mathfrak R^H_b[H_*;\varrho_*]=H_*,
+\label{eq:rg-fixed-action}
+\end{equation}
+\(\varrho_*\)-almost everywhere. If the evidence mass is discarded and actions are
+taken projectively, the fixed-ray equation is
+\begin{equation}
+\mathfrak R^H_b[H_*;\varrho_*]=H_*+c_{\mathrm{ray}}(b);
+\label{eq:rg-fixed-action-ray}
+\end{equation}
+with an invariant reference it forces \(c_{\mathrm{ray}}(b)=0\), since \(K_b\)
+preserves mass and
+\(\mathsf m_*(\mathsf Y)=(\mathsf m_*K_b)(\mathsf Y)=e^{-c_{\mathrm{ray}}(b)}\mathsf m_*(\mathsf Y)\). A
+fixed attention law is a fixed rescaled event measure \(\eta_*\); by uniqueness
+of disintegration it is fixed exactly when its receiver marginal \(\alpha\) is
+fixed and its row \(\beta\) is fixed \(\alpha\)-almost everywhere.
+
+\propositionheading{Fixed measure pairs of a uniquely ergodic kernel have constant action}{prop:rg-fixed-pair-unique-ergodicity}
+Suppose that for some declared \(b\) the rescaled kernel \(K_b=C_bI_b\) on the
+common standard Borel space has exactly one invariant probability law. If
+\((\varrho_*,\mathsf m_*)\) satisfies \eqref{eq:rg-fixed-measure-pair} with
+\(0<M_*=\mathsf m_*(\mathsf Y)<\infty\), then \(\mathsf m_*=M_*\varrho_*\), so on the dominated
+tier \(H_*=-\log M_*\) is constant \(\varrho_*\)-almost everywhere. On a finite
+space the hypothesis holds whenever \(K_b\) is irreducible, in particular
+whenever some power of \(K_b\) has all entries positive, and \(K_b\) has all
+entries positive whenever every row of \(I_b\) charges every point.
+Consequently a fixed theory with nonconstant action requires a rescaled kernel
+with at least two invariant probability laws: on a finite space a reducible
+rescaled kernel, for example a reducible identification, and otherwise an
+infinite space on which uniqueness of the invariant law fails.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The normalized kernel preserves total mass, so \(\mathsf m_*K_b=\mathsf m_*\) makes \(\mathsf m_*/M_*\)
+an invariant probability law, and uniqueness gives \(\mathsf m_*/M_*=\varrho_*\). For the
+finite case, first let some power \(K_b^p\) have all entries positive. For
+probability vectors \(\mu,\nu\), write \(\mu-\nu=s(\mu_1-\nu_1)\) with
+\(s=\lVert\mu-\nu\rVert_{\mathrm{TV}}\) and probability vectors
+\(\mu_1,\nu_1\); convexity gives
+\(\lVert\mu K_b^p-\nu K_b^p\rVert_{\mathrm{TV}}\leq\delta\lVert\mu-\nu\rVert_{\mathrm{TV}}\)
+with \(\delta=\max_{y,y'}\lVert K_b^p(y,\cdot)-K_b^p(y',\cdot)\rVert_{\mathrm{TV}}
+\leq1-\sum_z\min_yK_b^p(y,z)<1\), so two invariant laws of \(K_b\), which are
+invariant for \(K_b^p\), coincide. If \(K_b\) is only irreducible on \(n\)
+states, the lazy kernel \((I+K_b)/2\) has the same invariant laws, and
+\((I+K_b)^{n-1}=\sum_{k=0}^{n-1}\binom{n-1}{k}K_b^k\) has all entries positive,
+because irreducibility gives a positive-probability path of length at most
+\(n-1\) between any two states; the previous case applies. Finally,
+\((C_bI_b)(y,y')=\sum_zC_b(y,z)I_b(z,y')>0\) when every \(I_b(z,y')>0\), because
+each row of \(C_b\) is a probability vector. \(\square\)
+
+At a fixed pair with \(H_*\) in the declared finite-valued action Banach space,
+set
+\begin{equation}
+\mathsf m_*(dy)=e^{-H_*(y)}\varrho_*(dy),\qquad
+M_*=\mathsf m_*(\mathsf Y),\qquad
+\bar{\mathsf m}_*=M_*^{-1}\mathsf m_*,\qquad
+\bar{\mathsf m}^c_*=\bar{\mathsf m}_*K_b,
+\label{eq:rg-fixed-normalized-reverse-data}
+\end{equation}
+fix a standard Borel reverse-kernel version \(K_b^\dagger\) with
+\begin{equation}
+\bar{\mathsf m}_*(dy)K_b(y,dz)=\bar{\mathsf m}^c_*(dz)K_b^\dagger(z,dy),
+\label{eq:rg-fixed-normalized-reverse-kernel}
+\end{equation}
+and require
+\begin{equation}
+0<\E_{\varrho_*}\bigl[e^{-H_*}\given Z=z\bigr]<\infty
+\quad\varrho_*K_b\text{-almost everywhere}.
+\label{eq:rg-linearization-positive-likelihood}
+\end{equation}
+For bounded perturbations \(\varphi\in L^\infty(\bar{\mathsf m}_*)\),
+\cref{thm:rg-bounded-action-calculus}, applied to the pair \((\varrho_*,\mathsf m_*)\) and
+the composite kernel \(K_b\), which already includes the rescaling, gives
+\(\bar{\mathsf m}^c_*\)-almost everywhere
+\begin{equation}
+D_H\mathfrak R^H_b\big|_{(H_*,\varrho_*)}[\varphi](z)
+=\E_{K_b^\dagger(z,dy)}\varphi(Y),
+\qquad
+D_H^2\mathfrak R^H_b\big|_{(H_*,\varrho_*)}[\varphi,\varphi](z)
+=-\operatorname{Var}_{K_b^\dagger(z,dy)}\varphi(Y).
+\label{eq:rg-linearized-action}
+\end{equation}
+
+\remarkheading{A declared passive projection scheme}{rem:rg-passive-blocking-computation}
+On a homogeneous six-cycle with ratio two and a homogeneous nine-cycle with
+ratio three, a declared projected map was iterated: tile one site table and one
+pair table onto the cycle, apply the blocking step with attention frozen as
+declared data, and read back one coarse site table and one pair table in
+anchored M\"obius coordinates. This is a projection scheme on a
+finite-dimensional coupling space, not the exact step
+\eqref{eq:rg-exact-nonlinear-interaction-map} with comparison isomorphisms, and
+no exact-image invariance \eqref{eq:rg-interaction-exact-image-invariance} is
+proved for its read-back. At both ratios the iteration converged to fixed
+structures of the scheme whose pairwise block vanished to machine precision
+(check \texttt{CHK-RG-PASSIVE-BLOCKING}, \cref{tab:base-numerical}); these are
+fixed points of the scheme, not fixed objects of the exact step.
+\status{NUMERICAL}
+
+\remarkheading{A declared row-regeneration scheme}{rem:rg-regenerated-attention-computation}
+On the same instances, a declared row-regeneration rule, which at each level
+recomputes attention rows as softmax rows of transported divergences averaged
+over the flow, with \(\tau=1\) and uniform receiver occupancies, and folds the
+alignment energy into the coarse action, gave fixed structures of the scheme
+with nonzero pairwise block at both ratios (check
+\texttt{CHK-RG-REGENERATED-ATTENTION}, \cref{tab:base-numerical}). The rule is
+a declared approximate channel, not the exact event-law pushforward
+\eqref{eq:rg-meta-attention}: its rows are softmax rows of averaged energies,
+the form of the constant-row optimum of \cref{prop:obs-attention-constant-row-gap},
+which differs from an average of posterior rows by the gap
+\eqref{eq:obs-attention-jensen-gap}, and its error relative to the exact
+pushforward is not bounded. The passive triviality of
+\cref{rem:rg-passive-blocking-computation} is therefore a property of the
+frozen-attention scheme on these instances; nothing here shows that the exact
+pushforward maintains interaction. \status{NUMERICAL}
+
+\definitionheading{Typed invariant and fixed objects}{def:rg-typed-fixed-objects}
+Write \(Y^{\mathrm T}_\ell\) for the object of one declared tier \(\mathrm T\)
+and \(F^{\mathrm T}_\ell:Y^{\mathrm T}_\ell\to Y^{\mathrm T}_{\ell+1}\) for its
+declared step. The general invariant object of a nonautonomous scale diagram
+is an invariant section, a sequence with
+\begin{equation}
+y_{\ell+1}=F^{\mathrm T}_\ell(y_\ell),
+\label{eq:rg-invariant-section}
+\end{equation}
+which needs no identification. After declared isomorphisms
+\(J_\ell:Y^{\mathrm T}_\star\to Y^{\mathrm T}_\ell\), the reference step is
+\begin{equation}
+\widehat F^{\mathrm T}_\ell
+=J_{\ell+1}^{-1}\circ F^{\mathrm T}_\ell\circ J_\ell
+:Y^{\mathrm T}_\star\longrightarrow Y^{\mathrm T}_\star,
+\label{eq:rg-reference-step}
+\end{equation}
+and a reference fixed object is a \(y_\star\in Y^{\mathrm T}_\star\) with
+\begin{equation}
+\widehat F^{\mathrm T}_\ell(y_\star)=y_\star
+\qquad\text{for every }\ell,
+\label{eq:rg-reference-fixed-object}
+\end{equation}
+the ordinary fixed-point equation in an autonomous scheme. If the identified
+maps are \(p\)-periodic, the base-\(\ell\) reference monodromy is
+\begin{equation}
+\widehat{\mathcal M}^{\mathrm T}_\ell
+=\widehat F^{\mathrm T}_{\ell+p-1}\circ\cdots\circ\widehat F^{\mathrm T}_\ell
+:Y^{\mathrm T}_\star\longrightarrow Y^{\mathrm T}_\star,
+\label{eq:rg-monodromy-map}
+\end{equation}
+a reference monodromy fixed object satisfies
+\(\widehat{\mathcal M}^{\mathrm T}_\ell(y_{\star,0})=y_{\star,0}\), and its
+reference \(p\)-cycle
+\(y_{\star,j+1}=\widehat F^{\mathrm T}_{\ell+j}(y_{\star,j})\),
+\(y_{\star,p}=y_{\star,0}\), lies in \(Y^{\mathrm T}_\star\), with points that
+need not be fixed by any one-step reference map. Without a common object the
+equation \(F^{\mathrm T}_\ell(y)=y\) is ill typed, and a fixed ray additionally
+requires a declared cone and projectivization. The tiers are the law tier (the
+normalized law, the measure pair of \cref{def:rg-measure-pair}, and the event
+law \eqref{eq:rg-attention-event-law}, with fixed objects as in
+\cref{thm:rg-fixed-point-equations}); the action tier (\(H_\ell\) relative to
+\(\varrho_\ell\) and, separately, its additive class, related by
+\eqref{eq:rg-fixed-action} and \eqref{eq:rg-fixed-action-ray} and meaningful
+only with a reference trajectory by
+\cref{prop:rg-action-beta-reference-change}); the interaction tier
+(\(\mathsf g_\ell\in\mathcal G_\ell\), step \(\mathcal T_\ell\), reference step
+\(\widehat{\mathcal T}_\ell\)); the retained tier
+(\(\operatorname{Ran}\mathsf P^{\mathrm{ret}}_\ell\), with exact fixed objects only
+under \eqref{eq:rg-beta-exactness-criterion}); the gauge-retained state tier
+\eqref{eq:rg-full-state}; and the configuration tier of
+\cref{ch:relational-inference}.
+
+\propositionheading{Fixedness does not transfer between tiers}{prop:rg-fixed-object-nonimplication}
+None of the following implications holds: a fixed normalized law gives a fixed
+reference-dependent action; a fixed action class gives a fixed tracked measure
+pair; a fixed retained interaction gives a fixed exact interaction; a fixed law
+gives a fixed configuration; a fixed conditional attention row gives a fixed
+event law; a monodromy fixed object is a one-step fixed object.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+On a two-point set, hold \(\mu=(1/2,1/2)\) fixed while the reference alternates
+between \((1/4,3/4)\) and \((3/4,1/4)\); the densities of \(\mu\) are
+\((2,2/3)\) and \((2/3,2)\), so the actions are interchanged. The actions \(H\)
+and \(H+c\) have the same class, while \(e^{-H}\varrho\) and \(e^{-c}e^{-H}\varrho\)
+have evidence masses differing by the factor \(e^{-c}\), which is why
+\eqref{eq:rg-fixed-action-ray} is weaker than \eqref{eq:rg-fixed-measure-pair}
+until mass preservation forces \(c_{\mathrm{ray}}(b)=0\). The witness of
+\cref{prop:rg-retained-beta-residual} has zero retained beta at every \((x,0)\)
+and exact image \((x,x)\) for \(x\neq0\). On the configuration manifold
+\(S^1\) with the antipodal step \(x\mapsto-x\) and a constant
+configuration-to-law extraction, the law is fixed while the configuration step
+has no fixed point. Holding \(\beta\) fixed while the receiver occupancy
+\(\alpha_\ell\) alternates makes \(\eta_\ell=\alpha_\ell\beta\) alternate, which
+is the disintegration clause of \cref{thm:rg-fixed-point-equations}. Finally,
+\(F_0(x)=x+1\) and \(F_1(x)=x-1\) on \(\R\) have monodromy
+\(F_1\circ F_0=\operatorname{id}\), which fixes every point, while neither
+one-step map has a fixed point. \(\square\)
+
+\propositionheading{Exact fixed and invariant sectors}{prop:rg-exact-fixed-sectors}
+(i) The identity channel with the identity identification fixes every measure
+pair. (ii) A terminal channel followed by its one-point identification has the
+constant fixed theory. (iii) On \(\mathsf Y=(\R^d)^{\mathbb Z}\), let \(K_b\) be
+the deterministic map
+\((y_i)_i\mapsto\bigl(b^{-1/\alpha}\sum_{i\in B_j}y_i\bigr)_j\) over consecutive
+blocks \(B_j\) of size \(b\), with the blocks relabeled as sites. The product of
+a strictly \(\alpha\)-stable law with constant likelihood \(\mathsf m_*=M_*\varrho_*\) is a
+fixed measure pair for every integer \(b\geq2\); invariance of a law for every
+integer \(b\geq2\) under this normalization is the definition of strict
+\(\alpha\)-stability, and at one integer \(b\) the list is not exhaustive,
+because a law can be invariant for that \(b\) without being strictly stable. In
+(ii) and (iii) the action is constant, whereas the identity channel, which has
+every law invariant, fixes pairs with nonconstant action. (iv) Graph-flat link
+data, with trivial holonomy \eqref{eq:geo-link-holonomy} on every closed walk,
+stay graph flat under rooted contraction: every dressed edge
+\eqref{eq:rg-dressed-boundary-edge} internal to a block is the identity, and
+every coarse closed walk has trivial holonomy. (v) One-hot rows are invariant
+under the softmax parameter-path derivative \eqref{eq:rg-attention-beta-softmax}.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) and (ii) are immediate, and in (ii) the one-point space carries a constant
+action. (iii) If \(Y_i\) are independent with a strictly \(\alpha\)-stable law,
+\(b^{-1/\alpha}\sum_{i\in B_j}Y_i\) has the same law for every block, and the
+blocks are independent, so \(\varrho_*K_b=\varrho_*\) and
+\(\mathsf m_*K_b=M_*\varrho_*K_b=\mathsf m_*\). For the last clause take \(d=1\),
+\(0<\alpha<1\), and the infinitely divisible law on \([0,\infty)\) with L\'evy
+measure \(\nu=\sum_{k\in\mathbb Z}b^k\delta_{b^{-k/\alpha}}\) and no drift, which
+exists because \(\int\min\{1,x\}\nu(dx)<\infty\)
+\citep[Theorem~8.1]{Sato1999}. The image of \(\nu\) under
+\(x\mapsto b^{1/\alpha}x\) is \(b\nu\), so the sum of \(b\) independent copies
+has the law of \(b^{1/\alpha}\) times one copy. If the sum of \(n\) copies had
+the law of \(c_n\) times one copy for every \(n\), uniqueness of the L\'evy
+measure \citep[Theorem~8.1]{Sato1999} would give \(n\nu\) equal to the image of
+\(\nu\) under \(x\mapsto c_nx\); matching atoms forces
+\(c_n=b^{j/\alpha}\) and \(n=b^j\) for an integer \(j\), which fails for
+\(n=b+1\). (iv) For an edge \(e:j\to i\) inside a block \(I\), the dressed edge
+\(\Theta^x_{I\leftarrow i}\Theta^x_e(\Theta^x_{I\leftarrow j})^{-1}\) is the
+holonomy of the closed walk from the root to \(j\) along the tree, across
+\(e\), and back to the root, hence the identity. A product of dressed edges
+along a coarse closed walk is, after the inner tree factors
+\((\Theta^x_{J\leftarrow j})^{-1}\Theta^x_{J\leftarrow j'}\) are read as tree
+paths inside \(J\), the holonomy of a fine closed walk, hence trivial. (v) A
+row with \(\beta_J=\delta_{JK}\) has
+\(\dot\beta_J=\beta_J(u_J-\sum_L\beta_Lu_L)=0\) for every \(J\). \(\square\)
+
+Flat link data and uniform attention rows are invariant forms; they are fixed
+objects only after a self-similar identification of graphs, block sizes,
+receiver occupancies, and source sets is declared
+(\cref{def:rg-typed-fixed-objects}).
+
+\section{Spectra and topology dependence}
+\label{sec:rg-action-spectrum-topology}
+
+\theoremheading{Qualified positive-unital essential-spectrum theorem}{thm:rg-unital-essential-spectrum}
+Let \(\mathcal V\) be a complex Banach lattice with quasi-interior unit
+\(\mathbf1\in\mathcal V_+\), let \(U\in\mathcal L(\mathcal V)\) be positive and
+unital, and write
+\begin{equation}
+r_{\mathrm{ess}}(U)=r\bigl([U]\bigr)
+\label{eq:rg-calkin-essential-radius}
+\end{equation}
+for the spectral radius of the class \([U]\) of \(U\) in the Calkin algebra
+\(\mathcal L(\mathcal V)/\mathcal K(\mathcal V)\). Assume that whenever
+\(r(U)>r_{\mathrm{ess}}(U)\), the value \(r(U)\) is a pole of the resolvent and
+\(U^*\) has a nonzero positive eigenfunctional \(f^*\) with
+\(U^*f^*=r(U)f^*\). Then
+\begin{equation}
+r(U)>1\quad\Longrightarrow\quad r(U)=r_{\mathrm{ess}}(U).
+\label{eq:rg-unital-essential-spectrum-result}
+\end{equation}
+The hypothesis \(r(U)>1\) fails for every reverse conditional expectation of
+the exact arrows, which is a contraction on each \(L^p\),
+\(1\leq p\leq\infty\) (\cref{thm:rg-action-lp-contraction}); the theorem
+concerns positive unital operators outside the exact arrow class, and it does
+not assert quasi-compactness or a Perron theorem under weaker hypotheses.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The quotient map is contractive, so \(r_{\mathrm{ess}}(U)\leq r(U)\). Suppose
+\(r(U)>1\) and that the inequality is strict. The hypothesis gives
+\(f^*\geq0\), \(f^*\neq0\), and \(U^*f^*=r(U)f^*\). Quasi-interiority implies
+\(f^*(\mathbf1)>0\): otherwise positivity makes \(f^*\) vanish on the principal
+ideal generated by \(\mathbf1\), hence on its dense closure. Unitality gives
+\begin{equation}
+r(U)f^*(\mathbf1)
+=(U^*f^*)(\mathbf1)
+=f^*(U\mathbf1)=f^*(\mathbf1),
+\label{eq:rg-unital-functional-pairing}
+\end{equation}
+a contradiction, so the two radii agree. A contraction has spectral radius
+\(r(U)=\lim_n\lVert U^n\rVert^{1/n}\leq1\). \(\square\)
+
+\propositionheading{Circle witness for norm-dependent radius}{prop:rg-circle-norm-witness}
+Let \(\mathbb T=\R/\mathbb Z\) carry its geodesic metric and Haar probability
+\(\mathrm{Leb}_{\mathbb T}\), let \(\mathsf T_2(z)=2z\bmod1\), and set
+\begin{equation}
+K(y,A)=\frac12\sum_{z\in\mathsf T_2^{-1}\{y\}}\mathbf1_A(z)
+\qquad(A\subseteq\mathbb T\text{ Borel}).
+\label{eq:rg-circle-forward-kernel}
+\end{equation}
+The kernel preserves Haar measure and its reverse is
+\(K^\dagger(z,dy)=\delta_{\mathsf T_2(z)}(dy)\), so the reverse conditional
+expectation is \(\mathsf Uf=f\circ\mathsf T_2\). Its spectral radius is one on
+\(L^\infty(\mathrm{Leb}_{\mathbb T})\), and for every \(0<\alpha\leq1\) it is
+\(2^\alpha\) on complex periodic \(C^\alpha(\mathbb T)\) with the
+sup-plus-H\"older norm, which at \(\alpha=1\) is the Lipschitz space
+\(C^{0,1}\). The H\"older space with this norm is not the Banach lattice of
+\cref{thm:rg-unital-essential-spectrum}; the same exact kernel has different
+spectral radii in two declared topologies. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Haar preservation gives
+\(\lVert f\circ\mathsf T_2^n\rVert_\infty=\lVert f\rVert_\infty\), so
+\(\lVert\mathsf U^n\rVert=1\) on \(L^\infty\). With \([f]_\alpha\) the H\"older seminorm,
+\begin{equation}
+[f\circ\mathsf T_2^n]_\alpha\leq2^{\alpha n}[f]_\alpha,
+\qquad
+\lVert\mathsf U^nf\rVert_\infty\leq\lVert f\rVert_\infty,
+\label{eq:rg-circle-holder-upper-bound}
+\end{equation}
+so the radius on \(C^\alpha\) is at most \(2^\alpha\). For
+\(f(s)=e^{2\pi is}\), the values of \(f\circ\mathsf T_2^n\) at \(0\) and
+\(2^{-(n+1)}\) differ by two while their distance is \(2^{-(n+1)}\), so
+\begin{equation}
+[f\circ\mathsf T_2^n]_\alpha\geq2^{1+\alpha(n+1)},
+\label{eq:rg-circle-holder-lower-bound}
+\end{equation}
+and division by the fixed \(C^\alpha\) norm of \(f\) gives the matching lower
+bound. \(\square\)
+
+\section{Two-index limits and infinite index sets}
+\label{sec:rg-two-index-limits}
+
+\definitionheading{Two-index family}{def:rg-two-index-family}
+A finite-volume scale family has two indices,
+\begin{equation}
+X_{n,\ell},\qquad 0\leq\ell\leq L(n),
+\label{eq:rg-two-index-family}
+\end{equation}
+where \(n\) controls system size and \(\ell\) depth. Its fixed-depth,
+maximal-depth, and diagonal limits are
+\begin{equation}
+\lim_{\ell\to\infty}\lim_{n\to\infty}X_{n,\ell},
+\qquad
+\lim_{n\to\infty}X_{n,L(n)},
+\qquad
+\lim_{n\to\infty}X_{n,\ell(n)},
+\label{eq:rg-two-index-limits}
+\end{equation}
+each in a declared mode of convergence. A thermodynamic scale statement
+specifies a triangular family, projective consistency at fixed depth, uniform
+control of the coarse error, and a diagonal scaling \(\ell(n)\); operator, law,
+connection, and cross-morphism convergence are separate obligations.
+
+\propositionheading{Fixed-depth and maximal-depth limits need not agree}{prop:rg-noncommuting-limits}
+Fix an integer \(b\geq2\), put \(N=b^n\), and let \(\operatorname{Path}_N\) be the
+unweighted path on \(\{1,\ldots,N\}\) with combinatorial Laplacian \(L_N\). At
+depth \(0\leq\ell\leq n\) form the consecutive blocks
+\begin{equation}
+B_j^{(\ell)}=\{(j-1)b^\ell+1,\ldots,jb^\ell\},
+\qquad1\leq j\leq b^{n-\ell};
+\label{eq:rg-path-consecutive-blocks}
+\end{equation}
+joining two blocks exactly when a path edge crosses between them gives the
+simple quotient \(\operatorname{Path}_{b^{n-\ell}}\). For \(N\) divisible by
+\(b\), the unnormalized block-indicator prolongation
+\begin{equation}
+S_{N,b}\in\R^{N\times(N/b)},
+\qquad
+(S_{N,b})_{ij}=\mathbf1_{\{(j-1)b+1,\ldots,jb\}}(i),
+\label{eq:rg-path-block-indicator}
+\end{equation}
+realizes the operator quotient
+\begin{equation}
+S_{N,b}^{\mathsf T}L_NS_{N,b}=L_{N/b},
+\label{eq:rg-path-galerkin-quotient}
+\end{equation}
+and with \(S_{N,1}=I_N\) and, for \(1\leq\ell\leq n\),
+\begin{equation}
+S_{N,b^\ell}:=S_{N,b}S_{N/b,b}\cdots S_{N/b^{\ell-1},b},
+\label{eq:rg-path-depth-block-indicator}
+\end{equation}
+the indicator of the blocks \eqref{eq:rg-path-consecutive-blocks},
+\begin{equation}
+S_{N,b^\ell}^{\mathsf T}L_NS_{N,b^\ell}=L_{N/b^\ell}.
+\label{eq:rg-path-depth-galerkin-quotient}
+\end{equation}
+This is a precomposition of the quadratic form, not the pushforward of a law;
+with orthonormalized indicators \(b^{-1/2}S_{N,b}\) the quotient is
+\(b^{-1}L_{N/b}\), and at depth \(\ell\) the factor is \(b^{-\ell}\). The
+eigenvalues of \(L_N\), with multiplicity, are
+\begin{equation}
+\lambda_{N,k}=2-2\cos\left(\frac{\pi k}{N}\right),
+\qquad0\leq k\leq N-1.
+\label{eq:rg-path-laplacian-eigenvalues}
+\end{equation}
+With the right-continuous full and zero-mode-excluded counts
+\begin{equation}
+\mu_N=\frac1N\sum_{k=0}^{N-1}\delta_{\lambda_{N,k}},
+\qquad
+\mathcal N_N(\lambda)=\mu_N((-\infty,\lambda]),
+\qquad
+\mathcal N^+_N(\lambda)=\frac1N
+\#\{1\leq k\leq N-1:\lambda_{N,k}\leq\lambda\},
+\label{eq:rg-path-spectral-counts}
+\end{equation}
+so that \(\mathcal N^+_N=\mathcal N_N-N^{-1}\mathbf1_{[0,\infty)}\), one has for
+\(0\leq\lambda\leq4\), with
+\(\mathrm k_N(\lambda)=\min\{N-1,\lfloor N\arccos(1-\lambda/2)/\pi\rfloor\}\),
+\begin{equation}
+\mathcal N_N(\lambda)=\frac{1+\mathrm k_N(\lambda)}{N},
+\qquad
+\mathcal N^+_N(\lambda)=\frac{\mathrm k_N(\lambda)}{N},
+\label{eq:rg-path-exact-counts}
+\end{equation}
+both counts vanish for \(\lambda<0\), and for \(\lambda>4\) they equal \(1\) and
+\(1-N^{-1}\). For every fixed \(\ell\), \(b^{n-\ell}\to\infty\) as
+\(n\to\infty\), and both counts converge pointwise to
+\begin{equation}
+\mathcal N_\infty(\lambda)=\mathcal N^+_\infty(\lambda)
+=
+\begin{cases}
+0,&\lambda<0,\\[2pt]
+\displaystyle\frac1\pi\arccos\left(1-\frac{\lambda}{2}\right),
+&0\leq\lambda\leq4,\\[7pt]
+1,&\lambda>4,
+\end{cases}
+\label{eq:rg-path-thermodynamic-count}
+\end{equation}
+whose lower edge obeys
+\begin{equation}
+\mathcal N^+_\infty(\lambda)\sim\frac1\pi\sqrt{\lambda}
+\qquad(\lambda\downarrow0).
+\label{eq:rg-path-lower-edge-count}
+\end{equation}
+At maximal depth \(\ell=n\) the quotient is \(\operatorname{Path}_1\) for every
+\(n\), with \(\mu_1=\delta_0\), \(\mathcal N_1=\mathbf1_{[0,\infty)}\), and
+\(\mathcal N^+_1\equiv0\), so the fixed-depth thermodynamic limit and the
+maximal-depth limit differ. Because \eqref{eq:rg-path-depth-galerkin-quotient}
+is exact, every observable at \((n,\ell)\) depends only on \(b^{n-\ell}\), and
+the diagonal \(\ell(n)=n-k\) gives \(\operatorname{Path}_{b^k}\) for every
+\(n\); the example separates the limits only through this degeneracy.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Each block is connected and exactly one original edge joins block \(j\) to
+block \(j+1\), which proves the quotient statement. For \(z\in\R^{N/b}\),
+\[
+z^{\mathsf T}S_{N,b}^{\mathsf T}L_NS_{N,b}z
+=\sum_{i=1}^{N-1}\bigl((S_{N,b}z)_{i+1}-(S_{N,b}z)_i\bigr)^2
+=\sum_{j=1}^{N/b-1}(z_{j+1}-z_j)^2
+=z^{\mathsf T}L_{N/b}z,
+\]
+and equality of the symmetric quadratic forms proves
+\eqref{eq:rg-path-galerkin-quotient}; iteration proves
+\eqref{eq:rg-path-depth-galerkin-quotient}, and scalar normalization gives the
+stated factors. The discrete cosine eigenvectors of the path Laplacian give
+\eqref{eq:rg-path-laplacian-eigenvalues}, and monotonicity of
+\(k\mapsto\lambda_{N,k}\) gives \eqref{eq:rg-path-exact-counts}. For bounded
+continuous \(f\),
+\(\int fd\mu_N=N^{-1}\sum_kf(2-2\cos(\pi k/N))\to
+\pi^{-1}\int_0^\pi f(2-2\cos\theta)d\theta\); the limit has the continuous
+distribution function \eqref{eq:rg-path-thermodynamic-count}, and removing
+the zero atom changes a count by \(N^{-1}\). Finally
+\(\arccos(1-\lambda/2)\sim\sqrt\lambda\), while \(L_1=0\). The dependence on
+\(b^{n-\ell}\) alone is \eqref{eq:rg-path-depth-galerkin-quotient}. \(\square\)
+
+\propositionheading{Heat-moment susceptibility}{prop:rg-heat-susceptibility}
+Let \(\mathcal N^+\) be nondecreasing and right continuous with
+\(\mathcal N^+(0+)=0\), set
+\[
+Z_+(t)=\mathrm M_0(t),
+\qquad
+\mathrm M_k(t)=\int_{(0,\infty)}\lambda^ke^{-t\lambda}d\mathcal N^+(\lambda),
+\]
+suppose \(Z_+(t_0)<\infty\) for some \(t_0>0\), and suppose
+\(\mathcal N^+(\lambda)\sim\mathrm c\lambda^\alpha\mathfrak l(1/\lambda)\) as
+\(\lambda\downarrow0\), with \(\mathrm c>0\), \(\alpha>0\), and \(\mathfrak l\)
+slowly varying at infinity. Then
+\(\mathrm M_k(t)\sim\mathrm c\alpha\Gamma(\alpha+k)t^{-(\alpha+k)}\mathfrak l(t)\)
+as \(t\to\infty\) for \(k=0,1,2\), and the entropy
+\(S_+(t)=\log Z_+(t)+t\mathrm M_1(t)/Z_+(t)\) of the spectral Gibbs law
+\(e^{-t\lambda}d\mathcal N^+(\lambda)/Z_+(t)\) satisfies
+\begin{equation}
+-\frac{dS_+}{d\log t}
+=t^2\left(\frac{\mathrm M_2}{Z_+}-\left(\frac{\mathrm M_1}{Z_+}\right)^2\right)
+\longrightarrow\alpha.
+\label{eq:rg-heat-susceptibility}
+\end{equation}
+Dividing \(S_+\) by \(\log\lvert V_n\rvert\) divides this susceptibility by the
+same factor, so zero-mode atoms and the entropy normalization must be declared
+before a plateau is read as a spectral dimension. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Write \(\mathcal N^+_k(\lambda)=\int_{(0,\lambda]}\mu^kd\mathcal N^+(\mu)\).
+Integration by parts and the regular variation of \(\mathcal N^+\) at zero give
+\(\mathcal N^+_k(\lambda)\sim\mathrm c\alpha(\alpha+k)^{-1}
+\lambda^{\alpha+k}\mathfrak l(1/\lambda)\), and the Abelian direction of the
+Laplace--Stieltjes regular-variation theorem
+\citep[\S1.7.1]{BinghamGoldieTeugels1987} gives
+\(\mathrm M_k(t)\sim\Gamma(1+\alpha+k)\mathrm c\alpha(\alpha+k)^{-1}
+t^{-(\alpha+k)}\mathfrak l(t)=\mathrm c\alpha\Gamma(\alpha+k)
+t^{-(\alpha+k)}\mathfrak l(t)\). Since \(\mathrm M_1=-Z_+'\) and
+\(\mathrm M_2=Z_+''\) for \(t>t_0\), differentiation gives
+\(dS_+/dt=-t(\mathrm M_2/Z_+-(\mathrm M_1/Z_+)^2)\), the identity in
+\eqref{eq:rg-heat-susceptibility}. The asymptotics give
+\(t^2\mathrm M_2/Z_+\to\alpha(\alpha+1)\) and \(t\mathrm M_1/Z_+\to\alpha\), so the
+limit is \(\alpha(\alpha+1)-\alpha^2=\alpha\). \(\square\)
+
+This is the Abelian direction; the converse Tauberian direction is not used.
+
+\subsection{Projective laws and refinement}
+\label{sec:rg-projective-refinement}
+\label{sec:cg-projective-laws}
+
+\theoremheading{Cylinder-level projective law}{thm:cg-projective-cylinder-law}
+Let \(\mathcal I\) be an index set and each coordinate space \(\mathsf Z_i\)
+standard Borel. For every finite \(D\subset\mathcal I\) let \(P_D\) be a
+probability law on \(\mathsf Z_D=\prod_{i\in D}\mathsf Z_i\). If
+\begin{equation}
+(\pi_{E,D})_\#P_E=P_D\qquad(D\subset E),
+\label{eq:cg-projective-consistency}
+\end{equation}
+then there is a unique law \(P\) on the product cylinder sigma-algebra with
+finite-dimensional marginals \(P_D\). Let a group act on
+\(\mathsf Z_{\mathcal I}=\prod_{i\in\mathcal I}\mathsf Z_i\) by maps compatible
+with the finite projections: either each \(g\) satisfies
+\(\pi_D\circ g=g_D\circ\pi_D\) for bimeasurable bijections \(g_D\) of
+\(\mathsf Z_D\), as coordinatewise product actions do, or \(g\) is an index
+permutation \(\sigma\), for which
+\(\pi_D\circ\sigma=\sigma_D\circ\pi_{\sigma^{-1}D}\) with the relabeling
+bijection \(\sigma_D:\mathsf Z_{\sigma^{-1}D}\to\mathsf Z_D\). Then \(g_\#P\) is
+the unique law with marginals \((g_D)_\#P_D\), respectively
+\((\sigma_D)_\#P_{\sigma^{-1}D}\); in particular, invariance of every
+finite-dimensional marginal under this rule implies \(g_\#P=P\). An action that
+mixes infinitely many coordinates is not covered, because the marginals of
+\(g_\#P\) are then not determined by one \(P_D\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The first statement is the Kolmogorov extension theorem for standard Borel
+coordinate spaces \citep{Kallenberg2021}. For a compatible action,
+\((\pi_D)_\#(g_\#P)=(g_D)_\#(\pi_D)_\#P=(g_D)_\#P_D\) for every finite \(D\),
+and the permutation case is the same computation with
+\(\pi_D\circ\sigma=\sigma_D\circ\pi_{\sigma^{-1}D}\); uniqueness of the
+extension identifies \(g_\#P\). \(\square\)
+
+Consistency alone does not put the limit on smooth sections, define a
+continuum reference density, justify an ELBO limit, or produce a scale flow
+(\cref{open:prob-continuum-theory}), and an energy recursion does not supply
+compatible laws: a probabilistic scale flow needs normalized kernels with
+\(\mu_k=\mu_\ell K_{\ell k}\) and \(K_{\ell k}K_{kr}=K_{\ell r}\), with
+corresponding rules for the two bundle sectors and their reference measures.
+For a countable agent or time index the extension supplies the normalized
+joint, and the finite identities of the main manuscript hold for every regular
+finite-cylinder observation and finite block. Conditioning on an infinite
+record needs a chosen regular conditional at an almost-everywhere record or a
+proved DLR, Doob-transform, or finite-volume posterior limit, and an
+infinite-law relative-entropy pushforward needs absolute continuity of the
+recognition law with respect to the posterior on the infinite product and an
+infinite coarse channel; \cref{ch:constructive-spatial-rg,ch:geometry-pressure}
+prove such hypotheses on their own domains, whose generality is
+\cref{open:rg-spatial-generality}.
+
+\propositionheading{Infinite records and refinement}{prop:rg-infinite-records-refinement}
+(i) A projectively consistent family can give a prescribed infinite record
+probability zero: for independent binary successes of probability
+\(p\in(0,1)\) each, the record of all successes has probability zero. (ii) If
+a coarse map \(Q\) is noninjective, no refinement kernel \(R\) recovers every
+realized microstate, and a refinement kernel compatible with \(Q\) is a
+stochastic right section,
+\begin{equation}
+Q_\#R(c,\cdot)=\delta_c,
+\label{eq:rg-stochastic-right-section}
+\end{equation}
+which redraws a compatible microstate. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) The cylinder events of the first \(n\) successes decrease to the full
+record and have probabilities \(p^n\to0\). (ii) If \(Q(x)=Q(x')\) with
+\(x\neq x'\), recovery of both would require
+\(R(Q(x),\cdot)=\delta_x\) and \(R(Q(x),\cdot)=\delta_{x'}\). \(\square\)
+
+\openproblemheading{Two-index limits and universality}{open:rg-two-index-limits}
+Fixed-depth and maximal-depth limits can differ
+(\cref{prop:rg-noncommuting-limits}), finite networks at \(c_*\) do not inhabit
+the asymptotic classification (\cref{prop:rg-finite-depth-no-asymptotics}),
+and the lattice part fixes every finite blocking word before its volume limit
+on its own domains (\cref{ch:geometry-pressure,open:rg-spatial-generality}). It
+is not known whether a triangular family of finite agent networks at \(c_*\)
+has fixed-depth or diagonal limits with nonvacuous comparison maps and
+nontrivial exponents, whether the two limits can be exchanged or a nontrivial
+diagonal limit exists, or whether the spectral labels of
+\cref{def:rg-gaussian-spectral-labels} converge for a declared Gaussian
+hierarchy. A universality statement needs scheme-invariant observables
+(\cref{prop:rg-scheme-dependence}) with proved convergence; one matched
+exponent does not give it, since the limiting measure, amplitudes, corrections
+to scaling, invariant faces, basin, and blocking scheme may still differ. The
+problem is settled by a triangular family with projective consistency at fixed
+depth, uniform control of the coarse error, a diagonal scaling \(\ell(n)\), and
+a proof of convergence of a declared invariant observable, or by an
+impossibility theorem for a stated class.
+
+\section{Gaussian operator flow on infinite hierarchies}
+
+This section applies the preceding types to the Gaussian interaction family
+of \cref{def:gauss-interaction-family}, with the hard-aggregation map
+\eqref{eq:grg-aggregation} and the positive rescaling \eqref{eq:grg-flow}, whose
+finite exact properties are established in
+\cref{ch:gaussian-renormalization}. Along a hierarchy the source and target
+dimensions differ, so \eqref{eq:grg-flow} is a cocycle of positive maps in the
+sense of \cref{def:rg-dynamical-type}; a fixed ray is typed only after
+comparison maps identify a repeated hierarchy with one parameter space.
+
+\subsection{Dense scaling and the homogeneous sector spectrum}
+\label{sec:grg-numerical-gate}
+
+\propositionheading{Dense scaling and topology-dependent exponents}{prop:rg-gaussian-dense-scaling}
+(i) On a homogeneous complete graph with equal blocks of size \(b\), common
+self term \(A\), and common coupling \(W\), the unrescaled aggregation acts on
+the pair \((A,W)\) by
+\begin{equation}
+A\longmapsto bA,\qquad W\longmapsto b^2W.
+\label{eq:grg-homogeneous-map}
+\end{equation}
+On \(\Sym^K\oplus\Sym^K\) its eigenvalues are \(b\) on the self sector and
+\(b^2\) on the coupling sector, each of multiplicity \(K(K+1)/2\), so the
+spectral ratio outside the dominant eigenspace is
+\begin{equation}
+\frac{b}{b^2}=\frac1b.
+\label{eq:grg-sector-gap}
+\end{equation}
+(ii) The dense normalization \(\zeta=b^2\) in \eqref{eq:grg-flow} fixes the
+coupling sector and contracts the self sector by \(1/b\), so the candidate
+limiting ray has \(A=0\). It is a boundary operator: the consensus directions
+lie in its kernel, so it defines no normalized Gaussian density on the full
+space. (iii) For a typical block \(B(b)\) and coarse cut \(\partial B(b)\), let
+\(W_\partial(b)=\sum_{e\in\partial B(b)}W_e\) and
+\(A_B(b)=\sum_{i\in B(b)}A_i\). If
+\(\lVert W_\partial(b)\rVert\asymp b^{\xi_W}\) and
+\(\lVert A_B(b)\rVert\asymp b^{\xi_A}\) in a declared matrix norm, a scalar
+normalization that keeps the coupling sector nondegenerate scales as
+\(b^{\xi_W}\), and the normalized self sector as \(b^{\xi_A-\xi_W}\). If
+moreover the cut has \(n_{\mathrm{cut}}(b)\asymp b^\xi\) edges,
+\(W_\partial(b)/n_{\mathrm{cut}}(b)\to\overline W\neq0\), and
+\(A_B(b)/b\to\overline A\neq0\), then \(\xi_W=\xi\) and \(\xi_A=1\), so the
+coupling and normalized self exponents are \(\xi\) and \(1-\xi\); a cut between
+two blocks of the complete graph has \(\xi=2\), and consecutive blocks of a
+nearest-neighbor chain have \(\xi=0\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) By \eqref{eq:grg-aggregation}, a coarse block \(I\) has self term
+\(\sum_{i\in I}A_i=bA\), and two coarse blocks \(I\neq J\) have coupling
+\(\sum_{i\in I,j\in J}W_{ij}=b^2W\); the linear map is diagonal on the two
+sectors. (ii) Under \(\zeta=b^2\) the self term scales by \(b/b^2\). With
+\(A=0\), the block row \(i\) of the assembled precision applied to
+\(\mathbf1\otimes v\) is
+\((A_i+\sum_{j\neq i}W_{ij})v-\sum_{j\neq i}W_{ij}v\), which equals
+\(A_iv=0\), so every
+consensus vector lies in the kernel and \(\exp(-x^{\mathsf T}\Lambda x/2)\) is
+not integrable along those directions. (iii) With \(\zeta(b)\asymp
+\lVert W_\partial(b)\rVert\), the normalized sectors are of orders \(1\) and
+\(b^{\xi_A-\xi_W}\); the count assumptions give
+\(\lVert W_\partial(b)\rVert\sim n_{\mathrm{cut}}(b)\lVert\overline W\rVert\asymp
+b^\xi\) and \(\lVert A_B(b)\rVert\sim b\lVert\overline A\rVert\). A cut between
+two blocks of size \(b\) of the complete graph has \(b^2\) edges, and a chain
+cut has one. \(\square\)
+
+Pinning, quotienting the kernel, and retaining an external positive mass are
+different repairs of the boundary ray and define different probability
+problems; inserting a pseudoinverse into the original Lebesgue density is not
+a further repair. Edge counts alone do not determine the exponents when the
+fine weights vary with \(b\), and relevance of the self term is a property of
+the declared weighted graph family and normalization, not of
+\eqref{eq:grg-flow} alone.
+
+\subsection{Cone dynamics}
+\label{sec:grg-cones}
+
+Let
+\begin{equation}
+\mathcal W_N
+=\left(\prod_i\PSD^K\right)\times\left(\prod_{i<j}\PSD^K\right)
+\label{eq:grg-full-cone}
+\end{equation}
+be the full parameter cone. On the interior of a proper cone \(\mathcal W\),
+Hilbert's projective metric is
+\begin{equation}
+d_H(x,y)=\log\frac{t_+(x,y)}{t_-(x,y)},
+\qquad
+t_+=\inf\{t>0:x\preceq_{\mathcal W}ty\},
+\quad
+t_-=\sup\{t>0:ty\preceq_{\mathcal W}x\}.
+\label{eq:grg-hilbert}
+\end{equation}
+A positive endomorphism of finite projective diameter contracts this metric; a
+matrix with strictly positive entries on the nonnegative orthant is the
+familiar case, and for a primitive nonnegative matrix the contraction applies
+to a strictly positive power, since the matrix itself can map boundary rays to
+boundary rays and then has infinite projective diameter
+\citep{Birkhoff1957,nussbaum1988hilbert}. These hypotheses fail for sum-only
+aggregation on the full cone.
+
+\propositionheading{The full-cone route is blocked}{prop:grg-full-cone-blocked}
+After a hierarchical identification makes \(\mathcal A_S\) an endomorphism,
+sum-only aggregation is not primitive on \(\mathcal W_N\), and the dense
+candidate ray with \(A=0\) of \cref{prop:rg-gaussian-dense-scaling} lies on
+\(\partial\mathcal W_N\), whereas a full-cone Birkhoff contraction has an
+interior Perron ray; Birkhoff's full-cone theorem therefore cannot prove
+attraction to that candidate. On the coupling cone alone, if an identified
+spatial map \(B\geq0\) has a positive eigenvector \(c=(c_e)_e\), then for every
+\(M\in\PSD^K\)
+\begin{equation}
+W_e=c_eM
+\label{eq:grg-inert-fiber}
+\end{equation}
+is an eigenray with the same spatial eigenvalue, so sum-only aggregation does
+not mix matrix rays and cannot select a fiber direction. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+An absent coarse cut remains a zero edge coordinate, so the map can meet the
+boundary even from positive data on the represented fine edges. For a subspace
+\(U\subseteq\R^K\), the face
+\begin{equation}
+\mathcal F_U=\{(W_e)_e:\operatorname{ran}W_e\subseteq U\ \text{for every }e\}
+\label{eq:grg-common-range-face}
+\end{equation}
+is invariant, because the range of a sum of positive semidefinite matrices
+with ranges in \(U\) lies in \(U\), and proper invariant faces rule out
+primitivity. The coordinate \(A=0\) is a boundary coordinate of
+\(\prod_i\PSD^K\), while the Perron ray of a strict interior contraction is
+interior. Finally, aggregation adds weights, so
+\((B\otimes\operatorname{id})(c\otimes M)=(Bc)\otimes M\). \(\square\)
+
+\propositionheading{Fixed-\(B\) attraction under a primitive identification}{conj:grg-fixed-b-attraction}
+Suppose a hierarchical identification makes one aggregation step act on
+coupling coordinates as \(B\otimes\operatorname{id}\), that is
+\(W'_f=\sum_eB_{fe}W_e\), for one fixed nonnegative matrix \(B\) on edge indices
+with \(B^q\) strictly positive for some \(q\geq1\). Let \(r_B>0\) be its spectral
+radius and \(u,v>0\) its left and right Perron vectors with \(u^\top v=1\).
+(i) Fix \(M_0\succ0\). On the scalarized cone
+\begin{equation}
+\mathcal W_{M_0}=\{(c_eM_0)_e:c_e\geq0\},
+\label{eq:grg-scalarized-cone}
+\end{equation}
+every nonzero orbit converges projectively to the ray \((v_eM_0)_e\), which is
+therefore the unique attracting ray; if \(v_{ij}=x_ix_j\), that ray is the
+biadditive coupling \(W_{ij}=x_ix_jM_0\) of \eqref{eq:grg-biadditive}.
+(ii) On the full coupling cone, for every initial datum \((W_e^{(0)})_e\) with
+\(W_e^{(0)}\succeq0\),
+\begin{equation}
+r_B^{-\ell}\bigl(B^\ell W^{(0)}\bigr)_f\longrightarrow v_fM_\infty,
+\qquad
+M_\infty=\sum_eu_eW_e^{(0)},
+\label{eq:grg-full-cone-perron-limit}
+\end{equation}
+and \(\operatorname{ran}M_\infty=\sum_e\operatorname{ran}W_e^{(0)}\). Every
+nonzero orbit converges projectively to the product ray through
+\(v\otimes M_\infty\): aggregation fixes the fiber matrix as the left-Perron
+average of the initial weights and does not select it. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+A nonnegative matrix with a strictly positive power is primitive, and then
+\(r_B^{-\ell}B^\ell\to vu^\top\) \citep[\S8.5]{HornJohnson2013}. Hence
+\(r_B^{-\ell}(B^\ell W^{(0)})_f\to v_f\sum_eu_eW_e^{(0)}\). Because every
+\(u_e>0\) and every \(W_e^{(0)}\succeq0\),
+\(\ker M_\infty=\bigcap_e\ker W_e^{(0)}\), which gives the range identity and
+\(M_\infty\neq0\) for every nonzero datum, so the normalized orbit converges to
+the product ray. On \(\mathcal W_{M_0}\) the limit reads \(v(u^\top c)M_0\), with
+\(u^\top c>0\) for every nonzero \(c\geq0\). Birkhoff's contraction applied to the
+strictly positive matrix \(B^q\) gives the scalar conclusion with a geometric
+rate in Hilbert's metric \citep{Birkhoff1957}. \(\square\)
+
+The proposition covers one fixed identification acting on edge indices. It
+says nothing about a nonautonomous sequence \(B_\ell\), whose projective
+contraction can approach a periodic orbit
+(\cref{prop:rg-contraction-no-fixed-ray}), or about an identification that
+also acts on fiber directions by a level-dependent congruence, for which the
+step is not \(B\otimes\operatorname{id}\).
+
+\openproblemheading{Primitive hierarchical identification}{open:rg-scalarized-attraction}
+\Cref{conj:grg-fixed-b-attraction} proves attraction for one fixed primitive
+identification \(B\otimes\operatorname{id}\). It is not known whether sum-only
+aggregation on a declared family of graphs admits a hierarchical
+identification that yields one fixed primitive \(B\) and, for the biadditive
+reading, one whose Perron vector factorizes as \(v_{ij}=x_ix_j\); attraction,
+uniqueness, and scheme independence of the dense ray of
+\cref{prop:rg-gaussian-dense-scaling} likewise need a declared invariant cone,
+hierarchy, and limiting protocol. The problem is settled by constructing such
+an identification for a stated family of graphs, or by proving that none
+exists.
+
+\subsection{Thermodynamic spectral labels}
+
+\definitionheading{Thermodynamic spectral labels}{def:rg-gaussian-spectral-labels}
+For a declared sequence \((V_n,L_n,R_n)\) of interaction Laplacians and
+positive reference forms, with generalized eigenvalues \(\lambda^{(n)}_k\) of
+the pencil \((L_n,R_n)\) of \cref{sec:grg-spectra}, the integrated density of
+states is
+\begin{equation}
+\mathcal N_n(t)
+=\frac{1}{\lvert V_n\rvert K}
+\#\{k:\lambda_k^{(n)}\leq t\}.
+\label{eq:grg-ids}
+\end{equation}
+A cumulative exponent, \(\mathcal N(t)-\mathcal N(0)\sim\mathrm ct^\alpha\), is a
+label of the sequence only after convergence \(\mathcal N_n\to\mathcal N\) in a
+stated mode has been proved.
+
+A fixed finite graph has an atomic spectral measure, so no density exponent is
+defined there. Depth and size form the two-index family of
+\cref{def:rg-two-index-family}, and neither the existence nor the commutation
+of its limits follows from the finite congruence identity
+(\cref{open:rg-two-index-limits}).

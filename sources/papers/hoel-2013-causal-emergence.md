@@ -60,7 +60,7 @@ in the vault ([[tononi-2004-integrated-information]]).
 ## Cross-links
 
 - Concepts: [[Data processing inequality]], [[Meta-agents and hierarchical emergence]], [[Coarse Graining]]
-- Related sources: [[tononi-2004-integrated-information]], [[zheng-meister-2025-unbearable-slowness]], [[2026-08-18-minfo-information-retention]]
+- Related sources: [[tononi-2004-integrated-information]], [[zheng-meister-2025-unbearable-slowness]], `2026-08-18-minfo-information-retention`
 
 ## BibTeX
 

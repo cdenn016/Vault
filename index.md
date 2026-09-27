@@ -10,9 +10,10 @@ updated: 2026-09-27
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **4** projects · **39** manuscripts · **15** themes · **11** field MOCs · **287** concepts · **14** methods · **701** papers · **116** references · **27** runs · **6** web/methodology
+> **3** projects · **36** manuscripts · **16** themes · **11** field MOCs · **288** concepts · **14** methods · **701** papers · **159** references · **0** runs · **7** web/methodology
 
 ## 🧭 Start here
+- [[multiagentelbo-2026-09-26-selection-and-reference-review]] — scoped pairing-selection proof and checked primary-reference archive
 - [[Gauge-VFE RG research synthesis September 2026]] — current normalized RG theory, finite formation, evidence scope and this week's primary-source archive
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
 - [[Gauge-Theoretic Multi-Agent VFE Model]] — the multi-agent, continuous-time instantiation (MAgent)
@@ -23,11 +24,20 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 - [[Gauge-Theoretic Multi-Agent VFE Model]]
 - [[SocialPhysics]]
 - [[VFE Transformer Program]]
-  - [[VFE Transformer Research Directions (2026-06-21)]] — prioritized open-experiments roadmap (37 hypotheses)
 
 ## 📝 Manuscripts (in preparation)
 - [[dennis-2026-projected-predictive]] — projected predictive route end to end, toggle-to-equation map, and the opt-in moment-matched predictive covariance; tests only, no training result
 - [[dennis-2026-template-routing]] — template routing explainer: block MLP as mixture-prior inference over learned Gaussian templates; vfe3 `gaussian_template` toggle, no training result
+- [[multiagentelbo-2026-09-26-conditioned-parent]] — actual prefix-conditioned parent activation, own-law learning, and vanishing conditional-information and path errors after late coherence
+- [[multiagentelbo-2026-09-26-selected-coherence]] — actual-path coherent persistence and the early first-block null
+- [[multiagentelbo-2026-09-26-joint-temperature-selection]] — joint selection along implicit common thresholds; explicit temperature-dependent tracking bounds
+- [[multiagentelbo-2026-09-26-selection-and-reference-review]] — scoped pairing-selection proof and checked primary-reference archive
+- [[dennis-2026-pifb2-refactor-foundations]]
+- [[dennis-2026-glk-projected-matrix-links-v2]]
+- [[multiagentelbo-2026-09-24-theory-restructure]] — Theory/ at 623e4fe (PR #81): single-point main manuscript (247 pp, Chapters 1–15 about 181) with Supplement G (118 pp) and Supplement B (187 pp), author decisions D1–D13, commit sequence, reported build and label checks, where the September 23 findings now live, Phase 1 corrections and the items left open; Claude Opus 5.5 agent work, not adjudicated
+- [[multiagentelbo-2026-09-23-theory-streamlining-review]] — read-only review of Theory/ at 59c1987: verdict, three-document architecture, and tentative investigator-level findings (interaction growth bound, unique-ergodic fixed points, edge twists and law coherence, orbit Fisher form, Galerkin pushforward, rate-separated clocks, attention models, formation scope)
+- [[multiagentelbo-2026-selective-communication-formation]] — selective agreement with private-law retention, independent-link processing, blanket and dynamics conditions; proposed cycle extension
+- [[dennis-2026-glk-matrix-links-2026-09-20]] — full Gaussian site states, matrix communication links, exact covariance/path identities, declared extensions and unresolved MLP interpretation
 - [[multiagentelbo-2026-09-13-fixed-weakest-energy-adaptive-cyclic-rg]] — positive-rate cyclic formation at fixed weakest energy, actual parent activation and complete assignment-history bounds
 - [[multiagentelbo-2026-09-13-finite-rate-adaptive-cyclic-rg]] — positive-rate recognition sources, actual parent activation and full assignment-history bounds under growing weakest energy
 - [[multiagentelbo-2026-09-13-nonlinear-adaptive-attention-rg]] — nonlinear adaptive formation, full retained source marks, posterior attention and separate conditional/path bounds
@@ -36,22 +46,9 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 - [[multiagentelbo-2026-09-12-nonlinear-dynamical-rg]] — common kinetics, successive coalescence and two nonlinear parent reductions with controlled conditional VFE and boundary errors
 - [[multiagentelbo-2026-09-12-dynamical-rg]] — finite VFE-driven coherence and two inherited reductions; exact parent costs, controlled paths, supplied-rate and transient-KL limits
 - [[multiagentelbo-agent-only-ontology-2026-08-13|MultiAgentELBO Agent-Only Ontology and Informational Physicalization: 2026-08-13 Ingest Record]] — revision-bound synthesis of general law-section agents, endogenous interaction records, timeless inference, typed physicalization, and the open units/constant bridge
-- [[multiagentelbo-literature-gap-review-2026-08-10|MultiAgentELBO Literature-Gap Review: 2026-08-10 Ingest Record]] — revision-bound 41-source bridge from the exact finite oracle to approximate inference, recovery, synchronization, communication, social learning, and population-limit obligations
-- [[gauge-vfe-rg-pullback-geometry-2026-08-01|Gauge-Covariant Variational Free Energy and Renormalization: 2026-08-01 Pullback Geometry and Timeless Inference Record]] — fixed-base vertical histories, covariant informational pullbacks, exact local--collective VFE geometry, Fisher information duration, and cross-scale Markov contraction
-- [[gauge-vfe-rg-terminal-theory-closure-2026-08-08|Gauge-Covariant Variational Free Energy and Renormalization: 2026-08-08 Terminal Theory Closure Record]] — complete finite conditional VFE/ELBO and gauge-covariant scale theory, with exact application boundaries and ordinary private-research closure evidence
-- [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation|MAgent Exact-ELBO White Paper: 2026-07-19 Continuum--Finite Remediation Record]] — continuum-primary fields, exact finite marginals and CAVI, corrected moving-peer obstruction, runtime crosswalk, and revision-bound verification
-- [[magent-exact-elbo-whitepaper-2026-07-27-attention-derivation|MAgent Exact-ELBO White Paper: 2026-07-27 Attention-Row Derivation Record]] — the source-label augmented model, the tempered row and its log-determinant logit, the ordered-mask normalization requirement, and the attention target graded DERIVABLE UNDER STATED EXTRA HYPOTHESES
-- [[magent-exact-elbo-whitepaper-2026-07-27-link-covariance-tie|MAgent Exact-ELBO White Paper: 2026-07-27 Link-Covariance Tie Record]] — the tie graded a declared postulate, its identity with the unit-temperature hypothesis, the M-step refutation and its Stein-loss deficit, and the impossibility result closing the correlated-family route
 - [[participatory-it-from-bit|A Gauge-Theoretic Framework Toward a Participatory \"It From Bit\" Program: Mathematical Foundations and Computational Implementation]]
-- [[participatory-it-from-bit-2026-07-11-code-concordance-review|A Gauge-Theoretic Framework Toward a Participatory "It From Bit" Program: 2026-07-11 Code-Concordance Review Record]] — major-review code-concordance record for MAgent baseline `779f96f`
-- [[vfe-population-generative-status-2026-07-12|Population VFE Generative-Model Status and Two-Hop Theory Record]] — state-level ELBO obstruction, equilibrium-frozen source construction, configuration-Gibbs lift, and V3 two-hop interpretation
 - [[gl-k-attention|Attention as Gauge-Theoretic Variational Inference]]
-- [[gl-k-attention-2026-07-09-review-revision|Attention as Gauge-Theoretic Variational Inference: 2026-07-09 Review and Revision Record]] — major-review revision and supersession record
-- [[meta-entropy-manuscript|Configurational Meta-Entropy of a Population of Variational Beliefs: Toward a Thermodynamic Limit for the Gauge-Theoretic Free Energy Transformer]]
 - [[belief-inertia|The Inertia of Belief]]
-- [[belief-inertia-2026-07-12-theorem-first-revision|The Inertia of Belief: 2026-07-12 Theorem-First Revision Record]] — corrected theorem-first manuscript state, proof-status supersessions, comparator set, and source hashes
-- [[belief-inertia-2026-07-13-final-verification-addendum|The Inertia of Belief: 2026-07-13 Final Verification Addendum]] — final metric-scope, stiffness-direction, social-claim, citation, and hash reconciliation
-- [[belief-inertia-2026-07-13-final-review-closure|The Inertia of Belief: 2026-07-13 Final Review Closure]] — authoritative FJ equilibrium/transient distinction, final wiki reconciliation, symbolic regression, hashes, and verification counts
 
 ## 🧩 Themes — cross-paper synthesis
 - [[Attention mechanisms — theory and positional structure]]
@@ -62,6 +59,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 - [[Inference machinery — variational EM and filtering]]
 - [[Information geometry and natural gradient]]
 - [[Participatory realism and quantum foundations]]
+- [[PIFB2 refactor foundations September 2026]]
 - [[SPD-manifold geometry and Riemannian optimization]]
 - [[Staged hierarchy formation and RG composability]]
 - [[Statistical physics of social systems and collective behavior]]
@@ -126,6 +124,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Agents as fibre-bundle sections]]
 - [[Baker-Campbell-Hausdorff formula]]
 - [[Clebsch-Gordan coefficients]]
+- [[Dressing field method]]
 - [[Gauge transformation]]
 - [[Group equivariance]]
 - [[Holonomy]]
@@ -217,20 +216,15 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Approximate Bayesian inference]]
 - [[Associative Memory]]
 - [[Attention and consciousness]]
-- [[Precision weighting|Attention as Inference]]
-- [[Precision weighting|Attention as Precision]]
 - [[Attractor networks]]
 - [[Bayesian Inference|Bayesian Belief Updating]]
 - [[Bayesian brain hypothesis]]
-- [[Bayesian Inference]]
 - [[Bayesian Probability]]
-- [[Bayesian Inference|Bayesian reasoning]]
 - [[Bekenstein bound]]
 - [[Belief Compression]]
 - [[Belief coupling]]
 - [[Belief dynamics]]
 - [[Belief Propagation]]
-- [[Bayesian Inference|Belief Updating]]
 - [[Bell inequalities]]
 - [[Bidirectional attention]]
 - [[Binding Problem]]
@@ -266,7 +260,6 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Diffeomorphism invariance]]
 - [[Dimensionality reduction]]
 - [[Dirac Quantization]]
-- [[Information bottleneck|Distributional Clustering]]
 - [[Dynamic functional connectivity]]
 - [[Ego dissolution]]
 - [[Energy-Based Models]]
@@ -287,7 +280,6 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[G-twirling]]
 - [[Gating Mechanisms]]
 - [[Gauge Theory]]
-- [[Parallel transport|Gauge transport]]
 - [[Gaussian Belief Propagation]]
 - [[Gaussian Beliefs]]
 - [[Gaussian process]]
@@ -303,9 +295,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Hamiltonian Monte Carlo]]
 - [[Hidden metric space]]
 - [[Hierarchical generative model]]
-- [[Hierarchical generative model|Hierarchical Latent Variable Models]]
 - [[Horizon thermodynamics|Horizon Entropy]]
-- [[Horizon thermodynamics]]
 - [[Hyperbolic geometry]]
 - [[Implicit differentiation]]
 - [[Information is Physical]]
@@ -346,7 +336,6 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Optimal transport]]
 - [[Optomechanics]]
 - [[Phase transitions in social systems]]
-- [[Critical Phenomena|Phase Transitions]]
 - [[Phenomenal Consciousness]]
 - [[Philosophy of Mind]]
 - [[Pointer States]]
@@ -354,7 +343,6 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Purification (quantum states)]]
 - [[Quantum computation]]
 - [[Quantum Darwinism]]
-- [[Decoherence|Quantum Decoherence]]
 - [[Quantum Entanglement]]
 - [[Quantum information]]
 - [[Quantum Measurement]]
@@ -368,11 +356,9 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Relational Observables]]
 - [[Relational Quantum Mechanics]]
 - [[Relative positional encoding|Relative Position Encoding]]
-- [[Relative positional encoding]]
 - [[Relative Uncertainty]]
 - [[Residual Connections]]
 - [[Riemannian geometry]]
-- [[Riemannian geometry|Riemannian Manifold]]
 - [[Riemannian Quotient Manifold]]
 - [[Rindler observer]]
 - [[Schild's Ladder]]
@@ -398,12 +384,10 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Tomita-Takesaki theorem]]
 - [[Transfer learning]]
 - [[Transformer Architecture]]
-- [[Parallel transport|Transport Operator]]
 - [[Unruh Effect]]
 - [[Vanishing gradient]]
 - [[Von Neumann algebras]]
 - [[Wave-Function Collapse]]
-- [[Web of Belief]]
 - [[Wigner-D Matrices]]
 - [[Zero-Shot Learning]]
 
@@ -595,7 +579,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[amari-1998-natural-gradient|Natural Gradient Works Efficiently in Learning]]
 - [[amari-2000-methods-information-geometry|Methods of Information Geometry]]
 - [[bengtsson-zyczkowski-2017-geometry-quantum-states|Geometry of Quantum States: An Introduction to Quantum Entanglement (2nd ed.)]]
-- [[beny-osborne-2015-info-geometric-rg|Information-Geometric Approach to the Renormalization Group]]
+- [[beny-osborne-2015-info-geometric-rg|Information-Geometric Approach to the Renormalization Group]] — metric-scope readback: [[Fisher information metric]]
 - [[braunstein-caves-1994-quantum-fisher|Statistical distance and the geometry of quantum states]]
 - [[brody-hughston-2001-geometric-qm|Geometric Quantum Mechanics]]
 - [[crooks-2007-thermodynamic-length|Measuring Thermodynamic Length]]
@@ -669,7 +653,6 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[srivastava2015highway|Training Very Deep Networks]]
 - [[bai2019deep-equilibrium|Deep Equilibrium Models]]
 - [[chen1998empirical|An Empirical Study of Smoothing Techniques for Language Modeling]]
-- [[chung-2015-vrnn|A Recurrent Latent Variable Model for Sequential Data]]
 - [[cuturi-2013-sinkhorn|Sinkhorn Distances: Lightspeed Computation of Optimal Transportation Distances]]
 - [[dauphin-2017-gated-convnets|Language Modeling with Gated Convolutional Networks]]
 - [[diakonikolas2021momentum|Generalized Momentum-Based Methods: A Hamiltonian Perspective]]
@@ -975,6 +958,56 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 
 ## 📚 Sources — references (cited by the manuscripts)
 
+- [[abbott-1981-background-field-beyond-one-loop]]
+- [[bovier-2004-metastability-diffusions]]
+- [[dacosta-2020-discrete-state-synthesis]]
+- [[dewitt-1967-manifestly-covariant-gravity]]
+- [[friston-2024-supervised-structure-learning]]
+- [[friston-2025-pixels-planning]] — adopted hierarchical state/path source; supplied grouping and time blocking, with explicit scope qualifications.
+- [[han-1997-stokes-minkowski]]
+- [[hansen-ghrist-2021-discourse-sheaves]]
+- [[kikuchi-1951-cooperative-phenomena]]
+- [[lauritzen-1996-graphical-models]]
+- [[lawson-lim-2001-geometric-mean]]
+- [[milgrom-segal-2002-envelope-theorems]]
+- [[mori-1965-transport-collective-motion]]
+- [[nussbaum-1988-projective-metric]]
+- [[salamon-berry-1983-thermodynamic-length]]
+- [[simon-2006-hamilton-lorentz]]
+- [[tikhonov-1952-small-derivative-parameters]]
+- [[vandergraft-1968-invariant-cones]]
+- [[verstraete-2001-local-filtering]]
+- [[wheeler-1983-law-without-law]]
+- [[zwanzig-1961-memory-effects]]
+
+### Theory review references, September 26, 2026
+
+- [[hairer-2011-harris-ergodic-theorem]]
+- [[hartmann-2020-coarse-graining-nonreversible-sdes]]
+- [[backhoff-veraguas-2023-specific-relative-entropy]]
+
+- [[wetterich-2014-linear-lattice-gauge-theory]] — general matrix links under compact site groups; precedent with explicit GL(K) scope limits
+
+### GL(K) attention v2 revision references (2026-09-23)
+- [[francois-2019-artificial-gauge-symmetries|Artificial versus Substantial Gauge Symmetries]] — criterion (C1): a local dressing field signals an artificial gauge symmetry
+- [[fournel-2014-gauge-invariant-composite-fields|Gauge Invariant Composite Fields out of Connections, with Examples]] — origin of the dressing field method
+- [[movellan-2020-probabilistic-transformers|Probabilistic Transformers]] — attention as MAP/EM in a Gaussian mixture; key-norm-linked prior recovers dot-product attention
+- [[gabbur-2021-probabilistic-attention|Probabilistic Attention for Interactive Segmentation]] — dot-product attention as a special case of MAP inference
+- [[nguyen-2022-probabilistic-attention-keys|Improving Transformers with Probabilistic Attention Keys]] — attention scores as mixture responsibilities; mixture-of-Gaussian keys
+- [[kim-2021-lipschitz-self-attention|The Lipschitz Constant of Self-Attention]] — L2 self-attention, the isotropic limit of Gaussian-KL routing
+- [[niculae-2017-regularized-attention|A Regularized Framework for Sparse and Structured Neural Attention]] — softmax and sparsemax as regularized max operators
+- [[litman-2025-entropic-optimal-transport-attention|Scaled-Dot-Product Attention as One-Sided Entropic Optimal Transport]] — the attention row as an entropy-regularized problem
+- [[litman-2026-attention-priors|You Need Better Attention Priors]] — KL-to-prior row objective, learned GOAT prior, attention sinks as collapse to the prior
+- [[bianchessi-2026-bayesian-attention-mechanism|Bayesian Attention Mechanism]] — positional encodings as priors (NoPE uniform, ALiBi Laplace)
+- [[levine-2018-control-as-inference|Reinforcement Learning and Control as Probabilistic Inference]] — binary optimality variables with likelihood exp(r)
+- [[toussaint-storkey-2006-probabilistic-inference-mdp|Probabilistic Inference for Solving Discrete and Continuous State MDPs]] — binary reward variables; planning by EM
+- [[kappen-2012-optimal-control-inference|Optimal Control as a Graphical Model Inference Problem]] — KL control; Boltzmann optimum with cost −log Z
+- [[bodnar-2022-neural-sheaf-diffusion|Neural Sheaf Diffusion]] — learned restriction maps of cellular sheaves
+- [[kunin-2021-neural-mechanics|Neural Mechanics]] — symmetry-induced conservation laws broken by optimizer choices
+- [[du-2018-balanced-layers|Algorithmic Regularization in Learning Deep Homogeneous Models]] — layer balance conserved under gradient flow
+- [[das-2019-tarmac|TarMAC: Targeted Multi-Agent Communication]] — attention-based targeted communication among agents
+- [[jebara-2004-probability-product-kernels|Probability Product Kernels]] — expected likelihood kernel; the exact posterior behind noisy-query routing
+
 ### Variational free energy, predictive coding & active inference
 - [[boyd-vandenberghe-2004-convex-optimization|Convex Optimization]]
 - [[bissiri-2016-general-bayesian-updating|A General Framework for Updating Belief Distributions]]
@@ -993,7 +1026,6 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[murphy-2022-probabilistic-machine-learning-introduction|Probabilistic Machine Learning: An Introduction]]
 - [[murphy-2023-probabilistic-machine-learning-advanced-topics|Probabilistic Machine Learning: Advanced Topics]]
 - [[parr-2022-active-inference|Active Inference: The Free Energy Principle in Mind, Brain, and Behavior]]
-- [[ramstead-2019-enactive-inference|A tale of two densities: active inference is enactive inference (variational neuroethology and Markov blankets)]]
 - [[sakthivadivel2022-bayesian-mechanics-geometry|Towards a Geometry and Analysis for Bayesian Mechanics]]
 - [[sengupta-2016-neuronal-gauge|Towards a Neuronal Gauge Theory]]
 - [[sengupta2017gauge|Approximate Bayesian inference as a gauge theory]]
@@ -1049,7 +1081,6 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[petz-1996-monotone-metrics|Monotone Metrics on Matrix Spaces]]
 - [[slonim-2000-agglomerative-ib|Agglomerative Information Bottleneck]]
 - [[strouse-2017-deterministic-ib|The Deterministic Information Bottleneck]]
-- [[tishby-1999-information-bottleneck|The Information Bottleneck Method]]
 - [[uhlmann-1976-transition-probability|The Transition Probability in the State Space of a *-Algebra]]
 - [[cover-thomas-2006-elements-information-theory|Elements of Information Theory (2nd ed.)]]
 - [[skovgaard-1984-riemannian-geometry-normal-model|A Riemannian Geometry of the Multivariate Normal Model]]
@@ -1112,7 +1143,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[berman-2023-bayesian-renormalization|Bayesian Renormalization]]
 - [[gabrielli-2025-network-renormalization|Network Renormalization]]
 - [[villegas-2023-laplacian-renormalization-group|Laplacian Renormalization Group for Heterogeneous Networks]]
-- [[garuccio-2023-multiscale-network-renormalization|Multiscale Network Renormalization: Scale-Invariance without Geometry]]
+- [[garuccio-2023-multiscale-network-renormalization|Multiscale Network Renormalization: Scale-Invariance without Geometry]] — aggregation assumptions: [[Coarse Graining]]
 - [[zheng-2024-geometric-renormalization-weighted-networks|Geometric Renormalization of Weighted Networks]]
 - [[boettcher2012renormalization|Renormalization Group for Critical Phenomena in Complex Networks]]
 - [[jona-lasinio-2001-renormalization-probability|Renormalization Group and Probability Theory]]
@@ -1183,7 +1214,6 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[delic-2020-ground-state-cooling|Cooling of a Levitated Nanoparticle to the Motional Quantum Ground State]]
 - [[gao-2017-neural-dimensionality|On simplicity and complexity in the brave new world of large-scale neuroscience]]
 - [[hoffman-2015-interface-perception|The Interface Theory of Perception]]
-- [[lahav-2022-relativistic-consciousness|A Relativistic Theory of Consciousness]]
 - [[lahav-2022-topological-sync|Topological synchronization of chaotic systems]]
 - [[marshall-2003-mirror-superposition|Towards Quantum Superpositions of a Mirror]]
 - [[millen-2020-levitated-optomechanics|Optomechanics with Levitated Particles]]
@@ -1232,6 +1262,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[beazley-jones-2013-python-cookbook|Python Cookbook (3rd ed.)]]
 
 ## 🌐 Sources — web & methodology
+- [[exa-2026-agent-create-run]] — official Agent API effort and budget contract
 - [[karpathy-llm-wiki-pattern|Karpathy — The LLM Wiki Pattern]]
 - [[pytorch-documentation|PyTorch Official Documentation]]
 - [[pep-695-type-parameter-syntax|PEP 695 - Type Parameter Syntax]]
@@ -1240,29 +1271,8 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[pep-8-style-guide-python-code|PEP 8 - Style Guide for Python Code]]
 
 ## 🧪 Sources — experiment runs
-- [[2026-06-21-k160-hyperprior-saturation|K=160 runs — hyper-prior KL(s‖r) saturates the kl_max clamp]]
-- [[2026-06-27-gauge-transport-ablation-suite|vfe3 ablation suite (2026-06-27) — gauge-transport causal ablation, 3-seed scaling, mechanism sweeps]]
-- [[2026-06-28-active-inference-efe-policy-scorer-spec|vfe3 active-inference EFE policy-scorer — investigation + pre-registered design spec (2026-06-28)]] (design / pre-registration, no results)
-- [[2026-06-29-sigma-gate-fail-and-collapse|vfe3 sigma-validation gate FAIL + why the belief covariance collapses (2026-06-29)]] (empirical negative + mechanism + manuscript reconciliation)
-- [[2026-07-05-blocks-k48-gauge-block-scaling|blocks_K48 gauge-block scaling sweep — fixed embed_dim, vary the GL partition (S1 survives REMAND)]]
-- [[2026-07-08-omega-direct-detsign-buildout|omega_direct element-store gauge + learnable det-sign (2026-07-08)]] (implementation / design; reaches the det<0 GL(K) component; gauge-covariance-vs-frame-use + diagonal-family findings)
-- [[2026-07-08-phi-reflection-buildout|learnable reflection on the phi path — R.exp(phi) (2026-07-08)]] (implementation; the cheap 1-bit route to det<0 on the default phi path; misses the non-exp interior omega_direct reaches; fixed a latent omega_direct block.py bug)
-- [[2026-07-11-backprop-free-plan-and-pure-fep-postmortem|backprop-free vfe3 plan + pure_fep post-mortem (2026-07-11)]] (design / plan + adjudicated post-mortem, no training results; see [[Nudged two-phase EM]])
-- [[2026-07-12-partial-buildout-audit-remediation|partial-buildout audit remediation — seven completion plans (2026-07-12)]] (implementation record, no training metrics; efe_rollout live, sigma_mc four-identity gate stays FAIL-closed, phi/Metropolis objective parity, full-SPD model channel, CG covariance pushforward, family-consistent decode)
-- [[2026-07-18-phi-pullback-group-k10-partial-negative-result|K=10 phi pullback-group partial negative result (2026-07-18)]] (validation PPL 365.57 at step 9,000; stable geometry diagnostics; matched AdamW artifact and pullback LR sweep remain open)
-- [[2026-07-25-estep-character-and-channel-decomposition|The belief E-step is one attention aggregation — channel decomposition and depth attribution (2026-07-25)]] (checkpoint-only, K=20 and K=300; the model channel supplied 99.7% of the apparent depth pathology; fixed point is a 70–81% prior / 19–30% neighbor precision blend; the trained route is two attention layers despite `n_layers=1`) — **its two registered predictions and its "comparable perplexity" reading are superseded by [[2026-07-25-token-prior-estep-character-and-diagnostics]]**, **and every pair-precision share it reports is superseded by [[2026-07-26-b01-probe-defect-and-width-remeasurement]]** (the probe read the model channel's fusion as the belief's)
-- [[2026-07-25-token-prior-estep-character-and-diagnostics|Token-prior E-step character — a refuted prediction, and the diagnostics made permanent (2026-07-25)]] (K=20 `prior_source='token'` / `s_e_step=False`; depth curve flat as predicted at +0.099 nats but the pair-precision share FELL to 0.109 instead of rising above 0.30 — weight and displacement are decoupled; the 33-PPL gap is tuning-confounded; three probes promoted to end-of-run artifacts)
-- [[2026-07-26-b01-probe-defect-and-width-remeasurement|The E-step character probe measured the wrong channel — B-01 defect, re-measurement, and the width comparison re-established (2026-07-26)]] (the shipped probe read `_refine_s`'s fusion as the belief's and anchored on the centroid $r$; K=300 re-measured on the same checkpoint at pair share **0.196** vs a published 0.298 and a step-1 displacement share of **94%** vs 70%; the K=20 checkpoint was deleted so 0.190 is withdrawn, a PPL-matched re-training gives **0.153**; the width direction survives but is confounded with training length and head geometry, and the share is single-batch sample-sensitive)
-- [[2026-07-25-phi-table-and-beta-channel-measurements|Gauge-table ablations, frame-norm calibration, and the beta channel decomposition (2026-07-25)]] (checkpoint-only, K=300; `phi_embed` load-bearing but precision-redundant and rank-saturated; positional prior carries ~3× the content channel; five ranked hypotheses refuted)
-- [[2026-07-25-exact-congruence-truncation-tension|Exact congruence versus diagonal truncation — two covariance families and a negative result (2026-07-25)]] (K=20 training arms; the exact congruence energy scales as cond(Ω)² and saturates the clamp; the frame-intrinsic family disconnects the gauge table entirely; see [[Diagonal truncation as gauge regularization]])
-- [[2026-07-25-shadow-prior-refutation|Cross-scale shadow priors do not transfer to the transformer — six-expert refutation (2026-07-25)]] (design investigation, no training results; no gauge degeneracy for a likelihood to break, the token cannot be both prior and observation, Bethe-not-mean-field status, Ladder-VAE-on-text record)
-- [[2026-08-02-rigorous-theory-search-skill|Rigorous theory search global skill — sanitized design, evaluation boundary, and mathematical reconstruction record (2026-08-02)]] (method/implementation/audit record; paired behavioral grading remains provisional; no current theory or runtime claim is certified by the archive)
-- [[2026-08-18-rescaling-audit-capacity-reversal|The rescaling-lab audit and the capacity reversal — a gauge-dependent sector charge retired, root-framed retention rises (2026-08-18)]] (MultiAgentELBO audit F1–F9 remediated at `4eed61f`; the amendment-6 sector charge failed sample-shift covariance, the root-framed charge is invariant to 2e-16 and reverses the published capacity null: R_cap 0.209/0.568 vs nine-state 0.156/0.441, old 0.144/0.406 retired as frame artifacts; every other published amendment 3–7 number reproduced)
-- [[2026-08-18-minfo-information-retention|M-info: boundary mutual-information retention deflates the sup-norm capacity story (2026-08-18)]] (amendment 9, committed `f904d5c`; R_MI ≤ 1 by data processing, measured 0.023/0.067 nine-state and 0.025/0.070 sectored — the blocking transmits 2–7% of boundary information, sup norm overstates by an order of magnitude, sector gain deflates to +10%/+5%; regeneration restores interaction without restoring information)
-- [[2026-08-18-mpart-participatory-blocking|M-part: offered its own choice of blocking, the flow declines to aggregate (2026-08-18)]] (amendment 10, committed `fd71d0b`; the flow-averaged Proposition-4 posterior puts modal mass on singletons 0.586 over direct 0.306 over staged 0.08/0.025, null control within 1% — no aggregation favored at this seed, selection prior-and-kernel dominated; bounded-sight proposability recorded as the open split)
-- [[2026-08-18-mbind-coupling-sweep|M-bind: the coupling-scale sweep finds no formation transition and a kernel-limited channel (2026-08-18)]] (amendment 11, committed `8bb657d`; ceiling grows as lambda² across four decades yet singletons stay modal at every lambda and R_MI is flat-to-declining — the singleton preference is structural, transmission is kernel-limited, the weak-coupling excuse retracted)
-- [[2026-08-18-environmental-blocking|M-anchor and M-flow: the environment binds, and the process reorders the landscape (2026-08-18)]] (amendment 12, committed `e14b6b2`; the environment restored as a blockable agent class — uniform anchors flip modal to direct 0.55/0.84, distinct control anti-binds 0.90, shared pairs pull the aligned placement eightfold; annealed joint dynamics reverse the quenched verdict on the bare instance, sampler validated against the exact marginal — condensation follows shared evidence)
-- [[2026-08-18-mshare-finite-inertia|M-share: alignment and correlation compete, and alignment wins at this seed (2026-08-18)]] (amendment 14, committed `3548cc5`; finite-inertia shared environments by exact marginalization — correlation binding not licensed, aligned mass rises monotonically to the pinned plateau, but shared beats duplicated 9× at zero inertia and free strong sharing tips direct modal; figure suite of the whole chain at `figures/rescaling-lab/`, committed `9171363`. NOTE: all 2026-08-17/18 lab findings carry tentative status — single implementation, not independently verified)
+
+_No run notes at present._
 
 ## MultiAgentELBO research ingestion — September 11, 2026
 
@@ -1355,7 +1365,3 @@ All new source notes are cataloged below. [[multiagentelbo-2026-09-11-research-s
 - [[watts-2013-the-orbit-space-and-basic-forms-of-a-proper-lie-groupoid]]
 - [[yin-2009-a-cluster-expansion-approach-to-renormalization-group-transformations]]
 - [[ying-2018-hierarchical-graph-representation-learning-with-differentiable-pooling]]
-- [[multiagentelbo-2026-09-11-critical-comparisons]]
-- [[multiagentelbo-2026-09-11-extension-studies]]
-- [[multiagentelbo-2026-09-11-finite-program]]
-- [[multiagentelbo-2026-09-11-implementation]]

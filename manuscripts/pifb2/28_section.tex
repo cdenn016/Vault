@@ -1,0 +1,196 @@
+% !TeX root = ../PIFB2.tex
+\section{\texorpdfstring{Explicit Gradient Expressions for $\mathrm{GL}(K_q)$ Gaussian Agents}{Explicit Gradient Expressions for GL(Kq) Gaussian Agents}}\label{app:gradients}
+
+This appendix collects the gradients and natural gradients of the explicitly chosen consensus potential $\mathcal{E}$ of Section~\ref{sec:free_energy} for Gaussian beliefs with $\mathrm{GL}^+(K_q)$ transport, the connected component containing the transports $\Omega_{ij} = \exp(\phi_i)\exp(-\phi_j)$ of Eq.~\eqref{eq:transport_def}. The compact restriction $\mathrm{SO}(K_q)$ is the special case in which the frame coefficients $\phi_i$ are skew-symmetric, so that each factor $\exp(\phi_i)$ and hence every transport $\Omega_{ij}$ is a rotation. The Gaussian-sector operations are covariant under the congruence action of $\mathrm{GL}(K_q)$ on the covariance fiber; the frame sector is discussed with the update equations.
+
+The inverse-link formulas below assume nonsingular Gaussian laws, fixed priors and records, distinct endpoints, and invertible noiseless links. Frame-factorized derivatives additionally assume $\Omega_{ij}=U_iU_j^{-1}$. They are a specialization of the general channel model, not gradients of an arbitrary collective $\mathcal F_V$. A separate formula below covers rank-deficient noisy communication.
+
+\subsection*{Setup and Notation}
+
+Use the optional product restriction $\zeta_i=q_i\otimes s_i$ of the joint statistical section, with Gaussian state belief $q_i=\mathcal N(\mu_i,\Sigma_i)$ and Gaussian model-parameter belief $s_i=\mathcal N(\mu_{s,i},\Sigma_{s,i})$. A model presentation becomes predictive through its normalized evaluator; $s_i$ alone is not a generative model. The state prior $p_i=\mathcal N(\mu_{p,i},\Sigma_{p,i})$ and parameter prior $r_i=\mathcal N(\mu_{r,i},\Sigma_{r,i})$ are fixed during this update. A lagged parent prediction is one possible source of these priors, not a requirement. In a regular local chart write $U_i=\exp\phi_i$. The state representation is the defining matrix action and $\Omega_{ij}=U_iU_j^{-1}$. A different model representation gives $\widetilde\Omega_{ij}=\rho_{\mathrm{model}}(U_iU_j^{-1})$. Model-sector derivatives have the analogous probabilistic form, but their contribution to a shared frame gradient must be pulled back through $D\rho_{\mathrm{model}}$; matrices of different representation dimensions cannot simply be added.
+
+The attention temperatures are $\tau$ on the belief fiber and $\tau_\gamma$ on the model fiber, as in Eq.~\eqref{eq:pointwise_free_energy}; with the parameterization $\tau = \kappa\sqrt{K_q}$ and $\tau_\gamma = \kappa\sqrt{K_m}$, the dimensionless $\kappa > 0$ is a declared constant, not a variational parameter of $\mathcal{E}$. The computation is made at the base point $c_*$ with every agent present, so the receiver-presence weight of each row equals one. Condition numbers are written $\operatorname{cond}(\cdot)$ to avoid a collision with $\kappa$. The pair energies and the attention rows are
+\begin{equation}
+E_{ij} := D_{\mathrm{KL}}(q_i \| \Omega_{ij}[q_j]),
+\qquad
+\beta_{ij} = \frac{\pi_{ij}\exp\left(-E_{ij}/\tau\right)}{\sum_m \pi_{im}\exp\left(-E_{im}/\tau\right)},
+\end{equation}
+so that $\beta_{ij} = \beta_{ij}(\{q\},\{U\})$ depends on the beliefs and frames of the receiver $i$ and of every source $m$ in its row. The scalar $\alpha_i$ is the per-agent prior precision of Eq.~\eqref{eq:free_energy_adaptive}, with optimal value $\alpha_i^* = c_0/(b_0 + D_{\mathrm{KL}}(q_i \| p_i))$ from Eq.~\eqref{eq:state_dependent_alpha}; the constant-precision limit $\alpha_i = 1$ recovers the unit-weight self term of Eq.~\eqref{eq:free_energy_functional_final}. On the model fiber a fixed hyper-prior weight $\lambda_h$ plays the analogous role. A diagonal extension would replace the scalar $\alpha_i$ coordinate-wise by Eq.~\eqref{eq:adaptive_self_coupling_per_coord}; it is not developed here.
+
+\subsection*{The Canonical Envelope Gradient}
+
+The consensus specialization considered here descends the reduced functional $\mathcal{E}_{\mathrm{red}}$, in which every attention row has been replaced by its Gibbs value $-\tau\log Z_i$ (Section~\ref{sec:envelope_theorem}). At the Gibbs row the derivative of the row block vanishes on the simplex tangent space, so the gradient of the row value is the gradient taken at frozen weights; this is the attention-reduced potential proposition of~\cite[Ch.~6]{DennisGaugeVFE2026}, whose potential $-\log Z_i$ differs from the row value here by the factor $\tau$. The reduced slow descent is then the natural-gradient flow of the reduced functional by the envelope identity of~\cite[Ch.~8]{DennisGaugeVFE2026}. The adaptive-precision block has the same cancellation (see the discussion following Eq.~\eqref{eq:alpha_chain_rule_itfb}), so $\alpha_i$ enters with its optimal value $\alpha_i^*$. A state variable $x_i$ of agent $i$ appears in the row of agent $i$ and, as the sender, in the row of every agent $k$ that attends to $i$. For $x_i \in \{\mu_i, \Sigma_i, U_i\}$ the complete gradient is therefore
+\begin{equation}
+\nabla_{x_i}\mathcal{E}_{\mathrm{red}} = \alpha_i^*\nabla_{x_i}D_{\mathrm{KL}}(q_i \| p_i) + \sum_j \beta_{ij}\nabla_{x_i}E_{ij} + \sum_k \beta_{ki}\nabla_{x_i}E_{ki} + \nabla_{x_i}\mathcal{E}_{\mathrm{obs},i},
+\label{eq:canonical_gradient_general}
+\end{equation}
+with every weight at its Gibbs value, $\mathcal{E}_{\mathrm{obs},i}$ the observation term of agent $i$, and the model channel contributing terms of the same form, with $(\gamma_{ij}, \tilde\Omega_{ij}, s_i, r_i, \lambda_h)$ in place of $(\beta_{ij}, \Omega_{ij}, q_i, p_i, \alpha_i^*)$, to the gradients with respect to the model variables and, when the model-fiber transport is generated by the same frames, with respect to $U_i$. The observation and self terms carry no frame dependence in this specialization.
+
+\paragraph{Belief mean and covariance.}
+Write $A_{ij} := \Omega_{ij}\Sigma_j\Omega_{ij}^\top$ for the transported covariance of the source. Differentiating the Gaussian relative entropy of Appendix~\ref{app:gaussian_kl}, the self and receiver pieces are
+\begin{equation}
+\begin{aligned}
+\frac{\partial D_{\mathrm{KL}}(q_i \| p_i)}{\partial \mu_i} &= \Sigma_{p,i}^{-1}(\mu_i - \mu_{p,i}),
+&\qquad
+\frac{\partial D_{\mathrm{KL}}(q_i \| p_i)}{\partial \Sigma_i} &= \frac{1}{2}\left(\Sigma_{p,i}^{-1} - \Sigma_i^{-1}\right), \\
+\frac{\partial E_{ij}}{\partial \mu_i} &= A_{ij}^{-1}(\mu_i - \Omega_{ij}\mu_j),
+&\qquad
+\frac{\partial E_{ij}}{\partial \Sigma_i} &= \frac{1}{2}\left(A_{ij}^{-1} - \Sigma_i^{-1}\right).
+\end{aligned}
+\end{equation}
+Differentiating $E_{ki} = D_{\mathrm{KL}}(q_k \| \Omega_{ki}[q_i])$ with respect to the sender's mean and covariance, using the precision transport of Eq.~\eqref{eq:precision_transport}, gives
+\begin{align}
+\frac{\partial E_{ki}}{\partial \mu_i} &= \Lambda_{q_i}\Omega_{ki}^{-1}\left(\Omega_{ki}\mu_i - \mu_k\right), \\
+\frac{\partial E_{ki}}{\partial \Sigma_i} &= \frac{1}{2}\Omega_{ki}^{\top}\left[\tilde{\Lambda}_{q_i}^{(k)} - \tilde{\Lambda}_{q_i}^{(k)}\left(\Sigma_k + d_{ki}d_{ki}^{\top}\right)\tilde{\Lambda}_{q_i}^{(k)}\right]\Omega_{ki},
+\end{align}
+where $\Lambda_{q_i} = \Sigma_i^{-1}$, $\tilde{\Lambda}_{q_i}^{(k)} := (\Omega_{ki}\Sigma_i\Omega_{ki}^{\top})^{-1} = \Omega_{ki}^{-\top}\Lambda_{q_i}\Omega_{ki}^{-1}$ is agent $i$'s precision transported into agent $k$'s frame, and $d_{ki} := \Omega_{ki}\mu_i - \mu_k$ is the mean residual in agent $k$'s frame. The rank-one piece $-\tilde{\Lambda}_{q_i}^{(k)}d_{ki}d_{ki}^{\top}\tilde{\Lambda}_{q_i}^{(k)}$ vanishes at consensus and contributes a stiffness aligned with $d_{ki}$ away from it. The inverse-transpose form of Eq.~\eqref{eq:precision_transport} is what makes these expressions valid for general $\Omega_{ki} \in \mathrm{GL}^{+}(K_q)$, where $\Omega_{ki}^{-1}$ does not reduce to $\Omega_{ki}^{\top}$. Substituting into Eq.~\eqref{eq:canonical_gradient_general} gives the complete mean and covariance gradients,
+\begin{equation}
+\begin{aligned}
+\nabla_{\mu_i}\mathcal{E}_{\mathrm{red}} &= \alpha_i^*\Sigma_{p,i}^{-1}(\mu_i - \mu_{p,i}) + \sum_j \beta_{ij}A_{ij}^{-1}(\mu_i - \Omega_{ij}\mu_j) \\
+&\quad + \sum_k \beta_{ki}\Lambda_{q_i}\Omega_{ki}^{-1}\left(\Omega_{ki}\mu_i - \mu_k\right) + \nabla_{\mu_i}\mathcal{E}_{\mathrm{obs},i},
+\end{aligned}
+\label{eq:canonical_gradient_mu}
+\end{equation}
+\begin{equation}
+\begin{aligned}
+\nabla_{\Sigma_i}\mathcal{E}_{\mathrm{red}} &= \frac{\alpha_i^*}{2}\left(\Sigma_{p,i}^{-1} - \Sigma_i^{-1}\right) + \frac{1}{2}\sum_j \beta_{ij}\left(A_{ij}^{-1} - \Sigma_i^{-1}\right) \\
+&\quad + \frac{1}{2}\sum_k \beta_{ki}\Omega_{ki}^{\top}\left[\tilde{\Lambda}_{q_i}^{(k)} - \tilde{\Lambda}_{q_i}^{(k)}\left(\Sigma_k + d_{ki}d_{ki}^{\top}\right)\tilde{\Lambda}_{q_i}^{(k)}\right]\Omega_{ki} + \nabla_{\Sigma_i}\mathcal{E}_{\mathrm{obs},i},
+\end{aligned}
+\label{eq:canonical_gradient_sigma}
+\end{equation}
+plus the model-channel terms. Eq.~\eqref{eq:canonical_gradient_mu} is Eq.~\eqref{eq:total_gradient_mu} with the sender index relabeled $k \to j$, and Eq.~\eqref{eq:total_gradient_mu} gives the observation terms for a Gaussian identity readout.
+
+\paragraph{Frame sector: the transported relative entropy.}
+The frames enter only through the links. For Gaussians write $A := \Omega_{ij}\Sigma_j\Omega_{ij}^\top$, $r := \mu_i - \Omega_{ij}\mu_j$, and $\Lambda := A^{-1}$. The Gaussian relative entropy has three $\Omega_{ij}$-dependent pieces ($\log|A|$, $\operatorname{tr}(\Lambda\Sigma_i)$, $r^\top\Lambda r$), and the group is $\mathrm{GL}^+(K_q)$, so the directional derivative lives in the full Lie algebra $\mathfrak{gl}(K_q)$ with no skew-symmetry constraint. Along $X \in \mathfrak{gl}(K_q)$ acting by $\Omega_{ij} \to e^{tX}\Omega_{ij}$, with $\partial_X A = XA + AX^\top$ and $\partial_X r = -X\Omega_{ij}\mu_j$, the derivative is
+\begin{equation}
+\partial_X E_{ij} = \operatorname{tr}\Big[X^\top\Big(I - \Lambda\Sigma_i - \Lambda r(\Omega_{ij}\mu_j)^\top - \Lambda r r^\top\Big)\Big],
+\label{eq:kl_omega_directional}
+\end{equation}
+where the leading identity is the $\log\det$ contribution $\partial_X\log|A| = 2\operatorname{tr}(X)$ carried at the half weight of the Gaussian relative entropy, and the quadratic term uses $\Lambda A = I$ to reduce $\Lambda r r^\top\Lambda A$ to $\Lambda r r^\top$. Writing $N_{ij} := I - \Lambda\Sigma_i - \Lambda r(\Omega_{ij}\mu_j)^\top - \Lambda r r^\top$ for the bracket of Eq.~\eqref{eq:kl_omega_directional}, the unconstrained matrix derivative is
+\begin{equation}
+\frac{\partial E_{ij}}{\partial \Omega_{ij}} = N_{ij}\Omega_{ij}^{-\top} = \Omega_{ij}^{-\top} - \Lambda \Sigma_i \Omega_{ij}^{-\top} - \Lambda(\mu_i - \Omega_{ij}\mu_j)\mu_j^\top - \Lambda r r^\top \Lambda \Omega_{ij}\Sigma_j,
+\label{eq:kl_omega_unconstrained}
+\end{equation}
+where the mean term carries a negative sign because $r$ depends on $\Omega_{ij}$ through $-\Omega_{ij}\mu_j$, and the simplifications $(\Omega_{ij}\mu_j)^\top\Omega_{ij}^{-\top} = \mu_j^\top$ and $\Omega_{ij}^{-\top} = \Lambda\Omega_{ij}\Sigma_j$ reduce the remaining factors. At consensus, $q_i = \Omega_{ij}[q_j]$, the bracket $N_{ij}$ vanishes. The compact subgroup $\mathrm{SO}(K_q)$ is the special case $X \in \mathfrak{so}(K_q) \subset \mathfrak{gl}(K_q)$ ($X^\top = -X$), in which the $\log\det$ piece vanishes because $\operatorname{tr}(X) = 0$ and the gradient is obtained by projecting onto $\mathfrak{so}(K_q)$ through antisymmetrization.
+
+\paragraph{Frame sector: gradient in the group variable.}
+Since $\Omega_{ij} = U_iU_j^{-1}$, a variation of $U_i$ moves the receiver link by $\delta\Omega_{ij} = (\delta U_i)U_j^{-1}$ and the sender link by $\delta\Omega_{ki} = -\Omega_{ki}(\delta U_i)U_i^{-1}$. Combining with Eq.~\eqref{eq:kl_omega_unconstrained} and the identities $\Omega_{ij}^{-\top}U_j^{-\top} = U_i^{-\top}$ and $\Omega_{ki}^{-\top}U_i^{-\top} = U_k^{-\top}$ gives
+\begin{equation}
+\nabla_{U_i}E_{ij} = N_{ij}U_i^{-\top},
+\qquad
+\nabla_{U_i}E_{ki} = -\Omega_{ki}^{\top}N_{ki}U_k^{-\top},
+\end{equation}
+with $N_{ki}$ the bracket of Eq.~\eqref{eq:kl_omega_directional} for the pair $(k, i)$. The complete frame gradient is therefore
+\begin{equation}
+\nabla_{U_i}\mathcal{E}_{\mathrm{red}} = \sum_j \beta_{ij}N_{ij}U_i^{-\top} - \sum_k \beta_{ki}\Omega_{ki}^{\top}N_{ki}U_k^{-\top},
+\label{eq:canonical_gradient_frame}
+\end{equation}
+plus the model-channel terms of the same form when the model-fiber transport $\tilde\Omega_{ij}$ is generated by the same frames through $\rho_{\mathrm{model}}$ (tied frames); with independent model-fiber frames the model-channel gradient is taken with respect to those frames instead. Every term vanishes at consensus. In the frame of the receiving agent of each row, the body covector $U_i^\top\nabla_{U_i}\mathcal{E}_{\mathrm{red}}$ reads $\sum_j\beta_{ij}U_i^\top N_{ij}U_i^{-\top} - \sum_k\beta_{ki}U_k^\top N_{ki}U_k^{-\top}$, so each pair contributes its bracket conjugated into the frame of the agent whose row contains it.
+
+\paragraph{Frame sector: chart gradients.}
+In the chart $U_i = \exp(\phi_i)$ with generators $G_a$, the chain rule gives $\partial\mathcal{E}_{\mathrm{red}}/\partial\phi_i^a = \operatorname{tr}[(D\exp_{\phi_i}[G_a])^\top\nabla_{U_i}\mathcal{E}_{\mathrm{red}}]$. For the receiver link the exact Fr\'echet derivative of the matrix exponential is
+\begin{equation}
+\frac{\partial \Omega_{ij}}{\partial \phi_i^a} = \left(\int_0^1 e^{(1-s)\phi_i} G_a e^{s\phi_i} \mathrm{d}s\right) e^{-\phi_j},
+\label{eq:frechet_dexp}
+\end{equation}
+and for the sender link, where $\phi_i$ enters through the right factor $\exp(-\phi_i)$,
+\begin{equation}
+\frac{\partial \Omega_{ki}}{\partial \phi_i^a} = -\exp(\phi_k)J_a,
+\qquad
+J_a := \int_0^1 e^{-(1-s)\phi_i} G_a e^{-s\phi_i} \mathrm{d}s,
+\label{eq:frechet_dexp_sender}
+\end{equation}
+so that
+\begin{equation}
+\frac{\partial E_{ij}}{\partial \phi_i^a} = \operatorname{tr}\left[\left(\frac{\partial \Omega_{ij}}{\partial \phi_i^a}\right)^\top N_{ij}\Omega_{ij}^{-\top}\right],
+\qquad
+\frac{\partial E_{ki}}{\partial \phi_i^a} = -\operatorname{tr}\left[J_a^\top (e^{\phi_k})^\top N_{ki}\Omega_{ki}^{-\top}\right].
+\end{equation}
+When $G_a$ commutes with $\phi_i$ the integrals collapse, $\partial \Omega_{ij}/\partial \phi_i^a = G_a \Omega_{ij}$ and $\partial \Omega_{ki}/\partial \phi_i^a = -\Omega_{ki} G_a$, and the sender derivative becomes
+\begin{equation}
+\frac{\partial E_{ki}}{\partial \phi_i^a} = -\operatorname{tr}\left[G_a^\top\left(\Omega_{ki}^\top N_{ki} \Omega_{ki}^{-\top}\right)\right] \qquad \text{(abelian approximation)},
+\label{eq:sender_phi_gradient}
+\end{equation}
+while the receiver derivative becomes the projection of Eq.~\eqref{eq:kl_omega_directional} along $X = G_a$. For noncommuting frames the first omitted term is a commutator: $\operatorname{dexp}_{\phi}^{L}(G)=G-\tfrac12[\phi,G]+O(\|\phi\|^2\|G\|)$ in a bounded matrix norm as $\phi\to0$. Its size depends on both the frame and the generator, so no universal empirical percentage is assigned. The group-variable formula~\eqref{eq:canonical_gradient_frame} remains exact without this truncation.
+
+\subsection*{General selective-link derivative}
+
+For a fixed Gaussian source and receiver and a fixed positive noise covariance, let
+\[
+C_{ij}=L_{ij}\Sigma_jL_{ij}^{\top}+N_{ij},\quad
+W_{ij}=C_{ij}^{-1},\quad d_{ij}=\mu_i-L_{ij}\mu_j,\quad N_{ij}\succ0.
+\]
+Differentiating the same Gaussian channel cost gives
+\begin{equation}
+\nabla_{L_{ij}}E_{ij}
+=\big[W_{ij}-W_{ij}(\Sigma_i+d_{ij}d_{ij}^{\top})W_{ij}\big]L_{ij}\Sigma_j
+-W_{ij}d_{ij}\mu_j^{\top}.
+\label{eq:selective_link_matrix_gradient}
+\end{equation}
+Indeed, $\delta C=\delta L\Sigma_jL^\top+L\Sigma_j\delta L^\top$ and $\delta d=-\delta L\mu_j$ give the two terms by the matrix trace pairing. No inverse of $L_{ij}$ is needed. For $L_{ij}=R_iS_j$, the endpoint derivatives are $(\nabla_LE)S_j^\top$ and $R_i^\top(\nabla_LE)$, summed over incident edges when an interface is shared. These are covectors; a natural descent still requires a declared interface metric. If noise or source laws also depend on the interface, their chain-rule terms must be included.
+
+\subsection*{Natural Gradients and Frame Covariance}
+
+The natural gradient raises the index of the gradient with the Fisher metric of Appendix~\ref{app:fisher_gaussian}: $\tilde{\nabla}_{\mu_i} \mathcal{E} = \Sigma_i \nabla_{\mu_i} \mathcal{E}$ on the mean and $\tilde{\nabla}_{\Sigma_i} \mathcal{E} = 2\Sigma_i (\nabla_{\Sigma_i} \mathcal{E}) \Sigma_i$ on $\mathcal{S}_{++}^{K_q}$.
+
+\textbf{Frame covariance.} Under the congruence action of $g \in \mathrm{GL}(K_q)$, $\Sigma_i \mapsto g\Sigma_i g^\top$, which preserves the cone $\mathcal{S}_{++}^{K_q}$ for any invertible $g$, the Euclidean gradient $\nabla_{\Sigma_i}\mathcal{E}$ is a covector on the symmetric matrices and transforms by the inverse-transpose congruence, whereas the natural gradient transforms like $\Sigma_i$ itself:
+\begin{align}
+\Sigma_i &\mapsto g\Sigma_i g^\top, \\
+\nabla_{\Sigma_i} \mathcal{E} &\mapsto g^{-\top}(\nabla_{\Sigma_i} \mathcal{E})g^{-1}, \\
+\tilde{\nabla}_{\Sigma_i} \mathcal{E} &\mapsto g(\tilde{\nabla}_{\Sigma_i} \mathcal{E})g^\top.
+\end{align}
+The two transformation laws agree for every covector if and only if $g$ is orthogonal, $g^{-\top} = g$, that is $g \in \mathrm{O}(K_q)$, so for general $g$ only the natural gradient is covariant on $\mathcal{S}_{++}^{K_q}$; the analogous statement for a constant-metric Gaussian mean flow, that the Euclidean metric is equivariant only under orthogonal reframings, is proved in~\cite[Ch.~G8]{DennisGaugeVFESuppG2026}. Riemannian metrics on $\mathcal{S}_{++}^{K_q}$ invariant under the full congruence action form the two-parameter family $a\operatorname{tr}(\Sigma^{-1}U\Sigma^{-1}V) + b\operatorname{tr}(\Sigma^{-1}U)\operatorname{tr}(\Sigma^{-1}V)$ with $a > 0$ and $a + K_q b > 0$~\cite{Pennec2009}. The Gaussian Fisher metric on the covariance block is the member $a = \tfrac{1}{2}$, $b = 0$~\cite[Ch.~G5]{DennisGaugeVFESuppG2026}, and $2\Sigma(\cdot)\Sigma$ is its gradient structure; the member $a = 1$, $b = 0$ would give $\Sigma(\cdot)\Sigma$. On the unit-determinant directions $\operatorname{tr}(\Sigma^{-1}U) = 0$, which form the $\mathfrak{sl}(K_q)$ sector after whitening, the second term vanishes and all members coincide up to scale. The gradient structure $2\Sigma(\cdot)\Sigma$ is therefore one invariant choice among many, singled out by the Fisher metric.
+
+\subsection*{Exponential-Map Update on the SPD Manifold}
+
+After computing $\tilde{\nabla}_{\Sigma_i}\mathcal{E}$, the covariance is updated through a retraction, a smooth map from the tangent bundle to the manifold whose differential at the zero vector is the identity~\cite{Absil2008}, so that $\Sigma_i$ remains positive definite:
+\begin{equation}
+\Sigma_i^{\mathrm{new}} = \mathcal{R}_{\Sigma_i}(-\eta_\Sigma \tilde{\nabla}_{\Sigma_i}\mathcal{E}).
+\end{equation}
+The retraction used is the affine-invariant exponential map,
+\begin{equation}
+\mathcal{R}_{\Sigma}(\Delta) = \Sigma^{1/2} \exp\left(\Sigma^{-1/2} \Delta \Sigma^{-1/2}\right) \Sigma^{1/2},
+\end{equation}
+where $\exp(\cdot)$ is the matrix exponential. It preserves positive-definiteness, since the exponential of a symmetric matrix is SPD and congruence preserves the cone, and it is equivariant under congruence, $\mathcal{R}_{A\Sigma A^\top}(A\Delta A^\top) = A \mathcal{R}_{\Sigma}(\Delta) A^\top$ for any invertible $A$. With the eigendecomposition $\Sigma = V D V^\top$,
+\begin{equation}
+\mathcal{R}_{\Sigma}(\Delta) = V D^{1/2} \exp\left(D^{-1/2} V^\top \Delta V D^{-1/2}\right) D^{1/2} V^\top.
+\end{equation}
+This is the Riemannian exponential map of the affine-invariant metric, so the update follows the geodesic from $\Sigma$ in direction $\Delta$ for unit parameter.
+
+\subsection*{The Entropy-Suppressed Surrogate}
+
+Replacing each row block by $S_k := \sum_m \beta_{km}E_{km}$, with the Gibbs weights attached but the attention entropy removed, defines a different scalar $S_{\mathrm{surr}}$. Applying the covariance identity of Section~\ref{sec:complete_free_energy} to every row in which $x_i$ appears gives
+\begin{equation}
+\nabla_{x_i}S_{\mathrm{surr}} = \nabla_{x_i}\mathcal{E}_{\mathrm{red}} - \frac{1}{\tau}\sum_{k}\operatorname{Cov}_{\beta_k}\left(E_{k\cdot}, \nabla_{x_i}E_{k\cdot}\right),
+\label{eq:surrogate_covariance_gap}
+\end{equation}
+where the sum runs over the receiver row $k = i$ and every sender row containing $i$. In a sender row only $E_{ki}$ depends on $x_i$, and the covariance reduces to $\beta_{ki}(E_{ki} - \langle E\rangle_{\beta_k})\nabla_{x_i}E_{ki}$. In the receiver row the surrogate contribution is $\sum_j \beta_{ij}[1 - (E_{ij} - \langle E\rangle_{\beta_i})/\tau]\nabla_{x_i}E_{ij}$. It reduces to the frozen-weight gradient whenever $\operatorname{Cov}_{\beta_i}(E, \nabla E) = 0$, for example when all $E_{ij}$ are equal; it tends to the $\pi$-weighted mean gradient as $\tau \to \infty$; and it tends to $\nabla E_{ij^*}$ as $\tau \to 0$ when the minimizer $j^*$ is unique, since for an energy gap $\Delta > 0$ the response term is bounded by a multiple of $(\Delta/\tau)e^{-\Delta/\tau}$. The response is largest near ties, where energy differences are of order $\tau$. The split of the same quantity into a direct piece weighted by $(1 - E_{ij}/\tau)$ and a reweighting piece $\tau^{-1}\langle E\rangle_{\beta_i}\sum_m\beta_{im}\nabla E_{im}$ is algebraically equal but not centered: a common shift of all energies moves weight between the two pieces, each grows like $E/\tau$ as $\tau \to 0$ while their sum stays bounded, and evaluating them separately cancels catastrophically at small $\tau$. The centered form above avoids this. On the model fiber the same statements hold with $(\gamma, \tilde\Omega, s, \tau_\gamma)$. For the precision weight, differentiating $\alpha_i^*(\mu_i,\Sigma_i)D_{\mathrm{KL}}(q_i\|p_i)$ without the regularizer of Eq.~\eqref{eq:free_energy_adaptive} gives the prefactor $(\alpha_i^*)^2 b_0/c_0$ in place of $\alpha_i^*$ (Eq.~\eqref{eq:alpha_chain_rule_itfb}).
+
+Discarding the sender rows defines a further object, the receiver-only field $V_i^{\mathrm{rec}}(x) := \partial_{x_i}S_{i}(x)$, obtained by dropping $\sum_{k \ne i}\partial_{x_i}S_{k}$. It is not the gradient of $S_{\mathrm{surr}}$ and is generically nonintegrable; the receiver and sender terms together form $\nabla S_{\mathrm{surr}}$, whose Hessian is symmetric. Neither the surrogate nor the receiver-only field is the consensus envelope update, which descends $\mathcal{E}_{\mathrm{red}}$ with the gradients of Eqs.~\eqref{eq:canonical_gradient_general}--\eqref{eq:canonical_gradient_frame}.
+
+\subsection*{Complete Update Equations}
+
+The update uses a Fisher-Rao natural-gradient step on the Gaussian sector and a left-trivialized group retraction on the frame sector (cf.\ Eqs.~\eqref{eq:gauge_natural_gradient}--\eqref{eq:gauge_group_retraction}). Every derivative below is the complete receiver-plus-sender envelope gradient of $\mathcal{E}_{\mathrm{red}}$:
+\begin{align}
+\mu_i^{t+1} &= \mu_i^t - \eta_\mu \Sigma_i^t \nabla_{\mu_i} \mathcal{E}_{\mathrm{red}}, \\
+\Sigma_i^{t+1} &= \left(\Sigma_i^t\right)^{1/2} \exp\left[\left(\Sigma_i^t\right)^{-1/2}\left(-\eta_\Sigma \tilde{\nabla}_{\Sigma_i} \mathcal{E}_{\mathrm{red}}\right)\left(\Sigma_i^t\right)^{-1/2}\right] \left(\Sigma_i^t\right)^{1/2}, \\
+\xi_i^t &= \left(U_i^t\right)^{-1}\nabla_{U_i} \mathcal{E}_{\mathrm{red}}, \\
+U_i^{t+1} &= U_i^t \exp\left(-\eta_\phi \xi_i^t\right).
+\end{align}
+Here $\xi_i$ is the left-trivialized frame velocity of Eq.~\eqref{eq:gauge_natural_gradient_def}: the chart natural-gradient vector $\mathcal{G}_{\mathrm{pull}}^{-1}\nabla_{\phi_i}\mathcal{E}$ pushes forward to $\nabla_{U_i}\mathcal{E}$, so its left-trivialized velocity is exactly $U_i^{-1}\nabla_{U_i}\mathcal{E}$ when the generators span $\mathfrak{gl}(K_q)$, while on a subalgebra the ambient-metric velocity is instead defined by $\langle U_i\xi_i,U_i\zeta\rangle_F=\langle\nabla_{U_i}\mathcal E,U_i\zeta\rangle_F$ for every tangent generator $\zeta$, with $\nabla_{U_i}\mathcal{E}_{\mathrm{red}}$ given by Eq.~\eqref{eq:canonical_gradient_frame}. Evaluated in this form the velocity costs one $K_q \times K_q$ solve per agent; forming and inverting the $K_q^2 \times K_q^2$ pullback metric explicitly would cost $O(K_q^6)$ per agent and square its condition number. The alternative left-invariant Frobenius preconditioner replaces $\xi_i$ by the body covector $U_i^\top\nabla_{U_i}\mathcal{E}_{\mathrm{red}}$. The body-covector update is equivariant under per-agent left translations with the beliefs co-transformed, and under right translations only by orthogonal $g$; the ambient-pullback update above is equivariant only under orthogonal translations. Neither descends to the quotient by the global right redundancy described below. A right-trivialized update would descend to that quotient at the cost of left equivariance, and for $K_q\ge2$ no Riemannian metric on $\mathrm{GL}^+(K_q)$ is invariant under both translations~\cite{Milnor1976}. The exponential map in the last line keeps $U_i\in G$ in exact arithmetic. Positivity and group membership do not ensure decrease of the potential for an arbitrary finite step; a step-size or descent condition is separate. The learning rates follow the separation declared in Section~\ref{sec:timescales}, with $\eta_\mu \equiv \eta_q$ the belief-fiber rate written for the separately updated mean block.
+
+\subsection*{Computational Complexity}
+
+Per gradient step with $N$ agents and dimension $K_q$, forming the links costs $O(N K_q^3)$ for the frames and their inverses plus $O(N^2 K_q^3)$ for the pairwise products; the transported relative entropies require factorizations of the $O(N^2)$ transported covariances, $O(N^2 K_q^3)$ in total; and the natural-gradient steps and exponential-map updates, with the frame velocity evaluated as $U_i^{-1}\nabla_{U_i}\mathcal{E}_{\mathrm{red}}$, cost $O(K_q^3)$ per agent, $O(N K_q^3)$ in total. The overall complexity is $O(N^2 K_q^3)$ per step, dominated by the pairwise coupling.
+
+\subsection*{Numerical Stability and Verification}
+
+\textbf{Positive-definiteness in finite precision.} In exact arithmetic the exponential-map update maps into $\mathcal{S}_{++}^{K_q}$ for any symmetric $\Delta$, so $\Sigma_i \succ 0$ is preserved by construction. In single precision, with unit roundoff $u = 2^{-24} \approx 5.96 \times 10^{-8}$, a symmetric matrix whose condition number exceeds about $u^{-1} \approx 1.68 \times 10^{7}$ can already be indefinite as stored, before any eigendecomposition is computed; an eigenvalue floor on the stored matrices, or storage of a factor, is what restores definiteness, and a higher-precision eigendecomposition does not. The same bound applies to the transported covariances $A_{ij} = \Omega_{ij}\Sigma_j\Omega_{ij}^\top$ as well as to $\Sigma_i$, and the bound
+\begin{equation}
+\operatorname{cond}(A_{ij}) \le \operatorname{cond}(\Omega_{ij})^2\operatorname{cond}(\Sigma_j)
+\end{equation}
+holds, where $\operatorname{cond}_2(\Omega_{ij})$ can grow exponentially: $\operatorname{cond}_2(\Omega_{ij})\le\exp(2\|\phi_i\|_2+2\|\phi_j\|_2)$. Large frame norm need not cause ill-conditioning, as skew-symmetric frames show; the displayed bound is an upper bound. Cholesky factorization of an $n \times n$ matrix is backward stable independently of conditioning: the computed factor satisfies $R^\top R = \Sigma + \delta\Sigma$ with $|\delta\Sigma| \le \gamma_{n+1}|R^\top||R|$ componentwise, $\gamma_{n+1} = (n+1)u/(1 - (n+1)u)$~\cite[Thm.~10.3]{Higham2002}. What depends on conditioning is completion and forward error. The factorization runs to completion if $\lambda_{\min}(H) > n\gamma_{n+1}/(1 - \gamma_{n+1})$, where $H = D^{-1}\Sigma D^{-1}$ with $D = \operatorname{diag}(\Sigma)^{1/2}$ is the unit-diagonal scaling of $\Sigma$~\cite[Thm.~10.7]{Higham2002}; since $\lambda_{\max}(H) \ge 1$, this holds in particular when $\operatorname{cond}_2(H)$ is below about $1/(n(n+1)u)$, which for $n = K_q = 10$ in single precision is about $1.5 \times 10^5$.
+
+\textbf{Right-translation redundancy.} Under the global right translation $U_i \mapsto U_i g$ by a single $g \in G$ shared by all agents (Section~\ref{sec:gauge_covariance_principle}), every link $\Omega_{ij} = U_iU_j^{-1} \mapsto U_i g g^{-1} U_j^{-1} = \Omega_{ij}$ is unchanged. The free energy and the belief updates, which depend on the frames only through the links, are therefore unchanged. The frame update is not: since $\nabla_{U_ig}\mathcal{E} = (\nabla_{U_i}\mathcal{E})g^{-\top}$, the velocity becomes $g^{-1}\xi_i g^{-\top}$, and $U_ig\exp(-\eta_\phi g^{-1}\xi_ig^{-\top})$ agrees with $U_i\exp(-\eta_\phi\xi_i)g$ for generic $\xi_i$ only when $g^{-\top} = g$, that is for orthogonal $g$; the body-covector update behaves in the same way. Initial frames related by a nonorthogonal right translation, which describe the same links, therefore evolve to different links. Where the required local logarithms exist, $U_ig$ corresponds to $\log(e^{\phi_i}e^{\zeta}) = \phi_i + \psi(\mathrm{ad}_{\phi_i})(\zeta) + O(\|\zeta\|^2)$ with $\zeta = \log g$ and $\psi(z) = z/(1 - e^{-z}) = 1 + z/2 + z^2/12 + \cdots$. The additive shift $\phi_i \mapsto \phi_i + \zeta$ is therefore correct only to first order in both $\phi_i$ and $\zeta$, or exactly in the abelian sector, and the group-level statement $U_i \mapsto U_i g$ is the one to use for the nonabelian redundancy.
+
+\textbf{Status of the formulas.} The expressions above follow from the displayed matrix differentials, the Gaussian relative-entropy identity, and the declared metric. Historical numerical agreement is not used as evidence here. The regularity and finite-step restrictions are independent of the exact differential identities.

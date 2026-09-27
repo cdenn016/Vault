@@ -1,0 +1,1472 @@
+\chapter{Fiber Information Geometry and Inference Histories}
+\label{ch:relational-inference}
+
+This chapter asks how the collective free energy of \cref{ch:elbo} selects an
+inference history of the agents at $c_*$ and what duration the Fisher geometry of their
+law fibers assigns to it.  A chosen metric makes the positive ray of the natural
+gradient select an oriented orbit, whose Fisher length is an information clock
+invariant under reparameterization (\cref{thm:hist-fisher-clock-invariance}).  A
+parameter-independent Markov channel projects scores and loses Fisher information by an
+exact conditional-covariance defect (\cref{thm:cg-fisher-contraction}), so a same-path
+Markov image of a history, such as the law of a meta-agent, accumulates no more duration
+(\cref{thm:hist-record-clock-contraction}), while a coarse orbit recomputed from its own
+free energy compares with the fine one only through an oriented semiconjugacy, whose
+rate cancels from every duration
+(\cref{thm:hist-oriented-semiconjugacy,thm:hist-duration-relation}).  A three-agent
+parity witness shows that a collective free energy and its Fisher tensor are not
+functions of the agents' marginal laws.  \Cref{ch:two-timescales} uses the mobility and
+clock results, \cref{ch:coarsegraining} the Fisher-loss theorem, and
+\cref{ch:agent-network-rg,ch:full-graph-meta-agent-vfe} the coarse configuration map and
+the record clocks.  Longer proofs are deferred to \cref{app:deferred-proofs}.
+
+\paragraph{Scope.}
+Law fibers and kernel fibers are distinct, and no manifold, dominating measure, affine
+chart, cone, or Fisher metric is inferred from the words belief or model.  The Fisher
+metric is chosen: no invariance axiom that characterizes it
+(\cref{prop:ig-fisher-characterizations}) is imposed, and no uniqueness is asserted.  The
+parity hyperedge (\cref{def:hist-parity-hyperedge}) is supplied generative data, not
+derived from pairwise locality or a canonical agent inventory, and the promoted parity
+coordinate (\cref{cor:hist-promoted-parity-rank}) is not thereby an agent or an
+intervention variable.  No fine-to-coarse semiconjugacy is asserted for coarse maps that
+discard directions on which the fine free energy depends.  Open are correlated lifts
+beyond the parity witness (\cref{open:hist-parity-lift-scope}), global Fisher quotients
+and canonical block data (\cref{open:hist-retained-fisher-quotient}), the quantitative
+meta-agent clock ratio (\cref{open:hist-meta-clock-ratio}), and the slow-manifold limit
+of the information-discarding case (\cref{open:obs-slow-manifold}).  \status{NOT-CLAIMED}
+
+\paragraph{Notation.}
+Tangent vectors are $Z,Z_1,Z_2,Z_3$, and $\mathbf s_Z$ is the score in the direction $Z$;
+$\xi_{\mathcal M}$ is the fundamental vector field of $\xi$ in the Lie algebra
+$\mathfrak g$ of $G$ on a $G$-manifold $\mathcal M$.  A parameter-independent Markov
+kernel is $K$, with law map $K_\star p=pK$ and joint law
+$p\otimes K(dy,d\bar y)=p(dy)K(y,d\bar y)$.  A history is $Q$ with curve parameter $t$,
+$\mathsf a$ is a positive rate factor, $\mathcal I_6$ indexes the bits of the parity
+witness and $\operatorname{par}$ is its parity character, $\mathcal N(\mu,\varsigma^2)$ is
+the normal family, and upright letters $\mathrm c,\mathrm c_1,\mathrm c_2,\mathrm q$ are
+constants local to one statement.
+
+\section{Fiber statistical tensors}
+\label{sec:pb-statistical-tensors}
+\label{sec:ig-typing}
+\label{sec:ig-notclaimed}
+
+At $c_*$ a frame $u$ in the $G$-torsor $(\mathscr P_G)_{c_*}$ identifies each law fiber
+$\mathcal B_x$ with $(\mathcal E_x)_{c_*}$ through $\iota_u:\beta\mapsto[u,\beta]$, and
+$\iota_{u\cdot g}=\iota_u\circ\widehat\rho_x(g)$ by \eqref{eq:geo-quotient-convention},
+so a tensor on $\mathcal B_x$ defines one on $(\mathcal E_x)_{c_*}$ exactly when it is
+invariant under the represented action.
+
+\hypothesisheading{Regular channel models}{hyp:pb-regular-models}
+Each law fiber $\mathcal B_x$, $x\in\{b,m\}$, and each coarse fiber $\bar{\mathcal B}_x$
+used below is a finite-dimensional smooth parametrized-measure model with smooth
+represented action, as in \cref{hyp:geo-smooth-tier}, differentiable in quadratic mean
+with a positive-definite Fisher form; every score direction is integrable to the third
+power, the second- and third-order score moments depend smoothly on the point, and the
+model is dominated enough to differentiate the divergences of
+\cref{sec:pb-divergence-jets} under the integral through third order.  The hypothesis
+excludes singular statistical strata, families whose support moves without this
+differentiability, and law fibers given only by a chart without a sample-space action.
+
+\definitionheading{Fiber statistical tensors and the model-parameter Fisher tensor}{def:pb-fiber-statistical-tensors}
+With $\mathbf s_Z$ the score of $\mathcal B_x$ at $p$ in the direction
+$Z\in T_p\mathcal B_x$, the Fisher and Amari--Chentsov tensors of the channel and, for
+the generative parameter $\theta$, structural data $X$, tangent vectors $Z_1,Z_2$ of the
+parameter space of $\theta$, and a probability law $\mathsf r(dX)$ on structural data,
+the model-parameter Fisher tensor of the evidence $p_{\theta,V}(o\given X)$ and its
+average are
+\begin{align}
+g^F_{x,p}(Z_1,Z_2)&=\E_p[\mathbf s_{Z_1}\mathbf s_{Z_2}],
+\label{eq:pb-fiber-fisher}\\
+T^F_{x,p}(Z_1,Z_2,Z_3)&=\E_p[\mathbf s_{Z_1}\mathbf s_{Z_2}\mathbf s_{Z_3}],
+\label{eq:pb-fiber-amari}\\
+\mathsf I_X(\theta)(Z_1,Z_2)&=\E_\theta\left[\partial_{Z_1}\log p_{\theta,V}(O\given X)
+\partial_{Z_2}\log p_{\theta,V}(O\given X)\mathrel{\big|}X\right],
+\label{eq:ig-conditional-model-fisher}\\
+\mathsf I_{\mathsf r}(\theta)&=\int\mathsf I_X(\theta)\mathsf r(dX).
+\label{eq:ig-averaged-model-fisher}
+\end{align}
+Each of $\mathsf I_X$ and $\mathsf I_{\mathsf r}$ is called a metric only where it is
+nondegenerate.
+
+On the latent sample space $\mathsf Y$ an interaction energy is a function, not a metric;
+the law fibers and the configuration manifolds of \cref{sec:hist-vfe-orbit-selection}
+carry $g^F$; the parameter space of $\theta$ carries $\mathsf I_X$ or
+$\mathsf I_{\mathsf r}$, of rank depending on $X$ or $\mathsf r$, one available metric for
+$\theta$ in the fast and slow coordinates of \cref{def:obs-fast-slow-blocks}, whose
+model-channel recognition coordinates carry $g^F_m$.  Equal components of a quadratic
+energy on $\mathsf Y$ and a Fisher metric, as in the Gaussian mean sector of
+Supplement~G, are a coincidence of coordinates, not an identification.
+
+\propositionheading{Descent of the statistical tensors}{prop:pb-statistical-tensor-descent}
+Under \cref{hyp:pb-regular-models}, every $\widehat\rho_x(g)$ preserves $g^F_x$ and
+$T^F_x$, so $(\iota_u^{-1})^*g^F_x$ and $(\iota_u^{-1})^*T^F_x$ are tensors on
+$(\mathcal E_x)_{c_*}$ that do not depend on the frame $u$; they are denoted by the same
+symbols.  The sample-space origin of the action cannot be replaced by invariance of the
+metric alone: for the normal family, whose Fisher metric is
+$(d\mu^2+2d\varsigma^2)/\varsigma^2$, the map induced by $z\mapsto(1+z)/(1-z)$ on
+$z=\mu/\sqrt2+\mathrm i\varsigma$ preserves $g^F$, fixes $(\mu,\varsigma)=(0,1)$, and
+does not preserve $T^F$.  \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-fiber-geometry}.
+
+\propositionheading{Invariance characterizations of the Fisher metric}{prop:ig-fisher-characterizations}
+On the open simplex of positive laws on a finite set, the Fisher metric is, up to a
+positive factor, the unique Riemannian metric invariant under congruent Markov
+embeddings \citep[Lemma~11.3, p.~161]{Cencov1982}.  On the cone of positive finite measures on a
+finite set, with coordinates $\mathsf x_i$ and total mass $|\mathsf x|=\sum_i\mathsf x_i$,
+the positive-definite metrics invariant under the same maps are exactly those with
+components $g_{\mathsf x}(\partial_i,\partial_j)=\mathrm f_2(|\mathsf x|)
++\delta_{ij}|\mathsf x|\mathrm f_1(|\mathsf x|)/\mathsf x_i$ for smooth functions with
+$\mathrm f_1>0$ and $\mathrm f_1+\mathrm f_2>0$ \citep{Campbell1986}; on tangent vectors
+of the simplex, where $\sum_iZ_i=0$, the $\mathrm f_2$ term vanishes and the metric is
+$\mathrm f_1(1)$ times the Fisher metric.  For parametrized measure models on general
+sample spaces, every local continuous quadratic form field invariant under sufficient
+statistics is a combination of the Fisher form and the square of the differential of
+total mass with coefficients that are functions of the total mass, and on statistical
+models, where the total mass is one, the Fisher form is the unique weakly continuous such
+field up to a constant \citep[Main Theorem~2.10]{Ay2015}; the finite case of this
+characterization is Campbell's \citep[Section~1]{Le2017}.  Uniqueness up to a constant
+also holds for strongly continuous forms that are monotone under statistics
+\citep[Theorem~1.4]{Le2017}, for diffeomorphism-invariant smooth weak Riemannian metrics
+on smooth positive densities on a closed manifold of dimension at least two
+\citep[Theorem in the introduction]{BauerBruverisMichor2016}, and, on exponential
+families and their derived families, for Riemannian metrics invariant under independent
+and identically distributed extensions and canonical sufficient statistics
+\citep[Theorem~1]{Dowty2018}.  \status{STANDARD}
+
+\section{Divergence jets and the orbit Fisher form}
+\label{sec:pb-divergence-jets}
+
+\definitionheading{Regular invariant contrast and its jets}{hyp:pb-contrast}
+A regular invariant contrast on a law fiber $\mathcal B$ is a function
+$\mathscr D:\mathcal B\times\mathcal B\to\R$, $C^3$ near the diagonal, with
+$\mathscr D\geq0$ and, near the diagonal, $\mathscr D(p,q)=0$ exactly when $p=q$,
+invariant under the simultaneous represented action,
+$\mathscr D(\widehat\rho(g)p,\widehat\rho(g)q)=\mathscr D(p,q)$, and with
+positive-definite mixed second jet.  With $(Z,0)$ and $(0,Z)$ the lifts of
+$Z\in T_p\mathcal B$ to the two factors, extended as constant coordinate fields in one
+chart, the jets of $\mathscr D$ are
+\begin{align}
+g_{\mathscr D}(Z_1,Z_2)
+&=-[(Z_1,0)(0,Z_2)\mathscr D]_{(p,p)},
+\label{eq:pb-divergence-metric-jet}\\
+\Gamma_{\mathscr D}(Z_1,Z_2,Z_3)
+&=-[(Z_1,0)(Z_2,0)(0,Z_3)\mathscr D]_{(p,p)},
+\label{eq:pb-divergence-first-connection-jet}\\
+\Gamma_{\mathscr D}^*(Z_1,Z_2,Z_3)
+&=-[(0,Z_1)(0,Z_2)(Z_3,0)\mathscr D]_{(p,p)},
+\label{eq:pb-divergence-dual-connection-jet}\\
+T^F_{\mathscr D}
+&=\Gamma_{\mathscr D}-\Gamma_{\mathscr D}^*.
+\label{eq:pb-divergence-amari-jet}
+\end{align}
+The two third-order arrays are connection coefficients in the chart, their difference is
+a symmetric cubic tensor. Invariance makes the metric and cubic jets define tensors,
+and the connection jets define affine connections, on the associated fiber
+independently of the frame.  The contrast $(p,q)\mapsto(p-q)^4$
+on a one-dimensional fiber is positive off the diagonal with zero second jet, so it is
+excluded.
+
+\propositionheading{KL divergence jets}{prop:pb-kl-divergence-jets}
+On a fiber satisfying \cref{hyp:pb-regular-models}, the relative entropy
+$\KL(p\Vert q)$ is a regular invariant contrast, its metric jet is $g^F$, and its cubic
+jet $T^F_{\KL}$ is the Amari--Chentsov tensor $T^F$.  \status{ESTABLISHED}
+
+\corollaryheading{Orbit Fisher form}{cor:pb-orbit-fisher-form}
+Assume \cref{hyp:pb-regular-models} in one channel.  For $q\in\mathcal B$ define
+\begin{equation}
+\mathfrak k_q(\xi,\eta)=g^F_q\bigl(\xi_{\mathcal B}(q),\eta_{\mathcal B}(q)\bigr),
+\qquad
+\mathfrak g_q=\{\xi\in\mathfrak g:\xi_{\mathcal B}(q)=0\}.
+\label{eq:pb-orbit-fisher-form}
+\end{equation}
+Then $\mathfrak k_q$ is positive semidefinite, its radical is exactly $\mathfrak g_q$,
+and $\mathfrak g_q$ is the Lie algebra of the stabilizer $G_q$ of $q$.  For every
+$\xi\in\mathfrak g$, as $t\to0$,
+\begin{equation}
+\KL\left(q\Vert\widehat\rho(\exp t\xi)q\right)
+=\frac{t^2}{2}\mathfrak k_q(\xi,\xi)+O(t^3),
+\label{eq:pb-orbit-kl-expansion}
+\end{equation}
+and for $\xi\in\mathfrak g_q$ the left side vanishes for every $t$.  The same expansion
+holds for every regular invariant contrast, with $g^F$ replaced by its metric jet
+$g_{\mathscr D}$.  \status{ESTABLISHED}
+
+The proofs of \cref{prop:pb-kl-divergence-jets,cor:pb-orbit-fisher-form} are in
+\cref{sec:proofs-fiber-geometry}.
+
+In the running example of \cref{sec:geo-running-example}, a loop holonomy $\exp t\xi$
+acting on an agent's law gives the loop a transported divergence
+$\tfrac{t^2}{2}\mathfrak k_q(\xi,\xi)+O(t^3)$ that vanishes to all orders exactly when
+$\xi\in\mathfrak g_q$, the second-order form of law coherence up to holonomy stabilizers
+(\cref{def:geo-law-coherence}).
+
+\section{Markov coarse morphisms and the vertical Fisher defect}
+\label{sec:pb-fisher-defect}
+\label{sec:cg-fisher-contraction}
+
+\theoremheading{Score projection and Fisher loss}{thm:cg-fisher-contraction}
+Let $\{P_\lambda\}$ be a family of laws on $\mathsf Y$, indexed by an open subset of
+$\R^d$, that is differentiable in quadratic mean at $\lambda_0$ with centered
+square-integrable score $\mathbf s_{\lambda_0}:\mathsf Y\to\R^d$, and let
+$K:\mathsf Y\rightsquigarrow\bar{\mathsf Y}$ be a Markov kernel that does not depend on
+$\lambda$ and satisfies $K(y,\bar{\mathsf Y})=1$ for every $y$.  Under the joint law
+$P_{\lambda_0}\otimes K$, the coarse family $\{P_\lambda K\}$ is differentiable in
+quadratic mean at $\lambda_0$ with score
+\begin{equation}
+\bar{\mathbf s}_{\lambda_0}(\bar Y)
+=\E\left[\mathbf s_{\lambda_0}(Y)\mid\bar Y\right]
+\quad P_{\lambda_0}K\text{-almost surely},
+\label{eq:cg-score-projection}
+\end{equation}
+and its Fisher information obeys
+\begin{equation}
+\mathsf I_{\bar{\mathsf Y}}(\lambda_0)\preceq\mathsf I_{\mathsf Y}(\lambda_0),
+\qquad
+\mathsf I_{\mathsf Y}(\lambda_0)-\mathsf I_{\bar{\mathsf Y}}(\lambda_0)
+=\E\operatorname{Cov}\left(\mathbf s_{\lambda_0}(Y)\mid\bar Y\right)\succeq0.
+\label{eq:cg-fisher-loss}
+\end{equation}
+Equality in a direction $z\in\R^d$ holds exactly when $z^\top\mathbf s_{\lambda_0}(Y)$
+is $\bar Y$-measurable.  No common dominating measure is assumed.
+\status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-fiber-geometry}.
+
+\remarkheading{Fisher equality is not recovery}{rem:cg-fisher-equality-not-recovery}
+Equality in \eqref{eq:cg-fisher-loss} at one parameter value is local score
+sufficiency, not recovery of the experiment.  Let $Y=(Y_1,Y_2)$ have independent
+Bernoulli coordinates with success probabilities $\tfrac12+\tfrac\lambda4$ and
+$\tfrac12+\tfrac{\lambda^2}4$, and let $K$ discard $Y_2$.  At $\lambda=0$ the score of
+$Y_2$ vanishes, so the fine and coarse Fisher informations both equal $\tfrac14$, yet no
+parameter-independent kernel $K'$ satisfies $(P_\lambda K)K'=P_\lambda$ for every
+$\lambda$ in a neighborhood of zero: applying any fixed $K'$ to the
+Bernoulli law $P_\lambda K$ makes every output event probability affine in
+$\lambda$, whereas the required output event $Y_2=1$ has probability
+$\tfrac12+\tfrac{\lambda^2}4$.  \citet{KaganShepp2005} give an insufficient statistic that
+preserves Fisher information at every parameter value, and
+\citet[Theorem~7]{Pollard2013} explains such examples by the criterion of
+\cref{thm:cg-fisher-contraction}: preservation at $\lambda$ holds exactly when the score
+is almost surely a function of the statistic.  \status{ESTABLISHED}
+
+At $c_*$ the theorem applies to maps between fibers, for instance from the joint fiber
+of a block of agents to the fiber of their meta-agent.
+
+\definitionheading{Markov coarse morphism and its vertical defects}{hyp:pb-markov-morphism}
+Let $\bar{\mathcal B}_x$ be a second law fiber in channel $x$, with represented action
+$\widehat{\bar\rho}_x$ of $G$, associated bundle $\bar{\mathcal E}_x$, and frame maps
+$\bar\iota_u$.  A Markov coarse morphism in channel $x$ at $c_*$ is a map
+$\mathscr K:(\mathcal E_x)_{c_*}\to(\bar{\mathcal E}_x)_{c_*}$ with
+$\bar\iota_u^{-1}\circ\mathscr K\circ\iota_u=K_\star|_{\mathcal B_x}$ for one, and hence
+every, frame $u$, where $K:\mathsf Y_x\rightsquigarrow\bar{\mathsf Y}_x$ is a Markov
+kernel that does not depend on the law parameter, satisfies $K(y,\bar{\mathsf Y}_x)=1$
+for every $y$, maps $\mathcal B_x$ smoothly into $\bar{\mathcal B}_x$, and is
+equivariant, $K_\star\circ\widehat\rho_x(g)=\widehat{\bar\rho}_x(g)\circ K_\star$ for
+every $g$; no common dominating measure is assumed.  The vertical Fisher defect and the
+Amari defect of $\mathscr K$ are
+\begin{align}
+\Delta_F^{\mathscr K}
+&=g^F_x-(T\mathscr K)^*\bar g^F_x,
+\label{eq:pb-vertical-fisher-defect}\\
+\Delta_T^{\mathscr K}
+&=T^F_x-(T\mathscr K)^*\bar T^F_x.
+\label{eq:pb-amari-defect}
+\end{align}
+Equivariance makes the frame representative independent of $u$, since
+$\bar\iota_{u\cdot g}^{-1}\mathscr K\iota_{u\cdot g}
+=\widehat{\bar\rho}_x(g)^{-1}K_\star\widehat\rho_x(g)$, and by
+\cref{prop:pb-statistical-tensor-descent} both defects are tensors on
+$(\mathcal E_x)_{c_*}$.
+
+Restriction to a submodel, precomposition of an energy with a map, a kernel that depends
+on the law parameter, a fitted coarse approximation, and a comparison across a mismatch
+of generative and recognition parameters are Markov coarse morphisms, and fall under the
+results below, only when one kernel that realizes them is exhibited, along the whole history when histories are
+compared.  One kernel serves every law on one fixed-precision fiber of a Gaussian
+family; Supplement~G shows that Gaussian Galerkin aggregation has this form on each
+fixed-precision fiber and no such form across precisions.
+
+\corollaryheading{Vertical Fisher defect}{thm:pb-pullback-fisher-defect}
+For a Markov coarse morphism $\mathscr K$ and every tangent vector $Z$ at $p$, under the
+joint law $p\otimes K$,
+\begin{align}
+&\Delta_F^{\mathscr K}\succeq0,
+\label{eq:pb-fisher-defect-positive}\\
+&\Delta_F^{\mathscr K}(Z,Z)
+=\E\operatorname{Var}\left(\mathbf s_Z(Y)\mid\bar Y\right),
+\label{eq:pb-fisher-defect-score-variance}
+\end{align}
+and $\Delta_F^{\mathscr K}(Z,Z)=0$ exactly when $\mathbf s_Z(Y)$ is $\bar Y$-measurable.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+In a frame $\mathscr K$ is $K_\star$.  For a smooth curve $p_t$ in $\mathcal B_x$ with
+velocity $Z$ at $p$, \cref{thm:cg-fisher-contraction} gives the image curve
+$K_\star p_t$ the score $\E[\mathbf s_Z(Y)\mid\bar Y]$, which by uniqueness of the
+quadratic-mean score is the score of $\bar{\mathcal B}_x$ in the direction $TK_\star Z$,
+with second moment $\bar g^F_x(TK_\star Z,TK_\star Z)$; the defect identity \eqref{eq:cg-fisher-loss} for this one-parameter family is
+\eqref{eq:pb-fisher-defect-score-variance}, with the stated equality clause.  $\square$
+
+\theoremheading{Vertical Fisher defect cocycle}{thm:pb-fisher-defect-cocycle}
+Let $\mathscr K_{01}:(\mathcal E_0)_{c_*}\to(\mathcal E_1)_{c_*}$ and
+$\mathscr K_{12}:(\mathcal E_1)_{c_*}\to(\mathcal E_2)_{c_*}$ be smooth maps between
+fibers carrying Fisher tensors $g^F_0,g^F_1,g^F_2$.  Then, unconditionally,
+\begin{equation}
+\Delta_F^{\mathscr K_{12}\circ\mathscr K_{01}}
+=\Delta_F^{\mathscr K_{01}}
++(T\mathscr K_{01})^*\Delta_F^{\mathscr K_{12}},
+\label{eq:pb-fisher-defect-cocycle}
+\end{equation}
+and the Amari defects obey the same identity.  If both maps are Markov coarse morphisms,
+both terms of \eqref{eq:pb-fisher-defect-cocycle} are positive semidefinite.  No nonzero
+Amari defect is sign definite, since
+$\Delta_T^{\mathscr K}(-Z,-Z,-Z)=-\Delta_T^{\mathscr K}(Z,Z,Z)$; Markov coarse-graining
+therefore gives no monotonicity for $T^F$, and $\Delta_T^{\mathscr K}=0$ is an additional
+property of $\mathscr K$.  \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Contravariance of pullback gives
+$\Delta_F^{\mathscr K_{12}\circ\mathscr K_{01}}
+=g_0^F-(T\mathscr K_{01})^*g_1^F+(T\mathscr K_{01})^*[g_1^F-(T\mathscr K_{12})^*g_2^F]$,
+which is \eqref{eq:pb-fisher-defect-cocycle}, and the same computation applies to $T^F$.
+Positivity is \cref{thm:pb-pullback-fisher-defect} for each Markov arrow, and oddness is
+homogeneity of degree three.  $\square$
+
+\section{Configuration manifolds and the exact free-energy lift}
+\label{sec:hist-vfe-orbit-selection}
+
+\definitionheading{Configuration manifold at $c_*$}{def:hist-configuration-manifold}
+The configuration manifold $\mathcal Q_i$ of agent $i$ at $c_*$ is the product
+$(\mathcal E_b)_{c_*}\times(\mathcal E_m)_{c_*}$ of its belief and model law fibers,
+identified with $\mathcal B_b\times\mathcal B_m$ through its frame $u_i$, or an embedded
+submanifold of that product (a regular submodel), with points $Q_i=(q_i^b,q_i^m)$.  The
+collective configuration manifold is $\mathcal Q_V=\prod_{i\in V}\mathcal Q_i$, extended
+by further coordinate manifolds, such as open simplices of attention rows, when those
+coordinates move.  A configuration manifold carries a metric $\mathsf G$ that must be
+specified.  The channel-weighted metric of agent $i$ is
+$\mathsf G_i=w_bg^F_b\oplus w_mg^F_m$ with positive weights, under which a $C^1$ curve
+$Q_i(t)$ has squared speed
+\begin{equation}
+\lVert\dot Q_i\rVert_{\mathsf G_i}^2
+=w_bg^F_b(\dot q_i^b,\dot q_i^b)+w_mg^F_m(\dot q_i^m,\dot q_i^m);
+\label{eq:hist-pointwise-clock-speed}
+\end{equation}
+on $\mathcal Q_V$ the metric is either block diagonal, $\bigoplus_i\mathsf G_i$, or the
+pullback of a joint Fisher metric along an exact lift (\cref{hyp:hist-exact-vfe-lift}).
+
+These metrics are frame independent by \cref{prop:pb-statistical-tensor-descent}; their
+base-direction version is in Supplement~B.
+
+\theoremheading{Fisher radical and quotient of a pulled-back tensor}{thm:hist-retained-fisher-quotient}
+Let $\operatorname{ret}:\mathcal Q\to\mathcal Q'$ be a smooth map of finite-dimensional
+manifolds, $g$ a positive-semidefinite symmetric tensor on $\mathcal Q'$, and
+$h=\operatorname{ret}^*g$.  Then
+\begin{equation}
+\operatorname{rad}h_Q
+=(d\operatorname{ret}_Q)^{-1}\left(\operatorname{rad}g_{\operatorname{ret}(Q)}\right),
+\label{eq:hist-cds-fisher-radical}
+\end{equation}
+so $\operatorname{rad}h_Q=\ker d\operatorname{ret}_Q$ exactly when
+$\operatorname{im}d\operatorname{ret}_Q\cap\operatorname{rad}g_{\operatorname{ret}(Q)}
+=\{0\}$.  Where $\operatorname{rad}h$ has constant rank and $h$ is $C^1$,
+$\operatorname{rad}h$ is a $C^1$ subbundle and $h$ induces a positive-definite form on
+the quotient bundle $T\mathcal Q/\operatorname{rad}h$.  A quotient manifold additionally
+requires the null leaves to form a Hausdorff manifold leaf space; when
+$\operatorname{rad}h=\ker d\operatorname{ret}$ and the connected leaves form such a space
+$\mathcal Q/{\sim}$ with quotient projection a smooth submersion, $h$ is the pullback of a positive-definite tensor on
+$\mathcal Q/{\sim}$.  For a positive $C^3$ family on a finite set, with
+$\operatorname{ret}$ the law map into the open simplex and $g$ its Fisher metric, $h$ is
+the Fisher tensor of the family, of class $C^2$, positive definite exactly where
+$\operatorname{ret}$ is an immersion, and there $\operatorname{ret}$ is locally
+injective and $h$ has a $C^1$ Levi-Civita connection.  For softmax logits $z\in\R^k$
+with $p=\operatorname{softmax}(z)$, $h(z)=\operatorname{diag}(p)-pp^\top$ has radical
+$\R\mathbf 1$ at every $z$, and for an objective that depends on $z$ only through $p$
+the solutions $Z$ of $hZ=\nabla\Fenergy$ form one class $Z_0+\R\mathbf 1$, whose
+Moore--Penrose representative $h^+\nabla\Fenergy$ is Euclidean-orthogonal to
+$\mathbf 1$.  \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-fiber-geometry}.
+
+\openproblemheading{Global Fisher quotients and canonical block data}{open:hist-retained-fisher-quotient}
+\Cref{thm:hist-retained-fisher-quotient} gives a positive-definite quotient bundle on
+every constant-rank stratum and a quotient manifold once a Hausdorff leaf space is
+supplied, and \cref{prop:hist-law-fisher-agentization-nogo} shows that the law and its
+Fisher tensor alone select no splitting into agent blocks.  Open are a criterion,
+checkable on the configuration manifolds of this chapter, under which the null foliation
+of a pulled-back Fisher tensor has a Hausdorff manifold leaf space, and block data on
+that quotient determined by a stated typing of agents and channels.  Such a criterion
+with a proof, for instance exhibiting the leaves as the orbits of a free and proper group
+action, together with a construction of natural block data from the typing or a
+counterexample showing that the typing does not determine it, settles the problem.
+
+\hypothesisheading{Standing configuration tier}{hyp:hist-standing-configuration-tier}
+\label{hyp:hist-regular-metric-domain}%
+Wherever this chapter asserts a natural-gradient vector field or a Fisher duration on a
+configuration manifold $\mathcal Q$, either $\mathcal Q$ is a finite-dimensional
+configuration manifold as in \cref{def:hist-configuration-manifold}, a finite product of
+regular statistical manifolds or an embedded submodel of one, with a $C^1$
+positive-definite metric $\mathsf G$, or $\mathcal Q$ is the quotient of such a manifold
+by the null leaves of a $C^1$ positive-semidefinite Fisher tensor of constant rank with a
+Hausdorff manifold leaf space, as in \cref{thm:hist-retained-fisher-quotient}, and the
+objective is constant on those leaves.  The objective $\Fenergy$ is $C^2$, and every
+minimal regular exponential family with its Fisher metric is an instance.  The hypothesis
+excludes spaces of sections over a base, which belong to Supplement~B, semidefinite
+metrics without a constructed quotient, and configuration metrics called exact joint-law
+Fisher metrics without the lift of \cref{hyp:hist-exact-vfe-lift}.
+
+\definitionheading{Exact multi-agent free-energy lift}{hyp:hist-exact-vfe-lift}
+Fix a block $B$ of latent coordinates, an outside recognition marginal
+$\mathbb Q_{B^c}$, and a manifold $\mathscr R_B$ of admissible conditional recognition
+kernels $r_B(dy_B\given y_{B^c})$.  An exact lift of the configuration manifold
+$\mathcal Q_i$ consists of a smooth extraction map
+$\operatorname{ext}_i:\mathscr R_B\to\mathcal Q_i$ and a smooth right inverse
+$\iota_i:\mathcal Q_i\to\mathscr R_B$, $Q_i\mapsto r_B^{Q_i}$,
+$\operatorname{ext}_i\circ\iota_i=\operatorname{id}_{\mathcal Q_i}$, such that, for every
+$Q_i$, the support, finiteness, and integrability hypotheses of
+\cref{thm:obs-local-multiagent-elbo,thm:obs-local-global-potential} hold for
+$\mathbb Q_{B^c}r_B^{Q_i}$, the lifted family is $C^2$, and for every chart
+$\operatorname{ch}$ of $\mathcal Q_i$ with coordinates $\lambda$ and every compact set
+$\mathsf C$ in its image there is $\mathrm e_{\mathsf C}\in L^1(\mathbb Q_{B^c})$ with,
+for jointly measurable versions of the derivatives,
+\begin{equation}
+\sup_{\lambda\in\mathsf C}
+\bigl|\partial_\lambda^\alpha\Fenergy^{\rm ext}_{B,o}
+(r_B^{\operatorname{ch}^{-1}(\lambda)};y_{B^c})\bigr|
+\leq\mathrm e_{\mathsf C}(y_{B^c})
+\quad\text{for }\mathbb Q_{B^c}\text{-almost every }y_{B^c}
+\text{ and }|\alpha|\leq2.
+\label{eq:hist-chartwise-vfe-envelope}
+\end{equation}
+The lifted objective is the outside-averaged local free energy
+\begin{equation}
+\overline{\Fenergy}_{B,o}(Q_i)
+=\E_{\mathbb Q_{B^c}}\left[\Fenergy^{\rm ext}_{B,o}\left(r_B^{Q_i};Y_{B^c}\right)\right],
+\label{eq:hist-outside-averaged-local-vfe}
+\end{equation}
+a history of it is an exact free-energy history, and the exact recognition Fisher metric
+of $\mathcal Q_i$ is $\mathsf G_i=\iota_i^*\mathsf G_{\mathscr R_B}$ on a nondegenerate
+stratum, or its quotient as in \cref{thm:hist-retained-fisher-quotient}.
+
+The lift carries every correlation that the configuration does not determine, and
+$\operatorname{ext}_i\circ\iota_i=\operatorname{id}$ makes it a lift rather than a family
+of laws indexed by configurations.  With the outside marginal held fixed,
+\eqref{eq:hist-outside-averaged-local-vfe} differs from the collective free energy along
+$Q_i\mapsto\mathbb Q_{B^c}r_B^{Q_i}$ by a term independent of $Q_i$
+(\cref{thm:obs-local-global-potential}), so the two have the same differential and, for
+one metric, the same natural-gradient ray.
+
+\propositionheading{Joint-versus-weighted-marginal score residual and lift dependence}{prop:hist-general-score-residual}
+Let $P_\lambda$ be a regular dominated family of joint laws of blocks
+$(Y_1,\dots,Y_n)$ with square-integrable joint score
+$\mathbf s=\nabla_\lambda\log p_\lambda(Y)$, embedded marginal scores
+$\mathbf s_i=\E[\mathbf s\mid Y_i]$, and scalar weights $w_i$, and define
+\begin{align}
+\mathsf G_{\mathrm J}&=\E[\mathbf s\mathbf s^\top],
+&\mathsf G_i&=\E[\mathbf s_i\mathbf s_i^\top],
+&\mathsf G_w&=\sum_iw_i\mathsf G_i,
+\label{eq:hist-score-metrics}\\
+\mathbf r&=\mathbf s-\sum_i\mathbf s_i,
+&\mathfrak K&=\E[\mathbf r\mathbf r^\top],
+&\mathfrak C&=\sum_{i\ne j}\E[\mathbf s_i\mathbf s_j^\top].
+\label{eq:hist-score-residual-tensors}
+\end{align}
+The cross tensor $\mathfrak C$ is symmetric and can be indefinite,
+\begin{equation}
+\mathsf G_{\mathrm J}-\mathsf G_w
+=\mathfrak K-\mathfrak C+\sum_i(1-w_i)\mathsf G_i,
+\label{eq:hist-joint-weighted-marginal-residual}
+\end{equation}
+and on a tangent subspace $\mathcal T$, $\mathsf G_{\mathrm J}=\mathsf G_w$ holds exactly
+when the right side of \eqref{eq:hist-joint-weighted-marginal-residual} vanishes on
+$\mathcal T\times\mathcal T$.  For two blocks and unit weights, in a direction $Z$ with
+scores $\mathbf s_Z=Z^\top\mathbf s$ and $\mathbf s_{i,Z}=Z^\top\mathbf s_i$,
+\begin{equation}
+\lVert\mathbf s_Z\rVert^2
+-\lVert\mathbf s_{1,Z}\rVert^2-\lVert\mathbf s_{2,Z}\rVert^2
+=\lVert\mathbf s_Z-\mathbf s_{1,Z}-\mathbf s_{2,Z}\rVert^2
+-2\langle\mathbf s_{1,Z},\mathbf s_{2,Z}\rangle,
+\label{eq:hist-joint-versus-product}
+\end{equation}
+whose first term is nonnegative and whose second is signed.  If the two blocks are
+independent under every $P_\lambda$, then $\mathsf G_{\mathrm J}=\mathsf G_1+\mathsf G_2$,
+and $\mathsf G_{\mathrm J}=w_1\mathsf G_1+w_2\mathsf G_2$ forces $w_1=1$ as soon as some
+direction has $\mathsf G_1(Z,Z)>0=\mathsf G_2(Z,Z)$, and symmetrically for $w_2$.  No
+Loewner order between $\mathsf G_{\mathrm J}$ and $\mathsf G_1+\mathsf G_2$ holds in
+general: for the bivariate normal location family with precision
+$\begin{psmallmatrix}1&\mathrm c\\\mathrm c&1\end{psmallmatrix}$ and $0<\mathrm c<1$, the
+difference is
+$\begin{psmallmatrix}\mathrm c^2&\mathrm c\\\mathrm c&\mathrm c^2\end{psmallmatrix}$, with
+value $2\mathrm c(1+\mathrm c)>0$ along $(1,1)$ and $2\mathrm c(\mathrm c-1)<0$ along
+$(1,-1)$.  Distinct right inverses of one extraction map can induce distinct pullback
+metrics: for $\mathcal N((\lambda_1,\lambda_2),\mathrm I_2)$, with Fisher metric
+$d\lambda_1^2+d\lambda_2^2$, and the extraction $(\lambda_1,\lambda_2)\mapsto\lambda_1$,
+the lifts $\lambda_1\mapsto(\lambda_1,0)$ and $\lambda_1\mapsto(\lambda_1,1)$ induce
+$d\lambda_1^2$, whereas $\lambda_1\mapsto(\lambda_1,\lambda_1)$ induces $2d\lambda_1^2$.
+\status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-fiber-geometry}.
+
+\subsection{Canonicity boundary of the lift}
+\label{sec:hist-canonical-dependence-selection}
+
+A lift supplies the dependence that the marginal configurations do not determine.  The
+following finite results show that naturality under local kernels forces the product
+law and that admitting correlated refinements leaves no natural selector.
+
+\definitionheading{Finite marginal selection problem}{def:hist-finite-marginal-selection}
+For a finite nonempty typed list $\mathcal X=(\mathcal X_i)_{i=1}^n$ of finite sets, let
+$\mathcal J_{\mathcal X}=\Delta(\prod_i\mathcal X_i)$,
+$\mathcal J^1_{\mathcal X}=\prod_i\Delta(\mathcal X_i)$, and
+$\operatorname{mar}_{\mathcal X}:\mathcal J_{\mathcal X}\to\mathcal J^1_{\mathcal X}$ the
+map that extracts the one-coordinate marginals.  A selector is a map
+$\operatorname{sel}_{\mathcal X}:\mathcal J^1_{\mathcal X}\to\mathcal J_{\mathcal X}$ with
+$\operatorname{mar}_{\mathcal X}\circ\operatorname{sel}_{\mathcal X}=\operatorname{id}$.
+A local morphism is a tensor product $K=\bigotimes_iK_i$ of finite Markov kernels of the
+same arity, and a kernel $K:\prod_i\mathcal X_i\rightsquigarrow\prod_j\mathcal Y_j$ that
+changes arity is marginal compatible when
+$\operatorname{mar}_{\mathcal Y}K_\star=\bar K\operatorname{mar}_{\mathcal X}$ for some
+map $\bar K:\mathcal J^1_{\mathcal X}\to\mathcal J^1_{\mathcal Y}$.  A family of
+selectors is natural on a class of morphisms when
+$K_\star\operatorname{sel}_{\mathcal X}=\operatorname{sel}_{\mathcal Y}\bar K$ for every
+morphism in the class; the class is part of the data, and not every finite kernel is
+admitted.
+
+\theoremheading{Tensor-local naturality selects the product law}{thm:hist-local-markov-product-uniqueness}
+\label{cor:hist-maximal-product-preserving-category}%
+If a family of selectors is natural under every local morphism, then
+$\operatorname{sel}_{\mathcal X}(\mu_1,\ldots,\mu_n)=\bigotimes_{i=1}^n\mu_i$.  Among
+classes of marginal-compatible kernels that contain every local morphism, a natural
+selector exists exactly when every admitted kernel sends product laws to the product of
+their image marginals, and then it is the product selector; the product-preserving
+marginal-compatible kernels therefore form the largest such class.  \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+For each $i$ let the kernel from a one-point set send its point to $\mu_i$.  Their
+tensor product sends the unique law on the one-point product to $\bigotimes_i\mu_i$,
+while the induced marginal map sends the unique marginal tuple to $(\mu_i)_i$, so
+naturality forces the product selector.  With it forced, naturality for an added kernel
+says exactly that it sends each product law to the product of its image marginals.
+$\square$
+
+\theoremheading{Admitted correlated refinements refute an absolute selector}{thm:hist-correlated-refinement-nogo}
+For a source bit $y$ and target bits $(y',y'')$, admit the split kernels
+$K^{\mathrm{split}}_{\mathrm c}(y',y''\mid y)=\mathbf 1_{\{y'=y\}}(1+\mathrm c)/2$ if
+$y''=y$ and $\mathbf 1_{\{y'=y\}}(1-\mathrm c)/2$ if $y''\ne y$, for
+$\mathrm c\in\{1/3,1/2\}$.  Both are marginal compatible, and no single-valued selector
+is natural under both; the argument uses no local naturality.  In particular
+marginalization is not injective on positive laws, so no selector returns every joint
+law from its marginals.  \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The two kernels push the fair source law to laws with fair marginals and atom multisets
+$\{1/3,1/3,1/6,1/6\}$ and $\{3/8,3/8,1/8,1/8\}$.  Naturality would require the value of
+the target selector at the fair marginal pair to equal both laws, which differ even after
+relabeling, and the two positive laws share their marginals.  $\square$
+
+Selection relative to a positive reference law is a different problem. A
+finite-relative-entropy minimizer over a convex family of moment-constrained laws,
+when it exists, is unique by strict convexity of relative entropy. Both that minimizer
+and, for a deterministic coarse map, the reference conditional completion of a
+prescribed coarse marginal (\cref{lem:prob-kl-chain-rule}) depend on the reference
+law as additional data.
+
+\section{A finite correlated lift: the parity witness}
+\label{sec:hist-finite-parity-lift}
+
+\definitionheading{Three-agent parity lift}{def:hist-three-agent-parity-lift}
+Let $\mathcal I_6=\{1,2,3\}\times\{b,m\}$, $y=(y_{i,x})\in\{0,1\}^{\mathcal I_6}$, and
+$\lambda=(\lambda_{i,x})\in(0,1)^{\mathcal I_6}$, where typed agent permutations preserve
+the channel label, and set
+\begin{align}
+&p_0(y;\lambda)
+=\prod_{(i,x)}\lambda_{i,x}^{y_{i,x}}(1-\lambda_{i,x})^{1-y_{i,x}},
+\qquad
+\mathrm D(\lambda)=\prod_{(i,x)}\lambda_{i,x}(1-\lambda_{i,x}),
+\label{eq:hist-parity-product-and-amplitude}\\
+&p_\varkappa(y;\lambda)=p_0(y;\lambda)+\varkappa\operatorname{par}(y)\mathrm D(\lambda),
+\qquad
+\operatorname{par}(y)=(-1)^{\sum_{(i,x)}y_{i,x}},
+\qquad|\varkappa|<1.
+\label{eq:hist-parity-lift-law}
+\end{align}
+The map $\iota_\varkappa:(0,1)^6\to\Delta^\circ_{63}$ sends $\lambda$ to
+$p_\varkappa(\cdot;\lambda)$.  The parity amplitude $\varkappa$ is fixed data of the
+lift, not an inferred coordinate, and its hyperedge correlation is
+$\bar\varkappa=\varkappa/64$.
+
+\theoremheading{Positive smooth lift with paired relabeling symmetry}{thm:hist-three-agent-parity-lift}
+For every $|\varkappa|<1$, the law \eqref{eq:hist-parity-lift-law} is strictly positive
+and normalized, and every proper marginal is the corresponding marginal of $p_0$.
+Consequently $\iota_\varkappa$ is a smooth right inverse of the map that extracts the six
+one-bit marginals, and it is an immersion.  For each marginal tuple $\lambda$, the
+positive laws with those marginals form a $57$-dimensional set, of which varying
+$\varkappa$ traces one line.  Let $H_{\mathrm{pair}}=(\mathbb Z_2)^3\rtimes S_3$ act by
+complementing both bits of a selected agent and by typed agent permutations, and act on
+$\lambda$ by the same complements and permutations.  Then
+\begin{equation}
+\iota_\varkappa(g\lambda)=g_\#\iota_\varkappa(\lambda)
+\qquad\text{for every }g\in H_{\mathrm{pair}},
+\label{eq:hist-parity-paired-equivariance}
+\end{equation}
+whereas the complement $F_{i,x}$ of one bit satisfies
+\begin{equation}
+(F_{i,x})_\#p_\varkappa(\cdot;\lambda)=p_{-\varkappa}(\cdot;F_{i,x}\lambda).
+\label{eq:hist-parity-odd-pseudoscalar}
+\end{equation}
+Odd complements are therefore equivariant only if $\varkappa$ changes sign with them, or
+if $\varkappa=0$.  \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-fiber-geometry}.
+
+\corollaryheading{Agent-block local--global free-energy identity}{cor:hist-parity-agent-block-vfe}
+Fix an agent block $B_i=\{(i,b),(i,m)\}$ and the four outside parameters
+$\lambda_{B_i^c}$, and let $r_{i,\lambda_{B_i}}=p_\varkappa(y;\lambda)/p_{0,B_i^c}
+(y_{B_i^c};\lambda_{B_i^c})$ be the conditional law of $y_{B_i}$ given $y_{B_i^c}$.  For
+any interior block
+parameters $\lambda_{B_i}$ and $\lambda'_{B_i}$ and any strictly positive posterior
+$\boldsymbol\Pi_o$ on the Boolean cube, all relative entropies are finite, and for every
+block tangent $Z$
+\begin{align}
+&\Fenergy_o^{\rm ext}\bigl(p_\varkappa(\cdot;\lambda'_{B_i},\lambda_{B_i^c})\bigr)
+-\Fenergy_o^{\rm ext}\bigl(p_\varkappa(\cdot;\lambda_{B_i},\lambda_{B_i^c})\bigr)
+\notag\\
+&\qquad=\E_{p_{0,B_i^c}}\bigl[
+\Fenergy_{B_i,o}^{\rm ext}(r_{i,\lambda'_{B_i}};Y_{B_i^c})
+-\Fenergy_{B_i,o}^{\rm ext}(r_{i,\lambda_{B_i}};Y_{B_i^c})\bigr],
+\label{eq:hist-parity-agent-local-global-vfe}\\
+&d\Fenergy_o^{\rm ext}[Z]
+=\E_{p_{0,B_i^c}}\bigl[d\Fenergy_{B_i,o}^{\rm ext}[Z]\bigr],
+\label{eq:hist-parity-agent-local-global-differential}
+\end{align}
+with both differentials evaluated at the same lifted conditional law.  The
+outside-averaged block free energy is thus the restriction of one collective free energy
+up to a constant.  \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+By \cref{thm:hist-three-agent-parity-lift} the outside marginal is exactly
+$p_{0,B_i^c}$, independent of $\lambda_{B_i}$, and strict positivity makes
+$r_{i,\lambda_{B_i}}$ a positive conditional law.  The finite state space and the
+positive posterior make every relative entropy finite, so
+\eqref{eq:hist-parity-agent-local-global-vfe} is \cref{thm:obs-local-global-potential}
+with this outside marginal, and differentiating the finite smooth identity gives
+\eqref{eq:hist-parity-agent-local-global-differential}.  $\square$
+
+\corollaryheading{Parity-family Fisher residual}{cor:hist-parity-fisher-residual}
+For the family of \cref{def:hist-three-agent-parity-lift}, every pair of bits is
+independent, so $\mathfrak C=0$, and with unit weights
+$\mathsf G_{\mathrm J}-\sum_{(i,x)\in\mathcal I_6}\mathsf G_{i,x}=\mathfrak K\succ0$ when
+$\varkappa\ne0$.  At $\lambda=\tfrac12\mathbf 1$, and there with $\varkappa=\tfrac12$,
+\begin{align}
+\mathsf G_{\mathrm J}=\frac{4}{1-\bar\varkappa^2}\mathrm I_6,
+\qquad
+\mathsf G_{\mathrm J}-\sum_{(i,x)\in\mathcal I_6}\mathsf G_{i,x}
+&=\frac{4\bar\varkappa^2}{1-\bar\varkappa^2}\mathrm I_6,
+\label{eq:hist-parity-center-fisher}\\
+\mathsf G_{\mathrm J}=\frac{65536}{16383}\mathrm I_6,
+\qquad
+\mathsf G_{\mathrm J}-\sum_{(i,x)\in\mathcal I_6}\mathsf G_{i,x}
+&=\frac{4}{16383}\mathrm I_6,
+\label{eq:hist-parity-half-fisher-residual}
+\end{align}
+and at the center a weighted marginal metric equals the joint one on the full tangent
+space exactly when
+\begin{equation}
+w_{i,x}=\frac{1}{1-\bar\varkappa^2}
+\qquad\text{for every }(i,x)\in\mathcal I_6,
+\label{eq:hist-parity-center-weight-equality}
+\end{equation}
+so unit weights are exact only at $\varkappa=0$.  Since the one-bit marginal families do not depend on $\varkappa$, no
+rule that reads only them returns every joint Fisher tensor.  \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-fiber-geometry}.
+
+\corollaryheading{Promoted parity has one hidden direction}{cor:hist-promoted-parity-rank}
+For the seven-parameter family $(\lambda,\varkappa)\mapsto p_\varkappa(\cdot;\lambda)$ on
+$(0,1)^6\times(-1,1)$, the derivative of the joint law has rank seven everywhere, while
+the one-bit marginal map has rank six and
+\begin{equation}
+\ker d\left(\operatorname{mar}\circ p\right)=\operatorname{span}\{\partial_\varkappa\}.
+\label{eq:hist-cds-promoted-parity-kernel}
+\end{equation}
+Thus $\varkappa$ is identifiable from the joint law and invisible to the one-bit
+marginals.  \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The one-bit success probabilities are exactly $\lambda$, so a vanishing joint derivative
+has zero $\lambda$-component, and the remaining derivative is a multiple of
+$\partial_\varkappa p_\varkappa=\operatorname{par}\mathrm D$, which is nowhere zero on the
+open domain; hence the joint derivative is injective.  The same identity gives rank six
+for the marginal map and \eqref{eq:hist-cds-promoted-parity-kernel}.  $\square$
+
+At the center $\lambda=\tfrac12\mathbf 1$, where $\mathrm D=4^{-6}$, the lift
+\eqref{eq:hist-parity-lift-law} is
+\begin{equation}
+p_\varkappa\bigl(y;\tfrac12\mathbf 1\bigr)
+=\tfrac1{64}\left(1+\bar\varkappa\operatorname{par}(y)\right).
+\label{eq:hist-parity-center-law}
+\end{equation}
+
+\definitionheading{Three-agent parity hyperedge}{def:hist-parity-hyperedge}
+At the center \eqref{eq:hist-parity-center-law}, take the uniform latent prior
+$\operatorname{Unif}(y)=1/64$ and the binary record kernel
+\begin{equation}
+K_{\mathrm{hyp}}(1\given y)=\tfrac12\left(1+\bar\varkappa\operatorname{par}(y)\right),
+\qquad
+K_{\mathrm{hyp}}(0\given y)=\tfrac12\left(1-\bar\varkappa\operatorname{par}(y)\right).
+\label{eq:hist-parity-hyperedge-kernel}
+\end{equation}
+
+\propositionheading{Exact posterior and tight free energy for the hyperedge}{prop:hist-parity-hyperedge-vfe}
+The record $o=1$ has evidence $\tfrac12$, and its posterior is exactly
+$p_\varkappa(\cdot;\tfrac12\mathbf 1)$.  For the free energy
+$\Fenergy_1(Q)=\KL(Q\Vert\operatorname{Unif})-\E_Q\log K_{\mathrm{hyp}}(1\given Y)$ the
+posterior attains the tight value $\Fenergy_1=\log2$, the product law of its one-bit
+marginals is $\operatorname{Unif}$, and
+\begin{equation}
+\Fenergy_1(\operatorname{Unif})-\log2=-\tfrac12\log(1-\bar\varkappa^2).
+\label{eq:hist-parity-product-lift-excess}
+\end{equation}
+Consequently, when $\varkappa\ne0$, no function of the one-bit marginals of the
+recognition law, the one-bit marginals of the posterior, and the evidence equals the free
+energy on every recognition law.  \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-fiber-geometry}.
+
+\openproblemheading{Scope beyond the finite parity witness}{open:hist-parity-lift-scope}
+\Cref{thm:hist-three-agent-parity-lift} gives one smooth correlated right inverse of the
+one-bit marginal map, equivariant under paired complements and typed permutations, and
+\cref{thm:hist-correlated-refinement-nogo} refutes an absolute selector on the admitted
+split kernels, so that question is closed.  Open are the existence, for a stated regular
+family of agent laws and a stated class of morphisms that contains
+non-product-preserving kernels, of a smooth right inverse natural under that class, and
+the existence of correlated lifts equivariant under a connected structure group acting on
+continuous law fibers.  A construction with proof for a stated family and class, or a
+no-go theorem for it, settles each part.
+
+\section{Natural-gradient orbits}
+\label{sec:hist-natural-gradient-oriented-orbit}
+
+\definitionheading{Oriented unparameterized history and natural-gradient history}{def:hist-oriented-history}
+A representative of a history in a configuration manifold $\mathcal Q$ is a $C^1$ curve
+$Q:\mathcal T\to\mathcal Q$ on an open interval with nowhere-vanishing velocity, and two
+representatives define the same oriented history when
+\begin{equation}
+\widetilde Q=Q\circ\phi,
+\qquad
+\phi:\widetilde{\mathcal T}\longrightarrow\mathcal T
+\text{ an orientation-preserving $C^1$ diffeomorphism}.
+\label{eq:hist-oriented-reparameterization-equivalence}
+\end{equation}
+The resulting abstract oriented curve $\mathscr H$ comes with its traversal map
+$\jmath:\mathscr H\to\mathcal Q$, which retains order and multiplicity; for an embedded
+representative $\mathscr H$ is its oriented image.  Under
+\cref{hyp:hist-standing-configuration-tier} the natural gradient of $\Fenergy$ is defined
+by the first line below, the descent ray at a noncritical $Q$ is
+$\mathcal R^-_{\Fenergy}(Q)=\{-\mathsf a\operatorname{grad}^{\mathsf G}\Fenergy(Q):\mathsf
+a>0\}$, and a natural-gradient history is an oriented history whose representatives
+satisfy the second:
+\begin{align}
+\mathsf G\bigl(\operatorname{grad}^{\mathsf G}\Fenergy,Z\bigr)
+&=d\Fenergy[Z]
+\quad\text{for every }Z\in T\mathcal Q,
+\label{eq:hist-fisher-gradient-definition}\\
+\dot Q(t)
+&=-\mathsf a(t)\operatorname{grad}^{\mathsf G}\Fenergy(Q(t)),
+\qquad \mathsf a(t)>0 .
+\label{eq:hist-vfe-ray-representative}
+\end{align}
+When $\Fenergy$ is the lifted objective of \cref{hyp:hist-exact-vfe-lift}, such a history
+is an exact free-energy history.
+
+\propositionheading{Scalar mobility preserves the oriented orbit}{prop:hist-scalar-mobility-orbit}
+On a noncritical domain, multiplying the natural-gradient field by a smooth positive
+function changes only the parameterization of its orbits.  A positive-definite
+anisotropic mobility can change the orbit: on the Euclidean plane, for
+$\Fenergy=\tfrac12(z_1^2+z_2^2)$ and $\mathsf M=\operatorname{diag}(1,2)$, gradient
+descent from $(z_1^0,z_2^0)$ with $z_1^0z_2^0\ne0$ follows the line $z_2=(z_2^0/z_1^0)z_1$, whereas
+$\dot z=-\mathsf M\nabla\Fenergy$ follows
+\begin{equation}
+z_2=z_2^0\left(z_1/z_1^0\right)^2 .
+\label{eq:hist-anisotropic-orbit-change}
+\end{equation}
+A natural-gradient history is not in general a geodesic: on the same Euclidean plane the
+natural-gradient flow of $\Fenergy=\tfrac12(z_1^2+2z_2^2)$ is $\dot z_1=-z_1$,
+$\dot z_2=-2z_2$, whose orbits are the curves \eqref{eq:hist-anisotropic-orbit-change},
+while the geodesics are straight lines.  \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+If $\mathscr V=-\operatorname{grad}^{\mathsf G}\Fenergy$ and $\mathscr V'=\mathsf
+a\mathscr V$ with $\mathsf a>0$, the integral curves have the same tangent lines and
+orientation, and the change of parameter defined by a positive integral of
+$\mathsf a^{-1}$ carries one equation into the other.  In the example, $\dot z_1=-z_1$
+and $\dot z_2=-2z_2$ keep $z_2/z_1^2$ constant, which is
+\eqref{eq:hist-anisotropic-orbit-change}, while ordinary gradient descent keeps
+$z_2/z_1$ constant, and for $z_1^0z_2^0\ne0$ the images differ; the same equations are
+the Euclidean natural-gradient flow of $\tfrac12(z_1^2+2z_2^2)$.  $\square$
+
+A rate ratio between coordinate blocks, such as fast beliefs and slow models, is an
+anisotropic mobility (the example is the ratio $1:2$), so the selected orbit can depend
+on it; the rate-separated flow is in \cref{sec:obs-fast-slow}.
+
+\propositionheading{Noncritical free-energy orbits are embedded}{prop:hist-vfe-orbit-embedded}
+Let $\mathcal Q$ be finite-dimensional, $\Fenergy$ of class $C^2$, and $\mathsf M$ a
+$C^1$ field of positive-definite symmetric forms on the cotangent spaces, for instance
+$\mathsf M=\mathsf a\mathsf G^{-1}$ for a $C^1$ metric and a $C^1$ function
+$\mathsf a>0$.  Let $\gamma$ be a maximal integral curve of
+$\mathscr V=-\mathsf M(d\Fenergy)$ through a noncritical point.  Then $\gamma$ meets no
+critical point, $\Fenergy\circ\gamma$ is strictly decreasing, and $\gamma$ is an injective
+immersion that is a homeomorphism onto its image, an embedded $C^1$ curve on which
+$\Fenergy$ is a strictly monotone continuous coordinate, independent of parameterization
+and gauge invariant whenever $\Fenergy$ is.  In particular the multiplicity clause of
+\cref{def:hist-oriented-history} is vacuous for noncritical histories, and for the
+natural gradient the Fisher clock of \cref{def:hist-fisher-clock} satisfies
+$d\mathfrak t=-d\Fenergy/\lVert\operatorname{grad}^{\mathsf G}\Fenergy\rVert_{\mathsf G}$
+along the orbit.  \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The field $\mathscr V$ is $C^1$, so its integral curves are unique, and its zeros are the
+critical points of $\Fenergy$; since the constant curve at a zero is an integral curve, a
+curve through a nonzero of $\mathscr V$ never reaches one.  Along $\gamma$,
+$\tfrac{d}{dt}\Fenergy(\gamma)=-\mathsf M(d\Fenergy,d\Fenergy)<0$, which makes
+$\Fenergy\circ\gamma$ strictly decreasing, $\gamma$ injective, and $\dot\gamma\ne0$.  On
+the image the inverse of $\gamma$ is $Q\mapsto(\Fenergy\circ\gamma)^{-1}(\Fenergy(Q))$, a
+composite of continuous maps, so $\gamma$ is an embedding.  The clock relation is
+\eqref{eq:hist-vfe-dissipation-per-length}.  $\square$
+
+\propositionheading{A semidefinite tensor cannot be silently inverted}{prop:hist-semidefinite-gradient-obstruction}
+If the proposed metric on a configuration space is only semidefinite, the
+natural-gradient equation can have no solution or several.  \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+On $\R^2$ let $\mathsf G=dz_1^2$.  For $\Fenergy=z_2$ the equation
+$\mathsf G(\operatorname{grad}\Fenergy,\cdot)=dz_2$ has no solution because the left side
+annihilates $\partial_{z_2}$, and for $\Fenergy=z_1$ every
+$\partial_{z_1}+\mathrm c\partial_{z_2}$ solves it.  $\square$
+
+A quotient constructed as in \cref{thm:hist-retained-fisher-quotient}, or a separate
+regularization, must precede any use of an inverse or a pseudoinverse.
+
+\remarkheading{Discrete histories}{rem:hist-discrete-histories}
+In a chart where the metric has a constant coefficient matrix $\mathsf G$, the explicit
+Euler step of \eqref{eq:hist-vfe-ray-representative} with $\mathsf a\equiv1$ and step
+$\Delta t>0$ is $Q_{n+1}=Q_n-\Delta t\mathsf G^{-1}\nabla\Fenergy(Q_n)$.  If
+$\nabla^2\Fenergy\preceq\mathrm c_{\mathsf G}\mathsf G$ on the segment $[Q_n,Q_{n+1}]$,
+with $\mathrm c_{\mathsf G}>0$, then
+\begin{equation}
+\Fenergy(Q_{n+1})
+\leq\Fenergy(Q_n)
+-\Delta t\left(1-\frac{\mathrm c_{\mathsf G}\Delta t}{2}\right)
+\left\|\operatorname{grad}^{\mathsf G}\Fenergy(Q_n)\right\|^2_{\mathsf G},
+\label{eq:hist-discrete-descent-bound}
+\end{equation}
+so every step with $0<\Delta t<2/\mathrm c_{\mathsf G}$ decreases the objective off the
+critical set, and the bound is sharp: for a quadratic objective whose Hessian has largest
+generalized eigenvalue $\mathrm c_{\mathsf G}$ relative to $\mathsf G$, an iterate on that
+eigendirection is multiplied by $1-\Delta t\mathrm c_{\mathsf G}$, so
+$\Delta t>2/\mathrm c_{\mathsf G}$ increases the objective there.  If, in the same chart,
+$\mathscr V=-\mathsf G^{-1}\nabla\Fenergy$ is Lipschitz with constant
+$\mathrm c_{\mathrm L}>0$ on the closed $\delta$-neighborhood of an exact arc $Q([0,t_1])$
+and $\lVert\ddot Q\rVert\leq\mathrm c_2$ on the arc, then
+\begin{equation}
+\lVert Q_n-Q(n\Delta t)\rVert
+\leq\frac{\mathrm c_2\Delta t}{2\mathrm c_{\mathrm L}}\left(e^{\mathrm c_{\mathrm L}n\Delta t}-1\right),
+\qquad n\Delta t\leq t_1,
+\label{eq:hist-euler-global-error}
+\end{equation}
+for every $\Delta t$ small enough that the right side stays below $\delta$ at
+$n\Delta t=t_1$.  Euler iterates follow the selected orbit to first order in $\Delta t$
+on compact parameter intervals without lying on it.  \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Taylor's formula with integral remainder along the segment gives
+$\Fenergy(Q_{n+1})\leq\Fenergy(Q_n)+\nabla\Fenergy^\top\Delta Q+\tfrac12\mathrm
+c_{\mathsf G}\Delta Q^\top\mathsf G\Delta Q$ with
+$\Delta Q=-\Delta t\mathsf G^{-1}\nabla\Fenergy$, which is
+\eqref{eq:hist-discrete-descent-bound}; sharpness is the stated eigendirection
+computation.  The local truncation error is at most $\mathrm c_2\Delta t^2/2$, so
+$e_n=\lVert Q_n-Q(n\Delta t)\rVert$ obeys
+$e_{n+1}\leq(1+\Delta t\mathrm c_{\mathrm L})e_n+\mathrm c_2\Delta t^2/2$ while the iterates
+stay in the neighborhood, the discrete Gr\"onwall inequality gives
+\eqref{eq:hist-euler-global-error}, and induction on $n$ keeps the iterates in the
+neighborhood.  $\square$
+
+\section{Fisher duration}
+\label{sec:hist-fisher-duration}
+\label{sec:pb-curve-taxonomy}
+\label{sec:hist-clock-tiers}
+
+\definitionheading{Fisher length and information clock}{def:hist-fisher-clock}
+Let $Q:\mathcal T\to\mathcal Q$ be a $C^1$ curve in a configuration manifold with metric
+$\mathsf G$.  At $c_*$ its velocity lies in the fibers, $\operatorname{ver}(\dot Q)=\dot
+Q\in T_Q\mathcal Q$, so no connection enters.  Its Fisher speed, its length on
+$[t_0,t_1]$, its cumulative clock from a chosen origin $t_0$, and, for a curve $\Gamma$
+in one law fiber with its Fisher metric, the vertical Fisher length are
+\begin{align}
+\dot{\mathfrak t}(t)
+&=\sqrt{\mathsf G\bigl(\dot Q(t),\dot Q(t)\bigr)},
+\label{eq:hist-fisher-speed}\\
+\operatorname{len}_{\mathsf G}(Q;[t_0,t_1])
+&=\int_{t_0}^{t_1}\dot{\mathfrak t}(t) dt,
+\label{eq:hist-fisher-length}\\
+\mathfrak t_{Q,t_0}(t)
+&=\int_{t_0}^{t}\dot{\mathfrak t}(t') dt',
+\label{eq:hist-cumulative-fisher-clock}\\
+\operatorname{len}_{g^F}(\Gamma)
+&=\int\sqrt{g^F\bigl(\operatorname{ver}(\dot\Gamma),\operatorname{ver}(\dot\Gamma)\bigr)} dt .
+\label{eq:pb-vertical-fisher-length}
+\end{align}
+The belief clock and the model clock of agent $i$ are the Fisher lengths of
+$t\mapsto q_i^b(t)$ and $t\mapsto q_i^m(t)$, combined by the channel-weighted speed
+\eqref{eq:hist-pointwise-clock-speed}.  Along a history of $\mathcal Q_V$ with
+block-diagonal metric $\bigoplus_i\mathsf G_i$, the clock $\mathfrak t_i$ of agent $i$ is
+the $\mathsf G_i$-length of $t\mapsto Q_i(t)$.  The origin is part of the clock, and the
+parameter $t$ does not enter the length.
+
+\theoremheading{Reparameterization invariance and unit-speed form}{thm:hist-fisher-clock-invariance}
+Let $\widetilde Q=Q\circ\phi$ with $\phi:\widetilde{\mathcal T}\to\mathcal T$ an
+orientation-preserving $C^1$ diffeomorphism.  Corresponding subarcs have the same length,
+and
+\begin{equation}
+\mathfrak t_{\widetilde Q,\widetilde t_0}(\widetilde t)
+=\mathfrak t_{Q,t_0}(\phi(\widetilde t)),
+\qquad
+t_0=\phi(\widetilde t_0).
+\label{eq:hist-clock-reparameterization-law}
+\end{equation}
+If $\dot{\mathfrak t}>0$, the clock is strictly increasing and gives the unit-speed
+representative of the oriented history; on a subinterval where $\dot{\mathfrak t}$
+vanishes, as on a critical or null segment, the clock is constant and is not a
+coordinate.  If $Q$ satisfies \eqref{eq:hist-vfe-ray-representative}, then on its
+noncritical part
+\begin{align}
+\frac{d\mathfrak t}{dt}
+&=\mathsf a\left\|\operatorname{grad}^{\mathsf G}\Fenergy\right\|_{\mathsf G},
+\label{eq:hist-vfe-clock-rate}\\
+\frac{dQ}{d\mathfrak t}
+&=-\frac{\operatorname{grad}^{\mathsf G}\Fenergy}
+{\left\|\operatorname{grad}^{\mathsf G}\Fenergy\right\|_{\mathsf G}},
+\label{eq:hist-vfe-unit-tangent}\\
+\frac{d\Fenergy}{d\mathfrak t}
+&=-\left\|\operatorname{grad}^{\mathsf G}\Fenergy\right\|_{\mathsf G}.
+\label{eq:hist-vfe-dissipation-per-length}
+\end{align}
+If the clock is read with a second metric $\mathsf G'$, for instance the unweighted
+Fisher metric along a flow whose blocks carry rate weights, then along any $C^1$ history
+with velocity $Z\ne0$
+\begin{equation}
+\left|\frac{d\Fenergy}{d\mathfrak t'}\right|
+=\frac{|d\Fenergy(Z)|}{\lVert Z\rVert_{\mathsf G'}}
+\leq\left\|\operatorname{grad}^{\mathsf G'}\Fenergy\right\|_{\mathsf G'},
+\label{eq:hist-clock-metric-dissipation-bound}
+\end{equation}
+with equality exactly when $d\Fenergy=0$ or $Z$ is parallel to
+$\operatorname{grad}^{\mathsf G'}\Fenergy$.
+Along a history of $\mathcal Q_V$ with block-diagonal metric the squared speeds add,
+$\dot{\mathfrak t}^2=\sum_i\dot{\mathfrak t}_i^2$, and over any common parameter interval
+$\max_i\mathfrak t_i\leq(\sum_i\mathfrak t_i^2)^{1/2}\leq\mathfrak t\leq\sum_i\mathfrak
+t_i$.  \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-fiber-geometry}.
+
+\remarkheading{Endpoints do not determine an update duration}{prop:hist-realized-length-versus-distance}
+For an update $Q$ from $Q(t_0)=Q'$ to $Q(t_1)=Q''$ in one path component of
+$\mathcal Q$, the distance $\operatorname{dist}_{\mathsf G}(Q',Q'')$, the infimum of
+$\operatorname{len}_{\mathsf G}(\Gamma;[t_0,t_1])$ over curves $\Gamma$ with these
+endpoints, is at most $\operatorname{len}_{\mathsf G}(Q;[t_0,t_1])$, because the realized
+update is one such curve, and the inequality is strict for a curved path in the Euclidean
+Fisher geometry of the two-parameter normal location family.  Duration is also distinct
+from the amount of curve parameter: in the unit-variance normal location family the path
+$\mu(t)=e^{-t}$ has length $\int_0^\infty|\dot\mu(t)|dt=\int_0^\infty e^{-t}dt=1$ over an
+unbounded parameter interval.  \status{ESTABLISHED}
+
+\propositionheading{Finite duration for analytic objectives}{prop:hist-analytic-finite-duration}
+Let $\mathcal Q$ be finite-dimensional with a continuous positive-definite metric
+$\mathsf G$, and let $\gamma:[0,\infty)\to\mathcal Q$ satisfy
+$\dot\gamma=-\operatorname{grad}^{\mathsf G}\Fenergy$.  If $\gamma(t)$ has an
+accumulation point $Q_*$ as $t\to\infty$ and $\Fenergy$ is real analytic in a chart
+around $Q_*$, then $\gamma(t)\to Q_*$, $Q_*$ is critical, and
+$\operatorname{len}_{\mathsf G}(\gamma;[0,\infty))$ is finite.  This holds for every
+forward history with relatively compact image when $\mathcal Q$ has a real-analytic atlas
+in whose charts $\Fenergy$ is real analytic.  Analyticity cannot be weakened to
+smoothness: for the $C^\infty$ function of \citet[Section~2, Eq.~(8)]{absil2005convergence}
+on the Euclidean plane, the gradient history from the initial data given there is
+bounded, has the unit circle as its $\omega$-limit set, and has infinite duration.
+\status{ESTABLISHED}
+
+\propositionheading{Invariant free-energy histories are horizontal}{prop:hist-invariant-history-horizontal}
+Let a Lie group $\mathbb G$ act smoothly on a finite-dimensional configuration manifold
+$\mathcal Q$ with a positive-definite metric $\mathsf G$, write
+$\xi_{\mathcal Q}(Q)=\tfrac{d}{dt}\big|_{t=0}\exp(t\xi)\cdot Q$ and
+$V_Q=\{\xi_{\mathcal Q}(Q):\xi\in\operatorname{Lie}\mathbb G\}$, and let $\Fenergy$ be
+$C^1$ and $\mathbb G$-invariant.  Then $\operatorname{grad}^{\mathsf G}\Fenergy(Q)$ is
+$\mathsf G$-orthogonal to $V_Q$ at every $Q$, every natural-gradient history has velocity
+orthogonal to the orbits, and its gauge-quotient speed
+$\min_{\xi}\lVert\dot Q-\xi_{\mathcal Q}(Q)\rVert_{\mathsf G}$ equals its Fisher speed.
+If $\mathsf G$ is $C^\infty$ and the action is free, proper, and isometric, the quotient
+map $\pi:\mathcal Q\to\mathcal Q/\mathbb G$ is a Riemannian submersion for a unique
+metric $\bar{\mathsf G}$ on the quotient, $\Fenergy=\bar\Fenergy\circ\pi$, and
+$T\pi\operatorname{grad}^{\mathsf G}\Fenergy=\operatorname{grad}^{\bar{\mathsf
+G}}\bar\Fenergy\circ\pi$; each natural-gradient history descends to a natural-gradient
+history of $\bar\Fenergy$ with the same Fisher duration.  \status{ESTABLISHED}
+
+The proofs of \cref{prop:hist-analytic-finite-duration,prop:hist-invariant-history-horizontal}
+are in \cref{sec:proofs-fiber-geometry}.
+
+\section{Orthogonal clocks}
+\label{sec:hist-global-clock}
+
+\theoremheading{Exact criterion for an orthogonal clock}{thm:hist-global-clock-exactness}
+Let $\mathcal U\subseteq\mathcal Q$ be a connected open set without critical points, with
+$\Fenergy$ of class $C^2$ and $\mathsf G$ of class $C^1$.  Define $\mathsf n$,
+$\mathbf e_{\Fenergy}$, and $\bm\alpha$ by the first line below, and call a $C^1$
+function $\mathfrak t^\perp:\mathcal U\to\R$ that satisfies the second an orthogonal
+clock:
+\begin{align}
+&\mathsf n=\left\|\operatorname{grad}^{\mathsf G}\Fenergy\right\|_{\mathsf G},
+\qquad
+\mathbf e_{\Fenergy}=-\frac{\operatorname{grad}^{\mathsf G}\Fenergy}{\mathsf n},
+\qquad
+\bm\alpha=\mathbf e_{\Fenergy}^\flat=-\frac{d\Fenergy}{\mathsf n},
+\label{eq:hist-normalized-vfe-one-form}\\
+&d\mathfrak t^\perp=\bm\alpha.
+\label{eq:hist-global-clock-potential}
+\end{align}
+An orthogonal clock exists if and only if
+\begin{equation}
+d\bm\alpha=0,
+\qquad
+\oint_\gamma\bm\alpha=0
+\quad\text{for every piecewise $C^1$ closed curve }\gamma\subset\mathcal U,
+\label{eq:hist-global-clock-period-criterion}
+\end{equation}
+and on a simply connected $\mathcal U$ closedness suffices.  The local obstruction is
+\begin{equation}
+d\bm\alpha=\frac{1}{\mathsf n^2} d\mathsf n\wedge d\Fenergy,
+\label{eq:hist-normalized-form-curvature}
+\end{equation}
+so $\bm\alpha$ is closed exactly when $\mathsf n$ is locally a function of $\Fenergy$,
+and an orthogonal clock is then constant on every connected piece of every level set of
+$\Fenergy$ and locally a strictly decreasing function of $\Fenergy$.  Whenever
+$\mathfrak t^\perp$ exists, every unit-speed natural-gradient history in $\mathcal U$
+obeys $d\mathfrak t^\perp/d\mathfrak t=1$, and the level sets of $\mathfrak t^\perp$ are
+$\mathsf G$-orthogonal to $\mathbf e_{\Fenergy}$.  For $\Fenergy=z_1z_2$ on the open first
+quadrant with the Euclidean metric,
+\begin{equation}
+d\bm\alpha
+=\frac{z_1^2-z_2^2}{(z_1^2+z_2^2)^{3/2}} dz_1\wedge dz_2,
+\label{eq:hist-nonexact-clock-example}
+\end{equation}
+which vanishes identically on no open set, so no orthogonal clock exists on any open
+subset of the quadrant.  \status{ESTABLISHED}
+
+\propositionheading{Unit-speed clocks from a global cross-section}{prop:hist-cross-section-clock}
+Let $\mathcal U$ be as in \cref{thm:hist-global-clock-exactness}, and let
+$\mathcal S\subset\mathcal U$ be a $C^1$ hypersurface that every maximal integral curve
+of $\mathbf e_{\Fenergy}$ in $\mathcal U$ meets exactly once and transversally.  Then the
+signed Fisher arc length along each orbit, measured from its crossing with $\mathcal S$,
+is a $C^1$ function $\mathfrak t^{\mathcal S}:\mathcal U\to\R$ with
+$d\mathfrak t^{\mathcal S}(\mathbf e_{\Fenergy})=1$, so every unit-speed natural-gradient
+history obeys $d\mathfrak t^{\mathcal S}/d\mathfrak t=1$.  A level set of $\Fenergy$ that
+every orbit meets is such a cross-section, and the level sets of
+$\mathfrak t^{\mathcal S}$ are $\mathsf G$-orthogonal to $\mathbf e_{\Fenergy}$ only if
+$\bm\alpha$ is closed.  For $\Fenergy=z_1z_2$ on the open first quadrant with the
+Euclidean metric, the hyperbola $\{z_1z_2=1\}$ is a global cross-section, so a unit-speed
+clock exists on the whole quadrant although no orthogonal one exists on any open subset.
+\status{ESTABLISHED}
+
+The proofs of \cref{thm:hist-global-clock-exactness,prop:hist-cross-section-clock} are in
+\cref{sec:proofs-fiber-geometry}.
+
+\section{Record clocks}
+\label{sec:hist-record-clocks}
+
+\corollaryheading{Same-path record and meta-agent clock contraction}{thm:hist-record-clock-contraction}
+Let $t\mapsto P_t$ be a $C^1$ history in a family of laws on $\mathsf Y$ that is
+differentiable in quadratic mean along it, with directional score $\mathbf s_t$, and let
+$K:\mathsf Y\rightsquigarrow\bar{\mathsf Y}$ be a Markov kernel that does not depend on
+$t$ and satisfies $K(y,\bar{\mathsf Y})=1$ for every $y$.  Then the record history
+$\bar P_t=P_tK$, the image of the same fine path, satisfies
+\begin{align}
+\bar{\mathbf s}_t(\bar Y)
+&=\E_t\left[\mathbf s_t(Y)\mid\bar Y\right],
+\label{eq:hist-record-score-projection}\\
+\dot{\mathfrak t}_{P}^2-\dot{\mathfrak t}_{\bar P}^2
+&=\E_t\operatorname{Var}_t\left(\mathbf s_t(Y)\mid\bar Y\right)
+\geq0,
+\label{eq:hist-record-conditional-variance-defect}
+\end{align}
+and on every common parameter interval
+\begin{equation}
+\operatorname{len}(\bar P)\leq\operatorname{len}(P),
+\qquad
+\mathfrak t_{\bar P}(t_1)-\mathfrak t_{\bar P}(t_0)
+\leq
+\mathfrak t_{P}(t_1)-\mathfrak t_{P}(t_0),
+\label{eq:hist-record-clock-contraction}
+\end{equation}
+with equality, when the fine length on the interval is finite, exactly when the fine
+score is $\bar Y$-measurable for almost every $t$ in the interval. Equality of two
+infinite lengths gives no such conclusion. The inequality applies to a meta-agent exactly when its law is the image
+of the same fine history under one such kernel.  Parameter independence of the kernel
+cannot be dropped: for a dominated channel $K_t$ with density
+$\mathsf k_t(\bar y\given y)$, assume the joint family $P_t(dy)K_t(y,d\bar y)$ is
+differentiable in quadratic mean with square-integrable score
+$\mathbf s_t(y)+\partial_t\log\mathsf k_t(\bar y\given y)$. Its record score is
+\begin{equation}
+\bar{\mathbf s}_t(\bar Y)
+=\E_t\left[
+\mathbf s_t(Y)
++\partial_t\log\mathsf k_t(\bar Y\given Y)
+\mathrel{\big|}\bar Y
+\right],
+\label{eq:hist-parameter-dependent-channel-score}
+\end{equation}
+and a constant input followed by a channel that emits a Bernoulli bit of success
+probability $(1+e^{-t})^{-1}$ has zero fine speed and record speed
+$(2\cosh(t/2))^{-1}>0$.  \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-fiber-geometry}.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[>=stealth]
+  \node[draw,rounded corners,fill=lightblue,minimum width=3.3cm,minimum height=0.8cm]
+    (fine) at (0,2.1) {fine history $P_t$};
+  \node[draw,rounded corners,fill=lightgreen,minimum width=3.8cm,minimum height=0.8cm]
+    (image) at (6.2,2.1) {same-path image $P_tK$};
+  \draw[->,very thick,primaryblue] (fine)--(image);
+  \node[text=primaryblue,font=\small] at (3.1,2.85)
+    {parameter-independent Markov channel: $d\mathfrak t_{PK}\leq d\mathfrak t_P$};
+  \node[draw,rounded corners,fill=lightblue,minimum width=3.3cm,minimum height=0.8cm]
+    (fflow) at (0,0) {$\operatorname{Fl}^{\mathscr V_\ell}_t(Q_0)$};
+  \node[draw,rounded corners,fill=lightgreen,minimum width=3.8cm,minimum height=0.8cm]
+    (mflow) at (6.2,0) {$\operatorname{Fl}^{\mathscr V_{\ell+1}}_{t'}(\mathsf F_\ell Q_0)$};
+  \draw[->,very thick,dashed,sciencegreen] (fflow)--(mflow);
+  \node[text=sciencegreen,font=\small] at (3.1,0.75)
+    {independent flows require oriented semiconjugacy};
+\end{tikzpicture}
+\caption{The upper arrow is the same-path comparison of
+\cref{thm:hist-record-clock-contraction}, with its conditional-variance defect.  The
+lower arrow compares independently generated flows and exists only under the
+semiconjugacy condition of \cref{def:hist-oriented-semiconjugacy}.}
+\label{fig:hist-markov-clock-and-semiconjugacy}
+\end{figure}
+
+\openproblemheading{Quantitative meta-agent clock ratio}{open:hist-meta-clock-ratio}
+\Cref{thm:hist-record-clock-contraction} shows that a meta-agent whose law is a Markov
+image of its constituents' joint history accumulates no more Fisher duration than that
+history, with the exact defect \eqref{eq:hist-record-conditional-variance-defect}.  Open
+is the ratio between the meta-agent's duration and the constituents' collective duration
+for an $N$-constituent meta-agent of \cref{ch:agent-network-rg}, as a function of $N$ and
+of the correlation between the constituents' velocities, for coherent histories (aligned
+velocities) and incoherent ones (independent random velocities).  The expected ratio of
+arc lengths is not the square root of the expected ratio of relative entropies, so a
+divergence computation does not settle it; a theorem that computes or bounds the ratio
+for a stated coarse map and a stated law of constituent velocities, including its
+dependence on $N$ in both regimes, does.
+
+\section{The coarse configuration map and oriented semiconjugacy}
+\label{sec:hist-configuration-coarse-map}
+\label{sec:hist-independent-flows}
+
+\definitionheading{Coarse configuration map}{def:hist-coarse-configuration-map}
+A coarse configuration map at depth $\ell$ is a smooth map
+\begin{equation}
+\mathsf F_\ell:\mathcal Q_\ell\longrightarrow\mathcal Q_{\ell+1}
+\label{eq:hist-configuration-coarse-map}
+\end{equation}
+from the configuration manifold of the fine agents at $c_*$ to that of their meta-agents,
+specified separately from the sample kernels that may realize it.  The fine and coarse
+natural-gradient fields are
+$\mathscr V_\ell=-\operatorname{grad}^{\mathsf G_\ell}\Fenergy_\ell$ and
+$\mathscr V_{\ell+1}=-\operatorname{grad}^{\mathsf G_{\ell+1}}\Fenergy_{\ell+1}$, with
+local flows $\operatorname{Fl}^{\mathscr V_\ell}_t$ and
+$\operatorname{Fl}^{\mathscr V_{\ell+1}}_{t'}$.
+
+\definitionheading{Oriented semiconjugacy}{def:hist-oriented-semiconjugacy}
+For an open $\mathcal U\subseteq\mathcal Q_\ell$, the pair $(\mathsf F_\ell,\mathsf
+a_\ell)$ with $\mathsf a_\ell:\mathcal U\to(0,\infty)$ continuous is an oriented
+semiconjugacy of $\mathscr V_\ell$ onto $\mathscr V_{\ell+1}$ over $\mathcal U$ when
+\begin{equation}
+T_Q\mathsf F_\ell \mathscr V_\ell(Q)
+=\mathsf a_\ell(Q) \mathscr V_{\ell+1}(\mathsf F_\ell Q)
+\quad\text{for every }Q\in\mathcal U.
+\label{eq:hist-oriented-vector-field-semiconjugacy}
+\end{equation}
+
+\lemmaheading{The factor is determined and regular off the coarse critical set}{lem:hist-semiconjugacy-factor}
+If $\mathscr V_{\ell+1}(\mathsf F_\ell Q)\ne0$, then $\mathsf a_\ell(Q)$ is unique and
+\begin{equation}
+\mathsf a_\ell(Q)
+=\frac{\mathsf G_{\ell+1}
+\left(T_Q\mathsf F_\ell \mathscr V_\ell(Q),\mathscr V_{\ell+1}(\mathsf F_\ell Q)\right)}
+{\left\lVert\mathscr V_{\ell+1}(\mathsf F_\ell Q)\right\rVert^2_{\mathsf G_{\ell+1}}},
+\label{eq:hist-semiconjugacy-factor-formula}
+\end{equation}
+so $\mathsf a_\ell$ is $C^k$ wherever $Q\mapsto T_Q\mathsf F_\ell\mathscr V_\ell(Q)$,
+$Q\mapsto\mathscr V_{\ell+1}(\mathsf F_\ell Q)$, and the pulled-back coefficients of
+$\mathsf G_{\ell+1}$ are $C^k$, for instance when $\mathsf F_\ell\in C^{k+1}$ and
+$\mathscr V_\ell,\mathscr V_{\ell+1},\mathsf G_{\ell+1}$ are $C^k$; continuity of
+$\mathsf a_\ell$ is therefore automatic where $\mathscr V_{\ell+1}\ne0$ on
+$\mathsf F_\ell(\mathcal U)$.  If $\mathscr V_{\ell+1}(\mathsf F_\ell Q)=0$, then
+\eqref{eq:hist-oriented-vector-field-semiconjugacy} forces
+$T_Q\mathsf F_\ell\mathscr V_\ell(Q)=0$ and fixes no value of $\mathsf a_\ell(Q)$; limits
+from the noncritical set may determine it or may obstruct any continuous positive
+extension.  \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Pair \eqref{eq:hist-oriented-vector-field-semiconjugacy} with
+$\mathscr V_{\ell+1}(\mathsf F_\ell Q)$ and divide by its positive squared norm.
+$\square$
+
+\theoremheading{Oriented semiconjugacy and maximal intervals}{thm:hist-oriented-semiconjugacy}
+\label{prop:hist-oriented-semiconjugacy}%
+Assume \eqref{eq:hist-oriented-vector-field-semiconjugacy} on an open $\mathcal U$ with
+$\mathscr V_{\ell+1}$ locally Lipschitz.  Fix $Q\in\mathcal U$, let $\mathcal T_Q$ be the
+connected component of $0$ in the set of $t$ for which
+$\operatorname{Fl}^{\mathscr V_\ell}_{t''}(Q)\in\mathcal U$ for every $t''$ between $0$
+and $t$, and set $\psi_Q(t)=\int_0^t\mathsf a_\ell(\operatorname{Fl}^{\mathscr
+V_\ell}_{t''}Q) dt''$.  Then $\psi_Q$ is a strictly increasing $C^1$ diffeomorphism of
+$\mathcal T_Q$ onto an open interval $\mathcal T'_Q\ni0$, and
+\begin{equation}
+\mathcal T'_Q\subseteq\bar{\mathcal T}^{\max}_{\mathsf F_\ell Q},
+\qquad
+\mathsf F_\ell\left(\operatorname{Fl}^{\mathscr V_\ell}_t(Q)\right)
+=\operatorname{Fl}^{\mathscr V_{\ell+1}}_{\psi_Q(t)}\left(\mathsf F_\ell Q\right)
+\quad\text{for every }t\in\mathcal T_Q,
+\label{eq:hist-oriented-flow-semiconjugacy}
+\end{equation}
+where $\bar{\mathcal T}^{\max}_{\mathsf F_\ell Q}=(\bar t^-,\bar t^+)$ is the maximal
+interval of the coarse flow through $\mathsf F_\ell Q$.  With $\mathcal T_Q=(t^-,t^+)$
+and endpoints in the extended real line,
+\begin{equation}
+\mathcal T'_Q
+=\left(
+\lim_{t\downarrow t^-}\psi_Q(t),
+\lim_{t\uparrow t^+}\psi_Q(t)
+\right),
+\label{eq:hist-semiconjugacy-endpoint-image}
+\end{equation}
+and the whole maximal coarse orbit is traversed if and only if the two limits equal
+$\bar t^-$ and $\bar t^+$; when the fine orbit is complete in $\mathcal U$ and the coarse
+maximal interval is $\R$, this means
+$\int_0^{+\infty}\mathsf a_\ell(\operatorname{Fl}^{\mathscr V_\ell}_{t}Q)dt
+=\int_{-\infty}^{0}\mathsf a_\ell(\operatorname{Fl}^{\mathscr V_\ell}_{t}Q)dt=+\infty$.
+A positive lower bound on $\mathsf a_\ell$ suffices and is not necessary: on $\R$ with
+$\mathscr V_\ell=\mathscr V_{\ell+1}=\partial_z$ and
+$\mathsf F_\ell=\operatorname{arsinh}$, $\mathsf a_\ell=(1+z^2)^{-1/2}$ has infimum zero
+while $\psi_0=\operatorname{arsinh}$ maps $\R$ onto $\R$; with $\mathsf F_\ell=\arctan$,
+$\mathsf a_\ell=(1+z^2)^{-1}$ is positive while $\mathcal T'_0=(-\pi/2,\pi/2)$ although
+both flows are complete.  Conversely, differentiating a flow relation of the form
+\eqref{eq:hist-oriented-flow-semiconjugacy} at $t=0$ gives
+\eqref{eq:hist-oriented-vector-field-semiconjugacy}.  \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-fiber-geometry}.
+
+\propositionheading{Noncollapse is a separate hypothesis}{prop:hist-noncollapse}
+Condition \eqref{eq:hist-oriented-vector-field-semiconjugacy} alone permits total
+collapse: with $\mathsf F_\ell$ constant and $\mathscr V_{\ell+1}\equiv0$ it holds for
+every positive $\mathsf a_\ell$, while every fine orbit maps to a point and every coarse
+duration is zero.  A nonconstant shared oriented history additionally requires
+$T_Q\mathsf F_\ell\mathscr V_\ell(Q)\ne0$ on every nontrivial subarc, equivalently
+$\mathscr V_{\ell+1}(\mathsf F_\ell Q)\ne0$ there, and full traversal requires the
+endpoint equalities of \eqref{eq:hist-semiconjugacy-endpoint-image}; neither follows from
+\eqref{eq:hist-oriented-vector-field-semiconjugacy}.  \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Both sides of \eqref{eq:hist-oriented-vector-field-semiconjugacy} vanish in the example,
+and the arctan example of \cref{thm:hist-oriented-semiconjugacy} satisfies it without
+full traversal.  $\square$
+
+\theoremheading{The semiconjugacy rate cancels from geometric length}{thm:hist-duration-relation}
+Under \eqref{eq:hist-oriented-vector-field-semiconjugacy}, let $Q(t)$ be a fine orbit.
+The image speed is
+\begin{equation}
+\left\lVert\tfrac{d}{dt}\mathsf F_\ell Q(t)\right\rVert_{\mathsf G_{\ell+1}}
+=\mathsf a_\ell\left(Q(t)\right)
+\left\lVert\mathscr V_{\ell+1}\left(\mathsf F_\ell Q(t)\right)\right\rVert_{\mathsf G_{\ell+1}},
+\label{eq:hist-image-speed}
+\end{equation}
+and for $t_0<t_1$ in $\mathcal T_Q$ the accumulated coarse duration is
+\begin{equation}
+\mathfrak t^{(\ell+1)}(t_1)-\mathfrak t^{(\ell+1)}(t_0)
+=\int_{\psi_Q(t_0)}^{\psi_Q(t_1)}
+\left\lVert\mathscr V_{\ell+1}\left(\operatorname{Fl}^{\mathscr V_{\ell+1}}_{t'}(\mathsf F_\ell Q)\right)
+\right\rVert_{\mathsf G_{\ell+1}}dt',
+\label{eq:hist-coarse-duration}
+\end{equation}
+the intrinsic $\mathsf G_{\ell+1}$-length of the coarse orbit arc, which does not depend
+on $\mathsf a_\ell$.  \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Equation \eqref{eq:hist-image-speed} is \eqref{eq:hist-oriented-vector-field-semiconjugacy}
+with positive homogeneity of the norm and $\mathsf a_\ell>0$.  Substituting it and
+changing variables $t'=\psi_Q(t)$, whose Jacobian is
+$\mathsf a_\ell(\operatorname{Fl}^{\mathscr V_\ell}_tQ)$, cancels the factor.  $\square$
+
+\remarkheading{Exact duration comparison}{thm:hist-duration-criterion}
+Under \eqref{eq:hist-oriented-vector-field-semiconjugacy}, along one orbit and from a
+common origin, the coarse and fine durations agree identically if and only if
+$\lVert T\mathsf F_\ell\mathscr V_\ell\rVert_{\mathsf G_{\ell+1}}=\lVert\mathscr
+V_\ell\rVert_{\mathsf G_\ell}$ almost everywhere along the orbit, they agree up to a
+factor $\mathrm c>0$ if and only if the same holds with that factor, and the coarse
+duration has no larger increments on every subinterval if and only if
+\begin{equation}
+\left\lVert T\mathsf F_\ell\mathscr V_\ell\right\rVert_{\mathsf G_{\ell+1}}
+\leq\left\lVert\mathscr V_\ell\right\rVert_{\mathsf G_\ell}
+\quad\text{along the orbit},
+\label{eq:hist-duration-criterion}
+\end{equation}
+because both durations are integrals of continuous nonnegative densities from a common
+origin, and two such integrals agree for every upper limit exactly when the densities
+agree almost everywhere.  The condition is scalar and concerns the single direction
+$\mathscr V_\ell$; the Loewner condition $\mathsf F_\ell^*\mathsf G_{\ell+1}\preceq\mathsf
+G_\ell$ is sufficient and stronger, and \cref{thm:hist-pointwise-contraction-lift}
+supplies it for channelwise Markov maps.  Fiberwise Fisher contraction alone gives
+neither, for two independent reasons.  The configuration metrics are separate data: on
+$\R$ with $\mathscr V_\ell=\mathscr V_{\ell+1}=\partial_z$ and $\mathsf F_\ell$ the
+identity, the semiconjugacy holds with $\mathsf a_\ell\equiv1$, and the metrics $dz^2$
+and $4dz^2$ double the duration, whether realized with the identity fiber map and unequal
+channel weights $1$ and $4$ (zero Fisher defect) or with fibers $\mathcal N(\mu,1)$ and
+$\mathcal N(\mu,\tfrac14)$ and the identity parameter map (Fisher defect $1-4=-3$, so no
+Markov morphism).  And contraction compares the image of the fine orbit, not a recomputed
+coarse orbit: on $\R^2$ with $\mathsf F_\ell$ the identity and the Euclidean metric at
+both depths, $\Fenergy_\ell=\tfrac12(z_1^2+z_2^2)$ and
+$\Fenergy_{\ell+1}=\tfrac12(z_1^2+4z_2^2)$ give the fine history $(e^{-t},e^{-t})$ of
+duration $\sqrt2$ and the recomputed coarse history $(e^{-t},e^{-4t})$ of duration
+$\int_0^1\sqrt{1+16z^6} dz>\sqrt2$, and
+\eqref{eq:hist-oriented-vector-field-semiconjugacy} fails because
+$(z_1,z_2)=\mathsf a(z_1,4z_2)$ forces $\mathsf a=1$ and $z_2=0$.  \status{ESTABLISHED}
+
+\corollaryheading{When fiberwise contraction does lift}{thm:hist-pointwise-contraction-lift}
+Let $\mathcal Q_\ell$ and $\mathcal Q_{\ell+1}$ carry the channel-weighted metrics
+$\mathsf G_\ell=\sum_xw_xg^F_x$ and $\mathsf G_{\ell+1}=\sum_xw_x\bar g^F_x$ with the same
+positive weights, and let $\mathsf F_\ell$ act channelwise by Markov coarse morphisms,
+$(\mathsf F_\ell Q)_x=\mathscr K_x(Q_x)$.  Then for every $Z\in T_Q\mathcal Q_\ell$,
+\begin{equation}
+\lVert Z\rVert^2_{\mathsf G_\ell}
+-\lVert T\mathsf F_\ell Z\rVert^2_{\mathsf G_{\ell+1}}
+=\sum_xw_x\Delta_F^{\mathscr K_x}(Z_x,Z_x)
+\geq0,
+\label{eq:hist-pointwise-contraction-lift}
+\end{equation}
+so the image of every $C^1$ fine curve has no greater speed and no greater duration on
+every subinterval, and \eqref{eq:hist-duration-criterion} holds along every orbit of an
+oriented semiconjugacy. On a subinterval of finite fine duration, equality holds exactly
+when, for every channel and almost every parameter value, the fine score in the
+direction $Z_x$ is measurable with respect to the coarse output.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Differentiate the channelwise action, insert it into $\mathsf G_{\ell+1}$, and subtract
+from $\mathsf G_\ell$; the difference is the weighted sum of the vertical defects, which
+are positive semidefinite with the stated equality case by
+\cref{thm:pb-pullback-fisher-defect}.  Monotonicity of the square root and of the
+integral gives the speed and duration statements.  $\square$
+
+\section{Semiconjugacy on symmetry quotients}
+\label{sec:hist-natural-gradient-semiconjugacy}
+
+Throughout this section $\mathscr V_\ell$ and $\mathscr V_{\ell+1}$ are natural-gradient
+fields of $C^2$ objectives for positive-definite metrics.
+
+\definitionheading{Functional compatibility}{hyp:hist-functional-compatibility}
+A coarse configuration map $\mathsf F_\ell$ is functionally compatible on an open set
+$\mathcal U\subseteq\mathcal Q_\ell$ when there is a $C^1$ function $\chi_\ell$ with
+$\chi_\ell'>0$ such that $\Fenergy_\ell=\chi_\ell\circ\Fenergy_{\ell+1}\circ\mathsf
+F_\ell$ on $\mathcal U$.
+
+\propositionheading{Semiconjugacy on symmetry quotients}{prop:hist-natural-gradient-sufficiency}
+Equal objectives do not intertwine natural gradients: with $\mathsf F_\ell$ the identity
+of $\R^2$, $\Fenergy_\ell=\Fenergy_{\ell+1}=\tfrac12(z_1^2+2z_2^2)$, and metrics
+$\operatorname{diag}(1,1)$ and $\operatorname{diag}(1,\mathrm c)$ with $\mathrm c\ne1$,
+\eqref{eq:hist-oriented-vector-field-semiconjugacy} fails wherever $z_1z_2\ne0$.
+Functional compatibility on $\mathcal U$ forces $d\Fenergy_\ell$ to vanish on
+$\ker T\mathsf F_\ell$ at every point of $\mathcal U$, so when $\mathsf F_\ell$ is a
+submersion, $\Fenergy_\ell$ is constant on each connected piece of each fiber of
+$\mathsf F_\ell$ in $\mathcal U$.  If $\mathsf F_\ell$ is a surjective submersion,
+functionally compatible on $\mathcal U$, and horizontally conformal with dilation
+$\mathsf d_\ell>0$, meaning that
+$\mathsf G_{\ell+1}(T\mathsf F_\ell Z_1,T\mathsf F_\ell Z_2)=\mathsf d_\ell^2\mathsf
+G_\ell(Z_1,Z_2)$ for $Z_1,Z_2\in\operatorname{Hor}_Q=(\ker T_Q\mathsf F_\ell)^\perp$, then
+\eqref{eq:hist-oriented-vector-field-semiconjugacy} holds on $\mathcal U$ with
+\begin{equation}
+\mathsf a_\ell(Q)
+=\chi_\ell'\left(\Fenergy_{\ell+1}(\mathsf F_\ell Q)\right)
+\mathsf d_\ell(Q)^2>0 .
+\label{eq:hist-conformal-semiconjugacy-factor}
+\end{equation}
+In particular the quotient map of a free, proper, isometric action that preserves
+$\Fenergy_\ell$, with the quotient metric and descended objective of
+\cref{prop:hist-invariant-history-horizontal}, is an oriented semiconjugacy with
+$\mathsf a_\ell\equiv1$; and at $c_*$ the identity map from the mean coordinate of the
+fiber $\{\mathcal N(\mu,1)\}$ to that of $\{\mathcal N(\mu,2)\}$, realized by the kernel
+$y\mapsto\mathcal N(y,1)$, is horizontally conformal with $\mathsf d_\ell^2=\tfrac12$ and
+gives $\mathsf a_\ell=\tfrac12$ for $\Fenergy_\ell=\Fenergy_{\ell+1}=\mu^2/2$, an
+injective case that does not exercise the fiber condition.  The route does not reach
+maps that discard directions on which the fine objective depends: if
+$\Fenergy_{\ell+1}(Q')=\inf\{\Fenergy_\ell(Q):\mathsf F_\ell Q=Q'\}$, $\mathsf F_\ell$ is
+a submersion with positive-dimensional fibers, and each fiber contains at most one
+minimizer of $\Fenergy_\ell$, then compatibility with $\chi_\ell=\operatorname{id}$ holds
+on no open set; for $\mathsf F_\ell(f,s)=s$ and
+$\Fenergy_\ell(f,s)=\tfrac12(f-s)^2+\tfrac12s^2$ it holds for no $\chi_\ell$ on any open
+set.  \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-fiber-geometry}.
+
+For maps that discard directions on which the fine objective depends, the exact route
+runs through the reduced slow flow, which on the set of conditional minimizers is
+conjugate to the coarse natural-gradient flow (\cref{prop:obs-rate-separated-flow},
+\eqref{eq:obs-reduced-semiconjugacy}); whether the fine or rate-separated flow follows
+it is \cref{open:obs-slow-manifold}.
+
+\section{Coarse-graining depth, orbit parameter, and duration}
+\label{sec:hist-rg-depth-not-time}
+
+A tower of coarse configurations $Q^{(\ell+1)}=\mathsf F_\ell(Q^{(\ell)})$,
+$\ell=0,1,2,\ldots$, is indexed by the coarse-graining depth $\ell$, which is not a
+parameter on a history.  A history can be present at every depth, as $Q^{(\ell)}(t)$
+with accumulated duration $\mathfrak t^{(\ell)}(t)$; when
+$Q^{(\ell+1)}(t)=\mathsf F_\ell(Q^{(\ell)}(t))$ and $\mathsf F_\ell$ acts by Markov coarse
+morphisms as in \cref{thm:hist-pointwise-contraction-lift}, the record-clock comparison
+applies between adjacent depths, while for a general oriented semiconjugacy the exact
+comparison is \cref{thm:hist-duration-criterion}, and independently recomputed
+histories also need the noncollapse conditions of \cref{prop:hist-noncollapse}.  The
+Markov property of a configuration arrow can fail even for natural meta-agent maps:
+no parameter-independent Markov kernel sends every product of two normal laws to
+their joint mean-and-variance barycenter, as Supplement~G proves.
+
+\propositionheading{Typed non-identification of depth, orbit parameter, and duration}{prop:hist-coordinate-independence}
+Coarse-graining depth $\ell$, an orbit parameter $t$, and Fisher duration
+$\mathfrak t^{(\ell)}$ are distinct: $\ell$ is a discrete index, $t$ a chosen oriented
+parameter on a selected orbit, and $\mathfrak t^{(\ell)}$ the arc length for a chosen
+metric from a chosen origin.  Once the metric, origin, orientation, and parameterized path
+are chosen, $\mathfrak t^{(\ell)}$ is a function of $t$, but it is not determined by the
+unparameterized orbit or by $\ell$: changing the metric rescales it and changing the
+origin shifts it.  Strict monotonicity of $\mathfrak t^{(\ell)}$ does not make it a
+regular coordinate: for $\mathsf G=dz^2$ on $\R$ and the path $z(t)=t^2$ on $[0,1]$,
+$\mathfrak t(t)=t^2$, whose inverse is not differentiable at the origin, and a zero-speed
+subinterval destroys strict monotonicity.  \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Only the metric, origin, orientation, and parameterized path produce a duration
+function.  Metric dependence is homogeneity of the norm in \eqref{eq:hist-fisher-speed},
+and the example is $\int_0^t2t''dt''=t^2$ with the square root not differentiable at
+zero.  $\square$
+
+\section*{Physicist's summary}
+
+The Fisher metric on an agent's belief and model law fibers is a gauge-invariant ruler and
+the second-order term of the relative entropy, so a loop holonomy near the identity
+appears as a quadratic form on the Lie algebra that vanishes on the isotropy algebra of
+the law.  A Markov channel loses exactly the conditional variance of the score, so a
+meta-agent that is a channel image of its constituents' history has an information clock
+no faster than theirs, by a ratio that is open.  A chosen metric turns the free energy
+into an orbit, Fisher arc length removes its parameterization, and a belief-model rate
+ratio, unlike a scalar mobility, can bend the orbit; an orthogonal clock needs the
+gradient norm to be locally a function of the free energy, a unit-speed clock only a
+global cross-section.  By the parity witness, joint laws, Fisher metrics, and free
+energies are not functions of marginals.  A recomputed coarse flow is the image of the
+fine flow only under an oriented semiconjugacy, which holds with rate one on symmetry
+quotients; information-discarding maps are compared through the reduced slow flow of the
+next chapter.

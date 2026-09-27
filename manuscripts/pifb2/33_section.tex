@@ -1,0 +1,139 @@
+% !TeX root = ../PIFB2.tex
+\section{Conditional Representation Theorem for the Transported Relative Entropy}
+\label{app:conditional_representation}
+
+This appendix characterizes the belief coupling $D_{\mathrm{KL}}(q_i\|\Omega_{ij}q_j)$, with the receiver law in the first slot (the variational or I-projection direction), within a class of divergences and for one problem: agent $i$'s best response with its neighbors' beliefs and its attention weights held fixed. The companion theory treats this transported divergence as a declared consensus choice and does not derive it~\cite[Chs.~6 and~12]{DennisGaugeVFE2026}, and nothing below fixes the divergence of the joint scalar functional; the scope paragraph at the end of this appendix shows why the closure criterion cannot. Within the class of local $f$-divergences that enter the free energy linearly in $\beta_{ij}$, the relative entropy is the only divergence whose best response has the geometric-mean Boltzmann form for all priors and neighbor beliefs; richness of the attainable likelihood ratios, which the converse needs, holds automatically in the Gaussian fiber (Lemma~\ref{lem:richness_app}). We work at fixed $c_*$ and use $x$ for a sample coordinate, not a base coordinate. Put $r_j=(\Omega_{ij})_\#q_j$ and use its density in the receiver's sample space. More general normalized channels can supply the fixed template $r_j$ when it has a density. The universal characterization quantifies over the stated rich template family; it is not automatically a theorem about every restricted channel image.
+
+\subsection*{The best-response problem}
+
+With the neighbor beliefs $q_j$ and the weights $\beta_{ij} \geq 0$ held fixed, agent $i$ solves
+\begin{equation}
+\mathcal E_i^{\mathrm{br}}[\beta_i]
+=\min_{q_i}
+\Big\{
+D_{\mathrm{KL}}(q_i \| p_i)
++ \sum_{j\neq i} \beta_{ij}\mathcal{D}(q_i,\Omega_{ij}q_j)
+\Big\},
+\qquad
+\mathcal{D}(q, r) = \int r(x) f\left(\frac{q(x)}{r(x)}\right)dx,
+\label{eq:F_i_app}
+\end{equation}
+with the second-argument density as the integration measure. For a fixed candidate law $q_i$, optimizing an entropy-regularized row uses the fixed costs $\mathcal D(q_i,r_j)$ and gives the Gibbs formula of Section~\ref{sec:mixture_derivation}. If $q_i$ has already been minimized out, the reduced row objective is $\mathcal E_i^{\mathrm{br}}(\beta_i)+\tau D_{\mathrm{KL}}(\beta_i\|\pi_i)$, not $\sum_j\beta_{ij}(\partial \mathcal E_i^{\mathrm{br}}/\partial\beta_{ij})+\tau D_{\mathrm{KL}}(\beta_i\|\pi_i)$. Where the value function is differentiable, its marginal costs enter an implicit row stationarity equation.
+
+\begin{lemma}[KL-sum identity]
+\label{lem:kl_sum_identity}
+Let $p$ and $r_1, \dots, r_n$ be probability densities such that the weighted common-support normalizer below satisfies $Z_g>0$, let $\beta_j \geq 0$ with $B := \sum_j\beta_j$, and define
+\begin{equation}
+g := Z_g^{-1}p^{1/(1+B)}\prod_j r_j^{\beta_j/(1+B)},
+\qquad
+Z_g := \int p^{1/(1+B)}\prod_j r_j^{\beta_j/(1+B)}dx.
+\end{equation}
+Then for every density $q$ with $D_{\mathrm{KL}}(q\|p)$ and every $D_{\mathrm{KL}}(q\|r_j)$ finite,
+\begin{equation}
+D_{\mathrm{KL}}(q\|p) + \sum_j\beta_jD_{\mathrm{KL}}(q\|r_j) = (1+B)D_{\mathrm{KL}}(q\|g) - (1+B)\log Z_g.
+\label{eq:kl_sum_identity}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+The left-hand side is $\int q[(1+B)\log q - \log p - \sum_j\beta_j\log r_j]dx = (1+B)\int q[\log q - \log g - \log Z_g]dx$, which is the right-hand side.
+\end{proof}
+
+With $r_j = \Omega_{ij}q_j$ and $\mathcal{D} = D_{\mathrm{KL}}$, the identity solves the best-response problem~\eqref{eq:F_i_app} at once: the unique minimizer is $q_i^* = g$, the geometric-mean form~\eqref{eq:geometric_mean_target_app} below, and the minimum value is $\mathcal E_i^{\mathrm{br}} = -(1+B)\log Z_g \geq 0$, nonnegative because $Z_g \leq 1$ by H\"older's inequality (the exponents sum to one). The exponents $1/(1+B)$ are the reciprocal of the entropy weight discussed in Appendix~\ref{app:covariance_dynamics}: the best response is a Gibbs state at temperature $1+B$ relative to Bayesian updating. In a normalized joint the analogous coordinate update is the prior times the exponential of the expected log factors, and its stationarity includes each agent's appearance in its neighbors' factors~\cite[Ch.~5, local Gibbs bound and exact block E-coordinate]{DennisGaugeVFE2026}.
+
+\subsection*{Conditional representation theorem}
+
+\begin{theorem}[Conditional representation for the frozen-neighbor best response]\label{thm:representation_app}
+Let\/ $\mathcal{D}(q,r) = \int r(x)f(q(x)/r(x))dx$ with $f$ \emph{real-analytic on $(0, \infty)$}, convex, $f(1)=0$, and, without loss of generality\footnote{Any $f$-divergence is invariant under $f(t)\mapsto f(t)+c(t-1)$ when $q$ and $r$ are normalized, so we may always choose the representative with $f'(1)=0$.}, $f'(1)=0$. Fix agent $i$'s neighbor beliefs $\{q_j\}$ and weights $\beta_{ij} \geq 0$ with $B := \sum_j \beta_{ij} > 0$, and let $\mathcal{D}$ enter the best-response problem~\eqref{eq:F_i_app} linearly. Then the stationary best response has the geometric-mean Boltzmann form
+\begin{equation}
+q_i^*(x) \propto p_i(x)^{1/(1+B)}\prod_{j}\bigl[r_j(x)\bigr]^{\beta_{ij}/(1+B)}
+\label{eq:geometric_mean_target_app}
+\end{equation}
+for every prior and template in a family containing all nonsingular Gaussian laws, with the asserted law required to be a finite stationary solution, if and only if, $\mathcal{D}$ is the relative entropy (up to the affine equivalence above):
+\[
+\mathcal{D}(q,r) = D_{\mathrm{KL}}(q\|r).
+\]
+For $B = 1$, as when $\beta_i$ is a probability vector, the exponents are $1/2$.
+\end{theorem}
+
+\begin{corollary}[Closure forces the KL generator among nondegenerate divergences]
+\label{cor:closure_forces_kl}
+Within the same class, with real-analytic generator and nondegeneracy $f''(1) > 0$, exponential-family closure of the best response for all Gaussian priors and neighbor beliefs already forces $f'(t) = \gamma \log t$ with $\gamma > 0$, that is, $\mathcal{D} = \gamma D_{\mathrm{KL}}$, where the positive multiple $\gamma$ is absorbable into the coupling weights $\beta_{ij}$; the geometric-mean exponents of Eq.~\eqref{eq:geometric_mean_target_app} normalize $\gamma = 1$. The nondegeneracy hypothesis cannot be dropped: $f \equiv 0$ is real-analytic and convex, satisfies the normalization, and is closed for every Gaussian prior and neighbor set, since stationarity then reduces to $q_i^* = p_i$; it yields $\gamma = 0$ and the identically zero divergence. Because $f'(t) = \gamma \log t$ gives $f''(1) = \gamma$, the hypothesis $f''(1) > 0$ is exactly the statement $\gamma > 0$ and excludes that degenerate solution alone.
+\end{corollary}
+
+\begin{proof}
+Interpret closure as existence of a finite unrestricted minimizer that is Gaussian for every Gaussian prior and template choice. The prior KL is strictly convex in the law and the other terms are convex, so such a minimizer is unique. Choose all templates equal to $r=\mathcal N(0,I)$ and the prior $p=\mathcal N(0,aI)$ with $a>0$, $a\ne1$. Rotational invariance and uniqueness force a Gaussian minimizer to be $\mathcal N(0,bI)$. It cannot equal $r$: if $b=1$, stationarity would make $\log(r/p)$ constant, which it is not. Thus
+\[
+\log(q/r)=u+v\|x\|^2,\qquad v\ne0.
+\]
+The stationarity equation makes $h(u+v\|x\|^2)$ affine in $\|x\|^2$, where $h(z)=f'(e^z)$. Hence $h$ is affine on an open half-line, and real analyticity extends this identity to all real $z$. The normalization $f'(1)=0$ gives $f'(t)=\gamma\log t$; convexity gives $\gamma\ge0$, and $f''(1)>0$ gives $\gamma>0$. Integrating and using $f(1)=0$ proves the claim. Conversely the KL-sum identity gives a Gaussian geometric pool for every positive multiple, with rescaled weights.
+\end{proof}
+
+\paragraph{Proof of Theorem~\ref{thm:representation_app}.}
+
+\textbf{Step 1. Stationarity for a general $f$-divergence.} With ratio $r(x)=q_i(x)/\bigl[r_j(x)\bigr]$, the first-slot functional derivative is $\delta\mathcal{D}/\delta q_i(x) = f'(r(x))$, so the stationarity condition $\delta \mathcal E_i^{\mathrm{br}}/\delta q_i(x)=\lambda$, with Lagrange multiplier $\lambda$ for normalization, is
+\begin{equation}
+\log\frac{q_i(x)}{p_i(x)} + 1
++ \sum_j \beta_{ij}f'\left(\frac{q_i(x)}{r_j(x)}\right) = \lambda.
+\label{eq:general_stationarity_app}
+\end{equation}
+
+\textbf{Step 2. Sufficiency.} For $\mathcal{D}=D_{\mathrm{KL}}$ the generator is $f(t)=t\log t - t + 1$ with $f'(t)=\log t$, and Lemma~\ref{lem:kl_sum_identity} gives the minimizer~\eqref{eq:geometric_mean_target_app} directly.
+
+\textbf{Step 3. Necessity.} Assume the best response has the form~\eqref{eq:geometric_mean_target_app} for all priors $p_i$ and neighbor beliefs $\{q_j\}$, with general $B$. Taking logarithms, $(1+B)\log q_i^* = \log p_i + \sum_j\beta_{ij}\log(\Omega_{ij}q_j) + C$, and splitting $(1+B)\log q_i^* = \log q_i^* + \sum_j\beta_{ij}\log q_i^*$ gives
+\begin{equation}
+\log\frac{q_i^*}{p_i} + \sum_j\beta_{ij}\log\frac{q_i^*}{\Omega_{ij}q_j} = C',
+\label{eq:rearranged_target_app}
+\end{equation}
+with $C'=C$. It remains to pass from Eqs.~\eqref{eq:general_stationarity_app} and~\eqref{eq:rearranged_target_app} to the per-term identity
+\begin{equation}
+f'\left(\frac{q_i}{\Omega_{ij}q_j}\right) = \log\frac{q_i}{\Omega_{ij}q_j} + k,
+\label{eq:ode_app}
+\end{equation}
+with a single constant $k$, and from there to $f'(t) = \log t + k$ on all of $(0, \infty)$. The Lagrange multiplier and the normalizer vary from configuration to configuration, and the geometric-mean form constrains the minimizer, not the neighbor beliefs. Both points are handled by fixing one configuration and varying the sample coordinate $x$ at fixed base point $c_*$, where the multiplier and the normalizer are constants.
+
+\begin{lemma}[Per-term separation and richness]
+\label{lem:richness_app}
+Let $f$ be real-analytic on $(0, \infty)$ with $f'(1) = 0$, and suppose the stationary solution of~\eqref{eq:general_stationarity_app} has the geometric-mean form~\eqref{eq:geometric_mean_target_app} for all priors and neighbor beliefs. Then $f'(t) = \log t$ as a functional identity on $(0, \infty)$.
+\end{lemma}
+
+\begin{proof}
+Subtracting the rearranged target from stationarity gives
+\begin{equation}
+\sum_j\beta_{ij}\big[f'(q_i^*(x)/r_j(x))-\log(q_i^*(x)/r_j(x))\big]=\text{constant}.
+\label{eq:summed_stationarity_app}
+\end{equation}
+Respect the fixed weights by choosing all their positive-weight templates equal to $r=\mathcal N(0,I)$, with prior $p=\mathcal N(a,I)$ for $a\ne0$. The asserted geometric pool is $q^*=\mathcal N(a/(1+B),I)$. Its ratio to $r$ is
+\[
+q^*(x)/r(x)=\exp\left(\frac{a^\top x}{1+B}-\frac{\|a\|^2}{2(1+B)^2}\right),
+\]
+which ranges over all of $(0,\infty)$. The displayed equation is therefore $B[f'(t)-\log t]=\text{constant}$ for every $t>0$. Evaluating at $t=1$ gives that constant as zero. This necessity argument uses the full Gaussian ratio range and does not require analytic continuation; the corollary's weaker closure hypothesis still uses analyticity.
+\end{proof}
+
+Integrating $f'(t) = \log t$ gives $f(t) = t\log t - t + C_0$, and $f(1)=0$ gives $C_0 = 1$. Therefore $f(t) = t\log t - t + 1$, the generator of $D_{\mathrm{KL}}(q\|r)$. \hfill $\square$
+
+\subsection*{Scope: the joint scalar functional}
+The theorem concerns a frozen-neighbor receiver response. The complete consensus scalar also contains every term in which the varied law is a sender. Its second-slot functional derivative is $f(t)-tf'(t)$, equal to $1-t$ for KL. Under the additional \emph{slotwise} requirement that both slot derivatives be affine in $\log t$, write $f'(t)=a\log t+b$ and $f(t)-tf'(t)=c\log t+d$. Differentiating gives $f''(t)=a/t$ and $-tf''(t)=c/t$, which force $a=c=0$. This proves incompatibility of that strong slotwise criterion with a nonzero divergence. It is not a general nonexistence theorem for coupled equilibria or for restricted Gaussian optimization.
+
+An exact witness distinguishes receiver response from joint stationarity. Take two scalar agents, identity links, unit weights, $p_1=\mathcal N(0,1)$ and $p_2=\mathcal N(3,1/4)$. The laws $q_1=\mathcal N(2,1/2)$ and $q_2=\mathcal N(8/3,1/3)$ are mutual geometric-pool responses: their precisions and precision-weighted means satisfy the two pool equations. Their receiver mean derivatives vanish, but the omitted sender derivatives in the joint scalar are
+\[
+\partial_{\mu_1}\mathcal E=-\frac43,\qquad
+\partial_{\mu_2}\mathcal E=2.
+\]
+Thus this mutual response is not a stationary point of the full scalar. A Gaussian variational restriction supplies Gaussian closure by definition and cannot itself select the divergence.
+
+\subsection*{Dual cost identification}
+By the envelope identity for minimizing over $q_i$ at fixed $\beta_i$, where the value function is differentiable, the marginal attention cost is
+\begin{equation}
+C_{ij} \equiv \frac{\partial \mathcal E_i^{\mathrm{br}}}{\partial\beta_{ij}}\bigg|_{q_i^*}
+= \mathcal{D}(q_i^*,\Omega_{ij}q_j),
+\end{equation}
+which for the relative entropy identifies the cost of attention with the divergence between the agent's best response and the neighbor's transported law. The identity holds for every divergence that enters linearly in $\beta_{ij}$, so it is a consistency property and does not select the divergence.
+
+\subsection*{Relation to probabilistic opinion pooling}
+The best response~\eqref{eq:geometric_mean_target_app} carries exponents $\beta_{ij}/(1+B)$ together with the prior exponent $1/(1+B)$, which sum to one over the prior-and-neighbor set, so it is the normalized weighted geometric (logarithmic) opinion pool, whose Gaussian case gives the precision-weighted aggregate $\Sigma_*^{-1} = \sum_k \lambda_k \Sigma_k^{-1}$. Dietrich and List~\cite{dietrich2016probabilistic} characterize this geometric pool axiomatically as externally Bayesian and unanimity/zero-preserving; Bordley~\cite{bordley1982multiplicative} and Genest and Zidek~\cite{GenestZidek1986} supply the multiplicative, log-linear precursor, which coincides with the normalized geometric pool in the continuous Gaussian fiber used here. Theorem~\ref{thm:representation_app} re-derives this operator, for the frozen-neighbor best response, by an $f$-divergence route within its hypothesis class. The meta-agent barycenter of Section~\ref{sec:meta_agent_definition} is the Gaussian M-projection of the linear pool that Dietrich and List characterize from eventwise independence. The axiomatic properties belong to the pool, not to its projection, and a form that drops the between-mean dispersion approximates the projection only in the high-coherence regime.
+
+\subsection*{Interpretation and summary}
+Gauge covariance fixes what is compared, the law $q_i$ and the transported law $\Omega_{ij}q_j$ in one frame, while the theorem above constrains how it is compared, and only for the best response. On the information-geometric side, the relative entropy is the Bregman divergence of the negative-entropy potential in affine density coordinates, and it is the canonical divergence of the dually flat $e/m$ structure, whence the Pythagorean relation~\cite{AmariNagaoka2000}. The Fisher metric, by contrast, is the local Hessian of every smooth $f$-divergence, up to the factor $f''(1)$.
+
+The characterization concerns the exact unrestricted receiver response, not the whole joint dynamics. Equal-covariance Gaussians with different means already make the likelihood ratio range over every positive value, as the proof shows. The separate Gaussian-closure corollary uses analyticity to extend an identity from a half-line. Coordinate invariance of KL follows from the common-pushforward theorem and holds for real general linear changes, including realifications of complex unitary actions. No physical symmetry or preferred gauge group follows from this invariance alone.

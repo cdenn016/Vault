@@ -14,12 +14,12 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-08-20
+updated: 2026-09-27
 ---
 
 # Multi-agent variational free energy
 
-The **multi-agent variational free energy** is the scalar objective used to couple distribution-valued agents after gauge transport into common local frames. The authoritative social-belief sector in [[belief-inertia-2026-07-12-theorem-first-revision]] is entropy-retaining:
+The **multi-agent variational free energy** is the scalar objective used to couple distribution-valued agents after gauge transport into common local frames. The authoritative social-belief sector of the belief-inertia theorem-first revision (2026-07-12) is entropy-retaining:
 
 $$
 \mathcal F_{\mathrm{full}}
@@ -77,6 +77,31 @@ $$
 
 The covariance response has no universal homophily sign and cannot be substituted into canonical-VFE arguments.
 
+## Reduced attention Hessian (review, September 23, tentative)
+
+The reduced row objective above has second derivative $\sum_j\beta^*_{ij}\mathrm{Hess}(E_{ij})-\tau^{-1}\mathrm{Cov}_{\beta^*_i}(\nabla E_{ij})$, the covariance correction already recorded under local stiffness below. Investigator X14 of the 2026-09-23 Theory review ([[multiagentelbo-2026-09-23-theory-streamlining-review]]) adds three points. The correction is exactly the Schur complement of the joint Hessian in the state and the row over the simplex tangent (residual $2.7\times10^{-15}$). It can change the sign of curvature: in a random example the frozen-row minimum eigenvalue $+1.63$ became $-3.90$, and in the normalized witness $X\sim\mathcal N(0,\tau/\kappa)$, $J$ uniform on $\{-1,1\}$, $O\mid x,j\sim\mathcal N(x-ja,\tau)$ the reduced curvature is $\kappa+1-a^2/\tau=-2$ at $(\kappa,a,\tau)=(1,2,1)$ although every source energy and the prior are convex. The cost of restricting to a row that does not depend on the latent is exactly $\sum_i\mathbb E_{Q_Y}\mathrm{KL}(\beta_i^{Q*}\Vert\beta_i^P(Y))$. The Theory manuscript states none of this; its coupled case is a single sentence (05b:717–718). X14 writes the reduced potential without the factor $\tau$, which divides the Hessian by $\tau$.
+
+> [!warning] Tentative: investigator recomputation, same model family, not adjudicated
+> Symbolic and brute-force checks by one investigator (Claude Opus 5.5). The identity itself also appears in PIFB2 and the September 13 attention-admission record.
+
+### Incorporation in the restructured manuscript (September 24)
+
+The reduced Hessian and the constant-row cost are now statements of Chapter 6 of the main manuscript at `623e4fe` ([[multiagentelbo-2026-09-24-theory-restructure]]), tagged ESTABLISHED, with proofs in Appendix B.1. `prop:obs-attention-reduced-hessian` takes one row with $C^2$ energies $E_{ij}$, sets $R_i=-\log\sum_j\pi_{ij}e^{-E_{ij}/\tau_i}$, and proves
+$$
+\nabla^2R_i=\frac1{\tau_i}\sum_j\beta_{ij}\nabla^2E_{ij}-\frac1{\tau_i^2}\operatorname{Cov}_{\beta_i}(\nabla E_i),
+$$
+with the gradient equal to the frozen-weight gradient and the Hessian equal to the Schur complement, over the tangent space of the source simplex, of the joint Hessian of $\mathcal G_i(x,\beta)=\mathrm{KL}(\beta\Vert\pi_i)+\tau_i^{-1}\sum_j\beta_jE_{ij}(x)$. The manuscript's Hessian is $1/\tau_i$ times the expression recorded above, and the proposition shows that the same potential arises under the constant-row restriction and under exact label integration. Its normalized witness has latent baseline $\mathcal N(0,\tau/\omega)$, a uniform source label on $\{-1,1\}$ and record kernel $\mathcal N(x-j\delta,\tau)$; the reduced curvature at $x=0$ is $(\omega+1-\delta^2/\tau)/\tau$ against the frozen-weight value $(\omega+1)/\tau$, which at $(\omega,\delta,\tau)=(1,2,1)$ gives $-2$ against $2$ although every source energy and the prior are convex. `prop:obs-attention-constant-row-gap` states the cost of the constant-row restriction as $R^Q_i-\mathbb E_{\mathbb Q_Y}R^P_i(Y)=\mathbb E_{\mathbb Q_Y}\mathrm{KL}(\beta^{Q\star}_i\Vert\beta^P_i(Y))\ge0$, zero exactly when every energy difference is almost surely constant. The two-timescale chapter cites the reduced Hessian as the reason the curvature hypothesis of its slow-manifold open problem can fail ([[Geometric singular perturbation theory]]). The random-example eigenvalues ($+1.63$ and $-3.90$) are not in the manuscript.
+
+> [!warning] Status
+> Manuscript statements with proofs, written and checked by Claude Opus 5.5 agents with their own scripts; no cross-model check (the author's choice) and not adjudicated.
+
+### Access restriction has an evidence price (September 24)
+
+Chapter 3 of the restructured main manuscript (`prop:prob-access-restriction`, ESTABLISHED) records two limits of restricting what each agent's recognition law may read. Fixing every local law does not fix the population law: with both local laws $\mathrm{Ber}(1/2)$, a selector can couple them with a correlation that depends on agent 2's record, so the joint recognition law depends on a record that no local law reads, and a decentralized information claim also needs a selector indexed by the access maps alone. The restriction also has an evidence price that no selector removes. With two binary latents (prior 0.45 on each agreeing pair and 0.05 on each disagreeing pair), records correct with probability 0.8, and agent 1 reading only its own record, the larger of the relative entropies to the posterior at the observations $(1,0)$ and $(1,1)$ is at least the Chernoff information of agent 1's two posterior marginals $(37/89,52/89)$ and $(13/161,148/161)$, about 0.08850 nats, and the bound is sharp. The equality case of the evidence bound therefore lies outside the access-restricted class. A review investigator had put this floor at 0.0889, a grid artifact that Phase 1 corrected ([[multiagentelbo-2026-09-24-theory-restructure]]); this ingest recomputed 0.0884970, with the Chernoff exponent at $\xi\approx0.5483$ and the minimizing $\mathrm{Ber}(t)$ at $t\approx0.7834$.
+
+> [!warning] Status
+> Manuscript statement with proof, written and checked by Claude Opus 5.5 agents; not adjudicated. The numerical value was recomputed for this ingest on the same model family.
+
 ## Source-independence and generative-model status
 
 The social block is an **engineered gauge-covariant consensus energy**. A rowwise source-mixture identity can be written only after the substantive assumption that the transported source templates form an externally supplied candidate family for that row. Even then, the row identity does not make the whole population functional the mean-field ELBO of one fixed joint on the original agent-state variables because the sources are other variational beliefs.
@@ -86,16 +111,16 @@ The social block is an **engineered gauge-covariant consensus energy**. A rowwis
 > verdict. If the latent inventory is **enlarged by a declared source label** $j_i$, then under a
 > topologically ordered source mask the divergence-scored row is the *exact* CAVI coordinate of a
 > fixed normalized joint, with the sender mean free throughout and the link noise tied as
-> $R_{ij}=\Omega_{ij}\Sigma_j\Omega_{ij}^\top$
-> ([[magent-exact-elbo-whitepaper-2026-07-27-attention-derivation]]). This is a *lift*, not an
+> $R_{ij}=\Omega_{ij}\Sigma_j\Omega_{ij}^\top$.
+> This is a *lift*, not an
 > equality of functionals on the original variables, so it does not contradict the moving-peer
 > obstruction. Two costs are real: the mask is a **normalization requirement** (under the cocycle
 > $\Omega_{ij}=U_iU_j^{-1}$ a reciprocal pair has singular assembled precision and infinite mass), and
 > a nonunit $\tau$ additionally requires a tempered model carrying a per-source
 > $-\tfrac12(1-1/\tau)\log\det(\Omega_{ij}\Sigma_j\Omega_{ij}^\top)$ logit.
 >
-> Those two costs are **the same cost**
-> ([[magent-exact-elbo-whitepaper-2026-07-27-link-covariance-tie]]). Source-freeness as an identity in
+> Those two costs are **the same cost**.
+> Source-freeness as an identity in
 > the free sender mean forces $R_{ij}=\tau\Omega_{ij}\Sigma_j\Omega_{ij}^\top$ and then $\tau=1$, so
 > the tie and the unit temperature are one hypothesis and the lift does not reach the deployed
 > $\tau=\kappa\sqrt K$. The tie is a declared postulate: the unique M-step optimum is
@@ -108,9 +133,9 @@ $D_{\mathrm{KL}}(q_i\Vert p_i)+H(q_i)$, so moving $T_1$ inside the attention row
 belief entropy per slot. That is the generative-side reading of the observations-as-agent-couplings
 parsimony question, reached independently of the direct computation.
 
-[[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]] supplies the corrected obstruction. It works on the fine site-factorized family and sums iterated derivatives from separate site-local paths, yielding a positive weighted variance while every fixed-joint negative ELBO gives zero on the corresponding paths. The result excludes the coarser cross-design families, restricted families without the needed tangents, auxiliary-variable lifts, and the reduced functional after substituting state-dependent optimized attention. Its continuum corollary is conditional and does not construct a probability law on section space or a finite-to-continuum limit.
+The MAgent exact-ELBO continuum-finite remediation (2026-07-19) supplies the corrected obstruction. It works on the fine site-factorized family and sums iterated derivatives from separate site-local paths, yielding a positive weighted variance while every fixed-joint negative ELBO gives zero on the corresponding paths. The result excludes the coarser cross-design families, restricted families without the needed tangents, auxiliary-variable lifts, and the reduced functional after substituting state-dependent optimized attention. Its continuum corollary is conditional and does not construct a probability law on section space or a finite-to-continuum limit.
 
-[[vfe-population-generative-status-2026-07-12]] remains the immutable earlier record of the equilibrium-frozen auxiliary source model and a belief-configuration Gibbs lift when its partition function is finite. Its older obstruction account is refined by the site-local theorem above rather than silently rewritten.
+The earlier population-VFE generative-status record (2026-07-12) described the equilibrium-frozen auxiliary source model and a belief-configuration Gibbs lift when its partition function is finite. Its older obstruction account is refined by the site-local theorem above rather than silently rewritten.
 
 ## External collective and distributed comparators (2026-08-20)
 
@@ -175,14 +200,14 @@ gives an operationally agent-and-environment-node-only presentation when all dat
 are boundary messages. It does **not** erase observations from the ELBO: the realized messages remain
 its conditioning records. It also does not make every random seed or boundary node an autonomous
 agent; persistent state, a Markov blanket, action, or its own local VFE are additional agency
-hypotheses. [[gauge-vfe-rg-pullback-geometry-2026-08-01]]
+hypotheses.
 
 The terminal construction closes this finite conditional tier: a singleton and a nonempty block are
 respectively local-agent and meta-agent coordinates of the same joint VFE, and the full finite
 interaction family is exact modulo constants. A retained pairwise or sparse ansatz has an explicit
 truncation residual. This does not turn the deployed engineered population energy into an
 unconditional fixed-joint ELBO, nor does it construct the application-specific joint-law lift,
-coarse channel, or configuration map. [[gauge-vfe-rg-terminal-theory-closure-2026-08-08]]
+coarse channel, or configuration map.
 
 VFE descent supplies orientation only after a metric or mobility is declared. The ray
 $\dot Q=-v\,\operatorname{grad}^F\mathcal F_i$ with $v>0$ selects an oriented unparameterized orbit;
@@ -233,16 +258,8 @@ The optimized envelope force $c_0/(b_0+D_i)$ differs from the derivative $b_0c_0
 
 ## Sources
 
-- [[gauge-vfe-rg-terminal-theory-closure-2026-08-08]] -- terminal finite conditional local/block
-  VFE closure, full-interaction representation, exact residuals, and application boundary.
-
-- [[gauge-vfe-rg-pullback-geometry-2026-08-01]] -- exact full-law lift, outside-averaged local VFE, local--collective differential identity, and timeless orbit geometry.
-
-- [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]] -- corrected fine-family/site-local obstruction, response identity, and conditional continuum corollary.
-- [[belief-inertia-2026-07-12-theorem-first-revision]] -- entropy-retaining social objective, envelope gradient, Fisher path, and conditional kinetics.
-- [[vfe-population-generative-status-2026-07-12]] -- exact generative-model scope and no-go result.
 - [[participatory-it-from-bit]] -- broader two-channel multi-agent framework.
-- [[gl-k-attention]] and [[gl-k-attention-2026-07-09-review-revision]] -- gauge-attention derivation and corrected canonical-versus-surrogate scope.
+- [[gl-k-attention]] -- gauge-attention derivation.
 - [[heins-2023-spin-glass-active-inference]] -- exact but fragile collective special case.
 - [[palacios-2020-hierarchical-markov-blankets]] -- conditional higher-order Markov-blanket construction.
 - [[ashman-2022-partitioned-variational-inference]] -- explicit site-factor decomposition of a declared global variational target.

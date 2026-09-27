@@ -1,0 +1,202 @@
+\section{Proofs for Exact Agent-Network Coarse-Graining}
+\label{sec:proofs-network-coarsegraining}
+
+\noindent\emph{Proof of \Cref{thm:rg-bounded-action-calculus}.}
+Positivity and unitality of $\mathsf U$ give the bounds in (a), the bound on
+$\mathcal A(\psi)$, and the boundedness and positivity of $\mathsf U^\psi$;
+substitution in \eqref{eq:rg-local-action-map} gives
+\eqref{eq:rg-action-recentering-identity}. If $\lVert h\rVert_\infty<\log2$, then
+$\lVert\mathsf U^\psi(e^{-h})-1\rVert_\infty\le e^{\lVert h\rVert_\infty}-1<1$, so
+the exponential series in $L^\infty(\bar{\mathsf m}_o)$ and the series of
+$\log(1+u)$ in the commutative Banach algebra $L^\infty(\bar{\mathsf m}_o^c)$
+converge, and $h\mapsto\mathcal A(\psi+h)$ is real analytic on the ball of radius
+$\log2$ about every $\psi$, which proves (a). The Fr\'echet chain rule for the
+exponential, $\mathsf U^\psi$, and the logarithm gives
+\eqref{eq:rg-action-first-frechet-general}; differentiating
+$\int h(y)C^\dagger_{\psi+tk}(z,dy)$ at $t=0$ gives
+\eqref{eq:rg-action-second-frechet-general}; and $\psi=0$ gives the origin. For (c),
+$\psi\le\psi'+c$ implies $e^{-\psi}\ge e^{-c}e^{-\psi'}$, and positivity of
+$\mathsf U$ gives the order statement; applying it in both directions with
+$c=\lVert\psi-\psi'\rVert_\infty$ gives
+\eqref{eq:rg-nonlinear-action-sup-contraction}, and
+$\mathsf U(e^{-\psi-c})=e^{-c}\mathsf U(e^{-\psi})$ gives homogeneity, which with
+$\mathsf U1=1$ gives (d). For (e),
+$\widehat{\mathsf m}^\psi C=(e^{-\psi}\mathsf m_o)C/\mathsf m_o(e^{-\psi})$ and
+$\bar{\mathsf m}_o^c=\mathsf m_oC/M_o$ give the density
+$e^{-\mathcal A(\psi)}/\bar{\mathsf m}_o(e^{-\psi})$; the first two derivatives of
+$t\mapsto\log\bar{\mathsf m}_o(e^{-th})$ at $t=0$ are $-\bar{\mathsf m}_o(h)$ and
+$\operatorname{Var}_{\bar{\mathsf m}_o}(h)$, and polarization gives the covariance.
+$\square$
+
+\noindent\emph{Proof of \Cref{thm:rg-action-lp-contraction}.}
+Conditional Jensen gives $\lvert\mathsf Uh\rvert^p\le\mathsf U\lvert h\rvert^p$ for
+finite $p$, and integrating the disintegration
+\eqref{eq:rg-normalized-reverse-kernel} proves
+\eqref{eq:rg-action-lp-contraction} and preservation of the mean; $p=\infty$
+follows from the pointwise bound. The conditional variance identity
+\begin{equation}
+\int h^2d\bar{\mathsf m}_o
+=\int(\mathsf Uh)^2d\bar{\mathsf m}_o^c
++\int\operatorname{Var}_{C^\dagger(z,\cdot)}(h)\bar{\mathsf m}_o^c(dz),
+\label{eq:rg-action-total-conditional-variance}
+\end{equation}
+the decomposition behind \Cref{thm:cg-fisher-contraction} applied to $h$, proves
+\eqref{eq:rg-action-l2-conditional-defect}, and a nonnegative conditional variance
+integrates to zero exactly when it vanishes almost everywhere. For the oscillation
+bound, fix a representative of $h$ and let $N$ be the $\bar{\mathsf m}_o$-null set on which it
+lies outside $[\operatorname{ess~inf}h,\operatorname{ess~sup}h]$. Disintegration gives
+$\int C^\dagger(z,N)\bar{\mathsf m}_o^c(dz)=\bar{\mathsf m}_o(N)=0$, so
+$C^\dagger(z,N)=0$ for almost every $z$. Thus this fixed $h$ lies between its essential bounds
+almost surely under those kernels. For such a pair
+$(z,z')$ the signed measure $\mu=C^\dagger(z,\cdot)-C^\dagger(z',\cdot)$ has total
+mass zero and positive and negative parts of equal mass $t\le\delta$, so
+$(\mathsf Uh)(z)-(\mathsf Uh)(z')=\int h(y)\mu^+(dy)-\int h(y)\mu^-(dy)
+\le t(\operatorname{ess~sup}h-\operatorname{ess~inf}h)$. The sets where
+$\mathsf Uh$ lies within any positive distance of its essential supremum or
+infimum have positive $\bar{\mathsf m}_o^c$ measure, so the bound passes to
+$\operatorname{ess~sup}\mathsf Uh-\operatorname{ess~inf}\mathsf Uh$; applying it
+factor by factor gives the composition statement. $\square$
+
+\noindent\emph{Proof of \Cref{thm:rg-hoeffding-action-isomorphism}.}
+Fubini's theorem for the product $\nu_\ell$ gives commutation and
+$\E_{\ell,B}\E_{\ell,B'}=\E_{\ell,B\cap B'}$; expanding the
+product in \eqref{eq:rg-hoeffding-mobius-projectors} with this rule gives the
+alternating sum, and M\"obius inversion on the Boolean lattice gives the
+orthogonality relations and the resolution of the identity. Every term of
+$\mathsf P_{\ell,B}f$ is a function of $y_B$, and the factor
+$I-\E_{\ell,V_\ell\setminus\{i\}}$ removes its mean in coordinate $i$; hence
+the nonempty components recover $\mathsf g$ and sum to
+$f-\E_{\ell,\varnothing}f$, the class $[f]$. The triangle inequality and
+$\lVert[\psi]\rVert_{\mathrm{osc}}\le\lVert\psi\rVert_\infty$ give
+$\lVert\operatorname{asm}_\ell\rVert\le1$. For nonempty $B$ the projector
+$\mathsf P_{\ell,B}$ annihilates constants and is an alternating sum of
+$2^{\lvert B\rvert}$ contractions, so
+$\lVert\mathsf P_{\ell,B}f\rVert_\infty\le2^{\lvert B\rvert}\lVert f-c\rVert_\infty$
+for every constant $c$, and
+$\sum_{B\ne\varnothing}2^{\lvert B\rvert}=3^{\lvert V_\ell\rvert}-1$. For the
+biased coordinates, expanding $\prod_i\bigl((Y_i-m)+m\bigr)$ with
+$m=\E Y_i=2p-1$ gives the components $m^{n-\lvert B\rvert}\prod_{i\in B}(Y_i-m)$,
+whose supremum norms $m^{n-\lvert B\rvert}(1+m)^{\lvert B\rvert}$ sum to
+$(1+2m)^n-m^n=(4p-1)^n-(2p-1)^n$. $\square$
+
+\noindent\emph{Proof of \Cref{prop:rg-interaction-intra-block-invariance}.}
+Because $\bar{\mathsf m}_\ell$ is a product over agents and hence over blocks, the
+joint law $\bar{\mathsf m}_\ell(dy)C_\ell(y,dz)$ is the product of the block laws
+$\bar{\mathsf m}_\ell^{I}(dy_I)C_I(y_I,dz_I)$; its $z$-marginal is the product of
+the block marginals, and the product of the block reverse kernels
+$C_I^\dagger(z_I,dy_I)$ is a version of the reverse kernel. For $\mathsf
+g\in\mathcal G_\ell^{\mathrm{intra}}$, grouping components by block writes
+$\psi_{\mathsf g}=\sum_I\psi_I$ with $\psi_I$ a function of $y_I$, so Fubini's
+theorem gives $\mathcal A_\ell(\psi_{\mathsf g})=\sum_If_I(z_I)$ with
+$f_I=-\log\mathsf U_I(e^{-\psi_I})$. For $\lvert B\rvert\ge2$ choose
+$j\in B\setminus\{I\}$; the function $\E_{\ell+1,B}f_I$ does not depend on
+$z_j$, so the factor $I-\E_{\ell+1,V_{\ell+1}\setminus\{j\}}$ of the product
+form of \eqref{eq:rg-hoeffding-mobius-projectors} annihilates it. Hence
+$\mathsf P_{\ell+1,B}f_I=0$, and linearity finishes the proof. $\square$
+
+\noindent\emph{Proof of \Cref{prop:rg-interaction-rn-gauge-covariance}.}
+Channel covariance gives $\widehat{\mathsf m}_\ell\widehat
+C_\ell=(\kappa_{\ell+1})_\#(\mathsf m_\ell C_\ell)$ and
+$(e^{-\mathsf K_\ell\psi}\widehat{\mathsf m}_\ell)\widehat
+C_\ell=(\kappa_{\ell+1})_\#((e^{-\psi}\mathsf m_\ell)C_\ell)$. The Radon--Nikodym
+derivative of two measures pushed through one Borel isomorphism is the transported
+derivative, and applying $-\log$ gives \eqref{eq:rg-action-rn-gauge-covariance}
+without selecting a pointwise reverse kernel. Differentiating at an arbitrary
+bounded $\psi$ with part (b) of \Cref{thm:rg-bounded-action-calculus} gives
+\eqref{eq:rg-tilted-derivative-gauge-covariance}. Composing with the intertwinings
+\eqref{eq:rg-hoeffding-gauge-covariance} gives
+\eqref{eq:rg-nonlinear-interaction-gauge-covariance}, and inserting the intertwining
+of the retained projections into $I-\mathsf P^{\mathrm{ret}}_{\ell+1}$ and into
+\Cref{prop:rg-interaction-residual} gives the residual formulas. $\square$
+
+\noindent\emph{Proof of \Cref{prop:rg-hyperedge-generation}.}
+(a) is Tonelli's theorem applied to the product of nonnegative factors. (b) is
+M\"obius inversion on the Boolean lattice of subsets of $V^c$, and the component
+indexed by $B$ reads only $z_B$ because every term does. (c) follows by
+substituting $gz$ and $gz^\circ$ in \eqref{eq:rg-mobius-potentials}. For (d), write
+$f(u)=-\log2\cosh u$, so $f'''=2\operatorname{sech}^2\tanh$. With
+$x=\sum_r\xi_ry_r$ and $y_r^2=1$, only odd powers of $x$ contain the monomial
+$y_1y_2y_3$; the cubic term $f'''(\xi_0)x^3/6$ contributes
+$f'''(\xi_0)\xi_1\xi_2\xi_3$, and higher odd powers are of order five in the
+couplings. At $\xi_0=0$ the function $f(x)$ is even in $y$, so every odd Walsh
+coefficient vanishes. $\square$
+
+\noindent\emph{Proof of \Cref{prop:rg-bridge-kernels}.}
+Adjointness is \eqref{eq:rg-agent-meta-bayes-adjoint} integrated against
+$f(y_j)g(z_I)$. For the factorization witness take two blocks with one
+$\{-1,1\}$-valued agent each, a uniform product baseline, a channel that flips each
+coordinate independently with probability $1/5$, and the likelihood
+$e^{Jy_1y_2}$. The baseline reverse probability of $y_1=1$ given $z_1=1$ is $4/5$
+whatever $z_2$ is, while with $x=e^{2J}$ the posterior reverse probability is
+$4(x+4)/(8x+17)$ at $z_2=-1$ and $4(4x+1)/(17x+8)$ at $z_2=1$, which differ exactly
+when $J\ne0$. For a deterministic statistic, $\mathsf C\mathsf
+Jf(z)=\E[f(\chi(Y))\given\chi(Y)=z]=f(z)$ almost everywhere. A channel whose output
+does not depend on $y$ gives $\mathsf C\mathsf Jf=\boldsymbol\Pi^c_o(f)$, which
+differs from $f$ for nonconstant $f$. $\square$
+
+\noindent\emph{Proof of \Cref{thm:rg-strong-lumpability}.}
+Assume \eqref{eq:rg-lumped-kernel} and take $\mu=\delta_y$. Then
+$\mathsf T(y,\chi^{-1}A)=\mathsf T^\chi(\chi(y),A)$ for every $y$ and Borel $A$,
+whose right side depends on $y$ only through $\chi(y)$, and surjectivity determines
+$\mathsf T^\chi$ at every $z$. Conversely, for fixed $z$ the map
+$A\mapsto\mathsf T(\iota(z),\chi^{-1}A)$ is a probability measure because $\chi^{-1}$
+commutes with countable disjoint unions, and for fixed $A$ it is Borel in $z$ as the
+composition of $\iota$ with $y\mapsto\mathsf T(y,\chi^{-1}A)$. Since
+$\chi(\iota(\chi(y)))=\chi(y)$, hypothesis \eqref{eq:rg-strong-lumpability} gives the
+same pointwise identity, and integrating it against $\mu$ gives
+\eqref{eq:rg-lumped-kernel}. $\square$
+
+\noindent\emph{Proof of \Cref{thm:rg-memory-projection}.}
+At $t=0$ the empty context has mass one. If the context at $t$ has its
+$\mathbb P^{\mathrm{path}}_N$ marginal, multiplying by its row gives the correct
+context-plus-symbol marginal, and marginalizing the oldest symbol gives the next
+context marginal; by induction no positive prefix enters a null context, and
+successive row sums give normalization. Expanding the logarithm of the products and
+regrouping by contexts gives \eqref{eq:rg-memory-excess-risk}; a competitor that
+excludes a positive word has infinite divergence. Equality forces every occupied row
+to agree, and recursive reachability forces the same path law. Subtracting the
+source chain-rule logarithm from the projected product leaves, in expectation, the
+difference between entropy given the context and entropy given the full past, which
+is the conditional mutual information \eqref{eq:rg-memory-information-defect} by the
+chain rules of \citet[Sec.~2.5]{CoverThomas2006}. Conditioning on more history does
+not increase entropy, so the defect decreases in $k$, and $k\ge N-1$ keeps the whole
+past. The projection keeps its own defining marginals, and a shorter prefix only
+clips the available history. The total-variation bound is Pinsker's inequality
+\citep[Lemma~11.6.1]{CoverThomas2006}. For the cycle,
+$\mathbb P(Z_0=0)=2/3$ and both one-step rows from $0$ put mass $1/2$ on $0$, so the
+projection gives $000$ the mass $1/6$ although the cycle never produces it.
+Subtracting the two finite log ratios gives
+\eqref{eq:rg-memory-recognition-vfe-difference}. $\square$
+
+\noindent\emph{Proof of \Cref{thm:rg-memory-duration}.}
+Stationarity and nonnegativity force $\mathsf T_{yy'}=0$ when $\bar p_y>0=\bar
+p_{y'}$, so the positive support is closed. For $k\ge1$ the positive $k$-context
+chain shifts a context to its last $k$ symbols after appending a symbol, with row
+$\mathbb P^{\mathrm{path}}_{k+1}(\mathbf zz)/\mathbb P^{\mathrm{path}}_k(\mathbf z)$; its incoming mass at a context
+is the corresponding marginal of $\mathbb P^{\mathrm{path}}_{k+1}$, which equals $\mathbb P^{\mathrm{path}}_k$ of that
+context by stationarity, and this gives stationarity and exact $(k+1)$-windows; for
+$k=0$ the projection is the stationary product of the one-symbol marginal.
+Conditioning and stationarity give $0\le\mathrm h_{j+1}\le\mathrm h_j$. The chain
+rule gives $H(Z_{0:N-1})=\sum_{j<N}\mathrm h_j$, and for $N>k$ the projected
+cross-entropy is $H(Z_{0:k-1})+(N-k)\mathrm h_k$, which gives the sum and its rate.
+For two adjacent observed blocks of lengths $n_1$ and $n_2$, past and future are
+conditionally independent given the intervening hidden state, so their mutual
+information is at most $\mathrm c_Y$; expanding it by stationary entropies gives
+$H(Z_{0:n_2-1})-\sum_{j=0}^{n_2-1}\mathrm h_{n_1+j}\le\mathrm c_Y$, and letting $n_1$
+and then $n_2$ grow gives the series bound, whose monotone terms give
+$(k+1)\mathrm h^{\mathrm{ex}}_k\le\mathrm c_Y$. Finally, for $N>k$,
+$N\mathrm h^{\mathrm{ex}}_k-D^{(k)}_N=k\mathrm h^{\mathrm{ex}}_k
++\sum_{t=k}^{N-1}\mathrm h^{\mathrm{ex}}_t\le\mathrm c_Y$, for $N\le k$ the bound
+$N\mathrm h^{\mathrm{ex}}_k\le\mathrm c_Y$ holds, and bounding each nonzero summand of
+$D^{(k)}_N$ by $\mathrm h^{\mathrm{ex}}_k$ gives the last inequality. $\square$
+
+\noindent\emph{Proof of \Cref{prop:hist-law-fisher-agentization-nogo}.}
+Relabelings fix the uniform law and its Fisher metric, so a natural rule would be
+permuted by them and would induce a homomorphism from the symmetric group $S_7$ to
+the symmetric group $S_3$ of the three blocks. Its restriction to the alternating
+group $A_7$, which is perfect, is trivial, because $S_3$ is solvable, so every block
+would be $A_7$-invariant. The tangent space is the sum-zero representation of
+$A_7$. Since $A_7$ is doubly transitive on the seven outcomes, the commutant of its
+permutation representation is spanned by the identity and the all-ones matrix, so
+every equivariant endomorphism of the sum-zero space is scalar, the representation
+is irreducible, and it has no invariant two-dimensional subspace. $\square$

@@ -1,0 +1,109 @@
+% !TeX root = ../PIFB2.tex
+\section{One World out of Many: Collective Geometry and Operational Agreement}\label{sec:collective_geometry}
+
+Wheeler's question of how one world arises out of many participants motivates a collective description~\cite{Wheeler1990}. The mathematical problem is to say what becomes shared when agents communicate selectively. Agreement on a public channel is weaker than equality of cognitive states; a stable parent law is stronger than an instantaneous agreement; and agreement between statistical predictions is different from a common geometry of how those predictions vary with context. These distinctions make it possible to retain observer dependence without attributing physical consequences to a passive frame change.
+
+\subsection{Collective information geometry}
+\label{sec:consensus_metric}
+
+For a regular collective recognition section $Q(c)$ in the normalized population model, define its covariant Fisher tensor by the same construction as in Section~\ref{sec:pullback}. It reads the joint law, including correlations. A convenient descriptive alternative is a weighted sum of marginal tensors,
+\begin{equation}
+\bar G_{\alpha\beta}(c)=\sum_iw_i(c)G_{i,\alpha\beta}^\omega(c),\qquad
+w_i\geq0,\quad\sum_iw_i=1.
+\label{eq:consensus_metric_covariant}
+\end{equation}
+This tensor is gauge invariant if the weights are scalar observables, but it is not selected by gauge invariance and generally is not the Fisher tensor of $Q$. Different joint laws can share all the same marginals.
+
+An exact example makes the missing correlation geometry visible. Let $Q_\rho$ be a centered bivariate Gaussian with covariance
+\begin{equation}
+\Sigma_\rho=\begin{pmatrix}1&\rho\\\rho&1\end{pmatrix},\qquad |\rho|<1.
+\end{equation}
+Each marginal is $\mathcal N(0,1)$ independently of $\rho$, so every marginal tensor in the $\rho$ direction is zero. The joint tensor is instead
+\begin{equation}
+G_{Q_\rho}=\tfrac12\operatorname{tr}\bigl[(\Sigma_\rho^{-1}\partial_\rho\Sigma_\rho)^2\bigr]d\rho^2
+=\frac{1+\rho^2}{(1-\rho^2)^2}d\rho^2.
+\label{eq:collective_correlation_geometry}
+\end{equation}
+Indeed, $\Sigma_\rho^{-1}\partial_\rho\Sigma_\rho=(1-\rho^2)^{-1}\left(\begin{smallmatrix}-\rho&1\\1&-\rho\end{smallmatrix}\right)$, and squaring it gives the displayed trace. A collective geometry can therefore carry information absent from every individual marginal geometry.
+
+There is a specific probabilistic meaning for the weighted sum when it is appropriate. Let $r_i(o\mid c)$ be normalized laws on a common record space and retain a source label $I$ with joint law $R(i,do\mid c)=w_i(c)r_i(do\mid c)$, where all active weights are positive. Its score is the sum of the weight score and conditional record score, and the conditional score has zero expectation. Therefore
+\begin{equation}
+G_R=\sum_i w_iG_{r_i}+\sum_i\frac{dw_i\otimes dw_i}{w_i}.
+\label{eq:labeled_collective_fisher}
+\end{equation}
+Constant weights remove the second term. Context-dependent attention weights do not. Forgetting the source label gives the mixture record law, whose score is the conditional expectation of the joint score given the record. Conditional variance then gives $G_{\mathrm{mixture}}\preceq G_R$. These statements require regular scores and a compatible connection; they do not identify a source mixture with the correlated population law.
+
+No orbit average over cognitive frames is needed for any of these tensors. Their invariance follows from their typed construction. The older frame-twist proposal can be disposed of by a smaller counterexample than an analysis of regulated Haar measures.
+\begin{proposition}[A removable frame does not define perceived length]
+\label{prop:regulator_obstruction}
+Suppose only $\Omega_{ij}=U_iU_j^{-1}$ and frame-independent data are read. Then $\operatorname{tr}(U_i^{-1}dU_i\otimes U_i^{-1}dU_i)$ is not an invariant of those data.
+\end{proposition}
+\begin{proof}
+The common right change $U_j\mapsto U_jh(c)$ leaves every $\Omega_{ij}$ unchanged. Choosing $h=U_i^{-1}$ makes the selected frame $U_i$ constant and its derivative tensor zero. For example, $U_i=e^cI$ gives a nonzero tensor before that change. Thus two presentations of the same specified data assign different lengths.
+\end{proof}
+This proposition concerns the pure reference-frame expression. It does not remove the content of independent matrix links, a chosen base connection, or the Hermitian determinant construction of Section~\ref{sec:signature_resolution}.
+
+\subsection{Public agreement and private variation}
+\label{sec:observer}
+
+For receiver $i$ and sender $j$, the interface model compares laws on a declared common output space. Write these as $r_{i|ij}$ and $r_{j|ij}$, obtained from the endpoint laws by their respective receiving and sending kernels. The edge disagreement is
+\begin{equation}
+K_{ij}=D_{\mathrm{KL}}(r_{i|ij}\|r_{j|ij}).
+\label{eq:operational_agreement}
+\end{equation}
+It vanishes exactly when the compared laws agree, up to the standard almost-everywhere qualification. It need not compare every direction of either agent. For instance, the projection $(x,y)\mapsto x$ maps both $\mathcal N((0,a),I_2)$ and $\mathcal N((0,b),I_2)$ to $\mathcal N(0,1)$ for arbitrary $a,b$. Communication gives perfect public agreement while private means differ.
+
+This is a mechanism for public agreement without requiring uniform internal descriptions. Stability and whether such a record becomes an autonomous parent are separate closure questions of Sections~\ref{sec:meta_agent_formation}--\ref{sec:rg_status}. Hidden variables can remain relevant to later interactions despite being invisible to the current public comparison. Retained conditional memory is then part of the parent's actual law rather than an optional interpretation.
+
+Even full pointwise belief agreement is insufficient for geometric agreement. In a fixed reference chart, $q_1(c)=\mathcal N(c,1)$ and $q_2(c)=\mathcal N(2c,1)$ agree at $c=0$, but their pullbacks are $dc^2$ and $4dc^2$. Nor does uniformly small KL control their derivatives. For $\epsilon>0$, let
+\begin{equation}
+q_\epsilon(c)=\mathcal N\bigl(\epsilon\sin(c/\epsilon^2),1\bigr),\qquad q_0(c)=\mathcal N(0,1).
+\end{equation}
+Then
+\begin{equation}
+D_{\mathrm{KL}}(q_\epsilon(c)\|q_0(c))\leq\epsilon^2/2,
+\qquad
+G_{q_\epsilon}(c)=\epsilon^{-2}\cos^2(c/\epsilon^2)dc^2,
+\qquad G_{q_0}=0.
+\label{eq:agreement_geometry_counterexample}
+\end{equation}
+The discrepancy is unbounded at $c=0$ as $\epsilon\downarrow0$. A theorem of common perceived geometry therefore needs derivative control, not only small disagreement values. Exact equality of smooth compared laws throughout an open region does imply equal Fisher tensors there when their comparison maps and connections are compatible; a merely pointwise or approximate equality does not.
+
+\subsection{Observable directions from records}
+\label{sec:observable_sectors}
+
+A record law $r(o\mid c)$ gives its own Fisher tensor $J$, computed with the declared comparison rule. Its radical consists of directions invisible to first order in that record family. This is an operational distinction: invisibility is relative to the available record, and does not assert that the underlying direction is absent. If a fixed, or covariantly constant, Markov observation kernel maps a regular latent law to the record law, the record score is a conditional expectation of the latent score. The conditional-variance identity proves $J\preceq G$ and identifies the lost information. A context-dependent kernel carries its own score and must be differentiated as part of the full model; the same inequality cannot simply be assumed after omitting that dependence.
+
+Finite sensitivity can be described by the generalized eigenproblem
+\begin{equation}
+Jv=\lambda Hv,
+\label{eq:operational_sector_pencil}
+\end{equation}
+where $H$ is an explicitly chosen positive reference tensor on the comparison space. When $J\preceq H$, all its generalized eigenvalues lie in $[0,1]$, because $v^\top Jv/ v^\top Hv$ lies in that interval. A positive collective Fisher tensor can supply $H$ on a regular observable quotient; otherwise a further reference must be declared. If $H$ is singular, the pencil first requires a well-defined quotient or complement rather than an unqualified ordinary eigendecomposition. Smooth sector bundles require constant rank and a spectral gap around any chosen sensitivity threshold.
+
+Nothing in this construction forces four observable directions or assigns one a temporal sign. The dimensions and thresholds are properties to determine from a specified record model. The Lorentz section names the separate rank-four and soldering conditions needed for a spacetime interpretation. Passive coordinate changes preserve these tensor statements; changing an agent's records, statistical law, interface or comparison connection can change them.
+
+\subsection{Physical quantities and calibration}
+\label{sec:phenomenological_interpretation}
+
+A dimension is not a numerical choice of units. Bits and nats are dimensionless conventions related by $I_{\mathrm{bit}}=I_{\mathrm{nat}}/\log2$. A physical action, length or temperature carries another type. An equation $S_{\mathrm{phys}}=a_0I_{\mathrm{nat}}$ requires $a_0$ to have action units; changing the logarithm convention rescales its numerical coefficient. Choosing $a_0=\hbar/\log2$ so that one bit corresponds to $\hbar$ calibrates a conversion and does not derive $\hbar$ or a smallest possible update.
+
+The most direct tests concern dimensionless predictions: ratios of response times, probabilities of records, relative coarse-graining errors and symmetry violations across calibrated observers. If a physical identification succeeds, its dimensions and conversion factors must survive composition across agents and scales. The same word should not stand for a statistic, a physical observable and a fitted conversion between them.
+
+\begin{table}[ht]
+\centering
+\begin{tabularx}{\linewidth}{lXX}
+\toprule
+Physical target & Available mathematical object & Required connection to experiment \\
+\midrule
+Duration & Fisher length or expected record information & Calibration and compatibility of histories and records \\
+Spacetime & A conditional Lorentz cone and soldering & Observable rank, causal characteristics and physical scale \\
+Inertia & Retained response and memory & An independently identified kinetic response law \\
+Energy & Dimensionless VFE or effective action & A physical ensemble and an energy or action conversion \\
+Entropy & Relative entropy or ensemble entropy & A specified reference measure and thermodynamic identification \\
+Objectivity & Agreement on communicated records & Persistence and successful predictions under intervention \\
+\bottomrule
+\end{tabularx}
+\caption{Physical targets and their current mathematical counterparts. Each final column is a research obligation, not an additional universal postulate.}
+\label{tab:physical_correspondences}
+\end{table}

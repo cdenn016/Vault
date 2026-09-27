@@ -36,7 +36,7 @@ exponents $a,b$, not the loss-surface exponents $\alpha,\beta$.
 
 ## Why it matters here
 
-The retained [[VFE Transformer Program|gauge-theoretic transformer]] evidence is a twelve-width development sweep on WikiText-103, not a neural scaling law in the Kaplan or Chinchilla sense. Every run uses 491.52 million tokens, while raw trainable parameters rise from 7.60 million to 90.67 million and tokens per parameter fall from 64.66 to 5.42. The sweep also changes head count and activates an identity-initialized head mixer at $K\geq20$, and its records span ten source commits. The fitted curves summarize that heterogeneous trajectory; they do not identify an architecture-level law, a compute-optimal frontier, or an irreducible loss term. [[gl-k-attention-2026-07-09-review-revision]]
+The retained [[VFE Transformer Program|gauge-theoretic transformer]] evidence is a twelve-width development sweep on WikiText-103, not a neural scaling law in the Kaplan or Chinchilla sense. Every run uses 491.52 million tokens, while raw trainable parameters rise from 7.60 million to 90.67 million and tokens per parameter fall from 64.66 to 5.42. The sweep also changes head count and activates an identity-initialized head mixer at $K\geq20$, and its records span ten source commits. The fitted curves summarize that heterogeneous trajectory; they do not identify an architecture-level law, a compute-optimal frontier, or an irreducible loss term.
 
 ## Details
 
@@ -57,7 +57,6 @@ which uses plain AdamW. Gaussian belief updates use Fisher geometry and require
 their own stability analysis. PIFB leaves $b=-1$ unadjudicated: a nested
 $F$-test rejects it, while the reported bootstrap interval contains $-1$.
 The width fits are therefore descriptive summaries, not derived or transferable exponents.
-[[gl-k-attention-2026-07-09-review-revision]]
 
 ## Sources
 

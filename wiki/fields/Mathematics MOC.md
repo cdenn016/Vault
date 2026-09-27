@@ -5,10 +5,15 @@ aliases: [field/mathematics, Mathematics sources, Math MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-09-13
+updated: 2026-09-26
 ---
 
 # Mathematics MOC
+
+## Primary references checked September 26, 2026
+
+[[hairer-2011-harris-ergodic-theorem]], [[hartmann-2020-coarse-graining-nonreversible-sdes]], and [[backhoff-veraguas-2023-specific-relative-entropy]] add frozen ergodicity, coarse-dynamics comparison, and specific path entropy. Reused proper-action and cumulant sources, with their checked locators, are linked from [[multiagentelbo-2026-09-26-selection-and-reference-review]].
+
 
 > Map of Content for the **`field/mathematics`** discipline facet. Auto-populated by the **Bases**
 > core plugin from the `field/*` tags.
@@ -139,10 +144,6 @@ or `tag:#field/mathematics tag:#cluster/social-physics/opinion-dynamics`. See th
 - [[watts-2013-the-orbit-space-and-basic-forms-of-a-proper-lie-groupoid]]
 - [[yin-2009-a-cluster-expansion-approach-to-renormalization-group-transformations]]
 - [[ying-2018-hierarchical-graph-representation-learning-with-differentiable-pooling]]
-- [[multiagentelbo-2026-09-11-critical-comparisons]]
-- [[multiagentelbo-2026-09-11-extension-studies]]
-- [[multiagentelbo-2026-09-11-finite-program]]
-- [[multiagentelbo-2026-09-11-implementation]]
 
 ## Finite dynamical RG, September 12, 2026
 
@@ -162,3 +163,11 @@ or `tag:#field/mathematics tag:#cluster/social-physics/opinion-dynamics`. See th
 ## Weakest-one adaptive cyclic RG, September 13
 
 [[multiagentelbo-2026-09-13-fixed-weakest-energy-adaptive-cyclic-rg]] supplies the fixed-weakest-energy positive-rate construction, exact marked activations, joint entropy and full assignment-history comparison.
+
+## Matrix-link ingestion, September 20, 2026
+
+[[dennis-2026-glk-matrix-links-2026-09-20]] records the matrix-link source and its stated scope; [[Lattice gauge theory]] and [[GL(K) gauge-equivariant attention]] provide the synthesis. The source is included in the tagged Bases view.
+
+## Selective-communication formation assessment, September 20, 2026
+
+[[multiagentelbo-2026-selective-communication-formation]] records communicated/private-law separation, quotient compatibility and the proposed normalized cycle extension. Its formation and blanket claims remain explicitly conditional; the source is included in this discipline's tagged Bases view.

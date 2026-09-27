@@ -13,10 +13,16 @@ tags:
   - project/transformer
 status: stable
 created: 2026-06-19
-updated: 2026-06-19
+updated: 2026-09-20
 ---
 
 # Markov blanket interpretation debate
+
+## Selective communication is a candidate interface, September 20, 2026
+
+[[multiagentelbo-2026-selective-communication-formation]] distinguishes communication through selected observables from a probabilistic blanket. For private state $Z$, communicated interface $Y$ and exterior $W$, the required condition is $Z\perp W\mid Y$. A declared law $P(dy)R(dz\mid y)S(dw\mid y)$ supplies it. Low rank, a selected subspace or sparse drift alone does not; hidden baseline correlations, other channels and hidden-dependent routing can defeat it.
+
+Even when the instantaneous law has this factorization, autonomous interface dynamics remain a separate condition. In the linear deterministic case, $y=Mx$ is autonomous under $\dot x=Ax$ exactly when $MA=\bar A M$ for some $\bar A$. The proposed selective-formation extension must therefore derive its normalized conditional law and inherited evolution separately. This adds a concrete formation obligation to the debate rather than inferring blanket existence from [[GL(K) gauge-equivariant attention]]. The cognitive-interface interpretation remains a model interpretation. [[Staged hierarchy formation and RG composability]]
 
 ## Definition
 

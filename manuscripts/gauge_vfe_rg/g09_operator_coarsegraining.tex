@@ -1,0 +1,252 @@
+\chapter{Operator Coarse-Graining}
+\label{ch:gaussian-renormalization}
+
+What does a hard aggregation of agents do to the operator parameters of the
+interaction family, and when is its output again a normalized Gaussian law? The
+chapter answers both questions for one finite step and its finite compositions. On
+the parameters \((A_i,W_{ij})\) of \Cref{def:gauss-interaction-family},
+aggregation is a positive linear semigroup action that sums self terms and cut
+weights and annihilates internal edges (\Cref{prop:grg-aggregation-semigroup}). On
+the interior of the interaction cone, with Lebesgue reference measure and a declared
+information-vector rule, a step rescaled by \(\zeta_\ell>0\) is a normalized
+Gaussian law step, which one parameter-independent kernel realizes on a
+fixed-precision mean fiber exactly when \(\zeta_\ell\leq1\)
+(\Cref{prop:grg-interior-law-step}). The only positive rules that depend
+additively on scalar node masses are the biadditive ones, which are closed under
+every hard partition (\Cref{prop:grg-positive-additive-linear}). The operator step
+is the Gaussian instance of the exact coarse channels of
+\Cref{ch:coarsegraining,ch:agent-network-rg}; it is not their definition, because a
+law-level step also needs a coarse reference measure, an information-vector rule,
+and a finite normalizer, which the interior supplies and the singular boundary does
+not. Hard aggregation is one admissible coarse arrow among several: the
+effective-support, sheaf, and Kron reductions of \Cref{ch:gaussian-coarsegraining}
+give others on narrower domains. The pencil invariants that type the boundary are
+in \Cref{sec:grg-spectra}.
+
+The chapter treats the belief and recognition operator sector at \(c_*\); a
+model-channel step is a separate construction with its own dimension, links, and
+parameters. It does not assert a statement about infinite hierarchies, limiting
+rays, or the behavior of iterated steps as the depth grows, or that a law-level step
+exists at the boundary member of the biadditive family without a declared repair.
+\status{NOT-CLAIMED} The monotonicity question beyond one fixed precision is
+\Cref{open:grg-galerkin-monotonicity}, and a gauge-compatible nondegenerate partition
+selector is \Cref{open:cg-natural-selector}. Balanced cut links admit no continuous extension
+to all singular cuts (\Cref{open:cg-cut-compression}).
+
+\section{The operator arrow}
+\label{sec:grg-operator-arrow}
+
+\definitionheading{Operator arrow}{def:grg-operator-arrow}
+At depth \(\ell\), let \(\boldsymbol\Xi_\ell=((A_i^{(\ell)}),(W_{ij}^{(\ell)}))\) with
+\(A_i^{(\ell)},W_{ij}^{(\ell)}\in\PSD^K\), and assemble the depth-\(\ell\) interaction
+precision of \Cref{def:gauss-interaction-family},
+\begin{equation}
+(\Lambda_\ell)_{ii}
+=A_i^{(\ell)}+\sum_{j\ne i}W_{ij}^{(\ell)},
+\qquad
+(\Lambda_\ell)_{ij}=-W_{ij}^{(\ell)};
+\label{eq:grg-family}
+\end{equation}
+a precision assembled from the directed model enters through
+\Cref{hyp:gauss-global-interaction}. For a hard partition of the agents into clusters
+\(I\), let \(\widehat S_\ell\) be its \(0/1\) membership matrix and
+\(S_\ell=\widehat S_\ell\otimes I_K\). The unrescaled aggregation map acts on precisions
+and on parameters by
+\begin{equation}
+\mathcal A_{S_\ell}(\Lambda_\ell)
+=S_\ell^\top\Lambda_\ell S_\ell,
+\qquad
+\mathcal A_{S_\ell}(\boldsymbol\Xi_\ell)
+=\left(
+\left(\sum_{i\in I}A_i^{(\ell)}\right)_I,
+\left(\sum_{\substack{i\in I\\j\in J}}W_{ij}^{(\ell)}\right)_{I\ne J}
+\right),
+\label{eq:grg-aggregation}
+\end{equation}
+and a coarse-graining step declares a positive rescaling \(\zeta_\ell>0\) and sets
+\begin{equation}
+\Lambda_{\ell+1}
+=\zeta_\ell^{-1}\mathcal A_{S_\ell}(\Lambda_\ell).
+\label{eq:grg-flow}
+\end{equation}
+
+\propositionheading{Aggregation is a positive semigroup action}{prop:grg-aggregation-semigroup}
+(i) The two maps of \eqref{eq:grg-aggregation} agree: assembling
+\(\mathcal A_S(\boldsymbol\Xi)\) by \eqref{eq:grg-family} gives \(S^\top\Lambda S\).
+(ii) If \(S_1\) maps agents to intermediate clusters and \(S_2\) maps those clusters to
+coarse clusters, then
+\begin{equation}
+\mathcal A_{S_2}\mathcal A_{S_1}
+=\mathcal A_{S_1S_2}.
+\label{eq:grg-semigroup}
+\end{equation}
+(iii) Each \(\mathcal A_S\) is linear and positive on the product cone of self terms and
+edge weights, and it is not injective when some cluster contains an edge, because
+every edge internal to a cluster is annihilated.
+(iv) If every cluster has \(b\) agents, then \(S^\top S=bI\) and, for every symmetric
+\(\Lambda\),
+\begin{equation}
+b\lambda_{\min}(\Lambda)
+\leq\lambda_{\min}(S^\top\Lambda S),
+\qquad
+\lambda_{\max}(S^\top\Lambda S)
+\leq b\lambda_{\max}(\Lambda).
+\label{eq:grg-spectral-bounds}
+\end{equation}
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) The \((I,J)\) block of \(S^\top\Lambda S\) is \(\sum_{i\in I,j\in J}\Lambda_{ij}\). For
+\(I\neq J\) this is \(-\sum_{i\in I,j\in J}W_{ij}\). For \(I=J\) it is
+\(\sum_{i\in I}\bigl(A_i+\sum_{j\neq i}W_{ij}\bigr)-\sum_{i\neq i'\in I}W_{ii'}
+=\sum_{i\in I}A_i+\sum_{i\in I,j\notin I}W_{ij}\), which is the diagonal block that
+\eqref{eq:grg-family} assembles from \(\mathcal A_S(\boldsymbol\Xi)\). (ii) Congruence
+gives \(S_2^\top(S_1^\top\Lambda S_1)S_2=(S_1S_2)^\top\Lambda(S_1S_2)\), and the parameter
+formula follows by associativity of finite sums. (iii) Finite sums preserve positive
+semidefiniteness, and changing an internal weight while holding every cut weight and
+self term fixed leaves \(\mathcal A_S(\boldsymbol\Xi)\) unchanged. (iv) Congruence by \(S\)
+preserves the Loewner inequalities
+\(\lambda_{\min}(\Lambda)I\preceq\Lambda\preceq\lambda_{\max}(\Lambda)I\), and
+\(S^\top S=bI\). \hfill$\square$
+
+\medskip
+Source and target of \eqref{eq:grg-flow} have different dimensions. A finite sequence
+of steps is therefore a composition of positive maps between different spaces, one
+arrow of the scale diagram of \Cref{sec:rg-scale-category} per step, and not an
+autonomous dynamical system on one parameter space. The bounds
+\eqref{eq:grg-spectral-bounds} are finite-level statements; divergence or convergence
+along a sequence of steps would require an infinite hierarchy and a declared
+normalization, which this supplement does not declare. The parameter formula of
+\eqref{eq:grg-aggregation} is written in the chart in which
+\Cref{def:gauss-interaction-family} is imposed; nonflat data must first satisfy the
+effective-support conditions of \Cref{sec:cg-effective-support} or be treated by the
+rectangular endpoint maps of \Cref{sec:cg-sheaf-closure}, and the full treatment of
+hard aggregation is \Cref{sec:cg-gaussian-aggregation}.
+
+\propositionheading{Interior law-level step}{prop:grg-interior-law-step}
+Let \(\Lambda_\ell\succ0\), let \(S_\ell\) be injective, let \(\zeta_\ell>0\), and write
+\(\Lambda_{\mathrm c}=S_\ell^\top\Lambda_\ell S_\ell\). Declare Lebesgue reference measure
+on each coarse coordinate space and the information-vector rule
+\(\mathsf h_{\ell+1}=S_\ell^\top\mathsf h_\ell\). Then
+\((\mathsf h_{\ell+1},\Lambda_{\ell+1})=(S_\ell^\top\mathsf h_\ell,\zeta_\ell^{-1}\Lambda_{\mathrm c})\)
+is the natural parameter of a normalized Gaussian with finite log normalizer
+\(\mathsf A(\mathsf h_{\ell+1},\Lambda_{\ell+1})\), so every iterate of \eqref{eq:grg-flow}
+started in the interior stays in the Gaussian natural domain. At \(\zeta_\ell=1\) the step
+is the pushforward of the fine law under \(P_{\Lambda_\ell}\) of
+\Cref{prop:ig-galerkin-pushforward}. For general \(\zeta_\ell\), the step sends
+\(\mathcal N(\mu,\Lambda_\ell^{-1})\) to
+\(\mathcal N(\zeta_\ell P_{\Lambda_\ell}\mu,\zeta_\ell\Lambda_{\mathrm c}^{-1})\), and on the
+fixed-precision mean fiber of \(\Lambda_\ell\) it is realized by a parameter-independent
+Markov kernel if and only if \(\zeta_\ell\leq1\), for instance by
+\(y\mapsto\mathcal N(\zeta_\ell P_{\Lambda_\ell}y,\zeta_\ell(1-\zeta_\ell)\Lambda_{\mathrm c}^{-1})\).
+The alternative rule \(\mathsf h_{\ell+1}=\zeta_\ell^{-1/2}S_\ell^\top\mathsf h_\ell\), with the
+same coarse precision, is the pushforward under
+\(y\mapsto\zeta_\ell^{1/2}P_{\Lambda_\ell}y\) for every \(\zeta_\ell>0\).
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Injectivity of \(S_\ell\) and \(\Lambda_\ell\succ0\) give \(\Lambda_{\mathrm c}\succ0\), hence
+\(\zeta_\ell^{-1}\Lambda_{\mathrm c}\succ0\), and \Cref{prop:gauss-log-normalizer-moments}
+gives a finite normalizer; induction gives the statement about iterates. The case
+\(\zeta_\ell=1\) is \Cref{prop:ig-galerkin-pushforward}(i). In general the coarse mean is
+\(\zeta_\ell\Lambda_{\mathrm c}^{-1}S_\ell^\top\mathsf h_\ell=\zeta_\ell P_{\Lambda_\ell}\mu\) with
+\(\mathsf h_\ell=\Lambda_\ell\mu\). For \(\zeta_\ell\leq1\) the displayed kernel produces the
+covariance
+\(\zeta_\ell^2P_{\Lambda_\ell}\Lambda_\ell^{-1}P_{\Lambda_\ell}^\top
++\zeta_\ell(1-\zeta_\ell)\Lambda_{\mathrm c}^{-1}=\zeta_\ell\Lambda_{\mathrm c}^{-1}\).
+Conversely, if a parameter-independent kernel realizes the step, the data-processing
+inequality \Cref{thm:cg-kl-dpi-extended} applied to the fine laws with means \(\mu\) and
+\(\mu+S_\ell v\) gives
+\(\tfrac12v^\top\Lambda_{\mathrm c}v\geq\tfrac12\zeta_\ell v^\top\Lambda_{\mathrm c}v\), the right
+side being the relative entropy of the two coarse laws, so \(\zeta_\ell\leq1\). The last rule
+is the image of \Cref{prop:ig-galerkin-pushforward}(i) under multiplication of the
+coarse coordinates by \(\zeta_\ell^{1/2}\). \hfill$\square$
+
+\openproblemheading{Monotonicity beyond one fixed precision}{open:grg-galerkin-monotonicity}
+On one fixed-precision mean fiber the unrescaled step is the pushforward of one
+parameter-independent kernel (\Cref{prop:ig-galerkin-pushforward}), and after a
+rescaling with \(\zeta_\ell\leq1\) it is still realized by one kernel
+(\Cref{prop:grg-interior-law-step}), so the Fisher metric of the mean family contracts
+there by \Cref{thm:cg-fisher-contraction}. Three cases are unsettled. First, along a
+family of precisions on which \(\operatorname{range}(\Lambda S)\) varies, no single kernel
+exists (\Cref{prop:ig-galerkin-pushforward}(v)); a monotone functional would have to be
+supplied and its decrease proved directly, for instance as a Lyapunov functional of the
+step. Second, at the boundary member \(A=0\) of the biadditive family
+\eqref{eq:grg-biadditive}, \(\Lambda\) is singular and \(P_\Lambda\) need not be defined; a
+declared quotient, pin, or mass repair with its own reference measure, normalizer, and
+pushforward identity would settle it. Third, under iteration to unbounded depth,
+\Cref{prop:ig-galerkin-pushforward}(iii) controls every finite composition, but no limit
+object of the composed kernels has been constructed; a projective-limit theorem for the
+composed kernels would settle it.
+
+\section{The biadditive closed family}
+\label{sec:grg-biadditive}
+
+Let each agent carry a mass \(x_i\geq0\), and fix \(A,M\in\PSD^K\). The biadditive family
+is
+\begin{equation}
+A_i=x_iA,
+\qquad
+W_{ij}=x_ix_jM,
+\label{eq:grg-biadditive}
+\end{equation}
+and its image under a hard partition, with cluster masses \(x_I=\sum_{i\in I}x_i\), is
+\begin{equation}
+A_I=x_IA,
+\qquad
+W_{IJ}=x_Ix_JM.
+\label{eq:grg-biadditive-coarse}
+\end{equation}
+
+\propositionheading{Positive additive rules are forced to be linear}{prop:grg-positive-additive-linear}
+(i) The family \eqref{eq:grg-biadditive} is closed under every hard partition, with
+image \eqref{eq:grg-biadditive-coarse}.
+(ii) Suppose \(\alpha:\R_+\to\PSD^K\) is additive and \(w:\R_+^2\to\PSD^K\) is symmetric
+and separately additive. Then there are \(A,M\in\PSD^K\) with
+\begin{equation}
+\alpha(x)=xA,
+\qquad
+w(x,y)=xyM.
+\label{eq:grg-additive-classification}
+\end{equation}
+Hence every positive rule that depends only on additive scalar masses and obeys these
+additivity hypotheses has the form \eqref{eq:grg-biadditive}, which is the unique such
+family. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) By \Cref{prop:grg-aggregation-semigroup}(i),
+\(A_I=\sum_{i\in I}x_iA=x_IA\) and \(W_{IJ}=\sum_{i\in I,j\in J}x_ix_jM=x_Ix_JM\).
+(ii) For \(v\in\R^K\), the scalar function \(f(x)=v^\top\alpha(x)v\) is additive and
+nonnegative, so \(f(0)=0\), \(f(qx)=qf(x)\) for rational \(q\geq0\), and \(f\) is monotone,
+since \(f(y)-f(x)=f(y-x)\geq0\) for \(y\geq x\). For \(x\geq0\) and rationals
+\(q\leq x\leq q'\), \(qf(1)\leq f(x)\leq q'f(1)\), so \(f(x)=xf(1)\). Polarization of the
+symmetric matrices \(\alpha(x)\) gives \(\alpha(x)=x\alpha(1)\). For fixed \(y\), the same
+argument gives \(w(x,y)=xw(1,y)\), and applied to the second argument it gives
+\(w(1,y)=yw(1,1)\). Take \(A=\alpha(1)\) and \(M=w(1,1)\). \hfill$\square$
+
+\medskip
+Closure is not selection: nothing in the proposition makes the family attract other
+data. Its boundary member \(A=0\) is a boundary operator of the interaction
+representation. There \(\Lambda=L\), every configuration constant across agents lies
+in the kernel (\Cref{prop:ig-generalized-spectrum-localization}), the pencil
+\((L,\Lambda)\) is irregular (\Cref{prop:grg-pencil-regularity}), and no full-space
+normalized Gaussian density exists. Pinning, quotienting the kernel, and retaining an
+external positive mass are different declared repairs and define different probability
+problems; a pseudoinverse inserted into the original Lebesgue density is none of them.
+Under \(\Gamma_b\supseteq\GL^+(K)\) the matrix factor \(M\) carries no continuous label
+beyond its rank (\Cref{prop:grg-residual-fiber-label}).
+
+\paragraph{Physicist summary.}
+The interaction precision has a clean positive coarse map: cut weights and self terms
+add, internal edges drop out, and a declared scalar restores the chosen units. Nested
+aggregations compose, so the unrescaled map is a semigroup action, but its source and
+target differ in dimension and no autonomous system is defined without further
+identifications. On the interior of the interaction cone the unrescaled step is the
+pushforward of the fine Gaussian law through the precision-dependent Galerkin map, and
+a rescaled step is still a normalized Gaussian law, realized by one kernel on a
+fixed-precision fiber exactly when the rescaling does not increase the Fisher
+information of the mean family. The
+only positive rules additive in scalar node masses are biadditive,
+\(W_{ij}=x_ix_jM\) and \(A_i=x_iA\); their matrix factor carries only its rank as a
+congruence label under orientation-preserving frames, and their member without self
+terms is a boundary operator that carries no normalized law until a repair is declared.

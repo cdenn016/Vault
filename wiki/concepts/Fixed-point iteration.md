@@ -43,7 +43,6 @@ those proofs. Noncompact frame directions defeat the direct compactness argument
 covariance, and frame responses alter the contraction constant. Existence of a restricted symmetric
 mean stationary point does not establish a fixed point of every coordinate. Global existence,
 uniqueness, and convergence of the fully coupled Gaussian gauge iteration remain open.
-[[vfe-population-generative-status-2026-07-12]]
 
 ## Related
 
@@ -54,4 +53,3 @@ uniqueness, and convergence of the fully coupled Gaussian gauge iteration remain
 
 - [[bai2019deep-equilibrium]]
 - [[participatory-it-from-bit]]
-- [[vfe-population-generative-status-2026-07-12]]

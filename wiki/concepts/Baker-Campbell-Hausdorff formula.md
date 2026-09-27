@@ -20,7 +20,7 @@ updated: 2026-07-10
 
 ## Definition
 
-The **Baker–Campbell–Hausdorff (BCH) formula** is a local/formal logarithm of a product of exponentials. It does not require or imply that the exponential map is onto the entire group. [[gl-k-attention-2026-07-09-review-revision]]
+The **Baker–Campbell–Hausdorff (BCH) formula** is a local/formal logarithm of a product of exponentials. It does not require or imply that the exponential map is onto the entire group.
 
 $$
 Z = \log\big(\exp X \exp Y\big) = X + Y + \tfrac12[X,Y] + \tfrac1{12}\big([X,[X,Y]] - [Y,[X,Y]]\big) - \tfrac1{24}[Y,[X,[X,Y]]] + \cdots
@@ -49,15 +49,15 @@ retraction requires the first-order retraction conditions of
 “BCH.” In `pos_phi_compose: bch`, order-four BCH similarly composes learned
 positional generators locally in algebra coordinates.
 
-Small configured scales motivate finite BCH truncation but do not certify its error on realized updates; the truncated operation remains approximate. [[gl-k-attention-2026-07-09-review-revision]]
+Small configured scales motivate finite BCH truncation but do not certify its error on realized updates; the truncated operation remains approximate.
 
 ## Details
 
 **Convergence and exactness.** As a formal series BCH always exists, but its *numerical* convergence requires $X$ and $Y$ to be sufficiently small — concretely, the series converges when $\|X\|+\|Y\|$ is below a bound depending on the algebra (for matrices, a bound around $\log 2$ in operator norm is a standard sufficient condition). Two regimes make truncation exact rather than approximate. In a **nilpotent** Lie algebra the iterated brackets eventually vanish identically, so the series terminates and BCH is an exact finite polynomial — no truncation error at all. More generally, when $X$ and $Y$ are themselves small, the *tail* past a given order is bounded by the next power of $\|X\|+\|Y\|$, which is the situation the model engineers with its small `phi_scale` and `pos_phi_scale`.
 
-**Truncation order versus accuracy and cost.** Finite-order BCH discards higher commutators and is approximate outside terminating cases such as nilpotent algebras. The previous $10^{-7}$–$10^{-5}$ estimate was not verified for the realized matrices and is withdrawn. [[gl-k-attention-2026-07-09-review-revision]]
+**Truncation order versus accuracy and cost.** Finite-order BCH discards higher commutators and is approximate outside terminating cases such as nilpotent algebras. The previous $10^{-7}$–$10^{-5}$ estimate was not verified for the realized matrices and is withdrawn.
 
-**The commutator as a generic noncommutativity correction.** Group commutators can encode curvature for a general connection. In realized Regime I, however, $\Omega_{ij}=U_iU_j^{-1}$ telescopes exactly even when the $U_i$ do not commute, so BCH commutators do not generate model holonomy. [[gl-k-attention-2026-07-09-review-revision]]
+**The commutator as a generic noncommutativity correction.** Group commutators can encode curvature for a general connection. In realized Regime I, however, $\Omega_{ij}=U_iU_j^{-1}$ telescopes exactly even when the $U_i$ do not commute, so BCH commutators do not generate model holonomy.
 
 **The dual Zassenhaus formula.** BCH *merges* two exponentials into one; its dual, the **Zassenhaus formula**, *splits* one exponential of a sum into an ordered product,
 
@@ -81,7 +81,7 @@ underflow. Scaling and squaring with Padé approximation is analyzed by
 instead composes logarithmic coordinates additively; BCH retains noncommutative
 bracket corrections locally.
 
-> [!note] Editorial (2026-07-10): no numerical residual range is asserted without a bound evaluated on the realized matrices; order-four BCH remains a local approximation. [[gl-k-attention-2026-07-09-review-revision]]
+> [!note] Editorial (2026-07-10): no numerical residual range is asserted without a bound evaluated on the realized matrices; order-four BCH remains a local approximation.
 
 ## In this work
 
@@ -95,7 +95,7 @@ BCH is the operational glue between the algebra-valued `phi` parameterization an
 - **`pos_phi: learned`, `pos_phi_compose: bch`, `bch_pe_order: 4`** — learned positional gauge transforms are composed in the algebra by an order-4 BCH series, so *relative position is encoded by group composition* rather than by additive sinusoids. Composing positional generators with BCH means the position structure inherits the gauge group's noncommutativity, the gauge-native counterpart to the positional encodings surveyed in [[Attention mechanisms — theory and positional structure]].
 - **`phi_scale: 0.06`, `pos_phi_scale: 0.02`** — small configured algebra scales that motivate a local order-4 truncation. The formal discarded tail begins at degree five, but an evaluated remainder bound or residual on the realized updates is required to establish numerical accuracy.
 
-The optional frame conditioner is not a full-$\mathrm{GL}(K)$ invariant or Fisher metric, and BCH truncation does not change that scope. [[gl-k-attention-2026-07-09-review-revision]]
+The optional frame conditioner is not a full-$\mathrm{GL}(K)$ invariant or Fisher metric, and BCH truncation does not change that scope.
 
 ## Sources
 

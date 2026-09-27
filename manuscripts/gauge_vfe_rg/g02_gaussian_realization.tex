@@ -1,0 +1,916 @@
+\chapter{Gaussian Realization at \texorpdfstring{$c_*$}{c*}}
+\label{ch:generative-gaussian}
+
+This chapter asks what the directed law of
+\Cref{ch:generative} becomes when every kernel is linear Gaussian, and what
+the blocks of the resulting precision mean. The central tool is one
+Schur-complement lemma (\Cref{lem:gauss-schur}): the marginal precision of a
+set of directions is a Schur complement, dominated in the Loewner order by the
+precision restricted to those directions, with equality exactly under
+\(\Lambda\)-orthogonality. With it the chapter computes the assembled
+precision of a directed forest (\Cref{prop:gauss-assembled-precision-blocks}),
+proves frame covariance of every kernel under the common frame
+(\Cref{prop:gen-lg-kernel-covariance}), and states the Gaussian forms of the
+M-coordinate, the comparison lift, and the linear record of selective
+communication. The associated-bundle morphism \(\widetilde\Phi\) of
+\Cref{ch:geometry} is realized locally by the law map
+\eqref{eq:gen-lg-induced-law-map} of a root kernel, of which the bridge matrix
+\(\mathsf B_i\) is one parameter. The interaction family of \Cref{ch:gaussian}, the
+recognition costs of \Cref{ch:restrictions}, the Fisher charts of
+\Cref{ch:infogeometry}, and the coarse maps of
+\Cref{ch:gaussian-coarsegraining} all start here.
+
+The Gaussian is a tractable realization, not the ambient theory, and no matrix
+identity of this chapter is asserted for a non-Gaussian belief fiber. The
+common frame ties the gauge choices of the two channels but does not identify
+the dimensions \(K\) and \(d_m\), make \(\mathsf B_i\) invertible, turn \(\Phi\) and
+\(\widetilde\Phi\) into inverses, or add a reverse generative factor.
+\status{NOT-CLAIMED}
+
+\section{Frames and sectors}
+\label{sec:gen-lg-frame-group}
+
+\hypothesisheading{Represented frame group of the Gaussian realization}{hyp:gen-lg-frame-group}
+Write \(\Gamma_b:=\rho_b(G)\subseteq\GL(K)\) and
+\(\Gamma_m:=\rho_m(G)\subseteq\GL(d_m)\) for the represented frame groups of
+the two channels. Where a result names this hypothesis, it adopts the
+specialization \(\Gamma_b=\GL^+(K)\), realized for example by
+\(G=\GL^+(K)\) with \(\rho_b\) its defining representation. Identities that
+use only the frame-change laws, such as the kernel covariance of
+\Cref{prop:gen-lg-kernel-covariance} and the congruence covariance of
+precisions and pencils, hold for every \(\Gamma_b\). Three families of
+statements use the specialization: the gain-absorption and orientation
+statements of \Cref{sec:gauss-hypothesis}, which need exactly the
+orientation-preserving frames; the frame dependence of ordinary eigenvalues in
+\Cref{sec:ig-gauge}, which needs \(\Gamma_b\supseteq\R_{>0}I_K\); and the
+rank-only classification of \Cref{prop:grg-residual-fiber-label}, which needs
+\(\Gamma_b\supseteq\GL^+(K)\). The hypothesis excludes orientation-reversing
+represented frames and compact structure groups, whose represented frames lie
+in \(\operatorname{O}(K)\) after a choice of invariant inner product.
+
+\propositionheading{Compact represented frames}{prop:gen-lg-compact-frames}
+Let \(\Gamma_b\subseteq\operatorname{O}(K)\). A block reframing
+\(\mathbf P=\operatorname{diag}(\mathbf P_1,\dots,\mathbf P_N)\) with \(\mathbf P_i\in\Gamma_b\) acts on a
+precision by the orthogonal similarity \(\mathbf P^{-\top}\Lambda\mathbf P^{-1}=\mathbf P\Lambda\mathbf P^\top\),
+so ordinary spectra are frame invariant, as are log determinants of
+\(\Lambda\) restricted to a subspace and computed in orthonormal bases. For
+\(M\succ0\) and \(\mathbf P_0\in\Gamma_b\) the congruence \(\mathbf P_0^\top M\mathbf P_0\) is an
+orthogonal similarity, so the eigenvalues of \(M\) are invariants; when
+\(\Gamma_b\) is \(\operatorname{SO}(K)\) or \(\operatorname{O}(K)\), the orbit
+of \(M\) is exactly its orthogonal-similarity class, labeled by its \(K\)
+eigenvalues. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+For orthogonal \(\mathbf P\), \(\mathbf P^{-\top}=\mathbf P\). A restricted log determinant in an
+orthonormal basis \(E\) becomes one in the orthonormal basis \(\mathbf PE\), because
+\((\mathbf PE)^\top(\mathbf P\Lambda\mathbf P^\top)(\mathbf PE)=E^\top\Lambda E\). A
+spectral decomposition \(M=ODO^\top\) with \(O\in\operatorname{O}(K)\) can be
+taken with \(\det O=1\) by reversing one eigenvector, so \(\operatorname{SO}(K)\)
+already reaches every orthogonal similarity. \(\square\)
+
+\subsection{The common frame}
+\label{sec:gen-gaussian-diagonal}
+
+Throughout this supplement the belief and model channels of agent \(i\) use
+one local frame \(u_i\), the gauge choice of the main manuscript
+(\Cref{sec:geo-diagonal}); one passive re-expression \(g_i\in G\) then acts on
+samples by
+\begin{equation}
+k_i\longmapsto\rho_b(g_i)k_i,
+\qquad
+m_i\longmapsto\rho_m(g_i)m_i.
+\label{eq:gen-gaussian-diagonal-action}
+\end{equation}
+The two channels may still carry inequivalent representations and
+independent link families.
+
+The belief-sector precision analyzed in \Cref{ch:gaussian,ch:restrictions}
+is that of the belief conditional \(p(k\given m,o,X)\), the fast belief at
+frozen model latents in the sense of \Cref{sec:obs-fast-slow}: bridge terms,
+offsets, and the model part of each observation mean shift only the
+information vector at fixed \(m\), as
+\Cref{prop:gauss-global-interaction-condition} computes. The model sector
+\(p(m\given k,o,X)\) has the same structure with \(K\) replaced by \(d_m\).
+
+\section{Information form}
+\label{sec:gauss-information-form}
+
+Let \(\nu\) be Lebesgue measure on \(\R^n\). The Gaussian family in
+information form has the information vector \(\mathsf h\in\R^n\) and the
+precision \(\Lambda\in\Sym_{++}^n\), with density
+\begin{equation}
+q(y\given\mathsf h,\Lambda)
+=\exp\left(\mathsf h^\top y-\tfrac12 y^\top\Lambda y-\mathsf A(\mathsf h,\Lambda)\right),
+\qquad y\in\R^n.
+\label{eq:gauss-density}
+\end{equation}
+The sans-serif \(\mathsf A\) is the log normalizer; the self terms of
+\Cref{ch:gaussian} are the \(K\times K\) matrices \(A_i\).
+
+\subsection{Coordinate charts}
+\label{sec:ig-expfam}
+
+\definitionheading{Gaussian coordinate charts}{def:gauss-coordinate-charts}
+Pair two symmetric matrices by the trace form \(\langle M,M'\rangle=\Tr(M^\top M')\) and use the
+chart of \(\Sym^n\) whose coordinates are the diagonal entries and the
+off-diagonal entries scaled by \(\sqrt2\), in which the Euclidean inner product
+of coordinate vectors is this pairing. With the statistic
+\(\mathsf T(y)=(y,yy^\top)\), the natural parameter is
+\begin{equation}
+\lambda=(\lambda_1,\lambda_2)=\left(\mathsf h,-\tfrac12\Lambda\right),
+\label{eq:ig-natural}
+\end{equation}
+the information-form chart is \((\mathsf h,\Lambda)\), the expectation chart
+is \(\boldsymbol\mu=(\mu,M_2)\) with \(M_2=\E_q[YY^\top]\), and the moment
+chart is \((\mu,\Sigma)\). The moment chart is not Legendre dual to the
+natural chart, because \(\Sigma=M_2-\mu\mu^\top\). With the unscaled
+half-vectorization every off-diagonal derivative would acquire a factor two;
+all matrix blocks in this supplement are written in the scaled chart.
+
+\propositionheading{Log normalizer, moments, and dual charts}{prop:gauss-log-normalizer-moments}
+(i) For every \((\mathsf h,\Lambda)\in\R^n\times\Sym_{++}^n\) the density
+\eqref{eq:gauss-density} is normalizable, with
+\begin{equation}
+\mathsf A(\mathsf h,\Lambda)
+=\tfrac12\mathsf h^\top\Lambda^{-1}\mathsf h-\tfrac12\log\det\Lambda+\tfrac n2\log2\pi,
+\label{eq:gauss-lognorm}
+\end{equation}
+and
+\begin{equation}
+d\mathsf A=\mu^\top d\mathsf h-\tfrac12\Tr\left[\left(\Sigma+\mu\mu^\top\right)d\Lambda\right],
+\qquad
+\mu=\Lambda^{-1}\mathsf h,
+\qquad
+\Sigma=\Lambda^{-1},
+\label{eq:gauss-moments}
+\end{equation}
+so \(q(\cdot\given\mathsf h,\Lambda)\) has mean \(\mu\) and covariance
+\(\Sigma\); the Hessian of \(\mathsf A\) in \(\mathsf h\) at fixed
+\(\Lambda\), which is the Fisher information in \(\mathsf h\), is \(\Sigma\),
+and the Fisher information in \(\mu\) at fixed \(\Sigma\) is \(\Lambda\).
+(ii) In the natural chart the family is the regular
+minimal canonical family
+\begin{equation}
+q(y)=\exp\left(\langle\lambda,\mathsf T(y)\rangle-\mathsf A(\lambda)\right),
+\qquad \lambda\in\R^n\times\{\lambda_2\prec0\},
+\label{eq:ig-density}
+\end{equation}
+with
+\begin{equation}
+\mathsf A(\lambda)
+=-\tfrac14\lambda_1^\top\lambda_2^{-1}\lambda_1-\tfrac12\log\det(-2\lambda_2)+\tfrac n2\log2\pi,
+\label{eq:ig-lognormalizer}
+\end{equation}
+strictly convex on its open convex natural domain, and with mean parameter
+\begin{equation}
+\boldsymbol\mu=\nabla_\lambda\mathsf A=\left(\mu,M_2\right),
+\qquad M_2=\Sigma+\mu\mu^\top.
+\label{eq:ig-expectation}
+\end{equation}
+(iii) The Fisher metric in the natural chart is
+\begin{equation}
+g_\lambda=\nabla^2_\lambda\mathsf A(\lambda)=\operatorname{Cov}_q\left(\mathsf T(Y)\right),
+\label{eq:ig-fisher-hessian}
+\end{equation}
+and in the expectation chart it is
+\begin{equation}
+g_{\boldsymbol\mu}
+=\left(\frac{\partial\lambda}{\partial\boldsymbol\mu}\right)^{\top}g_\lambda
+\left(\frac{\partial\lambda}{\partial\boldsymbol\mu}\right)
+=g_\lambda^{-1},
+\label{eq:ig-dual-inverse}
+\end{equation}
+the Hessian of \(\mathsf A^\ast\), whose value at \(\boldsymbol\mu\) is the
+negative differential entropy of \(q\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) Completing the square,
+\begin{equation}
+\mathsf h^\top y-\tfrac12 y^\top\Lambda y
+=-\tfrac12\left(y-\Lambda^{-1}\mathsf h\right)^\top\Lambda\left(y-\Lambda^{-1}\mathsf h\right)
++\tfrac12\mathsf h^\top\Lambda^{-1}\mathsf h,
+\label{eq:gauss-complete-square}
+\end{equation}
+and the Gaussian integral \((2\pi)^{n/2}(\det\Lambda)^{-1/2}\) give
+\eqref{eq:gauss-lognorm}; differentiating termwise with
+\(d\Lambda^{-1}=-\Lambda^{-1}d\Lambda\Lambda^{-1}\) and
+\(d\log\det\Lambda=\Tr(\Lambda^{-1}d\Lambda)\) gives \eqref{eq:gauss-moments}.
+At fixed \(\Lambda\) the family is canonical in \(\mathsf h\) with statistic
+\(y\), so its Fisher information is the covariance \(\Sigma\); at fixed
+\(\Sigma\) the score in \(\mu\) is \(\Lambda(y-\mu)\), with covariance
+\(\Lambda\Sigma\Lambda=\Lambda\). (ii) In the scaled chart \(\langle\lambda,\mathsf T(y)\rangle
+=\mathsf h^\top y-\tfrac12y^\top\Lambda y\), and substituting
+\(\mathsf h=\lambda_1\), \(\Lambda=-2\lambda_2\) into \eqref{eq:gauss-lognorm}
+gives \eqref{eq:ig-lognormalizer}. The natural domain is open, and the family
+is minimal, because a nonzero affine function of \((y,yy^\top)\) is a nonzero
+polynomial of degree at most two and vanishes only on a Lebesgue-null set.
+\Cref{prop:exp-cumulants-fisher} then gives strict convexity,
+\(\nabla_\lambda\mathsf A=\E\mathsf T\), which is \eqref{eq:ig-expectation},
+and \eqref{eq:ig-fisher-hessian}. Since
+\(\boldsymbol\mu=\nabla\mathsf A(\lambda)\), the Jacobian
+\(\partial\boldsymbol\mu/\partial\lambda\) is \(g_\lambda\), which is positive
+definite, so the chain rule gives \eqref{eq:ig-dual-inverse}; by Legendre
+duality \(\nabla\mathsf A^\ast(\boldsymbol\mu)=\lambda\), so
+\(g_\lambda^{-1}=\nabla^2\mathsf A^\ast\), and
+\(\mathsf A^\ast(\boldsymbol\mu)=\langle\lambda,\boldsymbol\mu\rangle-\mathsf A(\lambda)
+=\E_q\log q\). \(\square\)
+
+By (i) the precision is at once a coupling matrix and the Fisher metric of
+the mean, and the chapters below use both readings.
+
+\section{Conditional reading and the Schur lemma}
+\label{sec:gauss-conditional-reading}
+
+Let \(\mathcal P\) be a partition of the \(n\) coordinates into blocks of
+dimensions \(n_b\), and write \(\Lambda_{bc}\) for the corresponding blocks.
+
+\propositionheading{Conditional reading of the precision}{prop:gauss-conditional-precision}
+Let \(Y\sim\mathcal N(\mu,\Lambda^{-1})\) with \(\Lambda\succ0\). (i) For any
+block \(b\),
+\begin{equation}
+\E\left[Y_b\given Y_{-b}=y_{-b}\right]
+=\mu_b-\Lambda_{bb}^{-1}\sum_{c\neq b}\Lambda_{bc}\left(y_c-\mu_c\right),
+\qquad
+\operatorname{Cov}\left(Y_b\given Y_{-b}\right)=\Lambda_{bb}^{-1}.
+\label{eq:gauss-conditional}
+\end{equation}
+(ii) For distinct blocks \(b\) and \(c\), \(Y_b\) and \(Y_c\) are conditionally
+independent given all remaining coordinates if and only if
+\(\Lambda_{bc}=0\). (iii) If \(b\) and \(c\) have equal dimension and
+\(\Lambda_{bc}=-W_{bc}\) with \(W_{bc}\succeq0\), the displacement
+\(\Lambda_{bb}^{-1}W_{bc}\delta_c\) of the conditional mean of \(Y_b\) caused
+by \(\delta_c=y_c-\mu_c\) points toward \(\delta_c\) in the \(\Lambda_{bb}\)
+inner product, since
+\(\delta_c^\top\Lambda_{bb}(\Lambda_{bb}^{-1}W_{bc}\delta_c)=\delta_c^\top W_{bc}\delta_c\geq0\);
+in the Euclidean inner product it can point away: for
+\(\Lambda_{bb}=\operatorname{diag}(1,10)\),
+\(W_{bc}=\begin{psmallmatrix}1&1\\1&1\end{psmallmatrix}\),
+\(\Lambda_{cc}=10I_2\), whose joint matrix has leading minors \(1,10,89,780\),
+and \(\delta_c=(1,-2)\), the displacement is \((-1,-\tfrac1{10})\) and its
+Euclidean pairing with \(\delta_c\) is \(-\tfrac45\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+At fixed \(y_{-b}\) the exponent of \eqref{eq:gauss-density} is
+\(-\tfrac12y_b^\top\Lambda_{bb}y_b\) plus a linear term, so the conditional law
+is Gaussian with precision \(\Lambda_{bb}\), and completing the square around
+\(\mu\) gives the conditional mean. Conditioning on the coordinates outside
+\(b\cup c\) leaves a Gaussian in \((y_b,y_c)\) with precision
+\(\begin{psmallmatrix}\Lambda_{bb}&\Lambda_{bc}\\\Lambda_{cb}&\Lambda_{cc}\end{psmallmatrix}\),
+which factorizes exactly when the quadratic form has no cross term. The
+numbers in (iii) are direct evaluation. This is the Gaussian case of the
+pairwise Markov property \citep[Ch.~5]{Lauritzen1996}; see also
+\citet[Ch.~2]{RueHeld2005}. \(\square\)
+
+\lemmaheading{Schur complement}{lem:gauss-schur}
+Let \(\Lambda\in\Sym_{++}^n\) and let \([E\ F]\) be an orthogonal matrix with
+\(E\in\R^{n\times k}\). (i) The marginal precision of \(E^\top Y\) under
+\(\mathcal N(\mu,\Lambda^{-1})\) is the Schur complement
+\begin{equation}
+\left(E^\top\Lambda^{-1}E\right)^{-1}
+=E^\top\Lambda E-E^\top\Lambda F\left(F^\top\Lambda F\right)^{-1}F^\top\Lambda E;
+\end{equation}
+for the coordinate block \(b\) of a partition this reads
+\begin{equation}
+\left(\Lambda^{-1}\right)_{bb}
+=\left(\Lambda_{bb}-\Lambda_{b,-b}\Lambda_{-b,-b}^{-1}\Lambda_{-b,b}\right)^{-1}.
+\label{eq:gauss-marginal-block}
+\end{equation}
+(ii) The difference \(E^\top\Lambda E-(E^\top\Lambda^{-1}E)^{-1}\) is positive
+semidefinite of rank \(\operatorname{rank}(E^\top\Lambda F)\), and it vanishes
+exactly when \(E^\top\Lambda F=0\), that is when \(\operatorname{range}E\) and
+\(\operatorname{range}F\) are \(\Lambda\)-orthogonal. (iii)
+\((E^\top\Lambda E)^{-1}\preceq E^\top\Lambda^{-1}E\), with equality exactly when
+\(E^\top\Lambda F=0\). (iv) The determinant factorizes as
+\[
+\det\Lambda=\det(E^\top\Lambda E)\det\bigl(F^\top\Lambda F-F^\top\Lambda E(E^\top\Lambda E)^{-1}E^\top\Lambda F\bigr)
+=\frac{\det(E^\top\Lambda E)}{\det(F^\top\Lambda^{-1}F)}.
+\]
+(v) A zero precision block says nothing about the corresponding covariance
+block:
+\begin{equation}
+\Lambda=\begin{pmatrix}2&-1&0\\-1&2&-1\\0&-1&2\end{pmatrix},
+\qquad
+\Lambda^{-1}=\frac14\begin{pmatrix}3&2&1\\2&4&2\\1&2&3\end{pmatrix},
+\label{eq:gauss-precision-not-covariance}
+\end{equation}
+has \(\Lambda_{13}=0\) and \((\Lambda^{-1})_{13}=\tfrac14\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+In the basis \([E\ F]\), \(\widetilde\Lambda=[E\ F]^\top\Lambda[E\ F]\) has
+blocks \(\widetilde\Lambda_{EE}=E^\top\Lambda E\),
+\(\widetilde\Lambda_{EF}=E^\top\Lambda F\), \(\widetilde\Lambda_{FF}=F^\top\Lambda F\),
+and orthogonality gives \(\widetilde\Lambda^{-1}=[E\ F]^\top\Lambda^{-1}[E\ F]\).
+Multiplying out the factorization
+\[
+\widetilde\Lambda
+=\begin{pmatrix}I&\widetilde\Lambda_{EF}\widetilde\Lambda_{FF}^{-1}\\0&I\end{pmatrix}
+\begin{pmatrix}\widetilde\Lambda_{EE}-\widetilde\Lambda_{EF}\widetilde\Lambda_{FF}^{-1}\widetilde\Lambda_{FE}&0\\0&\widetilde\Lambda_{FF}\end{pmatrix}
+\begin{pmatrix}I&0\\\widetilde\Lambda_{FF}^{-1}\widetilde\Lambda_{FE}&I\end{pmatrix}
+\]
+and inverting shows that the \(EE\) block of \(\widetilde\Lambda^{-1}\) is the
+inverse of the Schur complement, which is (i); the coordinate case takes for
+\(E\) the columns of the identity in block \(b\). The difference in (ii) is
+\(M^\top\widetilde\Lambda_{FF}^{-1}M\) with \(M=\widetilde\Lambda_{FE}\) and
+\(\widetilde\Lambda_{FF}^{-1}\succ0\), hence positive semidefinite with the
+rank of \(M\). For (iii), if \(0\prec S\preceq T\) then
+\(T^{-1/2}ST^{-1/2}\preceq I\), so \(S^{-1}\succeq T^{-1}\), with equality only
+when \(S=T\) \citep[\S7.7]{HornJohnson2013}; apply it to (ii). The
+factorization with the roles of \(E\) and \(F\) exchanged gives the first
+formula in (iv), and (i) with the roles exchanged identifies that Schur
+complement with \((F^\top\Lambda^{-1}F)^{-1}\). Part (v) is direct
+multiplication. \(\square\)
+
+The lemma is the reason this supplement works in information form: a
+restriction on the recognition family constrains conditional dependence, which
+is a coordinate of \(\Lambda\), while its effect on marginal covariances runs
+through every path in the remaining coordinates. Its corollaries below are the
+four forms in which it is used.
+
+\corollaryheading{The block conditional covariance is dominated by the marginal}{prop:restrict-optimum-vs-marginal}
+For every block \(b\),
+\begin{equation}
+\Lambda_{bb}^{-1}\preceq\left(\Lambda^{-1}\right)_{bb},
+\label{eq:restrict-underdispersion}
+\end{equation}
+with equality if and only if \(\Lambda_{b,-b}=0\). The left side is the block
+covariance of the optimal factorized recognition law of
+\Cref{thm:restrict-exact-block-optimum}, so that law understates every
+marginal block covariance of the target except in the decoupled case.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+\Cref{lem:gauss-schur}(iii) with \(E\) the coordinate columns of block \(b\).
+\(\square\)
+
+\corollaryheading{Marginal precision against restricted precision}{prop:restrict-marginal-vs-restricted-precision}
+Let \([B\ B_\perp]\) be orthogonal with \(B\in\R^{n\times r}\), and write
+\(\widetilde\Lambda=[B\ B_\perp]^\top\Lambda[B\ B_\perp]\) with blocks indexed
+by \(\parallel\) and \(\perp\). The marginal precision of the directions
+\(B_\perp\) is the Schur complement
+\begin{equation}
+\left(B_\perp^\top\Lambda^{-1}B_\perp\right)^{-1}
+=\widetilde\Lambda_{\perp\perp}
+-\widetilde\Lambda_{\perp\parallel}\widetilde\Lambda_{\parallel\parallel}^{-1}\widetilde\Lambda_{\parallel\perp},
+\label{eq:restrict-schur-in-basis}
+\end{equation}
+and
+\begin{equation}
+B_\perp^\top\Lambda B_\perp-\left(B_\perp^\top\Lambda^{-1}B_\perp\right)^{-1}
+=B_\perp^\top\Lambda B\left(B^\top\Lambda B\right)^{-1}B^\top\Lambda B_\perp
+\succeq0,
+\label{eq:restrict-marginal-vs-restricted}
+\end{equation}
+a difference of rank at most \(r\) that vanishes exactly when
+\(B^\top\Lambda B_\perp=0\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+\Cref{lem:gauss-schur}(i) and (ii) with \(E=B_\perp\) and \(F=B\); the rank of
+\(B^\top\Lambda B_\perp\) is at most \(r\). \(\square\)
+
+\corollaryheading{Fisher monotonicity of the mean submodel}{prop:ig-pullback-vs-pushforward}
+Let \(B\in\R^{n\times k}\) have orthonormal columns and let \(B_\perp\) span
+the orthogonal complement. The mean submodel
+\(\{\mathcal N(B\bar m,\Lambda^{-1}):\bar m\in\R^k\}\) has Fisher metric
+\(B^\top\Lambda B\), the pullback of the mean metric \(\Lambda\) along
+\(\bar m\mapsto B\bar m\). The deterministic channel \(y\mapsto B^\top y\)
+carries it to \(\{\mathcal N(\bar m,B^\top\Lambda^{-1}B)\}\), whose Fisher
+metric is the marginal precision \((B^\top\Lambda^{-1}B)^{-1}\), and
+\begin{equation}
+B^\top\Lambda B-\left(B^\top\Lambda^{-1}B\right)^{-1}
+=\left(B^\top\Lambda B_\perp\right)\left(B_\perp^\top\Lambda B_\perp\right)^{-1}\left(B_\perp^\top\Lambda B\right)
+\succeq 0.
+\label{eq:ig-restriction-marginal}
+\end{equation}
+The right side is the Fisher loss of the channel, and it vanishes exactly when
+\(B^\top y\) is sufficient for \(\bar m\), that is when
+\(B^\top\Lambda B_\perp=0\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The score of the submodel is \(B^\top\Lambda(y-B\bar m)\), with covariance
+\(B^\top\Lambda B\); the pushed family has covariance \(B^\top\Lambda^{-1}B\),
+whose inverse is its Fisher metric. \Cref{lem:gauss-schur}(i) and (ii) with
+\(E=B\), \(F=B_\perp\) give \eqref{eq:ig-restriction-marginal}. Writing
+\(y=BB^\top y+B_\perp B_\perp^\top y\), the conditional covariance of the score
+given \(B^\top Y\) is
+\(B^\top\Lambda B_\perp\operatorname{Cov}(B_\perp^\top Y\given B^\top Y)B_\perp^\top\Lambda B\),
+and \(\operatorname{Cov}(B_\perp^\top Y\given B^\top Y)=(B_\perp^\top\Lambda B_\perp)^{-1}\)
+by \Cref{prop:gauss-conditional-precision}(i) in the basis \([B\ B_\perp]\); so
+the right side of \eqref{eq:ig-restriction-marginal} is the expected
+conditional score covariance of \Cref{thm:cg-fisher-contraction}. It vanishes
+exactly when \(B^\top\Lambda B_\perp=0\), which is when the score, and hence the
+likelihood ratio, depends on \(y\) only through \(B^\top y\). \(\square\)
+
+\corollaryheading{Full-rank inclusion and averaging}{cor:ig-full-rank-restriction-pushforward}
+Let \(S\in\R^{n\times k}\) have full column rank, set \(M_S=S^\top S\), and
+let \(S^\dagger=M_S^{-1}S^\top\). The mean submodel \(\mu=S\bar\mu\) has Fisher
+matrix \(S^\top\Lambda S\), while the mean of the pushforward under
+\(y\mapsto S^\dagger y\) has Fisher matrix
+\begin{equation}
+\Lambda_{\rm av}
+=M_S\left(S^\top\Lambda^{-1}S\right)^{-1}M_S.
+\label{eq:ig-full-rank-average-precision}
+\end{equation}
+With \(B=SM_S^{-1/2}\) completed to an orthogonal matrix \([B\ B_\perp]\),
+\begin{equation}
+S^\top\Lambda S-\Lambda_{\rm av}
+=M_S^{1/2}\left[
+B^\top\Lambda B-\left(B^\top\Lambda^{-1}B\right)^{-1}
+\right]M_S^{1/2}\succeq0,
+\label{eq:ig-full-rank-restriction-marginal}
+\end{equation}
+with equality exactly when \(\operatorname{range}S\) and its Euclidean
+orthogonal complement are \(\Lambda\)-orthogonal. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The pushforward covariance is
+\(S^\dagger\Lambda^{-1}(S^\dagger)^\top=M_S^{-1}S^\top\Lambda^{-1}SM_S^{-1}\),
+whose inverse is \eqref{eq:ig-full-rank-average-precision}. Substituting
+\(S=BM_S^{1/2}\) into both matrices gives
+\eqref{eq:ig-full-rank-restriction-marginal}, and
+\Cref{prop:ig-pullback-vs-pushforward} supplies its positivity and equality
+condition. \(\square\)
+
+\section{Moments and vector residuals}
+
+\propositionheading{Finite-second-moment congruence}{prop:geo-moment-pushforward}
+Let a belief law \(q\) on \(\R^K\) have finite mean \(\mu\) and covariance
+\(\Sigma\), and let \(g\in G\) act by the linear map \(\rho_b(g)\). The pushed
+law \(\rho_b(g)_\#q\) has
+\begin{equation}
+\mu'=\rho_b(g)\mu,
+\qquad
+\Sigma'=\rho_b(g)\Sigma\rho_b(g)^\top,
+\label{eq:geo-moment-pushforward}
+\end{equation}
+and if \(\Sigma\succ0\) its precision is
+\begin{equation}
+\Lambda'=\rho_b(g)^{-\top}\Lambda\rho_b(g)^{-1},
+\qquad\Lambda=\Sigma^{-1}.
+\label{eq:geo-precision-inverse-congruence}
+\end{equation}
+The model channel has the same statement in dimension \(d_m\).
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Linearity of expectation gives the mean, and the centered pushed variable
+\(\rho_b(g)(Y-\mu)\) has covariance \(\rho_b(g)\Sigma\rho_b(g)^\top\);
+inversion gives \eqref{eq:geo-precision-inverse-congruence}. \(\square\)
+
+\subsection{Residuals of aligned and twisted links}
+\label{sec:geo-flatness}
+
+Let \(\mu_i\) be a belief-channel vector coordinate of agent \(i\), let
+\(U_i\) be the frame of \(u_i\) relative to a reference point of the fiber, as
+in \Cref{prop:geo-edge-twist-invariance}, and let \(e:j\to i\) be an edge copy
+with belief link \(\Theta^b_e\) and per-edge twist
+\(\mathring\Theta^b_e=U_i^{-1}\Theta^b_eU_j\) (\eqref{eq:geo-edge-twist}).
+
+\propositionheading{Vector residuals}{prop:gauss-vector-residuals}
+With \(z_i=\rho_b(U_i)^{-1}\mu_i\),
+\begin{equation}
+\mu_i-\rho_b(\Theta_e^b)\mu_j
+=\rho_b(U_i)\bigl(z_i-\rho_b(\mathring\Theta_e^b)z_j\bigr),
+\label{eq:geo-regime-two-residual}
+\end{equation}
+and for frame-aligned links (\Cref{hyp:geo-flat-links}), whose twists equal
+\(e_G\),
+\begin{equation}
+\mu_i-\rho_b(\Theta_e^b)\mu_j
+=\rho_b(U_i)(z_i-z_j).
+\label{eq:geo-trivialized-residual}
+\end{equation}
+More generally, if \(\Theta_e^b=U'_i(U'_j)^{-1}\) on a belief-trivializing
+subfamily of links and \(z'_i=\rho_b(U'_i)^{-1}\mu_i\), then
+\begin{equation}
+\mu_i-\rho_b(\Theta_e^b)\mu_j
+=\rho_b(U'_i)(z'_i-z'_j).
+\label{eq:geo-subfamily-trivialized-residual}
+\end{equation}
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Substitute \(\mu_i=\rho_b(U_i)z_i\) and
+\(\rho_b(\Theta^b_e)=\rho_b(U_i)\rho_b(\mathring\Theta^b_e)\rho_b(U_j)^{-1}\);
+\eqref{eq:geo-trivialized-residual} is the case \(\mathring\Theta^b_e=e_G\), and
+\eqref{eq:geo-subfamily-trivialized-residual} is the same substitution with the
+potentials \(U'_i\). \(\square\)
+
+Belief-link trivialization says nothing about model links or either cross
+morphism.
+
+\section{The directed linear-Gaussian model}
+\label{sec:gen-gaussian}
+
+\definitionheading{Directed linear-Gaussian forest}{def:gen-lg-forest}
+Take
+\begin{equation}
+k_i\in\R^K,
+\qquad
+m_i\in\R^{d_m},
+\qquad
+o_i\in\R^{d_{o,i}},
+\label{eq:gen-lg-domains}
+\end{equation}
+and a directed forest on the agents, so that each nonroot \(i\) has one parent
+\(j=\operatorname{par}(i)\), joined by an edge copy \(j\to i\) with links
+\(\Theta^b_{ij},\Theta^m_{ij}\in G\) (\Cref{def:geo-graph-links}). For a
+nonroot,
+\begin{align}
+m_i\given m_j,X
+&\sim\mathcal N\left(
+F_i^m\rho_m(\Theta_{ij}^m)m_j+\xi_i^m,
+\Sigma_i^m\right),
+\label{eq:gen-lg-model}\\
+k_i\given k_j,m_i,X
+&\sim\mathcal N\left(
+F_i^b\rho_b(\Theta_{ij}^b)k_j+\mathsf B_im_i+\xi_i^b,
+\Sigma_i^b\right),
+\label{eq:gen-lg-state}\\
+o_i\given k_i,m_i,X
+&\sim\mathcal N\left(
+\mathsf C_i^bk_i+\mathsf C_i^mm_i+\xi_i^o,
+\Sigma_i^o\right),
+\label{eq:gen-lg-obs}
+\end{align}
+with parameter shapes
+\begin{align}
+&\rho_b(\Theta_{ij}^b),F_i^b\in\R^{K\times K},
+&&\rho_m(\Theta_{ij}^m),F_i^m\in\R^{d_m\times d_m},
+&&\mathsf B_i\in\R^{K\times d_m},
+\label{eq:gen-lg-shapes-latent}\\
+&\mathsf C_i^b\in\R^{d_{o,i}\times K},
+&&\mathsf C_i^m\in\R^{d_{o,i}\times d_m},
+&&\xi_i^b\in\R^K,
+\quad
+\xi_i^m\in\R^{d_m},
+\quad
+\xi_i^o\in\R^{d_{o,i}}.
+\label{eq:gen-lg-shapes-obs}
+\end{align}
+Each root \(r\) has the laws
+\begin{align}
+m_r\given X
+&\sim\mathcal N(\bar m_r,\Sigma_{r,0}^m),
+\label{eq:gen-lg-root-model}\\
+k_r\given m_r,X
+&\sim\mathcal N(\mathsf B_rm_r+\xi_{r,0}^b,\Sigma_{r,0}^b),
+\label{eq:gen-lg-root-state}
+\end{align}
+followed by \eqref{eq:gen-lg-obs}. A general directed acyclic graph replaces
+each parent term by a finite sum. The represented links are invertible; the
+gains \(F_i^b,F_i^m\) need not be.
+
+\hypothesisheading{Positive-definite receiving covariances}{hyp:gen-lg-spd}
+Every receiving covariance is positive definite:
+\begin{equation}
+\Sigma_i^m,\Sigma_{r,0}^m\in\Sym_{++}^{d_m},
+\qquad
+\Sigma_i^b,\Sigma_{r,0}^b\in\Sym_{++}^{K},
+\qquad
+\Sigma_i^o\in\Sym_{++}^{d_{o,i}}.
+\label{eq:gen-lg-spd}
+\end{equation}
+The hypothesis excludes degenerate Gaussian kernels, whose laws have no
+Lebesgue density on the receiving space.
+
+\propositionheading{Normalization and root moments}{prop:gen-lg-normalization}
+Under \Cref{hyp:gen-lg-spd}, every kernel of \Cref{def:gen-lg-forest} is a
+nondegenerate normalized density and the assembled directed law is a
+probability measure. The root belief coordinate has
+\begin{equation}
+\bar k_r=\mathsf B_r\bar m_r+\xi_{r,0}^b,
+\qquad
+\Sigma_{r,0}^{b,\mathrm{marg}}
+=\Sigma_{r,0}^b+\mathsf B_r\Sigma_{r,0}^m\mathsf B_r^\top\succeq\Sigma^b_{r,0},
+\label{eq:gen-lg-root-marginal}
+\end{equation}
+and, for a root model law \(s=\mathcal N(\mu_s,\Sigma_s)\), the law map induced
+by the root kernel is
+\begin{equation}
+\widetilde\phi_r(s)
+=\mathcal N\left(
+\mathsf B_r\mu_s+\xi_{r,0}^b,\
+\Sigma_{r,0}^b+\mathsf B_r\Sigma_s\mathsf B_r^\top
+\right).
+\label{eq:gen-lg-induced-law-map}
+\end{equation}
+This law map, of which \(\mathsf B_r\) is one parameter, is the local realization of
+\(\widetilde\Phi\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+A Gaussian density with positive-definite covariance integrates to one for
+every mean, so \Cref{prop:gen-exact-normalization} applies. The tower property
+gives the means and the law of total covariance gives the covariances; the
+added term \(\mathsf B_r\Sigma_s\mathsf B_r^\top\) is positive semidefinite. \(\square\)
+
+At fixed model latents, write \(F_i:=F_i^b\), \(\Theta_{ij}:=\rho_b(\Theta^b_{ij})\in\Gamma_b\),
+and \(\Lambda_i:=(\Sigma_i^b)^{-1}\); the belief sector is the forest of
+receiving kernels
+\begin{equation}
+k_i\given k_j\sim\mathcal N\left(F_i\Theta_{ij}k_j,\Lambda_i^{-1}\right),
+\qquad
+j=\operatorname{par}(i),
+\label{eq:gauss-receiving-kernel}
+\end{equation}
+with a proper prior \(\mathcal N(0,\Lambda_r^{-1})\) at each root; the bridge
+term, the offsets, and a nonzero prior mean shift only the information vector.
+A single subscript on \(\Lambda\) denotes the innovation precision of one
+receiving kernel, a double subscript a block of the assembled precision.
+
+\propositionheading{Assembled precision blocks}{prop:gauss-assembled-precision-blocks}
+Write \(\Omega_i:=F_i\Theta_{i\operatorname{par}(i)}\) for the transition of a
+nonroot \(i\) and \(\operatorname{ch}(i)=\{i':\operatorname{par}(i')=i\}\). The
+joint precision of the belief sector has blocks
+\begin{equation}
+\Lambda_{i\operatorname{par}(i)}=-\Lambda_i\Omega_i,
+\qquad
+\Lambda_{ii}=\Lambda_i+\sum_{i'\in\operatorname{ch}(i)}\Omega_{i'}^\top\Lambda_{i'}\Omega_{i'},
+\label{eq:gauss-directed-blocks}
+\end{equation}
+and \(\Lambda_{ij}=0\) whenever \(i\) and \(j\) are not adjacent in the forest.
+In the joint precision of \((k,m)\), the block between \(k_i\) and \(m_i\) is
+\(-\Lambda_i\mathsf B_i+\mathsf C_i^{b\top}(\Sigma_i^o)^{-1}\mathsf C_i^m\in\R^{K\times d_m}\), whose
+first term is the prior contribution; a family built from square
+\(K\times K\) agent blocks cannot host it when \(K\neq d_m\).
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The negative log joint density of the belief sector is
+\(\tfrac12\sum_i(k_i-\Omega_ik_{\operatorname{par}(i)})^\top\Lambda_i(k_i-\Omega_ik_{\operatorname{par}(i)})\)
+plus terms free of \(k\), with no parent term at a root. One summand
+contributes \(\Lambda_i\) to the \(ii\) block, \(-\Lambda_i\Omega_i\) to the
+\(i\operatorname{par}(i)\) block, and \(\Omega_i^\top\Lambda_i\Omega_i\) to the
+parent's diagonal block; collecting them gives \eqref{eq:gauss-directed-blocks}.
+In the joint energy, the factors \eqref{eq:gen-lg-state} and
+\eqref{eq:gen-lg-obs} are the only ones containing both \(k_i\) and \(m_i\),
+and their mixed second derivatives are \(-\Lambda_i\mathsf B_i\) and
+\(\mathsf C_i^{b\top}(\Sigma_i^o)^{-1}\mathsf C_i^m\). \(\square\)
+
+\propositionheading{Gaussian kernel covariance}{prop:gen-lg-kernel-covariance}
+Let \(g_i\in G\) act by \eqref{eq:gen-gaussian-diagonal-action}, write
+\(\rho^b_i:=\rho_b(g_i)\), \(\rho^m_i:=\rho_m(g_i)\), let the links transform by
+\eqref{eq:gen-gauge-links}, so that
+\(\rho_x(\Theta^{x\prime}_{ij})=\rho^x_i\rho_x(\Theta^x_{ij})(\rho^x_j)^{-1}\),
+and let the parameters transform by
+\begin{align}
+F_i^{b\prime}
+&=\rho^b_iF_i^b(\rho^b_i)^{-1},
+&
+F_i^{m\prime}
+&=\rho^m_iF_i^m(\rho^m_i)^{-1},
+\label{eq:gen-gauge-selfmaps}\\
+\mathsf B_i'
+&=\rho^b_i\mathsf B_i(\rho^m_i)^{-1},
+&
+\xi_i^{b\prime}
+&=\rho^b_i\xi_i^b,
+\qquad
+\xi_i^{m\prime}=\rho^m_i\xi_i^m,
+\label{eq:gen-gauge-bridge-offsets}\\
+\Sigma_i^{b\prime}&=\rho^b_i\Sigma_i^b(\rho^b_i)^\top,
+&
+\Sigma_i^{m\prime}&=\rho^m_i\Sigma_i^m(\rho^m_i)^\top,
+\label{eq:gen-gauge-covariances}
+\end{align}
+so that for either channel
+\begin{equation}
+\Lambda_i=\Sigma_i^{-1},
+\qquad
+\Sigma_i'=\rho_i\Sigma_i\rho_i^\top,
+\qquad
+\Lambda_i'=\rho_i^{-\top}\Lambda_i\rho_i^{-1},
+\label{eq:gen-gauge-precision}
+\end{equation}
+with the root laws
+\begin{align}
+\bar m_r'
+&=\rho^m_r\bar m_r,
+&
+\Sigma_{r,0}^{m\prime}
+&=\rho^m_r\Sigma_{r,0}^m(\rho^m_r)^\top,
+\label{eq:gen-gauge-root-model}\\
+\mathsf B_r'
+&=\rho^b_r\mathsf B_r(\rho^m_r)^{-1},
+&
+\xi_{r,0}^{b\prime}
+&=\rho^b_r\xi_{r,0}^b,
+\qquad
+\Sigma_{r,0}^{b\prime}
+=\rho^b_r\Sigma_{r,0}^b(\rho^b_r)^\top,
+\label{eq:gen-gauge-root-state}
+\end{align}
+and gauge-inert observations
+\begin{equation}
+\mathsf C_i^{b\prime}=\mathsf C_i^b(\rho^b_i)^{-1},
+\qquad
+\mathsf C_i^{m\prime}=\mathsf C_i^m(\rho^m_i)^{-1},
+\qquad
+\xi_i^{o\prime}=\xi_i^o,
+\qquad
+\Sigma_i^{o\prime}=\Sigma_i^o.
+\label{eq:gen-gauge-observation}
+\end{equation}
+Then every transformed kernel is the receiving-frame pushforward of the
+original, so the kernel identities \eqref{eq:gen-gauge-pushforward-model},
+\eqref{eq:gen-gauge-pushforward-state}, and \eqref{eq:gen-gauge-record-kernel}
+hold and the joint law and its evidence obey
+\Cref{prop:gen-product-evidence-invariance}. The induced root law map
+\eqref{eq:gen-lg-induced-law-map} obeys the frame law
+\eqref{eq:geo-tildephi-gauge-law} of \(\widetilde\Phi\), the root marginal
+\eqref{eq:gen-lg-root-marginal} transforms by belief-channel congruence, and
+positive definiteness is preserved in each channel. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+For the belief kernel, the transformed conditional mean at transformed inputs is
+\begin{equation}
+F_i^{b\prime}\rho_b(\Theta_{ij}^{b\prime})(\rho^b_jk_j)
++\mathsf B_i'(\rho^m_im_i)+\xi_i^{b\prime}
+=\rho^b_i\left(
+F_i^b\rho_b(\Theta_{ij}^b)k_j+\mathsf B_im_i+\xi_i^b
+\right),
+\label{eq:gen-gauge-mean-identity}
+\end{equation}
+and the covariance transforms by \eqref{eq:gen-gauge-covariances}, so the
+transformed Gaussian is the pushforward of the original under \(\rho^b_i\). The
+model kernel is the same computation without a bridge. At the observation
+kernel,
+\begin{equation}
+\mathsf C_i^{b\prime}(\rho^b_ik_i)+\mathsf C_i^{m\prime}(\rho^m_im_i)+\xi_i^{o\prime}
+=\mathsf C_i^bk_i+\mathsf C_i^mm_i+\xi_i^o,
+\label{eq:gen-gauge-observation-identity}
+\end{equation}
+with fixed covariance. The root calculation is identical, and the law map
+\eqref{eq:gen-lg-induced-law-map} of a pushed model law
+\(\rho^m_{r\#}s\) is \(\rho^b_{r\#}\widetilde\phi_r(s)\) by the same
+substitution. Composition is \Cref{prop:gen-product-evidence-invariance}.
+Both summands of \eqref{eq:gen-lg-root-marginal} transform by belief-channel
+congruence, and congruence by an invertible matrix preserves positive
+definiteness. \(\square\)
+
+\section{The Gaussian M-coordinate}
+
+\propositionheading{Gaussian M-coordinate and its existence proviso}{prop:gen-lg-m-step}
+Suppose the factors whose parameters lie in \(\theta\) carry disjoint
+parameter blocks, that each such factor is a law \(\mathcal N(Fw,\Sigma)\) of
+its target coordinate \(t\) given a regressor vector \(w\) listing its parent
+coordinates and the constant \(1\), with \(F\) free over all matrices of its
+shape and \(\Sigma\) in the open cone of \eqref{eq:gen-lg-spd}, and that
+\(\mathbb Q_{V,o,X}\) has finite second moments. The expected complete
+log-likelihood of \eqref{eq:elbo-m-coordinate} is then a sum of separately
+maximized factor terms. For one factor, with expectations under
+\(\mathbb Q_{V,o,X}\), put \(M_{ww}=\E[ww^\top]\), let \(F_*\) solve
+\(F_*M_{ww}=\E[tw^\top]\), and set \(\Sigma_*=\E[(t-F_*w)(t-F_*w)^\top]\). Then
+\begin{equation}
+\E\bigl[(t-Fw)(t-Fw)^\top\bigr]=\Sigma_*+(F-F_*)M_{ww}(F-F_*)^\top,
+\qquad
+\E\log\mathcal N(t;Fw,\Sigma)\leq-\tfrac12\log\det(2\pi e\Sigma_*),
+\label{eq:elbo-gaussian-m-step}
+\end{equation}
+with equality at \((F_*,\Sigma_*)\) when \(\Sigma_*\succ0\). If \(\Sigma_*\) is
+singular the term is unbounded above and has no maximizer. The matrix
+\(\Sigma_*\) is positive definite exactly when no nonzero linear combination of
+\(t\) is almost surely an affine function of the parents, which holds for a
+latent target whenever \(\mathbb Q_{V,o,X}\) has a Lebesgue density on the
+latent coordinates. Two cases violate the proviso: a record factor at its
+single observed value, whose intercept can equal that value with zero
+coefficients on the parents, giving \(\Sigma_*=0\); and a link learned inside
+the invertible group with the rest of its mean map fixed, which for \(K=1\),
+link map \(\mathsf t=\rho_b(\Theta^b_{ij})\neq0\), and \(k_i,k_j\) independent
+and centered, has covariance-optimized term
+\(-\tfrac12\log\bigl(2\pi e(\E k_i^2+\mathsf t^2\E k_j^2)\bigr)\), which
+approaches its supremum \(-\tfrac12\log(2\pi e\E k_i^2)\) as
+\(\mathsf t\to0\) without attaining it. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Expanding \(t-Fw=(t-F_*w)-(F-F_*)w\) and using the normal equations to cancel
+the cross term gives the first identity. For \(\Sigma_*\succ0\) and
+\(\varrho_k\) the eigenvalues of \(\Sigma^{-1/2}\Sigma_*\Sigma^{-1/2}\),
+\(-\log\det\Sigma-\Tr(\Sigma^{-1}\Sigma_*)
+=-\log\det\Sigma_*+\sum_k(\log\varrho_k-\varrho_k)\), which is maximal exactly
+at \(\Sigma=\Sigma_*\); the first identity orders every residual second moment
+above \(\Sigma_*\), and \(\Tr(\Sigma^{-1}\cdot)\) is monotone, which gives the
+inequality. If \(\Sigma_*\) is singular, \(\Sigma=\Sigma_*+\varepsilon I\) with
+\(\varepsilon\downarrow0\) drives the term to \(+\infty\). A nonzero \(a\) with
+\(a^\top\Sigma_*a=0\) makes \(a^\top t\) almost surely affine in the parents,
+and such a relation confines a latent vector to a Lebesgue-null hyperplane.
+The two witnesses are direct evaluation. \(\square\)
+
+\section{Gaussian selective communication}
+
+The comparison maps \(S^Q_e,S^K_e\), the value map \(\mathsf L^{\mathrm{val}}_e\),
+and the encoder, transmission, and decoder maps
+\(\mathsf L^{\mathrm{enc}}_e,\mathsf L^{\mathrm{tr}}_e,\mathsf L^{\mathrm{dec}}_e\)
+are those of \Cref{sec:selective-comparison,sec:selective-records}.
+
+\propositionheading{A comparison lift requires receiver geometry}{prop:geo-selective-lift}
+Fix \(q_i=\mathcal N(\mu_i,\Sigma_i)\) with \(\Sigma_i\succ0\) and a full-row-rank
+\(S^Q_e\). (i) The reduced covariance \(S^Q_e\Sigma_iS_e^{Q\top}\) is positive
+definite. (ii) The lift
+\begin{equation}
+R_e=\Sigma_iS_e^{Q\top}(S^Q_e\Sigma_iS_e^{Q\top})^{-1},\qquad
+S^Q_eR_e=I,\qquad \mathsf L^{\mathrm{cmp}}_e=R_eS^K_e,
+\label{eq:geo-selective-gaussian-lift}
+\end{equation}
+makes \(R_ey\) the unique minimizer of \(\delta^\top\Sigma_i^{-1}\delta\) subject
+to \(S^Q_e\delta=y\), and
+\(\E[k_i\given S^Q_ek_i=y]=\mu_i+R_e(y-S^Q_e\mu_i)\). (iii) If comparison and
+content share a Gaussian source \(z\sim\mathcal N(\mu_z,\Sigma_z)\),
+\(\Sigma_z\succ0\), with content map \(\mathsf L\) and full-row-rank key map
+\(S^K_e\), then
+\begin{equation}
+\E[\mathsf Lz\given S^K_ez=y]=\mathsf L\mu_z+
+\mathsf L\Sigma_zS_e^{K\top}(S^K_e\Sigma_zS_e^{K\top})^{-1}(y-S^K_e\mu_z),
+\label{eq:obs-selective-shared-latent-content}
+\end{equation}
+and the correction vanishes for all \(y\) exactly when
+\(\mathsf L\Sigma_zS_e^{K\top}=0\). (iv) Under \(S_e^{Q\prime}=\phi^{\mathrm{cmp}}_eS^Q_e\rho_b(g_i)^{-1}\)
+with \(\phi^{\mathrm{cmp}}_e\) invertible on the comparison space, and
+\(\Sigma_i'=\rho_b(g_i)\Sigma_i\rho_b(g_i)^\top\), the lift transforms by
+\(R_e'=\rho_b(g_i)R_e(\phi^{\mathrm{cmp}}_e)^{-1}\). (v) In the comparison-record model of
+\Cref{prop:obs-selective-receiver-update}, with \(S^Q_i\) of full row rank,
+\(R_e\) formed from \(S^Q_i\), and \(\widetilde W_i^{-1}\to0\),
+\(\mathsf L^{\mathrm{val}}_e\to R_eS^K_e\) and
+\(\Sigma_i^+\to\Sigma_i-R_eS^Q_i\Sigma_i\). (vi) For comparison and content
+copies \(Y=V=z\sim\mathcal N(0,1)\), every product law \(q(Y)q(V)\) with
+continuous marginals has infinite relative entropy to the diagonal-supported
+joint, even with identical comparison marginals. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) For \(u\neq0\), \(S_e^{Q\top}u\neq0\) by full row rank, so
+\(u^\top S^Q_e\Sigma_iS_e^{Q\top}u>0\). (ii) Write a feasible displacement as
+\(R_ey+w\) with \(S^Q_ew=0\); its squared norm has cross term
+\(y^\top(S^Q_e\Sigma_iS_e^{Q\top})^{-1}S^Q_ew=0\) and the additional term
+\(w^\top\Sigma_i^{-1}w\), positive unless \(w=0\). The residual
+\(k_i-\mu_i-R_e(S^Q_ek_i-S^Q_e\mu_i)\) has zero covariance with \(S^Q_ek_i\),
+hence is independent of it, which gives the conditional mean. (iii) The same
+argument applied to \(z\) and followed by \(\mathsf L\). (iv) Substitution.
+(v) The Woodbury identity
+\(\Sigma_i^+S_i^{Q\top}\widetilde W_i=\Sigma_iS_i^{Q\top}(\Sigma_i^{\rm pred})^{-1}\),
+with \(\Sigma_i^{\rm pred}=\widetilde W_i^{-1}+S^Q_i\Sigma_iS_i^{Q\top}\) of
+\eqref{eq:obs-selective-receiver-covariances}, gives
+\(\mathsf L^{\mathrm{val}}_e=\Sigma_iS_i^{Q\top}(\Sigma_i^{\rm pred})^{-1}S^K_e\)
+and \(\Sigma_i^+=\Sigma_i-\Sigma_iS_i^{Q\top}(\Sigma_i^{\rm pred})^{-1}S^Q_i\Sigma_i\);
+as \(\widetilde W_i^{-1}\to0\), \((\Sigma_i^{\rm pred})^{-1}\to(S^Q_i\Sigma_iS_i^{Q\top})^{-1}\)
+by (i). (vi) The joint of \((Y,V)\) is concentrated on the diagonal, which a
+product of continuous laws assigns mass zero, so absolute continuity fails.
+\(\square\)
+
+The content map \(\mathsf L_e\) of a communication layer is a separate
+parameter; the lift \(\mathsf L^{\mathrm{cmp}}_e\) is what receiver geometry
+supplies when content is read back from a comparison.
+
+\propositionheading{The linear Gaussian record}{prop:obs-selective-gaussian-record}
+Let the three stages of \eqref{eq:obs-selective-kernel-composition} be
+\(h^-=\mathsf L^{\mathrm{enc}}_ek_j+\epsilon_-\),
+\(h^+=\mathsf L^{\mathrm{tr}}_eh^-+\epsilon_+\), and
+\(o_e=\mathsf L^{\mathrm{dec}}_eh^++\epsilon_o\), with mutually independent
+centered Gaussian noises, independent of \(k_j\), of covariances
+\(\Sigma^-_e,\Sigma^+_e,\Sigma^o_e\succeq0\). (i) Then
+\begin{equation}
+o_e\given k_j\sim\mathcal N(\mathsf L_ek_j,\Sigma^{\mathrm{rec}}_e),
+\qquad
+\Sigma^{\mathrm{rec}}_e=\mathsf L^{\mathrm{dec}}_e\mathsf L^{\mathrm{tr}}_e\Sigma^-_e\mathsf L_e^{\mathrm{tr}\top}\mathsf L_e^{\mathrm{dec}\top}
++\mathsf L^{\mathrm{dec}}_e\Sigma^+_e\mathsf L_e^{\mathrm{dec}\top}+\Sigma^o_e,
+\label{eq:obs-selective-gaussian-record}
+\end{equation}
+with \(\mathsf L_e=\mathsf L^{\mathrm{dec}}_e\mathsf L^{\mathrm{tr}}_e\mathsf L^{\mathrm{enc}}_e\);
+the kernel is normalized at every rank, has a Lebesgue density when
+\(\Sigma^{\mathrm{rec}}_e\succ0\), for instance when \(\Sigma^o_e\succ0\), and
+for input \(\mathcal N(\mu_j,\Sigma_j)\) gives
+\(o_e\sim\mathcal N(\mathsf L_e\mu_j,\Sigma^{\mathrm{rec}}_e+\mathsf L_e\Sigma_j\mathsf L_e^\top)\);
+if the receiver frame changes by \(g_i\), with
+\(\mathsf L^{\mathrm{dec}\prime}_e=\rho_b(g_i)\mathsf L^{\mathrm{dec}}_e\) and
+\(\Sigma^{o\prime}_e=\rho_b(g_i)\Sigma^o_e\rho_b(g_i)^\top\), then
+\(\Sigma^{\mathrm{rec}\prime}_e=\rho_b(g_i)\Sigma^{\mathrm{rec}}_e\rho_b(g_i)^\top\).
+Deterministic placement is normalized as a measure but need not have a
+Lebesgue density. (ii) For \(\Sigma^{\mathrm{rec}}_e\succ0\) and
+\(k_j\sim\mathcal N(0,\Sigma_j)\),
+\begin{equation}
+I(k_j;o_e)=\tfrac12\log
+\frac{\det(\Sigma^{\mathrm{rec}}_e+\mathsf L_e\Sigma_j\mathsf L_e^\top)}{\det\Sigma^{\mathrm{rec}}_e},
+\label{eq:obs-selective-gaussian-information}
+\end{equation}
+which is unchanged by a congruent transformation of signal and noise; for
+\(\mathsf L_e=(1,0)\), \(\Sigma_j=I_2\), and scalar noise variance
+\(\sigma^2>0\) it equals \(\tfrac12\log(1+1/\sigma^2)\), so at the fixed rank
+one it takes every value in \((0,\infty)\). (iii) The comparison energy has
+the normalized realization
+\(o_e\given k_i,k_j\sim\mathcal N(S^Q_ek_i-S^K_ek_j,W_e^{-1})\), \(W_e\succ0\),
+whose negative log density at \(o_e=0\) is \(V_e\) of
+\eqref{eq:obs-selective-response} plus the Gaussian normalizer; with a proper
+normalized baseline and finitely many such records, the evidence at this slice
+is finite and positive, for arbitrary rectangular \(S^Q_e,S^K_e\).
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) Substituting the stages gives
+\(o_e=\mathsf L_ek_j+\mathsf L^{\mathrm{dec}}_e\mathsf L^{\mathrm{tr}}_e\epsilon_-+\mathsf L^{\mathrm{dec}}_e\epsilon_++\epsilon_o\),
+a sum of independent Gaussians, so the conditional covariance is
+\(\Sigma^{\mathrm{rec}}_e\) and the marginal adds \(\mathsf L_e\Sigma_j\mathsf L_e^\top\).
+A Gaussian law is a probability measure for every positive-semidefinite
+covariance. (ii) The difference of the output entropy and the conditional
+entropy \(\tfrac12\log\det(2\pi e\Sigma^{\mathrm{rec}}_e)\) is the displayed
+ratio, and a common congruence multiplies both determinants by the same
+factor; the example is direct evaluation. (iii) Each likelihood is bounded by
+its normalizer and strictly positive, so integrating it against a normalized
+baseline gives finite positive evidence. \(\square\)

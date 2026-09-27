@@ -25,9 +25,9 @@ updated: 2026-08-20
 
 ## Relation to gauge-VFE coupling
 
-The engineered consensus energy in [[Multi-agent variational free energy]] compares beliefs after gauge transport and optimizes entropy-retaining attention rows. It is structurally related to federated belief sharing, but its full population energy is not one fixed state-level ELBO over the original agent states. The rowwise source interpretation requires the explicit source-independence fence recorded in [[vfe-population-generative-status-2026-07-12]].
+The engineered consensus energy in [[Multi-agent variational free energy]] compares beliefs after gauge transport and optimizes entropy-retaining attention rows. It is structurally related to federated belief sharing, but its full population energy is not one fixed state-level ELBO over the original agent states. The rowwise source interpretation requires an explicit source-independence assumption.
 
-The primary belief update is Fisher--Rao natural-gradient flow. The optional kinetic extension in [[belief-inertia-2026-07-12-theorem-first-revision]] is a separate modeling postulate and is not implied by collective active inference.
+The primary belief update is Fisher--Rao natural-gradient flow. The optional kinetic extension of the belief-inertia manuscript is a separate modeling postulate and is not implied by collective active inference.
 
 ## Active sampling versus passive attention
 
@@ -72,7 +72,6 @@ Group agency remains conditional. [[palacios-2020-hierarchical-markov-blankets]]
 - [[heins-2024-surprise-minimization]] -- collective motion from surprise minimization.
 - [[waade-2025-as-one-and-many]] -- group-level active-inference agents.
 - [[albarracin-2022-epistemic-communities]] -- active confirmation-biased sampling and epistemic-community segregation.
-- [[belief-inertia-2026-07-12-theorem-first-revision]] -- passive-attention metastability and kinetic scope.
 - [[ruiz-serra-2025-factorised-active-inference]] -- strategic factorized beliefs and model-specific ensemble-EFE dynamics.
 - [[fukuoka-2026-variational-bayes-naming-game]] -- decentralized variational inference for shared signs.
 - [[heins-2023-spin-glass-active-inference]] -- exact but fragile spin-glass equivalence under explicit structural assumptions.

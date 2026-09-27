@@ -42,7 +42,7 @@ Both updates are *local*: each unit needs only the activity of its neighbors and
 
 ## Relation to this work
 
-The predictive coding network is a conceptual ancestor of the VFE transformer's belief-update core. The retained route maintains per-token diagonal-Gaussian model and belief states, applies one target-blind $s$ refinement, sets $q_i^{(0)}=p_i=s_i^{(1)}$, and then applies one target-blind $q$ refinement. This is not a converged predictive-coding E-step or an argmin on the decode objective. Its precision-weighted attention adapts the Rao–Ballard precision-gating idea ([[rao-1999-predictive-coding]]) to transported Gaussian-KL coupling. The exact-backprop result of [[millidge-2020-pc-approximates-backprop]] depends on its own scheduling and convergence assumptions and does not license the deployed finite, multi-objective loop as exact backpropagation. [[gl-k-attention-2026-07-09-review-revision]]
+The predictive coding network is a conceptual ancestor of the VFE transformer's belief-update core. The retained route maintains per-token diagonal-Gaussian model and belief states, applies one target-blind $s$ refinement, sets $q_i^{(0)}=p_i=s_i^{(1)}$, and then applies one target-blind $q$ refinement. This is not a converged predictive-coding E-step or an argmin on the decode objective. Its precision-weighted attention adapts the Rao–Ballard precision-gating idea ([[rao-1999-predictive-coding]]) to transported Gaussian-KL coupling. The exact-backprop result of [[millidge-2020-pc-approximates-backprop]] depends on its own scheduling and convergence assumptions and does not license the deployed finite, multi-objective loop as exact backpropagation.
 
 > [!note] Editorial (2026-07-09): The live covariance family is diagonal SPD, with belief-side
 > Fisher/AIRM updates. Beliefs are transported across a GL(k) frame structure, and their pairwise
@@ -50,7 +50,6 @@ The predictive coding network is a conceptual ancestor of the VFE transformer's 
 > variational Rényi bound and Amari alpha-divergence geometry. The committed optimizer route at each
 > recorded SHA uses AdamW for the frame table, but dirty provenance prevents exact reconstruction of
 > the executed optimizer; the separate decode cross-entropy prevents a single predictive-coding ELBO interpretation.
-> [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Sources
 

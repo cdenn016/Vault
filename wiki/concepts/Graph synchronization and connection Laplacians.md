@@ -18,7 +18,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-08-10
-updated: 2026-08-12
+updated: 2026-09-23
 ---
 
 # Graph Synchronization and Connection Laplacians
@@ -45,6 +45,8 @@ Pairwise link fit does not guarantee global consistency. Holonomy detects path d
 > The spectral positivity, Euclidean adjoint, boundedness, and rounding theorems in the orthogonal/compact setting do **not automatically apply** to noncompact $\mathrm{GL}^{+}(2)$ links. Transpose is not inverse, singular values are unbounded, and an arbitrary block operator need not be self-adjoint in the intended metric. A valid extension must specify a fiber metric or compact reduction and prove the appropriate adjoint, positive energy, coercivity, and spectral statement.
 
 Synchronizability is kinematic. It does not imply that agents agree in belief space, that an optimizer converges, or that a finite graph realizes a continuum gauge theory.
+
+Cellular sheaves generalize this setting. A sheaf assigns a vector space (stalk) to every vertex and edge and a linear restriction map from each vertex stalk to each incident edge stalk. Global sections are vertex data that agree in every edge stalk, and their space is isomorphic to the kernel of the sheaf Laplacian ([[bodnar-2022-neural-sheaf-diffusion]], Definitions 1–2; [[hansen-2018-toward-a-spectral-theory-of-cellular-sheaves]]). With orthogonal restriction maps the sheaf is a discrete $O(d)$ bundle and its Laplacian is the connection Laplacian. Restriction maps need not be invertible, which is why the September 2026 revision of the GL(K) attention manuscript treats its comparison cospans and matrix links as sheaf data ([[GL(K) gauge-equivariant attention]]).
 
 ## Gauged Laplacians, heat kernels, and a discrete Yang–Mills energy (2026-08-12)
 
@@ -103,6 +105,8 @@ Useful tests include: gauge-transform vertices and confirm spectral/holonomy inv
   discrete Yang–Mills energy certifying synchronizability (all for $\mathrm{SO}(d)$).
 - [[cassel-2025-bundle-scale-spaces]] — the same apparatus used to build locally gauge-equivariant
   graph architectures whose fixed points are harmonic sections.
+- [[hansen-2018-toward-a-spectral-theory-of-cellular-sheaves]] — spectral theory of cellular sheaf Laplacians.
+- [[bodnar-2022-neural-sheaf-diffusion]] — sheaf Laplacians with learned restriction maps; discrete $O(d)$ bundles and the connection Laplacian.
 
 ## See also
 

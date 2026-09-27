@@ -70,7 +70,7 @@ This manuscript is the conceptual capstone of the gauge-theoretic VFE program, t
 - Multi-scale / emergence machinery: [[Meta-agents and hierarchical emergence]], [[Ouroboros multi-scale dynamics]], [[Renormalization-group flow of beliefs]], [[Meta-entropy]].
 - Foundational FEP/active-inference grounding via [[Free-energy principle active inference]] and [[Precision weighting]] / [[Prediction error]].
 - Lie-algebraic detail (RoPE, multi-head) draws on the [[Baker-Campbell-Hausdorff formula]] and [[Killing form]].
-- Companion manuscripts: the attention-recovery limit is developed empirically in [[gl-k-attention]]; the slow-channel/inertia dynamics connect to [[belief-inertia]]; the RG/entropy apparatus to [[meta-entropy-manuscript]].
+- Companion manuscripts: the attention-recovery limit is developed empirically in [[gl-k-attention]]; the slow-channel/inertia dynamics connect to [[belief-inertia]]; the RG/entropy apparatus to `meta-entropy-manuscript`.
 
 ## References cited
 

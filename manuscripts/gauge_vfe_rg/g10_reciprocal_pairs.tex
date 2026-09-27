@@ -1,0 +1,498 @@
+\chapter{Reciprocal Pairs, Anchored Stars, and Loop Holonomy}
+\label{ch:obstructions}
+
+When does a reciprocal Gaussian agreement between two agents define a law, and what
+replaces it when it does not? A tower of scales in which every level's prior is
+supplied by the level above has a top without a level above it, and it is tempting
+to close the tower by letting two agents supply each other's priors. The general
+form of that question is treated in \Cref{sec:full-graph-closing-tower}; this chapter
+answers its Gaussian realization. For two latents joined by two parallel edge copies
+traversed in opposite directions, the kernel of the assembled precision is, up to a
+transport, the fixed space of the loop holonomy, and the determinant factors through
+\(\det(I-\mathrm{Hol}(p))\)
+(\Cref{prop:obs-reciprocal-pair-kernel,prop:obs-holonomy-determinant-factorization}).
+The flat unanchored fold is therefore singular; a proper anchor or holonomy without
+eigenvalue one restores definiteness, and in either case the global normalizer
+depends on the links and must be retained
+(\Cref{prop:obs-normalizer-link-dependence}). The standard conjugate replacement, an
+apex latent with a proper prior and conditionally independent constituents, has a
+mean-field schedule that converges geometrically to the exact posterior mean at a rate
+equal to the largest squared canonical correlation between apex and constituents
+(\Cref{thm:obs-star-fixed-point-contraction}). Finally,
+\Cref{prop:obs-no-new-anchor-exit} locates the conflict between a nonflat reciprocal
+cycle and the strict no-new-anchor coarse family of \Cref{def:cg-no-new-anchor-pair},
+a conflict that the default coarse family of this supplement, which admits newly
+generated positive-semidefinite self terms, does not have.
+
+Every statement of the chapter concerns a Gaussian realization. The singular fold is a
+statement about one flat unanchored reciprocal potential and not about cyclic models,
+which are legitimate laws whenever they are globally normalized
+(\Cref{sec:gen-undirected}). Graph links follow \Cref{def:geo-graph-links}; the
+reciprocal pair uses two distinct parallel edge copies, so its two link values need not
+be inverse to one another, while the reversal of each copy carries the inverse link. The
+chapter does not assert that the star schedule converges under delayed, noisy,
+asynchronous, or inexact updates (\Cref{open:obs-star-update-robustness}). \status{NOT-CLAIMED}
+Balanced cut links admit no continuous extension to all singular cuts
+(\Cref{open:cg-cut-compression}).
+
+\section{The flat unanchored reciprocal fold}
+\label{sec:obs-cycle}
+
+Let two latents \(y_1,y_2\in\R^K\) be joined by distinct edge copies \(e:2\to1\) and
+\(e':1\to2\) with links \(\Theta_e,\Theta_{e'}\in\Gamma_b\) and residual covariances
+\(\Sigma_e,\Sigma_{e'}\succ0\), so that \(y_2\) supplies a penalty for \(y_1\) and \(y_1\) one
+for \(y_2\). The two residuals assemble the precision
+\begin{equation}
+\Lambda=\delta_e^\top\Sigma_e^{-1}\delta_e+\delta_{e'}^\top\Sigma_{e'}^{-1}\delta_{e'},
+\qquad
+\delta_e=\begin{pmatrix}I&-\Theta_e\end{pmatrix},
+\qquad
+\delta_{e'}=\begin{pmatrix}-\Theta_{e'}&I\end{pmatrix}.
+\label{eq:obs-pair-precision}
+\end{equation}
+Let \(p\) be the closed walk that traverses \(e\) and then \(e'\), based at the second
+vertex; its holonomy is \(\mathrm{Hol}(p)=\Theta_{e'}\Theta_e\). The reversals of \(e\) and
+\(e'\) do not occur in \(p\).
+
+\propositionheading{Kernel of a reciprocal pair}{prop:obs-reciprocal-pair-kernel}
+For all residual covariances \(\Sigma_e,\Sigma_{e'}\succ0\),
+\begin{equation}
+\ker\Lambda=\bigl\{(\Theta_ew,w):w\in\ker(\mathrm{Hol}(p)-I)\bigr\},
+\qquad
+\dim\ker\Lambda=\dim\ker(\mathrm{Hol}(p)-I).
+\label{eq:obs-pair-kernel}
+\end{equation}
+In particular the kernel does not depend on the residual covariances. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+\(\Lambda\) is a sum of two positive semidefinite terms, and for \(\Sigma\succ0\) the form
+\(v\mapsto v^\top\delta^\top\Sigma^{-1}\delta v\) vanishes exactly when \(\delta v=0\), so
+\(\ker\Lambda=\ker\delta_e\cap\ker\delta_{e'}\). For \(v=(y_1,y_2)\) the two conditions are
+\(y_1=\Theta_ey_2\) and \(y_2=\Theta_{e'}y_1\), which together say \(y_1=\Theta_ey_2\) and
+\(\mathrm{Hol}(p)y_2=y_2\). The map \(w\mapsto(\Theta_ew,w)\) is injective. \hfill$\square$
+
+\medskip
+The precision \eqref{eq:obs-pair-precision} is the connection Laplacian of the two-vertex
+multigraph with edge copies \(e\) and \(e'\) and weights \(\Sigma_e^{-1}\) and
+\(\Sigma_{e'}^{-1}\), and the proposition is its instance of the kernel-holonomy
+isomorphism of \Cref{prop:cg-kernel-holonomy}.
+
+\corollaryheading{A flat parallel-edge fold is singular}{cor:obs-flat-fold-singular}
+(i) If the two copies give the same flat endpoint comparison,
+\(\Theta_{e'}=\Theta_e^{-1}\), then \(\mathrm{Hol}(p)=I\) and
+\begin{equation}
+\ker\Lambda=\bigl\{(\Theta_ew,w):w\in\R^K\bigr\},
+\qquad
+\dim\ker\Lambda=K,
+\label{eq:obs-cocycle-kernel}
+\end{equation}
+so the assembled precision is singular for all residual covariances, and its kernel is
+the set of transport-consistent configurations.
+(ii) For anchors \(A_1,A_2\succ0\),
+\begin{equation}
+\Lambda_{\mathrm{anch}}=\Lambda+\operatorname{diag}(A_1,A_2)\succ0,
+\label{eq:obs-anchored-cycle}
+\end{equation}
+so for every information vector \(\mathsf h\) the anchored reciprocal energy defines the
+normalized Gaussian law with information parameters \((\mathsf h,\Lambda_{\mathrm{anch}})\)
+and finite log normalizer \(\mathsf A(\mathsf h,\Lambda_{\mathrm{anch}})\). The same holds for
+Gaussian edge energies on any finite multigraph with a positive-definite anchor at every
+vertex. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) is \Cref{prop:obs-reciprocal-pair-kernel} with \(\ker(I-I)=\R^K\). (ii) A sum of
+Gaussian edge energies is a positive semidefinite form, and adding a positive-definite
+block-diagonal form makes it positive definite; \Cref{prop:gauss-log-normalizer-moments}
+gives the normalizer. \hfill$\square$
+
+\medskip
+The flat fold charges nothing on the configurations in which the two latents agree under
+transport, which is its intended agreement direction, so it supplies no coercivity
+there; and an energy whose precision has a \(K\)-dimensional kernel defines no normalized
+Lebesgue density, so the evidence identity of \Cref{ch:elbo} has no joint to apply to.
+Definiteness returns in two independent ways. A declared anchor works under flat
+holonomy. Alternatively, by \eqref{eq:obs-pair-kernel} the unanchored pair is definite
+exactly when \(1\notin\operatorname{spec}(\mathrm{Hol}(p))\). That requires
+\(\mathrm{Hol}(p)\neq I\), so the two copies cannot have the coboundary form of
+\Cref{prop:geo-trivializing-criterion}, which pointwise frame comparisons at one context
+always have; at least one copy must carry a link declared independently of the frames in
+the sense of \Cref{def:geo-graph-links}. This route leaves the fixed-\(K\) flat interaction
+family: a nonflat cycle inside a cluster leaves a self residue
+(\Cref{lem:gauss-internal-edge}), and a cut between clusters needs the rectangular
+endpoint maps of \Cref{thm:cg-rectangular-endpoint-closure} or the anchored presentations
+of \Cref{lem:cg-cut-completed-square}.
+
+\section{Anchors and the global normalizer}
+\label{sec:obs-selfprior}
+
+An anchor restores definiteness but not the freedom to treat the normalizer as a
+constant. At zero information vector the log normalizer \eqref{eq:gauss-lognorm} of a
+precision \(\Lambda\succ0\) on \(\R^n\) reduces to
+\begin{equation}
+\mathsf A(0,\Lambda)=-\tfrac12\log\det\Lambda+\tfrac n2\log2\pi,
+\label{eq:obs-log-normalizer}
+\end{equation}
+so every dependence of \(\Lambda\) on the links passes into the normalizer. In
+\eqref{eq:obs-pair-precision} the links sit inside \(\delta_e\) and \(\delta_{e'}\), and their
+contribution to the determinant does not cancel.
+
+\propositionheading{The global normalizer depends on the model graph link}{prop:obs-normalizer-link-dependence}
+Take \(K=1\), unit residual variances, flat link values \(\Theta_e=\mathsf g\) and
+\(\Theta_{e'}=\mathsf g^{-1}\) with \(\mathsf g>0\), and the anchor \(a_0I\) with
+\(a_0>0\). Then
+\begin{equation}
+\det\bigl(\Lambda+a_0I\bigr)=a_0^2+a_0\bigl(\mathsf g+\mathsf g^{-1}\bigr)^2,
+\label{eq:obs-det-witness}
+\end{equation}
+a nonconstant function of \(\mathsf g\), uniquely minimized on \(\GL^+(1)=(0,\infty)\) at
+\(\mathsf g=1\), with value \(a_0^2+4a_0\). At zero information vector the log normalizer
+\(\mathsf A(\mathsf g)=-\tfrac12\log\det(\Lambda+a_0I)+\log2\pi\) satisfies
+\begin{equation}
+\mathsf A'(1)=0,
+\qquad
+\mathsf A''(1)=-\frac{4}{a_0+4}<0.
+\label{eq:obs-normalizer-curvature}
+\end{equation}
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+With \(\delta_e=(1,-\mathsf g)\) and \(\delta_{e'}=(-\mathsf g^{-1},1)\), the two rank-one
+contributions sum to
+\[
+\Lambda=\begin{pmatrix}1+\mathsf g^{-2}&-(\mathsf g+\mathsf g^{-1})\\-(\mathsf g+\mathsf g^{-1})&1+\mathsf g^{2}\end{pmatrix},
+\]
+whose determinant is \((1+\mathsf g^{-2})(1+\mathsf g^2)-(\mathsf g+\mathsf g^{-1})^2=0\), as
+\Cref{cor:obs-flat-fold-singular} requires. Adding \(a_0I\) gives
+\(a_0^2+a_0(2+\mathsf g^2+\mathsf g^{-2})\), and \(2+\mathsf g^2+\mathsf g^{-2}=(\mathsf g+\mathsf g^{-1})^2\).
+Since \(\mathsf g+\mathsf g^{-1}\geq2\) with equality only at \(\mathsf g=1\), the minimizer is
+unique. Writing \(D(\mathsf g)\) for \eqref{eq:obs-det-witness}, \(D'(1)=0\) and
+\(D''(1)=8a_0\), so \(\mathsf A''(1)=-\tfrac12D''(1)/D(1)=-4/(a_0+4)\). \hfill$\square$
+
+\medskip
+The identity link is thus a strict maximum of the isolated log-normalizer contribution.
+The quadratic and information-vector terms also vary with \(\mathsf g\), so no direction
+follows for the complete objective; what the witness shows is that the global term
+\(-\tfrac12\log\det(\Lambda+a_0I)\) cannot be absorbed into per-agent constants or dropped
+from a normalized joint. The variation is a change of model and not of coordinates: it
+varies the declared links while holding \(a_0I\), the residual variances, and the Lebesgue
+coordinates fixed, whereas under a reframing all of these transform together and
+\Cref{prop:gen-product-evidence-invariance} leaves the law and the evidence invariant.
+
+\section{The anchored Gaussian star}
+\label{sec:obs-star}
+
+The standard conjugate replacement of the fold is an apex latent inside the joint. Let
+\(y_0\in\R^K\) carry the proper prior \(\mathcal N(0,A_0^{-1})\), \(A_0\succ0\), and let \(N\)
+constituents be conditionally independent given it,
+\begin{equation}
+y_0\sim\mathcal N(0,A_0^{-1}),
+\qquad
+y_i\given y_0\sim\mathcal N(\Theta_iy_0,\Sigma_i),
+\qquad
+i=1,\dots,N,
+\label{eq:obs-star}
+\end{equation}
+with \(\Theta_i\in\Gamma_b\) and \(\Sigma_i\succ0\). The scale graph is a tree, so no cycle
+forms. Write \(\Lambda_\star\) for the joint precision of \((y_0,y_1,\dots,y_N)\). Its
+constituent blocks are \(\Sigma_i^{-1}\), its apex-constituent blocks are
+\(-\Theta_i^\top\Sigma_i^{-1}\), and its apex block is
+\begin{equation}
+\Lambda_{00}=A_0+\sum_{i=1}^N\Theta_i^\top\Sigma_i^{-1}\Theta_i .
+\label{eq:obs-precision-addition}
+\end{equation}
+This is the conditional precision of \(y_0\) given the constituents in the linear-Gaussian
+form of Bayes' theorem \citep[Sec.~2.3.3]{Bishop2006}, and it is the precision of the
+optimal mean-field factor of the apex, which for a Gaussian joint is the corresponding
+diagonal block of the joint precision \citep[Sec.~10.1.2]{Bishop2006}. The constituents
+enter the apex through the single statistic \(\sum_i\Theta_i^\top\Sigma_i^{-1}y_i\), whose
+conditional covariance given \(y_0\) is \(\Lambda_{00}-A_0\). The star is one conjugate
+hierarchical Gaussian model among many; the computations below use only its tree form
+and its proper root.
+
+\propositionheading{The declared prior supplies exactly the missing coercivity}{prop:obs-anchor-coercivity}
+For all invertible \(\Theta_i\) and all \(\Sigma_i\succ0\), \(\Lambda_\star\succ0\). On every
+transport-consistent configuration \(w=(v,\Theta_1v,\dots,\Theta_Nv)\),
+\begin{equation}
+w^\top\Lambda_\star w=v^\top A_0v
+\label{eq:obs-coercivity}
+\end{equation}
+for every \(v\in\R^K\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The quadratic form is
+\(y_0^\top A_0y_0+\sum_i(y_i-\Theta_iy_0)^\top\Sigma_i^{-1}(y_i-\Theta_iy_0)\), a sum of
+positive semidefinite terms. It vanishes only if \(y_0=0\), because \(A_0\succ0\), and
+then \(y_i=\Theta_iy_0=0\). On a transport-consistent configuration every residual
+vanishes and only \(v^\top A_0v\) remains. \hfill$\square$
+
+\medskip
+The contrast with the fold is exact: by \Cref{cor:obs-flat-fold-singular} the flat pair
+charges nothing on its transport-consistent directions, and by \eqref{eq:obs-coercivity} the
+star charges exactly \(v^\top A_0v\) there.
+
+\theoremheading{Exact Gaussian-star fixed point and contraction}{thm:obs-star-fixed-point-contraction}
+Let \(A_0\succeq0\), \(O_i\succeq0\), and let \(r_0,r_1,\dots,r_N\in\R^K\). Consider the
+Gaussian target on \((y_0,y_1,\dots,y_N)\) whose log density is, up to a constant,
+\[
+-\tfrac12y_0^\top A_0y_0
+-\tfrac12\sum_i(y_i-\Theta_iy_0)^\top\Sigma_i^{-1}(y_i-\Theta_iy_0)
+-\tfrac12\sum_iy_i^\top O_iy_i
++r_0^\top y_0+\sum_ir_i^\top y_i ;
+\]
+the terms in \(O_i\) and \(r_i\) are Gaussian observations of the constituents, and
+\(A_0\succ0\), \(O_i=0\), \(r=0\) recover \eqref{eq:obs-star}. Keep \(\Lambda_{00}\) of
+\eqref{eq:obs-precision-addition}, write \(\Lambda_{ii}=\Sigma_i^{-1}+O_i\), and put
+\begin{equation}
+B_\star=\sum_{i=1}^N\Theta_i^\top\Sigma_i^{-1}\Lambda_{ii}^{-1}\Sigma_i^{-1}\Theta_i,
+\qquad
+S_\star=\Lambda_{00}-B_\star,
+\qquad
+M=\Lambda_{00}^{-1}B_\star,
+\qquad
+\bar r=r_0+\sum_{i=1}^N\Theta_i^\top\Sigma_i^{-1}\Lambda_{ii}^{-1}r_i .
+\label{eq:obs-star-contraction-data}
+\end{equation}
+Assume \(S_\star\succ0\), which holds whenever \(A_0\succ0\) and is equivalent to positive
+definiteness of the target precision. Consider the mean-field schedule that updates every
+constituent factor from the current apex factor, in parallel or in any order, and then
+updates the apex factor. The factor covariances become \(\Lambda_{ii}^{-1}\) and
+\(\Lambda_{00}^{-1}\) on their first updates, and the means obey
+\begin{align}
+\mu_i^{(t+1)}
+&=\Lambda_{ii}^{-1}\left(\Sigma_i^{-1}\Theta_i\mu_0^{(t)}+r_i\right),
+\label{eq:obs-star-constituent-update}\\
+\mu_0^{(t+1)}
+&=\Lambda_{00}^{-1}\left(r_0+\sum_i\Theta_i^\top\Sigma_i^{-1}\mu_i^{(t+1)}\right)
+=\Lambda_{00}^{-1}\bar r+M\mu_0^{(t)}.
+\label{eq:obs-star-apex-update}
+\end{align}
+There is a unique fixed point,
+\begin{equation}
+\mu_0^\star=S_\star^{-1}\bar r,
+\qquad
+\mu_i^\star=\Lambda_{ii}^{-1}\left(\Sigma_i^{-1}\Theta_i\mu_0^\star+r_i\right),
+\label{eq:obs-star-fixed-point}
+\end{equation}
+which is the exact mean of the target, and in the norm
+\(\lVert x\rVert_{\Lambda_{00}}=(x^\top\Lambda_{00}x)^{1/2}\),
+\begin{equation}
+\lVert\mu_0^{(t+1)}-\mu_0^\star\rVert_{\Lambda_{00}}
+\leq\varrho_\star
+\lVert\mu_0^{(t)}-\mu_0^\star\rVert_{\Lambda_{00}},
+\qquad
+\varrho_\star=\lambda_{\max}\left(\Lambda_{00}^{-1/2}B_\star\Lambda_{00}^{-1/2}\right)<1 .
+\label{eq:obs-star-rate}
+\end{equation}
+The rate \(\varrho_\star\) is the largest squared canonical correlation between \(y_0\) and
+\((y_1,\dots,y_N)\) under the target. The relative entropy of the apex factor to its
+fixed-point factor contracts by \(\varrho_\star^2\) per sweep, and the product factor
+converges to the product of the fixed-point factors in relative entropy. When every
+\(O_i=0\), one has \(B_\star=\Lambda_{00}-A_0\) and \(S_\star=A_0\), so the hypothesis is
+\(A_0\succ0\) and the fixed point is
+\(\mu_0^\star=A_0^{-1}(r_0+\sum_i\Theta_i^\top r_i)\), \(\mu_i^\star=\Theta_i\mu_0^\star+\Sigma_ir_i\);
+if instead \(A_0\succeq0\) is singular and every \(O_i=0\), then \(\varrho_\star=1\) and
+neither uniqueness nor contraction holds. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The target precision \(\Lambda_\star\) has apex block \(\Lambda_{00}\), constituent blocks
+\(\Lambda_{ii}\), apex-constituent blocks \(-\Theta_i^\top\Sigma_i^{-1}\), and no block between
+distinct constituents. Its constituent part \(\operatorname{diag}(\Lambda_{ii})\) is positive
+definite, and the Schur complement of that part is \(S_\star\), so \(\Lambda_\star\succ0\)
+exactly when \(S_\star\succ0\). If \(A_0\succ0\), then
+\(S_\star-A_0=\sum_i\Theta_i^\top(\Sigma_i^{-1}-\Sigma_i^{-1}\Lambda_{ii}^{-1}\Sigma_i^{-1})\Theta_i\succeq0\),
+because \(\Lambda_{ii}^{-1}\preceq\Sigma_i\). The optimal mean-field factor of one block is
+Gaussian with precision the diagonal block of \(\Lambda_\star\) and with the information
+vector of the target minus the off-diagonal blocks applied to the current means of the
+other factors \citep[Secs.~10.1.1--10.1.2]{Bishop2006}; this gives the covariances,
+\eqref{eq:obs-star-constituent-update}, and the first expression in
+\eqref{eq:obs-star-apex-update}, and substitution gives the affine recursion. Since
+\(I-M=\Lambda_{00}^{-1}S_\star\) is invertible, the recursion has the unique fixed point
+\eqref{eq:obs-star-fixed-point}; the two block equations it satisfies are the two block rows
+of \(\Lambda_\star\mu=r\), so it is the exact mean.
+
+Because \(\Lambda_{00}\succeq B_\star+S_\star\) with \(S_\star\succ0\) and \(B_\star\succeq0\), the matrix
+\(M\) is similar to the symmetric matrix
+\(\Lambda_{00}^{-1/2}B_\star\Lambda_{00}^{-1/2}=I-\Lambda_{00}^{-1/2}S_\star\Lambda_{00}^{-1/2}\), whose
+eigenvalues lie in \([0,1)\). With \(\xi_t=\mu_0^{(t)}-\mu_0^\star\),
+\(\lVert\xi_{t+1}\rVert_{\Lambda_{00}}=\lVert\Lambda_{00}^{-1/2}B_\star\Lambda_{00}^{-1/2}\Lambda_{00}^{1/2}\xi_t\rVert_2
+\leq\varrho_\star\lVert\xi_t\rVert_{\Lambda_{00}}\), which is \eqref{eq:obs-star-rate}. Write
+\(\Lambda_{0y}\), \(\Lambda_{yy}\), and \(\Sigma_\star=\Lambda_\star^{-1}\) with blocks
+\(\Sigma_{00},\Sigma_{0y},\Sigma_{yy}\) for the apex and the stacked constituents. Then
+\(B_\star=\Lambda_{0y}\Lambda_{yy}^{-1}\Lambda_{y0}\), the block identities of
+\(\Lambda_\star\Sigma_\star=I\) give \(-\Lambda_{00}^{-1}\Lambda_{0y}=\Sigma_{0y}\Sigma_{yy}^{-1}\) and
+\(-\Lambda_{yy}^{-1}\Lambda_{y0}=\Sigma_{y0}\Sigma_{00}^{-1}\), and so
+\(M=\Sigma_{0y}\Sigma_{yy}^{-1}\Sigma_{y0}\Sigma_{00}^{-1}\), whose eigenvalues are the squared
+canonical correlations between \(y_0\) and the constituents.
+
+After the first updates every factor has its fixed-point covariance. The apex factor then
+satisfies \(\KL(q_0^{(t)}\Vert q_0^\star)=\tfrac12\lVert\xi_t\rVert_{\Lambda_{00}}^2\), which
+contracts by \(\varrho_\star^2\) per sweep. The constituent means updated from
+\(\mu_0^{(t)}\) differ from their fixed points by \(\Lambda_{ii}^{-1}\Sigma_i^{-1}\Theta_i\xi_t\),
+so the sum of their divergences is \(\tfrac12\xi_t^\top B_\star\xi_t\leq\tfrac12\xi_t^\top\Lambda_{00}\xi_t\),
+and the product factor converges in relative entropy. When every \(O_i=0\),
+\(\Lambda_{ii}=\Sigma_i^{-1}\) gives \(B_\star=\sum_i\Theta_i^\top\Sigma_i^{-1}\Theta_i\) and
+\(S_\star=A_0\), and the displayed fixed point follows. If then \(A_0v=0\) for some
+\(v\neq0\), \(Mv=\Lambda_{00}^{-1}(\Lambda_{00}-A_0)v=v\), so \(\varrho_\star=1\), \(I-M\) is singular,
+and the error along \(v\) is never reduced. \hfill$\square$
+
+\medskip
+The mean recursion is block Gauss--Seidel on \(\Lambda_\star\mu=r\). Convergence of the point
+Gauss--Seidel iteration for a symmetric positive definite system is classical
+\citep[Thm.~11.2.3]{GolubVanLoan2013}, and the same iteration matrix governs the rate of the
+deterministic-scan Gibbs sampler for a Gaussian target \citep{RobertsSahu1997}. What the
+theorem supplies for the star is the closed form of \(\varrho_\star\), its identification
+with a canonical correlation, the extension to observed constituents, and the convergence
+of the product factor in relative entropy.
+
+\openproblemheading{Robustness of the star schedule}{open:obs-star-update-robustness}
+\Cref{thm:obs-star-fixed-point-contraction} covers the exact block schedule in which every
+constituent update reads the current apex factor and the apex update reads the updated
+constituents. Whether the fixed point is reached, and at what rate, when the updates are
+delayed, noisy, asynchronous, or inexact is open. A convergence theorem for a declared
+class of perturbed schedules, or a counterexample within such a class, would settle it.
+
+\section{Loop holonomy and the reciprocal fold}
+\label{sec:obs-flatness}
+
+By \Cref{prop:obs-reciprocal-pair-kernel} the obstruction of \Cref{sec:obs-cycle} is
+measured by one number, \(\dim\ker(\mathrm{Hol}(p)-I)\), and
+\Cref{cor:obs-flat-fold-singular} evaluates it under flat holonomy, where it is largest.
+The kernel is produced by the flat loop product, not by the cycle.
+
+\corollaryheading{Nontrivial holonomy shrinks the reciprocal-pair kernel}{cor:obs-holonomy-kernel-shrinkage}
+Under the hypotheses of \Cref{prop:obs-reciprocal-pair-kernel},
+\begin{equation}
+\begin{aligned}
+\dim\ker\Lambda=K
+&\iff\mathrm{Hol}(p)=I,\\
+\mathrm{Hol}(p)\neq I
+&\implies\dim\ker\Lambda\leq K-1,\\
+\ker\Lambda=\{0\}
+&\iff1\notin\operatorname{spec}(\mathrm{Hol}(p)).
+\end{aligned}
+\label{eq:obs-holonomy-kernel}
+\end{equation}
+Under the specialization \(\Gamma_b=\GL^+(K)\), the holonomies at which the last condition
+fails form the intersection of \(\GL^+(K)\) with the zero set of the nonzero polynomial
+\(\det(\mathrm{Hol}-I)\), a relatively closed subset with dense complement and Lebesgue measure
+zero, so the flat point \(\mathrm{Hol}(p)=I\) is the most degenerate member of the family and a
+generic holonomy gives no kernel. If instead \(\Gamma_b=\operatorname{SO}(K)\) with \(K\) odd,
+every holonomy has eigenvalue one and the unanchored pair is singular for every choice of
+links. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+By \eqref{eq:obs-pair-kernel}, \(\dim\ker\Lambda=\dim\ker(\mathrm{Hol}(p)-I)\), which is \(K\)
+exactly when \(\mathrm{Hol}(p)-I=0\), at most \(K-1\) otherwise, and zero exactly when one is not
+an eigenvalue. The polynomial \(\det(\mathrm{Hol}-I)\) takes the value \(1\) at
+\(\mathrm{Hol}=2I\), and the zero set of a nonzero polynomial is closed, nowhere dense, and
+Lebesgue null. An element of \(\operatorname{SO}(K)\) has determinant one and eigenvalues of
+modulus one in conjugate pairs; for odd \(K\) the number of real eigenvalues is odd and their
+product is one, so at least one of them equals one. \hfill$\square$
+
+\propositionheading{Graph-link dependence of the determinant factors through holonomy}{prop:obs-holonomy-determinant-factorization}
+For the reciprocal pair \eqref{eq:obs-pair-precision},
+\begin{equation}
+\det\Lambda=\frac{\bigl(\det(I-\mathrm{Hol}(p))\bigr)^{2}}{\det\Sigma_e\det\Sigma_{e'}} .
+\label{eq:obs-holonomy-det}
+\end{equation}
+The links enter the determinant only through the loop holonomy, \(\Lambda\) is singular exactly
+when \(\det(I-\mathrm{Hol}(p))=0\), and where \(\Lambda\succ0\) the link-dependent part of the
+zero-information log normalizer \eqref{eq:obs-log-normalizer} is
+\begin{equation}
+-\tfrac12\log\det\Lambda
+=-\log\bigl\lvert\det(I-\mathrm{Hol}(p))\bigr\rvert
++\tfrac12\log\det\Sigma_e
++\tfrac12\log\det\Sigma_{e'} .
+\label{eq:obs-holonomy-normalizer}
+\end{equation}
+The singular locus \(\{\det(I-\mathrm{Hol}(p))=0\}\) strictly contains the flat point: for
+\(K=2\), \(\Theta_e=I\), \(\Theta_{e'}=\operatorname{diag}(1,2)\), and
+\(\Sigma_e=\Sigma_{e'}=I\), one has \(\mathrm{Hol}(p)\neq I\) and \(\det\Lambda=0\).
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Stack the residual maps as
+\(\delta=\bigl(\begin{smallmatrix}I&-\Theta_e\\-\Theta_{e'}&I\end{smallmatrix}\bigr)\), so that
+\(\Lambda=\delta^\top\operatorname{diag}(\Sigma_e,\Sigma_{e'})^{-1}\delta\) by
+\eqref{eq:obs-pair-precision}. Hence
+\(\det\Lambda=(\det\delta)^2/(\det\Sigma_e\det\Sigma_{e'})\), and the Schur formula gives
+\(\det\delta=\det(I-\Theta_{e'}\Theta_e)\). Taking logarithms gives
+\eqref{eq:obs-holonomy-normalizer}. In the witness \(\mathrm{Hol}(p)=\operatorname{diag}(1,2)\) and
+\(\det(I-\mathrm{Hol}(p))=0\). \hfill$\square$
+
+\medskip
+Holonomy without eigenvalue one removes exactly one defect of this architecture, the
+kernel of the unanchored pair: the reciprocal energy with its global normalizer then
+defines a Gaussian law, and the transport-consistent zero modes collapse to the origin.
+The statement concerns the two-residual precision \eqref{eq:obs-pair-precision} and no other
+cyclic potential. Holonomy does not turn the reciprocal energy into a pair of locally
+normalized directed kernels; it defines an undirected Gaussian potential whose global
+partition function is part of the model, and by \eqref{eq:obs-holonomy-normalizer} that term
+is a nonconstant function of the links that diverges on the singular locus, where the
+unanchored law ceases to exist. Holonomy also does not remove declarations. A closed walk
+with nontrivial holonomy requires at least one link declared independently of the frames,
+because links of the coboundary form of \Cref{prop:geo-trivializing-criterion} telescope to
+the identity around every closed walk, and pointwise frame comparisons at one context
+(\Cref{sec:geo-regime-one}) have that form; replacing a declared prior by a declared link
+relocates the declaration. Both \Cref{prop:obs-normalizer-link-dependence} and
+\eqref{eq:obs-holonomy-normalizer} vary declared links while holding the other coordinate
+parameters fixed, so neither is a statement about motion along a gauge orbit.
+
+The strict no-new-anchor pair subfamily of \Cref{def:cg-no-new-anchor-pair}, in which a
+blocking step creates no self term beyond the summed self terms and the internal residues,
+conflicts with an unanchored reciprocal pair. Its exact fixed-\(K\) aggregation needs
+clusters whose links can all be removed by a choice of frames, and exact closure of each
+cut by one bare coarse link, while the unanchored pair needs definiteness:
+\begin{equation}
+\begin{aligned}
+\text{strict flat coarse-graining needs}\quad
+&\text{trivial holonomy on every closed walk in its domain},\\
+\text{the unanchored reciprocal pair needs}\quad
+&1\notin\operatorname{spec}(\mathrm{Hol}(p)).
+\end{aligned}
+\label{eq:obs-tension}
+\end{equation}
+
+\propositionheading{A nonflat cycle leaves the strict flat coarse-graining}{prop:obs-no-new-anchor-exit}
+Let a finite sequence of nested hard partitions of the agents be given in which every
+cluster at every level is trivializing, that is, the links inside it take the coboundary
+form of \Cref{prop:geo-trivializing-criterion}. Suppose that the coarsest level is either one
+cluster or two clusters whose cut, with positive-definite weights, is reproduced exactly by
+one coarse link without a new self term, as in the subfamily of
+\Cref{def:cg-no-new-anchor-pair}. Then every closed walk of the interaction graph has trivial
+holonomy. In particular, no such sequence exists for a population that contains an
+unanchored reciprocal pair with \(1\notin\operatorname{spec}(\mathrm{Hol}(p))\).
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+If the coarsest level is one cluster, that cluster is the whole population and is
+trivializing by hypothesis. If it is two clusters \(I\) and \(J\), choose frames in which every
+link inside \(I\) and inside \(J\) is the identity. The cut links become twists \(\Theta_e\in\Gamma_b\),
+and exact reproduction by one coarse link without a new self term is \(\Delta=0\) in
+\eqref{eq:cg-cut-excess}, which for positive-definite weights holds exactly when all twists
+are equal. Re-expressing every frame of \(J\) by this common twist makes every link of the
+population the identity, so the whole population is trivializing and every closed walk has
+trivial holonomy. For the reciprocal pair this gives \(\mathrm{Hol}(p)=I\), which has eigenvalue
+one. \hfill$\square$
+
+\medskip
+Within the strict subfamily, a nonflat reciprocal cycle can therefore stay outside the flat
+coarse-graining only by stopping the sequence before it reaches the coarsest levels of the
+proposition. The default coarse family of this supplement admits newly generated
+positive-semidefinite self terms, and there the conflict dissolves. For a cut between two
+trivialized clusters with weights \(W_e\succ0\), twists \(\Theta_e\), and \(\Lambda_{II}\), \(\Lambda_{IJ}\),
+\(\bar\Theta=\Lambda_{II}^{-1}\Lambda_{IJ}\), and \(\Delta\) as in \eqref{eq:cg-cut-excess}, \Cref{lem:cg-cut-completed-square} writes the cut
+energy as
+\begin{equation}
+\sum_e(z_I-\Theta_ez_J)^{\top}W_e(z_I-\Theta_ez_J)
+=(z_I-\bar\Theta z_J)^{\top}\Lambda_{II}(z_I-\bar\Theta z_J)+z_J^{\top}\Delta z_J ,
+\label{eq:obs-cut-completed-square}
+\end{equation}
+one link \(\bar\Theta\) of weight \(\Lambda_{II}\) together with the self term \(\Delta\) at \(J\), and an exact
+anchored one-link presentation exists if and only if \(\det\Lambda_{IJ}\neq0\), with \(\det\Lambda_{IJ}>0\) for
+links in \(\GL^+(K)\). The admitted self term is exactly the anchor that removes the
+right-hand demand of \eqref{eq:obs-tension}; the balanced presentation of
+\Cref{prop:cg-balanced-cut-presentation} selects one of the presentations, no presentation at the
+level of laws is balanced once the cut has excess (\Cref{prop:cg-no-balanced-law-presentation}), and
+no continuous extension of the balanced links covers all singular and rectangular cuts
+(\Cref{open:cg-cut-compression}).

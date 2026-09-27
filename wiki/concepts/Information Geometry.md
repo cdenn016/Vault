@@ -24,8 +24,7 @@ established application is joint Gaussian Fisher geometry, whose covariance bloc
 conventional AIRM. The audited
 frame table uses plain AdamW, its configured conditioner/heavy-ball path is inactive and is not identified as Fisher or K-FAC,
 and the configured order-Rényi pairwise discrepancy is distinct from Amari's alpha-connection
-construction. See [[Information geometry and natural gradient]] and
-[[gl-k-attention-2026-07-09-review-revision]].
+construction. See [[Information geometry and natural gradient]].
 
 ## The core structure
 
@@ -85,7 +84,6 @@ families) see [[amari-2016-information-geometry-applications]] and the theme.
 > [!note] Revision scope (2026-07-10): The manuscript review confines Fisher-natural claims to
 > Gaussian beliefs, separates the plain-AdamW frame update, and distinguishes order-Rényi,
 > variational Rényi, and Amari alpha geometry.
-> [[gl-k-attention-2026-07-09-review-revision]]
 
 ## See also
 

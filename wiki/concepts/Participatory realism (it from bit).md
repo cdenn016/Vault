@@ -28,7 +28,7 @@ The manuscript [[participatory-it-from-bit]] is explicit that this is a *structu
 > [!note] Editorial: The page maps Wheeler's *"it from bit"* specifically to the **pullback metric**, not to attention. The author's own Table (Wheeler 1990 vs. this framework) reads: "It from bit" $\to$ structural pullback metric; "Participatory universe" $\to$ cross-scale meta-agent feedback loops; "Observer-dependent reality" $\to$ gauge-frame-dependent pullback metrics; "Self-excited circuit" $\to$ sustained non-equilibrium under threshold detection.
 
 > [!important] Covariant-pullback correction (2026-08-01)
-> The verified construction in [[gauge-vfe-rg-pullback-geometry-2026-08-01]] sharpens the older
+> The verified pullback-geometry construction (2026-08-01) sharpens the older
 > "gauge-frame-dependent metric" wording. The rigorous vertical informational tensor is invariant
 > under passive gauge changes but depends on the agent's section and on the selected connection.
 > Changing a representative is not a change of perceived geometry. The indefinite horizontal
@@ -146,7 +146,6 @@ vanishing only at perfect post-detection consensus. In the single reported run, 
 ## Sources
 
 - [[multiagentelbo-agent-only-ontology-2026-08-13]] - agent-only state-bearing ontology, endogenous observations, typed physicalization, and the units/constant bridge.
-- [[gauge-vfe-rg-pullback-geometry-2026-08-01]] — rigorous covariant vertical pullback, connection dependence, fixed-base histories, and the boundary between information duration and physical time.
 
 - [[participatory-it-from-bit]] — the manuscript that defines the pullback "it from bit" construction, the three induced-geometry tiers, observable sectors, and the participatory loop.
 - [[wheeler-1990-it-from-bit]] — Wheeler's source essay: reality is informational, "no phenomenon is a phenomenon until it is an observed phenomenon."

@@ -26,7 +26,7 @@ updated: 2026-07-13
 
 > In a reciprocal, frozen-attention, local-consensus regime, a positive restriction of the gauge-VFE stiffness may be adopted as a kinetic metric for belief-configuration change.
 
-The revision recorded in [[belief-inertia-2026-07-12-theorem-first-revision]] separates three tensors:
+The theorem-first revision of the belief-inertia manuscript (2026-07-12) separates three tensors:
 
 - $G(q)$: the intrinsic [[Fisher information metric]] on the statistical manifold;
 - $H_F(x)$: the coordinate loss Hessian, interpreted locally as free-energy stiffness;
@@ -105,8 +105,6 @@ Oscillation alone is not evidence for belief inertia. [[baumann-sokolov-tyloo-20
 
 ## Sources
 
-- [[belief-inertia-2026-07-12-theorem-first-revision]] -- corrected theorem-first manuscript record and source hashes.
-- [[belief-inertia-2026-07-13-final-verification-addendum]] -- final metric-scope, stiffness-direction, and post-Task-11 hash reconciliation.
 - [[belief-inertia]] -- immutable historical manuscript note, retained for provenance.
 - [[martins-2015-opinion-particles]] -- direct opinion-particle and oscillator predecessor.
 - [[chirco-2022-statistical-bundle-dynamics]], [[leok-zhang-2017-information-geometric-mechanics]], [[pistone-2018-statistical-bundle-lagrangian]] -- statistical-bundle and information-geometric mechanics.
@@ -122,4 +120,3 @@ Oscillation alone is not evidence for belief inertia. [[baumann-sokolov-tyloo-20
 - [[Natural gradient]]
 - [[Gauge-Theoretic Multi-Agent VFE Model]]
 - [[SocialPhysics]]
-- [[belief-inertia-2026-07-13-final-review-closure]]

@@ -1,0 +1,250 @@
+\section{Proof of Joint Selection Along a Schedule}
+\label{sec:phil-joint-selection-proof}
+
+\noindent\emph{Proof of \Cref{cor:phil-joint-selection}.}
+The saddle estimate \cref{eq:phil-selection-saddle-spectrum} gives
+\(\alpha(\mathrm T)\ge7/5\) throughout the stated temperature range.
+The proof of \Cref{conj:phil-contrast-formation} permits any window
+constant greater than \(1/\alpha(\mathrm T)\), independently of the
+initial mean. Thus the common choice \(2\) is valid. Write
+\[
+ \tau_\varepsilon=2\varepsilon^{-1}\log(1/\varepsilon),
+ \qquad W_\varepsilon=[\tau_\varepsilon,2\tau_\varepsilon],
+ \qquad 0<\varepsilon<e^{-1}.
+\]
+For a perfect matching \(M\), define
+\[
+ \nu_{\mathrm T}^M
+ =\mathcal N(0,\mathrm T\mathsf A_M^{-1})\otimes\delta_M,
+ \qquad
+ \mu_{\mathrm T}=\mu_{\mathrm T,1/2}.
+\]
+Here \(\mu_{\mathrm T,p}\) is the frozen-row law used in the preceding
+proof, with its temperature now displayed explicitly. The inverse
+exists because \(\mathsf A_M\succeq\mathrm TI\). Let
+\(M_{\mathrm T}(\mathsf m_0)\) be the matching selected by the sign of
+\(\mathsf j_{\mathrm T}(\mathsf m_0)\), choosing either matching on its
+null zero set.
+
+First record the full one-time consequence of the fixed-temperature
+proof. Conditional on assignment \(M\), the law
+\(\mu_{\mathrm T,p}\) has the Gaussian factor of \(\nu_{\mathrm T}^M\),
+independently of \(p\). The normalized sheet weights are at most the
+matching weight one. For
+\(\zeta_i=|p_i-p_i^M|\), therefore,
+\[
+ \mu_{\mathrm T,p}(M)\ge\pi_M\ge1-\sum_i\zeta_i,
+ \qquad
+ \operatorname{TV}(\mu_{\mathrm T,p},\nu_{\mathrm T}^M)
+ =1-\mu_{\mathrm T,p}(M)\le\sum_i\zeta_i.
+\]
+The row convergence and
+\cref{eq:phil-selection-global-tracking} imply
+\[
+ \sup_{t\in W_\varepsilon}
+ \operatorname{TV}
+ (q_t^{\mathrm T,\varepsilon,\mathsf m_0},
+       \nu_{\mathrm T}^{M_{\mathrm T}(\mathsf m_0)})
+ \longrightarrow0
+\]
+at fixed temperature outside the imprint's null zero set.
+Moreover \cref{eq:phil-selection-tracking} itself gives convergence
+of the learned relative entropy to zero, uniformly on this window.
+For frozen rows, the entropy identity and contraction give
+\[
+ \KL(q_t^{\mathrm T,0,\mathsf m_0}\Vert\mu_{\mathrm T})
+ \le e^{-\lambda(\mathrm T,1/2)t}
+       \KL(q_0^{\mathrm T,0,\mathsf m_0}\Vert\mu_{\mathrm T}).
+\]
+The initial entropy is finite by the Gaussian density bounds, and
+\(\lambda(\mathrm T,1/2)>0\). Frozen entropy and total variation
+therefore tend to zero on the window for every fixed mean.
+
+Use the explicit entropy majorants as follows. Let
+\[
+ G_{\mathrm T}=\sup_{p\in[0,1]^4}\|\mathfrak g(p)\|_1,\qquad
+ \ell_{\mathrm T}(\varepsilon)
+ =\frac{\mathrm c_{\mathrm T}}
+ {\mathrm K_{\mathrm T}+8\log2+32\log(1/\varepsilon)},\qquad
+ \lambda_u(\mathrm T)
+ =\frac{\mathrm c_{\mathrm T}}{\mathrm K_{\mathrm T}+8\log2}.
+\]
+The first constant is finite. The row lower bound and
+\cref{eq:phil-selection-entropy-contraction} make
+\(\ell_{\mathrm T}(\varepsilon)\) a rate lower bound throughout
+\(t\le2\tau_\varepsilon\), and \(\lambda_u(\mathrm T)\) a rate lower
+bound at uniform rows. The common initial entropy equals
+\[
+ H_0(\mathrm T,\mathsf m_0)
+ =\log\mathsf Z(1/2)-6+
+ \frac{\operatorname{tr}\overline{\mathsf A}
+              +\mathsf m_0^\top\overline{\mathsf A}\mathsf m_0}
+      {2\mathrm T},
+ \qquad
+ \overline{\mathsf A}=\frac1{16}\sum_\sigma\mathsf A_\sigma.
+\]
+Indeed the log density ratio is
+\(\log\mathsf Z(1/2)-|\mathbf x-\mathsf m_0|^2/2+
+\mathbf x^\top\mathsf A_\sigma\mathbf x/(2\mathrm T)\);
+taking its initial expectation proves the formula.
+Thus \(H_0\) is continuous and nonnegative. Uniformly on
+\(W_\varepsilon\), the entropy tracking estimate gives
+\[
+ \begin{aligned}
+ \KL(q_t^{\mathrm T,\varepsilon,\mathsf m_0}
+               \Vert\mu_{\mathrm T,p(t)})
+ &\le B_L(\mathrm T,\varepsilon,\mathsf m_0)\\
+ &:=\left[
+ e^{-\ell_{\mathrm T}(\varepsilon)\tau_\varepsilon/2}\sqrt{H_0}
+ +\frac{\varepsilon G_{\mathrm T}}
+             {\sqrt2\ell_{\mathrm T}(\varepsilon)}
+ \right]^2,\\
+ \KL(q_t^{\mathrm T,0,\mathsf m_0}\Vert\mu_{\mathrm T})
+ &\le B_F(\mathrm T,\varepsilon,\mathsf m_0)
+ :=e^{-\lambda_u(\mathrm T)\tau_\varepsilon}H_0.
+ \end{aligned}
+\]
+These majorants are continuous in positive mobility and mean and tend
+to zero at fixed temperature and mean as \(\varepsilon\downarrow0\).
+
+Let \(\mathcal E_{\mathrm T}(\varepsilon,\mathsf m_0)\) be the minimum
+of one and the maximum of the following five nonnegative quantities:
+\[
+ \begin{aligned}
+ &\sup_{t\in W_\varepsilon}
+          \max_i|p_i(t)-p_i^{M_{\mathrm T}(\mathsf m_0)}|,\\
+ &\sup_{t\in W_\varepsilon}
+       \operatorname{TV}
+       (q_t^{\mathrm T,\varepsilon,\mathsf m_0},
+                   \nu_{\mathrm T}^{M_{\mathrm T}(\mathsf m_0)}),\\
+ &B_L(\mathrm T,\varepsilon,\mathsf m_0),\\
+ &\sup_{t\in W_\varepsilon}
+       \operatorname{TV}
+          (q_t^{\mathrm T,0,\mathsf m_0},\mu_{\mathrm T}),\\
+ &B_F(\mathrm T,\varepsilon,\mathsf m_0).
+ \end{aligned}
+\]
+The preceding estimates prove
+\(\mathcal E_{\mathrm T}(\varepsilon,\mathsf m_0)\to0\)
+for almost every fixed mean at each fixed temperature.
+
+We will take a supremum over mobility, so measurability must be checked.
+Fix a temperature and restrict the positive mobility and the mean to
+compact sets, with the mobility bounded away from zero. The corresponding
+horizons are bounded, and
+\cref{eq:phil-selection-row-bounds} bounds every row away from zero and
+one. On this row set the posterior redraw probabilities are uniformly
+Lipschitz in the rows, independently of the configuration.
+Maximally couple the initial laws and then use common Brownian motions
+and proposal clocks until the first different redraw. The law difference
+is bounded by the initial total variation plus a constant times the
+integral of row differences. Subtracting the learning equations bounds
+the row difference by integrals of row and law differences and by the
+mobility difference. Gr\"onwall's inequality proves total-variation
+continuity in the initial mean and positive mobility on each bounded
+time interval. Time continuity follows from
+\cref{eq:phil-selection-forward}.
+
+Parametrizing the window by \(t=u\tau_\varepsilon\),
+\(1\le u\le2\), proves continuity in positive mobility of each row or
+total-variation window supremum. The explicit entropy majorants are
+continuous by their formulas. The matching as a function of the mean is
+Borel because its imprint is analytic. Thus the error is measurable
+in the mean, and its supremum over an interval of positive mobilities
+equals its supremum over rational mobilities. No uniform continuity at
+zero mobility or separate entropy-continuity assertion is needed.
+
+Fix the sequence \(\mathrm T_n\downarrow0\) in the stated temperature
+interval and \(0<\eta_n<1\) with \(\eta_n\to0\). For the prescribed
+exponent \(a>7/2\), put \(h_n=\mathrm T_n^a\). The following argument
+in fact permits arbitrary positive caps \(h_n\).
+On the mean space \(\R^{12}\), introduce the auxiliary probability
+measure \(\rho=\mathcal N(0,I_{12})\). Its density is strictly positive;
+it introduces no assumption that the physical mean is random.
+Set
+\[
+ F_n(r,\mathsf m_0)
+ =\sup_{0<\varepsilon\le r}
+       \mathcal E_{\mathrm T_n}(\varepsilon,\mathsf m_0).
+\]
+The measurable functions \(F_n\) are bounded by one. At fixed \(n\),
+they tend to zero for \(\rho\)-almost every mean as \(r\downarrow0\).
+Dominated convergence yields
+\[
+ \int F_n(r,\mathsf m_0)d\rho(\mathsf m_0)\longrightarrow0.
+\]
+Choose \(d_n=2^{-k_n}\) recursively, where \(k_n\) is the smallest
+positive integer satisfying
+\[
+ d_n\le\min(e^{-1},2^{-n},h_n,d_{n-1}/2),
+ \qquad
+ \int F_n(d_n,\mathsf m_0)d\rho(\mathsf m_0)
+       \le\eta_n2^{-n},
+\]
+with the \(d_{n-1}/2\) condition omitted for \(n=1\). The preceding
+limit proves existence. This defines deterministic thresholds
+independent of the mean; it does not give numerical values or an explicit
+power law.
+
+Let \(B_n=\{\mathsf m_0:F_n(d_n,\mathsf m_0)>\eta_n\}\).
+Markov's inequality and countable subadditivity give
+\[
+ \rho(B_n)\le2^{-n},
+ \qquad
+ \rho\left(\bigcup_{n\ge N}B_n\right)\le2^{1-N}.
+\]
+The decreasing intersection of these tail unions consequently has
+measure zero. Add the countable union of the imprint zero sets. The
+resulting exceptional set is Lebesgue-null because \(\rho\) and Lebesgue
+measure have the same null sets. Outside it, for every sufficiently large
+\(n\), all \(0<\varepsilon\le d_n\) satisfy
+\(F_n(d_n,\mathsf m_0)\le\eta_n\). Since \(\eta_n<1\), clipping has
+no effect on this inequality: the row and total-variation errors and both entropy majorants are at
+most \(\eta_n\). The majorants bound the actual entropies, giving
+all five stated conclusions.
+
+The frozen matching probability is, exactly,
+\[
+ \mu_{\mathrm T}(M)
+ =\frac1{2+8\mathsf r_E+4\mathsf r_N+2\mathsf r_C}
+ =\frac1{2D_0(\mathrm T)}
+ =\frac12+O(\mathrm T).
+\]
+Indeed \(\mathsf r_E,\mathsf r_N=O(\mathrm T)\) and
+\(\mathsf r_C=O(\mathrm T^{3/2})\), as proved from the sheet
+determinants. Pushforward cannot increase total variation. If
+\(q^{S}\) denotes the assignment marginal, the two established
+total-variation estimates therefore imply, uniformly on \(W_\varepsilon\),
+\[
+ \left|
+ \operatorname{TV}
+ (q_t^{\mathrm T_n,\varepsilon,\mathsf m_0,S},
+                  q_t^{\mathrm T_n,0,\mathsf m_0,S})
+ -\left(1-\frac1{2D_0(\mathrm T_n)}\right)
+ \right|\le2\eta_n.
+\]
+Here the comparison distance is exactly
+\(\operatorname{TV}(\delta_M,\mu_{\mathrm T_n}^S)
+=1-\mu_{\mathrm T_n}(M)\), for either matching.
+The assignment-law contrast thus tends to \(1/2\), even if the selected
+matching changes with \(n\).
+
+Finally, defining \(\mathrm T(\varepsilon)=\mathrm T_n\) on
+\(d_{n+1}<\varepsilon\le d_n\) gives a single stepwise path with both
+parameters tending to zero. The proved bounds hold for all sufficiently
+small mobilities on this path. Arbitrary mobility caps are admissible;
+for example \(h_n=\mathrm T_n^n\) forces
+\(\varepsilon_n/\mathrm T_n^a\to0\) for each fixed \(a>0\) whenever
+\(\varepsilon_n\le d_n\). This imposes an upper bound and does not certify
+a prescribed equality between temperature and mobility.
+
+Nothing in this argument makes the imprint sign eventually constant as
+temperature vanishes. Its fixed-temperature nonvanishing and null zero
+set give no quantitative lower bound at a fixed mean in that limit.
+Accordingly the matching is allowed to depend on \(n\), and the result
+concerns complete one-time laws, not complete histories or conditional
+first-formation events. \(\square\)
+
+
+
+

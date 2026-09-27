@@ -33,7 +33,7 @@ This program reads attention through a Bayesian lens: the attention weights are 
 
 ## The gauge-theoretic reinterpretation
 
-In vfe3 each token is a Gaussian belief in a local frame. Strict Regime-I transport is $\Omega_{ij}=U_iU_j^{-1}$ and telescopes to identity under the constant/self-edge reduction. The isotropic KL then yields the identity-bilinear attention subcase plus a key-norm bias; an arbitrary learned $W_QW_K^\top$ is structural, not transport-derived. [[gl-k-attention-2026-07-09-review-revision]]
+In vfe3 each token is a Gaussian belief in a local frame. Strict Regime-I transport is $\Omega_{ij}=U_iU_j^{-1}$ and telescopes to identity under the constant/self-edge reduction. The isotropic KL then yields the identity-bilinear attention subcase plus a key-norm bias; an arbitrary learned $W_QW_K^\top$ is structural, not transport-derived.
 
 > [!note] Editorial: This page is the definitional hub. The full theory — attention as kernel smoothing, the positional-encoding family (RoPE/ALiBi/T5), SPD-Riemannian affinities, and the open questions — is synthesized in the theme page below; this page deliberately stays at the level of definition and orientation.
 

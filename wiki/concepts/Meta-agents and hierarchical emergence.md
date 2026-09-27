@@ -13,10 +13,14 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-09-13
+updated: 2026-09-27
 ---
 
 # Meta-agents and hierarchical emergence
+
+## Conditioned parent activation, September 26, 2026
+
+[[multiagentelbo-2026-09-26-conditioned-parent]] activates the existing assignment- and loop-retaining parent from the actual recognition law conditioned on the completed late coherence prefix, with no Gaussian reset; the parent inherits the rows at activation and then learns from its own law. The discarded optimizing conditional KL is at most $(\eta+h_b(\rho))/(1-\rho)$ for $\rho<1/2$ (physical, evaluator-retaining loss adds at most $T$), and complete retained/source path TV over a following $T^{-1/4}$ window is at most $2\rho+(h+3)\delta+4hd/(1-4d)$, giving $O(T^{1/4}\log(1/T))$ and $O(T^{1/4})$ on the joint schedule. This is a parent after restored equilibrium coherence; a hidden-sign example (KL $\log 2$) shows why a high-probability prefix is needed. First-contrast parent closure, arbitrary-history closure, and recursive formation remain open.
 
 ## Positive-rate cyclic formation with weakest energy one, September 13
 
@@ -83,8 +87,8 @@ smaller — levels are compressors that generate, not amplifiers that relay. The
 version is exact in construction though tentative in status (single-implementation, not
 independently verified): boundary mutual-information retention through one blocking step is
 2–7%, bounded by one via the [[Data processing inequality]], while regenerated attention
-rebuilds interacting coarse structure from coarse state
-([[2026-08-18-minfo-information-retention]]). The neuroscience anchor is
+rebuilds interacting coarse structure from coarse state.
+The neuroscience anchor is
 [[zheng-meister-2025-unbearable-slowness]] ($10^9$ bits/s in, ~10 bits/s out); the senses in
 which a higher level nonetheless "has more" — synergistic readout of joint statistics
 ([[Partial information decomposition]]) and interventional causal emergence
@@ -104,9 +108,9 @@ which a higher level nonetheless "has more" — synergistic readout of joint sta
 
 ## 2026-07-11 executable-status correction
 
-The PIFB2 code-concordance review found three limits on the reached meta-agent construction. First, the checked-in Gibbs detector inherits $\tau_q=\tau_s=14$ from `kl_threshold=14` rather than using the manuscript's reference $\tau_q=0.05$. At membership threshold $1/2$, the resulting belief pass band is $14\log 2\approx9.704$ nats rather than $0.05\log 2\approx0.035$ nats. The active `covariance_collapse="moment"` pool omits between-child mean dispersion, so the small-temperature argument does not control that truncation on the reviewed arm. A matching implementation must use and verify the stated temperature or retain dispersion in the covariance collapse. [[participatory-it-from-bit-2026-07-11-code-concordance-review]]
+The PIFB2 code-concordance review found three limits on the reached meta-agent construction. First, the checked-in Gibbs detector inherits $\tau_q=\tau_s=14$ from `kl_threshold=14` rather than using the manuscript's reference $\tau_q=0.05$. At membership threshold $1/2$, the resulting belief pass band is $14\log 2\approx9.704$ nats rather than $0.05\log 2\approx0.035$ nats. The active `covariance_collapse="moment"` pool omits between-child mean dispersion, so the small-temperature argument does not control that truncation on the reviewed arm. A matching implementation must use and verify the stated temperature or retain dispersion in the covariance collapse.
 
-Second, the current frame pool is not defined on every frame the active updates admit. Bounded products of real exponentials can reach well-conditioned elements of $\mathrm{GL}^+(K)$ without a real logarithm, while meta-agent formation calls `matrix_log_principal` unconditionally. The hierarchy therefore needs a log-safe invariant domain, a restricted group closed under the selected chart, or a log-free group barycenter. Third, an existing higher scale is not reconciled with later detector partitions: membership, parent maps, and lineage persist after one-shot formation. A persistence window is consequently not an independent stability test until the runtime supports replacement, retirement, and time-indexed membership. [[participatory-it-from-bit-2026-07-11-code-concordance-review]]
+Second, the current frame pool is not defined on every frame the active updates admit. Bounded products of real exponentials can reach well-conditioned elements of $\mathrm{GL}^+(K)$ without a real logarithm, while meta-agent formation calls `matrix_log_principal` unconditionally. The hierarchy therefore needs a log-safe invariant domain, a restricted group closed under the selected chart, or a log-free group barycenter. Third, an existing higher scale is not reconciled with later detector partitions: membership, parent maps, and lineage persist after one-shot formation. A persistence window is consequently not an independent stability test until the runtime supports replacement, retirement, and time-indexed membership.
 
 ## Why it matters here
 
@@ -207,7 +211,6 @@ $\Delta_F^{\Psi_{12}\circ\Psi_{01}}=\Delta_F^{\Psi_{01}}
 defects obey $\delta_{02}=\delta_{01}+f_{01}^*\delta_{12}$. This theorem compares one fine section or
 history with its pushforward. Independently optimized fine and meta-agent VFE histories require the
 additional oriented vector-field semiconjugacy; metric contraction alone does not supply it.
-[[gauge-vfe-rg-pullback-geometry-2026-08-01]]
 
 ### Exact conditional blocks, bridges, and attention
 
@@ -227,7 +230,31 @@ one normalized joint marked-event law and only then row-normalized.
 These results do not certify the runtime detector, BCH/covariance barycenter, or hierarchy. A concrete
 application must still supply the coarse channel, posterior bridge, feature representation, bundle
 and configuration maps, related sections, and any claimed flow semiconjugacy.
-[[gauge-vfe-rg-terminal-theory-closure-2026-08-08]]
+
+### Two attention models behind meta-attention (review, September 23, tentative)
+
+Investigator X14 of the 2026-09-23 Theory review ([[multiagentelbo-2026-09-23-theory-streamlining-review]]) finds that the Theory manuscript uses two different generative models for attention. Chapter 7 derives the softmax row from one independent source label per receiver, a product of rows. Chapter 13's meta-attention starts from a single random receiver-edge mixture with baseline $a_i\pi_{ij}$ whose likelihood is never stated. Its evidence-weighted receiver occupancy $\alpha'_i\propto a_{i|I}c_iZ_i$ holds only if the record likelihood depends on the receiver exactly as $c_i(o_i,y)e^{-D_{ij}/\tau}H(o,y)$ with $H$ independent of $i$. If unselected receivers keep their own kernels, the occupancy in one check was $(0.969,0.031)$ against the formula's $(0.785,0.215)$; in the product model the natural collapse is the prior-weighted row, $(0.709,0.291)$ against $(0.798,0.202)$. The order of operations stated above (one normalized joint marked-event law, then row normalization) remains correct. The missing piece is a declared model for the occupancy $\alpha$ in $\eta=\alpha\beta$. The review asks for one attention chapter at $c_*$ that names both models, restricts the evidence-weighted formula to the single-edge model, and adds the reduced attention Hessian recorded in [[Multi-agent variational free energy]].
+
+> [!warning] Tentative: investigator recomputation, same model family, not adjudicated
+> Brute-force Bayes checks by one investigator (Claude Opus 5.5).
+
+#### Incorporation in the restructured manuscript (September 24)
+
+The main manuscript at `623e4fe` ([[multiagentelbo-2026-09-24-theory-restructure]]) now declares both models in one attention chapter, Chapter 6. The per-receiver source-label model (`def:obs-attention-label-model`) is the product of rows. The single-edge joint-label model (`hyp:rg-single-edge-attention`, a definition despite its label prefix) augments the baseline by one receiver–source pair with prior $a_i\pi_{ij}$ and states its likelihood, $L^Y_o(y)\widetilde{\mathrm c}_i(o,y)\exp[-D_{ij}(y)/\tau_i]$, with an exclusivity clause that excludes several receivers attending at once. When unselected receivers keep label-free kernels $g_k$, the definition shows that $\widetilde{\mathrm c}_i=\mathrm c_i/g_i$, a likelihood ratio against the non-event kernel, which is the review's correction. `def:obs-attention-event-law` types the receiver occupancy in $\eta=\alpha\beta$, marked $P$, $\Pi$ or $Q$ for the generative, posterior and recognition laws, as either a structural receiver-selection law or the receiver marginal of the single-edge label, each use naming which. Chapter 11 splits the occupancy results by model. `prop:rg-attention-single-edge-weights` gives the evidence-weighted receiver law $\alpha'_i=a_{i\mid I}\widetilde{\mathrm c}_i\mathcal Z_i/\overline{\mathcal Z}_I$ in the single-edge model, and `prop:rg-attention-per-receiver-collapse` shows that in the per-receiver model a structural selector drawing a receiver with law $a_{\cdot\mid I}$ gives the prior-weighted block row, with a two-receiver example (evidence-weighted mass $3/4$ against prior-weighted $1/2$). The exact pushforward itself is `prop:rg-meta-attention-pushforward`. The review's numerical instances (0.969 against 0.785, 0.709 against 0.798) are not reproduced. Discrete creation and deletion of interaction edges is an open problem, `open:obs-edge-creation`: at $c_*$ the interaction multigraph is the support of the source prior and every row is strictly positive on it.
+
+> [!warning] Status
+> Manuscript statements with proofs, written and checked by Claude Opus 5.5 agents with their own scripts; no cross-model check (the author's choice) and not adjudicated.
+
+#### The multiscale factorization reads the full next-depth state (September 24)
+
+The September 23 review found that the multiscale graph VFE (file 07c at `59c1987`) conditioned each depth-$\ell$ factor only on the coarse configuration and the structural mark, which is not the disintegration it claimed. Phase 1 of the restructure corrected this, and Chapter 12 of the main manuscript at `623e4fe` now states it ([[multiagentelbo-2026-09-24-theory-restructure]]). The standing hypothesis `hyp:full-graph-depth-markov` has every depth-$\ell$ factor read the complete next-depth state $Y_{\ell+1}=(Z_{\ell+1},\mathfrak N_{\ell+1})$, configuration together with coarse graph datum, and the structural mark $R_\ell$, and no deeper variable; this allows arbitrary dependence within a depth and between adjacent depths and is not a mean-field assumption. `lem:full-graph-adaptive-reversal` proves that every adaptive tower generated bottom-up through common structural channels satisfies it, with the depth factors given by reversal (bridge) kernels rather than independently chosen channels. `prop:full-graph-dropped-datum` measures what dropping the graph datum costs,
+$$
+\mathrm{KL}\bigl(\mathbb P^{\mathrm{tow}}\Vert\mathbb P^{\mathrm{red}}\bigr)=\sum_{\ell=0}^{L-1}I_{\mathbb P^{\mathrm{tow}}}\bigl(Y_\ell;\mathfrak N_{\ell+1}\mid Z_{\ell+1},R_\ell\bigr),
+$$
+which equals $\log2$ for four fine vertices whose event law has two equally likely atoms pushed to different coarse event laws. `thm:full-graph-vfe-decomposition` splits the tower free energy into observation, top-prior, partition, graph and parent–child terms at these conditioning sets. A Phase 1 script reproduced the $\log2$ witness in rational arithmetic and matched the corrected factorization to $2.8\times10^{-17}$ on 40 random depth-3 adaptive towers.
+
+> [!warning] Status
+> Manuscript statements with proofs, written and checked by Claude Opus 5.5 agents with their own scripts; no cross-model check (the author's choice) and not adjudicated.
 
 ### Top-down feedback (closing the loop)
 
@@ -284,19 +311,11 @@ These mechanisms live in two Layer-6/7 modules of `MAgent_Model`:
 - `gauge_agent/meta_agents.py` — `ConsensusDetector` (Gibbs $\Gamma$, `find_clusters`), `MetaAgentFormation.form_meta_agent` (covariance-sandwich barycenter, saddle-point weights, BCH frame mean), and `TopDownFeedback.propagate_prior`. The README maps `MetaAgentFormation.form_meta_agent` to the manuscript meta-agent saddle-point (line 1907), `CondensationDiagnostics.culture_diagnostic` to the culture-closure equations (lines 681–690), and `TopDownFeedback.propagate_prior` to top-down propagation (line 1965).
 - `gauge_agent/hierarchical_emergence.py` — `SpeciesDetector`, `CoalitionDetector`, `GatedMembership`/`SoftMembership` (the $W=S\cdot C$ fields), `covariance_pool` vs `precision_pool`, `CondensationDiagnostics` (order parameter, condensation fraction, culture closure, constrained gap), `CrossScaleVFE`, and the full `HierarchicalEmergence` tower.
 
-It is exercised by the `'hierarchy'` preset (species × coalition gated membership + condensation, manuscript §4.2) and feeds the `'ouroboros'` multi-scale tower (§4.5–4.7). The construction grounds out in the source manuscript [[participatory-it-from-bit]], which develops the participatory "It From Bit" loop the meta-agent / top-down cycle realizes. It composes with the related concepts [[Multi-agent variational free energy]], [[Agents as fibre-bundle sections]], [[Meta-entropy]] (the thermodynamic counting of belief configurations, [[meta-entropy-manuscript]]), [[Renormalization-group flow of beliefs]], and [[Ouroboros multi-scale dynamics]]; the Hamiltonian / inertial belief regime is developed in [[Belief inertia]] and [[belief-inertia]].
+It is exercised by the `'hierarchy'` preset (species × coalition gated membership + condensation, manuscript §4.2) and feeds the `'ouroboros'` multi-scale tower (§4.5–4.7). The construction grounds out in the source manuscript [[participatory-it-from-bit]], which develops the participatory "It From Bit" loop the meta-agent / top-down cycle realizes. It composes with the related concepts [[Multi-agent variational free energy]], [[Agents as fibre-bundle sections]], [[Meta-entropy]] (the thermodynamic counting of belief configurations), [[Renormalization-group flow of beliefs]], and [[Ouroboros multi-scale dynamics]]; the Hamiltonian / inertial belief regime is developed in [[Belief inertia]] and [[belief-inertia]].
 
 ## Sources
 
-- [[gauge-vfe-rg-terminal-theory-closure-2026-08-08]] — exact finite block VFE, posterior bridge
-  kernels, typed interaction sandwiches, marked-event attention, and application boundary.
-
-- [[gauge-vfe-rg-pullback-geometry-2026-08-01]] — related-section first-jet naturality, coarse Fisher contraction, defect cocycle, and the independent-flow semiconjugacy boundary.
-
-- [[participatory-it-from-bit-2026-07-11-code-concordance-review]] — executable-status correction for detector temperature, covariance dispersion, the real-log domain of frame pooling, and one-shot hierarchy persistence.
-
 - [[participatory-it-from-bit]] — source manuscript: gauge-covariant multi-agent variational inference on a $GL(K)$-bundle, with the Ouroboros meta-agent emergence simulation that this construction implements.
-- [[meta-entropy-manuscript]] — configurational meta-entropy counting belief configurations of the gauge-theoretic VFE transformer; the thermodynamic-limit companion to the condensation order parameters here.
 - [[degroot-1974-consensus]], [[friedkin1990-social-influence-opinions|friedkin-johnsen-1990]], [[hegselmann-2002-opinion|hegselmann-krause-2002]] — consensus and bounded-confidence opinion dynamics that the belief-coherence clustering generalizes.
 - [[wilson-1975-renormalization-group]], [[galam-2008-sociophysics]] — coarse-graining / hierarchical-aggregation precedents for the species-gated condensation and culture-closure test.
 - [[moakher-2005-geometric-mean]], [[karcher-1977-center-of-mass]] — affine-invariant SPD geometric mean and the Riemannian center of mass that the covariance-sandwich barycenter realizes on the belief manifold.

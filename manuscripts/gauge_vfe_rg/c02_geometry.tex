@@ -1,0 +1,558 @@
+\chapter{Geometry at One Base Point}
+\label{ch:geometry}
+
+This chapter answers what geometric data an agent carries at one base point $c_*$ and which of those
+data are invariant. The active gauge group at $c_*$ is one copy of $G$ inside the passive vertex group
+$\prod_{i\in V}G$ (\Cref{prop:geo-active-image-point}); every independent link carries a
+gauge-invariant conjugacy class, and loop holonomy is the telescoped product of these per-edge twists
+(\Cref{prop:geo-edge-twist-invariance}); frame agreement, agreement of an equivariant statistic, and
+law coherence up to holonomy stabilizers are distinct (\Cref{prop:geo-three-agreements}).
+\Cref{ch:generative} uses passive re-expression for covariance of the generative law,
+\Cref{ch:selective-communication} builds attention on link-transported comparisons, and
+\Cref{ch:network-state} turns holonomy and the trivializing criterion
+(\Cref{prop:geo-trivializing-criterion}) into fixed sectors of coarse channels.
+
+\paragraph{Scope.}
+Normalizability of a law on links built from the loop penalties of \Cref{rem:geo-loop-penalties} is
+not asserted for a noncompact or general linear $G$ (the compact unitary case is in the remark), and
+whether law coherence bears on the selection of a partition into meta-agents is part of
+\Cref{open:cg-natural-selector}. \status{NOT-CLAIMED}
+
+\section{The base point, the principal torsor, and associated law fibers}
+\label{sec:geo-base}
+\label{sec:geo-bundle}
+\label{sec:geo-associated}
+
+\definitionheading{Contextual base and base point}{def:geo-context-base}
+Let $\mathcal C$ be a finite-dimensional, second countable, Hausdorff smooth manifold whose points
+$c$ are called contexts, and fix one base point $c_*\in\mathcal C$.
+
+\definitionheading{Common principal gauge bundle and agent frames}{def:geo-principal-systems}
+Let $\pi$ be a smooth principal right $G$-bundle for a Lie group $G$ and, for each agent $i\in V$,
+let $u_i$ be one local frame on an open support $\mathcal C_i\ni c_*$:
+\begin{gather}
+\pi:\mathscr P_G\longrightarrow\mathcal C,
+\label{eq:geo-principal-bundle}\\
+u_i:\mathcal C_i\longrightarrow\mathscr P_G,
+\qquad
+\pi\circ u_i=\operatorname{id}_{\mathcal C_i}.
+\label{eq:geo-frame-sections}
+\end{gather}
+The fiber $(\mathscr P_G)_{c_*}$ is a right $G$-torsor and the values $u_i:=u_i(c_*)$ are points of
+it. For any reference point $\sigma\in(\mathscr P_G)_{c_*}$ the frames are
+$u_i=\sigma\cdot U_i^{-1}$ for unique $U_i\in G$.
+
+The same frame $u_i$ serves the belief and the model channel; \Cref{prop:geo-common-frame-gauge}
+shows that this is a gauge choice. On the belief and model sample fibers $(\mathsf K,\mathscr K)$ and
+$(\mathsf M,\mathscr M)$ declare law fibers, measurable representations, which need not be equivalent,
+faithful, or of equal dimension, and their pushforward actions on laws,
+\begin{gather}
+\mathcal B_b\subseteq\mathcal P(\mathsf K),
+\qquad
+\mathcal B_m\subseteq\mathcal P(\mathsf M),
+\label{eq:geo-law-fibers}\\
+\rho_b:G\longrightarrow\operatorname{Aut}(\mathsf K),
+\qquad
+\rho_m:G\longrightarrow\operatorname{Aut}(\mathsf M),
+\label{eq:geo-representations}\\
+\widehat\rho_b(g)q=(\rho_b(g))_\#q,
+\qquad
+\widehat\rho_m(g)q=(\rho_m(g))_\#q,
+\label{eq:geo-pushforward-actions}
+\end{gather}
+so that $(\widehat\rho_x(g)q)(A)=q(\rho_x(g)^{-1}A)$.
+
+\hypothesisheading{Selected smooth tier}{hyp:geo-smooth-tier}
+Whenever a differential statement is made, $\mathcal B_b$ and $\mathcal B_m$ are finite-dimensional
+smooth parametrized-measure models, each closed under its $G$-action, and the actions
+$(g,q)\mapsto(\rho_x(g))_\#q$\label{eq:geo-smooth-actions} are smooth. The hypothesis excludes
+stratified and infinite-dimensional law fibers; a statistical reading of the tier further requires
+differentiability in quadratic mean and the integrability each tensor uses, and a Fisher tensor is a
+metric only where it is nondegenerate.
+
+\definitionheading{Belief and model associated bundles}{def:geo-associated-bundles}
+On invariant law fibers define the bundles below, with projections $\varpi_x:\mathcal E_x\to\mathcal C$
+and the quotient convention of the second line,
+\begin{gather}
+\mathcal E_b=\mathscr P_G\times_{\widehat\rho_b}\mathcal B_b,
+\qquad
+\mathcal E_m=\mathscr P_G\times_{\widehat\rho_m}\mathcal B_m,
+\label{eq:geo-associated-bundles}\\
+(u\cdot g,\beta)\sim(u,\widehat\rho_x(g)\beta).
+\label{eq:geo-quotient-convention}
+\end{gather}
+At $c_*$ the frame $u_i$ identifies $\mathcal B_x$ with the fiber $(\mathcal E_x)_{c_*}$ by
+$\beta\mapsto[u_i,\beta]$. This is the standard associated-bundle construction
+\citep[Section~I.5]{Kobayashi1963}, smooth under \Cref{hyp:geo-smooth-tier}.
+
+\section{Frames, passive re-expression, and the active gauge group at \texorpdfstring{$c_*$}{c*}}
+\label{sec:geo-frame-gauge}
+
+A passive re-expression of agent $i$ is a choice $g_i\in G$ that replaces the frame as in the first
+line below. Since $[u_i,\beta]=[u_i'\cdot g_i,\beta]=[u_i',\widehat\rho_x(g_i)\beta]$, associated
+coordinates change by $\beta'=\widehat\rho_x(g_i)\beta$, and the represented sample-coordinate maps are
+those of the second line:
+\begin{gather}
+u_i'=u_i\cdot g_i^{-1},
+\label{eq:geo-local-reframing}\\
+R_i^b=\rho_b(g_i),
+\qquad
+R_i^m=\rho_m(g_i),
+\qquad
+k_i'=R_i^bk_i,\quad m_i'=R_i^mm_i.
+\label{eq:geo-represented-frame-change}
+\end{gather}
+The group element, not a represented operator, multiplies the frame, and the tuple $(g_i)_{i\in V}$
+ranges over the passive vertex group $\prod_{i\in V}G$.
+
+\subsection{Pointwise frame comparisons and the active gauge group}
+\label{sec:geo-regime-one}
+
+\propositionheading{Frame comparisons at one base point}{prop:geo-frame-comparisons}
+For $i,j\in V$ there is a unique $T_{ij}\in G$ with the first relation below, for every reference
+point $\sigma$. The comparisons satisfy $T_{ii}=e_G$, $T_{ji}=T_{ij}^{-1}$, and $T_{ij}T_{jl}=T_{il}$,
+and under passive re-expressions they transform by the second line:
+\begin{gather}
+u_j=u_i\cdot T_{ij},
+\qquad
+T_{ij}=U_iU_j^{-1},
+\label{eq:geo-frame-comparison}\\
+T_{ij}'=g_iT_{ij}g_j^{-1},
+\qquad
+U_i'=g_iU_i.
+\label{eq:geo-regime-one-gauge-law}
+\end{gather}
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Freeness and transitivity of the torsor give uniqueness of $T_{ij}$, and
+$u_j=\sigma\cdot U_j^{-1}=u_i\cdot U_iU_j^{-1}$ gives the formula; the identities follow from
+uniqueness. From $u_j'=u_j\cdot g_j^{-1}=u_i'\cdot g_iT_{ij}g_j^{-1}$ and
+$u_i'=\sigma\cdot U_i^{-1}g_i^{-1}$ follow both laws in \eqref{eq:geo-regime-one-gauge-law}.
+\hfill$\square$
+
+\propositionheading{Active gauge image at one base point}{prop:geo-active-image-point}
+Let $F\in\operatorname{Aut}_G((\mathscr P_G)_{c_*})$, the group of right-$G$-equivariant bijections of
+the principal fiber over $c_*$, have local functions $F(u_i)=u_i\cdot\varphi_i$. Then
+\begin{equation}
+\varphi_j=T_{ij}^{-1}\varphi_iT_{ij},
+\qquad i,j\in V,
+\label{eq:geo-active-image-point}
+\end{equation}
+and $F\mapsto(\varphi_i)_{i\in V}$ is a group isomorphism onto the subgroup
+$\mathcal A_{c_*}\subseteq\prod_{i\in V}G$ cut out by \eqref{eq:geo-active-image-point}. For each
+$i_0\in V$ the projection $(\varphi_i)_{i\in V}\mapsto\varphi_{i_0}$ is an isomorphism
+$\mathcal A_{c_*}\cong G$. In the frame $u_i$, $F$ changes the coordinates of both associated
+fibers by $\beta\mapsto\widehat\rho_x(\varphi_i)\beta$, which is the coordinate change of the
+passive re-expression $g_i=\varphi_i$. Hence the active transformations at $c_*$ form one copy
+$\mathcal A_{c_*}\cong G$ of the passive vertex group, a proper subgroup of $\prod_{i\in V}G$ when
+$G$ is nontrivial and $|V|\geq2$, of dimension $\dim G$ against $|V|\dim G$ for a Lie group. The
+local functions at $c_*$ of every gauge automorphism of $\mathscr P_G$ form one element of
+$\mathcal A_{c_*}$. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Equivariance gives $F(u_j)=F(u_i\cdot T_{ij})=u_i\cdot\varphi_iT_{ij}=u_j\cdot T_{ij}^{-1}\varphi_iT_{ij}$,
+and uniqueness in the torsor gives \eqref{eq:geo-active-image-point}. Since
+$F(F'(u))=F(u\cdot\varphi')=u\cdot\varphi\varphi'$, the map is a homomorphism. The value
+$\varphi_{i_0}$ determines $F$ on the whole torsor, so the map is injective, and for
+$\varphi_{i_0}\in G$ the map $u_{i_0}\cdot g\mapsto u_{i_0}\cdot\varphi_{i_0}g$ is an equivariant
+bijection, which proves $\mathcal A_{c_*}\cong G$. The coordinate statement is
+$F[u_i,\beta]=[u_i\cdot\varphi_i,\beta]=[u_i,\widehat\rho_x(\varphi_i)\beta]$, the passive coordinate
+change with $g_i=\varphi_i$. If $G\neq\{e_G\}$ and $i\neq j$, the tuple with $\varphi_i=a\neq e_G$ and
+all other entries $e_G$ violates \eqref{eq:geo-active-image-point}, so the subgroup is proper. A gauge
+automorphism restricts to an equivariant bijection of each fiber. \hfill$\square$
+
+\subsection{The common frame is a gauge choice}
+\label{sec:geo-diagonal}
+
+\propositionheading{Two atlases reduce to one by a passive re-expression}{prop:geo-common-frame-gauge}
+Suppose belief and model coordinates were given in two frames $u_i^b,u_i^m$ of the same fiber. Then
+there is a unique $h_i\in G$ with the first relation below, and under independent re-expressions
+$u_i^{b\prime}=u_i^b\cdot(g_i^b)^{-1}$ and $u_i^{m\prime}=u_i^m\cdot(g_i^m)^{-1}$ it transforms by the
+second:
+\begin{gather}
+u_i^m=u_i^b\cdot h_i,
+\label{eq:geo-relative-frame}\\
+h_i'=g_i^bh_i(g_i^m)^{-1}.
+\label{eq:geo-relative-frame-law}
+\end{gather}
+In particular the re-expression $g_i^b=e_G$, $g_i^m=h_i$ of the model atlas alone makes the two
+frames equal. In two atlases the belief and model comparisons, the local functions
+$F(u_i^x)=u_i^x\cdot\varphi_i^x$ of a fiber automorphism $F$, and the representatives of a cross
+morphism are related by
+\begin{gather}
+T_{ij}^m=h_i^{-1}T_{ij}^bh_j,
+\label{eq:geo-frame-comparison-relation}\\
+\varphi_i^m=h_i^{-1}\varphi_i^bh_i,
+\label{eq:geo-diagonal-gauge-functions}\\
+\Phi_i^{\mathrm{conv}}=\widehat\rho_m(h_i)\circ\Phi_i^{bm},
+\label{eq:geo-map-bundle-frame-conversion}
+\end{gather}
+where $\Phi_i^{bm}$ is the representative of $\Phi$ with source frame $u_i^b$ and target frame
+$u_i^m$, and $\Phi_i^{\mathrm{conv}}$ is its representative with both frames equal to $u_i^b$. All
+three relations become identities when $h_i=e_G$. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Uniqueness of $h_i$ is the torsor property. Substituting the re-expressions gives
+$u_i^{m\prime}=u_i^b\cdot h_i(g_i^m)^{-1}=u_i^{b\prime}\cdot g_i^bh_i(g_i^m)^{-1}$, which is
+\eqref{eq:geo-relative-frame-law}. The two expressions $u_j^m=u_j^b\cdot h_j=u_i^b\cdot T_{ij}^bh_j$
+and $u_j^m=u_i^m\cdot T_{ij}^m=u_i^b\cdot h_iT_{ij}^m$ give
+\eqref{eq:geo-frame-comparison-relation}. Equivariance gives
+$F(u_i^m)=F(u_i^b)\cdot h_i=u_i^b\cdot\varphi_i^bh_i=u_i^m\cdot h_i^{-1}\varphi_i^bh_i$. Finally,
+$\Phi[u_i^b,\beta]=[u_i^m,\Phi_i^{bm}\beta]=[u_i^b,\widehat\rho_m(h_i)\Phi_i^{bm}\beta]$ by
+\eqref{eq:geo-quotient-convention}. \hfill$\square$
+
+No energy, kernel, or evaluator reads $h_i$, so the common frame
+\begin{equation}
+u_i^b=u_i^m=u_i,
+\qquad
+h_i=e_G,
+\qquad
+T_{ij}^b=T_{ij}^m=T_{ij}
+\label{eq:geo-diagonal-principal}
+\end{equation}
+is adopted throughout.
+
+\section{Agents and cross-associated-bundle morphisms}
+\label{sec:geo-agents}
+\label{sec:geo-cross-morphisms}
+
+\definitionheading{Agent}{def:geo-agent}
+Agent $i$ is the section-bearing object $\mathcal A^i$ of the first line below, with the sections of
+the second line, and a population sample at $c_*$ is a point $y$ of a product of sample fibers:
+\begin{gather}
+\mathcal A^i=\bigl(\mathcal C_i;q_i^b,q_i^m,u_i\bigr),
+\label{eq:geo-agent-object}\\
+q_i^b\in\Gamma(\mathcal C_i,\mathcal E_b|_{\mathcal C_i}),
+\qquad
+q_i^m\in\Gamma(\mathcal C_i,\mathcal E_m|_{\mathcal C_i}),
+\label{eq:geo-agent-sections}\\
+y=\bigl((k_1,m_1),\ldots,(k_N,m_N)\bigr)\in\prod_{i\in V}(\mathsf K\times\mathsf M).
+\label{eq:geo-population-sample}
+\end{gather}
+The values of $q_i^b,q_i^m$ at $c_*$ are points of $(\mathcal E_b)_{c_*}$ and $(\mathcal E_m)_{c_*}$, whose
+coordinates in the frame $u_i$ are laws in $\mathcal B_b$ and $\mathcal B_m$; the same letters denote
+these coordinate laws, which \Cref{def:prob-recognition-marginals} identifies with the local recognition
+marginals. Agents need not have equal supports.
+
+\definitionheading{Cross morphisms}{def:geo-cross-morphisms}
+Cross morphisms are measurable fiber-preserving maps $\Phi:\mathcal E_b\to\mathcal E_m$ and
+$\widetilde\Phi:\mathcal E_m\to\mathcal E_b$, $\varpi_m\circ\Phi=\varpi_b$ and
+$\varpi_b\circ\widetilde\Phi=\varpi_m$.\label{eq:geo-cross-channel-map} At $c_*$ they are maps between
+the fibers $(\mathcal E_b)_{c_*}$ and $(\mathcal E_m)_{c_*}$. They are not principal-bundle morphisms, gauge automorphisms, same-channel transports, or assumed inverses,
+and their existence is additional structure. Under \Cref{hyp:geo-smooth-tier} a differential
+statement also assumes them smooth. In the frame $u_i$ their representatives
+$\Phi_i:\mathcal B_b\to\mathcal B_m$ and $\widetilde\Phi_i:\mathcal B_m\to\mathcal B_b$ are defined
+by $\Phi[u_i,\beta]=[u_i,\Phi_i\beta]$ and $\widetilde\Phi[u_i,\beta]=[u_i,\widetilde\Phi_i\beta]$.
+
+\propositionheading{Representatives and induced cross morphisms}{prop:geo-intertwining-cross-map}
+The representatives transform under passive re-expression by the first two lines below, and those of
+different agents are related by the third:
+\begin{gather}
+\Phi_i'=\widehat\rho_m(g_i)\circ\Phi_i\circ\widehat\rho_b(g_i)^{-1},
+\label{eq:geo-phi-gauge-law}\\
+\widetilde\Phi_i'=\widehat\rho_b(g_i)\circ\widetilde\Phi_i\circ\widehat\rho_m(g_i)^{-1},
+\label{eq:geo-tildephi-gauge-law}\\
+\Phi_i\circ\widehat\rho_b(T_{ij})=\widehat\rho_m(T_{ij})\circ\Phi_j,
+\qquad
+\widetilde\Phi_i\circ\widehat\rho_m(T_{ij})=\widehat\rho_b(T_{ij})\circ\widetilde\Phi_j.
+\label{eq:geo-cross-map-gluing}
+\end{gather}
+If maps $\Phi_0:\mathcal B_b\to\mathcal B_m$ and $\widetilde\Phi_0:\mathcal B_m\to\mathcal B_b$
+satisfy the first line below for every $g\in G$, then the maps of the second line
+\begin{gather}
+\Phi_0\circ\widehat\rho_b(g)=\widehat\rho_m(g)\circ\Phi_0,
+\qquad
+\widetilde\Phi_0\circ\widehat\rho_m(g)=\widehat\rho_b(g)\circ\widetilde\Phi_0,
+\label{eq:geo-intertwining}\\
+[p,\beta]\longmapsto[p,\Phi_0\beta],
+\qquad
+[p,\beta]\longmapsto[p,\widetilde\Phi_0\beta]
+\label{eq:geo-induced-cross-morphisms}
+\end{gather}
+are well-defined cross morphisms, whose representatives in every frame are $\Phi_0$ and
+$\widetilde\Phi_0$; conversely, $[p,\beta]\mapsto[p,\Phi_0\beta]$ is well defined only if $\Phi_0$
+satisfies \eqref{eq:geo-intertwining}. Not every cross morphism is induced in this way, and for a
+linear specialization with irreducible, inequivalent representations every equivariant linear map
+between the sample fibers vanishes, while cross morphisms still exist. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+From $[u_i,\beta]=[u_i',\widehat\rho_b(g_i)\beta]$ we get
+$\Phi[u_i',\beta']=[u_i,\Phi_i\widehat\rho_b(g_i)^{-1}\beta']=[u_i',\widehat\rho_m(g_i)\Phi_i\widehat\rho_b(g_i)^{-1}\beta']$,
+which is \eqref{eq:geo-phi-gauge-law}; interchanging the channels gives
+\eqref{eq:geo-tildephi-gauge-law}. Evaluating $\Phi[u_j,\beta]=\Phi[u_i,\widehat\rho_b(T_{ij})\beta]$
+in both frames gives \eqref{eq:geo-cross-map-gluing}. The representatives $(p\cdot g,\beta)$ and
+$(p,\widehat\rho_b(g)\beta)$ of one class have the same image under
+\eqref{eq:geo-induced-cross-morphisms} exactly when $\widehat\rho_m(g)\Phi_0\beta=\Phi_0\widehat\rho_b(g)\beta$,
+which proves both directions of the induced statement. For a cross morphism that is not induced, let
+$G=SO(2)$ act on the laws on $\R^2$ in both channels by the defining representation, fix
+$\sigma\in(\mathscr P_G)_{c_*}$, and put $\Phi[\sigma,\beta]=[\sigma,D_\#\beta]$ with
+$D=\operatorname{diag}(2,1)$, which is well defined because every class has a unique representative
+with principal component $\sigma$. By \eqref{eq:geo-phi-gauge-law} its representative in the frame
+$\sigma\cdot g^{-1}$ is $\widehat\rho_m(g)D_\#\widehat\rho_b(g)^{-1}$, and for the rotation $R_{\pi/2}$
+one has $D_\#(R_{\pi/2})_\#\delta_{(1,0)}=\delta_{(0,1)}\neq\delta_{(0,2)}=(R_{\pi/2})_\#D_\#\delta_{(1,0)}$,
+so the representative depends on the frame. In the linear specialization, the kernel and image of an
+equivariant linear map between irreducible representation spaces are invariant subspaces, so the map is
+zero or an isomorphism, and inequivalence excludes an isomorphism. \hfill$\square$
+
+Law-level equivariance is weaker than linear equivariance: an equivariant Markov kernel induces an
+equivariant map on laws without supplying a linear map between the sample fibers.
+
+\section{Independent links at \texorpdfstring{$c_*$}{c*}: vertex law, holonomy, edge twists}
+\label{sec:geo-regime-two}
+\label{sec:geo-trivializing}
+\label{sec:phil-agreements}
+
+\definitionheading{Typed graph links}{def:geo-graph-links}
+Let $\mathfrak I=(V,E,\bar{\ })$ be a finite interaction multigraph at $c_*$: a finite set $E$ of
+oriented edge copies $e:j\to i$ with a fixed-point-free reversal $e\mapsto\bar e$, parallel copies
+allowed. For each channel $x\in\{b,m\}$ and each $e:j\to i$ declare a link $\Theta_e^x$ as in the
+first line below, with link map $\mathsf t_e^x(u_j\cdot g)=u_i\cdot\Theta_e^xg$ of the fiber; endpoint
+notation $\Theta_{ij}^x$ is used only when the copy $j\to i$ is unique. Under passive re-expression the
+links obey the vertex law of the second and third lines, with $R_i^x=\rho_x(g_i)$, because
+$\mathsf t_e^x(u_j'\cdot g)=u_i\cdot\Theta_e^xg_j^{-1}g=u_i'\cdot g_i\Theta_e^xg_j^{-1}g$. For a walk
+$p=(e_0,\ldots,e_{r-1})$ from $j$ to $i$, that is, with $e_a:i_{a+1}\to i_a$, $i_0=i$, and $i_r=j$, the
+path product and, when $i=j$, the holonomy are those of the fourth line, and the common-link
+specialization of the fifth line declares that the two link maps coincide in the common frame:
+\begin{gather}
+\Theta_e^x\in G,
+\qquad
+\Theta_{\bar e}^x=(\Theta_e^x)^{-1},
+\label{eq:geo-regime-two-links}\\
+\Theta_e^{x\prime}=g_i\Theta_e^xg_j^{-1},
+\label{eq:geo-regime-two-gauge-law}\\
+\rho_x(\Theta_e^{x\prime})=R_i^x\rho_x(\Theta_e^x)(R_j^x)^{-1},
+\label{eq:gen-represented-gauge-links}\\
+\Theta_p^x=\Theta_{e_0}^x\Theta_{e_1}^x\cdots\Theta_{e_{r-1}}^x,
+\qquad
+\mathrm{Hol}^x(p)=\Theta_p^x,
+\label{eq:geo-link-holonomy}\\
+\Theta_e^b=\Theta_e^m=\Theta_e.
+\label{eq:geo-common-link}
+\end{gather}
+
+\propositionheading{Per-edge twist invariance at one base point}{prop:geo-edge-twist-invariance}
+Fix a reference point $\sigma$ with $u_i=\sigma\cdot U_i^{-1}$, and define the per-edge twist
+$\mathring\Theta_e^x$ of $e:j\to i$ by the first line below; a closed walk $p$ based at $i_0$ then has
+the holonomy of the second line:
+\begin{gather}
+\mathsf t_e^x(\sigma)=\sigma\cdot\mathring\Theta_e^x,
+\qquad
+\mathring\Theta_e^x=U_i^{-1}\Theta_e^xU_j,
+\label{eq:geo-edge-twist}\\
+\mathrm{Hol}^x(p)=U_{i_0}\mathring\Theta_{e_0}^x\mathring\Theta_{e_1}^x\cdots\mathring\Theta_{e_{r-1}}^xU_{i_0}^{-1},
+\qquad
+\mathrm{Hol}^x(p)'=g_{i_0}\mathrm{Hol}^x(p)g_{i_0}^{-1}.
+\label{eq:geo-edge-twist-holonomy}
+\end{gather}
+Then $\mathsf t_e^x$ is a right-$G$-equivariant bijection that does not depend on the frames, and
+$\mathsf t_{\bar e}^x=(\mathsf t_e^x)^{-1}$. Every twist is unchanged by arbitrary passive
+re-expressions; a change of reference point $\sigma'=\sigma\cdot g_0$ conjugates every twist by the
+same $g_0$; and an active $F$ with $F(\sigma)=\sigma\cdot\kappa$ sends $\mathsf t_e^x$ to
+$F\circ\mathsf t_e^x\circ F^{-1}$ and every twist to $\kappa\mathring\Theta_e^x\kappa^{-1}$. Each edge
+copy therefore carries the conjugacy class $[\mathring\Theta_e^x]$, invariant under all passive and
+active changes, and two link data sets on the same multigraph are related by one active
+automorphism exactly when their twist tuples, computed from one reference point, are related by one
+simultaneous conjugation. The conjugacy class of $\mathrm{Hol}^x(p)$ and the condition
+$\mathrm{Hol}^x(p)=e_G$ are invariant. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Every point of the fiber is $u_j\cdot g$ for a unique $g$, so $\mathsf t_e^x$ is a well-defined
+equivariant bijection whose inverse $u_i\cdot g\mapsto u_j\cdot(\Theta_e^x)^{-1}g$ is $\mathsf t_{\bar e}^x$,
+and by the computation in \Cref{def:geo-graph-links} re-expressed frames and links define the same
+map. Since $\sigma=u_j\cdot U_j$, $\mathsf t_e^x(\sigma)=u_i\cdot\Theta_e^xU_j=\sigma\cdot
+U_i^{-1}\Theta_e^xU_j$; the left side depends only on $\mathsf t_e^x$ and $\sigma$, which proves passive
+invariance, and $\mathsf t_e^x(\sigma\cdot g_0)=(\sigma\cdot g_0)\cdot g_0^{-1}\mathring\Theta_e^xg_0$.
+For the active statement,
+$F\mathsf t_e^xF^{-1}(\sigma)=F(\sigma\cdot\mathring\Theta_e^x\kappa^{-1})=\sigma\cdot\kappa\mathring\Theta_e^x\kappa^{-1}$;
+an equivariant self-map of the torsor is determined by its value at $\sigma$, and $F\mapsto\kappa$ is a
+bijection onto $G$, which gives the criterion for two link data sets. Finally
+$\Theta_{e_a}^x=U_{i_a}\mathring\Theta_{e_a}^xU_{i_{a+1}}^{-1}$ telescopes, and $U_{i_0}'=g_{i_0}U_{i_0}$ by
+\eqref{eq:geo-regime-one-gauge-law}. \hfill$\square$
+
+\propositionheading{Trivializing criterion}{prop:geo-trivializing-criterion}
+\label{prop:gauss-coboundary-trivialization}
+Fix a subfamily $I\subseteq V$ and elements $\Xi_e\in G$ on the internal oriented edge copies of $I$.
+The following are equivalent:
+\begin{equation}
+\begin{gathered}
+\exists V_i\in G\ (i\in I)
+\quad
+\Xi_e=V_iV_j^{-1}
+\quad\text{for every internal }e:j\to i,\\
+\Xi_{e_0}\Xi_{e_1}\cdots\Xi_{e_{r-1}}=e_G
+\quad\text{for every closed internal walk }(e_0,\ldots,e_{r-1}).
+\end{gathered}
+\label{eq:geo-trivializing-criterion}
+\end{equation}
+When they hold, the potentials $V_i$ are unique up to right multiplication by one element of $G$ on
+each connected component of the internal multigraph. The statement and proof use only the group
+structure, so they hold for any group in place of $G$, in particular for a subgroup of $\GL(K)$
+containing represented links. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The first condition telescopes around every closed walk. Conversely, backtracks
+$(e,\bar e)$ are closed walks, so $\Xi_{\bar e}=\Xi_e^{-1}$ and reversed walks have inverse products.
+Choose a base vertex in each connected component and set $V_i=\Xi_{p}$ for an internal walk $p$ from
+that vertex to $i$, with products ordered as in \eqref{eq:geo-link-holonomy}; two choices differ by a
+closed walk and agree, and extending a walk to $j$ by $e:j\to i$ gives $V_i=\Xi_eV_j$. If also
+$\Xi_e=W_iW_j^{-1}$, then $W_i^{-1}V_i=W_j^{-1}V_j$ along every internal edge, so $W_i^{-1}V_i$ is
+constant on each component. \hfill$\square$
+
+\definitionheading{Graph-flat, jointly trivializing, and frame-aligned links}{def:geo-graph-flat-links}
+The links of channel $x$ are graph flat on $I\subseteq V$ when \Cref{prop:geo-trivializing-criterion}
+holds for $\Xi_e=\Theta_e^x$, and $I$ is jointly trivializing when this holds in both channels. The
+links are frame aligned\label{hyp:geo-flat-links} when $\Theta_e^x=T_{ij}=U_iU_j^{-1}$ for every
+$e:j\to i$,\label{eq:geo-flat-regime} equivalently when every twist $\mathring\Theta_e^x$ equals $e_G$
+and every link map $\mathsf t_e^x$ is the identity of the fiber.
+
+\remarkheading{Frame alignment, graph flatness, and per-edge classes}{rem:geo-flatness-strictness}
+Frame alignment implies graph flatness, because $T_{ij}=U_iU_j^{-1}$ is a coboundary, but not
+conversely: on two vertices joined by one edge copy $e:2\to1$ and its reversal, every closed walk is
+a backtrack, so any $\Theta_e^x\neq T_{12}$ is graph flat with potentials $V_1=\Theta_e^x$,
+$V_2=e_G$, while $[\mathring\Theta_e^x]\neq\{e_G\}$. Graph flatness of the links is graph flatness
+of the twists, since $\Theta_e^x=V_iV_j^{-1}$ exactly when $\mathring\Theta_e^x=W_iW_j^{-1}$ with
+$W_i=U_i^{-1}V_i$. A single link coordinate between distinct vertices carries no invariant: the passive re-expression
+$g_i=e_G$, $g_j=\Theta_e^x$ sends $\Theta_e^x$ to $e_G$. On a tree every loop product is trivial,
+yet the per-edge classes can all differ from $\{e_G\}$. Graph flatness is a property of the links
+alone: the one fiber over $c_*$ is always a trivial torsor, links on a triangle with nontrivial loop
+product are not graph flat, and all-identity links are graph flat whatever the topology of
+$\mathscr P_G$. \status{ESTABLISHED}
+
+\remarkheading{Invariant loop penalties}{rem:geo-loop-penalties}
+Let $p$ be a closed walk based at $i_0$ and $\mathsf U=\rho_x(\mathrm{Hol}^x(p))$. If $\rho_x$ is unitary
+of dimension $n$, then
+$\frac{1}{2n}\operatorname{Re}\Tr(2I_n-\mathsf U-\mathsf U^*)=\frac{1}{2n}\Tr((I_n-\mathsf U)^*(I_n-\mathsf U))\geq0$,
+with equality exactly when $\mathsf U=I_n$, and the value is invariant under passive re-expression,
+which conjugates $\mathsf U$ by the unitary $R_{i_0}^x=\rho_x(g_{i_0})$. For $n\geq2$ no norm on
+$\mathfrak{gl}(n,\R)$ is invariant under conjugation by all of $\GL(n,\R)$: conjugation by
+$\operatorname{diag}(2,1,\ldots,1)$ doubles the matrix unit $E_{12}$. A positive invariant penalty for
+general linear links therefore needs further data: if a symmetric positive definite fiber metric
+$\mathsf G^{\mathrm{fib}}$ at $i_0$ is declared to transform by
+$\mathsf G^{\mathrm{fib}}\mapsto(R_{i_0}^x)^{-\top}\mathsf G^{\mathrm{fib}}(R_{i_0}^x)^{-1}$, then
+$\Tr\bigl((\mathsf G^{\mathrm{fib}})^{-1}(I_n-\mathsf U)^\top\mathsf G^{\mathrm{fib}}(I_n-\mathsf U)\bigr)$
+is invariant, nonnegative, and zero exactly when $\mathsf U=I_n$. For compact $G$ with $\rho_x$
+unitary, the penalty $\frac{1}{2n}\Tr((I_n-\mathsf U)^*(I_n-\mathsf U))$ of the first sentence lies
+in $[0,2]$, so for finitely many closed walks $p$ with holonomies
+$\mathsf U_p=\rho_x(\mathrm{Hol}^x(p))$ and coefficients $\mathrm c_p\geq0$ the law on links with
+density $\exp\bigl(-\sum_p\mathrm c_p\frac{1}{2n}\Tr((I_n-\mathsf U_p)^*(I_n-\mathsf U_p))\bigr)$
+against the product, over one orientation of each edge copy, of the Haar probability measure of $G$
+has normalizer in $[e^{-2\sum_p\mathrm c_p},1]$. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Unitarity gives $(I_n-\mathsf U)^*(I_n-\mathsf U)=2I_n-\mathsf U-\mathsf U^*$, whose trace is real and
+equals the squared Frobenius norm of $I_n-\mathsf U$. With $\Delta=I_n-\mathsf U$ and
+$\mathsf G=\mathsf G^{\mathrm{fib}}$, passive re-expression sends $\Delta$ to
+$R_{i_0}^x\Delta(R_{i_0}^x)^{-1}$, cyclicity of the trace gives invariance, and
+$\Tr(\mathsf G^{-1}\Delta^\top\mathsf G\Delta)=\lVert\mathsf G^{1/2}\Delta\mathsf G^{-1/2}\rVert_{\mathrm F}^2$.
+A norm $\lVert\cdot\rVert_\star$ with $\lVert E_{12}\rVert_\star>0$ cannot satisfy
+$\lVert2E_{12}\rVert_\star=\lVert E_{12}\rVert_\star$. For the compact case,
+$\Tr(2I_n-\mathsf U-\mathsf U^*)=2n-2\operatorname{Re}\Tr\mathsf U$ and $\lvert\Tr\mathsf U\rvert\leq n$
+for unitary $\mathsf U$, so that penalty lies in $[0,2]$ and the exponent in $[-2\sum_p\mathrm c_p,0]$;
+each $\mathsf U_p$ is a continuous function of the links, and integrating against a probability
+measure gives the two bounds on the normalizer. \hfill$\square$
+
+\definitionheading{Law coherence}{def:geo-law-coherence}
+Let $I\subseteq V$ induce a connected internal multigraph. Laws $q_i\in\mathcal B_x$, $i\in I$, are law
+coherent on $I$ when
+\begin{equation}
+q_i=\widehat\rho_x(\Theta_e^x)q_j
+\qquad\text{on each internal edge copy }e:j\to i.
+\label{eq:phil-law-coherence}
+\end{equation}
+For a $G$-set $S$ and a map $s:\mathcal B_x\to S$ with $s(\widehat\rho_x(g)q)=g\cdot s(q)$, the laws are
+$s$-agreeing when $s(q_i)=\Theta_e^x\cdot s(q_j)$ on each internal edge copy; the mean of laws on a
+linear representation space is the basic instance. The links have frame agreement on $I$ when they
+are graph flat on $I$.
+
+\propositionheading{Three agreements}{prop:geo-three-agreements}
+Let $I$ be as in \Cref{def:geo-law-coherence} and fix $i_0\in I$. (i) The laws are law coherent
+exactly when $q_{i_0}$ is fixed by $\widehat\rho_x(\mathrm{Hol}^x(p))$ for every closed internal walk
+$p$ based at $i_0$ and $q_i=\widehat\rho_x(\Theta^x_{p_i})q_{i_0}$ for some, hence every, internal walk
+$p_i$ from $i_0$ to $i$; for an equivariant statistic the same holds with $s(q_{i_0})$ fixed by the
+holonomy, so that frame agreement and mean agreement on edges, the two conditions of the first line
+below, are conditions on the links and on the means, and mean agreement holds exactly when the base
+mean satisfies the second line and the other means are its transports:
+\begin{gather}
+\mathrm{Hol}^x(p)=e_G\ \text{for every closed internal walk }p,
+\quad
+\mu_i=\rho_x(\Theta_e^x)\mu_j\ \text{on each internal }e:j\to i,
+\label{eq:phil-two-agreements}\\
+\mu_{i_0}\in\bigcap_{p\text{ closed at }i_0}\ker\bigl(\rho_x(\mathrm{Hol}^x(p))-\operatorname{id}\bigr).
+\label{eq:phil-agreement-kernel}
+\end{gather}
+(ii) Law coherence implies $s$-agreement for every equivariant statistic $s$, and for the mean the converse fails. (iii) Frame agreement neither implies
+nor is implied by law coherence or by mean agreement. (iv) With several independent cycles, trivial
+holonomy or a fixed base mean for one loop is necessary but not sufficient. In particular, for
+$G=\GL(2,\R)$ acting on laws on $\R^2$, three agents with the common law $\mathcal N(0,\Sigma)$,
+$\Sigma=\begin{psmallmatrix}4&1\\1&1\end{psmallmatrix}$, and links
+$\Theta_{12}=\Sigma^{1/2}R(0.7)\Sigma^{-1/2}$ and $\Theta_{23}=\Theta_{31}=I_2$, with $R(\phi)$ the
+rotation by $\phi$, are law coherent while the triangle holonomy $\Theta_{12}$ is not the identity, is
+not orthogonal, and fixes no nonzero vector. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) Composing \eqref{eq:phil-law-coherence} along an internal walk $p$ from $j$ to $i$ gives
+$q_i=\widehat\rho_x(\Theta^x_p)q_j$, which yields both conditions. Conversely, let the
+conditions hold; for $e:j\to i$ and walks $p_i,p_j$ from $i_0$, the walk that follows $p_j$, then $e$,
+then $p_i$ backward is closed at $i_0$ with holonomy $(\Theta_{p_i}^x)^{-1}\Theta_e^x\Theta_{p_j}^x$, so
+$\widehat\rho_x(\Theta_e^x)q_j=\widehat\rho_x(\Theta^x_{p_i})\widehat\rho_x\bigl((\Theta_{p_i}^x)^{-1}\Theta_e^x\Theta_{p_j}^x\bigr)q_{i_0}=q_i$.
+The statistic version is the same argument in $S$, and the vectors left unchanged by the linear map
+$\rho_x(\mathrm{Hol}^x(p))$ form $\ker(\rho_x(\mathrm{Hol}^x(p))-\operatorname{id})$. (ii) Apply $s$ to
+\eqref{eq:phil-law-coherence}. For the converse take two agents joined by one edge copy with identity
+link and the laws $\mathcal N(0,I_2)$ and $\mathcal N(0,2I_2)$: the means agree and the laws do not.
+(iii) The same two agents with the laws $\mathcal N(0,I_2)$ and $\mathcal N(v,I_2)$, $v\neq0$, have frame
+agreement without mean agreement or law coherence. In the displayed witness,
+$\Theta_{12}\Sigma\Theta_{12}^\top=\Sigma^{1/2}R(0.7)R(0.7)^\top\Sigma^{1/2}=\Sigma$, so every transported
+law equals $\mathcal N(0,\Sigma)$ and all means vanish, while $\Theta_{12}$ is similar to a rotation by
+$0.7$, hence has no eigenvalue $1$, and $\Theta_{12}\Theta_{12}^\top\neq I_2$ because $\Sigma$ is not
+a multiple of $I_2$. (iv) Two vertices joined by three parallel copies with $\Theta_e=\Theta_f\neq\Theta_g$
+have trivial holonomy on the walk through $e$ and $\bar f$ and nontrivial holonomy on the walk through
+$e$ and $\bar g$. \hfill$\square$
+
+\section{Running example: three agents on one loop}
+\label{sec:geo-running-example}
+
+Take $G=SO(3)$, $\rho_b$ the defining representation on $\mathsf K=\R^3$, and $\rho_m$ the trivial
+representation on $\mathsf M=\R$, so the channels carry inequivalent representations. Let
+$V=\{1,2,3\}$, let $\mathfrak I$ be the triangle with edge copies $e_1:2\to1$, $e_2:3\to2$, $e_3:1\to3$
+and their reversals, and, with $R_z(\phi)$ and $R_x(\phi)$ the rotations by $\phi$ about the third and
+first coordinate axes, declare the belief links of the first line below; model links act trivially.
+Choose $\sigma=u_1$ and, for display, $u_2=u_3=u_1$, so $U_i=e_G$ and each twist equals its link. The
+per-edge classes are the angles $\pi/2$, $\pi/2$, and $0$, and the loop $p=(e_1,e_2,e_3)$ based at
+agent $1$ has the holonomy of the second line,
+\begin{gather}
+\Theta_{e_1}^b=R_z(\tfrac\pi2),
+\qquad
+\Theta_{e_2}^b=R_x(\tfrac\pi2),
+\qquad
+\Theta_{e_3}^b=I_3,
+\label{eq:geo-running-links}\\
+\mathrm{Hol}^b(p)=R_z(\tfrac\pi2)R_x(\tfrac\pi2),
+\qquad
+\Tr\mathrm{Hol}^b(p)=0,
+\label{eq:geo-running-holonomy}
+\end{gather}
+a rotation by $2\pi/3$; two quarter turns about one axis would give a rotation by $\pi$ with the same
+classes, so the class tuple does not determine the holonomy, while the tuple modulo one simultaneous
+conjugation does (\Cref{prop:geo-edge-twist-invariance}). A passive re-expression $g_2$ changes
+$\Theta_{e_1}^b$ to $\Theta_{e_1}^bg_2^{-1}$ and $\Theta_{e_2}^b$ to $g_2\Theta_{e_2}^b$ but changes no
+twist, recomputed with $U_2'=g_2$, and not the holonomy. The loop is not graph flat, and the isotropic
+laws $q_i^b=\mathcal N(0,s^2I_3)$ are law coherent on it, because every rotation fixes them
+(\Cref{prop:geo-three-agreements}). One record reads the transported discrepancy of agents $1$ and $2$:
+the Markov kernel from $\mathsf K\times\mathsf K$ to $\{0,1\}$ with
+\begin{equation}
+K_{a_1}\bigl(k_1,k_2,\{1\}\bigr)=\exp\Bigl(-\tfrac12\bigl\lvert k_1-\rho_b(\Theta_{e_1}^b)k_2\bigr\rvert^2\Bigr),
+\label{eq:geo-running-record}
+\end{equation}
+which is gauge inert, since passive re-expressions rotate $k_1-\rho_b(\Theta_{e_1}^b)k_2$ by
+$\rho_b(g_1)$.
+
+\section*{Physicist's summary}
+
+At one base point all frames lie in one principal fiber, so they are compared directly by
+$T_{ij}=U_iU_j^{-1}$, the only active symmetry is one global rotation of that fiber, and per-agent frame
+changes are bookkeeping. Each independent link carries an invariant, its conjugacy class after dressing
+by the frames, whereas in lattice gauge theory only closed-loop products are invariant
+\citep{WilsonConfinement1974}. Agreement comes in three kinds, flat links, agreement of a statistic such
+as the mean, and law coherence, which survives nontrivial holonomy when the base law has a nontrivial
+stabilizer.

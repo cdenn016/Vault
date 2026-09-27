@@ -28,7 +28,7 @@ The most current broad map of the field is the survey of [[noorazar-2020-opinion
 
 ## Why it matters here
 
-The dated theorem-first status in [[belief-inertia-2026-07-12-theorem-first-revision]] is narrower. Under flat transport and common fixed covariance, the primary unweighted product Fisher metric yields continuous-time DeGroot only for fixed **symmetric** influence. Matching a standard nonuniform reversible transient requires the additional metric $G_\rho=\sigma^{-2}(D_\rho\otimes I)$, equivalently a fixed-label joint family $P(i,x)=\rho_iq_i(x)$ or agent-specific rates $\eta_i\propto\rho_i^{-1}$. Persistent anchors give a restricted reversible Friedkin--Johnsen stationary equilibrium independently of the positive flow metric; only its standard transient retains that metric or rate requirement. General directed iterations are not derived.
+The theorem-first status of the belief-inertia manuscript (2026-07-12) is narrower. Under flat transport and common fixed covariance, the primary unweighted product Fisher metric yields continuous-time DeGroot only for fixed **symmetric** influence. Matching a standard nonuniform reversible transient requires the additional metric $G_\rho=\sigma^{-2}(D_\rho\otimes I)$, equivalently a fixed-label joint family $P(i,x)=\rho_iq_i(x)$ or agent-specific rates $\eta_i\propto\rho_i^{-1}$. Persistent anchors give a restricted reversible Friedkin--Johnsen stationary equilibrium independently of the positive flow metric; only its standard transient retains that metric or rate requirement. General directed iterations are not derived.
 
 The optimized weights $\beta_{ij}=\mathrm{softmax}_j[-\mathrm{KL}(q_i\|\Omega_{ij\#}q_j)/\tau+\log\pi_{ij}]$ are endogenous conditional on the imposed candidate set, prior $\pi_{ij}$, and divergence kernel. They provide graded similarity selectivity, not a derivation of trust. Their finite-temperature behavior is a **soft analog** of bounded confidence, not an exact Hegselmann--Krause or Deffuant limit, and positive tails do not by themselves produce stable fragmentation. Voter imitation, threshold cascades, evolutionary dynamics, and polarized equilibria remain benchmark mechanisms or extensions rather than limits already proved by this functional.
 
@@ -52,9 +52,6 @@ The averaging skeleton of opinion dynamics is the same object that appears in tw
 
 ## See also
 
-- [[belief-inertia-2026-07-12-theorem-first-revision]] — current theorem-first scope for the symmetric and weighted-reversible reductions.
-- [[belief-inertia-2026-07-13-final-verification-addendum]] — final source for the primary-versus-weighted metric distinction.
-- [[belief-inertia-2026-07-13-final-review-closure]] — authoritative final source for the metric-independent anchored equilibrium and transient qualification.
 - [[Multi-agent variational free energy]] — the functional whose restricted Fisher flows yield the proved averaging subclass.
 - [[Bounded confidence]] — a soft-analog comparison, not an exact recovered limit.
 - [[Echo chambers and polarization]] — metastability under passive attraction and the extra mechanisms needed for persistent separation.

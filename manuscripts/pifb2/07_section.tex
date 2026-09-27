@@ -1,0 +1,356 @@
+% !TeX root = ../PIFB2.tex
+\section{Belief, Predictive Memory, and Separated Timescales}\label{sec:timescales}
+
+The single statistical bundle of Section~\ref{sec:statistical_manifolds} allows an agent to carry one joint law while distinguishing its current-state predictions from the information retained across observations. This removes the need to postulate two different kinds of probabilistic substance. It does not, by itself, make one part of the law slow. We first derive the exact conditional decomposition and the inheritance of priors, then give two mechanisms for persistent predictive memory. A declared separation of kinetic rates remains a useful specialization, with its assumptions stated separately.
+
+\subsection{Conditional Belief and Model Laws Within One Statistical State}
+\label{sec:one_law_conditional_models}
+
+At a fixed base point, write the agent's joint recognition law as
+\begin{equation}
+\zeta_i(dk,dm)=s_i(dm)q_i(dk\mid m),
+\qquad q_i(dk)=\int q_i(dk\mid m)s_i(dm).
+\label{eq:one_law_disintegration}
+\end{equation}
+The conditional and marginal meanings of $q_i$ are distinguished by their arguments. On standard Borel sample spaces this disintegration exists, up to $s_i$-null sets. It is an exact description of the joint law. The familiar product $q_i\otimes s_i$ adds the restriction that the state belief is independent of the model sample. Two marginals alone do not determine their coupling, so identifying one bundle with two marginal bundles is exact only after that restriction is declared. In a joint Gaussian family the discarded information includes the off-diagonal state--model covariance.
+
+To see what inference requires, suppress $i$ and fix the normalized joint law
+\begin{equation}
+P(dm,dk,do)=r(dm)p(dk\mid m)\ell(o\mid k,m)\nu_O(do),
+\qquad
+Z_o=\int r(dm)p(dk\mid m)\ell(o\mid k,m),
+\label{eq:one_law_generative_joint}
+\end{equation}
+where $r$ is a proper prior over model samples, $p(\cdot\mid m)$ is a normalized state-prior kernel, and $\ell$ is an observation density normalized against $\nu_O$ for every $(k,m)$. The observed $o$ is admitted only when $0<Z_o<\infty$. Every factor is fixed while recognition varies. In the population, the same calculation applies to a conditional block with the outside configuration held fixed; it does not assert independence of agents or add their private bounds to manufacture a collective one.
+
+Let $P_0(dm,dk)=r(dm)p(dk\mid m)$. When $\zeta\ll P_0$ and both logarithms below are integrable, the defining expectation and its decomposition are
+\begin{align}
+\mathcal F_{\rm loc}(\zeta;o)
+&=\mathbb E_\zeta\left[\log\frac{d\zeta}{dP_0}(K,M)-\log\ell(o\mid K,M)\right] \nonumber\\
+&=D_{\rm KL}(s\Vert r)
++\int D_{\rm KL}\bigl(q(\cdot\mid m)\Vert p(\cdot\mid m)\bigr)s(dm)
+-\mathbb E_\zeta\log\ell(o\mid K,M).
+\label{eq:one_law_conditional_vfe}
+\end{align}
+Without these integrability assumptions we use the extended definition
+$\mathcal F_{\rm loc}=-\log Z_o+D_{\rm KL}(\zeta\Vert P(\cdot\mid o))$.
+This avoids subtracting infinite entropy and energy terms. With
+\begin{equation}
+\begin{aligned}
+Z_o(m)&=\int\ell(o\mid k,m)p(dk\mid m),\\
+s^*(dm)&=\frac{Z_o(m)r(dm)}{Z_o},\qquad
+q^*(dk\mid m)=\frac{\ell(o\mid k,m)p(dk\mid m)}{Z_o(m)}.
+\end{aligned}
+\label{eq:one_law_posterior_blocks}
+\end{equation}
+on $0<Z_o(m)<\infty$, with conditional versions on null sets irrelevant, the KL chain rule gives
+\begin{equation}
+\mathcal F_{\rm loc}(\zeta;o)+\log Z_o
+=D_{\rm KL}(s\Vert s^*)
++\int D_{\rm KL}\bigl(q(\cdot\mid m)\Vert q^*(\cdot\mid m)\bigr)s(dm).
+\label{eq:one_law_posterior_chain}
+\end{equation}
+The proof is the factorization of the joint density ratio into its marginal and conditional ratios, followed by integration. Each term is nonnegative. For fixed $s$, unrestricted conditional inference sets $q(\cdot\mid m)=q^*(\cdot\mid m)$ almost everywhere; subsequent unrestricted marginal inference sets $s=s^*$. For a fixed conditional family, put $d(m)=D_{\rm KL}(q(\cdot\mid m)\Vert q^*(\cdot\mid m))$. Its optimal model marginal is
+\begin{equation}
+s_q(dm)=\frac{e^{-d(m)}s^*(dm)}{\int e^{-d(v)}s^*(dv)},
+\label{eq:one_law_model_stationarity}
+\end{equation}
+provided the denominator is positive. The objective becomes a KL divergence to $s_q$ plus a constant, which proves normalization, positivity on its supported part, and optimality. Equivalently, normalized variations $q_\epsilon=(1+\epsilon v)q$ with $\mathbb E_qv=0$ make the first variation $\mathbb E_q[v\log(dq/dq^*)]$ vanish exactly at the conditional target in the interior. These are optimizer statements, not identities for a finite sequence of updates.
+
+For independent priors the state--model mutual information gives the exact additional complexity in Eq.~\eqref{eq:observation_typing_ledger}. Actually replacing a correlated law by $\bar\zeta=q\otimes s$ also changes the expectation of every coupled likelihood. When the terms are finite and $P_o$ denotes the fixed generative slice density,
+\begin{equation}
+\mathcal F_{\rm loc}(\zeta;o)-\mathcal F_{\rm loc}(\bar\zeta;o)
+=I_\zeta(K;M)-\bigl(\mathbb E_\zeta-\mathbb E_{\bar\zeta}\bigr)\log P_o(K,M).
+\label{eq:one_law_product_residual}
+\end{equation}
+Thus the cost of a product approximation is not generally the mutual information alone. The unrestricted and restricted optima differ by the infimum of $D_{\rm KL}(q\otimes s\Vert P(\cdot\mid o))$, which may not be attained. This is the restriction principle of the companion Theory~\cite[Ch.~5]{DennisGaugeVFE2026}.
+
+\subsection{Where Priors Come From}
+\label{sec:predictive_prior_origin}
+
+A prior need not be the shadow of an already formed parent. A normalized temporal model supplies a more general origin. Let $Y_t$ be the complete retained state, including any links or records needed to specify its dynamics, and let
+\begin{equation}
+P(dy_{0:n},do_{1:n})=p_0(dy_0)\prod_{t=1}^n
+T_t(dy_t\mid y_{t-1})R_t(do_t\mid y_t)
+\label{eq:one_law_temporal_joint}
+\end{equation}
+be an ordered product of normalized kernels and a proper initial law. At every positive-evidence history,
+\begin{equation}
+p_t^-(dy)=\int T_t(dy\mid y')P(dy'\mid o_{1:t-1}),
+\qquad
+P(dy\mid o_{1:t})=\frac{\ell_t(o_t\mid y)p_t^-(dy)}{\int\ell_t(o_t\mid v)p_t^-(dv)}.
+\label{eq:one_law_predictive_prior}
+\end{equation}
+The previous posterior becomes the next prior through prediction. A deterministic parent-to-child channel gives the pushforward used in a cross-scale shadow, while a noisy channel gives a mixture. These are consequences of a specified joint law. An instantaneous circular assignment of priors needs its own normalized joint and does not follow from the recursion above.
+
+Replacing the previous posterior by recognition $Q_{t-1}$ makes the predictive prior approximate, with the support-aware bound
+\begin{equation}
+D_{\rm KL}(Q_{t-1}T_t\Vert P_{t-1}T_t)
+\leq D_{\rm KL}(Q_{t-1}\Vert P_{t-1}).
+\label{eq:one_law_prediction_error}
+\end{equation}
+Indeed, the two input--output joints have the divergence on the right because they share $T_t$; disintegration over their output leaves the left side plus a nonnegative conditional divergence. This controls prediction, not the error at every possible subsequent observation. The initial prior, a hyperprior, or a separately justified invariant law remains a boundary datum. Neither Bayesian conditioning nor VFE determines it without additional structure.
+
+\subsection{Predictive Memory from Accumulating Evidence}
+\label{sec:accumulating_model_memory}
+
+There is a precise sense in which the predictive part of one statistical state becomes slow without an imposed small learning rate. Let $m$ be a categorical probability vector with a proper Dirichlet prior $r=\operatorname{Dir}(\alpha_1,\ldots,\alpha_d)$, where every $\alpha_a>0$, and draw categorical records $K_1,K_2,\ldots$ conditionally independently given $m$. Against Lebesgue measure on the simplex and counting measure on the records, the normalized joint density is the Dirichlet density times $\prod_t m_{K_t}$. If $N_{n,a}$ counts occurrences of category $a$ and $A=\sum_a\alpha_a$, exact conditioning gives
+\begin{equation}
+s_n=\operatorname{Dir}(\alpha+N_n),
+\qquad
+p^-_{n+1}(a)=\bar m_{n,a}=\frac{\alpha_a+N_{n,a}}{A+n}.
+\label{eq:accumulation_predictive_model}
+\end{equation}
+Subtracting successive fractions proves
+\begin{equation}
+\bar m_n-\bar m_{n-1}=\frac{e_{K_n}-\bar m_{n-1}}{A+n},
+\qquad
+\|\bar m_n-\bar m_{n-1}\|_{\rm TV}\leq\frac{1}{A+n}.
+\label{eq:accumulation_slow_bound}
+\end{equation}
+Current-category beliefs can change by order one, whereas the predictive model changes by at most $1/(A+n)$ per new record. The slowing concerns this predictive distribution. It is not a bound in every metric on the full parameter posterior, and it presupposes a persistent latent parameter and its evaluator $m\mapsto\operatorname{Cat}(m)$. Hidden categories generally produce a mixture of Dirichlet posteriors; replacing their counts by expected counts requires an explicit variational restriction.
+
+Friston and colleagues already treat state inference and parameter learning as probabilistic belief updates~\cite{friston2016active}. The discrete-state synthesis derives learning by accumulating sufficient statistics under an explicit factorization~\cite[Sec.~8 and App.~A.1]{DaCosta2020DiscreteSynthesis}. Structure learning also admits changes to latent-state and parameter representations, within supplied candidate families and priors~\cite[Secs.~1--3]{Friston2024StructureLearning}. This literature supports a joint statistical description, while leaving the emergence of a finite smooth model sector in the present network to be established.
+
+One can define a model operationally without introducing a separate parameter sample. For a process with a finite record alphabet, let $S(h)$ be the conditional law of all future records given a positive-probability history $h$. Histories are predictively equivalent when their continuation laws agree. For a new record $a$ of positive conditional probability and any future event $B$,
+\begin{equation}
+S(ha)(B)=\frac{S(h)(\{a\}\times B)}{S(h)(\{a\}\times\mathsf O^{\mathbb N})}.
+\label{eq:predictive_state_recursion}
+\end{equation}
+Conditioning therefore supplies a closed update of the predictive equivalence class. This gives a derived predictive model of the history. Its realization can be infinite-dimensional, and its changes need not be slow. A finite-dimensional, smooth, gauge-equivariant realization requires a further sufficiency or closure theorem.
+
+\subsection{What Can Select a Slow Sector?}
+\label{sec:intrinsic_slow_sector}
+
+A slow direction cannot be justified solely by a small Euclidean Hessian eigenvalue. Natural-gradient dynamics depend on the Hessian relative to the metric. The exact-posterior case gives a useful restriction.
+
+\begin{proposition}[Local Fisher relaxation at an exact posterior]
+\label{prop:exact_posterior_fisher_rates}
+Let $\{Q_\theta\}$ be a twice continuously differentiable, dominated, identifiable statistical family on common support, with positive-definite continuously differentiable Fisher metric $G$. Suppose an interior $\theta_*$ satisfies $Q_{\theta_*}=\Pi$, and differentiation twice under the normalization and KL integrals is valid. For $F(\theta)=D_{\rm KL}(Q_\theta\Vert\Pi)-\log Z$, unit Fisher natural-gradient descent has linearization $-I$ at $\theta_*$.
+\end{proposition}
+\begin{proof}
+Writing $q_\theta$ for the density and using $\int\partial_aq_\theta=0$ gives
+\begin{equation}
+\partial_aF=\int(\partial_aq_\theta)\log(q_\theta/\pi),
+\qquad
+\partial_b\partial_aF
+=\int(\partial_{ab}q_\theta)\log(q_\theta/\pi)
++\int\frac{\partial_aq_\theta\partial_bq_\theta}{q_\theta}.
+\end{equation}
+At $\theta_*$ the gradient and first Hessian term vanish, while the second term is $G_{ab}$. Differentiating $-G^{-1}\nabla F$ therefore gives $-G^{-1}G=-I$. A coordinate change conjugates this linearization and preserves its spectrum.
+\end{proof}
+A common rate $\eta$ gives $-\eta I$. For example, $Q_\mu=\mathcal N(\mu,H^{-1})$ and $\Pi=\mathcal N(0,H^{-1})$ give $F=\mu^\top H\mu/2$, $G=H$, and $\dot\mu=-\mu$, independently of the condition number of $H$. The proposition does not cover a misspecified variational optimum, singular boundary, constrained kinetic operator, moving generative parameter, or nonsmooth switching point. These are possible sources of separated rates, but each requires its own argument.
+
+A positive kinetic example starts with one finite statistical state. Let a reversible Markov generator $\mathsf L$ have unit jump rates on $1\leftrightarrow2$ and $3\leftrightarrow4$, rate $\epsilon>0$ on $1\leftrightarrow3$ and $2\leftrightarrow4$, and no other edges. Its invariant law is uniform. Direct multiplication gives eigenvectors
+\begin{equation}
+(1,1,1,1),\quad(1,1,-1,-1),\quad(1,-1,1,-1),\quad(1,-1,-1,1)
+\end{equation}
+with eigenvalues $0,-2\epsilon,-2,-2(1+\epsilon)$, respectively. The label of the cells $\{1,2\}$ and $\{3,4\}$ is exactly Markov with flip rate $\epsilon$, whereas the within-cell contrasts relax at rates at least two. An observation that reads this label has persistent predictive information. Two clocks have thus been constructed within one law. The weak-edge kinetics supply their ratio: the stationary law and its KL objective are identical for every $\epsilon$. This is kinetic emergence of a retained slow coordinate, not derivation of kinetics from VFE alone.
+
+\subsection{Elimination Produces Memory Before It Produces an Autonomous Model}
+\label{sec:one_law_memory_reduction}
+
+The exact price of retaining only part of a statistical state is visible in finite dimensions. Let $\mathsf L$ be a finite irreducible Markov generator reversible under $\pi>0$, and let $r_t=dQ_t/d\pi$. Then $\dot r=\mathsf Lr$ in $L^2(\pi)$, and
+\begin{equation}
+\frac{d}{dt}D_{\rm KL}(Q_t\Vert\pi)
+=-\frac12\sum_{x,y}\pi_x\mathsf L_{xy}(r_x-r_y)(\log r_x-\log r_y)\leq0.
+\label{eq:kinetic_kl_dissipation}
+\end{equation}
+The identity follows by symmetrizing $\sum_x\pi_x(\mathsf Lr)_x\log r_x$ using detailed balance. It applies directly at positive times; boundary densities are handled by continuity. This is a specified kinetic descent, distinct from the Fisher flow of Proposition~\ref{prop:exact_posterior_fisher_rates}.
+
+For a partition statistic $T$, let $\mathsf P f=\mathbb E_\pi[f\mid T]$, $\mathsf R=I-\mathsf P$, $a=\mathsf Pr$, and $b=\mathsf Rr$. On the respective subspaces write
+\begin{equation}
+\mathsf A=\mathsf P\mathsf L\mathsf P,\quad
+\mathsf B=\mathsf P\mathsf L\mathsf R,\quad
+\mathsf C=\mathsf R\mathsf L\mathsf P,\quad
+\mathsf D=\mathsf R\mathsf L\mathsf R.
+\end{equation}
+Solving $\dot b=\mathsf Ca+\mathsf Db$ and substituting into $\dot a=\mathsf Aa+\mathsf Bb$ gives
+\begin{equation}
+\dot a(t)=\mathsf Aa(t)+\mathsf Be^{t\mathsf D}b(0)
++\int_0^t\mathsf Be^{(t-u)\mathsf D}\mathsf Ca(u)du.
+\label{eq:one_law_exact_memory}
+\end{equation}
+This is an exact memory equation. The partition gives closed Markov dynamics for every initial law exactly when $\mathsf C=0$: applying $\mathsf L$ to each cell indicator shows that this condition means equal total jump rates to each other cell from every state in a given cell. Reversibility gives $\mathsf B=\mathsf C^*$, so both residual terms then vanish.
+
+When $\mathsf D\preceq-\gamma I$ with $\gamma>0$, the initial residual is bounded by $\|\mathsf B\|e^{-\gamma t}\|b(0)\|$. Put $M_t=\sup_{0\leq u\leq t}\|\dot a(u)\|$. The local replacement of the memory integral has error
+\begin{equation}
+\left\|\int_0^t\mathsf Be^{(t-u)\mathsf D}\mathsf Ca(u)du
++\mathsf B\mathsf D^{-1}\mathsf Ca(t)\right\|
+\leq\|\mathsf B\|\|\mathsf C\|
+\left(\frac{e^{-\gamma t}}{\gamma}\|a(t)\|+\frac{M_t}{\gamma^2}\right).
+\label{eq:one_law_memory_error}
+\end{equation}
+To obtain the bound, replace $a(t-v)$ by $a(t)$, extend the integral in $v$ to infinity, and use $\|e^{v\mathsf D}\|\leq e^{-\gamma v}$ and $\|a(t-v)-a(t)\|\leq vM_t$. Positivity of the approximate operator $\mathsf A-\mathsf B\mathsf D^{-1}\mathsf C$ as a probability generator must still be checked. A small memory residual, statistical sufficiency, and a slow spectrum are distinct conditions for an autonomous predictive model. The companion Theory's instantaneous conditional refresh and finite-refresh counterexample exhibit the same distinction~\cite[Ch.~8]{DennisGaugeVFE2026}.
+
+\subsection{Declared Rate Separation and the Adiabatic Hypothesis}
+\label{sec:adiabatic_hierarchy}
+
+When a useful fast--slow split has been identified or deliberately imposed, write its coordinates as $(f,w)$. Let $\mathcal V$ denote either the normalized collective free energy $\mathcal F_V$ or the separately declared consensus potential $\mathcal E$; the choice is held fixed throughout a calculation. With positive-definite block metrics, a declared rate separation in slow-time units is
+\begin{equation}
+\epsilon\dot f=-\mathsf G_f^{-1}\partial_f\mathcal V,
+\qquad
+\dot w=-\mathsf G_w^{-1}\partial_w\mathcal V,
+\label{eq:declared_fast_slow_flow}
+\end{equation}
+which satisfies
+\begin{equation}
+\frac{d\mathcal V}{dt}
+=-\epsilon^{-1}(\partial_f\mathcal V)^\top\mathsf G_f^{-1}\partial_f\mathcal V
+-(\partial_w\mathcal V)^\top\mathsf G_w^{-1}\partial_w\mathcal V\leq0.
+\end{equation}
+A full correlated recognition family generally requires its full Fisher metric; arbitrary block preconditioning is a declared kinetic metric. A product family with independently parameterized factors gives the usual Fisher blocks. Priors and generative parameters remain fixed during a recognition update; parameter learning changes the fixed joint between evaluations, with its own acceptance rule~\cite[Chs.~5 and~8]{DennisGaugeVFE2026}.
+
+If attention rows are optimized exactly, their entropy and prior terms must remain in the objective. The envelope identity permits holding an optimal row fixed when differentiating the reduced scalar. Dropping that entropy and then differentiating the row's state dependence defines a different scalar. Similarly, eliminating $q(\cdot\mid m)$ from Eq.~\eqref{eq:one_law_posterior_chain} is an optimizer identity and does not assert that a finite-rate conditional law has already equilibrated.
+
+Suppose $\mathcal V$ is twice continuously differentiable, the block metrics are continuously differentiable and positive definite, and $\mathsf G_w$ is independent of $f$. On a compact slow region assume a continuously differentiable branch $f^*(w)$ of conditional minimizers with the uniform fast-curvature bound
+\begin{equation}
+\partial_{ff}^2\mathcal V(f^*(w),w)\succeq c\mathsf G_f(f^*(w),w),\qquad c>0.
+\end{equation}
+Assume the reduced solution stays in the interior of this region, the initial fast state lies in the basin of the frozen fast solution, and the vector fields have the local regularity and bounded neighborhoods required for existence throughout the time interval considered. Then the standard finite-time singular-perturbation conclusion is convergence of $w_\epsilon$ to the reduced solution on that interval and convergence of $f_\epsilon$ to $f^*(w)$ away from the initial layer~\cite{Tikhonov1952}. With sufficiently smooth data, a compact normally hyperbolic portion has a nearby invariant slow manifold~\cite{fenichel1979geometric}. The envelope identity gives
+\begin{equation}
+d\mathcal V_{\rm red}=\partial_w\mathcal V(f^*(w),w)dw,
+\qquad \mathcal V_{\rm red}(w)=\mathcal V(f^*(w),w).
+\end{equation}
+At finite $\epsilon$ the conditional-minimum graph is generally not invariant: the fast vector field vanishes there while motion of $w$ would require the tangent velocity $Df^*(w)\dot w$.
+
+The stated hypotheses are conditional, not established for every selective-link network. After a Gibbs attention row is eliminated, its curvature is
+\begin{equation}
+\nabla^2\left[-\tau\log\sum_j\pi_j e^{-E_j/\tau}\right]
+=\sum_j\beta_j^*\nabla^2E_j-\tau^{-1}\operatorname{Cov}_{\beta^*}(\nabla E_j).
+\end{equation}
+The negative covariance term can defeat the required positive curvature even when each frozen-weight Hessian is positive. At folds, changing supports, and source jumps a separate analysis is needed. The held-sheet results and supplied slow-model mobilities in the companion Theory do not establish general recursive formation; the tested slow-model memory can produce persistence and delay without creating a second restoring interaction~\cite[Ch.~8]{DennisGaugeVFE2026}.
+
+\subsection{A collective slow coordinate in one statistical state}
+\label{sec:slow_collective_memory_graph}
+
+A joint statistical description can support fast internal adjustment and a slower collective belief without introducing a second bundle or a mechanical momentum. The following exact example specifies where this separation comes from. Work at one base point with a fixed connected undirected network of $N\geq2$ nodes. Let $W_{ij}=W_{ji}\geq0$, $W_{ii}=0$, and suppose every weighted degree is the same positive number $d=\sum_jW_{ij}$. Its graph Laplacian is $L=dI-W$, with eigenvalues $0=\lambda_1<\lambda_2\leq\cdots\leq\lambda_N$. For supplied constants $\epsilon,k>0$, set
+\begin{equation}
+ H=\epsilon I+kL,\qquad
+ p(z)=\frac{\det(H)^{1/2}}{(2\pi)^{N/2}}
+       \exp\left(-\frac12z^THz\right),\qquad z\in\mathbb R^N.
+ \label{eq:collective_memory_target}
+\end{equation}
+Thus $p=\mathcal N(0,H^{-1})$ is a normalized, correlated prior. There are no observations in this example. Equivalently, the normalized VFE below is the complexity contribution of an unobserved model. The graph and the weak collective curvature $\epsilon$ are inputs, not inferred here.
+
+Restrict the joint belief to the node-factorized family
+\begin{equation}
+ q(z)=\prod_{i=1}^N\mathcal N(z_i;\mu_i,s_i),\qquad
+ (\mu,s)\in\mathbb R^N\times(0,\infty)^N.
+ \label{eq:collective_memory_family}
+\end{equation}
+For this single joint state, the exact normalized VFE is
+\begin{equation}
+ \mathcal F_V=\mathrm{KL}(q\Vert p)
+ =\frac12\left[
+   \mu^TH\mu+\sum_iH_{ii}s_i-N
+   -\log\det H-\sum_i\log s_i
+ \right].
+ \label{eq:collective_memory_vfe}
+\end{equation}
+Use continuous natural-gradient descent with one common rate $\eta>0$ and the Fisher metric of the specified product family. Its mean and variance blocks are $G_{\mu_i\mu_i}=s_i^{-1}$ and $G_{s_is_i}=(2s_i^2)^{-1}$, with zero cross-block terms. In particular, the covariance convention is $\dot\Sigma=-2\eta\Sigma(\partial_\Sigma\mathcal F_V)\Sigma$ before restriction to diagonal coordinates. Differentiating the displayed VFE gives the exact equations
+\begin{equation}
+ \dot\mu=-\eta\operatorname{diag}(s_i)H\mu,\qquad
+ \dot s_i=\eta(s_i-H_{ii}s_i^2).
+ \label{eq:collective_memory_flow}
+\end{equation}
+There is no stochastic forcing or temporal discretization in this construction. Its time parameter is the supplied learning time. Along its solutions,
+\begin{equation}
+ \frac{d\mathcal F_V}{dt}
+ =-\eta\sum_i s_i(\partial_{\mu_i}\mathcal F_V)^2
+   -2\eta\sum_i s_i^2(\partial_{s_i}\mathcal F_V)^2\leq0.
+ \label{eq:collective_memory_dissipation}
+\end{equation}
+
+Regularity of the graph makes every diagonal entry $H_{ii}=\alpha:=\epsilon+kd$ equal. The precision variables $h_i=s_i^{-1}$ solve
+\begin{equation}
+ \dot h_i=\eta(\alpha-h_i),\qquad
+ h_i(t)=\alpha+[h_i(0)-\alpha]e^{-\eta t}.
+ \label{eq:collective_memory_precision}
+\end{equation}
+For every positive initial variance this remains positive for all $t\geq0$, and hence defines a global positive variance solution. The mean equation is then a linear equation with continuous bounded coefficients on every finite time interval, so the full solution exists uniquely for all $t\geq0$. The covariance manifold $s_i=\alpha^{-1}$ is invariant. On that manifold,
+\begin{equation}
+ \dot\mu=-\frac\eta\alpha(\epsilon I+kL)\mu.
+ \label{eq:collective_memory_linear}
+\end{equation}
+Choose an orthonormal eigenbasis $v_j$ of $L$, with $v_1=N^{-1/2}\boldsymbol1$. Each coordinate $a_j=v_j^T\mu$ then satisfies the exact law
+\begin{equation}
+ a_j(t)=a_j(0)\exp\left[-\frac{\eta(\epsilon+k\lambda_j)}{\epsilon+kd}t\right].
+ \label{eq:collective_memory_modes}
+\end{equation}
+In particular, the collective mean $X=N^{-1}\sum_i\mu_i$ obeys
+\begin{equation}
+ \dot X=-\frac{\eta\epsilon}{\epsilon+kd}X,\qquad
+ \frac{\tau_{\mathrm{collective}}}{\tau_{\mathrm{internal}}}
+ =\frac{\epsilon+k\lambda_2}{\epsilon}.
+ \label{eq:collective_memory_separation}
+\end{equation}
+Here $\tau_{\mathrm{internal}}=(\epsilon+kd)/[\eta(\epsilon+k\lambda_2)]$ is the longest relaxation time among mean modes orthogonal to $\boldsymbol1$. Consequently, for any requested factor $R>1$, the separation is at least $R$ whenever $k\lambda_2\geq(R-1)\epsilon$. Equal initial variances away from the invariant manifold retain these eigenvectors with a time-dependent common rate. Unequal variances generally prevent an autonomous equation for $X$ during the covariance transient. On an irregular graph the diagonal fixed variances differ, so the simple arithmetic-mean law above is not claimed.
+
+The separation also depends on the variational family. If instead $q$ is an unrestricted full Gaussian and its covariance starts at $\Sigma=H^{-1}$, then
+\begin{equation}
+ \dot\Sigma=\eta(\Sigma-\Sigma H\Sigma)=0,\qquad
+ \dot\mu=-\eta\Sigma H\mu=-\eta\mu.
+ \label{eq:collective_memory_full_family}
+\end{equation}
+Every mean direction now relaxes at rate $\eta$, despite the identical correlated target. In the factorized family, local Fisher resistance cannot cancel the target's off-diagonal curvature; the weaker collective restoring direction therefore remains slow. This supplies a conditional mechanism for a persistent collective belief within one statistical state. It does not select the network, the factorization, or the collective observable, establish recursive agent formation, or derive Newtonian inertia. Those require further structure and evidence.
+
+\subsection{Gauge Frames and Independent Interaction Links}
+\label{sec:frame_evolution}
+
+Passive changes of frame re-express a law and every incident channel together; they do not evolve an agent. In the frame-factorized special case $\Omega_{ij}=U_iU_j^{-1}$, common-pushforward invariance removes the frames from alignment terms by using $(U_i^{-1})_\#q_i$. If an observation channel is held fixed while a frame is changed, that operation changes a relative coupling and is an active model change. Independent $L_{ij}$ links carry interaction data beyond the choice of frame. Their dynamics and metric must be specified in addition to the statistical objective. No frame-gradient term or transport along the base is required for this pointwise statement.
+
+\subsection{Gaussian Natural Gradients and Frame Retractions}
+
+The Gaussian formulas remain useful within the single-bundle description. For a joint Gaussian section $\zeta_i=\mathcal N(\mu_i,\Sigma_i)$, or a declared Gaussian marginal block, the Fisher metric is
+\begin{equation}
+g_{\mu\mu}=\Sigma_i^{-1},
+\qquad
+g_{\Sigma\Sigma}[V,W]=\tfrac12\operatorname{tr}(\Sigma_i^{-1}V\Sigma_i^{-1}W),
+\end{equation}
+with zero mean--covariance block~\cite{Amari2016}. The full joint covariance includes state--model correlations. If frames are evolved under a separately specified metric, the local equations can be written
+\begin{align}
+\dot\mu_i&=-\eta_\mu\Sigma_i\nabla_{\mu_i}\mathcal V,\\
+\dot\Sigma_i&=-2\eta_\Sigma\Sigma_i(\nabla_{\Sigma_i}\mathcal V)\Sigma_i,\\
+\dot U_i&=-\eta_\phi U_i\xi_i.
+\label{eq:gauge_natural_gradient}
+\end{align}
+For unequal $\eta_\mu$ and $\eta_\Sigma$, this is natural descent in a rate-weighted metric; it is a common-rate Fisher flow only when the rates agree. A covariance retraction must preserve positive definiteness. Continuous local descent alone supplies no global existence claim.
+
+In a regular exponential chart $U_i=\exp\phi_i$, the chart vector and the left-trivialized group velocity are related by
+\begin{equation}
+v_{\phi_i}=\mathcal G_{\rm pull}^{-1}(\phi_i)\nabla_{\phi_i}\mathcal V,
+\qquad
+\xi_i=\operatorname{dexp}_{\phi_i}^{L}(v_{\phi_i}),
+\qquad
+\operatorname{dexp}_{\phi}^{L}(v)=e^{-\phi}D\exp_\phi[v].
+\label{eq:gauge_natural_gradient_def}
+\end{equation}
+One possible choice is the pullback of the ambient Frobenius metric,
+\begin{equation}
+\begin{aligned}
+\mathcal G_{{\rm pull},ab}(\phi)
+&=\langle D\exp_\phi[T_a],D\exp_\phi[T_b]\rangle_F\\
+&=\operatorname{tr}\left[\Psi_R(\operatorname{ad}_\phi)(T_a)^\top
+\Psi_R(\operatorname{ad}_\phi)(T_b)e^\phi e^{\phi^\top}\right],
+\qquad \Psi_R(z)=\frac{e^z-1}{z},
+\end{aligned}
+\label{eq:pullback_metric}
+\end{equation}
+with the value at $z=0$ defined continuously. This metric is a coordinate construction, not Fisher information of the agent law.
+
+\begin{proposition}[Regular exponential charts]\label{prop:dexp_regularity}
+The operator $\operatorname{dexp}_{\phi}^{L}$ is invertible exactly when the spectrum of $\operatorname{ad}_\phi$ contains no nonzero element of $2\pi i\mathbb Z$. The pullback metric is positive definite on precisely this locus.
+\end{proposition}
+\begin{proof}
+The integral formula $\operatorname{dexp}_{\phi}^{L}=\int_0^1e^{-u\operatorname{ad}_\phi}du$ is the analytic matrix function $(1-e^{-z})/z$ of $\operatorname{ad}_\phi$. Its zeros are exactly the stated nonzero imaginary multiples. The determinant of an analytic matrix function is the product of its values on the eigenvalues, including multiplicities. The Gram form in Eq.~\eqref{eq:pullback_metric} is nondegenerate exactly when this differential is injective.
+\end{proof}
+The corresponding group retraction is
+\begin{equation}
+U_i^{t+1}=U_i^t\exp(-\eta_\phi\xi_i^t).
+\label{eq:gauge_group_retraction}
+\end{equation}
+It remains in $G$ and agrees with the chart update through first order. For the full $\mathrm{GL}^+(K)$ chart, the ambient pullback gives $\xi_i=U_i^{-1}\nabla_{U_i}\mathcal V$, hence ambient Euclidean descent to first order. A fixed Frobenius inner product on the body velocity instead defines a left-invariant group metric and gives $\dot U_i=-\eta_\phi U_iU_i^\top\nabla_{U_i}\mathcal V$. A right-invariant choice gives its right-trivialized counterpart. These are different kinetic assumptions.
+
+For $K\geq2$, no fixed positive-definite inner product on $\mathfrak{gl}(K)$ is invariant under every adjoint action: conjugation by $\operatorname{diag}(e^t,e^{-t},1,\ldots,1)$ multiplies $E_{12}$ by $e^{2t}$, contradicting invariance of its positive norm. Thus a fixed bi-invariant Riemannian group metric is unavailable in this case. This does not rule out law-dependent covariant metrics on the complete agent state. Any claim about frame relaxation must specify the actual metric and transformation of all coupled fields; scalar invariance of the objective alone is insufficient.
+

@@ -1,0 +1,137 @@
+% !TeX root = ../PIFB2.tex
+\section{Gibbs Ensembles, Exact Reduction, and Approximation Error}
+\label{sec:meta_agent_rg}\label{app:rigorous_rg}
+
+This appendix separates a probability model over belief configurations from the sample-level population model, then states what exact reduction and a controlled approximation preserve. All constructions are pointwise over the base.
+
+\subsection{A normalized configuration ensemble}
+\begin{theorem}[Belief-configuration Gibbs lift]\label{thm:belief_configuration_gibbs_lift}
+Let $\nu_0$ be a proper reference probability on a measurable configuration space $\mathfrak X$. Let $\mathcal E:\mathfrak X\to(-\infty,\infty]$ be measurable, bounded below, and finite on a set of positive $\nu_0$-measure. For $T_{\mathrm{cfg}}>0$,
+\begin{equation}
+Z_{\mathcal E}=\int e^{-\mathcal E(X)/T_{\mathrm{cfg}}}\nu_0(dX),
+\qquad 0<Z_{\mathcal E}<\infty,
+\label{eq:belief_configuration_partition}
+\end{equation}
+and
+\begin{equation}
+\mathbb P_{\mathcal E}(dX)
+=Z_{\mathcal E}^{-1}e^{-\mathcal E(X)/T_{\mathrm{cfg}}}\nu_0(dX)
+\label{eq:belief_configuration_gibbs_density}
+\end{equation}
+defines a probability law. For $R$ for which the terms are finite,
+\begin{equation}
+\mathbb E_R\mathcal E+T_{\mathrm{cfg}}D_{\mathrm{KL}}(R\|\nu_0)
+=T_{\mathrm{cfg}}D_{\mathrm{KL}}(R\|\mathbb P_{\mathcal E})
+-T_{\mathrm{cfg}}\log Z_{\mathcal E}.
+\label{eq:belief_configuration_vfe_identity}
+\end{equation}
+Consequently the left-hand side has unique minimizer $\mathbb P_{\mathcal E}$ and minimum
+\begin{equation}
+-T_{\mathrm{cfg}}\log Z_{\mathcal E}.
+\label{eq:belief_configuration_gibbs_variational_principle}
+\end{equation}
+\end{theorem}
+\begin{proof}
+If $\mathcal E\geq m$, the partition function is at most $e^{-m/T_{\mathrm{cfg}}}$; the positive-measure finite-energy set gives strict positivity. On the common support,
+\begin{equation}
+\log\frac{dR}{d\mathbb P_{\mathcal E}}
+=\log\frac{dR}{d\nu_0}+\frac{\mathcal E}{T_{\mathrm{cfg}}}
++\log Z_{\mathcal E}.
+\label{eq:gibbs_lift_radon_nikodym_identity}
+\end{equation}
+Integration proves the identity. Nonnegativity and the equality case of KL give uniqueness. The minimizing terms are finite: boundedness below controls the negative part, and $x e^{-x/T_{\mathrm{cfg}}}$ is bounded for $x\geq0$.
+\end{proof}
+
+\begin{remark}[The ensemble is an extra probability model]\label{rem:gibbs_lift_interpretation}
+The random variable $X$ contains laws, frames or other configuration parameters. Its Gibbs law does not turn the consensus objective into a sample-level ELBO, and deterministic gradient descent does not sample this ensemble. A stochastic kinetics with the required invariant law would be additional structure. The reference $\nu_0$ also matters. An invariant energy integrated against unregulated Haar volume along a noncompact gauge orbit generally has infinite partition function. One must use a proper reference, an admissible quotient, or a specified gauge fixing with its measure factor.
+\end{remark}
+
+\subsection{Exact channels and their composition}
+\begin{proposition}[Preservation of retained laws]\label{thm:rg_pushforward}
+Let $C:X\rightsquigarrow Z$ be a normalized channel and put $\nu^c=\nu_0C$. Pushing the unnormalized Gibbs measure through $C$ gives
+\begin{equation}
+e^{-\mathcal E^c(z)/T_{\mathrm{cfg}}}
+=\mathbb E_{\nu_0}[e^{-\mathcal E(X)/T_{\mathrm{cfg}}}\mid Z=z].
+\label{eq:rg_exact_free_energy}
+\end{equation}
+Its partition function is $Z_{\mathcal E}$ and its normalized law is $\mathbb P_{\mathcal E}C$. Every bounded observable $f(Z)$ has the same expectation before and after reduction.
+\end{proposition}
+\begin{proof}
+Integrate the proposed density against $f(z)\nu^c(dz)$ and use the definition of conditional expectation under $\nu_0(dX)C(X,dz)$. The result is the unnormalized fine expectation of the same retained observable. Set $f=1$ for the partition function.
+\end{proof}
+With a different reference $\bar\nu$ satisfying $\nu^c\ll\bar\nu$, the energy changes to
+$\bar{\mathcal E}^c=\mathcal E^c-T_{\mathrm{cfg}}\log(d\nu^c/d\bar\nu)$.
+An additive constant also changes the partition function. It cannot be discarded while claiming exact evidence agreement.
+
+\begin{proposition}[Composition and equivariance]\label{thm:rg_semigroup}\label{thm:rg_covariance}
+Successive normalized channels $C_1:X\rightsquigarrow Z$ and $C_2:Z\rightsquigarrow W$ satisfy
+$(\mathbb P C_1)C_2=\mathbb P(C_1C_2)$.
+If frame transformations $g_X,g_Z$ intertwine $C$,
+$C(g_Xx,g_ZA)=C(x,A)$, then
+$(g_X{}_\#\mathbb P)C=g_Z{}_\#(\mathbb PC)$.
+\end{proposition}
+\begin{proof}
+The first statement is iterated integration of a bounded test function. For the second substitute the intertwining relation into its integral under the transformed fine law.
+\end{proof}
+This is composition of channels, not a renormalization semigroup on an identified coupling space. Such a semigroup additionally needs a closed family, rescaling and a meaning for comparison across levels. A finite tower can exhibit useful effective behavior without supplying a critical fixed point.
+
+\subsection{Gaussian elimination and the Laplace regime}
+For a globally positive-definite quadratic energy in hidden $x$ and retained $z$,
+\begin{equation}
+E(x,z)=\frac12x^\top Ax+x^\top Bz+\frac12z^\top Dz,
+\qquad
+\begin{pmatrix}A&B\\B^\top&D\end{pmatrix}\succ0,
+\end{equation}
+integration against Lebesgue measure gives
+\begin{equation}
+E^c(z)=\frac12z^\top(D-B^\top A^{-1}B)z
++\frac{T_{\mathrm{cfg}}}{2}\log\det A
+-\frac{d_xT_{\mathrm{cfg}}}{2}\log(2\pi T_{\mathrm{cfg}}).
+\label{eq:rg_reduced_hessian}
+\end{equation}
+Completing the square proves the formula. It is exact closure in the family of all such quadratic energies; it need not preserve a restricted graph, the absence of self terms, or a chosen shared $R_iS_j$ parameterization.
+
+For a smooth nonquadratic $E(x,z)$, suppose that at each retained $z$ in a compact region there is a unique isolated global minimum $x_*(z)$ in the integrated variable, with uniformly positive Hessian $H_x(z)$. Suppose also that a smooth positive density $a(x,z)$ and uniformly controlled derivatives and tails justify Laplace expansion. Then
+\begin{equation}
+\begin{split}
+-T_{\mathrm{cfg}}\log\int e^{-E(x,z)/T_{\mathrm{cfg}}}a(x,z)dx
+={}&E(x_*(z),z)+\frac{T_{\mathrm{cfg}}}{2}\log\det H_x(z)\\
+&-\frac{d_xT_{\mathrm{cfg}}}{2}\log(2\pi T_{\mathrm{cfg}})
+-T_{\mathrm{cfg}}\log a(x_*(z),z)+O(T_{\mathrm{cfg}}^2).
+\end{split}
+\label{eq:rg_laplace}
+\end{equation}
+The Gaussian integral gives the displayed terms; the stated domination and regularity control the remainder~\cite{wong2001asymptotic}. Multiple equal minima require a sum of their contributions. A vanishing Hessian eigenvalue invalidates this expansion. Neither a small within-cluster KL nor a threshold on apparent coherence supplies these hypotheses.
+
+The determinant term is a conditional fluctuation contribution. It can change the retained interactions. It does not universally renormalize the coefficient of a parent belief entropy: that identification requires an explicit parameterization in which this determinant has the proposed dependence. The zero-temperature limit is the conditional energy profile under these hypotheses,
+\begin{equation}
+E_{\mathrm{eff}}(z)=E(x_*(z),z).
+\label{eq:rg_zero_temperature_profile}
+\end{equation}
+The Hessian of this profile is the corresponding Schur complement. The reduced kinetic metric, however, depends on the original mobility and on the motion of $x_*(z)$; it is not fixed by that Hessian alone.
+
+\subsection{A quantitative closure criterion}
+Suppose $P$ has dimensionless energy $H$ against a fixed reference and $\delta\in L^\infty(P)$ is a dimensionless perturbation. Define $\widetilde P$ by the normalized density proportional to $e^{-\delta}dP$, so the two laws are mutually absolutely continuous. Their density ratio obeys
+\begin{equation}
+\log\frac{dP}{d\widetilde P}
+=\delta+\log\mathbb E_Pe^{-\delta},
+\qquad
+D_{\mathrm{KL}}(P\|\widetilde P)
+\leq \operatorname{esssup}\delta-\operatorname{essinf}\delta.
+\label{eq:rg_closure}
+\end{equation}
+Indeed, $\log\mathbb E_Pe^{-\delta}\leq-\operatorname{essinf}\delta$ and $\mathbb E_P\delta\leq\operatorname{esssup}\delta$. Exchanging the laws gives the same upper bound for the reverse KL. Thus a uniformly small residual modulo constants controls distributional closure after normalization.
+
+This is not a force bound. On a fixed interval,
+$\delta_\epsilon(z)=\epsilon\sin(z/\epsilon^2)$ has vanishing amplitude but derivative of order $\epsilon^{-1}$. For reduced flows $\dot z=b(z)$ and $\dot{\tilde z}=\tilde b(\tilde z)$ with the same initial state, if $b$ is Lipschitz with constant $L$ and $\|b-\tilde b\|\leq r$ throughout a region containing both trajectories, direct integration and Gronwall give
+\begin{equation}
+\|z(t)-\tilde z(t)\|\leq
+\begin{cases}
+r(e^{Lt}-1)/L,&L>0,\\
+rt,&L=0.
+\end{cases}
+\label{eq:rg_force_error}
+\end{equation}
+A gradient model therefore needs a derivative residual and control of its mobility, not only an energy fit. An exact retained process may also have memory, as Appendix~\ref{app:examples} demonstrates. The appropriate reduction then retains that memory or proves an approximation bound for discarding it.
+
+These results provide usable acceptance conditions for a proposed effective agent: an induced normalized law, compatible communication, quantified distributional error when approximated, and a retained or controlled predictive dynamics. They do not impose a universal detector or assume that every reduction yields a new physical object.

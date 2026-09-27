@@ -4,6 +4,7 @@ title: Coordinate Independent Convolutional Networks — Isometry and Gauge Equi
 aliases:
   - "Weiler, Forré, Verlinde, Welling 2021"
   - "Coordinate Independent CNNs"
+  - "weiler2021coordinate"
 authors:
   - Maurice Weiler
   - Patrick Forré

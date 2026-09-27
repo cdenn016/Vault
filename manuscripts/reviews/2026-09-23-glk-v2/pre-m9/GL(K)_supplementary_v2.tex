@@ -1,0 +1,255 @@
+\documentclass[twoside,11pt]{article}
+
+% Use JMLR style with preprint option
+\usepackage[preprint]{jmlr2e}
+\usepackage{amsmath}
+% Additional packages (jmlr2e already includes: epsfig, amssymb, natbib, graphicx)
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{xr-hyper}
+\hypersetup{pdftitle={Gauge-Covariant Gaussian Attention through Projected Matrix Links: Supplementary Material},
+  pdfauthor={Robert C. Dennis}}
+
+% Custom commands (must match main paper)
+\newcommand{\softmax}{\operatorname{softmax}}
+\newcommand{\KL}{\operatorname{KL}}
+\newcommand{\Tr}{\operatorname{Tr}}
+% Publication placeholders added by the 2026-09-23 review. Every inserted block
+% carries the tag PLACEHOLDER; replace each box or pending cell with final
+% artwork or data, then delete the block and its tag comment. Remove these two
+% macros when no placeholder remains.
+\providecommand{\placeholderbox}[2]{\fbox{\parbox[c][#1][c]{0.94\linewidth}{\centering\small\color{red!55!black}#2}}}
+\providecommand{\datapending}[1]{{\color{red!60!black}\textbf{[Data pending:} #1\textbf{]}}}
+\externaldocument[][nocite]{GL(K)_attention_v2}
+
+\setlength{\emergencystretch}{3em}
+\begin{document}
+\jmlrheading{}{2026}{}{}{}{}{Robert C. Dennis}
+
+\title{Gauge-Covariant Gaussian Attention through Projected Matrix Links\\[6pt]
+\large Supplementary Material}
+
+\author{\name Robert C. Dennis \email cdenn016@gmail.com \\
+  \addr Independent Researcher\\
+  \addr Leander, Texas 78641, USA}
+
+
+\maketitle
+
+\ShortHeadings{Gauge-Covariant Gaussian Attention: Supplementary Material}{Dennis}
+
+This supplement supports the main paper's probabilistic and architectural claims. Appendix~\ref{app:fixed_joint_bridge} states the relation between its categorical routing objective and a normalized latent-variable model. Appendix~\ref{app:architecture_scope} gives the population-covariance identities, limits of full-Gaussian propagation through normalization, and causal-prediction conditions. Optional belief-revision objectives and their differential theory are collected separately in \emph{Variational Belief Gradients for Gauge-Covariant Gaussian Attention}.
+
+\appendix
+\renewcommand{\theequation}{S\arabic{equation}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+
+\section{Relation to a Normalized Latent-Source Model}
+\label{app:fixed_joint_bridge}
+
+A broader gauge-theoretic variational free energy (VFE) theory begins with a normalized generative law and a separately specified population recognition law. Geometry alone supplies neither. Let $z$ collect the declared agent and auxiliary latent variables (the latent configuration, written $y$ in the broader theory), let $X$ denote fixed structural data, and let each record kernel have a normalized density $\ell_a$. A normalized latent law $p_\theta^Z$, constructed for example by finite directed kernel composition, gives
+\begin{equation}
+p_\theta(z,o\mid X)=p_\theta^Z(z\mid X)\prod_a\ell_a(o_a\mid z_{\partial a},X).
+\label{eq:rg_bridge_joint}
+\end{equation}
+Integrating the records first leaves the unit mass of $p_\theta^Z$. Record scopes may overlap because each record is a conditional output of the same latent configuration. The factors are fixed while recognition varies. Latent variables may themselves take values in a space of probability laws; this does not permit a generative factor to read the recognition distribution being optimized.
+
+Fix a regular observation slice with $0<p_\theta(o\mid X)<\infty$. Let $Q$ have density $q$, satisfy $Q\ll P_\theta(\cdot\mid o,X)$, and have finite expectations of $|\log q|$ and $|\log p_\theta(z,o\mid X)|$. Defining $\mathcal L_\theta(Q)=\mathbb E_Q[\log p_\theta(z,o\mid X)-\log q(z)]$ gives
+\begin{equation}
+\log p_\theta(o\mid X)=\mathcal L_\theta(Q)+D_{\mathrm{KL}}\bigl(Q\|P_\theta(\cdot\mid o,X)\bigr).
+\label{eq:rg_bridge_elbo}
+\end{equation}
+Indeed, Bayes' formula makes the log density ratio equal to $\log q-\log p_\theta(z,o\mid X)+\log p_\theta(o\mid X)$; integrating proves the identity. The KL is nonnegative and vanishes exactly at equality of the full laws. No factorization of $Q$ is assumed. Outside the finite-density domain, the extended free energy is defined as $-\log p_\theta(o\mid X)+D_{\mathrm{KL}}(Q\|P_\theta(\cdot\mid o,X))$, avoiding undefined differences of infinite expectations. This is the standard evidence-bound construction \citep[Sec.~2.2, Eq.~14]{Blei2017}; consistent passive pushforwards preserve its relative entropy.
+
+The broader theory also supplies a route to categorical attention. Give each receiver-head pair $(i,h)$ an independent source label $J_i^{(h)}$ with prior $\pi_i^{(h)}$ and a binary compatibility record $\chi_i^{(h)}\in\{0,1\}$, and take
+\begin{equation}
+\begin{aligned}
+p_\theta(z,j,\chi,o\mid X)={}&p_\theta^Z(z\mid X)\prod_{i,h}\pi_i^{(h)}\bigl(j_i^{(h)}\bigr)\operatorname{Bern}\Bigl(\chi_i^{(h)};\exp\bigl[-D_{ij_i^{(h)}}^{(h)}(z)/\tau_h\bigr]\Bigr)\\
+&\times\prod_a\ell_a(o_a\mid z_{\partial a},X),
+\end{aligned}
+\label{eq:rg_bridge_record_joint}
+\end{equation}
+in which no other factor reads a label. Each record kernel is normalized for every $\tau_h>0$ because $D_{ij}^{(h)}\ge0$; for a cost that is only finite, replacing $D$ by $D-\min_kD_{ik}$ multiplies the selected-record likelihood by a label-independent factor. Conditioning on $\chi=\mathbf 1$ gives the exact conditional rows $P(J_i^{(h)}=j\mid z,\chi,o)=\operatorname{softmax}_j\bigl(\log\pi_{ij}^{(h)}-D_{ij}^{(h)}(z)/\tau_h\bigr)$, independent across $(i,h)$. This is the optimality-variable device of control as inference \citep{Levine2018}. Under $Q(dz,dj)=Q_Z(dz)\prod_{i,h}\beta_i^{(h)}(dj_i^{(h)})$ with $\mathbb E_{Q_Z}|D_{ij}^{(h)}|<\infty$, the row-dependent free energy and its optimizer are
+\begin{align}
+\mathcal F_i^{(h)}(\beta_i^{(h)})&=D_{\mathrm{KL}}(\beta_i^{(h)}\|\pi_i^{(h)})+\tau_h^{-1}\sum_j\beta_{ij}^{(h)}\mathbb E_{Q_Z}D_{ij}^{(h)},\\
+\beta_{ij}^{(h)*}&=\operatorname{softmax}_j\bigl(\log\pi_{ij}^{(h)}-\mathbb E_{Q_Z}D_{ij}^{(h)}/\tau_h\bigr).
+\label{eq:rg_bridge_row}
+\end{align}
+Expansion of the factorized density gives the first expression up to a row-independent term; a normalization multiplier gives the second. The pointwise generative posterior instead uses $D_{ij}^{(h)}(z)$ inside softmax. Multiplying a row objective by $\tau_h$ preserves its optimizer, but does not license independently rescaling sectors of one global evidence lower bound (ELBO).
+
+The main paper's fixed-context Gaussian mixture supplies a different local joint with the same unit-temperature row objective: at unit temperature its KL is the projected Gaussian comparison cost plus categorical relative entropy. Appending the same normalized content law in the model and recognition factors makes that content law cancel, as in main-text Eq.~\eqref{eq:relational_normalized_model}. It therefore permits the chosen message means without deriving the learned content maps or residual. The general Gaussian realization likewise permits singular conditional mean maps with positive-definite receiving noise, but that normalization fact does not select the predictive attention architecture.
+
+The autoregressive softmax predictor already defines a normalized probability law, and its outer cross-entropy is the corresponding negative log-likelihood; in evaluation each conditional is computed from a bounded window, which leaves every factor normalized. For the attention sublayer, a normalized latent model exists in which routing is the exact label posterior and the content-plus-residual update is the exact predictive mean (main-text Sections~\ref{sec:mixture_derivation} and~\ref{sec:relational_communication}). What remains unresolved is a latent joint and recognition construction that also covers the normalization and MLP maps, the collapse of the predictive mixture to a point state between layers, and the relation of cross-entropy training to that model's evidence. A model with no latent variables would make the evidence identity tautological without deriving those operations.
+
+
+\section{Additional Scope Results for Gaussian Predictive Architectures}
+\label{app:architecture_scope}
+
+The main text distinguishes geometric attention from a complete model of population inference and nonlinear state evolution. The following calculations state the population-covariance, Gaussian-closure, and causal-prediction conditions used in the main paper. They concern the declared states and predictive maps.
+
+\subsection{Population covariance and link-residual costs}
+\label{sec:population_link_residuals}
+
+Let a joint population state have law
+\(\mathcal N(\boldsymbol\mu,\Gamma)\), with covariance blocks
+\(\Gamma_{ij}=\operatorname{Cov}(k_i,k_j)\) and
+\(\Gamma_{ii}=\Sigma_i\). For a fixed link \(L_{ij}:E_j\to E_i\), set
+\(e_{ij}=k_i-L_{ij}k_j\) and
+\(\bar e_{ij}=\mu_i-L_{ij}\mu_j\). Bilinearity of covariance gives
+\begin{equation}
+V_{ij}:=\operatorname{Cov}(e_{ij})
+=\Sigma_i+L_{ij}\Sigma_jL_{ij}^{\top}
+-\Gamma_{ij}L_{ij}^{\top}-L_{ij}\Gamma_{ji}.
+\label{eq:population_residual_covariance}
+\end{equation}
+This identity needs no inverse of \(L_{ij}\). For any receiving covariance \(R_i\succ0\), expansion around the mean gives the expected quadratic cost
+\begin{equation}
+\mathbb E[e_{ij}^{\top}R_i^{-1}e_{ij}]
+=\bar e_{ij}^{\top}R_i^{-1}\bar e_{ij}
++\operatorname{Tr}(R_i^{-1}V_{ij}).
+\label{eq:population_residual_cost}
+\end{equation}
+The centered cross terms have zero expectation, leaving the trace term. These are Gaussian moment identities \citep{Bishop2006}; the two displayed moment formulas also hold for non-Gaussian laws with finite second moments.
+
+A product approximation to the population sets the off-diagonal blocks \(\Gamma_{ij}\) to zero. Local state covariances alone do not justify that substitution. For a scalar example, take unit marginal variances, zero means, \(L_{ij}=1\), and cross covariance \(c\), with \(|c|<1\). The expected squared residual is \(2(1-c)\), while every individual Gaussian marginal is unchanged as \(c\) varies. Thus comparing local distributions and computing a correlated population residual are different operations.
+
+A Gaussian record with mean \(k_i-L_{ij}k_j\) and positive-definite noise can use Eq.~\eqref{eq:population_residual_cost} inside a normalized population model of Appendix~\ref{app:fixed_joint_bridge}. Its expected log-likelihood cost is not generically the KL between the two projected Gaussian marginals in the main text. That KL has its own trace and determinant terms. Substituting a marginal divergence for the record cost changes the probabilistic model unless a separate identity establishes their equality.
+
+\subsection{Nonlinear mean maps and full Gaussian laws}
+\label{sec:nonlinear_gaussian_scope}
+
+An operation on a Gaussian mean does not automatically specify the pushforward of its entire law. To see this for LayerNorm \citep{ba2016layernorm}, put \(P_0=I-\mathbf1\mathbf1^\top/K\) and define
+\begin{equation}
+\operatorname{LN}_\epsilon(x)
+=\frac{P_0x}{\sqrt{\|P_0x\|^2/K+\epsilon}}.
+\label{eq:layernorm_gaussian_scope}
+\end{equation}
+For \(K=2\), \(\epsilon=0\), and a nondegenerate Gaussian input, \(x_1=x_2\) has probability zero and
+\begin{equation}
+\operatorname{LN}_0(x)
+=\operatorname{sign}(x_1-x_2)(1,-1).
+\label{eq:layernorm_two_atoms}
+\end{equation}
+The output law has two atoms. For \(\epsilon>0\) and arbitrary \(K\ge2\), the output remains in the proper zero-sum hyperplane, and it is bounded, \(\|\operatorname{LN}_\epsilon(x)\|^2<K\), so its law is not even a degenerate Gaussian. Fixed affine gains and biases map this support into an affine subspace of dimension at most \(K-1\). Neither construction is a nondegenerate full Gaussian pushforward. Applying normalization only to \(\mu_i\), while retaining \(\Sigma_i\) for routing, remains a valid specified coordinate operation; it has a different statistical meaning.
+
+\subsection{Prefix-based causal prediction}
+\label{sec:causal_prediction_scope}
+
+A predictive conditional requires a state determined only by the available prefix and shared across all candidate next tokens. If one separately recomputes a binary state after inspecting each candidate target and assigns that target probability \(3/4\), each row is normalized but the two candidate scores sum to \(3/2\). They are not one conditional probability law. By contrast, a single prefix-based state followed by one categorical readout defines a normalized kernel, and the product of such kernels defines a finite sequence law by successive summation. The main architecture uses this direct causal construction. Outer backpropagation from training targets updates shared parameters; it does not insert those targets into the prediction-time state.
+
+
+% PLACEHOLDER S: experimental record and diagnostics for the final runs.
+\section{Experimental Record and Diagnostics}
+\label{app:placeholder_experimental_record}
+
+This appendix reserves the experimental record of the final runs. Each table and figure below is a placeholder to be replaced by recorded values or artwork. % PLACEHOLDER
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{p{0.30\linewidth}p{0.62\linewidth}}
+\toprule
+Reporting field & Final-run value or artifact identifier \\
+\midrule
+Source and configuration & pending: source archive and hash, configuration schema, resolved operator selectors \\
+Data and tokenizer & pending: dataset and split revision, tokenizer and version, vocabulary, concatenation policy, token-cache hashes, unique training tokens, passes \\
+Architecture & pending: $K$, blocks, heads, ranks $r_h,s_h$, depth, normalization placement, residual, MLP width, decoder \\
+Initialization & pending: prior means and covariances, frame generators, interface maps, as executed \\
+Optimization & pending: learning rate and weight decay for every parameter table, schedule, warmup, clipping groups, post-update frame projection \\
+Numerical realization & pending: precision per operation, cost bound, reduced-covariance factorization and failure policy, matrix-exponential policy \\
+Training budget & pending: token presentations, updates, batch and accumulation, device-hours \\
+Evaluation & pending: checkpoint-selection rule, context, stride, scored targets, masking \\
+\bottomrule
+\end{tabular}
+\caption{Reproducibility contract for the final reported runs. Populate each field from the executing source archive and its saved metadata, and separate effective settings from accepted but inactive selectors.}
+\label{tab:placeholder_methods_contract}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}Xcc@{}}
+\toprule
+Parameter role or resource & Evaluated run & Final run \\
+\midrule
+Per-type tables (token frames, prior means and covariances, decoder) & pending & pending \\
+Positional frame generators & pending & pending \\
+Context-processing parameters (interface maps, MLP, normalization) & pending & pending \\
+Parameters read per token & pending & pending \\
+Optimizer state and peak device memory & pending & pending \\
+Training throughput and device-hours & pending & pending \\
+Inference latency at declared batch and context & pending & pending \\
+\bottomrule
+\end{tabularx}
+\caption{Reserved storage and cost record. Sparse access to per-type tables reduces the parameters read per token but not the stored parameters; report both, together with measured throughput under a declared precision.}
+\label{tab:placeholder_resources}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{lccccc}
+\toprule
+Model arm & Seeds & Selected step & Validation CE & Test CE & Test PPL \\
+\midrule
+pending & pending & pending & pending & pending & pending \\
+\bottomrule
+\end{tabular}
+\caption{Reserved per-seed results for every arm of the main results table. List the model seed and the data-order seed, and apply the checkpoint-selection rule identically across arms.}
+\label{tab:placeholder_per_seed}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{lccc}
+\toprule
+Model and source & Tokenization & Context & Word-normalized test PPL \\
+\midrule
+Evaluated realization & GPT-2 BPE & pending & pending \\
+Published reference points & pending & pending & pending \\
+\bottomrule
+\end{tabular}
+\caption{Reserved calibration of the headline result. Word-normalized perplexity is the exponential of the summed test negative log-likelihood divided by the number of word-level test tokens, after an audit confirming that both token streams encode the same text. Published rows use different protocols and are contextual references, not matched comparisons.}
+\label{tab:placeholder_calibration}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\placeholderbox{66mm}{PLACEHOLDER S1\\[3mm]
+Panel A: per layer, quantiles across tokens of the ratio $\|m_i\|/\|\mu_i\|$ of message to residual state, over training.\\[2mm]
+Panel B: common scale and scale-free invariants of the comparison maps (relative gains and principal angles of $S_{Q,h},S_{K,h}$), and the largest singular value of $O_hT_h$, over training.\\[2mm]
+Panel C: mean and spread of the stored log-variances over training, with the curve implied by weight decay alone.\\[2mm]
+Panel D: counts, with denominators, of cost-bound activations, factorization fallbacks, frame-generator projections, and skipped updates.\\[2mm]
+TO COLLECT: per-table norms and invariants at every evaluation, and instrumented event counters.}
+\caption{Reserved training-dynamics and numerical diagnostics. The routing costs are unchanged when a common invertible map acts on $S_{Q,h}$ and $S_{K,h}$, and the messages are unchanged under $(T_h,O_h)\mapsto(BT_h,O_hB^{-1})$. Gradient flow conserves the corresponding quantities $S_{Q,h}S_{Q,h}^\top+S_{K,h}S_{K,h}^\top$ and $T_hT_h^\top-O_h^\top O_h$, whereas adaptive optimizers without weight decay move along these directions; Panel B therefore separates motion along the symmetries from changes of the realized operator.}
+\label{fig:placeholder_numerics}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\placeholderbox{50mm}{PLACEHOLDER S2\\[3mm]
+Panel A: per layer, the $H\times B$ matrix of Frobenius norms of each head's maps $S_{Q,h},S_{K,h},T_h,O_h$ restricted to each frame block.\\[2mm]
+Panel B: attention entropy per layer and head, with the minimum-entropy rows and the self-weights $\beta_{ii}^{(h)}$.\\[2mm]
+TO COLLECT: trained interface maps and validation-set routing weights.}
+\caption{Reserved head and frame-block diagnostics. Panel A measures whether communication heads coincide with the irreducible frame blocks of Section~\ref{sec:heads_irreps} or access several blocks through full-width maps.}
+\label{fig:placeholder_head_blocks}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\placeholderbox{50mm}{PLACEHOLDER S3\\[3mm]
+Panel A: test cross-entropy versus state dimension $K$ at a fixed token budget.\\[2mm]
+Panel B: test cross-entropy versus depth at fixed $K$.\\[2mm]
+TO COLLECT: a declared grid varying one factor at a time, with paired seeds and identical protocol.}
+\caption{Reserved width and depth sweep. Existing preliminary runs differ in training duration, context, stride, learning rates, and covariance state, so they do not define this controlled comparison.}
+\label{fig:placeholder_scaling}
+\end{figure}
+
+% bibliographystyle is set by jmlr2e
+\bibliography{references}
+
+\end{document}

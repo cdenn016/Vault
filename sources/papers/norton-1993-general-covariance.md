@@ -4,6 +4,7 @@ title: "General Covariance and the Foundations of General Relativity: Eight Deca
 aliases:
   - "Norton 1993"
   - "Norton general covariance"
+  - "Norton1993"
 authors:
   - Norton, John D.
 year: 1993
@@ -12,6 +13,7 @@ url: https://doi.org/10.1088/0034-4885/56/7/001
 tags:
   - cluster/gauge-theory
   - project/multi-agent
+  - project/transformer
   - field/physics
   - field/philosophy
 status: stable

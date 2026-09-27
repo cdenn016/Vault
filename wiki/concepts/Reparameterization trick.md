@@ -28,7 +28,7 @@ The canonical instance is the Gaussian *location–scale* transform: to sample $
 
 ## Why it matters here
 
-The VFE transformer maintains a diagonal-Gaussian belief $(\mu,\Sigma)$ for every token. When a belief-side expectation is estimated by sampling, reparameterization makes that estimator differentiable with respect to the belief parameters. This statement concerns the belief objective only: the deployed decoder uses a separate cross-entropy objective, and the complete loop is not one ELBO. [[gl-k-attention-2026-07-09-review-revision]]
+The VFE transformer maintains a diagonal-Gaussian belief $(\mu,\Sigma)$ for every token. When a belief-side expectation is estimated by sampling, reparameterization makes that estimator differentiable with respect to the belief parameters. This statement concerns the belief objective only: the deployed decoder uses a separate cross-entropy objective, and the complete loop is not one ELBO.
 
 [[kingma-2013-auto-encoding-variational-bayes]] supplies the differentiable Gaussian-sampling method. The VFE transformer has no neural recognition network, so the connection is the estimator rather than the VAE architecture or its single-objective training theorem.
 
@@ -44,13 +44,13 @@ The VFE transformer maintains a diagonal-Gaussian belief $(\mu,\Sigma)$ for ever
 
 **Interaction with the covariance manifold.** Because $\Sigma$ lives on the SPD cone, the reparameterization must produce a valid factor $L$ with $\Sigma = LL^\top$, and gradients then flow into a parameterization of $\Sigma$ that respects positive-definiteness — a concern shared with the #cluster/spd-geometry machinery (the `spd_affine` retraction, the affine-invariant metric of [[pennec-2006-affine-invariant-tensor]], and the SPD calculus surveyed in [[bhatia-2007-positive-definite-matrices]]). Equivalently, one may parameterize through the matrix logarithm in the [[arsigny-2006-log-euclidean]] sense, sampling in a flat tangent coordinate and mapping back, which keeps the sampler differentiable while guaranteeing an SPD result.
 
-**Relation to natural-gradient optimization.** The reparameterization trick produces a Euclidean gradient in chosen coordinates and is silent about parameter-space geometry. Belief-side Gaussian updates may then use the inverse [[Fisher information metric]] to obtain a [[Natural gradient]] ([[amari-1998-natural-gradient]]). This does not make the frame or decode M-step Fisher-natural; the audited frame table uses plain AdamW and leaves the configured geometric/heavy-ball frame path inactive. [[gl-k-attention-2026-07-09-review-revision]]
+**Relation to natural-gradient optimization.** The reparameterization trick produces a Euclidean gradient in chosen coordinates and is silent about parameter-space geometry. Belief-side Gaussian updates may then use the inverse [[Fisher information metric]] to obtain a [[Natural gradient]] ([[amari-1998-natural-gradient]]). This does not make the frame or decode M-step Fisher-natural; the audited frame table uses plain AdamW and leaves the configured geometric/heavy-ball frame path inactive.
 
 > [!note] Editorial (2026-07-10): The trick is a differentiation device, not an
 > inference principle. It can estimate sampled expectations in many objectives,
 > including the Li–Turner variational Rényi bound, but the transformer's
 > configured pairwise order-Rényi term is a different construction and has a
-> Gaussian closed form. [[gl-k-attention-2026-07-09-review-revision]]
+> Gaussian closed form.
 
 **Variants.** Beyond the location–scale Gaussian: the *implicit* reparameterization extends the trick to distributions whose CDF, rather than whose sampler, is differentiable; the *iterative amortized* setting of [[marino-2018-iterative-amortized-inference]] repeatedly refines reparameterized beliefs by following free-energy gradients, narrowing the amortization gap left by a single-pass encoder.
 

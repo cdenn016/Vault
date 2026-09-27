@@ -1,0 +1,528 @@
+\chapter[Coarse Maps II: Nonflat Links, Relaxation, and Quotient Volume]{Coarse Maps II: Nonflat Links,\\ Relaxation, and Quotient Volume}
+\label{ch:gaussian-nonflat}
+
+What does hard aggregation do to nonflat internal links, how does a Gaussian
+mean relax onto the fixed sector, what is the Gaussian form of the
+holonomy-constrained parent, and how does the volume of hard membership enter a
+partition function? A twisted internal link adds a positive-semidefinite self
+term to its cluster, which only a singular weight can hide, and one effective
+quotient for all links exists exactly under the condition of
+\Cref{prop:cg-effective-support}. The constant-metric flow relaxes
+exponentially onto the fixed sector and is the Fisher natural-gradient flow on
+the fixed-covariance mean family (\Cref{prop:cg-gaussian-fixed-relaxation}).
+The Gaussian forward-KL barycenter is moment matching with a log-determinant
+score (\Cref{prop:cg-gaussian-forward-kl-barycenter}), and under compact
+holonomy the constrained parent is the Haar-projected moment match
+(\Cref{cor:cg-compact-holonomy-barycenter}), while no parameter-independent
+Markov kernel realizes the joint barycenter of two normal laws for all
+parameters (\Cref{prop:hist-normal-barycenter-kernel}). Hard membership carries the
+quotient metric of \Cref{prop:cg-quotient-metric}, whose Jacobian changes raw
+normalizers and not normalized laws. These results continue
+\Cref{ch:gaussian-coarsegraining} and specialize the structural fixed sectors
+(\Cref{sec:cg-partial}) and the holonomy-constrained marginal parents
+(\Cref{thm:cg-holonomy-kl-marginal}) of the main manuscript; the relaxation is
+the identified natural-gradient example of \Cref{ch:infogeometry}. Notation
+follows \Cref{ch:gaussian-coarsegraining}; in addition \(\mathsf G\) denotes a
+constant metric, \(g\) a passive linear change of coordinates or an element of a
+holonomy group, and \(w_i\) mixture weights.
+
+This chapter does not identify a generic, state-dependent Fisher flow with the
+constant projector and rate of the constant-metric relaxation, and it does not
+claim that a partition is selected by quotient volume or by transported
+relative entropy. A natural partition selector remains open
+(\Cref{open:cg-natural-selector}). \status{NOT-CLAIMED} Balanced cut links admit no continuous
+extension to all singular cuts (\Cref{open:cg-cut-compression}).
+
+\section{Nonflat links and effective support}
+\label{sec:cg-effective-support}
+
+We return to hard identification with twisted internal links. For an edge
+\(e=(i,j)\) with link \(\Theta_e\) and weight \(W_e\succeq0\), the twisted pair
+energy is
+\begin{equation}
+\frac12(z_i-\Theta_ez_j)^\top W_e(z_i-\Theta_ez_j).
+\label{eq:cg-twisted-pair}
+\end{equation}
+
+\propositionheading{Nonflat internal links and effective support}{prop:cg-effective-support}
+Let the assembled precision \(\Lambda\), with twisted links, be SPD, and let
+\(S\) be the aggregation matrix of a hard partition.
+(i) The hard trace of \(\Lambda\), with natural parameters
+\((S^\top\mathsf h,S^\top\Lambda S)\), is the conditional law of
+\Cref{prop:cg-aggregation-conditioning} with \(B=S\); it is in general not the
+coordinate marginal of \Cref{thm:cg-nonflat-series-kron}.
+(ii) Under hard identification an internal edge contributes to its cluster the
+PSD self term
+\begin{equation}
+(I-\Theta_e)^\top W_e(I-\Theta_e),
+\label{eq:cg-internal-residual}
+\end{equation}
+which vanishes exactly when
+\begin{equation}
+W_e^{1/2}(I-\Theta_e)=0 ;
+\label{eq:cg-weighted-invisibility}
+\end{equation}
+a positive-definite \(W_e\) forces \(\Theta_e=I\), while a singular weight can
+hide a nonidentity link.
+(iii) With \(\operatorname{pr}_e:\R^K\to\R^K/\ker W_e\) the quotient map,
+\begin{equation}
+W_e^{1/2}(I-\Theta_e)=0
+\quad\Longleftrightarrow\quad
+\operatorname{pr}_e\Theta_e=\operatorname{pr}_e .
+\label{eq:cg-edge-quotient}
+\end{equation}
+(iv) For links \(\Theta_e\in\GL(K)\), a single subspace \(\mathscr N\subseteq\R^K\)
+such that every pair form descends to \(\R^K/\mathscr N\) with positive-definite
+induced weight exists exactly when
+\begin{equation}
+\ker W_e=\mathscr N,\qquad \Theta_e\mathscr N=\mathscr N
+\quad\text{for every relevant edge},
+\label{eq:cg-common-quotient}
+\end{equation}
+and on that quotient group-valued holonomy is defined; when the kernels differ
+there is no canonical product of the edge-local quotients.
+(v) On the triangle with
+\(W_{12}=\operatorname{diag}(1,0)\), \(\Theta_{12}=\operatorname{diag}(1,2)\),
+\(W_{23}=\operatorname{diag}(0,1)\), \(\Theta_{23}=\operatorname{diag}(2,1)\), and
+\(W_{31}=\Theta_{31}=I\), every edge satisfies \eqref{eq:cg-weighted-invisibility}
+and the loop product is \(2I\), which fixes no nonzero vector; the kernels
+differ, so no common quotient exists. Nevertheless the kernel of the cluster's
+connection energy, cut out by the section constraints
+\eqref{eq:cg-psd-section-constraint}, is the two-dimensional space of constant
+sections, so hard fixed-section aggregation of this cluster keeps the full
+fiber. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) Precomposing the energy with \(z=Sy\) gives the natural parameters
+\((S^\top\mathsf h,S^\top\Lambda S)\), which are those of the conditional law by
+\Cref{prop:cg-aggregation-conditioning}; the marginal precision is a Schur
+complement, which is dominated by the restricted precision with equality only
+in the \(\Lambda\)-orthogonal case
+(\Cref{prop:restrict-marginal-vs-restricted-precision}). (ii) Setting
+\(z_i=z_j=y\) turns \eqref{eq:cg-twisted-pair} into
+\(\frac12y^\top(I-\Theta_e)^\top W_e(I-\Theta_e)y
+=\frac12\|W_e^{1/2}(I-\Theta_e)y\|^2\) (\Cref{lem:gauss-internal-edge}), which
+vanishes for every \(y\) exactly under \eqref{eq:cg-weighted-invisibility}. If
+\(W_e\succ0\) this forces \(I-\Theta_e=0\), while
+\(W_e=\operatorname{diag}(1,0)\) and \(\Theta_e=\operatorname{diag}(1,2)\)
+satisfy it. (iii) \(\operatorname{pr}_e\Theta_e=\operatorname{pr}_e\) means
+\(\operatorname{range}(I-\Theta_e)\subseteq\ker W_e=\ker W_e^{1/2}\). (iv) The
+pair form descends in both endpoint variables exactly when
+\(W_e^{1/2}n=0\) and \(W_e^{1/2}\Theta_en'=0\) for all \(n,n'\in\mathscr N\), that
+is, \(\mathscr N\subseteq\ker W_e\) and \(\Theta_e\mathscr N\subseteq\ker W_e\).
+Positive definiteness of the induced weight forces \(\ker W_e=\mathscr N\), and
+invertibility of \(\Theta_e\) turns \(\Theta_e\mathscr N\subseteq\mathscr N\) into
+\(\Theta_e\mathscr N=\mathscr N\) and makes the induced link invertible. (v) Each
+weighted residual vanishes by direct multiplication, and
+\(\Theta_{12}\Theta_{23}\Theta_{31}=2I\). The kernels are
+\(\operatorname{span}(e_2)\), \(\operatorname{span}(e_1)\), and \(\{0\}\). The
+section constraints \(W_e^{1/2}(z_i-\Theta_ez_j)=0\) give
+\(z_1^{(1)}=z_2^{(1)}\), \(z_2^{(2)}=z_3^{(2)}\), and \(z_3=z_1\), whose solutions
+are exactly the constant sections. \(\square\)
+
+\section{Constant-metric Gaussian relaxation}
+\label{sec:cg-gaussian-fixed-relaxation}
+
+\propositionheading{Relaxation onto the fixed sector}{prop:cg-gaussian-fixed-relaxation}
+Let \(\mathsf G=\mathsf G^\top\succ0\) and \(L=L^\top\succeq0\) be constant
+matrices on \(\R^d\), let the columns of \(B_0\) form a basis of \(\ker L\), and
+define the \(\mathsf G\)-orthogonal projector
+\begin{equation}
+\Pi_0=B_0(B_0^\top\mathsf GB_0)^{-1}B_0^\top\mathsf G,
+\label{eq:cg-r-projector}
+\end{equation}
+with \(\Pi_0=0\) when \(\ker L=\{0\}\). The flow
+\begin{equation}
+\mathsf G\dot z=-Lz,\qquad z(0)=z_0,
+\label{eq:cg-constant-metric-flow}
+\end{equation}
+converges to \(\Pi_0z_0\). If \(L\neq0\) and
+\begin{equation}
+r_+=\lambda_{\min}^{+}\bigl(\mathsf G^{-1/2}L\mathsf G^{-1/2}\bigr)
+\label{eq:cg-transverse-rate}
+\end{equation}
+is the smallest positive eigenvalue, then
+\begin{equation}
+\|z(t)-\Pi_0z_0\|_{\mathsf G}
+\leq e^{-r_+t}
+\|z_0-\Pi_0z_0\|_{\mathsf G},
+\label{eq:cg-transverse-decay}
+\end{equation}
+and for \(\mathsf E(z)=\frac12z^\top Lz\),
+\begin{equation}
+\frac{d}{dt}\mathsf E(z(t))
+=-\dot z^\top\mathsf G\dot z
+=-z^\top L\mathsf G^{-1}Lz\leq0.
+\label{eq:cg-fixed-flow-dissipation}
+\end{equation}
+A constant passive reframing \(z'=gz\), \(g\in\GL(d)\), preserves the equation
+exactly under
+\begin{equation}
+\mathsf G'=g^{-\top}\mathsf Gg^{-1},\qquad
+L'=g^{-\top}Lg^{-1},\qquad
+\Pi_0'=g\Pi_0g^{-1},
+\label{eq:cg-flow-congruence}
+\end{equation}
+so the choice \(\mathsf G=I\) is equivariant only under orthogonal reframings.
+For a time-dependent \(g=g(t)\) with vanishing original temporal connection, the
+covariant derivative
+\begin{equation}
+D_t'z'=\dot z'-\dot gg^{-1}z'=g\dot z,
+\qquad \mathsf G'D_t'z'=-L'z',
+\label{eq:cg-time-covariant-flow}
+\end{equation}
+restores the equation. On the fixed-covariance Gaussian mean family
+\(q_z=\mathcal N(z,\mathsf G^{-1})\) the Fisher metric of the mean is
+\(\mathsf G\) and
+\begin{equation}
+\KL(q_z\Vert q_w)
+=\frac12(z-w)^\top\mathsf G(z-w),
+\label{eq:cg-fixed-covariance-kl}
+\end{equation}
+so \eqref{eq:cg-constant-metric-flow} is exactly the Fisher natural-gradient
+flow of \(\mathsf E\) on that family. For a family \((q_\lambda)\) with Fisher
+metric \(g^F\) whose log-density is twice continuously differentiable in
+\(\lambda\), with the domination of \Cref{hyp:pb-regular-models} permitting
+differentiation under the integral through second order, only the local
+expansion
+\begin{equation}
+\KL(q_\lambda\Vert q_{\lambda+d\lambda})
+=\frac12d\lambda^\top g^F(\lambda)d\lambda
++o(\|d\lambda\|^2)
+\label{eq:cg-local-fisher-kl}
+\end{equation}
+holds. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Set \(y=\mathsf G^{1/2}z\) and \(\widetilde L=\mathsf G^{-1/2}L\mathsf G^{-1/2}\succeq0\).
+Then \(\dot y=-\widetilde Ly\), and the spectral theorem gives convergence to the
+Euclidean projection of \(y_0\) onto \(\ker\widetilde L=\mathsf G^{1/2}\ker L\), with
+transverse norm decaying at the smallest positive eigenvalue of \(\widetilde L\).
+Transforming back gives \eqref{eq:cg-r-projector} and
+\eqref{eq:cg-transverse-decay}, and differentiating \(\mathsf E\) along the
+flow gives \eqref{eq:cg-fixed-flow-dissipation}. Substituting \(z=g^{-1}z'\)
+proves \eqref{eq:cg-flow-congruence}, and \(\dot z'=\dot gz+g\dot z\) proves
+\eqref{eq:cg-time-covariant-flow}. The Gaussian relative entropy with equal
+covariances gives \eqref{eq:cg-fixed-covariance-kl}, whose Hessian is the Fisher
+metric \(\mathsf G\), and the natural gradient of \(\mathsf E\) in that metric
+is \(\mathsf G^{-1}Lz\). For the local expansion write
+\(\mathbf s_j=\partial_j\log q_\lambda\). At \(\lambda'=\lambda\) the first derivative
+of \(\KL(q_\lambda\Vert q_{\lambda'})\) in \(\lambda'\) is
+\(-\E_\lambda[\mathbf s_j]=0\), and the second is
+\(-\E_\lambda[\partial_i\mathbf s_j]=\E_\lambda[\mathbf s_i\mathbf s_j]=g^F_{ij}(\lambda)\), by
+differentiating \(\int q_\lambda\mathbf s_j=0\); Taylor's theorem in \(\lambda'\)
+gives \eqref{eq:cg-local-fisher-kl}. \(\square\)
+
+Freezing \(g^F(\lambda_0)=\mathsf G\) yields only a local linearization of a
+general family. The rate \(r_+\) and the dissipation per unit \(t\) belong to
+the flow parameter, not to the unparameterized orbit.
+
+\section{Gaussian marginal-law specialization}
+\label{sec:cg-gaussian-marginal-law}
+
+Specialize \Cref{thm:cg-holonomy-kl-marginal} to Gaussian laws after
+transporting every constituent marginal to one root, with the full nondegenerate
+Gaussian family as admissible parent family. With trivial represented holonomy
+the holonomy-fixed subfamily is that whole family; the parent family itself is
+declared, not selected by the holonomy.
+
+\propositionheading{Full-Gaussian forward-KL barycenter}{prop:cg-gaussian-forward-kl-barycenter}
+Let \(q_i=\mathcal N(\mu_i,\Sigma_i)\) with \(\Sigma_i\succ0\), and let
+\(w_i>0\) with \(\sum_iw_i=1\). The unique minimizer over nondegenerate
+Gaussians of
+\begin{equation}
+\mathcal D_I(\mu,\Sigma)
+=\sum_i w_i\KL\bigl(\mathcal N(\mu_i,\Sigma_i)\Vert\mathcal N(\mu,\Sigma)\bigr)
+\label{eq:cg-gaussian-barycenter-objective}
+\end{equation}
+matches the first two moments,
+\begin{equation}
+\bar\mu=\sum_i w_i\mu_i,\qquad
+\bar\Sigma=\sum_i w_i\bigl[\Sigma_i+(\mu_i-\bar\mu)(\mu_i-\bar\mu)^\top\bigr],
+\label{eq:cg-gaussian-barycenter-moments}
+\end{equation}
+and its minimized score is
+\begin{equation}
+\mathcal D_I^\star
+=\frac12\Bigl[
+\log\det\bar\Sigma-\sum_i w_i\log\det\Sigma_i
+\Bigr].
+\label{eq:cg-gaussian-barycenter-score}
+\end{equation}
+If every constituent and the parent are restricted to one covariance
+\(\Sigma_0\succ0\), the minimizer is \(\mathcal N(\bar\mu,\Sigma_0)\), and with
+the symmetrized convention
+\begin{equation}
+D_{\mathrm{SKL}}(p,q)
+:=\frac12\bigl[\KL(p\Vert q)+\KL(q\Vert p)\bigr]
+\label{eq:cg-symmetric-kl-convention}
+\end{equation}
+its score satisfies
+\begin{equation}
+\sum_i w_i\KL\bigl(q_i\Vert\mathcal N(\bar\mu,\Sigma_0)\bigr)
+=\sum_{i<j}w_iw_jD_{\mathrm{SKL}}(q_i,q_j)
+=\frac12\sum_{i,j}w_iw_jD_{\mathrm{SKL}}(q_i,q_j),
+\label{eq:cg-fixed-covariance-pairwise-identity}
+\end{equation}
+which is not the free-covariance optimum, whose covariance includes the
+between-mean term of \eqref{eq:cg-gaussian-barycenter-moments}.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Minimizing \(\sum_iw_i\KL(q_i\Vert q)\) over an exponential family \(q\) is
+minimizing \(\KL(\sum_iw_iq_i\Vert q)\) up to a constant, which is moment
+matching \citep[Sec.~10.7, Eqs.~(10.184)--(10.187)]{Bishop2006}; we record the
+score. The Gaussian relative entropy gives
+\begin{equation}
+\begin{aligned}
+2\mathcal D_I(\mu,\Sigma)
+&=\Tr(\Sigma^{-1}\Xi(\mu))-K+\log\det\Sigma
+-\sum_i w_i\log\det\Sigma_i,\\
+\Xi(\mu)&=\sum_i w_i\bigl[\Sigma_i+(\mu_i-\mu)(\mu_i-\mu)^\top\bigr].
+\end{aligned}
+\label{eq:cg-gaussian-barycenter-expansion}
+\end{equation}
+Completing the weighted square gives
+\(\Xi(\mu)=\bar\Sigma+(\mu-\bar\mu)(\mu-\bar\mu)^\top\), so \(\mu=\bar\mu\) is
+the unique minimizer in \(\mu\). At that value
+\(\Tr(\Sigma^{-1}\bar\Sigma)-\log\det(\Sigma^{-1}\bar\Sigma)\geq K\), with
+equality exactly when \(\Sigma=\bar\Sigma\), and substitution gives
+\eqref{eq:cg-gaussian-barycenter-score}. With one covariance \(\Sigma_0\),
+\(\KL(q_i\Vert\mathcal N(\mu,\Sigma_0))=\frac12\|\mu_i-\mu\|^2_{\Sigma_0^{-1}}\)
+is minimized in the weighted sum at \(\bar\mu\), and
+\(D_{\mathrm{SKL}}(q_i,q_j)=\frac12\|\mu_i-\mu_j\|^2_{\Sigma_0^{-1}}\); the
+weighted variance identity
+\(\sum_iw_i\|\mu_i-\bar\mu\|^2=\frac12\sum_{i,j}w_iw_j\|\mu_i-\mu_j\|^2\) in the
+\(\Sigma_0^{-1}\) inner product gives
+\eqref{eq:cg-fixed-covariance-pairwise-identity}. \(\square\)
+
+\corollaryheading{Compact-closure holonomy Gaussian barycenter}{cor:cg-compact-holonomy-barycenter}
+In the setting of \Cref{prop:cg-gaussian-forward-kl-barycenter}, let
+\(\mathrm{Hol}_I\subset\GL(K)\) be a represented holonomy group whose closure
+\(\overline{\mathrm{Hol}}_I\) is compact, with normalized Haar probability
+\(dg\). A nondegenerate Gaussian is \(\mathrm{Hol}_I\)-invariant exactly when it
+is \(\overline{\mathrm{Hol}}_I\)-invariant. Define
+\begin{equation}
+\bar\mu=\sum_i w_i\mu_i,\qquad
+\Xi=\sum_i w_i(\Sigma_i+\mu_i\mu_i^\top),
+\label{eq:cg-gaussian-raw-moments}
+\end{equation}
+and their Haar projections
+\begin{equation}
+\mu_{\mathrm{Hol}}
+=\int_{\overline{\mathrm{Hol}}_I}g\bar\mu dg,\qquad
+\Xi_{\mathrm{Hol}}
+=\int_{\overline{\mathrm{Hol}}_I}g\Xi g^\top dg,\qquad
+\Sigma_{\mathrm{Hol}}
+=\Xi_{\mathrm{Hol}}-\mu_{\mathrm{Hol}}\mu_{\mathrm{Hol}}^\top .
+\label{eq:cg-gaussian-haar-moments}
+\end{equation}
+Then \(\Sigma_{\mathrm{Hol}}\succ0\), and
+\(\mathcal N(\mu_{\mathrm{Hol}},\Sigma_{\mathrm{Hol}})\) is the unique minimizer of
+\eqref{eq:cg-gaussian-barycenter-objective} over \(\mathrm{Hol}_I\)-invariant
+nondegenerate Gaussians, with score
+\begin{equation}
+\mathcal D_{I,\mathrm{Hol}}^\star
+=\frac12\Bigl[
+\log\det\Sigma_{\mathrm{Hol}}-\sum_i w_i\log\det\Sigma_i
+\Bigr].
+\label{eq:cg-gaussian-haar-score}
+\end{equation}
+The constraint can be active without any disagreement among the constituents:
+for \(K=2\), \(\mathrm{Hol}_I=\{I_2,-I_2\}\), and the one-law ensemble
+\(\mathcal N(u,I_2)\) with \(u\neq0\), the unconstrained optimizer
+\(\mathcal N(u,I_2)\) is not invariant, while the constrained optimizer is
+\(\mathcal N(0,I_2+uu^\top)\) with score \(\frac12\log(1+\|u\|^2)>0\).
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The stabilizer of a Gaussian under the continuous pushforward action of
+\(\GL(K)\) is closed, so invariance under \(\mathrm{Hol}_I\) and under its
+closure agree. For every invariant candidate \(q\), invariance of relative
+entropy under a common invertible pushforward gives
+\begin{equation}
+\sum_i w_i\KL(q_i\Vert q)
+=\int_{\overline{\mathrm{Hol}}_I}\sum_i w_i
+\KL(g_\#q_i\Vert q)dg,
+\label{eq:cg-haar-objective-average}
+\end{equation}
+so the objective is that of the orbit-averaged ensemble, the Haar-symmetrized
+mixture \eqref{eq:cg-haar-symmetrized-mixture}, whose first and second moments
+are \(\mu_{\mathrm{Hol}}\) and \(\Xi_{\mathrm{Hol}}\). Haar invariance makes both
+moments invariant, so the moment-matched Gaussian of that ensemble is an
+admissible candidate, and \Cref{prop:cg-gaussian-forward-kl-barycenter}, applied
+to the averaged ensemble, makes it the unique minimizer among all nondegenerate
+Gaussians and hence among invariant ones; this is the Gaussian clause of
+\Cref{prop:cg-holonomy-compact-closed-form} with the moments made explicit. The
+covariance \(\Sigma_{\mathrm{Hol}}\) is the covariance of the averaged mixture,
+which dominates the Haar average of the positive-definite matrices
+\(g\Sigma_ig^\top\), so it is positive definite. Every element of a compact
+matrix group has \(|\det g|=1\), so
+\(\log\det(g\Sigma_ig^\top)=\log\det\Sigma_i\), which gives
+\eqref{eq:cg-gaussian-haar-score}. In the witness the Haar average over
+\(\{\pm I_2\}\) sends \(\bar\mu=u\) to \(0\) and leaves \(\Xi=I_2+uu^\top\)
+unchanged, and \(\det(I_2+uu^\top)=1+\|u\|^2\). \(\square\)
+
+The trivial-holonomy case of the corollary is
+\Cref{prop:cg-gaussian-forward-kl-barycenter}. Compactness cannot be dropped: a
+holonomy element with an eigenvalue off the unit circle, such as \(2I_K\), fixes
+no nondegenerate Gaussian (\Cref{cor:cg-holonomy-noncompact-gaussian}).
+
+The Markov property of a configuration arrow (\Cref{def:hist-coarse-configuration-map}) can fail
+even for natural meta-agent maps, as the barycenter of two normal laws shows.
+
+\propositionheading{Normal barycenters and parameter-independent kernels}{prop:hist-normal-barycenter-kernel}
+Let $\Sigma_0\succ0$ be an $n\times n$ covariance, $\mathsf H\in\R^{n'\times n}$,
+$\mathsf b\in\R^{n'}$, and $\Sigma_1\succeq0$ an $n'\times n'$ covariance, and let $\kappa$ be
+a Markov kernel from $\R^n$ to $\R^{n'}$ with
+\begin{equation}
+\mathcal N(\mu,\Sigma_0)\kappa=\mathcal N(\mathsf H\mu+\mathsf b,\Sigma_1)
+\quad\text{for every }\mu\in\R^n.
+\label{eq:hist-gaussian-location-image}
+\end{equation}
+Then $\Sigma_1\succeq\mathsf H\Sigma_0\mathsf H^\top$ and
+$\kappa(y,\cdot)=\mathcal N(\mathsf Hy+\mathsf b,\Sigma_1-\mathsf H\Sigma_0\mathsf H^\top)$ for
+Lebesgue-almost every $y$.  Consequently no Markov kernel from $\R^2$ to $\R$ satisfies
+\begin{equation}
+\bigl(\mathcal N(\mu_1,\varsigma^2)\otimes\mathcal N(\mu_2,\varsigma^2)\bigr)\kappa
+=\mathcal N\left(\tfrac{\mu_1+\mu_2}{2},\varsigma^2\right)
+\quad\text{for all }\mu_1,\mu_2\in\R\text{ and all }\varsigma>0,
+\label{eq:hist-common-variance-barycenter}
+\end{equation}
+and none sends $\mathcal N(\mu_1,\varsigma_1^2)\otimes\mathcal N(\mu_2,\varsigma_2^2)$ to
+the joint barycenter $\mathcal N\bigl(\tfrac{\mu_1+\mu_2}{2},\tfrac{\varsigma_1^2+
+\varsigma_2^2}{2}\bigr)$ for all parameters.  For each fixed $\varsigma$, the kernel
+$y\mapsto\mathcal N\bigl(\tfrac{y_1+y_2}{2},\tfrac{\varsigma^2}{2}\bigr)$ realizes
+\eqref{eq:hist-common-variance-barycenter} at that $\varsigma$, and the deterministic
+kernel $y\mapsto(y_1+y_2)/\sqrt2$ sends $\mathcal N(0,\varsigma_1^2)\otimes\mathcal
+N(0,\varsigma_2^2)$ to $\mathcal N\bigl(0,\tfrac{\varsigma_1^2+\varsigma_2^2}{2}\bigr)$ for
+all $\varsigma_1,\varsigma_2>0$.  \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+For $\omega\in\R^{n'}$ put $k_\omega(y)=\int e^{\mathrm i\omega^\top y'}\kappa(y,dy')$, a
+measurable function with $|k_\omega|\leq1$, and the bounded function
+$h_\omega(y)=\exp\bigl(\mathrm i\omega^\top(\mathsf Hy+\mathsf
+b)-\tfrac12\omega^\top(\Sigma_1-\mathsf H\Sigma_0\mathsf H^\top)\omega\bigr)$.  The
+characteristic function of $\mathcal N(\mu,\Sigma_0)$ at $\mathsf H^\top\omega$ gives
+$\int h_\omega d\mathcal N(\mu,\Sigma_0)=\exp(\mathrm i\omega^\top(\mathsf H\mu+\mathsf
+b)-\tfrac12\omega^\top\Sigma_1\omega)$, which by \eqref{eq:hist-gaussian-location-image}
+equals $\int k_\omega d\mathcal N(\mu,\Sigma_0)$, so the bounded function
+$k_\omega-h_\omega$ has zero convolution with the $\mathcal N(0,\Sigma_0)$ density.  In
+tempered distributions its Fourier transform is annihilated by multiplication with a
+nowhere-vanishing Gaussian. The quotient of any compactly supported smooth test function by that
+Gaussian is again compactly supported and smooth, so the transform vanishes on all such tests.
+It is therefore zero as a distribution, hence as a tempered distribution, and
+$k_\omega=h_\omega$ almost everywhere.  Then $|h_\omega|\leq1$ on a nonempty set forces
+$\omega^\top(\Sigma_1-\mathsf H\Sigma_0\mathsf H^\top)\omega\geq0$, and for $\omega$ in a
+countable dense set the characteristic functions of $\kappa(y,\cdot)$ and of
+$\mathcal N(\mathsf Hy+\mathsf b,\Sigma_1-\mathsf H\Sigma_0\mathsf H^\top)$ agree for
+almost every $y$, hence everywhere by continuity.  For
+\eqref{eq:hist-common-variance-barycenter}, $\Sigma_0=\varsigma^2\mathrm I_2$,
+$\mathsf H=(\tfrac12,\tfrac12)$, $\mathsf b=0$, and $\Sigma_1=\varsigma^2$ force
+$\kappa(y,\cdot)=\mathcal N\bigl(\tfrac{y_1+y_2}{2},\tfrac{\varsigma^2}{2}\bigr)$ almost
+everywhere, and two values of $\varsigma$ give incompatible laws on a set of full
+measure; the joint barycenter restricted to $\varsigma_1=\varsigma_2$ is
+\eqref{eq:hist-common-variance-barycenter}.  For the realizations, the output means are
+$\tfrac{\mu_1+\mu_2}{2}$ and $0$, and the output variances are
+$\tfrac14(2\varsigma^2)+\tfrac{\varsigma^2}2=\varsigma^2$ and
+$\tfrac12(\varsigma_1^2+\varsigma_2^2)$.  $\square$
+
+\section{Quotient volume for hard membership}
+\label{sec:cg-quotient-volume}
+
+\propositionheading{Translation-quotient metric of hard membership}{prop:cg-quotient-metric}
+Let \(\widehat S\in\{0,1\}^{N\times|\mathcal P|}\) be the membership matrix of a
+partition \(\mathcal P\) with nonempty cluster sizes \(n_I\), write
+\(\mathbf n=(n_I)_I\), so that \(N=\sum_In_I\), and let \(\operatorname{pdet}\)
+denote the product of the positive eigenvalues of a positive-semidefinite
+matrix. On the translation quotient, the metric induced from the fine Euclidean
+quotient is
+\begin{equation}
+\mathsf G_{\mathcal P}=\operatorname{diag}(n_I)-\frac{\mathbf n\mathbf n^\top}{N},\qquad
+\ker\mathsf G_{\mathcal P}=\operatorname{span}(\mathbf1),\qquad
+\operatorname{pdet}\mathsf G_{\mathcal P}=\frac{|\mathcal P|\prod_In_I}{N}.
+\label{eq:cg-quotient-metric}
+\end{equation}
+For \(K\) channels, let \(\nu_{\mathrm{std}}\) be Lebesgue measure on the
+representatives in \(\R^{|\mathcal P|K}\) orthogonal to
+\(\mathbf1\otimes\R^K\), and let \(\nu_{\mathrm{ind}}\) be the Riemannian volume,
+equivalently the Hausdorff measure, of \(\mathsf G_{\mathcal P}\otimes I_K\).
+Then
+\begin{equation}
+\nu_{\mathrm{ind}}=\operatorname{Jac}_{\mathcal P}\nu_{\mathrm{std}},\qquad
+\operatorname{Jac}_{\mathcal P}
+=\Bigl(\frac{|\mathcal P|\prod_In_I}{N}\Bigr)^{K/2}.
+\label{eq:cg-quotient-jacobian}
+\end{equation}
+If \(\operatorname{range}(S)\cap\ker\Lambda=\mathbf1_N\otimes\R^K\), the quotient
+Gaussian with precision \(\Lambda_{\mathrm c}=S^\top\Lambda S\) is proper, and its
+determinant relative to the quotient metric is
+\begin{equation}
+\det\nolimits_{\mathsf G_{\mathcal P}\otimes I_K}(\Lambda_{\mathrm c})
+:=\frac{\operatorname{pdet}\Lambda_{\mathrm c}}
+{(\operatorname{pdet}\mathsf G_{\mathcal P})^K}
+=\frac{\operatorname{pdet}\Lambda_{\mathrm c}}{\operatorname{Jac}_{\mathcal P}^2}.
+\label{eq:cg-quotient-generalized-determinant}
+\end{equation}
+For the unnormalized factor \(\exp(-x^\top\Lambda_{\mathrm c}x/2)\) and
+\(d_q=(|\mathcal P|-1)K\), the normalizers are
+\begin{equation}
+\begin{aligned}
+Z_{\mathrm{std}}
+&=(2\pi)^{d_q/2}
+(\operatorname{pdet}\Lambda_{\mathrm c})^{-1/2},\\
+Z_{\mathrm{ind}}
+&=(2\pi)^{d_q/2}
+\det\nolimits_{\mathsf G_{\mathcal P}\otimes I_K}(\Lambda_{\mathrm c})^{-1/2}
+=\operatorname{Jac}_{\mathcal P}Z_{\mathrm{std}}.
+\end{aligned}
+\label{eq:cg-quotient-normalizers}
+\end{equation}
+The factor cancels from the normalized law, because the measure changes by the
+same factor, while raw partition functions differ by
+\(\log\operatorname{Jac}_{\mathcal P}\); a partition score therefore needs a
+fixed volume convention, an exact correction, or a compensating prior.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+For a coarse class \([x]\), minimizing over a common translation \(\tau\in\R\)
+gives
+\(\min_\tau\|\widehat Sx+\tau\mathbf1_N\|^2
+=\sum_In_Ix_I^2-(\mathbf n^\top x)^2/N=x^\top\mathsf G_{\mathcal P}x\).
+Deleting the row and column of one cluster, the matrix determinant lemma gives
+the principal cofactor \(\prod_In_I/N\). Since
+\(\mathsf G_{\mathcal P}\mathbf1=0\) and the kernel is one-dimensional,
+\(\operatorname{adj}(\mathsf G_{\mathcal P})\mathsf G_{\mathcal P}=0\) forces
+\(\operatorname{adj}(\mathsf G_{\mathcal P})=\mathrm c\mathbf1\mathbf1^\top\), and its
+trace, the sum of the principal cofactors, equals the product of the nonzero
+eigenvalues; hence \(\operatorname{pdet}\mathsf G_{\mathcal P}\) is
+\(|\mathcal P|\) times any principal cofactor, which proves
+\eqref{eq:cg-quotient-metric}. In an orthonormal chart of the representatives
+the metric \(\mathsf G_{\mathcal P}\otimes I_K\) has determinant
+\((\operatorname{pdet}\mathsf G_{\mathcal P})^K\), which gives
+\eqref{eq:cg-quotient-jacobian}. The kernel hypothesis makes
+\(\Lambda_{\mathrm c}\) positive definite on the quotient, and the two
+normalizers are the Gaussian integrals in the two measures. \(\square\)
+
+\paragraph{Physicist summary.}
+Hard aggregation of a Gaussian network is exact Galerkin restriction: internal
+springs disappear, cut springs and self terms add, and the coarse law is the
+fine law conditioned on zero internal disagreement, equivalently a
+precision-dependent linear pushforward. A twisted internal link leaves a
+residual self term that only a singular weight can hide, and hard aggregation
+of a cluster keeps whatever its connection energy leaves flat. Marginalization
+keeps the hidden normalization and closes only in specific regimes. Independent
+tests at one fixed anchor force common congruence axes; on a fixed flat graph,
+closure for every positive assignment holds exactly when each hidden component
+touches at most two terminals, ground included, so that with a prior on every
+agent, marginalizing a relay between two retained agents generically leaves the
+positive family, while a hidden component hanging on one agent only stiffens
+that agent's anchor. Nonflat degree-two paths and cycles close by composing
+links and covariances with their loop holonomy retained, and anchored ones close
+with new self terms but no canonical link. Branching can produce a proper
+Gaussian whose marginal has no positive two-node presentation, although its
+action is still of M\"obius order two. Relaxation under a frozen metric is an
+exact natural-gradient flow on a fixed-covariance mean family, the
+holonomy-constrained Gaussian parent is the Haar-projected moment match, and
+quotient volumes change raw normalizers without supplying an intrinsic blocking
+scale.

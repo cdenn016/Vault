@@ -27,7 +27,7 @@ $$
 +\mathcal F(\xi).
 $$
 
-The theorem-first revision [[belief-inertia-2026-07-12-theorem-first-revision]] separates the intrinsic Fisher metric $G$, the loss Hessian/local stiffness $H_F$, and the kinetic metric $M$. [[chirco-2022-statistical-bundle-dynamics]], [[pistone-2018-statistical-bundle-lagrangian]], [[leok-zhang-2017-information-geometric-mechanics]], and [[girolami-calderhead-2011-riemann-hmc]] show that probability-space mechanics and information-geometric kinetic choices have substantial precedent. [[martins-2015-opinion-particles]] is the closest direct opinion-particle and harmonic-oscillator predecessor.
+The theorem-first revision of the belief-inertia manuscript (2026-07-12) separates the intrinsic Fisher metric $G$, the loss Hessian/local stiffness $H_F$, and the kinetic metric $M$. [[chirco-2022-statistical-bundle-dynamics]], [[pistone-2018-statistical-bundle-lagrangian]], [[leok-zhang-2017-information-geometric-mechanics]], and [[girolami-calderhead-2011-riemann-hmc]] show that probability-space mechanics and information-geometric kinetic choices have substantial precedent. [[martins-2015-opinion-particles]] is the closest direct opinion-particle and harmonic-oscillator predecessor.
 
 ## Kinetic postulate and spectrum
 
@@ -79,7 +79,6 @@ A force-free kinetic coast can serve as one candidate component of revision late
 
 ## Sources
 
-- [[belief-inertia-2026-07-12-theorem-first-revision]] -- corrected kinetic postulate, coupled momentum, conservativity, and proof-status record.
 - [[martins-2015-opinion-particles]] -- Bayesian-inspired opinion particles with force, inertia, and a harmonic example.
 - [[chirco-2022-statistical-bundle-dynamics]], [[pistone-2018-statistical-bundle-lagrangian]], [[leok-zhang-2017-information-geometric-mechanics]] -- probability-space mechanics precedents.
 - [[girolami-calderhead-2011-riemann-hmc]] -- Fisher/Riemannian kinetic geometry.

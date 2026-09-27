@@ -157,7 +157,7 @@ in one coordinate system is an ordinary gradient step in the other
 > [!note] Editorial (2026-07-09): The Hessian/covariance/Fisher identity supports the
 > Gaussian belief update. It does not identify the frame M-step with Fisher geometry or make
 > Killing conditioning a full-$\mathrm{GL}(K)$ invariant metric; the audited frame table uses
-> plain AdamW, while the configured geometric and heavy-ball fields are inactive. [[gl-k-attention-2026-07-09-review-revision]]
+> plain AdamW, while the configured geometric and heavy-ball fields are inactive.
 
 ## Gaussian beliefs as the working instance
 
@@ -226,7 +226,7 @@ other piece of its machinery is a property of this one structure.
 - **Textbook dual projections.** In a shared-functional exponential-family [[Variational EM]]
   model, E- and M-steps can be read as dual projections. The deployed transformer instead uses
   distinct belief and decode objectives; only the belief update has the established Gaussian
-  Fisher/AIRM geometry. [[gl-k-attention-2026-07-09-review-revision]]
+  Fisher/AIRM geometry.
 - **Attention as an entropy-regularized coupling.** The softmax attention weights arise as the
   stationary point of an entropy-regularized variational problem — the same conjugate-duality template
   that gives belief-propagation fixed points in [[wainwright-2008-graphical-models-variational]].

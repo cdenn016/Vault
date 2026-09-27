@@ -21,7 +21,7 @@ updated: 2026-07-13
 
 ## Position of the gauge-VFE program
 
-The [[SocialPhysics]] project contributes an engineered gauge-covariant consensus energy for distribution-valued beliefs in heterogeneous local frames. Entropy-retaining attention optimization gives a canonical log-partition objective, and the local Gaussian loss Hessian separates into prior, sensory, incoming relational, and outgoing relational or recoil stiffness. The primary dynamics are Fisher--Rao [[Natural gradient|natural-gradient]] flow. [[Belief inertia]] is a conditional kinetic extension, not a consequence of sociophysics, VFE, or the [[Fisher information metric]]. The corrected source is [[belief-inertia-2026-07-12-theorem-first-revision]].
+The [[SocialPhysics]] project contributes an engineered gauge-covariant consensus energy for distribution-valued beliefs in heterogeneous local frames. Entropy-retaining attention optimization gives a canonical log-partition objective, and the local Gaussian loss Hessian separates into prior, sensory, incoming relational, and outgoing relational or recoil stiffness. The primary dynamics are Fisher--Rao [[Natural gradient|natural-gradient]] flow. [[Belief inertia]] is a conditional kinetic extension, not a consequence of sociophysics, VFE, or the [[Fisher information metric]].
 
 The contribution should be compared directly with established opinion and probability mechanics. [[martins-2015-opinion-particles]] already gives Bayesian-inspired opinion particles with inertia and a harmonic example. [[xue-hirche-cao-2020-opinion-port-hamiltonian]] applies port-Hamiltonian methods to controlled opinion networks. [[baumann-sokolov-tyloo-2020-second-order-consensus]] shows network resonance in second-order consensus. [[sampson-porter-restrepo-2025-oscillatory-opinion]] generates self-sustained and excitable opinions through group feedback without the proposed kinetic metric. These comparators make oscillation, resonance, or Hamiltonian terminology non-novel and non-diagnostic by themselves.
 
@@ -41,8 +41,6 @@ The contribution should be compared directly with established opinion and probab
 
 ## Sources
 
-- [[belief-inertia-2026-07-12-theorem-first-revision]] -- revised theorem and claim-status record.
-- [[belief-inertia-2026-07-13-final-verification-addendum]] -- authoritative final-panel reconciliation.
 - [[martins-2015-opinion-particles]] -- direct opinion-particle predecessor.
 - [[nevin-mandell-atak-1983-behavioral-momentum]] -- behavioral resistance-to-disruption comparator.
 - [[xue-hirche-cao-2020-opinion-port-hamiltonian]] -- port-Hamiltonian opinion-network comparator.
@@ -60,4 +58,3 @@ The contribution should be compared directly with established opinion and probab
 - [[Multi-agent variational free energy]]
 - [[Hamiltonian belief dynamics]]
 - [[Gauge-Theoretic Multi-Agent VFE Model]]
-- [[belief-inertia-2026-07-13-final-review-closure]]

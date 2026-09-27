@@ -1,0 +1,265 @@
+% !TeX root = ../PIFB2.tex
+% Replacement for Appendix B, from app:examples to immediately before app:math.
+% Historical labels app:examples and sec:rock_derivations are retained for links.
+\section{Persistence, Hidden Memory, and the Limits of an Inertial Interpretation}
+
+All small-covariance response estimates below hold for uniformly bounded current mean discrepancy from the compared message. A positive-definite quadratic linearization requires a nondegenerate minimum. Metric whitening must preserve the declared retained--hidden split, or the retained variables must be redefined explicitly.
+\label{app:examples}
+
+A persistent object is recognizable through changes in its surroundings. The statistical framework can express several different reasons for such recognition: small response to a disturbance, slow relaxation of an internal coordinate, a long residence time in a basin, or a record channel insensitive to changes elsewhere. These mechanisms have different mathematics. None is, by itself, the acceleration resistance measured by mechanical mass. This appendix derives the first three mechanisms in explicit models and identifies what an inertial extension would still have to supply. The construction is pointwise over a fixed $c_*$ in an overlap of agent domains. It makes no identification of atoms, photons, or macroscopic matter with agents.
+
+\subsection{A sharp belief: exact response and its limitations}
+\label{sec:rock_derivations}
+
+Let $q=\mathcal N(\mu,\Sigma)$ and $p=\mathcal N(\bar\mu,P^{-1})$ on $\mathbb R^d$, with $P\succ0$. A sender supplies a fixed law through the channel
+\begin{equation}
+ z=Lz_j+\epsilon,\qquad L=R_iS_j,\qquad
+ \epsilon\sim\mathcal N(0,D),\qquad D\succ0,
+ \label{eq:persistence_message}
+\end{equation}
+independently of $z_j\sim\mathcal N(\mu_j,\Sigma_j)$. Here $j$ sends to $i$; $L$ may be rectangular or rank deficient. Its received law is $r=\mathcal N(m,C)$, where $m=L\mu_j$, $C=L\Sigma_jL^\top+D\succ0$, and $W=C^{-1}$. The sender, channel, prior, and weight $\beta\ge0$ are held fixed. This is an open single-agent response calculation, not the complete two-agent variational update, which also differentiates sender contributions.
+
+For the explicitly chosen consensus objective
+\begin{equation}
+ \mathcal E_{\rm KL}(q)=D_{\rm KL}(q\|p)+\beta D_{\rm KL}(q\|r),
+ \qquad A=P+\beta W,
+ \label{eq:persistence_KL_objective}
+\end{equation}
+the Gaussian derivatives are
+\begin{equation}
+ \nabla_\mu \mathcal E_{\rm KL}=A\mu-P\bar\mu-\beta Wm,
+ \qquad
+ \nabla_\Sigma \mathcal E_{\rm KL}
+ =\frac12\big[A-(1+\beta)\Sigma^{-1}\big].
+ \label{eq:rock_grad_mu}
+\end{equation}
+The unique minimizer over $\mathbb R^d\times\mathbb S_{++}^d$ is therefore
+\begin{equation}
+ \mu_* = A^{-1}(P\bar\mu+\beta Wm),\qquad
+ \Sigma_*=(1+\beta)A^{-1}.
+ \label{eq:persistence_stationary}
+\end{equation}
+Uniqueness follows directly: the mean term has Hessian $A\succ0$ and the covariance term is $\tfrac12\operatorname{tr}(A\Sigma)-\tfrac12(1+\beta)\log\det\Sigma$ plus a constant, strictly convex on the positive cone.
+
+With the Gaussian Fisher metric and common rate $\eta>0$, the continuous dynamics are
+\begin{equation}
+ \dot\mu=-\eta\Sigma A(\mu-\mu_*),\qquad
+ \dot\Sigma=-\eta\Sigma A\Sigma+\eta(1+\beta)\Sigma.
+ \label{eq:rock_natural_grad_step}
+\end{equation}
+Their covariance evolution is particularly transparent in precision coordinates:
+\begin{equation}
+ \dot\Lambda=\eta[A-(1+\beta)\Lambda],\qquad
+ \Lambda(t)=\Lambda_*+e^{-\eta(1+\beta)t}(\Lambda(0)-\Lambda_*),
+ \quad \Lambda_*=A/(1+\beta).
+ \label{eq:persistence_precision_solution}
+\end{equation}
+For every positive initial covariance this convex combination remains positive at every finite time. Its eigenvalues remain bounded above and away from zero, so the mean equation also has a unique global solution. For $V=\tfrac12(\mu-\mu_*)^\top A(\mu-\mu_*)$,
+\begin{equation}
+ \dot V=-\eta(\mu-\mu_*)^\top A\Sigma A(\mu-\mu_*)<0
+ \quad\hbox{unless }\mu=\mu_*.
+\end{equation}
+The uniform positive lower bound on $\Sigma$ gives exponential convergence. At equilibrium the linearized mean rate is $\eta(1+\beta)$ in every direction; with $\beta=0$, both mean and precision relax at rate $\eta$, independently of prior precision. These are continuous-time results. A covariance Euler step need not preserve positivity; the exact precision update in Eq.~\eqref{eq:persistence_precision_solution} does.
+
+Set $P=\delta^{-1}I$ and let $\delta\downarrow0$, holding $\beta,W$, and $m-\bar\mu$ bounded. Then
+\begin{equation}
+ \mu_* -\bar\mu
+ =\delta\beta(I+\delta\beta W)^{-1}W(m-\bar\mu)=O(\delta),
+ \qquad
+ \delta^{-1}\Sigma_*=(1+\beta)(I+\delta\beta W)^{-1}.
+ \label{eq:rock_inertia}
+\end{equation}
+The mean is resistant to this specified disturbance, whereas the covariance changes by a finite relative factor. At $\Sigma=\delta I$, the coupling contributions to the velocities are
+\begin{align}
+ \dot\mu_{\rm coup}&=-\eta\beta\delta W(\mu-m),\label{eq:rock_back_mu}\\
+ \dot\Sigma_{\rm coup}&=\eta\beta\delta(I-\delta W).
+ \label{eq:rock_back_sigma}
+\end{align}
+The first tends to zero in the mean Fisher norm, but the covariance Fisher speed tends to $\eta\beta\sqrt{d/2}$ when $\beta>0$. A sharply localized belief need not have a slowly advancing full Fisher clock. Small mean motion is insufficient when covariance evolution contributes to the clock.
+
+\paragraph{Why the objective matters.}
+The covariance broadening is caused by the $(1+\beta)$ copies of the receiver's negative entropy in Eq.~\eqref{eq:persistence_KL_objective}. A different, probabilistically specified interaction gives a different prediction. Suppose a registered message $m$ is an observation with Gaussian likelihood $p(m\mid z)=\mathcal N(m;z,(\beta W)^{-1})$, for $\beta>0$, and hold its precision fixed. The ordinary variational free energy for this prior and likelihood is, up to a constant,
+\begin{equation}
+ \mathcal F_V(q)=D_{\rm KL}(q\|p)
+ +\frac\beta2\mathbb E_q[(z-m)^\top W(z-m)].
+ \label{eq:persistence_likelihood_objective}
+\end{equation}
+It has the same optimal mean but $\Sigma_*=A^{-1}$. Consequently
+\begin{equation}
+ \delta^{-1}\Sigma_*-I=-\delta\beta W(I+\delta\beta W)^{-1}=O(\delta).
+\end{equation}
+Both relative covariance change and mean displacement are now small. The two objectives are legitimate different models. Replacing one by the other requires specifying whether the message is a distribution to imitate or a registered datum in a likelihood. A sum of consensus divergences is not automatically the variational free energy of that likelihood model. This distinction is essential before relating back-action to a physical observation.
+
+\subsection{What becomes of hidden internal coordinates?}
+\label{sec:persistence_memory}
+
+Internal coordinates can store information about earlier perturbations even when the full state follows first-order descent. Eliminating them produces memory, a mechanism with a long history in statistical mechanics \cite{Zwanzig1961Memory,Mori1965Transport}. The following finite-dimensional calculation is exact and requires no projection approximation.
+
+Let $x\in\mathbb R^n$ be retained and $y\in\mathbb R^m$ be hidden. Assume the quadratic potential and continuous dynamics
+\begin{equation}
+ F(x,y)=\frac12
+ \begin{pmatrix}x\\y\end{pmatrix}^{\top}
+ H\begin{pmatrix}x\\y\end{pmatrix},\qquad
+ H=\begin{pmatrix}A&B\\B^\top&C\end{pmatrix}\succ0,
+ \qquad
+ \dot x=-Ax-By+f(t),\quad \dot y=-B^\top x-Cy,
+ \label{eq:persistence_full_linear}
+\end{equation}
+where $f$ is continuous, $A,C$ are symmetric, and $t$ is the declared flow parameter. The state space is all of $\mathbb R^{n+m}$ and no boundary conditions are required. Constant positive block mobilities can be reduced to this form by whitening the two coordinate blocks. Thus Eq.~\eqref{eq:persistence_full_linear} also describes the linearization of a smooth Fisher gradient flow at a nondegenerate strict local minimum, in a chart with its equilibrium metric fixed. For a nonquadratic energy this interpretation is local, not an exact global equivalence.
+
+Variation of constants gives
+\begin{equation}
+ y(t)=e^{-Ct}y_0-\int_0^t e^{-C(t-s)}B^\top x(s)ds.
+\end{equation}
+Substitution and integration by parts yield the exact retained equation
+\begin{equation}
+ \dot x(t)+\int_0^t K(t-s)\dot x(s)ds
+ =-Sx(t)+f(t)-Be^{-Ct}r_0,
+ \label{eq:persistence_memory_equation}
+\end{equation}
+where
+\begin{equation}
+ S=A-BC^{-1}B^\top\succ0,\qquad
+ K(u)=Be^{-Cu}C^{-1}B^\top,\qquad
+ r_0=y_0+C^{-1}B^\top x_0.
+ \label{eq:persistence_memory_kernel}
+\end{equation}
+Indeed, differentiating $e^{-C(t-s)}C^{-1}B^\top x(s)$ with respect to $s$ produces both the original convolution and the velocity convolution. The endpoint terms give $BC^{-1}B^\top x(t)$ and the stated initial-condition term. Positivity of $S$ follows by evaluating the positive quadratic form of $H$ at $(x,-C^{-1}B^\top x)$. For every $u\ge0$, $K(u)$ is positive semidefinite; diagonalizing $C$ shows that it is a sum of positive rank-one matrices multiplied by decaying exponentials.
+
+The same algebra also displays the energy retained in the hidden coordinates:
+\begin{equation}
+ F(x,y)=\frac12x^\top Sx
+ +\frac12(y+C^{-1}B^\top x)^\top C(y+C^{-1}B^\top x).
+ \label{eq:persistence_energy_split}
+\end{equation}
+For $f=0$ the full energy obeys $\dot F=-\|\nabla F\|^2$, and the full state converges exponentially to zero. The reduced energy $x^\top Sx/2$ need not decrease: it can increase while stored hidden energy is released. Thus persistent or delayed response after a disturbance does not contradict descent of the complete free energy. It indicates that the retained description has discarded part of the state.
+
+\paragraph{When an instantaneous approximation is controlled.}
+If $C\succeq\gamma I$ with $\gamma>0$, $x\in C^2([0,t])$, and matrix norms are operator norms, then
+\begin{equation}
+ \left\|\int_0^t K(u)\dot x(t-u)du-BC^{-2}B^\top\dot x(t)\right\|
+ \le \frac{\|B\|^2}{\gamma^3}\sup_{0\le s\le t}\|\ddot x(s)\|
+ +\frac{\|B\|^2}{\gamma^2}e^{-\gamma t}\|\dot x(t)\|.
+ \label{eq:persistence_short_memory_bound}
+\end{equation}
+To prove this, subtract $\dot x(t)$ inside the integral, use
+$\|\dot x(t-u)-\dot x(t)\|\le u\sup\|\ddot x\|$, and bound the missing tail from $t$ to infinity. The identities $\int_0^\infty e^{-\gamma u}du=\gamma^{-1}$ and $\int_0^\infty ue^{-\gamma u}du=\gamma^{-2}$ give the two constants. After the initial transient, when this error is small, the leading local equation is
+\begin{equation}
+ (I+BC^{-2}B^\top)\dot x\simeq-Sx+f.
+\end{equation}
+Hidden relaxation therefore contributes positive friction. Small eigenvalues of $C$ invalidate the short-memory approximation and retain a long internal record. The rate separation must be checked; it is not selected by the existence of a free energy.
+
+\subsection{A second-order equation that does not establish mass}
+\label{sec:persistence_second_order}
+
+Take $n=m=1$, $A=a>0$, $C=c>0$, $B=b\ne0$, and $ac>b^2$. For $f\in C^1$, direct differentiation of Eq.~\eqref{eq:persistence_full_linear} gives
+\begin{equation}
+ \ddot x+(a+c)\dot x+(ac-b^2)x=\dot f+cf,
+ \qquad \dot x(0)=-ax_0-by_0+f(0).
+ \label{eq:persistence_apparent_inertia}
+\end{equation}
+This is exactly equivalent to the two-dimensional first-order model: reconstruct
+$y=(-\dot x-ax+f)/b$ and substitute into its equation. The apparent initial velocity is a hidden-state coordinate. The characteristic discriminant is
+\begin{equation}
+ (a+c)^2-4(ac-b^2)=(a-c)^2+4b^2>0,
+\end{equation}
+so both characteristic roots are real and negative. No underdamped mode has been created. Moreover, with zero initial conditions, the response to the original force is
+\begin{equation}
+ \frac{X(s)}{F(s)}=
+ \frac{s+c}{(s+a)(s+c)-b^2}.
+ \label{eq:persistence_transfer}
+\end{equation}
+The numerator is part of the observable response. Replacing $\dot f+cf$ by an unfiltered force gives a different system. At high frequency the response decays as $1/s$, as expected from the original first-order law, rather than as the $1/s^2$ of a directly forced mechanical position with nonzero mass.
+
+There is also a sign warning in a local expansion. The exact inverse response in the matrix case is
+\begin{equation}
+ sI+A-B(sI+C)^{-1}B^\top
+ =S+s(I+BC^{-2}B^\top)-s^2BC^{-3}B^\top+O(s^3),
+ \label{eq:persistence_low_frequency}
+\end{equation}
+valid for $|s|<\lambda_{\min}(C)$. Its first acceleration correction is negative semidefinite. Treating this truncated expansion as a globally valid equation with a positive mass would reverse its sign and lose the original response. Equation~\eqref{eq:persistence_apparent_inertia} and this expansion describe different local presentations of the same memory, not independent derivations of an inertial coefficient.
+
+For a general positive constant mobility $M$ and symmetric positive Hessian $H$, the full drift $-MH$ is similar to $-M^{1/2}HM^{1/2}$. Its eigenvalues are real and negative. Any linear projection has poles only among these full-system poles. Signed sums of relaxations can overshoot, so monotonicity of every observable is not claimed. What is excluded is an underdamped linear mode generated solely by projection of this equilibrium gradient system. Nonreciprocal dynamics, explicit driving, an antisymmetric flow, or a nonequilibrium reference trajectory lie outside that statement.
+
+\subsection{Noise preserves the need for a history law}
+\label{sec:persistence_stochastic_memory}
+
+Add independent standard Brownian motions to the full model, with a declared noise scale $T>0$:
+\begin{equation}
+ dx=-(Ax+By)dt+\sqrt{2T}dW_x,\qquad
+ dy=-(B^\top x+Cy)dt+\sqrt{2T}dW_y.
+ \label{eq:persistence_OU}
+\end{equation}
+This linear stochastic system has a unique global solution. Its stationary covariance is $TH^{-1}$, as follows by substituting it into $H\Sigma+\Sigma H=2TI$, and its explicit exponential solution converges in law to that centered Gaussian. This noise is an additional specification; deterministic free-energy descent alone does not supply it.
+
+Exact elimination gives the semimartingale identity
+\begin{equation}
+ dx_t=\left[-Sx_t-\int_0^t K(t-s)dx_s+\zeta_t\right]dt
+ +\sqrt{2T}dW_x(t),
+ \label{eq:persistence_stochastic_reduction}
+\end{equation}
+where the integral has its usual deterministic-kernel stochastic meaning and
+\begin{equation}
+ \zeta_t=-Be^{-Ct}r_0
+ -\sqrt{2T}B\int_0^t e^{-C(t-s)}dW_y(s).
+\end{equation}
+If $y_0$ is prepared from its equilibrium conditional law given $x_0$, then
+$r_0\sim\mathcal N(0,TC^{-1})$ independently of $x_0$ and the future noises, and
+\begin{equation}
+ \mathbb E[\zeta_t\zeta_s^\top]=TK(|t-s|).
+ \label{eq:persistence_fluctuation_memory}
+\end{equation}
+For $t\ge s$, this follows by adding the initial covariance
+$TBe^{-Ct}C^{-1}e^{-Cs}B^\top$ to the stochastic-integral covariance
+$2TB\int_0^s e^{-C(t-u)}e^{-C(s-u)}duB^\top$.
+Their sum is $TBe^{-C(t-s)}C^{-1}B^\top$. The effective noise and memory are consequently linked; deleting the colored term or replacing it by arbitrary white noise changes the path law. An unprepared initial hidden law also changes the transient noise law.
+
+For a concrete failure of a Markov replacement, choose $a=c=2$ and $b=1$. At equilibrium the scalar retained covariance is
+\begin{equation}
+ C_x(t)=\frac T2\left(e^{-|t|}+\frac13e^{-3|t|}\right).
+ \label{eq:persistence_nonmarkov_covariance}
+\end{equation}
+For a stationary Gaussian scalar Markov process, conditional independence of the future and past given the present requires
+$C_x(t+s)C_x(0)=C_x(t)C_x(s)$ for $s,t\ge0$. This follows by computing the Gaussian conditional covariance. At $s=t>0$, the difference for the displayed law is
+$T^2(e^{-t}-e^{-3t})^2/12>0$. Thus the retained process is not Markov even though its one-time marginal is a perfectly ordinary Gaussian. Enlarging the retained state by $y$ restores the Markov property exactly.
+
+\subsection{Persistence by an energy barrier}
+\label{sec:persistence_metastability}
+
+A second mechanism is long residence in a potential well. To separate this from precision, consider an explicitly supplied one-dimensional potential
+$U(x)=(x^2-1)^2/4$ and the diffusion
+\begin{equation}
+ dX_t=-U'(X_t)dt+\sqrt{2T}dW_t+d\ell_t,
+ \qquad -2\le X_t\le0,
+\end{equation}
+reflected at $-2$ by the boundary local time $\ell_t$ and stopped at the first hit $\tau_0$ of $0$. Smoothness of the drift on this compact interval gives a unique reflected process up to stopping. Its mean exit time $u_T(x)=\mathbb E_x\tau_0$ solves
+$Tu_T''-U'u_T'=-1$, $u_T'(-2)=0$, $u_T(0)=0$. Multiplication by $e^{-U/T}$ and two integrations give
+\begin{equation}
+ u_T(x)=\frac1T\int_x^0e^{U(y)/T}
+ \left(\int_{-2}^{y}e^{-U(z)/T}dz\right)dy.
+ \label{eq:persistence_exit_time}
+\end{equation}
+This positive solution is the mean exit time by the stopped It\^o identity; bounded drift and nonzero diffusion give a positive probability, uniform over starting points, to exit within a fixed time interval, and iteration gives a geometric tail and integrability. At the left well $x=-1$, the inner integral concentrates at $z=-1$ and the outer integral at the boundary maximum $y=0$. Continuity bounds above and below on neighborhoods of these extrema give
+\begin{equation}
+ \lim_{T\downarrow0}T\log u_T(-1)=U(0)-U(-1)=\frac14.
+ \label{eq:persistence_arrhenius}
+\end{equation}
+The polynomial factor $T^{-1}$ does not affect the limit. For an upper bound use $U(y)\le1/4$ and $U(z)\ge0$; for a lower bound restrict $y$ near $0$ and $z$ near $-1$, where the exponent difference is at least $1/4-\epsilon$, then let $\epsilon\downarrow0$. This supplies the logarithmic statement without invoking an asymptotic prefactor. Sharp exit-time laws for more general reversible diffusions require additional landscape assumptions \cite{BovierEtAl2004Metastability}.
+
+A well with a finite deterministic local relaxation rate can therefore have an exponentially long stochastic lifetime. Persistence is governed by a barrier relative to the noise scale, not by a large Fisher precision alone. The potential in this example is supplied. For the agent theory to explain persistence intrinsically, its actual normalized free energy and dynamics must produce the relevant basins, barriers, and disturbance law. A successful example of slow supplied model coordinates establishes storage or delayed relaxation; it does not establish recursive formation of another agent level.
+
+\subsection{The remaining physical question}
+\label{sec:persistence_physical_gap}
+
+These calculations support a modest but constructive reading of objecthood: a retained law or record can be stable because perturbations produce little change, because hidden coordinates preserve a history, or because escape from a basin is rare. A fixed communication kernel may also conceal changes in its null directions. Stability of a record therefore does not alone prove stability of the underlying state. Agreement between several records additionally requires compatible channels and identifiable shared content; products of independent selective links need not telescope to a direct link.
+
+Mechanical inertia requires more. An explicit reversible sector illustrates the missing structure. On coordinates $(x,v)$, choose
+\begin{equation}
+ E=\frac12kx^2+\frac12mv^2,\qquad
+ J=\begin{pmatrix}0&1/m\\-1/m&0\end{pmatrix},\qquad
+ D=\begin{pmatrix}0&0\\0&\gamma/m^2\end{pmatrix},
+ \qquad k,m>0,\quad\gamma\ge0.
+\end{equation}
+The law $\dot z=(J-D)\nabla E$ gives $\dot x=v$, $m\dot v=-kx-\gamma v$, and $\dot E=-\gamma v^2$. The antisymmetric operator generates the reversible position--momentum exchange, while the positive operator dissipates energy. This is a consistent mechanical extension, not a result of specifying $E$ alone. The same scalar energy also permits purely relaxational dynamics with $J=0$.
+
+The minimal unresolved physical obligation is consequently to identify, from the agent dynamics and an operational observation map, a retained position and momentum, the reversible coupling between them, and their calibrated force and time units. One must then show that the reduced joint law reproduces the relevant forced trajectories, not merely a static displacement or a fitted second derivative. Until those steps are supplied, statistical stiffness, internal memory, metastable lifetime, and mechanical mass remain distinct quantities. The next discriminating calculation is the retained response kernel for a concrete coherently formed cluster under a specified perturbation; its poles, forcing map, and noise correlations can decide whether the memory mechanism above suffices or an additional reversible sector is required.

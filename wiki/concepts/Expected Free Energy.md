@@ -199,7 +199,7 @@ constructions. See
 [[VFE Transformer Program]] and the [[Gauge-Theoretic Multi-Agent VFE Model]].
 
 As of 2026-06-28 the EFE functional is operationalized for the *transformer* as well, not only the multi-agent
-setting: [[2026-06-28-active-inference-efe-policy-scorer-spec]] pre-registers a default-off, no-grad EFE policy
+setting: a 2026-06-28 design spec pre-registers a default-off, no-grad EFE policy
 scorer that reranks candidate token continuations by $G(\pi)=\mathrm{KL}[q(o\mid\pi)\|p(o\mid C)]+\mathbb{E}_{q(s\mid\pi)}H[p(o\mid s)]$
 with $Q(\pi)=\mathrm{softmax}(\log E-\gamma G)$, using an explicit *peaked task preference* for $p(o\mid C)$ so the
 risk term is a genuine goal rather than negative log-likelihood. The design records a sharp caveat that the
@@ -208,8 +208,8 @@ identically zero, so the first version is a pragmatic preference-matching rerank
 machinery stays inert until belief-uncertainty enters the rollout (or the $\sigma$ signal passes a pre-registered
 validation gate). Nothing is implemented and no efficacy is claimed.
 
-As of 2026-06-29 that pre-registered $\sigma$-validation gate has been measured, and it FAILed
-([[2026-06-29-sigma-gate-fail-and-collapse]]). On the prior-bank decode checkpoint the belief-covariance trace is
+As of 2026-06-29 that pre-registered $\sigma$-validation gate has been measured, and it FAILed.
+On the prior-bank decode checkpoint the belief-covariance trace is
 *anti-correlated* with realized cross-entropy ($\rho=-0.137$) and near-constant (cv $0.0445$), so $\sigma$ is not a
 usable epistemic signal — the information-gain / ambiguity arm stays inert *empirically*, not only by the $H{=}1$
 scope argument. The cause is structural: the vfe3 belief E-step carries no observation/data-precision term (a

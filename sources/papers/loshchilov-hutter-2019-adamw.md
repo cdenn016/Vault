@@ -1,7 +1,7 @@
 ---
 type: paper
 title: "Decoupled Weight Decay Regularization (AdamW)"
-aliases: ["Loshchilov 2019", "Decoupled Weight Decay Regularization (AdamW)"]
+aliases: ["Loshchilov 2019", "Decoupled Weight Decay Regularization (AdamW)", "Loshchilov2019AdamW"]
 authors: ["Ilya Loshchilov", "Frank Hutter"]
 year: 2019
 arxiv: 1711.05101

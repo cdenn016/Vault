@@ -25,9 +25,9 @@ Prediction error generalizes beyond the input layer: in a hierarchical model eac
 
 ## Why it matters here
 
-The VFE transformer uses precision-weighted mismatch terms in its target-blind Gaussian-belief update and in transported attention coupling. The decoder and other learned parameters are trained by a separate cross-entropy objective, so prediction error is not one shared ELBO currency linking both steps. The attention interpretation is a belief-side routing analogy, not a proof that the one-step filter has converged to a posterior. [[gl-k-attention-2026-07-09-review-revision]]
+The VFE transformer uses precision-weighted mismatch terms in its target-blind Gaussian-belief update and in transported attention coupling. The decoder and other learned parameters are trained by a separate cross-entropy objective, so prediction error is not one shared ELBO currency linking both steps. The attention interpretation is a belief-side routing analogy, not a proof that the one-step filter has converged to a posterior.
 
-> [!note] Editorial (2026-07-09): In `filtering` mode, beliefs receive one target-blind update rather than converging. This is not Neal–Hinton incremental EM because the decode objective is separate. [[gl-k-attention-2026-07-09-review-revision]]
+> [!note] Editorial (2026-07-09): In `filtering` mode, beliefs receive one target-blind update rather than converging. This is not Neal–Hinton incremental EM because the decode objective is separate.
 
 ## Details
 
@@ -39,7 +39,7 @@ i.e. a difference of precision-weighted prediction errors. Gradient descent on `
 
 **Predictive coding.** [[rao-1999-predictive-coding]] introduced this as a cortical model: feedback connections carry predictions `g(mu)`, feedforward connections carry precision-weighted prediction errors `Sigma_x^{-1} e_x`, and dedicated "error units" represent the residual. This is the direct ancestor of the VFE transformer's error-driven belief dynamics and its precision weighting; see [[Predictive coding network]] and the theme [[Variational free energy and predictive coding]]. [[friston-2010-free-energy-principle]] elevates the same arithmetic to a general principle: perception, attention, and action all minimize free energy, and *attention* is precisely the optimization of precision on prediction errors — the inferential reading of [[Precision weighting]].
 
-**Relation to free energy and backprop.** Textbook EM and converged predictive coding retain their source-level results. The deployed transformer instead uses a target-blind belief objective and a separate cross-entropy M-step, so Neal–Hinton monotonicity and exact backprop recovery do not license its one-step filter. [[gl-k-attention-2026-07-09-review-revision]]
+**Relation to free energy and backprop.** Textbook EM and converged predictive coding retain their source-level results. The deployed transformer instead uses a target-blind belief objective and a separate cross-entropy M-step, so Neal–Hinton monotonicity and exact backprop recovery do not license its one-step filter.
 
 **Variants.**
 - *Raw vs. precision-weighted*: the bare residual `e` versus `Pi e`. Only the weighted form is the free-energy gradient.
@@ -53,9 +53,9 @@ i.e. a difference of precision-weighted prediction errors. Gradient descent on `
 
 Prediction error surfaces wherever the model config exposes its inference machinery:
 
-- **E-step / belief updates.** The one-step update is a target-blind natural-gradient filter on its belief objective, not an argmin or coordinate-ascent step on the decode loss. [[gl-k-attention-2026-07-09-review-revision]]
+- **E-step / belief updates.** The one-step update is a target-blind natural-gradient filter on its belief objective, not an argmin or coordinate-ascent step on the decode loss.
 - **Precision-weighted attention.** Attention scores weight inter-token contributions by precision, routing each token's prediction error to the beliefs that should absorb it; this is the architectural realization of [[Precision weighting]] and the precision-optimization-as-attention reading of [[friston-2010-free-energy-principle]]. The kernel-smoother view of attention ([[tsai-2019-kernel-attention]]) and the softmax baseline ([[vaswani-2017-attention]]) are the operations this modifies.
-- **M-step / parameter learning.** Decode and frame parameters minimize the outer cross-entropy by plain AdamW in the audited path; no Fisher/Killing frame natural gradient is established, and the stored heavy-ball/pullback fields are inactive. [[gl-k-attention-2026-07-09-review-revision]]
+- **M-step / parameter learning.** Decode and frame parameters minimize the outer cross-entropy by plain AdamW in the audited path; no Fisher/Killing frame natural gradient is established, and the stored heavy-ball/pullback fields are inactive.
 
 ## Sources
 

@@ -1,0 +1,1220 @@
+\chapter[One Evidence Bound and Local-Collective Free Energy]{One Evidence Bound and\\Local-Collective Free Energy}
+\label{ch:elbo}
+\label{ch:local-collective-elbo}
+
+\Cref{ch:generative} fixed one normalized joint law and \cref{ch:probability}
+one correlated recognition coupling of the whole population. This chapter asks
+what exact relation binds the two, and how the objective of one agent, or of a
+block of agents, is related to that of the population. The answer is one
+extended evidence bound, defined for every probability law on the latent space
+(\cref{def:elbo-extended,thm:elbo-extended-gap}), and the local--global
+potential identity (\cref{thm:obs-local-global-potential}): with the outside
+marginal held fixed, the change of the conditional local free energy of a block
+equals the change of the collective free energy, so the agents' local
+objectives form an exact potential game (\cref{cor:obs-potential-game}). Every
+local object is a disintegration of the one bound through
+\cref{lem:prob-kl-chain-rule}. The bound is the objective of
+\cref{ch:selective-communication,ch:relational-inference,ch:two-timescales},
+and \cref{ch:coarsegraining,ch:full-graph-meta-agent-vfe} transport it along
+evidence-preserving channels.
+
+\paragraph{Scope.}
+The chapter does not claim that a maximizer of the bound over a restricted
+recognition family exists, that the bound is tight for any particular
+restricted family, that the alternating scheme of exact coordinates converges
+(\cref{open:elbo-alternating-convergence}), or that a block of agents together
+with its local free energy is a meta-agent. No criterion internal to one bound
+that selects a recognition structure is known
+(\cref{open:restrict-intrinsic-criterion}). \status{NOT-CLAIMED}
+
+\section{Recognition coupling and total correlation}
+\label{sec:elbo-recognition}
+
+The population recognition law is the coupling
+$\mathbb Q_{V,o,X}\in\operatorname{Cpl}(\mathbb Q_{\bullet,o,X})$ selected by
+\cref{hyp:prob-measurable-coupling-selector}, and every restriction used later
+is a subfamily $\mathcal Q'$ of \cref{prop:restrict-principle}. Its marginals
+do not determine it once two of them are non-Dirac
+(\cref{prop:prob-marginals-do-not-determine-joint}), so they cannot replace it
+in an exact entropy or evidence calculation; the next two statements give the
+error its exact value and sign.
+
+\corollaryheading{Extended total-correlation chain identity}{thm:elbo-total-correlation-chain}
+Let $Y=(Y_j)_{j\in\mathcal J}$ take values in a finite product of standard
+Borel spaces, let $Q$ be a probability law with marginals $Q_j$, and let
+$(\varrho_j)_{j\in\mathcal J}$ be arbitrary probability laws. With the total
+correlation
+\begin{equation}
+\operatorname{TC}(Q):=\KL\Bigl(Q\Bigm\Vert\bigotimes_{j}Q_j\Bigr)\in[0,+\infty],
+\label{eq:obs-total-correlation}
+\end{equation}
+the identity
+\begin{equation}
+\KL\Bigl(Q\Bigm\Vert\bigotimes_j\varrho_j\Bigr)
+=\operatorname{TC}(Q)+\sum_j\KL(Q_j\Vert\varrho_j)
+\label{eq:elbo-total-correlation-chain}
+\end{equation}
+holds in $[0,+\infty]$, including every singular branch. The infinite branch
+occurs for a continuous diagonal: if $U\sim\operatorname{Unif}[0,1]$ and
+$Q=\operatorname{law}(U,U)$, both marginals are uniform and
+$\operatorname{TC}(Q)=+\infty$. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The identity is \eqref{eq:prob-kl-product-reference} of
+\cref{lem:prob-kl-chain-rule} with its first term named. The diagonal is null
+for the uniform law on the square and carries all the mass of $Q$, so $Q$ is
+singular with respect to $Q_1\otimes Q_2$. \hfill$\square$
+
+\propositionheading{Finite-density total correlation and the two signs}{prop:elbo-total-correlation-signs}
+Partition the latent coordinates into blocks $j$, let $\mathbb Q_{V,o,X}$
+have density $q_{V,o,X}$ with respect to $\nu^{\mathsf Y}$ and block marginal
+densities $q_j$, and suppose the joint and block differential entropies are
+finite. Then the total correlation
+$\operatorname{TC}(\mathbb Q_{V,o,X})\geq0$ of the blocks,
+\eqref{eq:obs-total-correlation}, satisfies
+\begin{equation}
+\E_{\mathbb Q_{V,o,X}}\bigl[\log q_{V,o,X}(Y)\bigr]
+=\sum_j\E_{\mathbb Q_{V,o,X}}\bigl[\log q_j(Y_j)\bigr]
++\operatorname{TC}(\mathbb Q_{V,o,X}),
+\label{eq:elbo-entropy-defect}
+\end{equation}
+with equality of the two log-density expectations exactly when the blocks are
+independent. If in addition
+$\E_{\mathbb Q_{V,o,X}}\lvert\log p_{\theta,V}(o,Y\given X)\rvert<\infty$, the
+substituted free energy and its pseudo-ELBO,
+\begin{equation}
+\widetilde\Fenergy
+:=\E_{\mathbb Q_{V,o,X}}\Bigl[-\log p_{\theta,V}(o,Y\given X)
++\sum_j\log q_j(Y_j)\Bigr],
+\qquad
+\widetilde\Lelbo:=-\widetilde\Fenergy,
+\label{eq:elbo-substituted-free-energy}
+\end{equation}
+satisfy
+\begin{equation}
+\widetilde\Fenergy=\Fenergy_V-\operatorname{TC}(\mathbb Q_{V,o,X}),
+\qquad
+\widetilde\Lelbo=\Lelbo_V(\mathbb Q_{V,o,X};X,o)+\operatorname{TC}(\mathbb Q_{V,o,X}),
+\label{eq:elbo-total-correlation-signs}
+\end{equation}
+where $\Lelbo_V$ and $\Fenergy_V$ are the classical functionals of
+\cref{thm:elbo-exact-identity}. The pseudo-ELBO exceeds the ELBO by the total
+correlation and need not bound the log evidence. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Take $\varrho_j=\mathbb Q_{V,o,X,j}$ in
+\cref{thm:elbo-total-correlation-chain}; the entropy hypotheses make every
+term finite and allow the logarithm of $q_{V,o,X}/\prod_jq_j$ to be split,
+which is \eqref{eq:elbo-entropy-defect}. Subtracting
+\eqref{eq:elbo-substituted-free-energy} from
+$\Fenergy_V=\E_{\mathbb Q_{V,o,X}}[-\log p_{\theta,V}+\log q_{V,o,X}]$ leaves
+$\operatorname{TC}$, and negation gives the second identity. \hfill$\square$
+
+\section{Evidence domain}
+\label{sec:elbo-hypotheses}
+
+\hypothesisheading{Evidence-domain hypotheses}{hyp:elbo-evidence-domain}
+\label{hyp:prob-regular-observation}
+\label{hyp:prob-classical-split-elbo}
+The extended bound of \cref{sec:elbo-identity} uses (H1)--(H2); its classical
+split into two expected log densities also uses (H3)--(H4).
+
+\textbf{(H1) Types and version.} The joint
+$\mathbb P_{\theta,V}(\cdot\given X)$ of \cref{ch:generative} has the density
+$p_{\theta,V}(o,y\given X)$ relative to its reference, and
+$\boldsymbol\Pi_{\theta,V,o,X}$ is the version \eqref{eq:prob-rcp-density} on
+the regular set $\mathsf O^{\mathrm{reg}}_{\theta,V,X}$ of
+\cref{hyp:prob-regular-conditional-convention}, so every posterior and bound
+below holds for $\mathbb P^{\mathsf O}_{\theta,V,X}$-almost every $o$. A
+comparison of finitely many parameter values uses an observation in the
+intersection of their regular sets. No density of the recognition law is
+required.
+
+\textbf{(H2) Positive finite evidence.}
+$0<p_{\theta,V}(o\given X)<\infty$; this excludes the observations at which
+the posterior formula would divide by zero or by infinity.
+
+\textbf{(H3) Absolute continuity.}
+$\mathbb Q_{V,o,X}\ll\boldsymbol\Pi_{\theta,V,o,X}$. Since the posterior is
+dominated by $\nu^{\mathsf Y}$, the recognition law then has a density
+$q_{V,o,X}=d\mathbb Q_{V,o,X}/d\nu^{\mathsf Y}$, with a jointly measurable
+version for parameterized kernels under
+\cref{thm:prob-kernel-rn-measurable-version,cor:prob-common-reference-joint-density}.
+Clause (H3) excludes every recognition law that charges a posterior-null set;
+such a law lies on the singular branch of the extended bound, where the bound
+equals $-\infty$ (\cref{prop:elbo-subspace-support-singular}).
+
+\textbf{(H4) Log-integrability.} The generative and recognition halves
+\begin{align}
+&\E_{\mathbb Q_{V,o,X}}\bigl\lvert\log p_{\theta,V}(o,Y\given X)\bigr\rvert<\infty,
+\label{eq:elbo-log-integrability}\\
+&\E_{\mathbb Q_{V,o,X}}\bigl\lvert\log q_{V,o,X}(Y)\bigr\rvert<\infty,
+\label{eq:prob-integrability}
+\end{align}
+both hold. Clause (H4) excludes recognition laws whose tails make the two
+classical expectations individually infinite. It is not implied by
+(H1)--(H3), and the extended bound is well defined without it;
+\cref{prop:elbo-integrability-witnesses} gives a Cauchy witness whose formal
+difference is $-\infty$ and a countable witness whose two expectations are
+both $-\infty$.
+
+\propositionheading{Posterior-null support has infinite cost}{prop:elbo-subspace-support-singular}
+Let $Q$ be a probability law on the latent space with $Q(S)=1$ and
+$\boldsymbol\Pi_{\theta,V,o,X}(S)=0$ for some measurable $S$. Then (H3) fails
+for $Q$, $\KL(Q\Vert\boldsymbol\Pi_{\theta,V,o,X})=+\infty$, and
+$\Lelbo^{\mathrm{ext}}_V(Q;X,o)=-\infty$. In particular this holds when the
+posterior is dominated by Lebesgue measure on $\R^d$ and $Q$ is supported on a
+proper affine subspace. A proper closed support alone does not suffice: the
+uniform law on $[0,\tfrac12]$ has divergence $\log2$ from the uniform law on
+$[0,1]$. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The first claims are the null-set clause of
+\cref{prop:prob-density-absolute-continuity} and
+\eqref{eq:elbo-extended-definition}. A proper affine subspace is Lebesgue
+null, and the uniform law on $[0,\tfrac12]$ has density $2$ on its support
+relative to the uniform law on $[0,1]$. \hfill$\square$
+
+\section{The extended evidence bound and its record presentation}
+\label{sec:elbo-identity}
+\label{sec:local-interaction-record-model}
+\label{sec:local-collective-vfe}
+
+\hypothesisheading{Agent state and interaction records}{hyp:local-interaction-kernels}
+Agent $i$ has a block space $(\mathsf Y_i,\mathscr Y_i)$, and
+$(\mathsf Y,\mathscr Y)=\prod_{i\in V}(\mathsf Y_i,\mathscr Y_i)$. The block may
+contain auxiliary latent variables and law points of $(\mathcal E_b)_{c_*}$ and
+$(\mathcal E_m)_{c_*}$, which are then latent coordinates at the law-point or
+configuration level of \cref{def:prob-description-levels}, not the recognition
+marginal of agent $i$. The baseline is the latent population kernel
+$\mathbb P^{\mathsf Y}_{\theta,V}:(\mathsf X,\mathscr X)\rightsquigarrow(\mathsf Y,\mathscr Y)$
+of \cref{cons:gen-finite-directed-law}. Each record $a\in\mathfrak A$ occurs
+once and has a finite scope $\partial a\subseteq V$, a record space
+$(\mathsf O_a,\mathscr O_a)$, and a record kernel $K_a$ of the type
+\eqref{eq:prob-record-kernel-signature}, all of whose values
+$K_a(X,y_{\partial a},\cdot)$ are dominated by one $\sigma$-finite measure
+$\nu_a$ with a jointly measurable negative log density $E_{a,o}$ in
+$(-\infty,+\infty]$,
+\begin{equation}
+K_a(X,y_{\partial a},do_a)=e^{-E_{a,o}(X,y_{\partial a})}\nu_a(do_a),
+\label{eq:obs-interaction-density}
+\end{equation}
+where $E_{a,o}$ depends on $o$ only through $o_a$. A record shared by agents
+$i$ and $j$ is one element of $\mathfrak A$, and writing both $E_{ij}$ and
+$E_{ji}$ asserts two directed records. Binary success records
+$K_a(y_{\partial a},\{1\})=e^{-E(y_{\partial a})}$ with measurable
+$E:\mathsf Y_{\partial a}\to[0,+\infty]$ are admitted. The kernels and
+$\mathbb P^{\mathsf Y}_{\theta,V}$ read neither a recognition law, a
+variational parameter, nor a posterior (\cref{req:gen-typing-prohibition}),
+and under a common vertex gauge the coordinate presentation of each $K_a$ is
+equivariant under the simultaneous change of the incident frames, as in
+\eqref{eq:gen-gauge-record-kernel}, so the kernel itself is frame independent.
+The hypothesis excludes record families without a common dominating measure
+(\cref{open:prob-nondominated-likelihood}) and every generative factor that
+reads recognition.
+
+Correlated baseline states are permitted; a graph-local Markov blanket needs in
+addition the corresponding locality of the regular conditionals of
+$\mathbb P^{\mathsf Y}_{\theta,V}$. Frame independence can be realized by giving
+record $a$ its own frame and a link $\Theta^x_{a\leftarrow i}$ on each leg, so
+that the density reads $\rho_x(\Theta^x_{a\leftarrow i})y^x_i$; comparing the
+belief and model channels still requires the cross morphisms of
+\cref{sec:geo-cross-morphisms}. From here on one $X\in\mathsf X$ is fixed and
+suppressed from $K_a$, $E_{a,o}$ and $\mathbb P^{\mathsf Y}_{\theta,V}$.
+
+\definitionheading{Record likelihood, slice measure, and extended bound}{def:elbo-extended}
+\label{thm:obs-collective-vfe}
+Assume \cref{hyp:local-interaction-kernels} and (H1)--(H2), and fix
+$o\in\mathsf O^{\mathrm{reg}}_{\theta,V,X}$. The record likelihood and the
+interaction energy are
+\begin{align}
+L_o(y)&:=\prod_{a\in\mathfrak A}e^{-E_{a,o}(y_{\partial a})}\in[0,+\infty),
+\label{eq:obs-complete-record-likelihood}\\
+H_o(y)&:=-\log L_o(y)=\sum_{a\in\mathfrak A}E_{a,o}(y_{\partial a})
+\in(-\infty,+\infty];
+\label{eq:obs-interaction-energy}
+\end{align}
+$H_o$ has one term for each record, never equals $-\infty$ because each factor
+density is finite, and can be negative. With $\nu^{\mathsf O}=\bigotimes_a\nu_a$
+the joint, normalized on every finite record hypergraph, cyclic or not, by
+\cref{prop:gen-exact-normalization}, is
+\begin{equation}
+\mathbb P_{\theta,V}(dy,do\given X)
+=\mathbb P^{\mathsf Y}_{\theta,V}(dy)\prod_{a\in\mathfrak A}K_a(y_{\partial a},do_a)
+=\mathbb P^{\mathsf Y}_{\theta,V}(dy)L_o(y)\nu^{\mathsf O}(do).
+\label{eq:obs-interaction-joint}
+\end{equation}
+The evidence and the posterior slice are
+\begin{align}
+p_{\theta,V}(o\given X)&=\int_{\mathsf Y}L_o(y)\mathbb P^{\mathsf Y}_{\theta,V}(dy)\in(0,+\infty),
+\label{eq:obs-global-evidence}\\
+\boldsymbol\Pi_{\theta,V,o,X}(dy)&=p_{\theta,V}(o\given X)^{-1}L_o(y)\mathbb P^{\mathsf Y}_{\theta,V}(dy),
+\label{eq:obs-global-posterior}
+\end{align}
+and the slice measure is
+\begin{equation}
+M_{\theta,V,o,X}(S):=\int_Sp_{\theta,V}(o,y\given X)\nu^{\mathsf Y}(dy)
+=\int_SL_o(y)\mathbb P^{\mathsf Y}_{\theta,V}(dy)
+=p_{\theta,V}(o\given X)\boldsymbol\Pi_{\theta,V,o,X}(S).
+\label{eq:elbo-slice-measure}
+\end{equation}
+For every probability law $Q$ on $(\mathsf Y,\mathscr Y)$ the extended ELBO and
+free energy, which are well-defined extended reals because
+$\log p_{\theta,V}(o\given X)$ is finite and relative entropy lies in
+$[0,+\infty]$, are
+\begin{align}
+\Lelbo_V^{\mathrm{ext}}(Q;X,o)&:=\log p_{\theta,V}(o\given X)
+-\KL\bigl(Q\Vert\boldsymbol\Pi_{\theta,V,o,X}\bigr)
+\in\bigl[-\infty,\log p_{\theta,V}(o\given X)\bigr],
+\label{eq:elbo-extended-definition}\\
+\Fenergy_V^{\mathrm{ext}}[Q;X,o]&:=-\Lelbo_V^{\mathrm{ext}}(Q;X,o)
+=-\log p_{\theta,V}(o\given X)+\KL\bigl(Q\Vert\boldsymbol\Pi_{\theta,V,o,X}\bigr),
+\label{eq:elbo-extended-free-energy}
+\intertext{and with $\theta$, $V$ and $X$ fixed the collective free energy is written}
+\Fenergy^{\mathrm{ext}}_o(Q)&:=-\Lelbo^{\mathrm{ext}}_o(Q):=\Fenergy_V^{\mathrm{ext}}[Q;X,o].
+\label{eq:obs-collective-vfe}
+\end{align}
+No domination, density, or mean-field condition on $Q$ enters.
+
+\corollaryheading{Extended gap identity and energy form}{thm:elbo-extended-gap}
+For every probability law $Q$ on the latent space,
+\begin{equation}
+\log p_{\theta,V}(o\given X)-\Lelbo_V^{\mathrm{ext}}(Q;X,o)
+=\Fenergy_V^{\mathrm{ext}}[Q;X,o]+\log p_{\theta,V}(o\given X)
+=\KL\bigl(Q\Vert\boldsymbol\Pi_{\theta,V,o,X}\bigr),
+\label{eq:elbo-extended-gap}
+\end{equation}
+so $\Lelbo_V^{\mathrm{ext}}\leq\log p_{\theta,V}(o\given X)$ with equality
+exactly when $Q=\boldsymbol\Pi_{\theta,V,o,X}$ as measures. If moreover
+$Q\ll\mathbb P^{\mathsf Y}_{\theta,V}$,
+$\KL(Q\Vert\mathbb P^{\mathsf Y}_{\theta,V})<\infty$, and the negative part of
+$H_o$ is $Q$-integrable, then
+\begin{equation}
+\Fenergy^{\mathrm{ext}}_o(Q)=\KL\bigl(Q\Vert\mathbb P^{\mathsf Y}_{\theta,V}\bigr)+\E_QH_o
+\quad\text{in }(-\infty,+\infty].
+\label{eq:obs-collective-energy-form}
+\end{equation}
+No formula $\log p_{\theta,V}=\Lelbo_V^{\mathrm{ext}}+\KL$ is asserted on the
+singular branch, where it would read $-\infty+\infty$. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The gap identity adds or subtracts the finite number
+$\log p_{\theta,V}(o\given X)$ in
+\eqref{eq:elbo-extended-definition}--\eqref{eq:elbo-extended-free-energy}, and
+the equality case is the zero case of relative entropy. For the energy form
+let $r'=dQ/d\mathbb P^{\mathsf Y}_{\theta,V}$. If $Q\ll M_{\theta,V,o,X}$, then
+$dQ/dM_{\theta,V,o,X}=r'e^{H_o}$ $Q$-almost surely, and
+\cref{prop:elbo-relative-log-representation} gives
+$\Fenergy^{\mathrm{ext}}_o(Q)=\int(\log r'+H_o)dQ$; the first term integrates
+to the finite $\KL(Q\Vert\mathbb P^{\mathsf Y}_{\theta,V})$ and the second is
+quasi-integrable, so the integral splits. If $Q\not\ll M_{\theta,V,o,X}$, some
+set null for $M_{\theta,V,o,X}$ has positive $Q$-mass; since
+$M_{\theta,V,o,X}$ and $\mathbb P^{\mathsf Y}_{\theta,V}$ agree in null sets on
+$\{L_o>0\}$ and $Q\ll\mathbb P^{\mathsf Y}_{\theta,V}$, that mass lies in
+$\{H_o=+\infty\}$, and both sides equal $+\infty$. \hfill$\square$
+
+\theoremheading{Classical finite evidence identity}{thm:elbo-exact-identity}
+\label{cor:elbo-bound-tightness}
+Under \cref{hyp:elbo-evidence-domain}, the extended bound has the separately
+integrable representation
+\begin{align}
+\Lelbo_V(\mathbb Q_{V,o,X};X,o)
+&:=\E_{\mathbb Q_{V,o,X}}\bigl[\log p_{\theta,V}(o,Y\given X)-\log q_{V,o,X}(Y)\bigr]
+=\Lelbo_V^{\mathrm{ext}}(\mathbb Q_{V,o,X};X,o),
+\label{eq:elbo-definition}\\
+\Fenergy_V[\mathbb Q_{V,o,X};X,o]&:=-\Lelbo_V(\mathbb Q_{V,o,X};X,o),
+\label{eq:elbo-free-energy}
+\end{align}
+and for $\mathbb P^{\mathsf O}_{\theta,V,X}$-almost every observation
+\begin{equation}
+\log p_{\theta,V}(o\given X)=\Lelbo_V(\mathbb Q_{V,o,X};X,o)
++\KL\bigl(\mathbb Q_{V,o,X}\Vert\boldsymbol\Pi_{\theta,V,o,X}\bigr).
+\label{eq:elbo-identity}
+\end{equation}
+Consequently $\Lelbo_V\leq\log p_{\theta,V}(o\given X)$, with equality if and
+only if $\mathbb Q_{V,o,X}=\boldsymbol\Pi_{\theta,V,o,X}$ as probability
+measures on $(\mathsf Y,\mathscr Y)$. Equality of all coordinate marginals is
+not sufficient. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The posterior and the slice measure have the same null sets, so (H3) gives
+$\mathbb Q_{V,o,X}\ll M_{\theta,V,o,X}$, and since the two measures have the
+densities $q_{V,o,X}$ and $p_{\theta,V}(o,\cdot\given X)$ relative to
+$\nu^{\mathsf Y}$, $d\mathbb Q_{V,o,X}/dM_{\theta,V,o,X}=q_{V,o,X}/p_{\theta,V}(o,\cdot\given X)$
+$\mathbb Q_{V,o,X}$-almost surely.
+\Cref{prop:elbo-relative-log-representation} gives
+$\Lelbo_V^{\mathrm{ext}}=-\int\log(q_{V,o,X}/p_{\theta,V}(o,\cdot\given X))d\mathbb Q_{V,o,X}$,
+and (H4) splits the integral, which is \eqref{eq:elbo-definition}. The bound is
+then finite, so \eqref{eq:elbo-extended-definition} rearranges to
+\eqref{eq:elbo-identity}, and the equality case is that of
+\cref{thm:elbo-extended-gap}. Distinct measures with equal coordinate marginals
+are supplied by \cref{prop:prob-marginals-do-not-determine-joint}.
+\hfill$\square$
+
+\section{Restriction principle}
+\label{sec:restrict-principle}
+
+\propositionheading{Restriction principle}{prop:restrict-principle}
+Fix $(\theta,X)$ and $o$ as in \cref{def:elbo-extended}, and write
+$P^\star=\boldsymbol\Pi_{\theta,V,o,X}$, so that for every law $Q$
+\begin{equation}
+\Lelbo_V^{\mathrm{ext}}(Q;X,o)=\log p_{\theta,V}(o\given X)-\KL(Q\Vert P^\star).
+\label{eq:restrict-exact-identity}
+\end{equation}
+For arbitrary sets of probability laws $\mathcal Q'\subseteq\mathcal Q$,
+\begin{equation}
+\sup_{Q\in\mathcal Q'}\Lelbo_V^{\mathrm{ext}}(Q;X,o)
+=\log p_{\theta,V}(o\given X)-\inf_{Q\in\mathcal Q'}\KL(Q\Vert P^\star),
+\label{eq:restrict-sup-identity}
+\end{equation}
+the supremum over $\mathcal Q'$ is at most the supremum over $\mathcal Q$, and
+when both infima are finite
+\begin{equation}
+\sup_{\mathcal Q}\Lelbo_V^{\mathrm{ext}}-\sup_{\mathcal Q'}\Lelbo_V^{\mathrm{ext}}
+=\inf_{\mathcal Q'}\KL(Q\Vert P^\star)-\inf_{\mathcal Q}\KL(Q\Vert P^\star)\geq0.
+\label{eq:restrict-loss}
+\end{equation}
+No attainment of the suprema or infima is required. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Identity \eqref{eq:restrict-exact-identity} is
+\eqref{eq:elbo-extended-definition}. Taking suprema turns a finite constant
+minus a nonnegative extended divergence into that constant minus its infimum,
+including the value $-\infty$. Inclusion gives monotonicity, and subtraction is
+legitimate only when both infima are finite. \hfill$\square$
+
+The evidence in \eqref{eq:restrict-exact-identity} is constant because the
+generative kernel does not read $Q$ (\cref{req:gen-typing-prohibition}); the
+next two propositions show what fails when a model moves with $Q$.
+
+\remarkheading{Orientation, separation, and attainment}{rem:restrict-attainment}
+The infimum in \eqref{eq:restrict-sup-identity} is a reverse information
+projection, since $Q$ is the first argument of the divergence. Excluding
+$P^\star$ from a family does not make the optimum positive or attained: for
+$P^\star=\mathcal N(0,1)$ the family $\{\mathcal N(\mu,1):\mu>0\}$ has gaps
+$\mu^2/2$ with unattained infimum zero. A positive optimized gap is the
+condition $\inf_{Q\in\mathcal Q}\KL(Q\Vert P^\star)>0$. A family constrained to
+product laws need not be convex, because mixtures of product laws need not be
+product laws. Strict convexity of relative entropy on the ambient law space
+therefore does not establish uniqueness on that family; on a convex feasible
+family it does give at most one finite minimizer. \status{ESTABLISHED}
+
+\propositionheading{No distinguished target}{prop:gen-no-distinguished-target}
+Let $\mathcal Q$ be a nonempty family of recognition laws, and replace one
+factor of \eqref{eq:gen-composition} by a nonconstant $Q$-indexed family, giving
+a normalized joint $P_{\theta,Q}$ for each $Q\in\mathcal Q$. Assume at the
+observation that $0<p_{\theta,Q}(o\given X)<\infty$, that
+$Q\ll P_{\theta,Q}(\cdot\given o,X)$, and that the log densities defining the
+ELBO are integrable. Then for each fixed $Q$
+\begin{equation}
+\log p_{\theta,Q}(o\given X)=\Lelbo(Q;X)
++\KL\bigl(Q\Vert P_{\theta,Q}(\cdot\given o,X)\bigr),
+\label{eq:gen-moving-target}
+\end{equation}
+and with $\mathsf e(Q)=\log p_{\theta,Q}(o\given X)$ two members satisfy
+\begin{equation}
+\Lelbo(Q';X)-\Lelbo(Q;X)
+=\mathsf e(Q')-\mathsf e(Q)
+-\bigl[\KL\bigl(Q'\Vert P_{\theta,Q'}(\cdot\given o,X)\bigr)
+-\KL\bigl(Q\Vert P_{\theta,Q}(\cdot\given o,X)\bigr)\bigr].
+\label{eq:gen-elbo-difference}
+\end{equation}
+On a level set of $\mathsf e$ the change of the bound is the negative change of
+the divergence; off it the two changes differ by $\mathsf e(Q')-\mathsf e(Q)$.
+The family selects no joint as the model. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Apply \cref{thm:elbo-exact-identity} to each fixed pair $(Q,P_{\theta,Q})$ and
+subtract. No member is distinguished because no selection rule was declared.
+\hfill$\square$
+
+\propositionheading{The stronger consequences fail}{prop:gen-moving-target-witness}
+Nonconstant dependence of $P_{\theta,Q}$ on $Q$ does not imply that $\mathsf e$
+varies, that no ascent improves a fixed quantity, or that no single member's
+evidence bounds the family of bounds. Explicitly, for one binary latent $y$, one
+binary observation, and $Q_{\mathrm p}=\operatorname{Ber}(\mathrm p)$ with
+$\mathrm p\in(0,1)$, the joint
+\begin{equation}
+P_{\theta,Q_{\mathrm p}}(o,y\given X)=\tfrac12\operatorname{Ber}\bigl(\tfrac12\mathrm p+\tfrac14\bigr)(y)
+\label{eq:gen-moving-target-witness}
+\end{equation}
+is normalized and injective in $\mathrm p$, has $\mathsf e(Q_{\mathrm p})=\log\tfrac12$
+for every $\mathrm p$, and has gaps
+\begin{equation}
+\tfrac9{10}\log\tfrac97+\tfrac1{10}\log\tfrac13=0.1163218\ldots,
+\qquad
+\tfrac7{10}\log\tfrac76+\tfrac3{10}\log\tfrac34=0.0216009\ldots,
+\qquad
+0
+\label{eq:gen-moving-target-values}
+\end{equation}
+at $\mathrm p=\tfrac9{10},\tfrac7{10},\tfrac12$. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The observation marginal is $\tfrac12$ for every $\mathrm p$, and the posterior
+is $\operatorname{Ber}(\tfrac12\mathrm p+\tfrac14)$, so the gaps are the
+Bernoulli relative entropies displayed. The bound increases to the fixed
+evidence along the three values, and the member at $\mathrm p=\tfrac12$ has
+evidence equal to the supremum of the bounds. \hfill$\square$
+
+\propositionheading{ELBO values do not order unrelated joints}{prop:restrict-unrelated-joint-elbo}
+Let $P_\theta$ and $P_{\theta'}$ be normalized joints over the same observation,
+possibly with different latent inventories, with recognition families
+$\mathcal Q$ and $\mathcal Q'$ on their latent spaces, and let $o$ lie in the
+regular set of each. Suppose both infima of the posterior relative entropy
+over the respective recognition families are finite. If no evidence-preserving
+channel relates the two joints, their optimized bounds satisfy
+\begin{equation}
+\Lelbo^\star-\Lelbo'^\star
+=\bigl[\log p_\theta(o\given X)-\log p_{\theta'}(o\given X)\bigr]
+-\Bigl[\inf_{\mathcal Q}\KL-\inf_{\mathcal Q'}\KL\Bigr],
+\label{eq:restrict-cross-model}
+\end{equation}
+which combines an evidence difference, a model-comparison quantity, with a
+tightness difference, a recognition-quality quantity. The sign of the left side
+orders neither the models nor the recognition families: with binary $O$ and $Y$,
+constants $\mathrm c_1\leq0\leq\mathrm c_2$, and the normalized joints
+$P(o,1)=e^{\mathrm c_1-\mathrm c_2}$, $P(o,0)=e^{\mathrm c_1}(1-e^{-\mathrm c_2})$,
+$P(\bar o,0)=1-e^{\mathrm c_1}$, $P(\bar o,1)=0$ under the singleton family
+$\{\delta_1\}$, the pairs $(\mathrm c_1,\mathrm c_2)=(-1,0),(0,2)$ give bounds
+$-1>-2$ with the reverse evidence order, and the pairs $(0,1),(-2,0)$ give bounds
+$-1>-2$ with the reverse tightness order. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Apply \eqref{eq:restrict-sup-identity} to each model and subtract. In the
+witness, $\log P(O=o)=\mathrm c_1$ and $P(Y=1\given o)=e^{-\mathrm c_2}$, so the
+minimized gap of $\{\delta_1\}$ is $\mathrm c_2$ and the optimized bound is
+$\mathrm c_1-\mathrm c_2$. An unused deterministic coordinate appended to either
+model, with its point mass appended to the recognition law, makes the latent
+inventories literally different and changes no evidence, divergence, or bound.
+\hfill$\square$
+
+\openproblemheading{An intrinsic criterion}{open:restrict-intrinsic-criterion}
+No criterion internal to one evidence bound at a fixed model is known that
+selects a nondegenerate recognition structure. Along nested recognition
+families the optimized bound is monotone by inclusion
+(\cref{prop:restrict-principle}), so minimizing the gap selects the largest
+family; an arbitrary replacement joint supplies no common evidence
+(\cref{prop:restrict-unrelated-joint-elbo}); and evidence-preserving channels,
+which do order bounds across latent spaces, do so without selecting a
+nondegenerate partition (\cref{sec:cg-elbo}). The problem is settled
+positively by a functional on admissible channels or partitions, expressible
+relative to one fixed joint and not monotone toward an endpoint, whose
+optimizer is nondegenerate, and negatively by a proof of endpoint degeneracy
+for a precisely stated class of such functionals.
+
+\section{The factorwise decomposition}
+\label{sec:elbo-factorization}
+
+\propositionheading{Exact factorwise decomposition}{prop:elbo-factorwise-decomposition}
+\label{hyp:elbo-factorwise-integrability}
+Assume (H1)--(H3) of \cref{hyp:elbo-evidence-domain} and factorwise
+log-integrability: the absolute logarithm of every component density of
+\eqref{eq:gen-density} and every record energy $E_{a,o}$ is
+$\mathbb Q_{V,o,X}$-integrable. Then (i) the generative half
+\eqref{eq:elbo-log-integrability} of (H4) holds, and (H4) holds exactly when the
+recognition half \eqref{eq:prob-integrability} does; (ii) under (H4) the free
+energy has exactly one decomposition into factor terms,
+\begin{align}
+\Fenergy_V[\mathbb Q_{V,o,X};X,o]
+={}&\sum_{i\in V}\E_{\mathbb Q_{V,o,X}}\bigl[-\log p^m_{\theta,i}(m_i\given m_{\operatorname{pa}(i)},X)\bigr]
++\sum_{i\in V}\E_{\mathbb Q_{V,o,X}}\bigl[-\log p^k_{\theta,i}(k_i\given k_{\operatorname{pa}(i)},m_i,X)\bigr]
+\notag\\
+&+\sum_{a\in\mathfrak A}\E_{\mathbb Q_{V,o,X}}\bigl[E_{a,o}(Y_{\partial a})\bigr]
++\E_{\mathbb Q_{V,o,X}}\bigl[\log q_{V,o,X}(Y)\bigr],
+\label{eq:elbo-factorization}
+\end{align}
+with $\operatorname{pa}(i)=\varnothing$ at the roots, $2N+|\mathfrak A|$
+generative factors, and a final term that is one full-joint recognition log
+density, not a sum of marginal entropies; (iii) factorwise integrability does
+not imply the recognition half, and the generative half does not imply
+factorwise integrability. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+By \eqref{eq:gen-density} and \cref{hyp:local-interaction-kernels},
+\begin{equation}
+\log p_{\theta,V}(o,y\given X)
+=\sum_{i\in V}\bigl[\log p^m_{\theta,i}(m_i\given m_{\operatorname{pa}(i)},X)
++\log p^k_{\theta,i}(k_i\given k_{\operatorname{pa}(i)},m_i,X)\bigr]
+-\sum_{a\in\mathfrak A}E_{a,o}(y_{\partial a}),
+\label{eq:elbo-audit}
+\end{equation}
+a finite sum, so the triangle inequality gives (i). Under (H4), taking
+$\mathbb Q_{V,o,X}$-expectations of the negative of \eqref{eq:elbo-audit}
+term by term and adding $\E_{\mathbb Q_{V,o,X}}[\log q_{V,o,X}]$ gives
+\eqref{eq:elbo-factorization} from \eqref{eq:elbo-definition}. For (iii),
+\cref{sec:app-integrability-witnesses} gives a model with bounded factor
+logarithms whose recognition density has an infinite mean logarithm, and a
+root law $\mathrm c/(m(\log m)^2)$ whose state bridge cancels its logarithm, so
+that the complete log joint is integrable while one factor is not.
+\hfill$\square$
+
+\section{Observations as interaction records}
+\label{sec:local-observation-equivalence}
+
+\definitionheading{Operational environment node}{def:obs-operational-environment-node}
+An operational environment node is a standard Borel state space with a
+normalized state law and a measurable message kernel.
+
+\theoremheading{Observation--interaction kernel equivalence}{thm:obs-agent-interaction-equivalence}
+Every normalized observation kernel $K(do\given y)$ from a measurable space to a
+standard Borel space is the message of an operational environment node: there
+are $U\sim\operatorname{Unif}[0,1]$ and a measurable map $F$ such that
+\begin{equation}
+O=F(Y,U),
+\qquad
+\Pr\bigl(F(y,U)\in A\bigr)=K(A\given y).
+\label{eq:obs-randomization}
+\end{equation}
+Conversely, marginalizing any environment state and message policy produces a
+normalized observation kernel. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The forward direction is the randomization lemma for kernels
+\citep{Kallenberg2021}. By Kuratowski's theorem a standard Borel space admits a
+Borel isomorphism $\phi$ onto a Borel subset of $\R$. The function
+$G(y,x)=K(\phi^{-1}(-\infty,x]\given y)$ is measurable in $y$ and a
+distribution function in $x$, so the quantile
+$F_0(y,u)=\inf\{x:G(y,x)\geq u\}$ on $(0,1)$ satisfies
+$\{F_0\leq x\}=\{(y,u):u\leq G(y,x)\}$; hence $F_0$ is jointly measurable and
+$\Pr(F_0(y,U)\leq x)=G(y,x)$. The value $F_0(y,U)$ lies in the image of $\phi$
+almost surely; setting $F=\phi^{-1}\circ F_0$ there and a fixed point elsewhere
+gives \eqref{eq:obs-randomization}. Conversely, a state law
+$\varrho_{\mathrm{env}}(du)$ and a message policy
+$\kappa_{\mathrm{env}}(y,u,A)$ give
+$K(A\given y)=\int\kappa_{\mathrm{env}}(y,u,A)\varrho_{\mathrm{env}}(du)$, which
+is measurable in $y$, countably additive in $A$, and normalized.
+\hfill$\square$
+
+\propositionheading{Conditioning information and retained statistics}{prop:obs-conditioning-information}
+Let $(Y,O)$ have joint law $P$ on standard Borel spaces with marginals $P^Y$ and
+$P^O$, let $I(Y;O)=\KL(P\Vert P^Y\otimes P^O)$, and for a measurable statistic
+$S=T(O)$ let $I(Y;O\given S)=\int\KL(P_{Y,O\given s}\Vert P_{Y\given s}\otimes P_{O\given s})P^S(ds)$.
+The information carried by the record is
+\begin{equation}
+I(Y;O)=\int\KL\bigl(P(dY\given o)\Vert P^Y\bigr)P^O(do)\in[0,+\infty].
+\label{eq:obs-conditioning-information}
+\end{equation}
+Moreover
+\begin{equation}
+I(Y;O)=I(Y;S)+I(Y;O\given S)
+\quad\text{in }[0,+\infty],
+\label{eq:obs-conditioning-statistic-chain}
+\end{equation}
+so replacing $O$ by $S$ leaves the posterior unchanged exactly when
+$I(Y;O\given S)=0$, up to the choice of conditional versions. Deleting the record
+makes $S$ constant and returns the prior; for
+$Y\sim\operatorname{Ber}(1/2)$ and $O=Y$, $I(Y;O)=\log2$ and
+$P(dY\given O=o)=\delta_o$. A kernel that does not depend on $y$ carries zero
+information. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Disintegrating $\KL(P\Vert P^Y\otimes P^O)$ over $O$ with
+\cref{lem:prob-kl-chain-rule}, whose $O$-marginals agree, gives
+\eqref{eq:obs-conditioning-information}. Since $o\mapsto(T(o),o)$ is a
+bimeasurable bijection onto its graph, relative entropy is unchanged by passing
+to $(Y,S,O)$ \eqref{eq:cg-kl-bimeasurable-invariance}. Disintegrating
+$\KL(P_{Y,S,O}\Vert P^Y\otimes P_{S,O})$ over $(Y,S)$ gives
+$I(Y;S)+\E_{P_{Y,S}}\KL(P_{O\given Y,S}\Vert P_{O\given S})$, because under the
+reference $O$ is independent of $Y$ given $S$ with law $P_{O\given S}$; for
+each $s$, disintegrating
+$\KL(P_{Y,O\given s}\Vert P_{Y\given s}\otimes P_{O\given s})$ over $Y$ and
+integrating in $s$ identifies the second term with $I(Y;O\given S)$, which
+proves \eqref{eq:obs-conditioning-statistic-chain}; the discrete case is
+\citet[Sec.~2.5]{CoverThomas2006}. Posterior sufficiency is the vanishing of
+the conditional term, the Bernoulli values are direct, and a $y$-independent
+kernel makes $P=P^Y\otimes P^O$. \hfill$\square$
+
+\remarkheading{Environment nodes in the variational problem}{rem:obs-environment-fiber}
+\Cref{thm:obs-agent-interaction-equivalence} is exact for the joint law of
+$(Y,O)$, and it keeps the record variable $O$ and hence the conditioning
+$\sigma$-algebra $\sigma(O)$, but it is not exact for a variational problem
+over the enlarged state $(Y,U)$. For
+$P^O$-almost every $o$ the posterior of $(Y,U)$ is concentrated on the level set
+$\{F(y,u)=o\}$. For $Y\sim\mathcal N(0,1)$ and
+$F(y,u)=y+F_{\mathcal N}^{-1}(u)$, with $F_{\mathcal N}$ the standard normal
+distribution function, which realizes $K(do\given y)=\mathcal N(y,1)$, that
+level set is the Lebesgue-null curve $\{u=F_{\mathcal N}(o-y)\}$, so every
+recognition law on $(Y,U)$ with a Lebesgue density has relative entropy
+$+\infty$ by \cref{prop:elbo-subspace-support-singular}, whereas the
+fiber-restricted law $q(dy)\delta_{F_{\mathcal N}(o-y)}(du)$, the image of $q$
+under the injective map $y\mapsto(y,F_{\mathcal N}(o-y))$ that also carries the
+posterior of $Y$ to that of $(Y,U)$, has relative entropy
+$\KL(q\Vert P(dY\given o))$. A finite variational problem therefore integrates
+$U$ out or restricts recognition to that fiber. \status{ESTABLISHED}
+
+\section{Local conditional free energy and the potential identity}
+\label{sec:local-conditional-vfe}
+
+Fix a nonempty block $B\subseteq V$, one agent or any aggregate, and write
+$y=(y_B,y_{-B})$; the probability model does not change with $B$.
+
+\lemmaheading{Block disintegration of the posterior}{lem:obs-block-posterior}
+Let $\mathfrak A_B=\{a\in\mathfrak A:\partial a\cap B\ne\varnothing\}$ and define
+the incident and outside likelihoods and energies
+\begin{align}
+L_{B,o}(y_B;y_{-B})&=\prod_{a\in\mathfrak A_B}e^{-E_{a,o}(y_{\partial a})},
+&L_{\bar B,o}(y_{-B})&=\prod_{a\notin\mathfrak A_B}e^{-E_{a,o}(y_{\partial a})},
+\label{eq:obs-block-incident-likelihood}\\
+H_{B,o}(y_B;y_{-B})&=-\log L_{B,o}=\sum_{a\in\mathfrak A_B}E_{a,o}(y_{\partial a}),
+&H_{\bar B,o}(y_{-B})&=-\log L_{\bar B,o}(y_{-B}),
+\label{eq:obs-block-incident-energy}
+\end{align}
+so that $L_o=L_{B,o}L_{\bar B,o}$ and $H_o=H_{B,o}+H_{\bar B,o}$ in
+$(-\infty,+\infty]$. Fix a measurable version of the baseline disintegration
+\begin{equation}
+\mathbb P^{\mathsf Y}_{\theta,V}(dy_B,dy_{-B})
+=\mathbb P^{\mathsf Y}_{\theta,V,-B}(dy_{-B})\mathbb P^{\mathsf Y}_{\theta,V,B}(dy_B\given y_{-B}),
+\label{eq:obs-baseline-block-disintegration}
+\end{equation}
+and define the local evidence and the likelihood of the outside state,
+\begin{align}
+Z_B(y_{-B})&=\int L_{B,o}(y_B;y_{-B})\mathbb P^{\mathsf Y}_{\theta,V,B}(dy_B\given y_{-B}),
+\label{eq:obs-local-evidence}\\
+\widetilde L_{B,o}(y_{-B})&=\int L_o(y_B,y_{-B})\mathbb P^{\mathsf Y}_{\theta,V,B}(dy_B\given y_{-B}).
+\label{eq:obs-full-complement-likelihood}
+\end{align}
+Then (i) the evidence and the outside posterior marginal are
+\begin{equation}
+p_{\theta,V}(o\given X)=\int\widetilde L_{B,o}d\mathbb P^{\mathsf Y}_{\theta,V,-B},
+\qquad
+\boldsymbol\Pi_{\theta,V,o,X,-B}(dy_{-B})
+=p_{\theta,V}(o\given X)^{-1}\widetilde L_{B,o}(y_{-B})\mathbb P^{\mathsf Y}_{\theta,V,-B}(dy_{-B});
+\label{eq:obs-posterior-outside}
+\end{equation}
+(ii) the set $\Omega_{B,o}$ of outside states at which
+$0<\widetilde L_{B,o}<\infty$, $0<L_{\bar B,o}<\infty$, $0<Z_B<\infty$, and
+$\widetilde L_{B,o}=L_{\bar B,o}Z_B$ has $\boldsymbol\Pi_{\theta,V,o,X,-B}$-measure
+one, though it need not be $\mathbb P^{\mathsf Y}_{\theta,V,-B}$-full; (iii) the
+kernel
+\begin{equation}
+\boldsymbol\Pi_{\theta,V,o,X,B}(dy_B\given y_{-B})
+=Z_B(y_{-B})^{-1}L_{B,o}(y_B;y_{-B})\mathbb P^{\mathsf Y}_{\theta,V,B}(dy_B\given y_{-B})
+\qquad(y_{-B}\in\Omega_{B,o}),
+\label{eq:obs-local-posterior}
+\end{equation}
+extended by any measurable probability kernel off $\Omega_{B,o}$, satisfies
+\begin{equation}
+\boldsymbol\Pi_{\theta,V,o,X}(dy_B,dy_{-B})
+=\boldsymbol\Pi_{\theta,V,o,X,-B}(dy_{-B})\boldsymbol\Pi_{\theta,V,o,X,B}(dy_B\given y_{-B}).
+\label{eq:obs-posterior-block-disintegration}
+\end{equation}
+The posterior determines this kernel, and every pointwise local quantity built
+from it, only $\boldsymbol\Pi_{\theta,V,o,X,-B}$-almost everywhere; two baseline
+versions give local posteriors that agree there. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Tonelli's theorem applied to
+\eqref{eq:obs-global-evidence}--\eqref{eq:obs-global-posterior} with
+\eqref{eq:obs-baseline-block-disintegration} gives (i); defining $\widetilde L_{B,o}$ directly avoids the product
+$L_{\bar B,o}Z_B$, which can be $0\cdot\infty$ off $\Omega_{B,o}$. For (ii),
+finite evidence makes $\widetilde L_{B,o}<\infty$ off a
+$\mathbb P^{\mathsf Y}_{\theta,V,-B}$-null set, and by (i) the outside posterior
+charges only $\{\widetilde L_{B,o}>0\}$. There $L_{\bar B,o}$ is finite because
+each factor density is, positive because $L_{\bar B,o}=0$ would force
+$\widetilde L_{B,o}=0$, and independent of $y_B$, so it leaves the conditional
+integral and $Z_B=\widetilde L_{B,o}/L_{\bar B,o}\in(0,\infty)$. For (iii), a
+bounded measurable $f$ has
+$\int fd\boldsymbol\Pi_{\theta,V,o,X}
+=p_{\theta,V}(o\given X)^{-1}\int L_{\bar B,o}\int fL_{B,o}d\mathbb P^{\mathsf Y}_{\theta,V,B}d\mathbb P^{\mathsf Y}_{\theta,V,-B}$,
+and on $\Omega_{B,o}$ the inner integral is $Z_B$ times the integral of $f$
+against \eqref{eq:obs-local-posterior}; (i) and (ii) turn the outer weight into
+$\boldsymbol\Pi_{\theta,V,o,X,-B}$. Almost-everywhere uniqueness is uniqueness
+of disintegrations; two baseline versions agree
+$\mathbb P^{\mathsf Y}_{\theta,V,-B}$-almost everywhere, hence
+$\boldsymbol\Pi_{\theta,V,o,X,-B}$-almost everywhere by (i). \hfill$\square$
+
+\definitionheading{Local conditional free energy}{thm:obs-local-multiagent-elbo}
+For $y_{-B}\in\Omega_{B,o}$ and every probability law $r_B(\cdot\given y_{-B})$
+on $\mathsf Y_B$, the local conditional ELBO and free energy of the block are
+\begin{equation}
+\Fenergy^{\mathrm{ext}}_{B,o}(r_B;y_{-B}):=-\Lelbo^{\mathrm{ext}}_{B,o}(r_B;y_{-B})
+:=-\log Z_B(y_{-B})
++\KL\bigl(r_B(\cdot\given y_{-B})\Vert\boldsymbol\Pi_{\theta,V,o,X,B}(\cdot\given y_{-B})\bigr).
+\label{eq:obs-local-vfe}
+\end{equation}
+For $B=\{i\}$ this is the local free energy of agent $i$. It contains every
+record incident to the block and no other.
+
+\corollaryheading{Local Gibbs bound and the exact block E-coordinate}{prop:elbo-exact-e-coordinate}
+(i) $\Lelbo^{\mathrm{ext}}_{B,o}(r_B;y_{-B})\leq\log Z_B(y_{-B})$, with
+equality exactly at $r_B=\boldsymbol\Pi_{\theta,V,o,X,B}(\cdot\given y_{-B})$.
+If $r_B\ll\mathbb P^{\mathsf Y}_{\theta,V,B}(\cdot\given y_{-B})$ with finite
+relative entropy and the negative part of $H_{B,o}(\cdot;y_{-B})$ is
+$r_B$-integrable,
+\begin{equation}
+\Fenergy^{\mathrm{ext}}_{B,o}(r_B;y_{-B})
+=\KL\bigl(r_B(\cdot\given y_{-B})\Vert\mathbb P^{\mathsf Y}_{\theta,V,B}(\cdot\given y_{-B})\bigr)
++\E_{r_B(\cdot\given y_{-B})}H_{B,o}(Y_B;y_{-B}).
+\label{eq:obs-local-energy-form}
+\end{equation}
+
+(ii) If $Q(dy_B,dy_{-B})=Q_{-B}(dy_{-B})r_B(dy_B\given y_{-B})$ and
+$Q_{-B}\ll\boldsymbol\Pi_{\theta,V,o,X,-B}$, then in $[0,+\infty]$, with the
+baseline conditional of \eqref{eq:obs-baseline-block-disintegration} in the
+second identity,
+\begin{align}
+\KL\bigl(Q\Vert\boldsymbol\Pi_{\theta,V,o,X}\bigr)
+&=\KL\bigl(Q_{-B}\Vert\boldsymbol\Pi_{\theta,V,o,X,-B}\bigr)
++\E_{Q_{-B}}\KL\bigl(r_B(\cdot\given Y_{-B})\Vert\boldsymbol\Pi_{\theta,V,o,X,B}(\cdot\given Y_{-B})\bigr),
+\label{eq:obs-posterior-block-kl-chain}\\
+\KL\bigl(Q\Vert\mathbb P^{\mathsf Y}_{\theta,V}\bigr)
+&=\KL\bigl(Q_{-B}\Vert\mathbb P^{\mathsf Y}_{\theta,V,-B}\bigr)
++\E_{Q_{-B}}\KL\bigl(r_B(\cdot\given Y_{-B})\Vert\mathbb P^{\mathsf Y}_{\theta,V,B}(\cdot\given Y_{-B})\bigr).
+\label{eq:obs-block-kl-chain}
+\end{align}
+
+(iii) Let $\mathcal B$ be any block of latent coordinates with complement
+$-\mathcal B$, let $P_-$ be the $-\mathcal B$ marginal of
+$P=\boldsymbol\Pi_{\theta,V,o,X}$, let $R$ be any law on the $-\mathcal B$
+coordinates, and let $\kappa_{\mathcal B}(dY_{\mathcal B}\given Y_{-\mathcal B})$
+be a Markov kernel that agrees $P_-$-almost everywhere with a regular
+conditional law of $P$ (for an agent block, \eqref{eq:obs-local-posterior}).
+Among all laws with $-\mathcal B$ marginal $R$, the divergence from $P$ has
+minimum $\KL(R\Vert P_-)\in[0,+\infty]$, attained by
+\begin{equation}
+\mathbb Q^{\mathrm{new}}_{V,o,X}(dY_{\mathcal B},dY_{-\mathcal B})
+=\kappa_{\mathcal B}(dY_{\mathcal B}\given Y_{-\mathcal B})R(dY_{-\mathcal B}),
+\label{eq:elbo-e-coordinate}
+\end{equation}
+which therefore maximizes $\Lelbo_V^{\mathrm{ext}}$ on that class. The minimizer
+is unique when $\KL(R\Vert P_-)<\infty$; otherwise every law in the class has
+extended bound $-\infty$. If the minimum is finite and
+\begin{equation}
+\E_{\mathbb Q^{\mathrm{new}}_{V,o,X}}\bigl[\lvert\log p_{\theta,V}(o,Y\given X)\rvert
++\lvert\log q^{\mathrm{new}}_{V,o,X}(Y)\rvert\bigr]<\infty,
+\label{eq:elbo-e-coordinate-h4}
+\end{equation}
+the new law satisfies (H3)--(H4) and maximizes the classical $\Lelbo_V$ among
+the laws with marginal $R$ that satisfy \cref{hyp:elbo-evidence-domain}.
+Finite complement relative entropy does not imply \eqref{eq:elbo-e-coordinate-h4}.
+
+(iv) If $\Fenergy^{\mathrm{ext}}_o(Q)<\infty$ for $Q=Q_{-B}r_B$, then for
+$\mathrm w\in[0,1]$ the damped kernel
+$r_B^{\mathrm w}=(1-\mathrm w)r_B+\mathrm w\boldsymbol\Pi_{\theta,V,o,X,B}$
+satisfies
+\begin{equation}
+\Fenergy^{\mathrm{ext}}_o(Q_{-B}r_B^{\mathrm w})
+\leq(1-\mathrm w)\Fenergy^{\mathrm{ext}}_o(Q)
++\mathrm w\Fenergy^{\mathrm{ext}}_o(Q_{-B}\boldsymbol\Pi_{\theta,V,o,X,B})
+\leq\Fenergy^{\mathrm{ext}}_o(Q),
+\label{eq:obs-damped-block-update}
+\end{equation}
+so replacing $r_B$ by the local posterior with $Q_{-B}$ fixed does not increase
+$\Fenergy^{\mathrm{ext}}_o$. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+For (i), the conditional model with reference
+$\mathbb P^{\mathsf Y}_{\theta,V,B}(\cdot\given y_{-B})$ and likelihood
+$L_{B,o}(\cdot;y_{-B})$ has evidence $Z_B(y_{-B})\in(0,\infty)$ and posterior
+\eqref{eq:obs-local-posterior}, and \cref{thm:elbo-extended-gap} applies to it.
+Part (ii) is \cref{lem:prob-kl-chain-rule} with the disintegrations
+\eqref{eq:obs-posterior-block-disintegration} and
+\eqref{eq:obs-baseline-block-disintegration}. For (iii), the fixed-marginal
+clause of \cref{lem:prob-kl-chain-rule}, with the $-\mathcal B$ coordinates
+first, gives the minimum $\KL(R\Vert P_-)$, the minimizer
+\eqref{eq:elbo-e-coordinate}, and uniqueness when the minimum is finite; then
+$R\ll P_-$, the completion of $\kappa_{\mathcal B}$ off a $P_-$-null set is
+irrelevant, and $d\mathbb Q^{\mathrm{new}}_{V,o,X}/dP=(dR/dP_-)(Y_{-\mathcal B})$.
+When the minimum is infinite, the data-processing clause
+\eqref{eq:cg-kl-dpi-extended} applied to the projection makes every divergence
+in the class infinite. \Cref{def:elbo-extended} converts divergence into the
+extended bound, and \cref{thm:elbo-exact-identity} gives the classical
+statement. The countable witness of \cref{sec:app-integrability-witnesses} has
+$R=P_-$ and fails \eqref{eq:elbo-e-coordinate-h4}. For (iv), finiteness makes
+$Q_{-B}\ll\boldsymbol\Pi_{\theta,V,o,X,-B}$ by data processing, and
+\eqref{eq:obs-posterior-block-kl-chain} leaves the outside term unchanged; the
+exact replacement sets the conditional term to zero, and convexity of relative
+entropy in its first argument, applied for each $y_{-B}$, gives
+\eqref{eq:obs-damped-block-update}. \hfill$\square$
+
+The exact full E-step is case (iii) with $\mathcal B$ equal to all
+coordinates; a coordinate that optimizes inside a product family does not have
+the form \eqref{eq:elbo-e-coordinate} and leaves the gap of
+\cref{prop:restrict-principle}. By (iv) a sequential sweep of exact or damped
+block updates does not increase the collective free energy; replacing the
+conditionals of several correlated blocks at once is not covered, because each
+replacement changes the outside marginal of the others.
+
+\theoremheading{Exact local--global potential identity}{thm:obs-local-global-potential}
+Let $Q=Q_{-B}r_B$ and $Q'=Q_{-B}r'_B$ have the same outside marginal with
+$Q_{-B}\ll\boldsymbol\Pi_{\theta,V,o,X,-B}$, and suppose both have finite
+divergence from $\boldsymbol\Pi_{\theta,V,o,X}$. Then
+\begin{equation}
+\Fenergy^{\mathrm{ext}}_o(Q')-\Fenergy^{\mathrm{ext}}_o(Q)
+=\E_{Q_{-B}}\bigl[\Fenergy^{\mathrm{ext}}_{B,o}(r'_B;Y_{-B})
+-\Fenergy^{\mathrm{ext}}_{B,o}(r_B;Y_{-B})\bigr].
+\label{eq:obs-local-global-potential}
+\end{equation}
+When in addition every baseline relative entropy and the positive and negative
+parts of the energies are integrable,
+\begin{equation}
+\Fenergy^{\mathrm{ext}}_o(Q)
+=\KL\bigl(Q_{-B}\Vert\mathbb P^{\mathsf Y}_{\theta,V,-B}\bigr)
++\E_{Q_{-B}}\bigl[H_{\bar B,o}(Y_{-B})+\Fenergy^{\mathrm{ext}}_{B,o}(r_B;Y_{-B})\bigr].
+\label{eq:obs-local-global-decomposition}
+\end{equation}
+Every exact local update is thus a coordinate update of the collective free
+energy. The fixed outside marginal is load bearing. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Apply \eqref{eq:obs-posterior-block-kl-chain} to both laws. The finite
+divergences make both conditional terms integrable, the outside terms agree,
+the constant $-\log p_{\theta,V}(o\given X)$ cancels, and so does
+$-\log Z_B(Y_{-B})$ inside the two local functionals. The decomposition follows
+from \eqref{eq:obs-block-kl-chain}, \eqref{eq:obs-local-energy-form}, and
+\eqref{eq:obs-collective-energy-form}. \hfill$\square$
+
+\corollaryheading{Exact potential game}{cor:obs-potential-game}
+Let the blocks be singletons and choose a nonempty strategy set $\mathcal R_i$
+for each agent. Suppose every profile $(r_i)\in\prod_{i\in V}\mathcal R_i$
+defines a product recognition law $Q=\bigotimes_{i\in V}r_i$ with
+$\KL(Q\Vert\boldsymbol\Pi_{\theta,V,o,X})<\infty$ and
+$\E_{Q_{-i}}\lvert\log Z_{\{i\}}(Y_{-i})\rvert<\infty$ for every $i$, where
+$Q_{-i}=\bigotimes_{j\ne i}r_j$. The outside-averaged local free energy
+\begin{equation}
+\overline\Fenergy_i(r_i;r_{-i}):=\E_{Q_{-i}}\Fenergy^{\mathrm{ext}}_{\{i\},o}(r_i;Y_{-i})
+\label{eq:obs-outside-averaged-local-vfe}
+\end{equation}
+is finite, and between two such profiles that differ only in $r_i$ it changes by
+exactly the change of $\Fenergy^{\mathrm{ext}}_o$. The players $V$, strategy sets
+$\mathcal R_i$, and costs $\overline\Fenergy_i$ therefore form an exact potential game
+with potential $\Fenergy^{\mathrm{ext}}_o$ in the sense of
+\citet[Sec.~2]{MondererShapley1996}, written for costs instead of payoffs.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Finite divergence gives $Q_{-i}\ll\boldsymbol\Pi_{\theta,V,o,X,-i}$ by data
+processing, and \eqref{eq:obs-posterior-block-kl-chain} makes the averaged
+conditional divergence finite; with the hypothesis on $\log Z_{\{i\}}$ this
+makes \eqref{eq:obs-outside-averaged-local-vfe} finite. A unilateral change
+leaves $Q_{-i}$ fixed, and \cref{thm:obs-local-global-potential} with
+$B=\{i\}$ gives the equality of changes. \hfill$\square$
+
+\Cref{fig:obs-local-global-potential} shows which records enter a block
+potential; block-gradient dynamics are in \cref{sec:local-natural-gradient}.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[>=stealth,scale=0.85,every node/.style={transform shape}]
+  \node[draw,circle,fill=lightblue,minimum size=0.85cm] (a1) at (0,1.5) {$1$};
+  \node[draw,circle,fill=lightblue,minimum size=0.85cm] (a2) at (2.1,2.3) {$2$};
+  \node[draw,circle,fill=lightgreen,minimum size=0.85cm] (a3) at (4.2,1.5) {$3$};
+  \node[draw,circle,fill=lightgreen,minimum size=0.85cm] (a4) at (5.2,-0.2) {$4$};
+  \node[draw,circle,fill=lightblue,minimum size=0.85cm] (a5) at (1.2,-0.5) {$5$};
+  \node[draw,rectangle,fill=lightorange,minimum size=0.52cm] (f12) at (1.05,1.9) {$o_{a}$};
+  \node[draw,rectangle,fill=lightorange,minimum size=0.52cm] (f235) at (2.65,0.45) {$o_{a'}$};
+  \node[draw,rectangle,fill=lightorange,minimum size=0.52cm] (f34) at (4.7,0.65) {$o_{a''}$};
+  \draw (a1)--(f12)--(a2);
+  \draw (a2)--(f235)--(a3);
+  \draw (a5)--(f235);
+  \draw (a3)--(f34)--(a4);
+  \draw[rounded corners,very thick,sciencegreen]
+    (3.55,2.15) rectangle (5.75,-0.85);
+  \node[text=sciencegreen] at (4.65,2.48) {block $B=\{3,4\}$};
+  \draw[->,very thick,primaryblue] (6.05,0.65)--(7.35,0.65);
+  \node[align=center,draw,rounded corners,fill=lightblue,text width=3.5cm]
+    at (9.25,0.65)
+    {$\Delta\Fenergy_o^{\rm ext}
+      =\E_{Q_{-B}}\Delta\Fenergy_{B,o}^{\rm ext}$\\
+     incident records: $o_{a'},o_{a''}$};
+\end{tikzpicture}
+\caption{A block-local free energy contains every record incident to the block:
+$o_{a'}$ crosses the boundary and enters the block conditional, while $o_a$ lies
+outside and cancels.}
+\label{fig:obs-local-global-potential}
+\end{figure}
+
+\section{Additive accounting}
+\label{sec:local-additive-accounting}
+
+The local free energies of \cref{thm:obs-local-multiagent-elbo} are coordinate
+potentials of the collective free energy, not shares of it; an additive
+single-count ledger is a different construction.
+
+\corollaryheading{Correlated ledger and incident overcounting}{cor:obs-correlated-ledger}
+Suppose $\mathbb P^{\mathsf Y}_{\theta,V}=\bigotimes_{i\in V}\varrho_i$ and let
+$Q$ be any law on the latent space. Then (i) in $[0,+\infty]$,
+\begin{equation}
+\KL\bigl(Q\Vert\mathbb P^{\mathsf Y}_{\theta,V}\bigr)
+=\operatorname{TC}(Q)+\sum_i\KL(Q_i\Vert\varrho_i);
+\label{eq:obs-correlated-complexity-ledger}
+\end{equation}
+(ii) whenever \eqref{eq:obs-collective-energy-form} holds,
+\begin{equation}
+\Fenergy^{\mathrm{ext}}_o(Q)
+=\operatorname{TC}(Q)+\sum_i\KL(Q_i\Vert\varrho_i)
++\E_Q\Bigl[\sum_{a\in\mathfrak A}E_{a,o}(Y_{\partial a})\Bigr],
+\label{eq:obs-global-ledger}
+\end{equation}
+in which each record appears once and $\operatorname{TC}(Q)=0$ exactly when $Q$
+is a product law, so mean field is a special case of the ledger and not a
+premise of it; (iii) if every record has a nonempty scope, the singleton
+incident energies satisfy, pointwise in $(-\infty,+\infty]$,
+\begin{equation}
+H_{\{i\},o}(y_i;y_{-i})=\sum_{a:i\in\partial a}E_{a,o}(y_{\partial a}),
+\qquad
+\sum_{i\in V}H_{\{i\},o}(y_i;y_{-i})=\sum_{a\in\mathfrak A}\lvert\partial a\rvert E_{a,o}(y_{\partial a}),
+\label{eq:obs-singleton-incident-counting}
+\end{equation}
+so the singleton local free energies count each record $\lvert\partial a\rvert$
+times and are not the single-count ledger; (iv) this is a statement about these
+local free energies, not a bar to additive decompositions: iterating
+\cref{lem:prob-kl-chain-rule} along any ordering of $V$ writes
+$\KL(Q\Vert\boldsymbol\Pi_{\theta,V,o,X})$ as one term per agent, each
+conditioned on the agents before it. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Part (i) is \cref{thm:elbo-total-correlation-chain} with
+$\varrho_j=\varrho_i$, and (ii) substitutes it into
+\eqref{eq:obs-collective-energy-form}. For (iii), every $E_{a,o}$ lies in
+$(-\infty,+\infty]$ and both index sets are finite, so the rearrangement is
+valid pointwise. Part (iv) is repeated application of the chain rule, peeling
+one agent at a time. \hfill$\square$
+
+The same chain rule accounts for link values once they are latent; the
+interaction graph itself stays structural (\cref{sec:intro-conventions}).
+
+\propositionheading{Collective free energy with random link values}{prop:elbo-random-link-vfe}
+Let the link family $\Theta=(\Theta^x_e)$ on the edge copies of $\mathfrak I$ be
+a latent variable with values in a standard Borel space $\mathscr T$. Let
+$\nu^{\mathscr T}$ be a probability law on $\mathscr T$, let
+$\mathscr S:\mathscr T\to(-\infty,+\infty]$ be a measurable action with
+$0<Z_{\mathscr S}=\int e^{-\mathscr S}d\nu^{\mathscr T}<\infty$, and let the link
+prior be $Z_{\mathscr S}^{-1}e^{-\mathscr S}\nu^{\mathscr T}$. For each $\Theta$
+let the record model of \cref{hyp:local-interaction-kernels} with links $\Theta$
+have evidence $p(o\given\Theta)\in(0,\infty)$, measurable in $\Theta$, posterior
+$\boldsymbol\Pi_\Theta$, and free energy
+$\Fenergy_{\mathrm{matter}}(Q_\Theta;o,\Theta)=-\log p(o\given\Theta)+\KL(Q_\Theta\Vert\boldsymbol\Pi_\Theta)$,
+and assume the joint evidence
+$p(o)=\int p(o\given\Theta)Z_{\mathscr S}^{-1}e^{-\mathscr S(\Theta)}\nu^{\mathscr T}(d\Theta)$
+is finite. For a recognition law $Q(d\Theta,dy)=R(d\Theta)Q_\Theta(dy)$ with
+$\KL(R\Vert\nu^{\mathscr T})<\infty$ and $\E_R\lvert\mathscr S\rvert<\infty$, the
+extended free energy of the joint model is
+\begin{equation}
+\Fenergy=\E_R\Fenergy_{\mathrm{matter}}(Q_\Theta;o,\Theta)+\E_R\mathscr S
++\KL(R\Vert\nu^{\mathscr T})+\log Z_{\mathscr S}
+\quad\text{in }(-\infty,+\infty].
+\label{eq:rg-geometry-random-link-vfe}
+\end{equation}
+Omitting the link entropy term or the normalizer changes the free energy; when
+the links are structural parameters instead of latent variables, only
+$\Fenergy_{\mathrm{matter}}$ appears. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The posterior of the joint model has conditional law $\boldsymbol\Pi_\Theta$
+given $\Theta$ and link marginal
+$\boldsymbol\Pi^{\mathscr T}(d\Theta)
+=p(o)^{-1}p(o\given\Theta)Z_{\mathscr S}^{-1}e^{-\mathscr S(\Theta)}\nu^{\mathscr T}(d\Theta)$,
+so the chain rule
+\eqref{eq:elbo-kl-chain-rule} gives
+$\KL(Q\Vert\boldsymbol\Pi)=\KL(R\Vert\boldsymbol\Pi^{\mathscr T})+\E_R\KL(Q_\Theta\Vert\boldsymbol\Pi_\Theta)$
+in $[0,+\infty]$, with a measurable integrand. Since
+$\E_R\lvert\mathscr S\rvert<\infty$, $R$ charges no set where
+$\mathscr S=+\infty$, so $R\ll\boldsymbol\Pi^{\mathscr T}$ and
+$\log(dR/d\boldsymbol\Pi^{\mathscr T})=\log(dR/d\nu^{\mathscr T})+\mathscr S+\log Z_{\mathscr S}
+-\log p(o\given\Theta)+\log p(o)$. The first two terms are $R$-integrable, and so
+is the positive part $f$ of $\log p(o\given\cdot)$: for $f_n=\min(f,n)$, the
+nonnegative divergence from the law proportional to $e^{f_n}$ times the prior
+gives $\E_Rf_n\leq\KL(R\Vert Z_{\mathscr S}^{-1}e^{-\mathscr S}\nu^{\mathscr T})+\log(1+p(o))$,
+and that divergence equals
+$\KL(R\Vert\nu^{\mathscr T})+\E_R\mathscr S+\log Z_{\mathscr S}$. Integrating
+term by term and adding the conditional term, whose integrand is nonnegative,
+turns $\Fenergy=-\log p(o)+\KL(Q\Vert\boldsymbol\Pi)$ into
+\eqref{eq:rg-geometry-random-link-vfe}; every summand has an integrable negative
+part, so no difference of infinities occurs. \hfill$\square$
+
+\section{Model coordinates and accepted updates}
+\label{sec:elbo-coordinates}
+
+In the two-argument form $\Fenergy_V(\mathbb Q;\theta)$ of
+\cref{req:gen-typing-prohibition}, block coordinates move $\mathbb Q$ at fixed
+$\theta$ and a model coordinate moves $\theta$ at fixed $\mathbb Q$; each
+accepted value defines a new fixed joint.
+
+\propositionheading{Exact M-coordinate}{prop:elbo-exact-m-coordinate}
+Hold $\mathbb Q_{V,o,X}$ fixed, and suppose the parameterized family supplies a
+common regular-observation set or jointly measurable pointwise versions for the
+candidates compared, with
+$\E_{\mathbb Q_{V,o,X}}\lvert\log q_{V,o,X}(Y)\rvert<\infty$ and
+$\E_{\mathbb Q_{V,o,X}}\lvert\log p_{\theta',V}(o,Y\given X)\rvert<\infty$
+for every candidate $\theta'$. If a maximizer exists in the declared parameter
+space, then every
+\begin{equation}
+\theta^{\mathrm{new}}\in\operatorname*{argmax}_{\theta'}
+\E_{\mathbb Q_{V,o,X}}\bigl[\log p_{\theta',V}(o,Y\given X)\bigr]
+\label{eq:elbo-m-coordinate}
+\end{equation}
+maximizes $\Lelbo_{V,\theta'}(\mathbb Q_{V,o,X};X,o)$ over the same space. The
+finiteness hypotheses cannot be dropped. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The recognition term $\E_{\mathbb Q_{V,o,X}}[\log q_{V,o,X}]$ is finite and does
+not depend on $\theta'$. For the last sentence, on $\{2,3,\ldots\}$ let
+$q_n=\mathrm c/(n(\log n)^2)$ with $\mathrm c$ normalizing,
+$h_n=\mathbf 1_{\{n=2\}}-q_2$, and $r_n=1+\mathrm c_2h_n$ with
+$0<\mathrm c_2<1/q_2$, so that $r$ is bounded, strictly positive, nonconstant,
+and $\sum_nq_nr_n=1$. With a trivial record, let the two candidates have latent
+laws $p_0=q$ and $p_1=qr$, and let the recognition law be $q$. The entropy of
+$q$ is infinite (\cref{sec:app-integrability-witnesses}), so
+$\E_q\log p_0=\E_q\log p_1=-\infty$ and both candidates maximize the expected
+complete log-likelihood, whereas their extended bounds are
+$\E_q\log(p_0/q)=0$ and $\E_q\log r=-\KL(q\Vert p_1)<0$. \hfill$\square$
+
+\definitionheading{Generalized M-coordinate acceptance}{def:elbo-generalized-m-acceptance}
+A generalized M-coordinate need not attain a maximum, but it must pass the
+acceptance condition
+\begin{equation}
+\Lelbo^{\mathrm{ext}}_{V,\theta^{\mathrm{new}}}(\mathbb Q_{V,o,X};X,o)
+\geq\Lelbo^{\mathrm{ext}}_{V,\theta^{\mathrm{old}}}(\mathbb Q_{V,o,X};X,o),
+\label{eq:elbo-acceptance}
+\end{equation}
+evaluated at an observation in the regular sets of both candidates, or with
+jointly measurable versions declared as part of the parameterized model. No
+recognition density and no (H4) is required; on the classical domain the
+condition is the same inequality for \eqref{eq:elbo-definition}, and
+\eqref{eq:elbo-m-coordinate} is a sufficient condition.
+
+\corollaryheading{Evidence-free acceptance test}{cor:elbo-acceptance-evidence-free}
+Suppose $\mathbb Q_{V,o,X}\ll M_{\theta^{\mathrm{old}},V,o,X}$, the two slice
+measures \eqref{eq:elbo-slice-measure} are mutually absolutely continuous, and
+both extended values are finite. Then
+\begin{equation}
+\Lelbo^{\mathrm{ext}}_{V,\theta^{\mathrm{new}}}(\mathbb Q_{V,o,X};X,o)
+-\Lelbo^{\mathrm{ext}}_{V,\theta^{\mathrm{old}}}(\mathbb Q_{V,o,X};X,o)
+=\E_{\mathbb Q_{V,o,X}}\biggl[\log\frac{p_{\theta^{\mathrm{new}},V}(o,Y\given X)}{p_{\theta^{\mathrm{old}},V}(o,Y\given X)}\biggr],
+\label{eq:elbo-acceptance-evidence-free}
+\end{equation}
+so the test \eqref{eq:elbo-acceptance} needs no evidence value.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+With $r_x=d\mathbb Q_{V,o,X}/dM_{\theta^x,V,o,X}$ for
+$x\in\{\mathrm{old},\mathrm{new}\}$, the Radon--Nikodym chain rule gives
+$\log r_{\mathrm{old}}-\log r_{\mathrm{new}}
+=\log(dM_{\theta^{\mathrm{new}},V,o,X}/dM_{\theta^{\mathrm{old}},V,o,X})$ almost
+surely, and this derivative is the ratio of the two joint densities at $o$. By
+\cref{prop:elbo-relative-log-representation} the negative part of each
+$\log r_x$ is integrable, so finiteness makes each $\log r_x$ integrable, and
+subtracting the two representations \eqref{eq:elbo-relative-log} proves the
+identity. \hfill$\square$
+
+\propositionheading{Evidence monotonicity}{prop:elbo-evidence-monotonicity}
+Suppose (H1)--(H2) hold for the fixed $\mathbb Q_{V,o,X}$ at both
+$\theta^{\mathrm{old}}$ and $\theta^{\mathrm{new}}$. If the E-coordinate is exact
+at the old parameter, $\mathbb Q_{V,o,X}=\boldsymbol\Pi_{\theta^{\mathrm{old}},V,o,X}$,
+and the M-coordinate satisfies \eqref{eq:elbo-acceptance}, then
+\begin{equation}
+\log p_{\theta^{\mathrm{new}},V}(o\given X)
+\geq\Lelbo^{\mathrm{ext}}_{V,\theta^{\mathrm{new}}}(\mathbb Q_{V,o,X};X,o)
+\geq\Lelbo^{\mathrm{ext}}_{V,\theta^{\mathrm{old}}}(\mathbb Q_{V,o,X};X,o)
+=\log p_{\theta^{\mathrm{old}},V}(o\given X).
+\label{eq:elbo-monotonicity}
+\end{equation}
+Consequently a schedule that places a full exact E phase before each accepted
+M phase has nondecreasing evidence values, which converge in
+$(-\infty,+\infty]$ and to a finite limit when bounded above. Block
+E-coordinates and accepted M-coordinates make the compared bound values
+nondecreasing on a common functional; the transfer to the evidence in
+\eqref{eq:elbo-monotonicity} uses the full E phase. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The first inequality is \cref{thm:elbo-extended-gap} at $\theta^{\mathrm{new}}$,
+the second is \eqref{eq:elbo-acceptance}, and the equality is the zero-gap case
+at $\theta^{\mathrm{old}}$; the singular-branch sum $\Lelbo^{\mathrm{ext}}+\KL$
+is never written. A nondecreasing sequence of extended reals converges. Each
+block coordinate does not decrease the bound by
+\cref{prop:elbo-exact-e-coordinate}, and each accepted step does not decrease it
+by \eqref{eq:elbo-acceptance}; only the final equality of
+\eqref{eq:elbo-monotonicity} uses the exact E phase. Under (H3)--(H4) at both
+candidates this is the classical conclusion of \citet{Dempster1977} in the
+reading of \citet{Neal1998}. \hfill$\square$
+
+Convergence of the parameter sequence needs regularity conditions of the kind
+identified for the classical algorithm by \citet{Wu1983}. A finite step along a
+natural-gradient or other optimizer direction is a proposal, not an accepted
+coordinate, and it can decrease the bound.
+
+\propositionheading{Finite natural-gradient steps need not be monotone}{prop:elbo-finite-step-nonmonotonicity}
+Let $\mathsf G\succ0$, write $\nabla\Lelbo_V$ for the gradient of
+$\theta'\mapsto\Lelbo_{V,\theta'}(\mathbb Q_{V,o,X};X,o)$, and consider the step
+$\theta^+=\theta'+\mathrm h\mathsf G^{-1}\nabla\Lelbo_V$ of length
+$\mathrm h>0$. At a nonstationary point the direction is an ascent direction,
+\begin{equation}
+\frac{d}{d\mathrm h}\Lelbo_{V,\theta^+}\Big|_{\mathrm h=0}
+=\nabla\Lelbo_V^{\top}\mathsf G^{-1}\nabla\Lelbo_V>0.
+\label{eq:elbo-ascent-direction}
+\end{equation}
+If $\Lelbo_{V,\theta''}=\Lelbo^\star-\tfrac12(\theta''-\theta^\star)^\top\mathsf H(\theta''-\theta^\star)$
+with $\mathsf H\succ0$ for $\theta''$ in a neighborhood $\mathcal U$, $d_{\max}$
+is the largest generalized eigenvalue of $(\mathsf H,\mathsf G)$, and
+$\mathbf z$ is a corresponding eigenvector with
+$\mathbf z^\top\mathsf G\mathbf z=1$, then at every
+$\theta'=\theta^\star+\mathrm c_1\mathbf z\in\mathcal U$ with $\mathrm c_1\ne0$
+and every step whose endpoint lies in $\mathcal U$,
+\begin{equation}
+\Lelbo_{V,\theta^+}-\Lelbo_{V,\theta'}
+=\tfrac12d_{\max}\mathrm c_1^2\bigl[1-(1-\mathrm hd_{\max})^2\bigr]<0
+\qquad\text{whenever}\qquad
+\mathrm h>\frac{2}{d_{\max}}.
+\label{eq:elbo-step-size-failure}
+\end{equation}
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The first display is the chain rule. With
+$\Delta\theta=\theta'-\theta^\star=\mathrm c_1\mathbf z$,
+$\nabla\Lelbo_V=-\mathsf H\Delta\theta$ and
+$\mathsf H\mathbf z=d_{\max}\mathsf G\mathbf z$ give
+$\theta^+-\theta^\star=(1-\mathrm hd_{\max})\mathrm c_1\mathbf z$; substituting
+in the quadratic gives the second display, whose bracket is negative exactly
+when $\mathrm hd_{\max}>2$. \hfill$\square$
+
+Monotonicity at a finite step therefore needs a line search, a trust region,
+or another rule that verifies \eqref{eq:elbo-acceptance} on the same
+functional; a better preconditioner does not remove the requirement, because
+\eqref{eq:elbo-step-size-failure} is stated in the preconditioned spectrum.
+
+\section{What remains open}
+\label{sec:elbo-open}
+
+\openproblemheading{Convergence of the alternating scheme}{open:elbo-alternating-convergence}
+\Cref{prop:elbo-evidence-monotonicity} gives monotone convergence of the
+evidence values under a full exact E phase and nothing about the parameters,
+and since \eqref{eq:elbo-acceptance} is a weak inequality the null step is an
+accepted M-coordinate, so the general scheme of block E-coordinates
+\eqref{eq:elbo-e-coordinate} and accepted M-coordinates need not move its
+parameter at all. The problem concerns models of
+\cref{hyp:local-interaction-kernels} with finitely many latent states,
+parameters in an open cone of a Euclidean space, and joint densities twice
+continuously differentiable in the parameters, under the scheme that
+alternates a full exact E phase with the exact M-coordinate
+\eqref{eq:elbo-m-coordinate} whose maximizer is unique. The regularity
+conditions of \citet{Wu1983} concern the limit points of the parameter
+sequence and its convergence when the stationary points at its limit value
+are isolated; isolation is not among the hypotheses of the class, in which
+uniqueness of the maximizer leaves open that the evidence is constant along
+a curve of parameters on which the complete-data likelihood is not. It is
+settled by conditions checkable on the model, including compactness of the
+upper level sets of the evidence in the cone, that are met by some model of
+the class with parameter dimension at least two whose stationary set at the
+limit value of an orbit is not discrete, under which every orbit of the
+scheme converges to one stationary point of the extended bound, or by a
+model of that class with compact upper level sets whose orbit has more than
+one limit point.
+
+\section*{Physicist's summary}
+
+The population carries one generative law and one recognition law, and the
+only evidence bound is $\log p(o)-\KL(Q\Vert\boldsymbol\Pi)$, defined for every
+$Q$ and equal to $-\infty$ when $Q$ charges what the posterior cannot see;
+everything else is bookkeeping of that relative entropy through the chain rule.
+Substituting marginal entropies overstates the bound by exactly the total
+correlation. Observations are records attached to latent states, and an
+environment can be rewritten as boundary nodes emitting them. Each block of
+agents has a local free energy built from the records that touch it; with the
+rest held fixed, lowering it lowers the collective free energy by the same
+amount, so the population is an exact potential game. Summed, the local free
+energies count every shared record once per participant. Parameters move only
+between evaluations, by accepted steps, and the evidence rises monotonically
+when each step follows an exact posterior refresh; convergence is open.

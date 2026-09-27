@@ -12,10 +12,15 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-09-13
+updated: 2026-09-26
 ---
 
 # Coarse Graining
+
+## Marginal and path errors: primary-source checks, September 26, 2026
+
+[[hartmann-2020-coarse-graining-nonreversible-sdes]] proves separate bounds for time marginals and complete paths. Its path result requires resolved diffusion independent of hidden coordinates, integrability and Novikov conditions, and coefficient control on a fixed horizon; its bound includes a horizon-dependent term. It does not make a Markovian projection with correct marginals reproduce temporal correlations. [[backhoff-veraguas-2023-specific-relative-entropy]] studies a different divergence: normalized KL on finer time meshes, which can stay finite between singular diffusion laws. It cannot replace ordinary path KL in an unchanged fidelity criterion. The project-specific checked uses are recorded in [[multiagentelbo-2026-09-26-selection-and-reference-review]].
+
 
 ## Nonlinear adaptive cyclic formation, September 13
 
@@ -51,19 +56,30 @@ The MAgent exact-ELBO white paper's coarse-graining chapter makes a distinction 
 
 Only the third moves the evidence, and it is misspecification rather than coarse-graining: a bound computed for one model stands in no order relation to the evidence of a replaced model. The first two move the bound in *opposite* directions, which is the sharpest demonstration that they are not two descriptions of one procedure.
 
-## Renormalizability is additivity of the defining parameter
+## Additive closure under a declared aggregation rule
 
-Two literatures reach the same criterion independently, and it is the most portable fact on this page.
+The random-graph and Gaussian constructions below act on different laws and maps. Their additivity correspondence is an analogy to investigate.
 
-**Networks.** [[garuccio-2023-multiscale-network-renormalization]] proves that the *unique* edge-independent random-graph model form-invariant under **every** node partition is $p_{ij} = 1 - e^{-\delta x_i x_j f(d_{ij})}$, with node fitness $x_i$ additive under aggregation and the density parameter $\delta$ exactly invariant. The corresponding failure taxonomy is quotable: the configuration model, degree-corrected SBM and preferential attachment are non-renormalizable *because* their defining quantity (the degree) "is neither preserved nor additively transformed upon renormalization." A corollary worth carrying: **scale-free** and **scale-invariant** are different, largely orthogonal properties.
+**Networks.** [[garuccio-2023-multiscale-network-renormalization]] treats independent Bernoulli edges in binary undirected graphs, retaining self-loops. OR aggregation over nonoverlapping partitions preserves the specified fitness/dyadic family,
+$$
+p_{ij}=1-e^{-\delta x_i x_j F_{ij}},\quad i\ne j,\qquad
+p_{ii}=1-e^{-\delta x_i^2F_{ii}/2}.
+$$
+For positive block fitnesses,
+$$
+X_I=\sum_{i\in I}x_i,\qquad
+F_{IJ}=\frac{\sum_{i\in I,j\in J}x_i x_jF_{ij}}{X_I X_J}.
+$$
+Here $F=f(d)$ and $\delta$ is unchanged. Internal unordered edges and loops contribute once to a coarse self-loop. The reported uniqueness is conditional on the declared parameterization and additive fitness. [Published paper, Section II, Eqs. (1)–(7), Appendix A](https://journals.aps.org/prresearch/pdf/10.1103/PhysRevResearch.5.043101). The [retained PDF](../../sources/pdfs/garuccio-2023-multiscale-network-renormalization-arxiv-v3.pdf) is arXiv v3.
 
-**Beliefs.** The white paper's closure proposition is the same principle with a matrix-valued parameter. Tying a cluster is a congruence $\Lambda_c = S^\top \Lambda S$ by the $0/1$ aggregation matrix, under which the within-cluster Laplacian contributions cancel identically and
+**Beliefs.** The white paper gives a separate Gaussian tying construction with a matrix-valued parameter. Tying a cluster is a congruence $\Lambda_c = S^\top \Lambda S$ by the $0/1$ aggregation matrix, under which the within-cluster Laplacian contributions cancel identically and
 
-$$(\Lambda_c)_{IJ} = -\sum_{i\in I,\, j\in J} W_{ij}, \qquad (\Lambda_c)_{II} = \sum_{i\in I} A_i + \sum_{i \in I,\, j\notin I} W_{ij},$$
+$$(\Lambda_c)_{IJ} = -\sum_{i\in I,j\in J} W_{ij}, \qquad (\Lambda_c)_{II} = \sum_{i\in I} A_i + \sum_{i\in I,j\notin I} W_{ij}.$$
 
-so **the coarse coupling is exactly the sum of the fine couplings on cut edges** — a renormalization rule that is derived rather than posited, requiring no conductance ansatz. Marginalization, by contrast, is a Schur complement, which manufactures couplings between previously uncoupled agents and need not preserve the sign structure. The complementarity is the practical conclusion: *marginalization preserves the evidence and breaks the form; tying preserves the form and costs bound.*
+Thus **the coarse coupling is exactly the sum of the fine couplings on cut edges** — a renormalization rule that is derived rather than posited, requiring no conductance ansatz. Marginalization, by contrast, is a Schur complement, which manufactures couplings between previously uncoupled agents and need not preserve the sign structure. The complementarity is the practical conclusion: *marginalization preserves the evidence and breaks the form; tying preserves the form and costs bound.*
 
-> [!note] Editorial: the open theorem. The white paper proves **closure**; [[garuccio-2023-multiscale-network-renormalization|MSM]] proves **uniqueness**. The natural next result is the MAgent analogue — that block-diagonal PSD self terms plus a PSD-matrix-weighted graph Laplacian is the *unique* family of Gaussian interaction precisions closed under $0/1$ congruence for every partition. Neither the network-RG literature (scalar throughout) nor the graph-reduction literature (Doerfler–Bullo, Loukas: explicitly scalar-weighted) covers matrix-weighted precisions, so this case is open in both.
+> [!note] Editorial: scope of the analogy (2026-09-05)
+> The immutable [[garuccio-2023-multiscale-network-renormalization]] note proposes a Gaussian uniqueness analog. That proposal is not established by the cited graph result. A matrix-precision claim needs its own admissible family, aggregation map and proof. For RG v2, use MSM as an independent-edge adjacency comparator; correlated gauge laws, ordered transports, holonomies and action-family closure retain separate obligations. Working with $F=f(d)$ also avoids assuming an inverse for $f$.
 
 ## What is lossless, and what a scale even is
 
@@ -93,6 +109,24 @@ for the gauge-VFE model. Candidate blocks should still be graded by lumpability,
 retained-interaction residual, and gauge/relabeling invariance. [[ahn-2018-bucket-renormalization]]
 is a complementary factor-graph/tensor-network approximate-inference comparator; it does not prove
 the project's open Bayesian-RG equivalence or natural-gradient semiconjugacy.
+
+## Gaussian Galerkin pushforward and gauge-absorbed gains (review, September 23, tentative)
+
+Investigator X11 of the 2026-09-23 Theory review ([[multiagentelbo-2026-09-23-theory-streamlining-review]]) corrects two framing claims in the Gaussian realization. First, the Galerkin coarse Gaussian is a Markov pushforward. For $\Lambda\succ0$ and injective $S$, with $\Lambda_c=S^\top\Lambda S$ and $P_\Lambda=\Lambda_c^{-1}S^\top\Lambda$, the identity $P_\Lambda\Lambda^{-1}P_\Lambda^\top=\Lambda_c^{-1}$ shows that $P_\Lambda$ maps $\mathcal N(\Lambda^{-1}h,\Lambda^{-1})$ to $\mathcal N(\Lambda_c^{-1}S^\top h,\Lambda_c^{-1})$. On each fixed-precision mean fiber this is one parameter-independent kernel, so data processing applies with Fisher defect $\Lambda-\Lambda S\Lambda_c^{-1}S^\top\Lambda\succeq0$, the maps compose across levels, and with an observation-free precision the coarse posterior preserves the evidence. What fails is a single law-independent kernel on the whole precision cone. The manuscript's "restriction, not a Markov pushforward" therefore names the wrong obstruction.
+
+Second, the SPEC rotation witness that the Gaussian interaction family "is not a consequence of directed linear-Gaussian models" is pure gauge. The directed law depends on gain and link only through $T_i=G_i\Theta_{i,\mathrm{pa}(i)}$, which transforms like a link, and on a forest every assignment with $\det T_i>0$ can be absorbed into the frames. For one edge, X11 states the chart-independent criterion that $J\succ0$ with invertible $J_{12}$ can be reframed by $\mathrm{GL}^+(K)$ into the interaction family exactly when $(-1)^K\det J_{12}>0$. Chart-independent witnesses are an orientation-reversing gain or a v-structure. If the theory forbids absorbing gains into frames, the original witness stands as a typed statement.
+
+> [!warning] Tentative: investigator recomputation, same model family, not adjudicated
+> Short identities and random-instance checks (residuals near $10^{-15}$) by one investigator (Claude Opus 5.5). These items belong to the proposed Gaussian supplement.
+
+### Incorporation in the restructured manuscript (September 24)
+
+Both corrections are now statements of Supplement G at `623e4fe` ([[multiagentelbo-2026-09-24-theory-restructure]]), tagged ESTABLISHED. `prop:ig-galerkin-pushforward` in Chapter G7, "Galerkin aggregation is a precision-dependent pushforward", states for $\Lambda\succ0$ and injective $S$ that $P_\Lambda=\Lambda_c^{-1}S^\top\Lambda$ pushes $\mathcal N(\Lambda^{-1}\mathsf h,\Lambda^{-1})$ to the Gaussian with natural parameters $(S^\top\mathsf h,S^\top\Lambda S)$, that on a fixed-precision mean fiber it is one parameter-independent kernel whose pushed Fisher metric $\Lambda S\Lambda_c^{-1}S^\top\Lambda\preceq\Lambda$ is equal to $\Lambda$ exactly on tangent directions in $\operatorname{range}(S)$, and that nested aggregations compose. The varying-precision case, the singular boundary member and unbounded depth form one open problem, `open:grg-galerkin-monotonicity` (Chapter G9). In the main manuscript, Chapter 9's section "Pushforward, precomposition, and Galerkin restriction" (`sec:cg-three-operations`) keeps the three operations apart: `prop:cg-hard-identification` shows that precomposition on a finite space is conditioning, which can increase relative entropy (from 0.0031 to 0.0589 in its witness), so data processing and evidence preservation do not transfer to it, and `def:cg-galerkin-data` types Galerkin data by the coarse form of aggregation-based algebraic multigrid.
+
+The gauge absorption is `prop:gauss-gain-absorption`, "Gain absorption and the orientation criterion", in Chapter G3: the directed law depends on gain and link only through one transition that transforms like a link, forests with positive-determinant transitions are absorbed by $\mathrm{GL}^+(K)$ frames, a two-agent precision with invertible off-diagonal block is reachable exactly when $(-1)^K\det\Lambda_{12}>0$, and the original SPEC witness is absorbed. `prop:gauss-law-level-witnesses` gives the chart-independent witnesses: a receiving factor whose transition has negative determinant, a sign invariant of cycles, and, for odd $K$, a v-structure. The same restructure corrected functoriality of nested blockings, recorded in [[Renormalization-group flow of beliefs]].
+
+> [!warning] Status
+> Manuscript statements with proofs, written and checked by Claude Opus 5.5 agents with their own scripts; no cross-model check (the author's choice) and not adjudicated.
 
 ## Related
 

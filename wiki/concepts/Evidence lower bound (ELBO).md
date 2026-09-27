@@ -61,7 +61,7 @@ EM update, so shared-functional coordinate-ascent and monotone-evidence
 guarantees do not transfer to this schedule.
 
 The ELBO therefore supplies a comparison point for the belief objective rather
-than the exact meaning of the complete training loss. [[gl-k-attention-2026-07-09-review-revision]]
+than the exact meaning of the complete training loss.
 
 ## Details
 
@@ -114,11 +114,11 @@ is the reparameterization-invariant steepest direction under the
 **[[Fisher information metric]]** ([[amari-1998-natural-gradient]]). In the
 deployed transformer this geometry supports the Gaussian belief update. It
 does not license the frame or decode M-step as a Fisher natural gradient;
-the audited frame table uses plain AdamW, with the configured heavy-ball and pullback fields inactive. [[gl-k-attention-2026-07-09-review-revision]]
+the audited frame table uses plain AdamW, with the configured heavy-ball and pullback fields inactive.
 
 ## MAgent exact finite ELBO
 
-The MAgent white paper now separates its continuum field theory from a finite probability construction. For fixed structural data $X$, a normalized finite joint kernel $P_\theta(do,dY\mid X)$ and normalized recognition kernel $Q_X(dY\mid o)$ satisfy the exact evidence decomposition under the stated absolute-continuity and integrability hypotheses. Capital symbols denote probability measures; lowercase Radon--Nikodym derivatives such as $\xi^{\mathrm{block}}$ denote their densities relative to declared product reference measures. The CAVI formula applies to those finite factors. It does not infer continuum sections from finite marginals, provide a probability law on section space, or establish a continuum limit. [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]]
+The MAgent white paper now separates its continuum field theory from a finite probability construction. For fixed structural data $X$, a normalized finite joint kernel $P_\theta(do,dY\mid X)$ and normalized recognition kernel $Q_X(dY\mid o)$ satisfy the exact evidence decomposition under the stated absolute-continuity and integrability hypotheses. Capital symbols denote probability measures; lowercase Radon--Nikodym derivatives such as $\xi^{\mathrm{block}}$ denote their densities relative to declared product reference measures. The CAVI formula applies to those finite factors. It does not infer continuum sections from finite marginals, provide a probability law on section space, or establish a continuum limit.
 
 ### Enlarging the inventory buys an exact attention row
 
@@ -127,8 +127,8 @@ The paper's exact fixed-source row model holds only for **frozen** normalized te
 the state variables are shared. Those three limits are what kept the attention row classified as an
 engineered scalar rather than an ELBO term.
 
-Declaring a **source label** as an extra latent lifts all three, at a stated price
-([[magent-exact-elbo-whitepaper-2026-07-27-attention-derivation]]). Under a topologically ordered
+Declaring a **source label** as an extra latent lifts all three, at a stated price.
+Under a topologically ordered
 source mask the augmented model is a genuine directed factorization with partition function one, so
 the ordinary state ELBO and CAVI apply, and the exact label coordinate reproduces the KL-softmax row
 with the sender mean free. The price is four declared hypotheses: the label itself, the ordered mask
@@ -138,7 +138,7 @@ unit temperature or a separately normalized tempered model whose normalizer cont
 log-determinant logit.
 
 That price has since been paid down to three hypotheses rather than four, because the last two are
-**one** ([[magent-exact-elbo-whitepaper-2026-07-27-link-covariance-tie]]). Requiring the coordinate's
+**one**. Requiring the coordinate's
 offset to be source-free as an identity in the free sender mean forces the link covariance to be
 $\tau$ times the transported sender covariance, and the surviving term then forces $\tau=1$; the
 generative link-noise scale and the recognition temperature are the same parameter. The tie is graded
@@ -180,7 +180,6 @@ functional optimized by the entire model:
 > [!note] Editorial (2026-07-10): ELBO identities on this page remain textbook
 > facts. They do not turn the deployed two-objective schedule into one ELBO or
 > grant its one-step filter Neal–Hinton monotonicity.
-> [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Process-space and constrained-family boundaries
 
@@ -198,7 +197,6 @@ or coarse recognition family.
 
 ## Sources
 
-- [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]] — revision-bound exact finite ELBO, typed CAVI measures and densities, and continuum/finite scope.
 - [[neal-1998-variational-em]] — EM as coordinate ascent on one negative-free-energy / ELBO functional.
 - [[friston-2010-free-energy-principle]] — Free energy as the negative ELBO / upper bound on surprise.
 - [[kingma-2013-auto-encoding-variational-bayes]] — The ELBO trained end-to-end via the reparameterization trick.

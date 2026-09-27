@@ -48,7 +48,7 @@ $D_{\mathrm{KL}}(q_i\Vert T_{ij}q_j)$. Their denominators are transported variat
 not fixed model factors. A mixed-third-variation test proves that an active nondegenerate consensus
 edge cannot equal the mean-field KL against one fixed joint on an open product family: the
 fixed-model variation $D^3_{q_iq_jq_j}$ vanishes, while the consensus-edge variation can be chosen
-as a strictly positive variance. [[vfe-population-generative-status-2026-07-12]]
+as a strictly positive variance.
 
 This is a scoped no-go result. It excludes the ordinary fixed joint on the original state variables
 under the stated open-family and nondegeneracy assumptions. It does not exclude frozen source
@@ -85,7 +85,5 @@ Loss-tempered versions have the coherent generalized-Bayes interpretation of
 ## Sources
 
 - [[participatory-it-from-bit]]
-- [[vfe-population-generative-status-2026-07-12]]
-- [[meta-entropy-manuscript]]
 - [[wainwright-2008-graphical-models-variational]]
 - [[bissiri-2016-general-bayesian-updating]]

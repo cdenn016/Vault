@@ -9,13 +9,36 @@ tags:
   - cluster/multi-agent
   - cluster/social-physics
   - project/multi-agent
+  - project/transformer
   - project/social-physics
 status: draft
 created: 2026-08-17
-updated: 2026-09-13
+updated: 2026-09-27
 ---
 
 # Staged hierarchy formation and RG composability
+
+## Law-level pairing selection, September 26, 2026
+
+[[multiagentelbo-2026-09-26-selection-and-reference-review]] records a proof for the homogeneous shared-edge four-cycle with initially uniform product rows and a Gaussian configuration law. At every sufficiently small fixed temperature, vanishing source-learning mobility concentrates the actual recognition law on one matching for almost every fixed initial mean, uniformly over the stated logarithmically enlarged learning window. The frozen-row arm converges to equal matching masses for every positive temperature and every mean. The amplified asymmetry is the transient imprint of the initial law.
+
+This closes the specified first-level learning-selection statement. It does not prove recursive coalescence, general initial-row basin selection, a vanishing-temperature joint limit, or whole-path replacement by the stationary reduced process. Frozen mixing uses [[hairer-2011-harris-ergodic-theorem]]; [[hartmann-2020-coarse-graining-nonreversible-sdes]] and [[backhoff-veraguas-2023-specific-relative-entropy]] clarify distinct approximation targets rather than supply this model's proof.
+
+## Joint temperature and mobility continuation, September 26
+
+[[multiagentelbo-2026-09-26-joint-temperature-selection]] proves a common implicit joint schedule for almost every fixed Gaussian mean in the original four-cycle. The learned law approaches its selected matching Gaussian and the frozen matching probabilities approach one half each; the selected matching can vary with temperature. An explicit entropy bound separately proves tracking for $\epsilon_L=T^a$, $a>7/2$. It does not prove selection on that power law, first coherent-block formation, or inherited parent closure. Those distinctions preserve the scope of the preceding fixed-temperature result.
+
+## Selected coherence and first-block comparison, September 26
+
+[[multiagentelbo-2026-09-26-selected-coherence]] transfers late one-time matching selection to actual-path persistence at Euclidean residual resolution $T^{1/4}$ over duration $T^{-1/4}$. The learned/frozen coherent-partition TV tends to one half, but this event is restored equilibrium coherence. On the original early contrast window, their conditional first-block TV instead vanishes for $\epsilon_L=o(T^{1/4})$, using an explicit native-path coupling and the existing positive seeded floor. The original faster-learning regime and conditioned parent errors remain open.
+
+[[multiagentelbo-2026-09-26-conditioned-parent]] activates the existing assignment- and loop-retaining parent from the actual recognition law conditioned on the completed late coherence prefix, with no Gaussian reset; the parent inherits the rows at activation and then learns from its own law. The discarded optimizing conditional KL is at most $(\eta+h_b(\rho))/(1-\rho)$ for $\rho<1/2$ (physical, evaluator-retaining loss adds at most $T$), and complete retained/source path TV over a following $T^{-1/4}$ window is at most $2\rho+(h+3)\delta+4hd/(1-4d)$, giving $O(T^{1/4}\log(1/T))$ and $O(T^{1/4})$ on the joint schedule. This is a parent after restored equilibrium coherence; a hidden-sign example (KL $\log 2$) shows why a high-probability prefix is needed. First-contrast parent closure, arbitrary-history closure, and recursive formation remain open.
+
+## Formation through selective agreement, September 20, 2026
+
+[[multiagentelbo-2026-selective-communication-formation]] adds a proposed interface mechanism to the formation program. Agreement of common measured laws leaves the conditional private-law KL uncontrolled. The collective may therefore retain a shared interface and distinct child-private states, their conditional laws or memory. For two linear $K$-dimensional states subject to $r$ independent shared-coordinate equalities, the remaining dimension is $2K-r$; this count alone establishes neither a law-space reduction nor autonomous parent evolution.
+
+The current normalized interaction-record assembly can use measured observables without replacing its independent invertible links by singular communication maps. A reduced link requires $M_iB_e=\bar B_eM_j$, and autonomous projected linear dynamics require $MA=\bar A M$. The next proposed calculation extends the homogeneous cycle with communicated and private coordinates and derives its relaxing modes and retained parent data. These are bounded obligations, not a newly established formation theorem. [[GL(K) gauge-equivariant attention]] and [[Markov blanket interpretation debate]] record the communication and conditional-independence distinctions.
 
 ## Positive-rate cyclic formation with weakest energy one, September 13
 
@@ -66,6 +89,13 @@ The result is Gaussian, uses supplied contrast and compatible observations, and 
 [[multiagentelbo-2026-09-12-dynamical-rg]] now joins intrinsic coalescence and two inherited reductions in one compact three-agent law/link model. Exact generative pushforwards and derived conditional variational costs compose by the tower property. Separate finite-horizon arguments compare both reduced processes with the retained microscopic paths in a common coherence regime. Thus algebraic composition and dynamical approximation are checked at their respective scopes.
 
 This is an existential two-stage construction with supplied rates and reduction order, not evidence that a first pair forms before the third agent joins or that the dynamics selects one partition. Complete generated interactions are retained. Path error does not bound the hidden conditional KL or the full transient VFE. The cost-driven assembly studies below remain particular historical mechanisms; an external resource price is not necessary for the admitted intrinsic VFE construction.
+
+## Bény–Osborne and Garuccio in the RG v2 study (2026-09-05)
+
+> [!note] Editorial: proposed use of the two papers
+> These references address different obligations. Use [[beny-osborne-2015-info-geometric-rg]] through the metric-scope correction on [[Fisher information metric]] when designing coupling-response and tilted-retention measurements. Use [[garuccio-2023-multiscale-network-renormalization]] through the restricted benchmark on [[Coarse Graining]] when designing recursively reusable parent adjacency laws. Neither citation discharges the project's varying-holonomy, correlated-action closure, cross-scale comparison, partition-selection or hierarchy-persistence obligations.
+
+The [remaining-study plan at the published RG v2 revision](https://github.com/cdenn016/MultiAgentELBO/blob/c40244949b0b99841c76c3bb86e0cf49f6b124ae/docs/research-plans/2026-09-05-rg-v2-remaining-constructions.md) separates Phase 21 response work from Phases 22–24 physical-law and graph constructions, then finite-word comparisons and adaptive hierarchy studies. This is a planning cross-reference; those later phases remain proposed. The earlier laboratory measurements below retain their original scope and status.
 
 ## The kinetic strand: hierarchies are built in stages
 
@@ -145,7 +175,7 @@ one — $0.209$ against $0.156$ at $k = 1$, $0.568$ against $0.441$ at $k = 3$, 
 control exact. The 2026-08-17 capacity null ($0.144$/$0.406$) was a frame artifact: the
 original charge was referenced to the first family member and shifted under the sample-shift
 gauge, and the 2026-08-18 audit retired it
-([[2026-08-18-rescaling-audit-capacity-reversal]]) — a measurement failing the covariance
+ — a measurement failing the covariance
 discipline the theory imposes on everything else. What
 restores interaction is the theory's own **re-binding rule**: regenerating each level's
 attention from the flow-averaged transported divergence over the conserved connection
@@ -160,8 +190,8 @@ fixed structures remain ratio-typed ($0.64$ relative sup). The staged-assembly m
 strengthens: which aggregation grain a hierarchy uses matters in both channels, all the way to
 the endpoints.
 
-The same day's M-info measurement (amendment 9,
-[[2026-08-18-minfo-information-retention]]) put the retention story in law units: boundary
+The same day's M-info measurement (amendment 9)
+put the retention story in law units: boundary
 mutual-information retention is bounded by one as a data-processing theorem, measures 2–7% at
 the declared seed against sup-norm readings of 0.156–0.568, and deflates the sector gain to
 +10%/+5% (mostly anchored-coordinate inflation in the sup norm). The sharp reading:
@@ -171,7 +201,7 @@ boundary information dies at roughly $t^2 \approx 2\%$ per step
 ([[Data processing inequality]]). Hierarchies of this kind keep structure all the way up and information only
 locally, which is the composability strand's path-dependence stated in a second instrument.
 
-M-part (amendment 10, [[2026-08-18-mpart-participatory-blocking]]) then asked the staged-vs-direct
+M-part (amendment 10) then asked the staged-vs-direct
 question inside the theory's own selection mechanism: the Proposition-4 partition posterior,
 flow-averaged to the level and offered every cycle blocking, puts its modal mass on the
 *singleton* partition (0.586) at the declared seed — no aggregation is favored, direct collapse
@@ -186,12 +216,12 @@ parent with depth-1 coarse sight commands depth-$r^\ell$ fine structure, and car
 block's interior [[Holonomy]] as marks).
 
 The follow-ups ran the same day and closed the story with scopes attached. M-bind
-([[2026-08-18-mbind-coupling-sweep]]) swept the coupling four decades and found no formation
+ swept the coupling four decades and found no formation
 transition — the singleton preference is structural, not weak-coupling, and the blocking
 channel is kernel-limited (the $t \approx 0.15$ transmission does not adapt to signal). The
 resolution came from the agent-only ontology: observations are couplings to environmental
 agents, and the lab had been integrating those agents out after level zero. Restoring the
-environment as a blockable class ([[2026-08-18-environmental-blocking]]) licenses binding on
+environment as a blockable class licenses binding on
 clean controls — uniform anchors flip the modal class to direct collapse, distinct anchors
 anti-bind, shared-pair anchors pull the *anchor-aligned placement* eightfold — and running the
 theory as a process (joint annealed dynamics on states and partition) reverses the quenched
@@ -201,7 +231,7 @@ quenched update on environment-free levels. The staged-assembly question is now 
 than refuted: the annealed process favors aggregation, bounded sight forces it to be staged,
 and the anchor-sharing pattern selects which blocks form.
 
-The last measurement of the arc ([[2026-08-18-mshare-finite-inertia]]) sharpened the
+The last measurement of the arc sharpened the
 shared-evidence mechanism itself: a point-mass environment aligns but cannot correlate (the
 per-site field factorizes), and finite-inertia shared agents — integrated out exactly — do
 carry the correlation channel (ninefold over private duplicates at zero inertia) yet never
@@ -213,6 +243,20 @@ barrier that survives every instrument of the week is the derived energy's width
 which points at the level-invariant kernel family itself. The chain is rendered as a
 reviewable figure suite in the repository (`figures/rescaling-lab/`, seven figures with
 captions, regenerated live from the validated seed).
+
+## Regeneration rule and the exact parent channel (review, September 23, tentative)
+
+Investigator X14 of the 2026-09-23 Theory review ([[multiagentelbo-2026-09-23-theory-streamlining-review]]) finds that the rule behind the regeneration results above, recomputing attention at each level from flow-averaged transported divergences, is never defined in the Theory manuscript, whose 07b NUMERICAL paragraphs call it "the theory's own regeneration rule". The rule forms a softmax of averaged divergences, whereas the exact coarse attention is the pushed posterior event law, and the September 13 attention-admission record already excludes regenerating a parent softmax from averaged divergences when the exact parent channel carries an event law. The controlled error such a rule would need is the exact constant-row cost $\sum_i\mathbb E_{Q_Y}\mathrm{KL}(\beta_i^{Q*}\Vert\beta_i^P(Y))$. The review also finds that those manuscript paragraphs keep readings the 2026-08-18 audits superseded, including an anchor-dependent 0.204 that moves to 0.392 under another anchor. Until the rule is defined and its error bounded, or the exact pushforward is rerun, the regeneration numbers on this page describe a declared approximate channel rather than the theory's exact parent law.
+
+> [!warning] Tentative: investigator recomputation, same model family, not adjudicated
+> One investigator's reading (Claude Opus 5.5). It adds to, and does not replace, the verification-status warning above.
+
+### Status in the restructured manuscript (September 24)
+
+The dated 07b NUMERICAL paragraphs that carried the regeneration readings have left the manuscript. At `623e4fe` ([[multiagentelbo-2026-09-24-theory-restructure]]) they are kept as committed text in the repository file `docs/research-log/theory-verification-narratives.md`, and the main manuscript contains no NUMERICAL statement. Supplement B keeps one remark, `rem:rg-regenerated-attention-computation` in Chapter B6, tagged NUMERICAL: a declared row-regeneration rule, which at each level recomputes attention rows as softmax rows of transported divergences averaged over the flow, with $\tau=1$ and uniform receiver occupancies, gave fixed structures of that scheme with nonzero pairwise block on the six-cycle and nine-cycle instances. The remark calls the rule a declared approximate channel rather than the exact event-law pushforward, identifies its rows with the constant-row optimum, which differs from an average of posterior rows by the gap of `prop:obs-attention-constant-row-gap`, states that its error relative to the exact pushforward is not bounded, and concludes that nothing there shows that the exact pushforward maintains interaction. The companion remark `rem:rg-passive-blocking-computation` calls the passive-blocking fixed structures fixed points of a projection scheme, not fixed objects of the exact step, and the research log adds that no cross-level error bound for the regeneration rule was established. The review's reading is therefore now the manuscript's own: the regeneration numbers on this page describe a declared approximate channel, not the theory's exact parent law.
+
+> [!warning] Status
+> Manuscript remarks tagged NUMERICAL (a named computation, not a proof), placed by Claude Opus 5.5 agents; not adjudicated.
 
 ## The synthesis
 

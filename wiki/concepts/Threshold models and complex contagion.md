@@ -54,4 +54,3 @@ Centola and Macy's contribution is to show that *what kind of contagion* you hav
 - [[belief-inertia]] — supplies a restricted symmetric/reversible averaging correspondence; threshold and cascade models remain benchmarks.
 - [[Multi-agent variational free energy]] — the functional that would need an explicit quorum and adoption rule to model complex contagion.
 - [[Community detection and modularity]] · [[Meta-agents and hierarchical emergence]] — the clustered substructure that concentrates reinforcement.
-- [[belief-inertia-2026-07-13-final-review-closure]] — authoritative benchmark-only status for threshold and cascade models.

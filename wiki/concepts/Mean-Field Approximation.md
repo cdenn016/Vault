@@ -152,7 +152,6 @@ mean-field ideas** that share a name and a heritage but operate at different lev
 > independence. A product posterior over agent latents remains an explicit
 > variational-family assumption, and pairwise or aggregate coupling does not
 > restore cross-agent correlations within that product family.
-> [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Beyond mean field
 
@@ -181,7 +180,7 @@ representation reminiscent of a mean-field family. The deployed target-blind
 belief step is not a CAVI coordinate optimum, and its separate decode
 cross-entropy means the alternating schedule is not one VB-EM/ELBO loop. A
 Gaussian family alone also does not imply conjugacy or a closed-form CAVI
-update. [[gl-k-attention-2026-07-09-review-revision]]
+update.
 
 The program's distinctive moves are best read as *responses to the two known limitations of
 mean field*:
@@ -201,8 +200,8 @@ mean field*:
   $\log\beta_i^\star(j)=\mathbb E_{Q_{-\beta_i}}[\log p(Y,J)]+\text{const}$ then reproduces the
   divergence-scored attention row exactly, provided the augmented model is normalized — which for a
   one-parent-per-agent structure requires a topologically ordered source mask, since every such
-  assignment otherwise has a cycle
-  ([[magent-exact-elbo-whitepaper-2026-07-27-attention-derivation]]). This does not restore
+  assignment otherwise has a cycle.
+  This does not restore
   cross-agent covariance; it relocates the attention weights from an engineered objective into the
   recognition family.
 
@@ -212,8 +211,8 @@ mean field*:
   it needs $C\Omega^\top+\Omega C^\top=\Sigma_i+\Delta\Delta^\top$, which is solvable and admissible
   as a joint law — but the same condition fixes that symmetric combination uniquely and thereby makes
   the row's offset source-dependent, destroying the divergence scoring. Correlation buys stationarity
-  or the KL row, never both, and $C=0$ is the unique member of the family delivering the row
-  ([[magent-exact-elbo-whitepaper-2026-07-27-link-covariance-tie]]). Relaxing mean field is therefore
+  or the KL row, never both, and $C=0$ is the unique member of the family delivering the row.
+  Relaxing mean field is therefore
   worth pursuing on its own merits, not as a repair of the attention lift.
 
   Two refinements of the hypothesis are worth recording, because they show what the mean-field
@@ -237,7 +236,7 @@ choice links the transformer analogy to [[Opinion dynamics]] and
 [[Mean-field games and continuum limits]], but aggregate coupling alone does not
 derive the product factorization.
 
-The exact-ELBO manuscript distinguishes agent-block factors, state/model channel-block factors, and a finer site-factorized comparison family. Agent-block and channel-block factors can retain dependence across all finite design points inside a factor. The moving-peer obstruction applies only to the fine family $Q=\bigotimes_{\ell,b}q_{\ell,b}$ and uses a separate site-local path for each design point. It does not cover the coarser cross-design families or restricted families lacking the required tangents. Its continuum corollary is conditional on the exact centered tangent, a common admissible rectangle, domination, and positive integrated variance; it does not construct a section-space probability law. [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]]
+The exact-ELBO manuscript distinguishes agent-block factors, state/model channel-block factors, and a finer site-factorized comparison family. Agent-block and channel-block factors can retain dependence across all finite design points inside a factor. The moving-peer obstruction applies only to the fine family $Q=\bigotimes_{\ell,b}q_{\ell,b}$ and uses a separate site-local path for each design point. It does not cover the coarser cross-design families or restricted families lacking the required tangents. Its continuum corollary is conditional on the exact centered tangent, a common admissible rectangle, domination, and positive integrated variance; it does not construct a section-space probability law.
 
 ## Constraint manipulation is an approximation choice
 
@@ -260,7 +259,6 @@ an exact-oracle error measurement.
 
 ## Sources
 
-- [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]] — typed block/site factorizations and the corrected fine-family moving-peer obstruction.
 - [[blei-2017-variational-inference]] — VI as optimization; the mean-field family, CAVI updates,
   the closed-form $q_j^\*\propto\exp\mathbb{E}_{-j}[\log p(z_j,z_{-j},x)]$, non-convexity / local
   optima, and the systematic underestimation of posterior variance under reverse KL.

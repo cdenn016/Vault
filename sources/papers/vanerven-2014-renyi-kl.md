@@ -3,6 +3,7 @@ type: paper
 title: Renyi Divergence and Kullback-Leibler Divergence
 aliases:
   - "van Erven & Harremoes 2014 — Renyi Divergence and KL"
+  - "vanErvenHarremoes2014"
 authors:
   - Tim van Erven
   - Peter Harremoes

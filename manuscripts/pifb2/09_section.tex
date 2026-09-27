@@ -1,0 +1,100 @@
+% !TeX root = ../PIFB2.tex
+\section{Meta-Agents as Retained Laws}\label{sec:meta_agent_formation}
+
+A parent should first be defined by what it retains and predicts. It need not begin as an average Gaussian, an averaged frame or a threshold crossing. Given a fine law and a normalized coarse channel, its law is induced exactly. Whether this retained description is a useful persistent agent is a further dynamical question.
+
+\subsection{The exact parent and its free energy}\label{sec:meta_agent_definition}
+Let $Y$ be the fine population state, $P_o$ its posterior at the observed record, and $C:Y\rightsquigarrow Z$ a normalized coarse channel held fixed as $Q$ varies. The parent laws are
+\begin{equation}
+Q^c=QC,\qquad P_o^c=P_oC.
+\label{eq:exact_parent_laws}
+\end{equation}
+On standard Borel spaces form the two augmented laws $Q(dy)C(y,dz)$ and $P_o(dy)C(y,dz)$. Their conditional laws of $Y$ given $Z$ yield
+\begin{equation}
+\begin{split}
+D_{\mathrm{KL}}(Q\|P_o)
+={}&D_{\mathrm{KL}}(Q^c\|P_o^c)\\
+&+\int D_{\mathrm{KL}}(Q(dy\mid z)\|P_o(dy\mid z))Q^c(dz).
+\end{split}
+\label{eq:coarse_kl_chain}
+\end{equation}
+The common forward kernel adds no relative entropy; disintegration proves the second line. The same evidence $Z_o$ occurs at both levels, so
+\begin{equation}
+\mathcal F_V(Q)=\mathcal F_V^c(Q^c)+\Delta_C(Q),\qquad \Delta_C(Q)\geq0.
+\label{eq:exact_coarse_vfe}
+\end{equation}
+This exact reduction is a data-processing statement. The drop measures discarded conditional mismatch, not improvement in the evidence for the world.
+
+Consequently a rule that chooses the largest raw VFE drop under arbitrary exact coarse channels can prefer severe information loss. Coarse-graining does not become a formation principle by calling that drop a gain. One must specify what observations, interventions or future laws the parent is required to retain. This obligation is mathematical and physical, not a requirement that a hierarchy save computer memory.
+
+\subsection{Selective links descend only under a compatibility condition}
+Suppose a deterministic linear retention $C_i:E_i\to Z_i$ is surjective and a child interaction is $L_{ij}:E_j\to E_i$. A parent interaction $L^c_{IJ}$ satisfying
+\begin{equation}
+C_iL_{ij}=L^c_{IJ}C_j
+\label{eq:parent_link_square}
+\end{equation}
+exists if and only if $\ker C_j\subseteq\ker(C_iL_{ij})$.
+Indeed, define $L^c_{IJ}(C_jx)=C_iL_{ij}x$; it is well-defined precisely under this inclusion and is then unique. No inverse of $L_{ij}$ is needed. For affine Gaussian channels, compatible means and pushed noise laws give the corresponding kernel square.
+
+This condition says that discarded source distinctions cannot remain visible to the retained receiver. Equal transmitted beliefs at one instant do not imply it. When the square fails, the parent can retain additional variables or a conditional law of the discarded state. Replacing the child link by an arbitrary relabeling would alter its predictions. With evolving retention maps, the drift also contains $\dot C_i x_i$; an instantaneous compatible link is not sufficient for an exact moving quotient.
+
+A many-agent block generally induces several boundary channels, correlated source events and higher-order interactions. Retaining only one matrix for each pair of parents is a closure approximation unless these additional dependencies vanish or are represented.
+
+\subsection{Gaussian summaries with different meanings}\label{sec:meta_agent_state_construction}
+A Gaussian summary is useful once the random variable it summarizes is identified. Express child states in a chosen parent frame, writing their means and covariances as $\tilde\mu_i,\tilde\Sigma_i$, and normalize weights $\bar w_i\geq0$ with $\sum_i\bar w_i=1$. The mixture law $\sum_i\bar w_i\tilde q_i$ has Gaussian moment projection
+\begin{align}
+\mu_I&=\sum_i\bar w_i\tilde\mu_i,\label{eq:meta_agent_mu_barycenter}\\
+\Sigma_I&=\sum_i\bar w_i\left[\tilde\Sigma_i+
+(\tilde\mu_i-\mu_I)(\tilde\mu_i-\mu_I)^\top\right].
+\label{eq:meta_agent_sigma_barycenter}\end{align}
+The dispersion term is retained. It describes population heterogeneity, not an avoidable correction.
+
+\begin{proposition}[Gaussian moment projection]\label{prop:barycenter_existence}
+For Gaussian $\tilde q_i$ with positive-definite $\tilde\Sigma_i$, the unique Gaussian minimizer of
+\begin{equation}
+\sum_i\bar w_iD_{\mathrm{KL}}(\tilde q_i\|q_I)
+\label{eq:meta_agent_barycenter}
+\end{equation}
+is given by the preceding moments.
+\end{proposition}
+\begin{proof}
+Up to a constant, the objective is
+$\tfrac12\log\det\Sigma_I+
+\tfrac12\operatorname{tr}[\Sigma_I^{-1}\mathbb E(X-\mu_I)(X-\mu_I)^\top]$
+for the mixture variable $X$. Its mean optimum is $\mathbb EX$. If $S$ is the resulting positive-definite covariance, subtracting the value at $S$ gives
+$\tfrac12[\operatorname{tr}(\Sigma_I^{-1}S)-K-\log\det(\Sigma_I^{-1}S)]\geq0$,
+with equality exactly at $\Sigma_I=S$.
+\end{proof}
+This is a distribution of a randomly selected member, followed by moment matching. It differs from the law of a collective average $Z_I=\sum_i\bar w_i\tilde X_i$, whose covariance is
+\begin{equation}
+\operatorname{Cov}(Z_I)=\sum_{ij}\bar w_i\bar w_j
+\operatorname{Cov}(\tilde X_i,\tilde X_j).
+\label{eq:parent_average_covariance}
+\end{equation}
+It also differs from a posterior over a shared latent inferred from several records, whose precision can add. Mixing these three covariance conventions produces incorrect claims about collective uncertainty and clock slowdown.
+
+\label{sec:meta_agent_variational}
+The moment projection is an exact parameter update in a declared Gaussian random-effects model: maximizing $\sum_i\bar w_i\mathbb E_{q_i}\log\mathcal N(\tilde k_i;m,S)$ over $(m,S)$ gives these moments. This is a fitted population distribution, not automatically a posterior on a new physical object. A regularized barycenter
+$\sum_i\bar w_iD_{\mathrm{KL}}(\tilde q_i\|q_I)+\lambda D_{\mathrm{KL}}(q_I\|p_I)$
+is a different optimization problem and does not retain the same closed form for $\lambda>0$.
+
+\begin{proposition}[Parent frame is a convention]\label{prop:parent_frame_gauge}
+With a chosen parent frame $U_I$, a retained Gaussian law transforms as
+$(\mu_I,\Sigma_I)\mapsto(g_I\mu_I,g_I\Sigma_Ig_I^\top)$ and every outgoing map transforms at its parent endpoint. Predictions are unchanged. A symmetric, left-equivariant global mean $G^n\to G$ cannot exist when a nonidentity finite-order element of order $n$ cyclically permutes an input tuple.
+\end{proposition}
+\begin{proof}
+Covariance follows by pushforward and the endpoint law. For the second assertion take the tuple $(I,v,\ldots,v^{n-1})$, with $v^n=I$ and $v\ne I$. Symmetry and equivariance would give $M=vM$, impossible for invertible $M$.
+\end{proof}
+A frame can simply be chosen. A Riemannian center of mass
+\begin{equation}
+U_I\in\arg\min_U\sum_i\bar w_i d_G(U,U_i)^2
+\label{eq:meta_agent_frame_barycenter}
+\end{equation}
+is an optional local convention when its existence and uniqueness hypotheses hold; it is not part of what makes a parent. Averaging Lie-algebra coordinates is generally not an equivariant substitute.
+
+\subsection{Coherence, persistence and autonomy}\label{sec:meta_agent_threshold}
+Coherence is agreement in declared communicated observables. Persistence is continued retention of a state or response law over a declared time scale. Autonomy is closure of the retained dynamics, possibly with retained memory. None implies the other two without assumptions. A numerical similarity threshold can diagnose coherence at a resolution; it is not a derivation of an agent.
+
+\label{sec:epistemic_collapse}
+Complete consensus also need not erase useful private distinctions. Equation~\eqref{eq:selective_private_information} separates public agreement from conditional private information. A parent may be coherent in what it exchanges while its members retain distinct internal descriptions. This gives a precise alternative to identifying formation with collapse of all beliefs to one law.
+

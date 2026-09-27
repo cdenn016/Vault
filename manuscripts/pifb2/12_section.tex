@@ -1,0 +1,54 @@
+% !TeX root = ../PIFB2.tex
+\section{The Participatory Loop and the Origin of Priors}\label{sec:ouroboros}
+
+The image of an ouroboros expresses a research aim: descriptions at one scale are sustained by activity at other scales, while the resulting collective constrains subsequent activity of its members. The probability theory does not require a self-referential prior equal to a posterior that it helped generate. It provides three precise forms of feedback: conditional inference within one joint, parameter learning across records, and predictive transitions between episodes.
+
+In conditional inference, changing a parent's approximate posterior changes the next child coordinate update because the two are factors of one coupled variational problem. In parameter learning, records change a model parameter or its posterior; the learned object then changes later predictions. In temporal feedback, the posterior of one episode becomes the input to a normalized transition. Each operation has a well-defined objective or law. Combining them requires a single schedule and probability model, not a simultaneous substitution of every posterior into every prior.
+
+\subsection{What is and is not removed by closing a loop}
+A finite directed acyclic generative model has root variables, and their laws must be specified. Replacing that hierarchy by a reciprocal undirected model is possible when its global partition function is finite. It replaces directed roots by a globally normalized reference and interaction law; it does not remove all assumptions. The existence of normalized cyclic models therefore defeats a blanket claim that every probabilistic loop is impossible, but does not establish an assumption-free universe.
+
+The optimal prior in an unrestricted family fitted to a collection of recognition laws is their aggregate. Indeed, for weights $w_a\geq0$ summing to one,
+\begin{equation}
+\sum_a w_aD_{\mathrm{KL}}(Q_a\|P)
+=\sum_a w_aD_{\mathrm{KL}}(Q_a\|\bar Q)+D_{\mathrm{KL}}(\bar Q\|P),
+\qquad \bar Q=\sum_a w_aQ_a,
+\label{eq:aggregate_prior_identity}
+\end{equation}
+whenever the terms are finite. The last term identifies the minimizer $P=\bar Q$. For sources with finite second moments and finite KL to some nonsingular Gaussian, restricting the prior to nonsingular Gaussians gives moment matching when the aggregate covariance is positive definite. This is an empirical-Bayes coordinate under a specified learning problem, not permission to reuse a current record twice, and not a unique source of initial priors.
+
+\subsection{Which structure may emerge}
+Selective interactions can establish public agreement while retaining private states. A population dynamics may develop long-lived regions, predictive sufficient statistics or coherent modes. Such retained structures can supply parent laws and memory. A hierarchy is recursively composable only if the parent carries the information needed to repeat the same operation: its state, interactions, records, retained source events and, where needed, memory.
+
+This identifies the minimal research target more sharply than a tower drawn in advance. The target is a dynamically selected family of predictive retained states whose induced laws remain usable at the next formation episode. Exact marginalization derives the parent law once the retention is given. It does not select that retention; a metastable partition may be dynamically distinguished without being unique; and a successful first episode does not prove recursive formation.
+
+\subsection{Drive, duration and stationarity}
+For an autonomous Riemannian gradient flow with positive mobility, the potential decreases until stationarity. Under analytic and precompactness assumptions the familiar gradient-convergence arguments apply. A slow mode can preserve a record for a long time without sustaining activity forever. Driven observations, stochastic fluctuations or explicitly nonequilibrium dynamics can maintain continuing changes, but their statistics are additional model data.
+
+The information clock of Section~\ref{sec:time_info} measures change along a supplied history. A participatory loop does not create that history's ordering parameter merely by feeding one conditional law into another. Wheeler's self-excited circuit remains the physical and philosophical motivation~\cite{Wheeler1983,Wheeler1990}; the present mathematics determines which inferential loops are consistent and what each retains.
+
+\subsection{Participation as an operational decision}
+A posterior probability that a link is active is an inference about a supplied routing model. Choosing a link, experiment or action is a decision. Normalization alone cannot select that decision. A minimal illustration uses a finite action set, a strictly positive reference policy $\rho(a)$, and an action-independent predictive prior $p^-(k)$. A normalized observation channel for each action gives expected information gain
+\begin{equation}
+\mathcal I_a=\mathbb E_{o\mid a}
+D_{\mathrm{KL}}(P(dk\mid o,a)\|p^-(dk)).
+\label{eq:participatory_information_gain}
+\end{equation}
+For finite gains and finite real declared costs $\ell(a)$, weights $\lambda>0$ and temperature $\tau_A>0$, the decision objective
+\begin{equation}
+J(\pi)=\sum_a\pi(a)[\ell(a)-\lambda\mathcal I_a]
++\tau_AD_{\mathrm{KL}}(\pi\|\rho)
+\label{eq:participatory_policy_objective}
+\end{equation}
+has unique optimum
+\begin{equation}
+\pi^*(a)=
+\frac{\rho(a)\exp[(\lambda\mathcal I_a-\ell(a))/\tau_A]}
+{\sum_b\rho(b)\exp[(\lambda\mathcal I_b-\ell(b))/\tau_A]}.
+\label{eq:participatory_policy}
+\end{equation}
+The simplex multiplier yields the displayed expression; subtracting its value leaves $\tau_AD_{\mathrm{KL}}(\pi\|\pi^*)$. If an action changes the latent predictive law, that action-conditioned law replaces $p^-$ in the information gain.
+
+This is an optional decision model, not another consequence of the evidence identity. Its costs, reference policy and valuation of information are visible assumptions. A fair hidden bit makes the distinction concrete. Reading it perfectly gains $\log2$ nats; receiving a constant blank gains zero. Equal costs and equal reference-policy weights make the information-seeking policy favor reading, whereas minimizing expected observation surprisal alone favors the blank. Wheeler's participant therefore cannot be identified with an indiscriminate minimizer of sensory entropy.
+
+An informational hierarchy also cannot acquire new evidence just by naming a retained level. Appending the same normalized encoder $C(dz\mid y)$ to both a prior and a recognition law leaves their joint KL unchanged. Likewise, if a coarse record is a deterministic copy of an existing record, its correct conditional law is a delta kernel given that record, not an additional independent likelihood. These facts allow feedback and repeated inference while preventing an apparent gain produced only by duplicated observations.

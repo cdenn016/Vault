@@ -4,10 +4,39 @@ title: Gauge-VFE RG research synthesis September 2026
 tags: [cluster/multi-agent, cluster/coarse-graining, cluster/gauge-theory, cluster/info-geometry, project/multi-agent]
 status: stable
 created: 2026-09-11
-updated: 2026-09-13
+updated: 2026-09-26
 ---
 
 # Gauge-VFE RG research synthesis September 2026
+
+## Pairing selection and checked primary sources, September 26, 2026
+
+The scoped proof in [[multiagentelbo-2026-09-26-selection-and-reference-review]] establishes actual-law matching selection for the shared-edge four-cycle at sufficiently small fixed temperature and vanishing learning mobility, from almost every fixed Gaussian initial mean and uniform initial source rows. The frozen-arm pairing contrast vanishes at every positive temperature. The result concerns the specified growing observation window; it is not a general or recursive hierarchy theorem.
+
+The same record checks Harris contraction in [[hairer-2011-harris-ergodic-theorem]], the marginal/path distinction in [[hartmann-2020-coarse-graining-nonreversible-sdes]], ordinary versus specific path entropy in [[backhoff-veraguas-2023-specific-relative-entropy]], the proper-action hypotheses of [[jotz-2008-closedness-of-the-tangent-spaces-to-the-orbits-of-proper-actions]], and the dependency-graph cumulant bound of [[feray-2013-mod-phi-convergence-i-normality-zones-and-precise-deviations]]. The existing immutable source notes were preserved; journal or version-specific locators are recorded in the new review source.
+
+
+## Theory streamlining review, September 23 (tentative)
+
+[[multiagentelbo-2026-09-23-theory-streamlining-review]] records a read-only review of the MultiAgentELBO `Theory/` manuscript at revision `59c1987` by 27 investigator agents of one model family, with no adjudication or cross-model check. Its verdict is major revision, mostly structural. The exact single-point core reproduced under recomputation, including the common-channel coarse VFE chain rule stated below, Fisher contraction, the effective action and bounded action calculus, the Hoeffding interaction coordinates, the kernel–holonomy fixed-sector theorem and the constants of the finite-depth formation theorem. About 242 of the 559 pages serve the single-point chain. The review proposes a 150–170 page single-point main manuscript, a 40–50 page multivariate-Gaussian supplement, a 60–80 page supplement for the deferred base-transport and spatial material, and a research log for the dated status decisions now kept in SPEC, with the supplements depending on the core and never the reverse. It also asks the general theory for typed fast and slow variables, a levels-of-description section, one declared attention model and a construction of participatory feedback in time.
+
+The review bears directly on the September 13 result below, which is the manuscript's formation theorem (07j). The proof-check investigator reconstructed it at detailed-sketch level with every constant checked. Its coherence conclusion, however, is the hierarchical linear relaxation of a prepared mean. The source record is standardized at the thermal scale and saturates at the coherence scale, so the source force is at most $5.8\times10^{-5}\sqrt T$ and coherence holds for every adapted assignment path. The calibration record contributes $1/T$ to the model Fisher information, so the learned parameter follows $2-e^{-\varepsilon t}$ up to $\varepsilon^{2Q_1+20}$ whatever the network's law. Loops stay thermally near flat, links are abelian translations, beliefs and models share unit mobility, and parents are partial marginals rather than coarse agents. What the family demonstrates is the mutual consistency of exact marked parents, actual-law activation and own-law feedback. Its doubly exponential regime comes from a loose early-interface estimate, and its theorem statement must choose $k_L$ before $\varepsilon_L$.
+
+> [!warning] Scope qualification (tentative: investigator recomputation, same model family, not adjudicated)
+> The September 13 sections on this page and on [[Gauge-Theoretic Multi-Agent VFE Model]] say the parents learn from their own actual law. That is formally true, but the review finds that the network law enters the learned parameter only at order $\varepsilon^{2Q_1+20}$ and that neither source attention nor learning changes which components form. Read "adaptive formation" in those sections with this qualification. The finding is one investigator's recomputation (Claude Opus 5.5).
+
+The other analytical results are recorded on their concept pages: the Wilsonian layer on finite networks at $c_*$ in [[Renormalization-group flow of beliefs]], edge twists, identity links and law coherence in [[Holonomy]], the active gauge image in [[Agents as fibre-bundle sections|Agents as fiber-bundle sections]], the orbit Fisher form in [[Fisher information metric]], rate-separated clocks in [[Geometric singular perturbation theory]], the Gaussian Galerkin pushforward and gauge-absorbed gains in [[Coarse Graining]], the two attention models in [[Meta-agents and hierarchical emergence]], and the reduced attention Hessian in [[Multi-agent variational free energy]]. The review also found that the 07c multiscale graph factorization omits the coarse graph datum from its conditioning sets (KL $\log2$ from the true joint in an exact two-state example) and that the thermodynamic Fisher theorems carry contradictory status tags. Earlier dated sections retain their original scopes.
+
+### Incorporation at 623e4fe (September 24)
+
+The review's structural recommendations are now the manuscript's architecture ([[multiagentelbo-2026-09-24-theory-restructure]]): a 247-page main manuscript at one base point (Chapters 1–15 about 181 pages), Supplement G (118 pages) and Supplement B (187 pages), merged to `main` as `623e4fe` under the author's decisions D1–D13. All of it is Claude Opus 5.5 agent work with no cross-model check, at the author's choice, and none of it is adjudicated.
+
+The formation qualification recorded above is now the manuscript's own statement. The Chapter 13 theorem is retitled "Finite-depth formation under a supplied energy hierarchy" (`thm:finite-depth-adaptive-formation`, proofs in Appendix C), and the chapter opening says that it treats a triangle chain with a supplied hierarchy of interaction energies. `rem:rg-formation-saturation` states that the source record is saturated, $\lvert\log\beta_S-\log\pi_S\rvert\le10^{-4}$ with force constant $B_*\le5.8\times10^{-5}$, that the coherence proof uses the record only through these bounds and so holds for every adapted assignment path and also with the record coefficient $\delta=0$ and the parameter frozen at $\vartheta\equiv1$, and that every law-dependent term of the parameter covector is at most $\mathrm C_Lr_\epsilon$. The quantifiers are reordered so that the constants come first and $\epsilon_L$ is chosen after $k_L$ and $\eta_L$, conclusion (a) states $r_\epsilon=O(\epsilon^{2Q_1+20})$ uniformly in $L$, and the continuous-path conclusion is concentration on a common deterministic path. `prop:rg-formation-gaussian-core` gives the exact Gaussian-core discarded conditional loss, whose non-transient term is smaller than the general estimate by $(\mathrm J_{\ell+1}/\mathrm J_\ell)^2$, and `open:rg-formation-regime-sharpness` asks whether the doubly exponential separation is needed at all. The September 20 endogenous four-cycle witness is now `prop:rg-formation-endogenous-cycle`: without a supplied hierarchy, the random initial source assignment decides which pairs form, with probability at least $3e^{-1/4}/512$ for every regime parameter $\epsilon\le1/100$. Chapter 14 states one conjecture, `conj:phil-contrast-formation`: on the four-cycle family with source-prior learning at mobility $\epsilon$ and Gaussian initial laws of arbitrary mean, contrast formation has a probability bounded below uniformly in small $\epsilon$ for almost every initial mean, and it is refuted by a positive-measure set of means on which that probability tends to zero. The author has not yet confirmed this sharpened family.
+
+The two other items of the paragraph above are settled in the manuscript as well. The multiscale factorization of Chapter 12 conditions each depth on the full next-depth state, with the $\log2$ witness as a proposition (see [[Meta-agents and hierarchical emergence]]), and decision D9 fixes the thermodynamic Fisher theorems as ESTABLISHED at their stated hypotheses, the lattice version in Supplement B and the lattice-free finite-mixture version in Chapter 9. The concept pages listed above record the status of the other findings.
+
+> [!warning] Status
+> Manuscript statements with proofs, written and checked by Claude Opus 5.5 agents with their own scripts; no cross-model check (the author's choice) and not adjudicated. The conjecture and the sharpness question are open.
 
 ## Positive-rate cyclic formation with weakest energy one, September 13
 
@@ -69,7 +98,7 @@ The chain rule is interpreted in the extended nonnegative sense; no subtraction 
 
 Compatible exact channels compose along their typed domains and codomains at every admitted stage. Fixed points are not required for this composition. Preserving a small action family, defining an autonomous map on one fixed carrier, learning a boundary law, and obtaining universal large-scale behavior are additional claims. Several older measurements showed defects in particular reduced or frozen descriptions; they did not refute exact normalized channel composition. [[multiagentelbo-2026-09-11-scale-and-inference]] and [[Staged hierarchy formation and RG composability]] keep these distinctions explicit.
 
-The implementation records cover sector quotients, recursive parent laws, compact-group and mixture controls, overlapping neighborhoods, temporal filtering, spatial interactions and finite formation. Results retain their actual arithmetic, configuration, interpreter, artifact and execution scope. The archive includes historical failed attempts and superseded plans for provenance. The old Phase 13 milestone is operator-accepted with incomplete automated publication certification. No historical failure was relabeled as a pass and no scientific test was rerun during this ingestion. [[multiagentelbo-2026-09-11-implementation]] and [[multiagentelbo-2026-09-11-finite-program]] give the executable scope.
+The implementation records cover sector quotients, recursive parent laws, compact-group and mixture controls, overlapping neighborhoods, temporal filtering, spatial interactions and finite formation. Results retain their actual arithmetic, configuration, interpreter, artifact and execution scope. The archive includes historical failed attempts and superseded plans for provenance. The old Phase 13 milestone is operator-accepted with incomplete automated publication certification. No historical failure was relabeled as a pass and no scientific test was rerun during this ingestion. The September 11 implementation and finite-program records give the executable scope.
 
 ## Gauge content and complete parents
 
@@ -99,13 +128,13 @@ The spatial and thermodynamic results retain full induced interactions and expli
 |---|---|
 | conditional-geometry | [[multiagentelbo-2026-09-11-conditional-geometry]] |
 | continuum | [[multiagentelbo-2026-09-11-continuum]] |
-| critical-comparisons | [[multiagentelbo-2026-09-11-critical-comparisons]] |
-| extension-studies | [[multiagentelbo-2026-09-11-extension-studies]] |
-| finite-program | [[multiagentelbo-2026-09-11-finite-program]] |
+| critical-comparisons | `multiagentelbo-2026-09-11-critical-comparisons` |
+| extension-studies | `multiagentelbo-2026-09-11-extension-studies` |
+| finite-program | `multiagentelbo-2026-09-11-finite-program` |
 | formation | [[multiagentelbo-2026-09-11-formation]] |
 | gaussian-closure | [[multiagentelbo-2026-09-11-gaussian-closure]] |
 | geometry-feedback | [[multiagentelbo-2026-09-11-geometry-feedback]] |
-| implementation | [[multiagentelbo-2026-09-11-implementation]] |
+| implementation | `multiagentelbo-2026-09-11-implementation` |
 | memory | [[multiagentelbo-2026-09-11-memory]] |
 | neighborhoods | [[multiagentelbo-2026-09-11-neighborhoods]] |
 | normalized-core | [[multiagentelbo-2026-09-11-normalized-core]] |

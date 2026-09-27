@@ -1,0 +1,244 @@
+\chapter{Related Work}
+\label{ch:related-work}
+
+Where does this construction sit among existing work, and what does it owe to
+it? The central comparison, with Bayesian renormalization in
+\cref{sec:rg-bayesian-comparison}, rests on
+\cref{prop:gen-no-distinguished-target} and
+\cref{thm:cg-evidence-preserving-channel}, and the open bridge problem of
+Supplement G builds on it.
+
+No construction below is identified with this one or adopted as authority
+beyond its cited statement, and qualifications of other works are this
+manuscript's reading. \status{NOT-CLAIMED}
+
+\section{Gauge theory, free energy, and multi-agent active inference}
+
+\citet{Sengupta2016NeuronalGauge} propose, in an essay, a gauge theory of
+neuronal dynamics in which variational free energy plays the role of a
+Lagrangian, gauge fields arise from the information geometry of the brain's
+probability distributions, and attention, the cognitive counterpart of
+precision weighting, is a force produced by the curvature of that geometry.
+Here the group acts on the sample fibers of one principal bundle
+(\cref{ch:geometry}), links are independent group elements on edge copies at one
+base point (\cref{def:geo-graph-links}), and attention is a latent source label
+with a derived posterior (\cref{prop:obs-attention-elbo}) whose precision is
+that of a record (\cref{prop:obs-selective-receiver-update}).
+
+In federated inference \citep{friston2024federated}, agents share a generative
+model of a shared world and communicate beliefs through a likelihood mapping to
+overt expressions, and language emerges when agents share an econiche.
+\citet{heins2024collective} obtain cohesion, milling, and directed motion from
+agents minimizing surprise under generative models of their neighbors,
+recovering social forces as suppressed prediction errors without a group-level
+model. \citet{waade2025asone} treat a collective whose group-level Markov
+blanket consists of its sensory agents' observations and its active agents'
+actions as a group-level agent, fit a model of the same structure to simulated
+collective behavior, and find the individual and group models nontrivially
+related. Here agents may carry inequivalent representations and independent
+links, their encoder, transmission, and decoder kernels enter one joint with one
+evidence bound (\cref{def:obs-selective-interface,ch:elbo}), parent laws follow
+from the fine joint by exact coarse channels
+(\cref{thm:rg-exact-coarse-vfe,thm:rg-pointwise-parent-datum}), formation is
+proved for a stated family (\cref{ch:finite-depth-formation}), and a low-rank
+interface does not by itself give a Markov blanket
+(\cref{prop:geo-selective-descent}).
+
+\section{Connection Laplacians, sheaves, and equivariant networks}
+
+\citet[Section 3 and Theorem 5.1]{SingerWu2012} build a graph connection
+Laplacian from edge weights and orthogonal transformations aligning the tangent
+spaces of neighboring sample points and prove its convergence to the connection
+Laplacian of the underlying manifold; \citet[Section 3.6]{HansenGhrist2019}
+identify it as the sheaf Laplacian of an orthogonal vector bundle over a graph,
+in a spectral theory of sheaves whose discrete Hodge theorem identifies harmonic
+cochains with sheaf cohomology \citep[Theorem 3.1]{HansenGhrist2019}. Our
+quadratic energies with represented links are of this type, with
+kernel the holonomy-fixed sector (\cref{prop:cg-kernel-holonomy}), but with
+links in \(G\) acting through representations, semidefinite weights, and
+normalized laws; the quadratic disagreement of
+\cref{def:obs-selective-comparison} is the edge term of a weighted sheaf energy
+with rectangular restriction maps, as in the discourse sheaves of selective
+expression \citep{HansenGhrist2021Discourse}.
+\citet[Section 4.2]{HansenGhrist2019} show that Kron reduction is in general
+impossible for sheaves, since an eliminated vertex can impose constraints
+between boundary vertices that no pairwise restriction maps express, and
+possible for vertex stalks of dimension at most one, where the Laplacians have
+factor width at most two \citep[Theorem 4.3]{HansenGhrist2019}; this is prior
+art for the Kron obstructions of matrix-weighted Gaussian energies that
+Supplement G classifies, whereas Galerkin closure
+(\cref{thm:cg-rectangular-endpoint-closure}) restricts a form to a subspace.
+
+Group-equivariant convolutional networks share weights across the orbits of a
+global symmetry group \citep{Cohen2016}, gauge-equivariant ones make a network
+on a manifold independent of the choice of local frames \citep{cohen2019gauge},
+and a gauge-equivariant transformer applies multi-head self-attention to feature
+fields on meshes with a parallel transport that makes the layer agnostic to the
+orientation of local coordinate systems \citep{He2021GaugeEquivariantTransformer}.
+These constrain learned maps over a base manifold with a connection. Here links
+are independent dynamic data at one base point, a nonidentity per-edge twist has
+no counterpart in an architecture with one shared key map
+(\cref{tab:obs-transformer-correspondence}), and
+\cref{cor:obs-selective-kernel-gauge,prop:geo-selective-covariance} describe how
+declared data transform, not constraints on a learned layer.
+
+\section{Averaging and path-space coarse-graining}
+
+\citet[Section~2.1.4, Theorem~2.9]{HartmannNeureitherSharma2020}
+bound path-space relative entropy for an effective diffusion under regularity,
+conditional functional inequalities, and Novikov's condition, with the
+resolved diffusion coefficient independent of unresolved coordinates. Their
+fixed-time estimates in Theorems~2.4 and~2.7 have a different target. Neither
+estimate supplies the growing-history, switching-source comparison requested
+by \cref{open:rg-pointwise-parent-dynamics}. The one-time selection result
+of \cref{conj:phil-contrast-formation} uses the separate entropy, transient
+imprint, and saddle-escape estimates in \cref{sec:phil-pairing-selection-proof}.
+A change in diffusion covariance can instead make continuous-path laws
+singular. \citet[Remark~1 and Theorem~1]{BackhoffUnterberger2023}
+study a partition-refinement relative entropy for martingale diffusions;
+that quantity is distinct from ordinary path-space relative entropy. The
+filter and memory constructions of \cref{sec:rg-memory-parent-mechanism}
+retain the dynamical information that a stationary marginal alone omits.
+
+\section{Information-geometric and Bayesian renormalization}
+\label{sec:rg-bayesian-comparison}
+\label{sec:obs-tau}
+
+\citet{beny2015information} formulate the renormalization group as a family of
+quantum channels connecting the microscopic world to the observable world at a
+given scale, endow the space of Hamiltonians with a metric induced by an
+information geometry on states, measure the information lost along a flow by the
+distinguishability of thermal states, and introduce functions of two-point
+correlations that do not increase along the flow; \cref{thm:cg-fisher-contraction}
+is only the classical Fisher-information statement for one parameter-independent
+kernel at one parameter value.
+
+Bayesian renormalization, as formulated by Berman, Klinger, and Stapleton, builds
+on the dynamical Bayesian inference of \citet{BermanHeckmanKlinger2022} and uses
+Fisher distinguishability on model-parameter space to define an information
+scale and to separate stiff from sloppy directions. In the late-data regime the
+posterior is a Gaussian whose covariance is the inverse Fisher information times
+the scale parameter \citep[Eq.~(38)]{BermanKlingerStapleton2023}. For a
+differentiable forward map \(\mathfrak O\) from parameters to data they write the
+pushforward of that posterior as a Gaussian
+\citep[Eq.~(43)]{BermanKlingerStapleton2023} whose covariance is the scale
+parameter times the pushed inverse Fisher metric
+\begin{equation}
+D^{\mathfrak O}_\theta
+=\partial\mathfrak O(\theta)g^F(\theta)^{-1}\partial\mathfrak O(\theta)^\top
+\label{eq:rg-bks-diffusion}
+\end{equation}
+at the posterior center \citep[Eq.~(44)]{BermanKlingerStapleton2023}, the
+diffusion tensor of a Fokker--Planck equation and a stochastic flow on data
+space \citep[Eqs.~(45) and~(46)]{BermanKlingerStapleton2023}. In our reading the
+delta method makes their Gaussian form the leading local approximation of the
+pushforward, exact when \(\mathfrak O\) is affine, and its continuation beyond
+the late-data regime is a renormalization construction, not an exact nonlinear
+pushforward or a Bayesian asymptotic theorem. It has been inverted into a
+statistical-inference reading of exact renormalization flows
+\citep{BermanKlinger2024Inverse} and applied to neural-network field theories
+\citep{HowardKlingerMaitiStapleton2025}.
+
+The information scale ranks which directions of a parent model presentation stay
+distinguishable at a declared precision, but by itself it selects no graph
+blocks, coarse-grains no nonflat links, and leaves the two-channel interaction
+law open. Letting
+a posterior flow does not make a generative kernel read its own posterior, so
+\cref{req:gen-typing-prohibition} does not refute Bayesian renormalization, but
+inserting a posterior from one scale as the generative top factor at another
+declares a new model or an explicit transition between models, whose bounds
+refer to different joints unless a common target and a comparison map are
+supplied. By \cref{prop:gen-no-distinguished-target}, pointwise identities
+designate no one member or evidence, and comparing two bounds shows an
+improvement in one quantity only on an evidence level set; for two independently
+declared joints with no evidence-preserving channel between them, the
+difference of optimized bounds mixes evidence and tightness differences and
+supplies no order, whereas an evidence-preserving recognition-independent Markov
+kernel applied to the posterior and the recognition law orders the bounds by
+data processing (\cref{thm:cg-evidence-preserving-channel,thm:cg-kl-dpi-extended}).
+Relating the widening of the posterior along its scale to the addition of
+precision under Gaussian aggregation would need a common state space, a map
+between the scale parameters, and a transported monotone; Supplement G records
+this bridge as open.
+
+\citet{MehtaSchwab2014} map Kadanoff's variational renormalization group
+exactly onto deep restricted Boltzmann machines; a deterministic
+identification of coarse and fine coordinates does not supply its kernel, so the
+Galerkin coarse form of \cref{sec:cg-galerkin} is not thereby a deep network.
+
+\section{Network renormalization, graph coarsening, and multigrid}
+\label{sec:grg-literature-boundary}
+\label{sec:full-graph-vfe-literature}
+
+Network renormalization addresses heterogeneous graphs, which have no lattice,
+momentum, or geometric length \citep{gabrielli2025network}. The Laplacian
+renormalization group of \citet{villegas2023laplacian} uses the diffusion
+density operator \(e^{-tL}/\Tr e^{-tL}\) of a graph Laplacian \(L\), its
+spectral entropy \(\mathcal S(t)\) normalized by the logarithm of the number of
+nodes, and the specific heat
+\begin{equation}
+\chi(t)=-\frac{d\mathcal S}{d\log t},
+\label{eq:grg-heat-capacity}
+\end{equation}
+whose peaks they use to identify characteristic resolution scales
+\citep[Eqs.~(1)--(2)]{villegas2023laplacian}.
+
+\remarkheading{Gauge behavior of heat-kernel diagnostics}{rem:grg-heat-kernel-gauge}
+Let \(R\succ0\) and \(L\) be block matrices on \(\bigoplus_{i\in V}\R^{n_i}\), and
+let a vertex reframing \(P=\operatorname{diag}(P_i)\) with invertible blocks
+act by congruence, \(R\mapsto P^\top RP\) and \(L\mapsto P^\top LP\). Then the
+generator \(R^{-1}L\) becomes \(P^{-1}R^{-1}LP\), so its spectrum, its heat trace
+\(\Tr e^{-tR^{-1}L}\), and every spectral entropy built from them are invariant,
+whereas the off-diagonal blocks of \(e^{-tR^{-1}L}\) become
+\(P_i^{-1}(e^{-tR^{-1}L})_{ij}P_j\) and are not invariant scalar node affinities.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+\((P^\top RP)^{-1}P^\top LP=P^{-1}R^{-1}LP\), and the exponential of a similar
+matrix is similar by the same matrix. \(\square\)
+
+A gauge-invariant block selector built from heat-kernel data therefore needs
+invariant statistics of the blocks, and a scale diagnostic alone selects no
+unique partition (\cref{open:cg-natural-selector}).
+\citet{Garuccio2023Multiscale} give a renormalization scheme for any hierarchy
+of heterogeneous coarse-grainings and identify a class of scale-invariant random
+graphs with a necessary dependence on additive node hidden variables, a
+characterized family rather than arbitrary hidden-variable networks; for random
+graphs whose link probabilities are conditioned on other links,
+\citet{CatanzaroGarlaschelliPatil2026} derive a closed-form renormalization
+transformation for maximum coordination number two and show that higher
+coordination numbers admit none. These candidate partition and closure
+mechanisms do not by themselves handle directed row-normalized attention, two
+gauge representations, or nonflat link holonomy, and the aggregation of
+\cref{ch:network-state} does not integrate out edge variables. A combined scheme
+would infer a partition from gauge-invariant multiplex diagnostics of edge-event
+laws through a structural channel with a named law and push the complete law
+exactly.
+
+Graph coarsening and pooling in machine learning add hypotheses of their own:
+restricted spectral approximation controls spectral and cut properties
+\citep{Loukas2019}, coarsening can carry message-passing guarantees
+\citep{JolyKeriven2024}, differentiable pooling learns soft cluster assignments
+end to end \citep{Ying2018DiffPool}, and deep graph convolutional networks whose
+weights satisfy spectral conditions lose all information except connected
+components and node degrees exponentially in depth \citep{OonoSuzuki2020}. The
+Galerkin identity preserves the restricted quadratic energy, while spectral
+approximation, message-passing commutation, and a graph-neural-network
+realization need the further controls of \cref{sec:cg-galerkin}
+(\cref{prop:cg-message-passing-residual}). That coarse form is the one of
+algebraic multigrid: aggregation-based multigrid forms \(P^\top AP\) with a
+piecewise-constant prolongation defined by disjoint aggregates
+\citep[Section 2, Eqs.~(2.1)--(2.2)]{Notay2010Aggregation}, smoothed
+aggregation smooths that tentative prolongation \citep{VanekMandelBrezina1996},
+and lean algebraic multigrid for graph Laplacians combines piecewise-constant
+interpolation, node aggregation by an affinity measure, and an energy correction
+of the coarse systems \citep{LivneBrandt2012LAMG}. What is added here is the
+placement of that operator inside normalized laws with gauge covariance and
+exact evidence accounting.
+
+\paragraph{Physicist's summary.}
+Here the group acts on sample fibers with independent links at one point, and
+parent laws are computed from the fine joint rather than shared, omitted, or
+fitted as in multi-agent active inference. Sheaf Laplacians supply the linear
+algebra and the Kron obstruction, and renormalization flows meet the exact
+channels only through a common comparison target.

@@ -1,0 +1,60 @@
+% !TeX root = ../PIFB2.tex
+\section{Cross-Scale Inference without Additional Shadow Postulates}\label{sec:cross_scale_shadows}
+
+Once a normalized model and a retained variable are specified, upward and downward inference are conditional probability operations. They need not be introduced as separate physical forces or as copies of a parent's posterior. The direction of a message, its conditioning information and its temporal episode must be stated.
+
+\subsection{Upward retention and conditional reconstruction}
+For a coarse channel $C$, the upward law is $Q^c=QC$. A reverse conditional $P(dy\mid z,o)$ exists under standard Borel assumptions, but depends on the joint law and the record. It is not a canonical inverse of a lossy map. For a deterministic retention $z=C(y)$, all fine states in the same fiber have the same retained value and can still have different conditional probabilities.
+
+The corresponding operator on observables is
+\begin{equation}
+(Cf)(y)=\int f(z)C(y,dz),
+\qquad
+(C^\dagger_Pg)(z)=\mathbb E_P[g(Y)\mid Z=z].
+\label{eq:cross_scale_operators}
+\end{equation}
+These operators are derived from the chosen channel and reference law. Their existence does not uniquely select that channel or law. Composition obeys the tower property for nested retained sigma-algebras. More generally, channels generated as a Markov chain $Y\to Z\to W$ compose by integrating over $Z$. Arbitrary overlapping summaries of one joint law need not obey this identity.
+
+\subsection{A hierarchy within one episode}
+Let $z$ be a parent latent with prior $r(z)$ and normalized child kernels $p_i(k_i\mid z)$, with each child's record likelihood $\ell_i(o_i\mid k_i)$. The joint
+\begin{equation}
+p(z,k,o)=r(z)\prod_i p_i(k_i\mid z)\ell_i(o_i\mid k_i)
+\label{eq:hierarchical_normalized_joint}
+\end{equation}
+gives exact evidence messages
+$m_i(z)=\int p_i(k_i\mid z)\ell_i(o_i\mid k_i)dk_i$.
+The downward message for child $i$ is
+\begin{equation}
+p_i^{\mathrm{cav}}(dk_i)\propto
+\int p_i(dk_i\mid z)r(z)\prod_{j\ne i}m_j(z)dz.
+\label{eq:cavity_predictive_prior}
+\end{equation}
+Multiplying by $\ell_i(o_i\mid k_i)$ then uses the child's record once. Replacing the cavity law by the complete parent posterior would reuse the child's evidence.
+
+Mean-field coordinate ascent is different from this sum-product calculation. Under $q(z)\prod_iq_i(k_i)$, the child coordinate contains
+$\exp\{\mathbb E_{q(z)}\log p_i(k_i\mid z)\}$, not
+$\mathbb E_{q(z)}p_i(k_i\mid z)$. Their difference is not a matter of terminology. The Gaussian calculations in Appendix~\ref{app:augmented_joint} display it explicitly.
+
+\subsection{Prediction between episodes}
+Let $Y_n$ be the retained population state after episode $n$ and let $T_n(Y_n,dY_{n+1})$ be a normalized transition independent of the next recognition law. Filtering and prediction give
+\begin{equation}
+Q_n=\mathbb P(dY_n\mid o_{0:n}),\qquad
+P_{n+1}^{-}=Q_nT_n.
+\label{eq:predictive_prior}
+\end{equation}
+A variational approximation to $Q_n$ gives a variational predictive prior instead of an exact filter. No new record is counted twice: the record $o_{n+1}$ has not entered $Q_n$.
+
+The older cross-scale shadow is one special kernel. If a child is a deterministic transported copy of a parent latent in the previous episode,
+\begin{equation}
+p_i^{(\ell),n+1}=(\Omega_{iI})_\#q_I^{(\ell+1),n},
+\qquad
+r_i^{(\ell),n+1}=(\widetilde\Omega_{iI})_\#s_I^{(\ell+1),n}.
+\label{eq:cross_scale_shadow}
+\end{equation}
+A general selective downward kernel replaces $\Omega_\#$ by $\mathcal K_{iI}$ and can change dimension or add noise. Equation~\eqref{eq:cross_scale_shadow} is therefore derived under a transported-copy transition, not a universal source of priors. The same-time assignment using the full parent posterior is removed from the foundational dynamics.
+
+The posterior predictive law gives a concrete answer to where later priors come from. Initial priors, transition laws and the distinction between observations and latent variables still require specification. An invariant prior may sometimes be derived from a specified ergodic dynamics, but that moves the assumptions into the dynamics; it does not produce a probability law without assumptions.
+
+\subsection{Participation as constrained feedback}
+Upward inference changes what a collective predicts; those predictions shape subsequent child inference through the same normalized model or through a later transition. The feedback is real within the model, but a separately named shadow field adds no mathematics. Wheeler's participatory interpretation concerns what such reciprocal dependence means physically~\cite{Wheeler1990}. The probability construction supplies conditional and predictive consistency; it does not by itself show that observers constitute the laws of nature.
+
