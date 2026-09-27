@@ -1,0 +1,257 @@
+\section{Activation from the Actual Conditioned Recognition Law}
+\label{sec:phil-actual-conditioned-parent}
+
+\propositionheading{Conditional information after a completed coherence prefix}{prop:phil-actual-conditioned-parent}
+In the learned four-cycle, fix \(0<\mathrm T\le1/100\), a selected
+matching \(M\), and \(s=t_{\mathrm L}\ge1\). Suppose, throughout
+\([s,2s]\),
+\[
+ \KL(q_t\Vert\mu_{\mathrm T,p(t)})\le\eta,
+ \qquad
+ \operatorname{TV}(q_t,\nu_{\mathrm T}^M)\le\delta.
+\]
+Set \(\mathsf a=\mathrm T^{1/4}\), \(\theta=s+1\), and let
+\(E=\mathscr E_M(\mathsf a,1)\) be the actual matching and coherence
+event of \cref{prop:phil-selected-pair-persistence} on \([s,s+1]\).
+Assume
+\[
+ \rho=3\delta+\mathsf b(\mathrm T,\mathsf a,1)<\tfrac12,
+ \qquad
+ h_b(r)=-r\log r-(1-r)\log(1-r),
+ \qquad
+ \kappa_E=\frac{\eta+h_b(\rho)}{1-\rho}.
+\]
+For all \(t\ge\theta\), write
+\(q_t^E=\operatorname{Law}(\mathbf X_t,S_t\mid E)\), always
+conditioning on this same completed prefix. Keep the single marked
+channel \(C\) of \cref{prop:rg-formation-endogenous-cycle}(b), including
+its identity action off the matching strata and its identity extension
+on evaluator samples. The parent activation law is exactly
+\[
+ \mu_{\mathrm{act}}=C_\#q_\theta^E.
+\]
+
+Let \(\mathcal H_{\mathrm{opt}}(q)\) be the mean discarded conditional
+relative entropy of \(q\) against the restricted optimizer under \(C\).
+Let \(\mathcal H_{\mathrm{phys}}(q)\) be the corresponding mean
+discarded conditional relative entropy against the full physical
+posterior, after lifting \(q\) with its recognition evaluator and
+retaining every evaluator sample. Then, for every \(t\in[\theta,2s]\),
+\begin{align}
+ \KL(q_t^E\Vert\mu_{\mathrm T,p(t)})&\le\kappa_E,
+ \label{eq:phil-conditioned-full-entropy}\\
+ \mathcal H_{\mathrm{opt}}(q_t^E)&\le\kappa_E,
+ \label{eq:phil-conditioned-opt-entropy}\\
+ \mathcal H_{\mathrm{phys}}(q_t^E)
+ &\le\kappa_E+\log\frac{4+5\mathrm T}{4+\mathrm T}
+ \le\kappa_E+\mathrm T.
+ \label{eq:phil-conditioned-physical-entropy}
+\end{align}
+The two hidden-conditional bounds hold with any strictly positive
+alternative source rows in their reference laws; the full-law bound
+\cref{eq:phil-conditioned-full-entropy} refers to the native rows
+\(p(t)\).
+
+These are unscaled, dimensionless relative entropies. The corresponding
+scaled optimizer free-energy loss is at most \(\mathrm T\kappa_E\);
+the unscaled physical negative-ELBO loss is at most
+\(\kappa_E+\mathrm T\), and its \(\mathrm T\)-scaled value is at most
+\(\mathrm T\kappa_E+\mathrm T^2\).
+Along the joint selection schedule with \(\eta,\delta\le\mathrm T\),
+\[
+ \rho=O(\mathrm T^{1/4}),
+ \qquad
+ \kappa_E=O(\mathrm T^{1/4}\log(1/\mathrm T)).
+\]
+The assumption \(\rho<1/2\) then holds for all sufficiently small
+\(\mathrm T\), so these bounds are asymptotic.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The learned-arm persistence bound
+\cref{eq:phil-selected-coherence-persistence}, applied with
+\(t_0=s\) and \(\mathsf h=1\), gives \(r:=\Pr(E^c)\le\rho\); its
+proof uses only the learned-arm hypothesis. Thus \(E\) is a
+\(\theta\)-measurable event of probability at least \(1-\rho\).
+The law \(q_\theta^E\) is the actual conditional law and may have
+retained--hidden correlations and a non-Gaussian hidden conditional.
+Its marked pushforward is normalized by construction. At later times
+no further event is conditioned upon. In particular, the deterministic
+native row path is not recomputed from \(q_t^E\).
+
+For a fixed \(t\in[\theta,2s]\), put
+\(B=\mathbf1_E\) and \(R_t=(\mathbf X_t,S_t)\).
+Compute the relative entropy of the joint law of \((B,R_t)\) against
+\(\mathrm{Bernoulli}(1-r)\otimes\mu_{\mathrm T,p(t)}\) in two orders:
+\begin{equation}
+ \begin{aligned}
+ &(1-r)\KL(q_t^E\Vert\mu_{\mathrm T,p(t)})
+       +r\KL(q_t^{E^c}\Vert\mu_{\mathrm T,p(t)})\\
+ &\qquad=\KL(q_t\Vert\mu_{\mathrm T,p(t)})
+                       +\mathbb I(B;R_t)
+ \le\eta+h_b(r).
+ \end{aligned}
+ \label{eq:phil-conditioned-event-information}
+\end{equation}
+When \(r=0\), use just the first term. The second term is nonnegative,
+\(h_b\) is increasing on \([0,1/2]\), and \(1-r\ge1-\rho\).
+This proves \cref{eq:phil-conditioned-full-entropy}.
+It also establishes the needed absolute continuity and finiteness;
+directly, \(q_t^E\le q_t/(1-r)\).
+
+The channel's fibers can be checked explicitly. On a matching with
+edges \(e,f\), let \(F_M\) have the orthonormal columns
+\[
+ (n_e^+-n_f^+)/\sqrt2,\qquad n_e^-,\qquad n_f^-.
+\]
+Write \(Z_M=\operatorname{im}F_M\), \(W_M=Z_M^\perp\), and
+\(\mathbf x=y+F_Mz\).
+The normal identities in \cref{eq:rg-formation-cycle-normals} give
+\[
+ \nu_{\mathrm T,Z}=\mathcal N(0,\mathrm TK_Z^{-1}),
+ \qquad
+ K_Z=\operatorname{diag}(8+\mathrm T,4+5\mathrm T,4+5\mathrm T)
+\]
+as the hidden optimizer conditional. Both the interaction Hessian
+and the evaluator precision preserve \(W_M\) and \(Z_M\).
+Consequently this conditional is independent of the retained
+coordinate and of the prior rows. It is a reference conditional, not
+an assertion that the actual conditioned recognition law has that
+form. The same statement holds on the other matching by rotation;
+off the two matchings the channel is the identity and has no
+discarded conditional.
+
+The target of \(C\) is a finite disjoint union of Euclidean strata,
+so disintegration gives the exact entropy chain rule
+\begin{equation}
+ \KL(q_t^E\Vert\mu_{\mathrm T,p(t)})
+ =\KL(C_\#q_t^E\Vert C_\#\mu_{\mathrm T,p(t)})
+                         +\mathcal H_{\mathrm{opt}}(q_t^E).
+ \label{eq:phil-conditioned-parent-chain}
+\end{equation}
+Dropping its retained term proves
+\cref{eq:phil-conditioned-opt-entropy}. This argument uses the
+complete actual law; it neither resets the hidden state nor assumes
+Gaussianity conditional on a source history.
+
+For the physical bound, work first on one matching fiber. Its physical
+outer hidden Gaussian is
+\[
+ \Pi_{\mathrm T,Z}=\mathcal N(0,\mathrm T(K_Z^{\mathrm{phys}})^{-1}),
+ \qquad
+ K_Z^{\mathrm{phys}}
+  =\operatorname{diag}(8+\mathrm T,4+\mathrm T,4+\mathrm T).
+\]
+All displayed matrices are positive definite. Write
+\(v=1-\sigma_{\mathrm{ev}}^2=1/2\),
+\(d_y=\mathfrak Dy\), and \(d_z=\mathfrak DF_Mz\).
+Since \(R_{\mathrm{ev}}=\mathfrak D^\top\mathfrak D/v\)
+preserves the split, \(d_y\cdot d_z=0\); its hidden eigenvalues
+are \(0,4,4\).
+
+Let \(U=(m,k)\) denote the full evaluator sample vectors.
+At configuration \(\mathbf x\), the physical evaluator has
+\(m\sim\mathcal N(\bar m,\sigma_{\mathrm{ev}}^2I)\) and independent
+increment \(k-m\sim\mathcal N(0,vI)\). Its recognition counterpart,
+\cref{eq:rg-formation-evaluator-lift}, has the same first law and
+increment mean \(d_y+d_z\). At a fixed retained \(y\), form the
+comparison probability law
+\begin{equation}
+ \overline P_y(dz,dU)
+ =\Pi_{\mathrm T,Z}(dz)P_{\mathrm{ev}}(dU\mid y+F_Mz)
+  \exp\left[
+  \frac{d_y\cdot(k-m)-|d_y|^2/2}{v}\right].
+ \label{eq:phil-conditioned-evaluator-tilt}
+\end{equation}
+Completing the Gaussian square in \(k-m\) proves that the multiplier
+integrates to one for every \(z\). It changes the increment mean
+to \(d_y\) and keeps \(\Pi_{\mathrm T,Z}\) as its \(z\) marginal.
+The multiplier is retained-measurable in \((y,U)\), so
+\(\overline P_y\) has the physical hidden conditional given these
+retained variables. At a fixed \(z\), the recognition evaluator
+differs by the additional increment mean \(d_z\), with relative
+entropy \(|d_z|^2/(2v)\).
+
+Compute the joint relative entropy first through \(z\), then through
+\(U\), and drop the nonnegative evaluator-marginal term. For the
+actual hidden law \(q(dz\mid M,y)\), this gives
+\[
+ \mathcal H_{\mathrm{phys}}(q\mid M,y)
+ \le\KL(q(dz\mid M,y)\Vert\Pi_{\mathrm T,Z})
+             +\E_q[|d_z|^2/(2v)\mid M,y].
+\]
+All terms are well-defined: the native process has finite second
+moments, conditioning increases the second-moment bound by a factor
+at most \((1-\rho)^{-1}\), and the Gaussian reference logarithms are quadratic.
+The optimizer conditional is the exact tilt
+\[
+ \nu_{\mathrm T,Z}(dz)
+ =\frac{\Pi_{\mathrm T,Z}(dz)e^{-|d_z|^2/(2v)}}{Z_{\mathrm{tilt}}},
+ \qquad
+ Z_{\mathrm{tilt}}=\frac{4+\mathrm T}{4+5\mathrm T}.
+\]
+For its normalizer, the common coordinate is unchanged and each of
+the two discrepancy coordinates changes rate from \(4+\mathrm T\)
+to \(4+5\mathrm T\); their two square-root Gaussian determinant
+factors multiply to \(Z_{\mathrm{tilt}}\). Therefore
+\[
+ \KL(q(dz\mid M,y)\Vert\Pi_{\mathrm T,Z})
+       +\E_q[|d_z|^2/(2v)\mid M,y]
+ =\KL(q(dz\mid M,y)\Vert\nu_{\mathrm T,Z})
+                         +\log\frac{4+5\mathrm T}{4+\mathrm T}.
+\]
+Integrate over the retained law. Matching strata have total
+probability at most one, and all other strata have zero discarded
+loss. Finally,
+\[
+ 0\le\log\frac{4+5\mathrm T}{4+\mathrm T}
+ =\log\left(1+\frac{4\mathrm T}{4+\mathrm T}\right)
+ \le\frac{4\mathrm T}{4+\mathrm T}\le\mathrm T.
+\]
+This proves \cref{eq:phil-conditioned-physical-entropy}.
+Only recognition has been conditioned on \(E\); the physical target
+still uses the original observed records, with all evaluator samples
+retained.
+
+A source-prior factor \(\pi_S\) cancels in any conditional law on a
+fiber because \(S\) is retained. The hidden optimizer and physical
+reference conditionals are consequently the same for every strictly
+positive choice of prior rows. The full-law entropy need not remain
+small for different rows, because its retained term may change.
+An imposed zero prior on an occupied stratum would remove reference
+support and is excluded; ordinary finite-time learning from positive
+rows preserves positivity.
+
+The exact free-energy chain rules give the stated scaled and unscaled
+losses. With \(\eta,\delta\le\mathrm T\) and
+\(\mathsf a=\mathrm T^{1/4}\),
+\[
+ \rho\le3\mathrm T+8\sqrt{2/\pi}\mathrm T^{1/4}
+                         +3408\mathrm T^{1/2}.
+\]
+Use \(h_b(\rho)\le\rho\log(e/\rho)\) and
+\(1-\rho\ge1/2\) eventually to obtain the displayed order for
+\(\kappa_E\). \(\square\)
+
+\remarkheading{A high-probability prefix is needed}{rem:phil-conditioned-hidden-sign}
+The high probability of the declared prefix has mathematical content.
+Under the exact matching Gaussian \(\nu_{\mathrm T}^M\), a hidden
+coordinate \(z_1\) is independent of the retained state and has zero
+unconditioned hidden relative entropy. Conditioning on
+\(\{z_1>0\}\), of probability \(1/2\), instead gives a density ratio
+two on that half-space and hidden relative entropy \(\log2\) at every
+temperature. Thus a probability merely bounded below does not suffice
+for a vanishing conditional loss. Conditioning on the entire realized
+fine history is different again: it fixes the hidden endpoint and
+gives a Dirac conditional, singular relative to the nondegenerate
+Gaussian fiber. The activation here uses the full joint law conditional
+on \(E\), not a realized fine history.
+\status{ESTABLISHED}
+
+The proposition supplies conditional information at activation and for
+the native future marginals under that same completed prefix. It does
+not yet compare an independently evolving parent path. Its prefix is
+the late restored coherence event, and carries no first-formation or
+recursive-coalescence conclusion.
+
+

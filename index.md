@@ -16,7 +16,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 - [[multiagentelbo-2026-09-26-selection-and-reference-review]] — scoped pairing-selection proof and checked primary-reference archive
 - [[Gauge-VFE RG research synthesis September 2026]] — current normalized RG theory, finite formation, evidence scope and this week's primary-source archive
 - [[VFE Transformer Program]] — the language-model instantiation (the `vfe3` transformer)
-- [[Gauge-Theoretic Multi-Agent VFE Model]] — the multi-agent, continuous-time instantiation (MAgent)
+- [[Gauge-Theoretic Multi-Agent VFE Model]] — the multi-agent, continuous-time instantiation (MAgent); theory source: `manuscripts/MultiAgentELBO_Theory/` (canonical since 2026-09-27)
 - [[SocialPhysics]] — opinion dynamics & belief momentum as multi-agent VFE (founded on [[belief-inertia]])
 - [[CLAUDE|LLM-Wiki Schema]] — how the wiki is maintained · [[log|Operations Log]] — operation history
 

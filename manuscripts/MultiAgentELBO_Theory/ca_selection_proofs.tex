@@ -1,0 +1,823 @@
+\section{Proof of Pairing Selection}
+\label{sec:phil-pairing-selection-proof}
+
+\noindent\emph{Proof of \Cref{conj:phil-contrast-formation}.}
+Write \(p_i=\pi_{i,i+1}\), encode the assignment by
+\(\sigma_i=+1\) when receiver \(i\) selects \(i+1\), and put
+\(\varepsilon=\epsilon_{\mathrm L}\). The state remains
+\((\mathbf x,\sigma)\in\R^{12}\times\{\pm1\}^4\), with the shared edge
+costs of \cref{eq:rg-formation-cycle-cost}. The multiplicity of edge
+\(e\) is
+\(m_e(\sigma)=1_{\{\sigma_e=+1\}}+1_{\{\sigma_{e+1}=-1\}}\).
+In this proof define
+\[
+ \Omega=I+R_{\mathrm{ev}},\qquad
+ \mathsf A_\sigma=H_\sigma+\mathrm T\Omega,\qquad
+ H_\sigma=\nabla^2V_\sigma,\qquad
+ \mathsf A_\sigma\succeq\mathrm TI.
+\]
+Let \(\mathsf w_\sigma=\det(\mathsf A_\sigma/\mathrm T)^{-1/2}\),
+\(\mathsf Z(p)=\sum_\sigma\pi_\sigma(p)\mathsf w_\sigma\), and
+\[
+ \mu_p(\mathbf x,\sigma)
+ =\frac{\pi_\sigma(p)}{(2\pi)^6\mathsf Z(p)}
+   \exp\left[-\frac{\mathbf x^\top\mathsf A_\sigma\mathbf x}
+                    {2\mathrm T}\right],\qquad
+ \pi_\sigma(p)=\prod_i p_i^{1_{\{\sigma_i=+1\}}}
+                         (1-p_i)^{1_{\{\sigma_i=-1\}}}.
+\]
+Each held-sheet diffusion preserves its Gaussian factor, and a clock ring
+resamples \(\sigma\) from its conditional law under \(\mu_p\). Thus
+\(\mu_p\) is invariant for the frozen rows, including boundary rows on their
+supported sheets. Set
+\begin{equation}
+ \bar\beta_i(p)=\mu_p(\sigma_i=+1),\qquad
+ \mathfrak g_i(p)=\partial_{p_i}\log\mathsf Z(p),\qquad
+ \mathscr V_i(p)=\bar\beta_i(p)-p_i
+               =p_i(1-p_i)\mathfrak g_i(p).
+\label{eq:phil-selection-reduced-field}
+\end{equation}
+The last identity follows by differentiating the product prior. Since
+\(\mathsf Z\) is a positive multilinear polynomial on the closed cube,
+\(\mathfrak g\) and \(\mathscr V\) extend analytically to a neighborhood of
+that cube and have bounded derivatives there. The well-posedness argument
+for \cref{prop:phil-seeded-contrast-formation} applies at every fixed
+\(\mathrm T>0\); it gives deterministic continuously differentiable rows and
+\begin{equation}
+ \min_i\{p_i(t),1-p_i(t)\}\ge\tfrac12e^{-\varepsilon t},\qquad
+ \|p(t)-\tfrac12\|_\infty\le\tfrac12\varepsilon t.
+\label{eq:phil-selection-row-bounds}
+\end{equation}
+All constants below may depend on the fixed temperature. Constants in
+bounds on a fixed initial law may also depend on its mean, whereas the
+window constant in the conclusion will depend only on the temperature.
+
+\subsection*{Frozen convergence and the initial imprint}
+
+Here \(\operatorname{Ent}_\nu(g)=\int g\log(g/\int g d\nu)d\nu\)
+for nonnegative \(g\), and total variation is \(\sup_A|q(A)-\nu(A)|\).
+For the time-one frozen kernel, the function
+\(\mathsf V(\mathbf x)=|\mathbf x|^2\) satisfies
+\begin{equation}
+ \E_{\mathbf x}|\mathbf X_t|^2
+ \le e^{-2\mathrm Tt}|\mathbf x|^2+12(1-e^{-2\mathrm Tt}),\qquad
+ P_1^p\mathsf V\le e^{-2\mathrm T}\mathsf V+12.
+\label{eq:phil-selection-moment}
+\end{equation}
+Indeed, jumps leave \(\mathbf X\) unchanged, and the diffusion generator
+applied to its squared norm is at most \(24\mathrm T-2\mathrm T|\mathbf X|^2\).
+Choose \(R>24/(1-e^{-2\mathrm T})\). For any frozen \(p\), some assignment
+\(\sigma_*(p)\) has \(\pi_{\sigma_*}\ge1/16\). Restrict the rate-one
+clock to exactly one ring in \([0,1/2]\) and none afterward. Its probability
+is \(e^{-1}/2\). Starting with \(|\mathbf x|\le\sqrt R\), the first held
+Gaussian motion is in the ball of radius
+\(r'=\sqrt R+\sqrt{24\mathrm T}\) at that ring with probability at least
+\(1/2\). On the ball, the probability to redraw \(\sigma_*\) is at least
+\(16^{-1}e^{-v(r')/\mathrm T}\), where
+\(v(r')=\max_{|\mathbf z|\le r',\sigma}V_\sigma(\mathbf z)<\infty\).
+The subsequent held Gaussian transition lasts between \(1/2\) and \(1\).
+Its means are bounded and its covariance matrices have common positive
+lower and finite upper bounds. Its density consequently has a positive
+common lower bound on the unit ball. Hence, for some \(\alpha_{\mathrm T}>0\)
+independent of \(p\),
+\[
+ P_1^p((\mathbf x,\sigma),\cdot)
+ \ge\alpha_{\mathrm T}\operatorname{Unif}(B_1)
+                         \otimes\delta_{\sigma_*(p)}
+ \quad\text{when }|\mathbf x|^2\le R.
+\]
+These are the drift and minorization hypotheses of
+\citet[Assumptions 1--2 and Theorems 1.2--1.3]{HairerMattingly2011}.
+The explicit dependence in their Theorem 1.3 makes the resulting constants
+uniform in the frozen rows, even though the minorizing measure depends on
+\(p\). Thus \(\mu_p\) is the unique invariant law and
+\begin{equation}
+ |P_t^p\phi(\mathbf x,\sigma)-\mu_p\phi|
+ \le\mathrm K_{\mathrm T}e^{-\lambda_{\mathrm T}t}
+       (1+|\mathbf x|^2)\|\phi\|_\infty.
+\label{eq:phil-selection-harris}
+\end{equation}
+Intermediate times follow by applying the skeleton estimate to
+\(P_r^p\phi\), \(0\le r<1\).
+
+Put \(\mathbf v=(1,-1,1,-1)\),
+\(f_{\mathbf v}(\sigma)=\frac12\sum_i\mathbf v_i\sigma_i\), and define
+\begin{equation}
+ \mathsf I_i(\mathsf m_0)
+ =\int_0^\infty[q_t^0(\sigma_i=+1)-\tfrac12]dt,\qquad
+ \mathsf j_{\mathrm T}(\mathsf m_0)
+ =\mathbf v\cdot\mathsf I(\mathsf m_0).
+\label{eq:phil-selection-imprint}
+\end{equation}
+At uniform rows, the stationary law is invariant under cycle rotations and
+reflections, so each stationary row is \(1/2\) and
+\(\mu_{1/2}f_{\mathbf v}=0\). Estimate
+\cref{eq:phil-selection-harris} proves absolute convergence of these
+integrals. It also gives a Poisson integral
+\begin{equation}
+ \mathfrak R_{\mathrm T}(\mathbf x,\sigma)
+ =\int_0^\infty P_t^{1/2}f_{\mathbf v}(\mathbf x,\sigma)dt,\qquad
+ |\mathfrak R_{\mathrm T}(\mathbf x,\sigma)|
+ \le\mathrm K_{\mathrm T}(1+|\mathbf x|^2).
+\label{eq:phil-selection-poisson}
+\end{equation}
+Convolution of this integral with the initial Gaussian expresses
+\(\mathsf j_{\mathrm T}\) as an entire function of its complexified mean:
+for every compact set of complex means, all differentiated integrands are
+bounded by an integrable polynomial times a Gaussian. The same holds for
+\(\mathsf I\). A rotation by one changes the sign of
+\(\mathsf j_{\mathrm T}\).
+
+For \(t\le1/(10\varepsilon)\), all row entries are in
+\([\mathrm c_0,1-\mathrm c_0]\), \(\mathrm c_0=0.45\). A posterior receiver probability has derivative
+at most \(1/[4\mathrm c_0(1-\mathrm c_0)]\le1/(2\mathrm c_0)\) with respect to its prior entry.
+Coupling the common clocks and their four posterior rows therefore gives
+\[
+ \|q_t^\varepsilon-q_t^0\|_{\mathrm{TV}}
+ \le\frac2{\mathrm c_0}\int_0^t\|p(s)-\tfrac12\|_\infty ds
+ \le\frac{\varepsilon t^2}{2\mathrm c_0}.
+\]
+Variation of constants in the learning equation, followed by
+\cref{eq:phil-selection-harris}, gives
+\begin{equation}
+ \left|p(t)-\tfrac12-\varepsilon\mathsf I(\mathsf m_0)\right|_\infty
+ \le\mathrm K_{\mathrm T,\mathsf m_0}
+       (\varepsilon e^{-\lambda_{\mathrm T}t}+\varepsilon^2t)
+       +\frac{\varepsilon^2t^3}{6\mathrm c_0}.
+\label{eq:phil-selection-imprint-expansion}
+\end{equation}
+In particular, at \(t_1=\varepsilon^{-1/4}\),
+\(p(t_1)-1/2=\varepsilon\mathsf I(\mathsf m_0)+o(\varepsilon)\).
+
+\subsection*{Nonvanishing of the matching imprint}
+
+Take \(\mathbf u_\circ=(0_4,0_4,(0,1,0,-1))\), whose two residual vectors
+are \((0,-1,0,1)\). In the noiseless switched motion the subspace
+\(\bar k=\bar m\) is invariant. After removing the scalar factor
+\(e^{-\mathrm Tt}\), its common residual vector satisfies
+\begin{equation}
+ \dot\rho=-\mathsf G M_\sigma\rho,\qquad
+ \mathsf G=4I-A_{C_4},\qquad
+ M_\sigma=\operatorname{diag}(m_e(\sigma)).
+\label{eq:phil-selection-tied-residual}
+\end{equation}
+Here the cyclic difference matrix contributes
+\(2I-A_{C_4}\) and the shared-link drift contributes \(2I\).
+Of the sixteen assignments, six have \(m_1=m_3\). Their first held motion
+is \(e^{-ct}(0,-1,0,1)\), with \(c=4m_1\in\{0,4,8\}\).
+At their first clock ring every receiver prefers the even-edge matching
+\(S^{(0)}\). Holding that matching then leaves the odd residuals constant
+and the even residuals zero in the scalar-free coordinates.
+
+Four further assignments have multiplicity patterns
+\[
+ (1,1,2,0),\quad(1,0,2,1),\quad(2,0,1,1),\quad(2,1,1,0).
+\]
+The signed swap of coordinates \(1,3\) and the rotation by two preserve
+the even-edge matching and carry the initial residual to itself or its
+negative. They reduce these four cases to \((1,1,2,0)\). Write its
+scalar-free coordinates as \(\rho=(-a,-b,-d,h)\). Then
+\[
+ \begin{pmatrix}\dot a\\\dot b\\\dot d\end{pmatrix}
+ =\begin{pmatrix}-4&1&0\\1&-4&2\\0&1&-8\end{pmatrix}
+   \begin{pmatrix}a\\b\\d\end{pmatrix},\qquad
+ (a,b,d)(0)=(0,1,0),\qquad \dot h=-(a+2d),\ h(0)=1.
+\]
+The nonnegative cone is invariant, and the negative row sums give
+\(\max(a,b,d)\le1\), hence \(a\le1/4\), \(d\le1/8\).
+The half-spaces
+\(a-3b/4-11d/25\le0\) and \(d-b/4\le0\) are invariant: their
+outward derivatives on the corresponding boundary are
+\(-b/400-7d/100\) and \(-a/4-b/8\), respectively. Consequently
+\(a\le43b/50\), \(d\le b/4\), and \(b\ge e^{-4t}\).
+The attended block is similar to a negative definite symmetric matrix
+because \(\mathsf G\succ0\). Solving
+\(\rho(\infty)=\rho(0)-\mathsf G z\), with \(z_3=0\) and the first
+three final coordinates zero, gives \(h(\infty)=6/7\). Thus
+\(h\ge6/7\).
+
+If the first ring occurs at \(t_{\mathrm r}\) and redraws \(S^{(0)}\),
+the subsequent scalar-free held motion, in elapsed time \(r\), is
+\[
+ \begin{aligned}
+ a_r&=a_0e^{-8r},&d_r&=d_0e^{-8r},\\
+ b_r&=b_0+\tfrac14(a_0+d_0)(1-e^{-8r}),&
+ h_r&=h_0-\tfrac14(a_0+d_0)(1-e^{-8r})\ge\tfrac{171}{224}.
+ \end{aligned}
+\]
+Every adjacent odd-edge absolute residual exceeds its even-edge neighbor
+by at least \((7/50)e^{-4t_{\mathrm r}}\). Combining these four cases
+with the preceding six, the deterministic motion \(\mathbf Y\) from
+\(s\mathbf u_\circ\) has, throughout the hypothesized matching hold,
+\begin{equation}
+ \sqrt{\mathcal D_{\mathrm{odd}}(\mathbf Y_t)}
+ -\sqrt{\mathcal D_{\mathrm{even}}(\mathbf Y_t)}
+ \ge\frac7{50}s e^{-\mathrm Tt-8t_{\mathrm r}},
+ \qquad t\ge t_{\mathrm r}.
+\label{eq:phil-selection-lock-margin}
+\end{equation}
+There are therefore ten good initial assignments. For the remaining six
+only \(f_{\mathbf v}\ge-2\) will be used.
+
+Set \(h_s=(\log s)/\mathrm T\), for \(s>e\), and write the initial
+configuration as \(s\mathbf u_\circ+\xi\), \(\xi\sim\mathcal N(0,I)\).
+Along the actual assignment path decompose
+\(\mathbf X=\mathbf Y+\mathbf E+\mathbf Z\), where the first two terms
+solve its switched deterministic equation from \(s\mathbf u_\circ\) and
+\(\xi\), respectively, while
+\[
+ d\mathbf Z=-\mathsf A_{\sigma_t}\mathbf Zdt+\sqrt{2\mathrm T}dW_t,
+ \qquad\mathbf Z_0=0.
+\]
+All three are adapted differential equations, and
+\(|\mathbf E_t|\le e^{-\mathrm Tt}|\xi|\).
+It\^o's formula yields
+\[
+ \mathscr L e^{|\mathbf Z|^2/4}
+ \le\mathrm T(6-|\mathbf Z|^2/4)e^{|\mathbf Z|^2/4}
+ \le\mathrm Te^5.
+\]
+Stopping at radius \(\log s\), and using
+\(\E e^{|\xi|^2/4}=64\), bounds the probability that either
+\(|\xi|>\log s\) or \(\sup_{t\le h_s}|\mathbf Z_t|>\log s\) by
+\((65+\mathrm Te^5h_s)e^{-(\log s)^2/4}\).
+On its complement each square-root edge cost changes from its
+\(\mathbf Y\) value by at most \(2\mathrm C_N\log s\), where
+\(\mathrm C_N\) is the largest norm of a residual-pair map divided by
+\(\sqrt2\).
+
+Define
+\[
+ L_s(t_{\mathrm r})=h_s-\frac8{\mathrm T}t_{\mathrm r}
+                         -\frac2{\mathrm T}\log\log s,\qquad
+ B_s=(L_s(t_{\mathrm r})-t_{\mathrm r})_+.
+\]
+For a good initial assignment, \cref{eq:phil-selection-lock-margin}
+gives a square-root gap at least \((7/50)(\log s)^2\) on
+\([t_{\mathrm r},L_s]\). For sufficiently large \(s\), while both noise bounds hold,
+the actual energy gap is at least
+\(\kappa_0(\log s)^4\), \(\kappa_0=(7/50)^2/4\).
+Each receiver's wrong choice at a ring then has probability at most
+\(e^{-\kappa_0(\log s)^4/\mathrm T}\). Apply this bound at the first
+ring, then use the rate-one compensator up to the first wrong redraw or
+exit from the noise bound, stopping at \(L_s\wedge h_s\).
+The endpoint \(L_s\) is known after the first ring, and the gap estimate
+holds until that first failure. Thus the matching holds throughout the
+nonempty interval \([t_{\mathrm r},L_s]\) except on an event of
+probability at most
+\begin{equation}
+ \delta_s=(65+\mathrm Te^5h_s)e^{-(\log s)^2/4}
+       +4(1+h_s)e^{-\kappa_0(\log s)^4/\mathrm T},
+ \qquad h_s\delta_s\longrightarrow0.
+\label{eq:phil-selection-lock-failure}
+\end{equation}
+Since \(\E t_{\mathrm r}=1\), a good initial assignment contributes at
+least
+\[
+ -2h_s+4\E B_s-4h_s\delta_s
+ \ge2h_s-4(1+8/\mathrm T)-(8/\mathrm T)\log\log s-4h_s\delta_s
+\]
+to \(\E\int_0^{h_s}f_{\mathbf v}(\sigma_t)dt\). The other six contribute
+at least \(-2h_s\). Averaging the sixteen uniform initial assignments gives
+\[
+ \E\int_0^{h_s}f_{\mathbf v}(\sigma_t)dt
+ \ge\tfrac12h_s-\frac5{\mathrm T}\log\log s-O_{\mathrm T}(1).
+\]
+By \cref{eq:phil-selection-moment},
+\(\E|\mathbf X_{h_s}|^2\le14\). The Markov property and
+\cref{eq:phil-selection-poisson} bound the integral after \(h_s\) in
+absolute value by a constant independent of \(s\). Therefore
+\begin{equation}
+ \mathsf j_{\mathrm T}(s\mathbf u_\circ)
+ \ge\frac{\log s}{2\mathrm T}
+       -\frac5{\mathrm T}\log\log s-O_{\mathrm T}(1).
+\label{eq:phil-selection-nonvanishing}
+\end{equation}
+This proves that \(\mathsf j_{\mathrm T}\) is not identically zero at any
+fixed \(\mathrm T>0\). Its zero set is Lebesgue-null. For completeness,
+this last assertion follows by induction on dimension: a nonzero analytic
+function in one variable has isolated zeros; in several variables at least
+one coefficient \(\partial_n^kf(\mathbf x',0)\) is nonzero as an analytic
+function, or analyticity would make \(f\) vanish everywhere. Outside the
+null zero set of that coefficient, each one-dimensional slice has isolated
+zeros, and Fubini's theorem concludes the induction.
+
+\subsection*{Entropy balance for the evolving recognition law}
+
+Fix a finite horizon \(h\). All rows are bounded away from zero on this
+interval by \cref{eq:phil-selection-row-bounds}. Write \(q_\sigma(t,\mathbf x)\)
+for the evolving density, \(Q=\sum_\sigma q_\sigma\), and
+\(b_\sigma(t,\mathbf x)=\mu_{p(t)}(\mathbf x,\sigma)/
+ \sum_\eta\mu_{p(t)}(\mathbf x,\eta)\).
+For the forward Ornstein--Uhlenbeck semigroup \(K_\sigma\), the last-proposal
+formula is
+\begin{equation}
+ q_\sigma(t)=e^{-t}K_\sigma(t)q_\sigma(0)
+   +\int_0^te^{-(t-r)}K_\sigma(t-r)[b_\sigma(r)Q(r)]dr.
+\label{eq:phil-selection-forward}
+\end{equation}
+Iterating this positive formula, and bounding each proposal factor by one,
+reduces each term to a Gaussian motion along a deterministic sequence of
+sheets. Put \(M=\max_\sigma\|\mathsf A_\sigma\|\).
+Its means have norm at most \(|\mathsf m_0|\), and its covariances lie between
+\(e^{-2Mh}I\) and \((1+2\mathrm Th)I\). Summing the at most \(16^n\)
+sequences on each time simplex, of volume \(t^n/n!\), gives a finite upper
+Gaussian envelope. The no-proposal term gives a lower Gaussian envelope.
+Consequently, uniformly on \([0,h]\),
+\begin{equation}
+ 0<\mathrm c_he^{-\mathrm C_h(1+|\mathbf x|^2)}
+ \le q_\sigma(t,\mathbf x)\le\mathrm C_he^{-\mathrm c_h|\mathbf x|^2}.
+\label{eq:phil-selection-density-envelopes}
+\end{equation}
+This bound does not assert Gaussianity conditional on a state-dependent
+assignment history.
+
+Differentiating one Ornstein--Uhlenbeck kernel against a function bounded
+by a polynomial times a Gaussian gives a bound of the same type with
+factor \((t-r)^{-1/2}\). To check it, use the Gaussian kernel covariance
+bounds proportional to \(t-r\), absorb its linear derivative into a
+Gaussian with twice the covariance, and complete the square in the
+convolution. This singularity is integrable in
+\cref{eq:phil-selection-forward}, proving a first-derivative Gaussian
+bound. Moreover
+\[
+ \nabla b_\sigma=-\frac{b_\sigma}{\mathrm T}
+       \left(H_\sigma\mathbf x-\sum_\eta b_\eta H_\eta\mathbf x\right),
+ \qquad |\nabla b_\sigma|\le\mathrm K_{\mathrm T}|\mathbf x|.
+\]
+The source \(b_\sigma Q\) therefore has a first derivative with the same
+type of bound. For the second derivative, transfer one derivative to this
+source using
+\(\nabla K_\sigma(r)g=e^{r\mathsf A_\sigma}K_\sigma(r)\nabla g\),
+and differentiate the other kernel factor. The singularity is again only
+\(r^{-1/2}\). The explicit initial Gaussian term supplies the bounds at
+zero. The forward equation obtained by taking a time difference quotient
+in \cref{eq:phil-selection-forward} then bounds the time derivative too:
+\begin{equation}
+ |\nabla q_\sigma|+|\nabla^2q_\sigma|+|\partial_tq_\sigma|
+ \le\mathrm C_h(1+|\mathbf x|)^k e^{-\mathrm c_h|\mathbf x|^2}.
+\label{eq:phil-selection-density-derivatives}
+\end{equation}
+The derivative transfer follows directly by integration by parts in the
+Gaussian transition density; its inverse mean map is uniformly bounded
+on this finite interval. These estimates justify the differentiations,
+without assuming finite Fisher information.
+
+Set \(f_\sigma=q_\sigma/\mu_{p(t),\sigma}\) and
+\(\mathsf H(t)=\KL(q_t\Vert\mu_{p(t)})\).
+The logarithms of both densities grow at most quadratically by
+\cref{eq:phil-selection-density-envelopes}, and
+\(\partial_t\log\mu_p\) is bounded in \(\mathbf x\), since only its prior
+weight and normalizer vary. Together with
+\cref{eq:phil-selection-density-derivatives}, this proves that
+\(\mathsf H\) is absolutely continuous on \([0,h]\) and permits its
+integral to be differentiated.
+To integrate the diffusion by parts, first multiply by a smooth radial
+cutoff \(\chi_R\), equal to one on \(B_R\), zero outside \(B_{2R}\),
+with \(|\nabla\chi_R|\le\mathrm C/R\), increasing to one.
+On each compact cylinder the densities have positive lower bounds, so
+\(\log f_\sigma\) is a legitimate test function. The boundary term is
+bounded by
+\[
+ \frac{\mathrm C_h}{R}\int_{R\le|\mathbf x|\le2R}
+       (1+|\mathbf x|)^{k+3}e^{-\mathrm c_h|\mathbf x|^2}d\mathbf x
+ \longrightarrow0.
+\]
+Detailed balance \(\mu_\sigma b_\eta=\mu_\eta b_\sigma\) symmetrizes the
+finite jump sum. Both resulting production integrands are nonnegative,
+so monotone convergence removes the cutoff and simultaneously proves
+finiteness and local time integrability of the production. The result is
+\begin{equation}
+ \begin{aligned}
+ \mathsf H'(t)&=-\mathscr D_{p(t)}(f)
+               -\sum_\sigma\int q_\sigma\partial_t\log\mu_{p(t),\sigma},\\
+ \mathscr D_p(f)&=\mathrm T\sum_\sigma\int\mu_{p,\sigma}
+                         \frac{|\nabla f_\sigma|^2}{f_\sigma}\\
+ &\quad+\frac12\sum_{\sigma,\eta}\int\mu_{p,\sigma}b_\eta
+                  (f_\eta-f_\sigma)(\log f_\eta-\log f_\sigma).
+ \end{aligned}
+\label{eq:phil-selection-entropy-identity}
+\end{equation}
+The equality holds almost everywhere and in integrated form on every finite
+interval. The jump term is integrable already from the Gaussian envelopes
+and quadratic logarithmic bounds; thus the cutoff argument does not
+presuppose a bound on the diffusion production. This also proves
+\(\mathsf H(0)<\infty\).
+
+\subsection*{Entropy contraction at frozen rows}
+
+In the original twelve-dimensional coordinates put
+\(\mathsf B_\sigma=\mathsf A_\sigma/\mathrm T\), the Gaussian sheet
+precision, and set
+\[
+ \kappa=\min_\sigma\lambda_{\min}(\mathsf B_\sigma)>0,\qquad
+ M=\max_\sigma\|\mathsf B_\sigma\|,\qquad
+ q_\sigma^*=\mu_p(\sigma)
+ =\frac{\pi_\sigma\mathsf w_\sigma}{\mathsf Z},
+ \qquad q_{\min}^*=\min_\sigma q_\sigma^*.
+\]
+Let \(\gamma_\sigma=\mathcal N(0,\mathsf B_\sigma^{-1})\), and, for a
+real function \(u\), define
+\[
+ \mathscr E_c(u)=\mathrm T\sum_\sigma\int\mu_{p,\sigma}|\nabla u_\sigma|^2,
+ \qquad
+ \mathscr E_j(u)=\frac12\sum_{\sigma,\eta}\int\mu_{p,\sigma}b_\eta
+                                    (u_\sigma-u_\eta)^2.
+\]
+The Gaussian inequalities needed below follow from the explicit
+Ornstein--Uhlenbeck semigroup with invariant law \(\gamma_\sigma\).
+Its gradient commutes as
+\(\nabla P_tg=e^{-t\mathsf B_\sigma}P_t\nabla g\). Differentiating
+entropy and applying Cauchy--Schwarz inside this kernel gives
+\[
+ -\frac d{dt}\operatorname{Ent}_{\gamma_\sigma}(P_tg)
+ =\int\frac{|\nabla P_tg|^2}{P_tg}d\gamma_\sigma
+ \le e^{-2\kappa t}\int\frac{|\nabla g|^2}{g}d\gamma_\sigma.
+\]
+For bounded positive smooth \(g\), the explicit Gaussian formula and
+dominated convergence make the entropy tend to zero. Integration, with
+\(g=u^2\), gives
+\begin{equation}
+ \operatorname{Ent}_{\gamma_\sigma}(u^2)
+ \le\frac2\kappa\int|\nabla u|^2d\gamma_\sigma,
+ \qquad
+ \operatorname{Var}_{\gamma_\sigma}(u)
+ \le\frac1\kappa\int|\nabla u|^2d\gamma_\sigma.
+\label{eq:phil-selection-gaussian-inequalities}
+\end{equation}
+The second estimate follows by differentiating variance in the same
+semigroup. Positive regularization, truncation, and smooth cutoffs extend
+both estimates to their form domains: the cutoff errors tend to zero by
+integrability of the squared function and its gradient, and the entropy
+passes to the limit by its variational formula.
+
+Replace \(u\) by \(|u|\), which decreases both energies, and normalize
+\(\int u^2d\mu_p=1\). Put
+\(z_\sigma=(\int u_\sigma^2d\gamma_\sigma)^{1/2}\).
+The entropy chain rule gives
+\[
+ \operatorname{Ent}_{\mu_p}(u^2)
+ =\sum_\sigma q_\sigma^*
+             \operatorname{Ent}_{\gamma_\sigma}(u_\sigma^2)
+       +\operatorname{Ent}_{q^*}(z^2).
+\]
+Here \(0\le z_\sigma\le R=(q_{\min}^*)^{-1/2}\).
+The function \(\psi(z)=z^2\log z^2-z^2+1\) satisfies
+\(\psi(1)=\psi'(1)=0\) and \(\psi''(z)=4+4\log z\), whence
+\(\psi(z)\le2(1+\log R)(z-1)^2\) on \([0,R]\).
+Since \(\sum q_\sigma^*z_\sigma^2=1\),
+\[
+ \operatorname{Ent}_{q^*}(z^2)
+ \le L_p\operatorname{Var}_{q^*}(z),\qquad
+ L_p=4+2\log(1/q_{\min}^*).
+\]
+Indeed \(\sum q_\sigma^*(z_\sigma-1)^2
+=2(1-\E_{q^*}z)\le2\operatorname{Var}_{q^*}(z)\).
+
+Fix a ball \(B=B_\rho\) in these coordinates, and define
+\[
+ m_\sigma=|B|^{-1}\int_Bu_\sigma,
+ \quad m_* =\sum_\sigma\pi_\sigma m_\sigma,
+ \quad X_\sigma=
+ \left[\frac{(2\pi)^6\mathsf w_\sigma
+                   e^{\rho^2\|\mathsf B_\sigma\|/2}}{|B|}-1\right]_+,
+ \quad B_{\mathrm T}=\max_\sigma(1+\sqrt{X_\sigma})^2.
+\]
+Variance about any center is an upper bound on the variance, so
+\[
+ \operatorname{Var}_{q^*}(z)
+ \le2\sum_\sigma q_\sigma^*(z_\sigma-m_\sigma)^2
+     +2\sum_\sigma q_\sigma^*(m_\sigma-m_*)^2.
+\]
+The first sum is at most \((B_{\mathrm T}/(\mathrm T\kappa))\mathscr E_c(u)\):
+\(|z_\sigma-\gamma_\sigma u_\sigma|\le
+\sqrt{\operatorname{Var}_{\gamma_\sigma}(u_\sigma)}\), and
+Cauchy--Schwarz bounds \(|m_\sigma-\gamma_\sigma u_\sigma|\) by the same
+standard deviation times
+\(\sqrt{\chi^2(\operatorname{Unif}(B)\Vert\gamma_\sigma)}
+\le\sqrt{X_\sigma}\).
+For the second sum, Jensen's inequality gives
+\[
+ \sum_\sigma q_\sigma^*(m_\sigma-m_*)^2
+ \le\frac{\mathsf w_{\max}}
+              {\mathsf Z|B|}
+       \sum_{\sigma,\eta}\pi_\sigma\pi_\eta
+                          \int_B(u_\sigma-u_\eta)^2.
+\]
+On \(B\), the explicit Gaussian densities give
+\[
+ \mu_{p,\sigma}b_\eta
+ \ge\frac{\pi_\sigma\pi_\eta e^{-\rho^2M}}
+              {(2\pi)^6\mathsf Z}.
+\]
+The normalizer therefore cancels, and the preceding sum is at most
+\(2(2\pi)^6\mathsf w_{\max}e^{\rho^2M}
+ \mathscr E_j(u)/|B|\).
+Combining these bounds proves
+\[
+ \operatorname{Ent}_{\mu_p}(u^2)
+ \le\frac2{\mathrm T\kappa}(1+L_pB_{\mathrm T})\mathscr E_c(u)
+    +\frac{4L_p(2\pi)^6\mathsf w_{\max}e^{\rho^2M}}{|B|}
+                                                       \mathscr E_j(u).
+\]
+For \(u=\sqrt f\), the production is at least
+\(4(\mathscr E_c(u)+\mathscr E_j(u))\). Its jump part uses
+\((a-b)(\log a-\log b)\ge4(\sqrt a-\sqrt b)^2\), which follows by
+Cauchy--Schwarz on the integral of \(r^{-1/2}\) between \(a\) and \(b\).
+The inequality extends to the form domain by the preceding approximations.
+Finally,
+\[
+ q_{\min}^*\ge p_{\min}^4
+                 \frac{\mathsf w_{\min}}
+                      {\mathsf w_{\max}},\qquad
+ p_{\min}=\min_i\{p_i,1-p_i\}.
+\]
+Thus there are finite positive constants depending only on \(\mathrm T\)
+with
+\begin{equation}
+ \mathscr D_p(f)\ge\lambda(\mathrm T,p)
+                         \operatorname{Ent}_{\mu_p}(f),\qquad
+ \lambda(\mathrm T,p)\ge
+ \frac{\mathrm c_{\mathrm T}}
+      {\mathrm K_{\mathrm T}+8\log(1/p_{\min})}.
+\label{eq:phil-selection-entropy-contraction}
+\end{equation}
+The factor \(\mathrm T\) in \(\mathscr E_c\) is the same diffusion
+coefficient as in \cref{eq:phil-selection-entropy-identity}.
+
+\subsection*{The matching branch of the small-temperature landscape}
+
+The needed sheet weights can be computed using two four-dimensional
+determinants. Let \(D\) be the cyclic difference matrix, and
+\(C_\sigma=\operatorname{diag}(m_e(\sigma))\). In the orthogonal
+coordinates \((\bar k+\bar m)/\sqrt2\),
+\((\bar k-\bar m)/\sqrt2\), and \(\omega\), the energy splits into
+\(\frac12(Du-\sqrt2\omega)^\top C_\sigma(Du-\sqrt2\omega)
+ +\frac12(Dv)^\top C_\sigma Dv\), while the discrepancy coordinate has
+reference precision \(5I\). The determinant identity for the first block
+then gives
+\begin{equation}
+ \det\mathsf A_\sigma
+ =\mathrm T^4
+  \det[\mathrm TI+C_\sigma(DD^\top+2I)]
+  \det[5\mathrm TI+D^\top C_\sigma D].
+\label{eq:phil-selection-sheet-determinants}
+\end{equation}
+The two matching assignments, eight end-path assignments, four middle-path
+assignments, and two oriented cycles have the respective determinants
+\[
+ \begin{aligned}
+ \mathsf d_M&=25\mathrm T^8(\mathrm T+8)^2(5\mathrm T+4)^2,\\
+ \mathsf d_E&=5\mathrm T^6
+   (\mathrm T^3+16\mathrm T^2+77\mathrm T+112)
+   (125\mathrm T^3+200\mathrm T^2+85\mathrm T+8),\\
+ \mathsf d_N&=5\mathrm T^6(\mathrm T+4)(5\mathrm T+2)
+   (\mathrm T^2+12\mathrm T+28)(25\mathrm T^2+30\mathrm T+4),\\
+ \mathsf d_C&=5\mathrm T^5(\mathrm T+2)(\mathrm T+4)^2(\mathrm T+6)
+                                     (5\mathrm T+2)^2(5\mathrm T+4).
+ \end{aligned}
+\]
+These follow in \cref{eq:phil-selection-sheet-determinants} from the
+multiplicity representatives \((2,0,2,0)\), \((2,1,1,0)\),
+\((1,2,1,0)\), and \((1,1,1,1)\), respectively.
+Normalize the matching weight to one and write
+\[
+ \mathsf r_E=\sqrt{\mathsf d_M/\mathsf d_E},\qquad
+ \mathsf r_N=\sqrt{\mathsf d_M/\mathsf d_N},\qquad
+ \mathsf r_C=\sqrt{\mathsf d_M/\mathsf d_C}.
+\]
+Their leading terms are
+\(\mathsf r_E,\mathsf r_N=\sqrt{40/7}\mathrm T+O(\mathrm T^2)\) and
+\(\mathsf r_C=\sqrt{5/3}\mathrm T^{3/2}(1+O(\mathrm T))\).
+Choose \(\mathrm T_0>0\) so that \(0<\mathsf r_E,\mathsf r_N,\mathsf r_C\le1/8\) for
+\(0<\mathrm T\le\mathrm T_0\).
+
+Use matching coordinates
+\(x=(p_0,1-p_1,p_2,1-p_3)\). The normalized evidence is the
+multilinear polynomial whose vertex weights are one at \(\mathbf0,\mathbf1\),
+\(\mathsf r_E\) for subsets of cardinality one or three, \(\mathsf r_N\) for the four adjacent
+pairs, and \(\mathsf r_C\) for the two opposite pairs. Complementation preserves
+these weights, so the centered reduced field is odd. With
+\(D_0=1+4\mathsf r_E+2\mathsf r_N+\mathsf r_C\), its Jacobian at \(x=\mathbf1/2\) is
+\[
+ \frac1{D_0}
+ \begin{pmatrix}
+ 0&1-\mathsf r_C&1-2\mathsf r_N+\mathsf r_C&1-\mathsf r_C\\
+ 1-\mathsf r_C&0&1-\mathsf r_C&1-2\mathsf r_N+\mathsf r_C\\
+ 1-2\mathsf r_N+\mathsf r_C&1-\mathsf r_C&0&1-\mathsf r_C\\
+ 1-\mathsf r_C&1-2\mathsf r_N+\mathsf r_C&1-\mathsf r_C&0
+ \end{pmatrix}.
+\]
+For example, the adjacent Hessian entry of the evidence is
+\((1-\mathsf r_C)/2\), its uniform value is \(D_0/8\), and the row mobility is
+\(1/4\), giving the displayed entry. The eigenvalues are
+\begin{equation}
+ \alpha=\frac{3-2\mathsf r_N-\mathsf r_C}{D_0}>0,\qquad
+ \beta=\frac{-1-2\mathsf r_N+3\mathsf r_C}{D_0}<0,\qquad
+ \eta=\frac{-1+2\mathsf r_N-\mathsf r_C}{D_0}<0\quad\text{twice}.
+\label{eq:phil-selection-saddle-spectrum}
+\end{equation}
+The positive eigendirection is \(\mathbf1\) in matching coordinates,
+or \(\mathbf v\) in the original rows. In fact the chosen bounds give
+\(\alpha\ge7/5\), \(\beta\le-1/3\), and \(\eta\le-2/5\).
+
+Cyclic invariance makes the matching diagonal \(x=z\mathbf1\) invariant.
+Writing \(w=z(1-z)\), its normalized evidence is
+\[
+ Z_{\mathrm{diag}}(z)
+ =1+4(\mathsf r_E-1)w+(2-8\mathsf r_E+4\mathsf r_N+2\mathsf r_C)w^2,
+ \qquad
+ \dot z=\frac{z(1-z)}{4Z_{\mathrm{diag}}(z)}Z_{\mathrm{diag}}'(z).
+\]
+The derivative is \((1-2z)[4(\mathsf r_E-1)+2(2-8\mathsf r_E+4\mathsf r_N+2\mathsf r_C)w]\).
+The bracket is negative at both endpoints \(w=0,1/4\), where its values
+are \(4(\mathsf r_E-1)\) and \(-3+2\mathsf r_N+\mathsf r_C\). It is affine in \(w\), hence negative
+throughout. Thus the diagonal motion tends to \(\mathbf1\) from
+\(z>1/2\), and to \(\mathbf0\) from \(z<1/2\), reaching every prescribed
+endpoint neighborhood in finite slow time. At either vertex the Jacobian
+is \((\mathsf r_E-1)I\): a single receiver flip changes weight one to \(\mathsf r_E\), the
+mobility vanishes, and its diagonal derivative supplies the factor
+\(-(1-\mathsf r_E)\). Both vertices are therefore sinks with positive inward rate
+\(\nu=1-\mathsf r_E\).
+
+\subsection*{Tracking, escape, and selection}
+
+Let \(a_i(t)=q_t(\sigma_i=+1)\) and
+\(\Delta_i(t)=a_i(t)-\bar\beta_i(p(t))\).
+Differentiating the normalized product prior gives
+\[
+ \partial_{p_i}\log\mu_p
+ =\frac{1_{\{\sigma_i=+1\}}-\bar\beta_i(p)}{p_i(1-p_i)}.
+\]
+Inserting the learning equation and
+\cref{eq:phil-selection-reduced-field} in
+\cref{eq:phil-selection-entropy-identity} yields
+\begin{equation}
+ \mathsf H'
+ =-\mathscr D_p(f)-\varepsilon\sum_i\mathfrak g_i(p)\Delta_i
+                  -\varepsilon\sum_i\frac{\Delta_i^2}{p_i(1-p_i)}
+ \le-\lambda(\mathrm T,p)\mathsf H
+      +\varepsilon\|\mathfrak g(p)\|_1\sqrt{\mathsf H/2}.
+\label{eq:phil-selection-learning-entropy}
+\end{equation}
+The last bound uses \(|\Delta_i|\le\operatorname{TV}(q_t,\mu_p)
+\le\sqrt{\mathsf H/2}\). The nonpositive square is kept until this step;
+it removes any inverse-row factor from the forcing.
+Writing \(\Lambda(t)=\int_0^t\lambda(\mathrm T,p(r))dr\), comparison
+for \(\sqrt{\mathsf H+\delta^2}\), followed by \(\delta\downarrow0\), gives
+\begin{equation}
+ \sqrt{\mathsf H(t)}
+ \le e^{-\Lambda(t)/2}\sqrt{\mathsf H(0)}
+    +\frac{\varepsilon}{2\sqrt2}
+       \int_0^te^{-(\Lambda(t)-\Lambda(r))/2}
+                         \|\mathfrak g(p(r))\|_1dr.
+\label{eq:phil-selection-tracking}
+\end{equation}
+The bounded fitness, \cref{eq:phil-selection-row-bounds}, and
+\cref{eq:phil-selection-entropy-contraction} show that, on
+\(t\le2\mathrm C_{\mathrm T}\varepsilon^{-1}\log(1/\varepsilon)\),
+\begin{equation}
+ \operatorname{TV}(q_t,\mu_{p(t)})
+ \le e^{-\Lambda(t)/2}\sqrt{\mathsf H(0)/2}
+       +O_{\mathrm T}(\varepsilon\log(1/\varepsilon)).
+\label{eq:phil-selection-global-tracking}
+\end{equation}
+Indeed \(\lambda\) is bounded below on this horizon by a positive
+constant divided by \(1+\log(1/\varepsilon)\).
+
+For the saddle a finer bound is needed. Let
+\(\|\mathfrak g(p)-\mathfrak g(p')\|_1
+ \le L_{\mathrm T}\|p-p'\|_\infty\), and suppose
+\(\lambda\ge\lambda_\flat>0\) on \([s_0,t]\).
+The estimate \(|\dot p_i|\le\varepsilon\) in
+\cref{eq:phil-selection-tracking} gives
+\begin{equation}
+ \operatorname{TV}(q_t,\mu_{p(t)})
+ \le e^{-\lambda_\flat(t-s_0)/2}\sqrt{\mathsf H(s_0)/2}
+   +\frac{\varepsilon}{2\lambda_\flat}\|\mathfrak g(p(t))\|_1
+   +\frac{L_{\mathrm T}\varepsilon^2}{\lambda_\flat^2}.
+\label{eq:phil-selection-refined-tracking}
+\end{equation}
+The constants follow by integrating \(1\) and \(t-r\) against
+\(e^{-\lambda_\flat(t-r)/2}\).
+
+Fix \(0<\mathrm T\le\mathrm T_0\) and a mean with
+\(\mathsf j_{\mathrm T}(\mathsf m_0)\ne0\), and put
+\(\mathbf e=\mathbf v/2\). In slow time
+\(\mathfrak s=\varepsilon t\), write
+\(y=p-1/2=a\mathbf e+z\), \(z\perp\mathbf e\).
+By \cref{eq:phil-selection-imprint-expansion}, at
+\(t_1=\varepsilon^{-1/4}\),
+\[
+ a(t_1)=\varepsilon(\mathsf j_{\mathrm T}(\mathsf m_0)/2+o(1)),
+ \qquad |z(t_1)|=O(\varepsilon).
+\]
+On \([0,t_1]\), symmetry gives \(\mathfrak g(1/2)=0\), so
+\(\|\mathfrak g(p(t))\|_1\le L_{\mathrm T}\varepsilon t/2\).
+The bound in \cref{eq:phil-selection-tracking} gives
+\(\sqrt{\mathsf H(t_1)}=O(\varepsilon^{7/4})\).
+Consequently, until exit from any sufficiently small fixed ball,
+\cref{eq:phil-selection-refined-tracking} implies
+\begin{equation}
+ |\Delta|_2\le\kappa_\varepsilon|y|+b_\varepsilon,
+ \qquad \kappa_\varepsilon=O(\varepsilon),\quad
+ b_\varepsilon=O(\varepsilon^{7/4})=o(|a(t_1)|).
+\label{eq:phil-selection-relative-error}
+\end{equation}
+The constants here may depend on the fixed mean.
+
+Let \(\beta_\perp=\max(\beta,\eta)<0\) and
+\(\gamma=\alpha-\beta_\perp>0\).
+Oddness and diagonal invariance of the analytic reduced field imply,
+for \(|y|\le r\),
+\[
+ |\langle\mathscr V(1/2+y),\mathbf e\rangle-\alpha a|
+       \le\mathrm C|y|^3,\qquad
+ |P_\perp\mathscr V(1/2+y)-D\mathscr V(1/2)z|
+       \le\mathrm C|y|^2|z|.
+\]
+For the second inequality, subtract the zero perpendicular field on
+\(a\mathbf e\) and integrate its derivative along the transverse
+segment. The derivative differs from its value at zero by
+\(O(|y|^2)\) because the field is odd.
+Writing \(w=|z|/|a|\), the upper right derivatives of norms give
+\begin{equation}
+ \begin{aligned}
+ \frac{d|a|}{d\mathfrak s}
+ &\ge |a|[\alpha-(\mathrm Cr^2+\kappa_\varepsilon)(1+w)]
+                -b_\varepsilon,\\
+ D^+w
+ &\le-[\gamma-\mathrm Cr^2
+             -(\mathrm Cr^2+\kappa_\varepsilon)(1+w)]w
+        +(1+w)(\kappa_\varepsilon+b_\varepsilon/|a|).
+ \end{aligned}
+\label{eq:phil-selection-cone}
+\end{equation}
+Choose \(W\) larger than twice the initial limiting ratio, then choose
+\(r>0\) so small that the terms \(\mathrm Cr^2(1+W)\) consume less than
+one quarter of both positive rates. For small enough \(\varepsilon\),
+\cref{eq:phil-selection-relative-error} controls the remaining terms.
+A bootstrap then keeps \(w\le W\), makes \(|a|\) increase without changing
+sign, and gives
+\[
+ w(\mathfrak s)
+ \le w(\mathfrak s_1)e^{-\gamma(\mathfrak s-\mathfrak s_1)/2}
+  +\frac{2(1+W)}\gamma
+       (\kappa_\varepsilon+b_\varepsilon/|a(t_1)|).
+\]
+The lower growth bound for \(|a|\) yields an exit time no larger than
+\[
+ \frac{1+O(r^2)+o(1)}\alpha\log(1/\varepsilon)
+\]
+in slow time. The corresponding upper norm-growth bound forces the exit
+time to tend to infinity. Hence \(w\to0\) at exit, and the exit point
+tends to \(\operatorname{sign}(\mathsf j_{\mathrm T})r\mathbf e\).
+
+The reduced diagonal orbit from that point enters any fixed neighborhood
+of its matching vertex in finite slow time. The tracking error in
+\cref{eq:phil-selection-global-tracking} tends to zero after \(t_1\);
+finite-time Gr\"onwall comparison therefore carries the evolving rows into
+the same neighborhood. At its selected vertex let
+\(\zeta_i=|p_i-p_i^M|\). By the derivative computation above and continuity,
+a sufficiently small neighborhood has
+\((1-\zeta_i)|\mathfrak g_i(p)|\ge\nu/2\), where \(\nu=1-\mathsf r_E>0\), and
+the fitness has the sign directed toward that vertex. Thus
+\[
+ D^+\zeta_i\le-\tfrac\nu2\zeta_i+
+                   \operatorname{TV}(q_t,\mu_{p(t)})
+\]
+in slow time. The neighborhood remains invariant once the tracking floor
+is small enough, and \(\zeta_i\) decays exponentially to a vanishing
+floor.
+
+Choose any \(\mathrm C_{\mathrm T}>1/\alpha\), independently of the mean,
+and then choose the local radius so that its escape coefficient is less
+than \(\mathrm C_{\mathrm T}\). The time remaining after the finite
+transit tends to infinity uniformly on the slow-time window
+\([\mathrm C_{\mathrm T}\log(1/\varepsilon),
+  2\mathrm C_{\mathrm T}\log(1/\varepsilon)]\).
+The row distances therefore vanish uniformly on that window. Every
+normalized sheet weight is at most the matching weight one, so
+\[
+ \mu_p(M)\ge\pi_M\ge1-\sum_i\zeta_i,
+ \qquad
+ q_t(S\ne M)\le\sum_i\zeta_i+
+                     \operatorname{TV}(q_t,\mu_{p(t)}).
+\]
+The last total variation tends to zero by
+\cref{eq:phil-selection-global-tracking}; its integrated contraction
+exponent at the beginning of the window grows at least as a positive
+constant times \(\varepsilon^{-1}\).
+This proves the first conclusion for every mean outside the null set in
+\cref{eq:phil-selection-nonvanishing}. For the frozen arm,
+\cref{eq:phil-selection-harris} and rotation symmetry prove the second
+conclusion at every \(\mathrm T>0\) and every mean. The convergence is
+pointwise in the fixed mean; no uniform bound near the zero set of the
+imprint has been used. \(\square\)
+
+\input{ca_joint_selection}
+\input{ca_temperature_bounds}
+\input{ca_selected_coherence}
+\input{ca_first_block_comparison}
+\input{ca_parent_conditional}
+\input{ca_parent_dynamics}

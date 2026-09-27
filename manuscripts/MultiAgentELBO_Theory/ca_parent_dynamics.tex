@@ -1,0 +1,238 @@
+\subsection*{Inherited dynamics from the conditioned activation law}
+
+\propositionheading{Dynamics of the conditioned parent}{prop:phil-actual-parent-dynamics}
+Use the selected matching, channel, and conditioned activation of
+\cref{prop:phil-actual-conditioned-parent}. More explicitly, let
+\(0<\mathrm T\le1/100\), \(s=t_{\mathrm L}\), \(\theta=s+1\), and let \(\mathscr E\)
+be the selected coherence event on \([s,\theta]\) at resolution
+\(\mathsf a\) from \cref{prop:phil-selected-pair-persistence}.
+Assume \(\Pr(\mathscr E^c)\le\rho<1\), and, throughout
+\([s,\theta+\mathsf h]\subseteq[t_{\mathrm L},2t_{\mathrm L}]\),
+\[
+ \operatorname{TV}(q_t,\nu_{\mathrm T}^M)\le\delta,
+ \qquad \max_i|p_i(t)-p_i^M|\le\delta.
+\]
+Write \(\varepsilon=\epsilon_{\mathrm L}\),
+\(d=\delta+\varepsilon\mathsf h<1/4\), and use relative future time
+\(u=t-\theta\). Initialize the parent with
+\[
+ q_0^C=C_\#\operatorname{Law}(\mathbf X_\theta,S_\theta\mid\mathscr E),
+ \qquad p^C(0)=p(\theta).
+\]
+On the stratum \(\{S\}\times W_S\), its continuous generator is
+\(-\mathsf A_S y\cdot\nabla_{W_S}+\mathrm T\Delta_{W_S}\).
+Its rate-one proposal kernel is
+\begin{equation}
+ J_p((S,y),\cdot)=
+ \int\kappa_S(d\mathbf x\mid y)
+     \sum_{S'}b_p(S'\mid\mathbf x)
+                   \delta_{(S',P_{W_{S'}}\mathbf x)},
+ \label{eq:phil-actual-parent-kernel}
+\end{equation}
+where \(b_p(S'\mid\mathbf x)=\mu_{\mathrm T,p}(S'\mid\mathbf x)\) is the
+product of receiver posterior rows at rows \(p\), and
+\(\kappa_S\) is the optimizing hidden conditional: the three
+independent Gaussian coordinates on a matching stratum, and a point
+mass off the matchings. The parent rows evolve from its own law:
+\begin{equation}
+ \frac d{du}p_i^C(u)
+ =\varepsilon\bigl(q_u^C(\sigma_i=+1)-p_i^C(u)\bigr).
+ \label{eq:phil-actual-parent-learning}
+\end{equation}
+This coupled parent system has a unique global law with interior rows.
+
+Let \(\mathsf P_{\theta,\mathsf h}^{\mathrm{fine},C}\) be the law of
+\((C(\mathbf X_{\theta+u},S_{\theta+u}))_{0\le u\le\mathsf h}\)
+conditioned only on \(\mathscr E\), with the fine process continuing
+its original row path. Let \(\mathsf P_{\mathsf h}^C\) be the parent
+path law from the displayed activation and its own learning equation.
+Then
+\begin{equation}
+ \operatorname{TV}
+ (\mathsf P_{\theta,\mathsf h}^{\mathrm{fine},C},
+                                      \mathsf P_{\mathsf h}^C)
+ \le2\rho+(\mathsf h+3)\delta+
+                         \frac{4\mathsf h d}{1-4d}.
+ \label{eq:phil-actual-parent-path-error}
+\end{equation}
+The comparison includes all retained coordinates and the assignment
+history, hence also the loop history. Self-proposals remain part of
+the rate-one kernel.
+
+Along \cref{cor:phil-joint-selection}, choose
+\(\delta\le\mathrm T\), \(\varepsilon\le\mathrm T^2\),
+\(\mathsf a=\mathrm T^{1/4}\), and
+\(\mathsf h=\mathrm T^{-1/4}\). One may take
+\(\rho=3\delta+\mathsf b(\mathrm T,\mathsf a,1)\), where
+\(\mathsf b\) is from \cref{prop:phil-selected-pair-persistence}.
+The right side of \cref{eq:phil-actual-parent-path-error} is then
+\(O(\mathrm T^{1/4})\). This is a conditional, finite-window
+approximation after the selected coherence event; the activation law
+is not replaced by a Gaussian law.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+For a matching \(M\), the decomposition
+\(\R^{12}=W_M\oplus Z_M\) of
+\cref{prop:rg-formation-endogenous-cycle} is preserved by
+\(H_M\), \(\Omega\), and \(\mathsf A_M\).
+The hidden drift matrix is
+\(\operatorname{diag}(8+\mathrm T,4+5\mathrm T,4+5\mathrm T)\).
+The prior weight \(\pi_S(p)\) cancels from the conditional law at
+fixed \((S,y)\), so \(\kappa_S\) is independent of \(p\).
+Off the matchings no coordinate is discarded. Thus the displayed
+continuous generator is the projection of every held-sheet diffusion,
+and \cref{eq:phil-actual-parent-kernel} is a probability kernel.
+A self-proposal has \(S'=S\) and
+\(P_{W_S}\mathbf x=y\), so it leaves the parent state unchanged.
+At a different assignment it uses that assignment's projection,
+including its twelve-dimensional stratum when appropriate.
+
+For fixed rows, the pushed optimizing law \(C_\#\mu_{\mathrm T,p}\)
+is invariant. Indeed each diffusion is reversible on its Gaussian
+stratum, and
+\(\mu_{\mathrm T,p}(d\mathbf x,S)b_p(S'\mid\mathbf x)\)
+is symmetric in \(S,S'\). Pushing both endpoints through \(C\)
+gives detailed balance for \(J_p\).
+The loop covector annihilates each \(Z_M\), so this construction
+retains the loop through the stratum changes as well.
+
+We next check the existence assertion with evolving parent rows.
+For any continuous interior row path, concatenate the linear
+diffusions with the rate-one proposals, drawing \(\kappa_S\) at
+each proposal. On every finite interval the clock has finitely many
+rings and every inserted Gaussian is finite almost surely, so this
+construction is nonexplosive. Its second moments remain finite:
+projection cannot increase the norm, an inserted hidden draw adds
+expected squared norm at most \(5\mathrm T/8\), and the diffusion
+generator applied to \(|y|^2\) is at most
+\(24\mathrm T-2\mathrm T|y|^2\). The full generator is consequently
+bounded above by \(25\mathrm T-2\mathrm T|y|^2\).
+The activation law has finite second moment because it conditions a
+finite-moment fine law on an event of positive probability.
+
+If two row paths have entries in \([\mathrm c_0,1-\mathrm c_0]\), couple their
+parent processes by the same initial state, Brownian increments,
+clocks, hidden Gaussian draws, and receiver uniforms until their
+first different proposal. The derivative of a posterior receiver
+probability with respect to its prior entry is at most
+\(1/[4\mathrm c_0(1-\mathrm c_0)]\). Therefore
+\[
+ \operatorname{TV}(q_u^{C,p},q_u^{C,\widetilde p})
+ \le\frac1{\mathrm c_0(1-\mathrm c_0)}
+       \int_0^u\|p(v)-\widetilde p(v)\|_\infty dv.
+\]
+The variation-of-constants map for
+\cref{eq:phil-actual-parent-learning} consequently has Lipschitz
+constant at most \(\varepsilon u_*^2/[2\mathrm c_0(1-\mathrm c_0)]\) on an interval
+of length \(u_*\). On a short enough interval it is a contraction
+on continuous row paths in an interior cube. Its image stays in
+that cube after further shortening the interval, since the row
+velocity has absolute value at most \(\varepsilon\).
+Moreover its solution satisfies
+\[
+ p_i^C(u)\ge p_i^C(0)e^{-\varepsilon u},\qquad
+ 1-p_i^C(u)\ge(1-p_i^C(0))e^{-\varepsilon u}.
+\]
+On any prescribed finite horizon these lower bounds give a common
+interior cube and a positive contraction step length. Successive
+steps give existence and uniqueness on that horizon, and then on
+all finite horizons. The source marginal is continuous because its
+jump rate is bounded, so the resulting rows are continuously
+differentiable. This constructs learning from the parent's own law,
+without imposing the fine row path after activation.
+
+Let \(\overline\nu_{\mathrm T}^M\) be the retained Gaussian on
+\(W_M\). Write \(\mathsf O^C_{\mathrm T,\mathsf h}\) for its
+stationary held-\(M\) path law. The projection of
+\(\mathsf O_{\mathrm T,\mathsf h}^M\) from
+\cref{prop:phil-selected-pair-persistence} is exactly this law.
+Only the learned-arm conclusions of that proposition are used, and
+their proof does not use its frozen-arm hypothesis.
+Conditioning any probability law on an event of probability
+\(1-r\) changes its total variation by at most \(r\) after
+any measurable projection. Thus the conditioned native retained
+future obeys
+\begin{equation}
+ \operatorname{TV}
+ (\mathsf P_{\theta,\mathsf h}^{\mathrm{fine},C},
+                     \mathsf O^C_{\mathrm T,\mathsf h})
+ \le\rho+(\mathsf h+2)\delta.
+ \label{eq:phil-native-conditioned-held}
+\end{equation}
+This applies to a prefix event through \(\theta\). No condition is
+placed on future coherence or future proposals. The same argument
+at the activation time gives
+\(\operatorname{TV}(q_0^C,
+ \overline\nu_{\mathrm T}^M\otimes\delta_M)\le\rho+\delta\).
+
+For the parent's own rows let \(\zeta_i^C\) be the probability in
+row \(i\) assigned to the nonpartner of \(M\). Its equation and the
+bound on any probability give
+\[
+ 0\le\zeta_i^C(u)\le\zeta_i^C(0)+\varepsilon u
+                  \le\delta+\varepsilon u\le d.
+\]
+The row-independent normalized sheet weights are at most the matching
+weight one for \(0<\mathrm T\le1/100\) by
+\cref{prop:phil-temperature-tracking}; hence, for any fixed row vector
+with this bound,
+\[
+ \mu_{\mathrm T,p}(M)\ge\pi_M(p)
+               \ge1-\sum_i\zeta_i\ge1-4d.
+\]
+Define the parent departure probability at a proposal by
+\(k_p(y)=J_p((M,y),\{S'\ne M\})\).
+Detailed balance, and the fact that the optimizing conditional
+retained law on \(M\) is \(\overline\nu_{\mathrm T}^M\)
+independently of the rows, give
+\begin{equation}
+ \int k_p(y)\overline\nu_{\mathrm T}^M(dy)
+ \le\frac{1-\mu_{\mathrm T,p}(M)}{\mu_{\mathrm T,p}(M)}
+ \le\frac{4d}{1-4d}.
+ \label{eq:phil-parent-averaged-departure}
+\end{equation}
+The first inequality bounds stationary flux from \(M\) to its
+complement by the complement's stationary mass.
+
+Maximally couple the parent activation with the stationary retained
+matching law and use common Brownian increments, clocks, and parent
+proposal draws up to the first parent departure. Before departure,
+the continuous paths agree because the matching drift splits, and
+self-proposals do not move the retained coordinate. The row path
+\(p^C(u)\) constructed above is deterministic, even though it was
+computed from the parent's own law. Under the stationary comparison
+path, its marginal at every time is
+\(\overline\nu_{\mathrm T}^M\). Bound the first-departure
+compensator with its stopped indicator by the compensator evaluated
+on that whole stationary path. Applying
+\cref{eq:phil-parent-averaged-departure} at each deterministic
+\(p^C(u)\) gives
+\[
+ \Pr(\text{parent departure before }\mathsf h
+                         \text{ while initially coupled})
+ \le\frac{4\mathsf h d}{1-4d}.
+\]
+No Gaussian assertion is made about the parent's law conditioned on
+survival or about the native hidden variables. We have proved
+\[
+ \operatorname{TV}(\mathsf P_{\mathsf h}^C,
+                         \mathsf O^C_{\mathrm T,\mathsf h})
+ \le\rho+\delta+\frac{4\mathsf h d}{1-4d}.
+\]
+Combining this with \cref{eq:phil-native-conditioned-held} proves
+\cref{eq:phil-actual-parent-path-error}.
+
+For the displayed joint choices,
+\(d\le\mathrm T+\mathrm T^{7/4}\le2\mathrm T\),
+\(\mathsf h\delta\le\mathrm T^{3/4}\), and
+\(\rho=O(\mathrm T^{1/4})\).
+The activation and following window fit inside the selection window
+because \(1+\mathrm T^{-1/4}\le t_{\mathrm L}\) for sufficiently
+small temperature under the mobility cap. The departure term is
+\(O(\mathrm T^{3/4})\), giving the stated total error.
+The Gaussian comparison laws served only to bound that error; the
+parent's activation and subsequent learning remain the laws in the
+statement. \hfill\(\square\)
+
+

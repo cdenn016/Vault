@@ -2,7 +2,7 @@
 type: schema
 title: LLM-Wiki Schema & Operating Manual
 aliases: [LLM-Wiki Schema, Schema, Wiki Schema]
-updated: 2026-06-19
+updated: 2026-09-27
 ---
 
 # LLM-Wiki Schema
@@ -26,7 +26,7 @@ maintaining the wiki. Read it before doing any ingest / query / lint operation.
 | Layer | Location | Mutability | Owner |
 |-------|----------|------------|-------|
 | **Raw sources** | `sources/` | **Immutable** — never edit, only append new files | Human curates |
-| **Manuscripts** | `manuscripts/` | **Editable** — freshest in-progress LaTeX WIPs (`.tex`/`.bib`); these working copies do not override authorial intent | Human + LLM edit |
+| **Manuscripts** | `manuscripts/` | **Editable** — freshest in-progress LaTeX WIPs (`.tex`/`.bib`); these working copies do not override authorial intent; the canonical home of all theory manuscripts (the MultiAgentELBO theory is `manuscripts/MultiAgentELBO_Theory/`, governed by that folder's `SPEC.md`; MultiAgentELBO's `Theory/` is retired) | Human + LLM edit |
 | **The wiki** | `wiki/` | LLM-owned synthesis; freely rewritten | LLM maintains |
 | **The schema** | `CLAUDE.md` (this file) | Rarely changed | Human + LLM agree |
 
@@ -39,7 +39,7 @@ Plus two navigation files at the vault root: **`index.md`** (catalog) and **`log
 ├── CLAUDE.md            ← this schema / operating manual
 ├── index.md            ← catalog of every wiki page, grouped by type
 ├── log.md              ← append-only chronological ledger of operations
-├── manuscripts/        ← EDITABLE freshest LaTeX WIPs (.tex/.bib) — current working copies, not an authority over authorial intent
+├── manuscripts/        ← EDITABLE freshest LaTeX WIPs (.tex/.bib) — current working copies, not an authority over authorial intent — canonical home of all theory; MultiAgentELBO theory in manuscripts/MultiAgentELBO_Theory/ (governed by its SPEC.md)
 ├── sources/            ← IMMUTABLE raw source notes (the source of truth)
 │   ├── papers/         ←   one note per paper (arXiv etc.), with bibtex
 │   ├── refs/           ←   curated references cited by the manuscripts (type: reference)

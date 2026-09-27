@@ -1,0 +1,909 @@
+# Mathematical content of the three Theory documents
+
+This file states what the main manuscript and its two supplements must contain, and the typed
+constructions they rely on. `SPEC.md` in this folder governs the writing rules, the status system, the
+notation, and the mechanics; symbols below follow its section 3 table. The destination of every
+existing label, the file plan, and the cut list are in MultiAgentELBO
+`docs/reviews/2026-09-23-theory-streamlining-review/phase2/PLAN.md` and `phase2/label-destinations.json`.
+The content is condensed from sections 3 and 5 to 8 of the earlier spec and from its dated
+consolidations (now in MultiAgentELBO `docs/research-log/theory-consolidations.md`), updated to the Phase 1
+corrections and to the author's decisions D1 to D13. Reproduce these results faithfully; do not
+weaken or overstate them. A result listed here keeps its proof unless the plan cuts it to a
+checked primary-source citation. Where a statement below is quoted as a fact, its status in the
+documents is ESTABLISHED at the stated hypotheses unless the text says STANDARD, OPEN, or
+CONJECTURE.
+
+## A. Main manuscript (`main.tex`)
+
+### Part I. Single-point foundations
+
+**Chapter 1, program, scope, and standing conventions.** The program aim is stated in the
+manuscript's own vocabulary (D4): agents are local sections, collectives form through coupled
+inference, and parents act back on children through normalized laws. The local-first architecture
+(`eq:intro-local-to-global-architecture`) runs from local descriptive data to one normalized joint
+`\mathbb P_{\theta,V}`, one selected correlated recognition coupling `\mathbb Q_{V,o,X}`, its
+posterior slice `\boldsymbol\Pi_{\theta,V,o,X}`, and one ELBO; population laws are complete
+probability objects, not additional agents. The reading map is ordered by Parts I to III and names
+each supplement once as a document. The standing-conventions section carries the defaults of SPEC
+R6, the declined claims of SPEC R5 (physical time, spacetime, agency, ontology, canonical
+selectors, graph links as base transport, base maps, neighborhoods, connection descent), the
+distinction between the inference index or RG depth and physical time, the three transports that
+must remain distinct (pointwise frame comparison, independent graph link, base parallel
+transport), the two uses of "coarse", and the D8 convention on the interaction graph. The status
+table `tab:status-taxonomy` follows SPEC R4.
+
+**Chapter 2, geometry at one base point.** One principal bundle `\pi:\mathscr P_G\to\mathcal C`
+induces the belief and model associated bundles
+`\mathcal E_x=\mathscr P_G\times_{\widehat\rho_x}\mathcal B_x`; the representations `\rho_b,\rho_m`
+may be inequivalent and act on fibers of different dimensions. At `c_*` the fiber
+`(\mathscr P_G)_{c_*}` is a `G`-torsor. Each agent has one common frame `u_i` (D2, a gauge
+choice). One passive re-expression convention `g_i` is fixed once. The active gauge group at one
+base point is one copy of `G` inside the passive vertex group `\prod_iG`
+(`prop:geo-active-image-point`); the per-vertex group of the link network is passive. Cross maps
+`\Phi:\mathcal E_b\to\mathcal E_m` and `\widetilde\Phi:\mathcal E_m\to\mathcal E_b` are measurable
+fiber-preserving morphisms over the identity; they are not principal-bundle morphisms, gauge
+automorphisms, same-channel transports, or assumed inverses, and their existence is additional
+structure. Equivariant fiber maps induce cross morphisms (`prop:geo-intertwining-cross-map`); a
+nonzero linear cross map between inequivalent linear representations needs an intertwiner.
+
+The interaction multigraph `\mathfrak I` at `c_*` carries independent links `\Theta^x_e\in G` on
+oriented edge copies with `\Theta^x_{\bar e}=(\Theta^x_e)^{-1}`, transforming under vertex gauge;
+endpoint notation is allowed only for a unique copy. The link map
+`\mathsf t^x_e(u_j\cdot g)=u_i\cdot\Theta^x_eg` of the fiber is frame independent and
+right-equivariant, and `\mathsf t^x_e(\sigma)=\sigma\cdot\mathring\Theta^x_e` for the per-edge
+twist `\mathring\Theta^x_e=U_i^{-1}\Theta^x_eU_j` relative to a reference point `\sigma`. Every edge
+carries an invariant conjugacy class, and the invariant link content is the twist tuple modulo
+one simultaneous conjugation (`prop:geo-edge-twist-invariance`). Links are graph-flat on a
+subgraph exactly when every closed-walk product is the identity, equivalently when they are a
+graph coboundary in arbitrary vertex potentials; frame-aligned links `\Theta=T` (the former
+`hyp:geo-flat-links`, now a definition) are strictly stronger. Singletons and trees are
+trivializing. The trivializing criterion carries the coboundary uniqueness clause
+(`prop:geo-trivializing-criterion` with `prop:gauss-coboundary-trivialization`). Three notions are
+pairwise independent and stated on law fibers: frame agreement (trivial holonomy over every
+closed internal walk), law agreement on edges, and law coherence up to holonomy stabilizers
+(`def:geo-law-coherence`, `prop:geo-three-agreements`, `eq:phil-law-coherence`). General `GL`
+conjugation has no positive invariant norm on `\mathfrak{gl}(n)`; a positive construction needs
+covariant SPD metric data. For compact `G` with unitary `\rho_x`, the normalized loop penalty
+`\frac1{2n}\Tr((I-\mathsf U)^*(I-\mathsf U))` lies in `[0,2]`, so a finite nonnegative combination
+of them against the product of Haar probability measures on the links has normalizer in
+`[e^{-2\sum_p\mathrm c_p},1]` (`rem:geo-loop-penalties`); normalizability for noncompact or general
+linear `G` is not asserted. The running example has three agents on a triangle with nontrivial
+loop holonomy, per-edge twist classes, one passive vertex change, and one record kernel.
+
+**Chapter 3, probability semantics at `c_*`.** Kernels come first and densities second, on
+standard Borel spaces with declared reference measures; mixed families have a common dominating
+measure (`thm:prob-mixed-family-common-domination`, proof in the measure appendix). The access map
+`\operatorname{Acc}_i:\mathsf O\times\mathsf X\to\mathsf I_i` and the local kernel `\mathbb Q_i` give
+`\mathbb Q_{i,o,X}=\mathbb Q_i(\operatorname{Acc}_i(o,X),\cdot)`; access restricts local laws only,
+and decentralization also requires a selector indexed by `((\operatorname{Acc}_i(o,X))_i,X)`. The
+coupling selection is declared once (`hyp:prob-measurable-coupling-selector`, absorbing
+`def:elbo-recognition-kernel` and the constrained-selection hypotheses):
+`\mathbb Q_{V,o,X}\in\operatorname{Cpl}(\mathbb Q_{\bullet,o,X})`. A model presentation `m_i` is
+not a law; its generative meaning comes through a measurable evaluator
+`\operatorname{ev}_i:m_i\mapsto K^X_{i,m_i}`.
+
+Three levels are declared (`def:prob-description-levels`): samples, law points `\mathfrak q_i^x` in
+`\mathsf Y^{\mathrm{law}}_i`, and configurations `(w,y)` with a presentation map `\operatorname{pres}`
+and presentation kernel `\kappa^{\mathrm{cfg}}`. Every energy names its level. Transported
+divergences `\KL(q_i\Vert(\Theta_e)_\#q_j)` are law-point energies; by strict convexity of
+`-\log` no recognition-independent sample energy reproduces them at two source laws and one strict
+mixture. Point-mass recognition of a non-atomic law point has infinite cost
+(`prop:prob-law-point-point-mass`); the configuration lift has its identity
+(`prop:prob-configuration-lift-identity`); the prior over law points is `open:prob-law-point-prior`.
+The access-gap floor (`eq:prob-access-gap-floor`) uses the corrected Chernoff value. The one KL
+chain rule (`lem:prob-kl-chain-rule`) is stated in `[0,+\infty]` in disintegration form, with
+product-reference and fixed-marginal corollaries, the extended data-processing clause
+(`thm:cg-kl-dpi-extended`), and bijection invariance (`eq:cg-rn-bimeasurable`,
+`eq:cg-kl-bimeasurable-invariance`); it is STANDARD only with checked locators (Kullback 1951 and
+Csiszár 1967 for data processing; Gray or Pinsker for the chain rule), otherwise ESTABLISHED with
+its proof in the measure appendix. Nondominated likelihood families are
+`open:prob-nondominated-likelihood`. Finite designs, sampling compatibility, and continuum law
+theory go to Supplement B.
+
+**Chapter 4, the fixed normalized generative law.** The constructed joint
+`\mathbb P_{\theta,V}(dy,do\given X)` is normalized on arbitrary interaction cycles
+(`prop:gen-exact-normalization`); each record kernel `K_a` is owned once by the joint, while
+coordinate-local free energies include every incident factor. The typing prohibition (a standing
+hypothesis, label `req:gen-typing-prohibition`) is stated in two-argument form `F(Q;\theta)`: a
+generative kernel is fixed once `(\theta,X)` is fixed and takes no recognition law, recognition
+parameter, or posterior as input; this bans `\theta(Q)` inside one evaluation and admits accepted
+M-coordinates and model-channel recognition dynamics. The finite directed latent law (label
+`cons:gen-finite-directed-law`) becomes a definition. One sentence types the fast and slow
+variables and cites the two-timescale chapter.
+
+**Chapter 5, one evidence bound and local-collective free energy.** Under
+`hyp:elbo-evidence-domain` (finite positive evidence; clause (H3) absolute continuity
+`\mathbb Q_{V,o,X}\ll\boldsymbol\Pi_{\theta,V,o,X}`; log-integrability),
+`\log p_{\theta,V}(o\given X)=\Lelbo_V(\mathbb Q_{V,o,X};X,o)+\KL(\mathbb Q_{V,o,X}\Vert\boldsymbol\Pi_{\theta,V,o,X})`,
+with equality exactly when the selected coupling equals the posterior slice as measures. The
+extended ELBO assigns `-\infty` to the singular branch, which is what excludes recognition laws
+supported on subspaces. Reciprocal participation occurs in inference under a fixed normalized
+joint. The total-correlation chain rule, the E-coordinate, the local VFE, and the local-global
+potential identity follow from the Chapter 3 chain rule: with the outside marginal fixed, the
+block objective is the outside-averaged conditional VFE, and its differential equals that of the
+collective VFE restriction under the stated support, finiteness, integrability, and
+differentiation hypotheses. Observations enter as interactions through the record-density
+presentation (`hyp:local-interaction-kernels`); accepted M-coordinates are the slow update; the
+damped block update is `eq:obs-damped-block-update`. Since the acceptance inequality is weak, the
+null step is an accepted M-coordinate, so `open:elbo-alternating-convergence` is posed for finitely
+many latent states, parameters in an open cone, `C^2` joint densities, and the exact M-coordinate
+with a unique maximizer: conditions checkable on the model, met by some model of parameter
+dimension at least two whose stationary set at the limit value of an orbit is not discrete, that
+give convergence of every orbit to one stationary point, or an orbit with more than one limit
+point under compact upper level sets. Both chapter labels `ch:elbo` and
+`ch:local-collective-elbo` are kept.
+
+**Chapter 6, attention and selective communication.** The interaction graph is the support of
+`\pi` (D8), complete unless masked, and attention weights are strictly positive on it; discrete
+edge creation and deletion is `open:obs-edge-creation` (the grand-canonical program note is
+motivation only); the open problem fixes a threshold rule (deletion at a rate reading the
+recognition row weight, creation at a rate reading the averaged comparison energy, bounded
+multiplicity) and asks for a normalized joint with the edge set as a structural coordinate whose
+collective VFE the rule's master equation does not increase, or a proof that for every such rule
+none exists. In the per-receiver source-label model the source prior `\pi_{ij}`, the
+generative posterior row `\beta^P_{ij}`, the recognition row `\beta^Q_{ij}`, the receiver
+occupancy `\alpha^x_i`, and the event law `\eta=\alpha\beta` stay distinct. The law defining
+`\alpha` is declared: a structural selection law in the per-receiver model, or the receiver
+marginal of one joint edge label in the single-edge model (`hyp:rg-single-edge-attention`, a
+definition). A product-of-rows label model fixes receiver occupancy, so `\alpha` needs a null
+label or a different joint label model with its own likelihood. Rows are indexed `(i,h)`; `\eta`
+carries no head index and multi-head label models are `open:obs-multihead-attention`, posed for heads
+whose projected queries are correlated under the receiver's conditional Gaussian law and whose
+integrated positive label table does not factor. Query covariance alone does not force label
+coupling; `rem:obs-head-coupling-criterion` gives the exact two-head criterion for
+label-independent predictive covariance, and `prop:obs-selective-head-coupling` supplies an instance.
+The factorizing subclass, including untied channel-split heads under a channel-product receiver law,
+is excluded; the
+problem asks for an exact recursion with bounded head count through a declared head-merging channel,
+or a block whose posterior mean no comparison-record model with fewer heads than rows reproduces. Events,
+rows, links, and divergences are indexed by oriented edge copies, and pair quantities are sums
+over copies. The row results are the Jensen-gap identity, row potentials, the affine row, the
+joint rate, the reduced potential and reduced Hessian (`prop:obs-attention-reduced-hessian`), the
+constant row gap, and the replicator flow with its dissipation. Exact coarse attention pushes
+`\eta`; `\alpha` is recovered by marginalizing `\eta` and `\beta` by disintegration on positive
+occupancy; a conditional row alone is not recursive state.
+
+Selective communication adds normalized encoder, transmission, and decoder kernels with explicit
+receiver side information `\Upsilon`. Vector sample fibers are distinct from law fibers. The
+linear factors compose to `\mathsf L_e=\mathsf L^{\mathrm{dec}}_e\mathsf L^{\mathrm{tr}}_e\mathsf
+L^{\mathrm{enc}}_e`, and the composed Markov kernel is `K^v_e`, not `\mathsf L_e`; message-coordinate
+changes cancel between factors, and sample coordinates use the Chapter 2 convention. Links stay
+invertible with inverse reversal; a singular communication map is not a group element and a
+singular loop product is not holonomy. The edge factor `F_e=\mathsf L_e\rho_x(\Theta^x_e)^{-1}`
+exists once an invertible link is chosen, and one shared receiver map is an extra condition.
+Encoding kernels and quotients are intrinsic; an orthogonal sending complement requires a metric;
+the signal image `\operatorname{im}\mathsf L_e` may be smaller than the decoder image.
+Role-comparison cospans do not supply a decoder, and the metric lift, the Gaussian conditional
+mean, and the natural-gradient insertion are distinct operations. Keep the shared
+comparison/content conditional correction, the content conditional-KL term, and the posterior
+versus recognition row distinction. The dot-product reduction requires shared projected key
+covariance and keeps its key-norm bias unless an explicit condition cancels it; the quadratic
+disagreement and its response stay in the core. The exact comparison-record receiver update
+(`prop:obs-selective-receiver-update`) ties the value map to the query and key maps; it is distinct
+from the metric lift (its noiseless limit) and from the natural-gradient insertion. The
+kernel-level passive law is `eq:obs-selective-kernel-gauge`. The transformer correspondence table
+(`tab:obs-transformer-correspondence`) gives row standing as table content (SPEC R4). Normalized
+cyclic records instantiate fixed rectangular maps but settle neither canonical compression nor
+moving-interface coarse-graining. Conditional data processing uses receiver side information; rank
+is not capacity; a common measurement KL leaves a private conditional KL; evolving measurements
+need the extra derivative term in their projectability identity. Interface learning, private
+retention, and source or history closure are open: `open:obs-selective-formation` is posed for a
+vector-tier block with surjective interfaces of one fixed rank learned as generative parameters at
+mobility `\epsilon_{\mathrm M}` under the kinetics of `def:rg-formation-cycle-experiment`, and asks
+for a retained-mechanism parent of fixed dimension below the block's whose path relative entropy
+vanishes on horizons of order `1/\epsilon_{\mathrm M}` uniformly in the temperature, or a learned
+rest point or lower bound that excludes one. The linear Gaussian record goes to Supplement G.
+
+**Chapter 7, fiber information geometry and inference histories.** Law fibers and kernel fibers
+are distinct; neither a manifold, a dominating measure, an affine chart, a cone, nor a Fisher
+metric is inferred from the word belief or model. The standing tier is a finite-dimensional
+regular statistical manifold with a `C^1` positive-definite metric, or its constant-rank Fisher
+quotient (differentiability in quadratic mean, square-integrable scores, the integrability each
+tensor needs, and nondegeneracy before a Fisher form is called a metric); the Gaussian mean tier is
+an example. Vertical Fisher and Amari–Chentsov tensors are invariant under the represented action;
+the orbit Fisher form `\mathfrak k_q` and isotropy algebra `\mathfrak g_q`
+(`cor:pb-orbit-fisher-form`), KL jets, and the vertical defect cocycle are single-point results.
+The Markov coarse-morphism hypothesis (`hyp:pb-markov-morphism`) carries no common-domination
+clause.
+
+The Fisher contraction theorem (`thm:cg-fisher-contraction`, section 7.3; Chapter 9 cites it): a
+parameter-independent normalized record channel replaces a score by its conditional expectation
+and contracts Fisher information by the exact conditional-covariance defect. It applies to the
+coarse image of the same fine orbit and does not compare independently recomputed orbits without
+an oriented semiconjugacy; a parameter-dependent channel, a fitted coarse approximation, and a
+generative-versus-recognition parameter mismatch lie outside it. Galerkin aggregation is inside it
+along fixed-precision histories and outside when `\operatorname{range}(\Lambda S)` changes, because
+the Galerkin law is a `\Lambda`-dependent pushforward (`prop:ig-galerkin-pushforward`, Supplement G).
+For the retained-law map `\operatorname{ret}` and a positive-semidefinite target tensor `g`,
+`\operatorname{rad}(\operatorname{ret}^*g)=d\operatorname{ret}^{-1}(\operatorname{rad}g)`, equal to
+`\ker d\operatorname{ret}` exactly when `\operatorname{im}d\operatorname{ret}` meets
+`\operatorname{rad}g` trivially; constant rank gives a positive-definite quotient bundle, not a
+quotient manifold, and under transversality and a regular connected-leaf quotient the pullback is
+basic. This does not make arbitrary tensors or declared block projectors basic.
+
+VFE selects an orbit only after a metric or mobility is declared: on a regular (quotient) metric
+configuration space the positive ray of `-\operatorname{grad}\Fenergy` is the oriented
+unparameterized natural-gradient orbit; scalar mobility changes only the parameterization,
+anisotropic mobility can change the orbit, and a semidefinite metric is not inverted before a
+justified quotient. An exact multi-agent VFE needs a joint-law lift: a smooth extraction map with a
+smooth right inverse `\iota_i` reproducing the configuration; the recognition Fisher metric is the
+pullback along `\iota_i`, and a weighted sum of marginal metrics is exact only after a
+block-orthogonality result. The parity witness: for three paired binary agents,
+`p_\varkappa=p_0+\varkappa\chi D` with `|\varkappa|<1` is a strictly positive normalized smooth right
+inverse of the six one-bit marginal map and an immersion; every proper marginal is the product
+marginal; for each marginal tuple it is one parity line in the 57-dimensional Fréchet fiber; it is
+equivariant under simultaneous complement of both channels of an agent and typed agent
+permutations, while an odd independent channel complement flips the sign of `\varkappa`. For a
+regular joint score,
+`\mathsf G_J-\mathsf G_w=\mathfrak K-\mathfrak C+\sum_i(1-w_i)\mathsf G_i` with
+`\mathfrak K=\E[RR^\top]` and `\mathfrak C=\sum_{i\neq j}\E[L_iL_j^\top]` over the marginal scores; in
+the witness `\mathfrak C=0` and `\mathfrak K\succ0` for `\varkappa\neq0`, and at the symmetric point
+with hyperedge correlation `\varkappa/64` the joint metric is `4I_6/(1-(\varkappa/64)^2)`, so equality
+with a weighted marginal metric needs every `w_i=1/(1-(\varkappa/64)^2)`. The symmetric posterior is
+realized by an engineered hyperedge record. Promoting `\varkappa` gives full-joint rank seven against
+singleton rank six with kernel `\operatorname{span}\{\partial_\varkappa\}`
+(`cor:hist-promoted-parity-rank`). Full-joint VFE and Fisher tensors do not factor through singleton
+marginals (`thm:hist-correlated-refinement-nogo`, `prop:hist-parity-hyperedge-vfe` with excess
+`-\tfrac12\log(1-(\varkappa/64)^2)`, `cor:hist-parity-fisher-residual`).
+
+Canonical dependence selection: naturality under fixed-arity coordinatewise finite Markov kernels
+with independently tensored channel randomness forces the product section; on a wide
+marginal-compatible category a natural section exists exactly when every added morphism preserves
+product laws. The absolute selector natural under both declared split kernels (split parameters
+`1/3` and `1/2`, pushforward atom multisets `\{1/3,1/3,1/6,1/6\}` and `\{3/8,3/8,1/8,1/8\}` from one
+fair/fair marginal datum) is refuted, an ESTABLISHED negative result. The relative replacement is
+the reference-relative I-projection (existence exactly when the moment lies in
+`\operatorname{conv}T(\operatorname{supp}p)`, uniqueness, support on the minimal face; cut to
+Csiszár 1975 if the locator is checked) and the deterministic reference completion
+`r(f(x))p(x)/(f_\#p)(f(x))` (a consequence of the chain-rule lemma), composing along nested maps;
+retained-optimizer descent requires retained equivalence, meaning equal retained posterior
+`f_\#p` and evidence.
+
+The Fisher duration `\mathfrak t` is Fisher length on an already selected orbit, invariant under
+orientation-preserving reparameterization; it can stall on null or critical segments. An
+orthogonal clock is locally a decreasing function of `\Fenergy` and exists exactly when
+`\Vert\operatorname{grad}\Fenergy\Vert` is locally a function of `\Fenergy` and the period condition
+holds; a non-orthogonal unit-speed clock exists given a global cross-section
+(`prop:hist-cross-section-clock`). Record clocks, analytic finite duration, and discrete histories
+are single-point results; the core states that no parameter-independent Markov kernel realizes the
+joint barycenter of two normal laws and names Supplement G for the proof. Semiconjugacy: functional compatibility
+forces basicness; natural-gradient sufficiency covers symmetry quotients; for
+information-discarding maps the exact route is the reduced slow flow of Chapter 8, with the
+finite-rate limit open. New units: `def:hist-configuration-manifold`,
+`def:hist-coarse-configuration-map`, `open:hist-meta-clock-ratio`,
+`open:hist-retained-fisher-quotient`.
+
+**Chapter 8, two-timescale dynamics.** A fast-slow coordinatization
+(`def:obs-fast-slow-blocks`) maps `(f,s)`, `s=(s_{\mathrm m},\theta)`, to a population recognition law
+and generative parameters, with objective `F(f,s)` the extended VFE with its generative argument
+explicit. The envelope identity and reduced slow flow (`lem:obs-envelope-slow-flow`) use
+`F_{\mathrm{red}}(s)=\min_fF(f,s)`; the rate-separated flow with
+`\mathsf G_\varepsilon=\varepsilon\mathsf G_{\mathrm f}\oplus\mathsf G_{\mathrm s}` and its reduced
+semiconjugacy is `prop:obs-rate-separated-flow`. A correlated belief-model metric requires the rate
+declaration to name its slow manifold, `open:obs-slow-manifold`. On the four-cycle,
+`prop:obs-slow-model-link-dichotomy` moves belief means at rate one, model means at a supplied rate
+`\varepsilon_{\mathrm m}`, and links at `\varepsilon_\omega`: on a held matching the mean flow is the
+rate-separated flow, whose selected-edge blocks meet the three slow-manifold hypotheses with
+constant 4 uniformly in the temperature while the full sheet has curvature `3\mathrm T` along the
+pair means; at zero temperature a fast link or fast model means remove the model disagreement at
+rate at least `4-2\sqrt2`, while slow means and links give a belief-agreeing, model-disagreeing
+interval from `\frac14\log(4/\varepsilon_{\mathrm m})` to `1/(12\varepsilon_{\mathrm m})`; and a model
+residual of size one persists along every assignment path up to a time of order
+`1/\varepsilon_{\mathrm m}`. `open:obs-slow-manifold` is posed for the sampled four-cycle dynamics
+with source jumps and slow model means and links, asking for a tracking bound explicit in
+`\varepsilon_{\mathrm m}`, the temperature, and the number of assignment changes, holding for
+every positive bound on the number of changes per unit slow time, or a tracking failure at some
+such bound; the learning case lies outside its class. The local natural-gradient section
+moves here. The prepared-parent semiconjugacy `JT=LJ` is the instantaneous-equilibration case: the
+Markov property of a prepared parent rests on the instantaneous within-parent refresh hypothesis
+(`hyp:rg-memory-instantaneous-refresh`), not on preparation alone; partial refresh gives a
+non-Markov parent whose closure cost is `D^{(1)}_N` (`eq:rg-memory-partial-refresh-witness`).
+
+### Part II. Exact coarse-graining at one base point
+
+**Chapter 9, coarse channels.** A coarse channel is a recognition-independent normalized Markov
+kernel on latent coordinates that leaves observations unchanged and is vertical over the identity
+of `c_*`; it is never a matrix or a deterministic map by default. Data processing and recovery come
+from the Chapter 3 lemma. The common-channel coarse VFE chain rule (`thm:rg-exact-coarse-vfe`): one
+channel pushes the generative joint, the selected posterior-version family, and the recognition
+law; the KL chain is additive in `[0,+\infty]`; adding the finite `-\log p_X(o)` gives an
+extended-real VFE identity (a finite VFE may be negative); without finiteness `\Delta_A=0` exactly
+when the discarded conditional recognition and posterior laws agree `\mathbb Q_A`-almost surely;
+finite fine KL is needed for `\Fenergy_I-\Fenergy_A=\Delta_A` and for the two-way pairwise
+common-recovery equivalence; family-wide recovery needs simultaneous hypotheses for every member.
+
+The full pointwise datum (`thm:rg-pointwise-parent-datum`): a nonempty finite child block `I`,
+parent label `A`, fixed `X` with `X_A=\chi_A(X)` outside the random channel, the random parent state
+`\mathsf Z_A=\mathsf B_A\times\mathsf M_A\times\boldsymbol\Xi_A\times\mathsf H_A`, and one channel
+`C_{A,c_*}:\mathsf Y_{I,c_*}\rightsquigarrow\mathsf Z_{A,c_*}` pushing the fine triple
+`\mathbb P_I(do,dy\given X)`, `\boldsymbol\Pi_{I,o,X}`, `\mathbb Q_{I,o,X}` to the parent triple. The
+parent posterior identity holds at the observation-kernel level. The parent model coordinate is
+generative only through a jointly measurable normalized evaluator
+`\operatorname{ev}_A:m_A\mapsto K^{X_A}_{A,m_A}`; standard-Borel disintegration supplies an induced
+evaluator, and a predeclared one needs almost-sure compatibility. Marginals are forward projections
+of the typed full laws and do not reconstruct them. Equivariant Bayes versions
+(`prop:cg-equivariant-bayes-versions`): version transport, finite equivariant Bayes, and Haar
+averaging settle the compact and finite cases, and a posterior version weakly continuous on the
+support of `QK` extends to an everywhere-defined version equivariant under every stabilizer
+(`cor:cg-continuous-version-equivariant`); noncompact stabilizers with no weakly continuous
+posterior version, and jointly measurable cross-orbit selection, remain
+`open:cg-equivariant-versions`, posed for locally compact second countable groups acting
+continuously on Polish spaces. The Galerkin
+exactness display `eq:cg-galerkin-exactness` stays here.
+
+The scale category (section 9.6, `sec:rg-scale-category`): one target category is chosen (maps,
+normalized Markov kernels, or a declared operator or product category); arrows compose; right-acting
+kernels compose as `K_{\ell r}=K_{\ell k}K_{kr}`; a reference-space expression needs declared
+isomorphisms, and reference-measure transformations stay explicit. Functoriality is automatic on a
+chain, and its content lies in non-chain posets and rule semigroups; there is no stochastic
+comparison between finite levels with different numbers of configurations. Autonomous
+endomorphisms and scale-dependent cocycles are distinct. The Dobrushin one-step bound is STANDARD
+once Dobrushin 1956 is checked. The labeled Fisher decomposition (from the finite thermodynamic
+section) has three experiments, label-retained complete data, complete observation, and observed
+data, with the missing-information identity (`prop:rg-thermo-finite-missing-information`) and the
+labeled within-loss (`prop:rg-thermo-finite-fisher-loss`); `def:rg-thermo-finite-channel` is its
+hypothesis. The lattice-free finite-mixture Fisher theorem (`sec:cg-retained-label-asymptotics`;
+D9, ESTABLISHED) is stated for one definition of the finite labeled family (merging
+`def:rg-thermo-label-family` and `def:rg-thermo-finite-score`) with extensive size `N`, weights the
+softmax of effective log masses, and branch densities `N^{-1}\mathcal I`; its strict-phase case, its
+fixed-tie `N^2` tensor (label-observation information), and its `1/N` window
+`\theta=\theta_0+\mathsf w/N` have different hypotheses and coordinates, and the tie
+counterexamples (`prop:rg-thermo-label-tie-counterexamples`) show the hypotheses cannot be dropped.
+Selection is one open problem, `open:cg-natural-selector`: the analyzed costs select trivial
+endpoints or need an external coefficient (Supplement G), and settling it needs a nonmonotone
+functional with a nondegenerate optimizer or an impossibility theorem; its common-recovery part
+cites Chapter 10.
+
+**Chapter 10, gauge-retained network state and fixed sectors.** Tree transports
+`\Theta^x_{I\leftarrow i}` with stated tree dependence, rooted holonomy `\mathrm{Hol}^x_I`, and
+block-dressed boundary edges `\widehat\Theta^x_e=\Theta^x_{I\leftarrow i}\Theta^x_e(\Theta^x_{J\leftarrow j})^{-1}`
+with their endpoint gauge law are retained as raw root-framed marks (primary spanning-tree
+construction; Creutz 1977 for maximal-tree gauge fixing). Holonomy blindness is conditional on
+typed fine and parent actions, full fine-law covariance, compatible selected posterior versions,
+channel equivariance, and evaluator covariance; same-slice invariance holds only for isotropy
+arrows fixing the slice and its versions; neither branch selects membership. For a connected block
+the fixed fiber is `\mathbb V_{I,\mathrm{fix}}=\ker L_I` for positive-semidefinite weights and
+`\mathbb V_{I,\mathrm{fix}}\cong\mathrm{Fix}(\mathrm{Hol}_I)` under positive-definite weights, by spanning-tree
+transport; the retained rank `f_I=\dim\mathbb V_{I,\mathrm{fix}}` gives
+full (`f_I=K`, exactly trivial represented holonomy), partial, or no retained degree. Principal
+holonomy may be nontrivial when the representation is not faithful; with semidefinite weights the
+exact edgewise constraint is `W_e^{1/2}(z_i-\rho(\Theta_e)z_j)=0`. The criterion is admissibility,
+not cost; within the Gaussian aggregation flow it does not select a partition; it is not a
+consensus-of-beliefs condition.
+
+The holonomy-conditioned marginal-law projection (`thm:cg-holonomy-kl-marginal`): transporting
+each marginal to one root and minimizing weighted forward KL over a declared holonomy-fixed parent
+family gives an infimum independent of paths, root, and frame; attained zero exactly for a
+holonomy-stabilized parallel marginal-law section; an empty family gives infinite distortion;
+without attainment zero means approximability only. It is a marginal-law statement, not partition
+selection, a coarse channel, or joint recovery. For compact holonomy the closed form is the Haar
+symmetrized mixture with automatic attainment (`prop:cg-holonomy-compact-closed-form`); for
+Gaussian laws the fixed family is nonempty exactly when the holonomy is conjugate into `O(K)`, and
+generic `\GL(K)` links give infinite score (`cor:cg-holonomy-noncompact-gaussian`). The kernel
+holonomy proposition is stated on the edge-copy multigraph; `eq:full-graph-holonomy-stabilization`
+cites Chapter 2 law coherence. The completed-square lemma (`lem:cg-cut-completed-square`): with a
+newly generated positive-semidefinite self term, one invertible link exists exactly when
+`\det B\neq0` (a `\GL^+` link exactly when `\det B>0`), the admissible weights form a Loewner
+interval, the link is unique exactly when `\Delta=0`, and minimal rectangular compression is
+determined up to `O(E)`; without a new self term `\Delta=0` settles it. The strict subfamily is
+`def:cg-no-new-anchor-pair` (D6). The balanced presentation (`prop:cg-balanced-cut-presentation`):
+for an invertible cross block `\Lambda_{IJ}` (`B` above) exactly one anchored presentation carries
+the self term at `J` along its own link onto the self term at `I`, equivalently
+`\Theta^\top\Lambda_{II}\Theta=\Lambda_{JJ}`; its weight is the matrix geometric mean of the Loewner
+endpoints `\Lambda_{IJ}\Lambda_{JJ}^{-1}\Lambda_{IJ}^\top` and `\Lambda_{II}`, it is gauge covariant
+and end symmetric, and for scalar weights with orthogonal twists it is the orthogonal polar
+presentation. No balanced presentation at the level of laws (`prop:cg-no-balanced-law-presentation`):
+for parallel copies between nondegenerate Gaussian laws whose dressed edges are not all equal, and for
+any law class at `J` closed under rescaling of the covariance, no presentation of the summed
+transported divergences as one divergence to a Gaussian image of the law at `J` plus self terms
+reading one law each has the balanced presentation of the transported-precision cut as its Gaussian
+mean part (the self term at `I` would have to carry `\Lambda_{II}-W_{\mathrm{bal}}`, which is
+homogeneous of degree `-1` in the covariance of `J`). The negative statement
+`open:cg-cut-compression` (label retained) rules out a continuous matrix-valued extension of the
+balanced link to all singular cuts: two identity-weight SO(2) twists have cross block `2t I`,
+so the balanced link has incompatible limits `I` and `-I` at `t=0`. This already excludes a
+rule with the additional covariance, reversal, or rank requirements. Exact rectangular
+endpoint-map closure remains available. The frame sector: the coarse
+frame cancels, the frame occupies a `K^2`-dimensional orbit, a faithful representation makes the
+level set one gauge orbit, and no left-equivariant permutation-symmetric map
+`\GL^+(K)^n\to\GL^+(K)` exists for `K,n\geq2` (order-`n` rotation argument); the general-`G` form is
+proved or left open with the `\GL^+(K)` statement kept. New: `thm:cg-loop-operational-holonomy`, an
+operational record at `c_*` sensitive to network-loop holonomy (from the cover operational-holonomy
+proof; if the proof does not carry over, it becomes an open problem), the holonomy-score example on
+the running loop, and the structural-versus-marginal examples.
+
+**Chapter 11, exact agent-network coarse-graining.** The product-referenced network scale
+(`def:rg-network-scale`) with finite-step multipliers `D_\ell`, `D_{n\leftarrow\ell}`. Membership is
+a normalized Markov kernel `\mathfrak m_\ell(I\given i,R_\ell)`; a hard partition is its
+deterministic case; correlated endpoints use one joint kernel `\mathfrak M_\ell(I,J\given i,j,R_\ell)`,
+whose product form needs a declared conditional independence; literal unit weight in overlapping
+blocks replicates mass and is not a normalized pushforward; multi-step membership needs
+Chapman–Kolmogorov composition and retention of every mark the next assignment reads. The adaptive
+step uses one structural channel
+`C^{\mathrm{struct}}_{\ell+1\leftarrow\ell}:\mathsf Y_{\ell,c_*}\rightsquigarrow\mathsf R_\ell\times\mathsf Y_{\ell+1,c_*}`;
+the current state contains `\eta^b_\ell,\eta^m_\ell`, rooted-holonomy and dressed-boundary marks, and
+any record or memory marks the claimed closure needs; the augmented transition state
+`\widehat{\mathsf Y}_{\ell+1\leftarrow\ell}=(\mathsf Y_{\ell,c_*},R_\ell,\mathsf Y_{\ell+1,c_*})` does
+not duplicate `R_\ell`; the same channel pushes the generative, posterior, and recognition laws
+even when they induce different laws of `R_\ell`; composition is exact only when the augmented state
+is sufficient for the next structural kernel; depth-`(\ell+1)` links are the dressed marks of all
+copies (`eq:full-graph-coarse-links`); multi-depth channels are Chapman–Kolmogorov composites; loop
+copies use the diagonal endpoint kernel. The block-product channel is `eq:rg-block-product-channel`.
+
+Results: the effective action (`thm:rg-effective-action`) with its residual, the bounded action
+calculus, contraction, Hoeffding interaction coordinates with the two-agent example, hyperedges,
+bridge kernels, intra-block invariance, cocycle telescoping, the native growth bound (the whole
+exact derivative cocycle `D_{n\leftarrow\ell}` has norm at most `3^{|V_n|}-1` in the oscillation
+quotient norm at every depth, `prop:rg-interaction-native-growth-bound`), and the finite-network obstruction (a finite alphabet
+obstructs typed comparisons and vertex-ratio termination,
+`prop:rg-interaction-finite-network-obstruction`). Meta-attention is stated for the declared
+single-edge model (`prop:rg-attention-single-edge-weights`, `eq:rg-attention-prior-weighted-row`),
+with its collapse in the per-receiver model (`prop:rg-attention-per-receiver-collapse`). Path laws and
+memory (section 11.8): projection memory, strong lumpability (Kemeny–Snell, chapter 6), the finite
+memory KL projection, and the memory duration (condensed, STANDARD citation); a projected
+hidden-state process need not be Markov, and the signed pointwise memory action has nonnegative
+mean KL, not pointwise positivity. The retained-state table `tab:rg-retained-state` replaces the
+closure theorem. `rem:rg-trivial-invariant-pairs` records three families of invariant pairs: the
+grouping sectors of a base law that is a product over groups of blocks, the fixed sectors of a
+finite symmetry of the measure pair and the channel, and the pullback sectors of a deterministic
+channel under every base law, with the pullback retained projection
+`eq:rg-pullback-retained-projection`. `open:rg-invariant-retained-subspace` is posed for
+deterministic block-product channels whose block maps read every coordinate of their block, in the
+product and the general classes of full-support base laws, and asks for a proper invariant pair on
+an open set of base laws beyond the sum of the pullback and grouping sectors, or a proof that
+generically every proper invariant pair lies in that sum. `open:rg-pointwise-parent-dynamics` is
+posed for switching diffusions of the four-cycle type whose channels hide coordinates read by the
+receiver rows, for time-homogeneous Markov parents or parents with a filter in the explicitly
+restricted regular class `def:rg-regular-finite-filter`, at the level of fixed windows up to the
+switching time and of the complete history; dimension alone does not exclude Borel history coding;
+without such a class the existing lumpability, refresh, filter, and witness statements decide it in
+both directions. The chapter keeps the agentization no-go. No Wilsonian
+vocabulary (D5); one pointer names Supplement B.
+
+**Chapter 12, the multiscale graph VFE and closing the tower.** The adaptive tower law: the
+top-down factorization conditions each depth-`\ell` factor on the whole next-depth state
+`Y_{\ell+1}=(Z_{\ell+1},\mathfrak N_{\ell+1})` and on `R_\ell` (`lem:full-graph-adaptive-reversal`,
+`eq:full-graph-adaptive-tower-law`); dropping the graph datum costs
+`\sum_\ell I(Y_\ell;\mathfrak N_{\ell+1}\given Z_{\ell+1},R_\ell)` (`eq:full-graph-dropped-datum-cost`).
+The row free energy `\Fenergy^{\mathrm{att},x}_i` is defined once in energy units, with its
+dimensionless form as a one-line rescaling. Tree dependence cites Chapter 10. The random partition
+catalog for membership (D12): the normalization models with finite geometry labels
+`\gamma\in\mathfrak G`, typed as the structural mark `R_\ell` at `c_*`; the branch carrier is random
+and `X` stays outside the channel; hierarchical normalization preserves declared label priors while
+globally normalized factors reweight labels by their branch partitions; the VFE includes those
+partitions and the full recognition entropy; reference, raw factor, anchor scalar, prior reverse
+fiber, induced likelihood, evidence, and posterior are distinct objects; null fibers and zero
+evidence are explicit; parameter derivatives include every varying generative factor
+(`def:rg-geometry-ensemble`, `prop:rg-geometry-weights`); it creates no edge.
+
+Closing the tower (`sec:full-graph-closing-tower`): a declared root or apex latent with a proper
+prior on a truncated tower; anchored normalized cycles; participation in three loci, namely the
+same-time inference loop (block coordinate ascent, generic to connected hierarchical models),
+parameter learning (the ELBO-optimal prior over an unrestricted family is the aggregate recognition
+law, empirical Bayes), and delayed feedback across a sequence of fixed normalized joints as an
+episode-indexed joint (`def:full-graph-episode-joint`, `eq:obs-episode-update`,
+`eq:obs-aggregate-prior`), with `open:full-graph-episode-accounting` and the dynamic closure
+`open:rg-pointwise-parent-dynamics`. The episode-indexed joint admits a latent record copy
+`\widetilde o_n` observed through a Dirac kernel, with the extended free energy. The lifted joint
+(`prop:full-graph-episode-lifted-joint`): for a parameter route whose update reads a coupling
+selected by a declared rule, the joint on the tower states `(\theta_n,y_n,\widetilde o_n)` that
+evaluates the selection at the latent record copy is a latent route of the definition; its
+conditional episode law is the route's episode joint, its evidence is the product of the episode
+evidences, its posterior is the product of the episode posterior slices (filtering), and its free
+energy is the sum of the episode extended bounds plus the cross-episode total correlation, equal to
+the summed bounds at product laws. An update that reads the recognition law being scored stays
+excluded by `req:gen-typing-prohibition`, whose wording is unchanged.
+`open:full-graph-episode-accounting` is posed for label-sufficient latent routes at first order: a
+route whose per-episode discrepancy from the aggregate update of constant step
+`\epsilon_{\mathrm e}` is `o(\epsilon_{\mathrm e})` uniformly on horizons of order
+`1/\epsilon_{\mathrm e}`, with silent and informative or Zariski-dense records, or a lower bound of
+order `\epsilon_{\mathrm e}` for every such route. The declared-root proposition states its latent-parent typing
+hypothesis. At a variational fixed point each agent's effective prior is constituted by the
+population's beliefs through a latent inside the joint, not by a kernel reading a posterior.
+Bidirectional parent-child optimization is not implied by normalization of a downward kernel; it
+needs nontrivial dependence of that kernel on the parent coordinate, a parameterization that
+transmits it to the cross-scale VFE, and, for a universal claim, a proved nonzero cross-derivative.
+The hierarchy question is `open:full-graph-hierarchy`, posed for models with a partition catalog
+inside both laws that descend the multiscale free energy by a reversible diffusion with rate-one
+mark redraws and temperature-independent data as `\mathrm T\to0`; its positive branch carries the
+handoff comparison of SPEC R14 and the restoring and horizon clauses of R15 for the second level,
+together with the selector and the slow manifold, and its negative branch is a proof that no
+second level produced by descent, apart from a supplied-scale sequence in the sense of R14, meets
+them.
+
+### Part III. Formation and interpretation
+
+**Chapter 13, formation witnesses** (title "Finite-Depth Formation under a Supplied Energy
+Hierarchy" for the theorem's section). One fixed `c_*` in the principal/associated-bundle model,
+independent translation links, and every network loop retained; no base transport. The chapter
+defines the normalized physical joint, its observation and posterior, the separately normalized
+restricted optimizer of the declared VFE, and the correlated recognition law; it specifies the
+source support, nonlinear source factors, proper correlated prior, calibration, inherited metric,
+and complete parameter score before their bounds. Diffusion, source jumps, and the model natural
+gradient are a declared VFE-descending realization; VFE does not select their kinetics. The joined
+regime (formation-local letters are renamed per SPEC section 3; the level index is `\ell`) is
+`Q_L=0`, `Q_\ell=2Q_{\ell+1}+20`, energy strengths `\varepsilon^{-Q_\ell}` (unit at the top level),
+squared amplitude `\varepsilon^{3Q_1+20}`, temperature equal to the squared amplitude times
+`\varepsilon^6`, horizon `2/\varepsilon`, unit mobility and proposal rate, and source nonlinearity
+`10^{-4}/n`; in closed form `Q_1=20(2^{L-1}-1)` and the temperature is
+`\varepsilon^{60\cdot2^{L-1}-34}` (`eq:rg-formation-regime-closed-form`), a low-temperature limit with
+doubly exponential energy separation. The admissible common-center preparation is stated,
+including how its neighborhood may shrink with `\varepsilon` and depend on `L`. Every parent
+activates from the preceding retained law and parameter and learns from its own law through its
+full inherited score and metric; inherited jump rates are conditional averages, not new heat baths.
+The physical-optimizer gap is `eq:rg-formation-physical-optimizer-gap`. The theorem
+(`thm:finite-depth-adaptive-formation`) quantifies its constants before the regime and carries one
+status over conclusions (a) to (e). Its scope paragraph: coherence is linear hierarchical relaxation
+of the prepared mean; the record saturates at the coherence scale
+(`eq:rg-formation-source-saturation`); learning is calibration-dominated up to
+`\varepsilon^{2Q_1+20}`; slow per-agent models, order-one or nonabelian holonomy, model-channel
+records, and coarse agents are not realized; supplied contrasts, internal-neighbor source support,
+and calibration are explicit, and source learning is not claimed to create the contrasts. The
+doubling comes from the Fisher-budget estimate and is not shown to be required. The Gaussian core
+(`prop:rg-formation-gaussian-core`) has, besides its loss formula and upper bound (a), a two-sided
+asymptotic across every early interface (b): the core loss is
+`(\mathrm A^2/\mathrm T)(\mathrm J_{\ell+1}^4/\mathrm J_\ell^3)` times a core coefficient bounded
+below, and the forcing block has full row rank for every choice of bridge endpoints; and a
+separation criterion (c): with power laws the core loss is `O(\epsilon^{\mathrm Q_\Delta})` on every
+early window exactly when `3\mathrm Q_\ell-4\mathrm Q_{\ell+1}\ge\mathrm Q_{\mathrm T}+\mathrm Q_\Delta`,
+which forces a doubly exponential separation of inner base `4/3`. The scope paragraph therefore
+declines only that the doubling recursion is required, and `open:rg-formation-regime-sharpness` is
+posed for the base-`4/3` schedules `3\mathrm Q_\ell\ge4\mathrm Q_{\ell+1}+20`, `\mathrm Q_\ell\ge14`:
+conclusions (a) to (e) with depth-uniform constants, or a preparation and schedule of the class under
+which a conclusion fails. The continuous-path
+conclusion is concentration of both processes on a common deterministic path with a displacement
+bound under every coupling (`eq:rg-formation-common-path-concentration`), not total-variation
+convergence of path laws. New: a half-page heuristic on why formation happens, and the endogenous
+four-cycle witness (`prop:rg-formation-endogenous-cycle`, `sec:rg-formation-endogenous-cycle`) with
+its restrictions (source gating, random matching seeds, symmetric circulation, temperature
+`\varepsilon^8`, a Euclidean kinetic metric, a duration-one episode, no parameter learning), from the
+2026-09-20 derivation in MultiAgentELBO `docs/derivations/2026-09-11-meta-agent-formation-frontier-and-locality/`.
+Its episode event (part (a)) carries an entrance clause (the internal belief relative entropy of
+each matched pair exceeds `1/4` at time zero), a restoring clause (normal rates `8+\mathrm T` and
+`4+5\mathrm T` on the held sheet, so the least rate times the squared resolution `\epsilon^2` over
+the temperature is `4\epsilon^{-4}`), and a horizon clause by margin (the kinetics leave `q^\star`
+invariant and realize the event from it with probability at most `4e^{-1/(4\mathrm T)}<p_0/2`). The
+gated translation family (`def:rg-gated-translation-family`) places the four-cycle's laws, residual
+pairs, exclusive source labels, records, and kinetics on a finite simple graph without isolated
+vertices, and `prop:rg-gated-depth-one` shows depth one in it: (a) every sheet `H_S+\mathrm T\Omega`
+has a band of order `\mathrm T` of dimension `2N+|E|-\operatorname{rank}H_S` and a band of order one,
+and the prior enters only the sheet weights; (b) the gating wells have depth at most
+`\mathrm T\sum_i\log(1/\min_j\pi_{ij})` and are flat under block translations; (c)
+`\operatorname{rank}\mathbf a_F=|F|+N-\operatorname{cc}(F)`, the minimum rank `2(N-\mathfrak n)`
+(`\mathfrak n` the matching number) is attained exactly at minimum edge covers, which are the
+spanning star forests with `\mathfrak n` components, the sheet weights obey two-sided bounds, and
+sheets with `m` merges carry stationary mass at most `\mathrm K_m\mathrm T^m`; (d) the stationary
+coherent-block partition is a minimum-edge-cover partition except with probability
+`\mathrm K_1\mathrm T+O(\mathrm a^2)+4|E|e^{-\mathrm a^2/(4\mathrm T)}`. The proposition makes no
+dynamic statement (freezing of separated blocks below the thermal time) and has no several-rows
+clause; both stay in the research records.
+Open items: formation with order-one or nonabelian loop holonomy, a model-channel record, and slow
+per-agent models; a source record informative at the coherence scale; depth-uniform constants and a
+non-doubling regime; arbitrary families, arbitrary initial laws, mixed-level source support,
+intrinsic contrast selection, and infinite depth. `open:rg-formation-adaptive-family`, retitled "A
+family in which learning or holonomy selects the components", is posed on the four-cycle of
+`prop:phil-seeded-contrast-formation` for Gaussian initial means outside a null set: a law-level
+total-variation difference of the first formed block, conditional on contrast formation and bounded
+below, between the learned and the frozen-row arm or between initial means differing only in the
+loop coordinate, with parent estimates, or its vanishing for almost every mean; its ingredient list
+asks for model means and links both slow (`prop:obs-slow-model-link-dichotomy`).
+`open:rg-formation-general` is posed for source-gated models with temperature-independent data
+outside the gated family, with the handoff declarations of SPEC R14 and the restoring and horizon
+clauses of R15 in its positive branch and the supplied-scale exclusion of R14 in both branches. The proof appendix opens with the
+lemma-dependency table (`tab:rg-formation-lemma-dependencies`); the textbook entropy inequalities
+are cited with their checked locators (Boucheron–Lugosi–Massart, Bakry–Émery, Stam, Carlen,
+Csiszár), and a proof is removed only where the plan cuts it.
+
+**Chapter 14, interpretation and its limits.** Declared readings are definitions, commitments
+the mathematics uses are standing hypotheses (`hyp:phil-observational-closure`,
+`hyp:phil-boundary-agents`), and unsettled readings are open problems (`open:phil-testability`,
+citing `thm:cg-loop-operational-holonomy`). The one theorem-type statement is
+`prop:phil-seeded-contrast-formation` (ESTABLISHED; proof in the formation appendix, after the proof
+of `prop:rg-formation-endogenous-cycle`): on the four-cycle of `def:rg-formation-cycle-experiment`
+with product receiver rows learned by `eq:phil-source-learning` at mobility epsilon and initial law
+`N(m_0, I_12)` times uniform assignments, (a) the coupled row-and-kinetics system is well posed
+and `|pi_ij(t) - 1/2| <= epsilon t/2`; (b) for every `m_0` and every `epsilon <= 1/100`, contrast
+formation (a connected block with `2 <= |I| <= |V|-1`, an internal edge with belief KL above 1/4 at
+time zero, and internal belief and model KLs at most `epsilon^4` and boundary belief KLs above 1/2
+on a unit interval inside `[0, 2/epsilon]`) has probability at least
+`(e^{-1/4}/16)[N(m_0,I)(B(x°,1/100)) + N(m_0,I)(B(-x°,1/100))]`, with or without learning, and the
+bound is carried by a matched-pair sub-event that is a coherence episode, exceeding its stationary
+value under every fixed row configuration by a margin bounded below; (c) from an initial law invariant under the cycle automorphisms (`m_0 = (c_1 1,
+c_2 1, 0)`) the rows stay at 1/2. Its probability is supplied by the preparation's matching seed,
+and source learning is idle. It keeps the local-first verdict, cites the three agreements of Chapter
+2, rebases the participatory reading on formation, defines the idle wheel (`def:phil-idle-wheel`),
+and keeps graph-link holonomy, base-connection holonomy, and bundle topology apart. The
+participatory and noumenal readings pull against each other; the chapter sets out what each buys
+and costs. It proves the D13' selection statement (`conj:phil-contrast-formation`, now a theorem): on the
+unchanged four-cycle at every sufficiently small fixed temperature, with the product rows learned by
+`eq:phil-source-learning` at mobility `epsilon_L`, the recognition mass off one perfect matching
+tends to zero as `epsilon_L -> 0` on a window of order `epsilon_L^{-1} log(1/epsilon_L)` for almost
+every Gaussian initial mean, while the frozen-prior arm's pairing law becomes symmetric at long
+times. The commentary names the initial law as the supplied asymmetry and points to part (c) as the
+symmetry constraint. Its proof is `sec:phil-pairing-selection-proof`; it has no open-problem row.
+The proof includes actual-law entropy balance, frozen entropy contraction, a nonzero analytic
+transient imprint, the small-temperature matching landscape, and relative saddle escape. It does
+not establish event-level formation or parent closure. Its continuation, `cor:phil-joint-selection`, establishes a joint temperature/mobility limit along implicit common thresholds, allowing the matching to vary with temperature. `prop:phil-temperature-tracking` proves a power-law condition for tracking only; explicit power-law selection still requires quantitative imprint control. The new proofs are `ca_joint_selection.tex` and `ca_temperature_bounds.tex`.
+Delayed feedback through a declared kernel is the free energy of one joint
+(`prop:full-graph-episode-lifted-joint`). Physical-law identification
+(`claim:physical-law-identification`) stays open, posed for a named target system observed through a
+record kernel that separates, under the model's own law, two objects differing in a gauge-invariant
+datum, with held-out evidence that a baseline margin is met or is not met as its two branches;
+`open:phil-testability` is posed for a target system observed through a kernel that reads the links
+of a closed walk or the coordinates of a candidate block.
+
+**Chapter 15, related work.** Positioning against Bayesian renormalization, network
+renormalization, channel and information-geometric renormalization, algebraic multigrid,
+matrix-weighted consensus, cellular sheaves, connection Laplacians, and gauge fixing, with the
+attribution constraints of section D. Wilsonian vocabulary is allowed here for other authors'
+constructions. Bayesian posterior flow is a separate construction: composing it with this model
+needs an explicit transition between normalized models and a common comparison target, since
+differences of ELBOs otherwise mix evidence and tightness; the bridge is an open row of Supplement G.
+
+**Appendices.** The measure appendix holds the proofs of the Chapter 3 measure results, the
+regular-conditional version witness, the STANDARD kernel-measurability statements with checked
+locators (Dellacherie–Meyer; Kallenberg 2021), `prop:elbo-relative-log-representation`, the proof of
+the chain-rule lemma if it is not STANDARD, and the integrability witnesses
+(`sec:app-integrability-witnesses`). Then the formation proofs, the notation table generated from
+SPEC section 3, one open-problem table (`tab:open-problems`, core OPEN items only), and
+the numerical index (`tab:numerical-index`).
+
+## B. Supplement G (`supplement_gaussian.tex`)
+
+Supplement G cites only the main manuscript. Its introduction states the D6 wording (coarse
+families admit newly generated positive-semidefinite self terms; the strict no-new-anchor pair
+family is `def:cg-no-new-anchor-pair`), the Gaussian dimensions (belief `K`, model `d_m`, not assumed
+equal), `\Gamma_b=\rho_b(G)` with the specialization `\GL^+(K)` (`hyp:gen-lg-frame-group`), the common
+frame, and that the belief-sector precision is that of `p(k\given m,o,X)`; membership requires
+`A_i+O_i\succeq0`, so the prior balance is sufficient but not necessary.
+
+**Exponential families and the operator layer.** A dominated finite-dimensional canonical family
+with reference `\nu`, statistic `T`, natural parameter, log partition, and natural domain; regularity
+and minimality are separate hypotheses, and only here do the affine chart, Bregman formulas, and the
+Hessian form of Fisher information follow. A graph-exponential representation (node and pair
+statistics, graph-indexed affine energy, diagonal affinity) and a closed operator cone `\mathcal W`
+are further declarations; the cone need not be the closure of the natural domain. The cumulant and
+minimality facts are one STANDARD proposition citing Brown 1986 with checked locators; the affine
+information projection carries the Pythagorean identity (`eq:exp-projection-pythagorean`).
+
+**Gaussian realization and the interaction family.** Information parameters `(\mathsf h,\Lambda)`;
+the interaction family `\Lambda_{ii}=A_i+\sum_{j\neq i}W_{ij}`, `\Lambda_{ij}=-W_{ij}`,
+`W_{ij}=W_{ji}\succeq0`, `A_i\succeq0`, Laplacian part `L`, trivialized coordinates
+`z_i=U_i^{-1}\mu_i`. The family is a declared subfamily: an unrestricted directed linear-Gaussian
+transition gives an off-diagonal block that need be neither symmetric nor sign-correct
+(`\Lambda_i=\begin{psmallmatrix}2&1\\1&3\end{psmallmatrix}` with transition
+`\begin{psmallmatrix}0&1\\-1&0\end{psmallmatrix}` gives
+`\begin{psmallmatrix}1&-2\\3&-1\end{psmallmatrix}`). The rotation witness holds only in the
+link-trivializing chart; on a forest, gains with positive determinant are absorbed by `\GL^+`
+frames (`prop:gauss-gain-absorption`); a two-agent precision with invertible off-diagonal block
+`\Lambda_{12}` is reached by `\GL^+(K)` frames exactly when `(-1)^K\det\Lambda_{12}>0`
+(`eq:gauss-orientation-criterion`); the chart-independent witnesses are a negative-determinant gain and, for odd `K`, a
+v-structure (`prop:gauss-law-level-witnesses`). Under nonflat links an internal edge contributes
+`(I-\Theta)^\top W(I-\Theta)` to the coarse self term, vanishing exactly when
+`W^{1/2}(I-\Theta)=0`; cut blocks must separately be symmetric, sign-correct, and diagonally
+representable. Invariants are invariance under the block reframing group, with two invariant
+families (pencil spectra and agent-aligned law functionals); for `\Gamma_b\subseteq O(K)` ordinary
+spectra are invariant. The Sylvester integer label needs `\Gamma_b\supseteq\GL^+(K)`; under `SO(K)` or
+`O(K)` there are `K` continuous moduli. The Gaussian M-step (`eq:elbo-gaussian-m-step`), the moment
+pushforward, the vector residual identities (`sec:geo-flatness`), the linear Gaussian record, and the
+Schur-complement and internal-edge lemmas live here.
+
+**Recognition restrictions.** Identification is a generative construction: a recognition law with
+one common value per cluster violates absolute continuity and costs `+\infty`, with regularized cost
+`\tfrac m2\log(1/\varepsilon)`, `m=NK-n_{\mathrm c}K`. The admissible restriction is on the recognition
+mean, with exact cost `\tfrac12m_\perp^\top(B_\perp^\top\Lambda^{-1}B_\perp)^{-1}m_\perp`, the marginal
+precision of the identified directions, which agrees with `B_\perp^\top\Lambda B_\perp` only under
+`\Lambda`-orthogonality. The mean-tie cost vanishes at the finest partition, the determinant gap
+decreases under merging, and the volume term needs an external coefficient, so the analyzed costs
+supply no nondegenerate scale; the general question is the core `open:cg-natural-selector`.
+
+**Fisher geometry, Hermite spectrum, operator coarse-graining.** Gaussian Fisher charts and the
+model-space Fisher transfer; score tangents `L^2_0(\mu)`, the spectrum theorem, the score lift, and
+the Hermite domain (relevance conventions go to Supplement B). The operator component
+`\Lambda^{(\ell+1)}=\zeta_\ell^{-1}S_\ell^\top\Lambda^{(\ell)}S_\ell` is not the definition of the general
+coarse-graining; aggregation alone is a precision-increasing semigroup, so a declared rescaling is
+required before a flow or fixed point is typed. Bi-additive closure: `W_{ij}=x_ix_jM`, `A_i=x_iA` with
+additive `x` is closed under additive pushforward and becomes invariant only after a hierarchical
+identification, which belongs to Supplement B (Supplement G states no fixed point). For a regular
+pencil `(L,\Lambda)` there are exactly `NK` finite generalized
+roots only when `\Lambda` is invertible; at the singular fixed ray quotient, mass, and pinning are
+distinct declared repairs, never a silent pseudoinverse or pseudodeterminant. The scale-free ray
+with vanishing self terms is a boundary operator of the Gaussian interaction representation (no
+full-space normalizer, no Fisher metric there, no admissible recognition law, an irregular pencil),
+not a theorem about every belief fiber. Hard aggregation is the `P_\Lambda` pushforward with an
+interior law-level step (`prop:grg-interior-law-step`); monotonicity is open only for varying
+`\operatorname{range}(\Lambda S)`, the singular boundary ray, and infinite depth.
+
+**Coarse maps: aggregation, Kron, nonflat links.** Aggregation closure:
+`(\Lambda_{\mathrm c})_{IJ}=-\sum_{i\in I,j\in J}W_{ij}`,
+`(\Lambda_{\mathrm c})_{II}=\sum_{i\in I}A_i+\sum_{i\in I,j\notin I}W_{ij}`, internal edges annihilated;
+this is the Galerkin operator of aggregation algebraic multigrid (cite Notay 2010 and Livne–Brandt
+2012), and the Galerkin law is the fine law conditioned on zero within-cluster disagreement, a
+`\Lambda`-dependent pushforward (`prop:ig-galerkin-pushforward`, `eq:ig-galerkin-projector`,
+`prop:cg-aggregation-conditioning`). For graph-exponential families aggregation precomposes the
+unnormalized energy with the identification map; the coarse reference measure, integrability, and
+finite normalizer are three separate obligations. Pair-statistic invariance under a site action is a
+conditional selection principle; translation invariance is its Gaussian instance. Closure does not
+select the family: `\Lambda_{ij}=-\lambda W_{ij}`, `\lambda\in[-1,1]`, is closed under every partition
+(`\lambda=-1` is the signless Laplacian), every aggregation factors into pair merges, and what selects
+the form is translation invariance (purely additive coarse self terms, consensus as a null
+direction). Unlike network renormalization, whose rule is nonlinear, the functional equation here
+yields only the invariant bi-additive family `w(x,y)=xyM`, `\alpha(x)=xA` under a measurability
+hypothesis. Kron reduction is a different operation and is not closed in general (exact rational
+three-agent counterexample); the fixed congruence-diagonal cone is closed, and maximal under the
+closed-convex-cone, SPD-order-unit, independent-coefficient, and positive-scaling hypotheses; with
+one fixed SPD hidden anchor, maximal independently pair-tested families are exactly the full
+anchor-congruence-diagonal cones; for a flat graph with independent SPD weights and fiber dimension
+at least two, universal closure is equivalent to at most two retained terminals per hidden component
+(counting ground); the prior-carrying corollary (SPD anchors on all hidden agents: universal closure
+exactly when each hidden component touches at most one retained agent, failure otherwise generic,
+`cor:cg-kron-anchored-agents`); the Möbius order-two statement; the marked nonflat degree-two
+sector closes in every order; a proper Gaussian marginal has no positive one-node and two-node
+decomposition on its retained nodes. Unrestricted Kron closure is refuted, never described as open.
+Finite semialgebraic domains have a complete decision theorem (Tarski quantifier elimination); the
+regime table is `tab:cg-kron-regimes`; sequence-producing program descriptions have a decision
+obstruction. The finite singular extension uses energy-quotient laws with a declared SPD
+representative metric and quotient volume; rank changes can break total-variation continuity and
+differentiability in quadratic mean, so finite classification and smooth Fisher continuation are
+separate claims. Nonflat links, relaxation, barycenters (with the normal-barycenter no-kernel
+proposition `prop:hist-normal-barycenter-kernel`, moved from the core), and the quotient metric
+(`prop:cg-quotient-metric`) close the coarse-map chapters; nonflat-link compression cites the core
+`open:cg-cut-compression`. The decision metatheory appendix (optional) holds the only treatment of
+singular Gaussian laws.
+
+**Reciprocal pairs, anchored stars, loop holonomy.** The flat unanchored reciprocal fold (two
+parallel edge copies in opposite directions, each obeying inverse orientation, not assumed inverse)
+has singular assembled precision for every SPD link covariance, with kernel the transport-consistent
+configurations; outside a fixed joint there is no evidence to bound; proper SPD anchors restore
+definiteness; a globally normalized cyclic Gaussian Markov random field is legitimate, with a
+transport-dependent partition function; the no-go is never generalized to all cycles. Visible
+nontrivial holonomy relieves the fold (the kernel dimension equals that of holonomy minus identity);
+holonomy in weight-null directions is a separate effective-support case. Precision addition is cited
+to Bishop 2006 (`eq:obs-precision-addition`); star definiteness is one sentence (PSD plus PD); the
+anchored-star fixed-point contraction is STANDARD only after the Amit 1991 and Roberts–Sahu 1997
+locators are checked. Back matter: notation (resolving `T, m, n, H, A, G, \Theta, h, B, R, U` against
+the core), open rows of this supplement only (Bayesian-RG bridge, update robustness,
+information-geometric transfer, stochastic inverse RG, nonsemialgebraic Kron families, nonlinear
+attraction at the Gaussian tangent), and the numerical index.
+
+## C. Supplement B (`supplement_base.tex`)
+
+Supplement B may cite the main manuscript and Supplement G. Its introduction states the deferral
+and that the two-atlas generality returns to the core only if frames become dynamical agent states.
+
+**Part B-I, base transport and multi-point designs.** Base curves order contexts and are not agent
+histories. The relative frame `h_i` with `u^m_i=u^b_ih_i` exists for representations of different
+dimensions and maps no representation spaces; the two frame atlases give cohomologous cocycles, one
+Čech class. Principal connections `\omega_b,\omega_m` induce Ehresmann distributions and parallel
+transports; the covariant defect of a cross map is defined by horizontal lifts,
+`(\mathcal D\Phi)_e(w)=T_e\Phi(H^b_ew)-H^m_{\Phi(e)}w` for a base tangent vector `w`, abbreviated
+`\nabla^m\circ\Phi-\Phi\circ\nabla^b` only for fiberwise-linear maps. Four notions are independent:
+the transition cocycle is a coboundary exactly when the principal bundle is trivial over the covered
+region; graph flatness; connection flatness; trivial holonomy on specified loops (a flat connection
+can keep monodromy). A graph link is a base transport only given endpoint contexts, edge-labeled
+curves, and an equality hypothesis; a smooth reframing induces vertex gauge only after a vertex
+context is chosen. Identified graph links mean equal link maps, `\Theta^m_e=h_i^{-1}\Theta^b_eh_j`.
+A common frame is sufficient for literal equality; compatible relative frames can also preserve the same link maps. The product-gauge extension `G_b\times G_m` is an
+optional labeled extension. Finite designs use the design index `d` (the core reserves `a` for record
+factors); constraining one shared link across design points leaves the exact setwise stabilizer of
+`prop:gen-shared-link-stabilizer` (a context-independent rechoice times a central twist common to both
+endpoints of each constrained edge), and the fixed-datum admissible family is a set of groupoid
+arrows, not a group. Continuum law theory is `open:prob-continuum-theory`; base scale maps
+`f_\ell:\mathcal C_\ell\to\mathcal C_{\ell+1}` are never inferred from an increase in depth.
+
+Base-direction information geometry: the covariant pullback `(D^{\omega_x}\sigma)^*g^F_x` is global and
+gauge invariant but connection-relative (exact linear and quadratic corrections under
+`\omega_x+a`; no connection-independent metric from the bundle alone); its radical is
+`\ker D^{\omega_x}\sigma`; constant rank gives a quotient bundle, not a quotient manifold; Frobenius
+involutivity, a regular foliation, and basicness are separate hypotheses, with a rank-jump witness
+and a constant-rank nonintegrable contact witness; a combined belief-model tensor needs declared
+weights. The base-Fisher positivity and cocycle criteria have a complete finite-dimensional
+parameterization through the fundamental-action image (contractions from the residual quotient;
+indefinite defects need the restricted-image radical, its cross-pairing, inertia admission, and a
+totally isotropic residual image); smooth statements need constant ranks; realization by changing
+only the target connection needs descent of the adjoint-valued difference. The classifications
+concern relaxed pointwise problems under `eq:pb-intrinsic-kernel-constraint`; the base Fisher
+contraction corollary `cor:pb-base-fisher-contraction`; cross-scale first jets commute only under
+descent and connection compatibility, otherwise the vertical mismatch term is kept. Section-space
+histories: configuration curves whose evaluations are vertical, section clocks needing a base
+measure, channel weights, and a gauge-quotient rule; strong Hilbert quotients versus the weak Fisher
+boundary (a weak metric can fail to give the orthogonal lift); the averaging defect. Covers and
+connection descent: one ambient law over a cover induces compatible local data (one consolidated
+proposition, `thm:rg-cover-compatible-laws`); compatibility, gluing, and base descent hold by
+construction and the descent criterion is the substantive result; conditional attention is
+undefined at zero occupancy while event masses extend; every nonzero connection defect and its
+composition law are kept; graph-to-base identification is declined, with recovery open; the
+base-loop operational holonomy cites the core network-loop theorem.
+
+**Part B-II, infinite networks and Wilsonian limits.** Comparison data, modes, and interaction beta
+functions; relevance conventions (`def:rg-hermite-relevance`, `prop:rg-hermite-scope`); the Lyapunov
+filtration; finite depth gives no asymptotics (`prop:rg-finite-depth-no-asymptotics`,
+`cor:rg-interaction-no-relevant-mode`); asymptotic relevance needs declared scale labels, a two-index
+limit, or an infinite network. Continuous scale, fixed points, spectra, and two-index limits. On
+the identified homogeneous Gaussian endomorphism `A'=bA`, `W'=b^2W` the spectrum is `b^2` and `b`, each
+with multiplicity `K(K+1)/2`, so the ratio outside the dominant eigenspace is `1/b`, self terms
+contract, and the coupling ray is not selected; this exact finite-sector gate keeps its label
+`sec:grg-numerical-gate`, and the full-cone dynamics (`sec:grg-cones`) sit beside it; attraction on
+an infinite hierarchy is not established by any finite blocking sequence. Constant action of fixed
+pairs for irreducible finite rescaled kernels
+(`prop:rg-fixed-pair-unique-ergodicity`); the fixed-`b` attraction (label
+`conj:grg-fixed-b-attraction`, now a proposition) and scalarized attraction; universality remains a
+program (rank is an established discrete label, a spectral exponent is a candidate only after a
+reference form, a thermodynamic family, and convergence are declared and proved).
+
+**Part B-III, the lattice cluster.** It opens with `open:rg-lattice-typing`. The high-temperature
+`\mathbb Z_2` construction: every-exterior coarse specifications, complete generated interactions,
+an open-ball RG operator, finite-amplitude approximation, weighted-basin entrance, and regular
+fixed-depth Fisher geometry, with `b=\tanh h`, `t=\tanh j`, `0<b<1`, `0<t<1/12`, and character
+coefficients `J_S`; norm, reference, block identification, and scalar conversion are explicit; a
+common regular region for a finite hierarchy is not a uniform Fisher inverse at unbounded depth. The
+classical antecedents (Wegner; Fradkin–Shenker; Osterwalder–Seiler; Dobrushin and Georgii;
+Kolmogorov; Kozlov; Israel; van Enter–Fernández–Sokal) are named, no priority is claimed, and the
+block-size-uniform every-exterior specification is the principal candidate for a new result.
+Geometry and pressure: centered bulk windows, normalized four-state cell counting, a fixed blocking
+word of area factor `B^2`, pressure from finite sums; strict gaps select labels and ties need
+normalized subextensive ratios; the complete fine observation experiment is pushed, not replaced;
+the constant all-positive observation record (`hyp:rg-pressure-positive-record`), the quenched
+general-record limit (`open:rg-pressure-quenched-record`), and the specific-VFE minimum, minus the
+evidence density, attained on the maximal posterior-score set with shifted Gibbs branches
+(`prop:rg-pressure-vfe-minimum`, Georgii section 15.4). Thermodynamic Fisher geometry (D9,
+ESTABLISHED at the stated hypotheses): native source maps are `C^4` into compact positive boxes, raw
+log-weight representatives obey `C^3` volume bounds, and every fixed blocking word precedes volume
+limits; finite free laws, exact pushes, infinite-law marginals, and independently normalized coarse
+ensembles stay distinct; the strict-phase `C^2` density, the fixed-tie squared-volume tensor, and the
+reciprocal-volume `C^2` experiment have different hypotheses; center ratios and regular-chart floors
+are not inferred from pressure equality or scalar boundary bounds; natural and raw pressure differ
+by finite log-cosh corrections; gauge, Fisher, and base curvature are distinct, and a trace-square
+action needs its pairing, sign, base metric, measure, coupling, and normalization; self-consistent
+curvature actions are open. The lattice part declares its local symbols in one table at its head.
+The Appendix C condensation of C.1.2, C.1.4, and C.1.6 is checked against the falsifier before any
+re-proof is replaced; the transfer lemma is hosted at `lem:rg-thermo-native-free-contraction`.
+
+## D. Prior art to cite and attribution constraints
+
+Bayesian renormalization (Berman, Klinger and Stapleton 2023; the Berman–Klinger inverse-flow
+companion; the neural-network field theory follow-up; the dynamical-Bayes prequel arXiv:2204.12939)
+supplies the Fisher-as-scale idea and the stiff/sloppy vocabulary. Do not attribute to it a spectral
+cutoff (its implemented criterion is diagonal), a statement about singular Fisher metrics (it
+implicitly requires invertibility), or a concession that it is merely analogical (its Discussion
+claims a one-to-one adaptation of momentum-shell renormalization); any disagreement is voiced as
+ours. Network renormalization (the Gabrielli et al. review; Garuccio–Lalli–Garlaschelli; Villegas et
+al. for the Laplacian renormalization group): the Laplacian specific heat also peaks on structureless
+graphs, so use the spectral gap. Bény–Osborne 2015 for channel and information-geometric
+renormalization. Aggregation and smoothed-aggregation algebraic multigrid (Notay 2010; Livne–Brandt
+2012) for the coarse operator; matrix-weighted consensus for the matrix-weighted Laplacian;
+Hansen–Ghrist 2019 (section 4.2, Theorems 3.1 and 4.3) for cellular sheaves and Kron reduction;
+Singer–Wu 2012 for connection Laplacians; Tarski 1951 for quantifier elimination; Sylvester's law of
+inertia; Birkhoff–Hilbert projective contraction; Creutz 1977 for maximal-tree gauge fixing. The
+independent-family, graph-boundary, and marked nonflat series results extend the qualified
+congruence-diagonal theorem in different directions; broader correlated or branching classifications
+need a declared admissibility class. Check every key in this folder's `references.bib` before use.
+
+## E. Content that leaves the documents
+
+The typed-intervention identifiability section of 05d, with its certificate digests, goes to
+MultiAgentELBO `docs/derivations/2026-09-23-typed-intervention-identifiability/`; the finite probability jets and
+native partition jets of Appendix C go to MultiAgentELBO
+`docs/derivations/2026-09-10-thermodynamic-fisher-rg/finite-jet-interface.tex`; the verification
+narratives, binary64 and API text, and the protocol records of the retired numerical passages go to
+MultiAgentELBO `docs/research-log/theory-verification-narratives.md`; Appendix F's package table, run command,
+stress-protocol strata, and script locators go to this folder's `verification/VERIFICATION.md`; certificate
+states, release digests, and ledger settlement history go to MultiAgentELBO `docs/theory-provenance.md`; the
+grand-canonical formation note goes to MultiAgentELBO `docs/research/program-notes/`. The cut list is PLAN section
+3; a cut to a citation happens only with a checked locator.
+
+## Selected coherence and early first-block comparison
+
+ca_selected_coherence.tex and ca_first_block_comparison.tex, included by
+ca_selection_proofs.tex, prove actual-path persistence and the early-window
+conditional first-block null. Chapter 14 states their different observables
+and horizons; Chapter 13 retains the original adaptive-family problem.
+
+## Actual conditioned parent activation
+
+ca_parent_conditional.tex and ca_parent_dynamics.tex, included after the
+coherence proofs, establish averaged conditional-information and retained-path
+bounds for the existing channel activated on the completed late coherence
+prefix. The parent starts from the actual conditioned retained law and learns
+from its own law. Chapter 14 explains that scope; the original first-contrast
+and recursive-formation obligations remain distinct.
