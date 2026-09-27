@@ -14,10 +14,18 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-18
-updated: 2026-08-03
+updated: 2026-09-27
 ---
 
 # VFE Transformer Program
+
+## Projected predictive route note and covariance toggle, September 27, 2026
+
+[[dennis-2026-projected-predictive]] documents the `projected_predictive` route end to end and maps each launcher toggle to its equation ([[Projected predictive attention]]). The saved calibration probes of the two K=64 runs (validation perplexity 53.3 and 53.9) show the covariance is the input-token variance (CV 0.02 to 0.03): passthrough keeps $\Sigma$ at encode. The new opt-in `predictive_covariance="moment_matched"` assigns the exact moment-matched covariance of the predictive kernel instead, which makes $\Sigma$ context dependent and feeds it to the next layer's routing, the prior-bank decoder, and [[Template routing]]. `train_vfe3.py` now lists `predictive_covariance`, `predictive_covariance_floor`, `block_mlp_mode`, and `block_mlp_covariance` at their defaults. The matched comparison against passthrough has not been run.
+
+## Template routing toggle, September 27, 2026
+
+[[Template routing]] is a derived candidate for the block MLP whose interpretation the matrix-links manuscripts left open. Token beliefs route by $\rho^*_{ia}\propto\pi_ae^{-\mathrm{KL}(q_i\|p_a)}$ to $M$ learned diagonal Gaussian templates and receive $\sum_a\rho^*_{ia}w_a$; the rule follows from a mixture-prior free energy and reduces to a softmax-gated MLP when the templates share a covariance ([[dennis-2026-template-routing]]). It is available as `block_mlp_mode="gaussian_template"` in the VFE_3.0 working copy (passthrough covariance, local coordinates, about 1.5× the MLP's parameters at equal expansion). Unit tests pass on CPU; no training run or matched ablation exists, so the MLP interpretation is proposed, not settled.
 
 ## Goal
 

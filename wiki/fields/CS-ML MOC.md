@@ -5,10 +5,14 @@ aliases: [field/cs-ml, CS-ML sources, Machine learning MOC, CS/ML MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-09-11
+updated: 2026-09-27
 ---
 
 # CS-ML MOC
+
+## Feed-forward memory and mixture-of-experts references, September 27, 2026
+
+[[sukhbaatar-2019-persistent-memory]], [[geva-2021-ffn-key-value-memories]], [[jacobs-1991-mixtures-of-local-experts]], [[ghahramani-1994-incomplete-data-em]], [[hershey-2007-kl-gmm]] and [[elfwing-2018-silu]] support [[Template routing]].
 
 > Map of Content for the **`field/cs-ml`** discipline facet (computer science & machine learning).
 > Auto-populated by the **Bases** core plugin from the `field/*` tags.

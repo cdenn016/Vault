@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-08-20
+updated: 2026-09-27
 ---
 
 # Attention mechanisms — theory and positional structure
@@ -100,3 +100,7 @@ Core attention theory and the existing linked sources remain as above. The 2026-
 
 - [[xiong-2020-on-layer-normalization-transformer]] — Pre-LN vs Post-LN gradient analysis explaining transformer training stability;
 - [[zhang-sennrich-2019-rmsnorm]] — RMSNorm, the normalization of the modern decoder-only (LLaMA) convention the program baselines against; dropping mean re-centering and keeping only RMS rescaling maps onto the program's no-bias, rescaling-only gauge norm-cancellation story (invoked in GL($k$)_supplementary).
+
+## Feed-forward layers as routing to learned templates (2026-09-27)
+
+The feed-forward sublayer has a routing reading: its units act as key-value memories ([[geva-2021-ffn-key-value-memories]]) and can be replaced by attention to persistent learned vectors at parity ([[sukhbaatar-2019-persistent-memory]]). [[Template routing]] gives the Gaussian version for the gauge-VFE transformer, where the keys are templates compared by KL and the Gibbs weights follow from a mixture prior ([[dennis-2026-template-routing]]). Attention then couples a token to its peers and template routing couples it to corpus-level concepts, both through the same exponential-of-divergence weights.

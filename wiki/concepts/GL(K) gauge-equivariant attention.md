@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-07-27
+updated: 2026-09-27
 ---
 
 # GL(K) gauge-equivariant attention
@@ -31,6 +31,10 @@ construction (see [[GL(K) gauge group]]). This page states the construction prec
 records what is proven versus conjectured. The analytic attention derivation is a belief-channel
 reduction. The retained empirical sweep is instead a same-scale two-channel route with one model
 refinement before one belief refinement. [[gl-k-attention-2026-07-09-review-revision]]
+
+## Moment-matched predictive covariance, September 27, 2026
+
+On the [[Projected predictive attention|projected predictive route]] the evaluated model passes the covariance through, so $\Sigma$ stays the encoded token-type lookup at every depth. The v2 exact-status theorem already gives the moment-matched covariance of the predictive kernel; it is now implemented as the opt-in `predictive_covariance="moment_matched"`, with cross-head terms, between-source spread, residual persistence and self-edge terms, and a covariant reference floor $\epsilon(\mathrm{Tr}\,C_i/K)I$ ([[dennis-2026-projected-predictive]]). It is positive definite, obeys the passive law $\Sigma_i^+\mapsto g_i\Sigma_i^+g_i^\top$, and depends on context through the spread of the attended sources. Tests match a brute-force enumeration of the kernel; no training run uses it yet.
 
 ## Setup: tokens as Gaussian agents on a bundle
 
