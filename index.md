@@ -2,7 +2,7 @@
 type: index
 title: Index
 aliases: [Index, Home]
-updated: 2026-09-13
+updated: 2026-09-27
 ---
 
 # Index
@@ -10,7 +10,7 @@ updated: 2026-09-13
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **4** projects · **37** manuscripts · **15** themes · **11** field MOCs · **287** concepts · **12** methods · **695** papers · **116** references · **27** runs · **6** web/methodology
+> **4** projects · **39** manuscripts · **15** themes · **11** field MOCs · **287** concepts · **14** methods · **701** papers · **116** references · **27** runs · **6** web/methodology
 
 ## 🧭 Start here
 - [[Gauge-VFE RG research synthesis September 2026]] — current normalized RG theory, finite formation, evidence scope and this week's primary-source archive
@@ -26,6 +26,8 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
   - [[VFE Transformer Research Directions (2026-06-21)]] — prioritized open-experiments roadmap (37 hypotheses)
 
 ## 📝 Manuscripts (in preparation)
+- [[dennis-2026-projected-predictive]] — projected predictive route end to end, toggle-to-equation map, and the opt-in moment-matched predictive covariance; tests only, no training result
+- [[dennis-2026-template-routing]] — template routing explainer: block MLP as mixture-prior inference over learned Gaussian templates; vfe3 `gaussian_template` toggle, no training result
 - [[multiagentelbo-2026-09-13-fixed-weakest-energy-adaptive-cyclic-rg]] — positive-rate cyclic formation at fixed weakest energy, actual parent activation and complete assignment-history bounds
 - [[multiagentelbo-2026-09-13-finite-rate-adaptive-cyclic-rg]] — positive-rate recognition sources, actual parent activation and full assignment-history bounds under growing weakest energy
 - [[multiagentelbo-2026-09-13-nonlinear-adaptive-attention-rg]] — nonlinear adaptive formation, full retained source marks, posterior attention and separate conditional/path bounds
@@ -406,6 +408,8 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Zero-Shot Learning]]
 
 ## 🧰 Methods & models
+- [[Projected predictive attention]]
+- [[Template routing]]
 - [[Free-energy principle active inference]]
 - [[Gauge equivariant CNN]]
 - [[Group equivariant CNN (G-CNN)]]
@@ -420,6 +424,12 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Variational autoencoder (VAE)]]
 
 ## 📄 Sources — papers
+- [[elfwing-2018-silu|Sigmoid-Weighted Linear Units (SiLU)]]
+- [[geva-2021-ffn-key-value-memories|Transformer Feed-Forward Layers Are Key-Value Memories]]
+- [[ghahramani-1994-incomplete-data-em|Supervised Learning from Incomplete Data via an EM Approach]]
+- [[hershey-2007-kl-gmm|Approximating the KL Divergence Between Gaussian Mixture Models]]
+- [[jacobs-1991-mixtures-of-local-experts|Adaptive Mixtures of Local Experts]]
+- [[sukhbaatar-2019-persistent-memory|Augmenting Self-attention with Persistent Memory]]
 
 ### Multi-agent VFE, Bayesian mechanics, and distributed inference ingest (2026-08-20)
 - [[heins-2023-spin-glass-active-inference|Spin glass systems as collective active inference]]

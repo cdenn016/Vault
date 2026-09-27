@@ -5,10 +5,14 @@ aliases: [field/statistics, Statistics sources, Information theory MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-09-13
+updated: 2026-09-27
 ---
 
 # Statistics MOC
+
+## Mixture references, September 27, 2026
+
+[[ghahramani-1994-incomplete-data-em]] (Gaussian mixture regression) and [[hershey-2007-kl-gmm]] (variational KL for Gaussian mixtures) support [[Template routing]].
 
 > Map of Content for the **`field/statistics`** discipline facet (statistics & information theory).
 > Auto-populated by the **Bases** core plugin from the `field/*` tags.

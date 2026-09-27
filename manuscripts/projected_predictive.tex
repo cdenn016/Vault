@@ -1,0 +1,273 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{microtype}
+\usepackage{natbib}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+\setlength{\emergencystretch}{3em}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}[proposition]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\newcommand{\KL}{D_{\mathrm{KL}}}
+\newcommand{\softmax}{\operatorname{softmax}}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\N}{\mathcal{N}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\cfg}[1]{\texttt{#1}}
+
+\title{The Projected Predictive Route:\\ Theory and Computational Path}
+\author{Robert C. Dennis}
+\date{Technical note, September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This note describes, from encoding to loss, the computation executed by the \cfg{vfe3} language model under \cfg{attention\_mode="projected\_predictive"}, the route behind the current best results. Each token is an agent with a Gaussian state and an invertible frame. A layer measures query and key laws in a comparison space, routes by a Gibbs distribution over their divergences, and transmits content through independent sending and receiving maps whose composition is the matrix link $L_{ij}^{(h)}=U_iO_hT_hU_j^{-1}$. We state which parts are exact consequences of a declared model and which are architectural choices. The note documents a new option, \cfg{predictive\_covariance="moment\_matched"}, which replaces the covariance passthrough of the evaluated route by the exact moment-matched covariance of the same predictive kernel whose mean the layer already computes. With it, the belief covariance becomes context dependent. We give its derivation, its reductions, its covariance under frame changes, its projection onto diagonal families, and its implementation and tests, and we list what remains untested.
+\end{abstract}
+
+\section{Scope}
+
+The GL(K) attention manuscript develops the construction in full generality \citep{dennis2026glk}. This note follows one route through it: the configuration family selected by \cfg{attention\_mode="projected\_predictive"}, in the order in which the code executes it. Section~\ref{sec:states} fixes the states and frames. Sections~\ref{sec:routing}--\ref{sec:covariance} describe one communication layer: comparison and routing, content, and the covariance. Section~\ref{sec:block} covers the seams between layers, Section~\ref{sec:decode} the decoder and objective, and Section~\ref{sec:map} maps every configuration toggle to the equation it controls. Section~\ref{sec:status} separates exact statements from declared choices and records the evidence.
+
+\section{States, frames, and encoding}
+\label{sec:states}
+
+Token position $i$ carries a Gaussian state in local coordinates on a fiber $E_i\cong\mathbb R^K$ and an invertible frame $U_i$ identifying the reference space $\mathsf V=\mathbb R^K$ with $E_i$:
+\begin{equation}
+q_i=\N(\mu_i,\Sigma_i),\qquad
+\xi_i=U_i^{-1}\mu_i,\qquad
+C_i=U_i^{-1}\Sigma_iU_i^{-\top}.
+\label{eq:reference_moments}
+\end{equation}
+The pair $(\xi_i,C_i)$ is the state in reference coordinates. A passive rechoice of agent $i$'s frame acts by
+\begin{equation}
+(\mu_i,\Sigma_i,U_i)\mapsto(g_i\mu_i,g_i\Sigma_ig_i^{\top},g_iU_i),\qquad g_i\in\mathrm{GL}(K),
+\label{eq:passive}
+\end{equation}
+and leaves $(\xi_i,C_i)$ unchanged. Every routing cost and message below is computed from reference moments and is therefore invariant, or covariant, under Eq.~\eqref{eq:passive}.
+
+\paragraph{Encoding.}
+Each token type $c$ has a prior bank entry $(\mu_p^c,\Sigma_p^c,\phi_c)$: a Gaussian embedding in the sense of \citet{vilnis2015} with a Lie-algebra frame coefficient \citep{dennis2026glk}. Under \cfg{encode\_mode="per\_token"} the input state is the prior of the token, $q_i^{(0)}=p_{x_i}$. The frame is a product of token and positional factors, $U_i=\exp(X_{x_i})\exp(Y_i)$, with $Y_i$ learned when \cfg{pos\_phi="learned"}. Under \cfg{gauge\_group="block\_glk"} both factors are block diagonal with one $d\times d$ block per head, $K=Hd$. The projected route requires a flat frame that does not change within a forward pass (\cfg{e\_phi\_lr=0}, \cfg{n\_e\_steps=1}), so the frame is built once per forward pass and shared by all layers.
+
+\section{One layer: comparison and routing}
+\label{sec:routing}
+
+A layer has $H$ heads. Head $h$ owns comparison maps $S_{Q,h},S_{K,h}:\mathsf V\to\mathbb R^{r}$ of full row rank and content maps $T_h:\mathsf V\to\mathbb R^{s}$ and $O_h:\mathbb R^{s}\to\mathsf V$. In the code $r=s=d$. Under \cfg{relational\_input\_scope="head"} the maps read only head block $h$ of $\mathsf V$, and under \cfg{"full"} they read all $K$ coordinates, as learned projections do in conventional attention \citep{vaswani2017}. Under \cfg{relational\_output\_scope="head"} $O_h$ writes only block $h$, and under \cfg{"full"} it writes all of $\mathsf V$.
+
+\paragraph{Comparison laws.}
+The query and key laws are Gaussian pushforwards of the reference states into the comparison space,
+\begin{equation}
+\begin{aligned}
+q_{Q,i}^{h}&=\N\bigl(a_i,V_{Q,i}\bigr),&a_i&=S_{Q,h}\xi_i,&V_{Q,i}&=S_{Q,h}C_iS_{Q,h}^{\top},\\
+p_{K,j}^{h}&=\N\bigl(b_j,V_{K,j}\bigr),&b_j&=S_{K,h}\xi_j,&V_{K,j}&=S_{K,h}C_jS_{K,h}^{\top}.
+\end{aligned}
+\label{eq:comparison_laws}
+\end{equation}
+Both reduced covariances are positive definite because $C_i\succ0$ and the maps have full row rank. The routing cost under \cfg{relational\_routing="gaussian\_kl"} is the exact Gaussian divergence
+\begin{equation}
+\begin{aligned}
+D_{ij}^{h}=\KL\bigl(q_{Q,i}^{h}\|p_{K,j}^{h}\bigr)
+=\tfrac12\bigl[&\Tr(P_jV_{Q,i})+(a_i-b_j)^{\top}P_j(a_i-b_j)-r\\
+&+\log\det V_{K,j}-\log\det V_{Q,i}\bigr],
+\qquad P_j=V_{K,j}^{-1}.
+\end{aligned}
+\label{eq:routing_cost}
+\end{equation}
+Its mean compatibility contains the bilinear term $a_i^{\top}P_jb_j$, the covariance-weighted analogue of the dot-product score. The terms in $\Tr(P_jV_{Q,i})$ and $\log\det V_{K,j}$ carry covariance information and are pair dependent whenever the key covariances differ across sources. Under \cfg{relational\_routing="noisy\_query"} the cost is instead $-\log\N(a_i;b_j,V_{Q,i}+V_{K,j})$, the expected-likelihood cost under which query uncertainty tempers the row \citep{dennis2026glk}.
+
+\paragraph{Gibbs routing.}
+With a source prior $\pi_{ij}^{h}$ and a temperature $\tau_h>0$, the routing weights minimize
+$\sum_j\beta_jD_{ij}^{h}+\tau_h\sum_j\beta_j\log(\beta_j/\pi_{ij}^{h})$ on the simplex, with unique solution
+\begin{equation}
+\beta_{ij}^{h}=\softmax_j\bigl(-D_{ij}^{h}/\tau_h+\log\pi_{ij}^{h}\bigr).
+\label{eq:gibbs}
+\end{equation}
+The causal support sets $\pi_{ij}^{h}=0$ for $j>i$. Under \cfg{beta\_attention\_prior="causal\_alibi"} the prior adds a head-dependent linear distance penalty. The temperature is $\tau_h=\kappa\sqrt d$ with $\kappa=$ \cfg{kappa\_beta}. Equation~\eqref{eq:gibbs} is an exact posterior at every temperature: attaching to each receiver and head a binary compatibility record with likelihood $\exp(-D_{ij}^{h}/\tau_h)$ makes $\beta_{ij}^{h}$ the posterior of the source label given the record \citep{dennis2026glk}. This establishes consistency with exact inference; it does not show that attention must be inference.
+
+\section{One layer: content and the predictive mean}
+\label{sec:content}
+
+The content maps compose with the frames into the matrix link
+\begin{equation}
+L_{ij}^{h}=U_iM_hU_j^{-1},\qquad M_h=O_hT_h,
+\label{eq:link}
+\end{equation}
+which obeys the endpoint law $L_{ij}^{h}\mapsto g_iL_{ij}^{h}g_j^{-1}$ under Eq.~\eqref{eq:passive}. The predictive message and the layer's mean update are
+\begin{equation}
+m_i=\sum_h\sum_j\beta_{ij}^{h}L_{ij}^{h}\mu_j=U_i\sum_hO_h\sum_j\beta_{ij}^{h}T_h\xi_j,
+\qquad
+\mu_i^{+}=r\mu_i+m_i,
+\label{eq:mean}
+\end{equation}
+with $r=1$ under \cfg{attention\_residual=True} and $r=0$ otherwise. The message is linear in the source means; the only state nonlinearity in the layer is the dependence of $\beta$ on the states through Eq.~\eqref{eq:routing_cost}. At initialization $T_h$ and $O_h$ are identity blocks placed on head $h$, scaled by $1/\sqrt{2L}$ under \cfg{relational\_output\_init="depth\_scaled"}.
+
+\paragraph{The predictive kernel.}
+Equation~\eqref{eq:mean} is the mean of a declared kernel. Give each receiver and head an independent source label $J^{h}\sim\beta_i^{h}$ and take
+\begin{equation}
+k_i'\mid k,J\sim\N\Bigl(rk_i+\sum_hL_{iJ^{h}}^{h}k_{J^{h}},\ Q_i\Bigr),
+\label{eq:kernel}
+\end{equation}
+with source states $k_j\sim\N(\mu_j,\Sigma_j)$ independent across $j$ and the self edge included. At $k_j=\mu_j$ its mean is $\mu_i^{+}$. The kernel leaves $T_h$, $O_h$, and $Q_i$ free and declares the unit persistence coefficient, additivity across heads, and one label per head for both routing and content. These are modeling choices recorded as such.
+
+\section{One layer: the covariance}
+\label{sec:covariance}
+
+\subsection{Passthrough}
+
+Under \cfg{predictive\_covariance="passthrough"}, the default and the setting of all evaluated runs, the layer returns $\Sigma_i^{+}=\Sigma_i$. The covariance is then a routing state: it enters Eq.~\eqref{eq:routing_cost} and the decoder, but it is never updated after encoding. Because the encoded covariance is the lookup $\Sigma_p^{x_i}$, every downstream covariance is a function of the token identity alone. The calibration probe saved by the runs records this: its covariance source is labeled input-token variance, and in two recent $K=64$ runs the across-token coefficient of variation of $\Tr\Sigma$ was $0.02$ to $0.03$.
+
+\subsection{Moment matching}
+
+\begin{proposition}[Moment-matched predictive covariance]
+\label{prop:covariance}
+Under the kernel of Eq.~\eqref{eq:kernel}, the covariance of $k_i'$ in reference coordinates is
+\begin{equation}
+\begin{aligned}
+C_i^{\mathrm{att}}={}&\widetilde Q_i
++r\Bigl[C_i+\sum_h\beta_{ii}^{h}\bigl(M_hC_i+C_iM_h^{\top}\bigr)\Bigr]
++\sum_j\sum_{h,h'}c_{ij}^{hh'}M_hC_jM_{h'}^{\top}\\
+&+\sum_h\Bigl[\sum_j\beta_{ij}^{h}n_{ij}^{h}n_{ij}^{h\top}-\bar n_i^{h}\bar n_i^{h\top}\Bigr],
+\end{aligned}
+\label{eq:covariance}
+\end{equation}
+where $\widetilde Q_i=U_i^{-1}Q_iU_i^{-\top}$, $c_{ij}^{hh}=\beta_{ij}^{h}$, $c_{ij}^{hh'}=\beta_{ij}^{h}\beta_{ij}^{h'}$ for $h\ne h'$, $n_{ij}^{h}=M_h\xi_j$, and $\bar n_i^{h}=\sum_j\beta_{ij}^{h}n_{ij}^{h}$. The local covariance is $\Sigma_i^{+}=U_iC_i^{\mathrm{att}}U_i^{\top}$.
+\end{proposition}
+
+\begin{proof}
+Write $X=rk_i+\sum_hL_{iJ^h}^{h}k_{J^h}+\varepsilon$ with $\varepsilon\sim\N(0,Q_i)$. By the law of total covariance, $\Cov X=\E\Cov(X\mid J)+\Cov\E(X\mid J)+Q_i$. Given the labels, $X-\varepsilon=\sum_sA_sk_s$ with $A_i=rI+\sum_h\mathbf 1[J^h=i]L_{ii}^{h}$ and $A_s=\sum_h\mathbf 1[J^h=s]L_{is}^{h}$ for $s\ne i$, so $\Cov(X\mid J)=\sum_sA_s\Sigma_sA_s^{\top}+Q_i$ by independence of the sources. Averaging over the independent labels uses $\E(\mathbf 1[J^h=s]\mathbf 1[J^{h'}=s])=c_{is}^{hh'}$ and gives the terms in $C_i$, $\beta_{ii}^{h}$, and $c_{ij}^{hh'}$. For the second term, $\E(X\mid J)=r\mu_i+\sum_hL_{iJ^h}^{h}\mu_{J^h}$ is a sum of independent head contributions, so its covariance is the sum of the per-head spreads. Conjugating by $U_i^{-1}$ removes every frame, since $L_{ij}^{h}\Sigma_jL_{ij}^{h'\top}=U_iM_hC_jM_{h'}^{\top}U_i^{\top}$.
+\end{proof}
+
+The proposition is item (2) of the exact-status theorem of the GL(K) manuscript \citep{dennis2026glk}, which already observes that passthrough retains only the term $C_i$. Under \cfg{predictive\_covariance="moment\_matched"} the layer returns $\Sigma_i^{+}$ with the reference floor
+\begin{equation}
+\widetilde Q_i=\epsilon\frac{\Tr C_i}{K}I,\qquad Q_i=\epsilon\frac{\Tr C_i}{K}U_iU_i^{\top},\qquad \epsilon=\cfg{predictive\_covariance\_floor}.
+\label{eq:floor}
+\end{equation}
+The trace $\Tr C_i$ is invariant under Eq.~\eqref{eq:passive}, so $Q_i$ transforms as a covariance. The kernel leaves $\widetilde Q_i$ free; this choice is made for conditioning. A relative floor $\epsilon C_i$ would compound along a residual-free stack: without the persistence term, the only lower bound it supplies after $\ell$ layers is $\epsilon^{\ell}$ times the encoded covariance, and a configuration sweep with rank-one content maps drove the condition number past $10^{10}$ and lost float32 definiteness at the second layer. The trace-scaled floor bounds the reference condition number by the ratio of the largest content variance to $\epsilon\Tr C_i/K$ at every depth.
+
+\paragraph{Properties.}
+Four consequences follow directly. First, $C_i^{\mathrm{att}}-\widetilde Q_i$ is a covariance and hence positive semidefinite, so $\Sigma_i^{+}\succeq Q_i\succ0$: the output is positive definite whatever the routing and whatever the rank of $M_h$. Second, $\Sigma_i^{+}$ obeys the passive law $\Sigma_i^{+}\mapsto g_i\Sigma_i^{+}g_i^{\top}$, because $C_i^{\mathrm{att}}$ depends only on reference moments and the invariant weights, and the floor of Eq.~\eqref{eq:floor} transforms in the same way. Third, the between-source spread depends on the source means through $\beta$ and $n_{ij}^{h}$, so the covariance becomes context dependent: it grows when a receiver's attended sources carry disagreeing content. Fourth, the cross-head terms $h\ne h'$ are nonzero whenever two heads route to a common source and $T_hC_jT_{h'}^{\top}\ne0$, which occurs for a full covariance or under full input scope. An earlier plan that dropped these terms as an independent-heads approximation is superseded by Eq.~\eqref{eq:covariance}.
+
+\paragraph{Reductions.}
+With the residual off, $C_i^{\mathrm{att}}=\Cov(m_i)+\widetilde Q_i$ in reference coordinates, the predictive reading in which the message replaces the state. With the residual on, the persistence term $C_i$ and the self-edge cross terms appear. There is no monotonicity in depth in general: the cross terms $\beta_{ii}^{h}(M_hC_i+C_iM_h^{\top})$ can be negative. If every $M_h=0$, the output is $r\Sigma_i+Q_i$. If each head routes all weight to one source, the spread term vanishes and the cross-head weights reduce to indicators of a shared source.
+
+\paragraph{Growth with depth under the residual.}
+With the residual on and the identity initialization $M_h\approx$ head projectors summing to $I$, the first token routes only to itself, its kernel is $k_i'\approx2k_i$, and its covariance quadruples at each layer, together with a doubling of its mean. A configuration sweep of tiny models observed maximal eigenvalues $4$, $16$, $64$ over three layers, and extrapolation gives $256$ at the launcher's four layers. This is the exact covariance of the declared kernel, not a numerical defect, and no ceiling is applied, since \cfg{sigma\_max} bounds only the transported E-step and clamping would break the moment match. With the residual off, the observed trace stayed within $4$ to $4.7$ over three layers; \cfg{relational\_output\_init="depth\_scaled"} halves the per-layer factor. Because the prior-bank decoder reads the final covariance, the residual setting now affects the decoder through the covariance scale as well as through the mean.
+
+\paragraph{Diagonal families.}
+For \cfg{gaussian\_diagonal} and \cfg{gaussian\_diagonal\_exact}, the stored covariance is the diagonal of $\Sigma_i^{+}$. This is the $\KL(p\|q)$ moment projection onto diagonal Gaussians, which matches the marginal variances. For \cfg{gaussian\_frame\_diagonal}, the projected route supplies an intrinsic value frame (the identity, or a rotation under rotary position encoding), and the stored variances are the diagonal in that frame, the projection onto the family of covariances diagonal in the frame. For \cfg{gaussian\_full}, $\Sigma_i^{+}$ is stored in full. Unlike passthrough, a full family then carries genuinely off-diagonal covariance even from a diagonal encoded table.
+
+\paragraph{Value frame.}
+Content and covariance use the same frame, the value frame, which coincides with the routing frame except under rotary position encoding with \cfg{rope\_on\_value=False} and under the frame-diagonal family.
+
+\paragraph{Computation.}
+The implementation (\cfg{RelationalOperators.predictive\_covariance\_update}) forms the reference covariances $C_j$, pushes them into the value space per head pair, $Y_j^{hh'}=\hat T_hC_j\hat T_{h'}^{\top}$, pools them with the weights $c_{ij}^{hh'}$, adds the pooled second moment of $v_j^{h}=\hat T_h\xi_j$ minus the outer product of its mean on the head diagonal, lifts by $\hat O_h$, adds the residual terms, and conjugates by the value frame. Here $\hat T_h\in\mathbb R^{d\times K}$ and $\hat O_h\in\mathbb R^{K\times d}$ embed the head-scope maps in the full state space, so every scope uses one code path. The pooling is an attention with $d\times d$ values per head pair, so the dominant costs are $O(HdK^2+H^2d^2K)$ per token for the pushforward, $O(N^2H^2d^2)$ per sequence for the pooling, and $O(K^3)$ per token for the frame conjugations. All operations are differentiable, so gradients flow to the source means and covariances, the routing, the content maps, and the frame.
+
+\section{Between layers}
+\label{sec:block}
+
+After the attention step, a block applies optional seams in a fixed order: head mixer, cross-type coupling, block normalization, block MLP. The evaluated launcher uses none of the first three. The normalizations act on the mean only. The block MLP (\cfg{block\_mlp\_mode}) is a coordinate GELU MLP by default \citep{hendrycks2016}. It passes the covariance through unless \cfg{block\_mlp\_covariance="delta\_full"} applies the delta-method pushforward $J\Sigma J^{\top}$ with a covariant floor. Under \cfg{"gaussian\_template"} it is replaced by template routing, a derived Gibbs readout of learned Gaussian templates that reads the diagonal of the covariance \citep{dennis2026template}. With a moment-matched attention covariance, the template step therefore sees context-dependent uncertainty for the first time. The stack passes each block's output state to the next block and blends the state into the next prior by \cfg{prior\_handoff\_rho}. The predictive readout does not read the prior.
+
+\section{Decoder and objective}
+\label{sec:decode}
+
+Under \cfg{decode\_mode="linear"}, the next-token law is $\softmax_v(W_{\mathrm{out}}\mu_i^{(L)}+b+\kappa_{\mathrm{uni}}\log p_{\mathrm{uni}})$, a Gibbs readout of shared-covariance templates that reads the mean only. Under the prior-bank decoders (\cfg{diagonal\_chunked}, \cfg{full\_chunked}, \cfg{family\_chunked}), the readout is
+\begin{equation}
+\hat p_i(v)\propto\omega_v\exp\bigl[-\KL(q_i^{(L)}\|p_v)/\tau_{\mathrm{dec}}\bigr],
+\label{eq:decode}
+\end{equation}
+whose exponent contains $\Tr(\Sigma_{p,v}^{-1}\Sigma_i^{(L)})$. The decoder therefore reads the final covariance. Under passthrough this is the input-token covariance; under moment matching it is the context-dependent covariance of Proposition~\ref{prop:covariance}, so an uncertain final belief is scored against each class template with its full spread. Training minimizes next-token cross-entropy through every differentiable component. An optional M-step self-coupling term $\sum_i\alpha_i\KL(q_i^{*}\|p_i)$ is weighted by \cfg{mstep\_self\_coupling\_weight}, which is zero in the evaluated launcher. No E-step gradient descent runs on this route: the layer update is the readout of Eqs.~\eqref{eq:mean} and, optionally,~\eqref{eq:covariance}.
+
+\section{Configuration map}
+\label{sec:map}
+
+Table~\ref{tab:map} lists the toggles that shape this route, the equation each controls, and the value in the current launcher \cfg{train\_vfe3.py}.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+Toggle & Controls & Launcher \\
+\midrule
+\cfg{attention\_mode} & selects this route & \cfg{projected\_predictive} \\
+\cfg{family} & stored covariance layout and its projection & \cfg{gaussian\_full} \\
+\cfg{gauge\_group}, \cfg{gauge\_transport} & frame blocks, frame learned or ablated & \cfg{block\_glk}, \cfg{on} \\
+\cfg{pos\_phi}, \cfg{pos\_rotation} & positional frame factor, rotary encoding & \cfg{learned}, \cfg{none} \\
+\cfg{relational\_input\_scope} & $S$ and $T$ read head block or all of $\mathsf V$ & \cfg{full} \\
+\cfg{relational\_output\_scope} & $O$ writes head block or all of $\mathsf V$ & \cfg{full} \\
+\cfg{relational\_routing} & cost of Eq.~\eqref{eq:routing_cost} or noisy query & \cfg{gaussian\_kl} \\
+\cfg{beta\_attention\_prior}, \cfg{kappa\_beta} & $\pi_{ij}^{h}$ and $\tau_h=\kappa\sqrt d$ in Eq.~\eqref{eq:gibbs} & \cfg{causal\_alibi}, $1$ \\
+\cfg{attention\_residual} & $r$ in Eqs.~\eqref{eq:mean} and~\eqref{eq:covariance} & \cfg{True} \\
+\cfg{relational\_output\_init} & initial scale of $O_h$ & \cfg{identity} \\
+\cfg{predictive\_covariance} & passthrough or Eq.~\eqref{eq:covariance} & \cfg{passthrough} \\
+\cfg{predictive\_covariance\_floor} & $\epsilon$ in Eq.~\eqref{eq:floor} & $10^{-4}$ \\
+\cfg{norm\_type\_block}, \cfg{norm\_type\_final} & mean normalization seams & \cfg{none}, \cfg{none} \\
+\cfg{block\_mlp\_mode}, \cfg{block\_mlp\_covariance} & block MLP and its covariance contract & \cfg{coordinate}, \cfg{passthrough} \\
+\cfg{decode\_mode}, \cfg{decode\_tau} & decoder of Eq.~\eqref{eq:decode} & \cfg{full\_chunked}, $0.1$ \\
+\cfg{mstep\_self\_coupling\_weight} & self-coupling term & $0$ \\
+\bottomrule
+\end{tabularx}
+\caption{Configuration toggles of the projected predictive route. The \cfg{predictive\_covariance} pair and \cfg{block\_mlp\_mode} are now written explicitly in the launcher at their defaults.}
+\label{tab:map}
+\end{table}
+
+\sloppy
+The computational path is: prior-bank encoding (\cfg{PriorBank.encode}); frame construction once per forward pass (\cfg{VFEModel.\_canonical\_frame\_context}); for each layer, \cfg{vfe\_block} calls \cfg{e\_step\_iteration}, whose predictive branch calls \cfg{relational\_predictive\_readout}, which computes the costs (\cfg{relational\_score}), the weights (\cfg{attention\_weights}), the mean (\cfg{predictive\_content}), and, under moment matching, the covariance (\cfg{predictive\_covariance\_update}); then the block seams; then the decoder and loss.
+
+\section{Status and evidence}
+\label{sec:status}
+
+\paragraph{Exact.}
+The Gibbs weights are the unique minimizer of the routing objective and an exact posterior under the compatibility record. The predictive mean is the exact mean of the kernel of Eq.~\eqref{eq:kernel}, and Proposition~\ref{prop:covariance} gives its exact covariance. Every routing cost, message, and moment-matched covariance transforms correctly under Eq.~\eqref{eq:passive}. The diagonal-family outputs are exact $\KL(p\|q)$ moment projections.
+
+\paragraph{Declared.}
+The kernel itself is a modeling choice: unit persistence, additive heads, independent head labels, independent sources, a single Gaussian collapse between layers (the true layer output is a mixture), and the floor of Eq.~\eqref{eq:floor}. The block MLP, normalization, and decoder choices are architectural. Moment matching makes the covariance consistent with the declared kernel; it does not make the stack as a whole the solution of one free-energy minimization.
+
+\paragraph{Verified.}
+The implementation agrees with an independent brute-force enumeration of every head-label tuple, computed in local coordinates from Eq.~\eqref{eq:kernel} rather than from Eq.~\eqref{eq:covariance}, to $10^{-10}$ in float64. The check covers all combinations of input and output scope, residual, and compact or dense frames, and both diagonal and full covariances. Further tests cover the passive law, positive definiteness under sharp routing with zero content maps, finite-difference gradients with respect to the means, covariances, routing weights, and content maps, configuration validation and serialization, and forward and backward passes of two-layer models for every admissible family, with linear and prior-bank decoders. A float32 depth recursion with rank-one content maps and no residual stays positive definite, with a bounded condition number, over twelve layers; the same recursion with a relative floor fails at the second layer. The existing test files of the projected route pass unchanged, and the default path is untouched. A configuration sweep of roughly six thousand tiny-model combinations across routing costs, priors, temperatures, scopes, floors, head counts and depths, all admissible families, gauge and positional settings, the float64 frame path, block MLP modes, head mixer, normalizations, prior handoff, self-coupling, every decoder, the training loop, checkpoints, diagnostics, reporting, sampling, and CPU mixed precision found no configuration that runs under passthrough and fails under moment matching once the floor was changed. The overhead of the update on a CPU forward and backward pass at $K=64$, $H=2$, $N=32$, $L=2$ was about $1.5$ times.
+
+\paragraph{Untested.}
+No training run uses the moment-matched covariance. Whether it improves predictive loss, whether the evolved covariance passes the calibration gate (across-token variation above $0.10$ with a positive rank correlation to cross-entropy), and whether it helps the prior-bank decoder or template routing are open. The matched comparison against passthrough, with several seeds, is the experiment that decides.
+
+\begin{thebibliography}{9}
+
+\bibitem[Dennis(2026a)]{dennis2026glk}
+R.~C.~Dennis.
+\newblock Gauge-covariant Gaussian attention through projected matrix links.
+\newblock Manuscript in preparation, 2026 (\texttt{GL(K)\_attention\_v2.tex}).
+
+\bibitem[Dennis(2026b)]{dennis2026template}
+R.~C.~Dennis.
+\newblock Template routing: the block MLP as inference over learned Gaussian concepts.
+\newblock Technical note, 2026 (\texttt{template\_routing.tex}).
+
+\bibitem[Hendrycks and Gimpel(2016)]{hendrycks2016}
+D.~Hendrycks and K.~Gimpel.
+\newblock Gaussian error linear units ({GELUs}).
+\newblock arXiv:1606.08415, 2016.
+
+\bibitem[Vaswani et~al.(2017)]{vaswani2017}
+A.~Vaswani, N.~Shazeer, N.~Parmar, J.~Uszkoreit, L.~Jones, A.~N.~Gomez, {\L}.~Kaiser, and I.~Polosukhin.
+\newblock Attention is all you need.
+\newblock In \emph{Advances in Neural Information Processing Systems 30}, 2017.
+
+\bibitem[Vilnis and McCallum(2015)]{vilnis2015}
+L.~Vilnis and A.~McCallum.
+\newblock Word representations via {G}aussian embedding.
+\newblock In \emph{International Conference on Learning Representations}, 2015.
+
+\end{thebibliography}
+
+\end{document}

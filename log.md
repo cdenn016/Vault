@@ -191,3 +191,11 @@ Validation: all installed bytes match their staged hashes; 1,399 pre-existing tr
 2026-09-13  INGEST   [[multiagentelbo-2026-09-13-nonlinear-adaptive-attention-rg]] — nonlinear adaptive cyclic formation with exact marked activation, static source assignments, changing posterior attention and analytical conditional/path bounds; updated seven wiki pages and three field MOCs.
 2026-09-13  INGEST   [[multiagentelbo-2026-09-13-finite-rate-adaptive-cyclic-rg]] — positive-rate adaptive cyclic construction, actual recognition movement, jump-aware entropy and full history coupling; growing weakest-energy assumption and unresolved J_L=1 route explicit.
 2026-09-13  INGEST   [[multiagentelbo-2026-09-13-fixed-weakest-energy-adaptive-cyclic-rg]] — positive-rate adaptive cyclic construction with weakest energy fixed at one; joint entropy, intrinsic fast marginal and complete assignment-history coupling; supplied contrasts remain explicit.
+
+## 2026-09-27 — template routing
+
+2026-09-27  INGEST   sources/manuscripts/dennis-2026-template-routing.md (+ 6 papers: sukhbaatar-2019-persistent-memory, geva-2021-ffn-key-value-memories, ghahramani-1994-incomplete-data-em, jacobs-1991-mixtures-of-local-experts, hershey-2007-kl-gmm, elfwing-2018-silu; citations checked against arXiv, ACL Anthology, NeurIPS proceedings, ICASSP/DOI records) → new [[Template routing]]; updated [[Associative Memory]], [[Activation Functions]], [[Memory-Augmented Networks]], [[VFE Transformer Program]], [[Attention mechanisms — theory and positional structure]], [[CS-ML MOC]], [[Statistics MOC]], index. Theory and implementation only; no training result.
+
+## 2026-09-27 — projected predictive route and moment-matched covariance
+
+2026-09-27  INGEST   sources/manuscripts/dennis-2026-projected-predictive.md (manuscripts/projected_predictive.tex) → new [[Projected predictive attention]]; updated [[GL(K) gauge-equivariant attention]], [[VFE Transformer Program]], [[Template routing]] (worked example, social reading, structured posterior from the revised template_routing.tex), index. Restored docs/_lint.py at the user's request. Implementation and tests only; no training result.
