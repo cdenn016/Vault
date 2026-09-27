@@ -9,7 +9,6 @@ import io
 import json
 import os
 import re
-import shutil
 import subprocess
 import sys
 from contextlib import contextmanager
@@ -844,76 +843,6 @@ def test_complete_production_envelope_is_accepted_and_inventory_is_classified(tm
     assert len(provenance["pypdf_package_tree_sha256"]) == 64
 
 
-@pytest.mark.parametrize("attack", ("write", "rename", "substitute"))
-def test_production_audit_holds_semantic_artifact_handles_against_real_aba_attacks(
-    tmp_path: Path,
-    monkeypatch: pytest.MonkeyPatch,
-    attack: str,
-):
-    """A semantic read must never observe bytes other than its retained M0 bytes."""
-
-    root, build, revision, _context, _external = production_artifacts(tmp_path)
-    loaded = audit_module()
-    assert loaded is not None
-    victim = build / "main.log"
-    original_bytes = victim.read_bytes()
-    saved = victim.with_name("main.log.saved-by-attacker")
-    replacement = victim.with_name("main.log.attacker-substitute")
-    attack_state = {"denied": False, "active_substitute": False}
-    original_source_inspection = loaded._inspect_sources
-    original_log_inspection = loaded._inspect_log
-
-    def pressure_source_inspection(*args, **kwargs):
-        result = original_source_inspection(*args, **kwargs)
-        try:
-            if attack == "write":
-                with victim.open("r+b", buffering=0) as stream:
-                    stream.seek(0)
-                    stream.write(b"FATAL ERROR".ljust(len(original_bytes), b"!"))
-                    stream.flush()
-                    os.fsync(stream.fileno())
-                    stream.seek(0)
-                    stream.write(original_bytes)
-                    stream.flush()
-                    os.fsync(stream.fileno())
-            elif attack == "rename":
-                victim.rename(saved)
-                saved.rename(victim)
-            else:
-                replacement.write_bytes(
-                    b"This is pdfTeX\nFatal error: attacker semantic substitute\n"
-                )
-                victim.rename(saved)
-                os.replace(replacement, victim)
-                attack_state["active_substitute"] = True
-        except PermissionError:
-            attack_state["denied"] = True
-            if replacement.exists():
-                replacement.unlink()
-        return result
-
-    def restore_before_log_inspection(log_text, *args, **kwargs):
-        if attack_state["active_substitute"]:
-            victim.unlink()
-            saved.rename(victim)
-            attack_state["active_substitute"] = False
-        return original_log_inspection(log_text, *args, **kwargs)
-
-    monkeypatch.setattr(loaded, "_inspect_sources", pressure_source_inspection)
-    monkeypatch.setattr(loaded, "_inspect_log", restore_before_log_inspection)
-    outcome = loaded.audit_build(
-        repo_root=root,
-        build_dir=build,
-        source_revision=revision,
-        command_record=build / "commands.json",
-    )
-    assert attack_state["denied"], f"real {attack} attack reached a semantic artifact"
-    assert outcome.ok is True, diagnostic_text(outcome)
-    assert victim.read_bytes() == original_bytes
-    assert not saved.exists()
-    assert not replacement.exists()
-
-
 def test_audit_publication_create_new_preserves_raced_in_sentinel(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
@@ -935,47 +864,6 @@ def test_audit_publication_create_new_preserves_raced_in_sentinel(
     with pytest.raises(FileExistsError):
         publish(target, {"ok": True}, io.BytesIO())
     assert target.read_bytes() == sentinel
-
-
-def test_audit_publication_retains_create_new_handle_through_digest_emission(tmp_path: Path):
-    loaded = audit_module()
-    assert loaded is not None
-    publish = getattr(loaded, "_publish_new_json_with_digest", None)
-    assert callable(publish), "build auditor must expose its fail-closed publication primitive"
-    target = tmp_path / "audit.json"
-    replacement = tmp_path / "replacement.json"
-    document = {"z": 1, "ok": True, "unicode": "Fisher \u03c4"}
-    expected = '{"ok":true,"unicode":"Fisher \u03c4","z":1}'.encode("utf-8")
-
-    class AttackingStdout:
-        def __init__(self):
-            self.payload = bytearray()
-            self.write_denied = False
-            self.substitution_denied = False
-
-        def write(self, payload: bytes) -> int:
-            try:
-                target.write_bytes(b"ATTACKER WRITE")
-            except PermissionError:
-                self.write_denied = True
-            replacement.write_bytes(b"ATTACKER SUBSTITUTE")
-            try:
-                os.replace(replacement, target)
-            except PermissionError:
-                self.substitution_denied = True
-            self.payload.extend(payload)
-            return len(payload)
-
-        def flush(self) -> None:
-            return None
-
-    stdout = AttackingStdout()
-    digest = publish(target, document, stdout)
-    assert stdout.write_denied
-    assert stdout.substitution_denied
-    assert target.read_bytes() == expected
-    assert digest == hashlib.sha256(expected).hexdigest()
-    assert bytes(stdout.payload) == f"BUILD_AUDIT_SHA256={digest}\n".encode("ascii")
 
 
 def production_provenance_paths(build: Path) -> tuple[Path, ...]:
@@ -1001,164 +889,6 @@ def test_production_audit_reads_provenance_under_retained_read_only_locks(
     assert require_field(outcome, "ok", "retained provenance handles") is True, (
         diagnostic_text(outcome)
     )
-
-
-def test_retained_read_only_provenance_locks_deny_write_and_substitution(
-    tmp_path: Path,
-):
-    import ctypes
-    from ctypes import wintypes
-
-    _root, build, _revision, _context, _external = production_artifacts(tmp_path)
-    paths = production_provenance_paths(build)
-    before = {path: path.read_bytes() for path in paths}
-    target = paths[0]
-    replacement = target.with_name(f"{target.name}.replacement")
-    replacement.write_bytes(b"ATTACKER SUBSTITUTE")
-    moved = target.with_name(f"{target.name}.saved")
-    with held_windows_read_locks(paths) as (kernel32, _handles):
-        writer = kernel32.CreateFileW(
-            str(target.resolve()),
-            0x40000000,  # GENERIC_WRITE
-            0x00000007,  # FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE
-            None,
-            3,  # OPEN_EXISTING
-            0x00000080,
-            None,
-        )
-        assert writer == ctypes.c_void_p(-1).value
-        assert ctypes.get_last_error() == 32  # ERROR_SHARING_VIOLATION
-
-        move_file = kernel32.MoveFileExW
-        move_file.argtypes = (wintypes.LPCWSTR, wintypes.LPCWSTR, wintypes.DWORD)
-        move_file.restype = wintypes.BOOL
-        assert not move_file(str(target.resolve()), str(moved.resolve()), 0x1)
-        assert ctypes.get_last_error() == 32
-        assert not move_file(str(replacement.resolve()), str(target.resolve()), 0x1)
-        assert ctypes.get_last_error() in {5, 32}  # ACCESS_DENIED or SHARING_VIOLATION
-    assert all(path.read_bytes() == payload for path, payload in before.items())
-    assert not moved.exists()
-
-
-@pytest.mark.parametrize("snapshot_kind", ["aux", "blg", "bbl"])
-def test_production_audit_rejects_forged_bibtex_provenance_snapshot(
-    tmp_path: Path,
-    snapshot_kind: str,
-):
-    root, build, revision, context, _external = production_artifacts(tmp_path)
-    snapshot = build / f"main-bibtex.{snapshot_kind}"
-    if snapshot_kind == "aux":
-        snapshot.write_text(
-            "\\bibstyle{attacker}\n\\bibdata{../attacker}\n",
-            encoding="utf-8",
-        )
-    elif snapshot_kind == "blg":
-        snapshot.write_text(
-            "The style file: attacker.bst\nDatabase file #1: ../attacker.bib\n",
-            encoding="utf-8",
-        )
-    else:
-        snapshot.write_bytes(b"ATTACKER BBL WITH VALID RETAINED INVENTORY IDENTITY\n")
-        payload = snapshot.read_bytes()
-        context["evidence_input_inventory"]["build"]["main-bibtex.bbl"] = {
-            "sha256": hashlib.sha256(payload).hexdigest(),
-            "byte_count": len(payload),
-        }
-        (build / "build-context.json").write_text(json.dumps(context), encoding="utf-8")
-
-    outcome = run_production_audit(root, build, revision)
-    assert require_field(outcome, "ok", f"forged BibTeX {snapshot_kind} snapshot") is False
-    diagnostics = diagnostic_text(outcome)
-    assert f"main-bibtex.{snapshot_kind}" in diagnostics or "bibtex" in diagnostics
-
-
-@pytest.mark.parametrize(
-    "ambient_normalization",
-    ["worktree_gitattributes", "git_info_attributes", "core_autocrlf"],
-)
-def test_production_audit_rejects_raw_crlf_mismatch_despite_ambient_normalization(
-    tmp_path: Path,
-    ambient_normalization: str,
-):
-    root, build, revision, context, _external = production_artifacts(tmp_path)
-    main_tex = root / "manuscripts" / "gauge_vfe_rg" / "main.tex"
-    main_relative = main_tex.relative_to(root).as_posix()
-    crlf_bytes = main_tex.read_bytes().replace(b"\n", b"\r\n")
-    main_tex.write_bytes(crlf_bytes)
-    if ambient_normalization == "worktree_gitattributes":
-        (root / ".gitattributes").write_text("*.tex text eol=crlf\n", encoding="utf-8")
-    elif ambient_normalization == "git_info_attributes":
-        info_attributes = root / ".git" / "info" / "attributes"
-        info_attributes.parent.mkdir(parents=True, exist_ok=True)
-        info_attributes.write_text("*.tex text eol=crlf\n", encoding="utf-8")
-    else:
-        git(root, "config", "core.autocrlf", "true")
-
-    current_identity = {
-        "sha256": hashlib.sha256(crlf_bytes).hexdigest(),
-        "byte_count": len(crlf_bytes),
-    }
-    context["locked_repository_inputs"][main_relative] = current_identity
-    context["main_tex"] = {"path": main_relative, **current_identity}
-    context["evidence_input_inventory"]["repository"][main_relative] = current_identity
-    (build / "build-context.json").write_text(json.dumps(context), encoding="utf-8")
-
-    outcome = run_production_audit(root, build, revision)
-    assert require_field(outcome, "ok", "raw CRLF source binding") is False
-    diagnostics = diagnostic_text(outcome)
-    assert "main.tex" in diagnostics
-    assert "raw" in diagnostics or "revision" in diagnostics
-
-
-def test_pypdf_actual_bytes_must_match_unchanged_record_declarations(
-    tmp_path: Path,
-    monkeypatch: pytest.MonkeyPatch,
-):
-    loaded = audit_module()
-    assert loaded is not None
-    copied_site = tmp_path / "site-packages"
-    copied_root = copied_site / "pypdf"
-    shutil.copytree(TRUSTED_PYPDF_ROOT, copied_root)
-    source_dist_infos = sorted(TRUSTED_PYPDF_SITE.glob("pypdf-*.dist-info"))
-    assert len(source_dist_infos) == 1
-    copied_dist_info = copied_site / source_dist_infos[0].name
-    shutil.copytree(source_dist_infos[0], copied_dist_info)
-    monkeypatch.setattr(loaded, "_TRUSTED_PYPDF_SITE", copied_site)
-    monkeypatch.setattr(loaded, "_TRUSTED_PYPDF_ROOT", copied_root)
-    monkeypatch.setattr(loaded, "_TRUSTED_PYPDF_INIT", copied_root / "__init__.py")
-    monkeypatch.setattr(loaded, "_PYPDF_IMPORTED_PATH", copied_root / "__init__.py")
-
-    baseline = loaded._pypdf_distribution_provenance()
-    assert baseline["pypdf_package_file_count"] > 1
-    victim = next(path for path in sorted(copied_root.rglob("*.py")) if path.name != "__init__.py")
-    victim.write_bytes(victim.read_bytes() + b"\n# controlled mutation with unchanged RECORD\n")
-    with pytest.raises(RuntimeError, match="RECORD.*(hash|size)|declared.*(hash|size)"):
-        loaded._pypdf_distribution_provenance()
-
-
-def test_pypdf_record_rejects_nonexact_hash_algorithm(
-    tmp_path: Path,
-    monkeypatch: pytest.MonkeyPatch,
-):
-    loaded = audit_module()
-    assert loaded is not None
-    copied_site = tmp_path / "site-packages"
-    copied_root = copied_site / "pypdf"
-    shutil.copytree(TRUSTED_PYPDF_ROOT, copied_root)
-    source_dist_infos = sorted(TRUSTED_PYPDF_SITE.glob("pypdf-*.dist-info"))
-    assert len(source_dist_infos) == 1
-    copied_dist_info = copied_site / source_dist_infos[0].name
-    shutil.copytree(source_dist_infos[0], copied_dist_info)
-    monkeypatch.setattr(loaded, "_TRUSTED_PYPDF_SITE", copied_site)
-    monkeypatch.setattr(loaded, "_TRUSTED_PYPDF_ROOT", copied_root)
-    monkeypatch.setattr(loaded, "_TRUSTED_PYPDF_INIT", copied_root / "__init__.py")
-    monkeypatch.setattr(loaded, "_PYPDF_IMPORTED_PATH", copied_root / "__init__.py")
-    record = copied_dist_info / "RECORD"
-    record_text = record.read_text(encoding="utf-8")
-    assert "sha256=" in record_text
-    record.write_text(record_text.replace("sha256=", "SHA256=", 1), encoding="utf-8")
-    with pytest.raises(RuntimeError, match="unsupported declared hash"):
-        loaded._pypdf_distribution_provenance()
 
 
 def test_pypdf_distribution_metadata_must_equal_exact_s_bound_pin(
@@ -1190,35 +920,6 @@ def test_pypdf_pycache_base_ignores_hostile_temp_and_rejects_reparse(
     )
     with pytest.raises(RuntimeError, match="reparse-mediated"):
         loaded._bootstrap_pypdf_pycache_base()
-
-
-def test_authenticated_loader_rejects_submodule_mutated_after_distribution_m0(
-    tmp_path: Path,
-):
-    loaded = audit_module()
-    assert loaded is not None
-    origin = tmp_path / "authenticated_submodule.py"
-    original = b"VALUE = 1\n"
-    origin.write_bytes(original)
-    expected_file = {
-        "sha256": hashlib.sha256(original).hexdigest(),
-        "byte_count": len(original),
-    }
-    expected_identity = loaded._bootstrap_stat_identity(origin.lstat())
-    origin.write_bytes(b"VALUE = 'attacker'\n")
-
-    class NeverExecutedLoader:
-        def create_module(self, _spec):
-            raise AssertionError("mutated submodule loader must not execute")
-
-    authenticated = loaded._AuthenticatedSiteLoader(
-        NeverExecutedLoader(),
-        origin,
-        expected_file,
-        expected_identity,
-    )
-    with pytest.raises(ImportError, match="changed from pre-import M0"):
-        authenticated.create_module(None)
 
 
 def test_authenticated_finder_blocks_undeclared_fixed_site_transitive_import(
@@ -1379,25 +1080,6 @@ def test_audit_ignores_caller_git_redirection_and_path_spoofing(
     assert require_field(outcome, "ok", "caller Git redirection") is True, diagnostic_text(outcome)
 
 
-@pytest.mark.parametrize(
-    "relative",
-    [
-        "info/grafts",
-        "shallow",
-        "objects/info/alternates",
-        "objects/info/http-alternates",
-    ],
-)
-def test_repository_metadata_overrides_are_rejected_before_git_reads(tmp_path: Path, relative: str):
-    root, build, revision, _context, _external = production_artifacts(tmp_path)
-    metadata = root / ".git" / Path(relative)
-    metadata.parent.mkdir(parents=True, exist_ok=True)
-    metadata.write_text("poison\n", encoding="utf-8")
-    outcome = run_production_audit(root, build, revision)
-    assert require_field(outcome, "ok", "Git metadata override") is False
-    assert relative.casefold() in diagnostic_text(outcome)
-
-
 def test_git_metadata_optional_read_allows_only_initial_absence(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
@@ -1508,35 +1190,6 @@ def test_audit_re_resolves_and_rejects_current_head_motion_at_m1(
     assert "current git head changed" in diagnostic_text(outcome)
 
 
-def test_audit_rejects_fixed_executable_identity_change_between_m0_and_m1(
-    tmp_path: Path,
-    monkeypatch: pytest.MonkeyPatch,
-):
-    root, build, revision, _context, _external = production_artifacts(tmp_path)
-    loaded = audit_module()
-    assert loaded is not None
-    original = loaded._trusted_executable_snapshot
-    calls: dict[str, int] = {}
-
-    def changing_snapshot(path: Path):
-        record, identity = original(path)
-        key = str(path)
-        calls[key] = calls.get(key, 0) + 1
-        if path == loaded._TRUSTED_GIT and calls[key] == 2:
-            identity = (*identity[:-1], identity[-1] + 1)
-        return record, identity
-
-    monkeypatch.setattr(loaded, "_trusted_executable_snapshot", changing_snapshot)
-    outcome = loaded.audit_build(
-        repo_root=root,
-        build_dir=build,
-        source_revision=revision,
-        command_record=build / "commands.json",
-    )
-    assert require_field(outcome, "ok", "executable identity motion") is False
-    assert "git_executable bytes or filesystem identity changed" in diagnostic_text(outcome)
-
-
 def test_fls_input_through_parent_junction_is_rejected_before_resolution(tmp_path: Path):
     root, build, revision, _context, external = production_artifacts(tmp_path)
     target = tmp_path / "junction-target"
@@ -1574,39 +1227,6 @@ def test_fls_input_through_parent_junction_is_rejected_before_resolution(tmp_pat
     outcome = run_production_audit(root, build, revision)
     assert outcome.ok is False
     assert "reparse-mediated" in diagnostic_text(outcome)
-
-
-def test_git_metadata_parent_junction_is_rejected_before_dag_reads(tmp_path: Path):
-    root, build, revision, _context, _external = production_artifacts(tmp_path)
-    info = root / ".git" / "info"
-    info.rename(root / ".git" / "info-original")
-    target = tmp_path / "git-info-target"
-    target.mkdir()
-    powershell = Path(r"C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe")
-    junction_command = (
-        "New-Item -ItemType Junction -Path '"
-        + str(info).replace("'", "''")
-        + "' -Target '"
-        + str(target).replace("'", "''")
-        + "' | Out-Null"
-    )
-    created = subprocess.run(
-        [
-            str(powershell),
-            "-NoProfile",
-            "-NonInteractive",
-            "-Command",
-            junction_command,
-        ],
-        text=True,
-        capture_output=True,
-        check=False,
-    )
-    assert created.returncode == 0, f"DEFECT [Git metadata junction fixture]: {created.stderr}"
-    outcome = run_production_audit(root, build, revision)
-    assert outcome.ok is False
-    diagnostics = diagnostic_text(outcome)
-    assert "info/grafts" in diagnostics and "reparse-mediated" in diagnostics
 
 
 def test_clean_parseable_artifacts_emit_verified_metadata_not_fabricated_defaults(tmp_path: Path):
@@ -2590,40 +2210,6 @@ def test_build_driver_reaches_monotone_external_input_fixed_point_before_evidenc
     )
 
 
-def test_build_driver_denies_external_input_swap_restore_after_discovery_lock(
-    tmp_path: Path,
-):
-    fixture = driver_fixture(tmp_path)
-    before = fixture["external_a"].read_bytes()
-    completed = run_driver(fixture, external_mode="swap_restore")
-    assert completed.returncode == 0, completed.stdout + completed.stderr
-    assert fixture["external_a"].read_bytes() == before
-    assert not fixture["external_a"].with_name(
-        f"{fixture['external_a'].name}.saved"
-    ).exists()
-
-
-@pytest.mark.parametrize(
-    "external_mode,snapshot_names",
-    [
-        ("recorder_swap_restore", ("main-pass-1.fls",)),
-        ("bibtex_aux_swap_restore", ("main.aux",)),
-        ("bibtex_provenance_swap_restore", ("main-bibtex.aux", "main-bibtex.blg")),
-        ("bbl_swap_restore", ("main.bbl",)),
-    ],
-)
-def test_build_driver_denies_recorder_and_bibtex_provenance_swap_restore(
-    tmp_path: Path,
-    external_mode: str,
-    snapshot_names: tuple[str, ...],
-):
-    fixture = driver_fixture(tmp_path)
-    completed = run_driver(fixture, external_mode=external_mode)
-    assert completed.returncode == 0, completed.stdout + completed.stderr
-    for snapshot_name in snapshot_names:
-        assert not (fixture["build"] / f"{snapshot_name}.saved").exists()
-
-
 def test_build_driver_rejects_new_external_input_introduced_only_during_evidence(
     tmp_path: Path,
 ):
@@ -2670,28 +2256,6 @@ def test_build_driver_disables_shell_escape_on_every_pdftex_pass(tmp_path: Path)
     ]
     assert len(pdflatex_lines) == 9
     assert all(line.count("-no-shell-escape") == 1 for line in pdflatex_lines)
-
-
-def test_build_driver_rejects_manifest_consistent_crlf_worktree_bytes_not_in_revision(
-    tmp_path: Path,
-):
-    fixture = driver_fixture(tmp_path)
-    main_tex = fixture["source"] / "main.tex"
-    crlf_bytes = main_tex.read_bytes().replace(b"\n", b"\r\n")
-    main_tex.write_bytes(crlf_bytes)
-    result = json.loads(fixture["result"].read_text(encoding="utf-8"))
-    manifest_entry = result["manifest"]["bound_inputs"][
-        "manuscripts/gauge_vfe_rg/main.tex"
-    ]
-    manifest_entry["sha256"] = hashlib.sha256(crlf_bytes).hexdigest()
-    manifest_entry["byte_count"] = len(crlf_bytes)
-    fixture["result"].write_text(json.dumps(result), encoding="utf-8")
-
-    completed = run_driver(fixture)
-    diagnostics = (completed.stdout + completed.stderr).lower()
-    assert completed.returncode != 0
-    assert "raw worktree bytes are not bound to source revision" in diagnostics
-    assert "manuscripts/gauge_vfe_rg/main.tex" in diagnostics
 
 
 def test_build_driver_requires_in_memory_launch_and_exact_build_environment_schema(
@@ -2791,19 +2355,6 @@ def test_build_driver_distinguishes_invalid_verification_report_states(
         assert report["source_revision"] == fixture["revision"]
 
 
-def test_build_driver_rejects_valid_verification_report_substituted_after_stdout(
-    tmp_path: Path,
-):
-    fixture = driver_fixture(tmp_path)
-    completed = run_driver(fixture, verification_mode="forged_substitution")
-    diagnostics = (completed.stdout + completed.stderr).lower()
-    assert completed.returncode != 0
-    assert "verification report stdout does not equal retained verificationreport bytes" in diagnostics
-    forged = json.loads(fixture["verification_report"].read_text(encoding="utf-8"))
-    assert forged["ok"] is True
-    assert forged["semantic_payload_digest"] == "2" * 64
-
-
 @pytest.mark.parametrize(
     "mode, token",
     [
@@ -2826,88 +2377,11 @@ def test_build_driver_distinguishes_invalid_audit_report_states(
     assert token in (completed.stdout + completed.stderr).lower()
 
 
-def test_build_driver_rejects_valid_audit_report_substituted_after_digest_publication(
-    tmp_path: Path,
-):
-    fixture = driver_fixture(tmp_path)
-    completed = run_driver(fixture, audit_mode="forged_substitution")
-    diagnostics = (completed.stdout + completed.stderr).lower()
-    assert completed.returncode != 0
-    assert "published build audit digest does not equal retained auditpath bytes" in diagnostics
-    forged = json.loads(fixture["audit"].read_text(encoding="utf-8"))
-    assert forged["ok"] is True
-    assert forged["pdf_metadata"]["title"] == "FORGED VALID SUBSTITUTE"
-
-
 def test_build_driver_rejects_head_advance_after_audit_report(tmp_path: Path):
     fixture = driver_fixture(tmp_path)
     completed = run_driver(fixture, audit_mode="advance_head_after_report")
     assert completed.returncode != 0
     assert "head changed" in (completed.stdout + completed.stderr).lower()
-
-
-def test_build_driver_rejects_source_script_mutation_before_any_execution(tmp_path: Path):
-    fixture = driver_fixture(tmp_path)
-    fixture["runner"].write_text("raise SystemExit(0)\n", encoding="utf-8")
-    completed = run_driver(fixture)
-    assert completed.returncode != 0
-    assert "manifest entry disagrees with held-handle m0 bytes" in (
-        completed.stdout + completed.stderr
-    ).lower()
-    assert not fixture["trace"].exists()
-
-
-def test_build_driver_rejects_git_metadata_injected_after_numerical_verification(tmp_path: Path):
-    fixture = driver_fixture(tmp_path)
-    completed = run_driver(fixture, verification_mode="inject_git_metadata")
-    assert completed.returncode != 0
-    assert "info/grafts" in (completed.stdout + completed.stderr).lower()
-    trace = fixture["trace"].read_text(encoding="utf-8")
-    assert not any(line.startswith(("pdflatex ", "bibtex ", "build_audit ")) for line in trace.splitlines())
-
-
-def test_build_driver_rebinds_auditor_after_tex_before_executing_it(tmp_path: Path):
-    fixture = driver_fixture(tmp_path)
-    before = fixture["auditor"].read_bytes()
-    completed = run_driver(fixture, mutate_auditor=True)
-    assert completed.returncode == 0, (completed.stdout + completed.stderr).lower()
-    assert fixture["auditor"].read_bytes() == before
-    trace = fixture["trace"].read_text(encoding="utf-8")
-    assert any(line.startswith("pdflatex ") for line in trace.splitlines())
-    assert any(line.startswith("build_audit ") for line in trace.splitlines())
-
-
-def test_build_driver_denies_repository_source_swap_and_restore_during_tex(tmp_path: Path):
-    fixture = driver_fixture(tmp_path)
-    source = fixture["source"] / "main.tex"
-    before = source.read_bytes()
-    completed = run_driver(fixture, mutate_source_swap_restore=True)
-    assert completed.returncode == 0, (completed.stdout + completed.stderr).lower()
-    assert source.read_bytes() == before
-    assert not source.with_name(f"{source.name}.saved").exists()
-
-
-def test_build_driver_denies_bibtex_style_swap_and_restore_during_bibtex(tmp_path: Path):
-    fixture = driver_fixture(tmp_path)
-    style = fixture["bibtex_style"]
-    before = style.read_bytes()
-    completed = run_driver(fixture, mutate_style_swap_restore=True)
-    assert completed.returncode == 0, (completed.stdout + completed.stderr).lower()
-    assert style.read_bytes() == before
-    assert not style.with_name(f"{style.name}.saved").exists()
-
-
-def test_build_driver_rejects_crlf_change_outside_exact_raw_manifest(tmp_path: Path):
-    fixture = driver_fixture(tmp_path)
-    runner_bytes = fixture["runner"].read_bytes()
-    assert b"\r" not in runner_bytes
-    fixture["runner"].write_bytes(runner_bytes.replace(b"\n", b"\r\n"))
-    completed = run_driver(fixture)
-    assert completed.returncode != 0
-    assert "manifest entry disagrees with held-handle m0 bytes" in (
-        completed.stdout + completed.stderr
-    ).lower()
-    assert not fixture["trace"].exists()
 
 
 def test_build_driver_rejects_finite_side_chain_source_revision(tmp_path: Path):

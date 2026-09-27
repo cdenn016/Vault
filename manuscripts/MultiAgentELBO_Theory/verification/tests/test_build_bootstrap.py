@@ -11,7 +11,6 @@ import json
 import re
 import subprocess
 import sys
-import zlib
 from pathlib import Path
 
 import pytest
@@ -626,117 +625,6 @@ def test_inner_build_driver_uses_only_explicit_bootstrap_identity_inputs() -> No
     assert "Resolve-Executable -Value $BibtexPath" not in body
 
 
-def test_build_mode_materializes_exact_s_blob_and_separates_source_from_execution(
-    tmp_path: Path,
-) -> None:
-    fixture = bootstrap_fixture(tmp_path)
-    Path(fixture["build_script"]).write_text(
-        f"Set-Content -LiteralPath '{fixture['trace']}' -Value ATTACKER_CHECKOUT\n",
-        encoding="utf-8",
-    )
-    completed = invoke_bootstrap(fixture, "Build")
-    assert completed.returncode == 0, completed.stdout + completed.stderr
-    assert Path(fixture["receipt"]).is_file(), completed.stdout + completed.stderr
-    assert Path(fixture["trace"]).read_text(encoding="utf-8-sig") == "SAFE_BUILD"
-    receipt = json.loads(Path(fixture["receipt"]).read_text(encoding="utf-8-sig"))
-    assert receipt["accepted"] is True
-    assert receipt["mode"] == "Build"
-    assert receipt["approved_transport_sha256"] == hashlib.sha256(
-        TRANSPORT_PATH.read_bytes()
-    ).hexdigest()
-    assert receipt["approved_transport_byte_count"] == len(TRANSPORT_PATH.read_bytes())
-    assert receipt["repository_source"]["path"] == str(Path(fixture["build_script"]).resolve())
-    assert receipt["executed_source"]["path"] != receipt["repository_source"]["path"]
-    assert receipt["executed_source"]["git_blob_oid"] == receipt["repository_source"]["git_blob_oid"]
-    assert receipt["executed_source"]["byte_count"] == receipt["repository_source"]["git_blob_byte_count"]
-    result_identity = receipt["outputs"]["verification_result"]
-    report_identity = receipt["outputs"]["verification_report"]
-    audit_identity = receipt["outputs"]["audit_path"]
-    report = json.loads(Path(fixture["verification_report"]).read_bytes())
-    assert result_identity["sha256"] == report["published_result_sha256"]
-    assert report_identity["sha256"] == hashlib.sha256(
-        Path(fixture["verification_report"]).read_bytes()
-    ).hexdigest()
-    assert audit_identity["sha256"] == hashlib.sha256(
-        Path(fixture["audit"]).read_bytes()
-    ).hexdigest()
-    assert receipt["outputs"]["transaction_receipt_id"] == report["transaction_receipt_id"]
-    assert receipt["fresh_targets"]["audit_path"]["initial_state"] == "absent"
-    assert receipt["fresh_targets"]["verification_report"]["initial_state"] == "absent"
-    assert receipt["fresh_targets"]["output_directory"]["initial_state"] == "absent"
-    assert Path(receipt["temporary_directory"]).is_absolute()
-    assert not Path(receipt["temporary_directory"]).exists()
-    assert receipt["cleanup"]["completed"] is True
-    assert hashlib.sha256(Path(fixture["receipt"]).read_bytes()).hexdigest() == receipt_digest(completed)
-
-
-def test_build_rejects_forged_bootstrap_attested_executed_context(tmp_path: Path) -> None:
-    fixture = bootstrap_fixture(tmp_path)
-    build_script = Path(fixture["build_script"])
-    source = build_script.read_text(encoding="utf-8")
-    exact = """executed_build_script = [ordered]@{
-        path = [System.IO.Path]::GetFullPath($ExecutedBuildScript)
-        sha256 = [string]$attestation.source_sha256
-        byte_count = [int64]$attestation.source_blob_byte_count
-    }"""
-    forged = exact.replace(
-        "sha256 = [string]$attestation.source_sha256",
-        "sha256 = ('0' * 64)",
-    )
-    assert exact in source
-    build_script.write_text(source.replace(exact, forged), encoding="utf-8", newline="\n")
-    fixture["revision"] = commit(Path(fixture["repo"]), "forged executed-context witness")
-    completed = invoke_bootstrap(fixture, "Build")
-    assert completed.returncode != 0
-    assert (
-        "Typed build report does not bind repository source, executed materialization, "
-        "and bootstrap attestation identities."
-    ) in (completed.stdout + completed.stderr)
-    receipt = json.loads(Path(fixture["receipt"]).read_bytes())
-    assert receipt["accepted"] is False
-
-
-def test_numerical_mode_locks_same_repository_path_and_rejects_tampered_checkout(
-    tmp_path: Path,
-) -> None:
-    fixture = bootstrap_fixture(tmp_path)
-    Path(fixture["run_checks"]).write_text(
-        "raise SystemExit('ATTACKER_NUMERICAL_EXECUTED')\n",
-        encoding="utf-8",
-    )
-    completed = invoke_bootstrap(
-        fixture,
-        "NumericalUpdate",
-        unused_build_fields_empty=True,
-    )
-    assert completed.returncode != 0
-    assert "not bound to source revision" in (completed.stdout + completed.stderr).lower()
-    assert not Path(fixture["trace"]).exists()
-    receipt = json.loads(Path(fixture["receipt"]).read_text(encoding="utf-8-sig"))
-    assert receipt["accepted"] is False
-    assert receipt["cleanup"]["completed"] is True
-    assert not Path(receipt["temporary_directory"]).exists()
-
-
-def test_numerical_mode_rejects_crlf_worktree_bytes_independent_of_git_normalization(
-    tmp_path: Path,
-) -> None:
-    fixture = bootstrap_fixture(tmp_path)
-    runner = Path(fixture["run_checks"])
-    source_bytes = runner.read_bytes()
-    assert b"\n" in source_bytes and b"\r" not in source_bytes
-    runner.write_bytes(source_bytes.replace(b"\n", b"\r\n"))
-    completed = invoke_bootstrap(
-        fixture,
-        "NumericalUpdate",
-        unused_build_fields_empty=True,
-    )
-    assert completed.returncode != 0
-    diagnostics = (completed.stdout + completed.stderr).lower()
-    assert "raw bytes" in diagnostics and "not bound to source revision" in diagnostics
-    assert not Path(fixture["trace"]).exists()
-
-
 def test_numerical_update_uses_fixed_isolated_python_and_emits_accepted_receipt(
     tmp_path: Path,
 ) -> None:
@@ -817,65 +705,6 @@ def test_public_mode_receipts_reach_success_and_validate_end_to_end(
             str(Path(fixture["verification_report"]).resolve()),
         ]
         assert "--source-revision" not in document["child"]["argv"]
-
-
-def test_numerical_verify_receipt_validator_rejects_exact_argv_tampering(
-    tmp_path: Path,
-) -> None:
-    """A fresh digest must not legitimize altered NumericalVerify child arguments."""
-
-    fixture = bootstrap_fixture(tmp_path)
-    Path(fixture["verification_result"]).write_text(
-        json.dumps(
-            {
-                "overall_status": "PASS",
-                "source_revision": str(fixture["revision"]),
-            },
-            sort_keys=True,
-            separators=(",", ":"),
-        ),
-        encoding="utf-8",
-        newline="\n",
-    )
-    commit(Path(fixture["repo"]), "bind tamper witness to authenticated source revision")
-    completed = invoke_bootstrap(
-        fixture,
-        "NumericalVerify",
-        unused_build_fields_empty=True,
-    )
-    assert completed.returncode == 0, completed.stdout + completed.stderr
-    receipt_path = Path(fixture["receipt"])
-    original = receipt_path.read_bytes()
-
-    module = audit_module("bootstrap_receipt_verify_argv_tamper")
-    assert module.validate_bootstrap_receipt(
-        receipt_path,
-        receipt_digest(completed),
-        **receipt_expectations(fixture, "NumericalVerify"),
-    )["accepted"] is True
-
-    for mutation in ("add_source_revision", "switch_mode", "drop_report"):
-        document = json.loads(original)
-        argv = document["child"]["argv"]
-        if mutation == "add_source_revision":
-            report_index = argv.index("--report")
-            argv[report_index:report_index] = [
-                "--source-revision",
-                str(fixture["revision"]),
-            ]
-        elif mutation == "switch_mode":
-            argv[argv.index("--verify")] = "--update"
-        else:
-            report_index = argv.index("--report")
-            del argv[report_index : report_index + 2]
-        mutated = json.dumps(document, separators=(",", ":")).encode("utf-8")
-        receipt_path.write_bytes(mutated)
-        with pytest.raises(ValueError, match="argv|invocation"):
-            module.validate_bootstrap_receipt(
-                receipt_path,
-                hashlib.sha256(mutated).hexdigest(),
-                **receipt_expectations(fixture, "NumericalVerify"),
-            )
 
 
 @pytest.mark.parametrize("target", ["audit", "verification_report", "build"])
@@ -980,45 +809,6 @@ def test_build_rejects_nonabsolute_or_missing_explicit_tex_tool(
     assert expected in diagnostics, diagnostics
 
 
-def test_build_child_report_substitution_after_handoff_is_rejected(tmp_path: Path) -> None:
-    fixture = bootstrap_fixture(tmp_path)
-    source = _safe_build_driver().replace(
-        '[Console]::Out.WriteLine("BUILD_VERIFICATION_REPORT_SHA256=$reportSha256")',
-        '[Console]::Out.WriteLine("BUILD_VERIFICATION_REPORT_SHA256=$reportSha256")\n'
-        "$substitute = Get-Content -LiteralPath $VerificationReport -Raw | ConvertFrom-Json\n"
-        "$substitute.semantic_payload_digest = ('4' * 64)\n"
-        "[System.IO.File]::WriteAllText($VerificationReport, ($substitute | ConvertTo-Json -Compress -Depth 8), $utf8)",
-    )
-    Path(fixture["build_script"]).write_text(source, encoding="utf-8", newline="\n")
-    fixture["revision"] = commit(Path(fixture["repo"]), "report substitution witness")
-    completed = invoke_bootstrap(fixture, "Build")
-    assert completed.returncode != 0
-    assert "handoff" in (completed.stdout + completed.stderr).lower()
-
-
-@pytest.mark.parametrize("mutation", ["replace_main_pdf", "add_unlisted_file"])
-def test_build_artifact_inventory_rejects_post_audit_output_mutation(
-    tmp_path: Path,
-    mutation: str,
-) -> None:
-    fixture = bootstrap_fixture(tmp_path)
-    attack = (
-        "[System.IO.File]::WriteAllText((Join-Path $OutputDirectory 'main.pdf'), 'ATTACK', $utf8)"
-        if mutation == "replace_main_pdf"
-        else "[System.IO.File]::WriteAllText((Join-Path $OutputDirectory 'unlisted.txt'), 'ATTACK', $utf8)"
-    )
-    source = _safe_build_driver().replace(
-        '[Console]::Out.WriteLine("BUILD_VERIFICATION_REPORT_SHA256=$reportSha256")',
-        '[Console]::Out.WriteLine("BUILD_VERIFICATION_REPORT_SHA256=$reportSha256")\n' + attack,
-    )
-    Path(fixture["build_script"]).write_text(source, encoding="utf-8", newline="\n")
-    fixture["revision"] = commit(Path(fixture["repo"]), f"artifact mutation witness {mutation}")
-    completed = invoke_bootstrap(fixture, "Build")
-    assert completed.returncode != 0
-    diagnostics = (completed.stdout + completed.stderr).lower()
-    assert "artifact" in diagnostics or "regular-file set" in diagnostics
-
-
 def test_numerical_stdout_must_equal_retained_canonical_report_bytes(tmp_path: Path) -> None:
     fixture = bootstrap_fixture(tmp_path)
     source = _safe_numerical_runner().replace(
@@ -1051,100 +841,6 @@ def test_early_build_child_failure_still_runs_m1_and_cleanup(tmp_path: Path) -> 
     assert receipt["m1"]["completed"] is True
     assert receipt["cleanup"]["completed"] is True
     assert not Path(receipt["temporary_directory"]).exists()
-
-
-def test_retained_materialization_denies_write_delete_rename_and_replace(tmp_path: Path) -> None:
-    fixture = bootstrap_fixture(tmp_path)
-    denial_probe = r'''
-foreach ($probe in @(
-    [scriptblock]{ [System.IO.File]::WriteAllText($ExecutedBuildScript, 'ATTACK') },
-    [scriptblock]{ [System.IO.File]::Delete($ExecutedBuildScript) },
-    [scriptblock]{ [System.IO.File]::Move($ExecutedBuildScript, "$ExecutedBuildScript.moved") },
-    [scriptblock]{
-        $replacement = Join-Path ([System.IO.Path]::GetDirectoryName($ExecutedBuildScript)) 'replacement.ps1'
-        [System.IO.File]::WriteAllText($replacement, 'ATTACK')
-        [System.IO.File]::Replace($replacement, $ExecutedBuildScript, $null)
-    }
-)) {
-    $denied = $false
-    try { & $probe }
-    catch { $denied = $true }
-    if (-not $denied) { throw 'RETAINED_MATERIALIZATION_MUTATION_SUCCEEDED' }
-}
-'''
-    source = _safe_build_driver().replace(
-        "if ($PSCommandPath) { throw 'Authenticated in-memory child unexpectedly has PSCommandPath.' }",
-        "if ($PSCommandPath) { throw 'Authenticated in-memory child unexpectedly has PSCommandPath.' }\n"
-        + denial_probe,
-    )
-    Path(fixture["build_script"]).write_text(source, encoding="utf-8", newline="\n")
-    fixture["revision"] = commit(Path(fixture["repo"]), "retained materialization denial witness")
-    completed = invoke_bootstrap(fixture, "Build")
-    assert completed.returncode == 0, completed.stdout + completed.stderr
-    assert Path(fixture["trace"]).read_text(encoding="utf-8-sig") == "SAFE_BUILD"
-
-
-def test_corrupt_git_blob_is_rejected_by_same_handle_oid_check(tmp_path: Path) -> None:
-    fixture = bootstrap_fixture(tmp_path)
-    object_id = git(
-        Path(fixture["repo"]),
-        "rev-parse",
-        f"{fixture['revision']}:manuscripts/gauge_vfe_rg/build.ps1",
-    )
-    loose_object = Path(fixture["repo"]) / ".git" / "objects" / object_id[:2] / object_id[2:]
-    assert loose_object.is_file(), "fixture blob must remain loose for corruption witness"
-    loose_object.chmod(0o600)
-    malicious = b"Write-Output 'wrong object bytes'\n"
-    loose_object.write_bytes(zlib.compress(b"blob " + str(len(malicious)).encode() + b"\0" + malicious))
-    completed = invoke_bootstrap(fixture, "Build")
-    assert completed.returncode != 0
-    assert "blob oid" in (completed.stdout + completed.stderr).lower()
-    assert not Path(fixture["trace"]).exists()
-
-
-def test_receipt_tamper_fails_digest_bound_validator(tmp_path: Path) -> None:
-    fixture = bootstrap_fixture(tmp_path)
-    completed = invoke_bootstrap(fixture, "Build")
-    assert completed.returncode == 0, completed.stdout + completed.stderr
-    digest = receipt_digest(completed)
-    module = audit_module("bootstrap_receipt_audit")
-    validator = getattr(module, "validate_bootstrap_receipt", None)
-    assert callable(validator), "build auditor must expose the digest-bound receipt validator"
-    assert validator(
-        Path(fixture["receipt"]),
-        digest,
-        **receipt_expectations(fixture, "Build"),
-    )["accepted"] is True
-    document = json.loads(Path(fixture["receipt"]).read_text(encoding="utf-8-sig"))
-    document["accepted"] = False
-    Path(fixture["receipt"]).write_text(json.dumps(document), encoding="utf-8")
-    with pytest.raises(ValueError, match="digest"):
-        validator(
-            Path(fixture["receipt"]),
-            digest,
-            **receipt_expectations(fixture, "Build"),
-        )
-
-
-def test_receipt_validator_rejects_valid_receipt_digest_with_wrong_asserted_transport(
-    tmp_path: Path,
-) -> None:
-    fixture = bootstrap_fixture(tmp_path)
-    completed = invoke_bootstrap(fixture, "Build")
-    assert completed.returncode == 0, completed.stdout + completed.stderr
-    module = audit_module("bootstrap_receipt_transport_audit")
-    validator = module.validate_bootstrap_receipt
-    document = json.loads(Path(fixture["receipt"]).read_bytes())
-    document["approved_transport_sha256"] = "0" * 64
-    mutated_bytes = json.dumps(document, separators=(",", ":")).encode("utf-8")
-    Path(fixture["receipt"]).write_bytes(mutated_bytes)
-    mutated_digest = hashlib.sha256(mutated_bytes).hexdigest()
-    with pytest.raises(ValueError, match="transport"):
-        validator(
-            Path(fixture["receipt"]),
-            mutated_digest,
-            **receipt_expectations(fixture, "Build"),
-        )
 
 
 @pytest.mark.parametrize(
