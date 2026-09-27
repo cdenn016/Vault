@@ -41,7 +41,7 @@ one pairwise discrepancy between Gaussian beliefs. The configured term is not
 the variational Rényi bound of [[li-turner-2016-renyi-vi|Li & Turner]], does not
 bound log evidence, and does not make the separate belief and decode objectives
 one [[Evidence lower bound (ELBO)|ELBO]]. Its order controls density-ratio
-sensitivity within that oriented pairwise term. [[gl-k-attention-2026-07-09-review-revision]]
+sensitivity within that oriented pairwise term.
 
 ## Details
 **The variational Renyi bound.** Standard variational inference maximizes the ELBO,
@@ -94,7 +94,7 @@ $\mathcal{N}(\mu,\Sigma)$ representation.
 - **Coupling to the optimizer** — joint Gaussian beliefs retain their Fisher
   geometry; the covariance block is one-half conventional AIRM. This does not
   make the frame or decode M-step a Fisher natural gradient;
-  the audited frame table uses plain AdamW, with the configured pullback/heavy-ball path inactive. [[gl-k-attention-2026-07-09-review-revision]]
+  the audited frame table uses plain AdamW, with the configured pullback/heavy-ball path inactive.
 
 > [!note] Editorial: The config exposes `divergence_family` as a categorical
 > choice; the specific scheduled or learned value of the order $\alpha$ is a

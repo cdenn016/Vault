@@ -42,7 +42,7 @@ The decisive technical move is the [[Reparameterization trick]]: rather than sam
 
 ## Relation to this work
 
-The VAE is a reference point for the VFE transformer's per-token diagonal-Gaussian beliefs, not a direct blueprint for its complete training loop. The model has no neural recognition network and does not train one shared VAE ELBO: its target-blind belief objective and decode cross-entropy are distinct. Reparameterized Gaussian differentiation, where used, is the narrower Kingma–Welling connection. [[gl-k-attention-2026-07-09-review-revision]]
+The VAE is a reference point for the VFE transformer's per-token diagonal-Gaussian beliefs, not a direct blueprint for its complete training loop. The model has no neural recognition network and does not train one shared VAE ELBO: its target-blind belief objective and decode cross-entropy are distinct. Reparameterized Gaussian differentiation, where used, is the narrower Kingma–Welling connection.
 
 The VFE transformer **differs** from the vanilla VAE on several axes that the registry's other sources supply:
 
@@ -51,7 +51,7 @@ The VFE transformer **differs** from the vanilla VAE on several axes that the re
 - **Curved belief geometry.** The VAE treats the Gaussian covariance as an unconstrained diagonal vector; the VFE transformer treats `Sigma` as a point on the SPD manifold and updates it with an `spd_affine` retraction under the affine-invariant metric ([[pennec-2006-affine-invariant-tensor]], [[bhatia-2007-positive-definite-matrices]]), a structure the original VAE does not impose.
 - **Scoped geometry.** Fisher/AIRM geometry supports the Gaussian belief update. The audited frame table uses plain AdamW, and no Fisher/Killing natural-gradient parameter M-step is established; the configured geometric frame fields are inactive.
 
-In short, the VAE supplies Gaussian-latent and differentiable-sampling background. The transformer's filtering, transported-belief geometry, and two-objective schedule are separate constructions rather than improvements to one inherited VAE ELBO. [[gl-k-attention-2026-07-09-review-revision]]
+In short, the VAE supplies Gaussian-latent and differentiable-sampling background. The transformer's filtering, transported-belief geometry, and two-objective schedule are separate constructions rather than improvements to one inherited VAE ELBO.
 
 > [!note] Editorial: The registry does not contain a dedicated [[Prediction error]] or [[Precision weighting]] derivation specific to the VAE; the link from VAE reconstruction error to precision-weighted prediction error is made through the predictive-coding sources rather than [[kingma-2013-auto-encoding-variational-bayes]] itself.
 

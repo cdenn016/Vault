@@ -1,0 +1,241 @@
+% !TeX root = ../PIFB2.tex
+\section{Agents over a Continuous Base and Selective Communication}\label{sec:one_rung}
+
+An agent is a local section, and an interaction relates section values on an overlap. The network seen at one base point is a slice of this construction. The base is not the set of agents, a communication link is not a transition function of the bundle, and a change of coordinates is not an exchange of information.
+
+\subsection{The base and the networks above its points}\label{sec:flat_base}
+\begin{definition}[Base and agent domains]\label{def:base_manifold}
+Let $\mathcal C$ be a smooth manifold and $\mathcal U_i\subseteq\mathcal C$ the open domain of agent $i$. At $c$, the available agents form $V(c)=\{i:c\in\mathcal U_i\}$. An interaction $j\to i$ is defined on $\mathcal U_i\cap\mathcal U_j$.
+\end{definition}
+The base is the domain over which the fields are organized. It need not be directly observable, flat, or identical to physical spacetime. Its topology, dimension and differentiable structure are inputs to this description. It may support curved geometry, but no particular metric is assumed in the pointwise inference theory. Agents have records and models of underlying reality rather than direct access to its observer-independent coordinates. This epistemic restriction does not assert that the underlying reality is absent.
+
+On an overlap containing $(c-\delta c,c+\delta c)$, both $c-\delta c/2$ and $c+\delta c/2$ carry an attention network with the same available agents if no domain boundary is crossed. Beliefs, model descriptions, frames, links and weights generally differ at these two points and vary smoothly within the declared regularity class. Fixing $c=c_*$ for formation analysis retains this ambient construction; it does not collapse the domains or discretize the base. Variation with $c$ is distinct from evolution with inference parameter $t$.
+
+A density $d\nu(c)$ must be specified before integrating an energy over $\mathcal C$. Smoothness alone supplies neither a canonical integration measure nor a physical metric. A base-integrated functional is an optional field model; without base-derivative terms its equations separate pointwise. Coupling different base points requires further transport and regularity assumptions~\cite{DennisGaugeVFESuppB2026}.
+
+\begin{figure}[tbp]
+\centering
+\begin{tikzpicture}[
+  >={Stealth[length=2mm]},
+  every node/.style={font=\small},
+  agent/.style={draw,rounded corners=3pt,minimum width=1.05cm,minimum height=0.65cm,fill=white,inner sep=3pt},
+  link/.style={->,thick,blue!65!black},
+  ]
+\shade[top color=gray!8,bottom color=gray!20,draw=gray!50]
+ (0.2,0) .. controls (4,0.2) and (8,-0.1) .. (11.8,0.1)
+ -- (11.6,-0.75) .. controls (8,-0.9) and (3,-0.65) .. (0.1,-0.8) -- cycle;
+\coordinate (baseL) at (3,-0.35);
+\coordinate (baseR) at (9,-0.35);
+\fill (baseL) circle (1.6pt);
+\fill (baseR) circle (1.6pt);
+\node[right=6pt] at (baseL) {$c_-$};
+\node[right=6pt] at (baseR) {$c_+$};
+\node[anchor=west] at (0.45,-0.35) {$\mathcal C$};
+\draw[densely dashed,gray!60] (3,-0.25)--(3,0.9);
+\draw[densely dashed,gray!60] (9,-0.25)--(9,0.9);
+\draw[rounded corners=7pt,draw=blue!25,fill=blue!3] (0.7,0.9) rectangle (5.3,4);
+\draw[rounded corners=7pt,draw=blue!25,fill=blue!3] (6.7,0.9) rectangle (11.3,4);
+\node[font=\small\bfseries] at (3,3.7) {Network above $c_-$};
+\node[font=\small\bfseries] at (9,3.7) {Network above $c_+$};
+\node[agent,draw=orange!70!black] (jl) at (1.7,2.65) {$\zeta_j(c_-)$};
+\node[agent,draw=blue!70!black] (il) at (4.3,2.65) {$\zeta_i(c_-)$};
+\node[agent,draw=teal!70!black] (kl) at (3,1.45) {$\zeta_k(c_-)$};
+\node[agent,draw=orange!70!black] (jr) at (7.7,2.65) {$\zeta_j(c_+)$};
+\node[agent,draw=blue!70!black] (ir) at (10.3,2.65) {$\zeta_i(c_+)$};
+\node[agent,draw=teal!70!black] (kr) at (9,1.45) {$\zeta_k(c_+)$};
+\draw[link] (jl)--node[above=4pt,font=\footnotesize] {$L_{ij}(c_-)$} (il);
+\draw[link] (jr)--node[above=4pt,font=\footnotesize] {$L_{ij}(c_+)$} (ir);
+\draw[link,gray!65] (il)--(kl);
+\draw[link,gray!65] (kl)--(jl);
+\draw[link,gray!65] (ir)--(kr);
+\draw[link,gray!65] (kr)--(jr);
+\node[font=\footnotesize,align=center,fill=white,inner sep=2pt] at (6,0.45)
+ {Same local agents; smoothly varying beliefs, links, and attention};
+\node[agent,draw=orange!70!black,minimum width=2.1cm] (source) at (2,-1.8) {Sender $E_j$};
+\node[agent,draw=gray!70,minimum width=2.1cm] (message) at (6,-1.8) {Message $H$};
+\node[agent,draw=blue!70!black,minimum width=2.1cm] (receiver) at (10,-1.8) {Receiver $E_i$};
+\draw[link] (source)--node[above=4pt] {$S_j$} (message);
+\draw[link] (message)--node[above=4pt] {$R_i$} (receiver);
+\node[font=\footnotesize] at (6,-2.5) {$L_{ij}=R_iS_j$ can be rank deficient; a frame transition is invertible.};
+\end{tikzpicture}
+
+\caption{\textbf{Local sections and selective communication.} Two points of the same overlap carry networks with the same agents and generally different section values. The drawing is a local schematic, not a discretization of the base or a connection between its points. At each point a sender exposes information through $S_j$ and the receiver reconstructs it through $R_i$. Their composition is an interaction, not a bundle transition.}
+\label{fig:continuous_base_network}
+\end{figure}
+
+\subsection{One statistical bundle}\label{sec:statistical_manifolds}
+\label{sec:agents_as_sections}\label{sec:local_trivialization}\label{sec:dual_role_rigor}
+Let $P\to\mathcal C$ be a principal $G$-bundle. Choose a standard Borel sample space $\mathsf Y$ with a measurable $G$-action and a regular family $\mathcal B\subseteq\mathcal P(\mathsf Y)$ stable under pushforward, with a smooth induced action when differential bundle statements are used. The associated statistical bundle is
+\begin{equation}
+\mathcal S=P\times_G\mathcal B,\qquad
+\zeta_i\in\Gamma(\mathcal U_i,\mathcal S).
+\label{eq:single_statistical_bundle}
+\end{equation}
+Smoothness refers to a declared smooth statistical family or a specified differentiable structure on laws. It is not automatic for arbitrary probability measures. General measurable laws suffice for the evidence and coarse-graining identities; the differential calculations use regular finite-dimensional families.
+
+When model parameters are retained, take $\mathsf Y=\mathsf K\times\mathsf M$ with standard Borel factors, and a $G$-action respecting the projections. A joint section has disintegration
+\begin{equation}
+\zeta_i(dk,dm)=q_i(dk\mid m)s_i(dm),\qquad
+q_i(dk)=\int q_i(dk\mid m)s_i(dm).
+\label{eq:joint_agent_disintegration}
+\end{equation}
+Here $q_i$ is a state belief, $m$ a model presentation and $s_i$ the belief about it. A model presentation becomes predictive through an evaluator $m\mapsto K_{i,m}$ assigning a normalized kernel. The state prior is $p_i$ and the model-parameter prior is $r_i$; neither is synonymous with a generative model. The full generative probability law is $\mathbb P$.
+
+This gives one primitive statistical bundle. Its marginal bundles are induced descriptions, not independently postulated agents. The product restriction $\zeta_i=q_i\otimes s_i$ discards state--model dependence. Calling one marginal slow is a dynamical assertion, examined in Section~\ref{sec:timescales}; this repackaging alone does not make models emerge. One may instead begin with an unsplit $\mathsf Y$ and seek predictive coarse variables within its dynamics.
+
+\begin{definition}[Agent and prior]\label{sec:agent_definition}
+An agent is a local statistical section $\zeta_i$, its access to records, a frame presentation, and normalized mechanisms for interaction and updating. Its prior is a law available before the current record is assimilated: an initial boundary law, a prediction from earlier records, or a conditional law in a specified joint hierarchy.
+\end{definition}
+A support domain is not a Markov blanket. A blanket is a conditional independence in a joint probability law; overlap explains where interaction is possible but does not prove probabilistic screening. Smooth statistical sections alone do not establish biological agency, consciousness or physical objecthood.
+
+\subsection{Frames and reference identification}
+\label{sec:cognitive_reference_frames}\label{sec:transport}\label{sec:gauge_covariance_principle}
+On a common trivializing neighborhood let $U_i$ present the reference sample fiber in agent $i$'s coordinates. In a vector realization a passive coordinate change $x_i'=g_i x_i$ gives
+\begin{equation}
+\mu_i'=g_i\mu_i,\qquad \Sigma_i'=g_i\Sigma_i g_i^\top,\qquad U_i'=g_iU_i.
+\label{eq:frame_coordinate_law}
+\end{equation}
+The representations on $\mathsf K$ and $\mathsf M$ can differ while sharing one principal frame. The parametrization $U_i=\exp\phi_i$ is local and need not cover an entire general linear group.
+
+The invertible reference identification
+\begin{equation}
+\Omega_{ij}=U_iU_j^{-1}:E_j\longrightarrow E_i
+\label{eq:transport_def}
+\end{equation}
+expresses the same reference vector in different coordinates and obeys $\Omega_{ij}'=g_i\Omega_{ij}g_j^{-1}$. It does not specify which sender directions are communicated.
+\begin{lemma}[Flat identification]\label{thm:vanishing_holonomy}
+Where the frames share a reference trivialization,
+\begin{equation}
+\Omega_{ij}\Omega_{jk}=\Omega_{ik},\qquad
+\Omega_{i_0i_1}\cdots\Omega_{i_{r-1}i_0}=I.
+\label{eq:holonomy}
+\end{equation}
+\end{lemma}
+\begin{proof}
+Intermediate frames cancel in the products.
+\end{proof}
+Bundle transition functions obey cocycle identities because they relate coordinate charts. Independent interactions need not obey them.
+
+\begin{proposition}[Coordinate invariance of relative entropy]\label{thm:glk_invariance}
+For a bimeasurable bijection $g$,
+\begin{equation}
+D_{\mathrm{KL}}(g_\#q\|g_\#p)=D_{\mathrm{KL}}(q\|p)
+\label{eq:glk_invariance}
+\end{equation}
+in $[0,\infty]$.
+\end{proposition}
+\begin{proof}
+Absolute continuity is preserved in both directions and
+$d(g_\#q)/d(g_\#p)=(dq/dp)\circ g^{-1}$ almost everywhere. Integration proves the identity; failure of absolute continuity gives infinity on both sides.
+\end{proof}
+The same pushforward preserves the Fisher metric of a regular family,
+\begin{equation}
+G_{ab}=\mathbb E_\zeta[(\partial_a\log\zeta)(\partial_b\log\zeta)].
+\end{equation}
+Coordinate covariance makes comparisons meaningful but is not, by itself, a dynamical restriction.
+
+\begin{proposition}[Removability of reference frames]\label{prop:regime1_removability}
+For $\bar q_i=(U_i^{-1})_\#q_i$,
+\begin{equation}
+D_{\mathrm{KL}}(q_i\|(\Omega_{ij})_\#q_j)
+=D_{\mathrm{KL}}(\bar q_i\|\bar q_j).
+\label{eq:regime1_removability}
+\end{equation}
+\end{proposition}
+\begin{proof}
+Use coordinate invariance with $g=U_i^{-1}$.
+\end{proof}
+This removes only the reference frames. A general link becomes $U_i^{-1}L_{ij}U_j$ and can retain rank loss, learned content and nontrivial composition. Gauge covariance must not be used to infer that these interactions are removable.
+
+\subsection{Selective sending and receiving}\label{sec:matrix_communication}
+The order $ij$ means sender $j$ to receiver $i$: a message from $i$ to $j$ has index $ji$. Choose a message space $H$ and maps
+\begin{equation}
+S_j:E_j\longrightarrow H,\qquad R_i:H\longrightarrow E_i,\qquad L_{ij}=R_iS_j.
+\label{eq:selective_link}
+\end{equation}
+Maps and message spaces may more generally depend on the edge. An intermediate transmission map may be inserted. For a message-coordinate change $h$,
+\begin{equation}
+S_j'=hS_jg_j^{-1},\qquad R_i'=g_iR_i h^{-1},\qquad
+L_{ij}'=g_iL_{ij}g_j^{-1}.
+\label{eq:matrix_link_covariance}
+\end{equation}
+Multiplication proves covariance and gives
+\begin{equation}
+\ker S_j\subseteq\ker L_{ij},\quad
+\operatorname{im}L_{ij}\subseteq\operatorname{im}R_i,\quad
+\operatorname{rank}L_{ij}\leq\min(\operatorname{rank}S_j,\operatorname{rank}R_i).
+\label{eq:selective_rank}
+\end{equation}
+Neither map must be orthogonal or idempotent. A low-rank link can read every input coordinate and write into every output coordinate. Rank limits transmitted linear variation, not coordinate support.
+
+For a statement such as \emph{cats are cute}, speech and gesture expose selected features of a sender's state, while hearing and remembered encounters shape their placement in the receiver's state. The construction formalizes selective access and reconstruction. Rank and covariance do not establish shared meaning; that requires specified records and predictions.
+
+The attention realization $S_j=TU_j^{-1}$, $R_i=U_iO$ has $L_{ij}=U_iOTU_j^{-1}$~\cite{DennisGLKAttention2026}. Even with flat reference frames,
+\begin{equation}
+L_{ij}L_{jk}-L_{ik}=R_i(S_jR_j-I_H)S_k.
+\label{eq:matrix_composition_defect}
+\end{equation}
+Composition is defect-free if $S_jR_j=I_H$. With injective $R_i$ and surjective $S_k$ the converse follows. A sum of routed heads can have greater rank than each head. Loop products transform by conjugation but may be singular. They are communication loop products; group holonomy is reserved for invertible connection-type links.
+
+\subsection{Normalized communication channels}\label{sec:channel_laws}
+A linear map alone specifies no noise law or likelihood. The probabilistic object is a normalized kernel $\mathcal K_{ij}:E_j\rightsquigarrow E_i$. Sending, transmission and receiving kernels compose to a normalized kernel~\cite[Ch.~6]{DennisGaugeVFE2026}, with
+\begin{equation}
+\mathcal K_{ij}'(g_jx,A)=\mathcal K_{ij}(x,g_i^{-1}A),\qquad
+q_j'\mathcal K_{ij}'=(g_i)_\#(q_j\mathcal K_{ij}).
+\label{eq:channel_covariance}
+\end{equation}
+For a Gaussian source $q_j=\mathcal N(\mu_j,\Sigma_j)$ and a linear Gaussian realization,
+\begin{equation}
+\mathcal K_{ij}(x,\cdot)=\mathcal N(L_{ij}x,N_{ij}),\quad N_{ij}\succ0,\qquad
+q_j\mathcal K_{ij}
+=\mathcal N(L_{ij}\mu_j,L_{ij}\Sigma_jL_{ij}^\top+N_{ij}).
+\label{eq:gaussian_communication}
+\end{equation}
+The output covariance is positive definite at every link rank; its transformation is $N_{ij}'=g_iN_{ij}g_i^\top$. With zero noise the kernel still exists but may output a singular measure, to which an ambient Gaussian density formula cannot be applied.
+
+Alternatively compare $A_{ij}{}_\#q_i$ and $B_{ij}{}_\#q_j$ in a common measured space. Full-row-rank maps give positive-definite reduced covariances. Comparison interfaces determine attention and content maps determine the message; they coincide only under an additional modeling relation.
+
+For nonsingular Gaussian laws,
+\begin{equation}
+D_{\mathrm{KL}}(\mathcal N(\mu,\Sigma)\|\mathcal N(\nu,V))
+=\frac12\left[\operatorname{tr}(V^{-1}\Sigma)+(\mu-\nu)^\top V^{-1}(\mu-\nu)
+-K+\log\frac{\det V}{\det\Sigma}\right].
+\label{eq:gaussian_kl}
+\end{equation}
+For a selective channel $V=L_{ij}\Sigma_jL_{ij}^\top+N_{ij}$; for a reduced comparison the formula lives in the measured space. Substituting a singular noise-free covariance would not generalize the formula.
+
+\subsection{Agreement in public variables and private information}
+For a deterministic interface $T$ on standard Borel spaces, the chain rule gives
+\begin{equation}
+D_{\mathrm{KL}}(q\|p)=D_{\mathrm{KL}}(T_\#q\|T_\#p)
++\int D_{\mathrm{KL}}(q(\cdot\mid T=z)\|p(\cdot\mid T=z))(T_\#q)(dz).
+\label{eq:selective_private_information}
+\end{equation}
+The identity follows by disintegrating $(X,T(X))$, under the standard absolute-continuity and extended-real conventions. Perfect communicated agreement can coexist with different private conditional laws. It therefore establishes neither complete agreement nor a closed parent dynamics. Stochastic channels satisfy the corresponding data-processing inequality~\cite[Chs.~3 and~6]{DennisGaugeVFE2026}.
+
+\subsection{Independent group links and base connections}
+\label{sec:regime_convention}\label{sec:discrete_regime_ii}\label{sec:transport_hierarchy}
+Regime~I names only the flat identification $\Omega_{ij}=U_iU_j^{-1}$. Regime~II supplies independent invertible links $\Theta_{ij}$ obeying
+\begin{equation}
+\Theta_{ij}'=g_i\Theta_{ij}g_j^{-1}.
+\label{eq:omega_gauge_law}
+\end{equation}
+An unoriented edge representing reversible identification may impose $\Theta_{ji}=\Theta_{ij}^{-1}$. Selective communication imposes no such inverse relation. Network holonomy
+\begin{equation}
+H_i=\Theta_{ii_1}\cdots\Theta_{i_ri},\qquad H_i'=g_iH_i g_i^{-1}
+\label{eq:discrete_holonomy}
+\end{equation}
+can be nontrivial at $c_*$. Agreement around a loop forces $H_i{}_\#q_i=q_i$, not $H_i=I$ unless the law identifies the group element uniquely.
+
+\label{sec:connection_forms}\label{sec:field_strength}\label{sec:boundary_of_boundary}
+Between different base points, transport requires an additional connection. A frame gradient $A_\mu^{(i)}=U_i^{-1}\partial_\mu U_i$ instead obeys
+\begin{equation}
+F_{\mu\nu}^{(i)}=\partial_\mu A_\nu^{(i)}-\partial_\nu A_\mu^{(i)}
++[A_\mu^{(i)},A_\nu^{(i)}]=0
+\label{eq:connection_form}
+\end{equation}
+by Maurer--Cartan. This says nothing about arbitrary independent interaction curvature and supplies no physical conservation law. Formation below uses no base paths; conditional base-geometry calculations identify their derivative separately.
+
+\subsection{Working scope}\label{sec:working_framework}\label{sec:gauge_group_choice}
+Normalized laws and channels are the general setting. Real Gaussian examples use $\mathrm{GL}^+(K)$ with full covariance matrices; other representations are admitted when their types are supplied. The Gaussian technical appendices examine an invertible full-state consensus specialization. Their formulas do not extend to singular links by a change of symbols. The geometry fixes neither a physical spacetime nor a universal agent ontology.
+

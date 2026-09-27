@@ -46,7 +46,7 @@ in each fixed fiber, or a curve in section space, rather than motion of the base
 orient that history and Fisher arclength can assign agent-relative information duration, but this is
 not the modular flow of [[connes-rovelli-1994-thermal-time]], a Lorentzian time coordinate, or a
 global physical clock. Likewise, RG depth labels scale rather than inference duration. These
-distinctions are proved and audited in [[gauge-vfe-rg-pullback-geometry-2026-08-01]].
+distinctions are proved and audited in the gauge-VFE RG pullback-geometry record (2026-08-01).
 
 The 2026-08-13 ontology synthesis broadens the target from "physical geometry is a pullback" to a
 typed physicalization program. The Fisher pullback remains the rigorous prototype for a covariant
@@ -75,7 +75,6 @@ tensor.
 ## Sources synthesized
 
 - [[multiagentelbo-agent-only-ontology-2026-08-13]] - agent-only ontology, collective physicalization target, and units/constant boundary.
-- [[gauge-vfe-rg-pullback-geometry-2026-08-01]] — fixed timeless base, connection-relative informational geometry, Fisher information duration, and the physical-time boundary.
 
 - [[jacobson-1995-einstein-equation-of-state|jacobson-1995-thermodynamics-spacetime]] — Einstein equations as a horizon equation of state (Clausius relation + area entropy).
 - [[jacobson-2016-entanglement-equilibrium]] — gravity from a maximal-vacuum-entanglement equilibrium variational principle.

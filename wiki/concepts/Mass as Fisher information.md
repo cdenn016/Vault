@@ -21,7 +21,7 @@ updated: 2026-07-13
 
 ## Corrected scope
 
-The phrase **mass as Fisher information** now names a conditional modeling choice, not an identity theorem. The theorem-level object in [[belief-inertia-2026-07-12-theorem-first-revision]] is the local free-energy loss Hessian or **stiffness** $H_F$. The intrinsic statistical geometry is the [[Fisher information metric]] $G(q)$. A positive kinetic metric $M$ is introduced only if the modeler elects to study a conditional second-order extension.
+The phrase **mass as Fisher information** now names a conditional modeling choice, not an identity theorem. The theorem-level object in the belief-inertia theorem-first revision (2026-07-12) is the local free-energy loss Hessian or **stiffness** $H_F$. The intrinsic statistical geometry is the [[Fisher information metric]] $G(q)$. A positive kinetic metric $M$ is introduced only if the modeler elects to study a conditional second-order extension.
 
 $$
 G(q)\neq H_F(x)\neq M(x)
@@ -106,8 +106,6 @@ Under the primary first-order linearization, $\dot\delta=-\eta G^{-1}H_F\delta$.
 
 ## Sources
 
-- [[belief-inertia-2026-07-12-theorem-first-revision]] -- corrected source for the stiffness theorem, three-geometry distinction, and kinetic degeneracy.
-- [[belief-inertia-2026-07-13-final-verification-addendum]] -- final first-order stiffness-direction and metric-scope correction.
 - [[belief-inertia]] -- immutable historical manuscript note.
 - [[girolami-calderhead-2011-riemann-hmc]] -- position-dependent Fisher/Riemannian kinetic geometry.
 - [[chirco-2022-statistical-bundle-dynamics]], [[leok-zhang-2017-information-geometric-mechanics]], [[pistone-2018-statistical-bundle-lagrangian]] -- statistical-bundle and geometric-mechanics precedents.

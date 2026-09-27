@@ -11,7 +11,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-07-27
+updated: 2026-09-23
 ---
 
 # Softmax
@@ -32,7 +32,7 @@ where the entropy term is source-free and cancels while the normalizer survives.
 components $f_{ij}=\mathcal N(m_{ij},S_{ij})$ the tempered component is $\mathcal N(m_{ij},\tau S_{ij})$
 and the exact row carries an extra per-source logit $-\tfrac12(1-1/\tau)\log\det S_{ij}$, which for
 $\tau>1$ discounts higher-volume components
-([[magent-exact-elbo-whitepaper-2026-07-27-attention-derivation]], built on the standard
+(built on the standard
 power-likelihood construction).
 
 There is a sharper way to say this when the components arise as Gaussian link factors
@@ -41,11 +41,16 @@ $R_{ij}=cS_{ij}$ reproduces the tempered row exactly at $\tau=c$, log-determinan
 softmax temperature is not a free knob layered on top of a probabilistic model; it is a statement about
 how noisy the model declares its channels to be. Demanding that the row reduce to a clean divergence
 score, as an identity in the unconstrained sender mean, forces $R_{ij}=\tau S_{ij}$ and then forces
-$\tau=1$ — divergence scoring and unit temperature are the same requirement
-([[magent-exact-elbo-whitepaper-2026-07-27-link-covariance-tie]]).
+$\tau=1$ — divergence scoring and unit temperature are the same requirement.
+
+## Softmax as a regularized argmax and as a posterior (2026-09-23)
+
+The softmax row maximizes a linear score plus an entropy term. [[niculae-2017-regularized-attention]] derives it as the gradient of a regularized max over the simplex, with sparsemax as the squared-norm counterpart, and [[litman-2025-entropic-optimal-transport-attention]] states the same fact as a one-sided entropic optimal-transport problem whose regularization weight is the temperature. With a KL divergence to a prior in place of the entropy the solution is $\operatorname{softmax}(s/\tau+\log\pi)$ ([[litman-2026-attention-priors]], Proposition 3.1), and the row stays within a factor $e^{\pm\omega_i}$ of its prior, where $\omega_i$ is the range of the scores (Theorem 5.1). A binary observation with likelihood $\exp(-D_{ij}/\tau)$, the optimality-variable device of control as inference ([[levine-2018-control-as-inference]], [[kappen-2012-optimal-control-inference]]), turns the same row into an exact posterior over source labels at every temperature. This is the reading the GL(K) attention manuscript adopts ([[GL(K) gauge-equivariant attention]]).
+
+> [!note] Editorial: This does not conflict with the preceding section. There the temperature tempers the component densities of a fixed mixture, whose normalizers then survive. Here it sets the likelihood of a binary record, which is a valid probability for every $\tau>0$ because $D_{ij}\ge0$, so each temperature defines its own normalized model.
 
 ## Related
 [[Mechanistic interpretability of attention]], [[Attention mechanisms — theory and positional structure]], [[Precision weighting|Precision-weighted attention]], [[GL(K) gauge-equivariant attention]], [[Entropic regularization]], [[Mean-Field Approximation]], [[Maximum entropy]]
 
 ## Sources
-[[ramsauer2021hopfield]], [[xiao2024efficient-streaming-llm]], [[magent-exact-elbo-whitepaper-2026-07-27-attention-derivation]]
+[[ramsauer2021hopfield]], [[xiao2024efficient-streaming-llm]], [[niculae-2017-regularized-attention]], [[litman-2025-entropic-optimal-transport-attention]], [[litman-2026-attention-priors]], [[levine-2018-control-as-inference]], [[kappen-2012-optimal-control-inference]]

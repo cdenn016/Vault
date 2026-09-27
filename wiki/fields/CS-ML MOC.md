@@ -14,6 +14,11 @@ updated: 2026-09-27
 
 [[sukhbaatar-2019-persistent-memory]], [[geva-2021-ffn-key-value-memories]], [[jacobs-1991-mixtures-of-local-experts]], [[ghahramani-1994-incomplete-data-em]], [[hershey-2007-kl-gmm]] and [[elfwing-2018-silu]] support [[Template routing]].
 
+## Research tooling reference, September 26, 2026
+
+[[exa-2026-agent-create-run]] archives the official Agent API effort and budget fields. Its role is methodological under [[Rigorous theory search]], not evidence for mathematical results.
+
+
 > Map of Content for the **`field/cs-ml`** discipline facet (computer science & machine learning).
 > Auto-populated by the **Bases** core plugin from the `field/*` tags.
 
@@ -79,7 +84,11 @@ or `tag:#field/cs-ml tag:#cluster/info-geometry`. See the [[Disciplines MOC]] hu
 - [[tsitsiklis-1986-distributed-asynchronous-deterministic-and-stochastic-gradient-op]]
 - [[turner-2011-two-problems-with-variational-expectation-maximisation-for-time-s]]
 - [[ying-2018-hierarchical-graph-representation-learning-with-differentiable-pooling]]
-- [[multiagentelbo-2026-09-11-critical-comparisons]]
-- [[multiagentelbo-2026-09-11-extension-studies]]
-- [[multiagentelbo-2026-09-11-finite-program]]
-- [[multiagentelbo-2026-09-11-implementation]]
+
+## Matrix-link ingestion, September 20, 2026
+
+[[dennis-2026-glk-matrix-links-2026-09-20]] records the matrix-link source and its stated scope; [[Lattice gauge theory]] and [[GL(K) gauge-equivariant attention]] provide the synthesis. The source is included in the tagged Bases view.
+
+## Selective-communication formation assessment, September 20, 2026
+
+[[multiagentelbo-2026-selective-communication-formation]] records communicated/private-law separation, quotient compatibility and the proposed normalized cycle extension. Its formation and blanket claims remain explicitly conditional; the source is included in this discipline's tagged Bases view.

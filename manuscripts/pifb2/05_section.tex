@@ -1,0 +1,181 @@
+% !TeX root = ../PIFB2.tex
+\section{One Collective Variational Free Energy}\label{sec:free_energy}
+
+The probabilistic foundation is one normalized law for the population, not a sum of separately asserted evidence bounds. The same foundation accommodates selective communication, attention and subsequent coarse-graining. A composite consensus potential remains useful as a worked model, but we write it as $\mathcal E$ to distinguish it from the collective variational free energy $\mathcal F_V$. The distinction matters when priors, interfaces or other agents' beliefs move.
+
+\subsection{A normalized population model}
+At $c_*$ fix a finite agent set $V$ and let $y=(y_i)_{i\in V}$, with $y_i=(k_i,m_i)$ when model parameters are explicit. Let $X$ collect structural parameters: available edges, interface maps, noise parameters and frame presentations. Choose a proper prior $P_0(dy\mid X)$, a source-label prior $\Pi(dJ\mid X)$ and normalized record kernels. For a finite collection of conditionally independent records with declared scopes,
+\begin{equation}
+\mathbb P(dy,dJ,do\mid X)
+=P_0(dy\mid X)\Pi(dJ\mid X)\prod_a K_a(do_a\mid y_{\partial a},J,X).
+\label{eq:population_joint}
+\end{equation}
+The product is normalized by integrating the records and then the prior. A correlated record kernel can replace the product. Every record appears once; giving several agents access to one record does not create several independent likelihood factors. Loops in the interaction graph do not cause a normalization problem for record kernels conditional on the whole latent population.
+
+At a record $o$, assume a common dominating reference and finite positive evidence
+$Z_o(X)=\int\ell_o(y,J;X)P_0(dy\mid X)\Pi(dJ\mid X)$. For a recognition law $Q(dy,dJ)$ with the required absolute continuity and integrability,
+\begin{equation}
+\begin{split}
+\mathcal F_V[Q;X,o]
+&=D_{\mathrm{KL}}(Q\|P_0\Pi)-\mathbb E_Q\log\ell_o\\
+&=D_{\mathrm{KL}}(Q\|\mathbb P(\cdot\mid o,X))-\log Z_o(X).
+\end{split}
+\label{eq:collective_vfe}
+\end{equation}
+The identity follows by substituting the posterior density $\ell_o/Z_o$. The evidence bound and its equality case are exact. Where an energy-minus-entropy expression has indeterminate infinite terms, the posterior-relative-entropy formulation is the definition. The companion theory states the measure-theoretic conditions in full~\cite[Chs.~3--5]{DennisGaugeVFE2026}.
+
+The local sections $\zeta_i$ are marginals of $Q$, with dependence on the records restricted by their access maps if required. A product $Q_Y=\prod_i\zeta_i$ is an optional mean-field family. Marginals alone do not determine $Q_Y$, and information discarded by a product restriction is not zero merely because the marginal notation omits it.
+
+The generative law reads latent coordinates and declared parameters, not the live recognition law $Q$. A model evaluator may read a latent model presentation $m_i$. Replacing a generative factor by another agent's current posterior changes the model during inference and requires a separate predictive, conditional or learning interpretation.
+
+\subsection{Selective records place the links inside the functional}
+For a linear Gaussian comparison record, take
+\begin{equation}
+o_i=A_i k_i-B_{ij}k_j+\epsilon_i
+\quad\text{when }J_i=j,\qquad
+\epsilon_i\sim\mathcal N(0,\tau_i\Gamma_i),
+\quad \tau_i>0,\quad\Gamma_i\succ0.
+\label{eq:selective_record}
+\end{equation}
+The maps have a common output space within row $i$, and $\Gamma_i$ is the same for its candidate sources. The full-state receiving form has $A_i=I$, $B_{ij}=L_{ij}$; a lower-dimensional interface has rectangular $A_i,B_{ij}$. At the selected zero comparison record define
+\begin{equation}
+D_{ij}(y)=\frac12(A_i k_i-B_{ij}k_j)^\top
+\Gamma_i^{-1}(A_i k_i-B_{ij}k_j),\qquad
+\ell_i(0\mid y,J_i=j)=c_i e^{-D_{ij}(y)/\tau_i}.
+\label{eq:normalized_link_energy}
+\end{equation}
+Here $c_i=(2\pi\tau_i)^{-\dim H_i/2}|\Gamma_i|^{-1/2}$. The Gaussian is normalized as a law of $o_i$ for every state and every link rank. For fixed message-record coordinates, $A_i'=A_i g_i^{-1}$ and $B_{ij}'=B_{ij}g_j^{-1}$ leave the density unchanged. If the record coordinates also change by $o_i'=h_i o_i$, then $A_i'=h_iA_i g_i^{-1}$, $B_{ij}'=h_iB_{ij}g_j^{-1}$ and $\Gamma_i'=h_i\Gamma_i h_i^\top$. The probability kernel is covariant. Its density is invariant against the transported reference measure; against fresh Lebesgue measure it acquires $|\det h_i|^{-1}$. The evidence density has the same factor and $\mathcal F_V$ shifts by $\sum_i\log|\det h_i|$, while posterior and source probabilities are unchanged. This distinction matters when $A_i=I$ and record coordinates follow the receiver. If source-dependent covariances are admitted on a common observation space, their normalizers enter the source energies and cannot be omitted.
+
+For a correlated Gaussian recognition law with cross covariance $\Sigma_{ij}=\operatorname{Cov}(k_i,k_j)$,
+\begin{equation}
+\begin{split}
+2\mathbb E_QD_{ij}
+={}&\|A_i\mu_i-B_{ij}\mu_j\|_{\Gamma_i^{-1}}^2\\
+&+\operatorname{tr}\left[\Gamma_i^{-1}
+(A_i\Sigma_{ii}A_i^\top+B_{ij}\Sigma_{jj}B_{ij}^\top
+-A_i\Sigma_{ij}B_{ij}^\top-B_{ij}\Sigma_{ji}A_i^\top)\right].
+\end{split}
+\label{eq:correlated_link_cost}
+\end{equation}
+Expanding the square proves the formula. The last two terms vanish under independence; they can also vanish when the interfaces annihilate the relevant cross covariances. This is one place where a collective law conveys information that separate marginal beliefs miss.
+
+The interfaces are generative parameters unless made latent with a proper prior. Learning them requires differentiating the complete normalized model, including covariance normalizers. If the observations or structural constraints fail to identify their scale or rank, minimizing VFE alone need not select an informative interface. The variational principle optimizes a supplied model; it does not supply that model's missing identifiability conditions.
+
+\subsection{Attention as source inference}\label{sec:mixture_derivation}
+Suppose the labels are prior-independent with rows $\pi_{ij}>0$ on the available source sets, and no record other than row $i$ reads $J_i$. Conditional on the latent state, Bayes' rule gives
+\begin{equation}
+\mathbb P(J_i=j\mid y,o,X)
+=\frac{\pi_{ij}e^{-D_{ij}(y)/\tau_i}}
+{\sum_k\pi_{ik}e^{-D_{ik}(y)/\tau_i}}.
+\label{eq:generative_source_attention}
+\end{equation}
+A recognition restriction $Q(dy,dJ)=Q_Y(dy)\prod_i\beta_i(dJ_i)$ instead gives
+\begin{equation}
+\beta_{ij}^*
+=\frac{\pi_{ij}\exp[-\mathbb E_{Q_Y}D_{ij}/\tau_i]}
+{\sum_k\pi_{ik}\exp[-\mathbb E_{Q_Y}D_{ik}/\tau_i]}.
+\label{eq:recognition_source_attention}
+\end{equation}
+These are different rows: a softmax of averaged costs is generally not an average of conditional softmaxes. The restriction discards label--state dependence.
+
+More generally, for fixed finite costs $E_{ij}$ and $\tau>0$, set
+\begin{equation}
+f_i(\beta_i)=\sum_j\beta_{ij}E_{ij}
++\tau D_{\mathrm{KL}}(\beta_i\|\pi_i),\qquad
+Z_i=\sum_j\pi_{ij}e^{-E_{ij}/\tau}.
+\label{eq:mixture_energy_entropy}
+\end{equation}
+The exact algebraic identity
+\begin{equation}
+f_i(\beta_i)=-\tau\log Z_i+\tau D_{\mathrm{KL}}(\beta_i\|\beta_i^*),
+\quad
+\beta_{ij}^*=\pi_{ij}e^{-E_{ij}/\tau}/Z_i
+\label{eq:beta_optimal}
+\end{equation}
+proves uniqueness, the reduced value and the correct sign of the entropy term. In the normalized record model its row contribution to $\mathcal F_V$ is $f_i/\tau-\log c_i$ with $E_{ij}=\mathbb E_QD_{ij}$. In a consensus model $E_{ij}$ can instead be a divergence between law points. The same optimization formula does not make these two probabilistic levels identical.
+
+For the conditional-row family, optimization before averaging gives
+$-\mathbb E_Q\log\sum_j\pi_{ij}e^{-D_{ij}(y)/\tau_i}$.
+Restricting to a constant row gives
+$-\log\sum_j\pi_{ij}e^{-\mathbb E_QD_{ij}/\tau_i}$.
+The constant-row value minus the conditional-row value is nonnegative by the variational inclusion, or by concavity of the negative log-sum-exp. Equality requires a common optimizing row almost everywhere.
+
+\subsection{A separate consensus potential with general channels}
+\label{sec:gauge_transport_arbitrary}
+If the intended dynamics compare beliefs directly, define
+\begin{equation}
+E_{ij}^{\mathcal K}=D_{\mathrm{KL}}(q_i\|q_j\mathcal K_{ij}),\qquad
+E_{ij}^{m}=D_{\mathrm{KL}}(s_i\|s_j\mathcal K^m_{ij}).
+\label{eq:channel_consensus_cost}
+\end{equation}
+The corresponding pointwise composite potential is
+\begin{equation}
+\begin{split}
+\mathcal E(c)={}&\sum_iD_{\mathrm{KL}}(q_i\|p_i)
++\lambda_h\sum_iD_{\mathrm{KL}}(s_i\|r_i)
+-\sum_i\mathbb E_{q_i\otimes s_i}\log\ell_i(o_i\mid k_i,m_i)\\
+&+\sum_i\left[\sum_j\beta_{ij}E_{ij}^{\mathcal K}
++\tau D_{\mathrm{KL}}(\beta_i\|\pi_i)\right]
++\sum_i\left[\sum_j\gamma_{ij}E_{ij}^{m}
++\tau_\gamma D_{\mathrm{KL}}(\gamma_i\|\pi_i^m)\right].
+\end{split}
+\label{eq:pointwise_free_energy}
+\end{equation}
+All quantities here are evaluated at $c$. Source rows range over agents present on the relevant overlaps. Reduced-space divergences can replace the costs when comparison is defined in message space. Equation~\eqref{eq:pointwise_free_energy} is a well-defined scalar potential where its terms are finite. It is not asserted to be the evidence bound of Eq.~\eqref{eq:population_joint}.
+
+For a fixed source-template family, the normalized row mixture
+\begin{equation}
+P_i(dk,J_i=j)=\pi_{ij}(q_j\mathcal K_{ij})(dk),\qquad
+Q_i(dk,J_i=j)=q_i(dk)\beta_{ij}
+\label{eq:mixture_joint}
+\end{equation}
+satisfies at unit temperature
+\begin{equation}
+D_{\mathrm{KL}}(Q_i\|P_i)
+=\sum_j\beta_{ij}E_{ij}^{\mathcal K}
++D_{\mathrm{KL}}(\beta_i\|\pi_i).
+\label{eq:mixture_free_energy}
+\end{equation}
+This is exact with fixed templates. When $q_j$ evolves, $P_i$ evolves with the variational state; the identity does not turn the simultaneous population potential into inference under a single fixed state-level joint. The technical appendices analyze this distinction and a normalized lift to a different space of law configurations.
+
+For a private joint state--model law $\zeta_i$ and independent prior $p_i\otimes r_i$,
+\begin{equation}
+D_{\mathrm{KL}}(\zeta_i\|p_i\otimes r_i)
+=D_{\mathrm{KL}}(q_i\|p_i)+D_{\mathrm{KL}}(s_i\|r_i)
++I_{\zeta_i}(K;M).
+\label{eq:observation_typing_ledger}
+\end{equation}
+Thus the two self terms and product observation term in the consensus potential agree with a private mean-field VFE block only at $\lambda_h=1$. A different scalar weight is an additional objective choice, not a consequence of the ordinary ELBO.
+
+\subsection{Fields, reduction and the worked Gaussian specialization}
+\label{sec:complete_free_energy}
+With a declared base density and support functions, the field potential is
+\begin{equation}
+\mathcal E_{\mathcal C}=\int_{\mathcal C}\mathcal E(c)d\nu(c),
+\label{eq:free_energy_functional_final}
+\end{equation}
+where absent agents and unavailable edges are omitted, and the terms must be integrable. Smooth interior support weights may be used for differential calculations. Sharp domain boundaries or formation changes need their own regularity treatment. This integral is not a claim that an uncountable continuum of records has an independent product likelihood.
+
+Substituting optimal rows gives a reduced potential $\mathcal E_{\mathrm{red}}$ and
+\begin{equation}
+\mathcal E_{\mathrm{full}}
+=\mathcal E_{\mathrm{red}}
++\tau\sum_iD_{\mathrm{KL}}(\beta_i\|\beta_i^*)
++\tau_\gamma\sum_iD_{\mathrm{KL}}(\gamma_i\|\gamma_i^*).
+\label{eq:attention_full_reduced_identity}
+\end{equation}
+At their optima,
+\begin{equation}
+\mathcal E_{\mathrm{full}}=\mathcal E_{\mathrm{red}},\qquad
+d\mathcal E_{\mathrm{red}}
+=d\mathcal E_{\mathrm{self+obs}}
++\sum_{ij}\beta_{ij}^*dE_{ij}^{\mathcal K}
++\sum_{ij}\gamma_{ij}^*dE_{ij}^{m},
+\label{eq:attention_full_equals_reduced}
+\end{equation}
+for fixed temperatures and source priors. Changing priors contributes
+$-\tau\sum_{ij}\beta_{ij}^*d\log\pi_{ij}$ and its model counterpart; changing the channels also contributes through the costs. These terms cannot be discarded while learning the corresponding parameters.
+
+The invertible noiseless specialization
+$\mathcal K_{ij}(x,\cdot)=\delta_{\Omega_{ij}x}$ recovers the old transported Gaussian consensus model. Sections~\ref{sec:precision_envelope} and~\ref{sec:mass}, and the Gaussian appendices, retain its detailed calculations under their stated restrictions. The principal construction of the monograph is the normalized collective model with selective interactions. Its consequences and those of the consensus specialization are kept separate.
+

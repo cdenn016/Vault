@@ -14,10 +14,15 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-08-03
-updated: 2026-08-03
+updated: 2026-09-27
 ---
 
 # Rigorous theory search
+
+## External research configuration
+
+[[exa-2026-agent-create-run]] archives the official create-run API schema as retrieved September 26, 2026. The requested highest effort is the explicit field `effort: "ultra"`; it can coexist with `budget.maxCostDollars`. The schema concerns execution settings. Generated research prose remains a lead to inspect, not a substitute for the primary source or a checked proof. Archive the run configuration and inspect the cited result's hypotheses before using it.
+
 
 ## What it is
 
@@ -27,7 +32,7 @@ searching for an affirmative construction—while preventing that prior from ent
 **certification logic**. The method combines a frozen problem contract, a mechanism-diverse search
 portfolio, an atomic claim ledger, an acyclic dependency graph, domain-specific mathematical gates,
 adversarial reconstruction, and an oracle-erasure audit. Its archived design and mathematical
-reconstruction are recorded in [[2026-08-02-rigorous-theory-search-skill]].
+reconstruction were recorded in a 2026-08-02 skill record.
 
 It is a coordination and evidence discipline, not an automatic theorem prover. Its structural
 validators can reject malformed or circular proof records, but only an actual derivation, formal
@@ -95,8 +100,7 @@ The method cannot guarantee that a target is true, solvable, novel, or open. Sol
 evidence, structural validation is not semantic proof, finite computation does not prove a universal
 statement, and a restricted literature search cannot support a priority claim. The archived
 no-target-skill baseline is also not a closed efficacy benchmark: its reported 240 assertion grades
-lack durable per-assertion records, so paired evaluation remains required
-([[2026-08-02-rigorous-theory-search-skill]]).
+lack durable per-assertion records, so paired evaluation remains required.
 
 ## Relation to this work
 
@@ -112,13 +116,12 @@ for the program's recurring load-bearing interfaces:
 - mathematical duration versus claims about emergent physical time.
 
 The method complements, rather than replaces, the domain foundation in [[Gauge VFE ELBO curriculum]],
-the current theorem record [[gauge-vfe-rg-pullback-geometry-2026-08-01]], formal or symbolic checks,
+the gauge-VFE RG theorem record, formal or symbolic checks,
 primary-source review, and manuscript peer review.
 
 ## Sources
 
-- [[2026-08-02-rigorous-theory-search-skill]] — sanitized design, evaluation boundary, and independent
-  mathematical reconstruction record.
+- [[exa-2026-agent-create-run]] — archived Exa create-run API schema (retrieved 2026-09-26).
 
 ## See also
 

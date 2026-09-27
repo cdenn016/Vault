@@ -12,10 +12,23 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-08-10
+updated: 2026-09-23
 ---
 
 # Gauge equivariance and geometric deep learning
+
+## Dressed frames, $\{e\}$-structures and sheaves, September 23, 2026
+
+The v2 revision of the GL(K) attention manuscript separates two kinds of frame covariance. In gauge-equivariant CNNs ([[cohen-2019-gauge-cnn]], [[weiler-2021-coordinate-independent-cnns]]) the frame is geometric data defined only up to the structure group, and weight sharing forces the shared kernels to be intertwiners. In the attention construction the frames $U_i$ are learned. They fix an $\{e\}$-structure, a global frame field ([[weiler-2021-coordinate-independent-cnns]], Sections 2.1.1 and 3.1.3), and act as a local dressing field in the sense of [[fournel-2014-gauge-invariant-composite-fields]]. By criterion (C1) of [[francois-2019-artificial-gauge-symmetries]] the resulting covariance is artificial, the kind Kretschmann called physically vacuous ([[norton-1993-general-covariance]]), and it constrains none of the learned maps. [[Dressing field method]] records the construction.
+
+For the matrix links, the comparison cospan $E_i\to H^{\mathrm{cmp}}\leftarrow E_j$ is a pair of restriction maps into an edge stalk, which is the data of a cellular sheaf ([[hansen-2018-toward-a-spectral-theory-of-cellular-sheaves]]). [[bodnar-2022-neural-sheaf-diffusion]] learns such restriction maps from node features and identifies sheaves with orthogonal restriction maps as discrete $O(d)$ bundles whose Laplacian is the connection Laplacian ([[Graph synchronization and connection Laplacians]]). The revision therefore treats sheaves, rather than [[Lattice gauge theory]], as the closer counterpart of its links.
+
+## Gaussian agents and matrix communication links, September 20, 2026
+
+[[dennis-2026-glk-matrix-links-2026-09-20]] connects full Gaussian site states to learned sending and receiving maps through $L_{ij}^{(h)}=U_iO_hT_hU_j^{-1}$. Covariance follows from transforming the endpoint maps as geometric data, rather than assuming a fixed rectangular numerical matrix intertwines arbitrary local actions. This gives a constrained matrix-link family even when individual heads lose rank. The flat vertex-frame transport and the communication operator are distinct objects.
+
+[[wetterich-2014-linear-lattice-gauge-theory]] supplies the general-matrix-link precedent. The attention manuscript supplies its own GL(K) algebra and explicitly retains the action, global normalization, and dynamics as further obligations. [[GL(K) gauge-equivariant attention]], [[Lattice gauge theory]], and [[Holonomy]] record the construction and path restrictions. An MLP theory remains unresolved; no full-stack equivariance or common-free-energy descent follows.
+
 
 ## The big picture
 
@@ -35,29 +48,29 @@ There is one further step past Cohen and Weiler that this theme long left implic
 
 **Irreps and Clebsch-Gordan coupling.** [[thomas-2018-tensor-field-networks]] is the canonical template here. Tensor Field Networks build SO(3)-equivariant layers whose features *live in irreps* and are coupled through spherical-harmonic filters and the Clebsch-Gordan tensor product — the rule that tells you how the product of two irreps decomposes back into irreps. The VFE transformer borrows this exact machinery for its irrep bookkeeping and Clebsch-Gordan coupling: when two gauge-structured features interact, their tensor product is re-expressed in the irrep basis, keeping the whole computation equivariant by construction.
 
-**Lie-algebra-first parameterization.** LieConv's own result assumes a surjective exponential map. Real matrix exponentiation is not surjective onto $\mathrm{GL}^+(K)$, so the transformer's single real chart realizes only $\operatorname{image}(\exp)$. Finite BCH composition is local and approximate; exact ambient covariance of the score does not make this realized chart globally complete. [[gl-k-attention-2026-07-09-review-revision]]
+**Lie-algebra-first parameterization.** LieConv's own result assumes a surjective exponential map. Real matrix exponentiation is not surjective onto $\mathrm{GL}^+(K)$, so the transformer's single real chart realizes only $\operatorname{image}(\exp)$. Finite BCH composition is local and approximate; exact ambient covariance of the score does not make this realized chart globally complete.
 
 **Local gauge symmetry and transport.** [[cohen-2019-gauge-cnn]] is the load-bearing source for the program's central metaphor. Once features carry a local frame, comparing features at different locations requires a connection, and the connection furnishes [[Parallel transport]] and, around closed loops, [[Holonomy]]. The VFE transformer reuses this to transport per-token Gaussian beliefs between tokens before they are compared in attention, so that the comparison is frame-independent. [[weiler-2021-coordinate-independent-cnns]] derives this same apparatus from first principles in monograph form, showing that requiring coordinate-independence together with weight-sharing *forces* local-gauge equivariance, and supplying the full G-structure, parallel-transport, and holonomy bookkeeping — the textbook-grade statements of the transport rule and the cocycle/holonomy conditions the program leans on. [[bronstein-2021-geometric-deep-learning]] frames the whole apparatus — frames, transport, holonomy — as a unifying vocabulary across architectures, which is why it serves as the conceptual anchor connecting this theme to attention and positional structure.
 
 ## How it lands in this work
 
-The MAgent exact-ELBO construction now types continuum bundle fields and finite realizations separately. Sampling a supplied section on a finite design is not the same operation as marginalizing a correlated finite recognition law, although an explicit compatibility hypothesis can identify their outputs at the design points. Finite site variables alone are not a lattice gauge theory: a genuine lattice construction also declares an interaction complex, group-valued links on oriented edges, and two-cells or plaquettes. No continuum reconstruction or continuum-limit theorem follows merely from the finite ELBO. [[magent-exact-elbo-whitepaper-2026-07-19-continuum-finite-remediation]]
+The MAgent exact-ELBO construction now types continuum bundle fields and finite realizations separately. Sampling a supplied section on a finite design is not the same operation as marginalizing a correlated finite recognition law, although an explicit compatibility hypothesis can identify their outputs at the design points. Finite site variables alone are not a lattice gauge theory: a genuine lattice construction also declares an interaction complex, group-valued links on oriented edges, and two-cells or plaquettes. No continuum reconstruction or continuum-limit theorem follows merely from the finite ELBO.
 
-The architecture uses block-$\mathrm{GL}(K)$ frames to transport Gaussian beliefs. The full-Gaussian divergence is exactly invariant under common invertible pushforwards, but the live diagonal family is closed only under monomial congruences and otherwise requires projection. Regime-I vertex transport has exact trivial holonomy. [[gl-k-attention-2026-07-09-review-revision]]
+The architecture uses block-$\mathrm{GL}(K)$ frames to transport Gaussian beliefs. The full-Gaussian divergence is exactly invariant under common invertible pushforwards, but the live diagonal family is closed only under monomial congruences and otherwise requires projection. Regime-I vertex transport has exact trivial holonomy.
 
-The audited width sweep also uses an identity-initialized post-belief head remap at every $K\geq20$; $K=10$ has no mixer. For the live untied product action $\mathrm{GL}(10)^H$, an off-diagonal $H\times H$ remap does not commute with independent per-head gauges and is therefore not gauge-equivariant. It becomes a Schur-commutant intertwiner only under a gauge tied across equivalent head copies. In the one-layer linear-decode path the map is absorbable into the output projection as a function-class statement, but no matched mixer-off control isolates its optimization effect. [[gl-k-attention-2026-07-09-review-revision]]
+The audited width sweep also uses an identity-initialized post-belief head remap at every $K\geq20$; $K=10$ has no mixer. For the live untied product action $\mathrm{GL}(10)^H$, an off-diagonal $H\times H$ remap does not commute with independent per-head gauges and is therefore not gauge-equivariant. It becomes a Schur-commutant intertwiner only under a gauge tied across equivalent head copies. In the one-layer linear-decode path the map is absorbable into the output projection as a function-class statement, but no matched mixer-off control isolates its optimization effect.
 
-Full-SPD covariance geometry and Gaussian belief natural gradients remain valid. The frame conditioner is separate: the positive Frobenius/Cartan form is not full-$\mathrm{GL}(K)$ adjoint-invariant or Fisher, and its exponential-coordinate pullback is extrinsic and only locally positive definite where $D\exp$ has full rank. [[gl-k-attention-2026-07-09-review-revision]]
+Full-SPD covariance geometry and Gaussian belief natural gradients remain valid. The frame conditioner is separate: the positive Frobenius/Cartan form is not full-$\mathrm{GL}(K)$ adjoint-invariant or Fisher, and its exponential-coordinate pullback is extrinsic and only locally positive definite where $D\exp$ has full rank.
 
 ## Open questions / gaps
 
-The active MAgent frame optimizer does not yet support the manuscript's full common-right $\mathrm{GL}^+(K)$ trajectory claim. Scalar Gaussian-KL invariance under a common pushforward remains valid, but the reached Frobenius body-covector update transforms under a different law from the one required by right-orbit equivariance for generic nonorthogonal gauge changes. The open design choice is whether to restrict the admitted symmetry, state a gauge fixing, or replace the update with a proved right-equivariant rule. [[participatory-it-from-bit-2026-07-11-code-concordance-review]]
+The active MAgent frame optimizer does not yet support the manuscript's full common-right $\mathrm{GL}^+(K)$ trajectory claim. Scalar Gaussian-KL invariance under a common pushforward remains valid, but the reached Frobenius body-covector update transforms under a different law from the one required by right-orbit equivariance for generic nonorthogonal gauge changes. The open design choice is whether to restrict the admitted symmetry, state a gauge fixing, or replace the update with a proved right-equivariant rule.
 
-Hierarchical closure creates a second domain problem. Legal bounded products of exponential frame increments can reach well-conditioned elements of $\mathrm{GL}^+(K)$ for which no real logarithm exists, while the current coarse-frame construction requires `matrix_log_principal`. A group-level construction that avoids a global logarithm, or an invariant restriction to a log-safe domain, is required before the formal frame group and executable hierarchy have the same domain. [[participatory-it-from-bit-2026-07-11-code-concordance-review]]
+Hierarchical closure creates a second domain problem. Legal bounded products of exponential frame increments can reach well-conditioned elements of $\mathrm{GL}^+(K)$ for which no real logarithm exists, while the current coarse-frame construction requires `matrix_log_principal`. A group-level construction that avoids a global logarithm, or an invariant restriction to a log-safe domain, is required before the formal frame group and executable hierarchy have the same domain.
 
-The main realized-family gap is exact: a single real exponential chart misses part of $\mathrm{GL}^+(K)$. Stored group elements (`omega_direct`) or multiple-chart constructions can cover transformations that the phi chart cannot. This is separate from LieConv's valid theorem under its own surjectivity premise. [[gl-k-attention-2026-07-09-review-revision]]
+The main realized-family gap is exact: a single real exponential chart misses part of $\mathrm{GL}^+(K)$. Stored group elements (`omega_direct`) or multiple-chart constructions can cover transformations that the phi chart cannot. This is separate from LieConv's valid theorem under its own surjectivity premise.
 
-Holonomy is closed in strict Regime I: $\Omega_{ij}=U_iU_j^{-1}$ telescopes around every loop. The open holonomy question belongs to independent-edge or otherwise nonflat transport, not stacked vertex-cocycle attention. [[gl-k-attention-2026-07-09-review-revision]]
+Holonomy is closed in strict Regime I: $\Omega_{ij}=U_iU_j^{-1}$ telescopes around every loop. The open holonomy question belongs to independent-edge or otherwise nonflat transport, not stacked vertex-cocycle attention.
 
 ## Synchronization and variational gauge boundaries (2026-08-10)
 
@@ -143,8 +156,6 @@ decrease. This is a real gap, not a technicality, and it should not be cited as 
 
 ## Sources synthesized
 
-- [[participatory-it-from-bit-2026-07-11-code-concordance-review]] — MAgent/PIFB2 code-concordance review of optimizer equivariance and the frame-log domain of hierarchical pooling.
-
 - [[cohen-2016-gcnn]] — Group Equivariant Convolutional Networks: the founding statement that a declared symmetry group structures the architecture and yields provable [[Group equivariance]].
 - [[cohen-2019-gauge-cnn]] — Gauge Equivariant CNNs and the Icosahedral CNN: the move from global to local symmetry, with the kernel constraint and [[Parallel transport]] rule underpinning the project's gauge frames.
 - [[weiler-2019-e2-steerable]] — General E(2)-Equivariant Steerable CNNs: reduction of kernel constraints to per-[[Irreducible representation|irrep]] constraints, giving a reusable steerable basis.
@@ -159,6 +170,11 @@ decrease. This is a real gap, not a technicality, and it should not be cited as 
 - [[cassel-2025-yang-mills-data]] — Yang-Mills Meets Data: discrete vector bundles, graph voltages, gauged Laplacians / heat kernels with an axiomatic characterization, and a discrete Yang–Mills energy certifying synchronizability (for $\mathrm{SO}(d)$).
 - [[cassel-2024-sigma-flows]] — Sigma Flows: Riemannian gradient flow of a generalized harmonic energy giving harmonic maps into the Fisher–Rao simplex, with a learnable state-dependent domain metric; existence and global convergence explicitly left open.
 - [[gonzalez-alvarado-2025-patch-assignment]] — Riemannian Patch Assignment Gradient Flows: the discrete assignment-flow precursor, with label-interaction dictionaries and a Lagrangian action-functional characterization.
+- [[fournel-2014-gauge-invariant-composite-fields]] — Gauge Invariant Composite Fields out of Connections: the Main Lemma of the dressing field method.
+- [[francois-2019-artificial-gauge-symmetries]] — Artificial versus Substantial Gauge Symmetries: a local dressing field signals an artificial symmetry (criterion C1).
+- [[norton-1993-general-covariance]] — the Kretschmann objection and eight decades of dispute over general covariance.
+- [[bodnar-2022-neural-sheaf-diffusion]] — Neural Sheaf Diffusion: learned restriction maps of cellular sheaves on graphs.
+- [[hansen-2018-toward-a-spectral-theory-of-cellular-sheaves]] — spectral theory of cellular sheaf Laplacians.
 
 ### Related sources
 

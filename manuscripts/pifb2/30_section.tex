@@ -1,0 +1,68 @@
+% !TeX root = ../PIFB2.tex
+\section{Mathematical Details}
+\label{app:math}
+
+\subsection{Variational Free Energy Preliminaries}
+\label{app:variational_prelim}
+
+For a normalized generative law with observed evidence $Z_o\in(0,\infty)$ and posterior $P_o$, the variational free energy is
+\begin{equation}
+\mathcal F_V[Q]=D_{\mathrm{KL}}(Q\|P_o)-\log Z_o\ge-\log Z_o.
+\end{equation}
+When the density and integrability assumptions of Section~\ref{sec:free_energy} hold, this is also
+\begin{equation}
+\mathcal F_V[Q]=D_{\mathrm{KL}}(Q\|P_0)-\mathbb E_Q\log\ell_o.
+\end{equation}
+The posterior-relative-entropy formula defines the extended value when the split expression would subtract infinities. Exact inference can require an intractable integral, but tractable models also exist. Minimization over all probability laws attains the bound exactly at $Q=P_o$. A restricted family can have a positive irreducible approximation gap, and an update scheme need not reach even its restricted optimum. These are the evidence and restriction identities of the companion theory~\cite[Ch.~5]{DennisGaugeVFE2026}. The notation $\mathcal E$ remains reserved for the separate consensus potential.
+
+\subsection{Gaussian KL Divergence}
+\label{app:gaussian_kl}
+
+For multivariate Gaussian distributions $q = \mathcal{N}(\mu_q, \Sigma_q)$ and $p = \mathcal{N}(\mu_p, \Sigma_p)$ in $\mathbb{R}^{K_q}$ with $\Sigma_q,\Sigma_p\succ0$, the Kullback-Leibler divergence is
+\begin{equation}
+D_{\mathrm{KL}}(q \| p) = \frac{1}{2}\left[\log\frac{|\Sigma_p|}{|\Sigma_q|} + \operatorname{tr}(\Sigma_p^{-1}\Sigma_q) + (\mu_p - \mu_q)^\top\Sigma_p^{-1}(\mu_p - \mu_q) - K_q\right],
+\end{equation}
+the Gaussian reverse relative entropy of~\cite[Ch.~G4]{DennisGaugeVFESuppG2026}. This formula is used throughout for the self and alignment terms of the consensus functional.
+
+\subsection{Fisher Information Matrix for Gaussians}
+\label{app:fisher_gaussian}
+
+The Fisher information matrix for Gaussian distributions parametrized by $\theta = (\mu, \Sigma)$ has the block structure
+\begin{equation}
+G = \begin{pmatrix}
+\Sigma^{-1} & 0 \\
+0 & \frac{1}{2}(\Sigma^{-1} \otimes \Sigma^{-1})
+\end{pmatrix},
+\end{equation}
+and every affine map $(\mu, \Sigma) \mapsto (Q\mu + v, Q\Sigma Q^\top)$ with $Q \in \mathrm{GL}(K_q)$ is an isometry of it~\cite[Ch.~G5, Fisher metric in the moment chart]{DennisGaugeVFESuppG2026}. The covariance block is to be read as the Fisher quadratic form restricted to symmetric perturbations, $g(d\Sigma, d\Sigma) = \tfrac{1}{2}\operatorname{tr}(\Sigma^{-1} d\Sigma \Sigma^{-1} d\Sigma)$. As an operator on symmetric matrices, $X \mapsto \tfrac{1}{2}\Sigma^{-1}X\Sigma^{-1}$ has inverse $X \mapsto 2\Sigma X \Sigma$, so the natural gradient is
+\begin{align}
+\tilde{\nabla}_\mu \mathcal{E} &= \Sigma (\nabla_\mu \mathcal{E}), \\
+\tilde{\nabla}_\Sigma \mathcal{E} &= 2\Sigma (\nabla_\Sigma \mathcal{E}) \Sigma,
+\end{align}
+where $\nabla_\mu \mathcal{E}$ and $\nabla_\Sigma \mathcal{E}$ are the standard Euclidean gradients, with $\nabla_\Sigma \mathcal{E}$ the symmetric matrix gradient. For the non-redundant $\mathrm{vech}(\Sigma)$ parameterization the matrix representation of this block is $\tfrac{1}{2}\mathcal{D}^\top(\Sigma^{-1} \otimes \Sigma^{-1})\mathcal{D}$ with $\mathcal{D}$ the duplication matrix, and its matrix inverse is not simply $2(\Sigma \otimes \Sigma)$; the inverse as an operator on symmetric matrices, and hence the displayed natural gradient, is unchanged.
+
+\subsection{SO(3) Generators and Transport Operators}
+
+For the compact group $G = \mathrm{SO}(3)$ acting through a real irreducible representation of integer spin $j\in\{0,1,2,\ldots\}$, the belief dimension is $K_q = 2j + 1$, and the generators $\{G_x, G_y, G_z\}$ are real skew-symmetric $K_q \times K_q$ matrices satisfying
+\begin{equation}
+[G_a, G_b] = \epsilon_{abc} G_c.
+\end{equation}
+Half-integer spin representations are representations of the double cover $\mathrm{SU}(2)$ and are not included in this real $\mathrm{SO}(3)$ statement. Flat reference identifications are
+\begin{equation}
+\Omega_{ij} = \exp(\phi_i) \exp(-\phi_j),
+\end{equation}
+where $\phi_i = \phi_i^x G_x + \phi_i^y G_y + \phi_i^z G_z \in \mathfrak{so}(3)$ in the spin-$j$ representation.
+
+The product $\exp(\phi_i)\exp(-\phi_j)$ may be replaced by the first-order Baker-Campbell-Hausdorff truncation $\exp(\phi_i - \phi_j)$, with error controlled by the leading commutator, $\Omega_{ij} = \exp\big(\phi_i - \phi_j - \tfrac{1}{2}[\phi_i, \phi_j] + \mathcal{O}(\|\phi\|^3)\big)$. The truncated transport is not of the form $U_iU_j^{-1}$: it breaks the cocycle identity, so its holonomy around a triangle of agents is of the order of $\|[\phi_i, \phi_j]\|$, and it is not invariant under the right translation $U_i \mapsto U_i g$. The vanishing field strength of Regime I (Lemma~\ref{thm:vanishing_holonomy}) holds for the exact two-exponential product only. The truncation is acceptable only when the frames are small enough that this holonomy is negligible for the purpose at hand; otherwise the exact product is used.
+
+\subsection{Numerical Stability and Cholesky Parametrization}
+
+Covariance matrices $\Sigma_i$ must remain positive definite throughout optimization. Two parameterizations of the covariance sector achieve this, and they differ in their dynamics. The first is the Cholesky parametrization
+\begin{equation}
+\Sigma_i = L_i L_i^\top,
+\end{equation}
+where $L_i$ is lower triangular with positive diagonal entries and gradients are taken with respect to $L_i$. Any lower-triangular $L_i$ gives a positive-semidefinite $\Sigma_i$, but $\Sigma_i$ is positive definite only when every diagonal entry of $L_i$ is nonzero, and a Euclidean gradient step on $L_i$ can drive a diagonal entry through zero. Strict positive-definiteness is therefore enforced by writing the diagonal through a diffeomorphism of the real line onto the positive half-line, such as softplus or the exponential, so that the stored degrees of freedom are unconstrained while the resulting diagonal entries cannot cross zero in exact arithmetic. The absolute value is not admissible: it vanishes at zero, is not differentiable there, and is two-to-one, so the map from stored parameters to $\mathcal{S}_{++}^{K_q}$ would not be a diffeomorphism. The second parameterization is the Fisher-Rao natural-gradient step with the affine-invariant exponential retraction of Eq.~\eqref{eq:gauge_natural_gradient} and Appendix~\ref{app:fisher_gaussian}.
+
+With a diffeomorphic positive diagonal map, the unconstrained Cholesky coordinates give a chart of $\mathcal S_{++}^{K_q}$. The chain-rule gradient vanishes exactly when the symmetric covariance gradient vanishes, so the parameterizations share stationary points. Euclidean descent in those coordinates does not share the Fisher trajectories; its local rates depend on the chart Jacobian.
+
+For example, the covariance objective $\tfrac12\operatorname{tr}(M\Sigma)-\log\det\Sigma$, with $M\succ0$, has $\Sigma_*=2M^{-1}$. Its covariance Hessian is $V\mapsto\Sigma_*^{-1}V\Sigma_*^{-1}$. The Fisher exponential update therefore has linearization $(1-2\eta_\Sigma)V$ and is locally stable for $0<\eta_\Sigma<1$. Direct Euclidean covariance descent is locally stable for $0<\eta_\Sigma<2\lambda_{\min}(\Sigma_*)^2$. An arbitrary positive-diagonal reparameterization supplies no universal Euclidean learning-rate bound. A retraction preserves positive definiteness in exact arithmetic; continuous natural-gradient dynamics and a finite retraction step remain different objects.

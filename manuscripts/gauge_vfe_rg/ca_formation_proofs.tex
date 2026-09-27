@@ -1,0 +1,2411 @@
+\chapter{Proofs for Finite-Depth Formation}
+\label{app:finite-depth-formation-proofs}
+
+This appendix proves the propositions of \cref{ch:finite-depth-formation},
+the lemmas behind \Cref{thm:finite-depth-adaptive-formation},
+\Cref{prop:rg-formation-endogenous-cycle}, and its extension
+\Cref{prop:phil-seeded-contrast-formation} of \cref{ch:philosophy}, in the symbols of
+\cref{tab:rg-formation-notation}; \Cref{tab:rg-formation-lemma-dependencies}
+orders the lemmas. The depth \(L\ge2\) is fixed. Constants
+\(\mathrm c_L,\mathrm C_L>0\) may change between displays; they depend on
+\(L\), on the fixed data, and, once chosen, on \(k_L\) and \(\eta_L\), but not
+on \(\epsilon\), \(\mathrm A\), \(\mathrm T\), or the strengths unless the
+dependence is displayed, and all limits have \(\epsilon,\mathrm T>0\).
+Densities are relative to Lebesgue measure times counting measure, values of
+the complete assignment are written \(j,k\in\mathcal J\), and the independent
+equilibrium root factor of every law is omitted from non-root integrals and
+appended unchanged. On \(M_\ell\), \(H_\ell\) is the Gaussian Schur precision
+and \(\mathrm d_\ell=\dim M_0-\dim M_\ell\) the number of eliminated
+coordinates.
+
+\begin{sciencetable}{Lemma dependencies of the finite-depth formation theorem.}
+\label{tab:rg-formation-lemma-dependencies}
+\footnotesize
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.11\textwidth}>{\raggedright\arraybackslash}p{0.27\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.23\textwidth}}
+\toprule
+\textbf{Lemma} & \textbf{Inputs} & \textbf{Output} & \textbf{Exponent or constant} \\
+\midrule
+\Cref{lem:formation-parent-score} & \Cref{lem:rg-formation-carrier} & parent potentials, rows, covector; force, Hessian, metric bounds & \(B_*=\delta\sqrt{2N}\), \(\delta_*<1/2\) \\
+\Cref{lem:formation-preparation-margin} & \Cref{lem:rg-formation-carrier} & prepared direction, strict margin & \(\mathrm m_L>0\) \\
+\Cref{lem:formation-prepared-continuation} & \Cref{lem:formation-parent-score} & well-posedness, moments, parameter bounds & \(\mathrm A^2\mathrm J_{\ell+1}+\mathrm T\varsigma_\epsilon^2\) \\
+\Cref{lem:formation-parameter-comparison} & \Cref{lem:formation-prepared-continuation} & calibration-dominated parameter & \(r_\epsilon=O(\epsilon^{2\mathrm Q_1+20})\) \\
+\Cref{lem:formation-entropy-tools} & cited inequalities & log-Sobolev, Herbst, duality, transport, Pinsker & curvature, \(\mathrm T\) explicit \\
+\Cref{lem:formation-activation-entropy} & \Cref{lem:formation-parent-score,lem:formation-prepared-continuation,lem:formation-entropy-tools} & activation and Fisher budgets; score moments & \(\mathrm A^2\mathrm J_{\ell+1}+\mathrm T\varsigma_\epsilon^2\) \\
+\Cref{lem:formation-conditional-entropy} & \Cref{lem:formation-entropy-tools,lem:formation-activation-entropy} & early discarded loss; covector error & \(\epsilon^{14}\); \(\tfrac12\mathrm c_{\mathrm{early},L}k_L>\mathrm Q_1+20\) \\
+\Cref{lem:formation-terminal-joint-entropy} & \Cref{lem:formation-parent-score,lem:formation-activation-entropy} & terminal loss by joint relaxation & \(\epsilon^2\); \(\mathrm c_{\mathrm{joint},L}k_L>\mathrm Q_1+8\) \\
+\Cref{lem:formation-fast-marginal} & \Cref{lem:formation-parent-score} & averaged row; environment errors & \(\mathrm e_\epsilon(y)\) \\
+\Cref{lem:formation-fast-mixing} & \Cref{lem:formation-fast-marginal,lem:formation-prepared-continuation} & mixing to the moving fast equilibrium & rate \(\mathrm c_{\mathrm{fast},L}\mathrm J_1\) \\
+\Cref{lem:formation-history-coupling} & \Cref{lem:formation-fast-marginal,lem:formation-fast-mixing,lem:formation-parameter-comparison} & assignment histories & \(\epsilon^6\); \(\mathrm c_{\mathrm{fast},L}k_L>\mathrm Q_1/2+12\) \\
+\Cref{lem:formation-coherence} & \Cref{lem:formation-preparation-margin,lem:formation-prepared-continuation} & coherent components & \(e^{-\mathrm c_L/\epsilon^6}\); \(k_{\mathrm{geom},L}\), \(\eta_L^{\max}\) \\
+\Cref{lem:formation-source-envelope} & \Cref{lem:formation-parameter-comparison} & source movement; kernel change & \(57/100\); \(1/200\) \\
+\Cref{lem:formation-continuous-path} & \Cref{lem:formation-coherence,lem:formation-parameter-comparison} & common-path concentration & \(\mathrm A\epsilon^2\); \(e^{-\mathrm c_L/\epsilon^2}\) \\
+\bottomrule
+\end{tabularx}
+\end{sciencetable}
+
+\section{Exact marginals, rates, and parameter derivatives}
+\label{sec:rg-formation-exact-proof}
+
+\noindent\emph{Proof of \Cref{prop:rg-formation-normalized-experiment}.}
+Under \(\nu_i^*\), \(k_i-m_i=\mathfrak d_i+\xi'_i\), whereas the physical
+evaluator gives \(k_i-m_i=\xi'_i\) with the same law of \(m_i\). The
+log-density ratio \([\mathfrak d_i(k_i-m_i)-\mathfrak d_i^2/2]/(1-\sigma^2_{\mathrm{ev}})\)
+therefore has expectation \(\mathfrak d_i^2/(2(1-\sigma^2_{\mathrm{ev}}))\)
+under every coupling of the two marginals, since
+\(\E[k_i-m_i]=\bar k_i-\bar m_i\); this proves
+\cref{eq:rg-formation-evaluator-optimum}, and summation gives
+\(\mathbf x^\top R_{\mathrm{ev}}\mathbf x/2\). The rows \(\mathfrak d_i\) belong
+to \(B_1\), so \(\mathrm J_1\mathfrak D^\top\mathfrak D\preceq H\), and
+\(\mathrm T\le\mathrm J_1(1-\sigma^2_{\mathrm{ev}})/2\) gives
+\(\mathrm TR_{\mathrm{ev}}\preceq H/2\); with \(\vartheta\ge1\) and the
+orthogonal split of \Cref{lem:rg-formation-carrier},
+\(\Omega_0(\vartheta)\succeq(\vartheta/2)H+P_{\mathcal K}\succ0\). Every factor
+of \cref{eq:rg-formation-full-joint} is a positive normalized kernel of inputs
+none of which is a recognition law, so iterated integration gives total mass
+one and the records a positive density. \(\square\)
+
+\noindent\emph{Proof of \Cref{prop:rg-formation-laws}.}
+Since \(\widehat K_\vartheta-\mathrm TR_{\mathrm{ev}}\succeq(\vartheta/2)H
++(1+\kappa)P_{\mathcal K}\succ0\) and \(0\le\phi_S\le B_0\), both integrals are
+finite and positive. At fixed \(\mathbf x\) both laws are proportional to
+\(\pi_S(\vartheta)e^{-\phi_S(\mathbf x)}\) in \(S\), which gives
+\cref{eq:rg-formation-full-source-row}, a product of receiver rows because
+\(\phi_S\) is a sum and \(\pi_S\) a product over receivers. Define
+\begin{equation}
+\begin{aligned}
+\mathrm n_{\mathcal K}&=\bigl(\kappa/(2\pi\mathrm T)\bigr)^{N/2},&
+\mathrm n_{\mathrm{cal}}&=(2\pi\mathrm T)^{-1/2},\\
+\mathrm B_{\mathrm T}(\vartheta)
+ &=\mathrm T\log Z_0(\vartheta)
+   -\mathrm T\log\bigl(\mathrm n_{\mathcal K}\mathrm n_{\mathrm{cal}}q_0^N\bigr)
+   +\tfrac12\kappa|z_\star|^2+\tfrac12(\vartheta-2)^2,\\
+\mathrm C_{\mathrm T}(\vartheta)&=\mathrm B_{\mathrm T}(\vartheta)
+   -\mathrm T\log Z_{\mathrm{opt}}(\vartheta),&
+p_\vartheta(\mathsf o)&=e^{-\mathrm B_{\mathrm T}(\vartheta)/\mathrm T}
+                         Z_{\mathrm{phys}}(\vartheta).
+\end{aligned}
+\label{eq:rg-formation-evidence-scalar}
+\end{equation}
+As \(z_\star\in\mathcal K\), the log density of the joint at the records is
+\(-[\mathrm E^{\mathrm{phys}}_\vartheta+\mathrm T\phi_S+\tfrac12\kappa|z_\star|^2
++\tfrac12(\vartheta-2)^2]/\mathrm T-\log Z_0
++\log(\mathrm n_{\mathcal K}\mathrm n_{\mathrm{cal}}q_0^N)+\log\pi_S\) plus the
+physical evaluator density. Hence \(\mathrm T\E\log(q\prod_i\nu_i^*/p)\), in
+which \cref{eq:rg-formation-evaluator-optimum} adds
+\(\tfrac{\mathrm T}2\mathbf x^\top R_{\mathrm{ev}}\mathbf x
+=\mathrm E_\vartheta-\mathrm E^{\mathrm{phys}}_\vartheta\), is the first line
+of \cref{eq:rg-formation-restricted-vfe}, and completing the relative entropy
+to \(q^\star_\vartheta\) gives the second. Integrating the joint over
+\((\mathbf x,S)\) at the records gives \(p_\vartheta(\mathsf o)\), so
+\(\mathrm C_{\mathrm T}+\mathrm T\log p_\vartheta(\mathsf o)
+=\mathrm T\log(Z_{\mathrm{phys}}/Z_{\mathrm{opt}})\ge0\), as
+\(\mathrm E^{\mathrm{phys}}_\vartheta\le\mathrm E_\vartheta\).
+
+For the gap, \(Z_{\mathrm{phys}}/Z_{\mathrm{opt}}=
+\E_{q^\star_\vartheta}e^{\mathbf x^\top R_{\mathrm{ev}}\mathbf x/2}\). The
+Gaussian law \(\gamma^{\mathrm E}_\vartheta\propto e^{-\mathrm E_\vartheta/\mathrm T}\)
+has its mean in \(\mathcal K\), which \(R_{\mathrm{ev}}\) annihilates, and since
+\(R_{\mathrm{ev}}\) has rank \(N\) the eigenvalues \(\lambda_k\) of
+\(\mathrm T\widehat K_\vartheta^{-1}R_{\mathrm{ev}}\) satisfy
+\(\lambda_k\le\mathrm T/(\mathrm J_1(1-\sigma^2_{\mathrm{ev}}))\le1/2\) and
+\(\sum_k\lambda_k\le N\mathrm T/(\mathrm J_1(1-\sigma^2_{\mathrm{ev}}))\le1\), so
+\(\E_{\gamma^{\mathrm E}_\vartheta}e^{\mathbf x^\top R_{\mathrm{ev}}\mathbf x/2}
+=\prod_k(1-\lambda_k)^{-1/2}\le e^{\sum_k\lambda_k}\). The density of
+\(q^\star_\vartheta\) relative to \(\gamma^{\mathrm E}_\vartheta\otimes\pi(\vartheta)\)
+is at most \(e^{B_0}\) and \(e^{\mathbf x^\top R_{\mathrm{ev}}\mathbf x/2}\ge1\),
+so \(\E_{q^\star_\vartheta}[e^{\mathbf x^\top R_{\mathrm{ev}}\mathbf x/2}-1]
+\le e^{B_0}(e^{\sum_k\lambda_k}-1)\le2e^{B_0}\sum_k\lambda_k\), and
+\(\log(1+y)\le y\) gives the first bound of
+\cref{eq:rg-formation-physical-optimizer-gap}. The second follows from
+\(\KL(q^\star_\vartheta\Vert\boldsymbol\Pi_{\vartheta,\mathsf o})
+=\log(Z_{\mathrm{phys}}/Z_{\mathrm{opt}})
+-\tfrac12\E_{q^\star_\vartheta}\mathbf x^\top R_{\mathrm{ev}}\mathbf x\).
+\(\square\)
+
+\lemmaheading{Weighted geometry and exact parent score}{lem:formation-parent-score}
+For the triangle-chain experiment, all marked marginal laws and inherited
+proposal rows are normalized and compose exactly. With orthonormal flag
+columns \(\mathsf Q_\ell\) spanning \(\mathcal U_{\ell-1}\cap\mathcal U_\ell^\perp\),
+\(\mathsf B=B[\mathsf Q_1\cdots\mathsf Q_L]\), and
+\(\mathbf x_{\mathcal U}=\sum_\ell\mathsf Q_\ell w_\ell\),
+\begin{equation}
+\|\mathsf B^{-1}\|_F^{-2}\sum_\ell\mathrm J_\ell|w_\ell|^2
+\le \mathbf x_{\mathcal U}^{\top}H\mathbf x_{\mathcal U}
+\le\|\mathsf B\|_F^2\sum_\ell\mathrm J_\ell|w_\ell|^2,
+\label{eq:rg-formation-weighted-flag}
+\end{equation}
+and the same bounds hold for every Schur complement obtained by minimizing over
+an initial group of normal layers. On \(1\le\vartheta\le21/10\), the parent
+potentials are \cref{eq:rg-formation-parent-potential} with the tilt and
+eliminated Gaussian scalar of
+\cref{eq:rg-formation-parent-tilt-proof,eq:rg-formation-hidden-scalar-proof}
+below, the inherited rows are those of \cref{eq:rg-formation-parent-generator}
+and satisfy the detailed balance of \Cref{prop:rg-formation-rate-composition},
+and the complete covector, including the source-prior score, is
+\cref{eq:rg-formation-complete-score}. With \(B_*=\delta\sqrt{2N}\) and
+\(\delta_*=2\delta+2N\delta^2<1/2\), the parent forces, Hessians, and scaled
+metric obey
+\begin{align}
+ &|H_\ell^{-1/2}\mathrm T\nabla\psi_{\ell,j}|\le B_*\sqrt{\mathrm T},
+ \qquad
+ (\vartheta-\delta_*)H_\ell
+ \preceq\nabla^2V_{\ell,j}
+ \preceq(\vartheta+2\delta)H_\ell,
+ \label{eq:rg-formation-parent-relative-bounds}\\
+ &1\le\mathsf m(\vartheta)\le1+\mathrm C_L\mathrm T,\qquad
+ |\mathsf m'(\vartheta)|\le\mathrm C_L\mathrm T,
+ \label{eq:rg-formation-metric-bounds-proof}
+\end{align}
+for every fixed depth and all sufficiently small \(\epsilon\).
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+By \Cref{lem:rg-formation-carrier}, rows of level at most \(\ell\) annihilate
+\(\mathcal U_\ell\), so \(\mathsf B\) and \(\mathsf B^{-1}\) are block lower
+triangular with invertible diagonal blocks. With
+\(\mathsf D_{\mathrm J}=\operatorname{diag}(\sqrt{\mathrm J_\ell}I)\), each
+nonzero block \((\ell,r)\) of
+\(\mathsf D_{\mathrm J}\mathsf B^{\pm1}\mathsf D_{\mathrm J}^{-1}\) is that of
+\(\mathsf B^{\pm1}\) times \(\sqrt{\mathrm J_\ell/\mathrm J_r}\le1\), which
+proves \cref{eq:rg-formation-weighted-flag}, and \(H|_{M_0}=H_{\mathcal U}\oplus
+\mathrm J_1I_{\mathcal H}\). The Schur quadratic is the infimum over the
+eliminated coordinates, so minimizing both bounds proves the retained
+versions; in particular \(H_\ell\succeq\mathrm h_LI\) for a fixed
+\(\mathrm h_L>0\), since \(\mathrm J_L=1\), the normal part of \(H_\ell\) is at
+most \(\mathrm C_L\mathrm J_{\ell+1}I\) with \(\mathrm J_{L+1}=0\), and the loop
+part keeps the weight \(\mathrm J_1\).
+
+For a cumulative hidden/retained split \((z,y)\) of \(M_0\) with blocks
+\(H^{(\ell)}_{zz}\), \(H^{(\ell)}_{zy}\) of \(H\), completing the square gives
+the lift in the first line below, with \(z\) embedded in the hidden subspace.
+The centered hidden Gaussian \(\gamma^{\mathrm{hid}}_{\ell,\vartheta}\), of
+covariance \((\mathrm T/\vartheta)(H^{(\ell)}_{zz})^{-1}\), has a mean
+independent of \(\vartheta\), and integrating the source factor gives
+\cref{eq:rg-formation-parent-potential} with the tilt, the scalar, and the
+normalized optimizer of the other lines, \(\mathrm C_0^{\mathrm G}=0\):
+\begin{align}
+ \Xi_\ell y&=\bigl(-(H^{(\ell)}_{zz})^{-1}H^{(\ell)}_{zy}y,\ y\bigr),\qquad
+ \Xi_\ell^\top H\Xi_\ell=H_\ell,\qquad \Xi_\ell^\top Hz=0,
+ \label{eq:rg-formation-gaussian-lift}\\
+ \psi_{\ell,j}(y,\vartheta)
+ &=-\log\int e^{-\phi_j(\Xi_\ell y+z)}
+                  \gamma^{\mathrm{hid}}_{\ell,\vartheta}(dz),
+ \qquad 0\le\psi_{\ell,j}\le B_0,
+ \label{eq:rg-formation-parent-tilt-proof}\\
+ \mathrm C_\ell^{\mathrm G}(\vartheta)
+ &=-\frac{\mathrm T\mathrm d_\ell}{2}\log\frac{2\pi\mathrm T}{\vartheta}
+       +\frac{\mathrm T}2\log\det H^{(\ell)}_{zz},
+ \label{eq:rg-formation-hidden-scalar-proof}\\
+ q^{\star,\ell}_\vartheta(y,j)
+ &=\frac{e^{-\psi_{\ell,j}(y,\vartheta)}
+       \gamma_{\ell,\vartheta}(y)\pi_j(\vartheta)}{Z_\ell(\vartheta)},\quad
+ \gamma_{\ell,\vartheta}=\mathcal N\bigl(0,(\mathrm T/\vartheta)H_\ell^{-1}\bigr),\quad
+ e^{-B_0}\le Z_\ell\le1.
+ \label{eq:rg-formation-normalized-parent-proof}
+\end{align}
+Positivity and Gaussian domination justify iterated integration and
+differentiation on compact parameter intervals.
+\Cref{prop:rg-formation-rate-composition} gives detailed balance, composition,
+and \(\beta^\ell_{jk}\ge e^{-B_0}\pi_k(\vartheta)\) for the rows of
+\cref{eq:rg-formation-parent-generator}, and the physical, optimizing, and
+recognition laws compose by separate integration through the same channel.
+
+Let \(\mathfrak B_{\mathrm{int}}\) have rows \(\sqrt{\mathrm J_1}\mathbf r_e\)
+on internal edges, \(\mathbf r_e\) the covector of \(r_e\), so
+\(\mathfrak B_{\mathrm{int}}^\top\mathfrak B_{\mathrm{int}}\preceq H\). An edge is
+selected \(\mathrm n_e\in\{0,1,2\}\) times, \(\sum_e\mathrm n_e=N\), so the
+force of \(\phi_j=\delta\sum_i\chi(\sqrt{\mathrm J_1/\mathrm T} r_{ij_i})\) is
+\(\delta\sqrt{\mathrm T}\mathfrak B_{\mathrm{int}}^\top\mathfrak c\) with
+\(\mathfrak c_e=\mathrm n_e\chi'(\sqrt{\mathrm J_1/\mathrm T} r_e)\) and, since
+\(|\chi'|,|\chi''|\le1\), \(|\mathfrak c|^2\le2N\). This gives the first line
+below on \(M_0\), and with the centered Gaussian variable of
+\cref{eq:rg-formation-parent-tilt-proof} held fixed, the normalized tilted law
+\(\nu_{\ell,y,j}\) gives the other two:
+\begin{align}
+ &|H^{-1/2}\mathrm T\nabla\phi_j|\le B_*\sqrt{\mathrm T},
+ \qquad
+ -2\delta H\preceq \mathrm T\nabla^2\phi_j\preceq2\delta H,
+ \qquad B_*=\delta\sqrt{2N},
+ \label{eq:rg-formation-original-relative-bounds}\\
+ &\mathrm T\nabla\psi_{\ell,j}
+ =\E_{\nu_{\ell,y,j}}\Xi_\ell^\top(\mathrm T\nabla\phi_j),
+ \label{eq:rg-formation-marginal-force-proof}\\
+ &\mathrm T\nabla^2\psi_{\ell,j}
+ =\E_{\nu_{\ell,y,j}}\Xi_\ell^\top(\mathrm T\nabla^2\phi_j)\Xi_\ell
+       -\mathrm T^{-1}\operatorname{Cov}_{\nu_{\ell,y,j}}
+                    (\Xi_\ell^\top\mathrm T\nabla\phi_j).
+ \label{eq:rg-formation-marginal-hessian-proof}
+\end{align}
+Through the isometry \(H^{1/2}\Xi_\ell H_\ell^{-1/2}\), the first line bounds
+the force by \(B_*\sqrt{\mathrm T}\) in the \(H_\ell\) norm, the covariance by
+\(B_*^2H_\ell=2N\delta^2H_\ell\), and the first Hessian term between
+\(\pm2\delta H_\ell\), which proves
+\cref{eq:rg-formation-parent-relative-bounds}. The source factor is even, so
+centered Gaussian integration makes \(\psi_{\ell,j}\) even in \(y\), and every
+non-root sheet has its unique minimum at zero.
+
+The hidden Gaussian scale score
+\(\mathfrak s_\ell=(\mathrm d_\ell-|\mathbf Z|^2)/(2\vartheta)\), with
+\(\mathbf Z\) standard Gaussian, has mean zero and second moment
+\(\mathrm d_\ell/(2\vartheta^2)\), and the tilted density ratio lies in
+\([e^{-B_0},e^{B_0}]\); as the Gaussian conditional center is independent of
+\(\vartheta\), uniformly in the retained input,
+\begin{equation}
+ \partial_\vartheta\psi_{\ell,j}=-\E_{\nu_{\ell,y,j}}\mathfrak s_\ell,\qquad
+ |\partial_\vartheta\psi_{\ell,j}|
+ \le(e^{B_0}-1)\frac{\sqrt{\mathrm d_\ell}}{\sqrt2 \vartheta}.
+ \label{eq:rg-formation-tilt-score-proof}
+\end{equation}
+By \cref{eq:rg-formation-parent-potential} the parent free energy is
+\(\mathrm T\E_q\log q+\E_q[V_{\ell,S}-\mathrm T\log\pi_S]+\mathrm B_{\mathrm T}\),
+with \(\mathrm B_{\mathrm T}'=\vartheta-2-\tfrac{\mathrm T}2\Tr(\Omega_0^{-1}H)\),
+and differentiation at a fixed recognition law, which does not differentiate
+assignment masses, gives \cref{eq:rg-formation-complete-score}, whose source-prior term, present
+although it has no continuous gradient, has absolute unscaled score at most
+four for the distinguished binary prior. In the normalized joint the prior, calibration, and source-prior
+scores have zero mean and zero cross expectations, the other kernels have no
+explicit parameter dependence at fixed inputs, and the three scores have
+variances \(\tfrac12\Tr[(\Omega_0^{-1}H)^2]\), \(1/\mathrm T\), and, for
+\(4(\mathbf 1_{\{S_{i_0}=+\}}-\pi_{i_0,+})\), \(16\pi_{i_0,+}(1-\pi_{i_0,+})\),
+which gives \cref{eq:rg-formation-model-fisher}. As \(R_{\mathrm{ev}}\) is
+fixed, annihilates \(\mathcal K\), and is supported on the first normal layer,
+\(\Omega_0\) is positive for small \(\mathrm T\), and conjugation by the
+quadratic core bounds the trace terms and their derivatives uniformly;
+calibration contributes exactly one to \(\mathsf m\) and the other two terms
+are nonnegative and \(O(\mathrm T)\), which proves
+\cref{eq:rg-formation-metric-bounds-proof}. \hfill\(\square\)
+
+\noindent\emph{Proof of \Cref{prop:rg-formation-score-dissipation}.}
+The metric and the covector are derived in \Cref{lem:formation-parent-score}.
+The diffusion part of the generator is reversible with respect to
+\(e^{-V_{\ell,S}/\mathrm T}\) on each sheet, which gives the first term of the
+dissipation after integration by parts. For the jump part, detailed balance
+(\Cref{prop:rg-formation-rate-composition}) turns
+\(\mathrm T\int\sum_S\partial_tq_S\log\mathfrak r_S\) into
+\(\mathrm T\int\sum_{S,S'}q^{\star,\ell}(y,S)\beta^\ell_{SS'}
+(\mathfrak r_{S'}-\mathfrak r_S)\log\mathfrak r_S\), and symmetrizing in
+\(S,S'\) gives the second term, whose integrand is nonnegative because the
+logarithm is increasing. The parameter term is
+\(g_\ell\dot\vartheta_\ell=-\epsilon\mathsf m^{-1}g_\ell^2\). At \(\ell=0\) the
+row \(\beta_{S'}\) does not depend on \(S\), and with
+\(\mathfrak r_S=(q_{\mathbf X}/q^\star_{\mathbf X}) q(S\mid\mathbf x)/\beta_S\)
+the jump integrand sums to
+\(2[\KL(q(\cdot\mid\mathbf x)\Vert\beta)+\KL(\beta\Vert q(\cdot\mid\mathbf x))]\).
+These identities hold for positive smooth densities with finite entropy and
+moments; the moment bounds of \Cref{lem:formation-prepared-continuation} and
+the cutoff passage of \Cref{lem:formation-activation-entropy} justify them for
+the admitted solutions. \(\square\)
+
+\section{Prepared laws and coupled continuation}
+\label{sec:rg-formation-continuation-proof}
+
+\lemmaheading{Prepared direction with a strict margin}{lem:formation-preparation-margin}
+Consider the list of linear functionals on \(\mathcal U\) consisting of each
+internal edge covector and, for each bridge \(e\) and each \(\ell<\ell(e)\),
+the functional \(r_e\circ P_\ell|_{\mathcal U}\). Every functional in the list
+is nonzero, and there is a unit vector \(\mathbf v_\star\in\mathcal U\) with
+\begin{equation}
+\mathrm m_L=\min_{e,\ \ell<\ell(e)}
+       |r_e(P_\ell\mathbf v_\star)|>0,
+\label{eq:rg-formation-preparation-margin}
+\end{equation}
+where internal edges enter only at \(\ell=0\). A fixed neighborhood of
+\(\mathbf v_\star\) keeps a margin of at least \(\mathrm m_L/2\).
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+For a bridge \(e\) and \(\ell<\ell(e)\), \(r_e\) is independent of the rows of
+\(B_1,\ldots,B_\ell\) (\Cref{lem:rg-formation-carrier}), so it does not vanish
+on \(W_\ell\); it annihilates \(\mathcal H\oplus\mathcal K\), hence does not
+vanish on \(\mathcal U_\ell\), which \(P_\ell\) fixes. An internal residual of
+triangle \(q\) is a nonzero combination of the contrast rows
+\(O_\triangle r_q\), which lie in \(\mathcal U\), plus a multiple of the loop
+covector, so its restriction to \(\mathcal U\) is nonzero. Evaluated in an
+orthonormal basis of \(\mathcal U\) on \((1,t,\ldots,t^{\dim\mathcal U-1})\),
+each of the \(\mathrm n_0\) functionals is a nonzero polynomial of degree less
+than \(\dim\mathcal U\), so some integer \(t\in[0,\mathrm n_0(\dim\mathcal U-1)]\)
+is a simultaneous nonroot; normalizing gives \(\mathbf v_\star\), and
+continuity gives the neighborhood. \(\square\)
+
+\lemmaheading{Prepared continuation}{lem:formation-prepared-continuation}
+For the preparation of \Cref{def:rg-formation-regime} and every finite
+sequence of activations, the coupled diffusion, source proposals, and own-law
+parameter equation have a unique nonexplosive solution through
+\(t_*=2/\epsilon\), with positive smooth joint densities. On every active level
+\(\ell\) and for all \(t\le t_*\),
+\begin{align}
+ \E_{q_t^\ell}y^\top H_\ell y
+ &\le \mathrm C_L[\mathrm A^2\mathrm J_{\ell+1}+\mathrm T\varsigma_\epsilon^2],
+ \label{eq:rg-formation-actual-energy}\\
+ \E_{q_t^\ell}|y|^2
+ &\le \mathrm C_L[\mathrm A^2+\mathrm T\varsigma_\epsilon^2],
+ \qquad \mathrm J_1\E_{q_t^\ell}|h|^2\le \mathrm C_L\mathrm T,
+ \label{eq:rg-formation-actual-moments}
+\end{align}
+and the parameter satisfies \(1\le\vartheta_\ell(t)\le21/10\) and
+\(|\dot\vartheta_\ell(t)|\le\mathrm C_L\epsilon\); these bounds use no
+conditional-entropy or history estimate. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+For a fixed positive instance and a prescribed continuous parameter path near
+\([1,21/10]\), each sheet drift has a bounded Hessian and linear growth by
+\cref{eq:rg-formation-parent-relative-bounds}, and the proposal rows are
+smooth with bounded derivatives and a positive lower bound, their
+Gaussian-integral denominator being at least \(e^{-B_0}\); interlacing the
+sheet diffusions on an independent rate-one Poisson grid gives a unique
+nonexplosive process with all polynomial moments. For the parameter feedback
+let \(\mathfrak u^\vartheta_j(t',\mathbf x)=\E_\vartheta[\mathsf f(\mathbf X_t,S_t)\mid
+\mathbf X_{t'}=\mathbf x,S_{t'}=j]\), for smooth \(\mathsf f\) with polynomially
+growing derivatives. Given the proposal times and labels, it composes
+Lipschitz sheet flows with products of positive row weights; flow derivatives
+are bounded on compact intervals, a differentiated weight is at most a
+constant times the weight, and the proposal count has all exponential
+moments, so \(\mathfrak u\) and \(\nabla\mathfrak u\) have polynomial bounds.
+It\^o's formula for \(\mathfrak u^{\widetilde\vartheta}\) along the
+\(\vartheta\) process, stopped in a ball and then using the moments, gives
+\begin{equation}
+ |\E_{\vartheta}\mathsf f(\mathbf X_t,S_t)
+       -\E_{\widetilde\vartheta}\mathsf f(\mathbf X_t,S_t)|
+ \le \mathrm C\int_0^t|\vartheta(t')-\widetilde\vartheta(t')| dt',
+ \label{eq:rg-formation-local-law-dependence}
+\end{equation}
+since the second-order coefficients agree and the drift and row differences
+are at most \(\mathrm C|\vartheta-\widetilde\vartheta|(1+|\mathbf x|)\) and
+\(\mathrm C|\vartheta-\widetilde\vartheta|\). The observable terms of
+\cref{eq:rg-formation-complete-score} meet these hypotheses, and their explicit
+terminal parameter dependence adds a local Lipschitz term, so the integral map
+for \(\dot\vartheta=-\epsilon\mathsf m(\vartheta)^{-1}g_\ell(q,\vartheta)\) is
+a contraction on a short interval, which gives local coupled existence and
+uniqueness. The step length is uniform: for parameter paths in
+\([3/4,5/2]\), \(\vartheta-\delta_*\ge1/4\) and \(H_\ell\succeq\mathrm h_LI\)
+make every non-root sheet drift uniformly confining toward zero, the root is a
+fixed Ornstein--Uhlenbeck factor, proposals fix and projections contract the
+configuration, and so the generator maps \(|\mathbf x|^{2k}\) below
+\(\mathrm C_k-\mathrm c_k|\mathbf x|^{2k}\); all moments on \([0,t_*]\), hence
+the constants of \cref{eq:rg-formation-local-law-dependence} and of the
+covector, are uniform over such paths, and finitely many steps reach \(t_*\)
+unless \(\vartheta\) leaves \([1,21/10]\), which the stopped argument below
+excludes.
+
+Stop at the first possible exit of \(\vartheta\) from \([1,21/10]\). The
+Gaussian comparison
+\(d\mathbf X^{\mathrm G}=-\vartheta(t)H_\ell\mathbf X^{\mathrm G}dt
++\sqrt{2\mathrm T} dW\), with the same parameter and Brownian increments on the
+active level, starts from the reference of \Cref{def:rg-formation-regime}
+coupled by \cref{eq:rg-formation-preparation-transport}; at an activation its
+projected reference continues while the parent starts at the full retained
+sample. For \(\mathbf e=\mathbf X-\mathbf X^{\mathrm G}\) the noise cancels and
+proposals leave \(\mathbf e\) continuous, so
+\cref{eq:rg-formation-parent-relative-bounds} gives, for every adapted label
+history,
+\begin{equation}
+ \frac d{dt}|\mathbf e|^2\le-\mathbf e^\top H_\ell\mathbf e+\mathrm C_L\mathrm T,
+ \qquad
+ \sup_{t\le t_*}|\mathbf e_t|
+ \le |\mathbf e_0|+\mathrm C_L\sqrt{\mathrm Tt_*}.
+ \label{eq:rg-formation-path-force-bound}
+\end{equation}
+For the energy, variation of constants with the commuting propagator
+\(\exp[-H_\ell\int_{t'}^t\vartheta]\) uses the first bound below, obtained by
+splitting the integral at the inverse extreme eigenvalues, where the integrand
+is at most \(\lambda_{\max}(H_\ell)\), \(1/(e\sigma)\), and
+\(\lambda_{\min}(H_\ell)e^{-\lambda_{\min}(H_\ell)\sigma}\); Euclidean
+projection and the Schur variational identity contract the two bounds at each
+activation, and finitely many stages give the second:
+\begin{equation}
+ \int_0^\infty\|H_\ell e^{-H_\ell\sigma}\| d\sigma
+ \le \mathrm C_L\left[1+\log
+       \frac{\lambda_{\max}(H_\ell)}{\lambda_{\min}(H_\ell)}\right],
+ \qquad
+ \sup_t|H_\ell^{1/2}\mathbf e_t|\le \mathrm C_L\sqrt{\mathrm T}\varsigma_\epsilon.
+ \label{eq:rg-formation-energy-force-bound}
+\end{equation}
+The Gaussian covariance barrier \(\Sigma^{\mathrm G}\preceq\mathrm C_L\mathrm TH_\ell^{-1}\)
+needs only \(\vartheta\ge1\), by substitution into
+\(\dot\Sigma^{\mathrm G}=-\vartheta(H_\ell\Sigma^{\mathrm G}+\Sigma^{\mathrm G}H_\ell)
++2\mathrm TI\), and survives retention because the retained block of
+\(H_\ell^{-1}\) is the inverse Schur complement; the deterministic mean
+contracts, has norm \(O_L(\mathrm A)\), and has zero loop part. This gives
+\cref{eq:rg-formation-actual-energy,eq:rg-formation-actual-moments}, the loop
+bound following from the core rate \(\vartheta\mathrm J_1\) and a force of at
+most \(\mathrm C_L\sqrt{\mathrm T\mathrm J_1}\), whose forced error is at most
+\(\mathrm C_L\sqrt{\mathrm T/\mathrm J_1}\).
+
+Substituting these moments in the covector and metric bounds gives
+\(\dot\vartheta=\epsilon(2-\vartheta)+O_L(\epsilon r_\epsilon)\), with
+\(r_\epsilon\) of \cref{eq:rg-formation-parameter-remainder}, before any bound
+on \(\dot\vartheta\) is used. The field points inward at both endpoints of
+\([1,21/10]\) for small \(\epsilon\), which excludes the stopped exit; the
+moments exclude explosion, so the solution reaches \(t_*\) with
+\(|\dot\vartheta|\le\mathrm C_L\epsilon\). Positive-temperature elliptic
+smoothing and positive finite rates keep densities positive and smooth, and
+the construction restarts after an activation from the full retained law.
+\hfill\(\square\)
+
+\lemmaheading{Comparison of independently learned parameters}{lem:formation-parameter-comparison}
+Every process or finite replacement lineage of
+\Cref{lem:formation-prepared-continuation} satisfies
+\cref{eq:rg-formation-parameter-bound} through \(t_*\), where every
+independently evolving descendant uses its own law and copies only the
+starting parameter. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The first two bounds are in \Cref{lem:formation-prepared-continuation}.
+Subtracting \(\dot\vartheta_\circ=\epsilon(2-\vartheta_\circ)\),
+\(\vartheta_\circ(0)=1\), from the equation of the process and integrating
+with the factor \(e^{\epsilon t}\) bounds the forcing contribution by
+\(\mathrm C_Lr_\epsilon\) through the horizon, where
+\(r_\epsilon=\epsilon^{2\mathrm Q_1+20}(1+\epsilon^{\mathrm Q_1+6}\varsigma_\epsilon^2)\to0\)
+by \cref{eq:rg-formation-parameter-remainder}, and copying the parameter at
+finitely many activations adds a finite multiple of that error. The
+comparison trajectory solves the calibration part of the own-law equation,
+since the calibration record contributes \(\vartheta-2\) to the covector and
+\(1/\mathrm T\) to \(\mathsf M\), and every law-dependent term is of order
+\(\epsilon^{2\mathrm Q_1+20}\). As \(2-e^{-2}>7/4\), the coefficient exceeds
+\(7/4\) on the last ten units of the horizon for small \(\epsilon\).
+\hfill\(\square\)
+
+\section{Entropy estimates}
+\label{sec:rg-formation-entropy-proof}
+
+\lemmaheading{Continuous entropy and score tools}{lem:formation-entropy-tools}
+Let \(\mu(d\mathbf x)\propto e^{-\mathcal V(\mathbf x)/\mathrm T}d\mathbf x\) on
+a finite-dimensional Euclidean space, where \(\mathcal V\) is smooth with a
+globally bounded Hessian and \(\nabla^2\mathcal V\succeq\lambda I\),
+\(\lambda>0\). For a positive density \(\mathsf f\) relative to \(\mu\), with
+\(\operatorname{Ent}_\mu(\mathsf f)=\int\mathsf f\log(\mathsf f/\int\mathsf f d\mu) d\mu\),
+for \(\mathfrak F\) with \(\operatorname{Lip}(\mathfrak F)\le\mathrm K\), for
+every probability law \(\nu\), and whenever the right sides are finite,
+\begin{align}
+ \operatorname{Ent}_\mu(\mathsf f)
+ &\le \frac{\mathrm T}{2\lambda}
+           \int\frac{|\nabla\mathsf f|^2}{\mathsf f} d\mu,
+ \label{eq:rg-formation-continuous-lsi}\\
+ \log\E_\mu e^{\upsilon(\mathfrak F-\E_\mu\mathfrak F)}
+ &\le\frac{\mathrm T\mathrm K^2\upsilon^2}{2\lambda},
+ \qquad \upsilon\in\R,
+ \label{eq:rg-formation-herbst-proof}\\
+ \upsilon\E_\nu\mathfrak F&\le\KL(\nu\Vert\mu)+\log\E_\mu e^{\upsilon\mathfrak F},
+ \label{eq:rg-formation-entropy-duality}
+\end{align}
+so \(|\E_\nu\mathfrak F-\E_\mu\mathfrak F|\le\mathrm K\sqrt{2\mathrm T\KL(\nu\Vert\mu)/\lambda}\).
+A centered observable \(\xi\) that obeys the first line below obeys the second:
+\begin{align}
+ \log\E_\mu e^{\upsilon\xi}&\le
+       \frac{\mathrm v\upsilon^2}{2(1-\mathrm b|\upsilon|)}\quad\text{for } |\upsilon|<\mathrm b^{-1},
+ \label{eq:rg-formation-subgamma-proof}\\
+ |\E_\nu\xi|
+ &\le\sqrt{2\mathrm v\KL(\nu\Vert\mu)}+\mathrm b\KL(\nu\Vert\mu).
+ \label{eq:rg-formation-score-duality}
+\end{align}
+Moreover \(\|\nu-\mu\|_{\mathrm{TV}}\le\sqrt{\KL(\nu\Vert\mu)/2}\). These
+statements apply to every conditional sheet potential of the construction.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+For the semigroup \(P_t\) generated by
+\(\mathrm T\Delta-\nabla\mathcal V\cdot\nabla\), the derivative of the
+synchronous stochastic flow has operator norm at most \(e^{-\lambda t}\), so
+weighted Cauchy--Schwarz gives
+\(|\nabla P_t\mathsf f|^2/P_t\mathsf f\le e^{-2\lambda t}P_t(|\nabla\mathsf f|^2/\mathsf f)\)
+and invariance of \(\mu\) gives
+\(\mathcal I_\mu(P_t\mathsf f)\le e^{-2\lambda t}\mathcal I_\mu(\mathsf f)\) for
+the Fisher information \(\mathcal I_\mu\). Integration by parts gives
+\(d\operatorname{Ent}_\mu(P_t\mathsf f)/dt=-\mathrm T\mathcal I_\mu(P_t\mathsf f)\);
+for bounded positive Lipschitz \(\mathsf f\), contraction against a stationary
+initial sample gives \(P_t\mathsf f\to\int\mathsf f d\mu\) and, by bounded
+convergence, entropy tending to zero, so integrating the Fisher bound proves
+\cref{eq:rg-formation-continuous-lsi}. Cutoff, positive truncation, and short
+semigroup smoothing extend it by lower semicontinuity, and Gaussian tails from
+strong convexity justify the integrations. This is the curvature argument of
+\citet[pp.~187, 194--200]{BakryEmery1985} with the diffusion coefficient made
+explicit; its Gaussian case is \citet[Thm.~5.4]{BoucheronLugosiMassart2013}.
+Applied to \(e^{\upsilon\mathfrak F}\), \cref{eq:rg-formation-continuous-lsi}
+gives \(\operatorname{Ent}_\mu(e^{\upsilon\mathfrak F})\le
+(\mathrm T\mathrm K^2\upsilon^2/(2\lambda))\E_\mu e^{\upsilon\mathfrak F}\), the
+hypothesis of Herbst's argument \citep[Prop.~6.1]{BoucheronLugosiMassart2013}
+with variance factor \(\mathrm T\mathrm K^2/\lambda\); applied to
+\(\pm\mathfrak F\) it gives \cref{eq:rg-formation-herbst-proof}. The inequality
+\cref{eq:rg-formation-entropy-duality} is the variational formula for relative
+entropy \citep[Cor.~4.15]{BoucheronLugosiMassart2013}, and optimizing it over
+\(\upsilon\) with \cref{eq:rg-formation-herbst-proof} gives the Lipschitz
+consequence. Under \cref{eq:rg-formation-subgamma-proof}, the transportation
+lemma \citep[Lemma~4.18]{BoucheronLugosiMassart2013} applied to \(\pm\xi\),
+with the inverse convex conjugate \(\sqrt{2\mathrm vt}+\mathrm bt\) of the
+sub-gamma function \citep[Sec.~2.4]{BoucheronLugosiMassart2013}, gives
+\cref{eq:rg-formation-score-duality}; the case \(\KL=\infty\) is trivial. The
+last inequality is Pinsker's inequality
+\citep[Thm.~4.19]{BoucheronLugosiMassart2013}, with the constant \(1/2\) due to
+\citet{Csiszar1967}. \hfill\(\square\)
+
+\lemmaheading{Entropy at activations}{lem:formation-activation-entropy}
+For the law of the active level \(\ell\), let
+\(\mathfrak E_\ell(t)=\mathrm T\KL(q_t^\ell\Vert q^{\star,\ell}_{\vartheta_\ell(t)})\),
+with the root factor canceled. At an activation time and on each ensuing
+active interval,
+\begin{align}
+ \mathfrak E_\ell(t^{\mathrm{act}}_\ell)&\le \mathrm C_L[\mathrm A^2\mathrm J_{\ell+1}+\mathrm T\varsigma_\epsilon^2],
+ \label{eq:rg-formation-activation-budget}\\
+ \mathrm T^2\int_{t^{\mathrm{act}}_\ell}^{t}\mathcal I_\ell(\sigma) d\sigma
+ &\le \mathrm C_L[\mathfrak E_\ell(t^{\mathrm{act}}_\ell)+\mathrm T],
+ \label{eq:rg-formation-full-fisher-budget}
+\end{align}
+where \(\mathcal I_\ell\) is the full continuous relative Fisher information of
+the joint law. The normalized parameter scores of the hidden Gaussian
+conditionals and of the joint satisfy \cref{eq:rg-formation-subgamma-proof}
+with constants \(\mathrm v_L,\mathrm b_L\) independent of the retained input,
+of \(\mathrm T\), of the strengths, and of the source masses.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The normalized hidden Gaussian conditionals have centers independent of
+\(\vartheta\), and their logarithmic parameter scores, bounded marginal tilt
+included, are centered versions of
+\(-|\mathbf Z|^2/(2\vartheta)-\partial_\vartheta\psi_{\ell,j}\); the joint score
+adds \(\partial_\vartheta\log\pi_j(\vartheta)\), of absolute value at most four.
+A bounded tilt of a standard Gaussian satisfies
+\begin{equation}
+ \E|\mathbf Z|^{2m}
+ \le e^{B_0}2^{\dim M_0/2}4^m m!,\qquad m\ge0,
+ \label{eq:rg-formation-gaussian-score-moments}
+\end{equation}
+because \(r^m\le m!4^me^{r/4}\) and
+\(\E e^{|\mathbf Z|^2/4}\le2^{\dim M_0/2}\), and the other score terms are
+bounded by \cref{eq:rg-formation-tilt-score-proof}. Centering at most doubles
+a geometric moment constant, and summing the exponential series without its
+zero linear term, with \(\log(1+x)\le x\), gives
+\cref{eq:rg-formation-subgamma-proof}, which conditional expectations keep by
+Jensen's inequality.
+
+For the differential and counting entropy
+\(\mathcal S(q)=-\sum_j\int q_j\log q_j\) across changes of dimension, write
+\(q_j=\lambda_jq_{\mid j}\), omitting terms of zero mass. The entropy--Fisher
+bound \(\mathcal I(\mathsf f)\ge2\pi e \mathrm d e^{-2\mathcal S(\mathsf f)/\mathrm d}\)
+of \citet{Stam1959}, equivalent to the Gaussian logarithmic Sobolev inequality
+\citep{Carlen1991}, follows from the Gaussian case of
+\cref{eq:rg-formation-continuous-lsi} by expanding both sides relative to
+\(\mathcal N(0,\sigma^2I)\), integrating \(\int\mathbf x\cdot\nabla\mathsf f=-\mathrm d\),
+canceling the second moments, and minimizing at
+\(\sigma^2=\mathrm d/\mathcal I(\mathsf f)\); Jensen's inequality and
+\(\mathcal S(q)=\sum_j\lambda_j\mathcal S(q_{\mid j})+\mathcal S(\lambda)\), with
+\(\mathcal S(\lambda)\ge0\), extend it to
+\(\sum_j\lambda_j\mathcal I(q_{\mid j})\ge2\pi e \mathrm d e^{-2\mathcal S(q)/\mathrm d}\).
+At fixed \(\mathbf x\), a proposal moves the conditional label row
+\(\mathfrak a\) in the direction \(\mathfrak a\beta^\ell-\mathfrak a\) and leaves
+the continuous marginal unchanged, and concavity of categorical entropy bounds
+the directional derivative below by
+\(\mathcal S(\mathfrak a\beta^\ell)-\mathcal S(\mathfrak a)\ge-\log|\mathcal J|\).
+On a \(\mathrm d\)-dimensional sheet, diffusion therefore gives the first line
+below, and the two bounds together give the second:
+\begin{align}
+ \mathcal S'(q)_{\mathrm{diff}}
+ &=\mathrm T\sum_j\lambda_j\mathcal I(q_{\mid j})-\E_q\Delta V_{\ell,S}
+ \ge \mathrm T\sum_j\lambda_j\mathcal I(q_{\mid j})-\mathrm d\Lambda_\ell,
+ \qquad \Lambda_\ell\le \mathrm C_L\mathrm J_1,
+ \label{eq:rg-formation-actual-entropy-derivative}\\
+ \mathcal S'(q)&\ge 2\pi e \mathrm d \mathrm T e^{-2\mathcal S(q)/\mathrm d}
+                -\mathrm d\Lambda_\ell-\log|\mathcal J|.
+ \label{eq:rg-formation-counting-entropy-floor}
+\end{align}
+Scalar comparison bounds \(\mathcal S(q)\) below by the lesser of its initial
+value and
+\(\frac{\mathrm d}2\log[2\pi e \mathrm d\mathrm T/(\mathrm d\Lambda_\ell+\log|\mathcal J|)]\).
+At a projection dropping \(k\) coordinates \(z\), the chain rule and the
+maximum-entropy Gaussian bound, applied conditionally on \((Y,S)\) and then
+with Jensen's inequality, give
+\begin{equation}
+ \mathcal S(Y,S)\ge \mathcal S(\mathbf X,S)
+       -\frac k2\log\frac{2\pi e \E|z-\bar z|^2}{k},
+ \label{eq:rg-formation-entropy-projection}
+\end{equation}
+where \(\bar z\) can be the projected comparison mean, whose centered
+covariance the moment proof of \Cref{lem:formation-prepared-continuation}
+bounds by \(\mathrm C_L\mathrm T\varsigma_\epsilon^2H_\ell^{-1}\). Initial
+entropies and all logarithms in these estimates are
+\(O_L(\varsigma_\epsilon^2)\), because the covariance eigenvalues, \(\mathrm A\),
+and \(\mathrm T\) are fixed powers of \(\epsilon\), the admitted initial density
+ratios are bounded, and there are finitely many projections. Expanding
+\(\mathrm T\KL(q\Vert\gamma_{\ell,\vartheta}\otimes\pi(\vartheta))\) and using
+\cref{eq:rg-formation-actual-energy} proves
+\cref{eq:rg-formation-activation-budget}; the bounded optimizer tilt adds at
+most \(\mathrm TB_0\), and the source prior has a positive minimum on
+\([1,21/10]\), so its logarithmic contribution does not depend on the masses
+\(\lambda_j\).
+
+For the time-integrated estimate put \(\mathcal V=y^\top H_\ell y/2\) and
+\(\mathrm R_L=e^{B_0}2^{\dim M_0/2}\). The reference satisfies the first bound
+below. Entropy duality gives
+\(\vartheta\E_q\mathcal V\le2\mathfrak E_\ell+2\mathrm T\log\mathrm R_L\),
+Jensen's inequality gives
+\(\vartheta\E_{q^{\star,\ell}_\vartheta}\mathcal V\le2\mathrm T\log\mathrm R_L\),
+and the other centered terms of the normalized full score are at most
+\(2\mathrm C_{\mathrm{sc},L}\), which gives the second. Diffusion dissipates
+\(\mathrm T^2\mathcal I_\ell\) and detailed balance makes the source
+contribution nonpositive, which gives the third for a fixed
+\(\mathrm C_{0,L}\):
+\begin{align}
+ \E_{q^{\star,\ell}_\vartheta}\exp\frac{\vartheta\mathcal V}{2\mathrm T}
+ &\le \mathrm R_L,
+ \label{eq:rg-formation-energy-exponential-moment}\\
+ |\mathrm T\E_q\partial_\vartheta\log q^{\star,\ell}_\vartheta|
+ &\le\frac{2\mathfrak E_\ell+4\mathrm T\log\mathrm R_L}{\vartheta}+2\mathrm T\mathrm C_{\mathrm{sc},L},
+ \label{eq:rg-formation-entropy-parameter-budget}\\
+ \mathfrak E_\ell'&\le -\mathrm T^2\mathcal I_\ell+
+    \frac{2|\dot\vartheta|}{\vartheta}\bigl(\mathfrak E_\ell+\mathrm C_{0,L}\mathrm T\bigr).
+ \label{eq:rg-formation-entropy-energy-inequality}
+\end{align}
+The integrating factor \(\exp[-2\int|\dot\vartheta|/\vartheta]\) has exponent
+bounded over \(t_*\) by the speed bound, and integration proves
+\cref{eq:rg-formation-full-fisher-budget}. At an activation the law and the
+reference are pushed through the same channel at the same parameter, so the
+chain rule makes \(\mathfrak E\) decrease along the finite lineage. All
+entropy derivatives are first taken for positive truncated densities on
+bounded domains, and the moment and entropy bounds remove the cutoffs.
+\hfill\(\square\)
+
+\lemmaheading{Conditional entropy and complete score error}{lem:formation-conditional-entropy}
+There is a constant \(\mathrm c_{\mathrm{early},L}>0\) such that, for every
+retention \(\ell-1\to\ell\), the conditional relative entropy \(\Delta_\ell\)
+with respect to the optimizing hidden conditional satisfies
+\begin{equation}
+ \sup_{t\in I_\ell\text{ and later active times}}
+ \Delta_\ell(t)
+ \le
+ \begin{cases}
+ \mathrm C_L\epsilon^{14},&\ell<L,\\
+ \mathrm C_L\epsilon^2,&\ell=L,
+ \end{cases}
+ \label{eq:rg-formation-conditional-final-bounds}
+\end{equation}
+where the early bound also applies, until the next activation, to the
+corresponding unreplaced comparison process, and the terminal bound is
+\Cref{lem:formation-terminal-joint-entropy}. At every such time the complete
+fine/parent covector difference is at most
+\(\mathrm C_L\mathrm T(\sqrt{\Delta_\ell}+\Delta_\ell)\). \status{ESTABLISHED}
+
+\noindent\emph{Proof of the early bound and the covector estimate.}
+For an early retention use the auxiliary continuous split of the first line
+below. The true parent retains the loops, so the chain rule bounds its hidden
+conditional defect \(\Delta_\ell\) by the auxiliary defect
+\(\widehat\Delta_\ell\), which also integrates \(h\); the independent root
+cancels, and conditional strong convexity in \(Z\) is at least
+\(\lambda_\ell=\mathrm c_{\mathrm{early},L}\mathrm J_\ell\) after reducing the
+constant if necessary. The mixed Hessian obeys the second line:
+\begin{align}
+ &Z=(\mathcal U_{\ell-1}\cap\mathcal U_\ell^\perp)\oplus\mathcal H,
+ \qquad Y=\mathcal U_\ell,
+ \qquad S\ \text{retained},
+ \label{eq:rg-formation-auxiliary-split}\\
+ &\|\nabla_Z\nabla_YV_{\ell-1,j}\|\le\Gamma_\ell=\mathrm C_L\mathrm J_{\ell+1},
+ \qquad \Gamma_L=0.
+ \label{eq:rg-formation-mixed-hessian-scale}
+\end{align}
+The nonlinear residuals lie in the first normal layer and the loop space, and
+at \(\ell-1=0\) the nonlinear potential has no future normal dependence. For
+\(\ell-1\ge1\), in coordinates \(r_E=B_Ew_E\) on the eliminated normal rows,
+the Gaussian conditional precision
+\(\Omega_E=\mathrm J_E+\mathcal C^\top\mathrm J_{\mathrm{fut}}\mathcal C\), with
+the diagonal strengths \(\mathrm J_E\) and \(\mathrm J_{\mathrm{fut}}\) of the
+eliminated and future rows, has \(\|\Omega_E-\mathrm J_E\|\le\mathrm C_L\mathrm J_\ell\)
+and \(\|\Omega_E^{-1}\|\le\mathrm C_L/\mathrm J_{\ell-1}\), so the identity in the
+first line below bounds the first block row of \(\Omega_E^{-1}\) by
+\(\mathrm C_L/\mathrm J_1\). A future force column of level \(r\) has size
+\(\mathrm C_L\mathrm J_r\), so the first conditional mean responds by
+\(\mathrm C_L\mathrm J_r/\mathrm J_1\), with conditional covariance comparable to
+\(\mathrm T/\mathrm J_1\). In the derivatives of the normalized Gaussian
+integral defining \(\psi_{\ell-1,j}\), a first-layer or loop derivative of
+\(\phi_j\) has size \(\mathrm C_L\sqrt{\mathrm J_1/\mathrm T}\) and a second
+derivative size \(\mathrm C_L\mathrm J_1/\mathrm T\), each future derivative
+brings that mean response, and the covariance term is bounded by products of
+first-derivative bounds, which gives the second line:
+\begin{align}
+ \Omega_E^{-1}&=\mathrm J_E^{-1}
+           -\mathrm J_E^{-1}(\Omega_E-\mathrm J_E)\Omega_E^{-1},
+ \label{eq:rg-formation-first-row-resolvent}\\
+ \mathrm T|\partial_h\partial_{w_r}\psi_{\ell-1,j}|&\le \mathrm C_L\mathrm J_r,\qquad
+ \mathrm T|\partial_{w_i}\partial_{w_r}\psi_{\ell-1,j}|
+       \le \mathrm C_L\frac{\mathrm J_i\mathrm J_r}{\mathrm J_1}.
+ \label{eq:rg-formation-future-derivative-scales}
+\end{align}
+The Gaussian Schur cross block is at most \(\mathrm C_L\mathrm J_{\ell+1}\) by
+the lower triangular residual form and its variational bound, and summing
+finitely many blocks, generated conditional covariance included, proves
+\cref{eq:rg-formation-mixed-hessian-scale}.
+
+Write \(q=q_Y(y,j)q_{Z\mid Y}(z\mid y,j)\) and
+\(q^\star=q^\star_Y(y,j)q^\star_{Z\mid Y}(z\mid y,j)\), and let
+\(\mathfrak w_Y=\nabla_Y\log(q/q^\star)\),
+\(\mathfrak v_Y=\nabla_Y\log(q_Y/q^\star_Y)\), and
+\(\mathfrak e_Y=\E_{q_{Z\mid Y}}\nabla_Y\log q^\star_{Z\mid Y}\). Normalization
+gives \(\E_{q^\star_{Z\mid Y}}\nabla_Y\log q^\star_{Z\mid Y}=0\) and
+\(\E_{q_{Z\mid Y}}\mathfrak w_Y=\mathfrak v_Y-\mathfrak e_Y\), the marginal
+flux is \(\mathrm Tq_Y(\mathfrak v_Y-\mathfrak e_Y)\), and subtracting the
+marginal entropy derivative from the full one yields
+\begin{align}
+ \widehat\Delta_\ell'|_{\mathrm{cont}}
+ ={}&-\mathrm T\mathcal I_Z
+      -\mathrm T\E_{q_Y}\operatorname{Var}_{q_{Z\mid Y}}(\mathfrak w_Y)
+      +\mathrm T\E_{q_Y}\bigl[\mathfrak e_Y\cdot\E_{q_{Z\mid Y}}\mathfrak w_Y\bigr]
+ \notag\\
+ &-\dot\vartheta \E_q\partial_\vartheta\log q^\star_{Z\mid Y}.
+ \label{eq:rg-formation-conditional-balance}
+\end{align}
+The conditional logarithmic Sobolev inequality gives
+\(\mathrm T\mathcal I_Z\ge2\lambda_\ell\widehat\Delta_\ell\). Applying
+\cref{eq:rg-formation-herbst-proof} to each unit-vector component of
+\(\nabla_Y\log q^\star_{Z\mid Y}\), whose Lipschitz constant in \(Z\) is at most
+\(\Gamma_\ell/\mathrm T\), gives
+\(|\mathfrak e_Y|\le\Gamma_\ell\sqrt{2\KL(q_{Z\mid Y}\Vert q^\star_{Z\mid Y})/(\mathrm T\lambda_\ell)}\),
+so Cauchy--Schwarz and Young's inequality bound the mixed term by
+\(\lambda_\ell\widehat\Delta_\ell/2+\mathrm T\Gamma_\ell^2\mathcal I_Y/\lambda_\ell^2\),
+with \(\mathcal I_Y\) the \(Y\)-component of the full relative Fisher
+information. The normalized conditional parameter score, sub-gamma by
+\Cref{lem:formation-activation-entropy}, contributes at most
+\(\lambda_\ell\widehat\Delta_\ell/2+\mathrm v_L|\dot\vartheta|^2/\lambda_\ell
++\mathrm b_L|\dot\vartheta|\widehat\Delta_\ell\).
+
+For the source updates, at fixed \(Y=y\) each
+\(\log(\gamma^{\mathrm{hid}}/q^\star_{Z\mid Y,j})\), with \(\gamma^{\mathrm{hid}}\)
+the common label-independent hidden Gaussian, lies in \([-B_0,B_0]\), and the
+conditional entropy relative to \(\gamma^{\mathrm{hid}}\) splits as
+\(\KL(q_Z\Vert\gamma^{\mathrm{hid}})+\mathbb I(Z;S)\). A proposal leaves \(q_Z\)
+unchanged, and the mutual information is convex in the conditional label
+channel at fixed \(q_Z\) by joint convexity of relative entropy, so its
+directional derivative toward the new channel is at most \(\log|\mathcal J|\);
+the difference from the optimizing target, a linear expectation of
+\(\log(\gamma^{\mathrm{hid}}/q^\star_{Z\mid Y,j})\), changes at rate at most
+\(2B_0\). This divides by no source mass and extends to vanishing masses by
+convex approximation. With \(\mathrm b_L|\dot\vartheta|\le\lambda_\ell/2\) for
+small \(\epsilon\) and the negative variance term dropped,
+\begin{align}
+ \widehat\Delta_\ell'|_{\mathrm{jump}}&\le
+ \mathrm C_{\mathcal J}:=\log|\mathcal J|+2B_0,
+ \label{eq:rg-formation-conditional-jump-remainder}\\
+ \widehat\Delta_\ell'
+ &\le-\frac{\lambda_\ell}{2}\widehat\Delta_\ell
+     +\frac{\mathrm T\Gamma_\ell^2}{\lambda_\ell^2}\mathcal I_Y
+     +\frac{\mathrm v_L|\dot\vartheta|^2}{\lambda_\ell}
+     +\mathrm C_{\mathcal J}.
+ \label{eq:rg-formation-conditional-differential-bound}
+\end{align}
+The initial conditional entropy is at most
+\(\mathfrak E_{\ell-1}(t^{\mathrm{act}}_{\ell-1})/\mathrm T\). Integrating with
+\cref{eq:rg-formation-full-fisher-budget,eq:rg-formation-activation-budget}
+and \(\mathrm A^2/\mathrm T=\epsilon^{-6}\) gives
+\begin{align}
+ \widehat\Delta_\ell(t)\le \mathrm C_L\bigg[
+ &e^{-\mathrm c_{\mathrm{early},L}\mathrm J_\ell(t-t^{\mathrm{act}}_{\ell-1})}
+                 (\epsilon^{-6}\mathrm J_\ell+\varsigma_\epsilon^2)
+ \notag\\
+ &+\epsilon^{-6}\frac{\mathrm J_{\ell+1}^2}{\mathrm J_\ell}
+ +\varsigma_\epsilon^2\frac{\mathrm J_{\ell+1}^2}{\mathrm J_\ell^2}
+ +\frac{\epsilon^2}{\mathrm J_\ell^2}+\frac{\mathrm C_{\mathcal J}}{\mathrm J_\ell}\bigg],
+ \label{eq:rg-formation-early-entropy-bound}
+\end{align}
+with \(\mathrm c_{\mathrm{early},L}\) absorbing the factor \(1/2\). For
+\(\ell<L\), \(\mathrm J_{\ell+1}^2/\mathrm J_\ell=\epsilon^{20}\) and
+\(\mathrm J_\ell\ge\epsilon^{-20}\); on \(I_\ell\) the entrance time and
+\(\mathrm c_{\mathrm{early},L}k_L/2>\mathrm Q_1+20\) bound the first term by
+\(\mathrm C_L\epsilon^{14}\), and the other terms meet the same bound; at
+\(\ell=L\) the last term would be \(\mathrm C_{\mathcal J}\).
+
+For the true retention, \cref{eq:rg-formation-conditional-cost} with
+\(\ell'=\ell-1\), differentiated at fixed recognition law and channel, gives
+\(g_{\ell-1}-g_\ell=-\mathrm T\E_q\partial_\vartheta\log q^\star_{Z\mid Y,\mathrm{true}}\),
+the common scalar and the source-prior derivative canceling. The normalized
+conditional score has the same sub-gamma bound, so
+\cref{eq:rg-formation-score-duality}, applied conditionally, with Jensen's
+inequality gives the covector bound
+\(|g_{\ell-1}-g_\ell|\le\mathrm C_L\mathrm T(\sqrt{\Delta_\ell}+\Delta_\ell)\).
+\(\square\)
+
+\lemmaheading{Joint relaxation at the weakest strength}{lem:formation-terminal-joint-entropy}
+There is a constant \(\mathrm c_{\mathrm{joint},L}>0\), independent of
+\(\epsilon\), such that every lineage satisfies
+\begin{equation}
+ \KL\bigl(q_t^\ell\Vert q^{\star,\ell}_{\vartheta_\ell(t)}\bigr)
+ \le \mathrm C_L e^{-\mathrm c_{\mathrm{joint},L}t}
+           [\epsilon^{-(\mathrm Q_1+6)}+\varsigma_\epsilon^2]
+       +\mathrm C_L\epsilon^2.
+ \label{eq:rg-formation-terminal-joint-bound}
+\end{equation}
+Consequently the terminal part of
+\cref{eq:rg-formation-conditional-final-bounds} holds once
+\(t\ge t_L=k_L\log(1/\epsilon)\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Fix a level and a parameter, write \(q^\star=q^{\star,\ell}_\vartheta\) and
+\(\mathfrak r_j=q_j/q^\star_j\). The bounded tilt gives
+\(e^{-B_0}\le q^\star/(\gamma_{\ell,\vartheta}\otimes\pi)\le e^{B_0}\), and
+\cref{eq:rg-formation-parent-generator} gives the conductance comparison in the
+first line below. For a probability measure \(\mu\),
+\(\operatorname{Ent}_\mu(\mathfrak r)=\inf_{r>0}\int[\mathfrak r\log(\mathfrak r/r)-\mathfrak r+r] d\mu\)
+with a nonnegative integrand, so
+\(\operatorname{Ent}_{q^\star}(\mathfrak r)\le e^{B_0}\operatorname{Ent}_{\gamma\otimes\pi}(\mathfrak r)\),
+and the product chain rule and convexity give the second line, whose first
+term the Gaussian entropy inequality bounds by
+\(\mathrm T/(2\vartheta\mathrm h_L)\) times its continuous Fisher information:
+\begin{align}
+ q^\star_j(y)\beta_{jk}^\ell(y)
+ &\ge e^{-2B_0}\gamma_{\ell,\vartheta}(y)\pi_j(\vartheta)\pi_k(\vartheta),
+ \label{eq:rg-formation-conductance-comparison}\\
+ \operatorname{Ent}_{\gamma\otimes\pi}(\mathfrak r)
+ &\le\sum_j\pi_j\operatorname{Ent}_\gamma(\mathfrak r_j)
+   +\E_\gamma\operatorname{Ent}_{\pi}(\mathfrak r(y)).
+ \label{eq:rg-formation-product-entropy-bound}
+\end{align}
+For any positive finite vector \(\mathbf a\), Jensen's inequality for the
+logarithm gives
+\begin{equation}
+ \frac12\sum_{j,k}\pi_j\pi_k
+       (\mathbf a_j-\mathbf a_k)(\log\mathbf a_j-\log\mathbf a_k)
+ =\sum_j\pi_j\mathbf a_j\log\mathbf a_j
+       -\bar{\mathbf a}\sum_j\pi_j\log\mathbf a_j
+ \ge \operatorname{Ent}_\pi(\mathbf a),
+ \label{eq:rg-formation-categorical-entropy-bound}
+\end{equation}
+with \(\bar{\mathbf a}=\sum_j\pi_j\mathbf a_j\). Comparing the Fisher measures
+and the conductances through their pointwise bounds, with the jump
+dissipation of the first line below, gives the second:
+\begin{align}
+ \mathcal D_{\mathrm{jump}}
+ &=\frac12\int\sum_{j,k}q^\star_j\beta_{jk}^\ell
+           (\mathfrak r_j-\mathfrak r_k)(\log\mathfrak r_j-\log\mathfrak r_k) dy,
+ \label{eq:rg-formation-jump-dissipation}\\
+ \KL(q\Vert q^\star)&\le
+ e^{2B_0}\frac{\mathrm T}{2\vartheta\mathrm h_L}\mathcal I_\ell
+       +e^{3B_0}\mathcal D_{\mathrm{jump}}.
+ \label{eq:rg-formation-joint-coercivity}
+\end{align}
+With \(\mathrm c_{0,L}=\min\{2\mathrm h_Le^{-2B_0},e^{-3B_0}\}>0\),
+\(\mathrm T\mathcal I_\ell+\mathcal D_{\mathrm{jump}}\ge\mathrm c_{0,L}\KL\). The time-dependent normalized
+full score satisfies \cref{eq:rg-formation-subgamma-proof}, hence, for small
+\(\epsilon\),
+\begin{equation}
+ \KL'\le-\mathrm c_{0,L}\KL+
+       \mathrm C_L\epsilon(\sqrt{\KL}+\KL)
+ \le-\frac{\mathrm c_{0,L}}{2}\KL+\mathrm C_L\epsilon^2,
+ \label{eq:rg-formation-joint-moving-reference}
+\end{equation}
+and \(\mathrm c_{\mathrm{joint},L}=\mathrm c_{0,L}/2\). Activations decrease the
+relative entropy at the unchanged parameter, and each descendant then obeys
+the same inequality with its own parameter speed. The initial relative entropy
+is at most \(\mathrm C_L[\epsilon^{-(\mathrm Q_1+6)}+\varsigma_\epsilon^2]\), and
+integration through finitely many decreases proves
+\cref{eq:rg-formation-terminal-joint-bound}; the condition
+\(\mathrm c_{\mathrm{joint},L}k_L>\mathrm Q_1+8\) makes its decaying term
+\(O_L(\epsilon^2)\) at \(t_L\). Both the auxiliary and the true hidden
+conditional entropies are bounded by the full joint relative entropy, which
+proves the terminal assertion. \hfill\(\square\)
+
+\section{Exact fast marginals and complete source histories}
+\label{sec:rg-formation-history-proof}
+
+\lemmaheading{Common fast marginal and environmental error}{lem:formation-fast-marginal}
+In the flag coordinates \(w=(w_1,\ldots,w_L)\) of
+\cref{eq:rg-formation-weighted-flag} and the loop coordinate \(h\), put
+\(\Omega_*=\mathrm J_1\mathsf B_{11}^\top\mathsf B_{11}\) and
+\begin{equation}
+ \mu_{\vartheta,j}^*(dw_1,dh)
+ =\frac{1}{Z_{\vartheta,j}^*}
+   \exp\left\{-\frac{\vartheta}{2\mathrm T}
+         (w_1^\top\Omega_*w_1+\mathrm J_1|h|^2)-\phi_j(w_1,h)\right\}dw_1 dh,
+ \label{eq:rg-formation-fast-law}
+\end{equation}
+with loop marginal \(\mu_{\vartheta,j}^{*,h}\), first-normal conditional
+\(\mu_{\vartheta,j}^{*,1}(dw_1\mid h)\), and, with environment scales
+\(\varrho_\epsilon\), \(\varrho'_\epsilon\),
+\begin{align}
+ \beta_{jk}^{*,h}(h,\vartheta)
+ &=\int\beta_k(w_1,h,\vartheta)
+                   \mu_{\vartheta,j}^{*,1}(dw_1\mid h),
+ \label{eq:rg-formation-fast-loop-row}\\
+ \bar\beta_{jk}(\vartheta)
+ &=\int\beta_k(w_1,h,\vartheta) \mu_{\vartheta,j}^*(dw_1,dh)
+   =\int\beta_{jk}^{*,h}(h,\vartheta)
+                    \mu_{\vartheta,j}^{*,h}(dh),
+ \label{eq:rg-formation-common-averaged-row}\\
+ \varrho_\epsilon&=\frac{\mathrm J_2}{\mathrm J_1},\qquad
+ \varrho'_\epsilon=\frac{\mathrm J_2}{\sqrt{\mathrm J_1\mathrm T}},\qquad
+ \mathrm e_\epsilon(y)=\varrho_\epsilon+\varrho'_\epsilon|y|.
+ \label{eq:rg-formation-environment-scales}
+\end{align}
+Then \cref{eq:rg-formation-fast-law} is the exact \((w_1,h)\)-marginal of the
+optimizer conditional on \(S=j\); averaging the inherited row
+\(\beta^\ell_{jk}\) against the optimizer conditional on \(j\) gives the same
+\(\bar\beta_{jk}(\vartheta)\) for every \(\ell\); and the exact parent rows and
+loop forces satisfy
+\cref{eq:rg-formation-parent-row-environment,eq:rg-formation-parent-force-environment,eq:rg-formation-row-fast-lipschitz}
+below. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+In the flag coordinates
+\begin{equation}
+ w^\top H_{\mathcal U}w
+ =\mathrm J_1|\mathsf B_{11}w_1|^2
+       +\sum_{\ell=2}^L\mathrm J_\ell
+             \left|\sum_{r\le\ell}\mathsf B_{\ell r}w_r\right|^2,
+ \label{eq:rg-formation-triangular-fast-quadratic}
+\end{equation}
+and \(\phi_j\) depends only on \((w_1,h)\). For fixed \(w_1,h\), change the
+later \(w_\ell\) to the residuals \(r_\ell=\sum_{r\le\ell}\mathsf B_{\ell r}w_r\);
+the domain stays the whole Euclidean product and the Jacobian is the constant
+\(\prod_{\ell\ge2}|\det\mathsf B_{\ell\ell}|\), so integrating those Gaussian
+residuals contributes a scalar independent of \(w_1,h,j\), which proves the
+first claim, the prior factor \(\pi_j(\vartheta)\) canceling on conditioning.
+The change of variables and the tower property give the second.
+
+For an intermediate \(\ell\ge1\), keep \(y=(w_{\ell+1},\ldots,w_L)\) fixed and
+integrate \(w_2,\ldots,w_\ell\). The unperturbed conditional first-normal law
+\(\gamma^1_{\ell,\vartheta,y}\) and its divergence from
+\(\gamma^{1,*}_\vartheta=\mathcal N(0,(\mathrm T/\vartheta)\Omega_*^{-1})\) are
+\begin{align}
+ &\gamma^1_{\ell,\vartheta,y}
+ =\mathcal N\left(\mu_\ell(y),\frac{\mathrm T}{\vartheta}(\Omega^{(1)}_\ell)^{-1}\right),\qquad
+ \Omega_*\preceq\Omega^{(1)}_\ell\preceq\Omega_*+\mathrm C_L\mathrm J_2I,\qquad
+ |\mu_\ell(y)|\le \mathrm C_L\frac{\mathrm J_2}{\mathrm J_1}|y|,
+ \label{eq:rg-formation-first-normal-conditional}\\
+ &\frac12\left[
+  \frac{\vartheta}{\mathrm T}\mu_\ell^\top\Omega_*\mu_\ell
+  +\Tr\bigl(\Omega_*(\Omega^{(1)}_\ell)^{-1}\bigr)-\dim w_1
+            -\log\det\bigl(\Omega_*(\Omega^{(1)}_\ell)^{-1}\bigr)\right]
+ \le \mathrm C_L[\varrho_\epsilon^2+\varrho_\epsilon'^2|y|^2].
+ \label{eq:rg-formation-first-normal-gaussian-kl}
+\end{align}
+For the lower precision bound, minimize the nonnegative later residual squares
+at \(y=0\); for the upper, set the eliminated later coordinates to zero and use
+\(\mathrm J_\ell\le\mathrm J_2\) for \(\ell\ge2\); at \(\ell=L\),
+\(\Omega^{(1)}_L=\Omega_*\) and \(\mu_L=0\). The mean bound is the
+first-block-row estimate \cref{eq:rg-formation-first-row-resolvent}, each
+future coordinate of level \(\ell\) contributing at most
+\(\mathrm C_L\mathrm J_\ell/\mathrm J_1\). The divergence bound holds because
+the whitened covariance eigenvalues lie between
+\((1+\mathrm C_L\varrho_\epsilon)^{-1}\) and one, where
+\(t-1-\log t=O((t-1)^2)\), and Pinsker's inequality turns it into a total
+variation at most \(\mathrm C_L\mathrm e_\epsilon(y)\).
+
+Tilting two probability measures by one weight \(w\in[e^{-B_0},1]\) multiplies
+their total-variation distance by at most \(2e^{B_0}\), since each term of
+\(w\mu/\mu(w)-w\nu/\nu(w)=w(\mu-\nu)/\mu(w)+w\nu[1/\mu(w)-1/\nu(w)]\) has
+total variation at most \(e^{B_0}\|\mu-\nu\|_{\mathrm{TV}}\). Applied to
+\(w=e^{-\phi_j(w_1,h)}\) uniformly in \(h\), this gives the first bound below;
+the second follows through the common Gaussian force
+\(\vartheta\mathrm J_1h\) and \(\mathrm T\E\nabla_h\phi_j\), and the third
+because \(\gamma^{1,*}_\vartheta\) does not depend on \(h\), so differentiation
+under its normalized tilt gives
+\[
+\nabla_h\beta^{*,h}_{jk}
+=\E_{\mu^{*,1}_{\vartheta,j}(\cdot\mid h)}\nabla_h\beta_k
+-\operatorname{Cov}_{\mu^{*,1}_{\vartheta,j}(\cdot\mid h)}
+ (\beta_k,\nabla_h\phi_j),
+\]
+and both terms have the asserted Lipschitz bound: the standardized source
+potential has bounded first derivatives and \(\sum_k\beta_k=1\). Thus
+\begin{align}
+ \|\beta_{j\cdot}^\ell(y,h,\vartheta)
+          -\beta_{j\cdot}^{*,h}(h,\vartheta)\|_{\mathrm{TV}}
+ &\le \mathrm C_L\mathrm e_\epsilon(y),
+ \label{eq:rg-formation-parent-row-environment}\\
+ |\nabla_hV_{\ell,j}(y,h,\vartheta)
+           -\nabla_hV_j^{*,h}(h,\vartheta)|
+ &\le \mathrm C_L\sqrt{\mathrm T\mathrm J_1} \mathrm e_\epsilon(y),
+ \label{eq:rg-formation-parent-force-environment}\\
+ \operatorname{Lip}_{(w_1,h)}\beta_{j\cdot}
+       +\operatorname{Lip}_h\beta_{j\cdot}^{*,h}
+ &\le \mathrm C_L\sqrt{\mathrm J_1/\mathrm T}.
+ \label{eq:rg-formation-row-fast-lipschitz}
+\end{align}
+\hfill\(\square\)
+
+\lemmaheading{Fast mixing with a learned coefficient}{lem:formation-fast-mixing}
+There is a constant \(\mathrm c_{\mathrm{fast},L}>0\) with the following property.
+Let the auxiliary process have, on a proposal-free interval, fixed assignment
+\(j\) and either the full fast potential of \cref{eq:rg-formation-fast-law} or
+its exact loop marginal, and a deterministic coefficient with
+\(1\le\vartheta\le21/10\) and \(|\dot\vartheta|\le\mathrm C_L\epsilon\). For a
+point start \(\xi\) at time \(t'\) and \(t-t'\ge(\mathrm c_{\mathrm{fast},L}\mathrm J_1)^{-1}\),
+\begin{equation}
+ \|P^*_{t',t}(\xi,\cdot)-\mu^*_{\vartheta(t),j}\|_{\mathrm{TV}}
+ \le \mathrm C_L\bigl(1+\sqrt{\mathrm J_1/\mathrm T}|\xi|\bigr)
+              e^{-\mathrm c_{\mathrm{fast},L}\mathrm J_1(t-t')}
+       +\mathrm C_L\epsilon/\mathrm J_1,
+ \label{eq:rg-formation-fast-mixing-bound}
+\end{equation}
+where \(\mu^*\) means its loop marginal in the loop case. Also
+\(\bar\beta_{jk}(\vartheta)\) is uniformly Lipschitz in \(\vartheta\).
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The relative Hessian bounds and the normalized marginal covariance calculation
+give \(\mathrm c_L\mathrm J_1I\preceq\nabla^2V^*\preceq\mathrm C_L\mathrm J_1I\)
+for both potentials, which are even, minimize at zero, and have equilibrium
+second moments at most \(\mathrm C_L\mathrm T/\mathrm J_1\). For two point
+starts \(\xi,\xi'\), reflection coupling before meeting gives their distance a
+one-dimensional noise of size \(2\sqrt{2\mathrm T}\) and a drift at most
+\(-\lambda\) times the distance, \(\lambda=\mathrm c_L\mathrm J_1\); multiplying
+by \(e^{\lambda(t-t')}\) gives a time-changed Brownian motion of variance
+\(4\mathrm T(e^{2\lambda(t-t')}-1)/\lambda\), and the reflection principle
+bounds the probability of not meeting by
+\begin{equation}
+ \mathrm C|\xi-\xi'|\sqrt{\lambda/\mathrm T}
+                 \bigl(e^{2\lambda(t-t')}-1\bigr)^{-1/2}.
+ \label{eq:rg-formation-reflection-bound}
+\end{equation}
+The coupling reflects one Brownian motion orthogonally and predictably, so
+both marginals have the required law; the drifts are globally Lipschitz for
+each instance, so the copies are constructed away from the diagonal and joined
+at meeting, the comparison and hitting bound following by stopping before the
+diagonal and letting the stopping radius tend to zero. Averaging \(\xi'\)
+against the equilibrium at time \(t'\) gives the first term of
+\cref{eq:rg-formation-fast-mixing-bound}.
+
+For the second, compare that evolving equilibrium start with the
+instantaneous equilibrium at time \(t\). After standardizing \((w_1,h)\) by
+\(\sqrt{\mathrm J_1/\mathrm T}\), the normalized parameter score is a centered
+quadratic with uniform exponential moments, and the loop-marginal score, its
+conditional expectation, has the same bound by Jensen's inequality. The
+moving-reference entropy calculation with the continuous entropy inequality at
+curvature \(\mathrm c_L\mathrm J_1\) gives, for the relative entropy
+\(\mathrm D_{\mathrm{lag}}\) of the evolved law to the current equilibrium,
+\begin{equation}
+ \mathrm D_{\mathrm{lag}}'\le-\mathrm c_L\mathrm J_1\mathrm D_{\mathrm{lag}}
+ +\mathrm C_L\epsilon^2/\mathrm J_1,\qquad \mathrm D_{\mathrm{lag}}(t')=0,
+ \label{eq:rg-formation-fast-equilibrium-lag}
+\end{equation}
+the parameter term linear in \(\mathrm D_{\mathrm{lag}}\) being absorbed for
+small \(\epsilon\); hence \(\mathrm D_{\mathrm{lag}}\le\mathrm C_L\epsilon^2/\mathrm J_1^2\),
+and Pinsker's inequality gives the second term. Finally, differentiating
+\(\bar\beta_{jk}=\E_{\mu_{\vartheta,j}^*}\beta_k\) gives the explicit row
+derivative, whose absolute values sum to at most eight, and a covariance with
+the centered scale score, whose standardized first moment is bounded, so
+\(\sum_k|\partial_\vartheta\bar\beta_{jk}|\le\mathrm C_L\). \hfill\(\square\)
+
+\lemmaheading{Coupling of complete source histories}{lem:formation-history-coupling}
+The source-assignment histories of a process and of an activated exact parent
+can be coupled, together with their common initial marked sample, so that the
+probability of any disagreement through \(t_*\) is at most
+\(\mathrm C_L\epsilon^6\). This holds through the finite activation lineage,
+for the full finite-state path with arbitrary label correlations and the
+rate-one proposal clock. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+First bound a proposal row on one proposal-free interval. For a microscopic
+process let \(\xi=(w_1,h)\), and couple its auxiliary fast diffusion to the
+same initial fast point, Brownian increments, assignment, and parameter path.
+The omitted Gaussian environmental force
+\(\vartheta[(H_{11}-\Omega_*)w_1+H_{1,>1}w_{>1}]\) has norm at most
+\(\mathrm C_L\mathrm J_2|w|\), and strong contraction from the most recent
+proposal or activation time \(t_{\mathrm{prev}}\) gives the first bound below.
+For a parent at level \(\ell\ge1\), coupling its retained loop to the
+auxiliary loop process, \cref{eq:rg-formation-parent-force-environment} gives
+the second:
+\begin{align}
+ |\xi_t-\xi_t^*|
+ &\le \mathrm C_L\mathrm J_2\int_{t_{\mathrm{prev}}}^t
+             e^{-\mathrm c_L\mathrm J_1(t-\sigma)}|w_\sigma| d\sigma,
+ \label{eq:rg-formation-fast-environment-coupling}\\
+ |h_t-h_t^*|
+ &\le \mathrm C_L\sqrt{\mathrm T\mathrm J_1}
+       \int_{t_{\mathrm{prev}}}^t e^{-\mathrm c_L\mathrm J_1(t-\sigma)}\mathrm e_\epsilon(y_\sigma) d\sigma,
+ \label{eq:rg-formation-loop-environment-coupling}
+\end{align}
+with the adapted environment of the process. The row Lipschitz constant and
+the direct parent row error \cref{eq:rg-formation-parent-row-environment}
+convert these into proposal-row errors.
+
+At random proposal times, condition on the whole independent future Poisson
+grid, but not on its marks or on any
+future continuous path, so that the Brownian law is unchanged. Evenness and
+the uniform lower curvature on \(M_\ell\) give the first bound below on every
+sheet and level; proposals preserve \(y\), projections contract its norm, and
+the preparation has second moment at most \(\mathrm C_L(\mathrm A^2+\mathrm T)\),
+which gives the second:
+\begin{align}
+ (\mathrm T\Delta-\nabla V_{\ell,j}\cdot\nabla)|y|^2
+ &\le2\mathrm T\dim M_0-2\mathrm c_L|y|^2,
+ \label{eq:rg-formation-grid-moment-generator}\\
+ \sup_{t\le t_*}\E\bigl[|\mathbf X_{M_\ell,t}|^2\bigm|\text{Poisson grid}\bigr]
+ &\le \mathrm C_L(\mathrm A^2+\mathrm T).
+ \label{eq:rg-formation-grid-moment}
+\end{align}
+If the initial sample is fixed as well, the right side first contains its
+squared norm, and integrating that sample returns the bound; the future grid
+after a deterministic activation is independent of the past, so the argument
+applies at each activation and at grid-selected times. Averaging the row
+errors of
+\cref{eq:rg-formation-fast-environment-coupling,eq:rg-formation-loop-environment-coupling}
+with \cref{eq:rg-formation-grid-moment}, where the exponential convolution has
+integral at most \(\mathrm C_L/\mathrm J_1\), over the distribution of every
+past prefix, and dividing by the probability of no rare prefix, gives the
+common expected per-proposal bound
+\begin{equation}
+ \eta_\epsilon
+ =\mathrm C_L\left[\frac{\mathrm J_2}{\mathrm J_1}
+       +\frac{\mathrm J_2}{\sqrt{\mathrm J_1}}
+                       \left(1+\frac{\mathrm A}{\sqrt{\mathrm T}}\right)\right]
+ =O_L(\epsilon^7),
+ \label{eq:rg-formation-averaged-environment-error}
+\end{equation}
+since \(\mathrm Q_1=2\mathrm Q_2+20\) and \(\mathrm A/\sqrt{\mathrm T}=\epsilon^{-3}\).
+
+Define one comparison source process on the same proposal grid, started at
+the initial assignment and using the row \(\bar\beta_{j\cdot}(\vartheta_\circ(t))\),
+\(\vartheta_\circ(t)=2-e^{-\epsilon t}\), a single comparison law common to both
+processes while each process keeps its own law and coefficient. At a proposal
+time \(t\), condition on the common starting sample, the full future grid, and
+all previous marks, self marks included; the assignment and level are fixed
+on \((t_{\mathrm{prev}},t)\), and no future continuous trajectory is conditioned
+on. Starting the auxiliary diffusion from the fast point at
+\(t_{\mathrm{prev}}\), the environmental coupling, then
+\cref{eq:rg-formation-fast-mixing-bound}, then the Lipschitz comparison of
+\(\vartheta(t)\) with \(\vartheta_\circ(t)\) bound the averaged conditional row
+error, for gaps at least \(t_{\mathrm{gap}}\), by the second line below:
+\begin{align}
+ t_{\mathrm{gap}}&=\frac{k_L}{\mathrm J_1}\log(1/\epsilon),
+ \label{eq:rg-formation-history-gap}\\
+ &\mathrm C_L\left[
+ \bigl(1+\mathrm A\sqrt{\mathrm J_1/\mathrm T}\bigr)e^{-\mathrm c_{\mathrm{fast},L}\mathrm J_1t_{\mathrm{gap}}}
+       +\epsilon/\mathrm J_1+\eta_\epsilon+r_\epsilon\right];
+ \label{eq:rg-formation-long-gap-row-error}
+\end{align}
+the moment of the point-start mixing factor, which includes
+\(\sqrt{\mathrm J_1/\mathrm T}(\mathrm A+\sqrt{\mathrm T})\), is absorbed because
+\(\mathrm A/\sqrt{\mathrm T}\ge1\), and averaging over the past marks returns
+the grid-conditioned moments exactly. Short gaps use the trivial bound one.
+For a rate-one Poisson grid the expected number of ordered pairs of proposal
+times less than \(t_{\mathrm{gap}}\) apart is at most \(t_*t_{\mathrm{gap}}\),
+by integrating the two-time intensity; proposals within \(t_{\mathrm{gap}}\)
+after the initial time or one of the finitely many activations add at most
+\((L+1)t_{\mathrm{gap}}\), and the expected total count is \(t_*\).
+
+To pass from conditional row errors to the whole history, condition on a grid
+with \(\mathrm n\) proposals, write the two joint mark laws as products of
+their conditional kernels \(\mathsf K_m\) and \(\overline{\mathsf K}_m\), and
+replace kernels in order, keeping the earlier prefix distributed according to
+the process and integrating the comparison tail, whose mass is one. With
+\(\mathsf j_m\in\mathcal J\) the \(m\)th proposal mark,
+\begin{equation}
+ \bigl\|\operatorname{Law}(\mathsf j_1,\ldots,\mathsf j_{\mathrm n})
+          -\operatorname{Law}(\overline{\mathsf j}_1,\ldots,\overline{\mathsf j}_{\mathrm n})\bigr\|_{\mathrm{TV}}
+ \le \sum_{m=1}^{\mathrm n}
+       \E_{\text{prefix}}
+       \|\mathsf K_m(\cdot\mid\mathsf j_{<m})
+                 -\overline{\mathsf K}_m(\cdot\mid\mathsf j_{<m})\|_{\mathrm{TV}},
+ \label{eq:rg-formation-history-telescoping}
+\end{equation}
+and integrating over the grid with the preceding bounds gives
+\begin{align}
+ \mathrm{Err}_{\mathrm{hist}}\le \mathrm C_L\big[
+ &(t_*+L+1)t_{\mathrm{gap}}
+ +t_*\bigl(1+\mathrm A\sqrt{\mathrm J_1/\mathrm T}\bigr)
+                      e^{-\mathrm c_{\mathrm{fast},L}\mathrm J_1t_{\mathrm{gap}}}
+ \notag\\
+ &+t_*\epsilon/\mathrm J_1
+       +t_*\eta_\epsilon+t_*r_\epsilon\big].
+ \label{eq:rg-formation-full-history-error}
+\end{align}
+With \(\mathrm c_{\mathrm{fast},L}k_L>\mathrm Q_1/2+12\), the five contributions
+are bounded by constants times \(\epsilon^{19}\varsigma_\epsilon\),
+\(\epsilon^8\), \(\epsilon^{\mathrm Q_1}\), \(\epsilon^6\), and
+\(\epsilon^{2\mathrm Q_1+19}+\epsilon^{3\mathrm Q_1+25}\varsigma_\epsilon^2\), so
+\(\mathrm{Err}_{\mathrm{hist}}\le\mathrm C_L\epsilon^6\).
+
+Fix the common initial sample and the grid, couple each mark sequence
+maximally with the comparison sequence, and glue the two couplings along it;
+the glued sequences disagree with probability at most
+\(\mathrm C_L\epsilon^6\). The path spaces, continuous paths in a Euclidean
+space and right-continuous paths in \(\mathcal J\), are standard Borel, so each
+continuous trajectory can be drawn from its regular conditional law given the
+initial sample, grid, and marks, which preserves both full-process marginals
+and the parent projection of the initial sample. Once self-proposals are
+discarded, each source path is a function of grid and marks, which proves the
+first bound of \cref{eq:rg-formation-two-path-bounds}; finitely many
+activations change only \(\mathrm C_L\). \hfill\(\square\)
+
+\section{Coherence, source movement, and continuous paths}
+\label{sec:rg-formation-dynamics-transfer}
+
+\lemmaheading{Successive coherence with the original conditional marks}{lem:formation-coherence}
+Under the preparation and regime of
+\cref{eq:rg-formation-preparation-margin,eq:rg-formation-preparation-transport,eq:rg-formation-weakest-one-regime},
+there are a finite \(k_{\mathrm{geom},L}\) and a tolerance bound
+\(\eta_L^{\max}>0\), a fixed fraction of \(\mathrm m_L\), both depending only on
+\(L\) and the fixed data, with the following property. For every
+\(k_L>k_{\mathrm{geom},L}\) and every \(0<\eta_L\le\eta_L^{\max}\) there are
+\(\epsilon_L,\mathrm c_L,\mathrm C_L>0\) such that, for \(0<\epsilon<\epsilon_L\),
+conclusion (b) of \Cref{thm:finite-depth-adaptive-formation} holds for the fine
+process and its successive parent descriptions on the windows
+\(I_\ell=[t_\ell,2t_\ell]\), \(t_\ell=k_L\log(1/\epsilon)/\mathrm J_\ell\), with
+the probability bound \cref{eq:rg-formation-coherence-probability}. On
+\(I_\ell\) the discrepancies \(\mathfrak d_i\) and the residuals of level at
+most \(\ell\) are below \(\eta_L\mathrm A\) and future bridges stay separated
+by a fixed positive multiple of \(\mathrm A\), in the conditional
+root-mean-square original residuals of
+\cref{eq:rg-formation-inherited-edge-statistic} for eliminated coordinates,
+separately for the physical posterior and the restricted optimizer.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+On an active level \(\ell'<\ell\), write the non-root Gaussian comparison of
+\Cref{lem:formation-prepared-continuation} through a current normal component
+\(z\in\mathcal U_{\ell'}\cap\mathcal U_\ell^\perp\), a future component
+\(y\in\mathcal U_\ell\), and the separate loop component. The weighted flag
+gives, for the current and future blocks of \(H_{\ell'}\),
+\begin{equation}
+ H_{zz}\succeq \mathrm c_L\mathrm J_\ell I,
+ \qquad \|H_{zy}\|\le \mathrm C_L\mathrm J_{\ell+1},
+ \qquad \|H_{yy}\|\le \mathrm C_L\mathrm J_{\ell+1},
+ \qquad \mathrm J_{L+1}=0.
+ \label{eq:rg-formation-current-future-blocks}
+\end{equation}
+Indeed rows of levels at most \(\ell\) annihilate \(\mathcal U_\ell\), so the
+original cross and future blocks contain only strengths at most
+\(\mathrm J_{\ell+1}\); in an earlier elimination through \(\ell''\), the
+eliminated-current block is \(O_L(\mathrm J_{\ell''+1})\), the inverse hidden
+block \(O_L(\mathrm J_{\ell''}^{-1})\), and the eliminated-future block
+\(O_L(\mathrm J_{\ell+1})\), so the Schur correction is still
+\(O_L(\mathrm J_{\ell+1})\); at level zero there is no correction, and
+loop/normal cross blocks vanish in the Gaussian core.
+
+The deterministic reference mean \(\mu^{\mathrm G}\) has norm at most
+\(\mathrm C_L\mathrm A\) and zero loop component. Integrating
+\(\dot\mu_z^{\mathrm G}=-\vartheta(t)(H_{zz}\mu_z^{\mathrm G}+H_{zy}\mu_y^{\mathrm G})\)
+with \(1\le\vartheta\le21/10\) gives the first bound below; integrating the
+full future row, of norm \(O_L(\mathrm J_{\ell+1})\), from the common center,
+earlier projections preserving \(P_\ell\mu^{\mathrm G}\), gives the second for
+a sequential process begun at \(t^{\mathrm{act}}_{\ell-1}\):
+\begin{align}
+ |\mu_z^{\mathrm G}(t)|
+ &\le \mathrm C_L\mathrm A\left[e^{-\mathrm c_L\mathrm J_\ell(t-t_0)}+\frac{\mathrm J_{\ell+1}}{\mathrm J_\ell}\right],
+ \label{eq:rg-formation-current-mean}\\
+ |\mu^{\mathrm G}(t)-\mathrm AP_\ell\mathbf v_0|
+ &\le \mathrm C_L\mathrm A\left[
+ e^{-\mathrm c_L\mathrm J_\ell(t-t^{\mathrm{act}}_{\ell-1})}
+ +\frac{\mathrm J_{\ell+1}}{\mathrm J_\ell}+\mathrm J_{\ell+1}t\right].
+ \label{eq:rg-formation-window-mean}
+\end{align}
+The future terms are absent when \(\ell=L\), and a fine process uses \(t_0=0\).
+
+For the fluctuations, on each active non-root space
+\(\mathbf Z=\mathbf X^{\mathrm G}-\mu^{\mathrm G}\) obeys
+\(d\mathbf Z=-\vartheta(t)H_{\ell'}\mathbf Zdt+\sqrt{2\mathrm T} dW\), with
+\(\vartheta H_{\ell'}\succeq\mathrm h_LI\) and initial covariance at most
+\(\mathrm C_L\mathrm TH_{\ell'}^{-1}\). Choose \(\mathrm a_*>0\) below
+\(\mathrm h_L\) and small enough for the initial Gaussian exponential moment.
+For \(\mathcal Y(\mathbf z)=e^{\upsilon}\) with
+\(\upsilon=\mathrm a_*|\mathbf z|^2/(4\mathrm T)\), direct differentiation gives
+the first line below; the initial expectation of \(\mathcal Y\) is bounded,
+orthogonal retention decreases \(\mathcal Y\), and It\^o's formula up to the
+first exit from a ball, localization, and the nonnegative stopped value of
+\(\mathcal Y\) yield the second for every \(\varrho>0\), higher stiffnesses only
+strengthening the negative term:
+\begin{align}
+ \mathscr L_t\mathcal Y
+ &=\left[\frac{\mathrm a_*\mathrm d}{2}
+ +\frac{\mathrm a_*^2|\mathbf z|^2}{4\mathrm T}
+ -\frac{\mathrm a_*\vartheta\mathbf z^\top H_{\ell'}\mathbf z}{2\mathrm T}\right]\mathcal Y
+ \le \mathrm a_*(\mathrm d/2-\upsilon)e^\upsilon\le \mathrm C_L,
+ \label{eq:rg-formation-gaussian-exponential-generator}\\
+ \Pr\Bigl\{\sup_{t\le t_*}|\mathbf X^{\mathrm G}_t-\mu^{\mathrm G}(t)|&>\varrho\mathrm A\Bigr\}
+ \le \mathrm C_L(1+t_*)
+       \exp\left[-\mathrm c_L\varrho^2\mathrm A^2/\mathrm T\right].
+ \label{eq:rg-formation-gaussian-maximum}
+\end{align}
+
+Let \(\bar r_L\) bound the norms of the finitely many residual and discrepancy
+covectors, let \(\eta_L^{\max}\) be a fixed fraction of \(\mathrm m_L\), fix
+\(\eta_L\in(0,\eta_L^{\max}]\), and choose a fluctuation radius
+\(\varrho\mathrm A\) with \(\bar r_L\varrho\mathrm A\) smaller than the reserved
+tolerance margin, \(\mathrm c_L\) in the probability depending on \(\varrho\).
+Take for example \(k_{\mathrm{geom},L}=2/\mathrm c_L\) for the restoring constant
+of \cref{eq:rg-formation-current-mean}; increasing this finite constant is
+allowed. For small \(\epsilon\), \(t^{\mathrm{act}}_{\ell-1}<t_\ell/2\), so the
+exponential term of \cref{eq:rg-formation-window-mean} tends to zero uniformly
+on \(I_\ell\), and
+\begin{equation}
+ \frac{\mathrm J_{\ell+1}}{\mathrm J_\ell}\longrightarrow0,
+ \qquad \mathrm J_{\ell+1}t_\ell\longrightarrow0\quad(\ell<L),
+ \qquad \frac{t^{\mathrm{act}}_L}{t_*}\longrightarrow0.
+ \label{eq:rg-formation-geometric-entrance}
+\end{equation}
+The nonlinear correction of \cref{eq:rg-formation-path-force-bound} is at most
+\(\mathrm C_L\mathrm A\epsilon^{5/2}\), including the admitted initial transport
+and finitely many inherited errors; it enters through the source force only via
+the uniform bound \(B_*\sqrt{\mathrm T}\), so it holds for every adapted
+assignment path. Since \(\mathrm A^2/\mathrm T=\epsilon^{-6}\), the strict
+prepared residual margins and \cref{eq:rg-formation-gaussian-maximum} give the
+asserted probability and separation on every window. The stable current-block
+equation keeps bounding formed residuals as their future forcing decreases,
+and after the last normal block there is no future forcing, so the final
+regime persists through \(t_*\) on the same event, with every loop retained.
+
+For an eliminated edge and a cumulative elimination through \(\ell'\ge1\),
+write a fine non-root state as \(\mathbf z+y\) with
+\(\mathbf z\in W_{\ell'}^\perp\) and \(y\in M_{\ell'}\). The optimizing and
+physical Gaussian precisions are \(\vartheta H\) and
+\(\vartheta H-\mathrm TR_{\mathrm{ev}}\). Every row of \(\mathfrak D\) lies in the
+first normal layer, so \(R_{\mathrm{ev}}\) annihilates \(\mathcal U_1\),
+\(\mathcal H\), and \(\mathcal K\), and with \(\mathrm TR_{\mathrm{ev}}\preceq H/2\)
+both laws have hidden precision at least \(\mathrm c_L\mathrm J_{\ell'}I\),
+hidden/future block \(O_L(\mathrm J_{\ell'+1})\), and zero hidden/loop block.
+The Gaussian conditional mean therefore has norm at most
+\(\mathrm C_L(\mathrm J_{\ell'+1}/\mathrm J_{\ell'})|y_{\mathcal U_{\ell'}}|\) and
+covariance trace at most \(\mathrm C_L\mathrm T/\mathrm J_{\ell'}\), and, given
+the full assignment, each exact hidden density is a normalized tilt of its
+Gaussian conditional with log oscillation at most \(B_0\), hence density ratio
+at most \(e^{B_0}\). For
+\(\mu_\vartheta\in\{\boldsymbol\Pi_{\vartheta,\mathsf o},q^\star_\vartheta\}\) and
+every retained state with \(|y_{\mathcal U_{\ell'}}|\le\mathrm C_L\mathrm A\), this
+gives the first bound below, and for every original residual covector the
+triangle inequality and its reverse in conditional \(L^2\) give the second:
+\begin{align}
+ \E_{\mu_\vartheta}
+   [|\mathbf z|^2\mid P_{\ell'}\mathbf X=y,S=j]
+ &\le \mathrm C_Le^{B_0}\left[
+       \mathrm A^2\left(\frac{\mathrm J_{\ell'+1}}{\mathrm J_{\ell'}}\right)^2
+       +\frac{\mathrm T}{\mathrm J_{\ell'}}\right],
+ \label{eq:rg-formation-hidden-original-mark-moment}\\
+ \left|
+ \sqrt{\E_{\mu_\vartheta}[r_e(\mathbf X)^2\mid P_{\ell'}\mathbf X=y,S=j]}
+ -|r_e(y)|\right|
+ &\le\|\mathbf r_e\|
+      \sqrt{\E_{\mu_\vartheta}[|\mathbf z|^2\mid P_{\ell'}\mathbf X=y,S=j]}.
+ \label{eq:rg-formation-original-mark-rms}
+\end{align}
+On the event already constructed the right side of
+\cref{eq:rg-formation-original-mark-rms} is \(o(\mathrm A)\), uniformly in the
+assignment and separately for the two laws, and the same holds for
+\(\mathfrak d_i\); this transfers the small formed and the separated future
+residuals to \cref{eq:rg-formation-inherited-edge-statistic}, with no erased
+mark replaced by its value at \(P_{\ell'}\mathbf x\). The bridge levels join
+successive pairs of already formed components, giving the stated counts.
+\hfill\(\square\)
+
+\lemmaheading{Source envelope and changing hidden kernels}{lem:formation-source-envelope}
+Every process or finite replacement lineage of
+\Cref{lem:formation-prepared-continuation} satisfies
+\cref{eq:rg-formation-source-movement} for the distinguished binary source,
+from any of its activation times. Between \(\vartheta=1\) and its final
+parameter, the first hidden physical conditional and the first hidden
+optimizing conditional each change by relative entropy greater than
+\(1/200\), uniformly at the same retained input and assignment.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The distinguished receiver's posterior row \(\beta_{i_0,\pm}\), a factor of
+the product row \cref{eq:rg-formation-full-source-row}, has the log odds of the
+first line below. Since \(0\le\chi\le1\), it lies between
+\(\operatorname{sig}(4(\vartheta-3/2)\mp\delta)\), and summing the inherited
+row over the assignments with distinguished label \(+\) and taking the
+expectation preserves these bounds, so the generator applied to the indicator
+of that label gives the second line, with \(\lambda(t)=\Pr\{S_{i_0}(t)=+\}\):
+\begin{align}
+ \log\frac{\beta_{i_0,+}(\mathbf x,\vartheta)}
+               {\beta_{i_0,-}(\mathbf x,\vartheta)}
+ &=4(\vartheta-3/2)
+  -\delta\left[
+ \chi\bigl(\sqrt{\mathrm J_1/\mathrm T} r_{i_0,+}(\mathbf x)\bigr)
+ -\chi\bigl(\sqrt{\mathrm J_1/\mathrm T} r_{i_0,-}(\mathbf x)\bigr)\right],
+ \label{eq:rg-formation-source-log-odds}\\
+ \lambda'&=\bar\beta_\lambda-\lambda,
+ \qquad
+ \operatorname{sig}(4(\vartheta-3/2)-\delta)
+ \le\bar\beta_\lambda(t)\le
+ \operatorname{sig}(4(\vartheta-3/2)+\delta).
+ \label{eq:rg-formation-source-forcing-envelope}
+\end{align}
+Neither diffusion nor a marked projection changes this indicator, so variation
+of constants remains valid across every activation, even when the inherited row
+depends on the current assignment and continuous state.
+
+By \Cref{lem:formation-parameter-comparison}, uniformly before
+\(t^{\mathrm{act}}_L=2k_L\log(1/\epsilon)\),
+\(\vartheta\le1+\mathrm C_L\epsilon\log(1/\epsilon)+\mathrm C_Lr_\epsilon\). A
+solution of \cref{eq:rg-formation-source-forcing-envelope} cannot exceed the
+larger of its starting value and the supremum forcing, so the preparation
+tolerance and \(\|\operatorname{sig}'\|_\infty\le1/4\) give the first bound
+below. For small \(\epsilon\),
+every activation precedes \(t_*-10\) and \(\vartheta\ge7/4\) throughout
+\([t_*-10,t_*]\), so nonnegativity of the earlier contribution in variation of
+constants yields the second; for \(\delta<10^{-4}\), the elementary bounds
+\(e^{1-\delta}>249/100\), \(e^2>7\), and \(e^{10}>2^{10}\) give the third:
+\begin{align}
+ &\lambda(t^{\mathrm{act}}_\ell)
+ \le\operatorname{sig}(-2)+10^{-2}+\delta/4
+       +\mathrm C_L[\epsilon\log(1/\epsilon)+r_\epsilon],
+ \qquad 0\le \ell\le L,
+ \label{eq:rg-formation-source-at-activation}\\
+ &\lambda(t_*)\ge(1-e^{-10})\operatorname{sig}(1-\delta),
+ \label{eq:rg-formation-source-final-mass}\\
+ &(1-e^{-10})\operatorname{sig}(1-\delta)-\operatorname{sig}(-2)
+       -10^{-2}-\delta/4
+ >\frac{1023}{1024} \frac{249}{349}
+       -\frac18-\frac1{100}-\frac1{40000}
+ >\frac{57}{100}.
+ \label{eq:rg-formation-source-strict-margin}
+\end{align}
+The remaining error in \cref{eq:rg-formation-source-at-activation} tends to
+zero, hence \(\lambda(t_*)-\lambda(t^{\mathrm{act}}_\ell)>1/2\) for every
+activation, which for a binary row is its total-variation change.
+
+For the hidden kernels, fix the retained input and the assignment, and first
+omit the bounded source factor. On the first hidden normal space let
+\(\Omega_1,\Omega_{\mathrm f}\) be the initial and final Gaussian precisions, with
+covariances \(\mathrm T\Omega_1^{-1},\mathrm T\Omega_{\mathrm f}^{-1}\). For the
+optimizer the precision scales with \(\vartheta\); for the physical law, on the
+non-root space,
+\begin{equation}
+ \Omega_1=H-\mathrm TR_{\mathrm{ev}}\succ0,
+ \qquad
+ \Omega_{\mathrm f}=\Omega_1+(\vartheta_{\mathrm f}-1)H
+       \succeq\vartheta_{\mathrm f}\Omega_1,
+ \qquad \vartheta_{\mathrm f}\ge7/4.
+ \label{eq:rg-formation-physical-precision-growth}
+\end{equation}
+Restriction to a conditional block preserves the order, and so does an earlier
+Gaussian marginal, whose Schur quadratic is the minimum over the discarded
+coordinates, so in either case \(\Omega_{\mathrm f}\succeq(5/4)\Omega_1\). For
+the Gaussian laws
+\(\gamma_1,\gamma_{\mathrm f}\) on a hidden space of dimension
+\(\mathrm d_{\mathrm h}\ge1\), whitening \(\Omega_1\) and diagonalizing the
+conjugated final precision, with eigenvalues \(\varrho_i\ge5/4\), and completing
+the square in the Hellinger affinity give the first line below; each factor
+decreases for \(\varrho_i\ge1\), so the affinity is at most
+\([2\sqrt{5/4}/(1+5/4)]^{\mathrm d_{\mathrm h}/2}\). Each exact conditional
+\(\nu_1,\nu_{\mathrm f}\) is a normalized source tilt of its Gaussian
+conditional bounded above by \(e^{B_0}\), also after exact hidden integration,
+so \(\mathcal A(\nu_1,\nu_{\mathrm f})\le e^{B_0}\mathcal A(\gamma_1,\gamma_{\mathrm f})\),
+and Jensen's inequality under \(\nu_1\) gives
+\(-\KL(\nu_1\Vert\nu_{\mathrm f})/2\le\log\mathcal A(\nu_1,\nu_{\mathrm f})\).
+With \(\log(1+1/80)\ge1/81\) this gives the second line, separately for the
+physical and optimizing conditionals and uniformly in the retained input and
+assignment:
+\begin{align}
+ \mathcal A(\gamma_1,\gamma_{\mathrm f})
+ &=\prod_{i=1}^{\mathrm d_{\mathrm h}}
+       \left(\frac{2\sqrt{\varrho_i}}{1+\varrho_i}\right)^{1/2}
+       e^{-\mathrm M},
+ \qquad \mathrm M\ge0,
+ \label{eq:rg-formation-gaussian-affinity}\\
+ \KL(\nu_1\Vert\nu_{\mathrm f})
+ &\ge\frac{\mathrm d_{\mathrm h}}{2}\log\frac{81}{80}-2B_0
+ \ge\frac1{162}-\frac1{5000}>\frac1{200}.
+ \label{eq:rg-formation-hidden-kernel-change}
+\end{align}
+\hfill\(\square\)
+
+\lemmaheading{Concentration of continuous paths on a common deterministic path}{lem:formation-continuous-path}
+Let a source process and its exact parent start from a common retained sample
+and parameter at \(t^{\mathrm{act}}_\ell\). There is a deterministic path
+\(\bar{\mathbf x}_\ell:[t^{\mathrm{act}}_\ell,t_*]\to W_\ell\), namely the
+parent's Gaussian reference mean on the non-root coordinates and the constant
+equilibrium root mean, such that
+\begin{equation}
+ \Pr\Bigl\{\sup_{t^{\mathrm{act}}_\ell\le t\le t_*}|P_\ell\mathbf X_t-\bar{\mathbf x}_\ell(t)|
+   >\mathrm C_L\mathrm A\epsilon^2\Bigr\}
+ +\Pr\Bigl\{\sup_{t^{\mathrm{act}}_\ell\le t\le t_*}|\overline{\mathbf X}_t-\bar{\mathbf x}_\ell(t)|
+   >\mathrm C_L\mathrm A\epsilon^2\Bigr\}
+ \le \mathrm C_L(1+t_*)e^{-\mathrm c_L/\epsilon^2}.
+ \label{eq:rg-formation-common-path-proof}
+\end{equation}
+Consequently the displacement bound of \cref{eq:rg-formation-two-path-bounds}
+holds under every coupling of the two processes, in particular under the
+coupling of \Cref{lem:formation-history-coupling}. A finite number of
+successive replacements changes only the constants. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+First compare Gaussian means at one deterministic parameter path. In the split
+of \cref{eq:rg-formation-current-future-blocks} the inherited normal precision
+is \(H_\ell=H_{yy}-H_{zy}^\top H_{zz}^{-1}H_{zy}\). With
+\(\mathfrak w=\mu_z^{\mathrm G}+H_{zz}^{-1}H_{zy}\mu_y^{\mathrm G}\), the future
+mean of the source process satisfies the first line below, the bound following
+from \cref{eq:rg-formation-current-mean} and
+\(\|H_{zz}^{-1}H_{zy}\|\le\mathrm C_L\mathrm J_{\ell+1}/\mathrm J_\ell\), and
+integrating the contractive future propagator from a matching retained mean
+gives the second:
+\begin{align}
+ \dot\mu_y^{\mathrm G}&=-\vartheta H_\ell\mu_y^{\mathrm G}-\vartheta H_{zy}^\top\mathfrak w,
+ \qquad
+ |\mathfrak w(t)|\le \mathrm C_L\mathrm A\left[
+ e^{-\mathrm c_L\mathrm J_\ell(t-t^{\mathrm{act}}_\ell)}+\frac{\mathrm J_{\ell+1}}{\mathrm J_\ell}\right],
+ \label{eq:rg-formation-gaussian-mean-defect}\\
+ \sup_{t^{\mathrm{act}}_\ell\le t\le t_*}
+ |\mu_y^{\mathrm G}(t)-\bar\mu^{\mathrm G}(t)|
+ &\le \mathrm C_L\mathrm A\left[
+ \frac{\mathrm J_{\ell+1}}{\mathrm J_\ell}
+ +t_*\frac{\mathrm J_{\ell+1}^2}{\mathrm J_\ell}\right].
+ \label{eq:rg-formation-gaussian-mean-reduction}
+\end{align}
+There is no future normal contribution when \(\ell=L\), and the loop Gaussian
+core is unchanged by the reduction and has zero mean. If the independently
+learned parameters differ, with
+\(\mathrm e_\vartheta=\sup|\vartheta-\bar\vartheta|\le\mathrm C_Lr_\epsilon\) by
+\Cref{lem:formation-parameter-comparison}, Young's inequality in the \(H_\ell\)
+quadratic form gives, for homogeneous parent means \(\mu,\bar\mu\) with
+difference \(\mathfrak e\),
+\begin{equation}
+ \frac d{dt}|\mathfrak e|^2
+ \le-\vartheta \mathfrak e^\top H_\ell\mathfrak e
+       +\mathrm C_L\mathrm e_\vartheta^2 \bar\vartheta
+                         \bar\mu^\top H_\ell\bar\mu,
+ \label{eq:rg-formation-mean-parameter-energy}
+\end{equation}
+and since \(\frac d{dt}|\bar\mu|^2=-2\bar\vartheta\bar\mu^\top H_\ell\bar\mu\),
+the time integral of the final energy is at most \(\mathrm C_L\mathrm A^2\), so
+the extra displacement is at most \(\mathrm C_L\mathrm A \mathrm e_\vartheta\).
+
+Attach to each process its own Gaussian comparison from
+\Cref{lem:formation-prepared-continuation}; the discrepancy between the
+parent's projected starting reference and its full retained starting sample is
+included in \cref{eq:rg-formation-path-force-bound}. On the non-root
+coordinates let \(\bar{\mathbf x}_\ell=\bar\mu^{\mathrm G}\) be the parent's
+reference mean. For the parent,
+\cref{eq:rg-formation-path-force-bound,eq:rg-formation-gaussian-maximum} with
+\(\varrho=\epsilon^2\) give
+\(\sup_t|\overline{\mathbf X}_t-\bar{\mathbf x}_\ell(t)|\le\mathrm C_L\mathrm A(\epsilon^2+\epsilon^{5/2})\)
+outside a set of probability \(\mathrm C_L(1+t_*)e^{-\mathrm c_L/\epsilon^2}\).
+For the source process the same two estimates for its own reference, then
+\cref{eq:rg-formation-gaussian-mean-reduction} and the parameter comparison,
+give, outside a set of the same form,
+\begin{equation}
+ \sup_{t^{\mathrm{act}}_\ell\le t\le t_*}|P_\ell\mathbf X_t-\bar{\mathbf x}_\ell(t)|
+ \le \mathrm C_L\mathrm A\left[
+ \epsilon^2+\epsilon^{5/2}+r_\epsilon
+ +\frac{\mathrm J_{\ell+1}}{\mathrm J_\ell}
+ +t_*\frac{\mathrm J_{\ell+1}^2}{\mathrm J_\ell}\right].
+ \label{eq:rg-formation-continuous-error-terms}
+\end{equation}
+For \(\ell<L\) the last term equals \(2\epsilon^{19}\),
+\(\mathrm J_{\ell+1}/\mathrm J_\ell=\epsilon^{\mathrm Q_{\ell+1}+20}\), and
+\(r_\epsilon=o(\epsilon^2)\); both future terms vanish at \(\ell=L\). The root
+coordinates of each process form the same autonomous Ornstein--Uhlenbeck
+process in law, with stiffness \(1+\kappa\ge1\), started at its equilibrium
+and independent of the source history, and the argument of
+\cref{eq:rg-formation-gaussian-maximum} keeps each within \(\epsilon^2\mathrm A\)
+of the constant mean \(\kappa z_\star/(1+\kappa)\) outside a set of the same
+form. Taking that constant as the root component of \(\bar{\mathbf x}_\ell\)
+proves \cref{eq:rg-formation-common-path-proof}. Each of its events concerns
+the law of one process alone, so for any coupling the displacement event of
+\cref{eq:rg-formation-two-path-bounds}, after doubling \(\mathrm C_L\), lies in
+their union; a finite sequence of replacements uses a finite triangle
+inequality and union bound. \hfill\(\square\)
+
+\section{The Gaussian core across an early interface}
+\label{sec:rg-formation-core-proof}
+
+\noindent\emph{Proof of parts (b) and (c) of \Cref{prop:rg-formation-gaussian-core}.}
+Fix \(1\le\ell\le L-1\). In this section \(\mathrm C\) and \(\mathrm c\)
+denote positive constants depending only on \(L\) and the carrier, never on
+the strengths, \(\mathrm A\), \(\mathrm T\), \(t\), or \(\epsilon\); put
+\(\mathrm J_{L+1}=0\) and
+\(\bar\varrho_\ell=\varrho_{\ell-1}+\varrho_\ell+\varrho_{\ell+1}\).
+
+\emph{Flag layers and block scales.} In the flag coordinates
+\(w=(w_1,\ldots,w_L)\) of \cref{eq:rg-formation-weighted-flag},
+\(\mathbf x_{\mathcal U}=\sum_s\mathsf Q_sw_s\), the quadratic form
+\(\mathbf x_{\mathcal U}^\top H\mathbf x_{\mathcal U}=\sum_s\mathrm J_s|\sum_{r\le s}\mathsf B_{sr}w_r|^2\)
+has the blocks
+\((H_{\mathcal U})_{rr'}=\sum_{s\ge\max(r,r')}\mathrm J_s\mathsf B_{sr}^\top\mathsf B_{sr'}\),
+each of norm at most \(\mathrm C\mathrm J_{\max(r,r')}\); the loop block
+\(\mathrm J_1I_{\mathcal H}\) is orthogonal to every layer and plays no part.
+On the active level \(\ell-1\) the normal part of \(H_{\ell-1}\) is the Schur
+complement of \(H_{\mathcal U}\) onto the layers \(r\ge\ell\), obtained by
+eliminating the layers \(\mathcal E=\{1,\ldots,\ell-1\}\), with the discarded
+block \(z=w_\ell\) and the retained block \(y=(w_{\ell+1},\ldots,w_L)\). The
+lower bound of \cref{eq:rg-formation-weighted-flag} on \(\mathcal E\) gives
+\(H_{\mathcal E\mathcal E}\succeq\mathrm c\mathrm J_{\ell-1}I\), so the Schur
+correction to a block \((r,r')\) with \(r,r'\ge\ell\) has norm at most
+\(\mathrm C\mathrm J_r\mathrm J_{r'}/\mathrm J_{\ell-1}\le\mathrm C\mathrm J_{\max(r,r')}\varrho_{\ell-1}\).
+Since in each block the summand with the largest admissible strength leads
+and the remainder carries the next strength,
+\begin{equation}
+\begin{aligned}
+H_{zz}&=\mathrm J_\ell\bigl[\mathsf B_{\ell\ell}^\top\mathsf B_{\ell\ell}+O(\varrho_\ell+\varrho_{\ell-1})\bigr],\\
+H_{z,\ell+1}&=\mathrm J_{\ell+1}\bigl[\mathsf B_{\ell+1,\ell}^\top\mathsf B_{\ell+1,\ell+1}+O(\varrho_{\ell+1}+\varrho_{\ell-1})\bigr],\\
+H_{\ell+1,\ell+1}&=\mathrm J_{\ell+1}\bigl[\mathsf B_{\ell+1,\ell+1}^\top\mathsf B_{\ell+1,\ell+1}+O(\varrho_{\ell+1}+\varrho_{\ell-1})\bigr],
+\end{aligned}
+\label{eq:rg-formation-core-block-scales}
+\end{equation}
+with the constants of the remainders depending only on \(L\) and the carrier,
+together with \(\|H_{z,r}\|\le\mathrm C\mathrm J_r\) and
+\(\|H_{\ell+1,r}\|\le\mathrm C\mathrm J_{\ell+1}(\varrho_{\ell+1}+\varrho_{\ell-1})\)
+for \(r\ge\ell+2\), and \(\|H_{r,\cdot}\|\le\mathrm C\mathrm J_r\) for every
+row block \(r\ge\ell+1\), in particular
+\(\|H_{zy}\|\le\mathrm C\mathrm J_{\ell+1}\). Hence, for
+\(\bar\varrho_\ell\le\mathrm c_0\) with \(\mathrm c_0\) small,
+\(\lambda_{\min}(H_{zz})\ge\tfrac34\mathfrak j_\ell\mathrm J_\ell\),
+\(\|H_{zz}^{-1}\|\le\mathrm C/\mathrm J_\ell\), and
+\(\|H_{zz}^{-1}H_{zy}\|\le\mathrm C\varrho_\ell\). The same computation at
+every earlier active level \(p\le\ell-1\) bounds the rows of layer
+\(\ell+1\) of \(H_p\) by \(\mathrm C\mathrm J_{\ell+1}\).
+
+\emph{Full row rank.} Write \(\mathbf r_e\) for the covector of \(r_e\).
+Since \(\mathcal U_\ell=\mathcal U_{\ell-1}\cap\bigcap_e\ker\mathbf r_e\) over
+the rows \(e\) of \(B_\ell\), the layer spanned by \(\mathsf Q_\ell\) is the
+span of the projections \(P_{\mathcal U_{\ell-1}}\mathbf r_e\), and
+\(\mathsf B_{\ell+1,\ell}\) has full row rank exactly when the matrix
+\(\mathrm M_{fe}=\mathbf r_f\cdot P_{\mathcal U_{\ell-1}}\mathbf r_e\), with
+\(f\) over the rows of \(B_{\ell+1}\) and \(e\) over those of \(B_\ell\), has
+full row rank, because
+\(\mathrm M_{fe}=(P_{\mathcal U_{\ell-1}}\mathbf r_f)\cdot(P_{\mathcal U_{\ell-1}}\mathbf r_e)\),
+the component of \(P_{\mathcal U_{\ell-1}}\mathbf r_f\) in \(\mathcal U_\ell\)
+pairs to zero with the layer, and the second factors span the layer. For
+\(\ell=1\), \(\mathcal U_0=\mathcal U\) contains every row of \(B\), so
+\(\mathrm M_{fe}=\mathbf r_f\cdot\mathbf r_e\); in the column of the
+discrepancy row of agent \(i\) the entry of a bridge \(f\) is
+\([i=\operatorname{head}(f)]-[i=\operatorname{tail}(f)]\), and the level-two
+bridges, those of odd index, join disjoint pairs of triangles and have
+pairwise disjoint endpoint sets, so the columns of the discrepancy rows of
+their heads form an identity submatrix. For \(\ell\ge2\) let \(S\) be the
+set of bridges of level at least \(\ell\), let \(\boldsymbol\partial_f\in\R^V\)
+be the vector with entry \(1\) at the head of the bridge \(f\), \(-1\) at its
+tail, and \(0\) elsewhere, let \(\partial_S\) have the rows
+\(\boldsymbol\partial_f^\top\), \(f\in S\), and let \(\partial\) be the
+oriented incidence operator of the whole graph, so that
+\(\partial^\top\partial\) is its Laplacian. For a vector \(\mathsf b\) on the
+bridges put \(\mathbf x_{\mathrm{br}}(\mathsf b)=(0,0,-\mathsf b)\), the
+configuration with only the bridge links, and
+\(\mathbf x(\mathsf b)=P_{\mathcal K^\perp}\mathbf x_{\mathrm{br}}(\mathsf b)\).
+A configuration of \(\mathcal U_1\) has \(\bar k=\bar m=:t\) and, in each
+triangle, three equal residuals which sum to \(-\mathfrak h_q=0\) by
+orthogonality to \(\mathcal H\), so its internal links are \(\partial t\) and
+its bridge links are \((\partial t)_f-\mathsf b_f\) with \(\mathsf b_f=r_f\);
+it is therefore \((t,t,\partial t)+\mathbf x_{\mathrm{br}}(\mathsf b)\) and,
+being orthogonal to \(\mathcal K\), equals \(\mathbf x(\mathsf b)\).
+Conversely \(\mathbf x_{\mathrm{br}}(\mathsf b)\in W_1\cap\mathcal H^\perp\)
+and \(\mathcal K\subseteq W_1\cap\mathcal H^\perp\), so
+\(\mathbf x(\mathsf b)\in\mathcal U_1\), and
+\(r_f(\mathbf x(\mathsf b))=r_f(\mathbf x_{\mathrm{br}}(\mathsf b))=\mathsf b_f\)
+because residuals annihilate \(\mathcal K\). Hence
+\(\mathcal U_{\ell-1}=\{\mathbf x(\mathsf b):\operatorname{supp}\mathsf b\subseteq S\}\)
+with \(\mathsf b\mapsto\mathbf x(\mathsf b)\) injective, and from
+\(\langle(t,t,\partial t),(t',t',\partial t')\rangle=t^\top(2I+\partial^\top\partial)t'\)
+and
+\(\langle(t,t,\partial t),\mathbf x_{\mathrm{br}}(\mathsf b)\rangle=-t^\top\partial_S^\top\mathsf b\)
+the Gram matrix is
+\(\langle\mathbf x(\mathsf b),\mathbf x(\mathsf b')\rangle=\mathsf b^\top\mathrm G\mathsf b'\)
+with \(\mathrm G=I-\partial_S(2I+\partial^\top\partial)^{-1}\partial_S^\top\)
+on \(\R^S\). The functional \(\mathsf b\mapsto\mathsf b_f\), \(f\in S\), has
+the Riesz representative \(\mathbf x(\mathsf b^{(f)})\) with
+\(\mathsf b^{(f)}\) the \(f\)th column of \(\mathrm G^{-1}\), so
+\(P_{\mathcal U_{\ell-1}}\mathbf r_f=\mathbf x(\mathsf b^{(f)})\) and
+\(\mathrm M_{fe}=(\mathrm G^{-1})_{fe}\). Since
+\(2I+\partial^\top\partial-\partial_S^\top\partial_S=2I+\partial_{\setminus S}^\top\partial_{\setminus S}\),
+with \(\partial_{\setminus S}\) the incidence operator of the graph with the
+bridges of \(S\) removed, is positive definite, the Woodbury identity gives
+\(\mathrm M_{fe}=\delta_{fe}+\boldsymbol\partial_f^\top(2I+\partial_{\setminus S}^\top\partial_{\setminus S})^{-1}\boldsymbol\partial_e\).
+The graph with the bridges of \(S\) removed is the disjoint union of \(2^{L-\ell+1}\)
+connected blocks of \(2^{\ell-2}\) consecutive triangles, and the inverse is
+block diagonal with entrywise strictly positive blocks: on a block \(B\) with
+Laplacian \(\partial_B^\top\partial_B\) and maximal degree \(\mathrm D_B\),
+the matrix \((\mathrm D_B+2)I-(2I+\partial_B^\top\partial_B)\) is entrywise
+nonnegative, irreducible, and of spectral radius at most
+\(\mathrm D_B<\mathrm D_B+2\), since the Laplacian's eigenvalues lie in
+\([0,2\mathrm D_B]\), so the Neumann series of
+\((2I+\partial_B^\top\partial_B)^{-1}\) in it converges and is entrywise
+positive. The bridges of \(S\) are those of index \(j=\mathrm w2^{\ell-2}\),
+\(1\le\mathrm w\le2^{L-\ell+1}-1\), of level \(\ell+v_2(\mathrm w)\), the
+bridge at position \(\mathrm w\) joining block \(\mathrm w\) to block
+\(\mathrm w+1\); level \(\ell\) means \(\mathrm w\) odd and level
+\(\ell+1\) means \(\mathrm w\equiv2\pmod4\). For \(f\ne e\) in \(S\), with
+positions \(\mathrm w_f,\mathrm w_e\), the entry
+\(\boldsymbol\partial_f^\top(2I+\partial_{\setminus S}^\top\partial_{\setminus S})^{-1}\boldsymbol\partial_e\)
+is a sum over the blocks both bridges touch, so it vanishes unless
+\(|\mathrm w_f-\mathrm w_e|=1\), and then it is plus or minus one entry of
+the positive inverse on the shared block, hence nonzero. Pair each
+level-\((\ell+1)\) bridge \(f\) with the level-\(\ell\) bridge \(e(f)\) at
+position \(\mathrm w_f+1\), which exists because \(4\) divides
+\(2^{L-\ell+1}\); then \(\mathrm M_{f,e(f')}\ne0\) exactly when
+\(|\mathrm w_f-\mathrm w_{f'}-1|=1\), that is
+\(\mathrm w_f-\mathrm w_{f'}\in\{0,2\}\), and as
+\(\mathrm w_f-\mathrm w_{f'}\in4\mathbb Z\) exactly when \(f=f'\). The
+square submatrix \((\mathrm M_{f,e(f')})_{f,f'}\) is diagonal with nonzero
+entries, so the rows of \(\mathrm M\) of level \(\ell+1\) are independent and
+\(\mathsf B_{\ell+1,\ell}\) has full row rank; as
+\(\mathsf B_{\ell+1,\ell+1}\mathsf B_{\ell+1,\ell+1}^\top\) is invertible and
+\(\mathsf B_{\ell+1,\ell}^\top\) is injective, \(\mathfrak Y_\ell\) is
+injective. Nothing used the choice of bridge endpoints.
+
+\emph{Slaving on the active interval.} Let level \(\ell-1\) be active on
+\([t_0,t^{\mathrm{act}}_\ell]\) with \(t_0=t^{\mathrm{act}}_{\ell-1}\), with
+mean \(\bar{\mathbf x}(t)\) in the layers \(r\ge\ell\),
+\(\dot{\bar{\mathbf x}}=-H_{\ell-1}\bar{\mathbf x}\), and
+\(|\bar{\mathbf x}(t_0)|\le\mathrm C\mathrm A\), which holds because
+\(|\bar{\mathbf x}(0)|=\mathrm A|\mathbf v_0|\), the flow contracts
+\(|\bar{\mathbf x}|\), and the projections do not increase it. Write
+\(\mathbf g=H_{\ell-1}\bar{\mathbf x}\), so that \(\mathfrak v=\mathbf g_z\)
+and \(\mathrm T\Delta_{\ell-1:\ell}=\tfrac12\mathbf g_z^\top H_{zz}^{-1}\mathbf g_z\)
+by \cref{eq:rg-formation-gaussian-core-loss}, and
+\(\mathsf b_{\ell+1}(t)=B_{\ell+1}P_\ell\bar{\mathbf x}(t)=\mathsf B_{\ell+1,\ell+1}\bar{\mathbf x}_{\ell+1}(t)\),
+since \(P_\ell\) removes the layer \(\ell\) and \(\mathsf B_{\ell+1,r}=0\) for
+\(r>\ell+1\). The row bound gives
+\(|\dot{\bar{\mathbf x}}_{\ell+1}|=|\mathbf g_{\ell+1}|\le\mathrm C\mathrm J_{\ell+1}\mathrm A\),
+and the same bound at the earlier levels, whose projections \(P_p\),
+\(p\le\ell\), leave the layer \(\ell+1\) unchanged, gives the second line of
+\cref{eq:rg-formation-core-two-sided}. Since
+\(\dot{\mathbf g}=-H_{\ell-1}\mathbf g\), the variable
+\(\mathbf u=\mathbf g_z+H_{zz}^{-1}H_{zy}\mathbf g_y\) satisfies
+\(\dot{\mathbf u}=-H_{zz}\mathbf u-H_{zz}^{-1}H_{zy}(H_{\ell-1}\mathbf g)_y\),
+where \(|(H_{\ell-1}\mathbf g)_y|\le\mathrm C\mathrm J_{\ell+1}(|\mathbf g_z|+|\mathbf g_y|)\),
+\(|\mathbf g_y|\le\mathrm C\mathrm J_{\ell+1}\mathrm A\), and
+\(|\mathbf g_z|\le|\mathbf u|+\mathrm C\varrho_\ell\mathrm J_{\ell+1}\mathrm A\).
+Variation of constants with \(\|e^{-H_{zz}s}\|\le e^{-\lambda s}\),
+\(\lambda=\lambda_{\min}(H_{zz})\), gives
+\begin{equation}
+|\mathbf u(t)|\le e^{-\lambda(t-t_0)}|\mathbf u(t_0)|
++\int_{t_0}^te^{-\lambda(t-s)}\bigl(\mathrm C\varrho_\ell^2\mathrm J_\ell|\mathbf u(s)|
++\mathrm C\varrho_\ell\mathrm J_{\ell+1}^2\mathrm A\bigr)ds,
+\label{eq:rg-formation-core-volterra}
+\end{equation}
+and iterating the positive Volterra operator of the right side compares
+\(|\mathbf u|\) with the solution of the scalar equation with decay rate
+\(\lambda-\mathrm C\varrho_\ell^2\mathrm J_\ell\), constant forcing
+\(\mathrm C\varrho_\ell\mathrm J_{\ell+1}^2\mathrm A\), and initial value
+\(|\mathbf u(t_0)|\), so that
+\(|\mathbf u(t)|\le e^{-(\lambda-\mathrm C\varrho_\ell^2\mathrm J_\ell)(t-t_0)}|\mathbf u(t_0)|
++\mathrm C\varrho_\ell\mathrm J_{\ell+1}^2\mathrm A/(\lambda-\mathrm C\varrho_\ell^2\mathrm J_\ell)\).
+For \(\bar\varrho_\ell\le\mathrm c_0\),
+\(\lambda-\mathrm C\varrho_\ell^2\mathrm J_\ell\ge\tfrac12\mathfrak j_\ell\mathrm J_\ell\),
+and \(|\mathbf u(t_0)|\le\mathrm C\mathrm J_\ell\mathrm A\), so
+\(|\mathbf u(t)|\le\mathrm C(\mathrm J_{\ell+1}^2\mathrm A/\mathrm J_\ell)[\varrho_\ell+\mathfrak x_\ell(t)]\).
+For the forcing,
+\(H_{zy}\mathbf g_y=H_{z,\ell+1}\mathbf g_{\ell+1}+\sum_{r\ge\ell+2}H_{z,r}\mathbf g_r\),
+the sum being at most
+\(\mathrm C\mathrm J_{\ell+2}^2\mathrm A\le\mathrm C\mathrm J_{\ell+1}^2\varrho_{\ell+1}^2\mathrm A\);
+from \(\mathbf g_z=H_{zz}\bar{\mathbf x}_z+H_{zy}\bar{\mathbf x}_y\),
+\(|\bar{\mathbf x}_z|\le\mathrm C\mathrm A(\varrho_\ell+\mathfrak x_\ell)\),
+and \cref{eq:rg-formation-core-block-scales} then gives
+\(\mathbf g_{\ell+1}=\mathrm J_{\ell+1}[\mathsf B_{\ell+1,\ell+1}^\top\mathsf b_{\ell+1}+O(\mathrm A(\bar\varrho_\ell+\mathfrak x_\ell))]\)
+and
+\(H_{zy}\mathbf g_y=\mathrm J_{\ell+1}^2[\mathfrak Y_\ell\mathsf b_{\ell+1}+O(\mathrm A(\bar\varrho_\ell+\mathfrak x_\ell))]\).
+Writing \(\mathbf g_z=-H_{zz}^{-1}H_{zy}\mathbf g_y+\mathbf u\) with
+\(H_{zz}^{-1}=\mathrm J_\ell^{-1}[(\mathsf B_{\ell\ell}^\top\mathsf B_{\ell\ell})^{-1}+O(\bar\varrho_\ell)]\)
+and inserting in \(\tfrac12\mathbf g_z^\top H_{zz}^{-1}\mathbf g_z\), with
+\(|\mathsf b_{\ell+1}|\le\mathrm C\mathrm A\), gives
+\(\mathrm T\Delta_{\ell-1:\ell}=(\mathrm A^2\mathrm J_{\ell+1}^4/\mathrm J_\ell^3)
+[\tfrac12|(\mathsf B_{\ell\ell}^\top\mathsf B_{\ell\ell})^{-3/2}\mathfrak Y_\ell\mathsf b_{\ell+1}/\mathrm A|^2
++O(\bar\varrho_\ell+\mathfrak x_\ell+\mathfrak x_\ell^2)]\), which is the
+first line of \cref{eq:rg-formation-core-two-sided} by the definition of
+\(\mathfrak y_\ell\).
+
+\emph{Windows.} On \(I_\ell\),
+\(\mathrm J_\ell(t-t_0)\ge\mathrm J_\ell(t_\ell-2t_{\ell-1})=k_L\log(1/\epsilon)(1-2\varrho_{\ell-1})\),
+so \(\mathfrak x_\ell\to0\) uniformly on \(I_\ell\) under the stated
+condition, and \(\mathrm J_{\ell+1}t\le2k_L\log(1/\epsilon)\varrho_\ell\to0\)
+gives \(\mathsf b_{\ell+1}(t)/\mathrm A=B_{\ell+1}P_\ell\mathbf v_0+o(1)\), so
+the quadratic \(\mathfrak y_\ell\) satisfies
+\(\mathfrak y_\ell(\bar{\mathbf x}(t)/\mathrm A)=\mathfrak y_\ell(\mathbf v_0)+o(1)\).
+For the lower bound,
+\(|(\mathsf B_{\ell\ell}^\top\mathsf B_{\ell\ell})^{-3/2}\mathfrak Y_\ell\mathsf b_{\ell+1}|
+\ge\|\mathsf B_{\ell\ell}\|^{-3}\sigma_{\min}(\mathfrak Y_\ell)|\mathsf b_{\ell+1}|\),
+and \(|B_{\ell+1}P_\ell\mathbf v_0|^2=\sum_er_e(P_\ell\mathbf v_0)^2\) over
+the \(N_\triangle/2^\ell\) bridges \(e\) of level \(\ell+1\) is at least
+\(N_\triangle\mathrm m_L^2/2^{\ell+2}\) by the margin of
+\Cref{lem:formation-preparation-margin}, which gives
+\cref{eq:rg-formation-core-window}.
+
+\emph{Power laws.} With \(\mathrm J_s=\epsilon^{-\mathrm Q_s}\),
+\(\varrho_s=\epsilon^{\mathrm Q_s-\mathrm Q_{s+1}}\to0\),
+\(k_L\log(1/\epsilon)\varrho_\ell\to0\), and on \(I_\ell\)
+\[
+\mathfrak x_\ell\le\epsilon^{\mathfrak j_\ell k_L(1-2\varrho_{\ell-1})/2-2(\mathrm Q_\ell-\mathrm Q_{\ell+1})},
+\]
+which tends to zero exactly under the stated threshold on \(k_L\); the
+window statement then places \(\Delta_{\ell-1:\ell}\) between
+\(\tfrac12\mathfrak y_\ell(\mathbf v_0)\) and \(2\mathfrak y_\ell(\mathbf v_0)\)
+times \((\mathrm A^2/\mathrm T)\mathrm J_{\ell+1}^4/\mathrm J_\ell^3
+=\epsilon^{3\mathrm Q_\ell-4\mathrm Q_{\ell+1}-\mathrm Q_{\mathrm T}}\) on
+\(I_\ell\) for small \(\epsilon\). It is \(O(\epsilon^{\mathrm Q_\Delta})\)
+on every early window exactly when
+\(3\mathrm Q_\ell-4\mathrm Q_{\ell+1}-\mathrm Q_{\mathrm T}\ge\mathrm Q_\Delta\)
+for every \(\ell\le L-1\), that is
+\(\mathrm Q_\ell+\mathrm Q_{\mathrm T}+\mathrm Q_\Delta\ge\tfrac43(\mathrm Q_{\ell+1}+\mathrm Q_{\mathrm T}+\mathrm Q_\Delta)\),
+and iterating from \(\mathrm Q_L=0\) gives
+\(\mathrm Q_1+\mathrm Q_{\mathrm T}+\mathrm Q_\Delta\ge(4/3)^{L-1}(\mathrm Q_{\mathrm T}+\mathrm Q_\Delta)\),
+with equality along the recursion; vanishing is the case
+\(\mathrm Q_\Delta=0\) with strict inequality. \(\square\)
+
+\section{The endogenous four-cycle}
+\label{sec:rg-formation-cycle-proof}
+
+\noindent\emph{Proof of \Cref{prop:rg-formation-endogenous-cycle}.}
+\emph{Normalization, free energy, and descent.} Every factor of the joint is a
+normalized kernel, so the joint has mass one, \(E=\mathbf 1\) has positive
+probability, and every candidate source has positive prior and posterior mass
+at every finite configuration. The reference density is
+\((2\pi)^{-6}e^{-|\mathbf x|^2/2}\), the four likelihood factors contribute
+\(4\mathrm T\log2\), and \cref{eq:rg-formation-evaluator-optimum} with
+\(\sigma^2_{\mathrm{ev}}=1/2\) adds
+\(\tfrac{\mathrm T}2\mathbf x^\top R_{\mathrm{ev}}\mathbf x\), so the scaled
+negative ELBO is
+\(\mathrm T\E_q\log(q/\pi_S)+\E_qU_S+\mathrm B_{\mathrm T}
+=\mathrm T\KL(q\Vert q^\star)+\mathrm B_{\mathrm T}-\mathrm T\log Z_{\mathrm{opt}}\),
+and the evidence is \(e^{-\mathrm B_{\mathrm T}/\mathrm T}Z_{\mathrm{phys}}\),
+the physical energy omitting \(R_{\mathrm{ev}}\). Every \(U_S\) is a positive
+definite quadratic form with Hessian at least \(\mathrm TI\), whose gradient
+contains both the sending and the receiving appearances of each agent.
+Between proposals the process is a linear diffusion with one of sixteen
+matrices, and proposals are finitely many on bounded intervals, so it exists,
+is pathwise unique with common random inputs, and does not explode. Since
+\(q^\star(\mathbf x,S)\beta_{S'}(\mathbf x)
+=q^\star_{\mathbf X}(\mathbf x)\beta_S\beta_{S'}\) is symmetric in \(S,S'\), the
+dissipation identity \cref{eq:rg-formation-dissipation} at level zero, without
+a parameter term, shows that \(\Fenergy_{\mathrm T}\) does not increase. A cycle
+automorphism, with link signs transformed under reflections, preserves the
+reference, the kernels, the rows, the kinetics, and the preparation class, so
+the law at every time is invariant.
+
+\emph{Matching sector.} Fix \(S^{(0)}\), with selected edges \(e=e_0\) and
+\(f=e_2\); \(S^{(1)}\) follows by rotation. For each edge the covectors
+\(\mathbf a^b_g,\mathbf a^m_g\) of \(r^b_g,r^m_g\) have Gram matrix
+\(\begin{pmatrix}3&1\\1&3\end{pmatrix}\), and the two selected edges have
+disjoint supports. The interaction Hessian of \(V_{S^{(0)}}\) is
+\(H_M=2\sum_{g\in\{e,f\}}(\mathbf a^b_g\mathbf a^{b\top}_g+\mathbf a^m_g\mathbf a^{m\top}_g)\),
+and the unit covectors
+\begin{equation}
+ n^+_g=\frac{\mathbf a^b_g+\mathbf a^m_g}{2\sqrt2},\qquad
+ n^-_g=\frac{\mathbf a^b_g-\mathbf a^m_g}{2},\qquad g\in\{e,f\},
+ \label{eq:rg-formation-cycle-normals}
+\end{equation}
+are orthonormal eigenvectors with eigenvalues \(8\) and \(4\); the kernel of
+\(H_M\) has dimension eight. With \(\sigma^2_{\mathrm{ev}}=1/2\),
+\(R_{\mathrm{ev}}n^+_g=0\), \(R_{\mathrm{ev}}n^-_g=4n^-_g\), and
+\(R_{\mathrm{ev}}\) leaves the kernel invariant, so the held-matching drift
+matrix \(K_M=H_M+\mathrm T(I+R_{\mathrm{ev}})\) has normal rates
+\(8+\mathrm T\) (twice) and \(4+5\mathrm T\) (twice), all rates are at least
+\(\mathrm T\), and the physical matrix has normal rates \(8+\mathrm T\) and
+\(4+\mathrm T\). With \(\mathbf p=\sum_{g\in\{e,f\}}(\mathbf a^b_g+\mathbf a^m_g)\),
+the vector \(\mathbf x^\circ+\mathbf p/4\) lies in the kernel of \(H_M\),
+\(H_M\mathbf p=8\mathbf p\), and \(R_{\mathrm{ev}}\) annihilates \(\mathbf x^\circ\)
+and \(\mathbf p\), so the deterministic held path from \(\mathbf x^\circ\) is
+\begin{equation}
+ \bar{\mathbf x}(t)=e^{-\mathrm Tt}\Bigl[\mathbf x^\circ+\frac{1-e^{-8t}}4\mathbf p\Bigr],
+ \qquad
+ r_{\mathrm{int}}(\bar{\mathbf x}(t))=-e^{-(8+\mathrm T)t},
+ \qquad
+ r_{\mathrm{ext}}(\bar{\mathbf x}(t))=e^{-\mathrm Tt}\Bigl[-\frac32+\frac{e^{-8t}}2\Bigr],
+ \label{eq:rg-formation-cycle-center}
+\end{equation}
+in both channels, where \(r_{\mathrm{int}}\) is a selected and
+\(r_{\mathrm{ext}}\) an exterior residual; along it \(\bar k=\bar m\), so the
+evaluator force vanishes.
+
+\emph{Episode.} Let \(\mathscr B\) be the event that
+\(|\mathbf X_0-\mathbf x^\circ|<\varrho_\circ\), \(S_0=S^{(0)}\), and no proposal
+occurs on \([0,1/4]\). The centered Gaussian component has expected squared
+norm \(12\sigma_\circ^2=\varrho_\circ^2/4\), so it puts mass at least \(3/4\) on
+the ball, and with the mixture weight \(1/2\), the bound
+\(1+\mathfrak z\ge1/2\), the assignment mass \(1/16\), and the independent
+clock, \(\Pr(\mathscr B)\ge\tfrac3{256}e^{-1/4}\). On \([0,1/4]\) the process is
+the held Ornstein--Uhlenbeck process
+\(\widetilde{\mathbf X}_t=e^{-K_Mt}\mathbf X_0+\mathbf Z_t\),
+\(\mathbf Z_t=\sqrt{2\mathrm T}\int_0^te^{-K_M(t-\sigma)}dW_\sigma\), and afterwards
+the two coincide until the first proposal returning another assignment. In an
+eigenbasis of \(K_M\), integration by parts gives
+\(\sup_{t\le t^\circ_*}|Z^k_t|\le2\sqrt{2\mathrm T}\sup_{t\le t^\circ_*}|W^k_t|\),
+and \(\E\sup_{t\le t^\circ_*}|W^k_t|^2\le4t^\circ_*\) by Doob's \(L^2\)
+maximal inequality: with \(W^*=\sup|W^k|\), optional stopping at the hitting
+time of a level \(\mathrm y>0\) gives
+\(\mathrm y\Pr(W^*\ge\mathrm y)\le\E[|W^k_{t^\circ_*}|\mathbf 1_{W^*\ge\mathrm y}]\),
+and integrating against \(2 d\mathrm y\) with truncation gives the bound.
+Summing twelve coordinates, \(\E\sup|\mathbf Z|^2\le384\mathrm Tt^\circ_*\), so
+with \(\delta_\epsilon=\epsilon^2/(8\sqrt3)\), Chebyshev's inequality gives
+\(\Pr(\sup_{t\le t^\circ_*}|\mathbf Z_t|>\delta_\epsilon)\le73728 \epsilon^4t^\circ_*\).
+On \(\mathscr B\) and the complementary noise event, contraction gives
+\(|\widetilde{\mathbf X}_t-\bar{\mathbf x}(t)|\le\varrho_\circ+\delta_\epsilon\).
+Every residual covector has norm \(\sqrt3\), so on \(\mathscr B\) each
+residual lies within \(\sqrt3\varrho_\circ\) of \(-1\) at time zero and each
+internal belief relative entropy exceeds \((1-\sqrt3/100)^2/2>1/4\), which is
+the entrance clause of (a); the restoring rates of (a) are those of \(K_M\)
+computed above. Since \(\mathrm Tt^\circ_*<1/100\),
+for \(1/4\le t\le t^\circ_*\) the selected residuals have magnitude below
+\(e^{-2}+\sqrt3(\varrho_\circ+\delta_\epsilon)<1/5\) and the exterior ones above
+\(e^{-\mathrm Tt^\circ_*}(3/2-e^{-2}/2)-\sqrt3(\varrho_\circ+\delta_\epsilon)>13/10\).
+Each receiver's exterior cost therefore exceeds its partner cost by more than
+one, its posterior row gives its exterior source probability at most
+\(e^{-1/\mathrm T}\), and a proposal leaves \(S^{(0)}\) with probability at most
+\(4e^{-1/\mathrm T}\); for the rate-one clock the expected number of departing
+proposals up to \(t^\circ_*\) is at most \(4t^\circ_*e^{-1/\mathrm T}\), with
+self-proposals unrestricted. For \(t\ge t_\epsilon\), every residual
+annihilates the kernel of \(H_M\), so a selected residual is at most
+\(e^{-8t}+\sqrt3\varrho_\circ e^{-4t}+\sqrt3\delta_\epsilon\le
+\epsilon^{16}+\sqrt3\varrho_\circ\epsilon^8+\epsilon^2/8\le\epsilon^2\), the belief
+relative entropy \((r^b)^2/2\) and the model relative entropy
+\((r^m)^2/(2\sigma^2_{\mathrm{ev}})\) are at most \(\epsilon^4\), and every
+exterior belief relative entropy exceeds \((13/10)^2/2>1/2\), the model ones
+being larger. Let \(\mathscr A_t\) be the prefix event that the noise stays
+within \(\delta_\epsilon\) up to \(t\) and every proposal in \([1/4,t]\) returns
+\(S^{(0)}\); then \(\Pr(\mathscr A_{t^\circ_*}^c\mid\mathscr B)\le p_\epsilon\).
+Since \(\epsilon^4t^\circ_*\) increases on \((0,1/100]\), the first term of
+\(p_\epsilon\) is at most \(73728\cdot10^{-8}(2\log100+1)<0.008\), and
+\(e^{-1/\mathrm T}<\mathrm T\) makes the second below \(10^{-14}\), so
+\(p_\epsilon<1/2\) and
+\(\Pr(\mathscr B\cap\mathscr A_{t^\circ_*})\ge\tfrac3{256}e^{-1/4}(1-p_\epsilon)\ge p_0\).
+The stopping rule is prefix-measurable, and the same argument holds for
+\(S^{(1)}\) and at the reflected center, which proves the probability bound
+of (a).
+
+\emph{Stationary comparison.} On each sheet the diffusion with drift
+\(-\nabla U_S\) and covariance \(2\mathrm TI\) is reversible for
+\(e^{-U_S/\mathrm T}d\mathbf x\), and the symmetric measure
+\(q^\star(\mathbf x,S)\beta_{S'}(\mathbf x)\) makes the proposal step
+reversible for \(q^\star\), so \(q^\star\) is invariant. Under \(q^\star\),
+given \(S_0=M\), the configuration is \(\mathcal N(0,\mathrm TK_M^{-1})\), and
+for a matched edge \(e\) with belief covector \(\mathbf a^b_e\),
+\(K_M\succeq H_M\succeq2\mathbf a^b_e\mathbf a^{b\top}_e\), so
+\(r^b_e=\mathbf a^b_e\cdot\mathbf x\) has variance
+\(\mathrm T\mathbf a^{b\top}_eK_M^{-1}\mathbf a^b_e\le\mathrm T/2\) and
+\(|r^b_e|>1/\sqrt2\) has probability at most \(2e^{-1/(2\mathrm T)}\). The
+event of (a) requires \(S_0\) to be a matching whose matched pairs carry
+internal belief relative entropy above \(1/4\) at time zero, that is
+\(|r^b_e|>1/\sqrt2\) on a matched edge, so under the process started from
+\(q^\star\) it has probability at most \(2\cdot2e^{-1/(2\mathrm T)}\le4e^{-1/(4\mathrm T)}\),
+and \(4e^{-1/(4\mathrm T)}<p_0/2\) because \(\mathrm T\le10^{-16}\). This
+completes (a).
+
+\emph{Parent channel.} The covector of \(\sum_i\omega_i\) pairs to zero with
+\(n^-_g\) and to \(-1/\sqrt2\) with \(n^+_g\), so it annihilates \(Z_M\) and the
+loop is a function of \(P_{W_M}\mathbf x\); \(W_M\), of dimension nine, contains
+the kernel of \(H_M\) and the fast common-normal direction
+\((n^+_e+n^+_f)/\sqrt2\). Both \(H_M\) and \(R_{\mathrm{ev}}\) preserve \(W_M\)
+and \(Z_M\), so on a matching fiber the hidden optimizing conditional is
+\(\nu_{\mathrm T}=\mathcal N(0,\mathrm TK_Z^{-1})\) with
+\(K_Z=\operatorname{diag}(8+\mathrm T,4+5\mathrm T,4+5\mathrm T)\), independent of
+the retained state, and the physical one has precision
+\(\operatorname{diag}(8+\mathrm T,4+\mathrm T,4+\mathrm T)\). The channel \(C\)
+is one deterministic measurable kernel onto the disjoint union
+\(\coprod_S\{S\}\times W_S\), with Lebesgue measure on each \(W_S\) and counting
+measure on \(S\); its pushforwards of the joint, the physical posterior, the
+optimizer, and the recognition law are normalized, it keeps every assignment,
+and the chain rule of \Cref{thm:rg-exact-coarse-vfe} splits
+\(\KL(q\Vert q^\star)\) into the retained term and the mean discarded
+conditional term. This proves (b).
+
+\emph{Discarded conditional free energy.} Under the held process the hidden
+coordinates are \(z_t=e^{-K_Zt}z_0+\xi_t\) with
+\(\xi_t\sim\mathcal N(0,\mathrm TK_Z^{-1}(I-e^{-2K_Zt}))\) independent of the
+retained coordinates and of the initial data, and \(|z_0|\le\varrho_\circ\) on
+\(\mathscr B\) because \(\mathbf x^\circ\) has zero hidden component. Given the
+retained state, the hidden law is a mixture over \(z_0\) of these Gaussians,
+and for one coordinate with rate \(\lambda_k\) and \(a=e^{-2\lambda_kt}\) the
+relative entropy to the stationary law is
+\(\tfrac12[-a-\log(1-a)+\lambda_ka z_0^2/\mathrm T]\). Convexity of relative
+entropy in its first argument, \(4\le\lambda_k\le9\), and
+\(-a-\log(1-a)\le a^2/(2(1-a))\) bound the mean conditional relative entropy of
+the held law conditioned on \(\mathscr B\) by
+\(\frac{9\varrho_\circ^2}{2\mathrm T}e^{-8t}+\frac{3}{4(1-e^{-8})}e^{-16t}\le\eta_\epsilon\)
+for \(t\ge t_\epsilon\). To pass to the episode, let \(\widehat Q\) be this held
+law, \(\mathscr R=\widehat Q_Y\otimes\nu_{\mathrm T}\), and \(Q_{\mathscr A}\),
+\(Q_{\mathscr A^c}\) its conditionals on \(\mathscr A_t\) and its complement, of
+probabilities \(1-p\) and \(p\le p_\epsilon\). The relative entropy of the joint
+law of \((\mathbf 1_{\mathscr A_t},Y,Z)\) to
+\(\mathrm{Bernoulli}(1-p)\otimes\mathscr R\), computed in both orders, gives
+\((1-p)\KL(Q_{\mathscr A}\Vert\mathscr R)+p\KL(Q_{\mathscr A^c}\Vert\mathscr R)
+=\KL(\widehat Q\Vert\mathscr R)+\mathbb I(\mathbf 1_{\mathscr A_t};(Y,Z))\), and the
+mutual information is at most \(\mathcal S_2(p)\). Dropping the second term on
+the left and the nonnegative retained-marginal term of
+\(\KL(Q_{\mathscr A}\Vert\mathscr R)\), and using that \(\mathcal S_2\) increases
+on \([0,1/2]\), bounds the mean discarded optimizing conditional relative
+entropy of \(Q_{\mathscr A}\) by \(\bar\eta_\epsilon\); on
+\(\mathscr B\cap\mathscr A_t\) the held and native processes coincide, so
+\(Q_{\mathscr A}\) is the episode law. The physical parent conditions the
+discarded coordinates also on the evaluator samples, so compare with the
+normalized law
+\(\Pi(dz\mid y) P_{\mathrm{ev}}(dm,dk\mid\mathbf x)
+\exp[(\mathfrak d_y\cdot(k-m)-|\mathfrak d_y|^2/2)/(1-\sigma^2_{\mathrm{ev}})]\),
+where \(\mathfrak d_y=\mathfrak Dy\) and \(\mathfrak d_z=\mathfrak Dz\) are
+orthogonal; the multiplier has expectation one and depends only on retained
+variables, so this law has the physical hidden conditional given
+\((y,m,k)\). The recognition evaluator differs from it by the mean shift
+\(\mathfrak d_z\), at relative entropy
+\(|\mathfrak d_z|^2/(2(1-\sigma^2_{\mathrm{ev}}))\), and the chain rule in both
+orders bounds the mean discarded physical conditional relative entropy by
+\(\KL(q(dz\mid y)\Vert\Pi(dz\mid y))+\E_q|\mathfrak d_z|^2/(2(1-\sigma^2_{\mathrm{ev}}))
+=\KL(q(dz\mid y)\Vert\nu_{\mathrm T})+\log\frac{4+5\mathrm T}{4+\mathrm T}\), where
+\(\log\frac{4+5\mathrm T}{4+\mathrm T}\le\frac{4\mathrm T}{4+\mathrm T}\le\mathrm T\).
+This proves (c).
+
+\emph{Parent dynamics.} The inherited proposal kernel
+\[
+\beta_C((S,y),\cdot)=\int q^\star(d\mathbf x\mid C=(S,y))\sum_{S'}\beta_{S'}(\mathbf x)
+\delta_{(S',P_{W_{S'}}\mathbf x)}
+\]
+is a probability kernel with the rate-one clock, reversible with respect to
+\(C_\#q^\star\) because the symmetric measure
+\(q^\star(d\mathbf x,S)\beta_{S'}(\mathbf x)\) is pushed through \((C,C)\); on a
+matching stratum the retained diffusion is the exact projection of the held
+process, and elsewhere \(C\) is the identity. On a matching fiber, with
+\(z_+=((n^+_e+n^+_f)/\sqrt2)\cdot y\) and the hidden coordinates
+\(z_1,z_2,z_3\) of \(Z_M\), the selected costs are
+\(\mathcal D_e=(z_++z_1)^2+z_2^2\) and \(\mathcal D_f=(z_+-z_1)^2+z_3^2\), and each
+exterior common residual \((r^b_g+r^m_g)/2\) annihilates \(Z_M\) and satisfies
+\(\mathcal D_g\ge((r^b_g+r^m_g)/2)^2\). If both exterior common residuals have
+magnitude at least \(\mathrm r_\circ\), each receiver chooses its exterior
+source with probability at most
+\(\exp[(\mathcal D_{\mathrm{in}}-\mathcal D_{\mathrm{out}})/\mathrm T]\), and the
+Gaussian identity
+\(\E e^{(a+Z)^2/\mathrm T}=(1-2\sigma^2/\mathrm T)^{-1/2}\exp[a^2/(\mathrm T(1-2\sigma^2/\mathrm T))]\)
+with \(\sigma^2=\mathrm T/(8+\mathrm T)\) and \(\mathrm T/(4+5\mathrm T)\), whose
+factors are at most \(\sqrt{4/3}\) and \(\sqrt2\), gives
+\(\beta_C((S^{(0)},y),\{S'\ne S^{(0)}\})\le4\sqrt{8/3}\exp[-(\mathrm r_\circ^2-4z_+^2/3)/\mathrm T]\).
+On the episode \(\mathrm r_\circ=13/10\) and \(|z_+|\le\epsilon^2\) on
+\([t_\epsilon,t^\circ_*]\), so this is at most \(4\sqrt{8/3} e^{-1/\mathrm T}\).
+Condition on \(\mathscr B\cap\mathscr A_{t_\epsilon}\) and let
+\(\mu_{\mathrm{act}}\) be the law of \(C(\mathbf X_{t_\epsilon},S_{t_\epsilon})\)
+under this prefix. The Brownian increments after \(t_\epsilon\) are independent
+of the prefix, and the native future equals the held process until a
+departure or a tube exit, whose conditional probability is at most
+\(\Pr(\mathscr A^c_{t^\circ_*}\mid\mathscr B)/\Pr(\mathscr A_{t_\epsilon}\mid\mathscr B)
+\le p_\epsilon/(1-p_\epsilon)\). The inherited parent started from
+\(\mu_{\mathrm{act}}\) and driven by the same increments has the retained drift
+and diffusion of the projected held process until its first departure; the
+retained tube fails with conditional probability at most
+\(p_\epsilon/(1-p_\epsilon)\), and on the tube the parent departs during the
+unit interval with probability at most \(4\sqrt{8/3} e^{-1/\mathrm T}\). The
+union bound and the triangle inequality give (d). \(\square\)
+
+\noindent\emph{Proof of \Cref{prop:phil-seeded-contrast-formation}.}
+\emph{Rows.} For a continuous row path \(\pi\) whose entries lie in
+\([\mathrm c_0,1-\mathrm c_0]\) for some \(\mathrm c_0\in(0,1/2]\), construct the
+kinetics pathwise as in the proof above: the configuration drift
+\(-\nabla U_S\) does not involve the prior, and at a clock time \(\tau\)
+receiver \(i\) takes source \(i+1\) exactly when a uniform variable on
+\([0,1]\), independent and fresh for each clock time and receiver, is at most
+its posterior row
+\[
+\beta_{i,i+1}(\mathbf x;\pi(\tau))
+=\frac{\pi_{i,i+1}(\tau)e^{-\mathcal D_{e(i,i+1)}(\mathbf x)/\mathrm T}}
+{\sum_{j=i\pm1}\pi_{ij}(\tau)e^{-\mathcal D_{e(i,j)}(\mathbf x)/\mathrm T}}
+\]
+at \(\mathbf x=\mathbf X_{\tau-}\). Write \(q^\pi_t\) for the law at time
+\(t\). Drive the constructions for two such row paths \(\pi,\pi'\) by the same
+initial data, Brownian motion, clock, and uniform variables. They coincide
+until the first clock time at which the uniform variable of some receiver falls
+between its posterior rows under \(\pi\) and \(\pi'\), and, given agreement
+before a clock time
+\(\tau\), this happens at \(\tau\) with conditional probability at most
+\(\sum_i|\beta_{i,i+1}(\mathbf x;\pi(\tau))-\beta_{i,i+1}(\mathbf x;\pi'(\tau))|\)
+at the common configuration. With \(\mathrm p=\pi_{i,i+1}\) and
+\(\pi_{i,i-1}=1-\mathrm p\), the derivative of a posterior row in \(\mathrm p\)
+is \(\beta_{i,i+1}(1-\beta_{i,i+1})/(\mathrm p(1-\mathrm p))
+\le1/(4\mathrm c_0(1-\mathrm c_0))\le1/(2\mathrm c_0)\), and the clock has rate
+one, so
+\[
+\bigl|q^\pi_t(S_i=j)-q^{\pi'}_t(S_i=j)\bigr|
+\le\frac2{\mathrm c_0}\int_0^t\|\pi(s)-\pi'(s)\|_\infty ds,
+\]
+where \(\|\cdot\|_\infty\) is the maximum over receivers and sources. A
+solution of \cref{eq:phil-source-learning} that starts uniform satisfies
+\[
+\pi_{ij}(t)-\tfrac12=\epsilon\int_0^te^{-\epsilon(t-s)}
+\bigl(q_s(S_i=j)-\tfrac12\bigr)ds,
+\qquad
+\bigl|\pi_{ij}(t)-\tfrac12\bigr|\le\tfrac12\bigl(1-e^{-\epsilon t}\bigr)
+\le\tfrac{\epsilon t}2,
+\]
+because \(0\le q_s(S_i=j)\le1\); each row sums to one, and on \([0,t_1]\) its
+entries lie in \([\mathrm c_0,1-\mathrm c_0]\) with
+\(\mathrm c_0=e^{-\epsilon t_1}/2\). Fix \(t_1>0\) and let \(\Gamma\) send a row
+path \(\pi\) to the right-hand side of the first identity with \(q_s=q^\pi_s\).
+It maps the closed set of continuous row paths on \([0,t_1]\) with
+\(|\pi_{ij}(t)-1/2|\le(1-e^{-\epsilon t})/2\) into itself, and
+\[
+\|\Gamma\pi(t)-\Gamma\pi'(t)\|_\infty
+\le\frac{2\epsilon t_1}{\mathrm c_0}\int_0^t\|\pi(s)-\pi'(s)\|_\infty ds,
+\qquad t\le t_1,
+\]
+so the \(n\)th iterate of \(\Gamma\) contracts the supremum distance by the
+factor \((2\epsilon t_1^2/\mathrm c_0)^n/n!\), and \(\Gamma\) has exactly one
+fixed point in that set. Every solution lies in the set, solutions on nested
+intervals agree, and \(s\mapsto q^\pi_s(S_i=j)\) is continuous because the clock
+has rate one, so the fixed point is differentiable and solves
+\cref{eq:phil-source-learning}. The rows are therefore a deterministic
+continuous function of time, and the row bound holds. This proves (a).
+
+\emph{Seed events.} The function
+\(\epsilon t^\circ_*=\epsilon(2\log(1/\epsilon)+1)\) increases on
+\((0,1/100]\), with value \((1+4\log10)/100<0.1022\) at \(1/100\), so
+\(t^\circ_*<2/\epsilon\) and, by (a), every row entry lies in
+\([0.4489,0.5511]\) on \([0,t^\circ_*]\), whence
+\(\pi_{ik}(t)/\pi_{ij}(t)\le0.5511/0.4489<1.23\) for the two entries of every
+row. For a sign
+\(\sigma\in\{1,-1\}\) and a perfect matching \(M\in\{S^{(0)},S^{(1)}\}\), let
+\(\mathscr B_{\sigma,M}\) be the event that
+\(|\mathbf X_0-\sigma\mathbf x^\circ|<\varrho_\circ\), \(S_0=M\), and no proposal
+occurs on \([0,1/4]\). The initial configuration, the initial assignment, and
+the clock are independent, so
+\[
+\Pr(\mathscr B_{\sigma,M})=\frac{e^{-1/4}}{16}\mathcal N(\mathsf m_0,I_{12})
+\bigl\{|\mathbf x-\sigma\mathbf x^\circ|<\varrho_\circ\bigr\},
+\]
+and the four events are disjoint because \(|\mathbf x^\circ|=2>\varrho_\circ\).
+
+\emph{Episode.} Condition on \(\mathscr B_{1,S^{(0)}}\). The configuration drift
+does not involve the rows, and the rows are deterministic, so the paragraph
+\emph{Episode} of the proof above applies line by line from every starting
+point in the ball, whatever the law of \(\mathbf X_0\) on it: the held
+Ornstein--Uhlenbeck process, whose noise bound involves only the Brownian
+motion; the contraction to the held path \cref{eq:rg-formation-cycle-center};
+the residual bounds below \(1/5\) and above \(13/10\) on \([1/4,t^\circ_*]\),
+which make each receiver's exterior cost exceed its partner cost by more than
+one; and the relative-entropy bounds for \(t\ge t_\epsilon\), all deterministic
+on the noise event. The rows enter only the exterior source probability: for a
+receiver \(i\) with partner \(j\) and exterior source \(k\),
+\[
+\beta_{ik}(\mathbf x;\pi(t))\le\frac{\pi_{ik}(t)}{\pi_{ij}(t)}
+\exp\Bigl[-\frac{\mathcal D_{e(i,k)}(\mathbf x)-\mathcal D_{e(i,j)}(\mathbf x)}{\mathrm T}\Bigr]
+<1.23 e^{-1/\mathrm T}
+\]
+in place of \(e^{-1/\mathrm T}\). A proposal therefore leaves \(S^{(0)}\) with
+probability at most \(5e^{-1/\mathrm T}\), the expected number of departing
+proposals up to \(t^\circ_*\) is at most \(5t^\circ_*e^{-1/\mathrm T}\), and the
+prefix event \(\mathscr A_{t^\circ_*}\) of that paragraph fails with conditional
+probability at most
+\[
+\tilde p_\epsilon=73728 \epsilon^4t^\circ_*+5t^\circ_*e^{-1/\mathrm T}
+<0.008+10^{-14}<\tfrac12,
+\]
+by the same monotonicity of \(\epsilon^4t^\circ_*\) and
+\(e^{-1/\mathrm T}<\mathrm T\). On
+\(\mathscr B_{1,S^{(0)}}\cap\mathscr A_{t^\circ_*}\), the block \(\{0,1\}\), of
+size two and joined to its complement by \(e_1\) and \(e_3\), carries on its
+internal edge \(e_0\) a belief relative entropy above
+\((1-\sqrt3\varrho_\circ)^2/2>1/4\) at time zero, because
+\(|\mathbf X_0-\mathbf x^\circ|<\varrho_\circ\) and every residual covector
+has norm \(\sqrt3\); it has internal belief and model relative entropies at
+most \(\epsilon^4\) on \([t_\epsilon,t^\circ_*]\), an interval of length one
+inside \([0,2/\epsilon]\), and both boundary belief relative entropies above
+\(1/2\) on \([1/4,t^\circ_*]\), so contrast formation occurs.
+
+\emph{The other seeds.} A cycle automorphism \(g\), with link signs transformed
+under reflections, acts on configurations by an orthogonal signed permutation
+\(\mathsf O_g\) with \(U_{gS}(\mathsf O_g\mathbf x)=U_S(\mathbf x)\) and
+\(\mathcal D_{e(gi,gj)}(\mathsf O_g\mathbf x)=\mathcal D_{e(i,j)}(\mathbf x)\).
+With \((g\pi)_{gi,gj}=\pi_{ij}\), it therefore maps the kinetics with row path
+\(\pi\) from \((\mathbf x,S)\) to the kinetics with row path \(g\pi\) from
+\((\mathsf O_g\mathbf x,gS)\), driven by the Brownian motion \(\mathsf O_gW\)
+and by the receiver uniform variables relabeled by \(g\), the variable of
+receiver \(i\) serving receiver \(gi\) and being replaced by one minus itself
+when \(g\) is a reflection. Indeed a reflection sends the source \(i+1\) of
+receiver \(i\) to the source \(gi-1\) of receiver \(gi\), and the image
+receiver takes it exactly when the original variable is at most
+\(\beta_{i,i+1}(\mathbf x;\pi)=\beta_{gi,gi-1}(\mathsf O_g\mathbf x;g\pi)
+=1-\beta_{gi,gi+1}(\mathsf O_g\mathbf x;g\pi)\), which is the rule of the
+image kinetics applied to one minus that variable, except on the null event
+that the variable equals its row; under the rotation the sources are carried
+along and the variable is kept. The relabeled family is again a family of
+independent uniform variables independent of the other inputs, so the image
+process has the law of the kinetics with rows \(g\pi\), and \(g\pi\) has the
+same ratio bound. The rotation \(i\mapsto i+1\) fixes
+\(\mathbf x^\circ\) and maps \(S^{(0)}\) to \(S^{(1)}\), the reflection
+\(i\mapsto-i\) maps \((\mathbf x^\circ,S^{(0)})\) to
+\((-\mathbf x^\circ,S^{(1)})\), and their composition maps
+\((\mathbf x^\circ,S^{(0)})\) to \((-\mathbf x^\circ,S^{(0)})\), so the
+conditional bound holds on the other three seed events, with the images of the
+block. Summing over the four disjoint
+events,
+\[
+\Pr(\text{contrast formation})\ge(1-\tilde p_\epsilon)\frac{2e^{-1/4}}{16}
+\sum_\pm\mathcal N(\mathsf m_0,I_{12})
+\bigl\{|\mathbf x\mp\mathbf x^\circ|<\varrho_\circ\bigr\},
+\]
+which gives the first bound of (b) because \(\tilde p_\epsilon<1/2\). The
+Gaussian density on the ball about \(\mathbf x^\circ\) is at least
+\((2\pi)^{-6}\exp[-(|\mathbf x^\circ-\mathsf m_0|+\varrho_\circ)^2/2]\), the ball
+has volume \(\pi^6\varrho_\circ^{12}/6!\), and \((2\pi)^{-6}\pi^6/6!=1/46080\),
+which gives the second bound after dropping the ball about
+\(-\mathbf x^\circ\). Frozen rows have ratio one, so the argument and the bound
+hold without learning. The sub-event named in (b) is the event of part (a) of
+the proposition above with the block of the held matching. For fixed rows
+\(\pi\) the proposal step is reversible for \(q^\star_\pi\) by the same
+symmetry \(q^\star_\pi(\mathbf x,S)\beta_{S'}(\mathbf x;\pi)
+=q^\star_{\pi,\mathbf X}(\mathbf x)\beta_S(\mathbf x;\pi)\beta_{S'}(\mathbf x;\pi)\),
+the sheet diffusions do not involve the rows, and the conditional law
+\(\mathcal N(0,\mathrm TK_M^{-1})\) of \(q^\star_\pi\) given \(S_0=M\) does not
+depend on \(\pi\), so the paragraph \emph{Stationary comparison} above gives
+the invariance and the bound \(4e^{-1/(4\mathrm T)}\) for every \(\pi\). This
+proves (b).
+
+\emph{Invariant initial laws.} Since \(\mathsf O_g\) is orthogonal, \(g\) maps
+\(\mathcal N(\mathsf m_0,I_{12})\) to \(\mathcal N(\mathsf O_g\mathsf m_0,I_{12})\),
+so the initial law is invariant exactly when \(\mathsf m_0\) is fixed by the
+rotation and the reflection. The rotation fixes exactly the means whose belief,
+model, and link blocks are constant, and the reflection reverses every edge and
+hence the sign of a constant link block, which leaves
+\((\mathrm c_1\mathbf 1_4,\mathrm c_2\mathbf 1_4,0)\). For such a mean, since
+the uniform assignment law and the uniform rows are also invariant, \(g\) maps
+the recognition law \(q_t\) of the rows \(\pi\) to the recognition law
+\(g_\#q_t\) of the rows \(g\pi\) from the same initial law, by the pathwise
+image of the paragraph \emph{The other seeds}, whose relabeled driving inputs
+have the law of the original ones; and \(g\pi\) solves
+\cref{eq:phil-source-learning} with \(g_\#q_t(S_{gi}=gj)=q_t(S_i=j)\), so
+\((g\pi,g_\#q)\) is a second solution from the same data and uniqueness in (a)
+gives \(g\pi=\pi\). The reflection \(j\mapsto2i-j\) fixes receiver \(i\) and
+exchanges its sources \(i\pm1\), so \(\pi_{i,i+1}=\pi_{i,i-1}=1/2\). This
+proves (c). \(\square\)
+
+\section{Depth one under exclusive source gating}
+\label{sec:rg-formation-depth-one-proof}
+
+\noindent\emph{Proof of \Cref{prop:rg-gated-depth-one}.}
+Throughout, \(F=\operatorname{att}(S)\) and \(W=W_F\) once a sheet \(S\) is
+fixed, \(P_W\) is the orthogonal projection onto \(W\), and
+\(\mathsf Q_W\), \(\mathsf Q_{W^\perp}\) are matrices whose columns form
+orthonormal bases of \(W\) and of \(W^\perp\). Since \(H_S\) is the sum of the
+positive semidefinite maps \(\mathbf a_{e(i,S_i)}^\top\mathbf a_{e(i,S_i)}\),
+its kernel is \(\bigcap_{e\in F}\ker\mathbf a_e=W_F\) and its range is
+\(W_F^\perp\), the span of the rows of \(\mathbf a_F\), so
+\(\mathrm k_S=\operatorname{rank}\mathbf a_F\). For every edge the Gram
+matrix of the two rows of \(\mathbf a_e\) is
+\(\bigl(\begin{smallmatrix}3&1\\1&3\end{smallmatrix}\bigr)\), as in
+\cref{eq:rg-formation-cycle-normals}, so \(\|\mathbf a_e\|=2\).
+
+\emph{(a) Two bands.} Let \(M=H_S+\mathrm T\Omega\). By Weyl's inequality
+\citep[Sec.~4.3]{HornJohnson2013}, with eigenvalues in increasing order,
+\(\lambda_k(H_S)+\mathrm T\lambda_{\min}(\Omega)\le\lambda_k(M)
+\le\lambda_k(H_S)+\mathrm T\|\Omega\|\) for every \(k\). The first
+\(2N+|E|-\mathrm k_S\) eigenvalues of \(H_S\) vanish, the remaining
+\(\mathrm k_S\) lie in \([\mathrm h_S,\|H_S\|]\), and
+\(\lambda_{\min}(\Omega)=\|\Omega^{-1}\|^{-1}\). The range was identified
+above, and \(\pi\) does not enter \(M\).
+
+\emph{(b) Gating wells.} For each receiver, the row sums to one and every
+weight is at least \(\min_j\pi_{ij}\), so
+\(\min_j\pi_{ij}e^{-\min_j\mathcal D_{e(i,j)}/\mathrm T}
+\le\sum_j\pi_{ij}e^{-\mathcal D_{e(i,j)}/\mathrm T}
+\le e^{-\min_j\mathcal D_{e(i,j)}/\mathrm T}\); taking \(-\mathrm T\log\) and
+summing over \(i\) gives \cref{eq:rg-gated-well-depth}. Since \(V_S\) is a sum
+over receivers and \(\pi_S\) a product,
+\[
+\sum_S\pi_Se^{-V_S/\mathrm T}=\prod_i\sum_{j\in\mathcal N_i}\pi_{ij}
+e^{-\mathcal D_{e(i,j)}/\mathrm T}=e^{-V_\pi/\mathrm T},
+\]
+which is the configuration marginal up to the reference factor. If every edge of a
+covering set \(F\) has zero residual at \(\mathbf x\), every receiver has an
+option of zero cost, so \(V_{\min}(\mathbf x)=0\); a common translation of the
+belief and model means of the agents of one component of \((V,F)\), with the
+links fixed, changes no residual of an edge of \(F\), because the two
+endpoints of such an edge either both move or both stay, so \(V_{\min}\)
+remains zero.
+
+\emph{(c) Rank formula.} In the coordinates \((\bar k,\mathfrak d,\omega)\)
+with \(\mathfrak d=\bar k-\bar m\), the rows of \(\mathbf a_e\) for
+\(e:j\to i\) are \(r^b_e=\bar k_i-\bar k_j-\omega_e\) and
+\(r^m_e=r^b_e-(\mathfrak d_i-\mathfrak d_j)\); replacing the second by
+\(r^m_e-r^b_e=-(\partial\mathfrak d)_e\) is an invertible change within the
+rows of \(e\). The rows \(r^b_e\), \(e\in F\), read only \((\bar k,\omega)\)
+and each has coefficient \(-1\) on its own link coordinate and zero on every
+other, so they are linearly independent. The rows \((\partial\mathfrak d)_e\),
+\(e\in F\), read only \(\mathfrak d\) and form the oriented incidence map of
+\((V,F)\) on \(\R^V\), whose kernel consists of the functions constant on each
+component, so their rank is \(N-\operatorname{cc}(F)\). The two families act
+on disjoint coordinate blocks, so
+\(\operatorname{rank}\mathbf a_F=|F|+N-\operatorname{cc}(F)\).
+
+\emph{Minimum edge covers.} Let \(F=\operatorname{att}(S)\). Every vertex
+selects an incident edge, so \(F\) covers \(V\) and every component of
+\((V,F)\) contains an edge; one edge from each component is a matching, so
+\(\operatorname{cc}(F)\le\mathfrak n\), and a connected graph on
+\(\mathrm c\) vertices has at least \(\mathrm c-1\) edges, so
+\(|F|\ge N-\operatorname{cc}(F)\). Hence
+\(\mathrm k_S\ge2(N-\operatorname{cc}(F))\ge2(N-\mathfrak n)\), with
+equality exactly when \(F\) is a forest with \(\mathfrak n\) components and
+therefore \(N-\mathfrak n\) edges. The same two inequalities show that every
+edge cover has at least \(N-\mathfrak n\) edges, and a maximum matching
+together with one incident edge at each unmatched vertex, which exists
+because no vertex is isolated, is an edge cover with exactly
+\(N-\mathfrak n\) edges, since the other endpoint of each added edge is
+matched, or else the matching could be enlarged. An edge cover with
+\(N-\mathfrak n\) edges has at least \(\mathfrak n\) components and hence
+exactly \(\mathfrak n\), and is a forest; so the covering forests with
+\(\mathfrak n\) components are exactly the minimum edge covers. In a
+minimum edge cover every edge has an endpoint of degree one, since otherwise
+removing it would leave a smaller cover, and a tree in which every edge has
+a leaf endpoint is a star, because two vertices of degree at least two would
+be joined by a path whose first edge has no leaf endpoint. Conversely, a
+star with center \(z\) is attended when every leaf selects \(z\) and \(z\)
+selects one leaf, which the source sets allow, so every minimum edge cover
+is some \(\operatorname{att}(S)\). Adding to \(F\) an edge that joins two
+components raises \(|F|\) by one and lowers \(\operatorname{cc}(F)\) by one,
+hence raises the rank by two.
+
+\emph{Sheet weights.} Since \(H_S/\mathrm T+\Omega\succ0\),
+\(Z_S=(2\pi)^{(2N+|E|)/2}\det(H_S/\mathrm T+\Omega)^{-1/2}\). In the basis
+\((\mathsf Q_{W^\perp},\mathsf Q_W)\) the matrix \(H_S/\mathrm T+\Omega\) has
+the blocks \(H_1/\mathrm T+\Omega_{11}\), \(\Omega_{10}\), \(\Omega_{01}\),
+\(\Omega_{00}\), with \(H_1=\mathsf Q_{W^\perp}^\top H_S\mathsf Q_{W^\perp}\succeq\mathrm h_SI\)
+and \(\Omega_{00}=\Omega|_W\). Eliminating the invertible block
+\(\Omega_{00}\) by block row and column operations gives
+\(\det(H_S/\mathrm T+\Omega)=\det\Omega_{00}\det(H_1/\mathrm T+\Sigma)\) with
+\(\Sigma=\Omega_{11}-\Omega_{10}\Omega_{00}^{-1}\Omega_{01}\), and
+\(0\prec\Sigma\preceq\Omega_{11}\preceq\|\Omega\|I\). Then
+\(\mathrm T\Sigma\preceq(\mathrm T\|\Omega\|/\mathrm h_S)H_1\), so
+\(\det H_1\le\det(H_1+\mathrm T\Sigma)\le(1+\mathrm T\|\Omega\|/\mathrm h_S)^{\mathrm k_S}\det H_1\),
+and \(\det H_1=\operatorname{pdet}H_S\). Since
+\(\det(H_1/\mathrm T+\Sigma)=\mathrm T^{-\mathrm k_S}\det(H_1+\mathrm T\Sigma)\),
+the determinant lies between \(\mathrm T^{-\mathrm k_S}\mathrm z_S^{-2}\) and
+\((1+\mathrm T\|\Omega\|/\mathrm h_S)^{\mathrm k_S}\mathrm T^{-\mathrm k_S}\mathrm z_S^{-2}\),
+which is \cref{eq:rg-gated-sheet-weight}. The same block form shows that
+under \(q_\Omega(\cdot\mid S)\), which is
+\(\mathcal N(0,(H_S/\mathrm T+\Omega)^{-1})\), the coordinates
+\(y=\mathsf Q_W^\top\mathbf x\) given \(z=\mathsf Q_{W^\perp}^\top\mathbf x\)
+are Gaussian with precision \(\Omega_{00}\), the \((W,W)\) block of the joint
+precision, which does not depend on \(\mathrm T\).
+
+\emph{Merge cost.} \(q_\Omega(S)=\pi_SZ_S/\sum_{S'}\pi_{S'}Z_{S'}
+\le\pi_SZ_S/\sum_{S'\in\mathcal M}\pi_{S'}Z_{S'}\). The upper bound of
+\cref{eq:rg-gated-sheet-weight} for \(S\) and its lower bound for each
+\(S'\in\mathcal M\), where \(\mathrm k_{S'}=2(N-\mathfrak n)\) and
+\(\mathrm h_{S'}\ge\mathrm h_*\), give
+\(q_\Omega(S)\le\mathrm T^{(\mathrm k_S-2(N-\mathfrak n))/2}
+(1+\mathrm T\|\Omega\|/\mathrm h_*)^{N-\mathfrak n}
+\pi_S\mathrm z_S/\sum_{S'\in\mathcal M}\pi_{S'}\mathrm z_{S'}\). If
+\(\operatorname{cc}(\operatorname{att}(S))\le\mathfrak n-m\), then
+\(\mathrm k_S\ge2(N-\operatorname{cc}(\operatorname{att}(S)))\ge2(N-\mathfrak n)+2m\);
+with \(\mathrm T\le1\), summing over such \(S\) gives
+\cref{eq:rg-gated-merge-cost}.
+
+\emph{(d) Block law.} The sheets with
+\(\operatorname{cc}(\operatorname{att}(S))<\mathfrak n\) carry mass at most
+\(\mathrm K_1\mathrm T\) by \cref{eq:rg-gated-merge-cost}. Fix a sheet with
+\(\operatorname{cc}(F)=\mathfrak n\). No component of \((V,F)\) contains
+two disjoint edges, since replacing that component's edge in the matching of
+one edge per component would give \(\mathfrak n+1\) disjoint edges. A
+connected graph in which no two edges are disjoint is a star or a triangle:
+fix an edge \(uv\); every other edge meets \(\{u,v\}\); if there are edges
+\(vw\) and \(uw'\) with \(w\ne u\) and \(w'\ne v\), then \(w=w'\), and a
+further edge would have to meet \(\{u,v\}\) and would then be disjoint from
+\(vw\) or from \(uw\), so the graph is the triangle \(uvw\); otherwise all
+edges share one vertex. Replacing each triangle component by a two-edge path
+on the same three vertices gives a covering forest of stars with
+\(\mathfrak n\) components, a minimum edge cover by (c), so the partition
+of \(V\) into the components of \(F\) is a minimum-edge-cover partition.
+The coherent-block partition \(\mathfrak P_{\mathrm a}(\mathbf x)\) differs
+from it only if some attended edge has \(|\mathbf a_e\mathbf x|>\mathrm a\) or
+some edge joining two components of \(F\) has
+\(|\mathbf a_e\mathbf x|\le\mathrm a\). Under \(q_\Omega(\cdot\mid S)\) the
+configuration is \(\mathcal N(0,\mathrm T(H_S+\mathrm T\Omega)^{-1})\). For
+\(e\in F\), \(M=H_S+\mathrm T\Omega\succeq\mathbf a_e^\top\mathbf a_e\), so
+\(\|\mathbf a_eM^{-1/2}\|\le1\) and the covariance
+\(\mathrm T\mathbf a_eM^{-1}\mathbf a_e^\top\) of \(\mathbf a_e\mathbf x\) is at
+most \(\mathrm TI_2\); each of its two centered Gaussian coordinates has
+variance at most \(\mathrm T\), and \(|\mathbf a_e\mathbf x|>\mathrm a\)
+forces one of them beyond \(\mathrm a/\sqrt2\), an event of probability at
+most \(2\cdot2e^{-\mathrm a^2/(4\mathrm T)}\). For an edge \(e\notin F\)
+joining two components, \(\operatorname{rank}\mathbf a_{F\cup\{e\}}
+=\operatorname{rank}\mathbf a_F+\operatorname{rank}(\mathbf a_e|_{W})\),
+because \(\ker\mathbf a_{F\cup\{e\}}=W\cap\ker\mathbf a_e\); by (c) the
+restriction has rank two, so \(\mathbf a^W_e=\mathbf a_e\mathsf Q_W\) has two nonzero
+singular values, the least of which is at least \(\mathrm s_*\). Writing
+\(\mathbf x=\mathsf Q_{W^\perp}z+\mathsf Q_Wy\), the conditional law of \(y\)
+given \(z\) has precision \(\Omega_{00}\preceq\|\Omega\|I\), so \(\mathbf a^W_ey\) is
+Gaussian in \(\R^2\) with covariance
+\(\mathbf a^W_e\Omega_{00}^{-1}\mathbf a^{W\top}_e\succeq\|\Omega\|^{-1}\mathbf a^W_e\mathbf a^{W\top}_e\succeq(\mathrm s_*^2/\|\Omega\|)I_2\)
+and density at most \((2\pi)^{-1}\|\Omega\|/\mathrm s_*^2\). The event
+\(|\mathbf a_e\mathbf x|\le\mathrm a\) places \(\mathbf a^W_ey=\mathbf a_e\mathbf x-\mathbf a_e\mathsf Q_{W^\perp}z\)
+in a disc of radius \(\mathrm a\) about a point determined by \(z\), so its
+conditional probability is at most \(\pi\mathrm a^2\cdot\|\Omega\|/(2\pi\mathrm s_*^2)\).
+A union bound over at most \(|E|\) edges of each kind, integrated over the
+sheets, gives \cref{eq:rg-gated-block-law}. \(\square\)
+
+\input{ca_selection_proofs}

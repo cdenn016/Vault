@@ -52,4 +52,3 @@ These tipping and lock-in phenomena sit within the broader theme of [[Statistica
 - [[Echo chambers and polarization]] · [[Community detection and modularity]] · [[Meta-agents and hierarchical emergence]] — the fragmented, clustered, and coarse-grained regimes.
 - [[Belief inertia]] · [[Hamiltonian belief dynamics]] · [[Mass as Fisher information]] — conditional kinetic machinery that does not by itself derive hysteresis or lock-in.
 - [[Sociophysics]] · [[Bounded confidence]] · [[Renormalization-group flow of beliefs]] · [[Meta-entropy]] · [[Collective active inference]] · [[Holonomy]].
-- [[belief-inertia-2026-07-13-final-review-closure]] — authoritative benchmark-only status for segregation, tipping, and lock-in.

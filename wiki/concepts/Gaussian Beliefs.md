@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-07-09
+updated: 2026-09-23
 ---
 
 # Gaussian Beliefs
@@ -197,7 +197,6 @@ Gaussian beliefs are a **core program concept**, the shared substrate of both fl
   In the shared-frame Regime-I specialization, the isotropic limit is identity-bilinear plus a key-norm bias; a general
   $W_QW_K^\top$ is structural, not transport. Full-Gaussian congruence remains exact, while the
   live diagonal family is exact only under monomial transport and otherwise uses projection.
-  [[gl-k-attention-2026-07-09-review-revision]]
 - **Multi-agent / MAgent model.** Each agent carries $(\mu,\Sigma)$; precision $\Sigma^{-1}$
   is inertial [[Mass as Fisher information|mass]], which gives the model [[Belief inertia]] and
   a [[Hamiltonian belief dynamics|Hamiltonian]] second-order belief dynamics
@@ -212,6 +211,8 @@ frame-independent coupling between beliefs. Where the model needs to leave the d
 regime it does so by enriching $\Sigma$ (full SPD covariance, congruence transport), never by
 abandoning the tuple — which is what keeps the whole pipeline closed-form and differentiable
 ([[gl-k-attention|GL(K) attention manuscript]]).
+
+Learned Gaussian word representations scored by KL divergence ([[vilnis-2015-gaussian-embeddings]]) are the precedent that the September 2026 revision of the GL(K) attention manuscript cites for its Gaussian token prior bank.
 
 ## Related
 
@@ -244,6 +245,7 @@ abandoning the tuple — which is what keeps the whole pipeline closed-form and 
 - [[kullback-1951-kl-divergence]] — the Kullback–Leibler divergence the closed form computes.
 - [[petersen2012matrix]] — matrix calculus identities (Gaussian KL closed form, log-det and
   trace derivatives) used for the covariance updates.
+- [[vilnis-2015-gaussian-embeddings]] — Gaussian word embeddings compared by KL divergence; precedent for the Gaussian token prior bank.
 
 ## See also
 

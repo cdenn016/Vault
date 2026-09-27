@@ -38,7 +38,7 @@ This scale-bridging is what underwrites [[Meta-agents and hierarchical emergence
 
 The information-geometric side of the project sharpens the analogy: because [[Mass as Fisher information|mass is identified with Fisher information]] and the [[Fisher information metric]] governs distinguishability of beliefs, RG coarse-graining acts on the same geometric data that the [[Natural gradient]] uses, and the flow can be read as a trajectory on the statistical manifold. The notions of [[Belief inertia]] and [[Hamiltonian belief dynamics]] inherit scale dependence through this lens.
 
-> [!note] Editorial: The specific belief-RG flow equations, the choice of coarse-graining map over agents, and any claimed fixed points are contributions of the project manuscripts (see [[meta-entropy-manuscript]]); Wilson (1975) supplies the underlying physics methodology, not these particular results.
+> [!note] Editorial: The specific belief-RG flow equations, the choice of coarse-graining map over agents, and any claimed fixed points are contributions of the project manuscripts (see `meta-entropy-manuscript`); Wilson (1975) supplies the underlying physics methodology, not these particular results.
 
 ## BibTeX
 

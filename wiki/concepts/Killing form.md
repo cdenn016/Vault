@@ -37,9 +37,9 @@ Two textbook facts make the form a structural diagnostic. **Cartan's criterion**
 
 ## Why it matters here
 
-The literal Killing form remains a useful Lie-algebra diagnostic, but the configured frame object must be described more narrowly. The regularized Cartan/Killing construction is an optional optimizer preconditioner; audited runs use plain AdamW for the frame table, so this conditioner and the heavy-ball field are inactive. It is not the Fisher geometry of the Gaussian beliefs. [[gl-k-attention-2026-07-09-review-revision]]
+The literal Killing form remains a useful Lie-algebra diagnostic, but the configured frame object must be described more narrowly. The regularized Cartan/Killing construction is an optional optimizer preconditioner; audited runs use plain AdamW for the frame table, so this conditioner and the heavy-ball field are inactive. It is not the Fisher geometry of the Gaussian beliefs.
 
-For $\mathfrak{gl}(k)$, $\operatorname{tr}(XY)$ is adjoint-invariant but indefinite, while the positive Frobenius form $\operatorname{tr}(X^\top Y)$ is invariant only under orthogonal, more precisely conformal-orthogonal, conjugations. No positive-definite choice here supplies full-$\mathrm{GL}(K)$ gauge invariance or a Fisher natural gradient. [[gl-k-attention-2026-07-09-review-revision]]
+For $\mathfrak{gl}(k)$, $\operatorname{tr}(XY)$ is adjoint-invariant but indefinite, while the positive Frobenius form $\operatorname{tr}(X^\top Y)$ is invariant only under orthogonal, more precisely conformal-orthogonal, conjugations. No positive-definite choice here supplies full-$\mathrm{GL}(K)$ gauge invariance or a Fisher natural gradient.
 
 ## Details
 
@@ -57,15 +57,15 @@ $$
 \langle X, Y\rangle \;=\; \operatorname{tr}(X^{\top} Y) \qquad\text{(or } \operatorname{tr}(XY)\text{)},
 $$
 
-The two displayed choices have different properties: $\operatorname{tr}(X^\top Y)$ is positive definite but not full-$\mathrm{GL}(K)$ adjoint-invariant, whereas $\operatorname{tr}(XY)$ is adjoint-invariant but indefinite. Neither is simultaneously a positive-definite, full-$\mathrm{GL}(K)$-invariant frame metric. [[gl-k-attention-2026-07-09-review-revision]]
+The two displayed choices have different properties: $\operatorname{tr}(X^\top Y)$ is positive definite but not full-$\mathrm{GL}(K)$ adjoint-invariant, whereas $\operatorname{tr}(XY)$ is adjoint-invariant but indefinite. Neither is simultaneously a positive-definite, full-$\mathrm{GL}(K)$-invariant frame metric.
 
-> [!note] Editorial (2026-07-09): `killing_per_block` names a conditioning heuristic, not a proven invariant metric or a Fisher/K-FAC identification. [[gl-k-attention-2026-07-09-review-revision]]
+> [!note] Editorial (2026-07-09): `killing_per_block` names a conditioning heuristic, not a proven invariant metric or a Fisher/K-FAC identification.
 
-**Relation to belief natural gradients.** Gaussian mean/covariance natural gradients are defined by the belief-family [[Fisher information metric]]. The frame conditioner comes from a chosen matrix-space form and is not thereby Fisher, K-FAC, left-invariant, or coordinate-free. The Frobenius pullback through $\exp$ is an extrinsic chart metric, positive definite only where $D\exp_\phi$ has full rank. [[gl-k-attention-2026-07-09-review-revision]]
+**Relation to belief natural gradients.** Gaussian mean/covariance natural gradients are defined by the belief-family [[Fisher information metric]]. The frame conditioner comes from a chosen matrix-space form and is not thereby Fisher, K-FAC, left-invariant, or coordinate-free. The Frobenius pullback through $\exp$ is an extrinsic chart metric, positive definite only where $D\exp_\phi$ has full rank.
 
 ## In this work
 
-In this work, frame conditioning and belief natural gradients are separate mechanisms. The optional per-block conditioner can be compared empirically with heavy-ball or other frame updates, but it carries no full-$\mathrm{GL}(K)$ invariance or Fisher guarantee. The full-SPD AIRM and Gaussian Fisher statements remain valid on the belief side. [[gl-k-attention-2026-07-09-review-revision]]
+In this work, frame conditioning and belief natural gradients are separate mechanisms. The optional per-block conditioner can be compared empirically with heavy-ball or other frame updates, but it carries no full-$\mathrm{GL}(K)$ invariance or Fisher guarantee. The full-SPD AIRM and Gaussian Fisher statements remain valid on the belief side.
 
 ## Sources
 

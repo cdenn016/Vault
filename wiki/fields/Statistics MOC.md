@@ -14,6 +14,11 @@ updated: 2026-09-27
 
 [[ghahramani-1994-incomplete-data-em]] (Gaussian mixture regression) and [[hershey-2007-kl-gmm]] (variational KL for Gaussian mixtures) support [[Template routing]].
 
+## Path-information references checked September 26, 2026
+
+[[hartmann-2020-coarse-graining-nonreversible-sdes]] and [[backhoff-veraguas-2023-specific-relative-entropy]] distinguish time-marginal error, complete-path KL, and mesh-normalized specific entropy. See [[multiagentelbo-2026-09-26-selection-and-reference-review]] for the hypotheses and the separate model-specific application.
+
+
 > Map of Content for the **`field/statistics`** discipline facet (statistics & information theory).
 > Auto-populated by the **Bases** core plugin from the `field/*` tags.
 
@@ -93,10 +98,6 @@ or `tag:#field/statistics tag:#cluster/vfe`. See the [[Disciplines MOC]] hub for
 - [[travers-2012-exponential-bounds-for-convergence-of-entropy-rate-approximations-in-h]]
 - [[tsitsiklis-1986-distributed-asynchronous-deterministic-and-stochastic-gradient-op]]
 - [[turner-2011-two-problems-with-variational-expectation-maximisation-for-time-s]]
-- [[multiagentelbo-2026-09-11-critical-comparisons]]
-- [[multiagentelbo-2026-09-11-extension-studies]]
-- [[multiagentelbo-2026-09-11-finite-program]]
-- [[multiagentelbo-2026-09-11-implementation]]
 
 ## Finite dynamical RG, September 12, 2026
 

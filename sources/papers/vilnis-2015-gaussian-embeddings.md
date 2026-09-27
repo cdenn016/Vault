@@ -6,6 +6,7 @@ aliases:
   - "vilnis2015gaussianembeddings"
   - "Vilnis 2015"
   - "Gaussian embeddings"
+  - "Vilnis2015Gaussian"
 authors:
   - "Vilnis, Luke"
   - "McCallum, Andrew"

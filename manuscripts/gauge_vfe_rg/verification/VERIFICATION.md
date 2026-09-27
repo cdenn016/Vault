@@ -1,9 +1,34 @@
 # Numerical reproducibility package
 
-This directory makes the manuscript's computational claims auditable without
-confusing numerical agreement with mathematical proof.
+## Current source and historical harness
 
-The post-review source contains **13 literal `\status{NUMERICAL}` tokens**:
+The current manuscript is the three-document source rooted at `Theory/main.tex`,
+`Theory/supplement_gaussian.tex`, and `Theory/supplement_base.tex`. The inventory
+on September 26, 2026 has respectively 1, 0, and 3 literal
+`\status{NUMERICAL}` tokens across their input closures; the main token is the
+status-taxonomy entry. These counts do not certify any numerical result.
+
+The production manifest, runner, bootstrap, and lifecycle files below belong
+to the earlier `manuscripts/gauge_vfe_rg` layout. They still require paths and
+claim inventories absent from this checkout and are retained as historical
+protocol artifacts. Their commands are not current manuscript acceptance
+commands. The retained results have not been regenerated or reclassified.
+Do not invoke bundled tamper or forgery tests: those checks are user-excluded.
+
+For the current document build, copy `Theory/*.tex`, `*.bib`, and `*.sty` to a
+scratch directory and run `latexmk -pdf` there, in the order `main.tex`,
+`supplement_gaussian.tex`, `supplement_base.tex`. Check all three logs for
+undefined references, undefined citations, and multiply defined labels.
+The source-only cross-document checker is
+`docs/reviews/2026-09-23-theory-streamlining-review/scripts/phase2/labelgraph.py split`.
+Neither compilation nor that checker is a mathematical proof. The September 26
+review's analytic counterexamples, symbolic checks, independent reconstruction,
+and build record are in `docs/reviews/2026-09-26-theory-deep-review/`.
+
+## Historical protocol description
+
+The following counts and commands describe the pre-split protocol. In that
+source snapshot there were **13 literal `\status{NUMERICAL}` tokens**:
 
 - 11 substantive, current-protocol claims;
 - one scope summary; and
@@ -341,3 +366,304 @@ genericity, convergence, universality, blocking-scheme independence, or a
 physical law. Analytic statements are closed only by derivation or an eligible
 primary source; asymptotic and physical claims remain open until their separate
 obligations are discharged.
+
+## Record moved from the manuscript's numerical appendix
+
+When the Theory manuscript was split into a main manuscript and two supplements (Phase 2 of the 2026-09-23 streamlining review, `docs/reviews/2026-09-23-theory-streamlining-review/phase2/PLAN.md`, section 2.2), its numerical appendix ("Numerical Provenance", `app:numerical-provenance`) was reduced to one index table per document, carrying claim label, check label, what is tested, control, and seed or "no randomness", with no repository locator (`Theory/SPEC.md`, rule R9). The package table, run command, stress-protocol strata and digests, binary64 fallback and field semantics, freshness note, and thermodynamic script locators moved here. Each passage below is reproduced verbatim from `Theory/appendix_numerical_provenance.tex` at commit `2d012d1` (map `phase2/map-E8.md`, appendix_numerical_provenance rows 1, 3, 5 and the locators of row 6). Row 2 (the stress protocol) becomes one row of the Supplement G numerical index, row 4 ("What a passing run means") was cut as a restatement of the NUMERICAL row of the status table, and the controls of row 6 become rows of the Supplement B numerical index.
+
+### Package table, run command, and source root
+
+The appendix opened with the package table and the declared run command:
+
+Source: `Theory/appendix_numerical_provenance.tex:4-48` at commit `2d012d1`.
+
+```tex
+The verification package in \path{Theory/verification} consists of the
+following files:
+\begin{center}
+\footnotesize
+\begin{tabularx}{0.94\textwidth}{@{}>{\raggedright\arraybackslash}p{0.40\textwidth}X@{}}
+\toprule
+\path{verification/claims.json} &
+claim inventory, seeds, sample counts, tolerances, mappings, and open
+obligations \\
+\path{verification/run_checks.py} &
+single deterministic CPU runner \\
+\path{verification/current-results.json} &
+environment, source and protocol hashes, individual outcomes,
+residuals, and overall result of the recorded run \\
+\path{verification/VERIFICATION.md} &
+human-readable protocol and interpretation \\
+\bottomrule
+\end{tabularx}
+\normalsize
+\end{center}
+
+The declared run is
+\begin{verbatim}
+& "C:\Python314\python.exe" manuscripts/gauge_vfe_rg/verification/run_checks.py
+\end{verbatim}
+and it cannot be executed against this copy of the sources. The runner takes
+its repository root to be the directory two levels above the manuscript
+directory that contains \path{verification}, and it scans
+\path{manuscripts/gauge_vfe_rg} beneath that root. For this copy the
+manuscript directory is \path{Theory}, the root is therefore the parent of the
+repository, and the scanned path does not exist; the runner resolves only in
+the mirrored layout of the author's research vault, in which the manuscript
+directory is itself \path{manuscripts/gauge_vfe_rg}. The claim inventory
+\path{verification/claims.json} lists 13 entries, one for each literal
+NUMERICAL status tag present when it was written; the
+manuscript now carries more such tags, and the three computation-only
+paragraphs of \Cref{ch:agent-network-rg} and the comparisons of
+\Cref{sec:rg-thermo-numerical-provenance} are not inventoried. The checked-in
+\path{verification/current-results.json} records 29 checks and 11 inventoried
+occurrences; it contains no entry for the factorization-gap stress check
+described below, so it predates the stress values tabulated in this
+appendix, which are recorded only in \path{verification/VERIFICATION.md}.
+The checks listed in the package are therefore regression corroboration of
+proved identities and of stated finite protocols, and no current certified
+run exists for this copy of the manuscript.
+```
+
+The source root is stale in this repository, and the runner has not been changed. `run_checks.py` sets `TEX_ROOT = HERE.parent`, which is `Theory/`, and `REPO_ROOT = TEX_ROOT.parents[1]` (line 80), which is the directory containing the repository, and it resolves the manuscript sources under `manuscripts/gauge_vfe_rg` (`_MANUSCRIPT_RELATIVE`, line 285). That layout exists only in the research vault, where the manuscript directory is `manuscripts/gauge_vfe_rg`. For this repository the corrected source root is `Theory/` itself, with `REPO_ROOT = TEX_ROOT.parent` and `_MANUSCRIPT_RELATIVE = "Theory"`; with that correction the declared command becomes `& "C:\Python314\python.exe" Theory/verification/run_checks.py` from the repository root. The correction has not been applied or run. The runner also hardcodes the pre-split chapter file names, so updating it for the three documents is a separate task (PLAN section 5.5), and until then no check of this package certifies the split documents.
+
+### Factorization-gap stress protocol
+
+The strata table printed in the appendix is identical, value for value, to the achieved-range table of the section "Stable factorization-gap protocol" above, which was its source; the appendix itself noted that no checked-in results record contains those ranges and that they were not regenerated. The positive-excursion witness digest, 200-digit gap, raw excursion, and outward allowance printed in the appendix also match that section. The appendix text is kept for the record:
+
+Source: `Theory/appendix_numerical_provenance.tex:50-92` at commit `2d012d1`.
+
+```tex
+\paragraph{Factorization-gap stress protocol.}
+The check \texttt{CHK-CG-FACTOR-GAP-STRESS-3138} is a deterministic
+protocol.  Seed
+\texttt{20260803} fixes exactly $3{,}138$ case identities: $2{,}400$ general,
+$200$ exactly block diagonal, $200$ nearly decoupled, $120$ scale, $120$
+permutation, $80$ nested-refinement, and $18$ 100-decimal-digit control cases.
+Every stratum covers dimensions 2 through 16 and condition-number tiers
+$1,10^2,\ldots,10^{14}$ as nominal pre-transform generator labels.  The
+field \texttt{condition\_number} stores that nominal label, while every
+digest-bound record also stores \texttt{achieved\_condition\_number}, defined
+as \texttt{numpy.linalg.cond} of the regenerated matrix.  The observed global
+range is $[1,1.015265553314175\times10^{14}]$, but this is only a global
+coverage claim.  The achieved ranges are:
+\begin{center}
+\footnotesize
+\begin{tabularx}{0.94\textwidth}{@{}>{\raggedright\arraybackslash}X>{\raggedleft\arraybackslash}X>{\raggedleft\arraybackslash}X@{}}
+\toprule
+Stratum & Minimum & Maximum \\
+\midrule
+Global & $1$ & $1.015265553314175\times10^{14}$ \\
+General & $1$ & $1.015265553314175\times10^{14}$ \\
+Exactly block diagonal & $1$ & $1.0075938532153164\times10^{14}$ \\
+Nearly decoupled & $1.0000000000000002$ & $9.273791153286738\times10^8$ \\
+Scale & $1$ & $1.0036120669923527\times10^{14}$ \\
+Permutation & $1$ & $1.0071935024197442\times10^{14}$ \\
+Nested refinement & $1$ & $1.0077056571347422\times10^{14}$ \\
+100-digit controls & $1.0000000000000004$ & $1.0048132000124055\times10^{14}$ \\
+\bottomrule
+\end{tabularx}
+\normalsize
+\end{center}
+The two scalar blocks in the dimension-two exactly-block-diagonal cases cannot
+realize their nominal targets, and the nearly-decoupled transformation does
+not attain its high nominal tiers.  Each record binds the regenerated binary64
+matrix and partition by SHA-256, and repeated executions must agree exactly.
+The named runtime check separately records all $3{,}138$ attempted schedule
+cases, successfully evaluated 100-decimal-digit exact-binary64 references, and
+completed production-reference comparisons.  PASS requires $3{,}138$ in each
+category and zero failures; the $18$ designated controls remain a named stratum
+rather than the sole accuracy evidence.  The achieved ranges above are taken
+from \path{verification/VERIFICATION.md}; no checked-in results record
+contains them, and they have not been regenerated for this copy.
+\status{NUMERICAL}
+```
+
+### Binary64 fallback path and field semantics
+
+The appendix paragraph below duplicates, in the manuscript's wording, the field semantics of the section "Stable factorization-gap protocol" above. One point is settled by the code. The aggregate `backward_error_bound` is `math.fsum` over merge steps of the per-step `backward_error` (function `factorization_gap`, lines 4114-4167 of `run_checks.py`), and each per-step value is `math.nextafter(max(cholesky_residual, solve_residual), math.inf)` or `null` (lines 3985-3990). The aggregate is therefore a sum of per-step one-ULP-up summaries, as the appendix says; the former restriction chapter used the same wording. It is not a certified perturbation or forward-error bound.
+
+Source: `Theory/appendix_numerical_provenance.tex:94-147` at commit `2d012d1`.
+
+```tex
+The ordinary value path uses Cholesky triangular solves, canonical-correlation
+singular values, and \texttt{log1p(-rho**2)}.  Near the floating-point boundary,
+including a raw excursion above one, the runner compares two binary64 solve
+backends, applies a $64n\epsilon_{\rm mach}$ operational rejection guard, and
+uses a 200-decimal-digit evaluation of the exact stored binary64 input for the
+reported gap.  The value path also falls back when
+$\kappa_2(J)\epsilon_{\rm mach}\geq10^{-4}$; this is a protocol
+conditioning trigger, not a proved perturbation radius.  A nonfinite binary64
+condition estimate also triggers exact-input evaluation, rather than
+rejection, after high-precision Cholesky certification of positive
+definiteness.  On this boundary path the value of the diagnostic
+\texttt{residual\_derived\_clip\_bound} is the outward-rounded discrepancy between
+the maximum raw binary64 $\rho^2$ and the high-precision exact-input $\rho^2$.
+It is not presented as a general residual perturbation bound.  The positive
+excursion witness is a separate focused regression fixture, not an outcome of
+the ordinary $3{,}138$-case schedule.  Its matrix digest is
+\texttt{45310a74550d3759fed0f83f71a6cf3b0f45942499361d723a2248bbe243e2e3},
+its 200-digit exact-input gap rounds to $22.777105858844084$, its raw excursion
+is $4.440892098500626\times10^{-16}$, and its outward allowance is
+$9.432369402326953\times10^{-16}$.  The check mechanically recomputes all four
+quantities and requires PASS.  Its value comes from the exact-input fallback
+rather than from clipping $\rho^2$ below one.  The
+fields \texttt{clipping\_applied} and \texttt{clipping\_amount} record that a
+positive cross-backend excursion was admitted and its maximum excess above
+one; they do not say that this amount was substituted into the returned value.
+Exact-input domain violations and raw excursions whose discrepancies exceed
+the guard are rejected.  Cholesky and solve residuals remain local backward
+diagnostics; the protocol does not promote them to canonical-correlation or
+gap, relative-entropy, monotonicity, scale, or oracle-comparison forward-error
+bounds, and no forward tolerance includes them.  Forward comparisons instead
+use independent exact-binary64 high-precision references plus separately
+declared endpoint-roundoff or protocol-acceptance policies.  Their
+finite-health gate is $64\gamma_n$, with
+$\gamma_n=n u/(1-n u)$ and binary64 unit roundoff
+$u=\epsilon_{\rm mach}/2$.  Early high-precision fallbacks selected before
+residual evaluation serialize the residual, tolerance, and backward-error
+diagnostics as \texttt{null} because they were not evaluated.  A
+residual-health fallback instead retains each finite binary64 measurement,
+including finite values that exceed the health gate.  A field is
+\texttt{null} only when it has no finite usable numeric value, either because
+an attempted measurement is nonfinite or because a derived diagnostic requires
+an unavailable constituent; finite sibling fields remain numeric.  The
+evaluation method distinguishes the finite threshold case from nonfinite
+Cholesky, solve, or tolerance causes and lists multiple causes in that fixed
+order.  These retained measurements remain local backward diagnostics and do
+not enter a forward-error tolerance.  In every branch, \texttt{null} denotes
+neither failure nor zero.  The exact zero diagnostics for a one-block,
+zero-step result remain numeric zero.  The \texttt{GapStep} API retains the
+fieldwise residual quartet.  A \texttt{FactorizationCaseRecord} serializes only
+the aggregate backward diagnostic, maximum Cholesky residual, and ordered
+evaluation-method tuple, not per-step solve or tolerance values.  The
+field \texttt{backward\_error\_bound} is a sum of one-ULP-up
+summaries of already rounded local residual measurements; it is not a
+certified perturbation or forward-error bound. \status{NUMERICAL}
+```
+
+### Freshness and scope
+
+Source: `Theory/appendix_numerical_provenance.tex:158-168` at commit `2d012d1`.
+
+```tex
+\paragraph{Freshness and scope.}
+The result artifact records interpreter and dependency versions and binds
+the discovered manuscript sources and verification protocol by SHA-256.
+Any source, protocol, input, dependency, or environment change requires a
+new run before the numerical evidence is current.  The suite uses no GPU and
+makes no GPU claim.  A missing protocol for an empirical statement remains
+inconclusive even when every implemented check passes.  The inventory names
+30 check identifiers, while the checked-in results record covers 29 of them,
+and none of the 24 source files whose hashes it binds matches the present
+sources; as stated at the start of this appendix, it is not evidence for the
+current manuscript.
+```
+
+At the split the claim inventory still listed 13 entries while the manuscript carried more NUMERICAL tags, and the checked-in `current-results.json` covered 29 of the 30 check identifiers and bound none of the present sources. In the split documents a proved statement carries no NUMERICAL tag, so a regenerated inventory must follow the new numerical index tables rather than the old tags.
+
+### Thermodynamic Fisher controls
+
+The finite comparisons of the former section "Finite thermodynamic Fisher controls" (`sec:rg-thermo-numerical-provenance`) are test cases of `tests/rg_v2/test_thermodynamic_fisher.py`, which exercises `src/multiagent_elbo/rg_v2/thermodynamic_fisher.py`. The driver `docs/verification/2026-09-10-thermodynamic-fisher-rg/run_thermodynamic_fisher_tests.py` runs that file alone, and its retained record `docs/verification/2026-09-10-thermodynamic-fisher-rg/thermodynamic-fisher-20260910T142506078054Z.result.json` reports exit code 0, 22 test cases, no failure, error, or skip, and an unchanged source binding. That record documents one run; it was not repeated for the split. All comparisons use exact rational arithmetic with no floating-point tolerance and no random sampling. The check labels below are the test names.
+
+| Check label | Statement corroborated | What is tested | Control | Randomness |
+|---|---|---|---|---|
+| `test_affine_simplex_all_c2_entries_and_singular_coordinate` | lattice-free labeled Fisher decomposition (main manuscript, coarse-channel chapter) | affine-simplex families in parameter dimensions 1, 2, 3 against independent rational Fisher formulas through derivative degree two | a null third coordinate; reordered input data | none |
+| `test_rational_tie_subextensive_and_vanishing_label_controls` | finite-mixture Fisher theorem, tie and subextensive cases | two-label logistic families at tie, subextensive-score, and decreasing-weight configurations | volume parameters are finite algebraic examples, not lattice enumerations | none |
+| `test_varying_label_and_branch_derivatives_include_cross_terms` | labeled Fisher decomposition with varying labels and branches | full Fisher decomposition and its differentiated weight-times-branch terms | none separate | none |
+| `test_nontrivial_channel_conditional_covariance_and_both_area_scales` | fixed-channel accounting | zeroth residual-score covariance and degree-two derivative accounting for supplied areas `(4,1)` and `B=2`, with both multipliers `B^2` and `B^4` | the supplied areas do not make the channel a spatial block map | none |
+| `test_coherent_geometry_and_carrier_relabeling` | relabeling invariance of the above | coherent geometry and carrier relabelings | identity of results under relabeling | none |
+| `test_structural_zero_atoms_and_undefined_empty_fibers` | empty-fiber convention | an empty conditional fiber stays undefined and contributes zero after weighting | none separate | none |
+| `test_native_side_two_raw_jets_partition_and_score_gram` | native raw-factor and partition jets (Supplement B lattice part) | exhaustive summation over 256 sign configurations at `(b,t)=(1/4,1/20)`, all raw-factor and physical-partition derivatives through total degree three | independent normalized-score Gram comparison at Fisher derivative degree zero | none |
+| `test_native_side_one_product_fisher_is_singular` | singular product Fisher tensor at side one | two signs at `(b,t)=(1/3,1/20)`, native partition one, a null plaquette coordinate, field Fisher derivatives | none separate | none |
+| `test_positive_varying_posterior_factor_compatibility_and_induced_push` | selected-posterior derivatives (Supplement B lattice part) | two side-one branches with global factor normalization, posterior derivatives against an independent two-coordinate Taylor-quotient calculation through total degree three, and the induced pushed posterior and evidence derivatives | the native partition is identically one, so a hierarchical posterior with a nonconstant native divisor is not exercised | none |
+
+The numerical index of Supplement B (`tab:base-numerical`) does not print test names, which are code identifiers. Its three lattice rows carry these check labels: `CHK-RG-THERMO-NATIVE-JETS` is `test_native_side_two_raw_jets_partition_and_score_gram`, `CHK-RG-THERMO-SINGULAR-FISHER` is `test_native_side_one_product_fisher_is_singular`, and `CHK-RG-THERMO-POSTERIOR-PUSH` is `test_positive_varying_posterior_factor_compatibility_and_induced_push`.
+
+The table has nine named tests; the record counts 22 cases because several tests are parameterized, and `test_legitimate_domain_boundaries` covers input validation rather than a manuscript statement. The former section, with the review-stage wording already removed in Phase 1, read:
+
+Source: `Theory/appendix_numerical_provenance.tex:170-250` at commit `2d012d1`.
+
+```tex
+\section{Finite thermodynamic Fisher controls}
+\label{sec:rg-thermo-numerical-provenance}
+
+The following finite computational comparisons concern the retained-label
+experiments of \Cref{sec:rg-thermo-finite-experiment}. Each is a test case
+of \path{tests/rg_v2/test_thermodynamic_fisher.py}, which exercises
+\path{src/multiagent_elbo/rg_v2/thermodynamic_fisher.py}. The driver
+\path{docs/verification/2026-09-10-thermodynamic-fisher-rg/run_thermodynamic_fisher_tests.py}
+runs that test file alone, and its retained record
+\path{thermodynamic-fisher-20260910T142506078054Z.result.json}, in the same
+directory, reports 22 passing test cases with no failure, error, or skip. That
+record documents one run; it was not repeated for this appendix. The
+comparisons used exact rational arithmetic, without a floating-point
+acceptance tolerance or random sampling; no random seed was used.
+Affine-simplex controls in parameter dimensions one, two, and three
+(\path{test_affine_simplex_all_c2_entries_and_singular_coordinate}) matched
+their independent rational Fisher formulas through derivative degree two,
+including a null third coordinate and reordered input data. Two-label
+logistic controls
+(\path{test_rational_tie_subextensive_and_vanishing_label_controls}) matched
+the corresponding rational Fisher derivatives at declared tie,
+subextensive-score, and decreasing-weight configurations. Their volume
+parameters specify finite algebraic examples rather than enumerations of
+larger spatial lattices. These are numerical observations, not proofs of
+arbitrary-dimensional or thermodynamic claims. \status{NUMERICAL}
+
+The varying-label and varying-branch comparison
+(\path{test_varying_label_and_branch_derivatives_include_cross_terms})
+matched the full Fisher decomposition and its differentiated
+weight-times-branch terms. A fixed stochastic-channel control
+(\path{test_nontrivial_channel_conditional_covariance_and_both_area_scales})
+matched the zeroth residual-score covariance
+and the degree-two derivative accounting for supplied areas
+$(V_{\rm fine},V_{\rm coarse})=(4,1)$ and $B=2$, including both
+multipliers $B^2$ and $B^4$. The supplied areas do not identify that
+channel as a spatial block map. Coherent geometry and carrier
+relabelings preserved the results
+(\path{test_coherent_geometry_and_carrier_relabeling}). An empty conditional
+fiber remained undefined and contributed zero after weighting
+(\path{test_structural_zero_atoms_and_undefined_empty_fibers}). These numerical
+comparisons retain their fixed-support and fixed-channel scope.
+\status{NUMERICAL}
+
+For the native side-two square at $(b,t)=(1/4,1/20)$
+(\path{test_native_side_two_raw_jets_partition_and_score_gram}), exhaustive
+summation over all 256 configurations of eight signs matched every raw-factor
+and physical-partition derivative through total degree three. There is one
+internal plaquette. The independent normalized-score Gram comparison was
+at Fisher derivative degree zero. At side one with
+$(b,t)=(1/3,1/20)$ (\path{test_native_side_one_product_fisher_is_singular}),
+the comparison used two signs, native partition one,
+a null plaquette coordinate, and the stated field Fisher derivatives.
+These finite numerical observations do not supply derivative-convergence
+estimates as the square grows. \status{NUMERICAL}
+
+A separate selected-posterior comparison
+(\path{test_positive_varying_posterior_factor_compatibility_and_induced_push})
+used two side-one branches with
+global factor normalization, a fixed reference, varying raw masses,
+geometry weight and physical scalar, and a binary sensor on one edge.
+Its mean was $\eta_\gamma=k_\gamma b$, with
+$k_\gamma\in\{1/2,1/3\}$. The posterior derivatives matched an independent
+two-coordinate Taylor-quotient calculation through total degree three;
+the induced pushed posterior and evidence derivatives also agreed.
+The physical scalar varied, but the underlying native partition was
+identically one. This numerical comparison therefore does not exercise a
+hierarchical posterior with a nonconstant native partition divisor.
+\status{NUMERICAL}
+
+These retained finite comparisons contain no independently evaluated
+all-edge source-shift derivative, multistage information telescope,
+prescribed curvature-action derivative, or recognition-to-posterior
+conditional-KL VFE comparison. Their scientific scope is the finite
+comparisons stated above; they supply no computational proof of native
+thermodynamic response, limiting label weights, regular-chart inverses,
+curvature limits, or physical identification. The mathematical conclusions
+rest on the proofs in
+\Cref{ch:thermodynamic-fisher-draft,app:thermodynamic-fisher-draft-proofs}
+under their stated hypotheses.
+No new calculation is asserted by recording these numerical observations
+here. \status{NUMERICAL}
+```

@@ -5,6 +5,7 @@ aliases:
   - "Merity 2017"
   - "Pointer Sentinel"
   - "merity2016pointer"
+  - "merity2017pointer"
 authors:
   - Merity, Stephen
   - Xiong, Caiming

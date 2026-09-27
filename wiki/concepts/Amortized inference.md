@@ -48,7 +48,7 @@ mechanism. The pure model has no neural recognition network that predicts poster
 parameters from context. It explicitly carries per-token Gaussian beliefs and applies
 a target-blind filtering update, while the decoder is trained by separate cross-entropy.
 The one-step filter therefore does not inherit a VAE amortization-gap theorem or
-Neal–Hinton coordinate-ascent guarantee. [[gl-k-attention-2026-07-09-review-revision]]
+Neal–Hinton coordinate-ascent guarantee.
 
 ## Details
 
@@ -100,7 +100,7 @@ covariance — is what the recognition network must learn to emit.
 
 > [!note] Editorial (2026-07-09): The live covariance family is diagonal SPD and
 > the belief update has Fisher/AIRM geometry. No amortized encoder predicts that
-> covariance in the pure model. [[gl-k-attention-2026-07-09-review-revision]]
+> covariance in the pure model.
 
 ## In this work
 
@@ -108,7 +108,7 @@ The relevant connection is limited: iterative-amortized inference motivates comp
 repeated belief refinement with an optimizer loop. The deployed pure model carries beliefs
 explicitly, performs a one-step target-blind filter, and uses separate decode cross-entropy.
 It neither contains an amortized recognition network nor establishes an amortization-gap
-claim. [[gl-k-attention-2026-07-09-review-revision]]
+claim.
 
 ## Sources
 

@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-09-11
+updated: 2026-09-27
 ---
 
 # Renormalization-group flow of beliefs
@@ -38,8 +38,8 @@ i.e. mean self-KL, mean belief-fiber alignment, mean model-fiber alignment, atte
 
 The verdict above remains authoritative for the legacy PIFB/MAgent blocking ansatz and the
 `renormalization.py` runtime. It does not describe the newer, separate finite conditional theory,
-whose initial pullback result is recorded in [[gauge-vfe-rg-pullback-geometry-2026-08-01]] and whose
-terminal closure is recorded in [[gauge-vfe-rg-terminal-theory-closure-2026-08-08]]. That theorem
+whose initial pullback result dates from 2026-08-01 and whose
+terminal closure dates from 2026-08-08. That theorem
 does not retroactively certify the operational barycenter, KL-proximity blocking, or fitted
 eight-coupling pipeline.
 
@@ -192,7 +192,6 @@ thermodynamic limit concerns projectively consistent cylinder laws or DLR specif
 convergence of free-energy densities. A continuous RG-scale limit concerns interpolation or a
 semigroup in scale. None implies either of the others. The fixed-$c_*$ recursive graph problem can
 be posed and solved at finite size and discrete scale before any of these limits is attempted.
-[[gauge-vfe-rg-terminal-theory-closure-2026-08-08]]
 
 ## Why it matters here
 
@@ -210,9 +209,9 @@ testable truncation ansatz rather than a proved form-preserving RG flow.
 
 ## RG in the GL(K) attention manuscript
 
-The transformer-side Regime-I variables are vertex-shared. Equal-weight blocking therefore averages $n$ vertex fluctuations and gives RMS scaling $n^{-1/2}$, so $y_2=-1/2$. Its cocycle $\Omega_{ij}=U_iU_j^{-1}$ makes $H_{ijk}=I$ and $g_3=0$ identically, leaving no Regime-I holonomy exponent to fit. The rates $n^{-1}$ for a linear edge observable and $n^{-2}$ for its squared action apply only to an explicitly iid independent-edge ensemble. Generic edge relaxation permits nontrivial holonomy but does not establish those independence premises or rates. [[gl-k-attention-2026-07-09-review-revision]]
+The transformer-side Regime-I variables are vertex-shared. Equal-weight blocking therefore averages $n$ vertex fluctuations and gives RMS scaling $n^{-1/2}$, so $y_2=-1/2$. Its cocycle $\Omega_{ij}=U_iU_j^{-1}$ makes $H_{ijk}=I$ and $g_3=0$ identically, leaving no Regime-I holonomy exponent to fit. The rates $n^{-1}$ for a linear edge observable and $n^{-2}$ for its squared action apply only to an explicitly iid independent-edge ensemble. Generic edge relaxation permits nontrivial holonomy but does not establish those independence premises or rates.
 
-> [!note] Editorial (2026-07-09): a nonzero graph-measured $y_3$ diagnoses an edge-relaxed graph observable; it cannot validate or falsify strict Regime I, where $g_3=0$ algebraically. Regime-I vertex fluctuations instead predict the RMS exponent $y_2=-1/2$. [[gl-k-attention-2026-07-09-review-revision]]
+> [!note] Editorial (2026-07-09): a nonzero graph-measured $y_3$ diagnoses an edge-relaxed graph observable; it cannot validate or falsify strict Regime I, where $g_3=0$ algebraically. Regime-I vertex fluctuations instead predict the RMS exponent $y_2=-1/2$.
 
 ## Exact finite conditional theory (terminal 2026-08-08)
 
@@ -294,7 +293,26 @@ For a DQM statistical family the coarse score is $\mathbb E[\ell(Y)\mid Z]$, so 
 $\mathbb E[\operatorname{Cov}(\ell(Y)\mid Z)]\succeq0$. This is exact for the common normalized,
 parameter-independent channel under the theorem's regularity hypotheses. It does not prove sparse
 closure, runtime realization, nonlinear attraction, universality, or an infinite-volume limit.
-[[gauge-vfe-rg-terminal-theory-closure-2026-08-08]]
+
+## Wilsonian vocabulary on finite networks at one base point (review, September 23, tentative)
+
+The exact finite theory above types beta data and fixed objects only after declared comparison isomorphisms. Investigator X06 of the 2026-09-23 Theory review ([[multiagentelbo-2026-09-23-theory-streamlining-review]]) finds that on finite agent networks at $c_*$ those declarations have no nontrivial instance. First, the depth-composed interaction derivative telescopes to $D_{n\leftarrow\ell}=\mathsf H_n\overline{U^{\phi}_{n-1}}\cdots\overline{U^{\phi}_\ell}E_\ell$; since each tilted $U^\phi$ is positive and unital, its native norm is at most $3^{|V_n|}-1$ at every depth. Under tempered comparisons no exact interaction mode is relevant, and relevance can enter only through a declared non-tempered comparison normalization. Second, for finite alphabets $\dim\mathcal G_\ell=|\mathsf X_\ell|-1$ shrinks under coarse-graining, so the comparison isomorphisms $J_\ell$ of the typed interaction beta do not exist, and vertex-ratio blocking stops within $\log_b|V_0|$ steps, so asymptotic exponents are never defined. Third, a fixed measure pair of $\mathcal R_b(\rho,m)=(\rho K_b,mK_b)$ consists of two invariant laws of one kernel. If $K_b$ has a unique invariant probability, as every strictly positive finite kernel does, the fixed action is the constant $-\log M_*$ (see [[Fixed Points]]). Full-support randomized identifications, which the Hoeffding coordinates need, make $K_b$ strictly positive, so nontrivial fixed points need a reducible identification kernel or infinite volume.
+
+The review's recommendation at $c_*$ is to present the exact finite-step effective action, the retained-projection residual and finite-step multipliers, to call the construction exact coarse-graining (a typed cocycle) rather than exact effective RG, and to move the asymptotic apparatus to an infinite-network or thermodynamic-limit treatment. The Hermite relevance spectrum is a scalar-Gaussian central-limit example whose replication lift is not a Markov kernel, so it sits outside the chapter's own arrow class. The caution above about deterministic Galerkin restriction also needs a qualification from the same review: on a fixed-precision Gaussian fiber the Galerkin coarse law is an exact Markov pushforward under a precision-dependent map, and only a single kernel for the whole precision cone fails to exist (see [[Coarse Graining]]).
+
+> [!warning] Tentative: investigator recomputation, same model family, not adjudicated
+> A telescoping proof and a two-line ergodicity argument by one investigator (Claude Opus 5.5), each with a numerical instance: a worst growth ratio of 0.457 against the bound 26 over 4,000 directions, and a random positive 8-state kernel with simple eigenvalue 1.
+
+### Incorporation in the restructured manuscript (September 24)
+
+The restructure adopted the review's recommendation as decision D5 ([[multiagentelbo-2026-09-24-theory-restructure]]). The main manuscript at `623e4fe` calls its single-point construction exact coarse-graining, the exact finite-step channel of the pointwise agent network with effective action, residual, finite-step multipliers and the native growth bound, and it uses relevant, irrelevant, fixed point and beta function only in one pointer to Supplement B and in the related-work chapter. Chapter 11 contains the growth bound as `prop:rg-interaction-native-growth-bound`, the telescoped product with $\lVert D_{n\leftarrow\ell}\rVert\le3^{\lvert V_n\rvert}-1$ independent of the number of steps, and the finite-network obstruction as `prop:rg-interaction-finite-network-obstruction`: no comparison identification of the interaction spaces exists across a step that lowers $\prod_i\lvert\operatorname{supp}\nu_{\ell i}\rvert-1$, and vertex-ratio blocking allows at most $\log_b\lvert V_\ell\rvert$ steps. The fixed-pair result is `prop:rg-fixed-pair-unique-ergodicity`, "Fixed measure pairs of a uniquely ergodic kernel have constant action", in Supplement B, Chapter B6, which now holds the asymptotic apparatus of mode exponents, tempered comparisons, interaction beta functions, fixed points and the scale connection. The Galerkin qualification is `prop:ig-galerkin-pushforward` in Supplement G (see [[Coarse Graining]]). All of these are tagged ESTABLISHED.
+
+Phase 1 also corrected functoriality of nested blockings. The claim that deterministic nested partitions compose functorially automatically holds only for arrows that keep the complete block configuration or an additive block statistic such as block sums. Majority rule with ties resolved by the first block member fails: on six binary agents, $(0,0,1,0,1,0)$ goes to $1$ by pairs then triples and to $0$ by triples then pairs, and a Phase 1 script found 16 route mismatches among the 64 configurations. Chapter 9's `prop:rg-scale-functoriality` states this, notes that on a chain of resolutions functoriality imposes no condition, so that its content lies in non-chain posets and in the semigroup law $K_{b_1b_2}=K_{b_1}K_{b_2}$ of one blocking rule, and adds that mutually inverse Markov kernels between finite spaces are permutation matrices, so no stochastic isomorphism links finite levels with different numbers of configurations.
+
+> [!note] Editorial: The MAgent `BlockingScheme` described under Details uses majority-rule blocks. The proposition implies that two blocking routes to one resolution can disagree under majority rule; that matters for the universality comparison only if it composes such routes. This ingest did not inspect the code.
+
+> [!warning] Status
+> Manuscript statements with proofs, written and checked by Claude Opus 5.5 agents with their own scripts; no cross-model check (the author's choice) and not adjudicated. The majority-rule witness was checked by hand for this ingest.
 
 ## Details
 
@@ -362,12 +380,6 @@ selector, or natural-gradient semiconjugacy for this project.
 - [[ahn-2018-bucket-renormalization]] — approximate-inference/RG comparator.
 - [[geiger-2013-kl-aggregation]] — KL-rate finite Markov aggregation baseline.
 
-- [[gauge-vfe-rg-terminal-theory-closure-2026-08-08]] — terminal finite conditional measure-pair,
-  interaction, bundle, history, and nonautonomous RG construction, with exact residual and limiting
-  boundaries.
-
-- [[gauge-vfe-rg-pullback-geometry-2026-08-01]] — exact conditional cross-scale operators, Markov Fisher defect and cocycle, reference-space beta function, and semiconjugacy boundary.
-
 - [[wilson-1975-renormalization-group]] — Wilson's RG: scale-by-scale coarse-graining, fixed points, relevant/irrelevant operators, universality; the template this module adapts to beliefs.
 - [[wilson-1971-rg-critical-phenomena]] — Wilson's foundational RG treatment of critical phenomena and the Kadanoff block picture.
 - [[wilson-kogut-1974-epsilon-expansion]] — Wilson–Kogut review establishing the epsilon-expansion and the systematic computation of critical exponents from the RG flow.
@@ -377,7 +389,6 @@ selector, or natural-gradient semiconjugacy for this project.
 - [[berges-tetradis-wetterich-2002-nonperturbative-rg]] — nonperturbative / functional RG and the flow of the effective action, a continuum counterpart to the discrete beta function measured here.
 - [[vidal-2007-entanglement-renormalization]] — entanglement renormalization (MERA): real-space coarse-graining that disentangles before blocking, a structural parallel to scale-by-scale belief coarse-graining.
 - [[participatory-it-from-bit]] — the manuscript (`Participatory_it_from_bit.tex`) that the codebase implements; §4.3.2 supplies the RG-by-blocking-ratio scaling and §§4, 6 the three-phase / condensation picture.
-- [[meta-entropy-manuscript]] — configurational meta-entropy and the thermodynamic limit the RG flow's free-energy density and scaling dimension speak to.
 - [[belief-inertia]] — Fisher-precision-as-mass belief dynamics underlying per-scale equilibration.
 - [[degroot-1974-consensus]], [[friedkin1990-social-influence-opinions|friedkin-johnsen-1990]], [[deffuant2000-bounded-confidence|deffuant-2000-bounded-confidence]], [[hegselmann-2002-opinion|hegselmann-krause-2002]], [[galam-2008-sociophysics]] — opinion-dynamics / sociophysics precedents for coarse-grained collective belief behavior.
 - [[delamotte-2012-nonperturbative-rg]] — pedagogical functional (nonperturbative) RG: the Wetterich flow of the whole effective action, the formalism for making belief coarse-graining exact rather than schematic.

@@ -66,7 +66,6 @@ group-valued retraction then maps that coordinate to the group.
 > coordinates, not the layer or its neural MLP kernel. The VFE transformer has no
 > LieConv-style convolution, and LieConv's equivariance theorem does not establish
 > the transformer's gauge, optimizer, or positional claims.
-> [[gl-k-attention-2026-07-09-review-revision]]
 
 The transformer's use of transported Gaussian beliefs and blockwise group actions
 must be justified by its own construction. In realized Regime I,

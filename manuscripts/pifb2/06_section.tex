@@ -1,0 +1,133 @@
+% !TeX root = ../PIFB2.tex
+\section{Precision, Observation, and Symmetry}\label{sec:precision_envelope}
+
+Precision has three distinct meanings in this construction: the inverse covariance of a law, a parameter of a normalized observation kernel, and a weight multiplying a divergence in a consensus objective. Confusing them changes the dynamics. A coefficient of one on $D_{\mathrm{KL}}(q_i\|p_i)$ does not require a spatially uniform or isotropic prior.
+
+\subsection{Adaptive anchoring as a declared penalty}\label{sec:state_dependent_precision}
+For a finite divergence $D_i=D_{\mathrm{KL}}(q_i\|p_i)$, consider the optional consensus sector
+\begin{equation}
+\mathcal E_i^{\mathrm{adaptive}}=\alpha_iD_i+R(\alpha_i),
+\qquad R(\alpha_i)=b_0\alpha_i-c_0\log\alpha_i,
+\quad b_0,c_0>0.
+\label{eq:free_energy_adaptive}
+\end{equation}
+Its unique minimum on $\alpha_i>0$ is
+\begin{equation}
+\alpha_i^*=\frac{c_0}{b_0+D_i},\qquad
+\mathcal E_i^{\mathrm{adaptive},*}
+=c_0+c_0\log\frac{b_0+D_i}{c_0}.
+\label{eq:state_dependent_alpha}
+\end{equation}
+Indeed, the first derivative vanishes there and the second is $c_0/\alpha_i^2>0$; the objective diverges at either endpoint. This yields a concave penalty in $D_i$, with decreasing slope. It is a choice of robust anchoring, not an inferred law that agents must trust an increasingly inaccurate prior less.
+
+For a rate-parameterized Gamma density of shape $c_0+1$,
+\begin{equation}
+-\log p(\alpha_i)
+=b_0\alpha_i-c_0\log\alpha_i+
+\log\Gamma(c_0+1)-(c_0+1)\log b_0.
+\label{eq:precision_gamma_normalized}
+\end{equation}
+The omitted constants depend on the hyperparameters:
+\begin{equation}
+\partial_{b_0}[-\log p]=\alpha_i-\frac{c_0+1}{b_0},
+\qquad
+\partial_{c_0}[-\log p]=-\log\alpha_i+\psi(c_0+1)-\log b_0.
+\label{eq:precision_gamma_hyper_derivatives}
+\end{equation}
+Multiplying an entire KL divergence by $\alpha_i$ is not equivalent to placing this prior on a Gaussian precision. For the normalized model
+$k_i\mid\alpha_i\sim\mathcal N(\mu_{p,i},\Sigma_{p,i}/\alpha_i)$,
+the corresponding expected negative-log-density optimum instead is
+\begin{equation}
+\alpha_i^{\mathrm{MAP}}
+=\frac{c_0+K_q/2}{b_0+\frac12\mathbb E_{q_i}
+[(k_i-\mu_{p,i})^\top\Sigma_{p,i}^{-1}(k_i-\mu_{p,i})]}.
+\end{equation}
+The numerator contains the Gaussian normalizer. The denominator contains a quadratic error, not a KL divergence. Learning precision inside $\mathcal F_V$ therefore requires the normalized likelihood or prior from which its update is derived.
+
+\paragraph{Coordinate-dependent gains.}\label{par:per_coord_alpha}
+For product Gaussian laws in a fixed chart, with variances $v_{q,k},v_{p,k}>0$,
+\begin{equation}
+D_i=\sum_kD_{i,k},\qquad
+D_{i,k}=\frac12\left[
+\frac{v_{q,k}+(\mu_{q,k}-\mu_{p,k})^2}{v_{p,k}}
+-1+\log\frac{v_{p,k}}{v_{q,k}}\right].
+\label{eq:kl_decomposition_per_coord}
+\end{equation}
+Separate penalties $\sum_k[\alpha_{i,k}D_{i,k}+b_k\alpha_{i,k}-c_k\log\alpha_{i,k}]$ give
+\begin{equation}
+\alpha_{i,k}^*=\frac{c_k}{b_k+D_{i,k}}.
+\label{eq:adaptive_self_coupling_per_coord}
+\end{equation}
+This refinement singles out a coordinate factorization. General $\mathrm{GL}(K_q)$ changes mix the factors, so diagonal gains alone do not define an invariant construction under that whole group. A covariant extension must transform the relevant precision tensor and retain the resulting non-diagonal family.
+
+\subsection{What the envelope theorem removes}\label{sec:envelope_theorem}
+Differentiating the complete minimized penalty gives
+\begin{equation}
+d\alpha_i^*=-\frac{(\alpha_i^*)^2}{c_0}dD_i,\qquad
+d[\alpha_i^*D_i]=\frac{b_0(\alpha_i^*)^2}{c_0}dD_i,
+\label{eq:alpha_chain_rule_itfb}
+\end{equation}
+but
+\begin{equation}
+d[\alpha_i^*D_i+R(\alpha_i^*)]=\alpha_i^*dD_i.
+\label{eq:alpha_envelope_cancel_itfb}
+\end{equation}
+The regularizer supplies the missing chain-rule contribution. The attention sector behaves in the same way: at fixed $\pi_i$ and $\tau$, the minimized row is
+\begin{equation}
+\mathcal E_{i,\mathrm{row}}^*
+=-\tau\log\sum_j\pi_{ij}e^{-E_{ij}/\tau},
+\qquad
+d\mathcal E_{i,\mathrm{row}}^*=\sum_j\beta_{ij}^*dE_{ij}.
+\label{eq:free_energy_reduced}
+\end{equation}
+These formulas hold at smooth interior optima with finite energies~\cite{MilgromSegal2002}. Optimizing a temperature or a source prior introduces their explicit derivatives. The envelope theorem does not authorize suppressing those dependencies.
+
+For the state-channel specialization of $\mathcal E$, freeze other sectors and let $x_i$ be a mean or covariance parameter. With fixed presence weights, the alignment derivative is
+\begin{equation}
+\partial_{x_i}\mathcal E_{\mathrm{align}}^*
+=\chi_i\sum_j\beta_{ij}^*\partial_{x_i}E_{ij}
++\sum_{k\ne i}\chi_k\beta_{ki}^*\partial_{x_i}E_{ki},
+\label{eq:envelope_gradient_belief}
+\end{equation}
+where the first sum includes the full derivative if a self edge is permitted. The second sum records the agent's role as a source. For a parameter $\vartheta$ shared with the model law, the general rule is
+\begin{equation}
+\partial_\vartheta\mathcal E_{\mathrm{align}}^*
+=\sum_{ij}\chi_i\beta_{ij}^*\partial_\vartheta E_{ij},
+\label{eq:envelope_gradient_model}
+\end{equation}
+with every dependence of the joint law and channel included. Independent marginal updates are an additional product-family specialization.
+
+\subsection{Environmental records and likelihood kernels}
+An observation is naturally represented by a normalized kernel $K(do\mid y)$ in the population model. Re-expressing the likelihood as an environmental boundary factor can be useful, but calling that factor an agent neither removes the observation nor supplies a posterior law for the environment.
+
+\begin{proposition}[Gaussian-sensor equivalence]\label{prop:gaussian_sensor_equivalence}
+Let $o=Hk+\epsilon$, $\epsilon\sim\mathcal N(0,R)$, $R\succ0$, and suppose $H$ has full column rank. Define
+$\Lambda_o=H^\top R^{-1}H$,
+$m_o=\Lambda_o^{-1}H^\top R^{-1}o$ and
+$q_e=\mathcal N(m_o,\Lambda_o^{-1})$.
+For Gaussian $q=\mathcal N(\mu,\Sigma)$, the expected negative log-likelihood and $D_{\mathrm{KL}}(q\|q_e)$ have the same mean gradient. Their covariance gradients differ by $-\Sigma^{-1}/2$. The cross-entropy $-\mathbb E_q\log q_e$ differs from the expected negative log-likelihood only by a constant independent of $q$.
+\end{proposition}
+\begin{proof}
+Completing the square gives
+\begin{equation}
+-\mathbb E_q\log p(o\mid k)
+=\frac12[(\mu-m_o)^\top\Lambda_o(\mu-m_o)
++\operatorname{tr}(\Lambda_o\Sigma)]+\mathrm{const}.
+\end{equation}
+The KL adds $-\frac12\log\det\Sigma$ and another constant. Hence the mean gradients agree, while their covariance gradients are respectively $\Lambda_o/2$ and $(\Lambda_o-\Sigma^{-1})/2$.
+\end{proof}
+Thus the exact observation substitution is
+\begin{equation}
+-\mathbb E_q\log q_e=D_{\mathrm{KL}}(q\|q_e)+H(q),
+\label{eq:xent_resolution}
+\end{equation}
+not a new KL factor alone. Adding one KL for every observed record would repeat the receiving entropy and change covariance learning.
+
+For rank-deficient $H$, the likelihood remains normalized in observation space but its full latent-space Gaussian surrogate has singular precision and is not a probability density. Retain the observation kernel. Nonlinear sensors also need not have a Gaussian surrogate. A Dirac environmental law is no remedy: an absolutely continuous belief generally has infinite KL relative to it. No limit of infinite sensory precision is needed for the general formulation.
+
+\subsection{Coordinate freedom and physical symmetry}\label{sec:symmetry_breaking}
+A passive frame change re-expresses beliefs, priors, interaction channels and record kernels together. It leaves predictions unchanged. A physical symmetry of a fixed model is a transformation that preserves its specified priors, likelihoods and dynamics. The first statement does not imply the second.
+
+In the flat reference specialization, a common right action $U_i\mapsto U_ig$ leaves every $\Omega_{ij}=U_iU_j^{-1}$ unchanged. It changes the common reference labeling. A simultaneous left action can be a symmetry of an observation-free model only if all its fixed structural data are invariant under that action. Co-transforming a fixed prior establishes covariance between presentations, not a symmetry of that same prior.
+
+An external sensor or asymmetric prior can explicitly distinguish otherwise equivalent configurations. This is the ordinary external-field meaning of symmetry breaking. It does not break the freedom to change coordinates. Spontaneous symmetry breaking would additionally require an invariant law, a specified limit or selection mechanism, and a fluctuation analysis. The finite formation theorem of Section~\ref{sec:participatory} states its initial asymmetry and limiting regime instead of silently invoking that mechanism.

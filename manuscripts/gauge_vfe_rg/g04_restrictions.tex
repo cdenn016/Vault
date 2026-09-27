@@ -1,0 +1,571 @@
+\chapter{Recognition Restrictions}
+\label{ch:restrictions}
+
+This chapter specializes the restriction principle of
+\Cref{prop:restrict-principle} to a nondegenerate Gaussian target and asks two
+questions: what a restriction of the recognition law costs at a fixed model,
+and whether that cost can select a recognition structure. The cost of
+factorizing the recognition covariance across a partition is a determinant gap
+(\Cref{thm:restrict-determinant-gap}) equal to the dual total correlation of
+the target (\Cref{cor:restrict-gap-dual-total-correlation}) and independent of
+the realized observation (\Cref{cor:restrict-gap-observation-free}); the cost
+of restricting the recognition mean is a quadratic form in the marginal
+precision of the restricted directions and carries the data
+(\Cref{prop:restrict-mean-cost}). Neither cost selects a structure: the gap is
+monotone under refinement and vanishes at the one-block partition
+(\Cref{prop:restrict-gap-no-selection}), a Gaussian instance of
+\Cref{open:restrict-intrinsic-criterion}. The costs of identifying agents
+under aggregation (\Cref{sec:cg-restriction-costs}) and the coarse maps of
+\Cref{ch:gaussian-coarsegraining} use these results.
+
+Every cost here is computed at one fixed model and target; nothing orders
+recognition structures across different models, which
+\Cref{prop:restrict-unrelated-joint-elbo} shows is impossible without a common
+evidence-preserving channel. The block restriction constrains only the
+recognition law and does not assert that any covariance block of the target
+vanishes. \status{NOT-CLAIMED} The selection of a nondegenerate structure is
+\Cref{open:restrict-intrinsic-criterion}, and the selection of a partition for
+coarse-graining is \Cref{open:cg-natural-selector}.
+
+\section{The block restriction and its optimum}
+\label{sec:restrict-block}
+
+Throughout this chapter the target is Gaussian and nondegenerate,
+\begin{equation}
+p^\star=\mathcal N\left(\mu,\Lambda^{-1}\right),
+\qquad
+\Lambda\in\Sym_{++}^{n},
+\qquad
+\mu=\Lambda^{-1}\mathsf h,
+\label{eq:restrict-gaussian-target}
+\end{equation}
+with \(n=NK\) for the belief sector of \Cref{ch:gaussian}; nothing here uses
+the interaction family, so a joint belief--model target is equally admitted.
+For a partition \(\mathcal P\) of the \(n\) coordinates into blocks of
+dimensions \(n_b\), the restricted family is
+\begin{equation}
+\mathcal Q_{\mathcal P}
+=\left\{\mathcal N\left(\mu_Q,\Sigma_Q\right):
+\mu_Q\in\R^{n},
+\quad
+\Sigma_Q=\operatorname{blockdiag}_{b\in\mathcal P}\left(\Sigma_b\right),
+\quad
+\Sigma_b\in\Sym_{++}^{n_b}\right\}.
+\label{eq:restrict-block-family}
+\end{equation}
+A block may collect one agent's coordinates, split one agent's belief and model
+channels, or collect several agents; every statement is relative to
+\(\mathcal P\).
+
+\propositionheading{Gaussian reverse relative entropy}{prop:restrict-gaussian-reverse-kl}
+For \(Q=\mathcal N(\mu_Q,\Sigma_Q)\) with \(\Sigma_Q\succ0\),
+\begin{equation}
+\KL\left(Q\Vert p^\star\right)
+=\frac12\left[
+\Tr\left(\Lambda\Sigma_Q\right)
++\left(\mu_Q-\mu\right)^\top\Lambda\left(\mu_Q-\mu\right)
+-n
+-\log\det\Lambda
+-\log\det\Sigma_Q
+\right].
+\label{eq:restrict-gaussian-kl}
+\end{equation}
+The mean enters only the quadratic term and the covariance only the trace and
+log determinant. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+\(\E_Q\log q=-\tfrac12\log\det(2\pi e\Sigma_Q)\), and
+\(-\log p^\star(y)=\tfrac12(y-\mu)^\top\Lambda(y-\mu)+\tfrac n2\log2\pi-\tfrac12\log\det\Lambda\)
+with \(\E_Q[(Y-\mu)^\top\Lambda(Y-\mu)]=\Tr(\Lambda\Sigma_Q)+(\mu_Q-\mu)^\top\Lambda(\mu_Q-\mu)\);
+adding the two cancels the \(\tfrac n2\log2\pi\) terms. \(\square\)
+
+\theoremheading{Block optimum}{thm:restrict-exact-block-optimum}
+Over \(\mathcal Q_{\mathcal P}\) the objective \eqref{eq:restrict-gaussian-kl}
+has the unique minimizer
+\begin{equation}
+\mu_Q^\star=\mu,
+\qquad
+\Sigma_b^\star=\Lambda_{bb}^{-1}
+\quad\text{for every }b\in\mathcal P,
+\label{eq:restrict-block-optimum}
+\end{equation}
+so the optimal recognition mean equals the target mean although the covariance is
+restricted. Holding every factor but \(b\) fixed, the coordinate maximizer of
+the bound is Gaussian with covariance \(\Lambda_{bb}^{-1}\) and mean
+\begin{equation}
+\mu_b^{\mathrm{new}}
+=\Lambda_{bb}^{-1}\left(\mathsf h_b-\sum_{c\neq b}\Lambda_{bc}\mu_c\right),
+\label{eq:restrict-cavi-mean}
+\end{equation}
+which is \eqref{eq:gauss-conditional} read as an update, and every fixed point
+of the full sweep satisfies \(\Lambda\mu_Q=\mathsf h\), hence \(\mu_Q=\mu\).
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+On the block-diagonal set \(\Tr(\Lambda\Sigma_Q)=\sum_b\Tr(\Lambda_{bb}\Sigma_b)\)
+and \(\log\det\Sigma_Q=\sum_b\log\det\Sigma_b\), so
+\begin{equation}
+\KL=\frac12\left(\mu_Q-\mu\right)^\top\Lambda\left(\mu_Q-\mu\right)
++\frac12\sum_{b\in\mathcal P}\left[\Tr\left(\Lambda_{bb}\Sigma_b\right)-\log\det\Sigma_b\right]
++\text{const},
+\label{eq:restrict-separated-objective}
+\end{equation}
+a strictly convex quadratic in \(\mu_Q\) plus one strictly convex term per block,
+since \(-\log\det\) is strictly convex on the positive-definite cone
+\citep[\S3.1.5]{Boyd2004}. The parameter set is convex, so a minimizer is
+unique, and differentiating on the open cone gives
+\begin{equation}
+\nabla_{\mu_Q}\KL=\Lambda\left(\mu_Q-\mu\right),
+\qquad
+\nabla_{\Sigma_b}\KL=\tfrac12\left(\Lambda_{bb}-\Sigma_b^{-1}\right),
+\label{eq:restrict-derivatives}
+\end{equation}
+whose common zero is \eqref{eq:restrict-block-optimum}; \(\Lambda_{bb}\succ0\) as
+a principal submatrix. For the coordinate update, the terms of
+\eqref{eq:restrict-separated-objective} involving block \(b\) at fixed other
+means are minimized at \eqref{eq:restrict-cavi-mean}, and the fixed-point
+equations stacked over blocks read \(\Lambda\mu_Q=\mathsf h\)
+\citep{Bishop2006,Blei2017}. \(\square\)
+
+The covariance is fixed in one step and the mean only at a fixed point of the
+sweep.
+
+\theoremheading{Determinant gap}{thm:restrict-determinant-gap}
+Let \(\Lelbo^\star_{\mathcal P}\) be the bound at the optimum of
+\Cref{thm:restrict-exact-block-optimum}. Then
+\begin{equation}
+\log p_\theta(o\given X)-\Lelbo^\star_{\mathcal P}
+=\frac12\left[\sum_{b\in\mathcal P}\log\det\Lambda_{bb}-\log\det\Lambda\right]
+\geq0,
+\label{eq:restrict-determinant-gap}
+\end{equation}
+with equality if and only if \(\Lambda_{bc}=0\) for every pair of distinct
+blocks. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+At the optimum \(\Tr(\Lambda\Sigma_Q^\star)=\sum_bn_b=n\),
+\(\log\det\Sigma_Q^\star=-\sum_b\log\det\Lambda_{bb}\), and the mean term
+vanishes, so
+\begin{equation}
+\inf_{Q\in\mathcal Q_{\mathcal P}}\KL\left(Q\Vert p^\star\right)
+=\frac12\left[\sum_{b\in\mathcal P}\log\det\Lambda_{bb}-\log\det\Lambda\right],
+\label{eq:restrict-block-min-kl}
+\end{equation}
+and \eqref{eq:restrict-exact-identity} converts this into
+\eqref{eq:restrict-determinant-gap}. For a first block and its complement,
+\Cref{lem:gauss-schur}(iv) gives
+\begin{equation}
+\det\Lambda=\det\Lambda_{11}\cdot\det\left(\Lambda_{22}-\Lambda_{21}\Lambda_{11}^{-1}\Lambda_{12}\right),
+\label{eq:restrict-schur-determinant}
+\end{equation}
+with the Schur complement \(\preceq\Lambda_{22}\). If \(0\prec S\preceq T\), the
+eigenvalues of \(T^{-1/2}ST^{-1/2}\) lie in \((0,1]\), so \(\det S\leq\det T\)
+with equality only when \(S=T\); hence
+\(\det\Lambda\leq\det\Lambda_{11}\det\Lambda_{22}\), with equality exactly when
+\(\Lambda_{21}\Lambda_{11}^{-1}\Lambda_{12}=0\), that is \(\Lambda_{12}=0\).
+Induction on the number of blocks gives the claim, which is Fischer's
+inequality \citep[\S7.8]{HornJohnson2013}. \(\square\)
+
+\propositionheading{Canonical-correlation form and telescoping}{prop:restrict-canonical-correlation}
+For a two-block precision with \(\Lambda_{11}\in\Sym_{++}^{n_1}\),
+\(\Lambda_{22}\in\Sym_{++}^{n_2}\), and cross block \(\Lambda_{12}\), write
+\begin{equation}
+\Lambda=\begin{pmatrix}\Lambda_{11}&\Lambda_{12}\\\Lambda_{12}^\top&\Lambda_{22}\end{pmatrix},
+\qquad
+\mathcal K:=\Lambda_{11}^{-1/2}\Lambda_{12}\Lambda_{22}^{-1/2}.
+\label{eq:restrict-canonical-correlation-factor}
+\end{equation}
+Then
+\begin{equation}
+\Lambda_{22}-\Lambda_{12}^\top\Lambda_{11}^{-1}\Lambda_{12}
+=\Lambda_{22}^{1/2}\left(I-\mathcal K^\top\mathcal K\right)\Lambda_{22}^{1/2},
+\qquad
+\det\Lambda=\det\Lambda_{11}\det\Lambda_{22}\det\left(I-\mathcal K^\top\mathcal K\right).
+\label{eq:restrict-stable-schur-factor}
+\end{equation}
+The singular values \(\check\rho_a\) of \(\mathcal K\) are the canonical correlations
+between the two blocks under the target, \(0\leq\check\rho_a<1\), and the two-block gap
+is the mutual information of the blocks,
+\begin{equation}
+\Delta(\Lambda_{11},\Lambda_{22};\Lambda_{12})
+=-\frac12\log\det\left(I-\mathcal K^\top\mathcal K\right)
+=-\frac12\sum_{a=1}^{\min(n_1,n_2)}\log\left(1-\check\rho_a^2\right).
+\label{eq:restrict-canonical-correlation-gap}
+\end{equation}
+For ordered blocks \(b_1,\ldots,b_m\) of \(\mathcal P\) with cumulative sets
+\(\bar b_k:=b_1\cup\cdots\cup b_k\), the increment
+\begin{equation}
+\delta_k
+=\frac12\left[
+\log\det\Lambda_{\bar b_{k-1}\bar b_{k-1}}
++\log\det\Lambda_{b_kb_k}
+-\log\det\Lambda_{\bar b_k\bar b_k}
+\right],
+\qquad k\geq2,
+\label{eq:restrict-cumulative-gap-increment}
+\end{equation}
+is the conditional mutual information of \(Y_{\bar b_{k-1}}\) and \(Y_{b_k}\)
+given the coordinates outside \(\bar b_k\), and the intermediate determinants
+cancel:
+\begin{equation}
+\sum_{k=2}^{m}\delta_k
+=\frac12\left[
+\sum_{k=1}^{m}\log\det\Lambda_{b_kb_k}-\log\det\Lambda
+\right].
+\label{eq:restrict-cumulative-gap-telescope}
+\end{equation}
+The total does not depend on the order; the increments can. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Substituting \(\Lambda_{12}=\Lambda_{11}^{1/2}\mathcal K\Lambda_{22}^{1/2}\) into
+the Schur complement gives the first identity of
+\eqref{eq:restrict-stable-schur-factor}, and
+\eqref{eq:restrict-schur-determinant} the second; positive definiteness of the
+Schur complement gives \(\check\rho_a<1\). The block-diagonal change of variables
+that whitens \(\Lambda_{11}\) and \(\Lambda_{22}\) carries \(\Lambda\) to
+\(\begin{psmallmatrix}I&\mathcal K\\\mathcal K^\top&I\end{psmallmatrix}\), and
+rotations within the blocks by the singular vectors of \(\mathcal K\) split it
+into two-by-two precisions
+\(\begin{psmallmatrix}1&\check\rho_a\\\check\rho_a&1\end{psmallmatrix}\) and identities;
+each pair has correlation \(-\check\rho_a\), and canonical correlations are unchanged
+by invertible changes of variables within each block. The mutual information
+of a Gaussian pair with correlation \(\pm\check\rho_a\) is \(-\tfrac12\log(1-\check\rho_a^2)\).
+The precision of the conditional law of \(Y_{\bar b_k}\) given the coordinates
+outside \(\bar b_k\) is \(\Lambda_{\bar b_k\bar b_k}\), so \(\delta_k\) is the
+two-block gap of that conditional law, which is its mutual information;
+summing \eqref{eq:restrict-cumulative-gap-increment} telescopes. \(\square\)
+
+\corollaryheading{The determinant gap is the dual total correlation}{cor:restrict-gap-dual-total-correlation}
+With \(h\) the differential entropy under \(p^\star\),
+\begin{equation}
+\frac12\left[\sum_{b\in\mathcal P}\log\det\Lambda_{bb}-\log\det\Lambda\right]
+=h(Y)-\sum_{b\in\mathcal P}h\left(Y_b\given Y_{-b}\right),
+\label{eq:restrict-gap-dual-total-correlation}
+\end{equation}
+the dual total correlation of the blocks \citep{Han1978}. For two blocks it is
+their mutual information. For three or more blocks it generally differs from
+the total correlation, which for a Gaussian law with covariance \(\Sigma\) is
+\begin{equation}
+\sum_bh(Y_b)-h(Y)
+=\tfrac12\left(\sum_{b}\log\det\Sigma_{bb}-\log\det\Sigma\right);
+\label{eq:elbo-total-correlation-gaussian}
+\end{equation}
+for three scalar blocks with unit variances and all correlations \(\tfrac12\),
+the total correlation is \(\tfrac12\log2\) and the dual total correlation is
+\(\tfrac12\log\tfrac{27}{16}\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+\(h(Y)=\tfrac12\log\det(2\pi e\Lambda^{-1})\) and, by \eqref{eq:gauss-conditional},
+\(h(Y_b\given Y_{-b})=\tfrac12\log\det(2\pi e\Lambda_{bb}^{-1})\); the factors
+\(2\pi e\) cancel because \(\sum_bn_b=n\), which gives
+\eqref{eq:restrict-gap-dual-total-correlation}, and the same substitution with
+marginal entropies gives \eqref{eq:elbo-total-correlation-gaussian}. The
+two-block case is \Cref{prop:restrict-canonical-correlation}. In the example
+\(\det\Sigma=\tfrac12\) and each diagonal entry of \(\Lambda=\Sigma^{-1}\) is
+\(\tfrac32\), with \(\det\Lambda=2\). \(\square\)
+
+The block restriction changes only the candidate \(Q\): it sets
+\(\Sigma^\star_{bc}=0\) for \(b\neq c\) and
+\(\Sigma^\star_{bb}=\Lambda_{bb}^{-1}\preceq(\Lambda^{-1})_{bb}\)
+(\Cref{prop:restrict-optimum-vs-marginal}), and the gap measures a dependence
+functional of the fixed target, not a covariance of the candidate.
+
+\section{Observation independence and its scope}
+\label{sec:restrict-observation}
+
+\propositionheading{Conditional precision is observation free}{prop:restrict-conditional-precision-observation-free}
+Suppose the joint law of \((o,Y)\) given \(X\) is Gaussian with precision
+\(\widehat\Lambda\) and information vector \(\widehat{\mathsf h}\), both
+functions of \((\theta,X)\) alone. Then the conditional law of \(Y\) given
+\(o\) has
+\begin{equation}
+\Lambda=\widehat\Lambda_{YY},
+\qquad
+\mu=\Lambda^{-1}\left(\widehat{\mathsf h}_Y-\widehat\Lambda_{Yo}o\right),
+\label{eq:restrict-conditional-from-joint}
+\end{equation}
+so \(\Lambda\) does not depend on the realized \(o\) while \(\mu\) is affine in
+it. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+At fixed \(o\) the exponent of the joint density has quadratic part
+\(-\tfrac12y^\top\widehat\Lambda_{YY}y\) and linear part
+\((\widehat{\mathsf h}_Y-\widehat\Lambda_{Yo}o)^\top y\), which by
+\eqref{eq:gauss-density} are the natural parameters of the conditional.
+\(\square\)
+
+\corollaryheading{Observation independence of the determinant gap}{cor:restrict-gap-observation-free}
+Under the hypothesis of
+\Cref{prop:restrict-conditional-precision-observation-free}, the gap of
+\Cref{thm:restrict-determinant-gap} is a function of \((\theta,X)\) and
+\(\mathcal P\) alone. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The gap depends on \(o\) only through \(\Lambda\), because the mean term vanishes
+at the optimum (\Cref{thm:restrict-exact-block-optimum}), and \(\Lambda\) is
+observation free. \(\square\)
+
+Both hypotheses enter the proof: without an observation-independent joint
+precision, \eqref{eq:restrict-conditional-from-joint} is unavailable, and a
+restriction that constrains the mean leaves the quadratic term nonzero at the
+optimum, as the next proposition computes.
+
+\propositionheading{Cost of a mean restriction}{prop:restrict-mean-cost}
+Let \([B\ B_\perp]\) be orthogonal with \(B\in\R^{n\times r}\), and restrict
+the recognition family to
+\begin{equation}
+\mathcal Q_{B}=\left\{\mathcal N\left(\mu_Q,\Sigma_Q\right):
+\mu_Q\in\operatorname{range}(B),
+\quad
+\Sigma_Q\in\Sym_{++}^{n}\right\}.
+\label{eq:restrict-mean-family}
+\end{equation}
+With \(\mu_\perp:=B_\perp^\top\mu\),
+\begin{equation}
+\inf_{Q\in\mathcal Q_B}\KL\left(Q\Vert p^\star\right)
+=\frac12\mu_\perp^\top\left(B_\perp^\top\Lambda^{-1}B_\perp\right)^{-1}\mu_\perp,
+\label{eq:restrict-mean-cost}
+\end{equation}
+attained at \(\Sigma_Q^\star=\Lambda^{-1}\) and
+\(\mu_Q^\star=\mu-\Lambda^{-1}B_\perp(B_\perp^\top\Lambda^{-1}B_\perp)^{-1}\mu_\perp\).
+The matrix \((B_\perp^\top\Lambda^{-1}B_\perp)^{-1}\) is the marginal precision
+of the restricted directions, which differs from the restricted precision
+\(B_\perp^\top\Lambda B_\perp\) by the correction of
+\Cref{prop:restrict-marginal-vs-restricted-precision} except under
+\(\Lambda\)-orthogonality. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+By the separation in \Cref{prop:restrict-gaussian-reverse-kl}, the covariance
+term is minimized at \(\Sigma_Q^\star=\Lambda^{-1}\), where it vanishes. It
+remains to minimize \(\tfrac12v^\top\Lambda v\), \(v=\mu_Q-\mu\), subject to
+\(B_\perp^\top v=-\mu_\perp\); stationarity gives \(v=\Lambda^{-1}B_\perp\omega\)
+and the constraint gives \(\omega=-(B_\perp^\top\Lambda^{-1}B_\perp)^{-1}\mu_\perp\),
+so the value is \(\tfrac12\omega^\top(B_\perp^\top\Lambda^{-1}B_\perp)\omega\),
+which is \eqref{eq:restrict-mean-cost}. The identification uses
+\(\operatorname{Cov}(B_\perp^\top Y)=B_\perp^\top\Lambda^{-1}B_\perp\). \(\square\)
+
+\corollaryheading{A mean restriction carries the data}{cor:restrict-mean-cost-data}
+Under the hypothesis of
+\Cref{prop:restrict-conditional-precision-observation-free}, the cost
+\eqref{eq:restrict-mean-cost} is quadratic in the realized observation, and it
+is observation free if and only if
+\(B_\perp^\top\Lambda^{-1}\widehat\Lambda_{Yo}=0\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+\(\mu_\perp=B_\perp^\top\Lambda^{-1}(\widehat{\mathsf h}_Y-\widehat\Lambda_{Yo}o)\)
+is affine in \(o\) by \eqref{eq:restrict-conditional-from-joint}, and the
+quadratic form is positive definite. \(\square\)
+
+\corollaryheading{Costs of combined restrictions add}{cor:restrict-combined-costs-add}
+Restricting the mean to \(\operatorname{range}(B)\) and the covariance to
+\eqref{eq:restrict-block-family} together has cost
+\begin{equation}
+\frac12\left[\sum_{b\in\mathcal P}\log\det\Lambda_{bb}-\log\det\Lambda\right]
++\frac12\mu_\perp^\top\left(B_\perp^\top\Lambda^{-1}B_\perp\right)^{-1}\mu_\perp,
+\label{eq:restrict-combined-cost}
+\end{equation}
+the first term structural and the second data dependent. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+\eqref{eq:restrict-gaussian-kl} has no term coupling \(\mu_Q\) and \(\Sigma_Q\),
+and the two constraints act on disjoint parameter blocks, so the minima add;
+\Cref{thm:restrict-determinant-gap,prop:restrict-mean-cost} supply them.
+\(\square\)
+
+\section{Costs of identifying agents}
+\label{sec:cg-restriction-costs}
+
+Let \(S\in\R^{n\times n_cK}\) be the matrix of a hard aggregation of the \(N\)
+agents into \(n_c\) clusters (\Cref{sec:cg-gaussian-aggregation}), so that
+\(\operatorname{range}S\) consists of the configurations constant on each
+cluster; let \(B\) have orthonormal columns spanning \(\operatorname{range}S\),
+so \(r=n_cK\), complete it to an orthogonal \([B\ B_\perp]\), and write
+\(p=\mathcal N(\mu,\Lambda^{-1})\) for the target.
+
+\corollaryheading{Mean-tie cost and factorization gap of an aggregation}{prop:cg-mean-tie-cost}
+The mean-tie family, with recognition mean in \(\operatorname{range}S\) and
+unrestricted covariance, has optimized cost
+\begin{equation}
+\mathbb D_{\rm tie}
+=\inf_{\mu_Q\in\operatorname{range}S,\ \Sigma_Q\succ0}
+\KL\bigl(\mathcal N(\mu_Q,\Sigma_Q)\Vert p\bigr)
+=\frac12\mu_\perp^\top
+\left(B_\perp^\top\Lambda^{-1}B_\perp\right)^{-1}\mu_\perp,
+\qquad
+\mu_\perp=B_\perp^\top\mu,
+\label{eq:cg-mean-tie-cost}
+\end{equation}
+whose marginal precision obeys
+\begin{equation}
+\left(B_\perp^\top\Lambda^{-1}B_\perp\right)^{-1}
+\preceq B_\perp^\top\Lambda B_\perp,
+\label{eq:cg-loewner}
+\end{equation}
+with equality exactly when \(B^\top\Lambda B_\perp=0\), so the restricted
+precision overstates the cost otherwise. Covariance factorization across the
+cluster blocks \(I\) has gap
+\begin{equation}
+\mathbb D_{\rm fact}
+=\frac12\left[
+\sum_I\log\det\Lambda_{II}-\log\det\Lambda
+\right].
+\label{eq:cg-factorization-gap}
+\end{equation}
+The mean-tie cost vanishes at the finest partition and the factorization gap
+at the coarsest; the gap decreases under merging. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+\Cref{prop:restrict-mean-cost} with \(B\) spanning \(\operatorname{range}S\),
+\Cref{prop:restrict-marginal-vs-restricted-precision}, and
+\Cref{thm:restrict-determinant-gap} with the cluster blocks give the three
+displays. At the finest partition \(\operatorname{range}S=\R^n\) and
+\(B_\perp\) is empty; at the coarsest the one block is everything; monotonicity
+is \Cref{prop:restrict-refinement-monotonicity}. \(\square\)
+
+\propositionheading{Regularized identification cost}{prop:cg-epsilon-identification-cost}
+Assume \(r<n\), so at least one cluster contains two agents.
+A recognition law supported on \(\operatorname{range}S\) is singular with
+respect to \(p\), so its relative entropy to \(p\) is \(+\infty\). With
+\(\mu_Q^\star\) the mean optimizer of \eqref{eq:cg-mean-tie-cost} and the
+full-rank regularization
+\begin{equation}
+\Sigma_\varepsilon
+=B(B^\top\Lambda B)^{-1}B^\top
++\varepsilon B_\perp B_\perp^\top,
+\qquad
+q_\varepsilon=\mathcal N(\mu_Q^\star,\Sigma_\varepsilon),
+\qquad \varepsilon>0,
+\label{eq:cg-epsilon-regularized-law}
+\end{equation}
+one has
+\begin{equation}
+\begin{aligned}
+\mathbb D_\varepsilon
+:=\KL(q_\varepsilon\Vert p)
+={}&\mathbb D_{\rm tie}
++\frac{n-r}{2}\log\frac1\varepsilon-\frac{n-r}2
++\frac12\log\det(B_\perp^\top\Lambda^{-1}B_\perp)\\
+&+\frac{\varepsilon}{2}
+\Tr(B_\perp^\top\Lambda B_\perp),
+\end{aligned}
+\label{eq:cg-epsilon-divergence}
+\end{equation}
+so \(\mathbb D_\varepsilon\to+\infty\) as \(\varepsilon\downarrow0\).
+Identification of agents is therefore a generative construction and not a
+finite recognition restriction; the identified law is the conditional of
+\(p\) on \(\operatorname{range}S\) (\Cref{prop:cg-aggregation-conditioning}).
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+In the basis \([B\ B_\perp]\), \(\det\Sigma_\varepsilon=\varepsilon^{n-r}/\det(B^\top\Lambda B)\)
+and \(\Tr(\Lambda\Sigma_\varepsilon)=r+\varepsilon\Tr(B_\perp^\top\Lambda B_\perp)\).
+Substituting into \eqref{eq:restrict-gaussian-kl}, with the optimized mean
+term \(\mathbb D_{\rm tie}\), and using
+\(\det\Lambda=\det(B^\top\Lambda B)/\det(B_\perp^\top\Lambda^{-1}B_\perp)\)
+from \Cref{lem:gauss-schur}(iv) gives \eqref{eq:cg-epsilon-divergence}.
+\(\square\)
+
+\propositionheading{The hard trace changes the evidence}{prop:restrict-hard-trace-evidence}
+(i) Precomposing the joint energy of latents and observations with \(y=Sc\)
+generally changes the observation marginal: for independent standard Gaussian
+\(y_1,y_2\) and \(o=y_1+\xi\) with independent standard Gaussian \(\xi\),
+\(\operatorname{Var}(o)=2\), whereas the normalized joint precomposed with
+\(y_1=y_2=c\) has precision \(\begin{psmallmatrix}3&-1\\-1&1\end{psmallmatrix}\)
+in \((c,o)\) and \(\operatorname{Var}(o)=\tfrac32\). (ii) Under the hypothesis
+of \Cref{prop:restrict-conditional-precision-observation-free}, with
+\(\Lambda=\widehat\Lambda_{YY}\) at fixed \((\theta,X)\), the deterministic
+linear map \(P_\Lambda=(S^\top\Lambda S)^{-1}S^\top\Lambda\) carries the posterior
+\(\mathcal N(\mu,\Lambda^{-1})\) at every observation to the posterior of the
+precomposed joint, and \(\operatorname{id}_O\otimes P_\Lambda\) is a
+recognition-independent channel that preserves the evidence, so
+\Cref{thm:cg-evidence-preserving-channel} applies to it. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) The fine joint has \(\operatorname{Var}(o)=\operatorname{Var}(y_1)+1=2\).
+The energy \(\tfrac12(y_1^2+y_2^2+(o-y_1)^2)\) at \(y_1=y_2=c\) is
+\(\tfrac12(3c^2-2co+o^2)\), whose normalized law has the displayed precision
+and \(\operatorname{Var}(o)=3/(3\cdot1-1)=\tfrac32\). (ii) With
+\(\Lambda_c=S^\top\Lambda S\), the pushed posterior is
+\(\mathcal N(\Lambda_c^{-1}S^\top\Lambda\mu,\Lambda_c^{-1})\). Precomposing the
+energy with \(y=Sc\) at fixed \(o\) leaves the quadratic part
+\(\tfrac12c^\top\Lambda_cc\) and the linear part \((S^\top\mathsf h)^\top c\), with
+\(\mathsf h=\Lambda\mu\), so the precomposed posterior is the same law. The map
+\(P_\Lambda\) depends on \((\theta,X)\) only, so the channel is fixed across
+observations and recognition laws, and it acts on latents only, leaving the
+observation marginal unchanged. \(\square\)
+
+A single kernel independent of the precision does not exist when
+\(\operatorname{range}(\Lambda S)\) varies; the Galerkin coarse law is the
+precision-dependent pushforward of \Cref{prop:ig-galerkin-pushforward}.
+
+\section{Comparing recognition structures at fixed model}
+\label{sec:restrict-comparison}
+
+\propositionheading{Refinement monotonicity for every comparable pair}{prop:restrict-refinement-monotonicity}
+Let \(\mathcal P'\) refine \(\mathcal P\), so that every block of
+\(\mathcal P'\) lies in a block of \(\mathcal P\). Then
+\(\mathcal Q_{\mathcal P'}\subseteq\mathcal Q_{\mathcal P}\) and
+\begin{equation}
+\Lelbo^\star_{\mathcal P}-\Lelbo^\star_{\mathcal P'}
+=\sum_{b\in\mathcal P}\frac12\left[
+\sum_{b'\in\mathcal P'\colon b'\subseteq b}\log\det\Lambda_{b'b'}
+-\log\det\Lambda_{bb}\right]
+\geq0,
+\label{eq:restrict-refinement}
+\end{equation}
+each summand being the gap of \(\Lambda_{bb}\) under the partition induced on
+\(b\), and vanishing exactly when \(\Lambda_{bb}\) is block diagonal under it.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+A matrix block diagonal under \(\mathcal P'\) is block diagonal under
+\(\mathcal P\). Subtracting two instances of \eqref{eq:restrict-determinant-gap}
+cancels \(\log\det\Lambda\) and regroups by coarse block; each bracket is
+\Cref{thm:restrict-determinant-gap} applied to \(\Lambda_{bb}\succ0\).
+\(\square\)
+
+\propositionheading{Non-nested structures are not ordered}{prop:restrict-nonnested-unordered}
+Outside the refinement order the bounds are ordered by no structural feature
+such as the number or sizes of blocks. For \(n=3\) take
+\begin{equation}
+\Lambda(a,b)=\begin{pmatrix}1&a&0\\a&1&b\\0&b&1\end{pmatrix},
+\qquad
+a^2+b^2<1,
+\label{eq:restrict-nonnested-witness}
+\end{equation}
+and the partitions \(\mathcal P_1=\{\{1,2\},\{3\}\}\) and
+\(\mathcal P_2=\{\{1\},\{2,3\}\}\), which have equal block sizes and neither
+of which refines the other. Their gaps are
+\(\tfrac12\log\frac{1-a^2}{1-a^2-b^2}\) and \(\tfrac12\log\frac{1-b^2}{1-a^2-b^2}\),
+so the order is decided by whether \(|a|\) exceeds \(|b|\) and reverses when
+they are exchanged; at \((a,b)=(0.8,0.2)\) the values are \(0.0589\) and
+\(0.5493\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The leading minors are \(1\), \(1-a^2\), and \(1-a^2-b^2\). The gaps follow from
+\eqref{eq:restrict-determinant-gap} with \(\det\Lambda=1-a^2-b^2\),
+\(\det\Lambda_{\{1,2\}\{1,2\}}=1-a^2\), \(\det\Lambda_{\{2,3\}\{2,3\}}=1-b^2\), and
+unit diagonal entries; the values are \(\tfrac12\log(0.36/0.32)\) and
+\(\tfrac12\log(0.96/0.32)\). \(\square\)
+
+A recognition structure is therefore well chosen relative to a given coupling
+matrix, and any partition-selection rule is an optimization over structures
+rather than a reading of a scalar such as the block count.
+
+\propositionheading{The gap does not select a structure}{prop:restrict-gap-no-selection}
+Along any nested refinement chain of partitions, each refining the next, that
+ends at the one-block partition, the gap of \eqref{eq:restrict-determinant-gap}
+is nonincreasing under coarsening and vanishes at the one-block partition for
+every \(\Lambda\succ0\); it supplies no model-independent order of nonnested partitions.
+Minimizing the gap therefore selects the unrestricted family and returns no
+information about structure. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+At the one-block partition \(\sum_b\log\det\Lambda_{bb}=\log\det\Lambda\).
+Monotonicity along the chain is \Cref{prop:restrict-refinement-monotonicity},
+and \Cref{prop:restrict-nonnested-unordered} supplies the nonnested boundary.
+\(\square\)
+
+This is the Gaussian instance of \Cref{open:restrict-intrinsic-criterion}: the
+determinant gap is minimized at the trivial partition, and the mean-restriction
+cost \eqref{eq:restrict-mean-cost} is a cost at a fixed structure.

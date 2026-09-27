@@ -49,12 +49,12 @@ effective theory of the pair field (BCS/Ginzburg–Landau) carries couplings tha
 of the condensate's own state, not transmitted microscopic electron data — structure at the
 coarse level built from coarse state, the same split the laboratory measures as pair-sup
 retention versus mutual-information retention ([[Data processing inequality]],
-[[2026-08-18-minfo-information-retention]]).
+`2026-08-18-minfo-information-retention`).
 
 ## Cross-links
 
 - Concepts: [[Meta-agents and hierarchical emergence]], [[Coarse Graining]], [[Data processing inequality]]
-- Related sources: [[2026-08-18-rescaling-audit-capacity-reversal]], [[2026-08-18-minfo-information-retention]]
+- Related sources: `2026-08-18-rescaling-audit-capacity-reversal`, `2026-08-18-minfo-information-retention`
 
 ## BibTeX
 

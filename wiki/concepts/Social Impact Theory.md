@@ -35,13 +35,11 @@ The theory is deliberately two-sided, and the second side is the **division of i
 
 ## Relevance to this research
 
-The current theorem-first record [[belief-inertia-2026-07-12-theorem-first-revision]] treats this relationship as **interpretive only**. The gauge-VFE relational force contains source precision, transported discrepancy, and attention weights, so strength and immediacy have loose geometric analogs. But each attention row is normalized: adding sources redistributes a fixed attention budget unless an independent raw exposure strength is changed. It therefore does not derive Latané's increasing-number law, the sublinear $N^t$ law, or the multiplicative strength--immediacy--number form.
+The theorem-first revision of the belief-inertia manuscript (2026-07-12) treats this relationship as **interpretive only**. The gauge-VFE relational force contains source precision, transported discrepancy, and attention weights, so strength and immediacy have loose geometric analogs. But each attention row is normalized: adding sources redistributes a fixed attention budget unless an independent raw exposure strength is changed. It therefore does not derive Latané's increasing-number law, the sublinear $N^t$ law, or the multiplicative strength--immediacy--number form.
 
 Recovering the number law would require an unnormalized exposure-intensity term or another explicit dependence of the total social strength $\lambda_s$ on source count. The division-of-impact phenomena likewise require target-level behavioral variables absent from the current belief-state model. The local loss Hessian is stiffness, not latency: at fixed Fisher geometry and learning rate, larger positive stiffness reduces matched-force displacement and speeds linear relaxation. Any slower response, coasting, overshoot, or resonance requires a separately specified mobility, damping law, kinetic metric, or slow state. Social Impact Theory is therefore a comparison and empirical benchmark, not a force law or underdamped limit already recovered by [[Multi-agent variational free energy]].
 
 ## Sources
-
-- [[belief-inertia-2026-07-13-final-verification-addendum]] — final interpretive-only status for the gauge-VFE mapping.
 
 - [[latane1981psychology|latane-1981-social-impact]] — Latané's foundational statement of Social Impact Theory: impact as a multiplicative function $I = f(S, I_m, N)$ of source strength, immediacy, and number; the sublinear power law $I \propto N^{t}$ with $t<1$; and the dual division-of-impact principle grounding diffusion of responsibility and social loafing.
 - [[asch-1955-opinions-and-social-pressure]] — line-judgment conformity rising with majority size to three or four and then plateauing, the empirical signature of the saturating number term.

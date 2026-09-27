@@ -1,0 +1,488 @@
+\chapter{Fisher Geometry and Invariants}
+\label{ch:infogeometry}
+
+Which geometric statements about the Gaussian recognition family are properties
+of its laws, and which are properties of a chart or of a frame? This chapter
+gives two answers. The first concerns the Fisher metric of the family. Its mean
+sector equals the precision \(\Lambda\) in the moment chart, and in the
+expectation chart it equals \(\Lambda\) on the quotient by the second-moment
+directions but not on the coordinate mean directions, where it exceeds
+\(\Lambda\) by a term governed by the squared Mahalanobis norm of the mean
+(\Cref{prop:ig-fisher-expectation-chart}). The second concerns the interaction
+precision. The generalized spectrum of the pencil \((L,\Lambda)\) is invariant
+under every block reframing whenever the pencil is regular
+(\Cref{prop:grg-pencil-invariance}), whereas ordinary eigenvalues and single
+subspace determinants are frame dependent as soon as the block reframing group
+contains the positive scalars (\Cref{prop:ig-frame-dependent-spectra-determinants}).
+The pencil results type the singular boundary of the interaction family in
+\Cref{ch:gaussian-renormalization}, and the invariance of agent-aligned law
+functionals is what makes the determinant gap of
+\Cref{thm:restrict-determinant-gap} a quantity about the model. The Fisher
+metric is the tensor adopted in \Cref{ch:relational-inference}; its Hessian and
+dual-inverse forms on the exponential charts are
+\eqref{eq:ig-fisher-hessian} and \eqref{eq:ig-dual-inverse}, and the four charts
+and the Frobenius pairing of symmetric-matrix coordinates are fixed in
+\Cref{sec:ig-expfam}.
+
+The chapter works with the Gaussian recognition family on the assembled latent
+space \(\R^n\), \(n=NK\), in information parameters
+\((\mathsf h,\Lambda)\) with \(\Lambda\succ0\), moments
+\(\mu=\Lambda^{-1}\mathsf h\) and \(\Sigma=\Lambda^{-1}\), and second moment
+\(M_2=\Sigma+\mu\mu^\top\). It does not assert that a rescaled coarse-graining
+step contracts an information-geometric quantity along a history on which the
+precision changes, that the dissipation identity of the fixed-covariance
+relaxation of \Cref{sec:cg-gaussian-fixed-relaxation} is derived from the
+fixed-precision pushforward of \Cref{prop:ig-galerkin-pushforward} or
+conversely, or that an update other than that fixed-covariance mean flow is a
+natural-gradient flow. \status{NOT-CLAIMED} The monotonicity question beyond a
+fixed precision is \Cref{open:grg-galerkin-monotonicity}.
+
+\section{The chart correction}
+\label{sec:ig-chart}
+
+It is often said that the mean sector of the Gaussian Fisher metric is the
+precision. The statement is true in the moment chart \((\mu,\Sigma)\). In the
+expectation chart \((\mu,M_2)\) it is true for the metric induced on the
+quotient by the second-moment directions and false for the restriction to the
+coordinate mean directions. The two propositions below compute both readings.
+
+\propositionheading{Fisher metric in the moment chart}{prop:ig-fisher-moment-chart}
+In the moment chart \((\mu,\Sigma)\), with \(\Lambda=\Sigma^{-1}\), the score of
+the Gaussian family at \(y\) in the direction of a tangent vector
+\((\dot\mu,\dot\Sigma)\), with \(\dot\Sigma\) symmetric, is
+\begin{equation}
+\partial_{(\dot\mu,\dot\Sigma)}\log q(y)
+=\dot\mu^\top\Lambda(y-\mu)
++\tfrac12(y-\mu)^\top\Lambda\dot\Sigma\Lambda(y-\mu)
+-\tfrac12\Tr(\Lambda\dot\Sigma),
+\label{eq:ig-score}
+\end{equation}
+and the Fisher metric is block diagonal,
+\begin{equation}
+g^F_{(\mu,\Sigma)}\bigl((\dot\mu_1,\dot\Sigma_1),(\dot\mu_2,\dot\Sigma_2)\bigr)
+=\dot\mu_1^\top\Lambda\dot\mu_2
++\tfrac12\Tr\left(\Lambda\dot\Sigma_1\Lambda\dot\Sigma_2\right).
+\label{eq:ig-moment-metric}
+\end{equation}
+Every affine map \((\mu,\Sigma)\mapsto(Q\mu+\mathrm v,Q\Sigma Q^\top)\) with
+\(Q\in\GL(n)\) and \(\mathrm v\in\R^n\) is an isometry of \eqref{eq:ig-moment-metric}.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Write \(e=y-\mu\), so that
+\(\log q(y)=-\tfrac12e^\top\Lambda e+\tfrac12\log\det\Lambda-\tfrac n2\log2\pi\).
+A displacement \((\dot\mu,\dot\Sigma)\) moves \(e\) by \(-\dot\mu\) and
+\(\Lambda\) by \(-\Lambda\dot\Sigma\Lambda\), and differentiating gives
+\eqref{eq:ig-score}. Under \(e\sim\mathcal N(0,\Sigma)\) the linear term has
+second moment \(\dot\mu^\top\Lambda\Sigma\Lambda\dot\mu=\dot\mu^\top\Lambda\dot\mu\),
+the cross moment of the linear and quadratic terms is a third central moment of a
+centered Gaussian and vanishes, and the Gaussian variance of a quadratic form
+gives the quadratic term the variance
+\(\tfrac14\operatorname{Var}(e^\top\Lambda\dot\Sigma\Lambda e)
+=\tfrac12\Tr(\Lambda\dot\Sigma\Lambda\Sigma\Lambda\dot\Sigma\Lambda\Sigma)
+=\tfrac12\Tr(\Lambda\dot\Sigma\Lambda\dot\Sigma)\). Polarization gives
+\eqref{eq:ig-moment-metric}. Under the affine map the tangent vector becomes
+\((Q\dot\mu,Q\dot\Sigma Q^\top)\) and the precision becomes
+\(Q^{-\top}\Lambda Q^{-1}\), and both terms of \eqref{eq:ig-moment-metric} are
+unchanged. \hfill$\square$
+
+\medskip
+This is the Fisher metric of the multivariate normal model whose Riemannian
+geometry is developed by \citet{Skovgaard1984}; the form for a general
+parameterization and the affine isometry are Eqs.~(7) and~(8) of
+\citet{PineleStrapassonCosta2020}.
+
+\propositionheading{Fisher metric in the expectation chart}{prop:ig-fisher-expectation-chart}
+In the expectation chart \((\mu,M_2)\) the Fisher metric has the following
+properties.
+(i) Its mean block, cross block, and second block are
+\begin{equation}
+g_{[\mu\mu]}=\left(1+\mu^\top\Lambda\mu\right)\Lambda+\Lambda\mu\mu^\top\Lambda,
+\label{eq:ig-meanblock}
+\end{equation}
+\begin{equation}
+g_{[\mu M_2]}\bigl(\dot\mu,\dot M_2\bigr)=-\dot\mu^\top\Lambda\dot M_2\Lambda\mu,
+\label{eq:ig-crossblock}
+\end{equation}
+and \(g_{[M_2M_2]}(\dot M_2,\dot M_2')=\tfrac12\Tr(\Lambda\dot M_2\Lambda\dot M_2')\),
+so the metric is block diagonal in this chart exactly when \(\mu=0\).
+(ii)\label{cor:ig-expectation-mean-quotient} The metric induced on the quotient
+of the tangent space by the second-moment directions, equivalently the
+restriction of \(g^F\) to the Fisher-orthogonal complement of those directions
+read in the coordinate \(\mu\), is the Schur complement
+\begin{equation}
+g_{\mu}^{\mathrm{quot}}
+=g_{[\mu\mu]}-g_{[\mu M_2]}g_{[M_2M_2]}^{-1}g_{[M_2\mu]}
+=\Lambda.
+\label{eq:ig-expectation-mean-quotient}
+\end{equation}
+(iii)\label{cor:ig-mean-block-discrepancy} With \(\hat\mu=\Lambda^{1/2}\mu\),
+\begin{equation}
+g_{[\mu\mu]}=\Lambda^{1/2}\left[\left(1+\lVert\hat\mu\rVert^2\right)I_n+\hat\mu\hat\mu^\top\right]\Lambda^{1/2},
+\label{eq:ig-meanblock-factored}
+\end{equation}
+so the eigenvalues of \(\Lambda^{-1}g_{[\mu\mu]}\) are \(1+\mu^\top\Lambda\mu\)
+with multiplicity \(n-1\) and \(1+2\mu^\top\Lambda\mu\) with multiplicity one;
+hence \(g_{[\mu\mu]}\succeq\Lambda\), with equality if and only if \(\mu=0\).
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) The chart change is \(\Sigma=M_2-\mu\mu^\top\), so a displacement
+\((\dot\mu,\dot M_2)\) induces
+\begin{equation}
+\delta\mu=\dot\mu,
+\qquad
+\delta\Sigma=\dot M_2-\left(\dot\mu\mu^\top+\mu\dot\mu^\top\right),
+\label{eq:ig-chartjacobian}
+\end{equation}
+and the metric in this chart is the pullback of \eqref{eq:ig-moment-metric}
+along \eqref{eq:ig-chartjacobian}. For the mean block put \(\dot M_2=0\); cycling
+each of the four traces gives
+\begin{equation}
+\Tr\left(\Lambda\delta\Sigma\Lambda\delta\Sigma\right)
+=2\left(\dot\mu^\top\Lambda\mu\right)^2+2\left(\mu^\top\Lambda\mu\right)\left(\dot\mu^\top\Lambda\dot\mu\right),
+\label{eq:ig-crossterm}
+\end{equation}
+and adding the mean term of \eqref{eq:ig-moment-metric} to one half of
+\eqref{eq:ig-crossterm} gives
+\begin{equation}
+\dot\mu^\top\Lambda\dot\mu+\left(\mu^\top\Lambda\mu\right)\left(\dot\mu^\top\Lambda\dot\mu\right)+\left(\dot\mu^\top\Lambda\mu\right)^2
+=\dot\mu^\top\left[\left(1+\mu^\top\Lambda\mu\right)\Lambda+\Lambda\mu\mu^\top\Lambda\right]\dot\mu,
+\label{eq:ig-meanquad}
+\end{equation}
+which is \eqref{eq:ig-meanblock}. Pairing \((\dot\mu,0)\) with \((0,\dot M_2)\), only
+the covariance parts meet, and they give
+\(\tfrac12\Tr\bigl(\Lambda[-(\dot\mu\mu^\top+\mu\dot\mu^\top)]\Lambda\dot M_2\bigr)
+=-\dot\mu^\top\Lambda\dot M_2\Lambda\mu\). For \(\dot\mu=0\) nothing changes. The
+cross block vanishes for all arguments exactly when \(\Lambda^2\mu=0\), that is when
+\(\mu=0\). (ii) The metric is positive definite on this minimal family, so the
+second block and its Schur complement are invertible, and the block-inverse
+identity gives \((g^{\mathrm{quot}}_\mu)^{-1}=(g_{\boldsymbol\mu}^{-1})_{[\mathsf h\mathsf h]}\),
+where \(g_{\boldsymbol\mu}\) is the metric in the expectation chart. By
+\eqref{eq:ig-dual-inverse}, \(g_{\boldsymbol\mu}^{-1}\) is the metric in the natural chart, whose
+block in the coordinate \(\mathsf h\) paired with \(\mu\) is
+\(\operatorname{Cov}_q(Y)=\Sigma\) by \eqref{eq:ig-fisher-hessian}; inverting gives
+\eqref{eq:ig-expectation-mean-quotient}. The Schur complement is the metric on the
+orthogonal quotient. (iii) Equation \eqref{eq:ig-meanblock-factored} is
+\eqref{eq:ig-meanblock} rewritten, and \(\Lambda^{-1}g_{[\mu\mu]}\) is similar to the
+bracket, whose eigenvalues are \(1+2\lVert\hat\mu\rVert^2\) along \(\hat\mu\) and
+\(1+\lVert\hat\mu\rVert^2\) on its orthogonal complement. Finally
+\(g_{[\mu\mu]}-\Lambda=(\mu^\top\Lambda\mu)\Lambda+\Lambda\mu\mu^\top\Lambda\) is a sum
+of two positive semidefinite matrices, which vanishes only if
+\(\mu^\top\Lambda\mu=0\), that is \(\mu=0\). \hfill$\square$
+
+\medskip
+The two restriction mean blocks, \(\Lambda\) in \eqref{eq:ig-moment-metric} and
+\eqref{eq:ig-meanblock}, differ because the coordinate vector
+\(\partial/\partial\mu\) at fixed \(\Sigma\) and the one at fixed \(M_2\) are
+different tangent vectors at the same law: the first moves the mean and changes
+\(M_2\), the second moves the mean and compensates in \(\Sigma\). Their
+discrepancy is governed by \(\mu^\top\Lambda\mu\) and is unbounded, while the
+quotient metric equals \(\Lambda\) at every point. A coordinate identity that
+mixes the mean and covariance sectors of a Gaussian family must therefore name
+its chart and say whether it restricts or quotients.
+
+\section{The mean sector and the interaction Laplacian}
+
+The recognition family is a location family in its mean, so the mean parameter
+takes values in the latent space \(\R^n\) itself, and the mean block of
+\eqref{eq:ig-moment-metric} has the same components as the sample-space quadratic
+form \(y\mapsto\tfrac12y^\top\Lambda y\). The coincidence is one of components in
+matched charts and not of objects: one side is a metric on a manifold of laws,
+the other a bilinear form on the latent space, and for a family that is not a
+location family the two do not even have the same dimension. The next proposition
+records the scoped relation to the Laplacian part \(L\) of the interaction family
+of \Cref{def:gauss-interaction-family}.
+
+\propositionheading{Edge relative entropy at fixed covariance}{prop:ig-fixed-covariance-kl}
+Let the edge \((i,j)\) carry a positive-definite weight
+\(W_{ij}\in\Sym_{++}^K\). For endpoint laws with means \(\mu_i,\mu_j\in\R^K\) and the
+common covariance \(W_{ij}^{-1}\),
+\begin{equation}
+\KL\bigl(\mathcal N(\mu_i,W_{ij}^{-1})\Vert\mathcal N(\mu_j,W_{ij}^{-1})\bigr)
+=\tfrac12(\mu_i-\mu_j)^\top W_{ij}(\mu_i-\mu_j)
+=\tfrac12g^F_{(\mu,W_{ij}^{-1})}\bigl((\mu_i-\mu_j,0),(\mu_i-\mu_j,0)\bigr).
+\label{eq:ig-fixed-covariance-kl-fisher}
+\end{equation}
+If every nonzero edge weight is positive definite, the sum of these relative
+entropies over the edges equals \(\tfrac12\mu^\top L\mu\), the Laplacian part of the
+energy \eqref{eq:gauss-interaction-energy} evaluated at the stacked mean \(\mu\).
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The relative entropy of two Gaussians with a common covariance \(\Sigma_0\) is
+\(\tfrac12(\mu_i-\mu_j)^\top\Sigma_0^{-1}(\mu_i-\mu_j)\), and the mean block of
+\eqref{eq:ig-moment-metric} at covariance \(W_{ij}^{-1}\) is \(W_{ij}\). The sum over
+edges is the difference form
+\(\sum_{i<j}(\mu_i-\mu_j)^\top W_{ij}(\mu_i-\mu_j)=\mu^\top L\mu\) of the Laplacian
+part. \hfill$\square$
+
+\medskip
+The assembled \(NK\times NK\) matrix \(L\) enters only through this sum over
+typed edge quadratics, and a singular weight has no fixed-covariance reading along
+its kernel. For a regular non-Gaussian family the analogous quadratic is only the
+second-order term of the relative entropy at a frozen base law
+(\Cref{prop:pb-kl-divergence-jets}), so outside these Gaussian or frozen-local
+hypotheses a sample-space Laplacian is neither a recognition Fisher tensor nor a
+natural-gradient operator.
+
+\section{Pencils and gauge invariants}
+\label{sec:ig-gauge}
+\label{sec:grg-spectra}
+
+A change of local trivialization acts on every fiber and changes the components
+of every object while changing no law. On the assembled latent coordinate it acts
+agent by agent.
+
+\definitionheading{Block reframing and the interaction pencil}{def:ig-block-reframing}
+Let \(\Gamma_b=\rho_b(G)\) be the represented frame group of
+\Cref{hyp:gen-lg-frame-group}. A block reframing is the invertible new-to-old
+coordinate map
+\begin{equation}
+\mathbf P=\operatorname{diag}(\mathbf P_1,\dots,\mathbf P_N),
+\qquad
+\mathbf P_i\in\Gamma_b,
+\qquad
+y_{\mathrm{old}}=Py_{\mathrm{new}}.
+\label{eq:ig-reframing}
+\end{equation}
+Split the interaction precision once, in the chart in which
+\Cref{def:gauss-interaction-family} is imposed, as \(\Lambda=L+A\), with
+\(L\) its Laplacian part and \(A=\operatorname{diag}(A_1,\dots,A_N)\) its self
+terms. A block reframing acts on these quadratic forms by congruence,
+\begin{equation}
+\Lambda\longmapsto \mathbf P^\top\Lambda \mathbf P,
+\qquad
+L\longmapsto \mathbf P^\top L\mathbf P,
+\qquad
+A\longmapsto \mathbf P^\top A\mathbf P.
+\label{eq:ig-congruence}
+\end{equation}
+The interaction pencil is the pair \((L,\Lambda)\); its generalized eigenvalues
+are the roots \(\mathsf d\) of \(\det(L-\mathsf d\Lambda)\), with eigenvectors
+\begin{equation}
+Lx=\mathsf d\Lambda x.
+\label{eq:ig-pencil}
+\end{equation}
+
+Because the reframing is block diagonal, \(\mathbf P^\top A\mathbf P\) is again block diagonal,
+while \(\mathbf P^\top L\mathbf P\) need not be a matrix-weighted Laplacian when neighboring blocks
+are reframed differently, since the row sums that define that normal form are not
+preserved. The invariants below compare forms and are unaffected by that change of
+normal form. The law \(\mathcal N(\mu,\Sigma)\) in old coordinates is
+\(\mathcal N(\mathbf P^{-1}\mu,\mathbf P^{-1}\Sigma \mathbf P^{-\top})\) in new coordinates, so by the
+affine isometry of \Cref{prop:ig-fisher-moment-chart} with \(Q=\mathbf P^{-1}\) every block
+reframing is an isometry of the Fisher metric.
+
+\propositionheading{Regular-pencil invariance}{prop:grg-pencil-invariance}
+\label{prop:ig-generalized-spectrum-invariance}
+Let \(L\) and \(\Lambda\) be symmetric with \(\det(L-\mathsf d\Lambda)\) not the zero
+polynomial, and let \(\mathbf P\) be invertible. Then
+\begin{equation}
+\det\left(\mathbf P^\top L\mathbf P-\mathsf d\mathbf P^\top\Lambda \mathbf P\right)
+=\det(\mathbf P)^2\det(L-\mathsf d\Lambda),
+\label{eq:grg-pencil-congruence}
+\end{equation}
+so \((L,\Lambda)\) and \((\mathbf P^\top L\mathbf P,\mathbf P^\top\Lambda \mathbf P)\) have the same generalized
+eigenvalues with the same multiplicities, and \(x\) solves \eqref{eq:ig-pencil}
+exactly when \(\mathbf P^{-1}x\) solves the reframed problem with the same \(\mathsf d\). If
+\(\Lambda\) is invertible, there are exactly \(n=NK\) finite roots.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Equation \eqref{eq:grg-pencil-congruence} is multiplicativity of the determinant,
+and the nonzero factor \(\det(\mathbf P)^2\) changes neither the roots nor their
+multiplicities. If \(Lx=\mathsf d\Lambda x\), then
+\(\mathbf P^\top L\mathbf P(\mathbf P^{-1}x)=\mathbf P^\top Lx=\mathsf d\mathbf P^\top\Lambda \mathbf P(\mathbf P^{-1}x)\), and the argument
+with \(\mathbf P^{-1}\) gives the converse. When \(\Lambda\) is invertible the coefficient of
+\(\mathsf d^{n}\) in \(\det(L-\mathsf d\Lambda)\) is \((-1)^n\det\Lambda\neq0\).
+\hfill$\square$
+
+\propositionheading{Regularity criterion}{prop:grg-pencil-regularity}
+For \(L,A\succeq0\) and \(\Lambda=L+A\), the pencil \((L,\Lambda)\) is regular if and
+only if
+\begin{equation}
+\ker L\cap\ker A=\{0\}.
+\label{eq:grg-regularity}
+\end{equation}
+In that case \(\Lambda\succ0\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Positive semidefiniteness gives \(\ker(L+A)=\ker L\cap\ker A\). A nonzero vector in
+the intersection annihilates \(L-\mathsf d\Lambda\) for every \(\mathsf d\), so the
+determinant vanishes identically. Conversely, if the intersection is trivial then
+\(L+\Lambda=2L+A\succ0\), so the determinant is nonzero at \(\mathsf d=-1\), and
+\(\ker\Lambda=\{0\}\). \hfill$\square$
+
+\medskip
+Regularity is load bearing. Congruence covariance holds for every pencil, but for
+an irregular one the determinant vanishes identically. At the boundary operator
+\(A=0\) of the interaction family one has \(\Lambda=L\), and
+\(\det(L-\mathsf dL)\equiv0\) whenever \(\ker L\neq\{0\}\); restricting to a
+complement of \(\ker L\) leaves the constant spectrum \(\{1\}\), which carries no
+information about the graph. A quotient, pin, or mass repair must be declared and
+its pencil proved regular before the statements below apply to such a point.
+
+\propositionheading{Localization and endpoints}{prop:ig-generalized-spectrum-localization}
+Let \(L\succeq0\) and \(A\succeq0\) with \(\Lambda=L+A\succ0\). Every generalized
+eigenvalue of \eqref{eq:ig-pencil} is real and lies in \([0,1]\); the eigenspace of
+\(0\) is \(\ker L\), and the eigenspace of \(1\) is \(\ker A\). If \(L\) is the
+Laplacian part of \Cref{def:gauss-interaction-family}, every configuration that is
+constant across agents lies in \(\ker L\), so \(\dim\ker L\geq K\).
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Because \(\Lambda\succ0\), the pencil is equivalent to the symmetric matrix
+\(\Lambda^{-1/2}L\Lambda^{-1/2}\), so its \(n\) generalized eigenvalues are real and
+are the stationary values of the Rayleigh quotient
+\(x^\top Lx/x^\top\Lambda x\). Since \(x^\top\Lambda x=x^\top Lx+x^\top Ax\) with both
+terms nonnegative and the sum positive, the quotient lies in \([0,1]\).
+\(Lx=0\) is \eqref{eq:ig-pencil} with \(\mathsf d=0\), and \(Lx=\Lambda x\) is \(Ax=0\).
+For the Laplacian part, \(x^\top Lx=\sum_{i<j}(x_i-x_j)^\top W_{ij}(x_i-x_j)\)
+vanishes on every \(x=\mathbf 1\otimes w\) with \(w\in\R^K\), and these configurations
+form a \(K\)-dimensional space. \hfill$\square$
+
+\medskip
+The generalized eigenvalue has a frame-independent reading: \(\mathsf d_k\) is the
+fraction of the precision along the \(k\)-th pencil direction that interaction
+supplies rather than self terms. Consensus directions sit at \(\mathsf d=0\),
+because interaction supplies no precision there, and a direction that no self term
+constrains sits at \(\mathsf d=1\).
+
+\propositionheading{Mass-pencil transfer}{prop:grg-mass-pencil-transfer}
+Let \(L\succeq0\), \(\Lambda_{\mathrm{ref}}\succ0\), \(\mathsf a>0\), and
+\(\Lambda=L+\mathsf a\Lambda_{\mathrm{ref}}\). The generalized eigenvalues
+\(\mathsf d_{\mathrm{ref}}\) of \((L,\Lambda_{\mathrm{ref}})\) and \(\mathsf d\) of
+\((L,\Lambda)\) correspond by
+\begin{equation}
+\mathsf d=\frac{\mathsf d_{\mathrm{ref}}}{\mathsf d_{\mathrm{ref}}+\mathsf a},
+\qquad
+\mathsf d_{\mathrm{ref}}=\frac{\mathsf a\mathsf d}{1-\mathsf d},
+\label{eq:grg-mass-transfer}
+\end{equation}
+with the same eigenvectors and multiplicities, and the correspondence preserves
+order. Consequently the counting functions
+\(\mathsf n(t)=\#\{k:\mathsf d_k\leq t\}\) and
+\(\mathsf n_{\mathrm{ref}}(s)=\#\{k:\mathsf d_{\mathrm{ref},k}\leq s\}\) satisfy
+\begin{equation}
+\mathsf n(t)=\mathsf n_{\mathrm{ref}}\left(\frac{\mathsf at}{1-t}\right),
+\qquad 0\leq t<1,
+\label{eq:grg-counting-transfer}
+\end{equation}
+and if \(\mathsf n_{\mathrm{ref}}(s)-\mathsf n_{\mathrm{ref}}(0)\sim\mathrm c_1s^\alpha\) as
+\(s\downarrow0\), then \(\mathsf n(t)-\mathsf n(0)\sim\mathrm c_1\mathsf a^\alpha t^\alpha\) as
+\(t\downarrow0\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+For \(\mathsf d\neq1\), the equation \(Lv=\mathsf d(L+\mathsf a\Lambda_{\mathrm{ref}})v\)
+is equivalent to \(Lv=\bigl(\mathsf a\mathsf d/(1-\mathsf d)\bigr)\Lambda_{\mathrm{ref}}v\),
+and \(\mathsf d=1\) would require \(\Lambda_{\mathrm{ref}}v=0\), which is impossible.
+Since \(L\succeq0\), every \(\mathsf d_{\mathrm{ref}}\) is nonnegative, and the map
+\(\mathsf d_{\mathrm{ref}}\mapsto\mathsf d_{\mathrm{ref}}/(\mathsf d_{\mathrm{ref}}+\mathsf a)\)
+is increasing on \([0,\infty)\); this gives the order, the counting identity, and,
+because \(\mathsf at/(1-t)=\mathsf at(1+O(t))\), the asymptotic consequence. Without
+\(L\succeq0\) the order can fail: for \(L=\operatorname{diag}(-2,1,3)\),
+\(\Lambda_{\mathrm{ref}}=I\), and \(\mathsf a=1\), the roots \(-2,1,3\) map to
+\(2,\tfrac12,\tfrac34\). \hfill$\square$
+
+\medskip
+Mass removal and the small-eigenvalue limit do not commute,
+\begin{equation}
+\lim_{\mathsf a\downarrow0}\lim_{\mathsf d_{\mathrm{ref}}\downarrow0}
+\frac{\mathsf d_{\mathrm{ref}}}{\mathsf d_{\mathrm{ref}}+\mathsf a}=0,
+\qquad
+\lim_{\mathsf d_{\mathrm{ref}}\downarrow0}\lim_{\mathsf a\downarrow0}
+\frac{\mathsf d_{\mathrm{ref}}}{\mathsf d_{\mathrm{ref}}+\mathsf a}=1,
+\label{eq:grg-noncommuting-mass}
+\end{equation}
+so a positive mass regularizes each finite problem but supplies no mass-independent
+spectrum at the boundary operator.
+
+\propositionheading{Frame dependence of absolute spectra and subspace determinants}{prop:ig-frame-dependent-spectra-determinants}
+(i) If \(\Gamma_b\supseteq\R_{>0}I_K\), in particular under the specialization
+\(\Gamma_b=\GL^+(K)\) of \Cref{hyp:gen-lg-frame-group}, then \(\mathbf P=\mathrm cI_n\) with \(\mathrm c>0\)
+is a block reframing and \(\operatorname{spec}(\mathbf P^\top\Lambda \mathbf P)=\mathrm c^2\operatorname{spec}(\Lambda)\).
+(ii) Let \(\mathcal U'\) be a subspace of the new coordinate space with orthonormal basis
+\(B'\), let \(\mathcal U=\mathbf P\mathcal U'\) have orthonormal basis \(B\), and let \(\Lambda'=\mathbf P^\top\Lambda \mathbf P\).
+Then
+\begin{equation}
+\log\det\left(B'^\top\Lambda'B'\right)
+=\log\det\left(B^\top\Lambda B\right)+\log\det\left(B'^\top \mathbf P^\top \mathbf PB'\right),
+\label{eq:ig-logdet-law}
+\end{equation}
+so a subspace log-determinant is frame independent if and only if the restriction
+of \(\mathbf P\) to \(\mathcal U'\) has unit absolute determinant; every orthogonal \(\mathbf P\) satisfies
+this condition.
+(iii) For a partition of the agents into blocks \(I\), the determinant gap
+\(\tfrac12\bigl[\sum_I\log\det\Lambda_{II}-\log\det\Lambda\bigr]\) of
+\Cref{thm:restrict-determinant-gap} is invariant under every block reframing. A
+partition of the coordinates that splits an agent does not have this property: under
+the specialization \(\Gamma_b=\GL^+(2)\), for \(N=1\), \(K=2\),
+\(\Lambda=\bigl(\begin{smallmatrix}2&1\\1&2\end{smallmatrix}\bigr)\), and the blocks
+\(\{1\}\), \(\{2\}\), the reframing
+\(\mathbf P=\bigl(\begin{smallmatrix}1&0\\1&1\end{smallmatrix}\bigr)\) changes the gap from
+\(\tfrac12\log\tfrac43\) to \(\tfrac12\log4\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) \(\mathbf P^\top\Lambda \mathbf P=\mathrm c^2\Lambda\). (ii) Since \(\mathbf P\mathcal U'=\mathcal U\), write \(\mathbf PB'=BS\)
+with \(S\) invertible. Then \(B'^\top\Lambda'B'=S^\top(B^\top\Lambda B)S\) and
+\(B'^\top \mathbf P^\top \mathbf PB'=S^\top S\), so
+\(\log\det(B'^\top\Lambda'B')=\log\det(B^\top\Lambda B)+\log\det(S)^2\) and
+\(\log\det(B'^\top \mathbf P^\top \mathbf PB')=\log\det(S)^2\), which gives the identity. (iii) For blocks
+that are unions of agents, the \((I,I)\) block of \(\mathbf P^\top\Lambda \mathbf P\) is
+\(\mathbf P_I^\top\Lambda_{II}\mathbf P_I\) with \(\mathbf P_I=\operatorname{diag}(\mathbf P_i:i\in I)\), so
+\(\sum_I\log\det\Lambda_{II}\) shifts by \(\sum_I\log\det(\mathbf P_I)^2=\log\det(\mathbf P)^2\), which
+is the shift of \(\log\det\Lambda\). In the witness,
+\(\mathbf P^\top\Lambda \mathbf P=\bigl(\begin{smallmatrix}6&3\\3&2\end{smallmatrix}\bigr)\) and
+\(\det \mathbf P=1\), and the two gaps are \(\tfrac12\log(2\cdot2/3)\) and
+\(\tfrac12\log(6\cdot2/3)\). \hfill$\square$
+
+\medskip
+A reframing changes no law, so a quantity computed from components that is not
+invariant under \eqref{eq:ig-congruence} for every \(\mathbf P\) with blocks in \(\Gamma_b\) is
+a property of the chart. When \(\Gamma_b\) contains the positive scalars, part (i)
+lets a threshold on absolute eigenvalues of \(\Lambda\) accept or reject any given
+direction by the choice of \(\mathrm c\), so such a threshold states nothing about the model.
+Two invariant families remain available: generalized spectra of pencils whose two
+members transform by the same congruence (\Cref{prop:grg-pencil-invariance}), and law
+functionals of agent-aligned blocks, such as determinant gaps, mutual informations,
+canonical correlations, and relative entropies between laws, which are invariant
+because a reframing changes no law and which part (iii) exhibits in coordinates for
+the gap. A construction that uses one subspace determinant must declare its frame,
+carry the Jacobian term of \eqref{eq:ig-logdet-law}, or combine determinants so that
+the Jacobians cancel, as the gap does. When \(\Gamma_b\subseteq\operatorname{O}(K)\), as
+for a compact structure group, every block reframing is orthogonal and ordinary
+spectra are invariant (\Cref{sec:gen-lg-frame-group}).
+
+\propositionheading{Residual fiber label}{prop:grg-residual-fiber-label}
+Assume \(\Gamma_b\supseteq\GL^+(K)\), as under the specialization of
+\Cref{hyp:gen-lg-frame-group}. For \(M\in\PSD^K\), the orbit of \(M\) under global
+reframing \(M\mapsto\bar{\mathbf P}^\top M\bar{\mathbf P}\), \(\bar{\mathbf P}\in\Gamma_b\), is the set of positive
+semidefinite matrices of rank \(\operatorname{rank}M\). Hence the matrix factor \(M\)
+of the biadditive family \eqref{eq:grg-biadditive} has \(K+1\) congruence classes and
+no continuous modulus. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Congruence by an invertible matrix preserves rank and positive semidefiniteness. For
+the converse, let \(r=\operatorname{rank}M\) and write \(M=QDQ^\top\) with \(Q\)
+orthogonal and \(D\) diagonal, with positive entries \(d_1,\dots,d_r\) followed by
+zeros. Then
+\[
+\bar{\mathbf P}=Q\operatorname{diag}\left(d_1^{-1/2},\dots,d_r^{-1/2},1,\dots,1\right)
+\quad\text{gives}\quad
+\bar{\mathbf P}^\top M\bar{\mathbf P}=\operatorname{diag}(I_r,0),
+\]
+and if \(\det\bar{\mathbf P}<0\), changing the
+sign of the first column of \(\bar{\mathbf P}\) keeps this normal form and makes the
+determinant positive. Two positive semidefinite matrices of equal rank are therefore
+congruent to the same normal form by elements of \(\GL^+(K)\subseteq\Gamma_b\). This is
+the positive semidefinite case of Sylvester's law of inertia
+\citep[\S4.5]{HornJohnson2013}. \hfill$\square$
+
+\medskip
+The hypothesis on \(\Gamma_b\) is load bearing: when \(\Gamma_b\) is
+\(\operatorname{SO}(K)\) or \(\operatorname{O}(K)\), the orbit of \(M\succ0\) is its
+orthogonal-similarity class, labeled by \(K\) continuous eigenvalues
+(\Cref{sec:gen-lg-frame-group}). The proposition also does not extend unchanged to a
+nonflat pair \((W,\Theta)\), whose residual action combines congruence on \(W\) with
+conjugation on \(\Theta\).

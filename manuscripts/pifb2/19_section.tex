@@ -1,0 +1,215 @@
+% !TeX root = ../PIFB2.tex
+\section{Lorentz Geometry from a Two-Component Communication Sector}
+\label{sec:signature_resolution}
+
+The Lorentzian signature problem has two distinct parts. One is algebraic: can the information-bearing objects of the theory carry the proper, orthochronous Lorentz group $\mathrm{SO}^{+}(1,3)$? The other is physical: do the variational dynamics select those objects, identify their four components with observable spacetime directions, and give them the propagation laws and units measured in nature? The construction below answers the first question exactly under a specified channel hypothesis. It does not answer the second by renaming an information metric. In particular, the Fisher tensor remains positive semidefinite. For every tangent vector $v$, its covariant pullback obeys
+\begin{equation}
+h_q^\omega(v,v)=g_q^F(D^\omega q(v),D^\omega q(v))\geq0.
+\label{eq:lor-fisher-positive}
+\end{equation}
+Positive weighted sums, regular quotients, and pointwise limits of such tensors remain positive semidefinite, since their value on each $v$ remains nonnegative. A Lorentzian form therefore requires an additional construction with a different mathematical type. This agrees with the connection-relative pullback theory of Supplement~B~\cite[Ch.~B2]{DennisGaugeVFESuppB2026}.
+
+\subsection{The channel hypothesis and its geometric types}
+
+Suppose a retained communication sector is a complex vector bundle $W\to\mathcal C$ of complex rank two. This is a conditional specialization of the general communication model: neither complex rank two nor a preferred such sector has been derived from VFE. For an originally real four-dimensional sector, choosing $W$ means choosing a complex structure $J$ with $J^2=-I$ and restricting the relevant frame changes to those commuting with $J$. An arbitrary real $\mathrm{GL}(4,\mathbb R)$ frame change need not preserve that choice. Selecting a two-component projection from a larger cognitive fiber similarly requires a specified, covariant selection map.
+
+The relevant real bundle is the four-dimensional bundle $\mathcal H(W)$ of Hermitian tensors in $W\otimes\overline W$. In a complex frame these tensors are Hermitian matrices. They are not assumed to be quantum density operators. If $z\in\mathbb C^2$ is an ordinary classical random message with finite second moment, then
+\begin{equation}
+M=\mathbb E[zz^\dagger]\in\mathcal H(W),\qquad M\succeq0,
+\label{eq:lor-classical-moment}
+\end{equation}
+is one realization. The probability law of $z$ is normalized; its second moment need not have unit trace. The dagger in this formula denotes conjugate transpose of coordinate arrays. Intrinsically, $zz^\dagger$ is $z\otimes\bar z$; no invariant positive inner product on $W$ is required.
+
+There is an operationally explicit way to read all four real components. Write $M=\left(\begin{smallmatrix}a&b\\\bar b&d\end{smallmatrix}\right)$. The four mean intensities
+\begin{equation}
+\begin{aligned}
+\mathbb E|z_1|^2&=a,\qquad \mathbb E|z_2|^2=d,\\
+\mathbb E|z_1+z_2|^2&=a+d+2\operatorname{Re}b,\\
+\mathbb E|z_1+iz_2|^2&=a+d+2\operatorname{Im}b.
+\end{aligned}
+\label{eq:lor-classical-tomography}
+\end{equation}
+recover $M$ by subtraction. These identities follow by expanding the squared moduli. They require access to the two components and a calibrated relative phase; neither capability is implied by arbitrary selective links. Conversely every positive semidefinite $M$ is realizable by a finite classical law: take $z=M^{1/2}\xi$, where the two components of $\xi$ are independent signs with equal probabilities. Then $\mathbb E\xi=0$ and $\mathbb E\xi\xi^\dagger=I$. Thus the full cone is available when this preparation and readout family is supplied, without invoking quantum probabilities.
+
+Use column coordinates and left actions throughout. A passive frame change sends $z_i$ to $g_i z_i$, where $g_i(c)\in\mathrm{GL}(2,\mathbb C)$, and consequently
+\begin{equation}
+X_i'=g_iX_ig_i^\dagger,\qquad
+L_{ij}'=g_iL_{ij}g_j^{-1},\qquad
+L_{ij}:W_j\longrightarrow W_i.
+\label{eq:lor-frame-laws}
+\end{equation}
+The first index is the receiver. Independent interaction maps $L_{ij}$ may be singular and are not transition functions of $W$. Bundle transitions are invertible and satisfy the cocycle identity. At a fixed $c_*$ all formulas concern the attention network above that one point; allowing smooth $c$-dependence introduces no base-transport equation.
+
+\subsection{The determinant and the full Lorentz group}
+\label{sec:worked_signature}
+
+Let $\sigma_0=I_2$ and let $\sigma_1,\sigma_2,\sigma_3$ be the Pauli matrices,
+\begin{equation}
+\sigma_1=\begin{pmatrix}0&1\\1&0\end{pmatrix},\qquad
+\sigma_2=\begin{pmatrix}0&-i\\i&0\end{pmatrix},\qquad
+\sigma_3=\begin{pmatrix}1&0\\0&-1\end{pmatrix}.
+\end{equation}
+Every Hermitian matrix has the unique expansion
+\begin{equation}
+X=x^\mu\sigma_\mu=
+\begin{pmatrix}x^0+x^3&x^1-ix^2\\x^1+ix^2&x^0-x^3\end{pmatrix},\qquad
+x^\mu=\tfrac12\operatorname{tr}(\sigma_\mu X)\in\mathbb R.
+\label{eq:lor-hermitian-coordinates}
+\end{equation}
+Here repeated Greek component indices run from $0$ to $3$. The determinant gives
+\begin{equation}
+\det X=(x^0)^2-(x^1)^2-(x^2)^2-(x^3)^2.
+\label{eq:lor-determinant}
+\end{equation}
+Its negative polarization is the real symmetric bilinear form
+\begin{equation}
+\eta(X,Y)=\tfrac12\bigl[\operatorname{tr}(XY)-\operatorname{tr}(X)\operatorname{tr}(Y)\bigr],
+\qquad \eta(X,X)=-\det X.
+\label{eq:lor-polarization}
+\end{equation}
+Thus $\eta(\sigma_\mu,\sigma_\nu)=\operatorname{diag}(-1,1,1,1)_{\mu\nu}$. The trace terms are a coordinate formula for this determinant polarization; neither trace separately is invariant under a general congruence. This matrix realization is classical Lorentz geometry, also realized by optical coherency matrices~\cite{HanKimNoz1997Stokes} and used in local quantum filtering~\cite{VerstraeteDehaeneDeMoor2001Filtering}. We give the proof to fix the precise group and convention~\cite[Sec.~III]{SimonEtAl2006LorentzTurns}.
+
+\begin{theorem}[Exact Lorentz and conformal Lorentz representations]
+\label{thm:lor-hermitian-cover}
+For every $A\in\mathrm{SL}(2,\mathbb C)$, the real-linear action $X\mapsto AXA^\dagger$ on $\mathcal H(\mathbb C^2)$ preserves $\eta$ and the positive cone. It defines a surjective homomorphism
+\begin{equation}
+\rho:\mathrm{SL}(2,\mathbb C)\longrightarrow\mathrm{SO}^{+}(1,3),\qquad
+\rho(A)^\mu{}_{\nu}=\tfrac12\operatorname{tr}(\sigma_\mu A\sigma_\nu A^\dagger),
+\qquad \ker\rho=\{I,-I\}.
+\label{eq:lor-double-cover}
+\end{equation}
+For every $A\in\mathrm{GL}(2,\mathbb C)$, the same action instead satisfies
+\begin{equation}
+\eta(AXA^\dagger,AYA^\dagger)=|\det A|^2\eta(X,Y).
+\label{eq:lor-gl-conformal}
+\end{equation}
+Its image is the connected, time-orientation-preserving linear conformal Lorentz group $\mathbb R_{>0}\mathrm{SO}^{+}(1,3)$ and its kernel is $\{e^{i\theta}I\}$. The metric-preserving subgroup in $\mathrm{GL}(2,\mathbb C)$ is $|\det A|=1$; the determinant-one subgroup gives the stated double cover.
+\end{theorem}
+\begin{proof}
+Multiplicativity of the determinant gives
+\[
+\det(AXA^\dagger)=|\det A|^2\det X.
+\]
+Polarization proves Eq.~\eqref{eq:lor-gl-conformal}, and matrix multiplication proves the homomorphism law. Congruence preserves positive definiteness and positive semidefiniteness. The eigenvalues of $X$ are $x^0\pm|\boldsymbol x|$, so $X\succ0$ is exactly the future timelike cone $x^0>|\boldsymbol x|$. Thus the action preserves its time orientation. For $\det A=1$, write $A=HU$ with $H=(AA^\dagger)^{1/2}\succ0$ and $U\in\mathrm{SU}(2)$. The positive eigenvalues of $H$ have product one, so $H$ is joined to $I$ by $H^s$, $0\leq s\leq1$. Every $U\in\mathrm{SU}(2)$ has the form $\cos(\theta/2)I-i\sin(\theta/2)\boldsymbol n\cdot\boldsymbol\sigma$ and is also joined to $I$. Consequently $\rho(A)$ lies in the identity component and is proper.
+
+For surjectivity, let $\Lambda\in\mathrm{SO}^{+}(1,3)$ and write its image of the unit future vector as $\Lambda e_0=(u^0,\boldsymbol u)$. The matrix $H_0=u^0I+\boldsymbol u\cdot\boldsymbol\sigma$ is positive definite with determinant one. Set $A=H_0^{1/2}$; then $\rho(A)e_0=\Lambda e_0$. The transformation $\rho(A)^{-1}\Lambda$ fixes $e_0$, hence acts on its orthogonal complement as some $R\in\mathrm{SO}(3)$. Every such $R$ is an axis-angle rotation. Direct multiplication with the Pauli identity $\sigma_a\sigma_b=\delta_{ab}I+i\epsilon_{abc}\sigma_c$ shows that $U=\cos(\theta/2)I-i\sin(\theta/2)\boldsymbol n\cdot\boldsymbol\sigma$ induces this rotation. Thus $\Lambda=\rho(AU)$.
+
+If $AXA^\dagger=X$ for every Hermitian $X$, take $X=I$ to obtain $AA^\dagger=I$. The remaining identities say that $A$ commutes with all Pauli matrices, which forces $A=\lambda I$. Unitarity gives $|\lambda|=1$ and determinant one gives $\lambda=\pm1$. The differential of $\rho$ at the identity sends a traceless complex matrix $a$ to the map $X\mapsto aX+Xa^\dagger$. If this map vanishes, $X=I$ first makes $a$ anti-Hermitian and the other Hermitian $X$ force $a$ to be scalar; tracelessness then gives $a=0$. The differential is therefore an isomorphism between two six-dimensional real tangent spaces. Local invertibility, translated around each group element, and the two-element kernel give the two-sheeted covering. The same scalar argument proves the stated kernel for the general linear action. Finally, choose a complex square root $d$ of $\det A$ and put $S=A/d\in\mathrm{SL}(2,\mathbb C)$. Then $AXA^\dagger=|\det A|SXS^\dagger$. Both choices of $d$ give the same action. Arbitrary positive scalar dilations and all proper orthochronous Lorentz transformations are therefore obtained.
+\end{proof}
+
+For example, $A=\operatorname{diag}(e^{\chi/2},e^{-\chi/2})$ gives the ordinary boost
+\begin{equation}
+\begin{pmatrix}x^{0\prime}\\x^{3\prime}\end{pmatrix}
+=\begin{pmatrix}\cosh\chi&\sinh\chi\\\sinh\chi&\cosh\chi\end{pmatrix}
+\begin{pmatrix}x^0\\x^3\end{pmatrix},\qquad
+x^{1\prime}=x^1,\quad x^{2\prime}=x^2.
+\label{eq:lor-explicit-boost}
+\end{equation}
+Together with the rotations in the proof, these are all six Lorentz generators, not only one $\mathrm{SO}^{+}(1,1)$ subgroup. No imaginary base coordinate or real-part projection was introduced.
+
+There is also a limited uniqueness statement. Every real quadratic form invariant under this $\mathrm{SL}(2,\mathbb C)$ action is a scalar multiple of $\det X$. Rotation invariance first restricts it to $a(x^0)^2+b|\boldsymbol x|^2$: a nonzero temporal-spatial cross vector and an anisotropic spatial quadratic form would break some rotation. Differentiating invariance under Eq.~\eqref{eq:lor-explicit-boost} at $\chi=0$ then gives $2(a+b)x^0x^3=0$, hence $b=-a$. The invariant quadratic form is therefore fixed up to scale once this representation has been selected. This is representation-theoretic uniqueness, not a principle selecting the representation from the general VFE theory.
+
+There is a related operational characterization with stronger hypotheses than positivity preservation alone. Let $T$ be a real-linear bijection of $\mathcal H(\mathbb C^2)$ that maps the whole positive semidefinite cone onto itself. Its inverse then preserves that cone as well, and $T$ maps its boundary onto itself. In Pauli coordinates write $Q(x)=\det T(x^\mu\sigma_\mu)=a(x^0)^2+2x^0\boldsymbol b\cdot\boldsymbol x+\boldsymbol x^\top D\boldsymbol x$, with $D$ symmetric. Every $(1,\boldsymbol n)$ with $|\boldsymbol n|=1$ is a boundary point. Applying $Q=0$ to $\boldsymbol n$ and $-\boldsymbol n$ gives $\boldsymbol b=0$ and $\boldsymbol n^\top D\boldsymbol n=-a$ on the unit sphere, hence $D=-aI$. Since $T(I)$ lies in the positive interior, $a=\det T(I)>0$. Therefore
+\begin{equation}
+\det T(X)=a\det X,\qquad a>0.
+\label{eq:lor-cone-automorphism}
+\end{equation}
+After division by $\sqrt a$, $T$ is a time-orientation-preserving Lorentz transformation. The identity component of this cone-automorphism group is exactly $\mathbb R_{>0}\mathrm{SO}^{+}(1,3)$; the other component also permits spatial reflection. This gives an observable route to the same conformal group if the entire cone is accessible, observables transform linearly, and transformations are reversible and preserve order in both directions. A generic lossy channel meets none of the reversibility conclusion merely by preserving positive moments. These hypotheses characterize a conditional symmetry class; they are not a derivation of that class from VFE.
+
+\subsection{Selective links and the positive cone}
+
+The relation to selective communication can now be stated without identifying every interaction with a Lorentz transformation. A message $z$ contributes the rank-one tensor $zz^\dagger$, which lies on the future null cone. For nonnegative weights $w_r$ and messages $z_r\in\mathbb C^2$, define
+\begin{equation}
+M=\sum_r w_rz_rz_r^\dagger,\qquad
+\det M=\sum_{r<s}w_rw_s|z_{r1}z_{s2}-z_{r2}z_{s1}|^2.
+\label{eq:lor-message-aggregation}
+\end{equation}
+To verify the identity, expand $M_{11}M_{22}-|M_{12}|^2$. Terms with the same index cancel, and pairing indices $r,s$ gives the squared modulus displayed above. Thus $M$ is future timelike exactly when the messages with positive weight span two complex directions; it is nonzero future null exactly when they span one. The determinant measures a precise failure of the messages to share one complex ray. No physical mass or particle law follows from assigning this scalar a suggestive name.
+
+For a received message $L_{ij}z_j$, its second moment is $L_{ij}M_jL_{ij}^\dagger$. If $L_{ij}$ is invertible this is a conformal Lorentz map, and it is Lorentz-isometric exactly when $|\det L_{ij}|=1$. If $L_{ij}$ has rank one, write $L_{ij}=uv^\dagger$ in coordinates. Then
+\begin{equation}
+L_{ij}XL_{ij}^\dagger=(v^\dagger Xv)uu^\dagger.
+\label{eq:lor-rank-one-channel}
+\end{equation}
+Its real-linear image is at most one-dimensional; every positive input is sent to the same null ray or zero. A singular selective link is therefore a cone-preserving communication map, not a Lorentz frame change. A weighted sum of such channels need not preserve the null cone either: the positive map $\Phi(X)=\tfrac12\operatorname{tr}(X)I$ sends $\operatorname{diag}(1,0)$ to $I/2$, changing determinant zero to $1/4$. It is a sum of the four rank-one maps with matrices $e_ae_b^\dagger/\sqrt2$, $a,b\in\{1,2\}$. General selective communication thus supplies a larger family of operations than Lorentz symmetry.
+
+The distinction between a classical second moment and a normalized density matrix also matters. In a chosen frame, fixing $\operatorname{tr}X=1$ fixes $x^0=1/2$; its tangent vectors have $dx^0=0$, and the restriction of $\eta$ to that tangent space is positive definite. The fourth, radial coordinate has been removed. The nonlinear normalization $AXA^\dagger/\operatorname{tr}(AXA^\dagger)$ retains the projective Lorentz action on cone rays, represented in this three-dimensional slice. It does not retain the fourth coordinate or a linear four-dimensional representation. Retaining the amplitude of a moment requires no unnormalized probability law. Likewise the determinant-one orbit of a fixed positive moment has fixed determinant and only three dimensions; one needs a family of determinant values to cover the cone interior.
+
+Ordinary probability remains available throughout. On $\mathbb C^2\cong\mathbb R^4$, an invertible complex matrix has real Jacobian $|\det A|^2$. The pushforward density is $q'(z')=q(A^{-1}z')/|\det A|^2$; the same change for a prior cancels the Jacobians in their likelihood ratio and preserves KL. This does not turn the Fisher metric into $\eta$, nor does it make the second moment a sufficient statistic for an arbitrary law. A quantum interpretation would add further structure beyond the classical random messages used here.
+
+A passive detector comparison also differs from a physical filtering operation. For a detector covector represented by $w$, the mean recorded intensity is $w^\dagger Mw$. Re-expressing both $M'=AMA^\dagger$ and $w'=A^{-\dagger}w$ leaves this number unchanged; transforming the message while holding the detector fixed generally changes it. Moreover, choosing a particular positive reference moment $M_0$ reduces its determinant-one stabilizer to
+\begin{equation}
+\{A\in\mathrm{SL}(2,\mathbb C):AM_0A^\dagger=M_0\}
+=M_0^{1/2}\mathrm{SU}(2)M_0^{-1/2}.
+\label{eq:lor-positive-state-stabilizer}
+\end{equation}
+Indeed $M_0^{-1/2}AM_0^{1/2}$ is unitary exactly when the displayed congruence fixes $M_0$, and it has determinant one. A selected positive moment can therefore define a rest direction even while the representation laws remain Lorentz covariant. It is not a Lorentz-invariant vacuum merely because its law is written covariantly.
+
+\subsection{From an internal cone to a tensor on the base}
+\label{sec:lor-soldering}
+
+A positive moment is not a causal update. For example, $M(t)=\operatorname{diag}(e^t,e^{-t})$ is positive definite for every $t$, while $\dot M(0)=\operatorname{diag}(1,-1)$ has $\eta(\dot M(0),\dot M(0))=1$ and is spacelike. The cone of moment values therefore supplies no signal-speed or causal-trajectory theorem by itself.
+
+The four coefficients $x^\mu$ above are fiber coordinates. They are not automatically coordinates on the contextual base $\mathcal C$, which may have another dimension and an unknown geometry. To obtain a Lorentzian tensor on a four-dimensional base region, one needs a smooth fiberwise isomorphism
+\begin{equation}
+e:T\mathcal C\longrightarrow\mathcal H(W),\qquad
+\gamma(v,w)=\eta(e(v),e(w)).
+\label{eq:lor-soldering}
+\end{equation}
+The map $e$ is a soldering form: it identifies base tangent vectors with the internal Lorentz vector space. In local coordinates it is a Hermitian-matrix-valued one-form. Under a determinant-one re-expression it obeys $e'=geg^\dagger$, so Theorem~\ref{thm:lor-hermitian-cover} makes $\gamma$ gauge invariant. In a chosen component frame its matrix is $E^\top\eta E$. If $E$ is invertible, changing variables $u=Ev$ shows that $\gamma$ has exactly one negative and three positive directions. This proves the conditional construction, including its nondegeneracy hypothesis.
+
+If $\dim\mathcal C>4$, a surjective $e$ instead gives a degenerate base tensor with radical $\ker e$ and a Lorentzian metric on the rank-four quotient bundle $T\mathcal C/\ker e$. This quotient bundle is not automatically the tangent bundle of a four-dimensional observable space. A local quotient by base leaves requires an integrable kernel and a tensor constant along those leaves. Neither condition follows from the rank statement. If $\dim\mathcal C<4$, no such surjective $e$ exists.
+
+There is a simple exact local example. On the open cone $c^0>|\boldsymbol c|$ in $\mathbb R^4$, take the trivial bundle, the classical second-moment section $M(c)=c^\mu\sigma_\mu\succ0$, and $e=dM$. Every $M(c)$ can be realized by a centered complex Gaussian or by a suitable finite classical message law. Then $\gamma=-(dc^0)^2+\sum_a(dc^a)^2$. This is an existence example with chosen readout, not a VFE selection result. The equality $e=dM$ uses the declared reference connection $B=0$; it is not preserved as an ordinary-derivative formula under $c$-dependent frame changes. Its covariant version is $e=D^BM=dM+BM+MB^\dagger$, with $B$ transformed as in Eq.~\eqref{eq:lor-link-covariant-derivative}. That derivative obeys $D^{B^{\prime}}M^{\prime}=g(D^BM)g^\dagger$. Moreover, whenever $e=dX$ in a fixed trivialization and $dX$ is invertible, $X$ itself gives local coordinates and the metric is flat. Curvature cannot be inferred from this exact-differential example.
+
+Conversely, an arbitrary nonexact soldering can carry curvature, but that curvature was supplied with the soldering. For example, $e=dt\sigma_0+a(t)\sum_a dx^a\sigma_a$ gives $\gamma=-dt^2+a(t)^2\sum_a(dx^a)^2$. Its nonzero Christoffel components are $\Gamma^0_{ab}=a\dot a\delta_{ab}$ and $\Gamma^a_{0b}=\Gamma^a_{b0}=(\dot a/a)\delta^a_b$. With $R^\rho{}_{\sigma\mu\nu}=\partial_\mu\Gamma^\rho_{\nu\sigma}-\partial_\nu\Gamma^\rho_{\mu\sigma}+\Gamma^\rho_{\mu\lambda}\Gamma^\lambda_{\nu\sigma}-\Gamma^\rho_{\nu\lambda}\Gamma^\lambda_{\mu\sigma}$, contraction gives $R=6[\ddot a/a+(\dot a/a)^2]$. The choice $a=e^{Ht}$ has $R=12H^2$. No field equation or variational mechanism in this example selects $a$ or $H$. The construction distinguishes the ability to represent curved Lorentzian geometry from its dynamical emergence.
+
+For a general $\mathrm{GL}(2,\mathbb C)$ bundle, the determinant takes values in the real positive-scale line inside $\det W\otimes\overline{\det W}$. Its local coefficients change by $|\det g|^2$. Equation~\eqref{eq:lor-soldering} therefore first supplies a conformal Lorentzian tensor. A positive scale field $\kappa$ with $\kappa'=|\det g|^2\kappa$ gives the invariant representative $\gamma=\kappa^{-1}\eta(e,e)$. Choosing this scale, or reducing to $|\det g|=1$, is additional geometric information; it is not the trace normalization of a probability law. A complex volume form reduces further to $\mathrm{SL}(2,\mathbb C)$. Physical length and time units require their own calibration.
+
+On a good trivializing cover, with contractible nonempty finite intersections, transition matrices must satisfy $g_{ab}g_{bc}=g_{ac}$ and $e_a=g_{ab}e_bg_{ab}^\dagger$. Independent network links need satisfy neither identity. Starting with a Lorentz-frame cocycle and trying to reconstruct its spinor lift can encounter a further global obstruction: local determinant-one lifts satisfy $\widetilde g_{ab}\widetilde g_{bc}\widetilde g_{ca}=\epsilon_{abc}I$ with $\epsilon_{abc}\in\{\pm1\}$. Changing signs of the lifts modifies these signs by a coboundary. A global lift exists exactly when signs can be chosen to make every triple product $+I$. Starting instead with an actual $\mathrm{SL}(2,\mathbb C)$ bundle supplies this compatibility, but still supplies no isomorphism with $T\mathcal C$. A soldering must be established globally as well as pointwise.
+
+\subsection{Why frame derivatives do not repair the missing soldering}
+
+The earlier constructions remain useful diagnostics, but no longer supply the primary route to Lorentz geometry.
+
+\begin{proposition}[The earlier single-generator rank obstruction]
+\label{prop:rank_obstruction}
+If $A=T(id\psi_0+d\psi_1)$ and $\operatorname{tr}(T^2)=2$, then $\operatorname{Re}\operatorname{tr}(A\otimes A)=2(d\psi_1\otimes d\psi_1-d\psi_0\otimes d\psi_0)$. Its rank is at most two on any base. Where $d\psi_0,d\psi_1$ are independent, its nondegenerate quotient has signature $(-,+)$.
+\end{proposition}
+\begin{proof}
+Expand the two factors and take their real part. Every vector annihilated by both differentials lies in the radical. On a complement, the two independent differentials are coordinates for the displayed diagonal form.
+\end{proof}
+
+\begin{proposition}[The earlier commuting all-real construction]
+\label{prop:4d_signature}
+Let $S,T_1,T_2,T_3$ be commuting real matrices with $\operatorname{tr}(S^2)=-2$, $\operatorname{tr}(ST_a)=0$, and $\operatorname{tr}(T_aT_b)=2\delta_{ab}$. Set $U=\exp(\psi_0S+\sum_a\psi_aT_a)$. On a four-dimensional region where the four $d\psi_\mu$ are independent, $\operatorname{tr}[(U^{-1}dU)\otimes(U^{-1}dU)]$ has signature $(-,+,+,+)$ and is flat.
+\end{proposition}
+\begin{proof}
+Commutation gives $U^{-1}dU=S d\psi_0+\sum_aT_a d\psi_a$ exactly, so the tensor is $2[-d\psi_0^2+\sum_a d\psi_a^2]$. The $\psi_\mu$ are local coordinates, where the metric is constant. The hypotheses have the earlier disjoint-support realization for real dimension at least six: put one standard skew $2\times2$ block in the first two coordinates and take an orthonormal basis of traceless diagonal matrices on the remaining four coordinates, scaled to squared trace norm two.
+\end{proof}
+These calculations establish available signatures for specified frame fields. They do not establish physical invariance or selection.
+
+There is a separate error to avoid in replacing a single frame derivative by an agent-pair difference. Put $A_i=U_i^{-1}dU_i$ and $\Omega_{ij}=U_iU_j^{-1}$. The identity
+\begin{equation}
+\operatorname{tr}[(A_i-A_j)_\mu(A_i-A_j)_\nu]
+=\operatorname{tr}[(\Omega_{ij}^{-1}\partial_\mu\Omega_{ij})(\Omega_{ij}^{-1}\partial_\nu\Omega_{ij})]
+\label{eq:lor-pair-trace-identity}
+\end{equation}
+is correct, since $\Omega_{ij}^{-1}d\Omega_{ij}=U_j(A_i-A_j)U_j^{-1}$. The expression is invariant under a common right change $U_i\mapsto U_ih(c)$, because the inhomogeneous terms in $A_i-A_j$ cancel. It is not invariant under independent local re-expressions $U_i\mapsto g_i(c)U_i$. On a one-dimensional interval, take $U_i=U_j=I_2$, $g_i=e^cI_2$, and $g_j=I_2$. The expression changes from zero to $2dc^2$. Thus common-reference invariance does not establish the required passive gauge invariance.
+
+If base connections are separately chosen, there is a covariant replacement on invertible links. With coordinate convention $D_i=d+B_i$,
+\begin{equation}
+B_i'=g_iB_ig_i^{-1}-dg_ig_i^{-1},\qquad
+\nabla L_{ij}=dL_{ij}+B_iL_{ij}-L_{ij}B_j,
+\label{eq:lor-link-covariant-derivative}
+\end{equation}
+so $\nabla L_{ij}'=g_i(\nabla L_{ij})g_j^{-1}$. Consequently $K_{ij}=(\nabla L_{ij})L_{ij}^{-1}$ transforms by conjugation at $i$, and $\operatorname{Re}\operatorname{tr}(K_{ij,\mu}K_{ij,\nu})$ is a real gauge-invariant tensor. It is connection relative and has no guaranteed Lorentzian signature. For the pure frame links $L_{ij}=U_iU_j^{-1}$ with their induced flat connections $B_i=-dU_iU_i^{-1}$, direct substitution gives $\nabla L_{ij}=0$. The apparent frame-gradient geometry disappears. Singular selective links do not admit $L_{ij}^{-1}$, so this formula does not cover the general communication model. None of these corrections imposes new base-connection dynamics on the pointwise formation theory.
+
+\subsection{What remains to obtain physical spacetime}
+\label{sec:causal_cone_route}
+
+The determinant construction removes the need for the former imaginary-time, real-part-projection, and commuting-generator postulates. It replaces them with one explicit representation hypothesis and, only when base geometry is claimed, a soldering and scale hypothesis. It provides the full proper Lorentz group and a positive cone directly connected to selective messages. The physical claim remains conditional because arbitrary selective updates need not preserve this cone boundary, no VFE result here selects a complex two-component retained sector, and no result constructs the required collective soldering from those updates.
+
+A finite-speed alternative retains a different conditional status. Given an independently specified shared time coordinate $t$, a positive spatial tensor $h_{ab}$, and an isotropic signal bound $h_{ab}dx^adx^b\leq c_{\mathrm{sig}}^2dt^2$, its boundary is the null cone of $-c_{\mathrm{sig}}^2dt^2+h_{ab}dx^adx^b$. This identifies a Lorentzian conformal class under those hypotheses; it does not derive the time coordinate, three spatial dimensions, isotropy, exact finite propagation, or boost covariance of the underlying dynamics. Exponentially small influence outside an effective graph cone is not zero influence outside a physical null cone. A gradient-flow history also remains a history of beliefs: away from stationary points its velocity singles out a line in a positive Fisher tangent space but supplies no negative norm. That line vanishes at a stationary point.
+
+The next discriminating task is therefore concrete: derive, within a specified normalized generative model and its VFE dynamics, a covariantly selected complex rank-two communication statistic together with a collective, nondegenerate base readout whose evolution has the derived null cone as its characteristic cone. Failure of rank, gluing, cone preservation, or characteristic compatibility would refute that proposed mechanism. Success would still leave physical units and field dynamics to establish, but it would connect the Lorentz representation proved here to the theory's actual updating law.

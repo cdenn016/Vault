@@ -34,7 +34,7 @@ The authoritative consolidation of this family is the survey by Lorenz ([[lorenz
 
 ## Why it matters here
 
-The current theorem-first record [[belief-inertia-2026-07-12-theorem-first-revision]] gives only a **soft, finite-temperature analog** of bounded confidence, not an overdamped recovery of HK or Deffuant. Where those models impose a discontinuous indicator $\mathbf{1}[|x_i-x_j|\le\varepsilon]$, [[Multi-agent variational free energy]] weights source $j$ by
+The theorem-first revision of the belief-inertia manuscript (2026-07-12) gives only a **soft, finite-temperature analog** of bounded confidence, not an overdamped recovery of HK or Deffuant. Where those models impose a discontinuous indicator $\mathbf{1}[|x_i-x_j|\le\varepsilon]$, [[Multi-agent variational free energy]] weights source $j$ by
 $$
 \beta_{ij} = \mathrm{softmax}_j\!\Big({-\tfrac{1}{\tau}\,\mathrm{KL}\big(q_i \,\|\, \Omega_{ij}\, q_j\big)}\Big),
 $$
@@ -54,8 +54,6 @@ Beyond the agent-based realizations, the same confidence mechanism admits a cont
 
 - [[hegselmann-2002-opinion|hegselmann-krause-2002]] — synchronous bounded-confidence (HK) averaging; consensus, polarization, and fragmentation regimes set by the confidence radius $\varepsilon$.
 - [[deffuant2000-bounded-confidence|deffuant-2000-bounded-confidence]] — pairwise asynchronous bounded-confidence (Deffuant-Weisbuch) mixing with convergence parameter $\mu$.
-- [[belief-inertia-2026-07-12-theorem-first-revision]] — current source for the soft-analog status and explicit exclusion of an exact HK/Deffuant recovery.
-- [[belief-inertia-2026-07-13-final-verification-addendum]] — final-panel confirmation of that soft-analog boundary.
 - [[lorenz-2007-bounded-confidence-survey]] — authoritative survey unifying the HK and Deffuant-Weisbuch variants, with the consolidated cluster-count-vs-$\varepsilon$ phenomenology.
 - [[ben-naim-2003-bifurcations-compromise]] — kinetic rate-equation treatment whose steady-state cluster count undergoes a bifurcation cascade as the initial spread grows.
 

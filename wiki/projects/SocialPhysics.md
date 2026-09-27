@@ -22,7 +22,7 @@ updated: 2026-07-13
 
 SocialPhysics develops a mathematical sociophysics model for distribution-valued beliefs in heterogeneous local frames. Its theorem-level contribution is an engineered gauge-covariant consensus energy with entropy-retaining optimized attention and a local Gaussian loss Hessian that separates prior, sensory, incoming relational, and outgoing relational or recoil stiffness. Fisher--Rao [[Natural gradient|natural-gradient]] flow is the primary dynamics. A second-order [[Belief inertia]] interpretation is conditional on a separately declared positive kinetic metric.
 
-The current manuscript is recorded in [[belief-inertia-2026-07-12-theorem-first-revision]], with the first final-panel snapshot in [[belief-inertia-2026-07-13-final-verification-addendum]] and the authoritative review closure in [[belief-inertia-2026-07-13-final-review-closure]]. The historical [[belief-inertia]] note remains immutable and should not be used for current proof statuses where the records differ.
+The current manuscript state was fixed by a theorem-first revision (2026-07-12), a final-panel verification addendum (2026-07-13), and a review closure (2026-07-13). The historical [[belief-inertia]] note remains immutable and should not be used for current proof statuses where those records differ.
 
 ## Mathematical core
 

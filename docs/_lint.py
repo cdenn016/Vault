@@ -67,12 +67,18 @@ for f in os.listdir(ROOT):
 
 names=defaultdict(list); aliasmap=defaultdict(list); wc={}
 realnames_nonbox=set()
+# frontmatter-less manuscript/review artifacts (and inbox/README.md) are not wiki notes:
+# they still resolve links but are excluded from CASE/IDENTITY collision checks.
+idnames=defaultdict(list)
 for p in files:
     t=open(p,encoding="utf-8").read()
     base=os.path.splitext(os.path.basename(p))[0]
     names[base.lower()].append(p)
     if not is_inbox(p): realnames_nonbox.add(base.lower())
     fm=split_fm(t)
+    r=os.path.relpath(p,ROOT).replace("\\","/")
+    if not (not t.startswith("---") and (r.startswith("manuscripts/") or r=="inbox/README.md")):
+        idnames[base.lower()].append(p)
     for a in aliases_of(fm): aliasmap[a.lower()].append(p)
     body=t[len(fm)+8:] if fm else t
     wc[p]=len(body.split())
@@ -96,10 +102,10 @@ for p in files:
         tgt=m.group(1); disp=tgt.split("|")[0].split("#")[0].split("^")[0].strip()
         if not resolve(tgt): broken[disp].append(rel(p))
         if not graph_ok(tgt): grey[disp].append(rel(p))
-coll={k:[rel(x) for x in v] for k,v in names.items() if len(v)>1}
+coll={k:[rel(x) for x in v] for k,v in idnames.items() if len(v)>1}
 empty=[rel(p) for p in files if wc[p]<12]
 ident=defaultdict(set)
-for k,v in names.items():
+for k,v in idnames.items():
     for p in v: ident[k].add(p)
 for k,v in aliasmap.items():
     for p in v: ident[k].add(p)

@@ -1,0 +1,100 @@
+% !TeX root = ../PIFB2.tex
+\section{Time as Registered Change: The Information Clock}\label{sec:time_info}
+
+A probability law can change by different amounts along histories ordered by the same parameter $t$. Information geometry supplies an intrinsic length for that change. It does not, by itself, supply the ordering of the history or identify its length with physical proper time. This distinction preserves the useful part of the information-clock idea without building the desired physical conclusion into its definition.
+
+\subsection{Fisher length and dissipation}\label{sec:fisher_arc_length}
+For a regular statistical path $q_{\theta(t)}$ with Fisher metric $G$,
+\begin{equation}
+\vartheta(t)=\int_0^t
+\sqrt{\dot\theta^a(s)G_{ab}(\theta(s))\dot\theta^b(s)}ds.
+\label{eq:fisher_clock}
+\end{equation}
+It is invariant under smooth parameter changes and orientation-preserving reparametrizations of the path. It measures length, not signed displacement. If frames vary with $t$, their pure coordinate motion must be removed by a declared horizontal or quotient derivative; differentiating a moving coordinate presentation as if it were a fixed sample coordinate can create spurious statistical change.
+
+For an autonomous potential $\mathcal V$ and single-rate natural-gradient flow $\dot\theta=-\eta G^{-1}d\mathcal V$,
+\begin{equation}
+\dot{\mathcal V}=-\eta\|d\mathcal V\|_{G^{-1}}^2,\qquad
+\dot\vartheta^2=-\eta\dot{\mathcal V}.
+\label{eq:clock_dissipation}
+\end{equation}
+This follows by contraction of the gradient equation. With explicitly changing observations, parameters or drive,
+\begin{equation}
+\dot\vartheta^2=-\eta\left(\frac{d\mathcal V}{dt}-\partial_t\mathcal V\right).
+\label{eq:clock_driven}
+\end{equation}
+The identity uses the metric and mobility actually present. Separate rates on different blocks define a different rate-weighted metric; the single Fisher identity cannot be applied unchanged. A clock stops at a stationary law even when the externally chosen parameter continues.
+
+The closest physical analog is thermodynamic length, which measures distinguishability along statistical state paths under specified thermodynamic assumptions~\cite{SalamonBerry1983,Crooks2007}. Entropic-time constructions likewise add a rule for organizing updates~\cite{Caticha2011entropic}. Neither analogy makes Fisher length an experimentally calibrated time coordinate in the present model.
+
+\subsection{Continuous change is not a stream of independent bits}
+The local expansion is
+\begin{equation}
+D_{\mathrm{KL}}(q_{\theta+d\theta}\|q_\theta)
+=\frac12G_{ab}d\theta^a d\theta^b+o(\|d\theta\|^2).
+\label{eq:kl_arclength}
+\end{equation}
+For Gaussian mean changes at fixed covariance it is exactly
+$\tfrac12d\mu^\top\Sigma^{-1}d\mu$. Dividing by $\ln2$ expresses the relative entropy in bits. Summing this quadratic quantity over finer subdivisions of a smooth path generally drives the sum to zero, whereas Fisher length remains fixed. A per-step information gain therefore depends on the specified update granularity; it is not a parameter-free continuous bit counter. Full Gaussian Fisher distance between endpoints also need not equal the length of a path artificially restricted to constant covariance.
+
+Bateson's difference that makes a difference is useful here as a motivation for operational distinguishability~\cite{Bateson1972}. It is not a prescription to equate every infinitesimal parameter displacement with one registered bit.
+
+\subsection{Binary registrations}\label{sec:binary_registration}
+Wheeler's yes-or-no registration can instead be represented by an actual binary record channel~\cite{Wheeler1990}.
+\begin{proposition}[Information budget of a binary record]\label{prop:binary_registration}
+For latent $X$ and binary $O$,
+\begin{equation}
+\mathbb E_O D_{\mathrm{KL}}(p(X\mid O)\|p(X))
+=I(X;O)\leq H(O)\leq\ln2.
+\label{eq:registration_bound}
+\end{equation}
+For binary records $O_1,\ldots,O_n$,
+\begin{equation}
+I(X;O_{1:n})=\sum_{k=1}^n I(X;O_k\mid O_{<k})\leq n\ln2.
+\label{eq:registration_chain}
+\end{equation}
+No conditional-independence assumption is needed for this last bound.
+\end{proposition}
+\begin{proof}
+The expected posterior-to-prior logarithmic ratio is the mutual-information integral. Since the record is discrete, $I(X;O)=H(O)-H(O\mid X)\leq H(O)$. Apply the mutual-information chain rule and the same bound to each conditional record~\cite{CoverThomas2006}.
+\end{proof}
+A single rare outcome may change a posterior by more than one bit. The bound is on the expected update. If records are conditionally independent given $X$, the sharper comparison
+$I(X;O_k\mid O_{<k})=I(X;O_k)-I(O_k;O_{<k})$
+holds. Registration supplies an inferential account of information gain; choosing questions, irreversible physical records and quantum complementarity are additional problems.
+
+\subsection{The scale-dependent clock}\label{sec:scale_dependent_time}
+A parent clock depends on the parent law, so the covariance convention must be specified. Consider $N$ constituents with common fixed covariance $\Sigma$ and mean increments
+$\delta\mu_i=\delta c+\epsilon_i$. Assume zero-mean idiosyncratic increments, no cross correlations between distinct $\epsilon_i$, and no correlation with the common increment. Write
+\begin{equation}
+A=\mathbb E\|\delta c\|_{\Sigma^{-1}}^2,\qquad
+B=\mathbb E\|\epsilon_i\|_{\Sigma^{-1}}^2,\qquad
+f_{\mathrm{coh}}=\frac{A}{A+B},
+\label{eq:coherent_fraction}
+\end{equation}
+with the same second moment $B$ for every $i$ and with $A+B>0$. The increments may be random diagnostics of a collection of smooth histories; no stochastic path is silently assigned finite Fisher arc length.
+
+\begin{proposition}[Conditional collective clock ratio]\label{prop:meta_clock_slowdown}
+For a parent Gaussian with mean $N^{-1}\sum_i\mu_i$ and covariance held at $\Sigma$, the expected mean-sector KL increment relative to one constituent obeys
+\begin{equation}
+\frac{\mathbb E\Delta I_I}{\mathbb E\Delta I_i}
+=f_{\mathrm{coh}}+\frac{1-f_{\mathrm{coh}}}{N}.
+\label{eq:bit_production_ratio}
+\end{equation}
+For the law of the average of independent constituent variables, whose covariance is $\Sigma/N$, the ratio instead is
+$Nf_{\mathrm{coh}}+(1-f_{\mathrm{coh}})$.
+\end{proposition}
+\begin{proof}
+The parent mean increment is $\delta c+N^{-1}\sum_i\epsilon_i$, with expected squared norm $A+B/N$. Its KL increment is half this value in the first convention and $N/2$ times this value in the second. A constituent has expected increment $(A+B)/2$.
+\end{proof}
+The first convention is a fixed-covariance summary, not the generic mixture moment projection of Eq.~\eqref{eq:meta_agent_sigma_barycenter}. At nonzero between-member dispersion that projection has an additional covariance contribution, and its changes contribute to the clock. Thus there is no universal $1/N$ slowdown of meta-agents. The square root of either ratio compares root-mean-square speeds; it need not equal a ratio of expected path lengths.
+
+A result independent of this choice compares a fixed-channel parent with its full fine law. If $q_\theta^c=q_\theta C$ and differentiation passes through a parameter-independent normalized kernel, the coarse score is
+\begin{equation}
+s^c(Z)=\mathbb E[s(Y)\mid Z],\qquad
+G-G^c=\mathbb E[\operatorname{Cov}(s(Y)\mid Z)]\succeq0.
+\label{eq:clock_score_contraction}
+\end{equation}
+The conditional expectation identity and variance decomposition prove Fisher contraction. Along the same differentiable path, the parent's Fisher length is no larger than the fine joint length. It need not be smaller than each individual agent's length. If the channel changes with $\theta$ or time, its derivative adds information and this fixed-channel argument does not apply~\cite[Ch.~7]{DennisGaugeVFE2026}.
+
+A physical clock hypothesis would require a retained statistic with reproducible rates, a calibration and an account of how different observers compare its records. Fisher length supplies a candidate measure of internal change. It does not establish relativistic time dilation, a causal order or a universal proper-time standard.
+

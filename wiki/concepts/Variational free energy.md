@@ -37,19 +37,18 @@ which makes explicit that good beliefs explain the data well while staying close
 
 ## Why it matters here
 
-The deployed transformer uses structural EM, not one shared VFE/ELBO. Its target-blind Gaussian belief E-step descends alignment and self-coupling terms, while the decode M-step minimizes cross-entropy. The one-step belief update is a filter, not an argmin or coordinate-ascent update, and no monotone-evidence guarantee follows. [[gl-k-attention-2026-07-09-review-revision]]
+The deployed transformer uses structural EM, not one shared VFE/ELBO. Its target-blind Gaussian belief E-step descends alignment and self-coupling terms, while the decode M-step minimizes cross-entropy. The one-step belief update is a filter, not an argmin or coordinate-ascent update, and no monotone-evidence guarantee follows.
 
 > [!note] Editorial (2026-07-10): The config's `divergence_family: "renyi"`
 > selects an order-Rényi pairwise belief discrepancy. Its order-one limit is KL,
 > but the configured term is not the Li–Turner variational Rényi bound and does
 > not make the separate belief and decode objectives one free-energy functional.
-> [[gl-k-attention-2026-07-09-review-revision]]
 
 ## Details
 
 **The Gaussian instance.** When both prior and belief are Gaussian, free energy becomes a sum of precision-weighted squared [[Prediction error]] terms plus log-determinant (complexity) terms. For a hierarchical predictive-coding model with prediction \(g(\mu)\) and precision \(\Pi = \Sigma^{-1}\), the leading contribution is \(\tfrac{1}{2}\varepsilon^\top \Pi \varepsilon\) with \(\varepsilon = x - g(\mu)\). Setting \(\partial \mathcal{F}/\partial \mu = 0\) yields the E-step belief-relaxation dynamics, and \(\partial \mathcal{F}/\partial \Pi = 0\) yields the M-step precision-learning rule; [[bogacz-2017-free-energy-tutorial]] derives both explicitly, and [[rao-1999-predictive-coding]] gives the cortical reading in which feedback carries predictions and feedforward carries precision-weighted errors.
 
-**Textbook coordinate ascent / EM.** Neal and Hinton's result applies when both steps improve one functional. It is valid background but does not license the transformer's deployed two-objective structural-EM filter. [[gl-k-attention-2026-07-09-review-revision]]
+**Textbook coordinate ascent / EM.** Neal and Hinton's result applies when both steps improve one functional. It is valid background but does not license the transformer's deployed two-objective structural-EM filter.
 
 **Amortization comparisons.** VAEs use a recognition network and a shared ELBO,
 while iterative amortized inference learns an optimizer that refines encoded
@@ -58,16 +57,16 @@ explicitly and applies a target-blind finite filter. Likewise, the converged
 predictive-coding schedule of [[millidge-2020-pc-approximates-backprop]] does not
 identify that filter with the gradient of the separate decode objective.
 
-**Variants.** The variational Rényi bound of [[li-turner-2016-renyi-vi]] and the order-Rényi divergence surveyed by [[vanerven-2014-renyi-kl]] are related but distinct constructions. The configured pairwise belief divergence uses the latter family and recovers KL at order one; it is not automatically the Li–Turner bound. Gaussian belief updates retain their [[Natural gradient]] / [[Fisher information metric]] geometry, while frame and decode updates are separate. [[gl-k-attention-2026-07-09-review-revision]]
+**Variants.** The variational Rényi bound of [[li-turner-2016-renyi-vi]] and the order-Rényi divergence surveyed by [[vanerven-2014-renyi-kl]] are related but distinct constructions. The configured pairwise belief divergence uses the latter family and recovers KL at order one; it is not automatically the Li–Turner bound. Gaussian belief updates retain their [[Natural gradient]] / [[Fisher information metric]] geometry, while frame and decode updates are separate.
 
 ## In this work
 
 Variational free energy surfaces throughout the model and config:
 
-- **Structural objectives.** The belief step and cross-entropy parameter step descend distinct objectives. [[gl-k-attention-2026-07-09-review-revision]]
-- **Filtering gradient mode.** The belief update is one natural-gradient filtering step on its target-blind objective, not a one-shot minimizer. [[gl-k-attention-2026-07-09-review-revision]]
+- **Structural objectives.** The belief step and cross-entropy parameter step descend distinct objectives.
+- **Filtering gradient mode.** The belief update is one natural-gradient filtering step on its target-blind objective, not a one-shot minimizer.
 - **Precision-weighted attention.** The attention mechanism weights interactions by belief precisions \(\Sigma^{-1}\), the attention analogue of the precision-weighted prediction errors that appear when \(\mathcal{F}\) is Gaussian.
-- **Rényi belief divergence.** `divergence_family: "renyi"` selects an order-Rényi pairwise divergence with KL as its order-one limit. It does not by itself realize the variational Rényi bound or merge the decode cross-entropy into the belief objective. [[gl-k-attention-2026-07-09-review-revision]]
+- **Rényi belief divergence.** `divergence_family: "renyi"` selects an order-Rényi pairwise divergence with KL as its order-one limit. It does not by itself realize the variational Rényi bound or merge the decode cross-entropy into the belief objective.
 
 ## Sources
 

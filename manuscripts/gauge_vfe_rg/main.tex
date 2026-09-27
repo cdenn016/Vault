@@ -15,10 +15,10 @@
 \makeatother
 
 \hypersetup{
-  pdftitle={Gauge-Covariant Variational Free Energy and Renormalization},
+  pdftitle={Gauge-Covariant Variational Free Energy and Exact Coarse-Graining},
   pdfauthor={Robert C. Dennis},
-  pdfsubject={Belief and model associated bundles, covariant informational pullbacks, relational inference histories, local and collective evidence bounds, exact agent-network renormalization, finite-depth adaptive formation, and a multivariate-Gaussian realization},
-  pdfkeywords={variational free energy, ELBO, associated bundle, gauge covariance, Fisher information, pullback geometry, timeless inference histories, Markov kernel, renormalization group, graph coarsening, adaptive formation, multivariate Gaussian}
+  pdfsubject={Agents as local sections of belief and model associated bundles at one base point: independent dynamic interaction links, one collective evidence bound, attention and selective communication, fiber information geometry and inference histories, fast beliefs and slow models, exact coarse-graining of the agent network, and formation witnesses},
+  pdfkeywords={variational free energy, ELBO, associated bundle, gauge covariance, attention, selective communication, Fisher information, inference histories, two-timescale dynamics, Markov kernel, exact coarse-graining, meta-agent formation}
 }
 
 % ---- shared macros: chapters must use these and must not redefine them ----
@@ -30,13 +30,11 @@
 \newcommand{\Sym}{\mathbb S}
 \newcommand{\PSD}{\mathbb S_{+}}
 \newcommand{\GL}{\mathrm{GL}}
-\newcommand{\Lagg}{\Lambda_{\mathrm{c}}}
 \newcommand{\Fenergy}{\mathcal F}
 \newcommand{\Lelbo}{\mathcal L}
 
 % ---- compact, semantic result headings with one chapter-scoped sequence ----
-% These preserve the manuscript's paragraph-style presentation while giving
-% every result a real typed counter and a stable label for cleveref.
+% Every numbered statement has a typed counter and a stable label for cleveref.
 \newcounter{statementsequence}[chapter]
 \newcounter{definition}[chapter]
 \newcounter{lemma}[chapter]
@@ -46,8 +44,7 @@
 \newcounter{conjecture}[chapter]
 \newcounter{openproblem}[chapter]
 \newcounter{hypothesis}[chapter]
-\newcounter{construction}[chapter]
-\newcounter{requirement}[chapter]
+\newcounter{remark}[chapter]
 \renewcommand{\thedefinition}{\thechapter.\arabic{definition}}
 \renewcommand{\thelemma}{\thechapter.\arabic{lemma}}
 \renewcommand{\theproposition}{\thechapter.\arabic{proposition}}
@@ -56,8 +53,7 @@
 \renewcommand{\theconjecture}{\thechapter.\arabic{conjecture}}
 \renewcommand{\theopenproblem}{\thechapter.\arabic{openproblem}}
 \renewcommand{\thehypothesis}{\thechapter.\arabic{hypothesis}}
-\renewcommand{\theconstruction}{\thechapter.\arabic{construction}}
-\renewcommand{\therequirement}{\thechapter.\arabic{requirement}}
+\renewcommand{\theremark}{\thechapter.\arabic{remark}}
 \crefname{definition}{definition}{definitions}
 \crefname{lemma}{lemma}{lemmas}
 \crefname{proposition}{proposition}{propositions}
@@ -66,8 +62,7 @@
 \crefname{conjecture}{conjecture}{conjectures}
 \crefname{openproblem}{open problem}{open problems}
 \crefname{hypothesis}{hypothesis}{hypotheses}
-\crefname{construction}{construction}{constructions}
-\crefname{requirement}{requirement}{requirements}
+\crefname{remark}{remark}{remarks}
 \Crefname{definition}{Definition}{Definitions}
 \Crefname{lemma}{Lemma}{Lemmas}
 \Crefname{proposition}{Proposition}{Propositions}
@@ -76,8 +71,7 @@
 \Crefname{conjecture}{Conjecture}{Conjectures}
 \Crefname{openproblem}{Open Problem}{Open Problems}
 \Crefname{hypothesis}{Hypothesis}{Hypotheses}
-\Crefname{construction}{Construction}{Constructions}
-\Crefname{requirement}{Requirement}{Requirements}
+\Crefname{remark}{Remark}{Remarks}
 \newcommand{\syncstatementcounter}[1]{%
   \stepcounter{statementsequence}%
   \setcounter{#1}{\numexpr\value{statementsequence}-1\relax}%
@@ -96,18 +90,21 @@
 \newcommand{\conjectureheading}[2]{\resultheading{Conjecture}{conjecture}{#1}{#2}}
 \newcommand{\openproblemheading}[2]{\resultheading{Open Problem}{openproblem}{#1}{#2}}
 \newcommand{\hypothesisheading}[2]{\resultheading{Hypothesis}{hypothesis}{#1}{#2}}
-\newcommand{\constructionheading}[2]{\resultheading{Construction}{construction}{#1}{#2}}
-\newcommand{\requirementheading}[2]{\resultheading{Requirement}{requirement}{#1}{#2}}
+\newcommand{\remarkheading}[2]{\resultheading{Remark}{remark}{#1}{#2}}
+% Compile-only aliases: a construction is a definition and a requirement is a
+% standing hypothesis. New text uses the two target macros directly.
+\newcommand{\constructionheading}[2]{\definitionheading{#1}{#2}}
+\newcommand{\requirementheading}[2]{\hypothesisheading{#1}{#2}}
 
-% ---- epistemic status tag: every non-trivial claim carries one ----
+% ---- status tag: one per theorem-type statement or claim-bearing remark ----
 \definecolor{statusfg}{RGB}{120,20,20}
 \newcommand{\status}[1]{\mbox{{\small\textsc{\textcolor{statusfg}{[#1]}}}}}
 
 \begin{document}
 \hypersetup{pageanchor=false}
 \makereporttitle
-  {Gauge-Covariant Variational Free Energy\\and Renormalization}
-  {Covariant Information Geometry, Timeless Inference Histories, Local--Collective Bounds, and Exact Effective Scale Theory}
+  {Gauge-Covariant Variational Free Energy\\and Exact Coarse-Graining}
+  {Agents as Local Sections at One Base Point: Collective Evidence, Attention, Inference Histories, and Formation}
   {Robert C. Dennis}
   {Independent Researcher}
   {September 2026}
@@ -119,51 +116,36 @@
 \clearpage
 \pagenumbering{arabic}
 
-\part{General Gauge-Variational Foundations}
-\input{01_introduction}
-\input{02_geometry}
-\input{03_probability}
-\input{04_generative}
-\input{05_elbo}
-\input{05a_expfamily}
-\input{05b_local_collective_elbo}
-\input{05c_pullback_geometry}
-\input{05d_relational_inference}
+\part{Single-Point Foundations}
+\input{c01_program_scope}
+\input{c02_geometry}
+\input{c03_probability}
+\input{c04_generative}
+\input{c05_evidence_bound}
+\input{c06_attention}
+\input{c07_fiber_geometry}
+\input{c08_two_timescales}
 
-\part{General Coarse Maps and Renormalization}
-\input{06_general_coarsegraining}
-\input{07_general_renormalization}
-\input{07b_agent_network_rg}
-\input{07c_full_graph_meta_agent_vfe}
+\part{Exact Coarse-Graining at One Base Point}
+\input{c09_coarse_channels}
+\input{c10_network_state}
+\input{c11_network_coarsegraining}
+\input{c12_multiscale_vfe}
 
-\part{Constructive Geometric, Dynamical, and Spatial Realizations}
-\input{07d_neighborhood_parents}
-\input{07e_inference_memory}
-\input{07j_finite_depth_adaptive_formation}
-\input{07f_constructive_spatial_rg}
-\input{07g_normalized_geometry}
-\input{07h_geometry_pressure}
-\input{07i_thermodynamic_fisher}
-
-\part{The Multivariate-Gaussian Realization}
-\input{06a_generative_gaussian}
-\input{06_gaussian}
-\input{07_restrictions}
-\input{08_infogeometry}
-\input{09_coarsegraining}
-\input{10_renormalization}
-
-\part{Boundaries, Evidence, and Interpretation}
-\input{11_obstructions}
-\input{12_philosophy}
+\part{Formation and Interpretation}
+\input{c13_formation}
+\input{c14_interpretation}
+\input{c15_related_work}
 
 \appendix
-\input{appendix_finite_depth_formation_proofs}
-\input{appendix_spatial_rg_proofs}
-\input{appendix_thermodynamic_fisher_proofs}
-\input{appendix_notation}
-\input{appendix_claim_ledger}
-\input{appendix_numerical_provenance}
+\crefalias{chapter}{appendix}
+\crefalias{section}{subappendix}
+\input{ca_measure}
+\input{ca_proofs}
+\input{ca_formation_proofs}
+\input{ca_notation}
+\input{ca_open_problems}
+\input{ca_numerical_index}
 
 \bibliographystyle{plainnat}
 \bibliography{references}

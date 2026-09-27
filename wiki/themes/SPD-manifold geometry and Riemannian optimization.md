@@ -25,7 +25,7 @@ updated: 2026-07-19
 
 ## The big picture
 
-The full covariance space is the SPD cone, but the live `gaussian_diagonal` family occupies only its diagonal subset. General $\mathrm{GL}(K)$ congruence leaves that subset unless the transport is monomial, so realized transport uses projection or approximation outside that subgroup. [[gl-k-attention-2026-07-09-review-revision]]
+The full covariance space is the SPD cone, but the live `gaussian_diagonal` family occupies only its diagonal subset. General $\mathrm{GL}(K)$ congruence leaves that subset unless the transport is monomial, so realized transport uses projection or approximation outside that subgroup.
 
 The organizing object is the SPD manifold equipped with a Riemannian metric.
 The affine-invariant Riemannian metric (AIRM) is congruence-invariant on full
@@ -36,7 +36,7 @@ coincide exactly. They differ for noncommuting full covariances. The
 `spd_affine` name selects the AIRM-side covariance update; it does not imply that
 the model implements Log-Euclidean or Fréchet value aggregation.
 
-The second pillar is Riemannian optimization of beliefs. It supports covariance retractions and vector transports but does not turn the audited frame update into a Fisher/Riemannian natural gradient. At each recorded source SHA, the stored configuration routes frames through AdamW; dirty provenance prevents byte-level reconstruction of the executed optimizer. Heavy-ball belongs only to the disabled custom outer frame optimizer, BCH/retraction only to disabled in-E-step frame revision, and the pullback preconditioner is inactive because both optional routes are off. [[gl-k-attention-2026-07-09-review-revision]]
+The second pillar is Riemannian optimization of beliefs. It supports covariance retractions and vector transports but does not turn the audited frame update into a Fisher/Riemannian natural gradient. At each recorded source SHA, the stored configuration routes frames through AdamW; dirty provenance prevents byte-level reconstruction of the executed optimizer. Heavy-ball belongs only to the disabled custom outer frame optimizer, BCH/retraction only to disabled in-E-step frame revision, and the pullback preconditioner is inactive because both optional routes are off.
 
 The third pillar is architectural background: networks that compute on SPD
 matrices. [[huang-2017-spdnet]] develops SPD-preserving spectral layers, and
@@ -55,7 +55,7 @@ invertible congruence. AIRM and Log-Euclidean distances, geodesics, and means
 coincide exactly for mutually commuting SPD matrices, including the positive
 diagonal family, and differ in general for noncommuting SPD matrices.
 
-> [!note] Editorial (2026-07-10): diagonal beliefs do not acquire exact off-diagonal covariance while remaining in the live family; general congruence is projected back. Full-SPD AIRM statements remain valid for a full-covariance path. [[gl-k-attention-2026-07-09-review-revision]]
+> [!note] Editorial (2026-07-10): diagonal beliefs do not acquire exact off-diagonal covariance while remaining in the live family; general congruence is projected back. Full-SPD AIRM statements remain valid for a full-covariance path.
 
 **Thread 2 — Retractions and transports make steps tractable.** A retraction is
 a smooth tangent-to-manifold map satisfying first-order conditions, and vector
@@ -75,7 +75,6 @@ Matrix-exponential accuracy and conditioning remain governed by
 the covariance Fisher metric is one-half conventional AIRM. This supports the
 belief update up to a constant gradient scale; it does not license joint frame
 training as Riemannian SGD or identify the frame conditioner with that metric.
-[[gl-k-attention-2026-07-09-review-revision]]
 
 **Thread 4 — Networks that live on the cone.** [[huang-2017-spdnet]] demonstrates that a covariance can be the activation itself, not just an output: BiMap layers apply a learned congruence `W Sigma Wᵀ` (with `W` constrained to the Stiefel manifold to preserve positive-definiteness), ReEig rectifies eigenvalues to stay safely positive, and LogEig maps to the flat tangent space at the identity for a final Euclidean classifier. Each operation is differentiable through its eigendecomposition. The canonical derivation of that adjoint-matrix backpropagation through eigendecomposition and SVD is [[ionescu-2015-matrix-backpropagation]], which exposes the eigenvalue-gap denominator `1/(lambda_i - lambda_j)` that diverges to NaN when eigenvalues coincide — precisely the `eigh`-backward failure mode the vfe3 codebase pins for its ReEig/LogEig and matrix-log operations. This is the template the VFE transformer follows in treating `Sigma` as a propagated, transformed, learnable object rather than a fixed hyperparameter.
 
@@ -91,9 +90,8 @@ does not aggregate covariance-valued attention outputs by an AIRM Fréchet mean.
 In the transformer, the covariance belief update uses the Gaussian covariance
 Fisher block, equal to one-half conventional AIRM. The parameter M-step is
 separate, and the frame update has no established Riemannian/Fisher identity.
-[[gl-k-attention-2026-07-09-review-revision]]
 
-The AIRM is congruence-invariant on full SPD. The live diagonal projection breaks exact general-$\mathrm{GL}(K)$ closure, so this ambient theorem must not be conflated with realized-family equivariance. [[gl-k-attention-2026-07-09-review-revision]]
+The AIRM is congruence-invariant on full SPD. The live diagonal projection breaks exact general-$\mathrm{GL}(K)$ closure, so this ambient theorem must not be conflated with realized-family equivariance.
 
 Precision informs the transformer's belief-side interactions and covariance
 updates. This should not be conflated with Wang et al.'s SPD-valued attention:

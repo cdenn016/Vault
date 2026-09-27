@@ -44,8 +44,7 @@ metric, and the covariance factor lies on the SPD cone. Under the conventional
 normalization, the zero-mean Gaussian covariance Fisher metric is one-half AIRM.
 The gauge coordinate $\phi$ is not itself a probability distribution parameter,
 and the audited plain-AdamW frame update is not made Fisher-natural by adjoining $\phi$
-to the belief tuple. See [[Symmetric spaces and the SPD cone]] and
-[[gl-k-attention-2026-07-09-review-revision]].
+to the belief tuple. See [[Symmetric spaces and the SPD cone]].
 
 Several program-level constructions are statements about this manifold. [[Mass as Fisher information]] reads inertia of belief change off the curvature of the statistical metric; [[Belief inertia]] and [[Hamiltonian belief dynamics]] are dynamics on it; [[Physics from Fisher information]] is the claim that physical-like law can be extremized over it. Coarse-graining a population of agents is a map *between* statistical manifolds — the [[Renormalization-group flow of beliefs|RG flow]] that [[beny-osborne-2015-info-geometric-rg]] formalizes as a monotone (distinguishability-contracting) trajectory on the manifold of states, and that [[mehta-schwab-2014-variational-rg-deep-learning]] realizes as an exact deep-learning/RG correspondence. The [[Information bottleneck]] traces an optimal curve through a derived statistical manifold (the information plane), and its Gaussian solution ([[chechik2005information-bottleneck-gaussian|chechik-2005-gaussian-ib]]) is a spectral problem in the covariance geometry of exactly this manifold.
 
@@ -56,7 +55,6 @@ The two great generalizations of the classical statistical manifold both matter 
 > [!note] Editorial (2026-07-10): Mean and covariance belong to the joint
 > Gaussian statistical manifold, but covariance-only AIRM statements must retain
 > their one-half Fisher normalization and must not be extended to gauge frames.
-> [[gl-k-attention-2026-07-09-review-revision]]
 
 A recurring theme is that *distance on the statistical manifold has a cost*. [[crooks-2007-thermodynamic-length]] makes this thermodynamically precise — the Fisher–Rao length of a quasi-static path lower-bounds dissipation — which is the energetic shadow of the same metric the project uses for inertia and learning. The statistical manifold is thus the single object through which distinguishability, learning dynamics, coarse-graining, and physical cost are all expressed in one geometric language.
 
@@ -67,7 +65,7 @@ is a curve $\Gamma:J\to(\mathcal E_x)_c$ inside a single statistical fiber and i
 vertical. An agent changing across all contexts is a curve $r\mapsto s_r$ in a space of sections;
 evaluation at each fixed $c$ again gives a vertical fiber curve. A total-space curve whose base
 projection moves is a third object, and only its horizontal/vertical decomposition requires a
-connection. [[gauge-vfe-rg-pullback-geometry-2026-08-01]]
+connection.
 
 The new construction is deliberately weaker than a derivation of physical time. A VFE metric and
 positive descent ray can select an oriented unparameterized inference orbit, after which Fisher
@@ -99,8 +97,6 @@ wants nonpositive curvature, or a closed target) does not apply
 manifold as the fiber or target of a field theory inherits both facts.
 
 ## Sources
-
-- [[gauge-vfe-rg-pullback-geometry-2026-08-01]] — fixed-fiber law curves, curves of sections, and emergent Fisher information duration.
 
 - [[cassel-2024-sigma-flows]] — the open simplex with Fisher–Rao metric as the *target* manifold of a
   harmonic map; the openness / positive-curvature / non-metric-connection obstruction to standard

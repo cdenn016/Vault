@@ -1,0 +1,59 @@
+% !TeX root = ../PIFB2.tex
+\section{Relating the Quadratic Forms to Transported Relative Entropies}
+This appendix treats the invertible, noiseless, product-Gaussian consensus specialization at $c_*$. It relates quadratic expectations to transported relative entropies, including the determinant correction. The direction of the divergence follows from building the coupling precision from the transported sender covariance, as shown below; it is not supplied by the representation theorem of Appendix~\ref{app:conditional_representation}.
+\subsection{Exact expansion for Gaussian beliefs}
+For independent Gaussians $q_i = \mathcal{N}(\mu_{q,i},\Sigma_{q,i})$ and $q_j = \mathcal{N}(\mu_{q,j},\Sigma_{q,j})$ and any symmetric matrix $M$, the expectation of a quadratic form is
+\begin{equation}
+\mathbb{E}_{q_i q_j}[\delta^\top M \delta]
+= \mathrm{tr}\big(M\mathrm{Cov}(\delta)\big)
++ \bar{\delta}^\top M \bar{\delta},
+\label{eq:quadratic_expectation_formula}
+\end{equation}
+where $\delta = k_i - \Omega_{ij}k_j$, $\bar{\delta} = \mathbb{E}[\delta] = \mu_{q,i} - \Omega_{ij}\mu_{q,j}$, and
+\begin{equation}
+\mathrm{Cov}(\delta) = \Sigma_{q,i} + \Omega_{ij}\Sigma_{q,j}\Omega_{ij}^\top.
+\end{equation}
+Applying \eqref{eq:quadratic_expectation_formula} with $M = W^{(q)}_{ij}$:
+\begin{equation}
+\begin{aligned}
+\mathbb{E}_{q_i q_j}
+[(k_i-\Omega_{ij}k_j)^\top W^{(q)}_{ij}(k_i-\Omega_{ij}k_j)]
+&=\mathrm{tr}\big[W^{(q)}_{ij}(\Sigma_{q,i}+\Omega_{ij}\Sigma_{q,j}\Omega_{ij}^\top)\big]\\
+&\quad+(\mu_{q,i}-\Omega_{ij}\mu_{q,j})^\top
+W^{(q)}_{ij}
+(\mu_{q,i}-\Omega_{ij}\mu_{q,j}).
+\end{aligned}
+\label{eq:belief_quadratic_expansion}
+\end{equation}
+An identical expansion holds for the model channel with $W^{(s)}_{ij}$ and $\tilde{\Omega}_{ij}$. For a fixed coupling $W_{ij} \succ 0$ the mean-dependent part is exactly a relative entropy at common covariance: $\tfrac{1}{2}\mathbb{E}[\delta^\top W_{ij}\delta] = D_{\mathrm{KL}}\big(\mathcal{N}(\mu_{q,i}, W_{ij}^{-1})\|\mathcal{N}(\Omega_{ij}\mu_{q,j}, W_{ij}^{-1})\big) + \tfrac{1}{2}\mathrm{tr}\big(W_{ij}(\Sigma_{q,i} + \Omega_{ij}\Sigma_{q,j}\Omega_{ij}^\top)\big)$~\cite[Ch.~G5, edge relative entropy at fixed covariance]{DennisGaugeVFESuppG2026}.
+
+To obtain the transported relative entropy of the beliefs themselves we choose state-dependent couplings,
+\begin{equation}
+W^{(q)}_{ij}:=c^{(q)}_{ij}(\Omega_{ij}\Sigma_{q,j}\Omega_{ij}^\top)^{-1},
+\qquad
+W^{(s)}_{ij}:=c^{(s)}_{ij}(\tilde{\Omega}_{ij}\Sigma_{s,j}\tilde{\Omega}_{ij}^\top)^{-1},
+\end{equation}
+where $c^{(q)}_{ij}, c^{(s)}_{ij} > 0$ are dimensionless coupling strengths. Because $W^{(q)}_{ij}$ is built from the current variational covariance $\Sigma_{q,j}$ (and $W^{(s)}_{ij}$ from $\Sigma_{s,j}$), the identification below is a value-level matching at the current variational state, not a property of a fixed generative model, consistent with the status of the construction in Section~\ref{sec:mixture_derivation}. This identity does not license differentiating the quadratic form while holding its state-dependent $W^{(q)}_{ij}$ fixed. The normalized comparison-record model of Section~\ref{sec:free_energy} instead supplies a fixed likelihood precision and is a different objective.
+
+Inserting the Gaussian KL closed form of Appendix~\ref{app:gaussian_kl} for $q_i = \mathcal{N}(\mu_{q,i},\Sigma_{q,i})$ and $\Omega_{ij}q_j = \mathcal{N}(\Omega_{ij}\mu_{q,j}, \Omega_{ij}\Sigma_{q,j}\Omega_{ij}^\top)$ into \eqref{eq:belief_quadratic_expansion} gives the exact identity
+\begin{equation}
+\begin{aligned}
+\frac{1}{4}\mathbb{E}_{q_i q_j}
+[(k_i-\Omega_{ij}k_j)^\top W^{(q)}_{ij}(k_i-\Omega_{ij}k_j)]
+&=
+\frac{c^{(q)}_{ij}}{2}D_{\mathrm{KL}}(q_i\|\Omega_{ij}q_j)+\frac{c^{(q)}_{ij}K_q}{2}\\
+&\quad+\frac{c^{(q)}_{ij}}{4}\log\det\big((\Omega_{ij}\Sigma_{q,j}\Omega_{ij}^\top)^{-1}\Sigma_{q,i}\big).
+\end{aligned}
+\label{eq:quadratic_kl_identity}
+\end{equation}
+The identification with the transported relative entropy is thus exact up to the constant and the single log-determinant term. The direction comes from the transported sender covariance in $W^{(q)}_{ij}$: with $W = c\Sigma_{q,i}^{-1}$ the same expansion yields $D_{\mathrm{KL}}(\Omega_{ij}q_j\|q_i)$. The log-determinant term vanishes when $\det\Sigma_{q,i} = \det(\Omega_{ij}\Sigma_{q,j}\Omega_{ij}^\top)$. Expanded in the covariance mismatch $\Delta := \Sigma_{q,i} - \Omega_{ij}\Sigma_{q,j}\Omega_{ij}^\top$, its leading contribution is $\tfrac{c^{(q)}_{ij}}{4}\mathrm{tr}\big((\Omega_{ij}\Sigma_{q,j}\Omega_{ij}^\top)^{-1}\Delta\big)$, so the correction is $O(\|\Delta\|)$ in general and is $O(\|\Delta\|^2)$ along first-order volume-preserving perturbations with $\operatorname{tr}(V^{-1}\Delta)=O(\|\Delta\|^2)$, where $V=\Omega_{ij}\Sigma_{q,j}\Omega_{ij}^\top$. Along exactly determinant-preserving deviations it vanishes identically. With several heterogeneous neighbors the per-edge mismatch $\Delta_{ij}$ is generically nonzero at the stationary point of Eq.~\eqref{eq:sigma_fixed_point_beta} (Appendix~\ref{app:covariance_dynamics}), and the first-order correction persists there. The model channel satisfies the same identity with $(m, s, \tilde\Omega_{ij}, W^{(s)}_{ij}, c^{(s)}_{ij}, K_m)$ in place of $(k, q, \Omega_{ij}, W^{(q)}_{ij}, c^{(q)}_{ij}, K_q)$.
+\subsection{Defining raw alignment weights}
+\label{sec:raw_alignment_weights}
+To connect with the main text we define the raw alignment weights
+\begin{equation}
+\tilde\beta_{ij}:=\frac{c^{(q)}_{ij}}{2},
+\qquad
+\tilde\gamma_{ij}:=\frac{c^{(s)}_{ij}}{2},
+\end{equation}
+the bare belief- and model-alignment strengths between agents $i$ and $j$. For a sequence of minimizers, a diverging coefficient forces its nonnegative edge divergence to zero only if a feasible zero-cost comparison state gives a uniform upper bound and the remaining objective is bounded below. Incompatible cycle constraints can defeat that hypothesis. Under these conditions communicated belief agreement need not imply model agreement; $\tilde\gamma_{ij} = 0$ decouples model alignment entirely. The normalized weights $\beta_{ij}, \gamma_{ij}$ of the main text, which sum to one over each row, are not identified with the raw couplings. They arise by composition: at a uniform coupling $c^{(q)}_{ij} \equiv c^{(q)}$, the identity~\eqref{eq:quadratic_kl_identity} supplies the per-edge energies $E_{ij} = D_{\mathrm{KL}}(q_i \| \Omega_{ij}q_j)$ up to the common prefactor, and minimizing the entropy-regularized row objective of Section~\ref{sec:mixture_derivation} (Eqs.~\eqref{eq:beta_optimal} and~\eqref{eq:beta_optimal}) over the row simplex returns the softmax weights. The quadratic form reproduces the canonical functional only through this composition, and only up to the log-determinant term of Eq.~\eqref{eq:quadratic_kl_identity}.
+

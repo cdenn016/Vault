@@ -1,0 +1,685 @@
+\chapter{Two-Timescale Dynamics}
+\label{ch:two-timescales}
+
+This chapter asks what the collective free energy of \cref{ch:elbo} supplies for
+separating fast inference of beliefs from slower evolution of models, priors, and
+parents: descent for every positive-definite block mobility, local in a product family
+(\cref{prop:obs-local-block-descent}); a reduced slow flow conjugate to its
+tangent lift on the graph of the conditional optimum
+(\cref{lem:obs-envelope-slow-flow,prop:obs-rate-separated-flow}), the exact route of
+\cref{ch:relational-inference} for information-discarding maps; and a Markov parent
+history under instantaneous within-parent refresh
+(\cref{thm:rg-memory-prepared-parent}), whose failure under finite refresh
+(\cref{rem:rg-memory-partial-refresh}) is measured in \cref{ch:agent-network-rg}. The
+slow block (\cref{def:obs-fast-slow-blocks}) moves by accepted M-coordinates
+(\cref{def:elbo-generalized-m-acceptance}) or by the rate-separated flow; the formation
+family of \cref{ch:finite-depth-formation} realizes one scalar slow parameter
+\eqref{eq:rg-formation-own-law-dynamics}, not slow per-agent model laws, while on
+the four-cycle of that chapter, whose link translations this chapter writes
+$\check\omega$, slow model means are a supplied rate, and the model
+channel lags the belief channel exactly when the links are slow as well
+(\cref{prop:obs-slow-model-link-dichotomy}, the held-sheet instance of
+\cref{open:obs-slow-manifold}). The finite
+model of the last section uses fine states $\xi\in\Xi$, parent values $z\in\mathsf Z$,
+a parent map $\operatorname{par}$, a prior $p^0$, record laws $\psi_\xi$, a refresh
+fraction $\omega$, and sans-serif kernels acting on row vectors from the right.
+
+\paragraph{Scope.}
+The collective free energy does not choose the fast--slow split, the rate ratio, or
+the block mobilities, and a rate ratio is an anisotropic mobility that can change the
+selected orbit (\cref{prop:hist-scalar-mobility-orbit}). The chapter does not claim
+that the rate-separated flow tracks the reduced flow for a recognition family of the
+program beyond the held matching sheets of
+\cref{prop:obs-slow-model-link-dichotomy}, that the sampled dynamics with source
+jumps track it, that a sampled episode with source jumps at the temperature of
+\cref{def:rg-formation-cycle-experiment} keeps a matched pair belief-coherent and
+model-incoherent on an interval of order $1/\varepsilon_{\mathrm m}$ with probability
+bounded below, that the discrete alternating scheme converges, that the parent sweep
+converges at a rate uniform in the number of fine states or in the smallest posterior
+weight, or that a static parent datum has closed dynamics
+(\cref{open:obs-slow-manifold,open:elbo-alternating-convergence,open:rg-pointwise-parent-dynamics}).
+\status{NOT-CLAIMED}
+
+\section{Block descent at fixed parameter}
+\label{sec:local-natural-gradient}
+
+\propositionheading{Block descent of the collective free energy}{prop:obs-local-block-descent}
+Let $\lambda\mapsto Q_\lambda$ be a family of recognition laws on an open domain
+$\Lambda=\prod_{i\in V}\Lambda_i$ with block coordinates $\lambda=(\lambda_i)_i$,
+such that $F(\lambda):=\Fenergy^{\mathrm{ext}}_o(Q_\lambda)$ is real and $C^1$ on
+$\Lambda$, and let $\mathsf G_i(\lambda)$ be continuous fields of symmetric
+positive-definite block metrics, with positive block rates absorbed into the
+metrics and blocks of zero rate held fixed. Let $\lambda(t)$ solve
+\begin{equation}
+\dot\lambda_i=-\mathsf G_i^{-1}\nabla_{\lambda_i}F
+\label{eq:obs-local-natural-gradient}
+\end{equation}
+for the moving blocks $i\in V'\subseteq V$ and remain in $\Lambda$.
+\begin{enumerate}
+\item[(i)] Along the solution
+\begin{equation}
+\frac{d}{dt}F=-\sum_{i\in V'}(\nabla_{\lambda_i}F)^\top\mathsf G_i^{-1}(\nabla_{\lambda_i}F)\leq0.
+\label{eq:obs-global-dissipation}
+\end{equation}
+\item[(ii)] If the family is a regular product family
+$Q_\lambda=\bigotimes_iQ_{i,\lambda_i}$ with
+$\E_{Q_{-i}}\lvert\log Z_{\{i\}}(Y_{-i})\rvert<\infty$ for every $i$ and $\lambda$,
+then $\nabla_{\lambda_i}F=\nabla_{\lambda_i}\overline\Fenergy_i$ for the
+outside-averaged local free energy \eqref{eq:obs-outside-averaged-local-vfe}, so
+an agent that descends its own local free energy moves along a block of a
+descent flow of the collective one. The Fisher metric of such a family is block
+diagonal, so with $\mathsf G_i$ equal to the block Fisher metrics the flow is the
+Fisher natural gradient of $F$.
+\item[(iii)] Outside product families moving $\lambda_i$ can change $Q_{-i}$,
+and the identification in (ii) needs the conditional lift of
+\cref{hyp:hist-exact-vfe-lift}, whose outside-averaged objective
+\eqref{eq:hist-outside-averaged-local-vfe} has the differential of the collective
+free energy restricted to fixed outside marginal. The Fisher metric then need not
+be block diagonal: for the bivariate normal location family with unit variances
+and correlation $\mathrm c_2$, $0<\lvert\mathrm c_2\rvert<1$, its off-diagonal entry
+is $-\mathrm c_2/(1-\mathrm c_2^2)$.
+\end{enumerate}
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Part (i) is the chain rule for $F$ along the solution. For (ii), a change of
+$\lambda_i$ leaves $Q_{-i}$ fixed, and \cref{thm:obs-local-global-potential} with
+$B=\{i\}$, whose finiteness hypotheses hold because $F$ is real, shows that $F$
+and $\overline\Fenergy_i$ differ by a quantity independent of $\lambda_i$. Scores
+of distinct factors of a product law are independent with mean zero, so their
+cross covariances vanish. For (iii), the Fisher metric of the location family is
+the inverse covariance matrix. $\square$
+
+\section{Fast recognition and slow model coordinates}
+\label{sec:obs-fast-slow}
+
+\definitionheading{Fast and slow coordinate blocks}{def:obs-fast-slow-blocks}
+Let $\mathcal U_{\rm f}\subseteq\R^{n_{\rm f}}$ and
+$\mathcal U_{\rm s}\subseteq\R^{n_{\rm s}}$ be open, and write
+$s=(s_{\rm m},\theta)\in\mathcal U_{\rm s}$. A fast--slow coordinatization is a
+map $(f,s)\mapsto(Q_{f,s_{\rm m}},\theta)$ into population recognition laws and
+generative parameters, together with the real-valued objective
+\begin{equation}
+F(f,s):=\Fenergy^{\mathrm{ext}}_o(Q_{f,s_{\rm m}};\theta)
+=-\log p_{\theta,V}(o\given X)
++\KL\bigl(Q_{f,s_{\rm m}}\Vert\boldsymbol\Pi_{\theta,V,o,X}\bigr),
+\label{eq:obs-fast-slow-objective}
+\end{equation}
+in which the generative argument of \eqref{eq:obs-collective-vfe} is explicit. The
+fast coordinate $f$ carries the belief-channel recognition coordinates and, when
+present, the source-label rows of \cref{sec:local-attention-elbo}; the slow
+coordinate carries the model-channel recognition coordinates $s_{\rm m}$, which move
+a recognition law, and the generative parameter $\theta$, which moves the fixed joint
+between evaluations and never inside one, so a composite $\theta(Q)$ inside one
+evaluation of \eqref{eq:obs-fast-slow-objective} stays excluded by
+\cref{req:gen-typing-prohibition}. The assignment of coordinates to the two blocks is
+a declaration.
+
+\lemmaheading{Envelope identity and reduced slow descent}{lem:obs-envelope-slow-flow}
+Let $F\in C^1(\mathcal U_{\rm f}\times\mathcal U_{\rm s})$, let
+$\mathcal U_0\subseteq\mathcal U_{\rm s}$ be open, and let
+$f^\star:\mathcal U_0\to\mathcal U_{\rm f}$ be a $C^1$ map with
+$F(f^\star(s),s)=\min_{f\in\mathcal U_{\rm f}}F(f,s)$ for every $s\in\mathcal U_0$.
+The reduced functional
+\begin{equation}
+F_{\rm red}(s):=\min_{f\in\mathcal U_{\rm f}}F(f,s)=F(f^\star(s),s)
+\label{eq:obs-reduced-functional}
+\end{equation}
+satisfies the envelope identity
+\begin{equation}
+dF_{\rm red}(s)=\partial_sF(f^\star(s),s),\qquad s\in\mathcal U_0.
+\label{eq:obs-envelope-identity}
+\end{equation}
+For every continuous field $\mathsf G_{\rm s}$ of symmetric positive-definite
+metrics on $\mathcal U_{\rm s}$, the reduced slow flow
+\begin{equation}
+\dot s=-\mathsf G_{\rm s}(s)^{-1}\partial_sF(f^\star(s),s)
+\label{eq:obs-reduced-slow-flow}
+\end{equation}
+is the $\mathsf G_{\rm s}$ natural-gradient flow of $F_{\rm red}$, and along the
+lifted curve $(f^\star(s(t)),s(t))$ the free energy decreases at the rate
+$dF_{\rm red}\cdot\mathsf G_{\rm s}^{-1}dF_{\rm red}$. A $C^1$ branch exists near
+$s_0\in\mathcal U_0$ whenever $F\in C^2$, $\partial^2_{ff}F(f^\star(s_0),s_0)$ is
+positive definite, and $f^\star$ is continuous at $s_0$. If $\mathcal U_{\rm f}$ is
+replaced by a compact set on which $F$ and $\partial_sF$ are continuous and the
+conditional minimizer is unique, \eqref{eq:obs-envelope-identity} holds without
+differentiability of $f^\star$. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+At the minimizer $\partial_fF(f^\star(s),s)=0$, so the chain rule gives
+$dF_{\rm red}=\partial_fF\cdot Df^\star+\partial_sF=\partial_sF$, and substitution in
+\eqref{eq:obs-reduced-slow-flow} gives the flow and its rate. For the branch, the
+implicit function theorem applied to $\partial_fF=0$ at $(f^\star(s_0),s_0)$ gives a
+$C^1$ map whose graph is the whole critical set near that point, and continuity places
+$f^\star(s)$ on it for $s$ near $s_0$. In the compact case, uniqueness and compactness
+make $f^\star$ continuous, since a limit point $f'$ of $f^\star(s_n)$ with $s_n\to s$
+satisfies $F(f',s)\leq F(f^\star(s),s)$. With $s'=s+\Delta s$, the difference
+$F_{\rm red}(s')-F_{\rm red}(s)$ lies between
+$F(f^\star(s'),s')-F(f^\star(s'),s)$ and $F(f^\star(s),s')-F(f^\star(s),s)$, and by the
+mean value theorem and uniform continuity of $\partial_sF$ on a compact neighborhood
+both equal $\partial_sF(f^\star(s),s)\Delta s+o(\lvert\Delta s\rvert)$; this is the
+theorem of \citet[Ch.~III]{Danskin1967} in the unique-minimizer case. $\square$
+
+\propositionheading{Rate-separated natural gradient and its reduced flow}{prop:obs-rate-separated-flow}
+Let $F\in C^1(\mathcal U_{\rm f}\times\mathcal U_{\rm s})$, let
+$\mathsf G_{\rm f}(f,s)$ and $\mathsf G_{\rm s}(s)$ be continuous symmetric
+positive-definite block metrics with $\mathsf G_{\rm s}$ independent of $f$, and
+for $\varepsilon>0$ set
+$\mathsf G_\varepsilon=\varepsilon\mathsf G_{\rm f}\oplus\mathsf G_{\rm s}$. The
+$\mathsf G_\varepsilon$ natural gradient of $F$ is the rate-separated flow
+\begin{equation}
+\varepsilon\dot f=-\mathsf G_{\rm f}^{-1}\partial_fF,
+\qquad
+\dot s=-\mathsf G_{\rm s}^{-1}\partial_sF,
+\label{eq:obs-rate-separated-flow}
+\end{equation}
+which decreases $F$ at the rate
+$\varepsilon^{-1}\partial_fF\cdot\mathsf G_{\rm f}^{-1}\partial_fF
++\partial_sF\cdot\mathsf G_{\rm s}^{-1}\partial_sF$ for every $\varepsilon>0$; its
+orbit can depend on $\varepsilon$. Under the hypotheses of
+\cref{lem:obs-envelope-slow-flow}, let
+$\mathcal S^\star=\{(f^\star(s),s):s\in\mathcal U_0\}$. At every point of
+$\mathcal S^\star$ and for every $\varepsilon>0$, the fast component of
+\eqref{eq:obs-rate-separated-flow} vanishes and the slow component equals
+$-\mathsf G_{\rm s}^{-1}dF_{\rm red}$. The reduced field
+$\mathscr V^\star=(Df^\star v,v)$ with $v=-\mathsf G_{\rm s}^{-1}dF_{\rm red}$ is
+tangent to $\mathcal S^\star$, and
+\begin{equation}
+d\operatorname{pr}_{\rm s}\mathscr V^\star
+=-\operatorname{grad}^{\mathsf G_{\rm s}}F_{\rm red}\circ\operatorname{pr}_{\rm s}
+\quad\text{on }\mathcal S^\star.
+\label{eq:obs-reduced-semiconjugacy}
+\end{equation}
+Thus $(\operatorname{pr}_{\rm s}|_{\mathcal S^\star},1)$ is an oriented
+semiconjugacy in the sense of \cref{def:hist-oriented-semiconjugacy}, with the
+manifold $\mathcal S^\star$ in place of an open fine domain, and a conjugacy,
+because $\operatorname{pr}_{\rm s}|_{\mathcal S^\star}$ is a diffeomorphism onto
+$\mathcal U_0$. The speeds satisfy
+$\lVert\mathscr V^\star\rVert^2_{\mathsf G_\varepsilon}
+=\varepsilon\lVert Df^\star v\rVert^2_{\mathsf G_{\rm f}}+\lVert v\rVert^2_{\mathsf G_{\rm s}}$,
+so the $\mathsf G_\varepsilon$-length of a reduced orbit is at least the
+$\mathsf G_{\rm s}$-length of its image. These lengths decrease to the latter as
+$\varepsilon\downarrow0$ on every compact time interval of the orbit, and on
+any interval where the lifted length is finite at some positive
+$\varepsilon_0$. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Because $\mathsf G_\varepsilon^{-1}=\varepsilon^{-1}\mathsf G_{\rm f}^{-1}\oplus\mathsf G_{\rm s}^{-1}$,
+the flow is \eqref{eq:obs-rate-separated-flow} with the stated dissipation, and the
+orbit statement is \cref{prop:hist-scalar-mobility-orbit}, since
+$\mathsf G_\varepsilon$ differs from $\mathsf G_1$ by an anisotropic rescaling. On
+$\mathcal S^\star$, $\partial_fF=0$ and $\partial_sF=dF_{\rm red}$ by
+\eqref{eq:obs-envelope-identity}, and $\mathsf G_{\rm s}$ does not depend on $f$. The
+field $\mathscr V^\star$ is the differential of $s\mapsto(f^\star(s),s)$ applied to
+$v$, hence tangent to $\mathcal S^\star$ with slow component $v$. The length
+identity is the block form of $\mathsf G_\varepsilon$. For
+$0<\varepsilon\le\varepsilon_0$ the lifted speed is bounded by its
+$\varepsilon_0$ value, which is integrable under the stated hypothesis and
+on compact time intervals by continuity. Dominated convergence gives the
+length limit. $\square$
+
+\remarkheading{The slow graph off the optimum and under correlated metrics}{rem:obs-rate-separation-witnesses}
+Off $\mathcal S^\star$ the slow component $-\mathsf G_{\rm s}^{-1}\partial_sF(f,s)$
+need not be a positive multiple of
+$-\operatorname{grad}^{\mathsf G_{\rm s}}F_{\rm red}(s)$: for
+$F=[(f-s_1)^2+s_1^2+s_2^2]/2$ with $\mathsf G_{\rm s}=I$,
+$\partial_sF=(2s_1-f,s_2)$ and $\operatorname{grad}F_{\rm red}=(s_1,s_2)$ are not
+parallel when $f\ne s_1$ and $s_2\ne0$, so the projection semiconjugates the
+finite-$\varepsilon$ flow to the reduced flow only where that proportionality
+holds. At points of $\mathcal S^\star$ the finite-$\varepsilon$ velocity $(0,v)$ is
+tangent to $\mathcal S^\star$ only where $Df^\star v=0$, so $\mathcal S^\star$ is not
+invariant in general. A correlated belief--model metric requires the rate
+declaration to name its slow manifold. For $F(f,s)=[(f-s)^2+s^2]/2$,
+whose conditional minimizer is $f=s$, and the metric $\mathsf G$ with unit diagonal
+and off-diagonal entry $\mathrm c_2\in(0,1)$, the row-rated field $\varepsilon\dot f=-(\mathsf G^{-1}dF)_f$,
+$\dot s=-(\mathsf G^{-1}dF)_s$ has, in the fast time $t/\varepsilon$, the critical set
+\begin{equation}
+\bigl\{(\mathsf G^{-1}dF)_f=0\bigr\}=\Bigl\{f=\frac{1+2\mathrm c_2}{1+\mathrm c_2}s\Bigr\},
+\label{eq:obs-correlated-slow-manifold}
+\end{equation}
+which attracts at rate $1/(1-\mathrm c_2)$ and differs from the conditional
+minimizer. This field need not descend $F$: at $\mathrm c_2=1/2$,
+every $\varepsilon\in(0,7-4\sqrt3)$, and $(f,s)=(1+2\delta,1+\delta)$ with
+$\delta=(1+\varepsilon)/4$, it gives
+$dF/dt=(1+\varepsilon)^2/(12\varepsilon)-4/3>0$, so for those rates it
+is the natural gradient of no metric. The congruence rescaling
+$\mathsf G_\varepsilon=\Delta_\varepsilon\mathsf G\Delta_\varepsilon$ with
+$\Delta_\varepsilon=\operatorname{diag}(\sqrt\varepsilon,1)$ gives a natural
+gradient that descends $F$ for every $\varepsilon$, and the critical set of its
+$\varepsilon=0$ fast subsystem is the conditional-minimizer set
+$\{\partial_fF=0\}$. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The first two statements are direct differentiation. For the correlated metric,
+$\mathsf G^{-1}$ has diagonal entries $1/(1-\mathrm c_2^2)$ and off-diagonal entries
+$-\mathrm c_2/(1-\mathrm c_2^2)$, and $dF=(f-s,2s-f)$, so $(\mathsf G^{-1}dF)_f$ vanishes on the displayed line, and
+its derivative in $f$ is $(1+\mathrm c_2)/(1-\mathrm c_2^2)=1/(1-\mathrm c_2)$.
+Substituting the stated point into
+$dF/dt=-\varepsilon^{-1}\partial_fF(\mathsf G^{-1}dF)_f-\partial_sF(\mathsf G^{-1}dF)_s$
+at $\mathrm c_2=1/2$ gives the displayed value, which is positive exactly when
+$\varepsilon^2-14\varepsilon+1>0$. Under congruence, $\mathsf G_\varepsilon$ is
+positive definite for every $\varepsilon>0$, and in the fast time the fast
+component of its natural gradient is
+$-(1-\mathrm c_2^2)^{-1}(\partial_fF-\mathrm c_2\sqrt\varepsilon\partial_sF)$, whose
+zero set at $\varepsilon=0$ is $\{\partial_fF=0\}$. $\square$
+
+\propositionheading{Slow model means on the four-cycle and the model-link dichotomy}{prop:obs-slow-model-link-dichotomy}
+In \cref{def:rg-formation-cycle-experiment} let the belief means $\bar k$ move at
+rate one, the model means $\bar m$ at rate $\varepsilon_{\mathrm m}\in[0,1]$, and the
+link translations $\check\omega$ at rate $\varepsilon_{\check\omega}\in[0,1]$: between clock times
+\begin{equation}
+d\mathbf x=-\bigl(\partial_{\bar k}U_S,\varepsilon_{\mathrm m}\partial_{\bar m}U_S,
+\varepsilon_{\check\omega}\partial_{\check\omega} U_S\bigr)dt
++\sqrt{2\mathrm T}\bigl(dW^{\bar k},\varepsilon_{\mathrm m}^{1/2}dW^{\bar m},
+\varepsilon_{\check\omega}^{1/2}dW^{\check\omega}\bigr)
+\label{eq:obs-cycle-slow-model-kinetics}
+\end{equation}
+with one standard Brownian motion $W$ in $\R^{12}$, and the clock redraws the
+assignment as before, leaving $\mathbf x$ unchanged. The rates are supplied, since
+the Fisher metric of $\mathcal N(\bar m_i,\sigma^2_{\mathrm{ev}})$ in $\bar m_i$ is
+$1/\sigma^2_{\mathrm{ev}}$ and a Fisher natural gradient would move the model means at
+rate $1/2$. For $i\in\{0,2\}$ write $\bar k^\pm_i=(\bar k_{i+1}\pm\bar k_i)/\sqrt2$
+and $\bar m^\pm_i=(\bar m_{i+1}\pm\bar m_i)/\sqrt2$, so that
+$r^b_i=\sqrt2\bar k^-_i-\check\omega_i$ and $r^m_i=\sqrt2\bar m^-_i-\check\omega_i$.
+\begin{enumerate}
+\item[(i)] \emph{Held matching.} On the held assignment $S^{(0)}$ a Gaussian law
+of $\mathbf x$ stays Gaussian and its mean follows
+\eqref{eq:obs-cycle-slow-model-kinetics} without the noise; for
+$\varepsilon_{\mathrm m},\varepsilon_{\check\omega}>0$, in the slow time
+$\tau=\varepsilon_{\mathrm m}t$, this mean flow is \eqref{eq:obs-rate-separated-flow}
+for $F=U_{S^{(0)}}$, which is the collective free energy of
+\cref{prop:rg-formation-endogenous-cycle} at the Gaussian law up to terms
+independent of the mean, with $\varepsilon=\varepsilon_{\mathrm m}$, $f=\bar k$,
+$s=(\bar m,\check\omega)$, $\mathsf G_{\rm f}=I_4$ and
+$\mathsf G_{\rm s}=I_4\oplus(\varepsilon_{\mathrm m}/\varepsilon_{\check\omega})I_4$. In the
+orthonormal coordinates $(\bar k^-_i,\bar m^-_i,\check\omega_i)$ and
+$(\bar k^+_i,\bar m^+_i)$ for $i\in\{0,2\}$, $\check\omega_1$, and $\check\omega_3$, the Hessian
+of $U_{S^{(0)}}$ and the mobility are block diagonal, with the blocks
+\begin{equation}
+\begin{pmatrix}4+3\mathrm T&-2\mathrm T&-2\sqrt2\\-2\mathrm T&4+3\mathrm T&-2\sqrt2\\
+-2\sqrt2&-2\sqrt2&4+\mathrm T\end{pmatrix},\qquad
+\mathrm T\begin{pmatrix}3&-2\\-2&3\end{pmatrix},\qquad\mathrm T,
+\label{eq:obs-cycle-held-blocks}
+\end{equation}
+so the mean flow is a direct sum of six flows and $r^b_i,r^m_i$ read only the block
+of $e_i$. With $\varepsilon_{\check\omega}=\varepsilon_{\mathrm m}$ the split by mobility,
+$f=\bar k$ and $s=(\bar m,\check\omega)$, is the only split for which the metric has the
+form $\mathsf G_\varepsilon$ with blocks independent of $\varepsilon_{\mathrm m}$;
+restricted to a selected-edge block it satisfies the three hypotheses of
+\cref{open:obs-slow-manifold} with $\mathrm c_1=4$ for every $\mathrm T>0$, on every
+closed ball whose interior contains the reduced orbit, while on the full sheet its
+fast-block curvature along the pair means $\bar k^+_i$ is $3\mathrm T$.
+\item[(ii)] \emph{Dichotomy at zero temperature.} Hold $S^{(0)}$, drop the
+temperature terms, and start the mean flow
+$\dot{\mathbf x}=-(\partial_{\bar k}V,\varepsilon_{\mathrm m}\partial_{\bar m}V,\varepsilon_{\check\omega}\partial_{\check\omega} V)$,
+$V=V_{S^{(0)}}$, from $\mathbf x^\circ$, where every residual equals $-1$. Unless
+$(\varepsilon_{\mathrm m},\varepsilon_{\check\omega})\in\{(0,0),(1,0)\}$, the flow matrix
+of a selected-edge block has the simple eigenvalue $0$ on $(1,1,\sqrt2)$, which both
+residual rows annihilate, and the two rates
+\begin{equation}
+\varsigma_\pm=2(1+\varepsilon_{\mathrm m}+\varepsilon_{\check\omega})
+\pm2\sqrt{(1-\varepsilon_{\mathrm m})^2+\varepsilon_{\check\omega}^2},
+\label{eq:obs-cycle-block-rates}
+\end{equation}
+and each internal residual is the combination of $e^{-\varsigma_-t}$ and
+$e^{-\varsigma_+t}$ with value $-1$ and derivative
+$4(\varepsilon_{\mathrm m}+\varepsilon_{\check\omega})$ (model) or $4(1+\varepsilon_{\check\omega})$
+(belief) at $t=0$. With a fast link, $\varepsilon_{\check\omega}=1$, one has
+$\varsigma_-\ge4-2\sqrt2$ for every $\varepsilon_{\mathrm m}\in[0,1]$ and
+$|r^m_i(t)|\le e^{-(4-2\sqrt2)t}$: the link removes the model disagreement on the
+belief clock even when the model means are frozen. With fast model means,
+$\varepsilon_{\mathrm m}=1$ and $\varepsilon_{\check\omega}\in(0,1]$,
+$r^m_i(t)=-e^{-(4+4\varepsilon_{\check\omega})t}$. With slow model means and links,
+$\varepsilon_{\check\omega}=\varepsilon_{\mathrm m}\le1/2$, one has
+$6\varepsilon_{\mathrm m}-2\varepsilon_{\mathrm m}^2\le\varsigma_-\le6\varepsilon_{\mathrm m}$,
+$\varsigma_+\ge4$, and
+\begin{equation}
+|r^b_i(t)|\le(1+\varepsilon_{\mathrm m})e^{-4t}+\varepsilon_{\mathrm m},\qquad
+\bigl(1-\tfrac32\varepsilon_{\mathrm m}\bigr)e^{-6\varepsilon_{\mathrm m}t}-\tfrac32\varepsilon_{\mathrm m}
+\le|r^m_i(t)|\le e^{-(6\varepsilon_{\mathrm m}-2\varepsilon_{\mathrm m}^2)t}+\tfrac32\varepsilon_{\mathrm m},
+\label{eq:obs-cycle-slow-link-bounds}
+\end{equation}
+so for $\varepsilon_{\mathrm m}\le1/25$ each matched pair has
+$|r^b_i|\le2\varepsilon_{\mathrm m}$ and $|r^m_i|\ge1/2$ at every time from
+$\tfrac14\log(4/\varepsilon_{\mathrm m})$ to $1/(12\varepsilon_{\mathrm m})$.
+\item[(iii)] \emph{Persistence along every history.} Let $\mathrm T>0$, let
+$\mathbf x_t$ be the sampled process from any initial configuration and
+assignment, and let $\bar\varepsilon=\max(\varepsilon_{\mathrm m},\varepsilon_{\check\omega})>0$.
+For an edge $e_i$ with $|r^m_i(\mathbf x_0)|\ge1$, numbers $\mathrm R\ge1$ and
+$\mathrm R'>0$, and $0<t\le[4\bar\varepsilon(12\mathrm R+9\mathrm T\mathrm R')]^{-1}$,
+the event that $|r^m_i(\mathbf x_u)|<1/2$ for some $u\le t$ while every residual
+stays bounded by $\mathrm R$ and $|\mathbf x_u|\le\mathrm R'$ on $[0,t]$ has
+probability at most $2\exp[-1/(192\mathrm T\bar\varepsilon t)]$, whatever the
+assignment path, and at most $2e^{-1/(4\mathrm T)}$ at the largest such $t$.
+\end{enumerate}
+In these arms a belief-agreeing, model-disagreeing interval of order
+$1/\varepsilon_{\mathrm m}$ exists exactly when the model means and the links are
+both slow: with both slow it is the interval of (ii), whose model disagreement
+(iii) protects along every assignment path up to a time of order
+$1/\varepsilon_{\mathrm m}$ while residuals and configuration stay bounded, and a
+fast link or fast model means remove the disagreement at a rate at least
+$4-2\sqrt2$ whatever the other rate. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+For (i), both endpoints of $e_0$ and of $e_2$ attend them under $S^{(0)}$ and no
+receiver attends $e_1$ or $e_3$, so $V_{S^{(0)}}=2\mathcal D_{e_0}+2\mathcal D_{e_2}$
+with $2\mathcal D_{e_i}=(\sqrt2\bar k^-_i-\check\omega_i)^2+(\sqrt2\bar m^-_i-\check\omega_i)^2$,
+the reference term is invariant under the orthonormal change of coordinates, and
+the evaluator term is
+$\mathrm T\sum_{i\in\{0,2\}}[(\bar k^-_i-\bar m^-_i)^2+(\bar k^+_i-\bar m^+_i)^2]$;
+collecting second derivatives gives \eqref{eq:obs-cycle-held-blocks}, and the
+mobility stays diagonal because the new coordinates mix one channel at a time. On a
+held assignment \eqref{eq:obs-cycle-slow-model-kinetics} is linear with constant
+coefficients, so a Gaussian law stays Gaussian and its mean solves the noiseless
+equation. Since $U_S(\mathbf x)=\frac12\mathbf x^\top\nabla^2U_S\mathbf x$, the
+identity
+$\Fenergy_{\mathrm T}(q)=\mathrm T\KL(q\Vert q^\star)+\mathrm B_{\mathrm T}-\mathrm T\log Z_{\mathrm{opt}}$
+of \cref{prop:rg-formation-endogenous-cycle} at $q=\mathcal N(\mu,\Sigma)\otimes\delta_S$
+gives $\Fenergy_{\mathrm T}=U_S(\mu)+\frac12\Tr(\nabla^2U_S\Sigma)-\frac{\mathrm T}2\log\det\Sigma$
+up to a constant. Dividing the mean equation by $\varepsilon_{\mathrm m}$ gives the
+slow-time form with the metric
+$\varepsilon_{\mathrm m}I_4\oplus I_4\oplus(\varepsilon_{\mathrm m}/\varepsilon_{\check\omega})I_4$,
+whose blocks are independent of $\varepsilon_{\mathrm m}$ exactly when $f$ consists
+of the unit-rate coordinates. On a selected-edge block with
+$\varepsilon_{\check\omega}=\varepsilon_{\mathrm m}$, $F$ is the quadratic form of the first
+block of \eqref{eq:obs-cycle-held-blocks}, positive definite for $\mathrm T>0$ since
+its leading minors are $4+3\mathrm T$, $(4+\mathrm T)(4+5\mathrm T)$ and
+$\mathrm T(8+\mathrm T)(4+5\mathrm T)$; $\partial^2_{ff}F=4+3\mathrm T\ge4\mathsf G_{\rm f}$;
+the reduced matrix is a Schur complement, hence positive definite, so $|s|$ is
+nonincreasing along the reduced flow and every closed ball whose interior contains
+the initial slow state serves as $\mathcal K$; and the frozen fast flow is linear
+with coefficient $4+3\mathrm T$, so every fast state lies in its basin. The
+pair-mean block gives the curvature $3\mathrm T$ along $\bar k^+_i$.
+
+For (ii), the block flow matrix is $\operatorname{diag}(1,\varepsilon_{\mathrm m},\varepsilon_{\check\omega})$
+times the first block of \eqref{eq:obs-cycle-held-blocks} at $\mathrm T=0$, whose
+kernel is spanned by $(1,1,\sqrt2)$, on which $r^b_i=r^m_i=0$. Expanding the
+determinant, its characteristic polynomial is
+$\varsigma[\varsigma^2-4(1+\varepsilon_{\mathrm m}+\varepsilon_{\check\omega})\varsigma+8(2\varepsilon_{\mathrm m}+\varepsilon_{\check\omega}+\varepsilon_{\mathrm m}\varepsilon_{\check\omega})]$,
+whose quadratic factor has discriminant
+$16[(1-\varepsilon_{\mathrm m})^2+\varepsilon_{\check\omega}^2]$ and constant term vanishing
+only at $(0,0)$, so its roots are \eqref{eq:obs-cycle-block-rates} and the
+eigenvalues are distinct outside the two excluded pairs. The matrix is then
+diagonalizable and the residual rows annihilate the kernel, so each internal residual
+is $\mathrm c_2e^{-\varsigma_-t}+\mathrm c_3e^{-\varsigma_+t}$ with
+$\mathrm c_2+\mathrm c_3=-1$ and $\varsigma_-\mathrm c_2+\varsigma_+\mathrm c_3$ equal
+to minus the derivative at $t=0$, which is
+$a\cdot\operatorname{diag}(1,\varepsilon_{\mathrm m},\varepsilon_{\check\omega})(-2\sqrt2,-2\sqrt2,4)^\top$
+for the residual row $a$; hence $\mathrm c_3=(\varsigma_--\mathrm c_5)/(\varsigma_+-\varsigma_-)$
+with $\mathrm c_5=4(\varepsilon_{\mathrm m}+\varepsilon_{\check\omega})$ for $r^m_i$ and
+$\mathrm c_5=4(1+\varepsilon_{\check\omega})$ for $r^b_i$. For $\varepsilon_{\check\omega}=1$ put
+$\mathrm c_4=\sqrt{(1-\varepsilon_{\mathrm m})^2+1}$, so
+$\varsigma_\pm=4+2\varepsilon_{\mathrm m}\pm2\mathrm c_4$; $\varsigma_-$ increases in
+$\varepsilon_{\mathrm m}$ from $4-2\sqrt2$, and
+$\varsigma_-\le4+4\varepsilon_{\mathrm m}\le\varsigma_+$ because
+$\mathrm c_4\ge\varepsilon_{\mathrm m}$, so both coefficients of $r^m_i$ are
+nonpositive with sum $-1$. For $\varepsilon_{\mathrm m}=1$,
+$\varsigma_-=4=\mathrm c_5-4\varepsilon_{\check\omega}$ gives $\mathrm c_3=-1$. For
+$\varepsilon_{\check\omega}=\varepsilon_{\mathrm m}\le1/2$ put
+$\mathrm c_4=\sqrt{(1-\varepsilon_{\mathrm m})^2+\varepsilon_{\mathrm m}^2}$, so that
+$1-\varepsilon_{\mathrm m}\le\mathrm c_4\le1-\varepsilon_{\mathrm m}+\varepsilon_{\mathrm m}^2$
+by squaring, $\varsigma_\pm=2+4\varepsilon_{\mathrm m}\pm2\mathrm c_4$ and
+$\varsigma_+-\varsigma_-=4\mathrm c_4\ge4(1-\varepsilon_{\mathrm m})$, which gives the
+stated brackets; the coefficient of $e^{-\varsigma_+t}$ in $r^m_i$ is
+$(\varsigma_--8\varepsilon_{\mathrm m})/(4\mathrm c_4)$, of absolute value at most
+$\varepsilon_{\mathrm m}(1+\varepsilon_{\mathrm m})/(2(1-\varepsilon_{\mathrm m}))\le\frac32\varepsilon_{\mathrm m}$,
+and the coefficient of $e^{-\varsigma_-t}$ in $r^b_i$ is
+$(\varsigma_--4\varepsilon_{\mathrm m})/(4\mathrm c_4)\in[0,\varepsilon_{\mathrm m}]$.
+Since each pair of coefficients sums to $-1$, \eqref{eq:obs-cycle-slow-link-bounds}
+follows, and the last claim is \eqref{eq:obs-cycle-slow-link-bounds} at the two
+times, using $(1+\varepsilon_{\mathrm m})/4\le1$ and
+$e^{-1/2}(1-\frac3{50})-\frac3{50}>\frac12$.
+
+For (iii), write $a$ for the row of $r^m_i$, with entries $-1$ and $1$ at
+$\bar m_i$ and $\bar m_{i+1}$ and $-1$ at $\check\omega_i$. Since the clock leaves
+$\mathbf x$ unchanged, \eqref{eq:obs-cycle-slow-model-kinetics} gives, along every
+assignment path,
+$r^m_i(\mathbf x_t)-r^m_i(\mathbf x_0)=-\int_0^ta\cdot(\partial_{\bar k}U_{S_u},\varepsilon_{\mathrm m}\partial_{\bar m}U_{S_u},\varepsilon_{\check\omega}\partial_{\check\omega} U_{S_u})(\mathbf x_u)du+\sqrt{2\mathrm T(2\varepsilon_{\mathrm m}+\varepsilon_{\check\omega})}B_t$
+with $B$ a standard Brownian motion. With $\mathrm n_j(S)\in\{0,1,2\}$ the number of
+receivers attending $e_j$ under $S$,
+$\partial_{\bar m_j}U_S=\mathrm n_{j-1}(S)r^m_{j-1}-\mathrm n_j(S)r^m_j+3\mathrm T\bar m_j-2\mathrm T\bar k_j$
+and $\partial_{\check\omega_j}U_S=-\mathrm n_j(S)(r^b_j+r^m_j)+\mathrm T\check\omega_j$, so on the
+stated event the integrand is bounded by
+$\varepsilon_{\mathrm m}(8\mathrm R+8\mathrm T\mathrm R')+\varepsilon_{\check\omega}(4\mathrm R+\mathrm T\mathrm R')\le\bar\varepsilon(12\mathrm R+9\mathrm T\mathrm R')$,
+using $3|\bar m_j|+2|\bar k_j|\le\sqrt{13}|\mathbf x|$. For $t$ as stated the drift
+moves the residual by at most $1/4$, so a crossing below $1/2$ requires
+$\sup_{u\le t}|B_u|\ge[4\sqrt{2\mathrm T(2\varepsilon_{\mathrm m}+\varepsilon_{\check\omega})}]^{-1}\ge[4\sqrt{6\mathrm T\bar\varepsilon}]^{-1}$.
+Doob's maximal inequality applied to the martingale $\exp(\theta B_u-\theta^2u/2)$
+with $\theta=\mathrm y/t$ gives $\Pr(\sup_{u\le t}B_u\ge\mathrm y)\le e^{-\mathrm y^2/(2t)}$,
+and with $\mathrm y^2=1/(96\mathrm T\bar\varepsilon)$ the two-sided bound is
+$2e^{-1/(192\mathrm T\bar\varepsilon t)}$; at the largest $t$ the exponent is
+$-(12\mathrm R+9\mathrm T\mathrm R')/(48\mathrm T)\le-1/(4\mathrm T)$. The closing
+sentence collects (ii) and (iii), the fast-means case having rate
+$4+4\varepsilon_{\check\omega}\ge4$. $\square$
+
+\openproblemheading{Slow-manifold reduction of the collective free energy}{open:obs-slow-manifold}
+Consider the rate-separated flow \eqref{eq:obs-rate-separated-flow} under three
+hypotheses. First, $F\in C^2$ and the block metric
+$\mathsf G_{\rm f}(f,s)\oplus\mathsf G_{\rm s}(s)$ has $C^1$ symmetric
+positive-definite blocks with $\mathsf G_{\rm s}$ independent of $f$. Second, there
+are a compact set $\mathcal K\subset\mathcal U_0$, a $C^1$ branch $f^\star$ of
+conditional minimizers, and $\mathrm c_1>0$ with
+$\partial^2_{ff}F(f^\star(s),s)\succeq\mathrm c_1\mathsf G_{\rm f}(f^\star(s),s)$ for
+all $s\in\mathcal K$. Third, the reduced flow \eqref{eq:obs-reduced-slow-flow} from
+$s_0$ stays in the interior of $\mathcal K$ on $[0,t_1]$, and the initial fast state
+lies in the basin of $f^\star(s_0)$ for the frozen fast flow
+$\dot f=-\mathsf G_{\rm f}^{-1}\partial_fF(f,s_0)$. Under the second hypothesis the
+linearized frozen fast flow has spectrum in $(-\infty,-\mathrm c_1]$, so $f^\star(s)$
+is isolated and uniformly asymptotically stable on $\mathcal K$, and Tikhonov's
+theorem gives $s_\varepsilon(t)\to s(t)$ for $0\leq t\leq t_1$ and
+$f_\varepsilon(t)\to f^\star(s(t))$ for $0<t\leq t_1$ as $\varepsilon\to0$
+\citep{Tikhonov1952}; for smooth data Fenichel's theory gives a locally invariant
+slow manifold $O(\varepsilon)$-close to a compact normally hyperbolic piece of
+$\mathcal S^\star$ \citep{fenichel1979geometric}. Their application at $c_*$ is open
+beyond the held matching sheets of \cref{prop:obs-slow-model-link-dichotomy}(i),
+whose selected-edge blocks meet the three hypotheses with a curvature constant
+uniform in the temperature, so that Tikhonov's theorem applies to them, while the
+split by mobility on the full sheet has a constant of order $\mathrm T$:
+\cref{prop:obs-attention-reduced-hessian} shows that the second hypothesis can fail
+after the source rows are optimized even when every source energy and every
+frozen-weight curvature is positive, the sampled dynamics with source jumps of
+\cref{ch:finite-depth-formation} lie outside this deterministic statement, and no
+explicit bound on the slow orbit or its Fisher duration in terms of $\varepsilon$ is
+available. It is settled in the class of the sampled dynamics of
+\cref{def:rg-formation-cycle-experiment} under the mobility of
+\cref{prop:obs-slow-model-link-dichotomy} with $\varepsilon_{\check\omega}=\varepsilon_{\mathrm m}$
+and no parameter learning, where the split by mobility, $f=\bar k$ and
+$s=(\bar m,\check\omega)$, and \eqref{eq:obs-reduced-slow-flow} for $F=U_S$ under the
+current assignment $S$ define the reduced slow flow of an assignment path: positively,
+by a bound on the distance between the slow coordinates of the sampled process and
+that reduced flow over a bounded slow-time interval, explicit in
+$\varepsilon_{\mathrm m}$, $\mathrm T$, and the number of assignment changes, tending
+to zero with $\varepsilon_{\mathrm m}$ and $\mathrm T$, and holding, for every
+positive integer $\mathrm n$, with probability tending to one on the event that the
+assignment path has at most $\mathrm n$ changes per unit slow time; negatively, by
+a positive integer $\mathrm n$, a sequence of mobility ratios and temperatures
+tending to zero, and initial states from which, with probability bounded below, the
+assignment path has at most $\mathrm n$ changes per unit slow time and that
+distance stays bounded below over a bounded slow-time interval. The
+learning case, in which the generative parameter is the slow coordinate and the
+reduced object is the recognition law at the frozen parameter, lies outside this
+class.
+
+\section{Parent-sensitive inference and the prepared parent}
+\label{sec:rg-memory-parent-mechanism}
+
+\definitionheading{Parent-sensitive sweep}{def:rg-memory-parent-sweep}
+Let $\Xi$ be a nonempty finite set of fine states with a parent map
+$\operatorname{par}:\Xi\to\mathsf Z$ that retains the complete decorated parent,
+keeping only parent values with nonempty fibers. Take a prior $p^0$ on $\Xi$
+with $p^0(\xi)>0$, normalized conditional laws $\psi_\xi$ of an unobserved record
+$r$ in a finite set $\mathsf O'$, and record likelihoods $L_o(\xi)>0$ at the
+observation, none of which reads recognition. The generative law of $(\xi,r,o)$
+has density $p^0(\xi)\psi_\xi(r)L_o(\xi)$, and its evidence and posterior are
+\begin{equation}
+\mathcal Z_o=\sum_\xi p^0(\xi)L_o(\xi),
+\qquad
+p(\xi)=\frac{p^0(\xi)L_o(\xi)}{\mathcal Z_o}.
+\label{eq:rg-memory-target}
+\end{equation}
+On an undirected graph of allowed moves take symmetric proposal weights
+$\mathsf a_{\xi\xi'}=\mathsf a_{\xi'\xi}\geq0$ with off-diagonal row sums at most
+$1/2$. The Metropolis kernel, the parent projection, the posterior lift, the
+refresh, and the sweep are
+\begin{equation}
+\begin{aligned}
+\mathsf M_{\xi\xi'}&=\mathsf a_{\xi\xi'}\min\bigl(1,p(\xi')/p(\xi)\bigr)\quad(\xi\ne\xi'),
+&\mathsf M_{\xi\xi}&=1-\sum_{\xi'\ne\xi}\mathsf M_{\xi\xi'},\\
+\mathsf C_{\xi z}&=\mathbf 1_{\operatorname{par}(\xi)=z},
+&\mathsf J_{z\xi}&=\frac{p(\xi)\mathbf 1_{\operatorname{par}(\xi)=z}}{p_Z(z)},
+\qquad p_Z=p\mathsf C,\\
+\mathsf D&=\mathsf C\mathsf J,
+&\mathsf T&=\mathsf M\mathsf D.
+\end{aligned}
+\label{eq:rg-memory-sweep}
+\end{equation}
+The sweep depends on the parent through the conditional laws $p(\cdot\given z)$. The
+marked version of a kernel $\mathsf K$ on
+$\Xi$ is $\widetilde{\mathsf K}((\xi,r),(\xi',r'))=\mathsf K_{\xi\xi'}\psi_{\xi'}(r')$.
+The proposal and the update order are declared choices.
+
+\hypothesisheading{Instantaneous within-parent refresh}{hyp:rg-memory-instantaneous-refresh}
+In this section the refresh is the exact kernel $\mathsf D=\mathsf C\mathsf J$:
+each application resamples the fine state from its exact conditional law given
+the current complete parent. This is the adiabatic elimination of the
+within-parent fine state, whose timescale is infinitely shorter than the parent's.
+It excludes finite
+within-fiber mixing, for example the partial refresh
+$\mathsf D_\omega=(1-\omega)I+\omega\mathsf C\mathsf J$ with $0\leq\omega<1$, which
+is equally normalized, $p$-reversible, and parent preserving.
+
+\theoremheading{Stationarity, exact descent, and finite-component convergence}{thm:rg-memory-inference-descent}
+\begin{enumerate}
+\item[(i)] For a recognition law $q(\xi)\psi'_\xi(r)$ the free energy is
+\begin{equation}
+\Fenergy(q\otimes\psi';o)=\KL(q\Vert p)+\E_q\KL(\psi'_\xi\Vert\psi_\xi)
+-\log\mathcal Z_o,
+\label{eq:rg-memory-fixed-vfe}
+\end{equation}
+so matching the record conditionals, $\psi'=\psi$, is a specialization of the
+joint objective and not the removal of its dependence terms.
+\item[(ii)] The kernels $\mathsf M$, $\mathsf D$, $\mathsf T$ are normalized and
+preserve $p$, and $\mathsf M$ and $\mathsf D$ are $p$-reversible; their marked
+versions are normalized and preserve $p(\xi)\psi_\xi(r)$.
+\item[(iii)] $q\mathsf D$ minimizes $\KL(\cdot\Vert p)$ among laws with parent
+marginal $q\mathsf C$, with $\KL(q\mathsf D\Vert p)=\KL(q\mathsf C\Vert p_Z)$.
+\item[(iv)] Call a component a connected component of the union of the positive
+off-diagonal edges of $\mathsf M$ and $\mathsf D$. For every initial $q$, $\mathsf T$
+preserves component masses, and for every $p$-stationary kernel $\mathsf K$ on
+$\Xi$, with $q'=q\mathsf K$ and reversal
+$\mathsf K^*_{\xi'\xi}=p(\xi)\mathsf K_{\xi\xi'}/p(\xi')$,
+\begin{equation}
+\KL(q\Vert p)-\KL(q\mathsf K\Vert p)
+=\sum_{\xi':q'(\xi')>0}q'(\xi')
+\KL\bigl(q(\cdot\given\xi')\Vert\mathsf K^*_{\xi'\cdot}\bigr),
+\label{eq:rg-memory-reverse-conditional-loss}
+\end{equation}
+where $q(\xi\given\xi')=q(\xi)\mathsf K_{\xi\xi'}/q'(\xi')$. Hence $\mathsf T$
+decreases \eqref{eq:rg-memory-fixed-vfe}, strictly unless
+$q(\xi)=q(\Xi')p(\xi\given\Xi')$ on each component $\Xi'$.
+\item[(v)] On each component, $q\mathsf T^n$ converges geometrically to that
+conditional target.
+\end{enumerate}
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+For (i), the posterior of $(\xi,r)$ given $o$ is $p(\xi)\psi_\xi(r)$ because $r$
+is unobserved and conditionally independent of $o$, and the evidence is
+$\mathcal Z_o$; \cref{def:elbo-extended} and the chain rule
+\cref{lem:prob-kl-chain-rule} give the display. For (ii),
+$p(\xi)\mathsf M_{\xi\xi'}=\mathsf a_{\xi\xi'}\min(p(\xi),p(\xi'))=p(\xi')\mathsf M_{\xi'\xi}$;
+$\mathsf J\mathsf C=I$ gives $p\mathsf D=p$, and
+$p(\xi)\mathsf D_{\xi\xi'}=p(\xi)p(\xi')/p_Z(z)$ on a common parent fiber $z$.
+Stationarity survives composition; summing the terminal record of a marked kernel
+proves normalization and summing the initial record proves invariance. Part (iii) is
+\cref{prop:elbo-exact-e-coordinate} for the block of fine coordinates given the
+parent: $q\mathsf D$ has parent marginal $q\mathsf C\mathsf J\mathsf C=q\mathsf C$ and
+conditionals $p(\cdot\given z)$, and the chain rule over the parent gives the value.
+For (iv), the input--output laws $q(\xi)\mathsf K_{\xi\xi'}$ and
+$p(\xi)\mathsf K_{\xi\xi'}$ have divergence $\KL(q\Vert p)$, and disintegrating them
+over the output with \cref{lem:prob-kl-chain-rule} gives
+\eqref{eq:rg-memory-reverse-conditional-loss}. With positive holding, equality forces
+$q/p$ to be constant across every positive edge; equality for $\mathsf M$ makes $q$
+stationary under $\mathsf M$, and equality for the subsequent $\mathsf D$ makes the
+ratio constant on parent fibers, which is constancy on components. For (v), positive
+holding makes every $\mathsf M$ or $\mathsf D$ edge a positive $\mathsf T$ edge, so on
+a component $\Xi'$ of $n$ states $\mathsf T^k>0$ for $k=\max(1,n-1)$. With target
+$p_{\Xi'}=p(\cdot\given\Xi')$ and
+$\mathrm c_1=\min_{\xi\xi'}(\mathsf T^k)_{\xi\xi'}/p_{\Xi'}(\xi')\in(0,1]$, one has
+$\mathsf T^k=\mathrm c_1\mathbf 1p_{\Xi'}+(1-\mathrm c_1)\mathsf K'$ on $\Xi'$ with a
+$p_{\Xi'}$-stationary stochastic $\mathsf K'$ (or $\mathsf T^k=\mathbf 1p_{\Xi'}$ when
+$\mathrm c_1=1$), and convexity with data processing give
+$\KL(q\mathsf T^k\Vert p_{\Xi'})\leq(1-\mathrm c_1)\KL(q\Vert p_{\Xi'})$ for laws $q$ on
+$\Xi'$. $\square$
+
+\theoremheading{The prepared parent is Markov}{thm:rg-memory-prepared-parent}
+Under \cref{hyp:rg-memory-instantaneous-refresh}, the reduced sweep
+$\overline{\mathsf T}:=\mathsf J\mathsf M\mathsf C$ is reversible under $p_Z$ and
+\begin{equation}
+\mathsf J\mathsf T=\overline{\mathsf T}\mathsf J,
+\qquad
+(\nu\mathsf J)\mathsf T^n=\nu\overline{\mathsf T}^n\mathsf J.
+\label{eq:rg-memory-parent-semiconjugacy}
+\end{equation}
+For a start $q_0=\nu\mathsf J$ the parent history $Z_t=\operatorname{par}(\xi_t)$
+of the chain with kernel $\mathsf T$ is Markov with transition $\overline{\mathsf T}$,
+and for an arbitrary start it is so after the first completed refresh.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+With $\mathsf T=\mathsf M\mathsf C\mathsf J$ and $\mathsf J\mathsf C=I$,
+$\mathsf J\mathsf T=\mathsf J\mathsf M\mathsf C\mathsf J=\overline{\mathsf T}\mathsf J$,
+and induction gives the second identity. Moreover $p_Z(z)\overline{\mathsf T}_{zz'}$
+is the sum of $p(\xi)\mathsf M_{\xi\xi'}$ over $\operatorname{par}(\xi)=z$ and
+$\operatorname{par}(\xi')=z'$, which is symmetric by reversibility of $\mathsf M$. The
+final refresh makes the fine law given the whole parent history $\mathsf J_{z\cdot}$,
+with $z$ the last parent, so the next parent row is
+$\mathsf J_{z\cdot}\mathsf M\mathsf C=\overline{\mathsf T}_{z\cdot}$, and induction over
+histories gives the Markov property. $\square$
+
+The refresh holds the fast fine state at its conditional optimum given the slow parent
+(\cref{thm:rg-memory-inference-descent}(iii)), so $\mathsf J\mathsf T=\overline{\mathsf T}\mathsf J$
+is the discrete instantaneous-equilibration case of \eqref{eq:obs-reduced-semiconjugacy}.
+
+\remarkheading{Finite refresh leaves parent memory}{rem:rg-memory-partial-refresh}
+\Cref{hyp:rg-memory-instantaneous-refresh} cannot be dropped. Take
+$\Xi=\{1,2,3\}$ with $\operatorname{par}(1)=\operatorname{par}(2)=z_1$ and
+$\operatorname{par}(3)=z_2$, uniform $p$, the single proposal
+$\mathsf a_{23}=1/2$, the partial sweep
+$\mathsf T_\omega=\mathsf M\mathsf D_\omega$, and a start $\nu\mathsf J$ with
+$\nu(z_1),\nu(z_2)>0$. Then
+\begin{equation}
+\mathbb P(Z_2=z_2\given Z_1=z_1,Z_0=z_1)=1/6+\omega/12,
+\qquad
+\mathbb P(Z_2=z_2\given Z_1=z_1,Z_0=z_2)=1/2-\omega/4.
+\label{eq:rg-memory-partial-refresh-witness}
+\end{equation}
+The dependence on $Z_0$ is $(1-\omega)/3$, equal to $7/30$ at $\omega=3/10$, and it
+vanishes only at $\omega=1$, where both values equal
+$\overline{\mathsf T}_{z_1z_2}=1/4$. For $\omega<1$ the parent history is not
+Markov. It remains a deterministic function of the fine Markov chain with kernel
+$\mathsf T_\omega$, so the hidden-history law of \cref{sec:rg-memory-hidden-history}
+retains it exactly, and the memory cost of a first-order parent closure is the
+defect $D_N^{(1)}$ of \cref{thm:rg-memory-projection}, whose value
+$I(Z_2;Z_0\given Z_1)$ at $N=3$ is positive. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Only state $2$ moves under $\mathsf M$, to $3$ with probability $1/2$, and
+$\mathsf D_\omega$ keeps a state of $\{1,2\}$ with probability $1-\omega/2$. Given
+$Z_1=z_1$, the state before the second sweep is $2$ with probability
+$1-\omega/2$ if $Z_0=z_2$, since it moved from $3$, and with probability
+$1/3+\omega/6$ if $Z_0=z_1$, since after $\mathsf M$ it is $2$ with probability
+$1/3$ and the refresh redraws it uniformly with probability $\omega$; multiplying
+by $1/2$ gives
+\eqref{eq:rg-memory-partial-refresh-witness}. Both conditioning events have positive
+probability, so $I(Z_2;Z_0\given Z_1)>0$. $\square$
+
+\section*{Physicist's summary}
+
+Fast and slow are declared, not derived. The collective free energy is then a
+potential for every positive-definite mobility. The reduced gradient flow is
+conjugate to its tangent lift on the graph of the conditional optimum; the
+finite-rate flow shares its slow component there but can leave that graph.
+Instantaneous within-parent refresh gives the Markov parent proved here.
+On the four-cycle, slow model means lag the beliefs only if the links
+are slow too; a fast link carries the model agreement on the belief clock.

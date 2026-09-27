@@ -1,0 +1,224 @@
+% !TeX root = ../PIFB2.tex
+\section{Covariance Dynamics and Equilibrium Analysis}
+\label{app:covariance_dynamics}
+
+\paragraph{Scope of this appendix.}
+The analysis below is a local, fixed-attention, receiver-only surrogate. We treat the attention weights $\beta_{ij}$ as exogenous constants when differentiating with respect to $\Sigma_i$, vary only the receiver covariance, and never differentiate the sender covariances $\Sigma_j$ or the weights $\beta_{ij}$ themselves. The full reduced functional, obtained by envelope-eliminating $\beta_{ij}$ via its entropy-regularized softmax optimum and including the complete sender-row contributions, is not derived here; no explicit first-derivative $\partial\beta_{ij}$ response survives in that canonical functional. The fixed point characterized below is therefore a partial Euler-Lagrange stationarity condition, not a stationary point of the fully reduced free energy.
+
+The covariance fixed point is also a property of the consensus potential of Section~\ref{sec:mixture_derivation}, which weights the belief entropy of agent $i$ by $1+B_i$ with $B_i := \sum_j\beta_{ij}$. Minimizing $\mathbb{E}_{q}[U] - (1+B_i)H(q)$ over laws $q$ gives $q \propto e^{-U/(1+B_i)}$, so each belief is a Gibbs state at temperature $1+B_i = 2$ in units in which Bayesian updating has temperature one. In a normalized Gaussian joint the entropy enters once, and the mean-field covariance is the inverse diagonal precision block, fixed in one step and independent of the neighbors' covariances~\cite[Ch.~G4, block optimum]{DennisGaugeVFESuppG2026}. The factor $\tfrac{1}{2}$ in Eq.~\eqref{eq:sigma_fixed_point_beta} and the homogeneous limit $\Sigma_\infty = \Sigma_0$ below both come from this doubled entropy weight.
+
+\subsection{Covariance Gradient of the Per-Agent Block}
+
+All laws in this appendix are nonsingular Gaussians, priors and invertible noiseless links are fixed, and self edges are excluded. These are receiver-response equations for the consensus specialization; the normalized collective VFE and general noisy selective channels have different equations. Here we derive the gradient of agent $i$'s block $\mathcal{E}_i$ of the consensus functional with respect to its covariance $\Sigma_i$, a standard computation for Gaussian families~\cite{Amari2016, petersen2012matrix}.
+
+The block is
+
+\begin{equation}
+\mathcal{E}_i
+=D_{\mathrm{KL}}(q_i \| p_i)
++ \sum_{j \neq i} \beta_{ij}
+D_{\mathrm{KL}}(q_i \| \Omega_{ij} q_j)
+- \mathbb{E}_{q_i}[\log p(o_i \mid k_i)],
+\end{equation}
+
+where $q_i = \mathcal{N}(\mu_i, \Sigma_i)$, $p_i = \mathcal{N}(\mu_{p,i}, \Sigma_{p,i})$, and $\sum_j \beta_{ij} = 1$ by construction.
+
+\subsubsection{Gaussian relative entropy and its derivative}
+
+Differentiating the Gaussian relative entropy of Appendix~\ref{app:gaussian_kl}, with first argument $\mathcal{N}(\mu_1,\Sigma_1)$ and second argument $\mathcal{N}(\mu_2,\Sigma_2)$, with respect to $\Sigma_1$ at fixed $\mu_1$, $\mu_2$, $\Sigma_2$ gives
+
+\begin{equation}
+\frac{\partial D_{\mathrm{KL}}}{\partial \Sigma_1}
+=\frac{1}{2}\left[
+-\Sigma_1^{-1}
++ \Sigma_2^{-1}
+\right].
+\end{equation}
+
+Applying this to each term in $\mathcal{E}_i$:
+
+\begin{align}
+\frac{\partial}{\partial \Sigma_i}
+D_{\mathrm{KL}}(q_i \| p_i)
+&=\frac{1}{2}\left[
+-\Sigma_i^{-1}
++ \Sigma_{p,i}^{-1}
+\right],
+\\[6pt]
+\frac{\partial}{\partial \Sigma_i}
+D_{\mathrm{KL}}(q_i \| \Omega_{ij} q_j)
+&=
+\frac{1}{2}\left[
+-\Sigma_i^{-1}
++ (\Omega_{ij}\Sigma_j\Omega_{ij}^\top)^{-1}
+\right].
+\end{align}
+
+The observation term, for the Gaussian likelihood $-\mathbb{E}_{q_i}[\log p(o_i \mid k_i)] = \tfrac{1}{2}(o_i - \mu_i)^\top \Lambda_{o_i}(o_i - \mu_i) + \tfrac{1}{2}\mathrm{tr}(\Lambda_{o_i}\Sigma_i) + \mathrm{const}$, contributes a constant precision correction $\partial[-\mathbb{E}_{q_i}\log p(o_i \mid k_i)]/\partial\Sigma_i = \tfrac{1}{2}\Lambda_{o_i}$, independent of $\Sigma_i$. Including it,
+
+\begin{equation}
+\boxed{
+\frac{\partial \mathcal{E}_i}{\partial \Sigma_i}
+=\frac{1}{2}
+\left[
+-2 \Sigma_i^{-1}
++ \Sigma_{p,i}^{-1}
++ \sum_j \beta_{ij}
+(\Omega_{ij}\Sigma_j\Omega_{ij}^\top)^{-1}
++ \Lambda_{o_i}
+\right].
+}
+\end{equation}
+
+Because $\sum_j \beta_{ij} = 1$, the prefactor $(1 + \sum_j \beta_{ij})$ in front of $\Sigma_i^{-1}$ reduces to the constant $2$, as displayed in the boxed gradient.
+
+\subsection{Fixed-Point Equation and Symmetric Solution}
+
+At equilibrium, we set $\partial \mathcal{E}_i / \partial \Sigma_i = 0$, giving
+
+\begin{equation}
+\Sigma_i^{-1}
+=\frac{1}{2}
+\left[
+\Sigma_{p,i}^{-1}
++ \sum_j \beta_{ij}
+(\Omega_{ij}\Sigma_j\Omega_{ij}^\top)^{-1}
++ \Lambda_{o_i}
+\right].
+\label{eq:sigma_fixed_point_beta}
+\end{equation}
+The sensory precision $\Lambda_{o_i}$ enters with the same prefactor as the other precision contributions; setting $\Lambda_{o_i} = 0$ gives the observation-free case used in the homogeneous limit below. Equation~\eqref{eq:sigma_fixed_point_beta} couples all agents: each agent's precision is half the sum of its prior and sensory precision and the $\beta$-weighted transported neighbor precisions.
+
+\paragraph{Precision coordinates.} Write $\Lambda_i := \Sigma_i^{-1}$ for the belief precision, $A_i := \Sigma_{p,i}^{-1} + \Lambda_{o_i} \succ 0$ for the prior-and-sensory anchor, and define the linear map
+\begin{equation}
+\mathcal{L}(\Lambda)_i := \sum_j \beta_{ij}\Omega_{ij}^{-\top}\Lambda_j\Omega_{ij}^{-1}
+\label{eq:precision_transport_map}
+\end{equation}
+on the space $\mathrm{Sym}(K)^N$ of $N$-tuples of symmetric matrices. Since $(\Omega_{ij}\Sigma_j\Omega_{ij}^\top)^{-1} = \Omega_{ij}^{-\top}\Lambda_j\Omega_{ij}^{-1}$, Eq.~\eqref{eq:sigma_fixed_point_beta} is linear in precision coordinates,
+\begin{equation}
+2\Lambda = A + \mathcal{L}(\Lambda),
+\label{eq:precision_linear}
+\end{equation}
+and the covariance fixed-point map
+\begin{equation}
+T(\Sigma)_i = 2\big(\Sigma_{p,i}^{-1} + \sum_j \beta_{ij}(\Omega_{ij}\Sigma_j\Omega_{ij}^\top)^{-1} + \Lambda_{o_i}\big)^{-1}
+\label{eq:sigma_fixed_point_map}
+\end{equation}
+is, in precision coordinates, the affine map $\Lambda \mapsto \tfrac{1}{2}(A + \mathcal{L}(\Lambda))$. Each term of $\mathcal{L}$ is a congruence with a nonnegative weight, so $\mathcal{L}$ carries the product cone of positive semidefinite tuples into itself. Under a change of frames, $\Lambda_i \mapsto g_i^{-\top}\Lambda_i g_i^{-1}$ and $\Omega_{ij} \mapsto g_i\Omega_{ij}g_j^{-1}$, the map $\mathcal{L}$ transforms by similarity, so its spectral radius $\rho(\mathcal{L})$ is frame independent.
+
+\begin{proposition}[Frozen-attention covariance fixed point]
+\label{prop:covariance_fixed_point}
+Fix $\beta_{ij}\geq0$ with $\sum_j\beta_{ij}=1$ and $\Omega_{ij}\in\mathrm{GL}(K)$, and assume $\Sigma_{p,i} \succ 0$ and $\Lambda_{o_i} \succeq 0$.
+\begin{enumerate}
+\item[(i)] Equation~\eqref{eq:sigma_fixed_point_beta} has a solution with every $\Sigma_i \succ 0$ if and only if $\rho(\mathcal{L}) < 2$. The solution is then unique, $\Lambda^* = \tfrac{1}{2}\sum_{k \geq 0}(\mathcal{L}/2)^k A$, and the iteration of $T$ converges to it. For every $r\in(\rho(\mathcal L)/2,1)$ its precision error is bounded by $C_r r^n$; the spectral radius is the worst-case asymptotic root factor, not necessarily the ratio of successive errors on every trajectory.
+\item[(ii)] If $\rho(\mathcal{L}) < 2$, the simultaneous receiver-only natural-gradient flow of all agents, $d\Sigma_i/dt = -2\eta_\Sigma\Sigma_i(\partial\mathcal{E}_i/\partial\Sigma_i)\Sigma_i$ with $\eta_\Sigma > 0$, remains in the SPD cone and converges to $\Lambda^*$ from every SPD initial condition, at every exponential rate strictly smaller than $\eta_\Sigma(2-\rho(\mathcal L))$. A polynomial factor may accompany the spectral decay rate when $\mathcal L$ has a nontrivial Jordan block.
+\item[(iii)] If $\rho(\mathcal{L}) \geq 2$, no SPD fixed point exists, and along the same flow the precision grows without bound, so that some covariance direction collapses.
+\item[(iv)] $\rho(\mathcal{L}) \leq \max_i\lambda_{\max}(C_i)$ with $C_i := \sum_j\beta_{ij}(\Omega_{ij}\Omega_{ij}^\top)^{-1} = \mathcal{L}(I)_i$. If every row sums to one and a change of frames makes every link orthogonal, in particular if they are graph-flat, $\Omega_{ij} = U_iU_j^{-1}$, then $\rho(\mathcal{L}) = 1$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+With the boxed gradient, $\partial\mathcal{E}_i/\partial\Sigma_i = \tfrac{1}{2}(A_i + \mathcal{L}(\Lambda)_i - 2\Lambda_i)$, and $d\Lambda_i/dt = -\Lambda_i(d\Sigma_i/dt)\Lambda_i$, so the flow of (ii) is the linear system
+\begin{equation}
+\frac{d\Lambda}{dt} = \eta_\Sigma\big(A + \mathcal{L}(\Lambda) - 2\Lambda\big).
+\label{eq:precision_flow}
+\end{equation}
+For (i), if $\rho(\mathcal{L}) < 2$ the Neumann series converges, $2I - \mathcal{L}$ is invertible, and $\Lambda^* \succeq A/2 \succ 0$ because every term of the series is positive semidefinite; the iteration error is $(\mathcal{L}/2)^n(\Lambda_0 - \Lambda^*)$. Conversely, let $\Lambda \succ 0$ solve Eq.~\eqref{eq:precision_linear}, and choose $\epsilon > 0$ with $A_i \succeq \epsilon\Lambda_i$ for every $i$. Then $\mathcal{L}(\Lambda) = 2\Lambda - A \preceq (2-\epsilon)\Lambda$. In the order-unit norm $\|X\|_\Lambda := \min\{s \geq 0 : -s\Lambda \preceq X \preceq s\Lambda\}$, which is a norm because $\Lambda$ is interior to the cone, cone preservation gives $\|\mathcal{L}(X)\|_\Lambda \leq (2-\epsilon)\|X\|_\Lambda$, hence $\rho(\mathcal{L}) \leq 2 - \epsilon < 2$. The same argument with $\Lambda = I$ and $\mathcal{L}(I) \preceq \max_i\lambda_{\max}(C_i) I$ proves the bound in (iv). For (ii), variation of constants gives
+\[
+\Lambda(t) = e^{-2\eta_\Sigma t}e^{\eta_\Sigma t\mathcal{L}}\Lambda(0) + \eta_\Sigma\int_0^t e^{-2\eta_\Sigma s}e^{\eta_\Sigma s\mathcal{L}}(A)\mathrm{d}s.
+\]
+The exponential $e^{s\mathcal{L}} = \sum_k (s\mathcal{L})^k/k!$ preserves the cone and satisfies $e^{s\mathcal{L}}A \succeq A$, so $\Lambda(t) \succeq (1 - e^{-2\eta_\Sigma t})A/2$ plus a positive semidefinite term, and $\Lambda(t)$ stays SPD. The deviation is $\Lambda(t)-\Lambda^*=e^{-\eta_\Sigma(2I-\mathcal L)t}(\Lambda(0)-\Lambda^*)$. In a finite-dimensional Jordan form, each block contributes an exponential multiplied by a polynomial; this proves the stated bound at any strictly smaller rate, without assuming diagonalizability. Every eigenvalue of $2I - \mathcal{L}$ has real part at least $2 - \rho(\mathcal{L})$, with equality at $2 - \rho(\mathcal{L})$ itself, because the spectral radius of a cone-preserving map is an eigenvalue~\cite{Vandergraft1968}. For (iii), the same theorem applied to the adjoint $\mathcal{L}^*(W)_j = \sum_i\beta_{ij}\Omega_{ij}^{-1}W_i\Omega_{ij}^{-\top}$, which preserves the positive semidefinite cone (self-dual under $\langle X, Y\rangle = \sum_i\mathrm{tr}(X_iY_i)$), supplies $W \succeq 0$, $W \neq 0$, with $\mathcal{L}^*W = \rho(\mathcal{L})W$. Pairing a fixed point with $W$ gives $(2 - \rho(\mathcal{L}))\langle W, \Lambda\rangle = \langle W, A\rangle > 0$, which is impossible for $\rho(\mathcal{L}) \geq 2$ and $\Lambda \succ 0$. Along Eq.~\eqref{eq:precision_flow}, $d\langle W, \Lambda\rangle/dt = \eta_\Sigma(\langle W, A\rangle + (\rho(\mathcal{L}) - 2)\langle W, \Lambda\rangle) \geq \eta_\Sigma\langle W, A\rangle > 0$, since $\Lambda(t)$ stays positive semidefinite, so $\langle W, \Lambda(t)\rangle$ grows at least linearly in $t$. For the second part of (iv), if frames $g_i$ make every link orthogonal, then in those frames $\mathcal{L}(I)_i = \sum_j\beta_{ij}I = I$, so $I$ is an interior eigenvector with eigenvalue one and the bound gives $\rho(\mathcal{L}) = 1$; similarity carries this back to the original frames. For graph-flat links the frames $g_i = U_i^{-1}$ make every link the identity.
+\end{proof}
+
+\paragraph{Frame dependence and holonomy.} The directly computable hypothesis $\lambda_{\max}(C_i)<2$ for every $i$ is sufficient by part (iv), but it is not frame independent, because $C_i$ picks up the factor $g_j^{-1}g_j^{-\top}$ under a change of frames. For graph-flat $\mathrm{GL}(K)$ links it can fail by a large margin while $\rho(\mathcal{L}) = 1$: for two scalar agents with $U_1=a$, $U_2=1$, $a>1$, and $\beta_{12}=\beta_{21}=1$, one has $C_1=a^{-2}$ and $C_2=a^2$, while $\rho(\mathcal L)=1$ for every $a$. The value of $\rho(\mathcal{L})$ departs from one only through loop holonomy whose holonomy group is not conjugate into $\mathrm{O}(K)$, and such holonomy can push it past two. For $K = 1$ and two agents with $\beta_{12} = \beta_{21} = 1$ and independent links $w = \Omega_{12}$, $v = \Omega_{21}$, the map is $\mathcal{L} = \bigl(\begin{smallmatrix}0 & w^{-2}\\ v^{-2} & 0\end{smallmatrix}\bigr)$ with $\rho(\mathcal L)=1/|h|$, where $h=wv$ is the backtrack holonomy; no SPD fixed point exists for $|h|\leq1/2$, and the iterated covariances decay to zero. With orientation reversal $\Omega_{ji} = \Omega_{ij}^{-1}$ imposed, as for the independent links of Regime~II, a two-cycle carries no holonomy, but the obstruction reappears on a triangle: with rows $\beta_{ij} = 1/2$ and holonomy $h$ around the loop, the characteristic polynomial of $\mathcal{L}$ is $\lambda^3 - \tfrac{3}{4}\lambda - (h^2 + h^{-2})/8$, and $\rho(\mathcal{L}) \geq 2$ exactly when $h^2 + h^{-2} \geq 52$.
+
+\subsubsection{Homogeneous limit}
+
+In the homogeneous limit we assume that (i) all agents are identical, so $\Sigma_i = \Sigma_\infty$ for all $i$; (ii) every link preserves the shared prior covariance, $\Omega_{ij}\Sigma_0\Omega_{ij}^\top = \Sigma_0$ (for instance $\Omega_{ij} = I$); (iii) $\Sigma_{p,i} = \Sigma_0$; and (iv) $\Lambda_{o_i} = 0$, the observation-free case. Under (i)--(iv), the candidate $\Sigma_\infty=\Sigma_0$ has every transported covariance equal to $\Sigma_0$, so it satisfies Eq.~\eqref{eq:sigma_fixed_point_beta}:
+
+\begin{equation}
+\Sigma_0^{-1}
+=\frac{1}{2}
+\left[
+\Sigma_0^{-1}
++ \Sigma_0^{-1}
+\right],
+\qquad
+\Sigma_\infty=\Sigma_0.
+\end{equation}
+and the solution is unique by Proposition~\ref{prop:covariance_fixed_point}, since links preserving $\Sigma_0$ are orthogonal in the common frame $\Sigma_0^{-1/2}$. With a common sensory precision $\Lambda_{o_i} = \Lambda_o > 0$ and links preserving the combined precision $A=\Sigma_0^{-1}+\Lambda_o$ by $\Omega_{ij}^{-\top}A\Omega_{ij}^{-1}=A$, the same computation gives $\Sigma_\infty = (\Sigma_0^{-1} + \Lambda_o)^{-1}$.
+
+Hence, in a symmetric observation-free population, the equilibrium covariance reproduces the shared prior. This reflects the doubled entropy weight of the consensus potential: a normalized Gaussian joint with prior precision $\Sigma_0^{-1}$ and edge precision $\Sigma_0^{-1}$ gives the mean-field covariance $\Sigma_0/2$, which is precision addition~\cite[Ch.~G4, block optimum]{DennisGaugeVFESuppG2026}.
+
+\subsubsection{Alignment-dominated regime}
+
+Although $\sum_j \beta_{ij} = 1$, one might expect the effective strength of alignment to be controlled by the attention temperature $\tau$ in
+
+\begin{equation}
+\beta_{ij}
+=\frac{
+\exp\left[
+-\frac{1}{\tau}
+D_{\mathrm{KL}}\big(q_i \| \Omega_{ij} q_j\big)
+\right]
+}{\sum_k
+\exp\left[
+-\frac{1}{\tau}
+D_{\mathrm{KL}}\big(q_i \| \Omega_{ik} q_k\big)
+\right]}.
+\end{equation}
+
+As $\tau \to 0$, $\beta_{ij}$ becomes sharply peaked on $j^\star = \arg\min_j D_{\mathrm{KL}}(q_i \| \Omega_{ij}q_j)$. Since $\sum_j \beta_{ij} = 1$ for every $\tau > 0$, sharpening $\beta$ by itself does not amplify the coefficient on the alignment block: in the limit, $\sum_j \beta_{ij}(\Omega_{ij}\Sigma_j\Omega_{ij}^\top)^{-1} \to (\Omega_{ij^\star}\Sigma_{j^\star}\Omega_{ij^\star}^\top)^{-1}$, which is bounded. To make the alignment-dominated regime precise we place an explicit coupling strength $a > 0$ on the alignment block,
+
+\begin{equation}
+\mathcal{E}_i^{(a)}
+=D_{\mathrm{KL}}(q_i \| p_i)
++ a \sum_{j \neq i} \beta_{ij}
+D_{\mathrm{KL}}(q_i \| \Omega_{ij} q_j)
+- \mathbb{E}_{q_i}[\log p(o_i \mid k_i)],
+\end{equation}
+
+of which the derivation above is the case $a = 1$. Repeating the differentiation term by term, the stationarity condition becomes
+
+\begin{equation}
+(1 + a)\Sigma_i^{-1}
+=\Sigma_{p,i}^{-1}
++ a \sum_j \beta_{ij}
+(\Omega_{ij}\Sigma_j\Omega_{ij}^\top)^{-1}
++ \Lambda_{o_i},
+\end{equation}
+
+which reduces to \eqref{eq:sigma_fixed_point_beta} at $a = 1$. In precision coordinates it reads $(1+a)\Lambda = A + a\mathcal{L}(\Lambda)$, and the argument of Proposition~\ref{prop:covariance_fixed_point}(i), applied to $a\mathcal{L}/(1+a)$, shows that an SPD solution exists if and only if $\rho(\mathcal{L}) < 1 + 1/a$. The high-coupling limit $a \to \infty$ therefore exists only if $\rho(\mathcal{L}) \leq 1$. Dividing by $a$ gives formally
+
+\begin{equation}
+\boxed{
+\Sigma_i^{-1}
+\longrightarrow
+\sum_j \beta_{ij}
+(\Omega_{ij}\Sigma_j\Omega_{ij}^\top)^{-1}
+=\big\langle(\Omega_{ij}\Sigma_j\Omega_{ij}^\top)^{-1}
+\big\rangle_{\beta}
+\qquad \text{(alignment-dominated)},}
+\label{eq:beta_weighted_precision}
+\end{equation}
+
+where $\langle \cdot \rangle_{\beta}$ denotes a $\beta$-weighted average over neighbors. This is the eigenvalue equation $\Lambda = \mathcal{L}(\Lambda)$. If $\rho(\mathcal{L}) < 1$, the finite-coupling solution is $\Lambda_a = (I + a(I - \mathcal{L}))^{-1}A$, which tends to zero like $1/a$, so the covariances diverge. The boxed relation has a nonzero SPD limit only when $\rho(\mathcal{L}) = 1$ with an SPD Perron eigenvector. Graph-flat links are the basic case. In the frames $g_i = U_i^{-1}$ the map acts as $\tilde\Lambda_i \mapsto \sum_j\beta_{ij}\tilde\Lambda_j$ with $\tilde\Lambda_i := U_i^\top\Lambda_iU_i$. For an irreducible row-stochastic $\beta$ with stationary distribution $\pi$, contracting the finite-coupling equation with $\pi$ gives $\sum_i\pi_i\tilde\Lambda_i = \sum_i\pi_i\tilde A_i$ for every $a$, with $\tilde A_i := U_i^\top A_iU_i$, while the components off the Perron direction decay like $1/a$. The limit is therefore the common precision $\tilde\Lambda_\infty = \sum_k\pi_k\tilde A_k$, and the limit covariances $\Sigma_i = U_i\tilde\Lambda_\infty^{-1}U_i^\top$ satisfy $\Sigma_i = \Omega_{ij}\Sigma_j\Omega_{ij}^\top$ on every edge.
+
+Per-edge covariance alignment is thus exact in the flat-link, high-coupling limit, and small $\tau$ alone does not produce it. At finite coupling, or with holonomy, the equilibrium satisfies only the $\beta$-averaged relation~\eqref{eq:sigma_fixed_point_beta}, and with several heterogeneous neighbors the per-edge mismatch is generically nonzero, since $\Sigma_i$ cannot equal every transported neighbor covariance at once.
+
+\subsubsection{Stability}
+
+Proposition~\ref{prop:covariance_fixed_point}(ii) gives global stability of the simultaneous receiver-only natural-gradient flow whenever $\rho(\mathcal{L}) < 2$. The own-block Hessian is also exact,
+\begin{equation}
+\frac{\partial^2 \mathcal{E}_i}{\partial \Sigma_i \partial \Sigma_i}[X]
+= \Sigma_i^{-1} X \Sigma_i^{-1},
+\end{equation}
+since each KL term contributes $\tfrac{1}{2}\Sigma_i^{-1}X\Sigma_i^{-1}$ from its log-determinant, the self and alignment weights sum to $2 \times \tfrac{1}{2} = 1$, and the trace and observation terms are linear in $\Sigma_i$. It is positive definite for every $\Sigma_i \succ 0$, so each agent's problem with its neighbors frozen is strictly convex in $\Sigma_i$. Neither statement covers the complete canonical objective, whose Hessian carries sender cross-blocks and the reduced-Hessian softmax covariance correction; stability of that coupled equilibrium, and existence of an equilibrium of the live-softmax dynamics, are not established here. A Euclidean flow $d\Sigma_i/dt = -\eta_\Sigma\partial\mathcal{E}_i/\partial\Sigma_i$ has the same fixed point, but its linearization depends on the conditioning of the fixed point, and we have no general stability theorem for it.
+
+\paragraph{Mean update where covariances align.}
+The natural-gradient mean update $\Sigma_i\nabla_{\mu_i}\mathcal{E}_i$ carries the per-edge alignment term $\beta_{ij} \Sigma_i (\Omega_{ij}\Sigma_j\Omega_{ij}^\top)^{-1}(\mu_i - \Omega_{ij}\mu_j)$. Where per-edge alignment $\Sigma_i = \Omega_{ij}\Sigma_j\Omega_{ij}^\top$ holds, as in the flat-link, high-coupling limit above, the precision factors cancel and
+\begin{equation}
+\beta_{ij} \Sigma_i (\Omega_{ij}\Sigma_j\Omega_{ij}^\top)^{-1}(\mu_i - \Omega_{ij}\mu_j) \longrightarrow \beta_{ij}(\mu_i - \Omega_{ij}\mu_j),
+\end{equation}
+so the step is an attention-weighted sum of transported residuals with no covariance factor. This is again a property of the consensus potential: in the exact receiver update of a normalized comparison-record model the corresponding step keeps a Kalman-type gain set by the receiver's posterior covariance~\cite[Ch.~6, exact receiver update]{DennisGaugeVFE2026}.
+

@@ -39,18 +39,18 @@ The limitations are equally clear. Each inference step requires a fresh evaluati
 
 ## Relation to this work
 
-The VFE transformer treats each token as carrying a Gaussian belief $(\mu,\Sigma)$ and applies a target-blind filtering step before a separate decode cross-entropy update. Iterative amortized inference is a conceptual template for repeated belief refinement: a transformer block can be compared with one optimizer iteration that reads precision-weighted errors. This is not one shared ELBO, a converged E-step, or a learned VAE encoder. [[gl-k-attention-2026-07-09-review-revision]]
+The VFE transformer treats each token as carrying a Gaussian belief $(\mu,\Sigma)$ and applies a target-blind filtering step before a separate decode cross-entropy update. Iterative amortized inference is a conceptual template for repeated belief refinement: a transformer block can be compared with one optimizer iteration that reads precision-weighted errors. This is not one shared ELBO, a converged E-step, or a learned VAE encoder.
 
 What the program **borrows** is the iterative-update viewpoint and the use of belief-objective gradients as refinement signals ([[marino-2018-iterative-amortized-inference]]). Its Gaussian beliefs invite comparison with VAE reparameterization ([[kingma-2013-auto-encoding-variational-bayes]]), and its precision weighting with Gaussian predictive-coding derivations ([[bogacz-2017-free-energy-tutorial]], [[rao-1999-predictive-coding]]). Neal–Hinton incremental EM remains textbook background for a shared functional; it does not justify this two-objective schedule.
 
-How it **differs**: the belief covariance uses an `spd_affine` retraction and belief-side Fisher/AIRM geometry. The audited frame table uses plain AdamW on the outer objective, not a Fisher natural gradient; the stored pullback and heavy-ball fields are inactive. The belief divergence can use a [[Renyi divergence]] family (`divergence_family = "renyi"`, with KL as the order-one limit), but the decode cross-entropy remains separate. The GL($k$) structure also transports belief updates across token frames, a constraint absent from the original Euclidean formulation. [[gl-k-attention-2026-07-09-review-revision]]
+How it **differs**: the belief covariance uses an `spd_affine` retraction and belief-side Fisher/AIRM geometry. The audited frame table uses plain AdamW on the outer objective, not a Fisher natural gradient; the stored pullback and heavy-ball fields are inactive. The belief divergence can use a [[Renyi divergence]] family (`divergence_family = "renyi"`, with KL as the order-one limit), but the decode cross-entropy remains separate. The GL($k$) structure also transports belief updates across token frames, a constraint absent from the original Euclidean formulation.
 
 > [!note] Editorial: The mapping "one transformer block = one iterative-inference step" is an interpretive bridge offered by this program; the original paper frames the method for VAE-style latent-variable models, not sequence transformers.
 
 ## Measured: the amortization gap the program actually has
 
 The accuracy/compute trade-off that motivates iterative refinement was measured directly on two
-trained checkpoints in 2026-07-25 ([[2026-07-25-estep-character-and-channel-decomposition]]), and
+trained checkpoints in 2026-07-25, and
 there is almost none to trade on the belief channel. One belief E-step is worth roughly 1.3 to 1.4
 nats of cross-entropy standing alone, while depths 2 through 8 are worth 0.012 to 0.013 nats in
 total and free energy moves 0.04 nats across the whole sweep.
@@ -68,8 +68,8 @@ the fused precision on the prior and 15 to 20% on the gauge-transported neighbor
 belief is a convex blend -- an attention layer with a dominant residual path, computed as a
 variational stationary point rather than a dot-product softmax. The share carried by the aggregation
 rises with width across the two measured points (0.153 at $K=20$, 0.196 at $K=300$), but that pair
-is confounded with training length and head geometry, so the rise is supported rather than isolated
-([[2026-07-26-b01-probe-defect-and-width-remeasurement]]). This is a concrete instance of the amortization question turning out to be the
+is confounded with training length and head geometry, so the rise is supported rather than isolated.
+This is a concrete instance of the amortization question turning out to be the
 wrong axis: the gap is not between one step and many, but between what a single precision-weighted
 aggregation can express and what the task needs.
 
@@ -77,7 +77,7 @@ Removing the upstream consensus channel does not restore an amortization gap eit
 trained with that channel gated off, the belief loop's depth sensitivity rises from 0.012 to 0.099
 nats out to depth 8 — eight times larger, but still two orders below the 3.48 the consensus channel
 alone produced, and still concentrated almost entirely in the first step, which takes 99.8% of the
-total displacement ([[2026-07-25-token-prior-estep-character-and-diagnostics]]). Whatever the
+total displacement. Whatever the
 iteration contributes, it is not depth.
 
 > [!warning] Diagnostic caution
@@ -96,8 +96,6 @@ iteration contributes, it is not depth.
 - [[bogacz-2017-free-energy-tutorial]] — explicit precision-weighted Gaussian belief updates that instantiate the free-energy gradient.
 - [[rao-1999-predictive-coding]], [[friston-2010-free-energy-principle]] — predictive-coding and free-energy-principle accounts of inference as iterative error-driven belief updating.
 - [[millidge-2020-pc-approximates-backprop]] — equivalence of local free-energy minimization and backprop, unifying the learned-optimizer and end-to-end-gradient views.
-- [[2026-07-25-estep-character-and-channel-decomposition]] — the measured depth attribution and the precision split at the fixed point.
-- [[2026-07-25-token-prior-estep-character-and-diagnostics]] — the same measurements with the consensus channel gated off; the registered share prediction refuted.
 
 ## See also
 

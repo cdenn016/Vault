@@ -1,0 +1,1442 @@
+\chapter{Exact Agent-Network Coarse-Graining}
+\label{ch:agent-network-rg}
+
+This chapter asks what one exact coarse-graining step does to the interacting
+agent network of \Cref{ch:local-collective-elbo} at $c_*$, and which state must
+be kept so that the step closes. The effective action of a coarse agent network
+is a conditional partition function (\Cref{thm:rg-effective-action}), real
+analytic in bounded perturbations (\Cref{thm:rg-bounded-action-calculus}); in
+Hoeffding interaction coordinates the step is an exact nonlinear map between
+spaces of different dimension whose finite-step multipliers are bounded by
+$3^{\lvert V_n\rvert}-1$ at every depth
+(\Cref{prop:rg-interaction-native-growth-bound}); and exact closure keeps induced
+hyperedges, bridge kernels, joint attention-event laws, gauge-retained marks, and
+path laws with their memory (\Cref{tab:rg-retained-state}). The multiscale free
+energy of \Cref{ch:full-graph-meta-agent-vfe} is built from these objects, and the
+formation witnesses of \Cref{ch:finite-depth-formation} are exact marked parents
+in the sense fixed here.
+
+At depth $\ell$ a coarse channel $C_\ell:\mathsf Y_\ell\rightsquigarrow\mathsf
+Y_{\ell+1}$ (\Cref{def:cg-coarse-channel}) maps the product state space of the
+finite agent set $V_\ell$ to the next depth; for one arrow the spaces are
+$\mathsf Y$ and $\mathsf Z$ with samples $y$ and $z$. Local symbols are
+$\varrho_\ell,\mathsf m_\ell,M_\ell,\bar{\mathsf m}_\ell,H_\ell$ for the measure pair;
+$C^\dagger,\mathsf U,\mathcal A$ for the reverse kernel, its conditional
+expectation, and the action increment; $\mathcal G_\ell,\mathsf g,\mathsf
+E_{\ell,B},\mathsf P_{\ell,B},\operatorname{asm}_\ell,\operatorname{hd}_\ell$ for
+interaction coordinates; $\mathcal T_\ell,D_\ell,D_{n\leftarrow\ell}$ for the exact
+step and its multipliers; $\chi$ and $\mathsf T$ for a deterministic coarse map and
+a transition kernel; and a superscript $c$ for coarse objects. Longer proofs are
+deferred to \cref{app:deferred-proofs}.
+
+Scope. The retained-state table of \Cref{sec:rg-closure-theorem} catalogs exact
+operations under their admission hypotheses and is not a completeness theorem;
+the coarse channel and the child blocks are inputs, not canonical selections; and
+the auxiliary path experiment of \Cref{sec:rg-memory-hidden-history} has its own
+evidence and free energy, not identified with those of the original sensor model.
+\status{NOT-CLAIMED} Open items are the invariant retained subspaces of the
+interaction step (\Cref{open:rg-invariant-retained-subspace}), the dynamic closure
+of the pointwise parent (\Cref{open:rg-pointwise-parent-dynamics}), and jointly
+measurable equivariant conditional versions beyond the compact and finite cases
+(\Cref{open:cg-equivariant-versions}).
+
+\section{Exact effective action}
+\label{sec:rg-effective-action}
+\label{sec:rg-measure-pair-arrows}
+
+\definitionheading{Scale-indexed measure pair}{def:rg-measure-pair}
+For each depth $\ell$ let $\varrho_\ell$ be a probability measure on
+$\mathsf Y_\ell$, let $\mathsf m_\ell\ll\varrho_\ell$ be a finite positive measure,
+and let a depth arrow be a parameter-independent Markov kernel
+$C_\ell:\mathsf Y_\ell\rightsquigarrow\mathsf Y_{\ell+1}$ acting on both components:
+\begin{align}
+\mathsf m_\ell(dy)&=\exp[-H_\ell(y)]\varrho_\ell(dy),
+\qquad
+0<M_\ell:=\mathsf m_\ell(\mathsf Y_\ell)<\infty,
+\qquad
+\bar{\mathsf m}_\ell=\mathsf m_\ell/M_\ell,
+\label{eq:rg-measure-pair-normalization}\\
+\varrho_{\ell+1}&=\varrho_\ell C_\ell,
+\qquad
+\mathsf m_{\ell+1}=\mathsf m_\ell C_\ell,
+\qquad
+H_{\ell+1}=-\log\frac{d\mathsf m_{\ell+1}}{d\varrho_{\ell+1}}
+\quad\varrho_{\ell+1}\text{-almost everywhere},
+\label{eq:rg-measure-pair-action}
+\end{align}
+with $\exp(-\infty)=0$, so that each action is an extended real function defined
+almost everywhere. At a record $o$ and for one arrow
+$C:\mathsf Y\rightsquigarrow\mathsf Z$ with its index suppressed, the fine pair is
+$(\varrho,\mathsf m_o)$ with $\mathsf m_o(dy)=L_o(y)\varrho(dy)$,
+$L_o=\exp(-H_o)$, $0<M_o:=\mathsf m_o(\mathsf Y)<\infty$, and
+$\bar{\mathsf m}_o=M_o^{-1}\mathsf m_o$, and the pushed pair, effective likelihood,
+and effective action are
+\begin{equation}
+\varrho^c=\varrho C,
+\quad
+\mathsf m_o^c=\mathsf m_oC,
+\quad
+\bar{\mathsf m}_o^c=\bar{\mathsf m}_oC=M_o^{-1}\mathsf m_o^c,
+\quad
+L_o^c=\frac{d\mathsf m_o^c}{d\varrho^c},
+\quad
+H_o^c=-\log L_o^c.
+\label{eq:rg-reference-evidence-pair}
+\end{equation}
+When $\varrho$ is the latent prior and $L_o$ the record likelihood,
+$\bar{\mathsf m}_o$ is the posterior slice and $M_o$ the evidence.
+
+\propositionheading{Exact composition and normalized law}{prop:rg-measure-pair-composition}
+Composable arrows act on the pair componentwise:
+$(\varrho_\ell,\mathsf m_\ell)(C_\ell C_{\ell+1})
+=((\varrho_\ell C_\ell)C_{\ell+1},(\mathsf m_\ell C_\ell)C_{\ell+1})$. Moreover
+$\mathsf m_{\ell+1}\ll\varrho_{\ell+1}$, so that
+\eqref{eq:rg-measure-pair-action} is defined, $\mathsf m_{\ell+1}(\mathsf
+Y_{\ell+1})=M_\ell$, and $\bar{\mathsf m}_{\ell+1}=\bar{\mathsf m}_\ell C_\ell$; the
+same statements hold for the single-arrow pair
+\eqref{eq:rg-reference-evidence-pair}. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Composition on each component is \Cref{prop:cg-markov-category}. If
+$\varrho_{\ell+1}(A)=0$, then $C_\ell(y,A)=0$ for $\varrho_\ell$-almost every $y$,
+hence for $\mathsf m_\ell$-almost every $y$, and $\mathsf m_{\ell+1}(A)=0$. A
+Markov kernel preserves total mass, and dividing by that mass gives the normalized
+law. $\square$
+
+\theoremheading{Conditional-partition formula and composition}{thm:rg-effective-action}
+Let $C^\dagger_\varrho(z,dy)$ be a reverse conditional of $Y$ given $Z=z$ under
+the joint law $\varrho(dy)C(y,dz)$. Then for $\varrho^c$-almost every $z$
+\begin{equation}
+\exp[-H_o^c(z)]
+=\int\exp[-H_o(y)]C^\dagger_\varrho(z,dy),
+\qquad
+M_o=\int\exp[-H_o^c(z)]\varrho^c(dz).
+\label{eq:rg-conditional-partition}
+\end{equation}
+For a second channel $C'$ on $\mathsf Z$, the direct effective likelihood of $CC'$
+and the staged one agree $\varrho CC'$-almost everywhere when their reverse
+conditionals are chosen from one joint tower. If $0\le L_o\le1$, as for a binary
+success record, then $0\le L_o^c\le1$, so one effective binary record realizes the
+whole coarse action; for a general record density $L_o^c$ need not be bounded by
+one. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+For bounded measurable $f$, $\int f(z)\mathsf m_o^c(dz)=\E_\varrho[f(Z)L_o(Y)]
+=\int f(z)\E_\varrho[L_o(Y)\given Z=z]\varrho^c(dz)$ under the joint law, which
+identifies the Radon--Nikodym derivative, as in the density formula of
+\Cref{thm:cg-dpi-equality} with $L_o=d\mathsf m_o/d\varrho$; $f=1$ gives the
+evidence. The tower property proves composition, and a conditional expectation of
+a function with values in $[0,1]$ takes values in $[0,1]$. $\square$
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[>=stealth,every node/.style={font=\small}]
+  \node[draw,rounded corners,fill=lightblue,minimum height=0.7cm]
+    (fine) at (0,0) {fine law $(\varrho,\mathsf m_o,\eta)$};
+  \node[draw,rounded corners,fill=lightgreen,minimum height=0.7cm]
+    (coarse) at (4.9,0) {coarse law $(\varrho^c,\mathsf m_o^c,\eta^c)$};
+  \node[draw,rounded corners,fill=lightorange,minimum height=0.7cm]
+    (action) at (12.1,0) {$H_o^c=-\log(d\mathsf m_o^c/d\varrho^c)$};
+  \draw[->,very thick,primaryblue] (fine)--node[above]{$C$}(coarse);
+  \draw[->,very thick,sciencegreen] (coarse)--node[above]{Radon--Nikodym}(action);
+\end{tikzpicture}
+\caption{One exact step acts on the reference probability, the evidence measure,
+and the joint attention-event law; the effective action is the Radon--Nikodym
+derivative of the pushed evidence measure with respect to the pushed reference.}
+\label{fig:rg-exact-measure-flow}
+\end{figure}
+
+\section{Bounded action calculus and contraction}
+\label{sec:rg-local-action-calculus}
+\label{sec:rg-action-contraction}
+
+\theoremheading{Exact bounded action calculus}{thm:rg-bounded-action-calculus}
+\label{prop:rg-action-bounded-recentering}%
+Fix a jointly measurable reverse kernel $C^\dagger(z,dy)$ of the normalized joint
+law and its reverse conditional expectation,
+\begin{equation}
+\bar{\mathsf m}_o(dy)C(y,dz)=\bar{\mathsf m}_o^c(dz)C^\dagger(z,dy),
+\qquad
+(\mathsf Uh)(z)=\int h(y)C^\dagger(z,dy),
+\label{eq:rg-normalized-reverse-kernel}
+\end{equation}
+whose values on $\bar{\mathsf m}_o^c$-null sets are not used. A bounded $\psi$
+perturbs the evidence measure to $e^{-\psi}\mathsf m_o$; on
+$\mathfrak B=L^\infty(\bar{\mathsf m}_o;\R)$ the exact coarse action increment
+$\mathcal A:\mathfrak B\to L^\infty(\bar{\mathsf m}_o^c;\R)$ is
+\begin{equation}
+\mathcal A(\psi)(z)
+=-\log\frac{d\bigl((e^{-\psi}\mathsf m_o)C\bigr)}{d(\mathsf m_oC)}(z)
+=-\log\int e^{-\psi(y)}C^\dagger(z,dy),
+\label{eq:rg-local-action-map}
+\end{equation}
+the difference of the coarse actions of $\mathsf m_o$ and $e^{-\psi}\mathsf m_o$
+where both are finite; elsewhere the calculus supplies no action difference and the
+Radon--Nikodym ratio is the definition.
+
+(a) $e^{-\lVert\psi\rVert_\infty}\le\mathsf U(e^{-\psi})\le e^{\lVert\psi\rVert_\infty}$,
+so $\lVert\mathcal A(\psi)\rVert_\infty\le\lVert\psi\rVert_\infty$, and $\mathcal A$
+is real analytic on the whole of $\mathfrak B$.
+
+(b) For $\psi\in\mathfrak B$ the tilted reverse kernel and its operator
+\begin{equation}
+C^\dagger_\psi(z,dy)=
+\frac{e^{-\psi(y)}C^\dagger(z,dy)}{\int e^{-\psi(u)}C^\dagger(z,du)},
+\qquad
+\mathsf U^\psi h=\frac{\mathsf U(e^{-\psi}h)}{\mathsf U(e^{-\psi})},
+\label{eq:rg-tilted-reverse-kernel}
+\end{equation}
+are positive, unital, and bounded from $L^\infty(\bar{\mathsf m}_o)$ to
+$L^\infty(\bar{\mathsf m}_o^c)$, and for bounded $h$ and $k$
+\begin{align}
+\mathcal A(\psi+h)-\mathcal A(\psi)&=-\log\mathsf U^\psi(e^{-h}),
+\label{eq:rg-action-recentering-identity}\\
+D\mathcal A(\psi)[h](z)&=\int h(y)C^\dagger_\psi(z,dy)=(\mathsf U^\psi h)(z),
+\label{eq:rg-action-first-frechet-general}\\
+D^2\mathcal A(\psi)[h,k](z)&=
+-\operatorname{Cov}_{C^\dagger_\psi(z,\cdot)}(h,k),
+\label{eq:rg-action-second-frechet-general}
+\end{align}
+which at the origin read $D\mathcal A(0)[h]=\mathsf Uh$ and
+$D^2\mathcal A(0)[h,k]=-\operatorname{Cov}_{C^\dagger(z,\cdot)}(h,k)$.
+
+(c) The map is order preserving and additively homogeneous:
+$\psi\le\psi'+c$ implies $\mathcal A(\psi)\le\mathcal A(\psi')+c$, and
+$\mathcal A(\psi+c)=\mathcal A(\psi)+c$ for constants $c$. Consequently
+\begin{equation}
+\lVert\mathcal A(\psi)-\mathcal A(\psi')\rVert_\infty
+\le\lVert\psi-\psi'\rVert_\infty .
+\label{eq:rg-nonlinear-action-sup-contraction}
+\end{equation}
+
+(d) Both $\mathcal A$ and $\mathsf U$ descend to the projective action space
+$\overline{\mathfrak B}=\mathfrak B/\R1$, which forgets the perturbed mass
+$(e^{-\psi}\mathsf m_o)(\mathsf Y)$.
+
+(e) Normalizing the perturbed fine law instead gives
+\begin{equation}
+\widehat{\mathsf m}^\psi
+=\frac{e^{-\psi}\bar{\mathsf m}_o}{\bar{\mathsf m}_o(e^{-\psi})},
+\qquad
+\widetilde{\mathcal A}(\psi)
+:=-\log\frac{d(\widehat{\mathsf m}^\psi C)}{d\bar{\mathsf m}_o^c}
+=\mathcal A(\psi)+\log\bar{\mathsf m}_o(e^{-\psi}),
+\label{eq:rg-normalized-perturbation-action}
+\end{equation}
+which differs from $\mathcal A$ by a constant, with derivatives
+$D\widetilde{\mathcal A}(0)[h]=\mathsf Uh-\bar{\mathsf m}_o(h)$ and
+$D^2\widetilde{\mathcal A}(0)[h,k]=-\operatorname{Cov}_{C^\dagger(z,\cdot)}(h,k)
++\operatorname{Cov}_{\bar{\mathsf m}_o}(h,k)$. \status{ESTABLISHED}
+
+\theoremheading{Conditional-expectation contraction and exact defect}{thm:rg-action-lp-contraction}
+For every $1\le p\le\infty$ the operator $\mathsf U$ of
+\eqref{eq:rg-normalized-reverse-kernel} extends uniquely to a mean-preserving
+contraction $\mathsf U:L^p(\bar{\mathsf m}_o;\R)\to L^p(\bar{\mathsf m}_o^c;\R)$,
+and at $p=2$ the loss is a conditional variance:
+\begin{align}
+\lVert\mathsf Uh\rVert_{L^p(\bar{\mathsf m}_o^c)}&\le\lVert h\rVert_{L^p(\bar{\mathsf m}_o)},
+\label{eq:rg-action-lp-contraction}\\
+\lVert h\rVert_{L^2(\bar{\mathsf m}_o)}^2-\lVert\mathsf Uh\rVert_{L^2(\bar{\mathsf m}_o^c)}^2
+&=\int\operatorname{Var}_{C^\dagger(z,\cdot)}(h)\bar{\mathsf m}_o^c(dz)\ge0,
+\label{eq:rg-action-l2-conditional-defect}
+\end{align}
+with equality exactly when $h(y)=f(z)$ for $\bar{\mathsf m}_o(dy)C(y,dz)$-almost
+every $(y,z)$ and some measurable $f$ on $\mathsf Z$; for a deterministic coarse
+map $z=\chi(y)$ this means $h=f\circ\chi$ $\bar{\mathsf m}_o$-almost everywhere.
+With the oscillation norm on $L^\infty(\bar{\mathsf m}_o)/\R1$ and the contraction
+coefficient of \citet{Dobrushin1956} of the reverse kernel,
+\begin{align}
+\lVert[h]\rVert_{\mathrm{osc}}
+&=\inf_{c\in\R}\lVert h-c\rVert_\infty
+=\tfrac12\bigl(\operatorname*{ess~sup}h-\operatorname*{ess~inf}h\bigr),
+\label{eq:rg-action-oscillation-norm}\\
+\delta&=
+\operatorname*{ess~sup}_{(z,z')\sim(\bar{\mathsf m}_o^c)^{\otimes2}}
+\sup_{A}\bigl\lvert C^\dagger(z,A)-C^\dagger(z',A)\bigr\rvert,
+\label{eq:rg-action-dobrushin-coefficient}
+\end{align}
+the inner supremum running over Borel sets, one has
+$\lVert[\mathsf Uh]\rVert_{\mathrm{osc}}\le\delta\lVert[h]\rVert_{\mathrm{osc}}$, and
+along a finite composition of arrows the oscillation norm of the composed reverse
+operators is at most the product of the one-step coefficients.
+\status{ESTABLISHED}
+
+The proofs of \Cref{thm:rg-bounded-action-calculus,thm:rg-action-lp-contraction}
+are in \cref{sec:proofs-network-coarsegraining}.
+
+\section{Finite-network interaction coordinates}
+\label{sec:rg-finite-network-interactions}
+
+\definitionheading{Product-referenced network scale}{def:rg-network-scale}
+At depth $\ell$ agent $i\in V_\ell$ has state space $\mathsf Y_{\ell i}$ and a
+probability law $\nu_{\ell i}$, and the normalized law $\bar{\mathsf m}_\ell$ of
+\Cref{def:rg-measure-pair} on $\mathsf Y_\ell=\prod_{i\in V_\ell}\mathsf Y_{\ell i}$
+is mutually absolutely continuous, $\bar{\mathsf m}_\ell\sim\nu_\ell$, with the
+product reference $\nu_\ell=\bigotimes_{i\in V_\ell}\nu_{\ell i}$. Equivalence
+identifies $L^\infty(\bar{\mathsf m}_\ell)$ with $L^\infty(\nu_\ell)$
+isometrically, with no bound on the Radon--Nikodym ratio, and the product
+structure of $\nu_\ell$ makes the coordinate expectations below well defined on
+equivalence classes by Fubini's theorem. For an arrow $C_\ell$, equivalence of
+$\bar{\mathsf m}_{\ell+1}=\bar{\mathsf m}_\ell C_\ell$ to a product reference
+$\nu_{\ell+1}$ is a separate premise
+(\Cref{prop:rg-product-equivalence-not-preserved}). If $V_\ell=\varnothing$, then
+$\mathsf Y_\ell$ is a point, $\mathcal G_\ell=\{0\}$, and every map below is zero;
+estimates involving $3^{\lvert V_\ell\rvert}-1$ assume $V_\ell\ne\varnothing$.
+
+\remarkheading{The bounded tier}{rem:rg-bounded-tier-scope}
+Every interaction component below is essentially bounded. The bounded tier contains
+every interaction on finite agent spaces and every continuous interaction on
+compact ones, hence the natural couplings of categorical agents and of compact
+group-valued states. On $\mathsf Y_{\ell i}=\R^K$ it excludes the polynomial
+couplings: for a matrix $\mathsf N\ne0$ and every $M>0$ the set where
+$\lvert y_i^\top\mathsf Ny_j\rvert>M$ is a nonempty open subset of
+$\R^K\times\R^K$, so it has positive mass under every reference with full support,
+and $y_i^\top\mathsf Ny_j\notin L^\infty(\nu_\ell)$. Such couplings need a separate
+tier, exact Gaussian marginalization or a weighted action space, which this
+chapter does not construct. \status{ESTABLISHED}
+
+\propositionheading{Product equivalence is an admitted, not an automatic, scale premise}{prop:rg-product-equivalence-not-preserved}
+Let $\mathsf Y_0=\{0,1\}$ with its uniform law $\bar{\mathsf m}_0=\nu_0$, and let
+$C$ be the deterministic diagonal-cloning channel $y\mapsto(y,y)$ from $\{0,1\}$ to
+$\{0,1\}^2$. Then $\bar{\mathsf m}_1=\bar{\mathsf m}_0C$ is supported on
+$\{(0,0),(1,1)\}$, no product probability $\nu_{11}\otimes\nu_{12}$ on
+$\{0,1\}^2$ is equivalent to it, and no target Hoeffding decomposition relative to
+a product reference is admitted at this target. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Equivalence would make both diagonal atoms positive under the product, so each
+marginal would charge both $0$ and $1$ and both off-diagonal atoms would have
+positive product mass, while $\bar{\mathsf m}_1$ assigns them mass zero.
+$\square$
+
+\definitionheading{Hoeffding coordinates}{def:rg-hoeffding-coordinates}
+Under \Cref{def:rg-network-scale}, for $B\subseteq V_\ell$ let
+$(\E_{\ell,B}f)(y_B)=\int f(y_B,y'_{B^c})\nu_{\ell,B^c}(dy'_{B^c})$ integrate
+out the complementary coordinates against the product reference, with
+$\E_{\ell,\varnothing}f=\nu_\ell(f)$. The Hoeffding projectors are the
+M\"obius inversions
+\begin{equation}
+\mathsf P_{\ell,B}
+=\sum_{B'\subseteq B}(-1)^{\lvert B\rvert-\lvert B'\rvert}\E_{\ell,B'}
+=\prod_{i\in B}\bigl(I-\E_{\ell,V_\ell\setminus\{i\}}\bigr)\E_{\ell,B},
+\qquad B\subseteq V_\ell,
+\label{eq:rg-hoeffding-mobius-projectors}
+\end{equation}
+where the alternating sum is the definition and the product is the identity of
+\Cref{thm:rg-hoeffding-action-isomorphism}. The component spaces
+$\mathcal H_{\ell,B}=\mathsf P_{\ell,B}L^\infty(\nu_\ell)$ form the interaction
+space $\mathcal G_\ell=\bigoplus^{\ell^1}_{\varnothing\ne B\subseteq
+V_\ell}\mathcal H_{\ell,B}$ with norm $\lVert\mathsf g\rVert_{\mathcal
+G_\ell}=\sum_{\varnothing\ne B\subseteq V_\ell}\lVert\mathsf g_B\rVert_\infty$, so
+every nonempty hyperedge has its component and no bound on $\lvert V_\ell\rvert$
+is imposed. With the action quotient
+$\overline{\mathfrak B}_\ell=L^\infty(\nu_\ell)/\R1$, normed by
+\eqref{eq:rg-action-oscillation-norm}, the assembly and extraction maps are
+\begin{equation}
+\psi_{\mathsf g}=\sum_{\varnothing\ne B\subseteq V_\ell}\mathsf g_B,
+\qquad
+\operatorname{asm}_\ell\mathsf g=[\psi_{\mathsf g}],
+\qquad
+\operatorname{hd}_\ell[f]=(\mathsf P_{\ell,B}f)_{\varnothing\ne B\subseteq V_\ell}.
+\label{eq:rg-interaction-assembly-extraction}
+\end{equation}
+
+\theoremheading{Hoeffding assembly is an exact finite-network action isomorphism}{thm:rg-hoeffding-action-isomorphism}
+For every finite $V_\ell$ the coordinate expectations commute and satisfy
+$\E_{\ell,B}\E_{\ell,B'}=\E_{\ell,B\cap B'}$, the product formula
+in \eqref{eq:rg-hoeffding-mobius-projectors} holds, and
+$\mathsf P_{\ell,B}\mathsf P_{\ell,B'}=\mathbf 1_{B=B'}\mathsf P_{\ell,B}$ with
+$\sum_{B\subseteq V_\ell}\mathsf P_{\ell,B}=I$. Each component $\mathsf g_B$
+depends only on $y_B$ and has zero $\nu_\ell$-mean in every coordinate of $B$. The
+maps of \eqref{eq:rg-interaction-assembly-extraction} are mutually inverse bounded
+linear isomorphisms,
+\begin{equation}
+\operatorname{hd}_\ell\operatorname{asm}_\ell=I_{\mathcal G_\ell},
+\qquad
+\operatorname{asm}_\ell\operatorname{hd}_\ell=I_{\overline{\mathfrak B}_\ell},
+\qquad
+\lVert\operatorname{asm}_\ell\rVert\le1,
+\qquad
+\lVert\operatorname{hd}_\ell\rVert\le3^{\lvert V_\ell\rvert}-1 .
+\label{eq:rg-hoeffding-inverse-and-bounds}
+\end{equation}
+The last bound is not dimension free, and its exponential dependence is sharp: for independent $\{-1,1\}$-valued coordinates with
+$\Pr(Y_i=1)=p$ with $1/2\leq p<1$ and $f=\prod_iY_i$ on $n=\lvert V_\ell\rvert$ agents, the sum of
+the component norms is $(4p-1)^n-(2p-1)^n$, which tends to $3^n-1$ as $p\uparrow1$.
+\status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-network-coarsegraining}.
+
+\corollaryheading{Gauge covariance of interaction components}{cor:rg-hoeffding-gauge-covariance}
+Let a passive change $g=(g_i)$ of \Cref{ch:geometry}, one element per agent acting
+on both the belief and the model components of that agent's state, be realized at
+depth $\ell$ by coordinate Borel isomorphisms and a Borel permutation $\varsigma$ of
+the agents, whose product map $\kappa_\ell:\mathsf Y_\ell\to\widehat{\mathsf
+Y}_\ell$ sends $\nu_\ell$ to a product reference $\widehat\nu_\ell$. With
+$\mathsf K_\ell f=f\circ\kappa_\ell^{-1}$, its action $\overline{\mathsf K}_\ell$
+on the quotient by constants, and its action $\mathsf K^{\mathcal G}_\ell$ on
+components,
+\begin{equation}
+\mathsf K_\ell\E^{\nu}_{\ell,B}=\E^{\widehat\nu}_{\ell,\varsigma B}\mathsf K_\ell,
+\qquad
+\mathsf K_\ell\mathsf P^{\nu}_{\ell,B}=\mathsf P^{\widehat\nu}_{\ell,\varsigma B}\mathsf K_\ell,
+\qquad
+\overline{\mathsf K}_\ell\operatorname{asm}_\ell
+=\widehat{\operatorname{asm}}_\ell\mathsf K^{\mathcal G}_\ell,
+\qquad
+\mathsf K^{\mathcal G}_\ell\operatorname{hd}_\ell
+=\widehat{\operatorname{hd}}_\ell\overline{\mathsf K}_\ell.
+\label{eq:rg-hoeffding-gauge-covariance}
+\end{equation}
+Preservation of the product reference alone is insufficient: the
+product-Haar-preserving shear $(y_1,y_2)\mapsto(y_1,y_1+y_2)$ of the torus
+$\mathbb T^2$ sends a function of $y_2$ to one depending on both coordinates and
+moves a singleton component into a pair component. If only almost-everywhere
+reverse-kernel equivariance is supplied, the covariance holds for $L^\infty$
+equivalence classes and not for a selected pointwise version.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Fubini's theorem proves the first identity, and the others follow by the finite
+M\"obius sums. The shear maps $f(y_2)$ to $f(y_2-y_1)$, which is not a function of
+one coordinate when $f$ is nonconstant. $\square$
+
+\section{The exact interaction step, its residual, and finite-step multipliers}
+\label{sec:rg-exact-nonlinear-interaction-rg}
+
+\definitionheading{Exact interaction step}{def:rg-interaction-step}
+Assume \Cref{def:rg-network-scale} at depths $\ell$ and $\ell+1$, let
+$\mathcal A_\ell$ be the action increment of \Cref{thm:rg-bounded-action-calculus}
+for the arrow $C_\ell$ at the base law $\bar{\mathsf m}_\ell$, and let
+$\overline{\mathcal A}_\ell:\overline{\mathfrak B}_\ell\to\overline{\mathfrak
+B}_{\ell+1}$ be its quotient map, defined on the whole bounded space by additive
+homogeneity. The exact interaction step is
+\begin{equation}
+\mathcal T_\ell=\operatorname{hd}_{\ell+1}\overline{\mathcal A}_\ell\operatorname{asm}_\ell:
+\mathcal G_\ell\longrightarrow\mathcal G_{\ell+1},
+\qquad
+\mathsf g^{\mathrm{ex}}_{\ell+1}=\mathcal T_\ell(\mathsf g_\ell).
+\label{eq:rg-exact-nonlinear-interaction-map}
+\end{equation}
+
+\lemmaheading{Mass, origin, and derivative of the exact step}{lem:rg-interaction-step}
+The sum $\psi_{\mathsf g}$ is the representative of
+$\operatorname{asm}_\ell\mathsf g$ with zero $\nu_\ell$-mean, and the perturbed
+evidence mass is carried separately and preserved by the arrow,
+\begin{equation}
+M_\ell(\mathsf g):=M_\ell\bar{\mathsf m}_\ell\bigl(e^{-\psi_{\mathsf g}}\bigr)
+=\bigl((e^{-\psi_{\mathsf g}}\mathsf m_\ell)C_\ell\bigr)(\mathsf Y_{\ell+1})
+=:M_{\ell+1}(\mathsf g).
+\label{eq:rg-interaction-evidence-mass}
+\end{equation}
+The step fixes the origin, $\mathcal T_\ell(0)=0$, for every model and every
+channel. The tilted operator $\mathsf U_\ell^{\psi_{\mathsf g}}$ of
+\eqref{eq:rg-tilted-reverse-kernel} is unchanged when a constant is added to
+$\psi_{\mathsf g}$, descends to the action quotient, and gives the derivative
+\begin{equation}
+D\mathcal T_\ell(\mathsf g)
+=\operatorname{hd}_{\ell+1}\overline{\mathsf U_\ell^{\psi_{\mathsf g}}}\operatorname{asm}_\ell:
+\mathcal G_\ell\longrightarrow\mathcal G_{\ell+1};
+\label{eq:rg-nonlinear-interaction-derivative}
+\end{equation}
+only at $\mathsf g=0$ may the tilted operator be replaced by $\mathsf U_\ell$.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+A Markov kernel preserves total mass, which gives
+\eqref{eq:rg-interaction-evidence-mass}, and
+$\mathcal A_\ell(0)=-\log\mathsf U_\ell(1)=0$. A constant added to $\psi_{\mathsf g}$
+multiplies numerator and denominator of $\mathsf U_\ell^{\psi_{\mathsf g}}h$ by one
+positive number, and the chain rule with part (b) of
+\Cref{thm:rg-bounded-action-calculus} gives
+\eqref{eq:rg-nonlinear-interaction-derivative}. $\square$
+
+\remarkheading{Two agents and one exact step}{rem:rg-two-agent-example}
+Let $V_0=\{1,2\}$ with $\mathsf Y_{0i}=\{-1,1\}$ and uniform product base
+$\bar{\mathsf m}_0=\nu_0$, and perturb by
+$\psi(y)=-\xi_1y_1-\xi_2y_2-\xi_{12}y_1y_2$, whose Hoeffding components are
+$-\xi_1y_1$, $-\xi_2y_2$, and $-\xi_{12}y_1y_2$, so $\dim\mathcal G_0=3$. The
+channel $C_0(y,dz)=\delta_{y_1}(dz)$ keeps the first agent, so $V_1=\{I\}$,
+$\mathsf Y_1=\{-1,1\}$, the pushed base is uniform, and $\dim\mathcal G_1=1$. The
+reverse kernel sets $y_1=z$ and leaves $y_2$ uniform, so
+$\mathcal A_0(\psi)(z)=-\xi_1z-\log\cosh(\xi_2+\xi_{12}z)$, and the exact step is
+$\mathcal T_0(\mathsf g)_{\{I\}}(z)=-\xi_1'z$ with
+\[
+\xi_1'=\xi_1+\tfrac12\log\frac{\cosh(\xi_2+\xi_{12})}{\cosh(\xi_2-\xi_{12})}
+=\xi_1+\operatorname{artanh}\bigl(\tanh\xi_2\tanh\xi_{12}\bigr).
+\]
+The pair coupling enters the coarse field only through the polarization of the
+eliminated agent, $\partial\xi_1'/\partial\xi_{12}=\tanh\xi_2$ at $\xi_{12}=0$. At
+the origin $D\mathcal T_0(0)$ keeps the field of agent $1$ and sends the field of
+agent $2$ and the pair direction to zero, since
+$\mathsf U_0(y_2)=\mathsf U_0(y_1y_2)=0$; at a point with $\xi_2\ne0$ the pair
+direction has the nonzero image $-\tanh(\xi_2)z$. The drop from dimension $3$ to
+$1$ is the obstruction of \Cref{prop:rg-interaction-finite-network-obstruction},
+and the multipliers obey the bound $3^2-1=8$ of
+\Cref{prop:rg-interaction-native-growth-bound}. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Each monomial has zero mean in each of its coordinates, which gives the components
+by \eqref{eq:rg-hoeffding-mobius-projectors}. Averaging $e^{-\psi}$ over $y_2$ at
+$y_1=z$ gives $e^{\xi_1z}\cosh(\xi_2+\xi_{12}z)$, and subtracting the mean of
+$\mathcal A_0(\psi)$ over $z=\pm1$ gives the coefficient $-\xi_1'$; the artanh form
+follows from the addition formula for $\cosh$. Differentiating at $\xi_{12}=0$
+gives $\tanh\xi_2$, and \eqref{eq:rg-nonlinear-interaction-derivative} at
+$\psi=-\xi_2y_2$ gives $\mathsf U_0^{\psi}(y_1y_2)(z)=z\tanh\xi_2$. $\square$
+
+\propositionheading{A product base and a block-product channel preserve the intra-block sector}{prop:rg-interaction-intra-block-invariance}
+Suppose that $\bar{\mathsf m}_\ell=\nu_\ell$ is a product law, that blocks
+$I\in V_{\ell+1}$ partition $V_\ell$, each identified with its coarse agent, and
+that the channel factors as
+\begin{equation}
+C_\ell(y,dz)=\prod_{I\in V_{\ell+1}}C_I(y_I,dz_I)
+\label{eq:rg-block-product-channel}
+\end{equation}
+with Markov kernels $C_I$. Then $\bar{\mathsf m}_{\ell+1}=\bar{\mathsf m}_\ell
+C_\ell$ is a product law, so the convention $\bar{\mathsf
+m}_{\ell+1}=\nu_{\ell+1}$ is admissible at the next depth. Let
+$\mathcal G_\ell^{\mathrm{intra}}=\{\mathsf g\in\mathcal G_\ell:\mathsf g_B=0\text{
+unless }B\subseteq I\text{ for some }I\}$. For every $\mathsf g\in\mathcal
+G_\ell^{\mathrm{intra}}$ and every product reference $\nu_{\ell+1}\sim\bar{\mathsf
+m}_{\ell+1}$, the components of $\mathcal T_\ell(\mathsf g)$ vanish on every
+$B\subseteq V_{\ell+1}$ with $\lvert B\rvert\ge2$; in particular the singleton
+sector $\{\mathsf g:\mathsf g_B=0\text{ for }\lvert B\rvert\ge2\}$, which lies in
+$\mathcal G_\ell^{\mathrm{intra}}$, is mapped into the singleton sector of the next
+depth. \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-network-coarsegraining}.
+
+\definitionheading{Scale-indexed evolution and its derivative cocycle}{def:rg-derivative-cocycle}
+Let $(\mathscr X_\ell,\lVert\cdot\rVert_\ell)_{\ell\ge0}$ be Banach spaces and let
+$\mathcal T_\ell:\mathscr O_\ell\to\mathscr X_{\ell+1}$ be continuously Fr\'echet
+differentiable on an open set $\mathscr O_\ell\subseteq\mathscr X_\ell$. The ordered
+evolution $\mathcal T_{n\leftarrow\ell}=\mathcal T_{n-1}\circ\cdots\circ\mathcal
+T_\ell$, with $\mathcal T_{\ell\leftarrow\ell}=\operatorname{id}_{\mathscr X_\ell}$,
+is defined at the points whose successive images stay in the successive domains.
+Along an exact orbit $\xi_{\ell+1}=\mathcal T_\ell(\xi_\ell)$ in those domains, the
+finite-step multipliers are
+\begin{equation}
+D_\ell=D\mathcal T_\ell(\xi_\ell)\in\mathcal L(\mathscr X_\ell,\mathscr X_{\ell+1}),
+\qquad
+D_{n\leftarrow\ell}=D_{n-1}\cdots D_\ell,
+\qquad
+D_{\ell\leftarrow\ell}=I_{\mathscr X_\ell},
+\label{eq:rg-derivative-cocycle}
+\end{equation}
+with the rightmost factor acting first.
+
+\propositionheading{Ordered composition of the evolution and its derivative}{prop:rg-cocycle-composition}
+For $\ell\le n\le r$ and an exact orbit as in \Cref{def:rg-derivative-cocycle},
+\begin{equation}
+\mathcal T_{r\leftarrow n}\circ\mathcal T_{n\leftarrow\ell}=\mathcal T_{r\leftarrow\ell},
+\qquad
+D_{n\leftarrow\ell}=D\mathcal T_{n\leftarrow\ell}(\xi_\ell),
+\qquad
+D_{r\leftarrow n}D_{n\leftarrow\ell}=D_{r\leftarrow\ell}.
+\label{eq:rg-cocycle-composition}
+\end{equation}
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The first and third identities are associativity. The second follows by induction
+on $n-\ell$ from the Fr\'echet chain rule applied to $\mathcal
+T_{n+1\leftarrow\ell}=\mathcal T_n\circ\mathcal T_{n\leftarrow\ell}$ at $\xi_\ell$.
+$\square$
+
+\definitionheading{Finite-step multipliers of the interaction step}{def:rg-interaction-modes}
+Instantiate \Cref{def:rg-derivative-cocycle} with $\mathscr X_\ell=\mathcal G_\ell$,
+$\mathcal T_\ell$ the exact interaction step, and an exact interaction orbit
+$\mathsf g_{\ell+1}=\mathcal T_\ell(\mathsf g_\ell)$. By
+\Cref{lem:rg-interaction-step} the one-step multipliers are
+\begin{equation}
+D_\ell=D\mathcal T_\ell(\mathsf g_\ell)
+=\operatorname{hd}_{\ell+1}\overline{\mathsf U_\ell^{\psi_{\mathsf g_\ell}}}\operatorname{asm}_\ell:
+\mathcal G_\ell\longrightarrow\mathcal G_{\ell+1},
+\label{eq:rg-interaction-mode-generator}
+\end{equation}
+and $D_{n\leftarrow\ell}$ are their ordered products over the finite depth.
+
+\propositionheading{Native growth bound for the exact interaction cocycle}{prop:rg-interaction-native-growth-bound}
+Equip every action quotient $\overline{\mathfrak B}_k$ with the oscillation norm
+\eqref{eq:rg-action-oscillation-norm}. Along an exact interaction orbit with
+multipliers \eqref{eq:rg-interaction-mode-generator} and for $n>\ell$, the ordered
+product telescopes, and its norm is bounded by the target size:
+\begin{align}
+D_{n\leftarrow\ell}
+&=\operatorname{hd}_n\overline{\mathsf U_{n-1}^{\psi_{\mathsf g_{n-1}}}}\cdots
+\overline{\mathsf U_\ell^{\psi_{\mathsf g_\ell}}}\operatorname{asm}_\ell,
+\label{eq:rg-interaction-cocycle-telescoping}\\
+\lVert D_{n\leftarrow\ell}\rVert_{\mathcal G_\ell\to\mathcal G_n}
+&\le3^{\lvert V_n\rvert}-1 .
+\label{eq:rg-interaction-native-growth-bound}
+\end{align}
+The bound does not depend on the number of steps, and it is zero when
+$V_n=\varnothing$. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+By \eqref{eq:rg-hoeffding-inverse-and-bounds},
+$\operatorname{asm}_{k+1}\operatorname{hd}_{k+1}=I$ on $\overline{\mathfrak
+B}_{k+1}$, so every interior pair cancels in $D_{n-1}\cdots D_\ell$, which gives
+\eqref{eq:rg-interaction-cocycle-telescoping}. Each tilted operator is positive and
+unital by \Cref{thm:rg-bounded-action-calculus}, so $\mathsf U_k^\psi(f-c)=\mathsf
+U_k^\psi f-c$ and $\lVert\mathsf U_k^\psi(f-c)\rVert_\infty\le\lVert
+f-c\rVert_\infty$ for every constant $c$, and the infimum over $c$ shows that its
+quotient has norm at most one. Multiplying by the bounds on
+$\operatorname{asm}_\ell$ and $\operatorname{hd}_n$ in
+\eqref{eq:rg-hoeffding-inverse-and-bounds} gives
+\eqref{eq:rg-interaction-native-growth-bound}. $\square$
+
+\propositionheading{Finite networks admit no typed interaction comparison across a reducing step}{prop:rg-interaction-finite-network-obstruction}
+Let every agent space be finite. Then $\mathcal G_\ell\cong
+L^\infty(\nu_\ell)/\R1$ has dimension
+$\lvert\operatorname{supp}\nu_\ell\rvert-1
+=\prod_{i\in V_\ell}\lvert\operatorname{supp}\nu_{\ell i}\rvert-1$. If a step reduces
+this number, no space admits linear isomorphisms onto both $\mathcal G_\ell$ and
+$\mathcal G_{\ell+1}$, so no comparison identification of the interaction spaces
+exists across that step; six binary agents blocked into three binary blocks give
+$\dim\mathcal G_\ell=63$ and $\dim\mathcal G_{\ell+1}=7$. If the blocking ratios are
+the vertex ratios $b_k=\lvert V_k\rvert/\lvert V_{k+1}\rvert\ge b>1$, then
+$\lvert V_n\rvert\le\lvert V_\ell\rvert b^{-(n-\ell)}$, and a nonempty $V_n$ forces
+$n-\ell\le\log_b\lvert V_\ell\rvert$, so a finite network admits only finitely many
+such steps. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+By \Cref{thm:rg-hoeffding-action-isomorphism}, $\mathcal G_\ell$ is linearly
+isomorphic to $L^\infty(\nu_\ell)/\R1$. On a finite space $L^\infty(\nu_\ell)$ is the
+space of functions on the support of $\nu_\ell$, the product of the coordinate
+supports, and the quotient lowers the dimension by one; linear isomorphisms
+preserve dimension. The vertex ratios telescope to
+$\lvert V_\ell\rvert/\lvert V_n\rvert=\prod_{k=\ell}^{n-1}b_k\ge b^{n-\ell}$, and
+$\lvert V_n\rvert\ge1$ bounds $n-\ell$. $\square$
+
+On finite networks the depth objects are therefore the exact step, its residual
+(\Cref{prop:rg-interaction-residual}), and the multipliers, none of which needs a
+comparison isomorphism; blocking sequences with independently declared ratios, and
+infinite networks, are treated in Supplement B.
+
+\definitionheading{Retained projection and closure residual}{def:rg-retained-projection}
+Let $\mathsf P^{\mathrm{ret}}_\ell:\mathcal G_\ell\to\mathcal G_\ell$ be a bounded
+idempotent that intertwines the gauge action of
+\Cref{cor:rg-hoeffding-gauge-covariance}. The retained output, the coordinate
+residual, and the action residual are
+\begin{align}
+\mathsf g^{\mathrm{ret}}_{\ell+1}&=\mathsf P^{\mathrm{ret}}_{\ell+1}\mathcal T_\ell(\mathsf g_\ell),
+\qquad
+r^{\mathcal G}_{\ell+1}(\mathsf g_\ell)
+=\bigl(I-\mathsf P^{\mathrm{ret}}_{\ell+1}\bigr)\mathcal T_\ell(\mathsf g_\ell),
+\label{eq:rg-interaction-coordinate-residual}\\
+\overline r^{\mathcal A}_{\ell+1}(\mathsf g_\ell)
+&=\overline{\mathcal A}_\ell\operatorname{asm}_\ell\mathsf g_\ell
+-\operatorname{asm}_{\ell+1}\mathsf P^{\mathrm{ret}}_{\ell+1}\operatorname{hd}_{\ell+1}
+\overline{\mathcal A}_\ell\operatorname{asm}_\ell\mathsf g_\ell .
+\label{eq:rg-interaction-action-residual}
+\end{align}
+
+\propositionheading{Residual identity and exact-image invariance}{prop:rg-interaction-residual}
+The residuals satisfy $\overline r^{\mathcal A}_{\ell+1}=\operatorname{asm}_{\ell+1}r^{\mathcal G}_{\ell+1}$,
+so one vanishes exactly when the other does, and
+\begin{equation}
+\mathcal T_\ell\bigl(\operatorname{Ran}\mathsf P^{\mathrm{ret}}_\ell\bigr)
+\subseteq\operatorname{Ran}\mathsf P^{\mathrm{ret}}_{\ell+1}
+\quad\Longleftrightarrow\quad
+r^{\mathcal G}_{\ell+1}(\mathsf g)=0
+\quad\text{for every }\mathsf g\in\operatorname{Ran}\mathsf P^{\mathrm{ret}}_\ell .
+\label{eq:rg-interaction-exact-image-invariance}
+\end{equation}
+A retained update is exact precisely under this exact-image invariance; otherwise it
+is a projection scheme with the displayed residual. For $V_{\ell+1}\ne\varnothing$,
+\begin{equation}
+\operatorname{hd}_{\ell+1}\overline r^{\mathcal A}_{\ell+1}=r^{\mathcal G}_{\ell+1},
+\qquad
+\frac{\lVert r^{\mathcal G}_{\ell+1}\rVert_{\mathcal G_{\ell+1}}}{3^{\lvert V_{\ell+1}\rvert}-1}
+\le\lVert\overline r^{\mathcal A}_{\ell+1}\rVert_{\overline{\mathfrak B}_{\ell+1}}
+\le\lVert r^{\mathcal G}_{\ell+1}\rVert_{\mathcal G_{\ell+1}}.
+\label{eq:rg-interaction-residual-norm-control}
+\end{equation}
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Since $\operatorname{asm}_{\ell+1}\operatorname{hd}_{\ell+1}=I$, the first term of
+\eqref{eq:rg-interaction-action-residual} is $\operatorname{asm}_{\ell+1}\mathcal
+T_\ell(\mathsf g_\ell)$, so the action residual is $\operatorname{asm}_{\ell+1}$
+applied to $(I-\mathsf P^{\mathrm{ret}}_{\ell+1})\mathcal T_\ell(\mathsf g_\ell)$,
+and $\operatorname{asm}_{\ell+1}$ is injective. An element lies in the range of an
+idempotent exactly when the complementary idempotent annihilates it, which is
+\eqref{eq:rg-interaction-exact-image-invariance}. Applying
+$\operatorname{hd}_{\ell+1}$ gives the coordinate identity, and the norm bounds are
+\eqref{eq:rg-hoeffding-inverse-and-bounds}. $\square$
+
+\propositionheading{Radon--Nikodym covariance of the nonlinear interaction step}{prop:rg-interaction-rn-gauge-covariance}
+At adjacent depths let $\kappa_\ell$ and $\kappa_{\ell+1}$ be realizations as in
+\Cref{cor:rg-hoeffding-gauge-covariance}, transform the measure pair and the
+normalized law by pushforward, $\widehat\varrho_\ell=(\kappa_\ell)_\#\varrho_\ell$,
+$\widehat{\mathsf m}_\ell=(\kappa_\ell)_\#\mathsf m_\ell$, and
+$\widehat{\bar{\mathsf m}}_\ell=(\kappa_\ell)_\#\bar{\mathsf m}_\ell$, and suppose
+that the transformed channel satisfies $\widehat C_\ell(\kappa_\ell
+y,\kappa_{\ell+1}A)=C_\ell(y,A)$ for every Borel set $A$. Then, as
+Radon--Nikodym equivalence classes,
+\begin{align}
+\widehat{\mathcal A}_\ell(\mathsf K_\ell\psi)&=\mathsf K_{\ell+1}\mathcal A_\ell(\psi),
+\label{eq:rg-action-rn-gauge-covariance}\\
+\widehat{\mathsf U}_\ell^{\mathsf K_\ell\psi}\mathsf K_\ell h&=\mathsf K_{\ell+1}\mathsf U_\ell^\psi h,
+\label{eq:rg-tilted-derivative-gauge-covariance}\\
+\widehat{\mathcal T}_\ell\mathsf K^{\mathcal G}_\ell&=\mathsf K^{\mathcal G}_{\ell+1}\mathcal T_\ell .
+\label{eq:rg-nonlinear-interaction-gauge-covariance}
+\end{align}
+If the retained projections also intertwine,
+$\widehat{\mathsf P}^{\mathrm{ret}}_k\mathsf K^{\mathcal G}_k=\mathsf K^{\mathcal
+G}_k\mathsf P^{\mathrm{ret}}_k$ for $k=\ell,\ell+1$, then both residuals are
+covariant,
+\begin{align}
+\widehat r^{\mathcal G}_{\ell+1}(\mathsf K^{\mathcal G}_\ell\mathsf g)
+&=\mathsf K^{\mathcal G}_{\ell+1}r^{\mathcal G}_{\ell+1}(\mathsf g),
+\label{eq:rg-coordinate-residual-gauge-covariance}\\
+\widehat{\overline r}{}^{\mathcal A}_{\ell+1}(\mathsf K^{\mathcal G}_\ell\mathsf g)
+&=\overline{\mathsf K}_{\ell+1}\overline r^{\mathcal A}_{\ell+1}(\mathsf g).
+\label{eq:rg-action-residual-gauge-covariance}
+\end{align}
+\status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-network-coarsegraining}.
+
+\remarkheading{Grouping, symmetry, and pullback pairs}{rem:rg-trivial-invariant-pairs}
+Under \Cref{def:rg-network-scale} at depths $\ell$ and $\ell+1$, three families of
+retained projections satisfy \eqref{eq:rg-interaction-exact-image-invariance}.
+(a) Let blocks $I\in V_{\ell+1}$ partition $V_\ell$, let the blocks be grouped into
+at least two groups, let the channel be block product
+\eqref{eq:rg-block-product-channel}, and let $\bar{\mathsf m}_\ell$ be a product
+over the groups. The grouping sector at either depth consists of the elements whose
+components vanish on every set that meets two groups; the two grouping sectors
+form an invariant pair, and when a group contains two blocks the depth-$\ell$
+sector contains components coupling agents of different blocks. (b) Let a finite
+group act at both depths by product maps as in
+\Cref{cor:rg-hoeffding-gauge-covariance} that preserve the references, the measure
+pair, and the channel. The fixed sectors of its two actions on components form an
+invariant pair onto which the averaging operators are bounded idempotents; the base
+law may couple agents of different blocks, as for a law on $\{-1,1\}^{V_\ell}$
+whose density is even under $y\mapsto-y$ with a channel that keeps one agent of
+each block, where the fixed sector at depth $\ell$ is spanned by the components of
+even order. (c) Let the channel be a deterministic Borel surjection $\chi$ and put
+$\chi^*[h]=[h\circ\chi]$ on $\overline{\mathfrak B}_{\ell+1}$. Then
+$\overline{\mathcal A}_\ell\chi^*=I$ and $\overline{\mathsf U_\ell}\chi^*=I$ for
+every base law, so for every retained projection $\mathsf P^{\mathrm{ret}}_{\ell+1}$
+the operator
+\begin{equation}
+\mathsf P^{\mathrm{ret}}_\ell
+=\operatorname{hd}_\ell\chi^*\operatorname{asm}_{\ell+1}\mathsf P^{\mathrm{ret}}_{\ell+1}
+\operatorname{hd}_{\ell+1}\overline{\mathsf U_\ell}\operatorname{asm}_\ell
+\label{eq:rg-pullback-retained-projection}
+\end{equation}
+is a bounded idempotent whose range, the pullback sector
+$\operatorname{hd}_\ell\chi^*\operatorname{asm}_{\ell+1}\operatorname{Ran}\mathsf P^{\mathrm{ret}}_{\ell+1}$,
+is mapped by $\mathcal T_\ell$ onto $\operatorname{Ran}\mathsf P^{\mathrm{ret}}_{\ell+1}$.
+Transported with the gauge together with the grouping, the group action, and the
+channel, each projection intertwines the gauge action. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(a) The joint law $\bar{\mathsf m}_\ell(dy)C_\ell(y,dz)$ is a product over the
+groups, so a product of group reverse kernels is a version of the reverse kernel,
+and for $\mathsf g$ in the depth-$\ell$ sector $\psi_{\mathsf g}$ is a sum over
+groups of functions of the agents of one group, so that $\mathcal A_\ell(\psi_{\mathsf
+g})$ is by Fubini's theorem a sum over groups of functions of the coarse agents of
+one group. If $B$ meets two groups, choose $j\in B$ outside the group of one summand;
+$\E_{\ell+1,B}$ of that summand does not depend on $z_j$, so the factor
+$I-\E_{\ell+1,V_{\ell+1}\setminus\{j\}}$ of \eqref{eq:rg-hoeffding-mobius-projectors}
+annihilates it, as in the proof of \Cref{prop:rg-interaction-intra-block-invariance}.
+(b) \Cref{prop:rg-interaction-rn-gauge-covariance} with every hatted object equal to
+the original gives $\mathcal T_\ell\mathsf K^{\mathcal G}_\ell=\mathsf K^{\mathcal
+G}_{\ell+1}\mathcal T_\ell$ for each group element, so a fixed $\mathsf g$ has a
+fixed image, and the average of a representation of a finite group by bounded
+operators is a bounded idempotent onto its fixed space. In the example the
+components of a set $B$ of binary agents are the multiples of $\prod_{i\in B}y_i$,
+on which the flip acts by $(-1)^{\lvert B\rvert}$, and the channel commutes with the
+flips at the two depths. (c) The reverse kernel of a deterministic channel is
+carried by the fibers of $\chi$, so $\int e^{-h(\chi(y))}C^\dagger(z,dy)=e^{-h(z)}$
+and $\mathsf U_\ell(h\circ\chi)=h$ for $\bar{\mathsf m}_{\ell+1}$-almost every $z$.
+Idempotence follows from $\overline{\mathsf U_\ell}\chi^*=I$ and
+$\operatorname{asm}_{\ell+1}\operatorname{hd}_{\ell+1}=I$, the same identities show
+that $\mathsf P^{\mathrm{ret}}_\ell$ fixes the pullback sector, and
+$\mathcal T_\ell\operatorname{hd}_\ell\chi^*\operatorname{asm}_{\ell+1}
+=\operatorname{hd}_{\ell+1}\overline{\mathcal A}_\ell\chi^*\operatorname{asm}_{\ell+1}=I$
+on $\mathcal G_{\ell+1}$. A gauge change permutes the sets that index components,
+conjugates the group action, and turns $\chi$ into
+$\kappa_{\ell+1}\chi\kappa_\ell^{-1}$, so the transported projections intertwine by
+\eqref{eq:rg-hoeffding-gauge-covariance} and, for (c),
+\eqref{eq:rg-tilted-derivative-gauge-covariance} at $\psi=0$. $\square$
+
+\openproblemheading{Invariant retained subspaces}{open:rg-invariant-retained-subspace}
+Under a product base law and a block-product channel,
+\Cref{prop:rg-interaction-intra-block-invariance} gives
+\eqref{eq:rg-interaction-exact-image-invariance} for the retained projections onto
+the intra-block sector and the singleton sector of the next depth, so the residual
+vanishes on them, and \Cref{rem:rg-trivial-invariant-pairs} adds the grouping
+sectors of a base law that is a product over groups of blocks, the fixed sectors of
+a symmetry of the measure pair and the channel, and the pullback sectors of a
+deterministic channel under every base law. Unproved is an invariant pair beyond
+these. The problem is posed for finite agent spaces with fixed product references
+of full support, at least two blocks, and deterministic block-product channels each
+of whose block maps depends on every coordinate of its block, in each of two classes
+of base laws of full support, the product laws and all laws. It is settled by a
+proper invariant pair, with fixed retained projections, that is invariant under the
+step of every base law in a nonempty open subset of the class and whose depth-$\ell$
+range is not contained in the sum of the pullback sector of $\mathcal G_{\ell+1}$
+and the grouping sector of any partition of the blocks into at least two groups; or
+by a proof that, for base laws outside a closed nowhere dense subset of the class,
+every proper invariant pair has its depth-$\ell$ range in the sum of the pullback
+sector of $\mathcal G_{\ell+1}$ and the grouping sector of some such partition.
+
+\section{Exact closure generically requires hyperedges}
+\label{sec:rg-hypergraph-closure}
+
+\propositionheading{Elimination cliques and hyperedge generation}{prop:rg-hyperedge-generation}
+(a) Suppose the complete nonnegative density of the law, baseline included, is
+factorized against a product or block-product reference. Marginalizing an internal
+variable multiplies every incident factor and integrates their product, giving one
+factor on the union of the remaining incident scopes. Iterating represents the
+normalized law by generally unnormalized factors on the elimination cliques, whose
+product is normalized by the inherited total normalizer; the joint law does not
+depend on the elimination order, although the displayed factorization does. A
+correlated baseline without such a factorization is kept as one global factor and
+pushed at the level of laws.
+
+(b) For a finite coarse agent set $V^c$, a finite-valued coarse action $H_o^c$, and
+an anchor $z^\circ$, the anchored components satisfy, for $B\subseteq V^c$,
+\begin{equation}
+H^{c,\circ}_{o,B}(z_B)
+=\sum_{B'\subseteq B}(-1)^{\lvert B\rvert-\lvert B'\rvert}
+H_o^c(z_{B'},z^\circ_{V^c\setminus B'}),
+\qquad
+H_o^c(z)=\sum_{B\subseteq V^c}H^{c,\circ}_{o,B}(z_B).
+\label{eq:rg-mobius-potentials}
+\end{equation}
+The expansion exists for every finite-valued function on a finite product, so
+closure of the full hypergraph family is automatic. The anchored components are indexed by the same subsets as the
+Hoeffding components \eqref{eq:rg-hoeffding-mobius-projectors} and also depend only
+on $z_B$, but their values differ, and only the Hoeffding components enter the
+exact step. An extended-valued coarse action is kept as one top-order factor, which
+closes without forming undefined alternating sums.
+
+(c) The anchor is a covariant background: if the action is gauge invariant, each
+component satisfies $H^{c,\circ}_{o,B}(gz_B;gz^\circ)=H^{c,\circ}_{o,B}(z_B;z^\circ)$,
+while an anchor held fixed in one coordinate chart gives covariance of the sum
+only.
+
+(d) Pairwise closure fails in general. Eliminating the center $y_0$ of a star of
+$\{-1,1\}$-valued agents with field $\xi_0$ and couplings $\xi_1,\xi_2,\xi_3$ gives
+the factor $\sum_{y_0=\pm1}\exp[y_0(\xi_0+\sum_{r=1}^3\xi_ry_r)]
+=2\cosh(\xi_0+\sum_{r=1}^3\xi_ry_r)$, whose negative logarithm has the coefficient
+$2\operatorname{sech}^2(\xi_0)\tanh(\xi_0)\xi_1\xi_2\xi_3+O(\xi^5)$ on $y_1y_2y_3$,
+nonzero for all sufficiently small nonzero couplings when $\xi_0\ne0$. At
+$\xi_0=0$ this coefficient vanishes identically, because
+$\log2\cosh(\sum_r\xi_ry_r)$ is even under $y\mapsto-y$, so hyperedge generation is
+generic, not universal. \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-network-coarsegraining}.
+
+\section{Fine--meta bridge kernels}
+\label{sec:rg-cross-scale-kernels}
+
+\definitionheading{Posterior bridge and bridge kernels}{def:rg-posterior-bridge}
+At a record $o$ with posterior slice $\boldsymbol\Pi_o$ on the fine latent space and
+a coarse channel $C$, the posterior bridge is the joint law
+$\mathbb B_o(dy,dz)=\boldsymbol\Pi_o(dy)C(y,dz)$, with coarse marginal
+$\boldsymbol\Pi^c_o=\boldsymbol\Pi_oC$ and full reverse kernel
+$\mathbb B_o(dy\given z)$. For a fine agent $j$ and a meta-agent $I$, the
+$(Y_j,Z_I)$ marginal of $\mathbb B_o$ disintegrated in both directions,
+\begin{equation}
+\boldsymbol\Pi_{o,j}(dy_j)K_{I\leftarrow j}(y_j,dz_I)
+=\boldsymbol\Pi^c_{o,I}(dz_I)K_{j\leftarrow I}(z_I,dy_j),
+\label{eq:rg-agent-meta-bayes-adjoint}
+\end{equation}
+defines the agent-to-meta and meta-to-agent bridge kernels. For a deterministic
+statistic $z=\chi(y)$, the lift and the posterior conditional expectation are
+\begin{equation}
+(\mathsf Jf)(y)=f(\chi(y)),
+\qquad
+(\mathsf Cg)(z)=\E_{\boldsymbol\Pi_o}[g(Y)\given\chi(Y)=z],
+\label{eq:rg-conditional-operators}
+\end{equation}
+and for a randomized channel $(\mathsf Jf)(y)=\int f(z)C(y,dz)$ and
+$(\mathsf Cg)(z)=\int g(y)\mathbb B_o(dy\given z)$.
+
+\propositionheading{Bridge-kernel identities}{prop:rg-bridge-kernels}
+For bounded observables $f$ and $g$ the bridge kernels are adjoint,
+$\int f(y_j)(K_{I\leftarrow j}g)(y_j)\boldsymbol\Pi_{o,j}(dy_j)
+=\int(K_{j\leftarrow I}f)(z_I)g(z_I)\boldsymbol\Pi^c_{o,I}(dz_I)$. The kernel
+$K_{j\leftarrow I}$ does not reconstruct the fine posterior, whose full reverse
+kernel generally reads all meta variables: a product baseline and a block-product
+channel make the baseline reverse kernel factor over blocks, but a likelihood that
+couples blocks can destroy this factorization in the posterior, and
+posterior-local refinement requires $Y_I\perp Z_{-I}\given Z_I$ under
+$\mathbb B_o$. The operators of \eqref{eq:rg-conditional-operators} are adjoint in
+$L^2$; for a deterministic statistic $\mathsf C\mathsf J=I$ in
+$L^p(\boldsymbol\Pi^c_o)$, and the operators compose by the tower property along a
+nested filtration, while for a randomized channel $\mathsf C\mathsf J=I$ fails in
+general. \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-network-coarsegraining}.
+
+\section{Exact attention between meta-agents}
+\label{sec:rg-meta-attention}
+
+A row-stochastic attention matrix is a conditional law of a source given a receiver
+and cannot be coarse-grained without the receiver law. The recursive attention state
+is therefore the joint edge-event law $\eta$ of \eqref{eq:rg-attention-event-law}
+over the oriented edge copies $e:j\to i$, with receiver occupancy $\alpha$ supplied
+by a structural receiver-selection law or by the single-edge model of
+\Cref{hyp:rg-single-edge-attention}.
+
+\propositionheading{Exact meta-attention pushforward}{prop:rg-meta-attention-pushforward}
+For a posterior bridge $\mathbb B_o$ and a partition of the agents into blocks, put
+\begin{equation}
+\eta^c_{IJ}(z)
+=\E_{\mathbb B_o}\Bigl[\sum_{\substack{e:j\to i\\ i\in I,\ j\in J}}\eta_e(Y)\Bigm|Z=z\Bigr],
+\qquad
+\alpha^c_I(z)=\sum_J\eta^c_{IJ}(z),
+\qquad
+\beta^c_{IJ}(z)=\frac{\eta^c_{IJ}(z)}{\alpha^c_I(z)},
+\label{eq:rg-meta-attention}
+\end{equation}
+the last ratio on $\{\alpha^c_I>0\}$. The coarse event law is normalized, pushing
+then disintegrating is associative under nested partitions, and the next depth
+pushes $\eta^c$, not $\beta^c$. If the channel and the selected posterior versions
+are gauge equivariant, $\eta^c$, $\alpha^c$, and $\beta^c$ are invariant as values at
+corresponding coarse states and covariant as functions of $z$. Events with both
+endpoints in $I$ become meta-self events in $\eta^c_{II}$, so the coarse source set
+of $I$ contains $I$ whenever $\eta^c_{II}>0$, even when the fine rows exclude
+self-edges; for rows that do not depend on the latent state, $\eta^c$ is the block
+sum, and \cref{cor:obs-attention-self-edge} gives the uniform case.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Conditional expectation preserves $\sum_e\eta_e=1$, and the tower property gives
+associativity. Equivariance transports $\mathbb B_o$ and leaves the scalar event
+probabilities unchanged. When the rows do not depend on the latent state the
+conditional expectation is the block sum. $\square$
+
+\propositionheading{Evidence-weighted meta-attention in the single-edge model}{prop:rg-attention-single-edge-weights}
+Assume \Cref{hyp:rg-single-edge-attention}, fix the latent state $y$, let
+$\mathcal Z_i(y)=\sum_j\pi_{ij}e^{-D_{ij}(y)/\tau_i}$ be the normalizer of the row
+$\beta^P_{ij}(y)$ of \eqref{eq:obs-attention-posterior}, and put
+$\overline{\mathcal Z}_I(y)=\sum_{k\in I}a_{k\mid I}\widetilde{\mathrm c}_k(o,y)\mathcal Z_k(y)$
+for a receiver block $I$ with $a_I=\sum_{k\in I}a_k>0$ and $a_{i\mid I}=a_i/a_I$.
+On $\{\overline{\mathcal Z}_I(y)>0\}$ the posterior receiver law conditional on the
+receiver lying in $I$ and the posterior block row are
+\begin{equation}
+\alpha_i'(y)=\frac{a_{i\mid I}\widetilde{\mathrm c}_i(o,y)\mathcal Z_i(y)}{\overline{\mathcal Z}_I(y)},
+\qquad
+\beta^c_{IJ}(y)=\sum_{i\in I}\alpha_i'(y)\sum_{j\in J}\beta^P_{ij}(y).
+\label{eq:rg-attention-evidence-weights}
+\end{equation}
+At that $y$ they coincide with the block sums and disintegration of
+\eqref{eq:rg-meta-attention} applied to the posterior edge-label law
+$\eta_{ij}(y)=\alpha^P_i(y)\beta^P_{ij}(y)$, whose receiver occupancy is
+$\alpha^P_i(y)\propto a_i\widetilde{\mathrm c}_i(o,y)\mathcal Z_i(y)$. The formula holds
+posterior-almost everywhere; on a zero-evidence block the row is an arbitrary
+conditional version and is removed from the effective support. The equality
+$\alpha_i'=a_{i\mid I}$ holds exactly when $\widetilde{\mathrm c}_i(o,y)\mathcal Z_i(y)$ is
+constant on the conditional support in $I$, which guarantees equality with the
+pre-observation coarse mixture, although the block rows can also agree accidentally
+after source coarsening. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Bayes' formula gives $P(i,j\given y,o)\propto a_i\pi_{ij}\widetilde{\mathrm
+c}_i(o,y)\exp[-D_{ij}(y)/\tau_i]$, because the label-free likelihood factor cancels.
+Summing over $j$ gives $P(i\given y,o)\propto a_i\widetilde{\mathrm c}_i(o,y)\mathcal
+Z_i(y)$, and conditioning on $i\in I$ gives $\alpha_i'$. Given $i$ the source
+posterior is $\beta^P_{ij}(y)$, and the block sums of $P(i,j\given y,o)$ over
+$I\times J$ and over $I\times V$ have the stated ratio. $\square$
+
+\propositionheading{Prior-weighted collapse in the per-receiver model}{prop:rg-attention-per-receiver-collapse}
+In the per-receiver label model of \Cref{sec:local-attention-elbo}, under its
+exclusivity hypothesis \eqref{eq:obs-attention-augmented-likelihood}, let $I$ be a
+set of receivers and let a structural coarse channel draw a receiver $i^\star\in I$
+with the law $a_{\cdot\mid I}$, independently of the latent state, the labels, and
+the record, and output the source label of $i^\star$. Then the posterior law of
+$i^\star$ given $(y,o)$ is $a_{\cdot\mid I}$, and the posterior block row is
+\begin{equation}
+\Pr(\text{source of }i^\star\in J\given y,o)
+=\sum_{i\in I}a_{i\mid I}\sum_{j\in J}\beta^P_{ij}(y),
+\label{eq:rg-attention-prior-weighted-row}
+\end{equation}
+with $\beta^P_{ij}$ of \eqref{eq:obs-attention-posterior}; its receiver occupancy is
+the selection law, and \eqref{eq:rg-attention-evidence-weights} does not apply to
+this model. The two block rows agree when $\widetilde{\mathrm c}_i\mathcal Z_i$ is
+constant on the conditional support in $I$ and otherwise can differ: for two
+receivers with $a_{\cdot\mid I}=(1/2,1/2)$, block-source masses $\sum_{j\in
+J}\beta^P_{ij}$ equal to $1$ and $0$, and $\widetilde{\mathrm c}_i\mathcal Z_i$ equal
+to $3$ and $1$, the evidence-weighted mass of $J$ is $3/4$ and the prior-weighted
+mass is $1/2$. If all receiver labels are kept, the exact meta-label is their
+vector; the collapse to one categorical row is a further coarse channel, and its
+conditional relative entropy enters \eqref{eq:rg-vfe-chain-rule}.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The selector enters neither the baseline nor the likelihood, so its posterior equals
+its prior and it is conditionally independent of the labels given $(y,o)$. By
+\Cref{prop:obs-attention-elbo} the label posterior factors by receiver with row $i$
+equal to $\beta^P_i(y)$, which gives \eqref{eq:rg-attention-prior-weighted-row}. In
+the example the evidence weights are $3/4$ and $1/4$. $\square$
+
+\remarkheading{Coarse prior and log-sum-exp energy of one row}{rem:rg-attention-log-sum-exp}
+For one categorical row with prior $\pi_j$, row energies $D_j$, temperature $\tau$,
+and a source partition $j\mapsto J$, the block posterior is the Gibbs row of the
+coarse prior and coarse energy
+\begin{equation}
+\pi^c_J=\sum_{j\in J}\pi_j,
+\qquad
+D^c_J=-\tau\log\Bigl[\frac1{\pi^c_J}\sum_{j\in J}\pi_j\exp(-D_j/\tau)\Bigr],
+\label{eq:rg-attention-log-sum-exp}
+\end{equation}
+for every block with $\pi^c_J>0$; a block of zero prior has zero posterior mass and
+leaves the effective support. The rule associates for nested partitions of one row.
+Merging independently normalized receiver rows needs a receiver law: the
+evidence-weighted occupancy of \Cref{prop:rg-attention-single-edge-weights} in the
+single-edge model and the selection law of
+\Cref{prop:rg-attention-per-receiver-collapse} in the per-receiver model.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+By construction $\pi^c_J\exp(-D^c_J/\tau)=\sum_{j\in J}\pi_j\exp(-D_j/\tau)$, so the
+block sums of the Gibbs row equal the Gibbs row of $(\pi^c,D^c)$ with the same
+normalizer. Applying the rule to a coarser partition of the blocks gives the same
+sums, which is associativity. $\square$
+
+\propositionheading{Transported meta-messages as marked moments}{prop:rg-attention-hom-moment}
+Let each edge copy $e:j\to i$ with $i\in I$ and $j\in J$ carry its dressed link
+$\widehat\Theta^x_e$ of \eqref{eq:rg-dressed-boundary-edge}, let
+$\rho^{\mathbb W}_x:G\to\GL(\mathbb W_x)$ be the representation of the linear feature tier of
+\eqref{eq:rg-linear-cross-scale-maps}, and assume the conditional
+Bochner-integrability condition
+$\E_{\mathbb B_o}[\sum_e\eta_e(Y)\lVert\rho^{\mathbb W}_x(\widehat\Theta^x_e)\rVert\given Z]<\infty$
+almost everywhere, the sum running over these edge copies. Define
+\begin{equation}
+\begin{split}
+\mathcal M^x_{IJ}(z)
+&=\E_{\mathbb B_o}\Bigl[\sum_{\substack{e:j\to i\\ i\in I,\ j\in J}}\eta_e(Y)
+\rho^{\mathbb W}_x(\widehat\Theta^x_e)\Bigm|Z=z\Bigr],\\
+\overline{\mathcal M}^x_{IJ}&=\frac{\mathcal M^x_{IJ}}{\eta^c_{IJ}}
+\quad\text{on }\{\eta^c_{IJ}>0\},
+\qquad
+\mathcal M^{x,\mathrm{att}}_{IJ}=\frac{\mathcal M^x_{IJ}}{\alpha^c_I}
+\quad\text{on }\{\alpha^c_I>0\}.
+\end{split}
+\label{eq:rg-attention-hom-operator}
+\end{equation}
+Then $\mathcal M^{x,\mathrm{att}}_{IJ}=\beta^c_{IJ}\overline{\mathcal M}^x_{IJ}$ on
+$\{\eta^c_{IJ}>0\}$, and the attention-weighted block vanishes on
+$\{\alpha^c_I>0,\eta^c_{IJ}=0\}$, where $\overline{\mathcal M}^x_{IJ}$ is a
+null-event conditional left undefined. Under a passive root-frame change with no
+relabeling of agents, corresponding conditional versions, and the transformed coarse
+state $z'$,
+$\mathcal M^{x\prime}_{IJ}(z')=\rho^{\mathbb W}_x(g_{r_I})\mathcal M^x_{IJ}(z)\rho^{\mathbb W}_x(g_{r_J})^{-1}$
+for $\boldsymbol\Pi^c_o$-almost every $z$, so these operators map the $J$ root frame
+to the $I$ root frame. The conditional mean need not lie in $\rho^{\mathbb W}_x(G)$: the average
+of the rotations by $\pi/2$ and $-\pi/2$ is zero. The moment is exact only as the
+first operator moment on a common source input: for equally likely marks and
+features $(I,v)$ and $(-I,-v)$ the separate means vanish while the mean product is
+$v$, so exact closure keeps the marked operator--feature kernel, with
+\eqref{eq:rg-attention-hom-operator} as a derived moment. Since neither the
+definition nor the covariance uses invertibility, both hold for any measurable edge
+mark with values in $\operatorname{End}(\mathbb W_x)$ that obeys the two-endpoint law, under
+the corresponding integrability condition. In particular, when $\mathbb W_x$ is the
+vector sample fiber of \Cref{sec:selective-matrix-links} and $\rho^{\mathbb W}_x$ is its
+representation $\rho_x$,
+the selective links of \eqref{eq:geo-selective-factorization} obey that law by
+\eqref{eq:geo-selective-covariance}, and their dressed event-weighted first moment is
+a covariant operator between root frames that need not be invertible.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The first two statements are the definitions of $\beta^c$ and of the ratios. The
+dressed link transforms as $\widehat\Theta^{x\prime}_e=g_{r_I}\widehat\Theta^x_eg_{r_J}^{-1}$
+by \eqref{eq:rg-dressed-boundary-edge}, the event probabilities are invariant, and
+conditional expectation commutes with the fixed linear maps $\rho^{\mathbb W}_x(g_{r_I})$ and
+$\rho^{\mathbb W}_x(g_{r_J})^{-1}$. For a general mark, substituting its two-endpoint law and the tree
+transport law \eqref{eq:rg-tree-transport-law} into the dressed mark gives the same
+root-frame law. The two witnesses are direct computations. $\square$
+
+\propositionheading{Meta-attention and meta-agent kernels split one conditional divergence}{prop:rg-meta-attention-kl-split}
+At a fixed outside context $z_{-I}$ let
+$\beta^{\mathbb Q}_I(J\given z_{-I})=\mathbb Q(J\given z_{-I})$ and
+$K^{\mathbb Q}_{I\leftarrow J}(dz_I\given z_{-I})=\mathbb Q(dz_I\given J,z_{-I})$, and
+define the generative counterparts under $\mathbb P(\cdot\given z_{-I},o)$. If the
+recognition row and kernels are absolutely continuous with respect to their
+generative counterparts, then, in $[0,+\infty]$,
+\begin{equation}
+\begin{aligned}
+&\KL\bigl(\mathbb Q(J,Z_I\given z_{-I})\Vert\mathbb P(J,Z_I\given z_{-I},o)\bigr)
+=\KL\bigl(\beta^{\mathbb Q}_I(\cdot\given z_{-I})\Vert\beta^{\mathbb P}_I(\cdot\given z_{-I},o)\bigr)\\
+&\qquad+\sum_J\beta^{\mathbb Q}_I(J\given z_{-I})
+\KL\bigl(K^{\mathbb Q}_{I\leftarrow J}(\cdot\given z_{-I})\Vert K^{\mathbb P}_{I\leftarrow J}(\cdot\given z_{-I},o)\bigr).
+\end{aligned}
+\label{eq:rg-meta-attention-kl-split}
+\end{equation}
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+This is the chain rule \Cref{lem:prob-kl-chain-rule} for the categorical coordinate
+$J$ followed by $Z_I$. $\square$
+
+\section{Path laws and memory}
+\label{sec:rg-path-space}
+
+On a finite ordered path interval the pointwise coarse channel applied to the joint
+path law is again a coarse channel, so \Cref{thm:rg-exact-coarse-vfe} applies on
+path space; the order parameter is an inference index, not the Fisher duration of
+\Cref{ch:relational-inference}. The coarse path law need not be first-order Markov
+(\Cref{rem:rg-lumpability-witnesses}); this section says when it is and gives the
+exact non-Markov dynamics and the cost of finite memory.
+
+\theoremheading{Standard-Borel strong lumpability}{thm:rg-strong-lumpability}
+Let $\chi:\mathsf Y\to\mathsf Z$ be Borel and surjective, and let $\mathsf T$ be a
+Markov kernel on $\mathsf Y$. Consider
+\begin{equation}
+\mathsf T(y,\chi^{-1}A)=\mathsf T(y',\chi^{-1}A)
+\quad\text{whenever }\chi(y)=\chi(y'),
+\qquad\text{for every Borel }A\subseteq\mathsf Z.
+\label{eq:rg-strong-lumpability}
+\end{equation}
+If a Markov kernel $\mathsf T^\chi$ on $\mathsf Z$ satisfies
+\begin{equation}
+\chi_\#(\mu\mathsf T)=(\chi_\#\mu)\mathsf T^\chi
+\qquad\text{for every probability }\mu\text{ on }\mathsf Y,
+\label{eq:rg-lumped-kernel}
+\end{equation}
+then \eqref{eq:rg-strong-lumpability} holds and $\mathsf T^\chi$ is unique.
+Conversely, if \eqref{eq:rg-strong-lumpability} holds and $\chi$ has a Borel right
+inverse $\iota$, then $\mathsf T^\chi(z,A)=\mathsf T(\iota(z),\chi^{-1}A)$ is a
+Markov kernel satisfying \eqref{eq:rg-lumped-kernel}. A Borel right inverse exists
+for a countable coarse space and for a product projection
+$\mathsf Y=\mathsf Z\times\mathsf Y'$ with $\mathsf Y'$ nonempty. For finite spaces
+the biconditional is the lumpability criterion of \citet[Thm.~6.3.2]{KemenySnell1976}.
+\status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-network-coarsegraining}.
+
+\remarkheading{Two memory witnesses}{rem:rg-lumpability-witnesses}
+Strong lumpability is the every-initial-law condition and is not necessary for a
+single initial law. On $\mathsf Y=\{1,2,3\}$ with $\chi(1)=\chi(2)=0$ and $\chi(3)=1$,
+let $\mathsf T$ send $1$ to $3$, send $2$ to $1$ or $2$ with equal probability, and
+send $3$ to $1$ or $3$ with equal probability. Then $\mathsf T(1,\chi^{-1}\{0\})=0$
+while $\mathsf T(2,\chi^{-1}\{0\})=1$, so \eqref{eq:rg-strong-lumpability} fails, but
+started at $\delta_3$ the chain stays in $\{1,3\}$, on which $\chi$ is injective, and
+the coarse process is Markov. A stationary coarse process can also have memory. On
+the deterministic cycle $1\to2\to3\to1$ with uniform stationary law and labels
+$\chi=(0,0,1)$, the observed histories $(0,0)$ and $(1,0)$ both have positive
+probability and the same last symbol, but predict the next symbols $1$ and $0$
+respectively, so first-order Markov closure fails under this stationary preparation.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+In the first witness the reachable set from $3$ is $\{1,3\}$, and the coarse
+transitions are $0\mapsto1$ surely and $1\mapsto0$ or $1$ with equal probability. In
+the second, the history $(0,0)$ is the state pair $(1,2)$, followed by $3$, and the
+history $(1,0)$ is $(3,1)$, followed by $2$. $\square$
+
+\definitionheading{Regular finite-dimensional filter class}{def:rg-regular-finite-filter}
+For the dynamic-closure problem below, an admitted filter is a deterministic functional of the
+retained path taking values in a finite-dimensional smooth manifold, with dimension bounded
+independently of $\epsilon$ and the horizon. Between assignment jumps it has a time-homogeneous
+finite-dimensional stochastic realization with locally Lipschitz coefficients; its initialization
+and jump-update maps are continuous in their declared native inputs. A decoded conditional law of
+the hidden coordinates has a density with respect to one declared sigma-finite measure on the
+hidden-coordinate space, and the decoder is continuously Fr\'echet differentiable from the filter
+manifold into that $L^1$ space. Discrete assignment values are treated as separate strata.
+This is an additional regularity restriction for this problem: dimension alone does not rule out
+Borel encodings of an entire history or of a probability-valued filter into one real coordinate.
+The restriction excludes such arbitrary encodings and singular decoded families without a common
+dominating measure, while allowing exact finite-dimensional filters that satisfy these conditions.
+Changing the regularity class changes the closure question.
+
+\openproblemheading{Dynamic closure of the pointwise parent}{open:rg-pointwise-parent-dynamics}
+The static construction of \Cref{thm:rg-pointwise-parent-datum} supplies no fine
+evolution and no parent evolution. In a differentiable special case with fine vector
+field $\mathscr V_t$, moving deterministic coarse map $\mathsf F_t$, and candidate
+parent field $\overline{\mathscr V}_t$, the exact semiconjugacy defect is
+\begin{equation}
+\delta_t=\partial_t\mathsf F_t+D\mathsf F_t\mathscr V_t-\overline{\mathscr V}_t\circ\mathsf F_t .
+\label{eq:rg-pointwise-parent-semiconjugacy-defect}
+\end{equation}
+For a Markov evolution the corresponding exact condition is semigroup intertwining; a
+generator identity is an alternative criterion only on an invariant domain or core,
+with generation and uniqueness hypotheses sufficient to lift it to the semigroups.
+Neither condition is proved for the static datum together with any autonomy,
+moving-membership, path-law, stochastic, delayed, memory, or nonequilibrium
+hypothesis. Without a class the question is decided in both directions by
+statements already present: strongly lumpable kernels lump
+(\Cref{thm:rg-strong-lumpability}), the prepared parent intertwines under exact
+refresh (\Cref{thm:rg-memory-prepared-parent}), a parent carrying the terminal
+posterior of \Cref{thm:rg-memory-filter} reproduces every path law, and the
+stationary cycle of \Cref{rem:rg-lumpability-witnesses} and the finite refresh of
+\Cref{rem:rg-memory-partial-refresh} admit no first-order parent on their coarse
+labels. The problem is therefore posed for switching diffusions at $c_*$ of the
+type of \Cref{def:rg-formation-cycle-experiment}, indexed by the regime parameter
+$\epsilon$: finitely many source assignments, a positive-definite quadratic sheet
+energy for each assignment with Hessian bounded uniformly in $\epsilon$, diffusion
+of the configuration with identity mobility on the sheet of the current assignment,
+and one rate-one clock at which the assignment is redrawn from its conditional law
+under the restricted optimizer. The channels keep the assignment and an orthogonal
+projection of the configuration, fixed or depending on the assignment, as in part
+(b) of \Cref{prop:rg-formation-endogenous-cycle}, and on some assignment whose
+weight under the restricted optimizer is bounded below in $\epsilon$ they hide
+coordinates on which the receiver rows of that assignment depend. The parents are
+time-homogeneous Markov evolutions of the retained assignment and coordinates, or of
+these together with a filter in the explicitly restricted class of
+\Cref{def:rg-regular-finite-filter}, each activated from the pushforward of the recognition law
+at the activation time. Two levels are asked: the retained and assignment path law on
+windows of fixed length, uniformly over windows placed up to the switching time,
+the time after activation by which the expected number of assignment changes
+reaches one; and the complete retained and assignment history over horizons on
+which the expected number of assignment changes diverges as $\epsilon\to0$. At
+either level the problem is settled by a proof that every member of the class
+admits such a parent whose retained and assignment path law is within a total
+variation tending to zero with $\epsilon$ of the native one, or by a member for
+which every such parent keeps that distance bounded below.
+
+\theoremheading{Exact discrete projection-memory recurrence}{thm:rg-projection-memory}
+Let $\mathsf X$ and $\mathsf W$ be vector spaces, let $\mathsf T:\mathsf X\to\mathsf X$,
+$\mathsf C:\mathsf X\to\mathsf W$, and $\mathsf J:\mathsf W\to\mathsf X$ be linear
+with $\mathsf C\mathsf J=I_{\mathsf W}$, and set $\mathsf P^{\mathrm{res}}=\mathsf
+J\mathsf C$ and $\mathsf Q=I-\mathsf P^{\mathrm{res}}$, so that $\mathsf
+P^{\mathrm{res}}$ is idempotent. For the fine recursion $\xi_{n+1}=\mathsf T\xi_n$
+write $w_n=\mathsf C\xi_n$, so that $\mathsf P^{\mathrm{res}}\xi_n=\mathsf Jw_n$.
+Then for every $n\ge0$ the unresolved part and the resolved coordinate obey
+\begin{align}
+\mathsf Q\xi_n
+&=(\mathsf Q\mathsf T\mathsf Q)^n\mathsf Q\xi_0
++\sum_{k=0}^{n-1}(\mathsf Q\mathsf T\mathsf Q)^{n-1-k}\mathsf Q\mathsf T\mathsf Jw_k,
+\label{eq:rg-unresolved-solution}\\
+w_{n+1}
+&=\mathsf C\mathsf T\mathsf Jw_n
++\sum_{k=0}^{n-1}\mathsf C\mathsf T\mathsf Q(\mathsf Q\mathsf T\mathsf Q)^{n-1-k}\mathsf Q\mathsf T\mathsf Jw_k
++\mathsf C\mathsf T\mathsf Q(\mathsf Q\mathsf T\mathsf Q)^n\mathsf Q\xi_0 ,
+\label{eq:rg-memory-recurrence}
+\end{align}
+an exact closed recurrence for $w_n$. The operators
+$\mathsf C\mathsf T\mathsf Q(\mathsf Q\mathsf T\mathsf Q)^m\mathsf Q\mathsf T\mathsf
+J$, $m\ge0$, are the memory kernels and the last term of
+\eqref{eq:rg-memory-recurrence} is the unresolved initial-state term; no closure or
+Markov assumption is used. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Applying $\mathsf P^{\mathrm{res}}$ and $\mathsf Q$ to $\xi_{n+1}=\mathsf T\xi_n$ with
+$\xi_n=\mathsf Jw_n+\mathsf Q\xi_n$ and $\mathsf Q^2=\mathsf Q$ gives
+$w_{n+1}=\mathsf C\mathsf T\mathsf Jw_n+\mathsf C\mathsf T\mathsf Q\mathsf Q\xi_n$ and
+$\mathsf Q\xi_{n+1}=\mathsf Q\mathsf T\mathsf Q\mathsf Q\xi_n+\mathsf Q\mathsf T\mathsf Jw_n$.
+The second relation gives \eqref{eq:rg-unresolved-solution} by induction on $n$, and
+substituting it into the first gives \eqref{eq:rg-memory-recurrence}. $\square$
+
+For the slow block of a fast--slow coordinatization
+(\Cref{def:obs-fast-slow-blocks}) of a linear evolution,
+\eqref{eq:rg-memory-recurrence} is the exact discrete slow dynamics; the
+projection-operator method goes back to \citet{Nakajima1958} and
+\citet{Zwanzig1960}, in continuous time on ensemble densities.
+
+\corollaryheading{Autonomy of the resolved recursion}{cor:rg-resolved-autonomy}
+Let $\mathscr S_0\subseteq\mathsf X$ be a class of initial states. The resolved
+recursion is autonomous on $\mathscr S_0$, meaning $w_{n+1}=\mathsf C\mathsf T\mathsf
+Jw_n$ for every $n\ge0$ and every $\xi_0\in\mathscr S_0$, exactly when the total
+correction in \eqref{eq:rg-memory-recurrence} vanishes for every such $n$ and
+$\xi_0$. It suffices that all memory kernels vanish and that
+$\mathsf C\mathsf T\mathsf Q(\mathsf Q\mathsf T\mathsf Q)^n\mathsf Q\xi_0=0$ for
+$n\ge0$ throughout $\mathscr S_0$. On the resolved class $\mathsf Q\xi_0=0$ the
+second family is vacuous, and there $\mathsf Q\mathsf T\mathsf J=0$ is sufficient but
+not necessary: on $\mathsf X=\R^2$ with $\mathsf W=\R$, $\mathsf C(u,v)=u$,
+$\mathsf J(w)=(w,0)$, and $\mathsf T(u,v)=(u,u)$, one has
+$\mathsf Q\mathsf T\mathsf Jw=(0,w)\ne0$ for $w\ne0$ while $\mathsf C\mathsf T\mathsf
+Q=0$, so every memory kernel vanishes and $w_{n+1}=w_n$ is exactly autonomous.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The biconditional is \eqref{eq:rg-memory-recurrence} read as an identity, and the two
+families are its two correction terms. In the witness
+$\mathsf Q(u,v)=(0,v)$ and $\mathsf T(0,v)=(0,0)$ give $\mathsf C\mathsf T\mathsf Q=0$,
+while $\mathsf T(w,0)=(w,w)$ gives $\mathsf Q\mathsf T\mathsf Jw=(0,w)$. $\square$
+
+\subsection{The hidden history and its filter}
+\label{sec:rg-memory-hidden-history}
+
+\definitionheading{Hidden path experiment}{def:rg-memory-hidden-path}
+Let $Y_t$ take values in a finite set $\mathsf Y$ with initial law $p_0$ and
+transition matrix $\mathsf T$, and let $Z_t=\chi(Y_t)$ take values in a finite set
+$\mathsf Z$, with $\mathsf P_z$ the diagonal projector onto $\chi^{-1}(z)$. The
+joint path law over $N$ steps and its observed marginal are
+\begin{equation}
+p_0(y_0)\prod_{t=0}^{N-2}\mathsf T_{y_ty_{t+1}}\prod_{t=0}^{N-1}\mathbf 1_{\chi(y_t)=z_t},
+\qquad
+\mathbb P^{\mathrm{path}}_N(z_{0:N-1})
+=p_0\mathsf P_{z_0}\mathsf T\mathsf P_{z_1}\cdots\mathsf T\mathsf P_{z_{N-1}}\mathbf 1 .
+\label{eq:rg-memory-hidden-path}
+\end{equation}
+This auxiliary model, the law-level counterpart of \Cref{thm:rg-projection-memory},
+is fixed before a recognition law on its paths is varied.
+
+\theoremheading{Exact filtering without a projected Markov assumption}{thm:rg-memory-filter}
+For an observed word $z_{0:n}$ of positive probability put
+\begin{equation}
+\mathsf f_{z_{0:n}}=p_0\mathsf P_{z_0}\mathsf T\mathsf P_{z_1}\cdots\mathsf T\mathsf P_{z_n},
+\qquad
+\widehat p_{z_{0:n}}=\frac{\mathsf f_{z_{0:n}}}{\mathsf f_{z_{0:n}}\mathbf 1},
+\qquad
+\mathbb P(Z_{n+1}=z\given z_{0:n})=\widehat p_{z_{0:n}}\mathsf T\mathsf P_z\mathbf 1 .
+\label{eq:rg-memory-filter}
+\end{equation}
+These are the exact terminal posterior and next-symbol prediction. A word of zero
+probability has zero messages for all its extensions and undefined conditional
+readouts. The terminal posterior determines the law of every future suffix, but its
+attainable values need not form a finite set. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Summing the joint path law with the final hidden state fixed gives
+$\mathsf f_{z_{0:n}}$. Replacing $\mathsf P_z$ by $I$ and using $\mathsf T\mathbf
+1=\mathbf 1$ proves normalization and prefix consistency, division by the positive
+word mass gives the posterior, and a further matrix product gives any suffix.
+Nonnegative zero messages stay zero under multiplication. A posterior is a
+probability vector on $\mathsf Y$, and sufficiency does not assert that its
+attainable subset is finite. $\square$
+
+\subsection{Finite-memory projection}
+\label{sec:rg-memory-projection}
+\label{sec:rg-memory-stationary}
+
+\definitionheading{Finite-memory projection of a path law}{def:rg-memory-projection}
+Let $\mathbb P^{\mathrm{path}}_N$ be any law on $\mathsf Z^N$, stationary or not. For an
+integer $k\ge0$ and a position $t$ let
+$\mathbf z_t=z_{\max(0,t-k):t-1}$ be the retained context. On contexts of positive
+mass define the rows and the projected law
+\begin{equation}
+\mathsf T^{(k)}_t(z\given\mathbf z)=\mathbb P^{\mathrm{path}}_N(Z_t=z\given\mathbf z_t=\mathbf z),
+\qquad
+\widehat{\mathbb P}^{(k)}_N(z_{0:N-1})=\prod_{t=0}^{N-1}\mathsf T^{(k)}_t(z_t\given\mathbf z_t),
+\label{eq:rg-memory-projection-product}
+\end{equation}
+recursively, so that a prefix of zero mass has zero extensions and no row is chosen
+on a null context.
+
+\theoremheading{Forward-KL optimality and its exact information defect}{thm:rg-memory-projection}
+The projected law \eqref{eq:rg-memory-projection-product} is normalized, has the same
+context-plus-symbol marginals as $\mathbb P^{\mathrm{path}}_N$, and is positive on
+every word of positive $\mathbb P^{\mathrm{path}}_N$ probability. Among all laws with
+time-dependent $k$-context rows it uniquely minimizes the forward path divergence, and
+the minimum is
+\begin{equation}
+D^{(k)}_N:=\KL\bigl(\mathbb P^{\mathrm{path}}_N\Vert\widehat{\mathbb P}^{(k)}_N\bigr)
+=\sum_{t=0}^{N-1}I\bigl(Z_t;Z_{0:t-k-1}\given Z_{\max(0,t-k):t-1}\bigr),
+\label{eq:rg-memory-information-defect}
+\end{equation}
+an empty discarded history contributing zero. For a competing law
+$\widetilde{\mathbb P}$ with rows $\widetilde{\mathsf T}_t$,
+\begin{equation}
+\KL\bigl(\mathbb P^{\mathrm{path}}_N\Vert\widetilde{\mathbb P}\bigr)-D^{(k)}_N
+=\sum_{t,\mathbf z:\ \mathbb P^{\mathrm{path}}_N(\mathbf z_t=\mathbf z)>0}
+\mathbb P^{\mathrm{path}}_N(\mathbf z_t=\mathbf z)
+\KL\bigl(\mathsf T^{(k)}_t(\cdot\given\mathbf z)\Vert\widetilde{\mathsf T}_t(\cdot\given\mathbf z)\bigr).
+\label{eq:rg-memory-excess-risk}
+\end{equation}
+The defect decreases in $k$ and vanishes for $k\ge N-1$; the projection is
+idempotent and commutes with restriction to a shorter prefix; and
+$2\operatorname{TV}(\mathbb P^{\mathrm{path}}_N,\widehat{\mathbb P}^{(k)}_N)^2\le D^{(k)}_N$.
+The reverse divergence is not controlled: the stationary cycle of
+\Cref{rem:rg-lumpability-witnesses} has $\mathbb P^{\mathrm{path}}_3(000)=0$ but
+$\widehat{\mathbb P}^{(1)}_3(000)=1/6$. For a path recognition law $\mathbb
+Q^{\mathrm{path}}$ supported on the support of $\mathbb P^{\mathrm{path}}_N$,
+\begin{equation}
+\KL\bigl(\mathbb Q^{\mathrm{path}}\Vert\widehat{\mathbb P}^{(k)}_N\bigr)
+-\KL\bigl(\mathbb Q^{\mathrm{path}}\Vert\mathbb P^{\mathrm{path}}_N\bigr)
+=\E_{\mathbb Q^{\mathrm{path}}}\log\frac{\mathbb P^{\mathrm{path}}_N}{\widehat{\mathbb P}^{(k)}_N},
+\label{eq:rg-memory-recognition-vfe-difference}
+\end{equation}
+whose worst case over such laws is set by the extrema of the log ratio, not by its
+$\mathbb P^{\mathrm{path}}_N$-average. \status{ESTABLISHED}
+
+\theoremheading{Stationary projection and the finite hidden information budget}{thm:rg-memory-duration}
+Let the hidden chain of \Cref{def:rg-memory-hidden-path} start from a stationary law
+$p_0=\bar p$, $\bar p\mathsf T=\bar p$, restricted to its positive support, which is
+closed under $\mathsf T$; arbitrary initial preparations are excluded. Write
+$\mathrm h_j=H(Z_j\given Z_{0:j-1})$ in natural logarithms, with
+$\mathrm h_0=H(Z_0)$, and $\mathrm c_Y=H(Y_0)$. Then the stationary projection is
+normalized, stationary, and prefix consistent, and agrees with the source on every
+window of length at most $k+1$. The sequence $\mathrm h_j$ decreases to a limit
+$\mathrm h_\infty$, and with $\mathrm h^{\mathrm{ex}}_k=\mathrm h_k-\mathrm h_\infty$,
+\begin{equation}
+\begin{aligned}
+D^{(k)}_N&=\sum_{t=k+1}^{N-1}(\mathrm h_k-\mathrm h_t),
+&\lim_{N\to\infty}\frac{D^{(k)}_N}N&=\mathrm h^{\mathrm{ex}}_k,\\
+\sum_{j=0}^\infty\mathrm h^{\mathrm{ex}}_j&\le\mathrm c_Y,
+&\mathrm h^{\mathrm{ex}}_k&\le\frac{\mathrm c_Y}{k+1},\\
+0\le\mathrm h^{\mathrm{ex}}_k-\frac{D^{(k)}_N}N&\le\frac{\mathrm c_Y}N,
+&D^{(k)}_N&\le(N-k-1)_+\mathrm h^{\mathrm{ex}}_k,
+\end{aligned}
+\label{eq:rg-memory-duration-identities}
+\end{equation}
+an empty sum being zero. The series $\sum_j\mathrm h^{\mathrm{ex}}_j$ is the excess
+entropy of the observed process in the sense of \citet{CrutchfieldFeldman2003}, so the
+second line bounds it by the hidden-state entropy. No irreducibility or forgetting
+assumption is used. \status{ESTABLISHED}
+
+The proofs of \Cref{thm:rg-memory-projection,thm:rg-memory-duration} are in
+\cref{sec:proofs-network-coarsegraining}.
+
+The memory cost of a prepared parent whose within-parent refresh is only partial
+(\Cref{sec:rg-memory-parent-mechanism}) is the defect $D^{(1)}_N$ of
+\Cref{thm:rg-memory-projection} for the parent process.
+
+\section{The exact retained state}
+\label{sec:rg-closure-theorem}
+
+Exact closure keeps every object of \Cref{tab:rg-retained-state}, listed with its
+exact operation, source statement, and admission hypotheses, uniformly in the
+number and arrangement of the agents.
+
+\begin{sciencetable}[!t]{The retained state of exact agent-network coarse-graining at $c_*$.}
+\label{tab:rg-retained-state}
+\label{thm:rg-complete-effective-theory}
+\label{cor:rg-complete-analytic-tier}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.21\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.27\textwidth}}
+\toprule
+\textbf{Retained object} & \textbf{Exact operation and standing} & \textbf{Admission hypotheses} \\
+\midrule
+Normalized generative law, posterior versions, recognition law & One channel pushes all three; the variational free energy decomposes by the chain rule. Derived: \Cref{thm:rg-exact-coarse-vfe}, \Cref{prop:rg-measure-pair-composition}. & Recognition-independent channel; finite positive evidence; recognition law absolutely continuous with respect to the posterior. \\
+Reference probability, evidence measure, effective action & Radon--Nikodym action by the conditional partition function, composing along towers. Derived: \Cref{thm:rg-effective-action}. & Probability reference pushed with the evidence measure; reverse conditionals from one joint tower. \\
+Bounded action calculus & Analytic action increment, tilted derivatives, contraction and oscillation bounds. Derived: \Cref{thm:rg-bounded-action-calculus}, \Cref{thm:rg-action-lp-contraction}. & Bounded perturbations; jointly measurable reverse kernel. \\
+Interaction coordinates and the exact step & Hoeffding isomorphism and exact nonlinear step with its closure residual. Derived: \Cref{thm:rg-hoeffding-action-isomorphism}, \Cref{lem:rg-interaction-step}, \Cref{prop:rg-interaction-residual}. Retained projection: declared. & Product-equivalent normalized laws at both depths (\Cref{def:rg-network-scale}). \\
+Finite-step multipliers & Ordered products of tilted reverse operators, bounded by $3^{\lvert V_n\rvert}-1$. Derived: \Cref{def:rg-interaction-modes}, \Cref{prop:rg-interaction-native-growth-bound}. & An exact orbit in the bounded tier. \\
+Induced hyperedges & Elimination cliques and M\"obius components; generically nonpairwise. Derived: \Cref{prop:rg-hyperedge-generation}. & Finite-valued coarse action, or one top-order factor. \\
+Bridge kernels & Pair-marginal disintegrations of the posterior bridge. Derived: \Cref{prop:rg-bridge-kernels}. Gauge-covariant versions: declared beyond the compact and finite cases (\Cref{open:cg-equivariant-versions}). & Regular disintegration on standard Borel spaces. \\
+Roots, based holonomy, dressed boundary marks & Raw root-framed marks and their joint law, pushed without a holonomy-blind claim. Derived: \Cref{sec:rg-gauge-cross-scale}. Trees: declared. & Rooted spanning forests of the blocks. \\
+Joint attention-event law & Event pushforward and disintegration on positive occupancy. Derived: \Cref{prop:rg-meta-attention-pushforward}, \Cref{prop:rg-attention-single-edge-weights}, \Cref{prop:rg-attention-per-receiver-collapse}. & Receiver law of the label model. \\
+Marked operator--feature kernels & Event-weighted first operator moments. Derived: \Cref{prop:rg-attention-hom-moment}. & Conditional Bochner integrability. \\
+Path laws and memory & Lumped kernel when strongly lumpable; otherwise memory kernels, filters, and finite-memory projections with their defects. Derived: \Cref{thm:rg-strong-lumpability}, \Cref{thm:rg-projection-memory}, \Cref{thm:rg-memory-projection}, \Cref{thm:rg-memory-duration}. & The full path law, or the memory kernels and initial-state term. \\
+\bottomrule
+\end{tabularx}
+\end{sciencetable}
+
+The blocks and the channel enter the table as inputs, and the smallest case in which
+three two-dimensional blocks are asked for shows that the law cannot supply them.
+
+\propositionheading{Law and Fisher geometry do not canonically agentize blocks}{prop:hist-law-fisher-agentization-nogo}
+At the uniform law on seven outcomes, no rule that depends only on the unlabeled law
+and its Fisher metric and is natural under every relabeling of the outcomes can
+select an unordered decomposition of the six-dimensional tangent space into three
+two-dimensional blocks. Declared typing or other symmetry-breaking data can supply
+blocks; the law and its Fisher tensor alone do not. \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-network-coarsegraining}.
+
+\section*{Summary for physicists}
+
+One exact coarse-graining step pushes normalized laws through a Markov channel; the
+effective action is the Radon--Nikodym derivative of the pushed evidence measure
+with respect to a pushed reference probability, the conditional partition function
+of the fine action over each coarse state, analytic in bounded changes of the fine
+action and never expanding the supremum norm. In Hoeffding coordinates, one
+component per set of coupled agents, the step is an exact nonlinear map whose
+finite-step multipliers telescope to one extraction, a product of tilted
+conditional expectations, and one assembly, so they are bounded by
+$3^{\lvert V_n\rvert}-1$ at every depth. Exactness costs state: eliminated agents
+generate hyperedges unless a symmetry forbids them, attention is carried as the
+joint event law, transported messages are moments of marked kernels, and the coarse
+path law generally has memory, with an exact memory-kernel recurrence and, for
+memory length $k$, a finite-memory cost of at most the hidden-state entropy divided
+by $k+1$ per step.

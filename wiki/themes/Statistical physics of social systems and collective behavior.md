@@ -20,7 +20,7 @@ updated: 2026-08-10
 
 Statistical social physics contains many mechanism-specific models rather than one universal update law. The [[Voter model]] studies stochastic imitation; [[Discrete spin and majority-rule models of opinion]] study conformist alignment and frustration; [[Bounded confidence]] models selective interaction; [[Threshold models and complex contagion]] model reinforcement-dependent adoption; [[Synchronization and the Kuramoto model]] studies phase locking; and kinetic or mean-field approaches pass from agents to population densities. The surveys [[castellano-2009-statistical-physics-social-dynamics]], [[galam-2008-sociophysics]], [[flache-2017-social-influence-models]], and [[jusup-2022-social-physics]] organize this plural landscape.
 
-The theorem-first revision [[belief-inertia-2026-07-12-theorem-first-revision]] places [[SocialPhysics]] within it more narrowly than the earlier synthesis did. The established result is an engineered gauge-covariant Gaussian KL consensus energy, entropy-retaining optimized attention, and a local four-part loss stiffness. Fisher--Rao natural-gradient flow is primary. A positive kinetic metric is a conditional postulate and must be distinguished from both intrinsic Fisher geometry and loss curvature.
+The theorem-first revision of the belief-inertia manuscript (2026-07-12) places [[SocialPhysics]] within it more narrowly than the earlier synthesis did. The established result is an engineered gauge-covariant Gaussian KL consensus energy, entropy-retaining optimized attention, and a local four-part loss stiffness. Fisher--Rao natural-gradient flow is primary. A positive kinetic metric is a conditional postulate and must be distinguished from both intrinsic Fisher geometry and loss curvature.
 
 ## Derived, analogous, interpretive, and outside scope
 
@@ -101,9 +101,6 @@ compact algebra is not evidence of scalable or unique empirical decomposition.
 
 ## Sources synthesized
 
-- [[belief-inertia-2026-07-12-theorem-first-revision]] -- authoritative corrected manuscript record.
-- [[belief-inertia-2026-07-13-final-verification-addendum]] -- authoritative final-panel reconciliation of metric scope, stiffness direction, social claims, and final hashes.
-- [[belief-inertia-2026-07-13-final-review-closure]] -- authoritative final closure for the FJ equilibrium/transient distinction, adjacent-model scope, and current hashes.
 - [[martins-2015-opinion-particles]], [[nevin-mandell-atak-1983-behavioral-momentum]], [[xue-hirche-cao-2020-opinion-port-hamiltonian]], [[baumann-sokolov-tyloo-2020-second-order-consensus]], [[bass-1969-product-growth]], [[sampson-porter-restrepo-2025-oscillatory-opinion]] -- direct comparison set.
 - [[degroot-1974-consensus]], [[friedkin1990-social-influence-opinions]], [[hegselmann-2002-opinion]], [[deffuant2000-bounded-confidence]] -- classical restricted correspondences.
 - [[albarracin-2022-epistemic-communities]] -- active-sampling polarization comparator.

@@ -23,7 +23,7 @@ In the MultiAgentELBO rescaling step the coarse law is the exact pushforward of 
 through the per-block Bayes kernels, and each parent label depends only on its own block's
 children, so the DPI applies across any block boundary: $I(P_1;P_2) \le I(X_{B_1};X_{B_2})$,
 making the mutual-information retention $R_{\mathrm{MI}} \le 1$ a theorem rather than a
-measurement ([[2026-08-18-minfo-information-retention]], amendment 9). Measured retention is
+measurement (amendment 9). Measured retention is
 2–7% at the declared seed (tentative: a single-implementation lab finding, not independently
 verified — the bound is a theorem, the values are not) — an order of magnitude below the sup-norm coupling retention,
 because mutual information is quadratic in weak coupling. The structural consequence: the
@@ -47,4 +47,4 @@ generate, not amplifiers that relay.
 [[Quantum information geometry]], [[Fisher information metric]], [[Mutual information]], [[Meta-agents and hierarchical emergence]], [[Coarse Graining]]
 
 ## Sources
-[[tishby2015-deep-learning-ib]], [[cover-thomas-2006-elements-information-theory]], [[2026-08-18-minfo-information-retention]], [[hoel-2013-causal-emergence]], [[zheng-meister-2025-unbearable-slowness]]
+[[tishby2015-deep-learning-ib]], [[cover-thomas-2006-elements-information-theory]], [[hoel-2013-causal-emergence]], [[zheng-meister-2025-unbearable-slowness]]

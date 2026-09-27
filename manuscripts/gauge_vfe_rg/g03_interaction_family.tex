@@ -1,0 +1,544 @@
+\chapter{The Interaction Family}
+\label{ch:gaussian}
+
+The aggregation, Kron, and operator results of this supplement act on
+precisions of one shape: a matrix-weighted graph Laplacian plus positive
+semidefinite self terms. This chapter asks when the belief-sector precision of
+\Cref{ch:generative-gaussian} has that shape. The answer is that the shape is
+a restriction, not a consequence of linear-Gaussian directedness: an
+orientation-reversing gain, and for odd \(K\) a v-structure, leave it in every
+chart reached by orientation-preserving frames
+(\Cref{prop:gauss-law-level-witnesses}), while on forests every
+orientation-preserving invertible gain is absorbed
+(\Cref{prop:gauss-gain-absorption}); the condition for membership is
+\Cref{prop:gauss-global-interaction-condition}, and the restriction is adopted
+as \Cref{hyp:gauss-global-interaction}. It is used by hard aggregation
+(\Cref{sec:cg-gaussian-aggregation}), by the operator arrow
+(\Cref{sec:grg-operator-arrow}), and by the cone dynamics of Supplement B.
+
+Membership in the family is a statement in a chosen chart, and nothing here
+selects a chart other than the link-trivializing one of
+\Cref{hyp:gauss-flat-comparison}. The family is stated for the belief sector
+at fixed model latents and not for the joint belief--model precision, and no
+conditioning bound for the family is asserted. \status{NOT-CLAIMED}
+
+\section{The interaction family}
+\label{sec:gauss-interaction-family}
+
+Throughout, agents are \(i\in V=\{1,\dots,N\}\), belief latents are
+\(k_i\in\R^K\), and the stacked latent has dimension \(n=NK\).
+
+\definitionheading{Interaction family}{def:gauss-interaction-family}
+A matrix \(\Lambda\in\Sym^{NK}\), partitioned into \(K\times K\) agent blocks,
+belongs to the interaction family \(\mathcal I(V)\) when there are self terms
+\(A_i\in\PSD^{K}\) and edge weights \(W_{ij}=W_{ji}\in\PSD^{K}\), \(i\neq j\),
+with
+\begin{equation}
+\Lambda_{ii}=A_i+\sum_{j\neq i}W_{ij},
+\qquad
+\Lambda_{ij}=-W_{ij}\quad(i\neq j).
+\label{eq:gauss-interaction-family}
+\end{equation}
+Its Laplacian part is \(L:=\Lambda-\operatorname{blockdiag}(A_1,\dots,A_N)\).
+
+The edge weights are matrices, so \(L\) is a matrix-weighted graph Laplacian,
+the object of the matrix-weighted consensus literature
+\citep{Trinh2018MatrixWeighted}.
+
+\propositionheading{Energy and kernel}{prop:gauss-interaction-energy-kernel}
+For \(\Lambda\in\mathcal I(V)\) and \(y=(y_1,\dots,y_N)\),
+\begin{equation}
+y^\top\Lambda y
+=\sum_{i\in V}y_i^\top A_iy_i
++\sum_{i<j}\left(y_i-y_j\right)^\top W_{ij}\left(y_i-y_j\right).
+\label{eq:gauss-interaction-energy}
+\end{equation}
+Consequently \(\Lambda\succeq0\), the consensus subspace
+\(\mathbf 1\otimes\R^{K}\) lies in \(\ker L\), and \(\Lambda\succ0\) if and only
+if the only \(y\) with \(A_iy_i=0\) for all \(i\) and
+\(W_{ij}(y_i-y_j)=0\) for all \(i<j\) is \(y=0\). A necessary condition for
+\(\Lambda\succ0\) is \(\sum_iA_i\succ0\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Each unordered pair contributes
+\(y_i^\top W_{ij}y_i+y_j^\top W_{ij}y_j-2y_i^\top W_{ij}y_j\), placing \(W_{ij}\)
+on the two diagonal blocks and \(-W_{ij}\) on the two off-diagonal blocks;
+adding the self terms reproduces \eqref{eq:gauss-interaction-family}. Every
+term is nonnegative, and for \(M\succeq0\), \(v^\top Mv=0\) exactly when
+\(Mv=0\), which gives the kernel criterion. For \(y=\mathbf 1\otimes v\) every
+difference vanishes and the energy is \(v^\top(\sum_iA_i)v\). \(\square\)
+
+With scalar weights a connected graph forces \(\ker L\) to be the consensus
+subspace. A singular matrix weight leaves \(y_i-y_j\) free along
+\(\ker W_{ij}\), so \(\ker L\) can be larger on a connected graph, and the
+criterion of \Cref{prop:gauss-interaction-energy-kernel} replaces
+connectivity.
+
+\propositionheading{The interaction family is thin}{prop:gauss-interaction-family-thin}
+For \(K\geq2\) and \(N\geq2\), \(\mathcal I(V)\) lies in a linear subspace of
+\(\Sym^{NK}\) of codimension at least \(\binom N2\tfrac{K(K-1)}{2}\), hence has
+Lebesgue measure zero there. Membership is not invariant under block-diagonal
+changes of coordinates: the congruence of the member with \(N=K=2\),
+\(A_1=A_2=I_2\), \(W_{12}=I_2\) by
+\(\mathbf P=\operatorname{diag}(I_2,S)\),
+\(S=\begin{psmallmatrix}1&1\\0&1\end{psmallmatrix}\), has off-diagonal block
+\(-S\), which is not symmetric. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Membership requires each off-diagonal block \(\Lambda_{ij}\) to be symmetric as
+a \(K\times K\) matrix, since \(W_{ij}=W_{ji}\) and \(W_{ji}=W_{ij}^\top\); these
+are \(\tfrac{K(K-1)}2\) independent linear equations per unordered pair, and the
+conic conditions only shrink the set. For the witness,
+\((\mathbf P^\top\Lambda \mathbf P)_{12}=I_2(-I_2)S=-S\). \(\square\)
+
+\section{When the interaction form holds}
+\label{sec:gauss-hypothesis}
+
+\subsection{Trivialized coordinates and flat comparison}
+
+Write \(\Theta_{ij}:=\rho_b(\Theta_{ij}^b)\in\Gamma_b\subseteq\GL(K)\) for
+the represented belief link of the edge copy \(j\to i\), with \(\Gamma_b\) of
+\Cref{hyp:gen-lg-frame-group}. The residual between two agents is
+\(k_i-\Theta_{ij}k_j\), not \(k_i-k_j\), so the plain differences of
+\eqref{eq:gauss-interaction-energy} are a statement in coordinates in which
+the links have been removed. \Cref{prop:gauss-coboundary-trivialization}
+decides when that is possible: frames with \(U_i^{-1}\Theta_{ij}U_j=I\) exist
+exactly when every cycle product of the links is the identity, and they are
+then unique up to one common right factor on each connected component.
+
+\hypothesisheading{Flat comparison}{hyp:gauss-flat-comparison}
+The represented belief links form a graph coboundary: there are frames
+\(U_i\in\Gamma_b\) with \(\Theta_{ij}=U_iU_j^{-1}\) on every edge. In the
+coordinates \(z_i=U_i^{-1}k_i\), applied equally to latents and to means,
+every residual is a plain difference,
+\begin{equation}
+k_i-\Theta_{ij}k_j=U_i\left(z_i-z_j\right).
+\label{eq:gauss-flat-trivialization}
+\end{equation}
+The hypothesis excludes exactly the link assignments with a nontrivial cycle
+product, which the graph links of \Cref{def:geo-graph-links} permit. It states
+\Cref{def:gauss-interaction-family} in one chart and is the sufficient domain
+of \Cref{prop:cg-gaussian-aggregation}.
+
+\lemmaheading{Internal-edge annihilation}{lem:gauss-internal-edge}
+Let \(\check\Theta_{ij}\) be the represented link in a chart common to \(i\)
+and \(j\), and let \(W_{ij}\succeq0\). Identifying \(z_i=z_j=z\) leaves the edge
+energy \(z^\top(I-\check\Theta_{ij})^\top W_{ij}(I-\check\Theta_{ij})z\),
+which vanishes for every \(z\) if and only if
+\(\operatorname{ran}(I-\check\Theta_{ij})\subseteq\ker W_{ij}\). For
+\(W_{ij}\succ0\) this means \(\check\Theta_{ij}=I\); a singular weight can
+hide a nontrivial link in its kernel. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The energy is \(\lVert W_{ij}^{1/2}(I-\check\Theta_{ij})z\rVert^2\), and
+\(\ker W_{ij}^{1/2}=\ker W_{ij}\). \(\square\)
+
+\remarkheading{Membership depends on the frame}{rem:gauss-membership-frame-dependence}
+The change of variables \(y=Uz\), \(U=\operatorname{blockdiag}(U_1,\dots,U_N)\),
+acts on precisions by the congruence \(\Lambda^{(z)}=U^\top\Lambda^{(y)}U\),
+which preserves inertia by Sylvester's law \citep[Ch.~4]{HornJohnson2013} but
+not membership in \(\mathcal I(V)\), since the block
+\(U_i^\top\Lambda^{(y)}_{ij}U_j\) need not be symmetric when \(U_i\neq U_j\)
+(\Cref{prop:gauss-interaction-family-thin}). A frame-independent criterion is
+therefore invariant under block reframings with blocks in \(\Gamma_b\). Two
+families of such invariants exist: generalized eigenvalues of the pair
+\((L,\Lambda)\), which transform by one congruence
+(\Cref{prop:ig-generalized-spectrum-invariance}), and law functionals of
+unions of agent blocks, such as determinant gaps and mutual informations,
+which a reframing leaves unchanged because it changes no law
+(\Cref{sec:ig-gauge}). Eigenvalues of either matrix alone are invariant when
+\(\Gamma_b\subseteq\operatorname{O}(K)\) (\Cref{prop:gen-lg-compact-frames}) and
+frame dependent under \(\Gamma_b=\GL^+(K)\)
+(\Cref{prop:ig-frame-dependent-spectra-determinants}). \status{ESTABLISHED}
+
+\subsection{What a directed linear-Gaussian model contributes}
+
+For the belief sector \eqref{eq:gauss-receiving-kernel} with transitions
+\(\Omega_i=F_i\Theta_{i\operatorname{par}(i)}\), the blocks
+\eqref{eq:gauss-directed-blocks} show that membership requires the candidate
+weight
+\begin{equation}
+W_{i\operatorname{par}(i)}:=\Lambda_i\Omega_i=\Lambda_iF_i\Theta_{i\operatorname{par}(i)}
+\label{eq:gauss-candidate-weight}
+\end{equation}
+to be symmetric and positive semidefinite. Under
+\Cref{hyp:gauss-flat-comparison}, with \(j=\operatorname{par}(i)\), set
+\begin{equation}
+\widetilde\Omega_i:=U_i^{-1}\Omega_iU_j=U_i^{-1}F_iU_i,
+\qquad
+\widetilde\Lambda_i:=U_i^\top\Lambda_iU_i,
+\label{eq:gauss-trivialized-transition}
+\end{equation}
+the second form of \(\widetilde\Omega_i\) using \(\Theta_{ij}=U_iU_j^{-1}\). The
+links are then removed, and any remaining obstruction is attributable to the
+gain.
+
+\propositionheading{Two global-condition witnesses in the link-trivializing chart}{prop:gauss-global-condition-witnesses}
+Under \Cref{hyp:gauss-flat-comparison}, the assembled precision in the chart
+\(z=U^{-1}k\) is \(U^\top\Lambda U\), whose blocks are
+\eqref{eq:gauss-directed-blocks} with \((\Lambda_i,\Omega_i)\) replaced by
+\((\widetilde\Lambda_i,\widetilde\Omega_i)\). The chart is unique up to
+\(U_i\mapsto U_ig\), \(g\in\Gamma_b\), independently on each connected component, which acts on its blocks by
+\(M\mapsto g^\top Mg\), so symmetry of an off-diagonal block and the sign of a
+symmetric block are the same in every such chart. In this chart there are
+admissible parameters outside \(\mathcal I(V)\):
+\begin{equation}
+\widetilde\Lambda_i=\begin{psmallmatrix}2&1\\1&3\end{psmallmatrix}\succ0,
+\qquad
+\widetilde\Omega_i=\begin{psmallmatrix}0&1\\-1&0\end{psmallmatrix}\in\GL^{+}(2)
+\qquad\Longrightarrow\qquad
+-\widetilde\Lambda_i\widetilde\Omega_i=\begin{psmallmatrix}1&-2\\3&-1\end{psmallmatrix},
+\label{eq:gauss-asymmetry-witness}
+\end{equation}
+which differs from its transpose by a matrix of Frobenius norm \(5\sqrt2\), so
+no symmetric \(W\) exists; and \(K=1\), \(F_i=-1\), \(\Theta_{ij}=\Lambda_i=1\)
+gives the symmetric block with \(W=-1<0\), as does \(F_i=-I\),
+\(\Theta_{ij}=\Lambda_i=I\) with \(W=-I\) at every \(K\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The residual of each factor is \(U_i(z_i-\widetilde\Omega_iz_j)\), so the
+energy in \(z\) is that of \eqref{eq:gauss-directed-blocks} with the tilded
+parameters. Uniqueness up to a common right factor on each connected component is part of
+\Cref{prop:gauss-coboundary-trivialization}; under it
+\(\widetilde\Omega_i\mapsto g^{-1}\widetilde\Omega_ig\) and
+\(\widetilde\Lambda_i\mapsto g^\top\widetilde\Lambda_ig\), so
+\(-\widetilde\Lambda_i\widetilde\Omega_i\mapsto g^\top(-\widetilde\Lambda_i\widetilde\Omega_i)g\);
+a matrix \(M\) is symmetric exactly when \(g^\top(M-M^\top)g=0\), and a
+symmetric \(M\) satisfies \(M\preceq0\) exactly when \(g^\top Mg\preceq0\). The
+witnesses are direct computation: \(\det\widetilde\Lambda_i=5\),
+\(\det\widetilde\Omega_i=1\), and the antisymmetric part of the displayed
+block is \(\begin{psmallmatrix}0&-5\\5&0\end{psmallmatrix}\). \(\square\)
+
+\propositionheading{Gain absorption and the orientation criterion}{prop:gauss-gain-absorption}
+(o) The directed law depends on gain and link only through \(\Omega_i\), and a
+block reframing \(k_i=\mathbf P_iz_i\) sends \(\Omega_i\) to
+\(\mathbf P_i^{-1}\Omega_i\mathbf P_{\operatorname{par}(i)}\), the transformation law of a link.
+Assume \Cref{hyp:gen-lg-frame-group}, so that \(\mathbf P_i\in\GL^+(K)\).
+(i) On a directed forest whose transitions are invertible with
+\(\det\Omega_i>0\), the blocks \(\mathbf P_r=I\) at every root and
+\(\mathbf P_i=\Omega_i\mathbf P_{\operatorname{par}(i)}\) otherwise lie in \(\GL^+(K)\), and in
+the coordinates \(z_i=\mathbf P_i^{-1}k_i\) the assembled precision lies in
+\(\mathcal I(V)\) with
+\begin{equation}
+W_{i\operatorname{par}(i)}=\mathbf P_i^\top\Lambda_i\mathbf P_i,
+\qquad
+A_r=\Lambda_r\quad\text{at roots},
+\qquad
+A_i=0\quad\text{otherwise}.
+\label{eq:gauss-gain-absorbed}
+\end{equation}
+Observation terms \(\operatorname{blockdiag}(O_1,\dots,O_N)\) with
+\(O_i\succeq0\) keep it in \(\mathcal I(V)\), with self terms
+\(A_i+\mathbf P_i^\top O_i\mathbf P_i\).
+(ii) Let \(\Lambda\in\Sym_{++}^{2K}\) be a two-agent precision with invertible
+off-diagonal block \(\Lambda_{12}\). There are \(\mathbf P_1,\mathbf P_2\in\GL^+(K)\) with
+\(\operatorname{diag}(\mathbf P_1,\mathbf P_2)^\top\Lambda\operatorname{diag}(\mathbf P_1,\mathbf P_2)\in\mathcal I(\{1,2\})\)
+if and only if
+\begin{equation}
+(-1)^K\det\Lambda_{12}>0.
+\label{eq:gauss-orientation-criterion}
+\end{equation}
+(iii) A directed forest with invertible transitions has a chart reached by
+frames in \(\GL^+(K)\) in which its assembled precision lies in
+\(\mathcal I(V)\) if and only if \(\det\Omega_i>0\) for every nonroot \(i\).
+(iv) If orientation-reversing frames are admitted, \(\mathbf P_i\in\GL(K)\), every
+two-agent precision with invertible \(\Lambda_{12}\) is reached.
+(v) The witness \eqref{eq:gauss-asymmetry-witness} has \(\det\widetilde\Omega_i=1\)
+and is absorbed: with \(j\) its root, the blocks \(\mathbf P_i=I\),
+\(\mathbf P_j=\widetilde\Omega_i^{-1}\) give the pure agreement factor with
+\(W=\widetilde\Lambda_i\), \(A_i=0\), and
+\(A_j=\widetilde\Omega_i^{-\top}\widetilde\Lambda_j\widetilde\Omega_i^{-1}\) for
+the root precision \(\widetilde\Lambda_j\). For even \(K\) the gain \(-I\) has
+determinant one and is absorbed in the same way. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(o) In the new coordinates the residual is
+\[
+\mathbf P_iz_i-\Omega_i\mathbf P_{\operatorname{par}(i)}z_{\operatorname{par}(i)}
+=\mathbf P_i(z_i-\mathbf P_i^{-1}\Omega_i\mathbf P_{\operatorname{par}(i)}z_{\operatorname{par}(i)}).
+\]
+(i) Each \(\mathbf P_i\) is a product of matrices of positive determinant, and the
+residual becomes \(\mathbf P_i(z_i-z_{\operatorname{par}(i)})\), so the energy is
+\(\tfrac12\sum_i(z_i-z_{\operatorname{par}(i)})^\top \mathbf P_i^\top\Lambda_i\mathbf P_i(z_i-z_{\operatorname{par}(i)})
++\tfrac12\sum_rz_r^\top\Lambda_rz_r\), which is
+\eqref{eq:gauss-interaction-energy} with the parameters
+\eqref{eq:gauss-gain-absorbed}; an observation term adds
+\(z_i^\top \mathbf P_i^\top O_i\mathbf P_iz_i\). (ii) If the reframed off-diagonal block is
+\(-W\) with \(W\succeq0\) symmetric, invertibility of \(\Lambda_{12}\) makes
+\(W\succ0\), and \(\det \mathbf P_1\det\Lambda_{12}\det \mathbf P_2=(-1)^K\det W\) forces
+\eqref{eq:gauss-orientation-criterion}. Conversely, put \(\mathbf P_1=I\) and
+\(\mathbf P_2=-\Lambda_{12}^{-1}\Lambda_{11}\), whose determinant
+\((-1)^K\det\Lambda_{11}/\det\Lambda_{12}\) is positive under
+\eqref{eq:gauss-orientation-criterion}. The reframed off-diagonal block is
+\(-\Lambda_{11}\), so \(W=\Lambda_{11}\succ0\) and \(A_1=0\), while
+\(A_2=\Lambda_{11}\Lambda_{12}^{-\top}\Lambda_{22}\Lambda_{12}^{-1}\Lambda_{11}-\Lambda_{11}\)
+is the congruence by \(\Lambda_{12}^{-1}\Lambda_{11}\) of the Schur complement
+\(\Lambda_{22}-\Lambda_{12}^\top\Lambda_{11}^{-1}\Lambda_{12}\succ0\).
+(iii) The block of the edge to the parent is \(-\Lambda_i\Omega_i\), and
+\((-1)^K\det(-\Lambda_i\Omega_i)=\det\Lambda_i\det\Omega_i\); a block reframing
+multiplies that determinant by \(\det \mathbf P_i\det \mathbf P_{\operatorname{par}(i)}>0\), so
+the necessity argument of (ii) applies edge by edge, and (i) gives sufficiency.
+(iv) The construction of (ii) with \(\mathbf P_2=-\Lambda_{12}^{-1}\Lambda_{11}\) uses no
+sign condition once \(\mathbf P_2\in\GL(K)\) is allowed. (v) With
+\(z_j=\widetilde\Omega_ik_j\) the residual is \(z_i-z_j\) and the root prior
+becomes \(\tfrac12z_j^\top\widetilde\Omega_i^{-\top}\widetilde\Lambda_j\widetilde\Omega_i^{-1}z_j\);
+these blocks differ from those of (i) by the common right factor
+\(\widetilde\Omega_i^{-1}\). \(\square\)
+
+\propositionheading{Chart-independent witnesses}{prop:gauss-law-level-witnesses}
+(i) Under \Cref{hyp:gen-lg-frame-group}, a single receiving factor with
+invertible transition of negative determinant, for instance
+\(\Omega_i=\operatorname{diag}(-1,1,\dots,1)\), has an assembled precision
+outside \(\mathcal I(\{i,j\})\) in every chart reached by block reframings in
+\(\GL^+(K)\).
+(ii) For every cycle \(i_0,i_1,\dots,i_{n_\circ}=i_0\) of \(n_\circ\geq3\)
+distinct agents whose blocks \(\Lambda_{i_ti_{t+1}}\) are invertible, the sign
+of \(\prod_{t}\det\Lambda_{i_ti_{t+1}}\) is invariant under every block
+reframing with \(\mathbf P_i\in\GL(K)\), and membership in \(\mathcal I(V)\) forces it
+to equal \((-1)^{Kn_\circ}\).
+(iii) Let a child \(i\) have two parents \(j,j'\) with invertible transitions
+\(\Omega_j,\Omega_{j'}\), receiving precision \(\Lambda_i\), and proper root
+priors, the directed acyclic generalization of \eqref{eq:gauss-receiving-kernel}
+in which parent terms add. For odd \(K\) its assembled precision lies outside
+\(\mathcal I(\{i,j,j'\})\) in every chart reached by block reframings in
+\(\GL(K)\), orientation reversing or not. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) By \eqref{eq:gauss-orientation-criterion}, since
+\((-1)^K\det(-\Lambda_i\Omega_i)=\det\Lambda_i\det\Omega_i<0\). (ii) A block
+reframing multiplies \(\det\Lambda_{i_ti_{t+1}}\) by
+\(\det \mathbf P_{i_t}\det \mathbf P_{i_{t+1}}\), and each agent of the cycle occurs in two
+factors, so the product is multiplied by \(\prod_t(\det \mathbf P_{i_t})^2>0\). In
+\(\mathcal I(V)\) an invertible off-diagonal block is \(-W_e\) with
+\(W_e\succ0\), so the product equals \((-1)^{Kn_\circ}\prod_e\det W_e\).
+(iii) The factor
+\(\tfrac12(k_i-\Omega_jk_j-\Omega_{j'}k_{j'})^\top\Lambda_i(k_i-\Omega_jk_j-\Omega_{j'}k_{j'})\)
+gives \(\Lambda_{ij}=-\Lambda_i\Omega_j\), \(\Lambda_{ij'}=-\Lambda_i\Omega_{j'}\),
+and \(\Lambda_{jj'}=\Omega_j^\top\Lambda_i\Omega_{j'}\), all invertible, while the
+root priors add only to diagonal blocks. The product of the three determinants
+around the triangle is
+\((\det\Lambda_i)^3(\det\Omega_j)^2(\det\Omega_{j'})^2>0\), whereas (ii) requires
+the sign \((-1)^{3K}=-1\) for odd \(K\). \(\square\)
+
+The gain \(F_i\) is a free generative parameter, not required to be symmetric,
+positive, or close to the identity. On forests the witnesses of
+\Cref{prop:gauss-global-condition-witnesses} are properties of the
+link-trivializing chart, and the law-level obstructions are an
+orientation-reversing gain and, for odd \(K\), a v-structure
+(\Cref{prop:gauss-law-level-witnesses}). The interaction family is therefore
+not a consequence of the general directed model, and
+\Cref{hyp:gauss-global-interaction} imposes it in the link-trivializing
+coordinates.
+
+\subsection{Exactly when the form holds}
+
+\propositionheading{Exact global interaction condition}{prop:gauss-global-interaction-condition}
+(i) The assembled prior precision \eqref{eq:gauss-directed-blocks} lies in
+\(\mathcal I(V)\), necessarily with the edge weights
+\eqref{eq:gauss-candidate-weight}, if and only if, for every nonroot \(i\),
+\begin{equation}
+W_i:=\Lambda_i\Omega_i\in\PSD^{K},
+\label{eq:gauss-global-cond-1}
+\end{equation}
+and, for every agent \(i\),
+\begin{equation}
+A_i:=\Lambda_i-W_i+\sum_{i'\in\operatorname{ch}(i)}\left(W_{i'}\Lambda_{i'}^{-1}W_{i'}-W_{i'}\right)\succeq0,
+\label{eq:gauss-global-cond-2}
+\end{equation}
+with the term \(-W_i\) omitted at a root.
+(ii) With the observation kernel \eqref{eq:gen-lg-obs}, the belief conditional
+\(p(k\given m,o,X)\) has precision
+\begin{equation}
+\Lambda^{\mathrm{post}}=\Lambda^{\mathrm{prior}}+\operatorname{blockdiag}(O_1,\dots,O_N),
+\qquad
+O_i:=\mathsf C_i^{b\top}(\Sigma_i^o)^{-1}\mathsf C_i^b\succeq0,
+\label{eq:gauss-belief-conditional-precision}
+\end{equation}
+and \(\Lambda^{\mathrm{post}}\in\mathcal I(V)\) if and only if
+\eqref{eq:gauss-global-cond-1} holds and \(A_i+O_i\succeq0\) at every agent,
+while bridge terms, offsets, and the model part of each observation mean enter
+only its information vector. The prior condition of (i) is therefore
+sufficient for membership of the belief conditional.
+(iii) It is not necessary: for one scalar receiving factor \(j\to i\) with
+\(\Lambda_i=1\), \(\Omega_i=\tfrac12\), root precision \(\Lambda_j=\tfrac1{10}\),
+and an observation on \(j\) with \(O_j=\tfrac12\), the prior precision
+\(\begin{psmallmatrix}1&-1/2\\-1/2&7/20\end{psmallmatrix}\) is positive
+definite, with determinant \(\tfrac1{10}\), and has
+\(A_j=-\tfrac3{20}\), so it lies outside the family, while the belief
+conditional has \(A_j+O_j=\tfrac7{20}\) and \(A_i=\tfrac12\) and lies inside it.
+(iv) Factorwise membership is sufficient but not necessary for global
+membership: for \(\Lambda_i=1\), \(\Omega_i=\tfrac12\), and \(\Lambda_j=1\), in
+the block order \((i,j)\),
+\begin{equation}
+\Lambda
+=
+\begin{pmatrix}
+1&-\tfrac12\\[2pt]
+-\tfrac12&\tfrac54
+\end{pmatrix}
+=
+\begin{pmatrix}
+A_i+W&-W\\[2pt]
+-W&A_j+W
+\end{pmatrix},
+\qquad
+W=\tfrac12,\quad A_i=\tfrac12,\quad A_j=\tfrac34,
+\label{eq:gauss-global-cancellation-witness}
+\end{equation}
+is positive definite and in \(\mathcal I(\{i,j\})\), although the receiving
+factor alone is not: its parent-side residual is
+\(\Omega_i^2\Lambda_i-W=-\tfrac14\), offset by the root prior.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) Condition \eqref{eq:gauss-global-cond-1} is exactly that each off-diagonal
+block has the form \(-W\) with \(W\) symmetric positive semidefinite, and the
+off-diagonal blocks of a member determine its edge weights. Given it,
+\(\Omega_{i'}=\Lambda_{i'}^{-1}W_{i'}\) and
+\(\Omega_{i'}^\top\Lambda_{i'}\Omega_{i'}=W_{i'}\Lambda_{i'}^{-1}W_{i'}\) by
+symmetry of \(W_{i'}\). The self term is the residual
+\(A_i=\Lambda_{ii}-\sum_{j\sim i}W_{ij}\) over the edge to the parent, of weight
+\(W_i\), and the edges to the children, of weights \(W_{i'}\); substituting
+\eqref{eq:gauss-directed-blocks} gives \eqref{eq:gauss-global-cond-2}.
+(ii) At fixed \(m\) and \(o\), the \(k\)-dependent terms of the negative log
+joint density are the belief factors, in which \(m\) and the offsets enter only
+the means, and the observation factors, each contributing
+\(\tfrac12k_i^\top O_ik_i\) plus terms at most linear in \(k_i\). The Hessian in
+\(k\) is therefore \eqref{eq:gauss-belief-conditional-precision}, with the
+off-diagonal blocks of the prior and self-term residuals \(A_i+O_i\).
+(iii) and (iv) are direct evaluation of \eqref{eq:gauss-global-cond-2}: in
+(iii) \(A_j=\tfrac1{10}+\tfrac14-\tfrac12\) and \(A_i=1-\tfrac12\); in (iv) the
+leading principal minors are \(1\) and \(1\), and \(A_j=1-\tfrac14\). \(\square\)
+
+\propositionheading{Edge-local characterization with singular gains allowed}{prop:gauss-edge-local-characterization}
+Consider a single receiving factor \(j\to i\) in isolation, contributing
+\(\Lambda_i\) to the \(ii\) block, \(\Omega_i^\top\Lambda_i\Omega_i\) to the
+\(jj\) block, and \(-\Lambda_i\Omega_i\) to the \(ij\) block. It lies in
+\(\mathcal I(\{i,j\})\) if and only if
+\begin{equation}
+\Pi_i:=\Lambda_i^{-1/2}\left(\Lambda_i\Omega_i\right)\Lambda_i^{-1/2}
+\text{ is an orthogonal projection,}
+\label{eq:gauss-edge-local}
+\end{equation}
+equivalently if and only if \(\Lambda_i\Omega_i\) is symmetric and
+\(\Omega_i\) is idempotent, that is \(\Omega_i\) is a \(\Lambda_i\)-orthogonal
+projection. Its self terms are then \(A_i=\Lambda_i^{1/2}(I-\Pi_i)\Lambda_i^{1/2}\)
+and \(A_j=0\), and the full-rank case \(\Pi_i=I\) is \(\Omega_i=I\), the pure
+agreement factor with \(W=\Lambda_i\). The gains satisfying the condition
+form a Lebesgue-null subset of \(\R^{K\times K}\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Membership requires \(W:=\Lambda_i\Omega_i\) symmetric and positive
+semidefinite, \(\Lambda_i-W\succeq0\), and \(\Omega_i^\top\Lambda_i\Omega_i-W\succeq0\).
+With \(W\) symmetric, \(\Pi_i\) is symmetric; the first two conditions read
+\(0\preceq \Pi_i\preceq I\), and since
+\(\Omega_i^\top\Lambda_i\Omega_i=W\Lambda_i^{-1}W=\Lambda_i^{1/2}\Pi_i^2\Lambda_i^{1/2}\),
+the third reads \(\Pi_i^2\succeq \Pi_i\). As \(0\preceq \Pi_i\preceq I\) implies
+\(\Pi_i^2\preceq \Pi_i\), the conditions hold exactly when \(\Pi_i^2=\Pi_i\). Conversely every
+orthogonal projection satisfies them, with \(\Omega_i=\Lambda_i^{-1/2}\Pi_i\Lambda_i^{1/2}\)
+idempotent; the self terms follow by substitution. Idempotents of rank \(r\)
+form the conjugation orbit of \(\operatorname{diag}(I_r,0)\), whose stabilizer
+is \(\GL(r)\times\GL(K-r)\), a smooth submanifold of dimension
+\(K^2-r^2-(K-r)^2=2r(K-r)<K^2\); the finite union over \(r\) is null.
+\(\square\)
+
+\corollaryheading{Invertible-gain factor}{cor:gauss-invertible-gain-factor}
+In the link-trivializing chart, an isolated factor with invertible transition
+lies in \(\mathcal I(\{i,j\})\) if and only if \(\Omega_i=I\). When every chart
+reached by frames in \(\GL^+(K)\) is allowed, an invertible factor with
+\(\det\Omega_i>0\) is instead absorbed by \Cref{prop:gauss-gain-absorption}.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+\Cref{prop:gauss-edge-local-characterization} makes \(\Omega_i\) idempotent,
+and multiplying \(\Omega_i^2=\Omega_i\) by \(\Omega_i^{-1}\) gives \(\Omega_i=I\);
+the converse is its full-rank case. \(\square\)
+
+With singular gains a proper projection constrains only the components of the
+residual inside \(\operatorname{range}(\Pi_i)\) and leaves the complement to the
+receiving-side self term.
+
+\hypothesisheading{Global interaction form}{hyp:gauss-global-interaction}
+Where a result names this hypothesis, the precision it acts on belongs to
+\(\mathcal I(V)\) in the link-trivializing coordinates. For the directed model
+\eqref{eq:gauss-receiving-kernel} the precision is that of the belief
+conditional \eqref{eq:gauss-belief-conditional-precision}, and by
+\Cref{prop:gauss-global-interaction-condition}(ii) the hypothesis holds exactly
+when \eqref{eq:gauss-global-cond-1} holds and \(A_i+O_i\succeq0\) at every
+agent; the prior balance \eqref{eq:gauss-global-cond-2} is sufficient but not
+necessary, and the receiving factors need not satisfy
+\Cref{prop:gauss-edge-local-characterization}
+(\eqref{eq:gauss-global-cancellation-witness}). The hypothesis licenses the
+aggregation closure of \Cref{sec:cg-gaussian-aggregation} and the operator
+arrow of \Cref{sec:grg-operator-arrow}, which are stated for the family, on a
+precision assembled from the directed model. It excludes precisions whose
+off-diagonal blocks are asymmetric or sign-incorrect in the link-trivializing
+chart, which the directed model does not prevent
+(\Cref{prop:gauss-global-condition-witnesses}) and which form all but a
+null set of precisions when \(K\geq2\) and \(N\geq2\)
+(\Cref{prop:gauss-interaction-family-thin}).
+
+\remarkheading{Factorwise-agreement realization}{hyp:gauss-factorwise-agreement}
+Requiring every receiving factor to satisfy
+\Cref{prop:gauss-edge-local-characterization}, so that the interaction
+parameters are read from the generative model one factor at a time, is
+strictly stronger than \Cref{hyp:gauss-global-interaction}: it admits
+\(\Lambda_i\)-orthogonal projections with singular gains and only
+\(\Omega_i=I\) with invertible gains, and it excludes the global member
+\eqref{eq:gauss-global-cancellation-witness}. \status{ESTABLISHED}
+
+\section{Nonemptiness}
+\label{sec:gauss-nonempty}
+
+\propositionheading{Constructive nonemptiness and the kernel}{prop:gauss-interaction-nonempty}
+Under \Cref{hyp:gauss-flat-comparison}, let each edge of a graph \((V,E)\)
+carry an agreement factor with residual \(\mu_i-\Theta_{ij}\mu_j\) and link
+covariance \(\Sigma^{\mathrm{link}}_{ij}\in\Sym_{++}^{K}\), and let each vertex
+carry a quadratic self term \(A_i\succeq0\) in the trivialized coordinates; a
+self term is the precision of a proper full-dimensional prior only when
+\(A_i\succ0\). The assembled trivialized energy is
+\begin{equation}
+\tfrac12z^\top\Lambda z=\tfrac12\sum_{i}z_i^\top A_iz_i
++\tfrac12\sum_{(i,j)\in E}\left(z_i-z_j\right)^\top W_{ij}\left(z_i-z_j\right),
+\qquad
+W_{ij}=U_i^\top(\Sigma^{\mathrm{link}}_{ij})^{-1}U_i,
+\label{eq:gauss-nonempty-construction}
+\end{equation}
+so \(\Lambda\in\mathcal I(V)\cap\PSD^{NK}\), every edge weight is positive
+definite, and
+\begin{equation}
+\ker\Lambda
+=\left\{z:A_iz_i=0\text{ for every }i,
+\quad z_i=z_j\text{ for every }(i,j)\in E\right\}.
+\label{eq:gauss-nonempty-kernel}
+\end{equation}
+If \(V_\alpha\) are the connected components of \((V,E)\), equivalently
+\begin{equation}
+\ker\Lambda
+=\bigoplus_\alpha
+\left\{\mathbf1_{V_\alpha}\otimes v:
+v\in\bigcap_{i\in V_\alpha}\ker A_i\right\}.
+\label{eq:gauss-nonempty-component-kernel}
+\end{equation}
+Consequently \(\Lambda\succ0\) exactly when
+\(\bigcap_{i\in V_\alpha}\ker A_i=\{0\}\) for every component; one
+positive-definite self term per component suffices, and taking every
+\(A_i\succ0\) constructs an element of \(\mathcal I(V)\cap\Sym_{++}^{NK}\) whose
+self terms are proper priors. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+By \eqref{eq:gauss-flat-trivialization} the residual is \(U_i(z_i-z_j)\), so the
+edge quadratic form has the matrix
+\(U_i^\top(\Sigma^{\mathrm{link}}_{ij})^{-1}U_i\) between two copies of
+\(z_i-z_j\), and that matrix is symmetric positive definite because \(U_i\) is
+invertible.
+Comparison with \eqref{eq:gauss-interaction-energy} identifies the parameters.
+The energy vanishes exactly when \(A_iz_i=0\) at every vertex and, since every
+\(W_{ij}\succ0\), \(z_i=z_j\) on every edge; the latter makes \(z\) constant on
+each component. A positive-semidefinite matrix is positive definite exactly
+when its kernel is trivial. \(\square\)
+
+Without trivialization the same agreement factor contributes the off-diagonal
+block \(-(\Sigma^{\mathrm{link}}_{ij})^{-1}\Theta_{ij}\), which is symmetric only
+in special position; the trivialization is what places the construction in
+the family.

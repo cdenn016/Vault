@@ -1,0 +1,1244 @@
+\chapter{Proofs for the Constructive Spatial RG Family}
+\label{app:spatial-rg-proofs}
+
+This appendix proves the constructions of \cref{ch:constructive-spatial-rg}.
+It uses that chapter's inventories, reference measures, and parameters, and
+the local notation of \cref{tab:rg-lattice-notation}.
+
+\section{The source measure and boundary comparison}
+\label{sec:rg-spatial-proof-measure}
+
+\noindent\emph{Proof of \cref{thm:rg-spatial-source-law}.}
+For fixed matter signs the coordinate change \(\psi\mapsto z\) is a
+bijection preserving normalized counting, with inverse
+\(\psi_e=\phi_xz_e\phi_{x+e_\iota}\). The finite raw law is therefore
+independent uniform matter times its dressed law in these coordinates. The
+exterior \(\eta\) is dressed data; varying an exterior matter frame while
+holding \(\eta\) fixed requires changing its reconstructed raw links as
+well.
+
+For \(\Delta\subset\Lambda\), conditioning on \(z_{\Lambda\setminus\Delta}\)
+cancels the edge factors outside \(\Delta\) and the plaquettes not meeting
+\(\Delta\). The remaining factors are exactly \(W_\Delta\) with the
+completed exterior, so the finite specification is consistent. Its one-edge
+conditional plus probability is
+\begin{equation}
+ q_e=\frac{1+\tanh\widetilde h_e}{2},\qquad
+ \widetilde h_e=h+j\sum_{p\ni e}\prod_{f\in p\setminus\{e\}}z_f,
+ \qquad |\widetilde h_e|\le h+2j.
+ \label{eq:rg-spatial-proof-single-row}
+\end{equation}
+Every conditional sign probability is at least \(\epsilon_f=(1-\rho)/2>0\).
+Averaging over unrevealed variables preserves this bound, so a specified
+assignment on \(A\) has probability at least \(\epsilon_f^{|A|}\).
+
+Let \(n(e,f)\) count the plaquettes containing both of the distinct edges
+\(e,f\). Each edge lies in two plaquettes with three other edges in each,
+whence \(\sum_fn(e,f)=6\). Changing one plaquette contribution changes the
+conditional mean by
+\begin{equation}
+ \frac{|\tanh(s+j)-\tanh(s-j)|}{2}
+ =\frac{\sinh(2j)}{\cosh(2s)+\cosh(2j)}\le t.
+ \label{eq:rg-spatial-proof-influence}
+\end{equation}
+Telescoping such changes gives the influence matrix \(D_{ef}=t\cdot n(e,f)\),
+with row sums at most \(\alpha=6t<1\).
+
+A random-coordinate heat bath on the finite free set preserves its Gibbs
+law by conditional factorization. For \(n=|\Lambda|\), updating each
+coordinate in a prescribed order to any target has probability at least
+\((\epsilon_f/n)^n\), so every entry of the \(n\)-step transition matrix
+has that positive lower bound; removing the common row mass gives a strict
+total-variation contraction and a unique stationary law. Couple two such
+chains by the same chosen edge and the same uniform number in their
+conditional Bernoulli rows. Ces\`aro averages of the finite pair chain have
+a convergent subsequence, whose limit is stationary because one application
+changes the average by a difference divided by its length; its marginals
+are the two Gibbs laws. If \(d_e\) is its probability of disagreement at
+\(e\), stationarity cancels the unchanged update probability and gives
+\begin{equation}
+ d_e\le\sum_{f\in\Lambda}D_{ef}d_f+\beta_e,
+ \qquad \beta_e=\sum_{f\notin\Lambda}D_{ef}
+                           \mathbf1_{\{\eta_f\ne\eta'_f\}}.
+ \label{eq:rg-spatial-proof-stationary-comparison}
+\end{equation}
+Iteration removes the remainder \(D_\Lambda^nd\), which is bounded by
+\(\alpha^n\). The surviving sum runs over paths making their first exit
+from \(\Lambda\) at a differing exterior edge. Dividing each transition
+weight by \(\alpha\), and adding a cemetery state for missing row mass,
+turns their weights into disjoint first-exit probabilities with sum at most
+one. Every exit path from \(e\) has at least \(\operatorname{dist}_\square(e,\Lambda^c)\) steps, so
+\(d_e\le\alpha^{\operatorname{dist}_\square(e,\Lambda^c)}\), and a union bound over target
+disagreements proves \cref{eq:rg-spatial-boundary-comparison}.
+
+A larger finite-volume restriction is a mixture of the smaller
+specifications, by finite consistency, so integrating the bound over two
+boundary mixtures compares volumes containing a common interior. On growing
+boxes each fixed cylinder is therefore Cauchy, independently of all
+exterior choices, and its limit is normalized, consistent, and has every
+atom at least \(\epsilon_f^{|A|}\). To construct the measure, enumerate the
+countable edges, split \([0,1)\) into half-open intervals with the
+probabilities of the first edge, and split each interval into the joint
+probabilities of the next edge; consistency makes every subdivision exact.
+Each point specifies a unique infinite sign sequence whose cylinder
+preimages are finite unions of intervals, so the pushforward of Lebesgue
+measure is a countably additive law with these cylinders. Cylinders form a
+\(\pi\)-system, and the \(\pi\)--\(\lambda\) theorem makes the extension
+unique.
+
+For a cylinder function \(f\), the finite update \(\varsigma_\Lambda f\)
+remains a cylinder function because the interaction boundary is finite.
+Passing finite compatibility to the cylinder limit gives
+\(\mu f=\mu\varsigma_\Lambda f\), and cylinder determination extends the
+identity to bounded measurable functions. For bounded exterior-measurable
+\(w\), \(\varsigma_\Lambda(wf)=w\varsigma_\Lambda f\), so this is the
+conditional DLR identity. Any two DLR laws have target marginals that are
+mixtures of the same finite specifications; the boundary bound tending to
+zero makes all their cylinders, hence the laws, equal. A translate of the
+unique law is a law for the same specification and therefore agrees with
+it. The conditional law in an ordinary box embedded in a full torus has the
+same factors and a random dressed exterior, so the same comparison proves
+the torus cylinder limit while retaining all winding sectors.
+
+For the raw lift, append independent uniform matter signs and apply the
+inverse coordinate map. A finite raw window with free matter vertices and
+all their incident links converts to independent free frames and the
+correct dressed conditional; such windows are cofinal, and conditioning
+further proves the raw DLR equations for every finite window. Conversely, a
+local gauge flip of one matter vertex and its incident links preserves each
+raw conditional density and reference, so any raw Gibbs law is invariant
+under every finite product of these flips. In dressed coordinates these
+flip arbitrary finite sets of matter signs without changing \(z\).
+Averaging over the flips shows that every assignment of the matter signs of
+\(k\) given sites has probability \(2^{-k}\), independently of every dressed
+cylinder. The dressed marginal has the specification already identified,
+hence equals \(\mu_{b,t}\), which proves uniqueness of the raw lift.
+\hfill\(\square\)
+
+\section{Constrained parity laws uniformly in blocking depth}
+\label{sec:rg-spatial-proof-constrained}
+
+\noindent\emph{Proof of \cref{thm:rg-spatial-constrained-specification}.}
+Partition the fine edges into the retained \(B\)-paths and unused singleton
+edges. No plaquette contains two edges of one retained path. A coarse
+anchor cell contains two retained paths and \(2B(B-1)\) unused singleton
+blocks, hence \(2B^2\) fine edges. A pattern prescribes each retained block
+to be unconstrained or to have one specified parity; singleton blocks
+remain unconstrained. Use the product of uniform probability references on
+these supports, multiply all edge and touching plaquette factors, and
+normalize; these are positive finite specifications on their supports. A
+block row with at most \(B\) edges has every allowed atom at least
+\begin{equation}
+ \xi_B=2^{-B}\left(\frac{1-b}{1+b}\right)^B
+                   \left(\frac{1-t}{1+t}\right)^{2B}>0.
+ \label{eq:rg-spatial-proof-block-positivity}
+\end{equation}
+
+Two product sign laws obtained from one positive product law by
+conditioning on opposite total parities admit a coupling at Hamming
+distance exactly one. For one bit this is immediate. For \(n\) bits, couple
+the last-bit marginals by any coupling. If those bits differ, the required
+prefix parities agree and the prefixes are coupled identically; if they
+agree, the induction coupling is applied to the opposite prefix parities.
+In either branch the prefix marginal on each side is its product law
+conditioned on the required parity, independently of the other branch,
+which proves the induction including both marginals.
+
+Changing a single coordinate field from \(+j\) to \(-j\) in a product row
+or fixed-parity product row changes that coordinate's marginal by at most
+\(t\), by \cref{eq:rg-spatial-proof-influence} with the other-coordinate
+masses absorbed into \(s\). Couple it maximally. If it differs in a
+fixed-parity row, the remaining prefix parities are opposite, so the
+preceding coupling adds exactly one further discrepancy. The expected
+Hamming cost is at most \(2t\), and a one-bit fixed fiber has zero cost.
+Successive tilts are coupled by composing their conditional coupling
+kernels, and the endpoint Hamming distance is bounded by the sum of
+successive distances, which is the required triangle inequality.
+
+For a target block \(i\) and an exterior fine edge \(e\), let \(n(i,e)\) be
+the number of plaquettes meeting both. An exterior flip changes at most
+\(n(i,e)\) single-coordinate fields, so the preceding coupling gives a row
+cost at most \(2t\sum_en(i,e)\mathbf1_{\{z_e\ne z'_e\}}\). The column
+identity, not a block-state row bound, is \(\sum_in(i,e)=6\): each of the
+two plaquettes of \(e\) meets three other blocks. Incident anchors differ
+by at most one.
+
+Finite block heat baths have unique stationary laws by the common-mass
+argument using \(\xi_B\), and a stationary pair coupling exists by the same
+Ces\`aro construction as above. Let \(d_e\) be the fine-edge disagreement
+probabilities and \(D_i=\sum_{e\in i}d_e\). Canceling the update probability
+separately in each block gives
+\begin{equation}
+ D_i\le2t\sum_{e\text{ free}}n(i,e)d_e
+      +2t\sum_{e\text{ exterior}}n(i,e)
+                         \mathbf1_{\{\eta_e\ne\eta'_e\}}.
+ \label{eq:rg-spatial-proof-block-hamming}
+\end{equation}
+For a target anchor set \(A\), multiply by
+\(w_i=e^{-\tau\operatorname{dist}_\infty(\operatorname{anchor}(i),A)}\) and
+sum. The column identity and \(w_i\le e^\tau w_{\operatorname{block}(e)}\)
+when \(n(i,e)>0\) yield
+\begin{equation}
+ S\le\mathrm qS+\mathrm q\sum_{e\in\partial_f\Lambda}w_{\operatorname{block}(e)}
+                          \mathbf1_{\{\eta_e\ne\eta'_e\}},\qquad
+ S=\sum_{i\text{ free}}w_iD_i.
+ \label{eq:rg-spatial-proof-weighted-column}
+\end{equation}
+Use all blocks anchored in the radius-\(R\) neighborhood of \(A\). Every
+contributing exterior edge is anchored in its next shell, whose cardinality
+is at most \(8|A|(R+1)\), because a square shell around one cell has exactly
+\(8(R+1)\) cells, and there are \(2B^2\) fine edges per anchor. The exterior
+sum is therefore at most \(16|A|B^2(R+1)e^{-\tau(R+1)}\). Dividing by
+\(1-\mathrm q\) and taking a union bound over target disagreements proves
+\cref{eq:rg-spatial-coarse-modulus} for these finite constrained laws.
+
+For every fixed full pattern, the bound makes all finite-cylinder limits
+Cauchy on expanding whole-block volumes. Interval subdivision constructs
+their measure, finite compatibility passes to the limit and gives its DLR
+law, and any two such laws have cylinders within the same vanishing
+boundary bound and hence agree. The argument also compares patterns
+agreeing in a large interior; different supports outside it are only
+exterior forcing. No conditioning on an infinite event is used.
+
+Finite conditioning on previously free path parities has positive
+probability by \cref{eq:rg-spatial-proof-block-positivity}. Restricting its
+finite conditional reference is precisely the updated support pattern, and
+uniqueness identifies the resulting infinite law. In the all-unconstrained
+pattern the law is the original fine Gibbs law, because its finite DLR
+identities also hold on unions of blocks, so its finite parity conditionals
+are these constrained laws. To define a target coarse kernel, leave its
+paths unconstrained, prescribe every exterior retained parity, and take the
+target marginal of the constructed constrained law.
+
+Conditional on all other block states, the signs along a free path are
+independent, with conditional means bounded by \(\rho\). Its parity mean
+has magnitude at most \(\rho^B\), also after conditioning on any already
+revealed disjoint parities. Revealing the two target parities successively
+gives the asserted one-cell lower and upper probabilities. The boundary
+comparison makes every kernel continuous and measurable, and conditioning
+on a finite set of additionally revealed parities identifies the
+corresponding updated pattern, so finite Bayes identities give pointwise
+specification consistency at every exterior.
+
+For an exterior cylinder event, the defining finite conditional integral
+holds under \(\mu_B\). Increasing the revealed exterior set and using
+uniform convergence passes the integral to the constructed kernel, and
+cylinder determination extends this conditional identity to the full
+exterior \(\sigma\)-algebra. Thus \(\mu_B\) is DLR for this
+everywhere-defined specification. Any two coarse DLR laws can be mixed over
+increasingly remote exteriors, and the same uniform comparison makes their
+target cylinders equal, which proves uniqueness. Translation covariance
+follows by transporting factors and patterns and invoking constrained
+uniqueness. At \(t=0\), independent product-fiber laws give a separate
+exact control with coarse edge mean \(b^B\), and no formula dividing by
+\(\mathrm q\) is needed. \hfill\(\square\)
+
+\section{The complete canonical interaction}
+\label{sec:rg-spatial-proof-potential}
+
+\noindent\emph{Proof of \cref{thm:rg-spatial-generated-interaction}.}
+The one-cell bounds give log-odds amplitude
+\(4\operatorname{atanh}(\rho^B)\le\mathrm c_2\rho^B\). Atom differences are
+bounded by total variation, and \(|\log s-\log s'|\le|s-s'|/p_{\min}\) for
+\(s,s'\ge p_{\min}\), so reference-state log odds have spatial variation at
+most \(\mathrm c_3B^2(R+1)e^{-\tau(R+1)}\). The canonical supports have
+diameter at most \(2r\), and at most \((2r+1)^2\) translates contain the
+origin. Their maximal lexicographic cell uniquely specifies the anchor, so
+no assignments collide. Consequently
+\begin{equation}
+ \|\mathscr U_{B,A_{x,r}}\|_\infty
+ \le\min\{2\mathrm c_2\rho^B,\mathrm c_3B^2re^{-\tau r}\},\qquad r\ge1.
+ \label{eq:rg-spatial-proof-shell-minimum}
+\end{equation}
+The inequality \(\min(s,s')\le\sqrt{ss'}\), the bound \(\sqrt r\le r\), and
+\(\lambda_v=\tau/8\) reduce the weighted shell sum to
+\(\sqrt{2\mathrm c_2\mathrm c_3}B\rho^{B/2}\sum_{r\ge1}r(2r+1)^2z_v^r\).
+Differentiating the geometric series three times gives exactly
+\(z_v(9+14z_v+z_v^2)/(1-z_v)^4\), which proves the norm bound; its explicit
+tail after \(N\) shells replaces that series with
+\(\sum_{r>N}r(2r+1)^2z_v^r\). Since
+\(\operatorname{diam}A\le e^{\lambda_v\operatorname{diam}A}/\lambda_v\), it
+also proves the first moment. Both terms in \(\mathcal V_B\) tend to zero;
+for an exponential bound, \(B\rho^{B/4}\le\rho^{1/4}/(1-\rho^{1/4})^2\).
+
+For a configuration differing from \(*\) on finitely many cells, change
+those cells in increasing lexicographic order. Positive finite
+specification consistency expresses its log probability ratio against the
+vacuum as the sum of the corresponding full-past log odds, and the
+absolutely convergent canonical shells telescope to exactly those odds.
+Terms anchored outside the changed set vanish, since their anchor stays at
+\(*\). The interaction and the specification therefore give identical
+vacuum-exterior ratios. Comparing two finite-support configurations and
+canceling their common exterior gives equality for every finite-support
+exterior. Approximate an arbitrary exterior by its values in larger boxes
+and vacuum outside: quasilocality gives uniform convergence on the
+specification side, and absolute summability of all terms touching the
+finite changed set gives uniform convergence of interaction energy
+differences. Positive normalization then gives equality for every exterior.
+No infinite total Hamiltonian is used as an unnormalized density.
+
+A continuous specification of a full-support law is unique everywhere: a
+difference at one exterior would persist on a cylinder of positive
+probability, contradicting almost-sure equality of conditional versions.
+The canonical interaction therefore depends only on the law. Path
+composition and this uniqueness give the stated action on its orbit, even
+if two block sizes happen to give the same interaction. At the fair product
+law all odds are zero, so the interaction is zero and fixed. At \(t=0\) the
+singleton interaction and its normalized-counting pressure are
+\begin{equation}
+ \mathscr U_{B,\{x\}}(\sigma)=-\sum_{\iota=1}^2
+       \log\frac{1+b^B\sigma_\iota}{1+b^B},\qquad
+ \mathfrak p(\mathscr U_B)=-2\log(1+b^B),
+ \label{eq:rg-spatial-proof-product-vacuum-scalar}
+\end{equation}
+where \(\sigma=(\sigma_1,\sigma_2)\in\{-1,1\}^2\) is the cell state. This finite scalar is
+not zero despite vacuum normalization. \hfill\(\square\)
+
+\section{The open-ball coefficient map and its law}
+\label{sec:rg-spatial-proof-operator}
+
+\noindent\emph{Proof of \cref{thm:rg-spatial-local-operator}.}
+The coefficient space is complete: a norm-Cauchy sequence converges in
+every anchored weighted \(\ell^1\) space, its coordinate limits agree on
+overlaps, and the uniform Cauchy bound passes to the supremum over anchors.
+Translation invariance is a closed coordinate condition. Finite
+translation-orbit families of arbitrarily large supports give linearly
+independent members, so the positive-radius ball is infinite dimensional.
+
+Condition the fair fine reference on all retained \(a\)-path parities. Its
+blocks are independent uniform parity fibers and unused fair singletons. A
+character has conditional expectation zero unless its support is a union of
+whole paths: a partially occupied path is killed by flipping one included
+and one excluded sign, and an occupied unused singleton by its own flip. A
+surviving support \(\operatorname{lift}_a(T)\) has expectation \(\chi_T\).
+For an ordered list of source occurrences \(S_1,\ldots,S_n\), repetitions
+allowed, every product of moments in the joint cumulant is therefore either
+zero or the character of
+\(S_1\mathbin\triangle\cdots\mathbin\triangle S_n\). Denote its constant
+coefficient by \(c_a(S_1,\ldots,S_n)\). The degree-\(n\) map is
+\begin{equation}
+ P_{a,n}(J_1,\ldots,J_n)_T
+ =\frac1{n!}\sum_{S_1\triangle\cdots\triangle S_n=\operatorname{lift}_a(T)}
+ c_a(S_1,\ldots,S_n)\prod_{i=1}^n(J_i)_{S_i},\qquad T\ne\varnothing.
+ \label{eq:rg-spatial-proof-cumulant-map}
+\end{equation}
+For finite source inventories this is differentiation of the finite
+conditional log partition, including its \(1/n!\) and repeated
+occurrences.
+
+Join two occurrence vertices when their supports meet a common reference
+block; disconnected groups then depend on independent reference variables.
+The bounded dependency-graph cumulant inequality
+\citep[Sec.~9.4.2, Eq.~(47)]{feray2016modphi} gives
+\(|c_a|\le2^{n-1}\operatorname{ST}(G)\), where \(\operatorname{ST}\) counts
+spanning trees of this occurrence graph. Its hypotheses hold uniformly in
+every parity assignment: the variables are sign characters of magnitude one,
+and the independence is at the block level. Convergence and the
+infinite-law identification are proved below.
+
+Write \(s_i=|S_i|\) and \(d_i=\operatorname{diam}S_i\). For nonempty output
+\(T\), disjoint paths give \(a|T|\le\sum_is_i\). Along an occurrence tree,
+travel within a source at cost at most \(d_i\), and between two source
+edges in one reference block at cost at most \(a-1\). The first fine edges
+of two output paths realizing its diameter then give
+\begin{equation}
+ a\operatorname{diam}T\le\sum_id_i+(a-1)(n-1).
+ \label{eq:rg-spatial-proof-tree-diameter}
+\end{equation}
+Fix an output edge and its first fine edge. At least one occurrence
+contains that fine edge, so sum over \(n\) possible roots. Pay \(|T|\) by
+\(a^{-1}\sum_is_i\), summing over \(n\) marked occurrences. A child support
+touching a parent reference block contains an edge in the union of blocks
+met by the parent, at most \(as_i\) edges. Expanding this witness condition
+and summing from the leaves costs \(a\) per tree edge and one parent
+support-size factor per child.
+
+For an occurrence with \(k_i\) children, the weighted anchored sum is
+bounded by its input norm times \(k_i!\delta_a^{-k_i}\). Indeed the
+unmarked residual factor is \(s_i^{k_i-1}e^{-\delta_as_i}\) and the marked
+one is \(s_i^{k_i}e^{-\delta_as_i}\); both are at most
+\(k_i!\delta_a^{-k_i}\), using \((\delta_as_i)^{k_i}/k_i!\le
+e^{\delta_as_i}\) and \(s_i\ge1\). The unused spatial weight only decreases
+the bound. Summing \(\prod_ik_i!\) over labeled trees with fixed root gives
+\((n-1)!\operatorname{Cat}_{n-1}\): ordering the children counts plane
+rooted trees, and the other \(n-1\) labels are free. Balanced-parenthesis
+encoding gives \(\operatorname{Cat}_{n-1}\le4^{n-1}\). Combining the
+cumulant tree inequality, roots, mark, \(1/n!\), and
+\cref{eq:rg-spatial-proof-tree-diameter} proves
+\begin{equation}
+ \|P_{a,n}(J_1,\ldots,J_n)\|
+ \le\frac na\mathcal K_a^{n-1}\prod_{i=1}^n\|J_i\|.
+ \label{eq:rg-spatial-proof-multilinear-majorant}
+\end{equation}
+All rearrangements were of positive majorants, so they are justified also
+for infinite source inventories.
+
+Define \(\mathscr R_aJ=\sum_{n\ge1}P_{a,n}(J,\ldots,J)\) for
+\(\mathcal K_a\|J\|<1\). The majorant gives locally uniform convergence in
+the Banach norm and locally uniform convergence of
+\(D\mathscr R_a(J)H=\sum_{n\ge1}nP_{a,n}(H,J,\ldots,J)\) in operator norm.
+The multilinear increment expansion leaves a uniformly summable remainder
+with at least two increments, so this is the Fr\'echet derivative, and its
+locally uniform series is continuous. The first-order survival rule gives
+\(L_a\). The lift is injective, has size \(a|T|\), contains the first edge
+of every output path, and has diameter at least \(a\operatorname{diam}T\),
+so comparing anchored weights gives \(\|L_a\|\le\mathfrak c_a\). For
+\(\omega=\mathcal K_a\|J\|\le1/2\), \(\sum_{n\ge2}n\omega^{n-2}\le6\) and
+\(\sum_{n\ge2}n^2\omega^{n-2}\le22\), by differentiating the geometric
+series. These prove the quadratic bound with \(6\mathcal K_a/a\) and the
+derivative bound with \(22\mathcal K_a/a=2M_a\), hence the stated bounds.
+On the ball,
+\(\|\mathscr R_aJ\|\le(\mathfrak c_a+M_a\|J\|)\|J\|\le\frac{1+\mathfrak c_a}2\|J\|\),
+because \(\varepsilon\le(1-\mathfrak c_a)/(2M_a)\); a fixed point \(J\) in the ball therefore satisfies
+\(\|J\|\le\frac{1+\mathfrak c_a}2\|J\|\) and is zero.
+
+It remains to identify a normalized law. For any real input in the ball,
+its one-edge half-log-odds are \(\sum_{S\ni e}J_S\chi_{S\setminus\{e\}}\),
+absolutely and uniformly convergent. Flipping \(f\) changes the Bernoulli
+row by at most \(\sum_{S\ni e,f}|J_S|\), so the influence row sums are at
+most \(\|J\|<1\). Finite heat-bath coupling gives the resolvent comparison
+\(d\le\sum_{m\ge0}D^m\beta\). For a fixed target, the contribution from a
+remote boundary tends to zero: each fixed power has summable rows, and the
+remaining powers have a common geometric tail. Finite-cylinder
+subsequences exist by finite-state compactness, and uniform convergence of
+finite local conditional energies passes their DLR equations to the limit.
+The comparison then makes the limit unique and makes the entire exhaustion
+converge.
+
+Take finite edge boxes \(E_m\) and source truncations
+\(J^{[m]}_S=J_S\mathbf1_{\{S\subset E_m\}}\). Each is a finite inventory of
+no larger norm; no global norm convergence of these inhomogeneous
+truncations is asserted. Every fixed source tuple is eventually present, so
+the rooted majorant gives, for every fixed output edge, weighted incident
+convergence of \(\mathscr R_aJ^{[m]}\) to \(\mathscr R_aJ\). In the finite
+inventory the convergent scalar and nonempty Taylor series exponentiate to
+the conditional moment generating function near zero. The identity of the
+convergent analytic series extends over its real convergence interval, on
+which that function is strictly positive, so its real logarithm has
+precisely these coefficients throughout the ball. The scalar cancels only
+when the finite density is normalized.
+
+The truncated fine law is the free-boundary Gibbs law on \(E_m\), with fair
+signs outside. A path crossing its boundary retains those outside fair
+signs; incomplete characters are canceled rather than discarded by an
+altered channel. Its path push has exactly the finite coefficient expansion
+above. Incident convergence makes every finite coarse energy difference,
+hence every normalized conditional row, converge uniformly in the exterior.
+The fine laws converge locally to their unique law, and the path map
+preserves convergence of cylinder observables. Passing the finite coarse
+DLR integral to this limit proves that the path-pushed law is Gibbs for
+\(\mathscr R_aJ\). Its norm lies in the ball, so it is the unique coarse
+Gibbs law by the same comparison.
+
+Every prescribed parity exterior has a continuous conditional version. In
+the whole-reference-block representation, changing one outside block gives
+an influence row sum bounded by \(2a\|J\|<1\), since a block has at most
+\(a\) fine edges. This estimate holds on every fixed-parity or
+unconstrained support, with all crossing sources present. Its summable
+resolvent constructs unique laws for every pattern and gives local
+continuity when remote patterns change. Free retained parity probabilities
+are at least \(e^{-2a\|J\|}/2>0\), and finite parity conditioning
+corresponds exactly to these product-fiber supports. Testing the uniform
+limit of its finite conditional rows against exterior cylinders identifies
+it as a conditional version of the path-pushed law. The coefficient Gibbs
+kernel is also continuous, and since the law has full cylinder support the
+two versions agree everywhere.
+
+Finally, integrating the conditional half-log-odds at \(e\) against the
+fair exterior character \(\chi_{S\setminus\{e\}}\) recovers \(J_S\) by
+orthogonality and uniform convergence, which proves uniqueness of every
+nonempty coefficient. Path composition, unique laws, and this extraction
+give \(\mathscr R_2\mathscr R_3=\mathscr R_3\mathscr R_2=\mathscr R_6\), and
+the same reasoning applies to any finite word with its directly defined
+path channel. The original field and plaquette source has norm
+\(e^\kappa h+8e^{4\kappa+\lambda}j\), so the ball contains a nonempty region
+with both couplings positive. \hfill\(\square\)
+
+\section{Complete finite Taylor calculations and their errors}
+\label{sec:rg-spatial-proof-finite-amplitude}
+
+\noindent\emph{Proof of \cref{thm:rg-spatial-finite-amplitude}.}
+Represent each nonempty support once modulo integer translation, by moving
+its lexicographically first edge basepoint to zero and retaining its axis.
+If its shape is \(S\), with size \(|S|\) and diameter \(\operatorname{diam}
+S\), and it contains \(n_\iota(S)\) axis-\(\iota\) edges, exactly
+\(n_\iota(S)\) distinct translates contain a specified axis-\(\iota\) edge.
+A nonempty finite set has no nonzero translation period, so a finite
+library's norm is
+\begin{equation}
+ \|J\|=\max_{\iota=1,2}\sum_S n_\iota(S)|S|
+                  e^{\kappa|S|+\lambda\operatorname{diam}S}|J_S|.
+ \label{eq:rg-spatial-proof-finite-orbit-norm}
+\end{equation}
+Duplicates are consolidated by exact addition before this formula is used.
+Only translations are identified; rotations and reflections are not.
+
+At order \(n\), let \(d_{\max}\) and \(s_{\max}\) be the largest input
+shape diameter and size. A connected source-occurrence list contributing an
+output with first edge at the origin stays within fine basepoint radius
+\(R_n=nd_{\max}+(n-1)(a-1)\), by the occurrence-tree path argument, so
+every contributing literal instance belongs to the finite catalog of all
+input shapes translated by \([-R_n,R_n]^2\cap\mathbb Z^2\). Reference-block
+ownership uses Euclidean division: a horizontal edge is retained exactly
+when its transverse coordinate is divisible by \(a\), and its owner uses
+the floor of its parallel coordinate divided by \(a\); vertical edges have
+the rotated rule, and negative coordinates follow the same floor rule.
+Unused singleton owners have a distinct type. A support is a union of
+complete paths exactly when every owner is retained and has all \(a\)
+distinct members.
+
+For a set \(I\) of occurrence labels, let \(m(I)\) be one if their
+symmetric-difference support is a union of complete paths, including the
+empty support, and zero otherwise; at all positive parities this is its
+conditional moment. With \(r\) the first occurrence label in a nonempty
+\(I\), the cumulant obeys
+\begin{equation}
+ c(I)=m(I)-\sum_{\substack{D\subsetneq I\\r\in D}}
+                           c(D)m(I\setminus D).
+ \label{eq:rg-spatial-proof-cumulant-recurrence}
+\end{equation}
+The partition block containing \(r\) uniquely decomposes the
+moment--cumulant formula, and summing all other blocks gives the second
+moment factor; this proves the recurrence and its singleton base.
+Occurrence labels remain distinct even when their supports repeat.
+Computing all subsets takes finitely many exact integer operations, and
+fewer than \(3^n\) subset-pair contributions suffice.
+
+For each order and each output first axis, enumerate every size-\(n\)
+multiset of literal catalog instances once, and keep connected occurrence
+graphs with nonempty complete-path support whose output is already
+canonically anchored on that axis. A multiset with multiplicities
+\(m_k\) contributes exactly
+\(c(I)\prod_kJ_k^{m_k}/\prod_km_k!\), with \(k\) running over the instances: its
+\(n!/\prod_km_k!\) ordered occurrences cancel the \(n!\) in
+\cref{eq:rg-spatial-proof-cumulant-map}. Root choices and spanning trees are
+bounds, not extra multiplicities. Disconnected occurrences have zero
+cumulant by block independence, and the radius argument loses no connected
+term. Output canonicalization selects the already canonical output rather
+than accumulating all translated copies. Consolidation over all accepted
+terms gives the coefficient at every support through the specified order.
+Surviving supports satisfy \(a|T|\le ns_{\max}\) and
+\(a\operatorname{diam}T\le nd_{\max}+(a-1)(n-1)\), so the output is finite,
+and every finite catalog, multiset list, recurrence, and rational operation
+terminates at fixed order.
+
+Summing \cref{eq:rg-spatial-proof-multilinear-majorant} over orders above
+\(\bar n\) gives \cref{eq:rg-spatial-taylor-tail} by differentiating the
+geometric tail \(\omega^{\bar n+1}/(1-\omega)\). Its positive-series
+representation makes it monotone in the norm and in \(\mathcal K_a\), so
+upper bounds for both give a valid bound despite the minus sign in the
+closed numerator. It tends to zero for \(\omega<1\), and the zero input
+gives the zero table and zero tail.
+
+The transcendental constants admit convergent rational enclosures. For a
+nonnegative rational \(\xi\), put \(w_0=1\), \(w_{k+1}=w_k\xi/(k+1)\), and
+\(W_m=\sum_{k=0}^mw_k\). Once \(v_m=\xi/(m+2)<1\), positivity and
+decreasing successive term ratios give
+\begin{equation}
+ W_m\le e^\xi\le W_m+\frac{w_{m+1}}{1-v_m}.
+ \label{eq:rg-spatial-proof-exp-enclosure}
+\end{equation}
+The width tends to zero, and reciprocal endpoints enclose \(e^{-\xi}\).
+Applying these termwise to \cref{eq:rg-spatial-proof-finite-orbit-norm} and
+\cref{eq:rg-spatial-local-radius} gives convergent upper norm and lower
+radius bounds, so every strict admission or positive tolerance gap is
+decided at some finite precision, and the strict image margin and vanishing
+Taylor tail eventually admit the approximate image as well.
+
+For one radius \(r<\varepsilon\), the derivative estimate along a segment
+gives the Lipschitz constant \(\operatorname{Lip}_a(r)<1\), while the value
+estimate gives the radial factor \(q_a(r)=\mathfrak c_a+M_ar<1\). The
+triangle inequality separates one step's Taylor error from its input error
+and gives the stated recurrence. Choosing every tail below both a
+prescribed small fraction of the total tolerance and \((1-q_a(r))r/2\) keeps
+all approximate states in the ball and achieves the requested error for a
+finite word. Two differently truncated direct and staged tables need not be
+equal; their difference is bounded by the sum of their errors relative to
+the same composed operator. The empty character is excluded only from the
+coefficient table: an unused fine field has a nontrivial \(\cosh\)
+normalizer although its retained interaction is zero, so no evidence value
+can be inferred from that table. \hfill\(\square\)
+
+\section{A constructive basin-entry theorem in the prescribed norm}
+\label{sec:rg-spatial-proof-basin}
+
+\noindent\emph{Proof of \cref{thm:rg-spatial-basin-entrance}.}
+The proof uses the compact box and retains the prescribed \(\kappa,\lambda\).
+For \(B\ge3\), conditionally integrate all but the first and last edges of
+each retained path. No plaquette meets two eliminated edges, and the other
+three edges of such a plaquette lie outside every retained path, so these
+interiors are conditionally independent. For a horizontal path at the
+origin the conditional parity mean is
+\begin{equation}
+ \bar z_p=z_{(0,0,1)}z_{(B-1,0,1)}
+        \prod_{s=1}^{B-2}f(\chi^+_s,\chi^-_s),\qquad
+ f(\chi,\chi')=\tanh(h+j(\chi+\chi')),
+ \label{eq:rg-spatial-proof-basin-strip}
+\end{equation}
+where \(\chi^\pm_s\) are the three-edge characters of the plaquettes above
+and below the edge \((s,0,1)\). Its strip consists of its endpoints, the
+horizontal edges at \((s,\pm1)\), \(1\le s\le B-2\), and the vertical edges
+at \((s,0),(s,-1)\), \(1\le s\le B-1\). It has \(4B-4\) edges and diameter
+at most \(B\). These strips and their rotations are pairwise disjoint: for
+horizontal edges, horizontal-strip interiors have first-coordinate residues
+\(1,\ldots,B-2\), whereas vertical-strip interiors have residues \(0,B-1\),
+and the transverse residues identify the unique adjacent grid line for
+\(B\ge3\). Retained endpoints belong only to their own path, and rotation
+proves the other orientation. This also proves conditional independence of
+all eliminated interiors.
+
+Set \(t_2=\tanh2j=2t/(1+t^2)\). The four Walsh coefficients of \(f\) are
+\(\hat f_\varnothing,\hat f_1,\hat f_1,\hat f_{12}\), with
+\begin{equation}
+ \hat f_\varnothing-\hat f_{12}=b,\qquad
+ 2\hat f_1=\frac{t_2(1-b^2)}{1-b^2t_2^2},\qquad
+ \hat f_{12}=-\frac{bt_2^2(1-b^2)}{2(1-b^2t_2^2)}.
+ \label{eq:rg-spatial-proof-strip-coefficients}
+\end{equation}
+Here \(\hat f_\varnothing,\hat f_1\ge0\) and \(\hat f_{12}\le0\), so the
+unweighted coefficient sum is \(R(b,t_2)=b+t_2(1-b^2)/(1-b^2t_2^2)\). It
+increases in \(t_2\), and \(\partial_bR\ge1-2t_2/(1-t_2^2)>0\) for
+\(t_2\le24/145\), the value at \(t=1/12\). Since \(R(1,t_2)=1\), its
+upper-endpoint value \(R_*\) bounds the compact box with the explicit slack
+\(1-R_*\ge(13489/20449)(1-b_+)>0\). Put
+\begin{equation}
+ \Delta=1-R_*,\qquad \alpha=\Delta/24,\qquad
+ \bar R=\frac{R_*}{1-\Delta/4}<1,\qquad
+ \mathbb A_B=\frac{\bar R^{B-2}}{1-2\alpha}.
+ \label{eq:rg-spatial-proof-basin-activity}
+\end{equation}
+The fine Walsh norm with weight \(e^{\alpha|S|}\), including its scalar, is
+submultiplicative under symmetric difference. Since \(\chi,\chi'\) have
+three edges each, \(\|f\|_\alpha\le e^{6\alpha}R_*\le\bar R\) and
+\(\|\bar z_p\|_\alpha\le\mathbb A_B\), using \(e^x\le1/(1-x)\) for
+\(0\le x<1\), including the two endpoints.
+
+For a finite path set \(P\), the parity density relative to fair counting
+is
+\begin{equation}
+ f_P(y)=\E_{\mu_{b,t}}\prod_{p\in P}(1+y_p\bar z_p).
+ \label{eq:rg-spatial-proof-soft-parity-density}
+\end{equation}
+Conditional independence of the eliminated interiors proves this identity,
+and averaging over \(y\) gives one. The auxiliary fine law tilted by this
+product has the correct remaining-sign marginal for these observations; it
+is not the hard-parity posterior on all fine variables, which matters for
+its normalized conditional rows below.
+
+For a root path \(p_0\) with fine anchor \(x_0\), let \(D_{p_0}(S,T)\) be
+the maximum fine-coordinate distance from \(x_0\) of any fine-edge anchor in
+\(S\), or of \(B\) times any coarse-edge anchor in \(T\); an empty maximum
+is zero. Set \(\beta=\kappa+1\) and \(\lambda_B=2\lambda/B\), and complete
+the joint fine and coarse Walsh algebra in
+\begin{equation}
+ \|F\|_{p_0}=\sum_{S,T}|F_{S,T}|
+     e^{\alpha|S|+\beta|T|+\lambda_BD_{p_0}(S,T)}.
+ \label{eq:rg-spatial-proof-rooted-algebra}
+\end{equation}
+Fine signs and coarse labels are distinct variables. Cardinalities and
+rooted radii are subadditive under multiplication, which proves the Banach
+algebra inequality. For a local update at a fine edge use the same norm
+centered there. Removing that edge lowers the fine weight by \(e^{-\alpha}\),
+and replacing it by a local polynomial increases the rooted radius by at
+most that polynomial's local radius.
+
+Put \(\bar p=(1+\bar R)/2\), and increase \(B\) until \(2\lambda/B<1\) and
+\(\bar R/(1-2\lambda/B)\le\bar p\). The source conditional mean at an edge
+has local norm at most \(\bar p\), because it reaches distance at most one.
+Choose rational upper bounds \(\bar e_\beta\ge e^\beta\),
+\(\bar e_{2\lambda}\ge e^{2\lambda}\), and \(\bar e_\kappa\ge e^\kappa\),
+and set \(H_B=\bar e_\beta\bar e_{2\lambda}\mathbb A_B\). Each observed
+strip has radius at most \(B\) from any of its members, hence local
+activity at most \(H_B\).
+
+A fine edge belongs to at most one observed strip. If it does, write
+\(\bar z_p=\bar z_p^{(0)}+z_e\bar z_p^{(1)}\) and let \(f_e\) be its
+conditional mean under the source. Normalizing the two probabilities after
+multiplying by the observed factor gives
+\begin{equation}
+ F_e=\frac{f_e+y_p(f_e\bar z_p^{(0)}+\bar z_p^{(1)})}
+          {1+y_p(\bar z_p^{(0)}+f_e\bar z_p^{(1)})}
+     =f_e+\frac{y_p(1-f_e^2)\bar z_p^{(1)}}
+               {1+y_p(\bar z_p^{(0)}+f_e\bar z_p^{(1)})}.
+ \label{eq:rg-spatial-proof-normalized-tilted-row}
+\end{equation}
+If no observed strip touches the edge, \(F_e=f_e\); the target strip is
+omitted when computing its own conditional mean. Both
+\(y_p\bar z_p^{(0)}\) and \(y_p\bar z_p^{(1)}\) have local norm at most
+\(H_B\). Increase \(B\) until
+\begin{equation}
+ H_B\le\min\left\{\frac1{2(1+\bar p)},
+                       \frac{1-\bar p}{4(1+\bar p^2)}\right\}.
+ \label{eq:rg-spatial-proof-basin-row-gate}
+\end{equation}
+The denominator perturbation then has norm at most \(1/2\), so its
+geometric inverse has norm at most two, and the correction has norm at most
+\(2(1+\bar p^2)H_B\le(1-\bar p)/2\). Every normalized conditional mean
+therefore has local norm at most \(r=(1+\bar p)/2<1\); the denominator and
+its even contribution are retained.
+
+Let \(\Pi\) project onto terms with empty fine support. For nonempty \(S\),
+define
+\begin{equation}
+ \mathcal A(\chi_Sy_T)=\frac1{|S|}\sum_{e\in S}
+              \chi_{S\setminus\{e\}}y_TF_e,\qquad
+ \mathcal A_\perp=(1-\Pi)\mathcal A,
+ \label{eq:rg-spatial-proof-absorbing-operator}
+\end{equation}
+and let \(\mathcal A\) vanish on fine-constant terms. Removing the fine
+edge, using its local row norm, and averaging give
+\(\|\mathcal A(1-\Pi)\|\le e^{-\alpha}r\le r\); the average avoids a
+support-size factor. Conditional expectation under the normalized finite
+tilted law satisfies \(\E\chi_Sy_T=\E\mathcal A(\chi_Sy_T)\), and absorbing
+the fine-constant terms once and iterating proves
+\begin{equation}
+ \E F=\Pi F+\sum_{k\ge1}\Pi\mathcal A\mathcal A_\perp^{k-1}(1-\Pi)F.
+ \label{eq:rg-spatial-proof-absorbing-series}
+\end{equation}
+The unabsorbed remainder is bounded geometrically in the same norm. At any
+fixed substitution order only finitely many fine variables and coarse
+labels are reached, and the coefficients stabilize once the finite
+inventories contain that region. Fixing exterior signs decreases norms, and
+finite weights include every crossing original and observed factor, so the
+uniform geometric remainder proves boundary-independent continuous limits
+for arbitrary full observed patterns.
+
+For a finite target set \(A\) of coarse edges with target signs \(y_A\),
+observing its complement gives the conditional density
+\(\E_{\mu^{y,A^c}}\prod_{e\in A}(1+y_e\bar z_e)\) relative to fair counting
+on \(A\). It is normalized and lies between \((1-\mathbb A_B)^{|A|}\) and
+\((1+\mathbb A_B)^{|A|}\). Increasing finite observed subsets gives this
+formula uniformly for every exterior by the preceding stabilization and
+tail, finite Bayes consistency passes to these limits, and testing their
+conditional integrals against exterior cylinders identifies them as the DLR
+kernels of the pushed law. This supplies the full finite kernels, not only
+one mean or an almost-sure version.
+
+For a single target, start \cref{eq:rg-spatial-proof-absorbing-series} at
+\(\bar z_{p_0}\), whose rooted norm is at most
+\(\bar e_{2\lambda}\mathbb A_B\). Its conditional mean \(m_{p_0}\)
+therefore has norm at most \(M_B=\bar e_{2\lambda}\mathbb A_B/(1-r)\).
+Increase \(B\) until \(M_B\le1/2\). The norm-convergent series
+\(\widetilde h_{p_0}=\operatorname{atanh}m_{p_0}\) gives the complete
+half-log-odds, with \(\|\widetilde h_{p_0}\|\le\bar h_B=M_B/(1-M_B^2)\).
+Positive two-edge conditional kernels satisfy the conditional square
+identity
+\begin{equation}
+ \widetilde h_e(y^{f,+})-\widetilde h_e(y^{f,-})
+ =\widetilde h_f(y^{e,+})-\widetilde h_f(y^{e,-}),
+ \label{eq:rg-spatial-proof-conditional-square}
+\end{equation}
+since both sides are half the same log cross ratio. Taking Walsh
+coefficients, justified by absolute convergence, shows that the coefficient
+of \(\chi_{T\setminus\{e\}}\) in \(\widetilde h_e\) does not depend on the
+marked edge \(e\in T\); define it to be \(J_T^{(B)}\). It reproduces every
+single-edge ratio, and connectedness of the finite sign cube with
+normalization then reproduces all the conditional kernels. Translation
+covariance gives one canonical orbit representative.
+
+For a size-\(n\) orbit, its translated incidence and norm prefactor are at
+most \(n^2\). The inequality \(n^2e^{\kappa n}\le2e^\kappa
+e^{(\kappa+1)(n-1)}\) follows from \(\sup_{s\ge1}s^2e^{-(s-1)}=4/e<2\).
+Because the root belongs to \(T\), its diameter is at most twice its rooted
+radius. Selecting only supports whose literal first edge is the root and
+summing the two root orientations therefore gives
+\begin{equation}
+ \|J^{(B)}\|_{\kappa,\lambda}
+ \le\mathcal B_B:=4\bar e_\kappa\frac{M_B}{1-M_B^2}.
+ \label{eq:rg-spatial-proof-basin-norm}
+\end{equation}
+This estimate counts all supports and translated incidences in the
+prescribed weights; the fine weight \(\alpha\) was auxiliary, and
+\(\lambda\) has not been replaced by a smaller output weight.
+
+Every displayed gate is eventually true and remains true for larger \(B\):
+the base gate improves with \(B\), and \(\mathbb A_B\) decreases
+exponentially. Rational exponential enclosures as in
+\cref{eq:rg-spatial-proof-exp-enclosure} give a positive rational lower
+bound \(\varepsilon_0<\varepsilon\), and a finite rational search for
+\(B_0\) ensuring the gates and \(\mathcal B_B<\varepsilon_0/16\)
+terminates, uniformly over the compact box. The local theorem,
+\cref{thm:rg-spatial-local-operator}, now supplies uniqueness in its ball,
+and extraction of conditional coefficients with path composition identifies
+\(\mathscr R_aJ^{(B)}=J^{(aB)}\).
+
+To obtain a finite rational interaction, keep absorbed substitution orders
+through \(n_1\), obtaining \(m^{[n_1]}_{p_0}\), and keep the odd powers of
+\(\operatorname{atanh}m^{[n_1]}_{p_0}\) through \(2n_2-1\). For rational
+\(b,t\), every local row in \cref{eq:rg-spatial-proof-normalized-tilted-row}
+is a rational function of finitely many signs with positive denominator.
+Evaluate it on the complete cube and take its finite Walsh transform,
+retaining every coefficient. The cube may be reduced exactly to a basis for
+the \(\mathbb F_2\)-span of its character supports: the basis-character map
+is surjective by row rank, the function is constant on its fibers, and
+every outside-span coefficient vanishes by pairing with a kernel element
+that flips that character. The transform on the basis cube, lifted to
+literal supports, is therefore the entire function of the literal
+coordinates; the weights still use literal cardinalities and distances, not
+the number of basis generators. The local strip row's character rank is at
+most \(2B\), from its \(2(B-2)\) three-edge characters, endpoint character,
+possibly removed edge, and two original row characters.
+
+All finite substitution orders and powers have finite inventories. The mean
+remainder is \(d_{n_1}=M_Br^{n_1}\), and both exact and truncated absorbed
+sums have norm at most \(M_B\). Telescoping the odd powers gives the
+\(\operatorname{atanh}\) Lipschitz bound \((1-M_B^2)^{-1}\), and its omitted
+powers give the error
+\begin{equation}
+ \|\widehat J-J^{(B)}\|_{\kappa,\lambda}
+ \le4\bar e_\kappa\left[
+       \frac{d_{n_1}}{1-M_B^2}
+       +\frac{M_B^{2n_2+1}}{(2n_2+1)(1-M_B^2)}\right].
+ \label{eq:rg-spatial-proof-basin-oracle-error}
+\end{equation}
+The incidence argument applies also to omitted coefficients and to
+approximate rows that need not obey exact square identities, and canonical
+selection gives one valid approximate interaction. After \(n_1\)
+substitutions its labels lie within coarse radius \(n_1+1\), and the full
+\(\operatorname{atanh}\) of that finite-variable mean introduces no new
+labels, so supports of diameter greater than \(2(n_1+1)\) have total norm at
+most \(4\bar e_\kappa d_{n_1}/(1-M_B^2)\). The finite odd polynomial pays
+its separate power tail in \cref{eq:rg-spatial-proof-basin-oracle-error}.
+
+Increasing \(n_1,n_2\) makes the error arbitrarily small, and each rational
+transform, substitution, and product terminates. For a finite word, choose
+the input error small enough that both the true interaction and its
+approximation lie in one ball of radius \(r<\varepsilon\). Comparing their
+exact trajectories by the Lipschitz bounds gives
+\(\delta\prod_k\operatorname{Lip}_{a_k}(r)\), and adding the separate Taylor
+word error proves the stated total. The argument retains normalized fine
+tilts throughout and computes no discarded scalar partition.
+\hfill\(\square\)
+
+\section{Higher response and the Fisher-density geometry}
+\label{sec:rg-spatial-proof-fisher}
+
+\noindent\emph{Proof of \cref{thm:rg-spatial-fisher-density}.}
+Enlarge the compact rectangle of natural parameters to
+\(\widehat K=[h_-,h_+]\times[0,j_+]\), with \(h_->0\) and
+\(0<j_+<\operatorname{atanh}(1/12)\). Its positive-\(j\) interior contains
+the original compact set, and the boundary \(j=0\) is used only for the
+one-sided continuation below. Write \(t_+=\tanh j_+\), choose \(\tau>0\)
+with \(\mathrm q=12t_+e^\tau<1\), and put \(\mathrm c_1=16\mathrm q/(1-\mathrm q)\),
+\(\rho=\tanh(h_++2j_+)\), and \(d=1-\rho>0\). These constants work for
+every volume, depth, support pattern, and fixed fine exterior. Finite
+supports and references are parameter independent. The finite density is
+an exponential family in \((h,j)\); its field statistic sums free edge
+signs, and its plaquette statistic includes every touching plaquette with
+its exterior completion. Expectations and cumulants under the fine law at
+\((h,j)\) carry the subscript \(h,j\).
+
+\subsection{Localized source cumulants and derivatives}
+\label{sec:rg-spatial-proof-higher-response}
+
+Let \(F\) be a finite vector of block observables supported on an anchor
+set \(A\), and \(F'\) another supported outside its radius-\(R\)
+neighborhood. Condition on the fine blocks outside that neighborhood. The
+weighted Hamming proof compares any two resulting interior rows. If the
+finite whole-block volume is irregular, its inherited exterior is identical
+on both sides and contributes zero disagreement; only the newly revealed
+shell contributes. Thus
+\begin{equation}
+ \operatorname{TV}(\operatorname{Law}(F,F'),
+       \operatorname{Law}(F)\otimes\operatorname{Law}(F'))
+ \le\min\{1,\mathrm c_1|A|B^2(R+1)e^{-\tau(R+1)}\}.
+ \label{eq:rg-spatial-proof-group-decoupling}
+\end{equation}
+Each conditional law of \(F\) is within this bound of their mixture, and
+integrating with the exterior and marginalizing proves the group
+comparison. It passes to infinite constrained laws by finite-cylinder
+convergence, also at \(j=0\) by the exact product-fiber law.
+
+For \(m\) bounded observables define
+\begin{equation}
+ \operatorname{cum}(F_1,\ldots,F_m)
+ =\sum_{\pi\in\mathcal P_m}(-1)^{|\pi|-1}(|\pi|-1)!
+                              \prod_{D\in\pi}\E\prod_{i\in D}F_i,
+ \label{eq:rg-spatial-proof-response-cumulant}
+\end{equation}
+where \(\mathcal P_m\) is the set of partitions of \(\{1,\ldots,m\}\). Its
+absolute value is at most \(k_m\prod_i\|F_i\|_\infty\), and a change of the
+joint law by total variation \(v\) changes it by at most
+\(\bar k_mv\prod_i\|F_i\|_\infty\), where \(k_m=\sum_\pi(|\pi|-1)!\) and
+\(\bar k_m=2\sum_\pi|\pi|!\). For \(m=2,3,4\), these pairs are
+\((2,6),(6,26),(26,150)\). The second estimate telescopes each product of
+moments, each moment changing by at most twice the total variation. A
+cumulant of two independent nonempty groups vanishes, because its
+generating function factorizes and its logarithm has no mixed coefficient;
+expanding that finite logarithm also proves
+\cref{eq:rg-spatial-proof-response-cumulant}.
+
+Let a local \(f\) have anchor support \(A\) of size \(a_0\ge1\), and let
+\(r=1,2,3\) labeled edge or plaquette sources have base anchors
+\(x_1,\ldots,x_r\). Put \(M=\max_s\operatorname{dist}_\infty(x_s,A)\). On the
+complete graph of these labeled anchors and a root representing \(A\), a
+minimum-weight spanning tree has an edge of length at least \(M/r\).
+Removing a longest edge splits the graph into groups with all cross
+distances at least that length; otherwise exchanging a shorter cross edge
+would reduce the tree. Plaquette supports enlarge anchor sets by at most one
+on either side. For \(M\ge4r\), use \(R=\lfloor M/r\rfloor-3\) in
+\cref{eq:rg-spatial-proof-group-decoupling}; the root group has at most
+\(a_0+4r\) anchors. For smaller \(M\), use the individual cumulant bound.
+With
+\begin{equation}
+ L_r(a_0)=e^{4\tau}[k_{r+1}+\bar k_{r+1}\mathrm c_1(a_0+4r)],\qquad
+ S_r(a_0)=\frac{(8a_0)^rL_r(a_0)(2r+1)!}
+                  {(1-e^{-\tau/r})^{2r+2}},
+ \label{eq:rg-spatial-proof-response-constants}
+\end{equation}
+this proves the bound \(L_r(a_0)B^2(M+1)e^{-\tau M/r}\|f\|_\infty\) for
+each cumulant. There are at most \(2B^2\) choices of a source of one
+derivative type at each anchor, and at most \(a_0(2M+1)^2\) anchors within
+distance \(M\). Counting ordered tuples, including repeats, gives
+\begin{equation}
+ \begin{split}
+ \sum_{s_1,\ldots,s_r}|\operatorname{cum}(f,T_{s_1},\ldots,T_{s_r})|
+ &\le S_r(a_0)B^{2r+2}\|f\|_\infty,\\
+ \sum_{\max\operatorname{dist}(x_s,A)>L}
+       |\operatorname{cum}(f,T_{s_1},\ldots,T_{s_r})|
+ &\le S_r(a_0)B^{2r+2}(L+2)^{2r+1}
+                     e^{-\tau(L+1)/r}\|f\|_\infty.
+ \end{split}
+ \label{eq:rg-spatial-proof-response-tails}
+\end{equation}
+Here \(T_s\) is the edge or plaquette source for its labeled derivative
+direction. To sum the bound, use \((M+1)^k\le k!\binom{M+k}k\) in the
+geometric series; for the tail, write \(M=L+1+n\) and bound
+\((M+1)^k\le(L+2)^k(n+1)^k\). Exterior constant sources have zero cumulant
+and may safely be overcounted.
+
+Finite differentiation of the normalized exponential family gives these
+cumulant sums for each derivative of a parameter-independent observable.
+For an observable \(f_{h,j}\) that depends on the parameters,
+\begin{equation}
+ \partial^\alpha\E_{h,j}f_{h,j}
+ =\sum_{\beta\le\alpha}\binom\alpha\beta
+   \sum_{s_1,\ldots,s_{|\alpha-\beta|}}
+   \operatorname{cum}_{h,j}(\partial^\beta f_{h,j},T_{s_1},\ldots,
+                                      T_{s_{|\alpha-\beta|}}),
+ \label{eq:rg-spatial-proof-moving-response}
+\end{equation}
+where an empty source list means ordinary expectation. Differentiating the
+finite generating function or its normalized finite sum proves all
+multiplicities, including repeated directions. For each fixed source
+tuple, finite-cylinder convergence gives convergence of its moments,
+uniformly on \(\widehat K\); near tuples form a finite set, and far tuples
+have the uniform tails in \cref{eq:rg-spatial-proof-response-tails}.
+Sending first the source cutoff and then the volume to infinity proves
+uniform convergence of finite derivatives through order three, and the sums
+are continuous by the same finite-near, uniform-tail argument. Passing
+finite coordinate fundamental-theorem-of-calculus identities to the limit
+proves that these are continuous derivatives, successively through order
+three, with agreeing mixed derivatives. At \(j=0\) the argument runs on
+right-sided coordinate segments and gives one-sided \(C^3\) continuation.
+No infinite normalizer or null-event probability is differentiated.
+
+\subsection{Full local jets and interaction derivatives}
+\label{sec:rg-spatial-proof-local-jets}
+
+For a free path, its conditional mean \(\bar z\) given the other fine blocks
+is the product of \(B\) hyperbolic tangents with fields \(h+jw_e\),
+\(|w_e|\le2\), on at most nine anchor cells. For \(n\le3\),
+differentiating the product in labeled directions gives
+\begin{equation}
+ \|\partial^\beta\bar z\|_\infty
+ \le g_nB^n\rho^{B-n},\qquad g_n=2^nn!,\quad |\beta|=n.
+ \label{eq:rg-spatial-proof-product-jets}
+\end{equation}
+The first three hyperbolic-tangent derivatives have bounds \(1,2,6\), and
+each \(j\) differentiation adds a factor at most two. There are at most
+\(B^n\) assignments to product factors, and the product of their factorials
+is at most \(n!\). Negative exponents when \(B<n\) only enlarge the upper
+bound. Apply
+\cref{eq:rg-spatial-proof-moving-response,eq:rg-spatial-proof-response-tails}
+to \(\bar z\). With
+\begin{equation}
+ D_n=g_n+\sum_{b'=0}^{n-1}\binom n{b'}g_{b'}S_{n-b'}(9),\qquad
+ M_n(B)=D_nB^{2n+2}\rho^{B-n},\quad M_0(B)=\rho^B,
+ \label{eq:rg-spatial-proof-mean-jets}
+\end{equation}
+every order-\(n\) derivative of a free-path mean is bounded by \(M_n(B)\).
+These bounds tend to zero as \(B\) increases.
+
+For patterns agreeing through \(Q_R\), the cell square of radius \(R\),
+choose \(a_R=\lfloor R/2\rfloor-1\) when \(R\ge2\). A near source tuple has
+joint support within \(Q_{a_R+1}\); apply the group comparison on its
+remaining buffer and count \([2B^2(2a_R+1)^2]^n\) ordered tuples, and use
+\cref{eq:rg-spatial-proof-response-tails} for each of the two far sums.
+Writing \(\mathrm c'_n=2^n\bar k_{n+1}\mathrm c_1(1+4n)\), the resulting derivative modulus
+is
+\begin{equation}
+\begin{split}
+ V_n(B,R)=\min\bigl\{2M_n(B),B^{2n+2}\bigl[
+ &\mathrm c'_n(2a_R+1)^{2n}(R-a_R)e^{-\tau(R-a_R)}\\
+ &+2S_n(1)(a_R+2)^{2n+1}e^{-\tau(a_R+1)/n}\bigr]\bigr\}.
+\end{split}
+ \label{eq:rg-spatial-proof-jet-modulus}
+\end{equation}
+For \(R=0,1\) take \(V_n=2M_n\), and for values use
+\(V_0=\min\{2\rho^B,2\mathrm c_1B^2(R+1)e^{-\tau(R+1)}\}\). The same proof
+compares a finite whole-block conditional calculation against its infinite
+kernel: near sources are interior, and finite crossing sources and infinite
+far sources satisfy the two separate tail bounds. For \(R\ge2\), the
+bracket in \cref{eq:rg-spatial-proof-jet-modulus} is at most
+\(Z_n(R+1)^{2n+1}e^{-\tau R/(2n)}\), with
+\(Z_n=\mathrm c'_n+2e^{\tau/(2n)}S_n(1)\).
+
+Every Bernoulli factor is \((1+s\bar z)/2\), with \(1+s\bar z\ge d\).
+Revealing both target parities sequentially retains all their dependence,
+and their positive four-state row is \(C^3\). For one Bernoulli log factor
+the derivative amplitudes are
+\begin{equation}
+ A_1=\frac{M_1}{d},\qquad
+ A_2=\frac{M_2}{d}+\frac{M_1^2}{d^2},\qquad
+ A_3=\frac{M_3}{d}+\frac{3M_2M_1}{d^2}+\frac{2M_1^3}{d^3}.
+ \label{eq:rg-spatial-proof-log-jet-amplitudes}
+\end{equation}
+The multiplicities follow by differentiating \(\log(1+s\bar z)\) three
+times. Its derivative moduli are
+\begin{equation}
+ \begin{split}
+ T_1={}&V_1/d+M_1V_0/d^2,\\
+ T_2={}&V_2/d+(M_2V_0+2M_1V_1)/d^2+2M_1^2V_0/d^3,\\
+ T_3={}&V_3/d+(M_3V_0+3M_2V_1+3M_1V_2)/d^2\\
+       &+(6M_2M_1V_0+6M_1^2V_1)/d^3+6M_1^3V_0/d^4.
+ \end{split}
+ \label{eq:rg-spatial-proof-log-jet-moduli}
+\end{equation}
+Subtracting the derivative ratios and using \(|r_1^{-k}-r_2^{-k}|\le
+k|r_1-r_2|/d^{k+1}\) for \(r_1,r_2\ge d\) gives these formulas. One-cell log
+probabilities use \(2A_n,2T_n\), and reference-state log odds use
+\(4A_n,4T_n\). Each modulus can also be capped by twice its amplitude. The
+same already revealed first parity is fixed when comparing the second
+factor, so the support patterns still agree in their common interior.
+
+The complete interaction jets are summable, with explicit constants. Set
+\(E_1=D_1/d\), \(E_2=D_2/d+D_1^2/d^2\), and
+\(E_3=D_3/d+3D_2D_1/d^2+2D_1^3/d^3\). Then
+\(F_n(B)=4A_n(B)\le4E_nB^{4n}\rho^{B-n}\). Each \(M_j\) is bounded over all
+\(B\) by \(U_j=D_j\rho^{1-j}(2j+2)!/(1-\rho)^{2j+3}\). Put
+\(Z_0=2\mathrm c_1\), and obtain \(P_n\) from the right side of
+\cref{eq:rg-spatial-proof-log-jet-moduli} by replacing every \(M_j\) with
+\(U_j\) and every \(V_j\) with \(Z_j\); these are explicit positive
+constants, and the powers of \(d\) are unchanged. For \(R\ge2\),
+\(T_n\le P_nB^{2n+2}(R+1)^{2n+1}e^{-\tau R/(2n)}\). The constant
+\begin{equation}
+ H_n=4P_n+
+ 8E_n\rho^{-n}\frac{(2n-2)!}{(1-\rho)^{2n-1}}e^{\tau/(2n)}
+ \label{eq:rg-spatial-proof-jet-shell-constant}
+\end{equation}
+also covers shell radii one and two through the amplitude cap. Its
+order-\(n\) canonical shell is therefore bounded by both \(2F_n(B)\) and
+\(H_nB^{2n+2}r^{2n+1}e^{-\tau(r-1)/(2n)}\). Choose one common
+\(\lambda_f=\tau/48\). Geometric interpolation,
+\(\operatorname{diam}A_{x,r}\le2r\), and the translate count give
+\begin{equation}
+ \|\partial^\alpha\mathscr U_B\|_{\lambda_f}
+ \le F_n(B)+\sqrt{2F_n(B)H_n}B^{n+1}e^{\tau/(4n)}
+       \sum_{r\ge1}(2r+1)^2r^{n+1}
+          e^{-[\tau/(4n)-2\lambda_f]r},\quad |\alpha|=n\le3.
+ \label{eq:rg-spatial-proof-complete-jet-norm}
+\end{equation}
+The bracketed exponent \(\tau/(4n)-2\lambda_f\) is positive, the positive
+series is at most \(9(n+3)!\) divided by
+\((1-e^{-[\tau/(4n)-2\lambda_f]})^{n+4}\), and its omitted tail has an
+explicit convergent bound. The right side decays as a constant times
+\(B^{3n+1}\rho^{(B-n)/2}+B^{4n}\rho^{B-n}\). Values use the canonical
+interaction proof of \cref{sec:rg-spatial-proof-potential} in the same
+weaker \(\lambda_f\) norm. Finite-shell maps are \(C^3\), and their
+derivatives through order three converge uniformly in this Banach norm, so
+successive coordinate fundamental-theorem-of-calculus identities prove that
+the entire interaction is \(C^3\). No shell or derivative is replaced by a
+finite truncation in the statement.
+
+\subsection{Moving expectations and marginal information}
+\label{sec:rg-spatial-proof-moving-fisher}
+
+For any finite or infinite subset \(S\) of the lexicographic past, let
+\(p_S(s;y)\) be the four-state predictive row of the target state \(s\) with
+exactly the past coordinates \(y_S\) prescribed and the other paths,
+including the future, free. Let \(l=\log p_S\), with subscripts denoting
+derivatives in the natural parameters, and use the indices \(i,m,k,n\) for
+those derivatives. Define \(\mathsf I_{S,im}=\sum_sp_Sl_il_m\), an
+observable of the prescribed past. Its first and second parameter
+derivatives, keeping \(y\) fixed, are
+\begin{equation}
+ \begin{split}
+ \mathsf I_{S,im,k}
+ &=\sum_sp_S(l_kl_il_m+l_{ik}l_m+l_il_{mk}),\\
+ \mathsf I_{S,im,kn}
+ &=\sum_sp_S\bigl[(l_{kn}+l_kl_n)l_il_m
+ +l_k(l_{in}l_m+l_il_{mn})+l_n(l_{ik}l_m+l_il_{mk})\\
+ &+l_{ikn}l_m+l_{ik}l_{mn}+l_{in}l_{mk}+l_il_{mkn}\bigr].
+ \end{split}
+ \label{eq:rg-spatial-proof-fisher-observable-jets}
+\end{equation}
+These formulas differentiate the probabilities as well as the scores. Put
+\(L_i=2A_i\) for \(i=1,2,3\),
+\begin{equation}
+ E_B^F=\max\{L_1^2,L_1^3+2L_1L_2,
+                L_1^4+5L_1^2L_2+2L_1L_3+2L_2^2\},\qquad
+ H_B^F=\max(1,L_1,L_2,L_3).
+ \label{eq:rg-spatial-proof-fisher-observable-bound}
+\end{equation}
+Every matrix entry and its first two derivatives are bounded by \(E_B^F\).
+For patterns agreeing in \(Q_R\), every row probability changes by at most
+\(V_0\), and each log jet by at most \(2T_n\). Telescoping the at most ten
+expanded monomials in \cref{eq:rg-spatial-proof-fisher-observable-jets},
+with at most five factors per term and four states, gives the common
+modulus
+\begin{equation}
+ \omega_B(R)=\min\{2E_B^F,
+ 200(H_B^F)^4[V_0(B,R)+2T_1(B,R)+2T_2(B,R)+2T_3(B,R)]\}.
+ \label{eq:rg-spatial-proof-fisher-observable-modulus}
+\end{equation}
+At fixed \(B\) it is bounded by an explicit constant times
+\((R+1)^7e^{-\tau R/6}\). These are differences of jets, not derivatives of
+an earlier scalar continuity bound.
+
+Expectations now use the original unconstrained fine law, with coarse
+observables pulled back by the fixed path map. For a local \(C^2\)
+observable on \(Q_N\), put \(a_N=(2N+1)^2\) and
+\(W_B(N)=1+2S_1(a_N)B^4+S_2(a_N)B^6\). The moving response formula gives
+\begin{equation}
+ \max_{|\alpha|\le2}\sup_{(h,j)\in\widehat K}
+      |\partial^\alpha\E_{h,j}f_N|
+ \le W_B(N)\max_{|\alpha|\le2}\sup_{(h,j),y}|\partial^\alpha f_N|.
+ \label{eq:rg-spatial-proof-varying-expectation-bound}
+\end{equation}
+In particular, the second derivative includes \(\E f_{im}\), both source
+covariance sums involving \(f_i,f_m\), and the complete three-variable
+cumulant sum involving \(f\). Formula
+\cref{eq:rg-spatial-proof-response-tails} justifies each passage from finite
+volumes, and neither the observable nor the law is held fixed incorrectly.
+The function \(W_B(N)\) is polynomial in \(N\). For a shell series
+\(f=\sum_Nd_N\) with \(\sum_NW_B(N)\|d_N\|_{C^2}<\infty\), finite partial
+sums and their expectation derivatives are uniformly Cauchy, and repeated
+fundamental-theorem-of-calculus identities give \(C^2\) of its expectation
+with termwise differentiation.
+
+Apply this to \(f_N^S=\mathsf I_{S\cap Q_N}\). Its initial shell is bounded
+by \(E_B^F\), and its later shell differences through order two by
+\(\omega_B(N-1)\). Thus
+\begin{equation}
+ Z_B^F=W_B(0)E_B^F+\sum_{N\ge1}W_B(N)\omega_B(N-1)<\infty,
+ \qquad
+ \epsilon_B(R)=2\sum_{N>R}W_B(N)\omega_B(N-1)\longrightarrow0.
+ \label{eq:rg-spatial-proof-fisher-expectation-tails}
+\end{equation}
+If two past sets agree inside \(Q_R\), their finite prefixes agree exactly
+through that radius, so their full-law Fisher-observable expectations
+differ in entrywise \(C^2\) norm by at most \(\epsilon_B(R)\), uniformly
+over the remote shape of the past. In particular the full-past expectation
+\(\mathcal I_B=\E\mathsf I_{\mathrm{past}}\) is \(C^2\).
+
+The positive marginal on \(\Lambda_L\) factors into its predictive rows in
+lexicographic order. Each score increment is centered conditionally on its
+earlier revealed cells, and two increments are orthogonal because the
+earlier one is measurable for the later past. The finite Fisher matrix is
+therefore the sum of expected row-Fisher matrices with their finite pasts,
+each a \(C^2\) function by the preceding varying-expectation argument.
+Translation invariance removes the shifts. For \(L\ge2R\), all but at most
+\(4RL\) cells have radius \(R\) inside the square, and their finite pasts
+and full past agree on that radius; each remaining difference is bounded by
+\(2Z_B^F\). Therefore
+\begin{equation}
+ \|L^{-2}I_{B,\Lambda_L}-\mathcal I_B\|_{C^2,\mathrm{entry}}
+ \le\epsilon_B(R)+8Z_B^FR/L.
+ \label{eq:rg-spatial-proof-actual-fisher-limit}
+\end{equation}
+Sending first \(L\) to infinity at fixed \(R\), then \(R\) to infinity,
+proves the marginal \(C^2\) limit, including all boundary-score
+derivatives. The canonical row with future fixed to vacuum is never
+substituted for the predictive row.
+
+\subsection{An exhibited positive chart and its curvature}
+\label{sec:rg-spatial-proof-regular-chart}
+
+At \(j=0\), with any fixed complete past, the blocks are independent
+product parity fibers, and the two target path parities are independent
+with mean \(b^B\). For one fine edge of a target path with parity \(Y\),
+\begin{equation}
+ a(s)=\E[z_e\mid Y=s]-b
+      =\frac{sb^{B-1}(1-b^2)}{1+sb^B},\qquad
+ v_B=\E a^2=\frac{b^{2B-2}(1-b^2)^2}{1-b^{2B}}>0.
+ \label{eq:rg-spatial-proof-product-score-contrast}
+\end{equation}
+Multiplying the product law by its parity indicator and summing proves this
+formula; \(\E a=0\), and conditional-variance decomposition gives
+\(v_B\le1-b^2\le1\). The field score is \(\mathbf s_h=B(a_1+a_2)\), and the
+plaquette score is \(\mathbf s_j=b^2a_1a_2+\alpha_1a_1+\alpha_2a_2\), with
+\(|\alpha_i|\le2B\). For the mixed term, the plaquette at the common
+starting vertex is the unique one meeting both outgoing target paths; its
+other two edges are future paths at \(B=1\), or unused singleton edges at
+\(B>1\), and have mean \(b\), so its centered contribution is
+\(b^2a_1a_2+b^3(a_1+a_2)\). Every other incident plaquette meets only one
+target path and contributes a multiple of \(a_i\) of magnitude at most one;
+there are \(2B-1\) such incidences. Nonincident plaquettes contribute zero
+by product-block independence. These are derivatives of the full family
+through its source formula and one-sided limit, not derivatives of a
+formula restricted to \(j=0\).
+
+Independence and centering make \(a_1a_2\) orthogonal to both linear
+contrasts. The conditional Fisher entries are therefore
+\(I_{hh}=2B^2v_B\), \(I_{hj}=Bv_B(\alpha_1+\alpha_2)\), and
+\(I_{jj}=v_B(\alpha_1^2+\alpha_2^2)+b^4v_B^2\). Their determinant is
+\(B^2v_B^2(\alpha_1-\alpha_2)^2+2B^2b^4v_B^3\), and their trace is at most
+\(11B^2v_B\). Dividing the determinant by the trace bounds the smaller
+eigenvalue below by \(2b^4v_B^2/11\), uniformly in the past. On a compact
+positive-field interval with \(b\in[b_-,b_+]\), this is at least
+\begin{equation}
+ \eta_{0,B}=\frac2{11}b_-^{4B}(1-b_+^2)^4>0.
+ \label{eq:rg-spatial-proof-fisher-product-floor}
+\end{equation}
+
+Use the bounds \(A_1,A_2\) on the enlarged rectangle and put
+\(Q_B=16(A_1^3+A_1A_2)>0\). The score norm is at most \(2\sqrt2A_1\), and
+its \(j\) derivative at most \(2\sqrt2A_2\). Differentiating the four-state
+Fisher sum gives an operator-norm derivative at most \(Q_B\), including the
+probability derivative term. One-sided \(C^3\) and the fundamental theorem
+of calculus imply
+\begin{equation}
+ \mathcal I_B(h,j)\succeq\frac{\eta_{0,B}}2I_2
+ \quad\text{for}\quad
+ 0<j<\delta_B:=\min\{j_+/2,\eta_{0,B}/(2Q_B)\}.
+ \label{eq:rg-spatial-proof-regular-fisher-region}
+\end{equation}
+The same floor holds rowwise and hence after the full-law expectation. An
+enlarged field interval supplies an open neighborhood of each original
+compact interval. For a prescribed finite list of depths, take the finite
+minima of positive widths and floors. No positive minimum over every integer
+depth is asserted.
+
+On a compact subchart of this region write \(g_{mn}=\mathcal I_{B,mn}\), and
+use the indices \(k,m,n,r,s\) for the natural parameters. The coefficients
+and curvature
+\begin{equation}
+ \Gamma^r_{nk}=\frac12g^{rs}
+        (\partial_ng_{sk}+\partial_kg_{sn}-\partial_sg_{nk}),\qquad
+ R^r{}_{kmn}=\partial_m\Gamma^r_{nk}-\partial_n\Gamma^r_{mk}
+             +\Gamma^r_{ms}\Gamma^s_{nk}-\Gamma^r_{ns}\Gamma^s_{mk}
+ \label{eq:rg-spatial-proof-fisher-connection-curvature}
+\end{equation}
+define the Levi--Civita connection and its curvature: substitution shows
+torsion freedom and metric compatibility, and the cyclic combination of the
+compatibility equations recovers \(\Gamma\). Since the metric is \(C^2\)
+with a positive floor, its inverse is \(C^2\), the connection is \(C^1\),
+and the curvature and its Ricci and scalar contractions are continuous. By
+\cref{eq:rg-spatial-proof-actual-fisher-limit}, the metrics
+\(L^{-2}I_{B,\Lambda_L}\) converge to \(\mathcal I_B\) in \(C^2\) on a
+neighborhood of the subchart, where \(\mathcal I_B\) is positive definite by
+\cref{eq:rg-spatial-proof-regular-fisher-region}. These are the hypotheses
+of \cref{prop:rg-thermo-label-regular-geometry}, which gives \(C^2\)
+convergence of the inverses, \(C^1\) convergence of the connections, and
+\(C^0\) convergence of the curvatures, at this fixed \(B\).
+
+These are also local law charts. At a chart point choose a finite marginal
+with positive Fisher matrix. Its probability Jacobian has rank two because
+\(I=(Dp)^\top\operatorname{diag}(1/p)Dp\), so the map \(P\) from \((h,j)\)
+to two suitably chosen atom probabilities has a nonsingular Jacobian at the
+point. By the inverse function theorem \citep[Thm.~9.24]{Rudin1976}, \(P\)
+has a \(C^1\) local inverse, and the formula
+\(D(P^{-1})=(DP\circ P^{-1})^{-1}\) shows inductively that the inverse is
+\(C^3\), because \(P\) is. This exhibits a chart of the law without
+assuming a global quotient manifold. \hfill\(\square\)

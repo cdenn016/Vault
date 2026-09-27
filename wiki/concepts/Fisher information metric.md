@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-09-11
+updated: 2026-09-24
 ---
 
 # Fisher information metric
@@ -43,7 +43,7 @@ belief family. Gauge frames and decoder parameters are separate parameter
 spaces and do not acquire a Fisher metric merely because they participate in
 the same training schedule.
 
-First, **belief optimization**. The online Gaussian belief update uses the belief-family Fisher metric. The frame M-step is separate and is not an identified Fisher natural gradient. [[gl-k-attention-2026-07-09-review-revision]]
+First, **belief optimization**. The online Gaussian belief update uses the belief-family Fisher metric. The frame M-step is separate and is not an identified Fisher natural gradient.
 
 Second, **the divergence family**. A smooth divergence induces a local quadratic
 form proportional to Fisher information, but the proportionality can depend on
@@ -56,7 +56,7 @@ must therefore remain distinct.
 > [!note] Editorial (2026-07-10): the frame conditioner is not the Fisher metric,
 > and its positive Frobenius form is not full-$\mathrm{GL}(K)$
 > adjoint-invariant. Belief Fisher geometry and frame conditioning must remain
-> separate. [[gl-k-attention-2026-07-09-review-revision]]
+> separate.
 
 ## Details
 
@@ -76,7 +76,7 @@ Gauss–Newton matrices under specified output-distribution and loss conditions.
 This motivates damping in those settings, but the identity is not automatic for
 an arbitrary objective and has not been established for the frame M-step.
 
-**Tractable approximations.** K-FAC and related Fisher approximations remain valid general methods. No audited derivation identifies the transformer's frame conditioner with a K-FAC block or a frame Fisher matrix. [[gl-k-attention-2026-07-09-review-revision]]
+**Tractable approximations.** K-FAC and related Fisher approximations remain valid general methods. No audited derivation identifies the transformer's frame conditioner with a K-FAC block or a frame Fisher matrix.
 
 **Relation to Riemannian optimization.** On a statistical manifold the Fisher
 metric defines geodesics, while retractions and vector transports provide local
@@ -93,7 +93,7 @@ matrices.
 > $g_\Sigma(U,V)=\tfrac12\operatorname{tr}(\Sigma^{-1}U\Sigma^{-1}V)$. The
 > constant factor preserves geodesic paths but changes gradient scale. This
 > covariance-only identity does not identify the full mean-covariance geometry
-> or the gauge-frame optimizer with AIRM. [[gl-k-attention-2026-07-09-review-revision]]
+> or the gauge-frame optimizer with AIRM.
 
 ## Covariant pullback and information duration
 
@@ -115,7 +115,7 @@ Under the stated equivariance hypotheses this tensor is global and passive-gauge
 connection-relative. It is generally a semimetric: when the fiber Fisher metric is positive definite,
 $\operatorname{rad}h_s^\omega=\ker D^\omega s$. Constant rank gives a metric quotient of tangent
 vector bundles; descent to a quotient manifold additionally requires integrability, a regular leaf
-space, and tensor basicness. [[gauge-vfe-rg-pullback-geometry-2026-08-01]]
+space, and tensor basicness.
 
 A realized fixed-base law history $Q(\lambda)$ has Fisher length
 
@@ -129,11 +129,31 @@ the realized path, orientation, or duration. After VFE natural-gradient descent 
 unparameterized orbit, Fisher arclength supplies an agent-relative **information duration**. This is
 not physical time, and natural-gradient orbits are not generally Fisher geodesics.
 
+## Orbit Fisher form at one base point (review, September 23, tentative)
+
+The covariant pullback above measures transport along base curves. At a single base point the attention network instead compares a belief with a belief moved by an independent link, $\mathrm{KL}(q_i\Vert\hat\rho(\Omega_{ij})q_j)$. Investigator X03 of the 2026-09-23 Theory review ([[multiagentelbo-2026-09-23-theory-streamlining-review]]) records the corresponding second-order law along the orbit $t\mapsto\hat\rho(e^{t\xi})q$:
+$$
+\mathcal D\bigl(q,\hat\rho(e^{t\xi})q\bigr)=\frac{t^2}{2}\mathfrak k_q(\xi,\xi)+O(t^3),\qquad \mathfrak k_q(\xi,\eta)=g^F(\zeta_\xi q,\zeta_\eta q),
+$$
+where $\zeta_\xi q$ is the fundamental vector field of the fiber action. When $g^F$ is positive definite the radical of $\mathfrak k_q$ is the isotropy algebra $\mathfrak g_q$, so directions that fix the belief cost nothing at second order. This orbit form governs link-transport, holonomy and plaquette energies near the identity at $c_*$; the Theory manuscript states it only at the end of a base-direction theorem. For Gaussians under the $\mathrm{GL}(K)$ congruence action ($K=2,3,4$, 200 draws) the normalized $O(t)$ remainder stayed below 1.24, and a skew isotropy generator $\xi=W\Sigma^{-1}$ annihilated a zero-mean Gaussian to $1.7\times10^{-15}$. X03 also derived the third-order coefficient of the transported-divergence expansion, $\tfrac12g(v,\nabla^*_vv)+\tfrac16T_{\mathcal D}(v,v,v)$, with $\nabla^*$ the dual connection (the exponential connection for KL).
+
+> [!warning] Tentative: investigator recomputation, same model family, not adjudicated
+> A corollary of an existing divergence-jet proposition, with numerical and SymPy checks by one investigator (Claude Opus 5.5).
+
+### Incorporation in the restructured manuscript (September 24)
+
+The orbit form is now `cor:pb-orbit-fisher-form` in Chapter 7 of the main manuscript at `623e4fe` ([[multiagentelbo-2026-09-24-theory-restructure]]), tagged ESTABLISHED, with its proof in Appendix B.2 (Deferred Proofs). Under the chapter's regularity hypothesis it defines $\mathfrak k_q(\xi,\eta)=g^F_q(\xi_{\mathcal B}(q),\eta_{\mathcal B}(q))$ and the isotropy algebra $\mathfrak g_q=\{\xi:\xi_{\mathcal B}(q)=0\}$. It states that $\mathfrak k_q$ is positive semidefinite with radical exactly $\mathfrak g_q$, the Lie algebra of the stabilizer of $q$, that $\mathrm{KL}(q\Vert\widehat\rho(\exp t\xi)q)=\tfrac{t^2}{2}\mathfrak k_q(\xi,\xi)+O(t^3)$, that the left side vanishes for every $t$ when $\xi\in\mathfrak g_q$, and that the same expansion holds for every regular invariant contrast with its metric jet in place of $g^F$. It follows `prop:pb-kl-divergence-jets`, which identifies the metric jet of KL with $g^F$ and its cubic jet with the Amari–Chentsov tensor. X03's third-order coefficient $\tfrac12g(v,\nabla^*_vv)+\tfrac16T_{\mathcal D}(v,v,v)$ is `prop:pb-divergence-cubic-coefficient` in Supplement B, Chapter B2, stated for one-sided contrast expansions along curves, with $\nabla^*$ the exponential connection for regular KL. The review's Gaussian draws are not reproduced in the manuscript.
+
+The same chapter's `prop:ig-fisher-characterizations`, tagged STANDARD, states Cencov's uniqueness theorem (on the open simplex of positive laws on a finite set, the Fisher metric is, up to a positive factor, the unique Riemannian metric invariant under congruent Markov embeddings) and now cites it as Lemma 11.3, p. 161 of [[cencov-1982-statistical-decision-rules]], corrected from p. 156 in the locator pass of the restructure. The corrected locator is one Claude Opus 5.5 agent's reading of the primary source; the source note on the monograph records no page-level locator of its own.
+
+> [!warning] Status
+> Manuscript statements (ESTABLISHED with proofs, or STANDARD with a checked citation), written and checked by Claude Opus 5.5 agents with their own scripts; no cross-model check (the author's choice) and not adjudicated.
+
 ## In this work
 
 The Fisher information metric surfaces wherever the configuration declares an information-geometric or natural-gradient operation:
 
-- **Frame updates.** These use a separate optimizer/optional conditioner and carry no Fisher or K-FAC identification. [[gl-k-attention-2026-07-09-review-revision]]
+- **Frame updates.** These use a separate optimizer/optional conditioner and carry no Fisher or K-FAC identification.
 - **Belief (E-step) updates.** The per-token Gaussian beliefs are refined by natural-gradient / [[Natural gradient]] steps, whose metric is the Fisher information of the diagonal-Gaussian belief family.
 - **Rényi objective.** The `divergence_family "renyi"` term is an order-Rényi
   pairwise discrepancy with KL at order one. Its local quadratic form is
@@ -143,7 +163,7 @@ The Fisher information metric surfaces wherever the configuration declares an in
   On the zero-mean Gaussian covariance factor, Fisher is one-half conventional
   AIRM.
 
-Blockwise frame conditioning should not be called Fisher preconditioning. The established Fisher metric is the one on the Gaussian belief family; optional gauge-frame conditioners are separate optimizer preconditioners. The audited frame table uses plain AdamW, with those conditioners and the heavy-ball field inactive. [[gl-k-attention-2026-07-09-review-revision]]
+Blockwise frame conditioning should not be called Fisher preconditioning. The established Fisher metric is the one on the Gaussian belief family; optional gauge-frame conditioners are separate optimizer preconditioners. The audited frame table uses plain AdamW, with those conditioners and the heavy-ball field inactive.
 
 ## The Fisher metric as a renormalization scale
 
@@ -153,13 +173,25 @@ Two consequences for this program. First, the multi-agent model's matrix-weighte
 
 > [!warning] Do not use the diagonal. [[berman-2023-bayesian-renormalization|BKS]] argue spectrally but implement with diagonal entries $\mathcal I_{ii}$, a discrepancy they never address; a set of individually sloppy but jointly stiff directions is then misclassified. For a coupled family the criterion must be a subspace determinant, not an entrywise threshold. Their construction also requires an invertible metric, so a degenerate sector must be quotiented before the machinery is imported.
 
-## Sources
+## Bény–Osborne metric and monotonicity boundary
 
-- [[gauge-vfe-rg-pullback-geometry-2026-08-01]] — connection-relative Fisher pullbacks, semimetric radicals, and reparameterization-invariant information duration.
+[[beny-osborne-2015-info-geometric-rg]] uses the **Kubo–Mori** relative-entropy Hessian on faithful quantum states; its commuting restriction is Fisher–Rao. Equations (3)–(6) give the observable metric and channel contraction,
+$$
+g_{N(\rho)}(Nx,Nx) \le g_\rho(x,x).
+$$
+Here $N$ is a quantum channel and $x$ a state tangent. Their scalar construction requires a tangent field transported by the flow, Eqs. (9)–(10); the generator supplies squared speed. The infinite-lattice density argument assumes translation-compatible local dynamics without active rescaling, while Section IV discusses the rescaling obstruction. [Primary text, Sections I–IV](https://arxiv.org/pdf/1206.7004v3).
+
+> [!warning] Source-note correction (2026-09-05)
+> The immutable [[beny-osborne-2015-info-geometric-rg]] note calls this Fisher–Bures. Equation (4) explicitly identifies Kubo–Mori. Use this correction when citing the paper; the original source note remains unchanged.
+
+> [!note] Editorial: RG v2 application
+> Use this metric for distinguishability on a declared tangent space. Treat the proposed coupling-response calculation as a finite diagnostic; identifying a common-space beta function, relevance exponents, or a continuum limit remains a separate construction. See [[Staged hierarchy formation and RG composability]].
+
+## Sources
 
 - [[amari-1998-natural-gradient]] — establishes the Fisher metric as the preconditioner of the natural (steepest-descent) gradient on a statistical manifold.
 - [[amari-2000-methods-information-geometry]] — canonical treatment of the Fisher metric, dual connections, $\alpha$-connections, and dually flat exponential-family geometry.
-- [[nielsen-2020-elementary-introduction-information-geometry]] — pedagogical grounding for KL geometry and Gaussian belief natural gradients. [[gl-k-attention-2026-07-09-review-revision]]
+- [[nielsen-2020-elementary-introduction-information-geometry]] — pedagogical grounding for KL geometry and Gaussian belief natural gradients.
 - [[cover-thomas-2006-elements-information-theory]] — defines entropy, KL/relative entropy, and mutual information underpinning the free-energy KL and attention-entropy terms.
 - [[khan-rue-2023-bayesian-learning-rule]] — natural-gradient descent on exponential-family natural parameters as one learning rule unifying Adam, Newton, VI, and online learning; the Fisher-preconditioned Gaussian belief update.
 - [[martens-2020-natural-gradient-insights]] — Fisher/Generalized Gauss–Newton relation under specified output-distribution and loss conditions; natural gradient as a curvature method.

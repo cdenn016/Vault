@@ -54,12 +54,12 @@ retention through one blocking step is 2–7% (bounded by one via the
 [[Data processing inequality]]), while regenerated attention rebuilds coarse coupling from
 coarse state — levels consume much and emit little, and what they emit is generated, not
 relayed. See [[Meta-agents and hierarchical emergence]] and
-[[2026-08-18-minfo-information-retention]].
+`2026-08-18-minfo-information-retention`.
 
 ## Cross-links
 
 - Concepts: [[Data processing inequality]], [[Mutual information]], [[Meta-agents and hierarchical emergence]]
-- Related sources: [[2026-08-18-minfo-information-retention]], [[hoel-2013-causal-emergence]]
+- Related sources: `2026-08-18-minfo-information-retention`, [[hoel-2013-causal-emergence]]
 
 ## BibTeX
 

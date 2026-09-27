@@ -1,0 +1,423 @@
+\chapter{Exponential Families and the Operator Layer}
+\label{ch:expfamily}
+
+The belief and model law fibers of the main manuscript are collections of
+normalized laws (\Cref{ch:geometry}, \eqref{eq:geo-law-fibers}), acted on by
+pushforward (\eqref{eq:geo-pushforward-actions}); coordinates, densities, and
+convex parameter sets are further choices. This chapter asks what a
+finite-dimensional exponential family adds to a law fiber and what happens
+when an algebraic map of its natural parameters leaves the natural domain. The
+answer is that a natural-domain boundary point carries no law
+(\Cref{prop:exp-domain-boundary-no-law}) and that a fixed point of a map on an
+operator cone need not be a law (\Cref{prop:exp-fixed-point-no-law}), so that
+pinning, quotienting, and retaining a mass coordinate are separate
+constructions (\Cref{sec:exp-repairs}); inside the domain, relative entropy is
+a Bregman divergence and affine mean constraints have a unique information
+projection with a Pythagorean identity
+(\Cref{prop:exp-affine-mean-projection}). The Gaussian realization of
+\Cref{ch:generative-gaussian} is the case used throughout this supplement, the
+Fisher charts of \Cref{ch:infogeometry} are its dual coordinates, and the
+scale-free boundary operator of \Cref{ch:gaussian-renormalization} is an
+instance of \Cref{prop:exp-fixed-point-no-law}.
+
+This chapter derives no coarse-graining statement, and no Fisher or evidence
+reading of one, from exponential-family structure alone: an operator arrow
+needs a preserved parameter set, scale comparisons, and a declared rescaling,
+while a law-level arrow needs normalized laws, compatible reference measures,
+and finite normalizers at every scale. The boundary results below do not
+exclude a quotient, a pin, a new reference measure, or a boundary stratum;
+each is a different object that must be constructed. \status{NOT-CLAIMED}
+Two questions remain open: the scaling of a retained mass coordinate
+(\Cref{open:exp-mass-sector}) and the commutation of the information
+projection with gauge actions and coarse parameter maps
+(\Cref{open:exp-projection-commutation}).
+
+\section{Regular finite-dimensional exponential families}
+\label{sec:exp-family}
+
+\definitionheading{Canonical family}{def:exp-canonical-family}
+Let \(\nu\) be a nonzero sigma-finite measure on a standard Borel space
+\((\mathsf Z,\mathscr Z)\), and let \(\mathsf T:\mathsf Z\to\mathsf V\) be a
+measurable statistic into a finite-dimensional inner-product space
+\(\mathsf V\). The log partition and the natural domain are
+\begin{equation}
+\mathsf A(\lambda)
+=\log\int_{\mathsf Z}e^{\langle\lambda,\mathsf T(z)\rangle}\nu(dz),
+\qquad
+\mathsf N=\{\lambda\in\mathsf V:\mathsf A(\lambda)<\infty\},
+\label{eq:exp-logpartition}
+\end{equation}
+and for \(\lambda\in\mathsf N\) the family member is
+\begin{equation}
+q_\lambda(z)
+=\exp\{\langle\lambda,\mathsf T(z)\rangle-\mathsf A(\lambda)\},
+\qquad
+Q_\lambda(dz)=q_\lambda(z)\nu(dz).
+\label{eq:exp-density}
+\end{equation}
+The vector \(\lambda\) is the natural parameter. No law is attached to a
+parameter outside \(\mathsf N\).
+
+\hypothesisheading{Regularity and minimality}{hyp:exp-regular-minimal}
+Where a result names this hypothesis, the family is regular, so that
+\(\mathsf N\) is open, and minimal, so that no nonzero \(a\in\mathsf V\) makes
+\(\langle a,\mathsf T\rangle\) constant \(\nu\)-almost everywhere. Regularity
+excludes natural-domain boundary points from the parameter set; minimality
+excludes affine redundancy of the statistic.
+
+\propositionheading{Log partition, cumulants, and Fisher information}{prop:exp-cumulants-fisher}
+Assume \(\mathsf N\neq\varnothing\). (i) The extended-real function
+\(\mathsf A\) is convex and lower semicontinuous on \(\mathsf V\), and
+\(\mathsf N\) is convex. (ii) On \(\operatorname{int}\mathsf N\) the function
+\(\mathsf A\) is infinitely differentiable, its derivatives are computed by
+differentiating under the integral sign, and \(\mathsf T\) has moments of
+every order, with
+\begin{equation}
+\nabla\mathsf A(\lambda)=\E_\lambda[\mathsf T],
+\qquad
+\nabla^2\mathsf A(\lambda)=\operatorname{Cov}_\lambda(\mathsf T).
+\label{eq:exp-cumulants}
+\end{equation}
+Since the score of the family is \(\mathsf T-\nabla\mathsf A(\lambda)\), the
+Hessian \(\nabla^2\mathsf A(\lambda)\) is the Fisher information in the
+natural chart. (iii) If the family is minimal, then \(\mathsf A\) is strictly
+convex on \(\mathsf N\), \(\nabla^2\mathsf A(\lambda)\) is positive definite at
+every interior parameter, and \(\lambda\mapsto Q_\lambda\) is injective on
+\(\mathsf N\) \citep[Theorems~7.1, 7.2 and~8.1 and Section~8.1]{BarndorffNielsen1978}.
+\status{STANDARD}
+
+\noindent\emph{Proof.}
+The cited results concern a sigma-finite measure on a Euclidean space; they
+apply to the image measure \(\mathsf T_\#\nu\) on \(\mathsf V\), because
+\(\mathsf A\) is the logarithm of its Laplace transform and, for any
+\(\lambda_0\in\mathsf N\), it has the positive density
+\(e^{-\langle\lambda_0,t\rangle}\) with respect to the finite measure
+\(e^{\langle\lambda_0,t\rangle}\mathsf T_\#\nu(dt)\). Minimality is the
+statement that \(\mathsf T_\#\nu\) is not concentrated on an affine
+hyperplane, and positive definiteness in (iii) then follows from
+\(a^\top\nabla^2\mathsf A(\lambda)a=\operatorname{Var}_\lambda\langle a,\mathsf T\rangle\).
+The domination behind (ii) is the elementary bound
+\begin{equation}
+|x|^r\leq \mathrm c_{r,\varepsilon}\left(e^{\varepsilon x}+e^{-\varepsilon x}\right),
+\qquad r\in\{0,1,2\},\ x\in\R,
+\label{eq:exp-domination}
+\end{equation}
+applied to each coordinate of \(\mathsf T\) at the vertices of a cube of side
+\(4\varepsilon\) inside \(\mathsf N\) around an interior parameter.
+\(\square\)
+
+\propositionheading{Finite-domain interface to evidence-bound coordinates}{prop:exp-finite-domain-elbo-interface}
+The map \((\lambda,z)\mapsto q_\lambda(z)\) is jointly measurable on
+\(\mathsf N\times\mathsf Z\), and every law, density ratio, Fisher tensor, or
+evidence-bound coordinate built from the canonical representation is defined
+only for parameters in \(\mathsf N\). If two canonical representations share
+one sigma-finite base measure \(\nu\), their density ratio is defined at every
+pair of parameters taken each from its own natural domain. Consequently an
+algebraic map that leaves \(\mathsf N\) ceases to define a probability law or
+an evidence-bound coordinate, even when it remains in an operator cone.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Lower semicontinuity of \(\mathsf A\)
+(\Cref{prop:exp-cumulants-fisher}(i)) makes it Borel measurable, and
+measurability of \(\mathsf T\) makes \((\lambda,z)\mapsto\langle\lambda,
+\mathsf T(z)\rangle\) jointly measurable; exponentiation proves the first
+claim. The normalizer is finite exactly on \(\mathsf N\) by
+\eqref{eq:exp-logpartition}. With a common base measure, both densities in a
+ratio are strictly positive \(\nu\)-densities of the form
+\eqref{eq:exp-density}, so the ratio is defined at every pair of parameters in
+the respective domains; representations with different statistics have
+domains in different parameter spaces, so no intersection of domains is
+formed. The last statement is a domain check against
+\Cref{def:exp-partial-realization} and the extended evidence bound of
+\Cref{def:elbo-extended}, which needs a normalized posterior slice of finite
+positive mass. \(\square\)
+
+An evidence-bound update additionally needs a positive finite evidence slice
+at every compared parameter, and its classical split into two expected log
+densities needs clauses (H3) and (H4) of \Cref{hyp:elbo-evidence-domain}.
+
+\section{Operator and probability layers}
+\label{sec:exp-layers}
+
+\definitionheading{Partial realization}{def:exp-partial-realization}
+A parametrized model consists of a parameter set \(\mathsf P\), a law domain
+\(\mathsf P_{\mathrm{law}}\subseteq\mathsf P\), and a map
+\begin{equation}
+\mathfrak r:\mathsf P_{\mathrm{law}}\longrightarrow\mathcal B(\mathsf Z),
+\qquad
+\mathsf p\longmapsto Q_{\mathsf p},
+\label{eq:exp-realization-map}
+\end{equation}
+into a collection \(\mathcal B(\mathsf Z)\) of normalized laws on
+\(\mathsf Z\). A parameter outside \(\mathsf P_{\mathrm{law}}\) may still denote
+an algebraic operator, but it denotes no law through \(\mathfrak r\).
+
+\definitionheading{Operator layer}{def:exp-operator-layer}
+Let \(\mathcal W\subseteq\mathsf V\) be a closed convex cone preserved by the
+algebraic maps under study. Its probability layer is
+\(\mathcal W\cap\mathsf N\). The cone is chosen for algebraic closure, not for
+normalization, and a general law fiber carries no such cone.
+
+\propositionheading{A natural-domain boundary carries no law}{prop:exp-domain-boundary-no-law}
+Assume the family is regular and let \(\lambda^\star\in\partial\mathsf N\). Then
+\begin{equation}
+\int e^{\langle\lambda^\star,\mathsf T(z)\rangle}\nu(dz)=+\infty.
+\label{eq:exp-boundary-diverges}
+\end{equation}
+For \(\lambda_0\in\mathsf N\), \(w=\lambda^\star-\lambda_0\), and
+\(\lambda_t=(1-t)\lambda_0+t\lambda^\star\) with \(t\uparrow1\),
+\begin{equation}
+\mathsf A(\lambda_t)\to+\infty,\qquad
+\langle w,\nabla\mathsf A(\lambda_t)\rangle\to+\infty,\qquad
+\int_0^1\operatorname{Var}_{Q_{\lambda_t}}(\langle w,\mathsf T\rangle)dt
+=+\infty.
+\label{eq:exp-boundary-blowup}
+\end{equation}
+Hence the representation supplies at \(\lambda^\star\) no finite log
+partition, mean parameter, Fisher metric, relative entropy from an endpoint
+law, or evidence bound. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Regularity puts \(\lambda^\star\) outside the open set \(\mathsf N\), which is
+\eqref{eq:exp-boundary-diverges}. Convexity of \(\mathsf N\)
+(\Cref{prop:exp-cumulants-fisher}(i)) puts every \(\lambda_t\), \(t<1\), in
+\(\mathsf N\), and lower semicontinuity forces the first limit. For
+\(g(t)=\mathsf A(\lambda_t)\), convexity makes \(g'\) nondecreasing, and if
+\(g'\) were bounded above then \(g\) would remain bounded, a contradiction.
+The identities \(g'=\langle w,\nabla\mathsf A(\lambda_t)\rangle\) and
+\(g''=\operatorname{Var}_{Q_{\lambda_t}}(\langle w,\mathsf T\rangle)\) of
+\eqref{eq:exp-cumulants}, and integration of \(g''\), prove the remaining
+limits. The last sentence restates that each listed object is built from
+\(\mathsf A(\lambda^\star)\) or from \(Q_{\lambda^\star}\), neither of which
+exists. \(\square\)
+
+\propositionheading{An operator fixed point need not be a law}{prop:exp-fixed-point-no-law}
+There is a regular canonical family with an operator cone \(\mathcal W\) and a
+continuous map \(\psi:\mathcal W\to\mathcal W\) whose iterates from a point of
+\(\mathcal W\cap\mathsf N\) all lie in \(\mathcal W\cap\mathsf N\), while its
+unique fixed point lies on \(\partial\mathsf N\). One such family is
+\(\mathsf Z=\R\), \(\mathsf T(z)=-z^2/2\), Lebesgue \(\nu\), for which
+\begin{equation}
+\mathsf A(\lambda)=-\tfrac12\log\lambda+\tfrac12\log2\pi,
+\qquad
+\mathsf N=(0,\infty),
+\qquad
+\mathcal W=[0,\infty),
+\label{eq:exp-scale-witness}
+\end{equation}
+with \(\psi(\lambda)=\lambda/2\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Starting at one gives \(\lambda_\ell=2^{-\ell}>0\), so every iterate is a law,
+while \(\lambda_\ell\to0\), the unique fixed point, and
+\(\mathsf A(\lambda_\ell)\to+\infty\). The constant integrand at
+\(\lambda=0\) has infinite Lebesgue integral. \(\square\)
+
+\section{Repairs of the boundary}
+\label{sec:exp-repairs}
+
+\definitionheading{Pinning}{def:exp-pinning}
+Choose \(\lambda_{\mathrm m}\in\mathsf N\) and replace \(\mathcal W\) by
+\(\lambda_{\mathrm m}+\mathcal W\); the pin does not flow.
+
+\propositionheading{Pinning under a recession condition}{prop:exp-pinning-recession}
+Write
+\(\operatorname{rec}\mathsf N=\{\delta\in\mathsf V:\mathsf N+\delta\subseteq\mathsf N\}\)
+for the recession cone of the convex, possibly nonclosed set \(\mathsf N\)
+\citep[Theorem~8.1]{Rockafellar1970}. If
+\(\lambda_{\mathrm m}\in\operatorname{int}\mathsf N\) and
+\(\mathcal W\subseteq\operatorname{rec}\mathsf N\), then
+\(\lambda_{\mathrm m}+\mathcal W\subseteq\operatorname{int}\mathsf N\).
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Let \(\delta\in\mathcal W\) and let \(\mathcal O\subseteq\mathsf N\) be an open ball
+around \(\lambda_{\mathrm m}\). Since \(\delta\in\operatorname{rec}\mathsf N\),
+the translated ball \(\mathcal O+\delta\) lies in \(\mathsf N\), so its center
+\(\lambda_{\mathrm m}+\delta\) is interior. \(\square\)
+
+A pin changes the family and adds a parameter that a map on the cone does not
+move; removing it afterwards is a separate limit.
+
+\definitionheading{Quotienting}{def:exp-quotienting}
+Suppose \(\mathsf Z=\R^n\), \(\nu\) is Lebesgue measure, and the energy is
+invariant along a nonzero linear subspace \(\mathcal V\). The quotient takes
+the sample space \(\mathcal V^\perp\), its Lebesgue measure, and the restricted
+statistic.
+
+\propositionheading{Quotient normalization is not full-space normalization}{prop:exp-quotient-normalization}
+Writing \(z=v+w\) with \(v\in\mathcal V\) and \(w\in\mathcal V^\perp\),
+\begin{equation}
+\int_{\R^n}e^{\langle\lambda,\mathsf T(z)\rangle}dz
+=\operatorname{Leb}_{\mathcal V}(\mathcal V)
+\int_{\mathcal V^\perp}e^{\langle\lambda,\mathsf T(w)\rangle}dw
+=+\infty.
+\label{eq:exp-quotient-split}
+\end{equation}
+The quotient law is normalized exactly when the second factor is finite. In
+particular, a Moore--Penrose inverse and a pseudodeterminant inserted into the
+full-space density formula compute the finite quotient expression, whose
+dimension and reference measure differ, and leave the full-space integral
+infinite. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The orthogonal change of variables has unit Jacobian and the integrand does
+not depend on \(v\), so Tonelli's theorem gives
+\eqref{eq:exp-quotient-split}, whose first factor is infinite. A
+pseudoinverse and a pseudodeterminant evaluate the Gaussian integral on
+\(\mathcal V^\perp\) only, which is the second factor. \(\square\)
+
+\definitionheading{Retaining a mass sector}{def:exp-mass-sector}
+Enlarge the state by a coercive parameter that remains in the natural domain
+under the scale map. This is neither pinning nor quotienting: the mass is a
+running coordinate, and its scaling law is part of the declared scale map.
+
+\openproblemheading{Scaling of a retained mass sector}{open:exp-mass-sector}
+Pinning keeps an orbit interior under the recession condition of
+\Cref{prop:exp-pinning-recession}, and quotienting normalizes exactly when
+the quotient integral of \eqref{eq:exp-quotient-split} is finite. For a
+retained mass coordinate (\Cref{def:exp-mass-sector}) nothing here fixes its
+law under a scale map, and so nothing decides whether its iterates stay in
+\(\mathsf N\) or approach \(\partial\mathsf N\). The question is settled for a
+given scale map by an explicit induced law on the mass coordinate together
+with a proof that its orbit stays in \(\mathsf N\), or reaches the boundary,
+under stated hypotheses on the map.
+
+\section{Relative entropy and affine information projection}
+\label{sec:exp-information-projection}
+
+For a regular minimal family write
+\(\boldsymbol\mu_\lambda=\nabla\mathsf A(\lambda)\) for the mean parameter and
+\(\mathsf A^\ast\) for the convex conjugate of \(\mathsf A\). For a convex
+function \(\phi\) differentiable at \(y\), let
+\(D_\phi(x,y)=\phi(x)-\phi(y)-\langle\nabla\phi(y),x-y\rangle\) be its Bregman
+divergence \citep{Bregman1967}.
+
+\propositionheading{Bregman form of relative entropy}{prop:exp-kl-bregman}
+Under \Cref{hyp:exp-regular-minimal}, for \(\lambda,\lambda'\in\mathsf N\),
+\begin{equation}
+\KL(Q_{\lambda'}\Vert Q_\lambda)
+=\mathsf A(\lambda)-\mathsf A(\lambda')
+-\langle\nabla\mathsf A(\lambda'),\lambda-\lambda'\rangle
+=D_{\mathsf A}(\lambda,\lambda'),
+\label{eq:exp-kl-bregman}
+\end{equation}
+and
+\begin{equation}
+\KL(Q_{\lambda'}\Vert Q_\lambda)
+=D_{\mathsf A^\ast}(\boldsymbol\mu_{\lambda'},\boldsymbol\mu_\lambda).
+\label{eq:exp-kl-dual-bregman}
+\end{equation}
+This is the exact divergence of the family; it is not in general a
+finite-displacement Fisher quadratic. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The log density ratio is
+\(\log(q_{\lambda'}/q_\lambda)=\langle\lambda'-\lambda,\mathsf T\rangle
+-\mathsf A(\lambda')+\mathsf A(\lambda)\), and its expectation under
+\(Q_{\lambda'}\), with \(\E_{\lambda'}\mathsf T=\nabla\mathsf A(\lambda')\)
+from \eqref{eq:exp-cumulants}, is \eqref{eq:exp-kl-bregman}; this is
+\citet[Proposition~6.3]{Brown1986}. The function \(\mathsf A\) is closed by
+\Cref{prop:exp-cumulants-fisher}(i), has the open domain \(\mathsf N\), is
+differentiable there, and is strictly convex by
+\Cref{prop:exp-cumulants-fisher}(iii). The subgradients of \(\mathsf A^\ast\)
+at \(\boldsymbol\mu_\lambda\) are therefore exactly the solutions of
+\(\nabla\mathsf A(\lambda'')=\boldsymbol\mu_\lambda\), namely \(\lambda\)
+alone, so \(\mathsf A^\ast\) is differentiable there with
+\(\nabla\mathsf A^\ast(\boldsymbol\mu_\lambda)=\lambda\) and
+\(\mathsf A^\ast(\boldsymbol\mu_\lambda)=\langle\lambda,\boldsymbol\mu_\lambda\rangle
+-\mathsf A(\lambda)\) \citep[Theorems~23.5 and~25.1]{Rockafellar1970}.
+Substituting these identities at \(\lambda\) and \(\lambda'\) into the
+definition of \(D_{\mathsf A^\ast}\) gives \(D_{\mathsf A}(\lambda,\lambda')\),
+which is \eqref{eq:exp-kl-dual-bregman}. \(\square\)
+
+\propositionheading{Affine mean constraints attain a unique projection}{prop:exp-affine-mean-projection}
+Assume the extended \(\mathsf A\) is Legendre, as in a regular minimal
+canonical family, and let
+\(\mathcal M=\operatorname{int}\operatorname{dom}\mathsf A^\ast\). If
+\(\mathscr A\) is a closed affine subspace with
+\(\mathscr A\cap\mathcal M\neq\varnothing\), then for every
+\(\boldsymbol\mu_\lambda\in\mathcal M\) there is a unique
+\(\widehat{\boldsymbol\mu}\in\mathscr A\cap\mathcal M\) minimizing
+\begin{equation}
+\boldsymbol\mu\longmapsto
+D_{\mathsf A^\ast}(\boldsymbol\mu,\boldsymbol\mu_\lambda).
+\label{eq:exp-mean-projection}
+\end{equation}
+Its natural parameter is
+\(\widehat\lambda=\nabla\mathsf A^\ast(\widehat{\boldsymbol\mu})\), and every
+natural parameter \(\lambda'\) with \(\boldsymbol\mu_{\lambda'}\in\mathscr A\cap\mathcal M\)
+satisfies the Pythagorean identity
+\begin{equation}
+\KL(Q_{\lambda'}\Vert Q_\lambda)
+=\KL(Q_{\lambda'}\Vert Q_{\widehat\lambda})
++\KL(Q_{\widehat\lambda}\Vert Q_\lambda),
+\label{eq:exp-projection-pythagorean}
+\end{equation}
+so \(Q_{\widehat\lambda}\) is the unique minimizer of
+\(\KL(\cdot\Vert Q_\lambda)\) over the members of the family whose mean
+parameters lie in \(\mathscr A\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The objective in \eqref{eq:exp-mean-projection} is the Bregman divergence of
+the Legendre function \(\mathsf A^\ast\) from the interior point
+\(\boldsymbol\mu_\lambda\). For such a function and a closed convex feasible
+set meeting the interior of its domain, the minimizer exists, is unique, and
+lies in that interior \citep[Theorem~3.12(iii)]{BauschkeBorwein1997}. Write
+\(\mathscr A=\{\boldsymbol\mu:\mathsf D\boldsymbol\mu=\mathsf b\}\). The
+objective is differentiable at the interior minimizer with gradient
+\(\nabla\mathsf A^\ast(\widehat{\boldsymbol\mu})-\lambda\), which must
+annihilate the direction space \(\ker\mathsf D\); conversely, by convexity, a
+feasible interior point at which the gradient annihilates \(\ker\mathsf D\) is
+a minimizer. Since \((\ker\mathsf D)^\perp=\operatorname{im}\mathsf D^\top\),
+the solution is characterized by
+\begin{equation}
+\mathsf D\widehat{\boldsymbol\mu}=\mathsf b,\qquad
+\nabla\mathsf A^\ast(\widehat{\boldsymbol\mu})-\lambda+\mathsf D^\top\omega=0
+\label{eq:exp-projection-kkt}
+\end{equation}
+for some multiplier \(\omega\), which proves the natural-parameter formula;
+\citet{Bauschke2003} gives the dual characterization of Bregman projections
+onto affine subspaces. For the Pythagorean identity, write
+\(\boldsymbol\mu'=\boldsymbol\mu_{\lambda'}\) and expand the three divergences
+by \eqref{eq:exp-kl-bregman}; the values of \(\mathsf A\) cancel and
+\[
+\KL(Q_{\lambda'}\Vert Q_\lambda)
+-\KL(Q_{\lambda'}\Vert Q_{\widehat\lambda})
+-\KL(Q_{\widehat\lambda}\Vert Q_\lambda)
+=\langle\widehat{\boldsymbol\mu}-\boldsymbol\mu',\lambda-\widehat\lambda\rangle.
+\]
+By \eqref{eq:exp-projection-kkt}, \(\lambda-\widehat\lambda=\mathsf D^\top\omega\),
+while feasibility gives \(\mathsf D(\widehat{\boldsymbol\mu}-\boldsymbol\mu')=0\),
+so the pairing vanishes. The middle divergence is nonnegative and vanishes
+only when \(Q_{\lambda'}=Q_{\widehat\lambda}\), which gives the minimizing
+property, and injectivity of \(\lambda\mapsto Q_\lambda\)
+(\Cref{prop:exp-cumulants-fisher}(iii)) gives uniqueness. For a general
+closed convex feasible set only the inequality form of
+\eqref{eq:exp-projection-pythagorean} holds
+\citep[Proposition~3.16]{BauschkeBorwein1997}. \(\square\)
+
+\remarkheading{Feasibility, closedness, and convexity are needed}{rem:exp-projection-hypotheses}
+Take the Bernoulli family with mean domain \((0,1)\) and target mean
+\(\tfrac12\). The feasible set \(\{0\}\) misses the mean domain, so no
+projection exists; on the open feasible interval \((0,\tfrac14)\) the
+divergence is strictly decreasing and its infimum, attained only at the
+excluded endpoint \(\tfrac14\), is finite and not attained; and the closed
+nonconvex set \(\{\tfrac14,\tfrac34\}\) has two minimizers, because
+\(\KL(\operatorname{Bern}(\mu)\Vert\operatorname{Bern}(\tfrac12))\) is
+symmetric under \(\mu\mapsto1-\mu\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The divergence \(\mu\log(2\mu)+(1-\mu)\log(2(1-\mu))\) has derivative
+\(\log(\mu/(1-\mu))<0\) for \(\mu<\tfrac12\), which gives the interval claim,
+and the symmetry is visible in the formula. \(\square\)
+
+\openproblemheading{Commutation of the information projection}{open:exp-projection-commutation}
+\Cref{prop:exp-affine-mean-projection} proves existence, uniqueness, and the
+Pythagorean identity of the projection onto an affine mean constraint. It is
+not proved whether the projection is equivariant under a gauge action on the
+natural parameters, or whether it commutes with a coarse parameter map. The
+question is settled by an intertwining theorem that states hypotheses on the
+action or the map under which the two projections correspond, or by a
+counterexample within a regular minimal family.

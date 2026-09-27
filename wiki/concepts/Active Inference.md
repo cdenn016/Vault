@@ -10,7 +10,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-21
-updated: 2026-06-21
+updated: 2026-09-23
 ---
 
 # Active Inference
@@ -57,6 +57,10 @@ low-EFE policies. This is what makes active inference an alternative to reward-m
 reinforcement learning ([[friston-2009-reinforcement-active-inference]]); see [[Expected Free Energy]]
 for the full decomposition.
 
+### Control as inference (2026-09-23)
+
+A neighboring tradition also treats action selection as inference, without expected free energy. [[levine-2018-control-as-inference]] conditions on binary optimality variables with $p(\mathcal O_t=1\mid s_t,a_t)=\exp(r(s_t,a_t))$ and recovers maximum-entropy reinforcement learning by variational inference, and [[toussaint-storkey-2006-probabilistic-inference-mdp]] solves MDPs by EM with binary reward variables. [[kappen-2012-optimal-control-inference]] writes the control cost as a KL divergence, obtains a Boltzmann optimum with cost $-\log Z$, and states that Friston's free-energy formulation is the special case of time-independent dynamics and costs with an infinite horizon. The GL(K) attention manuscript borrows the binary-record device to make Gibbs routing an exact posterior ([[GL(K) gauge-equivariant attention]]).
+
 ## Role in this research program
 
 Active inference is the theoretical backbone of the [[Collective active inference|multi-agent MAgent model]],
@@ -65,14 +69,14 @@ into a collective whose meta-agents themselves do active inference, grounding th
 self-organization and belief dynamics. For the **vfe3 transformer**, the project imports active
 inference's *perceptual* half (precision-weighted belief-updating as attention) and, as of 2026-06-28, has a
 concrete *pre-registered design spec* for its action half: a default-off, no-grad
-[[Expected Free Energy]] policy scorer over candidate token continuations
-([[2026-06-28-active-inference-efe-policy-scorer-spec]]). It is specified, not implemented, and the design is
+[[Expected Free Energy]] policy scorer over candidate token continuations.
+It is specified, not implemented, and the design is
 honest about a sharp limit — at its first operating point (one look-ahead step over a sigma-free point belief)
 the expected-information-gain term vanishes identically, so version one reduces to a *pragmatic
 preference-matching reranker*; genuine information-seeking active inference is deferred until belief-uncertainty
 enters the rollout.
 
-A 2026-06-29 finding sharpens what the perceptual half actually does here ([[2026-06-29-sigma-gate-fail-and-collapse]]).
+A 2026-06-29 finding sharpens what the perceptual half actually does here.
 The vfe3 belief E-step is **target-blind**: it carries no observation/likelihood term (the canonical
 $-\mathbb{E}_q[\log p(o\mid x)]$ is a gated stub with no live caller), so beliefs are *not* conditioned on observations
 in the canonical free-energy sense — a [[Variational EM|structural EM]] in which the E-step and the M-step descend

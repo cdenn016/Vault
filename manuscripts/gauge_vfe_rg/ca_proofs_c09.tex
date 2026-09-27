@@ -1,0 +1,236 @@
+\section{Proofs for Coarse Channels}
+\label{sec:proofs-coarse-channels}
+
+The proofs for \cref{sec:cg-retained-label-asymptotics} use the notation fixed at the head of
+that section, including its convention on the constant $\mathrm C_{\mathsf K}$.
+
+\noindent\emph{Proof of \Cref{thm:rg-exact-coarse-vfe}.}
+(i) Since $C(y,\mathsf Z)=1$, a bounded function of $o$ alone has the same integral against
+$\mathbb P^c$ and against $\mathbb P$, which gives normalization and the observation marginal. For
+bounded measurable $f$ on $\mathsf Z$ and $g$ on $\mathsf O$ put $h(y)=\int f(z)C(y,dz)$. Then
+\begin{align*}
+\int g\Bigl(\int f d(\boldsymbol\Pi_oC)\Bigr)\mathbb P^c(do\times\mathsf Z)
+&=\int g\Bigl(\int h d\boldsymbol\Pi_o\Bigr)\mathbb P(do\times\mathsf Y)\\
+&=\int g(o)h(y)\mathbb P(do,dy)
+=\int g(o)f(z)\mathbb P^c(do,dz),
+\end{align*}
+using the preserved marginal, the defining property of the fine version, and
+\eqref{eq:rg-common-pushforward}. Hence $o\mapsto\boldsymbol\Pi_oC$ is a posterior version of
+$\mathbb P^c$ at every observation where it is declared, because $C$ acts on the conditioned
+variable only. If $\boldsymbol\Pi^c_o(N)=0$, then $C(\cdot,N)=0$ $\boldsymbol\Pi_o$-almost surely,
+hence $\mathbb Q_o$-almost surely under $\mathbb Q_o\ll\boldsymbol\Pi_o$, and $\mathbb Q^c_o(N)=0$.
+(ii) Disintegrated over $y$, both lifts have the marginals $\mathbb Q_o$ and $\boldsymbol\Pi_o$ and
+the common conditional $C(y,\cdot)$, so the chain rule of \Cref{lem:prob-kl-chain-rule}, in
+$[0,+\infty]$, gives $\KL(\widehat{\mathbb Q}_o\Vert\widehat{\boldsymbol\Pi}_o)
+=\KL(\mathbb Q_o\Vert\boldsymbol\Pi_o)$; disintegrated over $z$, it gives
+$\KL(\widehat{\mathbb Q}_o\Vert\widehat{\boldsymbol\Pi}_o)
+=\KL(\mathbb Q^c_o\Vert\boldsymbol\Pi^c_o)+\Delta(o)$. Adding the finite real $-\log p(o)$, the
+same at both scales by (i), and using that $\boldsymbol\Pi^c_o$ is the coarse posterior version gives
+\eqref{eq:rg-vfe-chain-rule}; every term lies in $[0,+\infty]$ before the finite shift, so no
+infinite quantity is subtracted. (iii) $\Delta(o)$ is the integral of a nonnegative measurable
+function, which vanishes exactly when the integrand vanishes $\mathbb Q^c_o$-almost surely, and a
+relative entropy vanishes exactly when its arguments agree. (iv) Finite fine divergence makes both
+terms on the right of \eqref{eq:rg-vfe-chain-rule} finite. If $\Delta(o)=0$, the two divergences
+are equal and finite, and \Cref{thm:cg-dpi-equality,cor:cg-pairwise-bayes-recovery} give recovery
+of both laws by the Bayes kernel of $\boldsymbol\Pi_o$ under $C$. Conversely, a kernel $R$
+recovering both laws gives $\KL(\mathbb Q_o\Vert\boldsymbol\Pi_o)\geq\KL(\mathbb Q^c_o\Vert\boldsymbol\Pi^c_o)
+\geq\KL(\mathbb Q^c_oR\Vert\boldsymbol\Pi^c_oR)=\KL(\mathbb Q_o\Vert\boldsymbol\Pi_o)$ by data
+processing through $C$ and then $R$, so $\Delta(o)=0$. $\square$
+
+\noindent\emph{Proof of \Cref{thm:rg-pointwise-parent-datum}.}
+(i) is \Cref{thm:rg-exact-coarse-vfe} with $\mathbb P=\mathbb P_I$, $C=C_A$, and the admitted
+recognition law. (ii) On standard Borel spaces a disintegration of $\mathbb P_A(\cdot\given X)$
+over $(m_A,\xi_A)$ exists and is jointly measurable (\Cref{ch:probability}); it satisfies the
+compatibility identity by construction, while a family declared
+independently of $\mathbb P_A$ satisfies it only if assumed. (iii) The pushforward formulas hold by
+testing each parent law with functions of one coordinate. For two non-Dirac marginals,
+\Cref{prop:prob-marginals-do-not-determine-joint} gives distinct couplings with the same pair, and
+tensoring each with one fixed law on $\boldsymbol\Xi_A\times\mathsf H_A$ gives distinct laws on
+$\mathsf Z_A$. For two points $h\neq h'$ of $\boldsymbol\Xi_A\times\mathsf H_A$ and the
+$(b_A,m_A)$ marginal $R$ of the given law, $R\otimes\delta_h$ and $R\otimes\delta_{h'}$ share the
+pair and differ, so one of them differs from the given law. If that space is a point and one
+marginal is Dirac, every coupling assigns mass one to the Dirac coordinate. $\square$
+
+\noindent\emph{Proof of \Cref{prop:cg-equivariant-bayes-versions}.}
+(i) By equivariance,
+$\mathbb J_{g_\#Q}(A\times B)=\mathbb J_Q(g^{-1}A\times g^{-1}B)$. Bimeasurability makes $R_Q^g$ a
+Markov kernel, the $\mathsf Y$-marginal of $\mathbb J_{g_\#Q}$ is $g_\#(QK)$ by
+\Cref{prop:cg-equivariant-channels}, and the change of variables $y=gy'$ gives
+$\int\mathbf 1_B(y)R_Q^g(y,A)(g_\#(QK))(dy)=\mathbb J_{g_\#Q}(A\times B)$. (ii) With
+$(g_\#P)K=g_\#(PK)$, $((g_\#P)KR_Q^g)(A)=(PKR_Q)(g^{-1}A)=(g_\#P)(A)$; the relative-entropy
+identities are invariance under bimeasurable bijections, \eqref{eq:cg-rn-bimeasurable} and
+\eqref{eq:cg-kl-bimeasurable-invariance}. (iii) Where $(QK)(\{y\})>0$ the first value is the value
+of every version; the remaining points are $QK$-null, both branches transform as stated because
+$(g_\#Q)(\{gx\})=Q(\{x\})$ and $K(gx,\{gy\})=K(x,\{y\})$, and the first branch is a rational
+function of $Q$ on a Borel set. (iv) Each $R_Q^h$ with $h\in\mathbb G_Q$ is a version of $R_Q$ by
+(i). Joint measurability makes $(h,y)\mapsto R_Q^h(y,A)$ measurable, so $\bar R_Q$ is a Markov
+kernel by Tonelli's theorem and monotone convergence, and the defining identity, linear in the
+kernel, passes to the mixture. Left invariance of $dh$ gives $\bar R_Q(ky,kA)=\bar R_Q(y,A)$ for
+$k\in\mathbb G_Q$. If $g_\#Q=g'_\#Q$ then $g^{-1}g'\in\mathbb G_Q$, so $\bar R_Q^{g'}=\bar R_Q^g$;
+finally $\bar R_Q^{kg}(ky,kA)=\bar R_Q^g(y,A)$. $\square$
+
+\noindent\emph{Proof of \Cref{prop:rg-scale-functoriality}.}
+(i) Functoriality forces the stated composites, and associativity gives
+$C_{kr}\circ C_{\ell k}=C_{\ell r}$. (ii) is the functor axiom on two routes, and for a rule
+family it is the axiom on the arrows indexed by $b_1$, $b_2$, and $b_1b_2$. (iii) Each composite of
+configuration-keeping or additive arrows is the same statistic of the final partition, and the
+witness is direct evaluation: by pairs $(0,0,1,0,1,0)\mapsto(0,1,1)\mapsto1$, by triples
+$(0,0,1,0,1,0)\mapsto(0,0)\mapsto0$. (iv) If stochastic matrices $P,Q\geq0$ are mutually inverse,
+rank gives them equal sizes. From $PQ=I$, every positive entry $P_{ik}$ forces row $k$ of $Q$ to
+vanish off column $i$, so each column of $P$ has at most one positive entry, and unit row sums make
+$P$ a permutation matrix. $\square$
+
+\noindent\emph{Proof of \Cref{prop:rg-thermo-finite-labeled-fisher}.}
+Differentiating $\sum_xp_\gamma(x)=1$ on the fixed support gives the branch-score identity, and
+differentiating the softmax gives $\nabla\log W_\gamma=\xi_\gamma-\bar\xi$, hence
+\eqref{eq:rg-thermo-finite-complete-score}. In the outer product of
+\eqref{eq:rg-thermo-finite-complete-score}, summation over $x$ within each branch removes both cross
+terms by the branch-score identity, which gives \eqref{eq:rg-thermo-finite-labeled-fisher}; the
+label marginal has score $\xi_\gamma-\bar\xi$, so its Fisher tensor is
+$\operatorname{Cov}_W(\xi_\gamma)$. Positive denominators on a finite support make the $C^3$ masses
+give a $C^2$ Fisher tensor, and the Leibniz rule gives
+\eqref{eq:rg-thermo-finite-weighted-fisher-derivatives}. A common shift cancels from
+the weights and adds one vector to every $\xi_\gamma$, which leaves the covariance unchanged as a
+function of $\theta$. Finally $v^\top g^F(P)v=\sum_zP(z)(v^\top\mathbf s_P(z))^2\geq0$. $\square$
+
+\noindent\emph{Proof of \Cref{prop:rg-thermo-finite-missing-information}.}
+On its positive support $\mathbf s^c=\mathbf s_P+\nabla\log K^{\mathrm{obs}}(o\given\gamma,x)$, and
+each record row has fixed support and sums to one, so
+$\sum_oK^{\mathrm{obs}}(o\given\gamma,x)\nabla\log K^{\mathrm{obs}}(o\given\gamma,x)=0$ and the cross
+terms of the second moment vanish; this is
+\eqref{eq:rg-thermo-finite-complete-observation-fisher}. The record is the image of the complete
+sample under the parameter-independent map $(\gamma,x,o)\mapsto o$, with conditional law
+$\boldsymbol\Pi_o$ given $o\in\mathsf O^+$. A finite fixed-support family with $C^3$ masses is
+differentiable in quadratic mean, so \Cref{thm:cg-fisher-contraction} gives the score projection
+and the Fisher loss in \eqref{eq:rg-thermo-finite-missing-information}. For a one-point alphabet
+every record row equals one, so $p_\theta(o)=\sum_{\gamma,x}P_\theta(\gamma,x)=1$. The pointwise
+observed-information form of this identity is due to \citet{Louis1982}; its average over the record
+is \eqref{eq:rg-thermo-finite-missing-information}. $\square$
+
+\noindent\emph{Proof of \Cref{prop:rg-thermo-account-word}.}
+The score telescope comes first. Differentiating $P_j=P_{j-1}C_j$ at positive atoms gives
+$\mathbf s_j(X_j)=\E[\mathbf s_{j-1}(X_{j-1})\given X_j]$, so the single-step loss is $D_j\succeq0$
+by \Cref{thm:cg-fisher-contraction}, and the sum telescopes. The reversed path is Markov, so
+$\E[\varepsilon^{\mathrm{sc}}_j\given X_j,\ldots,X_m]=0$; for $j<k$ the increment
+$\varepsilon^{\mathrm{sc}}_k$ is measurable with respect to $X_j,\ldots,X_m$, which gives
+orthogonality, and $\E[\varepsilon^{\mathrm{sc}}_j(\varepsilon^{\mathrm{sc}}_j)^\top]
+=g_{j-1}-g_j$ because $\E[\mathbf s_{j-1}\mathbf s_j^\top]=g_j$. Domination persists under each
+kernel on finite spaces, so every divergence is finite, and
+\Cref{thm:rg-exact-coarse-vfe,thm:cg-evidence-preserving-channel} at each step give
+$\Fenergy_{j-1}-\Fenergy_j=K^{\mathrm{KL}}_j$ at unchanged evidence; summing proves the free-energy
+telescope, and division by $N_m$ gives the per-agent form.
+$\square$
+
+\noindent\emph{Proof of \Cref{thm:rg-thermo-label-strict}.}
+Uniform convergence of $\lambda/N$ gives
+$\lambda_{\gamma,N}-\lambda_{\gamma_*,N}\leq-\delta_{\mathsf K}N/2$ for each $\gamma\neq\gamma_*$ and
+large $N$; the softmax denominator contains the winning mass, so
+$W_{\gamma,N}\leq e^{-\delta_{\mathsf K}N/2}$. Suppress $N$ and write
+$\bar\xi_i=\sum_\eta W_\eta\xi_{\eta,i}$. The softmax derivatives
+$\partial_iW_\gamma=W_\gamma(\xi_{\gamma,i}-\bar\xi_i)$ and
+$\partial_j\bar\xi_i=\sum_\eta W_\eta\partial_j\xi_{\eta,i}+\operatorname{Cov}_W(\xi_i,\xi_j)$ show
+that, for $\lvert\beta\rvert\leq2$, $\partial^\beta W_\gamma$ is $W_\gamma$ times a polynomial in
+the weights and in the components of the $\xi_\eta$ and $\partial\xi_\eta$, of degree at most
+$\lvert\beta\rvert$ in the latter, each of which is $O(N)$ by
+\eqref{eq:rg-thermo-label-effective-growth}. Hence
+$\|\partial^\beta W_{\gamma,N}\|_{\mathsf K}\leq\mathrm C_{\mathsf K}N^{\lvert\beta\rvert}
+e^{-\delta_{\mathsf K}N/2}$ for $\gamma\neq\gamma_*$ and $\lvert\beta\rvert\leq2$, and the same
+bound holds for $W_{\gamma_*,N}-1$, which is minus the sum of the losing weights. With
+$\delta\xi_\gamma=\xi_\gamma-\xi_{\gamma_*}$ and
+$\bar d=\sum_{\gamma\neq\gamma_*}W_\gamma\delta\xi_\gamma$, exact centering gives
+$\operatorname{Cov}_W(\xi)=\sum_{\gamma\neq\gamma_*}W_\gamma\delta\xi_\gamma\delta\xi_\gamma^\top-\bar d\bar d^\top$.
+Each derivative of $\delta\xi_\gamma$ through order two is $O(N)$, so a term with $j$ derivatives in
+the sum is bounded by $\mathrm C_{\mathsf K}N^{j+2}e^{-\delta_{\mathsf K}N/2}$: at most $j$
+derivatives fall on a weight and the two score factors contribute at most $N$ each. The product
+$\bar d\bar d^\top$ carries two exponential factors and obeys the same bound. Dividing by $N$ proves
+\eqref{eq:rg-thermo-label-strict-covariance-bound}. The branch error equals
+$\sum_{\gamma\neq\gamma_*}W_\gamma(\mathcal I_{\gamma,N}-\mathcal I_{\gamma_*,N})$, whose branch
+differences have bounded $C^2$ norms, so the Leibniz sum with the weight bound gives the stated
+bound. Adding the $C^2$ error of the
+winning branch and the covariance error, via \eqref{eq:rg-thermo-finite-labeled-fisher}, proves the
+$C^2$ convergence, since exponentials dominate the powers of $N$. For the floor, uniform convergence
+in operator norm gives $\|g_N-\mathcal I_{\gamma_*}\|\leq\tfrac12\mathrm c_{\min}$ on $\mathsf K$ for
+large $N$, so $z^\top g_Nz\geq z^\top\mathcal I_{\gamma_*}z-\tfrac12\mathrm c_{\min}\lvert z\rvert^2
+\geq\tfrac12\mathrm c_{\min}\lvert z\rvert^2$. $\square$
+
+\noindent\emph{Proof of \Cref{prop:rg-thermo-label-tie-scale}.}
+The label set is finite, so there is a positive bulk gap from $S$ to every other label at
+$\theta_0$; comparison with one maximizing label and convergence of $\lambda/N$ make every
+nonmaximizing weight exponentially small, so its limit is zero. $C^1$ convergence gives
+$\xi_{\gamma,N}/N\to\mathsf v_\gamma$. Dividing \eqref{eq:rg-thermo-finite-labeled-fisher} by $N^2$
+makes the branch term $O(1/N)$ and leaves $\operatorname{Cov}_{W_N}(\xi_{\gamma,N}/N)$, which
+converges by finite summation. For every $z$,
+$z^\top\operatorname{Cov}_{\bar{\mathsf p}}(\mathsf v_\gamma)z
+=\sum_\gamma\bar{\mathsf p}_\gamma[z\cdot(\mathsf v_\gamma-\bar{\mathsf v})]^2$, which vanishes
+exactly when $z\cdot\mathsf v_\gamma$ is constant on the positive-weight labels, so the kernel is the
+orthogonal complement of the stated span. A positive limiting quadratic form gives the asymptotic
+after multiplication by $N^2$, and a zero one gives only the little-o conclusion. $\square$
+
+\noindent\emph{Proof of \Cref{thm:rg-thermo-label-crossover}.}
+A compact set of $\mathsf w$ is bounded, so its image under $\theta_N$ and the segments to
+$\theta_0$ lie in the chosen neighborhood for large $N$. Put
+$\lambda^{\mathrm{inc}}_{\gamma,N}(\mathsf w)=\lambda_{\gamma,N}(\theta_0+\mathsf w/N)-\lambda_{\gamma,N}(\theta_0)$.
+The fundamental theorem of calculus gives
+\begin{equation}
+\lambda^{\mathrm{inc}}_{\gamma,N}(\mathsf w)
+=\int_0^1N^{-1}\nabla\lambda_{\gamma,N}(\theta_0+\tau\mathsf w/N)\cdot\mathsf w d\tau,
+\label{eq:rg-thermo-label-window-increment}
+\end{equation}
+whose integrand tends uniformly to $\mathsf v_\gamma\cdot\mathsf w$ by the $C^1$ part of
+\eqref{eq:rg-thermo-label-effective-growth} and continuity of $\nabla\mathsf s_\gamma$.
+Differentiation in $\mathsf w$ gives
+\begin{equation}
+D_{\mathsf w}\lambda^{\mathrm{inc}}_{\gamma,N}\to\mathsf v_\gamma,
+\qquad
+\|D^2_{\mathsf w}\lambda^{\mathrm{inc}}_{\gamma,N}\|=O(N^{-1}),
+\qquad
+\|D^3_{\mathsf w}\lambda^{\mathrm{inc}}_{\gamma,N}\|=O(N^{-2}),
+\label{eq:rg-thermo-label-window-derivatives}
+\end{equation}
+so $\lambda^{\mathrm{inc}}_{\gamma,N}\to\mathsf w\cdot\mathsf v_\gamma$ in $C^3$. For tied labels,
+the relative log masses $\lambda_{\gamma,N}-\lambda_{\gamma_0,N}$ at $\theta_N(\mathsf w)$ are the
+logarithms of the center ratios plus the difference of increments, and converge in $C^3$ to
+$\log\mathrm c_\gamma+\mathsf w\cdot(\mathsf v_\gamma-\mathsf v_{\gamma_0})$; exponentiation and the
+finite softmax are smooth on the resulting compact ranges, with denominator at least the reference
+mass one. For a nonmaximizing label the relative center log mass is at most $-\mathrm cN$ for some
+constant $\mathrm c>0$, while its increment and $\mathsf w$-derivatives through order three are
+bounded, so its relative exponential and those derivatives are $O(e^{-\mathrm cN})$. Normalizing
+proves \eqref{eq:rg-thermo-label-limiting-weights} in $C^3$, including the zero coordinates outside
+$S$. With $\hat\xi_{\gamma,N}(\mathsf w)=N^{-1}\xi_{\gamma,N}(\theta_N(\mathsf w))$,
+\eqref{eq:rg-thermo-label-window-derivatives} gives $\hat\xi_{\gamma,N}\to\mathsf v_\gamma$ in $C^2$,
+and the affine change $\theta_N$ has derivative $N^{-1}\mathrm{Id}$, so
+\eqref{eq:rg-thermo-finite-labeled-fisher} becomes
+\begin{equation}
+g^F_{\mathsf w}(\mathcal E_N)(\mathsf w)
+=\operatorname{Cov}_{W_N(\theta_N(\mathsf w))}\bigl(\hat\xi_{\gamma,N}(\mathsf w)\bigr)
++\frac1N\sum_\gamma W_{\gamma,N}(\theta_N(\mathsf w))\mathcal I_{\gamma,N}(\theta_N(\mathsf w)).
+\label{eq:rg-thermo-label-window-decomposition}
+\end{equation}
+The covariance converges in $C^2$ by finite sums and products, without dividing by a weight that
+tends to zero. The branch densities and their first two $\mathsf w$-derivatives are bounded, since a
+$\mathsf w$-derivative is $N^{-1}$ times a $\theta$-derivative, and the weights have bounded $C^2$
+norms, so every term of the Leibniz sum for the last term is $O(N^{-1})$. Finally the
+log-sum-exponential has gradient $\sum_\gamma\bar{\mathsf p}_\gamma\mathsf v_\gamma$ and Hessian
+$\operatorname{Cov}_{\bar{\mathsf p}}(\mathsf v_\gamma)$. The window is the finite-mixture
+counterpart of the finite-volume rounding of a first-order transition, which
+\citet{BorgsKotecky1990} derive from a lattice model as a hyperbolic-tangent crossover of width of
+order the inverse volume. $\square$
+
+\noindent\emph{Proof of \Cref{prop:rg-thermo-label-tie-counterexamples}.}
+The common branch law cancels from the relative log mass and has zero score, so the label is the
+only source of information. Then $W_1'=W_1(1-W_1)\omega'_N$, the centered label scores are
+$(1-W_1)\omega'_N$ and $-W_1\omega'_N$, and averaging their squares gives
+\eqref{eq:rg-thermo-label-binary-formula}, with $W_1(1-W_1)=\operatorname{bv}(\omega_N)$. In (a) the
+$C^3$ norm of $\omega_N$ on a compact interval is at most $\mathrm CN$ and $\omega_N/N=\theta$; the
+formulas follow by substitution. In (b) the derivatives vanish and $\omega_N/N\to0$ in $C^3$. In (c)
+the $C^3$ norms are $O(N^{\mathrm c})$ and $O(\sqrt N)$, both $o(N)$, and substitution gives the two
+statements, with $\operatorname{bv}(0)=1/4$ and $\operatorname{bv}(\log2)=2/9$. In (d)
+$\omega_N/N=\theta-\mathrm cN^{-1}\log N\to\theta$ in $C^3$ and the $C^3$ norm is $O(N)$; at zero,
+$\operatorname{bv}(-\mathrm c\log N)N^2/N=N^{1+\mathrm c}/(1+N^{\mathrm c})^2$. In (e) derivatives
+through order three are bounded by $N^{-1/6}N=N^{5/6}$, so $\omega_N/N\to0$ in $C^3$;
+$\lvert\omega_N\rvert\leq N^{-1/6}$ gives uniform convergence of the weights, and
+$0\leq F_N\leq N^{-1}\tfrac14N^{1/3}$. The Leibniz rule gives
+\eqref{eq:rg-thermo-label-oscillatory-derivative}. At zero $\omega_N=0$, $\omega'_N=N^{1/6}$,
+$\omega''_N=0$, $\omega'''_N=-N^{5/6}$, and $\operatorname{bv}(0)=1/4$, $\operatorname{bv}'(0)=0$,
+$\operatorname{bv}''(0)=-1/8$, which gives the value of $F''_N(0)$; the uniform limit has second
+derivative zero. $\square$

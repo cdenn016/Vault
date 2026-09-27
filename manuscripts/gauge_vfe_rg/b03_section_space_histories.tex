@@ -1,0 +1,1227 @@
+\chapter{Section-Space Histories and Base Averaging}
+\label{ch:section-space-histories}
+
+This chapter asks what becomes of the inference histories and Fisher clocks of
+\cref{ch:relational-inference} when the state of an agent is a whole section over
+a contextual domain of positive dimension, rather than a point of its fibers
+over \(c_*\). Three results carry the answer. A free, proper, isometric gauge
+action on a strong Riemannian Hilbert manifold of configurations has a smooth
+principal quotient on which the gauge-quotient speed is attained by a unique
+orthogonal lift, so quotient durations are well defined
+(\cref{thm:hist-strong-hilbert-quotient}). The same conclusion fails for a
+weak Fisher metric even when the smooth quotient and a topological splitting
+exist, and the trace quotient of that example is not a fixed observation
+channel (\cref{prop:hist-proper-weak-fisher-quotient,prop:hist-weak-trace-not-markov}).
+Averaging sections over the fibers of a base map loses integrated Fisher
+information by an exact channel, weight, and context term under a joint-convexity
+condition on the fiber chart, and without that condition the loss can be
+negative (\cref{thm:hist-averaging-defect,prop:hist-averaging-convexity}). The
+Hilbert theorem is the section-space counterpart of
+\cref{prop:hist-invariant-history-horizontal}, and the averaging defect is the
+counterpart of \cref{thm:hist-pointwise-contraction-lift} for a base map that
+collapses contexts; the covariant first jets and base-direction pullbacks used
+here are those of \cref{ch:pullback-geometry}.
+
+Over the single point \(c_*\) every construction of the chapter reduces to a
+fiber statement of the main manuscript. A section is then a point of the
+fiber, every base curve is constant, so every nonstationary curve is vertical
+and horizontality is vacuous; the design and continuum clocks reduce to the
+pointwise clock \eqref{eq:hist-pointwise-clock-speed}; the Hilbert quotient
+becomes one orthogonal projection; and averaging over the fibers of the identity
+of \(\{c_*\}\) is the pointwise map of \cref{thm:hist-pointwise-contraction-lift}.
+
+The chapter declines to claim that the set of fine sections on which a
+pointwise bundle morphism induces a configuration map (\cref{thm:pb-section-descent})
+is a smooth submanifold carrying a smooth induced arrow, so the coarse
+configuration map of \cref{sec:hist-base-averaging} is declared rather than
+constructed by section descent; that the base, the principal bundle, or the
+free energy selects a base measure, channel weights, or a strong manifold
+topology for a continuum clock; that the Hilbert theorem supplies a singular
+quotient when the action is not free or not proper; and that the tiers
+exhibited here classify section-space metrics. \status{NOT-CLAIMED} Whether a
+declared recognition family can be brought to an admitted configuration tier is
+\cref{open:hist-section-tier-admission}; the smooth structure of the projectable
+set is \cref{open:hist-projectable-set}; a probabilistic theory on continuum
+section spaces is \cref{open:prob-continuum-theory}.
+
+\section{Fixed-base kinematics}
+\label{sec:hist-fixed-base-kinematics}
+
+\definitionheading{Vertical, horizontal, and mixed curves}{def:hist-curve-types}
+For agent \(i\) with contextual domain \(\mathcal C_i\), restrict the belief and
+model bundles to \(\mathcal C_i\) and form
+\begin{equation}
+\mathcal E_i
+=\mathcal E_b|_{\mathcal C_i}
+\times_{\mathcal C_i}
+\mathcal E_m|_{\mathcal C_i},
+\qquad
+\varpi_i:\mathcal E_i\longrightarrow\mathcal C_i.
+\label{eq:hist-agent-product-bundle}
+\end{equation}
+The pair \(\boldsymbol\omega_i=(\omega_b,\omega_m)\) of principal connections
+supplies a product horizontal distribution with horizontal lift
+\(H^{\boldsymbol\omega_i}\) and a vertical projection
+\(\operatorname{ver}^{\boldsymbol\omega_i}\). The vertical Fisher form of
+\(\mathcal E_i\) is fixed only after positive channel weights or a joint
+statistical metric are declared. Let \(\mathscr I\) be a connected interval and
+\(\Gamma:\mathscr I\to\mathcal E_i\) a \(C^1\) curve with base curve
+\(\gamma=\varpi_i\circ\Gamma\). Relative to \(\boldsymbol\omega_i\) its velocity
+splits uniquely as
+\begin{equation}
+\dot\Gamma
+=H^{\boldsymbol\omega_i}_{\Gamma}\dot\gamma
++v_{\boldsymbol\omega_i}(\Gamma),
+\qquad
+v_{\boldsymbol\omega_i}(\Gamma)
+=\operatorname{ver}^{\boldsymbol\omega_i}(\dot\Gamma),
+\label{eq:hist-total-curve-splitting}
+\end{equation}
+and applying \(T\varpi_i\), which is the identity on horizontal lifts and zero
+on vertical vectors, recovers \(\dot\gamma\); this is the connection splitting
+of \citet[Ch.~II]{Kobayashi1963}. At a parameter value \(r\) the velocity is
+\emph{stationary} when \(\dot\Gamma(r)=0\); \emph{vertical} when
+\(\dot\gamma(r)=0\) and \(\dot\Gamma(r)\ne0\);
+\emph{\(\boldsymbol\omega_i\)-horizontal} when
+\(v_{\boldsymbol\omega_i}(\Gamma)(r)=0\) and \(\dot\gamma(r)\ne0\); and
+\emph{mixed} when \(\dot\gamma(r)\) and \(v_{\boldsymbol\omega_i}(\Gamma)(r)\)
+are both nonzero. These four cases partition the parameter values. A curve is
+vertical, horizontal, or mixed on \(\mathscr I\) when it has that type at every
+parameter value, so the interval-level labels are not exhaustive. Verticality
+depends only on the bundle projection; horizontality and the mixed
+decomposition depend on the connections.
+
+A base curve carries no verticality predicate, since the predicate concerns a
+total-space velocity, and a curve of section configurations
+(\cref{sec:hist-section-curves}) carries one only through its evaluation at a
+fixed context, \eqref{eq:hist-pointwise-history-verticality}. A vertical curve
+stays in one fiber, whereas a horizontal lift compares points of different
+fibers by the chosen connection; neither moves the base.
+
+\propositionheading{Horizontality is connection relative}{prop:hist-horizontal-connection-dependence}
+The same nonvertical total-space curve can be mixed for one connection and
+horizontal for another. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Take the trivial line bundle \(\R_{c}\times\R_{y}\to\R_{c}\) and the curve
+\(\Gamma(r)=(r,r)\). For the horizontal distribution spanned by
+\(\partial_c\), its vertical velocity is \(\partial_y\), so the curve is mixed.
+For the distribution spanned by \(\partial_c+\partial_y\), the same velocity is
+horizontal. The base trace \(c=r\) is unchanged. \(\square\)
+
+\propositionheading{Lengths of vertical, horizontal, and section curves}{prop:pb-curve-taxonomy}
+Fix one channel \(x\in\{b,m\}\) and write \(\omega=\omega_x\),
+\(g^F=g^F_x\), and \(E=\mathcal E_x\). For a \(C^1\) curve
+\(\Gamma:\mathscr I\to E\) over \(\gamma\), let
+\(v^\omega(\Gamma)=\operatorname{ver}^\omega(\dot\Gamma)\) and let
+\(L^\omega(\Gamma)=\int_{\mathscr I}g^F(v^\omega(\Gamma),v^\omega(\Gamma))^{1/2}dr\)
+be its vertical Fisher length; on a curve confined to one fiber this is the
+Fisher length of \eqref{eq:pb-vertical-fisher-length}. Then \(L^\omega\) is
+invariant under orientation-preserving \(C^1\) reparameterization; if
+\(\Gamma\) is vertical, \(L^\omega(\Gamma)\) does not depend on the connection;
+if \(\Gamma\) is \(\omega\)-horizontal, \(L^\omega(\Gamma)=0\); and for a section
+curve \(\Gamma=s\circ\gamma\), with the covariant first jet
+\eqref{eq:pb-covariant-first-jet},
+\begin{equation}
+L^\omega(s\circ\gamma)
+=\int_{\mathscr I}
+g^F\bigl(D^\omega s(\dot\gamma),D^\omega s(\dot\gamma)\bigr)^{1/2}dr,
+\label{eq:pb-section-curve-length}
+\end{equation}
+which is the length of \(\gamma\) in the Fisher pullback
+\eqref{eq:pb-fisher-pullback}. If \(\omega'=\omega+\Delta\omega\), with
+\(\Delta\omega\) the descended difference form of
+\eqref{eq:pb-connection-difference} and \(\vartheta\) the fundamental vertical
+map of \eqref{eq:pb-connection-difference-vertical}, then along every curve
+\begin{equation}
+v^{\omega'}(\Gamma)
+=v^\omega(\Gamma)
++\vartheta_{\Gamma}\bigl(\Delta\omega_{\gamma}(\dot\gamma)\bigr),
+\label{eq:pb-curve-connection-change}
+\end{equation}
+so the length of a mixed curve generally depends on the connection.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Under \(r=\phi(\tilde r)\) the vertical velocity is multiplied by
+\(\phi'(\tilde r)>0\), and positive homogeneity of the square root turns that
+factor into the Jacobian of the change of variables. For a vertical curve
+\(\dot\gamma=0\), so the horizontal part of \(\dot\Gamma\) vanishes for every
+connection. Horizontality is the equation \(v^\omega(\Gamma)=0\). For
+\(\Gamma=s\circ\gamma\) the chain rule gives
+\(\dot\Gamma=Ts(\dot\gamma)\), hence
+\(v^\omega(\Gamma)=D^\omega s(\dot\gamma)\), which is
+\eqref{eq:pb-section-curve-length}. Finally, replacing \(\omega\) by
+\(\omega'\) changes the horizontal lift of \(\dot\gamma\) at \(\Gamma\) by
+\(-\vartheta_\Gamma(\Delta\omega_\gamma(\dot\gamma))\) in the sign convention
+of \eqref{eq:pb-connection-difference-vertical}, and the vertical part of the
+fixed vector \(\dot\Gamma\) changes by the opposite amount; for a section curve
+this is \eqref{eq:pb-jet-connection-change}. \(\square\)
+
+\section{Curves of sections and pointwise vertical change}
+\label{sec:hist-section-curves}
+
+\hypothesisheading{Regular section configuration}{hyp:hist-regular-section-space}
+In this chapter \(\mathfrak S_i\) is a declared space of pairs
+\(Q=(q^b,q^m)\) of smooth sections of \(\mathcal E_i\to\mathcal C_i\). Wherever a
+tangent-space calculation is used, \(\mathfrak S_i\) is either a
+finite-dimensional submanifold of configurations or carries a specified smooth
+locally convex manifold structure for which the evaluation
+\((Q,c)\mapsto Q(c)\) is differentiable. This excludes the space of all smooth
+sections taken without a declared manifold structure, since none follows from
+writing the sections down.
+
+Oriented histories in \(\mathfrak S_i\) are the equivalence classes of regular
+representatives under orientation-preserving \(C^1\) reparameterization,
+\eqref{eq:hist-oriented-reparameterization-equivalence}, exactly as in
+\cref{def:hist-oriented-history} with \(\mathfrak S_i\) in place of the
+configuration manifold at \(c_*\).
+
+\propositionheading{Section histories change pointwise vertically}{prop:hist-section-history-verticality}
+Let \(Q_i=(q^b_i,q^m_i):\mathscr I\to\mathfrak S_i\) be a \(C^1\)
+representative and define its adjoint family
+\begin{equation}
+\widehat{\mathrm{ev}}_i:\mathscr I\times\mathcal C_i\longrightarrow\mathcal E_i,
+\qquad
+\widehat{\mathrm{ev}}_i(r,c)=Q_i(r)(c),
+\qquad
+\varpi_i\circ\widehat{\mathrm{ev}}_i(r,c)=c.
+\label{eq:hist-adjoint-section-family}
+\end{equation}
+Then at every fixed context
+\begin{equation}
+T\varpi_i\bigl(\partial_r\widehat{\mathrm{ev}}_i(r,c)\bigr)=0,
+\qquad
+\partial_r\widehat{\mathrm{ev}}_i(r,c)
+\in V_{Q_i(r)(c)}\mathcal E_i.
+\label{eq:hist-pointwise-history-verticality}
+\end{equation}
+With the connections held fixed, the family of Fisher pullbacks
+\eqref{eq:pb-fisher-pullback} of the instantaneous sections,
+\begin{equation}
+\mathbf P_i(r)
+=\Bigl(
+\bigl(D^{\omega_b}q^b_i(r)\bigr)^*g^F_b,
+\bigl(D^{\omega_m}q^m_i(r)\bigr)^*g^F_m
+\Bigr),
+\label{eq:hist-perceived-geometry-family}
+\end{equation}
+is an ordered family of base semimetrics that transforms under
+\(\widetilde Q_i=Q_i\circ\phi\) by \(\widetilde{\mathbf P}_i=\mathbf P_i\circ\phi\).
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Differentiating \(\varpi_i(\widehat{\mathrm{ev}}_i(r,c))=c\) in \(r\) at fixed
+\(c\) gives \eqref{eq:hist-pointwise-history-verticality}. Each entry of
+\(\mathbf P_i(r)\) depends on \(r\) only through \(Q_i(r)\), because the
+connections are fixed, so reparameterization composes with \(\phi\). \(\square\)
+
+A curve of full sections therefore produces a vertical statistical update at
+every fixed context although its state is an entire section, and it orders a
+family of perceived base geometries without making the base evolve. A
+separately declared connection history would add the correction terms of
+\cref{prop:pb-pullback-connection-change} to \eqref{eq:hist-perceived-geometry-family}.
+
+\propositionheading{Diagonal evaluation separates history change from base probing}{prop:hist-diagonal-evaluation}
+Let \(Q_i:\mathscr I\to\mathfrak S_i\) be a \(C^1\) representative, let
+\(\gamma:\mathscr I\to\mathcal C_i\) be a \(C^1\) base probe, set
+\(\Gamma(r)=Q_i(r)(\gamma(r))\), and write
+\begin{equation}
+D^{\boldsymbol\omega_i}Q_i(r)
+=\bigl(D^{\omega_b}q^b_i(r),D^{\omega_m}q^m_i(r)\bigr)
+\label{eq:hist-product-covariant-section-jet}
+\end{equation}
+for the pair of covariant first jets \eqref{eq:pb-covariant-first-jet}. Then
+\begin{equation}
+v_{\boldsymbol\omega_i}(\Gamma)
+=\partial_r\widehat{\mathrm{ev}}_i(r,\gamma(r))
++D^{\boldsymbol\omega_i}Q_i(r)\dot\gamma(r).
+\label{eq:hist-diagonal-evaluation-velocity}
+\end{equation}
+At a parameter value with \(\dot\gamma=0\) the diagonal curve is vertical when
+the pointwise history velocity is nonzero and stationary when it vanishes; on
+an open subinterval where \(\dot\gamma\ne0\) it is mixed exactly when the sum in
+\eqref{eq:hist-diagonal-evaluation-velocity} is nonzero and horizontal when the
+sum vanishes. Moreover every smooth section \(Q\) of
+\(\mathcal E_i\to\mathcal C_i\) is an embedding; a total-space curve has the
+form \(Q\circ\gamma\) exactly when it lies in the image of \(Q\), and then
+\(\gamma=\varpi_i\circ\Gamma\) is unique. In particular a nonconstant curve
+confined to one fiber is not the image of a base curve under a section.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The chain rule for the jointly \(C^1\) map \((r,c)\mapsto Q_i(r)(c)\), which
+\cref{hyp:hist-regular-section-space} supplies, gives
+\(\dot\Gamma=\partial_r\widehat{\mathrm{ev}}_i(r,\gamma(r))+TQ_i(r)\dot\gamma\).
+The first term is vertical by \eqref{eq:hist-pointwise-history-verticality},
+and \(\operatorname{ver}^{\boldsymbol\omega_i}\circ TQ_i(r)=D^{\boldsymbol\omega_i}Q_i(r)\)
+by \eqref{eq:pb-covariant-first-jet}; applying the vertical projection gives
+\eqref{eq:hist-diagonal-evaluation-velocity}. The type statements follow from
+\cref{def:hist-curve-types}, since \(\dot\gamma=0\) makes \(\dot\Gamma\) equal to
+its vertical part. Since \(\varpi_i\circ Q=\operatorname{id}\), the section is
+injective, \(T\varpi_i\circ TQ=\operatorname{id}\) makes it an immersion, and
+\(\varpi_i\) restricted to its image is a continuous inverse, so \(Q\) is a
+homeomorphism onto its image. If \(\Gamma=Q\circ\gamma\), then
+\(\varpi_i\circ\Gamma=\gamma\); conversely a curve in the image satisfies
+\(\Gamma=Q\circ\varpi_i\circ\Gamma\). A curve in one fiber has constant
+\(\varpi_i\circ\Gamma\), so its only representation is a constant curve.
+\(\square\)
+
+\section{Finite-design and continuum clocks}
+
+The pointwise clock of \eqref{eq:hist-pointwise-clock-speed} uses only the
+vertical evaluation velocities of \eqref{eq:hist-pointwise-history-verticality}
+at one context. Over a base, two further clocks are available once their data
+are declared.
+
+\definitionheading{Finite-design and continuum clocks}{def:hist-design-continuum-clocks}
+Fix positive channel weights \(w_b,w_m\) on \(\mathcal C_i\) and a \(C^1\)
+section history \(Q_i=(q^b_i,q^m_i)\). For a finite design
+\(D=\{c_d\}_{d=1}^M\subset\mathcal C_i\) with positive design weights
+\(\mathsf p_d\), the finite-design squared speed is
+\begin{equation}
+\nu_{i,D}^2
+=\sum_{d=1}^M\mathsf p_d\left[
+w_b(c_d)g_b^F\bigl(\partial_rq^b_i(c_d),\partial_rq^b_i(c_d)\bigr)
++w_m(c_d)g_m^F\bigl(\partial_rq^m_i(c_d),\partial_rq^m_i(c_d)\bigr)
+\right].
+\label{eq:hist-finite-design-clock-speed}
+\end{equation}
+For a finite positive base measure \(\varrho_i\), measurable positive channel
+weights, and square-integrable evaluation velocities, the continuum squared
+speed is
+\begin{equation}
+\nu_{i,\varrho}^2
+=\int_{\mathcal C_i}\left[
+w_b(c)g_b^F\bigl(\partial_rq^b_i(c),\partial_rq^b_i(c)\bigr)
++w_m(c)g_m^F\bigl(\partial_rq^m_i(c),\partial_rq^m_i(c)\bigr)
+\right]d\varrho_i(c).
+\label{eq:hist-continuum-clock-speed}
+\end{equation}
+Both clocks are declared data, and without their declarations only the
+pointwise clock is defined.
+
+\propositionheading{The design clock has a large radical}{prop:hist-design-clock-radical}
+The finite-design speed \eqref{eq:hist-finite-design-clock-speed} is the product
+Fisher speed of the declared design and weights, and every section variation
+that vanishes at all \(c_d\) lies in its radical. In particular every nonzero
+vertical variation in \(T_Q\mathfrak S_i\) supported in an open set disjoint from
+\(D\), such as a bump variation when \(\mathfrak S_i\) admits one, is a nonzero
+element of the radical, and the design speed is then not positive definite on
+\(T_Q\mathfrak S_i\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Each summand of \eqref{eq:hist-finite-design-clock-speed} evaluates the
+variation only at a design point. \(\square\)
+
+\lemmaheading{Local continuum metrics see no cross-context pairing}{lem:hist-continuum-clock-locality}
+Let a configuration metric on \(T_Q\mathfrak S_i\) have the local single-integral
+form obtained by polarizing \eqref{eq:hist-continuum-clock-speed}. Then two
+variations whose contextual supports are disjoint have zero pairing.
+Consequently, if the exact Fisher bilinear form of a declared joint law of
+section configurations pairs two such variations nontrivially, that form is not
+of the local single-integral form, and replacing it by
+\eqref{eq:hist-continuum-clock-speed} defines a local approximation.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+For variations \(V,W\) with disjoint supports the integrand
+\(\sum_xw_x(c)g^F_x(V_x(c),W_x(c))\) vanishes at every \(c\). \(\square\)
+
+Contextual dependence of a law alone therefore does not settle whether the
+continuum clock is its exact Fisher speed; that identity must be derived from
+the score covariance of the declared joint law, and any cross-context term of the
+exact metric must be retained.
+
+\section{Strong Hilbert quotients and attained duration}
+\label{sec:hist-strong-hilbert-quotient}
+
+At \(c_*\) with finitely many agents the configuration space is
+finite-dimensional, the gauge group is a finite-dimensional Lie group, and the
+gauge-quotient speed is one orthogonal projection
+(\cref{prop:hist-invariant-history-horizontal}). For configurations of sections
+the same formula needs a Hilbert category. For a smooth proper action of a
+Banach--Lie group on a Banach manifold, the infinitesimal orbit maps have closed
+range \citep[Theorem~2.1]{JotzNeeb2008}, and the orbit space of a free proper
+action on a Hilbert manifold carries a unique Hilbert manifold structure for
+which the quotient map is a submersion \citep[Corollary~2.5]{JotzNeeb2008}; both
+use properness in the sense of \eqref{eq:hist-proper-action-map}. The theorem
+below adds what a quotient duration needs and the citation does not supply: the
+metric-orthogonal splitting, its attainment, the principal bundle structure,
+and a strong quotient metric making the projection a Riemannian submersion. Its
+proof is given in \cref{sec:hist-strong-hilbert-quotient-proof}.
+
+\theoremheading{Strong Hilbert quotient duration}{thm:hist-strong-hilbert-quotient}
+Let \(\mathcal M\) be a nonempty Hausdorff \(C^\infty\) real Hilbert manifold
+with a \(C^\infty\) strong Riemannian metric \(\mathsf g\): the metric norm gives
+the declared tangent topology and, in each Hilbert chart, its positive metric
+operator is boundedly invertible and varies smoothly in operator norm. Let a
+Hausdorff \(C^\infty\) real Banach--Lie group \(\mathbb G\), with Lie algebra
+\(\mathfrak g\), act jointly smoothly, freely, and isometrically on
+\(\mathcal M\), and assume that the action map
+\begin{equation}
+\mathfrak a:\mathbb G\times\mathcal M\longrightarrow
+\mathcal M\times\mathcal M,
+\qquad
+\mathfrak a(g,Q)=(g\cdot Q,Q),
+\label{eq:hist-proper-action-map}
+\end{equation}
+is closed with compact fibers. Then the infinitesimal action
+\begin{equation}
+A_Q\xi=\left.\frac{d}{dt}\right|_{t=0}\exp(t\xi)\cdot Q
+\label{eq:hist-infinitesimal-orbit-map}
+\end{equation}
+is injective with closed range \(V_Q\); the spaces \(V_Q\) and
+\(H_Q=V_Q^{\perp_{\mathsf g}}\) are smooth complementary subbundles; the orbit
+space \(\mathcal M/\mathbb G\) is, componentwise, a Hausdorff smooth Hilbert
+manifold; and its projection \(\pi\) is a smooth principal bundle and a
+Riemannian submersion for a strong quotient metric \(\overline{\mathsf g}\).
+For every \(Q\in\mathcal M\) and \(v\in T_Q\mathcal M\),
+\begin{equation}
+\|d\pi_Qv\|_{\overline{\mathsf g}}^2
+=\min_{\xi\in\mathfrak g}\mathsf g_Q(v-A_Q\xi,v-A_Q\xi),
+\label{eq:hist-quotient-gauge-speed}
+\end{equation}
+the minimizing \(\xi\) is unique and smooth in \((Q,v)\), and the quotient speed
+and its integrated duration do not depend on a \(C^1\) history-dependent choice
+of representative. Neither metric completeness nor finite dimensionality of
+\(\mathbb G\) is assumed. \status{ESTABLISHED}
+
+Applied to a section configuration \((\mathcal M,\mathsf g)=(\mathfrak S_i,\mathsf G_i^F)\),
+the theorem requires that the Hilbert topology, the strong metric, the
+Banach--Lie gauge group, and the smooth proper isometric action be established
+first. Passive re-trivialization changes coordinates and adds no segment to a
+history.
+
+\section{A proper action with a weak Fisher quotient of zero speed}
+\label{sec:hist-weak-fisher-quotient}
+
+Closed range and a topological complement do not suffice for a weak metric,
+even when the smooth quotient and a global topological splitting exist.
+
+\propositionheading{Proper weak-Fisher quotient obstruction}{prop:hist-proper-weak-fisher-quotient}
+Let \(\mathcal C=\R/\mathbb Z\) carry normalized arclength \(dc\), and set
+\begin{equation}
+\mathcal M=H^1(\mathcal C;\R),
+\qquad
+\|q\|_{H^1}^2=\int_{\mathcal C}(|q|^2+|q'|^2)dc,
+\qquad
+\mathcal K=\{h\in\mathcal M:h(0)=0\},
+\label{eq:hist-weak-sobolev-model}
+\end{equation}
+using the continuous periodic representative of each Sobolev class. The
+additive Hilbert Lie group \(\mathcal K\), with the inherited \(H^1\) topology,
+acts by \(h\cdot q=q+h\). Equip \(\mathcal M\) with
+\begin{equation}
+\mathsf g_q(v,w)=\int_{\mathcal C}v(c)w(c)dc.
+\label{eq:hist-weak-integrated-fisher}
+\end{equation}
+The action is smooth, free, proper, and isometric; its smooth quotient is
+\(\R\), via \(q\mapsto q(0)\); and \(\mathcal K\) is closed and complemented in
+\(H^1\). Nevertheless
+\begin{equation}
+\mathcal K^{\perp_{\mathsf g}}=\{0\},
+\qquad
+\inf_{h\in\mathcal K}\|v-h\|_{\mathsf g}^2=0
+\quad\text{for every }v\in H^1,
+\label{eq:hist-weak-quotient-collapse}
+\end{equation}
+and the infimum is attained exactly when \(v(0)=0\). The form \(\mathsf g\) is
+the Fisher metric of the identifiable normalized joint observation family
+\begin{equation}
+P_q(dc,do)=\mathcal N\bigl(o;q(c),1\bigr)(dc\otimes do),
+\label{eq:hist-weak-joint-law}
+\end{equation}
+which is differentiable in quadratic mean in the \(H^1\) parameter topology.
+Thus every nonzero quotient tangent has zero induced speed and no minimizing
+lift, although the quotient is smooth and proper. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Absolute continuity and the Cauchy--Schwarz inequality give
+\begin{equation}
+\|q\|_\infty\leq\|q\|_2+\|q'\|_2\leq\sqrt2\|q\|_{H^1};
+\label{eq:hist-sobolev-trace-bound}
+\end{equation}
+for the first inequality bound \(|q(c)|\) by \(|q(t)|+\int_{\mathcal C}|q'|\)
+and average over \(t\). The trace \(\operatorname{tr}_0(q)=q(0)\) is therefore
+bounded, and
+\begin{equation}
+q\longmapsto\bigl(q-q(0)\mathbf1,q(0)\bigr)
+\quad\text{identifies}\quad
+H^1\cong\mathcal K\oplus\R
+\label{eq:hist-trace-topological-splitting}
+\end{equation}
+by bounded inverse maps. An \(H^1\)-Cauchy sequence converges uniformly by
+\eqref{eq:hist-sobolev-trace-bound} and its derivatives converge in \(L^2\), so
+passing to the limit in \(q(c)-q(0)=\int_0^cq'(t)dt\) gives an absolutely
+continuous periodic limit with that derivative; this verifies the Hilbert
+structure used for the group and the manifold.
+
+The action is translation in the \(\mathcal K\) factor of
+\eqref{eq:hist-trace-topological-splitting}; it is smooth and free, and its
+quotient is the displayed line. The action map \((h,q)\mapsto(q+h,q)\) is a
+homeomorphism onto the closed relation
+\(\{(u,q):\operatorname{tr}_0(u-q)=0\}\), with inverse \((u,q)\mapsto(u-q,q)\),
+so it is closed with fibers that are singletons or empty, which is properness
+in the sense of \eqref{eq:hist-proper-action-map}. Every translation has
+identity derivative and preserves \(\mathsf g\).
+
+Let \(\mathsf b(t)=\exp(1-(1-t^2)^{-1})\) for \(|t|<1\) and \(\mathsf b(t)=0\)
+otherwise, and for \(n\geq3\) let \(\mathsf b_n(c)=\mathsf b(nc)\) in the signed
+circle coordinate \([-1/2,1/2]\), extended periodically. These are smooth with
+\(\mathsf b_n(0)=1\), and with \(\mathrm c_1=\int_{-1}^1\mathsf b^2>0\) and
+\(\mathrm c_2=\int_{-1}^1(\mathsf b')^2>0\),
+\begin{equation}
+\|\mathsf b_n\|_2^2=\frac{\mathrm c_1}{n},
+\qquad
+\|\mathsf b_n'\|_2^2=n\mathrm c_2,
+\qquad
+v^{(n)}=v-v(0)\mathsf b_n\in\mathcal K.
+\label{eq:hist-trace-shrinking-bumps}
+\end{equation}
+Hence \(\|v-v^{(n)}\|_2=|v(0)|\sqrt{\mathrm c_1/n}\to0\). If \(v\) is
+\(\mathsf g\)-orthogonal to \(\mathcal K\), then
+\(0=\lim_n\mathsf g(v,v^{(n)})=\|v\|_2^2\), so \(v=0\). The same approximation
+gives the zero infimum in \eqref{eq:hist-weak-quotient-collapse}; attainment at
+\(h\) would force \(v-h=0\), because the \(L^2\) form is positive definite on
+\(H^1\), and this is equivalent to \(v(0)=0\).
+
+The metric is weak in the declared topology: its musical map is injective but
+does not represent the continuous trace covector, since
+\(\operatorname{tr}_0=\mathsf g(v,\cdot)\) would give
+\begin{equation}
+1=\operatorname{tr}_0(\mathsf b_n)=\int_{\mathcal C}v\mathsf b_ndc,
+\qquad
+\left|\int_{\mathcal C}v\mathsf b_ndc\right|
+\leq\|v\|_2\sqrt{\mathrm c_1/n}\longrightarrow0.
+\label{eq:hist-weak-musical-obstruction}
+\end{equation}
+The derivative norm in \eqref{eq:hist-trace-shrinking-bumps} diverges, so the
+bumps do not converge in \(H^1\), and properness in that topology is not
+contradicted.
+
+It remains to show that \eqref{eq:hist-weak-integrated-fisher} is a
+statistical tensor. The law \eqref{eq:hist-weak-joint-law} is normalized by
+integrating each conditional Gaussian and then the unit circle measure.
+Equality of two joint laws gives equality of their conditional means almost
+everywhere in \(c\), and continuity gives \(q=\widetilde q\) everywhere, which
+is identifiability. Write \(\mathrm r_\mu(o)=\mathcal N(o;\mu,1)^{1/2}\) and
+\(\mathrm S(q)(c,o)=\mathrm r_{q(c)}(o)\). The translation-invariant constant
+\(\mathrm c_3=\|\partial_\mu^2\mathrm r_\mu\|_{L^2(do)}\) is finite, since the
+derivative is a quadratic polynomial times a Gaussian square root. Taylor's
+formula in \(L^2(do)\), followed by integration over \(c\), gives
+\begin{equation}
+\begin{split}
+D\mathrm S(q)[v](c,o)&=\tfrac12v(c)\bigl(o-q(c)\bigr)\mathrm S(q)(c,o),\\
+\|\mathrm S(q+h)-\mathrm S(q)-D\mathrm S(q)[h]\|_2
+&\leq\tfrac12\mathrm c_3\|h\|_4^2
+\leq\tfrac12\mathrm c_3\|h\|_\infty\|h\|_2
+=O(\|h\|_{H^1}^2).
+\end{split}
+\label{eq:hist-weak-fisher-dqm}
+\end{equation}
+This is differentiability in quadratic mean with square-integrable directional
+score \(\mathbf s_q[v](c,o)=v(c)(o-q(c))\). The conditional mean and variance
+of \(O-q(C)\) are zero and one, so
+\begin{equation}
+\E_q\bigl[\mathbf s_q[v]\bigr]=0,
+\qquad
+\E_q\bigl[\mathbf s_q[v]\mathbf s_q[w]\bigr]
+=\int_{\mathcal C}v(c)w(c)dc,
+\label{eq:hist-weak-fisher-score}
+\end{equation}
+the Fisher metric of the observed pair \((C,O)\), with \(C\) retained. For each
+fixed \(h\in\mathcal K\), the bimeasurable observation change
+\((c,o)\mapsto(c,o+h(c))\) pushes \(P_q\) to \(P_{q+h}\), so orbit equivalence
+is implemented by a declared coordinate action; it is not equality of these
+laws in fixed recorded coordinates. \(\square\)
+
+\propositionheading{The trace quotient is not a fixed observation channel}{prop:hist-weak-trace-not-markov}
+No parameter-independent Markov kernel \(K:\mathcal C\times\R\rightsquigarrow\R\)
+satisfies
+\begin{equation}
+P_qK=\mathcal N\bigl(q(0),1\bigr)
+\quad\text{for every }q\in H^1(\mathcal C;\R).
+\label{eq:hist-trace-channel-impossibility}
+\end{equation}
+Attaching this normalized output family to the smooth parameter quotient of
+\cref{prop:hist-proper-weak-fisher-quotient} therefore gives neither a
+statistical coarse channel nor its quotient Fisher metric. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Use \(\operatorname{TV}(P,P')=\sup_B|P(B)-P'(B)|\), half the \(L^1\) distance for
+densities. Integrating the derivative of the standard normal density gives
+\begin{equation}
+\int_\R\bigl|\mathcal N(o;t,1)-\mathcal N(o;0,1)\bigr|do
+\leq|t|\int_\R\bigl|\partial_o\mathcal N(o;0,1)\bigr|do
+=|t|\sqrt{2/\pi},
+\qquad
+\operatorname{TV}(P_q,P_0)\leq\frac{\|q\|_1}{\sqrt{2\pi}}.
+\label{eq:hist-trace-total-variation-bound}
+\end{equation}
+Fix \(\delta>0\) and take \(q_n=\delta\mathsf b_n\), with the bumps of the
+preceding proof. Its trace is \(\delta\), whereas
+\(\|q_n\|_1=\delta n^{-1}\int_{-1}^1\mathsf b\to0\). Every Markov kernel
+contracts total variation: for an output event \(B\) the function
+\(z\mapsto K(z,B)\) takes values in \([0,1]\), and writing
+\(K(z,B)=\int_0^1\mathbf1_{\{K(z,B)>t\}}dt\) bounds its expectation difference by
+the total variation of the inputs. If \eqref{eq:hist-trace-channel-impossibility}
+held, it would give
+\(\operatorname{TV}(\mathcal N(\delta,1),\mathcal N(0,1))\to0\). But the fixed
+event \((\delta/2,\infty)\) has probability difference
+\begin{equation}
+\mathcal N(\delta,1)\bigl((\delta/2,\infty)\bigr)
+-\mathcal N(0,1)\bigl((\delta/2,\infty)\bigr)
+=\int_{-\delta/2}^{\delta/2}\mathcal N(o;0,1)do>0,
+\label{eq:hist-trace-output-separation}
+\end{equation}
+a contradiction. A continuous conditional version at \(C=0\) exists, but
+selecting it at this zero-probability context is not the action of a fixed
+kernel on one joint observation. \(\square\)
+
+\lemmaheading{Minimizing lifts are orthogonal lifts}{lem:hist-orthogonal-lift}
+Let \(V\) be a subspace of an inner-product space \(T\). For \(v\in T\), the
+element \(k_*\in V\) minimizes \(\|v-k\|\) over \(k\in V\) exactly when
+\(v-k_*\in V^\perp\). Hence every class of \(T/V\) has a minimizing lift exactly
+when \(T=V\oplus V^\perp\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Differentiating \(t\mapsto\|v-k_*-tk\|^2\) at \(t=0\) for every \(k\in V\)
+proves necessity; if \(v-k_*\in V^\perp\), Pythagoras gives
+\(\|v-k\|^2=\|v-k_*\|^2+\|k_*-k\|^2\), which proves sufficiency. A class
+\(v+V\) has a minimizing lift exactly when \(v\in V+V^\perp\). \(\square\)
+
+A topological complement is therefore insufficient, as
+\cref{prop:hist-proper-weak-fisher-quotient} shows, and a smooth quotient metric
+built from minimizing lifts additionally needs a smooth compatible horizontal
+structure, which \cref{thm:hist-strong-hilbert-quotient} supplies in the strong
+case.
+
+\openproblemheading{Admission of declared recognition families to a configuration tier}{open:hist-section-tier-admission}
+The history theorems of \cref{ch:relational-inference} hold on the tiers
+admitted by \cref{hyp:hist-standing-configuration-tier}, and
+\cref{thm:hist-strong-hilbert-quotient} covers free, proper, isometric actions on
+strong Riemannian Hilbert manifolds. A weak metric, a Fr\'echet group or
+manifold, a singular action, or a changing support is covered by neither. What
+is not settled is whether a recognition family that an application declares, in
+particular an infinite-dimensional law fiber or a space of sections, admits at
+every scale where a natural-gradient field or a Fisher duration is asserted a
+manifold calculus, its actual statistical metric, a smooth quotient, and a
+metric-orthogonal splitting. The problem is settled for a declared family by
+exhibiting these structures, or by exhibiting a family for which one of them
+provably fails while the history theorems are still invoked.
+
+\section{An exhibited finite-dimensional configuration tier}
+
+The finite-dimensional kind of \cref{hyp:hist-standing-configuration-tier}
+admits every regular statistical manifold with a declared positive-definite
+metric. The following tier is a base-integrated Gaussian instance over a
+positive-dimensional base, with a strong constant metric, a rank test for
+nondegeneracy, and a closed gauge-orbit tangent, built from bundle data rather
+than assumed.
+
+\definitionheading{An exhibited finite-dimensional configuration tier}{def:hist-finite-configuration-tier}
+Declare at scale \(\ell\) a compact smooth base \(\mathcal C_\ell\) with a finite
+positive Borel measure \(\varrho_\ell\); the trivial principal bundle
+\(\mathcal C_\ell\times G\) with \(G=(\R^K,+)\) acting on the fiber by
+translation of the mean and \(\omega\) the flat connection; the fiber
+\(\mathcal B=\{\mathcal N(\mu,\Sigma_0):\mu\in\R^K\}\) with fixed
+\(\Sigma_0\succ0\), whose Fisher form is the constant \(g^F=\Sigma_0^{-1}\); a
+measurable weight \(w:\mathcal C_\ell\to(0,\infty)\) bounded above and below; and
+smooth fields \(\psi_1,\dots,\psi_n:\mathcal C_\ell\to\R^K\) that are linearly
+independent in \(L^2(w\varrho_\ell;\Sigma_0^{-1})\) and whose span contains every
+constant field. Set
+\begin{equation}
+\mathcal Q_\ell
+=\left\{s_{\mathbf z}:\mathbf z\in\R^n\right\},
+\qquad
+s_{\mathbf z}(c)
+=\mathcal N\Bigl(\sum_jz_j\psi_j(c),\Sigma_0\Bigr).
+\label{eq:hist-finite-configuration-tier}
+\end{equation}
+Let \(\jmath_\ell:\R^K\to\R^n\) be the unique coefficient map with
+\(\sum_j(\jmath_\ell g)_j\psi_j(c)=g\) for every \(c\). Constant mean
+translations preserve the span and act on coefficients by
+\begin{equation}
+\mathscr A^\ell_g(\mathbf z)=\mathbf z+\jmath_\ell g.
+\label{eq:hist-finite-tier-coefficient-action}
+\end{equation}
+Only constant translations are declared: a context-dependent translation
+\(c\mapsto g(c)\) maps \(\mathcal Q_\ell\) into itself exactly when it lies in
+the span of the \(\psi_j\), so the tier is not closed under general
+context-dependent gauge transformations. The configuration metric is the
+weighted product of marginal fiber metrics
+\begin{equation}
+\mathsf G_\ell(V,V)
+=\int_{\mathcal C_\ell}w(c)
+g^F\bigl(\partial_Vs_{\mathbf z}(c),\partial_Vs_{\mathbf z}(c)\bigr)
+d\varrho_\ell(c),
+\label{eq:hist-finite-configuration-metric}
+\end{equation}
+not the pullback of a joint-law Fisher metric.
+
+\theoremheading{The exhibited tier satisfies the regular metric hypothesis}{thm:hist-finite-tier-regularity}
+Under \cref{def:hist-finite-configuration-tier}, \(\mathcal Q_\ell\) is a
+nonempty smooth manifold diffeomorphic to \(\R^n\), with \(\mathbf z=0\) the
+constant configuration \(c\mapsto\mathcal N(0,\Sigma_0)\); the metric
+\eqref{eq:hist-finite-configuration-metric} is the constant Gram form
+\begin{equation}
+\mathsf G_\ell=\mathsf M_\ell,
+\qquad
+(\mathsf M_\ell)_{jk}
+=\int_{\mathcal C_\ell}\psi_j(c)^\top\Sigma_0^{-1}\psi_k(c)w(c)
+d\varrho_\ell(c),
+\label{eq:hist-configuration-gram}
+\end{equation}
+independent of \(\mathbf z\), finite, and positive definite, hence strong; every
+\(C^1\) functional has the unique gradient \(\mathsf M_\ell^{-1}\nabla\Fenergy\),
+and for \(\Fenergy\in C^2\) the natural-gradient field is locally Lipschitz with
+locally unique integral curves; and the gauge-orbit tangent of constant mean
+translations is the closed complemented subspace \(\jmath_\ell(\R^K)\), so the
+minimum in \eqref{eq:hist-quotient-gauge-speed} is attained at the
+\(\mathsf M_\ell\)-orthogonal projection. The tier is therefore an instance of
+the finite-dimensional kind of \cref{hyp:hist-standing-configuration-tier}.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The bundle is trivial and \(s_{\mathbf z}\) is smooth jointly in
+\((c,\mathbf z)\). If \(s_{\mathbf z}=s_{\mathbf y}\), then
+\(\sum_j(z_j-y_j)\psi_j=0\) in \(L^2(w\varrho_\ell;\Sigma_0^{-1})\), and
+independence gives \(\mathbf z=\mathbf y\), so the family is diffeomorphic to
+its coefficient space. Since \(\partial_Vs_{\mathbf z}(c)=\sum_jv_j\psi_j(c)\)
+does not depend on \(\mathbf z\), the integrand of
+\eqref{eq:hist-finite-configuration-metric} is \(\mathbf v^\top\mathsf M_\ell\mathbf v\);
+finiteness follows from compactness of the base and boundedness of \(w\).
+If \(\mathbf v^\top\mathsf M_\ell\mathbf v=0\), then \(\sum_jv_j\psi_j=0\) in
+\(L^2(w\varrho_\ell;\Sigma_0^{-1})\), so \(\mathbf v=0\). An inner product on a
+finite-dimensional space induces its norm topology and has an invertible musical
+map, which gives strongness and the gradient. The span condition defines
+\(\jmath_\ell\) and gives \(s_{\mathscr A^\ell_g(\mathbf z)}=g\cdot s_{\mathbf z}\);
+a finite-dimensional subspace is closed and complemented, and
+\cref{lem:hist-orthogonal-lift} gives the attained minimum. \(\square\)
+
+\remarkheading{Nondegeneracy is a rank condition}{rem:hist-finite-tier-rank}
+Nondegeneracy can be checked before any dynamics is written. With an
+\(M\)-atom design \(\varrho_\ell=\sum_{d=1}^M\mathsf p_d\delta_{c_d}\), the Gram
+matrix has rank at most \(MK\), so for \(n>MK\) the metric is degenerate and,
+by \cref{prop:hist-semidefinite-gradient-obstruction}, the natural-gradient
+equation has no solution or many. For \(\mathcal C_\ell=\R/2\pi\mathbb Z\) with
+normalized arclength, \(K=1\), \(\Sigma_0=1\), \(w\equiv1\), and
+\(\{\psi_j\}=\{1,\cos c,\sin c\}\), the Gram matrix is
+\(\operatorname{diag}(1,\tfrac12,\tfrac12)\), with determinant \(\tfrac14\), so
+\(\mathcal Q_\ell\cong\R^3\) carries a positive-definite constant metric.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Under an \(M\)-atom design each field enters \(\mathsf M_\ell\) only through its
+values at the atoms, so \(\mathsf M_\ell=\mathsf V^\top\mathsf D\mathsf V\), where
+\(\mathsf V\in\R^{MK\times n}\) stacks the values \(\psi_j(c_d)\) and
+\(\mathsf D\) is block diagonal with blocks \(\mathsf p_dw(c_d)\Sigma_0^{-1}\). On
+the circle, orthogonality of
+\(1,\cos c,\sin c\) under normalized arclength gives the diagonal entries
+\(1,\tfrac12,\tfrac12\). \(\square\)
+
+\propositionheading{A strong \(L^2\) tier and a weak Sobolev tier}{prop:hist-l2-sobolev-tiers}
+For the integrated normal-mean metric
+\(\mathsf G^{L^2}(V,W)=\int V^\top\Sigma_0^{-1}Ww d\varrho\) on
+\(\mathcal Q^{L^2}=L^2(\varrho;\R^K)\), the bounds
+\(0<w_-\leq w\leq w_+<\infty\) and
+\(\mathrm c_-I\preceq\Sigma_0^{-1}\preceq\mathrm c_+I\) give
+\(w_-\mathrm c_-\|V\|^2_{L^2}\leq\mathsf G^{L^2}(V,V)\leq w_+\mathrm c_+\|V\|^2_{L^2}\),
+so the musical map is a topological isomorphism and the metric is strong; if the
+\(\varrho\)-essential infimum of \(w\) is zero or its essential supremum is
+infinite, the form is not equivalent to the \(L^2\) norm. On the circle
+\(\mathcal C=\R/2\pi\mathbb Z\) with normalized arclength, \(K=1\), and
+\(\Sigma_0=w=1\), the same metric on a Sobolev tier \(H^s\), \(s>0\), induces a
+strictly coarser topology than the manifold topology, and its musical map is
+injective and bounded but not surjective, so the metric is weak. The failure is
+realized for \(\mathcal Q=H^1\) and \(\Fenergy(Q)=\tfrac12\int|Q'|^2\): at
+\(Q=\sum_{j\geq1}j^{-2}\sin jc\), which lies in \(H^1\), a gradient would be
+\(-Q''=\sum_j\sin jc\), which is not in \(L^2\), so no natural-gradient vector
+field exists at \(Q\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The two-sided bounds are the pointwise bounds integrated. If the essential
+infimum of \(w\) is zero, the sets \(\{w<1/k\}\) have positive measure, and the
+normalized indicator functions of these sets times a unit vector have
+\(\mathsf G^{L^2}(V,V)\leq\mathrm c_+/k\); an infinite essential supremum gives
+\(\mathsf G^{L^2}(V,V)\geq\mathrm c_-k\) in the same way. On the circle, in
+Fourier coefficients \(\hat v_j\), the \(H^s\) norm is
+\(\sum_j(1+j^2)^s|\hat v_j|^2\) and the metric is \(\sum_j|\hat v_j|^2\), so the two
+are not equivalent. The functional
+\(\ell(v)=\sum_{j\geq1}j^{s-1/2}\log(1+j)^{-1}\hat v_j\) is \(H^s\)-continuous,
+since \(\sum_jj^{2s-1}\log(1+j)^{-2}(1+j^2)^{-s}<\infty\), but it is represented
+by no \(L^2\) function, since \(\sum_jj^{2s-1}\log(1+j)^{-2}=\infty\). In the
+example \(\|Q\|_{H^1}^2\) is a multiple of \(\sum_j(1+j^2)j^{-4}<\infty\), while
+\(\|Q''\|_2^2\) is a multiple of \(\sum_j1=\infty\), and
+\(d\Fenergy_Q[V]=\int Q'V'=-\int Q''V\) is \(\mathsf G^{L^2}\)-representable only
+by \(-Q''\). \(\square\)
+
+The missing ingredient on a weak Sobolev tier is representability of \(d\Fenergy_Q\)
+by a vector in its declared tangent space. A bound
+\(|d\Fenergy_Q[V]|\leq\mathrm c_Q\|V\|_{L^2}\) on a dense domain gives an \(L^2\)
+Riesz representative, but a gradient on the \(H^s\) tier additionally requires that
+representative to belong to \(H^s\). For example, on the circle with normalized
+arclength, \(f(c)=\sum_{j\geq1}j^{-1}\sin(jc)\) lies in \(L^2\setminus H^1\), and
+\(\Fenergy(Q)=\int fQ\) is a continuous linear functional on \(H^1\) with the displayed
+bound but no \(H^1\) gradient for the \(L^2\) metric. The price of the strong \(L^2\)
+tier is that \(\Fenergy\) must be \(C^1\) on \(L^2\), which excludes gradient-energy
+objectives.
+
+\section{Base averaging and the coarse configuration map}
+\label{sec:hist-base-averaging}
+
+A pointwise bundle morphism induces a map on configurations only on the
+projectable set of \cref{thm:pb-section-descent}, and under the reachability
+hypotheses of \cref{prop:pb-nonfunctorial-descent} that set is a proper subset
+whenever the base map collapses a direction on which the vertical differential
+does not vanish, and it can have empty interior in the linear tier. The coarse
+configuration map \(\mathsf F_\ell\) of \eqref{eq:hist-configuration-coarse-map}
+is therefore declared separately, and averaging over the fibers of a base map is
+its standard instance.
+
+\openproblemheading{Smooth structure of the projectable set}{open:hist-projectable-set}
+\Cref{thm:pb-section-descent} characterizes the fine sections that descend, and
+\cref{prop:pb-nonfunctorial-descent} shows that the descendable set is proper and
+can have empty interior. It is not known under which hypotheses that set is a
+smooth submanifold of a declared configuration manifold carrying a smooth
+induced configuration map. The problem is settled by a transversality or
+elliptic-regularity hypothesis on the base map and the recognition family under
+which the projectable set is proved to be such a submanifold, or by a family in
+which it provably is not.
+
+\definitionheading{Averaging coarse configuration map}{def:hist-averaging-coarse-map}
+Let \(f:\mathcal C_\ell\to\mathcal C_{\ell+1}\) be measurable between standard
+Borel spaces, let \(\varrho\) be a finite positive measure on \(\mathcal C_\ell\)
+with \(\bar\varrho=f_\#\varrho\), and let \(\{\varrho_{\bar c}\}\) disintegrate
+\(\varrho\) over \(f\). Let the coarse fiber \(\bar{\mathcal B}\) be convex in a
+locally convex space on which the structure group acts by restrictions of linear
+maps, and let \(\Psi\) act fiberwise as the restriction of a continuous affine map
+with linear part \(L\), with the integrand Bochner integrable and its barycenter
+in the fiber. The averaging map is
+\begin{equation}
+\left(\mathsf F_\ell s\right)(\bar c)
+=\int_{f^{-1}(\bar c)}\Psi\bigl(s(c)\bigr)\varrho_{\bar c}(dc).
+\label{eq:hist-averaging-coarse-map}
+\end{equation}
+The affine chart of \(\bar{\mathcal B}\) is \emph{jointly convex} when
+\((\bar\beta,u)\mapsto\bar g^F_{\bar\beta}(u,u)\) is jointly convex on
+\(\bar{\mathcal B}\) times its model space; the special case in which
+\(\bar g^F\) is constant in the chart is written (JC-const).
+
+\propositionheading{Averaging reproduces descended sections}{prop:hist-averaging-descent}
+In \cref{def:hist-averaging-coarse-map}, if \(\Psi\circ s\) is \(f\)-basic with
+unique descended section \(\bar s\), then
+\((\mathsf F_\ell s)(\bar c)=\bar s(\bar c)\) for \(\bar\varrho\)-almost every
+\(\bar c\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+For \(\bar\varrho\)-almost every \(\bar c\) the integrand equals
+\(\bar s(\bar c)\) for \(\varrho_{\bar c}\)-almost every point of the fiber, and
+the disintegration is normalized. \(\square\)
+
+\hypothesisheading{Chart joint convexity}{hyp:hist-joint-convexity}
+Where \cref{thm:hist-averaging-defect} asserts a nonnegative averaging loss, the
+affine chart of the coarse fiber is jointly convex in the sense of
+\cref{def:hist-averaging-coarse-map}. This is a restriction on the chart, not a
+property of Fisher metrics, and it excludes charts such as the covariance sector
+of the Gaussian moment chart (\cref{prop:hist-averaging-convexity}).
+
+\theoremheading{Exact averaging defect}{thm:hist-averaging-defect}
+Assume \cref{def:hist-averaging-coarse-map}, \cref{hyp:hist-joint-convexity},
+the fiberwise Fisher contraction
+\(\Delta_F^\Psi=g^F-L^*\bar g^FL\succeq0\), which holds when \(\Psi\) is a Markov
+coarse morphism by \cref{thm:pb-pullback-fisher-defect}, the weight condition
+\(\bar w\circ f\leq w\) of \eqref{eq:pb-cross-scale-declarations}, and finiteness
+of every integral. Then \(\mathsf F_\ell s\) is a section, \(\mathsf F_\ell\) is
+gauge equivariant because the transition maps act linearly and commute with
+barycenters, and for every \(Z\in T_s\mathcal Q_\ell\) the defect
+\begin{equation}
+\Delta_{\mathrm{avg}}(Z)
+=\int_{\mathcal C_\ell}wg^F_{s(c)}(Z,Z)d\varrho
+-\int_{\mathcal C_{\ell+1}}\bar w
+\bar g^F_{(\mathsf F_\ell s)(\bar c)}
+\bigl(T\mathsf F_\ell Z,T\mathsf F_\ell Z\bigr)d\bar\varrho
+\label{eq:hist-averaging-defect}
+\end{equation}
+is nonnegative. Under (JC-const) it is exactly the sum of three nonnegative terms,
+\begin{equation}
+\Delta_{\mathrm{avg}}(Z)
+=\underbrace{\int_{\mathcal C_\ell}w\Delta_F^\Psi(Z,Z)d\varrho}
+_{\text{channel loss}}
++\underbrace{\int_{\mathcal C_\ell}(w-\bar w\circ f)
+\bigl(L^*\bar g^F\bigr)(Z,Z)d\varrho}_{\text{weight gap}}
++\underbrace{\int_{\mathcal C_{\ell+1}}\bar w
+\operatorname{Var}^{\bar g^F}_{\varrho_{\bar c}}(LZ)d\bar\varrho}
+_{\text{context gap}},
+\label{eq:hist-averaging-three-term}
+\end{equation}
+where
+\(\operatorname{Var}^{\bar g}_{\varrho_{\bar c}}(U)
+=\int\bar g(U,U)d\varrho_{\bar c}
+-\bar g\bigl(\int Ud\varrho_{\bar c},\int Ud\varrho_{\bar c}\bigr)\).
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Affineness gives \(T\mathsf F_\ell Z(\bar c)=\int LZ(c)\varrho_{\bar c}(dc)\), so
+\((\mathsf F_\ell s(\bar c),T\mathsf F_\ell Z(\bar c))\) is the
+\(\varrho_{\bar c}\)-barycenter of \((\Psi s(c),LZ(c))\). Joint convexity and
+Jensen's inequality give
+\[
+\bar g^F_{\mathsf F_\ell s(\bar c)}(T\mathsf F_\ell Z,T\mathsf F_\ell Z)
+\leq\int\bar g^F_{\Psi s(c)}(LZ,LZ)d\varrho_{\bar c}.
+\]
+Multiplying by \(\bar w\),
+integrating against \(\bar\varrho\), and using the disintegration turns the
+right side into \(\int(\bar w\circ f)(L^*\bar g^F)(Z,Z)d\varrho\); the weight
+condition and \(\Delta_F^\Psi\succeq0\) then give nonnegativity. When
+\(\bar g^F\) is constant in the chart, the Jensen step is an equality minus the
+variance term, and expanding \(g^F=\Delta_F^\Psi+L^*\bar g^F\) separates the
+channel and weight contributions, which gives
+\eqref{eq:hist-averaging-three-term}. \(\square\)
+
+\Cref{thm:hist-pointwise-contraction-lift} is the case of a shared base, where
+the disintegration is a point mass and no convexity is needed; the averaging
+defect admits a collapsing base map at the price of affine-fiber, convexity, and
+barycenter hypotheses, so no general comparison of logical strength between the
+two results is asserted.
+
+\propositionheading{Joint convexity cannot be dropped}{prop:hist-averaging-convexity}
+The joint-convexity hypothesis holds in the location sector of a Gaussian fiber
+with fixed covariance, where the metric is constant, and in the law chart, where
+the integrand \((p,\dot p)\mapsto\dot p^2/p\) has Hessian determinant zero and
+positive trace. It fails in the covariance sector of the Gaussian moment chart,
+where \((\Sigma,\dot\Sigma)\mapsto\dot\Sigma^2/(2\Sigma^2)\) has Hessian
+determinant \(-\dot\Sigma^2\Sigma^{-6}<0\) for \(\dot\Sigma\ne0\), and there the
+averaging defect can be negative: for two contexts with the uniform
+disintegration, unit weights, \(\Psi\) the identity, the centered normal fiber
+\(\{\mathcal N(0,\Sigma)\}\), the configuration \((\Sigma_1,\Sigma_2)=(1,\delta)\),
+and the tangent \(Z=(1,0)\), the fine integrated metric is \(\tfrac14\), the
+image metric is \(1/(2(1+\delta)^2)\), their ratio is \(2/(1+\delta)^2\), equal to
+\(\tfrac{20000}{10201}\) at \(\delta=10^{-2}\), and the defect is negative exactly
+for \(\delta<\sqrt2-1\), tending to \(-\tfrac14\) as \(\delta\to0^+\). Every other
+hypothesis of \cref{thm:hist-averaging-defect} holds on this datum.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The Hessians are direct computations. With the uniform disintegration the fine
+metric is \(\tfrac12\cdot\tfrac12+\tfrac12\cdot0=\tfrac14\); the barycenter
+configuration is \(\bar\Sigma=(1+\delta)/2\) with tangent \(\tfrac12\), whose
+metric is \((\tfrac12)^2/(2\bar\Sigma^2)=1/(2(1+\delta)^2)\). The defect
+\(\tfrac14-1/(2(1+\delta)^2)\) is negative exactly when \((1+\delta)^2<2\).
+\(\Delta_F^\Psi=0\) and the weights are equal, so only joint convexity fails.
+\(\square\)
+
+No contraction statement may therefore be attached to a generic averaging or
+variational coarse map.
+
+\propositionheading{Smoothness and gauge descent at the exhibited tier}{prop:hist-coarse-map-smoothness}
+Take the averaging map \eqref{eq:hist-averaging-coarse-map} with
+\(\bar\varrho=f_\#\varrho\), its disintegration \(\{\varrho_{\bar c}\}\), and
+\(\Psi\) acting on means as the identity. Extend
+\cref{def:hist-finite-configuration-tier} to scale \(\ell+1\) with base
+\(\mathcal C_{\ell+1}\), measure \(\bar\varrho\), weight \(\bar w\), coarse fiber
+\(\{\mathcal N(\mu,\bar\Sigma_0)\}\), and a coarse basis
+\(\bar\psi_1,\dots,\bar\psi_{\bar n}\) linearly independent in
+\(L^2(\bar w\bar\varrho;\bar\Sigma_0^{-1})\) whose span contains every constant
+field, with constant coefficient map \(\jmath_{\ell+1}\) as in
+\eqref{eq:hist-finite-tier-coefficient-action}. Suppose the fiberwise average of
+each fine basis field lies in the coarse span,
+\(\int_{f^{-1}(\bar c)}\psi_jd\varrho_{\bar c}=\sum_k\mathbf E_{kj}\bar\psi_k(\bar c)\)
+for \(\bar\varrho\)-almost every \(\bar c\), with a constant matrix
+\(\mathbf E\in\R^{\bar n\times n}\). Then the averaging map reads
+\(\mathsf F_\ell(\mathbf z)=\mathbf E\mathbf z\) in coordinates; it is linear,
+hence \(C^\infty\), with tangent map \(\mathbf E\); it intertwines the coefficient
+representations of the constants,
+\begin{equation}
+\mathbf E\jmath_\ell=\jmath_{\ell+1},
+\label{eq:hist-finite-tier-coefficient-intertwining}
+\end{equation}
+so it is gauge equivariant, \(\mathbf E\mathscr A^\ell_g=\mathscr A^{\ell+1}_g\mathbf E\);
+and its metric compatibility \(\mathsf F_\ell^*\mathsf G_{\ell+1}\preceq\mathsf G_\ell\)
+is the matrix inequality
+\begin{equation}
+\mathbf E^\top\overline{\mathsf M}\mathbf E\preceq\mathsf M_\ell,
+\qquad
+\overline{\mathsf M}_{kk'}
+=\int\bar\psi_k^\top\bar\Sigma_0^{-1}\bar\psi_{k'}\bar wd\bar\varrho,
+\label{eq:hist-coarse-map-compatibility}
+\end{equation}
+which holds whenever \(\bar w\circ f\leq w\) \(\varrho\)-almost everywhere and
+\(\bar\Sigma_0\succeq\Sigma_0\). Neither sufficient condition can be dropped:
+with \(f\) the identity, \(\bar\psi=\psi\), and \(\mathbf E=I\), the choice
+\(\bar\Sigma_0=\Sigma_0\), \(\bar w=100w\) gives
+\(\mathbf E^\top\overline{\mathsf M}\mathbf E-\mathsf M_\ell=99\mathsf M_\ell\succ0\),
+and the choice \(\bar w=w\), \(\bar\Sigma_0=\Sigma_0/2\) gives
+\(\mathbf E^\top\overline{\mathsf M}\mathbf E-\mathsf M_\ell=\mathsf M_\ell\succ0\).
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Averaging a configuration of the declared family produces the mean field
+\[
+\bar c\longmapsto\sum_jz_j\int\psi_jd\varrho_{\bar c}
+=\sum_k(\mathbf E\mathbf z)_k\bar\psi_k(\bar c),
+\]
+which is the coarse configuration \(s_{\mathbf E\mathbf z}\). Averaging the
+identity \(\sum_j(\jmath_\ell g)_j\psi_j(c)=g\) against the probability measure
+\(\varrho_{\bar c}\) gives
+\[
+\sum_k(\mathbf E\jmath_\ell g)_k\bar\psi_k(\bar c)=g=\sum_k(\jmath_{\ell+1}g)_k\bar\psi_k(\bar c)
+\]
+almost everywhere, and linear independence of the \(\bar\psi_k\) gives
+\eqref{eq:hist-finite-tier-coefficient-intertwining}; then
+\(\mathbf E\mathscr A^\ell_g(\mathbf z)=\mathbf E\mathbf z+\mathbf E\jmath_\ell g
+=\mathscr A^{\ell+1}_g(\mathbf E\mathbf z)\). Both metrics are constant Gram
+forms, so the pullback of \(\mathsf G_{\ell+1}\) is
+\(\mathbf E^\top\overline{\mathsf M}\mathbf E\). For \(\mathbf v\in\R^n\) and
+\(U=\sum_jv_j\psi_j\), the two conditions give
+\(wU^\top\Sigma_0^{-1}U\geq(\bar w\circ f)U^\top\bar\Sigma_0^{-1}U\) pointwise,
+and the disintegration followed by Jensen's inequality for the convex quadratic
+form \(\bar\Sigma_0^{-1}\) gives
+\[
+\mathbf v^\top\mathsf M_\ell\mathbf v
+\geq\int\bar w\int U^\top\bar\Sigma_0^{-1}Ud\varrho_{\bar c}d\bar\varrho
+\geq\int\bar w
+\Bigl(\int Ud\varrho_{\bar c}\Bigr)^\top\bar\Sigma_0^{-1}
+\Bigl(\int Ud\varrho_{\bar c}\Bigr)d\bar\varrho
+=\mathbf v^\top\mathbf E^\top\overline{\mathsf M}\mathbf E\mathbf v.
+\]
+This is the (JC-const) case of \cref{thm:hist-averaging-defect}, with channel loss
+\(\Sigma_0^{-1}-\bar\Sigma_0^{-1}\). In the two counterexamples
+\(\overline{\mathsf M}=100\mathsf M_\ell\) and \(\overline{\mathsf M}=2\mathsf M_\ell\);
+for the Gram matrix \(\operatorname{diag}(1,\tfrac12,\tfrac12)\) of
+\cref{rem:hist-finite-tier-rank} the first difference has smallest eigenvalue
+\(49.5\). \(\square\)
+
+\propositionheading{Integrated horizontal conformality}{prop:hist-integrated-conformality}
+Let the two scales share the base \(\mathcal C_i\), the finite base measure
+\(\varrho_i\), and the positive channel weights \(w_x\); let
+\(\mathsf F_\ell\) act pointwise as \((\mathsf F_\ell Q)(c)=\Psi_c(Q(c))\), each
+\(\Psi_c\) the pushforward of a parameter-independent Markov kernel; let both
+configuration metrics be the weighted integrals of the fiber Fisher metrics; and
+let every integral be finite. Then for \(Z,W\in T_Q\mathcal Q_\ell\)
+\[
+\mathsf G_\ell(Z,W)-\mathsf G_{\ell+1}(T\mathsf F_\ell Z,T\mathsf F_\ell W)
+=\int_{\mathcal C_i}\sum_xw_x\Delta_F^{\Psi_c}\bigl(Z_x(c),W_x(c)\bigr)d\varrho_i(c),
+\]
+the integrated form of \eqref{eq:hist-pointwise-contraction-lift}. If
+\(\mathcal H=(\ker T\mathsf F_\ell)^{\perp_{\mathsf G_\ell}}\) and
+\(T\mathsf F_\ell|_{\mathcal H}\) is onto, as for the submersions of
+\cref{prop:hist-natural-gradient-sufficiency}, then \(\mathsf F_\ell\) is
+horizontally conformal with dilation \(\varphi_\ell\) exactly when
+\begin{equation}
+\int_{\mathcal C_i}\sum_xw_x
+\Delta_F^{\Psi_c}\bigl(Z_x(c),W_x(c)\bigr)d\varrho_i(c)
+=(1-\varphi_\ell^2)\mathsf G_\ell(Z,W)
+\quad\text{for every }Z,W\in\mathcal H.
+\label{eq:hist-integrated-conformality-criterion}
+\end{equation}
+The integrated identity does not imply the pointwise one: on a base consisting
+of two contexts of weight \(\tfrac12\), with fine fibers \(\mathcal N(\mu,1)\),
+the constant-mean tangent, and independent Gaussian noises of variances \(3\) and
+\(\tfrac13\) added at the two contexts, the pulled-back location Fisher forms are
+\(\tfrac14\) and \(\tfrac34\), the integrated ratio is \(\varphi_\ell^2=\tfrac12\),
+and the pointwise ratios differ. If \(\mathcal H\) is closed under multiplication
+by nonnegative compactly supported smooth functions on the base, the integrated
+identity implies the pointwise identity \(\varrho_i\)-almost everywhere.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Differentiating the pointwise action and inserting it into the coarse metric
+gives the first display, whose integrand is the polarized vertical Fisher
+defect \eqref{eq:pb-vertical-fisher-defect} of \(\Psi_c\). Horizontal
+conformality means
+\(\mathsf G_{\ell+1}(T\mathsf F_\ell Z,T\mathsf F_\ell W)=\varphi_\ell^2\mathsf G_\ell(Z,W)\)
+on \(\mathcal H\), with \(T\mathsf F_\ell|_{\mathcal H}\) onto; subtracting from
+\(\mathsf G_\ell(Z,W)\) and using the first display gives the equivalence. In the
+example the pushforward of \(\mathcal N(\mu,1)\) by noise of variance \(\sigma^2\)
+is \(\mathcal N(\mu,1+\sigma^2)\), whose location Fisher information is
+\(1/(1+\sigma^2)\), namely \(\tfrac14\) and \(\tfrac34\); the fine metric of the
+constant-mean tangent is \(1\) and the coarse metric is
+\(\tfrac12(\tfrac14+\tfrac34)=\tfrac12\). For the last claim, apply the
+integrated identity to \(\chi Z\in\mathcal H\) for smooth compactly supported
+\(\chi\geq0\): the integrable function
+\(c\mapsto\sum_xw_x[\Delta_F^{\Psi_c}-(1-\varphi_\ell^2)g^F_x](Z_x(c),Z_x(c))\)
+integrates to zero against every \(\chi^2\); monotone limits of such \(\chi^2\)
+give the indicator functions of compact coordinate balls, so its integral over
+every such ball vanishes and the function vanishes almost everywhere.
+Polarization gives the bilinear identity. \(\square\)
+
+\section{Proof of the strong Hilbert quotient theorem}
+\label{sec:hist-strong-hilbert-quotient-proof}
+
+\noindent\emph{Proof of \cref{thm:hist-strong-hilbert-quotient}.}
+Closedness of \(\mathfrak a\) with compact fibers implies compact inverse images
+of compact sets: an open cover of such an inverse image has a finite subcover on
+each fiber, closedness gives a neighborhood of each target point whose inverse
+image lies in the union of that subcover, and finitely many such neighborhoods
+cover the compact target set. Conversely, compact-preimage properness gives
+closedness, since a convergent sequence of images of a closed set lifts into the
+compact inverse image of the sequence and its limit, and first countability
+gives a convergent subsequence of lifts.
+
+The length distance of a strong metric induces the manifold topology on each
+connected component. In a Hilbert chart at \(Q\), strongness and operator-norm
+continuity give constants \(0<\mathrm c_1<\mathrm c_2<\infty\) and a coordinate
+ball on which
+\begin{equation}
+\mathrm c_1\|u\|^2\leq\mathsf g_y(u,u)\leq\mathrm c_2\|u\|^2.
+\label{eq:hist-strong-chart-bounds}
+\end{equation}
+Straight segments give the upper distance bound, and a path from the center that
+leaves a smaller ball of radius \(\delta_0\) has length at least
+\(\sqrt{\mathrm c_1}\delta_0\),
+so small length distance forces the endpoint into every prescribed
+neighborhood; no minimizing geodesic is used.
+
+For \(c_\xi(t)=\exp(t\xi)\cdot Q\) and \(\mathscr A_g(Q)=g\cdot Q\), the group law
+and isometry give
+\begin{equation}
+\dot c_\xi(t)=T_Q\mathscr A_{\exp(t\xi)}A_Q\xi,
+\qquad
+\|\dot c_\xi(t)\|_{\mathsf g}=\|A_Q\xi\|_{\mathsf g_Q},
+\qquad
+d_{\mathsf g}\bigl(Q,\exp(\xi)\cdot Q\bigr)\leq\|A_Q\xi\|_{\mathsf g_Q}.
+\label{eq:hist-orbit-constant-speed}
+\end{equation}
+If \(A_Q\xi=0\), the curve is constant, freeness gives \(\exp(t\xi)=e\) for
+every \(t\), and hence \(\xi=0\).
+
+Suppose that unit vectors \(\xi_n\) in the Banach norm of \(\mathfrak g\) satisfied
+\(\|A_Q\xi_n\|_{\mathsf g_Q}\to0\). Choose \(\epsilon>0\) whose closed ball in
+\(\mathfrak g\) lies in an exponential chart, and set \(g_n=\exp(\epsilon\xi_n)\).
+Then \eqref{eq:hist-orbit-constant-speed} and the metric topology give
+\(g_n\cdot Q\to Q\). Properness over the compact set
+\(\{(g_n\cdot Q,Q)\}\cup\{(Q,Q)\}\) gives a subsequence \((g_n,Q)\to(g,Q)\) with
+\(g\cdot Q=Q\), freeness gives \(g=e\), and the continuous local logarithm gives
+\(\epsilon\xi_n\to0\), a contradiction. Therefore, for some
+\(\mathrm c_Q>0\),
+\begin{equation}
+\|A_Q\xi\|_{\mathsf g_Q}\geq\mathrm c_Q\|\xi\|_{\mathfrak g}
+\quad\text{for every }\xi\in\mathfrak g.
+\label{eq:hist-orbit-coercivity}
+\end{equation}
+This is vacuous if \(\mathfrak g=\{0\}\); otherwise a convergent sequence
+\(A_Q\xi_n\) makes \(\xi_n\) Cauchy, and completeness puts its limit in the range,
+which is closed, in agreement with \citet[Theorem~2.1]{JotzNeeb2008}.
+
+Fix \(Q_0\). The inner product
+\(\langle\xi,\eta\rangle_{\mathfrak g,H}=\mathsf g_{Q_0}(A_{Q_0}\xi,A_{Q_0}\eta)\)
+has a complete norm equivalent to the Banach norm by
+\eqref{eq:hist-orbit-coercivity}, so \(\mathfrak g\) is Hilbertizable; adjoints
+are taken for this fixed Hilbert norm. In a tangent chart write
+\(\mathsf g_y(v,u)=\langle v,M_yu\rangle\) and define
+\begin{equation}
+B_y=A_y^*M_yA_y,
+\qquad
+P_y=A_yB_y^{-1}A_y^*M_y,
+\qquad
+\xi_*(y,v)=B_y^{-1}A_y^*M_yv.
+\label{eq:hist-smooth-orbit-projection}
+\end{equation}
+The action makes \(A_y\) smooth in operator norm. Near each point,
+\eqref{eq:hist-orbit-coercivity} and continuity of the metric give
+\(B_y\geq\mathrm c_0I\) for one \(\mathrm c_0>0\); such a self-adjoint operator
+has closed range, since \(\|B_y\xi\|\geq\mathrm c_0\|\xi\|\), and dense range,
+since its orthogonal complement is \(\ker B_y=\{0\}\), so it is invertible, and
+the local Neumann series gives smoothness of the inverse.
+
+Direct multiplication gives \(P_y^2=P_y\), \(\operatorname{ran}P_y=V_y\), and
+\(A_y^*M_y(v-P_yv)=0\), so \(P_y\) is the metric-orthogonal vertical projection.
+Its ranges and kernels are smooth subbundles: near a point \(y_0\) the smooth
+operator
+\begin{equation}
+S_y=P_yP_{y_0}+(I-P_y)(I-P_{y_0}),
+\qquad
+P_yS_y=S_yP_{y_0},
+\label{eq:hist-projection-trivialization}
+\end{equation}
+equals \(I\) at \(y_0\) and remains invertible nearby, which identifies the
+splitting at \(y_0\) with that at \(y\). Orthogonality gives
+\begin{equation}
+\|v-A_y\xi\|_{\mathsf g_y}^2
+=\|(I-P_y)v\|_{\mathsf g_y}^2
++\|A_y(\xi-\xi_*(y,v))\|_{\mathsf g_y}^2,
+\label{eq:hist-quotient-pythagoras}
+\end{equation}
+which proves attainment and uniqueness of the minimizer before any quotient
+chart is used.
+
+For the quotient charts, properness and freeness imply that for each identity
+neighborhood \(\mathcal W\subseteq\mathbb G\) there is a neighborhood
+\(\mathcal O\) of \(Q\) with
+\begin{equation}
+g\mathcal O\cap\mathcal O\ne\varnothing\quad\Longrightarrow\quad g\in\mathcal W.
+\label{eq:hist-proper-local-return}
+\end{equation}
+Otherwise there are \(y_n,z_n\to Q\) and \(g_n\notin\mathcal W\) with
+\(g_ny_n=z_n\); properness applied to the compact set of pairs \((z_n,y_n)\) and
+its limit gives a convergent subsequence of \((g_n,y_n)\) whose limiting group
+element fixes \(Q\), hence is \(e\), a contradiction. Choose a local submanifold
+\(\mathcal S_0\) through \(Q\), obtained in a chart from the closed complemented
+space \(H_Q\). The map \((g,s)\mapsto g\cdot s\) on \(\mathbb G\times\mathcal S_0\)
+has derivative \((\xi,u)\mapsto A_Q\xi+u\) at \((e,Q)\), a bounded isomorphism by
+the orthogonal splitting and \eqref{eq:hist-orbit-coercivity}, so the Banach
+inverse function theorem gives a product \(\mathcal W\times\mathcal S_1\) on which
+it is a diffeomorphism onto an open set. Shrink to
+\(\mathcal S\subseteq\mathcal S_1\cap\mathcal O\) using
+\eqref{eq:hist-proper-local-return} for this \(\mathcal W\). If \(g\cdot s=t\) for
+\(s,t\in\mathcal S\), then \(g\in\mathcal W\), and injectivity of the local product
+gives \(g=e\) and \(s=t\). Consequently
+\begin{equation}
+\mathbb G\times\mathcal S\longrightarrow\mathbb G\cdot\mathcal S,
+\qquad
+(g,s)\longmapsto g\cdot s,
+\label{eq:hist-principal-slice}
+\end{equation}
+is bijective onto an open set, being a union of translates of the local product,
+and a local diffeomorphism at every point by translation; it is a
+diffeomorphism. These are principal trivializations, with smooth transition maps
+given by the slice components of their inverses.
+
+The orbit relation is closed by the closedness of \eqref{eq:hist-proper-action-map},
+and \(\pi\) is open because saturations of open sets are open, so a product
+neighborhood disjoint from the orbit relation separates two distinct orbits, and
+the quotient is Hausdorff. Truncating the strong length distance at \(1\), and
+giving points in different components distance \(1\), gives an invariant metric
+\(d_0\) inducing the topology of \(\mathcal M\), and
+\begin{equation}
+\bar d\bigl([Q],[R]\bigr)=\inf_{g\in\mathbb G}d_0(Q,g\cdot R)
+\label{eq:hist-quotient-topology-metric}
+\end{equation}
+is positive for distinct orbits because every orbit is closed; symmetry follows
+by inversion, and the triangle inequality by isometry and multiplication in
+\(\mathbb G\). Its balls give the quotient topology, since their inverse images
+are open and an open saturated neighborhood of \(Q\) contains a \(d_0\)-ball at
+\(Q\). The quotient is therefore metrizable, hence paracompact, as the standard
+definitions of Hilbert manifolds require; \(\bar d\) is not asserted to be the
+Riemannian quotient distance.
+
+The action transports \(V_Q\) by
+\(T\mathscr A_gA_Q\xi=A_{gQ}\operatorname{Ad}_g\xi\), and isometry transports
+\(H_Q\) as well. Define
+\begin{equation}
+\overline{\mathsf g}_{[Q]}(d\pi_Qv,d\pi_Qu)
+=\mathsf g_Q\bigl((I-P_Q)v,(I-P_Q)u\bigr).
+\label{eq:hist-strong-quotient-metric}
+\end{equation}
+Adding vertical vectors to the lifts leaves this unchanged, and equivariance of
+the orthogonal projection gives independence of \(Q\) within its orbit. In each
+slice it is smooth, and \((I-P_s)|_{T_s\mathcal S}:T_s\mathcal S\to H_s\) is a
+bounded isomorphism because the local product gives
+\(T_s\mathcal M=V_s\oplus T_s\mathcal S\), so the pulled-back inner product is
+strong. Equations \eqref{eq:hist-quotient-pythagoras} and
+\eqref{eq:hist-strong-quotient-metric} give \eqref{eq:hist-quotient-gauge-speed}.
+
+Finally, for \(\widetilde Q(t)=g(t)\cdot Q(t)\),
+\begin{equation}
+\dot{\widetilde Q}(t)
+=T\mathscr A_{g(t)}\dot Q(t)+A_{\widetilde Q(t)}\delta^rg(t),
+\label{eq:hist-moving-quotient-representative}
+\end{equation}
+where \(\delta^rg\) is the right logarithmic derivative of \(g\). The second term
+is vertical and the first preserves the horizontal norm, which gives
+representative independence of speed and duration. The unique coefficient
+\(\xi_*(Q,v)\) also defines a smooth principal connection, since it sends
+\(A_Q\xi\) to \(\xi\) and transforms by \(\operatorname{Ad}_g\) by uniqueness and
+equivariance of \(P\); no global gauge section is needed. \(\square\)

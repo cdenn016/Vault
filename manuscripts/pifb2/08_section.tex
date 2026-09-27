@@ -1,0 +1,283 @@
+% !TeX root = ../PIFB2.tex
+\section{Statistical Precision as Stiffness and Friction}\label{sec:mass}
+
+For the interaction-Hessian calculations in this section, all edges join distinct agents. If a self edge is retained elsewhere, its mean Hessian is computed from the combined residual $(I-L_{ii})\mu_i$, giving $(I-L_{ii})^\top W_{ii}(I-L_{ii})$ rather than two separate endpoint blocks.
+
+
+In the full-state Gaussian consensus specialization, the natural-gradient flow of Eq.~\eqref{eq:gauge_natural_gradient} descends the consensus potential $\mathcal{E}$ of Section~\ref{sec:free_energy}, which is therefore the potential of the agent dynamics. This section computes the second variation of $\mathcal{E}$ in the Gaussian belief sector and derives the two roles of statistical precision in that first-order dynamics (status D, Table~\ref{tab:claim_status}). The Hessian is a stiffness tensor whose blocks are built from precisions: the prior term contributes the prior precision $\bar{\Lambda}_{p_i}$, and the interaction terms contribute transported neighbor precisions. The Fisher metric, which in the mean sector is the belief precision, is the friction tensor of the flow, and no term of the dynamics carries an inertia. The only velocity-quadratic form in the dynamics is the Rayleigh dissipation function $\mathcal{R}$, which is half the free-energy dissipation rate and fixes the rate of the information clock of Section~\ref{sec:time_info} through $(d\vartheta/dt)^2 = 2\eta\mathcal{R}$ (Section~\ref{sec:stiffness_friction}). An inertial reading of precision needs a separate kinetic-metric postulate with its own second-order equation of motion, stated in Section~\ref{sec:velocity_quadratic}.
+
+\paragraph{Stiffness, friction, and inertia.} For a damped oscillator $m\ddot{x} + \gamma\dot{x} + kx = 0$ the three coefficients are independent data: the Hessian of the potential gives the stiffness $k$, the dissipation gives the friction $\gamma$, and the kinetic energy gives the mass $m$. The Hessian of $\mathcal{E}$ derived below supplies $k$, the Fisher metric of the natural-gradient flow supplies $\gamma$, and neither $\mathcal{E}$ nor the flow supplies $m$. We hold the prior parameters $(\bar{\mu}_i, \bar{\Sigma}_i)$ fixed, the quasi-static approximation in which they evolve slowly relative to the beliefs $(\mu_i, \Sigma_i)$.
+
+\paragraph{Scope of this calculation.}
+The detailed covariance Hessians below concern the legacy consensus potential $\mathcal E$, with invertible full-state transports and fixed Gaussian prior and observation laws at one base point. They are not formulas for an arbitrary normalized collective VFE $\mathcal F_V$. In particular, the inverse-link formulas cannot be used with a rank-deficient selective communication map. The independent invertible-link case also need not be flat: every additional use of common transported consensus must be checked against its cycle holonomy. A later subsection gives the mean stiffness for general Gaussian communication channels without an inverse link. All these claims concern continuous dynamics; neither a numerical step nor physical time is specified by the potential alone.
+
+\subsection{Setup and Notation}
+
+Each agent $i$ maintains a belief distribution $q_i = \mathcal{N}(\mu_i, \Sigma_i)$ anchored to a prior $p_i = \mathcal{N}(\bar{\mu}_i, \bar{\Sigma}_i)$ and receives observations $o_i$ through the identity readout $p(o_i \mid k_i, m_i) = \mathcal{N}(o_i; k_i, \Sigma_{o_i})$, whose likelihood does not depend on the model parameter $m_i$ and is written $p(o_i \mid k_i)$ below. We define precision matrices
+\begin{align}
+\Lambda_{q_i} &= \Sigma_i^{-1} & &\text{(belief precision)} \\
+\bar{\Lambda}_{p_i} &= \bar{\Sigma}_i^{-1} & &\text{(prior precision)} \\
+\Lambda_{o_i} &= \Sigma_{o_i}^{-1} & &\text{(observation precision)},
+\end{align}
+with transported quantities $\tilde{\mu}_k = \Omega_{ik}\mu_k$ and $\tilde{\Sigma}_k = \Omega_{ik}\Sigma_k\Omega_{ik}^\top$, where $\Omega_{ik} \in \mathrm{GL}(K_q)$ is the transport of the interaction term: in Regime I the frame quotient $e^{\phi_i}e^{-\phi_k}$, and in Regime II an independent link on the interaction graph with orientation reversal $\Omega_{ki} = \Omega_{ik}^{-1}$. The block formulas below use only the transports and hold in both regimes. The transported precision is the inverse of the transported covariance,
+\begin{equation}
+\tilde{\Lambda}_{q_k} := (\Omega_{ik}\Sigma_k\Omega_{ik}^\top)^{-1} = \Omega_{ik}^{-\top}\Lambda_{q_k}\Omega_{ik}^{-1},
+\label{eq:precision_transport}
+\end{equation}
+which differs from the covariance transport law because precision is the inverse of covariance. For orthogonal transport $\Omega \in \mathrm{O}(K_q)$ the two laws coincide ($\Omega^{-\top} = \Omega$), and Eq.~\eqref{eq:precision_transport} reduces to $\Omega\Lambda\Omega^\top$; for general $\mathrm{GL}(K_q)$ the dual transport is essential, and we use Eq.~\eqref{eq:precision_transport} throughout. The boxed identity $\Omega_{ji}^\top \tilde{\Lambda}_{q_i}^{(j)} \Omega_{ji} = \Lambda_{q_i}$ used below holds in $\mathrm{GL}(K_q)$ because $\Omega^\top \Omega^{-\top} = I$ algebraically; the secondary simplifications $\tilde{\Lambda}_k\Omega_{ik} = \Omega_{ik}\Lambda_k$ and $\Omega_{ki}^\top\tilde\Lambda_i = \Lambda_i\Omega_{ki}^\top$ hold only under $\mathrm{O}(K_q)$; the general-linear identity is given below.
+
+\subsection{The Gaussian Consensus Potential}
+
+The extended working functional at one base point, the fixed-$\beta^*$ block-coordinate form of Eq.~\eqref{eq:free_energy_functional_final} with explicit sensory evidence (the attention-entropy block is omitted as constant in the beliefs; this is not the entropy-suppressed surrogate of Section~\ref{sec:complete_free_energy}), is
+\begin{equation}
+\mathcal{E}[\{q_i\}] = \sum_i D_{\mathrm{KL}}(q_i \| p_i) + \sum_{i,k} \beta_{ik} D_{\mathrm{KL}}(q_i \| \Omega_{ik}[q_k]) - \sum_i \mathbb{E}_{q_i}[\log p(o_i \mid k_i)].
+\label{eq:extended_free_energy}
+\end{equation}
+The three terms represent prior anchoring, interaction through the declared transports, and sensory evidence. Here $p_i$ is supplied before the update. A parent predictive law is one possible source of such a prior, conditional on a specified parent model and observation history; a parent is not required for this calculation. Under the product recognition law $q_i \otimes s_i$ and the identity readout, the jointly typed observation term $-\mathbb{E}_{q_i \otimes s_i}[\log p(o_i \mid k_i, m_i)]$ of Eq.~\eqref{eq:free_energy_functional_final} reduces to the $q_i$-expectation shown, and at fixed $s_i$ the model-fiber terms are constant in $(\mu_i, \Sigma_i)$ and drop out of every variation below. Under the frozen-$\beta^*$ convention adopted for this section (the differentiation-convention paragraph below), the omitted attention-entropy term $\tau\beta_{ik}\log(\beta_{ik}/\pi_{ik})$ of the canonical functional is an additive constant in $(\mu, \Sigma)$, so the first and second variations taken under that convention coincide with the frozen-$\beta$ variations of Eq.~\eqref{eq:free_energy_functional_final}.
+
+\subsection{Component Free Energies for Gaussians}
+
+For $q = \mathcal{N}(\mu_q, \Sigma_q)$ and $p = \mathcal{N}(\mu_p, \Sigma_p)$, the relative entropy is given by the closed-form expression of Eq.~\eqref{eq:gaussian_kl}, applied with the substitution $(\mu_1, \Sigma_1, \mu_2, \Sigma_2) \to (\mu_q, \Sigma_q, \mu_p, \Sigma_p)$.
+
+For the Gaussian likelihood $p(o_i \mid k_i) = \mathcal{N}(o_i; k_i, \Sigma_{o_i})$, the expected log-likelihood evaluates to
+\begin{equation}
+-\mathbb{E}_{q_i}[\log p(o_i \mid k_i)] = \frac{1}{2}(o_i - \mu_i)^\top \Lambda_{o_i}(o_i - \mu_i) + \frac{1}{2}\operatorname{tr}(\Lambda_{o_i}\Sigma_i) + \mathrm{const}.
+\end{equation}
+
+\subsection{First Variations (Gradient)}
+
+\paragraph{Prior Term}
+\begin{align}
+\frac{\partial D_{\mathrm{KL}}(q_i \| p_i)}{\partial \mu_i} &= \bar{\Lambda}_{p_i}(\mu_i - \bar{\mu}_i), \\
+\frac{\partial D_{\mathrm{KL}}(q_i \| p_i)}{\partial \Sigma_i} &= \frac{1}{2}(\bar{\Lambda}_{p_i} - \Lambda_{q_i}).
+\end{align}
+
+\paragraph{Interaction Term}
+
+With respect to receiver $i$:
+\begin{align}
+\frac{\partial D_{\mathrm{KL}}(q_i \| \tilde{q}_k)}{\partial \mu_i} &= \tilde{\Lambda}_{q_k}(\mu_i - \tilde{\mu}_k), \\
+\frac{\partial D_{\mathrm{KL}}(q_i \| \tilde{q}_k)}{\partial \Sigma_i} &= \frac{1}{2}(\tilde{\Lambda}_{q_k} - \Lambda_{q_i}).
+\end{align}
+
+With respect to sender $k$ (using the general-linear precision transport of Eq.~\eqref{eq:precision_transport}):
+\begin{align}
+\frac{\partial D_{\mathrm{KL}}(q_i \| \tilde{q}_k)}{\partial \mu_k} &= \Lambda_{q_k}\Omega_{ik}^{-1}(\tilde{\mu}_k - \mu_i), \\
+\frac{\partial D_{\mathrm{KL}}(q_i \| \tilde{q}_k)}{\partial \Sigma_k} &= \frac{1}{2}\Omega_{ik}^\top\left[\tilde{\Lambda}_{q_k} - \tilde{\Lambda}_{q_k}\big(\Sigma_i + \tilde{d}_{ik}\tilde{d}_{ik}^\top\big)\tilde{\Lambda}_{q_k}\right]\Omega_{ik},
+\end{align}
+where $\tilde{d}_{ik} := \tilde{\mu}_k - \mu_i = \Omega_{ik}\mu_k - \mu_i$ is the receiver-frame mean residual. The quadratic-form contribution $-\tilde{\Lambda}_{q_k}\tilde{d}_{ik}\tilde{d}_{ik}^\top\tilde{\Lambda}_{q_k}$ originates in differentiating the Mahalanobis term $\tilde{d}_{ik}^\top \tilde{\Lambda}_{q_k}\tilde{d}_{ik}$ with respect to $\tilde{\Sigma}_k$ via $\partial \tilde{\Lambda}_{q_k}/\partial \tilde{\Sigma}_k = -\tilde{\Lambda}_{q_k}\otimes\tilde{\Lambda}_{q_k}$, then chain-ruled through $\tilde{\Sigma}_k = \Omega_{ik}\Sigma_k\Omega_{ik}^\top$. The outer $\Omega_{ik}^\top(\cdot)\Omega_{ik}$ structure follows from the same chain rule applied to the leading $\tilde{\Lambda}_{q_k}$ and $\tilde{\Lambda}_{q_k}\Sigma_i\tilde{\Lambda}_{q_k}$ contributions; for the mean gradient, the same chain rule yields the explicit inverse $\Omega_{ik}^{-1}$, which for orthogonal $\Omega$ would equal $\Omega_{ik}^\top$. The $\tilde{d}_{ik}\tilde{d}_{ik}^\top$ term vanishes at consensus ($\tilde{d}_{ik} = 0$), so the boxed stiffness blocks of Eqs.~\eqref{eq:mass_mu_diagonal}--\eqref{eq:mass_sigma_offdiagonal}, evaluated at consensus, are unchanged. Off consensus this is a rank-one contribution to the covariance gradient in the precision-weighted residual direction; a second-variation calculation must differentiate this contribution as well.
+
+\paragraph{Sensory Term}
+\begin{align}
+\frac{\partial}{\partial \mu_i}\left[-\mathbb{E}_{q_i}[\log p(o_i \mid k_i)]\right] &= \Lambda_{o_i}(\mu_i - o_i), \\
+\frac{\partial}{\partial \Sigma_i}\left[-\mathbb{E}_{q_i}[\log p(o_i \mid k_i)]\right] &= \frac{1}{2}\Lambda_{o_i}.
+\end{align}
+
+\paragraph{Total Gradient}
+\begin{equation}
+\frac{\partial \mathcal{E}}{\partial \mu_i} = \bar{\Lambda}_{p_i}(\mu_i - \bar{\mu}_i) + \sum_k \beta_{ik}\tilde{\Lambda}_{q_k}(\mu_i - \tilde{\mu}_k) + \sum_j \beta_{ji}\Lambda_{q_i}\Omega_{ji}^{-1}(\tilde{\mu}_i^{(j)} - \mu_j) + \Lambda_{o_i}(\mu_i - o_i),
+\label{eq:total_gradient_mu}
+\end{equation}
+where $\tilde{\mu}_i^{(j)} = \Omega_{ji}\mu_i$ is agent $i$'s mean transported into agent $j$'s frame.
+
+\subsection{Second Variations: The Stiffness Tensor}
+
+The frozen-$\beta$ Hessian of the free energy, $M = \partial^2 \mathcal{E}/\partial\xi\partial\xi$ with the attention weights held at $\beta^*$ (see the differentiation-convention paragraph below), is a symmetric bilinear form on belief configuration space, the stiffness tensor of the potential $\mathcal{E}$. It is positive definite in the covariance sector at the reciprocal-consensus point established below, and it is not in general a metric: the reduced-functional correction and the state-dependent prior weight discussed below both add negative-semidefinite terms away from consensus. The Hessian is taken in the flat affine chart $(\mu_i, \Sigma_i) \in \mathbb{R}^{K_q} \times \mathrm{Sym}(K_q)$. A coordinate Hessian is a tensor, independent of the chart, only at a critical point of $\mathcal{E}$, and consensus is a critical point only when the prior and sensory terms are also stationary there. Away from critical points the chart matters: for $f(\Sigma) = D_{\mathrm{KL}}(\mathcal{N}(0,\Sigma)\|\mathcal{N}(0,\Sigma_p)) + \tfrac12\operatorname{tr}(\Lambda_o\Sigma)$ the second variations along the same tangent vectors in the $\Sigma$ chart and in the precision chart $\Lambda = \Sigma^{-1}$ agree at the critical point but differ by $49$ percent at a noncritical point. A chart-free alternative is the covariant Hessian of the Fisher Levi-Civita connection, which differs from the coordinate Hessian by a Christoffel-symbol term proportional to the gradient and therefore coincides with it at critical points. The full state vector is $\xi = (\mu_1, \ldots, \mu_N, \Sigma_1, \ldots, \Sigma_N)$, yielding the block structure
+\begin{equation}
+M = \begin{pmatrix} M_{\mu\mu} & C^{\mu\Sigma} \\ (C^{\mu\Sigma})^\top & M_{\Sigma\Sigma} \end{pmatrix},
+\label{eq:mass_block_structure}
+\end{equation}
+where each block is itself an $N \times N$ matrix of sub-blocks.
+
+\paragraph{Notation hierarchy.}
+We use three related but distinct objects throughout: (i) $M_{\mu\mu}$ (a matrix), the full Hessian of the mean sector defined in \eqref{eq:mass_block_structure}; (ii) $\bar{\Lambda}_{p_i} = \bar{\Sigma}_i^{-1}$ (a matrix), the prior precision of agent $i$, which is the whole of $[M_{\mu\mu}]_{ii}$ when inter-agent coupling and observation likelihoods are absent ($\beta_{ij}=0$, $\Lambda_{o_i}=0$); and (iii) the scalar stiffness $\bar{M}_i := \operatorname{tr}([M_{\mu\mu}]_{ii})/K_q$, used when a one-number summary is needed. When unqualified, ``the stiffness tensor'' refers to (i) and ``stiffness'' as a scalar refers to (iii).
+
+\paragraph{Differentiation convention.}
+The second-variation expressions below treat the attention weights $\beta_{ij}$ as fixed at their softmax-equilibrium values $\beta_{ij}^*$. The envelope theorem licenses this frozen-$\beta$ convention at first order only: for the reduced free energy with $\beta$ eliminated, the true Hessian adds the correction $-\tau^{-1}\mathrm{Cov}_{\beta^*}(\nabla E_{ij}, \nabla E_{ij})$ to the frozen-$\beta$ blocks (the reduced-Hessian identity~\eqref{eq:rg_reduced_hessian} of Appendix~\ref{sec:meta_agent_rg}), a negative-semidefinite term that vanishes exactly at consensus, where the per-edge gradients $\nabla E_{ij}$ coincide, but persists at generic equilibria in which prior, interaction, and sensory pulls balance with nonzero per-edge gradients, so the frozen-$\beta$ blocks overstate the curvature of the reduced functional away from consensus. Differentiating through the softmax rows produces these cross terms through $\partial \beta_{ij}/\partial \mu$ and $\partial \beta_{ij}/\partial \Sigma$. The correction is bounded: writing $D_i = \max_{j,k}\|\nabla E_{ij} - \nabla E_{ik}\|$ for the per-edge gradient diameter, the identity $\mathrm{Cov}_\beta(X) = \tfrac{1}{2}\sum_{j,k}\beta_j\beta_k(X_j - X_k)(X_j - X_k)^\top$ gives the spectral bound $\|\tau^{-1}\mathrm{Cov}_{\beta^*}(\nabla E_{ij})\| \le D_i^2/(2\tau)$. At nondegenerate energy gaps the covariance decays exponentially in the gap over $\tau$, so the correction vanishes in the sharp-attention limit away from ties and is large precisely near attention switching points, where per-edge energies nearly coincide at small $\tau$; this is the rapid-reorganization regime in which the frozen-$\beta$ blocks are unreliable. The boxed forms below are written for general $\beta_{ij}^* \geq 0$ under this convention and reduce to the isolated-agent limit by setting $\beta_{ij}^* = 0$ in the sums. The first variations of the preceding subsection need no such convention, since by the envelope theorem the frozen-$\beta$ gradient equals the gradient of the reduced functional at $\beta = \beta^*$; the convention is stated here because it first matters at second order.
+
+\paragraph{Mean Sector}
+
+\paragraph{Diagonal blocks $(i = k)$:} From the prior we obtain $\partial^2 D_{\mathrm{KL}}(q_i \| p_i)/\partial \mu_i \partial \mu_i^\top = \bar{\Lambda}_{p_i}$. From the interaction term as receiver, $\partial^2 D_{\mathrm{KL}}(q_i \| \tilde{q}_k)/\partial \mu_i \partial \mu_i^\top = \tilde{\Lambda}_{q_k}$. From the interaction term as sender to agent $j$, $\partial^2 D_{\mathrm{KL}}(q_j \| \tilde{q}_i)/\partial \mu_i \partial \mu_i^\top = \Omega_{ji}^\top \tilde{\Lambda}_{q_i}^{(j)} \Omega_{ji} = \Lambda_{q_i}$. From sensory evidence, $\partial^2[-\mathbb{E}_{q_i}[\log p(o_i \mid k_i)]]/\partial \mu_i \partial \mu_i^\top = \Lambda_{o_i}$. The total diagonal stiffness block is
+\begin{equation}
+\boxed{[M_{\mu\mu}]_{ii} = \bar{\Lambda}_{p_i} + \sum_k \beta_{ik} \tilde{\Lambda}_{q_k} + \sum_j \beta_{ji} \Lambda_{q_i} + \Lambda_{o_i}.}
+\label{eq:mass_mu_diagonal}
+\end{equation}
+
+\paragraph{Off-diagonal blocks $(i \neq k)$:} From $D_{\mathrm{KL}}(q_i \| \tilde{q}_k)$, using Eq.~\eqref{eq:precision_transport},
+\begin{equation}
+\frac{\partial^2 D_{\mathrm{KL}}(q_i \| \tilde{q}_k)}{\partial \mu_i \partial \mu_k^\top} = -\tilde{\Lambda}_{q_k}\Omega_{ik} = -\Omega_{ik}^{-\top}\Lambda_{q_k},
+\end{equation}
+where the second equality follows from $\tilde{\Lambda}_{q_k}\Omega_{ik} = \Omega_{ik}^{-\top}\Lambda_{q_k}\Omega_{ik}^{-1}\Omega_{ik} = \Omega_{ik}^{-\top}\Lambda_{q_k}$. From $D_{\mathrm{KL}}(q_k \| \tilde{q}_i)$ (if $k$ also attends to $i$),
+\begin{equation}
+\frac{\partial^2 D_{\mathrm{KL}}(q_k \| \tilde{q}_i)}{\partial \mu_i \partial \mu_k^\top} = -\Lambda_{q_i}\Omega_{ki}^{-1}.
+\end{equation}
+The sensory term does not couple different agents. Therefore
+\begin{equation}
+\boxed{[M_{\mu\mu}]_{ik} = -\beta_{ik}\Omega_{ik}^{-\top}\Lambda_{q_k} - \beta_{ki}\Lambda_{q_i}\Omega_{ki}^{-1} \quad (i \neq k).}
+\label{eq:mass_mu_offdiagonal}
+\end{equation}
+Under $\mathrm{O}(K_q)$ this reduces to $-\beta_{ik}\Omega_{ik}\Lambda_{q_k} - \beta_{ki}\Lambda_{q_i}\Omega_{ki}^\top$.
+
+\paragraph{Off-diagonal block caveats.}\label{sec:mass_block_caveats}
+As the Hessian of the scalar functional $\mathcal{E}$, the block matrix $M_{\mu\mu}$ is automatically symmetric in the bilinear-form sense $M_{\mu\mu}^\top = M_{\mu\mu}$, equivalently $[M_{\mu\mu}]_{ik} = [M_{\mu\mu}]_{ki}^\top$, by equality of mixed partial derivatives (Schwarz's theorem). The block-transpose identity is exactly the condition for $M_{\mu\mu}$ to define a quadratic form $\tfrac12 \delta\mu^\top M_{\mu\mu} \delta\mu$ on the stacked variable $(\mu_i)_i$, the second-order term of $\mathcal{E}$; no stronger blockwise-equality condition is required, and an individual block $[M_{\mu\mu}]_{ik}$ need not be symmetric. Where the block-transpose identity appears not to hold in displayed expressions, the cause is that the displayed $[M_{\mu\mu}]_{ik}$ has been restricted to a subset of the contributions to the Hessian (for example a single sender-only or receiver-only contribution), and the symmetry is restored once both contributions are summed.
+
+Row-asymmetric attention does not by itself destroy the scalar potential: fixed asymmetric weights still define the scalar $\sum_{ij}\beta_{ij}E_{ij}$, and state-dependent Gibbs weights in the canonical entropy-retaining objective reduce to $-\tau\sum_i\log Z_i$. In both cases the full receiver-plus-sender Hessian is symmetric, and the full flow is a gradient flow for every fixed $\beta$, reciprocal or not. A nonpotential running rule appears only after the additional receiver-only truncation of Eq.~\eqref{eq:receiver_only_field}, which discards the sender-row derivatives. For that optional field the bilinear form $M_{\mu\mu}$ is not the linearization of the dynamics; the linearization is the Jacobian of the truncated field, which is not symmetric and can have complex eigenvalues. The boxed forms of this section describe the full scalar $\mathcal{E}$ and do not describe the receiver-only field.
+
+\paragraph{Covariance Sector}
+
+For matrix-valued variables, we use the directional derivative convention
+\begin{equation}
+\frac{\partial^2 f}{\partial \Sigma \partial \Sigma}[V, W] = \lim_{\epsilon \to 0} \frac{1}{\epsilon}\left[\left.\frac{\partial f}{\partial \Sigma}\right|_{\Sigma + \epsilon W} - \left.\frac{\partial f}{\partial \Sigma}\right|_{\Sigma}\right][V],
+\end{equation}
+with the identity $\partial(\Sigma^{-1})/\partial \Sigma = -\Sigma^{-1} \otimes \Sigma^{-1}$.
+
+\paragraph{Diagonal blocks $(i = k)$:} From the prior,
+\begin{equation}
+\frac{\partial^2 D_{\mathrm{KL}}(q_i \| p_i)}{\partial \Sigma_i \partial \Sigma_i}[V, W] = \frac{1}{2}\operatorname{tr}[\Lambda_{q_i} V \Lambda_{q_i} W].
+\end{equation}
+In tensor notation, $\partial^2 D_{\mathrm{KL}}(q_i \| p_i)/\partial \Sigma_i \partial \Sigma_i = \frac{1}{2}(\Lambda_{q_i} \otimes \Lambda_{q_i})$. From the interaction term as receiver and as sender, identical contributions arise \emph{at consensus} (see the remark below). The sensory term $\frac{1}{2}\operatorname{tr}(\Lambda_{o_i}\Sigma_i)$ is linear in $\Sigma_i$, so its second derivative vanishes. Therefore
+\begin{equation}
+\boxed{[M_{\Sigma\Sigma}]_{ii} = \frac{1}{2}(\Lambda_{q_i} \otimes \Lambda_{q_i}) \cdot \left(1 + \sum_k \beta_{ik} + \sum_j \beta_{ji}\right) \quad \text{at consensus.}}
+\label{eq:mass_sigma_diagonal}
+\end{equation}
+The sensory precision $\Lambda_{o_i}$ contributes to the mean-sector stiffness but not to the covariance-sector stiffness.
+
+\paragraph{Remark on the consensus simplification.} The factor $(1 + \sum_k \beta_{ik} + \sum_j \beta_{ji})$ in Eq.~\eqref{eq:mass_sigma_diagonal} arises because the sender contribution from $D_{\mathrm{KL}}(q_j \| \tilde{q}_i)$ involves both a negative term $-\frac{1}{2}\Lambda_{q_i} \otimes \Lambda_{q_i}$ from $\partial^2 \ln |\tilde{\Sigma}_i|/\partial \Sigma_i^2$ and a positive trace-term contribution that, away from consensus, equals $\frac{1}{2}\partial^2 \operatorname{tr}((\Omega_{ji}\Sigma_i\Omega_{ji}^\top)^{-1}\Sigma_j)/\partial\Sigma_i^2$ and couples $\Sigma_i$ to $\Sigma_j$. At consensus ($\Sigma_j = \Omega_{ji}\Sigma_i\Omega_{ji}^\top$) this trace-term contribution simplifies to $+\Lambda_{q_i} \otimes \Lambda_{q_i}$, and the sender net contribution collapses to $+\frac{1}{2}\Lambda_{q_i}\otimes\Lambda_{q_i}$, recovering Eq.~\eqref{eq:mass_sigma_diagonal}. Off consensus, the sender contribution carries an explicit $\Sigma_j$-dependent cross-coupling and the diagonal block does not factor into a multiple of $\Lambda_{q_i}\otimes\Lambda_{q_i}$; the boxed form above is the consensus-point restriction.
+
+\paragraph{Off-diagonal blocks $(i \neq k)$:} From $D_{\mathrm{KL}}(q_i \| \tilde{q}_k)$, varying both $\Sigma_i$ and $\Sigma_k$, with $\tilde{\Lambda}_{q_k}$ defined by Eq.~\eqref{eq:precision_transport},
+\begin{equation}
+\boxed{\begin{aligned}
+\relax [M_{\Sigma\Sigma}]_{ik} = &-\frac{1}{2}\beta_{ik}\left(\Omega_{ik}^{-\top}\Lambda_{q_k} \otimes \Omega_{ik}^{-\top}\Lambda_{q_k}\right) \\
+&-\frac{1}{2}\beta_{ki}\left(\Omega_{ki}^{-\top}\Lambda_{q_i} \otimes \Omega_{ki}^{-\top}\Lambda_{q_i}\right)^\top \quad (i \neq k).
+\end{aligned}}
+\label{eq:mass_sigma_offdiagonal}
+\end{equation}
+The block is a pure Kronecker square of the two mean-sector transport factors. Each contribution is independent of the native covariance of the agent whose divergence produces it, a structural property any candidate form of this block must satisfy: agent $i$'s native covariance $\Sigma_i$ enters $D_{\mathrm{KL}}(q_i \| \tilde{q}_k)$ only linearly through the trace $\frac{1}{2}\operatorname{tr}(\tilde{\Lambda}_{q_k}\Sigma_i)$, so differentiating in $\Sigma_i$ removes $\Sigma_i$ entirely and leaves $\frac{1}{2}\tilde{\Lambda}_{q_k}$, and the subsequent differentiation in $\Sigma_k$ through the precision transport of Eq.~\eqref{eq:precision_transport} produces the Kronecker square $\Omega_{ik}^{-\top}\Lambda_{q_k} \otimes \Omega_{ik}^{-\top}\Lambda_{q_k}$, which depends on $\Sigma_k$ through $\Lambda_{q_k}$ but carries no residual $\Sigma_i$. By the same argument the sender contribution is independent of $\Sigma_k$ and depends on $\Sigma_i$ through $\Lambda_{q_i}$, so the assembled block depends on both precisions while each term is free of its own agent's covariance. The two-term structure mirrors the mean-sector off-diagonal block of Eq.~\eqref{eq:mass_mu_offdiagonal}: the first term is the receiver contribution from $D_{\mathrm{KL}}(q_i \| \tilde{q}_k)$ when $i$ attends to $k$, built from $A_{ik} = \Omega_{ik}^{-\top}\Lambda_{q_k}$; the second is the sender contribution from $D_{\mathrm{KL}}(q_k \| \tilde{q}_i)$ when $k$ also attends to $i$, built from $B_{ki} = \Omega_{ki}^{-\top}\Lambda_{q_i}$. The transpose on the second Kronecker factor is essential. The sender mixed partial is naturally assembled with the index ordering $(\Sigma_k, \Sigma_i)$, whereas the block $[M_{\Sigma\Sigma}]_{ik}$ requires the ordering $(\Sigma_i, \Sigma_k)$; since $\Omega_{ki}^{-\top}\Lambda_{q_i} \otimes \Omega_{ki}^{-\top}\Lambda_{q_i}$ is not symmetric, the index swap is exactly the vec-space transpose, and it is what makes the assembled block satisfy the Schwarz block-transpose identity $[M_{\Sigma\Sigma}]_{ik} = [M_{\Sigma\Sigma}]_{ki}^\top$. As in the mean sector, this identity holds for every fixed $\beta$, reciprocal or not, while an individual block $[M_{\Sigma\Sigma}]_{ik}$ need not be symmetric. Under $\mathrm{O}(K_q)$ the factors reduce to $\Omega_{ik}\Lambda_{q_k} \otimes \Omega_{ik}\Lambda_{q_k}$.
+
+At the reciprocal-consensus point, the covariance-sector Hessian restricted to the symmetric tangent space on which $\Sigma$ lives is positive definite for all $\beta \geq 0$ and arbitrary precision heterogeneity. Take Regime I transports $\Omega_{ik} = \exp(\phi_i)\exp(-\phi_k)$, so that the cocycle holds and the transported neighbor $\tilde{q}_k$ coincides with $q_i$, with reciprocal $\beta$ and each prior equal to the native belief. Every relative entropy then sits at its global zero, contributing a positive-semidefinite Hessian, while the strictly convex prior term $\frac{1}{2}(\Lambda_{q_i} \otimes \Lambda_{q_i})$ on each diagonal block makes the total strictly positive definite. Four scope conditions are required. The result is established only at the consensus point; off consensus the $\Sigma_j$ cross-coupling re-enters and positive definiteness is not established there. It uses the frozen-$\beta$ (envelope-theorem) convention of the differentiation paragraph above. It requires a global consensus through the cocycle, not merely pairwise reciprocity; the full $K_q^2 \times K_q^2$ vec operator can be indefinite on the non-symmetric complement, which is not the physical object, since $\Sigma$ is constrained to the symmetric subspace. And the point is a critical point of $\mathcal{E}$ only when the sensory term is absent: the sensory term adds no covariance curvature but contributes the constant covariance gradient $\tfrac12\Lambda_{o_i}$, so with sensory evidence the statement concerns the flat-chart second variation at a noncritical point, with the chart dependence described at the start of this subsection.
+
+\paragraph{Cross Mean-Covariance Blocks}
+
+The prior term gives $\partial^2 D_{\mathrm{KL}}(q_i \| p_i)/\partial \mu_i \partial \Sigma_i = 0$. The sensory free energy decomposes into a term quadratic in $\mu_i$ and a term linear in $\Sigma_i$; these are independent, so $[C^{\mu\Sigma}]_{ii}^{\mathrm{sensory}} = 0$.
+
+For the interaction term, from $\partial D_{\mathrm{KL}}(q_i \| \tilde{q}_k)/\partial \mu_i = \tilde{\Lambda}_{q_k}(\mu_i - \tilde{\mu}_k)$ with $\tilde{\Lambda}_{q_k} = \Omega_{ik}^{-\top}\Lambda_{q_k}\Omega_{ik}^{-1}$ (Eq.~\eqref{eq:precision_transport}), varying $\Sigma_k$ gives $\delta\tilde{\Lambda}_{q_k} = -\Omega_{ik}^{-\top}\Lambda_{q_k} V \Lambda_{q_k}\Omega_{ik}^{-1}$ for $V = \delta\Sigma_k$, and therefore
+\begin{equation}
+\frac{\partial^2 D_{\mathrm{KL}}(q_i \| \tilde{q}_k)}{\partial \mu_i \partial \Sigma_k}[V] = -\Omega_{ik}^{-\top}\Lambda_{q_k} V \Lambda_{q_k} \Omega_{ik}^{-1} (\mu_i - \tilde{\mu}_k).
+\end{equation}
+In components,
+\begin{equation}
+\frac{\partial^2 D_{\mathrm{KL}}}{\partial(\mu_i)_a \partial(\Sigma_k)_{bc}} = -[\Omega_{ik}^{-\top}\Lambda_{q_k}]_{ab}[\Lambda_{q_k}\Omega_{ik}^{-1}(\mu_i - \tilde{\mu}_k)]_c.
+\end{equation}
+Under $\mathrm{O}(K_q)$ this reduces to $-\Omega_{ik}\Lambda_{q_k} V \Lambda_{q_k}\Omega_{ik}^\top(\mu_i - \tilde{\mu}_k)$. The cross block vanishes at consensus ($\mu_i = \tilde{\mu}_k$):
+\begin{equation}
+\boxed{[C^{\mu\Sigma}]_{ik} = 0 \quad \text{when } \mu_i = \tilde{\mu}_k.}
+\label{eq:cross_block}
+\end{equation}
+
+\subsection{Precision as Stiffness and the Fisher Metric as Friction}
+\label{sec:stiffness_friction}
+
+The mean-sector stiffness of agent $i$, in the frozen-$\beta$ convention, is
+\begin{equation}
+M_i = \underbrace{\bar{\Lambda}_{p_i}}_{\text{prior}} + \underbrace{\sum_k \beta_{ik}\tilde{\Lambda}_{q_k}}_{\text{receiver}} + \underbrace{\sum_j \beta_{ji}\Lambda_{q_i}}_{\text{sender}} + \underbrace{\Lambda_{o_i}}_{\text{sensory}}.
+\label{eq:effective_mass}
+\end{equation}
+The prior block resists deviation from the prior $p_i$, the receiver block resists deviation from the transported neighbors that agent $i$ attends to, the sender block resists moves that would disturb the agents attending to $i$, and the sensory block anchors the agent to its observations. The stiffness is dimensionless on the representational space; no identification with a physical mass is made.
+
+\paragraph{Constant versus state-dependent self-coupling.} The boxed stiffness blocks of this section take the prior self-coupling weight at its canonical default $\alpha_i = 1$; the prior term of Eq.~\eqref{eq:extended_free_energy} carries unit weight. Under the state-dependent generalization of Section~\ref{sec:state_dependent_precision}, where $\alpha_i^*(c) = c_0/(b_0 + D_{\mathrm{KL}}(q_i \| p_i))$ is recomputed from the current belief at each inner step, the prior block scales as $\alpha_i^* \bar{\Lambda}_{p_i}$. Because $\alpha_i^*$ co-varies with the belief, the second variation acquires a rank-one residual that the first-order envelope cancellation of Eq.~\eqref{eq:alpha_envelope_cancel_itfb} does not remove,
+\begin{equation}
+[M_{\mu\mu}]_{ii}^{\text{prior}} = \alpha_i^* \bar{\Lambda}_{p_i} - \frac{(\alpha_i^*)^2}{c_0}\left(\bar{\Lambda}_{p_i}\Delta\mu_i\right)\left(\bar{\Lambda}_{p_i}\Delta\mu_i\right)^\top, \qquad \Delta\mu_i = \mu_i - \bar{\mu}_i,
+\end{equation}
+which vanishes only at $\mu_i = \bar{\mu}_i$. This is a prior-sector Hessian correction. It is distinct from the residual-dependent covariance-gradient term retained in the interaction calculation above. For a mean displacement at matched covariance, where $D_{\mathrm{KL}}(q_i \| p_i) = \tfrac{1}{2}\Delta\mu_i^\top \bar{\Lambda}_{p_i}\Delta\mu_i$, the regularized prior block stays positive definite until $D_{\mathrm{KL}} = b_0$, whereas the unregularized weight $\alpha_i^* D_{\mathrm{KL}}$ alone would lose definiteness already at $D_{\mathrm{KL}} = b_0/3$; the log-barrier delays it. Beyond that bound the prior contribution to the stiffness is indefinite. The boxed forms of this section are therefore the quasi-static $\alpha_i = 1$ specialization.
+
+\paragraph{Friction and relaxation.} The flow of Eq.~\eqref{eq:gauge_natural_gradient} is first order. In the Gaussian sector it reads
+\begin{equation}
+\eta_b^{-1}G_b\dot{\xi}_b = -\nabla_{\xi_b}\mathcal{E},
+\qquad
+G_\mu = \Lambda_q,
+\qquad
+G_\Sigma[V, W] = \tfrac12\operatorname{tr}(\Sigma^{-1}V\Sigma^{-1}W),
+\label{eq:friction_form}
+\end{equation}
+for each block $b \in \{\mu, \Sigma\}$ with its rate $\eta_b$, where $G_b$ is the Fisher metric of the block. This is the form $\gamma\dot{q} = -\nabla V$ of an overdamped system with friction tensor $\gamma = \eta^{-1}G$ and mobility $\eta G^{-1}$, and it is the Rayleigh form $\partial\mathcal{R}/\partial\dot{\xi} = -\nabla\mathcal{E}$ with dissipation function
+\begin{equation}
+\mathcal{R}(\dot{\xi}) = \sum_b \frac{1}{2\eta_b}G_b(\dot{\xi}_b, \dot{\xi}_b),
+\qquad
+\frac{d\mathcal{E}}{dt} = \nabla\mathcal{E}\cdot\dot{\xi} = -2\mathcal{R}.
+\label{eq:rayleigh_dissipation}
+\end{equation}
+With a common rate $\eta_b = \eta$ the squared Fisher speed is $G(\dot{\xi}, \dot{\xi}) = (d\vartheta/dt)^2 = 2\eta\mathcal{R}$, which is the clock-dissipation identity of Eq.~\eqref{eq:clock_dissipation} for an autonomous single-rate flow. The block-descent law and the Fisher clock are established in general in the companion theory~\cite[Chs.~7 and 8]{DennisGaugeVFE2026}. Linearized about a critical point $\xi^*$, the flow is $\delta\dot{\xi} = -\eta G^{-1}M\delta\xi$. Since $G$ is positive definite and $M$ is symmetric, $G^{-1}M$ is similar to $G^{-1/2}MG^{-1/2}$, so its spectrum is real and the linearized flow has no oscillatory modes; the optional receiver-only truncation of Eq.~\eqref{eq:receiver_only_field} is one way to leave this gradient-flow conclusion. This spectral claim is local at a critical point and does not cover a driven trajectory or an added antisymmetric flow. For an isolated agent at $q_i = p_i$ the stiffness and the friction coincide, $[M_{\mu\mu}]_{ii} = \bar{\Lambda}_{p_i} = \Lambda_{q_i} = G_\mu$ and $[M_{\Sigma\Sigma}]_{ii} = \tfrac12\Lambda_{q_i}\otimes\Lambda_{q_i} = G_\Sigma$, so the linearized mean and covariance relaxation rates are exactly $\eta_\mu$ and $\eta_\Sigma$, independent of the precision. Under a Euclidean gradient flow $\dot{\xi} = -\eta\nabla\mathcal{E}$ the rates would instead be $\eta$ times the eigenvalues of $M$, so a precise agent would relax faster. In this isolated, matched-prior calculation high precision does not slow either flow; large precision produces large stiffness and small static compliance $M^{-1}$.
+
+\paragraph{High-precision agents.} Consider an agent with very sharp prior self-localization, $\bar{\Sigma}_i = \delta I$ with $\delta \ll 1$ a dimensionless precision scale to which no physical units are assigned (the sharp-belief example of Appendix~\ref{sec:rock_derivations}). In the isolated-agent limit of Eq.~\eqref{eq:effective_mass}, where the interaction blocks switch off ($\beta_{ik} = \beta_{ji} = 0$) and the sensory block is negligible ($\Lambda_{o_i} \to 0$), $M_i$ reduces to the prior precision $\delta^{-1}I$; the interaction and sensory terms add further stiffness when the agent is embedded. Such an agent has large stiffness and compliance of order $\delta$, so a bounded static force displaces it by an amount of order $\delta$; under the natural-gradient flow its linear relaxation rate is still $\eta$.
+
+The stiffness above runs entirely on the state-fiber prior precision $\bar{\Lambda}_{p_i}$ and is therefore specific to the prior-pullback tier in the sense of Section~\ref{sec:three_tiers}. Under the structural-tier reading of Section~\ref{sec:gravity_pullback}, perceived geometry is carried instead by the model-fiber generative-model precision $\Sigma_{s,i}^{-1}$, so the stiffness of this section and the pulled-back geometry are distinct objects at that tier; relating them would require a dynamical link between $\bar{\Lambda}_{p_i}$ and $\Sigma_{s,i}^{-1}$ that the present construction does not supply.
+
+\subsection{Stiffness for selective communication}
+\label{sec:selective_stiffness}
+
+Let $j$ send to $i$ through $L_{ij}=R_iS_j$, with received covariance
+$C_{ij}=L_{ij}\Sigma_jL_{ij}^\top+D_{ij}$ and $D_{ij}\succ0$.
+Define $W_{ij}=C_{ij}^{-1}$ and $d_{ij}=\mu_i-L_{ij}\mu_j$.
+For fixed links, noise covariances, and attention weights, an edge energy
+$E_{ij}=D_{\rm KL}(q_i\|\mathcal N(L_{ij}\mu_j,C_{ij}))$ has derivatives
+\begin{align}
+ \nabla_{\mu_i}E_{ij}&=W_{ij}d_{ij},&
+ \nabla_{\mu_j}E_{ij}&=-L_{ij}^\top W_{ij}d_{ij},\\
+ \nabla_{\Sigma_i}E_{ij}&=\tfrac12(W_{ij}-\Sigma_i^{-1}),&
+ \nabla_{\Sigma_j}E_{ij}&=\tfrac12L_{ij}^\top
+ [W_{ij}-W_{ij}(\Sigma_i+d_{ij}d_{ij}^\top)W_{ij}]L_{ij}.
+ \label{eq:selective_stiffness_derivatives}
+\end{align}
+These formulas follow by differentiating $\log\det C_{ij}$ and
+$C_{ij}^{-1}$ and using $\delta C_{ij}=L_{ij}\delta\Sigma_jL_{ij}^\top$.
+They require no inverse of $L_{ij}$. Holding covariances fixed, the complete mean Hessian is
+\begin{align}
+ [H_{\mu\mu}]_{ii}&=\bar\Lambda_{p_i}+\Lambda_{o_i}
+ +\sum_j\beta_{ij}W_{ij}
+ +\sum_r\beta_{ri}L_{ri}^\top W_{ri}L_{ri},\\
+ [H_{\mu\mu}]_{ij}&=-\beta_{ij}W_{ij}L_{ij}
+ -\beta_{ji}L_{ji}^\top W_{ji}\quad(i\ne j).
+ \label{eq:selective_stiffness_blocks}
+\end{align}
+Its positivity can be checked without component expansion: for every mean variation $v=(v_i)_i$,
+\begin{equation}
+ v^\top H_{\mu\mu}v
+ =\sum_i v_i^\top(\bar\Lambda_{p_i}+\Lambda_{o_i})v_i
+ +\sum_{i,j}\beta_{ij}(v_i-L_{ij}v_j)^\top W_{ij}(v_i-L_{ij}v_j).
+ \label{eq:selective_stiffness_positive}
+\end{equation}
+Positive prior precisions make this form positive definite. The sender stiffness is restricted to directions visible through its link: it is $L_{ri}^\top W_{ri}L_{ri}$, not the full sender precision. The older sender simplification is recovered only when $D_{ri}=0$ and $L_{ri}$ is invertible. No analogous positive full covariance Hessian is asserted away from a matching point.
+
+If attention is eliminated by its entropy-regularized optimum, the reduced Hessian still includes
+$-\tau^{-1}\sum_i\operatorname{Cov}_{\beta_i^*}(\nabla E_{ij})$.
+This term vanishes exactly when the candidate gradients coincide within each positively weighted row. Arbitrary selective noisy channels need not admit simultaneous zero edge divergence, so that condition cannot be assumed from a full-state consensus picture. Under fixed frame changes, $L_{ij}'=g_iL_{ij}g_j^{-1}$ and $D_{ij}'=g_iD_{ij}g_i^\top$ give $C_{ij}'=g_iC_{ij}g_i^\top$; the displayed derivatives and quadratic form then transform by the corresponding primal and dual laws.
+
+\subsection{Conditional kinetic mechanics and its missing input}
+\label{sec:velocity_quadratic}
+
+A kinetic extension can be considered without adopting it as part of the minimal theory. Choose a positive $C^2$ tensor $M_K(\xi)$ independently of the potential and define
+\begin{equation}
+ \mathcal T=\tfrac12\dot\xi^\top M_K(\xi)\dot\xi,
+ \qquad L=\mathcal T-\mathcal E,
+ \qquad \mathcal R=\tfrac12\dot\xi^\top\Gamma(\xi)\dot\xi,
+ \quad \Gamma=\eta^{-1}G.
+ \label{eq:full_kinetic}
+\end{equation}
+The exact Euler--Lagrange equation with this Rayleigh dissipation is
+\begin{equation}
+ (M_K)_{ab}\ddot\xi^b+
+ \frac12\big[\partial_c(M_K)_{ab}+\partial_b(M_K)_{ac}
+ -\partial_a(M_K)_{bc}\big]\dot\xi^b\dot\xi^c
+ +\Gamma_{ab}\dot\xi^b=-\partial_a\mathcal E.
+ \label{eq:second_order_postulate}
+\end{equation}
+Repeated coordinate indices are summed. Differentiating
+$\partial L/\partial\dot\xi^a=(M_K)_{ab}\dot\xi^b$ gives the displayed metric-derivative term. It vanishes for a constant kinetic metric and at linear order about a stationary state, but cannot be omitted for a state-dependent Fisher or frame metric. Contracting with $\dot\xi$ gives
+$d(\mathcal T+\mathcal E)/dt=-\dot\xi^\top\Gamma\dot\xi$ for an autonomous potential. This energy balance verifies the conditional extension, not its derivation from inference.
+
+At an equilibrium with positive stiffness $H$, the undamped linear modes satisfy
+$Hv=\omega^2M_Kv$. The local choice $M_K=H$ makes every frequency equal to one in the declared units. Precision-dependent frequencies therefore do not follow from identifying stiffness and mass. For an isolated matched-prior agent with $H=G=M_K$, the damped linear equation is
+$\ddot{\delta\xi}+\eta^{-1}\dot{\delta\xi}+\delta\xi=0$; it is overdamped for $\eta<1/2$ and its slow rate approaches $\eta$ as $\eta\downarrow0$. This is a constant-coefficient singular-limit statement. A nonlinear overdamped limit requires an initial-layer estimate and regularity and confinement hypotheses in addition to a small inertia parameter.
+
+When a kinetic tensor couples agents, momentum is the full covector
+$\pi_i=\sum_j(M_K)_{ij}\dot\xi_j$, not a separately assigned diagonal mass times each velocity. Its frame covariance must be imposed on $M_K$ itself; a Frobenius norm on passive frame coordinates does not generally descend to the physical quotient. The scalar potential determines none of this additional kinetic data. Appendix~\ref{app:examples} derives the memory obtained by eliminating internal first-order coordinates and shows why an apparent second-order equation can still be entirely relaxational. That derivation provides a route to persistence without the kinetic postulate, while leaving the identification of mechanical mass open.

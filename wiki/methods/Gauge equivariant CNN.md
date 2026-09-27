@@ -88,7 +88,7 @@ The VFE transformer borrows the local-frame and transport stance of gauge CNNs.
 Its single real phi chart reaches only $\operatorname{image}(\exp)$, not all of
 $\mathrm{GL}^+(K)$. Regime-I vertex transport telescopes around loops, so its
 holonomy is identity exactly; nontrivial loop transport requires an edge-relaxed
-connection. [[gl-k-attention-2026-07-09-review-revision]]
+connection.
 
 Nonlinear coupling of features carried by different
 [[Irreducible representation]]s is handled, as in [[thomas-2018-tensor-field-networks]]
@@ -101,7 +101,7 @@ gauge-consistency as a *soft*, learned objective folded into a variational
 rather than imposed. The geometry the transformer transports is not a generic
 feature field but a probability belief on the SPD cone. Full-SPD and Gaussian
 belief Fisher/AIRM facts survive; the frame conditioner is separate and does not
-certify a full-$\mathrm{GL}(K)$ natural gradient or equivariant optimizer. [[gl-k-attention-2026-07-09-review-revision]]
+certify a full-$\mathrm{GL}(K)$ natural gradient or equivariant optimizer.
 
 In short, the gauge equivariant CNN supplies the *conceptual scaffolding*
 — local frames, transport, holonomy, irrep coupling — that the VFE transformer

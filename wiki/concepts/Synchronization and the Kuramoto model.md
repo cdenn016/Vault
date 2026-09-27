@@ -63,4 +63,3 @@ Collectively these results place synchronization within the broader theme of [[S
 - [[Echo chambers and polarization]] — the fragmented (incoherent) phase of the coupling-driven transition.
 - [[Meta-entropy]] · [[Renormalization-group flow of beliefs]] — the continuum / multi-scale machinery the kinetic Kuramoto formulation mirrors.
 - [[Sociophysics]] · [[SocialPhysics]] · [[belief-inertia]] — the broader programme, the founding project page, and the founding manuscript.
-- [[belief-inertia-2026-07-13-final-review-closure]] — authoritative benchmark-only status for synchronization.

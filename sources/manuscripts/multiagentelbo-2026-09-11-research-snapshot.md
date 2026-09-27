@@ -24,13 +24,13 @@ The linked notes report existing proofs within their assumptions and experiments
 |---|---|
 | conditional-geometry | [[multiagentelbo-2026-09-11-conditional-geometry|MultiAgentELBO conditionals, gauge quotients and projectable dynamics, September 10–11, 2026]] |
 | continuum | [[multiagentelbo-2026-09-11-continuum|MultiAgentELBO critical, flux and continuum gauge constructions, September 10–11, 2026]] |
-| critical-comparisons | [[multiagentelbo-2026-09-11-critical-comparisons|MultiAgentELBO critical-size comparisons, September 7–8, 2026]] |
-| extension-studies | [[multiagentelbo-2026-09-11-extension-studies|MultiAgentELBO compact-group, mixture, geometry and memory controls, September 6–7, 2026]] |
-| finite-program | [[multiagentelbo-2026-09-11-finite-program|MultiAgentELBO finite sector quotients and recursive parents, September 4–6, 2026]] |
+| critical-comparisons | MultiAgentELBO critical-size comparisons, September 7–8, 2026 |
+| extension-studies | MultiAgentELBO compact-group, mixture, geometry and memory controls, September 6–7, 2026 |
+| finite-program | MultiAgentELBO finite sector quotients and recursive parents, September 4–6, 2026 |
 | formation | [[multiagentelbo-2026-09-11-formation|MultiAgentELBO finite meta-agent formation and operational closure, September 11, 2026]] |
 | gaussian-closure | [[multiagentelbo-2026-09-11-gaussian-closure|MultiAgentELBO Gaussian, Kron and PSD classification, September 10–11, 2026]] |
 | geometry-feedback | [[multiagentelbo-2026-09-11-geometry-feedback|MultiAgentELBO normalized geometry feedback and field obstructions, September 10–11, 2026]] |
-| implementation | [[multiagentelbo-2026-09-11-implementation|MultiAgentELBO implementation and retained-evidence status, September 11, 2026]] |
+| implementation | MultiAgentELBO implementation and retained-evidence status, September 11, 2026 |
 | memory | [[multiagentelbo-2026-09-11-memory|MultiAgentELBO retained histories and finite-memory bounds, September 9–11, 2026]] |
 | neighborhoods | [[multiagentelbo-2026-09-11-neighborhoods|MultiAgentELBO overlapping neighborhoods and parent inference, September 8–9, 2026]] |
 | normalized-core | [[multiagentelbo-2026-09-11-normalized-core|MultiAgentELBO normalized RG core and exact VFE accounting, September 2026]] |

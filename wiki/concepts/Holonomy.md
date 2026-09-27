@@ -12,10 +12,40 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-09-13
+updated: 2026-09-24
 ---
 
 # Holonomy
+
+## Edge twists, identity links and law coherence at one base point (review, September 23, tentative)
+
+Investigators X01 and E1 of the 2026-09-23 Theory review ([[multiagentelbo-2026-09-23-theory-streamlining-review]]) find that loop holonomy is not the only gauge-invariant link content at $c_*$. All agent frames there are points of one torsor, and with passive changes $U_i\mapsto a_i^{-1}U_i$, $\Theta_e\mapsto a_i^{-1}\Theta_ea_j$ the edge twist $H_e=U_i^{-1}\Theta_eU_j$ is invariant under the independent vertex group and changes only by one simultaneous conjugation under a change of reference point. Each single edge therefore carries a gauge-invariant conjugacy class. On a path graph, where every closed walk is a backtrack, the recomputed edge invariants $(\mathrm{tr},\det)$ were $(1.62,2.33)$ and $(-0.96,0.19)$ against $(2,1)$ for the identity. The gauge-invariant link content at one base point is the family $\{H_e\}$ modulo one simultaneous conjugation. X01 names the falsifier: if agents at $c_*$ carried separate fiber copies with no canonical identification, only loops would carry invariants.
+
+The same review separates identity links from flat links. The manuscript's "flat links" hypothesis $\Theta_e=T_{ij}$ is the identity-link specialization (Regime I) and is strictly stronger than trivial holonomy, which only requires a coboundary $\Theta_e=V_iV_j^{-1}$. On a triangle with coboundary links and the same beliefs, the summed transported KL is 29.56 against 298.99 for $\Theta=T$, so flat and identity links are different energies.
+
+Full-law coherence is a third agreement notion beside frame agreement ($H_\gamma=I$) and mean agreement. All transported KLs vanish exactly when the root law is stabilized by the network holonomy. In the C1 witness, three agents with law $\mathcal N(0,\Sigma)$, $\Sigma=\begin{pmatrix}4&1\\1&1\end{pmatrix}$, link $\Theta_{12}=\Sigma^{1/2}R(0.7)\Sigma^{-1/2}$ and identity links elsewhere have zero transported KL on every edge, while the loop holonomy is non-orthogonal, lies at Frobenius distance 1.655 from $I$, and fixes no nonzero vector. This agrees with the September 11 record experiment and the September 12 circle-law witness below. The new point is that coalescence driven by vanishing transported KL needs law coherence up to holonomy stabilizers, quantified over every closed walk, rather than frame agreement.
+
+> [!note] Editorial
+> The edge-twist invariant concerns what is gauge invariant in the link datum at one base point. It does not contradict the 2026-08-18 section below on detection by embedded agents, which is about what a depth-limited agent can measure.
+
+> [!warning] Tentative: investigator recomputation, same model family, not adjudicated
+> Recomputations by investigators of one model family (Claude Opus 5.5); the invariance residuals were at or below $2\times10^{-15}$.
+
+### Incorporation in the restructured manuscript (September 24)
+
+All three results are now statements of Chapter 2 of the main manuscript at `623e4fe` ([[multiagentelbo-2026-09-24-theory-restructure]]), the propositions tagged ESTABLISHED with their proofs in the chapter, alongside the definitions they use. In the manuscript's convention $u_i=\sigma\cdot U_i^{-1}$, `prop:geo-edge-twist-invariance` defines the per-edge twist $\mathring\Theta^x_e=U_i^{-1}\Theta^x_eU_j$ of an edge copy $e:j\to i$ and proves that it is unchanged by arbitrary passive re-expressions, that a change of reference point or an active automorphism conjugates every twist by one common element, and that two link data sets on the same multigraph are related by one active automorphism exactly when their twist tuples are related by one simultaneous conjugation. `def:geo-graph-flat-links` separates graph-flat links (trivial holonomy on every closed walk) from frame-aligned links $\Theta^x_e=T_{ij}=U_iU_j^{-1}$, and `rem:geo-flatness-strictness` shows that frame alignment implies graph flatness but not conversely: on two vertices joined by one edge copy every closed walk is a backtrack, so every link is graph flat while its edge class can differ from the identity.
+
+`def:geo-law-coherence` and `prop:geo-three-agreements` make law coherence the third agreement. Laws on a connected internal multigraph are law coherent exactly when $q_{i_0}$ is fixed by $\widehat\rho_x(\mathrm{Hol}^x(p))$ for every closed internal walk $p$ at $i_0$ and the other laws are its transports. Law coherence implies agreement of every equivariant statistic, and the converse fails for the mean; frame agreement neither implies nor is implied by law coherence or mean agreement; and with several independent cycles a condition on one loop is necessary but not sufficient. The C1 witness above is part of the proposition. The review's numerical instances (the path-graph invariants and the energies 29.56 and 298.99) are not in the manuscript. Chapter 10 cites the proposition for the law coherence of its holonomy-conditioned reconstruction (`thm:cg-holonomy-kl-marginal`) and adds a single-point operational record sensitive to network-loop holonomy (`thm:cg-loop-operational-holonomy`).
+
+> [!warning] Status
+> Manuscript statements with proofs, written and checked by Claude Opus 5.5 agents with their own scripts; no cross-model check (the author's choice) and not adjudicated.
+
+## Matrix-link loop observables, September 20, 2026
+
+[[dennis-2026-glk-matrix-links-2026-09-20]] distinguishes the flat vertex-frame connection $\Omega_{ij}=U_iU_j^{-1}$ from communication links $L_{ij}^{(h)}=U_iO_hT_hU_j^{-1}$. Any declared closed product of matrices obeying $B_{ij}'=g_iB_{ij}g_j^{-1}$ transforms by conjugation at its base site, and its trace is invariant without requiring inverse links. Such a product may record gain or rank loss; nonidentity does not establish curvature of $\Omega$ or holonomy of an invertible connection.
+
+For a shared unweighted head, a path with $r$ edges is $U_{i_0}(OT)^rU_{i_r}^{-1}$, so paths with the same endpoints and length coincide. Causal attention has no directed cycles through distinct token positions. These limits must accompany any proposed loop diagnostic. See [[Lattice gauge theory]] for the matrix-link construction and its distinction from group-valued parallel transport.
+
 
 ## Nonlinear adaptive cyclic formation, September 13
 
@@ -45,7 +75,7 @@ an element of the structure group `G`. The connection is **flat** (curvature zer
 
 ## Why it matters here
 
-Generic non-abelian connections and curved SPD manifolds can have nontrivial holonomy. The realized transformer Regime-I connection is more restrictive: $\Omega_{ij}=U_iU_j^{-1}$ telescopes on every closed loop, so $H=I$ exactly despite the noncommutativity of $\mathrm{GL}(K)$. Nontrivial model holonomy requires an independent-edge or otherwise nonflat Regime-II connection. [[gl-k-attention-2026-07-09-review-revision]]
+Generic non-abelian connections and curved SPD manifolds can have nontrivial holonomy. The realized transformer Regime-I connection is more restrictive: $\Omega_{ij}=U_iU_j^{-1}$ telescopes on every closed loop, so $H=I$ exactly despite the noncommutativity of $\mathrm{GL}(K)$. Nontrivial model holonomy requires an independent-edge or otherwise nonflat Regime-II connection.
 
 ## Detection by embedded agents (2026-08-18)
 
@@ -93,21 +123,21 @@ so curvature is the *density* of holonomy and holonomy is its *integral*. A conn
 
 **Anholonomy and the geometric (Berry-type) phase.** Holonomy is sometimes called *anholonomy* to stress that the closed-loop transport fails to close on itself in the fiber. The classic intuition is parallel-transporting a vector around a spherical triangle: it returns rotated by an angle equal to the enclosed solid angle (the sphere's curvature times area). Abelian holonomy reduces to such a phase/scale factor; the non-abelian GL(k) case generalizes this to a full matrix.
 
-**Relation to Lie-algebra coordinates.** BCH commutators describe generic non-abelian group commutators, but they do not create holonomy in the realized vertex cocycle: the exact group products $U_iU_j^{-1}$ still telescope. Finite BCH truncation is only a local approximation, and any truncation residue is numerical/chart error rather than a Regime-I curvature observable. [[gl-k-attention-2026-07-09-review-revision]]
+**Relation to Lie-algebra coordinates.** BCH commutators describe generic non-abelian group commutators, but they do not create holonomy in the realized vertex cocycle: the exact group products $U_iU_j^{-1}$ still telescope. Finite BCH truncation is only a local approximation, and any truncation residue is numerical/chart error rather than a Regime-I curvature observable.
 
 **Holonomy group as a representation-theoretic object.** The holonomy group sits inside the structure group and acts on features that are organized into [[Irreducible representation]]s. Equivariant architectures route information through irreps and couple them with [[Clebsch-Gordan coefficients]] ([[weiler-2019-e2-steerable]], [[kondor-2018-compact-group-conv]], [[thomas-2018-tensor-field-networks]]); the holonomy is the concrete group element that acts on each irrep block as a belief is transported, so its effect decomposes block-by-block across the model's irrep bookkeeping.
 
-> [!note] Editorial (2026-07-09): generic holonomy definitions on this page remain valid. In this architecture, measurable nontrivial loop transport belongs only to an edge-relaxed/nonflat path; strict Regime I is exactly flat. [[gl-k-attention-2026-07-09-review-revision]]
+> [!note] Editorial (2026-07-09): generic holonomy definitions on this page remain valid. In this architecture, measurable nontrivial loop transport belongs only to an edge-relaxed/nonflat path; strict Regime I is exactly flat.
 
 ## In this work
 
 Holonomy surfaces wherever the config commits to a connection or to non-commuting transport:
 
-- **Regime-I vertex transport.** The cocycle gives $H=I$ exactly; noncommutativity alone does not change this. [[gl-k-attention-2026-07-09-review-revision]]
+- **Regime-I vertex transport.** The cocycle gives $H=I$ exactly; noncommutativity alone does not change this.
 - **Parallel transport / holonomy of beliefs.** Closed-loop transport is a valid consistency diagnostic only for a connection that the architecture actually realizes. The Regime-I frame connection closes exactly; an edge-relaxed connection can be tested for nontrivial loop transport ([[cohen-2019-gauge-cnn]], [[bronstein-2021-geometric-deep-learning]]).
 - **Generic SPD holonomy.** Levi-Civita parallel transport of tangent vectors around a closed path on the curved affine-invariant SPD manifold can have nontrivial holonomy ([[pennec-2006-affine-invariant-tensor]], [[bhatia-2007-positive-definite-matrices]]). The deployed `spd_affine` covariance retraction updates covariance points; it does not by itself implement that closed-loop tangent-vector transport or establish SPD-side model holonomy.
-- **Edge-relaxed transport.** Independent edge variables can produce nontrivial holonomy and are the appropriate target for loop diagnostics. [[gl-k-attention-2026-07-09-review-revision]]
-- **Frame conditioning.** The configured Cartan/Killing object is an optimizer preconditioner, not a full-$\mathrm{GL}(K)$ Fisher metric and not a certificate that holonomy is reparameterization invariant. [[gl-k-attention-2026-07-09-review-revision]]
+- **Edge-relaxed transport.** Independent edge variables can produce nontrivial holonomy and are the appropriate target for loop diagnostics.
+- **Frame conditioning.** The configured Cartan/Killing object is an optimizer preconditioner, not a full-$\mathrm{GL}(K)$ Fisher metric and not a certificate that holonomy is reparameterization invariant.
 
 ## Sources
 

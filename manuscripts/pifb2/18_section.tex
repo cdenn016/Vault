@@ -1,0 +1,102 @@
+% !TeX root = ../PIFB2.tex
+\section{Observer-Dependent Geometry: The Pullback Construction}\label{sec:it_from_bit}
+
+\subsection{A continuous base and a declared comparison rule}
+\label{sec:pullback}
+
+The contextual base $\mathcal C$ is the smooth domain over which agents' statistical sections live. It is not the set of agents or the space of their probability parameters. The same overlap can carry a smoothly varying attention network at neighboring points, and the base may admit curved geometry without a particular physical metric having been supplied. Its topology, dimension and differentiable structure are inputs to the present model. The construction below derives statistical metric data on that base; it does not derive the base itself or assert direct access to an underlying reality beyond the agents' records. This is a limited mathematical contribution to Wheeler's information-to-geometry question~\cite{Wheeler1990}.
+
+Let $\mathcal S=P\times_G\mathcal B$ be the statistical bundle of Section~\ref{sec:statistical_manifolds}, let $\zeta_i$ be an agent section over $\mathcal U_i$, and choose a principal connection $\omega$ on $P$. Assume the statistical fiber is a regular identifiable smooth family with Fisher metric $g^F$, preserved by the represented coordinate action. The connection induces a horizontal distribution on $\mathcal S$ and a vertical projection $\operatorname{ver}^\omega$. The relevant derivative is
+\begin{equation}
+D^\omega\zeta_i=\operatorname{ver}^\omega\circ T\zeta_i,
+\qquad
+D^\omega\zeta_i:T\mathcal U_i\longrightarrow\zeta_i^*V\mathcal S.
+\label{eq:covariant_jet}
+\end{equation}
+It measures how the law changes after the chosen rule for comparison between neighboring fibers has been accounted for. On a nonlinear statistical family it is a vertical tangent-valued one-form, not matrix subtraction between probability laws. It is unrelated to the inference-time derivative at a fixed context, which is already vertical.
+
+In local coordinates with the convention $z'=gz$, a linear associated connection is $D=d+B$, where $B'=gBg^{-1}-dgg^{-1}$. The induced statistical derivative is $D\zeta=d\zeta+\mathsf f_B(\zeta)$, with $\mathsf f_B$ the fundamental vector field of the action on laws. For Gaussian state marginals this becomes
+\begin{equation}
+D\mu=d\mu+B\mu,\qquad
+D\Sigma=d\Sigma+B\Sigma+\Sigma B^\top.
+\label{eq:gaussian_covariant_jet}
+\end{equation}
+Choosing $B=-dUU^{-1}$ recovers the earlier frame-stripped formula, but this is a particular flat comparison rule. Independent interaction links do not determine a base connection or force it to have this form.
+
+\subsection{The invariant information tensor}
+
+Define
+\begin{equation}
+G_i^\omega(v,w)=g^F_{\zeta_i(c)}(D^\omega\zeta_i(v),D^\omega\zeta_i(w)).
+\label{eq:induced_metric_full}
+\end{equation}
+In a regular density chart, if $S_v=(D^\omega\zeta_i(v))/\zeta_i$ is its tangent score, then $G_i^\omega(v,w)=\mathbb E_{\zeta_i}[S_vS_w]$. Normalization gives $\mathbb E S_v=0$. This is a semimetric until nondegeneracy is established, rather than a physical distance assigned by definition~\cite[Ch.~B2]{DennisGaugeVFESuppB2026}.
+
+\begin{proposition}[Covariance, positivity and rank]
+\label{prop:physical_pullback_scope}
+For every regular section and chosen connection as above, $G_i^\omega$ is invariant under passive changes of local frame, is positive semidefinite, and satisfies
+\begin{equation}
+\operatorname{rad}G_i^\omega=\ker D^\omega\zeta_i,\qquad
+\operatorname{rank}G_i^\omega=\operatorname{rank}D^\omega\zeta_i.
+\label{eq:physical_pullback_rank}
+\end{equation}
+It depends in general on the connection as well as on the statistical section.
+\end{proposition}
+\begin{proof}
+The vertical jet transforms by the tangent action of $g$, while $g^F$ is invariant under that action, so the two changes cancel in Eq.~\eqref{eq:induced_metric_full}. Positivity follows from $G_i^\omega(v,v)=\mathbb E[S_v^2]\geq0$. Identifiability makes the vertical Fisher metric positive definite; therefore this value vanishes exactly when $D^\omega\zeta_i(v)=0$, which proves the radical and rank statements. If the connection changes by an adjoint-valued one-form $a$, write $\mathsf J_a(v)$ for its fundamental vertical action along the section. Then
+\begin{equation}
+\begin{split}
+G_i^{\omega+a}(v,w)-G_i^\omega(v,w)
+={}&g^F(\mathsf J_a(v),D^\omega\zeta_i(w))
++g^F(D^\omega\zeta_i(v),\mathsf J_a(w))\\
+&+g^F(\mathsf J_a(v),\mathsf J_a(w)),
+\end{split}
+\label{eq:physical_connection_change}
+\end{equation}
+which need not vanish.
+\end{proof}
+
+The distinction is physical as well as mathematical. Re-expressing one chosen connection and one section changes no tensor; choosing a different comparison rule can change the tensor. Even a constant section can acquire a nonzero covariant jet under a connection acting nontrivially on that law. A canonical perceived geometry therefore requires a reason to select both the law and the comparison rule. Gauge covariance alone supplies neither.
+
+If the jet has constant rank, its kernel is a smooth subbundle and $G_i^\omega$ induces a positive metric on $T\mathcal U_i/\ker D^\omega\zeta_i$. A quotient of vector bundles is not automatically a quotient manifold: interpreting its directions as the tangent directions of an observable space additionally requires integrability and descent along the kernel leaves. These conditions are independent of positivity.
+
+\subsection{Joint, marginal and predictive geometry}
+\label{sec:three_tiers}
+
+One statistical bundle can carry all the geometric distinctions previously assigned to separate belief and model bundles. Suppose a joint law disintegrates as $\zeta(dk,dm)=q(dk\mid m)s(dm)$, and the group action and the connection respect the state and model projections. In a regular chart adapted to the connection at the point of evaluation, its score splits as
+\begin{equation}
+S_v^\zeta=S_v^s+S_v^{q\mid m},\qquad
+\mathbb E_{q(\cdot\mid m)}S_v^{q\mid m}=0.
+\end{equation}
+The second identity follows by differentiating conditional normalization; it assumes fixed support and enough domination to interchange differentiation and integration. Taking the expected product of scores makes both cross terms vanish and gives
+\begin{equation}
+G_\zeta^\omega=G_s^\omega+\mathbb E_s G_{q\mid m}^\omega.
+\label{eq:joint_fisher_decomposition}
+\end{equation}
+Thus model uncertainty and conditional state uncertainty contribute to one joint geometry. In the product specialization the conditional state law is independent of $m$ and this becomes a sum of the two marginal tensors. Outside that specialization a sum of marginal tensors discards dependence and is not the joint Fisher geometry.
+
+The prior $p_i$ is a predictive law available before the current record, and its own pullback can be defined when it varies smoothly with context. It is neither the model presentation $m_i$ nor the belief $s_i$ about that presentation. A slowly changing predictive or model statistic can support a stable geometric description while fast posterior beliefs fluctuate. Whether it does is a timescale and closure property to derive from the dynamics, not a consequence of the letter assigned to that statistic. Identifying one of these tensors with experienced ambient space remains a candidate operational interpretation; this section does not privilege the slow marginal by definition.
+
+\subsection{Gaussian sections in an arbitrary base chart}
+
+For a Gaussian marginal $q_i(c)=\mathcal N(\mu_i(c),\Sigma_i(c))$ with $\Sigma_i\succ0$, its covariant pullback has the explicit form
+\begin{equation}
+G^{(q)}_{i,\alpha\beta}
+=(D_\alpha\mu_i)^\top\Sigma_i^{-1}(D_\beta\mu_i)
++\tfrac12\operatorname{tr}\bigl(\Sigma_i^{-1}D_\alpha\Sigma_i\Sigma_i^{-1}D_\beta\Sigma_i\bigr).
+\label{eq:gaussian_base_fisher}
+\end{equation}
+The indices $\alpha,\beta$ range over the dimension of the base chart, with no restriction to two dimensions. In a declared reference chart with $B=0$ and $\Sigma_i=\sigma^2I_K$, substitution gives
+\begin{equation}
+G_i^{(q)}=\sigma^{-2}\bigl(d\mu_i^\top d\mu_i+2Kd\sigma\otimes d\sigma\bigr).
+\label{eq:isotropic_base_fisher}
+\end{equation}
+Its rank is the rank of the combined map $(d\mu_i,d\sigma)$. The mean and uncertainty gradients both matter; constant means need not give zero geometry when uncertainty varies. This example uses ordinary probability and does not identify the sample dimension $K$ with the dimension of the base.
+
+\subsection{The limit of the pullback mechanism}
+
+The tensor measures local statistical distinguishability after a connection has been chosen. Its line element is dimensionless in the information convention, while its components transform with the base coordinates. A physical length requires a calibration or an independently derived dimensionful scale. A dimensionless statistical length is not already a number of meters, and changing the logarithm base cannot change a physical prediction.
+
+Positive Fisher geometry also does not generate a negative temporal norm. Adding a gauge-dependent term $\operatorname{tr}(U^{-1}dU\otimes U^{-1}dU)$ would replace this problem with an arbitrary frame choice. Section~\ref{sec:signature_resolution} instead treats Lorentz geometry as a separate representation and soldering construction. Neither a positive tensor nor its Lorentzian extension becomes gravitational dynamics merely by calculating its curvature.
+
+Finally, a readout can influence inference only if the generative law or the updating law actually reads it. In the pointwise theory the contextual pullback is diagnostic. Feeding it back through a normalized record kernel, a population prior, or a specified base-field term defines a further model whose normalizers and variational derivatives must be retained. Such a feedback model can be studied without adding a second primitive bundle, but its existence and physical performance are separate questions from Eq.~\eqref{eq:induced_metric_full}.

@@ -164,14 +164,13 @@ structure. Iterating this gives the cross-scale tower of the
 RG couplings. For Regime-I vertex variables, equal-weight blocking gives RMS fluctuations
 proportional to $n^{-1/2}$ and $y_2=-1/2$. The $n^{-1}$ rate belongs to a separate enlarged
 independent-edge ensemble and is not established by the data-dependent Regime-II parameterization.
-[[gl-k-attention-2026-07-09-review-revision]]
 
 Two further connections make the term load-bearing:
 
 - **Attention uses this coupling.** The Regime-I cocycle forces trivial loop holonomy but does not
   force pairwise identity transport. In the shared-frame or edge-independent constant reduction,
   $\Omega_{ik}=I$. Its isotropic transported-KL score is identity-bilinear plus a key-norm bias; an
-  arbitrary learned QK bilinear form is a separate structural map. [[gl-k-attention-2026-07-09-review-revision]]
+  arbitrary learned QK bilinear form is a separate structural map.
 
 - **Coupling vs. inertia.** The coupling term supplies a restoring force. The intrinsic
   [[Fisher information metric]], the loss stiffness, and any kinetic metric are distinct
@@ -208,5 +207,4 @@ This dual heritage is why the concept sits in both the
 ## Sources
 
 [[deffuant2000-bounded-confidence]] · [[friedkin1990-social-influence-opinions]] ·
-[[hinton-2002-products-of-experts]] · [[degroot-1974-consensus]] · [[gl-k-attention]] ·
-[[belief-inertia-2026-07-13-final-review-closure]]
+[[hinton-2002-products-of-experts]] · [[degroot-1974-consensus]] · [[gl-k-attention]]

@@ -124,7 +124,7 @@ connection is a formal comparison, not an equality of functionals.
 [[Fisher information metric]] used for Gaussian belief updates. It does not
 turn the separate plain-AdamW frame M-step or decode optimizer into a natural
 gradient, and it does not identify every pairwise information cost with one
-joint statistical manifold. [[gl-k-attention-2026-07-09-review-revision]]
+joint statistical manifold.
 
 ## Sources
 

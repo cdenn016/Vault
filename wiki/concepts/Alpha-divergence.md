@@ -72,7 +72,6 @@ information-geometric construction; they cannot be identified with the
 configured Rényi order by a symbol match. The joint Gaussian belief update uses
 Fisher geometry, whose covariance block is one-half conventional AIRM, whereas
 the audited frame table uses plain AdamW and leaves the configured geometric/heavy-ball path inactive.
-[[gl-k-attention-2026-07-09-review-revision]]
 
 ## Details
 
@@ -138,7 +137,7 @@ transformer:
   Hessian carries a factor $\alpha$. The joint Gaussian belief update has Fisher
   geometry, with a covariance block equal to one-half conventional AIRM, while
   the audited frame table uses plain AdamW. No one dually-flat
-  construction identifies all three objects. [[gl-k-attention-2026-07-09-review-revision]]
+  construction identifies all three objects.
 
 > [!note] Editorial (2026-07-10): The config exposes the pairwise divergence
 > family and order. At $\alpha=1$ that divergence is KL; this does not make the

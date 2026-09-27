@@ -5,7 +5,7 @@ aliases: [field/physics, Physics sources]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-09-13
+updated: 2026-09-20
 ---
 
 # Physics MOC
@@ -86,10 +86,6 @@ See the [[Disciplines MOC]] hub for all fields.
 - [[schmah-2007-a-cotangent-bundle-slice-theorem]]
 - [[tice-2017-quasilinear-symmetric-hyperbolic-systems]]
 - [[yin-2009-a-cluster-expansion-approach-to-renormalization-group-transformations]]
-- [[multiagentelbo-2026-09-11-critical-comparisons]]
-- [[multiagentelbo-2026-09-11-extension-studies]]
-- [[multiagentelbo-2026-09-11-finite-program]]
-- [[multiagentelbo-2026-09-11-implementation]]
 
 ## Finite dynamical RG, September 12, 2026
 
@@ -109,3 +105,7 @@ See the [[Disciplines MOC]] hub for all fields.
 ## Weakest-one adaptive cyclic RG, September 13
 
 [[multiagentelbo-2026-09-13-fixed-weakest-energy-adaptive-cyclic-rg]] supplies the fixed-weakest-energy positive-rate construction, exact marked activations, joint entropy and full assignment-history comparison.
+
+## Matrix-link ingestion, September 20, 2026
+
+[[wetterich-2014-linear-lattice-gauge-theory]] records the matrix-link source and its stated scope; [[Lattice gauge theory]] and [[GL(K) gauge-equivariant attention]] provide the synthesis. The source is included in the tagged Bases view.

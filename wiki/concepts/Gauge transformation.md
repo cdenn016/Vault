@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-07-09
+updated: 2026-09-23
 ---
 
 # Gauge transformation
@@ -28,11 +28,11 @@ The crucial structural fact is that a gauge transformation is *not* a free relab
 
 The VFE transformer is built so that its per-token Gaussian beliefs $(\mu, \Sigma)$ and their couplings are *expressed in a frame that the model is free to rotate at each token*. The chosen gauge group is the block general-linear group GL($k$) (`gauge_group: block_glk`): each token's latent space is partitioned into blocks, and an independent invertible linear map may act on each block. Because there is no canonical frame, the physics of the model — its free-energy objective and its predictions — must be invariant to which frame is picked at each token, exactly the requirement of a gauge transformation. This absence of a privileged frame is the same condition that motivates [[Quantum reference frames]], where physical content is read off only relative to a chosen frame and observables must be frame-invariant ([[bartlett-2007-reference-frames|bartlett-rudolph-spekkens-2007-reference-frames]]). This is the architectural commitment that turns a transformer into a *gauge-theoretic* one: rather than baking in a single global symmetry as the group-equivariant convolutions of [[cohen-2016-gcnn]] do, it follows the *local* gauge generalization of [[cohen-2019-gauge-cnn]], where features carry frames and any comparison across positions is mediated by [[Parallel transport]].
 
-Gauge covariance of the forward score and reparameterization invariance of an optimizer are separate claims. The Gaussian belief update has a Fisher natural gradient; the frame update does not acquire one from the gauge analogy. [[gl-k-attention-2026-07-09-review-revision]]
+Gauge covariance of the forward score and reparameterization invariance of an optimizer are separate claims. The Gaussian belief update has a Fisher natural gradient; the frame update does not acquire one from the gauge analogy.
 
 ## Details
 
-**Group, algebra, and the "phi" parameterization.** LieConv's theorem retains its own surjective-exponential premise. Over the reals, the transformer's single chart reaches only $\operatorname{image}(\exp)\subsetneq\mathrm{GL}^+(K)$, so it is not a global parameterization of the intended group. [[gl-k-attention-2026-07-09-review-revision]]
+**Group, algebra, and the "phi" parameterization.** LieConv's theorem retains its own surjective-exponential premise. Over the reals, the transformer's single chart reaches only $\operatorname{image}(\exp)\subsetneq\mathrm{GL}^+(K)$, so it is not a global parameterization of the intended group.
 
 **Composition by BCH.** Because two gauge elements compose as $\exp(\phi_1)\exp(\phi_2) = \exp\!\big(\phi_1 + \phi_2 + \tfrac12[\phi_1,\phi_2] + \cdots\big)$, composing transformations directly in the algebra requires the [[Baker-Campbell-Hausdorff formula|Baker–Campbell–Hausdorff]] (BCH) series, truncated to a finite order in practice. The model uses BCH both as the *retraction* that moves gauge parameters along an update (`phi_retract_mode: bch`) and as the *composition* rule for positional gauges (`pos_phi_compose: bch`, `bch_pe_order: 4`). Retractions are the cheap first-order surrogates for true geodesic exponentials analyzed in [[absil-2008-optimization-matrix-manifolds]]; using a Lie-group retraction keeps each update *on the group manifold* without leaving the gauge structure.
 
@@ -40,7 +40,7 @@ Gauge covariance of the forward score and reparameterization invariance of an op
 
 **Representations, irreps, and coupling.** A gauge group acts on features through representations. Decomposing features into [[Irreducible representation|irreducible representations]] (irreps) and coupling them through the [[Clebsch-Gordan coefficients|Clebsch–Gordan]] tensor product is the standard bookkeeping for building gauge-equivariant layers, established for steerable and tensor-field networks in [[weiler-2019-e2-steerable]], [[kondor-2018-compact-group-conv]], and [[thomas-2018-tensor-field-networks]]. The VFE transformer carries the corresponding switches (`irrep_spec`, `use_cg_coupling`, `cross_couplings`), so its block-GL($k$) gauge group can in principle structure attention by irrep rather than by raw coordinates.
 
-**Conditioning the gauge update.** The optional Cartan/Killing and pullback objects are optimizer preconditioners, not full-$\mathrm{GL}(K)$-invariant Fisher/K-FAC metrics. Audited runs use plain AdamW for the frame table; the configured preconditioner and heavy-ball fields are inactive. [[gl-k-attention-2026-07-09-review-revision]]
+**Conditioning the gauge update.** The optional Cartan/Killing and pullback objects are optimizer preconditioners, not full-$\mathrm{GL}(K)$-invariant Fisher/K-FAC metrics. Audited runs use plain AdamW for the frame table; the configured preconditioner and heavy-ball fields are inactive.
 
 > [!note] Editorial: The config sets `transport_mode: flat`, `cocycle_relaxation: 1.0`, `use_cg_coupling: false`, and `irrep_spec: null` in the inspected run, so the gauge machinery is present and parameterizable but operating in its simplest (flat, uncoupled) regime for this particular training run rather than at full curvature.
 
@@ -50,12 +50,14 @@ The gauge transformation is the organizing symmetry of the whole architecture, s
 
 - `gauge_group: block_glk` — the gauge group is block GL($k$), one invertible linear map per latent block per token.
 - `gauge_parameterization: phi` with `phi_scale` — gauge elements are generated from algebra-valued $\phi$ via the exponential map.
-- `phi_retract_mode: bch` is a truncated, local approximation; optional frame conditioning carries no Fisher or full-gauge-invariance guarantee. [[gl-k-attention-2026-07-09-review-revision]]
+- `phi_retract_mode: bch` is a truncated, local approximation; optional frame conditioning carries no Fisher or full-gauge-invariance guarantee.
 - `transport_mode: flat`, `cocycle_relaxation` — the connection used to transport beliefs between tokens, and the consistency relaxation governing it.
 - `pos_phi: learned`, `pos_phi_compose: bch`, `bch_pe_order`, `pos_phi_scale` — positional encodings are themselves learned gauge elements composed via BCH, the gauge-native counterpart to the RoPE / ALiBi / T5 position priors that ride alongside them.
 - `irrep_spec`, `use_cg_coupling`, `cross_couplings` — the irrep decomposition and Clebsch–Gordan coupling through which the gauge group can structure attention (disabled in the inspected run).
 
 Because the beliefs $(\mu, \Sigma)$ that the gauge frames act upon are SPD-manifold objects (see [[pennec-2006-affine-invariant-tensor]]), the gauge action on a covariance is a congruence (sandwich) action $\Sigma \mapsto g\,\Sigma\,g^{\top}$, which preserves positive-definiteness; the matching `spd_affine` retraction then moves $\Sigma$ on its own manifold. The gauge layer and the SPD layer thus share the same Riemannian, frame-invariant design philosophy.
+
+**Artificial versus substantial covariance (2026-09-23).** A covariance can hold only because the fields have been rewritten in dressed, gauge-invariant variables. The v2 revision of the GL(K) attention manuscript reads its learned per-token frames as a local dressing field ([[fournel-2014-gauge-invariant-composite-fields]]). Under a passive change the frames transform as $U_i\mapsto g_iU_i$ and the reference moments $\xi_i=U_i^{-1}\mu_i$ are invariant, so by criterion (C1) of [[francois-2019-artificial-gauge-symmetries]] the passive $\mathrm{GL}(K)$ covariance is artificial and constrains no learned interface map. This differs from the gauge-CNN case above, where frames are geometric data defined up to the structure group and shared kernels must be intertwiners ([[weiler-2021-coordinate-independent-cnns]]). See [[Dressing field method]].
 
 ## Sources
 
@@ -72,6 +74,8 @@ Because the beliefs $(\mu, \Sigma)$ that the gauge frames act upon are SPD-manif
 - [[horn-johnson-2013-matrix-analysis]] — matrix-analysis reference for the GL($k$) congruence action and exponential map.
 - [[bartlett-2007-reference-frames|bartlett-rudolph-spekkens-2007-reference-frames]] — quantum reference frames and the frame-invariance of physical content.
 - [[bleecker-1981-gauge-theory-variational-principles]] — canonical bundle-connection-and-variational-principle reference behind the gauge formalism.
+- [[fournel-2014-gauge-invariant-composite-fields]] — the dressing field method: gauge-invariant composite fields built with a dressing field.
+- [[francois-2019-artificial-gauge-symmetries]] — criterion (C1): a local dressing field signals an artificial gauge symmetry.
 
 ## See also
 
@@ -88,3 +92,4 @@ Because the beliefs $(\mu, \Sigma)$ that the gauge frames act upon are SPD-manif
 - [[Tensor Field Network]]
 - [[Structural realism]]
 - [[Quantum reference frames]]
+- [[Dressing field method]]

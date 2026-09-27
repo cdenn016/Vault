@@ -11,7 +11,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-08-10
+updated: 2026-09-23
 ---
 
 # Natural gradient
@@ -31,9 +31,9 @@ and the chosen integration or retraction map.
 
 ## Why it matters here
 
-Natural-gradient claims apply to the Gaussian belief mean/covariance updates, whose statistical family has a Fisher metric. At each recorded source SHA, the committed gate and stored configuration route the audited frame table through AdamW on the outer objective; dirty provenance prevents byte-level reconstruction. Heavy-ball belongs only to the disabled custom outer frame optimizer, BCH/retraction only to disabled in-E-step revision, and the optional Cartan/Killing or exponential-pullback conditioner would not thereby be Fisher, reparameterization invariant, or gauge invariant if enabled. [[gl-k-attention-2026-07-09-review-revision]]
+Natural-gradient claims apply to the Gaussian belief mean/covariance updates, whose statistical family has a Fisher metric. At each recorded source SHA, the committed gate and stored configuration route the audited frame table through AdamW on the outer objective; dirty provenance prevents byte-level reconstruction. Heavy-ball belongs only to the disabled custom outer frame optimizer, BCH/retraction only to disabled in-E-step revision, and the optional Cartan/Killing or exponential-pullback conditioner would not thereby be Fisher, reparameterization invariant, or gauge invariant if enabled.
 
-These invariance and efficiency properties hold when the actual Fisher metric of a statistical family is used. They support belief-side updates, not a frame update identified only by analogy. [[gl-k-attention-2026-07-09-review-revision]]
+These invariance and efficiency properties hold when the actual Fisher metric of a statistical family is used. They support belief-side updates, not a frame update identified only by analogy.
 
 ## Details
 
@@ -72,13 +72,13 @@ positive scale.
 > geometry; its covariance block is one-half conventional AIRM. The architecture
 > also uses a configurable order-Rényi pairwise discrepancy.
 > It does not sweep Amari alpha-connections, and the audited frame table remains
-> on plain AdamW. [[gl-k-attention-2026-07-09-review-revision]]
+> on plain AdamW.
 
 ## In this work
 
 Natural gradient surfaces wherever the VFE transformer optimizes a distribution:
 
-- **Frame M-step.** The committed gate at each recorded SHA routes the frame table through AdamW, subject to the dirty-provenance caveat. Optional per-block conditioning and heavy-ball are inactive fields, not an identified Fisher/K-FAC natural gradient; the BCH retraction dispatcher is a separate optional in-E-step route. [[gl-k-attention-2026-07-09-review-revision]]
+- **Frame M-step.** The committed gate at each recorded SHA routes the frame table through AdamW, subject to the dirty-provenance caveat. Optional per-block conditioning and heavy-ball are inactive fields, not an identified Fisher/K-FAC natural gradient; the BCH retraction dispatcher is a separate optional in-E-step route.
 - **Opt-in frame pullback group descent.** The rebuilt 2026-07-18 route is a stateless
   exponential-coordinate Frobenius-pullback solve followed by a right group update. Its first
   retained K=10 run was numerically healthy but optimized outer cross-entropy slowly: validation
@@ -87,8 +87,7 @@ Natural gradient surfaces wherever the VFE transformer optimizes a distribution:
   1.90, and no trust/backtracking reduction activated. This is evidence about an extrinsic frame
   optimizer, not a Fisher natural gradient. The exact K=10 AdamW gap is not reconstructable from
   the retained artifacts, and the registered pullback learning-rate sweep remains incomplete.
-  [[2026-07-18-phi-pullback-group-k10-partial-negative-result]]
-- **E-step / online belief updates.** The per-token Gaussian beliefs $(\mu,\Sigma)$ are refined with the belief-family Fisher geometry. [[khan-rue-2023-bayesian-learning-rule]] supplies a related exponential-family natural-parameter update, but it does not identify the entire program or its separate decode/frame M-steps with one Bayesian learning rule. Adaptive-optimizer cautions must therefore be assessed per optimizer rather than transferred from the belief update to every channel. [[gl-k-attention-2026-07-09-review-revision]]
+- **E-step / online belief updates.** The per-token Gaussian beliefs $(\mu,\Sigma)$ are refined with the belief-family Fisher geometry. [[khan-rue-2023-bayesian-learning-rule]] supplies a related exponential-family natural-parameter update, but it does not identify the entire program or its separate decode/frame M-steps with one Bayesian learning rule. Adaptive-optimizer cautions must therefore be assessed per optimizer rather than transferred from the belief update to every channel.
 - **SPD covariance geometry.** The covariance $\Sigma$ lives on the SPD
   manifold under the `spd_affine` retraction. For a zero-mean Gaussian, the
   covariance block of the Fisher metric is one-half the conventional AIRM; the
@@ -104,7 +103,7 @@ Natural gradient surfaces wherever the VFE transformer optimizes a distribution:
   scheme. This statistical-coordinate statement is an analogy to gauge
   invariance, not a proof of the model's gauge equivariance.
 
-The operative natural-gradient claim in the reference configuration is the Gaussian belief update, not per-block Fisher preconditioning of the frame M-step. [[gl-k-attention-2026-07-09-review-revision]]
+The operative natural-gradient claim in the reference configuration is the Gaussian belief update, not per-block Fisher preconditioning of the frame M-step.
 
 ## Constrained ELBO geometry
 
@@ -120,24 +119,30 @@ specified marginal families. It is a comparator for [[Quotient Bayesian learning
 that the project's noncompact passive-frame quotient is regular or that its deployed update is the
 quotient natural gradient.
 
+## Parameter symmetries and optimizer drift (2026-09-23)
+
+Continuous symmetries of a loss yield conservation laws of gradient flow ([[kunin-2021-neural-mechanics]], Theorem 1). For the rescaling symmetry of two consecutive linear layers the conserved quantity is $W^{(h)}W^{(h)\top}-W^{(h+1)\top}W^{(h+1)}$ ([[du-2018-balanced-layers]], Theorem 2.2). Weight decay, momentum, stochasticity, and finite learning rates break these laws, and an adaptive optimizer does not follow the gradient flow at all. The v2 revision of the GL(K) attention manuscript uses this to read its conditioning diagnostics. The comparison maps have a cogredient $\mathrm{GL}(r_h)$ redundancy, so gradient flow would conserve $S_QS_Q^\top+S_KS_K^\top$, whereas AdamW without weight decay drifted along the orbit in the reported run and made raw condition numbers depend on the basis. In the same run, AdamW's decoupled weight decay ([[loshchilov-hutter-2019-adamw]]) acting on the stored log-variances drove the variances from 15 to about 1.045.
+
 ## Sources
 
 - [[amari-1998-natural-gradient]] — the natural gradient as Fisher-preconditioned steepest descent; reparameterization invariance and Fisher efficiency.
 - [[amari-2000-methods-information-geometry]] — Fisher metric and Amari alpha-connections; order-Rényi divergence is a distinct family.
 - [[martens-2020-natural-gradient-insights]] — natural gradient as a Gauss–Newton-related curvature method under matching output/loss conditions; damping.
-- [[martens-2015-kfac]] — Kronecker-factored Fisher approximation as general background; no frame-Fisher identification is asserted here. [[gl-k-attention-2026-07-09-review-revision]]
+- [[martens-2015-kfac]] — Kronecker-factored Fisher approximation as general background; no frame-Fisher identification is asserted here.
 - [[ollivier-2015-riemannian-metrics-nn]] — families of Fisher-based, invariant metrics for neural networks.
 - [[absil-2008-optimization-matrix-manifolds]] — retractions and vector transports for the Riemannian realization of natural-gradient steps.
 - [[bonnabel-2013-riemannian-sgd]] — convergence of stochastic Riemannian descent.
 - [[li-turner-2016-renyi-vi]], [[vanerven-2014-renyi-kl]] — respectively the variational Rényi bound and order-Rényi divergence; both recover KL-related limits but are not interchangeable.
 - [[sra-hosseini-2015-conic-geometric-optimization]] — conic geometric optimization on the SPD cone as a symmetric space; geodesic convexity and affine-invariant descent.
-- [[nielsen-2020-elementary-introduction-information-geometry]] — pedagogical grounding for KL geometry and Gaussian belief natural gradients. [[gl-k-attention-2026-07-09-review-revision]]
+- [[nielsen-2020-elementary-introduction-information-geometry]] — pedagogical grounding for KL geometry and Gaussian belief natural gradients.
 - [[martens-2010-hessian-free-optimization]] — truncated-Newton background; no audited frame-Fisher M-step is inferred.
 
 - [[ay-2025-natural-gradient-elbo]] — the ambient/constrained distinction and a sufficient
   cylindrical-model condition for ELBO/target-KL natural-gradient compatibility.
 - [[lukashchuk-2025-quotient-bayesian-learning]] — a quotient Bayesian learning rule for declared
   marginal families, with scope distinct from the project's passive-frame quotient.
+- [[kunin-2021-neural-mechanics]] — symmetry-induced conservation laws of gradient flow and their breaking by weight decay, momentum, stochasticity, and discretization.
+- [[du-2018-balanced-layers]] — gradient flow preserves the balance of consecutive layers in homogeneous networks.
 
 ## See also
 

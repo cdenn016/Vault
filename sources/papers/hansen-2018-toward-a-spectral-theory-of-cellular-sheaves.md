@@ -1,7 +1,8 @@
 ---
 type: paper
 title: "Toward a Spectral Theory of Cellular Sheaves (arXiv 1808.01513)"
-tags: [cluster/coarse-graining, project/multi-agent, field/mathematics, field/cs-ml]
+aliases: ["HansenGhrist2019"]
+tags: [cluster/coarse-graining, project/multi-agent, project/transformer, field/mathematics, field/cs-ml]
 created: 2026-09-11
 updated: 2026-09-11
 ---
