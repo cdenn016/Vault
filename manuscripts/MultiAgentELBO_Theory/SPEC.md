@@ -363,3 +363,17 @@ and complete retained-path TV while the parent learns from its own law.
 They do not replace the actual activation distribution by an independent
 Gaussian, condition on future survival, close arbitrary realized histories,
 or establish a recursive next formation.
+
+**Sequential continuation, early parent scope.** The propositions
+prop:phil-early-seeded-parent, prop:phil-early-first-completion, and
+prop:phil-early-parent-dynamics activate the same fixed channel on the
+seeded sub-event of the original first contrast, at every mobility
+epsilon_L in [0,1], including T^(1/8). At a deterministic activation time
+theta with theta - log(1/eps) -> infinity and eps^4 theta -> 0 they give
+separately vanishing discarded KL and retained-path TV on windows with
+T h -> 0. For log(1/eps) - theta -> infinity, and at the first qualifying
+completion time, also under conditioning on E_T, the discarded KL diverges;
+this is an ESTABLISHED negative. They do not decide the window
+theta = log(1/eps) + O(1), bound the discarded KL given E_T at a
+deterministic time, compare learned and frozen first blocks at
+epsilon_L = T^(1/8), or establish a recursive next formation.
