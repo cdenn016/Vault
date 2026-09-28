@@ -29,6 +29,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 - [[dennis-2026-projected-predictive]] — projected predictive route end to end, toggle-to-equation map, and the opt-in moment-matched predictive covariance; tests only, no training result
 - [[dennis-2026-template-routing]] — template routing explainer: block MLP as mixture-prior inference over learned Gaussian templates; vfe3 `gaussian_template` toggle, no training result
 - [[multiagentelbo-2026-09-26-conditioned-parent]] — actual prefix-conditioned parent activation, own-law learning, and vanishing conditional-information and path errors after late coherence
+- [[multiagentelbo-2026-09-28-early-parent]] — parent on the seeded early first-contrast prefix at every mobility up to 1 (including T^(1/8)): vanishing conditional and path errors after hidden thermalization, divergence at the first-completion clock
 - [[multiagentelbo-2026-09-26-selected-coherence]] — actual-path coherent persistence and the early first-block null
 - [[multiagentelbo-2026-09-26-joint-temperature-selection]] — joint selection along implicit common thresholds; explicit temperature-dependent tracking bounds
 - [[multiagentelbo-2026-09-26-selection-and-reference-review]] — scoped pairing-selection proof and checked primary-reference archive

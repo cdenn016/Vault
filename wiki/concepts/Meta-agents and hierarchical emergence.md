@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-09-27
+updated: 2026-09-28
 ---
 
 # Meta-agents and hierarchical emergence
@@ -21,6 +21,8 @@ updated: 2026-09-27
 ## Conditioned parent activation, September 26, 2026
 
 [[multiagentelbo-2026-09-26-conditioned-parent]] activates the existing assignment- and loop-retaining parent from the actual recognition law conditioned on the completed late coherence prefix, with no Gaussian reset; the parent inherits the rows at activation and then learns from its own law. The discarded optimizing conditional KL is at most $(\eta+h_b(\rho))/(1-\rho)$ for $\rho<1/2$ (physical, evaluator-retaining loss adds at most $T$), and complete retained/source path TV over a following $T^{-1/4}$ window is at most $2\rho+(h+3)\delta+4hd/(1-4d)$, giving $O(T^{1/4}\log(1/T))$ and $O(T^{1/4})$ on the joint schedule. This is a parent after restored equilibrium coherence; a hidden-sign example (KL $\log 2$) shows why a high-probability prefix is needed. First-contrast parent closure, arbitrary-history closure, and recursive formation remain open.
+
+[[multiagentelbo-2026-09-28-early-parent]] moves the same parent to the seeded sub-event of the original early contrast, at every mobility $\epsilon_L\in[0,1]$ including the original $\epsilon_L=T^{1/8}$. The seed (initial ball about $\pm x_\circ$, matching assignment, silent clock on $[0,1/4]$) is a time-zero event whose hidden imprint $|F_M^\top X_0|<\rho_\circ$ the held Ornstein-Uhlenbeck flow forgets, while the remainder (noise tube, no assignment change) has high conditional probability and is charged by event information. At a deterministic activation time $\theta$ the discarded conditional KL is at most $[\eta(\theta)+h_b(p_\theta)]/(1-p_\theta)$ with $\eta(\theta)=9\rho_\circ^2e^{-8\theta}/(2T)+O(e^{-16\theta})$, uniformly in $m_0$; it vanishes once $\theta-\log(1/\epsilon)\to\infty$ and $\epsilon^4\theta\to0$, and is $O(T)$ on $[t_\epsilon,t_*]$ with a sub-Gaussian tube. A matching lower bound makes $\theta=\log(1/\epsilon)+O(1)$ the thermalization threshold, and at the first qualifying completion time the discarded KL is at least of order $T^{-5/8}$ (also given the whole contrast event, asymptotically), so parents activated at the completion clock fail. A direct stopped coupling with pointwise tube hazards, replacing item 3's stationary comparison, bounds retained-path TV by $24e^{-1/(76800Th)}+4(1+\sqrt{8/3})(2e^{\epsilon_L(\theta+h)}-1)he^{-1/T}$. The activation clock, not the mobility, is the binding restriction; the learned/frozen first-block comparison at $T^{1/8}$ and conditioning on non-seeded contrast histories remain open.
 
 ## Positive-rate cyclic formation with weakest energy one, September 13
 
