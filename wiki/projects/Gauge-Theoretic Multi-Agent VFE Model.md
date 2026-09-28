@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-09-27
+updated: 2026-09-28
 ---
 
 # Gauge-Theoretic Multi-Agent VFE Model
@@ -32,6 +32,8 @@ updated: 2026-09-27
 [[multiagentelbo-2026-09-26-selected-coherence]] transfers late one-time matching selection to actual-path persistence at Euclidean residual resolution T^(1/4) over duration T^(-1/4). The learned/frozen coherent-partition TV tends to one half, but this event is restored equilibrium coherence. On the original early contrast window, their conditional first-block TV instead vanishes for epsilon_L=o(T^(1/4)), using an explicit native-path coupling and the existing positive seeded floor. The original faster-learning regime and conditioned parent errors remain open.
 
 [[multiagentelbo-2026-09-26-conditioned-parent]] activates the existing assignment- and loop-retaining parent from the actual recognition law conditioned on the completed late coherence prefix, with no Gaussian reset; the parent inherits the rows at activation and then learns from its own law. The discarded optimizing conditional KL is at most (eta+h_b(rho))/(1-rho) for rho<1/2 (physical, evaluator-retaining loss adds at most T), and complete retained/source path TV over a following T^(-1/4) window is at most 2rho+(h+3)delta+4hd/(1-4d), giving O(T^(1/4)log(1/T)) and O(T^(1/4)) on the joint schedule. This is a parent after restored equilibrium coherence; a hidden-sign example (KL log 2) shows why a high-probability prefix is needed. First-contrast parent closure, arbitrary-history closure, and recursive formation remain open.
+
+[[multiagentelbo-2026-09-28-early-parent]] moves the same parent to the seeded sub-event of the original early contrast, at every mobility epsilon_L in [0,1] including the original T^(1/8). The seed is a time-zero event whose hidden imprint the held Ornstein-Uhlenbeck flow forgets, and the remainder has high conditional probability, so event information costs little. At a deterministic activation time theta the discarded conditional KL vanishes once theta - log(1/eps) -> infinity and eps^4 theta -> 0, uniformly in m_0, and is O(T) on [t_eps, t*]. It diverges before that threshold and at the first qualifying completion time (order T^(-5/8)), so parents activated at the completion clock fail. A direct stopped coupling with pointwise tube hazards gives retained-path TV vanishing for T h -> 0. The activation clock, not the mobility, is the binding restriction; the learned/frozen first-block comparison at T^(1/8) and non-seeded contrast histories remain open.
 
 ## Restructured Theory manuscript, September 24, 2026
 
