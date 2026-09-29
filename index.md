@@ -10,7 +10,7 @@ updated: 2026-09-28
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **36** manuscripts · **16** themes · **11** field MOCs · **289** concepts · **14** methods · **734** papers · **159** references · **0** runs · **7** web/methodology
+> **3** projects · **36** manuscripts · **16** themes · **11** field MOCs · **289** concepts · **14** methods · **734** papers · **159** references · **1** runs · **7** web/methodology
 
 ## 🧭 Start here
 - [[multiagentelbo-2026-09-26-selection-and-reference-review]] — scoped pairing-selection proof and checked primary-reference archive
@@ -1313,7 +1313,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 
 ## 🧪 Sources — experiment runs
 
-_No run notes at present._
+- [[2026-09-28-k20-ablation-set|K=20 ablation set, 2026-09-28 to 2026-09-29]] — fifteen single-seed runs; decoder, positional frames, covariance, and frame-optimizer findings.
 
 ## MultiAgentELBO research ingestion — September 11, 2026
 

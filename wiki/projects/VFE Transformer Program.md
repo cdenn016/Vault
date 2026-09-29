@@ -14,7 +14,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-18
-updated: 2026-09-27
+updated: 2026-09-29
 ---
 
 # VFE Transformer Program
@@ -104,6 +104,7 @@ Run artifacts (checkpoints, `metrics.csv`, `config.json`, figures) now persist u
 
 | run | K / heads | dataset | test ppl | finding |
 |-----|-----------|---------|----------|---------|
+| [[2026-09-28-k20-ablation-set]] | 20 / 2 | wikitext-103 | 109.23 to 160.05 (15 single-seed runs) | KL-to-bank decoder $-17.2$ PPL through learned per-class precisions; learned positional frames $+13.7$ if removed; reference decoder costs $+7.5$ (KL decoder) but the covariant block MLP is free; sigma tables nearly static yet load-bearing; belief-Fisher phi step $+11.1$ behind AdamW (stateless, untuned) |
 | `2026-07-18-phi-pullback-group-k10-partial-negative-result` | 10 / 2 | wikitext-103 | validation PPL 365.57 at step 9,000 (partial) | rebuilt stateless phi pullback-group descent is stable but slow at `m_phi_lr=0.01`; user-reported AdamW gap lacks a retained matched K=10 comparator, so the LR sweep remains required |
 | `2026-06-21-k160-hyperprior-saturation` | 160 / 4 | wikitext-103 | 76.53 (1 ep), 66.48 (2 ep) | hyper-prior $\lambda_h\mathrm{KL}(s\|r)$ pins at the `kl_max=100` clamp at large K → [[Divergence clamp saturation]] |
 | `2026-06-27-gauge-transport-ablation-suite` | 20 / 2 | wikitext-103 | 154 (learned) vs ~279 (frozen) | historical single-seed development ablations plus the later 3-record width sweep; causal, divergence-order, and positional rankings are not retained in the revised manuscript without frozen multi-seed provenance |
@@ -118,6 +119,8 @@ Run artifacts (checkpoints, `metrics.csv`, `config.json`, figures) now persist u
 > [!note] Finding (2026-07-05) — a second capacity axis (gauge-block partition), REMANDed to a curve. A new sweep `blocks_K48` holds `embed_dim=48` fixed and enlarges the GL gauge block GL(3)$^{16}$→GL(24)$^2$ (`n_heads=48/g`, `n_gen=48·g`), the axis complementary to the width axis of the 2026-06-27 gauge-transport ablation suite. Test PPL falls strictly monotonically 124.57 → 92.15 across g = 3,6,8,12,24 at a 245.76M-token budget, robust over 3 seeds {6,23,64} (per-label std ≤ 1.08). A full-panel red/blue debate **REMANDed** the compound claim (unanimous 3-judge, Rule 2 scope override): only the ablation curve (**S1**) survives; it must be reported as a curve, **not** a scaling law. Struck: "publishable exponent" (axis-dependent — 0.929 vs `n_params` with CI [0.07, 1.73], 0.181 vs `n_gen`, degenerate vs FLOPs — over < 1 decade of range); "parameter-efficient" (the flat ~12.06M `active_params_per_token` is the definitional identity `5·V·K + 2·K + n_gen`, not a measurement; real transport grows 64× ∝ g², wall-time is U-shaped with GL24 the slowest run, and blocks is +4.8 to +12.8 PPL worse than width at matched total params); and "complementary scaling axis" (a cross-sweep comparison across a 2× token gap vs `grow_K_GL10`, non-identified under Chinchilla's `E + A·N^{-α} + B·D^{-β}`). Upgrade path (converts REMAND → win): a matched 491.52M-token blocks run + a non-gauge `V × m` learned-table control at `m = n_gen` + a tied-gauge (`tied_block_glk`, `n_gen = g²`, or `so_n`-tied) control. Absent from both manuscripts. Full adjudication: `V3_Transformer/docs/debates/2026-07-05-blocks-k48-gauge-block-scaling-axis/`.
 
 > [!note] Partial negative result (2026-07-18) — phi pullback-group descent is stable but slow. The first retained run of the rebuilt stateless group route reached validation PPL 365.57 at step 9,000 for K=10. Its pullback direction remained 0.991 cosine-aligned with the raw outer-objective covector, the median damped generalized condition number was 1.90, and every logged trust/backtracking scale was 1.0. The evidence therefore does not indicate an exploding, singular, or trust-clipped group step. The plausible limitation is that the route discards AdamW's moment averaging, RMS normalization, past-row momentum, and frame decay while adding little directional change at this operating point. This remains a partial, single-seed negative signal: the exact K=10 AdamW comparator is not retained and the registered pullback learning-rate sweep is incomplete. AdamW remains the default; pullback-group remains an opt-in geometric control.
+
+> [!note] Finding (2026-09-29) — K=20 ablation set. Fifteen single-seed runs (seed SD about 1.5 PPL, so differences under about 4 PPL are not established); see [[2026-09-28-k20-ablation-set]]. The decoder's advantage is a learned per-class precision effect, positional information enters through the learned right-composed frame, and gauge covariance costs perplexity at the decoder but not measurably at the block MLP. The user regards the 2026-07-18 K=10 pullback run above as too old to be informative; the 2026-09-28 group_log and fisher_group routes (opt-in, `m_phi_update_mode`) supersede it as the frame-optimizer evidence, and neither has yet been compared with AdamW under a tuned learning rate.
 
 ## Status & next steps
 
