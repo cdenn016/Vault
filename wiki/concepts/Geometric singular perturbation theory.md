@@ -14,10 +14,14 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-19
-updated: 2026-09-27
+updated: 2026-09-28
 ---
 
 # Geometric singular perturbation theory
+
+## Initial layer, initial slip, and the activation clock, September 28, 2026
+
+Fenichel reduction describes the slow manifold but not how long the flow takes to reach it from a given founding state, or which slow initial condition the reduced flow should start from. Four verified sources address that initial layer. [[geigenmuller-1983-elimination-fast-variables]] and [[haake-1983-adiabatic-drag-initial-slip]] show that systematically eliminated dynamics is valid only after an initial transient and that the founding state leaves an "initial slip" in the slow variables; [[vankampen-1985-elimination-fast-variables]] reviews the elimination schemes and the choice of projection; [[cox-1995-initial-conditions-models]] obtains the correct slow initial condition by projecting along isochrons, guarantees only $O(e^{-\beta t})$ closeness in state space, and shows that with non-relaxing fast oscillations no memoryless projection works for all time. [[haken-1982-slaving-principle-stochastic]] states the stochastic slaving relation without treating the transient. In the four-cycle, measuring the layer in relative entropy at temperature $T=\epsilon^8$ stretches it to $\theta\approx\log(1/\epsilon)$, because the imprint must fall below $\sqrt T$ [[multiagentelbo-2026-09-28-early-parent]]; see [[Soft formation and the activation clock]]. That stretching is not in any of the four sources. It has the form of the small-noise cutoff of [[barrera-2016-abrupt-convergence-small-perturbations]] and [[barrera-2020-thermalisation-small-random-perturbations]], whose cutoff time $\frac{1}{2\lambda}\ln(1/\text{noise variance})$ gives $\log(1/\epsilon)+O(1)$ for the four-cycle's slowest discarded rate $\lambda=4+5T$ and noise variance $2T$. The correspondence is a match in time scale and mechanism, not an application of their total-variation theorems to the conditioned law.
 
 ## Stochastic tracking and a scoped selection proof, September 26, 2026
 

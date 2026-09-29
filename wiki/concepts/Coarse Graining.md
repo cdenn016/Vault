@@ -12,10 +12,14 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-09-26
+updated: 2026-09-28
 ---
 
 # Coarse Graining
+
+## What the parent discards and when, September 28, 2026
+
+For the four-cycle parent of [[multiagentelbo-2026-09-28-early-parent]], the discarded coordinates are the fast within-pair disagreements and the kept ones are the slow shared modes, the source assignment, and the loops. The discarded relative entropy vanishes only once $\theta-\log(1/\epsilon)\to\infty$, so the coarse-graining is valid on a time window and not from the founding instant; [[Soft formation and the activation clock]] develops this. The classical counterpart is aggregation of nearly decomposable systems, one variable per block after the within-block short run ([[simon-1961-aggregation-variables-dynamic-systems]]), and the stationary criterion for a self-contained coarse level is informational closure, which strong lumpability implies ([[rosas-2024-software-natural-world]]). Sociologically, Sherif's shared norm is the kept coordinate and individual deviations are the discarded ones ([[sherif-1935-social-factors-perception]]). In Markov-chain terms, [[diaconis-1996-cutoff-phenomenon-markov-chains]] notes that one feature of a chain can mix at a different time from the whole chain, so the time from which a coarse-graining is valid has to be stated for the discarded features specifically; the cutoff reading of the four-cycle threshold is on the Soft formation page. These mappings are interpretive.
 
 ## Marginal and path errors: primary-source checks, September 26, 2026
 

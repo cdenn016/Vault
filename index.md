@@ -2,7 +2,7 @@
 type: index
 title: Index
 aliases: [Index, Home]
-updated: 2026-09-27
+updated: 2026-09-28
 ---
 
 # Index
@@ -10,7 +10,7 @@ updated: 2026-09-27
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **36** manuscripts · **16** themes · **11** field MOCs · **288** concepts · **14** methods · **701** papers · **159** references · **0** runs · **7** web/methodology
+> **3** projects · **36** manuscripts · **16** themes · **11** field MOCs · **289** concepts · **14** methods · **734** papers · **159** references · **0** runs · **7** web/methodology
 
 ## 🧭 Start here
 - [[multiagentelbo-2026-09-26-selection-and-reference-review]] — scoped pairing-selection proof and checked primary-reference archive
@@ -164,6 +164,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Community detection and modularity]]
 - [[Geometric singular perturbation theory]]
 - [[Renormalization group flow]]
+- [[Soft formation and the activation clock]] (formation as a crossover in rescaled time; what a collective discards and keeps; founding memory)
 
 ### Participatory realism, quantum foundations, holography & consciousness
 - [[Combination problem]]
@@ -415,6 +416,45 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[hershey-2007-kl-gmm|Approximating the KL Divergence Between Gaussian Mixture Models]]
 - [[jacobs-1991-mixtures-of-local-experts|Adaptive Mixtures of Local Experts]]
 - [[sukhbaatar-2019-persistent-memory|Augmenting Self-attention with Persistent Memory]]
+
+### Meta-agent formation timescale-separation references (2026-09-28)
+- [[simon-1961-aggregation-variables-dynamic-systems|Aggregation of Variables in Dynamic Systems]] (one aggregate per block; short-run vs long-run)
+- [[geigenmuller-1983-elimination-fast-variables|Systematic elimination of fast variables in linear systems]] (reduced dynamics valid after an initial transient; initial slip)
+- [[haake-1983-adiabatic-drag-initial-slip|Adiabatic drag and initial slip in random processes]] (stochastic initial slip)
+- [[cox-1995-initial-conditions-models|Initial conditions for models of dynamical systems]] (isochron projection of the slow initial condition; full text)
+- [[haken-1982-slaving-principle-stochastic|Slaving principle for stochastic differential equations]] (order parameters enslave decaying modes)
+- [[vankampen-1985-elimination-fast-variables|Elimination of fast variables]] (unifying review; projection choice)
+- [[rosas-2024-software-natural-world|Software in the natural world]] (informational and causal closure; strong lumpability)
+- [[krakauer-2020-information-theory-individuality|The information theory of individuality]] (graded individuality via propagated information)
+- [[flack-2017-coarse-graining-downward-causation|Coarse-graining as a downward causation mechanism]] (acting on coarse estimates)
+
+### Meta-agent formation founding-memory references (2026-09-28)
+- [[sherif-1935-social-factors-perception|A study of some social factors in perception]] (autokinetic norm data; order effect; norm persists alone)
+- [[jacobs-1961-arbitrary-tradition|The perpetuation of an arbitrary tradition]] (arbitrary tradition decays with turnover; via MacNeil and Sherif)
+- [[macneil-1976-norm-change-arbitrariness|Norm change over subject generations]] (more arbitrary norms decay faster; full text)
+- [[marquis-2013-imprinting-multilevel-theory|Imprinting: Toward a multilevel theory]] (sensitive period, reflection, persistence)
+- [[stinchcombe-1965-social-structure-organizations|Social structure and organizations]] (three reasons founding structure persists; via quotation)
+- [[young-1993-evolution-conventions|The evolution of conventions]] (stochastically stable conventions; abstract)
+- [[centola-2015-spontaneous-emergence-conventions|The spontaneous emergence of conventions]] (global convention after an initial transient; network coarsening)
+- [[centola-2018-tipping-points-social-convention|Experimental evidence for tipping points in social convention]] (tipping point sharp only at large N and long times)
+- [[campbell-1958-common-fate-social-entities|Common fate, similarity, and other indices]] (metadata-only stub)
+- [[boyd-1982-cultural-transmission-cooperation|Cultural transmission and the evolution of cooperative behavior]] (conformist transmission; founding basin memory)
+
+### Meta-agent formation cutoff and transition references (2026-09-28)
+- [[barrera-2020-thermalisation-small-random-perturbations|Thermalisation for small random perturbations of dynamical systems]] (small-noise cutoff at (1/2λ) ln(1/noise); time-scale match to the activation threshold, not a direct application)
+- [[barrera-2016-abrupt-convergence-small-perturbations|Abrupt convergence for stochastic small perturbations of one dimensional dynamical systems]] (one-dimensional profile cutoff; local cutoff within a well versus metastable well choice)
+- [[boursier-2023-universal-cutoff-dyson-ornstein-uhlenbeck|Universal cutoff for Dyson Ornstein Uhlenbeck process]] (relative-entropy cutoff with explicit profile; bias/variance split; dimension as large parameter)
+- [[lachaud-2005-cutoff-hitting-times-ornstein-uhlenbeck|Cut-off and hitting times of a sample of Ornstein-Uhlenbeck processes]] (cutoff at log(n)/(2α) for n OU processes; abstract)
+- [[aldous-1986-shuffling-cards-stopping-times|Shuffling cards and stopping times]] (cut-off phenomenon named; strong uniform times)
+- [[diaconis-1996-cutoff-phenomenon-markov-chains|The cutoff phenomenon in finite Markov chains]] (formal cutoff definition; Ehrenfest start-dependence; feature-specific mixing)
+- [[freidlin-2012-random-perturbations-dynamical-systems|Random Perturbations of Dynamical Systems (3rd edition)]] (Grundlehren 260; sub-limiting distributions as metastability; publisher TOC)
+- [[bovier-2015-metastability-potential-theoretic-approach|Metastability: A Potential-Theoretic Approach]] (Grundlehren 351; metastable sets and hitting times; publisher TOC)
+- [[bianchi-2016-metastable-states-quasi-stationary-soft-measures|Metastable states, quasi-stationary distributions and soft measures]] (soft measures; exponential exit law; abstract)
+- [[collet-2013-quasi-stationary-distributions|Quasi-Stationary Distributions]] (QSDs and the Q-process; publisher TOC)
+- [[klemm-2003-global-culture-noise-induced-transition|Global culture: A noise-induced transition in finite systems]] (Axelrod with drift; relaxation time N ln N; not a phase transition in the thermodynamic limit)
+- [[yang-1952-phase-transitions-condensation|Statistical theory of equations of state and phase transitions. I]] (transitions need an infinite-system limit; abstract)
+- [[fisher-1972-finite-size-scaling-critical-region|Scaling theory for finite-size effects in the critical region]] (finite-size rounding and shift; abstract)
+- [[bianconi-2001-bose-einstein-condensation-networks|Bose-Einstein condensation in complex networks]] (link condensation onto one source; first-mover phase)
 
 ### Multi-agent VFE, Bayesian mechanics, and distributed inference ingest (2026-08-20)
 - [[heins-2023-spin-glass-active-inference|Spin glass systems as collective active inference]]
