@@ -1,0 +1,911 @@
+\chapter{Interpretation and Its Limits}
+\label{comp:ch14}
+
+This chapter covers \MT{ch:philosophy} together with the proof appendices that carry its four-cycle
+results, from \MT{sec:phil-pairing-selection-proof} to \MT{sec:phil-early-parent}. The technical
+chapter is short, but it is where the program's interpretive claims meet its most delicate formation
+theorems, and eight of the propositions treated here are stated, not only proved, in those appendices.
+
+\section{The question and the answer}
+\label{comp:ch14-question}
+
+The technical chapter asks what the preceding chapters commit to, and which readings of them an
+observation or a proof could count against. Its answer has two layers that should be kept apart. The
+first is interpretive and proves almost nothing: it sorts readings into declared rules of reading
+(definitions), commitments the mathematics uses (standing hypotheses), and unsettled questions (open
+problems). Its verdicts are that the architecture is local-first rather than background-free, that the
+frame-change invariants are compatible with several structural-realist positions and select none, that
+environment messages create no agents, and that nothing proved before the formation chapter
+distinguishes the program from an ordinary hierarchical model with learned priors, whereas formation by
+the inference could. The second layer is mathematical and substantial: a line of results on the
+homogeneous four-cycle of \MT{def:rg-formation-cycle-experiment} asking whether learning, rather than a
+random seed or a supplied hierarchy of strengths, decides which collective forms.
+
+The answer of the second layer fits in one paragraph. On the four-cycle, formation in the technical
+sense, meaning that a block enters coherence with a probability above its stationary value, happens
+from every Gaussian initial law with a probability bounded below, but that probability is supplied by
+the preparation's random initial assignment and source learning plays no role in it
+(\MT{prop:phil-seeded-contrast-formation}). Law-level selection does happen when learning is slow: at a
+small fixed temperature, as the learning mobility tends to zero, the learned source prior picks one of
+the two pairings of the cycle for almost every Gaussian initial mean, while the arm with a frozen prior
+ends symmetric (\MT{conj:phil-contrast-formation}, a theorem despite its label). That selection
+amplifies an asymmetry already present in the initial law, it appears only at late times, and at those
+times the selected pair's coherence is a property of equilibrium, not a formation event
+(\MT{prop:phil-selected-pair-persistence}); on the early horizon where formation happens, slow learning
+leaves the law of the first formed block unchanged (\MT{prop:phil-early-block-null}). Early formation
+without law-level selection, late law-level selection without formation: the two halves do not meet,
+and making them meet is the open problem \MT{open:rg-formation-adaptive-family}. The remaining results
+concern the parent. The fixed parent channel of the four-cycle can be activated with separately
+vanishing conditional and dynamical errors, both after the late selection and on the early seeded
+episode, provided the activation time waits for the discarded modes to thermalize; activation at the
+moment the coherence criterion is first met provably fails.
+
+In the chain of the theory this chapter follows the formation chapter (\cref{comp:ch13}), whose
+finite-depth theorem forms collectives through a supplied hierarchy of interaction strengths and whose
+endogenous four-cycle witness forms one pairing from a symmetric preparation without learning. The
+present chapter asks whether learning can do the choosing. \Cref{comp:tab-ch14-line} maps the
+statements by time horizon and observable, the organizing principle the technical text uses but never
+tabulates.
+
+\begin{sciencetable}{The four-cycle continuation line. ``Early'' is the original episode horizon, of order $\log(1/\epsilon)$ at temperature $\mathrm T=\epsilon^8$; ``late'' is the selection window $t\sim\epsilon_{\mathrm L}^{-1}\log(1/\epsilon_{\mathrm L})$ at fixed or slowly vanishing temperature.}
+\label{comp:tab-ch14-line}
+\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.25\textwidth}>{\raggedright\arraybackslash}p{0.17\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.2\textwidth}}
+\toprule
+\textbf{Statement} & \textbf{Horizon} & \textbf{What is compared or bounded} & \textbf{Role of learning}\\
+\midrule
+\MT{prop:phil-seeded-contrast-formation} & early & probability of a contrast (entrance) event & idle \\
+\MT{conj:phil-contrast-formation} & late, fixed $\mathrm T$ & one-time assignment law, learned versus frozen & amplifies the initial law \\
+\MT{cor:phil-joint-selection} & late, $\mathrm T\to0$ jointly & same, along implicit mobility thresholds & same \\
+\MT{prop:phil-temperature-tracking} & late & distance of the law from its instantaneous equilibrium & adiabatic following only \\
+\MT{prop:phil-selected-pair-persistence} & late window $\mathrm T^{-1/4}$ & path law and coherent partition & fixes the label only \\
+\MT{prop:phil-early-block-null} & early & conditional law of the first formed block & none if $\epsilon_{\mathrm L}=o(\mathrm T^{1/4})$ \\
+\MT{prop:phil-actual-conditioned-parent} & late activation & discarded conditional information & parent inherits rows \\
+\MT{prop:phil-actual-parent-dynamics} & late window $\mathrm T^{-1/4}$ & retained path law, parent versus fine & parent learns from its own law \\
+\MT{prop:phil-early-seeded-parent} & early activation & discarded information, both directions & idle for $\epsilon_{\mathrm L}\in[0,1]$ \\
+\MT{prop:phil-early-first-completion} & first completion & discarded information diverges & idle \\
+\MT{prop:phil-early-parent-dynamics} & windows $\ll\mathrm T^{-1}$ & retained path law, parent versus fine & idle \\
+\bottomrule
+\end{tabularx}
+\end{sciencetable}
+
+\section{The picture}
+\label{comp:ch14-picture}
+
+\subsection{Scaffolding, idle posits, and what survives a change of frame}
+
+Each agent carries two law points at the base point, a belief law and a model law, which the cross maps
+do not identify (\MTeq{eq:phil-fiber-measures}). The base, the principal bundle, and the measurable
+spaces are coordination scaffolding: they make the agents' interfaces comparable, but no inference law
+constructs them and no law is placed on them. That is the meaning of local-first and not
+background-free, and a physicist will recognize lattice gauge theory, where the lattice and the group
+are fixed background and only site fields and links fluctuate. The verdict describes the present
+architecture; it would change if edges became structural coordinates updated by inference
+(\MT{open:obs-edge-creation}) or links were recovered from population records. Because the scaffolding
+is not an inferential target, its lack of a law decides neither a Neo-Kantian reading (frames as
+revisable constitutive conditions of meaning) nor a noumenal one (the bundle as structure reached only
+through representations).
+
+The chapter's one new definition is a parsimony rule: a posit is idle when changing it alters the law
+of no record and of no statistic of a record in the model, and the idle-wheel criterion
+(\MT{def:phil-idle-wheel}) removes idle posits. It plays the role gauge redundancy plays in physics, but
+it is a declared rule of reading, close in spirit to constructive empiricism without being derived from
+it, and it is relative to the records a model declares. What survives it is structural data,
+\[
+\mathcal I_{\mathrm{struct}}
+=\Bigl\{
+\text{ELBO and relative-entropy values},\
+[\mathrm{Hol}^b(p)]_{\rm conj},\
+[\mathrm{Hol}^m(p)]_{\rm conj},\
+\bigl[(\mathring\Theta^b_e,\mathring\Theta^m_e)_{e}\bigr]
+\Bigr\}
+\]
+(\MTeq{eq:phil-invariants}): scalars invariant because the kernels are covariant
+(\MT{prop:gen-product-evidence-invariance}), loop classes in both channels, invariant because a passive
+re-expression conjugates a loop product, and the per-edge twists (each link expressed in its endpoints'
+own frames) modulo one simultaneous conjugation, which is finer than the loop classes because it keeps
+how the twists of different edges sit relative to one another. For abelian links, as on the four-cycle,
+the loop class is the loop sum $\sum_i\omega_i$. On a graph-flat family the loop classes are trivial
+(\MT{prop:geo-trivializing-criterion}) and give a noumenal reading nothing to do; a nontrivial loop class
+is a referent inside the interaction complex, which a declared record at $c_*$ can read
+(\MT{thm:cg-loop-operational-holonomy}). The technical text finds these invariants compatible with
+epistemic, moderate, and ontic structural realism and gives no argument from theory change, since they
+are invariants of frame change inside one theory, whereas Worrall's structure \citep{Worrall1989}
+survives a change of theory.
+
+\begin{analogy}{exact}
+The loop classes $[\mathrm{Hol}^x(p)]_{\rm conj}$ are the gauge-invariant content of a closed loop in
+lattice gauge theory, the data of a Wilson loop before the trace. On the interaction graph this is an
+identity of structure: links are group elements on edges, a passive re-expression acts as
+$\Theta_e\mapsto g_i\Theta_eg_j^{-1}$, and only conjugacy classes of loop products are invariant
+(\MT{prop:geo-edge-twist-invariance}). Nothing carries over to a continuum connection: graph-link
+holonomy is neither base-connection holonomy nor bundle topology, and the technical text keeps these and
+gauge redundancy apart.
+\end{analogy}
+
+\subsection{Participation and why it does not yet distinguish the program}
+
+Participation, in the technical sense, is reciprocal inferential dependence through records inside one
+joint law, with no live posterior feeding a same-step generative factor (\MT{req:gen-typing-prohibition}).
+It occurs in the same-time inference loop (block coordinate ascent, as in any connected hierarchical
+model), in parameter learning (whose optimal prior over an unrestricted family is the aggregate
+recognition law, \MTeq{eq:obs-aggregate-prior}), and in delayed feedback through a declared kernel (still
+the free energy of one joint, \MT{prop:full-graph-episode-lifted-joint}). The verdict is blunt: none of
+these separates the program from a hierarchical model with learned priors, and the resemblance to
+Wheeler's participatory proposal \citep{Wheeler1990} is neither derived from it nor evidence for it.
+Formation could separate them: collectives constituted by the coupled inference, held by a restoring
+interaction, and dependent on the preceding state. Hence the formation theorems in this chapter.
+
+\subsection{The four-cycle: a ring of agents choosing whom to listen to}
+
+Four agents sit on a ring. Each has a scalar Gaussian belief (mean $\bar k_i$, unit variance) and a
+scalar Gaussian model (mean $\bar m_i$, variance $1/2$); each edge carries a translation link $\omega_i$
+in the abelian group $(\R,+)$. The cost of an edge is the transported relative entropy of its residuals.
+Each agent listens to exactly one neighbor, and an edge carries energy only when an endpoint listens to
+it (source gating). Of the sixteen listening assignments, the two perfect matchings, which split the ring
+into two mutually attending pairs, are the candidate collectives. The kinetics is Langevin diffusion at
+temperature $\mathrm T$ on the energy sheet of the current assignment, interrupted by a rate-one clock at
+which every agent redraws whom it listens to from its posterior. Everything is symmetric under the
+rotations and reflections of the ring.
+
+\emph{Seeded formation.} From a Gaussian configuration and a uniformly random assignment, with small
+probability the assignment is already a matching and the configuration lies near a seed point where every
+edge is equally mismatched; the attended residuals then relax, the unattended ones grow, and two pairs
+form. The probability is that of a lucky initial condition, independent of the small parameter and
+unchanged if the prior learns (\MT{prop:phil-seeded-contrast-formation}).
+
+\emph{Selection by slow learning.} Now let the listening prior learn slowly from the population's
+recognition law. Its rest point is the recognition marginal, so learning has the form of the
+expectation-maximization update of mixture weights, run in continuous time; averaged over the fast
+kinetics, the listening probabilities climb the logarithm of an evidence function in the Fisher metric of
+the simplex. At low temperature that evidence is largest at the two pure matchings and has a saddle at
+the uniform prior, unstable exactly in the direction that favors one matching over the other. An
+asymmetric Gaussian initial law leaves, during the early transient, an asymmetric imprint on the rows of
+the order of the mobility; the saddle amplifies it, and after a time of order
+$\epsilon_{\mathrm L}^{-1}\log(1/\epsilon_{\mathrm L})$ the prior sits at one matching while the
+recognition law tracks the corresponding equilibrium. The frozen arm has nothing to amplify and relaxes
+to its symmetric equilibrium (\MT{conj:phil-contrast-formation}).
+
+\begin{analogy}{structural}
+The theorem has the dynamical signature of mean-field symmetry breaking. The learned four-cycle is a
+nonlinear Markov process, whose generator depends on its own law through the rows, as in the
+McKean--Vlasov limit of the Curie--Weiss model; the rest point of learning is a Curie--Weiss-type
+self-consistency (the listening marginal computed under the rows equals the rows), and below the
+theorem's temperature threshold its symmetric solution is unstable along one direction. The limits fail
+to commute in the familiar way: at fixed time the rows move by at most $\epsilon_{\mathrm L}t/2$ (part (a)
+of \MT{prop:phil-seeded-contrast-formation}), so $\epsilon_{\mathrm L}\to0$ first and then $t\to\infty$
+gives the symmetric frozen answer, while $t\propto\epsilon_{\mathrm L}^{-1}\log(1/\epsilon_{\mathrm L})$
+gives a selected matching. The imprint, of the order of the mobility, acts as a vanishing field whose
+effect survives because its amplification time diverges.
+
+It is not spontaneous symmetry breaking in the strict sense. There is no thermodynamic limit, and the
+frozen kinetics has a unique invariant law (the proof uses the Harris theorem for exactly this). Nothing
+is spontaneous either: the rows learn from the law, so they are deterministic and carry no fluctuations
+that could choose a branch, and the branch is fixed by a definite datum, the sign of an analytic function
+of the initial mean. A symmetric initial law keeps the rows uniform forever (part (c) of
+\MT{prop:phil-seeded-contrast-formation}), as a mean-field magnetization started at zero stays at zero.
+The accurate description is explicit symmetry breaking by the initial data, amplified by a dynamical
+instability; the technical text's word is ``amplifies''.
+\end{analogy}
+
+\begin{analogy}{structural}
+Why matchings win at low temperature: every listening sheet has the same minimum energy, zero, at the
+same configuration, so the sixteen sheets are degenerate. They differ in how many directions they
+stiffen: a matching stiffens four residual directions, a path six, an oriented cycle seven (the residuals
+around a loop obey one linear relation). Each extra stiff direction costs a factor of order
+$\sqrt{\mathrm T}$ in thermal phase-space volume, so the evidence peaks at the matchings. Selection among
+degenerate ground states by the volume of thermal fluctuations is the mechanism of order by disorder; the
+technical documents do not use that term.
+\end{analogy}
+
+\emph{Late persistence, early null, and the parent.} Once the prior sits at a matching, the selected pairs
+stay coherent, but the stationary law at those rows realizes the same persistence with probability
+tending to one, and the frozen arm shows persistent pairs too, split half and half between the two
+pairings (\MT{prop:phil-selected-pair-persistence}). Late, learning changes which pairing, not whether
+there is pairing. Early, a slow prior has barely moved, and the law of the first formed block is the same
+with or without learning (\MT{prop:phil-early-block-null}). The parent of a pairing is obtained by a fixed
+channel that keeps the assignment, the loop coordinate $\sum_i\omega_i$, the slow directions, and one
+fast mode (the sum of the two pairs' average residuals), and discards three fast modes (the difference of
+the pairs' average residuals and each pair's belief-model residual difference). The parent is exact as a
+summary when the discarded modes, given the kept ones, are thermal, and exact as a dynamics when its own
+evolution reproduces the kept trajectories. Both hold after the late selection and, on the early seeded
+episode, at deterministic activation times after the discarded modes have relaxed to the thermal scale;
+the first moment the coherence criterion is met is too early by at least a factor of two in logarithmic
+time, and there the discarded information diverges (\MT{prop:phil-early-first-completion}).
+
+\begin{analogy}{exact}
+The discarded conditional relative entropy is the error term of integrating out fast variables. The
+chain rule $\KL(q\Vert\mu)=\KL(C_\#q\Vert C_\#\mu)+\mathcal H_{\mathrm{opt}}(q)$
+(\MTeq{eq:phil-conditioned-parent-chain}) is an identity, so the fine divergence is the parent's
+divergence plus a remainder that vanishes exactly when the fast modes are in conditional equilibrium given
+the slow ones: adiabatic elimination written as an identity. The dynamical statements are the structural
+analogue of a valid reduced Langevin equation, proved only on stated windows. Those windows lie on a
+plateau between the thermalization time of the discarded modes, $\log(1/\epsilon)=\tfrac18\log(1/\mathrm
+T)$, and the slow time $\mathrm T^{-1}$ on which weakly restored directions equilibrate and the pairing
+can change; a quasi-stationary state between fast relaxation and slow escape is what a physicist calls
+metastability.
+\end{analogy}
+
+\section{Objects and notation}
+\label{comp:ch14-notation}
+
+\begin{decoder}
+Idle posit & A posit changing the law of no record or record statistic (\MT{def:phil-idle-wheel}). & Gauge redundancy; unobservable absolute frame. \\
+$[\mathrm{Hol}^x(p)]_{\rm conj}$ & Conjugacy class of the product of links around closed walk $p$ in channel $x$. & Wilson loop before the trace. \\
+Frame, law, mean agreement & Three inequivalent notions of agents agreeing (\MT{prop:geo-three-agreements}). & Pure gauge; equal states up to transport; equal first moments. \\
+$\mathbf x=(\bar k,\bar m,\omega)$ & Four-cycle configuration: belief means, model means, link translations; twelve coordinates. & Site fields and abelian link fields. \\
+$r^b_i$, $r^m_i$, $\mathcal D_{e_i}$ & Belief and model residuals on edge $i$ and the edge cost, a transported relative entropy. & Covariant difference and its energy. \\
+$S$, $\sigma_i$ & Listening assignment; $\sigma_i=+1$ when $i$ listens to $i+1$. & Discrete label field. \\
+$S^{(0)}$, $S^{(1)}$, matching & The two assignments that split the ring into two mutually attending pairs. & The two dimer coverings of a plaquette. \\
+$\pi_{ij}$, $p_i=\pi_{i,i+1}$ & Learned source prior (listening probabilities), one row per receiver. & Mean-field order parameter. \\
+$\epsilon_{\mathrm L}$, $\mathrm T$ & Learning mobility; temperature ($\mathrm T=\epsilon^8$ in the original regime). & Slow relaxation rate; temperature. \\
+$q^{\epsilon_{\mathrm L}}_t$, $q^0_t$ & Recognition law of the kinetics, learned arm and frozen arm (rows fixed at $1/2$). & Ensemble with and without feedback. \\
+$q^\star$, $\mu_{\mathrm T,p}$ & Restricted optimizer $\propto\pi_Se^{-U_S/\mathrm T}$, the invariant law at fixed rows $p$. & Gibbs state at fixed couplings. \\
+$\nu^M_{\mathrm T}$ & Gaussian law on the sheet of matching $M$, assignment held at $M$. & Pure phase. \\
+Contrast formation & A block internally coherent and externally distinct, entered after time zero. & Nucleation of a bound pair. \\
+$\mathsf j_{\mathrm T}(\mathsf m_0)$ & Transient imprint: integrated early asymmetry of the frozen law along the matching direction. & Integrated response to an initial perturbation. \\
+Restored equilibrium coherence & Coherence with a restoring interaction that is typical at stationarity; not formation. & Equilibrium order. \\
+$C$, $W_M$, $Z_M$ & Parent channel; kept subspace (nine dimensions); discarded subspace (three fast modes). & Blocking map; kept and integrated-out variables. \\
+$\mathcal H_{\mathrm{opt}}$, $\mathcal H_{\mathrm{phys}}$ & Mean discarded conditional relative entropy against the optimizer or the physical posterior. & Error of adiabatic elimination. \\
+Retained-path TV & Total variation between the parent's path law and the fine kept-coordinate path law. & Validity of a reduced dynamics. \\
+$\theta$, $\mathsf t_{\mathrm c}$ & Deterministic activation time; first qualifying completion time. & Fixed measurement time; first-passage time. \\
+\end{decoder}
+
+Several words carry nonstandard senses. ``Episode'' means a coherence episode in the sense of rule R15,
+not a learning episode. ``Formation'' is always a threshold event at declared resolutions (relative
+entropies below $\epsilon^4$ inside, above $1/2$ across the boundary, with an entrance clause), and
+``selection'' always a property of the law, never of a sample path. ``Actual'' means the law the kinetics
+really produces, not a Gaussian or stationary substitute. ``Physical'' refers to the generative posterior,
+``optimizing'' to the restricted optimizer. The regime parameter appears as $\epsilon$ in the appendices,
+$\xi$ in the chapter text, and $\mathrm T^{1/8}$ in \MT{prop:phil-early-block-null}; the original coupled
+regime sets the mobility $\epsilon_{\mathrm L}$ equal to it. The label
+\texttt{conj:phil-contrast-formation} survives from when the statement was a conjecture; the printed
+heading says Theorem, and it is proved.
+
+\section{The formulas, explained}
+\label{comp:ch14-formulas}
+
+\subsection{Energy, invariant law, and learning rule}
+
+On edge $e_i$ the residuals are $r^b_i=\bar k_{i+1}-\bar k_i-\omega_i$ and
+$r^m_i=\bar m_{i+1}-\bar m_i-\omega_i$, and
+\[
+\mathcal D_{e_i}(\mathbf x)=\tfrac12\bigl[(r^b_i)^2+(r^m_i)^2\bigr]
+=\KL\bigl(q^b_{i+1}\Vert(\Theta_{e_i})_\#q^b_i\bigr)
++\sigma^2_{\mathrm{ev}}\KL\bigl(q^m_{i+1}\Vert(\Theta_{e_i})_\#q^m_i\bigr)
+\]
+(\MTeq{eq:rg-formation-cycle-cost}): the relative entropy between one agent's law and its neighbor's law
+carried across the link. The sheet energy $V_S=\sum_i\mathcal D_{e(i,S_i)}$ counts an edge twice if both
+ends attend to it and not at all if neither does. The restricted optimizer, which is the invariant law of
+the kinetics at a fixed prior, is
+\[
+q^\star(\mathbf x,S)\propto\pi_Se^{-U_S(\mathbf x)/\mathrm T},
+\qquad
+U_S=V_S+\tfrac{\mathrm T}2|\mathbf x|^2+\tfrac{\mathrm T}2\mathbf x^\top R_{\mathrm{ev}}\mathbf x.
+\]
+The first term is the interaction; the second comes from the unit Gaussian prior on configurations and
+gives every direction a weak restoring rate of order $\mathrm T$; the third comes from the model evaluator
+and penalizes belief-model discrepancy, and the physical posterior omits it. At zero temperature every
+sheet has a flat zero-energy valley; at finite temperature each sheet is a Gaussian whose weight is its
+phase-space volume.
+
+The learning rule of the source prior is
+\[
+\dot\pi_{ij}=\epsilon_{\mathrm L}\bigl(q_t(S_i=j)-\pi_{ij}\bigr)
+\]
+(\MTeq{eq:phil-source-learning}): the rows relax at rate $\epsilon_{\mathrm L}$ toward the current
+recognition marginal. It is the natural-gradient flow of the free energy in the prior row under the Fisher
+metric of the simplex, with the recognition label marginal as rest point, as for the aggregate prior. The
+right side uses the law $q_t$, not a sample, so the rows are deterministic; at $\epsilon_{\mathrm L}=0$
+they stay at $1/2$, the frozen arm against which every selection claim is measured. Part (a) of
+\MT{prop:phil-seeded-contrast-formation} gives well-posedness and $|\pi_{ij}(t)-1/2|\le\epsilon_{\mathrm
+L}t/2$, so nothing learned can matter on horizons short compared with $1/\epsilon_{\mathrm L}$.
+
+\subsection{Where the probability of formation comes from}
+
+Part (b) of \MT{prop:phil-seeded-contrast-formation} bounds the probability of contrast formation below by
+\[
+\frac{e^{-1/4}}{16}\sum_{\pm}\mathcal N(\mathsf m_0,I_{12})
+\bigl\{|\mathbf x\mp\mathbf x^\circ|<\varrho_\circ\bigr\},
+\qquad \mathbf x^\circ=(0,0,\mathbf 1_4),\quad \varrho_\circ=\tfrac1{100},
+\]
+uniformly in the regime parameter. The factor $1/16$ is the probability that the uniform initial
+assignment is a given matching; $e^{-1/4}$ is the probability that the redraw clock is silent until time
+$1/4$, long enough for a cost gap to open; the Gaussian mass is the probability of starting within $1/100$
+of a seed point, where all means vanish and every link translation is $\pm1$, so every edge is equally
+mismatched. On this sub-event the mechanism of \MT{prop:rg-formation-endogenous-cycle} runs: attended
+residuals decay at rates of order one, unattended ones grow toward $3/2$ in magnitude, and posterior
+redraws keep the matching except with exponentially small probability. The bound holds equally with
+frozen rows, and the technical text draws the right conclusion: a claim that learning creates a contrast
+must compare the arms at the level of the law. Two calibrations: the explicit estimate
+$e^{-1/4}\varrho_\circ^{12}/737280$ times a Gaussian factor is about $10^{-31}$ at $\mathsf m_0=0$, so its
+only role is to be positive and $\epsilon$-independent; and the seeded sub-event is genuine formation
+under R15, with a restoring interaction and a probability exceeding its value from the invariant law, at
+most $4e^{-1/(4\mathrm T)}$, by a margin bounded below.
+
+\subsection{The row flow, its saddle, and the imprint}
+
+Averaging the learning rule over the invariant law at fixed rows gives the reduced field
+\[
+\mathscr V_i(p)=\bar\beta_i(p)-p_i=p_i(1-p_i)\partial_{p_i}\log\mathsf Z(p),
+\qquad
+\mathsf Z(p)=\sum_\sigma\pi_\sigma(p)\mathsf w_\sigma,
+\qquad
+\mathsf w_\sigma=\det(\mathsf A_\sigma/\mathrm T)^{-1/2}
+\]
+(\MTeq{eq:phil-selection-reduced-field}). Here $\bar\beta_i(p)$ is the stationary probability that
+receiver $i$ listens to $i+1$, $\mathsf w_\sigma$ is the Gaussian volume of sheet $\sigma$, and
+$\mathsf Z$ is the evidence of the prior. The factor $p_i(1-p_i)$ is the inverse Fisher metric of a
+Bernoulli row, so the reduced flow is the replicator equation with fitness $\partial_{p_i}\log\mathsf Z$,
+natural-gradient ascent of the log evidence. With the matching weight normalized to one, paths have
+relative weights $\mathsf r_E,\mathsf r_N\approx\sqrt{40/7}\mathrm T$ and oriented cycles
+$\mathsf r_C\approx\sqrt{5/3}\mathrm T^{3/2}$, the count of stiff directions made exact. At the uniform
+prior the linearized field has one positive eigenvalue $\alpha\ge7/5$ along $\mathbf v=(1,-1,1,-1)$,
+toward one matching and away from the other, and negative eigenvalues elsewhere
+(\MTeq{eq:phil-selection-saddle-spectrum}); both matching vertices are sinks. The threshold
+$\mathrm T_0$ is a temperature below which the sheet ratios are at most $1/8$: a sufficient condition of
+the proof, not a located critical temperature, and nothing is proved above it.
+
+The seed that pushes the rows off the saddle is the transient imprint
+\[
+\mathsf j_{\mathrm T}(\mathsf m_0)=\mathbf v\cdot\mathsf I(\mathsf m_0),
+\qquad
+\mathsf I_i(\mathsf m_0)=\int_0^\infty\bigl[q_t^0(\sigma_i=+1)-\tfrac12\bigr]dt
+\]
+(\MTeq{eq:phil-selection-imprint}), the time-integrated early asymmetry of the frozen law. It is an entire
+function of the initial mean and changes sign under rotation of the ring by one site, so it vanishes at
+every rotation-invariant mean, the seed points included. The proof shows it is not identically zero, so
+its zero set is Lebesgue-null: that is the excluded set of means. After the transient the rows sit at
+$1/2+\epsilon_{\mathrm L}\mathsf I(\mathsf m_0)+o(\epsilon_{\mathrm L})$; the component along
+$\mathbf v$ grows like $\epsilon_{\mathrm L}e^{\alpha\epsilon_{\mathrm L}t}$ and reaches order one at
+$t\approx\alpha^{-1}\epsilon_{\mathrm L}^{-1}\log(1/\epsilon_{\mathrm L})$, hence the window
+$t_{\mathrm L}=\mathrm C_{\mathrm T}\epsilon_{\mathrm L}^{-1}\log(1/\epsilon_{\mathrm L})$ with
+$\mathrm C_{\mathrm T}>1/\alpha$. The theorem states: there is $\mathrm T_0>0$ such that for every
+$\mathrm T\in(0,\mathrm T_0]$ and Lebesgue-almost every $\mathsf m_0$ one matching $M$ satisfies
+\[
+\lim_{\epsilon_{\mathrm L}\to0}\ \sup_{t_{\mathrm L}\le t\le2t_{\mathrm L}}
+q^{\epsilon_{\mathrm L}}_t(S\ne M)=0,
+\]
+while for every $\mathrm T>0$ and every $\mathsf m_0$ the frozen difference
+$q^0_t(S=S^{(0)})-q^0_t(S=S^{(1)})$ tends to zero as $t\to\infty$. The order of limits is fixed
+temperature, then mobility to zero, with the window scaled by the mobility; the conclusion concerns the
+one-time law of the assignment on a moving window, not histories, events, or $t\to\infty$ at fixed
+mobility.
+
+\subsection{What the corollary and the tracking bound add}
+
+\MT{cor:phil-joint-selection} lets the temperature vanish too. Along any $\mathrm T_n\downarrow0$ with
+tolerances $\eta_n\to0$ there are mobility thresholds $d_n\downarrow0$, the same for almost every mean,
+below which the selection error on the window (now with $\mathrm C_{\mathrm T}=2$ for all temperatures)
+is at most $\eta_n$, the learned law is $\eta_n$-close in relative entropy to its instantaneous
+equilibrium, and the frozen law is $\eta_n$-close to its symmetric equilibrium, so the frozen matching
+probabilities tend to $1/2$. It adds a single joint path $(\mathrm T(\epsilon_{\mathrm L}),
+\epsilon_{\mathrm L})\to0$ and an assignment-law contrast tending to $1/2$ in total variation. It adds no
+rate: the thresholds exist by a measure-theoretic argument and have no values, they can be taken below
+$\mathrm T_n^a$ for any $a>7/2$ only as a cap, and the matching may change with $n$, because nothing
+controls the imprint's sign as the temperature vanishes.
+
+\MT{prop:phil-temperature-tracking} makes the adiabatic half explicit. For $\mathrm T\le1/100$ the frozen
+entropy production dominates $\mathrm c_*\mathrm T^{5/2}/[4+3\log(1/\mathrm T)+8\log(1/p_{\min})]$
+times the relative entropy, and
+\[
+\operatorname{TV}(q_t,\mu_{p(t)})
+\le e^{-\ell t/2}\sqrt{\frac{13(12+|\mathsf m_0|^2)}{4\mathrm T}}
++\frac{2\epsilon_{\mathrm L}\mathrm D(\mathrm T,\epsilon_{\mathrm L})}{\mathrm c_*\mathrm T^{7/2}},
+\qquad
+\ell=\frac{\mathrm c_*\mathrm T^{5/2}}{\mathrm D(\mathrm T,\epsilon_{\mathrm L})}
+\]
+(\MTeq{eq:phil-temperature-tracking}), with $\mathrm D$ logarithmic. The first term is memory of the
+initial condition, erased at the mixing rate $\ell$; the second is the lag of a law chasing an equilibrium
+that moves at a rate of order $\epsilon_{\mathrm L}/\mathrm T$, divided by the mixing rate, which is where
+the exponent $7/2$ comes from. For $\epsilon_{\mathrm L}=\mathrm T^a$, $a>7/2$, tracking holds on the
+window: an explicit adiabatic condition, not a selection result, since whether the equilibrium has moved
+to a matching depends on the imprint, for which no lower bound as $\mathrm T\to0$ is available.
+
+\subsection{Persistence, and why it is equilibrium}
+
+\MT{prop:phil-selected-pair-persistence} assumes the learned law is $\delta$-close to $\nu^M_{\mathrm T}$
+and the frozen law $\delta$-close to its symmetric equilibrium. Over a window $\mathsf h$ the learned path
+law is then within $(\mathsf h+2)\delta$ of a stationary Ornstein--Uhlenbeck path held at $M$, the frozen
+one within $\delta+16\mathrm T+31\mathrm T\mathsf h$ of an equal mixture of the two held-matching paths,
+and coherence at resolution $\mathsf a$ fails with probability at most
+\[
+(\mathsf h+2)\delta+\mathsf b(\mathrm T,\mathsf a,\mathsf h),
+\qquad
+\mathsf b=8\sqrt{2/\pi}\mathsf a+(8+3400\mathsf h)\mathrm T/\mathsf a^2
+\]
+(\MTeq{eq:phil-selected-coherence-persistence}). The first term of $\mathsf b$ is the chance that an
+exterior residual, of variance of order one, is accidentally below $\mathsf a$; the second is the chance
+that thermal noise pushes an internal residual above $\mathsf a$ during the window. The choice
+$\mathsf a=\mathrm T^{1/4}$, $\mathsf h=\mathrm T^{-1/4}$ puts the resolution far above the thermal scale
+(restoring ratio $4\mathsf a^2/\mathrm T\to\infty$) and the window far below the hopping time
+$\mathrm T^{-1}$; the error is then of order $3400\mathrm T^{1/4}$, small only far below
+$\mathrm T=10^{-14}$. The last clause decides the classification: with rows near the matching vertex, the
+stationary law at those frozen rows realizes the same persistence event with probability at least
+$1-4(\mathsf h+2)\delta-\mathsf b$. The event is typical at equilibrium, fails the horizon clause of R15,
+and is restored equilibrium coherence. The coherent-partition laws of the two arms differ by nearly $1/2$
+because the frozen arm splits its equilibrium pairs evenly (\MTeq{eq:phil-coherent-partition-contrast}).
+
+\subsection{The early first-block null}
+
+\MT{prop:phil-early-block-null} keeps the original contrast detector on the horizon
+$H_{\mathrm T}=2\mathrm T^{-1/8}$ and takes the block that completes first. Coupled with common noise,
+clock, and initial sample, the arms differ only when a redraw differs, and a row displaced by
+$\epsilon_{\mathrm L}t/2$ changes a redraw probability by at most $\epsilon_{\mathrm L}t$. The conditional
+first-block laws differ by at most $\mathsf d_{\mathrm T}/\mathsf c(\mathsf m_0)$, with
+$\mathsf d_{\mathrm T}=\min\{1,8\epsilon_{\mathrm L}\mathrm T^{-1/4}\}$ and $\mathsf c$ the seeded bound
+above (at most of order $10^{-30}$), so they agree when $\epsilon_{\mathrm L}=o(\mathrm T^{1/4})$, at
+extraordinarily small temperatures; at the original mobility $\mathrm T^{1/8}$ the bound is vacuous.
+
+\subsection{Conditioning, and what a vanishing discarded term means}
+
+The late parent starts from the full recognition law conditioned on a completed coherence prefix $E$ on
+$[t_{\mathrm L},t_{\mathrm L}+1]$, pushed through the channel. \MT{prop:phil-actual-conditioned-parent}
+bounds the conditioned relative entropy and the optimizing discarded term by
+\[
+\kappa_E=\frac{\eta+h_b(\rho)}{1-\rho},
+\qquad
+h_b(r)=-r\log r-(1-r)\log(1-r),
+\]
+and the physical discarded term by $\kappa_E+\mathrm T$, where $\eta$ bounds the unconditioned relative
+entropy to equilibrium and $\rho$ the failure probability of the prefix. The binary entropy is the price
+of conditioning, small only for a typical event. \MT{rem:phil-conditioned-hidden-sign} shows the price is
+real: conditioning a thermal Gaussian on the sign of one discarded coordinate costs $\log2$ at every
+temperature, and conditioning on the whole realized history pins the discarded coordinates and makes the
+relative entropy infinite. A parent is activated from a law given a high-probability event, never from
+one history. With $\eta,\delta\le\mathrm T$ and $\epsilon_{\mathrm L}\le\mathrm T^2$,
+$\kappa_E=O(\mathrm T^{1/4}\log(1/\mathrm T))$.
+
+\MT{prop:phil-actual-parent-dynamics} compares paths. The parent diffuses on the kept subspace and, at each
+ring of its own clock, reinserts the discarded coordinates as fresh thermal draws, redraws the assignment
+from the posterior at the reconstructed configuration, and projects back; its rows learn from its own law.
+Its path law, including the assignment history and hence the loop, is within
+\[
+2\rho+(\mathsf h+3)\delta+\frac{4\mathsf hd}{1-4d},
+\qquad d=\delta+\epsilon_{\mathrm L}\mathsf h,
+\]
+of the conditioned fine kept-coordinate path law (\MTeq{eq:phil-actual-parent-path-error}), which is
+$O(\mathrm T^{1/4})$ for $\mathsf h=\mathrm T^{-1/4}$: the cost of conditioning, the distance of both
+processes from the held-matching stationary path, and the probability that the parent leaves the matching.
+
+\subsection{The activation clock}
+
+On the early seeded episode, at $\mathrm T=\epsilon^8$ and any $\epsilon_{\mathrm L}\in[0,1]$,
+\MT{prop:phil-early-seeded-parent} bounds the discarded information at a deterministic activation time
+$\theta$ from both sides. Asymptotically,
+\[
+\mathcal H_{\mathrm{opt}}(q^\circ_\theta)\le\tfrac92\varrho_\circ^2e^{-8(\theta-\log(1/\epsilon))}+o(1),
+\qquad
+\mathcal H_{\mathrm{opt}}(q^\circ_\theta)\gtrsim\frac{\varrho_\circ^2}{7}\mathrm c_{\mathsf m}
+e^{8(\log(1/\epsilon)-\theta)}-\log2
+\quad(\theta\le\log(1/\epsilon)),
+\]
+with $q^\circ_\theta$ the law conditioned on the seeded prefix and $\mathrm c_{\mathsf m}>0$ depending
+only on the initial mean. The physics is one line. The discarded discrepancy coordinates start at offsets
+of order $\varrho_\circ$ and decay at rate about $4$, while their thermal width is of order
+$\sqrt{\mathrm T}=\epsilon^4$; a displaced Gaussian has relative entropy of order squared offset over
+variance, $\varrho_\circ^2e^{-8\theta}/\mathrm T=\varrho_\circ^2e^{-8(\theta-\log(1/\epsilon))}$. So the
+discarded information is large before the thermalization time $\log(1/\epsilon)$ and small after it. The
+upper bound needs $\theta-\log(1/\epsilon)\to\infty$ and $\epsilon^4\theta\to0$, the lower bound diverges
+when $\log(1/\epsilon)-\theta\to\infty$, and the window $\theta=\log(1/\epsilon)+O(1)$ is undecided. The
+original witness of \MT{prop:rg-formation-endogenous-cycle} activates at $2\log(1/\epsilon)$, safely on
+the good side.
+
+\MT{prop:phil-early-first-completion} treats the clock a physicist might pick first: the first time any
+block meets the contrast criterion. That criterion asks for residuals below about $\epsilon^2$, far
+coarser than the thermal scale $\epsilon^4$. Seeded residuals fall below $\epsilon^2$ by about
+$\tfrac12\log(1/\epsilon)$, and near $\tfrac14\log(1/\epsilon)$ when a pair's initial discrepancy is small,
+so the first completion occurs by $\theta_\circ=\tfrac12\log(1/\epsilon)+1$. There the discarded
+information is at least of order $\mathrm T^{-5/8}$, driven by seeds whose first pair completes near
+$\tfrac14\log(1/\epsilon)$ while the other matched pair, whose discrepancy the channel also discards,
+still carries an imprint of order $\varrho_\circ\epsilon$. The divergence persists when the law is
+conditioned on the whole contrast event. This is an established negative result: no parent of this type
+activated at the first qualifying completion has a vanishing conditional error, in either arm and at any
+mobility in $[0,1]$.
+
+\MT{prop:phil-early-parent-dynamics} bounds the path error of a parent activated at a good deterministic
+time by
+\[
+24\exp\Bigl[-\frac1{76800\mathrm T\mathsf h}\Bigr]
++4\bigl(1+\sqrt{8/3}\bigr)\Lambda_{\mathrm L}(\theta+\mathsf h)\mathsf he^{-1/\mathrm T},
+\qquad
+\Lambda_{\mathrm L}(t)=2e^{\epsilon_{\mathrm L}t}-1,
+\]
+uniformly in the mean and in $\epsilon_{\mathrm L}\in[0,1]$, with $\Lambda_{\mathrm L}$ bounding how far
+learned rows can tilt a redraw. The first term is the probability that thermal diffusion over the window
+moves the configuration a distance $1/20$ off its deterministic path, negligible when
+$\mathrm T\mathsf h\to0$; the second is the Arrhenius probability of a redraw across a cost gap larger than
+one. Windows up to $\mathrm T^{-1+\mathrm q}$, $\mathrm q\in(0,1)$, are covered, and nothing is concluded
+at order $\mathrm T^{-1}$. The late proof cannot be reused here because the early activation law is at
+total-variation distance essentially one from the stationary kept-coordinate Gaussian
+(\MT{rem:phil-early-stationary-mismatch}), so the early proof follows the energy gap along the
+conditioned path.
+
+\section{What is proved, and how solid it is}
+\label{comp:ch14-scorecard}
+
+The first scorecard covers the interpretive layer.
+
+\begin{scorecard}
+\MT{def:phil-idle-wheel} & A posit that changes the law of no record or record statistic is removed. & \CHOICE & Declared rule of reading, not derived from constructive empiricism. \\
+Local-first verdict, \MTeq{eq:phil-fiber-measures} & Agents' law points are primary; base, bundle, spaces are scaffolding with no law. & \CHOICE & Describes the present architecture; changes if edges become inferred coordinates. \\
+\MTeq{eq:phil-invariants} & Evidence values, loop classes, and per-edge twists up to conjugation survive frame change. & \SOLID & Invariance proved in the cited statements; reading it as ``structure'' is interpretation. \\
+Realist and Neo-Kantian readings & Compatible with the invariants; none selected. & \VAGUE & The chapter declines to select and names what support would need. \\
+\MT{hyp:phil-observational-closure} & All data reach an agent as clamped states or node messages. & \CHOICE & Free for kernels by \MT{thm:obs-agent-interaction-equivalence}; removes no conditioning. \\
+\MT{hyp:phil-boundary-agents} & Boundary environment nodes are called agents. & \CHOICE & Naming only; adds no state, action, blanket, or free energy. \\
+Participatory reading & Participation via inference loop, learning, delayed feedback; formation could distinguish the program. & \VAGUE & Negative half rests on proved identifications; positive half is programmatic. \\
+\MT{claim:physical-law-identification} & Identify a coarse-graining object with a physical law. & \OPEN & Needs a named target system and held-out evidence; none supplied. \\
+\MT{open:phil-testability} & An observation at $c_*$ that could count against the program. & \OPEN & Only model-internal separations are proved. \\
+\end{scorecard}
+
+The second covers the continuation line. Every theorem-type statement is proved only on the four-cycle,
+with abelian translation links on scalar Gaussian means, so all are TOY; the two general items are marked
+separately.
+
+\begin{scorecard}
+\MT{prop:phil-seeded-contrast-formation} & Contrast formation from every Gaussian initial law with probability bounded below; same with frozen rows; symmetric laws keep rows uniform. & \TOY & Probability from the matching seed; learning idle; floor about $10^{-31}$ at $\mathsf m_0=0$. \\
+\MT{conj:phil-contrast-formation} & Fixed small $\mathrm T$, $\epsilon_{\mathrm L}\to0$: learned assignment law concentrates on one matching on $[t_{\mathrm L},2t_{\mathrm L}]$ for a.e.\ mean; frozen arm symmetric. & \TOY & Amplifies the initial-law asymmetry; one-time law; no rate in $\mathrm T$. \\
+\MT{cor:phil-joint-selection} & Joint limit $\mathrm T,\epsilon_{\mathrm L}\to0$ along implicit thresholds; frozen matching probabilities tend to $1/2$. & \TOY & Thresholds existential; matching may vary with $\mathrm T_n$. \\
+\MT{prop:phil-temperature-tracking} & Entropy-production rate of order $\mathrm T^{5/2}$; tracking for $\epsilon_{\mathrm L}=\mathrm T^a$, $a>7/2$. & \TOY & Tracking only; no power-law selection. \\
+\MT{prop:phil-selected-pair-persistence} & Selected pair coherent at resolution $\mathrm T^{1/4}$ for time $\mathrm T^{-1/4}$; partition contrast near $1/2$. & \TOY & Restored equilibrium coherence; no entrance claim. \\
+\MT{prop:phil-early-block-null} & For $\epsilon_{\mathrm L}=o(\mathrm T^{1/4})$ learned and frozen first-block laws agree in the limit. & \TOY & Silent at the original mobility $\mathrm T^{1/8}$. \\
+\MT{prop:phil-actual-conditioned-parent} & Late activation: relative entropy and discarded information $O(\mathrm T^{1/4}\log(1/\mathrm T))$. & \TOY & Averaged over a declared prefix, not per history. \\
+\MT{prop:phil-actual-parent-dynamics} & Parent path law within $O(\mathrm T^{1/4})$ of the conditioned fine kept path over $\mathrm T^{-1/4}$. & \TOY & Finite window; own-law learning; no recursion. \\
+\MT{prop:phil-early-seeded-parent} & Discarded information vanishes if $\theta-\log(1/\epsilon)\to\infty$, diverges if $\log(1/\epsilon)-\theta\to\infty$. & \TOY & Seeded sub-event; window $\log(1/\epsilon)+O(1)$ open. \\
+\MT{prop:phil-early-first-completion} & At first qualifying completion, discarded information at least of order $\mathrm T^{-5/8}$, also given the whole contrast event. & \TOY & Established negative result on the four-cycle. \\
+\MT{prop:phil-early-parent-dynamics} & Early parent path error vanishes when $\mathrm T\mathsf h\to0$, uniformly in mean and mobility. & \TOY & Windows shorter than $\mathrm T^{-1}$. \\
+\MT{lem:phil-early-discarded-information} & Discarded information under conditioning, mixing, and extra variables; a Donsker--Varadhan lower bound. & \SOLID & General; standard in substance (chain rule). \\
+\MT{rem:phil-conditioned-hidden-sign} & Conditioning on a probability-$1/2$ event costs $\log2$; on a realized history, infinity. & \SOLID & General counterexample shown on a Gaussian. \\
+\end{scorecard}
+
+\begin{hygiene}
+What matters is what makes the four-cycle special and what fixes the comparison. The graph has exactly two
+perfect matchings; links are abelian translations on scalar means, so loop holonomy is the number
+$\sum_i\omega_i$ and plays no role in any selection; edges carry energy only when attended. The temperature
+is small and fixed ($\mathrm T\le\mathrm T_0$ or $1/100$ late, $\mathrm T\le10^{-16}$ for the early null,
+$\mathrm T=\epsilon^8$ with $\epsilon\le1/100$ for the early parent), and the bounds are asymptotic, some
+with large constants. The rows learn from the law, not from samples, which makes them deterministic and
+excludes fluctuation-driven selection: a modeling commitment, not hygiene. The initial law is Gaussian
+with full support, and ``almost every mean'' excludes the imprint's zero set, which contains every
+rotation-invariant mean. The kinetics are a declared realization along which the free energy does not
+increase, not selected by it; the parent channel is fixed by hand. The late results need
+$\eta,\delta\le\mathrm T$ and $\epsilon_{\mathrm L}\le\mathrm T^2$; the early ones condition on the seeded
+sub-event, not the whole contrast event. Hygiene to take on trust: standard Borel spaces, measurability
+of the first-block mark, well-posedness, finite moments, density envelopes, and form-domain extensions of
+functional inequalities. Observational closure costs nothing for kernels; the boundary-agent hypothesis is
+a naming decision.
+\end{hygiene}
+
+\section{Toy versus general}
+\label{comp:ch14-toy}
+
+\subsection{Mechanism and small-network specifics}
+
+Every formation statement here lives on four agents; the program's target is 512 or more agents with
+nonabelian or non-compact groups such as $\GL(K,\R)$ or $\mathrm{SU}(N)$. The four-cycle grounds and
+validates; it does not set direction, and none of its results transfers without proof.
+\Cref{comp:tab-ch14-toy} separates plausible mechanism-level content, the companion's reading and
+conjectural beyond four agents, from four-agent specifics.
+
+\begin{sciencetable}{Mechanism-level content versus four-cycle specifics.}
+\label{comp:tab-ch14-toy}
+\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.16\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.31\textwidth}}
+\toprule
+\textbf{Result} & \textbf{Mechanism-level content (conjectural beyond four agents)} & \textbf{Four-cycle specifics}\\
+\midrule
+Seeded formation & A favorable initial condition relaxes into a coherent block; the probability is the measure of such conditions. & Seed points $\pm\mathbf x^\circ$, floor near $10^{-31}$, factors $1/16$, $e^{-1/4}$. \\
+Symmetric laws & A unique equivariant law-level dynamics cannot break a symmetry of its initial data; elementary and general, stated only for the four-cycle. & The form $\mathsf m_0=(\mathrm c_1\mathbf 1_4,\mathrm c_2\mathbf 1_4,0)$. \\
+Pairing selection & Slow law-level learning is natural-gradient ascent of the log evidence; low temperature favors sheets with fewest stiff directions; a transient imprint decides the branch after time $\epsilon_{\mathrm L}^{-1}\log(1/\epsilon_{\mathrm L})$. & Two matchings, one unstable direction, ratios $\sqrt{40/7}\mathrm T$, $\sqrt{5/3}\mathrm T^{3/2}$, $\alpha\ge7/5$, the imprint computation. \\
+Tracking & Mobility must be small against the frozen mixing rate. & Rate $\mathrm T^{5/2}$, exponent $7/2$. \\
+Persistence & A structure selected in the prior is coherent in equilibrium on windows short against the hopping time. & Resolution $\mathrm T^{1/4}$, window $\mathrm T^{-1/4}$, flux $31\mathrm T$. \\
+Early null & Learning slower than formation cannot bias the first block. & Threshold $o(\mathrm T^{1/4})$, horizon $2\mathrm T^{-1/8}$. \\
+Parent closure & Exact to the extent discarded modes are in conditional equilibrium; activation must follow their thermalization; a detector coarser than the thermal scale fires too early. & Time $\log(1/\epsilon)$, divergence $\mathrm T^{-5/8}$, windows $\mathrm T^{-1/4}$, $\mathrm T^{-1+\mathrm q}$. \\
+\bottomrule
+\end{tabularx}
+\end{sciencetable}
+
+Some hypotheses exclude the target outright. Scalar fibers mean $K=1$, and abelian links mean holonomy
+cannot act, so whether holonomy selects components is not touched; it is one branch of
+\MT{open:rg-formation-adaptive-family}. The stationary preference for the fewest stiff directions does
+generalize within the gated family: minimum edge covers dominate the stationary law on any finite graph
+(\MT{prop:rg-gated-depth-one}). But nothing is proved about which of the combinatorially many covers slow
+learning selects, or whether hopping times between covers grow with $N$, which is where genuine
+metastability and a large-$N$ transition could enter; the four-cycle rules none of this in or out.
+Recursion is out of reach too: eligible blocks have two or three agents, so the pairs cannot coalesce
+within the event class, and recursive formation in the sense of R14 is posed outside the gated family
+(\MT{open:rg-formation-general}).
+
+\subsection{What the four-cycle says about waiting out the transient}
+
+The reader's intuition is that meta-agent formation is soft and continuous: wait out the transient and
+keep the slow-to-relax mode. The four-cycle gives this a precise form at $N=4$ in three respects and
+qualifies it in two.
+
+The activation-clock results are the sharpest support. A parent on the seeded episode is exact, as a
+summary and as a dynamics, when activated at a deterministic time after the discarded modes have
+thermalized, and provably not at the first moment a threshold criterion is met
+(\MT{prop:phil-early-seeded-parent,prop:phil-early-first-completion}). ``Wait out the transient'' is
+exactly $\theta-\log(1/\epsilon)\to\infty$, and the negative result says that a first-passage clock
+driven by a detector coarser than the thermal scale is the wrong clock. The waiting is bounded on the
+other side too: valid activation times and windows lie below the slow time $\mathrm T^{-1}$, so the
+meta-agent is a quasi-stationary description on a plateau, not a permanent object. Second, what survives
+the transient late is equilibrium structure: the selected pair is coherent because the equilibrium at the
+learned prior is paired. Third, the channel does keep the slow directions, relaxing at rates of order
+$\mathrm T$, with the loop and the assignment, and every discarded coordinate is fast.
+
+The first qualification is that the channel was not chosen by a slow-mode criterion: it is supplied, it
+keeps one fast mode as well, and no statement derives it from relaxation rates. The second cuts deeper.
+Waiting out the transient selects nothing by itself. In a symmetric system with law-level learning, which
+pairing forms is a property of sample paths, and at the level of the law nothing is selected unless a
+datum breaks the symmetry (part (c) of \MT{prop:phil-seeded-contrast-formation}, rule R13). Soft
+continuous formation and law-level selection of a culture are different claims; on the four-cycle the
+first holds and the second needs an asymmetric initial law. Whether large networks add a genuine source
+of selection, such as branch choice by fluctuations under learning from finite samples, or a transition
+with diverging hopping times, nothing here addresses.
+
+\section{Open ends}
+\label{comp:ch14-open}
+
+Physical-law identification (\MT{claim:physical-law-identification}) asks for a named target system whose
+data the model does not generate, a record kernel separating two coarse-graining objects that differ in a
+gauge-invariant datum, and held-out evidence, robust across blocking schemes, that a baseline margin is or
+is not met. Single-point testability (\MT{open:phil-testability}) asks for a test at $c_*$, fixed before
+the data, whose failure would falsify nontrivial holonomy on a walk or formation of a block, or a proof
+that no record statistic distinguishes the alternatives. What exists is model-internal (the holonomy
+record of \MT{thm:cg-loop-operational-holonomy}, the learned-versus-frozen selection); no target system,
+noise model, estimator, or baseline is supplied.
+
+The central formation open end is \MT{open:rg-formation-adaptive-family}: at the original coupled mobility
+$\epsilon_{\mathrm L}=\mathrm T^{1/8}$, a difference bounded below between the learned and frozen
+conditional laws of the first formed block, or between two initial means differing only in their loop
+coordinate, with parents of vanishing errors; or a proof that these differences vanish for almost every
+mean. The late selection and the early null bracket this regime without entering it. Also undecided are
+the activation window $\theta=\log(1/\epsilon)+O(1)$, the discarded information given the whole contrast
+event at a deterministic time, windows of order $\mathrm T^{-1}$ or longer, and a power-law selection
+regime, which needs a quantitative lower bound on the imprint. Beyond the four-cycle, repeated endogenous
+formation (\MT{open:rg-formation-general}), dynamic closure of the pointwise parent
+(\MT{open:rg-pointwise-parent-dynamics}), edge creation (\MT{open:obs-edge-creation}), and a natural
+partition selector (\MT{open:cg-natural-selector}) remain open; the last two mark where the local-first
+verdict would change.
+
+\begin{verdictbox}{\NARROWER}
+The technical chapter says its readings are definitions, hypotheses, and open problems, and that it proves
+a proposition and a theorem that sharpen the participatory reading: formation from every Gaussian initial
+law with learning idle, and law-level pairing selection by slow source learning against a symmetric
+frozen arm. Every proved statement does exactly what it says, the scope paragraph is accurate, and the
+interpretive verdicts (local-first, no realist position selected, no agents created by naming) correctly
+describe the formalism. For the claim that matters to the program, the result is narrower than it sounds.
+What is selected is one of two pairings of a four-agent ring with abelian links, in the one-time
+assignment law, by amplifying an asymmetry of the initial law, at fixed small temperature with mobility
+tending to zero. The selected pair's later coherence is equilibrium coherence, not formation; the early
+formation that passes the formation test is seeded and unaffected by slow learning; parent closure is
+proved as averaged, finite-window statements on declared prefixes, and the first-completion clock is
+refuted. The chapter itself concedes that assignment selection does not establish the recursive
+participatory claim. The gap is the meeting point of formation and selection,
+\MT{open:rg-formation-adaptive-family}, with recursion, large networks, nonabelian holonomy, and contact
+with any observed system all open.
+\end{verdictbox}
+
+\chapter{Related Work}
+\label{comp:ch15}
+
+This chapter covers \MT{ch:related-work}, a positioning chapter with one small established remark, and
+adds what it does not tabulate: which of the theory's main results are standard mathematics in new
+typing and which are new.
+
+\section{The question and the answer}
+\label{comp:ch15-question}
+
+The technical chapter asks where the construction sits among existing work and what it owes. The
+neighbors flow a distribution along a scale parameter (Bayesian renormalization), coarse-grain graphs
+whose edges carry scalars (network renormalization, graph coarsening), constrain learned maps over a base
+manifold (equivariant networks), or share, omit, or fit a group-level model (multi-agent active
+inference). The present theory computes the parent law from the fine joint by an exact Markov channel at
+fixed evidence (\MT{thm:rg-exact-coarse-vfe}, \MT{thm:rg-pointwise-parent-datum}), with group-valued
+independent links at one point. The central comparison, with Bayesian renormalization, rests on two
+statements: evidence bounds of different joints cannot be compared unless their evidences are related
+(\MT{prop:gen-no-distinguished-target}), and an evidence-preserving channel applied to both the posterior
+and the recognition law orders the bounds by data processing (\MT{thm:cg-evidence-preserving-channel}).
+The scope paragraph states that no other construction is identified with this one and that every
+qualification of another work is the technical text's reading.
+
+\section{The picture}
+\label{comp:ch15-picture}
+
+\Cref{comp:tab-ch15-map} maps the neighbors; the grade refers to the relation between the neighbor's
+central object and the theory's corresponding object.
+
+\begin{sciencetable}{Neighbors of the construction.}
+\label{comp:tab-ch15-map}
+\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.19\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.3\textwidth}>{\raggedright\arraybackslash}p{0.1\textwidth}}
+\toprule
+\textbf{Neighbor} & \textbf{Its object} & \textbf{Relation here} & \textbf{Grade}\\
+\midrule
+Bayesian renormalization & Posterior flow on parameter space along a Fisher information scale; stiff and sloppy directions. & Different construction; composition needs a common target (\SG{open:grg-bayesian-bridge}). & loose \\
+Information-geometric renormalization & Channels from microscopic to observable, a metric on Hamiltonians, monotone correlation functions. & Only the classical Fisher contraction for one kernel (\MT{thm:cg-fisher-contraction}). & structural \\
+Network (Laplacian) renormalization & Heat kernel $e^{-tL}/\Tr e^{-tL}$, spectral entropy, specific-heat peaks. & Spectra gauge invariant, node affinities not (\MT{rem:grg-heat-kernel-gauge}). & structural \\
+Algebraic multigrid & Galerkin coarse operator $P^\top AP$ with aggregation prolongation. & Same operator, inside normalized laws (\MT{prop:cg-message-passing-residual}). & exact \\
+Matrix-weighted consensus & Laplacian with matrix edge weights; consensus subspace. & The Gaussian interaction family (\SG{def:gauss-interaction-family}). & exact \\
+Cellular sheaves & Sheaf Laplacian; $H^0$ as its kernel; Kron obstruction. & Represented-link energies are sheaf energies (\MT{prop:cg-kernel-holonomy}). & exact \\
+Connection Laplacians & Orthogonal transports on a graph; convergence to a manifold operator. & Special case: orthogonal links, scalar weights. & exact \\
+Maximal-tree gauge fixing & Tree links set to the identity; non-tree links carry loop holonomies. & The rooted datum (\MT{prop:rg-rooted-datum}). & exact \\
+Equivariant networks & Weight sharing over a global group or local frames on a base manifold. & Links are independent data at one point, not a learned layer. & loose \\
+Multi-agent active inference & Shared models, collective motion, group-level blankets. & Parents computed from the fine joint. & loose \\
+Path-space averaging & Relative-entropy bounds for effective diffusions. & Not growing-history, switching-source comparisons. & structural \\
+\bottomrule
+\end{tabularx}
+\end{sciencetable}
+
+The pattern is that the linear algebra is almost entirely standard and the probabilistic and gauge typing
+around it is the theory's own. Represented-link quadratic energies are sheaf Laplacian energies with
+rectangular restriction maps, whose kernels are global sections; the coarse operator is that of algebraic
+multigrid; loops are handled by maximal-tree gauge fixing. The theory places these operators inside
+normalized joint laws with exact evidence accounting and two channels that may carry inequivalent
+representations, and proves formation theorems there. Its relation to renormalization in the physicist's
+sense is weaker than the vocabulary suggests: the main manuscript's renormalization is an exact
+finite-step channel with no rescaling, fixed points, or flow of couplings, and the asymptotic apparatus
+lives in Supplement~B.
+
+\begin{analogy}{exact}
+Kron reduction of a Gaussian network is integrating out Gaussian sites: the Schur complement of the
+precision is the precision of the marginal. The Kron obstruction of \citet{HansenGhrist2019} says that
+for vector stalks an eliminated site can induce couplings no pairwise restriction maps express, much as
+decimation generates couplings outside the original family. Supplement G classifies when matrix-weighted
+Kron reduction stays in its family (\SG{prop:cg-kron-leaves-family}, \SG{thm:cg-congruence-diagonal-kron});
+the scalar case is closed (\SG{lem:cg-scalar-kron-closure}). Galerkin closure
+(\MT{thm:cg-rectangular-endpoint-closure}) avoids the obstruction by restricting the form to a subspace:
+block-spin averaging rather than decimation.
+\end{analogy}
+
+\begin{analogy}{exact}
+\MT{rem:grg-heat-kernel-gauge} is the lattice-gauge fact that a propagator between different sites is not
+gauge invariant. Under vertex reframings $P=\operatorname{diag}(P_i)$ the generator $R^{-1}L$ is
+conjugated, so spectrum, heat trace, and spectral entropies are invariant, while off-diagonal heat-kernel
+blocks transform as $P_i^{-1}(\cdot)P_j$, like $\langle\phi_i\phi_j^\dagger\rangle$ without a connecting
+Wilson line. A partition selector built on node affinities therefore needs invariant block statistics.
+\end{analogy}
+
+\section{Objects and notation}
+\label{comp:ch15-notation}
+
+\begin{decoder}
+Information scale & In Bayesian renormalization, a scale on parameter space set by Fisher distinguishability. & A renormalization scale, by its authors' analogy. \\
+Stiff and sloppy directions & Parameter directions well and poorly constrained by data. & Relevant and irrelevant directions, loosely. \\
+$D^{\mathfrak O}_\theta$ & Pushed inverse Fisher metric, the diffusion tensor of the data-space flow. & Diffusion constant of a Fokker--Planck equation. \\
+$\chi(t)$ & Spectral specific heat $-d\mathcal S/d\log t$; peaks mark resolution scales. & Specific heat. \\
+Sheaf, stalk, restriction map & A vector space per vertex and edge, maps from vertex to edge spaces. & Matter field and parallel transport on a lattice. \\
+$H^0$ & Global sections: vertex data consistent across every edge. & Covariantly constant configurations. \\
+Kron reduction & Eliminating vertices by a Schur complement. & Decimation of Gaussian sites. \\
+Galerkin form $P^\top AP$, aggregation & Restricting a form to a subspace of piecewise-constant block fields. & Kadanoff block-spin averaging. \\
+Maximal-tree gauge & Gauge in which the links of a spanning tree are the identity. & Axial or tree gauge. \\
+Evidence-preserving channel & Coarse channel that leaves the observation marginal unchanged. & Integrating out at fixed partition function. \\
+\end{decoder}
+
+``Renormalization'' in the main manuscript means exact finite-step coarse-graining of the latent law;
+Wilsonian words appear only when describing other authors' work. ``Channel'' means a classical Markov
+kernel, not the quantum channel of \citet{beny2015information}. ``Gauge'' means passive re-expression of
+frames at one point with independent links, not a connection on a base manifold, which is why the
+comparison with gauge-equivariant networks \citep{cohen2019gauge} is loose.
+
+\section{The formulas, explained}
+\label{comp:ch15-formulas}
+
+The display of Bayesian renormalization the technical text engages is the pushed inverse Fisher metric
+\[
+D^{\mathfrak O}_\theta=\partial\mathfrak O(\theta)g^F(\theta)^{-1}\partial\mathfrak O(\theta)^\top
+\]
+(\MTeq{eq:rg-bks-diffusion}), with $\mathfrak O$ the map from parameters to data. In the late-data regime
+the posterior is Gaussian with covariance proportional to $(g^F)^{-1}$; the delta method pushes it to data
+space with covariance proportional to $D^{\mathfrak O}_\theta$, which \citet{BermanKlingerStapleton2023}
+read as the diffusion tensor of a flow on data. The technical text's reading is that this is the leading
+local approximation of the pushforward, exact for affine $\mathfrak O$, and that continuing it beyond the
+late-data regime is a renormalization construction, not a theorem of Bayesian asymptotics.
+
+The comparison turns on \MT{prop:gen-no-distinguished-target}: for joints indexed by recognition laws
+$Q$ and $Q'$,
+\[
+\Lelbo(Q';X)-\Lelbo(Q;X)
+=\mathsf e(Q')-\mathsf e(Q)
+-\bigl[\KL(Q'\Vert P_{\theta,Q'}(\cdot\given o,X))-\KL(Q\Vert P_{\theta,Q}(\cdot\given o,X))\bigr],
+\]
+with $\mathsf e$ the log evidence of each joint. A change of bound mixes a change of evidence with a change
+of tightness, so the optimized bounds of two independently declared joints, such as a model at one scale
+and a model whose prior is another scale's posterior, are not ordered. An evidence-preserving channel fixes
+$\mathsf e$, and data processing (\MT{thm:cg-kl-dpi-extended}) then orders the divergences. In physics
+terms, variational free energies of different Hamiltonians cannot be compared unless their partition
+functions are related, and integrating out keeps the partition function fixed. Hence the typing
+prohibition does not refute Bayesian renormalization, but inserting a posterior as the generative top
+factor at another scale declares a new model, comparable only through a supplied comparison map.
+
+For network renormalization the key object is the spectral specific heat
+$\chi(t)=-d\mathcal S/d\log t$ of \citet{villegas2023laplacian} (\MTeq{eq:grg-heat-capacity}). Spectral
+quantities of the reframed generator survive frame changes, but a scale diagnostic selects no partition
+(\MT{open:cg-natural-selector}), and the node affinities one would use to build blocks are not invariant.
+For algebraic multigrid the coarse operator $P^\top AP$ with $P$ piecewise constant on disjoint aggregates
+\citep{Notay2010Aggregation} is the theory's Galerkin form. The technical documents add a criterion for
+exact coarse message passing, invariance of the $M$-orthogonal complement of the coarse range under the
+fine operator (\MT{prop:cg-message-passing-residual}), and the placement of the operator inside normalized
+laws with gauge covariance and exact evidence accounting.
+
+\section{What is proved, and what is standard}
+\label{comp:ch15-scorecard}
+
+The chapter proves one remark; the rest is attribution. The scorecard adds the statements it leans on and
+the companion's reading of which main results are standard in substance, which is information, not
+criticism: it tells the reader what a result can and cannot do.
+
+\begin{scorecard}
+\MT{rem:grg-heat-kernel-gauge} & Spectra and heat traces of the reframed generator are invariant; off-diagonal blocks are not. & \SOLID & Elementary similarity; standard in substance. \\
+\MT{prop:gen-no-distinguished-target} & Differences of bounds of different joints mix evidence and tightness. & \SOLID & Algebra of the evidence identity; the point is the typing. \\
+\MT{thm:cg-evidence-preserving-channel} & A recognition-independent channel preserves evidence and orders bounds. & \SOLID & Standard in substance (data processing). \\
+\MT{thm:elbo-extended-gap} & One evidence bound whose gap is the relative entropy to the posterior, in the extended reals. & \SOLID & Standard in substance (Gibbs variational principle); new in its measure-level, many-agent typing. \\
+\MT{thm:rg-exact-coarse-vfe} & Fine free energy equals coarse free energy plus discarded conditional information. & \SOLID & Standard in substance (chain rule). \\
+\MT{thm:rg-effective-action} & Coarse likelihood as a conditional partition function; composition along a tower. & \SOLID & Standard in substance (integrating out), with care about versions. \\
+\MT{thm:cg-fisher-contraction} & Fisher information contracts under a parameter-independent kernel. & \SOLID & Classical, as the technical text says. \\
+\MT{prop:cg-kernel-holonomy} & The kernel of the represented-link energy is the holonomy-fixed sector. & \SOLID & Standard in substance (sheaf $H^0$, cited). \\
+\MT{prop:rg-rooted-datum} & Tree links gauge to the identity; non-tree links carry loop holonomies. & \SOLID & Standard (maximal-tree gauge fixing, cited). \\
+\SG{prop:gauss-interaction-energy-kernel} & Energy and kernel criterion for matrix-weighted Laplacians. & \SOLID & Standard in substance (consensus literature, cited). \\
+\MT{thm:cg-loop-operational-holonomy} & A declared record's law separates loop-holonomy classes. & \SOLID & New as a construction; elementary proof. \\
+\SG{open:grg-bayesian-bridge} & Relate Bayesian renormalization to Gaussian aggregation through a common monotone. & \OPEN & Needs a common state space and a transported monotone. \\
+\end{scorecard}
+
+\begin{hygiene}
+The comparisons are claims about other authors' work; their accuracy depends on the cited sources, which
+the companion has not rechecked, and the scope paragraph marks each qualification as the technical text's
+reading. The Bayesian-renormalization contrast rests only on the evidence identity, not on how the
+Gaussian pushforward is read. The sheaf and connection-Laplacian identifications hold for quadratic
+energies with represented links, not for the non-Gaussian laws of the general theory, where only the
+kernel and the holonomy-fixed sector are claimed.
+\end{hygiene}
+
+\section{Standard versus new}
+\label{comp:ch15-standard}
+
+Standard in substance, and valuable to know as such, are the evidence-bound identity and its gap (the
+Gibbs variational principle), the local-global potential identity (coordinate ascent in mean-field
+variational inference, \MT{thm:obs-local-global-potential}), attention as the posterior of a latent
+source label (mixture-model responsibilities, \MT{prop:obs-attention-elbo}), the exact coarse free energy
+(the chain rule), the effective action (integrating out), Fisher contraction, the kernel of
+represented-link energies (sheaf cohomology in degree zero), maximal-tree gauge fixing, the Galerkin
+operator of algebraic multigrid, matrix-weighted Laplacians, and the Kron obstruction for vector stalks.
+For each, the technical documents supply careful typing: measure-level statements in the extended reals,
+two channels with independent links, and a separation of Markov channels, energy restriction, and
+parameter aggregation. The typing is the contribution, and it is where the documents' length comes from.
+
+New in content are the formation results: the finite-depth theorem under a supplied hierarchy
+(\MT{thm:finite-depth-adaptive-formation}), the endogenous four-cycle witness
+(\MT{prop:rg-formation-endogenous-cycle}), the depth-one result for the gated family
+(\MT{prop:rg-gated-depth-one}), and the selection and parent line of \cref{comp:ch14}. Their tools are
+standard (the Harris theorem, logarithmic Sobolev inequalities, couplings, saddle escape) and their
+statements new, within the scopes \cref{comp:ch13,comp:ch14} describe. New as constructions, with
+elementary proofs, are the operational holonomy record and the use of the no-distinguished-target identity
+against posterior-flow constructions. Supplement G's classification of Kron closure is set against cited
+prior art for the obstruction and the scalar case; its assessment belongs to the companion's Supplement G
+chapters.
+
+\section{Open ends}
+\label{comp:ch15-open}
+
+The bridge between Bayesian renormalization and Gaussian aggregation (\SG{open:grg-bayesian-bridge}) needs
+a common state space, a map between the Bayesian scale parameter and a block ratio, and a functional
+proved monotone along both constructions, or a Gaussian hierarchy in a stated class with no such
+functional. A combined network scheme, sketched but not posed as a numbered problem, would infer a
+partition from gauge-invariant diagnostics of edge-event laws through a structural channel with a named
+law and push the complete law exactly; its partition part is \MT{open:cg-natural-selector}. The
+growing-history, switching-source path comparison that averaging theory does not supply is part of
+\MT{open:rg-pointwise-parent-dynamics}.
+
+\begin{verdictbox}{\DELIVERED}
+The technical chapter says it positions the construction among existing work without identifying it with
+any of them, with the Bayesian-renormalization comparison resting on the no-distinguished-target identity
+and on evidence-preserving channels. It does that: each comparison is anchored to a statement of the
+theory, the Bayesian-renormalization contrast follows correctly from the evidence identity, and the one
+proved remark is correct and elementary. Two limits. The chapter does not say, result by result, which of
+the theory's statements are standard mathematics in new typing; the companion's reading is that most of
+the linear algebra and the variational identities are, and the formation results are new. And two
+neighbors one would expect here, matrix-weighted consensus and maximal-tree gauge fixing, are treated in
+Supplement G and the network-state chapter rather than in this chapter. The attributions to other
+authors are the technical text's reading and have not been rechecked by the companion.
+\end{verdictbox}

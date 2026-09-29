@@ -1,0 +1,946 @@
+\chapter{Fiber Information Geometry and Inference Histories}
+\label{comp:ch07}
+
+\section{The question and the answer}
+\label{comp:ch07-question}
+
+\Cref{comp:ch05} left each agent at $c_*$ as a pair of points on law fibers, a belief law $q_i^b$
+and a model law $q_i^m$, with one collective free energy for the population. \MT{ch:relational-inference}
+adds what a dynamics and a comparison of scales need: a geometry on the law fibers, and a rule that
+turns a free energy into a path with a length. It asks how the collective free energy selects an
+inference history and what duration the Fisher geometry assigns to it, and, for meta-agents, what
+happens to both when a block of agents is replaced by a coarser description.
+
+The answer has five parts. The Fisher metric and the cubic Amari--Chentsov tensor of each law fiber
+are gauge invariant, hence frame-independent at $c_*$ (\MT{prop:pb-statistical-tensor-descent}), but
+the Fisher metric is chosen: none of the axioms that single it out is imposed. A Markov kernel that
+does not depend on the parameter replaces each score by its conditional expectation given the coarse
+record and loses Fisher information by exactly the expected conditional covariance of the score
+(\MT{thm:cg-fisher-contraction}), the data-processing inequality for Fisher information with its
+defect written out. A free energy selects a path only after a metric or mobility is chosen; the
+steepest-descent ray then defines an oriented orbit whose Fisher arc length, the information clock,
+is reparameterization invariant (\MT{thm:hist-fisher-clock-invariance}). The image of a history under
+one parameter-independent kernel, such as the law of a meta-agent when that law is such an image,
+accumulates no more duration (\MT{thm:hist-record-clock-contraction}), while a coarse orbit
+recomputed from its own free energy is comparable with the fine one only through an oriented
+semiconjugacy, whose time change cancels from every duration (\MT{thm:hist-oriented-semiconjugacy},
+\MT{thm:hist-duration-relation}). Finally, a three-agent parity witness shows that the collective
+free energy and its Fisher metric are not functions of single-agent laws
+(\MT{prop:hist-parity-hyperedge-vfe}, \MT{cor:hist-parity-fisher-residual}), and two finite theorems
+show that naturality under local kernels forces the product law and that, once correlated refinements
+are admitted, no reference-free selector exists (\MT{thm:hist-local-markov-product-uniqueness},
+\MT{thm:hist-correlated-refinement-nogo}).
+
+The chapter consumes the collective free energy and the local--global identity of \cref{comp:ch05}.
+\Cref{comp:ch08} uses its mobility and clock results, \cref{comp:ch09} the Fisher-loss theorem, and
+\cref{comp:ch11,comp:ch12} the coarse configuration map and record clocks. Most of the mathematics is
+standard (Fisher information under Markov kernels, arc length, gradient flows with a mobility,
+{\L}ojasiewicz finite length); the chapter's contribution is the typing at $c_*$ and a counterexample
+at each boundary where a standard statement stops applying to the program's objects.
+
+\section{The picture}
+\label{comp:ch07-picture}
+
+The Fisher metric measures distinguishability: to second order the relative entropy between $p$ and
+$p+dp$ is $\tfrac12g^F(dp,dp)$. For an exponential family $p_\lambda\propto e^{\lambda\cdot A(y)}$
+the score in direction $\lambda_a$ is the centered observable $A_a-\langle A_a\rangle$ and the Fisher
+metric is $\operatorname{Cov}(A)$, the static susceptibility matrix up to a factor of temperature.
+Most of the chapter consists of statements about fluctuations of scores.
+
+\begin{analogy}{exact}
+Fisher loss under coarse observation is the law of total covariance. In an exponential family the
+fine information is $\operatorname{Cov}(A)$, the coarse one $\operatorname{Cov}(\E[A\given\bar Y])$,
+and the loss $\E\operatorname{Cov}(A\given\bar Y)$: the fluctuation of the conjugate observable inside
+a coarse cell, invisible to a probe that sees only the record $\bar Y$. For a stochastic Kadanoff block
+rule applied to spins in a field, the Fisher information of the coupling $\beta h$ seen through the
+block spins is the variance of the conditional mean magnetization. \MT{thm:cg-fisher-contraction} holds for every
+regular family, and it requires a blocking rule that does not depend on the parameter.
+\end{analogy}
+
+A free energy alone does not define a dynamics: in overdamped physics
+$\dot x=-\mathsf M\nabla\Fenergy$, the potential fixes the equilibria and the mobility the paths. The
+natural gradient \citep{amari1998natural} takes a chosen metric as inverse mobility, and no
+fluctuation--dissipation relation ties that mobility to anything in the model; it is a modeling
+choice, and an anisotropic one can change the orbit (\cref{comp:ch07-formulas-orbits}).
+
+\begin{analogy}{structural}
+The Fisher duration of a path of laws is the thermodynamic length of \citet{Crooks2007}; for Gibbs
+laws and paths in natural parameters the mathematical object is the same. What does not transfer is
+its physical use, bounds on dissipation for driving at finite speed, which needs a protocol and a
+physical time. The chapter supplies neither and declines to call its duration time
+(\cref{comp:ch07-formulas-clock}).
+\end{analogy}
+
+\begin{analogy}{structural}
+A loop holonomy $\exp(t\xi)$ near the identity acting on an agent's law costs relative entropy
+$\tfrac12t^2\mathfrak k_q(\xi,\xi)$, where $\mathfrak k_q(\xi,\eta)=g^F_q(\xi_{\mathcal B}(q),
+\eta_{\mathcal B}(q))$ vanishes exactly on the isotropy algebra of the law
+(\MT{cor:pb-orbit-fisher-form}). This has the algebraic form of the gauge-boson mass matrix
+$M^2_{ab}\propto\langle T_av,T_bv\rangle$, which vanishes on the unbroken generators: both pull a
+positive form back along an orbit map. The correspondence is one of form; no mass, link dynamics, or
+symmetry breaking is claimed.
+\end{analogy}
+
+\begin{analogy}{exact}
+At its center the parity witness (\MT{def:hist-three-agent-parity-lift}) is the Gibbs law of six
+Ising spins $\sigma=(-1)^y$ with a single six-spin coupling, $\tfrac1{64}(1+\bar\varkappa\prod\sigma)
+\propto e^{J\prod\sigma}$ with $\tanh J=\bar\varkappa$. Every correlation of fewer than six spins
+vanishes, so a mean-field description from single-spin magnetizations reproduces all marginals and
+misses the coupling; the free energy and Fisher metric do not (\cref{comp:ch07-formulas-lift}). The
+identification is exact at the center only.
+\end{analogy}
+
+\section{Objects and notation}
+\label{comp:ch07-objects}
+
+\begin{decoder}
+Law fiber $\mathcal B_x$, $x\in\{b,m\}$ & Manifold of laws an agent's belief or model can take at $c_*$ & Statistical manifold of one site\\
+Score $\mathbf s_Z$ & Derivative of $\log p$ along $Z$; mean zero & Centered conjugate observable\\
+Fisher metric $g^F$ & Covariance of scores & Susceptibility matrix\\
+Amari--Chentsov tensor $T^F$ & Third moment of scores & Third cumulant; not a torsion\\
+$\mathfrak k_q$, $\mathfrak g_q$ & Cost of moving a law along a group direction; directions that do not move it & Mass matrix; unbroken generators\\
+Markov coarse morphism $\mathscr K$, kernel $K$ & Coarse observation by one fixed, frame-covariant stochastic rule & Stochastic block-spin map\\
+Vertical Fisher defect $\Delta_F^{\mathscr K}$ & Fisher information lost by $\mathscr K$ on the fibers at $c_*$ & Within-block fluctuation\\
+Configuration manifold $\mathcal Q_i$; metric $\mathsf G$, weights $w_b,w_m$ & Belief and model laws of an agent together; chosen metric on them & Configuration space; inverse mobility\\
+Exact lift $\iota_i$, extraction $\operatorname{ext}_i$ & Supplied rule building a joint recognition law from a configuration, and its left inverse & Closure relation\\
+$\mathsf G_{\mathrm J}$, $\mathsf G_w$, $\mathfrak K$, $\mathfrak C$ & Joint Fisher metric; weighted marginal metrics; genuinely joint residual; signed cross term & Higher-order versus pairwise correlations\\
+Natural selector & Rule from marginals to a joint law commuting with every admitted kernel & Closure; mean field when forced\\
+$\varkappa$, $\bar\varkappa=\varkappa/64$ & Parity amplitude; six-bit correlation at the center & Six-spin coupling\\
+History; natural-gradient history & Oriented curve modulo reparameterization; orbit of $-\operatorname{grad}^{\mathsf G}\Fenergy$ & Trajectory without time label; overdamped path\\
+Fisher duration $\mathfrak t$ & Fisher arc length from a chosen origin (the information clock) & Thermodynamic length\\
+Orthogonal clock $\mathfrak t^\perp$ & Unit-rate clock whose level sets are orthogonal to descent & Synchronous time slicing\\
+$\mathsf F_\ell$; oriented semiconjugacy $(\mathsf F_\ell,\mathsf a_\ell)$ & Fine-to-meta-agent configuration map; it carries the fine flow onto the coarse flow up to an increasing time change & Exact dynamical coarse-graining\\
+Depth $\ell$ & Number of coarse-graining steps & Blocking steps; not time\\
+\end{decoder}
+
+``Natural'' has two unrelated senses in this chapter: Amari's metric-raised gradient, and a selector
+that commutes with a class of maps in the category-theoretic sense. ``Metric'' is a chosen Riemannian
+metric on laws or configurations, never a spacetime metric. ``History'' is an orbit with its
+parameterization forgotten; ``duration'' and ``clock'' mean Fisher arc length, not time.
+``Vertical'' means along the fibers over the single base point, so no connection enters. A ``lift''
+reconstructs a joint law from marginal data; it is not the horizontal lift of a connection. Glyphs
+collide across adjacent chapters: $\operatorname{par}$ is the parity character here and the parent map
+in \cref{comp:ch08}, and $\mathsf a$ is a rate factor here and a proposal weight there. $\mathfrak K$
+(residual tensor), $\mathfrak k_q$ (orbit form), $\mathscr K$ (coarse morphism), and $K$ (its kernel)
+are four different objects, and ``semiconjugacy'' is the dynamical-systems term.
+
+\section{The formulas, explained}
+\label{comp:ch07-formulas}
+
+\subsection{Fiber tensors, and why the metric is a choice}
+\label{comp:ch07-formulas-tensors}
+
+\begin{align*}
+g^F_{x,p}(Z_1,Z_2)&=\E_p[\mathbf s_{Z_1}\mathbf s_{Z_2}],
+&
+T^F_{x,p}(Z_1,Z_2,Z_3)&=\E_p[\mathbf s_{Z_1}\mathbf s_{Z_2}\mathbf s_{Z_3}].
+\end{align*}
+The metric is the covariance of the score and the cubic tensor its third moment, the second and third
+cumulants of conjugate observables in an exponential family. Both are preserved by the gauge action
+because that action is a pushforward by a map of samples (\MT{prop:pb-statistical-tensor-descent}).
+Invariance of the metric alone would not suffice: a M\"obius isometry of the normal family's
+hyperbolic Fisher metric preserves $g^F$ and not $T^F$, so a symmetry of the metric that does not
+relabel samples is not a statistical symmetry. The Fisher metric itself is not derived.
+\MT{prop:ig-fisher-characterizations} collects the uniqueness theorems of \v{C}encov type
+\citep{Cencov1982}, and the scope paragraph states that none is imposed; on configurations the metric
+carries channel weights $w_b,w_m>0$ that nothing fixes (\MT{def:hist-configuration-manifold}), and a
+rate ratio enters the same way in \cref{comp:ch08}. Every orbit and duration below inherits these
+choices.
+
+\subsection{Relative entropy to second order, and the cost of a holonomy}
+\label{comp:ch07-formulas-orbit}
+
+\[
+\KL\bigl(q\Vert\widehat\rho(\exp t\xi)q\bigr)=\frac{t^2}{2}\mathfrak k_q(\xi,\xi)+O(t^3),
+\qquad
+\mathfrak k_q(\xi,\eta)=g^F_q\bigl(\xi_{\mathcal B}(q),\eta_{\mathcal B}(q)\bigr).
+\]
+This is \MT{cor:pb-orbit-fisher-form}, resting on the standard fact \citep{AmariNagaoka2000} that
+the Hessian of relative entropy is the Fisher metric (\MT{prop:pb-kl-divergence-jets}). The
+velocity $\xi_{\mathcal B}(q)$ of the law under the subgroup generated by $\xi$ has squared Fisher
+length $\mathfrak k_q(\xi,\xi)$; the null space is the isotropy algebra $\mathfrak g_q$, on which the
+left side vanishes for every $t$. For a Gaussian $\mathcal N(\mu,\Sigma)$ with $\GL(K)$ acting
+linearly on samples the velocity is $(\xi\mu,\xi\Sigma+\Sigma\xi^\top)$, so $\mathfrak g_q$ consists of
+the $\xi$ with $\xi\mu=0$ and $\xi\Sigma+\Sigma\xi^\top=0$; for a centered isotropic law it is all of
+$\mathfrak{so}(K)$, so a rotation holonomy is invisible to that agent while a squeeze is always
+detected. In the running three-agent loop this is the second-order form of law coherence up to
+holonomy stabilizers (\MT{def:geo-law-coherence}).
+
+\subsection{Coarse observation: the Fisher-loss theorem and its limits}
+\label{comp:ch07-formulas-contraction}
+
+For a regular family $\{P_\lambda\}$ of laws of $Y$ and a Markov kernel $K$ producing a record
+$\bar Y$, the same kernel for every $\lambda$, \MT{thm:cg-fisher-contraction} states
+\[
+\bar{\mathbf s}_{\lambda_0}(\bar Y)=\E\bigl[\mathbf s_{\lambda_0}(Y)\given\bar Y\bigr],
+\qquad
+\mathsf I_{\mathsf Y}(\lambda_0)-\mathsf I_{\bar{\mathsf Y}}(\lambda_0)
+=\E\operatorname{Cov}\bigl(\mathbf s_{\lambda_0}(Y)\given\bar Y\bigr)\succeq0 .
+\]
+The coarse score is the best estimate of the fine score from the record, and the second identity is
+the law of total covariance for a mean-zero score. Equality in a direction $z$ holds exactly when
+$z^\top\mathbf s_{\lambda_0}$ is a function of $\bar Y$. A bijective $K$ loses nothing; a $K$ that
+ignores its input loses everything; discarding an independent component loses exactly its Fisher
+information. No common dominating measure is needed \citep{Pollard2013}. This is the Fisher
+counterpart of the data-processing inequality \citep{CoverThomas2006}, standard in substance.
+Equality at one parameter is not recovery: \MT{rem:cg-fisher-equality-not-recovery} discards a
+Bernoulli bit whose score vanishes at $\lambda=0$ but which depends on $\lambda$ at second order, and
+no fixed kernel reconstructs the fine family near $\lambda=0$.
+
+The one substantive hypothesis is parameter independence of the kernel, and the manuscript shows that
+natural coarse maps violate it. A parameter-dependent channel adds a term to the record score
+(\MTeq{eq:hist-parameter-dependent-channel-score}), and then the record can move while the fine law
+stands still: a constant input fed to a channel emitting a bit with success probability
+$(1+e^{-t})^{-1}$ has zero fine speed and record speed $(2\cosh(t/2))^{-1}$
+(\MT{thm:hist-record-clock-contraction}). Gaussian Galerkin aggregation, substituting $y=Sc$ into an
+energy with precision $\Lambda$, is the pushforward by $P_\Lambda=(S^\top\Lambda S)^{-1}S^\top
+\Lambda$ (\SG{prop:ig-galerkin-pushforward}). On a fiber of fixed precision this is one kernel, the
+theorem applies, and the loss vanishes exactly on directions in $\operatorname{range}(S)$. Across
+precisions one kernel exists exactly when $\operatorname{range}(\Lambda S)$ does not change, and the
+supplement exhibits a change of one self term inside a cluster that changes it, so along histories
+with such moves the theorem does not apply. No parameter-independent kernel sends two normal laws to their joint mean-and-variance
+barycenter (\SG{prop:hist-normal-barycenter-kernel}), and fitted approximations or
+generative--recognition mismatches qualify only when a kernel is exhibited
+(\MT{hyp:pb-markov-morphism}). A fixed stochastic blocking rule can only lose distinguishability; a
+state-adapted rule is outside the theorem, and outside it a record can register motion the fine law
+does not have.
+
+On fibers the statement becomes the vertical defect $\Delta^{\mathscr K}_F=g^F-(T\mathscr K)^*\bar g^F
+\succeq0$ with $\Delta^{\mathscr K}_F(Z,Z)=\E\operatorname{Var}(\mathbf s_Z\given\bar Y)$
+(\MT{thm:pb-pullback-fisher-defect}), and defects compose as a cocycle,
+$\Delta_F^{\mathscr K_{12}\circ\mathscr K_{01}}=\Delta_F^{\mathscr K_{01}}+(T\mathscr K_{01})^*
+\Delta_F^{\mathscr K_{12}}$: losses along a chain add, each pulled back to the finest level
+(\MT{thm:pb-fisher-defect-cocycle}). The cubic defect has no sign, so coarse-graining gives no
+monotonicity for $T^F$.
+
+\subsection{Configurations, lifts, and why marginals do not suffice}
+\label{comp:ch07-formulas-lift}
+
+An agent's configuration $Q_i=(q_i^b,q_i^m)$ has squared speed $w_bg^F_b(\dot q_i^b,\dot q_i^b)+
+w_mg^F_m(\dot q_i^m,\dot q_i^m)$ (\MT{def:hist-configuration-manifold}); on the population the metric
+is either the block sum, which treats agents as independent, or the pullback of a joint Fisher metric
+along an exact lift (\MT{hyp:hist-exact-vfe-lift}). The lift is a smooth map from agent $i$'s
+configurations to conditional recognition kernels of a block given the rest, with an extraction map
+that recovers the configuration; it carries every correlation the configuration does not determine.
+With the outside marginal fixed, the lifted objective differs from the collective free energy by a
+constant (\MT{thm:obs-local-global-potential}), so both have one natural-gradient ray for one metric.
+The substance is that the lift must be supplied and that different lifts give different geometry.
+\MT{prop:hist-general-score-residual} quantifies this. With joint score $\mathbf s$ and embedded
+marginal scores $\mathbf s_i=\E[\mathbf s\given Y_i]$,
+\[
+\mathsf G_{\mathrm J}-\sum_iw_i\mathsf G_i=\mathfrak K-\mathfrak C+\sum_i(1-w_i)\mathsf G_i,
+\qquad
+\mathfrak K=\E[\mathbf r\mathbf r^\top],
+\quad
+\mathbf r=\mathbf s-\sum_i\mathbf s_i,
+\quad
+\mathfrak C=\sum_{i\neq j}\E[\mathbf s_i\mathbf s_j^\top].
+\]
+The residual score $\mathbf r$ is the part of the joint score that is not a sum of single-block
+scores, so $\mathfrak K\succeq0$ measures genuinely collective information; $\mathfrak C$ collects
+overlaps between blocks' marginal scores and has no sign; the last term is weight mismatch. For
+independent blocks $\mathfrak K=\mathfrak C=0$ and unit weights are forced. For dependent blocks no
+inequality holds either way (a correlated bivariate normal gives a difference of both signs), and one
+extraction can have right inverses with different pullback metrics ($\lambda_1\mapsto(\lambda_1,0)$
+and $\lambda_1\mapsto(\lambda_1,\lambda_1)$ induce $d\lambda_1^2$ and $2d\lambda_1^2$ on
+$\mathcal N((\lambda_1,\lambda_2),\mathrm I_2)$).
+
+The parity witness isolates a pure higher-order dependence. Six bits, one per agent
+$i\in\{1,2,3\}$ and channel $x\in\{b,m\}$, with success probabilities $\lambda_{i,x}$, get the lift
+\[
+p_\varkappa(y;\lambda)
+=\prod_{(i,x)}\lambda_{i,x}^{y_{i,x}}(1-\lambda_{i,x})^{1-y_{i,x}}
++\varkappa(-1)^{\sum y_{i,x}}\prod_{(i,x)}\lambda_{i,x}(1-\lambda_{i,x}),
+\qquad|\varkappa|<1,
+\]
+a product law plus a parity term whose amplitude factor keeps the law positive
+(\MT{def:hist-three-agent-parity-lift}). Summing out any bit kills the parity term, so every proper
+marginal is the product marginal (\MT{thm:hist-three-agent-parity-lift}). The lift is a smooth right
+inverse of the one-bit marginal map, equivariant under complementing both bits of an agent and under
+agent permutations, while a single-bit complement flips the sign of $\varkappa$. At the center, with
+$\bar\varkappa=\varkappa/64$, \MT{cor:hist-parity-fisher-residual} gives
+\[
+\mathsf G_{\mathrm J}=\frac{4}{1-\bar\varkappa^2}\mathrm I_6,
+\qquad
+\mathsf G_{\mathrm J}-\sum_{(i,x)}\mathsf G_{i,x}=\frac{4\bar\varkappa^2}{1-\bar\varkappa^2}\mathrm I_6 .
+\]
+Pairs of bits are independent, so $\mathfrak C=0$ and the excess is all $\mathfrak K$; weighted
+marginal metrics match only with the $\varkappa$-dependent weight $1/(1-\bar\varkappa^2)$, and since
+the one-bit families do not depend on $\varkappa$, no rule that reads them returns every joint
+metric. For the free energy an engineered hyperedge record
+$K_{\mathrm{hyp}}(1\given y)=\tfrac12(1+\bar\varkappa(-1)^{\sum y})$ with uniform prior has the center
+law as exact posterior (\MT{def:hist-parity-hyperedge}); the posterior attains $\Fenergy_1=\log2$,
+while the uniform law, the product of the same one-bit marginals, has
+$\Fenergy_1(\operatorname{Unif})-\log2=-\tfrac12\log(1-\bar\varkappa^2)$
+(\MT{prop:hist-parity-hyperedge-vfe}). The two laws share all one-bit data and the evidence and differ
+in free energy. With $\varkappa$ promoted to a coordinate the joint rank is seven and the marginal
+rank six, with $\partial_\varkappa$ invisible (\MT{cor:hist-promoted-parity-rank}); combined with the
+finite-family clause of \MT{thm:hist-retained-fisher-quotient}, a history moving only $\varkappa$ has
+positive joint Fisher speed while every single-agent clock stands still. The numbers are small by
+construction ($|\bar\varkappa|<1/64$ gives a Fisher excess below $10^{-3}$ and a free-energy excess of
+at most about $1.22\times10^{-4}$ nats), so the witness is qualitative. Its message for meta-agents is
+that a law assembled from constituents' single-agent laws cannot see such a dependence, while the
+collective free energy and joint Fisher metric can.
+
+Could a canonical rule supply the dependence? A selector maps one-coordinate marginals to a joint law
+with those marginals, and is natural on a class of kernels if it commutes with them
+(\MT{def:hist-finite-marginal-selection}). Naturality under all tensor products of single-coordinate
+kernels forces the product law, because kernels from a one-point set prepare each coordinate
+independently (\MT{thm:hist-local-markov-product-uniqueness}); a larger class admits a natural
+selector exactly when every added kernel preserves products. Admitting two kernels that split a fair
+bit into correlated bits, with $\mathrm c=\tfrac13$ and $\mathrm c=\tfrac12$, leaves no natural
+selector, since both give fair marginals with different joints
+(\MT{thm:hist-correlated-refinement-nogo}). Both results are elementary; their force lies in the
+admitted class. What replaces an absolute selector appears only in an unnumbered paragraph: relative
+to a positive reference law, a relative-entropy minimizer over a convex moment-constrained family is
+unique when it exists, and the reference conditional completion of a coarse marginal follows from the
+chain rule (\MT{lem:prob-kl-chain-rule}); both take the reference as extra data. This is maximum
+entropy relative to a prior measure \citep{jaynes2003probability}, standard. In physics terms, without
+a Hamiltonian the only closure that commutes with independent local relabelings is mean field, and a
+correlated closure needs a reference measure. For meta-agents the dependence among constituents is
+supplied by the generative model or a declared lift, never manufactured from configurations, in line
+with the standing refusal of a canonical coupling selector (\MT{sec:intro-conventions}).
+
+\subsection{Natural-gradient histories: the orbit depends on the mobility}
+\label{comp:ch07-formulas-orbits}
+
+\[
+\mathsf G\bigl(\operatorname{grad}^{\mathsf G}\Fenergy,Z\bigr)=d\Fenergy[Z],
+\qquad
+\dot Q(t)=-\mathsf a(t)\operatorname{grad}^{\mathsf G}\Fenergy\bigl(Q(t)\bigr),
+\quad\mathsf a(t)>0 .
+\]
+The gradient raises the index of $d\Fenergy$ with the metric, $\mathsf G^{-1}\nabla\Fenergy$ in
+coordinates, and the arbitrary speed $\mathsf a$ makes the pair an oriented orbit rather than a
+trajectory (\MT{def:hist-oriented-history}). A scalar mobility only reparameterizes orbits; an
+anisotropic one can bend them: for $\Fenergy=\tfrac12(z_1^2+z_2^2)$ ordinary descent runs along
+straight lines, descent with mobility $\operatorname{diag}(1,2)$ along the parabolas
+$z_2=z_2^0(z_1/z_1^0)^2$ (\MT{prop:hist-scalar-mobility-orbit}), and descent orbits are not
+geodesics. For the program this means that the critical points are metric independent but which one
+an orbit from a given start reaches is a property of the orbit, and nothing in the chapter shows it is
+mobility independent. Every dynamics the program runs carries a chosen mobility: the four-cycle
+kinetics of \cref{comp:ch08,comp:ch13} use identity mobility with supplied rates, which is the Fisher
+natural gradient for the unit-variance belief means but not for the model means, whose Fisher rate
+would be $\tfrac12$ (\MT{prop:obs-slow-model-link-dichotomy}).
+
+The remaining statements keep the objects well defined. Noncritical orbits are embedded, with the
+free energy a strictly decreasing coordinate (\MT{prop:hist-vfe-orbit-embedded}). A semidefinite
+metric cannot be inverted silently (\MT{prop:hist-semidefinite-gradient-obstruction}); a quotient must
+come first (\MT{thm:hist-retained-fisher-quotient}). For softmax logits the pulled-back Fisher tensor
+$\operatorname{diag}(p)-pp^\top$ has null direction $\mathbf 1$, and the Moore--Penrose solution picks
+the gauge $\sum_jz_j=0$. For a free energy invariant under a group action the gradient is orthogonal
+to the orbits, so histories never move along gauge directions, and for a free, proper, isometric
+action they descend to the quotient with the same duration
+(\MT{prop:hist-invariant-history-horizontal}). Explicit Euler steps below
+$2/\mathrm c_{\mathsf G}$ descend and stay within $O(\Delta t)$ of the orbit on compact intervals
+without lying on it (\MT{rem:hist-discrete-histories}).
+
+\subsection{Fisher duration, and why it is not called time}
+\label{comp:ch07-formulas-clock}
+
+\begin{align*}
+\dot{\mathfrak t}&=\sqrt{\mathsf G(\dot Q,\dot Q)},
+&
+\mathfrak t_{Q,t_0}(t)&=\int_{t_0}^{t}\dot{\mathfrak t}(t')dt',
+\\
+\frac{d\mathfrak t}{dt}&=\mathsf a\lVert\operatorname{grad}^{\mathsf G}\Fenergy\rVert_{\mathsf G},
+&
+\frac{d\Fenergy}{d\mathfrak t}&=-\lVert\operatorname{grad}^{\mathsf G}\Fenergy\rVert_{\mathsf G}.
+\end{align*}
+The clock is arc length from a chosen origin (\MT{def:hist-fisher-clock}). Along a natural-gradient
+history the clock rate is the speed factor times the gradient norm, and the free-energy decrease per
+unit clock is the gradient norm alone, a property of the orbit. The clock is invariant under
+orientation-preserving reparameterization and stops on critical or null segments
+(\MT{thm:hist-fisher-clock-invariance}). For a block-diagonal metric the collective clock satisfies
+$\max_i\mathfrak t_i\leq(\sum_i\mathfrak t_i^2)^{1/2}\leq\mathfrak t\leq\sum_i\mathfrak t_i$. In the
+unit-variance location family the path $\mu(t)=e^{-t}$ has duration $1$ over infinite parameter time,
+and a realized update is at least as long as the Fisher distance between its endpoints
+(\MT{prop:hist-realized-length-versus-distance}). Total duration is finite for a gradient history with
+an accumulation point at which the objective is real analytic, by the {\L}ojasiewicz argument of
+\citet{absil2005convergence}, and infinite for a smooth example that spirals toward a circle
+(\MT{prop:hist-analytic-finite-duration}).
+
+A clock with level sets orthogonal to the flow is stronger. With $\mathsf n=\lVert
+\operatorname{grad}^{\mathsf G}\Fenergy\rVert_{\mathsf G}$ and $\bm\alpha=-d\Fenergy/\mathsf n$, an
+orthogonal clock solves $d\mathfrak t^\perp=\bm\alpha$; since $d\bm\alpha=\mathsf n^{-2}d\mathsf n
+\wedge d\Fenergy$, it exists exactly when $\mathsf n$ is locally a function of $\Fenergy$ and the
+periods of $\bm\alpha$ vanish (\MT{thm:hist-global-clock-exactness}). For $\Fenergy=z_1z_2$ on the
+first quadrant none exists on any open set, although a unit-speed clock built from the cross-section
+$z_1z_2=1$ exists on the whole quadrant (\MT{prop:hist-cross-section-clock}).
+
+\begin{analogy}{structural}
+With the level sets of $\Fenergy$ labeled by $\tau=-\Fenergy$, $\bm\alpha=\mathsf n^{-1}d\tau$: the
+arc length between neighboring slices is a lapse $\mathsf n^{-1}$ times $d\tau$. A time function whose
+differential is the unit normal one-form exists exactly when the lapse is constant on each slice, the
+same Frobenius-type condition as for a synchronous slicing in general relativity, here in Riemannian
+signature and with no causal content.
+\end{analogy}
+
+The manuscript refuses to call the duration physical time, and the refusal is correct. Its standing
+scope (\MT{sec:intro-conventions}) says an identification would need a named target clock, a
+calibration map with an uncertainty model, causal and compositional consistency, and discriminating
+evidence; none is supplied. The chapter's own results add reasons: the duration depends on the chosen
+metric and origin, stops at critical points, is not additive over agents, generally has no orthogonal
+(simultaneity-like) version, and runs slower for a meta-agent than for its constituents by an unknown
+ratio. \MT{prop:hist-coordinate-independence} separates coarse-graining depth $\ell$ (a discrete
+index), the orbit parameter $t$ (a choice), and the duration $\mathfrak t^{(\ell)}$ (arc length for a
+chosen metric and origin), and notes that even a strictly increasing duration need not be a regular
+coordinate ($z=t^2$ gives $\mathfrak t=t^2$). ``Clock'' here is a name for arc length.
+
+\subsection{Record clocks, semiconjugacy, and depth}
+\label{comp:ch07-formulas-semiconjugacy}
+
+Applied at every instant of a history $P_t$ observed through one fixed kernel, the Fisher-loss theorem
+gives, for the record history $\bar P_t=P_tK$,
+\[
+\dot{\mathfrak t}_P^2-\dot{\mathfrak t}_{\bar P}^2
+=\E_t\operatorname{Var}_t\bigl(\mathbf s_t(Y)\given\bar Y\bigr)\geq0,
+\qquad
+\operatorname{len}(\bar P)\leq\operatorname{len}(P)
+\]
+(\MT{thm:hist-record-clock-contraction}), with equality on an interval of finite length exactly when
+the fine score is a function of the record at almost every instant. This covers a meta-agent exactly
+when its law is the image of the same fine history under one fixed kernel, which natural Gaussian
+meta-agent maps can fail (\SG{prop:hist-normal-barycenter-kernel}). A coarse configuration map acting
+channelwise through Markov morphisms with equal weights gives the configuration-level version
+(\MT{thm:hist-pointwise-contraction-lift}).
+
+A meta-agent that runs its own natural-gradient dynamics on its own free energy has a recomputed
+orbit, not an image. The chapter compares the two through
+\[
+T_Q\mathsf F_\ell\mathscr V_\ell(Q)=\mathsf a_\ell(Q)\mathscr V_{\ell+1}(\mathsf F_\ell Q),
+\qquad\mathsf a_\ell>0
+\]
+(\MT{def:hist-oriented-semiconjugacy}): the pushed fine velocity is a positive multiple of the coarse
+velocity. Then fine orbits map onto coarse orbits with time change $\psi_Q(t)=\int_0^t\mathsf a_\ell$
+(\MT{thm:hist-oriented-semiconjugacy}), and the coarse duration of the image is the intrinsic length
+of the coarse orbit arc, independent of $\mathsf a_\ell$ (\MT{thm:hist-duration-relation}). A constant
+map satisfies the relation trivially, so a nonconstant shared history is a separate requirement
+(\MT{prop:hist-noncollapse}); with $\mathsf F_\ell=\arctan$ on $\R$ both flows are complete and only
+part of the coarse orbit is reached; and the coarse duration is no larger than the fine one exactly
+when $\lVert T\mathsf F_\ell\mathscr V_\ell\rVert\leq\lVert\mathscr V_\ell\rVert$ along the orbit
+(\MT{thm:hist-duration-criterion}), which fiberwise Fisher contraction does not give by itself,
+because configuration weights are separate data and a recomputed orbit is not an image.
+
+\MT{prop:hist-natural-gradient-sufficiency} says where the relation holds. Equal objectives do not
+suffice, since a change of metric breaks it. It holds for surjective submersions that are
+functionally compatible, $\Fenergy_\ell=\chi_\ell\circ\Fenergy_{\ell+1}\circ\mathsf F_\ell$ with
+$\chi_\ell'>0$, and horizontally conformal with dilation $\mathsf d_\ell$, with
+$\mathsf a_\ell=\chi_\ell'\mathsf d_\ell^2$; quotients by free, proper, isometric symmetries of the
+objective have $\mathsf a_\ell\equiv1$. Compatibility forces the fine objective to be constant along
+the fibers of the coarse map, so the route misses maps that discard directions on which the fine
+objective depends: when the coarse objective is the fiberwise infimum with unique fiberwise
+minimizers, compatibility with $\chi_\ell=\operatorname{id}$ holds on no open set, and in the
+manuscript's example it holds for no $\chi_\ell$. The chapter declines to assert a semiconjugacy for such maps and routes the comparison through
+the reduced slow flow of \cref{comp:ch08}, a conjugacy on the graph of conditional minimizers
+(\MT{prop:obs-rate-separated-flow}); whether the actual flow follows that graph is
+\MT{open:obs-slow-manifold}.
+
+\section{What is proved, and how solid it is}
+\label{comp:ch07-status}
+
+\begin{scorecard}
+\MT{prop:pb-statistical-tensor-descent}, \MT{cor:pb-orbit-fisher-form} & Fisher and Amari--Chentsov tensors are frame independent at $c_*$; a small group move costs $\tfrac12t^2\mathfrak k_q(\xi,\xi)$, null on the isotropy algebra. & \SOLID & Standard in substance; needs an action by sample maps.\\
+\MT{def:hist-configuration-manifold} & The configuration metric, channel weights, and the Fisher metric itself are chosen. & \CHOICE & Uniqueness theorems exist and are not imposed (\MT{prop:ig-fisher-characterizations}).\\
+\MT{thm:cg-fisher-contraction} & Coarse score is the conditional expectation of the fine score; Fisher loss is the expected conditional covariance. & \SOLID & Parameter-independent kernel; equality is local sufficiency, not recovery; defects form a cocycle (\MT{thm:pb-fisher-defect-cocycle}).\\
+\MT{thm:hist-retained-fisher-quotient} & Null space of a pulled-back Fisher tensor; positive quotient bundle on constant-rank strata. & \SOLID & Local; a global quotient needs a Hausdorff leaf space (open).\\
+\MT{hyp:hist-exact-vfe-lift} & Dependence between agents enters through a supplied lift. & \CHOICE & Different lifts give different metrics (\MT{prop:hist-general-score-residual}, SOLID).\\
+\MT{thm:hist-local-markov-product-uniqueness}, \MT{thm:hist-correlated-refinement-nogo} & Local naturality forces the product law; two correlated split kernels leave no natural selector. & \SOLID & Negative, elementary, relative to the admitted class; the reference-relative replacement is an unnumbered remark.\\
+\MT{thm:hist-three-agent-parity-lift} & A positive smooth symmetric correlated right inverse of the one-bit marginal map exists. & \TOY & Three agents, binary channels, finite symmetry group, $|\bar\varkappa|<1/64$.\\
+\MT{prop:hist-parity-hyperedge-vfe}, \MT{cor:hist-parity-fisher-residual} & Free energy and joint Fisher metric are not functions of single-agent marginals (and evidence). & \SOLID & A refutation by a toy counterexample; effect second order in $\bar\varkappa$.\\
+\MT{prop:hist-scalar-mobility-orbit} & Scalar mobility keeps orbits; anisotropic mobility, including a rate ratio, can change them. & \SOLID & Orbit selection depends on the chosen metric.\\
+\MT{thm:hist-fisher-clock-invariance}, \MT{thm:hist-global-clock-exactness} & Duration is reparameterization invariant; an orthogonal clock exists iff the gradient norm is locally a function of the free energy. & \SOLID & Standard in substance; metric and origin chosen; orthogonal clocks fail generically.\\
+\MT{thm:hist-record-clock-contraction} & A same-path image under one fixed kernel runs no faster, by the exact conditional-variance defect. & \SOLID & Covers a meta-agent only if its law is such an image; fails for parameter-dependent channels.\\
+\MT{thm:hist-oriented-semiconjugacy}, \MT{thm:hist-duration-relation} & If the coarse map intertwines descent fields up to a positive rate, orbits correspond and the rate cancels from durations. & \COND & Hypothesis: the semiconjugacy, not shown for any information-discarding meta-agent map.\\
+\MT{prop:hist-natural-gradient-sufficiency} & Semiconjugacy holds for compatible conformal submersions and symmetry quotients; for a fiberwise-infimum coarse objective, compatibility holds on no open set. & \SOLID & The positive part excludes the maps formation needs.\\
+\end{scorecard}
+
+\begin{hygiene}
+Conditions that can fail in the program's cases: parameter independence of the coarse kernel along
+the whole history (fails for Galerkin aggregation when $\operatorname{range}(\Lambda S)$ moves, for
+joint barycenters, for parameter-dependent channels); the chosen metric, weights, and rate ratio,
+which orbits and durations inherit; the supplied lift; the semiconjugacy, a hypothesis for every
+information-discarding map; a Hausdorff leaf space for global quotients; an accumulation point for
+finite total duration; and regularity (\MT{hyp:pb-regular-models}), which excludes singular strata,
+so that coarse families of mixture type, singular where components coincide, need checking.
+
+Hygiene a physicist can take for granted: standard Borel spaces, differentiability in quadratic mean,
+integrability of scores to third order, domination for differentiating divergences, $C^1$ metrics,
+$C^2$ objectives, local Lipschitz coarse fields, and real analyticity for finite duration, which
+Gaussian relative entropies and log-sum-exp attention terms satisfy in natural coordinates.
+\end{hygiene}
+
+\section{Toy versus general}
+\label{comp:ch07-toy}
+
+Most small examples in the chapter are planar refutations with general logical force; they show
+which implications fail, not what large networks do. The parity witness has a general negative part, that no rule reading single-agent
+marginals returns the free energy or joint Fisher metric for every law, and a TOY positive part, the
+existence of a smooth symmetric correlated lift for three agents with binary channels. Its
+mechanism-level content, conjectural at large $N$, is that dependences of higher order than any
+retained marginal enter the collective free energy and joint Fisher metric through $\mathfrak K$ while
+staying invisible to marginal-based coarse descriptions and single-agent clocks; how large
+$\mathfrak K$ is at $N\geq512$ in the program's generative models, and whether such dependences are
+generic there, is not addressed. The constants $\tfrac{65536}{16383}$ and $\tfrac{4}{16383}$, the bound
+$|\bar\varkappa|<1/64$, the ranks seven and six, and the $57$-dimensional fiber are small-$N$ specifics.
+The witness's hypotheses (finite alphabets, a discrete symmetry group) exclude continuous law fibers
+with connected groups such as $\GL(K,\R)$, $\GL(K,\mathbb C)$, or $\mathrm{SU}(N)$, and whether
+correlated lifts equivariant under a connected group exist there is open
+(\MT{open:hist-parity-lift-scope}). Everything else (tensor descent, Fisher loss, record clocks, clock
+invariance, the orthogonal-clock criterion, the semiconjugacy calculus) is general and independent of
+$N$; its hypotheses admit nonabelian and noncompact groups acting by sample maps, such as linear
+$\GL(K)$ on Gaussian samples.
+
+\section{Open ends}
+\label{comp:ch07-open}
+
+\MT{open:hist-parity-lift-scope} asks, for a stated regular family and a stated class of morphisms
+containing non-product-preserving kernels, for a smooth right inverse of the marginal map natural under
+that class, and for correlated lifts equivariant under a connected structure group on continuous
+fibers; a construction or no-go theorem settles each. \MT{open:hist-retained-fisher-quotient} asks for a
+checkable criterion under which the null foliation of a pulled-back Fisher tensor has a Hausdorff leaf
+space, and for block data on the quotient fixed by a typing of agents and channels, since the law and
+its Fisher tensor alone select no agent splitting (\MT{prop:hist-law-fisher-agentization-nogo}).
+\MT{open:hist-meta-clock-ratio} asks for the ratio of an $N$-constituent meta-agent's duration to its
+constituents' collective duration, as a function of $N$ and of the correlation of constituent
+velocities, in the coherent and incoherent regimes. The physicist's expectation, that coherent motion
+survives coarse-graining while incoherent motion is suppressed with $N$, is exactly what is unproved,
+and the problem warns that a divergence computation does not settle it because expected arc-length
+ratios are not square roots of expected divergence ratios. Finally, for information-discarding maps
+the comparison depends on \MT{open:obs-slow-manifold} (\cref{comp:ch08-open}); a semiconjugacy for
+such maps is declined without an open problem of its own.
+
+\begin{verdictbox}{\NARROWER}
+\textbf{Claimed.} The opening says that a chosen metric turns the collective free energy into an
+oriented orbit with a reparameterization-invariant information clock; that a parameter-independent
+Markov channel loses Fisher information by an exact conditional-covariance defect, so that a
+same-path Markov image such as the law of a meta-agent accumulates no more duration; that a recomputed
+coarse orbit compares with the fine one only through an oriented semiconjugacy whose rate cancels from
+durations; and that a parity witness shows the free energy and its Fisher tensor are not functions of
+marginal laws.
+
+\textbf{Delivered.} Each statement is proved at its stated generality. Much is standard mathematics in
+new typing (Fisher data processing, arc length, gradient flows under a mobility, {\L}ojasiewicz),
+with a counterexample at each boundary. The parity witness and the selection theorems deliver their
+negative claims exactly.
+
+\textbf{Gap.} ``Such as the law of a meta-agent'' outruns the theorems: the record clock covers a
+meta-agent only when its law is a parameter-independent Markov image of the fine history, which
+Galerkin aggregation across precisions and joint barycenters are not. For meta-agents that run their
+own dynamics on information-discarding maps, which formation needs, the chapter's sufficient route to
+a semiconjugacy does not apply (for a fiberwise-infimum coarse objective it holds on no open set),
+none is asserted, and the comparison passes to a reduced flow whose tracking is open. The meta-agent clock ratio is open. Every orbit and duration rests on a chosen
+metric and, for collectives, a supplied lift; neither the orbit nor the clock is a property of the
+free energy alone.
+\end{verdictbox}
+
+\chapter{Two-Timescale Dynamics}
+\label{comp:ch08}
+
+\section{The question and the answer}
+\label{comp:ch08-question}
+
+\MT{ch:two-timescales} asks what the collective free energy supplies for separating fast inference of
+beliefs from slower evolution of models, priors, and parents. A physicist expects adiabatic
+elimination: a small rate ratio $\varepsilon$, a reduced slow dynamics with the fast variables at
+their conditional optimum, and a theorem that the full dynamics follows it as $\varepsilon\to0$. The
+chapter proves the first two in general. The third holds only on held matching sheets of a four-agent
+toy, where the chapter verifies the hypotheses of Tikhonov's theorem; elsewhere it is open.
+
+The results are these. Any positive-definite block mobility gives descent, and in a product
+recognition family an agent descending its own local free energy moves along a block of collective
+descent (\MT{prop:obs-local-block-descent}). The envelope identity gives the reduced slow flow as the
+natural gradient of the free energy minimized over the fast block (\MT{lem:obs-envelope-slow-flow}).
+The rate-separated flow agrees with the reduced flow on the graph of conditional minimizers, where
+projection to the slow coordinates is a conjugacy (\MT{prop:obs-rate-separated-flow}); this is the
+route \cref{comp:ch07} uses for information-discarding maps. On the four-cycle the model channel lags
+the belief channel on an interval of order $1/\varepsilon_{\mathrm m}$ exactly when the links are slow
+too (\MT{prop:obs-slow-model-link-dichotomy}). In a finite discrete setting, parent-sensitive sweeps
+descend (\MT{thm:rg-memory-inference-descent}), the parent is Markov under instantaneous
+within-parent refresh (\MT{thm:rg-memory-prepared-parent}), and it has memory under partial refresh
+(\MT{rem:rg-memory-partial-refresh}).
+
+The free energy chooses none of the split, the rate ratio, or the mobilities, and a rate ratio can
+change the orbit (\MT{prop:hist-scalar-mobility-orbit}). The scope paragraph declines tracking beyond
+the held sheets, tracking by sampled dynamics with source jumps, persistence of a belief-coherent,
+model-incoherent pair under such sampling at the formation temperature, convergence of the alternating
+scheme, a uniform rate for the parent sweep, and closed dynamics for a static parent datum. The chapter
+uses \cref{comp:ch05,comp:ch06,comp:ch07} and feeds \cref{comp:ch11,comp:ch13}. The finite-depth
+formation family realizes one scalar slow parameter, with dynamics
+\MTeq{eq:rg-formation-own-law-dynamics}, not slow per-agent model laws, so the belief--model split is
+instantiated only on the four-cycle, with supplied rates.
+
+\section{The picture}
+\label{comp:ch08-picture}
+
+The picture is Born--Oppenheimer: fast electrons relax at fixed nuclear positions, and the nuclei move
+on the resulting surface. Beliefs play the electrons; models and generative parameters play the
+nuclei.
+
+\begin{analogy}{structural}
+$F_{\mathrm{red}}(s)=\min_fF(f,s)$ plays the Born--Oppenheimer surface \citep{Born1927}, and the
+envelope identity $dF_{\mathrm{red}}=\partial_sF(f^\star(s),s)$ is the Hellmann--Feynman statement for
+a variational ground state: the slow force is the explicit partial derivative at the conditional
+optimum, because the implicit variation of the fast variables drops out at a stationary point. What
+does not transfer: the adiabatic theorem that justifies Born--Oppenheimer and its nonadiabatic
+corrections; the chapter proves only the zeroth-order reduced dynamics. $F_{\mathrm{red}}$ is a
+minimum over a recognition family, not a partition function; this is zero-temperature elimination,
+not integrating out.
+\end{analogy}
+
+\begin{analogy}{structural}
+The rate-separated flow is a singularly perturbed gradient system, and Tikhonov's theorem
+\citep{Tikhonov1952} is the standard justification of adiabatic elimination: if the frozen fast
+subsystem has a uniformly stable equilibrium and the fast start lies in its basin, the slow variables
+converge to the reduced flow as $\varepsilon\to0$; Fenichel's theory \citep{fenichel1979geometric}
+adds a nearby invariant slow manifold. The chapter states these hypotheses in
+\MT{open:obs-slow-manifold} and verifies them only on held four-cycle sheets; sampled dynamics with
+source jumps lie outside such a theorem.
+\end{analogy}
+
+Two features have no textbook counterpart. When the kinetic metric couples beliefs and models, as
+non-product recognition makes it do, ``make the belief block fast'' is ambiguous: slowing the model
+rows of the velocity and rescaling the metric by a congruence give different slow sets, and only the
+second keeps a gradient structure (\MT{rem:obs-rate-separation-witnesses}). On the four-cycle the
+picture is lattice gauge theory on a ring: each residual is a neighbor difference minus a link, and
+both channels are compared through the same link, so a fast link cancels a slow channel's mismatch
+and the fast beliefs follow it. Model disagreement measured through a link is link relative and
+survives only if the link is slow too.
+
+\begin{analogy}{structural}
+The refresh $\mathsf D=\mathsf C\mathsf J$ is the discrete Nakajima--Zwanzig projector onto
+conditional equilibrium \citep{Nakajima1958,Zwanzig1960}. Projected dynamics has a memory term unless
+the unresolved part is reset at every step; a partial reset leaves memory, and the exact discrete
+recurrence is \MT{thm:rg-projection-memory} (\cref{comp:ch11}). The prepared-parent theorem is a
+lumpability statement \citep{KemenySnell1976} in intertwining form, valid from conditional-equilibrium
+starts.
+\end{analogy}
+
+\section{Objects and notation}
+\label{comp:ch08-objects}
+
+\begin{decoder}
+Fast block $f$; slow block $s=(s_{\mathrm m},\theta)$ & Declared fast coordinates (beliefs, source rows) and slow ones (model recognition coordinates, generative parameters) & Electrons and nuclei\\
+$f^\star(s)$, $\mathcal S^\star$ & Conditional minimizer over the fast block; its graph & Slaved variables; adiabatic surface\\
+$F_{\mathrm{red}}(s)$ & Free energy minimized over the fast block & Born--Oppenheimer surface\\
+$\mathsf G_{\mathrm f}$, $\mathsf G_{\mathrm s}$, $\varepsilon$, $\mathsf G_\varepsilon$ & Block metrics; rate ratio; $\varepsilon\mathsf G_{\mathrm f}\oplus\mathsf G_{\mathrm s}$ & Mobilities; singular-perturbation parameter\\
+Rate-separated, reduced flow & Natural gradient for $\mathsf G_\varepsilon$; natural gradient of $F_{\mathrm{red}}$ & Singularly perturbed system; adiabatic dynamics\\
+Row-rated field, congruence rescaling & Two ways to make a block fast when the metric couples blocks & Choice of coordinates for elimination\\
+Accepted M-coordinate & Parameter step that does not lower the evidence bound (\MT{def:elbo-generalized-m-acceptance}) & Generalized M step\\
+Four-cycle: $\bar k$, $\bar m$, $\check\omega$; $r^b_i$, $r^m_i$ & Belief means, model means, link translations on a ring; neighbor difference minus link & Matter and link fields; covariant difference\\
+$S$, $S^{(0)}$, $\mathrm T$ & Attention assignment; one held perfect matching; temperature & Quenched bonds; temperature\\
+$\varepsilon_{\mathrm m}$, $\varepsilon_{\check\omega}$ & Supplied rates of model means and links & Mobilities\\
+$\xi$, $z=\operatorname{par}(\xi)$ & Fine state and its parent (complete decorated block label) & Microstate, macrostate\\
+$\mathsf M$, $\mathsf C$, $\mathsf J$, $\mathsf D=\mathsf C\mathsf J$, $\mathsf T=\mathsf M\mathsf D$ & Metropolis move; projection to parent; posterior lift given parent; refresh; one sweep & Update; lumping; disaggregation; projector\\
+$\overline{\mathsf T}=\mathsf J\mathsf M\mathsf C$; prepared start $\nu\mathsf J$ & Parent transition kernel; fine law in conditional equilibrium within parents & Lumped chain; local equilibrium\\
+$\mathsf D_\omega$; $D^{(1)}_N$ & Refresh with probability $\omega<1$; cost of a first-order Markov parent & Finite separation; memory\\
+\end{decoder}
+
+The chapter's ``slow manifold'' is Tikhonov's and Fenichel's attracting set; the graph
+$\mathcal S^\star$ is different and at finite $\varepsilon$ generally not invariant, so the chapter's
+exactness statements hold on it, not near it. ``Rate'' is a chosen mobility factor, ``declared'' means
+chosen, and ``exact route'' means the conjugacy on $\mathcal S^\star$, not a tracking theorem. Kernels
+act on row vectors from the right, so $\mathsf T=\mathsf M\mathsf D$ means move, then refresh. The
+sweep $\mathsf T$ and temperature $\mathrm T$ are different glyphs; $\omega$ is the refresh fraction,
+and the four-cycle links, written $\omega$ in \cref{comp:ch13}, are $\check\omega$ here;
+$\operatorname{par}$ is the parent map (the parity character in \cref{comp:ch07}); the rate ratio
+$\varepsilon$ is unrelated to the formation regime parameter.
+
+\section{The formulas, explained}
+\label{comp:ch08-formulas}
+
+\subsection{Descent with any mobility, and when it is local}
+\label{comp:ch08-formulas-descent}
+
+\[
+\frac{d}{dt}F=-\sum_{i\in V'}(\nabla_{\lambda_i}F)^\top\mathsf G_i^{-1}(\nabla_{\lambda_i}F)\leq0 .
+\]
+Each moving block $i\in V'$ descends the collective free energy $F(\lambda)$ with its own
+positive-definite metric, rates absorbed (\MT{prop:obs-local-block-descent}); the chain rule gives the
+sign. The content is locality. In a product family $Q_\lambda=\bigotimes_iQ_{i,\lambda_i}$ the partial
+gradient $\nabla_{\lambda_i}F$ equals the gradient of agent $i$'s outside-averaged local free energy,
+so selfish local descent is collective descent, an exact potential game
+(\MT{thm:obs-local-global-potential}), and the block Fisher metrics make it the Fisher natural
+gradient. Outside product families moving $\lambda_i$ changes the others' marginals, the lift of
+\cref{comp:ch07} is needed, and the Fisher metric has off-diagonal blocks (for a bivariate normal
+location family with correlation $\mathrm c_2$, the entry $-\mathrm c_2/(1-\mathrm c_2^2)$). ``Each
+agent follows its own natural gradient'' is the collective natural gradient only when recognition
+factorizes.
+
+\subsection{Fast and slow blocks, the envelope identity, and the reduced flow}
+\label{comp:ch08-formulas-envelope}
+
+\begin{align*}
+F(f,s)&=-\log p_{\theta,V}(o\given X)
++\KL\bigl(Q_{f,s_{\mathrm m}}\Vert\boldsymbol\Pi_{\theta,V,o,X}\bigr),
+\qquad s=(s_{\mathrm m},\theta),
+\\
+F_{\mathrm{red}}(s)&=\min_fF(f,s),
+\qquad
+dF_{\mathrm{red}}(s)=\partial_sF\bigl(f^\star(s),s\bigr),
+\qquad
+\dot s=-\mathsf G_{\mathrm s}(s)^{-1}\partial_sF\bigl(f^\star(s),s\bigr).
+\end{align*}
+The evidence term depends only on the generative parameter $\theta$; the gap term depends on
+everything. The fast block carries belief recognition coordinates and attention source rows, the slow
+block model recognition coordinates and $\theta$, which moves the joint law between evaluations and
+never inside one (\MT{req:gen-typing-prohibition}); the assignment to blocks is declared
+(\MT{def:obs-fast-slow-blocks}). \MT{lem:obs-envelope-slow-flow} gives the second line: at the
+conditional minimizer $\partial_fF=0$, so the implicit dependence of $f^\star$ drops out, and the
+reduced flow is the $\mathsf G_{\mathrm s}$-natural gradient of $F_{\mathrm{red}}$. A $C^1$ branch
+exists where the fast Hessian is positive definite, and on a compact fast domain with unique minimizer
+the identity holds without differentiability of $f^\star$ \citep{Danskin1967}. In the limiting case
+where the slow block is $\theta$ alone and the fast family contains the exact posterior, the gap
+vanishes at the minimum, $F_{\mathrm{red}}(\theta)=-\log p_{\theta,V}(o\given X)$, and the reduced
+flow is gradient ascent on the log evidence, a continuous-time exact EM.
+
+\subsection{The rate-separated flow, and what is not proved about it}
+\label{comp:ch08-formulas-rate}
+
+\[
+\varepsilon\dot f=-\mathsf G_{\mathrm f}^{-1}\partial_fF,
+\qquad
+\dot s=-\mathsf G_{\mathrm s}^{-1}\partial_sF .
+\]
+This is the natural gradient for $\mathsf G_\varepsilon=\varepsilon\mathsf G_{\mathrm f}\oplus
+\mathsf G_{\mathrm s}$, so it descends for every $\varepsilon$, and its orbit can depend on
+$\varepsilon$ (\MT{prop:obs-rate-separated-flow}). On $\mathcal S^\star$ the fast component vanishes
+and the slow component equals the reduced flow; the reduced field lifted to $\mathcal S^\star$ is
+tangent to it, and projection to the slow coordinates is a conjugacy with rate one, which is
+\MTeq{eq:obs-reduced-semiconjugacy}; the $\mathsf G_\varepsilon$-length of the lifted orbit tends to
+the slow length. The proposition does not say that a solution started off $\mathcal S^\star$ approaches
+it and follows the reduced flow; that is Tikhonov's content and is not proved at this generality.
+
+\MT{rem:obs-rate-separation-witnesses} shows why care is needed. Off $\mathcal S^\star$ the slow
+velocity need not be parallel to the reduced gradient, and at finite $\varepsilon$ the graph is not
+invariant. With a correlated metric the naive construction fails: for $F=[(f-s)^2+s^2]/2$, whose
+conditional minimizer is $f=s$, and a metric with unit diagonal and off-diagonal
+$\mathrm c_2\in(0,1)$, slowing the model row of the natural-gradient velocity gives the fast critical
+set
+\[
+\Bigl\{f=\frac{1+2\mathrm c_2}{1+\mathrm c_2}s\Bigr\},
+\]
+attracting at rate $1/(1-\mathrm c_2)$ and not the conditional minimizers; at $\mathrm c_2=\tfrac12$
+and $\varepsilon<7-4\sqrt3\approx0.072$ this field increases $F$ at an explicit point, so it is the
+natural gradient of no metric. The congruence rescaling $\Delta_\varepsilon\mathsf G\Delta_\varepsilon$,
+$\Delta_\varepsilon=\operatorname{diag}(\sqrt\varepsilon,1)$, descends for every $\varepsilon$ and
+recovers the conditional minimizers at $\varepsilon=0$. With correlated metrics a two-timescale model
+must state how the rate ratio enters the metric; this is a modeling requirement, since correlated
+belief--model metrics are what non-product recognition produces.
+
+\subsection{The four-cycle: slow models need slow links}
+\label{comp:ch08-formulas-cycle}
+
+On the ring of \MT{def:rg-formation-cycle-experiment}, agents have belief laws $\mathcal N(\bar k_i,1)$
+and model laws $\mathcal N(\bar m_i,\tfrac12)$, edges $e_i$ from $i$ to $i+1$ carry link translations
+$\check\omega_i$, and the residuals are $r^b_i=\bar k_{i+1}-\bar k_i-\check\omega_i$ and
+$r^m_i=\bar m_{i+1}-\bar m_i-\check\omega_i$. Each receiver attends one neighbor; the energy $U_S$
+collects attended edge costs and temperature terms; the matching $S^{(0)}$ selects $e_0$ and $e_2$.
+\MT{prop:obs-slow-model-link-dichotomy} runs
+\[
+d\mathbf x=-\bigl(\partial_{\bar k}U_S,\varepsilon_{\mathrm m}\partial_{\bar m}U_S,
+\varepsilon_{\check\omega}\partial_{\check\omega}U_S\bigr)dt
++\sqrt{2\mathrm T}\bigl(dW^{\bar k},\varepsilon_{\mathrm m}^{1/2}dW^{\bar m},
+\varepsilon_{\check\omega}^{1/2}dW^{\check\omega}\bigr),
+\]
+with the assignment redrawn at a rate-one clock. The rates are supplied; a Fisher natural gradient
+would move model means at rate $\tfrac12$.
+
+Part (i) holds the matching. The mean then follows the noiseless rate-separated flow with
+$\varepsilon=\varepsilon_{\mathrm m}$, fast block $\bar k$, slow block $(\bar m,\check\omega)$. On each
+selected edge, in the difference coordinates $(\bar k^-_i,\bar m^-_i,\check\omega_i)$, the Hessian block
+is
+\[
+\begin{pmatrix}4+3\mathrm T&-2\mathrm T&-2\sqrt2\\-2\mathrm T&4+3\mathrm T&-2\sqrt2\\
+-2\sqrt2&-2\sqrt2&4+\mathrm T\end{pmatrix},
+\]
+with fast curvature $4+3\mathrm T\geq4$ uniformly in temperature, so with equal model and link rates
+the Tikhonov hypotheses hold on that block with constant $4$. On the pair means $\bar k^+_i$, however,
+the fast curvature is only $3\mathrm T$: at the small temperatures of the formation regime that
+direction relaxes at a rate of order $\mathrm T$, so on the full sheet the constant is of order
+$\mathrm T$ and not uniform as $\mathrm T\to0$.
+
+Part (ii) sets $\mathrm T=0$ and starts with every residual at $-1$. Each selected-edge block has a zero
+mode, on which both residuals vanish, and rates
+$\varsigma_\pm=2(1+\varepsilon_{\mathrm m}+\varepsilon_{\check\omega})\pm2\sqrt{(1-\varepsilon_{\mathrm m})^2
++\varepsilon_{\check\omega}^2}$. A fast link ($\varepsilon_{\check\omega}=1$) gives
+$|r^m_i(t)|\leq e^{-(4-2\sqrt2)t}$ for every $\varepsilon_{\mathrm m}$, removing the model disagreement
+on the belief clock even with frozen model means; fast model means give
+$r^m_i=-e^{-(4+4\varepsilon_{\check\omega})t}$. With slow means and equally slow links
+($\varepsilon_{\check\omega}=\varepsilon_{\mathrm m}\leq\tfrac12$),
+\[
+|r^b_i(t)|\leq(1+\varepsilon_{\mathrm m})e^{-4t}+\varepsilon_{\mathrm m},
+\qquad
+\bigl(1-\tfrac32\varepsilon_{\mathrm m}\bigr)e^{-6\varepsilon_{\mathrm m}t}-\tfrac32\varepsilon_{\mathrm m}
+\leq|r^m_i(t)|\leq e^{-(6\varepsilon_{\mathrm m}-2\varepsilon_{\mathrm m}^2)t}+\tfrac32\varepsilon_{\mathrm m},
+\]
+so for $\varepsilon_{\mathrm m}\leq1/25$ each matched pair has $|r^b_i|\leq2\varepsilon_{\mathrm m}$ and
+$|r^m_i|\geq\tfrac12$ from $\tfrac14\log(4/\varepsilon_{\mathrm m})$ to $1/(12\varepsilon_{\mathrm m})$:
+beliefs agree while models disagree, for a time of order $1/\varepsilon_{\mathrm m}$.
+
+Part (iii) returns to the sampled process along any assignment path: a model residual of size at least
+one drops below $\tfrac12$ before time $t$, on the event that residuals and configuration stay bounded,
+with probability at most $2\exp[-1/(192\mathrm T\bar\varepsilon t)]$,
+$\bar\varepsilon=\max(\varepsilon_{\mathrm m},\varepsilon_{\check\omega})$, for $t$ up to order
+$1/\bar\varepsilon$. It is a bound on a joint event, not an unconditional persistence probability. The
+mechanism-level content, conjectural beyond the four-cycle, is that a link equilibrating on the belief
+clock removes any disagreement measured through it; the rates $4-2\sqrt2$ and $6\varepsilon_{\mathrm
+m}$, the window, and the constant $192$ are four-cycle specifics.
+
+\subsection{Parents: the prepared parent and the refresh hypothesis}
+\label{comp:ch08-formulas-parent}
+
+The last section is finite (\MT{def:rg-memory-parent-sweep}): fine states $\xi$, a parent map
+$\operatorname{par}$, a positive prior and likelihoods with posterior $p$, and unobserved records with
+laws $\psi_\xi$. The kernels are
+\begin{align*}
+&\mathsf M_{\xi\xi'}=\mathsf a_{\xi\xi'}\min\Bigl(1,\frac{p(\xi')}{p(\xi)}\Bigr)\quad(\xi\neq\xi'),
+\qquad
+\mathsf C_{\xi z}=\mathbf 1_{\operatorname{par}(\xi)=z},
+\qquad
+\mathsf J_{z\xi}=\frac{p(\xi)\mathbf 1_{\operatorname{par}(\xi)=z}}{p_Z(z)},
+\\
+&\mathsf D=\mathsf C\mathsf J,
+\qquad
+\mathsf T=\mathsf M\mathsf D,
+\qquad
+\Fenergy(q\otimes\psi';o)=\KL(q\Vert p)+\E_q\KL(\psi'_\xi\Vert\psi_\xi)-\log\mathcal Z_o .
+\end{align*}
+$\mathsf M$ is a Metropolis move with symmetric proposals; $\mathsf C$ reads the parent; $\mathsf J$
+draws a fine state from the posterior given the parent; $\mathsf D$ refreshes within the parent;
+$\mathsf T$ is one sweep. The free energy shows that matching record conditionals is a specialization
+of the joint objective. \MT{thm:rg-memory-inference-descent} shows that the kernels preserve $p$, that
+the refresh is the exact block update given the parent, that any $p$-stationary kernel lowers
+$\KL(q\Vert p)$ by an explicit reverse-conditional divergence, that the sweep lowers it strictly unless
+$q$ is in conditional equilibrium on each connected component, and that convergence is geometric on
+each component, with no uniform rate.
+
+The prepared-parent theorem (\MT{thm:rg-memory-prepared-parent}) reads
+\[
+\mathsf J\mathsf T=\overline{\mathsf T}\mathsf J,
+\qquad
+(\nu\mathsf J)\mathsf T^n=\nu\overline{\mathsf T}^n\mathsf J,
+\qquad
+\overline{\mathsf T}=\mathsf J\mathsf M\mathsf C .
+\]
+From a fine law $\nu\mathsf J$ in conditional equilibrium within parents, one sweep returns a fine law
+in conditional equilibrium with parent law $\nu\overline{\mathsf T}$. The parent history is Markov with
+the $p_Z$-reversible kernel $\overline{\mathsf T}$, and from any start after the first refresh, since
+after a refresh the fine state's law given the whole parent history depends only on the current parent.
+This is standard in substance: a chain resampled from block-conditional equilibrium at every step is a
+function of its block chain. The manuscript's parallel with the continuous reduced conjugacy (fast
+variable at its conditional optimum given the slow one) is structural; no theorem links the two.
+
+Everything rests on \MT{hyp:rg-memory-instantaneous-refresh}, exact within-parent resampling at every
+sweep, which the manuscript calls adiabatic elimination with an infinitely shorter timescale. The
+partial refresh $\mathsf D_\omega=(1-\omega)I+\omega\mathsf C\mathsf J$, $\omega<1$, keeps
+normalization, reversibility, and the parent, and loses the Markov property
+(\MT{rem:rg-memory-partial-refresh}). With $\operatorname{par}(1)=\operatorname{par}(2)=z_1$,
+$\operatorname{par}(3)=z_2$, uniform $p$, and one proposal between $2$ and $3$,
+\[
+\mathbb P(Z_2=z_2\given Z_1=z_1,Z_0=z_1)=\tfrac16+\tfrac{\omega}{12},
+\qquad
+\mathbb P(Z_2=z_2\given Z_1=z_1,Z_0=z_2)=\tfrac12-\tfrac{\omega}{4}.
+\]
+State $2$ is the border of $z_1$ with $z_2$. A parent just arrived from $z_2$ has its fine state at the
+border with probability $1-\omega/2$, a parent already in $z_1$ with probability $\tfrac13+\omega/6$;
+the parent's past says where in the fiber the fine state sits, and that predicts the next move. The
+dependence $(1-\omega)/3$ vanishes only at $\omega=1$. The parent path law is still retained exactly
+as a function of the fine chain (\MT{sec:rg-memory-hidden-history}), and the cost of forcing a
+first-order Markov parent is the conditional mutual information $D^{(1)}_N$ of
+\MT{thm:rg-memory-projection}, positive here at $N=3$.
+
+\section{What is proved, and how solid it is}
+\label{comp:ch08-status}
+
+\begin{scorecard}
+\MT{def:obs-fast-slow-blocks} & The fast--slow split, rate ratio, and block mobilities are declared. & \CHOICE & The free energy selects none; a rate ratio can change the orbit.\\
+\MT{prop:obs-local-block-descent} & Any positive-definite block mobility descends; in product families local descent is a block of collective descent. & \SOLID & Standard in substance; correlated recognition breaks block diagonality.\\
+\MT{lem:obs-envelope-slow-flow} & Envelope identity; the reduced slow flow is the natural gradient of the reduced functional. & \SOLID & Standard (envelope theorem, Danskin); needs a $C^1$ branch of minimizers.\\
+\MT{prop:obs-rate-separated-flow} & On the graph of conditional minimizers the rate-separated flow has the reduced slow component; projection is a conjugacy. & \SOLID & Kinematic: says nothing about approaching the graph.\\
+\MT{rem:obs-rate-separation-witnesses} & Off the graph no semiconjugacy; the graph is not invariant; correlated metrics move the slow set and can break descent; congruence repairs both. & \SOLID & Negative witnesses in two and three dimensions.\\
+\MT{prop:obs-slow-model-link-dichotomy} & On the four-cycle a belief-agreeing, model-disagreeing interval of order $1/\varepsilon_{\mathrm m}$ exists exactly when model means and links are both slow; held sheets meet the Tikhonov hypotheses. & \TOY & Four agents, scalar Gaussian means, translation links, supplied rates; (ii) at zero temperature on a held matching.\\
+\MT{open:obs-slow-manifold} & Tracking of the reduced flow by the rate-separated or sampled flow. & \OPEN & Posed for the sampled four-cycle class; learning outside.\\
+\MT{thm:rg-memory-inference-descent} & Kernels preserve the posterior; refresh is the exact block update; sweeps descend and converge geometrically on components. & \SOLID & Standard in substance; no uniform rate.\\
+\MT{hyp:rg-memory-instantaneous-refresh} & Every sweep resamples the fine state exactly given the parent. & \CHOICE & Idealized infinite separation; substantive.\\
+\MT{thm:rg-memory-prepared-parent} & From a prepared start the parent history is Markov with a reversible lumped kernel. & \COND & Hypothesis: instantaneous refresh. Standard in substance.\\
+\MT{rem:rg-memory-partial-refresh} & Under partial refresh the parent is not Markov; the past dependence is $(1-\omega)/3$. & \SOLID & Refutation by a three-state witness; constant specific to it.\\
+\end{scorecard}
+
+\begin{hygiene}
+Conditions that can fail in the program's cases: the declared split, rate ratio, and mobilities; a
+$C^1$ branch of minimizers with fast curvature uniformly bounded below, which fails after source rows
+are optimized even when every source energy and frozen-weight curvature is positive
+(\MT{prop:obs-attention-reduced-hessian}) and on the full four-cycle sheet, where the constant is
+$3\mathrm T$; a block-diagonal metric with $f$-independent slow block, which correlated recognition
+breaks; a product family for local descent; instantaneous refresh for the Markov parent; and, on the
+four-cycle, a held matching in (i) and (ii), zero temperature in (ii), bounded residuals and
+configuration in (iii), and no learning.
+
+Hygiene: $C^1$ and $C^2$ regularity, solutions staying in the open domain, integrable log normalizers,
+finite state spaces with positive prior and likelihoods, and proposal row sums at most $\tfrac12$,
+which secures positive holding.
+\end{hygiene}
+
+\section{Toy versus general}
+\label{comp:ch08-toy}
+
+General and independent of $N$: block descent, the envelope identity and reduced flow, the kinematic
+agreement on $\mathcal S^\star$, the parent sweep's descent, and the Markov parent under instantaneous
+refresh. The negative witnesses (a slow velocity off the graph, the correlated-metric slow set, the
+three-state partial refresh) are refutations with general force; their constants $7-4\sqrt3$ and
+$(1-\omega)/3$ are specific. The four-cycle dichotomy is TOY: four agents, scalar Gaussian means with
+fixed variances, translation links ($\R$ acting on means, an abelian noncompact group), supplied rates,
+a held matching in (i) and (ii), zero temperature in (ii). These exclude the target of $512$ or more
+agents with nonabelian links such as $\GL(K,\R)$ or $\mathrm{SU}(N)$. The mechanism, that a link fast
+on the belief clock absorbs disagreement measured through it so that model incoherence with belief
+coherence needs slow links as well as slow models, is plausible on larger graphs and unproved there;
+the rates, the window, the bound $\varepsilon_{\mathrm m}\leq1/25$, and the persistence constant are
+four-cycle specifics. The only place the open tracking problem is closed, the held sheets, is itself a
+toy, as the chapter says.
+
+\section{Open ends}
+\label{comp:ch08-open}
+
+\MT{open:obs-slow-manifold} asks when Tikhonov's and Fenichel's theorems apply to the rate-separated
+flow at $c_*$. Its three hypotheses (a $C^2$ objective with $C^1$ block metrics and an
+$f$-independent slow metric; a $C^1$ branch of minimizers with fast curvature at least $\mathrm c_1$
+relative to the fast metric on a compact set; a reduced orbit inside that set and a fast start in the
+basin) are verified only on held sheets. Source-row optimization can destroy the curvature bound,
+sampled dynamics with source jumps lie outside a deterministic theorem, and no explicit bound in
+$\varepsilon$ on the slow orbit or its Fisher duration exists. The problem is posed in one class, the
+sampled four-cycle with slow model means and links at equal rates and no learning: settled positively
+by a bound on the distance between the sampled slow coordinates and the reduced flow of the assignment
+path over a bounded slow-time interval, explicit in $\varepsilon_{\mathrm m}$, $\mathrm T$, and the
+number of assignment changes, tending to zero, with probability tending to one when changes per unit
+slow time are bounded; negatively by rates and temperatures tending to zero along which that distance
+stays bounded below with probability bounded below. Learning and correlated belief--model metrics are
+outside the posed class; for the latter the chapter establishes only that the rate declaration must
+name its slow set. \MT{open:elbo-alternating-convergence} asks for convergence of the discrete
+alternating scheme, and \MT{open:rg-pointwise-parent-dynamics} asks how a parent's dynamics follow
+from the network it summarizes, which the prepared parent answers only under instantaneous refresh.
+The uniform rate of the parent sweep and persistence under sampling with jumps at the formation
+temperature are declined without open problems.
+
+\begin{verdictbox}{\NARROWER}
+\textbf{Claimed.} The opening promises descent for every positive-definite block mobility, local in
+product families; a reduced slow flow conjugate to its lift on the graph of the conditional optimum,
+the exact route for information-discarding maps; a Markov parent under instantaneous refresh, failing
+under finite refresh; and, on the four-cycle, a model channel lagging the belief channel exactly when
+links are slow too.
+
+\textbf{Delivered.} All of it, as stated. The general results are the kinematics of an adiabatic
+reduction (envelope theorem, reduced natural gradient, agreement on the graph of minimizers) and its
+discrete, infinitely separated case (lumpability), all standard in substance, plus clean witnesses
+that correlated metrics move the slow set and finite separation creates memory. The four-cycle
+dichotomy is a complete toy result with explicit rates and a pathwise probability bound.
+
+\textbf{Gap.} The dynamical content of a two-timescale theory, that the actual flow at small
+$\varepsilon$ follows the reduced one, holds only on the four-cycle's held sheets, where the chapter
+verifies Tikhonov's hypotheses; it is not established on the full sheet (fast curvature of order the
+temperature), with source jumps, for correlated metrics, or with learning. The ``exact route'' is exact
+on the graph of minimizers and unproved as dynamics. The Markov parent rests on a named idealization,
+and parent dynamics under finite refresh is open. The split, rate ratio, and mobilities are declared,
+and the formation theorem does not use the belief--model split. The scope paragraph declines each of
+these; the title promises more than the theorems deliver.
+\end{verdictbox}

@@ -1,0 +1,698 @@
+\chapter{Supplement G, Part 1: The Gaussian Realization and Its Geometry}
+\label{comp:sg1}
+
+Supplement G asks what the single-point theory becomes when every belief and model law is
+multivariate Gaussian (\SG{ch:gaussian-introduction}). This chapter covers its introduction and its
+first five chapters; aggregation, Kron reduction, nonflat links, the operator arrow, and reciprocal
+pairs are in \cref{comp:sg2}. Three facts frame what follows. The supplement is a realization, not the
+ambient theory: it asserts nothing for a non-Gaussian belief fiber beyond the exponential-family
+statements of G1, and the main manuscript uses none of its results. The Gaussian lives on real fibers,
+\(\R^K\) for beliefs and \(\R^{d_m}\) for model presentations with \(K\neq d_m\) allowed, and the
+structure group reaches them only through its represented image \(\Gamma_b=\rho_b(G)\subseteq\GL(K)\);
+some statements hold for every \(\Gamma_b\), and a named set is proved under the specialization
+\(\Gamma_b=\GL^+(K)\) (\SG{hyp:gen-lg-frame-group}). And the belief precision analyzed throughout is
+that of the fast belief at frozen model latents, \(p(k\given m,o,X)\), not the joint belief--model
+precision.
+
+Most of the mathematics is finite-dimensional linear algebra and Gaussian integration, much of it
+textbook in substance. What is specific to the program is the typing (which objects are laws, which are
+operators, which are artifacts of a chart or frame) and the analysis of when a directed linear-Gaussian
+network yields the precision a physicist would write first, a matrix-weighted graph Laplacian plus local
+mass terms. Only \SG{prop:exp-cumulants-fisher} is tagged STANDARD; every other statement in G1 to G5 is
+ESTABLISHED with a proof, and none rests on computation. In one line each: G1 shows that boundary
+points and operator fixed points carry no law; G2 gives the information form, the forest precision, and
+one Schur lemma behind every later marginal; G3 shows that the Laplacian-plus-self-term shape is a
+declared restriction and says when it holds, exactly in one chart and at law level on forests and pairs;
+G4 prices recognition restrictions and finds that
+none selects a partition; G5 separates law-level invariants from chart and frame artifacts.
+
+\section{Exponential families and the operator layer (G1)}
+\label{comp:sg1-expfamily}
+
+\subsection{The question and the answer}
+
+Later chapters apply algebraic maps (aggregation, rescaling, Schur complementation) to matrices in a
+cone, and a matrix in the cone need not be the precision of any normalizable law. \SG{ch:expfamily} asks
+what happens when a map of natural parameters leaves the natural domain \(\mathsf N\). On its boundary
+nothing is left: log partition, mean parameter, Fisher metric, relative entropies, and evidence bound
+diverge or are undefined (\SG{prop:exp-domain-boundary-no-law}); a map can keep every iterate inside
+while its only fixed point is on the boundary (\SG{prop:exp-fixed-point-no-law}); and pinning,
+quotienting, and keeping a mass coordinate are three different repairs (\SG{sec:exp-repairs}). Inside,
+relative entropy is a Bregman divergence (\SG{prop:exp-kl-bregman}) and affine mean constraints have a
+unique information projection (\SG{prop:exp-affine-mean-projection}).
+
+\subsection{The picture}
+
+\begin{analogy}{exact}
+An exponential family is a Gibbs ensemble: the statistic \(\mathsf T\) lists observables, the natural
+parameter \(\lambda\) their conjugate fields, \(\mathsf A(\lambda)\) is a Massieu function,
+\(\nabla\mathsf A\) the thermodynamic averages, and \(\nabla^2\mathsf A=\operatorname{Cov}(\mathsf T)\)
+the fluctuation--response relation, which is also the Fisher metric (\SG{prop:exp-cumulants-fisher}). For
+the Gaussian, \(\mathsf T=(y,yy^\top)\) and \(\lambda=(\mathsf h,-\tfrac12\Lambda)\), a source and a
+coupling matrix. The information projection is the family-restricted form of minimum relative entropy
+\citep{jaynes2003probability}.
+\end{analogy}
+
+The boundary results are an infrared statement. For the scalar Gaussian with \(\mathsf T(z)=-z^2/2\),
+\(\lambda\) is the stiffness and \(\mathsf N=(0,\infty)\); the map \(\lambda\mapsto\lambda/2\) keeps
+every iterate normalizable, but its limit \(\lambda=0\) is the flat weight on the line
+(\SGeq{eq:exp-scale-witness}), inside the operator cone \([0,\infty)\) and outside the probability
+layer.
+
+\begin{analogy}{structural}
+This is the massless limit of a free field, whose zero mode has no normalizable measure. Physicists fix a
+boundary value, remove the zero mode, or keep a small mass as a running coupling; G1's pinning
+(\SG{def:exp-pinning}), quotienting (\SG{def:exp-quotienting}), and mass sector
+(\SG{def:exp-mass-sector}) are these three repairs, and they give three different objects. A
+pseudoinverse and pseudodeterminant in the full-space density formula compute the quotient normalizer,
+on a smaller space with another reference measure, while the full-space integral stays infinite
+(\SG{prop:exp-quotient-normalization}).
+\end{analogy}
+
+\subsection{Objects and notation}
+
+\begin{decoder}
+Canonical family \((\nu,\mathsf T,\lambda,\mathsf A,\mathsf N)\) & Laws \(\propto e^{\langle\lambda,\mathsf T\rangle}\) relative to \(\nu\); \(\mathsf N\) is where \(\mathsf A<\infty\) & Gibbs ensemble\\
+Regular, minimal & \(\mathsf N\) open; no affine redundancy, so parameters determine laws & No redundant coordinates\\
+Operator cone \(\mathcal W\); probability layer \(\mathcal W\cap\mathsf N\) & Parameters preserved by the maps; the part that denotes laws & Couplings with unphysical points; normalizable couplings\\
+Bregman divergence; information projection & Error of the linear extrapolation of \(\mathsf A\); closest member under affine mean constraints & Availability; maximum entropy\\
+\end{decoder}
+
+Traps: the sans-serif \(\mathsf A\) is the log partition, the italic \(A_i\) of later chapters are self
+terms; the bold \(\boldsymbol\mu\) is a mean parameter, for the Gaussian the pair \((\mu,M_2)\) of mean
+and second moment (\SG{def:gauss-coordinate-charts}); ``operator'' means a matrix acted on by an
+algebraic map, nothing quantum.
+
+\subsection{The formulas, explained}
+
+Inside the domain,
+\[
+\KL(Q_{\lambda'}\Vert Q_\lambda)=\mathsf A(\lambda)-\mathsf A(\lambda')-\langle\nabla\mathsf A(\lambda'),\lambda-\lambda'\rangle
+\]
+(\SG{prop:exp-kl-bregman}): the difference of log partitions minus the first-order change predicted from
+\(\lambda'\). Convexity makes it nonnegative; for nearby parameters it is the Fisher quadratic, and at
+finite separation it is not, a difference the supplement insists on. For a closed affine set of mean
+parameters meeting the interior, the projection \(Q_{\widehat\lambda}\) is unique and every
+constraint-satisfying member obeys
+\[
+\KL(Q_{\lambda'}\Vert Q_\lambda)=\KL(Q_{\lambda'}\Vert Q_{\widehat\lambda})+\KL(Q_{\widehat\lambda}\Vert Q_\lambda),
+\]
+as a squared distance splits under orthogonal projection (\SG{prop:exp-affine-mean-projection}); the
+Bernoulli examples of \SG{rem:exp-projection-hypotheses} show that interior feasibility, closedness,
+and convexity are each needed. The scope paragraph is a real warning: no coarse-graining statement
+follows from exponential-family structure alone, since an operator arrow needs, among other things, a
+declared rescaling, and a law-level arrow needs finite normalizers at every scale.
+
+\section{The Gaussian realization at the base point (G2)}
+\label{comp:sg1-realization}
+
+\subsection{The question and the answer}
+
+\SG{ch:generative-gaussian} asks what the directed law becomes when every kernel is linear Gaussian, and
+what the precision blocks mean. The precision is at once the coupling matrix and the Fisher metric of the
+mean (\SG{prop:gauss-log-normalizer-moments}); a zero block is conditional independence, not zero
+covariance (\SG{prop:gauss-conditional-precision}); the marginal precision of a set of directions is a
+Schur complement below the restricted precision, with equality exactly under \(\Lambda\)-orthogonality
+(\SG{lem:gauss-schur}). A forest assembles into an explicit sparse precision
+(\SG{prop:gauss-assembled-precision-blocks}), every kernel is frame covariant
+(\SG{prop:gen-lg-kernel-covariance}), and the learning step has a closed form that fails to exist in two
+named cases (\SG{prop:gen-lg-m-step}).
+
+\subsection{The picture}
+
+\begin{analogy}{exact}
+In \(q\propto\exp(\mathsf h^\top y-\tfrac12y^\top\Lambda y)\), \(\Lambda\) is the quadratic part of a
+lattice action (the inverse propagator), \(\mathsf h\) an external source, and \(\Sigma=\Lambda^{-1}\)
+the propagator. A zero off-diagonal block means no direct bond while the propagator still connects the
+sites through paths (\SGeq{eq:gauss-precision-not-covariance}). The Schur complement is integrating out,
+exact at tree level for a Gaussian. The inequality \(\Lambda_{bb}^{-1}\preceq(\Lambda^{-1})_{bb}\)
+(\SG{prop:restrict-optimum-vs-marginal}) is the Le Chatelier--Braun inequality: a block fluctuates less
+with the rest clamped than with the rest free to relax, which is why a factorized recognition law, whose
+block covariances are the clamped ones, underestimates every marginal fluctuation.
+\end{analogy}
+
+The directed model (\SG{def:gen-lg-forest}) is a state-space model on a tree: each nonroot belief is its
+parent's belief carried by the link \(\Theta_{ij}\), multiplied by a gain \(F_i\), shifted by a bridge
+term \(\mathsf B_im_i\) and an offset, plus noise of precision \(\Lambda_i\), with linear-Gaussian
+observations. The product \(\Omega_i=F_i\Theta_{i\operatorname{par}(i)}\) is the transition. At frozen
+model latents the belief sector is the forest
+\(k_i\given k_{\operatorname{par}(i)}\sim\mathcal N(\Omega_ik_{\operatorname{par}(i)},\Lambda_i^{-1})\),
+and model latents, offsets, and the model part of observations move only \(\mathsf h\): model
+presentations act on beliefs as an external source, never as a coupling. This is the Born--Oppenheimer
+move of the main manuscript's fast--slow split (\MT{sec:obs-fast-slow}), cleaner than usual because the
+fast precision does not depend on the frozen variables at all.
+
+\subsection{Objects and notation}
+
+\begin{decoder}
+\((\mathsf h,\Lambda)\); \(\mu=\Lambda^{-1}\mathsf h\), \(\Sigma=\Lambda^{-1}\) & Information vector, precision; mean, covariance & Source, couplings; propagator\\
+Four charts & Information \((\mathsf h,\Lambda)\), natural \((\mathsf h,-\tfrac12\Lambda)\), expectation \((\mu,M_2)\), moment \((\mu,\Sigma)\) & Choices of thermodynamic variables\\
+\(F_i\), \(\Theta_{ij}\), \(\Omega_i\) & Gain, represented link, transition & Transfer matrix times transporter\\
+Restricted versus marginal precision & \(E^\top\Lambda E\) versus \((E^\top\Lambda^{-1}E)^{-1}\) & Clamped versus relaxed stiffness\\
+M-coordinate & Maximizing expected complete log likelihood over generative parameters & Learning (EM's M-step)\\
+\end{decoder}
+
+Traps: one subscript on \(\Lambda\) is a kernel's innovation precision, two a block of the assembled
+matrix (the \(W_i\) of G3 follows the same rule); symmetric-matrix coordinates scale off-diagonal entries
+by \(\sqrt2\); the moment chart is not Legendre dual to the natural chart, the expectation chart is;
+``pullback'' means restriction along an injective parameter map.
+
+\subsection{The formulas, explained}
+
+The log normalizer
+\(\mathsf A(\mathsf h,\Lambda)=\tfrac12\mathsf h^\top\Lambda^{-1}\mathsf h-\tfrac12\log\det\Lambda+\tfrac n2\log2\pi\)
+is a source energy mediated by the propagator, a fluctuation determinant, and a measure constant; the
+Fisher information in \(\mu\) at fixed \(\Sigma\) is \(\Lambda\) (\SG{prop:gauss-log-normalizer-moments}),
+so the stiffness of the energy along a direction is the distinguishability of mean shifts along it. The
+conditional mean \(\E[Y_b\given Y_{-b}]=\mu_b-\Lambda_{bb}^{-1}\sum_{c\neq b}\Lambda_{bc}(y_c-\mu_c)\),
+with conditional covariance \(\Lambda_{bb}^{-1}\), is the local equilibrium of block \(b\) in its
+neighbors' field, and as an update the coordinate-ascent step of G4. With an agreement coupling
+\(\Lambda_{bc}=-W_{bc}\preceq0\), a neighbor's deviation pulls the block toward it in the \(\Lambda_{bb}\)
+inner product but not necessarily in the Euclidean one (\SG{prop:gauss-conditional-precision}, part
+(iii)): agreement is relative to the
+receiver's own metric, the only one available under general linear frames.
+
+The forest precision has the blocks
+\[
+\Lambda_{i\operatorname{par}(i)}=-\Lambda_i\Omega_i,
+\qquad
+\Lambda_{ii}=\Lambda_i+\sum_{i'\in\operatorname{ch}(i)}\Omega_{i'}^\top\Lambda_{i'}\Omega_{i'},
+\]
+and zero between nonadjacent agents (\SG{prop:gauss-assembled-precision-blocks}): each factor puts its
+noise stiffness on the child, a bond \(-\Lambda_i\Omega_i\) to the parent, and a back-reaction on the
+parent. The bond need not be symmetric, which is the seed of G3. The belief--model cross block is
+\(K\times d_m\), so no family of square agent blocks hosts the joint precision when \(K\neq d_m\).
+Frame covariance (\SG{prop:gen-lg-kernel-covariance}) is lattice-gauge covariance of a matter action,
+with gains transforming by conjugation, covariances by congruence, and observation maps absorbing the
+inverse frame; it holds for every \(\Gamma_b\), and for \(\Gamma_b\subseteq\operatorname{O}(K)\) ordinary
+eigenvalues are also invariant (\SG{prop:gen-lg-compact-frames}), which fails under \(\GL^+(K)\).
+
+The learning step (\SG{prop:gen-lg-m-step}) is least squares plus residual covariance,
+\(\E\log\mathcal N(t;Fw,\Sigma)\leq-\tfrac12\log\det(2\pi e\Sigma_*)\), attained when
+\(\Sigma_*\succ0\); an exact regression in some direction makes the likelihood unbounded, the
+variance-collapse degeneracy of maximum likelihood. The named cases are a record factor at one observed
+value and a link learned inside the invertible group, whose supremum can sit at a singular map outside
+the group: for \(K=1\) with independent centered \(k_i,k_j\), the optimized term
+\(-\tfrac12\log(2\pi e(\E k_i^2+\mathsf t^2\E k_j^2))\) increases as \(\mathsf t\to0\) and is never
+attained. Noncompactness of the link group can make learning ill posed; the scalar witness says nothing
+about frequency at large \(K\). The communication formulas (\SG{prop:geo-selective-lift},
+\SG{prop:obs-selective-gaussian-record}) are Gaussian conditioning and the Gaussian channel; the record's
+mutual information is gauge invariant and at rank one takes every value in \((0,\infty)\).
+
+\section{The interaction family (G3)}
+\label{comp:sg1-interaction}
+
+\subsection{The question and the answer}
+
+The coarse-graining results of the second half act on one shape of precision, the interaction family
+\(\mathcal I(V)\) (\SG{def:gauss-interaction-family}):
+\[
+\Lambda_{ii}=A_i+\sum_{j\neq i}W_{ij},
+\qquad
+\Lambda_{ij}=-W_{ij}\quad(i\neq j),
+\qquad
+A_i\succeq0,\quad W_{ij}=W_{ji}\succeq0.
+\]
+\SG{ch:gaussian} asks when the belief precision of G2 has this shape. It is a restriction, not a
+consequence of linear-Gaussian directedness (\SG{prop:gauss-interaction-family-thin},
+\SG{prop:gauss-global-condition-witnesses}). With
+orientation-preserving frame changes, positive-determinant transitions on a forest can be gauged away and
+a pair can be brought into the family exactly when \((-1)^K\det\Lambda_{12}>0\)
+(\SG{prop:gauss-gain-absorption}). A reversing gain stays outside in every chart reached by
+orientation-preserving frames, and a cycle with the wrong determinant sign, or for odd \(K\) the
+three-agent v-structure, in every chart reached by any frames (\SG{prop:gauss-law-level-witnesses}). In the
+link-trivializing chart two computable conditions decide membership
+(\SG{prop:gauss-global-interaction-condition}), and there the family is adopted as a standing hypothesis
+(\SG{hyp:gauss-global-interaction}).
+
+\subsection{The picture}
+
+A member's quadratic form is
+\[
+y^\top\Lambda y=\sum_{i}y_i^\top A_iy_i+\sum_{i<j}(y_i-y_j)^\top W_{ij}(y_i-y_j)
+\]
+(\SG{prop:gauss-interaction-energy-kernel}): \(K\)-component site variables, matrix springs
+\(W_{ij}\) penalizing disagreement, and pinning or mass terms \(A_i\). Consensus configurations cost only
+\(v^\top(\sum_iA_i)v\); they are the zero modes of the Laplacian part \(L\), lifted by self terms alone,
+and at \(A=0\) they are the non-normalizable zero modes of G1. A singular bond leaves disagreement free
+along its kernel, so \(\ker L\) can exceed the consensus subspace on a connected graph. With definite
+bonds under flat comparison, one definite self term per connected component makes \(\Lambda\succ0\)
+(\SG{prop:gauss-interaction-nonempty}).
+
+\begin{analogy}{exact}
+For \(K=1\), \(W_{ij}=J\) on lattice bonds and \(A_i=m^2\), a member is the massive lattice Laplacian
+\(-\Delta+m^2\) of the lattice Gaussian free field; for general \(K\) it is the matrix-weighted Laplacian
+of the consensus literature \citep{Trinh2018MatrixWeighted}. With nontrivial links the agreement energy
+\(\sum(k_i-\Theta_{ij}k_j)^\top W(k_i-\Theta_{ij}k_j)\) is the covariant lattice Laplacian of a matter field
+in a background gauge field \citep{Creutz1983}: the connection Laplacian of \citet{SingerWu2012} for
+orthogonal links, a sheaf Laplacian \citep{HansenGhrist2019} for general linear ones. The program's links
+are independent edge variables, as lattice links are, so this is exact at the level of the quadratic
+form. G3's family is what the covariant Laplacian becomes in the pure-gauge sector: when every loop
+product is the identity the links are a coboundary \(\Theta_{ij}=U_iU_j^{-1}\)
+(\MT{prop:gauss-coboundary-trivialization}), and \(z_i=U_i^{-1}k_i\) turns every residual into
+\(U_i(z_i-z_j)\) (\SG{hyp:gauss-flat-comparison}), giving an ordinary matrix-weighted Laplacian with
+weights \(U_i^\top WU_i\). With a nontrivial Wilson loop no gauge does this; that case is excluded here
+and treated in \cref{comp:sg2}.
+\end{analogy}
+
+\subsection{Objects and notation}
+
+\begin{decoder}
+\(\mathcal I(V)\), \(A_i\), \(W_{ij}\), \(L\) & Interaction family; self term; edge weight; Laplacian part & Massive matrix-weighted Laplacian; mass; bond\\
+Link-trivializing chart & Coordinates \(z_i=U_i^{-1}k_i\) under flat comparison, unique up to one right factor per component & Gauge setting every link to one\\
+Block reframing \(\mathbf P=\operatorname{diag}(\mathbf P_i)\) & Frame change agent by agent, \(\Lambda\mapsto\mathbf P^\top\Lambda\mathbf P\) & Site-dependent passive gauge transformation\\
+Gain absorption; orientation criterion & Frames turning every transition into the identity; \((-1)^K\det\Lambda_{12}>0\) & Maximal-tree gauge; ferromagnetic bond sign (\(K=1\))\\
+Chart-independent witness; v-structure & Outside the family in every admissible chart; a child with two parents & Frustrated plaquette; explaining away\\
+\end{decoder}
+
+Traps: \(\Omega_i\) is a transition, not a holonomy or frequency; \(W_i:=\Lambda_i\Omega_i\) with one
+subscript is the candidate weight of the edge to the parent, \(W_{ij}\) an edge weight; ``flat'' means
+trivial loop products of links at the one base point, with no base manifold in sight; an ``admissible''
+chart is one reached by block reframings in the group a statement names.
+
+\subsection{The formulas, explained}
+
+Why the shape is not automatic is visible in one block. A receiving factor contributes the bond
+\(-\Lambda_i\Omega_i\), and membership needs it to be \(-W\) with \(W\) symmetric positive
+semidefinite, which nothing in a linear-Gaussian model forces. Even with links removed the gain remains:
+\(\widetilde\Lambda_i=\begin{psmallmatrix}2&1\\1&3\end{psmallmatrix}\) with the quarter-turn
+\(\widetilde\Omega_i=\begin{psmallmatrix}0&1\\-1&0\end{psmallmatrix}\) gives the bond
+\(\begin{psmallmatrix}1&-2\\3&-1\end{psmallmatrix}\), and \(F_i=-I\) gives a symmetric bond of the wrong
+sign (\SG{prop:gauss-global-condition-witnesses}). In a fixed chart every off-diagonal block must be
+symmetric, \(\binom N2K(K-1)/2\) linear conditions, so the family is Lebesgue-null once \(K,N\geq2\)
+(\SG{prop:gauss-interaction-family-thin}).
+
+Thinness concerns one chart; the law-level question is whether some frame change puts the precision into
+the family, and the answer is gauge-theoretic. A reframing \(k_i=\mathbf P_iz_i\) sends \(\Omega_i\) to
+\(\mathbf P_i^{-1}\Omega_i\mathbf P_{\operatorname{par}(i)}\), the transformation law of a link
+(\SG{prop:gauss-gain-absorption}, part (o)): gain times link behaves as one link, and no gauge
+transformation can tell a gain from a link. On a tree every link configuration is pure gauge, so frames
+\(\mathbf P_r=I\) at roots and \(\mathbf P_i=\Omega_i\mathbf P_{\operatorname{par}(i)}\) turn every
+residual into \(z_i-z_{\operatorname{par}(i)}\), leaving pure agreement bonds
+\(W=\mathbf P_i^\top\Lambda_i\mathbf P_i\) and self terms only at roots: the maximal-tree gauge applied to
+transitions. The frames must lie in the frame group, which under \(\GL^+(K)\) requires
+\(\det\Omega_i>0\); for a forest with invertible transitions this is also necessary (part (iii)). For a
+pair the only obstruction is the sign
+\[
+(-1)^K\det\Lambda_{12}>0
+\]
+(part (ii)). Informally: a member with invertible bond has \(\Lambda_{12}=-W\), \(W\succ0\), so
+\((-1)^K\det\Lambda_{12}=\det W>0\), and a reframing multiplies \(\det\Lambda_{12}\) by
+\(\det\mathbf P_1\det\mathbf P_2>0\). The sign is a \(\mathbb Z_2\) gauge invariant of the edge. Admitting
+orientation-reversing frames, \(\Gamma_b=\GL(K)\), removes it (part (iv)).
+
+\begin{analogy}{exact}
+For \(K=1\) this is the gauge structure of Ising spin glasses \citep{mezard1987spin}. The family is the
+set of precisions with ferromagnetic couplings \(\Lambda_{ij}\leq0\) and nonnegative self terms; positive
+rescalings cannot flip a bond sign (the orientation criterion); \(k_i\mapsto-k_i\) is the Mattis gauge
+transformation, which makes any sign pattern on a tree ferromagnetic; and on a loop the product of bond
+signs is invariant (frustration). \SG{prop:gauss-law-level-witnesses}(ii) is the \(K\times K\) version:
+the sign of the product of block determinants around a cycle of \(n_\circ\) agents is invariant under
+every \(\GL(K)\) reframing, and membership forces it to be \((-1)^{Kn_\circ}\). Part (iii) reads explaining
+away as frustration: two parents of one child are coupled through
+\(\Lambda_{jj'}=\Omega_j^\top\Lambda_i\Omega_{j'}\), and the triangle has the wrong determinant sign for
+every odd \(K\). The correspondence is exact at the level of these signs and says nothing beyond them.
+\end{analogy}
+
+In the link-trivializing chart membership is decided exactly
+(\SG{prop:gauss-global-interaction-condition}): each \(W_i\) must be symmetric positive semidefinite, and
+each self term
+\[
+A_i=\Lambda_i-W_i+\sum_{i'\in\operatorname{ch}(i)}\left(W_{i'}\Lambda_{i'}^{-1}W_{i'}-W_{i'}\right)
+\]
+must be positive semidefinite (no \(-W_i\) at a root), with \(A_i+O_i\succeq0\) once observation
+precisions are added. \(\Lambda_i-W_i\) is what a factor leaves on the child after paying for its bond,
+and \(W_{i'}\Lambda_{i'}^{-1}W_{i'}-W_{i'}\) what each child's factor leaves on the parent. For a scalar
+transition \(\omega\) these are \(\Lambda(1-\omega)\) and \(\Lambda\omega(\omega-1)\): a contracting gain
+leaves a negative self term on the parent, an expanding one on the child, and only \(\omega=1\) is safe
+factor by factor (\SG{prop:gauss-edge-local-characterization}, \SG{cor:gauss-invertible-gain-factor}).
+Globally a root prior or observation can pay for a negative contribution, so factorwise membership is
+strictly stronger than the hypothesis (\SG{hyp:gauss-factorwise-agreement}). A physicist can read the
+condition as a ban on net tachyonic self terms.
+
+Two consequences need emphasis. First, the adopted hypothesis is stronger than law-level membership. It
+requires membership in the link-trivializing chart, and the scope paragraph says nothing selects another
+chart. The prior of part (iii) of \SG{prop:gauss-global-interaction-condition}, with transition
+\(\tfrac12\), is outside the family in that chart and, by gain absorption, inside it in its gain-absorbing
+chart. The choice matters downstream: aggregation identifies agents by equal coordinates in the chosen
+chart, so the chart decides whether agreement means link-transported equality \(k_i=\Theta_{ij}k_j\) or
+equality with the prediction \(k_i=\Omega_ik_{\operatorname{par}(i)}\). That is a modeling decision, and
+the supplement makes it explicitly. Second, membership is not invariant under general block reframings,
+which preserve inertia but not the symmetry of off-diagonal blocks
+(\SG{rem:gauss-membership-frame-dependence}); frame-independent statements need the invariants of G5.
+
+\section{Recognition restrictions (G4)}
+\label{comp:sg1-restrictions}
+
+\subsection{The question and the answer}
+
+Fix a Gaussian model with posterior \(p^\star=\mathcal N(\mu,\Lambda^{-1})\), \(\Lambda\succ0\). By the
+restriction principle (\MT{prop:restrict-principle}), shrinking the recognition family lowers the
+optimized bound by the rise in minimal relative entropy to the posterior. \SG{ch:restrictions} computes
+that loss for covariance factorization (the determinant gap, \SG{thm:restrict-determinant-gap}), for mean
+restrictions (\SG{prop:restrict-mean-cost}), and for identifying agents (\(+\infty\),
+\SG{prop:cg-epsilon-identification-cost}), and shows that the gap selects no structure
+(\SG{prop:restrict-gap-no-selection}).
+
+\subsection{The picture}
+
+For a Gaussian candidate,
+\[
+\KL(Q\Vert p^\star)=\tfrac12\left[\Tr(\Lambda\Sigma_Q)+(\mu_Q-\mu)^\top\Lambda(\mu_Q-\mu)-n-\log\det\Lambda-\log\det\Sigma_Q\right]
+\]
+(\SG{prop:restrict-gaussian-reverse-kl}). The mean enters only the quadratic term and the covariance only
+the trace and log determinant, so mean and covariance restrictions are separate problems whose costs add
+(\SG{cor:restrict-combined-costs-add}).
+
+\begin{analogy}{exact}
+The bound's gap is the slack in the Gibbs--Bogoliubov--Feynman inequality. For a Gaussian field with a
+block-factorized trial law, the optimal means are exact and the optimal block covariances are the inverse
+on-block stiffnesses \(\Lambda_{bb}^{-1}\) (\SG{thm:restrict-exact-block-optimum}): Weiss mean-field
+theory, which drops the feedback of fluctuations through the environment, with the gap as its
+free-energy error \citep{Bishop2006,Wainwright2008}. The mean-restriction cost
+\(\tfrac12\mu_\perp^\top(B_\perp^\top\Lambda^{-1}B_\perp)^{-1}\mu_\perp\) is the free-energy cost of
+constraining a Gaussian field's mean: half the squared displacement weighted by the inverse relaxed
+susceptibility. The bare stiffness \(B_\perp^\top\Lambda B_\perp\) overstates it unless the constrained
+directions are \(\Lambda\)-orthogonal to the rest (\SGeq{eq:cg-loewner}).
+\end{analogy}
+
+For two blocks the gap is their mutual information, \(-\tfrac12\sum_a\log(1-\check\rho_a^2)\) in the
+canonical correlations (\SG{prop:restrict-canonical-correlation}); for more blocks it is the dual total
+correlation \(h(Y)-\sum_bh(Y_b\given Y_{-b})\) of \citet{Han1978}
+(\SG{cor:restrict-gap-dual-total-correlation}), built from the conditional entropies that
+\(\Lambda_{bb}\) encodes, not the total correlation built from marginal ones (for three unit scalars with
+pairwise correlation \(\tfrac12\), \(\tfrac12\log\tfrac{27}{16}\) against \(\tfrac12\log2\)). The gap is
+observation free because a data-independent joint precision makes conditioning on \(o\) move only the
+posterior mean (\SG{cor:restrict-gap-observation-free}); the mean cost is quadratic in the data
+(\SG{cor:restrict-mean-cost-data}).
+
+Identification of agents is the case that matters for coarse-graining. Let \(\operatorname{range}S\) be
+the cluster-constant configurations of a hard aggregation, of dimension \(r=n_cK<n\). A recognition law
+making all agents of a cluster literally equal lives on that subspace, to which the posterior, having a
+Lebesgue density, gives probability zero. Absolute continuity fails (clause (H3) of
+\MT{hyp:elbo-evidence-domain}), and the relative entropy is \(+\infty\). Thickening by a variance
+\(\varepsilon\) in each identified direction gives
+\[
+\mathbb D_\varepsilon=\mathbb D_{\rm tie}+\frac{n-r}2\log\frac1\varepsilon-\frac{n-r}2
++\frac12\log\det(B_\perp^\top\Lambda^{-1}B_\perp)+\frac\varepsilon2\Tr(B_\perp^\top\Lambda B_\perp)
+\]
+(\SG{prop:cg-epsilon-identification-cost}), one \(\tfrac12\log(1/\varepsilon)\) per frozen continuous
+coordinate, as a delta-function constraint costs entropy logarithmic in the resolution. Identification is
+therefore a generative construction, the fine law conditioned on zero within-cluster disagreement
+(\SG{prop:cg-aggregation-conditioning}); at finite cost a recognition law can only tie its means, the
+mean-tie family with cost \(\mathbb D_{\rm tie}\) (\SG{prop:cg-mean-tie-cost}). Restricting the energy to
+\(\operatorname{range}S\) and renormalizing, the ``hard trace,'' changes the evidence
+(\SG{prop:restrict-hard-trace-evidence}); with a data-independent joint precision its posterior is the
+image of the fine one under \(P_\Lambda=(S^\top\Lambda S)^{-1}S^\top\Lambda\), an evidence-preserving
+coarse channel (\MT{thm:cg-evidence-preserving-channel}).
+
+\subsection{Objects and notation}
+
+\begin{decoder}
+Recognition restriction; partition \(\mathcal P\) & Shrinking the candidate family; blocks with block-diagonal candidate covariance & Trial ensemble; mean-field clusters\\
+Cost, gap & Loss of optimized bound, the rise of minimal relative entropy & Variational free-energy error\\
+Mean tie; identification & Candidate means cluster constant; candidate supported on \(\operatorname{range}S\) & Constrained order parameter; delta-function constraint\\
+Hard trace; \(P_\Lambda\) & Energy restricted to \(\operatorname{range}S\); the map carrying the fine posterior to it & Constrained partition function; Galerkin projection\\
+\end{decoder}
+
+Traps: ``restriction'' restricts the variational family, not a tensor; ``structure'' is the partition
+used by the recognition law; the orthonormal basis \(B\) is unrelated to the bridge \(\mathsf B_i\);
+``understates the covariance'' is said of the optimal factorized law, never of the model.
+
+\subsection{The formulas, explained}
+
+The determinant gap,
+\[
+\log p_\theta(o\given X)-\Lelbo^\star_{\mathcal P}=\frac12\left[\sum_{b\in\mathcal P}\log\det\Lambda_{bb}-\log\det\Lambda\right]\geq0,
+\]
+compares the product of on-block stiffness determinants with the full determinant; by Fischer's
+inequality it vanishes exactly when every cross block does. When every block is a union of whole agents,
+a block reframing shifts both terms by the same Jacobian, so the gap is invariant under every reframing,
+whatever the frame group (\SG{prop:ig-frame-dependent-spectra-determinants}, part (iii)); a partition
+that splits an agent is not.
+
+Does any analyzed cost select a partition scale? No. The gap grows under refinement by an explicit
+nonnegative amount (\SG{prop:restrict-refinement-monotonicity}) and vanishes at one block, so minimizing
+it selects the unrestricted family (\SG{prop:restrict-gap-no-selection}). Non-nested partitions are
+ordered by no structural feature: for
+\(\Lambda=\begin{psmallmatrix}1&a&0\\a&1&b\\0&b&1\end{psmallmatrix}\) the partitions
+\(\{\{1,2\},\{3\}\}\) and \(\{\{1\},\{2,3\}\}\) have equal block sizes and swap order when \(|a|\) and
+\(|b|\) are exchanged (\SG{prop:restrict-nonnested-unordered}). The mean-tie cost vanishes at the finest
+partition and identification is infinite for every nontrivial cluster. Each cost is extremized at an
+endpoint, the Gaussian instance of \MT{open:restrict-intrinsic-criterion} and \MT{open:cg-natural-selector}.
+One functional the chapter writes down is not examined in this role: the combined cost
+\(\mathbb D_{\rm tie}+\mathbb D_{\rm fact}\) of \SG{cor:restrict-combined-costs-add} (mean-tie cost plus
+cluster factorization gap, both displayed in \SG{prop:cg-mean-tie-cost}), with both
+restrictions indexed by the same clusters, is the exact loss of one admissible family, and its terms move
+in opposite directions under merging (the first cannot decrease because merging shrinks the allowed
+means; the second cannot increase). The no-selection statements concern each cost separately; whether
+the sum has a nondegenerate minimizer is not analyzed.
+
+\section{Fisher geometry and gauge invariants (G5)}
+\label{comp:sg1-fisher}
+
+\subsection{The question and the answer}
+
+\SG{ch:infogeometry} asks which geometric statements about the Gaussian family concern laws and which
+concern a chart or frame. ``The Fisher mean block is the precision'' holds in the moment chart but not,
+for coordinate directions, in the expectation chart (\SG{prop:ig-fisher-moment-chart},
+\SG{prop:ig-fisher-expectation-chart}). Under frame changes, the generalized spectrum of the pencil
+\((L,\Lambda)\) is invariant when regular (\SG{prop:grg-pencil-invariance}), while ordinary eigenvalues
+and single subspace determinants are frame artifacts once the frame group contains the positive scalars
+(\SG{prop:ig-frame-dependent-spectra-determinants}), and under \(\Gamma_b\supseteq\GL^+(K)\) a coupling
+matrix keeps only its rank (\SG{prop:grg-residual-fiber-label}). Standard: the moment-chart metric of the
+multivariate normal \citep{Skovgaard1984} with its affine isometries \citep{PineleStrapassonCosta2020},
+exponential-chart duality \citep{AmariNagaoka2000}, congruence invariance and Sylvester's law
+\citep{HornJohnson2013}. New: the typing of which quantities survive the represented frame group, and a
+scoped statement of when a graph Laplacian is a Fisher tensor.
+
+\subsection{The picture}
+
+The two mean blocks differ because \(\partial/\partial\mu\) at fixed \(\Sigma\) and at fixed \(M_2\) are
+different tangent vectors: the second must shrink the covariance to compensate
+(\(\Sigma=M_2-\mu\mu^\top\)), and that extra motion has Fisher length, governed by the unbounded
+Mahalanobis norm \(\mu^\top\Lambda\mu\). The quotient metric, a Schur complement, is exactly \(\Lambda\)
+and sits below the restricted one, the clamped-versus-relaxed ordering of G2. As with \(C_p\neq C_V\), a
+derivative depends on what is held fixed; an identity mixing mean and covariance sectors must name its
+chart and say whether it restricts or quotients.
+
+Under a general linear frame group there is no metric on the fiber, so the eigenvalues of one quadratic
+form are chart data: rescaling all frames by \(\mathrm c>0\) multiplies every eigenvalue of \(\Lambda\) by
+\(\mathrm c^2\), and a threshold on absolute eigenvalues can accept or reject any direction by choice of
+\(\mathrm c\) (\SG{prop:ig-frame-dependent-spectra-determinants}, part (i)). Only relative quantities and
+law functionals survive.
+
+\begin{analogy}{exact}
+Normal-mode frequencies are generalized eigenvalues of the potential form relative to the kinetic form
+and do not depend on the generalized coordinates, whereas eigenvalues of the stiffness matrix alone do.
+The pencil \(Lx=\mathsf d\Lambda x\) is this construction with the Laplacian part as potential and the
+full precision as kinetic form; both transform by the same congruence, so the \(\mathsf d_k\) are
+invariant. Each \(\mathsf d_k\in[0,1]\) is the fraction of precision along its direction that bonds supply
+rather than self terms: consensus sits at \(0\), directions no self term touches at \(1\)
+(\SG{prop:ig-generalized-spectrum-localization}).
+\end{analogy}
+
+\subsection{Objects and notation}
+
+\begin{decoder}
+Restriction versus quotient metric & Metric on coordinate directions versus orthogonal to a fiber & Clamped versus relaxed response\\
+Block reframing \(\mathbf P\) & New-to-old frame change, \(\Lambda\mapsto\mathbf P^\top\Lambda\mathbf P\), \(\Sigma\mapsto\mathbf P^{-1}\Sigma\mathbf P^{-\top}\) & Site-dependent gauge transformation\\
+Pencil \((L,\Lambda)\), regular & Pair of forms, \(Lx=\mathsf d\Lambda x\); determinant not identically zero & Normal-mode problem; no shared zero mode\\
+Agent-aligned law functional; residual fiber label & Gap, mutual information, relative entropy of unions of agent blocks; congruence class of one semidefinite matrix & Gauge-invariant observable; inertia (Sylvester)\\
+\end{decoder}
+
+Traps: \(\mathsf d\) is a generalized eigenvalue, not a dimension; \(L\) is the Laplacian part, not the
+bound \(\Lelbo\); a ``regular'' pencil and a ``regular'' exponential family are unrelated; the mass
+\(\mathsf a\) below is a coefficient on a reference precision.
+
+\subsection{The formulas, explained}
+
+In the moment chart,
+\[
+g^F\bigl((\dot\mu_1,\dot\Sigma_1),(\dot\mu_2,\dot\Sigma_2)\bigr)=\dot\mu_1^\top\Lambda\dot\mu_2+\tfrac12\Tr(\Lambda\dot\Sigma_1\Lambda\dot\Sigma_2),
+\]
+and every affine map \((\mu,\Sigma)\mapsto(Q\mu+\mathrm v,Q\Sigma Q^\top)\) is an isometry; block
+reframings act this way, so the Fisher geometry of the recognition family is gauge invariant for any
+frame group. In the expectation chart
+\(g_{[\mu\mu]}=(1+\mu^\top\Lambda\mu)\Lambda+\Lambda\mu\mu^\top\Lambda\), with eigenvalues relative to
+\(\Lambda\) of \(1+\mu^\top\Lambda\mu\) (\(n-1\) times) and \(1+2\mu^\top\Lambda\mu\). The link between
+Laplacian and Fisher geometry is narrow and exact:
+\[
+\KL\bigl(\mathcal N(\mu_i,W_{ij}^{-1})\Vert\mathcal N(\mu_j,W_{ij}^{-1})\bigr)=\tfrac12(\mu_i-\mu_j)^\top W_{ij}(\mu_i-\mu_j),
+\]
+summing over edges with definite weights to \(\tfrac12\mu^\top L\mu\) (\SG{prop:ig-fixed-covariance-kl}).
+Outside Gaussian laws at that fixed covariance, or a frozen base law to second order, the chapter states
+that a sample-space Laplacian is neither a recognition Fisher tensor nor a natural-gradient operator, a
+scope limit on any use of a graph Laplacian as a preconditioner.
+
+Pencil invariance is
+\(\det(\mathbf P^\top L\mathbf P-\mathsf d\mathbf P^\top\Lambda\mathbf P)=\det(\mathbf P)^2\det(L-\mathsf d\Lambda)\).
+The pencil is regular exactly when \(\ker L\cap\ker A=\{0\}\) (\SG{prop:grg-pencil-regularity}); at the
+massless boundary \(A=0\) it is \((L,L)\), irregular, and says nothing about the graph until a pin,
+quotient, or mass is declared. With a mass, \(\Lambda=L+\mathsf a\Lambda_{\mathrm{ref}}\) gives
+\(\mathsf d=\mathsf d_{\mathrm{ref}}/(\mathsf d_{\mathrm{ref}}+\mathsf a)\)
+(\SG{prop:grg-mass-pencil-transfer}), roughly the massive-propagator ratio \(p^2/(p^2+\mathsf a)\) on a
+lattice; the small-eigenvalue counting exponent survives, and the limits \(\mathsf a\to0\) and
+\(\mathsf d_{\mathrm{ref}}\to0\) do not commute (\SGeq{eq:grg-noncommuting-mass}). A subspace log
+determinant picks up the Jacobian \(\log\det(B'^\top\mathbf P^\top\mathbf PB')\) (\SGeq{eq:ig-logdet-law}),
+which orthogonal reframings kill and general linear ones do not; the gap of G4 cancels it for
+agent-aligned blocks, while an agent-splitting gap moves from \(\tfrac12\log\tfrac43\) to
+\(\tfrac12\log4\) in the \(N=1\), \(K=2\) witness. Under \(\Gamma_b\supseteq\GL^+(K)\) every semidefinite
+matrix of rank \(r\) is congruent to \(\operatorname{diag}(I_r,0)\), so a common reframing leaves \(K+1\)
+classes and no continuous modulus; under \(\operatorname{SO}(K)\) or \(\operatorname{O}(K)\) a definite
+matrix keeps its \(K\) eigenvalues (\SG{prop:gen-lg-compact-frames}). With a noncompact frame group the
+strength of a coupling matrix by itself is gauge; with a compact one it is physical.
+
+One caution the wording does not make explicit. The pencil is formed after splitting \(\Lambda=L+A\) in
+the chart where the family is imposed (\SG{def:ig-block-reframing}), the link-trivializing chart of
+\SG{hyp:gauss-global-interaction}. Its spectrum is data of the law together with that split, hence with
+its links, not of the law alone: a precision in the family in two inequivalent charts can have two
+pencils. For \(N=2\), \(K=1\), \(\begin{psmallmatrix}2&-1\\-1&2\end{psmallmatrix}\) splits with \(W=1\),
+\(A=(1,1)\) and has spectrum \(\{0,\tfrac23\}\), while its reframing by \(\operatorname{diag}(1,2)\),
+\(\begin{psmallmatrix}2&-2\\-2&8\end{psmallmatrix}\), lies in the family with \(W=2\), \(A=(0,6)\) and
+spectrum \(\{0,1\}\). This does not contradict \SG{prop:grg-pencil-invariance}, which concerns one
+congruence of one pair; it limits \SG{rem:gauss-membership-frame-dependence}, which lists pencil
+eigenvalues among frame-independent membership criteria, since forming the pencil presupposes a chart in
+which membership already holds.
+
+\section{What is proved, and how solid it is}
+\label{comp:sg1-scorecard}
+
+Every row is proved in the supplement or cited there to a checked source; there is no NUM statement and
+no TOY positive result in this part. COND rows rest on a frame-group or graph hypothesis that fails in
+cases the program cares about.
+
+\begin{scorecard}
+\multicolumn{4}{@{}l}{\textit{G1. Exponential families}}\\
+\SG{prop:exp-domain-boundary-no-law} & No law, Fisher metric, or bound at a boundary point; an operator map can converge there (\SG{prop:exp-fixed-point-no-law}) & \SOLID & Negative; scalar witness suffices\\
+\SG{sec:exp-repairs} & Pin, quotient, and mass sector are three distinct repairs & \CHOICE & Their two propositions are \SOLID\\
+\SG{prop:exp-affine-mean-projection} & Cumulants and Fisher metric; relative entropy is Bregman; unique affine projection & \SOLID & Standard in substance; \SG{prop:exp-cumulants-fisher} is STANDARD\\
+\multicolumn{4}{@{}l}{\textit{G2. Gaussian realization}}\\
+\SG{hyp:gen-lg-frame-group} & Represented frame group, specialized to \(\GL^+(K)\) where named & \CHOICE & Not met by \(\operatorname{SU}(N)\) or a realified \(\GL(K,\mathbb C)\)\\
+\SG{def:gen-lg-forest} & Directed linear-Gaussian forest & \CHOICE & General DAGs get one sentence\\
+\SG{lem:gauss-schur} & Zero block is conditional independence; Schur complement below restricted precision & \SOLID & Standard in substance\\
+\SG{prop:gen-lg-kernel-covariance} & Every kernel frame covariant for every \(\Gamma_b\); explicit forest blocks (\SG{prop:gauss-assembled-precision-blocks}) & \SOLID & Belief sector at frozen model latents\\
+\SG{prop:gen-lg-m-step} & Closed-form learning step; no maximizer if the residual covariance is singular & \SOLID & Link witness is scalar: possibility, not frequency\\
+\multicolumn{4}{@{}l}{\textit{G3. Interaction family}}\\
+\SG{hyp:gauss-global-interaction} & The family, adopted in link-trivializing coordinates & \CHOICE & The chart fixes what agreement means\\
+\SG{hyp:gauss-flat-comparison} & Belief links form a graph coboundary & \CHOICE & Automatic on forests; fails for generic links on cycles\\
+\SG{prop:gauss-interaction-family-thin} & Null set in a fixed chart; not reframing invariant & \SOLID & Chart-level\\
+\SG{prop:gauss-gain-absorption} & On forests, \(\GL^+(K)\) frames absorb positive-determinant transitions; pair criterion \((-1)^K\det\Lambda_{12}>0\); \(\GL(K)\) frames reach every invertible pair & \COND & Forest or pair; stated frame group; nothing sufficient for cycles or smaller groups\\
+\SG{prop:gauss-law-level-witnesses} & Reversing gain, cycle determinant sign, odd-\(K\) v-structure exclude membership & \SOLID & Negative; (ii), (iii) for \(\GL(K)\); (iii) on three agents\\
+\SG{prop:gauss-global-interaction-condition} & Exact membership test; prior balance sufficient, not necessary; factorwise stronger & \SOLID & Link-trivializing chart\\
+\multicolumn{4}{@{}l}{\textit{G4. Recognition restrictions}}\\
+\SG{thm:restrict-determinant-gap} & Exact mean, clamped covariances; loss is the gap, the dual total correlation (\SG{cor:restrict-gap-dual-total-correlation}) & \SOLID & Standard in substance\\
+\SG{cor:restrict-gap-observation-free} & Gap independent of the observation; mean cost carries the data (\SG{cor:restrict-mean-cost-data}) & \SOLID & Needs data-independent joint precision\\
+\SG{prop:cg-epsilon-identification-cost} & Identification costs \(+\infty\); regularized, \(\tfrac{n-r}2\log\tfrac1\varepsilon\) & \SOLID & Negative; absolute continuity\\
+\SG{prop:restrict-gap-no-selection} & Gap monotone on chains, unordered off them, minimized by one block & \SOLID & Negative; combined cost not examined\\
+\multicolumn{4}{@{}l}{\textit{G5. Fisher geometry and invariants}}\\
+\SG{prop:ig-fisher-expectation-chart} & Mean block is \(\Lambda\) in the moment chart, larger in the expectation chart; quotient \(\Lambda\) & \SOLID & Standard in substance \citep{Skovgaard1984}\\
+\SG{prop:ig-fixed-covariance-kl} & Edge relative entropy at covariance \(W_{ij}^{-1}\) is the Laplacian quadratic & \SOLID & Gaussian, fixed covariance only\\
+\SG{prop:grg-pencil-invariance} & Regular pencil spectrum invariant; in \([0,1]\) & \SOLID & Invariant of law plus link-fixed split\\
+\SG{prop:ig-frame-dependent-spectra-determinants} & Absolute spectra, subspace determinants frame dependent; agent gaps invariant & \SOLID & (i) needs positive scalars\\
+\SG{prop:grg-residual-fiber-label} & A semidefinite coupling matrix is labeled by rank alone & \COND & Needs \(\Gamma_b\supseteq\GL^+(K)\); false for compact groups\\
+\multicolumn{4}{@{}l}{\textit{Open}}\\
+\SG{open:exp-mass-sector} & Mass-coordinate scaling; also \SG{open:exp-projection-commutation}, \SG{open:ig-model-space-fisher-transfer} & \OPEN & \Cref{comp:sg1-open}\\
+\end{scorecard}
+
+\begin{hygiene}
+Conditions that can fail where the program lives: flat comparison (\SG{hyp:gauss-flat-comparison}),
+without which the interaction hypothesis is not formulated; membership in the link-trivializing chart
+(\SG{hyp:gauss-global-interaction}); the \(\GL^+(K)\) specialization (\SG{hyp:gen-lg-frame-group}),
+needed by absorption and the rank-only label; frozen model latents; absolute continuity
+(\MT{hyp:elbo-evidence-domain}, clause H3), which identification violates; a nondegenerate target and
+regular pencil, which fail at the massless boundary \(A=0\); a data-independent joint precision; and a
+nonsingular residual covariance in the learning step. Hygiene: standard Borel spaces, sigma-finite
+references, measurability, regularity and minimality (automatic for the Gaussian), definite receiving
+covariances (\SG{hyp:gen-lg-spd}), finite second moments, and orthonormal bases used as a computational
+device.
+\end{hygiene}
+
+\section{Toy versus general, and what this part implies for \texorpdfstring{\(\GL(K)\)}{GL(K)} networks at large \texorpdfstring{\(N\)}{N}}
+\label{comp:sg1-scale}
+
+Nothing in G1 to G5 is TOY. Every theorem holds for arbitrary finite \(N\) and \(K\) (the two-agent
+orientation criterion has a forest version at every \(N\)), and every small instance is a counterexample
+to a universal statement, hence a solid negative result that shows a claim fails, not how often it fails
+at \(N=512\). Thinness holds at every \(N\), and the cycle-sign condition
+applies to any cycle with invertible blocks inside any network. Nothing here is a large-\(N\) statement
+either: no thermodynamic limit, per-agent density, or scaling law.
+
+\paragraph{The interaction family at scale.} Two conditions stand between a 512-agent Gaussian precision
+with cycles and the family. Flat comparison requires every loop product of the belief links to be the
+identity, automatic on a forest but violated by generic independent \(\GL(K)\) links on a graph with
+many cycles; then the hypothesis behind aggregation and the operator arrow is not formulated, and the
+nonflat case is in \cref{comp:sg2}. And the law-level criterion is complete only for forests and pairs;
+for precisions whose graph has cycles, including those created by co-parents, only the necessary sign
+condition is proved.
+
+\paragraph{Frame groups.} For \(\GL(K,\R)\), \(\Gamma_b=\GL(K)\) contains \(\GL^+(K)\) and the positive
+scalars, so every statement needing either holds. Part (iv) of \SG{prop:gauss-gain-absorption} reaches
+every invertible pair, so the orientation obstruction disappears there, and the forest construction of
+part (i) uses positive determinants only to keep its frames in \(\GL^+(K)\); the cycle-sign and
+odd-\(K\) v-structure obstructions, stated for \(\GL(K)\) frames, remain. The gauge-invariant data of a Gaussian network under \(\GL(K,\R)\) are agent-aligned
+law functionals, pencil spectra relative to the link-fixed split, cycle determinant signs, and holonomy
+conjugacy classes (\MT{prop:geo-edge-twist-invariance}); absolute eigenvalues and single subspace
+determinants are gauge artifacts. The supplement treats real Gaussians only. A complex group enters
+through a real representation, for instance the realification on \(\R^{2K}\), whose image lies in
+\(\GL^+(2K)\) and contains the positive scalars; statements proved for every \(\Gamma_b\) hold, the
+rank-only label and the \(\GL^+\) sufficiency constructions do not apply as stated because their frames
+need not be complex linear, and obstructions proved for larger groups still apply. For
+\(\operatorname{SU}(N)\) and other compact groups, \(\Gamma_b\subseteq\operatorname{O}(K)\) after
+choosing an invariant inner product: spectra are invariant, coupling matrices keep continuous eigenvalue
+moduli, and no absorption result is stated.
+
+\paragraph{Where compactness and orthogonality enter.} No theorem here assumes compactness. It is
+excluded by the \(\GL^+(K)\) specialization, brings extra invariants when present, and its absence is
+what the scalar link witness exploits (informally, on a compact group a continuous objective attains its
+maximum, a standard fact the supplement does not state). A Euclidean structure enters as a computational
+device (orthonormal bases), through orthogonal reframings that preserve spectra and subspace
+determinants, through the averaging pushforward \(y\mapsto S^\dagger y\) of
+\SG{cor:ig-full-rank-restriction-pushforward}, whose equality condition uses the Euclidean complement
+and is chart-level under \(\GL(K)\), and through the finite part of the regularized identification cost,
+whose divergent coefficient \((n-r)/2\) is frame free.
+
+\section{Open ends}
+\label{comp:sg1-open}
+
+The supplement records three open problems here: the law of a retained mass coordinate under a scale
+map, settled by an explicit induced law with a proof that its orbit stays in the natural domain or
+reaches the boundary (\SG{open:exp-mass-sector}); whether the affine information projection commutes with
+gauge actions or coarse parameter maps, settled by an intertwining theorem or a counterexample
+(\SG{open:exp-projection-commutation}); and whether the Bayesian-renormalization information scale, built
+on the Fisher metric of generative parameters, transfers to \(\Lambda\) read as the Fisher metric of a
+recognition mean, settled by making the coarse mean a generative parameter with nondegenerate Fisher
+metric and transferring the construction, or by a family where that metric is singular
+(\SG{open:ig-model-space-fisher-transfer}). G5 declines any contraction claim for varying precision
+(\SG{open:grg-galerkin-monotonicity}), and G4 is a Gaussian instance of
+\MT{open:restrict-intrinsic-criterion} and \MT{open:cg-natural-selector}. Four gaps are visible but not recorded as open problems: law-level
+membership for precisions whose graph has cycles; the relation of the family to a covariant Laplacian
+with nontrivial holonomy; the combined mean-tie and factorization cost as a selector; and complex
+Gaussians and complex or unitary frame groups beyond a real representation. These describe what the
+documents do not contain; they are not proposals.
+
+\section{Verdict}
+\label{comp:sg1-verdict}
+
+\begin{verdictbox}{\DELIVERED}
+\textbf{What the part says it does.} Explicit Gaussian forms of the theory's objects: exponential-family
+boundary and projection results; the information form, Schur lemma, and frame-covariant kernels of the
+directed law; an exact account of when the belief precision is a matrix-weighted Laplacian plus self
+terms, with that shape adopted as a hypothesis rather than derived; restriction costs, with the
+statement that neither the factorization gap nor the mean cost selects a structure; and a separation of Fisher and spectral quantities into invariants and chart or
+frame artifacts.
+
+\textbf{What the statements give.} All of it, at arbitrary finite \(N\) and \(K\), with proofs. Much is
+textbook in substance and presented as such. The program-specific content, the membership analysis of G3
+and the invariance typing of G5, is elementary linear algebra done carefully; for \(K=1\) its sign
+conditions are the Mattis-gauge and frustration conditions of spin glasses.
+
+\textbf{The limits a reader must carry.} The interaction family is the pure-gauge sector, and the chart
+in which it is imposed, not the law, decides what agreement means downstream. Law-level membership is settled on forests and pairs
+and only bounded by a necessary sign condition on cycles, where a 512-agent network lives. The pencil
+spectrum is data of a law with its link-fixed split, so the remark offering it as a frame-independent
+membership criterion claims more than the propositions give. The combined recognition cost is not
+examined as a selector. Absorption and the rank-only label need \(\GL^+(K)\) frames; under \(\GL(K,\R)\)
+they hold and absorption is easier, compact groups keep more invariants and lose absorption, and complex
+Gaussians are not treated. None of this is a defect in a proof, and the part states most of it itself.
+\end{verdictbox}

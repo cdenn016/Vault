@@ -1,0 +1,836 @@
+% Companion chapters for MT chapter 5 (evidence bound) and MT chapter 6 (attention).
+\chapter[One Evidence Bound and Local-Collective Free Energy]{One Evidence Bound and\\Local-Collective Free Energy}
+\label{comp:ch05}
+
+\section{The question and the answer}
+\label{comp:ch05-question}
+
+The foundations chapters (\cref{comp:ch03,comp:ch04}) built two objects and kept them apart:
+the constructed joint $\mathbb P_{\theta,V}(dy,do\given X)$, one normalized law over every
+latent coordinate and every record of the population, normalized on any record hypergraph,
+cycles included (\MT{prop:gen-exact-normalization}); and the recognition law
+$\mathbb Q_{V,o,X}$, one joint law over the same latents, selected as a coupling of the
+agents' local recognition laws and correlated in general
+(\MT{hyp:prob-measurable-coupling-selector}). The technical chapter, \mtc{ch:elbo}, asks what
+exact relation binds the two, and how an agent's or a block's objective relates to the
+population's.
+
+The answer has two parts. The first is one number for the whole population,
+\[
+\Lelbo^{\mathrm{ext}}_V(Q;X,o)=\log p_{\theta,V}(o\given X)-\KL\bigl(Q\Vert\boldsymbol\Pi_{\theta,V,o,X}\bigr),
+\]
+defined for every probability law $Q$ on the latent space, equal to the log evidence exactly
+when $Q$ is the posterior as a measure, and equal to $-\infty$ when $Q$ puts mass where the
+posterior puts none (\MT{def:elbo-extended}, \MT{thm:elbo-extended-gap}). The second is the
+local--global potential identity (\MT{thm:obs-local-global-potential}): hold the law of
+everything outside a block $B$ fixed and change only the block's conditional recognition law;
+the collective free energy then changes by exactly the outside average of the change of a local
+free energy, the free energy of the block's own inference problem with its surroundings frozen.
+For single agents and product recognition laws this makes the local objectives an exact
+potential game with the collective free energy as potential (\MT{cor:obs-potential-game}). The
+bound is a definition; every local object is the chain rule for relative entropy
+(\MT{lem:prob-kl-chain-rule}) applied to it. The chapter also prices the error of summing local entropies (total correlation),
+states what ELBO values cannot compare, types observations as records, counts shared records
+correctly, treats links as random variables, and fixes how parameters may move. The bound is the
+objective of \cref{comp:ch06,comp:ch07,comp:ch08}, and \cref{comp:ch09,comp:ch12} carry it along
+evidence-preserving channels. The scope paragraph declines four claims: existence of a maximizer
+over a restricted family, tightness for any restricted family, convergence of the alternating
+scheme, and that a block with its local free energy is a meta-agent.
+
+\paragraph{Is this more than the Gibbs variational principle?}
+The bound is not. Reading $-\log p_{\theta,V}(o,y\given X)$ as an energy at unit temperature,
+$\Lelbo^{\mathrm{ext}}_V=-\Fenergy$ and $\log Z=-\Fenergy[Q]+\KL(Q\Vert\boldsymbol\Pi)$ is the
+Gibbs variational principle, the inequality behind the Gibbs--Bogoliubov--Feynman bound. What
+the chapter adds is typing and bookkeeping: the target is one fixed joint, never a family
+indexed by $Q$; singular trial laws get the value $-\infty$ instead of an undefined expression;
+the recognition law is a correlated coupling, and the error of treating it as a product is
+named and signed; and interactions enter as records, so cyclic interaction graphs sit inside a
+normalized directed joint. Each is careful, and each is standard in substance.
+
+\paragraph{Is the potential identity more than block coordinate ascent?}
+In mechanism, no. With a product baseline and product laws, each agent's best response is the
+textbook mean-field update \citep{Blei2017}, and the potential-game statement says these best
+responses descend one functional. The identity is more general in one respect: the block law may
+be any conditional kernel $r_B(dy_B\given y_{-B})$, so it covers correlated recognition and exact
+block updates (a heat-bath step in law). It says nothing about simultaneous updates of several
+correlated blocks, about equilibria, or about convergence.
+
+\paragraph{What do observations as interaction records buy?}
+A uniform type. Environmental observations and agent--agent interactions are both records with a
+scope and a normalized kernel; pair interactions become likelihoods of observed records, which
+puts a cyclic Hamiltonian inside a normalized joint and turns its partition function into the
+evidence; and an environment can be rewritten as a boundary node emitting records
+(\MT{thm:obs-agent-interaction-equivalence}). That rewriting is exact for the joint law, not for
+variational inference over the node's internal randomness (\MT{rem:obs-environment-fiber}).
+
+\paragraph{What converges?}
+Evidence values, when each accepted parameter step follows a full exact posterior refresh
+(\MT{prop:elbo-evidence-monotonicity}): classical EM monotonicity. Nothing is proved about the
+parameters (\MT{open:elbo-alternating-convergence}), and finite natural-gradient steps can lower
+the bound (\MT{prop:elbo-finite-step-nonmonotonicity}).
+
+\section{The picture}
+\label{comp:ch05-picture}
+
+Read the constructed joint as a statistical-mechanics model on a hypergraph. The latent baseline
+$\mathbb P^{\mathsf Y}_{\theta,V}$ is the a priori measure on configurations, correlated in general
+by the directed latent model of \cref{comp:ch04}. Each record $a$ touches a set of agents, its scope
+$\partial a$, and contributes a Boltzmann factor $e^{-E_{a,o}(y_{\partial a})}$, with $E_{a,o}$ the
+negative log density of the record at its observed value. The sum $H_o=\sum_aE_{a,o}$ is a
+Hamiltonian with one term per record, pair records being bonds. The posterior slice is the Gibbs
+measure of $H_o$ and the evidence is its partition function (\MTeq{eq:obs-global-evidence},
+\MTeq{eq:obs-global-posterior}):
+\[
+\boldsymbol\Pi_{\theta,V,o,X}(dy)=\frac{e^{-H_o(y)}\mathbb P^{\mathsf Y}_{\theta,V}(dy)}{p_{\theta,V}(o\given X)},
+\qquad
+p_{\theta,V}(o\given X)=\int e^{-H_o}d\mathbb P^{\mathsf Y}_{\theta,V}.
+\]
+
+\begin{analogy}{exact}
+Gibbs variational principle. For every trial state
+$\Fenergy^{\mathrm{ext}}_o(Q)\geq-\log p_{\theta,V}(o\given X)$, with gap $\KL(Q\Vert\boldsymbol\Pi_{\theta,V,o,X})$
+and equality exactly at the Gibbs state; under absolute continuity to the baseline, finite relative
+entropy, and an integrable negative energy part,
+$\Fenergy^{\mathrm{ext}}_o(Q)=\E_QH_o+\KL(Q\Vert\mathbb P^{\mathsf Y}_{\theta,V})$. This is the variational
+characterization of $-\log Z$ behind mean-field methods \citep{Wainwright2008}, with relative entropy to
+the a priori measure in place of Shannon entropy. \MT{thm:elbo-extended-gap} is this statement for every
+$Q$ in the extended reals. A point mass on a continuous configuration space
+has free energy $+\infty$, as a delta-function state of a continuous system has entropy $-\infty$; that
+is the singular branch.
+\end{analogy}
+
+Fix the state $y_{-B}$ outside a block $B$. Records wholly outside $B$ become constants; records
+touching $B$ define a conditional Gibbs measure on the block with its own partition function
+$Z_B(y_{-B})$.
+
+\begin{analogy}{exact}
+Finite-volume Gibbs specification. The local posterior
+$\boldsymbol\Pi_{\theta,V,o,X,B}(dy_B\given y_{-B})\propto e^{-H_{B,o}(y_B;y_{-B})}\mathbb P^{\mathsf Y}_{\theta,V,B}(dy_B\given y_{-B})$
+of \MT{lem:obs-block-posterior} is the Gibbs specification in volume $B$ with boundary condition
+$y_{-B}$ \citep{Georgii1988}, with the baseline's conditional law as a priori measure; $Z_B$ is the
+finite-volume partition function, and the local free energy of \MT{thm:obs-local-multiagent-elbo} is the
+finite-volume free energy of a trial block state. The identification holds at every finite $N$.
+\end{analogy}
+
+Treat each agent as a player lowering its own local free energy, averaged over what the others
+believe. Because each player's cost changes by exactly the change of one collective functional,
+unilateral improvement is collective improvement.
+
+\begin{analogy}{exact}
+Mean-field coordinate ascent, exact on product profiles. With a product baseline
+$\bigotimes_i\varrho_i$ and product laws, minimizing agent $i$'s averaged local free energy gives the
+familiar $r_i\propto\varrho_i\exp(-\E_{Q_{-i}}H_{\{i\},o})$ \citep{Blei2017}, and the potential-game
+corollary says these updates descend one functional. On product profiles the correspondence is exact;
+the identity is strictly more general, because it also covers correlated block conditionals. The
+update is the companion's orientation; the technical chapter does not display it.
+\end{analogy}
+
+\section{Objects and notation}
+\label{comp:ch05-objects}
+
+\begin{decoder}
+$\mathbb P_{\theta,V}(dy,do\given X)$, constructed joint & One law for all latent states and records & A priori measure times Boltzmann factors\\
+$\mathbb P^{\mathsf Y}_{\theta,V}$, latent baseline & Law of the latents before records; may correlate agents & A priori measure\\
+Record $a$, scope $\partial a$, kernel $K_a$, energy $E_{a,o}$ & A datum attached to a set of agents, its likelihood, and its negative log density & Bond or plaquette term\\
+$L_o$, $H_o=-\log L_o$ & Product of record likelihoods; total interaction energy & Boltzmann weight; Hamiltonian\\
+$p_{\theta,V}(o\given X)$; $\boldsymbol\Pi_{\theta,V,o,X}$ & Evidence; posterior slice at the observed records & Partition function; Gibbs state\\
+$\mathbb Q_{V,o,X}$, recognition coupling & Trial joint law over all agents' latents, correlated in general & Trial state\\
+$\operatorname{Cpl}(\cdot)$, coupling & Set of joint laws with given marginals & None (not a coupling constant)\\
+$\Lelbo^{\mathrm{ext}}_V$, $\Fenergy^{\mathrm{ext}}_V$ & ELBO and free energy for every $Q$, values $\pm\infty$ allowed & Minus the trial free energy\\
+Singular branch & $Q$ charges a posterior-null set; bound $-\infty$ & Delta-function state of a continuum\\
+(H1)--(H4) & Regular posterior version, finite positive evidence, absolute continuity, log-integrability & Hygiene, except (H3)\\
+$\operatorname{TC}(Q)$ & Relative entropy of $Q$ from the product of its block marginals & Multi-information\\
+Restriction to $\mathcal Q'$ & Best bound over an imposed recognition family & Variational ansatz\\
+Block $B$, outside $-B$ & Any set of agents and its complement & Finite volume and exterior\\
+$Z_B$, $\boldsymbol\Pi_{\theta,V,o,X,B}(\cdot\given y_{-B})$, $\Fenergy^{\mathrm{ext}}_{B,o}$ & Local evidence, local posterior, local conditional free energy & Finite-volume partition function, specification, free energy\\
+E-coordinate; M-coordinate, accepted & Exact block posterior update; parameter step that does not lower the bound & Heat-bath update in law; EM M-step\\
+Typing prohibition & No generative factor reads the recognition law or the posterior & A Hamiltonian independent of the trial state\\
+\end{decoder}
+
+Several words carry nonstandard meanings. A \emph{coupling} is a joint law with prescribed
+marginals, never an interaction strength. A \emph{record} is any observed datum on a set of agents,
+interactions included. \emph{Local} means block-conditional: at one base point there is no spatial
+locality, and a block is any set of agents. The \emph{potential} of a potential game is
+game-theoretic \citep{MondererShapley1996}. \emph{Free energy} is dimensionless, $\Fenergy=-\Lelbo$ at
+unit temperature. \emph{Slice} means conditioning at the observed value, which is why posteriors hold
+``for almost every $o$''. The posterior $\boldsymbol\Pi$ is unrelated to the attention prior $\pi_{ij}$
+of \cref{comp:ch06}, and the Hamiltonian $H_o$ to its message spaces $H^\pm_e$.
+
+\section{The formulas, explained}
+\label{comp:ch05-formulas}
+
+\subsection{The bound, its energy form, and the singular branch}
+\label{comp:ch05-bound}
+
+The extended bound
+$\Lelbo_V^{\mathrm{ext}}(Q)=\log p_{\theta,V}(o\given X)-\KL(Q\Vert\boldsymbol\Pi)\in[-\infty,\log p_{\theta,V}(o\given X)]$
+(\MTeq{eq:elbo-extended-definition}) never forms $\infty-\infty$: the evidence term is finite by (H2)
+and relative entropy lies in $[0,+\infty]$. Under absolute continuity with respect to the baseline,
+finite relative entropy, and an integrable negative part of the energy,
+\[
+\Fenergy^{\mathrm{ext}}_o(Q)=\KL\bigl(Q\Vert\mathbb P^{\mathsf Y}_{\theta,V}\bigr)+\E_QH_o
+\]
+(\MTeq{eq:obs-collective-energy-form}): a complexity cost measured against the prior plus the expected
+misfit to the records. With no records the free energy is minimized at the prior with value zero; at
+$Q=\boldsymbol\Pi$ it equals $-\log p_{\theta,V}(o\given X)$.
+
+The singular branch is where (H3) fails: $Q$ charges a posterior-null set and the bound is $-\infty$,
+for example a law on a proper affine subspace when the posterior has a Lebesgue density. A proper
+closed support alone does not suffice: the uniform law on $[0,\tfrac12]$ is at divergence $\log2$ from the
+uniform law on $[0,1]$ (\MT{prop:elbo-subspace-support-singular}). For this program the branch is not a
+technicality: point-mass recognition of continuous law points lives there, which decides the status of the
+softmax over current beliefs in \cref{comp:ch06}, and so does smooth recognition of an environment's
+internal randomness (\cref{comp:ch05-records}).
+
+The classical form $\log p=\E_{\mathbb Q}[\log p_{\theta,V}(o,Y\given X)-\log q(Y)]+\KL(\mathbb Q\Vert\boldsymbol\Pi)$
+(\MTeq{eq:elbo-identity}) holds under (H1)--(H4), with equality exactly at the posterior as a measure;
+equal coordinate marginals are not enough (\MT{thm:elbo-exact-identity}). The extended form exists because
+the classical split can be undefined where the bound is not: a Cauchy trial law against a Gaussian
+posterior, or an infinite-entropy countable law that is its own posterior
+(\MT{prop:elbo-integrability-witnesses}). In the program's Gaussian models (H4) holds, and these witnesses
+are heavy-tailed pathologies.
+
+\subsection{Correlated recognition and total correlation}
+\label{comp:ch05-tc}
+
+For any law $Q$ of blocks and any reference laws $\varrho_j$,
+\[
+\KL\Bigl(Q\Bigm\Vert\bigotimes_j\varrho_j\Bigr)=\operatorname{TC}(Q)+\sum_j\KL(Q_j\Vert\varrho_j),
+\qquad
+\operatorname{TC}(Q)=\KL\Bigl(Q\Bigm\Vert\bigotimes_jQ_j\Bigr)
+\]
+in $[0,+\infty]$ (\MT{thm:elbo-total-correlation-chain}). The total correlation vanishes exactly for
+product laws and is $+\infty$ for two perfectly correlated continuous copies. As a standard orientation, a
+Gaussian with scalar blocks and covariance $\Sigma$ has $\operatorname{TC}=\tfrac12\log(\prod_j\Sigma_{jj}/\det\Sigma)$.
+If each agent reports its own entropy and the population adds them, it computes a pseudo-ELBO with
+\[
+\widetilde\Lelbo=\Lelbo_V(\mathbb Q_{V,o,X};X,o)+\operatorname{TC}(\mathbb Q_{V,o,X})
+\]
+(\MT{prop:elbo-total-correlation-signs}): the overstatement is exactly the total correlation, and the result
+need not bound the evidence. Since local marginals do not determine the coupling once two are non-Dirac
+(\MT{prop:prob-marginals-do-not-determine-joint}), an exact bound needs the coupling.
+
+\subsection{Restriction, and what ELBO values cannot compare}
+\label{comp:ch05-restriction}
+
+For any family $\mathcal Q'$,
+$\sup_{\mathcal Q'}\Lelbo_V^{\mathrm{ext}}=\log p_{\theta,V}(o\given X)-\inf_{\mathcal Q'}\KL(Q\Vert\boldsymbol\Pi)$
+(\MT{prop:restrict-principle}): the best bound in an ansatz is the evidence minus a reverse information
+projection, larger families do at least as well, and attainment is not required. Excluding the posterior
+does not make the optimized gap positive, and product families are not convex, so strict convexity gives no
+uniqueness on them (\MT{rem:restrict-attainment}).
+
+Two negative results fix what ELBO values mean. Across unrelated models the difference of optimized bounds
+is an evidence difference minus a tightness difference, and binary witnesses show its sign orders neither
+models nor recognition families (\MT{prop:restrict-unrelated-joint-elbo}): comparing variational free
+energies of two Hamiltonians computed with different ansatzes says nothing about their true free energies.
+And if the joint moves with the trial law, each $Q$ has its own evidence and the family designates no model
+(\MT{prop:gen-no-distinguished-target}); the witness of \MT{prop:gen-moving-target-witness} shows such
+dependence need not be inconsistent. The typing prohibition (\MT{req:gen-typing-prohibition}) therefore rests
+on the absence of a selected target, not on a derived contradiction. Its physical content: a
+self-consistent-field Hamiltonian $H[Q]$ is not one variational problem, and self-consistency may appear only
+as stationarity of one fixed functional.
+
+\subsection{Observations as records}
+\label{comp:ch05-records}
+
+The record hypothesis (\MT{hyp:local-interaction-kernels}) gives every record a density $e^{-E_{a,o}}$
+against one dominating measure. A pair energy $E(y_i,y_j)\geq0$ enters, for example, as a binary success
+record observed as a success with probability $e^{-E}$. This is how a Boltzmann factor on a cyclic graph
+becomes a likelihood in a normalized directed joint; it is a modeling commitment that coupling energies are
+data. The environment theorem is the randomization lemma \citep{Kallenberg2021}: every observation kernel is
+the output $O=F(Y,U)$ of a node with private uniform randomness $U$, and conversely
+(\MT{thm:obs-agent-interaction-equivalence}). Given $o$, however, the posterior of $(Y,U)$ sits on the level set
+$\{F(y,u)=o\}$, a null curve in the Gaussian example, so every smooth trial law on $(Y,U)$ has infinite cost, and
+a finite problem integrates $U$ out or restricts recognition to the fiber $\{F(y,u)=o\}$, where the cost is that of the
+induced law on $Y$ (\MT{rem:obs-environment-fiber}). The information a record carries is
+$I(Y;O)=\int\KL(P(dY\given o)\Vert P^Y)P^O(do)$, and a statistic $S$ of the record preserves the posterior
+exactly when $I(Y;O\given S)=0$ (\MT{prop:obs-conditioning-information}), standard facts \citep{CoverThomas2006}
+stated in $[0,+\infty]$.
+
+\subsection{Local free energy, exact block updates, and the potential identity}
+\label{comp:ch05-local}
+
+The local conditional free energy of a trial block law is
+\[
+\Fenergy^{\mathrm{ext}}_{B,o}(r_B;y_{-B})=-\log Z_B(y_{-B})+\KL\bigl(r_B(\cdot\given y_{-B})\Vert\boldsymbol\Pi_{\theta,V,o,X,B}(\cdot\given y_{-B})\bigr)
+\]
+(\MTeq{eq:obs-local-vfe}): the block's log partition function with the boundary frozen plus its recognition
+error. It contains every record incident to the block and no other. For $B=V$ it is the collective free
+energy; for a block touched by no record, $Z_B=1$. The underlying fact is the chain rule
+\[
+\KL\bigl(Q\Vert\boldsymbol\Pi\bigr)=\KL\bigl(Q_{-B}\Vert\boldsymbol\Pi_{-B}\bigr)+\E_{Q_{-B}}\KL\bigl(r_B(\cdot\given Y_{-B})\Vert\boldsymbol\Pi_{B}(\cdot\given Y_{-B})\bigr)
+\]
+(\MTeq{eq:obs-posterior-block-kl-chain}) for $Q=Q_{-B}r_B$; informally, with $Q_{-B}$ fixed only the second
+term moves. For two trial laws with the same outside marginal and finite divergence,
+\[
+\Fenergy^{\mathrm{ext}}_o(Q')-\Fenergy^{\mathrm{ext}}_o(Q)=\E_{Q_{-B}}\bigl[\Fenergy^{\mathrm{ext}}_{B,o}(r'_B;Y_{-B})-\Fenergy^{\mathrm{ext}}_{B,o}(r_B;Y_{-B})\bigr]
+\]
+(\MT{thm:obs-local-global-potential}). The fixed outside marginal is load-bearing: when two correlated blocks
+change at once, each moves the other's outside marginal. Zeroing the conditional term is the exact block
+E-coordinate: among laws with outside marginal $R$, the divergence is minimized, uniquely when finite, by $R$
+times the exact local posterior (\MT{prop:elbo-exact-e-coordinate}). This is a heat-bath update in law, not a
+mean-field update, and a damped version is also monotone, so sequential sweeps do not raise the free energy.
+For singletons and product profiles with finite divergence and $\E_{Q_{-i}}\lvert\log Z_{\{i\}}\rvert<\infty$,
+the outside-averaged local free energies make the agents an exact potential game in the sense of
+\citet{MondererShapley1996} (\MT{cor:obs-potential-game}), with no equilibrium or convergence consequence drawn.
+
+\subsection{Accounting, and links as random variables}
+\label{comp:ch05-ledger}
+
+With a product baseline $\bigotimes_i\varrho_i$,
+\[
+\Fenergy^{\mathrm{ext}}_o(Q)=\operatorname{TC}(Q)+\sum_i\KL(Q_i\Vert\varrho_i)+\E_Q\sum_{a}E_{a,o}(Y_{\partial a}),
+\qquad
+\sum_{i\in V}H_{\{i\},o}(y_i;y_{-i})=\sum_{a}\lvert\partial a\rvert E_{a,o}(y_{\partial a})
+\]
+(\MT{cor:obs-correlated-ledger}). In the first identity each record appears once and mean field is the case
+$\operatorname{TC}=0$, not a premise. The second says that single-agent local energies count a record of scope
+$k$ exactly $k$ times: local free energies are coordinate potentials, not shares, the double counting that
+region-based approximations correct with counting numbers \citep{Yedidia2005}. A single-count additive split
+exists by peeling agents off in a chosen order, each term conditioned on the agents before it.
+
+If link values $\Theta$ are latent, with prior $Z_{\mathscr S}^{-1}e^{-\mathscr S}\nu^{\mathscr T}$ for a
+probability reference $\nu^{\mathscr T}$, and recognition $R(d\Theta)Q_\Theta(dy)$,
+\[
+\Fenergy=\E_R\Fenergy_{\mathrm{matter}}(Q_\Theta;o,\Theta)+\E_R\mathscr S+\KL(R\Vert\nu^{\mathscr T})+\log Z_{\mathscr S}
+\]
+(\MT{prop:elbo-random-link-vfe}): the matter free energy at frozen links, averaged, plus the expected link
+action, the link entropy cost, and the link normalizer. Structural links contribute only the matter term. The
+form is that of lattice gauge theory on the agent graph with links integrated against an action
+\citep{Creutz1983}, no action being specified. It needs a normalizable link prior; for a noncompact group such as
+$\GL(K,\R)$, Haar measure is not a probability reference.
+
+\subsection{How model parameters move}
+\label{comp:ch05-parameters}
+
+A parameter step is accepted when it does not lower the bound at fixed recognition
+(\MT{def:elbo-generalized-m-acceptance}); the test needs no evidence value, only
+$\E_{\mathbb Q}\log(p_{\theta^{\mathrm{new}}}/p_{\theta^{\mathrm{old}}})$ (\MT{cor:elbo-acceptance-evidence-free}). If
+recognition equals the old posterior,
+\[
+\log p_{\theta^{\mathrm{new}},V}(o\given X)\geq\Lelbo^{\mathrm{ext}}_{V,\theta^{\mathrm{new}}}(\mathbb Q)\geq\Lelbo^{\mathrm{ext}}_{V,\theta^{\mathrm{old}}}(\mathbb Q)=\log p_{\theta^{\mathrm{old}},V}(o\given X)
+\]
+(\MT{prop:elbo-evidence-monotonicity}), the EM monotonicity of \citet{Dempster1977} in the free-energy reading
+of \citet{Neal1998}. Block E-coordinates keep only the bound nondecreasing; the transfer to the evidence needs the
+full refresh. A finite natural-gradient step is a proposal: on a quadratic model, from a point displaced along the
+largest-curvature direction of the preconditioned spectrum, with $d_{\max}$ the corresponding eigenvalue, a step
+longer than $2/d_{\max}$ lowers the bound (\MT{prop:elbo-finite-step-nonmonotonicity}), so a line search or trust
+region is needed whatever the preconditioner.
+
+\section{What is proved, and how solid it is}
+\label{comp:ch05-status}
+
+\begin{scorecard}
+\MT{thm:elbo-extended-gap}, \MT{thm:elbo-exact-identity} & One bound for every $Q$; gap $\KL(Q\Vert\boldsymbol\Pi)$; equality exactly at the posterior; classical form under (H1)--(H4) & \SOLID & Standard in substance (Gibbs variational principle); equal marginals do not give equality\\
+\MT{prop:elbo-subspace-support-singular} & Laws charging posterior-null sets have bound $-\infty$ & \SOLID & Closed support alone is not enough\\
+\MT{prop:elbo-total-correlation-signs} & Summing local entropies overstates the bound by exactly the total correlation & \SOLID & Standard chain rule\\
+\MT{prop:restrict-principle}, \MT{prop:restrict-unrelated-joint-elbo} & Best bound in a family is evidence minus a reverse projection; ELBO values of unrelated models order nothing & \SOLID & The second is an established negative result\\
+\MT{req:gen-typing-prohibition} & Generative factors may not read the trial law or the posterior & \CHOICE & Justified by \MT{prop:gen-no-distinguished-target}, which is SOLID\\
+\MT{hyp:local-interaction-kernels} & Every datum, interactions included, is a dominated record on a scope & \CHOICE & Coupling energies are observed data\\
+\MT{thm:obs-agent-interaction-equivalence} & Observation kernels are environment nodes $F(Y,U)$ & \SOLID & Standard randomization lemma; not for inference over $U$\\
+\MT{prop:elbo-exact-e-coordinate} & Exact and damped block updates do not raise the free energy & \SOLID & Sequential only\\
+\MT{thm:obs-local-global-potential} & Fixed outside marginal: collective change equals averaged local change & \SOLID & Chain rule; finite divergences\\
+\MT{cor:obs-potential-game} & Agents form an exact potential game & \SOLID & Singletons, product profiles only; no equilibrium claim\\
+\MT{cor:obs-correlated-ledger} & Single-count ledger; singleton energies count record $a$ exactly $\lvert\partial a\rvert$ times & \SOLID & Product baseline (used in (i)--(ii))\\
+\MT{prop:elbo-random-link-vfe} & Latent links add action, link entropy, normalizer & \SOLID & Normalizable link prior needed\\
+\MT{prop:elbo-evidence-monotonicity}, \MT{prop:elbo-finite-step-nonmonotonicity} & Evidence monotone under full refresh; long natural-gradient steps can lower the bound & \SOLID & Standard; values only, not parameters\\
+\MT{open:elbo-alternating-convergence}, \MT{open:restrict-intrinsic-criterion} & Parameter convergence; a criterion inside one bound selecting a recognition structure & \OPEN & See \cref{comp:ch05-open}\\
+\end{scorecard}
+
+The chapter has no TOY results. Its small examples (binary moving-target and model-comparison witnesses,
+Cauchy and countable integrability witnesses, the uniform diagonal) are counterexamples, SOLID at full
+generality as refutations.
+
+\begin{hygiene}
+Conditions that matter. Absolute continuity (H3) separates the finite from the singular branch, and it fails
+for point-mass recognition of continuous latents and for smooth recognition of an environment's randomness,
+both of which the program meets. Coupling energies must be negative log densities of records with a common
+dominating measure. The typing prohibition rules out self-consistent-field constructions inside the joint. The
+potential identity needs the outside marginal fixed and finite divergences; the game needs product profiles.
+Evidence monotonicity needs a full exact refresh, which no recognition family excluding the posterior can
+perform, so with restricted families only bound monotonicity survives. Latent links need a normalizable prior,
+which the Haar measure of a noncompact group is not.
+
+Hygiene. Standard Borel spaces, regular conditional versions (H1), finite positive evidence (H2), joint
+measurability, almost-everywhere qualifications on local posteriors, and log-integrability (H4) hold in the
+Gaussian and finite-state models of the program.
+\end{hygiene}
+
+\section{Open ends}
+\label{comp:ch05-open}
+
+Convergence of the alternating scheme (\MT{open:elbo-alternating-convergence}) is open for models with finitely
+many latent states, parameters in an open cone, $C^2$ joint densities, and an exact M-step with a unique
+maximizer. The classical conditions \citep{Wu1983} bear on isolated stationary points, which this class does not
+supply: the evidence may be constant along a curve of parameters. It is settled by checkable conditions,
+including compact upper level sets of the evidence, met by a model of parameter dimension at least two with a
+non-discrete stationary set, under which every orbit converges to one stationary point; or by a model with compact
+upper level sets whose orbit has more than one limit point. For block refreshes the question is weaker still,
+because a null step is accepted.
+
+An intrinsic criterion (\MT{open:restrict-intrinsic-criterion}) is open: nothing internal to one evidence bound at
+a fixed model is known to select a nondegenerate recognition structure, such as a partition of agents. Gap
+minimization selects the largest family, replacing the joint gives no common evidence, and evidence-preserving
+channels order bounds without selecting a partition. It is settled by a functional on channels or partitions,
+relative to one joint and not monotone toward an endpoint, with a nondegenerate optimizer, or by a proof of
+endpoint degeneracy for a stated class. For the program, the free energy alone does not say which agents belong
+together; formation (\cref{comp:ch13}) is posed through declared families and dynamics instead.
+
+\begin{verdictbox}{\DELIVERED}
+The technical chapter says it gives one extended evidence bound for every recognition law, a local--global
+potential identity under which the local objectives form an exact potential game, observations as interaction
+records, and the rules for model updates; it declines existence, tightness, convergence, and meta-agent claims.
+The proved statements deliver this. The bound is the Gibbs variational principle in the extended reals, the
+potential identity is the relative-entropy chain rule, the environment theorem is the randomization lemma, and
+evidence monotonicity is EM monotonicity. None of these is new mathematics; each is a known identity applied with
+care, and the contribution is typing discipline: one fixed joint, correlated recognition with its
+total-correlation cost, a value on the singular branch, and explicit negative results on what ELBO values can
+compare. One headline sentence is broader than its statement: the potential game holds for single agents with
+product recognition laws, while the block identity behind it covers correlated conditionals one block at a time.
+There is no parameter convergence, no criterion that selects a partition, and no statement about simultaneous
+updates.
+\end{verdictbox}
+
+\chapter{Attention and Selective Communication}
+\label{comp:ch06}
+
+\section{The question and the answer}
+\label{comp:ch06-question}
+
+The technical chapter, \mtc{ch:selective-communication}, asks which agent a receiver listens to and what it
+hears. For the first, attention is a posterior over a latent pointer. Each receiving row $i$ carries a
+categorical label $J_i$ naming one incoming edge copy, with a structural prior row $\pi_i$ whose support is its
+source set; the union of supports is the interaction graph, and a mask is a zero prior weight. The row's record
+has likelihood proportional to $\exp[-D_{ij}(y)/\tau_i]$ when $J_i=j$, with $D_{ij}$ a comparison energy and
+$\tau_i$ a temperature, so Bayes' formula gives the softmax
+\[
+\beta^P_{ij}(y)=\frac{\pi_{ij}e^{-D_{ij}(y)/\tau_i}}{\sum_k\pi_{ik}e^{-D_{ik}(y)/\tau_i}}
+\]
+(\MT{prop:obs-attention-elbo}). A recognition row held constant in the latent state, as a transformer computes
+one row per pass, is optimally a different softmax, over averaged energies, at an exact expected relative-entropy
+cost (\MT{prop:obs-attention-constant-row-gap}). For the second, communication is a composed Markov kernel,
+encoder then transmission then decoder \citep{Shannon1948}, covariant under frame changes and separate
+recoordinatizations of each message space (\MT{cor:obs-selective-kernel-gauge}). On the linear tier the composite
+$\mathsf L_e=\mathsf L^{\rm dec}_e\mathsf L^{\rm tr}_e\mathsf L^{\rm enc}_e$ transforms like a link but may be
+singular (\MT{prop:geo-selective-covariance}, \MT{prop:geo-selective-loops}). For a Gaussian comparison record the
+exact receiver update has the transformer shape, but its value map is fixed by the query map, the key map, the
+precision, and the receiver covariance, its residual is precision-weighted, and its weights use a predictive
+covariance (\MT{prop:obs-selective-receiver-update}).
+
+The row calculus feeds \cref{comp:ch08}, the event law is what \cref{comp:ch11} coarse-grains, and comparison
+records supply endpoint energies to \cref{comp:ch10}. The scope paragraph declines three claims: that transformer
+attention as a whole is derived (feed-forward blocks and layer normalization have no counterpart), that declared
+per-head rows follow from a label model, and that an interface, its rank, or its coding establishes capacity,
+reconstruction of the sender's belief, or shared meaning. Open are multi-head label models, edge creation and
+deletion, and formation with evolving interfaces.
+
+\paragraph{Is attention derived or declared?}
+The softmax is derived; the model yielding it is declared. Given a pointer with a prior and a record exponential
+in a comparison energy, the softmax is Bayes' formula, exactly as mixture responsibilities are \citep{Bishop2006};
+attention as a latent alignment variable is known in machine learning \citep{Deng2018LatentAlignment}. Not derived:
+why the joint should contain a pointer, why its record is exponential in $D_{ij}/\tau_i$, or which comparison
+energy to use. The chapter shows the form is inhabited by normalized records (a binary success record, a Gaussian
+comparison record). For this program one more caveat matters: the softmax over divergences between \emph{current
+beliefs} is the generative posterior row with the law points held fixed, not a recognition optimum of a finite
+bound, because point-mass recognition of a law point has infinite cost against any non-atomic law-point prior; and
+the normalized law-point prior that would make such divergences evidence-bound terms at all is open
+(\MT{cor:obs-selective-softmax}, \MT{prop:prob-law-point-point-mass}, \MT{open:prob-law-point-prior}).
+
+\paragraph{Why so many attention objects?}
+The prior $\pi$, the generative row $\beta^P(y)$, the recognition row $\beta^Q$, the receiver occupancy $\alpha$,
+and the event law $\eta=\alpha\beta$ are laws of different things; $\beta^Q$ and $\beta^P$ differ by an exact Jensen
+gap, and coarse-graining acts on $\eta$, not on rows. The table in \cref{comp:ch06-objects} sets them side by side.
+
+\paragraph{What is the temperature?}
+A parameter of the record's likelihood, not a heat-bath temperature: it sets how sharply the row concentrates, it
+weights the prior relative entropy in the row functional, and in the Gaussian comparison record only
+precision over temperature enters (\cref{comp:ch06-jensen}).
+
+\paragraph{The query map, the key map, and the matrix link?}
+The chapter fixes their types, transformation laws, and linear-algebraic limits, shows how the independent link
+enters the key map, and, in one model, ties the value map to the query and key maps. It selects, learns, or derives
+none of them (\cref{comp:ch06-sqk}).
+
+\section{The picture}
+\label{comp:ch06-picture}
+
+A receiver has a hidden pointer; its attention record is evidence about which source the pointer names, and
+$D_{ij}$ measures how badly source $j$ explains that record. The posterior over the pointer is a Gibbs distribution
+over sources with degeneracies $\pi_{ij}$, energies $D_{ij}$, and temperature $\tau_i$.
+
+\begin{analogy}{exact}
+Canonical ensemble over sources, and mixture responsibilities. The row functional
+$\sum_j\beta_{ij}D_{ij}+\tau_i\KL(\beta_i\Vert\pi_i)$ is energy minus temperature times entropy relative to the
+degeneracies; its unique minimizer is the Gibbs row, and its minimum is $\tau_i$ times the row free energy
+$-\log\sum_j\pi_{ij}e^{-D_{ij}/\tau_i}$ (\MTeq{eq:obs-selective-row-functional}). The same formula gives mixture
+responsibilities \citep{Bishop2006}. Its natural-gradient flow on the simplex is the replicator equation
+(\MT{cor:obs-attention-replicator}), in the sense of \citet{Amari1998}.
+\end{analogy}
+
+\begin{analogy}{exact}
+Kalman update with unknown measurement origin. In the Gaussian comparison-record model, the receiver's mean given
+the pointer is a Kalman update with gain $\Sigma_iS_i^{Q\top}(\Sigma^{\rm pred}_i)^{-1}$ (part (c) of
+\MT{prop:obs-selective-receiver-update}), the pointer posterior weights sources by their innovation likelihoods,
+and the posterior mean averages the per-source updates: the structure of data association in tracking.
+\end{analogy}
+
+\begin{analogy}{structural}
+Mean-field Ising free energy. Integrating the pointer out leaves a log-sum-exp potential; in the witness of
+\MT{prop:obs-attention-reduced-hessian} it is $(\omega+1)x^2/(2\tau)-\log\cosh(\delta x/\tau)$, the Curie--Weiss
+form, whose curvature at the symmetric point changes sign when $\delta^2>\tau(\omega+1)$. With one latent variable
+and no thermodynamic limit, this is a bifurcation of posterior modes, not a phase transition.
+\end{analogy}
+
+\begin{analogy}{structural}
+General linear link fields. $\mathsf L_e$ transforms as $\mathsf L_e'=\mathsf g_i\mathsf L_e\mathsf g_j^{-1}$, like a
+hopping term's link, without being a group element, as in linear lattice gauge theory
+\citep{Wetterich2014LinearLattice}, whose compact-group and continuum conclusions the technical chapter says do not
+follow here. The trace of a loop product of communication maps is invariant, like a Wilson loop, but is not the
+holonomy of the independent links (\MT{prop:geo-selective-loops}).
+\end{analogy}
+
+\section{Objects and notation}
+\label{comp:ch06-objects}
+
+\begin{decoder}
+Row $i$ or $(i,h)$; source set $\mathcal N_i$ & A slot selecting one source (a head row shares agent $i$'s state); the support of its prior & Neighborhood; mask\\
+$J_i$; $\pi_{ij}$ & Latent pointer; its structural prior, fixed here & Hidden assignment; degeneracy\\
+$D_{ij}(y)$; $\tau_i$; $\mathrm c_i$ & Recognition-free comparison energy; temperature; source-independent record factor & Energy; temperature; prefactor\\
+$\beta^P_{ij}(y)$; $\beta^Q_{ij}$ & Posterior row at latent state $y$; recognition row, constant in $y$ & Gibbs occupation at fixed $y$; mean-field occupation\\
+$\alpha^x_i$; $\eta^x_{ij}=\alpha^x_i\beta^x_{ij}$ & Receiver occupancy; law of a (receiver, source) event; mark $x$ is $P$ (generative at $y$), $\Pi$ (posterior-averaged), or $Q$ (recognition) & None; joint bond occupation\\
+$\mathsf E^v_e$, $\mathsf N^v_e$, $\mathsf D^v_e$; $K^v_e$ & Encoder, transmission, decoder kernels; composed value kernel & Shannon channel\\
+$\mathsf L^{\rm enc}_e$, $\mathsf L^{\rm tr}_e$, $\mathsf L^{\rm dec}_e$, $\mathsf L_e$ & Linear factors and their composite $E_j\to E_i$ & General linear link\\
+$\mathsf M^{\rm val}$, $\mathsf M^{\rm out}$, $U_i$ & Value extraction, output placement, agent frame & $W_V$, $W_O$\\
+$F_e=\mathsf L_e\Theta_e^{-1}$; $\mathsf L_p$ & Receiver processing after the link; loop product of communication maps & Adjoint field; Wilson-loop-like, not holonomy\\
+$H^{\rm cmp}_e$, $S^Q_e$, $S^K_e$; $d_e$ & Comparison space, query and key maps; KL between their images of the two beliefs & $W_Q$, $W_K$ as measurements\\
+$V_e$; $W_e$, $\widetilde W_i=W_i/\tau_i$ & Quadratic disagreement; comparison precision; tempered precision & Elastic energy; stiffness\\
+Comparison record at $o_i=0$ & Pseudo-observation clamping agreement of query and chosen key & Soft constraint as data\\
+$\Sigma^+_i$, $\Sigma^{\rm pred}_i$, $\mathsf L^{\rm val}_e$; $R_e$ & Posterior and predictive covariances, value map; $\Sigma_i^{-1}$-minimal right inverse of $S^Q_i$ & Kalman covariances, gain times observation map; metric pseudo-inverse\\
+\end{decoder}
+
+Glyphs collide. $\tau_i$ is neither time nor the Langevin temperature $\mathrm T$ of the formation chapters. The
+posterior $\boldsymbol\Pi$, the role mark $\Pi$, and the source prior $\pi_{ij}$ are different objects; $V$ is the
+agent set and $V_e$ an energy; $E_i$ is a sample fiber, $E_{a,o}$ a record energy, $\mathsf E^v_e$ an encoder, $\E$
+an expectation; $L_o$, $\mathsf L_e$, and $\Lelbo$ are a likelihood, a communication map, and the ELBO. The
+\emph{link} is always the invertible group-valued edge variable $\Theta_e$ of \MT{def:geo-graph-links}; $\mathsf L_e$,
+which the technical chapter calls factored matrix communication, is not a link in that sense. The value
+\emph{kernel} $K^v_e$ is a Markov kernel; the value \emph{map} $\mathsf L^{\rm val}_e$ is a matrix. An \emph{event} is a
+sampled (receiver, source) edge. ``Derived'', ``declared'', ``absent'' in the transformer table are standings, not
+proof statuses.
+
+\begingroup\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.08\textwidth}>{\raggedright\arraybackslash}p{0.21\textwidth}>{\raggedright\arraybackslash}p{0.14\textwidth}>{\raggedright\arraybackslash}p{0.47\textwidth}@{}}
+\toprule
+\textbf{Object} & \textbf{Law of} & \textbf{Depends on} & \textbf{Why it differs from the others}\\
+\midrule
+$\pi_i$ & The pointer before any record & Structure & Its support is the interaction graph; it is the prior in Bayes' formula and never reads recognition.\\
+$\beta^P_i(y)$ & The pointer given state and record & $y$ & Exact posterior at a state; its average over $y$ is not a softmax of averaged energies.\\
+$\beta^Q_i$ & The pointer under recognition & Averaged energies & Differs from $\beta^P$ by the Jensen gap; equals $\beta^P$ at the mean state when energy differences are affine.\\
+$\alpha^x_i$ & Which receiver an event belongs to & A declared law & Not supplied by the per-receiver model; a structural selection law or the marginal of a single joint edge label.\\
+$\eta^x_{ij}$ & The (receiver, source) event & $\alpha$, $\beta$ & What coarse-graining pushes forward; rows are recovered by disintegration where $\alpha>0$, and a row alone is not recursive state.\\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\section{The formulas, explained}
+\label{comp:ch06-formulas}
+
+\subsection{The softmax, the recognition row, and the temperature}
+\label{comp:ch06-jensen}
+
+The declared model (\MT{def:obs-attention-label-model}) adds independent pointers with priors $\pi_i$ and gives row
+$i$ the record density $L_i(o_i\given y,J_i=j)=\mathrm c_i(o_i,y)\exp[-D_{ij}(y)/\tau_i]$
+(\MTeq{eq:obs-attention-likelihood}). Under exclusivity (no other factor reads a pointer) the posterior factors by
+rows into the softmax $\beta^P_{ij}(y)$, strictly positive exactly on the source set (\MT{prop:obs-attention-elbo}).
+With nonnegative energies, an included self edge with $D_{ii}=0$, and equal priors, no source outweighs the self
+edge: any energy that vanishes on self-comparison, such as a divergence of a belief from itself, makes
+self-attention maximal under a uniform prior. One label per row also fixes occupancy: every receiver listens to
+exactly one source, and attending to none needs a null label or another joint label model.
+
+Restricting recognition to rows independent of $y$, row $i$ contributes
+\[
+\Fenergy^{\rm att}_i(\beta^Q_i)=\KL(\beta^Q_i\Vert\pi_i)+\frac1{\tau_i}\sum_j\beta^Q_{ij}\E_{\mathbb Q_Y}D_{ij},
+\qquad
+\beta^{Q\star}_{ij}\propto\pi_{ij}e^{-\E_{\mathbb Q_Y}D_{ij}/\tau_i}
+\]
+(\MTeq{eq:obs-attention-vfe}), a Gibbs row over averaged energies. With $R^Q_i$ the row free energy at averaged
+energies and $R^P_i(y)$ that at $y$, the price of the constant row is
+\[
+R^Q_i-\E_{\mathbb Q_Y}R^P_i(Y)=\E_{\mathbb Q_Y}\KL\bigl(\beta^{Q\star}_i\Vert\beta^P_i(Y)\bigr)\geq0
+\]
+(\MT{prop:obs-attention-constant-row-gap}), zero exactly when every difference $D_{ij}-D_{ik}$ is almost surely
+constant. The reason, informally, is that the row free energy is concave in the energies. This is the mean-field
+decoupling of pointer and state, with an exact gap. If energy differences are affine in a statistic of the state,
+$\beta^{Q\star}$ is the posterior row at the recognition mean (\MTeq{eq:obs-attention-affine-row}). For transported
+quadratic energies $\tfrac12r_{ij}^\top W_ir_{ij}$, $r_{ij}=y_i-\rho_b(\Theta^b_{ij})y_j$, with uncorrelated receiver and
+source, it is the row at the mean with source $j$'s logit lowered by
+$\Tr(W_i\rho_b(\Theta^b_{ij})\operatorname{Cov}(Y_j)\rho_b(\Theta^b_{ij})^\top)/(2\tau_i)$: uncertain sources are
+penalized. Computing the softmax at the mean state, as a transformer does, is exact in the affine case, and for transported
+quadratic energies with uncertain sources it is not. Without
+the restriction the optimal pointer law is the product of posterior rows, and correlated pointer laws pay a
+total-correlation term.
+
+The temperature scales the record's exponent: as $\tau_i\to0$ the row concentrates on minimal energy (hard
+attention), and as $\tau_i\to\infty$ it returns to the prior; in the row functional it weights the prior relative
+entropy, the canonical-ensemble role. In the Gaussian comparison record the noise covariance is $\tau_iW_i^{-1}$, so
+$\tau_i$ is a noise scale and only $\widetilde W_i=W_i/\tau_i$ enters: temperature and precision are not separately
+identifiable there. Nothing fixes $\tau_i$; the transformer's $1/\sqrt{\dim H^{\rm cmp}}$ is the declared choice
+$\varsigma^2\tau_i=\sqrt{\dim H^{\rm cmp}_i}$ for key covariance $\varsigma^2I$ (\MT{tab:obs-transformer-correspondence}).
+
+\subsection{Receiver occupancy and the event law}
+\label{comp:ch06-events}
+
+A row is a conditional law of source given receiver, so coarse-graining needs a receiver law; the event law
+$\eta^x_{ij}=\alpha^x_i\beta^x_{ij}$ supplies it (\MT{def:obs-attention-event-law}). The per-receiver model does not
+determine $\alpha$, which enters either as a structural selection law fixed before observation or as the receiver
+marginal of a single joint edge label in a different model (\MT{hyp:rg-single-edge-attention}); the two give different
+coarse rows (\mtc{prop:rg-attention-per-receiver-collapse} has masses $1/2$ against $3/4$). With uniform rows and no
+self edges, blocks of size $n$ among $N$ agents have $\beta^{\rm c}_{II}=(n-1)/(N-1)$ and
+$\beta^{\rm c}_{IJ}=n/(N-1)$ (\MT{cor:obs-attention-self-edge}): a coarse block listens to itself even when no fine agent
+does.
+
+\subsection{The reduced potential, its curvature, and row flows}
+\label{comp:ch06-curvature}
+
+Summing the pointer out, or optimizing a constant row, leaves $R_i(x)=-\log\sum_j\pi_{ij}e^{-E_{ij}(x)/\tau_i}$, with
+\[
+\nabla R_i=\frac1{\tau_i}\sum_j\beta_{ij}\nabla E_{ij},
+\qquad
+\nabla^2R_i=\frac1{\tau_i}\sum_j\beta_{ij}\nabla^2E_{ij}-\frac1{\tau_i^2}\operatorname{Cov}_{\beta_i}(\nabla E_i)
+\]
+(\MT{prop:obs-attention-reduced-hessian}). The gradient is the frozen-weight gradient (the weights' own dependence
+drops out, as in the Hellmann--Feynman theorem); the Hessian is frozen-weight curvature minus the variance of the
+sources' forces, the fluctuation term of any $-\log Z$. The correction scales as $\tau_i^{-2}$ against $\tau_i^{-1}$, so
+low temperature favors loss of convexity. In the witness (scalar latent with baseline $\mathcal N(0,\tau/\omega)$,
+sources $\pm1$, record $\mathcal N(x-j\delta,\tau)$) the curvature at the origin is $(\omega+1-\delta^2/\tau)/\tau$; at
+$(\omega,\delta,\tau)=(1,2,1)$ the frozen value is $2$ and the reduced value $-2$, though prior and energies are convex.
+
+At fixed state recognition the row follows the replicator equation with cost
+$\mathsf c_{ij}=\log(\beta^Q_{ij}/\pi_{ij})+\E_{\mathbb Q_Y}D_{ij}/\tau_i$ and dissipation
+$-\mathsf r_i\operatorname{Var}_{\beta^Q_i}(\mathsf c_{ij})\leq0$ (\MT{cor:obs-attention-replicator}); a moving state
+adds a driving term of no definite sign. Each weight is its initial value times a finite exponential, so no support
+changes at finite time: edges are neither created nor destroyed (\MT{open:obs-edge-creation}).
+
+\subsection{Communication kernels, factored maps, and loops}
+\label{comp:ch06-communication}
+
+An interface on $e:j\to i$ is a triple of kernels $\mathsf E^v_e$, $\mathsf N^v_e$, $\mathsf D^v_e$ composed into the
+value kernel $K^v_e$ (\MT{def:obs-selective-interface}); message recoordinatizations cancel, and
+$K^{v\prime}_e(s',\cdot)=(\mathsf g_i)_\#K^v_e(\mathsf g_j^{-1}s',\cdot)$ (\MT{cor:obs-selective-kernel-gauge}). On the
+linear tier (\MT{def:geo-selective-matrix-link}) the composite obeys $\mathsf L_e'=\mathsf g_i\mathsf L_e\mathsf g_j^{-1}$,
+message bases do not enlarge the structure group, rank is at most the smallest factor rank, and a distinguished
+sending subspace needs a metric (\MT{prop:geo-selective-covariance}). The shared-head case
+$\mathsf L_e=U_i\mathsf M^{\rm out}\mathsf M^{\rm val}U_j^{-1}$ is a transformer's value and output maps in agent frames;
+a sum of heads factoring through spaces $H_h$ has rank at most $\sum_h\dim H_h$.
+
+Given an invertible link, $\mathsf L_e=F_e\Theta_e$ with $F_e'=\mathsf g_iF_e\mathsf g_i^{-1}$; this exists for every choice
+of link, so communication does not recover the link (\MT{prop:geo-selective-loops}). The reverse copy is specified
+separately and need not be an inverse, an adjoint, or of equal rank. A loop product $\mathsf L_p$ is conjugated at the
+base vertex even when singular, so rank, trace, and characteristic polynomial are invariant, but it records processing
+and loss of distinguishability, not holonomy: two sites with trivial holonomy already give round trips that keep one
+direction and discard the other, and parallel $\GL(2)$ copies give nontrivial holonomy with arbitrary singular
+communication. The shared-head family contains no $\Theta_e$, so for a loop of length $r$ its product is
+$U_{i_0}(\mathsf M^{\rm out}\mathsf M^{\rm val})^rU_{i_0}^{-1}$, which depends on the loop only through its length: shared
+value and output maps are blind to the links around a loop.
+
+\subsection{Comparison maps and the dot product}
+\label{comp:ch06-comparison}
+
+Comparison is separate from content: query and key maps $S^Q_e:E_i\to H^{\rm cmp}_e$, $S^K_e:E_j\to H^{\rm cmp}_e$ and the
+role divergence $d_e=\KL((S^Q_e)_\#q_i\Vert(S^K_e)_\#q_j)$ (\MT{def:obs-selective-comparison}), a cospan that maps nothing
+back into the receiver. Reference maps $S^Q_{\rm ref}U_i^{-1}$, $S^K_{\rm ref}U_j^{-1}$ reproduce projected query--key
+comparison; with independent links the key can be $S^K_{\rm ref}U_i^{-1}\Theta_e$, which enters only through the per-edge
+twist $U_i^{-1}\Theta_eU_j$ (\MT{prop:geo-edge-twist-invariance}) and reduces to the reference form at trivial twist. The
+divergence is an energy of law points, admissible only with law points latent; then the softmax over role divergences is
+the posterior row at a latent configuration, and the recognition optimum reduces to it for a point-mass recognition
+law, whose free energy is infinite when the baseline gives the point zero mass (\MT{cor:obs-selective-softmax}, \MT{prop:prob-law-point-point-mass}). For Gaussian law points
+with a common projected key covariance $\Sigma^K$,
+\[
+d_{ij}=d_i^\circ-(\mu^Q_i)^\top(\Sigma^K)^{-1}\mu^K_j+\tfrac12(\mu^K_j)^\top(\Sigma^K)^{-1}\mu^K_j
+\]
+(\MTeq{eq:obs-selective-dot-product}): a dot-product logit plus a key-norm bias. The derived logit is minus a squared
+query--key distance; it equals the transformer's dot product only for constant whitened key norms or a compensating
+prior. The natural gradient of a quadratic disagreement $V_e$ fixes one receiving map
+$\mathsf G_i^{-1}S^{Q\top}_eW_eS^K_e$ (\MT{prop:obs-selective-response}), so a declared attention insertion descends that
+energy only when its value map has this form. When content also depends on the pointer, its conditional relative
+entropy changes the optimal routing (\MT{cor:obs-selective-content-kl}); exact inference routes on content too, the
+transformer on query and key only.
+
+\subsection{The exact receiver update}
+\label{comp:ch06-receiver}
+
+The comparison record $o_i\given k_i,J_i=j,y_{-i}\sim\mathcal N(S^Q_ik_i-S^K_ek_j,\tau_iW_i^{-1})$ is observed at $o_i=0$
+(\MTeq{eq:obs-selective-attention-record}): a pseudo-observation clamping agreement of the receiver's query with the
+chosen key, with density $\mathrm c_i\exp[-V_e/\tau_i]$ at zero. Let the receiver's conditional law given all else be
+$\mathcal N(\mu_i,\Sigma_i)$, let the copies share the query map and precision, and let this record be the only factor
+reading the pointer. With $\Sigma^+_i=(\Sigma_i^{-1}+S^{Q\top}_i\widetilde W_iS^Q_i)^{-1}$,
+$\Sigma^{\rm pred}_i=\widetilde W_i^{-1}+S^Q_i\Sigma_iS^{Q\top}_i$, and $r_{ij}=S^Q_i\mu_i-S^K_ek_j$,
+\[
+w_{ij}\propto\pi_{ij}e^{-\frac12r_{ij}^\top(\Sigma^{\rm pred}_i)^{-1}r_{ij}},
+\qquad
+\E[k_i\given y_{-i},o]=\Sigma^+_i\Sigma_i^{-1}\mu_i+\sum_jw_{ij}\mathsf L^{\rm val}_ek_j,
+\qquad
+\mathsf L^{\rm val}_e=\Sigma^+_iS^{Q\top}_i\widetilde W_iS^K_e
+\]
+(\MT{prop:obs-selective-receiver-update}). The weights integrate the receiver state out, so they use the record noise
+plus the receiver's own projected uncertainty; $\Sigma^+_i\Sigma_i^{-1}\mu_i=(I-\Sigma^+_iS^{Q\top}_i\widetilde W_iS^Q_i)\mu_i$
+is the receiver's mean shrunk by the record's information, in place of an identity skip connection; and
+$\mathsf L^{\rm val}_e$ is a Kalman gain times the key map. In the scalar example with sources at $0$ and $2$,
+$w_{i2}=e^{-1}/(1+e^{-1})$ while the posterior row at the mean gives $e^{-2}/(1+e^{-2})$, and the value map is $1/2$. For a
+full-row-rank query map, as the record noise vanishes, $\mathsf L^{\rm val}_e\to R_eS^K_e$, the key map followed by the metric right inverse of the
+query map (\SG{prop:geo-selective-lift}). The update is exact for one head, one receiver, and fixed source states: a
+heat-bath step on one coordinate, not joint inference over all agents.
+
+\subsection{The transformer correspondence and heads}
+\label{comp:ch06-transformer}
+
+The technical correspondence table (\MT{tab:obs-transformer-correspondence}) gives each row a standing; the last column is
+the companion's reading.
+
+\begingroup\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.16\textwidth}>{\raggedright\arraybackslash}p{0.26\textwidth}>{\raggedright\arraybackslash}p{0.09\textwidth}>{\raggedright\arraybackslash}p{0.41\textwidth}@{}}
+\toprule
+\textbf{Transformer} & \textbf{Theory counterpart} & \textbf{MT} & \textbf{Companion reading}\\
+\midrule\endhead
+\bottomrule\endfoot
+Token position & Agent; embedding as a latent coordinate & declared & A naming choice.\\
+Query, key projections & Reference maps; role divergence; dot product plus key-norm bias & derived & Logit form derived for Gaussian law points with common key covariance; the maps are declared.\\
+One key map for all edges & Links enter only through the twist; shared map is trivial twist & derived & Correct; nontrivial twist and holonomy have no counterpart, and nothing is said about their effect.\\
+Softmax row & Posterior row of the pointer; at a latent configuration over law-point divergences & derived & From a declared exponential likelihood; over current beliefs it is a posterior at fixed law points, never a finite-cost recognition optimum against a non-atomic law-point prior.\\
+Mask & Zero prior weight & derived & Immediate.\\
+Temperature, $1/\sqrt d$ & $\tau_i$; scaled dot product one choice & declared & Free; not identifiable from precision in the Gaussian record.\\
+Value, output, residual & Mean operator declared; comparison-record update fixes value map and residual weight & derived & What is derived is a different, tied value map and a shrinkage residual; the transformer's free value and output maps are declared.\\
+Multiple heads & Declared per-head rows & absent & Per-head softmaxes are exact at a fixed receiver state and are not the integrated label posterior once the shared state is integrated out.\\
+Feed-forward, layer norm & None & absent & None.\\
+\end{longtable}
+\endgroup
+
+The table has no row for stacking layers or for training. On heads: the declared mean operator
+(\MTeq{eq:obs-selective-attention-residual}) is multi-head attention in operator form with declared rows. Two heads with
+their own pointers and comparison records have factorized pointer posteriors at fixed receiver state, but not after the
+state is integrated out; in the scalar instance with sources at $0$ and $a$ the odds ratio between agreeing and
+disagreeing label pairs is $e^{a^2/3}$ (\MT{prop:obs-selective-head-coupling}). The general Gaussian criterion is the log
+cross ratio $-(\mathsf a_j-\mathsf a_{j'})^\top\Lambda^{\rm rec}_{12}(\mathsf b_l-\mathsf b_{l'})$
+(\MT{rem:obs-head-coupling-criterion}); correlated projected queries alone do not force dependence.
+
+\subsection{What survives an interface}
+\label{comp:ch06-information}
+
+Information about the source cannot grow along encoder, channel, and decoder given receiver side information
+(\MT{prop:obs-selective-information-chain}). Agreement on communicated coordinates leaves a private conditional divergence,
+$\KL(q\Vert p)=\KL(q_M\Vert p_M)+\int\KL(q(\cdot\given M=z)\Vert p(\cdot\given M=z))q_M(dz)$
+(\MT{prop:obs-selective-private-kl}), so agents agreeing on everything communicated may disagree by any amount. For surjective linear
+measurements $M_j$, $M_i$, $M$ that retain some coordinates (interfaces), a linear map descends to the retained coordinates
+exactly when $\mathsf L_e\ker M_j\subseteq\ker M_i$, a linear flow exactly when its generator
+preserves $\ker M$, a moving measurement exactly when $\dot M_t+M_t\mathcal A_t$ vanishes on $\ker M_t$, and a low-rank interface
+is not by itself a Markov blanket (\MT{prop:geo-selective-descent}). The flow condition is the linear analogue of exact
+lumpability \citep{KemenySnell1976}.
+
+\subsection{What the chapter establishes about the query map, the key map, and the matrix link}
+\label{comp:ch06-sqk}
+
+Established: the types of $S^Q_e$ and $S^K_e$ (\MT{def:obs-selective-comparison}); the transformation law of $S^Q_e$
+under frame change and comparison recoordinatization, stated in Supplement G (\SG{prop:geo-selective-lift}), with the law of
+$S^K_e$ following the same pattern by the reference-map form and the kernel-level law \MT{cor:obs-selective-kernel-gauge};
+the types and transformation laws of $\mathsf L_e$, with message coordinates internal (\MT{prop:geo-selective-covariance});
+the entry of the independent link into attention through the key map
+$S^K_{\rm ref}U_i^{-1}\Theta_e$, only via its per-edge twist, so that a shared key map is the trivial-twist case; the separation
+of the matrix link from the gauge link, $\mathsf L_e=F_e\Theta_e$ with $\Theta_e$ unrecoverable, loop products that are not
+holonomy, and holonomy independent of communication rank; the tie between value and comparison, the receiving map
+$\mathsf G_i^{-1}S^{Q\top}_eW_eS^K_e$ of a quadratic disagreement and the exact value map
+$\Sigma^+_iS^{Q\top}_i\widetilde W_iS^K_e$ of the Gaussian comparison-record model; and linear limits (rank bounds, descent
+conditions, rank not being capacity).
+
+Not established: any rule that selects or learns $S^Q_e$, $S^K_e$, or $\mathsf L_e$; the technical chapter states that
+nothing there selects the content maps. \MT{def:obs-selective-interface-learning} lists what a learned or random interface
+must carry (every varying normalizer in its score, or a normalized prior and declared dynamics with a regular metric) and
+constructs no learning rule. A declared content map $\mathsf L_e$ and the comparison-induced value map are two mechanisms the
+chapter does not unify; Supplement G gives $\mathsf L_e$ its own linear Gaussian record (\SG{prop:obs-selective-gaussian-record}).
+Evolving interfaces are \MT{open:obs-selective-formation}. The linear statements are on real vector fibers and use no
+compactness, so they cover $\GL(K,\R)$ links in the defining representation; complex fibers are not treated separately.
+
+\section{What is proved, and how solid it is}
+\label{comp:ch06-status}
+
+\begin{scorecard}
+\MT{def:obs-attention-label-model} & Attention is a latent pointer with a structural prior and an exponential record & \CHOICE & Exclusivity; one label per row fixes occupancy\\
+\MT{prop:obs-attention-elbo} & Posterior row is the softmax; constant-row optimum is a softmax over averaged energies & \SOLID & Standard in substance (Bayes)\\
+\MT{prop:obs-attention-constant-row-gap} & Exact Jensen-gap cost of a constant row & \SOLID & Zero only for constant energy differences\\
+\MT{def:obs-attention-event-law}, \MT{hyp:rg-single-edge-attention} & Occupancy and event law are declared & \CHOICE & The two choices give different coarse rows\\
+\MT{cor:obs-attention-self-edge}, \MT{cor:obs-attention-replicator} & With uniform rows and occupancy, a fine no-self convention is not preserved under blocking; row flow is replicator & \SOLID & Flow never changes the support\\
+\MT{prop:obs-attention-reduced-hessian} & Reduced curvature is frozen curvature minus force variance; convexity can be lost & \SOLID & Witness one-dimensional (\cref{comp:ch06-toy})\\
+``Seed of symmetry breaking'' (MT summary) & The curvature correction drives later instability & \VAGUE & No statement behind it\\
+\MT{def:obs-selective-interface}, \MT{def:geo-selective-matrix-link}, \MT{def:obs-selective-comparison} & Kernels, factored maps, query and key maps, mean operator & \CHOICE & All declared; nothing selects them\\
+\MT{cor:obs-selective-kernel-gauge}, \MT{prop:geo-selective-covariance}, \MT{prop:geo-selective-loops} & Covariance; rank bounds; $\mathsf L_e=F_e\Theta_e$; loops are not holonomy & \SOLID & Elementary; small examples are refutations\\
+\MT{prop:obs-selective-response}, \MT{cor:obs-selective-softmax} & Receiving map of a disagreement; softmax over role divergences; dot product plus key-norm bias & \SOLID & Common key covariance; point-mass recognition singular\\
+\MT{prop:obs-selective-receiver-update} & Tied value map, shrinkage residual, predictive weights & \SOLID & Gaussian comparison record; one head; fixed sources\\
+\MT{prop:obs-selective-head-coupling}, \MT{rem:obs-head-coupling-criterion} & Shared receiver state couples head pointers; exact criterion & \SOLID & Refutes per-head factorization\\
+\MT{prop:obs-selective-information-chain}, \MT{prop:obs-selective-private-kl}, \MT{prop:geo-selective-descent} & Data processing; private divergence; descent conditions & \SOLID & Standard in substance\\
+\MT{open:obs-edge-creation}, \MT{open:obs-multihead-attention}, \MT{open:obs-selective-formation}, \MT{open:prob-law-point-prior} & Edge kinetics; head recursion; moving interfaces; law-point prior & \OPEN & See \cref{comp:ch06-open}\\
+\end{scorecard}
+
+\begin{hygiene}
+Conditions that matter. Label exclusivity makes the posterior factor by rows; the exponential record form produces the
+softmax; one label per row forces a declared $\alpha$; the constant-row restriction carries an exact cost. Energies must
+not read recognition, so divergences between beliefs need latent law points and hence the open law-point prior. The
+receiver update needs a Gaussian conditional receiver law, a shared query map and precision, and fixed sources; the dot
+product needs a common key covariance; the link factorization needs invertible links; the interaction graph is fixed.
+
+Hygiene. Finite energies with finite recognition means, measurability, standard Borel spaces, $C^2$ energies for the
+curvature formula, and versions chosen off null sets hold in the program's Gaussian and finite models.
+\end{hygiene}
+
+\section{Toy versus general}
+\label{comp:ch06-toy}
+
+The small examples (the one-dimensional curvature witness, the scalar receiver and two-head instances, the two-site loop,
+the parallel $\GL(2)$ copies) each refute a general implication, and as refutations they are SOLID. The mechanism-level
+content, that integrating out a pointer subtracts a force variance from the curvature and that a shared receiver state
+couples heads, is proved in general form. The threshold $\delta^2=\tau(\omega+1)$ and the odds ratio $e^{a^2/3}$ belong to
+their instances, and nothing here shows that attention-induced loss of convexity yields symmetry breaking in networks of
+hundreds of agents with $\GL(K)$ links, or how strong head coupling is at scale; those consequences are conjectural until
+proved there.
+
+\section{Open ends}
+\label{comp:ch06-open}
+
+Edge creation and deletion (\MT{open:obs-edge-creation}): the graph is the prior's support and the replicator flow
+preserves supports. The problem fixes a threshold rule (delete a copy whose recognition weight falls below a threshold,
+create one whose averaged comparison energy falls below a threshold, renormalize) and asks for a normalized joint with the
+edge set as a structural coordinate under which the rule's master equation does not increase the collective free energy, or
+a proof that no joint of that class works for any such rule. In plain terms: is there a free energy that edge kinetics
+descend?
+
+Label-level multi-head attention (\MT{open:obs-multihead-attention}): heads sharing a receiver state have coupled pointers,
+the event law has no head index, and under exact coarse-graining the rows a parent must read through one coordinate multiply
+with depth unless a head-merging channel, with its own conditional relative entropy, is declared. The problem asks for an
+exact recursion with bounded head count in the coupled class, or a block whose posterior mean no comparison-record model with
+fewer heads than rows reproduces.
+
+Formation with evolving interfaces (\MT{open:obs-selective-formation}): for Gaussian agents whose query and key maps are
+fixed-rank interfaces learned slowly at mobility $\epsilon_{\mathrm M}$, with noisy mean dynamics at temperature $\mathrm T$
+and pointers redrawn from posterior rows, does a finite-dimensional Markov parent reproduce the path law of the communicated
+coordinates with vanishing path relative entropy on horizons of order $1/\epsilon_{\mathrm M}$, uniformly in small
+$\mathrm T$? Known are the full-dimension alternative and the pointwise descent criterion for a supplied interface path.
+
+The law-point prior (\MT{open:prob-law-point-prior}) belongs to the probability chapter but bears on this one: without it,
+divergences between beliefs are separately declared potentials rather than evidence-bound terms. Even with it, a softmax
+computed at fixed law points is a generative posterior quantity or a function of parameters, not a recognition optimum,
+because point-mass recognition of a non-atomic law point has infinite cost (\MT{prop:prob-law-point-point-mass}).
+
+\begin{verdictbox}{\DELIVERED}
+The technical chapter says that attention enters the joint as a latent source label whose generative posterior is the
+softmax row, that the optimal constant recognition row is a different softmax at an exact cost, that communication is a
+normalized encoder--channel--decoder kernel, and that the exact receiver update of a comparison record fixes the value map
+by the query and key maps; it declines to claim that transformer attention as a whole, per-head rows, or channel capacity is
+derived. The proved statements deliver exactly this. The substance is standard: the softmax is Bayes' formula for a declared
+pointer, the receiver update is Gaussian conditioning with a Kalman gain, the row flow is the replicator equation. Specific
+to the theory are where the independent link enters (the key map, through its twist), the separation of communication maps
+from links and of loop products from holonomy, and the finding that exact inference ties the value map to the query and key
+maps, shrinks the residual by precision, and weights by predictive likelihood. One table standing is generous: the
+``derived'' value-and-residual row derives a tied substitute, not the transformer's free value and output maps. The chapter
+does not select or learn the query, key, or communication maps, and gives no label-level multi-head model, no edge kinetics,
+and no formation with moving interfaces; the softmax over current beliefs is a posterior at fixed law points rather than a
+recognition optimum, and the law-point prior that would make belief divergences evidence-bound terms is open.
+\end{verdictbox}

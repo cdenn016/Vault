@@ -1,0 +1,950 @@
+\chapter{Exact Agent-Network Coarse-Graining}
+\label{comp:ch11}
+
+\section{The question and the answer}
+\label{comp:ch11-question}
+
+The technical chapter (\MT{ch:agent-network-rg}) applies one coarse channel, a Markov kernel from
+fine to coarse configurations (\MT{def:cg-coarse-channel}), to the interacting agent network at the
+base point $c_*$ and asks what the step does to the network's energy function and couplings, and
+what must be carried along so that nothing is lost. The coarse effective action is minus the
+logarithm of a conditional partition function: the fine Boltzmann weight averaged over the fine
+configurations compatible with each coarse configuration (\MT{thm:rg-effective-action}). Written in
+interaction coordinates, one component for every set of coupled agents, the step is an exact
+nonlinear map from fine couplings to coarse couplings, and the derivative of any composite of such
+steps along an exact trajectory has norm at most $3^{\lvert V_n\rvert}-1$, a constant fixed by the number of target agents and
+independent of the number of steps (\MT{prop:rg-interaction-native-growth-bound}). What must be
+kept is collected in a table (\MT{tab:rg-retained-state}): induced multi-agent couplings, the joint
+law of fine and coarse variables, the joint law of attention events rather than attention rows, the
+gauge marks of each block, and the path law with its memory.
+
+Has this resolved the renormalization of the agent network at one base point? Not in the sense a
+physicist gives the word, and the chapter does not say that it has. Exact and proved are the
+effective action as minus the log density of the pushed evidence measure relative to the pushed
+reference, for every channel; the
+exact step on couplings, together with an identity for the residual of any declared truncation; the
+finite-step multipliers (the linearized exact flow) and their depth-independent bound; and the
+coarse path law with an exact memory recurrence, filter, and finite-memory cost. Absent are four
+things a physicist would expect. There is no closed truncation: apart from sectors produced by
+independence, symmetry, or couplings already carried by the coarse variables, no proper subspace of
+couplings is shown to be mapped into itself, and no truncation residual is estimated
+(\MT{open:rg-invariant-retained-subspace}). There is no flow on one fixed set of couplings: across a
+step that reduces the number of configurations the coupling spaces have different dimensions and
+admit no identification (\MT{prop:rg-interaction-finite-network-obstruction}), and the main
+manuscript constructs no rescaling, fixed point, or beta function (\MT{sec:intro-conventions}).
+There is no thermodynamic limit: every statement concerns a finite network, and infinite networks
+are deferred to Supplement B, where the limit questions are open (\SB{open:rg-two-index-limits}).
+And there is no parent dynamics: the parent exists at every instant as an exact pushforward
+(\MT{thm:rg-pointwise-parent-datum}), but whether its evolution closes on itself is
+\MT{open:rg-pointwise-parent-dynamics}, the defining open problem of the current phase.
+
+The chapter uses the exact coarse free energy of \cref{comp:ch09} (\MT{thm:rg-exact-coarse-vfe}) and
+the root and holonomy marks of \cref{comp:ch10}, and it feeds \cref{comp:ch12} and the formation
+witnesses of \cref{comp:ch13}, whose parents are exact marked parents in the present sense.
+
+\section{The picture}
+\label{comp:ch11-picture}
+
+Take $N$ agents at $c_*$ with states $y_i$ (belief samples, model presentations, labels) and a joint
+law equal to a reference probability times a record likelihood. Read the reference $\varrho$ as the a
+priori measure, $L_o=e^{-H_o}$ as a Boltzmann weight at unit temperature, $\mathsf m_o=e^{-H_o}\varrho$
+as the Gibbs weight, and its mass $M_o$ as the partition function; in Bayesian terms $M_o$ is the
+evidence and the normalized $\bar{\mathsf m}_o$ the posterior. A Kadanoff block map is a
+deterministic channel sending each block to one block variable; a noisy block map is a stochastic
+channel; both are admitted, and random or soft blocks enter through the structural channel of
+\cref{comp:ch12}. The exact coarse theory is the pushforward of every law. The chapter says what
+that pushforward looks like as an effective Hamiltonian with couplings, and what a reduced
+description cannot discard.
+
+\begin{analogy}{exact}
+The conditional-partition formula is the position-space renormalization formula with a weight
+function, in the block-spin tradition of \citet{kadanoff1966scaling} reviewed by
+\citet{wilson1974renormalization}: $e^{-H'(s')}=\sum_sP(s'\given s)e^{-H(s)}$ up to normalization.
+The a priori measure is explicit, so fiber-size (entropy) terms such as those of a majority rule are
+carried by the pushed reference. Lengths and fields are not rescaled and nothing is truncated; the
+identification is exact at the level of the formula and brings no fixed-point theory with it.
+\end{analogy}
+
+\begin{analogy}{exact}
+The two-agent example of \MT{rem:rg-two-agent-example} is decimation: summing over spin $2$ of a
+pair with fields $\xi_1,\xi_2$ and coupling $\xi_{12}$ gives the coarse field
+$\xi_1'=\xi_1+\operatorname{artanh}(\tanh\xi_2\tanh\xi_{12})$, so the pair coupling survives only as a
+field and only through the polarization $\tanh\xi_2$ of the eliminated spin. With three neighbors the
+same mechanism produces a three-spin coupling (\MT{prop:rg-hyperedge-generation}), as decimation of
+the two-dimensional Ising model produces four-spin couplings. This is why exact coarse-graining
+leaves the pairwise world.
+\end{analogy}
+
+\section{Objects and notation}
+\label{comp:ch11-notation}
+
+\begin{decoder}
+depth $\ell$, $V_\ell$ & Coarse-graining level and its finite agent set & Blocking step; not time\\
+$C_\ell$, $C$ & Coarse channel & Block-spin weight function $P(s'\given s)$\\
+$\varrho$, $\mathsf m_o$, $M_o$ & Reference probability; evidence measure $e^{-H_o}\varrho$; its mass
+& A priori measure; Gibbs weight; partition function\\
+$H_o$, $H^c_o$ & Action (minus log density relative to the reference); coarse action & Hamiltonian
+at unit temperature; block Hamiltonian\\
+$C^\dagger$, $\mathsf U$ & Reverse (Bayes) kernel of fine given coarse; its conditional expectation &
+Conditional Gibbs measure at fixed block spins\\
+$\mathcal A(\psi)$, $\mathsf U^\psi$ & Exact change of the coarse action under a bounded change $\psi$
+of the fine action; tilted reverse expectation & Change of the effective Hamiltonian; perturbed
+conditional ensemble\\
+$\lVert\cdot\rVert_{\mathrm{osc}}$, $\delta$ & Half the range of a function; largest total-variation
+distance between reverse conditionals & Sup norm of an energy modulo constants; Dobrushin
+coefficient\\
+$\nu_\ell$, $\mathsf P_{\ell,B}$ & Product reference law; projector onto the pure $B$-body part &
+Noninteracting a priori measure; projection onto $k$-body terms\\
+$\mathcal G_\ell$, $\mathsf g=(\mathsf g_B)$ & One bounded component per nonempty set of agents,
+normed by $\sum_B\lVert\mathsf g_B\rVert_\infty$ & All $k$-body couplings of a finite system\\
+$\operatorname{asm}$, $\operatorname{hd}$ & Couplings to action; action to couplings & Writing and
+reading off a Hamiltonian\\
+$\mathcal T_\ell$ & Exact interaction step & Exact coupling recursion, untruncated, unrescaled\\
+$D_\ell$, $D_{n\leftarrow\ell}$ & Derivative of one step on an exact orbit; ordered product &
+Linearized RG matrix along a trajectory\\
+$\mathsf P^{\mathrm{ret}}_\ell$, $r^{\mathcal G}$ & Declared retained projection; its residual &
+Truncation of coupling space; truncation error\\
+hyperedge & Component on three or more agents & Multi-spin coupling\\
+posterior bridge, bridge kernels & Joint posterior law of fine and coarse variables; its pair
+conditionals & Joint law of spins and block spins\\
+$\eta$, $\alpha$, $\beta$ & Event law over edge copies; receiver occupancy; attention row & Who
+attends to whom; its receiver marginal; the conditional\\
+$D^{(k)}_N$, $\mathrm h^{\mathrm{ex}}_k$ & Cost of a memory-$k$ path law; excess conditional entropy
+& Truncation cost of a $k$-th order Markov model; excess entropy\\
+\end{decoder}
+
+Some glyphs mislead. $M_o$ is an evidence, not a magnetization, and $\mathcal G_\ell$ is a coupling
+space, not a group. Three objects share a $D$: the multipliers $D_\ell$, the edge divergences $D_e$,
+and the memory defects $D^{(k)}_N$. $H$ is an action early in the chapter and an entropy in the memory
+theorems. The dagger in $C^\dagger$ is Bayes reversal (the $L^2$ adjoint of the lift), not complex
+conjugation. Here $z$ is the coarse sample of one arrow, whereas in \cref{comp:ch12} $Z_\ell$ is the
+coordinate block at depth $\ell$. ``Exact'' means without approximation, not solvable in closed form;
+``closure'' means that the kept state suffices for the next exact step; a ``multiplier'' is a
+derivative and a ``cocycle'' an ordered product of derivatives along an orbit, not a cohomology
+class. The main manuscript avoids the words relevant, fixed point, and beta function by design.
+
+\section{The formulas, explained}
+\label{comp:ch11-formulas}
+
+\subsection{The effective action is a conditional partition function}
+
+For one arrow $C:\mathsf Y\rightsquigarrow\mathsf Z$, with $C^\dagger_\varrho(z,dy)$ the law of the
+fine state given the coarse state under the reference joint law $\varrho(dy)C(y,dz)$,
+\[
+\exp[-H^c_o(z)]=\int\exp[-H_o(y)]C^\dagger_\varrho(z,dy),
+\qquad
+M_o=\int\exp[-H^c_o(z)]\varrho^c(dz),
+\qquad\varrho^c=\varrho C
+\]
+(\MT{thm:rg-effective-action}). The coarse Boltzmann weight at $z$ is the a priori average of the
+fine weight over the configurations the channel can send to $z$, and the partition function is the
+same at both scales. For the identity channel $H^c_o=H_o$; for a channel to a point the action
+becomes the number $-\log M_o$; for a deterministic block map on a finite space with uniform
+reference, $e^{-H^c_o(z)}$ is the average of $e^{-H_o}$ over the fiber of $z$, the Kadanoff block
+Hamiltonian with the entropy $\log\lvert\chi^{-1}(z)\rvert$ moved into the reference. The theorem holds for any channel between standard Borel spaces
+and is standard in substance (the density of a pushforward is a conditional expectation). It says
+nothing about the form of $H^c_o$: on a finite network it always exists but may couple every coarse
+agent to every other, while in infinite volume the analogous object can fail to exist as a
+quasilocal Hamiltonian \citep{VanEnterFernandezSokal1993}, which no finite-network statement reaches.
+
+\subsection{Perturbing the fine action: cumulants and contraction}
+
+Perturb the fine evidence measure by a bounded $\psi$. With $C^\dagger$ the reverse kernel of the
+normalized joint law,
+\[
+\mathcal A(\psi)(z)=-\log\int e^{-\psi(y)}C^\dagger(z,dy),
+\qquad
+D\mathcal A(\psi)[h]=\mathsf U^\psi h,
+\qquad
+D^2\mathcal A(\psi)[h,k]=-\operatorname{Cov}_{C^\dagger_\psi(z,\cdot)}(h,k)
+\]
+(\MT{thm:rg-bounded-action-calculus}). $\mathcal A$ is the conditional cumulant generating function of
+$\psi$, $\langle\psi\rangle_z-\tfrac12\langle\psi;\psi\rangle_z+\cdots$, the cumulant expansion of any
+integrating-out calculation. It is real analytic on all bounded perturbations, order preserving,
+passes constants through, and never expands the sup norm
+(\MTeq{eq:rg-nonlinear-action-sup-contraction}). Its linear part $\mathsf U$ is a conditional
+expectation: it contracts every $L^p$ norm, its $L^2$ loss is the expected conditional variance, and
+it contracts oscillation by the Dobrushin coefficient $\delta$ of the reverse kernel
+\citep{Dobrushin1956} (\MT{thm:rg-action-lp-contraction}). For Kadanoff blocks the last bound is
+empty: under a deterministic block map with a nondegenerate coarse law the reverse conditionals at
+distinct coarse states live on disjoint fibers, so $\delta=1$ and the bound says only that nothing
+expands; strict contraction needs a noisy channel. Every norm here is a norm of the whole action. A
+uniform perturbation of size $h$ per agent has sup norm of order $Nh$, so these statements control
+the total action, not couplings per agent.
+
+\subsection{Interaction coordinates}
+
+Under a product reference $\nu_\ell=\bigotimes_i\nu_{\ell i}$ equivalent to the normalized law
+(\MT{def:rg-network-scale}), let $\E_{\ell,B}$ average out the agents outside $B$. The Hoeffding
+projectors and the assembly of an action from couplings are
+\[
+\mathsf P_{\ell,B}=\sum_{B'\subseteq B}(-1)^{\lvert B\rvert-\lvert B'\rvert}\E_{\ell,B'},
+\qquad
+\psi_{\mathsf g}=\sum_{\varnothing\ne B\subseteq V_\ell}\mathsf g_B
+\]
+(\MT{def:rg-hoeffding-coordinates}). $\mathsf P_{\ell,B}f$ is the part of $f$ that depends on all of
+$y_B$ jointly and has zero average in each single agent of $B$: the cluster, or ANOVA, expansion of the
+Hamiltonian into $k$-body terms. For $\pm1$ spins with uniform reference the $B$-component is
+$J_B\prod_{i\in B}y_i$. Gibbs-measure theory also uses the vacuum normalization relative to a reference
+configuration \citep{Georgii1988}; the chapter has it too (\MTeq{eq:rg-mobius-potentials}) but uses only
+the Hoeffding components in the step. \MT{thm:rg-hoeffding-action-isomorphism} proves that couplings
+and actions modulo constants are isomorphic, with $\lVert\operatorname{asm}_\ell\rVert\le1$ and
+$\lVert\operatorname{hd}_\ell\rVert\le3^{\lvert V_\ell\rvert}-1$, sharp: for independent biased $\pm1$
+coordinates the product $\prod_iY_i$, of oscillation one, has components whose norms sum to nearly
+$3^n-1$. The size of an action and the total size of its couplings are equivalent only up to a factor
+exponential in the number of agents. The decomposition is gauge covariant when the frame change acts
+agent by agent (\MT{cor:rg-hoeffding-gauge-covariance}), which is the case for the program's vertex
+gauge; preserving the product reference alone is not enough.
+
+Two premises limit the scope, and both matter for the program. The bounded tier
+(\MT{rem:rg-bounded-tier-scope}) admits finite and categorical agents and continuous couplings of
+compact group-valued states, so $\mathrm{SU}(N)$-valued states are inside; it excludes every polynomial
+coupling on $\R^K$, since $y_i^\top\mathsf Ny_j$ is unbounded. The Gaussian realization with $\GL(K,\R)$
+or $\GL(K,\mathbb C)$ links is therefore outside this machinery; its exact marginalization (Kron
+reduction, a Schur complement) is in \SG{ch:gaussian-coarsegraining}. And product equivalence at both
+depths, automatic for strictly positive laws on finite products, is not preserved by every channel: a
+channel cloning one binary agent into two yields a diagonal law that no product law matches
+(\MT{prop:rg-product-equivalence-not-preserved}).
+
+\subsection{The exact step and the native growth bound}
+
+The exact interaction step is
+$\mathcal T_\ell=\operatorname{hd}_{\ell+1}\overline{\mathcal A}_\ell\operatorname{asm}_\ell$
+(\MT{def:rg-interaction-step}): assemble the couplings into an action, integrate out exactly modulo
+constants, read off the coarse couplings. The couplings perturb a base law whose own image is carried
+separately, so $\mathcal T_\ell(0)=0$ for every model and channel (\MT{lem:rg-interaction-step}). Along an exact orbit the multipliers are
+$D_\ell=\operatorname{hd}_{\ell+1}\overline{\mathsf U^{\psi_{\mathsf g_\ell}}_\ell}\operatorname{asm}_\ell$,
+every interior pair $\operatorname{asm}_k\operatorname{hd}_k$ cancels, and
+\[
+D_{n\leftarrow\ell}
+=\operatorname{hd}_n\overline{\mathsf U_{n-1}^{\psi_{\mathsf g_{n-1}}}}\cdots
+\overline{\mathsf U_\ell^{\psi_{\mathsf g_\ell}}}\operatorname{asm}_\ell,
+\qquad
+\lVert D_{n\leftarrow\ell}\rVert_{\mathcal G_\ell\to\mathcal G_n}\le3^{\lvert V_n\rvert}-1
+\]
+(\MT{prop:rg-interaction-native-growth-bound}). Every tilted conditional expectation has oscillation
+norm at most one, assembly has norm at most one, and only the final extraction can exceed one.
+
+What is bounded is the operator norm of the linearized composite step from all depth-$\ell$ couplings
+to all depth-$n$ couplings, each measured by the sum of the sup norms of its components: a
+perturbation of total size one in the fine couplings changes the total size of the depth-$n$ couplings
+by at most $3^{\lvert V_n\rvert}-1$ to first order, however many steps intervene and however large the
+fine network was. It is not a bound per coupling or per agent. As a number it is useful only near the
+top of a blocking: with pair blocks $512$ agents admit nine steps, and the constant is $2$, $8$, $80$,
+and $6560$ for targets of one, two, four, and eight blocks, but about $10^{122}$ for the first step's
+target of $256$ agents. The real content is independent of $N$: in the action norm the linearized
+exact flow is a product of contractions, and all apparent amplification is one change of norm at the
+target. Supplement B turns this into the statement that the exact step has no relevant direction under
+tempered comparisons (\SB{cor:rg-interaction-no-relevant-mode}); relevance requires an extensive
+normalization declared from outside.
+
+\begin{analogy}{structural}
+In Wilson's renormalization a uniform field $h\sum_is_i$ is relevant because the per-site field grows
+as $b^{y_h}h$ under blocking by $b$ in $d$ dimensions, while the whole-action size $hN$ becomes
+$b^{y_h-d}hN$, which does not grow since $y_h\le d$. Relevance is a statement about couplings per
+site. The native bound is the exact finite-network form of the other half: with no rescaling and no
+per-site normalization, nothing grows.
+\end{analogy}
+
+\subsection{Residuals, invariant sectors, and the finite-network obstruction}
+
+A declared truncation is a gauge-intertwining idempotent $\mathsf P^{\mathrm{ret}}$ on couplings, for
+example onto single-agent and pair components (\MT{def:rg-retained-projection}), with residual
+$r^{\mathcal G}_{\ell+1}=(I-\mathsf P^{\mathrm{ret}}_{\ell+1})\mathcal T_\ell(\mathsf g_\ell)$.
+\MT{prop:rg-interaction-residual} proves that the coupling and action residuals vanish together, agree
+in norm up to $3^{\lvert V_{\ell+1}\rvert}-1$, and vanish on the retained range exactly when that range
+is mapped into its successor. It is an identity, not an estimate. The proved invariant pairs are
+generated by structure, not dynamics (\MT{prop:rg-interaction-intra-block-invariance},
+\MT{rem:rg-trivial-invariant-pairs}): independent blocks under a block-product channel generate no
+inter-block couplings; a finite symmetry preserves its fixed sector, such as the even sector under a
+global spin flip; and couplings already carried by the coarse variables of a deterministic channel
+pass through unchanged. Anything beyond is \MT{open:rg-invariant-retained-subspace}.
+
+For finite agent spaces the coupling space has dimension $\prod_i\lvert\operatorname{supp}\nu_{\ell
+i}\rvert-1$, so $2^N-1$ for $N$ binary agents (\MT{prop:rg-interaction-finite-network-obstruction}). A
+step that reduces the number of configurations reduces the dimension (six binary agents in three binary
+blocks go from $63$ to $7$), so no identification of the two coupling spaces exists and no single space
+carries a flow; if every step divides the vertex count by at least $b>1$, the depth is at most
+$\log_b\lvert V_\ell\rvert$. This is not a small-network artifact. It holds at $N=512$ and at
+$N=6\times10^{23}$ alike: a finite system can be blocked only logarithmically often, and its coupling
+space shrinks with each blocking. Physics removes the obstruction by passing to infinite volume and
+identifying couplings of the same shape across scales by translation invariance; neither ingredient is
+in the main manuscript, and Supplement B records that finite networks do not carry the asymptotic
+classification (\SB{prop:rg-finite-depth-no-asymptotics}). The dimension count needs finite agent
+spaces; termination holds for all.
+
+\subsection{Hyperedges and bridge kernels}
+
+Marginalizing a variable multiplies the factors that touch it and leaves one factor on the union of its
+neighbors, so iterated elimination produces factors on elimination cliques
+(\MT{prop:rg-hyperedge-generation}); this is variable elimination with fill-in. Eliminating the center
+$y_0$ of a star of three $\pm1$ neighbors, with field $\xi_0$ and couplings $\xi_r$, leaves a
+coefficient $2\operatorname{sech}^2(\xi_0)\tanh(\xi_0)\xi_1\xi_2\xi_3+O(\xi^5)$ on $y_1y_2y_3$: nonzero
+for small nonzero couplings when the eliminated spin carries a field, and identically zero at
+$\xi_0=0$, where spin-flip symmetry kills odd terms. Pairwise closure fails in general; ``generic'' is
+shown within the star family, not over all networks, although the mechanism is that of decimation.
+
+The posterior bridge is the joint posterior law of fine and coarse variables, and the bridge kernels
+are its pair conditionals between a fine agent and a meta-agent, Bayes adjoints of each other
+(\MT{def:rg-posterior-bridge}, \MT{prop:rg-bridge-kernels}). The meta-to-agent kernel does not
+reconstruct the fine posterior: when the likelihood couples blocks, a fine agent's conditional law
+depends on neighboring block variables too, just as the configuration inside a block is not fixed by
+its own block spin. For a deterministic block map, lifting and conditioning returns a coarse observable
+unchanged; for a randomized channel it does not.
+
+\subsection{Meta-attention}
+
+An attention row is the conditional law of a source given a receiver, and a conditional law cannot be
+coarse-grained without the law of what it conditions on, as lumping a transition matrix needs
+occupation weights. The recursive state is the joint event law $\eta$ over oriented edge copies:
+\[
+\eta^c_{IJ}(z)=\E_{\mathbb B_o}\Bigl[\sum_{e:j\to i,\ i\in I,\ j\in J}\eta_e(Y)\Bigm|Z=z\Bigr],
+\qquad
+\alpha^c_I=\sum_J\eta^c_{IJ},
+\qquad
+\beta^c_{IJ}=\eta^c_{IJ}/\alpha^c_I
+\]
+(\MT{prop:rg-meta-attention-pushforward}). The next depth pushes $\eta^c$, not $\beta^c$, and events
+inside a block become meta-self events, so a meta-agent attends to itself whenever its members attend
+to each other.
+
+Where the receiver weights come from is a modeling choice with consequences. In the single-edge model
+(\MT{hyp:rg-single-edge-attention}) each record carries one joint receiver--source label, and the
+receiver law within a block is evidence weighted,
+$\alpha_i'\propto a_{i\mid I}\widetilde{\mathrm c}_i\mathcal Z_i$, where
+$\mathcal Z_i=\sum_j\pi_{ij}e^{-D_{ij}/\tau_i}$ is the partition function of receiver $i$'s row and
+$\widetilde{\mathrm c}_i$ the likelihood ratio of its record under the event; the block row is the
+$\alpha'$-weighted average of member rows (\MT{prop:rg-attention-single-edge-weights}). In the
+per-receiver model of \cref{comp:ch06}, every receiver has its own label, and a block row needs a
+structural selector that draws one receiver with fixed weights independently of everything; its
+posterior equals its prior, and the block row collapses to the prior-weighted average
+(\MT{prop:rg-attention-per-receiver-collapse}). The two agree when $\widetilde{\mathrm c}_i\mathcal Z_i$
+is constant on the block and otherwise differ ($3/4$ against $1/2$ in the chapter's two-receiver
+example); the collapse is the loss of evidence weighting. Keeping all receivers' labels is exact, and
+collapsing them to one row is a further channel whose cost enters \MTeq{eq:rg-vfe-chain-rule}.
+
+\begin{analogy}{exact}
+Grouping the sources of one row gives the Gibbs row of the coarse prior $\pi^c_J=\sum_{j\in J}\pi_j$ and
+coarse energy $D^c_J=-\tau\log[(\pi^c_J)^{-1}\sum_{j\in J}\pi_je^{-D_j/\tau}]$
+(\MT{rem:rg-attention-log-sum-exp}): the free energy of a macrostate whose microstates have
+degeneracies $\pi_j$. In the single-edge model, receivers are merged with weights proportional to their
+own partition functions, as subsystems are when their ensembles are merged.
+\end{analogy}
+
+The event-weighted mean of transported link representations between blocks maps the root frame of $J$
+to that of $I$ covariantly, but it need not lie in the group (the mean of rotations by $\pm\pi/2$ is
+zero) or be invertible, and it is only a first moment of the joint law of marks and features that
+exact closure keeps (\MT{prop:rg-attention-hom-moment}). It is the blocked link of lattice gauge
+theory, which leaves the group and is usually projected back; here nothing is projected.
+
+\subsection{Path laws and memory}
+
+Applying the channel at every time of a path is again a coarse channel, so the free-energy chain rule
+holds for path laws; the ordering index is an inference index, not physical time
+(\MT{sec:rg-path-space}). The coarse path law is exact but generally not Markov.
+\MT{thm:rg-strong-lumpability} is the exact condition of \citet[Thm.~6.3.2]{KemenySnell1976}, on
+standard Borel spaces, for Markov coarse dynamics from every initial law: equal jump probabilities into
+each coarse set from all fine states with the same coarse value. \MT{rem:rg-lumpability-witnesses}
+shows a chain whose coarse process is Markov from one start without lumpability, and a deterministic
+three-cycle with labels $(0,0,1)$ whose stationary coarse process has memory. For a linear recursion
+$\xi_{n+1}=\mathsf T\xi_n$ with resolved coordinate $w_n=\mathsf C\xi_n$, lift $\mathsf J$
+($\mathsf C\mathsf J=I$), and $\mathsf Q=I-\mathsf J\mathsf C$,
+\[
+w_{n+1}=\mathsf C\mathsf T\mathsf Jw_n
++\sum_{k=0}^{n-1}\mathsf C\mathsf T\mathsf Q(\mathsf Q\mathsf T\mathsf Q)^{n-1-k}\mathsf Q\mathsf T\mathsf Jw_k
++\mathsf C\mathsf T\mathsf Q(\mathsf Q\mathsf T\mathsf Q)^n\mathsf Q\xi_0
+\]
+exactly (\MT{thm:rg-projection-memory}): a Markovian term, memory kernels, and the unresolved initial
+state. This is the discrete, linear form of the projection-operator method of \citet{Nakajima1958} and
+\citet{Zwanzig1960}, the last term playing the role of the noise.
+
+For a hidden finite chain observed through labels, the exact filter is the forward algorithm, and its
+terminal posterior determines every prediction but may take infinitely many values
+(\MT{thm:rg-memory-filter}), so a finite-state Markov parent does not follow even in principle. The
+memory-$k$ approximation whose rows are the true conditionals given the last $k$ symbols is the unique
+forward-KL optimum, with cost
+\[
+D^{(k)}_N=\KL\bigl(\mathbb P^{\mathrm{path}}_N\Vert\widehat{\mathbb P}^{(k)}_N\bigr)
+=\sum_{t=0}^{N-1}I\bigl(Z_t;Z_{0:t-k-1}\given Z_{\max(0,t-k):t-1}\bigr)
+\]
+(\MT{thm:rg-memory-projection}): what the discarded past still says about the present given the kept
+past. The reverse divergence is not controlled (the memory-one projection of the three-cycle gives the
+impossible word $000$ probability $1/6$), and using the projection as a prior changes a recognition
+law's free energy by an unsigned amount. For a stationary start,
+\MT{thm:rg-memory-duration} gives $D^{(k)}_N/N\to\mathrm h^{\mathrm{ex}}_k$ with
+$\sum_j\mathrm h^{\mathrm{ex}}_j\le H(Y_0)$ and $\mathrm h^{\mathrm{ex}}_k\le H(Y_0)/(k+1)$, where $N$ is
+now the path length: the excess entropy \citep{CrutchfieldFeldman2003} is bounded by the entropy of the
+hidden state. For the program this budget is extensive, up to $512\log2\approx355$ nats for $512$
+binary agents, and the theorem is stated for finite hidden spaces only. The prepared parent of
+\cref{comp:ch08} is Markov when the fine state inside each parent is refreshed to its exact conditional
+law at every step (\MT{thm:rg-memory-prepared-parent}), which is adiabatic elimination by hypothesis
+(\MT{hyp:rg-memory-instantaneous-refresh}); with partial refresh the parent history has memory
+(\MT{rem:rg-memory-partial-refresh}), whose first-order cost is $D^{(1)}_N$.
+
+\subsection{The retained-state table and what ``exact'' means}
+
+\MT{tab:rg-retained-state} lists each retained object with its exact operation, the statement that
+derives it, and its admission hypotheses, and the chapter says it is a catalog, not a completeness
+theorem. Its first row keeps the complete normalized generative, posterior, and recognition laws, and
+its last the path law with its memory. Closure is therefore achieved by keeping everything; the other rows
+name parts of those objects that a smaller description must not discard, several with witnesses that
+they cannot be dropped in general (hyperedges, receiver laws, memory, the marked kernel rather than its
+mean, and in \cref{comp:ch12} the graph datum). ``Exact'' means exact as $\sum_ye^{-H(y)}$ is exact, a
+lossless change of description, not exact as one-dimensional Ising decimation is, a finite set of
+couplings with a closed recursion; no reduced retained set is shown to close. Blocks and channel are
+inputs, and must be: at the uniform law on seven outcomes, no rule that sees only the law and its
+Fisher metric and treats all outcomes alike can select three two-dimensional blocks
+(\MT{prop:hist-law-fisher-agentization-nogo}).
+
+\section{What is proved, and how solid it is}
+\label{comp:ch11-scorecard}
+
+\begin{scorecard}
+\MT{thm:rg-effective-action} & Coarse action is minus the log of a conditional partition function;
+evidence preserved & \SOLID & Any channel; standard in substance\\
+\MT{thm:rg-bounded-action-calculus}, \MT{thm:rg-action-lp-contraction} & Analytic, nonexpansive action
+increment; cumulant derivatives; $L^p$ and Dobrushin contraction & \SOLID & Whole-action norms;
+$\delta=1$ for deterministic block maps\\
+\MT{thm:rg-hoeffding-action-isomorphism}, \MT{cor:rg-hoeffding-gauge-covariance} & Couplings and
+actions isomorphic; extraction constant $3^{\lvert V\rvert}-1$, sharp; gauge covariant & \SOLID & ANOVA
+standard; sharp constant specific\\
+\MT{rem:rg-bounded-tier-scope}, \MT{prop:rg-product-equivalence-not-preserved} & Polynomial couplings on
+$\R^K$ excluded; product equivalence can fail & \SOLID & Negative; Gaussian $\GL(K)$ couplings are out
+of scope\\
+\MT{lem:rg-interaction-step}, \MT{prop:rg-interaction-rn-gauge-covariance} & Exact step fixes the origin,
+has the tilted derivative, is gauge covariant & \SOLID & Bounded tier; covariance of a.e.\ classes\\
+\MT{prop:rg-interaction-native-growth-bound} & Multipliers telescope; norm at most
+$3^{\lvert V_n\rvert}-1$ at every depth & \SOLID & Bounded tier; vacuous as a number for large targets\\
+\MT{prop:rg-interaction-finite-network-obstruction} & No identification of coupling spaces across a
+reducing step; blocking terminates & \SOLID & Negative; every finite network, not only small ones\\
+\MT{prop:rg-interaction-residual}, \MT{rem:rg-trivial-invariant-pairs} & Residual identity; independence,
+symmetry, and pullback sectors are invariant & \SOLID & No residual estimate; trivial pairs only\\
+\MT{rem:rg-two-agent-example} & Decimating one binary agent & \TOY & Two agents; textbook mechanism\\
+\MT{prop:rg-hyperedge-generation} & Pairwise closure fails (star), not universally (parity) & \SOLID &
+Negative by counterexample; ``generic'' within the star family\\
+\MT{prop:rg-bridge-kernels} & Bridge kernels adjoint; no reconstruction of the fine posterior & \SOLID &
+Standard in substance\\
+\MT{prop:rg-meta-attention-pushforward}, \MT{prop:rg-attention-per-receiver-collapse} & Push event laws;
+evidence-weighted versus prior-weighted receivers & \SOLID & Inside two declared label models\\
+\MT{thm:rg-strong-lumpability}, \MT{thm:rg-projection-memory}, \MT{thm:rg-memory-filter} & Lumpability;
+discrete Nakajima--Zwanzig; exact filter & \SOLID & Standard in substance\\
+\MT{thm:rg-memory-projection}, \MT{thm:rg-memory-duration} & Memory-$k$ cost; excess entropy at most
+hidden entropy & \SOLID & Finite spaces; stationary start; budget extensive in $N$\\
+\MT{tab:rg-retained-state}, read as closure & Exact closure keeps the listed objects & \VAGUE & Rows
+proved or declared; sufficiency trivial; no minimality claim\\
+\MT{prop:hist-law-fisher-agentization-nogo} & Law and Fisher metric cannot select blocks & \SOLID &
+Negative\\
+\MT{def:rg-network-scale}, \MT{def:rg-retained-projection} & Channel, blocks, reference, retained
+projection are inputs & \CHOICE & Declared, not selected\\
+\MT{open:rg-invariant-retained-subspace}, \MT{open:rg-pointwise-parent-dynamics} & Closed truncation;
+closed parent dynamics & \OPEN & See \cref{comp:ch11-open}\\
+\end{scorecard}
+
+The only toy positive is the two-agent decimation; the other small instances are counterexamples, hence
+solid negative results. The mechanisms they display (fielded eliminated agents generate multi-agent
+couplings, hidden coordinates produce memory, evidence weighting differs from prior weighting)
+plausibly survive at large $N$ but are proved only where stated. The general results hold at every
+finite $N$; their only $N$-dependence is in $3^{\lvert V_n\rvert}-1$ and $H(Y_0)$, the quantities a
+large-$N$ theory would have to replace with intensive ones.
+
+\begin{hygiene}
+The conditions that can fail in the program's models are these. The bounded tier admits finite,
+categorical, and compact group-valued states ($\mathrm{SU}(N)$ included) and excludes the quadratic
+couplings of $\R^K$-valued agents, so the coupling results say nothing about the Gaussian $\GL(K,\R)$ or
+$\GL(K,\mathbb C)$ realization. Product equivalence at both depths fails for channels that impose hard
+constraints among coarse agents. The channel and blocks are declared and must not read the recognition
+law. Everything is finite-network, with no limit taken. The memory results need finite hidden spaces
+and, for the budget, a stationary start. The rest is hygiene (standard Borel spaces, measurable reverse
+kernels, almost-everywhere versions, integrability), with one item touching noncompact groups:
+pointwise equivariant conditional versions are settled only for finite and compact stabilizers and
+weakly continuous posteriors (\MT{open:cg-equivariant-versions}), so for $\GL(K)$ covariance holds for
+almost-everywhere classes.
+\end{hygiene}
+
+\section{Open ends}
+\label{comp:ch11-open}
+
+\MT{open:rg-invariant-retained-subspace} asks for a closed truncation. It is posed for finite agent
+spaces with full-support product references, at least two blocks, and deterministic block-product
+channels whose block maps read every member of their block (majority or block-sum maps, not
+decimation), for product base laws and for all base laws. It is settled by a proper invariant pair,
+invariant for every base law in an open set, whose range is not inside the sum of the pullback sector
+and any grouping sector, or by a proof that generically every proper invariant pair lies in such a
+sum. The exclusion of decimation sets aside the classical exactly closed recursion of the
+one-dimensional Ising chain \citep{goldenfeld1992lectures}.
+
+\MT{open:rg-pointwise-parent-dynamics} is the defining problem. The exact parent exists at every
+instant as the image of the fine law, so parents do evolve, but only as images of the fine evolution;
+the question is whether that evolution is a dynamics of its own. In a differentiable case the
+obstruction is the semiconjugacy defect
+\[
+\delta_t=\partial_t\mathsf F_t+D\mathsf F_t\mathscr V_t-\overline{\mathscr V}_t\circ\mathsf F_t
+\]
+between the fine field pushed through the moving coarse map and a candidate parent field; for Markov
+evolutions the exact condition is semigroup intertwining. Existing statements answer the unrestricted
+question both ways (lumpable kernels lump, a parent carrying the full filter reproduces every path law,
+the three-cycle admits no first-order parent), so it is posed for a class: switching diffusions at
+$c_*$ of the four-cycle type of \cref{comp:ch13} (finitely many source assignments, a quadratic energy
+on each assignment's sheet, overdamped diffusion, a rate-one clock redrawing the assignment), with a
+parent that keeps the assignment and a projection of the configuration but hides coordinates that the
+receiver rows of a non-negligible assignment read. Candidate parents are time-homogeneous Markov
+processes of the retained variables, possibly with a regular finite-dimensional filter
+(\MT{def:rg-regular-finite-filter}), started from the exact image. It asks whether every member admits
+such a parent whose path law agrees in total variation as the regime parameter $\epsilon\to0$, on fixed
+windows up to the first expected switch and on whole histories with diverging numbers of switches; a
+member for which every such parent stays a bounded distance away settles it negatively. In physics terms: does adiabatic elimination with finitely many auxiliary variables close
+the retained dynamics when hidden coordinates drive the switching? The one positive instance is the
+four-cycle's inherited parent on one episode window (\MT{prop:rg-formation-endogenous-cycle}), a toy
+case. The limit is $\epsilon\to0$ at any finite size, not $N\to\infty$.
+
+Three gaps are not posed as open problems of the main manuscript: no truncation residual is estimated;
+the unbounded tier on $\R^K$ exists only in the Gaussian case of Supplement G; and a thermodynamic limit
+of the exact step belongs to Supplement B, where fixed-depth and diagonal limits and universality are
+open (\SB{open:rg-two-index-limits}).
+
+\begin{verdictbox}{\NARROWER}
+The chapter says it determines what one exact step does to the agent network at $c_*$ and which state
+must be kept so that the step closes, with an effective action, residual, finite-step multipliers, and
+native growth bound; the introduction calls this exact coarse-graining of the agent network. The proofs
+deliver those objects: the effective action for every channel, its analytic nonexpansive calculus, an
+exact step on couplings with an exact residual identity, a depth-independent derivative bound, exact
+memory identities and costs, and witnesses that hyperedges, receiver laws, marked kernels, and memory
+cannot be dropped in general. The delivery is narrower than the wording in four respects. Closure is
+achieved by keeping the complete laws; no smaller closed set and no truncation with a bounded error are
+proved. The coupling machinery holds only in the bounded tier, which excludes the program's Gaussian
+$\GL(K)$ couplings. Everything is finite-network, so there is no flow on fixed couplings (proved
+impossible across reducing steps) and no thermodynamic limit. And parent dynamics is open. The scope
+paragraph says most of this; ``which state must be kept so that the step closes'' is where a physicist
+will read more than is there. Much of the content is standard in substance; specific are the typing at
+$c_*$, the sharp constant and telescoping bound, the obstruction, the attention-event bookkeeping, and
+gauge covariance throughout.
+\end{verdictbox}
+
+\chapter{The Multiscale Graph VFE and Closing the Tower}
+\label{comp:ch12}
+
+\section{The question and the answer}
+\label{comp:ch12-question}
+
+The technical chapter (\MT{ch:full-graph-meta-agent-vfe}) asks how to place everything exact
+coarse-graining produces (adaptive attention event laws and links, random partitions, and the influence
+of parents on their children) into one variational free energy across depths, and how a tower of depths
+ends. Its answer is one normalized generative law and one recognition law over the whole tower, with
+free energy
+\[
+\Fenergy^{\mathrm{ext}}_{\mathrm{tower}}[\mathbb Q_\lambda;X_*,o]
+=-\log p_\theta(o\given X_*)
++\KL\bigl(\mathbb Q_\lambda(\cdot\given o,X_*)\Vert\boldsymbol\Pi_{\theta,o,X_*}\bigr)
+\]
+(\MT{def:full-graph-tower-vfe}); everything else in the chapter is exact bookkeeping of this object or
+is labeled as something else. For a tower built bottom-up by coarse-graining channels, both laws factor
+top-down automatically, each depth conditioned on the complete next-depth state (coordinates and graph
+datum) and the partition mark (\MT{lem:full-graph-adaptive-reversal}); dropping the graph datum costs a
+sum of mutual informations (\MT{prop:full-graph-dropped-datum}); and the free energy splits into
+observation, top-prior, partition, graph, and parent--child relative entropies
+(\MT{thm:full-graph-vfe-decomposition}). Partitions may be random, from a finite catalog under two
+inequivalent normalizations (\MT{prop:rg-geometry-weights}). The tower cannot close on itself: a finite
+acyclic model has a parentless latent with a declared prior (\MT{prop:obs-declared-root-unavoidable}).
+What remains of the idea that the agents constitute their own top lives at three loci (the inference
+loop, learning of the top prior, and delayed feedback across episodes), each an evaluation of fixed
+normalized joints, and delayed feedback with a declared update rule is itself the free energy of one
+lifted joint (\MT{prop:full-graph-episode-lifted-joint}). Whether descent of this free energy produces a
+persistent hierarchy is open (\MT{open:full-graph-hierarchy}).
+
+Do parents act back on their children in a proved sense? In four senses of different strength. In a
+declared top-down hierarchy the downward kernel reads the parent coordinates, so the parent enters every
+child's prior by construction, a modeling choice; parent and child optimization are then coupled
+exactly when a mixed derivative is nonzero, which the chapter proves only as a criterion in a binary
+example (a kernel odds ratio different from one), declining any family-wide claim without a proof in
+that family (\MT{prop:full-graph-downward-coupling}). In an adaptive tower the downward kernel is the
+Bayes reversal of the bottom-up coarse-graining, and the chapter declines to read it causally. Through
+the inference loop, each child's effective prior at a mean-field fixed point is formed from the parent's
+factor, itself formed from all children (\MT{rem:full-graph-inference-loop}), a standard fact. Across
+episodes, the parent inferred at one episode sets the children's prior at the next inside one declared
+joint (\MT{prop:full-graph-episode-joint}). Not proved is a parent with its own dynamics acting back over
+time: that is \MT{open:rg-pointwise-parent-dynamics} and the third result required by
+\MT{open:full-graph-hierarchy}.
+
+\section{The picture}
+\label{comp:ch12-picture}
+
+Picture depths $\ell=0,\ldots,L$: agents at depth $0$, meta-agents at depth $1$, a declared top at depth
+$L$. The state at each depth includes, besides coordinates, the graph datum: who attends to whom in both
+channels, the links on every edge copy, and the root and holonomy marks of each block. Going up, a
+structural channel takes the complete depth-$\ell$ state and produces a partition mark $R_\ell$ and the
+depth-$(\ell+1)$ state. Read downward, the same joint law is a Markov chain in decreasing depth whose
+transitions are the conditional laws of finer given coarser states. The free energy of the whole stack
+is one Gibbs variational functional, and its per-depth decomposition is the chain rule.
+
+\begin{analogy}{exact}
+Bayes reversal of an adaptive tower is time reversal of a Markov chain with depth as time: the chain
+$Y_0\to(R_0,Y_1)\to(R_1,Y_2)\to\cdots$ read backward is Markov, and its downward transition is the
+reverse block-spin kernel of \cref{comp:ch11}. No downward causation follows, as time reversal of a
+diffusion does not make the future cause the past.
+\end{analogy}
+
+\begin{analogy}{exact}
+The two normalizations of a partition catalog are the two ways to combine Gibbs measures on several
+sectors: a mixture of separately normalized measures with weights fixed by hand (hierarchical), or one
+Gibbs measure on the disjoint union, in which each sector weighs its a priori weight times its partition
+function, $\mathsf a_\gamma e^{-F_\gamma}$ (global). The first fixes the probabilities of the phases; the
+second lets their free energies take part.
+\end{analogy}
+
+\begin{analogy}{exact}
+The coarse links of \MT{def:full-graph-coarse-links} are maximal-tree gauge fixing inside each block
+\citep{Creutz1977}: tree links go to the identity, the remaining internal links carry the block's Wilson
+loops as self-loops of the coarse vertex, and boundary links connect block roots. Unlike smearing of
+gauge links, nothing is averaged or projected, and every parallel copy is kept.
+\end{analogy}
+
+\section{Objects and notation}
+\label{comp:ch12-notation}
+
+\begin{decoder}
+$Z_\ell$ & Full coordinates at depth $\ell$ (beliefs and models) & Block variables\\
+$\mathfrak N_\ell=(\eta_\ell,\Theta^{b,\ell},\Theta^{m,\ell},\mathfrak h_\ell)$ & Graph datum: event laws,
+links, root and holonomy marks & Coarse lattice with gauge field and bond occupations\\
+$Y_\ell=(Z_\ell,\mathfrak N_\ell)$, $\mathbf Y$ & Complete state at depth $\ell$; all depths together &
+Block configuration; multiscale configuration\\
+$R_\ell$, $\gamma$ & Structural mark (realized partition or membership pattern) & Random blocking
+pattern\\
+$C^{\mathrm{struct}}_{\ell+1\leftarrow\ell}$ & One kernel from $Y_\ell$ to $(R_\ell,Y_{\ell+1})$ applied to
+all three laws & Configuration-dependent block transformation\\
+adaptive tower & Tower generated bottom-up by structural channels & Iterated blocking\\
+$K^\ell_\downarrow$ & Law of depth-$\ell$ coordinates given the next depth & Prolongation; reverse
+block-spin kernel\\
+$\Fenergy^{\mathrm{att},x}_{i,\ell}$ & Row free energy: mean edge divergence plus $\tau$ times relative
+entropy to the prior & Helmholtz free energy of a receiver's source choice\\
+$\mathcal J_{\mathrm{comp}}$ & Energies appended without a normalizer & Lyapunov function, not a free
+energy\\
+$\mathfrak G$, $\mathsf a_\gamma$, $\mathcal Z_\gamma$ & Partition catalog; label weights; branch
+partition functions & Sectors, their weights and partition functions\\
+$\mathfrak m_\ell$, $\mathfrak M_\ell$ & Soft membership of a vertex; joint membership of an edge's
+endpoints & Fuzzy block assignment\\
+declared root, $\mathbb P_L$ & Top prior supplied by no other latent & Boundary condition at the top\\
+episode $n$, $\theta_n$, $\mathcal U_n$ & Learning episode, parameter, declared update & Sweep of a
+learning loop\\
+latent route; parameter route & One joint across episodes; separate joints linked by updates & Hidden
+Markov model over episodes; learning by updates\\
+lifted joint, $\widetilde o_n$ & One joint with parameters and record copies latent; latent record copy
+& State augmentation in filtering\\
+$\operatorname{TC}$, $\epsilon_{\mathrm e}$, $\mathrm T$ & Total correlation across episodes; aggregate
+update step; descent temperature & Multi-information; learning rate; temperature\\
+\end{decoder}
+
+Here $Y_\ell$ includes the graph datum and $Z_\ell$ is the coordinate block at depth $\ell$, unlike the
+coarse sample $z$ of \cref{comp:ch11}. A learning episode (index $n$) is not a coherence episode of
+formation (\cref{comp:ch13}). The fraktur $\mathfrak m_\ell$ is a membership kernel, unrelated to the
+evidence measure $\mathsf m_\ell$ of \cref{comp:ch11}, and $R_\ell$ is a partition mark, not a rotation.
+``Top-down'' names the direction of a generative arrow and, in an adaptive tower, carries no causal
+meaning. ``Closing the tower'' means ending it with a declared root. ``Participation'' is interpretive
+vocabulary, not a mathematical property.
+
+\section{The formulas, explained}
+\label{comp:ch12-formulas}
+
+\subsection{One free energy and the structural channel}
+
+The tower free energy is the evidence identity of \cref{comp:ch05} on a latent space that contains every
+depth; with $L=0$ it is the population free energy of one network. The commitment, and the reason it is
+a choice rather than a theorem, is that one normalized generative law covers all depths: independently
+chosen per-depth energies added together do not define a free energy, and the chapter calls such a sum a
+composite potential.
+
+At depth $\ell$ the closed scale datum holds the full coordinates and the graph datum on a finite
+multigraph, the support of the source prior at depth $0$ and the multigraph induced by coarse links
+deeper down (\MT{def:full-graph-scale-datum}). A structural step is one recognition-independent channel
+$C^{\mathrm{struct}}_{\ell+1\leftarrow\ell}:\mathsf Y_\ell\rightsquigarrow\mathsf R_\ell\times\mathsf
+Y_{\ell+1}$, applied alike to the generative marginal, the posterior, and the recognition law, whose
+laws of $R_\ell$ may therefore differ (\MT{def:full-graph-structural-channel}). Kadanoff blocks are a
+constant mark with a deterministic block-product map. Random blocks are a mark drawn by the channel,
+possibly from the fine configuration, which makes the step adaptive. What the blocking may not read is a
+law: choosing blocks by inspecting the posterior or recognition law is excluded, since that is not one
+channel applied to three laws. Soft blocks are membership kernels $\mathfrak m_\ell(I\given i,R_\ell)$, a
+hard partition being the deterministic case, with a joint endpoint kernel $\mathfrak M_\ell$ for
+correlated assignment of an edge's two ends (\MT{def:full-graph-membership-kernel}). Under independent
+draws the coarse event law is
+\[
+\eta^{x,\ell+1}_{IJ}(y,\gamma)
+=\sum_{i\ne j}\eta^{x,\ell}_{ij}(y)\mathfrak m_\ell(I\given i,\gamma)\mathfrak m_\ell(J\given j,\gamma)
++\delta_{IJ}\sum_i\eta^{x,\ell}_{ii}(y)\mathfrak m_\ell(I\given i,\gamma),
+\]
+the loop term using one draw for both ends of a self-edge (\MT{prop:full-graph-event-pushforward}). The
+random $\eta_{\ell+1}$ is part of the state, not its mean, and unit-weight membership in several parents
+replicates mass rather than splitting it. Nested assignments compose by Chapman--Kolmogorov, and a
+multi-depth channel is exact only if the state carries every mark the next kernel reads
+(\MT{def:full-graph-composition}).
+
+\subsection{Adaptive reversal and the cost of dropping the graph datum}
+
+The standing hypothesis \MT{hyp:full-graph-depth-markov} factors the generative law from the top,
+\[
+\begin{aligned}
+\mathbb P_\theta(do,d\mathbf Y\given X_*)
+={}&\mathbb P^{\mathrm{obs}}_\theta(do\given Z_0,X_*)\mathbb P_L(dY_L\given X_*)\\
+&\times\prod_{\ell=0}^{L-1}\mathbb P^\ell_R(dR_\ell\given Y_{\ell+1})
+\mathbb P^\ell_{\mathfrak N}(d\mathfrak N_\ell\given Y_{\ell+1},R_\ell)
+K^\ell_\downarrow(dZ_\ell\given Y_{\ell+1},R_\ell,\mathfrak N_\ell),
+\end{aligned}
+\]
+with $X_*$ suppressed in the depth factors, and recognition likewise. Each depth reads the complete next
+depth and nothing deeper: a Markov property in scale, not mean field, since dependence within and between
+adjacent depths is arbitrary. For a tower generated bottom-up by structural channels it is automatic
+(\MT{lem:full-graph-adaptive-reversal}): deeper variables are produced from $Y_{\ell+1}$ by kernels that
+see nothing finer, and successive disintegration gives the top-down factors, which are reversal (bridge)
+kernels rather than independent choices. When the parent is a function of the child and the mark, the
+downward kernel is supported on compatible child configurations, the constrained sum of a Kadanoff block
+read backward.
+
+If the depth-$\ell$ factors read only $(Z_{\ell+1},R_\ell)$, the reduced product differs from the tower
+law by
+\[
+\KL\bigl(\mathbb P^{\mathrm{tow}}\Vert\mathbb P^{\mathrm{red}}\bigr)
+=\sum_{\ell=0}^{L-1}I_{\mathbb P^{\mathrm{tow}}}\bigl(Y_\ell;\mathfrak N_{\ell+1}\given Z_{\ell+1},R_\ell\bigr)
+\]
+(\MT{prop:full-graph-dropped-datum}): what the coarse graph datum says about the fine state beyond the
+coarse coordinates and the partition. The chapter's four-vertex witness, where fine event laws with equal
+coarse coordinates push to a boundary event or a meta-self event, costs $\log2$. The identity is the
+chain rule; its content is that coarse attention structure is part of the coarse state.
+
+\subsection{The hierarchical decomposition and the row free energies}
+
+Under the depth-Markov factorization, with common domination and integrability,
+\[
+\begin{aligned}
+\Fenergy_{\mathrm{tower}}
+={}&-\E_{\mathbb Q_\lambda}\log p^{\mathrm{obs}}_\theta(o\given Z_0,X_*)
++\KL(\mathbb Q_L\Vert\mathbb P_L)\\
+&+\sum_{\ell=0}^{L-1}\E_{\mathbb Q_\lambda}\bigl[
+\KL(\mathbb Q^\ell_R\Vert\mathbb P^\ell_R)
++\KL(\mathbb Q^\ell_{\mathfrak N}\Vert\mathbb P^\ell_{\mathfrak N})
++\KL(\mathbb Q^\ell_Z\Vert K^\ell_\downarrow)\bigr]
+\end{aligned}
+\]
+(\MT{thm:full-graph-vfe-decomposition}): the data misfit at the finest depth, the top's recognition law
+against its declared prior, and at each depth the costs of the partition mark, the graph datum, and the
+coordinates against their parent-conditioned priors, averaged under recognition. With one depth it is
+misfit plus prior relative entropy. It is the measure-level chain rule, standard in substance; its value
+is that every candidate hierarchy has exact accounting.
+
+With transported divergences $D^{x,\ell}_e$, copy priors $\pi^{x,\ell}_i$, and temperatures
+$\tau^x_{i,\ell}$, the row free energy
+$\Fenergy^{\mathrm{att},x}_{i,\ell}=\sum_e\beta^{x,\ell}_eD^{x,\ell}_e+\tau^x_{i,\ell}\KL(\beta^{x,\ell}_i\Vert\pi^{x,\ell}_i)$
+(\MT{def:full-graph-transported-divergences}) is uniquely minimized by the Gibbs row
+$\beta^*_e\propto\pi_ee^{-D_e/\tau}$ with minimum $-\tau\log\mathcal Z$, infinite-energy edges included
+(\MT{prop:full-graph-gibbs-rows}): the Gibbs variational principle for $U-\tau S$ with the prior as
+degeneracy. With $\tau\ne1$ this energy-unit form is not an independently weighted sector of one
+evidence bound. Appending such row energies, partition terms, cross-scale terms, and a link regularizer
+to a fixed population free energy gives the composite potential of
+\MT{def:full-graph-composite-potential}, a descent potential with no evidence interpretation; the same
+terms from a normalized Gibbs prior inside the joint belong to the tower free energy instead.
+
+\subsection{Random partitions and the two normalizations}
+
+A finite catalog $\mathfrak G$ gives each label $\gamma$ a carrier, a reference $\nu_\gamma$, a raw factor
+$\widetilde p_\gamma$, a weight $\mathsf a_\gamma$, and a likelihood, with branch partition function
+$\mathcal Z_\gamma=\sum_y\nu_\gamma(y)\widetilde p_\gamma(y)$ (\MT{def:rg-geometry-ensemble}):
+\[
+\mathbb P_{\mathrm h}(\gamma,y,o)=\bar{\mathsf a}_\gamma p_\gamma(y)L_\gamma(o\given y),
+\qquad
+\mathbb P_{\mathrm f}(\gamma,y,o)=\frac{\mathsf a_\gamma\nu_\gamma(y)\widetilde p_\gamma(y)L_\gamma(o\given y)}{\sum_\delta\mathsf a_\delta\mathcal Z_\delta}.
+\]
+Both are normalized with the same within-branch laws, but the label weight is $\bar{\mathsf a}_\gamma$
+hierarchically and proportional to $\mathsf a_\gamma\mathcal Z_\gamma$ globally; the joints coincide
+exactly when all $\mathcal Z_\gamma$ agree, rescaling one branch's raw factor changes only the global
+joint, and the two free energies differ only in normalizers (\MT{prop:rg-geometry-weights}). A catalog
+creates no edge. The partition term of \MT{def:full-graph-partition-factor} enters the free energy only
+when its Gibbs factor is part of the generative law, and no canonical partition selector follows from the
+free energy (\MT{open:cg-natural-selector}).
+
+\subsection{Coarse links}
+
+Under a hard partition with one root and spanning tree per block, every fine edge copy survives between
+the blocks of its endpoints, with the dressed link
+$\Theta^{x,\ell+1}_e=\Theta^{x,\ell}_{I\leftarrow i}\Theta^{x,\ell}_e(\Theta^{x,\ell}_{J\leftarrow j})^{-1}$
+(\MT{def:full-graph-coarse-links}). By \MT{prop:full-graph-coarse-links}, no link content is lost: internal
+tree copies have identity links, internal non-tree copies carry the based holonomy of their fundamental
+loops, closed-walk products reproduce the block holonomy, and coarse divergences and rows are gauge
+invariant. A loop divergence vanishes on a non-tree copy exactly when the parent law is fixed by that
+holonomy. Once holonomy is nontrivial the trees are part of the coarse channel, not a gauge choice,
+although the divergences do not depend on them for holonomy-stabilized parent laws. Overlapping
+membership is excluded, since an edge would need a root transport into every block containing an
+endpoint.
+
+\subsection{How a parent enters its children's prior}
+
+In a declared top-down hierarchy whose downward kernel factors over parents and reads the parent
+coordinates, the cross-scale term of the free energy is
+\[
+\Fenergy^\ell_{\mathrm{cross}}
+=\E_{\mathbb Q_\lambda}\KL\bigl(\mathbb Q^\ell_Z(\cdot\given Y_{\ell+1},R_\ell,\mathfrak N_\ell,o,X_*)\Vert
+K^\ell_\downarrow(\cdot\given Y_{\ell+1},R_\ell,\mathfrak N_\ell,X_*)\bigr)
+\]
+(\MT{prop:full-graph-downward-coupling}), and the parent can also couple to child marks through the
+partition and graph factors. A kernel that ignores the parent contributes no parent--child
+cross-derivative through this factor, and normalization alone implies no coupling. When the kernel reads
+the parent and the recognition parameterization transmits the dependence, the mixed derivative can be
+nonzero, so optimization is coupled both ways although the generative arrow points down. For a binary
+parent and child with product recognition $q_b(1)=u$, $q_y(1)=v$, the mixed derivative is
+$-\log[K_\downarrow(1\given1)K_\downarrow(0\given0)/(K_\downarrow(0\given1)K_\downarrow(1\given0))]$,
+zero exactly at unit odds ratio. That criterion in a two-variable example is the whole of the proved
+bidirectional coupling.
+
+\subsection{Closing the tower and the three loci}
+
+In a finite directed acyclic model where every record has a latent parent, a topological order starts at
+a parentless latent whose factor depends only on parameters and structural data
+(\MT{prop:obs-declared-root-unavoidable}). The proof is one line of graph theory and the result an
+established negative: within one finite acyclic joint the top cannot be constituted by the agents it
+organizes. Same-time reciprocal structure among latents is admissible only as a globally normalized
+undirected model with its partition function (\MT{sec:gen-undirected}, \MT{prop:gen-gibbs-counterexample});
+an energy appended without its normalizer is not an evidence bound.
+
+The first locus is the inference loop (\MT{rem:full-graph-inference-loop}): mean-field coordinate updates
+of parent and child read each other \citep[Sec.~10.1.1]{Bishop2006}, and at a fixed point a child's
+effective prior is formed from the population's beliefs through a latent inside the joint. This is
+mean-field self-consistency, as when each spin of a mean-field magnet sees a field set by its neighbors,
+whose fields include its own; it is a schedule against one fixed joint, not participation in time. The
+second is learning the top prior (\MT{prop:full-graph-aggregate-prior}): with independent episodes
+sharing a top-prior parameter, the optimum over an unrestricted family is the aggregate recognition law,
+the variational form of empirical Bayes \citep{Robbins1956} and the aggregate-posterior prior of
+\citet{HoffmanJohnson2016} and \citet{TomczakWelling2018}.
+
+The third is delayed feedback. In the latent route (\MT{def:full-graph-episode-joint}) one joint spans
+episodes, and the parent read out of episode $n$ parameterizes episode $n+1$, so
+\[
+\mathbb P^{\mathrm{ep}}\bigl(\mathbf Y^{(n+1)}\in\cdot\given o_{0:n}\bigr)
+=\int\mathbb P^{(n+1\leftarrow n)}(\cdot\given z,X)
+\mathbb P^{\mathrm{ep}}\bigl(Z^{(n)}_{\mathrm{par}}\in dz\given o_{0:n}\bigr)
+\]
+(\MT{prop:full-graph-episode-joint}): the children's next prior is the filtered parent pushed through the
+transition. The joint is acyclic, so it still needs a declared root at episode $0$. In the parameter
+route each episode has its own joint and the parameter is updated by a declared map of the selected
+recognition coupling. \MT{prop:full-graph-episode-lifted-joint} shows that such a route is one joint:
+make the parameters and latent record copies $\widetilde o_n$ latent states with Dirac transitions and
+evaluate the update at the copy, not at the recognition law being scored. The lifted joint's evidence is
+the product of the episode evidences, its posterior the product of episode posteriors, and
+\[
+\Fenergy^{\mathrm{lift}}[\mathbb Q]
+=\sum_{n=0}^{n_1}\Bigl[-\log p_{\theta_n,V}(o_n\given X)
++\KL\bigl(\mathbb Q^{y}_n\Vert\boldsymbol\Pi_{\theta_n,V,o_n,X}\bigr)\Bigr]
++\operatorname{TC}(\mathbb Q^{y}),
+\]
+the sum of the episode bounds plus a cross-episode total correlation that vanishes at product laws. In
+physics terms this is state augmentation: a learning loop becomes filtering once the parameters are
+latent. The point is typing: no generative factor reads the recognition law being scored, so the typing
+prohibition of \cref{comp:ch04} (\MT{req:gen-typing-prohibition}) holds.
+
+\section{What is proved, and how solid it is}
+\label{comp:ch12-scorecard}
+
+\begin{scorecard}
+\MT{def:full-graph-tower-vfe} & One generative and one recognition law over the whole tower & \CHOICE &
+The modeling commitment; the rest is accounting\\
+\MT{def:full-graph-structural-channel}, \MT{def:full-graph-membership-kernel} & One structural channel
+for three laws; blocking reads states, not laws; soft membership & \CHOICE & Covers Kadanoff, random,
+adaptive, and soft blocks\\
+\MT{lem:full-graph-adaptive-reversal} & Adaptive towers factor top-down; downward factors are reversal
+kernels & \SOLID & Standard in substance\\
+\MT{prop:full-graph-dropped-datum} & Dropping the graph datum costs a sum of mutual informations &
+\SOLID & Chain rule; $\log2$ witness illustrative\\
+\MT{thm:full-graph-vfe-decomposition} & Five-term decomposition of the tower free energy & \SOLID &
+Standard in substance; depth-Markov form\\
+\MT{prop:full-graph-gibbs-rows} & Gibbs rows minimize row free energies & \SOLID & Gibbs variational
+principle; $\tau\ne1$ not a sector of one bound\\
+\MT{def:full-graph-composite-potential} & Appended energies give a descent potential & \CHOICE & No
+evidence interpretation, as stated\\
+\MT{prop:rg-geometry-weights} & The two normalizations differ by branch partition functions & \SOLID &
+Finite catalog and carriers\\
+\MT{prop:full-graph-event-pushforward}, \MT{def:full-graph-composition} & Event pushforward under soft
+membership; composition & \SOLID & Product form needs independent draws\\
+\MT{prop:full-graph-coarse-links} & Coarse links keep all holonomy; trees belong to the channel & \SOLID
+& Hard partitions only\\
+\MT{prop:full-graph-downward-coupling}, general part & No parent dependence, no cross-derivative;
+normalization gives no coupling & \SOLID & Declared top-down hierarchy\\
+\MT{prop:full-graph-downward-coupling}, criterion & Bidirectional coupling iff odds ratio $\ne1$ & \TOY &
+Binary parent and child; no family theorem\\
+\MT{prop:obs-declared-root-unavoidable} & A finite acyclic tower has a declared root & \SOLID & Negative;
+every record needs a latent parent\\
+\MT{rem:full-graph-inference-loop} & Parent and child updates read each other & \SOLID & Standard\\
+\MT{prop:full-graph-aggregate-prior} & Optimal top prior is the aggregate recognition law & \SOLID &
+Empirical Bayes in substance\\
+\MT{prop:full-graph-episode-joint}, \MT{prop:full-graph-episode-lifted-joint} & Delayed feedback is the
+free energy of one joint & \SOLID & Declared measurable selection and update\\
+\MT{sec:obs-participatory}, read as participation & The loci realize what a cycle was reaching for &
+\VAGUE & Interpretation; each identity proved\\
+\MT{open:full-graph-hierarchy}, \MT{open:full-graph-episode-accounting} & Persistent hierarchy; feedback
+by labels alone & \OPEN & See \cref{comp:ch12-open}\\
+\end{scorecard}
+
+Toy content is confined to the binary odds-ratio criterion and the four-vertex $\log2$ witness; only the
+first stands in for a general claim, which the chapter explicitly does not make.
+
+\begin{hygiene}
+Four conditions matter. The depth-Markov form is automatic for adaptive towers but must be built into a
+declared hierarchy. The structural channel must not read a law, which excludes posterior-dependent
+blocking. Coarse links are constructed for hard partitions only. And no generative factor may read the
+recognition law being scored, which is why the lifted joint evaluates its update at a latent record
+copy. A fifth concerns reading, not truth: energy-unit row free energies with $\tau\ne1$ and the
+composite potential are not evidence bounds. The rest is hygiene: standard Borel spaces and regular
+conditional versions, common domination and integrability, extended-real conventions, joint measurability
+of selector and update, and discrete records for the displayed episode decomposition.
+\end{hygiene}
+
+\section{Open ends}
+\label{comp:ch12-open}
+
+\MT{open:full-graph-hierarchy} asks for the hierarchy the program is after: a normalized partition law
+and parent--child kernels at $c_*$ such that descent of the tower free energy produces persistent nested
+blocks, with pushforwards and link lifts that compose, a controlled closure residual, and non-flat
+holonomy kept rather than forced flat. What holds is the exact accounting, the fast--slow typing of
+\cref{comp:ch08}, nested formation under a supplied hierarchy of interaction strengths
+(\MT{thm:finite-depth-adaptive-formation}), and one endogenous level on the four-cycle
+(\MT{prop:rg-formation-endogenous-cycle}). Unproved is that descent produces a second level that
+depends on the first. The problem is posed for models with a partition catalog inside both laws,
+recognition coordinates descending by reversible diffusion at temperature $\mathrm T$ with rate-one mark
+redraws, and $\mathrm T$-independent data, as $\mathrm T\to0$. A positive answer needs three results: a
+two-level lineage formed with probability bounded below whose second level is recursive in the
+manuscript's strict sense (it depends on the first by a margin over counterfactual handoffs and is not a
+supplied-scale sequence) and is a coherence episode (held by a restoring interaction against thermal
+noise, on horizons short compared with its stationary recurrence or with probability exceeding its
+stationary value by a margin); an intrinsic partition selector; and a separated slow manifold on which
+coarser variables feed back consistently into finer kernels. A negative answer is a proof that no second
+level produced by descent in this class meets these conditions. The recursion and coherence rules are
+decoded in \cref{comp:ch13}. The limit is zero temperature on networks of any finite size, not
+$N\to\infty$.
+
+\MT{open:full-graph-episode-accounting} asks whether delayed feedback can be carried by the labels alone.
+In a label-sufficient latent route the episode model is that of a parameter route with the aggregate
+update
+$\theta_{n+1}=(1-\epsilon_{\mathrm e})\theta_n+\epsilon_{\mathrm e}\boldsymbol\Pi^{\mathrm{lab}}_{\theta_n,V,o_n,X}$,
+and the parent read-out sees only the label and a preference coordinate. Does some such route's
+filtered label law follow the aggregate update to $o(\epsilon_{\mathrm e})$ per episode, uniformly over
+histories and horizons of order $1/\epsilon_{\mathrm e}$, or does every route miss by order
+$\epsilon_{\mathrm e}$? The records are restricted either to include an uninformative value while moving
+the label posterior by an amount bounded below on average, or to have generic likelihood vectors (no
+nonzero polynomial vanishes on their cone). In physics terms: can a stochastic-approximation learning
+rule be represented, to first order in its step, as filtering in a fixed latent model whose memory is a
+label and one preference coordinate? No natural partition selector is known either
+(\MT{open:cg-natural-selector}), and parent dynamics (\cref{comp:ch11-open}) is what would make the
+static and episodic senses of parents acting back dynamical.
+
+\begin{verdictbox}{\DELIVERED}
+The chapter says it places adaptive event laws and links, random partitions, and the influence of parents
+on their children inside one variational free energy, factors that free energy for adaptive towers, and
+closes the tower with a declared root, with participation at three loci. It does exactly that: one Gibbs
+variational functional for the tower, automatic top-down factorization, an identity for the five-term
+decomposition, an exact cost for dropping the graph datum, the two partition normalizations
+distinguished exactly, coarse links that keep all holonomy, a proof that a declared root is unavoidable,
+and a proof that delayed feedback with a declared update is the free energy of one joint. Two remarks keep
+the verdict honest. What is delivered is accounting and typing, largely standard in substance (chain
+rule, Markov-chain reversal, Gibbs variational principle, mean-field coordinate ascent, empirical Bayes,
+state augmentation); nothing is proved about what descent of this free energy does, and the hierarchy it
+would have to produce is \MT{open:full-graph-hierarchy}. And ``the influence of parents on their
+children'' is delivered as a typed possibility: in a declared hierarchy the parent enters the children's
+prior by construction, bidirectional coupling is proved only as a binary criterion, and in adaptive
+towers the downward kernel is a Bayes reversal the chapter declines to read causally. ``Closing the
+tower'' means closing it by declaration; the chapter proves that a finite acyclic tower cannot close
+itself.
+\end{verdictbox}

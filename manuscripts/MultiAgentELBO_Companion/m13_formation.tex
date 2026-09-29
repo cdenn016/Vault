@@ -1,0 +1,730 @@
+\chapter{Formation Witnesses}
+\label{comp:ch13}
+
+This chapter of the companion mirrors \MT{ch:finite-depth-formation}, with the proofs in
+\MT{app:finite-depth-formation-proofs}. It is where the program's central word, formation, receives
+theorems, and where the theorems most need to be read against their hypotheses: the headline result
+forms collectives out of a hierarchy the model is given, not one it finds. The technical chapter's scope
+paragraph declines each stronger reading; the opening paragraph of the introduction summarizes the
+chapter more strongly than its theorems support.
+
+\section{The question and the answer}
+\label{comp:ch13-question}
+
+Earlier chapters establish that an exact parent exists: coarse-graining the agent network by a Markov
+channel gives a normalized parent law that preserves the evidence and splits the free energy exactly
+(\MT{thm:rg-exact-coarse-vfe}; see \cref{comp:ch11}). They also establish that this parent is in
+general not an autonomous Markov process (\MT{thm:rg-projection-memory}), and how a parent's own
+dynamics is fixed by the network it summarizes is the defining open problem of the phase
+(\MT{open:rg-pointwise-parent-dynamics}). The formation chapter asks something more concrete. In one
+fully normalized experiment at the base point, can coherent groups of agents form one after another
+while each parent is started from the complete law of the level below, keeps every loop coordinate and
+every attention label, and learns its own copy of a model parameter from its own law? Three statements
+answer, and they must be read together.
+
+\MT{thm:finite-depth-adaptive-formation} says yes for a chain of \(2^{L-1}\) triangles at every finite
+depth \(L\ge2\): the number of coherent components passes through
+\(3\cdot2^{L-1}\to2^{L-1}\to\cdots\to1\) with probability tending to one, and every error made by
+replacing a level with its parent vanishes, separately for the free energy, the learning signal, the
+attention history, and the continuous path. The succession is put in by hand. The interaction
+strengths are supplied as \(\mathrm J_\ell=\epsilon^{-\mathrm Q_\ell}\) with a separation doubly
+exponential in the depth, the initial state is a prepared displacement of a common mean, the learned
+parameter is pinned by a calibration record, and the attention record is saturated. The chapter says so:
+formation in this family is hierarchical relaxation of the prepared mean, and attention and learning
+are perturbations the proof controls, not causes (\MT{rem:rg-formation-saturation}). What the theorem
+establishes is that exact marked parents can be carried through such a relaxation without their errors
+accumulating, at every finite depth, with constants that depend on the depth in an uncontrolled way.
+
+\MT{prop:rg-formation-endogenous-cycle} removes the supplied hierarchy. On a homogeneous cycle of four
+agents, where an edge carries energy only while one of its endpoints attends to it, a pair forms by a
+feedback between attention and belief relaxation, with probability at least
+\(3e^{-1/4}/512\approx4.6\times10^{-3}\) uniformly in the small parameter, and an exact parent follows
+the episode for one unit of time. The pairing is seeded by the random initial attention assignment, the
+law of the process stays symmetric, there is one level only, and nothing is learned.
+\MT{prop:rg-gated-depth-one} shows where this mechanism stops: in the whole gated family on any finite
+graph, the coherent blocks of the stationary law are, up to an error vanishing with the temperature, the
+components of a minimum edge cover, a forest of stars, and every further merge costs a factor of the
+temperature.
+
+The chapter therefore proves that exact parents can track a supplied hierarchy, that one endogenous
+level can form on a small graph, and that in the family containing that mechanism the stationary law
+stops at one level. It does not prove that collectives form through the agents' coupled inference in
+more than one level, the program aim of \MT{sec:intro-program-aim}; that is
+\MT{open:rg-formation-general}, and whether learning or loop holonomy can decide which components form
+is \MT{open:rg-formation-adaptive-family}. The seeded contrast formation from every Gaussian initial
+law, the pairing-selection theorem, and the parent-activation continuation results belong to the
+interpretation chapter of the technical manuscript and are treated in \cref{comp:ch14}.
+
+\section{The picture}
+\label{comp:ch13-picture}
+
+\paragraph{The triangle chain: springs of very different stiffness.}
+Give each agent a belief mean \(\bar k_i\) and a model mean \(\bar m_i\), and each oriented edge
+\(e:j\to i\) a translation \(\omega_e\), the link, which shifts the sender's frame into the receiver's.
+The mismatch on an edge is \(r_e=\bar k_i-\bar k_j-\omega_e\), and the energy is a sum of squared
+mismatches weighted by spring constants. Inside each triangle the springs, and the spring tying each
+agent's belief to its own model, have strength \(\mathrm J_1\). The bridge between triangles \(j\) and
+\(j+1\) has strength \(\mathrm J_{\ell(j)}\) with \(\ell(j)=2+v_2(j)\), where \(2^{v_2(j)}\) is the largest
+power of two dividing \(j\); with four triangles (\(L=3\), twelve agents) the three bridges have levels
+two, three, and two. The bridges thus sit on the levels of a binary tree, like the couplings of Dyson's
+hierarchical model \citep{Dyson1969}, a resemblance that is structural only. The strengths are
+separated by enormous factors, \(\mathrm J_1\gg\mathrm J_2\gg\cdots\gg\mathrm J_L=1\).
+
+The system starts displaced, every mismatch of order \(\mathrm A\), with thermal fluctuations of size at
+most \(\sqrt{\mathrm T}=\epsilon^3\mathrm A\), and relaxes by overdamped Langevin dynamics. The stiffest springs
+relax first, on times of order \(1/\mathrm J_1\) up to a logarithm, and the triangles become internally
+coherent; on times of order \(1/\mathrm J_2\) the level-two bridges relax and triangles pair up; and so on,
+until on times of order one the chain is a single component. In the twelve-agent example the counts are
+\(12\to4\to2\to1\). An edge is coherent when its conditional root-mean-square mismatch is below
+\(\eta_L\mathrm A\), a small fixed fraction of the initial displacement, so formation here means that a
+group's internal relative displacement has decayed below a resolution set by the preparation. The mean
+dynamics is linear and, relative to the displacement, deterministic up to corrections of order
+\(\epsilon^3\), and the grouping is fixed entirely by which springs are strong. A parent is the law with
+the already relaxed distortions integrated out; it keeps the loops, the gauge directions, and the
+complete attention assignment.
+
+\begin{analogy}{exact}
+Linear response after a field is switched off, with adiabatic elimination of the fast modes. The
+reference preparation of \MT{def:rg-formation-regime}, a Gaussian with mean \(\mathrm A\mathbf v_0\) and
+covariance \(\mathrm TH^{-1}\) on the non-gauge coordinates, is exactly the Gibbs state of
+\(\tfrac12\mathbf x^\top H\mathbf x-\mathbf h^\top\mathbf x\) in the static field
+\(\mathbf h=\mathrm AH\mathbf v_0\), and the chain's dynamics is the Ornstein--Uhlenbeck relaxation after
+the field is switched off at time zero. Integrating out relaxed modes is exact Gaussian integration, with
+the Schur complement \(H_\ell\) as retained stiffness. The identification is a theorem for the Gaussian
+core, where the record is off and the parameter frozen and the mean follows
+\(\bar{\mathbf x}(t)=e^{-H_{\ell'}t}\bar{\mathbf x}(0)\) (\MT{prop:rg-formation-gaussian-core}); in the full
+theorem the record and learning add perturbations that the proof bounds.
+\end{analogy}
+
+\paragraph{Why the regime is so extreme.}
+The reason, informally, is that two requirements pull against each other. Coherence must be many thermal
+widths wide, so \(\mathrm J_\ell\mathrm A^2/\mathrm T\) must diverge. But a parent integrates out fast modes
+while slower modes are still moving, and the fast modes lag behind the position the slow modes dictate.
+The parent's error is that lag measured in thermal units, and at low temperature a small lag is many
+thermal widths. In the Gaussian core the loss is exactly of order
+\((\mathrm A^2/\mathrm T)(\mathrm J_{\ell+1}^4/\mathrm J_\ell^3)\) (\MTeq{eq:rg-formation-core-window}); keeping
+it small while \(\mathrm A^2/\mathrm T\) is large forces each level's stiffness to beat the next by a large
+power, and iterating over \(L\) levels gives a separation doubly exponential in \(L\). Separately, the
+regime makes the network's stored energy, of order \(\mathrm A^2\mathrm J_1\), negligible against the
+unit-scale calibration term. That is what makes the amplitude tiny, and it is what makes learning blind
+to the network.
+
+\paragraph{The four-cycle: attention feedback and a frustrated loop.}
+Four agents sit on a ring, each receiver attending one of its two neighbors. The prepared state puts
+every mean at zero and a unit translation on every link, so every edge has mismatch \(-1\) and the links
+carry a circulation of four. If the assignment is a perfect matching, only the two matched edges carry
+energy: they contract, while the unattended edges absorb the circulation and stretch. Each receiver's
+partner edge soon becomes much cheaper than its exterior edge, and at \(\mathrm T=\epsilon^8\) the attention
+posterior then keeps the partner. Attention caused the contraction and the contraction justifies the
+attention. Nothing in the energies prefers one pair; the initial assignment, drawn uniformly, decides, and
+the law stays invariant under the symmetries of the ring at every time.
+
+\begin{analogy}{structural}
+A frustrated plaquette, with symmetry broken along single trajectories. The flux around the loop forbids
+all four bonds from being satisfied at once, so the strain must sit somewhere, and attention decides
+where. The broken symmetry is of the finite-volume kind: each sample path picks a pair and holds it over
+the episode while the ensemble law stays symmetric, as a finite Ising magnet below its ordering
+temperature has a symmetric Gibbs state although single trajectories sit in one well. No thermodynamic
+limit is taken; law-level selection is the subject of \cref{comp:ch14}.
+\end{analogy}
+
+\paragraph{Why the gated mechanism stops at one level.}
+On a fixed attention assignment, a sheet, the energy stiffens exactly the attended residuals; every other
+direction, including any rigid translation of one block relative to another, is held only by the reference
+prior, with stiffness of order \(\mathrm T\) in energy units. All sheets share the minimum energy zero, so a
+sheet's stationary weight is its phase-space volume, of order \(\mathrm T^{\mathrm k_S/2}\) with \(\mathrm k_S\)
+the number of stiff directions. The law prefers the sheets with the fewest stiff directions, and each
+attended edge joining two blocks adds two of them and costs a factor \(\mathrm T\). Blocks float relative to
+each other and nothing pulls them together.
+
+\begin{analogy}{structural}
+Order by disorder. Among degenerate ground states, harmonic fluctuations favor those with the most soft
+modes, because each stiff mode contributes a factor proportional to \(\sqrt{\mathrm T}\) to the partition
+function; this is how fluctuations lift a ground-state degeneracy in frustrated magnets. Here the
+degenerate states are the attention sheets and the selection favors fragmentation. The counting is the
+same; the degenerate set is a finite family of label sectors rather than a continuous manifold.
+\end{analogy}
+
+\section{Objects and notation}
+\label{comp:ch13-notation}
+
+The technical chapter uses a local notation table (\MT{tab:rg-formation-notation}). The decoder covers
+what a first reading needs.
+
+\begin{decoder}
+Configuration \(\mathbf x=(\bar k,\bar m,\omega)\) & Belief means, model means, link translations; agent laws are Gaussian with fixed variance, so only means move & Lattice fields: two matter fields on sites, links on bonds \\
+Link \(\omega_e\), group \((\R,+)\) & Independent edge variable shifting the sender's frame into the receiver's & Noncompact abelian gauge link \\
+Residual \(r_e\), cost \(\tfrac12r_e^2\) & Edge mismatch; the cost is a relative entropy between unit Gaussians & Covariant difference; bond energy \\
+Loop \(h_q=\mathfrak h_q/\sqrt3\) & Normalized total translation \(\mathfrak h_q\) around a triangle & Plaquette flux \\
+\(\mathcal U,\mathcal H,\mathcal K\) & Normal (gauge-invariant, flux-free) distortions; loops; pure-gauge directions & Massive modes; flux sector; gauge orbit \\
+Stiffness \(H\); strengths \(\mathrm J_\ell=\epsilon^{-\mathrm Q_\ell}\) & Quadratic form of the energy; supplied spring constants, one per level & Dynamical matrix; coupling hierarchy \\
+\(\mathrm A\), \(\mathbf v_0\), margin \(\mathrm m_L\) & Size and direction of the initial displacement; unrelaxed bridges stay at least \(\mathrm m_L\mathrm A/2\) from zero & Applied field switched off at time zero \\
+Calibration record \(o_{\mathrm{cal}}=2\) & Precise observation of the learned parameter itself & External clamp \\
+Learned scalar \(\vartheta\) & Global multiplier of the stiffness, \(\vartheta H\), learned by natural gradient & Slowly ramped coupling \\
+Source, assignment \(S\), sheet & Which neighbor each receiver attends; one fixed assignment and its slice of state space & Label field; sector \\
+Source record \(E_i\), \(\phi_S\), \(B_0\) & Bounded observation of the attended edge's mismatch, total effect at most \(B_0=10^{-4}\) & Weak bounded potential \\
+\(\boldsymbol\Pi\), \(q^\star\), \(q_t\) & Physical posterior; best law of the restricted family; evolving recognition law & Gibbs state; variational optimum; time-dependent density \\
+Marked channel \(C_{\ell\leftarrow\ell'}\), parent & Keep retained coordinates and every label, integrate out the rest & Exact decimation \\
+Schur complement \(H_\ell\) & Stiffness of retained coordinates after minimizing over discarded ones & Tree-level effective stiffness \\
+Discarded loss \(\Delta_{\ell':\ell}\) & Mean relative entropy of the discarded coordinates' actual law to their equilibrium law, given the retained ones & Adiabatic-elimination error \\
+Window \(I_\ell\), activation, \(k_L\) & Interval on which level \(\ell\) is coherent; start of the next parent; how many relaxation times to wait & Timing of decimations \\
+Coherent edge, component & Conditional root-mean-square residual at most \(\eta_L\mathrm A\); cluster of such edges & Cluster at a resolution \\
+\end{decoder}
+
+Some traps. \(\mathrm T\) is the temperature, not the frame comparison \(T_{ij}\). \(\mathrm J_\ell\) is a spring
+constant while calligraphic \(\mathcal J\) is the set of assignments, and a source is the neighbor a
+receiver attends, not a source term in a field theory. \(H\) is a stiffness matrix, not a Hamiltonian or a
+holonomy. The root is the set of gauge directions, not the root of a tree. A parent is a marginal law,
+not an agent: the scope paragraph declines that parents are coarse agents with their own belief and model
+fibers. Learning is the deterministic drift of one scalar. Coherence is measured against the preparation
+amplitude \(\mathrm A\), not the thermal width. Complete, exact, marked, and retained are emphasis on
+objects that keep all their information; declared marks a modeling choice, as in the declared parent
+kinetics. NOT-CLAIMED marks a declined claim, and declining is not refuting.
+
+\section{The formulas, explained}
+\label{comp:ch13-formulas}
+
+\subsection{The carrier}
+\label{comp:ch13-carrier}
+
+The chain of \MT{def:rg-formation-carrier} has \(N=3\cdot2^{L-1}\) agents and configuration space
+\(\R^{10\cdot2^{L-1}-1}\). By \MT{lem:rg-formation-carrier},
+\[
+\mathbf x^\top H\mathbf x=\mathrm J_1\sum_i\mathfrak d_i(\mathbf x)^2+\sum_e\mathrm J_{\ell(e)}r_e(\mathbf x)^2,
+\qquad
+|r_q|^2=|O_\triangle r_q|^2+h_q^2 .
+\]
+The first sum ties each belief to its own model through the discrepancy
+\(\mathfrak d_i=\bar k_i-\bar m_i\), with the strongest spring; the second weights each edge mismatch by its
+level. A passive frame change \(\bar k_i\mapsto\bar k_i+g_i\), \(\bar m_i\mapsto\bar m_i+g_i\),
+\(\omega_e\mapsto\omega_e+g_i-g_j\) leaves every \(r_e\) and \(\mathfrak d_i\) unchanged, the
+translation-group case of the frame invariance proved in general
+(\MT{cor:elbo-independent-frame-invariance}). The second identity splits a triangle's squared mismatches
+into two gauge-invariant contrasts and the flux \(h_q^2\): the vertex means telescope around the triangle,
+so the mismatches sum to \(-\mathfrak h_q\) whatever the means are, and a triangle with flux cannot be
+fully satisfied. Space splits orthogonally into \(\mathcal U\oplus\mathcal H\oplus\mathcal K\), and \(H\)
+vanishes exactly on \(\mathcal K\).
+
+\begin{analogy}{exact}
+The quadratic form is the action of a Gaussian, noncompact lattice abelian gauge-Higgs model in
+St\"uckelberg form, in the lattice formulation of \citet{WilsonConfinement1974} but with no plaquette
+term: flux costs energy only through the matter coupling, and the model channel is a second matter field
+tied on site to the first. The group is \((\R,+)\), abelian and one-dimensional, so nothing about
+nonabelian or compact groups can be read off.
+\end{analogy}
+
+\subsection{One normalized experiment and its three laws}
+\label{comp:ch13-experiment}
+
+\MT{def:rg-formation-experiment} makes the carrier a probability model. Each agent has a model sample
+\(m_i\sim\mathcal N(\bar m_i,\sigma^2_{\mathrm{ev}})\) and, given it, a belief sample
+\(k_i\sim\mathcal N(m_i,1-\sigma^2_{\mathrm{ev}})\). The recognition family fixes the coupling of the two
+samples to its optimal form, at the price \(\mathfrak d_i^2/(2(1-\sigma^2_{\mathrm{ev}}))\) per agent
+(\MT{prop:rg-formation-normalized-experiment}), summing to \(\tfrac12\mathbf x^\top R_{\mathrm{ev}}\mathbf x\).
+The configuration prior is Gaussian with precision \(\Omega_0(\vartheta)/\mathrm T\), where
+\[
+\Omega_0(\vartheta)=\vartheta H+P_{\mathcal K}-\mathrm TR_{\mathrm{ev}} .
+\]
+The first term is the physics, a stiffness multiplied by the learned
+\(\vartheta\); the second normalizes the gauge directions; the third cancels the restriction price so that
+the optimizer has a temperature-independent energy. The last two are bookkeeping.
+
+Three observations complete the joint. A root observation gives the gauge coordinates an independent
+Gaussian law, a form of gauge fixing. A calibration record \(o_{\mathrm{cal}}=2\) from
+\(\mathcal N(\vartheta,\mathrm T)\) observes the learned parameter itself; it is what the parameter will
+learn. And each receiver has a binary record reading the edge it attends,
+\[
+\Pr(E_i=1\mid\mathbf x,S_i=j)=\tfrac12\exp\Bigl[-\delta\chi\Bigl(\sqrt{\mathrm J_1/\mathrm T}r_{ij}(\mathbf x)\Bigr)\Bigr],
+\qquad \chi(r)=1-e^{-r^2/2},\qquad \delta=10^{-4}/N .
+\]
+The argument of \(\chi\) is the mismatch in units of the thermal width \(\sqrt{\mathrm T/\mathrm J_1}\), and
+\(\chi\) saturates at one. Summed over receivers, the configuration-dependent part \(\phi_S\) of the record's
+negative log-likelihood lies in \([0,10^{-4}]\), so attention differs from its prior by a factor of at most \(e^{\pm10^{-4}}\)
+(\MTeq{eq:rg-formation-source-saturation}): attention is blind to the configuration by construction. The
+attention prior is uniform except at one receiver \(i_0\), whose prior is
+\(\operatorname{sig}(4(\vartheta-3/2))\); the learned parameter controls one attention weight, through the
+prior only.
+
+Three laws coexist (\MT{def:rg-formation-laws}; \MT{prop:rg-formation-laws}): the physical posterior
+\(\boldsymbol\Pi\), the restricted optimizer \(q^\star\), and the evolving recognition law \(q_t\). The
+scaled free energy is
+\(\Fenergy_{\mathrm T}(q,\vartheta)=\mathrm T\KL(q\Vert q^\star_\vartheta)+\mathrm C_{\mathrm T}(\vartheta)\),
+and the optimizer differs from the posterior by at most
+\(2e^{B_0}N\mathrm T^2/((1-\sigma^2_{\mathrm{ev}})\mathrm J_1)\) in free energy
+(\MTeq{eq:rg-formation-physical-optimizer-gap}), negligible here. The theorem is proved for both
+\(\boldsymbol\Pi\) and \(q^\star\).
+
+\subsection{Marked parents and the discarded loss}
+\label{comp:ch13-parents}
+
+The parent at level \(\ell\) comes from the deterministic channel
+\(C_{\ell\leftarrow\ell'}((y,S),\cdot)=\delta_{(P_\ell y,S)}\), which projects onto the retained space
+\(W_\ell\) (unrelaxed normal directions, all loops, all gauge directions), keeps the whole assignment, and
+leaves the observations alone (\MT{def:rg-formation-parents}). The parent law is a marginal, with sheet
+potential
+\[
+V_{\ell,S}(y,\vartheta)=\tfrac12\vartheta y^\top H_\ell y+\mathrm C_\ell^{\mathrm G}(\vartheta)+\mathrm T\psi_{\ell,S}(y,\vartheta),
+\qquad 0\le\psi_{\ell,S}\le B_0,
+\]
+by \MT{prop:rg-formation-parent-potential}: the Schur-complement stiffness, the Gaussian determinant of
+the integrated modes (their entropy, which depends on \(\vartheta\)), and the record averaged over the
+discarded coordinates, still below \(10^{-4}\). The chain rule of relative entropy gives what a parent
+loses,
+\[
+\Fenergy^{\ell'}_{\mathrm T}(q^{\ell'},\vartheta)-\Fenergy^{\ell}_{\mathrm T}\bigl((C_{\ell\leftarrow\ell'})_\#q^{\ell'},\vartheta\bigr)
+=\mathrm T\Delta_{\ell':\ell}(q^{\ell'},\vartheta),
+\]
+where \(\Delta_{\ell':\ell}\) is the mean relative entropy of the discarded coordinates' actual conditional
+law to the optimizer's conditional. It vanishes exactly when the discarded coordinates are in conditional
+equilibrium, the condition for exact adiabatic elimination. These identities are standard in substance.
+
+The parent is not a coarse agent. At the top level the retained space has dimension \(4\cdot2^{L-1}\): all
+\(N\) gauge directions and all \(N/3\) loops, with every normal direction integrated out
+(\MTeq{eq:rg-formation-dimensions}), alongside the full assignment with \(2^N\) values. For \(L=2\) the
+carriers go \(\R^{19}\to\R^9\to\R^8\) with 64 assignments throughout, and the hidden conditionals are not
+Gaussian once the record is on (\MT{rem:rg-formation-two-triangle}). The top parent is the zero-mode and
+flux sector of the Gaussian theory together with the complete label field.
+
+\subsection{Kinetics and learning}
+\label{comp:ch13-kinetics}
+
+The microscopic kinetics (\MT{def:rg-formation-kinetics}) are overdamped Langevin dynamics on each sheet
+with a rate-one clock that redraws the whole assignment from the attention posterior,
+\[
+\mathscr L_\vartheta^0\mathsf f(\mathbf x,S)=\mathrm T\Delta_{\mathbf x}\mathsf f-\nabla_{\mathbf x}U_{\vartheta,S}\cdot\nabla_{\mathbf x}\mathsf f
++\sum_{S'}\beta_{S'}(\mathbf x,\vartheta)\bigl[\mathsf f(\mathbf x,S')-\mathsf f(\mathbf x,S)\bigr],
+\]
+a diffusion at temperature \(\mathrm T\) with unit mobility plus a heat-bath update of the labels. The parent
+generator has the same form with the parent potential and inherited jump rows, conditional averages of
+the fine rows, which are reversible and compose across levels (\MT{prop:rg-formation-rate-composition}).
+The parent kinetics is declared, not derived: the time evolution of a true marginal carries memory
+(\MT{thm:rg-projection-memory}; compare \citet{Zwanzig1960}), and the chapter checks its Markov closure
+afterwards through conclusions (c) and (e).
+
+Each level learns its own copy of \(\vartheta\) by natural gradient,
+\[
+\dot\vartheta_\ell=-\epsilon\mathsf m(\vartheta_\ell)^{-1}g_\ell(q^\ell_t,\vartheta_\ell),
+\qquad
+\mathsf M(\vartheta)=\frac1{\mathrm T}+\frac12\Tr\bigl[(\Omega_0(\vartheta)^{-1}H)^2\bigr]+16\pi_{i_0,+}(1-\pi_{i_0,+}),
+\]
+with \(\mathsf m=\mathrm T\mathsf M\) (\MT{def:rg-formation-learning};
+\MT{prop:rg-formation-score-dissipation}). The metric is dominated by the calibration term, so
+\(\mathsf m\approx1\), and the covector \(g_\ell\) (\MTeq{eq:rg-formation-complete-score}) is \(\vartheta-2\)
+plus the stored elastic energy \(\tfrac12\E y^\top H_\ell y\), at most of order \(\mathrm A^2\mathrm J_1\),
+plus entropic and attention terms of order \(\mathrm T\). Hence
+\(\vartheta(t)\approx2-e^{-\epsilon t}\). Along the coupled dynamics the free energy decreases through
+three nonnegative dissipation terms, the Fisher information of the diffusion, the symmetrized entropy
+production of the label jumps, and the natural-gradient term \(\epsilon\mathsf m^{-1}g_\ell^2\)
+(\MTeq{eq:rg-formation-dissipation}): an H-theorem, standard in substance.
+
+\subsection{The regime}
+\label{comp:ch13-regime}
+
+The regime of \MT{def:rg-formation-regime} is
+\[
+\mathrm Q_L=0,\quad \mathrm Q_\ell=2\mathrm Q_{\ell+1}+20,\quad \mathrm J_\ell=\epsilon^{-\mathrm Q_\ell},\quad
+\mathrm A^2=\epsilon^{3\mathrm Q_1+20},\quad \mathrm T=\mathrm A^2\epsilon^6,\quad t_*=\frac2\epsilon .
+\]
+Then \(\mathrm Q_1=20(2^{L-1}-1)\) and \(\mathrm T=\epsilon^{60\cdot2^{L-1}-34}\) (\MT{rem:rg-formation-regime}).
+Since \(N=3\cdot2^{L-1}\), this is \(\mathrm T=\epsilon^{20N-34}\): the temperature exponent is linear in the
+number of agents, and the stiffness range is \(\epsilon^{-20(N/3-1)}\). The last two columns of the table
+are arithmetic on the class of schedules in which the sharpness problem is posed
+(\cref{comp:ch13-core}): the least admissible \(\mathrm Q_1\) there, rounded, and its temperature.
+
+\begin{center}
+\small
+\begin{tabular}{@{}rrrrrrr@{}}
+\toprule
+\(L\) & \(N\) & \(\mathrm Q_1\) & \(\mathrm A\) & \(\mathrm T\) & least \(\mathrm Q_1\), base \(4/3\) & its \(\mathrm T\)\\
+\midrule
+2 & 6 & 20 & \(\epsilon^{40}\) & \(\epsilon^{86}\) & 14 & \(\epsilon^{68}\)\\
+3 & 12 & 60 & \(\epsilon^{100}\) & \(\epsilon^{206}\) & 25.3 & \(\epsilon^{102}\)\\
+4 & 24 & 140 & \(\epsilon^{220}\) & \(\epsilon^{446}\) & 40.4 & \(\epsilon^{147}\)\\
+8 & 384 & 2540 & \(\epsilon^{3820}\) & \(\epsilon^{7646}\) & 171 & \(\epsilon^{539}\)\\
+9 & 768 & 5100 & \(\epsilon^{7660}\) & \(\epsilon^{15326}\) & 235 & \(\epsilon^{730}\)\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The ratios the proof actually uses are the stiffness range \(\epsilon^{-\mathrm Q_1}\), the noise-to-signal
+ratio \(\mathrm T/\mathrm A^2=\epsilon^6\), the learning mobility \(\epsilon\), and the stored energy relative to
+calibration, \(\mathrm A^2\mathrm J_1=\epsilon^{2\mathrm Q_1+20}\). The window of level \(\ell\) is
+\(I_\ell=[t_\ell,2t_\ell]\) with \(t_\ell=k_L\log(1/\epsilon)/\mathrm J_\ell\); the last closes at order
+\(k_L\log(1/\epsilon)\), long before the horizon \(2/\epsilon\) on which the parameter moves. The entrance
+constant must exceed thresholds proportional to \(\mathrm Q_1\) (\MTeq{eq:rg-formation-common-entrance}), and
+\(\epsilon_L\) is not computed. The regime is a formal asymptotic regime at each fixed depth, with no limit in
+which \(N\) grows at fixed \(\epsilon\).
+
+\subsection{The theorem, conclusion by conclusion}
+\label{comp:ch13-theorem}
+
+\MT{thm:finite-depth-adaptive-formation} assumes the experiment and kinetics at a fixed depth (H1), the
+regime (H2), an initial law in the preparation neighborhood (H3), and scheduled activations (H4). The
+preparation neighborhood consists of smooth transports of the Gaussian reference that move each sample by
+less than \(\epsilon\sqrt{\mathrm T}\) in the energy norm (\MTeq{eq:rg-formation-preparation-transport}): a
+thermalized cloud around the displaced mean, slightly deformed, possibly depending on \(\epsilon\) and
+\(L\). The reader's phrase ``coherence is linear hierarchical relaxation of the prepared mean'' has a
+precise meaning here. Up to perturbations the proof bounds, the mean obeys
+\(\dot{\bar{\mathbf x}}=-\vartheta H\bar{\mathbf x}\) from \(\mathrm A\mathbf v_0\). In the flag coordinates of
+\MTeq{eq:rg-formation-weighted-flag}, layer \(\ell\) has stiffness of order \(\mathrm J_\ell\) and couples to the
+slower layers only through strengths of order \(\mathrm J_{\ell+1}\), so the solution decays level by level. On \(I_\ell\) the layers up to \(\ell\) have decayed
+below \(\eta_L\mathrm A\), while the higher bridges have moved by at most of order
+\(\mathrm J_{\ell+1}t_\ell\mathrm A\to0\) and keep their prepared margin.
+
+Conclusion (a) gives unique non-exploding solutions for every process, and learned parameters in
+\([1,21/10]\) that stay within \(\mathrm C_L\epsilon^{2\mathrm Q_1+20}\) of the calibration curve
+\(2-e^{-\epsilon t}\) (\MTeq{eq:rg-formation-parameter-bound}): learning is relaxation to the calibrated value,
+the same at every level because no level can see the network.
+
+Conclusion (b) is the formation statement. Except on an event of probability at most
+\(\mathrm C_L(1+t_*)\exp(-\mathrm c_L/\epsilon^6)\), the fine process and its parents show the counts
+\(3\cdot2^{L-1}\to2^{L-1}\to\cdots\to1\) (\MTeq{eq:rg-formation-agent-counts}): on \(I_\ell\) every edge of
+level at most \(\ell\) is coherent, every belief agrees with its model to within \(\eta_L\mathrm A\), and every
+higher bridge stays a fixed multiple of \(\mathrm A\) from zero; the final component persists to the horizon,
+and the loops stay random and retained. The exponent \(\epsilon^{-6}=\mathrm A^2/\mathrm T\) is the
+signal-to-noise ratio. By \MT{rem:rg-formation-saturation} the coherence proof uses the record only through
+\(0\le\phi_S\le B_0\) and the parameter only through \(1\le\vartheta\le21/10\), so it gives the same
+components with the record off and the parameter frozen at one. Attention and learning play no role in (b).
+
+Conclusion (c) bounds the free energy discarded at each activation, \(\Delta_{\ell-1:\ell}\le\mathrm C_L\epsilon^{14}\)
+early and \(\mathrm C_L\epsilon^2\) at the last level, and the difference of consecutive learning signals by
+\(\mathrm C_L\mathrm T\epsilon^7\) and \(\mathrm C_L\mathrm T\epsilon\) (\MTeq{eq:rg-formation-conditional-score-bounds}):
+the parents are faithful in free energy and in learning gradient. The exponent 14 is
+\(\mathrm A^2\mathrm J_{\ell+1}^2/(\mathrm T\mathrm J_\ell)=\epsilon^{-6}\epsilon^{20}\), the general Fisher-budget
+estimate; the Gaussian core shows the true early loss is much smaller.
+
+Conclusion (d) shows the model is not static: from every activation to the horizon the distinguished
+receiver's mass on source \(+\) rises by more than one half, and the first hidden conditionals change by
+relative entropy more than \(1/200\) (\MTeq{eq:rg-formation-source-movement}). Both are driven by
+\(\vartheta\) moving toward two, through the prior \(\operatorname{sig}(4(\vartheta-3/2))\) and the stiffness
+\(\vartheta H\), and both happen after formation, since \(\vartheta\le1+\mathrm C_L\epsilon\log(1/\epsilon)\)
+until the last window closes. This is an engineered stress test showing that the lineage tracks kernels
+that really move, not a mechanism of formation.
+
+Conclusion (e) says that after each activation the retained coordinates of the fine process and of the
+parent stay within \(\mathrm C_L\mathrm A\epsilon^2\) of one deterministic path except with probability
+\(\mathrm C_L(1+t_*)e^{-\mathrm c_L/\epsilon^2}\) (\MTeq{eq:rg-formation-common-path-concentration}), and that
+their attention histories can be coupled to disagree with probability at most \(\mathrm C_L\epsilon^6\)
+(\MTeq{eq:rg-formation-two-path-bounds}). The resolution \(\mathrm A\epsilon^2=\sqrt{\mathrm T}/\epsilon\) lies
+between the thermal width and the displacement. This small-noise statement is weaker than closeness of
+path laws, which the chapter declines along with exact lumpability: the parent reproduces the fine
+trajectory at a resolution coarser than the fluctuations it carries.
+
+\MT{rem:rg-formation-saturation} fixes the reading of the whole theorem. The record is saturated, since at a
+residual of order \(\mathrm A\) its argument is of order \(\epsilon^{-(3+\mathrm Q_1/2)}\), so it cannot tell a
+coherent edge from an incoherent one at the coherence resolution; learning is calibration; and the loops
+have root-mean-square size of order \(\sqrt{\mathrm T/\mathrm J_1}\), so holonomy is thermal noise. The
+chapter's own summary says the reductions succeed in a regime ``in which nothing adaptive decides the
+outcome''.
+
+\subsection{The Gaussian core and whether the doubling is needed}
+\label{comp:ch13-core}
+
+\MT{prop:rg-formation-gaussian-core} computes the loss with the record off and the parameter frozen. Part (a)
+gives \(\Delta=\tfrac1{2\mathrm T}\mathfrak v^\top H_{zz}^{-1}\mathfrak v\), with \(\mathfrak v\) the force on the
+discarded coordinates: the lag of the fast modes behind their slaved position, weighted by compliance, in
+thermal units. Part (b) gives, uniformly on each early window,
+\[
+\Delta_{\ell-1:\ell}(t)=\frac{\mathrm A^2}{\mathrm T}\frac{\mathrm J_{\ell+1}^4}{\mathrm J_\ell^3}
+\bigl[\mathfrak y_\ell(\mathbf v_0)+o(1)\bigr],
+\qquad \mathfrak y_\ell(\mathbf v_0)>0 .
+\]
+Informally, the next level moves at rate \(\mathrm J_{\ell+1}\) and pulls through couplings of order
+\(\mathrm J_{\ell+1}\), the current level answers with compliance \(1/\mathrm J_\ell\), so the lag force is of
+order \(\mathrm A\mathrm J_{\ell+1}^2/\mathrm J_\ell\) and its compliance-weighted square gives the display;
+the general estimate behind (c) is larger by \((\mathrm J_\ell/\mathrm J_{\ell+1})^2\). Part (c) turns this into
+a criterion: with \(\mathrm A^2/\mathrm T=\epsilon^{-\mathrm Q_{\mathrm T}}\) and a large enough entrance constant,
+the core loss vanishes on every early window exactly when \(3\mathrm Q_\ell-4\mathrm Q_{\ell+1}>\mathrm Q_{\mathrm T}\) for every \(\ell<L\), and is
+\(O(\epsilon^{\mathrm Q_\Delta})\) exactly when
+\(3\mathrm Q_\ell-4\mathrm Q_{\ell+1}\ge\mathrm Q_{\mathrm T}+\mathrm Q_\Delta\), forcing
+\(\mathrm Q_1\ge(\mathrm Q_{\mathrm T}+\mathrm Q_\Delta)[(4/3)^{L-1}-1]\).
+
+Is the doubling required? Not shown, and the chapter says so. It enters the proof through the full Fisher
+budget of \MT{lem:formation-conditional-entropy} and the history estimate of
+\MT{lem:formation-history-coupling}. What is proved is that in the Gaussian core, for this preparation and
+schedule, a separation growing like \((4/3)^L\) in the exponent is necessary. Whether the full family works
+under the base-\(4/3\) schedules \(3\mathrm Q_\ell\ge4\mathrm Q_{\ell+1}+20\), \(\mathrm Q_\ell\ge14\), with
+depth-independent constants, is \MT{open:rg-formation-regime-sharpness}. Either way the separation diverges
+with the number of agents: since \(L-1=\log_2(N/3)\), \((4/3)^{L-1}=(N/3)^{\log_2(4/3)}\approx(N/3)^{0.415}\), so
+the exponent of the stiffness range grows linearly in \(N\) under the doubling and like a power of \(N\) under
+the best schedule the core allows. That is the quantitative sense in which this family has no large-\(N\)
+limit.
+
+\subsection{The four-cycle witness}
+\label{comp:ch13-cycle}
+
+\MT{def:rg-formation-cycle-experiment} puts four agents on a ring with edge cost and record
+\[
+\mathcal D_{e_i}(\mathbf x)=\tfrac12\bigl[(r^b_i)^2+(r^m_i)^2\bigr],
+\qquad
+\Pr(E_i=1\mid\mathbf x,S)=\tfrac12\exp\bigl[-\mathcal D_{e(i,S_i)}(\mathbf x)/\mathrm T\bigr],
+\]
+the cost adding belief- and model-channel relative entropies and the record reading only the attended
+edge, with weight \(1/\mathrm T\). An attended edge is stiff against the thermal scale; an unattended edge
+carries no energy at all. This is the gating. The prior is uniform, nothing is learned, every coordinate
+has unit mobility, \(\mathrm T=\epsilon^8\) with \(\epsilon\le1/100\), the formation time is
+\(t_\epsilon=2\log(1/\epsilon)\), and the horizon is \(t_\epsilon+1\). The preparation is an equal mixture of
+narrow Gaussians around \(\pm\mathbf x^\circ\), where \(\mathbf x^\circ\) has all means zero and all links one,
+with a uniform assignment, so it names no pair. On the path that holds a matching from \(\mathbf x^\circ\),
+\(r_{\mathrm{int}}=-e^{-(8+\mathrm T)t}\) and \(r_{\mathrm{ext}}=e^{-\mathrm Tt}[-\tfrac32+\tfrac12e^{-8t}]\)
+(\MTeq{eq:rg-formation-cycle-center}): matched mismatches decay at rate eight, exterior ones go to about
+\(-3/2\) and then decay at the thermal rate. The circulation, equal to minus the sum of the belief mismatches,
+drops from four to about three and then relaxes only at rate \(\mathrm T\); it is what stretches the
+unattended edges.
+
+Part (a) of the proposition gives the episode: with probability at least \(p_0=3e^{-1/4}/512\) the assignment
+is one perfect matching throughout; at time zero each matched pair has belief relative entropy above
+\(1/4\), so the contrast is entered during the episode; after \(t_\epsilon\) the matched relative entropies are
+at most \(\epsilon^4\); and after time \(1/4\) every exterior belief relative entropy exceeds \(1/2\). The pair
+is held with restoring rates \(8+\mathrm T\) and \(4+5\mathrm T\), and the kinetics started from the
+stationary law realize the event with probability at most \(4e^{-1/(4\mathrm T)}<p_0/2\). Part (b) is the
+parent channel, discarding the three fast normal directions of the attended edges and keeping the
+assignment, the loop, and one fast coordinate. Part (c) bounds the discarded conditional relative entropy
+by \(\bar\eta_\epsilon\) (\MTeq{eq:rg-formation-cycle-constants}). Part (d) puts the parent activated at
+\(t_\epsilon\) within total variation \(2p_\epsilon/(1-p_\epsilon)+4\sqrt{8/3}e^{-1/\mathrm T}\) of the native
+retained path law conditioned on the same prefix, assignment path included. The constants are explicit at every \(\epsilon\le1/100\); at
+\(\epsilon=1/100\) they give a path-law error of about \(1.5\) percent and a discarded loss of about \(0.045\)
+nats, both vanishing as \(\epsilon\to0\). Unlike the chain, the comparison here is in total variation of path
+laws, because on a held matching the hidden coordinates are exactly independent Ornstein--Uhlenbeck modes.
+
+\begin{center}
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.26\textwidth}>{\raggedright\arraybackslash}p{0.54\textwidth}>{\raggedright\arraybackslash}p{0.14\textwidth}@{}}
+\toprule
+Ingredient & Role & Origin \\
+\midrule
+Attention-contraction feedback & Attended edges contract, contracted edges win attention, the matching persists & endogenous \\
+Energy scale & All edges have the same cost structure & homogeneous \\
+Which pair forms & Initial assignment, drawn uniformly; the law stays symmetric & random seed \\
+Circulated preparation & A flux around the ring that survives on the episode's time scale and stretches the unattended edges & supplied \\
+Source gating & Energy only while attended, with weight \(1/\mathrm T\) & supplied \\
+Temperature \(\epsilon^8\) & Makes attention an arg-min of edge costs & supplied \\
+Euclidean kinetic metric & Beliefs, models, and links all move at rate one; models are not slow & supplied \\
+Duration-one episode; no learning & The pair is proved held for one time unit; parameters fixed & supplied \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+One observation places the witness. The four-cycle belongs to the gated family, so by
+\MT{prop:rg-gated-depth-one} its stationary law already sits on the two perfect-matching sheets, up to a
+fraction of order \(\mathrm T\) of its mass, with the matched pairs as its coherent blocks. The paired block
+partition the episode reaches is the typical partition of equilibrium; what distinguishes the episode from
+equilibrium coherence is its entrance clause (the pairs are incoherent at time zero) and the seeded choice
+of matching. Physically, the witness is relaxation from
+a prepared symmetric incoherent start into one of two paired equilibrium sectors, the choice made by a
+sampled label and held by attention feedback. That is a genuine coupled-inference mechanism at one level,
+not a collective the equilibrium law would not already contain.
+
+\subsection{The gated family and depth one}
+\label{comp:ch13-gated}
+
+\MT{def:rg-gated-translation-family} places the four-cycle's laws, records, and kinetics on any finite
+simple graph without isolated vertices, with a product prior independent of \(\mathrm T\). On a sheet the
+energy is \(V_S=\tfrac12\mathbf x^\top H_S\mathbf x\), where \(H_S\) sums over receivers the residual pair of
+the attended edge, and both laws are Gaussian on each sheet with precision \(H_S/\mathrm T+\Omega\)
+(\MTeq{eq:rg-gated-sheet-law}). By \MT{prop:rg-gated-depth-one}, (a) every sheet has a stiff band of order
+one on the \(\mathrm k_S\) attended directions and a soft band of order \(\mathrm T\) elsewhere, and the prior
+enters only sheet weights, never stiffness; (b) the configuration marginal is a Gibbs law within
+\(\mathrm T\sum_i\log(1/\min_j\pi_{ij})\) of the energy \(V_{\min}=\sum_i\min_j\mathcal D_{e(i,j)}\), in which each
+receiver pays only for its cheapest edge and which is flat under rigid translation of any block of a
+covering edge set; (c) the counting is
+\[
+\operatorname{rank}\mathbf a_F=|F|+N-\operatorname{cc}(F),
+\qquad
+\mathrm k_S\ge2(N-\mathfrak n),
+\qquad
+q_\Omega\{S:\operatorname{cc}(\operatorname{att}(S))\le\mathfrak n-m\}\le\mathrm K_m\mathrm T^m,
+\]
+with equality in the middle exactly for minimum edge covers, the spanning forests of \(\mathfrak n\) stars,
+and sheet weights proportional to \(\mathrm T^{\mathrm k_S/2}\) up to controlled factors
+(\MTeq{eq:rg-gated-sheet-weight}); (d) at resolution \(\mathrm a\) the stationary block partition differs from
+a minimum-edge-cover partition with probability at most
+\[
+\mathrm K_1\mathrm T+\frac{|E|\|\Omega\|}{2\mathrm s_*^2}\mathrm a^2+4|E|e^{-\mathrm a^2/(4\mathrm T)},
+\]
+the mass of merged sheets, the chance that an unheld edge between blocks falls inside the resolution, and
+the chance that a held edge fluctuates outside it. On an even ring or an even complete graph the blocks are
+the pairs of a perfect matching, and on a star graph the block is the star: the stationary law fragments
+into the smallest blocks the graph allows.
+
+Is this large-\(N\), and is it static? It holds on every finite graph, so it applies verbatim at 512 or more
+agents and is not a small-network result. But it concerns \(\mathrm T\to0\) at a fixed graph with
+graph-dependent constants. \(\mathrm K_1\) contains the factor \((1+\|\Omega\|/\mathrm h_*)^{N-\mathfrak n}\),
+exponential in \(N\), times a ratio whose numerator runs over every merged assignment
+(\MTeq{eq:rg-gated-merge-cost}), and the second term grows with the number of edges. Nothing keeps the bound
+small as \(N\) grows at fixed temperature, so the limit of many agents at fixed temperature, where the number
+of ways to merge competes with the cost of each merge, is not addressed. The statement is also purely
+static: it has nothing on relaxation times, metastability, or how long sampled paths can hold a larger block.
+Since the dynamic question is posed only outside the family (\MT{open:rg-formation-general}), a transient
+second coalescence inside the gated family is neither excluded nor posed.
+
+\subsection{The authoring rules R13 to R16 in physics terms}
+\label{comp:ch13-rules}
+
+Four authoring rules govern what the technical documents may call learning-driven selection, recursion, a
+coherence episode, and a settled open problem.
+
+R13, the Curie rule, is Curie's principle applied to learning. If model, records, parameterization, and
+kinetics share a symmetry, a claim that learning selects a structure the symmetry does not fix must name
+the symmetry-breaking datum it amplifies and compare against a frozen-learning run, or else declare the
+selecting mechanism, for example a rule acting on sampled paths, and then the claim concerns sampled paths.
+A unique, equivariant law-level dynamics from a symmetric start cannot produce an asymmetric law, the
+finite-volume fact that a finite system's Gibbs state is symmetric. The rule is substantive: it is why the
+four-cycle result claims only a sampled-path pairing.
+
+R14 defines recursion by a counterfactual. One declares a handoff time, a first-stage event with its
+blocks, a second-stage event whose block is a union of first-stage blocks, a statistic such as the second
+stage's probability, and a class of handoff states that includes, with probability bounded below, states
+from histories without first-stage formation. The second stage is recursive when it has probability
+bounded below and its statistic after actual first-stage formation beats its value after a counterfactual
+handoff by a margin. If it happens with probability tending to one from every handoff in the class, or its
+proof uses only properties that counterfactual handoffs share, the sequence is a supplied-scale sequence:
+the hierarchy is in the Hamiltonian, as in any system whose separated couplings order each on its own scale
+whether or not the previous scale has ordered. The physical distinction is between a hierarchy of
+couplings and a hierarchy of products, whose stage-two units are made of stage-one units and would not
+form otherwise. The definition is substantive. The chapter does not run the test on the triangle chain, but
+each level's coherence follows from that level's stiffness acting on the prepared displacement, so in
+R14's terms the chain is a supplied-scale sequence; this is the companion's reading.
+
+R15 defines a coherence episode. The restoring clause requires a named interaction whose rate times the
+squared resolution, divided by the temperature, diverges on the sheets the kinetics select: by
+equipartition a mode of stiffness \(k\) has width \(\sqrt{\mathrm T/k}\), so the block sits many thermal widths
+inside its resolution, held by energy rather than luck. The horizon clause requires horizons short compared
+with the time equilibrium takes to revisit the event, or a probability exceeding the equilibrium value by a
+margin. Restored coherence that fails the horizon clause, for instance because equilibrium has it with
+probability tending to one, is restored equilibrium coherence, not formation; coherence failing the
+restoring clause is coincidental. The recurrence branch is how a physicist says a broken-symmetry state is
+real, since tunneling times diverge; the margin branch admits the transients of relaxation from any
+prepared, atypical start. The rule thus excludes thermal accidents and equilibrium ordering from the word
+formation but not preparation-driven relaxation. The four-cycle meets both clauses, the horizon clause
+through its entrance requirement. In the chain the intermediate windows meet the margin branch, but the
+final single component is what the restricted optimizer looks like, every residual being thermal under it,
+so by R15's own terms the chain's last stage is restored equilibrium coherence. The chapter does not
+evaluate R15 for the chain; this is the companion's reading.
+
+R16 requires each open problem to be posed in a stated class with two nontrivial settling branches, neither
+met by an existing statement or a trivial construction. It is bookkeeping for well-posedness, and it is why
+the open problems below are long and cannot be closed by pointing at the witnesses already proved.
+
+\section{What is proved, and how solid it is}
+\label{comp:ch13-scorecard}
+
+\begin{scorecard}
+\MT{lem:rg-formation-carrier} & Gauge-invariant residuals; triangle energy splits into contrasts and flux; orthogonal split into normal, loop, gauge directions & \SOLID & Standard in substance \\
+\MT{prop:rg-formation-laws} & Normalized joint, quadratic restriction cost, free energy as relative entropy to the optimizer, gap \(O(N\mathrm T^2/\mathrm J_1)\); with \mtc{prop:rg-formation-normalized-experiment} & \SOLID & Standard in substance \\
+\MT{prop:rg-formation-parent-potential} & Parents are exact marginals with Schur stiffness and bounded tilt; free energy drops by exactly \(\mathrm T\Delta\); with \mtc{prop:rg-formation-rate-composition} and \mtc{prop:rg-formation-score-dissipation}, reversible inherited rows and an H-theorem & \SOLID & Standard in substance: Gaussian integration, chain rule \\
+\MT{def:rg-formation-kinetics} & Langevin plus heat-bath label jumps; declared parent kinetics; own-law learning (\mtc{def:rg-formation-learning}) & \CHOICE & The parent kinetics is a Markov closure \\
+\MT{def:rg-formation-regime} & Doubling recursion, amplitude, temperature \(\epsilon^{20N-34}\), horizon, prepared mean, calibration & \CHOICE & Where the outcome is put in \\
+\MT{thm:finite-depth-adaptive-formation}(b) & Component counts \(3\cdot2^{L-1}\to\cdots\to1\) on the windows & \TOY & Triangle chain, \((\R,+)\), scalar fibers, supplied hierarchy; linear relaxation; constants depend on \(L\) \\
+\MT{thm:finite-depth-adaptive-formation}(a), (d) & Learning follows calibration; attention mass and hidden kernels move after formation & \TOY & Movement engineered; no effect on formation \\
+\MT{thm:finite-depth-adaptive-formation}(c), (e) & Discarded loss and score error vanish; histories couple; paths concentrate & \TOY & Resolution \(\sqrt{\mathrm T}/\epsilon\), not total variation of path laws \\
+\MT{rem:rg-formation-saturation} & Record saturated, learning calibration-dominated, loops thermal; coherence unchanged without record and learning & \SOLID & Negative content fixing the theorem's reading \\
+\MT{prop:rg-formation-gaussian-core} & Exact loss; two-sided asymptotic; base-\(4/3\) separation criterion & \TOY & Sharp, for the Gaussian core of the chain only \\
+\MT{prop:rg-formation-endogenous-cycle} & A pair forms by attention feedback with probability at least \(4.6\times10^{-3}\); exact parent over one time unit & \TOY & Four agents; gating, seed, circulation, \(\mathrm T=\epsilon^8\), no learning; symmetric law \\
+\MT{prop:rg-gated-depth-one} & Stationary blocks are minimum-edge-cover components; each merge costs \(\mathrm T\) & \SOLID & No-go inside the gated family only; stationary; \(\mathrm T\to0\) at fixed graph \\
+\MT{open:rg-formation-regime-sharpness} & Is the doubling needed; depth-uniform constants & \OPEN & Chain family, base-\(4/3\) schedules \\
+\MT{open:rg-formation-adaptive-family} & Learning or holonomy changes, in law, which block forms & \OPEN & Four-cycle with learned rows \\
+\MT{open:rg-formation-general} & A recursive (R14) second coalescence that is an episode (R15) & \OPEN & Outside the gated family \\
+\end{scorecard}
+
+\begin{hygiene}
+Conditions that decide the chain's outcome, several chosen precisely to switch off the feedback the
+program is interested in: the supplied strengths with the doubling, the prepared displacement with a strict
+margin, the tie \(\mathrm T=\mathrm A^2\epsilon^6\), the calibration record, the saturated record, and source
+palettes confined to each triangle. Conditions that exclude the program's targets: the group \((\R,+)\) with
+scalar fibers, unit mobility (models as fast as beliefs), and the uncomputed \(\epsilon_L\) with
+depth-dependent constants. For the four-cycle the conditions that matter are the supplied rows of the table
+in \cref{comp:ch13-cycle}; for the gated family they are exclusive single-label attention, a scalar
+translation group, and temperature-independent energies and prior ratios.
+Hygiene: the root observation and gauge weight, the cancellation term \(-\mathrm TR_{\mathrm{ev}}\), the
+preparation neighborhood of smooth transports, positivity and non-explosion of densities, the choice of
+entrance constant and tolerance above their thresholds, the Gaussian reference, and \(\mathrm T\le1\).
+\end{hygiene}
+
+\section{Toy versus general}
+\label{comp:ch13-toy}
+
+None of the three results has hypotheses that include the program's target, 512 or more agents with
+nonabelian, noncompact groups. For the triangle chain the mechanism-level content concerns coarse-graining,
+not formation: exact marked parents can be carried through a hierarchical relaxation with separately
+vanishing errors, provided the stiffness separation beats the adiabatic lag in thermal units; that this
+tension appears in every construction of the type is plausible but unproved. The doubling, the exponents
+20, 6, and 14, the constants \(10^{-4}\), \([1,21/10]\), \(1/200\), and \(57/100\), the sigmoid prior, and the
+chain topology are specifics, and the theorem, though valid for arbitrarily many agents, is not a
+large-\(N\) result. For the four-cycle the mechanism-level content is the attention-contraction feedback,
+with an order-one flux deciding which edges stretch; it is local and could operate in large graphs, but
+whether it forms many pairs at once, how neighboring pairs interact, and whether the law picks them are not
+addressed, and the floor \(3e^{-1/4}/512\), the rates 8 and 4, and the one-unit horizon are specifics. For
+the gated family the mechanism-level content, that exclusive gating puts the label into a sheet's weight and
+never its stiffness, is proved on every finite graph; it is the chapter's one result that is not about a
+small network, and it does not reach non-exclusive or multi-head attention, temperature-dependent
+couplings, interactions that stiffen the directions between blocks, nonabelian links, dynamics, or many
+agents at fixed temperature.
+
+On the reader's own intuitions the chapter is neutral. Formation in the chain is continuous: the dynamics is
+smooth relaxation, and the discrete counts come from the resolution \(\eta_L\mathrm A\) and scale separation,
+not from a transition. No phase transition, condensation, or thermodynamic limit appears; every result is at
+fixed finite \(N\) with \(\mathrm T\) or \(\epsilon\) tending to zero. The gated no-go shows fragmentation at fixed
+\(N\) and low temperature in one family, and rules condensation neither in nor out elsewhere or as
+\(N\to\infty\) at fixed temperature.
+
+\section{Open ends}
+\label{comp:ch13-open}
+
+The scope paragraph's declined claims map onto three open problems. Order-one or nonabelian holonomy, a
+model-channel record, slow per-agent models, and a record informative at the coherence scale are absent
+from the chain and reappear as the ingredient list of \MT{open:rg-formation-adaptive-family}: a family in
+which learning or holonomy changes, in law, which components form needs at least one of a record
+standardized at the coherence scale, for example through \(\chi(r/(\eta_L\mathrm A))\); model means and links
+both slow relative to beliefs, since a fast link or fast model erases the model disagreement on the belief
+clock (\MT{prop:obs-slow-model-link-dichotomy}; see \cref{comp:ch08}); loops of order \(\mathrm A\) or
+nonabelian links; or interacting model-channel records. The problem is posed on the four-cycle with learned
+attention rows, as a total-variation difference, bounded below, between the conditional laws of the first
+formed block in the learned and frozen arms, or between initial means differing only in their loop
+coordinate, or a proof that these differences vanish for almost every mean. In a slower-mobility regime the
+learned and frozen first-block laws coincide in the limit, so learning selects nothing there
+(\MT{prop:phil-early-block-null}), and a parent activated after hidden thermalization has separately
+vanishing errors on the seeded sub-event (\MT{prop:phil-early-seeded-parent}); the original coupled mobility
+and the loop comparison remain open (\cref{comp:ch14}).
+
+Depth-uniform constants and a non-doubling regime are \MT{open:rg-formation-regime-sharpness}; a positive
+answer would still leave a stiffness range growing like a power of \(N\). Arbitrary families and initial laws,
+mixed-level source support, permanent membership, and control as the depth tends to infinity are folded into
+\MT{open:rg-formation-general}: a second endogenous coalescence, with learned parameters and from
+non-matching assignments, in a source-gated model with temperature-independent data outside the gated
+family, recursive in the sense of R14, held in the sense of R15, and followed by parents with separately
+vanishing errors, or a proof that none exists in the class. A dynamic second coalescence inside the gated
+family falls between this problem and the depth-one proposition. Intrinsic selection of the contrasts is
+\MT{open:cg-natural-selector}, a persistent multilevel hierarchy formed by descent is
+\MT{open:full-graph-hierarchy}, and behind all of them stands \MT{open:rg-pointwise-parent-dynamics}: the
+chapter's parents are declared Markov closures checked against the fine process in two special families,
+which does not settle how a parent's dynamics follows from the network it summarizes.
+
+\begin{verdictbox}{\NARROWER}
+\textbf{What the chapter says it does.} Its opening asks whether coherent components can form in succession
+in one normalized experiment while every parent is activated from the complete preceding law, keeps every
+loop and label, and learns its own parameter, and says two witnesses answer yes under explicit restrictions.
+The opening paragraph of the introduction describes a finite-depth family that forms successive meta-agents
+under free-energy descent with learning, and the program aim is that collectives form through the agents'
+coupled inference. The introduction's reading map, by contrast, describes the chapter accurately.
+
+\textbf{What the statements give.} For the chain the question as posed is answered yes
+(\MT{thm:finite-depth-adaptive-formation}): exact marginal parents that keep loops and labels and learn from
+their own laws track the fine process with separately vanishing errors at every finite depth. The succession
+itself is linear relaxation of a supplied displacement through a supplied stiffness hierarchy; attention is
+within \(10^{-4}\) of its prior, learning follows calibration and moves after formation, loops are thermal,
+and the coherence proof works with attention and learning switched off (\MT{rem:rg-formation-saturation}).
+The meta-agents are marginal laws, not coarse agents; the temperature is \(\epsilon^{20N-34}\) and the
+constants depend on the depth without control. The four-cycle witness (\MT{prop:rg-formation-endogenous-cycle})
+and the depth-one no-go (\MT{prop:rg-gated-depth-one}) are delivered as stated.
+
+\textbf{The gap.} Nothing shows a collective forming because of coupled inference beyond one level. The one
+endogenous witness is a sampled-path event on four agents with a symmetric law and no learning, whose end
+state equilibrium already favors, and the opening's ``two witnesses answer yes'' fits the chain but not the
+four-cycle, which has neither succession nor learning. Recursive endogenous formation
+(\MT{open:rg-formation-general}), law-level selection by learning or holonomy
+(\MT{open:rg-formation-adaptive-family}), and the depth-uniform control that any statement about hundreds of
+agents needs (\MT{open:rg-formation-regime-sharpness}) are open. The technical chapter's scope paragraph is
+candid about all of this; it is the introduction's opening summary and the program aim that promise more
+than these theorems deliver.
+\end{verdictbox}
