@@ -1,0 +1,226 @@
+\chapter*{How to Read This Companion}
+\phantomsection\addcontentsline{toc}{chapter}{How to Read This Companion}
+\markboth{How to Read This Companion}{}
+\label{comp:guide}
+
+\section*{What this companion is}
+\phantomsection\addcontentsline{toc}{section}{What this companion is}
+
+The theory lives in three technical documents: the main manuscript, cited here as \textsc{mt}, which
+develops everything at one base point $c_*$; Supplement~G, the multivariate-Gaussian realization; and
+Supplement~B, which holds base transport, infinite networks, and the lattice cluster, all deferred
+until the single-point theory is settled. Together they run to more than six hundred pages. They are
+written for correctness under adversarial checking, not for a first reading, and they are the only
+authority. This companion proves nothing. It explains what the technical documents say, in the
+language of a physicist, and it says plainly what kind of knowledge each main result is and whether
+the theory delivers what its own words promise.
+
+When the technical documents prove something, the companion states it and cites it. A citation such
+as \MT{thm:elbo-extended-gap} refers to the main manuscript, and statements of the supplements carry
+their own letters (Proposition~G4.2, Theorem~B6.1). In the PDF these references are links that open
+the technical document at the cited statement, provided the technical PDFs sit in the neighboring
+folder where they are built. The companion's chapters~1 to~15 mirror the fifteen chapters of the main
+manuscript one to one; chapters~16 and~17 cover Supplement~G and chapter~18 covers Supplement~B. The
+companion has no numbered statements of its own, so every theorem, proposition, or lemma number you
+meet here points into a technical document.
+
+Each companion chapter follows one template: the question the technical chapter answers and its
+answer in plain language; the physical picture, with the nearest physics analogue graded as exact,
+structural, or loose; a decoder for the chapter's notation and jargon; the key formulas explained
+term by term with their limiting cases; a scorecard of the main results; a box that sorts the
+chapter's hypotheses into those that matter and those that are hygiene; the open ends; and a
+verdict. Where a proof would help intuition, the companion gives a sentence or two of informal
+reason and labels it as such.
+
+\section*{Two questions about every result}
+\phantomsection\addcontentsline{toc}{section}{Two questions about every result}
+
+The first question is what kind of knowledge a result is. Nearly every theorem-type statement in the
+main manuscript carries the tag \textsc{established}, meaning it is proved there. The tag says
+nothing about how general the result is, how much it depends on a special instance, or whether it
+rests on an assumption that might fail in the cases the program cares about. The companion adds that
+information with one badge per result.
+
+\begin{sciencetable}{Status badges used in this companion.}
+\label{comp:tab-badges}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.13\textwidth}>{\raggedright\arraybackslash}X}
+\toprule
+\textbf{Badge} & \textbf{Meaning} \\
+\midrule
+\SOLID & Proved in the technical documents, or a checked textbook result, at the generality the theory relies on. Established negative results (refutations and no-go statements) are solid. When the mathematics is textbook and the novelty is only the typing, the companion says ``standard in substance''. \\
+\TOY & Proved, but only on a named small or special instance: the four-cycle, a pair, three binary agents, a scalar or abelian case, a particular constant schedule. The mechanism is not established beyond that instance. \\
+\COND & Proved under a hypothesis that could fail in the models the program cares about and is not shown to hold there. The companion names the hypothesis. \\
+\NUM & Supported only by a named computation. \\
+\OPEN & An open problem or a conjecture. \\
+\VAGUE & A reading, an interpretation, or a programmatic statement with no precise mathematical statement behind it, or a construction whose meaning is not pinned down. \\
+\CHOICE & A definition or standing hypothesis that is a substantive modeling commitment, the place where physics enters, as opposed to notation. \\
+\bottomrule
+\end{tabularx}
+\end{sciencetable}
+
+The second question is whether the theory does what it says. Each companion chapter ends with a
+verdict on the technical chapter's own claims, taken from its opening paragraph and from the reading
+map of the introduction, measured against what its statements actually prove.
+
+\begin{sciencetable}{Delivery verdicts.}
+\label{comp:tab-verdicts}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.27\textwidth}>{\raggedright\arraybackslash}X}
+\toprule
+\textbf{Verdict} & \textbf{Meaning} \\
+\midrule
+\DELIVERED & The words match the mathematics. \\
+\NARROWER & The claim is proved, but in a setting narrower than the headline wording suggests: a supplied hierarchy, a single small network, a particular family. \\
+\PARTIAL & Part of the claim is proved and part is open. \\
+\NOTDELIVERED & The claim is posed but not proved; the technical document usually says so itself. \\
+\bottomrule
+\end{tabularx}
+\end{sciencetable}
+
+A result that is correct and standard is not a defect, and the companion says ``standard in
+substance'' as information, not as criticism: a physicist gains from knowing that an identity is the
+Gibbs variational principle in new notation, because then the physicist already knows what it can
+and cannot do.
+
+\section*{Reading the technical documents: the house style decoded}
+\phantomsection\addcontentsline{toc}{section}{Reading the technical documents: the house style decoded}
+
+The technical documents are written under an authoring specification whose rules explain most of
+what makes them hard to read. Knowing the rules lets you skip what is bookkeeping and slow down where
+a qualifier carries content.
+
+\paragraph{Status tags and scope paragraphs.}
+Every lemma, proposition, theorem, corollary, and claim-bearing remark carries exactly one tag:
+\textsc{established} (proved in the document), \textsc{standard} (a known result, cited with a
+locator), or \textsc{numerical} (supported only by a named computation). Definitions, standing
+hypotheses, conjectures, and open problems carry their status in the heading. After its opening, a
+chapter may add one scope paragraph, tagged \textsc{not-claimed}, listing what it declines to claim;
+in practice every chapter has one. Declining is
+not refuting: a declined statement may be true, and a refuted statement appears instead as an
+established negative result. The scope paragraphs are the fastest way to find out what a chapter does
+not do, and the companion's verdicts lean on them.
+
+\paragraph{Defaults, and why the prose is full of qualifiers.}
+Chapter~1 of the main manuscript fixes defaults once for the whole document
+(\MT{sec:intro-conventions}): measurable spaces are standard Borel, laws and kernels are normalized
+and measurable, a coarse channel is a Markov kernel that does not read the recognition law and
+leaves observations alone, admitted observations have finite positive evidence, structural data are
+parameters unless a law for them is declared, and the interaction graph is the support of the source
+prior, complete unless masked. A statement mentions only departures from these defaults, so a
+hypothesis that appears inside a statement is a departure and worth reading. Three other sources of
+qualifiers are worth knowing. The documents work with arbitrary laws on arbitrary spaces rather than
+Gaussians, which forces extended-real values (a relative entropy may be $+\infty$) and almost-sure
+qualifiers. They keep apart objects that coincide in the Gaussian or flat cases but not in general:
+three description levels (sample, law point, configuration), three transports (frame comparison,
+graph link, base parallel transport), three kinds of agreement between agents, three coarse
+operations (Markov pushforward, energy precomposition, Galerkin restriction), and five attention objects
+(the source prior, the generative and the recognition attention rows, the receiver occupancy, and the
+event law).
+Keeping them apart is deliberate: each pair can differ outside the Gaussian or flat case, and a
+theorem about one does not transfer to the other. And the scope rules described next constrain what
+may be called formation, selection, or recursion.
+
+\paragraph{The Curie rule (R13): what may be called selection by learning.}
+Curie's principle says that symmetric causes cannot produce less symmetric effects when the effect
+is uniquely determined by the cause. The rule applies it to learning. Let $H$ be the symmetries shared
+by the generative model with its records, the parameterization, and the kinetics, including the
+kinetic metric and the proposal mechanism ($H$ may be a group of graph automorphisms or a residual
+gauge group). A claim that learning creates or selects a structure that $H$ does not fix must name
+the $H$-breaking datum it amplifies (the initial law, an initial parameter, the model, or the
+records) and must compare with the frozen-learning arm on the same data. A claim that learning
+selects a structure that $H$ does fix must name the symmetry it restores, with the frozen arm at the
+non-invariant initial value as its null. A claim of selection with no breaking datum must name the
+hypothesis its mechanism violates and declare the mechanism as part of the model: a rule that reads
+realized paths, records, or a finite ensemble; selection among non-unique optimizers, critical
+points, or branches; non-uniqueness at masked entries, which amounts to edge creation; or a
+non-equivariant metric, mobility, or proposal mechanism. This is substantive, not bookkeeping: an
+equivariant law-level learning rule whose coupled law and parameter dynamics is unique cannot break a
+symmetry that its initial law and initial parameter share. In physics terms (the companion's
+reading, not part of the rule), spontaneous symmetry breaking needs non-uniqueness, which in
+statistical mechanics arrives with the thermodynamic limit. The four-cycle results of
+\cref{comp:ch14} are written under this rule, which is why they speak of amplifying an initial
+asymmetry rather than of spontaneous selection.
+
+\paragraph{Recursion versus a supplied-scale sequence (R14).}
+A two-stage claim declares a handoff time, the first- and second-stage events with their blocks, one
+statistic of the handoff state, and a class of handoffs fixed in advance that also contains, with
+probability bounded below, handoffs of histories in which the first stage did not form. If the
+second-stage event occurs with probability tending to one uniformly over the handoff class, the
+sequence is a supplied-scale sequence, not recursion, whatever differences appear earlier. Otherwise
+the second coalescence counts as recursive only if, after first-stage formation, the second-stage
+event has probability bounded below, its block is a union of at least two first-stage blocks, and
+the declared statistic exceeds its value after a counterfactual handoff by a margin bounded below. A
+margin in the other direction, where the first stage delays or suppresses the second, is recorded as
+first-stage dependence, not recursion. In physics terms (again the companion's reading), a
+supplied-scale sequence is a hierarchy built into the interaction strengths through which the
+dynamics relaxes in order, and the rule separates a genuine cascade from the successive freezing of
+modes whose stiffnesses were prescribed. It matters most in \cref{comp:ch13}.
+
+\paragraph{Coherence episodes (R15): what counts as formation.}
+A block counts as having formed only if two clauses hold. The restoring clause names the interaction
+that holds the block coherent against thermal noise at the stated resolution, with restoring rate
+times squared resolution divided by temperature tending to infinity, and the rate is evaluated on the
+actual law of the assignment sheets or on the landscape marginalized over sources, not on a sheet
+held fixed by hand. The horizon clause requires the
+coherence to be a dynamical event rather than a property of equilibrium: either the observation
+horizon is short compared with the stationary recurrence time of the event, or the event is more
+probable than it is in the stationary state by a margin. Coherence that is restored but merely
+reflects equilibrium (a strongly bound pair in thermal equilibrium is always coherent) is called
+restored equilibrium coherence; coherence with no restoring interaction is coincidental. In physics
+terms, the rule separates ordering produced by the dynamics from equilibrium order and from
+fluctuations.
+
+\paragraph{Settling conditions (R16).}
+Every open problem and conjecture states a class of models and two outcomes, a proof or a
+counterexample within that class, and neither outcome may already be met by an existing statement or
+by a trivial construction. This is why the open problems read like contracts. It keeps open items
+falsifiable, at the price of posing them in narrower classes than the questions that motivate them.
+
+\paragraph{No Wilsonian vocabulary in the main manuscript.}
+The main manuscript constructs exact finite-step coarse-graining with no rescaling, so it does not
+use the words relevant, irrelevant, fixed point, or beta function except in one pointer to
+Supplement~B and when describing other authors' work. The asymptotic apparatus (rescalings, spectra, fixed points, universality) lives in
+Supplement~B. When the companion uses renormalization-group language, it says which of the two it
+means.
+
+\paragraph{Labels and names.}
+Labels are frozen when a statement changes type, so a label beginning \texttt{thm:} may belong to a
+corollary and \texttt{conj:phil-contrast-formation} is a theorem. Trust the printed heading. Words
+such as agent, meta-agent, parent, and block are naming decisions: the documents make no claim of
+agency, and population laws are not agents.
+
+\section*{A notation survival kit}
+\phantomsection\addcontentsline{toc}{section}{A notation survival kit}
+
+The notation table of the main manuscript (\MT{app:notation-contract}) is complete but long. The
+following symbols carry most of the load; the glossary at the end of the companion
+(\hyperref[comp:glossary]{Glossary}) covers the jargon.
+
+\begin{decoder}
+$c_*$ & The single base point (context) at which everything happens. & A zero-dimensional base; one spacetime point. \\
+$G$, $\mathscr P_G$ & Structure group and principal bundle; at $c_*$ the fiber is a $G$-torsor (a copy of $G$ with no preferred identity). & Gauge group; the space of frames at a point. \\
+$\rho_b$, $\rho_m$ & Representations of $G$ on the belief and model sample spaces; they may differ. & Matter representations. \\
+$q_i^b$, $q_i^m$ & Agent $i$'s belief law and model law (probability laws on the fibers). & A mixed state of a matter field at site $i$. \\
+$u_i$ & Agent $i$'s frame, one for both channels at $c_*$ (a gauge choice). & A local gauge fixing at site $i$. \\
+$\mathfrak I$, $e$, $\bar e$ & Interaction multigraph, an oriented edge copy, its reversal. & The lattice, with multiple links allowed. \\
+$\Theta^x_e$ & Independent group-valued link on edge copy $e$ for channel $x\in\{b,m\}$, with $\Theta_{\bar e}=\Theta_e^{-1}$. & Link variable $U_\ell$ of lattice gauge theory. \\
+$\mathrm{Hol}^x(p)$ & Holonomy: product of links around a closed walk $p$. & Wilson loop before the trace. \\
+$K_a$, $\mathfrak A$ & A normalized record kernel (an interaction or observation factor) and the set of them. & A factor of the Boltzmann weight; a local term of the action. \\
+$\mathbb P_{\theta,V}$ & The one normalized joint generative law of all agents and records. & The Gibbs measure $e^{-S}/Z$. \\
+$\mathbb Q_{V,o,X}$ & The one recognition law of the whole population (a coupling of the agents' local laws). & The variational trial state. \\
+$\boldsymbol\Pi_{\theta,V,o,X}$ & The exact posterior given observation $o$ and structure $X$. & The exact Gibbs state conditioned on the data. \\
+$\Lelbo_V$, $\Fenergy_V=-\Lelbo_V$ & Evidence lower bound and variational free energy of the population. & Minus the variational free energy; the Gibbs--Bogoliubov functional. \\
+$\pi_{ij}$, $\beta_{ij}$, $\tau_i$ & Source prior, attention weight of receiver $i$ on source $j$, attention temperature. & Prior weight, Boltzmann weight over sources, temperature. \\
+$S^Q_e$, $S^K_e$, $\mathsf L_e$ & Query and key comparison maps and the composite communication map of an edge. & None standard; linear maps between internal spaces. \\
+$C_A$, $\ell$ & Coarse channel that makes parent $A$ from its child block; coarse-graining depth. & Blocking kernel; step index of a renormalization without rescaling. \\
+$\mathrm T$, $\varepsilon$ & Temperature and small parameters of the formation families (\cref{comp:ch13,comp:ch14}). & Temperature; small expansion parameters. \\
+\end{decoder}
+
+\section*{Reading paths}
+\phantomsection\addcontentsline{toc}{section}{Reading paths}
+
+For a first pass, read \hyperref[comp:glance]{The Theory at a Glance} and the verdict box at the end of each chapter. For the
+physical core of the theory, read \cref{comp:ch02,comp:ch05,comp:ch06,comp:ch09,comp:ch11,comp:ch13,comp:ch14}
+in that order. For what the theory says about Gaussian networks with $\GL(K)$ links at large size,
+read \cref{comp:ch02,comp:ch10,comp:sg1,comp:sg2}. For the state of the renormalization program at one
+base point, read \cref{comp:ch09,comp:ch11,comp:ch12,comp:sb}. The open ends of the whole theory are
+collected in \hyperref[comp:open-ends]{Open Ends of the Theory}.

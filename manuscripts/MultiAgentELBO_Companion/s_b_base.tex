@@ -1,0 +1,771 @@
+\chapter{Supplement B: Base Transport, Infinite Networks, and the Lattice Cluster}
+\label{comp:sb}
+
+\section{The question and the answer}
+\label{comp:sb-question}
+
+The main manuscript works at one base point \(c_*\): every frame is a point of one principal fiber,
+the independent links on the edges of the agent network are the only transports, and the design is
+\(\{c_*\}\). Supplement B collects what the theory would need if contexts varied over a base, if the
+network became infinite, or if agents sat on a lattice. For each extension it asks which single-point
+statements survive and exactly which additional data the extension consumes: a connection, a cover, a
+design, a base measure, a scale identification, or a lattice realization (\SB{ch:base-introduction}).
+Nothing in the main manuscript depends on it. This chapter reads it at overview depth with the scope
+gate in force: it reports what the supplement proves and where it stops, and proposes nothing.
+
+Part B-I answers the base question with kinematics. Relative frames, chosen connections, covariant
+defects of cross maps, four independent notions of flatness, finite designs, a Fisher geometry pulled
+back to the base, gauge-invariant durations for field histories, and a descent criterion are all
+typed and proved, with counterexamples wherever an expected implication fails. No connection, base measure, or probability
+law on fields is derived (\SB{open:prob-continuum-theory}), and graph links become base transports
+only by declaration (\SB{hyp:geo-graph-base-transport}). Part B-II answers what Wilsonian vocabulary
+requires: comparison maps that the coarse channels do not supply. A finite network at \(c_*\) carries
+no asymptotics (\SB{prop:rg-finite-depth-no-asymptotics}), beta functions are scheme dependent, and on
+Gaussian hierarchies attraction is proved only under a fixed primitive identification whose existence
+is open (\SB{conj:grg-fixed-b-attraction}). No infinite agent network, exponent, or universality class
+is constructed. Part B-III constructs one infinite-volume family completely: the square-lattice
+\(\mathbb Z_2\) gauge--matter law at small plaquette coupling, with a coarse specification at every
+exterior for every block size on a block-independent domain
+(\SB{thm:rg-spatial-constrained-specification}), a differentiable renormalization map, and proved
+volume limits of pressure, label selection, specific VFE, and Fisher densities
+(\SB{cor:rg-thermo-native-label-limits}). Whether its sites are agents at \(c_*\) or base points is
+open (\SB{open:rg-lattice-typing}).
+
+The supplement does what its introduction says. Its title words promise more: no base transport of
+beliefs is derived from inference, no infinite agent network is built, and the one constructed
+infinite-volume family is untyped, abelian, and flows to the trivial fixed point
+(\cref{comp:sb-verdict}).
+
+\section{Objects and notation}
+\label{comp:sb-notation}
+
+The supplement adds its own symbol table for Parts B-I and B-II (\SB{app:base-backmatter}) and a local
+table for the lattice part (\SB{tab:rg-lattice-notation}). The decoder covers what a reader meets first.
+
+\begin{decoder}
+Support \(\mathcal C_i\); design \(D=\{c_d\}\) & Contexts where agent \(i\) exists; a finite set of
+sampled contexts, not a discretization of the base. & Local field support; probe points. \\
+Relative frame \(h_i\) & Group element comparing belief and model frames, \(u_i^m=u_i^b\cdot h_i\). &
+Bifundamental field of two gauge sectors. \\
+Connections \(\omega_b,\omega_m\); transports \(\Omega_\gamma\) & Chosen rules for comparing fibers
+along base curves. & Gauge potential and Wilson line. \\
+Covariant defect \(\mathcal D\Phi\) & Failure of a belief-to-model cross map to commute with transport. &
+\(\nabla\Phi\) for a Hom-valued field. \\
+Graph flatness & Every closed walk of the agent graph has trivial link product. & Pure-gauge lattice
+configuration. \\
+Covariant jet \(D^\omega s\); pullback \(h^\omega_s\) & Rate of change of a belief field along the base
+with frame rotation removed; its squared Fisher length. & \(D_\mu\phi\); gauged sigma-model metric. \\
+Horizontal defect \(A_\Psi\) & Mismatch of fine and coarse connections under a coarse map over a base
+map. & Mismatched gauge field under blocking. \\
+Comparison data \(J_\ell\) & Declared identification of each blocked theory with a reference. &
+Rescaling step of a Wilsonian RG map. \\
+Relevant, marginal, irrelevant & Sign of a growth rate per unit log block scale, relative to declared
+norms and normalizations. & Sign of an RG exponent \(y\). \\
+\(z_e=\phi_x\psi_e\phi_{x+e_\iota}\) & Gauge-invariant link sign of the lattice model. & Unitary-gauge
+link of the \(\mathbb Z_2\) Higgs model. \\
+\(b=\tanh h\), \(t=\tanh j\) & Strengths of matter hopping \(h\) and plaquette coupling \(j\). &
+High-temperature expansion variables. \\
+Specification at every exterior & Coarse conditional laws defined and continuous at every boundary
+condition, including null ones. & Gibbsianness of the renormalized measure. \\
+Label \(\gamma\), bulk score \(\mathsf s_\gamma\) & A member of a finite catalog of lattice laws and its
+extensive log-mass density. & Coexisting phases and their free energies. \\
+\end{decoder}
+
+Glyphs change meaning between parts. The letter \(b\) is the belief channel in Part B-I, a block ratio
+\(b>1\) in Part B-II, and \(\tanh h\) on the lattice; \(t\) is a scale coordinate in
+\SB{ch:wilsonian-limits} and \(\tanh j\) on the lattice; beta functions are \(\mathfrak b\), not the
+attention rows \(\beta^x_{ij}\); on the lattice \(\rho=\tanh(h+2j)\) and \(\tau\) is a decay rate.
+Words are narrower than a physicist expects. ``Pullback'' means the connection-relative pullback of
+fiber tensors to the base, not Supplement G's restriction along a parameter map. ``Flat'' has four
+meanings (\cref{comp:sb-flatness}). ``Connection'' can be a principal connection, the scale connection
+of \SB{def:rg-scale-connection}, or a projected connection. ``Relevant'' is never a property of a flow
+alone (\SB{def:rg-mode-exponents}), and ``fixed point'' is typed by tier: a fixed object at one tier need
+not be fixed at another; six specific non-implications are proved in
+\SB{prop:rg-fixed-object-nonimplication}.
+``Declared'' means chosen rather than derived, and usually marks where modeling enters.
+
+\section{Part B-I: base transport and multi-point designs}
+\label{comp:sb-base}
+
+\subsection{Frames, connections, and cross maps}
+\label{comp:sb-frames}
+
+Over a base, the belief and model channels of agent \(i\) may carry separately chosen local sections of
+the one principal bundle, and the torsor structure makes their comparison canonical:
+\[
+u_i^m=u_i^b\cdot h_i,
+\qquad
+h_i\longmapsto g_i^bh_i(g_i^m)^{-1},
+\qquad
+\Theta_e^m=h_i^{-1}\Theta_e^bh_j\quad(e:j\to i).
+\]
+The relative frame \(h_i\) exists for any pair of representations, of any dimensions, and maps no
+representation space into another (\SB{prop:geo-relative-frame}). It transforms on the left under
+belief rechoices and on the right under model rechoices, like a bifundamental field. The two channels
+carry one link on \(e\) exactly when the third equation holds (\SB{prop:geo-identified-links}); the main
+manuscript's literal equality \(\Theta^b_e=\Theta^m_e\) is its gauge \(h_i=e_G\). The second atlas does
+not enlarge the gauge group, whose active image at a context is still one copy of \(G\)
+(\SB{prop:geo-two-atlas-active-image}); a genuine \(G_b\times G_m\) is an optional extension
+(\SB{def:geo-product-extension}).
+
+Connections are chosen data, with the textbook frame law \(A'=\operatorname{Ad}_gA-(\mathrm dg)g^{-1}\)
+(\SB{prop:geo-connection-frame-laws}). The new object is the covariant defect of a cross map,
+\[
+(\mathcal D\Phi)_e(X)=T_e\Phi\bigl(H^b_eX\bigr)-H^m_{\Phi(e)}X,
+\qquad\text{in the linear case}\qquad
+D\Phi=\nabla^m\circ\Phi-\Phi\circ\nabla^b .
+\]
+The first term carries the belief connection's horizontal direction through \(\Phi\), the second is the
+model connection's horizontal direction at the image. Their difference is vertical and vanishes exactly
+when \(\Phi\) commutes with parallel transport along every base curve
+(\SB{prop:geo-covariant-defect-parallelness}). At \(c_*\) there is no base vector and no defect. Across
+scales, a coarse-graining map between principal bundles over a base map exists only when a
+topological condition holds, as for the Hopf bundle, which no homomorphism \(z\mapsto z^n\) with
+\(n\neq0\) maps into a trivial bundle (\SB{prop:rg-principal-scale-map-existence}).
+
+\subsection{Four kinds of flatness}
+\label{comp:sb-flatness}
+
+At \(c_*\) every bundle is trivial and every connection vanishes, so ``flat'' can only mean graph
+flatness. Over a base four conditions separate completely (\SB{prop:geo-four-notions}), with the first
+decided by one Čech class common to both atlases (\SB{prop:geo-cech-class}).
+
+\begin{center}
+\small\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.2\textwidth}>{\raggedright\arraybackslash}p{0.3\textwidth}>{\raggedright\arraybackslash}p{0.42\textwidth}@{}}
+\toprule
+\textbf{Condition} & \textbf{Gauge-theory meaning} & \textbf{Separating witness} \\
+\midrule
+(a) Bundle triviality & A global gauge exists. & A flat \(S_3\)-bundle over a circle, glued by a
+3-cycle, is nontrivial. \\
+(b) Graph flatness & Agent-graph links are pure gauge. & Declared independently of (a), (c), (d). \\
+(c) Connection flatness & \(F=0\). & \(x\mathrm dy\) on \(\R^2\): uniform field, not flat. \\
+(d) Trivial holonomy on one loop & One Wilson loop is trivial. & \(x\mathrm dy\) around a circle
+enclosing flux \(2\pi\); conversely an Aharonov--Bohm vortex is flat with nontrivial phase. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+For the program this means that flat links at \(c_*\), condition (b), say nothing about (a), (c), or
+(d). The supplement also records that one principal class does not make the belief and model bundles
+isomorphic (a cylinder and a Möbius band share one \(\{\pm1\}\)-bundle), and that a global section of an
+associated bundle need not trivialize the principal bundle (\SB{prop:geo-cech-class}).
+
+\subsection{When is a graph link a base transport?}
+\label{comp:sb-graph-base}
+
+When it is declared to be one. The standing hypothesis \SB{hyp:geo-graph-base-transport} chooses a
+context per agent and a base curve per edge copy and requires
+\(\widehat\rho_b(\Theta_e^b)=\Omega_{\gamma_e}\) and \(\widehat\rho_m(\Theta_e^m)=\widetilde\Omega_{\gamma_e}\).
+Under it, graph loop products are base holonomies (\SB{prop:geo-graph-base-loop-transport}), a one-line
+consequence of the homomorphism property. The supplement is explicit that the hypothesis is satisfiable
+by definition, that no result realizes it for independently specified links
+(\SB{open:rg-cover-graph-base-identification}), that recovering a connection from records is open
+(\SB{open:rg-cover-holonomy-recovery}), and that even an exact realization concerns connection holonomy,
+not bundle topology.
+
+\begin{analogy}{structural}
+At \(c_*\) the links are lattice gauge variables over a zero-dimensional base (\cref{comp:ch02}). The
+hypothesis is Wilson's discretization read backwards: a lattice link is declared to be the path-ordered
+exponential of a continuum potential along an assigned curve. In lattice gauge theory that is the
+definition of the discretization, and here too it is a definition, not a theorem.
+\end{analogy}
+
+\subsection{Finite designs and shared links}
+\label{comp:sb-designs}
+
+A finite design is the multi-point version of \(\{c_*\}\) (\SB{def:prob-finite-design}). Under the
+design-point product hypothesis, distinct design points are conditionally independent given the
+structural data (\SB{hyp:gen-design-product}), and the free energy decomposes over the design
+(\SB{cor:gen-design-factorwise-decomposition}); the hypothesis is substantive, since it excludes
+correlation of an agent's states at two contexts beyond the structural data. If a submodel ties the
+copies of one link across design points, each tied link ranging over all of \(G\), the surviving gauge
+freedom is
+\[
+g_{d,i}^x=\bar g_i^xz_d,\qquad g_{d,j}^x=\bar g_j^xz_d,\qquad z_d\in Z(G),
+\]
+a context-independent rechoice times a central twist shared by both endpoints
+(\SB{prop:gen-shared-link-stabilizer}). Tying a link across contexts turns local freedom along the design
+into global freedom up to the center, which is \(\R^\times I\) for \(\GL(K,\R)\), \(\mathbb Z_N\) for
+\(\mathrm{SU}(N)\), and trivial for \(\mathrm{SO}(3)\).
+
+The finite construction supplies no probability law on a space of sections
+(\SB{open:prob-continuum-theory}), and matching sections to finite laws at the design points determines
+neither the joint nor the sections off the design (\SB{prop:prob-compatibility-nonidentifiability}). The
+named obstruction is the one familiar from constructive field theory: reference measures are finite
+products, and infinitely many non-probability factors give no measure, so a continuum theory must declare
+a measure on fields directly. Until then every evidence-bound statement of the main manuscript and of
+Supplement B is a statement about a finite design.
+
+\subsection{Base-direction information geometry}
+\label{comp:sb-pullback}
+
+Once contexts vary, a belief field \(s\) changes along the base, and the connection separates the part of
+that change that is only frame rotation:
+\[
+D^\omega s=\operatorname{ver}^\omega\circ Ts,
+\qquad
+h^\omega_s(X,Y)=g^F_{s(c)}\bigl(D^\omega s(X),D^\omega s(Y)\bigr)
+\]
+(\SB{def:pb-informational-pullbacks}). The first is the analogue of \(D_\mu\phi\); the second is the squared
+Fisher speed of the belief along the base direction \(X\), whose square root is the Fisher--Rao distance per
+unit displacement between the belief at \(c\) and the belief transported back from a neighbor. It is invariant under passive frame
+changes (\SB{thm:pb-pullback-gauge-invariance}) but not under a change of connection: for
+\(\omega'=\omega+\mathfrak d\),
+\[
+h^{\omega'}_s(X,Y)=h^\omega_s(X,Y)
++g^F\bigl(\mathsf J^s_{\mathfrak d}X,D^\omega sY\bigr)
++g^F\bigl(D^\omega sX,\mathsf J^s_{\mathfrak d}Y\bigr)
++g^F\bigl(\mathsf J^s_{\mathfrak d}X,\mathsf J^s_{\mathfrak d}Y\bigr),
+\]
+with \(\mathsf J^s_{\mathfrak d}\) the vertical field generated by the connection difference
+(\SB{prop:pb-pullback-connection-change}). A belief constant over the base has zero pullback under the zero
+connection and \(\mathrm c_1^2\mathrm dx^2\) under \(A'=\mathrm c_1\mathrm dx\), because the new connection
+says the fiber is being shifted underneath it. This answers what a ``metric on the base built from beliefs'' is: a
+metric relative to a chosen connection, and the documents choose none
+(\SB{open:pb-canonical-pullback-geometry}). It is also only a semimetric, with radical the directions of
+covariant constancy; constant rank gives a metric on a quotient vector bundle
+(\SB{thm:pb-pullback-rank-quotient}), and a quotient manifold can fail even then, since the null directions
+can form a contact distribution (\SB{prop:pb-contact-null-counterexample}). Combining the belief and model
+channels needs declared weights (\SB{hyp:pb-weighted-product-geometry}).
+
+Under a coarse map \(\Psi\) over a base map \(f\), fine and coarse base geometries obey the exact identity
+\[
+h^\omega_s-f^*\bar h^{\bar\omega}_{\bar s}=\delta_\Psi-\mathcal X_\Psi-\mathcal Q_\Psi
+\]
+(\SB{thm:pb-signed-base-comparison}). Here \(\delta_\Psi\) is the Fisher information lost through the fiber
+channel, nonnegative for a Markov channel, the main manuscript's data-processing loss read along base
+directions; \(\mathcal X_\Psi\) is a sign-indefinite cross term and \(\mathcal Q_\Psi\geq0\) a quadratic
+term, both produced by the horizontal defect. With zero defect and a Markov channel the comparison is a
+contraction and a
+meta-agent's perceived base geometry is smaller than its children's
+(\SB{cor:pb-base-fisher-contraction}, \SB{cor:pb-meta-perceived-geometry}); with nonzero defect it can be
+negative at zero information loss (\SB{thm:pb-signed-positivity-criterion}). For maps induced by a principal
+scale map the defect is the fundamental field of
+\(\mathfrak A_{\mathcal P}=\mathcal P^*\bar\omega-\mathrm d\kappa\circ\omega\) and vanishes exactly when
+\(\mathfrak A_{\mathcal P}\) takes values in the isotropy algebra of the coarse section value, with
+\(\mathcal Q_\Psi\) the orbit Fisher form evaluated on \(\mathfrak A_{\mathcal P}\)
+(\SB{thm:pb-isotropy-criterion}). Composed defects obey an ordered cocycle law
+(\SB{thm:pb-anomaly-composition}), and the base Fisher defect composes up to an exact residual
+(\SB{thm:pb-base-defect-cocycle}) whose relaxed pointwise problems are completely parameterized.
+
+\begin{analogy}{structural}
+The pullback is the kinetic metric \(\lvert D_\mu s\rvert^2\) of a gauged sigma model with the statistical
+manifold as target, and its connection dependence is that of \(\lvert D_\mu\phi\rvert^2\) on \(A_\mu\). In
+field theory the gauge field is dynamical or fixed by an equation of motion; the supplement supplies
+neither. The isotropy criterion has the form of a Higgs mass term: a quadratic form in the gauge field
+whose radical is the algebra fixing the vacuum value. The correspondence is of form only.
+\end{analogy}
+
+\subsection{Section-space histories}
+\label{comp:sb-histories}
+
+When an agent's state is a whole field, its inference history is a curve of sections, and it changes
+pointwise vertically: at each context the belief moves within its fiber, and a base curve is not an
+agent history (\SB{prop:hist-section-history-verticality}). On a strong Riemannian Hilbert manifold with
+a free, proper, isometric gauge action, the quotient speed
+\[
+\lVert d\pi_Qv\rVert^2=\min_{\xi\in\mathfrak g}\mathsf g_Q(v-A_Q\xi,v-A_Q\xi)
+\]
+has a unique minimizer, so gauge-invariant durations are well defined
+(\SB{thm:hist-strong-hilbert-quotient}); the minimization removes the velocity along gauge orbits, as a
+Coulomb-type condition does. It fails for weak metrics: the \(L^2\) Fisher metric on \(H^1\) fields on a
+circle gives a smooth proper quotient on which every tangent has zero speed
+(\SB{prop:hist-proper-weak-fisher-quotient}), and that weak metric is itself the Fisher metric of a
+natural observation family, so the obstruction is not an artifact of an exotic metric. Averaging a field
+over the fibers of a base map loses a nonnegative amount of integrated Fisher information, given a Markov
+fiber map, nonincreasing weights, and a jointly convex fiber chart; when the coarse metric is moreover
+constant in the chart, the loss is exactly the sum of a channel loss, a weight gap, and a context variance
+(\SB{thm:hist-averaging-defect}). Without joint convexity the conclusion fails: in the covariance sector of
+the Gaussian chart the loss is negative on an explicit datum (\SB{prop:hist-averaging-convexity}).
+
+\subsection{Covers, availability, and descent}
+\label{comp:sb-covers}
+
+\SB{ch:neighborhood-parents} is the part closest to the original picture of agents sprinkled over a base
+with overlapping supports. Four agents on a square of contexts have strip supports that overlap in pairs
+and triples with no common point (\SB{thm:rg-cover-nerve}), and each is present in a record with a smooth
+availability probability \(w_i(c)\) that vanishes off its support (\SB{thm:rg-cover-availability}).
+Attention then behaves as one would want over overlaps, with one qualification:
+\(\beta^x_{ij}(c)=\eta^x_{ij}(c)/\alpha^x_i(c)\) is smooth where the receiver is present, while the event
+law \(\eta\) is smooth everywhere and imposes no row where the receiver is absent
+(\SB{prop:rg-cover-zero-occupancy}). The main manuscript's parent needs all its children present, so a
+four-child parent here has empty domain; an availability parent weighting locally present children by
+\(w_i/\sum w\) exists on the union of supports (\SB{thm:rg-cover-compatible-laws}). The weights are chosen,
+and every compatibility statement holds by construction from one assumed ambient law
+(\SB{hyp:rg-cover-ambient-law}); gluing independently supplied local laws is
+\SB{open:rg-cover-local-gluing}.
+
+The substantive result is the descent criterion: along a surjective submersion, a section descends
+exactly when its image is constant on fibers, and a connection form exactly when its two pullbacks to the
+fiber product agree (\SB{thm:rg-cover-descent-obstructions}). Around it, a coarse map with
+context-dependent weights has defect \(O_{\mathrm c}(\mathrm dL)O_{\mathrm f}^{-1}\) even when all
+connections agree (\SB{thm:rg-cover-nonflat-defect}); projecting a flat connection onto a moving quotient
+creates curvature \(\bar{\mathsf g}^{-1}\mathrm{II}^\top\wedge\mathrm{II}\) from the second fundamental form,
+and staged projections agree with the direct one when the intermediate quotient metric is propagated,
+while resetting it can change the connection class (\SB{thm:rg-cover-projected-connection},
+\SB{thm:rg-cover-quotient-composition}). Finally, a declared record
+\(o_1=(\operatorname{Hol}_\iota-I)P_{\mathrm{pr}}Y+\varepsilon\) distinguishes two base-holonomy classes by a
+frame-invariant statistic (\SB{thm:rg-cover-operational-holonomy}), the base companion of the main
+manuscript's network-loop witness (\MT{thm:cg-loop-operational-holonomy}). The record reads the holonomy
+by construction; the theorem shows that such a normalized experiment exists, not that the model's own
+records are holonomy sensitive.
+
+\begin{analogy}{exact}
+The projected-connection curvature is the Gauss equation for an induced connection; with a flat ambient
+connection and a moving rank-one image it is Berry curvature. The composition result says iterated
+adiabatic projections agree with the direct one when each stage uses the metric induced by the last.
+\end{analogy}
+
+\subsection{How Part B-I connects to the base-manifold picture}
+\label{comp:sb-vision}
+
+Part B-I supplies the typed skeleton of the original picture: supports and Čech data, relative frames,
+chosen connections, covariant defects, finite designs, a pulled-back base geometry, gauge-invariant
+durations, availability-weighted attention over overlaps, and descent along base maps. It supplies no
+dynamics for any base datum. The connection is chosen, not determined by inference; base measures and
+weights are declared; the ambient law on a cover is assumed; and without a law on fields the evidence
+bound over a base exists only on finite designs. The single-point graph links and the base transports
+are related only by declaration. Part B-I is a precise list of what must be supplied when base transport
+is taken up, not yet a theory of agents over a base.
+
+\section{Part B-II: infinite networks and Wilsonian limits}
+\label{comp:sb-wilson}
+
+\subsection{What Wilsonian words require, and why finite depth has none}
+\label{comp:sb-finite-depth}
+
+The main manuscript coarse-grains finite networks by exact channels and keeps an effective action, a
+closure residual, and finite-step multipliers (\cref{comp:ch11}). A Wilsonian step is ``block, then
+identify the blocked theory with the original'', and the identification is extra structure: declared
+comparison isomorphisms \(J_\ell\), giving the reference cocycle
+\(\widehat{\mathfrak R}_\ell=J_{\ell+1}^{-1}\circ C_{\ell,\ell+1}\circ J_\ell\) (\SB{def:rg-comparison-data}).
+Exponents are growth rates per unit of cumulative log block scale \(\varsigma_{n\leftarrow\ell}=\sum_k\log
+b_k\),
+\[
+\chi_{n\leftarrow\ell}(u)=\frac{\log\lVert D_{n\leftarrow\ell}u\rVert_n-\log\lVert u\rVert_\ell}{\varsigma_{n\leftarrow\ell}},
+\]
+with \(D_{n\leftarrow\ell}\) the main manuscript's multipliers (\SB{def:rg-mode-exponents}). Where defined,
+their canonical content is the forward Lyapunov filtration (\SB{prop:rg-lyapunov-filtration}); they are
+invariant under tempered comparisons (\SB{thm:rg-tempered-comparison}), while a superexponential
+comparison can change the apparent exponent (\SB{prop:rg-superexponential-distortion}); and no Oseledets splitting is
+claimed, since a deterministic blocking sequence meets none of the hypotheses of the multiplicative
+ergodic theorem \citep{Oseledets1968}. Even uniform projective contraction can leave an attracting
+two-cycle rather than a fixed ray (\SB{prop:rg-contraction-no-fixed-ray}).
+
+\SB{prop:rg-finite-depth-no-asymptotics} makes precise what every physicist knows about blocking a finite
+system. With blocks of at least two agents the depth is at most \(\lfloor\log_2\lvert V_0\rvert\rfloor\), so
+the limit defining an exponent does not exist; levels of different sizes admit no comparison isomorphism;
+and exponent signs depend on the block schedule unless it is two-sided bounded: a mode doubled at each step has exponent 1 under
+\(b_k=2\) and \(2/(n+1)\to0\) under \(b_k=2^{k+1}\). This does not conflict with renormalization at
+\(c_*\) as a thermodynamic limit; it says that asymptotic vocabulary needs one, an infinite network or a
+family in which size and depth grow together (\cref{comp:sb-universality}), whereas the main manuscript's
+interaction multigraph is finite by definition (\MT{def:geo-graph-links}).
+
+The exact step contributes no growth of its own: along an exact interaction orbit
+\(\chi_{n\leftarrow\ell}(u)\leq\lvert V_n\rvert\log3/\varsigma_{n\leftarrow\ell}\), so no direction is
+relevant in the native norms when \(\lvert V_n\rvert/\varsigma\to0\), and the same holds in the reference norm
+when the comparisons are also tempered (\SB{cor:rg-interaction-no-relevant-mode}). The condition
+\(\lvert V_n\rvert/\varsigma\to0\) is substantive: the bound grows with the number of coarse agents, and it
+is vacuous for blocking by vertex ratios on a finite network. Relevance must come from a declared extensive normalization.
+In the scalar Gaussian block each Hermite function of degree \(k\) has coefficient \(b^{1-k/2}\), so degree
+one is relevant, two marginal, and higher degrees irrelevant, and the growth of degree one comes entirely
+from the extensive replication normalization, of norm \(\sqrt b\), since the conditional expectation
+contracts (\SB{def:rg-hermite-relevance}). Correlated coordinates
+change this spectrum, a general \(\GL(d)\) action leaves the setting, and no link or holonomy enters
+(\SB{prop:rg-hermite-scope}).
+
+\begin{analogy}{structural}
+In Wilson's renormalization group the blocking step, a conditional expectation, contracts; eigenvalues
+above one come from the rescaling of fields that accompanies it \citep{wilson1974renormalization}. Part
+B-II proves this division of labor for the exact step of the main manuscript. The Hermite spectrum is the
+Gaussian fixed point of the central limit theorem read as a renormalization map, whose binary case is in
+\citet{JonaLasinio2001}.
+\end{analogy}
+
+\subsection{Beta functions and fixed points}
+\label{comp:sb-beta}
+
+A beta function is a difference quotient on one reference space. For the action,
+\(\mathfrak b^H_b[H;\varrho]=(\mathfrak R^H_b[H;\varrho]-H)/\log b\), and a change of reference
+\(\varrho'=e^{-\Delta}\varrho\), \(H'=H-\Delta\), which leaves the weighted measure unchanged, shifts it by
+the inhomogeneous term \(-\mathfrak b^H_b[\Delta;\varrho]\) (\SB{prop:rg-action-beta-reference-change}). A
+beta function is thus a joint statement about the action and the reference trajectory. The retained beta
+of a truncated family differs from the exact one by the transported closure residual over \(\log b\)
+(\SB{prop:rg-retained-beta-residual}); a moving comparison frame gives even the identity step a nonzero
+beta, and what survives smooth conjugacy are projective eigenvalue ratios at a fixed ray
+(\SB{prop:rg-scheme-dependence}); and integer endpoints do not determine a continuous beta
+(\SB{prop:rg-continuous-beta-underdetermined}).
+
+A fixed theory is a measure pair, reference and weighted measure, fixed by the rescaled kernel. If the
+kernel has a unique invariant law, every fixed pair has constant action
+(\SB{prop:rg-fixed-pair-unique-ergodicity}), so a fixed theory with nontrivial action needs several
+invariant laws; this depends on the typing choice that the reference is pushed by the same kernel. The
+essential-spectrum theorem of the chapter has a hypothesis no exact arrow satisfies
+(\SB{thm:rg-unital-essential-spectrum}), and one exact kernel, the circle doubling map, has spectral radius
+1 on bounded functions and \(2^\alpha\) on Hölder functions (\SB{prop:rg-circle-norm-witness}), so a
+spectrum belongs to a declared topology.
+
+\subsection{The homogeneous Gaussian hierarchy}
+\label{comp:sb-gauss-hierarchy}
+
+On a homogeneous complete graph with equal blocks of size \(b\), common self term \(A\), and common
+coupling \(W\), hard aggregation acts by
+\[
+A\longmapsto bA,\qquad W\longmapsto b^2W,
+\]
+informally, because a block has \(b\) self terms and two blocks have \(b^2\) cross couplings. On
+\(\Sym^K\oplus\Sym^K\) the spectrum is \(b\) and \(b^2\), each with multiplicity \(K(K+1)/2\), so the ratio
+outside the dominant sector is \(1/b\) (\SB{prop:rg-gaussian-dense-scaling}). Normalizing by \(b^2\) fixes the
+coupling and contracts the self term toward a limiting ray with \(A=0\), a boundary operator whose
+consensus zero modes make the Gaussian non-normalizable, so pinning, quotienting, or a small mass are
+different infrared repairs. On general graphs the exponents follow the scaling of the cut: \(\xi=2\) for
+the complete graph, \(\xi=0\) for a chain. This is mean-field power counting for Gaussian couplings.
+
+It does not show attraction. Birkhoff's cone contraction cannot reach the boundary ray, since sum-only
+aggregation is not primitive on the full cone and does not mix matrix directions
+(\SB{prop:grg-full-cone-blocked}). Attraction is proved under one fixed primitive identification
+\(B\otimes\operatorname{id}\) on edge indices:
+\(r_B^{-\ell}(B^\ell W^{(0)})_f\to v_fM_\infty\) with \(M_\infty=\sum_eu_eW^{(0)}_e\) and \(u,v\) the Perron
+vectors (\SB{conj:grg-fixed-b-attraction}). The spatial profile is attracted; the \(K\times K\) fiber matrix is
+a Perron-weighted average of the initial couplings and is not selected. Whether any graph family admits such
+an identification is \SB{open:rg-scalarized-attraction}, and nonautonomous identifications are not covered.
+Attraction on an infinite hierarchy is therefore not established.
+
+\subsection{Two-index limits, and what the absence of universality means}
+\label{comp:sb-universality}
+
+A thermodynamic scale statement has two indices, size \(n\) and depth \(\ell\), and three limits: fixed
+depth after size, maximal depth, and a diagonal \(\ell(n)\) (\SB{def:rg-two-index-family}). They need not
+agree: for the blocked path graph the fixed-depth limit of the spectral count is the arccos law, the
+maximal-depth limit a single site (\SB{prop:rg-noncommuting-limits}). A countable index set carries a joint
+law by Kolmogorov extension (\SB{thm:cg-projective-cylinder-law}), but consistency gives no ELBO limit and no
+scale flow. That no universality class is identified (\SB{open:rg-two-index-limits}) means that the
+supplement states only what one would need: a triangular family of finite agent networks at \(c_*\) with
+consistency at fixed depth, uniform control of the coarse error, a diagonal scaling, and proved convergence
+of a scheme-invariant observable (\SB{open:rg-two-index-limits}). Raw couplings and beta components are
+scheme-dependent coordinates; a spectral exponent is a label only after convergence of the integrated
+density of states is proved (\SB{def:rg-gaussian-spectral-labels}), and a finite graph has an atomic
+spectrum. For the view of renormalization at \(c_*\) as a thermodynamic limit, the two-index family is the
+typed home, and it is open.
+
+\subsection{The numerical statements}
+\label{comp:sb-numerical}
+
+Supplement B has three NUMERICAL statements, all in Part B-II: a declared rescaling family on nested
+six-agent cycles fails the semigroup law, with total variation 0.042 between direct and staged blocking
+(\SB{rem:rg-compatibility-computation}); a frozen-attention projection scheme on a six-cycle and a
+nine-cycle reaches fixed structures with vanishing pairwise block
+(\SB{rem:rg-passive-blocking-computation}); and a row-regeneration scheme on the same instances keeps a
+nonzero pairwise block (\SB{rem:rg-regenerated-attention-computation}). The schemes are declared
+approximations, not the exact step, and the supplement says nothing here shows the exact pushforward
+maintains interaction. The implementation has been retired and the values were not recomputed
+(\SB{sec:rg-thermo-numerical-provenance}). The other rows of that index are exact rational checks of lattice
+statements that rest on their proofs.
+
+\section{Part B-III: the lattice cluster}
+\label{comp:sb-lattice}
+
+\subsection{The model and the flow}
+\label{comp:sb-lattice-flow}
+
+The source law lives on the edges of the square lattice, with matter signs \(\phi_x\), raw links \(\psi_e\),
+and dressed signs \(z_e=\phi_x\psi_e\phi_{x+e_\iota}\). On a finite region with exterior \(\eta\) its weight
+relative to counting measure is
+\[
+r^\eta_\Lambda(z)=\prod_{e\in\Lambda}(1+bz_e)\prod_{p\cap\Lambda\neq\varnothing}\bigl(1+t\chi_p(z\eta)\bigr),
+\qquad b=\tanh h,\quad t=\tanh j
+\]
+(\SB{def:rg-spatial-source}). Since \(e^{hz}=\cosh h(1+bz)\) and \(e^{j\chi}=\cosh j(1+t\chi)\), this is
+\(\exp(h\sum_ez_e+j\sum_p\chi_p)\), the \(\mathbb Z_2\) gauge theory of \citet{Wegner1971} coupled to a
+\(\mathbb Z_2\) Higgs field as in \citet{FradkinShenker1979}, in unitary gauge: the first product is matter
+hopping, a field on each link, and \(\chi_p\) is the plaquette holonomy. Small \(t\) is strong gauge
+coupling, where \citet{OsterwalderSeiler1978} proved existence and analyticity. For \(0<b<1\) and \(0<t<1/6\)
+the Gibbs law is unique and translation invariant, the matter signs are independent fair coins, and the
+law depends on them only through \(z\) (\SB{thm:rg-spatial-source-law}).
+
+The channel \(C_B\) keeps every \(B\)-th matter sign and replaces each coarse link by the product of the
+\(B\) fine links along the straight path it covers; every fine link off the coarse grid lines is integrated
+out. It is gauge equivariant, composes exactly, \(C_aC_B=C_{aB}\), and a coarse plaquette holonomy is the
+product of the fine ones inside it (\SB{prop:rg-spatial-path-square}). The central theorem
+(\SB{thm:rg-spatial-constrained-specification}) says that for \(0<b<1\), \(0<t<1/12\), and every \(B\), the
+pushed law has a unique positive specification, defined and continuous at every coarse exterior including
+null ones, whose dependence on the exterior beyond radius \(R\) decays like \(B^2(R+1)e^{-\tau(R+1)}\), and
+that the domain \(12t<1\) does not depend on \(B\). The renormalized measure is Gibbsian, with a
+renormalized Hamiltonian, at every block size on one fixed window, so the non-Gibbsianness catalogued by
+\citet{VanEnterFernandezSokal1993} does not occur there. The generated interaction is complete with norm tending
+to zero in \(B\) (\SB{thm:rg-spatial-generated-interaction}); for the integer factors \(a\in\{2,3,6\}\), on a
+ball of character coefficients, the renormalization map \(\mathscr R_a\) is Fréchet \(C^1\) with contracting
+linearization, so zero is its only fixed point there (\SB{thm:rg-spatial-local-operator}); and for a
+compact box of rational source parameters and rational norm parameters, the source law enters that ball once
+\(B\) exceeds an explicitly computable \(B_0\) (\SB{thm:rg-spatial-basin-entrance}).
+
+The flow is to the trivial fixed point, and this should be read plainly. As \(B\) grows the blocked laws
+converge on fixed cylinders to the fair product law, for every Gibbs law at any finite couplings
+(\SB{prop:rg-spatial-cylinder-attraction}); informally, because a long Wilson-line parity multiplies many
+signs whose conditional means stay away from \(\pm1\). Interacting fixed points, critical exponents, and a continuum
+gauge-field measure lie outside the construction (\SB{open:rg-spatial-generality}). What is nontrivial is the
+control: Gibbsianness uniform in block size, a complete interaction with explicit bounds, and a
+differentiable map, all constructed. At each fixed depth the Fisher information per coarse cell is a
+\(C^2\) density that is a regular metric on a nonempty open region (\SB{thm:rg-spatial-fisher-density}), and
+\(\mathcal I_{aB}\preceq a^2\mathcal I_B\): per fine cell information decreases, the data-processing
+inequality (\SB{prop:rg-spatial-fisher-contraction}).
+
+\begin{analogy}{exact}
+The source is the \(\mathbb Z_2\) gauge--Higgs model in unitary gauge, and the straight-path channel is
+blocking of gauge links by straight Wilson lines along the coarse grid, a product map rather than
+decimation.
+\end{analogy}
+
+\begin{analogy}{structural}
+The open-ball construction is of the kind \citet{Israel1981} gave for decimation and Kadanoff maps of
+Ising-spin interactions at high temperature; here the channel and the interaction space are different, and
+the supplement separates its results from those maps.
+\end{analogy}
+
+\subsection{Pressure, label selection, and the specific VFE}
+\label{comp:sb-pressure}
+
+\SB{ch:geometry-pressure} places a finite catalog of such laws on one lattice; each label is a value of the
+structural mark of the main manuscript's partition catalog (\MT{def:rg-geometry-ensemble},
+\cref{comp:ch12}). Pressures exist with explicit surface rates, \(\lvert\mathfrak p-n^{-2}\log
+Z_n\rvert\leq4\mathsf m_1/n\) (\SB{thm:rg-pressure-boundary}); existence is standard \citep{Georgii1988} and
+the rates are the addition. Under global normalization the label with the largest bulk score takes all the
+weight exponentially fast in the volume, and at a tie the outcome is decided by subextensive terms, not by
+pressures (\SB{thm:rg-pressure-selection}). Forgetting the label can destroy Gibbsianness outright: a mixture
+of two Bernoulli product laws has no continuous conditional at any exterior (\SB{thm:rg-geometry-erasure}).
+
+Observation is handled for one record: every edge sensor reports \(+\)
+(\SB{hyp:rg-pressure-positive-record}). It shifts each branch field from \(b_\gamma\) to
+\((b_\gamma+\eta_\gamma)/(1+b_\gamma\eta_\gamma)\), and the specific VFE of a label-retaining recognition
+satisfies \(\min_{\mathbb Q}\mathfrak f=-\bar e\), attained on the maximal posterior-score labels with the
+shifted Gibbs laws (\SB{prop:rg-pressure-vfe-minimum}): the Gibbs variational principle in the
+thermodynamic limit, with a finite label. Along a fixed blocking word
+\(B^2\mathfrak f_{\mathrm{fine}}=\mathfrak f_{\mathrm{coarse,induced}}+\mathfrak d_{\mathrm{fib}}\) with
+\(\mathfrak d_{\mathrm{fib}}\geq0\) (\SB{thm:rg-pressure-induced-vfe}), the volume-limit form of the main
+manuscript's exact coarse free-energy identity. A general record produces random fields of both signs;
+its quenched evidence density is \SB{open:rg-pressure-quenched-record}.
+
+\subsection{Thermodynamic Fisher geometry}
+\label{comp:sb-thermo-fisher}
+
+On compact source boxes with \(h>0\) and \(0<j<\operatorname{atanh}(1/12)\), the native pressure is \(C^4\),
+and since the native law is an exponential family in \(\mathsf g=(h,j)\) its Fisher density is the Hessian
+of the log-partition density, \(\tfrac1NI\to\mathsf H=\nabla^2_{\mathsf g}\mathsf A\) in \(C^2\)
+(\SB{thm:rg-thermo-native-cfour-pressure}, \SB{prop:rg-thermo-native-ctwo-metric}); pushes along a fixed word
+have the same \(C^2\) density per coarse cell as the infinite-law marginals
+(\SB{thm:rg-thermo-native-free-push-ctwo}). The main manuscript's finite-mixture asymptotics
+(\MT{sec:cg-retained-label-asymptotics}) then hold with \(N=L^2\) cells
+(\SB{cor:rg-thermo-native-label-limits}): with a strict winner the Fisher density converges to the winner's;
+at a tie \(I/N^2\to\operatorname{Cov}_w(\mathsf v_\gamma)\), the covariance of the bulk-score slopes, which is
+information about the label; and in a window of width \(1/N\) the label law is logistic.
+
+\begin{analogy}{exact}
+For an exponential family the Fisher metric is the Hessian of the log-partition function, the thermodynamic
+metric of fluctuation theory \citep{Crooks2007}, per cell the susceptibility matrix.
+\end{analogy}
+
+\begin{analogy}{structural}
+The tie and window statements have the form of finite-size rounding at a first-order transition, which
+\citet{BorgsKotecky1990} derive from the lattice model itself. Here the phase mixture is prescribed through the
+label weights, which makes the statement elementary; the correspondence is one of form.
+\end{analogy}
+
+\subsection{The typing question and the thermodynamic-limit reading}
+\label{comp:sb-typing}
+
+No lattice statement declares what a site is (\SB{open:rg-lattice-typing}). In the first reading the sites
+are agents at \(c_*\), \(G=\mathbb Z_2\), the raw link is an independent link, the dressed sign is the per-edge
+twist, and a plaquette is the holonomy of an agent four-cycle. In the second the sites are points of a
+discretized base, the raw link is the transport of a \(\mathbb Z_2\) connection, a plaquette is a discrete
+curvature, and the channel is a scale map over a base map. Every statement holds under either reading.
+
+The first reading is the reader's own: links as lattice gauge theory over a zero-dimensional base, and
+renormalization at \(c_*\) as a thermodynamic limit. Under it the lattice cluster is the one place in the
+three documents where a thermodynamic limit of a link law on an agent graph is actually constructed. The
+open problem
+states what is missing before the reading can be adopted: the lattice law must be the link marginal of a
+normalized joint with belief and model channels, a recognition law, and an ELBO on a countably infinite
+agent set, whereas the main manuscript's multigraph is finite and the lattice family carries none of these.
+The lattice part also fixes every blocking word before its volume limit; joint growth of depth and volume
+is part of \SB{open:rg-spatial-generality}, and where depth and volume do grow together the limit is the
+trivial one. Even under the first reading the group is finite and abelian, so the per-edge twist is gauge
+invariant and nonabelian holonomy classes never appear, far from the target of 512 or more agents with
+\(\GL(K,\R)\), \(\GL(K,\mathbb C)\), or \(\mathrm{SU}(N)\) links; the domain is a single-phase strong-coupling
+region, with a unique Gibbs law and a smooth pressure; and observation enters through one constant record. The lattice cluster proves that the
+coarse-channel calculus can be run to completion in infinite volume for one abelian family. It is not
+evidence about formation in the target class.
+
+\subsection{What is new, and the classical antecedents}
+\label{comp:sb-antecedents}
+
+The model and tools are classical: \citet{Wegner1971}, \citet{FradkinShenker1979}, and
+\citet{OsterwalderSeiler1978} for the model; Dobrushin uniqueness \citep{Dobrushin1968} and boundary
+comparison \citep{Georgii1988}; Kolmogorov extension; Kozlov's Gibbs representation \citep{Kozlov1974};
+Israel's high-temperature renormalization maps \citep{Israel1981}; and \citet{VanEnterFernandezSokal1993}
+for Gibbsian pathologies, of which \SB{thm:rg-geometry-erasure} is a Bernoulli case in sharper form. The
+principal candidate for a new result is the block-size uniformity of \(12t<1\) in
+\SB{thm:rg-spatial-constrained-specification}: the surveyed high-temperature results concern decimation,
+Kadanoff, and averaging maps of Ising-spin interactions, not this gauge--matter path channel, and the proof
+avoids a block estimate whose constant grows like \(Bt\). The literature check is limited to the works the
+chapter cites, and priority is not claimed.
+
+\section{What is proved, and how solid it is}
+\label{comp:sb-scorecard}
+
+Established no-go statements and separating counterexamples count as solid. The scope column says how far
+each result's generality is from the program's target.
+
+\begin{scorecard}
+\SB{prop:geo-relative-frame}, \SB{prop:geo-identified-links} & A unique relative frame; one shared link
+means \(\Theta^m_e=h_i^{-1}\Theta^b_eh_j\). & \SOLID & Standard in substance (torsor). \\
+\SB{prop:geo-four-notions} & Bundle triviality, graph flatness, connection flatness, and one-loop holonomy
+are independent. & \SOLID & \(\mathrm U(1)\) and \(S_3\) witnesses; at \(c_*\) (a), (c), (d) hold trivially and
+only (b) has content. \\
+\SB{hyp:geo-graph-base-transport} & A graph link is a base transport only by declaration. & \CHOICE &
+Realization for independent links is open. \\
+\SB{prop:gen-shared-link-stabilizer} & Tying a link across contexts leaves constant rechoices times a
+central twist. & \SOLID & Admissible rechoices form a groupoid. \\
+\SB{open:prob-continuum-theory} & No law on fields; evidence bounds are finite-design statements. & \OPEN &
+No infinite product of reference measures. \\
+\SB{thm:pb-pullback-gauge-invariance}, \SB{prop:pb-pullback-connection-change} & The base Fisher pullback is
+passively covariant and changes with the connection by exact terms. & \SOLID & No connection-free base
+metric; only a semimetric. \\
+\SB{thm:pb-signed-base-comparison} & Fine minus coarse base Fisher is channel loss minus two anomaly
+terms. & \SOLID & Exact; can be negative at zero loss. \\
+\SB{thm:pb-isotropy-criterion} & The horizontal defect vanishes exactly when the defect form lies in the
+isotropy algebra. & \SOLID & Pointwise; no compatible connection claimed. \\
+\SB{thm:rg-cover-compatible-laws} & An ambient law gives compatible local data; availability parents glue.
+& \COND & Holds by construction (functoriality) from one assumed ambient law; gluing from local data
+open. \\
+\SB{thm:rg-cover-descent-obstructions} & Sections and connections descend exactly under fiber constancy
+and pullback agreement. & \SOLID & Standard in substance. \\
+\SB{thm:rg-cover-operational-holonomy} & A declared record distinguishes two base-holonomy classes. &
+\TOY & Base-loop instance of the MT witness, whose mechanism is general (\SOLID{} in \cref{comp:ch10}); one
+loop, one connection family, Gaussian record; recovery beyond it is \SB{open:rg-cover-holonomy-recovery}. \\
+\SB{prop:rg-finite-depth-no-asymptotics} & A finite network has bounded depth, no comparisons, and
+schedule-dependent exponents. & \SOLID & A no-go for finite \(N\), not for \(N\to\infty\). \\
+\SB{cor:rg-interaction-no-relevant-mode} & The exact step has no relevant direction; relevance needs an
+extensive normalization. & \COND & Needs \(\lvert V_n\rvert/\varsigma\to0\): the bound is exponential in
+\(\lvert V_n\rvert\), so it is silent when coarse levels keep many agents, and vacuous for finite vertex-ratio
+blocking. Tempered comparisons are needed only for the reference-norm clause. \\
+\SB{prop:rg-gaussian-dense-scaling} & Complete graph: \(A\mapsto bA\), \(W\mapsto b^2W\); dense
+normalization contracts the self term by \(1/b\). & \SOLID & Exact; limiting ray is a boundary operator. \\
+\SB{conj:grg-fixed-b-attraction} & Under a fixed primitive identification orbits converge; the fiber matrix
+is not selected. & \COND & Standard in substance (Perron--Frobenius on a primitive \(B\)); existence of
+the identification is open. \\
+\SB{rem:rg-compatibility-computation}, \SB{rem:rg-passive-blocking-computation},
+\SB{rem:rg-regenerated-attention-computation} & A rescaling family fails the semigroup law; frozen attention
+kills the pairwise block, regeneration keeps it. & \NUM & Six- and nine-agent schemes; not
+recomputed. \\
+\SB{open:rg-two-index-limits} & Joint size and depth limits and universality for agent networks. & \OPEN &
+Limits need not commute. \\
+\SB{thm:rg-spatial-constrained-specification} & Every straight-path blocking of the \(\mathbb Z_2\)
+gauge--matter law at \(12t<1\) is Gibbsian at every exterior, on a domain independent of block size. & \SOLID & Principal candidate for a new result; \(\mathbb Z_2\), strong
+coupling. \\
+\SB{thm:rg-spatial-generated-interaction}, \SB{thm:rg-spatial-local-operator} & Complete interaction tending
+to zero; for \(a\in\{2,3,6\}\), a \(C^1\) map on a ball whose only fixed point is zero. & \SOLID & Israel-type
+in form, different channel; trivial fixed point. \\
+\SB{prop:rg-pressure-vfe-minimum} & Specific VFE minimum is minus the evidence density. & \COND & Only for the
+constant all-positive record. \\
+\SB{cor:rg-thermo-native-label-limits} & \(C^2\) Fisher densities; strict, tie (\(N^2\)), and \(1/N\)-window
+limits. & \SOLID & Compact boxes; blocking word fixed before volume. \\
+\SB{open:rg-lattice-typing} & Are lattice sites agents at \(c_*\) or base points? & \OPEN & No lattice
+statement is yet about agents. \\
+\end{scorecard}
+
+\section{Conditions that matter}
+\label{comp:sb-hygiene}
+
+\begin{hygiene}
+Substantive conditions, which could fail in the cases the program cares about: chosen connections
+(\SB{def:geo-connections}), relative to which every base-direction statement is made; the declaration
+\SB{hyp:geo-graph-base-transport}; conditional independence of design points (\SB{hyp:gen-design-product});
+declared base measures, channel weights, and availability weights; constant rank of the covariant jet
+(which can jump, as in the rank-jump witness of \SB{prop:pb-contact-null-counterexample}), integrable null directions, and basic tensors for quotient
+geometries; chart joint convexity (\SB{hyp:hist-joint-convexity}),
+which fails for Gaussian covariances; a strong metric on a declared manifold of fields
+(\SB{hyp:hist-regular-section-space}), which the Fisher metric of the weak-metric witness is not; one
+ambient law on a cover
+(\SB{hyp:rg-cover-ambient-law}); declared comparison data, infinite blocking sequences, and tempered
+comparisons for every asymptotic statement; one fixed primitive identification for attraction; and on the
+lattice the group \(\mathbb Z_2\), small plaquette coupling with positive field, compact source boxes,
+blocking words fixed before volume limits, controlled label growth (\SB{hyp:rg-pressure-label-growth}), and
+the constant all-positive record (\SB{hyp:rg-pressure-positive-record}).
+
+Hygiene a physicist can take for granted on a first reading: standard Borel spaces, measurability of section
+responses (\SB{hyp:prob-context-section-response}), smoothness classes \(C^1\) to \(C^4\), paracompactness and
+the constant-rank bookkeeping that restricts the defect classifications to regular strata (a technical
+restriction, unlike the rank of the jet itself), integrability of the integrals, the submersion hypothesis of descent,
+boundary conventions, and centering of squares in local limits.
+\end{hygiene}
+
+Toy content is limited and labeled: the four-agent cover, the holonomy witness, the scalar Hermite spectrum,
+and the numerical six- and nine-agent schemes. The many small counterexamples of Part B-I are not toys;
+each refutes a general implication and is a solid negative result. The lattice is infinite but special in
+its group, abelian and finite, and in its single-phase coupling region. Its mechanism, keeping a renormalization map
+Gibbsian uniformly in block size by a transport argument, is specific to strong coupling and unshown for
+nonabelian or non-compact links; its constants (\(12\), \(\mathrm q\), \(\mathrm c_1\)) say nothing about the
+target class.
+
+\section{Open ends}
+\label{comp:sb-open}
+
+The supplement lists twenty open problems (\SB{tab:base-open}). For Part B-I, the unknowns are a probability
+law on fields with continuum limits of the bound (\SB{open:prob-continuum-theory}); the orbit space of the
+two-atlas coordinate action (\SB{open:gen-gauge-quotient}); a base geometry fixed by the model rather than a
+chosen connection (\SB{open:pb-canonical-pullback-geometry}); whether declared recognition families have the
+structure the history theorems use (\SB{open:hist-section-tier-admission}) and whether descending fields form
+a smooth submanifold (\SB{open:hist-projectable-set}); gluing local laws on a cover
+(\SB{open:rg-cover-local-gluing}); realizing independent graph links as base transports
+(\SB{open:rg-cover-graph-base-identification}); recovering a connection from records
+(\SB{open:rg-cover-holonomy-recovery}); quotients across rank changes (\SB{open:rg-cover-quotient-extension});
+and informative averaging along a base map (\SB{open:rg-cover-base-aggregation}). Each is settled by a
+construction for a declared class or by an obstruction.
+
+For Part B-II, the unknowns are rescaling kernels on agent networks obeying the semigroup law
+(\SB{open:rg-rescaling-compatibility}); a multiplicative ergodic structure for scale cocycles
+(\SB{open:rg-multiplicative-ergodic}); relevance spectra of correlated or gauge-mixed Gaussian blocks
+(\SB{open:rg-hermite-extensive-relevance}) and a basin for the Gaussian block law
+(\SB{open:rg-hermite-nonlinear-attraction}); a canonical continuous beta (\SB{open:rg-continuous-beta}); joint
+size and depth limits with a convergent scheme-invariant observable (\SB{open:rg-two-index-limits}); and a
+fixed primitive identification for some graph family (\SB{open:rg-scalarized-attraction}). For Part B-III,
+they are the typing (\SB{open:rg-lattice-typing}), settled by proving one reading; critical points,
+depth-uniform Fisher floors, joint depth and volume limits, and self-consistent curvature actions
+(\SB{open:rg-spatial-generality}); and the quenched evidence density for random records
+(\SB{open:rg-pressure-quenched-record}), which needs every-exterior control of random fields of both signs.
+
+Three gates carry most of the weight. Without \SB{open:prob-continuum-theory} there is no evidence bound over a
+base. Without \SB{open:rg-cover-graph-base-identification} the agent graph's links and the base's connection
+stay separate objects joined only by declaration. And \SB{open:rg-two-index-limits}, with
+\SB{open:rg-lattice-typing}, gates renormalization as a thermodynamic limit: the typed statement exists, the
+one constructed instance is an untyped abelian lattice at strong coupling, and no agent-network instance with
+its recognition law exists.
+
+\section{Verdict}
+\label{comp:sb-verdict}
+
+\begin{verdictbox}{\NARROWER}
+\textbf{What it says it does.} It collects what the theory requires once contexts vary, networks become
+infinite, and agents sit on a lattice, stating for each extension which single-point statements survive and
+which additional data it consumes (\SB{ch:base-introduction}). It declines to identify the base with physical
+space, graph links with base transports, or any continuum law, and declines asymptotic vocabulary for finite
+networks.
+
+\textbf{What the statements give.} Part B-I gives the kinematics of a base extension, with exact
+identities and separating counterexamples: relative frames, covariant defects, four independent flatness
+notions, the shared-link stabilizer, an exact fine-to-coarse base Fisher comparison with a sharp isotropy
+criterion, durations on strong metrics, and descent. Part B-II gives a typing of Wilsonian vocabulary, no-go
+and scheme-dependence results, exact Gaussian power counting, and one conditional attraction theorem. Part
+B-III gives a complete constructive renormalization of one \(\mathbb Z_2\) family at strong coupling, with
+pressure, label selection, specific VFE, and Fisher densities in the volume limit.
+
+\textbf{The gap.} ``Base transport'' is transport by a chosen connection, not transport derived from
+inference; base measures, weights, and ambient laws are declared; no law on fields exists; and graph links
+become base transports only by declaration. ``Infinite networks'' names the apparatus an infinite network
+would need; no infinite agent network with channels, recognition law, and ELBO is constructed, no exponent or
+fixed point of the agent flow is established, and universality is a stated program. The lattice cluster is
+untyped, abelian, confined to strong coupling, observed through one record, and flows to the trivial fixed
+point. Each part does what its opening paragraph says; the supplement as a whole is a precise map of what base
+transport, infinite networks, and spatial realization would require, not a theory of any of them.
+\end{verdictbox}
