@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-09-27
+updated: 2026-09-29
 ---
 
 # Information geometry and natural gradient
@@ -191,3 +191,9 @@ of the picture lives in the same group's bundle papers and is recorded under
 - [[Quantum information geometry]] — the noncommutative extension of the Fisher-Rao metric, where the uniqueness theorem becomes Petz's family of monotone metrics.
 - [[Physics from Fisher information]] — physical laws recovered from Fisher-information variational principles.
 - [[Information bottleneck]] — the rate-distortion / information-theoretic view of representation learning, adjacent to the maximum-entropy and divergence machinery here.
+
+## The frame Fisher and the U-space pullback (2026-09-28)
+
+A Fisher natural gradient for the frame tables exists once the frame is read as a parameter of the reference belief $U^{-1}\cdot q$: with $U\mapsto Ue^{X}$ the pulled-back Fisher-Rao metric is $g(X,X)=\|Z\eta\|^2+2\|\mathrm{sym}Z\|_F^2$ with $Z=L^{-1}XL$, $LL^\top=C$, $\eta=L^{-1}\xi$. Its kernel is the stabilizer algebra of the reference Gaussian, and a covariant completion (default $C^{-1}X(2C+\xi\xi^\top)$) makes it invertible. In the EM reading $\varphi$ stays a slow M-step variable evaluated at the layer-0 prior rows, so only the preconditioner changes. The existing Frobenius-pullback step is projected Euclidean descent on $U$ and has a closed form via the Frechet derivative of the principal logarithm; neither it nor the Killing conditioner (a scalar multiple of the identity on the Frobenius-orthonormal basis) is a Fisher metric. The derivations were verified numerically and adversarially (Fable 5.1 against Opus 5.5) and are written up in `VFE_3.0/docs/derivations/2026-09-28-phi-natgrad.tex`. Implemented opt-in as `m_phi_update_mode='fisher_group'` and `m_phi_group_retraction='group_log'`.
+
+> [!note] Editorial: first test. In [[2026-09-28-k20-ablation-set]] the Fisher route finished $+11.1$ PPL behind AdamW, but it differs from AdamW in three coupled ways (stateless, count-normalized, untuned learning rate), and the belief Fisher is near-isotropic there (sigma almost uniform), so this is not evidence about the metric. The earlier K=10 pullback run cited above is regarded by the user as too old to be informative.
