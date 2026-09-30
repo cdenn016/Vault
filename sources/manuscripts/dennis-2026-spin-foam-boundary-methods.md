@@ -15,7 +15,7 @@ created: 2026-09-30
 
 ## Source and recorded outcome
 
-The canonical editable [TeX manuscript](../../manuscripts/MultiAgentELBO_Theory/spin_foam_boundary_methods.tex) is a seven-chapter companion to the existing theory. The retained [review PDF](../archives/dennis-2026-spin-foam-boundary-methods/spin_foam_boundary_methods.pdf) is its publication snapshot. The permanent [research report](https://github.com/cdenn016/MultiAgentELBO/blob/main/docs/derivations/2026-09-30-spin-foam-boundary-methods/final-report.md) and the accompanying claim ledger, release record, direct derivations, and independent reconstruction were published in [MultiAgentELBO PR #100](https://github.com/cdenn016/MultiAgentELBO/pull/100), merge `5171f9c1d19a5a9e5877b0fbe0ad9cbec0a5f05a`. This immutable note records the scoped result, rather than replacing the live manuscript.
+The canonical editable [TeX manuscript](../../manuscripts/spin_foam_boundary_methods.tex) is a seven-chapter companion to the existing theory. The retained [review PDF](../archives/dennis-2026-spin-foam-boundary-methods/spin_foam_boundary_methods.pdf) is its publication snapshot. The permanent [research report](https://github.com/cdenn016/MultiAgentELBO/blob/main/docs/derivations/2026-09-30-spin-foam-boundary-methods/final-report.md) and the accompanying claim ledger, release record, direct derivations, and independent reconstruction were published in [MultiAgentELBO PR #100](https://github.com/cdenn016/MultiAgentELBO/pull/100), merge `5171f9c1d19a5a9e5877b0fbe0ad9cbec0a5f05a`. This immutable note records the scoped result, rather than replacing the live manuscript.
 
 The frozen conditional toolkit and its 28 mathematical ancestors are recorded as `EVIDENCE_VERIFIED`. A separately proved finite regulator identity gives 29 numbered mathematical results total; it is auxiliary to that target. Four scientific application obligations remain `INCONCLUSIVE`. Proof reconstruction, rather than investigator agreement, supports these conditional conclusions. Existing common-channel reference/evidence identities, induced interactions, marked parents, and conditional-memory calculus remain prior project research. [[Spin foam coarse-graining for agent networks]] records the preceding literature investigation; the companion cites ten of its fifteen retained primary papers with locators.
 
@@ -114,6 +114,6 @@ The companion advances [[Coarse Graining]] from a method-transfer recommendation
   title = {Boundary Methods for Pointwise Agent Networks: Consistent Interfaces, Gauge-Covariant Compression, and Predictive Error},
   year = {2026},
   note = {Separate working manuscript, September 30, 2026},
-  url = {https://github.com/cdenn016/Vault/blob/main/manuscripts/MultiAgentELBO_Theory/spin_foam_boundary_methods.tex}
+  url = {https://github.com/cdenn016/Vault/blob/main/manuscripts/spin_foam_boundary_methods.tex}
 }
 ```
