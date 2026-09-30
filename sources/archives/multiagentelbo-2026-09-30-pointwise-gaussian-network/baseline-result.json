@@ -1,0 +1,441 @@
+{
+  "status": "pass",
+  "created_utc": "2026-09-30T16:43:01.695261+00:00",
+  "command": [
+    "C:\\anaconda\\python.exe",
+    "-I",
+    "-B",
+    "experiments/gaussian_network.py"
+  ],
+  "runtime": {
+    "interpreter": "C:\\anaconda\\python.exe",
+    "python": "3.12.7 | packaged by Anaconda, Inc. | (main, Oct  4 2024, 13:17:27) [MSC v.1929 64 bit (AMD64)]",
+    "torch": "2.10.0.dev20251210+cu128",
+    "cuda_available": true,
+    "device": "cpu",
+    "cpu_threads": 1,
+    "platform": "Windows-10-10.0.19045-SP0",
+    "thread_environment": {
+      "OMP_NUM_THREADS": null,
+      "MKL_NUM_THREADS": null,
+      "OPENBLAS_NUM_THREADS": null
+    }
+  },
+  "profile": {
+    "RUN": {
+      "name": "pointwise-held-gaussian-network",
+      "seed": 20260930
+    },
+    "THEORY": {
+      "experiment": "pointwise_gaussian_network",
+      "n_agents": 512,
+      "dimension": 2,
+      "cases": [
+        "flat_real_gl",
+        "independent_real_gl",
+        "matrix",
+        "complex_gl",
+        "su"
+      ],
+      "link_scale": 0.2
+    },
+    "NUMERICS": {
+      "device": "cpu",
+      "dtype": "float64",
+      "cpu_threads": 1,
+      "atol": 1e-09,
+      "rtol": 1e-09
+    },
+    "OUTPUT": {
+      "root": "artifacts",
+      "save_arrays": true
+    }
+  },
+  "scope": "finite conditional Gaussian coarse-graining at c_* with observed/held links; no mixture closure, link dynamics, formation, or thermodynamic limit established",
+  "cases": [
+    {
+      "case": "flat_real_gl",
+      "n_agents": 512,
+      "group_dimension": 2,
+      "real_node_dimension": 2,
+      "n_records": 1024,
+      "record_dimension": 2,
+      "graph": "directed sparse cycle plus stride-17 chords, fixed across cases",
+      "held_variables": [
+        "graph",
+        "source assignments",
+        "frames/structural maps",
+        "comparison maps",
+        "record precisions",
+        "observed records"
+      ],
+      "integrated_variables": "real node coordinates only",
+      "latent_link_prior": null,
+      "normalization": "proper independent node priors and normalized real Gaussian record likelihoods",
+      "group": "GL+(2,R)",
+      "map": "B_e=U_i U_j^{-1}; A_e=I",
+      "first_two_map_commutator_norm": 0.3848580866682798,
+      "status": "pass",
+      "fine_dimension": 1024,
+      "retained_agents": 128,
+      "retained_dimension": 256,
+      "fine_log_evidence": -3527.8558820302383,
+      "parent_log_evidence": -3527.8558820302383,
+      "staged_log_evidence": -3527.8558820302387,
+      "checks": {
+        "fine_parent_log_mass": {
+          "passed": true,
+          "max_abs_error": 0.0
+        },
+        "fine_staged_log_mass": {
+          "passed": true,
+          "max_abs_error": 4.547473508864641e-13
+        },
+        "retained_mean_selector": {
+          "passed": true,
+          "max_abs_error": 3.0531133177191805e-16
+        },
+        "retained_covariance_selector": {
+          "passed": true,
+          "max_abs_error": 3.3306690738754696e-16
+        },
+        "direct_staged_precision": {
+          "passed": true,
+          "max_abs_error": 1.7763568394002505e-15
+        },
+        "direct_staged_information": {
+          "passed": true,
+          "max_abs_error": 2.220446049250313e-16
+        },
+        "direct_staged_energy_offset": {
+          "passed": true,
+          "max_abs_error": 4.547473508864641e-13
+        },
+        "reverse_conditional_mean_recovery": {
+          "passed": true,
+          "max_abs_error": 3.0531133177191805e-16
+        },
+        "reverse_conditional_covariance_recovery": {
+          "passed": true,
+          "max_abs_error": 5.551115123125783e-16
+        }
+      },
+      "held_ou": {
+        "kinetics": "dx=-(J x-h)dt+sqrt(2)dW, identity mobility",
+        "markov_defect_frobenius_norm": 2.0856326722151115,
+        "markov_defect_trace": 25.56334448181291,
+        "scope": "generator discrepancy for this declared held OU; no autonomous parent dynamics or formation claim"
+      },
+      "elapsed_seconds": 0.21500660001765937
+    },
+    {
+      "case": "independent_real_gl",
+      "n_agents": 512,
+      "group_dimension": 2,
+      "real_node_dimension": 2,
+      "n_records": 1024,
+      "record_dimension": 2,
+      "graph": "directed sparse cycle plus stride-17 chords, fixed across cases",
+      "held_variables": [
+        "graph",
+        "source assignments",
+        "frames/structural maps",
+        "comparison maps",
+        "record precisions",
+        "observed records"
+      ],
+      "integrated_variables": "real node coordinates only",
+      "latent_link_prior": null,
+      "normalization": "proper independent node priors and normalized real Gaussian record likelihoods",
+      "group": "GL+(2,R)",
+      "map": "independent B_e=exp(G_e); A_e=I",
+      "first_two_map_commutator_norm": 0.0786241650531093,
+      "status": "pass",
+      "fine_dimension": 1024,
+      "retained_agents": 128,
+      "retained_dimension": 256,
+      "fine_log_evidence": -3521.7775141761854,
+      "parent_log_evidence": -3521.7775141761854,
+      "staged_log_evidence": -3521.7775141761854,
+      "checks": {
+        "fine_parent_log_mass": {
+          "passed": true,
+          "max_abs_error": 0.0
+        },
+        "fine_staged_log_mass": {
+          "passed": true,
+          "max_abs_error": 0.0
+        },
+        "retained_mean_selector": {
+          "passed": true,
+          "max_abs_error": 3.3306690738754696e-16
+        },
+        "retained_covariance_selector": {
+          "passed": true,
+          "max_abs_error": 4.440892098500626e-16
+        },
+        "direct_staged_precision": {
+          "passed": true,
+          "max_abs_error": 3.552713678800501e-15
+        },
+        "direct_staged_information": {
+          "passed": true,
+          "max_abs_error": 4.440892098500626e-16
+        },
+        "direct_staged_energy_offset": {
+          "passed": true,
+          "max_abs_error": 0.0
+        },
+        "reverse_conditional_mean_recovery": {
+          "passed": true,
+          "max_abs_error": 3.3306690738754696e-16
+        },
+        "reverse_conditional_covariance_recovery": {
+          "passed": true,
+          "max_abs_error": 4.440892098500626e-16
+        }
+      },
+      "held_ou": {
+        "kinetics": "dx=-(J x-h)dt+sqrt(2)dW, identity mobility",
+        "markov_defect_frobenius_norm": 1.862051055805269,
+        "markov_defect_trace": 23.4079894522211,
+        "scope": "generator discrepancy for this declared held OU; no autonomous parent dynamics or formation claim"
+      },
+      "elapsed_seconds": 0.18672090000472963
+    },
+    {
+      "case": "matrix",
+      "n_agents": 512,
+      "group_dimension": 2,
+      "real_node_dimension": 2,
+      "n_records": 1024,
+      "record_dimension": 1,
+      "graph": "directed sparse cycle plus stride-17 chords, fixed across cases",
+      "held_variables": [
+        "graph",
+        "source assignments",
+        "frames/structural maps",
+        "comparison maps",
+        "record precisions",
+        "observed records"
+      ],
+      "integrated_variables": "real node coordinates only",
+      "latent_link_prior": null,
+      "normalization": "proper independent node priors and normalized real Gaussian record likelihoods",
+      "group": "matrix communication",
+      "map": "L_e=scale P_e Q_e; A_e=S_Q_e; B_e=S_K_e L_e",
+      "communication_rank": 1,
+      "comparison_dimension": 1,
+      "first_two_map_commutator_norm": 0.015732237459948065,
+      "status": "pass",
+      "fine_dimension": 1024,
+      "retained_agents": 128,
+      "retained_dimension": 256,
+      "fine_log_evidence": -1771.5471981611654,
+      "parent_log_evidence": -1771.547198161165,
+      "staged_log_evidence": -1771.547198161165,
+      "checks": {
+        "fine_parent_log_mass": {
+          "passed": true,
+          "max_abs_error": 4.547473508864641e-13
+        },
+        "fine_staged_log_mass": {
+          "passed": true,
+          "max_abs_error": 4.547473508864641e-13
+        },
+        "retained_mean_selector": {
+          "passed": true,
+          "max_abs_error": 2.220446049250313e-16
+        },
+        "retained_covariance_selector": {
+          "passed": true,
+          "max_abs_error": 4.440892098500626e-16
+        },
+        "direct_staged_precision": {
+          "passed": true,
+          "max_abs_error": 1.7763568394002505e-15
+        },
+        "direct_staged_information": {
+          "passed": true,
+          "max_abs_error": 2.220446049250313e-16
+        },
+        "direct_staged_energy_offset": {
+          "passed": true,
+          "max_abs_error": 0.0
+        },
+        "reverse_conditional_mean_recovery": {
+          "passed": true,
+          "max_abs_error": 3.469446951953614e-16
+        },
+        "reverse_conditional_covariance_recovery": {
+          "passed": true,
+          "max_abs_error": 5.551115123125783e-16
+        }
+      },
+      "held_ou": {
+        "kinetics": "dx=-(J x-h)dt+sqrt(2)dW, identity mobility",
+        "markov_defect_frobenius_norm": 0.5460226875911074,
+        "markov_defect_trace": 3.5334585846708495,
+        "scope": "generator discrepancy for this declared held OU; no autonomous parent dynamics or formation claim"
+      },
+      "elapsed_seconds": 0.20138980000047013
+    },
+    {
+      "case": "complex_gl",
+      "n_agents": 512,
+      "group_dimension": 2,
+      "real_node_dimension": 4,
+      "n_records": 1024,
+      "record_dimension": 4,
+      "graph": "directed sparse cycle plus stride-17 chords, fixed across cases",
+      "held_variables": [
+        "graph",
+        "source assignments",
+        "frames/structural maps",
+        "comparison maps",
+        "record precisions",
+        "observed records"
+      ],
+      "integrated_variables": "real node coordinates only",
+      "latent_link_prior": null,
+      "normalization": "proper independent node priors and normalized real Gaussian record likelihoods",
+      "group": "GL(2,C)",
+      "map": "A_e=I; B_e=R(L_e), R(L)=[[Re L,-Im L],[Im L,Re L]]",
+      "coordinate_order": "Re coordinates, then Im coordinates, within each node",
+      "complex_precision_conversion": "J_0=2 R(H_0) for exp[-(z-mu)^* H_0 (z-mu)]",
+      "record_convention": "normalized real Gaussian; Gamma_inv is its real precision",
+      "first_two_map_commutator_norm": 0.2514277882999333,
+      "status": "pass",
+      "fine_dimension": 2048,
+      "retained_agents": 128,
+      "retained_dimension": 512,
+      "fine_log_evidence": -6795.744265967004,
+      "parent_log_evidence": -6795.744265967004,
+      "staged_log_evidence": -6795.744265967003,
+      "checks": {
+        "fine_parent_log_mass": {
+          "passed": true,
+          "max_abs_error": 0.0
+        },
+        "fine_staged_log_mass": {
+          "passed": true,
+          "max_abs_error": 9.094947017729282e-13
+        },
+        "retained_mean_selector": {
+          "passed": true,
+          "max_abs_error": 1.0685896612017132e-15
+        },
+        "retained_covariance_selector": {
+          "passed": true,
+          "max_abs_error": 3.885780586188048e-16
+        },
+        "direct_staged_precision": {
+          "passed": true,
+          "max_abs_error": 7.105427357601002e-15
+        },
+        "direct_staged_information": {
+          "passed": true,
+          "max_abs_error": 8.881784197001252e-16
+        },
+        "direct_staged_energy_offset": {
+          "passed": true,
+          "max_abs_error": 9.094947017729282e-13
+        },
+        "reverse_conditional_mean_recovery": {
+          "passed": true,
+          "max_abs_error": 1.0685896612017132e-15
+        },
+        "reverse_conditional_covariance_recovery": {
+          "passed": true,
+          "max_abs_error": 5.551115123125783e-16
+        }
+      },
+      "held_ou": {
+        "kinetics": "dx=-(J x-h)dt+sqrt(2)dW, identity mobility",
+        "markov_defect_frobenius_norm": 1.2776072032679604,
+        "markov_defect_trace": 21.992963947356216,
+        "scope": "generator discrepancy for this declared held OU; no autonomous parent dynamics or formation claim"
+      },
+      "elapsed_seconds": 1.1580533999949694
+    },
+    {
+      "case": "su",
+      "n_agents": 512,
+      "group_dimension": 2,
+      "real_node_dimension": 4,
+      "n_records": 1024,
+      "record_dimension": 4,
+      "graph": "directed sparse cycle plus stride-17 chords, fixed across cases",
+      "held_variables": [
+        "graph",
+        "source assignments",
+        "frames/structural maps",
+        "comparison maps",
+        "record precisions",
+        "observed records"
+      ],
+      "integrated_variables": "real node coordinates only",
+      "latent_link_prior": null,
+      "normalization": "proper independent node priors and normalized real Gaussian record likelihoods",
+      "group": "SU(2)",
+      "map": "A_e=I; B_e=R(L_e), R(L)=[[Re L,-Im L],[Im L,Re L]]",
+      "coordinate_order": "Re coordinates, then Im coordinates, within each node",
+      "complex_precision_conversion": "J_0=2 R(H_0) for exp[-(z-mu)^* H_0 (z-mu)]",
+      "record_convention": "normalized real Gaussian; Gamma_inv is its real precision",
+      "first_two_map_commutator_norm": 0.12174699477070373,
+      "status": "pass",
+      "fine_dimension": 2048,
+      "retained_agents": 128,
+      "retained_dimension": 512,
+      "fine_log_evidence": -6784.028559219109,
+      "parent_log_evidence": -6784.028559219109,
+      "staged_log_evidence": -6784.028559219109,
+      "checks": {
+        "fine_parent_log_mass": {
+          "passed": true,
+          "max_abs_error": 0.0
+        },
+        "fine_staged_log_mass": {
+          "passed": true,
+          "max_abs_error": 0.0
+        },
+        "retained_mean_selector": {
+          "passed": true,
+          "max_abs_error": 9.853229343548264e-16
+        },
+        "retained_covariance_selector": {
+          "passed": true,
+          "max_abs_error": 4.996003610813204e-16
+        },
+        "direct_staged_precision": {
+          "passed": true,
+          "max_abs_error": 3.552713678800501e-15
+        },
+        "direct_staged_information": {
+          "passed": true,
+          "max_abs_error": 8.881784197001252e-16
+        },
+        "direct_staged_energy_offset": {
+          "passed": true,
+          "max_abs_error": 0.0
+        },
+        "reverse_conditional_mean_recovery": {
+          "passed": true,
+          "max_abs_error": 9.853229343548264e-16
+        },
+        "reverse_conditional_covariance_recovery": {
+          "passed": true,
+          "max_abs_error": 4.996003610813204e-16
+        }
+      },
+      "held_ou": {
+        "kinetics": "dx=-(J x-h)dt+sqrt(2)dW, identity mobility",
+        "markov_defect_frobenius_norm": 1.0998959007853597,
+        "markov_defect_trace": 19.173402381329595,
+        "scope": "generator discrepancy for this declared held OU; no autonomous parent dynamics or formation claim"
+      },
+      "elapsed_seconds": 1.1064117999922018
+    }
+  ],
+  "elapsed_seconds": 3.288605500012636
+}

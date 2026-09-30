@@ -14,10 +14,16 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-09-28
+updated: 2026-09-30
 ---
 
 # Gauge-Theoretic Multi-Agent VFE Model
+
+## Conditional Gaussian network baseline, September 30, 2026
+
+[[multiagentelbo-2026-09-30-pointwise-gaussian-network]] records the first tensor implementation of the complete held-link Gaussian action and its Schur parents at $c_*$. The parent keeps the scalar evidence term, all generated quadratic blocks, and the exact equilibrium reverse conditional. Ten tiny CPU tests ground normalization, elimination, staged composition, frame changes, map gradients, complex realification, and stationary memory against independent or exact oracles. One 512-agent CPU study then passed 45 numerical comparisons across flat GL+(2,R) frames, independent GL+(2,R) maps, rank-one rectangular communication, realified GL(2,C), and realified SU(2). The largest absolute parity residual was $9.095\times10^{-13}$ at declared tolerances $10^{-9}$; measured compute and artifact writing took 3.289 seconds, excluding interpreter/import startup. This is one finite study, with dense precision and covariance storage, rather than a repeated performance estimate.
+
+The graph, links, source assignments, comparison maps, record precisions, and observed records are held. The benchmark retains every fourth node by a declared coordinate selection; no intrinsic grouping or formation is inferred. Nonzero conditional drift variances in the separately specified stationary identity-mobility Ornstein-Uhlenbeck model preserve the distinction between a complete marginal and an autonomous parent. Large-network paths, evolving links, activation laws, GPU parity, and the thermodynamic limit remain untested. The next increment is an inherited parent comparison for an explicit evolving pointwise model, with retained source/link histories, actual activation law, mobility, discarded information, and prediction horizon stated. The current increment needed no GPU. [[Coarse Graining]] and [[Staged hierarchy formation and RG composability]] carry the static/dynamical distinction.
 
 ## Pairing-selection proof and literature archive, September 26, 2026
 

@@ -13,10 +13,16 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-08-17
-updated: 2026-09-28
+updated: 2026-09-30
 ---
 
 # Staged hierarchy formation and RG composability
+
+## Gaussian composition at 512 agents, September 30, 2026
+
+[[multiagentelbo-2026-09-30-pointwise-gaussian-network]] supplies a runtime bridge for the existing complete-action construction: direct and two-stage Schur elimination agree numerically on $J$, $h$, $c$, retained moments, and evidence, while the retained reverse conditional reconstructs fine equilibrium moments. Ten tiny tests ground the algebra, and one 512-agent study across five held-map cases passed 45 comparisons. The graph is a sparse directed cycle with stride-17 chords, but the assembled action is dense. Retaining every fourth node is a supplied benchmark reduction and establishes no formation mechanism or preferred hierarchy.
+
+Composition of these conditional static laws does not transfer to autonomous retained dynamics. For the separately declared stationary identity-mobility Ornstein-Uhlenbeck example, all five cases have nonzero conditional drift variance; full projected equations also require hidden initial residuals and colored forcing. Evolving source/link histories and actual activation laws therefore remain part of the next parent-comparison obligation. The Stage 4 four-cycle results retain their own grounding scopes, while the target remains networks of 512 or more agents with nonabelian and noncompact structural maps. No large-network path, recursive formation, GPU, or thermodynamic conclusion follows from this CPU baseline. [[Coarse Graining]] and [[Gauge-Theoretic Multi-Agent VFE Model]] record the implementation and evidence boundaries.
 
 ## What a culture throws away: timescale-separation lens, September 28, 2026
 
