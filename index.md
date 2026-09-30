@@ -10,7 +10,7 @@ updated: 2026-09-30
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **36** manuscripts · **16** themes · **11** field MOCs · **289** concepts · **14** methods · **734** papers · **159** references · **1** runs · **7** web/methodology
+> **3** projects · **38** manuscripts · **16** themes · **11** field MOCs · **289** concepts · **14** methods · **734** papers · **159** references · **1** runs · **7** web/methodology
 
 ## 🧭 Start here
 - [[multiagentelbo-2026-09-26-selection-and-reference-review]] — scoped pairing-selection proof and checked primary-reference archive
@@ -26,6 +26,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 - [[VFE Transformer Program]]
 
 ## 📝 Manuscripts (in preparation)
+- [[dennis-2026-spin-foam-boundary-methods]] — conditional boundary toolkit at c_*: exterior recovery, correlated gluing, gauge/positive interfaces, static/predictive errors, and auxiliary regulator; four applications remain open
 - [[dennis-2026-projected-predictive]] — projected predictive route end to end, toggle-to-equation map, and the opt-in moment-matched predictive covariance; tests only, no training result
 - [[dennis-2026-template-routing]] — template routing explainer: block MLP as mixture-prior inference over learned Gaussian templates; vfe3 `gaussian_template` toggle, no training result
 - [[multiagentelbo-2026-09-26-conditioned-parent]] — actual prefix-conditioned parent activation, own-law learning, and vanishing conditional-information and path errors after late coherence
@@ -1408,3 +1409,28 @@ All new source notes are cataloged below. [[multiagentelbo-2026-09-11-research-s
 - [[watts-2013-the-orbit-space-and-basic-forms-of-a-proper-lie-groupoid]]
 - [[yin-2009-a-cluster-expansion-approach-to-renormalization-group-transformations]]
 - [[ying-2018-hierarchical-graph-representation-learning-with-differentiable-pooling]]
+
+
+## Spin-foam methods investigation, September 30, 2026
+
+### Method synthesis
+
+- [[Spin foam coarse-graining for agent networks]]
+
+### Retained literature sources
+
+- [[asante-2022-spin-foams-refinement-renormalization]]
+- [[bahr-2014-background-independent-renormalization]]
+- [[bahr-2011-operator-spin-foams]]
+- [[dittrich-2016-decorated-tensor-networks]]
+- [[dittrich-2012-continuum-limit-spin-foams]]
+- [[dittrich-2014-time-evolution-refining-coarse-graining]]
+- [[delcamp-2017-nonabelian-decorated-tensor-networks]]
+- [[delcamp-2017-fusion-basis]]
+- [[cunningham-2020-fusion-charge-coarse-graining]]
+- [[hauru-2018-graph-independent-local-truncations]]
+- [[oriti-2006-group-field-theory]]
+- [[benedetti-2015-functional-renormalization-tgft]]
+- [[carrozza-2014-renormalization-su2-tgft]]
+- [[gurau-2014-random-tensor-universality]]
+- [[yosprakob-2024-reduced-nonabelian-tensor-networks]]

@@ -18,7 +18,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-19
-updated: 2026-08-13
+updated: 2026-09-30
 ---
 
 # Emergent spacetime and holography
@@ -105,3 +105,10 @@ tensor.
 - [[Ouroboros multi-scale dynamics]]
 - [[wheeler-1990-it-from-bit]]
 - [[participatory-it-from-bit]]
+
+
+## Pointwise spin-foam method transfer, September 30, 2026
+
+[[Spin foam coarse-graining for agent networks]] adds a methods comparison to the gravity benchmark. The companion [[dennis-2026-spin-foam-boundary-methods]] now proves conditional classical graph-boundary recovery, correlated gluing, admitted gauge/metric interfaces, positive-law errors, and separate predictive-information budgets at $c_*$. Its finite regulator identity is auxiliary; regulator, agent count, representation cutoff, and graph depth remain separate parameters. Usable interface cost, full interface diagrams, evolving-link activation estimates, and size/depth-uniform control remain open.
+
+Labeled two-complexes, specified complex ensembles, and irregular attention laws are distinct, as are quantum amplitudes and positive classical laws. Here a boundary is an exterior-facing graph interface at one base point. No base transport, physical clock, quantum behavior, Lorentz geometry, Einstein dynamics, recursive formation, or thermodynamic limit follows. The conditional results sharpen the method comparison without closing the physicalization questions above.

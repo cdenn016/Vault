@@ -10,6 +10,10 @@ updated: 2026-09-30
 
 # Physics MOC
 
+## Pointwise boundary-method derivations, September 30, 2026
+
+[[dennis-2026-spin-foam-boundary-methods]] develops conditional classical graph-boundary operations from [[Spin foam coarse-graining for agent networks]]. Ordered non-Abelian marks, compact-unitary whole-carrier projection, passive GL metric covariance, and an auxiliary finite regulated functional retain distinct admissions. No quantum amplitude, base transport, emergent geometry, autonomous formation, or thermodynamic limit is established. The source is included in the tagged Bases view.
+
 ## Conditional Gaussian coarse-graining, September 30, 2026
 
 [[multiagentelbo-2026-09-30-pointwise-gaussian-network]] implements complete held-link Gaussian actions and exact coordinate parents at $c_*$. Stationary identity-mobility Ornstein-Uhlenbeck diagnostics distinguish equilibrium marginalization from projected memory; no formation or thermodynamic-limit result is asserted.
@@ -113,3 +117,24 @@ See the [[Disciplines MOC]] hub for all fields.
 ## Matrix-link ingestion, September 20, 2026
 
 [[wetterich-2014-linear-lattice-gauge-theory]] records the matrix-link source and its stated scope; [[Lattice gauge theory]] and [[GL(K) gauge-equivariant attention]] provide the synthesis. The source is included in the tagged Bases view.
+
+
+## Spin-foam coarse-graining sources, September 30, 2026
+
+[[Spin foam coarse-graining for agent networks]] connects the boundary/refinement, tensor-interface, and GFT sources below to the pointwise multi-agent program. The Bases view also lists these physics-tagged sources automatically.
+
+- [[asante-2022-spin-foams-refinement-renormalization]]
+- [[bahr-2014-background-independent-renormalization]]
+- [[bahr-2011-operator-spin-foams]]
+- [[dittrich-2016-decorated-tensor-networks]]
+- [[dittrich-2012-continuum-limit-spin-foams]]
+- [[dittrich-2014-time-evolution-refining-coarse-graining]]
+- [[delcamp-2017-nonabelian-decorated-tensor-networks]]
+- [[delcamp-2017-fusion-basis]]
+- [[cunningham-2020-fusion-charge-coarse-graining]]
+- [[hauru-2018-graph-independent-local-truncations]]
+- [[oriti-2006-group-field-theory]]
+- [[benedetti-2015-functional-renormalization-tgft]]
+- [[carrozza-2014-renormalization-su2-tgft]]
+- [[gurau-2014-random-tensor-universality]]
+- [[yosprakob-2024-reduced-nonabelian-tensor-networks]]

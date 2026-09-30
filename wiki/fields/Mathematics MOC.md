@@ -10,6 +10,10 @@ updated: 2026-09-30
 
 # Mathematics MOC
 
+## Conditional boundary toolkit, September 30, 2026
+
+[[dennis-2026-spin-foam-boundary-methods]] records 28 proved conditional toolkit ancestors and a separately proved finite regulator identity at $c_*$. Its locators cover standard-Borel common recovery, correlated gluing, admitted graph reversals, compact-unitary/GL-metric feature algebra, bounded positive-law residuals, and finite-horizon predictive information. Four family-specific interface, diagram, activation, and uniform-budget obligations remain open. The source is included in the tagged Bases view.
+
 ## Complete Gaussian coordinate reduction, September 30, 2026
 
 [[multiagentelbo-2026-09-30-pointwise-gaussian-network]] records the complete action, scalar normalization, and reverse conditional of held-link Schur reduction at $c_*$, with tiny exact or independent grounding checks and a five-case 512-agent CPU baseline. Static composition and the separately scoped stationary memory diagnostics remain distinct.

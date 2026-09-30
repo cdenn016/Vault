@@ -160,3 +160,10 @@ The gauge absorption is `prop:gauss-gain-absorption`, "Gain absorption and the o
 - [[beny-osborne-2015-info-geometric-rg]] — coarse-graining as metric contraction on a statistical manifold.
 - [[garciaperez-2018-multiscale]] — geometric renormalization of real networks by latent-space proximity.
 - [[verlinde-2011-entropic-gravity]] — coarse-graining and entropic descriptions of dynamics.
+
+
+## Spin-foam interface methods, September 30, 2026
+
+[[Spin foam coarse-graining for agent networks]] compares consistent boundaries, graph-refinement diagrams, decorated/fusion-basis tensors, exterior-sensitive truncation, and GFT. The companion [[dennis-2026-spin-foam-boundary-methods]] now proves conditional exterior-class common recovery, correlated gluing, admitted gauge/metric feature projections with a normalized positive-kernel bridge, and support-preserving residual bounds. Existing exact pushforwards, induced hyperedges, and memory calculus remain prior project work. Residual oscillation controls normalized posterior error; evidence and complete free energy also depend on offsets. Approximate-route comparison requires the exact full channels to agree; raw root-dressing composition alone does not establish that premise.
+
+The finite-horizon predictive budget separates omitted-history information from conditional-row risk under the actual source law. General standard-Borel records require explicit joint dominance and finite-information/risk conditions; the separately stated finite-alphabet forgetting estimate requires conditional filter contraction. Activation uses the actual law conditioned only on a completed prefix and retains controls needed for prediction. Quantum amplitudes, SVD truncation, and positive Markov law reduction remain distinct. Usable finite interfaces and costs, full interface diagrams, evolving-link activation budgets, and size/depth-uniform estimates remain open. No general GL compression, autonomous own-law parent, recursive formation, or thermodynamic limit is established.
