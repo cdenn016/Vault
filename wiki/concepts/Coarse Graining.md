@@ -17,6 +17,12 @@ updated: 2026-09-30
 
 # Coarse Graining
 
+## Actual-history Gaussian parent comparison, September 30, 2026
+
+[[multiagentelbo-2026-09-30-gaussian-parent-dynamics]] extends the conditional Gaussian runtime to a supplied evolving-link schedule and a nonequilibrium activation law. The full-history predictor preserves hidden conditional correlations and process-noise cross blocks. Its comparator uses actual pair conditionals and shares one-time and pair marginals while discarding older history. Expected finite-path forward KL equals half the sum of log-determinant ratios of one-step to full-history innovation covariances in this deterministic Gaussian contract. This does not score an arbitrary equilibrium reset.
+
+One five-case 512-agent CPU study passed 95 direct-path/innovation and conditional-moment comparisons; seven tiny oracle tests ground the implementation. The retained losses are descriptive at the declared preparation, retention map, and 0.6 horizon. Full hidden filtering is still network-sized. Endogenous link learning, useful finite-memory compression, recursive formation, and thermodynamic limits remain separate obligations. [[Gaussian State Space Model]] and [[Staged hierarchy formation and RG composability]] retain this conditional scope.
+
 ## Complete conditional Gaussian parents, September 30, 2026
 
 [[multiagentelbo-2026-09-30-pointwise-gaussian-network]] implements exact coordinate marginalization of the normalized held-link law at $c_*$. Its energy is $E(x)=x^T Jx/2-h^Tx+c$, so eliminating hidden coordinates retains $J_c=J_{rr}-J_{rh}J_{hh}^{-1}J_{hr}$, $h_c=h_r-J_{rh}J_{hh}^{-1}h_h$, and $c_c=c+[\log\det J_{hh}-d_h\log(2\pi)-h_h^T J_{hh}^{-1}h_h]/2$. The scalar term preserves the observed-record evidence, and generated cross blocks remain in the parent. The reverse conditional has gain $-J_{hh}^{-1}J_{hr}$, intercept $J_{hh}^{-1}h_h$, and covariance $J_{hh}^{-1}$. Its moment lift reconstructs the fine equilibrium law; retained moments alone do not specify a general nonequilibrium hidden conditional.

@@ -18,6 +18,12 @@ updated: 2026-09-30
 
 # Staged hierarchy formation and RG composability
 
+## Inherited history under observed link motion, September 30, 2026
+
+[[multiagentelbo-2026-09-30-gaussian-parent-dynamics]] supplies the next conditional reference after held-link Schur composition: actual-law initialization, full hidden-history filtering, and time-dependent actual-pair Markov rows. Seven tiny tests and a five-case 512-agent CPU study with 95 passing comparisons distinguish retained-path information from one-time/pair marginal parity. Total one-step path losses were positive in these specified three-interval instances, but no matched frozen arm or general lower bound was established.
+
+This reference retains full hidden Gaussian means and covariances and uses an externally prescribed observed link schedule. It does not close the coupled switching-diffusion, autonomous own-law parent, or recursive formation obligations. A compressed predictor needs a declared budget against this inherited history law, and endogenous structural histories require their own likelihood and kinetics. [[Coarse Graining]] and [[Gauge-Theoretic Multi-Agent VFE Model]] carry the current implementation and scope.
+
 ## Gaussian composition at 512 agents, September 30, 2026
 
 [[multiagentelbo-2026-09-30-pointwise-gaussian-network]] supplies a runtime bridge for the existing complete-action construction: direct and two-stage Schur elimination agree numerically on $J$, $h$, $c$, retained moments, and evidence, while the retained reverse conditional reconstructs fine equilibrium moments. Ten tiny tests ground the algebra, and one 512-agent study across five held-map cases passed 45 comparisons. The graph is a sparse directed cycle with stride-17 chords, but the assembled action is dense. Retaining every fourth node is a supplied benchmark reduction and establishes no formation mechanism or preferred hierarchy.

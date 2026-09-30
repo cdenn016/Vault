@@ -96,3 +96,7 @@ or `tag:#field/cs-ml tag:#cluster/info-geometry`. See the [[Disciplines MOC]] hu
 ## Selective-communication formation assessment, September 20, 2026
 
 [[multiagentelbo-2026-selective-communication-formation]] records communicated/private-law separation, quotient compatibility and the proposed normalized cycle extension. Its formation and blanket claims remain explicitly conditional; the source is included in this discipline's tagged Bases view.
+
+## Observed-link Gaussian parent reference, September 30, 2026
+
+[[multiagentelbo-2026-09-30-gaussian-parent-dynamics]] records seven tiny CPU tests and 95 passing comparisons across five 512-agent cases, actual-history filtering and finite-path Markov information loss. External controls and network-sized conditionals do not establish endogenous learning or autonomous parent closure.

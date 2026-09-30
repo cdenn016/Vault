@@ -1,0 +1,71 @@
+# Gaussian inherited-parent dynamics, September 30, 2026
+
+The observed evolving-link reference is implemented and executed at one base point. Seven tiny CPU checks passed, followed by one study with five 512-agent cases and 95 passing comparisons. The history-conditioned predictor agrees with independently assembled retained-path conditionals; the optimal time-dependent one-step Markov parent reproduces one-time and pair marginals while losing longer-history information. This completes the declared conditional reference, without establishing coupled structural learning or a small autonomous parent.
+
+## Model and executable path
+
+The new [core](../../../src/multiagent_elbo/realizations/gaussian/network_dynamics.py) implements affine Gaussian kernels, general-SPD-mobility OU transitions, actual-law initialization, hidden-state filtering, actual-pair Markov projection, and expected finite-path memory information. The [standalone profile](../../../experiments/gaussian_network_dynamics.py) calls [network_dynamics_experiment.py](../../../src/multiagent_elbo/realizations/gaussian/network_dynamics_experiment.py) directly. Its RUN seed is 20260930. THEORY selects five cases, 512 agents, dimension two, three intervals of length 0.2, and motion strength 0.1. NUMERICS selects CPU float64 and one thread; OUTPUT retains arrays under artifacts. These keys are read by the runner and passed into network construction, link motion, transition construction, comparisons, and saving. The existing run_lab.py configuration is unchanged.
+
+The graph, source assignments, prior parameters, receiver comparison maps, record precisions, and observed records are held. Source comparison maps move through a deterministic observed schedule. Flat real links use node-frame flows V_i(t) B_ij(0) V_j(t)^(-1); independent real links use exp(tG_ij) B_ij(0); rectangular maps use B_ij(0) exp(tG_ij); complex GL and SU maps are explicitly realified, with anti-Hermitian traceless SU generators. This is active external control in the fixed kinetic coordinates, not a passive gauge change or latent link learning.
+
+Each fine interval uses the current assembled quadratic action and identity mobility, frozen at its start. The implemented transition is exact for that held interval; it is not the exact flow of a continuously changing action. The actual initial mean is the initial-action equilibrium mean plus 0.03 cos(arange(d)); its covariance is 1.2 times the equilibrium covariance. Every fourth node is retained, giving 128 retained agents and 256 real coordinates in the real cases or 512 real coordinates in the complex cases. The sampled horizon is 0.6. Preparation, retention, graph, and horizon are benchmark choices, not formation rules.
+
+## Mathematical contract
+
+For the declared finite affine schedule, X_(n+1)=F_n X_n+u_n+eta_n with independent eta_n~N(0,Q_n), SPD Q_n, and a proper joint Gaussian activation law, the retained path is Gaussian. Write F in retained/hidden blocks A,B,C,D and the hidden conditional given the retained history as N(m,P). The predictive retained mean and covariance are A r+B m+u_r and V=B P B^T+Q_rr. The next hidden mean and covariance are C r+D m+u_h and W=D P D^T+Q_hh. Their cross covariance is Z=D P B^T+Q_hr. Conditioning on the next retained value gives hidden mean m_next+Z V^(-1)(r_next-mu_r) and covariance W-Z V^(-1)Z^T. Including Q_hr is necessary for correlated process noise. Initialization applies the same Gaussian conditioning to the supplied activation covariance, preserving its correlations.
+
+For M=L L^T, whitening the held OU equation by L gives symmetric drift S=L^T J L. Its exact kernel has F=L exp(-S dt)L^(-1), u=L S^(-1)(I-exp(-S dt))L^T h, and Q=L S^(-1)(I-exp(-2S dt))L^T. The implementation evaluates the two response factors with expm1. A passive coordinate change T carries mobility as M'=T M T^T along with J'=T^(-T)J T^(-1) and h'=T^(-T)h. Holding identity mobility after a nonorthogonal frame change would select different kinetics.
+
+The one-step comparator uses the actual propagated conditional P(R_(n+1)|R_n), with the same initial retained law. The path entropy chain rule decomposes KL to any Markov product into the history information plus the initial-law mismatch and the expected mismatch of each candidate row to this actual-pair conditional. Hence these rows minimize forward path KL over Markov products. For the deterministic Gaussian schedule, conditional covariances do not depend on observation values. The minimizing path KL is
+
+D_path = (1/2) sum_n [log det V_one-step,n - log det V_history,n].
+
+Gaussian conditional entropy gives this expected identity. It is not a pathwise log-density ratio or a score for arbitrary equilibrium rows. The first term is zero because the available history is just R_0. Individual later terms are nonnegative analytically; numerical values are reported without clamping. The matrix case's first computed term was -8.527e-14, a recorded roundoff residual.
+
+The filter retains the full hidden conditional: 768 hidden real coordinates in the real cases and 1536 in the complex cases, with dense covariances. It is an exact conditional predictor in this model, not a network-size-independent closure.
+
+## Executed evidence
+
+The [JUnit packet](evidence/green-sequential.xml) contains seven passed tests, zero failures, errors, or skips. The tests use two to three coordinates and an independent SciPy block-exponential oracle, full joint-path conditioning, actual-pair conditional calculations, direct Gaussian path KL, autonomous/retain-all limits, and a passive noncompact frame change with transformed mobility. The passing invocation took 1.77 seconds; the sum of JUnit testcase times is 0.127 seconds. The expected missing-module RED and the initial native abort remain separate historical evidence.
+
+The standalone CPU study passed all 95 comparisons in 45.354 measured seconds including artifact saving. Its largest absolute comparison error was 6.821e-13. Each case compares direct full retained-path KL to the innovation sum, one-time means/covariances and pair covariances, and full-prefix forecast means/covariances/log densities. The independent path covariance is built by propagating fine-to-retained cross covariances; it does not use the hidden filter. Direct Gaussian path KL and full-prefix Gaussian conditioning provide separate calculations from the innovation recursion.
+
+| Scheduled case | Fine real dimension | Retained path KL to optimal one-step parent, nats | Case seconds before compression |
+| --- | ---: | ---: | ---: |
+| Flat GL+(2,R) | 1024 | 0.0143704096042 | 2.689 |
+| Independent GL+(2,R) | 1024 | 0.0117117582856 | 2.726 |
+| Rectangular rank-one matrix | 1024 | 0.00124487796290 | 2.641 |
+| GL(2,C), realified | 2048 | 0.00124468332069 | 18.220 |
+| SU(2), realified | 2048 | 0.00101649257340 | 18.180 |
+
+These are total finite-path losses for one preparation, seed, schedule, retention map, and horizon. They do not establish typical loss, a causal effect of link motion, an optimal retention map, a long-horizon estimate, recursive formation, or a thermodynamic limit. A matched frozen arm was not run.
+
+[checks.json](evidence/checks.json), [baseline-result.json](evidence/baseline-result.json), the five case JSON files, and [stdout](evidence/baseline-stdout.txt) retain controls, actual errors, and runtime. Stderr is empty. The runtime was C:/anaconda/python.exe, CPython 3.12.7, torch 2.10.0.dev20251210+cu128, with CUDA visible but CPU selected. Full compact input/generator/retained-forecast arrays remain in artifacts/pointwise-gaussian-network-dynamics/20260930T175442164906Z/. New working source files were executed on base commit 73d004df079e1f6d414622d1f8da15c476245a1f; this is not evidence from a later clean publication commit.
+
+## Native-runtime discriminator
+
+The first GREEN attempt aborted in the independent SciPy matrix exponential before the new OU transition executed; it produced no passing JUnit. Its [original tool output](evidence/green-attempt1-native-abort.json) is retained. The identical six-by-six [probe](evidence/oracle_probe.py) succeeded with SciPy alone, then failed after torch/package import with [OMP Error #15](evidence/probe-torch.stderr.txt), reporting duplicate libiomp5md.dll initialization. Selecting MKL_THREADING_LAYER=SEQUENTIAL in that process made the mixed probe pass with the identical matrix-exponential trace, 6.714669364822555. The changed execution setting then passed the focused packet and standalone study. This isolates the duplicate-runtime boundary tested here; it does not diagnose unrelated historical Phase 13 crashes.
+
+The new launcher selects sequential MKL before native imports and sets one-thread numerical execution. Reproduce the focused check in PowerShell with:
+
+    $env:MKL_THREADING_LAYER='SEQUENTIAL'
+    $env:OMP_NUM_THREADS='1'
+    $env:MKL_NUM_THREADS='1'
+    $env:OPENBLAS_NUM_THREADS='1'
+    & 'C:/anaconda/python.exe' -B -m pytest tests/test_gaussian_network_dynamics.py -q -p no:cacheprovider
+
+The standalone command is:
+
+    & 'C:/anaconda/python.exe' -I -B experiments/gaussian_network_dynamics.py
+
+## Continuity and next obligation
+
+This increment reuses the live [Chapter 11 path-law and memory constructions](<C:/Users/chris and christine/Desktop/Research/manuscripts/MultiAgentELBO_Theory/c11_network_coarsegraining.tex:1082>), especially sec:rg-memory-hidden-history and sec:rg-memory-projection, and preserves the separate [switching-diffusion obligation](<C:/Users/chris and christine/Desktop/Research/manuscripts/MultiAgentELBO_Theory/c11_network_coarsegraining.tex:1152>). Relevant PIFB2 model/communication/coarse-law modules 09, 11, and 13 and the Gaussian State Space Model wiki entry were consulted. Filtering and forward-KL Markov projection are existing constructions, not new general theorems claimed by this implementation.
+
+The remaining scientific step is to declare and execute coupled belief/model/source/link kinetics and assess a compressed retained predictor against the inherited history law. Endogenous observed link histories may carry additional likelihood information, so conditioning on them need not preserve the Gaussian law used here. A latent structural prior, metric, and update law cannot be supplied by the external schedule. Finite-memory or mode-compressed predictors need an explicit error budget and matched controls. General soft/recursive formation remains open. CPU was sufficient for this reference; larger dimensions, longer histories, and coupled sweeps can motivate GPU execution after a declared cost estimate.
+
+No full suite, historical heavy replay, GPU study, base transport, Lean, vault ingestion, or new Git publication was performed for this continuation. Unrelated WIP and the same-day spin-foam investigation remain preserved.
+
+## Subsequent publication authorization
+
+After the execution closeout, the user authorized wiki ingestion, commit, push, merge, and canonical fast-forward. Publication retains the recorded working-source execution and historical failed attempts; it does not constitute a fresh test or study. The source snapshot published with this report is the implementation handoff, distinct from the earlier execution base. The wiki ingestion cites the actual code PR and merged revision once available.

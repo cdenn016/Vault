@@ -1,0 +1,132 @@
+{
+  "case": "matrix",
+  "n_agents": 512,
+  "group_dimension": 2,
+  "real_node_dimension": 2,
+  "n_records": 1024,
+  "record_dimension": 1,
+  "graph": "directed sparse cycle plus stride-17 chords, fixed across cases",
+  "held_variables": [
+    "graph",
+    "source assignments",
+    "node prior parameters",
+    "receiver comparison maps",
+    "record precisions",
+    "observed records"
+  ],
+  "integrated_variables": "fine node coordinates along the retained path",
+  "latent_link_prior": null,
+  "normalization": "proper independent node priors and normalized real Gaussian record likelihoods",
+  "group": "matrix communication",
+  "map": "L_e=scale P_e Q_e; A_e=S_Q_e; B_e=S_K_e L_e",
+  "communication_rank": 1,
+  "comparison_dimension": 1,
+  "first_two_map_commutator_norm": 0.015732237459948065,
+  "status": "pass",
+  "observed_dynamic_variables": [
+    "source comparison maps under the declared deterministic schedule"
+  ],
+  "activation": "mu_0=initial-action mean+0.03 cos(arange(d)); Sigma_0=1.2 initial-action covariance",
+  "kinetics": "identity-mobility reversible OU with the current action frozen over each interval",
+  "motion": "B_e(t)=B_e(0) exp(tG_e), equivalent to fixed S_K and L_e(t)=L_e(0) exp(tG_e)",
+  "motion_strength": 0.1,
+  "interval_start_times": [
+    0.0,
+    0.2,
+    0.4
+  ],
+  "dt": 0.2,
+  "n_steps": 3,
+  "fine_dimension": 1024,
+  "retained_agents": 128,
+  "retained_dimension": 256,
+  "direct_retained_path_kl_to_optimal_markov_product": 0.0012448779629039564,
+  "innovation_information_per_step": [
+    -8.526512829121202e-14,
+    0.00046832423038267734,
+    0.0007765537326918093
+  ],
+  "innovation_information_total": 0.0012448779629892215,
+  "first_and_later_information": "observed values for this preparation and schedule; no positivity threshold is an acceptance gate",
+  "checks": {
+    "direct_path_kl_vs_innovation_sum": {
+      "passed": true,
+      "max_abs_error": 8.526512829121202e-14
+    },
+    "step_1_one_time_mean": {
+      "passed": true,
+      "max_abs_error": 6.938893903907228e-18
+    },
+    "step_1_one_time_covariance": {
+      "passed": true,
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    "step_1_pair_covariance": {
+      "passed": true,
+      "max_abs_error": 4.440892098500626e-16
+    },
+    "step_1_history_forecast_mean": {
+      "passed": true,
+      "max_abs_error": 1.6653345369377348e-16
+    },
+    "step_1_history_forecast_covariance": {
+      "passed": true,
+      "max_abs_error": 7.216449660063518e-16
+    },
+    "step_1_history_predictive_log_density": {
+      "passed": true,
+      "max_abs_error": 5.684341886080802e-14
+    },
+    "step_2_one_time_mean": {
+      "passed": true,
+      "max_abs_error": 1.3877787807814457e-17
+    },
+    "step_2_one_time_covariance": {
+      "passed": true,
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    "step_2_pair_covariance": {
+      "passed": true,
+      "max_abs_error": 4.440892098500626e-16
+    },
+    "step_2_history_forecast_mean": {
+      "passed": true,
+      "max_abs_error": 1.942890293094024e-16
+    },
+    "step_2_history_forecast_covariance": {
+      "passed": true,
+      "max_abs_error": 5.551115123125783e-16
+    },
+    "step_2_history_predictive_log_density": {
+      "passed": true,
+      "max_abs_error": 0.0
+    },
+    "step_3_one_time_mean": {
+      "passed": true,
+      "max_abs_error": 1.3877787807814457e-17
+    },
+    "step_3_one_time_covariance": {
+      "passed": true,
+      "max_abs_error": 2.220446049250313e-16
+    },
+    "step_3_pair_covariance": {
+      "passed": true,
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    "step_3_history_forecast_mean": {
+      "passed": true,
+      "max_abs_error": 1.249000902703301e-16
+    },
+    "step_3_history_forecast_covariance": {
+      "passed": true,
+      "max_abs_error": 4.996003610813204e-16
+    },
+    "step_3_history_predictive_log_density": {
+      "passed": true,
+      "max_abs_error": 0.0
+    }
+  },
+  "scope": "observed externally supplied link motion with fixed priors, comparison maps, source assignments and records; conditional reference, without endogenous learning or an autonomous small parent",
+  "array_scope": "base record inputs, seeded motion generators, observed prefix, retained forecasts and final covariance; excludes a fine-state path matrix",
+  "elapsed_seconds": 2.640938600001391
+}

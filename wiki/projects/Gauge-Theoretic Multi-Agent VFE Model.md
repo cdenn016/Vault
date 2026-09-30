@@ -19,6 +19,12 @@ updated: 2026-09-30
 
 # Gauge-Theoretic Multi-Agent VFE Model
 
+## Observed-link inherited parent reference, September 30, 2026
+
+[[multiagentelbo-2026-09-30-gaussian-parent-dynamics]] implements actual-law Gaussian activation, exact hidden-history filtering with correlated process noise, and an optimal time-dependent one-step Markov comparator at c_*. Seven tiny CPU tests and one five-case 512-agent study passed 95 comparisons. The 45.354-second study had maximum absolute residual 6.821e-13; total retained-path losses ranged from 0.00101649 to 0.01437041 nats on horizon 0.6. Correct one-time/pair marginals do not imply correct longer-history predictions. These are measured finite-instance results.
+
+Link motion is an observed external schedule and the action is held over each interval. The exact filter carries network-sized hidden means and covariances; it supplies neither coupled VFE structural learning nor an autonomous small parent. Existing static Gaussian results and activation theorems retain their scopes. The next obligations are declared coupled kinetics and a compressed retained predictor with an explicit information/error budget. GPU was not needed for this CPU reference.
+
 ## Conditional Gaussian network baseline, September 30, 2026
 
 [[multiagentelbo-2026-09-30-pointwise-gaussian-network]] records the first tensor implementation of the complete held-link Gaussian action and its Schur parents at $c_*$. The parent keeps the scalar evidence term, all generated quadratic blocks, and the exact equilibrium reverse conditional. Ten tiny CPU tests ground normalization, elimination, staged composition, frame changes, map gradients, complex realification, and stationary memory against independent or exact oracles. One 512-agent CPU study then passed 45 numerical comparisons across flat GL+(2,R) frames, independent GL+(2,R) maps, rank-one rectangular communication, realified GL(2,C), and realified SU(2). The largest absolute parity residual was $9.095\times10^{-13}$ at declared tolerances $10^{-9}$; measured compute and artifact writing took 3.289 seconds, excluding interpreter/import startup. This is one finite study, with dense precision and covariance storage, rather than a repeated performance estimate.
