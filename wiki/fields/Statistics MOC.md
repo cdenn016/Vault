@@ -125,3 +125,7 @@ or `tag:#field/statistics tag:#cluster/vfe`. See the [[Disciplines MOC]] hub for
 ## Weakest-one adaptive cyclic RG, September 13
 
 [[multiagentelbo-2026-09-13-fixed-weakest-energy-adaptive-cyclic-rg]] supplies the fixed-weakest-energy positive-rate construction, exact marked activations, joint entropy and full assignment-history comparison.
+
+## Observed-link Gaussian parent reference, September 30, 2026
+
+[[multiagentelbo-2026-09-30-gaussian-parent-dynamics]] records seven tiny CPU tests and 95 passing comparisons across five 512-agent cases, actual-history filtering and finite-path Markov information loss. External controls and network-sized conditionals do not establish endogenous learning or autonomous parent closure.

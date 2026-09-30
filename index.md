@@ -1434,3 +1434,7 @@ All new source notes are cataloged below. [[multiagentelbo-2026-09-11-research-s
 - [[carrozza-2014-renormalization-su2-tgft]]
 - [[gurau-2014-random-tensor-universality]]
 - [[yosprakob-2024-reduced-nonabelian-tensor-networks]]
+
+## Observed-link Gaussian parent dynamics, September 30, 2026
+
+- [[multiagentelbo-2026-09-30-gaussian-parent-dynamics|Observed-link Gaussian parent dynamics]] — seven tiny CPU tests; 95 passing comparisons across five 512-agent cases; full inherited history distinguished from one-step marginal parity. Coupled learning and compressed autonomous parents remain open.

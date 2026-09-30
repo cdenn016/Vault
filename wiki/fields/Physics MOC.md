@@ -138,3 +138,7 @@ See the [[Disciplines MOC]] hub for all fields.
 - [[carrozza-2014-renormalization-su2-tgft]]
 - [[gurau-2014-random-tensor-universality]]
 - [[yosprakob-2024-reduced-nonabelian-tensor-networks]]
+
+## Observed-link Gaussian parent reference, September 30, 2026
+
+[[multiagentelbo-2026-09-30-gaussian-parent-dynamics]] records seven tiny CPU tests and 95 passing comparisons across five 512-agent cases, actual-history filtering and finite-path Markov information loss. External controls and network-sized conditionals do not establish endogenous learning or autonomous parent closure.
