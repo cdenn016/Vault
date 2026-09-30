@@ -393,3 +393,12 @@ constructions in this project
 **Key concepts:** [[Agents as fibre-bundle sections|Agents as fiber-bundle sections]] · [[Multi-agent variational free energy]] · [[Belief inertia]] · [[Mass as Fisher information]] · [[Hamiltonian belief dynamics]] · [[Natural gradient]] · [[Fisher information metric]] · [[Ouroboros multi-scale dynamics]] · [[Meta-agents and hierarchical emergence]] · [[Renormalization-group flow of beliefs]] · [[Holonomy]]
 
 **Manuscripts:** [[participatory-it-from-bit]] · [[belief-inertia]] · [[gl-k-attention]]
+
+
+## Spin-foam and loop-gravity methods, September 30, 2026
+
+[[Spin foam coarse-graining for agent networks]] records the methods investigation and fifteen retained primary/reference PDFs. The seven-chapter companion [[dennis-2026-spin-foam-boundary-methods]] now proves the frozen conditional boundary toolkit, with 28 target ancestors and an auxiliary finite regulator identity: 29 numbered mathematical results. It builds on the existing marked-parent and common reference/evidence theory. Results include exterior-class common recovery, correlated gluing, admitted gauge/metric interfaces linked to normalized positive record kernels, separate evidence/full-VFE and posterior errors, and finite-horizon history-information plus conditional-row budgets.
+
+The construction stays at $c_*$ with local-section agents and independent link types. Activation uses the actual microscopic law conditioned only on an already completed prefix, retaining every feedback control needed for prediction. Full interface graph squares are premises where used; ordered root-dressed marks prove only part of their construction. Compact-unitary compression and passive GL metric covariance have distinct admissions. General standard-Borel path budgets require dominance, finite conditional information, and finite source-context row risk. These are proved implications for admitted arbitrary finite networks, including $N\ge512$, rather than proof that an evolving family satisfies the premises.
+
+Four application entries remain `INCONCLUSIVE`: useful finite regular interfaces with actual cost and full normalized-likelihood bounds, full factor-through diagrams changing boundary coordinates, activation-family predictive estimates, and size/depth-uniform budgets. No useful low dimension, autonomous own-law parent, recursive formation, thermodynamic limit, base transport, or emergent geometry is proved. This ingestion adds documentation and navigation, rather than an implemented scientific-model change or experiment.

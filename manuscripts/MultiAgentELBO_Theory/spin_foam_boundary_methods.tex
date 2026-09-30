@@ -1,0 +1,1114 @@
+\documentclass[11pt,letterpaper]{report}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools,bm,mathrsfs}
+\usepackage{xcolor,microtype,longtable,booktabs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{cleveref}
+\usepackage[numbers]{natbib}
+\newcommand{\KL}{D_{\mathrm{KL}}}
+\newcommand{\E}{\mathbb E}
+\newcommand{\R}{\mathbb R}
+\newcommand{\given}{\mid}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\Sym}{\mathbb S}
+\newcommand{\PSD}{\mathbb S_{+}}
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\Fenergy}{\mathcal F}
+\newcommand{\Lelbo}{\mathcal L}
+\newcommand{\TV}{\operatorname{TV}}
+\newcommand{\osc}{\operatorname{osc}}
+\newcounter{statementsequence}[chapter]
+\makeatletter
+\@for\sb@type:=definition,hypothesis,lemma,proposition,theorem,corollary,conjecture,openproblem,remark\do{%
+  \newcounter{\sb@type}[chapter]%
+  \expandafter\edef\csname the\sb@type\endcsname{\noexpand\thechapter.\noexpand\arabic{\sb@type}}%
+}
+\makeatother
+\newcommand{\syncstatementcounter}[1]{\stepcounter{statementsequence}\setcounter{#1}{\numexpr\value{statementsequence}-1\relax}\refstepcounter{#1}}
+\newcommand{\resultheading}[4]{\syncstatementcounter{#2}\label{#4}\paragraph{#1~\csname the#2\endcsname\ (#3).}}
+\newcommand{\definitionheading}[2]{\resultheading{Definition}{definition}{#1}{#2}}
+\newcommand{\hypothesisheading}[2]{\resultheading{Hypothesis}{hypothesis}{#1}{#2}}
+\newcommand{\lemmaheading}[2]{\resultheading{Lemma}{lemma}{#1}{#2}}
+\newcommand{\propositionheading}[2]{\resultheading{Proposition}{proposition}{#1}{#2}}
+\newcommand{\theoremheading}[2]{\resultheading{Theorem}{theorem}{#1}{#2}}
+\newcommand{\corollaryheading}[2]{\resultheading{Corollary}{corollary}{#1}{#2}}
+\newcommand{\conjectureheading}[2]{\resultheading{Conjecture}{conjecture}{#1}{#2}}
+\newcommand{\openproblemheading}[2]{\resultheading{Open Problem}{openproblem}{#1}{#2}}
+\newcommand{\remarkheading}[2]{\resultheading{Remark}{remark}{#1}{#2}}
+\newcommand{\status}[1]{\mbox{{\small\textsc{\textcolor{red!45!black}{[#1]}}}}}
+\crefname{definition}{definition}{definitions}
+\crefname{hypothesis}{hypothesis}{hypotheses}
+\crefname{lemma}{lemma}{lemmas}
+\crefname{proposition}{proposition}{propositions}
+\crefname{theorem}{theorem}{theorems}
+\crefname{corollary}{corollary}{corollaries}
+\crefname{conjecture}{conjecture}{conjectures}
+\crefname{openproblem}{open problem}{open problems}
+\crefname{remark}{remark}{remarks}
+\Crefname{definition}{Definition}{Definitions}
+\Crefname{hypothesis}{Hypothesis}{Hypotheses}
+\Crefname{lemma}{Lemma}{Lemmas}
+\Crefname{proposition}{Proposition}{Propositions}
+\Crefname{theorem}{Theorem}{Theorems}
+\Crefname{corollary}{Corollary}{Corollaries}
+\Crefname{conjecture}{Conjecture}{Conjectures}
+\Crefname{openproblem}{Open Problem}{Open Problems}
+\Crefname{remark}{Remark}{Remarks}
+\hypersetup{pdftitle={Boundary Methods for Pointwise Agent Networks},pdfauthor={Robert C. Dennis}}
+\title{Boundary Methods for Pointwise Agent Networks\\
+\large Consistent Interfaces, Gauge-Covariant Compression, and Predictive Error}
+\author{Robert C. Dennis}
+\date{September 30, 2026}
+\begin{document}
+\hypersetup{pageanchor=false}
+\maketitle
+\begin{abstract}
+Spin-foam coarse-graining organizes effective theories through their boundary data and consistency between descriptions. This manuscript applies that method to positive statistical laws of an interacting agent network at one base point. A countable exterior record class defines a boundary statistic with a common reference-conditioned reconstruction; correlated gluing retains joint conditional factors. Compact-unitary interface compression acts on multiplicity spaces, while general linear coordinate changes require covariant metric data. These feature operations are connected to probability laws through common statistics and normalized record kernels. Bounded log-likelihood residuals give two-sided relative-entropy bounds and separate controls on evidence and complete variational free energy. Their oscillations accumulate through graph-reduction diagrams. Predictive boundaries retain a conditional filter, and finite-horizon error separates omitted history from row approximation; conditional filter contraction supplies an explicit memory budget. A finite regulated generating functional supplies an additional operator calculation. All results are conditional on their stated admission and error hypotheses. The method supplies no general fixed compression dimension, parent autonomy, recursive formation, or thermodynamic limit.
+\end{abstract}
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+\hypersetup{pageanchor=true}
+\chapter{The pointwise problem and the transferred method}
+\label{ch:sb-setup}
+The question is how to replace an agent block by a boundary description that preserves the exterior experiment and admits a quantitative approximation. The construction in \cref{ch:sb-boundary} answers the exact record-class question. The later chapters separate feature compression, statistical error, and predictive memory, so that agreement of instantaneous marginals is not used as a dynamics theorem.
+
+The consistent boundary formulation of spin foams allows generated interactions to be carried by richer boundary data and compares refinements through compatible embeddings \cite[Sec.~5, Eqs.~(13)--(19)]{asante-2022-spin-foams-refinement-renormalization}. Cylindrical consistency compares measures on distinct descriptions \cite[Sec.~2, Eq.~(2.8)]{bahr-2014-background-independent-renormalization}; ordered link products and nonlocal coarse interactions appear in the holonomy formulation \cite[Sec.~4, Eqs.~(4.1)--(4.3)]{bahr-2011-operator-spin-foams}. Here these methods act on probability measures rather than quantum amplitudes. A boundary is an interface in the agent graph, and a reduction diagram does not require a spatial box or a physical length.
+
+\section{Standing conventions and scope}
+All measurable spaces are nonempty and standard Borel, all laws and Markov kernels are measurable and normalized, and observations use specified density representatives at admitted slices of finite positive evidence. The network lies at $c_*$. Agents remain local sections of the belief and model associated bundles of a principal $G$-bundle. A passive vertex re-expression acts on independent links by
+\begin{equation}
+(\Theta^x_e)'=g_i\Theta^x_e g_j^{-1},
+\qquad e:j\longrightarrow i,\quad x\in\{b,m\}.
+\label{eq:sb-link-convention}
+\end{equation}
+The frame comparison $T_{ij}=U_iU_j^{-1}$, the independent link $\Theta^x_e$, and a composite linear communication map $\mathsf L_e$ retain distinct types. Ordered closed-walk products and cut maps are fiber-internal data. The interaction graph is structural support; fluctuating attention weights and link values do not imply discrete edge creation.
+
+No result identifies an agent graph with a spin foam, quantum amplitude, base transport, physical time, spacetime, or ontology. No result selects a partition, proves recursive formation, or supplies an infinite-network limit. \status{NOT-CLAIMED} The unresolved family-specific tasks are collected in \cref{ch:sb-obligations}.
+
+\definitionheading{Reference, evidence, and recognition}{def:sb-pair}
+For a latent space $\mathsf Y$, let $\varrho$ be a proper reference probability and let
+\begin{equation}
+\mathsf m_o(dy)=L_o(y)\varrho(dy),
+\qquad
+0<M_o=\int L_o(y)\varrho(dy)<\infty,
+\qquad
+\boldsymbol\Pi_o=M_o^{-1}\mathsf m_o.
+\label{eq:sb-fine-pair}
+\end{equation}
+The selected correlated recognition law is $\mathbb Q_o$. If $\varrho$ is the latent prior and $L_o$ is a record density, $M_o$ is the evidence. With finite displayed terms,
+\begin{equation}
+\Fenergy(\mathbb Q_o)
+=-\log M_o+\KL(\mathbb Q_o\Vert\boldsymbol\Pi_o)
+=\KL(\mathbb Q_o\Vert\varrho)-\E_{\mathbb Q_o}\log L_o.
+\label{eq:sb-free-energy}
+\end{equation}
+The singular recognition branch has extended free energy $+\infty$. Structural choices are made before recognition-specific or record-specific evaluation.
+
+A common channel $C:\mathsf Y\rightsquigarrow\mathsf Z$ acts on reference, evidence, and recognition:
+\begin{equation}
+\varrho^c=\varrho C,\qquad
+\mathsf m_o^c=\mathsf m_oC,\qquad
+\mathbb Q_o^c=\mathbb Q_oC,\qquad
+L_o^c=\frac{d\mathsf m_o^c}{d\varrho^c}.
+\label{eq:sb-common-channel}
+\end{equation}
+Under the reference joint $\varrho(dy)C(y,dz)$, its effective likelihood is the conditional expectation of $L_o$. This is the starting measure-pair calculus, and \cref{ch:sb-boundary} applies it to an exterior experiment rather than treating an arbitrary smaller state as a sufficient boundary.
+
+\section{What the method must control}
+A useful block boundary must carry the joint attention-event information, ordered loop and cut marks, and exterior record dependence that the experiment reads. A spectral projector can compress a feature vector while leaving these marks explicit. Its probability meaning comes from a Markov statistic or a normalized record kernel, and its statistical error comes from a likelihood residual. Predictive error additionally depends on hidden conditional information. These are the separate admissions developed below.
+
+The statements apply to arbitrary finite agent count, including $N\ge512$. A formula with no explicit factor $N$ is not a uniform guarantee when its ranks, contraction coefficients, or error budgets depend on $N$. Their control on a graph family remains an obligation.
+\chapter{Exterior boundary laws and graph comparisons}
+\label{ch:sb-boundary}
+The boundary construction integrates interiors first and retains an exterior record class rather than asserting full microscopic inversion. Consistent boundary and embedding methods motivate this choice \cite[Sec.~6, Eqs.~(6.1)--(6.4), and Sec.~7]{dittrich-2012-continuum-limit-spin-foams}\cite[Sec.~3.1, Eqs.~(3.1)--(3.2), and Sec.~4, Eqs.~(4.2)--(4.3)]{dittrich-2014-time-evolution-refining-coarse-graining}. The probability results below use one correlated reference throughout.
+\section{Exterior record classes and boundary reconstruction}
+\label{sec:sf-boundary-records}
+
+Which boundary data permit a block to be replaced without changing a specified exterior record class? \Cref{thm:sf-boundary-signature} constructs a statistic and a common reconstruction of the boundary and exterior measure pair. \Cref{prop:sf-boundary-minimality} identifies its minimality when reconstruction reads the boundary statistic alone. These probability objects are used in \Cref{sec:sf-boundary-diagrams}.
+
+
+
+\definitionheading{Boundary experiment and exterior catalog}{def:sf-boundary-experiment}
+Let $\mathsf H$, $\mathsf B$, and $\mathsf E$ be standard-Borel spaces for the block interior, graph boundary, and exterior. A probability $\varrho$ on their product may be arbitrarily correlated. Write $\varrho_B$ for its boundary marginal and choose one regular conditional kernel
+\[
+\Gamma({\mathsf b},d\eta,d\xi)=\varrho(d\eta,d\xi\given B={\mathsf b}).
+\]
+Let $L_0=1$ and let $(L_n)_{n\ge1}$ be a countable catalog of measurable nonnegative functions with $0<M_n:=\int L_n d\varrho<\infty$. Each entry is a specified likelihood representative on an admitted observation slice or another stated record test. The catalog and a measurable raw-mark map ${\mathsf d}:\mathsf B\to\mathsf D$ with standard-Borel $\mathsf D$ are chosen before recognition varies and before a catalog entry is selected. Define
+\begin{align}
+\mu_n(d{\mathsf b},d\xi)&=\varrho_B(d{\mathsf b})\kappa_n({\mathsf b},d\xi),\\
+\kappa_n({\mathsf b},A)&=\int \mathbf1_A(\xi)L_n(\eta,{\mathsf b},\xi)\Gamma({\mathsf b},d\eta,d\xi),
+\qquad A\in\mathscr E.
+\label{eq:sf-boundary-kernels}
+\end{align}
+Thus $\mu_0$ is the projected reference. The original observation is unchanged; $E$ is a retained exterior latent or a separately specified probe, while a selected observation enters through $L_n$.
+
+\theoremheading{Countable exterior signature and common reconstruction}{thm:sf-boundary-signature}
+Choose a countable generating $\pi$-system $(A_j)_{j\ge0}$ of $\mathscr E$ with $A_0=\mathsf E$. On one measurable $\varrho_B$-conull set every $\kappa_n({\mathsf b},\mathsf E)$ is finite. Outside that set replace $\kappa_n$ by zero for $n\ge1$ and keep $\kappa_0$ a probability kernel. Put
+\begin{equation}
+\sigma({\mathsf b})=\left({\mathsf d}({\mathsf b}),(\kappa_n({\mathsf b},A_j))_{n,j\ge0}\right),
+\qquad
+\mathsf S=\mathsf D\times[0,\infty)^{\mathbb N_0\times\mathbb N_0}.
+\label{eq:sf-boundary-signature}
+\end{equation}
+This has the full standard-Borel product as codomain; its image need not be Borel. Let $\varrho_S=\sigma_\#\varrho_B$ and let $r(s,d{\mathsf b})$ be a regular conditional of $B$ given $\sigma(B)=s$. There are finite-measure kernels $\bar\kappa_n$ on $\mathsf E$, with $\bar\kappa_0$ a probability kernel, such that simultaneously for every $n$
+\begin{align}
+\kappa_n({\mathsf b},\cdot)&=\bar\kappa_n(\sigma({\mathsf b}),\cdot)
+\quad\varrho_B\text{-almost everywhere},\\
+\nu_n(ds,d\xi)&:=(\sigma,\mathrm{id}_{\mathsf E})_\#\mu_n(ds,d\xi)
+=\varrho_S(ds)\bar\kappa_n(s,d\xi),\\
+\mu_n&=\nu_n\mathcal R,
+\qquad
+\mathcal R((s,\xi),d{\mathsf b},d\xi')=r(s,d{\mathsf b})\delta_\xi(d\xi').
+\label{eq:sf-boundary-common-recovery}
+\end{align}
+The one $r$ is independent of $n$ and $\xi$ and obeys $r(s,\sigma^{-1}(\{s\}))=1$ for $\varrho_S$-almost every $s$. Thus $\mathcal R$ is fiber-supported for $\nu_0$-almost every $(s,\xi)$ and for every $\nu_n$-almost every $(s,\xi)$. The masses $M_n$ are preserved, and normalized evidence laws are recovered. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Tonelli gives $\int\kappa_n({\mathsf b},\mathsf E)\varrho_B(d{\mathsf b})=M_n<\infty$. Each total mass is finite off a measurable null set; the countable intersection gives the common set. Kernel integration gives measurability of every coordinate of $\sigma$. Countable products of standard-Borel spaces are standard Borel, so $r$ exists. The law of $(\sigma(B),B)$ is carried by the measurable graph of $\sigma$, proving almost-everywhere fiber support.
+
+Initially set $\bar\kappa_n(s,A)=\int\kappa_n({\mathsf b},A)r(s,d{\mathsf b})$. On a common $\varrho_S$-conull set, fiber support implies that $\kappa_n({\mathsf b},A_j)$ equals coordinate $(n,j)$ of $s$ for $r(s,d{\mathsf b})$-almost every ${\mathsf b}$, simultaneously for all $n,j$. In particular $\bar\kappa_n$ has finite total mass there. Uniqueness of finite measures on a generating $\pi$-system gives $\kappa_n({\mathsf b},\cdot)=\bar\kappa_n(s,\cdot)$ for $r(s,d{\mathsf b})$-almost every ${\mathsf b}$. The common excluded set is measurable, using countably many coordinate tests, finite-mass tests, and the measurable graph-support test. On it replace $\bar\kappa_n$ by zero for $n\ge1$ and $\bar\kappa_0$ by a point mass. Kernel measurability and finiteness then hold everywhere.
+
+For rectangles $C\times A\subseteq\mathsf B\times\mathsf E$, disintegration yields
+\begin{align*}
+\mu_n(C\times A)
+&=\int\varrho_S(ds)\int_C r(s,d{\mathsf b})\kappa_n({\mathsf b},A)\\
+&=\int\varrho_S(ds)r(s,C)\bar\kappa_n(s,A).
+\end{align*}
+Taking $C=\sigma^{-1}(D)$ identifies $\nu_n$; the last integral identifies $\nu_n\mathcal R$. Uniqueness of finite measures extends rectangle equality to the product sigma-algebra. Since $L_n\varrho\ll\varrho$, projection gives $\mu_n\ll\mu_0$ and $\nu_n\ll\nu_0$, transferring the reference-conull fiber support to each evidence measure. Mass preservation and normalization follow. $\square$
+
+\propositionheading{Minimality for exterior-independent lifts}{prop:sf-boundary-minimality}
+Let $t:\mathsf B\to\mathsf T$ be measurable with standard-Borel codomain, and suppose ${\mathsf d}$ is a measurable function of $t$ almost everywhere. A kernel $r_t:\mathsf T\rightsquigarrow\mathsf B$, supported on $t^{-1}(\{u\})$ for $t_\#\varrho_B$-almost every $u$, recovers every $\mu_n$ through
+\[
+\mathcal R_t((u,\xi),d{\mathsf b},d\xi')=r_t(u,d{\mathsf b})\delta_\xi(d\xi').
+\]
+if and only if $\sigma$ is a measurable function of $t$, $\varrho_B$-almost everywhere. This is minimality among statistics retaining ${\mathsf d}$ and admitting exterior-independent reconstruction. It is not minimality among lifts reading $\xi$. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+If $\sigma=F\circ t$ almost everywhere, every $\kappa_n({\mathsf b},A_j)$ is a function of $t({\mathsf b})$. Disintegrating $\varrho_B$ given $t$, the proof of \Cref{thm:sf-boundary-signature} gives all factorizations and the common lift.
+
+Conversely reference recovery at $n=0$, integrated over $\xi$, gives $\varrho_B=(t_\#\varrho_B)r_t$. Fiber support identifies $r_t$ with the reference conditional of $B$ given $t$. The pushed evidence is
+\[
+(t,\mathrm{id})_\#\mu_n(du,d\xi)
+=(t_\#\varrho_B)(du)\bar\kappa_{n,t}(u,d\xi),
+\qquad
+\bar\kappa_{n,t}(u,A)=\int\kappa_n({\mathsf b},A)r_t(u,d{\mathsf b}).
+\]
+Recovery therefore gives
+\[
+\varrho_B(d{\mathsf b})\kappa_n({\mathsf b},d\xi)
+=\varrho_B(d{\mathsf b})\bar\kappa_{n,t}(t({\mathsf b}),d\xi).
+\]
+Uniqueness, tested on the countable class $(A_j)$, implies equality of the kernel coordinates on one common conull set. Their measurable dependence on $t$, together with the assumed descent of ${\mathsf d}$, defines a measurable map $F$ into the full product $\mathsf S$. Thus $\sigma=F\circ t$ almost everywhere. $\square$
+
+\corollaryheading{Generating-class and integrable record extensions}{cor:sf-boundary-record-extension}
+Common recovery holds for every bounded measurable test on $\mathsf B\times\mathsf E$, and for nonnegative tests with extended integrals. The same $\sigma$ and $\mathcal R$ also recover the boundary measure induced by every nonnegative $L\in L^1(\varrho)$ in the $L^1(\varrho)$-closed linear span of $\{L_n:n\ge0\}$. This is a measure-level assertion for each $L$, not a common pointwise density version over uncountably many observations. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Measure equality gives bounded-test equality, and monotone convergence gives the nonnegative extension. For finite linear combinations $L^{(k)}\to L$ in $L^1(\varrho)$, their finite signed evidence measures converge in total variation because $\|(L^{(k)}-L)\varrho\|_{\mathrm{var}}=\|L^{(k)}-L\|_1$. Projection and Markov reconstruction contract this norm. Common recovery holds linearly for every $L^{(k)}$ and therefore passes to the limit. $\square$
+
+\propositionheading{General common recovery and likelihood descent}{prop:sf-boundary-general-recovery}
+Write $\lambda_n=d\mu_n/d\mu_0$ and $\chi({\mathsf b},\xi)=(t({\mathsf b}),\xi)$. One kernel supported on $\chi^{-1}(\{z\})$ for $\chi_\#\mu_0$-almost every $z$ recovers $\mu_0$ and every $\mu_n$ if and only if, for every $n$, a measurable $\lambda_n^t$ satisfies
+\[
+\lambda_n({\mathsf b},\xi)=\lambda_n^t(t({\mathsf b}),\xi)
+\quad\mu_0\text{-almost everywhere}.
+\]
+The reference conditional of $(B,E)$ given $\chi$ is then one common kernel. It may read $\xi$. No finite-KL hypothesis is required. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Reference recovery and fiber support identify any such kernel with the reference conditional by uniqueness. If $\lambda_n^t$ is the pushed density, reconstruction through that conditional has density $\lambda_n^t\circ\chi$ with respect to $\mu_0$, checked by bounded-test integration. It equals $\mu_n$ exactly under density descent. Conversely descent makes the same calculation prove recovery. Countability permits common exceptional-set choices. $\square$
+
+\section{Gluing relative to a correlated reference}
+\label{sec:sf-boundary-gluing}
+
+Gluing carries reference correlations as well as record factors. \Cref{prop:sf-boundary-gluing} gives the positive contraction and the condition permitting a product of marginal messages.
+
+\propositionheading{Correlated conditional contraction and its separator criterion}{prop:sf-boundary-gluing}
+Let $\varrho$ be a probability on $\mathsf H_1\times\mathsf H_2\times\mathsf W$, where $W$ carries every retained boundary and exterior coordinate. Choose from the one joint construction conditional kernels
+\[
+\Gamma_w(d\eta_1,d\eta_2),\quad
+\Gamma_{2,w}(d\eta_2),\quad
+\Gamma_{1|2,w}(\eta_2,d\eta_1).
+\]
+Let $f_i(\eta_i,w)$ and $g(w)$ be finite measurable nonnegative factors with
+\[
+0<\int g(w)f_1(\eta_1,w)f_2(\eta_2,w)d\varrho<\infty.
+\]
+Define extended nonnegative messages
+\begin{align}
+\mathcal A_{12}(w)&=\int f_1(\eta_1,w)f_2(\eta_2,w)\Gamma_w(d\eta_1,d\eta_2),\\
+\mathcal A_{1|2}(\eta_2,w)&=\int f_1(\eta_1,w)\Gamma_{1|2,w}(\eta_2,d\eta_1).
+\end{align}
+For $\varrho_W$-almost every $w$,
+\[
+\mathcal A_{12}(w)=\int f_2(\eta_2,w)\mathcal A_{1|2}(\eta_2,w)\Gamma_{2,w}(d\eta_2).
+\]
+The pushed pair on $\mathsf W$ is $\bigl(\varrho_W,\Lambda\varrho_W\bigr)$, where
+\[
+\Lambda(w)=\int g(w)f_1(\eta_1,w)f_2(\eta_2,w)\Gamma_w(d\eta_1,d\eta_2).
+\]
+This equals $g(w)\mathcal A_{12}(w)$ on $\{g>0\}$ and zero on $\{g=0\}$, including where $\mathcal A_{12}=\infty$. Likewise a zero $f_2$ contributes zero in the staged integral. The density $\Lambda$ is finite almost everywhere and has the stated positive finite integral. The opposite elimination order gives the same evidence measure. For finitely many hidden blocks every elimination order gives that same measure if conditional kernels come from this joint reference and all induced joint factors are retained.
+
+When both marginal messages are finite, product-message gluing is valid for the given pair precisely when $\mathcal A_{12}=(\Gamma_{1,w}f_1)(\Gamma_{2,w}f_2)$. For bounded factors their difference is conditional covariance. It is valid for every bounded nonnegative pair if and only if
+\[
+\Gamma_w=\Gamma_{1,w}\otimes\Gamma_{2,w}
+\quad\varrho_W\text{-almost everywhere}.
+\]
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Tonelli for the nonnegative integrands and the chosen disintegrations gives both staged identities, with the zero-factor conventions inherited from the original finite-factor integrand. Integrability of the original weighted likelihood makes $\Lambda$ finite almost everywhere. Repeated Tonelli proves every finite elimination order. No product reference replaces the joint reference. Subtracting the product of bounded conditional means gives covariance. Conditional independence implies product gluing. Conversely indicator factors on two countable generating $\pi$-systems give rectangle equality on one conull set. Uniqueness of probabilities extends it to the product sigma-algebra and proves conditional independence. $\square$
+
+\remarkheading{Compatible marginals do not recover the original coupling}{rem:sf-boundary-gluing-scope}
+If two block laws share a separator marginal $\alpha(dw)$ and have conditional kernels $r_i(w,d\eta_i)$, then
+\[
+\alpha(dw)r_1(w,d\eta_1)r_2(w,d\eta_2).
+\]
+is normalized and has the supplied marginals. It is one conditionally independent amalgam. Equality with an original joint requires that joint to have this product conditional. Shared separator marginals alone give no such equality. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Integrating either probability kernel out gives the other supplied marginal; integrating both gives one. Equal, independent, and opposite fair binary variables have the same singleton marginals and distinct joint laws, with a singleton separator. $\square$
+
+\section{Graph diagrams with one reference construction}
+\label{sec:sf-boundary-diagrams}
+
+Boundary embeddings are represented by deterministic projections and reverse reference conditionals. Labels specify graph interfaces, not physical lengths or times.
+
+\propositionheading{Common-reference reversals on a commuting diagram}{prop:sf-boundary-diagram-reversal}
+Let a finite or countable partially ordered label set carry standard-Borel spaces $\mathsf Z_b$ and measurable maps $q_{b'b}:\mathsf Z_{b'}\to\mathsf Z_b$ for $b\preceq b'$, with identity arrows and
+\[
+q_{b''b}=q_{b'b}\circ q_{b''b'}.
+\]
+Assume one master probability construction supplies the reference laws, deterministic pair couplings, and
+\[
+\varrho_b=(q_{b'b})_\#\varrho_{b'}.
+\]
+Choose reverse kernels $R_{bb'}$ from those pair couplings. Then
+\[
+R_{bb'}R_{b'b''}=R_{bb''}
+\quad\varrho_b\text{-almost everywhere},
+\]
+and arrows are fiber-supported almost everywhere. Finite evidence measures satisfying $m_{b,n}=(q_{b'b})_\#m_{b',n}$ have consistent observable expectations along every route. The same reverse kernels recover evidence along every arrow if and only if each density with respect to $\varrho_{b'}$ descends through $q_{b'b}$. Forward consistency alone does not imply common recovery. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+For bounded measurable $f$ on $\mathsf Z_{b''}$, the deterministic composition makes $Z_b$ a function of $Z_{b'}$, and the tower identity gives
+\[
+\E[f(Z_{b''})\given Z_b]
+=\E[\E[f(Z_{b''})\given Z_{b'}]\given Z_b].
+\]
+This is the reverse-composition identity on a countable determining class and hence almost everywhere as kernels. Graph support gives fiber support. Pullback of bounded tests along the composing $q$ proves forward evidence consistency. The density calculation of \Cref{prop:sf-boundary-general-recovery} applied to each arrow proves the last equivalence. Countability permits simultaneous exceptional-set choices for these arrows and catalog entries. An uncountable diagram has only arrowwise almost-everywhere conclusions without a separate compatible-version theorem. $\square$
+
+\propositionheading{Noncommutative rooted contraction diagram}{prop:sf-boundary-rooted-diagram}
+Fix a finite interaction multigraph and one rooted spanning forest. Admit partitions whose blocks are connected subtrees of this forest. In each block $I$, choose its closest-to-component-root vertex $r_I$ and retain original edge-copy labels, root-framed features, based loop words, and cut marks. For nested blocks $I\subseteq A$, inherited tree path products satisfy
+\begin{equation}
+\Theta^x_{A\leftarrow i}
+=\Theta^x_{A\leftarrow r_I}\Theta^x_{I\leftarrow i},
+\qquad i\in I.
+\label{eq:sf-boundary-tree-composition}
+\end{equation}
+For an original copy $e:j\to i$ from $J$ to $I$, with $I\subseteq A$ and $J\subseteq B$, staged and direct dressing agree:
+\begin{align}
+&\Theta^x_{A\leftarrow r_I}
+\left[\Theta^x_{I\leftarrow i}\Theta^x_e
+(\Theta^x_{J\leftarrow j})^{-1}\right]
+(\Theta^x_{B\leftarrow r_J})^{-1}\\
+&=
+\Theta^x_{A\leftarrow i}\Theta^x_e
+(\Theta^x_{B\leftarrow j})^{-1}.
+\label{eq:sf-boundary-dressing-diamond}
+\end{align}
+Contraction diamonds in this class commute on these marks. Represented features compose by the representation of the same path products. Matrix communication maps obey
+\[
+\mathsf R_{A\leftarrow I}
+\left[\mathsf R_{I\leftarrow i}\mathsf L_e
+(\mathsf R_{J\leftarrow j})^{-1}\right]
+(\mathsf R_{B\leftarrow J})^{-1}
+=\mathsf R_{A\leftarrow i}\mathsf L_e
+(\mathsf R_{B\leftarrow j})^{-1}.
+\]
+Here the $\mathsf R$ maps are compatible represented tree isomorphisms in their source and target feature spaces, with $\mathsf R_{A\leftarrow i}=\mathsf R_{A\leftarrow I}\mathsf R_{I\leftarrow i}$. Only tree isomorphisms are inverted; $\mathsf L_e$ need not be invertible. Based loop products stay ordered, and receiver/source endpoint labels compose by partition maps. No commutativity, compactness, or invariant reference probability is required. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+A connected subtree contains every forest path between its vertices, and its nearest-to-root vertex is an ancestor of each member. For nested blocks the path $i\to r_A$ is $i\to r_I\to r_A$, proving \Cref{eq:sf-boundary-tree-composition} with ordered multiplication. Substitute it at both endpoints; $(PQ)^{-1}=Q^{-1}P^{-1}$ gives \Cref{eq:sf-boundary-dressing-diamond} without permuting factors. Representation multiplicativity proves the feature and matrix identities. Successive root dressings on a closed walk cancel intermediate tree products, preserving its based loop word. Endpoint relabeling is partition-map composition. Both intermediate partitions of a diamond therefore give the same final original-copy mark list. $\square$
+
+\propositionheading{Transported boundary signatures and conditional versions}{prop:sf-boundary-signature-covariance}
+Let $a_H$, $a_B$, and $a_E$ be bimeasurable coordinate changes of the interior, boundary, and exterior spaces. Push $\varrho$ by their product, define $L_n'=L_n\circ(a_H,a_B,a_E)^{-1}$, and suppose ${\mathsf d}'(a_B {\mathsf b})=a_D {\mathsf d}({\mathsf b})$ for a bimeasurable raw-mark change $a_D$. Choose the transformed generating class $A_j'=a_E(A_j)$ and the transported reference conditional. Then
+\[
+\kappa_n'(a_B {\mathsf b},A_j')=\kappa_n({\mathsf b},A_j)
+\quad\varrho_B\text{-almost everywhere},
+\qquad
+\sigma'(a_B {\mathsf b})=a_S\sigma({\mathsf b}),
+\]
+where $a_S$ applies $a_D$ to the raw-mark coordinate and leaves the numerical kernel coordinates unchanged. The kernel
+\[
+r'(a_Ss,C')=r(s,a_B^{-1}(C')).
+\]
+is a reference conditional in the new coordinates and transports common recovery and fiber support. This is passive covariance of selected versions; it asserts no conditional version invariant simultaneously over all noncompact group elements. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The transported conditional is
+\[
+\Gamma'(a_B {\mathsf b},D')=\Gamma({\mathsf b},(a_H,a_E)^{-1}(D')).
+\]
+Its defining disintegration identity follows by change of variables in the joint law. Substituting $L_n'$ and $A_j'$ into the kernel integral gives the coordinate equality. The raw-mark hypothesis gives the signature equation. Pushing the joint law of $(\sigma(B),B)$ by $(a_S,a_B)$ proves the formula for $r'$. The same change of variables in each $\nu_n\mathcal R=\mu_n$ transports common recovery; bimeasurability maps every supported fiber to the corresponding fiber. $\square$
+
+
+\corollaryheading{Integrable exterior record families}{cor:sb-arbitrary-catalog}
+A specified family $\mathscr L\subset L^1(\varrho)$ of nonnegative admitted likelihoods can be recovered as measures by one countable-signature construction using a countable $L^1$-dense subfamily and $L_0=1$. This asserts per-record measure recovery and does not assert one pointwise density version over the whole family. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+A countable generating algebra of a standard-Borel space gives rational simple functions dense in $L^1(\varrho)$. Its algebra is dense in measure among measurable sets: closure of this approximation class under countable unions follows by continuity of the finite measure and finite-union approximation, and complement closure is immediate. The generated sigma-algebra is therefore approximated. Truncation and simple-function approximation give the $L^1$ claim. A separable metric space is second countable, and every subspace is second countable and separable; hence choose a countable dense subfamily of $\mathscr L$. Every member lies in its closed linear span, so \cref{cor:sf-boundary-record-extension} applies. $\square$
+
+\chapter{Gauge-covariant feature compression and its probability bridge}
+\label{ch:sb-gauge}
+Which part of a boundary feature can be compressed without erasing its gauge content or the exterior experiment? \Cref{prop:sb-environment-projector} retains complete representation carriers according to an exterior evaluation map; \cref{prop:sb-metric-projector} gives its passive metric version; and \cref{thm:sb-feature-record} supplies the positive-law bridge. Their hypotheses distinguish a feature approximation from a probability approximation.
+
+Decorated tensor methods keep physical labels while compressing additional correlation indices \cite[PDF pp.~6--7, Eqs.~(7)--(9)]{dittrich-2016-decorated-tensor-networks}. Non-Abelian boundary splitting keeps magnetic-index and inclusion data \cite[Sec.~IV C, Eq.~(4.4), Eqs.~(4.13)--(4.18)]{delcamp-2017-nonabelian-decorated-tensor-networks}. Fusion bases organize joint boundary sectors \cite[Secs.~III E--IV and VI B 3, Eqs.~(6.11)--(6.12)]{delcamp-2017-fusion-basis}. Graph-independent local truncation evaluates a bond through its environment \cite[Sec.~IV B, Eqs.~(23)--(31)]{hauru-2018-graph-independent-local-truncations}. The following construction uses an admitted exterior map directly.
+
+\definitionheading{Ordered rooted interface}{def:sb-rooted-interface}
+Choose a root $r_I$ and a spanning tree for each connected component of a block. Write $\Theta^x_{I\leftarrow i}$ for its tree product. For an internal non-tree edge or a cut edge $e:j\to i$, the dressed marks are
+\begin{align}
+\mathsf H_e^x&=\Theta^x_{I\leftarrow i}\Theta^x_e
+(\Theta^x_{I\leftarrow j})^{-1},\\
+\mathsf B_e^x&=\Theta^x_{I\leftarrow i}\Theta^x_e
+(\Theta^x_{J\leftarrow j})^{-1}.
+\label{eq:sb-rooted-marks}
+\end{align}
+The decoration ${\mathfrak h}$ stores their raw ordered tuple, roots, orientations, edge-copy labels, and joint source-event marks. A feature tier may evaluate finitely many typed words, tensor monomials, or vectorized endpoint maps, while ${\mathfrak h}$ retains the raw joint marks read by the experiment.
+
+\propositionheading{Root-framed covariance}{prop:sb-root-covariance}
+Under \cref{eq:sb-link-convention},
+\begin{equation}
+(\mathsf H_e^x)'=g_{r_I}\mathsf H_e^xg_{r_I}^{-1},
+\qquad
+(\mathsf B_e^x)'=g_{r_I}\mathsf B_e^xg_{r_J}^{-1}.
+\label{eq:sb-root-law}
+\end{equation}
+A word transforms by its two endpoints when all intermediate types compose. Separate conjugacy classes of individual loops need not determine the joint word observables. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Each internal vertex factor cancels in the tree product, which transforms as
+$g_{r_I}\Theta^x_{I\leftarrow i}g_i^{-1}$. Substitution gives \cref{eq:sb-root-law}; successive multiplication cancels intermediate root factors. For the last assertion, the $SU(2)$ tuples $(i\sigma_x,i\sigma_x)$ and $(i\sigma_x,i\sigma_y)$ have identical individual conjugacy classes, but their ordered product traces are $-2$ and $0$. Simultaneous conjugation preserves that trace. This calculation checks which joint loop information is lost; it is not an agent-network formation model. $\square$
+
+\propositionheading{Exterior-weighted whole-carrier projection}{prop:sb-environment-projector}
+At a decoration ${\mathfrak h}$, let finite complex feature spaces $\mathbb V_\partial,\mathbb W_\partial,\mathbb O_\partial$ carry unitary representations of a compact residual group $\mathbb H$ preserving the conditional interface and environment. Let
+\begin{equation}
+\mathsf A_{\mathfrak h}^\partial=\mathsf E_{\mathfrak h}^\partial\mathsf T_{\mathfrak h}^\partial:
+\mathbb V_\partial\longrightarrow\mathbb O_\partial,
+\qquad
+\mathsf B_{\mathfrak h}^\partial=(\mathsf A_{\mathfrak h}^\partial)^*\mathsf A_{\mathfrak h}^\partial,
+\label{eq:sb-environment-gram}
+\end{equation}
+and suppose $\mathsf A_{\mathfrak h}^\partial$ intertwines the source and exterior representations. In a supplied decomposition into inequivalent complex irreducibles,
+\begin{equation}
+\mathbb V_\partial=\bigoplus_\lambda\mathbb V_\lambda\otimes\mathbb M_\lambda,
+\qquad
+\mathsf B_{\mathfrak h}^\partial=\bigoplus_\lambda I_{\mathbb V_\lambda}\otimes b_{\lambda,{\mathfrak h}}.
+\label{eq:sb-carrier-decomposition}
+\end{equation}
+Retain $r_\lambda$ complete multiplicity eigenvectors of $b_{\lambda,{\mathfrak h}}\succeq0$, with eigenvalues $\nu_{\lambda,a}$ in descending order, and put
+\begin{equation}
+\mathsf P_{\mathfrak h}^\partial=\bigoplus_\lambda I_{\mathbb V_\lambda}\otimes p_{\lambda,{\mathfrak h}}.
+\label{eq:sb-carrier-projector}
+\end{equation}
+The retained map intertwines, and
+\begin{align}
+D_{\mathrm{ret}}&=\sum_\lambda d_\lambda r_\lambda,\\
+\|\mathsf A_{\mathfrak h}^\partial(I-\mathsf P_{\mathfrak h}^\partial)\|_{\mathrm{HS}}^2
+&=\sum_\lambda d_\lambda\sum_{a>r_\lambda}\nu_{\lambda,a}.
+\label{eq:sb-exterior-tail}
+\end{align}
+For fixed $r_\lambda$ this minimizes the displayed error over orthogonal multiplicity projectors. The cutoff must retain full spectral ties, or supply a projector on a tied space with its own covariant transformation law. Covariance of a moving family is not by itself residual symmetry at a fixed ${\mathfrak h}$. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Unitarity and intertwining make $\mathsf B_{\mathfrak h}^\partial$ commute with the source action. A complex endomorphism commuting with an irreducible representation has an eigenvalue whose eigenspace is invariant and hence the whole carrier; a nonzero intertwiner between irreducibles is an isomorphism. Applying these facts to each multiplicity block gives \cref{eq:sb-carrier-decomposition}. The projector therefore commutes with the action. Trace in a carrier-orthonormal eigenbasis gives \cref{eq:sb-exterior-tail}. For any rank-$r$ multiplicity projector its eigenbasis diagonal entries lie in $[0,1]$ and sum to $r$, so the retained trace is at most the sum of the $r$ largest eigenvalues. Subtracting from the total trace proves optimality. $\square$
+
+The rank budget counts whole carriers, so a global dimension constraint is a weighted multiplicity allocation. The realized exterior error is
+\begin{equation}
+\|\mathsf A_{\mathfrak h}^\partial(I-\mathsf P_{\mathfrak h}^\partial)v\|^2
+=\sum_{\lambda,a>r_\lambda}\nu_{\lambda,a}\|v_{\lambda,a}\|^2.
+\label{eq:sb-realized-tail}
+\end{equation}
+An unbounded random feature can have a large realized error despite a small Hilbert--Schmidt tail.
+
+\propositionheading{Passive general-linear metric projection}{prop:sb-metric-projector}
+Let source and exterior metrics $\mathsf G_V,\mathsf G_O$ be positive Hermitian, and define
+\begin{equation}
+(\mathsf A_{\mathfrak h}^\partial)^\dagger
+=\mathsf G_V^{-1}(\mathsf A_{\mathfrak h}^\partial)^*\mathsf G_O,\qquad
+\mathsf B_{\mathfrak h}^\partial=(\mathsf A_{\mathfrak h}^\partial)^\dagger\mathsf A_{\mathfrak h}^\partial.
+\label{eq:sb-metric-gram}
+\end{equation}
+For invertible old-to-new coordinate maps $R_V,R_O$, transform
+\begin{equation}
+(\mathsf A_{\mathfrak h}^\partial)'=R_O\mathsf A_{\mathfrak h}^\partial R_V^{-1},
+\quad
+\mathsf G_V'=R_V^{-*}\mathsf G_VR_V^{-1},
+\quad
+\mathsf G_O'=R_O^{-*}\mathsf G_OR_O^{-1}.
+\label{eq:sb-feature-metric-transform}
+\end{equation}
+A spectral projector chosen by invariant eigenvalues and the admitted tie rule satisfies
+\begin{equation}
+(\mathsf P_{\mathfrak h}^\partial)'=R_V\mathsf P_{\mathfrak h}^\partial R_V^{-1}.
+\label{eq:sb-projector-transform}
+\end{equation}
+The norm $\Tr(\mathsf G_V^{-1}A^*\mathsf G_OA)$ and its discarded spectral sum are invariant. Intermediate metrics transform with their endpoints if the evaluation map is factored. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The adjoint transforms as $R_V(\mathsf A_{\mathfrak h}^\partial)^\dagger R_O^{-1}$, so the Gram operator transforms by similarity. It is positive self-adjoint in $\mathsf G_V$ and similar to an ordinary Hermitian matrix through $\mathsf G_V^{1/2}$. A projector on complete eigenvalue sets is a polynomial in the finite distinct spectrum and hence transforms by the same similarity. Substitution and cyclic trace prove the norm identity. For an intermediate metric $\mathsf G_W$, the factors have adjoints $\mathsf G_V^{-1}(\mathsf T_{\mathfrak h}^\partial)^*\mathsf G_W$ and $\mathsf G_W^{-1}(\mathsf E_{\mathfrak h}^\partial)^*\mathsf G_O$, which compose to the same full adjoint. $\square$
+
+This is passive covariance with changing metric and prior presentations. It supplies no invariant positive norm for the full standard $\GL$ action: scalar dilations would require $t^2\mathsf G=\mathsf G$ for all $t>0$. Proper noncompact link measures remain inputs.
+
+\theoremheading{Positive normalized-record interface}{thm:sb-feature-record}
+Let ${\mathfrak h}(y)$ and $v(y)$ be measurable boundary features, and let $\mathsf P_{\mathfrak h}^\partial$ be a measurable covariant projection chosen before recognition and slice evaluation. Define the common statistic
+\begin{equation}
+\chi(y)=({\mathfrak h}(y),\mathsf P_{\mathfrak h}^\partial v(y)).
+\label{eq:sb-feature-statistic}
+\end{equation}
+Let $K({\mathfrak h},u,do)$ be a density kernel with positive chosen densities $k_o({\mathfrak h},u)$ at both $u=\mathsf A_{\mathfrak h}^\partial v$ and $\widehat u=\mathsf A_{\mathfrak h}^\partial\mathsf P_{\mathfrak h}^\partial v$, both admitted model inputs. Assume $0<M_o<\infty$ for $L_o(y)=k_o({\mathfrak h}(y),u(y))$, and suppose the full log density, including its record normalizer, satisfies
+\begin{align}
+|\log k_o({\mathfrak h},u)-\log k_o({\mathfrak h},\widehat u)|
+&\le \mathsf l_o({\mathfrak h})\|u-\widehat u\|_{\mathsf G_O({\mathfrak h})},\\
+\mathsf l_o({\mathfrak h}(y))
+\|\mathsf A_{\mathfrak h}^\partial(I-\mathsf P_{\mathfrak h}^\partial)v(y)\|_{\mathsf G_O({\mathfrak h})}
+&\le\varepsilon_o
+\quad\varrho\text{-almost everywhere}.
+\label{eq:sb-feature-envelope}
+\end{align}
+The surrogate kernel $\widehat K(({\mathfrak h},w),do)=K({\mathfrak h},\mathsf A_{\mathfrak h}^\partial w,do)$ is normalized. Its fine pullback posterior $\widehat{\boldsymbol\Pi}_o$ and coarse posterior obey
+\begin{equation}
+|\log\widehat M_o-\log M_o|\le\varepsilon_o,\qquad
+\KL(\boldsymbol\Pi_o\Vert\widehat{\boldsymbol\Pi}_o),
+\ \KL(\boldsymbol\Pi_o^c\Vert\widehat{\boldsymbol\Pi}_o^c)
+\le\varepsilon_o^2/2.
+\label{eq:sb-feature-kl}
+\end{equation}
+For the reference-conditioned lift
+$\widetilde{\boldsymbol\Pi}_o=\boldsymbol\Pi_o^c\varrho(dy\given z)$,
+\begin{equation}
+\KL(\boldsymbol\Pi_o\Vert\widetilde{\boldsymbol\Pi}_o)
+=\int\KL(\boldsymbol\Pi_o(dy\given z)\Vert\varrho(dy\given z))
+\boldsymbol\Pi_o^c(dz)
+\le\varepsilon_o^2/2.
+\label{eq:sb-feature-discarded}
+\end{equation}
+The lift recovers $\varrho$; it recovers $\mathsf m_o$ exactly if and only if $L_o=\E_\varrho[L_o\given\chi]$ almost everywhere. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Substitution into $K$ preserves its record normalization. The log ratio
+${\mathfrak r}_o=\log L_o-\log\widehat L_o\circ\chi$ lies in $[-\varepsilon_o,\varepsilon_o]$. Thus $\widehat{\mathsf m}_o=e^{-{\mathfrak r}_o}\mathsf m_o$ has finite positive mass and matching support. \Cref{thm:sb-positive-residual} gives the fine bounds, and data processing gives the coarse bound. The surrogate conditional given $\chi$ is the reference conditional because its likelihood is constant on that fiber. Splitting the finite fine KL into its marginal and conditional factors gives \cref{eq:sb-feature-discarded}. Equivalently the conditional reference tilt has log range at most $2\varepsilon_o$ and the same variance calculation bounds it. Bounded-test integration gives density $\E_\varrho[L_o\given\chi]/M_o$ for the lifted measure, proving exact recovery precisely under likelihood descent. $\square$
+
+\corollaryheading{Coordinate covariance of the positive interface}{cor:sb-interface-covariance}
+Suppose the initial law, raw marks, full record kernel, and record reference measure are pushed by one passive coordinate change, with $\chi'(y')=({\mathfrak h}',R_V\mathsf P_{\mathfrak h}^\partial v)$. Then the exact and surrogate coarse measure pairs transform by that common change, and the evidence, log residual, and KL bounds are unchanged. For gauge-inert records this uses $k_o'({\mathfrak h}',R_Ou)=k_o({\mathfrak h},u)$; for transformed records the density reference transforms as well. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+\Cref{eq:sb-projector-transform} makes the statistic square commute. Substitution in the normalized kernel and in the pushed integrals identifies both pairs. The metric law preserves the exterior norm, and relative entropy is unchanged by a bimeasurable coordinate change. Compatible reverse conditionals follow from the same transformed joint. $\square$
+
+These admissions neither retune a projection from the current posterior nor use an SVD tensor as a density. If a new record separately selects its own projection, it is a different common-channel experiment. For example, a Gaussian exterior record with bounded discarded feature and bounded record class supplies \cref{eq:sb-feature-envelope}; unbounded features or unrestricted Gaussian records need a different tail estimate. Exact conditional likelihoods remain a positive alternative when no envelope is proved.
+
+A dense graph may retain many raw marks even after feature compression. With $D=\sum_\lambda d_\lambda m_\lambda$, a dense Gram operator requires $O(D^2)$ storage; supplied multiplicity blocks reduce eigensolves to those block sizes, but obtaining the exterior map is a separate cost. Graph width, environment approximation, and likelihood-envelope bounds are the family-specific requirements in \cref{ch:sb-obligations}.
+
+\chapter{Positive-law errors and approximate consistency}
+\label{ch:sb-positive}
+This chapter asks which errors of an admitted boundary approximation control probability predictions and complete variational free energy. \Cref{thm:sb-positive-residual} gives the one-step bounds; \cref{thm:sb-error-tower} propagates them through a graph diagram. The offset of an action matters for evidence even when its oscillation is zero.
+
+\theoremheading{Positive multiplicative residual}{thm:sb-positive-residual}
+Let $\mathsf m=L\varrho$ on $\mathsf Z$ have mass $M\in(0,\infty)$ and let $P=\mathsf m/M$. Suppose ${\mathfrak r}$ is measurable and ${\mathfrak a}\le {\mathfrak r}\le {\mathfrak b}$ $P$-almost everywhere. Set
+\begin{equation}
+\widehat{\mathsf m}=e^{-{\mathfrak r}}\mathsf m,\qquad
+\widehat M=\widehat{\mathsf m}(\mathsf Z),\qquad
+\widehat P=\widehat{\mathsf m}/\widehat M,\qquad
+\omega={\mathfrak b}-{\mathfrak a}.
+\label{eq:sb-residual-law}
+\end{equation}
+No mass is added on a zero set of $\mathsf m$. Then $\widehat{\mathsf m}$ is finite positive, $P$ and $\widehat P$ are equivalent, and
+\begin{align}
+-{\mathfrak b}&\le\log(\widehat M/M)\le-{\mathfrak a},
+\label{eq:sb-evidence-bracket}\\
+\KL(P\Vert\widehat P),\ \KL(\widehat P\Vert P)
+&\le \min\{\omega,\omega^2/8\}.
+\label{eq:sb-two-sided-kl}
+\end{align}
+A common output kernel inherits the KL bounds. A specified common exterior density slice of finite positive mass also inherits them after conditional tilting. For a recognition $Q\ll P$ with finite divergence,
+\begin{align}
+\KL(Q\Vert\widehat P)-\KL(Q\Vert P)
+&=\E_Q[{\mathfrak r}]+\log(\widehat M/M),
+\label{eq:sb-recognition-posterior-difference}\\
+\widehat{\Fenergy}(Q)-\Fenergy(Q)&=\E_Q[{\mathfrak r}],
+\label{eq:sb-full-vfe-error}
+\end{align}
+where the complete functionals include their respective evidence constants. The first difference has absolute value at most $\omega$; the second lies in $[{\mathfrak a},{\mathfrak b}]$. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The mass ratio is $\E_Pe^{-{\mathfrak r}}\in[e^{-{\mathfrak b}},e^{-{\mathfrak a}}]$, and
+\[
+\frac{d\widehat P}{dP}=\frac{e^{-{\mathfrak r}}}{\E_Pe^{-{\mathfrak r}}}.
+\]
+Put $f(t)=\log\E_Pe^{-t{\mathfrak r}}$. Boundedness permits differentiation under the integral twice, and $f''(t)=\operatorname{Var}_{P_t}({\mathfrak r})$ for $dP_t/dP=e^{-t{\mathfrak r}}/\E_Pe^{-t{\mathfrak r}}$. Since ${\mathfrak r}$ lies in $[{\mathfrak a},{\mathfrak b}]$, its variance is at most $\omega^2/4$. Therefore
+\begin{align*}
+\KL(P\Vert\widehat P)&=f(1)-f(0)-f'(0)
+=\int_0^1(1-t)f''(t) dt\le\omega^2/8,\\
+\KL(\widehat P\Vert P)&=f'(1)-f(1)+f(0)
+=\int_0^1t f''(t) dt\le\omega^2/8.
+\end{align*}
+The log ratio lies in $[-\omega,\omega]$, giving the linear bound. Data processing proves the output statement. Multiplication by a common exterior density changes the base tilt but leaves the interval for ${\mathfrak r}$ intact. Substitution of the density ratio gives \cref{eq:sb-recognition-posterior-difference}; subtracting the evidence constants gives \cref{eq:sb-full-vfe-error}. $\square$
+
+\corollaryheading{Offsets, scalar normalization, and prediction}{cor:sb-offset}
+Under \cref{thm:sb-positive-residual}, $|{\mathfrak r}|\le\delta$ gives
+$|\log(\widehat M/M)|\le\delta$ and
+$|\widehat{\Fenergy}(Q)-\Fenergy(Q)|\le\delta$. If the mass $M$ is carried separately and the approximate measure is rescaled to that mass, its residual is
+\begin{equation}
+{\mathfrak r}^{\mathrm{mass}}={\mathfrak r}+\log(\widehat M/M),
+\qquad |{\mathfrak r}^{\mathrm{mass}}|\le\omega.
+\label{eq:sb-mass-correction}
+\end{equation}
+Both directed KLs are unchanged by this scalar rescaling. In contrast, ${\mathfrak r}$ constant gives identical posterior laws with an arbitrary evidence and complete-free-energy offset. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The interval bounds give the first statements and ${\mathfrak a}-{\mathfrak b}\le {\mathfrak r}^{\mathrm{mass}}\le {\mathfrak b}-{\mathfrak a}$. Scalar rescaling cancels in the normalized measure. For ${\mathfrak r}={\mathfrak r}_0$, $\widehat M=e^{-{\mathfrak r}_0}M$ and $\widehat P=P$. $\square$
+
+\propositionheading{Record-family admission}{prop:sb-record-normalization}
+Let $L_o(z)$ be a jointly measurable density kernel relative to a sigma-finite record measure $\nu$, so $\int L_o(z)\nu(do)=1$. Suppose a measurable score residual satisfies ${\mathfrak a}\le r_o(z)\le {\mathfrak b}$ on the kernel support. Then
+\begin{equation}
+A(z)=\int L_o(z)e^{-r_o(z)}\nu(do),
+\qquad
+\widehat L_o(z)=\frac{L_o(z)e^{-r_o(z)}}{A(z)}.
+\label{eq:sb-normalized-record}
+\end{equation}
+defines a density kernel with $e^{-{\mathfrak b}}\le A\le e^{-{\mathfrak a}}$. At every specified admitted slice the residual is ${\mathfrak r}_o=r_o+\log A$, with $|{\mathfrak r}_o|\le\omega={\mathfrak b}-{\mathfrak a}$ and $\osc({\mathfrak r}_o)\le2\omega$. Hence the evidence and full-free-energy errors are bounded by $\omega$, and both posterior KLs by $\omega^2/2$. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Tonelli gives measurability, and bounding the integrand gives the interval for $A$. Division yields unit record mass. The residual bounds follow from $-{\mathfrak b}\le\log A\le-{\mathfrak a}$ and then \cref{thm:sb-positive-residual}. $\square$
+
+Substitution into an already normalized conditional record kernel can avoid this second normalization step, as in \cref{ch:sb-gauge}. Positive score slices alone are not a record family. The exact pushed likelihood also retains record normalization, because conditional expectation and Tonelli give $\int L_o^c(z)\nu(do)=1$ almost everywhere under the pushed reference.
+
+\theoremheading{Accumulated residual in a graph-reduction tower}{thm:sb-error-tower}
+Let the exact reference/evidence tower use channels $C_\ell$:
+\begin{equation}
+\varrho_{\ell+1}=\varrho_\ell C_\ell,\qquad
+\mathsf m_{\ell+1}=\mathsf m_\ell C_\ell.
+\label{eq:sb-exact-tower}
+\end{equation}
+Start with $\widehat{\mathsf m}_0=e^{-{\mathfrak r}_0}\mathsf m_0$, where ${\mathfrak a}_0\le {\mathfrak r}_0\le {\mathfrak b}_0$, and let each approximation act after its push:
+\begin{equation}
+\widehat{\mathsf m}_{\ell+1}
+=e^{-r_\ell}(\widehat{\mathsf m}_\ell C_\ell),
+\qquad \alpha_\ell\le r_\ell\le\beta_\ell.
+\label{eq:sb-approx-tower}
+\end{equation}
+Each multiplier preserves the pushed zero sets, and all bounds hold on the exact evidence support. The terminal residual has valid interval
+\begin{equation}
+{\mathfrak a}_0+\sum_{\ell=0}^{L-1}\alpha_\ell
+\le {\mathfrak r}_L=-\log\frac{d\widehat{\mathsf m}_L}{d\mathsf m_L}
+\le {\mathfrak b}_0+\sum_{\ell=0}^{L-1}\beta_\ell.
+\label{eq:sb-total-residual}
+\end{equation}
+Its width $\Omega=({\mathfrak b}_0-{\mathfrak a}_0)+\sum_\ell(\beta_\ell-\alpha_\ell)$ controls both terminal KLs by $\min\{\Omega,\Omega^2/8\}$, while its endpoints control evidence and full-free-energy offsets. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Let $P_\ell=\mathsf m_\ell/M$ and choose a reverse conditional from its joint with $C_\ell$. The Radon--Nikodym identity gives
+\begin{equation}
+{\mathfrak r}_{\ell+1}(z)
+=-\log\E_{P_\ell(dy\given z)}e^{-{\mathfrak r}_\ell(y)}+r_\ell(z).
+\label{eq:sb-error-recurrence}
+\end{equation}
+If ${\mathfrak r}_\ell\in[{\mathfrak a}_\ell,{\mathfrak b}_\ell]$, the conditional log-moment term belongs to that same interval. Adding $r_\ell$ and inducting gives \cref{eq:sb-total-residual}. The one-step theorem applied to the terminal pair gives the bounds. $\square$
+
+\corollaryheading{An approximate consistency square}{cor:sb-route-error}
+Suppose two exact graph routes induce the same common-target channel and hence the same terminal pair. If their approximations have residual widths $\Omega_1,\Omega_2$ relative to that pair, both KLs between their terminal posterior laws are at most
+\begin{equation}
+\min\{\Omega_1+\Omega_2,(\Omega_1+\Omega_2)^2/8\}.
+\label{eq:sb-route-kl}
+\end{equation}
+If the exact route channels differ, the route mismatch is an additional error not covered by this inequality. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The relative residual is ${\mathfrak r}_1-{\mathfrak r}_2$, with width at most $\Omega_1+\Omega_2$. Apply \cref{thm:sb-positive-residual} using either route measure as the base. $\square$
+
+An extensive sum of local residuals may grow with agent count or induced width. The theorem is uniform on a family only when its total interval is uniformly controlled. This conditional error contract supplements a graph-consistency calculation without inferring a thermodynamic limit.
+
+\chapter{Predictive boundaries and finite-horizon errors}
+\label{ch:sb-dynamics}
+\section{Exterior records and predictive memory}
+\label{sec:sf-boundary-predictive-memory}
+
+A block boundary can be judged by the future records available to its exterior. The filter in \cref{prop:sf-boundary-filter} gives those laws without a projected Markov assumption. The general error contract in \cref{thm:sf-boundary-borel-path-budget}, specialized in \cref{thm:sf-boundary-horizon-budget}, separates omitted-history information from conditional-row approximation, and \cref{thm:sf-boundary-forgetting-budget} supplies a quantitative specialization. The general path identity concerns standard-Borel exterior records, while the explicit filtering and exponential-forgetting constructions here use a finite exterior alphabet. A useful finite filter dimension, continuous-path comparison, and autonomous parent learning remain separate obligations.
+
+\definitionheading{Exterior record experiment}{def:sf-boundary-record-experiment}
+For each finite agent count $N$, choose a block $I\subseteq V$ in the interaction graph at $c_*$. Let $\mathsf A_N$ be a nonempty standard Borel space containing the microscopic coordinates and every structural or memory mark needed to make the chosen experiment Markov. It may contain the entire network. In particular, an unobserved exterior coordinate that feeds back into the block cannot be dropped without a separate sufficiency argument. Let $\mathsf D_N$ be a nonempty finite alphabet chosen before evaluating a recognition law. Its record maps inspect only the specified exterior-facing graph interface; the alphabet does not assert retention of every continuous cut or loop coordinate.
+
+For $n=0,\ldots,H-1$, let
+\[
+ \mathsf M_{N,n}:\mathsf A_N\rightsquigarrow
+                      \mathsf A_N\times\mathsf D_N.
+\]
+be a Markov kernel, and let $\mu_{N,0}$ be a probability law. With agent-count subscripts suppressed, the experiment is
+\[
+ \mathbb P(da_{0:H},d_{1:H})
+   =\mu_0(da_0)\prod_{n=0}^{H-1}
+       \mathsf M_n(a_n,da_{n+1},d_{n+1}).
+\]
+The integer $n$ indexes records or sampled times of a specified process. It does not identify sampled time with an intrinsic information clock. If a microscopic diffusion or jump process is used, $\mathsf M_n$ must be its admitted sampled transition/record kernel; existence of that process is a separate hypothesis. Finite concatenation of the displayed kernels defines the discrete experiment uniquely, with probability one in $\mathsf A_N$ at every step. No boundary reflection or killing is added.
+
+The kernels are deterministic functions of their stated arguments and time. If controls depend on history, every control needed for prediction must be retained, and the resulting controlled kernel must satisfy the stated hypotheses. A kernel reading the recognition law currently being scored is not introduced. The probability experiment can separately be a physical or an optimizing experiment, but one must choose which law is being compared.
+
+At activation, $\mu_0$ is the microscopic law at the activation time, conditional only on an already completed prefix if such a prefix is part of the experiment. No subsequent survival event is conditioned upon. An exterior history is $h_n=d_{1:n}$; $h_0$ is empty.
+
+\propositionheading{Measure-valued exterior-predictive state}{prop:sf-boundary-filter}
+In \cref{def:sf-boundary-record-experiment}, on each history of positive probability define
+\[
+ \nu_n(h_n)=\operatorname{Law}(A_n\mid D_{1:n}=h_n),
+ \qquad
+ p_n(d\mid h_n)=\int\mathsf M_n(a,\mathsf A_N,d)\nu_n(h_n)(da).
+\]
+Then $\nu_0=\mu_0$ and, when $p_n(d\mid h_n)>0$,
+\[
+ \nu_{n+1}(h_n,d)(B)
+ =\frac{\int\mathsf M_n(a,B,d)\nu_n(h_n)(da)}
+             {p_n(d\mid h_n)}.
+\]
+The pair $(n,\nu_n)$ determines the law of every future exterior record suffix under the stated kernels. Its update is a measurable map on the probability-measure space of $\mathsf A_N$, on its positive-denominator domain. The attainable set need not be finite or have a useful finite-dimensional representation. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+For a fixed history, integration over the preceding microscopic coordinates gives its unnormalized terminal measure. Appending $d$ applies $\mathsf M_n(\cdot,\cdot,d)$; its mass is the displayed $p_n$. Dividing gives the conditional law. Iterating and integrating the terminal microscopic coordinate gives the probability of each suffix word. Summing over the last record and state uses the Markov normalization and gives one, so the suffix law is a probability law. For measurable bounded $f$, the map $\nu\mapsto\int f d\nu$ is measurable on the standard Borel probability-measure space. Kernel integration and division by a positive measurable denominator therefore give the stated update. Null histories can be assigned arbitrary normalized continuations; their source contributions are zero. No prediction conditional on an impossible history is asserted. $\square$
+
+\definitionheading{Exterior-predictive equivalence}{def:sf-boundary-predictive-equivalence}
+At the same time $n$ and under the same subsequent kernels, two probability measures on $\mathsf A_N$ are exterior-predictively equivalent when they give identical probabilities to every finite future exterior word. This equivalence depends on the chosen record class and future experiment. A boundary statistic is sufficient for that experiment if the suffix law depends only on that statistic. Existence of a measurable finite-dimensional quotient, or of a recursive update on such a quotient, is not included in the definition.
+
+
+\theoremheading{Standard-Borel history information and conditional-row risk}{thm:sf-boundary-borel-path-budget}
+Let $\mathsf D$ be a nonempty standard Borel record space, let $H\ge1$ be finite, and let $\mathbb P_H$ be a probability law on $\mathsf D^H$. It may be the retained-record law of an admitted microscopic experiment of any finite agent count. Fix $k\ge0$. For $n=0,\ldots,H-1$, write $h_n=d_{1:n}$, let $\lambda_n$ be its source law, and define the measurable suffix map
+\[
+ c_n(h_n)=d_{\max(1,n-k+1):n},
+ \qquad C_n=c_n(D_{1:n}),
+ \qquad \lambda_n^C=(c_n)_\#\lambda_n.
+\]
+An empty history or suffix has the one-point space as its carrier. Choose regular conditional probability kernels $p_n(h_n,dd)$ for $D_{n+1}$ given $h_n$, and $r_n(c,dd)$ for $D_{n+1}$ given $C_n=c$, by disintegrating marginals of this one source law. Standard-Borel finite products and probability marginals are the hypotheses ensuring these disintegrations exist. Choose any measurable probability kernels $\widetilde r_n(c,dd)$, with normalized versions on all contexts, and set
+\[
+ \widetilde{\mathbb P}_H(dd_{1:H})
+   =\prod_{n=0}^{H-1}
+       \widetilde r_n(c_n(d_{1:n}),dd_{n+1}).
+\]
+This product denotes iterated kernel integration, not a product of point probabilities.
+
+Define the following probability measures on history and next-record pairs, or on context and next-record pairs:
+\begin{align*}
+ \mathcal J_n(dh,dd)&=\lambda_n(dh)p_n(h,dd),\\
+ \mathcal R_n(dh,dd)&=\lambda_n(dh)r_n(c_n(h),dd),\\
+ \mathcal U_n(dc,dd)&=\lambda_n^C(dc)r_n(c,dd),\\
+ \widetilde{\mathcal U}_n(dc,dd)
+     &=\lambda_n^C(dc)\widetilde r_n(c,dd).
+\end{align*}
+Assume, for each $n$, that
+\[
+ \mathcal J_n\ll\mathcal R_n,
+ \qquad d_n:=\KL(\mathcal J_n\Vert\mathcal R_n)<\infty,
+ \qquad
+ r_n(c,\cdot)\ll\widetilde r_n(c,\cdot)
+       \quad\lambda_n^C\text{-almost everywhere},
+\]
+and that
+\[
+ b_n:=\KL(\mathcal U_n\Vert\widetilde{\mathcal U}_n)
+  =\int\KL(r_n(c,\cdot)\Vert\widetilde r_n(c,\cdot))
+                        \lambda_n^C(dc)<\infty.
+\]
+Equivalently, the first dominance condition says
+$p_n(h,\cdot)\ll r_n(c_n(h),\cdot)$ for $\lambda_n$-almost every history. It is an assumption, not a consequence of the mixture expression for $r_n$.
+
+Let $O_n=D_{1:n-k}$ when $n>k$, and let $O_n$ be constant otherwise. Define conditional mutual information using regular disintegrations from the source law:
+\[
+ I(D_{n+1};O_n\mid C_n)
+  =\int\KL\bigl(
+       \mathbb P_H(dO_n,dd_{n+1}\mid C_n=c)
+       \Vert
+       \mathbb P_H(dO_n\mid C_n=c)r_n(c,dd_{n+1})
+                  \bigr)\lambda_n^C(dc).
+\]
+Then $\widetilde{\mathbb P}_H$ is a probability law,
+$\mathbb P_H\ll\widetilde{\mathbb P}_H$, and
+\begin{align}
+ \KL(\mathbb P_H\Vert\widetilde{\mathbb P}_H)
+ &=\sum_{n=0}^{H-1}d_n+\sum_{n=0}^{H-1}b_n\\
+ &=\sum_{n=0}^{H-1}I(D_{n+1};O_n\mid C_n)
+  +\sum_{n=0}^{H-1}\int
+       \KL(r_n(c,\cdot)\Vert\widetilde r_n(c,\cdot))
+                                  \lambda_n^C(dc).
+ \label{eq:sf-boundary-borel-budget}
+\end{align}
+All terms are finite under the stated assumptions. The row-risk expectation uses source context laws. The result applies to arbitrary finite $N$ without making a size-uniform bound on either sum. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Kernel concatenation preserves total mass, so the competitor is a probability law. Let
+$f_n=d\mathcal J_n/d\mathcal R_n$ and
+$g_n=d\mathcal U_n/d\widetilde{\mathcal U}_n$ be measurable joint Radon--Nikodym representatives. Since the two history marginals of $\mathcal J_n,\mathcal R_n$ equal $\lambda_n$, disintegration of $f_n\mathcal R_n=\mathcal J_n$ gives
+\[
+ p_n(h,dd)=f_n(h,d)r_n(c_n(h),dd)
+ \quad\text{for }\lambda_n\text{-almost every }h.
+\]
+For example, integrate each side over a history set and a record set in a countable determining class of the standard Borel record space; equality of the joint measures gives the conditional equality simultaneously on that class, hence on every record set. The same argument gives
+\[
+ r_n(c,dd)=g_n(c,d)\widetilde r_n(c,dd)
+ \quad\text{for }\lambda_n^C\text{-almost every }c.
+\]
+This argument also proves the claimed equivalence of joint and almost-everywhere conditional dominance. Consequently $f_n(h,d)g_n(c_n(h),d)$ is the next-record source density relative to the competitor row at source-almost every history.
+
+To justify integrability, for a probability density $f$ relative to a probability measure $R$,
+\[
+ \int_{\{f<1\}}-f\log f dR\le1/e.
+\]
+Thus finite $\KL(fR\Vert R)$ makes $\log f$ absolutely integrable under $fR$. Apply this to $f_n$ under $\mathcal J_n$ and to $g_n$ under $\mathcal U_n$. The pushforward of $\mathcal J_n$ by $(h,d)\mapsto(c_n(h),d)$ is $\mathcal U_n$, because both are the source context/next-record marginal. Therefore $\log g_n(c_n(h),d)$ is also absolutely integrable under $\mathcal J_n$.
+
+The density of the source path relative to the competitor path is the product of these conditional densities. This follows inductively: if the source-prefix density is $L_n$, the next-prefix density is
+\[
+ L_{n+1}(h,d)=L_n(h)f_n(h,d)g_n(c_n(h),d),
+ \qquad L_0=1.
+\]
+Integration against a bounded measurable test function first in the next-record coordinate and then in the prefix proves the induction. Conditional densities need be correct only at source-almost every prefix: outside that set the preceding source-prefix density has zero competitor-almost-everywhere mass. The finite product is positive and finite source-almost everywhere, and its logarithm is the finite sum of the absolutely integrable log factors. Its source expectation is therefore
+\[
+ \sum_n\int\log f_n d\mathcal J_n
+ +\sum_n\int\log g_n d\mathcal U_n
+ =\sum_n d_n+\sum_n b_n.
+\]
+This proves the first equality and finiteness without subtracting infinities.
+
+Finally, for $n>k$, splitting the history into $(O_n,C_n)$ is a measurable bijection onto the corresponding product of record spaces. Disintegrating $\lambda_n$ given $C_n$ gives the source conditional law of $O_n$, while disintegrating $\mathcal R_n$ gives that conditional law times $r_n(c,dd)$. The two joint laws have the same context marginal. Their conditional density is the transported $f_n$, so integrating its log first within a context and then over $\lambda_n^C$ identifies $d_n$ with the displayed conditional mutual information. For $n\le k$, the context is the entire history, $\mathcal J_n=\mathcal R_n$, and both quantities are zero. The identical conditional-density argument for $\mathcal U_n,\widetilde{\mathcal U}_n$ gives its displayed row-divergence integral. $\square$
+
+\corollaryheading{Standard-Borel positive-row residual budget}{cor:sf-boundary-borel-positive-row}
+In \cref{thm:sf-boundary-borel-path-budget}, retain the finite conditional-information assumptions on $\mathcal J_n,\mathcal R_n$. Suppose the competitor rows instead are admitted by jointly measurable real residuals $e_n(c,d)$:
+\[
+ \widetilde r_n(c,dd)
+  =\frac{e^{-e_n(c,d)}r_n(c,dd)}
+         {\int e^{-e_n(c,d')}r_n(c,dd')}.
+\]
+Suppose there are finite measurable functions $u_n(c),v_n(c)$ such that $u_n(c)\le e_n(c,d)\le v_n(c)$ for $r_n(c,\cdot)$-almost every $d$, at source-almost every context, and
+\[
+ \Delta_n(c)=v_n(c)-u_n(c),
+ \qquad \int\Delta_n(c)^2\lambda_n^C(dc)<\infty.
+\]
+Take arbitrary normalized measurable rows at exceptional contexts. Then conditional support dominance and finite row risk hold, and
+\[
+ \KL(\mathbb P_H\Vert\widetilde{\mathbb P}_H)
+ \le\sum_{n=0}^{H-1}I(D_{n+1};O_n\mid C_n)
+    +\frac18\sum_{n=0}^{H-1}
+                    \int\Delta_n(c)^2\lambda_n^C(dc).
+ \label{eq:sf-boundary-borel-residual-budget}
+\]
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+For a fixed context subtract $u_n(c)$ from the residual; that constant cancels from the tilt. The residual then lies in $[0,\Delta_n(c)]$ and the normalizer lies in $[e^{-\Delta_n(c)},1]$, so it is finite and positive and the row has the same measure-null sets as its source row. Its log-density ratio has absolute value at most $\Delta_n(c)$. For $f(s)=\log\int e^{-s e_n(c,d)}r_n(c,dd)$, after the constant shift, the integrand and its first two derivatives on $s\in[0,1]$ are dominated by $1$, $\Delta_n(c)$, and $\Delta_n(c)^2$. Differentiation under the integral is therefore valid. The variance calculation in \cref{lem:sf-boundary-positive-row} applies without finite support and yields row KL at most $\Delta_n(c)^2/8$. The assumed square integrability gives finite averaged row risk, and \cref{eq:sf-boundary-borel-budget} proves the inequality. $\square$
+
+
+\theoremheading{Exterior finite-horizon error budget}{thm:sf-boundary-horizon-budget}
+Let $\mathbb P_H$ be the exterior marginal in \cref{def:sf-boundary-record-experiment}. For a nonnegative integer $k$, put
+\[
+ C_n=D_{\max(1,n-k+1):n},
+ \qquad r_n(d\mid c)=\mathbb P_H(D_{n+1}=d\mid C_n=c),
+\]
+with $C_n$ empty for $k=0$ and for $n=0$. On contexts of positive source probability take normalized competitor rows $\widetilde r_n(\cdot\mid c)$. A finite error requires them to be positive wherever $r_n(\cdot\mid c)$ is positive. Define
+\[
+ \widetilde{\mathbb P}_H(d_{1:H})
+  =\prod_{n=0}^{H-1}\widetilde r_n(d_{n+1}\mid c_n).
+\]
+Choose arbitrary normalized rows on source-null contexts so that the competitor is defined on every word it can generate. Then
+\begin{align}
+ \KL(\mathbb P_H\Vert\widetilde{\mathbb P}_H)
+ &=\mathcal D_{H,k}+\mathcal B_{H,k},
+ \label{eq:sf-boundary-budget}\displaybreak[0]\\
+ \mathcal D_{H,k}
+ &=\sum_{n=0}^{H-1}
+ I(D_{n+1};D_{1:n-k}\mid C_n),
+ \label{eq:sf-boundary-memory}\displaybreak[0]\\
+ \mathcal B_{H,k}
+ &=\sum_{n=0}^{H-1}\mathbb E
+       \KL(r_n(\cdot\mid C_n)\Vert
+                    \widetilde r_n(\cdot\mid C_n)),
+ \label{eq:sf-boundary-row-error}
+\end{align}
+where a nonpositive terminal index denotes empty history. The identity is in $[0,\infty]$; all terms involving the source record law are finite except possibly the competitor row divergence. The expectations use source context laws. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Finite concatenation of normalized rows gives a probability law. First suppose the competitor rows are positive on source-positive symbols. Then every source-positive word has positive competitor probability, so $\mathbb P_H\ll\widetilde{\mathbb P}_H$. Factor the source word probability as $\prod_n p_n(d_{n+1}\mid h_n)$ and insert $r_n$ in its likelihood ratio. For each $n$, averaging $\log(p_n/r_n)$ is the indicated conditional mutual information. The other term depends only on $(C_n,D_{n+1})$, whose source conditional law is $r_n$, and hence averages to the row divergence. There are finitely many words, so these operations require no limiting interchange. A competitor row zero on a source-positive symbol gives both sides $+\infty$. This is the finite-memory projection/excess-risk identity specialized to an exterior experiment; its contribution here is its combination with the positive-row and conditional-forgetting bounds below. $\square$
+
+\lemmaheading{Positive conditional-row residual}{lem:sf-boundary-positive-row}
+On a source-positive context let an admitted approximation satisfy
+\[
+ \widetilde r_n(d\mid c)
+ =\frac{r_n(d\mid c)e^{-e_n(d,c)}}
+       {\sum_{d'}r_n(d'\mid c)e^{-e_n(d',c)}},
+ \qquad
+ \operatorname{osc}_{d:r_n(d\mid c)>0}e_n(d,c)
+       \le\Delta_n(c)<\infty.
+\]
+Then the approximation is a nonnegative normalized row on exactly the same support, and
+\[
+ \KL(r_n(\cdot\mid c)\Vert\widetilde r_n(\cdot\mid c))
+ \le\frac{\Delta_n(c)^2}{8}.
+\]
+Consequently \cref{eq:sf-boundary-budget} gives
+\[
+ \KL(\mathbb P_H\Vert\widetilde{\mathbb P}_H)
+ \le\mathcal D_{H,k}
+       +\frac18\sum_{n=0}^{H-1}\mathbb E[\Delta_n(C_n)^2].
+\]
+The hypothesis is an admitted log-row residual, not a singular-value tail condition. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Fix a row, write $r$ for it and $e$ for its residual, and set $f(s)=\log\mathbb E_r e^{-s e}$ for $0\le s\le1$. Finite support and bounded oscillation make $f$ twice differentiable. Its derivatives are $f'(s)=-\mathbb E_{r_s}e$ and $f''(s)=\operatorname{Var}_{r_s}(e)$, where $r_s$ is the normalized tilt. If $e$ ranges in $[u,v]$, then $(e-u)(v-e)\ge0$ gives
+\[
+ \operatorname{Var}_{r_s}(e)
+ \le(\mathbb E_{r_s}e-u)(v-\mathbb E_{r_s}e)
+ \le(v-u)^2/4.
+\]
+Thus
+\[
+ \KL(r\Vert\widetilde r)
+ =\mathbb E_r e+f(1)
+ =f(1)-f(0)-f'(0)
+ =\int_0^1(1-s)f''(s)ds
+ \le\Delta^2/8.
+\]
+A constant shift of $e$ cancels from the normalization. Substitution into \cref{eq:sf-boundary-row-error} proves the last inequality. $\square$
+
+
+\theoremheading{Conditional forgetting and a size-parameterized horizon bound}{thm:sf-boundary-forgetting-budget}
+Consider \cref{def:sf-boundary-record-experiment} with the additional factorization
+\[
+ \mathsf M_n(a,da',d)=\mathsf K_n(a,da')g_{n+1}(d\mid a').
+\]
+Here $\mathsf K_n$ is a Markov kernel and $g_{n+1}(\cdot\mid a')$ is a probability row for every microscopic state. For every $n$, suppose the microscopic transition satisfies
+\[
+ \sup_{a,b}\operatorname{TV}(\mathsf K_n(a,\cdot),
+                              \mathsf K_n(b,\cdot))\le\alpha_N,
+ \qquad 0\le\alpha_N\le1.
+\]
+Suppose there are probability rows $\omega_{N,n+1}(d)>0$ and constants $0<a_N\le1\le b_N<\infty$ such that
+\[
+ a_N\omega_{N,n+1}(d)
+ \le g_{n+1}(d\mid a')
+ \le b_N\omega_{N,n+1}(d),
+\]
+for every state, time, and symbol. Assume
+\[
+ \varkappa_N=(b_N/a_N)\alpha_N<1,
+ \qquad \mathrm c_N=(b_N-a_N)^2/a_N.
+\]
+Then every positive history has a well-defined filter, and
+\[
+ \mathcal D_{H,k}
+ \le(H-k-1)_+\mathrm c_N\varkappa_N^{2k},
+ \label{eq:sf-boundary-exponential-memory}
+\]
+where $\varkappa_N^0=1$ also when $\varkappa_N=0$. With the positive-row hypothesis of \cref{lem:sf-boundary-positive-row},
+\[
+ \KL(\mathbb P_H\Vert\widetilde{\mathbb P}_H)
+ \le (H-k-1)_+\mathrm c_N\varkappa_N^{2k}
+   +\frac18\sum_{n=0}^{H-1}\mathbb E[\Delta_n(C_n)^2].
+ \label{eq:sf-boundary-exponential-budget}
+\]
+This statement holds separately for every finite $N$ and every initial probability law, including a law conditioned on a completed prefix. If $a_N\ge a>0$, $b_N\le b<\infty$, and $\varkappa_N\le\varkappa<1$ over a declared family of networks, the same estimate holds simultaneously for every $N$, with $\mathrm c=(b-a)^2/a$ and $\varkappa$. Uniform hypotheses, rather than finite-agent examples, supply the size-uniform conclusion. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Use $\operatorname{TV}(\lambda,\eta)=\sup_B|\lambda(B)-\eta(B)|$. The transition contracts total variation by $\alpha_N$: the positive and negative parts of $\lambda-\eta$ have equal mass $d=\operatorname{TV}(\lambda,\eta)$; after dividing by $d$, their images are mixtures of transition rows. Integrating pairwise row differences bounds the total variation of the two mixture laws by $\alpha_N$. Multiplication by $d$ gives the claim, with $d=0$ treated separately.
+
+For a positive likelihood $v$ taking values in $[a_N,b_N]$, define its Bayes reweighting $\mathscr B_v\lambda=v\lambda/\lambda(v)$. With $t=(\mathscr B_v\eta)(B)$,
+\[
+ (\mathscr B_v\lambda)(B)-(\mathscr B_v\eta)(B)
+ =\frac{(\lambda-\eta)(v(\mathbf1_B-t))}{\lambda(v)}.
+\]
+The function in the numerator ranges in $[-b_Nt,b_N(1-t)]$, so its oscillation is at most $b_N$. A signed measure of zero mass pairs with a bounded function by at most its total variation times that function's oscillation. Since $\lambda(v)\ge a_N$, Bayes reweighting has Lipschitz constant $b_N/a_N$ in total variation.
+
+For a specified record $d$, the scalar $\omega_{N,n+1}(d)$ cancels from Bayes reweighting. Hence each realized filter map
+\[
+ \mathscr F_{n,d}(\nu)
+ =\mathscr B_{g_{n+1}(d\mid\cdot)/\omega_{N,n+1}(d)}
+                         (\nu\mathsf K_n).
+\]
+is $\varkappa_N$-Lipschitz. Composing $k$ such maps shows that terminal filters of two positive histories with the same last $k$ records differ in total variation by at most $\varkappa_N^k$, irrespective of their filters immediately before that suffix. The time-dependent kernels are the same for both histories; this is where omitted history-dependent controls would invalidate the argument.
+
+For $n>k$, condition the full-history filter on $C_n=c$ and write
+\[
+ \bar\nu_n(c)=\mathbb E[\nu_n(D_{1:n})\mid C_n=c].
+\]
+This mixture is the microscopic conditional law given the suffix alone. Convexity of total variation and the preceding pairwise bound give
+\[
+ \operatorname{TV}(\nu_n(h_n),\bar\nu_n(c))
+       \le\varkappa_N^k.
+\]
+The next-record distributions are obtained by applying the same transition and emission kernels to these two filters. The transition does not increase the bound. For every symbol, the likelihood has oscillation at most $(b_N-a_N)\omega_{N,n+1}(d)$. Therefore
+\[
+ |p_n(d\mid h_n)-r_n(d\mid c)|
+ \le(b_N-a_N)\omega_{N,n+1}(d)\varkappa_N^k,
+ \qquad
+ r_n(d\mid c)\ge a_N\omega_{N,n+1}(d).
+\]
+The elementary inequality $\log u\le u-1$ yields
+\[
+ \KL(p_n\Vert r_n)
+ \le\sum_d\frac{(p_n(d)-r_n(d))^2}{r_n(d)}
+ \le\frac{(b_N-a_N)^2}{a_N}\varkappa_N^{2k}
+           \sum_d\omega_{N,n+1}(d)
+ =\mathrm c_N\varkappa_N^{2k}.
+\]
+If $n\le k$, the suffix is the full history and the divergence is zero. Averaging and summing the other $H-k-1$ possible positions proves \cref{eq:sf-boundary-exponential-memory}. The row-residual lemma gives \cref{eq:sf-boundary-exponential-budget}. Finally, the assumed common bounds imply $\mathrm c_N\le(b-a)^2/a$ and the common contraction estimate at every $N$. $\square$
+
+
+\corollaryheading{Direct admission by conditional-filter contraction}{cor:sf-boundary-direct-filter}
+The exponential budget of \cref{thm:sf-boundary-forgetting-budget} also holds for a joint transition/record kernel without its transition--emission factorization if the following conditions hold. For every time and symbol, let
+\[
+ v_{n,d}(a)=\mathsf M_n(a,\mathsf A_N,d),
+ \qquad
+ \mathscr F_{n,d}(\nu)(B)
+ =\frac{\int\mathsf M_n(a,B,d)\nu(da)}{\nu(v_{n,d})}.
+\]
+Assume $a_N\omega_{N,n+1}(d)\le v_{n,d}(a)\le b_N\omega_{N,n+1}(d)$ and
+\[
+ \operatorname{TV}(\mathscr F_{n,d}(\nu),\mathscr F_{n,d}(\eta))
+ \le\varkappa_N\operatorname{TV}(\nu,\eta),
+ \qquad \varkappa_N<1,
+\]
+for every pair of probability laws $\nu,\eta$. Then \cref{eq:sf-boundary-exponential-budget} holds with $\mathrm c_N=(b_N-a_N)^2/a_N$ and this $\varkappa_N$, with the same uniform-in-$N$ conclusion under common bounds. This is a quantitative condition on observation-conditioned kernels themselves. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The lower bound makes every displayed denominator positive. Composing the assumed conditional-filter contractions gives the same $\varkappa_N^k$ terminal-filter diameter for a common suffix. Averaging over older histories preserves that bound. The next-record rows are $\nu(v_{n,d})$ and $\bar\nu(v_{n,d})$; the oscillation bound for $v_{n,d}$ and its lower bound give the identical weighted squared-difference estimate in the proof of \cref{thm:sf-boundary-forgetting-budget}. The memory sum and positive-row residual bound therefore give the same budget. $\square$
+
+
+\propositionheading{A mixing hidden chain with persistent predictive memory}{prop:sf-boundary-mixing-failure}
+Let $(B_j)_{j\in\mathbb Z}$ be independent fair bits and let $A_n=(B_{n-1},B_n)$, with transition from $(u,v)$ to $(v,W)$ for a fresh fair bit $W$. The hidden chain is stationary and its two-step transition law is the same uniform law from every state. Independently draw reveal marks $R_n\sim\operatorname{Bernoulli}(\zeta)$, with $0<\zeta<1$, and observe
+\[
+ D_n=(B_{n-1}\mathbin\oplus B_n,R_n,J_n),
+ \qquad
+ J_n=\begin{cases}B_n,&R_n=1,\\ *,&R_n=0.\end{cases}.
+\]
+This is an emission experiment on six possible exterior symbols. For $n>k$ its finite-memory information term is
+\[
+ I(D_{n+1};D_{1:n-k}\mid D_{n-k+1:n})
+ =\zeta(\log 2)(1-\zeta)^k
+                    [1-(1-\zeta)^{n-k}].
+ \label{eq:sf-boundary-reveal-memory}
+\]
+Thus unconditional complete forgetting in two steps does not imply predictive conditional forgetting in two observed steps, or a conditional exponential rate determined by that hidden mixing time. Conditional memory can have arbitrarily slow rate as $\zeta\downarrow0$. This example tests the proposed inference from hidden mixing; it makes no conclusion about large-network formation. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+After two transitions the state is a pair of fresh independent bits, proving the hidden mixing assertion. After a reveal, the revealed bit together with the subsequently observed parities determines every subsequent terminal bit, until the present. If there has been no reveal, complementing all underlying bits preserves every parity and interchanges the two terminal-bit possibilities, so the terminal bit is conditionally fair.
+
+If a reveal appears in the last $k$ records, both full and truncated histories determine $B_n$, and their next-record rows coincide. If there is no reveal in the entire history, both rows use a fair terminal bit and also coincide. The remaining event has no reveal in the last $k$ records and at least one earlier reveal, with probability $(1-\zeta)^k[1-(1-\zeta)^{n-k}]$.
+
+On that event, the full history knows $B_n$, while the last $k$ parities with no reveals leave it fair. At the next step the nonrevealing parity is fair in both rows. If the next step reveals, the pair consisting of parity and $B_{n+1}$ determines $B_n$. The full-history row has two revealing symbols, each of mass $\zeta/2$, whereas the truncated row has all four, each of mass $\zeta/4$. Their KL is therefore $\zeta\log2$. Multiplication by the event probability gives \cref{eq:sf-boundary-reveal-memory}. The emission has zeros, and conditioning on a nonreveal and its parity preserves a known bit exactly; the conditional-filter hypothesis of \cref{thm:sf-boundary-forgetting-budget} does not hold. $\square$
+
+
+\chapter{A finite mode-regulated boundary functional}
+\label{ch:sb-regulator}
+A further question is how to inspect operators generated by an admitted boundary law without identifying a spatial length or agent count with the regulator. Tensorial group-field theory uses a regulated generating functional and a Legendre effective action \cite[Sec.~III A, Eqs.~(6)--(11), and Sec.~III B, Eqs.~(12)--(13)]{benedetti-2015-functional-renormalization-tgft}. The following calculation places that device on a finite vector of boundary features. It is distinct from the evidence-preserving conditional action.
+
+\definitionheading{Boundary feature regulator}{def:sb-regulated-functional}
+Let $\mathsf m_o^c$ be the boundary evidence measure and let $\mathsf f_\partial:\mathsf Z\to\R^{d_\partial}$ be bounded and measurable. For a $C^1$ symmetric matrix family $\mathsf R_\upsilon$ on an interval and a source covector $\mathsf j\in\R^{d_\partial}$, set
+\begin{align}
+\mathsf Z_\upsilon(\mathsf j)
+&=\int \exp\left(\mathsf j^\top\mathsf f_\partial
+-\tfrac12\mathsf f_\partial^\top\mathsf R_\upsilon\mathsf f_\partial\right)
+\mathsf m_o^c(dz),
+\label{eq:sb-source-functional}\\
+\mathsf W_\upsilon&=\log\mathsf Z_\upsilon,\qquad
+\phi=\nabla_{\mathsf j}\mathsf W_\upsilon,\qquad
+\Gamma_\upsilon(\phi)
+=\mathsf j^\top\phi-\mathsf W_\upsilon(\mathsf j)
+-\tfrac12\phi^\top\mathsf R_\upsilon\phi.
+\label{eq:sb-legendre}
+\end{align}
+The final expression is defined locally where the source-to-mean map is invertible.
+
+\propositionheading{Finite regulated identity}{prop:sb-regulator-identity}
+Suppose the feature covariance is positive definite on the source and regulator domain. At each common mean coordinate where the local inverse exists,
+\begin{equation}
+\partial_\upsilon\Gamma_\upsilon(\phi)
+=\frac12\Tr\left[
+(\partial_\upsilon\mathsf R_\upsilon)
+(\nabla_\phi^2\Gamma_\upsilon+\mathsf R_\upsilon)^{-1}
+\right].
+\label{eq:sb-regulator-flow}
+\end{equation}
+Under a regulator-independent invertible passive feature change $\mathsf f_\partial'=B\mathsf f_\partial$, with
+$\mathsf j'=B^{-\top}\mathsf j$ and
+$\mathsf R_\upsilon'=B^{-\top}\mathsf R_\upsilon B^{-1}$, the generating functional is unchanged and the identity transforms covariantly. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Bounded features and finite evidence permit all source derivatives and the regulator derivative locally by domination. The gradient of $\mathsf W$ is the tilted feature mean and its Hessian is the tilted covariance $\mathsf C_\upsilon$. Positive definiteness and the inverse function theorem give
+$\nabla_\phi^2\Gamma_\upsilon+\mathsf R_\upsilon=\mathsf C_\upsilon^{-1}$.
+Differentiation at fixed $\phi$ cancels the source-derivative terms:
+\[
+\partial_\upsilon\Gamma_\upsilon
+=\frac12\E_\upsilon(\mathsf f_\partial^\top
+\partial_\upsilon\mathsf R_\upsilon\mathsf f_\partial)
+-\frac12\phi^\top\partial_\upsilon\mathsf R_\upsilon\phi
+=\frac12\Tr[(\partial_\upsilon\mathsf R_\upsilon)\mathsf C_\upsilon].
+\]
+Substitution yields \cref{eq:sb-regulator-flow}. The passive transformations leave both source and quadratic regulator pairings unchanged; $\mathsf C_\upsilon'=B\mathsf C_\upsilon B^\top$, so the trace is unchanged. $\square$
+
+The calculation can organize feature cumulants and trial operator families. Its intermediate mass $\mathsf Z_\upsilon(0)$ need not equal the preserved evidence $M_o$; it equals $M_o$ when the regulator is zero. A spectral cutoff, representation size, agent count, and graph-reduction depth are separate parameters. Choosing a scale identification or proving closure of an operator truncation remains outside this identity.
+
+\chapter{Application criteria and remaining obligations}
+\label{ch:sb-obligations}
+The preceding results give a sequence of admitted operations: integrate interiors under one reference, choose an exterior experiment, retain its sufficient boundary data or an admitted approximation, preserve the ordered gauge marks, and budget static and predictive errors separately. They do not remove the need to specify a graph family and its exterior records.
+
+\openproblemheading{Finite usable exterior interfaces}{open:sb-usable-interface}
+For a specified sparse or dense non-Abelian agent family at $c_*$ with independent group links and matrix communication maps, construct finite regular feature interfaces and an exterior environment approximation whose contraction cost, raw-mark representation, and full normalized log-likelihood residual are controlled on a prescribed bounded or tail-controlled record class. The interface must preserve a nonconstant exterior prediction and achieve a prescribed error with less cost than the uncompressed boundary. A settling result is a proved family-level cost and likelihood-envelope bound, or a lower bound ruling out that budget in the same regular interface class. A countable Borel signature or an isolated magnetic-index truncation does not settle this problem.
+
+\openproblemheading{Complete-interface graph comparisons}{open:sb-interface-diagram}
+For the same family and a specified set of nontrivial block contraction moves, construct full interface statistics $\chi_\xi$ and measurable comparison arrows satisfying $\chi_\xi=q_{\xi'\xi}\chi_{\xi'}$ and commuting diamonds, while retaining the exterior record class and raw gauge marks at the selected error budget. Root-dressing composition is available, but its full probabilistic factor-through extension is not. A settling result supplies those squares for a class that changes boundary coordinates, or proves their failure within the stated finite interface and record class. Coordinate deletion on one unchanged boundary does not settle this problem.
+
+\openproblemheading{Predictive budgets on activation classes}{open:sb-activation-budget}
+For a specified evolving non-Abelian link/attention family and a completed-prefix activation class, establish a conditional-filter estimate or a different explicit predictive error estimate on the formation and handoff horizon. Keep the source activation law and every feedback control needed for prediction. A settling result proves a nontrivial finite-memory and row budget for the chosen exterior records, or proves that the budget cannot be met by the prescribed regular memory class on that horizon. Static KL control and unconditional microscopic mixing do not settle this problem.
+
+\openproblemheading{Controlled size and depth families}{open:sb-uniform-budget}
+On a specified family with arbitrary finite agent count and nontrivial depth growth, control accumulated likelihood offsets and oscillations, interface width, and the conditional predictive constants so that the chosen posterior, evidence, and finite-horizon tolerances remain bounded by their targets. A settling result establishes those uniform finite-family estimates, or a lower bound rules them out in the same retained-operator and graph family. No infinite-network measure or fixed-point identification follows from the estimates alone.
+
+\section{Open-problem ledger}
+\begin{longtable}{@{}p{0.24\textwidth}p{0.22\textwidth}p{0.46\textwidth}@{}}
+\toprule
+Item & Locator & Settling condition\\
+\midrule
+\endhead
+Usable exterior interfaces & \cref{open:sb-usable-interface} & A nonconstant finite regular interface with proved contraction cost and normalized likelihood error, or a class-matched lower bound.\\
+Complete-interface diagrams & \cref{open:sb-interface-diagram} & Full factor-through squares for changing boundary coordinates, or a failure proof in the same interface class.\\
+Activation and predictive memory & \cref{open:sb-activation-budget} & A conditional finite-horizon memory/row estimate on the source activation class, or a matching impossibility result.\\
+Size and depth budgets & \cref{open:sb-uniform-budget} & Uniform finite-family statistical and computational budgets, or a matching lower bound.\\
+\bottomrule
+\end{longtable}
+
+\begin{thebibliography}{99}
+\bibitem{asante-2022-spin-foams-refinement-renormalization}
+Seth K. Asante, Bianca Dittrich, Sebastian Steinhaus. \emph{Spin foams, Refinement limit and Renormalization}. 2022. \href{https://arxiv.org/abs/2211.09578v1}{arXiv:2211.09578}.
+
+\bibitem{bahr-2014-background-independent-renormalization}
+Benjamin Bahr. \emph{On background-independent renormalization of spin foam models}. 2014. \href{https://arxiv.org/abs/1407.7746v2}{arXiv:1407.7746}.
+
+\bibitem{bahr-2011-operator-spin-foams}
+Benjamin Bahr. \emph{Operator Spin Foams: holonomy formulation and coarse graining}. 2011. \href{https://arxiv.org/abs/1112.3567v1}{arXiv:1112.3567}.
+
+\bibitem{dittrich-2012-continuum-limit-spin-foams}
+Bianca Dittrich. \emph{From the discrete to the continuous - towards a cylindrically consistent dynamics}. 2012. \href{https://arxiv.org/abs/1205.6127v1}{arXiv:1205.6127}.
+
+\bibitem{dittrich-2014-time-evolution-refining-coarse-graining}
+Bianca Dittrich, Sebastian Steinhaus. \emph{Time evolution as refining, coarse graining and entangling}. 2014. \href{https://arxiv.org/abs/1311.7565v4}{arXiv:1311.7565}.
+
+\bibitem{dittrich-2016-decorated-tensor-networks}
+Bianca Dittrich, Sebastian Mizera, Sebastian Steinhaus. \emph{Decorated tensor network renormalization for lattice gauge theories and spin foam models}. 2016. \href{https://arxiv.org/abs/1409.2407v2}{arXiv:1409.2407}.
+
+\bibitem{delcamp-2017-nonabelian-decorated-tensor-networks}
+Clement Delcamp, Bianca Dittrich. \emph{Towards a phase diagram for spin foams}. 2017. \href{https://arxiv.org/abs/1612.04506v1}{arXiv:1612.04506}.
+
+\bibitem{delcamp-2017-fusion-basis}
+Clement Delcamp, Bianca Dittrich, Aldo Riello. \emph{Fusion basis for lattice gauge theory and loop quantum gravity}. 2017. \href{https://arxiv.org/abs/1607.08881v2}{arXiv:1607.08881}.
+
+\bibitem{hauru-2018-graph-independent-local-truncations}
+Markus Hauru, Clement Delcamp, Sebastian Mizera. \emph{Renormalization of tensor networks using graph independent local truncations}. 2018. \href{https://arxiv.org/abs/1709.07460v2}{arXiv:1709.07460}.
+
+\bibitem{benedetti-2015-functional-renormalization-tgft}
+Dario Benedetti, Joseph Ben Geloun, Daniele Oriti. \emph{Functional Renormalisation Group Approach for Tensorial Group Field Theory: a Rank-3 Model}. 2015. \href{https://arxiv.org/abs/1411.3180v2}{arXiv:1411.3180}.
+\end{thebibliography}
+\end{document}

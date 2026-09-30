@@ -10,6 +10,10 @@ updated: 2026-09-30
 
 # Statistics MOC
 
+## Exterior experiments and predictive budgets, September 30, 2026
+
+[[dennis-2026-spin-foam-boundary-methods]] records common reference/evidence recovery and support-preserving residual bounds separating posterior error from evidence and complete free energy. Its standard-Borel finite-horizon identity separates conditional history information from source-context row risk under dominance and finiteness conditions. Completed-prefix activation uses the actual source law. Useful finite memory and uniform family budgets remain open; the source is included in the tagged Bases view.
+
 ## Evidence-preserving Gaussian parents, September 30, 2026
 
 [[multiagentelbo-2026-09-30-pointwise-gaussian-network]] records normalized priors and record likelihoods, complete Schur evidence terms, and equilibrium reverse conditionals. Ten tiny CPU tests and 45 comparisons in one 512-agent study passed. Latent-link mixtures and actual-history activation laws remain separate inference problems.
