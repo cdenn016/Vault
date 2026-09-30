@@ -12,10 +12,16 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-09-28
+updated: 2026-09-30
 ---
 
 # Coarse Graining
+
+## Complete conditional Gaussian parents, September 30, 2026
+
+[[multiagentelbo-2026-09-30-pointwise-gaussian-network]] implements exact coordinate marginalization of the normalized held-link law at $c_*$. Its energy is $E(x)=x^T Jx/2-h^Tx+c$, so eliminating hidden coordinates retains $J_c=J_{rr}-J_{rh}J_{hh}^{-1}J_{hr}$, $h_c=h_r-J_{rh}J_{hh}^{-1}h_h$, and $c_c=c+[\log\det J_{hh}-d_h\log(2\pi)-h_h^T J_{hh}^{-1}h_h]/2$. The scalar term preserves the observed-record evidence, and generated cross blocks remain in the parent. The reverse conditional has gain $-J_{hh}^{-1}J_{hr}$, intercept $J_{hh}^{-1}h_h$, and covariance $J_{hh}^{-1}$. Its moment lift reconstructs the fine equilibrium law; retained moments alone do not specify a general nonequilibrium hidden conditional.
+
+Ten tiny oracle checks and one five-case 512-agent CPU study support the implementation at their declared finite instances. They do not establish Gaussian closure after integrating latent links. For the held stationary process $dX=-(JX-h)dt+\sqrt{2}dW$, the implementation separately exposes the selected lag covariance, memory kernel $J_{rh}\exp(-J_{hh}t)J_{hr}$, and conditional drift variance $J_{rh}J_{hh}^{-1}J_{hr}$. The latter was nonzero in every large-network case. This records hidden coupling in the stated coordinate process; it supplies neither a complete simulator from the kernel alone nor an inherited formation law. The graph and map family, equilibrium preparation, identity mobility, and deterministic coordinate selection remain explicit assumptions. [[Soft formation and the activation clock]] treats the distinct actual-law activation question.
 
 ## What the parent discards and when, September 28, 2026
 

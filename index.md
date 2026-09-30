@@ -2,7 +2,7 @@
 type: index
 title: Index
 aliases: [Index, Home]
-updated: 2026-09-28
+updated: 2026-09-30
 ---
 
 # Index
@@ -1312,6 +1312,8 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[pep-8-style-guide-python-code|PEP 8 - Style Guide for Python Code]]
 
 ## 🧪 Sources — experiment runs
+
+- [[multiagentelbo-2026-09-30-pointwise-gaussian-network|Pointwise Gaussian network baseline, September 30, 2026]] — complete held-link Schur parents; ten tiny CPU tests and 45 passing numerical comparisons across five 512-agent cases; formation and evolving-link dynamics remain open.
 
 - [[2026-09-28-k20-ablation-set|K=20 ablation set, 2026-09-28 to 2026-09-29]] — fifteen single-seed runs; decoder, positional frames, covariance, and frame-optimizer findings.
 

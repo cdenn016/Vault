@@ -5,10 +5,14 @@ aliases: [field/physics, Physics sources]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-09-20
+updated: 2026-09-30
 ---
 
 # Physics MOC
+
+## Conditional Gaussian coarse-graining, September 30, 2026
+
+[[multiagentelbo-2026-09-30-pointwise-gaussian-network]] implements complete held-link Gaussian actions and exact coordinate parents at $c_*$. Stationary identity-mobility Ornstein-Uhlenbeck diagnostics distinguish equilibrium marginalization from projected memory; no formation or thermodynamic-limit result is asserted.
 
 > Map of Content for the **`field/physics`** discipline facet. The table is auto-populated by the
 > **Bases** core plugin from the `field/*` tags and updates itself as sources are added.

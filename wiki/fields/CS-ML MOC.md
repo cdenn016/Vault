@@ -5,10 +5,14 @@ aliases: [field/cs-ml, CS-ML sources, Machine learning MOC, CS/ML MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-09-27
+updated: 2026-09-30
 ---
 
 # CS-ML MOC
+
+## Gaussian network runtime baseline, September 30, 2026
+
+[[multiagentelbo-2026-09-30-pointwise-gaussian-network]] records the tensor implementation and one CPU study of five 512-agent held-map cases. All 45 numerical comparisons passed; the dense representation and single execution delimit the performance result. No GPU or evolving-link experiment ran.
 
 ## Feed-forward memory and mixture-of-experts references, September 27, 2026
 

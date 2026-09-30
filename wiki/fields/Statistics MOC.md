@@ -5,10 +5,14 @@ aliases: [field/statistics, Statistics sources, Information theory MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-09-27
+updated: 2026-09-30
 ---
 
 # Statistics MOC
+
+## Evidence-preserving Gaussian parents, September 30, 2026
+
+[[multiagentelbo-2026-09-30-pointwise-gaussian-network]] records normalized priors and record likelihoods, complete Schur evidence terms, and equilibrium reverse conditionals. Ten tiny CPU tests and 45 comparisons in one 512-agent study passed. Latent-link mixtures and actual-history activation laws remain separate inference problems.
 
 ## Mixture references, September 27, 2026
 

@@ -5,10 +5,14 @@ aliases: [field/mathematics, Mathematics sources, Math MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-09-26
+updated: 2026-09-30
 ---
 
 # Mathematics MOC
+
+## Complete Gaussian coordinate reduction, September 30, 2026
+
+[[multiagentelbo-2026-09-30-pointwise-gaussian-network]] records the complete action, scalar normalization, and reverse conditional of held-link Schur reduction at $c_*$, with tiny exact or independent grounding checks and a five-case 512-agent CPU baseline. Static composition and the separately scoped stationary memory diagnostics remain distinct.
 
 ## Primary references checked September 26, 2026
 
