@@ -29,7 +29,8 @@ R6, the declined claims of SPEC R5 (physical time, spacetime, agency, ontology, 
 selectors, graph links as base transport, base maps, neighborhoods, connection descent), the
 distinction between the inference index or RG depth and physical time, the three transports that
 must remain distinct (pointwise frame comparison, independent graph link, base parallel
-transport), the two uses of "coarse", and the D8 convention on the interaction graph. The status
+transport), the two uses of "coarse", and the convention on the interaction multigraph (D8, revised
+to the reversal closure of the source-prior supports, with one-way attention). The status
 table `tab:status-taxonomy` follows SPEC R4.
 
 **Chapter 2, geometry at one base point.** One principal bundle `\pi:\mathscr P_G\to\mathcal C`
@@ -133,12 +134,15 @@ give convergence of every orbit to one stationary point, or an orbit with more t
 point under compact upper level sets. Both chapter labels `ch:elbo` and
 `ch:local-collective-elbo` are kept.
 
-**Chapter 6, attention and selective communication.** The interaction graph is the support of
-`\pi` (D8), complete unless masked, and attention weights are strictly positive on it; discrete
+**Chapter 6, attention and selective communication.** The interaction multigraph contains the
+reversal closure of the union of the row supports of `\pi` (D8, revised) and equals it unless a
+model adds copies (the triangle-chain bridges of Chapter 13 are such added copies); each support is
+complete unless masked and need not be symmetric (one-way attention), and each attention row is
+strictly positive on its own source set when its costs are finite; discrete
 edge creation and deletion is `open:obs-edge-creation` (the grand-canonical program note is
 motivation only); the open problem fixes a threshold rule (deletion at a rate reading the
 recognition row weight, creation at a rate reading the averaged comparison energy, bounded
-multiplicity) and asks for a normalized joint with the edge set as a structural coordinate whose
+multiplicity) and asks for a normalized joint with the source sets as a structural coordinate whose
 collective VFE the rule's master equation does not increase, or a proof that for every such rule
 none exists. In the per-receiver source-label model the source prior `\pi_{ij}`, the
 generative posterior row `\beta^P_{ij}`, the recognition row `\beta^Q_{ij}`, the receiver
@@ -310,7 +314,14 @@ law; the KL chain is additive in `[0,+\infty]`; adding the finite `-\log p_X(o)`
 extended-real VFE identity (a finite VFE may be negative); without finiteness `\Delta_A=0` exactly
 when the discarded conditional recognition and posterior laws agree `\mathbb Q_A`-almost surely;
 finite fine KL is needed for `\Fenergy_I-\Fenergy_A=\Delta_A` and for the two-way pairwise
-common-recovery equivalence; family-wide recovery needs simultaneous hypotheses for every member.
+common-recovery equivalence. Family-wide recovery (`prop:cg-descent-common-recovery`): one Markov
+kernel recovers the reference and every member of a dominated family, for any coarse channel and any
+index set, exactly when every likelihood ratio descends to the coarse coordinate, with no
+finite-divergence hypothesis (necessity through the Hellinger affinity); the reference conditional
+law is then such a kernel and, for a statistic, the unique fiber-supported one; a kernel that does
+not read a retained coordinate recovers exactly under descent plus conditional independence, and a
+two-point witness shows descent alone does not give it (classical sufficiency, Halmos–Savage and
+Blackwell; locators pending, so the statement stays ESTABLISHED with proof).
 
 The full pointwise datum (`thm:rg-pointwise-parent-datum`): a nonempty finite child block `I`,
 parent label `A`, fixed `X` with `X_A=\chi_A(X)` outside the random channel, the random parent state
@@ -358,7 +369,13 @@ cites Chapter 10.
 `\Theta^x_{I\leftarrow i}` with stated tree dependence, rooted holonomy `\mathrm{Hol}^x_I`, and
 block-dressed boundary edges `\widehat\Theta^x_e=\Theta^x_{I\leftarrow i}\Theta^x_e(\Theta^x_{J\leftarrow j})^{-1}`
 with their endpoint gauge law are retained as raw root-framed marks (primary spanning-tree
-construction; Creutz 1977 for maximal-tree gauge fixing). Holonomy blindness is conditional on
+construction; Creutz 1977 for maximal-tree gauge fixing). Tree transports compose across depths
+(`prop:rg-forest-tree-composition`) when the depth-zero tree of each parent is the union of its
+children's trees and a depth-one tree of dressed links, rooted at the root of the root child; one
+rooted spanning forest fixed before nested connected-subtree partitions is the special case. This
+supplies the composition hypothesis of `prop:rg-linear-cross-scale`(ii), holds for any group, and
+concerns group-valued links; matrix communication maps are dressed at their endpoints but not
+composed. Holonomy blindness is conditional on
 typed fine and parent actions, full fine-law covariance, compatible selected posterior versions,
 channel equivariance, and evaluator covariance; same-slice invariance holds only for isotropy
 arrows fixing the slice and its versions; neither branch selects membership. For a connected block
@@ -431,7 +448,15 @@ copies (`eq:full-graph-coarse-links`); multi-depth channels are Chapman–Kolmog
 copies use the diagonal endpoint kernel. The block-product channel is `eq:rg-block-product-channel`.
 
 Results: the effective action (`thm:rg-effective-action`) with its residual, the bounded action
-calculus, contraction, Hoeffding interaction coordinates with the two-agent example, hyperedges,
+calculus, contraction, the two-sided divergence bounds of a bounded action perturbation
+(`cor:rg-perturbation-divergence-bounds`: both directed KLs at most `\min\{\omega,\omega^2/8\}` for
+range `\omega`, evidence and complete-VFE offsets kept separate from posterior error, additive
+essential bounds along a tower; Hoeffding's lemma, locator pending, and confined to the bounded
+tier), the contracted tower (`cor:rg-contracted-perturbation-tower`: widths obey
+`\omega_{\ell+1}\le\min\{\log(1+\delta_\ell(e^{\omega_\ell}-1)),\tanh(\Delta_\ell/4)\omega_\ell\}+\omega^{\mathrm{st}}_{\ell+1}`,
+the first branch the exact supremum for Dobrushin coefficient `\delta`, depth-uniform bounds for
+stochastic channels, additive widths attained by deterministic arrows, offsets never contracting;
+Birkhoff and Le Gland–Oudjane attributed), Hoeffding interaction coordinates with the two-agent example, hyperedges,
 bridge kernels, intra-block invariance, cocycle telescoping, the native growth bound (the whole
 exact derivative cocycle `D_{n\leftarrow\ell}` has norm at most `3^{|V_n|}-1` in the oscillation
 quotient norm at every depth, `prop:rg-interaction-native-growth-bound`), and the finite-network obstruction (a finite alphabet
@@ -440,7 +465,11 @@ obstructs typed comparisons and vertex-ratio termination,
 single-edge model (`prop:rg-attention-single-edge-weights`, `eq:rg-attention-prior-weighted-row`),
 with its collapse in the per-receiver model (`prop:rg-attention-per-receiver-collapse`). Path laws and
 memory (section 11.8): projection memory, strong lumpability (Kemeny–Snell, chapter 6), the finite
-memory KL projection, and the memory duration (condensed, STANDARD citation); a projected
+memory KL projection, its extension to standard Borel records and arbitrary Borel history
+statistics (`thm:rg-memory-borel-projection`: path KL equals the summed conditional information
+`D^{\mathbf f}_N` plus the summed expected row divergence, in `[0,+\infty]` with no dominance or
+finiteness hypothesis; the source rows attain the minimum, uniqueness is not claimed for general
+statistics), and the memory duration (condensed, STANDARD citation); a projected
 hidden-state process need not be Markov, and the signed pointwise memory action has nonnegative
 mean KL, not pointwise positivity. The retained-state table `tab:rg-retained-state` replaces the
 closure theorem. `rem:rg-trivial-invariant-pairs` records three families of invariant pairs: the
@@ -720,7 +749,14 @@ interior law-level step (`prop:grg-interior-law-step`); monotonicity is open onl
 this is the Galerkin operator of aggregation algebraic multigrid (cite Notay 2010 and Livne–Brandt
 2012), and the Galerkin law is the fine law conditioned on zero within-cluster disagreement, a
 `\Lambda`-dependent pushforward (`prop:ig-galerkin-pushforward`, `eq:ig-galerkin-projector`,
-`prop:cg-aggregation-conditioning`). For graph-exponential families aggregation precomposes the
+`prop:cg-aggregation-conditioning`). The exterior-informed linear interface
+(`prop:cg-exterior-interface`, g07): for a Gaussian reference and a linear Gaussian record, the
+rank-`r` linear statistic maximizing exterior-predictive information keeps the top generalized
+eigenvectors of the pencil `(\Lambda+\Lambda_{\mathrm{rec}},\Lambda)`, whose images are the squared
+canonical correlations; the minimal loss is `-\tfrac12\sum_{k>r}\log(1-\check\rho_k^2)`, the coarse
+posterior is exact for complete eigenspaces with a `\Lambda`-orthogonal projector (both hypotheses
+necessary), the projector is the Galerkin projector, and the Hilbert–Schmidt tails bound the loss
+on both sides (Chechik et al. 2005 attributed; the fixed-rank optimality is proved here). For graph-exponential families aggregation precomposes the
 unnormalized energy with the identification map; the coarse reference measure, integrability, and
 finite normalizer are three separate obligations. Pair-statistic invariance under a site action is a
 conditional selection principle; translation invariance is its Gaussian instance. Closure does not

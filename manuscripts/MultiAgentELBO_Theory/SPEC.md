@@ -46,9 +46,18 @@ pointwise agent network: effective action, residual, finite-step multipliers, an
 growth bound. It is called exact coarse-graining. Words such as relevant, irrelevant, fixed
 point, and beta function are not used in the main manuscript except in one pointer to Supplement
 B and in the related-work chapter when they describe other authors' constructions. The
-interaction graph at `c_*` is the support of the source prior, a structural parameter that is
-complete unless masked; attention weights are strictly positive on it, and dynamic structure is
-carried by attention weights and link values. Discrete edge creation and deletion is one open
+interaction multigraph at `c_*` is a structural parameter whose edge copies come in reversal pairs;
+it contains every copy in the support of a receiving row's source prior and, unless a model adds
+further copies, is the reversal closure of the union of these supports. Each support is complete
+unless masked and need not be symmetric (one-way attention, decided 2026-09-30); each attention row
+is strictly positive on its own source set when its costs are finite, and dynamic structure is
+carried by attention weights and link values. The program's dynamics is joint descent of the
+collective free energy, so a source is moved by the record of every row that attends to it even
+when it attends to none of them. An agent's local free energy contains every record incident on
+it, so per-agent descent of local free energies is, for product families, a block of the joint
+flow with the same sender terms (the two-timescale chapter). One-way influence would need a
+dynamics that drops the records of other agents' rows, which is not descent of the collective
+free energy; a model that uses it declares it. Discrete edge creation and deletion is one open
 problem (`open:obs-edge-creation`), not part of the model; coarse multigraphs are induced
 structure. Meta-agent membership may be random: the finite partition catalog of the normalization
 models (hierarchical or global normalization), typed as the structural mark `R_\ell`, is intended
@@ -147,8 +156,9 @@ standard Borel; laws and kernels are normalized and measurable; a coarse channel
 recognition-independent Markov kernel on latent coordinates that leaves observations unchanged
 and, at `c_*`, is vertical over the identity of `c_*`; an admitted observation has finite
 positive evidence; structural data are parameters unless a configuration prior or a structural
-channel is declared, and the declaration names its law; the interaction graph at `c_*` is the
-support of the source prior (Section 0). Absolute continuity of a recognition law with respect to
+channel is declared, and the declaration names its law; the interaction multigraph at `c_*`
+contains the reversal closure of the union of the source-prior supports and equals it unless a
+model adds copies (Section 0). Absolute continuity of a recognition law with respect to
 the posterior is not a default: it is clause (H3) of `hyp:elbo-evidence-domain`, and its failure
 is the singular branch of the extended ELBO. A statement mentions only departures from these
 defaults. Do not use "declared", "normalized", "actual", "complete", "retained", "exact", or
@@ -198,7 +208,7 @@ null. A claim of selection without such a datum names the hypothesis its mechani
 declares the mechanism as a model element: a rule that reads realized paths, records, or a finite
 ensemble, in which case the claim concerns realized paths unless the law of the selected structure
 is proved to break `H`; selection among non-unique optimizers, critical points, or branches;
-boundary non-uniqueness at masked entries, which is edge creation outside Section 0; or a
+boundary non-uniqueness at masked entries, which is support creation outside Section 0; or a
 nonequivariant metric, mobility, or proposal mechanism. An equivariant law-level learning rule whose
 coupled law–parameter system is unique cannot be claimed to break a symmetry shared by the initial
 law and the initial parameter; the four-cycle instance is part (c) of

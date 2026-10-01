@@ -202,7 +202,8 @@ $r_I$. Finally $g_i=g_{r_I}\Theta^x_{I\leftarrow i}$ makes every tree transport,
 identity, is forced up to the choice of $g_{r_I}$, and turns a non-tree link into
 $g_{r_I}\mathrm{Hol}^x(p_e)g_{r_I}^{-1}$. $\square$
 
-The last statement is the maximal-tree gauge fixing of lattice gauge theory \citep{Creutz1977}. The
+The last statement is the maximal-tree gauge fixing of lattice gauge theory \citep{Creutz1977}, in
+the spanning-tree form of \citet[Sec.~IV A, Eq.~(4.1)]{DelcampDittrich2017PhaseDiagram}. The
 measure tier retains the raw root-framed datum, since quotienting each holonomy separately would lose its
 orientation relative to the root features and boundary legs, and an orbit space would need a quotient
 theorem not supplied here.
@@ -293,6 +294,138 @@ likewise for $\mathsf S_x$. $\square$
 This fixed space is the feature-level counterpart of \eqref{eq:full-graph-holonomy-stabilization}; a tree
 choice is a gauge fixing for the retained datum but part of the model for the averaged feature
 $\mathsf C_xz$.
+
+\propositionheading{Composite trees and one rooted forest compose the tree transports}{prop:rg-forest-tree-composition}
+At nested depths $0\to1\to2$ as in \Cref{prop:rg-linear-cross-scale}(ii), fix a channel $x$ with links
+$\Theta^x_e\in G$, let the blocks $I$ of depth one partition $V$, let the depth-one multigraph $\mathfrak I_1$
+of \Cref{def:full-graph-coarse-links} carry the dressed marks $\Theta^{x,1}_e=\widehat\Theta^x_e$ as links,
+and let the blocks $A$ of depth two partition the vertices of $\mathfrak I_1$, every block connected; $A$ also
+denotes the set of agents of its children $I\subseteq A$, with internal multigraph $\mathfrak I_A$ in
+$\mathfrak I$. The transports $\Theta^{x,01}_{I\leftarrow i}$, $\Theta^{x,12}_{A\leftarrow I}$, and
+$\Theta^{x,02}_{A\leftarrow i}$ are taken along rooted spanning trees of $\mathfrak I_I$, of the internal
+multigraph of $A$ in $\mathfrak I_1$, and of $\mathfrak I_A$. (i) For any such trees of the children, with
+roots $r_I$, and of $A$ in $\mathfrak I_1$, with root child $I_A$, the copies of these trees form a spanning
+tree of $\mathfrak I_A$, the composite tree of $A$. With the composite tree and the root $r_{I_A}$, every agent
+$i\in I\subseteq A$ and every copy $e:j\to i$ with $j\in J\subseteq A'$ satisfy
+\begin{equation}
+\begin{gathered}
+\Theta^{x,02}_{A\leftarrow i}=\Theta^{x,12}_{A\leftarrow I}\Theta^{x,01}_{I\leftarrow i},\\
+\Theta^{x,12}_{A\leftarrow I}\widehat\Theta^x_e\bigl(\Theta^{x,12}_{A'\leftarrow J}\bigr)^{-1}
+=\Theta^{x,02}_{A\leftarrow i}\Theta^x_e\bigl(\Theta^{x,02}_{A'\leftarrow j}\bigr)^{-1},
+\end{gathered}
+\label{eq:rg-forest-tree-composition}
+\end{equation}
+so the depth-two link obtained by lifting twice with \eqref{eq:full-graph-coarse-links} is the one-step lift
+through the composite trees: for $A'\neq A$ a dressed edge \eqref{eq:full-graph-dressed-edge}, and for $A'=A$
+the fundamental-cycle holonomy $\mathrm{Hol}^x(p_e)$ of \eqref{eq:full-graph-tree-transport-law} for the
+composite tree, which is $e_G$ on its copies. The transport condition of
+\Cref{prop:rg-linear-cross-scale}(ii) therefore holds, and with the weights
+$w^{02}_{Ai}=w^{12}_{AI}w^{01}_{Ii}$, which sum to one over $A$, both equalities of that part hold. (ii)
+Choose, before the partitions and independently of them, a rooted spanning forest of $\mathfrak I$, that is,
+a rooted spanning tree of each connected component of $\mathfrak I$, and let every block be a connected
+subtree of it, meaning that the forest copies joining agents of the block connect the block. Each block then
+has exactly one agent nearest to the root of its component, measured by the number of copies on the forest
+path; call it $r_I$ for a child and $r_A$ for a block of depth two. Give each child the forest copies joining
+its agents, rooted at $r_I$, and give $A$ in $\mathfrak I_1$ the forest copies joining distinct children of
+$A$, rooted at the child $I_A$ that contains $r_A$. These are rooted spanning trees, $r_{I_A}=r_A$, and the
+composite tree of $A$ consists of the forest copies joining agents of $A$, so (i) applies to the forest tree
+of $A$ rooted at $r_A$, and
+\begin{equation}
+\Theta^{x,12}_{A\leftarrow I}=\Theta^{x,02}_{A\leftarrow r_I},
+\qquad
+\Theta^{x,02}_{A\leftarrow i}=\Theta^{x,02}_{A\leftarrow r_I}\Theta^{x,01}_{I\leftarrow i}.
+\label{eq:rg-forest-root-factorization}
+\end{equation}
+For a longer chain of nested partitions whose blocks are all connected subtrees of the forest, the trees
+induced at every depth $\ell$, with the agents as the blocks of depth zero, formed by the forest copies
+inside a block of depth $\ell+1$ that join distinct blocks of depth $\ell$ and rooted at the block of depth
+$\ell$ that contains its nearest agent, satisfy the hypotheses of (i) at the depths $\ell\to\ell+1\to\ell+2$
+for every $\ell$. (iii) If the links of channel $x$ are graph flat on every block of depth two
+(\Cref{def:geo-graph-flat-links}), in particular if they are frame aligned,
+\eqref{eq:rg-forest-tree-composition} holds with any rooted spanning tree of $\mathfrak I_A$ with root
+$r_{I_A}$ in place of the composite tree. The transports in (i) and (ii) are path products of the
+group-valued links, whose reversed copies carry the inverse links; a matrix communication
+map $\mathsf L_e$ of \Cref{def:geo-selective-matrix-link}, whose reversed copy is specified separately, is
+not a transport, and on the vector tier, where $\rho_x$ acts linearly on the sample fibers, its dressings by
+the represented transports of (i) satisfy
+\begin{equation}
+\begin{aligned}
+&\rho_x(\Theta^{x,12}_{A\leftarrow I})\bigl[\rho_x(\Theta^{x,01}_{I\leftarrow i})\mathsf L_e
+\rho_x(\Theta^{x,01}_{J\leftarrow j})^{-1}\bigr]\rho_x(\Theta^{x,12}_{A'\leftarrow J})^{-1}\\
+&\qquad=\rho_x(\Theta^{x,02}_{A\leftarrow i})\mathsf L_e\rho_x(\Theta^{x,02}_{A'\leftarrow j})^{-1},
+\end{aligned}
+\label{eq:rg-forest-matrix-dressing}
+\end{equation}
+which inverts only represented transports, so $\mathsf L_e$ may be singular. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Deleting a backtrack leaves a path product unchanged, since $\Theta^x_e\Theta^x_{\bar e}=e_G$, and a walk in
+a tree reduces in this way to the tree path between its endpoints, because a closed walk of positive length
+in a tree backtracks at a vertex farthest from its base point. The argument for (i) uses only that the links
+are elements of $G$ whose reversed copies carry the inverses, which holds at every depth by
+\Cref{prop:full-graph-coarse-links}. (i) Counting reversal pairs, the trees of the children contain
+$\lvert A\rvert$ less the number of children, each pair joining agents of one child, and the tree of $A$ in
+$\mathfrak I_1$ contains the number of children less one, each pair joining distinct children; together
+they connect the agents of $A$ with $\lvert A\rvert-1$ pairs, so they form a spanning tree. Let the tree path
+$p$ from $I$ to $I_A$ in $\mathfrak I_1$ traverse the copies $e_a:j_a\to i_a$ from $I_{a-1}$ to $I_a$ for
+$a=1,\ldots,\lvert p\rvert$, oriented along the path, with $I_0=I$, $I_{\lvert p\rvert}=I_A$, and $i_0=i$.
+By \eqref{eq:full-graph-coarse-links},
+\[
+\Theta^{x,12}_{A\leftarrow I}\Theta^{x,01}_{I\leftarrow i}
+=\Theta^{x,01}_{I_{\lvert p\rvert}\leftarrow i_{\lvert p\rvert}}\Theta^x_{e_{\lvert p\rvert}}
+\bigl[(\Theta^{x,01}_{I_{\lvert p\rvert-1}\leftarrow j_{\lvert p\rvert}})^{-1}
+\Theta^{x,01}_{I_{\lvert p\rvert-1}\leftarrow i_{\lvert p\rvert-1}}\bigr]
+\Theta^x_{e_{\lvert p\rvert-1}}\cdots\Theta^x_{e_1}
+\bigl[(\Theta^{x,01}_{I_0\leftarrow j_1})^{-1}\Theta^{x,01}_{I_0\leftarrow i_0}\bigr].
+\]
+Each bracket is the path product of a walk in the tree of $I_a$ from $i_a$ through $r_{I_a}$ to $j_{a+1}$, and
+the leftmost factor is that of the tree path from $i_{\lvert p\rvert}$ to $r_{I_A}$, so the right side is the
+path product of a walk in the composite tree from $i$ to $r_{I_A}$, which is $\Theta^{x,02}_{A\leftarrow i}$.
+Substituting this at both endpoints of
+$\widehat\Theta^x_e=\Theta^{x,01}_{I\leftarrow i}\Theta^x_e(\Theta^{x,01}_{J\leftarrow j})^{-1}$ gives the
+second equality, whose right side is \eqref{eq:full-graph-dressed-edge} for $A'\neq A$ and
+\eqref{eq:full-graph-tree-transport-law} for $A'=A$, equal to $e_G$ on tree copies as in
+\Cref{prop:full-graph-coarse-links}. The weights are nonnegative with
+$\sum_{I\subseteq A}w^{12}_{AI}\sum_{i\in I}w^{01}_{Ii}=1$, so \Cref{prop:rg-linear-cross-scale}(ii)
+applies. (ii) If two distinct agents of a block were nearest to the root, the forest path between them would
+lie in the block, since the forest copies inside the block connect it and paths in a tree are unique, and it
+would pass through their last common ancestor, which is nearer to the root. The forest copies inside a block
+connect it and contain no cycle, so they form a spanning tree of its internal multigraph. Inside $A$ lie
+$\lvert A\rvert-1$ forest pairs, of which $\lvert A\rvert$ less the number of children lie inside children,
+so the number of children less one join distinct children; these pairs connect the children,
+because the forest copies inside $A$ connect $A$, so they form a spanning tree of $A$ in $\mathfrak I_1$, and
+with the trees of the children they make up the forest copies inside $A$. The agent $r_A$ lies in
+$I_A\subseteq A$ and is nearest in $A$, hence in $I_A$, so $r_{I_A}=r_A$. Then (i) applies; putting $i=r_I$,
+where $\Theta^{x,01}_{I\leftarrow r_I}=e_G$, gives the first equality of
+\eqref{eq:rg-forest-root-factorization}, and substituting it into (i) gives the second. For a longer chain the
+same count shows that each induced tree is a spanning tree. For a block of depth $\ell+2$, its induced tree at
+depth $\ell$ is the union of the induced trees at depth $\ell$ of its children and of the forest copies
+joining distinct children, which form its induced tree at depth $\ell+1$, and the block of depth $\ell$ that
+contains its nearest agent is the root at depth $\ell$ of the child containing that agent, whose nearest agent
+it is. (iii) Graph-flat links have path product $e_G$ on every closed walk in the block
+(\Cref{prop:geo-trivializing-criterion}), and another tree with the same root multiplies each transport on
+the left by a based holonomy (\Cref{prop:rg-rooted-datum}), which leaves $\Theta^{x,02}_{A\leftarrow i}$
+unchanged; frame-aligned links are graph flat (\Cref{rem:geo-flatness-strictness}). The matrix identity
+follows from the first equality of \eqref{eq:rg-forest-tree-composition} at $i$ and at $j$ and the
+multiplicativity of $\rho_x$. $\square$
+
+Part (i) supplies what nesting alone leaves open in \Cref{prop:rg-linear-cross-scale}(ii): a depth-zero
+tree of $A$ that contains the depth-one tree and is rooted at the root of the root child; another tree with
+that root multiplies the direct transports $\Theta^{x,02}_{A\leftarrow i}$ by based holonomies
+(\Cref{prop:rg-rooted-datum}). In (i) the trees may be chosen after each partition is realized, and the
+composite tree then depends on the intermediate partition. In (ii) the forest is part of the blocking scheme
+and is chosen before the partitions, so the direct transports of $A$ depend only on $A$ and the forest; a
+random membership mark $R_\ell$ (\Cref{def:full-graph-membership-kernel}) enters (ii) only through realized
+partitions whose blocks are connected subtrees of that forest, a realized block that is not such a subtree
+is outside (ii), and overlapping membership kernels are outside the proposition, as in
+\Cref{def:full-graph-coarse-links}.
+
+Setting the tree links to the identity is the spanning-tree gauge fixing of lattice gauge theory in
+the form of \citet[Sec.~IV A, Eq.~(4.1)]{DelcampDittrich2017PhaseDiagram}, whose change of spanning
+tree at a fixed root is their Sec.~IV C, Eq.~(4.4); the coarse link as an ordered product of fine links
+along a composite path is the macroscopic holonomy of
+\citet[Sec.~4, Eq.~(4.1)]{Bahr2012OperatorSpinFoams}. Neither source composes trees across nested
+partitions.
 
 \section{Holonomy-conditioned marginal-law modes}
 \label{sec:cg-holonomy-law-modes}

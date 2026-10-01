@@ -264,6 +264,157 @@ operators is at most the product of the one-step coefficients.
 The proofs of \Cref{thm:rg-bounded-action-calculus,thm:rg-action-lp-contraction}
 are in \cref{sec:proofs-network-coarsegraining}.
 
+\corollaryheading{Divergence bounds for a bounded action perturbation}{cor:rg-perturbation-divergence-bounds}
+In the setting of \Cref{thm:rg-bounded-action-calculus}, which is the bounded tier of
+\Cref{rem:rg-bounded-tier-scope}, let $\psi\in\mathfrak B$ perturb the evidence
+measure to $e^{-\psi}\mathsf m_o$, whose action on the same
+reference is $H_o+\psi$. Then $\widehat{\mathsf m}^\psi$ of
+\eqref{eq:rg-normalized-perturbation-action} is equivalent to $\bar{\mathsf m}_o$, and
+\begin{equation}
+\KL\bigl(\bar{\mathsf m}_o\Vert\widehat{\mathsf m}^\psi\bigr),\quad
+\KL\bigl(\widehat{\mathsf m}^\psi\Vert\bar{\mathsf m}_o\bigr)
+\le\min\bigl\{2\lVert[\psi]\rVert_{\mathrm{osc}},\lVert[\psi]\rVert_{\mathrm{osc}}^2/2\bigr\},
+\label{eq:rg-perturbation-two-sided-kl}
+\end{equation}
+where both sides read $\psi$ only through its class in the projective action space
+$\overline{\mathfrak B}$ of part (d) of \Cref{thm:rg-bounded-action-calculus}. The
+offsets read the essential bounds of $\psi$ instead: the log evidence ratio
+$\log\bar{\mathsf m}_o(e^{-\psi})=\log\bigl((e^{-\psi}\mathsf m_o)(\mathsf Y)/M_o\bigr)$,
+the constant of part (e), lies in
+$[-\operatorname*{ess~sup}\psi,-\operatorname*{ess~inf}\psi]$, and for every law
+$Q\ll\bar{\mathsf m}_o$ the free energies
+$\Fenergy_{\mathsf m_o}(Q)=-\log M_o+\KL(Q\Vert\bar{\mathsf m}_o)$ and
+$\Fenergy_{e^{-\psi}\mathsf m_o}(Q)$, of the form of \Cref{def:elbo-extended},
+satisfy $\Fenergy_{e^{-\psi}\mathsf m_o}(Q)=\Fenergy_{\mathsf m_o}(Q)+\E_Q\psi$ in
+$(-\infty,+\infty]$ with
+$\E_Q\psi\in[\operatorname*{ess~inf}\psi,\operatorname*{ess~sup}\psi]$, while both are
+$+\infty$ for every other law $Q$. Along arrows $C_0,\ldots,C_{L-1}$ with pairs
+$(\varrho_\ell,\mathsf m_\ell)$ as in \Cref{def:rg-measure-pair}, let
+$\widetilde{\mathsf m}_0=e^{-\psi_0}\mathsf m_0$ and
+$\widetilde{\mathsf m}_{\ell+1}=e^{-\psi_{\ell+1}}(\widetilde{\mathsf m}_\ell C_\ell)$ with
+$\psi_\ell\in L^\infty(\bar{\mathsf m}_\ell)$, let
+$\widetilde H_\ell=-\log(d\widetilde{\mathsf m}_\ell/d\varrho_\ell)$, and let
+$\mathcal A_\ell$ be the action increment \eqref{eq:rg-local-action-map} of $C_\ell$
+at $\mathsf m_\ell$. Then each $\widetilde H_\ell-H_\ell$ is essentially bounded, and
+\begin{equation}
+\widetilde H_{\ell+1}-H_{\ell+1}=\mathcal A_\ell(\widetilde H_\ell-H_\ell)+\psi_{\ell+1},
+\qquad
+\sum_{j=0}^{L}\operatorname*{ess~inf}\psi_j
+\le\widetilde H_L-H_L
+\le\sum_{j=0}^{L}\operatorname*{ess~sup}\psi_j,
+\label{eq:rg-perturbation-tower}
+\end{equation}
+the recurrence holding $\mathsf m_{\ell+1}$-almost everywhere and the bounds
+$\mathsf m_L$-almost everywhere. Hence the preceding statements hold with
+$\mathsf m_L$ in place of $\mathsf m_o$ and $\psi=\widetilde H_L-H_L$, with
+$\lVert[\widetilde H_L-H_L]\rVert_{\mathrm{osc}}\le\sum_{j=0}^{L}\lVert[\psi_j]\rVert_{\mathrm{osc}}$
+and both offsets in the summed interval. \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-network-coarsegraining}.
+
+The divergence bound sees the width of a perturbation and not its offset, which the
+evidence and the free energy carry. Outside $\mathfrak B$, for instance for the
+polynomial couplings on $\R^K$ described in \Cref{rem:rg-bounded-tier-scope}, the
+corollary gives no bound.
+
+\corollaryheading{Contracted widths and transmitted offsets along a perturbed tower}{cor:rg-contracted-perturbation-tower}
+In the setting of the tower of \Cref{cor:rg-perturbation-divergence-bounds}, write
+$\mathfrak r_\ell=\widetilde H_\ell-H_\ell$ for the propagated residual, let
+$C^\dagger_\ell$ be a reverse kernel of the normalized joint law
+$\bar{\mathsf m}_\ell(dy)C_\ell(y,dz)$ as in \eqref{eq:rg-normalized-reverse-kernel},
+so that $\mathcal A_\ell(\psi)(z)=-\log\int e^{-\psi(y)}C^\dagger_\ell(z,dy)$, and
+measure widths by the full essential range under $\bar{\mathsf m}_\ell$,
+\begin{equation}
+\omega_\ell=2\lVert[\mathfrak r_\ell]\rVert_{\mathrm{osc}}
+=\operatorname*{ess~sup}\mathfrak r_\ell-\operatorname*{ess~inf}\mathfrak r_\ell,
+\qquad
+\omega^{\mathrm{st}}_\ell=2\lVert[\psi_\ell]\rVert_{\mathrm{osc}},
+\label{eq:rg-tower-widths}
+\end{equation}
+so that $\omega_0=\omega^{\mathrm{st}}_0$. Let $\delta_\ell$ be the coefficient
+\eqref{eq:rg-action-dobrushin-coefficient} of $C^\dagger_\ell$, and let its
+projective diameter in the sense of Birkhoff, $\Delta_\ell\in[0,\infty]$, be the
+infimum of the $t\ge0$ for which
+\begin{equation}
+C^\dagger_\ell(z,A)C^\dagger_\ell(z',B)\le e^{t}C^\dagger_\ell(z',A)C^\dagger_\ell(z,B)
+\label{eq:rg-birkhoff-diameter}
+\end{equation}
+holds, for $(\bar{\mathsf m}_{\ell+1})^{\otimes2}$-almost every $(z,z')$, simultaneously
+for all Borel $A,B\subseteq\mathsf Y_\ell$, with
+$\Delta_\ell=\infty$ when no $t$ qualifies and $\tanh(\infty)=1$.
+
+(a) For $0\le\ell<L$,
+\begin{equation}
+\omega_{\ell+1}\le\min\Bigl\{\log\bigl(1+\delta_\ell(e^{\omega_\ell}-1)\bigr),
+\tanh(\Delta_\ell/4)\omega_\ell\Bigr\}+\omega^{\mathrm{st}}_{\ell+1}.
+\label{eq:rg-contracted-width-recursion}
+\end{equation}
+When $\omega_\ell>0$, the first term of the minimum is smaller than $\omega_\ell$
+exactly when $\delta_\ell<1$, and the second exactly when $\Delta_\ell<\infty$.
+
+(b) The first term is the exact supremum at given coefficient and width: for every
+$\delta\in[0,1]$ and $x\ge0$ there are a normalized law on a two-point space, a
+channel into a two-point space whose reverse kernel has coefficient $\delta$, and a
+$\psi$ with $\operatorname*{ess~sup}\psi-\operatorname*{ess~inf}\psi=x$, for which
+$\operatorname*{ess~sup}\mathcal A(\psi)-\operatorname*{ess~inf}\mathcal
+A(\psi)=\log(1+\delta(e^x-1))$, and for $\delta>0$ this reverse kernel has infinite
+projective diameter. Hence no bound on the width of $\mathcal A_\ell(\psi)$ by a
+function of $\delta_\ell$ and the width of $\psi$ alone is smaller than the first
+term, and $\delta_\ell<1$ does not imply $\Delta_\ell<\infty$.
+
+(c) If $\delta_\ell\le\delta<1$ for $0\le\ell<L$ and
+$\omega^{\mathrm{st}}_\ell\le s$ for $1\le\ell\le L$ with $s<\log(1/\delta)$, read as
+$+\infty$ when $\delta=0$, then $\omega_\ell\le\max\{\omega_0,x_{\delta,s}\}$ for
+$0\le\ell\le L$, where $x_{\delta,s}$ is the unique $x\ge0$ with
+$x-\log(1+\delta(e^x-1))=s$. If instead $\Delta_\ell\le\Delta<\infty$ for
+$0\le\ell<L$ and $\omega^{\mathrm{st}}_\ell\le s$ for $1\le\ell\le L$, with no
+condition on $s\ge0$, then
+$\omega_\ell\le\max\{\omega_0,s/(1-\tanh(\Delta/4))\}$ for $0\le\ell\le L$. Neither bound depends on $L$, and by
+\Cref{cor:rg-perturbation-divergence-bounds} both divergences between
+$\bar{\mathsf m}_L$ and the normalization of $\widetilde{\mathsf m}_L$ are at most
+$\min\{\omega_L,\omega_L^2/8\}$.
+
+(d) If $C_\ell(y,A)=1_A(\chi_\ell(y))$ for a Borel map
+$\chi_\ell:\mathsf Y_\ell\to\mathsf Y_{\ell+1}$ and $\bar{\mathsf m}_{\ell+1}$ is not
+a point mass, then $\delta_\ell=1$ and $\Delta_\ell=\infty$, and
+\eqref{eq:rg-contracted-width-recursion} reduces to the additive recursion
+$\omega_{\ell+1}\le\omega_\ell+\omega^{\mathrm{st}}_{\ell+1}$ behind
+\eqref{eq:rg-perturbation-tower}. If every arrow has this form, $F$ is a bounded
+Borel function on $\mathsf Y_L$, $c_0,\ldots,c_L\ge0$, and
+$\psi_j=c_jF\circ\chi_{L-1}\circ\cdots\circ\chi_j$ (with $\psi_L=c_LF$), then
+$\omega_\ell=\sum_{j=0}^{\ell}\omega^{\mathrm{st}}_j$ for $0\le\ell\le L$, so the
+additive bound is attained at every depth.
+
+(e) For every $\psi\in L^\infty(\bar{\mathsf m}_\ell)$,
+$\log\bar{\mathsf m}_{\ell+1}(e^{-\mathcal A_\ell(\psi)})=\log\bar{\mathsf m}_\ell(e^{-\psi})$.
+With $\widehat{\mathsf n}_j=\widetilde{\mathsf m}_{j-1}C_{j-1}/\widetilde{\mathsf
+m}_{j-1}(\mathsf Y_{j-1})$ for $1\le j\le L$, the log evidence ratio decomposes as
+\begin{equation}
+\log\frac{\widetilde{\mathsf m}_L(\mathsf Y_L)}{M_L}
+=\log\bar{\mathsf m}_L(e^{-\mathfrak r_L})
+=\log\bar{\mathsf m}_0(e^{-\psi_0})+\sum_{j=1}^{L}\log\widehat{\mathsf n}_j(e^{-\psi_j}),
+\label{eq:rg-tower-offset-decomposition}
+\end{equation}
+each summand lying in
+$[-\operatorname*{ess~sup}\psi_j,-\operatorname*{ess~inf}\psi_j]$. Replacing one
+$\psi_j$ by $\psi_j+c$ for a constant $c$ leaves every $\omega_\ell$ and the
+normalization of every $\widetilde{\mathsf m}_\ell$ unchanged and lowers the log evidence
+ratio by exactly $c$, whatever the arrows, including arrows with $\delta_\ell=0$.
+\status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-network-coarsegraining}.
+
+The factor $\tanh(\Delta_\ell/4)$ in (a) has the form of the contraction ratio $\tanh(\Delta/4)$, in
+Hilbert's projective metric, of a positive linear map whose image cone has projective diameter
+$\Delta$ \citep[Sec.~4, Lemma~1, Eq.~(9a)]{Birkhoff1957}, stated for nonnegative kernels acting on
+nonnegative measures by \citet[Lemma~3.8, Eq.~(11)]{LeGlandOudjane2004}. The proof does not invoke
+that lemma: it bounds the width directly for rows defined almost everywhere, with $\Delta_\ell$
+defined on rows by the cross-ratio \eqref{eq:rg-birkhoff-diameter}.
+
+Along a stochastic tower the widths, which control the divergences, contract through
+\eqref{eq:rg-contracted-width-recursion}, while the offsets, which the evidence and
+the free energy carry, pass every arrow with coefficient one.
+
 \section{Finite-network interaction coordinates}
 \label{sec:rg-finite-network-interactions}
 
@@ -1350,6 +1501,56 @@ Q^{\mathrm{path}}$ supported on the support of $\mathbb P^{\mathrm{path}}_N$,
 whose worst case over such laws is set by the extrema of the log ratio, not by its
 $\mathbb P^{\mathrm{path}}_N$-average. \status{ESTABLISHED}
 
+\theoremheading{Memory identity on standard Borel records}{thm:rg-memory-borel-projection}
+Let $\mathbb P^{\mathrm{path}}_N$ be any law on $\mathsf Z^N$ for a record space
+$\mathsf Z$ that need not be finite, and for each position $t$ let $\mathbf f_t$ be a
+Borel map from $\mathsf Z^t$, a point when $t=0$, to a statistic space. Let
+$\mathsf T^{\mathbf f}_t$ be a regular conditional law of $Z_t$ given
+$\mathbf f_t(Z_{0:t-1})$ under $\mathbb P^{\mathrm{path}}_N$, let
+$\widetilde{\mathsf T}_t$ be any Markov kernel from the statistic space to
+$\mathsf Z$, and let $\widetilde{\mathbb P}$ be the law on $\mathsf Z^N$ under which
+$Z_t$ given $Z_{0:t-1}=z_{0:t-1}$ has law
+$\widetilde{\mathsf T}_t(\mathbf f_t(z_{0:t-1}),\cdot)$. A conditional mutual
+information is, as in \Cref{prop:obs-conditioning-information}, the average over the
+conditioning variable of the divergence between the conditional joint law and the
+product of the conditional marginals. Then, in $[0,+\infty]$, with no
+absolute-continuity or finiteness hypothesis, and whatever versions are chosen,
+\begin{equation}
+\begin{aligned}
+\KL\bigl(\mathbb P^{\mathrm{path}}_N\Vert\widetilde{\mathbb P}\bigr)
+&=D^{\mathbf f}_N+\sum_{t=0}^{N-1}\E_{\mathbb P^{\mathrm{path}}_N}
+\KL\bigl(\mathsf T^{\mathbf f}_t(\mathbf f_t(Z_{0:t-1}),\cdot)\big\Vert
+\widetilde{\mathsf T}_t(\mathbf f_t(Z_{0:t-1}),\cdot)\bigr),\\
+D^{\mathbf f}_N&=\sum_{t=0}^{N-1}I\bigl(Z_t;Z_{0:t-1}\given\mathbf f_t(Z_{0:t-1})\bigr).
+\end{aligned}
+\label{eq:rg-memory-borel-identity}
+\end{equation}
+Hence $D^{\mathbf f}_N$ is the minimum of the forward path divergence over all such
+laws $\widetilde{\mathbb P}$, attained when $\widetilde{\mathsf T}_t=\mathsf T^{\mathbf f}_t$
+for every $t$; if $D^{\mathbf f}_N<\infty$, subtracting it leaves the sum of expected
+row divergences as the excess risk; and the $t$-th term of $D^{\mathbf f}_N$ vanishes
+exactly when the law of $Z_t$ given $Z_{0:t-1}$ has a version that depends on the
+history only through $\mathbf f_t$. For $\mathbf f_t(z_{0:t-1})=\mathbf z_t$ of
+\Cref{def:rg-memory-projection},
+$I(Z_t;Z_{0:t-1}\given\mathbf z_t)=I(Z_t;Z_{0:t-k-1}\given\mathbf z_t)$, zero when the
+discarded history is empty, and on a finite $\mathsf Z$ the identity is
+\eqref{eq:rg-memory-information-defect} with \eqref{eq:rg-memory-excess-risk}. If at
+$\mathbb P^{\mathrm{path}}_N$-almost every history the competitor row at
+$\mathbf f_t(z_{0:t-1})$ is $e^{-\psi}$ times the source row there for a bounded
+$\psi$, that row divergence is at most
+$\min\{2\lVert[\psi]\rVert_{\mathrm{osc}},\lVert[\psi]\rVert_{\mathrm{osc}}^2/2\}$, with
+the oscillation norm taken under the source row, as in
+\Cref{cor:rg-perturbation-divergence-bounds}. \status{ESTABLISHED}
+
+The defect is what a predictor that reads the history only through $\mathbf f_t$
+loses by forgetting, and the row sum is what it loses by predicting badly from what it
+keeps. Neither the finite hidden chain of \Cref{def:rg-memory-hidden-path} nor a
+finite record set enters, so the identity covers record laws with continuous values.
+For the window statistic $\mathbf f_t(z_{0:t-1})=\mathbf z_t$ and a competitor that dominates
+$\mathbb P^{\mathrm{path}}_N$, \eqref{eq:rg-memory-borel-identity} is
+\citet[Sec.~7.3, Theorem~7.3.1, Eqs.~(7.13) and (7.16)]{Gray1990EIT} on standard alphabets; the
+theorem removes the domination hypothesis and allows any Borel statistic of the history.
+
 \theoremheading{Stationary projection and the finite hidden information budget}{thm:rg-memory-duration}
 Let the hidden chain of \Cref{def:rg-memory-hidden-path} start from a stationary law
 $p_0=\bar p$, $\bar p\mathsf T=\bar p$, restricted to its positive support, which is
@@ -1375,8 +1576,9 @@ entropy of the observed process in the sense of \citet{CrutchfieldFeldman2003}, 
 second line bounds it by the hidden-state entropy. No irreducibility or forgetting
 assumption is used. \status{ESTABLISHED}
 
-The proofs of \Cref{thm:rg-memory-projection,thm:rg-memory-duration} are in
-\cref{sec:proofs-network-coarsegraining}.
+The proofs of
+\Cref{thm:rg-memory-projection,thm:rg-memory-borel-projection,thm:rg-memory-duration}
+are in \cref{sec:proofs-network-coarsegraining}.
 
 The memory cost of a prepared parent whose within-parent refresh is only partial
 (\Cref{sec:rg-memory-parent-mechanism}) is the defect $D^{(1)}_N$ of

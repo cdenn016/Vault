@@ -44,10 +44,10 @@ Let \(\mathcal I_{\rm att}\) be a finite set of receiving rows, each an agent
 state (written \(i\) when no head is needed). Row \(i\) carries a source label
 \(J_i\) valued in the incoming edge copies of \(i\), with a structural prior
 row \(\pi_i\) independent of recognition whose support is the source set
-\(\mathcal N_i\); source sums and indices range over \(\mathcal N_i\). By
-\cref{sec:intro-conventions} the interaction multigraph at \(c_*\) is the union
-of these supports, complete unless a mask sets a prior weight to zero, and
-whether \(\mathcal N_i\) contains the self edge is part of the model. The
+\(\mathcal N_i\); source sums and indices range over \(\mathcal N_i\). These
+supports determine the interaction multigraph at \(c_*\) as in
+\cref{sec:intro-conventions}, and whether \(\mathcal N_i\) contains the self
+edge is part of the model. The
 labels augment the latent baseline independently,
 \begin{equation}
 \mathbb P_{\theta,V}^{Y,\mathrm{aug}}(dy,dj)
@@ -426,19 +426,20 @@ along the mean.
 The proof is in \cref{sec:proofs-attention}.
 
 \openproblemheading{Discrete creation and deletion of interaction edges}{open:obs-edge-creation}
-At \(c_*\) the interaction multigraph is the support of the source prior and
-belongs to the structural data. Every row of this chapter is strictly positive
-on it (\cref{prop:obs-attention-elbo}), and the row flows change no support at
+At \(c_*\) the source sets, and with them the interaction multigraph, belong to
+the structural data. Every row of this chapter is strictly positive on its
+source set (\cref{prop:obs-attention-elbo}), and the row flows change no support at
 finite time: along \eqref{eq:obs-attention-replicator},
 \(\beta^Q_{ij}(t)=\beta^Q_{ij}(0)\exp[-\int_0^t\mathsf r_i
 (\mathsf c_{ij}-\bar{\mathsf c}_i)ds]\) with
 \(\bar{\mathsf c}_i=\sum_k\beta^Q_{ik}\mathsf c_{ik}\) whenever the costs stay
 finite. Kinetics that change the support lie outside the model of this
 manuscript, and the problem fixes one rule so that the question is which
-normalized free energy, if any, such kinetics descend. Let the edge set be a
-multigraph on \(V\) with edge multiplicity at most a fixed bound, let a
-comparison energy \(D_{ij}\) be declared for every candidate copy \(j\to i\),
-present or absent, and let the rows on the current support follow
+normalized free energy, if any, such kinetics descend. Let the source sets be
+sets of copies of a multigraph on \(V\) with edge multiplicity at most a fixed
+bound, let a comparison energy \(D_{ij}\) be declared for every candidate copy
+\(j\to i\), present in the source set of \(i\) or absent, and let the rows on the
+current support follow
 \eqref{eq:obs-attention-replicator}. The threshold rule deletes a present copy
 at a rate that is a continuous nonincreasing function of its recognition row
 weight \(\beta^Q_{ij}\), positive below a threshold in \((0,1)\) and zero
@@ -449,11 +450,11 @@ receiver's row is restricted to the remaining copies and renormalized, and at
 a creation the new copy enters the row at the deletion threshold and the row
 is renormalized. The rule reads the recognition law and the averaged
 energies and no law over multigraphs. The problem is settled, for some pair
-of such rate functions, by a normalized joint at \(c_*\) in which the edge
-set is a structural coordinate, declared as a configuration prior or
+of such rate functions, by a normalized joint at \(c_*\) in which the source
+sets are a structural coordinate, declared as a configuration prior or
 structural channel with a named law and coupled to the link, interface, and
 label variables, such that the collective VFE decomposition of
-\cref{thm:obs-collective-vfe} holds with the edge set as a coordinate, the
+\cref{thm:obs-collective-vfe} holds with the source sets as a coordinate, the
 event law of \cref{def:obs-attention-event-law} and its pushforward in
 \cref{sec:rg-meta-attention} extend to the random support with the
 zero-occupancy convention used there, and the recognition law over supports,
@@ -863,7 +864,7 @@ Token position & Agent $i\in V$ at $c_*$, its embedding read as a coordinate of 
 Query and key projections & $S^Q_e=S^Q_{\rm ref}U_i^{-1}$, $S^K_e=S^K_{\rm ref}U_j^{-1}$ and the role divergence \eqref{eq:obs-selective-role-divergence}; with a common projected key covariance, a dot-product logit plus a key-norm bias, \eqref{eq:obs-selective-dot-product}. & derived, \cref{cor:obs-selective-softmax} \\
 One key map shared by all edges & Independent links enter $S^K_e=S^K_{\rm ref}U_i^{-1}\Theta_e$ only through the represented edge twist $U_i^{-1}\Theta_eU_j$; the shared map is the identity-twist case $\Theta_e=U_iU_j^{-1}$, and a nonidentity twist, including nontrivial link holonomy, has no counterpart in that architecture. & derived, \cref{prop:geo-edge-twist-invariance} \\
 Softmax row & Generative posterior of a categorical source label, \eqref{eq:obs-attention-posterior}; over law-point divergences, the posterior row at a latent configuration, \eqref{eq:obs-selective-row-functional}, not the recognition optimum. & derived, \cref{prop:obs-attention-elbo,cor:obs-selective-softmax} \\
-Attention mask & Zero prior weight: the source lies outside the support of $\pi_i$, hence outside the interaction multigraph, where the posterior row vanishes. & derived, \cref{prop:obs-attention-elbo} \\
+Attention mask & Zero prior weight: the source lies outside the support of $\pi_i$, the source set $\mathcal N_i$, where the posterior row vanishes. & derived, \cref{prop:obs-attention-elbo} \\
 Temperature, inverse square root of key width & The temperature $\tau_i>0$ of \eqref{eq:obs-attention-likelihood}; for $\Sigma^K=\varsigma^2I$ the dot-product part of the logit $-d_{ij}/\tau_i$ is $(\mu_i^Q)^\top\mu_j^K/(\varsigma^2\tau_i)$, and $\varsigma^2\tau_i=\sqrt{\dim H^{\rm cmp}_i}$ reproduces the scaled dot product, a choice not derived here. & declared \\
 Value and output maps, residual connection & Declared in \eqref{eq:obs-selective-attention-residual}; in the comparison-record model the exact update fixes the value map $\mathsf L_e^{\rm val}$ and weights the residual by $\Sigma_i^+\Sigma_i^{-1}$. & derived, \cref{prop:obs-selective-receiver-update} \\
 Multiple heads & Declared per-head rows $\beta_{ij}^{(h)}$; no label-level construction, and no head index in the event law \eqref{eq:rg-attention-event-law}. & absent, \cref{open:obs-multihead-attention} \\
@@ -991,7 +992,7 @@ with a normalized prior and declared dynamics in the augmented state, and
 natural-gradient evolution needs a regular configuration metric or a justified
 quotient; endpoint covariance specifies neither the metric nor the learning
 rule. In both cases the dynamics move link values and interface maps on the
-edge copies of the support of the source prior; creating or deleting edge
+edge copies of the interaction multigraph; creating or deleting edge
 copies is \cref{open:obs-edge-creation}.
 
 \section{Information loss and descent}
@@ -1144,7 +1145,7 @@ that relative entropy bounded below on those horizons as
 
 \paragraph{Physicist's summary.}
 Attention is inference over a hidden pointer: a categorical label names whom a
-receiver listens to, its prior's support is the interaction graph, and its
+receiver listens to, its prior's support is the receiver's source set, and its
 record's likelihood falls with a comparison energy. Bayes' formula gives the
 softmax row, masks are zero prior weights, and the temperature is a free
 parameter of the record, of which the inverse-square-root key-width scaling is

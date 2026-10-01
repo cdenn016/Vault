@@ -94,6 +94,61 @@ statement with $Q=P_0$ for each $\theta$. This is the commutative case of the ch
 theorem of \citet{Petz1988}, whose reference-dependent reverse map is here the Bayes kernel $R_Q$.
 $\square$
 
+\propositionheading{Common recovery by likelihood descent}{prop:cg-descent-common-recovery}
+Let $K:\mathsf X\rightsquigarrow\mathsf Y$ be a coarse channel, let $\{P_\theta\}_{\theta\in\Theta}$ be
+laws on $\mathsf X$ dominated by a law $P_0$, with likelihood ratios $r_\theta=dP_\theta/dP_0$, and let
+$R_{P_0}$ be a regular conditional law of $X$ given $Y$ under $\mathbb J_{P_0}(dx,dy)=P_0(dx)K(x,dy)$;
+no relative entropy is assumed finite. The density $r=dP/dP_0$ of a law $P\ll P_0$ descends when it
+agrees $\mathbb J_{P_0}$-almost everywhere with a measurable function of the coarse coordinate, which is
+then $\bar r=d(PK)/d(P_0K)$:
+\begin{equation}
+r(x)=\bar r(y)\qquad\text{for }\mathbb J_{P_0}\text{-almost every }(x,y).
+\label{eq:cg-likelihood-descent}
+\end{equation}
+(i) One Markov kernel $R:\mathsf Y\rightsquigarrow\mathsf X$ recovers $P_0$ and every $P_\theta$, that
+is, $P_0KR=P_0$ and $P_\theta KR=P_\theta$, exactly when every $r_\theta$ descends, and $R_{P_0}$ is then
+such a kernel. The laws $P\ll P_0$ that $R_{P_0}$ recovers are those whose density descends; when
+every $r_\theta$ descends, they include every law whose density lies in the $L^1(P_0)$-closed linear
+span of the constant $1$ and the $r_\theta$. For the records of \Cref{def:rg-measure-pair}, with $P_0=\varrho$, the family
+$\{\bar{\mathsf m}_o\}$ indexed by records $o$, and $K=C$, the likelihood ratios are $L_o/M_o$ and
+their pushed densities are $L^c_o/M_o$, so one kernel recovers the reference and every
+$\bar{\mathsf m}_o$ exactly when each record likelihood $L_o$ agrees with its effective likelihood
+$L^c_o$ almost everywhere under the reference joint. (ii) For the deterministic kernel $K_c$ of a
+statistic $c:\mathsf X\to\mathsf Y$, descent reads $r=\bar r\circ c$ $P_0$-almost everywhere, and a
+Markov kernel $R$ supported on fibers, $R(y,c^{-1}(\{y\}))=1$ for $c_\#P_0$-almost every $y$, recovers
+$P_0$ exactly when it is a version of $R_{P_0}$. A kernel supported on fibers therefore recovers $P_0$
+and every $P_\theta$ exactly when it is a version of $R_{P_0}$ and every $r_\theta$ descends, and it is
+then unique up to a $c_\#P_0$-null set. (iii) Let $\mathsf X=\mathsf X_1\times\mathsf X_2$ with
+coordinates $X_1,X_2$, let $c:\mathsf X_1\to\mathsf Y$ be a statistic, and let the channel be the
+deterministic kernel of $c\times\operatorname{id}_{\mathsf X_2}:\mathsf X\to\mathsf Y\times\mathsf X_2$,
+which coarsens $X_1$ and retains $X_2$. A kernel $R((y,x_2),\cdot)=R'(y,\cdot)\otimes\delta_{x_2}$, which
+does not read the retained coordinate, with $R':\mathsf Y\rightsquigarrow\mathsf X_1$ satisfying
+$R'(y,c^{-1}(\{y\}))=1$ for $(c(X_1))_\#P_0$-almost every $y$, recovers $P_0$ and every $P_\theta$ exactly when $R'$ is a regular conditional law of
+$X_1$ given $c(X_1)$ under $P_0$, $X_1$ and $X_2$ are conditionally independent given $c(X_1)$ under
+$P_0$, and every $r_\theta$ descends. Descent does not imply the conditional independence: for
+$\mathsf X_1=\mathsf X_2=\{0,1\}$, $P_0$ uniform on $\{(0,0),(1,1)\}$, the family $\{P_0\}$, and
+$\mathsf Y$ a point, $R_{P_0}$ recovers $P_0$, while every kernel that does not read $X_2$ sends $P_0$ to
+a law giving mass $1/2$ to the $P_0$-null set $\{x_1\neq x_2\}$. \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-coarse-channels}.
+
+Part (i) replaces the simultaneous finite equalities in the family clause of
+\Cref{cor:cg-pairwise-bayes-recovery} by descent, a condition on likelihood ratios rather than on
+relative entropies; under finite divergence the two agree by \Cref{thm:cg-dpi-equality}, while
+\Cref{cor:cg-dpi-infinite-equality-warning} shows that the relative-entropy form fails without
+finiteness. For a channel that coarsens a block and leaves the other agents unchanged, part (iii)
+separates reconstruction of the block from its coarse coordinate alone from reconstruction that also
+reads the other agents.
+
+For a deterministic channel, the equivalence in (ii) between descent of every likelihood ratio and
+recovery of the family by $R_{P_0}$ is the factorization theorem of
+\citet[Sec.~5, Theorem~1]{HalmosSavage1949} applied to the set $\{P_0\}\cup\{P_\theta\}$, which is
+equivalent to $P_0$. For finitely many $\theta$, part (i) characterizes when the coarse experiment is
+sufficient for the fine one in the sense of \citet[Sec.~2]{Blackwell1953}, and the conditions of part
+(iii) on $P_0$ and the $r_\theta$ are equivalent to adequacy \citep[Sec.~2, Definition~1]{Skibinsky1967}
+of the $\sigma$-algebra of $c(X_1)$ for that of $X_1$ with respect to that of $X_2$ and the family
+$\{P_0\}\cup\{P_\theta\}$.
+
 \corollaryheading{Infinite equality carries no recovery conclusion}{cor:cg-dpi-infinite-equality-warning}
 The finiteness hypothesis of \Cref{thm:cg-dpi-equality} cannot be removed from its equality
 characterization: $\KL(PK\Vert QK)=\KL(P\Vert Q)=+\infty$ does not imply that one reverse kernel

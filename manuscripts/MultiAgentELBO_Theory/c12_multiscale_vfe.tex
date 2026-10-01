@@ -2,7 +2,7 @@
 \label{ch:full-graph-meta-agent-vfe}
 
 This chapter asks what probabilistic structure places adaptive event laws and links
-on the support of the source prior, random partitions, and the influence of parents
+on the interaction multigraph, random partitions, and the influence of parents
 on their children inside one variational free energy, and how a tower of such depths
 closes. The answer is the free energy of one normalized generative law and one
 recognition law over the whole tower (\Cref{def:full-graph-tower-vfe}). For an
@@ -77,8 +77,8 @@ At depth $\ell$ let $V_\ell$ be the vertex set and let $Z_\ell=(Z_{i,\ell})_{i\i
 V_\ell}$ contain the full probabilistic coordinates of that depth, belief and model
 presentations rather than only their marginals. The graph datum lives on a finite
 interaction multigraph $\mathfrak I_\ell=(V_\ell,E_\ell,\bar{\ })$
-(\Cref{def:geo-graph-links}), at depth $0$ the support of the source prior and at
-deeper depths induced by the link lift of \Cref{def:full-graph-coarse-links}. Put
+(\Cref{def:geo-graph-links}), at depth $0$ the multigraph of \cref{sec:intro-conventions} and at deeper depths
+induced by the link lift of \Cref{def:full-graph-coarse-links}. Put
 \begin{equation}
 \eta_\ell=(\eta^{b,\ell},\eta^{m,\ell}),
 \qquad
@@ -277,7 +277,9 @@ the copies received by $i$, the occupancies and rows of an event law are
 with pair rows $\beta^{x,\ell}_{ij}=\sum_{e:j\to i}\beta^{x,\ell}_e$. The rows are the
 conditional source laws of whichever event law is displayed, generative, posterior,
 or recognition; a row of zero occupancy is not determined by the joint law. With
-normalized copy priors $\pi^{x,\ell}_i$ on $E_\ell(i)$ and temperatures
+normalized copy priors $\pi^{x,\ell}_i$ on $E_\ell(i)$ at every vertex $i$ that carries a row (a
+vertex with an empty source set carries no row and has zero occupancy, although $E_\ell(i)$ may
+contain the reversals of copies it sends) and temperatures
 $\tau^x_{i,\ell}>0$, the row free energies in energy units are
 \begin{equation}
 \Fenergy^{\mathrm{att},x}_{i,\ell}
@@ -336,9 +338,10 @@ potential
 +\sum_\ell\mathcal J^\ell_{\mathrm{link}},
 \label{eq:full-graph-composite-potential}
 \end{equation}
-with the partition and cross-scale terms of \eqref{eq:full-graph-partition-free-energy}
-and \eqref{eq:full-graph-cross-scale-kl} and a declared link regularizer $\mathcal
-J^\ell_{\mathrm{link}}$. It is a descent potential and carries no evidence
+where the sum over $i$ runs over the vertices that carry a row, a term of zero occupancy is
+zero, the partition and cross-scale terms are those of \eqref{eq:full-graph-partition-free-energy}
+and \eqref{eq:full-graph-cross-scale-kl}, and $\mathcal J^\ell_{\mathrm{link}}$ is a declared link
+regularizer. It is a descent potential and carries no evidence
 interpretation of its own.
 
 \section{Partition variables and event pushforwards}

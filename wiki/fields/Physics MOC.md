@@ -142,3 +142,7 @@ See the [[Disciplines MOC]] hub for all fields.
 ## Observed-link Gaussian parent reference, September 30, 2026
 
 [[multiagentelbo-2026-09-30-gaussian-parent-dynamics]] records seven tiny CPU tests and 95 passing comparisons across five 512-agent cases, actual-history filtering and finite-path Markov information loss. External controls and network-sized conditionals do not establish endogenous learning or autonomous parent closure.
+
+[[multiagentelbo-2026-09-30-spin-foam-integration-review]] records the eight-investigator review of the spin-foam boundary companion, four statements integrated into the MultiAgentELBO theory (memory identity on standard Borel records, two-sided bounded-tier divergence bounds, tree-transport composition, and recovery by likelihood descent), and their Claude Fable 5.1 verification.
+
+[[multiagentelbo-2026-09-30-locality-parent-memory]] records parent-memory decay across locality priors at N = 64 to 2,048: local priors keep finite size-independent memory, while complete support becomes nearly Markov by exchangeability.
