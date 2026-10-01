@@ -148,8 +148,10 @@ space $\mathsf S$. Laws and kernels are normalized and measurable. A coarse chan
 kernel on latent coordinates that does not depend on the recognition law, leaves observations unchanged, and
 is vertical over the identity of $c_*$. An admitted observation has finite positive evidence. Structural data
 are parameters unless a configuration prior or a structural channel is declared, and the declaration names
-its law. The interaction graph at $c_*$ is the support of the source prior, a structural parameter that is
-complete unless masked. Gibbs attention weights are strictly positive on positive-prior edges when their
+its law. The interaction multigraph at $c_*$ is a structural parameter whose edge copies come in reversal
+pairs; it contains every copy in the support of a receiving row's source prior and, unless a model adds
+further copies, is the reversal closure of the union of these supports. Each support is complete unless
+masked, and supports need not be symmetric: a receiver may attend to a source that does not attend to it. Gibbs attention weights are strictly positive on positive-prior edges when their
 costs are finite; the extended-cost rows of \Cref{prop:full-graph-gibbs-rows} can assign zero weight to
 infinite-cost edges. Dynamic structure is carried by attention weights and link values. Discrete creation and deletion of edges is not part of the model; it is
 \Cref{open:obs-edge-creation}. Coarse multigraphs are induced structure. Absolute continuity of a recognition

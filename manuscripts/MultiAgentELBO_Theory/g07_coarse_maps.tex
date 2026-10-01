@@ -13,7 +13,13 @@ cut weights and self terms and annihilates internal edges
 (\Cref{prop:cg-gaussian-aggregation}), and the coarse law is the fine law
 conditioned on zero within-cluster disagreement
 (\Cref{prop:cg-aggregation-conditioning}), which is also a precision-dependent
-linear pushforward (\Cref{prop:ig-galerkin-pushforward}). Kron reduction
+linear pushforward (\Cref{prop:ig-galerkin-pushforward}). When a
+linear-Gaussian exterior record reads the latent coordinates, the pencil of the
+record and reference precisions selects the range of that pushforward: at each
+rank it gives the linear statistic with the largest exterior-predictive
+information, and on its range the coarse posterior of a surrogate that reads the
+record at the projected latent coincides with the coarse posterior
+(\Cref{prop:cg-exterior-interface}). Kron reduction
 marginalizes hidden agents. It is exact on the complete Gaussian action
 (\Cref{prop:cg-normalized-schur-action}) but leaves the matrix-weighted
 interaction family in general (\Cref{prop:cg-kron-leaves-family}), and
@@ -41,13 +47,17 @@ subscripts \(\mathrm r\) and \(\mathrm h\) for retained and hidden (eliminated)
 coordinates, \(V_{\mathrm r}\) and \(V_{\mathrm h}\) for retained and hidden
 vertices, \(M\) for the pivot of an elimination, \(H\) for the frame of a
 congruence-diagonal cone \(\mathcal W_H\), and \(t_1,t_2\) for positive test
-scales.
+scales. The symbols of the exterior interface (\(\Lambda_{\mathrm{rec}}\),
+\(\mathsf d_{\mathrm{ref},k}\), \(x_k\), \(c_k\), \(\tilde o_k\),
+\(\widetilde P_r\), \(\mathbf W\), and \(o_0\)) are declared in
+\Cref{prop:cg-exterior-interface}.
 
 This chapter does not claim that a separately fitted coarse coupling, or a
 learned or soft pooling, realizes an exact coarse map; those are different
 approximate models. Nor does it claim a canonical decomposition of a coarse
-operator into links and self terms, or monotonicity of an information
-functional along aggregation when the precision varies. Unrestricted Kron
+operator into links and self terms, monotonicity of an information
+functional along aggregation when the precision varies, or optimality of the
+exterior-informed interface among nonlinear statistics. Unrestricted Kron
 closure is refuted, and balanced cut links admit no continuous extension to all singular cuts
 (\Cref{open:cg-cut-compression}). The open items are monotonicity along aggregation with
 varying precision (\Cref{open:grg-galerkin-monotonicity}) and Kron
@@ -406,6 +416,467 @@ each fixed-precision fiber, and part (iii) gives it at every finite depth of a
 nested aggregation. Families on which \(\operatorname{range}(\Lambda S)\) varies,
 the singular boundary member of the biadditive family, and unbounded depth are
 \Cref{open:grg-galerkin-monotonicity}.
+
+\section{The exterior-informed interface}
+\label{sec:cg-exterior-interface}
+
+\Cref{prop:ig-galerkin-pushforward} takes the aggregation matrix \(S\) as given.
+When the latent coordinates are read by a linear-Gaussian exterior record, the
+precision that the record supplies and the reference precision form a pencil,
+and its leading generalized eigenvectors select a range. The next proposition
+shows that the linear statistic with this range keeps the most information
+about the record among linear statistics of its rank, computes the information
+it discards, identifies its projector with the Galerkin projector of
+\Cref{prop:ig-galerkin-pushforward}(iv), and records the metric conventions
+under which the discarded information is bracketed by Hilbert--Schmidt tails.
+Its untruncated two-block case is \eqref{eq:restrict-canonical-correlation-gap}.
+
+\propositionheading{Exterior-informed linear interface}{prop:cg-exterior-interface}
+Let the latent \(Y\in\R^n\) have the reference law
+\(p_\Lambda=\mathcal N(\Lambda^{-1}\mathsf h,\Lambda^{-1})\) with
+\(\Lambda\succ0\), and let the exterior record \(o\in\R^m\) have the conditional
+law \(p(\cdot\given y)=\mathcal N(\mathsf Cy+o_0,\Sigma_o)\) given \(Y=y\), with
+\(\mathsf C\in\R^{m\times n}\), \(o_0\in\R^m\), and \(\Sigma_o\succ0\); every
+jointly Gaussian pair \((Y,o)\) with positive-definite joint covariance has this
+form. Put \(\Lambda_{\mathrm{rec}}=\mathsf C^\top\Sigma_o^{-1}\mathsf C\), choose a
+generalized eigenbasis of the pencil \((\Lambda_{\mathrm{rec}},\Lambda)\),
+\begin{equation}
+\Lambda_{\mathrm{rec}}x_k=\mathsf d_{\mathrm{ref},k}\Lambda x_k,
+\qquad
+x_j^\top\Lambda x_k=\delta_{jk},
+\qquad
+\mathsf d_{\mathrm{ref},1}\geq\cdots\geq\mathsf d_{\mathrm{ref},n}\geq0,
+\label{eq:cg-exterior-pencil}
+\end{equation}
+and for \(0\leq r\leq n\) let \(S_r=[x_1,\ldots,x_r]\) and
+\begin{equation}
+\widetilde P_r=S_rS_r^\top\Lambda,
+\label{eq:cg-exterior-projector}
+\end{equation}
+the \(\Lambda\)-orthogonal projector onto \(\operatorname{span}\{x_1,\ldots,x_r\}\);
+the statistic \(\widetilde P_rY\) is the interface of rank \(r\). Write
+\(c_k=x_k^\top\Lambda Y\) for the \(\Lambda\)-dual coordinates, and
+\(\tilde o_k=\mathsf d_{\mathrm{ref},k}^{-1/2}x_k^\top\mathsf C^\top\Sigma_o^{-1}(o-o_0)\)
+whenever \(\mathsf d_{\mathrm{ref},k}>0\). For a linear statistic \(\mathbf WY\) with
+\(\mathbf W\in\R^{n'\times n}\), call \(I(o;\mathbf WY)\) its exterior-predictive
+information and \(I(o;Y\given\mathbf WY)=I(o;Y)-I(o;\mathbf WY)\) its discarded
+information, and let the reference-conditioned lift \(\bar p^{\mathbf W}_o\) be the
+law of \(Y\) obtained by drawing \(\mathbf WY\) from its conditional law given
+\(o\) and then \(Y\) from the conditional law of \(p_\Lambda\) given
+\(\mathbf WY\). For \(\mathbf W\in\R^{n\times n}\) the surrogate posterior and
+surrogate evidence
+\begin{equation}
+\widehat p^{\mathbf W}_o(dy)=\frac{p_\Lambda(y)p(o\given\mathbf Wy)}{\widehat Z^{\mathbf W}(o)}dy,
+\qquad
+\widehat Z^{\mathbf W}(o)=\int_{\R^n}p_\Lambda(y)p(o\given\mathbf Wy)dy,
+\label{eq:cg-exterior-surrogate}
+\end{equation}
+keep the full reference law and read the record at \(\mathbf Wy\), that is, with
+mean \(\mathsf C\mathbf Wy+o_0\). Write \(p(\cdot\given o)\) for the posterior law of
+\(Y\) and \(p(o)\) for the evidence. Then the following hold for every
+\(\mathsf h\) and every \(o_0\).
+(i) The conditional precision of \(Y\) given \(o\) is \(\Lambda+\Lambda_{\mathrm{rec}}\),
+and the \(x_k\) are generalized eigenvectors of
+\((\Lambda_{\mathrm{rec}},\Lambda+\Lambda_{\mathrm{rec}})\) with eigenvalues
+\(\mathsf d_k=\mathsf d_{\mathrm{ref},k}/(1+\mathsf d_{\mathrm{ref},k})\). At most
+\(\min(n,m)\) of the \(\mathsf d_{\mathrm{ref},k}\) are positive, and
+\(\check\rho_k=\mathsf d_k^{1/2}\), \(k\leq\min(n,m)\), are the canonical
+correlations of \((Y,o)\) in the sense of
+\Cref{prop:restrict-canonical-correlation}, so that
+\(\mathsf d_{\mathrm{ref},k}=\check\rho_k^2/(1-\check\rho_k^2)\); put
+\(\check\rho_k=0\) for \(k>\min(n,m)\). The coordinates are canonical variates:
+\(\operatorname{Cov}(c_j,c_k)=\delta_{jk}\),
+\(\operatorname{Cov}(\tilde o_j,\tilde o_k)=(1+\mathsf d_{\mathrm{ref},k})\delta_{jk}\),
+the correlation of \(c_j\) and \(\tilde o_k\) is \(\check\rho_k\delta_{jk}\), and a
+linear functional of \(o\) uncorrelated with every \(\tilde o_k\) is uncorrelated
+with \(Y\). The interface \(\widetilde P_rY=S_r(c_1,\ldots,c_r)^\top\) generates
+the same \(\sigma\)-algebra as \((c_1,\ldots,c_r)\).
+(ii) For every \(\mathbf W\in\R^{n'\times n}\) of rank at most \(r\),
+\begin{equation}
+I(o;\mathbf WY)\leq\frac12\sum_{k=1}^r\log\left(1+\mathsf d_{\mathrm{ref},k}\right)=I(o;\widetilde P_rY),
+\qquad
+I(o;Y\given\mathbf WY)=\int\KL\left(p(\cdot\given o)\Vert\bar p^{\mathbf W}_o\right)p(o)do,
+\label{eq:cg-exterior-optimality}
+\end{equation}
+so among linear statistics of rank at most \(r\) the interface maximizes the
+exterior-predictive information and minimizes the discarded information, which
+is the evidence-averaged relative entropy of the posterior from the
+reference-conditioned lift. If \(r<n\) and
+\(\mathsf d_{\mathrm{ref},r}>\mathsf d_{\mathrm{ref},r+1}\), equality in the
+inequality holds only when \(\mathbf WY\) and \(\widetilde P_rY\) generate the same
+\(\sigma\)-algebra. For every \(\mathbf W\in\R^{n\times n}\) of rank at most \(r\),
+\(\int\KL(p(\cdot\given o)\Vert\widehat p^{\mathbf W}_o)p(o)do\geq I(o;Y\given\mathbf WY)\).
+(iii) The minimal discarded information is
+\begin{equation}
+I(o;Y\given\widetilde P_rY)
+=\frac12\sum_{k>r}\log\left(1+\mathsf d_{\mathrm{ref},k}\right)
+=-\frac12\sum_{k>r}\log\left(1-\check\rho_k^2\right)
+=\int\KL\left(p(\cdot\given o)\Vert\widehat p^{\widetilde P_r}_o\right)p(o)do
+\label{eq:cg-exterior-loss}
+\end{equation}
+nats. At \(r=0\) it is \(I(o;Y)\), the two-block gap
+\eqref{eq:restrict-canonical-correlation-gap} of the joint precision of
+\((Y,o)\). By (ii), \(\widetilde P_r\) minimizes the evidence-averaged surrogate
+relative entropy over all \(\mathbf W\in\R^{n\times n}\) of rank at most \(r\).
+(iv) Under \(p_\Lambda\) the components \(\widetilde P_rY\) and
+\((I-\widetilde P_r)Y\) are independent, and with \(w=(I-\widetilde P_r)y\),
+\begin{equation}
+p(o\given y)=p(o\given\widetilde P_ry)
+\exp\left[(o-o_0)^\top\Sigma_o^{-1}\mathsf Cw-\frac12w^\top\Lambda_{\mathrm{rec}}w\right].
+\label{eq:cg-exterior-factor}
+\end{equation}
+For every \(o\) the law of \(\widetilde P_rY\) is the same under
+\(p(\cdot\given o)\) and under \(\widehat p^{\widetilde P_r}_o\), so the coarse
+relative entropy vanishes, and \(\widehat p^{\widetilde P_r}_o=\bar p^{\widetilde P_r}_o\).
+In the notation of \eqref{eq:ig-galerkin-projector} with \(S=S_r\),
+\(P_{\Lambda+\Lambda_{\mathrm{rec}}}=P_\Lambda=S_r^\top\Lambda\), so
+\(\widetilde P_r=S_rP_{\Lambda+\Lambda_{\mathrm{rec}}}\) and the posterior law of
+\(\widetilde P_rY\) is the image under \(S_r\) of the Galerkin pushforward of
+\Cref{prop:ig-galerkin-pushforward}(iv). The identities \eqref{eq:cg-exterior-loss} and
+\eqref{eq:cg-exterior-factor}, the independence, the vanishing of the coarse relative entropy,
+\(\widehat p^{\widetilde P_r}_o=\bar p^{\widetilde P_r}_o\), the Galerkin identification, and
+\eqref{eq:cg-exterior-evidence} hold verbatim when \(x_1,\ldots,x_n\) is replaced by any reordering
+of any \(\Lambda\)-orthonormal generalized eigenbasis of the pencil, the sums over \(k>r\) running
+over its last \(n-r\) vectors, while the minimality statements of (ii) and (iii) use the ordering; when \(r<n\) and
+\(\mathsf d_{\mathrm{ref},r}>\mathsf d_{\mathrm{ref},r+1}\), the range of
+\(\widetilde P_r\) is the sum of the complete eigenspaces with eigenvalue at least
+\(\mathsf d_{\mathrm{ref},r}\), and \(\widetilde P_r\) is determined by
+\((\Lambda,\Lambda_{\mathrm{rec}})\). Neither the spectral range nor
+\(\Lambda\)-orthogonality can be dropped: for \(n=2\), \(m=1\), \(\mathsf h=0\),
+\(\Lambda=I_2\), \(\mathsf C=e_1^\top\), \(\Sigma_o=1\), \(o_0=0\), and \(r=1\), the
+\(\Lambda\)-orthogonal projector onto the span of \((\cos\theta,\sin\theta)^\top\)
+with \(0<\theta<\pi/2\) gives the coarse coordinate the posterior variance
+\(1-\tfrac12\cos^2\theta\) under \(p(\cdot\given o)\) and
+\((1+\cos^2\theta)^{-1}\) under the surrogate, and the projector
+\(y\mapsto(y_1+\kappa y_2,0)^\top\) with \(\kappa\neq0\), whose range
+\(\operatorname{span}\{x_1\}\) is spectral, gives \(\tfrac12+\kappa^2\) and
+\((1+\kappa^2)/(2+\kappa^2)\); in both cases the coarse relative entropy is
+positive for every \(o\). The surrogate evidence is a probability density on
+\(\R^m\), and
+\begin{equation}
+\int\log\frac{\widehat Z^{\widetilde P_r}(o)}{p(o)}p(o)do
+=-\frac12\sum_{k>r}\left[\mathsf d_{\mathrm{ref},k}-\log\left(1+\mathsf d_{\mathrm{ref},k}\right)
++\mathsf d_{\mathrm{ref},k}\left(x_k^\top\mathsf h\right)^2\right],
+\label{eq:cg-exterior-evidence}
+\end{equation}
+which equals \(-\KL(p(o)do\Vert\widehat Z^{\widetilde P_r}(o)do)\); \(\log(\widehat Z^{\widetilde P_r}(o)/p(o))\) is unbounded below in
+\(o\) when \(\mathsf d_{\mathrm{ref},k}>0\) for some \(k>r\).
+(v) Under a passive change of coordinates \(y'=R_Yy+a_Y\), \(o'=R_oo+a_o\) with
+\(R_Y\in\GL(n,\R)\), \(R_o\in\GL(m,\R)\), \(a_Y\in\R^n\), and \(a_o\in\R^m\), the
+transformed model has \(\Lambda'=R_Y^{-\top}\Lambda R_Y^{-1}\) and
+\(\Lambda_{\mathrm{rec}}'=R_Y^{-\top}\Lambda_{\mathrm{rec}}R_Y^{-1}\). The
+eigenvalues \(\mathsf d_{\mathrm{ref},k}\), \(\mathsf d_k\), and \(\check\rho_k\) and
+the discarded information \eqref{eq:cg-exterior-loss} are invariant, the vectors
+\(R_Yx_k\) form a \(\Lambda'\)-orthonormal generalized eigenbasis, and the
+projector and interface are covariant: \(\widetilde P_r'=R_Y\widetilde P_rR_Y^{-1}\),
+and \(\widetilde P_r'Y'=R_Y\widetilde P_rY+\widetilde P_r'a_Y\) generates the same
+\(\sigma\)-algebra as \(\widetilde P_rY\).
+(vi) For \(\mathsf G\succ0\) on \(\R^m\) define the Hilbert--Schmidt tail, without a
+factor one half,
+\begin{equation}
+\mathrm{HS}_r(\mathsf G)=\Tr\left(\Lambda^{-1}(I-\widetilde P_r)^\top\mathsf C^\top\mathsf G\mathsf C(I-\widetilde P_r)\right).
+\label{eq:cg-exterior-tail}
+\end{equation}
+Then \(\mathrm{HS}_r(\Sigma_o^{-1})=\sum_{k>r}\mathsf d_{\mathrm{ref},k}\), which equals
+the expected realized exterior error
+\(\int\lvert\Sigma_o^{-1/2}\mathsf C(I-\widetilde P_r)(y-\Lambda^{-1}\mathsf h)\rvert^2p_\Lambda(dy)\);
+for the marginal covariance \(\Sigma_{\mathrm{ext}}=\mathsf C\Lambda^{-1}\mathsf C^\top+\Sigma_o\)
+of \(o\), \(\mathrm{HS}_r(\Sigma_{\mathrm{ext}}^{-1})=\sum_{k>r}\check\rho_k^2\); and
+\begin{equation}
+\frac12\mathrm{HS}_r\left(\Sigma_{\mathrm{ext}}^{-1}\right)
+\leq I(o;Y\given\widetilde P_rY)
+\leq\frac12\mathrm{HS}_r\left(\Sigma_o^{-1}\right),
+\label{eq:cg-exterior-tail-bounds}
+\end{equation}
+with equality in either place only when \(\mathsf d_{\mathrm{ref},k}=0\) for every
+\(k>r\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Coordinates. The matrix \(\Lambda^{-1/2}\Lambda_{\mathrm{rec}}\Lambda^{-1/2}\succeq0\)
+has an orthonormal eigenbasis, and its image under \(\Lambda^{-1/2}\) is a basis
+as in \eqref{eq:cg-exterior-pencil}, with every \(\mathsf d_{\mathrm{ref},k}\geq0\).
+With \(S_n=[x_1,\ldots,x_n]\) one has \(S_n^\top\Lambda S_n=I_n\) and
+\(S_n^\top\Lambda_{\mathrm{rec}}S_n=\operatorname{diag}(\mathsf d_{\mathrm{ref},k})\),
+hence \(\Lambda^{-1}=S_nS_n^\top\) and \(y=S_nc\) with \(c=S_n^\top\Lambda y\); under
+\(p_\Lambda\) the vector \(c\) is \(\mathcal N(\bar c,I_n)\) with
+\(\bar c=S_n^\top\mathsf h\), so \(\bar c_k=x_k^\top\mathsf h\). By congruence the
+number \(q\) of positive \(\mathsf d_{\mathrm{ref},k}\) is
+\(\operatorname{rank}\Lambda_{\mathrm{rec}}\leq\min(n,m)\), and these are
+\(k=1,\ldots,q\). The vectors
+\(f_k=\mathsf d_{\mathrm{ref},k}^{-1/2}\Sigma_o^{-1/2}\mathsf Cx_k\), \(k\leq q\), are
+orthonormal in \(\R^m\), because
+\(f_j^\top f_k=(\mathsf d_{\mathrm{ref},j}\mathsf d_{\mathrm{ref},k})^{-1/2}x_j^\top\Lambda_{\mathrm{rec}}x_k\),
+and \(\Sigma_o^{-1/2}\mathsf Cx_k=0\) for \(k>q\), because its squared norm is
+\(\mathsf d_{\mathrm{ref},k}\). Hence
+\(\Sigma_o^{-1/2}\mathsf Cy=\sum_{k\leq q}\mathsf d_{\mathrm{ref},k}^{1/2}c_kf_k\) and
+\(\tilde o_k=f_k^\top\Sigma_o^{-1/2}(o-o_0)\). Let \(o^\perp\) be the orthogonal
+projection of \(\Sigma_o^{-1/2}(o-o_0)\) onto the orthogonal complement of
+\(\operatorname{span}\{f_k\}\). The map \(o\mapsto(\tilde o_1,\ldots,\tilde o_q,o^\perp)\)
+is an affine bijection with constant Jacobian, and
+\begin{equation}
+\log p(o\given y)=-\frac m2\log(2\pi)-\frac12\log\det\Sigma_o
+-\frac12\sum_{k\leq q}\left(\tilde o_k-\mathsf d_{\mathrm{ref},k}^{1/2}c_k\right)^2
+-\frac12\lvert o^\perp\rvert^2 .
+\label{eq:cg-exterior-whitened}
+\end{equation}
+Consequently the pairs \((c_k,\tilde o_k)\), \(k\leq q\), the coordinates \(c_k\),
+\(k>q\), and \(o^\perp\) are independent; \(\tilde o_k=\mathsf d_{\mathrm{ref},k}^{1/2}c_k+\tilde\xi_k\)
+with \(\tilde\xi_k\) standard normal; and given \(o\) the \(c_k\) are independent
+with laws \(\mathcal N\bigl((\bar c_k+\mathsf d_{\mathrm{ref},k}^{1/2}\tilde o_k)/(1+\mathsf d_{\mathrm{ref},k}),(1+\mathsf d_{\mathrm{ref},k})^{-1}\bigr)\)
+for \(k\leq q\) and \(\mathcal N(\bar c_k,1)\) for \(k>q\). The joint law of
+\((Y,o)\) is the image of the nondegenerate Gaussian law of \((Y,o-\mathsf CY-o_0)\)
+under a linear bijection; conversely, for a jointly Gaussian pair with
+positive-definite covariance, \(\mathsf C=\Sigma_{oY}\Sigma_{YY}^{-1}\) and
+\(\Sigma_o=\Sigma_{oo}-\Sigma_{oY}\Sigma_{YY}^{-1}\Sigma_{Yo}\succ0\) give the stated form.
+
+(i) The conditional covariance of \(c\) is
+\(\operatorname{diag}((1+\mathsf d_{\mathrm{ref},k})^{-1})\), so that of \(Y\) is
+\(S_n\operatorname{diag}((1+\mathsf d_{\mathrm{ref},k})^{-1})S_n^\top=(\Lambda+\Lambda_{\mathrm{rec}})^{-1}\),
+since \(S_n^{-\top}S_n^{-1}=\Lambda\) and
+\(S_n^{-\top}\operatorname{diag}(\mathsf d_{\mathrm{ref},k})S_n^{-1}=\Lambda_{\mathrm{rec}}\).
+The eigenvalue correspondence is \Cref{prop:grg-mass-pencil-transfer} with
+\(L=\Lambda_{\mathrm{rec}}\), \(\Lambda_{\mathrm{ref}}=\Lambda\), and \(\mathsf a=1\).
+Expanding \(\log p_\Lambda(y)+\log p(o\given y)\) shows that the joint precision of
+\((Y,o)\) has blocks \(\widehat\Lambda_{YY}=\Lambda+\Lambda_{\mathrm{rec}}\),
+\(\widehat\Lambda_{Yo}=-\mathsf C^\top\Sigma_o^{-1}\), and
+\(\widehat\Lambda_{oo}=\Sigma_o^{-1}\). For the factor \(\mathcal K\) of
+\eqref{eq:restrict-canonical-correlation-factor} built from these blocks,
+\(\mathcal K\mathcal K^\top=\widehat\Lambda_{YY}^{-1/2}\Lambda_{\mathrm{rec}}\widehat\Lambda_{YY}^{-1/2}\)
+is similar to \(\widehat\Lambda_{YY}^{-1}\Lambda_{\mathrm{rec}}\), whose eigenvalues
+are the \(\mathsf d_k\). The eigenvalues of \(\mathcal K\mathcal K^\top\) are the
+squared singular values of the \(n\times m\) matrix \(\mathcal K\) together with
+\(n-\min(n,m)\) zeros; since \(\mathsf d_k=0\) exactly for \(k>q\) and
+\(q\leq\min(n,m)\), the ordered squared singular values are
+\(\mathsf d_1,\ldots,\mathsf d_{\min(n,m)}\), which \Cref{prop:restrict-canonical-correlation}
+identifies with the squared canonical correlations; \(1+\mathsf d_{\mathrm{ref},k}=(1-\mathsf d_k)^{-1}\)
+gives the inverse relation. The covariances of the canonical variates follow
+from the independence structure above and \(\tilde o_k=\mathsf d_{\mathrm{ref},k}^{1/2}c_k+\tilde\xi_k\),
+and the correlation is
+\(\mathsf d_{\mathrm{ref},k}^{1/2}(1+\mathsf d_{\mathrm{ref},k})^{-1/2}=\check\rho_k\).
+For \(a\in\R^m\), \(\operatorname{Cov}(o)=\Sigma_{\mathrm{ext}}\) and
+\(\Sigma_{\mathrm{ext}}\Sigma_o^{-1}\mathsf Cx_k=\mathsf C(\Lambda^{-1}\Lambda_{\mathrm{rec}}+I)x_k=(1+\mathsf d_{\mathrm{ref},k})\mathsf Cx_k\)
+give
+\(\operatorname{Cov}(a^\top o,\tilde o_k)=\mathsf d_{\mathrm{ref},k}^{-1/2}(1+\mathsf d_{\mathrm{ref},k})a^\top\mathsf Cx_k\).
+If this vanishes for every \(k\leq q\), then \(a^\top\mathsf CS_n=0\), because
+\(\mathsf Cx_k=0\) for \(k>q\), so \(a^\top\mathsf C=0\) and
+\(\operatorname{Cov}(Y,a^\top o)=\Lambda^{-1}\mathsf C^\top a=0\). Finally
+\(\widetilde P_rY=S_rS_r^\top\Lambda Y=S_r(c_1,\ldots,c_r)^\top\) with \(S_r\) injective.
+
+(ii) Let \(r'\leq r\) be the rank of \(\mathbf W\), let the columns of
+\(\mathbf O_1\in\R^{n\times r'}\) be an orthonormal basis of the row space of
+\(\mathbf WS_n\), and complete them to an orthogonal matrix
+\(\mathbf O=[\mathbf O_1,\mathbf O_2]\). Put \(z_1=\mathbf O_1^\top c\) and
+\(z_2=\mathbf O_2^\top c\). Since \(\mathbf WS_n\mathbf O_2=0\),
+\(\mathbf WY=\mathbf WS_nc=(\mathbf WS_n\mathbf O_1)z_1\) with \(\mathbf WS_n\mathbf O_1\)
+injective, so \(\mathbf WY\) and \(z_1\) are linear functions of each other,
+generate the same \(\sigma\)-algebra, and have the same mutual information with
+\(o\). Under \(p_\Lambda\), \((z_1,z_2)\sim\mathcal N(\mathbf O^\top\bar c,I_n)\), so
+\(z_1\) and \(z_2\) are independent with unit covariances; given \(o\), \(z_1\) has
+the constant covariance \(\mathbf O_1^\top\mathsf M\mathbf O_1\) with
+\(\mathsf M=\operatorname{diag}((1+\mathsf d_{\mathrm{ref},k})^{-1})\). The expected
+logarithm of the ratio of the conditional and marginal Gaussian densities of
+\(z_1\) is therefore
+\begin{equation}
+I(o;\mathbf WY)=I(o;z_1)=-\frac12\log\det\left(\mathbf O_1^\top\mathsf M\mathbf O_1\right).
+\label{eq:cg-exterior-compressed-info}
+\end{equation}
+Order eigenvalues increasingly. By the Courant--Fischer characterization,
+\(\lambda_i(\mathbf O_1^\top\mathsf M\mathbf O_1)\) is the minimum over
+\(i\)-dimensional subspaces \(U\subseteq\R^{r'}\) of the maximum of
+\(u^\top\mathbf O_1^\top\mathsf M\mathbf O_1u\) over unit \(u\in U\); since
+\(\mathbf O_1\) is an isometry, \(\mathbf O_1U\) runs over some of the
+\(i\)-dimensional subspaces of \(\R^n\), so
+\(\lambda_i(\mathbf O_1^\top\mathsf M\mathbf O_1)\geq\lambda_i(\mathsf M)=(1+\mathsf d_{\mathrm{ref},i})^{-1}\)
+for \(i\leq r'\). Hence
+\(\det(\mathbf O_1^\top\mathsf M\mathbf O_1)\geq\prod_{i\leq r'}(1+\mathsf d_{\mathrm{ref},i})^{-1}\geq\prod_{i\leq r}(1+\mathsf d_{\mathrm{ref},i})^{-1}\),
+the last step because every factor is at most one, and
+\eqref{eq:cg-exterior-compressed-info} gives the inequality in
+\eqref{eq:cg-exterior-optimality}. For \(\mathbf W=\widetilde P_r\), by (i),
+\(\mathbf O_1\) may be taken to be the first \(r\) coordinate vectors, and
+\(\mathbf O_1^\top\mathsf M\mathbf O_1=\operatorname{diag}_{k\leq r}((1+\mathsf d_{\mathrm{ref},k})^{-1})\)
+attains the bound. Suppose now \(r<n\),
+\(\mathsf d_{\mathrm{ref},r}>\mathsf d_{\mathrm{ref},r+1}\), and equality. Then
+\(\mathsf d_{\mathrm{ref},i}\geq\mathsf d_{\mathrm{ref},r}>0\) for \(i\leq r\), so
+the second step is strict unless \(r'=r\); and since each of the \(r\) factor
+ratios is at least one, \(\lambda_i(\mathbf O_1^\top\mathsf M\mathbf O_1)=\mathsf M_{ii}\)
+for every \(i\leq r\). With weights \(\omega_k=\lvert\mathbf O_1^\top e_k\rvert^2\in[0,1]\),
+\(\sum_k\omega_k=r\), one has
+\(\Tr(\mathbf O_1^\top\mathsf M\mathbf O_1)=\sum_k\mathsf M_{kk}\omega_k\), and
+\begin{equation}
+\sum_k\mathsf M_{kk}\omega_k-\sum_{k\leq r}\mathsf M_{kk}
+=\sum_{k\leq r}\mathsf M_{kk}(\omega_k-1)+\sum_{k>r}\mathsf M_{kk}\omega_k
+\geq\left(\mathsf M_{r+1,r+1}-\mathsf M_{rr}\right)\sum_{k>r}\omega_k ,
+\end{equation}
+using \(\mathsf M_{kk}\leq\mathsf M_{rr}\) and \(\omega_k\leq1\) for \(k\leq r\),
+\(\mathsf M_{kk}\geq\mathsf M_{r+1,r+1}\) for \(k>r\), and
+\(\sum_{k\leq r}(\omega_k-1)=-\sum_{k>r}\omega_k\). The left side vanishes by the
+equality of eigenvalues and \(\mathsf M_{r+1,r+1}>\mathsf M_{rr}\), so
+\(\omega_k=0\) for \(k>r\), the range of \(\mathbf O_1\) is spanned by the first
+\(r\) coordinate vectors, and \(z_1\) is an invertible linear function of
+\((c_1,\ldots,c_r)\), whose \(\sigma\)-algebra is that of \(\widetilde P_rY\) by
+(i). For the lift, pass to the coordinates \((z_1,z_2)\) by a linear bijection,
+which preserves relative entropy (\Cref{lem:prob-kl-chain-rule}(e)). The
+posterior density is \(p(z_1\given o)p(z_2\given z_1,o)\) and the lift density is
+\(p(z_1\given o)p_\Lambda(z_2)\), because under the reference \(z_2\) is independent
+of \(z_1\). By Bayes' rule
+\(p(z_2\given z_1,o)=p(o\given z)p_\Lambda(z_2)/p(o\given z_1)\) with
+\(p(o\given z_1)=\int p(o\given z)p_\Lambda(dz_2)\), so the logarithm of the ratio
+of the two densities is \(\log p(o\given Y)-\log p(o\given z_1)\), and its
+expectation under the joint law is
+\(\E\log(p(o\given Y)/p(o))-\E\log(p(o\given z_1)/p(o))=I(o;Y)-I(o;z_1)\), all
+terms being finite Gaussian second moments. This is the identity in
+\eqref{eq:cg-exterior-optimality}. For \(\mathbf W\in\R^{n\times n}\),
+\(\mathbf Wy=\mathbf WS_n\mathbf O_1z_1\), so \(p(o\given\mathbf Wy)\) depends on \(z_1\)
+alone and the density of \(\widehat p^{\mathbf W}_o\) is proportional to
+\(p_\Lambda(z_1)p(o\given\mathbf WS_n\mathbf O_1z_1)p_\Lambda(z_2)\); its conditional
+law of \(z_2\) given \(z_1\) is \(p_\Lambda(z_2)\), that of the lift.
+\Cref{lem:prob-kl-chain-rule}(a), with \(z_1\) as the first coordinate, writes
+\(\KL(p(\cdot\given o)\Vert\widehat p^{\mathbf W}_o)\) as the relative entropy of the
+\(z_1\)-marginals plus
+\(\int\KL(p(z_2\given z_1,o)\Vert p_\Lambda(z_2))p(dz_1\given o)\), and the same
+lemma writes \(\KL(p(\cdot\given o)\Vert\bar p^{\mathbf W}_o)\) as this second term
+alone, since the lift has the posterior \(z_1\)-marginal. Integrating over \(o\)
+gives the last inequality of (ii).
+
+(iii) With \(\mathbf O_1=\mathbf O=I_n\), \eqref{eq:cg-exterior-compressed-info} gives
+\(I(o;Y)=\frac12\sum_{k\leq n}\log(1+\mathsf d_{\mathrm{ref},k})\), and (ii) gives
+\(I(o;\widetilde P_rY)=\frac12\sum_{k\leq r}\log(1+\mathsf d_{\mathrm{ref},k})\); their
+difference is the first expression in \eqref{eq:cg-exterior-loss}, and
+\(1+\mathsf d_{\mathrm{ref},k}=(1-\check\rho_k^2)^{-1}\) with (i) gives the second.
+At \(r=0\), \Cref{prop:restrict-canonical-correlation} identifies
+\(-\frac12\sum_{k\leq\min(n,m)}\log(1-\check\rho_k^2)\) with the two-block gap and
+with the mutual information of the blocks. The last equality in
+\eqref{eq:cg-exterior-loss} is \(\widehat p^{\widetilde P_r}_o=\bar p^{\widetilde P_r}_o\)
+from (iv) with the identity in \eqref{eq:cg-exterior-optimality}. None of these
+steps uses \(\mathsf h\) or \(o_0\).
+
+(iv) \(\widetilde P_rY=\sum_{k\leq r}c_kx_k\) and
+\((I-\widetilde P_r)Y=\sum_{k>r}c_kx_k\) are functions of disjoint sets of the
+independent coordinates \(c_k\). The point \(\widetilde P_ry\) has coordinates
+\((c_1,\ldots,c_r,0,\ldots,0)\), so \(p(o\given\widetilde P_ry)\) is
+\eqref{eq:cg-exterior-whitened} with \(c_k=0\) for \(k>r\), and the ratio
+\(p(o\given y)/p(o\given\widetilde P_ry)\) is
+\(\exp\sum_{r<k\leq q}[\mathsf d_{\mathrm{ref},k}^{1/2}\tilde o_kc_k-\frac12\mathsf d_{\mathrm{ref},k}c_k^2]\).
+Since \((o-o_0)^\top\Sigma_o^{-1}\mathsf Cx_k=\mathsf d_{\mathrm{ref},k}^{1/2}\tilde o_k\)
+for \(k\leq q\), \(\mathsf Cx_k=0\) for \(k>q\), and
+\(w^\top\Lambda_{\mathrm{rec}}w=\sum_{k>r}\mathsf d_{\mathrm{ref},k}c_k^2\), this is
+\eqref{eq:cg-exterior-factor}. In the coordinates \(c\), the density of
+\(\widehat p^{\widetilde P_r}_o\) is proportional to
+\(\prod_k\mathcal N(c_k;\bar c_k,1)\exp[-\frac12\sum_{k\leq\min(r,q)}(\tilde o_k-\mathsf d_{\mathrm{ref},k}^{1/2}c_k)^2]\).
+Under it the \(c_k\) are independent, with the posterior laws above for
+\(k\leq r\) and the reference laws \(\mathcal N(\bar c_k,1)\) for \(k>r\). The first
+statement gives equality of the laws of \((c_1,\ldots,c_r)\), hence of
+\(\widetilde P_rY\); the second says that the surrogate is the posterior law of
+\((c_1,\ldots,c_r)\) followed by the reference conditional law of the remaining
+coordinates, which by independence is their reference law, and this is
+\(\bar p^{\widetilde P_r}_o\). For the Galerkin projector,
+\(x_k^\top\Lambda_{\mathrm{rec}}=\mathsf d_{\mathrm{ref},k}x_k^\top\Lambda\) gives
+\(S_r^\top(\Lambda+\Lambda_{\mathrm{rec}})=\operatorname{diag}_{k\leq r}(1+\mathsf d_{\mathrm{ref},k})S_r^\top\Lambda\)
+and
+\(S_r^\top(\Lambda+\Lambda_{\mathrm{rec}})S_r=\operatorname{diag}_{k\leq r}(1+\mathsf d_{\mathrm{ref},k})\),
+so \(P_{\Lambda+\Lambda_{\mathrm{rec}}}=S_r^\top\Lambda=P_\Lambda\). By (i),
+\(\Lambda+\Lambda_{\mathrm{rec}}=\widehat\Lambda_{YY}\), so the posterior law of
+\(P_{\widehat\Lambda_{YY}}Y\) is the pushforward of
+\Cref{prop:ig-galerkin-pushforward}(iv), and \(\widetilde P_rY=S_rP_{\widehat\Lambda_{YY}}Y\).
+The arguments of (iii) and of this part use only that \(x_1,\ldots,x_n\) is a
+\(\Lambda\)-orthonormal generalized eigenbasis; the order enters only the
+inequality of (ii). When \(\mathsf d_{\mathrm{ref},r}>\mathsf d_{\mathrm{ref},r+1}\),
+the vectors \(x_1,\ldots,x_r\) span the sum of the eigenspaces with eigenvalue
+at least \(\mathsf d_{\mathrm{ref},r}\), a subspace fixed by the pencil,
+and a \(\Lambda\)-orthogonal projector is determined by its range. In the
+example, \(\Lambda_{\mathrm{rec}}=\operatorname{diag}(1,0)\), \(x_k=e_k\), and
+\(o=Y_1+\xi\) with \(\xi\sim\mathcal N(0,1)\). For
+\(v=(\cos\theta,\sin\theta)^\top\) the coarse coordinate \(t=v^\top Y\) has
+variance \(1\) and covariance \(\cos\theta\) with \(o\), whose variance is \(2\),
+so its posterior variance is \(1-\frac12\cos^2\theta\); the surrogate reads the
+record at \(\mathsf Cvv^\top y=t\cos\theta\), and since \(t\) and
+\(v_\perp^\top Y\) are independent standard normal under the reference, its coarse
+law is proportional to \(\mathcal N(t;0,1)\mathcal N(o;t\cos\theta,1)\), with
+variance \((1+\cos^2\theta)^{-1}\). Since \(0<\cos^2\theta<1\),
+\((1-\frac12\cos^2\theta)(1+\cos^2\theta)=1+\frac12\cos^2\theta\sin^2\theta>1\), so the
+variances differ. For the second projector, which is idempotent with range
+\(\operatorname{span}\{e_1\}\) and not symmetric, the coarse coordinate
+\(t=Y_1+\kappa Y_2\) has variance \(1+\kappa^2\) and covariance \(1\) with \(o\),
+so its posterior variance is \(\frac12+\kappa^2\); the surrogate reads the record
+at \(t\), and a surrogate density of the form \(p_\Lambda(y)g(t)\) has
+\(t\)-marginal proportional to the reference law of \(t\) times \(g\), here
+\(\mathcal N(t;0,1+\kappa^2)\mathcal N(o;t,1)\), with variance
+\((1+\kappa^2)/(2+\kappa^2)\); and
+\((\frac12+\kappa^2)(2+\kappa^2)-(1+\kappa^2)=\frac32\kappa^2+\kappa^4>0\). Two
+Gaussian laws with different variances have positive relative entropy. For the
+evidence, \(\int\widehat Z^{\mathbf W}(o)do=1\) by Tonelli's theorem. By the
+independence structure, under \(p(o)\) the coordinates \(\tilde o_k\), \(k\leq q\),
+are independent \(\mathcal N(\mathsf d_{\mathrm{ref},k}^{1/2}\bar c_k,1+\mathsf d_{\mathrm{ref},k})\)
+and independent of the standard normal \(o^\perp\); under
+\(\widehat Z^{\widetilde P_r}\), the law of \(o\) when \(Y\sim p_\Lambda\) and
+\(o\sim p(\cdot\given\widetilde P_rY)\), the same holds except that
+\(\tilde o_k\sim\mathcal N(0,1)\) for \(r<k\leq q\). The two densities share the
+Jacobian of the affine bijection, so
+\begin{equation}
+\log\frac{\widehat Z^{\widetilde P_r}(o)}{p(o)}
+=\sum_{r<k\leq q}\left[\frac{(\tilde o_k-\mathsf d_{\mathrm{ref},k}^{1/2}\bar c_k)^2}{2(1+\mathsf d_{\mathrm{ref},k})}
+-\frac{\tilde o_k^2}{2}+\frac12\log\left(1+\mathsf d_{\mathrm{ref},k}\right)\right].
+\end{equation}
+Under \(p(o)\),
+\(\E(\tilde o_k-\mathsf d_{\mathrm{ref},k}^{1/2}\bar c_k)^2=1+\mathsf d_{\mathrm{ref},k}\)
+and \(\E\tilde o_k^2=1+\mathsf d_{\mathrm{ref},k}+\mathsf d_{\mathrm{ref},k}\bar c_k^2\),
+which gives \eqref{eq:cg-exterior-evidence} with \(\bar c_k=x_k^\top\mathsf h\), the
+terms with \(k>q\) being zero; its left side is
+\(-\KL(p(o)do\Vert\widehat Z^{\widetilde P_r}(o)do)\) because both evidences are
+probability densities. The coefficient of
+\(\tilde o_k^2\) is \(-\frac12\mathsf d_{\mathrm{ref},k}/(1+\mathsf d_{\mathrm{ref},k})<0\)
+for \(r<k\leq q\), and \(o\mapsto\tilde o_k\) is onto \(\R\), so the logarithm is
+unbounded below.
+
+(v) The reference law of \(Y'\) is
+\(\mathcal N(R_Y\Lambda^{-1}\mathsf h+a_Y,R_Y\Lambda^{-1}R_Y^\top)\), and
+\(o'\given y'\sim\mathcal N(\mathsf C'y'+o_0',R_o\Sigma_oR_o^\top)\) with
+\(\mathsf C'=R_o\mathsf CR_Y^{-1}\) and \(o_0'=R_oo_0+a_o-\mathsf C'a_Y\), which gives
+\(\Lambda'\) and
+\begin{equation*}
+\Lambda_{\mathrm{rec}}'=R_Y^{-\top}\mathsf C^\top R_o^\top R_o^{-\top}\Sigma_o^{-1}R_o^{-1}R_o\mathsf CR_Y^{-1}=R_Y^{-\top}\Lambda_{\mathrm{rec}}R_Y^{-1}.
+\end{equation*}
+\Cref{prop:grg-pencil-invariance} with \(\mathbf P=R_Y^{-1}\) gives the invariance of
+the \(\mathsf d_{\mathrm{ref},k}\) with multiplicities and shows that \(x\) is a
+generalized eigenvector exactly when \(R_Yx\) is one for the transformed pencil;
+\((R_Yx_j)^\top\Lambda'(R_Yx_k)=x_j^\top\Lambda x_k\). The \(\mathsf d_k\),
+\(\check\rho_k\), and \eqref{eq:cg-exterior-loss} are functions of the
+\(\mathsf d_{\mathrm{ref},k}\). Substitution gives
+\begin{equation*}
+\widetilde P_r'=R_YS_rS_r^\top R_Y^\top R_Y^{-\top}\Lambda R_Y^{-1}=R_Y\widetilde P_rR_Y^{-1},
+\end{equation*}
+hence \(\widetilde P_r'Y'=R_Y\widetilde P_rY+\widetilde P_r'a_Y\), an injective affine
+function of \(\widetilde P_rY\).
+
+(vi) Since \(\Lambda^{-1}=S_nS_n^\top\) and \(\widetilde P_rS_n=S_n\operatorname{diag}(I_r,0)\),
+\((I-\widetilde P_r)S_n=S_n\operatorname{diag}(0,I_{n-r})\), and cyclicity of the trace
+gives \(\mathrm{HS}_r(\mathsf G)=\sum_{k>r}x_k^\top\mathsf C^\top\mathsf G\mathsf Cx_k\).
+For \(\mathsf G=\Sigma_o^{-1}\) each term is \(x_k^\top\Lambda_{\mathrm{rec}}x_k=\mathsf d_{\mathrm{ref},k}\),
+and the realized error equals
+\(\Tr(\Sigma_o^{-1/2}\mathsf C(I-\widetilde P_r)\Lambda^{-1}(I-\widetilde P_r)^\top\mathsf C^\top\Sigma_o^{-1/2})=\mathrm{HS}_r(\Sigma_o^{-1})\)
+because \(\Lambda^{-1}\) is the reference covariance. For the marginal metric put
+\(\mathsf C_{\mathrm w}=\Sigma_o^{-1/2}\mathsf CS_n\), so that
+\(\mathsf C_{\mathrm w}^\top\mathsf C_{\mathrm w}=\operatorname{diag}(\mathsf d_{\mathrm{ref},k})\)
+and
+\(\Sigma_{\mathrm{ext}}=\Sigma_o^{1/2}(\mathsf C_{\mathrm w}\mathsf C_{\mathrm w}^\top+I_m)\Sigma_o^{1/2}\);
+then
+\(S_n^\top\mathsf C^\top\Sigma_{\mathrm{ext}}^{-1}\mathsf CS_n
+=\mathsf C_{\mathrm w}^\top(\mathsf C_{\mathrm w}\mathsf C_{\mathrm w}^\top+I_m)^{-1}\mathsf C_{\mathrm w}
+=(\mathsf C_{\mathrm w}^\top\mathsf C_{\mathrm w}+I_n)^{-1}\mathsf C_{\mathrm w}^\top\mathsf C_{\mathrm w}
+=\operatorname{diag}(\mathsf d_k)\), whose diagonal entries are the
+\(\check\rho_k^2\). The bounds follow termwise from \eqref{eq:cg-exterior-loss},
+\(\log(1+x)\leq x\) for \(x\geq0\), and \(-\log(1-x)\geq x\) for \(0\leq x<1\),
+each with equality only at \(x=0\). \(\square\)
+
+The interface coordinates read \(Y\) along the projection directions of the Gaussian information bottleneck. By
+\(\Lambda_{\mathrm{rec}}x_k=\mathsf d_{\mathrm{ref},k}\Lambda x_k\), the vector \(\Lambda x_k\) is a
+left eigenvector of \(\operatorname{Cov}(Y\given o)\operatorname{Cov}(Y)^{-1}=(\Lambda+\Lambda_{\mathrm{rec}})^{-1}\Lambda\)
+with eigenvalue \(1-\mathsf d_k\), so \(c_k=x_k^\top\Lambda Y\) reads \(Y\) along a direction that
+the optimal projections of \citet[Sec.~3, Theorem~3.1]{chechik2005information} switch on in
+ascending order of these eigenvalues, and their Sec.~7.1 identifies these directions with those of
+canonical correlation analysis. That theorem solves the Lagrangian tradeoff between compression and
+prediction, not the fixed-rank maximization of part (ii), which the Courant--Fischer argument above
+supplies.
 
 \section{Kron reduction: coefficient families and graph boundaries}
 \label{sec:cg-kron}

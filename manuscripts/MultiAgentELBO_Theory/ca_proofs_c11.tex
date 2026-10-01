@@ -57,6 +57,209 @@ infimum have positive $\bar{\mathsf m}_o^c$ measure, so the bound passes to
 $\operatorname{ess~sup}\mathsf Uh-\operatorname{ess~inf}\mathsf Uh$; applying it
 factor by factor gives the composition statement. $\square$
 
+\noindent\emph{Proof of \Cref{cor:rg-perturbation-divergence-bounds}.}
+Fix a representative of $\psi$ with values in $[\mathrm a,\mathrm b]$, where
+$\mathrm a=\operatorname*{ess~inf}\psi$ and $\mathrm b=\operatorname*{ess~sup}\psi$, so
+that $\mathrm b-\mathrm a=2\lVert[\psi]\rVert_{\mathrm{osc}}$. Then
+$e^{-\mathrm b}\le\bar{\mathsf m}_o(e^{-\psi})\le e^{-\mathrm a}$, which is the bracket
+of the log evidence ratio, and the density $e^{-\psi}/\bar{\mathsf m}_o(e^{-\psi})$ of
+$\widehat{\mathsf m}^\psi$ with respect to $\bar{\mathsf m}_o$ is positive with a
+logarithm in $[\mathrm a-\mathrm b,\mathrm b-\mathrm a]$. This gives equivalence and,
+since each divergence is the mean of a logarithmic density ratio bounded by
+$\mathrm b-\mathrm a$ in absolute value, the linear branch of
+\eqref{eq:rg-perturbation-two-sided-kl}. For the quadratic branch, the density of
+$\widehat{\mathsf m}^\psi$ gives $\widehat{\mathsf m}^\psi(e^{\psi})=1/\bar{\mathsf m}_o(e^{-\psi})$, so
+\begin{align*}
+\KL\bigl(\bar{\mathsf m}_o\Vert\widehat{\mathsf m}^\psi\bigr)
+&=\bar{\mathsf m}_o(\psi)+\log\bar{\mathsf m}_o(e^{-\psi})
+=\log\bar{\mathsf m}_o\bigl(e^{-(\psi-\bar{\mathsf m}_o(\psi))}\bigr),\\
+\KL\bigl(\widehat{\mathsf m}^\psi\Vert\bar{\mathsf m}_o\bigr)
+&=-\widehat{\mathsf m}^\psi(\psi)-\log\bar{\mathsf m}_o(e^{-\psi})
+=\log\widehat{\mathsf m}^\psi\bigl(e^{\psi-\widehat{\mathsf m}^\psi(\psi)}\bigr).
+\end{align*}
+Since $\widehat{\mathsf m}^\psi$ is equivalent to $\bar{\mathsf m}_o$, $\psi$ takes values in
+$[\mathrm a,\mathrm b]$ almost surely under both laws, and
+\citet[Sec.~4, Eq.~(4.16)]{Hoeffding1963}, applied under $\bar{\mathsf m}_o$ to $-\psi$ and under
+$\widehat{\mathsf m}^\psi$ to $\psi$ with $h=1$, bounds both divergences by
+$(\mathrm b-\mathrm a)^2/8=\lVert[\psi]\rVert_{\mathrm{osc}}^2/2$.
+Adding a constant to $\psi$ changes neither $\widehat{\mathsf m}^\psi$ nor
+$\lVert[\psi]\rVert_{\mathrm{osc}}$. For $Q\ll\bar{\mathsf m}_o$ one has
+$\log(dQ/d\widehat{\mathsf m}^\psi)=\log(dQ/d\bar{\mathsf m}_o)+\psi
++\log\bar{\mathsf m}_o(e^{-\psi})$ $Q$-almost surely; the last two terms are bounded and
+the first has a $Q$-integrable negative part
+(\Cref{def:prob-log-density-ratio-convention}), so
+$\KL(Q\Vert\widehat{\mathsf m}^\psi)=\KL(Q\Vert\bar{\mathsf m}_o)+\E_Q\psi
++\log\bar{\mathsf m}_o(e^{-\psi})$ in $(-\infty,+\infty]$, and the mass
+$(e^{-\psi}\mathsf m_o)(\mathsf Y)=M_o\bar{\mathsf m}_o(e^{-\psi})$ turns this into the
+free-energy identity. Any other $Q$ charges a set that is null for both equivalent
+laws, so both divergences are $+\infty$. Along the arrows, suppose
+$\widetilde H_\ell-H_\ell$ is essentially bounded, as it is for $\ell=0$, where it
+equals $\psi_0$. Then $\widetilde{\mathsf m}_\ell=e^{-(\widetilde H_\ell-H_\ell)}\mathsf
+m_\ell$, so \eqref{eq:rg-local-action-map} gives
+$\widetilde{\mathsf m}_\ell C_\ell=e^{-\mathcal A_\ell(\widetilde H_\ell-H_\ell)}\mathsf
+m_{\ell+1}$ and
+$\widetilde{\mathsf m}_{\ell+1}=e^{-\mathcal A_\ell(\widetilde H_\ell-H_\ell)
+-\psi_{\ell+1}}\mathsf m_{\ell+1}$; taking densities with respect to
+$\varrho_{\ell+1}$ where $H_{\ell+1}$ is finite, which is $\mathsf m_{\ell+1}$-almost
+everywhere, gives the recurrence in \eqref{eq:rg-perturbation-tower}. Since
+$\mathcal A_\ell(0)=0$, part (c) of \Cref{thm:rg-bounded-action-calculus} gives
+$\mathcal A_\ell(c)=c$ for constants $c$, and applied to the constant bounds of
+$\widetilde H_\ell-H_\ell$ it keeps $\mathcal A_\ell(\widetilde H_\ell-H_\ell)$
+between the essential infimum and supremum of $\widetilde H_\ell-H_\ell$. Adding
+$\psi_{\ell+1}$ and inducting gives essential boundedness at every depth and the bounds
+in \eqref{eq:rg-perturbation-tower}, and the first part of the proof applies at depth
+$L$. $\square$
+
+\noindent\emph{Proof of \Cref{cor:rg-contracted-perturbation-tower}.}
+Fix $\ell<L$ and $\psi\in L^\infty(\bar{\mathsf m}_\ell)$ with
+$\mathrm a=\operatorname*{ess~inf}\psi$, $\mathrm b=\operatorname*{ess~sup}\psi$, and
+$x=\mathrm b-\mathrm a$, and fix a representative with values in
+$[\mathrm a,\mathrm b]$ off a $\bar{\mathsf m}_\ell$-null set $N$. As in the proof of
+\Cref{thm:rg-action-lp-contraction}, $C^\dagger_\ell(z,N)=0$ for
+$\bar{\mathsf m}_{\ell+1}$-almost every $z$. When $\Delta_\ell<\infty$, the sets of
+full $(\bar{\mathsf m}_{\ell+1})^{\otimes2}$ measure on which
+\eqref{eq:rg-birkhoff-diameter} holds for a sequence $t_n\downarrow\Delta_\ell$
+intersect in a set of full measure on which it holds with $t=\Delta_\ell$. Hence the
+pairs $(z,z')$ whose rows $\mu=C^\dagger_\ell(z,\cdot)$ and
+$\mu'=C^\dagger_\ell(z',\cdot)$ both vanish on $N$, satisfy
+$\sup_A\lvert\mu(A)-\mu'(A)\rvert\le\delta_\ell$, and, when $\Delta_\ell<\infty$,
+satisfy \eqref{eq:rg-birkhoff-diameter} with $t=\Delta_\ell$, form a set of full
+measure. For such a pair put $g=e^{\mathrm b-\psi}$, which takes values in $[1,e^x]$
+almost surely under both rows, so that
+$\mathcal A_\ell(\psi)(z')-\mathcal A_\ell(\psi)(z)=\log(\mu(g)/\mu'(g))$. Since
+$\mu-\mu'$ has total mass zero and its positive part has mass at most $\delta_\ell$,
+$\mu(g)-\mu'(g)=(\mu-\mu')(g-1)\le\delta_\ell(e^x-1)$, and $\mu'(g)\ge1$, so
+\begin{equation*}
+\log\frac{\mu(g)}{\mu'(g)}\le\log\bigl(1+\delta_\ell(e^x-1)\bigr).
+\end{equation*}
+For the second bound let $\Delta_\ell<\infty$, put $\lambda=\mu(g)/\mu'(g)$, let $P$
+be a positive set of a Hahn decomposition of the signed measure
+$\nu=\mu-\lambda\mu'$, and put $h=1+(e^x-1)1_P$. Because $0\le g-1\le e^x-1$ almost
+surely under both rows, $0=\nu(g)=\nu(1)+\nu(g-1)\le\nu(1)+(e^x-1)\nu(P)=\nu(h)$, so
+$\mu(h)\ge\lambda\mu'(h)$. With $p=\mu(P)$ and $q=\mu'(P)$,
+\begin{equation*}
+\log\frac{\mu(h)}{\mu'(h)}=\log\bigl((1-p)+pe^x\bigr)-\log\bigl((1-q)+qe^x\bigr),
+\end{equation*}
+which is positive only if $p>q$; otherwise $\log\lambda\le0$. If $p>q$, \eqref{eq:rg-birkhoff-diameter} with
+$A=P$ and $B=\mathsf Y_\ell\setminus P$ reads $p(1-q)\le e^{\Delta_\ell}q(1-p)$, which
+excludes $q=0$ and $p=1$, so $p,q\in(0,1)$ and
+$\gamma=\log\bigl(p(1-q)/(q(1-p))\bigr)\in(0,\Delta_\ell]$. Put
+$\beta=\log(q/(1-q))$ and $\operatorname{sg}(u)=(1+e^{-u})^{-1}$, the derivative of
+$u\mapsto\log(1+e^u)$. Since $1-q=(1+e^\beta)^{-1}$ and $1-p=(1+e^{\beta+\gamma})^{-1}$,
+\begin{equation*}
+\log\frac{\mu(h)}{\mu'(h)}
+=\int_0^x\bigl[\operatorname{sg}(\beta+\gamma+u)-\operatorname{sg}(\beta+u)\bigr]du.
+\end{equation*}
+The function $u\mapsto\operatorname{sg}(u+\gamma)-\operatorname{sg}(u)$ has
+derivative $\operatorname{sg}'(u+\gamma)-\operatorname{sg}'(u)$, and
+$\operatorname{sg}'=\operatorname{sg}(1-\operatorname{sg})$ is even and decreasing in
+$\lvert u\rvert$, so the derivative is positive for $u<-\gamma/2$ and negative for
+$u>-\gamma/2$; the maximum is
+$\operatorname{sg}(\gamma/2)-\operatorname{sg}(-\gamma/2)=\tanh(\gamma/4)\le\tanh(\Delta_\ell/4)$.
+Hence $\log(\mu(g)/\mu'(g))=\log\lambda\le\log(\mu(h)/\mu'(h))\le\tanh(\Delta_\ell/4)x$,
+the form of the contraction ratio of Birkhoff's lemma on Hilbert's projective metric
+\citep[Sec.~4, Lemma~1, Eq.~(9a)]{Birkhoff1957}. The sets
+where $\mathcal A_\ell(\psi)$ lies within any positive distance of its essential
+supremum or infimum have positive $\bar{\mathsf m}_{\ell+1}$ measure, so their product
+meets the full-measure set of pairs, and letting the distance tend to zero gives
+\begin{equation*}
+\operatorname*{ess~sup}\mathcal A_\ell(\psi)-\operatorname*{ess~inf}\mathcal A_\ell(\psi)
+\le\min\bigl\{\log\bigl(1+\delta_\ell(e^x-1)\bigr),\tanh(\Delta_\ell/4)x\bigr\},
+\end{equation*}
+the second term being $x$ when $\Delta_\ell=\infty$ by part (c) of
+\Cref{thm:rg-bounded-action-calculus}.
+
+(a) Take $\psi=\mathfrak r_\ell$, so $x=\omega_\ell$. The recurrence
+$\mathfrak r_{\ell+1}=\mathcal A_\ell(\mathfrak r_\ell)+\psi_{\ell+1}$ of
+\eqref{eq:rg-perturbation-tower}, subadditivity of the essential supremum, and
+superadditivity of the essential infimum give
+\eqref{eq:rg-contracted-width-recursion}. For $\omega_\ell>0$ one has
+$\delta_\ell(e^{\omega_\ell}-1)<e^{\omega_\ell}-1$ exactly when $\delta_\ell<1$, and
+$\tanh(\Delta_\ell/4)<1$ exactly when $\Delta_\ell<\infty$.
+
+(b) For $\delta=0$ take two points $y_0,y_1$ of mass $1/2$, a channel sending each
+to the uniform law on $\{z,z'\}$, and $\psi=x1_{\{y_1\}}$; both reverse rows equal the
+fine law, so $\mathcal A(\psi)$ is constant. For $\delta\in(0,1]$ give
+$(y_1,z)$, $(y_0,z')$, and $(y_1,z')$ the joint masses $1/2$, $\delta/2$, and
+$(1-\delta)/2$; the fine law gives $y_0$ and $y_1$ the positive masses $\delta/2$
+and $1-\delta/2$, the coarse law is uniform on $\{z,z'\}$, the channel is the
+forward conditional law, and the reverse rows are given by $C^\dagger(z,\{y_1\})=1$, $C^\dagger(z',\{y_0\})=\delta$, and
+$C^\dagger(z',\{y_1\})=1-\delta$. Their total variation distance, and hence the coefficient, is $\delta$. For
+$\psi=x1_{\{y_1\}}$ one has $\mathcal A(\psi)(z)=x$ and
+$\mathcal A(\psi)(z')=-\log(\delta+(1-\delta)e^{-x})$, whose difference is
+$x+\log(\delta+(1-\delta)e^{-x})=\log(1+\delta(e^x-1))$. The pair $(z',z)$ carries
+product mass $1/4$, and \eqref{eq:rg-birkhoff-diameter} with $A=\{y_0\}$ and
+$B=\{y_1\}$ would require $\delta\le e^t\cdot0$, so no $t$ qualifies and the
+diameter is infinite.
+
+(c) The map $x\mapsto\log(1+\delta(e^x-1))$ is increasing in $x$ and in $\delta$,
+so $\omega_{\ell+1}\le\log(1+\delta(e^{\omega_\ell}-1))+s$ for $\ell<L$. The
+function $\mathrm k(x)=x-\log(1+\delta(e^x-1))$ has $\mathrm k(0)=0$ and
+$\mathrm k'(x)=(1-\delta)/(1+\delta(e^x-1))>0$, and it tends to $\log(1/\delta)$ as
+$x\to\infty$, since $\mathrm k(x)=-\log(\delta+(1-\delta)e^{-x})$; so it is a
+continuous increasing bijection of $[0,\infty)$ onto $[0,\log(1/\delta))$, and
+$x_{\delta,s}$ exists and is unique. Put $\mathrm B=\max\{\omega_0,x_{\delta,s}\}$.
+If $\omega_\ell\le\mathrm B$, then
+$\omega_{\ell+1}\le\log(1+\delta(e^{\mathrm B}-1))+s=\mathrm B-\mathrm k(\mathrm B)+s\le\mathrm B$,
+because $\mathrm k(\mathrm B)\ge\mathrm k(x_{\delta,s})=s$; induction from $\ell=0$
+gives the first bound. For the second put
+$\mathrm B'=\max\{\omega_0,s/(1-\tanh(\Delta/4))\}$; if $\omega_\ell\le\mathrm B'$,
+then $\omega_{\ell+1}\le\tanh(\Delta/4)\mathrm B'+s\le\mathrm B'$, because
+$s\le(1-\tanh(\Delta/4))\mathrm B'$. The divergence bound is
+\eqref{eq:rg-perturbation-two-sided-kl} at depth $L$ with
+$\lVert[\mathfrak r_L]\rVert_{\mathrm{osc}}=\omega_L/2$.
+
+(d) The joint law $\bar{\mathsf m}_\ell(dy)C_\ell(y,dz)$ is concentrated on the graph
+of $\chi_\ell$, a Borel set, so disintegration gives
+$\int C^\dagger_\ell(z,\chi_\ell^{-1}\{z\})\bar{\mathsf m}_{\ell+1}(dz)=1$ and
+$C^\dagger_\ell(z,\chi_\ell^{-1}\{z\})=1$ for almost every $z$. Because
+$\bar{\mathsf m}_{\ell+1}$ is not a point mass, the diagonal has
+$(\bar{\mathsf m}_{\ell+1})^{\otimes2}$ measure equal to the sum of the squared atom
+masses, at most the largest atom mass, which is below one; so pairs $z\ne z'$ whose
+rows are concentrated on the disjoint fibers $\chi_\ell^{-1}\{z\}$ and
+$\chi_\ell^{-1}\{z'\}$ have positive measure. For such a pair, $A=\chi_\ell^{-1}\{z\}$
+gives $C^\dagger_\ell(z,A)-C^\dagger_\ell(z',A)=1$, so $\delta_\ell=1$, and with
+$B=\mathsf Y_\ell\setminus A$ the left side of \eqref{eq:rg-birkhoff-diameter} is one
+and the right side zero, so $\Delta_\ell=\infty$. Both terms of the minimum in
+\eqref{eq:rg-contracted-width-recursion} then equal $\omega_\ell$. For a bounded
+Borel $f$ on $\mathsf Y_{\ell+1}$ the same concentration gives
+$\mathcal A_\ell(f\circ\chi_\ell)(z)=-\log\int e^{-f(\chi_\ell(y))}C^\dagger_\ell(z,dy)=f(z)$
+for almost every $z$. Put $F_L=F$, $F_\ell=F_{\ell+1}\circ\chi_\ell$, and
+$\bar c_\ell=\sum_{j=0}^{\ell}c_j$. Then $\mathfrak r_0=\psi_0=\bar c_0F_0$, and
+if $\mathfrak r_\ell=\bar c_\ell F_\ell$, the recurrence gives
+$\mathfrak r_{\ell+1}=\bar c_\ell F_{\ell+1}+c_{\ell+1}F_{\ell+1}=\bar c_{\ell+1}F_{\ell+1}$.
+By \Cref{prop:rg-measure-pair-composition}, $\bar{\mathsf m}_L$ is the image of
+$\bar{\mathsf m}_\ell$ under $\chi_{L-1}\circ\cdots\circ\chi_\ell$, so $F_\ell$ has
+under $\bar{\mathsf m}_\ell$ the essential range of $F$ under $\bar{\mathsf m}_L$,
+of some length $\mathrm W$. Since the $c_j$ are nonnegative,
+$\omega^{\mathrm{st}}_j=c_j\mathrm W$ and
+$\omega_\ell=\bar c_\ell\mathrm W=\sum_{j=0}^{\ell}\omega^{\mathrm{st}}_j$.
+
+(e) By \eqref{eq:rg-local-action-map}, $e^{-\mathcal A_\ell(\psi)}$ is the density of
+$(e^{-\psi}\bar{\mathsf m}_\ell)C_\ell$ with respect to
+$\bar{\mathsf m}_\ell C_\ell=\bar{\mathsf m}_{\ell+1}$, and a Markov kernel preserves
+total mass, so
+$\bar{\mathsf m}_{\ell+1}(e^{-\mathcal A_\ell(\psi)})=\bar{\mathsf m}_\ell(e^{-\psi})$.
+Since $\widetilde{\mathsf m}_L=e^{-\mathfrak r_L}\mathsf m_L$, the first equality of
+\eqref{eq:rg-tower-offset-decomposition} holds. Mass preservation also gives
+$\widetilde{\mathsf m}_j(\mathsf Y_j)=\widetilde{\mathsf m}_{j-1}(\mathsf
+Y_{j-1})\widehat{\mathsf n}_j(e^{-\psi_j})$ for $j\ge1$,
+$\widetilde{\mathsf m}_0(\mathsf Y_0)=M_0\bar{\mathsf m}_0(e^{-\psi_0})$, and
+$M_L=M_0$ by \Cref{prop:rg-measure-pair-composition}; the product of these factors
+gives the second equality. The proof of
+\Cref{cor:rg-perturbation-divergence-bounds} gives
+$\widetilde{\mathsf m}_{j-1}C_{j-1}=e^{-\mathcal A_{j-1}(\mathfrak r_{j-1})}\mathsf m_j$
+with a bounded exponent, so $\widehat{\mathsf n}_j$ is equivalent to
+$\bar{\mathsf m}_j$, $\psi_j$ has the same essential bounds under both, and each
+summand lies in the stated interval. Finally, by part (c) of
+\Cref{thm:rg-bounded-action-calculus},
+$\mathcal A_{\ell'}(\mathfrak r_{\ell'}+c)=\mathcal A_{\ell'}(\mathfrak r_{\ell'})+c$ for $\ell'\ge j$, so replacing $\psi_j$
+by $\psi_j+c$ replaces $\mathfrak r_\ell$ by $\mathfrak r_\ell+c$ and
+$\widetilde{\mathsf m}_\ell$ by $e^{-c}\widetilde{\mathsf m}_\ell$ for every
+$\ell\ge j$ and changes nothing at smaller depths, for every choice of arrows. Widths
+and normalizations are therefore unchanged, and
+$\log\bar{\mathsf m}_L(e^{-\mathfrak r_L})$ decreases by $c$. $\square$
+
 \noindent\emph{Proof of \Cref{thm:rg-hoeffding-action-isomorphism}.}
 Fubini's theorem for the product $\nu_\ell$ gives commutation and
 $\E_{\ell,B}\E_{\ell,B'}=\E_{\ell,B\cap B'}$; expanding the
@@ -167,6 +370,95 @@ $\mathbb P(Z_0=0)=2/3$ and both one-step rows from $0$ put mass $1/2$ on $0$, so
 projection gives $000$ the mass $1/6$ although the cycle never produces it.
 Subtracting the two finite log ratios gives
 \eqref{eq:rg-memory-recognition-vfe-difference}. $\square$
+
+\noindent\emph{Proof of \Cref{thm:rg-memory-borel-projection}.}
+Write $\mathbb P^{\mathrm{path}}_t$ and $\widetilde{\mathbb P}_t$ for the laws of
+$Z_{0:t-1}$ under $\mathbb P^{\mathrm{path}}_N$ and $\widetilde{\mathbb P}$, the case
+$t=0$ living on a point, abbreviate $\mathbf f_t(Z_{0:t-1})$ to $\mathbf f_t$, and let
+$\mathbb P^{\mathbf f}_{t+1}$ and $\widetilde{\mathbb P}^{\mathbf f}_{t+1}$ be the laws
+$\mathbb P^{\mathrm{path}}_t(dz_{0:t-1})\mathsf T^{\mathbf f}_t(\mathbf f_t(z_{0:t-1}),dz_t)$
+and
+$\mathbb P^{\mathrm{path}}_t(dz_{0:t-1})\widetilde{\mathsf T}_t(\mathbf f_t(z_{0:t-1}),dz_t)$
+on $\mathsf Z^{t+1}$. The kernel $\widetilde{\mathsf T}_t(\mathbf f_t(\cdot),\cdot)$ is a
+version of the law of $Z_t$ given $Z_{0:t-1}$ both under $\widetilde{\mathbb P}$ and
+under $\widetilde{\mathbb P}^{\mathbf f}_{t+1}$, whose first marginal is
+$\mathbb P^{\mathrm{path}}_t$, so part (a) of \Cref{lem:prob-kl-chain-rule} with first
+coordinate $Z_{0:t-1}$, applied to both pairs, gives
+\begin{equation*}
+\KL\bigl(\mathbb P^{\mathrm{path}}_{t+1}\Vert\widetilde{\mathbb P}_{t+1}\bigr)
+=\KL\bigl(\mathbb P^{\mathrm{path}}_t\Vert\widetilde{\mathbb P}_t\bigr)
++\KL\bigl(\mathbb P^{\mathrm{path}}_{t+1}\Vert\widetilde{\mathbb P}^{\mathbf f}_{t+1}\bigr)
+\end{equation*}
+in $[0,+\infty]$, and summing over $t$ writes
+$\KL(\mathbb P^{\mathrm{path}}_N\Vert\widetilde{\mathbb P})$ as the sum of the last
+terms. Fix $t$ and let $\mathbb P^{\mathrm{path}}_t(\cdot\given\mathbf w)$ be a regular
+conditional law of $Z_{0:t-1}$ given $\mathbf f_t=\mathbf w$. The map
+$(z_{0:t-1},z_t)\mapsto(\mathbf f_t(z_{0:t-1}),z_t,z_{0:t-1})$ is Borel and the Borel
+projection onto its last two components inverts it, so part (d) of the lemma, applied
+to the map and to the projection, shows that pushing two laws through it preserves
+their divergence; equivalently, the map is a bimeasurable bijection onto its image,
+which is Borel as the preimage of the diagonal of the standard Borel statistic space
+under a Borel map, and part (e) applies there. After the push, Fubini's theorem, and
+the fact that under the two laws just defined $Z_t$ reads the history only through
+$\mathbf f_t$, give the triple $(\mathbf f_t,Z_t,Z_{0:t-1})$ the law
+$(\mathbf f_t)_\#\mathbb P^{\mathrm{path}}_t(d\mathbf w)\mathsf T^{\mathbf
+f}_t(\mathbf w,dz_t)\mathbb P^{\mathrm{path}}_t(dz_{0:t-1}\given\mathbf w)$ under
+$\mathbb P^{\mathbf f}_{t+1}$ and the same law with $\widetilde{\mathsf T}_t$ in place
+of $\mathsf T^{\mathbf f}_t$ under $\widetilde{\mathbb P}^{\mathbf f}_{t+1}$, while under
+$\mathbb P^{\mathrm{path}}_{t+1}$ the pair $(\mathbf f_t,Z_t)$ has the law
+$(\mathbf f_t)_\#\mathbb P^{\mathrm{path}}_t(d\mathbf w)\mathsf T^{\mathbf f}_t(\mathbf
+w,dz_t)$ by the definition of $\mathsf T^{\mathbf f}_t$. Part (a) with first coordinate
+$(\mathbf f_t,Z_t)$ therefore writes
+$\KL(\mathbb P^{\mathrm{path}}_{t+1}\Vert\widetilde{\mathbb P}^{\mathbf f}_{t+1})$ as
+the divergence of the $(\mathbf f_t,Z_t)$-marginals plus an average, under the
+$(\mathbf f_t,Z_t)$-marginal of $\mathbb P^{\mathrm{path}}_{t+1}$, of the divergence
+from the conditional history law of $\mathbb P^{\mathrm{path}}_{t+1}$ to
+$\mathbb P^{\mathrm{path}}_t(\cdot\given\mathbf w)$; the same application to
+$\mathbb P^{\mathrm{path}}_{t+1}$ and $\mathbb P^{\mathbf f}_{t+1}$, whose
+$(\mathbf f_t,Z_t)$-marginals coincide, shows that this average is
+$\KL(\mathbb P^{\mathrm{path}}_{t+1}\Vert\mathbb P^{\mathbf f}_{t+1})$. Part (a) along
+$\mathbf f_t$ turns the marginal term into
+$\int\KL(\mathsf T^{\mathbf f}_t(\mathbf w,\cdot)\Vert\widetilde{\mathsf T}_t(\mathbf
+w,\cdot))(\mathbf f_t)_\#\mathbb P^{\mathrm{path}}_t(d\mathbf w)$, the $t$-th row term
+of \eqref{eq:rg-memory-borel-identity} after the change of variables
+$\mathbf w=\mathbf f_t(z_{0:t-1})$. Pushing $\mathbb P^{\mathrm{path}}_{t+1}$ and
+$\mathbb P^{\mathbf f}_{t+1}$ instead through
+$(z_{0:t-1},z_t)\mapsto(\mathbf f_t(z_{0:t-1}),(z_t,z_{0:t-1}))$, inverted in the same
+way, and applying (a) along $\mathbf f_t$, whose laws agree, writes
+$\KL(\mathbb P^{\mathrm{path}}_{t+1}\Vert\mathbb P^{\mathbf f}_{t+1})$ as the average
+of the divergence between the conditional law of $(Z_t,Z_{0:t-1})$ given $\mathbf f_t$
+and the product
+$\mathsf T^{\mathbf f}_t(\mathbf f_t,\cdot)\otimes\mathbb P^{\mathrm{path}}_t(\cdot\given\mathbf
+f_t)$ of its conditional marginals, which is
+$I(Z_t;Z_{0:t-1}\given\mathbf f_t)$. Summing over $t$ proves
+\eqref{eq:rg-memory-borel-identity}, each term being independent of the chosen versions
+by (a).
+
+The row terms are nonnegative and vanish for
+$\widetilde{\mathsf T}_t=\mathsf T^{\mathbf f}_t$, which gives the minimum and, when
+$D^{\mathbf f}_N$ is finite, the difference. The $t$-th defect term vanishes exactly
+when $\mathbb P^{\mathrm{path}}_{t+1}=\mathbb P^{\mathbf f}_{t+1}$, that is, by
+uniqueness of disintegrations, when
+$\mathsf T^{\mathbf f}_t(\mathbf f_t(\cdot),\cdot)$ is a version of the law of $Z_t$
+given $Z_{0:t-1}$; conversely, a version that depends on the history only through
+$\mathbf f_t$ is a conditional law of $Z_t$ given $\mathbf f_t$ and so agrees with
+$\mathsf T^{\mathbf f}_t$ at almost every value. For
+$\mathbf f_t(z_{0:t-1})=\mathbf z_t$ the history is the concatenation of
+$Z_{0:t-k-1}$ with $\mathbf z_t$, so at almost every value $\mathbf z$ of
+$\mathbf z_t$ the two laws whose divergence enters
+$I(Z_t;Z_{0:t-1}\given\mathbf z_t)$ are the images of those entering
+$I(Z_t;Z_{0:t-k-1}\given\mathbf z_t)$ under
+$(z_t,z_{0:t-k-1})\mapsto(z_t,(z_{0:t-k-1},\mathbf z))$, which a coordinate projection
+inverts; part (d) twice equates the two divergences, and an empty discarded history
+is a point and contributes zero. On a finite $\mathsf Z$ the rows at contexts of
+positive mass are those of \eqref{eq:rg-memory-projection-product}, the expectations
+are the sums of \eqref{eq:rg-memory-excess-risk}, and
+$\widetilde{\mathsf T}_t=\mathsf T^{(k)}_t$ gives
+\eqref{eq:rg-memory-information-defect}. Finally, where the competitor row is
+$e^{-\psi}$ times the source row, the two rows are the laws $\bar{\mathsf m}_o$ and
+$\widehat{\mathsf m}^\psi$ of \Cref{cor:rg-perturbation-divergence-bounds} with
+$\bar{\mathsf m}_o$ the source row and $\bar{\mathsf m}_o(e^{-\psi})=1$, and
+\eqref{eq:rg-perturbation-two-sided-kl} bounds the row divergence. $\square$
 
 \noindent\emph{Proof of \Cref{thm:rg-memory-duration}.}
 Stationarity and nonnegativity force $\mathsf T_{yy'}=0$ when $\bar p_y>0=\bar

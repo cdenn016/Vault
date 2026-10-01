@@ -17,6 +17,29 @@ updated: 2026-09-30
 
 # Coarse Graining
 
+## Parent memory across locality priors (X3), September 30, 2026
+
+[[multiagentelbo-2026-09-30-locality-parent-memory]] measured the exact omitted-history information of a block-mean parent on a ring for $N=64$ to $2{,}048$, with attention held at window, exponential, power-law, one-way, and complete source priors. Local priors keep a decay ratio of about 0.3 per context step, flat in $N$, with finite memory per block. Complete support decays fastest (ratio 0.113), and its memory per block vanishes roughly as $N^{-1.9}$ because exchangeability makes the block-mean parent nearly Markov. Size-uniform prediction of this parent therefore does not require locality; locality is where residual memory sits. A declared row-only one-way drift, which is not descent of the collective free energy, carries about 40 times the memory of joint descent on the same support.
+
+Two further statements from the spin-foam review are now in the theory: the contracted residual tower `cor:rg-contracted-perturbation-tower` (Chapter 11), and the Gaussian exterior-informed interface `prop:cg-exterior-interface` (Supplement G). All six new statements now carry primary-source attributions with checked locators. They remain ESTABLISHED, because each goes beyond its source's hypotheses.
+
+## Verified additions from the spin-foam review, September 30, 2026
+
+[[multiagentelbo-2026-09-30-spin-foam-integration-review]] reviewed [[dennis-2026-spin-foam-boundary-methods]] and integrated four statements into the MultiAgentELBO theory. Each was verified by Claude Fable 5.1 panels.
+
+The first is the memory identity for standard-Borel records and any Borel history statistic (`thm:rg-memory-borel-projection`). Path relative entropy equals the summed omitted-history information plus the summed expected row divergence, in $[0,+\infty]$, with no dominance hypothesis. It formalizes the chain rule behind the retained-path losses of [[multiagentelbo-2026-09-30-gaussian-parent-dynamics]].
+
+The second gives two-sided bounds for a bounded action perturbation (`cor:rg-perturbation-divergence-bounds`). Both directed relative entropies are at most $\min\{\omega,\omega^2/8\}$, and the evidence and free-energy offsets stay separate from posterior error.
+
+The third is tree-transport composition across depths (`prop:rg-forest-tree-composition`). The fourth is family recovery by likelihood descent without finite divergence (`prop:cg-descent-common-recovery`).
+
+Two investigator-derived results were also verified but not integrated:
+- A contracted width recursion for stochastic channels, $\omega_{\ell+1}\le\min\{\log(1+\delta_\ell(e^{\omega_\ell}-1)),\tanh(\Delta_\ell/4)\,\omega_\ell\}+s_\ell$. Deterministic block maps do not contract.
+- The exact Gaussian exterior-informed interface, which discards $-\tfrac12\sum_{a>r}\log(1-\rho_a^2)$ at rank $r$.
+
+> [!note] Editorial: why depth- and size-uniform control stays open
+> Interval budgets overshoot the exact divergence by up to a factor $N$ for extensive residuals. Global contraction coefficients tend to one with agent count for product-like dynamics. Uniform control therefore needs local estimates on a declared graph family, or an exchangeable structure: X3 (above) found that complete support keeps a block-mean parent nearly Markov at every N. The user's September 30 locality decision fixes that family through the source prior: sparse or one-way supports, and decaying priors.
+
 ## Actual-history Gaussian parent comparison, September 30, 2026
 
 [[multiagentelbo-2026-09-30-gaussian-parent-dynamics]] extends the conditional Gaussian runtime to a supplied evolving-link schedule and a nonequilibrium activation law. The full-history predictor preserves hidden conditional correlations and process-noise cross blocks. Its comparator uses actual pair conditionals and shares one-time and pair marginals while discarding older history. Expected finite-path forward KL equals half the sum of log-determinant ratios of one-step to full-history innovation covariances in this deterministic Gaussian contract. This does not score an arbitrary equilibrium reset.
@@ -150,6 +173,8 @@ The gauge absorption is `prop:gauss-gain-absorption`, "Gain absorption and the o
 
 ## Sources
 
+- [[multiagentelbo-2026-09-30-spin-foam-integration-review]] — spin-foam review; four verified theory statements and the adjudicated contracted tower and Gaussian interface.
+
 - [[blackwell-1953-experiment-comparison]] — experiment-level comparison by common
   parameter-independent garbling/recovery kernels.
 - [[geiger-2013-kl-aggregation]] — KL-rate Markov aggregation and an information-bottleneck
@@ -172,4 +197,4 @@ The gauge absorption is `prop:gauss-gain-absorption`, "Gain absorption and the o
 
 [[Spin foam coarse-graining for agent networks]] compares consistent boundaries, graph-refinement diagrams, decorated/fusion-basis tensors, exterior-sensitive truncation, and GFT. The companion [[dennis-2026-spin-foam-boundary-methods]] now proves conditional exterior-class common recovery, correlated gluing, admitted gauge/metric feature projections with a normalized positive-kernel bridge, and support-preserving residual bounds. Existing exact pushforwards, induced hyperedges, and memory calculus remain prior project work. Residual oscillation controls normalized posterior error; evidence and complete free energy also depend on offsets. Approximate-route comparison requires the exact full channels to agree; raw root-dressing composition alone does not establish that premise.
 
-The finite-horizon predictive budget separates omitted-history information from conditional-row risk under the actual source law. General standard-Borel records require explicit joint dominance and finite-information/risk conditions; the separately stated finite-alphabet forgetting estimate requires conditional filter contraction. Activation uses the actual law conditioned only on a completed prefix and retains controls needed for prediction. Quantum amplitudes, SVD truncation, and positive Markov law reduction remain distinct. Usable finite interfaces and costs, full interface diagrams, evolving-link activation budgets, and size/depth-uniform estimates remain open. No general GL compression, autonomous own-law parent, recursive formation, or thermodynamic limit is established.
+The finite-horizon predictive budget separates omitted-history information from conditional-row risk under the actual source law. The companion states it for standard-Borel records under joint dominance and finite-information/risk conditions; the theory's verified version (`thm:rg-memory-borel-projection`, below) needs neither for the identity itself. The separately stated finite-alphabet forgetting estimate requires conditional filter contraction. Activation uses the actual law conditioned only on a completed prefix and retains controls needed for prediction. Quantum amplitudes, SVD truncation, and positive Markov law reduction remain distinct. Usable finite interfaces and costs, full interface diagrams, evolving-link activation budgets, and size/depth-uniform estimates remain open. No general GL compression, autonomous own-law parent, recursive formation, or thermodynamic limit is established.

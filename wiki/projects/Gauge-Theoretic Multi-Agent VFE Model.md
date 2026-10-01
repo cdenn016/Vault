@@ -19,6 +19,33 @@ updated: 2026-09-30
 
 # Gauge-Theoretic Multi-Agent VFE Model
 
+## Parent memory across locality priors (X3), September 30, 2026
+
+[[multiagentelbo-2026-09-30-locality-parent-memory]] measured the exact omitted-history information of a block-mean parent on a ring for $N=64$ to $2{,}048$, with attention held at window, exponential, power-law, one-way, and complete source priors. Local priors keep a decay ratio of about 0.3 per context step, flat in $N$, with finite memory per block. Complete support decays fastest (ratio 0.113), and its memory per block vanishes roughly as $N^{-1.9}$ because exchangeability makes the block-mean parent nearly Markov. Size-uniform prediction of this parent therefore does not require locality; locality is where residual memory sits. A declared row-only one-way drift, which is not descent of the collective free energy, carries about 40 times the memory of joint descent on the same support.
+
+Two further statements from the spin-foam review are now in the theory: the contracted residual tower `cor:rg-contracted-perturbation-tower` (Chapter 11), and the Gaussian exterior-informed interface `prop:cg-exterior-interface` (Supplement G). All six new statements now carry primary-source attributions with checked locators. They remain ESTABLISHED, because each goes beyond its source's hypotheses.
+
+## Spin-foam review, theory integration, and locality, September 30, 2026
+
+[[multiagentelbo-2026-09-30-spin-foam-integration-review]] records an eight-investigator review of [[dennis-2026-spin-foam-boundary-methods]]. The companion is correct where reconstructed. It is mostly a restatement of the theory and of classical probability, and its bounds are vacuous for the executed Gaussian, OU, and four-cycle classes. It strengthens the RG program narrowly and settles no open problem (details on [[Spin foam coarse-graining for agent networks]]).
+
+Four statements now stand in the theory, each verified by Claude Fable 5.1 panels:
+- `thm:rg-memory-borel-projection` (Chapter 11): the path-memory identity for standard Borel records, with no dominance hypothesis.
+- `cor:rg-perturbation-divergence-bounds` (Chapter 11): two-sided bounded-tier divergence bounds.
+- `prop:rg-forest-tree-composition` (Chapter 10): tree transports compose across depths.
+- `prop:cg-descent-common-recovery` (Chapter 9): family recovery by likelihood descent.
+
+The user decided that locality at $c_*$ is carried by the source prior. The prior may have sparse, possibly one-way supports, as with a follower who attends to a celebrity who does not attend back, and it may decay with a declared distance: graph distance, ALiBi-type, or power-law. Complete support remains the mean-field reference. The theory's interaction multigraph now contains the reversal closure of the row supports.
+
+Joint descent of the collective free energy stays the dynamics. A non-attending source therefore still feels the sender term of its followers.
+
+> [!note] Editorial: audience capture
+> Reading this sender term as an audience-capture effect is an interpretation, not a theorem.
+
+Because an agent's local free energy contains every record incident on it, per-agent descent is, for product families, a block of the same joint flow and carries the same sender terms. One-way influence would need a dynamics that drops other agents' row records, which is not descent of the collective free energy and would have to be declared.
+
+The next proposed experiment, not yet authorized, compares parent-memory decay across these priors at N = 64 to 2,048 with the existing held-OU Gaussian code.
+
 ## Observed-link inherited parent reference, September 30, 2026
 
 [[multiagentelbo-2026-09-30-gaussian-parent-dynamics]] implements actual-law Gaussian activation, exact hidden-history filtering with correlated process noise, and an optimal time-dependent one-step Markov comparator at c_*. Seven tiny CPU tests and one five-case 512-agent study passed 95 comparisons. The 45.354-second study had maximum absolute residual 6.821e-13; total retained-path losses ranged from 0.00101649 to 0.01437041 nats on horizon 0.6. Correct one-time/pair marginals do not imply correct longer-history predictions. These are measured finite-instance results.

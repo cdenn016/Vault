@@ -12,7 +12,7 @@ updated: 2026-09-30
 
 ## Judgment and existing research
 
-The most useful transfers are boundary descriptions, compatible graph diagrams, and gauge-preserving interface compression. The companion [[dennis-2026-spin-foam-boundary-methods]] now proves a conditional toolkit for these operations at $c_*$. Its 28 target ancestors and auxiliary finite regulator identity retain explicit admission conditions. Group-field-theory graph sums remain longer-term tools. Neither the selected papers nor the companion establish endogenous recursive formation or autonomous parent dynamics.
+The most useful transfers are boundary descriptions, compatible graph diagrams, and gauge-preserving interface compression. The companion [[dennis-2026-spin-foam-boundary-methods]] proves conditional implications for these operations at $c_*$ whose premises are admission conditions; the September 30 review [[multiagentelbo-2026-09-30-spin-foam-integration-review]] found that most of its statements restate theory results or classical probability and that its quantitative bounds have no nontrivial instance in the program's executed model classes (see the review section below). Group-field-theory graph sums remain longer-term tools. Neither the selected papers nor the companion establish endogenous recursive formation or autonomous parent dynamics.
 
 The live PIFB2 coarse-graining and open-problem sections and the MultiAgentELBO theory already supply exact reference/evidence pushforwards, generated hyperedges, marked loop/cut parents, and conditional memory. Supplement B already has conditional projective extension and asks for uniform control in system size and reduction depth. These are existing research, not discoveries imported from gravity. [[Coarse Graining]] and [[Graphon limits of agent networks]] retain the distinct network-limit comparisons.
 
@@ -53,15 +53,34 @@ Tensor rank, representation cutoff, tensor-index size, graph volume, GFT occupat
 
 Compact-unitary whole-carrier compression and passive GL projection with transformed positive metrics retain different admissions (Propositions 3.3–3.4). The positive-law bridge requires a common statistic chosen before recognition and slice evaluation and a positive normalized kernel at both feature inputs, with an envelope on its full log density (Theorem 3.5). Spectral tails alone do not supply this envelope. Support-preserving residuals separately control posterior KL, evidence/full-VFE offsets, and accumulated route error when the exact full channels agree (Chapter 4). The finite regulator identity is separately proved and auxiliary (Proposition 6.2).
 
-Predictive error is a separate finite-horizon quantity. The standard-Borel history-information plus row-risk identity requires joint dominance, finite conditional information, and finite source-context risk (Theorem 5.4). The finite-alphabet forgetting estimate requires conditional-filter control (Theorem 5.8). Activation uses the actual microscopic law conditional only on an already completed prefix, retaining every feedback control needed for prediction. Unconditional hidden mixing does not establish conditional memory loss.
+Predictive error is a separate finite-horizon quantity. The companion states its standard-Borel history-information plus row-risk identity under joint dominance, finite conditional information, and finite source-context risk (Theorem 5.4); those hypotheses are needed only to separate finite terms, and the identity itself holds in $[0,+\infty]$ without them (the theory's `thm:rg-memory-borel-projection`, below). The finite-alphabet forgetting estimate requires conditional-filter control (Theorem 5.8). Activation uses the actual microscopic law conditional only on an already completed prefix, retaining every feedback control needed for prediction. Unconditional hidden mixing does not establish conditional memory loss.
 
 Four applications remain `INCONCLUSIVE`: a usable finite regular non-Abelian interface with actual cost and normalized-likelihood error bounds; full interface diagrams for changing boundary coordinates; predictive estimates for an evolving-link completed-prefix activation family; and size/depth-uniform budgets (Chapter 7). The conditional results admit arbitrary finite networks, including $N\ge512$, while their costs and constants may depend on size. No useful low dimension, autonomous own-law parent, recursive formation, thermodynamic limit, base transport, or emergent geometry is proved. Finite/Gaussian examples ground the formulas without setting the theory's direction.
 
-The methods investigation remains in MultiAgentELBO's `docs/research/2026-09-30-spin-foam-transfer/`; the companion's completed proof/release record is in `docs/derivations/2026-09-30-spin-foam-boundary-methods/`. This ingestion adds no scientific-model change or experiment.
+The methods investigation remains in MultiAgentELBO's `docs/research/2026-09-30-spin-foam-transfer/`; the companion's completed proof/release record is in `docs/derivations/2026-09-30-spin-foam-boundary-methods/`. That ingestion added no scientific-model change or experiment.
+
+## Review, theory integration, and adjudication (September 30, 2026)
+
+An eight-investigator review with Claude reviewers, cross-model relative to the GPT authors, is recorded in [[multiagentelbo-2026-09-30-spin-foam-integration-review]]. It found no false statement, but eleven of the companion's 29 statements restate labeled theory results, and 24 are direct applications of classical results: Halmos–Savage and Blackwell sufficiency, the relative-entropy chain rule, Hoeffding's lemma, Schur's lemma with Ky Fan, and filter stability. The quantitative tier is vacuous for the executed classes. A bounded log-residual forces a Gaussian approximation to be exact, and OU transition kernels have Dobrushin coefficient one. Global mixing coefficients tend to one with agent count for product-like kernels, so the size-uniform forgetting route is closed for the target families. The companion settles no open problem; its own four open problems fail the theory's settling-condition rule, and its activation budget omits the conditional half that the September 28 activation-clock result shows diverging.
+
+> [!note] Editorial: what the spin-foam framing contributes
+> The companion's own independent check states that removing the claim that spin-foam methods are useful leaves its calculations unchanged. The distinctive source ideas are not transferred: dynamics-informed embeddings, fixed-point amplitude iteration, and environment-sensitive truncation of the Gilt kind. The useful transfer remains the methods judgment above, not the companion's theorems.
+
+Four statements were integrated into the MultiAgentELBO theory, and all four are EVIDENCE_VERIFIED by Claude Fable 5.1 panels:
+
+- `thm:rg-memory-borel-projection`: the memory identity on standard Borel records for any Borel history statistic, with no dominance hypothesis. It formalizes the chain rule the 512-agent parent study already uses ([[multiagentelbo-2026-09-30-gaussian-parent-dynamics]]).
+- `cor:rg-perturbation-divergence-bounds`: two-sided $\min\{\omega,\omega^2/8\}$ bounds with separate evidence and VFE offsets, in the bounded tier only.
+- `prop:rg-forest-tree-composition`: composite and forest trees compose tree transports across depths, for any group.
+- `prop:cg-descent-common-recovery`: family recovery by likelihood descent without finite divergence.
+
+Of the investigator-derived results, three were verified: the contracted residual tower, whose exact one-step supremum is $\log(1+\delta(e^w-1))$; the Gaussian exterior-informed interface, whose discarded information is $-\tfrac12\sum_{a>r}\log(1-\rho_a^2)$; and the regulator's Gibbs form. The quadratic Gaussian residual tier is verified mathematically, but its gap-filling claim is inconclusive. One stabilizer clause is refuted. None of these entered the theory.
+
+The same session recorded the user's locality decision: locality at $c_*$ is carried by the source prior, through sparse, possibly one-way supports and decaying priors. The theory's interaction multigraph now contains the reversal closure of the row supports. Joint descent stays the default dynamics.
 
 ## Sources
 
 - [[dennis-2026-spin-foam-boundary-methods]]
+- [[multiagentelbo-2026-09-30-spin-foam-integration-review]]
 - [[asante-2022-spin-foams-refinement-renormalization]]
 - [[bahr-2014-background-independent-renormalization]]
 - [[bahr-2011-operator-spin-foams]]

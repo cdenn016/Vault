@@ -4,6 +4,81 @@
 The proofs for \cref{sec:cg-retained-label-asymptotics} use the notation fixed at the head of
 that section, including its convention on the constant $\mathrm C_{\mathsf K}$.
 
+\noindent\emph{Proof of \Cref{prop:cg-descent-common-recovery}.}
+For a law $P\ll P_0$ with density $r$ and bounded measurable $g$ on $\mathsf Y$,
+$\int g d(PK)=\E_{\mathbb J_{P_0}}[g(Y)r(X)]=\E_{\mathbb J_{P_0}}[g(Y)\bar r(Y)]$ with
+$\bar r(Y)=\E_{\mathbb J_{P_0}}[r(X)\given Y]$, because $r$ is $P_0$-integrable. This is the
+computation in the proof of \Cref{thm:cg-dpi-equality}, which uses no finiteness of relative entropy,
+and it shows that a measurable function of the coarse coordinate that agrees with $r$ almost everywhere
+is $\bar r=d(PK)/d(P_0K)$. (i) If $r$ descends, disintegrating $\mathbb J_{P_0}$ over $y$ gives
+$(PKR_{P_0})(A)=\int\bar r(y)R_{P_0}(y,A)(P_0K)(dy)=\E_{\mathbb J_{P_0}}[\mathbf 1_A(X)\bar r(Y)]
+=\E_{\mathbb J_{P_0}}[\mathbf 1_A(X)r(X)]=P(A)$, and $r=1$ gives $P_0KR_{P_0}=P_0$. Conversely, let one
+Markov kernel $R$ recover $P_0$ and $P$. Conditional Jensen for the concave square root gives
+$\E_{\mathbb J_{P_0}}[\sqrt{r(X)}\given Y]\leq\sqrt{\bar r(Y)}$ almost surely, so the affinity
+$\E_{P_0}[\sqrt r]$, which is at most $1$ by the Cauchy-Schwarz inequality, does not decrease through
+$K$: $\E_{P_0}[\sqrt r]\leq\E_{P_0K}[\sqrt{\bar r}]$. The kernel $R$ sends the pair $(PK,P_0K)$, of density
+$\bar r$, to $(P,P_0)$, of density $r$, so the same inequality through $R$ gives
+$\E_{P_0K}[\sqrt{\bar r}]\leq\E_{P_0}[\sqrt r]$. The two finite affinities are therefore equal, the
+conditional inequality is an almost sure equality, and
+\begin{equation*}
+\E_{\mathbb J_{P_0}}\bigl[(\sqrt{r(X)}-\sqrt{\bar r(Y)})^2\bigr]
+=2-2\E_{\mathbb J_{P_0}}\bigl[\sqrt{\bar r(Y)}\E_{\mathbb J_{P_0}}[\sqrt{r(X)}\given Y]\bigr]
+=2-2\E_{\mathbb J_{P_0}}[\bar r(Y)]=0,
+\end{equation*}
+where $\sqrt{r(X)\bar r(Y)}$ is integrable because it is at most $(r(X)+\bar r(Y))/2$. Hence $r$
+descends. Applied to each $P_\theta$, and to a single law $P\ll P_0$, this proves the first sentence of
+(i) and the characterization of the laws that $R_{P_0}$ recovers. The functions in $L^1(P_0)$ that
+agree $\mathbb J_{P_0}$-almost everywhere with a measurable function of the coarse coordinate form a
+linear subspace containing $1$ and, when every $r_\theta$ descends, every $r_\theta$; it is closed, so
+it then contains their closed linear span: if $r^{(n)}\to r$ in $L^1(P_0)$ and $r^{(n)}(X)=\bar r^{(n)}(Y)$ almost surely, then, since $X$
+has law $P_0$ under
+$\mathbb J_{P_0}$, a subsequence converges $\mathbb J_{P_0}$-almost surely, and the limit superior of
+$\bar r^{(n)}$ along it, set to zero where it is infinite, is a measurable function of $y$ equal to
+$r(x)$ almost everywhere. For records, $d\bar{\mathsf m}_o/d\varrho=L_o/M_o$ by
+\Cref{def:rg-measure-pair}, and $d(\bar{\mathsf m}_oC)/d(\varrho C)=L^c_o/M_o$ by
+\eqref{eq:rg-reference-evidence-pair}. (ii) The graph $\operatorname{gr}c=\{(x,y):c(x)=y\}$ is
+measurable because the diagonal of the standard Borel space $\mathsf Y$ is, so
+$y\mapsto R(y,c^{-1}(\{y\}))=\int\mathbf 1_{\operatorname{gr}c}(x,y)R(y,dx)$ is measurable. Under $K_c$
+the joint $\mathbb J_{P_0}$ is the law of $(X,c(X))$ and is carried by $\operatorname{gr}c$, which gives
+the stated form of descent, and $\int R_{P_0}(y,c^{-1}(\{y\}))(c_\#P_0)(dy)=\mathbb J_{P_0}(\operatorname{gr}c)=1$,
+so every version of $R_{P_0}$ is supported on fibers and recovers $P_0$. If $R$ is supported on fibers
+and recovers $P_0$, the measure on $\mathsf X\times\mathsf Y$ that gives $A\times B$ the mass
+$\int_BR(y,A)(c_\#P_0)(dy)$ is carried by $\operatorname{gr}c$ and has first marginal $P_0K_cR=P_0$, so
+its value on $A\times B$ equals its value on $(A\cap c^{-1}(B))\times\mathsf Y$, which is
+$P_0(A\cap c^{-1}(B))=\mathbb J_{P_0}(A\times B)$. Hence $R$ disintegrates $\mathbb J_{P_0}$ over $y$ and
+is a version of $R_{P_0}$, and two versions agree $c_\#P_0$-almost everywhere because $\mathsf X$ is
+countably generated. Since $P_\theta K_c\ll P_0K_c$, all versions give the same $P_\theta K_cR$, and (i)
+gives the rest. (iii) The fiber of $c\times\operatorname{id}_{\mathsf X_2}$ over $(y,x_2)$ is
+$c^{-1}(\{y\})\times\{x_2\}$, and the first marginal of $(c\times\operatorname{id}_{\mathsf X_2})_\#P_0$
+is the law of $c(X_1)$, so $R$ is supported on fibers and, by (ii), recovers $P_0$ and every $P_\theta$
+exactly when it recovers $P_0$ and every $r_\theta$ descends. For measurable $A_1\subseteq\mathsf X_1$,
+$A_2\subseteq\mathsf X_2$, and $B\subseteq\mathsf Y$, fiber support gives
+$R'(c(X_1),A_1\cap c^{-1}(B))=R'(c(X_1),A_1)\mathbf 1_B(c(X_1))$ almost surely, and measurable
+rectangles generate the product $\sigma$-algebra, so $R$ recovers $P_0$ exactly when
+\begin{equation*}
+P_0\bigl(X_1\in A_1,c(X_1)\in B,X_2\in A_2\bigr)
+=\E_{P_0}\bigl[R'(c(X_1),A_1)\mathbf 1_B(c(X_1))\mathbf 1_{A_2}(X_2)\bigr]
+\end{equation*}
+for all such sets. With $A_2=\mathsf X_2$ this says that $R'$ is a regular conditional law of $X_1$ given
+$c(X_1)$. Granted that, conditioning both sides on $c(X_1)$ shows that the identity is equivalent to
+$P_0(X_1\in A_1,X_2\in A_2\given c(X_1))=P_0(X_1\in A_1\given c(X_1))P_0(X_2\in A_2\given c(X_1))$
+almost surely for all $A_1,A_2$, which is the conditional independence. These conditions on $P_0$
+and the $r_\theta$ are equivalent to adequacy in the sense named after the proposition, that is, to a
+conditional law of $X_1$ given $c(X_1)$ common to $P_0$ and every $P_\theta$ together with the
+conditional independence of $X_1$ and $X_2$ given $c(X_1)$ under each of these laws. Conditional
+independence under $P_0$ with descent $r_\theta(x_1,x_2)=\bar r_\theta(c(x_1),x_2)$ makes the
+conditional law of $X_1$ given $(c(X_1),X_2)$ under $P_\theta$, whose density with respect to $P_0$ is a
+function of $(c(X_1),X_2)$, equal to that under $P_0$, which is the conditional law of $X_1$ given
+$c(X_1)$ under $P_0$, so the conditional independence holds under every $P_\theta$ with this common
+conditional law; conversely, adequacy writes each member of the family as the law of
+$(c(X_1),X_2)$ followed by the common kernel to $X_1$, so every $r_\theta$ is the density between
+these laws of $(c(X_1),X_2)$ evaluated at $(c(x_1),x_2)$ and descends. In the witness every $R'$ is
+supported on the one fiber, the density $1$ of the family descends,
+$R_{P_0}((y,x_2),\cdot)=\delta_{(x_2,x_2)}$ recovers $P_0$,
+and $R'(y,\cdot)\otimes\delta_{x_2}$ sends $P_0$ to the product of $R'(y,\cdot)$ with the uniform law on
+$\{0,1\}$, which gives $\{x_1\neq x_2\}$ the mass $\tfrac12R'(y,\{1\})+\tfrac12R'(y,\{0\})=\tfrac12$.
+$\square$
+
 \noindent\emph{Proof of \Cref{thm:rg-exact-coarse-vfe}.}
 (i) Since $C(y,\mathsf Z)=1$, a bounded function of $o$ alone has the same integral against
 $\mathbb P^c$ and against $\mathbb P$, which gives normalization and the observation marginal. For

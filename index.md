@@ -27,6 +27,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 
 ## 📝 Manuscripts (in preparation)
 - [[dennis-2026-spin-foam-boundary-methods]] — conditional boundary toolkit at c_*: exterior recovery, correlated gluing, gauge/positive interfaces, static/predictive errors, and auxiliary regulator; four applications remain open
+- [[multiagentelbo-2026-09-30-spin-foam-integration-review]] — eight-investigator review of the spin-foam companion; four statements integrated into the theory and Fable-verified; locality through the source prior, one-way attention, joint descent default
 - [[dennis-2026-projected-predictive]] — projected predictive route end to end, toggle-to-equation map, and the opt-in moment-matched predictive covariance; tests only, no training result
 - [[dennis-2026-template-routing]] — template routing explainer: block MLP as mixture-prior inference over learned Gaussian templates; vfe3 `gaussian_template` toggle, no training result
 - [[multiagentelbo-2026-09-26-conditioned-parent]] — actual prefix-conditioned parent activation, own-law learning, and vanishing conditional-information and path errors after late coherence
@@ -1438,3 +1439,4 @@ All new source notes are cataloged below. [[multiagentelbo-2026-09-11-research-s
 ## Observed-link Gaussian parent dynamics, September 30, 2026
 
 - [[multiagentelbo-2026-09-30-gaussian-parent-dynamics|Observed-link Gaussian parent dynamics]] — seven tiny CPU tests; 95 passing comparisons across five 512-agent cases; full inherited history distinguished from one-step marginal parity. Coupled learning and compressed autonomous parents remain open.
+- [[multiagentelbo-2026-09-30-locality-parent-memory|Parent memory across locality priors (X3)]] — N = 64 to 2,048; local priors keep finite memory per block, complete support becomes nearly Markov by exchangeability; locality hypothesis refuted for complete support
