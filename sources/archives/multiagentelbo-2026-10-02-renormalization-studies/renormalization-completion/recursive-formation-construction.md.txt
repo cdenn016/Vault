@@ -1,0 +1,263 @@
+# Recursive formation: a fixed-energy saddle route and its open lemma
+
+October 2, 2026. Bounded constructive contribution to O4. This record gives a normalized large-network candidate, exact landscape and restoring calculations, and a quantitative recurrence reduction. It does not close Chapter 12's hierarchy problem. No simulation, GPU work, manuscript edit, or verification certificate was produced.
+
+## Target, quantifiers, and continuity
+
+The exact target is \(\texttt{open:full-graph-hierarchy}\) in the live Research manuscript's \(\texttt{c12_multiscale_vfe.tex}\), section \(\texttt{sec:full-graph-vfe-target}\), lines 1013 onward. For a model at one base point, with a finite partition catalog in both generative and recognition laws, energies, precisions, prior ratios, hyperparameters and mobilities independent of \(T\), reversible diffusion at temperature \(T\), and rate-one conditional mark redraws, its positive resolution requires three results together. First: a lineage of at least two levels, formed with probability bounded below from every initial law with a density and finite second moment, with a first-stage-dependent second coherence episode. Second: a nondegenerate intrinsic partition selector. Third: consistent feedback on a separated slow manifold. The first result has the handoff, counterfactual, restoring, and horizon conditions below; two sequential relaxations alone do not suffice.
+
+SPEC R14, lines 217-234, explicitly allows a deterministic or stopping-time handoff. It requires histories of one process, and a handoff class containing every first-stage handoff and a positive-probability set of handoffs without first-stage formation. R15, lines 236-248, permits either a short horizon relative to a stationary entrance time or an event probability exceeding its stationary probability by a positive margin. A long first waiting period is therefore not excluded. Failure on fixed first-formation windows is not a general obstruction.
+
+Sources read before construction: [DIRECTION](../../DIRECTION.md); the current and September 20-26 parts of [STATUS](../../STATUS.md); the live Chapter 12 partition factor and hierarchy target; the homogeneous experiment in \(\texttt{c13_formation.tex}\), definition \(\texttt{def:rg-formation-cycle-experiment}\); the [September 22 second-episode calculation](../../derivations/2026-09-11-meta-agent-formation-frontier-and-locality/selective-interface-second-episode.md); [P-03](../../derivations/2026-09-11-meta-agent-formation-frontier-and-locality/p03-counterfactual-background.md); [R14 slow-model memory](../../derivations/2026-09-11-meta-agent-formation-frontier-and-locality/r14-slow-model-memory.md); and the Research wiki theme "Staged hierarchy formation and RG composability."
+
+The old background construction already supplies normalized nested channels. Its later restoring inequality is uniform over the handoff class and does not read a first-stage state. At the proved windows, the second event becomes certain and its stationary probability tends to one. The investigated slow model memory delays that relaxation. Repeating either argument does not establish facilitation.
+
+User-supplied assumptions here are the fixed-base-point gate, large-network target, nonflat links, actual handoff laws, and temperature-independent coefficients. The bistable collective coordinate, compact interval for that coordinate, Euclidean matter specialization, declared pairing, and particular catalog are introduced assumptions. They are not established properties of the October 2 Gaussian learning implementation.
+
+The intended comparison is a difference in probabilities of the same future event under two actual handoff-state distributions of one diffusion. It is not equality of path laws, a closure theorem, or equivalence to the implemented Gaussian model. Coherence below means a declared matter-contrast resolution. It is not silently identified with full transported Gaussian-law KL.
+
+## Routes considered
+
+The first route used an open preparation set whose deterministic trajectory writes a bistable memory and then forms a second group. This gives a fixed-window counterfactual margin, but not the every-initial-law clause: a density near an unformed minimum remains there with probability tending to one on those windows.
+
+Waiting for the first hit of the preparation set is insufficient by itself. It can make first-stage success almost certain and leave no positive-weight nonformation histories in the same experiment. Comparing it to a different supplied preparation would violate R14. This is a failed implication of that route, not a no-go theorem.
+
+The second route uses the first entrance into a thermal-size neighborhood of an actual saddle, followed by the process's own two exits. One exit supplies a formation handoff and the other a nonformation handoff. There is no reset or parameter switch. The first open lemma is its uniform nonlinear two-exit estimate.
+
+## A proper fixed-energy family for every even N at least 512
+
+Let \(N=2m\), and let agent matter coordinates be \(x_i\in\mathbb R^K\), \(K\ge1\). In a declared common root frame make an orthogonal coordinate change into within-pair contrasts \(u\in\mathbb R^{mK}\), between-pair contrasts \(v\in\mathbb R^{(m-1)K}\), and the global coordinate \(c\in\mathbb R^K\). For example, \(u_b=(x_{2b}-x_{2b-1})/\sqrt2\), followed by an orthogonal split of the pair means into \(v,c\). This names a candidate hierarchy; it is not an intrinsic selector.
+
+Choose fixed vectors \(d_u,d_v\) with \(|d_u|^2=|d_v|^2=N\). They name an unformed contrast pattern in the energy, not a temperature-dependent preparation. Let \(a\in[0,1]\) be a retained collective coordinate with reflection at the endpoints. Set
+\[
+ W(a)=a^2(a-1)^2+\frac1{10}a^2(3-2a)
+     =a^2\left[(a-\frac{11}{10})^2+\frac9{100}\right],
+\]
+\[
+ E_N=N W(a)+\frac{\kappa}{2}|u-(1-a)d_u|^2
+       +\frac{k}{2}|v-(1-a)d_v|^2+\frac12|c|^2.       \tag{1}
+\]
+Take \(\kappa=1\) and one sufficiently small fixed \(k>0\), to be chosen below. The mobility is \(M_N=\operatorname{diag}(N^{-1},I,I,I)\). All these coefficients are independent of \(T\).
+
+Put
+\[
+ \rho_T(dz)=Z_T^{-1}e^{-E_N(z)/T}\,da\,du\,dv\,dc.
+\]
+Writing \(D_u=mK,D_v=(m-1)K,D_c=K\), direct integration gives
+\[
+ Z_T=(2\pi T)^{(D_u+D_v+D_c)/2}
+       \kappa^{-D_u/2}k^{-D_v/2}
+       \int_0^1e^{-NW(a)/T}\,da.                    \tag{2}
+\]
+It is finite and positive for every \(T>0\). There is no infinite-volume partition function or recognition-dependent factor.
+
+The diffusion is
+\[
+ dZ_t=-M_N\nabla E_N(Z_t)\,dt+\sqrt{2TM_N}\,dB_t+dL_t, \tag{3}
+\]
+where \(L\) is inward reflection in the \(a\) coordinate only. The drift is locally Lipschitz. The other coordinates have uniformly stable linear drift with bounded forcing, and the moment estimate below rules out explosion.
+
+For smooth positive densities with finite energy and entropy, zero probability flux at \(a=0,1\), and sufficient decay at infinity, integration by parts gives
+\[
+ \Phi_T(q)=\mathbb E_qE_N+T\int q\log q
+          =T D(q\Vert\rho_T)-T\log Z_T,
+\]
+\[
+ \frac{d}{dt}\Phi_T(q_t)
+ =-\int q_t|\nabla(E_N+T\log q_t)|_{M_N}^2.          \tag{4}
+\]
+Both boundary terms vanish under the stated conditions. Formula (4) is not asserted at time zero for an arbitrary density of infinite entropy.
+
+One can include a finite partition factor without any normalization defect: give the singleton, declared-pair, and whole-network partitions fixed positive weights \(w_R\), set \(\rho_T(z,R)=\rho_T(z)w_R\), and redraw \(R\) from \(w\) at rate one. This law is reversible but its partition factor is deliberately inadequate as a formation selector: it has no coordinate dependence or feedback. Attaching it does not settle the last two Chapter 12 requirements.
+
+## Landscape and reciprocal feedback
+
+The critical configurations have
+\[
+ a\in\{0,b,1\},\quad b=\frac{13}{20},\quad
+ u=(1-a)d_u,\quad v=(1-a)d_v,\quad c=0,
+\]
+because
+\[
+ W'(a)=2a(a-1)(2a-\frac{13}{10}),\quad
+ W''(0)=\frac{13}{5},\quad W''(b)=-\frac{91}{100},
+ \quad W''(1)=\frac75.                            \tag{5}
+\]
+The unformed minimum has energy zero, the formed minimum \(N/10\), and
+\[
+ W(b)=\frac{19773}{160000}=0.12358125.               \tag{6}
+\]
+The decimal is an exact rational evaluation, not a numerical experiment.
+
+The subspace \(u=U d_u,v=V d_v,c=0\) is invariant under deterministic descent and obeys
+\[
+ \dot a=-W'(a)-\kappa(U-1+a)-k(V-1+a),\quad
+ \dot U=-\kappa(U-1+a),\quad
+ \dot V=-k(V-1+a).                                 \tag{7}
+\]
+Orthogonal components decay at rates \(\kappa,k,1\). In mobility coordinates the parallel Hessian is
+\[
+ \begin{pmatrix}
+ W''(a)+\kappa+k&\kappa&k\\
+ \kappa&\kappa&0\\
+ k&0&k
+ \end{pmatrix}.                                    \tag{8}
+\]
+Its Schur complement after eliminating the positive lower block is \(W''(a)\). Hence both minima are nondegenerate and the middle point has precisely one unstable direction for every \(k>0\).
+
+Unlike the background mechanism, the restoring force on \(V\) reads \(a\): its target is zero in the formed basin and one in the unformed basin. The same spring contributes \(k(V-1+a)\) to the \(a\) force. Dropping that reciprocal contribution would cease to be descent of (1).
+
+## Conditional second-stage theorem
+
+Write \(z=1-a\). On \(0\le z\le1/20\),
+\[
+ W'(1-z)=-2(1-z)z(\frac7{10}-2z)\le-\frac{57}{50}z.
+\]
+Thus, for \(\kappa=1\),
+\[
+ \dot z\le U+kV-(\frac{57}{50}+1+k)z,\quad
+ \dot U=-U+z,\quad \dot V=-kV+kz.                    \tag{9}
+\]
+For \(0<k\le7/100\), the box
+\[
+ {\cal H}_+=\{0\le z,U\le1/20,\quad0\le V\le1/2\}
+\]
+is invariant. The outward derivatives at its three upper faces are bounded respectively by
+\(-57/1000+9k/20<0\), zero, and \(-9k/20<0\); the lower faces point inward. For \(F=z+2U+2V\),
+\[
+ \dot F\le-(\frac7{50}-k)z-U-kV\le-\frac{k}{2}F,
+ \qquad F(t)\le F(0)e^{-kt/2}.                     \tag{10}
+\]
+
+A nonformation box is also invariant:
+\[
+ {\cal H}_-=\{0\le a\le1/10,\quad9/10\le U\le1,\quad
+                         1/4\le V\le1\}.          \tag{11}
+\]
+At \(a=1/10\), \(\dot a\le-99/500+13k/20<0\). At the other faces (7) points inward. Thus a whole-network event requiring \(|U|,|V|<1/20\) never occurs from this box deterministically.
+
+Fix \(0<r<1/20\), compact high- and low-handoff sets with strict margins, and a delay
+\[
+ D=\frac2k\log\frac{2\sup_{{\cal H}_+}F}{r}.
+\]
+The high deterministic paths lie strictly inside the \(r\)-coherence set on \([D,D+1]\); the low paths retain \(V\ge1/4\). These assertions persist in sufficiently small full-dimensional neighborhoods of the compact parallel-coordinate handoff sets by continuous dependence, so a density supported on a lower-dimensional subspace is not required.
+
+On a compact neighborhood of these paths the drift has a finite Lipschitz constant. The interval reflection map is Lipschitz. A stopped Gronwall estimate followed by the Brownian maximal second-moment estimate gives
+\[
+ \Pr\{\sup_{t\le D+1}|Z_t-Z_t^{(0)}|>\delta\}
+       \le C_{N,D,\delta}T.                        \tag{12}
+\]
+This proves a future-event probability tending to one on the high-handoff set and to zero on the low-handoff set. It supplies the required sign of a margin, provided the two handoff types are obtained with positive probability from one process. No useful numerical temperature threshold is asserted.
+
+On a sufficiently small fixed neighborhood of the formed minimum, (8) and the positive transverse blocks give a positive constant \(\lambda_N\). With \(Y=Z-Z_*\), stopped at that neighborhood's boundary,
+\[
+ {\cal L}|Y|_{M_N^{-1}}^2
+ \le-2\lambda_N|Y|_{M_N^{-1}}^2
+            +2T(D_u+D_v+D_c+1).                   \tag{13}
+\]
+Reflection at the formed endpoint contributes a nonpositive term. Therefore \(\lambda_Nr^2/T\to\infty\) at every fixed positive resolution \(r\). This concerns the actual diffusion, not a favorable conditional sheet held fixed.
+
+The event is not typical of stationarity. If \(|v|\le r\sqrt N\), then either \(a\ge1/2\), giving \(W(a)\ge9/400\), or \(a<1/2\), giving
+\(|v-(1-a)d_v|\ge(1/2-r)\sqrt N\). Hence its energy is at least
+\[
+ N\Delta,\qquad
+ \Delta=\min\{\frac9{400},\frac{k}{2}(\frac12-r)^2\}>0. \tag{14}
+\]
+More explicitly, conditionally on \(a\), \(\langle v,d_v\rangle/N\) is normal with mean \(1-a\) and variance \(T/(kN)\), while \(p_T(a)\) is proportional to \(e^{-NW(a)/T}\). It follows that
+\[
+ \rho_T\{|v|\le r\sqrt N\}
+ \le C_N T^{-1/2}e^{-9N/(400T)}
+       +e^{-kN(1/2-r)^2/(2T)}\longrightarrow0.       \tag{15}
+\]
+For the denominator bound, integrate \(a\in[0,\sqrt{T/N}]\), where \(NW(a)/T\) stays bounded. A stationary unit-window event has probability at most its one-time probability. Positive handoff success would therefore satisfy R15's probability alternative. No entrance-time claim is inferred from stationary occupancy.
+
+## Quantitative first-saddle-entrance reduction
+
+A temperature-dependent first waiting horizon is allowed; it does not change the coefficients.
+
+For fixed \(N\), let \(s_N\) be the saddle, \(G_T=\{|Z-s_N|<c_0\sqrt T\}\), and \(\tau_T\) its first entrance. Fix the norm, for example mobility coordinates. For \(X=(u,v,c)\),
+\[
+ {\cal L}|X|^2
+ \le-\lambda|X|^2+(\kappa+k)N+2T(D_u+D_v+D_c),
+ \quad\lambda=\min\{\kappa,k,1\}>0.                 \tag{16}
+\]
+Outside a fixed compact set this is at most \(-1\), for \(0<T\le T_0\). The stopped integral identity bounds the expected time to that set by \(C_N(1+|X_0|^2)\).
+
+From every point of this compact set, a bounded control can steer the process to the saddle in a fixed time inside a larger compact set. Clip the control outside that larger set. Its squared mobility-weighted cost is at most \(A_N\). Under the controlled process a Brownian tube of radius \(c\sqrt T\) about the controlled path has probability \(p_N>0\) independent of \(T\). The interval reflection map transfers the tube estimate to the reflected coordinate.
+
+The exponential change-of-drift density has relative entropy at most \(A_N/(4T)\), since the diffusion covariance is \(2TM_N\). For an event \(B\) with controlled probability \(q\ge p_N\),
+\[
+ D(Q\Vert P)\ge q\log(1/P(B))-h_b(q).
+\]
+Consequently the uncontrolled attempt has success probability at least
+\[
+ \exp[-(A_N/(4T)+\log2)/p_N]\ge c_Ne^{-C_N/T}.        \tag{17}
+\]
+The bounded clipped control makes its exponential density integrable. The tube is used only to obtain a bound; it is not applied to the actual process.
+
+Repeat attempts on returns to the compact set. The return estimate and the bounded expected second moment after one attempt give a uniformly bounded expected attempt-plus-return duration. The strong Markov property and the common lower bound (17) give
+\[
+ \mathbb E_x\tau_T\le C_N(1+|X_0|^2)e^{C_N/T}.       \tag{18}
+\]
+For example sum the expected attempt costs over successive visits; the probability of reaching visit \(j\) is at most \((1-c_Ne^{-C_N/T})^{j-1}\). Expected return costs after failed attempts are bounded by the unconditional post-attempt moment, so no division by a small failure probability is required.
+
+Choose the predeclared horizon \(H_T=e^{2C_N/T}\). For every fixed initial law \(\mu\) with finite second moment,
+\[
+ \Pr_\mu(\tau_T>H_T)
+ \le C_N(1+\mathbb E_\mu|X_0|^2)e^{-C_N/T}\to0.       \tag{19}
+\]
+This is pointwise in the fixed initial law. It is uniform over a class with a common second-moment bound, not over all laws with unbounded moments. No process is restarted at \(\tau_T\). This calculation addresses recurrence, not the required two-branch comparison.
+
+## First unresolved lemma: the actual nonlinear saddle exit
+
+Choose before execution a fixed neighborhood \(O\) of \(s_N\), outgoing sections \(\Gamma_+,\Gamma_-\) along its two unstable directions, and constants \(p>0,C<\infty\). Prove, uniformly over actual entrance points \(x\in\overline G_T\),
+\[
+ \Pr_x\{Z_{\nu_T}\in\Gamma_\pm,\quad
+               \nu_T\le C\log(1/T)\}\ge p,
+ \quad \nu_T=\inf\{t:Z_t\notin O\},                 \tag{20}
+\]
+together with concentration near the corresponding outgoing deterministic branch. The estimate must apply to the actual stopping-time entrance law. Starting exactly at the saddle, inserting a symmetric Gaussian there, or supplying a sign coin is insufficient.
+
+The linearized calculation supports this route. In mobility coordinates the unstable component is
+\[
+ Y_t=e^{\lambda_*t}
+ \left(Y_0+\sqrt{2T}\int_0^te^{-\lambda_*s}\,dB_s\right).
+\]
+The bracket divided by \(\sqrt T\) has a nondegenerate Gaussian limit, and its initial shift is bounded when \(|Y_0|\le c_0\sqrt T\). Both signs therefore have probabilities bounded below uniformly over that initial shift. This is a proof for the linearized diffusion only. Controlling the nonlinear remainder until exit over the growing logarithmic interval, then matching the outgoing sections, is unresolved. The fixed-time estimate (12) does not settle it.
+
+At \(k=0\), \(V\) remains at its saddle value \(7/20\). The high outgoing branch of the \((a,U)\) subsystem tends to \(a=1,U=0\); the low branch tends to \(a=0,U=1\). For the high branch, in coordinates \(z=1-a,U\), the square \([0,7/20]^2\) is invariant. Energy strictly decreases off critical points, and its only lower-energy critical point is \((z,U)=(0,0)\). Compactness and the integral of the squared gradient imply that limit points are critical, so the branch converges there. The corresponding low-side rectangle gives the other limit. The saddle itself is excluded because the nonconstant branch has already lost energy.
+
+Choose fixed branch sections and a finite subsequent time at which the high branch has \(z,U<r/2\) and the low branch has \(a<1/20,U>19/20\), while \(V=7/20\). For a sufficiently small fixed positive \(k\), continuous dependence on this finite segment preserves strict margins, with \(V\) still between \(3/10\) and \(2/5\). The high branch enters (9)-(10), the low branch enters (11). A proof of (20) must make the common sections and the post-exit time precise rather than infer them from a plotted trajectory.
+
+If (20) is proved, a candidate common handoff is
+\(\sigma_T=\tau_T+\nu_T+h\), with \(h\) fixed after choosing \(k\). The first-stage event is declared through the actual post-\(\tau_T\) history: pair coherence occurs while parent disagreement remains above its threshold. The low exit gives histories without that declared episode. Both exits occur in the same process after the same saddle-entrance rule.
+
+The handoff class must be fixed before comparison and contain every first-stage handoff, including atypical noisy ones. The full state space is a possible class; a convenient narrow tube cannot simply be called every handoff. Earlier history is retained: an arbitrary initial law may have earlier coherence episodes. Defining the first stage relative to this declared episode start is explicit bookkeeping, not permission to erase or reset the past.
+
+## Partition, GL, and slow-manifold obligations
+
+The family is defined for every even \(N\ge512\). It is not a theorem extrapolated from four agents. Constants may depend on \(N\); no joint \(N,T\) limit is proved.
+
+A state-dependent catalog can be normalized by
+\[
+ \rho_T(z,R)=Z_T^{-1}w_R
+      \exp[-(E_N(z)+\eta V_R(z))/T],
+\]
+with fixed smooth \(V_R\), fixed \(\eta>0\), and conditional heat-bath redraws. It also changes the continuous forces. A next construction could use penalties equal and constant near the saddle, favoring the pair label in the first-coherence corridor and the whole label near the formed minimum. This formula is well-defined, but neither selection nor the affected path bounds have been proved. They must hold under every mark actually visited, not a frozen favorable mark.
+
+For a GL realization, use rooted tree frames, carry the endpoint metrics, and retain every independent chord and its inverse copy. Matrices such as
+\[
+ A=\begin{pmatrix}1&1\\0&1\end{pmatrix},\qquad
+ B=\begin{pmatrix}1&0\\1&1\end{pmatrix}
+\]
+are invertible, nonisometric and noncommuting. Appending them as unused labels does not provide an interacting GL formation theorem. Positive comparison records using these links alter the saddle and its branches and must be included in (20) and the coherence estimates. Nor does small transported mean mismatch imply vanishing full Gaussian-law KL when noncompact holonomy changes covariance. The law-coherence convention remains a genuine obligation.
+
+The existing exact pushforward and link-copy composition results can be used after the complete retained state is declared. They do not give the intrinsic selector or a separated slow manifold with consistent downward feedback for this candidate.
+
+## Result and next action
+
+Established here: a proper autonomous fixed-energy family for all even \(N\ge512\); exact bistability and reciprocal memory-dependent parent restoration; a high-versus-low handoff probability margin on fixed later windows; an actual restoring estimate; vanishing stationary coherence probability; and a quantitative first-saddle-entrance reduction from every fixed finite-second-moment initial law.
+
+Unresolved: uniform nonlinear two-exit estimate (20); the complete same-process handoff experiment built from it; intrinsic partition selection; interacting noncommuting GL law coherence; and consistent feedback on a separated slow manifold. This is neither O4 closure nor a negative resolution of Chapter 12.
+
+The next decisive action is a proof or counterexample for (20), including uniformity over the actual thermal-ball entrance points and matching to both post-exit corridors. This is an analytical small-noise obligation; a GPU study cannot prove it. If it succeeds, add the state-dependent partition and nonflat link factors to the same law and redo the affected bounds. Do not return to an always-active uniform background.

@@ -1,0 +1,228 @@
+# Stiffness-controlled refinement with eight retained observations
+
+October 2, 2026. One bounded numerical design for the declared switching law. No code, test, or new study ran for this note. The original eight-step run remains a valid record of its declared finite-step law and must not be overwritten or reclassified from this design alone.
+
+## Target and evidence
+
+Keep the original horizon T=1, eight observation intervals of length Delta=1/8, the exact stored deterministic structural schedule, fixed mobility M=blockdiag(initial.Sigma), initial sampled law, source supports, and retained output projectors. Refine only the sampled splitting inside each original interval, with one globally chosen substep size. Construct the exact Gaussian configuration reference at the same eight observation times, and retain honest parent path-error formulas without enlarging parent history dimension to 32 or 64 observations.
+
+Read sources: evidence/stiffness-diagnostic.json; src/multiagent_elbo/realizations/gaussian/{switching_paths,switching_experiment}.py; experiments/gaussian_switching_paths.py; and the source model and trajectory-construction.md already read for this assignment. The current sampler uses fresh global refresh coins with probability 1-exp(-refresh_rate*dt), full selected-sheet forces including sender terms, common-noise Gaussian reference forces, and mobility initial.Sigma held fixed. Its returned conditional means are the means of one fine step. The direct bound currently assumes the saved observation spacing is that same fine step.
+
+The diagnostic contains a single-record mobility-whitened eigenvalue lower bound 20.255149905414044 for N=512 and 24.339655398548736 for N=1024. Multiplying by Delta gives 2.5318937381767554 and 3.042456924818592. Because every other selected record and the prior add positive-semidefinite precision, an admissible selected sheet containing that record has at least this maximum eigenvalue. Its Euler homogeneous update has an expanding mode with amplification at least 1.5318937381767554 or 2.042456924818592. The diagnostic row probabilities are positive. These are mathematical instability witnesses for some admissible sheets, not merely large sampled scores. The reported largest path contributions of 67.10% and 42.93% are empirical concentration diagnostics, not proofs of infinite moments or of the complete cause of every extreme path.
+
+## 1. One recommended subdivision rule
+
+Write M=L L^T using the block-diagonal Cholesky factor. For every held original schedule state t, and every candidate row edge e=(i,j), let B_e x=x_i-Theta_e x_j and A_e=B_e^T H_i B_e/tau. The selected-sheet and reference precisions are
+
+$$
+H_{t,J}=J_0+\sum_i A_{i,J_i,t},\qquad
+\bar H_t=J_0+\sum_{ij}\bar\beta_{ij,t}A_{ij,t}.
+$$
+
+Construct the sparse all-candidate upper precision
+
+$$
+H_t^{all}=J_0+\sum_{i,j\in\mathcal N_i} A_{ij,t}.
+$$
+
+Each A is positive semidefinite and each row selects one candidate or takes a convex combination. Hence
+
+$$
+J_0\preceq H_{t,J},\bar H_t\preceq H_t^{all}
+\quad\text{for every assignment }J. \tag{1}
+$$
+
+No candidate may be dropped because its probability is small. Directed rows still contribute to both endpoint blocks. Use the actual comparison map, including the inverse map when the stored physical edge is reversed.
+
+Form sparse K-by-K blocks of S_t=L^T H_t^{all}L. One candidate contributes, in its two endpoints,
+
+$$
+\tau^{-1}\begin{pmatrix}
+L_i^TH_iL_i&-L_i^TH_i\Theta_{ij}L_j\\
+-L_j^T\Theta_{ij}^TH_iL_i&L_j^T\Theta_{ij}^TH_i\Theta_{ij}L_j
+\end{pmatrix}. \tag{2}
+$$
+
+Add prior blocks L_i^T J_0i L_i and sum duplicate endpoint blocks before bounding. The sparse block-row estimate
+
+$$
+\lambda_{max}(S_t)\le\Lambda_t:=
+\max_i\left[\lambda_{max}((S_t)_{ii})+\sum_{j\ne i}\|(S_t)_{ij}\|_2\right] \tag{3}
+$$
+
+requires only local small-matrix norms, not a dense d-by-d eigendecomposition. To prove (3), expand v^T S_t v. Bound each diagonal term by its largest eigenvalue times ||v_i||^2, each off-diagonal pair by 2||S_ij|| ||v_i|| ||v_j||, and use 2ab<=a^2+b^2. Symmetry yields the stated maximal row sum times sum_i||v_i||^2.
+
+Take Lambda_* as the maximum over every original held schedule state in every case being compared, including all arms and both N values when a single resolution is desired. Let k be the smallest power of two satisfying
+
+$$
+k\ge\max(1,\Delta\Lambda_*),\qquad \delta=\Delta/k.
+\tag{4}
+$$
+
+Thus delta Lambda_*<=1. A small declared numerical safety margin on the computed Lambda_* can be included before rounding k upward; ordinary floating-point norm estimates are not interval-certified bounds. Record the bound, margin, and chosen k. Do not preselect H=32 or H=64 before evaluating (3); the diagnostic lower bound implies k>=4 is necessary for this chosen margin, but the all-candidate bound may require more. This is one design criterion, not an adaptive retry rule.
+
+Hold the original pi,Theta,recognition reference row, and other coefficients constant over each group of k microsteps. Do not rerun the learner on a finer schedule: that would change another part of the model. Use refresh probability 1-exp(-refresh_rate*delta) at every microstep and the same global-refresh semantics. Do not keep probability 1-exp(-refresh_rate*Delta) at every microstep, which would increase the effective refresh rate.
+
+## 2. What the criterion proves
+
+In whitened coordinates y=L^-1 x, the selected-sheet microstep is
+
+$$
+y^+=(I-\delta S_{t,J})y+\delta c+\sqrt{2\delta}Z,
+\quad S_{t,J}=L^TH_{t,J}L,\quad c=L^TJ_0a. \tag{5}
+$$
+
+Define alpha=lambda_min(L^T J_0 L)>0. Equations (1)–(4) give
+
+$$
+\alpha I\preceq S_{t,J},L^T\bar H_tL\preceq\Lambda_*I,
+\quad \|I-\delta S_{t,J}\|_2\le1-\delta\alpha. \tag{6}
+$$
+
+Thus every admissible homogeneous sheet map contracts in this fixed whitened norm and has no sign-changing eigenmode. This is a stronger margin than the bare Euler condition delta lambda_max<2. It does not prove contraction between two state-dependent switching trajectories, whose assignments may differ.
+
+There is also a subdivision-uniform moment estimate. Set rho=1-delta alpha. Since ||(I-delta S)y||<=rho||y||, write the deterministic update as a convex combination with weights rho and delta alpha. Convexity of squared norm gives
+
+$$
+\|(I-\delta S)y+\delta c\|^2
+\le(1-\delta\alpha)\|y\|^2+\delta\|c\|^2/\alpha.
+$$
+
+Averaging the independent Gaussian noise therefore yields
+
+$$
+E\|y^+\|^2\le(1-\delta\alpha)E\|y\|^2
++\delta(\|c\|^2/\alpha+2d),
+$$
+
+$$
+\sup_nE\|y_n\|^2\le
+\max\{E\|y_0\|^2,\|c\|^2/\alpha^2+2d/\alpha\}. \tag{7}
+$$
+
+This works with state-dependent label draws and arbitrary changes among the held schedule states, because the same alpha,Lambda_*,c apply to all of them. At the edge case rho=0, (6) forces the homogeneous map to vanish and the same inequality holds directly. These estimates eliminate the identified deterministic expanding-sheet mechanism. They do not guarantee a small path-KL bound, a small Monte Carlo standard error, or absence of rare large samples.
+
+The fine/reference force difference obeys L^T(g_J-g_bar)=(S_J-S_bar)y and ||S_J-S_bar||<=Lambda_*-alpha. Hence its expected microstep-summed KL budget has the coarse deterministic bound
+
+$$
+B_\delta\le\tfrac{T}{4}(\Lambda_*-\alpha)^2
+\max\{E\|y_0\|^2,\|c\|^2/\alpha^2+2d/\alpha\}. \tag{8}
+$$
+
+It is finite uniformly over this refinement, but may be numerically loose.
+
+## 3. Exact eight-step Gaussian reference
+
+Inside one original interval, the reference microkernel is
+
+$$
+X^+=F X+b+\xi,\quad F=I-\delta M\bar H_t,
+\quad b=\delta MJ_0a,\quad \xi\sim N(0,Q),\quad Q=2\delta M.
+$$
+
+Its k-fold composite is exactly Gaussian:
+
+$$
+F_c=F^k,\quad b_c=\sum_{r=0}^{k-1}F^r b,
+\quad Q_c=\sum_{r=0}^{k-1}F^rQ(F^r)^T. \tag{9}
+$$
+
+These are identities for the chosen Euler reference, not exact continuous-time replacement. The augmented reference still uses every shared microstep label kernel; summing labels leaves this Gaussian X marginal exactly, as in trajectory-construction.md.
+
+Compute (9) without storing k dense kernels or increasing the parent horizon. Initialize Phi=I,u=0,V=0 and repeat k times
+
+$$
+\Phi\leftarrow F\Phi,\quad u\leftarrow Fu+b,\quad V\leftarrow FVF^T+Q. \tag{10}
+$$
+
+F is block sparse, so use sparse-times-dense products for Phi and V. This costs O(k nnz(F)d) arithmetic and O(d^2) workspace per original interval rather than k dense cubic covariance multiplications. It produces eight dense macro-kernels for the existing exact-reference/predictor machinery. The parent path dimensions, hidden-rank comparisons, and eight-time output covariance dimensions remain unchanged. The extra work is microstep sampling and macro-kernel composition. No dense eigendecomposition is needed for the step criterion.
+
+A useful exact check, if one elects to diagonalize the fixed whitened reference precision S_bar=U diag(lambda_a)U^T, is r_a=1-delta lambda_a and
+
+$$
+F_c=L U\operatorname{diag}(r_a^k)U^TL^{-1},
+$$
+
+$$
+b_c=L U\operatorname{diag}((1-r_a^k)/\lambda_a)U^T c,
+$$
+
+$$
+Q_c=L U\operatorname{diag}\left(\frac{2(1-r_a^{2k})}{\lambda_a(2-\delta\lambda_a)}\right)U^TL^T. \tag{11}
+$$
+
+Use geometric sums or stable expm1/log1p evaluation near r=1 if using these formulas numerically. Equation (10) is the recommended sparse construction; (11) is an analytical identity, not a request for an extra large eigensolve.
+
+## 4. Sampling only coarse outputs preserves the fine-KL transfer
+
+Maintain current X,J and accumulate every microstep discrepancy
+
+$$
+B_\delta=E_{P_\delta}\sum_{n=0}^{8k-1}\frac{\delta}{4}
+\|g_{J_{n+1}}(X_n)-\bar g_n(X_n)\|_M^2. \tag{12}
+$$
+
+The same initialization, label-kernel, and equal-noise cancellation prove KL(P_delta^aug||Q_delta^aug)=B_delta exactly. Save X only at times 0,Delta,...,1; no intermediate fine path needs to be retained. Keep the per-path scalar cost. The reference at these times is precisely the eight-kernel composition (9).
+
+For any fixed linear projection R of those nine saved configuration states, and any normalized nondegenerate Gaussian candidate S_R built from the eight-kernel reference, the exact chain-rule calculation remains
+
+$$
+\operatorname{KL}(P_{\delta,R}\Vert S_R)
+=B_\delta+E_{P_{\delta,R}}\log(q_{\delta,R}/s_R)-G_{\delta,R}
+\le B_\delta+E_{P_{\delta,R}}\log(q_{\delta,R}/s_R),\quad G_{\delta,R}\ge0. \tag{13}
+$$
+
+The hidden conditional gap now includes labels and intermediate configurations. The correction is still evaluated on actual P_delta coarse outputs. Neither replacing delta by Delta in (12) nor replacing its P expectation by a reference expectation is valid. A sample mean remains an estimator of the upper functional, with the finite-sample qualification from the original derivation.
+
+## 5. Valid direct bound using the final microstep
+
+A full Delta-interval transition conditioned only on its starting X,J is generally a non-Gaussian mixture. Therefore the original direct-row Gaussian formula with covariance 2Delta P M P^T cannot be applied to a k-microstep interval.
+
+There is an exact alternative. Let Y_t=P X_(tk), let H_t=Y_0:t, and let W_t=(X_((t+1)k-1),J_((t+1)k)) be the final pre-step state and refreshed assignment in that interval. Conditional on W_t and H_t, the last independent Gaussian noise gives
+
+$$
+G_t^{last}=N(m_t^{last},D_\delta),\quad
+m_t^{last}=P[X_{(t+1)k-1}-\delta M g_{J_{(t+1)k}}(X_{(t+1)k-1})],
+$$
+
+$$
+D_\delta=2\delta P M P^T. \tag{14}
+$$
+
+For a candidate whose row S_t(.|H_t) is obtained from its own Gaussian filter using only coarse observed history, define
+
+$$
+U_\delta^{last}(S)=\sum_{t=0}^7 E_{P_\delta}\operatorname{KL}(G_t^{last}\Vert S_t(.|H_t)).
+$$
+
+The same conditional-density split as before proves
+
+$$
+U_\delta^{last}(S)=\operatorname{KL}(P_{\delta,Y}\Vert S)
++\sum_{t=0}^7 I_{P_\delta}(Y_{t+1};W_t|H_t). \tag{15}
+$$
+
+The final noise is independent of W_t and the entire earlier history; all earlier microsteps are integrated into the conditional law of W_t. Thus (15) is exact. Store the projected final pre-noise mean (or the corresponding full mean if preserving the present interface) at each coarse interval. Pass microstep delta for the source covariance in the direct score, while the candidate filter advances once with each macro-kernel (9). Do not advance it on unobserved microstep outputs.
+
+The information gap in (15) depends on delta but not on S. For candidates S1,S2 at the same resolution and output,
+
+$$
+U_\delta^{last}(S_1)-U_\delta^{last}(S_2)
+=\operatorname{KL}(P_{\delta,Y}\Vert S_1)-\operatorname{KL}(P_{\delta,Y}\Vert S_2). \tag{16}
+$$
+
+Hence paired parent-rank comparisons remain exact in expectation at each resolution. Absolute direct bounds across resolutions need not improve as delta decreases. In fact each gap term equals h(Ynext|H)-one half log det(2 pi e D_delta). When the nondegenerate macro conditional entropies approach finite limits, this grows as (p/2)log(1/delta)+O(1) per interval. That growth reflects conditioning on more of the hidden within-interval noise, not a worsening parent. Do not interpret U_last(delta_small)<U_last(Delta) as the refinement acceptance criterion.
+
+## 6. Finite-step stability is not convergence to continuous time
+
+The proposed study compares two different normalized finite-step laws, P_Delta and P_delta, on the same eight-time observables. It holds fixed the original piecewise-constant coefficient schedule. Subdivision controls the diagnosed Euler expansion; it is not by itself a bound on the discretization bias of switching diffusion, and finite tests at one or two resolutions cannot prove delta-to-zero convergence or a thermodynamic limit.
+
+For the Gaussian reference alone, convergence can be checked explicitly. With Delta fixed and k=Delta/delta, (1-delta lambda)^k tends to exp(-Delta lambda). Formula (11) therefore converges to the exact continuous linear transition: eigenmode mean factor exp(-Delta lambda), drift factor (1-exp(-Delta lambda))/lambda, and whitened noise variance (1-exp(-2Delta lambda))/lambda. For eight fixed intervals this gives finite Gaussian path covariance convergence with a positive limit, hence total-variation convergence by pointwise density convergence and integration of the minimum with the limiting density.
+
+That reference theorem does not prove convergence of the state-dependent switching P_delta. Such a theorem needs a separate coupling/localization argument for state-dependent refreshed labels and step-timed events, with an explicit observation topology and error requirement. The rate-one bounded jump mechanism and finite-sheet linear-growth structure make that a bounded next theoretical obligation, but it has not been carried out here. No assertion about continuous-path KL or singularities between different discrete grids is needed for (13) or (15), which compare laws on one declared grid at a time.
+
+## Implementable handoff
+
+Compute the all-candidate spectral bound once from the retained schedules; choose one k by (4); retain each original state for k microsteps; keep nine coarse X snapshots, eight last-microstep conditional means, and one accumulated fine cost per path. Compose exactly eight reference kernels by (10), then reuse the existing predictor construction. Evaluate the signed transfer (13) and, if retaining the direct comparison, use (14)–(16). Label the refined study as a new discretization with the same schedule and horizon. Preserve the original scores and instability diagnostic.
+
+The strongest guarantee is a globally stable homogeneous update for every supported sheet, a subdivision-uniform second-moment bound, exact macro Gaussian reference kernels, and valid coarse-observation path-error identities. It does not guarantee informative numerical bounds or convergence of the nonlinear switching law. The next action is implementing this minimal sampler/output-stride and reference-composition change, then executing only the separately authorized discriminating comparison. This note authorizes no run.

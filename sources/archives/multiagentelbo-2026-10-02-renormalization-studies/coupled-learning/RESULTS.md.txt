@@ -1,0 +1,48 @@
+# First coupled source/link learning increment
+
+October 2, 2026. The normalized model and natural-gradient updates in [CONTRACT.md](CONTRACT.md) are implemented. Five tiny CPU checks passed, and the one declared study completed eight trajectories at 512 and 1,024 agents. Learning both source priors and group links lowered the final collective VFE relative to either single-block learning control and the frozen-both control in these seeded instances. This is finite-time optimization evidence within the stated recognition family.
+
+## Model and executable path
+
+The joint has proper independent node priors, one categorical source label and one normalized Gaussian record per receiver. Recognition is product Gaussian with source-label rows optimized at each evaluation. Structural source priors and independent inverse-paired GL+(2,R) links are deterministic generative parameters. Differentiation of the complete reduced objective retains incoming sender terms and inverse-link contributions. Gaussian and categorical blocks use their Fisher geometry; links use the declared positive endpoint metric and a multiplicative exponential retraction. There is no source or link hyperprior in this increment.
+
+[The editable standalone profile](../../../experiments/gaussian_coupled_learning.py) establishes sequential MKL before importing torch through C:/anaconda/python.exe. Its four dictionaries feed [the study runner](../../../src/multiagent_elbo/realizations/gaussian/coupled_learning_experiment.py), which calls [the core](../../../src/multiagent_elbo/realizations/gaussian/coupled_learning.py). RUN.seed, THEORY.n_agents/dimension/link_scale reach the seeded builder; tau overrides the builder default; dt, checkpoints, and the three rates reach every accepted update. The declared controls set only source_rate or link_rate to zero. Frozen source means the generative prior pi is fixed: recognition attention beta continues to optimize in every arm. NUMERICS selects device, float64 and CPU thread count; OUTPUT.root selects the timestamped destination. The active run_lab.py profile remains neighborhood. This experiment is launched directly, not through the lab route registry.
+
+The sparse cycle-plus-stride-17 candidates use the existing network builder's prior means, precisions, and independent GL+ maps. Observation records are explicitly zero; the builder's generated nonzero observations are not this model's records. H_i=J_0i, initial covariance is 1.2 J_0i^-1, initial recognition mean is a_i+0.3 sin(arange(NK)), and initial source rows are uniform on two candidates. These data break symmetries before learning. Reverse group maps are present by inversion even where reverse attention is absent.
+
+## Recorded outcomes
+
+The table reports final inference time 5, seed 20261002, tau=0.5. VFE is in nats per agent against the declared coordinate record measures; source displacement is mean row TV from the initial prior. Link displacement is the root mean squared norm under the carried endpoint metrics. Comparisons share initial state, data, support, metrics, and clock within each N.
+
+| Agents | Arm | VFE / agent | Expected cost / row | Source TV | Link displacement |
+| ---: | --- | ---: | ---: | ---: | ---: |
+| 512 | learn_both | 2.017655357 | 0.398970486 | 0.110094 | 0.096680 |
+| 512 | frozen_source | 2.069381850 | 0.407859214 | 0.000000 | 0.095408 |
+| 512 | frozen_link | 2.069650649 | 0.406707839 | 0.108055 | 0.000000 |
+| 512 | frozen_both | 2.118380948 | 0.415074169 | 0.000000 | 0.000000 |
+| 1024 | learn_both | 2.020307165 | 0.398626821 | 0.112560 | 0.096347 |
+| 1024 | frozen_source | 2.075294568 | 0.407428092 | 0.000000 | 0.095017 |
+| 1024 | frozen_link | 2.071915315 | 0.406313997 | 0.110627 | 0.000000 |
+| 1024 | frozen_both | 2.123844880 | 0.414599650 | 0.000000 | 0.000000 |
+
+Relative to frozen-both, learning both lowered the final VFE by 0.100725591 nats per agent at N=512 and 0.103537715 at N=1,024. This difference is an optimization outcome; no parent prediction-error or formation conclusion is inferred from it. Mean-only comparison costs in all arms are already small (about 0.0027–0.0028), whereas full expected costs remain about 0.399–0.415. Belief-mean agreement therefore does not imply that the distributional comparison cost vanishes.
+
+From inference time 4 to 5, the preferred recognition source remained unchanged for 100% and 99.90% of rows in the two learn-both cases. Frozen-both already retained 98.05% and 98.54%, respectively. Preference persistence is a descriptive diagnostic, not a definition or proof of meta-agent formation. The largest final metric link condition was 15.56; no covariance, link determinant, or supported source probability left its declared domain.
+
+All trajectories took 100 accepted steps of 0.05, with zero line-search backtracks. The largest single-step VFE change was -0.028097073 total nats. Every stored numerical/domain/control gate passed. Computation and artifact writing took 3.495334400 seconds on CPU float64 with one torch thread, excluding import startup. A preliminary one-step 512-agent timing was 0.0174165 seconds. CUDA was available through torch 2.10.0.dev20251210+cu128, but no GPU execution was needed or performed.
+
+## Validation and source binding
+
+The [five-test JUnit packet](evidence/green.xml) reports five passes, no failures, errors, or skips, in 1.921 seconds. Tiny N=3, K=2 models check normalized Gaussian record expectations using exact quadratic quadrature, full finite-difference gradients including inverse-linked records, incoming sender terms, discrete descent and positive domains, frozen-block preservation, and finite-update covariance under passive nonorthogonal frames. The [initial RED packet](evidence/red.xml) retains five missing-module failures. Existing passing X2/predecessor packets were not rerun because their source was unchanged; no full suite ran.
+
+The [study metadata](evidence/study-result.json) contains configurations, runtime, working status, source diagnostics, and all checkpoint results. Exact executed Python sources are retained in evidence/executed-source. Compact per-arm JSON is copied here; final moment/parameter arrays remain under artifacts/gaussian-coupled-learning/20261002T135039675545Z. The study executed the working source based on 4686abfaef63f1961bce67501cbeb91ad813d215; it is not a clean-HEAD replay. No implementation arithmetic changed after the study.
+
+## Remaining obligation
+
+This model learns pi and Theta jointly with product-Gaussian recognition. It does not yet learn separate model-channel distributions, random structural latents, or the support graph. Exact coordinate optimization of beta supplies no sampled source-jump process. There is consequently no declared stochastic trajectory law to which X2's Gaussian path-KL identity can simply be attached. Extending parent prediction requires an explicit stochastic or controlled history model, actual-law activation, and a suitable reference calculation or estimator for the resulting non-Gaussian histories. Autonomous parent closure, recursive formation, and thermodynamic limits remain open.
+
+The next bounded scientific step is to specify that trajectory semantics and connect the existing predictive-interface machinery to it with an explicit approximation/error account. Further VFE reduction alone would not answer that question. Base transport remains deferred.
+
+## October 2 continuation
+
+The subsequent [switching and scaling record](../2026-10-02-renormalization-completion/RESULTS.md) supplies the next declared trajectory law and error account. The limitation above describes this first law-level learning increment; the subsequent sampled model retains its own schedule-conditioning, discretization, and closure limits.

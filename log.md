@@ -287,3 +287,5 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 
 2026-10-01  INGEST   multiagentelbo-2026-10-01-predictive-interfaces -> updated [[Gauge-Theoretic Multi-Agent VFE Model]], [[Gaussian State Space Model]], [[Coarse Graining]], [[Staged hierarchy formation and RG composability]], and [[Spin foam coarse-graining for agent networks]]; archived review/corrections and X2 CPU evidence with 33 tests and four large-network cases; preserved unrelated manuscript/graph WIP.
 2026-10-01  LINT     X2 review/results ingest: 1426 Markdown files; 0 broken wikilinks, 0 graph grey nodes, 0 empty files, 0 case collisions, 0 identity collisions.
+
+2026-10-02  INGEST  [[multiagentelbo-2026-10-02-renormalization-studies]] -> updated [[Gauge-Theoretic Multi-Agent VFE Model]], [[Staged hierarchy formation and RG composability]], and [[Mathematics MOC]]; archived working-source CPU evidence, original reporting failure, and open formation obligations. No manuscript closure.

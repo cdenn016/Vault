@@ -1,0 +1,63 @@
+# Switching predictions and conditional Gaussian scaling
+
+October 2, 2026. This continuation implements and executes two distinct parts of the fixed-c_* program: parent prediction for a declared switching law, and compatible marked blocking in a static massive Gaussian family. The unrestricted renormalization goal remains active. [The completion obligations](obligations.md) separate these results from autonomous inherited dynamics and endogenous recursive formation.
+
+## Actual switching paths
+
+The [contract](CONTRACT.md) and [derivation](trajectory-construction.md) specify a normalized source-refresh/Gaussian splitting law from the retained time-5 coupled-learning state. Source draws depend on sampled configurations. Structural parameters follow the stored deterministic collective-VFE schedule; realized trajectories do not feed back into that learner. Full receiver and sender forces are retained. The Gaussian comparison law shares the source kernel but replaces sampled assignment forces by recognition-weighted forces.
+
+The exact augmented path divergence is the expectation of the accumulated equal-noise Gaussian row KL. Projection gives a signed reference-density correction under the actual path law. Independently, the sum of conditional projected-row KL is the actual parent path divergence plus a nonnegative information gap that is independent of the candidate parent. Thus paired score differences estimate actual path-KL differences at one fixed output and discretization. Neither estimator computes the absolute retained-path KL; sample means and empirical standard errors are not certified upper confidence bounds.
+
+The first study used eight steps of 0.125, 1,024 independent trajectories, N=512/1,024, and four matched learning controls. All finite/domain/composition gates passed in 380.150081 seconds. Its inferential result was poor: rare trajectories dominated. Fine-error estimates were 455.5553 +/- 307.5833 and 889.3761 +/- 398.2258 nats (mean +/- empirical standard error). One trajectory contributed 67.10% or 42.93% of the corresponding sum. These results are preserved in [the original metadata](evidence/switching-study.json); they do not establish a rank advantage.
+
+The [stiffness diagnostic](evidence/stiffness-diagnostic.json) found positive-probability assignment sheets with h lambda_max at least 2.53189 and 3.04246. Their explicit Euler means have expanding modes. This proves an instability of some admissible discrete sheets, not infinite moments or the complete cause of every large sample. The [refinement derivation](stiffness-refinement.md) supplies an all-assignment PSD curvature bound and exact Gaussian composition at the original observation times.
+
+One separate refinement used the exact saved learn-both schedule, the same horizon one and eight observations, and eight microsteps per interval (delta=0.015625). No learning trajectory was rerun. Maximum delta times the conservative curvature bound was 0.56402, below one. Ten tiny tests cover the numerical kernels and this composition. The [refined study](evidence/refinement-study.json) passed in 156.819622 seconds.
+
+| Agents | Fine augmented path KL estimate | Empirical standard error |
+| ---: | ---: | ---: |
+| 512 | 77.09396329 | 0.28046447 |
+| 1024 | 152.12981671 | 0.53638325 |
+
+The signed reference corrections are small here, so the transferred upper functionals are close to these fine totals. They are finite error accounts, not evidence that absolute retained-path error is small. The Gaussian-reference spectral path KL is only 2.10e-7 to 1.16e-6 nats, but that number is under the Gaussian reference and cannot be substituted for actual switching-law error.
+
+| Agents | Block size | Spectral minus rank-zero score | Empirical paired standard error |
+| ---: | ---: | ---: | ---: |
+| 512 | 16 | -0.00485149 | 0.00140723 |
+| 512 | 32 | -0.00222531 | 0.00140896 |
+| 512 | 64 | -0.00020245 | 0.00110656 |
+| 1024 | 16 | -0.00973696 | 0.00213850 |
+| 1024 | 32 | -0.00611107 | 0.00198888 |
+| 1024 | 64 | -0.00231132 | 0.00150985 |
+
+Negative values favor the spectral candidate. The block-16 contrasts are several empirical standard errors below zero; several other contrasts are inconclusive at this sample size. These are descriptive estimates in two fixed seeded networks, not simultaneous confidence statements or general superiority. Matched coordinate contrasts and every raw functional appear in the case JSON. Hidden rank equals the output dimension, hence still grows with N. Offline compilation retains network-scale moments.
+
+The refined direct-row functional conditions on the final microstep before each observation. Its information gap changes with subdivision and can grow as the microstep shrinks. Its larger absolute values therefore do not show deterioration relative to the original discretization. Only within-resolution predictor differences retain the stated comparison identity. No nonlinear switching continuous-time error theorem or long-time stability claim follows from these finite runs.
+
+## Compatible marked Gaussian hierarchy
+
+The [marked-study contract](marked-scaling-CONTRACT.md), [analytical construction](obligations.md), and [independent reconstruction](scaling-proof-check.md) specify a separate massive, quenched family. Independent identically distributed bounded GL+(2,R) cell holonomies are noncommuting almost surely; connecting forest maps are identity in the declared frame. All forward/reverse copies, rooted holonomies, boundary copies, both Gaussian channels, reference measures, and evidence constants are carried. Structural storage grows with block size.
+
+The reconstructed conditional proof gives projective transparent Gaussian marginals, exact normalized-sum composition, exponentially decaying covariance, and a nondegenerate finite-observable diagonal limit. It requires stationarity, bounded coefficients, positive mass, carried probability references, and fixed quenched structure. It does not prove convergence of the growing complete marked state, full-support noncompact priors, learned-link histories, or nonlinear universality. The iid and reference assumptions were corrected during reconstruction; the common carrier includes an absorbing state for inadmissible block lengths. This is a scoped analytical research result, not a formal-verification ledger closure.
+
+The executable approximation uses 64-cell Dirichlet padding and sparse solves. Its exact-arithmetic covariance truncation bound is 3.03177e-26; floating-point error is recorded separately. A single finite-environment susceptibility reference has polynomial truncation bound 1.81271e-11 but no asserted sampling-to-expectation confidence bound.
+
+The corrected [large study](marked-scaling-evidence/RESULTS.md) passed 29 declared gates at N=512,1024,2048,4096,8192 in 1.066218 seconds. Maximum sparse residual was 1.6653e-16; direct/staged covariance discrepancy was 9.4369e-16; every retained mark matched exactly in the declared frame. Four fixed-depth adjacent-size discrepancies were zero at recorded precision. The initial attempt failed while serializing a NumPy Boolean after the calculations; its exit-one record, arrays, and traceback remain preserved. Native Boolean conversion and incremental case reporting repaired that reporting seam before one fresh authorized run.
+
+| Block cells | Largest first-three diagonal discrepancy to empirical reference | Largest adjacent covariance norm | Characteristic observable |
+| ---: | ---: | ---: | ---: |
+| 16 | 0.00519926 | 0.00255566 | 0.46488993 |
+| 32 | 0.00261323 | 0.00127837 | 0.46319395 |
+| 64 | 0.00140586 | 0.00063977 | 0.46241684 |
+
+The empirical independent-block characteristic proxy is 0.46156840. These coupled-environment values illustrate the stated finite-observable behavior; they are not an independent numerical proof of the limit or a general universality classification. The largest run retains 32,766 original directed copies per channel despite having 64 coarse cells.
+
+## Execution, source binding, and next obligation
+
+Nineteen distinct tiny tests pass across the unchanged five coupled-learning tests, ten final switching tests, and four marked tests. JUnit files give their respective durations as 1.921, 2.015, and 0.365 seconds, with no failures, errors, or skips in those final packets. Initial RED packets remain archived. No full suite, historical Phase 13 producer, GPU test, or repeated passing science ran. The marked reporting repair is explicitly a separate attempt.
+
+All studies used C:/anaconda/python.exe on CPU, float64, sequential MKL selected before native imports, and one numerical thread. CUDA was verified available; the GPU was occupied when resources were selected, and these computations did not need it. The working base is 4686abfaef63f1961bce67501cbeb91ad813d215. Executed source snapshots, profiles, activation/schedule inputs, stdout, runtime metadata, and source diagnostics are retained. The original and refined samplers have separate source archives; publishing the later implementation does not relabel the earlier execution.
+
+The active run_lab.py profile remains neighborhood. Standalone profiles feed their dictionaries directly into their runners; the refined runner loads its archived schedule, checks exact activation agreement, applies the declared microstep subdivision, and gives coarse composed kernels to the existing predictive-interface compiler. Full sampled arrays remain in artifacts/gaussian-switching-paths/20261002T143200371669Z and artifacts/gaussian-switching-refinement/20261002T145113845199Z; compact records and portable inputs are archived here.
+
+The next load-bearing work is an informative actual-history parent approximation with endogenous structural feedback, and the separate first-stage-dependent recursive formation obligation. More VFE descent, a small Gaussian-reference error, or a static Gaussian scaling limit would not close either one. The emerging nonlinear formation construction is recorded separately with its unresolved lemmas. The fixed-base-point gate remains in force.
