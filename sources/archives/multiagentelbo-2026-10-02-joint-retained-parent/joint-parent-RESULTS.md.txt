@@ -1,0 +1,44 @@
+# Joint retained parent results
+
+October 2, 2026. The [declared study](joint-parent-CONTRACT.md) now retains every source assignment together with projected configurations. One run at N=512 and 1,024, with 1,024 paths per network, passed in 211.978564 seconds on CPU. It uses the saved time-5 activation and subsequent learning schedule, 64 microsteps over horizon one, and three nested block projections. No learning trajectory was repeated. This is a discrete controlled parent comparison, not autonomous closure.
+
+## Measured predictor differences
+
+The normalized source kernel mixes one whole-network hold atom with one product redraw; refreshes that reproduce the same assignment contribute to both terms. Log-domain scoring preserves that mass. The four parents combine recognition or lifted pointwise source rows with recognition-weighted or observed-assignment configuration forces. Their initialization is the actual projected activation and independent initial assignment law. Every configuration force includes sender terms.
+
+The conditional relative-entropy identity in the contract makes expected paired scores equal joint retained-path KL differences. Each absolute score contains an unknown candidate-independent information gap. Sample averages and empirical standard errors are neither absolute path KL nor certified upper confidence bounds.
+
+After inspecting the first N=512 source contrast, a [posthoc fixed-mean control](joint-parent-evidence/fixed-mean-control.json) was scored on exactly the existing assignment paths. It evaluates the pointwise source posterior at the fixed activation mean, using the same moving source priors and links. This separates the contribution of observed block fluctuations from replacing a recognition expectation with a point evaluation. No path was resampled and no coefficients were refit.
+
+| Agents | Block | Lifted source minus recognition source | Lifted source minus fixed-mean source | Assignment drift minus recognition drift |
+| ---: | ---: | ---: | ---: | ---: |
+| 512 | 16 | -5.058225 +/- 0.291932 | -0.577510 +/- 0.065896 | 0.145052 +/- 0.022226 |
+| 512 | 32 | -4.871928 +/- 0.292207 | -0.391213 +/- 0.036927 | 0.085966 +/- 0.009612 |
+| 512 | 64 | -4.738199 +/- 0.294819 | -0.257484 +/- 0.018544 | 0.033004 +/- 0.002884 |
+| 1024 | 16 | -10.720728 +/- 0.484276 | -1.192004 +/- 0.095668 | 0.389434 +/- 0.038465 |
+| 1024 | 32 | -10.405481 +/- 0.488213 | -0.876757 +/- 0.056161 | 0.206583 +/- 0.015759 |
+| 1024 | 64 | -10.052961 +/- 0.490454 | -0.524237 +/- 0.031488 | 0.081708 +/- 0.004508 |
+
+Entries are nats per complete trajectory, mean +/- empirical paired standard error. Negative favors the first named predictor. The fixed-mean source already improves on recognition source by 4.480715 +/- 0.295433 nats at N=512 and 9.528724 +/- 0.487509 at N=1,024. Most of the original source contrast therefore does not isolate the value of retained configurations. The matched lifted-minus-fixed-mean contrasts show a smaller additional improvement in these samples.
+
+For this static activation lift, conditioning the drift formula on the observed assignment worsens its score in all six cases. Observing information cannot worsen the optimal predictor, but a particular plug-in formula can. These results do not rule out assignment-aware filtering; they expose a limitation of this simple lift, which ignores how assignment history changes the hidden conditional distribution.
+
+Both the source and configuration contrasts use the same trajectories and source schedules within each network. There is one seeded graph/link instance per N. The results do not establish graph-ensemble generality, a size limit, a causal effect of learning, or superiority over every parent. The six joint output laws differ by projection dimension, so their absolute information gaps need not agree. They also differ from the earlier configuration-only, eight-observation law.
+
+## Execution and mechanical checks
+
+Eighteen tiny checks passed: five new source/history checks in sampler-green.xml (2.161 seconds), and three new joint-parent checks plus ten affected predecessor sampler checks in joint-parent-green.xml (1.891 seconds). All have zero failures, errors, or skips. The initial missing-API RED results remain; the first sampler check also retained an independent test-oracle dtype mistake, corrected by explicit float64 arithmetic. No full suite or historical heavy run was executed.
+
+The checks independently enumerate source-transition normalization, include hold-plus-self-refresh probability, cover underflow-safe logarithms and zero refresh, compare capture against the legacy seeded stream, reconstruct native likelihoods, verify the Gaussian activation lift, recover the native kernel with full retention, and compare scores with normalized Gaussian densities. Tiny networks serve these algebraic checks only.
+
+The [metadata](joint-parent-evidence/metadata.json) records the actual source snapshots, configuration, inputs and runtime. The all-assignment microstep-curvature products are 0.5640174269 and 0.5116773849, both below one; nested block projections agree exactly at recorded precision. The study's finite-score and composition checks passed for all six levels and four parent combinations. There is no acceptance threshold requiring a favorable predictor effect.
+
+The standalone experiments/gaussian_joint_parent.py passes its RUN, THEORY, NUMERICS and OUTPUT dictionaries directly to run_joint_parent_study. RUN.schedule_root loads the existing eight stored coefficient rows; RUN.substeps repeats each eight times; sample_switching_history records all 64 assignment/configuration transitions; joint_row_scores consumes only projected configurations and assignments on its candidate side. Fine conditional means and fine source log probabilities are used only by the evaluator. The active run_lab.py profile remains neighborhood and does not select this study.
+
+The runtime was C:/anaconda/python.exe, torch 2.10.0.dev20251210+cu128, CPU float64, one numerical thread, sequential MKL selected before imports. CUDA was available; the GPU showed 80 percent utilization at the preflight and was not used. Full projected histories and joint scores remain in artifacts/gaussian-joint-parent/20261002T161127396348Z/. Portable assignment/score records, source snapshots, JUnit, the posthoc control script and its per-path arrays accompany this document.
+
+## Next obligation
+
+The study supplies a reproducible joint-retained baseline and an error-comparison identity. It does not close O1. The next substantive increment must account for the hidden distribution conditional on both configurations and assignments, with a declared finite-memory approximation and actual-law error budget. Structural parameters are still supplied law-level controls, the retained assignment state grows with N, and no fixed-dimensional regular filter or continuous-time vanishing-error theorem is established.
+
+The separate [stationary protocol result](saddle-protocol-stationarity.md) ends the current three-round formation candidate: its declared universal surplus route fails for an admissible low-well initialization. Conditional facilitation survives, but intrinsic selection, interacting structural-law coherence, feedback, and a mechanism satisfying the matched stationary alternative remain open. These two unresolved obligations prevent declaring the full renormalization program complete.

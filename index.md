@@ -1449,3 +1449,5 @@ All new source notes are cataloged below. [[multiagentelbo-2026-09-11-research-s
 - [[multiagentelbo-2026-10-02-renormalization-studies]] — coupled learning, switching-history parent comparisons, and conditional marked Gaussian scaling through 8,192 agents; preserved stiffness and reporting limitations.
 - [[multiagentelbo-2026-10-02-saddle-handoff]] — uniform nonlinear saddle exit, qualified same-process facilitation, and matched stationary-protocol limits.
 - [[bakhtin-2008-unstable-equilibrium-exit]] — primary nonlinear exit theorem used in the saddle continuation.
+
+- [[multiagentelbo-2026-10-02-joint-retained-parent]] — joint configuration/assignment parent scores, fixed-mean control, and the final matched stationary-protocol limit.
