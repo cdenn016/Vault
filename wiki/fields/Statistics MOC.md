@@ -10,6 +10,10 @@ updated: 2026-10-02
 
 # Statistics MOC
 
+## Cut routing and tempered Gaussian posteriors, October 2, 2026
+
+[[dennis-2026-projected-gradient]] reads routing by a comparison divergence alone as exact inference in a cut model (modular Bayesian inference) and shows that a channel-likelihood receiver has the exact tempered Gaussian posterior as minimizer, counting the receiver entropy once. [[dennis-2026-phi-natgrad]] derives a Fisher natural gradient for frame parameters from the reference-prior family. [[dennis-2026-neuron-free-agent-theory]] uses Gamma-precision (Student-t) records and a KL-budget constraint in one constrained ELBO.
+
 ## Joint particle-filter losses, October 2, 2026
 
 [[multiagentelbo-2026-10-02-joint-particle-filter]] reports eight distinct passing tiny checks and one 616.507218-second CPU study using 128 saved paths at each of 512/1,024 agents. Every tested cloud underperforms the static-lift baseline, and persistent64 underperforms reset64. Mean joint ESS at observed assignment changes is 1.751/1.458 of 64 for persistent64; hold-row medians obscure this concentration. Paired losses estimate differences of expected path KL conditional on independent algorithmic tapes, not absolute KL or the tape-marginalized parent error. Exact filtering and finite-history weak consistency do not close the regular-filter or formation obligations. Work pauses after publication at the user's request.

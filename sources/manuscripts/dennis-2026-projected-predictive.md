@@ -4,7 +4,7 @@ title: "The Projected Predictive Route: Theory and Computational Path"
 aliases: ["Projected predictive route note", "Projected Predictive Manuscript"]
 authors: ["Robert C. Dennis"]
 year: 2026
-url: "manuscripts/projected_predictive.tex"
+url: "manuscripts/Attention/projected_predictive.tex"
 tags: [cluster/attention, cluster/gauge-theory, cluster/vfe, project/transformer, field/cs-ml, field/mathematics]
 created: 2026-09-27
 ---
@@ -13,7 +13,7 @@ created: 2026-09-27
 
 ## Source and scope
 
-The live source is [projected_predictive.tex](../../manuscripts/projected_predictive.tex) (7 pages, compiled PDF beside it), a technical note dated September 2026, drafted by Claude Opus 5.5 at the author's request on 2026-09-27. It walks the `vfe3` computation under `attention_mode="projected_predictive"` from encoding to loss, maps every configuration toggle to its equation, and documents the new opt-in `predictive_covariance="moment_matched"`. It restates results of [[dennis-2026-glk-projected-matrix-links-v2]] for this route; the only new mathematics is the implementation contract of the moment-matched covariance (the formula itself is item (2) of that manuscript's exact-status theorem). It reports no training result with the new option. The local file may change after this dated record.
+The live source is [projected_predictive.tex](../../manuscripts/Attention/projected_predictive.tex) (7 pages, compiled PDF beside it), a technical note dated September 2026, drafted by Claude Opus 5.5 at the author's request on 2026-09-27. It walks the `vfe3` computation under `attention_mode="projected_predictive"` from encoding to loss, maps every configuration toggle to its equation, and documents the new opt-in `predictive_covariance="moment_matched"`. It restates results of [[dennis-2026-glk-projected-matrix-links-v2]] for this route; the only new mathematics is the implementation contract of the moment-matched covariance (the formula itself is item (2) of that manuscript's exact-status theorem). It reports no training result with the new option. The local file may change after this dated record.
 
 ## Route summary
 

@@ -11,7 +11,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-09-27
-updated: 2026-09-27
+updated: 2026-10-02
 ---
 
 # Projected predictive attention
@@ -28,10 +28,14 @@ By default the layer keeps the incoming covariance, so $\Sigma$ is the encoded t
 
 > [!note] Editorial: Moment matching makes the covariance consistent with the declared kernel. It does not make the whole stack a single free-energy minimization, and the collapse of the layer's mixture output to one Gaussian is a declared approximation. Whether a context-dependent covariance improves loss is untested; the matched comparison against passthrough with several seeds is the deciding experiment.
 
+## The gradient counterpart, October 2026
+
+Since the retirement of transported attention, this route and [[Projected gradient attention]] are the only executable attention modes ([[vfe3-2026-10-02-projected-route-consolidation]]). Both route by the same comparison KL and use the same matrix links; they differ in what the layer does with the routed content. The predictive route adds the routed messages to the mean (with residual $r$), while the gradient route minimizes a receiver energy with the routing frozen. Under the default channel-likelihood receiver that minimizer is a tempered Gaussian posterior that fuses messages by their channel precision, and [[dennis-2026-projected-gradient]] proves it reduces to the residual-free head sum of this route when heads are orthonormal and disjoint, the channel covariance is source independent, and the prior precision vanishes. Both routes route by the comparison divergence alone, which that note reads as exact inference in a declared cut model, so freezing $\beta$ is not an approximation on either route. The predictive route keeps its moment-matched covariance; the gradient route's posterior covariance $\alpha\Lambda^{-1}$ omits the between-source spread. Since PR #37 the moment-matched spread always centers source means on token 0, which changes only rounding. Predictive-only knobs (`predictive_covariance`, `attention_residual`, `predictive_covariance_floor`) are marked inactive on the gradient route.
+
 ## Related
 
-[[GL(K) gauge-equivariant attention]], [[Template routing]], [[Precision weighting]], [[Multi-head attention]], [[VFE Transformer Program]]
+[[Projected gradient attention]], [[GL(K) gauge-equivariant attention]], [[Template routing]], [[Precision weighting]], [[Multi-head attention]], [[VFE Transformer Program]]
 
 ## Sources
 
-[[dennis-2026-projected-predictive]], [[dennis-2026-glk-projected-matrix-links-v2]], [[dennis-2026-template-routing]], [[vaswani-2017-attention]], [[vilnis-2015-gaussian-embeddings]]
+[[dennis-2026-projected-predictive]], [[dennis-2026-projected-gradient]], [[vfe3-2026-10-02-projected-route-consolidation]], [[dennis-2026-glk-projected-matrix-links-v2]], [[dennis-2026-template-routing]], [[vaswani-2017-attention]], [[vilnis-2015-gaussian-embeddings]]

@@ -40,7 +40,7 @@ Three examples follow. Section 3 extracts a dressing field from the scalar doubl
 
 ## Relevance to this research
 
-The September 2026 v2 revision of the GL(K) attention manuscript (`manuscripts/GL(K)_attention_v2.tex`) cites this paper as the origin of the dressing field method. In that reading, the reference moments $\xi_i=U_i^{-1}\mu_i$ (and $C_i=U_i^{-1}\Sigma_iU_i^{-\top}$) are dressed gauge-invariant composite fields, and the learned frame $U_i$ plays the role of the dressing field. [[francois-2019-artificial-gauge-symmetries]] supplies the criterion that classifies the resulting covariance as artificial. See [[Dressing field method]] and [[GL(K) gauge-equivariant attention]].
+The September 2026 v2 revision of the GL(K) attention manuscript (`manuscripts/Attention/GL(K)_attention_v2.tex`) cites this paper as the origin of the dressing field method. In that reading, the reference moments $\xi_i=U_i^{-1}\mu_i$ (and $C_i=U_i^{-1}\Sigma_iU_i^{-\top}$) are dressed gauge-invariant composite fields, and the learned frame $U_i$ plays the role of the dressing field. [[francois-2019-artificial-gauge-symmetries]] supplies the criterion that classifies the resulting covariance as artificial. See [[Dressing field method]] and [[GL(K) gauge-equivariant attention]].
 
 > [!note] Editorial: The match to the Main Lemma is exact up to convention. Under the manuscript's passive change $\mu_i\mapsto g_i\mu_i$, $U_i\mapsto g_iU_i$, set $\gamma=g_i^{-1}$. Then $\mu_i^\gamma=\rho(\gamma^{-1})\mu_i$ and $U_i^\gamma=\gamma^{-1}U_i$, so $U_i$ is a dressing field and $\hat\varphi=\rho(U_i^{-1})\mu_i=\xi_i$.
 

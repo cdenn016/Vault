@@ -12,7 +12,7 @@ created: 2026-09-20
 
 ## Source and revision
 
-Robert C. Dennis, *Gauge-Covariant Gaussian Attention and Predictive Communication*, working manuscript pair revised September 20, 2026. The live files are [main manuscript](../../manuscripts/GL(K)_attention.tex) and [supplement](../../manuscripts/GL(K)_supplementary.tex). Main Section 4.4 (`sec:matrix_link_fields`) and Supplementary Appendix K (`app:matrix_links`) contain this construction. This immutable note records the revision; it does not replace the older [[gl-k-attention]] source.
+Robert C. Dennis, *Gauge-Covariant Gaussian Attention and Predictive Communication*, working manuscript pair revised September 20, 2026. The live files are [main manuscript](https://github.com/cdenn016/Vault/blob/4406ebebaf4f94b26c2ad24f19ebadee15f988dd/manuscripts/GL(K)_attention.tex) and [supplement](https://github.com/cdenn016/Vault/blob/c2cd46d86a5424339bf2284fd07782db6d921335/manuscripts/GL(K)_supplementary.tex). Main Section 4.4 (`sec:matrix_link_fields`) and Supplementary Appendix K (`app:matrix_links`) contain this construction. This immutable note records the revision; it does not replace the older [[gl-k-attention]] source.
 
 The bounded manuscript-edit checks built both PDFs successfully (31 and 55 pages), resolved references and citations, and checked selected rendered pages. These are document checks, not a new empirical experiment or formal verification-ledger closure. The revision artifacts, originals, diffs, and `validation.json` are under `C:/Users/chris and christine/Desktop/V3_Transformer/docs/manuscripts/2026-09-20-glk-lattice-links/`.
 

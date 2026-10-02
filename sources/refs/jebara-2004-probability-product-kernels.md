@@ -52,7 +52,7 @@ The remaining sections cover:
 
 ## Relevance to this research
 
-The noisy-query routing remark in Section 5.2 of the v2 GL(K) manuscript (`manuscripts/GL(K)_attention_v2.tex`) uses this kernel. The remark treats the projected query mean $a_i$ as a noisy measurement, with noise covariance $V_{Q,i}$, of a draw from the key law $p_{K,j}=\mathcal N(b_j,V_{K,j})$. Then
+The noisy-query routing remark in Section 5.2 of the v2 GL(K) manuscript (`manuscripts/Attention/GL(K)_attention_v2.tex`) uses this kernel. The remark treats the projected query mean $a_i$ as a noisy measurement, with noise covariance $V_{Q,i}$, of a draw from the key law $p_{K,j}=\mathcal N(b_j,V_{K,j})$. Then
 $$p(a_i\mid J=j)=\mathbb E_{q_{Q,i}}[p_{K,j}]=\mathcal N(a_i;b_j,V_{Q,i}+V_{K,j}),$$
 which is the expected likelihood kernel between the query and key laws. The exact source posterior is therefore $\beta_{ij}\propto\pi_{ij}\mathcal N(a_i;b_j,V_{Q,i}+V_{K,j})$.
 
