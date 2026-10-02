@@ -1,0 +1,158 @@
+# Reconstruction of the conditional Gaussian scaling theorem
+
+October 2, 2026. Bounded analytical check of O2/O3 in obligations.md. This is a proof reconstruction and correction record, not a formal-verification closure. No numerical experiment or code change was performed.
+
+## Current disposition after the parent revision
+
+The current obligations.md was reread after the parent applied both substantive amendments. Its environment is now explicitly i.i.d. in cell pairs, with independent fixed A/B marginals, and it carries rho_D=N(0,m^-2 I) together with nu_D=Z_D mu_D by simultaneous pushforward. It preserves Z_D within each depth tower and restricts across-volume projectivity to normalized physical/reference laws. These changes address the stationarity and reference findings reconstructed below. Sections 2 and 6 preserve why the earlier wording needed correction; they do not describe defects still present in the revised statement.
+
+One declaration remains useful for its common-space wording: either supply the absorbing-state total-kernel completion in Section 5, or explicitly call the current kernels a compatible family on admissible domains. The revised file presently states equality only on lengths divisible by the requested ratios. The matter-limit proof does not depend on this extension. No formal-verification closure is assigned.
+
+## Initial reading and reconstructed target
+
+The normalized-law blocking identity and quenched Gaussian finite-observable limit can be proved for the proposed massive bounded-link class. In the initially read version, two declarations needed to be made explicit: the cell environment must be stationary (independence alone is insufficient), and the source's measure-pair formulation needs a probability reference carried by the same kernels. Fresh Lebesgue reference measures do not satisfy that formulation. Total kernels on a common finite-state carrier also need an explicit rule beyond admissible blocking lengths.
+
+The conditional result reconstructed here is: for every K>=2, integer b>=2, positive m^2,kappa,gamma,eta, and independent identically distributed cell pairs (A_i,B_i) with uniformly bounded norms and proper compact supports inside GL+(K,R), there is a probability-one set of environments on which every fixed finite collection of normalized block features converges in total variation to independent centered K-dimensional Gaussians with one deterministic positive-definite covariance chi. Direct and staged finite block maps agree on matter laws, carried reference/evidence pairs, and every retained structural mark. This is neither convergence of the growing full marked state nor path-law equivalence.
+
+The initially read version supplies fixed c_*, declared blocks, a positive mass, bounded independent links, and transparent marginals. The explicit identical-distribution/stationarity requirement and the probability-reference construction below are additional hypotheses/constructions. The original independent-but-nonstationary obligation is false, as shown in Section 2.
+
+## Source match
+
+Read before reconstruction: live c10_network_state.tex, def:rg-geometric-state, def:rg-rooted-tree-data, prop:rg-rooted-datum, prop:rg-linear-cross-scale, and prop:rg-forest-tree-composition; b05_infinite_networks.tex, def:rg-rescaled-kernel and open:rg-rescaling-compatibility; b06_wilsonian_limits.tex, def:rg-two-index-family, thm:cg-projective-cylinder-law, and open:rg-two-index-limits. The additional reference-type check uses c11_network_coarsegraining.tex, def:rg-measure-pair and prop:rg-measure-pair-composition, lines 47–107.
+
+The c10 composition proposition requires both transport composition and multiplicative averaging weights. Its forest hypothesis alone does not prove the weights. The b05 source asks for actual normalized kernels on a common standard Borel space and simultaneous action on reference/evidence measures. The b06 source explicitly separates law, connection, operator, and cross-morphism limits; the proposed matter-only limit must retain that scope.
+
+## 1. Uniform inverse locality and moving-block averaging
+
+Let H be the bounded precision from obligations.md. For finitely supported x, each [I,-A] satisfies ||[I,-A]||^2<=1+L^2, the [I,-I] cell term has squared norm 2, and the lattice difference has norm at most 2. Thus the proposed constant
+
+$$
+\Lambda=m^2+2\kappa+2\gamma(1+L^2)+4\eta
+$$
+
+indeed gives m^2 I<=H<=Lambda I. The quadratic-form extension is a bounded self-adjoint operator, uniquely determined by its finite-band entries. Set Q=I-H/Lambda and q=1-m^2/Lambda in (0,1). Then 0<=Q<=qI, and C=H^-1=Lambda^-1 sum_{p>=0}Q^p converges in operator norm by the geometric tail estimate. No finite-volume or perturbative approximation is used.
+
+Cell range one gives (Q^p)_ij=0 for p<|i-j|. Each block norm is at most ||Q^p||<=q^p. Therefore
+
+$$
+\|C_{ij}\|\le m^{-2}q^{|i-j|}. \tag{1}
+$$
+
+With S=[I,I]/sqrt(2), C^z_ij=SC_ijS^T obeys the same bound. Its absolutely summable row f_i=sum_h C^z_i,i+h is well defined. The truncated row f_i^R=Lambda^-1 sum_{p=0}^R sum_j S(Q^p)_ijS^T obeys
+
+$$
+\|f_i^R\|\le M_q:=\Lambda^{-1}(1+q)/(1-q)^2,
+$$
+
+$$
+\|f_i-f_i^R\|\le\epsilon_R:=\Lambda^{-1}q^{R+1}
+\left[(2R+3)/(1-q)+2q/(1-q)^2\right]. \tag{2}
+$$
+
+The last formula is the exact sum of (2p+1)q^p over p>R. Terms at depth p use only marks within p cells of i; the claimed R+1 neighborhood is conservative and valid. Thus f_i^R and f_j^R are independent when |i-j|>2R+2.
+
+For any one scalar matrix entry and any deterministic interval I of B cells, its average has variance at most (4R+5)M_q^2/B: expand the double covariance sum, bound each nonzero covariance by M_q^2, and count at most 4R+5 potentially dependent partners per index. This estimate is uniform in the location of I.
+
+Here stationarity is load-bearing: it makes E f_i^R equal to one number E f_0^R. Let chi=E f_0. Choose R=ell and B=b^ell. For any fixed epsilon>0, the probability that a moving interval average differs from its mean by epsilon is at most (4ell+5)M_q^2/(epsilon^2 b^ell). The sum over ell is finite. The probability of any such deviation after L is at most the tail sum and tends to zero; intersecting the resulting probability-one sets over positive rational epsilon proves convergence. The deterministic tail (2) tends to zero, giving
+
+$$
+B^{-1}\sum_{i=jB}^{(j+1)B-1}f_i\longrightarrow\chi \quad\text{almost surely}. \tag{3}
+$$
+
+Intersecting over countably many integer j and integer b gives a common probability-one set. The argument also handles any one prespecified sequence of moving intervals of lengths b^ell, because the probability bound is location-uniform. It does not assert one exceptional-set-free statement for every adaptively chosen interval sequence.
+
+Symmetry of chi follows from stationarity and C_ij^T=C_ji: E C^z_0,h transposed equals E C^z_h,0=E C^z_0,-h, and absolute summability permits reindexing. Independence alone does not imply this stationarity identity.
+
+## 2. Counterexample to independence without stationarity
+
+Take K=2 and m^2=kappa=gamma=eta=1. In a homogeneous environment A_i=B_i=tI, the zero-frequency cell precision is
+
+$$
+H_t(0)=\begin{pmatrix}4&-(1+2t)\\-(1+2t)&2+2t^2\end{pmatrix}\otimes I_2.
+$$
+
+The intercell difference contributes zero at zero frequency. Absolute inverse summability in (1) allows the row sum to be computed by applying H to a constant vector; hence the z susceptibility is S H_t(0)^-1 S^T. Direct 2-by-2 inversion gives chi_1=I_2 and chi_2=(4/5)I_2.
+
+On positive cells, assign the independent A_i,B_i distributions to small full-dimensional neighborhoods of I or 2I, using type 1 on shells [2^k,2^(k+1)) with even k and type 2 on shells with odd k. Put any type at cell 0 and use type 1 on negative cells. Choose independent proper smooth compactly supported densities in those neighborhoods. Every support is bounded away from singularity and contains nonisometries; independent full-dimensional draws have noncommuting pairs almost surely. The scalar centers are used only to calculate the two distinct susceptibilities, not as the actual mark distribution.
+
+To check that the failure persists after these perturbations, fix R large enough that (2) is much smaller than 1/15. For a cell more than R+1 away from a shell boundary, f_i^R is a polynomial in finitely many local marks and is uniformly close to the corresponding homogeneous value when neighborhood radii are sufficiently small. Compactness makes the same radius work for all cells and both types. Restoring the two tails in (2) bounds f_i uniformly close to chi_type there. Among [0,2^n), only O(nR) cells lie near shell boundaries, whose fraction tends to zero. The type-2 fractions converge to 2/3 along even n and 1/3 along odd n. The corresponding diagonal entries of the row averages approach disjoint neighborhoods of 13/15 and 14/15 if the neighborhoods were chosen sufficiently small. Thus the row averages do not converge, for every environment in these supports.
+
+The block-covariance boundary error in Section 3 tends to zero, so the proposed Gaussian block limit also fails. This satisfies independence, compact GL+ support, noncommuting marks almost surely, positive mass, and all norm bounds. The missing condition is stationarity. An explicit i.i.d. cell-pair law repairs the theorem; A and B may have different fixed marginal distributions within each i.i.d. pair.
+
+## 3. Boundary bounds, positivity, and total variation
+
+For I=[0,B-1], using (1),
+
+$$
+\left\|B^{-1}\sum_{i,k\in I}C^z_{ik}-B^{-1}\sum_{i\in I}f_i\right\|
+\le \frac{2q(1-q^B)}{m^2(1-q)^2B}
+\le\frac{2q}{m^2(1-q)^2B}. \tag{4}
+$$
+
+Indeed the left exterior sum equals sum_{i=0}^{B-1}sum_{k<0}q^(i-k)=q(1-q^B)/(1-q)^2; the right exterior gives the same bound. For adjacent disjoint B-cell blocks, the cross sum is q(1-q^B)^2/(1-q)^2, giving q/[m^2(1-q)^2B]. Separated blocks add an additional decaying factor. Thus the stated constants are valid.
+
+Normalized disjoint block rows P satisfy PP^T=I because SS^T=I and each block contains B terms of squared weight 1/B. For every fixed collection of s outputs,
+
+$$
+\Lambda^{-1}I_{sK}\le PC P^T\le m^{-2}I_{sK}. \tag{5}
+$$
+
+Equations (3) and (4) plus the cross bounds give entrywise, hence operator-norm, convergence of its covariance Gamma_ell to I_s tensor chi. Equation (5) passes to the limit, so chi is nondegenerate and lies between Lambda^-1 I and m^-2 I.
+
+The total-variation conclusion is exact for this conditional Gaussian family. Covariance convergence with positive limiting determinant gives pointwise density convergence p_ell to p_*. Since min(p_ell,p_*)<=p_* and converges pointwise to p_*, its integrals tend to one. Therefore ||p_ell-p_*||_1=2-2 integral min(p_ell,p_*) tends to zero. This proof uses fixed sK; it does not establish total variation on all growing coarse coordinates. For annealed finite-observable laws, TV of the mixture is at most the expectation of conditional TV, which tends to zero by bounded convergence.
+
+## 4. Transparent finite-volume laws and the diagonal
+
+For finite D, C_D is the restriction of the infinite covariance C. It satisfies (5)'s unblocked spectral bounds and defines a normalized finite Gaussian. For D contained in E, marginal covariance restriction directly gives (projection_E,D)#N(0,C_E)=N(0,C_D). The countable Gaussian field can be constructed by square-summable rows of C^(1/2) acting on independent Gaussian coordinates, as in the original note, or by the precise standard-Borel cylinder theorem read above. The Neumann entries and finite covariance kernels are measurable in the environment; the square root is obtained by uniform polynomial approximation on the compact spectral interval, which also establishes measurability of that explicit construction.
+
+Transparent precision can be written without an infinite-density integral. Decompose l2 into D and its complement. Since H_Dc,Dc>=m^2 I, that exterior block is invertible, and block elimination gives
+
+$$
+C_D^{-1}=H_{DD}-H_{D,D^c}H_{D^c,D^c}^{-1}H_{D^c,D}. \tag{6}
+$$
+
+This is an operator Schur complement, not a Lebesgue integration over infinitely many coordinates. It generally depends on the entire exterior environment. It differs from free or Dirichlet truncation, and is not determined by local marks in D alone. The original note recognizes this correctly. Exact transparent covariance is therefore a mathematical preparation; a finite numerical padded approximation needs its own truncation error rather than being reported as exact.
+
+For D_n=[0,b^n-1], every fixed-depth observable on any prescribed finite set of nonnegative coarse indices eventually agrees exactly with the infinite coarse law. On ell(n)=floor(n/2), the block length and number of blocks both diverge. Each fixed nonnegative coarse-index set is eventually present, so the already-proved quenched convergence applies along this subsequence without an additional finite-boundary limit. Volume first and then depth have the same finite-observable limit. Maximal depth leaves one cell and cannot assert a many-cell limit. Negative coarse indices are part of the infinite construction but are not contained in this one-sided finite exhaustion.
+
+## 5. Marked composition, roots, and kernel domains
+
+Choose one rooted identity-edge spanning tree, for example root r_0 on the bi-infinite chain with u_i leaves. Root each finite connected block at its vertex nearest r_0. On the nonnegative finite exhaustion this is its leftmost r vertex. The induced child and parent trees satisfy the source proposition's unique-path hypothesis. Every fine vertex i in child I inside parent A obeys Theta_A<-I Theta_I<-i=Theta_A<-i. Dressing any edge twice then gives precisely Theta_A<-i Theta_e Theta_A'<-j^-1. No commutation is used. Under passive frames all interior g_i factors cancel, leaving only root endpoint factors. Every non-tree A_i,B_i is retained in ordered based-holonomy data; no averaging or conjugacy-class quotient loses relative orientations. Tree copies that become internal have identity holonomy but remain accounted for by the forest/multiplicity data.
+
+For unscaled averages the weights multiply: 1/b^s times 1/b^r equals 1/b^(r+s). The identification multiplies a b^r-cell average by sqrt(b^r), so the normalized block features compose as written in obligations.md. This proves both hypotheses of c10's linear cross-scale proposition. For the normalized map P, use the correspondingly rescaled right inverse (P^T in the canonical Euclidean chart); using the source's unscaled replication map with the new normalization would give P S=sqrt(B)I, not I. Two copied channels with identical links and identity cross-morphisms commute with this same P and its right inverse.
+
+The direct/staged covariance identity is algebraic: P_2(P_1 C P_1^T)P_2^T=(P_2P_1)C(P_2P_1)^T. It is closure in the full positive-definite Gaussian class, not in a fixed sparse precision family. Ordered concatenation of mark lists is associative, and endpoint dressings obey the same identity.
+
+To speak literally of Markov kernels on one common standard Borel space, rather than maps on compatible domains, complete the domain convention. One option is the countable disjoint union of finite typed states of b-power lengths and all their multiplicity/root/mark/covariance data, plus one absorbing empty state. Define K_b^r by the declared blocking when r does not exceed the available depth, and send shorter states to the empty state. The empty state stays fixed. The composition identity then holds for all states and all nonnegative integer r,s, by splitting the case r+s within available depth from its complement. Its restriction to admissible networks is the original construction. Alternatively state the equality only as a partial compatible family, without claiming total kernels.
+
+## 6. Probability references and determinant offsets
+
+The finite Gaussian normalizing formula with Lebesgue coordinates is correct, but Lebesgue is not the probability reference varrho required by c11's def:rg-measure-pair. More seriously, if P:R^d to R^p is rank p<d, the pushforward of d-dimensional Lebesgue gives infinite mass to every positive-volume p-dimensional set: complete P to orthogonal retained/hidden coordinates and integrate the hidden constant density. It is not coarse Lebesgue measure. Therefore assigning fresh dy at every depth is not simultaneous reference pushforward.
+
+A direct repair is to use rho_D=N(0,m^-2 I) as the probability reference in the canonical chart, transformed along with all other data in other frames. Since normalized block rows are orthonormal, P#rho_D=N(0,m^-2 I) on the retained coordinates. Define evidence m_D=M_D mu_D with any positive finite source mass M_D. Along depth keep that mass fixed and push both measures by P. If the coarse covariance is C_c, the correct relative action is
+
+$$
+H_c^{pair}(y)=\tfrac12y^T(C_c^{-1}-m^2I)y
++\tfrac12\log\det(m^2C_c)-\log M_D. \tag{7}
+$$
+
+This follows by taking minus the log ratio of M_D times the N(0,C_c) density to the reference Gaussian density. It makes the source's measure-pair composition exact. For cylinder consistency across volumes one can use M_D=1 throughout. If preserving the original unnormalized density exp(-E_D)dx within one finite volume, use its source mass M_D=Z_D and keep it fixed through depth; masses across different volumes need not be equal, so that unnormalized family is not itself the normalized cylinder family.
+
+In Lebesgue coordinates the pushed effective action is
+
+$$
+E_c^{eff}(y)=\tfrac12y^TC_c^{-1}y+\log Z_c-\log M_D,
+\qquad Z_c=(2\pi)^{p/2}\det(C_c)^{1/2}. \tag{8}
+$$
+
+Discarding this offset and resetting the evidence mass to Z_c changes the unnormalized measure. With (7) or (8), determinant offsets agree directly and by stages because the covariance and carried source mass agree. Gaussian normalized laws were already correct before this reference repair.
+
+## Strongest supported result and minimal next action
+
+Under the explicit i.i.d. cell-environment declaration, the Neumann locality, moving-block almost-sure averaging, transparent projectivity, fixed-finite-observable total-variation diagonal limit, and marked finite-law composition have complete arguments above. The spectral constants are established in the declared canonical gauge. Arbitrary passive coordinate changes preserve the model and gauge-invariant characteristic observable when metrics, references, maps, and covectors are carried; they need not preserve coordinate operator-norm constants or stationary coordinate distributions.
+
+The parent has now supplied explicit i.i.d. cell pairs and the carried probability-reference/evidence-mass convention in obligations.md. The only remaining typing clarification from this check is the total-kernel domain convention if common-space total kernels are claimed; the existing admissible-length composition already holds. A subsequent finite study can test an implementation of these corrected formulas, but cannot prove the limit. No conclusion is obtained for free boundaries, unbounded full-support GL priors, growing full-state TV, arbitrary trees/weighted schemes, learned structural dynamics, or endogenous recursive formation.
+
+Only this assigned reconstruction file was written. The original obligations.md and all vault/code files remain untouched by this worker. The parent owns integration and the daily change log.
+
+

@@ -5,10 +5,15 @@ aliases: [field/mathematics, Mathematics sources, Math MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-09-30
+updated: 2026-10-02
 ---
 
 # Mathematics MOC
+
+## Coupled and marked renormalization studies, October 2, 2026
+
+[[multiagentelbo-2026-10-02-renormalization-studies]] records actual-switching-law path-KL identities and a conditional massive marked-Gaussian diagonal construction. The numerical studies distinguish empirical bound estimates, finite padded approximations, and analytical statements; the autonomous formation problem remains open.
+
 
 ## Conditional boundary toolkit, September 30, 2026
 

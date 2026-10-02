@@ -1,0 +1,250 @@
+# Switching paths and retained-parent error bounds
+
+October 2, 2026. Constructive research record at one base point. No experiment was run for this derivation.
+
+## Target and scope
+
+For every finite N, K, horizon H, admissible deterministic parameter schedule, and declared linear retained map, construct a normalized sampled path law P. For each admitted parent predictor S, bound the forward joint path divergence KL(P_R || S), and extend error accounting through any fixed finite depth. Equivalence means equality of joint path laws, not matched moments or marginal laws.
+
+Supplied assumptions are proper Gaussian node priors, normalized per-receiver Gaussian records, categorical source labels, directed support, inverse-paired independent GL+ links, and deterministic joint collective-VFE learning. Additional declarations here are sampled switching kinetics, mobility/noise, finite-step splitting, initial sampled preparation, schedule conditioning, and candidate-parent class. These additions are not consequences of the recognition optimizer.
+
+Sources read: docs/DIRECTION.md; the October 2 entry of docs/STATUS.md; docs/research/2026-10-02-coupled-learning/{CONTRACT,RESULTS}.md; src/multiagent_elbo/realizations/gaussian/coupled_learning.py; live Research/manuscripts/MultiAgentELBO_Theory/c06_attention.tex, def:obs-attention-label-model and prop:obs-attention-elbo; c08_two_timescales.tex, prop:obs-local-block-descent and def:obs-fast-slow-blocks; c11_network_coarsegraining.tex, lines 1232–1345 and 1490–1555, including open:rg-pointwise-parent-dynamics and thm:rg-memory-borel-projection. The wiki's “Soft formation and the activation clock” preserves continuity on activation, discarded information, and path fidelity. No small-network estimate is used.
+
+The canonical open problem retains assignments, requests time-homogeneous autonomous parents, and includes uniform switching-time/asymptotic questions. This construction projects configuration paths over a deterministic finite schedule. It does not close that original obligation.
+
+## 1. State and exact finite-step law
+
+Set d=NK. The state is (X,J) in R^d times the finite assignment space A=product_i N_i. Each source set is nonempty and fixed (nonself in the current code). Step n supplies positive normalized pi_n, finite invertible Theta_ij,n, tau_n>0, and deterministic symmetric M_n>0. Fixed prior precision J_0 and receiver metrics H_i are positive definite. All finite coefficients are allowed; no size-uniform bound is assumed.
+
+Let B_ij,n x=x_i-Theta_ij,n x_j and A_ij,n=B_ij,n^T H_i B_ij,n. Then
+
+$$
+D_{ij,n}(x)=x^TA_{ij,n}x/2,
+\qquad \beta^P_{ij,n}(x)=\frac{\pi_{ij,n}e^{-D_{ij,n}(x)/\tau_n}}{\sum_k\pi_{ik,n}e^{-D_{ik,n}(x)/\tau_n}}.
+$$
+
+These sample-conditional rows differ from the learner's deterministic recognition rows beta^Q_n=softmax(log pi_n-E_q D_n/tau_n). Put
+
+$$
+U_{n,j}(x)=(x-a)^TJ_0(x-a)/2+\tau_n^{-1}\sum_iD_{i j_i,n}(x)-\sum_i\log\pi_{i j_i,n},
+$$
+
+$$
+g_{n,j}(x)=\nabla_xU_{n,j}(x)=J_0(x-a)+\tau_n^{-1}\sum_iA_{i j_i,n}x. \tag{1}
+$$
+
+Global A matrices include sender terms. The static posterior proportional to exp(-U_n,j) is normalizable: exp(-D/tau) is positive and at most one, so summing prior assignment weights bounds its unnormalized density by an integrable Gaussian. Record constants independent of x,j were dropped.
+
+Choose finite h_n>0, inference times t_n=sum_{k<n}h_k, and r_n=1-exp(-h_n). Prepare X_0~N(mu_0,Sigma_0), Sigma_0>0, and independent initial assignment J_0^lab~product_i beta^Q_i,0. This is a declared preparation, possibly recognition at a learner checkpoint, not a claim about the actual law of an earlier sampled process.
+
+Given (X_n,J_n)=(x,j), first sample
+
+$$
+K_n(j'|x,j)=(1-r_n)1_{j'=j}+r_n\prod_i\beta^P_{ij'_i,n}(x). \tag{2}
+$$
+
+Then use a fresh independent Z_n~N(0,I_d) to set
+
+$$
+X_{n+1}=X_n-h_nM_ng_{n,J_{n+1}}(X_n)+(2h_nM_n)^{1/2}Z_n. \tag{3}
+$$
+
+One global Bernoulli coin refreshes all rows; only conditional on refresh are row labels independently drawn. A refresh may redraw the same assignment. These are not independent receiver clocks. All draws use fresh independent randomness conditional on the stated inputs.
+
+There is no boundary on R^d, and no reflection or killing. The sampled update changes neither structural supports nor pi/Theta. Equation (2) sums to one and (3) is a nondegenerate normalized Gaussian kernel, so their sequential product uniquely defines a normalized finite path law P. No step-size bound is needed for finite-horizon existence. The structural schedule is supplied by deterministic recognition/source/link learning. X,J do not feed back into that learner: attention is endogenous to sampled X, while structural learning is not actual-law feedback. The time parameter is not a geometric or operational clock.
+
+## 2. Common-label-kernel Gaussian reference
+
+Choose deterministic rows bar beta_n (the learner's beta^Q_n), and define
+
+$$
+\bar A_n=J_0+\tau_n^{-1}\sum_{ij}\bar\beta_{ij,n}A_{ij,n},\quad \bar g_n(x)=\bar A_nx-J_0a,
+$$
+
+$$
+F_n=I-h_nM_n\bar A_n,\quad b_n=h_nM_nJ_0a,\quad C_n=2h_nM_n.
+$$
+
+Define augmented Q with exactly the same initial joint law and K_n, but configuration transition N(F_nx+b_n,C_n), independent of Jnew. The augmented Q need not be Gaussian, but its configuration marginal is exactly
+
+$$
+q_X(x_{0:H})=\varphi_{\mu_0,\Sigma_0}(x_0)\prod_{n=0}^{H-1}\varphi_{F_nx_n+b_n,C_n}(x_{n+1}). \tag{4}
+$$
+
+Proof: fix the X path and sum the product of K_n backwards over the labels. Each terminal sum is one, and the configuration factors contain no labels. This remains true although K_n depends on x_n.
+
+Reference moments satisfy m_next=F_n m_n+b_n, V_next=F_n V_n F_n^T+C_n, and Cov(X_next,X_k)=F_n Cov(X_n,X_k) for k<=n. The full path covariance is positive definite because the independent initial Gaussian and noises map invertibly to the path through a block-triangular linear transformation.
+
+Write delta_n(x,j')=g_n,j'(x)-bar g_n(x). The common initial density and label kernels cancel in log(dP/dQ). Direct expansion gives KL(N(u,C)||N(v,C))=(u-v)^T C^-1(u-v)/2. Since u-v=-h_n M_n delta_n and C=2h_n M_n,
+
+$$
+\operatorname{KL}(P\Vert Q)=B:=\sum_n\frac{h_n}{4}\mathbb E_P\|\delta_n(X_n,J_{n+1})\|_{M_n}^2. \tag{5}
+$$
+
+This exact identity uses the P expectation, not a Q simulation.
+
+It admits an assignment-integrated score. At x,j, let v_ik=A_ik,n x/tau_n, v_i=sum_k beta^P_ik,n(x)v_ik, and g_betaP=J_0(x-a)+sum_i v_i. Then
+
+$$
+\mathbb E_{K_n}\|g_{n,J'}(x)-\bar g_n(x)\|_{M_n}^2
+=(1-r_n)\|g_{n,j}(x)-\bar g_n(x)\|_{M_n}^2
+$$
+
+$$
++r_n\left[\|g_{\beta^P}(x)-\bar g_n(x)\|_{M_n}^2+\sum_i\left(\sum_k\beta^P_{ik,n}(x)\|v_{ik}\|_{M_n}^2-\|v_i\|_{M_n}^2\right)\right]. \tag{6}
+$$
+
+Centered row forces are independent under refresh, so all cross-row covariance terms vanish on expanding the square. Sharing agent coordinates and using nondiagonal M do not change independence. Sparse support and block-diagonal mobility allow endpoint-sized computation. The row-variance term can remain positive even when beta^P=bar beta. Replacing g_J by soft g_betaP defines different dynamics and removes that cost.
+
+## 3. Explicit finite-horizon integrability
+
+Using Euclidean operator norms, set c_n=||J_0||+tau_n^-1 sum_i max_j||A_ij,n||, d_0=||J_0a||, and ell_n=2tau_n^-1 sum_i max_j||A_ij,n||. Then ||g_n,j(x)||<=c_n||x||+d_0 and ||delta_n(x,j)||<=ell_n||x||. Put a_n=1+h_n||M_n||c_n and e_n=h_n||M_n||d_0. Let s_0=(||mu_0||^2+tr Sigma_0)^(1/2), and
+
+$$
+s_{n+1}=a_ns_n+e_n+\sqrt{\operatorname{tr}C_n}. \tag{7}
+$$
+
+The L2 triangle inequality in (3) proves E||X_n||^2<=s_n^2. Thus
+
+$$
+B\le B_{\rm det}:=\sum_n(h_n/4)\|M_n\|\ell_n^2s_n^2<\infty. \tag{8}
+$$
+
+For fourth moments choose u_0=||mu_0||+[(tr Sigma_0)^2+2tr(Sigma_0^2)]^(1/4), and
+
+$$
+u_{n+1}=a_nu_n+e_n+[(\operatorname{tr}C_n)^2+2\operatorname{tr}(C_n^2)]^{1/4}. \tag{9}
+$$
+
+The L4 triangle inequality and Gaussian fourth-moment expansion yield E||X_n||^4<=u_n^4. For the concatenated path x, E||x||^4<=(sum_nu_n^2)^2, by the L2 triangle inequality for sum_n||X_n||^2. These constants are finite but can be loose and can grow with size, inverse temperature, and time.
+
+## 4. Signed retained Gaussian-reference bound
+
+Let y=R x be a full-row-rank linear map of the whole configuration path, including an optional tail selection. Let P_R be its actual law, Q_R=N(m_Q,V_Q) its reference law, and S_R=N(m_S,V_S), V_S>0, any candidate on the same retained path space. Full row rank and (4) ensure V_Q>0. A reduced linear Gaussian state-space model supplies S_R after integrating its hidden parent state.
+
+Complete R to an invertible linear map, using the additional continuous coordinates and all labels as hidden variables. Factor the joint densities into retained and conditional densities and integrate their log ratio:
+
+$$
+B=\operatorname{KL}(P_R\Vert Q_R)+G_R,\quad
+G_R=\mathbb E_{P_R}\operatorname{KL}(P_{(X,J)|R}\Vert Q_{(X,J)|R})\ge0. \tag{10}
+$$
+
+The Gaussian log ratio below is quadratic and integrable by (7). Splitting log(p_R/s_R) into log(p_R/q_R)+log(q_R/s_R) gives
+
+$$
+\boxed{\operatorname{KL}(P_R\Vert S_R)=B+\mathbb E_{P_R}\log(q_R/s_R)-G_R
+\le B+\mathbb E_{P_R}\log(q_R/s_R).} \tag{11}
+$$
+
+Here
+
+$$
+\log(q_R/s_R)(y)=\tfrac12\log\frac{\det V_S}{\det V_Q}
+-\tfrac12(y-m_Q)^TV_Q^{-1}(y-m_Q)+\tfrac12(y-m_S)^TV_S^{-1}(y-m_S). \tag{12}
+$$
+
+If actual m_P,V_P are known, replace each expected quadratic by tr(V^-1 V_P)+(m_P-m)^T V^-1(m_P-m). Recognition moments are not these actual moments. Replacing the correction with KL(Q_R||S_R) is invalid because it changes the averaging law. The hidden gap includes assignment histories. Thus (11) controls configuration paths only, not retained labels.
+
+## 5. Direct observable-row bound and exact predictor comparisons
+
+Fix a full-row-rank configuration projection C:R^d to R^p. Write Y_n=CX_n and H_n=Y_0:n. Conditional on X_n and freshly sampled Jnew, the next observation has Gaussian law
+
+$$
+G_n=N(m_n^*,D_n),\quad m_n^*=C[X_n-h_nM_ng_{n,J_{n+1}}(X_n)],\quad D_n=2h_nCM_nC^T>0. \tag{13}
+$$
+
+Let S be a normalized history predictor with the actual initial Y_0 law and conditional kernels S_n(.|H_n)=N(a_n(H_n),W_n), W_n>0. An affine mean in the observed history and deterministic covariance suffice. A deterministic internal filter is admissible when initialized and updated using retained history only, and its decoded row log density is integrable. For a latent parent model, use its own conditional filter, integrated over its hidden state; substituting the true fine hidden state is invalid. A linear Gaussian filter yields affine means and deterministic W_n.
+
+Define the computable score
+
+$$
+U(S)=\sum_n\mathbb E_P\operatorname{KL}(G_n\Vert S_n(.|H_n)), \tag{14}
+$$
+
+$$
+\operatorname{KL}(G_n\Vert S_n)=\tfrac12[\operatorname{tr}(W_n^{-1}D_n)-p+\log(\det W_n/\det D_n)
++(m_n^*-a_n(H_n))^TW_n^{-1}(m_n^*-a_n(H_n))]. \tag{15}
+$$
+
+Let T_n(.|H_n) be the actual conditional law of Ynext. It is the mixture of G_n over the actual conditional law of (X_n,Jnew) given H_n. At fixed H_n, split log(g_n/s_n)=log(g_n/t_n)+log(t_n/s_n) and integrate. The first expectation is the conditional mutual information; the second is KL(T_n||S_n). Factoring actual and candidate path densities into their rows then proves
+
+$$
+\boxed{U(S)=\operatorname{KL}(P_Y\Vert S)+G_{\rm obs},\quad
+G_{\rm obs}=\sum_n I_P(Y_{n+1};(X_n,J_{n+1})|H_n)\ge0.} \tag{16}
+$$
+
+For affine mean predictors, (7) and finite inverses W_n give finite U through (15). Conditional mixture entropy is bounded below by the entropy of common-covariance G_n and above in expectation by the finite-covariance Gaussian entropy. The upper entropy inequality follows by expanding KL to the Gaussian with the same moments. Thus the log-ratio split involves no infinity subtraction.
+
+The nonnegative gap is independent of S. For two admitted predictors with the same observed variables, horizon, preparation, and actual P,
+
+$$
+U(S_1)-U(S_2)=\operatorname{KL}(P_Y\Vert S_1)-\operatorname{KL}(P_Y\Vert S_2). \tag{17}
+$$
+
+Exact expected score differences therefore give exact path-KL differences, including internal rank changes with fixed output. Paired Monte Carlo estimates this difference; a finite sample does not establish its sign. Changing the output projection changes G_obs and does not preserve this comparison identity. A positive U alone does not prove positive actual KL.
+
+For delayed activation, initialize S from the actual marginal Y_theta and apply declared predictor kernels after theta. This common initial law can be sampled from fine prefixes without evaluating its density. Any hidden parent initialization must have a declared conditional law given the retained initial/history data, and the predictor must integrate that law. Fine-hidden-state initialization is a different experiment. If initial laws are not matched, their KL must be added; moment matching does not remove it.
+
+## 6. Honest numerical bounds
+
+Expand (12) as c+v^Ty+y^TWy/2 with W=V_S^-1-V_Q^-1, v=V_Q^-1m_Q-V_S^-1m_S, and c=log(det V_S/det V_Q)/2+(m_S^TV_S^-1m_S-m_Q^TV_Q^-1m_Q)/2. Let e_0=|c|+||v||/2 and e_2=(||v||+||W||)/2. The inequality t<=(1+t^2)/2 gives |log(q_R/s_R)(y)|<=e_0+e_2||y||^2. Hence a deterministic, usually loose bound is
+
+$$
+\operatorname{KL}(P_R\Vert S_R)\le B_{\rm det}+e_0+e_2\|R\|^2\sum_ns_n^2. \tag{18}
+$$
+
+The signed per-path score Z=sum_n h_n||delta_n||_M^2/4+log(q_R/s_R)(R x), also with option (6), obeys |Z|<=e_0+b||x||^2, where b=max_n(h_n||M_n||ell_n^2/4)+e_2||R||^2. Thus Var(Z)<=V_*:=2e_0^2+2b^2(sum_nu_n^2)^2. For L independent evaluation paths and delta in (0,1), independence and Pr(|W|>=a)<=E W^2/a^2 show, with probability at least 1-delta,
+
+$$
+\operatorname{KL}(P_R\Vert S_R)\le E Z\le\overline Z+\sqrt{V_*/(L\delta)}. \tag{19}
+$$
+
+The same construction works directly for (15). If a_n(H_n)=L_n H_n+b_n^S, define alpha_n=||C||(1+h_n||M_n||c_n)+||L_n|| ||C|| and beta_n=||C||h_n||M_n||d_0+||b_n^S||. Then ||m_n^*-a_n||<=alpha_n||x||+beta_n. Let z_n=tr(W_n^-1 D_n)-p+log(det W_n/det D_n)>=0, k_0=sum_n[z_n/2+||W_n^-1||beta_n^2], and k_2=sum_n||W_n^-1||alpha_n^2. The per-path sum of (15) is at most k_0+k_2||x||^2, giving deterministic bound U(S)<=k_0+k_2 sum_n s_n^2 and variance bound 2k_0^2+2k_2^2(sum_nu_n^2)^2 for use in (19).
+
+A sample mean estimates an analytical upper bound; it is not itself a certified upper bound. A sample-standard-error interval is descriptive without a justified tail/asymptotic argument. Fix candidate fitting before independent evaluation, or condition on an independent training sample. Prespecified finite candidates can allocate delta across comparisons for simultaneous coverage. The exact expectation identity (17) and its finite-sample estimate must remain distinct.
+
+## 7. Finite-depth nested projections
+
+Let R_l=C_l...C_1 be full-row-rank nested linear maps of one fine configuration path. Set P_l=(R_l)#P_X and Q_l=(R_l)#Q_X. For each nondegenerate Gaussian candidate S_l, equation (11) gives
+
+$$
+\operatorname{KL}(P_l\Vert S_l)\le B+\mathbb E_{P_l}\log(q_l/s_l). \tag{20}
+$$
+
+One fine B is reused at every depth, not multiplied by depth. G_l=B-KL(P_l||Q_l) is nondecreasing, since factoring intermediate retained laws as in (10) makes each increment an expected conditional KL.
+
+For a sequential alternative, suppose U_lminus bounds KL(P_lminus||S_lminus), and T_l=(C_l)#S_lminus has an evaluable positive density. The same factorization gives
+
+$$
+\operatorname{KL}(P_l\Vert S_l)\le U_{l-1}+\mathbb E_{P_l}\log(t_l/s_l). \tag{21}
+$$
+
+The correction is signed and averaged under P_l; it is not KL(T_l||S_l). No triangle inequality is used. For nested same-time projections, (13)–(16) can instead be applied independently with C equal to each composite projection. Rankings (17) remain valid among candidates at one fixed output depth, not between different output spaces.
+
+These are finite-depth bounds on projections of one fine sampled path. They do not construct autonomous recursive formation. Nonlinear/state-selected projections generally destroy Gaussian reference marginals and Gaussian conditional rows; they need a separate evaluation method.
+
+## 8. Continuous model, discretization, and descent
+
+For frozen parameters the corresponding continuous generator is
+
+$$
+\mathcal L f(x,j)=-\langle Mg_j(x),\nabla_x f\rangle+\operatorname{tr}(M\nabla_x^2f)
++\sum_{j'}\prod_i\beta^P_{ij'_i}(x)[f(x,j')-f(x,j)]. \tag{22}
+$$
+
+Construct it by a rate-one Poisson clock, linear sheet SDEs between events, and normalized label refresh at each event. A finite set of affine drifts has common Lipschitz and linear-growth bounds; finitely many Poisson events occur in a finite interval almost surely. These facts construct a unique nonexplosive finite-time law. Frozen rho(x,j) proportional to exp(-U_j(x)) is invariant: integration by parts cancels diffusion terms on each sheet because grad rho_j=-rho_j g_j; the refresh integral vanishes since rho(j|x)=product_i beta^P_ij(x). To lift this calculation to invariance without assuming a generator-core theorem, write each sheet Hessian as A_j=J_0+tau^-1 sum_i A_i,j_i and its mean as A_j^-1 J_0a. Conditional on j, the Gaussian with this mean and covariance A_j^-1 is invariant under the sheet SDE: the mean derivative is zero and the covariance equation is -M A_j A_j^-1-A_j^-1 A_j M+2M=0. Thus every fixed-duration sheet-diffusion kernel preserves the full rho. The conditional label-refresh kernel also preserves rho. Conditional on any realized Poisson event times, their finite composition preserves rho, and averaging those times proves full-process invariance. This is an invariance statement, not a mixing or ergodicity rate.
+
+Equations (2)–(3) are a declared split discretization. Although 1-exp(-h) is the probability of at least one event, replacing multiple possible within-step events by one starting-state draw followed by Euler is not the exact transition of (22). No continuous/discrete path-error theorem is proved here. A moving schedule is time-inhomogeneous and has no asserted invariant law.
+
+Sampled energy is not monotone. For a quadratic mode U(x)=a x^2/2 at x=0 with mobility m, the next expected energy is a h m>0. The continuous energy generator includes a noise Hessian term and a label-refresh energy-change term in addition to deterministic dissipation. Reduced recognition-VFE descent therefore implies no sampled-energy descent.
+
+For a fixed linear reference, whitened drift modes multiply by 1-h lambda, where lambda ranges over eigenvalues of M^(1/2)bar A M^(1/2). Finite stationary covariance requires 0<h lambda<2 in each mode. This is unnecessary for finite-horizon normalization or the error identities. A scalar Euler mode has stationary variance 1/[a(1-ha m/2)], rather than 1/a for continuous time. These are algebraic checks of descent/discretization claims, not small-network evidence deciding the theory's direction. The learner's Armijo acceptance does not establish the sampled stability restriction.
+
+## Deliverable and remaining obligation
+
+The strongest results are normalized sampled dynamics (2)–(3), fine identity (5), retained identities (11) and (16), exact expected predictor comparison (17), and finite-depth bounds (20)–(21), with explicit moment and numerical-error assumptions. The direct observable-row calculation needs no projected Gaussian reference density and is the natural primary numerical budget. Its candidate filter must read only retained histories.
+
+The next material action is to implement these declared kernels and determine whether the direct budget is informative at N>=512. Retained-label fidelity, actual-law structural feedback, autonomous parent learning, recursive formation, uniform switching-time control, and thermodynamic limits remain unresolved. For delayed Gaussian-reference comparison, either include the whole prefix in B and let R select the later window, or account explicitly for the actual initial-law KL; never reset actual law to recognition moments silently.
+
+Only this assigned record was written. Source inspection used read-only PowerShell and JEV. No vault, code, configuration, numerical experiment, GPU workload, external theorem application, or formal-verification closure was performed. The configured apply_patch tool twice failed to write; the artifact was saved with PowerShell instead.
+

@@ -14,10 +14,17 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-10-01
+updated: 2026-10-02
 ---
 
 # Gauge-Theoretic Multi-Agent VFE Model
+
+## Renormalization studies, October 2, 2026
+
+[[multiagentelbo-2026-10-02-renormalization-studies]] adds coupled source/link VFE descent, sampled switching histories with actual-law parent error functionals, and a separate compatible marked Gaussian scaling study through 8,192 agents. Nineteen distinct tiny checks passed. The coarse switching discretization had rare expanding assignment modes; a bound covering every assignment motivated a separately recorded refinement with much smaller empirical error bars. Absolute retained-path KL remains unknown, and Gaussian-reference accuracy does not substitute for it.
+
+The massive quenched construction has a conditional finite-observable size/depth limit and exact carried-reference/mark composition; the executed padded approximation passed 29 gates. An initial JSON reporting failure is preserved. All holonomies remain, so the full structural interface grows. Endogenous structural feedback, general noncompact limits, and first-stage-dependent recursive formation remain open; the new nonlinear formation candidate has an explicit saddle-exit proof obligation.
+
 
 ## X2 predictive interfaces, October 1, 2026
 
