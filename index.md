@@ -1451,3 +1451,5 @@ All new source notes are cataloged below. [[multiagentelbo-2026-09-11-research-s
 - [[bakhtin-2008-unstable-equilibrium-exit]] — primary nonlinear exit theorem used in the saddle continuation.
 
 - [[multiagentelbo-2026-10-02-joint-retained-parent]] — joint configuration/assignment parent scores, fixed-mean control, and the final matched stationary-protocol limit.
+
+- [[multiagentelbo-2026-10-02-joint-particle-filter]] -- exact hidden filtering recursion, normalized particle predictors, and a recorded large-network finite-cloud limitation.

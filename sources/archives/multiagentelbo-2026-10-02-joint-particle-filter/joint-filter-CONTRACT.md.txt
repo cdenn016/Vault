@@ -1,0 +1,247 @@
+# Hidden filtering of the joint retained path
+
+October 2, 2026. This is a bounded construction for the existing 64-step switching model at fixed c_*. The exact result is a normalized filtering recursion on the affine fiber of the observed configuration. Its particle approximation defines normalized joint predictors for configurations and source assignments. A paired log-density comparison estimates differences of expected path relative entropy conditional on independent algorithmic random tapes. It does not calculate the relative entropy of the parent after marginalizing those tapes.
+
+The previous joint-parent study found a limitation of the static activation lift. This record replaces that point estimate by a conditional hidden law, without changing the saved native paths or their scientific model. The construction is an approximation to the actual retained law, not a new formation mechanism or a solution of O1.
+
+## Target, supplied assumptions, and added approximation
+
+The supplied model and data are those of [joint-parent-CONTRACT.md](joint-parent-CONTRACT.md) and [joint-parent-RESULTS.md](joint-parent-RESULTS.md). For each N in {512,1024}, K=2, d=NK, and H=64, the question is how well a normalized predictor reproduces the joint path of R_t=P X_t and J_t, t=0,...,H. Here P has full row rank m; the study uses the previously declared block-16 projection. Time step delta=1/64, rate-one whole-network source refresh, positive source temperature, fixed positive-definite mobility M, the actual product-Gaussian activation, and the saved structural schedule are unchanged. The schedule is a supplied control, not a function of a simulated parent's own law.
+
+The particle number L and the independent random tape U are approximation choices introduced here. The bounded study compares persistent filters with L=16 and 64, and a reset integration control with L=64, on the first 128 saved independent native paths at each N. It does not regenerate native paths or repeat learning. The reset control draws a fresh activation-conditional particle cloud given the current R_t at each step, so it integrates over hidden coordinates but carries no earlier observation information beyond the current pair (R_t,J_t). All comparisons use actual observed next configurations in their log densities.
+
+The exact target law is the pushforward of the fixed native joint path law. Equality of its one-time covariance, a Gaussian moment fit, or high particle effective sample size is not the intended notion of equivalence. The general manuscript obligation asks for path total variation in specified asymptotic regimes; the present finite-grid comparison reports relative-entropy differences between declared candidates, with the remaining absolute error identified below.
+
+Source continuity is the live Chapter 11 definitions def:rg-regular-finite-filter and open:rg-pointwise-parent-dynamics, its finite-state exact filtering identity thm:rg-memory-filter, and the retained-law and covariance distinctions in Research/manuscripts/pifb2/09_section.tex. The current wiki theme "Staged hierarchy formation and RG composability" records the static-lift limitation. The finite-state theorem motivates the recursion; the continuous-coordinate calculation below derives the required disintegration directly.
+
+## Native joint law and base measures
+
+Let S_i be receiver i's fixed finite set of allowed source labels and let the assignment space be the finite product J=product_i S_i, with counting measure. Write x in R^d with Lebesgue measure. The carried graph maps each label to its source node. For every supplied time row t, all supported pi_{i,s,t} are strictly positive and sum to one over s in S_i. Off-support labels are outside J. The source probabilities are
+
+$$
+\beta_{i,s,t}(x)
+=\frac{\pi_{i,s,t}\exp[-D_{i,s,t}(x)/\tau]}
+{\sum_{a\in S_i}\pi_{i,a,t}\exp[-D_{i,a,t}(x)/\tau]},
+\qquad
+D_{i,s,t}(x)=\frac12(x_i-B_{i,s,t}x_{j(i,s)})^T
+ H_i(x_i-B_{i,s,t}x_{j(i,s)}).
+$$
+
+The comparison maps B and positive-definite H are the saved coefficients. Define p=1-exp(-delta), and
+
+$$
+k_t(j'|x,j)=(1-p)\mathbf 1_{\{j'=j\}}
++p\prod_i\beta_{i,j'_i,t}(x).
+$$
+
+This is one global hold/redraw mixture. It includes redraws that reproduce the entire previous assignment. Separate per-receiver hold mixtures would change the model. For every finite x and allowed j,j', this kernel is positive, and summing it over j' gives one.
+
+Let g_{t,j'}(x) be the full fine sheet force, including all receiver and sender terms, and define
+
+$$
+a_{t,j'}(x)=x-\delta M g_{t,j'}(x),
+\qquad Q=2\delta M.
+$$
+
+Each sheet force is affine in x under the supplied coefficients, so a is affine. No continuous-time equality is asserted. The normalized native joint law with respect to the product of fine Lebesgue and assignment counting measures is
+
+$$
+p(x_{0:H},j_{0:H})
+=\phi_{\Sigma_0}(x_0-\mu_0)b_0(j_0)
+\prod_{t=0}^{H-1}
+ k_t(j_{t+1}|x_t,j_t)
+ \phi_Q(x_{t+1}-a_{t,j_{t+1}}(x_t)).
+$$
+
+Here Sigma_0 is the positive-definite block-diagonal activation covariance, and b_0 is the product recognition-source law used by the sampler, independent of X_0. The notation phi_C denotes the normalized zero-mean Gaussian density of positive-definite covariance C in its stated dimension. Iterated integration proves normalization. The observation is deterministic, R_t=P X_t; all densities in r below use m-dimensional Lebesgue measure.
+
+No variational family is optimized in this continuation. The scoring functional is an expectation under this already specified native joint law. In particular, replacing beta(x) by beta at a mean, or by recognition beta_q, would be a model approximation; neither replacement occurs in the exact recursion.
+
+## Exact initialization and one-step disintegration
+
+Set H_t=(R_0,...,R_t,J_0,...,J_t), and let nu_t(dx)=P(X_t in dx | H_t). These are regular conditional laws on standard Borel spaces, defined at histories of positive density. They are supported on the affine fiber F_{r_t}={x:P x=r_t}. Conditioning on an exact continuous observation uses disintegration, not an event of positive point probability.
+
+Initialization is the actual activation conditional:
+
+$$
+G_0=\Sigma_0P^T(P\Sigma_0P^T)^{-1},
+\qquad
+m_0(r)=\mu_0+G_0(r-P\mu_0),
+$$
+
+$$
+V_0=\Sigma_0-\Sigma_0P^T(P\Sigma_0P^T)^{-1}P\Sigma_0,
+\qquad
+\nu_0=\mathcal N_{F_{r_0}}(m_0(r_0),V_0).
+$$
+
+J_0 does not change this conditional because b_0 is independent of X_0. The initial retained law is phi_{P Sigma_0 P^T}(r_0-P mu_0)b_0(j_0), and every candidate uses it.
+
+For one transition put C=P Q P^T and B=Q P^T C^{-1}. Then C is positive definite, P B=I_m, and Gaussian conditioning gives
+
+$$
+X_{t+1}\mid(X_t=x,J_{t+1}=j',R_{t+1}=r')
+\sim \mathcal N_{F_{r'}}
+ \left(a_{t,j'}(x)+B[r'-P a_{t,j'}(x)],V_Q\right),
+$$
+
+$$
+V_Q=Q-QP^T C^{-1}P Q.
+$$
+
+Call this conditional kernel K_{t,j',r'}(x,dx'). The gain B is determined by the transition noise Q, not by the activation covariance Sigma_0. An exact draw is
+
+$$
+x'=a_{t,j'}(x)+B[r'-P a_{t,j'}(x)]+(I-BP)\eta,
+\qquad \eta\sim\mathcal N(0,Q).
+$$
+
+Its projection is exactly r', and expanding (I-BP)Q(I-BP)^T gives V_Q. Thus this formula implements the singular ambient covariance without adding noise to the observed coordinates or perturbing the fiber. In fixed orthonormal coordinates Z on ker P, V_Q has positive-definite hidden covariance Z^T V_Q Z. Lebesgue measure in those d-m hidden coordinates is a common dominating measure for the exact conditional densities. The analogous statements hold for V_0. When m=d there are no hidden coordinates and these kernels are point masses.
+
+The joint predictive density and posterior recursion are
+
+$$
+p_t(j',r'|H_t)
+=\int k_t(j'|x,j_t) 
+ \phi_C(r'-P a_{t,j'}(x)) \nu_t(dx),
+\tag{1}
+$$
+
+$$
+\nu_{t+1}(dx')
+=\frac{\int k_t(j'|x,j_t)\phi_C(r'-P a_{t,j'}(x))
+ K_{t,j',r'}(x,dx') \nu_t(dx)}
+ {p_t(j',r'|H_t)},
+\quad (j',r')=(J_{t+1},R_{t+1}).
+\tag{2}
+$$
+
+To check these identities, first factor the fine Gaussian transition into its projected Gaussian marginal and the conditional kernel K. Multiply by the normalized source kernel and nu_t, integrate x, and divide by the positive predictive density. Summing (1) over j' and integrating r' yields one. Integrating the numerator of (2) over x' yields its denominator. This proves the claimed normalized recursion without a Markov assumption on the projected configurations.
+
+Source conditioning acts before the subsequent configuration observation. Define
+
+$$
+z_J=\int k_t(j'|x,j_t)\nu_t(dx),\qquad
+\nu_t^{j'}(dx)=k_t(j'|x,j_t)\nu_t(dx)/z_J.
+$$
+
+Then the configuration likelihood given the observed assignment is
+z_R=integral phi_C(r'-P a_{t,j'}(x)) nu_t^{j'}(dx), and p_t=z_J z_R. Averaging source probabilities receiver by receiver and then multiplying them generally misses dependence induced by the hidden conditional law.
+
+## Particle approximation and normalized decoder
+
+Represent nu_t by the empirical approximation sum_{ell=1}^L w_t^ell delta_{x_t^ell}, with nonnegative weights summing to one and P x_t^ell=r_t. Initially draw independent conditional-Gaussian particles as above and use weights 1/L. Given an arbitrary candidate next pair (j',r'), define
+
+$$
+s_{t,U}^{(L)}(j',r'|H_t)
+=\sum_{\ell=1}^L w_t^\ell
+ k_t(j'|x_t^\ell,j_t)
+ \phi_C(r'-P a_{t,j'}(x_t^\ell)).
+\tag{3}
+$$
+
+For each current cloud this is a normalized, strictly positive joint density. Source probabilities in this sum are computed as normalized whole-network probabilities, and the mixture is evaluated by log-sum-exp. It is not a Gaussian density centered at the particle mean.
+
+For the actual observation, form the two normalized weight stages
+
+$$
+\alpha^\ell
+=\frac{w_t^\ell k_t(j'|x_t^\ell,j_t)}
+ {\sum_a w_t^a k_t(j'|x_t^a,j_t)},
+\qquad
+v^\ell
+=\frac{\alpha^\ell\phi_C(r'-P a_{t,j'}(x_t^\ell))}
+ {\sum_a\alpha^a\phi_C(r'-P a_{t,j'}(x_t^a))}.
+$$
+
+Record the source effective sample size ESS_J=1/sum_ell(alpha^ell)^2 and the observation-stage effective sample size ESS_{J,R}=1/sum_ell(v^ell)^2 before resampling. The second quantity includes both source and observation information. Both lie in [1,L]; their fractions divide by L. They diagnose concentration of this cloud's weights, not closeness to the exact posterior. Assignment changes and holds can impose very different likelihoods, so their diagnostics should remain distinguishable.
+
+For each new particle draw an ancestor A_ell from the categorical weights v, independently conditional on the cloud and observation, then draw X_{t+1}^ell from K_{t,j',r'}(x_t^{A_ell},dx'). Set new weights to 1/L. The pre-resampling mixture sum v^ell K(x_t^ell,dx') is exactly the posterior obtained from the discrete current approximation by (2); resampling and propagation approximate that mixture. Resampling only from source weights and then ignoring the observation weights would not implement this recursion.
+
+A random tape contains the initial Gaussian draws, categorical uniforms, and transition Gaussian draws. It is chosen independently of the native path. Fixing it makes the recursion a measurable history-dependent procedure on every possible retained history, with declared deterministic tie conventions for categorical draws. All predictive densities are evaluated before assimilating the proposed next observation. Consequently the product of (3) with the common initial density defines a normalized path law S_U^{(L)} for every fixed tape. Particle updates may use an observation after its predictive score has been evaluated; a score that uses particles already conditioned on that same next observation leaks future information and is invalid.
+
+The reset integration control substitutes a fresh independent cloud from N_{F_{r_t}}(m_0(r_t),V_0) at each time before applying (3). It retains the previous assignment needed in k, but discards older observation-conditioned particles. It is also normalized for each fixed tape. Comparing it with the persistent filter separates this static hidden integration from carrying history, within the declared approximations. At finite L, random integration error remains part of both candidates; the comparison is not a theorem about ideal exact filters.
+
+## What the log scores estimate
+
+Write P_RJ for the actual retained joint-path law, and let lambda be the independent law of the algorithmic tape. For every fixed U, both P_RJ and S_U have densities relative to the same product of retained Lebesgue and assignment counting measures. They have the same initial density. Strict positivity gives P_RJ absolutely continuous with respect to S_U.
+
+The conditional-on-tape risk is
+
+$$
+\mathcal R_L
+=\mathbb E_{U\sim\lambda}D(P_{RJ}\Vert S_U^{(L)})
+=\mathbb E_{P_{RJ}\otimes\lambda}
+ \sum_{t=0}^{H-1}
+ \log\frac{p_t(J_{t+1},R_{t+1}|H_t)}
+ {s_{t,U}^{(L)}(J_{t+1},R_{t+1}|H_t)}.
+\tag{4}
+$$
+
+For two candidates A and B, independent native paths paired with independent tape pairs produce the observed signed contrast
+
+$$
+\Delta(Y,U_A,U_B)
+=\sum_t\log
+ \frac{s_{t,U_A}^{A}(J_{t+1},R_{t+1}|H_t)}
+ {s_{t,U_B}^{B}(J_{t+1},R_{t+1}|H_t)}.
+$$
+
+Its expectation is R_B-R_A. The two tapes may be coupled with each other for paired variance reduction, provided their declared marginal laws are correct and the pair is independent of the native path. Negative Delta favors B. The baseline can be deterministic, in which case its tape is absent. Report the average and empirical standard error over complete paths; steps from one path are not independent replicates.
+
+The source likelihood for (3) is sum_ell w^ell k_ell, and its configuration likelihood given j' is the Gaussian mixture with weights alpha. Both can be scored at the observed next pair. The previous study's analytically integrated single-Gaussian drift score is not the pointwise log density used here. A Gaussian-mixture log score cannot be replaced by half a squared distance between means, and its normalizing constants must be retained.
+
+For clarity, define the marginalized random-parent path law bar S=integral S_U lambda(dU). It is normalized, but (4) is generally not D(P_RJ||bar S). With the parent posterior on tapes
+
+$$
+\lambda_Y(dU)=\frac{s_U(Y)}{\bar s(Y)}\lambda(dU),
+$$
+
+direct subtraction gives
+
+$$
+\mathbb E_U D(P_{RJ}\Vert S_U)-D(P_{RJ}\Vert\bar S)
+=\mathbb E_{Y\sim P_{RJ}}D(\lambda\Vert\lambda_Y)\geq0.
+\tag{5}
+$$
+
+Thus averaging log scores estimates the risk conditional on a supplied tape, not the log score of the tape-marginalized parent. In that marginalized parent's sequential law, the distribution of the tape given the observed prefix is generally not its original lambda. Simply averaging independently run one-step predictors does not by itself compute the correct marginalized path density. Equation (5) makes the missing term explicit.
+
+An exact upper-functional identity also survives randomization. If Z_t=(X_{0:t},J_{0:t}), Y_{t+1}=(J_{t+1},R_{t+1}), and U is independent of the entire native path, conditional relative-entropy decomposition yields
+
+$$
+\mathbb E_{P,U}
+ D(P(Y_{t+1}|Z_t)\Vert s_{t,U}(\cdot|H_t))
+=\mathbb E_U\mathbb E_P
+ D(P(Y_{t+1}|H_t)\Vert s_{t,U}(\cdot|H_t))
+ +I_P(Y_{t+1};Z_t|H_t).
+$$
+
+Summing gives U(S)=E_U D(P_RJ||S_U)+G, with the same candidate-independent nonnegative information gap G for this observed law. The present contrast estimates differences directly, without evaluating G or claiming an absolute retained-path error. Individual observed contrasts may have either sign.
+
+## Integrability and approximation boundaries
+
+For the finite schedule, all matrix coefficients are finite, Q and Sigma_0 are positive definite, and the finite supported prior entries have a positive minimum. The native finite-horizon affine-sheet recursion has finite moments of every order: conditional affine drift is bounded by a common linear-growth bound, and Gaussian innovations have all moments. Finite particle clouds propagated by affine conditional maps and Gaussian innovations also have finite moments at every step. Choosing a resampled ancestor cannot exceed the maximum norm of the current finite cloud.
+
+These facts give finite expected log loss for each fixed L and H. Indeed k is bounded above by one and below by p exp[-c(1+|x|^2)] for finite constants, and the Gaussian observation negative log density grows quadratically in x and r'. After resampling, one component has weight 1/L, so the negative log of (3) is bounded above by log L plus the negative log of that component. It is bounded below by the negative log of the maximum Gaussian density. The activation has the same finite-entropy Gaussian/finite-label law on both sides. Hence the expectations and subtractions in (4)-(5) are well-defined and finite. The constants depend on the declared finite model; no uniformity in N, horizon, temperature, or L is inferred.
+
+At fixed finite observed history, bounded continuous test integrals of this particle recursion converge in probability to the exact filter integrals as L tends to infinity under independent multinomial resampling. A short justification is induction: the source times Gaussian observation potential is positive, bounded, and continuous; its normalizing integral is positive; the affine conditional Gaussian kernel maps bounded continuous functions to bounded continuous functions; and the conditional variance of an empirical average after independent resampling and propagation is at most the squared sup norm divided by L. These facts propagate convergence through each weighted ratio and sampling step. Predictive densities at a fixed next pair then converge as well. This finite-history statement gives no dimension-uniform rate, no finite-L error certificate, and no convergence of expected log scores without an additional uniform-integrability argument. The experiments at L=16 and 64 are not that missing argument.
+
+Covariance and entropy distinctions remain necessary. For an exact transition posterior, let x-bar'(x)=a(x)+B[r'-P a(x)], and let v(dx) be the normalized reweighting of nu_t by k times the observation likelihood. Then
+
+$$
+\mathbb E[X_{t+1}|H_{t+1}]=\int \bar x'(x)v(dx),
+$$
+
+$$
+\operatorname{Cov}(X_{t+1}|H_{t+1})
+=V_Q+\operatorname{Cov}_{v}(\bar x'(X_t)).
+$$
+
+Discarding the second term is not Gaussian conditioning. Replacing this mixture by a Gaussian with these moments would be a further moment projection, with a generally nonzero relative-entropy residual. In the fixed hidden coordinates Z, write its density as q, its covariance as S, and the matching Gaussian as q_G. Then D(q||q_G)=h(q_G)-h(q), where h(q_G)=[(d-m) log(2 pi e)+log det S]/2. This follows by integrating the Gaussian quadratic log density using the matching first two moments. The component hidden noise covariance is positive definite, giving a finite lower entropy bound, while the finite second moment gives a finite Gaussian upper bound. This entropy difference is the omitted correction if a Gaussian moment projection is introduced; the particle procedure does not perform that projection. The covariance of the empirical mean of independent samples is instead the distribution's covariance divided by L; it is a Monte Carlo uncertainty, not the hidden physical covariance. None of these formulas is the covariance of a uniformly selected population member or a collective average unless those random variables are explicitly identified.
+
+For d>m, the exact hidden filter after propagation has a positive density on the fiber, whereas the finite empirical cloud is atomic. The two hidden measures are mutually singular, so their direct KL divergences are infinite. Particle prediction works by integrating smooth future densities against that cloud, not by claiming a small hidden-law KL. The observation predictor (3) is full support despite this hidden-measure singularity.
+
+This algorithm has not been admitted to def:rg-regular-finite-filter. A random particle cloud is not a deterministic functional of the retained path without supplying its tape; resampling maps are discontinuous; the empirical hidden decoder lacks the required smooth L1 density representation; and the supplied finite-time schedule is not an autonomous time-homogeneous evolution. Even a smoothed mixture decoder would leave the other requirements to establish. Storage also includes L fine configurations and the full assignment array, growing with N. The general O1 problem concerns continuous-time switching diffusions, a specified regular class, asymptotic regimes, and either a universal existence theorem or a counterexample against every admitted parent. None is proved by these finite-grid predictor comparisons.
+
+The minimal remaining obligation after this phase is an actual-law error bound for an admissible reduced filter, or a properly scoped obstruction, followed by the required endogenous structural feedback. The present exact recursion locates the missing conditional law and supplies a reproducible approximation whose losses can be compared honestly. No GPU, new simulation, theory-manuscript edit, or optional formation-candidate continuation was needed to derive this contract.

@@ -10,6 +10,10 @@ updated: 2026-10-02
 
 # Statistics MOC
 
+## Joint particle-filter losses, October 2, 2026
+
+[[multiagentelbo-2026-10-02-joint-particle-filter]] reports eight distinct passing tiny checks and one 616.507218-second CPU study using 128 saved paths at each of 512/1,024 agents. Every tested cloud underperforms the static-lift baseline, and persistent64 underperforms reset64. Mean joint ESS at observed assignment changes is 1.751/1.458 of 64 for persistent64; hold-row medians obscure this concentration. Paired losses estimate differences of expected path KL conditional on independent algorithmic tapes, not absolute KL or the tape-marginalized parent error. Exact filtering and finite-history weak consistency do not close the regular-filter or formation obligations. Work pauses after publication at the user's request.
+
 ## Joint retained path scores, October 2, 2026
 
 [[multiagentelbo-2026-10-02-joint-retained-parent]] derives a source/Gaussian conditional-information score for normalized parents of projected configurations and assignments. Its 512/1,024-agent results report empirical paired standard errors and a posthoc control that separates pointwise approximation from observed-configuration information. Absolute retained-path KL and confidence-certified bounds remain unknown.

@@ -18,9 +18,17 @@ updated: 2026-10-02
 
 # Staged hierarchy formation and RG composability
 
+## Joint particle filtering and requested pause, October 2, 2026
+
+[[multiagentelbo-2026-10-02-joint-particle-filter]] derives the exact hidden recursion conditioned on both observed block means and source assignments, with Gaussian conditioning on each observed affine fiber. Eight distinct tiny CPU checks passed. One CPU float64 study of 128 saved paths at each of 512 and 1,024 agents completed in 616.507218 seconds; no native paths were regenerated and no GPU was needed.
+
+Every tested particle cloud had higher predictive loss than the static-lift baseline. The persistent 64-particle filter also had higher loss than the reset64 control. At observed assignment changes, its mean joint effective sample size was 1.751 and 1.458 out of 64, respectively. This concentration diagnoses these finite clouds; it does not establish a general filter obstruction or identify the sole cause of the loss deficit.
+
+The exact recursion and its finite-history weak-consistency argument do not close the regular finite-filter, absolute parent-error, endogenous-feedback, or recursive-formation obligations. Convergence of expected log scores still requires additional control. At the user's request, work pauses after this checkpoint is ingested and published; the renormalization program remains incomplete.
+
 ## Joint retained parents and stationary protocol, October 2, 2026
 
-[[multiagentelbo-2026-10-02-joint-retained-parent]] adds the full fine-grid source-assignment history to the configuration projection. Eighteen tiny checks and one CPU study at 512/1,024 agents passed. A posthoc fixed-mean control shows that most lifted-versus-recognition source improvement comes from the pointwise approximation; block observations contribute a smaller additional gain. Using observed assignments in the drift at a static activation lift worsens prediction in these cases. This is evidence about those candidate formulas, not an optimal-filter limitation. Hidden conditioning on both observed channels remains the next parent obligation.
+[[multiagentelbo-2026-10-02-joint-retained-parent]] adds the full fine-grid source-assignment history to the configuration projection. Eighteen tiny checks and one CPU study at 512/1,024 agents passed. A posthoc fixed-mean control shows that most lifted-versus-recognition source improvement comes from the pointwise approximation; block observations contribute a smaller additional gain. Using observed assignments in the drift at a static activation lift worsens prediction in these cases. This is evidence about those candidate formulas, not an optimal-filter limitation. Hidden conditioning on both observed channels is pursued in [[multiagentelbo-2026-10-02-joint-particle-filter]]; that continuation records the exact recursion, the tested approximation's limitations, and the remaining parent obligation.
 
 The final saddle-protocol calculation proves that an admissible fixed low-well initialization and stationarity have the same limiting declared post-entrance outcome law. Its every-initial-law probability-surplus route fails, and its full waiting horizon exceeds the stationary completion scale under the specified recurrence convention. Conditional facilitation and restoration survive. This ends the three-round candidate loop without resolving intrinsic selection, interacting structural-law coherence, feedback, or general recursive formation.
 
