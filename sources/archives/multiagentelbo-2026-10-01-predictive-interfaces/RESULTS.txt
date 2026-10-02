@@ -1,0 +1,57 @@
+# X2 Gaussian predictive interfaces, October 1, 2026
+
+The first X2 increment is implemented and measured. A reference-whitened spectral interface selects hidden activation modes relevant to a fixed future-record stack. An offline actual-pair projection then compiles a controlled predictor whose deployed hidden filter is smaller than the fine-network filter. Four declared cases at 512 and 1,024 agents passed their applicable numerical gates. This is a finite controlled approximation with a measured path budget, not an autonomous formation law.
+
+## Model, implementation, and config path
+
+The [contract](CONTRACT.md) fixes K=2, block means of 16 agents, flat and independent GL+(2,R) comparison maps, the existing sparse cycle-plus-stride-17 graph, seed 20261001, link scale 0.2, and externally supplied motion strength 0.1. Four intervals of length 0.15 give sampled horizon 0.6. Activation uses the initial-action mean plus 0.03 cos(arange(d)), with covariance 1.2 times the initial-action covariance. It is preserved rather than replaced by stationary activation.
+
+The [standalone profile](../../../experiments/gaussian_predictive_interfaces.py) passes RUN, THEORY, NUMERICS, and OUTPUT to [the runner](../../../src/multiagent_elbo/realizations/gaussian/predictive_interfaces_experiment.py). RUN.seed reaches the existing network and motion generators. THEORY's sizes, map cases, dimension, link scale, motion strength, intervals, duration, block size, and rank fractions reach construction and each comparison. NUMERICS selects the supported CPU float64 lane, thread count, and numerical tolerance; unsupported device/dtype choices now fail explicitly. OUTPUT.root selects a fresh timestamped artifact directory. The active run_lab.py neighborhood profile is unchanged. Sequential MKL is selected before native imports in an isolated C:/anaconda interpreter.
+
+The [core](../../../src/multiagent_elbo/realizations/gaussian/predictive_interfaces.py) completes the fixed output P to invertible retained/hidden coordinates, carries activation and all kernel tensors, derives the correlated future-record noise, selects modes, compiles small kernels, initializes the actual reduced marginal, and calculates memory plus row risk. Network construction and deterministic link motion reuse the earlier Gaussian reference. Independently sampled directed comparison maps are not identified with the two directions of a unique inverse-paired canonical group link.
+
+## What the interface and predictor mean
+
+Conditional on actual R_0, hidden activation H_0 is Gaussian with covariance Sigma_h. The future stack O=(P X_1,...,P X_4) has conditional form C H_0+b(R_0)+epsilon. Its noise covariance includes all shared propagation terms; independent noise at different record times would be wrong. The live g07 exterior-interface proposition applies with Lambda=Sigma_h^{-1}. It gives the rank-r information tail one half of the sum of log(1+nu_j) over discarded modes. Direct Gaussian conditioning supplies an independent numerical evaluation.
+
+The fixed output stays the same for every rank and control. Coordinate retention keeps the first r coordinates of the declared hidden completion. The block control keeps the first r within-block differences of half-block means. Both are declared coordinate choices. The spectral statistic is optimal for the specified activation-to-future information objective among matched linear ranks. It need not optimize full dynamic path loss.
+
+For each statistic W, Y_t=(R_t,W H_t) has an actual pair conditional. Compiling those Gaussian conditionals gives time-dependent Markov kernels on m+r coordinates, with the actual initial marginal. At deployment the predictor integrates only r hidden coordinates, retaining r means and an r by r covariance. It does not carry fine hidden moments online. Fine moments and dense mode selection are still required offline; this is not an end-to-end network-size-independent computation.
+
+The path budget uses the history statistic consisting of current R and the candidate filter's hidden mean. Its conditional covariance is deterministic for the supplied schedule. Dense actual Gaussian conditioning gives omitted-history information and the expected conditional-row mismatch. Their sum is checked against a separately assembled complete Gaussian path KL. The initial R marginal agrees, so activation mismatch is zero.
+
+## Measured results
+
+All entries below are total retained-path KL in nats over the declared horizon. The spectral rank equals m in this table; m is 64 at N=512 and 128 at N=1,024.
+
+| Agents | Comparison-map family | Hidden rank | Rank-zero parent | Spectral | Coordinates | Half-block contrasts |
+| ---: | --- | ---: | ---: | ---: | ---: | ---: |
+| 512 | flat_real_gl | 64 | 0.0924719027 | 7.41216392e-05 | 0.0871708962 | 0.077713087 |
+| 512 | independent_real_gl | 64 | 0.0877266988 | 5.98248264e-05 | 0.082893569 | 0.0740193828 |
+| 1024 | flat_real_gl | 128 | 0.202208627 | 0.000148662265 | 0.185598498 | 0.172126421 |
+| 1024 | independent_real_gl | 128 | 0.189235299 | 0.000125893397 | 0.173003143 | 0.162613102 |
+
+The spectral rows at rank m reduce path KL by 99.9198% through 99.9335% relative to the rank-zero actual-pair parent in these instances. Fine hidden dimensions are 960 and 1,920; deployed hidden dimensions are 64 and 128, a factor of 15 smaller, with 225 times fewer hidden covariance entries. Total compiled state dimensions are 128 and 256 versus fine dimensions 1,024 and 2,048. These ranks remain proportional to network size. The study does not demonstrate a size-independent state.
+
+Spectral retained-path loss is mostly omitted-history information at this rank; its total row risk ranges from 7.05e-6 to 1.81e-5 nats. The half-block controls can have less omitted-history information but much larger row mismatch. Thus a smaller memory component alone is not a smaller total prediction error. These are matched descriptive comparisons for one seed and schedule, not estimates of a causal or typical effect.
+
+The complete rank curves and per-step budgets are in [summary.json](evidence/summary.json) and the four case JSON records. There are 40 predictors. Every applicable tail, matched-rank information, path-identity, nonnegative-budget, and deployed-dimension gate passed at tolerance 1e-8. The 200 stored booleans include 24 nonapplicable spectral-tail entries; the meaningful count is 176 applicable gate outcomes, not 176 independent experiments. Maximum tail-versus-conditioning discrepancy is 1.9723e-13 nats, and maximum path-identity discrepancy is 1.3793e-13 nats. The smallest raw component is -5.6843e-14, retained as a numerical residual rather than negative mathematical information.
+
+Measured computation and artifact writing took 19.868370799988043 seconds, excluding interpreter/import startup. Runtime was C:/anaconda/python.exe, torch 2.10.0.dev20251210+cu128, CPU float64 with 12 torch threads and sequential MKL selected at interpreter entry. CUDA was available; no GPU study ran.
+
+## Checks, corrections, and evidence binding
+
+Machine-readable JUnit gives 11 passing locality checks, five passing X2 checks, and 17 passing predecessor checks: 33 tests across three packets, with zero failures, errors, or skips. The X2 tests use three fine coordinates and independent full-path Gaussian conditioning. They ground shared noise and actual activation, spectral information and matched controls, passive noncompact changes with carried metrics, full-rank recovery, rank-zero Markov agreement, deployed state sizes, and the small filter's forecasts against its complete candidate path. Large networks were study cases, not unit tests.
+
+The accepted review findings are remediated. The row-only helper now uses a CPU Schur Lyapunov solver, checks a normalized defining residual and positive definiteness, and no longer assumes a usable eigenbasis. The standalone X3 launcher establishes the sequential native-runtime lane. X3's description is a held-prior weighted Gaussian-record reference without the incorrect fixed-energy high-temperature equivalence. Future analytic-zero reporting uses the model's exact control structure and explicit total/per-block units. Historical X3 JSON, tests, numerical misses, and random-instance calculations were not rewritten or rerun.
+
+The locality RED packet records four failures and seven passes before remediation. X2 RED records the four missing-module failures. The first implementation packet records three passes and one test-import error; that test typo was corrected. Earlier and final GREEN packets are retained separately. No failed record was relabeled as a pass. No full suite or historical heavy replay ran.
+
+The study ran once at working-source base ba15a678864d0e34c84c858748c377c91bc173c9; [study-result.json](evidence/study-result.json) records the config, environment, working tree, and diagnostic source hashes. Exact executed source copies and numerical arrays remain in artifacts/gaussian-predictive-interfaces/20261001T171852717601Z/. Compact result JSON and stdout are copied under evidence/. After the run, only tensor-first argument ordering and an explicit supported-lane guard changed in the X2 implementation; the arithmetic and declared input values did not change. The final five-test X2 packet follows those changes. The study is a retained working-source execution, not a newly run clean-HEAD certificate.
+
+## Remaining scope
+
+This increment establishes a usable finite controlled predictor and an executed error decomposition. It does not establish endogenous finite-temperature attention, source/link learning, autonomous own-law parent dynamics, recursive formation, long-horizon control, uniform-in-N forgetting, or the thermodynamic limit. Ranks and time-dependent kernels were chosen offline using the known fine law and a fixed horizon. Endogenous structural histories can invalidate Gaussianity and innovation independence.
+
+The next scientific stage remains a declared coupled collective-VFE model with source labels, recognition family, priors, natural-gradient metrics, and retained control/history state. Alternatively, extending this controlled reference to a stated rank/error family and sequential updates is a separate bounded investigation. Neither result is inferred from tiny systems. Base transport remains gated, and no Lean work was performed.
+

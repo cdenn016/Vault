@@ -1440,3 +1440,8 @@ All new source notes are cataloged below. [[multiagentelbo-2026-09-11-research-s
 
 - [[multiagentelbo-2026-09-30-gaussian-parent-dynamics|Observed-link Gaussian parent dynamics]] — seven tiny CPU tests; 95 passing comparisons across five 512-agent cases; full inherited history distinguished from one-step marginal parity. Coupled learning and compressed autonomous parents remain open.
 - [[multiagentelbo-2026-09-30-locality-parent-memory|Parent memory across locality priors (X3)]] — N = 64 to 2,048; local priors keep finite memory per block, complete support becomes nearly Markov by exchangeability; locality hypothesis refuted for complete support
+
+
+## Predictive Gaussian interfaces, October 1, 2026
+
+- [[multiagentelbo-2026-10-01-predictive-interfaces]] — update review, three corrections, and X2 controlled prediction; 33 tiny CPU checks and four 512/1,024-agent cases. Rank-dependent information and actual path risk remain distinct.
