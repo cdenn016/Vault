@@ -10,6 +10,12 @@ updated: 2026-10-02
 
 # Mathematics MOC
 
+## Nonlinear saddle and handoff continuation, October 2, 2026
+
+[[multiagentelbo-2026-10-02-saddle-handoff]] resolves the fixed matter candidate's nonlinear two-exit gap, uniformly over its actual thermal-scale entrance points, using a bounded entropy extension of [[bakhtin-2008-unstable-equilibrium-exit]]. Its qualified same-process handoff has positive high/low weights, actual restoring forces, and a later coherence-probability margin. Per-pair coherence is distinguished from a network-average bound.
+
+The stationary comparison is narrower: a selected handoff law outperforms an ordinary stationary start on the same future window, but the full saddle-selection protocol also succeeds from stationarity. Its matched first-stage-conditioned surplus vanishes. Full-protocol stationary excess or a suitable entrance-time comparison remains open, along with intrinsic selection, interacting GL law coherence, slow feedback, and endogenous-history parent closure. This is an analytical continuation, not a new simulation or complete hierarchy theorem.
+
 ## Coupled and marked renormalization studies, October 2, 2026
 
 [[multiagentelbo-2026-10-02-renormalization-studies]] records actual-switching-law path-KL identities and a conditional massive marked-Gaussian diagonal construction. The numerical studies distinguish empirical bound estimates, finite padded approximations, and analytical statements; the autonomous formation problem remains open.

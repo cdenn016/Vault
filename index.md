@@ -1447,3 +1447,5 @@ All new source notes are cataloged below. [[multiagentelbo-2026-09-11-research-s
 - [[multiagentelbo-2026-10-01-predictive-interfaces]] — update review, three corrections, and X2 controlled prediction; 33 tiny CPU checks and four 512/1,024-agent cases. Rank-dependent information and actual path risk remain distinct.
 
 - [[multiagentelbo-2026-10-02-renormalization-studies]] — coupled learning, switching-history parent comparisons, and conditional marked Gaussian scaling through 8,192 agents; preserved stiffness and reporting limitations.
+- [[multiagentelbo-2026-10-02-saddle-handoff]] — uniform nonlinear saddle exit, qualified same-process facilitation, and matched stationary-protocol limits.
+- [[bakhtin-2008-unstable-equilibrium-exit]] — primary nonlinear exit theorem used in the saddle continuation.

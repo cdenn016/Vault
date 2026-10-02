@@ -289,3 +289,6 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 2026-10-01  LINT     X2 review/results ingest: 1426 Markdown files; 0 broken wikilinks, 0 graph grey nodes, 0 empty files, 0 case collisions, 0 identity collisions.
 
 2026-10-02  INGEST  [[multiagentelbo-2026-10-02-renormalization-studies]] -> updated [[Gauge-Theoretic Multi-Agent VFE Model]], [[Staged hierarchy formation and RG composability]], and [[Mathematics MOC]]; archived working-source CPU evidence, original reporting failure, and open formation obligations. No manuscript closure.
+
+2026-10-02 — INGEST: Added the nonlinear saddle/handoff continuation and Bakhtin primary-source note; archived the derivations and propagated their conditional scope into the project, hierarchy theme, and Mathematics MOC. Corrected the distinction between an ordinary stationary future window and the full saddle-selected protocol. No manuscript or simulator change.
+2026-10-02 — LINT: Saddle/handoff ingest has zero broken wikilinks, graph gray nodes, empty files, basename case collisions, and identity collisions. The three new archive files match their originating derivations.
