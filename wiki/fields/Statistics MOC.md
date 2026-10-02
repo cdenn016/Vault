@@ -5,10 +5,14 @@ aliases: [field/statistics, Statistics sources, Information theory MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-09-30
+updated: 2026-10-02
 ---
 
 # Statistics MOC
+
+## Joint retained path scores, October 2, 2026
+
+[[multiagentelbo-2026-10-02-joint-retained-parent]] derives a source/Gaussian conditional-information score for normalized parents of projected configurations and assignments. Its 512/1,024-agent results report empirical paired standard errors and a posthoc control that separates pointwise approximation from observed-configuration information. Absolute retained-path KL and confidence-certified bounds remain unknown.
 
 ## Exterior experiments and predictive budgets, September 30, 2026
 

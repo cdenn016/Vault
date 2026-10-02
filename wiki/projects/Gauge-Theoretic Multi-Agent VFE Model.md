@@ -19,17 +19,23 @@ updated: 2026-10-02
 
 # Gauge-Theoretic Multi-Agent VFE Model
 
+## Joint retained parents and stationary protocol, October 2, 2026
+
+[[multiagentelbo-2026-10-02-joint-retained-parent]] adds the full fine-grid source-assignment history to the configuration projection. Eighteen tiny checks and one CPU study at 512/1,024 agents passed. A posthoc fixed-mean control shows that most lifted-versus-recognition source improvement comes from the pointwise approximation; block observations contribute a smaller additional gain. Using observed assignments in the drift at a static activation lift worsens prediction in these cases. This is evidence about those candidate formulas, not an optimal-filter limitation. Hidden conditioning on both observed channels remains the next parent obligation.
+
+The final saddle-protocol calculation proves that an admissible fixed low-well initialization and stationarity have the same limiting declared post-entrance outcome law. Its every-initial-law probability-surplus route fails, and its full waiting horizon exceeds the stationary completion scale under the specified recurrence convention. Conditional facilitation and restoration survive. This ends the three-round candidate loop without resolving intrinsic selection, interacting structural-law coherence, feedback, or general recursive formation.
+
 ## Nonlinear saddle and handoff continuation, October 2, 2026
 
 [[multiagentelbo-2026-10-02-saddle-handoff]] resolves the fixed matter candidate's nonlinear two-exit gap, uniformly over its actual thermal-scale entrance points, using a bounded entropy extension of [[bakhtin-2008-unstable-equilibrium-exit]]. Its qualified same-process handoff has positive high/low weights, actual restoring forces, and a later coherence-probability margin. Per-pair coherence is distinguished from a network-average bound.
 
-The stationary comparison is narrower: a selected handoff law outperforms an ordinary stationary start on the same future window, but the full saddle-selection protocol also succeeds from stationarity. Its matched first-stage-conditioned surplus vanishes. Full-protocol stationary excess or a suitable entrance-time comparison remains open, along with intrinsic selection, interacting GL law coherence, slow feedback, and endogenous-history parent closure. This is an analytical continuation, not a new simulation or complete hierarchy theorem.
+The stationary comparison is narrower: a selected handoff law outperforms an ordinary stationary start on the same future window, but the full saddle-selection protocol also succeeds from stationarity. Its matched first-stage-conditioned surplus vanishes. The subsequent [[multiagentelbo-2026-10-02-joint-retained-parent]] comparison resolves the named protocol against its universal-surplus claim; intrinsic selection, interacting GL law coherence, slow feedback, and endogenous-history parent closure remain open. This is an analytical continuation, not a new simulation or complete hierarchy theorem.
 
 ## Renormalization studies, October 2, 2026
 
 [[multiagentelbo-2026-10-02-renormalization-studies]] adds coupled source/link VFE descent, sampled switching histories with actual-law parent error functionals, and a separate compatible marked Gaussian scaling study through 8,192 agents. Nineteen distinct tiny checks passed. The coarse switching discretization had rare expanding assignment modes; a bound covering every assignment motivated a separately recorded refinement with much smaller empirical error bars. Absolute retained-path KL remains unknown, and Gaussian-reference accuracy does not substitute for it.
 
-The massive quenched construction has a conditional finite-observable size/depth limit and exact carried-reference/mark composition; the executed padded approximation passed 29 gates. An initial JSON reporting failure is preserved. All holonomies remain, so the full structural interface grows. Endogenous structural feedback, general noncompact limits, and first-stage-dependent recursive formation remain open; the new nonlinear formation candidate has an explicit saddle-exit proof obligation.
+The massive quenched construction has a conditional finite-observable size/depth limit and exact carried-reference/mark composition; the executed padded approximation passed 29 gates. An initial JSON reporting failure is preserved. All holonomies remain, so the full structural interface grows. Endogenous structural feedback, general noncompact limits, and first-stage-dependent recursive formation remain open; the nonlinear saddle-exit obligation was resolved in the handoff continuation, and the later matched stationary comparison rules out that protocol's universal-surplus route.
 
 
 ## X2 predictive interfaces, October 1, 2026
