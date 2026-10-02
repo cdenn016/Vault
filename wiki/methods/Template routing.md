@@ -11,7 +11,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-09-27
-updated: 2026-09-27
+updated: 2026-10-02
 ---
 
 # Template routing
@@ -57,6 +57,8 @@ Reading the attention output as a Gaussian message about the state, the exact po
 ## Open questions
 
 Whether template routing matches the GELU MLP at matched parameters and seeds; whether softmax competition needs more templates than independent gates; whether trained templates are interpretable (inspect top-responsibility tokens); whether routing correlates with $\mathrm{tr}\,\Sigma_i$ as predicted. The last is uncertain in practice because the belief covariance in recent runs has behaved as a near-static prior (see [[VFE Transformer Program]], 2026-06-29 finding). Extensions not built: covariant form, regression blocks $B_a$, independent gates, covariance update, joint softmax over peers and templates.
+
+A different objective-based answer to the same MLP question is the conditional neuron-free construction of [[dennis-2026-neuron-free-agent-theory]], where nonlinearity comes from inference over source labels and Gamma-distributed record precisions rather than from a template bank; that report is inconclusive for the full replacement question.
 
 ## Sources
 

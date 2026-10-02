@@ -1,0 +1,742 @@
+% Frame-chart geometry for the stored frame tables phi:
+% the Frobenius-pullback (U-space) step and the belief-Fisher natural gradient.
+% Source design document: docs/derivations/2026-09-28-phi-natgrad-link-spectrum.md (Tracks 1 and 2,
+% verifier corrections applied). Date: 2026-09-28.
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{xcolor}
+\emergencystretch=2em
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=green!40!black,urlcolor=blue!50!black]{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\g}{\mathfrak{g}}
+\newcommand{\gl}{\mathfrak{gl}}
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\ad}{\mathrm{ad}}
+\newcommand{\Ad}{\mathrm{Ad}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\Log}{\operatorname{Log}}
+\newcommand{\Imag}{\operatorname{Im}}
+\newcommand{\sym}{\operatorname{sym}}
+\newcommand{\asym}{\operatorname{asym}}
+\newcommand{\stab}{\mathfrak{stab}}
+\newcommand{\Stab}{\mathrm{Stab}}
+\newcommand{\spec}{\operatorname{spec}}
+\newcommand{\range}{\operatorname{range}}
+\newcommand{\vect}{\operatorname{vec}}
+\newcommand{\Normal}{\mathcal{N}}
+\newcommand{\ip}[2]{\langle #1, #2\rangle}
+\newcommand{\Nsc}{N_{\mathrm{sc}}}
+\newcommand{\ndash}{\textendash}
+\newcommand{\status}[1]{\par\smallskip\noindent\textsc{Status.} #1\par\smallskip}
+
+\title{Frame-chart geometry for the stored frame tables:\\
+the Frobenius pullback in $U$-space and the belief-Fisher natural gradient}
+\author{VFE 3.0 derivation note}
+\date{September 28, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The stored frame tables $\varphi$ of the VFE transformer parametrize frames $U=\exp\iota(\varphi)$ in a matrix Lie group through the exponential chart. This note gives the mathematics behind two optimizer routes for those tables. The first is the existing Frobenius-pullback step. We prove that it is projected Euclidean descent on the frame matrix $U$, give closed forms for its left-trivialized direction for the general linear, block general linear, orthogonal, special linear and symplectic algebras, show that the ambient gradient is recovered exactly from the stored chart gradient by one Fr\'echet derivative of the principal matrix logarithm, and analyze the group retraction $\varphi\leftarrow\Log(e^{X}e^{-\eta s\xi})$, its logarithm branch, its failure set and a cheap strip certificate built on Bendixson's inequality. The second is a natural gradient for $\varphi$ with respect to the Fisher information of the generative model's reference prior $\Normal(U^{-1}\mu_v,U^{-1}\Sigma_vU^{-\top})$. In the EM reading $\varphi$ remains a slow M-step parameter and only the preconditioner of its update changes. We derive the metric, its kernel (the stabilizer algebra of the reference Gaussian), its exact spectrum, its symmetries, a two-parameter covariant completion whose default member is the single Kronecker product $Y\mapsto C^{-1}Y(2C+\nu\nu^\top)$, and exact solvers. Each statement carries a status note saying whether it was verified numerically, derived here, or cited.
+\end{abstract}
+
+\tableofcontents
+
+\section{Introduction and status conventions}\label{sec:intro}
+
+The frame tables \texttt{phi\_embed} (one row per token type) and \texttt{pos\_phi\_free} (one row per position) store Lie-algebra coordinates. The model never reads the coordinates directly: it reads the frames $E_v=\exp\iota(\varphi_v)$ and $F_p=\exp\iota(\theta_p)$ and their product $U_i=E_{v_i}F_{p_i}$. An optimizer that treats the coordinates as a flat vector space therefore depends on the chart. Two chart-aware routes are analyzed here. Sections~\ref{sec:setting}\ndash\ref{sec:cost-pullback} treat the Frobenius pullback, which the repository already implements through a materialized series for $\mathrm{dexp}$; the result is that this route computes a cheap object in an expensive way and has no statistical content. Sections~\ref{sec:em}\ndash\ref{sec:cost-fisher} construct a Fisher natural gradient for the frames. It exists because the frame is a parameter of a statistical family, namely the reference prior that the generative model places on each occurrence.
+
+The two routes compose. Each produces a body generator $\xi\in\g$ in the sense $U\mapsto Ue^{-\eta\xi}$ (the repository's \texttt{xi}), and each can be combined with either the existing additive chart retraction or the exact group retraction of Section~\ref{sec:retraction}.
+
+\paragraph{Status conventions.} The mathematics was produced by a three-role workflow (investigator, deriver, adversarial verifier) documented in the companion design document of the same date in this folder, \texttt{2026-09-28-phi-natgrad-link-spectrum.md}. The derivers ran float64 checks on the CPU at block size $d\le6$ (eigenvalue-only checks also at $d=10$); a verifier running a different model re-executed a subset and issued corrections, which are applied throughout this note. A status note ``verified numerically'' refers to those executed checks and quotes the measured agreement. ``Not independently reproduced'' means only the deriving agent executed the check. ``Derived here'' means the proof in this note is the evidence and no separate numerical check exists. ``Cited'' means the statement is taken from the literature and was not re-derived; bibliographic details were checked against publisher or indexing records where possible, and theorem numbers inside books were not checked against the books. No training run was made. Nothing in this note shows that either route trains better than AdamW.
+
+\section{Setting and notation}\label{sec:setting}
+
+\subsection{Frames, algebras and stored tables}
+
+Let $\g\subset\gl(K)$ be a real Lie subalgebra of dimension $n$ with basis $T_1,\dots,T_n$ and Gram matrix $B_{ab}=\ip{T_a}{T_b}$, where $\ip{A}{C}=\tr(A^\top C)$ is the Frobenius pairing. The coordinate map is $\iota:\R^n\to\g$, $\iota(\varphi)=\sum_a\varphi_aT_a$. A stored chart row $\varphi$ defines $X=\iota(\varphi)$ and the frame $U=e^X$. Let $G\subset\GL(K)$ be the connected subgroup with Lie algebra $\g$ and $\Pi_\g$ the Frobenius-orthogonal projector onto $\g$.
+
+For the untied \texttt{block\_glk} group, $K=Hd$ with $H$ heads of dimension $d$, $\g=\bigoplus_{h=1}^{H}\gl(d)$, the basis is the row-major elementary basis, $B=I$, and $X$ is the row $\varphi$ reshaped to $(H,d,d)$. The active configuration has $K=20$, $H=2$, $d=10$. The \texttt{glk} group is the case $H=1$, $d=K$. For these groups $\iota$ is a Frobenius isometry, and we identify a row with its matrix whenever no confusion arises.
+
+The token-type table stores, for each type $v$, a chart row $\varphi_v$ with $E_v=e^{X_v}$, $X_v=\iota(\varphi_v)$, together with the local prior $q_v=\Normal(\mu_v,S_v)$, $S_v=\operatorname{diag}(s_v)$. The learned positional table stores $\theta_p$ with $F_p=e^{\Theta_p}$, $\Theta_p=\iota(\theta_p)$. The realized frame of occurrence $i$, a token of type $v_i$ at position $p_i$, is the exact group product
+\begin{equation}\label{eq:realized}
+U_i=E_{v_i}F_{p_i},\qquad U_i^{-1}=F_{p_i}^{-1}E_{v_i}^{-1}.
+\end{equation}
+For $A\in\GL(K)$ write $A\cdot\Normal(m,\Sigma)=\Normal(Am,A\Sigma A^\top)$ for the linear pushforward. At layer $0$ the belief of occurrence $i$ is the prior, $q_i=q_{v_i}$. The attention read path forms the reference belief
+\begin{equation}\label{eq:reference}
+r_i=U_i^{-1}\cdot q_i=\Normal(\nu_i,C_i),\qquad \nu_i=U_i^{-1}\mu_i,\qquad C_i=U_i^{-1}\Sigma_iU_i^{-\top},
+\end{equation}
+with full covariance blocks $C_i$ even when $\Sigma_i$ is diagonal.
+
+\subsection{The three group actions}
+
+Three actions organize the symmetry statements. The \emph{left gauge action} at occurrence $i$ is $(\mu_i,\Sigma_i,U_i)\mapsto(g_i\mu_i,g_i\Sigma_ig_i^\top,g_iU_i)$; it fixes every reference belief $r_i$. The \emph{right reference change} is $U_i\mapsto U_ih$ for one $h$ common to all occurrences; it sends $r_i\mapsto h^{-1}\cdot r_i$, and the learned maps downstream of the reference co-transform. The \emph{split redundancy} of the stored tables is $E_v\mapsto E_vh$ for every type and $F_p\mapsto h^{-1}F_p$ for every position; by \eqref{eq:realized} it leaves every $U_i$, and therefore the loss, unchanged. Since the positional factor sits on the right of $E_v$, only per-type left actions $E_v\mapsto g_vE_v$ are symmetries of the table parametrization itself.
+
+\subsection{The exponential chart}
+
+Write $\ad_XY=[X,Y]$ and define the entire functions
+\begin{equation}\label{eq:psi}
+\Psi_L(z)=\frac{1-e^{-z}}{z},\qquad \Psi_R(z)=\frac{e^{z}-1}{z},\qquad h(z)=\frac{1}{\Psi_L(z)}=\frac{z}{1-e^{-z}}.
+\end{equation}
+The principal strip is $\mathcal{S}=\{z\in\C:|\Imag z|<\pi\}$.
+
+\begin{lemma}[derivative of the exponential]\label{lem:dexp}
+For $X,Y\in\gl(K)$,
+\begin{equation}\label{eq:dexp}
+L_{\exp}(X,Y):=\frac{d}{dt}e^{X+tY}\Big|_{t=0}=e^X\Psi_L(\ad_X)(Y)=\Psi_R(\ad_X)(Y)e^X.
+\end{equation}
+\end{lemma}
+\status{Cited \cite[Ch.~5]{Hall2015}; the formula was also reproduced numerically in the derivers' checks.}
+
+Consequently, a chart velocity $\delta X$ produces the body generator $Y=U^{-1}\delta U=\Psi_L(\ad_X)\delta X$ and the spatial generator $W=(\delta U)U^{-1}=\Psi_R(\ad_X)\delta X=\Ad_UY$. The repository's \texttt{xi} in \texttt{PullbackGroupDirectionResult} is a body generator, because the staging compares $\exp(\varphi-\eta v)$ with $\exp(\varphi)\exp(-\eta\xi)$.
+
+\begin{lemma}[adjoints]\label{lem:adjoint}
+With respect to the Frobenius pairing, $\ad_X^*=\ad_{X^\top}$, and $f(\ad_X)^*=f(\ad_{X^\top})$ for every power series $f$ with real coefficients. In particular
+\begin{equation}\label{eq:dexp-adjoint}
+L_{\exp}(X,\cdot)^*(M)=\Psi_L(\ad_{X^\top})(U^\top M)=L_{\exp}(X^\top,M).
+\end{equation}
+\end{lemma}
+\begin{proof}
+$\ip{A}{[X,Y]}=\tr(A^\top XY)-\tr(A^\top YX)=\ip{X^\top A}{Y}-\ip{AX^\top}{Y}=\ip{[X^\top,A]}{Y}$. Adjoints of real power series in $\ad_X$ follow term by term. For \eqref{eq:dexp-adjoint}, $\ip{M}{U\Psi_L(\ad_X)Y}=\ip{\Psi_L(\ad_{X^\top})(U^\top M)}{Y}$. Left multiplication by $U^\top=e^{X^\top}$ commutes with $\ad_{X^\top}$ because $e^{X^\top}$ commutes with $X^\top$, so $\Psi_L(\ad_{X^\top})(U^\top M)=U^\top\Psi_L(\ad_{X^\top})M=L_{\exp}(X^\top,M)$.
+\end{proof}
+\status{Derived here; reproduced numerically by the verifier.}
+
+For a loss $\ell$ and a real-coefficient chart with $B=I$, Lemma~\ref{lem:adjoint} converts covectors: with $d\ell=\ip{G_Y}{Y}=\ip{G_W}{W}$,
+\begin{equation}\label{eq:covectors}
+\nabla_\varphi\ell=\Psi_L(\ad_{X^\top})(G_Y)=\Psi_R(\ad_{X^\top})(G_W),\qquad G_W=U^{-\top}G_YU^{\top}.
+\end{equation}
+
+\begin{lemma}[regularity of the chart]\label{lem:regular}
+$L_{\exp}(X,\cdot)$ restricted to $\g$ is injective if and only if no eigenvalue of $\ad_X|_\g$ lies in $2\pi i(\mathbb{Z}\setminus\{0\})$. This holds whenever $\spec(X)\subset\mathcal{S}$.
+\end{lemma}
+\begin{proof}
+$U$ is invertible and $\ad_X$ preserves $\g$, so injectivity is invertibility of $\Psi_L(\ad_X|_\g)$, whose eigenvalues are $\Psi_L(\lambda)$ for $\lambda\in\spec(\ad_X|_\g)$. $\Psi_L$ vanishes exactly at $2\pi ik$, $k\neq0$. The eigenvalues of $\ad_X$ on $\gl(K)$ are the differences $\lambda_i-\lambda_j$ of eigenvalues of $X$, and those on $\g$ form a subset. If $\spec(X)\subset\mathcal{S}$ then $|\mathrm{Im}(\lambda_i-\lambda_j)|<2\pi$.
+\end{proof}
+\status{Derived here.}
+
+The chart therefore has full rank everywhere inside the principal strip. On $\gl(K)$ it loses rank whenever two eigenvalues of $X$ differ by $2\pi ik$, $k\neq0$. A path that leaves the strip continuously loses rank at the moment it leaves, when a conjugate pair of eigenvalues reaches $a\pm i\pi$; off the strip rank is also lost for eigenvalues that are not a conjugate pair, for example $\pm i\pi/2$ together with $\pm5i\pi/2$.
+
+\begin{assumption}\label{ass:main}
+(A1) $\g$ is closed under transposition; this holds for $\gl$, block $\gl$, tied block $\gl$, $\mathfrak{so}$, $\mathfrak{sl}$, $\mathfrak{sp}$ and their direct sums. (A2) For the interpretation as descent on $U$, $\ell(\varphi)=L(e^{\iota(\varphi)})$ with $L$ of class $C^2$ near $G$. On the active configuration $\varphi$ enters only through the transport exponentials (\texttt{mass\_phi}$=0$, \texttt{e\_phi\_lr}$=0$, and the chart validity bound $18$ acts before the transport clamp $20$). The algebraic identities below do not need (A2); they hold for any covector. (A3) The repository solves with a damped Gram matrix (ridge $10^{-6}$); the analysis uses the undamped one, and the measured effect of the ridge on directions is at most $5\times10^{-5}$ relative. (A4) The forward pass is float32, so the covector carries a relative error of about $10^{-6}$ that every route inherits identically.
+\end{assumption}
+\status{(A2) was checked against the configuration values by reading, not traced exhaustively through the forward pass.}
+
+\section{The Frobenius-pullback step is projected Euclidean descent on \texorpdfstring{$U$}{U}}\label{sec:pullback}
+
+Let $D=L_{\exp}(X,\cdot)\circ\iota:\R^n\to\gl(K)$ be the differential of the chart, and $G_0=D^\top D$ the pullback of the Frobenius metric. The existing \texttt{pullback\_group} direction is $v=G_0^{-1}\nabla_\varphi\ell$.
+
+\begin{theorem}\label{thm:projected}
+Assume $D$ is injective. Let $\Gamma=\nabla_UL$ be the ambient gradient, $\mathcal{T}=\range(D)$ and $P_\mathcal{T}$ the Frobenius-orthogonal projector onto $\mathcal{T}$. Then
+\begin{equation}\label{eq:projected}
+v=D^+\Gamma=D^+P_\mathcal{T}\Gamma,\qquad Dv=P_\mathcal{T}\Gamma,\qquad e^{\iota(\varphi-\eta v)}=U-\eta P_\mathcal{T}\Gamma+O(\eta^2),\qquad \mathcal{T}=U\g=\g U.
+\end{equation}
+\end{theorem}
+\begin{proof}
+By the chain rule $\nabla_\varphi\ell=D^\top\Gamma$. Since $G_0=D^\top D$ is invertible, $v=(D^\top D)^{-1}D^\top\Gamma=D^+\Gamma$. The operator $DD^+$ is the orthogonal projector onto $\range(D)$, and $D^+$ annihilates $\range(D)^\perp=\ker D^\top$, so $D^+=D^+P_\mathcal{T}$ and $Dv=DD^+\Gamma=P_\mathcal{T}\Gamma$. A first-order Taylor expansion of $e^{X-\eta\iota(v)}$ gives $U-\eta Dv+O(\eta^2)$. Finally $\mathcal{T}=U\Psi_L(\ad_X)(\g)=U\g$, because $\Psi_L(\ad_X)$ is a bijection of $\g$ by Lemma~\ref{lem:regular}, and $U\g U^{-1}=e^{\ad_X}\g=\g$ gives $U\g=\g U$.
+\end{proof}
+\status{Verified numerically: $D v_{\mathrm{repo}}$ against $P_\mathcal{T}\Gamma$ agrees to $3.8\times10^{-14}$ over $\gl(3)$, $\gl(4)$, block $\gl(3)\oplus\gl(3)$ through the repository group object, tied $\gl(2)^{3}$, $\mathfrak{so}(4)$, $\mathfrak{so}(5)$, $\mathfrak{sl}(3)$, $\mathfrak{sp}(4)$, $\mathfrak{sp}(6)$, with the ridge patched to zero.}
+
+Geometrically, $F:\varphi\mapsto e^{\iota(\varphi)}$ is a local diffeomorphism onto $G$ and $G_0$ is by construction $F^*$ of the Frobenius metric restricted to $G$. So $F$ is a local isometry, and it carries the $G_0$-gradient of $\ell$ to the gradient of $L|_G$ for the induced metric, which is the orthogonal projection of the ambient gradient onto the tangent space \cite[Sec.~3.6.1]{Absil2008}. For $\g=\gl(K)$ the projector is the identity and the step is literally Euclidean gradient descent on $U$; for block $\gl$ it keeps the diagonal blocks.
+
+\begin{proposition}[left-trivialized normal equations]\label{prop:normal}
+$P_\mathcal{T}\Gamma=U\xi$, where $\xi\in\g$ is the unique solution of
+\begin{equation}\label{eq:normal}
+A_U\xi=c,\qquad A_U:=\Pi_\g(U^\top U(\cdot))|_\g,\qquad c:=\Pi_\g(U^\top\Gamma).
+\end{equation}
+$A_U$ is symmetric positive definite on $\g$, since $\ip{Y}{A_UY}=\|UY\|_F^2$.
+\end{proposition}
+\begin{proof}
+By Theorem~\ref{thm:projected}, $P_\mathcal{T}\Gamma=U\xi$ where $\xi$ minimizes $\|UY-\Gamma\|_F^2$ over $Y\in\g$. Stationarity is $\ip{UZ}{UY-\Gamma}=0$ for all $Z\in\g$, which is $\Pi_\g(U^\top UY)=\Pi_\g(U^\top\Gamma)$. Positive definiteness follows from invertibility of $U$.
+\end{proof}
+\status{Derived here; the resulting $\xi$ agrees with the repository's ridge-free \texttt{xi} to $1.2\times10^{-13}$ (verified numerically).}
+
+\begin{remark}[the pullback metric is not a group translate]\label{rem:translate}
+Along $G$ the induced metric in the left trivialization is $\ip{Y_1}{U^\top UY_2}$, which is left-invariant only when $U^\top U=I$; in the right trivialization it is $\ip{W_1}{W_2UU^\top}$, right-invariant only when $UU^\top=I$. What is lost on a noncompact $G$ is the invariance of the metric, not the tangent space, so the projection is a weighted least-squares problem. The naive translated formula $\Pi_\g(U^{-1}\Gamma)$ is correct only when multiplication by $U^\top U$ maps $\g$ into itself. Its error is $O(\|X\|)$ and vanishes at $X=0$. Its size depends strongly on the directions of $X$ and $\Gamma$: on one set of draws the verifier measured $0.98\%$ for $\mathfrak{sl}(3)$ and $3.6\%$ for $\mathfrak{sp}(4)$ at $\|X\|_F=0.5$, rising to $14\%$ and $30\%$ at $\|X\|_F=2.8$; a second set gave $3.1\%$ and $28\%$ at $\|X\|_F=0.5$.
+\end{remark}
+
+\begin{proposition}[closed forms of $A_U^{-1}$]\label{prop:closed}
+Let $\mathcal{S}_U=U^\top U$.
+\begin{enumerate}
+\item[(i)] If $\mathcal{S}_U\g\subset\g$ (true for $\gl$, block $\gl$, tied block $\gl$), then $\xi=\mathcal{S}_U^{-1}c$. For $\gl$ this is $\xi=U^{-1}\Gamma$; for block $\gl$ it is $\xi=U^{-1}\Pi_\g(\Gamma)$, computed blockwise.
+\item[(ii)] If $U^\top U=I$ (any $\g\subset\mathfrak{o}(K)$), then $\xi=c$; for $\mathfrak{so}(K)$, $\xi=\operatorname{skew}(U^\top\Gamma)$.
+\item[(iii)] For $\mathfrak{sl}(K)$, $\xi=\mathcal{S}_U^{-1}(c+\kappa I)$ with $\kappa=-\tr(\mathcal{S}_U^{-1}c)/\tr(\mathcal{S}_U^{-1})$.
+\item[(iv)] For $\mathfrak{sp}(2m)$ with $J=\begin{pmatrix}0&I\\-I&0\end{pmatrix}$, write $\mathcal{S}_U=V\operatorname{diag}(\sigma)V^\top$ and $\hat C=Jc$. Then $\xi=J^\top V\tilde\Sigma V^\top$ with $\tilde\Sigma_{jk}=2(V^\top\hat CV)_{jk}\sigma_j\sigma_k/(\sigma_j+\sigma_k)$.
+\item[(v)] For a general transpose-closed $\g$, solve the $n\times n$ system $Ny=\rho$ with $N_{ab}=\ip{UT_a}{UT_b}$ and $\rho_a=\ip{T_a}{c}$, or run conjugate gradients with the matrix-vector product $Y\mapsto\Pi_\g(\mathcal{S}_UY)$ at cost $O(K^3)$ per product.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+(i) The map $Y\mapsto\mathcal{S}_UY$ is injective on $\g$ and maps $\g$ into $\g$, hence bijective, so $\mathcal{S}_U^{-1}\g=\g$ and $\Pi_\g(\mathcal{S}_U\xi)=\mathcal{S}_U\xi$. For block-diagonal $U$, $\Pi_\g(U^\top\Gamma)=U^\top\Pi_\g(\Gamma)$. (ii) is immediate. (iii) $\Pi_{\mathfrak{sl}}(M)=M-(\tr M/K)I$, so the equation reads $\mathcal{S}_U\xi=c+\kappa I$ for some scalar $\kappa$, and $\tr\xi=0$ determines $\kappa$ as stated. (iv) $Y\in\mathfrak{sp}(2m)$ if and only if $JY$ is symmetric, and $\Sigma\mapsto J^\top\Sigma$ is a Frobenius isometry from symmetric matrices onto $\mathfrak{sp}(2m)$, so $\Pi_{\mathfrak{sp}}(M)=J^\top\sym(JM)$. $\mathcal{S}_U$ is symmetric positive definite and symplectic, so $\mathcal{S}_UJ\mathcal{S}_U=J$ and $J\mathcal{S}_UJ^\top=\mathcal{S}_U^{-1}$. Hence $A_U(J^\top\Sigma)=J^\top\sym(J\mathcal{S}_UJ^\top\Sigma)=J^\top(\mathcal{S}_U^{-1}\Sigma+\Sigma\mathcal{S}_U^{-1})/2$, and the equation $A_U(J^\top\Sigma)=c=J^\top\hat C$ is the Lyapunov equation $(\mathcal{S}_U^{-1}\Sigma+\Sigma\mathcal{S}_U^{-1})/2=\hat C$, which is diagonal in the eigenbasis of $\mathcal{S}_U$ and gives $\tilde\Sigma$. (v) is \eqref{eq:normal} in coordinates.
+\end{proof}
+\status{Verified numerically: all five cases against the dense solve to $4.7\times10^{-14}$ (author) and $\mathfrak{so}(3)$, $\mathfrak{sl}(3)$, $\mathfrak{sp}(4)$ to $2.5\times10^{-14}$ (verifier).}
+
+\begin{proposition}[recovering the ambient gradient from the chart gradient]\label{prop:recovery}
+Let $m=\iota(B^{-1}\nabla_\varphi\ell)\in\g$; for \texttt{block\_glk} this is the gradient row reshaped. Under (A1), $m=\Psi_L(\ad_{X^\top})(c)$. If $\spec(X)\subset\mathcal{S}$, then
+\begin{equation}\label{eq:recovery}
+c=\Psi_L(\ad_{X^\top})^{-1}(m)=U^\top L_{\log}(U^\top,m),\qquad L_{\log}(U^\top,m)=\left[\Log\begin{pmatrix}U^\top&m\\0&U^\top\end{pmatrix}\right]_{12},
+\end{equation}
+where $L_{\log}$ is the Fr\'echet derivative of the principal logarithm. For $\g=\gl(K)$ this gives $\Gamma=L_{\log}(U^\top,m)$ exactly; for block $\gl$ it gives $\Pi_\g(\Gamma)=L_{\log}(U^\top,m)$ exactly, which is all that Proposition~\ref{prop:closed}(i) uses.
+\end{proposition}
+\begin{proof}
+First, $(\nabla_\varphi\ell)_a=\ip{U\Psi_L(\ad_X)T_a}{\Gamma}=\ip{T_a}{\Psi_L(\ad_{X^\top})(U^\top\Gamma)}$ by Lemma~\ref{lem:adjoint}. By (A1), $\ad_{X^\top}$ preserves $\g$, and it also preserves $\g^\perp$: for $Y\perp\g$ and $Z\in\g$, $\ip{\ad_{X^\top}Y}{Z}=\ip{Y}{\ad_XZ}=0$. Hence $\ad_{X^\top}$ commutes with $\Pi_\g$, and $m=\Pi_\g\Psi_L(\ad_{X^\top})(U^\top\Gamma)=\Psi_L(\ad_{X^\top})(c)$.
+
+Next, on the open set of matrices $A$ with $\spec(A)\subset\mathcal{S}$ we have $\Log\circ\exp=\mathrm{id}$ \cite[Thm.~1.31]{Higham2008}. Differentiating and using Lemma~\ref{lem:dexp}, $L_{\log}(e^A,e^A\Psi_L(\ad_A)H)=H$, so $\Psi_L(\ad_A)^{-1}(M)=L_{\log}(e^A,e^AM)$. For a primary matrix function $f$ and diagonalizable $B$, the Daleckii\ndash Krein representation $L_f(B,E)_{jk}=f[\beta_j,\beta_k]E_{jk}$ in the eigenbasis of $B$ shows $L_f(B,BE)=BL_f(B,E)$, and the identity extends to all $B$ in the domain by continuity. Taking $A=X^\top$, $e^A=U^\top$, gives $c=U^\top L_{\log}(U^\top,m)$. The block formula is the block-triangular representation of the Fr\'echet derivative \cite{Mathias1996}, \cite[Thm.~3.6]{Higham2008}. For $\gl$, $c=U^\top\Gamma$; for block $\gl$ with block-diagonal $U$, $c=U^\top\Pi_\g(\Gamma)$.
+\end{proof}
+\status{Verified numerically: recovered covectors against direct autograd leaf partials $\partial L/\partial E_v$ and $\partial L/\partial F_p$ in a tiny model with shared token types, inverse branches and pairwise transports $U_iU_j^{-1}$, errors $1.8\times10^{-14}$ and $8.2\times10^{-15}$ (not independently reproduced; the verifier confirmed the recovery algebra on a single-exponential loss plus the linearity argument).}
+
+The strip condition is necessary. If $\spec(X)\not\subset\mathcal{S}$ then $\Log(U^\top)\neq X^\top$, and $L_{\log}(U^\top,\cdot)$ inverts the Fr\'echet derivative at the wrong logarithm; on off-strip rows the measured median relative error was $1.0$ to $1.5$. A Daleckii\ndash Krein inverse built from $\operatorname{eig}(X)$ itself stays exact there (error at most $6.4\times10^{-8}$).
+
+\begin{corollary}[no series in $\ad_X$]\label{cor:nodexp}
+For the groups of Proposition~\ref{prop:closed}(i)\ndash(iv), $\xi$ is computed from one principal-logarithm Fr\'echet derivative (square roots and $d\times d$ solves) and one closed-form $A_U^{-1}$. The chart velocity $v=\iota^{-1}h(\ad_X)\xi=\iota^{-1}L_{\log}(U,U\xi)$ is not needed by the step; it is needed only for diagnostics.
+\end{corollary}
+\status{Verified numerically: $v$ against the repository's \texttt{v\_phi} to $1.0\times10^{-13}$.}
+
+\section{Retraction, logarithm branch, and trust region}\label{sec:retraction}
+
+Three retractions share the first derivative $-U\xi=-P_\mathcal{T}\Gamma$: the additive $R_{\mathrm{add}}(\eta)=U(I-\eta\xi)$ followed by $\Log$; the exponential $R_{\exp}(\eta)=Ue^{-\eta\xi}$ followed by $\Log$; and the repository's additive chart step $R_{\mathrm{chart}}(\eta)=e^{X-\eta V}$ with $V=h(\ad_X)\xi$. We use
+\begin{equation}\label{eq:grouplog}
+\varphi_{\mathrm{new}}=\iota^{-1}\Pi_\g\Log\left(Ue^{-\eta s\xi}\right),
+\end{equation}
+with the trust factor $s$ of Lemma~\ref{lem:trust}. Two reasons decide the choice. $Ue^{-\eta\xi}\in G$ for every subalgebra, whereas $U(I-\eta\xi)\notin G$ for $\mathfrak{so}$, $\mathfrak{sl}$, $\mathfrak{sp}$. And $Ue^{-\eta\xi}$ is exactly the reference element $\exp(\varphi)\exp(\delta)$ against which the repository certifies its candidate, so the certificate residual reduces to the accuracy of the logarithm plus storage rounding. We call \eqref{eq:grouplog} the \texttt{group\_log} retraction.
+
+\begin{proposition}[second-order comparison]\label{prop:second}
+Assume $\spec(X)\subset\mathcal{S}$, and let $W(\eta)$ be the solution of $W'=-h(\ad_W)\xi$, $W(0)=X$, on an interval on which $\spec(W)\subset\mathcal{S}$. Then $e^{W(\eta)}=Ue^{-\eta\xi}$, and
+\begin{align}
+W''(0)&=\frac{d}{dt}h(\ad_{X+tV})\xi\Big|_{t=0}=\tfrac16[[X,\xi],\xi]+O(\|X\|^2\|\xi\|^2),\label{eq:W2}\\
+\varphi_{\log}-\varphi_{\mathrm{chart}}&=\tfrac{\eta^2}{12}\iota^{-1}[[X,\xi],\xi]+O(\eta^2\|X\|^2\|\xi\|^2,\eta^3),\label{eq:gap}\\
+e^{X-\eta V}-Ue^{-\eta\xi}&=-\tfrac{\eta^2}{2}L_{\exp}(X,W''(0))+O(\eta^3),\\
+R_{\mathrm{add}}(\eta)-R_{\exp}(\eta)&=-\tfrac{\eta^2}{2}U\xi^2+O(\eta^3).
+\end{align}
+At $X=0$ the chart step coincides with $R_{\exp}$ exactly.
+\end{proposition}
+\begin{proof}
+On the strip $\ad_W$ has no eigenvalue in $2\pi i(\mathbb{Z}\setminus\{0\})$, so $h(\ad_W)=\Psi_L(\ad_W)^{-1}$ is defined. By Lemma~\ref{lem:dexp}, $M=e^{W}$ satisfies $M'=M\Psi_L(\ad_W)(W')=-M\xi$ with $M(0)=U$, and uniqueness for this linear equation gives $M(\eta)=Ue^{-\eta\xi}$. Also $W'(0)=-h(\ad_X)\xi=-V$. Differentiating again, $W''(0)=-\frac{d}{d\eta}h(\ad_{W(\eta)})\xi|_0$, which equals the stated derivative along $X+tV$. With $h(z)=1+z/2+z^2/12+O(z^4)$ and $V=\xi+\frac12[X,\xi]+O(\|X\|^2\|\xi\|)$, the linear term contributes $\frac12[V,\xi]=\frac14[[X,\xi],\xi]+O(\|X\|^2\|\xi\|^2)$ and the quadratic term contributes $\frac1{12}([V,[X,\xi]]+[X,[V,\xi]])=-\frac1{12}[[X,\xi],\xi]+O(\|X\|^2\|\xi\|^2)$; the sum is $\frac16[[X,\xi],\xi]$. The chart step is linear in $\eta$ in the chart and matches $W$ at order $\eta$, which gives \eqref{eq:gap} and the third line. The last line is the expansion $e^{-\eta\xi}=I-\eta\xi+\frac{\eta^2}{2}\xi^2+O(\eta^3)$. At $X=0$, $V=h(0)\xi=\xi$ and $e^{-\eta V}=Ue^{-\eta\xi}$ with $U=I$.
+\end{proof}
+\status{Verified numerically with the ridge patched to zero: the gap divided by $(\eta^2/2)\|W''(0)\|$ equals $1.000\pm0.001$ for $\eta\in[10^{-4},10^{-1}]$; the relative error of the leading term $\frac16[[X,\xi],\xi]$ is about $0.2\|X\|$ for $\|X\|_F\le0.8$.}
+
+The consequence for the repository's certificate (relative product residual at most $10^{-6}$) is that its residual is about $\frac{\eta^2}{12}\|U[[X,\xi],\xi]\|/\|U\|$, quadratic in the step. At a trust-saturated step, $\|\eta\xi\|_F=0.1=R$, the chart stager halves $1$ to $4$ times for $d=3$ blocks with $\|X_h\|_F\le4$, so its accepted step is $R/2$ to $R/16$; this count was reproduced row by row by the verifier. The \texttt{group\_log} retraction never needs a truncation halving: its float64 residual is at most $2\times10^{-14}$. The float32 storage-rounding floor of the product residual is at most $4.7\times10^{-7}$ at $d=3$ and $\|X\|_F=12$, $2.2\times10^{-7}$ at $d=6$ and $1.3\times10^{-7}$ at $d=10$; it stays under the $10^{-6}$ gate, with a margin of only about two at $d=3$.
+
+\begin{proposition}[logarithm branch and existence]\label{prop:branch}
+\begin{enumerate}
+\item[(L1)] $\Log(e^X)=X$ if and only if $\spec(X)\subset\mathcal{S}$.
+\item[(L2)] With $W$ the solution of Proposition~\ref{prop:second}, if $\spec(W(t))\subset\mathcal{S}$ for all $t\in[0,\eta]$, then the principal logarithm satisfies $\Log(Ue^{-\eta\xi})=W(\eta)$.
+\item[(L3)] If the continuation leaves $\mathcal{S}$, $\Log$ returns a re-charted logarithm $X'$ with $e^{X'}=Ue^{-\eta\xi}$ exactly; for diagonalizable $W$, $X'=W(\eta)-Q\operatorname{diag}(2\pi ik_j)Q^{-1}$, and $\|X'-X\|_2\ge2\pi-O(\eta)$. The realized frame, and hence the loss under (A2), is unchanged.
+\item[(L4)] Existence can fail: $Ue^{-\eta\xi}$ can leave $\exp(\g)$. A real matrix has a real logarithm if and only if it is nonsingular and every Jordan block of each negative eigenvalue occurs an even number of times \cite{Culver1966}; two distinct negative eigenvalues therefore admit none.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+(L1) is uniqueness of the logarithm with spectrum in $\mathcal{S}$ \cite[Thm.~1.31]{Higham2008}. (L2) By Proposition~\ref{prop:second}, $Ue^{-\eta\xi}=e^{W(\eta)}$, and (L1) applied to $W(\eta)$ gives $\Log(e^{W(\eta)})=W(\eta)$. (L3) $X'$ and $W(\eta)$ are two logarithms of the same matrix; for diagonalizable $W$ they share eigenvectors and their eigenvalues differ by integer multiples of $2\pi i$, with at least one nonzero multiple when $W(\eta)$ has left $\mathcal{S}$. (L4) is Culver's theorem.
+\end{proof}
+\status{(L1), (L2), (L4) cited or derived. Verified numerically: among $4346$ rows inside the margin $\max|\Imag \lambda|<\pi-0.25$ there were $0$ wraps and $0$ failures under a trust-saturated step; every one of $191$ successful off-strip rows was re-charted into the strip with $\min\|X'-X\|_2=6.27$; all $9$ existence failures near or outside the strip had distinct negative real eigenvalues. The band and off-strip counts were not independently reproduced.}
+
+Failures are detected by the reconstruction residual $\|e^{\Log(\cdot)}-Ue^{-\eta\xi}\|/\|Ue^{-\eta\xi}\|$. The Denman\ndash Beavers square-root iteration \cite{DenmanBeavers1976} used inside inverse scaling and squaring either reports failure or, in real arithmetic, may converge silently to a wrong root; this was observed once among the nine failures (not independently reproduced) and is caught by the residual gate. On accepted rows the residual was at most $1.2\times10^{-12}$. The chart amplifies steps near the strip boundary: $\|X_{\mathrm{new}}-X\|\approx\|h(\ad_X)\|\|\eta\xi\|$, and for normal $X$ with $\max|\Imag \lambda|=\pi-\delta'$ one has $\|h(\ad_X)\|\approx\pi/\delta'$.
+
+\begin{proposition}[strip certificate]\label{prop:bendixson}
+Every eigenvalue $\lambda$ of a real matrix $X$ satisfies $|\Imag \lambda|\le\|\operatorname{skew}X\|_2\le\|\operatorname{skew}X\|_F$, where $\operatorname{skew}X=(X-X^\top)/2$. Hence $\|\operatorname{skew}X_h\|_F<\pi-\delta$ certifies $\spec(X_h)\subset\mathcal{S}$ with margin $\delta$.
+\end{proposition}
+\begin{proof}
+Let $Xv=\lambda v$ with $v\in\C^K$, $v^*v=1$. Then $\lambda=v^*Xv$ and, $X$ being real, $\bar\lambda=v^*X^\top v$. So $\Imag \lambda=(\lambda-\bar\lambda)/(2i)=v^*(\operatorname{skew}X)v/i$, and $|v^*(\operatorname{skew}X)v|\le\|\operatorname{skew}X\|_2\le\|\operatorname{skew}X\|_F$.
+\end{proof}
+\status{Cited \cite{Bendixson1902}; proof given here. Verified numerically: zero violations in $53{,}760$ samples (verifier: zero in $24{,}000$). Certification rates (not independently reproduced): for Gaussian $X$ at $\|X\|_F=5$, the exact eigenvalue test certifies $99.1\%$ of rows, the spectral-norm test $96.5\%$, the Frobenius test $38.3\%$; the Frobenius test certifies every row up to $\|X\|_F=2$ and no skew-dominated row at $\|X\|_F\ge3$, where the exact eigenvalue test must be used.}
+
+\begin{lemma}[trust region]\label{lem:trust}
+With $s=\min(1,R/\|\eta\xi\|_F)$, the embedded norm taken over all $H$ blocks, and $Z=-\eta s\xi$, the relative frame displacement satisfies $\|U^{-1}\Delta U\|_F=\|e^Z-I\|_F\le e^{R}-1\le Re^R$.
+\end{lemma}
+\begin{proof}
+$\|e^Z-I\|_F\le\sum_{k\ge1}\|Z\|_F^k/k!=e^{\|Z\|_F}-1$ by submultiplicativity, and $\|Z\|_F\le R$.
+\end{proof}
+\status{Derived here.}
+
+The trust rule is the repository's. The difference from the chart stager is when halvings occur: under \texttt{group\_log} there is no halving for retraction truncation, only for a logarithm failure, a chart-bound violation or a violated descent sign, and a row is rejected after the maximal number of halvings. The closed form has no metric certificate, and it amplifies the relative float32 error of the covector (A4) by about $\kappa_2(U_h)$: with $10^{-6}$ relative covector noise the reviewer measured a relative change of $\xi$ of $4.4\times10^{-2}$ (median) at $\kappa_2(U_h)\approx2\times10^5$. The implementation therefore serves a row by the closed form only if, in addition to the strip certificate, $\max_h\kappa_2(U_h)\le10^3$; other rows take the series direction, whose damped-condition certificate ($10^6$) then accepts or rejects them as on the chart route. For normal $X_h$ with real spectrum the singular values of $L_{\exp}(X_h,\cdot)$ are divided differences of $\exp$, which lie between $e^{\lambda_{\min}}$ and $e^{\lambda_{\max}}$, so $\kappa(D)\le\kappa_2(U_h)$ and the bound $10^3$ corresponds to $\kappa(G_0)\le10^6$. The bound is a routing proxy, not an exact equivalent of the chart certificate: on near-symmetric $d=3$ blocks at $\|X_h\|_F=5$ the chart route accepted $1$ of $16$ rows and the closed form serves $13$, with a measured noise amplification below $3\times10^{-3}$.
+
+\begin{remark}[rejected rows must keep their chart]\label{rem:rejected}
+A row whose direction is rejected has $\xi=0$, hence $Z=0$ and $\Log(Ue^{Z})=\Log(U)$. For an off-strip row, $\Log(U)\neq X$ by (L1), while every residual, slope and chart gate passes; the row would be silently re-charted by at least $2\pi$. Rejected rows must therefore be excluded from the retraction, or their candidate forced to the current chart. The verifier exhibited a $\gl(3)$ block at rotation angle $\pi+0.3$ with $\|\Log(U)-X\|_F=8.9$ and reconstruction residual $8\times10^{-16}$.
+\end{remark}
+
+\paragraph{Positional factor.} The free coordinates are the two tables, so the loss is $\ell(\varphi_{\mathrm{tok}},\theta_{\mathrm{pos}})$ and the existing \texttt{pullback\_group} metric is the row-wise sum $\sum_v\|\delta E_v\|_F^2+\sum_p\|\delta F_p\|_F^2$ pulled back to table rows. Each row gets its own partial covector, recovered from its own row gradient by Proposition~\ref{prop:recovery}, and its own step. All candidates are staged from the pre-step state, so the first-order composite motion is $\delta U_i=-\eta(\Gamma_{E_v}F_{p}+E_v\Gamma_{F_p})$. Euclidean descent on $U_i$ itself cannot be realized by table steps, since $V+N$ rows parametrize $BN$ composites that share factors.
+
+\section{Gauge behavior of the pullback step}\label{sec:gauge-pullback}
+
+\begin{proposition}[orthogonal-only equivariance]\label{prop:orth}
+Suppose $L$ is invariant under $E\mapsto gE$ with the belief tables co-transformed, so that $\Gamma(gE)=g^{-\top}\Gamma(E)$. For $\g=\gl$ let $\Phi(E,\Gamma)=E\exp(-\eta E^{-1}\Gamma)$ be the first-order pullback map. Then $\Phi(gE,g^{-\top}\Gamma)=g\Phi(E,\Gamma)$ for all $\Gamma$ if and only if $g^\top g=I$, and $\Phi(Eh,\Gamma h^{-\top})=\Phi(E,\Gamma)h$ for all $\Gamma$ if and only if $h^\top h=I$.
+\end{proposition}
+\begin{proof}
+Invariance gives $\ip{\Gamma(gE)}{g\delta E}=\ip{\Gamma(E)}{\delta E}$, so $\Gamma(gE)=g^{-\top}\Gamma(E)$. At $gE$ the direction is $(gE)^{-1}g^{-\top}\Gamma=E^{-1}(g^\top g)^{-1}\Gamma$, which equals $\xi=E^{-1}\Gamma$ for every $\Gamma$ if and only if $g^\top g=I$. At $Eh$ it is $h^{-1}E^{-1}\Gamma h^{-\top}=h^{-1}\xi h^{-\top}$, while equivariance requires $Ehe^{-\eta h^{-1}\xi h}=Ee^{-\eta\xi}h$, i.e. the direction $h^{-1}\xi h$; the two agree for every $\xi$ if and only if $h^{-\top}=h$.
+\end{proof}
+\status{Derived here. Verified numerically: the repository direction obeys $\xi'=(gE)^{-1}g^{-\top}\Gamma$ to $7.8\times10^{-15}$; the velocity covariance defect is $1.1\times10^{-14}$ under $\mathrm{SO}(3)$ and $0.56$ under $\GL^+(3)$.}
+
+\begin{proposition}[left-invariant alternative]\label{prop:leftinv}
+The left-invariant metric $\|E^{-1}\delta E\|_F^2$ gives the direction $\xi_L=E^\top\Gamma=c$ with no solve. It is left-equivariant under all of $\GL$ and right-equivariant only under orthogonal $h$. It differs from the pullback direction at first order: its $U$-velocity is $EE^\top\Gamma$.
+\end{proposition}
+\status{Derived here (same computation as Proposition~\ref{prop:orth}). Verified numerically: left defect $1.5\times10^{-16}$ under $\GL^+(3)$, right defect $0.07$.}
+
+\begin{theorem}[no bi-invariant metric]\label{thm:milnor}
+For $d\ge2$ no Riemannian metric on $\GL^+(d)$ is both left- and right-invariant. Consequently no algebra-only metric on the frame charts is equivariant under both the left gauge action and the right reference change by all of $\GL$.
+\end{theorem}
+\begin{proof}
+A bi-invariant metric restricts at the identity to an inner product on $\gl(d)$ invariant under $\Ad_g$ for $g$ in the identity component. Differentiating, every $\ad_Y$ is skew-adjoint for that inner product, so every $\ad_Y$ has purely imaginary spectrum. Take $Y=\operatorname{diag}(1,-1,0,\dots,0)$: then $\ad_YE_{12}=2E_{12}$, a real nonzero eigenvalue, which is a contradiction. The general statement is Milnor's characterization: a connected Lie group admits a bi-invariant metric if and only if it is the product of a compact group and an abelian group \cite[Lemma~7.5]{Milnor1976}.
+\end{proof}
+\status{Derived here; the general characterization is cited.}
+
+On $G\subset\mathrm{O}(K)$ the Frobenius, left-invariant and right-invariant metrics coincide and are bi-invariant. The active loss is not exactly gauge invariant (the diagonal family is not closed under $\Sigma\mapsto g\Sigma g^\top$, and decoding reads $\mu$), so the gauge statements concern the pure path. Section~\ref{sec:symmetries} shows how the belief Fisher evades Theorem~\ref{thm:milnor}: its metric depends on the belief, which moves with the frame.
+
+\section{Cost of the \texorpdfstring{$U$}{U}-space step}\label{sec:cost-pullback}
+
+Table~\ref{tab:cost-pullback} gives operation counts per row-block in float64 at $d=10$. The existing route materializes a $100\times100$ series for $\Psi$ at order $16$ (the order observed at $\|X\|_F\approx0.5$) and needs twelve $100\times100$ workspaces per row-block, which forces chunks of $69$ rows. The $U$-space route needs about thirty $d\times d$ matrices (24 KB) and $2$ to $6$ square roots at $4$ to $8$ Denman\ndash Beavers iterations each.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lll}
+\toprule
+Route & Dominant work & Flops per row-block\\
+\midrule
+Existing series route & $15$ products of $100\times100$; assembly; eigensolve & $\approx3.8\times10^7$\\
+$U$-space with recovery & $\exp$, pair Fr\'echet $\Log$, plain $\Log$, solve & $3\times10^5$ to $10^6$\\
+$U$-space with gradient hook & as above without the Fr\'echet $\Log$ & $1.2\times10^5$ to $3\times10^5$\\
+\bottomrule
+\end{tabular}
+\caption{Operation counts per row-block at $d=10$ (arithmetic estimates, not measured).}\label{tab:cost-pullback}
+\end{table}
+
+\status{Estimates. Measured on one CPU thread with an unoptimized scratch implementation at $d=6$ and $256$ rows (not independently reproduced): repository staging $108$ to $117$ ms; $U$-space step $30$ to $32$ ms with structured recovery and $12$ to $15$ ms with a gradient hook. At $d\le4$ the scratch code is dominated by call overhead. GPU time was not measured.}
+
+\section{The belief Fisher: modeling choices}\label{sec:em}
+
+\subsection{The EM reading: \texorpdfstring{$\varphi$}{phi} stays a slow M-step parameter}
+
+In the variational EM reading of the model \cite{Dempster1977,NealHinton1998}, the forward pass through the layers is the E-step: given the parameters $\vartheta$, it moves the beliefs from the layer-0 priors toward approximate posteriors by descending the free energy. The optimizer step on $\vartheta$ is a gradient M-step. The frame tables belong to $\vartheta$. They are slow variables in two senses: they change only at optimizer steps, and with \texttt{e\_phi\_lr}$=0$ they are not inference variables within the forward pass. Nothing in this note changes that. The only change is the Riemannian metric used to precondition the M-step gradient of $\varphi$: the update remains $\varphi\leftarrow\varphi-\eta\mathcal{F}_\varphi^{-1}\nabla_\varphi\ell$ followed by a retraction, with a different operator $\mathcal{F}_\varphi$.
+
+Amari's natural gradient for the parameter of a statistical model uses the Fisher information of the model family indexed by that parameter \cite{Amari1998,AmariNagaoka2000}. The frame parameter enters the generative model through the reference prior of each occurrence,
+\begin{equation}\label{eq:prior-family}
+\Normal\left(U^{-1}\mu_v,U^{-1}\Sigma_vU^{-\top}\right)=U^{-1}\cdot q_v,
+\end{equation}
+where $q_v=\Normal(\mu_v,\Sigma_v)$ is the prior-bank entry of the type. The metric of this note is the Fisher information of the family \eqref{eq:prior-family} with respect to the frame, evaluated at the prior-bank entry, that is at layer $0$. It is a function of the parameters alone. For positional rows it also depends on which types occupy a column of the batch; these play the role of covariates, as the design matrix does in the Fisher information of a regression model, and the metric does not depend on the responses.
+
+Two limitations of this choice should be stated plainly. First, the family \eqref{eq:prior-family} is the prior factor of the complete-data model, not the marginal likelihood of the tokens. The frame also enters the likelihood through the attention transports and the write-back, and the Fisher information of the training objective itself is the output Fisher of Section~\ref{sec:output}. The prior-family Fisher is therefore a metric on the frame parameters that is intrinsic to the generative model and deterministic; it is not claimed to approximate the Hessian of the loss. Second, the E-step posteriors of deeper layers are deliberately not used. They are inference-state quantities: a metric built from them would change within an E-step, depend on context, and read the previous write-back, which itself depends on $U$. Using them would also destroy the position independence of the type metric (Proposition~\ref{prop:position}) and require a capture in the read path and a dense solve per touched type row. Pooling deeper-layer reads is a possible extension that would let data inform the weight of the completion in Section~\ref{sec:completion}; it is not part of the route analyzed here.
+
+\subsection{The Gaussian Fisher metric and the orbit model}
+
+On the full Gaussian manifold $\Normal_d$ with coordinates $(m,S)$ the Fisher\ndash Rao metric \cite{Skovgaard1984} is
+\begin{equation}\label{eq:gaussian-fisher}
+g_{\mathrm{FR}}\big((\delta m,\delta S),(\delta m,\delta S)\big)=\delta m^\top S^{-1}\delta m+\tfrac12\tr\left(S^{-1}(\delta S)S^{-1}\delta S\right).
+\end{equation}
+This is the metric inverted by the repository's \texttt{retraction.natural\_gradient} for beliefs. On the diagonal family it restricts to $\sum_k\delta m_k^2/s_k+\frac12\sum_k(\delta s_k/s_k)^2$.
+
+\begin{lemma}[Fisher information of a submodel]\label{lem:submodel}
+If $\vartheta\mapsto p_{f(\vartheta)}$ is a smooth submodel of a regular family $\{p_\omega\}$, its Fisher information is the pullback $f^*g$ of the Fisher information $g$ of the ambient family.
+\end{lemma}
+\begin{proof}
+The score of the submodel is $d\log p_{f(\vartheta)}=d_\omega\log p\circ df$, and the Fisher information is the covariance of the score.
+\end{proof}
+\status{Derived here; standard \cite{AmariNagaoka2000}.}
+
+The diagonal family models the local belief, and the frame does not act inside it. For a fixed local belief $q$, the model relevant to the frame is the orbit $\mathcal{M}_q=\{U^{-1}\cdot q:U\in G\}$, which lies in the full $\Normal_d$ because $C=U^{-1}SU^{-\top}$ is full for non-monomial $U$. By Lemma~\ref{lem:submodel}, the frame metric is the pullback of the full $g_{\mathrm{FR}}$, even though $q$ is diagonal. Keeping only $\operatorname{diag}C$ would define a different model, the M-projection of $r$ onto the diagonal family. It is the wrong model here: the read path never forms it (it uses full $C$ and full projected covariances), it has smaller rank ($8$ versus $13$ of $16$ at $d=4$), and it is not right-equivariant (quadratic form $34.52$ versus $28.94$ on corresponding vectors, verified numerically). The only diagonal projection in the active route is on the write side, $\Sigma^+=\operatorname{diag}(UC^{\mathrm{att}}U^\top)$; a write-path Fisher is not part of the route analyzed here.
+
+\section{The frame Fisher metric}\label{sec:fisher}
+
+Throughout this section fix one occurrence, drop the index $i$, and write $r=\Normal(\nu,C)$ for its reference belief. Perturb the frame by a body generator, $U\mapsto Ue^{tY}$.
+
+\begin{theorem}[frame Fisher]\label{thm:fisher}
+The pullback of \eqref{eq:gaussian-fisher} under $Y\mapsto(Ue^{Y})^{-1}\cdot q$ at $Y=0$ is
+\begin{equation}\label{eq:gU}
+g_U(Y,Y)=\nu^\top Y^\top C^{-1}Y\nu+\tfrac12\tr\left(C^{-1}(YC+CY^\top)C^{-1}(YC+CY^\top)\right).
+\end{equation}
+Its polarization is $g_U(Y_1,Y_2)=\ip{Y_1}{\mathcal{F}(Y_2)}$ with the Frobenius-self-adjoint operator
+\begin{equation}\label{eq:F}
+\mathcal{F}(Y)=C^{-1}Y(C+\nu\nu^\top)+Y^\top.
+\end{equation}
+\end{theorem}
+\begin{proof}
+$(Ue^{tY})^{-1}=e^{-tY}U^{-1}$, so the perturbed moments are $e^{-tY}\nu$ and $e^{-tY}Ce^{-tY^\top}$, with derivatives $\delta\nu=-Y\nu$ and $\delta C=-(YC+CY^\top)$ at $t=0$. Substituting into \eqref{eq:gaussian-fisher} gives \eqref{eq:gU}. For the operator, the mean term is $\tr(Y^\top C^{-1}Y\nu\nu^\top)=\ip{Y}{C^{-1}Y\nu\nu^\top}$. Expanding the trace term into four products, $\tr(C^{-1}YCC^{-1}YC)=\tr(Y^2)$, $\tr(C^{-1}CY^\top C^{-1}CY^\top)=\tr(Y^2)$, and the two cross terms each equal $\tr(Y^\top C^{-1}YC)=\ip{Y}{C^{-1}YC}$. Half the sum is $\tr(Y^2)+\ip{Y}{C^{-1}YC}=\ip{Y}{Y^\top}+\ip{Y}{C^{-1}YC}$. Adding the mean term gives $\ip{Y}{\mathcal{F}(Y)}$. Self-adjointness: $\ip{Y_1}{C^{-1}Y_2M}=\tr(Y_1^\top C^{-1}Y_2M)=\ip{C^{-1}Y_1M}{Y_2}$ for symmetric $C$, $M$, and $\ip{Y_1}{Y_2^\top}=\ip{Y_1^\top}{Y_2}$.
+\end{proof}
+\status{Verified numerically: $\mathcal{F}$ against the autograd Jacobian pullback of the exact Gaussian Fisher to $1.7\times10^{-15}$, against the Hessian of $\mathrm{KL}(p_0\parallel p_Y)$ to $3.6\times10^{-15}$, and against a Monte Carlo score outer product with error decreasing from $5.2\times10^{-3}$ to $2.5\times10^{-3}$ as the sample grows from $4\times10^5$ to $3.2\times10^6$ ($d=3,4,5$).}
+
+\begin{proposition}[whitened form]\label{prop:whitened}
+For any factor $LL^\top=C$ set $Z=L^{-1}YL$ and $\omega=L^{-1}\nu$. Then
+\begin{equation}\label{eq:whitened}
+g_U(Y,Y)=\|Z\omega\|^2+2\|\sym Z\|_F^2=\ip{Z}{\mathcal{L}(Z)},\qquad \mathcal{L}(Z)=Z(I+\omega\omega^\top)+Z^\top,
+\end{equation}
+and $\ip{Y}{C^{-1}YC}=\|Z\|_F^2$. Covectors whiten as $R=L^\top G_YL^{-\top}$. The result is unchanged under $L\mapsto LQ$ with $Q$ orthogonal, and $a:=|\omega|^2=\nu^\top C^{-1}\nu=\mu^\top\Sigma^{-1}\mu$ does not depend on the frame.
+\end{proposition}
+\begin{proof}
+$YC+CY^\top=LZL^{-1}LL^\top+LL^\top L^{-\top}Z^\top L^\top=L(Z+Z^\top)L^\top$, so $C^{-1}(YC+CY^\top)=L^{-\top}(Z+Z^\top)L^\top$, whose squared trace is $\|Z+Z^\top\|_F^2=4\|\sym Z\|_F^2$. Also $Y\nu=LZ\omega$ and $\nu^\top Y^\top C^{-1}Y\nu=\|Z\omega\|^2$. The identity $2\|\sym Z\|_F^2=\ip{Z}{Z}+\ip{Z}{Z^\top}$ gives $\mathcal{L}$. With $Y=LZL^{-1}$, $\tr(Y^\top C^{-1}YC)=\tr(L^{-\top}Z^\top ZL^\top)=\|Z\|_F^2$. For covectors, $\ip{G_Y}{LZL^{-1}}=\ip{L^\top G_YL^{-\top}}{Z}$. Under $L\mapsto LQ$, $Z\mapsto Q^\top ZQ$ and $\omega\mapsto Q^\top\omega$, which preserve both terms. Finally $\nu^\top C^{-1}\nu=\mu^\top U^{-\top}U^\top\Sigma^{-1}UU^{-1}\mu$.
+\end{proof}
+\status{Derived here; $a_{\mathrm{ref}}=a_{\mathrm{loc}}$ verified numerically.}
+
+Write $\mathcal{P}(Y)=C^{-1}YC$ for the whitened Frobenius operator, $\ip{Y}{\mathcal{P}Y}=\|Z\|_F^2$.
+
+\begin{proposition}[positivity and kernel]\label{prop:kernel}
+$g_U\ge0$, and $g_U(Y,Y)=0$ if and only if $\sym Z=0$ and $Z\omega=0$. Hence
+\begin{equation}\label{eq:kernel}
+\ker g_U=\stab(\nu,C)=\{Y\in\gl(d):Y\nu=0,\ YC+CY^\top=0\},
+\end{equation}
+the Lie algebra of the stabilizer of $r$ under the linear action. Its dimension is $(d-1)(d-2)/2$ if $\nu\neq0$ and $d(d-1)/2$ if $\nu=0$; at $d=10$ these are $36$ and $45$ of $100$ per block.
+\end{proposition}
+\begin{proof}
+Both terms of \eqref{eq:whitened} are nonnegative and vanish exactly under the stated conditions; transforming back, $\sym Z=0$ is $YC+CY^\top=0$ and $Z\omega=0$ is $Y\nu=0$. These are the linearizations of $A\nu=\nu$, $ACA^\top=C$. In whitened coordinates the kernel consists of skew $Z$ annihilating $\omega$, which is $\mathfrak{so}(d-1)$ when $\omega\neq0$ and $\mathfrak{so}(d)$ when $\omega=0$.
+\end{proof}
+\status{Derived here. Verified numerically for $\gl(d)$, $d=3,\dots,6$: kernel dimensions $(1,3)$, $(3,6)$, $(6,10)$ and $(10,15)$ for the pairs $(\nu\neq0,\nu=0)$.}
+
+\begin{theorem}[generalized spectrum]\label{thm:spectrum}
+Relative to $\mathcal{P}$, the generalized eigenvalues of $\mathcal{F}$ are
+\begin{equation}\label{eq:spectrum}
+\{2+a\}\cup\left\{\tfrac12\left(2+a+\sqrt{a^2+4}\right)\right\}^{d-1}\cup\left\{\tfrac12\left(2+a-\sqrt{a^2+4}\right)\right\}^{d-1}\cup\{2\}^{d(d-1)/2}\cup\{0\}^{(d-1)(d-2)/2},
+\end{equation}
+with multiplicities as exponents.
+\end{theorem}
+\begin{proof}
+By Proposition~\ref{prop:whitened}, $Y\mapsto Z$ is an isometry from $(\gl(d),\ip{\cdot}{\mathcal{P}\cdot})$ to $(\gl(d),\ip{\cdot}{\cdot})$ carrying $\mathcal{F}$ to $\mathcal{L}$, so the generalized spectrum is the spectrum of $\mathcal{L}$. If $\omega\neq0$, choose an orthonormal basis with $e_1=\omega/|\omega|$ (allowed by the $Q$-invariance); then $\mathcal{L}(Z)=Z+aZe_1e_1^\top+Z^\top$. The entry $z_{11}$ is mapped to $(2+a)z_{11}$. For $j\neq1$, the pair $(z_{1j},z_{j1})$ is mapped by $\begin{pmatrix}1&1\\1&1+a\end{pmatrix}$, with trace $2+a$, determinant $a$ and eigenvalues $\frac12(2+a\pm\sqrt{a^2+4})$. On the block $Z_{\perp\perp}$ of indices $j,k\neq1$, $\mathcal{L}(Z)=Z+Z^\top$, with eigenvalue $2$ on its $d(d-1)/2$ symmetric and $0$ on its $(d-1)(d-2)/2$ skew directions. The counts add to $1+2(d-1)+(d-1)^2=d^2$. If $\omega=0$ then $a=0$ and the formula still holds, with the $d-1$ lower pair eigenvalues equal to $0$.
+\end{proof}
+\status{Verified numerically: maximal absolute error $1.7\times10^{-13}$ against the stated formula ($d=3,4,5$).}
+
+The near-kernel values $\frac12(2+a-\sqrt{a^2+4})\approx a/2$ matter only for small $a$. At initialization $a\approx10\cdot0.065^2/15\approx0.003$. On the tables of an in-progress trained run, the frequency-weighted median of $a$ is $2.1$ and $1.8$ in the two blocks, where those eigenvalues are $0.60$ and $0.55$. Between the $10$th and $90$th percentiles of $a$ ($0.67$ to $4.2$ over both blocks) they range from $0.28$ to $0.77$, so only the structural stabilizer is degenerate (statistics not independently reproduced).
+
+\begin{proposition}[restriction to subalgebras]\label{prop:subalg}
+For a subalgebra $\g$ the metric is the restriction of $g_U$, with kernel $\g\cap\stab(\nu,C)$. For $\mathfrak{so}(d)$ the kernel is $\{Y:[Y,C]=0,\ Y\nu=0\}$; it is trivial for generic $C$, and of dimension $(d-1)(d-2)/2$ for $C=cI$ and $\nu\neq0$. For $\mathfrak{sp}(2m)$ with distinct symplectic eigenvalues, $\mathfrak{sp}\cap\mathfrak{o}(C)$ is the Lie algebra of an $m$-torus, so the kernel is $m$-dimensional for $\nu=0$ and trivial for generic $\nu$. For \texttt{block\_glk} with block-diagonal local covariance, $C$ is block-diagonal and the metric is exactly block-diagonal across heads, each block being the Fisher of the marginal $(\nu_h,C_h)$.
+\end{proposition}
+\begin{proof}
+For skew $Y$, $YC+CY^\top=YC-CY=[Y,C]$. A matrix commuting with a symmetric $C$ of distinct eigenvalues is diagonal in its eigenbasis, and a skew diagonal matrix vanishes. For $C=cI$ the condition reduces to $Y\nu=0$. The symplectic statement follows from Williamson's normal form \cite{Williamson1936}: a symplectic congruence brings $C$ to $\operatorname{diag}(\Lambda,\Lambda)$, whose symplectic-orthogonal stabilizer is a product of $m$ circle groups when the entries of $\Lambda$ are distinct. For the block statement, with block-diagonal $Y$ and $C$, $\tr(Y^\top C^{-1}YM)$ reads only the diagonal blocks of $M=C+\nu\nu^\top$, and $\tr(Y^2)$ splits by blocks.
+\end{proof}
+\status{The $\mathfrak{so}$ and block statements derived here; the $\mathfrak{sp}$ statement cited and verified numerically only (kernel $[0,m]$ for $m=1,2,3$), not independently re-derived. Block decoupling verified numerically: off-block entries $0.0$, each block equal to the marginal Fisher to $2.8\times10^{-14}$; with cross-block local covariance the off-block entries reach $5.36$.}
+
+\begin{proposition}[domination of the read path]\label{prop:dominate}
+Every Gaussian that the read path builds from $(\nu,C)$ by a fixed linear map, such as the projected moments $(S\nu,SCS^\top)$ for query and key, the content $T\nu$, or $M_hCM_h^\top$, has a frame Fisher dominated by $g_U$ in the Loewner order.
+\end{proposition}
+\status{Cited: monotonicity of Fisher information under Markov morphisms \cite{Cencov1982,AmariNagaoka2000}; a deterministic linear map is such a morphism. Accepted by the verifier as a derivation; not executed.}
+
+So $g_U$ is the largest read-path metric, and the only one that does not depend on the learned projections $S,T,O$.
+
+\section{Symmetries of the frame Fisher}\label{sec:symmetries}
+
+\begin{proposition}[left gauge invariance]\label{prop:left}
+Under the left gauge action $(\mu,\Sigma,U)\mapsto(g\mu,g\Sigma g^\top,gU)$ the metric and the natural direction are invariant.
+\end{proposition}
+\begin{proof}
+The action fixes $r=U^{-1}\cdot q$ and the body generator: $(gU)^{-1}\delta(gU)=U^{-1}\delta U$. The metric \eqref{eq:gU} depends only on $r$ and $Y$. For a gauge-invariant loss the body covector $G_Y$ is invariant as well, and so is $\mathcal{F}^{-1}G_Y$.
+\end{proof}
+\status{Derived here. Verified numerically: metric difference $1.7\times10^{-13}$ on values of order $10^2$ to $10^3$; direction $3.5\times10^{-15}$.}
+
+This is a property of the formula as a function of $(\mu,\Sigma,U)$. It is not a symmetry of the diagonal table parametrization unless $g$ is monomial.
+
+\begin{proposition}[right equivariance]\label{prop:right}
+Under $U\mapsto Uh$, $g_{Uh}(h^{-1}Yh,h^{-1}Yh)=g_U(Y,Y)$. Covectors transform coadjointly, $G_Y\mapsto h^\top G_Yh^{-\top}$, and the natural direction transforms as $\xi\mapsto h^{-1}\xi h$.
+\end{proposition}
+\begin{proof}
+$Uhe^{t h^{-1}Yh}=Ue^{tY}h$, so the perturbed reference beliefs at $Uh$ are $h^{-1}\cdot\big((Ue^{tY})^{-1}\cdot q\big)$, the pushforward of the family at $U$ by the fixed bijection $h^{-1}$. Fisher information is invariant under a parameter-free bijective change of the sample space. The covector law follows from $\ip{G'}{h^{-1}Yh}=\ip{G}{Y}$ for all $Y$, and the direction law from the two transformation laws.
+\end{proof}
+\status{Derived here. Verified numerically: metric $2.0\times10^{-13}$, direction $2.3\times10^{-14}$.}
+
+\begin{proposition}[right invariance for a fixed belief]\label{prop:rightinv}
+Let $h_q$ denote \eqref{eq:gU} evaluated at $U=I$, i.e. with $(\nu,C)=(\mu,\Sigma)$. Then
+\begin{equation}\label{eq:rightinv}
+g_U(Y,Y)=h_q(\Ad_UY,\Ad_UY)=h_q((\delta U)U^{-1},(\delta U)U^{-1}).
+\end{equation}
+For fixed $q$ the frame metric is therefore the right-invariant positive semidefinite metric on $G$ with identity value $h_q$. Its kernel at $U$ is $\{WU:W\in\stab(q)\}$; it descends to $\Stab_q\backslash G$, and $\Stab_qU\mapsto U^{-1}\cdot q$ is an isometric embedding onto the orbit in $(\Normal_d,g_{\mathrm{FR}})$.
+\end{proposition}
+\begin{proof}
+$Ue^{tY}=e^{t\Ad_UY}U$, so $(Ue^{tY})^{-1}\cdot q=U^{-1}\cdot(e^{-t\Ad_UY}\cdot q)$, the pushforward by the fixed $U^{-1}$ of the family whose Fisher at $t=0$ is $h_q(\Ad_UY)$. Right invariance is the statement that $(\delta U)U^{-1}$ is unchanged under $U\mapsto Uk$. The orbit map is constant on cosets $\Stab_qU$, and by Lemma~\ref{lem:submodel} its pullback of $g_{\mathrm{FR}}$ is $g_U$, whose kernel is exactly the tangent space to the coset.
+\end{proof}
+\status{Derived here. Verified numerically: relative difference at most $3.2\times10^{-15}$ over four draws.}
+
+For $\GL(d)$ the orbits are the level sets $\{(m,S):m^\top S^{-1}m=a\}$; transitivity follows by whitening two beliefs and rotating one whitened mean onto the other. They have dimension $\frac12(d^2+3d)-1$ and are hypersurfaces for $a>0$. For $a=0$ the orbit is the cone of positive definite matrices with $g=\frac12\tr((C^{-1}\delta C)^2)$, one half of the affine-invariant metric \cite{Skovgaard1984}. This is the frame's own geometry: moving the frame moves the reference belief along its Mahalanobis orbit, measured in Fisher\ndash Rao distance. The belief metric escapes Theorem~\ref{thm:milnor} because it is not a metric on $G$ alone: it depends on $q$, which moves with $U$ under the left action.
+
+\begin{remark}[relation to Amari's natural gradient on matrices]\label{rem:amari-bss}
+Amari's natural gradient on the space of nonsingular matrices for blind source separation uses a right-invariant metric in $(\delta U)U^{-1}$ with identity value the Frobenius norm \cite{Amari1998}. Proposition~\ref{prop:rightinv} has the same invariance with identity value $h_q$. With the completion of Section~\ref{sec:completion} at its default, and for a standard local belief $q=\Normal(0,I)$, the metric is $2\|(\delta U)U^{-1}\|_F^2$, twice Amari's; a general $q$ whitens and weights it. (Derived here by specialization; not separately checked.)
+\end{remark}
+
+\begin{proposition}[covariance under the split redundancy]\label{prop:split}
+Use for each type row and each positional row the corresponding diagonal block of the batch Fisher of Section~\ref{sec:batch}, completed as in Section~\ref{sec:completion}. Then the realized-frame velocity $\Omega_i=(\delta U_i)U_i^{-1}$ produced by the natural step does not depend on the representative $(E_vh,h^{-1}F_p)$ of the split redundancy. If the steps are retracted by the group exponential $E_v\leftarrow e^{-\eta W_v}E_v$, $F_p\leftarrow e^{-\eta W'_p}F_p$ with unit trust factor, the updated realized frames are also representative-independent.
+\end{proposition}
+\begin{proof}
+The per-occurrence metric (Fisher plus completion) is a function of $q_{v_i}$ and of $\Omega_i$ only: by \eqref{eq:rightinv} the Fisher part is $h_{q_{v_i}}(\Omega_i)$, and the completion of Section~\ref{sec:completion} is defined through $Z_i=L_i^{-1}U_i^{-1}\Omega_iU_iL_i$ with $L_i=U_i^{-1}\Sigma_{v_i}^{1/2}$, which equals $\Sigma_{v_i}^{-1/2}\Omega_i\Sigma_{v_i}^{1/2}$. The type block is the restriction of this metric and of the loss differential to the subspace of realized perturbations $\{e^{tW}E_vF_p\}$, and the positional block to $\{E_ve^{tW'}F_p\}$. Under the change of representative these subspaces are the same sets of realized perturbations: $e^{tW}(E_vh)(h^{-1}F_p)=e^{tW}E_vF_p$ and $(E_vh)e^{tW''}(h^{-1}F_p)=E_ve^{t\Ad_hW''}F_p$. A natural gradient restricted to a fixed subspace, with a metric and a covector defined on that subspace, is intrinsic, so the realized velocity in each block is independent of the coordinates used for it. The finite-step statement follows from $e^{-\eta W}(E_vh)e^{-\eta W''}h^{-1}F_p=e^{-\eta W}E_ve^{-\eta\Ad_hW''}F_p$ and $\Ad_hW''_{\mathrm{nat}}=W'_{\mathrm{nat}}$.
+\end{proof}
+\status{Derived here. Verified numerically: frames agree to $7.5\times10^{-15}$ between representatives; realized-velocity mismatch $6.3\times10^{-15}$ for the Fisher route, $0.177$ for the Frobenius pullback and $0.179$ for the Euclidean chart step.}
+
+Under AdamW, and under the pullback, the realized trajectory therefore depends on the arbitrary split of each frame into type and positional factors, while under the Fisher route it does not. One caveat applies to the finite step: the repository's trust rule measures the Frobenius norm of the body generator, $\|\eta\xi_{\mathrm{body}}\|_F$ with $\xi_{\mathrm{body}}=E_v^{-1}W_vE_v$, and that norm changes under $E_v\mapsto E_vh$. When the trust region binds, the finite step is representative-dependent unless the trust norm is replaced by the metric norm. The velocity statement is unaffected.
+
+\section{Which beliefs define the metric: the batch Fisher}\label{sec:batch}
+
+\begin{proposition}[position independence of the type metric]\label{prop:position}
+Perturb the stored type factor, $E_v\mapsto E_ve^{Y}$. The Fisher of every occurrence $i$ of type $v$ equals the Fisher $g_{E_v}(Y,Y)$ of the middle-fiber belief $r_v^0=E_v^{-1}\cdot q_v=\Normal(\nu^0_v,C^0_v)$, independently of the position. In the spatial generator $W$ of $E_v\mapsto e^{W}E_v$ the metric is $h_{q_v}(W,W)$, a function of the stored row $(\mu_v,s_v)$ only.
+\end{proposition}
+\begin{proof}
+$E_ve^YF_p=U_ie^{\Ad_{F_p^{-1}}Y}$. By Proposition~\ref{prop:right} with $h=F_p^{-1}$, $g_{U_i}(\Ad_{F_p^{-1}}Y)=g_{U_iF_p^{-1}}(Y)=g_{E_v}(Y)$. The spatial statement is \eqref{eq:rightinv} with $U=E_v$ and $W=\Ad_{E_v}Y$.
+\end{proof}
+\status{Derived here. Verified numerically: the Fisher at four random positions equals the middle-fiber value to $10^{-13}$ relative.}
+
+Hence the per-occurrence encoded beliefs and the per-type prior give the same metric, $\mathbb{E}_{i\in v}g_i=g_{r^0_v}$ exactly, and no pooling or forward statistics are needed for type rows.
+
+\paragraph{The batch Fisher.} Perturb all factors spatially, $E_v\mapsto e^{W_v}E_v$ and $F_p\mapsto e^{W'_p}F_p$. Then $\Omega_i=W_{v_i}+\Ad_{E_{v_i}}W'_{p_i}$ and the occurrence Fisher is $h_{q_{v_i}}(\Omega_i)$. Treat the reference priors of distinct occurrences as independent, so that information adds, and normalize like the mean loss by the number $\Nsc$ of scored tokens (the cross-entropy denominator and the gradient-accumulation divisor):
+\begin{equation}\label{eq:batch}
+\mathcal{G}=\frac{1}{\Nsc}\sum_ih_{q_{v_i}}\left(W_{v_i}+\Ad_{E_{v_i}}W'_{p_i}\right).
+\end{equation}
+Its diagonal blocks are $\frac{n_v}{\Nsc}h_{q_v}(W_v)$ for type row $v$, where $n_v$ is the number of scored occurrences of $v$, and $\frac{B}{\Nsc}\cdot\frac1B\sum_bg_{r^0_{v_b}}(W'_p)$ for positional row $p$, using $h_q(\Ad_EW')=g_{E^{-1}\cdot q}(W')$ and $v_b$ the type at $(b,p)$. The route uses these blocks, a block-diagonal approximation of $\mathcal{G}$. The natural steps are therefore count-normalized: the type direction is $(\Nsc/n_v)\bar h_v^{-1}G_{W_v}$, the Amari-consistent choice for the batch model. Using the occurrence mean $\bar h_v$ alone would give count-proportional, SGD-like steps and is not the Fisher of the batch model. The dropped cross blocks couple type row $v_i$ with positional row $p_i$, and $\mathcal{G}$ is degenerate along the split redundancy ($W_v=\Ad_{E_v}Z$, $W'_p=-Z$ gives $\Omega_i=0$), a direction that moves no realized frame and that the block-diagonal approximation does not see.
+
+The count normalization has a consequence that only a training run can judge: every touched type row receives a step of the size of its per-occurrence mean gradient, so singleton types (about $67\%$ of touched types per batch in the investigator's measurement, not independently reproduced) receive full-size single-sample steps.
+
+\paragraph{Positional rows are pooled.} Column $p$ carries the types $v_b$, so its metric is a sum of Fishers at different Gaussians. Its kernel is $\bigcap_b\stab(r^0_{v_b})$, which is trivial already for two generic Gaussians: after whitening one of them, a skew generator that also preserves a generic second covariance commutes with a matrix of distinct eigenvalues and vanishes. With the completion of Section~\ref{sec:completion} each summand is positive definite, so the pooled operator is positive definite for every batch.
+
+\section{Completion on the stabilizer}\label{sec:completion}
+
+The loss reads $U_i$ outside the reference belief: in the write-back, the diagonal projection, the local norm, the MLP and the decoder. Its gradient therefore has components in the stabilizer: on a tiny active-route model the whitened gradient had a mean share of $0.19$ (maximum $0.54$) there, and the verifier measured $0.26$ (maximum $0.60$) on its own draws. The undamped natural gradient is ill-posed, and a completion must be chosen. A ridge of $10^{-6}$ is not a completion: it would amplify the stabilizer components by about $10^6$.
+
+\begin{proposition}[covariant completion family]\label{prop:completion}
+A completion that depends only on $C$ and is invariant under $\mathrm{O}(d)$ conjugation of $Z$ adds a combination of $\|\sym Z\|_F^2$, $\|\asym Z\|_F^2$ and $(\tr Z)^2$. The family below uses the first two:
+\begin{equation}\label{eq:completion}
+\mathcal{M}_{\lambda_s,\lambda_a}(Y,Y)=g_U(Y,Y)+\lambda_s\|\sym Z\|_F^2+\lambda_a\|\asym Z\|_F^2
+\end{equation}
+has the operator
+\begin{equation}\label{eq:M}
+\mathcal{M}(Y)=C^{-1}Y(c_1C+\nu\nu^\top)+c_2Y^\top,\qquad c_1=1+\tfrac12(\lambda_s+\lambda_a),\qquad c_2=1+\tfrac12(\lambda_s-\lambda_a),
+\end{equation}
+and generalized spectrum relative to $\mathcal{P}$
+\begin{equation}\label{eq:M-spectrum}
+\{2+\lambda_s+a\}\cup\left\{\tfrac12\left(2c_1+a\pm\sqrt{a^2+4c_2^2}\right)\right\}^{d-1}\cup\{2+\lambda_s\}^{d(d-1)/2}\cup\{\lambda_a\}^{(d-1)(d-2)/2}.
+\end{equation}
+Every member has the symmetries of Section~\ref{sec:symmetries}.
+\end{proposition}
+\begin{proof}
+The $\mathrm{O}(d)$-conjugation-invariant quadratic forms on $\gl(d)$ are combinations of $\|\sym Z\|^2$, $\|\asym Z\|^2$ and $(\tr Z)^2$; the family uses the first two. From $\|\sym Z\|^2=\frac12(\|Z\|^2+\tr Z^2)$, $\|\asym Z\|^2=\frac12(\|Z\|^2-\tr Z^2)$, $\|Z\|^2=\ip{Y}{\mathcal{P}Y}$ and $\tr Z^2=\tr Y^2=\ip{Y}{Y^\top}$, the added operator is $\frac{\lambda_s+\lambda_a}{2}C^{-1}YC+\frac{\lambda_s-\lambda_a}{2}Y^\top$; adding \eqref{eq:F} gives \eqref{eq:M}. In whitened form $\mathcal{M}$ becomes $Z\mapsto Z(c_1I+\omega\omega^\top)+c_2Z^\top$, and the proof of Theorem~\ref{thm:spectrum} applies with $z_{11}\mapsto(c_1+c_2+a)z_{11}$, pair matrix $\begin{pmatrix}c_1&c_2\\c_2&c_1+a\end{pmatrix}$, and $c_1\pm c_2$ on the symmetric and skew parts of $Z_{\perp\perp}$. The added terms are functions of $Z$ that are invariant under $Z\mapsto Q^\top ZQ$, and $Z$ is determined by $(C,Y)$ covariantly under the three actions, so the proofs of Section~\ref{sec:symmetries} carry over.
+\end{proof}
+\status{Derived here. Verified numerically: spectrum formula $7.9\times10^{-14}$; left gauge $1.1\times10^{-13}$ and right $\GL$ $1.6\times10^{-13}$ for the completed metric.}
+
+The condition number of $\mathcal{M}$ relative to $\mathcal{P}$ is the ratio of the extremes of \eqref{eq:M-spectrum}. The smallest eigenvalue is $\min\{\lambda_a,\frac12(2c_1+a-\sqrt{a^2+4c_2^2})\}$ when $\lambda_a\le2+\lambda_s$, and $2+\lambda_s$ when $\lambda_a>2+\lambda_s$ (for $d\ge3$; the member $\lambda_a$ is absent at $d=2$). Indeed, since $2c_1-2(2+\lambda_s)=-2c_2$, the lower pair eigenvalue is at most $2+\lambda_s$ if and only if $a-2c_2\le\sqrt{a^2+4c_2^2}$, which for $a>0$ holds if and only if $c_2\ge0$, that is $\lambda_a\le2+\lambda_s$; for $c_2<0$ both the lower pair eigenvalue and $\lambda_a$ exceed $2+\lambda_s$. This supersedes the companion record's remark that the minimum expression holds for every $\lambda_a$. The largest is $2+\lambda_s+a$ when $\lambda_a\le2$ (with $\lambda_s=0$), but for $\lambda_a>2$ it is $\frac12(2c_1+a+\sqrt{a^2+4c_2^2})$, which then exceeds $2+a$; a condition diagnostic must use $\max\{2+\lambda_s+a,\frac12(2c_1+a+\sqrt{a^2+4c_2^2})\}$ as numerator (verifier correction).
+
+\begin{corollary}[the default completion is a Kronecker product]\label{cor:kron}
+The member $(\lambda_s,\lambda_a)=(0,2)$ leaves the Fisher unchanged on the symmetric (covariance-visible) directions and on $z_{11}$, adds the Fisher's own shear weight $2$ on every skew direction, and makes the transpose term vanish ($c_2=0$). The skew directions include the $d-1$ skew components $z_{1j}-z_{j1}$ of the pairs, which the mean sees ($Z\omega\neq0$). On each pair the spectrum changes from $\frac12(2+a\pm\sqrt{a^2+4})$ to $\{2,2+a\}$, so the lower pair eigenvalue $\approx a/2$ is raised to $2$: the completion does change the metric on directions the belief sees. Then
+\begin{equation}\label{eq:kron}
+\mathcal{M}_{0,2}(Y)=C^{-1}Y(2C+\nu\nu^\top),\qquad \ip{Y}{\mathcal{M}_{0,2}Y}=2\|Z\|_F^2+\|Z\omega\|^2,
+\end{equation}
+which in row-major vectorization is $C^{-1}\otimes(2C+\nu\nu^\top)$. Its spectrum relative to $\mathcal{P}$ is $\{2\}^{d^2-d}\cup\{2+a\}^{d}$, with condition number $(2+a)/2$, about $2$ at trained statistics.
+\end{corollary}
+\begin{proof}
+Set $c_1=2$, $c_2=0$ in \eqref{eq:M} and \eqref{eq:M-spectrum}: $z_{11}$ gives $2+a$, each pair gives $\frac12(4+a\pm a)\in\{2+a,2\}$, and the complement gives $2$. The multiplicities are $1+(d-1)=d$ for $2+a$ and $(d-1)+(d-1)^2=d^2-d$ for $2$. The vectorization uses $\vect(AYB)=(A\otimes B^\top)\vect Y$ in row-major order.
+\end{proof}
+\status{Derived here. Verified numerically: the Kronecker formula $Y=CG_Y(2C+\nu\nu^\top)^{-1}$ against a dense solve to $1.2\times10^{-14}$.}
+
+The default weight $\lambda_a=2$ is kept. The belief cannot determine it, and nothing here shows that it is optimal for the loss.
+
+\section{Solvers}\label{sec:solvers}
+
+\begin{proposition}[single Gaussian, general completion]\label{prop:woodbury}
+The whitened equation $c_1Z+Z\omega\omega^\top+c_2Z^\top=R$ has the solution
+\begin{equation}\label{eq:woodbury}
+Z=\mathcal{L}_0^{-1}(R)-\mathcal{L}_0^{-1}(w\omega^\top),\qquad w=\frac{b-\beta\omega(\omega^\top b)/(1+a(\alpha+\beta))}{1+a\alpha},\qquad b=\mathcal{L}_0^{-1}(R)\omega,
+\end{equation}
+where $\mathcal{L}_0^{-1}(R)=\sym R/(2+\lambda_s)+\asym R/\lambda_a$, $\alpha=\frac12(\frac1{2+\lambda_s}+\frac1{\lambda_a})$ and $\beta=\frac12(\frac1{2+\lambda_s}-\frac1{\lambda_a})$. It costs $O(d^2)$, uses no basis adapted to $\omega$, and is valid at $\omega=0$.
+\end{proposition}
+\begin{proof}
+$\mathcal{L}_0(Z)=c_1Z+c_2Z^\top$ acts as $c_1+c_2=2+\lambda_s$ on symmetric and $c_1-c_2=\lambda_a$ on skew matrices, which gives $\mathcal{L}_0^{-1}$. Write $w=Z\omega$; then $Z=\mathcal{L}_0^{-1}(R-w\omega^\top)$. Since $\mathcal{L}_0^{-1}(w\omega^\top)=\alpha w\omega^\top+\beta\omega w^\top$, multiplying by $\omega$ gives $w=b-\alpha aw-\beta\omega(\omega^\top w)$. Contracting with $\omega^\top$ yields $\omega^\top w=\omega^\top b/(1+a(\alpha+\beta))$, and substituting back gives $w$.
+\end{proof}
+\status{Derived here. Verified numerically against a dense solve for $d=3,\dots,6$, completion weights $10^{-3}$ to $5$, $|\omega|$ of order $1$ and $10^{-4}$, and $\omega=0$: maximal relative difference $7.7\times10^{-9}$ at the corner of weight $10^{-3}$ and $\kappa(C)=10^3$, where the closed form had the smaller residual.}
+
+\begin{corollary}[type-row step at the stored row]\label{cor:type}
+Take the factor $L=E_v^{-1}S_v^{1/2}$ of $C^0_v$. Then $Z=S_v^{-1/2}W_vS_v^{1/2}$ and $\omega=S_v^{-1/2}\mu_v$, so the type solve runs in spatial coordinates at the local diagonal row with $R_{jk}=\sqrt{s_j/s_k}(G_W)_{jk}$ and $(W_v)_{jk}=\sqrt{s_j/s_k}Z_{jk}$, with no eigendecomposition. For the default completion, including the count factor,
+\begin{equation}\label{eq:type-step}
+W_v=\frac{\Nsc}{n_v}S_vG_W\left(2S_v+\mu_v\mu_v^\top\right)^{-1}=\frac{\Nsc}{2n_v}\left(Q-\frac{(Q\mu_v)(S_v^{-1}\mu_v)^\top}{2+a_v}\right),\qquad Q_{jk}=\frac{s_j}{s_k}(G_W)_{jk},
+\end{equation}
+with $a_v=\mu_v^\top S_v^{-1}\mu_v$.
+\end{corollary}
+\begin{proof}
+$L^{-1}YL=S_v^{-1/2}E_vYE_v^{-1}S_v^{1/2}=S_v^{-1/2}W_vS_v^{1/2}$ with $W_v=\Ad_{E_v}Y$, and $L^{-1}\nu^0_v=S_v^{-1/2}E_vE_v^{-1}\mu_v$. For the default completion, $\mathcal{M}_{0,2}$ in the spatial coordinates at $q_v$ reads $W\mapsto S_v^{-1}W(2S_v+\mu_v\mu_v^\top)$, so $W=S_vG_W(2S_v+\mu_v\mu_v^\top)^{-1}$. The Sherman\ndash Morrison formula \cite{ShermanMorrison1950} gives $(2S+\mu\mu^\top)^{-1}=\frac12\left(S^{-1}-S^{-1}\mu\mu^\top S^{-1}/(2+a)\right)$, and $SGS^{-1}=Q$.
+\end{proof}
+\status{Verified numerically: spatial Kronecker form against the body solve to $1.9\times10^{-15}$; Sherman\ndash Morrison form to $1.9\times10^{-16}$.}
+
+\begin{remark}[the Stein reduction]\label{rem:stein}
+Transposing $Z(A+\lambda I)+Z^\top=R$ and eliminating $Z^\top$ gives the Stein equation $Z-PZP=R^\top-PR$ with $P=A+\lambda I$. For $\lambda>0$ it is correct and invertible, with smallest singular value $2\lambda+\lambda^2$ but largest about $(1+a+\lambda)^2$, so it is worse conditioned than the direct form. Undamped it is not equivalent: the elimination adds $d(d-1)/2$ spurious null directions (ranks $5$ and $9$ at $d=3,5$ against Fisher ranks $8$ and $19$, verified numerically), so it must not be used for a pseudo-inverse.
+\end{remark}
+
+\begin{proposition}[pooled positional operator]\label{prop:pooled}
+In row-major vectorization the completed positional block is
+\begin{equation}\label{eq:pooled}
+\mathcal{M}_p=\frac1B\sum_bC_b^{-1}\otimes N_b+c_2K_{\mathrm{comm}},\qquad N_b=c_1C_b+\nu_b\nu_b^\top,
+\end{equation}
+with $(\nu_b,C_b)$ the middle-fiber moments of $v_b$ and $K_{\mathrm{comm}}$ the commutation matrix, and the positional step is $W'_p=(\Nsc/B)\mathcal{M}_p^{-1}G_{W'}$. For distinct Gaussians $\mathcal{M}_p$ is in general not a Kronecker product.
+\end{proposition}
+\begin{proof}
+The formula is the sum of \eqref{eq:M} over the column in the coordinates of Proposition~\ref{prop:position}, with the count factor of \eqref{eq:batch}. Under the Van Loan\ndash Pitsianis rearrangement \cite{VanLoanPitsianis1993}, $\sum_bC_b^{-1}\otimes N_b$ maps to $\sum_b\vect(C_b^{-1})\vect(N_b)^\top$, whose rank is the dimension of the span of these outer products and exceeds one unless all $C_b^{-1}$ (or all $N_b$) are proportional; the operator is a single Kronecker product if and only if that rank is one.
+\end{proof}
+\status{Derived here. Verified numerically at $d=5$: rearrangement rank $3$ for three distinct Gaussians and $15$ for sixteen; the K-FAC mean-factor surrogate gave direction cosines $0.970$, $0.973$ and $0.202$ against the exact solve.}
+
+The cheapest exact solver at $d=10$ is dense: building the matrix costs $Bd^4=6.4\times10^5$ flops, Jacobi scaling is followed by an fp64 Cholesky factorization of about $3.3\times10^5$ flops. Matrix-free conjugate gradients needed $39$ to $88$ iterations at $d=5$ and would cost more at $d=10$. The Jacobi-scaled Cholesky residual was $3.9\times10^{-14}$ to $4.1\times10^{-10}$ at condition numbers up to $3.6\times10^7$ on random Gaussians; behavior on trained statistics was not checked. The implementation accepts a solve when the normwise backward error $\|\mathcal{M}x-g\|/(\|\mathcal{M}\|_F\|x\|+\|g\|)$ is at most $10^{-10}$; the Frobenius norm replaces $\|\mathcal{M}\|_2$ to avoid an SVD per operator, which loosens the gate by at most a factor $\sqrt{d^2}=d$. The spectrum of the Jacobi-scaled operator is a diagnostic and is computed only on logging steps.
+
+\section{From the natural direction to a \texorpdfstring{$\varphi$}{phi} update}\label{sec:update}
+
+\begin{proposition}[chart direction and descent]\label{prop:descent}
+The chart direction and the body generator for staging are
+\begin{equation}\label{eq:chartdir}
+v_\varphi=\Psi_R(\ad_{X_v})^{-1}W_v,\qquad \xi_{\mathrm{body}}=E_v^{-1}W_vE_v=\Psi_L(\ad_{X_v})v_\varphi,
+\end{equation}
+and likewise with $(\Theta_p,F_p,W'_p)$ for positional rows. In chart coordinates $v_\varphi=\mathcal{F}_\varphi^{-1}\nabla_\varphi\ell$ with $\mathcal{F}_\varphi=\Psi_R(\ad_{X_v})^*\mathcal{H}\Psi_R(\ad_{X_v})$, where $\mathcal{H}$ is the positive definite completed and count-normalized metric operator in spatial coordinates. Hence $v_\varphi$ is a descent direction whenever $\nabla_\varphi\ell\neq0$.
+\end{proposition}
+\begin{proof}
+A chart velocity $\delta\varphi$ produces $W=\Psi_R(\ad_X)\delta\varphi$ by Lemma~\ref{lem:dexp}, so the metric in chart coordinates is $\Psi_R^*\mathcal{H}\Psi_R$ and, by \eqref{eq:covectors}, $\nabla_\varphi\ell=\Psi_R(\ad_X)^*G_W$. Then $\mathcal{F}_\varphi^{-1}\nabla_\varphi\ell=\Psi_R^{-1}\mathcal{H}^{-1}G_W=\Psi_R^{-1}W$. The body relation is $\Psi_L(\ad_X)=e^{-\ad_X}\Psi_R(\ad_X)$. Positive definiteness of $\mathcal{F}_\varphi$ gives $\ip{\nabla_\varphi\ell}{v_\varphi}>0$.
+\end{proof}
+\status{Derived here. Verified numerically on a tiny active-route model ($K=6$, $H=2$, $d=3$, $V=16$, $N=6$, $B=3$, two layers, fp64): type rows against an independent Hessian route to $5.1\times10^{-14}$, positional rows to $2.3\times10^{-13}$, $\ip{g}{v}>0$, and the first-order loss change within $0.4\%$ of $-\epsilon\ip{g}{v}$ at $\epsilon=10^{-3}$.}
+
+\paragraph{Chart maps without materializing $\Psi$.} Since $\Psi_R(z)^{-1}=z/(e^z-1)=\sum_kB_kz^k/k!$ with Bernoulli numbers $B_k$ ($B_1=-\frac12$, odd $B_k=0$ for $k\ge3$), $\Psi_R(\ad_X)^{-1}Y$ is a series with one commutator per term and radius $2\pi$; the adjoint is the same series in $X^\top$.
+
+\begin{lemma}[Bernoulli tail]\label{lem:bernoulli}
+Let $\rho=\|X\|_F/\pi$, so that $\|\ad_X\|/(2\pi)\le\rho$ in the Frobenius operator norm. If $\rho<1$, the tail of the series after the even term $2n$ is bounded by $4\rho^{2n+2}/(1-\rho^2)\|Y\|_F$.
+\end{lemma}
+\begin{proof}
+$\|\ad_XY\|_F\le2\|X\|_2\|Y\|_F\le2\|X\|_F\|Y\|_F$. From $|B_{2m}|=2(2m)!\zeta(2m)/(2\pi)^{2m}$ and $\zeta(2m)\le\zeta(2)=\pi^2/6$, $|B_{2m}|/(2m)!\le(\pi^2/3)(2\pi)^{-2m}<4(2\pi)^{-2m}$. Summing the geometric tail gives the bound.
+\end{proof}
+\status{Derived here. Verifier correction applied: with this stop rule and a table of $128$ coefficients the branch certifies only $\rho\le0.764$ ($\|X\|_F\le2.40$); the stopping even orders are $14$, $24$ and $54$ at $\|X\|_F=0.3$, $0.8$, $1.7$. Using the tighter $\|\ad_X\|_{\mathrm{op}}/(2\pi)$ gives $14$, $20$, $36$. Trained tables ($\|X_h\|_F\le1.71$) stay inside the certified range. Bernoulli series against dense solve: $4.7\times10^{-16}$, adjoint $4.3\times10^{-16}$.}
+
+Beyond the radius, the Daleckii\ndash Krein form \cite[Ch.~3]{Higham2008} with $X=P\Lambda P^{-1}$ gives
+\begin{equation}\label{eq:dk}
+\Psi_R(\ad_X)^{-1}Y=P\left[(P^{-1}YP)\oslash\Psi_R(\lambda_j-\lambda_k)\right]P^{-1},\qquad \frac{1}{\Psi_R(z)}=\frac{e^{-z/2}}{\operatorname{sinhc}(z/2)},
+\end{equation}
+because $\ad_X$ acts on $PE_{jk}P^{-1}$ by $\lambda_j-\lambda_k$; the adjoint is $P^{-\top}[(P^\top YP^{-\top})\oslash\Psi_R]P^\top$. It was exact to $4.1\times10^{-15}$ up to $\|X\|_F=4.5$ in the checks (condition number of the forward map $1.7$, $4.9$, $21.7$, $100.5$ at $\|X\|_F=0.5$, $1.7$, $3.0$, $4.5$).
+
+\paragraph{Retraction and the certificate cap.} The chart retraction $\varphi-\eta sv_\varphi$ equals the group retraction $\exp(\varphi)\exp(-\eta s\xi_{\mathrm{body}})=\exp(-\eta sW)\exp(\varphi)$ to first order. The existing stager then applies its product-residual certificate at $10^{-6}$, which by Proposition~\ref{prop:second} is quadratic in the step and therefore caps the step size (Table~\ref{tab:cap}). At trained norms that cap, not the trust radius $0.1$, binds whenever $\eta\|v\|$ exceeds it. Composing the Fisher direction with the \texttt{group\_log} retraction \eqref{eq:grouplog},
+\begin{equation}\label{eq:fisher-grouplog}
+X_{\mathrm{new}}=\Log\left(e^{X}e^{-\eta s\xi_{\mathrm{body}}}\right)=\Log\left(e^{-\eta sW}e^{X}\right),
+\end{equation}
+removes the cap, since the residual is then only the logarithm accuracy plus storage rounding. The interaction of count-normalized step sizes with the chart certificate (heavy backtracking, effective learning-rate collapse) was measured in isolation but not simulated in training.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{cc}
+\toprule
+$\|\varphi\|_F$ & Largest certified chart step (median)\\
+\midrule
+$0.05$ & $3.9\times10^{-2}$\\
+$1.0$ & $8.7\times10^{-3}$\\
+$1.7$ & $6.7\times10^{-3}$\\
+\bottomrule
+\end{tabular}
+\caption{Largest chart step passing the existing $10^{-6}$ product-residual certificate at $d=6$ (verified numerically; quadratic scaling confirmed).}\label{tab:cap}
+\end{table}
+
+The $U$-space pullback uses the same interface with $W^{\mathrm{pb}}=G_W(EE^\top)^{-1}$, Euclidean descent on $E$. The contrast between the two routes is that the pullback metric depends on $\varphi$ but not on the belief, while the Fisher metric depends on the belief but not on $\varphi$.
+
+\section{The output Fisher alternative}\label{sec:output}
+
+The Fisher information of the training objective itself is the output Fisher
+\begin{equation}\label{eq:output}
+\mathcal{F}^{\mathrm{out}}=\frac1N\sum_jJ_j^\top\left(\operatorname{diag}p_j-p_jp_j^\top\right)J_j,
+\end{equation}
+restricted to one $d\times d$ block of one row, where $p_j$ is the predictive distribution at position $j$ and $J_j$ the Jacobian of its logits. Using it would be Amari's natural gradient of the actual objective. An unbiased estimator draws one sampled target per position, $\hat y_j\sim p_j$, and backpropagates $\sum_j\log p(\hat y_j\mid x)$ once; the per-sequence outer products have the right expectation because the $\hat y_j$ are conditionally independent given $x$ and have zero-mean scores. The biased empirical Fisher that uses the observed labels is not a substitute \cite{Kunstner2019}.
+
+Because $U$ and $U^{-1}$ enter as separate tensors, with $A=\partial L/\partial U$ and $B=\partial L/\partial U^{-1}$ the body gradient is $G_Y=U^\top A-BU^{-\top}$ and the spatial gradient $AU^\top-U^{-\top}B$ (from $\delta U=UY$, $\delta U^{-1}=-YU^{-1}$); omitting the inverse path gave a relative error of $0.75$. The body gradient of the stored type factor per occurrence is $F_p^{-\top}G_{Y,i}F_p^\top$, verified against the chart-gradient conversion to $10^{-15}$ in fp64.
+
+The output Fisher has no exact Kronecker structure: $G_Y$ collects rank-one read terms of the form $-\delta_\nu\nu^\top$, full-rank terms $-2\Gamma_CC$, and write-path terms, repeated in every layer, so only partial-trace (K-FAC-type) factors exist \cite{MartensGrosse2015}. Frobenius-contracted factors are only $\mathrm{O}(d)$-covariant (right-$\GL$ error $0.68$); belief-contracted factors $\mathcal{A}_c=\sum\hat gC^{-1}\hat g^\top$, $\mathcal{B}_c=\sum\hat g^\top C\hat g$ are $\GL$-covariant ($2\times10^{-14}$). The natural-gradient root is power $-1$ per factor; power $-\frac12$ is full-matrix AdaGrad, and Shampoo's $-\frac14$ comes from its Loewner bound \cite{GuptaKorenSinger2018}. The route is not the default for four reasons: it needs an extra sampled-label backward pass per update (or the biased empirical Fisher); it needs persistent factor state (about $80$ MB in fp32 at $V=50257$, two blocks, $d=10$, doubled if inverses are cached); most touched rows get a per-step estimate of rank one; and it admits no exact Kronecker factorization. The prior-family route of Corollary~\ref{cor:kron} is itself K-FAC-exact for its own model: its mean term is $C^{-1}\otimes\nu\nu^\top$ and $\mathcal{M}_{0,2}=C^{-1}\otimes(2C+\nu\nu^\top)$. (Statistical statements in this section are derived or cited, not executed; memory figures are arithmetic.)
+
+\section{Comparison with AdamW}\label{sec:adamw}
+
+AdamW \cite{KingmaBa2015,LoshchilovHutter2019} divides each chart coordinate by the root of an exponential moving average of the squared minibatch gradient. It is a diagonal preconditioner with power $-\frac12$, at best the square root of the diagonal of an empirical Fisher of batch gradients, so it is not a natural gradient: the power is wrong and there is no off-diagonal structure. It is invariant only under signed coordinate permutations, not under $\mathrm{O}(d)$ or $\GL$ conjugation and not under the split redundancy (Proposition~\ref{prop:split}). Its decoupled weight decay (\texttt{phi\_weight\_decay}) pulls every row toward the identity frame, which is not a symmetric point of any of the three actions. AdamW keeps per-coordinate state; both chart-aware routes here are stateless. On synthetic trained-like statistics at $d=6$, the Fisher direction differs from the pullback direction by a median cosine of $0.83$ and from the Euclidean direction by $0.90$; at initialization all three agree to cosine at least $0.98$ (verified numerically). Whether the Fisher route trains better is unknown.
+
+\section{Cost of the Fisher route}\label{sec:cost-fisher}
+
+At $K=20$, $d=10$, $H=2$, $V=50257$, $B=64$, $N=128$, with about $2858$ active type rows and $128$ positional rows per step (investigator's measurement, not independently reproduced), the fp64 flop counts are: chart maps about $2.5\times10^9$ (two Bernoulli applications per row-block under the stop rule of Lemma~\ref{lem:bernoulli}); exponentials of $10\times10$ matrices about $2.4\times10^8$; type solves about $6\times10^6$; positional middle-fiber moments about $5\times10^7$; positional Kronecker sums $1.6\times10^8$; positional Cholesky factorizations $8.5\times10^7$. The total is about $3.1\times10^9$ fp64 flops per step, with only transient memory (a few tensors of $5716\times10\times10$ doubles and $20.5$ MB of positional operators) and no persistent state. The materialized-series chart route of the current pullback code is estimated at $2$ to $5\times10^{11}$. These are arithmetic estimates; wall-clock time on the GPU was not measured.
+
+\section{Summary of evidence and open questions}\label{sec:summary}
+
+Verified numerically (float64, CPU, $d\le6$): the projected-descent identity and the closed forms for $A_U^{-1}$; the covector recovery by the Fr\'echet logarithm; the second-order gap between retractions; the branch and existence behavior inside the strip margin; the Bendixson inequality; the frame Fisher operator, its spectrum, kernel dimensions and block decoupling; left invariance, right equivariance, position independence and split covariance; the completion spectrum, the Kronecker default and the solvers; the chart maps; the end-to-end direction on a tiny active-route model; and the certificate cap. Derived here without separate numerical check: the trust-region bound, the direct proof of Theorem~\ref{thm:milnor}, the finite-step split statement, and Remark~\ref{rem:amari-bss}. Cited: the derivative of the exponential, the principal logarithm and its Fr\'echet derivative, Culver's existence theorem, Bendixson's inequality, Milnor's characterization, Williamson's normal form, \v{C}encov monotonicity, and the Gaussian Fisher metric.
+
+Not established: whether either route trains better than AdamW; the stabilizer leak at the production shape and on trained weights; the effect of count-normalized single-sample steps on singleton types and the sensitivity to $\lambda_a$; GPU wall-clock cost of both routes; the behavior of the pooled positional operator on trained statistics; the batch and trained-table statistics used for sizing, which come from one in-progress run and were not re-run by the verifier.
+
+\begin{thebibliography}{99}
+% Bibliographic verification (2026-09-28, web search against publisher or index records):
+% verified: Milnor 1976; Culver 1966; Mathias 1996; Bendixson 1902; Skovgaard 1984;
+%   Williamson 1936; Van Loan and Pitsianis 1993; Gupta, Koren and Singer 2018;
+%   Martens and Grosse 2015; Kunstner, Hennig and Balles 2019; Amari 1998;
+%   Cencov 1982 (AMS TMM 53); Denman and Beavers 1976; Neal and Hinton 1998 (page range
+%   differs between sources: 355-368 in some records, 355-371 in the Springer listing; the
+%   Springer range is used); existence of Hall 2015 (2nd ed., GTM 222).
+% not verified against the source: theorem and section numbers inside books
+%   (Hall Ch. 5; Higham Thm 1.31 and Thm 3.6, the former matched a secondary summary;
+%   Absil et al. Sec. 3.6.1; Milnor Lemma 7.5 matched secondary sources);
+%   Amari and Nagaoka 2000, Absil et al. 2008, Higham 2008, Dempster et al. 1977,
+%   Sherman and Morrison 1950, Kingma and Ba 2015, Loshchilov and Hutter 2019
+%   are given from standard bibliographic knowledge without a lookup in this session.
+
+\bibitem{Absil2008}
+P.-A. Absil, R. Mahony, and R. Sepulchre, \emph{Optimization Algorithms on Matrix Manifolds}, Princeton University Press, Princeton, 2008.
+
+\bibitem{Amari1998}
+S. Amari, Natural gradient works efficiently in learning, \emph{Neural Computation} \textbf{10}(2) (1998), 251\ndash 276.
+
+\bibitem{AmariNagaoka2000}
+S. Amari and H. Nagaoka, \emph{Methods of Information Geometry}, Translations of Mathematical Monographs, vol.~191, American Mathematical Society and Oxford University Press, 2000.
+
+\bibitem{Bendixson1902}
+I. Bendixson, Sur les racines d'une \'equation fondamentale, \emph{Acta Mathematica} \textbf{25} (1902), 359\ndash 365.
+
+\bibitem{Cencov1982}
+N. N. \v{C}encov, \emph{Statistical Decision Rules and Optimal Inference}, Translations of Mathematical Monographs, vol.~53, American Mathematical Society, Providence, 1982.
+
+\bibitem{Culver1966}
+W. J. Culver, On the existence and uniqueness of the real logarithm of a matrix, \emph{Proceedings of the American Mathematical Society} \textbf{17}(5) (1966), 1146\ndash 1151.
+
+\bibitem{Dempster1977}
+A. P. Dempster, N. M. Laird, and D. B. Rubin, Maximum likelihood from incomplete data via the EM algorithm, \emph{Journal of the Royal Statistical Society, Series B} \textbf{39}(1) (1977), 1\ndash 38.
+
+\bibitem{DenmanBeavers1976}
+E. D. Denman and A. N. Beavers, The matrix sign function and computations in systems, \emph{Applied Mathematics and Computation} \textbf{2}(1) (1976), 63\ndash 94.
+
+\bibitem{GuptaKorenSinger2018}
+V. Gupta, T. Koren, and Y. Singer, Shampoo: preconditioned stochastic tensor optimization, in \emph{Proceedings of the 35th International Conference on Machine Learning}, PMLR \textbf{80} (2018), 1842\ndash 1850.
+
+\bibitem{Hall2015}
+B. C. Hall, \emph{Lie Groups, Lie Algebras, and Representations: An Elementary Introduction}, 2nd ed., Graduate Texts in Mathematics, vol.~222, Springer, Cham, 2015.
+
+\bibitem{Higham2008}
+N. J. Higham, \emph{Functions of Matrices: Theory and Computation}, SIAM, Philadelphia, 2008.
+
+\bibitem{KingmaBa2015}
+D. P. Kingma and J. Ba, Adam: a method for stochastic optimization, in \emph{International Conference on Learning Representations}, 2015.
+
+\bibitem{Kunstner2019}
+F. Kunstner, P. Hennig, and L. Balles, Limitations of the empirical Fisher approximation for natural gradient descent, in \emph{Advances in Neural Information Processing Systems} \textbf{32} (2019).
+
+\bibitem{LoshchilovHutter2019}
+I. Loshchilov and F. Hutter, Decoupled weight decay regularization, in \emph{International Conference on Learning Representations}, 2019.
+
+\bibitem{MartensGrosse2015}
+J. Martens and R. Grosse, Optimizing neural networks with Kronecker-factored approximate curvature, in \emph{Proceedings of the 32nd International Conference on Machine Learning}, PMLR \textbf{37} (2015), 2408\ndash 2417.
+
+\bibitem{Mathias1996}
+R. Mathias, A chain rule for matrix functions and applications, \emph{SIAM Journal on Matrix Analysis and Applications} \textbf{17}(3) (1996), 610\ndash 620.
+
+\bibitem{Milnor1976}
+J. Milnor, Curvatures of left invariant metrics on Lie groups, \emph{Advances in Mathematics} \textbf{21}(3) (1976), 293\ndash 329.
+
+\bibitem{NealHinton1998}
+R. M. Neal and G. E. Hinton, A view of the EM algorithm that justifies incremental, sparse, and other variants, in M. I. Jordan (ed.), \emph{Learning in Graphical Models}, Kluwer, Dordrecht, 1998, 355\ndash 371.
+
+\bibitem{ShermanMorrison1950}
+J. Sherman and W. J. Morrison, Adjustment of an inverse matrix corresponding to a change in one element of a given matrix, \emph{Annals of Mathematical Statistics} \textbf{21}(1) (1950), 124\ndash 127.
+
+\bibitem{Skovgaard1984}
+L. T. Skovgaard, A Riemannian geometry of the multivariate normal model, \emph{Scandinavian Journal of Statistics} \textbf{11}(4) (1984), 211\ndash 223.
+
+\bibitem{VanLoanPitsianis1993}
+C. F. Van Loan and N. Pitsianis, Approximation with Kronecker products, in M. S. Moonen, G. H. Golub, and B. L. R. De Moor (eds.), \emph{Linear Algebra for Large Scale and Real-Time Applications}, Kluwer, Dordrecht, 1993, 293\ndash 314.
+
+\bibitem{Williamson1936}
+J. Williamson, On the algebraic problem concerning the normal forms of linear dynamical systems, \emph{American Journal of Mathematics} \textbf{58}(1) (1936), 141\ndash 163.
+
+\end{thebibliography}
+
+\end{document}

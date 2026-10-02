@@ -10,6 +10,10 @@ updated: 2026-10-02
 
 # Mathematics MOC
 
+## Frame-chart geometry and receiver flows, October 2, 2026
+
+[[dennis-2026-phi-natgrad]] proves that the Frobenius-pullback frame step is projected Euclidean descent on $U$, recovers the ambient gradient by a Fréchet derivative of the principal logarithm, and derives the belief-Fisher metric on frames with its stabilizer kernel, spectrum, symmetries and Kronecker completion (numerical checks at $d\le6$). [[dennis-2026-projected-gradient]] gives exact natural-parameter Fisher flows for a quadratic Gaussian family, a majorize-minimize argument for profiled self-coupling, and an explicit counterexample to descent of damped diagonal steps.
+
 ## Joint particle filtering, October 2, 2026
 
 [[multiagentelbo-2026-10-02-joint-particle-filter]] derives normalized joint prediction and exact Gaussian disintegration on observed affine fibers, then gives finite-history weak consistency for independent multinomial particle resampling as the cloud grows. This does not supply finite-cloud error bounds, expected log-score convergence, admission to the regular finite-filter class, or recursive formation. Eight distinct tiny checks passed; one 616.507218-second CPU study at 512/1,024 agents found every tested cloud worse than the static-lift baseline and persistent64 worse than reset64. Work pauses after publication at the user's request, with those theoretical obligations open.

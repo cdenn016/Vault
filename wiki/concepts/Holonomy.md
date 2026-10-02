@@ -12,10 +12,14 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-09-24
+updated: 2026-10-02
 ---
 
 # Holonomy
+
+## Coboundary monitors and link spectra in vfe3 (design record, September 28)
+
+The design record behind [[dennis-2026-phi-natgrad]] shows that the transformer's `holonomy_deviation` and `holonomy_wilson` metrics multiply only the coboundary $\Omega_{ij}=U_iU_j^{-1}$, which closes identically, so they measure floating-point error of the stored frame pair, not curvature; it recommends relabeling them as coboundary closure residuals. The gauge-invariant content of the communication links $L_{ij}^{(h)}=U_iM_hU_j^{-1}$ is instead the simultaneous similarity class of the $M_h$, and under a causal prior the only closed loops are self-loops, whose spectra are those of $rI+\sum_h\beta_{ii}^hM_h$. See the September 20 matrix-link section below for the scope of loop products.
 
 ## Edge twists, identity links and law coherence at one base point (review, September 23, tentative)
 

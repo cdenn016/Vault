@@ -14,12 +14,16 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-09-27
+updated: 2026-10-02
 ---
 
 # GL(K) gauge-equivariant attention
 
 The program studies Gaussian routing and predictive communication between locally framed agents. The current manuscript is *Gauge-Covariant Gaussian Attention and Predictive Communication*; the immutable [[gl-k-attention]] note records an earlier version. [[dennis-2026-glk-matrix-links-2026-09-20]] records the September matrix-link revision.
+
+## Retained routes and the gradient receiver, October 2, 2026
+
+The VFE_3.0 implementation now executes only the two projected routes, [[Projected predictive attention]] and [[Projected gradient attention]]; transported attention through the flat identification $\Omega_{ij}=U_iU_j^{-1}$, which the historical sections below describe, is retired, and the structure groups are `block_glk` and `so_n` ([[vfe3-2026-10-02-projected-route-consolidation]]). [[dennis-2026-projected-gradient]] supplies the gradient route's receiver: under cut routing (source labels inferred from the comparison record only), a channel likelihood that compares the receiver's measurement $O_h^\top x$ with the sender's message $T_h\bar\xi_j$ in the value space counts the receiver entropy once and has the tempered Gaussian posterior as its exact minimizer. The gauge-equivariance report figure now tests the projected score, routing, readout and receiver under a random passive frame action, with float64 residuals about $10^{-13}$. A design record behind [[dennis-2026-phi-natgrad]] shows that the complete gauge-invariant content of the link field is the simultaneous similarity class of the content maps $M_h=O_hT_h$ (given self-links), so the frames carry no invariant information of their own.
 
 ## Moment-matched predictive covariance, September 27, 2026
 
@@ -27,7 +31,7 @@ On the [[Projected predictive attention|projected predictive route]] the evaluat
 
 ## Positioning in the v2 revision, September 23, 2026
 
-The v2 revision, *Gauge-Covariant Gaussian Attention through Projected Matrix Links* (`manuscripts/GL(K)_attention_v2.tex`), adds citations that fix what the construction does and does not claim. The learned frames $U_i$ are a local dressing field in the sense of [[fournel-2014-gauge-invariant-composite-fields]], and the reference moments $(\xi_i,C_i)$ are the dressed variables. By criterion (C1) of [[francois-2019-artificial-gauge-symmetries]] the passive $\mathrm{GL}(K)$ covariance is therefore artificial, the kind of covariance Kretschmann objected to ([[norton-1993-general-covariance]]). The frames fix an $\{e\}$-structure ([[weiler-2021-coordinate-independent-cnns]]), and the covariance constrains none of $S_Q$, $S_K$, $T$, $O$. See [[Dressing field method]].
+The v2 revision, *Gauge-Covariant Gaussian Attention through Projected Matrix Links* (`manuscripts/Attention/GL(K)_attention_v2.tex`), adds citations that fix what the construction does and does not claim. The learned frames $U_i$ are a local dressing field in the sense of [[fournel-2014-gauge-invariant-composite-fields]], and the reference moments $(\xi_i,C_i)$ are the dressed variables. By criterion (C1) of [[francois-2019-artificial-gauge-symmetries]] the passive $\mathrm{GL}(K)$ covariance is therefore artificial, the kind of covariance Kretschmann objected to ([[norton-1993-general-covariance]]). The frames fix an $\{e\}$-structure ([[weiler-2021-coordinate-independent-cnns]]), and the covariance constrains none of $S_Q$, $S_K$, $T$, $O$. See [[Dressing field method]].
 
 The Section 4 shared-covariance reduction and its compensating prior have a point-query precedent in [[movellan-2020-probabilistic-transformers]]: the independent content law (Eq. 7), the mixture-mean readout (Eq. 14), and the key-norm-linked prior (Eq. 16 with Eqs. 20–21). The same reading appears in [[gabbur-2021-probabilistic-attention]] and, as mixture responsibilities, in [[nguyen-2022-probabilistic-attention-keys]]. The isotropic case of the reduction is L2 self-attention ([[kim-2021-lipschitz-self-attention]]), so L2 attention rather than dot-product attention is the natural transformer limit of Gaussian-KL routing. The Gaussian token prior bank has its precedent in the KL-scored Gaussian word embeddings of [[vilnis-2015-gaussian-embeddings]].
 

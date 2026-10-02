@@ -10,7 +10,7 @@ tags:
   - project/transformer
 status: stable
 created: 2026-06-18
-updated: 2026-07-09
+updated: 2026-10-02
 ---
 
 # Irreducible representation
@@ -40,6 +40,8 @@ This matters concretely for the model's gauge machinery. Per-token beliefs and g
 > [!note] Editorial: For the *general*-linear group $GL(k)$ used here — non-compact and not semisimple — the clean finite-dimensional unitary irrep theory of compact groups does not transfer verbatim; $GL(k)$ representations need not be completely reducible. In practice the project works in Lie-algebra ("phi") coordinates (cf. the algebra-first parameterization of [[finzi-2020-lieconv]]), so "irrep" should be read as the type-labeling and block-coupling discipline inherited from the compact-group theory above, applied per block, rather than a literal unitary irrep classification of $GL(k)$. The constructive route for exactly this non-compact regime is [[finzi-2021-emlp-arbitrary-matrix-groups]], which builds layers equivariant to arbitrary matrix groups (including the non-compact $GL(n)$, $O(1,3)$, $Sp(n)$) by solving the commutant constraint $\rho(X)W = W\rho(X)$ at the Lie-algebra level via nullspace computation — closing the non-compact-group gap for the project's commutant-restricted per-block maps.
 
 ## In this work
+
+> [!note] Status (2026-10-02). In the VFE_3.0 implementation `gauge_group='so_n'` is reconnected to both projected attention routes, but only with `n_heads` equal irrep blocks, one per head, because the operators, scorer and per-head priors read the irrep dimensions per head. Unequal irrep towers would require decoupling heads from irrep blocks and remain open. Measured so_n equivariance residuals were about $1.5\times10^{-13}$ on tiny CPU configurations ([[vfe3-2026-10-02-projected-route-consolidation]]). The `tied_block_glk`, `so_k`, `sp` and `sp_n` groups mentioned elsewhere in the wiki are retired there.
 
 Irreps surface wherever the config's gauge-theoretic vocabulary touches typed, coupled features:
 

@@ -14,10 +14,18 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-18
-updated: 2026-09-29
+updated: 2026-10-02
 ---
 
 # VFE Transformer Program
+
+## Current executable state, October 2, 2026
+
+After VFE_3.0 PRs #32 (October 1) and #34 to #39 (October 2), recorded in [[vfe3-2026-10-02-projected-route-consolidation]], the executable model has two attention routes, [[Projected predictive attention]] and [[Projected gradient attention]]; two structure groups, `block_glk` and `so_n` (the latter with one equal irrep block per head); and two belief families, `gaussian_diagonal` and `gaussian_full`. Transported attention ($\Omega_{ij}=U_iU_j^{-1}$ carrying comparison and content), `projected_conditional`, the `mm_exact` E-step, the canonical free-energy code, Rényi divergences, `regime_ii` transport, the `gaussian_diagonal_exact` and `gaussian_frame_diagonal` families, and the `glk`, `tied_block_glk`, `so_k`, `sp` and `sp_n` groups are retired, with loader migrations for saved configs and unchanged checkpoint parameter names. SU(N) is not implemented. The gradient route now defaults to the channel-likelihood receiver with closed-form natural-parameter updates, derived in [[dennis-2026-projected-gradient]] in answer to the October 1 audit's finding that the PR #30 Euler step was unstable at launcher rates, and it accepts the profiled state-dependent self-coupling $\alpha^\star=c_0/(b_0+D)$ as a majorize-minimize step. All verification was CPU-only with tiny models (bitwise equivalence to the pre-change trees where behavior was meant to be unchanged; full suites with zero failures). No GPU or training run of the new gradient receiver exists, unequal so_n irrep towers remain unsupported, and damped diagonal closed-form steps carry no descent guarantee.
+
+> [!warning] Pure path. The October 1 audit reported that after PR #32 no configuration executes the canonical free energy with gauge-KL routing, and that remains true. Both routes route by learned comparison maps; [[dennis-2026-projected-gradient]] reads this as exact inference in a declared cut model, which is a different model, not a restoration of the canonical functional. Whether to restore an opt-in canonical route was left to the user.
+
+The frame-table optimizers of 2026-09-28 (belief-Fisher natural gradient and the `group_log` retraction) are written up in [[dennis-2026-phi-natgrad]]. A September 20 rigorous theory search, [[dennis-2026-neuron-free-agent-theory]], gives a conditional neuron-free construction (source and reliability inference plus KL-budget scale control in one constrained ELBO) and leaves the full replacement question inconclusive.
 
 ## Projected predictive route note and covariance toggle, September 27, 2026
 
@@ -29,7 +37,7 @@ updated: 2026-09-29
 
 ## Current manuscript: v2 revision references, September 23, 2026
 
-The v2 revision, *Gauge-Covariant Gaussian Attention through Projected Matrix Links* (`manuscripts/GL(K)_attention_v2.tex`), positions the construction against newly cited sources, summarized in [[GL(K) gauge-equivariant attention]] and [[Attention mechanisms — theory and positional structure]]. The learned frames are a local dressing field, so the passive $\mathrm{GL}(K)$ covariance is artificial and constrains no learned map ([[Dressing field method]], [[francois-2019-artificial-gauge-symmetries]]). The row objective, the positional log-priors, and the isotropic L2 limit have precedents ([[movellan-2020-probabilistic-transformers]], [[kim-2021-lipschitz-self-attention]], [[litman-2026-attention-priors]], [[bianchessi-2026-bayesian-attention-mechanism]]). A binary compatibility record from control as inference ([[levine-2018-control-as-inference]]) makes Gibbs routing an exact posterior at every temperature. For the reported run, the revision attributes basis-dependent conditioning diagnostics to optimizer drift along a parameter symmetry ([[kunin-2021-neural-mechanics]]). It attributes the collapse of the stored variances from 15 to about 1.045 to AdamW's decoupled weight decay on the log-variances ([[loshchilov-hutter-2019-adamw]]).
+The v2 revision, *Gauge-Covariant Gaussian Attention through Projected Matrix Links* (`manuscripts/Attention/GL(K)_attention_v2.tex`), positions the construction against newly cited sources, summarized in [[GL(K) gauge-equivariant attention]] and [[Attention mechanisms — theory and positional structure]]. The learned frames are a local dressing field, so the passive $\mathrm{GL}(K)$ covariance is artificial and constrains no learned map ([[Dressing field method]], [[francois-2019-artificial-gauge-symmetries]]). The row objective, the positional log-priors, and the isotropic L2 limit have precedents ([[movellan-2020-probabilistic-transformers]], [[kim-2021-lipschitz-self-attention]], [[litman-2026-attention-priors]], [[bianchessi-2026-bayesian-attention-mechanism]]). A binary compatibility record from control as inference ([[levine-2018-control-as-inference]]) makes Gibbs routing an exact posterior at every temperature. For the reported run, the revision attributes basis-dependent conditioning diagnostics to optimizer drift along a parameter symmetry ([[kunin-2021-neural-mechanics]]). It attributes the collapse of the stored variances from 15 to about 1.045 to AdamW's decoupled weight decay on the log-variances ([[loshchilov-hutter-2019-adamw]]).
 
 ## Current manuscript: matrix links, September 20, 2026
 
@@ -43,6 +51,8 @@ The VFE Transformer Program studies a structural-EM sequence model whose forward
 Three ambitions distinguish the program: iterative belief filtering, transported Gaussian comparisons, and precision-weighted attention. Gaussian mean/covariance updates retain their Fisher/AIRM interpretation. At each source SHA recorded for the audited width sweep, the committed optimizer gate and stored configuration route the frame table through AdamW; every provenance record marks a dirty worktree and no dirty diff survives, so the exact executed optimizer implementation cannot be reconstructed. Heavy-ball belongs only to the disabled custom outer frame optimizer, BCH/retraction only to disabled in-E-step frame revision, and the stored pullback preconditioner is inactive because both optional routes are off. None is a demonstrated full-$\mathrm{GL}(K)$ Fisher natural gradient.
 
 ## Architecture / approach
+
+> [!warning] Superseded (2026-10-02). The Goal and Architecture text below describes the mid-2026 `V3_Transformer` configuration (transported comparisons, `mm_exact`, model channel, precision-weighted attention, Rényi orders, BCH positional composition, `regime_ii` transport). Those routes are retired in the VFE_3.0 working copy; see the October 2 section above and [[vfe3-2026-10-02-projected-route-consolidation]]. The text and the experiments below are kept as the historical record of the evidence they produced.
 
 The reference configuration is intentionally small enough for direct geometric diagnostics: a **1-layer** transformer whose per-token Gaussian belief has dimension **K = embed_dim**. This design choice does not establish that geometry, rather than scale or another coupled factor, causes the observed behavior. As of 2026-07-10, the live click-run config is **embed_dim = K = 20 with 2 heads**. The parameter count tracks K and the vocabulary, so it is config-dependent rather than a fixed figure. Each ingredient links out to its concept or method page.
 
@@ -104,6 +114,7 @@ Run artifacts (checkpoints, `metrics.csv`, `config.json`, figures) now persist u
 
 | run | K / heads | dataset | test ppl | finding |
 |-----|-----------|---------|----------|---------|
+| [[vfe3-2026-10-02-projected-route-consolidation]] | tiny CPU configs | none | none (implementation record) | gradient route receiver laws and closed-form updates; profiled $\alpha$; transported attention and five gauge groups retired; so_n reconnected (equal irrep blocks); equivariance residuals about $10^{-13}$ |
 | [[2026-09-28-k20-ablation-set]] | 20 / 2 | wikitext-103 | 109.23 to 160.05 (15 single-seed runs) | KL-to-bank decoder $-17.2$ PPL through learned per-class precisions; learned positional frames $+13.7$ if removed; reference decoder costs $+7.5$ (KL decoder) but the covariant block MLP is free; sigma tables nearly static yet load-bearing; belief-Fisher phi step $+11.1$ behind AdamW (stateless, untuned) |
 | `2026-07-18-phi-pullback-group-k10-partial-negative-result` | 10 / 2 | wikitext-103 | validation PPL 365.57 at step 9,000 (partial) | rebuilt stateless phi pullback-group descent is stable but slow at `m_phi_lr=0.01`; user-reported AdamW gap lacks a retained matched K=10 comparator, so the LR sweep remains required |
 | `2026-06-21-k160-hyperprior-saturation` | 160 / 4 | wikitext-103 | 76.53 (1 ep), 66.48 (2 ep) | hyper-prior $\lambda_h\mathrm{KL}(s\|r)$ pins at the `kl_max=100` clamp at large K → [[Divergence clamp saturation]] |
@@ -170,7 +181,9 @@ Next steps, in rough priority order:
 
 **Related project:** [[Gauge-Theoretic Multi-Agent VFE Model]] — the multi-agent, continuous-time instantiation of the same GL(K)-gauge VFE theory (this transformer is the language-model instantiation).
 
-**Manuscripts:** [[gl-k-attention]] · [[participatory-it-from-bit]]
+**Manuscripts:** [[gl-k-attention]] · [[participatory-it-from-bit]] · [[dennis-2026-projected-predictive]] · [[dennis-2026-projected-gradient]] · [[dennis-2026-phi-natgrad]] · [[dennis-2026-template-routing]] · [[dennis-2026-neuron-free-agent-theory]]
+
+**Methods (attention routes):** [[Projected predictive attention]] · [[Projected gradient attention]] · [[Template routing]]
 
 **Themes:** [[Variational free energy and predictive coding]] · [[Gauge equivariance and geometric deep learning]] · [[Information geometry and natural gradient]] · [[SPD-manifold geometry and Riemannian optimization]] · [[Attention mechanisms — theory and positional structure]] · [[Inference machinery — variational EM and filtering]]
 

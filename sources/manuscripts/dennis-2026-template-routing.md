@@ -4,7 +4,7 @@ title: "Template Routing: The Block MLP as Inference over Learned Gaussian Conce
 aliases: ["Template routing explainer", "Template Routing Manuscript"]
 authors: ["Robert C. Dennis"]
 year: 2026
-url: "manuscripts/template_routing.tex"
+url: "manuscripts/Attention/template_routing.tex"
 tags: [cluster/attention, cluster/vfe, project/transformer, field/cs-ml, field/mathematics]
 created: 2026-09-27
 ---
@@ -13,7 +13,7 @@ created: 2026-09-27
 
 ## Source and scope
 
-The live source is [template_routing.tex](../../manuscripts/template_routing.tex) (with a compiled PDF beside it), an 8-page explanatory note dated September 2026, drafted by Claude Opus 5.5 at the author's request on 2026-09-27. It explains the `block_mlp_mode="gaussian_template"` toggle added to the VFE_3.0 working copy of `vfe3` the same day. It is an explainer with derivations, not a reviewed manuscript, and it reports no training result. The local file may change after this dated record.
+The live source is [template_routing.tex](../../manuscripts/Attention/template_routing.tex) (with a compiled PDF beside it), an 8-page explanatory note dated September 2026, drafted by Claude Opus 5.5 at the author's request on 2026-09-27. It explains the `block_mlp_mode="gaussian_template"` toggle added to the VFE_3.0 working copy of `vfe3` the same day. It is an explainer with derivations, not a reviewed manuscript, and it reports no training result. The local file may change after this dated record.
 
 ## Construction
 

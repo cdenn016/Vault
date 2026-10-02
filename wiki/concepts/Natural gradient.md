@@ -11,7 +11,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-09-23
+updated: 2026-10-02
 ---
 
 # Natural gradient
@@ -123,8 +123,14 @@ quotient natural gradient.
 
 Continuous symmetries of a loss yield conservation laws of gradient flow ([[kunin-2021-neural-mechanics]], Theorem 1). For the rescaling symmetry of two consecutive linear layers the conserved quantity is $W^{(h)}W^{(h)\top}-W^{(h+1)\top}W^{(h+1)}$ ([[du-2018-balanced-layers]], Theorem 2.2). Weight decay, momentum, stochasticity, and finite learning rates break these laws, and an adaptive optimizer does not follow the gradient flow at all. The v2 revision of the GL(K) attention manuscript uses this to read its conditioning diagnostics. The comparison maps have a cogredient $\mathrm{GL}(r_h)$ redundancy, so gradient flow would conserve $S_QS_Q^\top+S_KS_K^\top$, whereas AdamW without weight decay drifted along the orbit in the reported run and made raw condition numbers depend on the basis. In the same run, AdamW's decoupled weight decay ([[loshchilov-hutter-2019-adamw]]) acting on the stored log-variances drove the variances from 15 to about 1.045.
 
+## Frame tables and receiver updates (2026-09-28 and 2026-10-02)
+
+Two later notes give the program natural gradients with a stated statistical model. For the stored frame tables, [[dennis-2026-phi-natgrad]] takes the Fisher information of the reference prior $\mathcal N(U^{-1}\mu_v,U^{-1}\Sigma_vU^{-\top})$ with respect to the frame; its kernel is the stabilizer algebra of that Gaussian, so a covariant completion must be chosen, and the existing Frobenius-pullback step turns out to be projected Euclidean descent on $U$ rather than a Fisher step. For the receiver of the gradient attention route, [[dennis-2026-projected-gradient]] uses the exact natural-parameter solution of the Gaussian Fisher flow of a quadratic energy, $J^+=(1-\rho)J+\rho\Lambda/\kappa$, which avoids the step-size bound $\varepsilon<2/\kappa$ of the explicit Fisher step; see [[Projected gradient attention]]. Neither has been shown to train better than the alternatives.
+
 ## Sources
 
+- [[dennis-2026-phi-natgrad]] — belief-Fisher natural gradient for the frame tables; the pullback step as projected Euclidean descent.
+- [[dennis-2026-projected-gradient]] — exact Fisher flow and closed-form receiver updates on the gradient attention route.
 - [[amari-1998-natural-gradient]] — the natural gradient as Fisher-preconditioned steepest descent; reparameterization invariance and Fisher efficiency.
 - [[amari-2000-methods-information-geometry]] — Fisher metric and Amari alpha-connections; order-Rényi divergence is a distinct family.
 - [[martens-2020-natural-gradient-insights]] — natural gradient as a Gauss–Newton-related curvature method under matching output/loss conditions; damping.

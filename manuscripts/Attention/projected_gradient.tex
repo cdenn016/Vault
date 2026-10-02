@@ -1,0 +1,533 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{microtype}
+\usepackage{natbib}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+\setlength{\emergencystretch}{3em}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}[proposition]{Lemma}
+\newtheorem{corollary}[proposition]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\newcommand{\KL}{D_{\mathrm{KL}}}
+\newcommand{\softmax}{\operatorname{softmax}}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\N}{\mathcal{N}}
+\newcommand{\Hent}{\mathcal{H}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\cfg}[1]{\texttt{#1}}
+
+\title{The Projected Gradient Route:\\ Receiver Energies, Entropy, and Stable Updates}
+\author{Robert C. Dennis}
+\date{Technical note, October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This note works out the theory behind \cfg{attention\_mode="projected\_gradient"}, the gradient counterpart of the projected predictive route. The communication model is fixed by the matrix links $L_{ij}^{(h)}=U_iO_hT_hU_j^{-1}$ and by query and key maps that measure partial laws of each agent's full belief. We first analyze the receiver energy that the code implements, a sum of Kullback--Leibler divergences to full-dimensional noisy receiving laws. We show that its receiving noise is required for finiteness rather than chosen for regularization, that it pins the complement of every head's output range to zero, and that it counts the receiver's entropy $c=\alpha+\sum_h\lambda_h$ times. That multiplicity sets the stationary covariance to $c\Lambda^{-1}$ and confines the explicit Fisher step to $\varepsilon<2/c$, and much less at initialization. We then separate the two entropies that the question ``should the gradient contain an entropy term'' can refer to. The receiver entropy belongs in every variational energy exactly once. The routing entropy enters the receiver gradient only when routing is optimized jointly with content, in which case the routing weights must also see the content evidence. Routing by the comparison divergence alone, as the predictive route does, is exact inference in a declared cut model, and holding the weights fixed during the receiver episode is then not an approximation. Finally, we propose a channel-likelihood energy that compares the receiver's partial law with the sender's message in the $d$-dimensional value space. It counts the entropy once, needs no noise for finiteness, leaves directions no head observes at their prior, has a closed-form minimizer that is the exact tempered Gaussian posterior, is unconditionally stable under its exact natural-parameter flow, pools in $d\times d$ rather than $K\times K$ blocks, and reduces to the residual-free predictive head sum in a stated limit. Every identity below was checked in float64 against automatic differentiation of the literal energies.
+\end{abstract}
+
+\section{Scope and conventions}
+\label{sec:scope}
+
+The transported route, in which the flat identification $\Omega_{ij}=U_iU_j^{-1}$ carried both comparison and content, is retired. The construction of the GL(K) attention manuscript \citep{dennis2026glk} replaces it. Comparison uses learned query and key maps that push each full belief to a partial Gaussian law in an $r$-dimensional comparison space. Content uses learned sending and receiving maps whose composition with the frames is the matrix link $L_{ij}^{(h)}=U_iO_hT_hU_j^{-1}$. The predictive route of the companion note \citep{dennis2026predictive} transmits content as an explicit readout. This note asks what a gradient route over the same objects should descend.
+
+Statements are labeled as in the companion notes. An exact statement is a theorem about a declared model. A derived statement follows from the declared model with stated hypotheses. A declared choice is a modeling decision that the mathematics does not force. Section~\ref{sec:status} collects the labels and the numerical checks.
+
+\section{States, maps, and routing}
+\label{sec:setup}
+
+Agent $i$ carries $q_i=\N(\mu_i,\Sigma_i)$ in local coordinates and an invertible frame $U_i$. Its reference moments are $\xi_i=U_i^{-1}\mu_i$ and $C_i=U_i^{-1}\Sigma_iU_i^{-\top}$. A layer has $H$ heads. Head $h$ has comparison maps $S_{Q,h},S_{K,h}\in\mathbb R^{r\times K}$, a sending map $T_h\in\mathbb R^{d\times K}$, and a receiving map $O_h\in\mathbb R^{K\times d}$. In the implementation $r=d=K/H$. The comparison laws are the partial laws
+\begin{equation}
+q_{Q,i}^{h}=\N(a_i^h,A_i^h)=\N(S_{Q,h}\xi_i,S_{Q,h}C_iS_{Q,h}^\top),\qquad
+p_{K,j}^{h}=\N(b_j^h,B_j^h)=\N(S_{K,h}\xi_j,S_{K,h}C_jS_{K,h}^\top),
+\label{eq:partial_laws}
+\end{equation}
+and the routing cost and weights are
+\begin{equation}
+D_{ij}^h=\KL(q_{Q,i}^h\Vert p_{K,j}^h),\qquad
+\beta_{ij}^h=\softmax_j\bigl(\log\pi_{ij}^h-D_{ij}^h/\tau_h\bigr).
+\label{eq:routing}
+\end{equation}
+This is the reading in which $S_Q$ and $S_K$ are partial receiving and sending beliefs: each is the exact pushforward of the full Gaussian state onto a subspace of observables, with its full reduced covariance.
+
+\paragraph{The receiver episode.}
+A projected gradient layer snapshots the incoming states $(\bar\xi_j,\bar C_j)$, the routing weights $\beta$, and the frames once. It then moves each receiver's state $(\xi,C)$ for $n_{\mathrm e}$ iterations against a receiver energy $F_i(\xi,C)$ with that snapshot held fixed in value, while the outer supervised graph through the snapshot remains attached. The frames do not change within the episode, so the map $(\mu,\Sigma)\mapsto(\xi,C)$ is a fixed linear reparametrization.
+
+\begin{lemma}[Reference coordinates suffice]
+\label{lem:reference}
+Every energy below is a function of reference moments. Its local gradients are $\nabla_\mu F=U_i^{-\top}\nabla_\xi F$ and $\nabla_\Sigma F=U_i^{-\top}(\nabla_CF)U_i^{-1}$. The Gaussian Fisher natural gradient $(\Sigma\nabla_\mu F,2\Sigma\nabla_\Sigma F\Sigma)$ equals $U_i$ applied to $(C\nabla_\xi F,2C\nabla_CF\,C)$, with $U_i^\top$ on the right of the covariance term. Every Fisher step taken in local coordinates is therefore the same step taken in reference coordinates and mapped back.
+\end{lemma}
+
+\begin{proof}
+Substitute $\xi=U_i^{-1}\mu$ and $C=U_i^{-1}\Sigma U_i^{-\top}$ into the chain rule. The Fisher metric of the Gaussian family is invariant under affine reparametrization of the sample space \citep{amari1998natural}.
+\end{proof}
+
+From here on we work in reference coordinates and suppress the receiver index. The local quantities used by the code are the pullbacks $\Lambda_{\mathrm{loc}}=U_i^{-\top}\Lambda U_i^{-1}$ and $\eta_{\mathrm{loc}}=U_i^{-\top}\eta$.
+
+\paragraph{One quadratic family.}
+Every receiver energy in this note has the form
+\begin{equation}
+F(\xi,C)=\tfrac12\Tr(\Lambda C)+\tfrac12\xi^\top\Lambda\xi-\eta^\top\xi-\tfrac{\kappa}{2}\log\det C+\text{const},
+\qquad \Lambda\succ0,\ \kappa>0.
+\label{eq:quadratic_family}
+\end{equation}
+
+\begin{lemma}[Gradients, minimizer, Fisher step]
+\label{lem:family}
+For Eq.~\eqref{eq:quadratic_family}:
+\begin{enumerate}
+\item The gradients are $\nabla_\xi F=\Lambda\xi-\eta$ and $\nabla_CF=\tfrac12(\Lambda-\kappa C^{-1})$. For a diagonal family $C=\diag(s)$, they are $\partial_{s_k}F=\tfrac12(\Lambda_{kk}-\kappa/s_k)$, with the dense mean force unchanged.
+\item The unique minimizer is $\xi^\star=\Lambda^{-1}\eta$ and $C^\star=\kappa\Lambda^{-1}$. In the diagonal family it is $\xi^\star=\Lambda^{-1}\eta$ and $s_k^\star=\kappa/\Lambda_{kk}$.
+\item The explicit Fisher mean step $\xi\leftarrow\xi-\varepsilon C(\Lambda\xi-\eta)$ maps the error $e=\xi-\xi^\star$ to $(I-\varepsilon C\Lambda)e$. Since $C\Lambda$ is similar to the positive definite $C^{1/2}\Lambda C^{1/2}$, the step contracts if and only if $\varepsilon\lambda_{\max}(C\Lambda)<2$. At the covariance optimum $C\Lambda=\kappa I$, so the bound is $\varepsilon<2/\kappa$, and $\varepsilon=1/\kappa$ is the exact Newton step.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Items 1 and 2 follow by differentiation, using $\partial_C\log\det C=C^{-1}$ and strict convexity of $F$ in $(\xi,C^{-1})$. For item 3, $e^+=e-\varepsilon C\Lambda e$, and $C\Lambda=C^{1/2}(C^{1/2}\Lambda C^{1/2})C^{-1/2}$ has the same real positive spectrum as $C^{1/2}\Lambda C^{1/2}$.
+\end{proof}
+
+The parameter $\kappa$ is the number of times the receiver's entropy $\Hent(q)=\tfrac12\log\det C+\text{const}$ enters the energy. The rest of the note is about what $\Lambda$, $\eta$, and $\kappa$ should be.
+
+\section{The implemented energy: ambient alignment}
+\label{sec:ambient}
+
+The code implements, with $w_{hj}=\lambda_h\beta_{ij}^h$, $M_h=O_hT_h$, and receiving noise $\nu>0$,
+\begin{equation}
+\begin{split}
+F^{\mathrm A}(\xi,C)&=\alpha\KL\bigl(\N(\xi,C)\Vert\N(\xi_p,C_p)\bigr)
++\sum_{h,j}w_{hj}\KL\bigl(\N(\xi,C)\Vert\N(M_h\bar\xi_j,R^{\mathrm A}_{hj})\bigr),\\
+R^{\mathrm A}_{hj}&=M_h\bar C_jM_h^\top+\nu I_K.
+\end{split}
+\label{eq:ambient}
+\end{equation}
+We call this ambient alignment, because each head's message is lifted to a $K$-dimensional law and the receiver is aligned to it by a divergence. It is the direct replacement of $\Omega_{ij}$ by $L_{ij}^{(h)}$ in the old alignment energy.
+
+\begin{proposition}[Ambient alignment is the quadratic family with $\kappa=c$]
+\label{prop:ambient}
+Eq.~\eqref{eq:ambient} has the form of Eq.~\eqref{eq:quadratic_family} with
+\begin{equation}
+\Lambda=\alpha C_p^{-1}+\sum_{h,j}w_{hj}R^{\mathrm A\,-1}_{hj},\qquad
+\eta=\alpha C_p^{-1}\xi_p+\sum_{h,j}w_{hj}R^{\mathrm A\,-1}_{hj}M_h\bar\xi_j,\qquad
+\kappa=c=\alpha+\sum_h\lambda_h.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+For any Gaussian target $t$, $\KL(q\Vert t)=-\E_q[\log t]-\Hent(q)$. Summing with weights gives $\sum w_{hj}\KL(q\Vert t_{hj})=\sum w_{hj}(-\E_q\log t_{hj})-(\sum w_{hj})\Hent(q)$. Each $-\E_q\log t_{hj}$ is $\tfrac12\Tr(R^{-1}C)+\tfrac12(\xi-m)^\top R^{-1}(\xi-m)$ plus a constant. On the causal support $\sum_j\beta_{ij}^h=1$, so $\sum_{h,j}w_{hj}=\sum_h\lambda_h$. The prior contributes $\alpha$ to $\kappa$.
+\end{proof}
+
+\begin{lemma}[The receiving noise is required]
+\label{lem:noise_required}
+If $d<K$ and $\nu=0$, then $R^{\mathrm A}_{hj}$ has rank at most $d$, and $\KL(\N(\xi,C)\Vert\N(M_h\bar\xi_j,R^{\mathrm A}_{hj}))=+\infty$ for every $C\succ0$.
+\end{lemma}
+
+\begin{proof}
+$M_h\bar C_jM_h^\top$ has range in $\im O_h$, of dimension at most $d$. A nondegenerate $K$-dimensional Gaussian is not absolutely continuous with respect to a law supported on a proper affine subspace.
+\end{proof}
+
+The receiving noise in the implementation therefore exists to make the energy finite, which is how the design report states it. It is not a collapse regularizer, although a positive floor would also play that role.
+
+\begin{proposition}[Complement pinning]
+\label{prop:pinning}
+Let $V_h=\im O_h$ and let $V_h^\perp$ be its Euclidean orthogonal complement. The law $\N(M_h\bar\xi_j,R^{\mathrm A}_{hj})$ has mean component $0$ and covariance $\nu I$ on $V_h^\perp$, independently of the source.
+\end{proposition}
+
+\begin{proof}
+$M_h\bar\xi_j\in V_h$. The symmetric matrix $M_h\bar C_jM_h^\top$ has range in $V_h$, so it annihilates $V_h^\perp$, and $R^{\mathrm A}_{hj}$ acts on $V_h^\perp$ as $\nu I$.
+\end{proof}
+
+At the shipped block-identity initialization, $M_h$ is the coordinate projector onto block $h$. Every block $g$ then receives precision $(H-1)/\nu$ toward zero from the other heads and precision about $1/(C_{gg}+\nu)$ toward its routed content. At $C=15I$, $\nu=1$, and $H=2$ these are $1$ and $1/16$, so the frozen minimizer keeps about $6.5\%$ of the incoming mean. This was measured on the kernel at $K=20$. By Lemma~\ref{lem:family}, the same numbers give $C\Lambda\approx16.9\,I$ at initialization and a stable Euler range $\varepsilon<0.12$, while at the covariance optimum the range is $\varepsilon<2/c=2/3$. At $\varepsilon=0.9$ the unrolled step $I-\varepsilon C\Lambda$ has eigenvalues near $-14$, which reverses and amplifies the outer gradient through each layer.
+
+\begin{remark}
+These three properties follow from one design choice: the message is lifted to a $K$-dimensional law before the comparison. Lifting a rank-$d$ message forces a noise floor for finiteness (Lemma~\ref{lem:noise_required}). That floor makes every head an opinion about all $K$ coordinates (Proposition~\ref{prop:pinning}). Each divergence also brings its own copy of the receiver's entropy (Proposition~\ref{prop:ambient}).
+\end{remark}
+
+\section{Two entropies}
+\label{sec:entropy}
+
+The question whether the gradient should contain an entropy term has two distinct answers, because two entropies are in play.
+
+\paragraph{The receiver entropy.}
+A variational free energy is $\E_q[-\log p(\text{data},x)]-\Hent(q)$ \citep{blei2017variational}. The receiver entropy appears once, with coefficient one under the convention that the prior's divergence carries weight $\alpha=1$. Its gradient $-\tfrac12C^{-1}$ is present in the implemented update. The defect is its multiplicity: Proposition~\ref{prop:ambient} shows that ambient alignment counts it $c=\alpha+\sum_h\lambda_h$ times, because each divergence contains its own copy. The covariance optimum is then $c\Lambda^{-1}$, an overdispersed posterior when $\Lambda$ is read as a posterior precision, and the factor $c$ is what tightens the step bound.
+
+\paragraph{The routing entropy.}
+The term $\tau\sum_j\beta_j\log(\beta_j/\pi_j)$ makes the Gibbs weights the minimizer of the headwise routing objective of \citet{dennis2026glk}. Whether it belongs in the receiver gradient depends on whether routing and content are inferred jointly.
+
+\begin{definition}[Joint routing]
+\label{def:joint}
+For a content cost $\ell_{hj}(q)$ with weight $\gamma_h\ge0$, the joint receiver functional is
+\begin{equation}
+F^{\mathrm J}(q,\beta)=\alpha\KL(q\Vert p)+\sum_h\Bigl[\sum_j\beta_j^h\bigl(D_{j}^h(q)+\gamma_h\ell_{hj}(q)\bigr)+\tau_h\sum_j\beta_j^h\log\frac{\beta_j^h}{\pi_j^h}\Bigr].
+\label{eq:joint}
+\end{equation}
+\end{definition}
+
+\begin{proposition}[Joint routing sees content, and its gradient carries the comparison force]
+\label{prop:joint}
+The minimizing weights of Eq.~\eqref{eq:joint} are $\beta_j^{h\star}=\softmax_j(\log\pi_j^h-(D_j^h+\gamma_h\ell_{hj})/\tau_h)$. The reduced functional is
+\[
+\alpha\KL(q\Vert p)-\sum_h\tau_h\log\sum_j\pi_j^h\exp\bigl(-(D_j^h+\gamma_h\ell_{hj})/\tau_h\bigr).
+\]
+Its gradient in $q$ is $\alpha\nabla\KL(q\Vert p)+\sum_{h,j}\beta_j^{h\star}\nabla(D_j^h+\gamma_h\ell_{hj})$. The routing entropy contributes no separate term, because its effect is that the derivative through $\beta^\star$ vanishes (envelope theorem). The comparison force is
+\begin{equation}
+\nabla_\xi D_j^h=S_{Q,h}^\top B_j^{h\,-1}(a^h-b_j^h),\qquad
+\nabla_CD_j^h=\tfrac12S_{Q,h}^\top\bigl(B_j^{h\,-1}-A^{h\,-1}\bigr)S_{Q,h},
+\label{eq:comparison_force}
+\end{equation}
+where $-\tfrac12\log\det A^h$ inside $D$ is a third entropy, that of the query law.
+\end{proposition}
+
+\begin{proof}
+Minimize the convex objective in $\beta$ on the simplex with a normalization multiplier. Substitute $\beta^\star$, and differentiate the log-sum-exp. Equation~\eqref{eq:comparison_force} differentiates $\KL(\N(a,A)\Vert\N(b,B))$ with $a=S_Q\xi$ and $A=S_QCS_Q^\top$.
+\end{proof}
+
+\begin{proposition}[No content-informed mixture functional routes by $D$ alone]
+\label{prop:no_D_only}
+Consider a functional that is affine in $\beta$ except for the routing entropy, with linear coefficients $D_j^h+g_{hj}(q)$. Its minimizing weights equal Eq.~\eqref{eq:routing} for every $q$ if and only if $g_{hj}(q)$ does not depend on $j$.
+\end{proposition}
+
+\begin{proof}
+The minimizer is $\softmax_j(\log\pi_j-(D_j+g_{hj})/\tau)$. A softmax is unchanged by $j$-independent shifts of its arguments and is injective modulo them.
+\end{proof}
+
+A content term that carries source-specific information therefore changes the routing. Routing by $D$ alone, while letting content move the receiver, is not coordinate descent of any one such functional. It is, however, exact inference in a different declared model.
+
+\begin{definition}[Cut routing]
+\label{def:cut}
+The routing weights are the posterior of the source label given only the comparison record, whose likelihood $\exp(-D_{ij}^h/\tau_h)$ makes Eq.~\eqref{eq:routing} an exact posterior \citep{dennis2026glk}. The content likelihood is not allowed to update the label. This is a cut in the sense of modular Bayesian inference \citep{plummer2015cuts,jacob2017modules}.
+\end{definition}
+
+Under cut routing, the receiver's state is inferred conditionally on the label posterior, by minimizing $\alpha\KL(q\Vert p)+\sum_{h,j}\lambda_h\beta^h_{j}\E_q[\ell_{hj}]$ with $\beta$ fixed. In this model, holding $\beta$ fixed is exact, not an approximation. The routing entropy and the comparison force are both absent from the receiver gradient, because the cut removes the feedback through which they would act. The predictive route also routes by $D$ alone, so cut routing is the gradient counterpart of the route that reaches near-parity. Joint routing (Definition~\ref{def:joint}) is a different model to be opted into and tested, not a correction to the cut. Whether routing should use the incoming snapshot, or be recomputed from the receiver's updated state at each iteration, is a further declared choice. Recomputation makes routing depend on the receiver's own update.
+
+Under either reading, the receiver's own entropy belongs in the gradient once. That is the part that requires a change, and the next section supplies it.
+
+\section{The channel-likelihood energy}
+\label{sec:channel}
+
+The partial-law reading of Eq.~\eqref{eq:partial_laws} extends from comparison to content. Head $h$ observes the receiver through a receiving measurement $P_h\in\mathbb R^{d\times K}$. The sender's message $T_hx_j$, with $x_j\sim\N(\bar\xi_j,\bar C_j)$ marginalized, predicts that measurement through a channel with noise $Q_h\succeq0$:
+\begin{equation}
+\begin{split}
+&P_hx=T_hx_j+\epsilon,\qquad \epsilon\sim\N(0,Q_h)\\
+&\Longrightarrow\quad
+p(T_h\bar\xi_j\mid x)=\N\bigl(T_h\bar\xi_j;P_hx,R_{hj}\bigr),\qquad R_{hj}=T_h\bar C_jT_h^\top+Q_h.
+\end{split}
+\label{eq:channel_model}
+\end{equation}
+With cut routing weights acting as tempered likelihood powers $w_{hj}=\lambda_h\beta_{ij}^h$, the receiver's variational free energy is
+\begin{equation}
+F^{\mathrm B}(\xi,C)=\alpha\KL\bigl(\N(\xi,C)\Vert\N(\xi_p,C_p)\bigr)+\sum_{h,j}w_{hj}\,\E_{\N(\xi,C)}\bigl[-\log\N(T_h\bar\xi_j;P_hx,R_{hj})\bigr].
+\label{eq:channel}
+\end{equation}
+
+\begin{proposition}[Channel likelihood is the quadratic family with $\kappa=\alpha$]
+\label{prop:channel}
+Eq.~\eqref{eq:channel} has the form of Eq.~\eqref{eq:quadratic_family} with
+\begin{equation}
+\Lambda=\alpha C_p^{-1}+\sum_hP_h^\top W_hP_h,\qquad
+\eta=\alpha C_p^{-1}\xi_p+\sum_hP_h^\top\omega_h,\qquad
+\kappa=\alpha,
+\label{eq:channel_stats}
+\end{equation}
+where $W_h=\sum_jw_{hj}R_{hj}^{-1}$ and $\omega_h=\sum_jw_{hj}R_{hj}^{-1}T_h\bar\xi_j$ are pooled in $d\times d$ and $d$ dimensions.
+\end{proposition}
+
+\begin{proof}
+$\E[-\log\N(y;Px,R)]=\tfrac12(y-P\xi)^\top R^{-1}(y-P\xi)+\tfrac12\Tr(P^\top R^{-1}PC)+\text{const}$. The expectation contains no entropy of $q$, which enters only through the prior's divergence.
+\end{proof}
+
+\begin{corollary}[Properties]
+\label{cor:channel}
+\begin{enumerate}
+\item With $\alpha=1$, the minimizer $\xi^\star=\Lambda^{-1}\eta$, $C^\star=\Lambda^{-1}$ is the exact Gaussian posterior of the prior under the likelihoods of Eq.~\eqref{eq:channel_model}, each raised to the power $w_{hj}$. This is the conjugate linear-Gaussian update \citep[Sec.~2.3.3]{bishop2006prml}, and the Gaussian variational optimum is exact here \citep{opper2009variational}.
+\item The energy is finite with $Q_h=0$ whenever $T_h$ has full row rank, since then $T_h\bar C_jT_h^\top\succ0$. The channel noise is then a declared floor that guards against loss of rank in $T_h\bar C_jT_h^\top$ as $T_h$ is learned. It is not needed for finiteness.
+\item The likelihoods are constant along $V_0=\bigcap_h\ker P_h$, the directions no head observes. The posterior law of the $V_0$ component, conditional on the observed component, therefore equals the prior's conditional law. If $C_p$ does not couple $V_0$ to its complement, the posterior marginal on $V_0$ equals the prior marginal. No head imposes a value in $V_0$, so there is no complement pinning.
+\item At the covariance optimum $C\Lambda=\alpha I$, so the explicit Fisher step is stable for $\varepsilon<2/\alpha$, and $\varepsilon=1$ is the exact Newton step when $\alpha=1$.
+\item The pooled statistics cost $O(BN^2Hd^2)$ and the source factorizations $O(BNHd^3)$. The corresponding ambient costs are $O(BN^2HK^2)$ and $O(BNHK^3)$, so the channel form is a factor $H^2$ cheaper in pooling and $H^3$ in factorization.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+Item 1 follows from Proposition~\ref{prop:channel} and Lemma~\ref{lem:family} with $\kappa=1$, since the information-form product of Gaussians has precision $\Lambda$ and information vector $\eta$. Item 2 follows from $y^\top T\bar CT^\top y=(T^\top y)^\top\bar C(T^\top y)>0$ for $y\ne0$. For item 3, each likelihood depends on $x$ only through $P_hx$, so it is invariant under $x\mapsto x+v$ for $v\in V_0$. Bayes' rule then leaves the prior's conditional law along $V_0$ unchanged. Items 4 and 5 are Lemma~\ref{lem:family} and direct operation counts.
+\end{proof}
+
+\paragraph{The role of $O_h$.}
+In Eq.~\eqref{eq:channel} the write-back is not a free map. The posterior update moves the state along the gain $C^\star P_h^\top W_h$, as in a Kalman update. The receiving interface is the measurement $P_h$. One natural choice ties $P_h=O_h^\top$, which keeps the existing parameter names and the block-identity initialization and gives the predictive limit below. An untied learned $P_h$ is the other choice.
+
+\begin{proposition}[Predictive limit]
+\label{prop:predictive_limit}
+Assume $P_h=O_h^\top$ with $O_h^\top O_g=\delta_{hg}I_d$, so that $\sum_hO_hO_h^\top=I_K$. Assume also $R_{hj}=R_h$ for all $j$, and let $\alpha C_p^{-1}\to0$. Then
+\begin{equation}
+\xi^\star=\sum_hO_h\sum_j\beta_{ij}^hT_h\bar\xi_j,
+\end{equation}
+the residual-free predictive head sum of \citep{dennis2026predictive} with the tied orthonormal receiving map.
+\end{proposition}
+
+\begin{proof}
+In the limit, $\Lambda=\sum_hO_h(\lambda_hR_h^{-1})O_h^\top$ and $\eta=\sum_hO_h\lambda_hR_h^{-1}\sum_j\beta_{ij}^hT_h\bar\xi_j$. Both are block diagonal in the orthonormal basis given by the columns of the $O_h$. Solving blockwise gives $O_h^\top\xi^\star=\sum_j\beta_{ij}^hT_h\bar\xi_j$, using $\sum_j\beta_{ij}^h=1$.
+\end{proof}
+
+Each relaxed hypothesis has a definite meaning:
+\begin{itemize}
+\item \emph{Unequal $R_{hj}$.} The head's channel mean becomes the precision-weighted average $(\sum_j\beta_jR_{hj}^{-1})^{-1}\sum_j\beta_jR_{hj}^{-1}T_h\bar\xi_j$, so confident senders count more than their routing weight alone.
+\item \emph{A finite prior.} The posterior blends the prior mean and the messages with a gain set by their precisions, rather than adding them. The additive residual $\mu_i+m_i$ of the predictive route has no exact counterpart in a posterior. Reproducing it would require a declared increment semantics for the messages, which this note does not adopt.
+\item \emph{Overlapping heads.} The heads' measurements are fused by least squares.
+\end{itemize}
+The posterior covariance $C^\star=\alpha\Lambda^{-1}$ depends on context. It omits the between-source spread of the moment-matched predictive covariance, which is the expected effect of a mean-field factor over the source label.
+
+\begin{remark}[Channel alignment]
+Replacing the expected likelihood in Eq.~\eqref{eq:channel} by the divergence $\KL(\N(P_h\xi,P_hCP_h^\top)\Vert\N(T_h\bar\xi_j,R_{hj}))$ in the value space gives a channel-alignment energy that parallels the comparison divergence $D$. Its mean terms, and therefore $\xi^\star=\Lambda^{-1}\eta$, coincide with the channel likelihood. Each divergence, however, adds $-\tfrac{w_{hj}}{2}\log\det(P_hCP_h^\top)$. That adds one projected entropy per edge, and its covariance optimum has no closed form when heads overlap. The channel likelihood is preferred for its single entropy and its exact posterior.
+\end{remark}
+
+\section{Updates and outer gradients}
+\label{sec:updates}
+
+Both energies are in the family of Eq.~\eqref{eq:quadratic_family}. The defect of the implemented update is the explicit Euler discretization, which Lemma~\ref{lem:family} confines to $\varepsilon\lambda_{\max}(C\Lambda)<2$. Two better updates are available.
+
+\begin{proposition}[Exact natural-parameter flow]
+\label{prop:flow}
+The Fisher flow of Eq.~\eqref{eq:quadratic_family} in the full family, $\dot\xi=-C(\Lambda\xi-\eta)$ and $\dot C=\kappa C-C\Lambda C$, has the exact solution
+\begin{equation}
+J(t)=(1-\rho)J(0)+\rho\Lambda/\kappa,\qquad h(t)=(1-\rho)h(0)+\rho\eta/\kappa,\qquad \rho=1-e^{-\kappa t},
+\end{equation}
+in the natural parameters $J=C^{-1}$ and $h=C^{-1}\xi$. For every $\rho\in[0,1]$ the iterate is SPD and the energy does not increase. At $\rho=1$ it is the minimizer $(\Lambda^{-1}\eta,\kappa\Lambda^{-1})$.
+\end{proposition}
+
+\begin{proof}
+$\dot J=-J\dot CJ=\Lambda-\kappa J$ and $\dot h=\dot J\xi+J\dot\xi=\eta-\kappa h$, both linear with constant coefficients. A convex combination of SPD matrices is SPD. The energy decreases along the flow, with derivative $-\nabla_\xi F^\top C\nabla_\xi F-2\Tr(C\nabla_CF\,C\nabla_CF)\le0$. This is the derivation in the design report's variational notes, restated here for general $\kappa$.
+\end{proof}
+
+With the context fixed in value, the closed-form minimizer ($\rho=1$) completes the receiver episode in one solve, and further iterations leave it unchanged. Its outer derivatives follow by implicit differentiation:
+\begin{equation}
+d\xi^\star=\Lambda^{-1}\bigl(d\eta-d\Lambda\,\xi^\star\bigr),\qquad dC^\star=-\kappa\Lambda^{-1}\,d\Lambda\,\Lambda^{-1}.
+\end{equation}
+Automatic differentiation through a Cholesky solve computes both. The unrolled sign-reversing Jacobian of the Euler step is gone.
+
+For the diagonal family, the closed form $\xi^\star=\Lambda^{-1}\eta$, $s^\star=\kappa/\diag\Lambda$ is exact. Any partial damping toward it is a declared choice, because interpolating natural parameters does not remain in the diagonal family when $\Lambda$ is dense. An implicit mean step $\xi^+=\xi-\varepsilon(I+\varepsilon C\Lambda)^{-1}C(\Lambda\xi-\eta)$ is unconditionally stable for every $\varepsilon>0$ in both families, and it is the minimal change to the existing step.
+
+\section{Profiled state-dependent self-coupling}
+\label{sec:profiled}
+
+The coefficient $\alpha$ on $\KL(q\Vert p)$ has so far been a constant. The self-coupling registry also offers state-dependent forms, in which $\alpha$ is optimized against the regularizer $R(\alpha)=b_0\alpha-c_0\log\alpha$ with $b_0,c_0>0$. In this section $p$ is the layer prior handed to the receiver, $D(q)=\KL(q\Vert p)$, and each receiver energy of Sections~\ref{sec:ambient} and \ref{sec:channel} is split as
+\begin{equation}
+F(q;\alpha)=\alpha D(q)+G(q),
+\label{eq:split}
+\end{equation}
+where $G$ is the energy at $\alpha=0$. By Propositions~\ref{prop:ambient} and \ref{prop:channel}, $G$ has the form of Eq.~\eqref{eq:quadratic_family} with coefficients $\Lambda_G$ and $\eta_G$ and entropy multiplicity $\kappa_G=\sum_h\lambda_h$ under ambient alignment and $\kappa_G=0$ under the channel likelihood. The divergence $D$ is invariant under the affine change of coordinates of Lemma~\ref{lem:reference}, so the per-token statements below hold in reference and local coordinates alike.
+
+\begin{lemma}[Profiling the coefficient]
+\label{lem:profile}
+For $D\ge0$ the function $\alpha\mapsto\alpha D+R(\alpha)$ is strictly convex on $\alpha>0$, with unique minimizer $\alpha^\star(D)=c_0/(b_0+D)$ and minimum value
+\begin{equation}
+\min_{\alpha>0}\bigl[\alpha D+b_0\alpha-c_0\log\alpha\bigr]=c_0\log(b_0+D)+c_0-c_0\log c_0.
+\end{equation}
+The profiled receiver energy is therefore
+\begin{equation}
+E(q)=\min_{\alpha>0}\bigl[F(q;\alpha)+R(\alpha)\bigr]=c_0\log\bigl(b_0+D(q)\bigr)+G(q)+\text{const}.
+\label{eq:profiled}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+The second derivative in $\alpha$ is $c_0/\alpha^2>0$, and the first derivative $D+b_0-c_0/\alpha$ vanishes at $\alpha^\star$. Substituting $\alpha^\star$ gives $c_0D/(b_0+D)+b_0c_0/(b_0+D)+c_0\log(b_0+D)-c_0\log c_0$, and the first two terms sum to $c_0$.
+\end{proof}
+
+\begin{proposition}[Envelope force]
+\label{prop:envelope}
+The gradient of Eq.~\eqref{eq:profiled} is
+\begin{equation}
+\nabla E(q)=\alpha^\star\bigl(D(q)\bigr)\nabla D(q)+\nabla G(q).
+\end{equation}
+It equals the gradient at $q$ of the quadratic-family energy $F(\cdot;\alpha)$ with $\alpha$ frozen at $\alpha^\star(D(q))$, whose coefficients are
+\begin{equation}
+\Lambda=\Lambda_G+\alpha^\star C_p^{-1},\qquad \eta=\eta_G+\alpha^\star C_p^{-1}\xi_p,\qquad \kappa=\alpha^\star+\kappa_G.
+\label{eq:frozen_alpha}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+The chain rule gives $\nabla[c_0\log(b_0+D)]=c_0(b_0+D)^{-1}\nabla D=\alpha^\star\nabla D$. Equivalently, the derivative through $\alpha^\star$ in Lemma~\ref{lem:profile} is multiplied by $\partial_\alpha[\alpha D+R(\alpha)]$, which vanishes at $\alpha^\star$. Eq.~\eqref{eq:frozen_alpha} is Proposition~\ref{prop:ambient} or Proposition~\ref{prop:channel} with $\alpha=\alpha^\star$.
+\end{proof}
+
+The explicit Fisher step on $E$ therefore needs no new kernel. At every iteration the receiver recomputes $\alpha^\star$ from its current state and the layer prior, forms Eq.~\eqref{eq:frozen_alpha}, and applies the step of Lemma~\ref{lem:family}. The force is exact as a value, but its derivative is not that of the frozen problem. The Hessian of the self term is
+\begin{equation}
+\nabla^2\bigl[c_0\log(b_0+D)\bigr]=\alpha^\star\nabla^2D-\frac{(\alpha^\star)^2}{c_0}\nabla D\nabla D^\top,
+\end{equation}
+so the unrolled outer derivative must retain the dependence of $\alpha^\star$ on the state and on the parameters, and the implementation does not detach it. The rank-one term is negative semidefinite. The profiled energy need not be convex, and the stability range of Lemma~\ref{lem:family} describes the frozen problem only.
+
+\begin{proposition}[The closed form is a majorize-minimize step]
+\label{prop:mm}
+Let $q_t$ be the current receiver, $D_t=D(q_t)$, and $\alpha_t=\alpha^\star(D_t)$. The function
+\begin{equation}
+M_t(q)=c_0\log(b_0+D_t)+\alpha_t\bigl(D(q)-D_t\bigr)+G(q)
+\end{equation}
+satisfies $M_t\ge E$ with equality at $q_t$, and $M_t(q)=F(q;\alpha_t)+\text{const}$. Let $q_{t+1}$ be the minimizer of $F(\cdot;\alpha_t)$ over the full or the diagonal family, given by Lemma~\ref{lem:family} with the coefficients of Eq.~\eqref{eq:frozen_alpha} at $\alpha^\star=\alpha_t$. Then $E(q_{t+1})\le E(q_t)$. Equality holds only if $q_t$ is a stationary point of $E$ within the family.
+\end{proposition}
+
+\begin{proof}
+The function $x\mapsto c_0\log(b_0+x)$ is concave, so it lies below its tangent at $D_t$, whose slope is $\alpha_t$. This gives $M_t\ge E$ with equality at $q_t$. Hence $E(q_{t+1})\le M_t(q_{t+1})\le M_t(q_t)=E(q_t)$, where the middle inequality holds because $q_{t+1}$ minimizes $M_t$ over the family. If $E(q_{t+1})=E(q_t)$, then $q_t$ also minimizes the strictly convex $M_t$, so the gradient of $M_t$ vanishes at $q_t$, and that gradient is $\nabla E(q_t)$ by Proposition~\ref{prop:envelope}.
+\end{proof}
+
+This is the majorize-minimize principle \citep{hunter2004mm}. With $\alpha$ recomputed at every iteration and damping $\rho=1$, the closed-form iterates descend the profiled energy monotonically, and their fixed points are its stationary points.
+
+\paragraph{Damping.}
+For $\rho<1$ the argument requires only $F(q_{t+1};\alpha_t)\le F(q_t;\alpha_t)$. In the full family this holds for every $\rho\in(0,1]$. With scalar $\kappa$, Eq.~\eqref{eq:quadratic_family} equals $\kappa\KL(q\Vert q^\star)+\text{const}$ with $q^\star=\N(\Lambda^{-1}\eta,\kappa\Lambda^{-1})$. In natural parameters $\theta$ with log-partition $A$, $\KL(q_\theta\Vert q^\star)=A(\theta^\star)-A(\theta)-\langle\theta^\star-\theta,\nabla A(\theta)\rangle$. Along $\theta_\rho=(1-\rho)\theta_0+\rho\theta^\star$, with $\delta=\theta^\star-\theta_0$,
+\begin{equation}
+\frac{d}{d\rho}\KL(q_{\theta_\rho}\Vert q^\star)=-(1-\rho)\delta^\top\nabla^2A(\theta_\rho)\delta\le0,
+\end{equation}
+so the damped step of Proposition~\ref{prop:flow} descends the frozen energy, and the damped majorize-minimize step descends $E$. In the diagonal family the implemented interpolation $J_k=(1-\rho)/s_k+\rho\Lambda_{kk}/\kappa$ contracts the mean error by the diagonal factor $w_k=(1-\rho)s_k^{-1}/J_k$, which differs between coordinates. With a dense $\Lambda$ a nonuniform diagonal contraction can increase the quadratic term. For $\Lambda=\bigl(\begin{smallmatrix}1&0.99\\0.99&1\end{smallmatrix}\bigr)$, $\eta=0$, $\kappa=1$, $\xi=(5,-5)$, $s=(1/2,2)$ and $\rho=1/2$, the frozen energy without constants rises from $1.500$ to $2.503$, while $\rho=1$ lowers it to $1.000$. The damped diagonal step therefore carries no descent guarantee, for constant $\alpha$ as well as for the profiled energy.
+
+\paragraph{Per-coordinate coefficients.}
+The form \cfg{state\_dependent\_per\_coord} assigns $\alpha_k=c_{0,k}/(b_{0,k}+D_k)$ to each local coordinate. On the diagonal family with a diagonal prior, $q=\N(\mu,\diag s)$ and $p=\N(\mu_p,\diag p)$ in local coordinates, and the divergence separates as
+\begin{equation}
+D=\sum_kD_k,\qquad D_k=\frac12\Bigl[\frac{s_k}{p_k}+\frac{(\mu_k-\mu_{p,k})^2}{p_k}-1-\log\frac{s_k}{p_k}\Bigr].
+\end{equation}
+Lemma~\ref{lem:profile} applies coordinatewise and gives $E=\sum_kc_{0,k}\log(b_{0,k}+D_k)+G+\text{const}$ with $\nabla E=\sum_k\alpha_k^\star\nabla D_k+\nabla G$. Freezing the coefficients gives
+\begin{equation}
+\sum_k\alpha_kD_k=\tfrac12(\mu-\mu_p)^\top\diag(\alpha/p)(\mu-\mu_p)+\tfrac12\sum_k\frac{\alpha_ks_k}{p_k}-\tfrac12\sum_k\alpha_k\log s_k+\text{const}.
+\end{equation}
+The prior precision becomes the nonscalar $\diag(\alpha_k/p_k)$, and the entropy weight becomes the vector $\kappa_k=\alpha_k+\kappa_G$. With $\Lambda_{\mathrm{loc}}=\Lambda_{G,\mathrm{loc}}+\diag(\alpha/p)$ and $\eta_{\mathrm{loc}}=\eta_{G,\mathrm{loc}}+\diag(\alpha/p)\mu_p$, the diagonal-family energy is
+\begin{equation}
+\tfrac12\mu^\top\Lambda_{\mathrm{loc}}\mu-\eta_{\mathrm{loc}}^\top\mu+\tfrac12\sum_k(\Lambda_{\mathrm{loc}})_{kk}s_k-\tfrac12\sum_k\kappa_k\log s_k+\text{const},
+\end{equation}
+which separates in the variances. Its unique minimizer is $\mu^\star=\Lambda_{\mathrm{loc}}^{-1}\eta_{\mathrm{loc}}$ and $s_k^\star=\kappa_k/(\Lambda_{\mathrm{loc}})_{kk}$. The vector weight therefore leaves the diagonal closed form exact, and Proposition~\ref{prop:mm} holds with the sum of the coordinatewise tangent bounds as majorizer. The dense $\Lambda_{G,\mathrm{loc}}$ is the local pullback of the reference statistics, so only the self term is diagonal in local coordinates. In reference coordinates it contributes $U_i^\top\diag(\alpha/p)U_i$, which is not a scalar multiple of $C_p^{-1}$. The per-coordinate form is tied to the local basis and, unlike the per-token form, is not covariant under a change of local frame.
+
+For the full family the code splits $D$ by the ordered chain rule, $D_k=\E_q\KL(q(x_k\mid x_{<k})\Vert p(x_k\mid x_{<k}))$. Write the prior precision as $C_p^{-1}=A\diag(1/v)A^\top$ with $A$ unit upper triangular and $v_k$ the conditional prior variances, and the covariance as $\Sigma=LL^\top$ with $L$ lower triangular. The cross-entropy of coordinate $k$ is $\tfrac1{2v_k}[a_k^\top\Sigma a_k+(a_k^\top(\mu-\mu_p))^2]$ up to a constant, with $a_k$ the $k$th column of $A$, and the conditional entropy is $\log L_{kk}$ up to a constant. The frozen energy is therefore
+\begin{equation}
+\tfrac12\Tr(\Lambda\Sigma)+\tfrac12\mu^\top\Lambda\mu-\eta^\top\mu-\sum_k\kappa_k\log L_{kk}+\text{const},\qquad
+\Lambda=\Lambda_G+A\diag(\alpha/v)A^\top,
+\end{equation}
+with $\eta=\eta_G+A\diag(\alpha/v)A^\top\mu_p$. It is strictly convex in $(\mu,L)$. Stationarity in $L$ requires the lower triangle of $\Lambda L$ to equal $\diag(\kappa_k/L_{kk})$, so $\Lambda L$ is upper triangular. Writing $\Lambda=\tilde U\diag(d)\tilde U^\top$ with $\tilde U$ unit upper triangular, uniqueness of this factorization gives
+\begin{equation}
+\Sigma^{\star-1}=\tilde U\diag(d_k/\kappa_k)\tilde U^\top,\qquad \mu^\star=\Lambda^{-1}\eta,
+\end{equation}
+which reduces to $\Sigma^\star=\kappa\Lambda^{-1}$ when $\kappa$ is uniform. A float64 check at $K=4$ against automatic differentiation of the code's ordered conditional divergence found gradients of $7\times10^{-16}$ in the mean and $2\times10^{-15}$ in the Cholesky factor at this point, while the lower-upper ordering of the factorization gave gradients of order one. This closed form is derived and checked but not implemented. The gradient route rejects \cfg{state\_dependent\_per\_coord} on the full family, and the descent argument for $\rho<1$ above does not apply, because the frozen energy is no longer a scalar multiple of a divergence.
+
+The implementation selects these forms with \cfg{lambda\_alpha\_mode} and the coefficients \cfg{b0} and \cfg{c0}. It uses the exact, unclipped divergence, since a ceiling on $D$ would zero the force beyond it. The diagnostics report the profiled energy of Eq.~\eqref{eq:profiled}, with the constant omitted.
+
+\section{Implementation map}
+\label{sec:implementation}
+
+The implementation would keep the current route reachable and add the derived one. This note implements nothing. The proposed configuration surface has three parts:
+\begin{itemize}
+\item \emph{Receiver law.} A selector \cfg{relational\_receiver\_law} chooses between \cfg{"ambient\_alignment"}, the present Eq.~\eqref{eq:ambient}, and \cfg{"channel\_likelihood"}, Eq.~\eqref{eq:channel} with the tie $P_h=O_h^\top$. The tie needs no new parameters and preserves checkpoint names.
+\item \emph{Update rule.} A selector \cfg{relational\_receiver\_update} chooses between \cfg{"euler"}, the present step, and \cfg{"closed\_form"}, with an optional damping $\rho\in(0,1]$ under Proposition~\ref{prop:flow}.
+\item \emph{Channel noise.} Under the channel law, \cfg{relational\_receiver\_noise} becomes $Q_h=\nu I_d$ in the value space. A value $\nu=0$ is admissible when a runtime certificate shows that $T_h\bar C_jT_h^\top$ is positive definite.
+\end{itemize}
+Joint routing (Definition~\ref{def:joint}) would be a separate opt-in. It is the only variant whose receiver gradient carries the comparison force of Eq.~\eqref{eq:comparison_force}.
+
+In the kernel, the channel law replaces the $(B,N,H,K,K)$ source channel by $(B,N,H,d,d)$ factors of $R_{hj}$. Routing pools $W_h$ and $\omega_h$ in $d$ dimensions, lifts once per receiver with $P_h^\top W_hP_h$, adds the prior precision, and solves once per receiver. The diagnostics should report the mean and covariance parts of the frozen energy separately, together with $\Vert\xi-\xi^\star\Vert$. Under the closed form, \cfg{n\_e\_steps} matters only when $\rho<1$ or when routing is recomputed.
+
+Whether the channel likelihood with closed-form updates reaches the predictive route's loss is an empirical question that this note does not answer. Proposition~\ref{prop:predictive_limit} shows that the two routes agree in a limit. Away from it, the gradient route fuses where the predictive route adds, and it weights senders by their channel precision.
+
+\section{Status and checks}
+\label{sec:status}
+
+\begin{table}[h]
+\centering
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+Statement & Status \\
+\midrule
+Lemmas~\ref{lem:reference} and \ref{lem:family}, Propositions~\ref{prop:ambient}, \ref{prop:channel}, \ref{prop:flow} & Exact for the declared energies \\
+Lemma~\ref{lem:noise_required}, Proposition~\ref{prop:pinning} & Exact properties of the implemented energy \\
+Propositions~\ref{prop:joint}, \ref{prop:no_D_only} & Exact for affine-in-$\beta$ functionals with routing entropy \\
+Cut routing, Definition~\ref{def:cut} & Declared model; exact inference within it \\
+Channel model, Eq.~\eqref{eq:channel_model}; tie $P_h=O_h^\top$ & Declared choices \\
+Proposition~\ref{prop:predictive_limit} & Exact under its three stated hypotheses \\
+Initialization numbers in Section~\ref{sec:ambient} & Measured on the kernel at $K=20$, $H=2$; scoped to those values \\
+Lemma~\ref{lem:profile}, Propositions~\ref{prop:envelope} and \ref{prop:mm}; per-coordinate diagonal closed form & Exact; implemented \\
+Damped descent in the full family; diagonal damping counterexample & Exact; the counterexample is a single explicit instance \\
+Full-family per-coordinate closed form & Derived; checked numerically at $K=4$; not implemented \\
+Loss parity of the channel route & Open; requires a matched training comparison \\
+\bottomrule
+\end{tabularx}
+\caption{Status of the statements in this note.}
+\end{table}
+
+A float64 script compared each closed form with automatic differentiation of the literal energies at $K=6$, $H=3$, $d=2$, $N=4$, with random maps, source covariances, routing weights, and per-head $\lambda$. The maximum errors were:
+
+\begin{center}
+\small
+\begin{tabular}{@{}lr@{}}
+\toprule
+Check & Maximum error \\
+\midrule
+Channel-likelihood mean and covariance gradients & $9\times10^{-16}$ \\
+Gradients at its stationary point & $2\times10^{-15}$ \\
+Ambient-alignment stationary point $(\Lambda^{-1}\eta,c\Lambda^{-1})$ & $1\times10^{-15}$ \\
+Comparison force of Eq.~\eqref{eq:comparison_force} & $2\times10^{-16}$ \\
+Envelope identity of Proposition~\ref{prop:joint} & $4\times10^{-15}$ \\
+Predictive limit at prior precision $10^{-10}$ & $3\times10^{-10}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+For the profiled self-coupling of Section~\ref{sec:profiled}, float64 tests on the implementation at $K=4$, $H=2$, $N=3$ compared the receiver force with central differences of Eq.~\eqref{eq:profiled}, under both receiver laws, for the per-token form in both families and the per-coordinate form in the diagonal family. The largest error was $1.6\times10^{-9}$, at the finite-difference truncation level, against force entries of order one, while the force with $\alpha$ frozen at a stale state differed by $0.19$ to $0.42$. Eight closed-form iterations at $\rho=1$ never increased the profiled energy; the largest increment was $0$, reached after the iterates had converged. The same held at $\rho=0.3$ and $\rho=0.7$ in the full family.
+
+The script also verified $C\Lambda=\kappa I$ at the covariance optimum for $\kappa=c=4$ and $\kappa=\alpha=1$, and the zero mean and variance $\nu$ on the complement of a block-selector head. Small-dimensional checks establish the identities. They say nothing about behavior at scale or in training.
+
+\begin{thebibliography}{9}
+
+\bibitem[Amari(1998)]{amari1998natural}
+S.~Amari.
+\newblock Natural gradient works efficiently in learning.
+\newblock \emph{Neural Computation}, 10(2):251--276, 1998.
+
+\bibitem[Bishop(2006)]{bishop2006prml}
+C.~M.~Bishop.
+\newblock \emph{Pattern Recognition and Machine Learning}.
+\newblock Springer, 2006.
+
+\bibitem[Blei et~al.(2017)]{blei2017variational}
+D.~M.~Blei, A.~Kucukelbir, and J.~D.~McAuliffe.
+\newblock Variational inference: a review for statisticians.
+\newblock \emph{Journal of the American Statistical Association}, 112(518):859--877, 2017.
+
+\bibitem[Dennis(2026a)]{dennis2026glk}
+R.~C.~Dennis.
+\newblock Gauge-covariant Gaussian attention through projected matrix links.
+\newblock Manuscript in preparation, 2026 (\texttt{GL(K)\_attention\_v2.tex}).
+
+\bibitem[Dennis(2026b)]{dennis2026predictive}
+R.~C.~Dennis.
+\newblock The projected predictive route: theory and computational path.
+\newblock Technical note, 2026 (\texttt{projected\_predictive.tex}).
+
+\bibitem[Hunter and Lange(2004)]{hunter2004mm}
+D.~R.~Hunter and K.~Lange.
+\newblock A tutorial on {MM} algorithms.
+\newblock \emph{The American Statistician}, 58(1):30--37, 2004.
+
+\bibitem[Jacob et~al.(2017)]{jacob2017modules}
+P.~E.~Jacob, L.~M.~Murray, C.~C.~Holmes, and C.~P.~Robert.
+\newblock Better together? {S}tatistical learning in models made of modules.
+\newblock arXiv:1708.08719, 2017.
+
+\bibitem[Opper and Archambeau(2009)]{opper2009variational}
+M.~Opper and C.~Archambeau.
+\newblock The variational {G}aussian approximation revisited.
+\newblock \emph{Neural Computation}, 21(3):786--792, 2009.
+
+\bibitem[Plummer(2015)]{plummer2015cuts}
+M.~Plummer.
+\newblock Cuts in {B}ayesian graphical models.
+\newblock \emph{Statistics and Computing}, 25(1):37--43, 2015.
+
+\end{thebibliography}
+
+\end{document}
