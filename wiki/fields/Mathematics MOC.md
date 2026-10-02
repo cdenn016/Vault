@@ -10,9 +10,13 @@ updated: 2026-10-02
 
 # Mathematics MOC
 
+## Joint particle filtering, October 2, 2026
+
+[[multiagentelbo-2026-10-02-joint-particle-filter]] derives normalized joint prediction and exact Gaussian disintegration on observed affine fibers, then gives finite-history weak consistency for independent multinomial particle resampling as the cloud grows. This does not supply finite-cloud error bounds, expected log-score convergence, admission to the regular finite-filter class, or recursive formation. Eight distinct tiny checks passed; one 616.507218-second CPU study at 512/1,024 agents found every tested cloud worse than the static-lift baseline and persistent64 worse than reset64. Work pauses after publication at the user's request, with those theoretical obligations open.
+
 ## Joint retained parents and stationary protocol, October 2, 2026
 
-[[multiagentelbo-2026-10-02-joint-retained-parent]] adds the full fine-grid source-assignment history to the configuration projection. Eighteen tiny checks and one CPU study at 512/1,024 agents passed. A posthoc fixed-mean control shows that most lifted-versus-recognition source improvement comes from the pointwise approximation; block observations contribute a smaller additional gain. Using observed assignments in the drift at a static activation lift worsens prediction in these cases. This is evidence about those candidate formulas, not an optimal-filter limitation. Hidden conditioning on both observed channels remains the next parent obligation.
+[[multiagentelbo-2026-10-02-joint-retained-parent]] adds the full fine-grid source-assignment history to the configuration projection. Eighteen tiny checks and one CPU study at 512/1,024 agents passed. A posthoc fixed-mean control shows that most lifted-versus-recognition source improvement comes from the pointwise approximation; block observations contribute a smaller additional gain. Using observed assignments in the drift at a static activation lift worsens prediction in these cases. This is evidence about those candidate formulas, not an optimal-filter limitation. Hidden conditioning on both observed channels is pursued in [[multiagentelbo-2026-10-02-joint-particle-filter]]; that continuation records the exact recursion, the tested approximation's limitations, and the remaining parent obligation.
 
 The final saddle-protocol calculation proves that an admissible fixed low-well initialization and stationarity have the same limiting declared post-entrance outcome law. Its every-initial-law probability-surplus route fails, and its full waiting horizon exceeds the stationary completion scale under the specified recurrence convention. Conditional facilitation and restoration survive. This ends the three-round candidate loop without resolving intrinsic selection, interacting structural-law coherence, feedback, or general recursive formation.
 
