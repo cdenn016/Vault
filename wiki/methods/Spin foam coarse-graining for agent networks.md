@@ -5,7 +5,7 @@ aliases: []
 tags: [cluster/gauge-theory, cluster/multi-agent, cluster/participatory, cluster/participatory/quantum-foundations, project/multi-agent]
 status: draft
 created: 2026-09-30
-updated: 2026-09-30
+updated: 2026-10-01
 ---
 
 # Spin foam coarse-graining for agent networks
@@ -66,14 +66,14 @@ An eight-investigator review with Claude reviewers, cross-model relative to the 
 > [!note] Editorial: what the spin-foam framing contributes
 > The companion's own independent check states that removing the claim that spin-foam methods are useful leaves its calculations unchanged. The distinctive source ideas are not transferred: dynamics-informed embeddings, fixed-point amplitude iteration, and environment-sensitive truncation of the Gilt kind. The useful transfer remains the methods judgment above, not the companion's theorems.
 
-Four statements were integrated into the MultiAgentELBO theory, and all four are EVIDENCE_VERIFIED by Claude Fable 5.1 panels:
+Four statements were initially integrated into the MultiAgentELBO theory, and all four are EVIDENCE_VERIFIED by Claude Fable 5.1 panels:
 
 - `thm:rg-memory-borel-projection`: the memory identity on standard Borel records for any Borel history statistic, with no dominance hypothesis. It formalizes the chain rule the 512-agent parent study already uses ([[multiagentelbo-2026-09-30-gaussian-parent-dynamics]]).
 - `cor:rg-perturbation-divergence-bounds`: two-sided $\min\{\omega,\omega^2/8\}$ bounds with separate evidence and VFE offsets, in the bounded tier only.
 - `prop:rg-forest-tree-composition`: composite and forest trees compose tree transports across depths, for any group.
 - `prop:cg-descent-common-recovery`: family recovery by likelihood descent without finite divergence.
 
-Of the investigator-derived results, three were verified: the contracted residual tower, whose exact one-step supremum is $\log(1+\delta(e^w-1))$; the Gaussian exterior-informed interface, whose discarded information is $-\tfrac12\sum_{a>r}\log(1-\rho_a^2)$; and the regulator's Gibbs form. The quadratic Gaussian residual tier is verified mathematically, but its gap-filling claim is inconclusive. One stabilizer clause is refuted. None of these entered the theory.
+Of the investigator-derived results, three were verified: the contracted residual tower, whose exact one-step supremum is $\log(1+\delta(e^w-1))$; the Gaussian exterior-informed interface, whose discarded information is $-\tfrac12\sum_{a>r}\log(1-\rho_a^2)$; and the regulator's Gibbs form. The quadratic Gaussian residual tier is verified mathematically, but its gap-filling claim is inconclusive. One stabilizer clause is refuted. The contracted residual tower and Gaussian exterior-informed interface subsequently entered the theory, bringing the scoped additions to six. The regulator statement was not integrated. [[multiagentelbo-2026-10-01-predictive-interfaces]] independently checks the interface and tower conditions and records the first executable predictive-interface increment.
 
 The same session recorded the user's locality decision: locality at $c_*$ is carried by the source prior, through sparse, possibly one-way supports and decaying priors. The theory's interaction multigraph now contains the reversal closure of the row supports. Joint descent stays the default dynamics.
 
@@ -100,3 +100,8 @@ The same session recorded the user's locality decision: locality at $c_*$ is car
 ## See also
 
 [[Coarse Graining]], [[Gauge-Theoretic Multi-Agent VFE Model]], [[Emergent spacetime and holography]], [[Graphon limits of agent networks]].
+
+
+## Executed interface and scope, October 1, 2026
+
+[[multiagentelbo-2026-10-01-predictive-interfaces]] provides the matched-rank future-information objective and a separate measured path budget. Generic unbounded Gaussian projections do not obtain a nontrivial global contraction certificate from the contracted-width theorem. The row-only solver and held-action description are corrected without replacing historical X3 data. This is a finite positive-Gaussian reference, with no quantum amplitude transfer or formation claim.
