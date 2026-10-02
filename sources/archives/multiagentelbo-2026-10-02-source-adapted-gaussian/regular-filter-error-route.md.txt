@@ -1,0 +1,287 @@
+# A local error budget for smooth finite filters of the unchanged switching law
+
+October 2, 2026. One bounded constructive round. This record derives a forward joint-path relative-entropy bound from source-energy and projected-force residuals under the actual native law. The decoder changes the predictor, not that law. No simulation, GPU calculation, external theorem invocation, or theory-manuscript edit was performed.
+
+## Target and source continuity
+
+For every finite d=NK, finite horizon H, fixed full-row-rank P:R^d -> R^m with m<d, finite supported source sets, positive source temperature tau, positive-definite mobility M, and finite deterministic coefficient schedule, consider exactly the finite-step switching law in [joint-filter-CONTRACT](joint-filter-CONTRACT.md). For every deterministic, nonanticipating Gaussian or fixed finite Gaussian-mixture decoder supported on the current observed fiber, the result below bounds the forward KL of the actual retained configuration/assignment path law relative to the decoder's normalized predictive path law. Both laws use the actual initial retained law. Equivalence concerns joint paths, not matched moments.
+
+Supplied assumptions are the existing native switching law, retained variables, fixed-c_* scope, directed source support, joint force including sender terms, and actual activation. Introduced assumptions are a declared smooth finite-parameter decoder and deterministic history update; only the finite-sample certificate additionally requires explicitly bounded decoder parameters. The actual hidden law is not assumed Gaussian.
+
+Sources read: docs/DIRECTION.md, docs/STATUS.md, the joint-filter contract and results, trajectory-construction.md, the Research wiki theme "Staged hierarchy formation and RG composability," live c11_network_coarsegraining.tex at def:rg-regular-finite-filter and open:rg-pointwise-parent-dynamics, c13_formation.tex at def:rg-formation-cycle-experiment and prop:rg-formation-endogenous-cycle, pifb2/09_section.tex at sec:meta_agent_definition and sec:meta_agent_state_construction, and SPEC R14-R15. Chapter 11 requires a continuous-time, time-homogeneous regular filter and two separate asymptotic horizon guarantees. They remain open. The four-cycle supplies the canonical kinetics/channel example; no small-network calculation determines this result's scope. R14-R15's formation and recurrence conditions are distinct from prediction.
+
+## 1. Native state and normalized predictor
+
+Suppress a time-row subscript. Let A_is be the symmetric positive-semidefinite fine-coordinate matrix satisfying D_is(x)=x^T A_is x/2. It includes both endpoint embeddings of its comparison residual. Let H_0>0 be prior precision and c the affine force term. For assignment j,
+
+$$
+H_j=H_0+\tau^{-1}\sum_i A_{i,j_i},
+\quad
+g_j(x)=H_jx-c,
+\quad
+a_j(x)=x-\delta M g_j(x).
+\tag{1}
+$$
+
+Let beta_is(x) be the existing softmax of log pi_is-D_is(x)/tau. With p=1-exp(-delta),
+
+$$
+k(j'|x,j)=(1-p)\mathbf1_{\{j'=j\}}+p\prod_i\beta_{i,j'_i}(x),
+\quad
+X_{t+1}=a_{J_{t+1}}(X_t)+\eta_t,
+\quad \eta_t\sim\mathcal N(0,2\delta M).
+\tag{2}
+$$
+
+Gaussian innovations are fresh conditional on the past; assignment uses one global hold/redraw coin. R^d has no boundary, reflection, or killing. The schedule is supplied, not feedback from X. Every finite update is defined without a step-size stability condition. Finite horizon existence is not convergence, stationarity, or a claim that this splitting decreases free energy.
+
+Set R_t=PX_t and H_t=(R_0:t,J_0:t). Let nu_t be the actual conditional law of X_t given H_t. A candidate q_t=q(theta_t,R_t) is decoded from a deterministic functional theta_t of H_t and supported on F_R={x:Px=R}. Its prediction is
+
+$$
+s_t(j',r'|H_t)=\int q_t(dx) k_t(j'|x,J_t)
+\phi_{C_t}\bigl(r'-Pa_{t,j'}(x)\bigr),
+\quad C_t=2\delta_t PM_tP^T.
+\tag{3}
+$$
+
+Summing labels and integrating r' proves normalization; the density is strictly positive. Scoring precedes assimilation of (j',r'). Any deterministic nonanticipating update is allowed below, but an approximate update does not authorize substituting an unnormalized predictive row.
+
+Fix a right inverse B of P and an orthonormal basis Z for ker P. Identify x=Br+Zz and use Lebesgue measure dz on R^(d-m). This is the common dominating measure; the fiber has no d-dimensional Lebesgue density.
+
+## 2. The local channel inequality
+
+For x,y on the same fiber let K_x,K_y be their next joint assignment/retained-coordinate laws. Factorization gives
+
+$$
+D(K_x\Vert K_y)=D(k_x\Vert k_y)
++\frac12\sum_{j'}k_x(j')
+\|Pa_{j'}(x)-Pa_{j'}(y)\|_{C^{-1}}^2.
+\tag{4}
+$$
+
+For any coupling gamma of nu_t and q_t, put K_x and K_y over the same latent (x,y) with law gamma. The augmented divergence equals the gamma integral of (4). Factoring its density ratio into output and conditional ratios shows that marginalizing (x,y) decreases divergence. Consequently
+
+$$
+D\bigl(p_t(\cdot|H_t)\Vert s_t(\cdot|H_t)\bigr)
+\leq\int D(K_x\Vert K_y)\gamma(dx,dy).
+\tag{5}
+$$
+
+The advance is the explicit local bound below, not this generic contraction alone.
+
+Retain the same latent global refresh coin on both sides. Holds produce identical labels; refresh laws are products. Marginalizing the coin gives
+
+$$
+D(k_x\Vert k_y)\leq p\sum_iD(\beta_i(x)\Vert\beta_i(y)).
+\tag{6}
+$$
+
+Self-refreshes remain included. Independent per-receiver hold coins would change the law.
+
+For F(u)=log sum_s exp(u_s), its Hessian has quadratic form Var_softmax(u)(v_s). If a<=v_s<=b, E[(v_s-a)(b-v_s)]>=0 implies Var(v_s)<=(b-a)^2/4. Also (max v-min v)^2<=2||v||^2. Thus Hess F<=I/2. Taylor's integral remainder and invariance under common logit shifts imply
+
+$$
+D(\operatorname{softmax}u\Vert\operatorname{softmax}v)
+=F(v)-F(u)-\nabla F(u)\cdot(v-u)
+\leq\frac14\|\Pi(v-u)\|^2,
+\tag{7}
+$$
+
+where Pi subtracts the arithmetic coordinate mean. For n_i allowed sources put
+
+$$
+\bar A_i=n_i^{-1}\sum_sA_{is},
+\quad B_{is}=A_{is}-\bar A_i,
+\quad E_{is}(x)=x^TB_{is}x/2.
+$$
+
+Source priors cancel between logits at x and y. Therefore
+
+$$
+D(k_x\Vert k_y)\leq
+\frac{p}{4\tau^2}\sum_{i,s}(E_{is}(x)-E_{is}(y))^2.
+\tag{8}
+$$
+
+The B_is can be indefinite. A one-label row contributes zero.
+
+For v=x-y, Pv=0, hence Pa_j'(x)-Pa_j'(y)=-delta PMH_j'v. Define T_P=MP^T(PMP^T)^(-1)PM. Then
+
+$$
+\frac12\|Pa_{j'}(x)-Pa_{j'}(y)\|_{C^{-1}}^2
+=\frac{\delta}{4}v^TH_{j'}T_PH_{j'}v.
+\tag{9}
+$$
+
+There is no inverse-delta penalty: both compared states have the same current retained coordinates. Only hidden force differences visible after projection are charged. Also 0<=T_P<=M, since M^(-1/2)T_PM^(-1/2) is an orthogonal projection.
+
+The assignment average requires no exponential enumeration. Define L_is=A_is/tau, bar L_i(x)=sum_s beta_is(x)L_is, and bar H(x)=H_0+sum_i bar L_i(x). Independence of rows conditional on refresh gives
+
+$$
+\begin{aligned}
+G(x,j)={}&(1-p)H_jT_PH_j\\
+&+p\left[\bar H(x)T_P\bar H(x)
++\sum_i\left(\sum_s\beta_{is}(x)L_{is}T_PL_{is}
+-\bar L_i(x)T_P\bar L_i(x)\right)\right].
+\end{aligned}
+\tag{10}
+$$
+
+Expanding the centered sum proves G=sum_j' k(j'|x,j)H_j'T_PH_j', so G>=0. Sender contributions remain in every H. Endpoint sparsity may be used to evaluate its quadratic forms/traces; dropping sender forces is invalid.
+
+## 3. Closed-form Gaussian residual and path bound
+
+Take gamma=nu_t tensor q_t conditionally on history. Suppose q_t is a fiber Gaussian with ambient mean m_t and covariance V_t: Pm_t=R_t, PV_t=0, and Z^TV_tZ>0. This covariance is hidden physical uncertainty, not population-member dispersion or a Monte Carlo standard error.
+
+For Y~q_t and symmetric B, direct Gaussian moments give
+
+$$
+\begin{aligned}
+\mathcal E_B(x;m,V)
+&=\mathbb E_Y\left[((x^TBx-Y^TBY)/2)^2\right]\\
+&=\frac14[x^TBx-m^TBm-\operatorname{tr}(BV)]^2
++\frac12\operatorname{tr}(BVBV)+m^TBVBm.
+\end{aligned}
+\tag{11}
+$$
+
+Indeed write Y=m+xi. The centered quadratic xi^TBxi-tr(BV) has variance 2tr(BVBV), the linear term 2m^TBxi has variance 4m^TBVBm, and their cross expectation vanishes by the centered third Gaussian moment. Ambient singular V causes no problem because the Gaussian is nondegenerate in z.
+
+The nonnegative native-state residual is
+
+$$
+\boxed{\Phi_t(x,j;m,V)=
+\frac{p_t}{4\tau_t^2}\sum_{i,s}\mathcal E_{B_{is,t}}(x;m,V)
++\frac{\delta_t}{4}\left[
+(x-m)^TG_t(x,j)(x-m)+\operatorname{tr}(G_t(x,j)V)
+\right].}
+\tag{12}
+$$
+
+It uses the current native fine state, assignment, declared coefficients, and decoder moments. No exact-filter density/entropy is required. Integrating (8)-(9) in Y and applying (5) proves
+
+$$
+D(p_t(\cdot|H_t)\Vert s_t(\cdot|H_t))
+\leq\mathbb E_P[\Phi_t(X_t,J_t;m_t,V_t)\mid H_t].
+\tag{13}
+$$
+
+For a finite Gaussian-mixture decoder replace Phi by sum_a w_a Phi(x,j;m_a,V_a). This integrates (5) with an independent mixture draw. Replacing the whole mixture by its Gaussian moment projection in (11) would generally get its fourth moments wrong.
+
+Let S be the normalized path law from (3) and the actual initial retained law. Factoring the path densities and taking the P expectation yields
+
+$$
+\boxed{D(P_{R,J}\Vert S)
+\leq\sum_{t=0}^{H-1}\mathbb E_P
+\Phi_t(X_t,J_t;m_t,V_t).}
+\tag{14}
+$$
+
+This controls the actual non-Gaussian switching law's complete retained assignment/configuration history. It does not average under an optimizer or Gaussian reference. If initial retained laws differ, add their forward KL. No hidden initialization KL is needed for this direct output bound: initial decoder error enters its first prediction residual.
+
+For completeness, TV(P,Q)<=sqrt(D(P||Q)/2) follows as follows. Marginalization to any event A gives D(P||Q)>=d(P(A)||Q(A)). The binary divergence has second derivative 1/[a(1-a)]>=4 in its first argument, and zero value/first derivative at a=Q(A). Hence d(a||b)>=2(a-b)^2. Take events approaching the total-variation supremum. The square root of half the right side of (14), capped at one, therefore bounds path TV.
+
+This is a sufficient upper bound, not a sharp error estimate. Even when q_t=nu_t, the independent coupling generally compares different hidden states and leaves a positive residual. Failure of (14) to vanish does not prove failed closure. A better conditional coupling in (5) requires additional information. Conversely, if every B_is annihilates ker P and PMH_jZ=0 for every assignment, both terms vanish and exact closure is recovered.
+
+## 4. A reduced smooth decoder and the projection issue
+
+The construction does not require retaining a full empirical cloud or fine point state. In hidden coordinates fix U with r orthonormal columns, r<d-m, v_*>0, and a declared linear reference mean b(R). The family
+
+$$
+q_{a,S}(z|R)=
+\mathcal N\left(b(R)+Ua,\ USU^T+v_*(I-UU^T)\right),
+\quad a\in\mathbb R^r,\quad S\in\operatorname{SPD}(r)
+\tag{15}
+$$
+
+has evolving dimension r+r(r+1)/2, independent of horizon and epsilon when r is fixed. Background matrices are declared model data; bounded structural storage as N grows is not asserted. Selecting U is a model-reduction choice, not an intrinsic formation selector.
+
+The decoder is continuously Frechet differentiable into L1(dz). On a small parameter neighborhood its covariance eigenvalues stay positive and its parameters bounded. Differentiation gives a Gaussian times a polynomial of degree at most two, with a common integrable Gaussian envelope. Dominated convergence proves continuous L1 derivatives. Linear dependence through b(R) and fixed finite mixtures with positive smooth weights preserve this property.
+
+One deterministic finite-grid update forms the exact posterior from the preceding approximate q, using k(j'|x,j) times the observation Gaussian and the affine conditional Gaussian transition in the existing contract. It then sets a_next,S_next by the first two moments of U^T[z_next-b(r')]. These are finite Gaussian-weighted integrals with positive normalizer. On compact parameter/input neighborhoods, derivatives of the source/observation factors have polynomial growth and Gaussian domination, so the normalized moment maps are smooth. The conditional transition noise has positive hidden covariance, ensuring S_next>0. Cross correlations discarded by (15) and the restored v_* are approximations charged by the next Phi.
+
+A sequential source-row projection is another possible candidate update, subject to the correct global branch. If j' differs from j, the likelihood is p times product_i beta_i,j'_i. If j'=j, it is a sum of the hold branch and refresh product. Multiplying per-row hold mixtures is wrong. A rowwise update must carry the global branch or implement that mixture directly. Changing a deterministic update preserves (14) only when the predictor remains the normalized declared (3) and its actual decoder moments enter evaluation.
+
+Approximate-law projection KLs do not automatically sum into an actual-law guarantee. For an exact update q_tilde from the preceding approximate q and its projection q_next, the true next filter nu obeys
+
+$$
+D(\nu\Vert q_{\rm next})
+=D(\nu\Vert q_{\rm tilde})
++\mathbb E_\nu\log(q_{\rm tilde}/q_{\rm next}).
+\tag{16}
+$$
+
+The last term is not D(q_tilde||q_next), since its expectation is under nu. There is no KL triangle inequality. Equations (12)-(14) avoid that unsupported replacement by using native-state prediction residuals. They do not claim small hidden-law KL.
+
+The smooth decoder and finite-grid update satisfy density/continuity requirements analogous to part of Chapter 11's definition. They are not yet a continuous-time admitted filter. Smooth discrete maps do not prove time-homogeneous locally Lipschitz stochastic evolution between assignment jumps, and the schedule remains supplied.
+
+## 5. Computability and a conditional statistical certificate
+
+For recorded native x_t,j_t and decoder moments, (12) is evaluable using finite sums, products, and traces. Equation (10) avoids enumerating every assignment. Future authorized native paths can accumulate it online; exact conditional nu_t is unnecessary.
+
+The existing saved block means and assignments do not determine x_t^TB_is x_t, the hidden mean mismatch, or beta_i(x_t) in (10). A fine-cost total also does not recover these separate terms. Retained log-score comparisons cannot be relabeled as evaluations of (14). Implementation must expose fine states or accumulate these quantities while they are available and track numerical approximation in the decoder update/predictive integral.
+
+A sample mean of Phi estimates the bound, but is not itself a certified upper bound. An explicit sufficient certificate follows if every decoder component satisfies the additional declared bounds
+
+$$
+\|m_t\|\leq c_{0,t}+c_{1,t}\|x_t\|,
+\qquad \operatorname{tr}V_t\leq v_t.
+\tag{17}
+$$
+
+Bounded smooth parameterizations of a,S in (15), together with linear b(R), can ensure them. They are additional candidate restrictions, not an established property of unrestricted moment projection.
+
+Set B_sum=sum_is||B_is||^2, H_max=||H_0||+tau^(-1)sum_i max_s||A_is||, g=||T_P||H_max^2. Then ||G||<=g. Gaussian fourth moments give Phi<=a_0+a_2||x||^2+a_4||x||^4, where
+
+$$
+\begin{aligned}
+a_0&=\frac{pB_{\rm sum}}{8\tau^2}(8c_0^4+12vc_0^2+3v^2)
++\frac{\delta g}{4}(4c_0^2+v),\\
+a_2&=\frac{pB_{\rm sum}}{8\tau^2}(12vc_1^2)
++\frac{\delta g}{4}(2+4c_1^2),\\
+a_4&=\frac{pB_{\rm sum}}{8\tau^2}(1+8c_1^4).
+\end{aligned}
+\tag{18}
+$$
+
+To verify, E[(E_B(x)-E_B(Y))^2]<=||B||^2(||x||^4+E||Y||^4)/2 and E||Y||^4<=||m||^4+6v||m||^2+3v^2. Use ||m||^4<=8c_0^4+8c_1^4||x||^4 and ||m||^2<=2c_0^2+2c_1^2||x||^2. Also E||x-Y||^2<=(2+4c_1^2)||x||^2+4c_0^2+v.
+
+Native eighth moments admit an explicit recursion. Define alpha_t=1+delta_t||M_t||H_max,t, b_t=delta_t||M_t c_t||, and Q_t=2delta_tM_t. Then
+
+$$
+u_{t+1}=\alpha_tu_t+b_t+
+\|Q_t\|^{1/2}[d(d+2)(d+4)(d+6)]^{1/8},
+\tag{19}
+$$
+
+with u_0=||mu_0||+||Sigma_0||^(1/2)[d(d+2)(d+4)(d+6)]^(1/8), bounds (E||X_t||^8)^(1/8). This follows from the L8 triangle inequality, the uniform affine-sheet growth bound, and the Gaussian radial eighth moment. The latter follows by differentiating E exp(s||Z||^2)=(1-2s)^(-d/2) four times at zero.
+
+For Z_path=sum_t Phi_t, the L2 triangle inequality and the eighth-moment bound imply
+
+$$
+\operatorname{Var}(Z_{\rm path})\leq
+V_*=\left[\sum_t(a_{0,t}+a_{2,t}u_t^2+a_{4,t}u_t^4)\right]^2.
+\tag{20}
+$$
+
+Thus L independent native paths, with a candidate fixed before evaluation, give with probability at least 1-alpha,
+
+$$
+D(P_{R,J}\Vert S)\leq
+\overline Z_{\rm path}+\sqrt{V_*/(L\alpha)}.
+\tag{21}
+$$
+
+Apply the second-moment Markov bound to the centered sample mean. A mixture with the same component bounds has the same certificate. These constants can make the result uninformative at 512 or more agents. Replacing them with an empirical standard error would be a descriptive estimate, not this guarantee. Unrestricted moment updates need a separate growth/moment proof before (21) applies.
+
+## 6. Continuous-time limits and the next obligation
+
+Both terms in (12) carry the elementary small-step scale: p_t<=delta_t, and the projected-force term is proportional to delta_t. Therefore sufficiently small actual-law residuals offer a route to a vanishing budget without an automatic inverse-grid-size blowup. A regime-specific sufficient condition is that the entire sum of expectations in (12) tends to zero. Uniform-window O1 needs this uniformly over its permitted window placements; full-history O1 needs the entire growing-horizon sum to vanish. Finite moments, one finite window, or a Gaussian decoder alone do not provide either. The factors tau^(-2), sheet Hessians, hidden covariance, and horizon may defeat the bound.
+
+The live formation experiment has identity mobility and noise covariance 2T I dt with T=epsilon^8. The present sampler uses declared M and covariance 2M dt. The schedule, force normalization, and temperature must be matched before importing a formation asymptotic. If the noise were changed to 2T delta M with the same drift, (9)'s coefficient would be delta/(4T), not delta/4.
+
+Naive interpolation is insufficient for continuous-path TV. Assignment jumps confined to deterministic grid times and continuous-time Poisson jumps have different time-stamped supports: the event "a non-grid assignment change occurs" has zero probability for the former and generally positive probability for the latter. Small-step weak convergence or a time-displacement coupling does not establish their continuous-path total variation. An O1 extension must use actual random jump times, a continuous-time regular finite filter, and actual-law marked-jump/diffusion prediction residuals.
+
+The next discriminating implementation obligation is a deterministic smooth decoder of declared fixed dimension, a correct global hold/refresh update, and streaming evaluation of (12) from actual fine states at 512 and 1,024 agents. Separate source and projected-force terms; report their horizon/rank dependence and integration error. A random quadrature cloud introduces another approximation. Favorable score differences are insufficient: usefulness requires an actual expectation bound or a finite-sample certificate under verified assumptions. If the budget is large, investigate a better conditional coupling or sharper source-channel bound rather than summing projection KLs under the wrong law.
+
+The strongest supported result is (12)-(14), plus the conditional certificate (17)-(21), for the unchanged finite-grid switching law. The minimal unresolved obligation is a reduced smooth update for which this or a sharper budget is small. Continuous-time admissibility, both epsilon/horizon limits, endogenous structural feedback, and intrinsic recursive formation remain open.

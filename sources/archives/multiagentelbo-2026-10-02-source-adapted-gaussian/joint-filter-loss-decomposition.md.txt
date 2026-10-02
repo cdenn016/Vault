@@ -1,0 +1,145 @@
+# Particle-loss decomposition on the published saved paths
+
+October 2, 2026. Source prediction accounts for 95.8 to 99.4 percent of the mean excess loss over the static-lift baseline across these six recorded comparisons. For persistent64, the source excess is 34.7679 +/- 2.9201 nats at N=512 and 83.4793 +/- 6.9754 at N=1,024, versus conditional configuration excesses of 0.8240 +/- 0.1837 and 2.3566 +/- 0.2741. This locates the largest measured discrepancy; it does not identify its cause.
+
+This is a deterministic diagnostic of the [published study](joint-filter-RESULTS.md), using exactly its first 128 saved independent native paths at each size and its saved particle-tape outcomes. No trajectory, particle cloud, assignment, or learning schedule was regenerated. The sole fresh model calculation evaluates the deterministic static-lift baseline source likelihood at those same observations. It completed in 2.175493 seconds on CPU float64, one torch thread, with sequential MKL. CUDA was visible and unused.
+
+## Scope and exact decomposition
+
+The supplied domain is fixed c_*, N in {512,1024}, K=2, block size 16, 64 steps of length 1/64, the positive supported prior and rate-one global hold/redraw source kernel, and the recorded activation and structural schedule. Candidates are precisely filter16, filter64, reset64 and the static-lift baseline of [joint-filter-CONTRACT.md](joint-filter-CONTRACT.md). The additional choices in this diagnostic are posthoc decomposition and stratification; no scientific parameter changed.
+
+Source continuity is docs/DIRECTION.md, the current STATUS checkpoint, Chapter 11's def:rg-regular-finite-filter and open:rg-pointwise-parent-dynamics (live c11_network_coarsegraining.tex, lines 1288-1346), and the retained-law/covariance distinctions in Research/manuscripts/pifb2/09_section.tex. This comparison concerns a normalized joint predictor, not a Gaussian covariance proxy or an admitted regular filter.
+
+For each candidate A, each allowed next assignment j', each finite retained history h, and each r' in the projected Euclidean configuration space, the joint predictive density is positive. Define
+
+$$
+s_A^J(j'|h)=\int s_A(j',r'|h)dr',
+\qquad
+s_A^{R|J}(r'|j',h)=s_A(j',r'|h)/s_A^J(j'|h).
+$$
+
+For a particle candidate, Gaussian normalization makes the first factor exactly sum_l w_l k(j'|x_l,j). For baseline B, it is k(j'|m_0(r),j), where m_0 is the activation conditional mean. Both factors are normalized in their respective next variable. Direct substitution proves the row identity
+
+$$
+\log\frac{s_B(j',r'|h)}{s_A(j',r'|h)}
+=
+\log\frac{s_B^J(j'|h)}{s_A^J(j'|h)}
++
+\log\frac{s_B^{R|J}(r'|j',h)}{s_A^{R|J}(r'|j',h)}.
+$$
+
+The common initial retained law cancels. The saved log_source is log s_A^J; log_joint minus log_source is log s_A^{R|J}. This subtraction introduces no Gaussian-mixture approximation. Positive contrasts mean A has larger negative log loss. The decomposition is exact for every evaluated row; standard errors do not add.
+
+Each statistic first sums selected rows within a path, then reports its empirical mean and paired standard error sd(values)/sqrt(number of paths), with sample standard deviation (ddof=1). Changed-step and unchanged-step sums retain all 128 paths, including zero sums for empty selected sets. Steps are never treated as independent replicates. Path classes instead condition on zero versus at least one observed assignment change and use their own counts.
+
+These contrasts concern expected tape-conditioned joint-path risk, not absolute retained-path KL or tape-marginalized KL. The source component sums conditional source-row contrasts given retained histories; it is not the KL of the standalone assignment path after marginalizing configurations. One graph/model instance per N and one tape per native path remain the replication limits. Cross-instance and separately resolved tape uncertainty are [underpowered]. The source share is a descriptive ratio of sample means, not a confidence statement about a universal fraction.
+
+## All-step decomposition
+
+All values below are nats per complete path, mean +/- empirical paired standard error over 128 paths.
+
+| Agents | Arm | Source loss contrast | Conditional configuration contrast | Joint contrast |
+| --- | --- | --- | --- | --- |
+| 512 | filter16 | 42.5594 +/- 3.5880 | 1.8653 +/- 0.2345 | 44.4247 +/- 3.6320 |
+| 512 | filter64 | 34.7679 +/- 2.9201 | 0.8240 +/- 0.1837 | 35.5919 +/- 2.9571 |
+| 512 | reset64 | 31.9940 +/- 2.8205 | 0.2599 +/- 0.1219 | 32.2539 +/- 2.8501 |
+| 1024 | filter16 | 93.7969 +/- 7.6669 | 3.7679 +/- 0.3379 | 97.5648 +/- 7.7971 |
+| 1024 | filter64 | 83.4793 +/- 6.9754 | 2.3566 +/- 0.2741 | 85.8359 +/- 7.0453 |
+| 1024 | reset64 | 80.3614 +/- 6.9339 | 0.4912 +/- 0.1724 | 80.8525 +/- 6.9838 |
+
+Persistent64 minus reset64 separates as follows.
+
+| Agents | Source contrast | Conditional configuration contrast | Joint contrast |
+| --- | --- | --- | --- |
+| 512 | 2.7739 +/- 1.1284 | 0.5641 +/- 0.1860 | 3.3380 +/- 1.1297 |
+| 1024 | 3.1179 +/- 1.8501 | 1.8655 +/- 0.2849 | 4.9834 +/- 1.8801 |
+
+The configuration contrast is positive in the recorded sample at both sizes; the size-1,024 source contrast has substantial paired uncertainty. Neither component establishes that loss of history information causes the observed difference.
+
+## Assignment-step strata
+
+There are 121 observed change steps and 8,071 unchanged steps at N=512; 124 and 8,068 at N=1,024. The indicator is any(J[t+1] != J[t]) over receivers, not an observation of the latent global refresh coin. A refresh that reproduces the old assignment belongs to the unchanged stratum.
+
+Changed-step contributions per original path:
+
+| Agents | Arm | Source loss contrast | Conditional configuration contrast | Joint contrast |
+| --- | --- | --- | --- | --- |
+| 512 | filter16 | 42.5594 +/- 3.5880 | 0.1485 +/- 0.0408 | 42.7079 +/- 3.6008 |
+| 512 | filter64 | 34.7679 +/- 2.9201 | 0.1433 +/- 0.0402 | 34.9113 +/- 2.9326 |
+| 512 | reset64 | 31.9940 +/- 2.8205 | 0.0893 +/- 0.0374 | 32.0833 +/- 2.8280 |
+| 1024 | filter16 | 93.7969 +/- 7.6669 | 0.1540 +/- 0.0643 | 93.9509 +/- 7.6809 |
+| 1024 | filter64 | 83.4793 +/- 6.9754 | 0.1704 +/- 0.0586 | 83.6497 +/- 6.9879 |
+| 1024 | reset64 | 80.3614 +/- 6.9339 | 0.0847 +/- 0.0570 | 80.4461 +/- 6.9417 |
+
+Unchanged-step contributions per original path:
+
+| Agents | Arm | Source loss contrast | Conditional configuration contrast | Joint contrast |
+| --- | --- | --- | --- | --- |
+| 512 | filter16 | 0.0000 +/- 0.0000 | 1.7168 +/- 0.2277 | 1.7168 +/- 0.2277 |
+| 512 | filter64 | 0.0000 +/- 0.0000 | 0.6806 +/- 0.1802 | 0.6806 +/- 0.1802 |
+| 512 | reset64 | 0.0000 +/- 0.0000 | 0.1706 +/- 0.1165 | 0.1706 +/- 0.1165 |
+| 1024 | filter16 | 0.0000 +/- 0.0000 | 3.6139 +/- 0.3373 | 3.6139 +/- 0.3373 |
+| 1024 | filter64 | 0.0000 +/- 0.0000 | 2.1862 +/- 0.2654 | 2.1862 +/- 0.2654 |
+| 1024 | reset64 | 0.0000 +/- 0.0000 | 0.4064 +/- 0.1629 | 0.4064 +/- 0.1629 |
+
+Every stored source-loss contrast on unchanged steps is zero at float64 precision. This is a numerical fact of these inputs, not an exact identity of the mathematical kernels: the hold term dominates, while the positive redraw-to-identical-assignment term remains in the formula.
+
+Persistent64 minus reset64 has conditional configuration contributions of 0.0540 +/- 0.0557 and 0.0857 +/- 0.0758 on changed steps, but 0.5100 +/- 0.1857 and 1.7797 +/- 0.2753 on unchanged steps at N=512 and 1,024. This does not distinguish errors inherited at an earlier change from propagation or finite-cloud errors accumulated between changes.
+
+## Entire-path strata
+
+| Agents | Zero changes | One | Two | Three | Four | At least one |
+| --- | --- | --- | --- | --- | --- | --- |
+| 512 | 44 | 54 | 25 | 3 | 2 | 84 |
+| 1024 | 46 | 50 | 23 | 8 | 1 | 82 |
+
+On paths with no observed assignment change, source contrasts are zero at the recorded precision, so configuration and joint contrasts agree:
+
+| Agents | Arm | Source loss contrast | Conditional configuration contrast | Joint contrast |
+| --- | --- | --- | --- | --- |
+| 512 | filter16 | 0.0000 +/- 0.0000 | 1.6932 +/- 0.3842 | 1.6932 +/- 0.3842 |
+| 512 | filter64 | 0.0000 +/- 0.0000 | 0.2535 +/- 0.2927 | 0.2535 +/- 0.2927 |
+| 512 | reset64 | 0.0000 +/- 0.0000 | -0.1337 +/- 0.1734 | -0.1337 +/- 0.1734 |
+| 1024 | filter16 | 0.0000 +/- 0.0000 | 1.8293 +/- 0.5398 | 1.8293 +/- 0.5398 |
+| 1024 | filter64 | 0.0000 +/- 0.0000 | 1.2422 +/- 0.4185 | 1.2422 +/- 0.4185 |
+| 1024 | reset64 | 0.0000 +/- 0.0000 | -0.1556 +/- 0.2025 | -0.1556 +/- 0.2025 |
+
+On paths with at least one observed assignment change:
+
+| Agents | Arm | Source loss contrast | Conditional configuration contrast | Joint contrast |
+| --- | --- | --- | --- | --- |
+| 512 | filter16 | 64.8525 +/- 3.5494 | 1.9554 +/- 0.2964 | 66.8079 +/- 3.6272 |
+| 512 | filter64 | 52.9797 +/- 2.8734 | 1.1228 +/- 0.2286 | 54.1025 +/- 2.8907 |
+| 512 | reset64 | 48.7528 +/- 2.9504 | 0.4661 +/- 0.1580 | 49.2188 +/- 2.9738 |
+| 1024 | filter16 | 146.4146 +/- 6.9824 | 4.8555 +/- 0.3848 | 151.2701 +/- 7.0439 |
+| 1024 | filter64 | 130.3091 +/- 6.6140 | 2.9818 +/- 0.3404 | 133.2909 +/- 6.6381 |
+| 1024 | reset64 | 125.4421 +/- 6.9179 | 0.8540 +/- 0.2355 | 126.2961 +/- 6.9582 |
+
+These class-conditional comparisons use 44/84 paths at N=512 and 46/82 at N=1,024. The classes are selected from observed outcomes; their contrast is not a randomized intervention or a causal effect of a jump.
+
+## Executed evidence and checks
+
+[decompose.py](joint-filter-diagnostic-evidence/decompose.py) is the reproducible calculation. [metadata.json](joint-filter-diagnostic-evidence/metadata.json) records runtime, diagnostic source/input hashes, configuration and revision. [N512.json](joint-filter-diagnostic-evidence/N512.json) and [N1024.json](joint-filter-diagnostic-evidence/N1024.json) contain unrounded statistics and numerical checks. Corresponding decomposed-scores.npz files contain all per-row source/configuration contrasts, fresh baseline source logs, and change masks. [stdout.log](joint-filter-diagnostic-evidence/stdout.log) is the executed output. source.zip captures this diagnostic's source bytes.
+
+The predecessor source scores were path totals. The fresh baseline uses BlockObservation.compile(initial.Sigma,16).conditional_mean, source_log_posterior and source_transition_log_prob. Summing native_log_source minus that baseline reproduces predecessor block16_source_lifted[:128] with maximum absolute discrepancy 1.13687e-13 nats at each size. This checks the block implementation against the predecessor's dense Gaussian lift. Source-plus-configuration reproduces the saved joint contrasts to 1.42109e-14 at N=512 and exactly at N=1,024, below the declared 1e-9 tolerance. All calculations use log probabilities and retain Gaussian normalizers. No new matrix inverse or dense solve is introduced. Conditioning of the reused SPD block operation was not separately measured by this arithmetic diagnostic.
+
+The command from the repository root was:
+
+```powershell
+$env:MKL_THREADING_LAYER='SEQUENTIAL'
+$env:OMP_NUM_THREADS='1'
+$env:MKL_NUM_THREADS='1'
+$env:PYTHONIOENCODING='utf-8'
+& C:/anaconda/python.exe -I -B 'docs/research/2026-10-02-renormalization-completion/joint-filter-diagnostic-evidence/decompose.py' 2>&1 |
+  Tee-Object -FilePath 'docs/research/2026-10-02-renormalization-completion/joint-filter-diagnostic-evidence/stdout.log'
+```
+
+Interpreter preflight C:/anaconda/python.exe -I -B -c "import torch; print(torch.__version__, torch.cuda.is_available())" returned torch 2.10.0.dev20251210+cu128 and True under the same environment. No CUDA tensors or GPU workload were created.
+
+The saved inputs are artifacts/gaussian-joint-filter/20261002T165113504304Z and artifacts/gaussian-joint-parent/20261002T161127396348Z. Activation and schedule are evidence/activation/N{512,1024}-learn_both-final.npz and evidence/switching-schedules/N{512,1024}-learn_both-schedule.npz beneath this research directory. The diagnostic ran once. No test suite or predecessor study was rerun.
+
+## Narrow implication
+
+The dominant observed discrepancy is in the whole-network source integral at observed changes. Improving a source-predictive integral with a checkable actual-law error quantity is the next justified target; the evaluation must distinguish a better integral estimate from a different predictive model. Changing only a Gaussian decoder while keeping its hidden cloud and source predictor fixed leaves the dominant source loss unchanged. Merely increasing cloud size is not established as sufficient.
+
+The configuration deficit remains separate. Persistent64 loses to reset64 there even after source-score removal, including on no-change paths in the N=1,024 sample. Future work should retain the decomposition rather than claim a useful history effect from an improved joint number alone. This diagnostic proves no causal collapse mechanism, dimension-uniform limitation, or absence of useful hidden memory. Finite-particle log-risk control, regular-filter admission, endogenous feedback and intrinsic recursive formation remain unresolved.
