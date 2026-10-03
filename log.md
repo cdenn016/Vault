@@ -398,3 +398,7 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 2026-10-03 CLEANUP: Retired six superseded Attention working .tex notes; attention_unified.tex replaces them. Updated current navigation and provenance; originals remain recoverable in Git history.
 
 2026-10-03 LINT: Superseded Attention-note cleanup checked 1464 notes; all five integrity categories zero. Unified manuscript rebuilt to 74 pages without undefined references/citations or overfull boxes.
+
+2026-10-03 CLEANUP: Author authorized publication of their additional changes: removed six old PDFs and moved GL(K) extension/gradients sources and PDFs into Misc_Attention_Docs.
+
+2026-10-03 CLEANUP: Included the author's removal of two old review folders and relocation of spin-foam/belief-inertia manuscripts. Vault lint checked 1377 remaining notes; all five integrity counts zero.

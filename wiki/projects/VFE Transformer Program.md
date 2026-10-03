@@ -21,7 +21,7 @@ updated: 2026-10-03
 
 ## Unified attention companion, October 3, 2026
 
-The author subsequently retired the six superseded working `.tex` notes. `manuscripts/Attention/attention_unified.tex` is their replacement; earlier originals remain in Git history, and immutable source notes retain their dated provenance. See [retirement mapping](../../docs/attention-note-retirement-2026-10-03.md).
+The author subsequently retired the six superseded working `.tex` notes. `manuscripts/Attention/attention_unified.tex` is their replacement; earlier originals remain in Git history, and immutable source notes retain their dated provenance. The author moved the gradients and extension companions into `manuscripts/Attention/Misc_Attention_Docs/` and removed the six superseded PDFs. See [retirement mapping](../../docs/attention-note-retirement-2026-10-03.md).
 
 [[dennis-2026-attention-unified]] unifies the six Attention notes and maps their relationship to all four current GL(K) manuscripts. The author's primary future integration choice is Option A exponential group-valued links; compression and the current routed head sum are supporting comparisons. The standalone file is `manuscripts/Attention/attention_unified.tex`; no GL(K) source was edited. The companion corrects the real-log chart scope, complement-residual assumptions, causal inverse-edge loop distinction, Fisher stabilizer/completion boundary, and frozen-receiver posterior interpretation.
 
