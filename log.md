@@ -342,3 +342,7 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 2026-10-03 INGEST: Archived the restoring zero-action derivation and symbolic checks from code commit 88960dc. Added a manuscript-source note and updated the existing project, hierarchy theme and Mathematics/Statistics MOCs. Preserved the introduced recognition-family assumptions, fixed-dimension scope and unresolved R14/gauge-network/partition obligations. No theory manuscript or prior source edited.
 
 2026-10-03 LINT: Restoring zero-action ingest scanned 1450 notes; all five link-integrity categories were zero. Both archives match their committed code-source bytes.
+
+2026-10-03 INGEST: Archived the gated handoff derivation and exact algebra checks from code commit 91c2d44. Added a source note and updated project, hierarchy theme and Mathematics/Statistics MOCs. Retained fixed-size, short-horizon and configuration-law assumptions, with no general O4 exclusion. No theory manuscript or previous source edited.
+
+2026-10-03 LINT: Gated handoff ingest scanned 1451 notes; all five link-integrity categories were zero. Both archived records match their committed code-source bytes.
