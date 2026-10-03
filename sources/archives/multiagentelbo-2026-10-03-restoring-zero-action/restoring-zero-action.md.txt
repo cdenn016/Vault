@@ -1,0 +1,259 @@
+# Restoring coherence with zero stationary action
+
+October 3, 2026. This bounded O4 continuation constructs a reversible diffusion with fixed coefficients for which every fixed initial density produces persistent transverse coherence with probability tending to one, while the same event under stationary initialization has a probability bounded away from one and zero stationary action. It also gives an exact regular Gaussian-recognition free energy and its Fisher metric realizing the interaction. This settles a mechanism-level gap left by the earlier displacement example. It does not establish a two-level lineage, an intrinsic partition selector, an interacting gauge-network realization, or O4.
+
+## Source continuity and introduced assumptions
+
+The starting checkpoints are code e05d46e6e2c14d5db4e63153a54f4de09bbba182 and Research 1d4dc18dc92c3fa774c69232849bf6d75fbeaf27. Sources read were [DIRECTION](../../DIRECTION.md), [the stationary-action obstruction](stationary-action-obstruction.md), [the failed saddle protocol](saddle-protocol-stationarity.md), the live Research manuscript c12_multiscale_vfe.tex, especially def:full-graph-tower-vfe and open:full-graph-hierarchy, SPEC R14–R15, PIFB2's pifb2/12_section.tex, and the wiki theme Staged hierarchy formation and RG composability. The earlier obstruction excludes positive stationary action under its stated assumptions. Its Gaussian boundary example has only surviving displacement. The remaining question here is whether zero action can coexist with a restoring interaction that acts along the actual joint process and a probability surplus for coherence itself.
+
+The compact recognition domain, two equal-dimensional blocks, quartic interaction and curved Gaussian recognition family below are introduced assumptions. No assertion identifies them with the implemented Gaussian-message parent or the user's agent network. Dimension D is arbitrary and fixed, including D at least 512; a high-dimensional vector block is not thereby a network of D interacting gauge agents. No base direction is introduced. All limits below take T to zero at fixed D. The model, domain and metric are independent of T; only observational resolutions and observation times depend on T.
+
+## An exact free energy and its natural geometry
+
+Let z=(u,v), with u,v in R^D, on the smooth closed ball
+
+\[
+ \Omega_D=\{(u,v):s+t\le1\},\qquad s=|u|^2,\quad t=|v|^2.
+ \tag{1}
+\]
+
+Use a single trivial observation with probability one, a latent vector Y in R^{4D+D^2}, and the normalized prior/posterior Pi=N(0,I). Define the recognition family Q_z=N(m(z),I), where
+
+\[
+ m(z)=\big((\cos u_i,\sin u_i)_{i=1}^D,
+           (\cos v_j,\sin v_j)_{j=1}^D,
+           (u_i v_j)_{i,j=1}^D\big).
+ \tag{2}
+\]
+
+The first two groups make this map injective on (1) and an immersion: each coordinate lies in [-1,1], where its circle representation is injective, and its derivative has unit length. Direct Gaussian integration gives the exact finite free energy
+
+\[
+ F(z)=D_{\rm KL}(Q_z\Vert\Pi)=\tfrac12|m(z)|^2
+     =D+E(z),\qquad E(z)=\tfrac12st.
+ \tag{3}
+\]
+
+No latent variance or Gaussian normalization term has been dropped. The positive constant D is a variational approximation gap: the posterior Pi is outside this restricted family. The ground-state continuum is therefore compatible with a regular identifiable family; it is not a continuum of different laws with zero KL to one posterior.
+
+Writing J for the derivative of u tensor v, the Fisher metric is
+
+\[
+ G=I+J^TJ
+  =\begin{pmatrix}(1+t)I&uv^T\\vu^T&(1+s)I\end{pmatrix}.
+ \tag{4}
+\]
+
+The modes perpendicular to u and v have eigenvalues 1+t and 1+s. On their radial span the matrix is [[1+t,sqrt(st)],[sqrt(st),1+s]], with eigenvalues 1 and 1+s+t. Continuity covers zero radii. Consequently
+
+\[
+ I\le G\le2I,\qquad
+ \det G=(1+t)^{D-1}(1+s)^{D-1}(1+s+t),
+\]
+\[
+ G^{-1}\nabla E=\frac{(tu,sv)}{1+s+t}.
+ \tag{5}
+\]
+
+Thus the construction uses the actual Fisher natural gradient. It is an engineered restriction of recognition, not an admission theorem for the graph hierarchy. In particular, the bilinear dependence in (2) is supplied by the recognition family; a factorized standard-normal prior has acquired no physical gauge interaction by being renamed.
+
+This differs from using u and v as means of independent, fixed nondegenerate Gaussian latents U,V in an observed-zero bilinear likelihood. That likelihood has expected quadratic record energy
+
+\[
+ \tfrac12\mathbb E|U\otimes V|^2
+ =\tfrac12(s+\operatorname{tr}\Sigma_U)
+              (t+\operatorname{tr}\Sigma_V).
+ \tag{6}
+\]
+
+Its positive variance terms add restoring mass on both axes and destroy the proposed ground-state valleys. Equation (2) avoids that particular averaging identity by defining the recognition means of separate auxiliary coordinates explicitly. It does not license dropping (6) in an existing model.
+
+## Reversible diffusion and the event
+
+Let the recognition-coordinate process have generator
+
+\[
+ L_T f=T\Delta_G f-\langle\operatorname{grad}_G E,
+                                      \operatorname{grad}_G f\rangle_G
+ =\frac{T e^{E/T}}{w}\nabla\cdot
+       (w e^{-E/T}G^{-1}\nabla f),\quad w=\sqrt{\det G},
+ \tag{7}
+\]
+
+with inward G-normal reflection on the boundary of (1). Here Delta_G f=w^{-1} partial_i(w G^{ij} partial_j f). This includes its coordinate Ito drift; adding only noise to the natural-gradient ODE would give a different stationary law. The domain has smooth compact boundary, the metric is smooth and uniformly positive, and the drift is smooth. The reflecting manifold diffusion construction is the fixed-metric case described by Cheng and Zhang, Section 2.1, pp. 5–6, [arXiv:1211.3623v2](https://arxiv.org/pdf/1211.3623v2); use vector field -grad_G E/T and rescale time by T. Compactness removes explosion. This reference supplies the process setting, not the asymptotic estimates below.
+
+Integration by parts with G-normal Neumann data gives
+
+\[
+ \rho_T(dz)=Z_T^{-1}e^{-E(z)/T}w(z)dz,\qquad
+ \int f L_Tg d\rho_T
+ =-T\int\langle\nabla f,G^{-1}\nabla g\rangle d\rho_T.
+ \tag{8}
+\]
+
+This proves reversibility and stationarity. The normalizer is finite and positive. The time variable in (7) is a declared diffusion time, not a base path or a derived physical clock.
+
+Choose
+
+\[
+ 0<a<\tfrac14,\qquad \tfrac14<b<\tfrac12-a,
+ \quad h_T=\log^2(1/T),\quad r_T=T^b,
+ \tag{9}
+\]
+
+and fix an observation duration ell>0. Define C_T as the union of { |u|>=T^a, |v|<=r_T } and its swapped version. Define F_T to mean that one of these same orientations holds throughout [h_T,h_T+ell]. Define A_T={min(|u|,|v|)<=r_T} and F_T^coh as persistence of A_T throughout that interval. These are identical full-history protocols under every initial law, including rho_T. There is no selection-conditioned stationary comparison or waiting for a favorable entrance.
+
+## Persistence from every fixed initial density
+
+The claim is
+
+\[
+ \lim_{T\downarrow0}P_\mu(F_T)=1
+ \quad\text{for every fixed Lebesgue-density probability law }\mu
+ \text{ on }\Omega_D.
+ \tag{10}
+\]
+
+Finite second moments are automatic on this compact domain. The quantifier is not uniform over T-dependent initial laws.
+
+Before the first boundary visit, Ito's formula and (5) give
+
+\[
+ ds_h=-\frac{2s_ht_h}{1+s_h+t_h}dh+T\beta_s(z_h)dh+dM_s(h),
+ \qquad
+ dt_h=-\frac{2s_ht_h}{1+s_h+t_h}dh+T\beta_t(z_h)dh+dM_t(h),
+ \tag{11}
+\]
+
+where h is elapsed time and s_h,t_h are the squared radii. The bounded smooth functions beta_s=Delta_G s and beta_t=Delta_G t depend on D but not T. Let B_D bound their absolute values and the absolute values of their sum and difference. For f=s+t or s-t, the martingale quadratic variation is
+
+\[
+ d\langle M_f\rangle=2T\nabla f^TG^{-1}\nabla f dh\le8T dh.
+ \tag{12}
+\]
+
+Fix delta,kappa>0 and restrict initial states to K_{delta,kappa}={|s_0-t_0|>=delta, s_0+t_0<=1-kappa}. Stop at the first boundary visit or the first change of s-t from its initial value by delta/2. Call this time tau. For H=h_T+ell and B_D T H<=min(kappa/2,delta/4), the negative drift of s+t, the bounded drift of s-t and the martingale maximal inequality yield
+
+\[
+ P_z(\tau\le H)
+ \le\frac{32TH}{\kappa^2}+\frac{128TH}{\delta^2},
+ \qquad z\in K_{\delta,\kappa}.
+ \tag{13}
+\]
+
+Indeed a boundary exit requires a positive martingale excursion at least kappa/2, and a gap exit requires an absolute excursion at least delta/4; each stopped quadratic variation is at most 8TH. Reflection has not acted before either exit.
+
+Suppose s_0>t_0; the other case is identical. Before tau, the actual winner has s>=delta/2. The squared loser radius V=t therefore has drift at most -(delta/2)V+B_D T, using 1+s+t<=2. Killing V at tau adds only a negative jump. The integrating-factor estimate gives
+
+\[
+ \mathbb E_z[V_{h_T}1_{\{\tau>h_T\}}]
+ \le e^{-\delta h_T/2}+\frac{2B_DT}{\delta}.
+ \tag{14}
+\]
+
+Stop the killed process again at its first crossing of r_T^2 during the observation interval. Dropping the nonpositive interaction drift and using optional stopping bounds the probability of a crossing before tau by
+
+\[
+ r_T^{-2}\left[e^{-\delta h_T/2}
+                 +\frac{2B_DT}{\delta}+B_DT\ell\right].
+ \tag{15}
+\]
+
+This also covers a loser already above threshold at h_T. Equations (13)–(15) vanish for every fixed delta,kappa because b<1/2. The winner exceeds T^a eventually. The excluded initial sets shrink to the union of the boundary and {s=t}, both Lebesgue-null. First let T tend to zero, then let delta,kappa decrease to zero under the fixed law mu. This proves (10) without a common initial gap. The same proof permits ell to grow as any fixed power of log(1/T), with the corresponding H in (13).
+
+The restoring coefficient in the actual v drift is lambda(z)=s/(1+s+t); both s and t evolve. On F_T,
+
+\[
+ \lambda(z)\ge\tfrac12T^{2a},\qquad
+ \frac{\lambda(z)r_T^2}{T}
+ \ge\tfrac12T^{2(a+b)-1}\longrightarrow\infty.
+ \tag{16}
+\]
+
+On each localized high-probability event it is bounded below more strongly by delta/4. The proof includes reciprocal motion, thermal drift and noise. It has not held the winning coordinate fixed by hand.
+
+## Stationary coherence and zero action
+
+Write p=D/2, epsilon=2T and c_D=pi^p/Gamma(p). Polar integration has radial measure c_D^2 s^{p-1}t^{p-1}ds dt. For an unweighted square radial domain [0,1]^2, the exact product substitution gives
+
+\[
+ I_p(\epsilon)=\int_0^1\int_0^1
+ s^{p-1}t^{p-1}e^{-st/\epsilon}dsdt
+ =\int_0^1 z^{p-1}e^{-z/\epsilon}\log(1/z)dz
+ =\epsilon^p[\Gamma(p)\log(1/\epsilon)-\Gamma'(p)+o(1)].
+ \tag{17}
+\]
+
+The last equality follows by z=epsilon y and integrability of y^{p-1}e^{-y}(1+|log y|) at both ends. Extending the upper endpoint to infinity has exponentially small error. On the square w is smooth, w(0,0)=1 and |w-1|<=C_D(s+t). The integral of s times the unweighted integrand is bounded by
+
+\[
+ \epsilon^p\int_0^1\gamma(p,s/\epsilon)ds
+ \le\epsilon^p\Gamma(p),
+ \tag{18}
+\]
+
+and the t term is identical. Replacing the square by s+t<=1 removes a region contained in {s>=1/2} union {t>=1/2}; its weighted integral is O_D(epsilon^p). These estimates prove
+
+\[
+ Z_T=c_D^2(2T)^p\Gamma(p)
+             [\log(1/(2T))+O_D(1)].
+ \tag{19}
+\]
+
+They also show that weighted-ball event probabilities and their unweighted-square counterparts differ by O_D(1/log(1/T)), uniformly over measurable event sets in the ambient square, taking each measure to be zero outside its domain.
+
+Let A=T^{2a}, B=T^{2b}. The difference between C_T and {max(s,t)>=A} lies in {st>=AB}. Its unweighted Gibbs probability is bounded by
+
+\[
+ e^{-AB/(4T)}\frac{I_p(4T)}{I_p(2T)}=o(1),
+ \tag{20}
+\]
+
+because a+b<1/2. The excluded square has exact integral A^{2p} I_p(2T/A^2). Equation (17), a<1/4 and (19) therefore give
+
+\[
+ \rho_T(C_T)\longrightarrow4a<1.
+ \tag{21}
+\]
+
+The probability surplus is also present for plain coherence. One rectangle {t<=B} has integral B^p I_p(2T/B), with probability tending to 1-2b. The intersection {s,t<=B} has integral B^{2p}I_p(2T/B^2), bounded by B^{2p}/p^2, whose ratio to (19) vanishes since b>1/4. Inclusion-exclusion yields
+
+\[
+ \rho_T(A_T)\longrightarrow2-4b<1.
+ \tag{22}
+\]
+
+By stationarity, a persistent-window event has probability at most its one-time event probability. With (10), this proves the matched full-protocol probability margins
+
+\[
+ \liminf_{T\downarrow0}
+       [P_\mu(F_T)-P_{\rho_T}(F_T)]\ge1-4a>0,
+\]
+\[
+ \liminf_{T\downarrow0}
+       [P_\mu(F_T^{\rm coh})-P_{\rho_T}(F_T^{\rm coh})]
+       \ge4b-1>0.
+ \tag{23}
+\]
+
+For example a=1/8 and b=1/3 give margins at least 1/2 and 1/3. These are lower bounds on window probability margins, not exact window-probability limits.
+
+A lower bound is required to determine the stationary action of the whole window. Choose fixed 0<d<c<1 and c_0>0, and restrict the state at h_T to d<=|u|<=c and |v|<=c_0 sqrt(T). Polar integration and (19) show that this tube has mass (K_D+o(1))/log(1/T), with K_D>0: substitute t=2Ty, integrate s in [d^2,c^2], and use the positive finite inner integral y in [0,c_0^2/2]. For small T it is a fixed positive distance from the boundary and has a fixed positive squared-radius gap. The estimates leading to (13) and (15), now started at this tube with V_0<=c_0^2T and a fixed horizon ell, give conditional survival probability 1-o(1), uniformly over the tube. Thus
+
+\[
+ P_{\rho_T}(F_T)\ge\frac{K_D+o(1)}{\log(1/T)},\qquad
+ -T\log P_{\rho_T}(F_T)\longrightarrow0.
+ \tag{24}
+\]
+
+Stationarity justifies using the tube at h_T without paying a burn-in factor. This proves zero action for the same complete observation protocol. No entrance time or recurrence rate has been inferred from stationary occupation.
+
+## What this resolves and what it leaves
+
+Equations (10), (16), (23) and (24) show that fixed coefficients, actual restoring coherence, a matched stationary probability surplus, and every-fixed-density success are compatible in a regular finite-dimensional recognition model. The earlier positive-action obstruction therefore cannot be extended to exclude all such restoring episodes merely by adding a restoring clause. This is stronger than the earlier surviving-displacement boundary check and weaker than the first condition of O4.
+
+There is no first-stage event, actual positive-weight nonformation handoff, or first-stage-induced improvement of a later event in this construction. Calling two thresholds along the same contraction two levels would not supply those objects and could fall under R14's uniform-success exclusion. There is no normalized coordinate-dependent partition catalog, no interacting noncommuting link law, no claimed transported Gaussian-law coherence, and no separated parent-child feedback construction. Adding independent labels would not fill these gaps. The auxiliary Gaussian embedding only settles the narrower free-energy/metric consistency question.
+
+The estimates have fixed-D constants. In particular, for the metric (4), w(s,0)=(1+s)^{D/2}; the O_D(1) correction in (19) can grow rapidly with D. These formulas do not supply a useful low-temperature threshold at D=512, a joint dimension/temperature limit, or an executable large-network result. They neither set a new network architecture nor justify a GPU experiment. The next discriminating requirement is an admitted interacting network mechanism with the same zero-action/restoration compatibility and an actual R14 handoff comparison, or a precise obstruction for that larger class. The practical O1 parent-error and complexity obligations also remain open.
+
+This was one constructive research round with separate stationary and dynamical derivations, followed by root reconstruction of the metric, localization, stationary integrals and event comparison. The exact symbolic radial checks are recorded in [evidence](restoring-zero-action-checks.json); they validate algebra only. No model simulation, production-code edit, active configuration change, unit-test suite, GPU job or historical heavy producer ran. O4 remains open.

@@ -1479,3 +1479,5 @@ All new source notes are cataloged below. [[multiagentelbo-2026-09-11-research-s
 - [[multiagentelbo-2026-10-03-fixed-projection-filters]] -- finite-horizon fixed-projection approximation with three smooth coordinates and unrestricted complexity; general O1/O4 remain open.
 
 - [[multiagentelbo-2026-10-03-moving-projection-filters]] -- exact supported projection jumps and three-coordinate path-TV approximation; both O1 regimes for prescribed horizon families, with unrestricted complexity.
+
+- [[multiagentelbo-2026-10-03-restoring-zero-action]] -- actual restoring coherence with zero stationary action in an introduced regular recognition model; full O4 remains open.
