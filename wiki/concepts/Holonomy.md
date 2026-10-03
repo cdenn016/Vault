@@ -51,6 +51,12 @@ All three results are now statements of Chapter 2 of the main manuscript at `623
 For a shared unweighted head, a path with $r$ edges is $U_{i_0}(OT)^rU_{i_r}^{-1}$, so paths with the same endpoints and length coincide. Causal attention has no directed cycles through distinct token positions. These limits must accompany any proposed loop diagnostic. See [[Lattice gauge theory]] for the matrix-link construction and its distinction from group-valued parallel transport.
 
 
+## Triangle defect of attention routing, October 2, 2026
+
+[[dennis-2026-link-origin]] shows that the multi-head operator $\mathcal C_{ij}=U_iOB_{ij}TU_j^{-1}$ is generically a $\mathrm{GL}(K)$ link, so loops with one reversed edge exist. For $TO=I$ the loop is $U_iO(\bigoplus_h\beta_{ij}\beta_{jk}/\beta_{ik}\,I_d)O^{-1}U_i^{-1}$, and for routing $\beta=\pi e^{-D/\kappa}/Z$ the log-holonomy of each head is
+$$-\frac{D_{ij}+D_{jk}-D_{ik}}{\kappa}+\log\frac{\pi_{ij}\pi_{jk}}{\pi_{ik}}-\log Z_j,$$
+the triangle defect of the routing costs offset by the intermediate normalizer. Because the KL has no triangle inequality, and here compares query with key laws under different maps, the defect has no definite sign. For the exponential link with commuting generators the loop is $U_iO\exp(B_{ij}+B_{jk}-B_{ik})O^{-1}U_i^{-1}$, and in general it follows the [[Baker-Campbell-Hausdorff formula]] series. The note computes the defect only from formulas, checked in float64 at $K=6$; it has not been measured in a trained model, and reading attention weights as an abelian connection is an interpretation. See [[Lattice gauge theory]].
+
 ## Nonlinear adaptive cyclic formation, September 13
 
 [[multiagentelbo-2026-09-13-nonlinear-adaptive-attention-rg]] constructs, for every fixed finite L>=2, nonlinear cyclic coalescence with exact marked parents and actual-law model learning. A model-posterior source row changes by TV greater than 0.37, and physical and optimizing hidden conditionals change by KL greater than 1/200 on the same 2/epsilon horizon. Conditional KL is O_L(epsilon^2), with separate complete-score and retained-path bounds. Every parent starts from the full actual retained joint law.
@@ -145,6 +151,7 @@ Holonomy surfaces wherever the config commits to a connection or to non-commutin
 
 ## Sources
 
+- [[dennis-2026-link-origin]] — triangle defect of routing logits as the loop of the head-sum link; exponential-link loops via BCH (agent-drafted, small-dimension checks).
 - [[cohen-2019-gauge-cnn]] — gauge equivariance on manifolds: the kernel constraint and the parallel-transport rule whose closed-loop composition is holonomy.
 - [[bronstein-2021-geometric-deep-learning]] — Erlangen-Program synthesis providing the gauge / connection / parallel-transport scaffolding.
 - [[finzi-2020-lieconv]] — Lie-algebra (log-coordinate) parameterization with exp recovery, the BCH-style composition underlying non-abelian holonomy.

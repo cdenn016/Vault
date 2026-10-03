@@ -38,10 +38,14 @@ Since PR #38 the self-coupling $\alpha$ may be state dependent, $\alpha^\star=c_
 
 > [!note] Editorial: The profiled rule is the same $\alpha^\star=c_0/(b_0+D)$ anchor that appears in the multi-agent model; on the transformer route it is a receiver-level choice whose effect on training is untested. Whether the channel receiver with closed-form updates reaches the predictive route's loss is the deciding experiment, and none has been run.
 
+## Fusion residual and the exponential link, October 2026
+
+At finite precision the channel-likelihood receiver yields a partial residual in the observed directions: for an isotropic prior of precision $\alpha$ and message evidence of precision $\lambda$ on the written subspace $W$, $\xi_i^+=(I-P_W)\xi_i+P_W(\alpha\xi_i+\lambda m_i)/(\alpha+\lambda)$, full residual on unobserved directions and $\alpha/(\alpha+\lambda)$ on observed ones. The complement-only residual of the exponential link in [[dennis-2026-link-origin]] is the limit $\lambda/\alpha\to\infty$, and with tiled heads both give no residual at flat prior. The additive $r=1$ residual of the predictive route is neither. This is a note-level derivation with a float64 identity check at small dimension; no training result.
+
 ## Related
 
 [[Projected predictive attention]], [[GL(K) gauge-equivariant attention]], [[Precision weighting]], [[Multi-head attention]], [[Variational free energy]], [[VFE Transformer Program]]
 
 ## Sources
 
-[[dennis-2026-projected-gradient]], [[vfe3-2026-10-02-projected-route-consolidation]], [[dennis-2026-projected-predictive]], [[dennis-2026-glk-projected-matrix-links-v2]], [[blei-2017-variational-inference]], [[bishop-2006-pattern-recognition-machine-learning]]
+[[dennis-2026-link-origin]], [[dennis-2026-projected-gradient]], [[vfe3-2026-10-02-projected-route-consolidation]], [[dennis-2026-projected-predictive]], [[dennis-2026-glk-projected-matrix-links-v2]], [[blei-2017-variational-inference]], [[bishop-2006-pattern-recognition-machine-learning]]

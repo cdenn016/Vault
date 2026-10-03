@@ -10,7 +10,7 @@ updated: 2026-10-02
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **41** manuscripts · **16** themes · **11** field MOCs · **289** concepts · **15** methods · **734** papers · **159** references · **10** runs · **7** web/methodology
+> **3** projects · **42** manuscripts · **16** themes · **11** field MOCs · **289** concepts · **15** methods · **734** papers · **159** references · **10** runs · **7** web/methodology
 
 ## 🧭 Start here
 - [[multiagentelbo-2026-09-26-selection-and-reference-review]] — scoped pairing-selection proof and checked primary-reference archive
@@ -30,6 +30,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 - [[multiagentelbo-2026-09-30-spin-foam-integration-review]] — eight-investigator review of the spin-foam companion; four statements integrated into the theory and Fable-verified; locality through the source prior, one-way attention, joint descent default
 - [[dennis-2026-projected-predictive]] — projected predictive route end to end, toggle-to-equation map, and the opt-in moment-matched predictive covariance; tests only, no training result
 - [[dennis-2026-template-routing]] — template routing explainer: block MLP as mixture-prior inference over learned Gaussian templates; vfe3 `gaussian_template` toggle, no training result
+- [[dennis-2026-link-origin]] — where the singular matrix links come from: exponential link, parabolic compression with Schur complement, head-sum link; complement-only residual, gated-exponential reading of SiLU/GELU; float64 checks at K=6/7, no training, items open
 - [[dennis-2026-projected-gradient]] — projected gradient route: ambient versus channel-likelihood receiver energies, cut routing, exact natural-parameter updates, profiled self-coupling as MM; float64 identity checks, no training result
 - [[dennis-2026-phi-natgrad]] — frame-chart geometry: Frobenius pullback as projected descent on U, belief-Fisher natural gradient for the frame tables, and (from the design record) the content-link spectrum; no training result in the note
 - [[dennis-2026-neuron-free-agent-theory]] — rigorous theory search: conditional neuron-free agent construction in one constrained ELBO; INCONCLUSIVE for the full target
