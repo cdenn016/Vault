@@ -354,3 +354,7 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 2026-10-03 INGEST: Archived activation source calibration from code commit 2ae407a. Added a run source and updated the project, hierarchy theme and Mathematics/Statistics MOCs. Preserved first-receiver versus unprefixed-row scope, numerical integration limitations and open O1/O4 status. No manuscript or previous source edited.
 
 2026-10-03 LINT: Activation source ingest scanned 1453 notes; all five link-integrity categories were zero. All five archives match their committed code-source bytes.
+
+2026-10-03 INGEST: Archived consistent binary source-moment implementation and saved-event results from code commit ec48675. Added a run source and updated the existing project, hierarchy theme and Mathematics/Statistics MOCs. Retained numerical, assumed-Gaussian and survival-filter limitations and all earlier test failure dispositions. No manuscript or prior source edited.
+
+2026-10-03 LINT: Binary source-moment ingest scanned 1454 notes; all five link-integrity categories were zero. All five archives match committed code-source bytes.

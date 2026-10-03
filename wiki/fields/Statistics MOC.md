@@ -12,6 +12,10 @@ updated: 2026-10-03
 
 # Statistics MOC
 
+## October 3 consistent binary source moments
+
+[[multiagentelbo-2026-10-03-binary-source-moments]] supplies an opt-in CPU binary source backend with probabilities and tilted Gaussian moments from one integral. Twenty-five final tiny checks passed, including real worker routing. Two saved first-event sequences at N=512/1024 reproduced the archived cubature means exactly and admitted the new hidden covariances, while some row probabilities changed by about 0.15. These are sensitivity results, not general predictive improvement. Full matched-history budgets, survival-aware native accuracy and O4 remain open; prior cubature-specific bounds have not been transferred. No new native trajectory or GPU work occurred.
+
 ## October 3 activation source-integration accuracy
 
 [[multiagentelbo-2026-10-03-activation-source-calibration]] compares the twelve-point source rule with an independent Gaussian integral on 32 saved activations at N=512 and N=1024. The 24,576 unprefixed rows have mean probability errors 0.015674 and 0.015856, with maxima 0.126513 and 0.173166. Receiver-zero mean errors are 0.003013 and 0.001966; only this first row is an actual marginal of the sequential candidate. Five tiny tests passed and the CPU analysis took 19.72 seconds. The next update must integrate probabilities and tilted Gaussian moments consistently. This does not measure retained path KL, supply survival filtering, or close O1/O4; no trajectory or GPU run occurred.

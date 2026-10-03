@@ -1487,3 +1487,5 @@ All new source notes are cataloged below. [[multiagentelbo-2026-09-11-research-s
 - [[multiagentelbo-2026-10-03-entropic-time-scale]] -- local inverse-temperature GL dynamics, actual initial slip and exact stationary logarithmic scales; inner passage and O4 remain open.
 
 - [[multiagentelbo-2026-10-03-activation-source-calibration]] -- saved-activation calibration of twelve-point source cubature; first-receiver and unprefixed scopes distinguished.
+
+- [[multiagentelbo-2026-10-03-binary-source-moments]] -- consistent Gaussian binary probability/moment integration and two saved source-event comparisons.
