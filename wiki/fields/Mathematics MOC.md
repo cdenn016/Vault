@@ -12,6 +12,12 @@ updated: 2026-10-02
 
 # Mathematics MOC
 
+## October 2 completed square-root parent-budget study
+
+[[multiagentelbo-2026-10-02-square-root-budget]] completes the pending N1024 saved-tape validation and a new 32-path paired-grid study at 512/1,024 agents. Fine total budgets are 48.06318 +/- 0.99252 and 98.84799 +/- 1.21466 nats per path (empirical standard errors, sixteen paths and one model realization per size). Independent saved-array checks pass; all 25 earlier native tapes and the separately validated fine path match exactly. The CPU study took 1297.555569 seconds; no GPU was used.
+
+Three tiny tests and an independent recomputation of 36 summaries support a reporting-only fix for self-term standard errors near 1e-216. Raw zero-variance summaries remain archived beside corrected values. These are finite-grid sufficient-budget measurements, not retained-path KL values or small controlled error bounds. The original dense failure remains unresolved. The next recorded task is sharper conditional retained-law error accounting; O1/O4, endogenous feedback and recursive formation remain open. The earlier checkpoint below is historical: its pending saved-tape validation has now completed.
+
 ## October 2 square-root conditioning checkpoint
 
 [[multiagentelbo-2026-10-02-square-root-conditioning]] records a completed 86-interval captured suffix, four tiny factor checks, one captured N1024 operation comparison, and eight focused consumer/real-spawn integration checks. The factor method is opt-in; dense defaults and the original launcher remain unchanged. N1024 saved-tape validation is pending. The original Cholesky failure remains unresolved, and O1/O4 remain open. This checkpoint adds no full budget retry, GPU run or manuscript closure.

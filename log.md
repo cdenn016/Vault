@@ -317,3 +317,6 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 
 2026-10-02  INGEST  [[multiagentelbo-2026-10-02-square-root-conditioning]]: archived captured suffix, factor comparison and twelve distinct focused checks across two packets; updated project, hierarchy theme and Mathematics/Statistics MOCs. N1024 saved-tape validation is pending; original failure and O1/O4 remain open. No manuscript or protected WIP changed.
 2026-10-02  LINT  Square-root conditioning ingest: 1443 notes; zero broken wikilinks, graph grey nodes, empty files, case collisions and identity collisions. All 34 copied archive files matched their originating code checkpoint at ingest.
+
+2026-10-02  INGEST  [[multiagentelbo-2026-10-02-square-root-budget]]: archived completed N1024 validation, all 32 paired paths at N512/N1024, independent arithmetic checks and separate corrected uncertainty summaries; updated project, hierarchy theme and Mathematics/Statistics MOCs. Original dense failure and O1/O4 remain open. No GPU, manuscript edit or trajectory rerun during publication.
+2026-10-02  LINT  Completed square-root study ingest: 1444 notes; zero broken wikilinks, graph grey nodes, empty files, case collisions and identity collisions. All 73 copied archive files matched the originating code checkpoint at ingest.
