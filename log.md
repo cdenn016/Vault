@@ -374,3 +374,7 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 
 2026-10-03 INGEST: Archived exact Gaussian reverse path budget from MultiAgentELBO 4dbd041; six immutable archives, source note, existing project/theme and Mathematics/Statistics MOCs. Preserved reverse/native weighting distinction and open quantitative O1/O4 obligations.
 2026-10-03 LINT: Exact Gaussian reverse-budget ingest; 1459 notes, zero broken links, graph grey nodes, empty files, case collisions and identity collisions.
+
+2026-10-03 INGEST: Archived reverse-budget implementation checkpoint from MultiAgentELBO b627ecb; eight immutable archives, run source, existing project/theme and CS-ML/Statistics MOCs. Preserved finite-grid and pending large-network limits.
+
+2026-10-03 LINT: Reverse-budget implementation ingest; 1460 notes, all five integrity counts zero.

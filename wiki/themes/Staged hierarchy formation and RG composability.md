@@ -20,6 +20,10 @@ updated: 2026-10-03
 
 # Staged hierarchy formation and RG composability
 
+## October 3 reverse-budget implementation checkpoint
+
+[[multiagentelbo-2026-10-03-reverse-budget-implementation]] records the candidate-driven fine comparison and supplied-uniform candidate-prefix sampler. Thirty-three distinct focused tests and both grids of an independent N4 archive reconstruction passed. The N512/N1024 launcher, pre-run contract and large-network calculation remain pending. Finite-step validation does not establish continuous path accuracy or a small reverse budget; quantitative O1, native-driven integrability, the preceding parity failure and O4 remain open. No GPU calculation ran.
+
 ## October 3 exact Gaussian reverse path budget
 
 [[multiagentelbo-2026-10-03-binary-reverse-budget]] admits the ideal exact-Gaussian parent, proves its own-law polynomial moments and derives a finite reverse-KL budget that bounds retained-path total variation. Candidate-prefix source sampling has finite fixed-horizon variance at the continuous-law scope. The native-weighted companion gives incoming-metric and precision bounds but a counterexample to a natural Gaussian log-loss estimate. Forward native integrability, quantitative O1 accuracy, O4 and the preceding numerical parity failure remain open. One analytical round remains in this exact-Gaussian investigation; no model or GPU job ran.
