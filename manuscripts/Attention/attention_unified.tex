@@ -203,7 +203,7 @@ Contracting Eq.~\eqref{links:origin:eq:split} against routing weights gives the 
 \quad \Theta_{ij}(s)=U_i e^{sO_hT_h}U_j^{-1}.
 \label{links:origin:eq:two_routes}
 \end{equation}
-The first term is the transported message of the earlier transported route, and the second is the projected predictive message. At fixed routing and source states, the exponential expansion therefore contains both message forms as its zeroth- and first-order terms. This is an observation about the form of the message, not a claim that either retired objective is recovered.
+The first term is the transported message of the earlier transported route, and the second is the projected predictive message. At fixed routing and source states, the exponential expansion therefore contains both message forms as its zeroth- and first-order terms. This is an observation about the form of the message, not a claim that either retired objective is recovered. That expansion uses one routing for the whole link; with an independent label for each head, the zeroth-order term becomes a head-routed flat transport, Section~\ref{links:origin:sec:orders}.
 
 \paragraph{Routing inside the exponent.}
 Setting $X_{ij}=OB_{ij}T=\sum_h\beta_{ij}^{(h)}O_hT_h$ instead dresses the algebra element with the routing weights, and Lemma~\ref{links:origin:lem:lowrank_exp} with $P=O$ and $Q=B_{ij}T$ gives
@@ -331,7 +331,7 @@ If the heads tile the fiber, $Hd=K$ with $O$ and $T$ invertible, then $P=I$, the
 the residual-free projected predictive head sum with receiving maps $O_h'$.
 \end{corollary}
 
-The code requires $K=Hd$, so with invertible stacked maps its heads tile the fiber, and this declared complement-preserving aggregation has no complement residual. Two consequences follow. First, the $r=1$ residual of the code has no counterpart in Option A under the configuration the code uses, and the receiver's own state reaches $\mu_i^+$ only through the self-weights $\beta_{ii}^{(h)}$. Second, in the tiled case Option A adds no expressive power to the predictive route: its head sum lies in the current function class, with receiving maps of the special form $OE_{:,h}$. We do not claim the converse, that every current set of receiving maps arises this way. Until the generator is made edge dependent, the shared-generator construction changes the group domain and optimization geometry and supplies loop observables, without enlarging the current mean-map family by itself.
+The code requires $K=Hd$, so with invertible stacked maps its heads tile the fiber, and this declared complement-preserving aggregation has no complement residual. Two consequences follow. First, the $r=1$ residual of the code has no counterpart in Option A under the configuration the code uses, and the receiver's own state reaches $\mu_i^+$ only through the self-weights $\beta_{ii}^{(h)}$. Second, in the tiled case Option A adds no expressive power to the predictive route: its head sum lies in the current function class, with receiving maps of the special form $OE_{:,h}$. The converse fails: not every current set of receiving maps arises this way, and Section~\ref{links:origin:sec:orders} characterizes those that do. Until the generator is made edge dependent, the shared-generator construction changes the group domain and optimization geometry and supplies loop observables, without enlarging the current mean-map family by itself.
 
 A residual of the projected kind requires channels that do not tile, $Hd<K$. Equation~\eqref{links:origin:eq:self_complement} then describes an architecture in which $K-Hd$ coordinates form a residual stream that no head writes and no head reads through $T$. In this reading the residual stream is the complement of the communication channels.
 
@@ -342,6 +342,89 @@ The projected gradient route reaches the same structure by a different argument 
 \label{links:origin:eq:fusion_residual}
 \end{equation}
 with $P_W$ the orthogonal projector onto $W$ and $m_i$ the message. The residual coefficient is the prior's share of precision, $\alpha/(\alpha+\lambda)$, in the observed directions and one in the unobserved directions, and the orthogonal-complement version of Eq.~\eqref{links:origin:eq:self_complement} is the limit $\lambda/\alpha\to\infty$. The exponential split uses an oblique projector in general, so the two projector formulas coincide only when the chosen splitting is orthogonal in the declared Gaussian precision metric. Both derivations give a residual that is full on unobserved directions and partial or zero on observed ones. The additive residual of the code, $\mu_i+m_i$, is neither: it adds the full own state to the message in every direction without normalization. That form is the architectural residual connection used in residual networks \cite{links:he2016resnet}; it is not the posterior mean of the Gaussian fusion model just specified.
+
+\subsubsection{The tiled message order by order}
+\label{links:origin:sec:orders}
+
+In the setting of Corollary~\ref{links:origin:cor:tiled} (tiled heads, $Hd=K$, square invertible stacked $O$ and $T$, the shared generator $X=OT$, routing outside the exponent with an independent label for each head as in Eq.~\eqref{links:origin:eq:transported_state}, and $P=I$), the receiving maps sum in closed form, and expanding them in the scale of the generator separates the message, at fixed routing and source states, into orders with distinct roles.
+
+\begin{proposition}[Resummed receiving map]
+\label{links:origin:prop:resummed}
+Under these assumptions, with $\xi_j=U_j^{-1}\mu_j$, the receiving map $O':=OE$ and the exact message are
+\begin{equation}
+O'=e^{OT}T^{-1}=T^{-1}+O\varphi_1(TO),\qquad
+\mu_i^+=U_i\sum_jO'B_{ij}T\xi_j.
+\label{links:origin:eq:resummed}
+\end{equation}
+The effective transfer is $TO'=e^{TO}$, so $\det(TO')=e^{\tr(TO)}>0$.
+\end{proposition}
+
+\begin{proof}
+Invertibility gives $OE=Oe^{TO}O^{-1}T^{-1}=e^{OT}T^{-1}$, because $O(TO)^nO^{-1}=(OT)^n$, and Lemma~\ref{links:origin:lem:lowrank_exp}, $e^{OT}=I+O\varphi_1(TO)T$, multiplied on the right by $T^{-1}$ gives the second form of $O'$. For the maps $O_h'=OE_{:,h}$ of Eq.~\eqref{links:origin:eq:tiled}, block multiplication gives $\sum_hO_h'\beta_{ij}^{(h)}T_h=O'B_{ij}T$. Finally $TO'=Te^{OT}T^{-1}=e^{TO}$, and $\det e^{Z}=e^{\tr Z}$.
+\end{proof}
+
+This $O'$ is that of Corollary~\ref{links:origin:cor:tiled_chart}, where $O'T=e^{X}$; item~4 of Proposition~\ref{links:origin:prop:charts} keeps the identity separate, so its $O'$ is $O'-T^{-1}$ here.
+
+\paragraph{Orders of the message.}
+Replacing $O$ by $sO$ at fixed $T$, so that $X=sOT$, gives
+\begin{equation}
+O'(s)=T^{-1}+sO\varphi_1(sTO)=T^{-1}+\sum_{n\ge1}\frac{s^n}{n!}O(TO)^{n-1},
+\label{links:origin:eq:orders}
+\end{equation}
+a series convergent for every $s$; the order-$n$ message replaces $O'$ in Eq.~\eqref{links:origin:eq:resummed} by its order-$n$ term at $s=1$.
+
+\begin{proposition}[Zeroth order]
+\label{links:origin:prop:order_zero}
+Let $D_h$ be the coordinate projector onto head block $h$ of $\mathbb R^{Hd}$, and let $P_h=T^{-1}D_hT$. Then $P_h=(T^{-1})_{:,h}T_h$, $P_hP_g=\delta_{hg}P_h$, $\sum_hP_h=I_K$, $\ker P_h=\ker T_h$, $\im P_h=\bigcap_{g\ne h}\ker T_g$, and
+\begin{equation}
+T^{-1}B_{ij}T=\sum_h\beta_{ij}^{(h)}P_h.
+\label{links:origin:eq:order_zero}
+\end{equation}
+If every head uses the same routing, $\beta_{ij}^{(h)}=\beta_{ij}$, as always holds for $H=1$, the zeroth-order message is $\sum_j\beta_{ij}\Omega_{ij}\mu_j$.
+\end{proposition}
+
+\begin{proof}
+The relations $D_hD_g=\delta_{hg}D_h$ and $\sum_hD_h=I$ survive conjugation by $T$, Eq.~\eqref{links:origin:eq:order_zero} is $B_{ij}=\sum_h\beta_{ij}^{(h)}D_h$ conjugated by $T$, and writing $T^{-1}$ by block columns gives $P_h=(T^{-1})_{:,h}T_h$. Since $D_hTx$ has the single nonzero block $T_hx$, $P_hx=0$ exactly when $T_hx=0$, and $x\in\im P_h=T^{-1}\im D_h$ exactly when $T_gx=0$ for every $g\ne h$. A shared routing has $B_{ij}=\beta_{ij}I$, so $U_iT^{-1}B_{ij}T\xi_j=\beta_{ij}\Omega_{ij}\mu_j$.
+\end{proof}
+
+The zeroth-order message $U_i\sum_h\sum_j\beta_{ij}^{(h)}P_h\xi_j$ is thus a head-routed flat transport: head $h$ carries, unmixed and routed by its own $\beta_{ij}^{(h)}$, the component $P_h\xi_j$ of each source's reference state in the directions that no other head reads, a component fixed by $T_h\xi_j$. The projectors are oblique in general and are the reference projectors of Section~\ref{links:origin:sec:compression} for the receiving maps $(T^{-1})_{:,h}$. The sum includes the receiver through $\beta_{ii}^{(h)}$, so this term is not the residual $r\mu_i$.
+
+The first-order term $U_i\sum_jOB_{ij}T\xi_j=\sum_j\mathcal C_{ij}\mu_j$ is exactly the head sum of Proposition~\ref{links:origin:prop:headsum}, the standard multi-head value path. The second-order term,
+\begin{equation}
+\tfrac12O(TO)B_{ij}T=\tfrac12\sum_{g,h}O_g(T_gO_h)\beta_{ij}^{(h)}T_h,
+\label{links:origin:eq:order_two}
+\end{equation}
+is the cross-head mixing: the routed block of head $h$ is written by $O_h$, read again by every head $g$ through the block $T_gO_h$ of $G=TO$, and rewritten by $O_g$, with the same source $j$ and no second routing. The order-$n$ term makes $n-1$ round trips through $G$ with weight $1/n!$, so the higher orders are powers of the head-transfer matrix whose spectrum the triangle diagnostics of Section~\ref{links:sec:diagnostics} measure. Since $TO'=e^{G}$, Proposition~\ref{links:prop:general_head_holonomy} applied to the edge operators $U_aO'B_{ab}TU_b^{-1}$ gives a triangle holonomy similar to $R_{ijk}e^{G}$.
+
+\paragraph{What the orders add.}
+For invertible $T$, $O\mapsto T^{-1}+O$ is a bijection, so the first-order truncation already reaches every receiving map, as does the current chart $O'=O$. In this tiled shared-generator case the higher orders therefore add no mean maps; they change where the parameters sit, what $O=0$ means, and the reachable domain. Since $OT$ ranges over $\gl(K)$, the exponential chart, in which $O'T=e^{OT}$, reaches $O'$ exactly when $O'T$ has a real logarithm $X$, with $O=XT^{-1}$, that is, when $O'T$ is invertible and satisfies the Jordan-block pairing condition for negative eigenvalues \cite{frame:Culver1966}, which forces $\det(O'T)>0$. This characterizes the receiving maps that arise in Corollary~\ref{links:origin:cor:tiled}.
+
+A finite truncation is a different model, not an approximation. Truncation after order $n$ gives $O_n'T=p_n(X)$ with $p_n(z)=\sum_{k\le n}z^k/k!$, and the remainder bound $\|e^X-p_n(X)\|_2\le\sum_{k>n}\|X\|_2^k/k!$ is small only when $\|X\|_2=\|sOT\|_2$ is small compared with $n$. The measured run of Section~\ref{links:origin:sec:measurement} is far from that regime. If a content operator is $M=e^X$, then $\|M^{-1}\|_2=\|e^{-X}\|_2\le e^{\|X\|_2}$, so
+\begin{equation}
+\sigma_{\min}(M)\ge e^{-\|X\|_2},\qquad \|X\|_2\ge-\log\sigma_{\min}(M).
+\label{links:origin:eq:generator_bound}
+\end{equation}
+With $\sigma_{\min}(M)$ between $3.0\times10^{-5}$ and $1.7\times10^{-3}$ in Table~\ref{links:origin:tab:measured}, a representing generator would need $\|X\|_2$ of at least $7.1$, $10.4$, $7.9$, and $6.4$ in layers $0$ to $3$, where an eigenvalue $-6.4$ of $X$ would already force $\|e^X-p_n(X)\|_2\ge|e^{-6.4}-p_n(-6.4)|$ by spectral mapping, that is, $5.4$ at $n=1$ and $15.1$ at $n=2$. Layers $1$ to $3$ also have negative determinant and lie outside the exponential chart; layer $0$ lies inside exactly when its negative real eigenvalues, not recorded in the table, satisfy the pairing condition.
+
+No finite truncation is structurally group valued. Order one gives $O_1'T=I+OT$, the linear-link parametrization of item~2 of Proposition~\ref{links:origin:prop:charts}, singular when $OT$ has the eigenvalue $-1$; order two gives $I+Z+Z^2/2=\tfrac12[(Z+I)^2+I]$ with $Z=OT$, singular when $Z$ has an eigenvalue $-1\pm i$ and zero at $Z=\bigl(\begin{smallmatrix}-1&-1\\1&-1\end{smallmatrix}\bigr)$. Every $p_n$ with $n\ge1$ has a complex root, an eigenvalue of some real $Z$ when $K\ge2$ (through a $2\times2$ rotation-scaling block if it is not real), and then $p_n(Z)$ is singular by spectral mapping. Only the exponential, which has no zeros, is invertible for every generator.
+
+\paragraph{Three charts on the same factors.}
+The stored $O$ and $T$ therefore admit three receiving maps,
+\begin{equation}
+O'=O\text{ (affine)},\qquad O'=T^{-1}+O\text{ (first order)},\qquad O'=T^{-1}+O\varphi_1(TO)\text{ (exponential)}.
+\label{links:origin:eq:three_charts}
+\end{equation}
+In the current affine chart, $O=0$ means zero content. The first-order chart has the same function class but is centered at flat transport: $O=0$ gives the head-routed flat transport of Proposition~\ref{links:origin:prop:order_zero}, so a weight decay on $O$ would pull toward it rather than toward zero; the implemented content-map optimizer group applies no weight decay. The exponential chart has the same center and differs from the first-order chart only at second order in $O$, so the first-order chart is the control that separates the effect of the zeroth-order term from the exponential domain and geometry. A second-order truncation $T^{-1}+O+\tfrac12O(TO)$ is a possible later arm; like every finite truncation it adds no mean maps here and is not group valued.
+
+\paragraph{Initialization and computation.}
+At the code's block-projector initialization $T=I$, the content $s_0B_{ij}$ at output-initialization scale $s_0$, which is $1$ for the identity and $(2L)^{-1/2}$ for the depth-scaled initialization, requires $O=s_0I$, $O=(s_0-1)I$, and $O=(\log s_0)I$ in the affine, first-order, and exponential charts, since $z\varphi_1(z)=e^z-1$ at $z=\log s_0$ equals $s_0-1$. At $s_0=1$ this content is the head-routed flat transport and both centered charts start at $O=0$, while reusing $O=s_0I$ in the exponential chart would start at $e^{s_0}I$, which is $eI$ at $s_0=1$, as Corollary~\ref{links:origin:cor:tiled_chart} notes for the fixed generator $OT=I$. The zeroth-order term needs $T^{-1}$, which the affine chart never forms, but the inverse cancels under a shared routing. The factor $\varphi_1(TO)$ needs no inverse of $TO$: for every square $A$,
+\begin{equation}
+\exp\begin{pmatrix}A&I\\0&0\end{pmatrix}=\begin{pmatrix}e^{A}&\varphi_1(A)\\0&I\end{pmatrix},
+\label{links:origin:eq:augmented}
+\end{equation}
+because $\bigl(\begin{smallmatrix}A&I\\0&0\end{smallmatrix}\bigr)^n=\bigl(\begin{smallmatrix}A^n&A^{n-1}\\0&0\end{smallmatrix}\bigr)$ for $n\ge1$, by induction, and the exponential series sums blockwise. This is the two-block case of the block-triangular exponential formula of Van Loan \cite{links:vanloan1978}; with $A=TO$, one exponential of size $2K$ returns $e^{TO}$ and $\varphi_1(TO)$.
+
+Because a chart changes only the receiving map and the proof of Proposition~\ref{inference:p:prop:covariance} uses only $L_{ij}^{h}=U_iM_hU_j^{-1}$, the moment-matched covariance holds in each chart with $M_h$ replaced by $O_h'T_h$, $O_h'$ being block column $h$ of that chart's $O'$, and the receiver energies of Section~\ref{inference:g} take the same substitution, through $M_h$ in ambient alignment and through the tied measurement $O_h'^\top$ in the channel likelihood. In the channel likelihood $O'$ therefore also serves as the measurement map, whose zeroth-order part reads through $T^{-\top}$; that reading agrees with the head-routed flat transport of Proposition~\ref{links:origin:prop:order_zero} only for orthogonal $T$. Applying the chart to the measurement map as well is the implemented choice, not a consequence of the exponential construction. VFE 3.0 exposes the three charts through the configuration field \cfg{content\_link\_chart} with values \cfg{"affine"}, \cfg{"first\_order"}, and \cfg{"exponential"} (October 3, 2026), on the same stored $O$ and $T$, with the chart-specific initializations above and AdamW on the factors; no training comparison has been run.
 
 \subsubsection{Is \texorpdfstring{$\varphi_1$}{phi} an activation function?}
 
@@ -741,7 +824,7 @@ Five existing tiny CPU checks were executed during consolidation, covering exact
 \subsection{Consequences for future integration}
 \label{links:sec:integration}
 
-The exponential construction is the primary geometric model: it gives structural invertibility for every finite generator, a precise low-rank channel expansion, a complement split, and inverse-edge observables. Its connection to the present predictive route is exact on the specified chart domain after changing coordinates, and its tiled-head aggregation is expressible by transformed receiving maps. A routing-independent generator therefore supplies a geometric parameterization and optimization choice rather than an automatic increase in the represented mean-map family. Edge-dependent generators, a constrained group update, or a declared correlated model would add assumptions beyond that parameterization.
+The exponential construction is the primary geometric model: it gives structural invertibility for every finite generator, a precise low-rank channel expansion, a complement split, and inverse-edge observables. Its connection to the present predictive route is exact on the specified chart domain after changing coordinates, and its tiled-head aggregation is expressible by transformed receiving maps. A routing-independent generator therefore supplies a geometric parameterization and optimization choice rather than an automatic increase in the represented mean-map family. The order-by-order reading of that aggregation and the three receiving-map charts on the same stored factors are in Section~\ref{links:origin:sec:orders}. Edge-dependent generators, a constrained group update, or a declared correlated model would add assumptions beyond that parameterization.
 
 Compression explains how a selected channel can sit inside a larger group element and separates communicating, hidden, and mixing blocks. It is useful for describing what an exponential link exposes to a receiver and what a loss can identify. The current head sum supplies the implementation comparison: it is the ordinary multi-head value contraction in reference coordinates, dressed by the endpoint frames, and it becomes group-valued only under rank and positivity assumptions. The exact exponential map, primitive hidden-block field, correlated regression generator, complement-only residual, and routed exponential self-gate are not current learned content mechanisms merely because their formulas can be written using the present matrices.
 
@@ -2298,6 +2381,8 @@ W. J. Culver, On the existence and uniqueness of the real logarithm of a matrix,
 \bibitem{links:dennis2026projgrad} R.~C.~Dennis, \emph{The projected gradient route: receiver energies, entropy, and stable updates}, technical note, manuscripts/Attention/projected\_gradient.tex, 2026.
 
 \bibitem{links:he2016resnet} K.~He, X.~Zhang, S.~Ren, and J.~Sun, Deep residual learning for image recognition, \emph{Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition}, 770--778, 2016.
+
+\bibitem{links:vanloan1978} C.~F.~Van~Loan, Computing integrals involving the matrix exponential, \emph{IEEE Transactions on Automatic Control} 23, 395--404, 1978.
 
 \bibitem{links:elfwing2018silu} S.~Elfwing, E.~Uchibe, and K.~Doya, Sigmoid-weighted linear units for neural network function approximation in reinforcement learning, \emph{Neural Networks} 107, 3--11, 2018.
 
