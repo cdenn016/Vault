@@ -368,3 +368,6 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 
 2026-10-03 INGEST: Archived projection parity diagnosis from MultiAgentELBO 3f05d15; five immutable archives, source note, existing project/theme and field MOC updates. Three bounded diagnostics did not reproduce the failure; its cause and the full study remain unresolved. No manuscript or previous source changed.
 2026-10-03 LINT: Projection parity diagnosis ingest: 1457 notes; broken links, graph grey nodes, empty files, case collisions and identity collisions all zero.
+
+2026-10-03 INGEST: Archived exact Gaussian source moment bounds from MultiAgentELBO 56f73c0; three immutable archives, source note, existing project/theme and Mathematics/Statistics MOCs. Retained the sharp quadratic bound and explicit failure of uniform cubature reset estimates without claiming native divergence or O1/O4 closure.
+2026-10-03 LINT: Exact Gaussian source moment ingest; 1458 notes, zero broken links, graph grey nodes, empty files, case collisions and identity collisions.

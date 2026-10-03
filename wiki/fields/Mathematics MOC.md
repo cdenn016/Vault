@@ -12,6 +12,10 @@ updated: 2026-10-03
 
 # Mathematics MOC
 
+## October 3 exact Gaussian moment bounds
+
+[[multiagentelbo-2026-10-03-binary-moment-bounds]] proves a sharp quadratic physical-moment growth bound for exact Gaussian source tilts and local smoothness/positive-definite covariance. Fixed quadratic-softmax examples disprove the linear bound and both state-independent cubature reset constants. The scalar calculation grounds these update-map statements only; it says nothing about their reachability in saved GL(2) histories or large-network formation. A native-weighted Lyapunov bound remains required for integrability. Practical O1 accuracy, O4 and the preceding parity failure remain unresolved; no full-study retry or GPU job ran.
+
 ## October 3 source projection checkpoint
 
 [[multiagentelbo-2026-10-03-source-projection-entropy]] records a conditional continuous entropy balance and a distinct finite-grid full-proposal-clock inequality, with optional actual-state projection diagnostics. Fourteen distinct tiny tests passed. The declared 32-history measurement failed exact candidate parity at N512 path 000 fine_mean after 127.05 CPU seconds. One result was accepted by the parent; ten partial worker outputs and the failure are archived, with no aggregate summary. The mismatch magnitude and cause remain unresolved. Diagnose the first discrepancy before any new measurement. Practical O1 and full O4 remain open; no GPU was used.
