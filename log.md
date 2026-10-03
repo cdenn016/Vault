@@ -362,3 +362,6 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 2026-10-03 INGEST: Archived complete saved-history binary source results from code commit d348827. Added a run source and updated the project, hierarchy theme and Mathematics/Statistics MOCs. Preserved exact native/probe matching, descriptive finite-grid scope, the mobility-contract failure and open O1/O4 obligations. No manuscript or previous source edited.
 
 2026-10-03 LINT: Complete saved-history ingest scanned 1455 notes; all five link-integrity categories were zero. All six archives match their committed code-source bytes.
+
+2026-10-03 INGEST: Archived source projection entropy construction and failed measurement from MultiAgentELBO commit ab01187. Updated project, hierarchy theme and Mathematics/Statistics MOCs. Preserved conditional theory scope, fourteen distinct passing tiny tests, failed large-network parity, partial-output status and open O1/O4. No manuscript or prior source edited.
+2026-10-03 LINT: Source projection checkpoint ingest: 1456 Markdown notes; broken links, graph grey nodes, empty files, case collisions and identity collisions all zero.

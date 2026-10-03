@@ -20,6 +20,10 @@ updated: 2026-10-03
 
 # Staged hierarchy formation and RG composability
 
+## October 3 source projection checkpoint
+
+[[multiagentelbo-2026-10-03-source-projection-entropy]] records a conditional continuous entropy balance and a distinct finite-grid full-proposal-clock inequality, with optional actual-state projection diagnostics. Fourteen distinct tiny tests passed. The declared 32-history measurement failed exact candidate parity at N512 path 000 fine_mean after 127.05 CPU seconds. One result was accepted by the parent; ten partial worker outputs and the failure are archived, with no aggregate summary. The mismatch magnitude and cause remain unresolved. Diagnose the first discrepancy before any new measurement. Practical O1 and full O4 remain open; no GPU was used.
+
 ## October 3 complete saved-history comparison
 
 [[multiagentelbo-2026-10-03-binary-source-history]] completes the declared matched finite-grid comparison on all 32 saved 512/1024-agent histories. Native paths and probe draws matched exactly on both grids. Fine-grid auxiliary totals changed by -1.882353 and -3.977573 against retained cubature controls, with empirical paired path SEs 0.166279 and 0.201332. All path jobs and three tiny replay tests passed; array and scalar arithmetic checks are archived. These are descriptive auxiliary-budget results, not retained-path KL. Native survival conditioning, practical O1 accuracy/complexity, transfer of prior continuum bounds and O4 remain open. No GPU was used.

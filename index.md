@@ -1491,3 +1491,5 @@ All new source notes are cataloged below. [[multiagentelbo-2026-09-11-research-s
 - [[multiagentelbo-2026-10-03-binary-source-moments]] -- consistent Gaussian binary probability/moment integration and two saved source-event comparisons.
 
 - [[multiagentelbo-2026-10-03-binary-source-history]] -- matched binary-source replay of all 32 saved large-network histories and both grids; scoped auxiliary-budget comparison.
+
+- [[multiagentelbo-2026-10-03-source-projection-entropy]] -- conditional entropy construction and failed large-network parity measurement; incomplete outputs preserved.
