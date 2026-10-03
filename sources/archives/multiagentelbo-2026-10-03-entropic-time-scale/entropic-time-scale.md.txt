@@ -1,0 +1,354 @@
+# The entropic time scale of the shared-amplitude GL model
+
+October 3, 2026. This is the third and final round of the bounded degenerate-valley investigation. It continues the [gated handoff record](gated-handoff-obstruction.md), which excludes the two proposed extensions on horizons o(1/T), and examines the next time scale of its GL configuration model. The result is a local stochastic reduction on time Tt, an explicit initial slip for a class of fixed initial densities, and exact stationary amplitude elimination. The reduction stops away from zero mismatch; it does not prove a formation episode, a global parent law or O4.
+
+## Sources, model and scope
+
+The code checkpoint is 420ffffefc728348b64367b4b5e6519a23536a65, and the Research checkpoint is 26a2141483e41723bafc61c52c2a624c80e3dc59. Source continuity includes the preceding two round records, [DIRECTION](../../DIRECTION.md), the live Research manuscript MultiAgentELBO_Theory/c08_two_timescales.tex (the envelope lemma, rate-separated-flow proposition, noninvariance warning and slow-manifold problem), c12_multiscale_vfe.tex (open:full-graph-hierarchy), c13_formation.tex (the configuration-law free energy), SPEC R14–R15, and the wiki concept Meta-agents and hierarchical emergence. The current PIFB2 module pifb2/17_section.tex distinguishes a history's ordering parameter from its Fisher information clock. The time change below is an analysis of the declared diffusion, not a physical-clock or renormalization-scale identification.
+
+Pavliotis and Stuart's primary [Multiscale Methods notes](https://wwwf.imperial.ac.uk/~pavl/multiscale.pdf), Chapter 10, Sections 10.2–10.4, especially Remark 10.2 on printed page 152 (PDF page 33), describe averaging with noise in the slow coordinates. That source supplies methodological context. The model-specific corrector, bounds, initial slip and singularity analysis are given below rather than inferred from that general discussion.
+
+Fix matter dimension n=NK, with N>=512 and K>=2, and amplitude dimension m. The preceding model has m=n; keeping m explicit reveals which conclusions depend on that choice. Let z=(x,Theta), x in R^n, with independent dynamic GL links in a compact coercive chart, and
+
+\[
+ Q(z)=x^T A_\Theta x, cI\le A_\Theta\le CI,
+  E(a,z)=\tfrac12|a|^2Q(z).
+ \tag{1}
+\]
+
+The graph, matrices, prior, metric and domains are fixed with T. Noncommuting links are retained inside A_Theta. Every assertion fixes N; all constants may depend on N, K and the chart. No thermodynamic limit is proved. For the stationary calculation choose unit amplitude and matter balls and a compact link domain with finite measure d lambda. Its complete prior density f(a,x,Theta) is C^1, bounded above and bounded below by a positive constant, including every chosen coordinate and metric weight. These product integration domains are an explicit stationary specialization, not a claim about every outer domain allowed by the preceding record. The dynamics result below is local and applies to admitted extensions that agree on its neighborhood.
+
+## Exact elimination before approximation
+
+The full stationary law of the normalized binary-record model is
+
+\[
+ \rho_T(da dx d\Theta)
+ =Z_T^{-1}f(a,x,\Theta)e^{-|a|^2Q/(2T)}da dx d\lambda(\Theta).
+ \tag{2}
+\]
+
+Here and below products of differentials denote the chosen coordinate product measure. Under the map (a,x,Theta) to (x,Theta), define
+
+\[
+ J_T(x,\Theta)=\int_{|a|\le1}f(a,x,\Theta)e^{-|a|^2Q/(2T)}da.
+ \tag{3}
+\]
+
+The retained density is exactly J_T/Z_T. The amplitude conditional is the integrand divided by J_T. If f is independent of a, set p=m/2 and q=Q>0. Radial integration gives
+
+\[
+ J_T=f(0,x,\Theta)\frac{\pi^p}{\Gamma(p)}
+        \left(\frac{2T}{q}\right)^p
+        \gamma\left(p,\frac q{2T}\right),
+ \tag{4}
+\]
+
+where gamma is the lower incomplete gamma integral. Its continuous value at q=0 is f(0,x,Theta) times the volume of the unit m-ball. For a general smooth prior,
+
+\[
+ J_T=(2\pi T)^{m/2}f(0,x,\Theta)q^{-m/2}
+ +O\left((T/q)^{(m+1)/2}+(T/q)^{m/2}e^{-q/(4T)}\right).
+ \tag{5}
+\]
+
+The constants are uniform with q/T bounded below by any fixed positive number. Indeed the difference f(a,x,Theta)-f(0,x,Theta) is at most a constant times |a|. Integrating this bound against the full Gaussian gives the first error; its tail outside the unit ball gives the second. In particular, on any fixed q>=q_*>0,
+
+\[
+ -T\log J_T=-\tfrac m2 T\log(2\pi T)
+       +\tfrac m2 T\log q-T\log f(0,x,\Theta)+O(T^{3/2}).
+ \tag{6}
+\]
+
+Differentiation of the exact integral, on the fixed compact domain, yields
+
+\[
+ d[-T\log J_T]=\tfrac12\mathbb E(|a|^2\mid z)dQ
+                   -T\mathbb E(d_z\log f(a,z)\mid z).
+ \tag{7}
+\]
+
+For the flat amplitude prior its conditional second moment is
+
+\[
+ \mathbb E(|a|^2\mid z)=\frac{2T}{q}
+       \frac{\gamma(m/2+1,q/(2T))}{\gamma(m/2,q/(2T))}.
+ \tag{8}
+\]
+
+It approaches mT/q when q/T diverges and m/(m+2) when q/T tends to zero. Thus the exact finite-temperature force has no artificial 1/q singularity at q=0. The logarithmic term in (6) comes from integrating fluctuations. Minimization alone gives min_a E=0 and misses it.
+
+## Equal dimensions retain a logarithmic range of scales
+
+Set m=n=d and L_T=log(1/T). Write x=r omega and q_Theta(omega)=omega^T A_Theta omega. Define
+
+\[
+ W=\int f(0,0,\Theta)\int_{S^{d-1}}
+        q_\Theta(\omega)^{-d/2}d\omega d\lambda(\Theta).
+ \tag{9}
+\]
+
+Then
+
+\[
+ Z_T=(2\pi T)^{d/2}\frac{L_T}{2}W+O(T^{d/2}).
+ \tag{10}
+\]
+
+For a direct error estimate, the region r<sqrt(T) has volume O(T^{d/2}) and bounded J_T. On sqrt(T)<=r<=1, (5) and f(0,r omega,Theta)=f(0,0,Theta)+O(r) give the leading radial integral integral dr/r=L_T/2. The prior error integrates to O(T^{d/2}); the amplitude error is bounded by a constant times T^{(d+1)/2} integral_{sqrt(T)}^1 r^{-2}dr=O(T^{d/2}); and the tail error has the same bound. These estimates are uniform over angle and links by compactness and coercivity.
+
+Evaluating the Gaussian integral over R^d by a linear change and by polar coordinates gives
+
+\[
+ \int_{S^{d-1}}(\omega^T A_\Theta\omega)^{-d/2}d\omega
+       =|S^{d-1}|\det(A_\Theta)^{-1/2},
+\]
+\[
+ W=|S^{d-1}|\int f(0,0,\Theta)\det(A_\Theta)^{-1/2}d\lambda(\Theta).
+ \tag{11}
+\]
+
+A compensating reference weight can occur only if it is actually present inside f. Noncommutation does not permit discarding the determinant.
+
+For beta_T=-log|x|/L_T, the joint law of (beta_T,omega,Theta) converges in total variation to
+
+\[
+ 2\mathbf1_{(0,1/2)}(\beta)d\beta
+ \frac{f(0,0,\Theta)q_\Theta(\omega)^{-d/2}}{W}
+                   d\omega d\lambda(\Theta).
+ \tag{12}
+\]
+
+To prove this, substitute r=T^beta in the density and use (5) and (10). For 0<beta<1/2 the transformed density has the displayed limit. For beta>1/2 boundedness of J_T gives zero. Both densities have total mass one, so integration of their pointwise minimum proves L1 convergence. The endpoint values have zero reference measure. For fixed 0<=alpha<beta<=1/2, the preceding integral error estimates also give
+
+\[
+ \rho_T(T^\beta\le|x|\le T^\alpha)
+       =2(\beta-\alpha)+O(1/L_T).
+ \tag{13}
+\]
+
+The logarithmic radius is therefore asymptotically uniform on [0,1/2], independently of the limiting angle/link pair. Since q_Theta(omega) lies between c and C, replacing |x| by sqrt(Q) changes this coordinate by O(1/L_T). In particular, for 0<b<1/2,
+
+\[
+ \rho_T(Q\le T^{2b})\longrightarrow1-2b.
+ \tag{14}
+\]
+
+This is a one-time stationary probability. It supplies neither a persistent-window probability nor an entrance rate. The links were integrated in the full stationary law; their limiting marginal retains f(0,0,Theta) det(A_Theta)^{-1/2}.
+
+## The integrability boundary is dimension dependent
+
+The proposed local factor Q^{-m/2} has radial measure comparable to r^{n-m-1}dr. If m<n, dominated convergence applied to (3) gives a normalized retained limit proportional to f(0,x,Theta)Q^{-m/2}, with
+
+\[
+ Z_T\sim(2\pi T)^{m/2}
+         \int f(0,x,\Theta)Q^{-m/2}dx d\lambda(\Theta).
+ \tag{15}
+\]
+
+The domination follows by extending the amplitude Gaussian to all R^m; the resulting Q^{-m/2} is integrable precisely in this case. Pointwise convergence and normalization also give total variation convergence of the retained density.
+
+At m=n the divergence is logarithmic and there is no normalized temperature-independent density proportional to that factor. Equations (10)–(12) give the correct scaling description. If m>n, integrate matter first instead. Dominated convergence gives
+
+\[
+ Z_T\sim(2\pi T)^{n/2}\int\det(A_\Theta)^{-1/2}
+                 \int_{|a|\le1} f(a,0,\Theta)|a|^{-n}da d\lambda(\Theta).
+ \tag{16}
+\]
+
+The law of (a,x/sqrt(T),Theta) converges in total variation to the normalized density proportional to
+
+\[
+ f(a,0,\Theta)\exp[-|a|^2 y^T A_\Theta y/2].
+ \tag{17}
+\]
+
+Its Gaussian y integral is proportional to |a|^{-n}, which is integrable because m>n. This is generally a mixture, not a single Gaussian. All three cases retain the prior and coordinate weights.
+
+## The actual diffusion on inverse-temperature time
+
+For this local dynamics statement, require the prior to be constant on a neighborhood of a cylinder {|a|<=a_*, z in closure(U)}, strictly inside the physical reflecting boundary and link chart. The slow domain U has smooth boundary; Q lies in [q_0,q_1] with q_0>0 there. Coefficients have bounded derivatives through order four nearby, and the slow mobility is uniformly positive definite. Let
+
+\[
+ B(z)=\operatorname{diag}(A_\Theta^{-1},M_\Theta),
+ c(z)=\operatorname{div}B(z), h(z)=\tfrac12B(z)\nabla Q(z).
+\]
+\[
+ c=(0,\operatorname{div}_\Theta M_\Theta),
+ h=(x,\tfrac12M_\Theta\nabla_\Theta Q).
+ \tag{18}
+\]
+
+The zero x-component of c is not an omission: a divergence differentiates each matrix column in its own coordinate, and the x,x block depends only on Theta. The exact interior SDE from the preceding record is
+
+\[
+ da=-Q(z)a dt+\sqrt{2T}dW^a_t,
+\]
+\[
+ dz=-|a|^2h(z)dt+Tc(z)dt+\sqrt{2TB(z)}dW^z_t,
+ \tag{19}
+\]
+
+with independent Brownian blocks. With tau=Tt and b=a/sqrt(T), its generator becomes
+
+\[
+ \mathcal G_T=T^{-1}\mathcal L_0^z+\mathcal L_1,
+ \mathcal L_0^z=\Delta_b-Q(z)b\cdot\nabla_b,
+\]
+\[
+ \mathcal L_1=B:\nabla_z^2+(c-|b|^2h)\cdot\nabla_z.
+ \tag{20}
+\]
+
+The frozen fast invariant law is N(0,Q^{-1}I_m). Its second moment m/Q gives the averaged generator
+
+\[
+ \overline{\mathcal L}=B:\nabla_z^2+(c-mh/Q)\cdot\nabla_z
+       =Q^{m/2}\operatorname{div}(Q^{-m/2}B\nabla_z).
+ \tag{21}
+\]
+
+Thus the matter drift is -mx/Q and the link drift is div_Theta M_Theta minus (m/(2Q))M_Theta grad_Theta Q, with diffusion covariance 2B in slow time. The link mobility is the inverse declared GL metric. Q^{-m/2} is a local reversible weight; (21) does not assert its global normalization. It agrees with the flat-prior part of the independently integrated stationary weight (5).
+
+## Corrector and path control
+
+Extend the coefficients smoothly outside U with Q>=q_0, bounded derivatives and uniform ellipticity. The extended and original processes agree up to exit. Write R=|b|^2. For any smooth scalar g with bounded derivatives through order two, use
+
+\[
+ \Phi_g(z,b)=-\frac{g(z)}{2Q(z)}(R-m/Q(z)),
+ \mathcal L_0\Phi_g=g(z)(R-m/Q(z)).
+ \tag{22}
+\]
+
+The identity follows from L_0 R=2m-2QR. Ito's formula gives, for any fixed slow horizon H,
+
+\[
+ \int_0^\tau g(z_s)(R_s-m/Q(z_s))ds
+   =T[\Phi_g(\tau)-\Phi_g(0)]
+       -T\int_0^\tau\mathcal L_1\Phi_g ds-TM^\Phi_\tau.
+ \tag{23}
+\]
+
+The corrector and its first two z derivatives are bounded by C_g(1+R), its squared b gradient by C_g R, and |L_1 Phi_g| by C_g(1+R^2). A pathwise endpoint estimate is necessary. In fact
+
+\[
+ \mathcal G_TR^2=T^{-1}[4(m+2)R-4QR^2]\le C/T.
+\]
+\[
+ P(\sup_{\tau\le H}R_\tau\ge L)
+   \le\min(1,[\mathbb E R_0^2+CH/T]/L^2),
+ \mathbb E\sup_{\tau\le H}R_\tau
+       \le2\sqrt{\mathbb E R_0^2+CH/T}.
+ \tag{24}
+\]
+
+The probability bound follows by stopping at the first crossing of L and taking expectations; integrating it in L gives the expectation bound. Dissipativity also gives
+
+\[
+ \int_0^H\mathbb E R_s ds\le\frac{T}{2q_0}\mathbb E R_0+\frac{mH}{q_0},
+
+ \int_0^H\mathbb E R_s^2 ds\le\frac{T}{2q_0}\mathbb E R_0^2+CH.
+ \tag{25}
+\]
+
+For the second inequality use 4(m+2)R-4q_0 R^2<=-2q_0 R^2+2(m+2)^2/q_0. All formulas can first be stopped at finite R and then passed to the limit. No higher initial amplitude moment is required.
+
+Equations (24)–(25) bound the endpoint and finite-variation terms in (23) by constants times T+sqrt(E|a_0|^4+T) and T+E|a_0|^4, respectively. The scaled martingale has bracket bounded by
+
+\[
+ C_g\left[T\int_0^H R_s ds+T^2\int_0^H(1+R_s^2)ds\right],
+ \tag{26}
+\]
+
+whose expected value is at most C_H T(1+E|a_0|^2+E|a_0|^4). The martingale maximal inequality therefore proves, for bounded initial fourth moments,
+
+\[
+ \mathbb E\sup_{\tau\le H}
+ \left|\int_0^\tau g(z_s)(R_s-m/Q(z_s))ds\right|
+ \le C_H\left[\sqrt T+\sqrt{\mathbb E|a_0^T|^4}
+                              +\mathbb E|a_0^T|^4\right].
+ \tag{27}
+\]
+
+If a_0^T=sqrt(T)b_0^T with uniformly bounded fourth moments of b_0^T, this is O(sqrt(T)). Independence from z_0^T and conditional equilibrium are unnecessary. More generally the error vanishes whenever E|a_0^T|^4 tends to zero and z_0^T converges in law to a specified nu.
+
+Apply (27) componentwise to h to write the slow state as bounded averaged drift, a continuous martingale with bounded diffusion coefficient, and a remainder tending to zero uniformly in probability. This gives tightness in continuous path space. For any smooth compactly supported test function v, apply (27) to g=h dot grad v. Its exact Ito martingale then differs in uniform L1 by a vanishing term from the martingale expression for (21). The exact martingales have uniformly bounded quadratic variations, so their martingale property passes to subsequential limits. Smooth bounded elliptic coefficients give uniqueness for the limiting SDE; hence the whole sequence converges weakly to (21) on each bounded slow horizon.
+
+Stopping at exit from U preserves this conclusion: uniform ellipticity at a smooth boundary gives immediate crossing after first contact, the continuity condition for stopping continuous paths. Equivalently the conclusion can be used on nested interior stopping domains. The additional amplitude exit is negligible, since (24) implies
+
+\[
+ P(\sup_{\tau\le H}|a_\tau|\ge a_*)
+       \le[\mathbb E|a_0^T|^4+CHT]/a_*^4\longrightarrow0.
+ \tag{28}
+\]
+
+This establishes a stopped path-law limit, not just agreement of stationary moments.
+
+## Actual fixed initial laws have an initial slip
+
+A fixed initial density with nonzero amplitude generally fails the vanishing-amplitude hypothesis. Its zero-temperature physical flow has ds/dt=-2Qs and dz/dt=-s h, with s=|a|^2. Introduce accumulated amplitude ell(t)=integral_0^t s(q)dq. Then
+
+\[
+ \frac{dZ}{d\ell}=-h(Z),
+ s(\ell)=s_0-2\int_0^\ell Q(Z_r)dr.
+ \tag{29}
+\]
+
+Suppose this trajectory stays in a Q>=q_0 tube until the unique root ell_* of
+
+\[
+ 2\int_0^{\ell_*}Q(Z_r)dr=s_0.
+ \tag{30}
+\]
+
+The limiting slow initial state is zeta(a_0,z_0)=Z_{ell_*}. Since ell_*<=s_0/(2q_0),
+
+\[
+ s(t)\le s_0e^{-2q_0t},
+ |z_t-\zeta(a_0,z_0)|
+       \le\frac{\|h\|_\infty s_0}{2q_0}e^{-2q_0t}.
+ \tag{31}
+\]
+
+In particular x(ell)=e^{-ell}x_0. When s_0>0 and x_0 is nonzero, using x_0 unchanged as the reduced initial value would discard an actual shift.
+
+Take a fixed initial density mu supported on a compact set whose complete trajectories (29)–(30) stay a uniform positive distance from every tube, chart and physical boundary, with Q>=q_0. Sufficiently small fixed s_0 relative to these margins supplies such a class, as in the previous round. This is an explicit restriction on initial laws, not the every-density assertion required by O4.
+
+Let r_T=sqrt(log(1/T)) in physical time. Couple the full pair Y=(a,z) with its zero-temperature ODE using the same initial point, stopping before leaving the safe neighborhood. Bounded Lipschitz coefficients, the noise maximal inequality and Gronwall give
+
+\[
+ \mathbb E\sup_{t\le r_T}|Y_t^T-Y_t^0|^2
+     \le CT(r_T+r_T^2)e^{Cr_T}\longrightarrow0.
+ \tag{32}
+\]
+
+The deterministic curves have a uniform boundary margin, so premature exit has vanishing probability. Compactness of the original amplitude domain controls the contribution of those rare exits. Equations (31)–(32) imply z_{r_T}^T converges in law to zeta_*mu and E|a_{r_T}^T|^4 tends to zero. Applying (27) after this actual burn-in gives
+
+\[
+ (z^T_{r_T+\tau/T})_{0\le\tau\le H}
+       \Longrightarrow (\overline z_\tau)_{0\le\tau\le H},
+  \overline z_0\sim\zeta_*\mu,
+ \tag{33}
+\]
+
+up to the declared slow exit. No reset or preparation of the actual state was performed. The unshifted paths need not converge continuously from their original z_0: the finite initial slip is compressed into slow time Tr_T tending to zero. The shifted conclusion (33) is the stated theorem.
+
+## The inner region is a separate obligation
+
+The outer result fixes q_0>0. It does not justify setting q_0 to a temperature-dependent threshold. The conditional amplitude Hessian is Q I_m and loses its attraction rate at x=0; the conditional minimizer there is no longer unique. These are precisely hypotheses retained in the live c08 local slow-manifold discussion.
+
+For the flat prior near the origin, a direct rescaling shows why another local model is needed. Set a=T^{1/4}alpha, x=T^{1/4}xi and sigma=sqrt(T)t. On bounded scaled sets inside the link chart, the leading continuous generator is
+
+\[
+ \mathcal L_{\rm inner}
+ =\Delta_\alpha+A_\Theta^{-1}:\nabla_\xi^2
+   -(\xi^T A_\Theta\xi)\alpha\cdot\nabla_\alpha
+   -|\alpha|^2\xi\cdot\nabla_\xi.
+ \tag{34}
+\]
+
+Link drift and diffusion-generator terms are O(sqrt(T)); link noise coefficients are O(T^{1/4}). Thus links are frozen to leading order on this bounded inner time interval, as a derived local limit rather than a forced global constraint. Both amplitude and matter remain active at leading order; neither can be eliminated by the outer equilibrium substitution. Equation (34) records coefficient scaling only, not a solved crossing, return or branch-selection law.
+
+Exact elimination always remains available through (3). For m>=n its local replacement by Q^{-m/2} cannot define a global stationary probability density, and (21) cannot simply be declared a complete stationary parent. A construction covering the inner region must match (34) to the outer process, preserve the actual initial and handoff laws, and evaluate the full R14/R15 protocol. One-time probabilities such as (14) cannot supply that comparison.
+
+This concludes all three rounds of the bounded investigation. The strongest result is the local actual-law reduction with an explicit initial slip, together with the stationary normalization and logarithmic-scale law for the interacting GL model. Global passage through the inner region, the every-initial-density requirement, intrinsic partitions, recursive handoffs and slow feedback remain unresolved. Practical O1 accuracy and complexity remain separate open obligations. Further work must start from these specific gaps rather than silently restarting this three-round loop. No simulation, GPU calculation, production test or active configuration change was made. The [symbolic record](entropic-time-scale-checks.json) checks the corrector and exponent algebra only; the convergence arguments are analytical.

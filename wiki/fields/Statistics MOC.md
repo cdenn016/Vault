@@ -12,6 +12,10 @@ updated: 2026-10-03
 
 # Statistics MOC
 
+## October 3 entropic dynamics and the inner-region boundary
+
+[[multiagentelbo-2026-10-03-entropic-time-scale]] concludes the third bounded round. An explicit corrector gives a local slow path-law limit on time Tt for the introduced GL model, with an actual initial slip for a specified class of fixed initial densities. Exact stationary elimination retains determinant and angular link weights; equal amplitude and matter dimensions give a uniform logarithmic radius and a nonnormalizable formal reduced density at zero mismatch. The balanced inner scaling keeps both blocks active, so global passage and the full R14/R15 comparison remain unresolved. This is not O4 closure; practical O1 accuracy, intrinsic partitions and hierarchical feedback remain open. No model or GPU run occurred.
+
 ## October 3 limits of gated formation extensions
 
 [[multiagentelbo-2026-10-03-gated-handoff-obstruction]] records two candidate failures on o(1/T) horizons: an exact Fisher slow-record extension can remain inactive, and a normalized configuration-law model with dynamic noncommuting GL links can relax its shared amplitude before matter coheres. Each failure uses a fixed admissible initial density and stopped diffusion estimates. The network result permits each fixed N>=512 under explicit local coercivity and process assumptions; it has no uniform thermodynamic conclusion. The earlier restoring-coherence result remains valid, but these handoff extensions do not close O4. Longer protocols, intrinsic partition branching, actual R14 comparison histories, practical O1 accuracy and full feedback remain open. Exact algebra was checked; no simulation or GPU run occurred.
