@@ -1508,3 +1508,5 @@ All new source notes are cataloged below. [[multiagentelbo-2026-09-11-research-s
 - [[multiagentelbo-2026-10-03-reverse-retained-decomposition]] -- provisional auxiliary-cost and retained-prediction distinction with finite symbolic evidence.
 
 - [[multiagentelbo-2026-10-03-compressed-message]] -- compressed Gaussian message pilot with measured storage/accuracy tradeoff.
+
+- [[multiagentelbo-2026-10-03-source-informed-compression]] -- matched-rank source-sensitivity basis with mixed joint-score results.
