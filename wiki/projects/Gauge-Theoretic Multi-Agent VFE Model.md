@@ -21,6 +21,10 @@ updated: 2026-10-03
 
 # Gauge-Theoretic Multi-Agent VFE Model
 
+## October 3 projection parity diagnosis
+
+[[multiagentelbo-2026-10-03-projection-parity-diagnosis]] records three bounded non-reproductions of the preceding projection parity failure: the first event with archived/off/on implementations, complete path000 on/off traces, and four separate spawned N512 cases. All 180 archived candidate-field comparisons were exact. The original failure remains unresolved and the 32-path study remains incomplete. Future failures now retain actual arrays, the reference field and mismatch location/magnitude; two tiny capture tests pass. No full-study retry, GPU or O1/O4 closure is claimed.
+
 ## October 3 source projection checkpoint
 
 [[multiagentelbo-2026-10-03-source-projection-entropy]] records a conditional continuous entropy balance and a distinct finite-grid full-proposal-clock inequality, with optional actual-state projection diagnostics. Fourteen distinct tiny tests passed. The declared 32-history measurement failed exact candidate parity at N512 path 000 fine_mean after 127.05 CPU seconds. One result was accepted by the parent; ten partial worker outputs and the failure are archived, with no aggregate summary. The mismatch magnitude and cause remain unresolved. Diagnose the first discrepancy before any new measurement. Practical O1 and full O4 remain open; no GPU was used.
