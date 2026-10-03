@@ -13,12 +13,16 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-08-17
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 
 
 # Staged hierarchy formation and RG composability
+
+## October 3 conditional error and frozen lift comparison
+
+[[multiagentelbo-2026-10-03-conditional-parent-error]] separates the auxiliary budget into candidate-independent hidden information and conditional prediction error, identifying the latter with retained path KL under an explicit finite-budget assumption. The candidate covariance cannot replace the true conditional covariance. A posthoc saved-array comparison over all32 paths and64 grids favors the evolving Gaussian recipe over the frozen activation lift by8.39344 +/-1.08005 and15.28922 +/-1.90772 nats on the fine grid at N512/N1024 (empirical paired standard errors). Both drift and source components improve in this sample. The4.101-second CPU calculation generated no trajectories and used no GPU. These finite-grid differences do not establish small absolute error or isolate memory; O1/O4 and both horizon regimes remain open.
 
 ## October 2 completed square-root parent-budget study
 
