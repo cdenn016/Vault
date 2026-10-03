@@ -1,0 +1,42 @@
+== 1. Flat <=> recurrent; invertible flat <=> pure gauge; singular counterexample ==
+recurrent links: max |F_ijk - I| over all triples           1.7763568394002505e-15
+pure gauge: Theta_ij = g_i g_j^-1, max err                   1.1102230246251565e-15
+singular shared projector is flat (Theta_ij Theta_jk = Theta_ik): err 0.0  rank 1 (cannot be g_i g_j^-1)
+
+== 2. Curvature of candidate generators ==
+constant generator: F_ijk = U_k e^X U_k^-1, max err          1.9984014443252818e-15
+positional generator (p_i-p_j) X: max |F - I|                3.33510996597397e-13
+routed exponent: F = U_k O exp(b_ij+b_jk-b_ik) T U_k^-1, err 2.220446049250313e-15
+head-sum: F = U_k O diag(b_ij b_jk / b_ik) T U_k^-1, err     2.0816681711721685e-15
+BCH eps=0.1: |logF-first order|=3.57e-02  |logF-second order|=3.62e-03
+BCH eps=0.05: |logF-first order|=9.11e-03  |logF-second order|=4.55e-04
+BCH eps=0.025: |logF-first order|=2.30e-03  |logF-second order|=5.68e-05
+
+== 3. Flat normalized head-sum routing: beta_ij = c_i / c_j on the strict past ==
+rows sum to 1: True  diagonal: [1.   0.5  0.4  0.6  0.72]  all positive: True
+strict-triangle cocycle beta_ij beta_jk = beta_ik, max err: 0.0
+uniform causal attention: max |beta_ij beta_jk - beta_ik| over strict triangles: 0.16666666666666669
+
+== 4. Regression links of a joint Gaussian; Markov <=> flat ==
+W_ij W_jk = W_ik - Sigma_ik|j Sigma_kk^-1  err: 1.3877787807814457e-16
+F = I - W_ik^-1 Sigma_ik|j Sigma_kk^-1      err: 5.271723685893723e-16
+AR(1) chain: max |F_ijk - I| over triples: 1.2212453270876722e-15
+AR(1) chain: W_ij = A^(i-j), max err: 1.1102230246251565e-16
+generic joint: |F - I| = 3.3695939795810865  (not Markov)
+W_ab -> g_a W_ab g_b^-1 under distinct per-token frames, err: 1.323546692972433e-15
+
+-- reduced-rank regression: rank-d optimum of E||Sii^-1/2 (xi_i - W xi_j)||^2 --
+rank of reduced-rank predictor: 2  risk(full) = 3.1019  risk(rank-2) = 3.1988
+min over 4000 factor perturbations (A+dA)(B+dB) of risk - risk(Wd): 0.00015248105147103175  (>= 0: local optimality within rank 2)
+risk(Wd) - risk(full) = 0.096854   sum of squared discarded singular values = 0.096854
+no random rank-2 matrix beats it: True
+
+== 5. Fisher metric pulled back to the group link; barrier at the singular boundary ==
+t=0.01: 2 KL(q_g1 || q_g0) / (t^2 ds^2) = 1.005422  (-> 1)
+t=0.005: 2 KL(q_g1 || q_g0) / (t^2 ds^2) = 1.002696  (-> 1)
+t=0.0025: 2 KL(q_g1 || q_g0) / (t^2 ds^2) = 1.001344  (-> 1)
+dexp: (int_0^1 e^{sX} dX e^{-sX} ds) e^X = d e^X   rel err: 8.87288309592938e-09
+sigma_min=0.1: KL(q_t||q_0) =    2.133   -log sigma_min =   2.303   Fisher length of the path =   3.855
+sigma_min=0.01: KL(q_t||q_0) =    4.499   -log sigma_min =   4.605   Fisher length of the path =   7.710
+sigma_min=0.001: KL(q_t||q_0) =    6.809   -log sigma_min =   6.908   Fisher length of the path =  11.566
+sigma_min=0.0001: KL(q_t||q_0) =    9.112   -log sigma_min =   9.210   Fisher length of the path =  15.421

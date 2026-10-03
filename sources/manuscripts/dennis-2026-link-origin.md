@@ -71,4 +71,4 @@ This is the first account in the vault of why the singular matrix links of [[den
 
 ## Related
 
-[[Lattice gauge theory]], [[Holonomy]], [[GL(K) gauge-equivariant attention]], [[Projected predictive attention]], [[Projected gradient attention]], [[Activation Functions]], [[Multi-head attention]], [[Residual Connections]], [[Template routing]], [[VFE Transformer Program]], [[dennis-2026-projected-predictive]], [[dennis-2026-projected-gradient]], [[dennis-2026-glk-projected-matrix-links-v2]], [[dennis-2026-glk-matrix-links-2026-09-20]], [[dennis-2026-template-routing]]
+[[Lattice gauge theory]], [[Holonomy]], [[GL(K) gauge-equivariant attention]], [[Projected predictive attention]], [[Projected gradient attention]], [[Activation Functions]], [[Multi-head attention]], [[Residual Connections]], [[Template routing]], [[VFE Transformer Program]], [[dennis-2026-projected-predictive]], [[dennis-2026-projected-gradient]], [[dennis-2026-glk-projected-matrix-links-v2]], [[dennis-2026-glk-matrix-links-2026-09-20]], [[dennis-2026-template-routing]], [[dennis-2026-link-curvature]]

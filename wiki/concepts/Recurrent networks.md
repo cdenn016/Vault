@@ -16,6 +16,10 @@ updated: 2026-06-21
 
 Recurrent neural networks (RNNs) process sequences by maintaining a hidden state that is updated at each step, sharing weights across time. They can in principle model arbitrary temporal dependencies but suffer from the vanishing/exploding gradient problem over long horizons, which gated variants (LSTM, GRU) mitigate via additive memory cells and multiplicative gates. RNNs are the sequential predecessors that attention/transformers replaced with parallel, content-addressable mixing of tokens.
 
+## Flat link fields, October 2, 2026
+
+Transition products of recurrences with input-dependent transitions have the recurrent form that makes a causal link field flat in the sense of [[dennis-2026-link-curvature]]; see [[State space models]].
+
 ## Related
 [[Vanishing gradient|Vanishing gradient problem]], [[Attention mechanisms — theory and positional structure]]
 

@@ -149,9 +149,14 @@ Holonomy surfaces wherever the config commits to a connection or to non-commutin
 - **Edge-relaxed transport.** Independent edge variables can produce nontrivial holonomy and are the appropriate target for loop diagnostics.
 - **Frame conditioning.** The configured Cartan/Killing object is an optimizer preconditioner, not a full-$\mathrm{GL}(K)$ Fisher metric and not a certificate that holonomy is reparameterization invariant.
 
+## Triangle holonomy on causal support, October 2, 2026
+
+[[dennis-2026-link-curvature]] defines the triangle holonomy of an invertible causal link field as $F_{ijk}=\Theta_{ik}^{-1}\Theta_{ij}\Theta_{jk}$ for $k<j<i$, the loop $k\to j\to i\to k$ whose last step uses the inverse of the long edge. It transforms as $F_{ijk}\mapsto g_kF_{ijk}g_k^{-1}$, and in reference coordinates it equals $U_k(G_{ik}^{-1}G_{ij}G_{jk})U_k^{-1}$, so the frames drop out of its conjugacy class: no choice of frames flattens or creates the curvature, which is a property of the reference field $G$. The field is flat exactly when each link is the ordered product of adjacent links, and for invertible links exactly when it is pure gauge $g_ig_j^{-1}$ (singular counterexample: the shared projector). The KL triangle defect above is the head-sum row of a table of candidates: positional and rotary links are flat, the constant exponential link has $F=U_ke^{X}U_k^{-1}$, the routed exponent has the additive defect $B_{ij}+B_{jk}-B_{ik}$ in the exponent, and the head sum has the multiplicative defect. Normalized head-sum routing is flat on strict triangles iff $\beta_{ij}=c_i/c_j$; uniform causal attention has a nonzero defect (largest cocycle violation $1/6$ on five tokens). The note suggests the flat pattern and the uniform pattern as baselines for the defect computed from logged routing weights; no such measurement has been made. For regression links of a joint Gaussian the curvature is the partial cross-covariance $\Sigma_{ik|j}$. See [[Lattice gauge theory]].
+
 ## Sources
 
 - [[dennis-2026-link-origin]] — triangle defect of routing logits as the loop of the head-sum link; exponential-link loops via BCH (agent-drafted, small-dimension checks).
+- [[dennis-2026-link-curvature]] — triangle holonomy on causal support, frame independence of its conjugacy class, flat = recurrent, holonomy table of candidate links (agent-drafted, float64 checks at K=4).
 - [[cohen-2019-gauge-cnn]] — gauge equivariance on manifolds: the kernel constraint and the parallel-transport rule whose closed-loop composition is holonomy.
 - [[bronstein-2021-geometric-deep-learning]] — Erlangen-Program synthesis providing the gauge / connection / parallel-transport scaffolding.
 - [[finzi-2020-lieconv]] — Lie-algebra (log-coordinate) parameterization with exp recovery, the BCH-style composition underlying non-abelian holonomy.
