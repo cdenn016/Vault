@@ -1475,3 +1475,5 @@ All new source notes are cataloged below. [[multiagentelbo-2026-09-11-research-s
 - [[multiagentelbo-2026-10-03-conditional-parent-error]] -- conditional error identity and frozen activation-lift contrast; absolute error and O1/O4 remain open.
 
 - [[multiagentelbo-2026-10-03-probe-variance-stationary-action]] -- source-probe variance and a scoped stationary-action obstruction; O1/O4 remain open.
+
+- [[multiagentelbo-2026-10-03-fixed-projection-filters]] -- finite-horizon fixed-projection approximation with three smooth coordinates and unrestricted complexity; general O1/O4 remain open.
