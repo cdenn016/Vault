@@ -1,0 +1,263 @@
+# Finite-horizon limit of the frozen Gaussian-message grid
+
+October 3, 2026. This record proves a finite-horizon common-path limit for the exact-arithmetic interpretation of the implemented frozen-law algorithm. It also identifies the limit of its actual source-budget estimator: a fixed number of random probes remains random when the mesh vanishes. Neither that limit nor convergence in probability alone permits interchanging a numerical limit and native expectation. No experiment, unit test, GPU calculation, or historical heavy node was run for this derivation.
+
+Companion result: [continuous-grid-moments.md](continuous-grid-moments.md) supplies the separate uniform-integrability argument for the exact-arithmetic implementation on deterministic grids enriched by the independent proposal clock. It gives L1 convergence to the fixed-probe random limit and convergence of expected totals to this continuous budget. It supplies no quantitative finite-grid bias, floating-point error bound, or small retained-law error.
+
+## Target, implementation, and assumptions
+
+The sources are [continuous-gaussian-parent-admission.md](continuous-gaussian-parent-admission.md), [continuous-budget-discretization.md](continuous-budget-discretization.md), [continuous-budget-CONTRACT.md](continuous-budget-CONTRACT.md), and [continuous-square-root-study-CONTRACT.md](continuous-square-root-study-CONTRACT.md). The implementation inspected is `continuous_budget.py`, `gaussian_message.py`, `source_gaussian.py`, and `source_square_root.py` under `src/multiagent_elbo/realizations/gaussian/`. The separate `source_adapted_filter.py` scores a scheduled discrete model and is not the algorithm in this theorem. The live theory consulted is Research `MultiAgentELBO_Theory/c11_network_coarsegraining.tex`, lines 1288-1346, including `def:rg-regular-finite-filter` and `open:rg-pointwise-parent-dynamics`, together with SPEC section 0. The two horizon regimes and the fixed-base-point scope in those sources remain unchanged.
+
+Fix an arbitrary finite dimension, finite source-assignment set, horizon $T<\infty$, full-row-rank retained map $P$, positive-definite constant diffusion covariance $Q$, and affine sheet drifts $v_j(x)=F_jx+f_j$. Fix strictly positive quadratic-softmax source rows on their declared finite supports. Fix the receiver order, local cubature coordinates, and positive spanning cubature rule. The implementation specializes $P$ to arithmetic block means and $Q$ to twice its frozen mobility. The manuscript's identity-mobility convention is a separate specialization. All constants here may depend on this fixed model and horizon; none is uniform in agent count, temperature, the regime parameter, or growing time.
+
+The native process has the stated Gaussian activation and independent initial assignment. It uses one Brownian motion $W$ and an independent rate-one Poisson clock. At each proposal a fresh independent vector of uniforms draws the product source assignment from the native configuration at that time. Between proposals,
+
+$$
+dX_t=v_{J_t}(X_t)dt+Q^{1/2}dW_t.
+\tag{1}
+$$
+
+Assignments are right-continuous; the configuration is continuous. There is no reflecting, absorbing, or imposed spatial boundary. The Gaussian message is driven by the actual retained path $R=PX$ and visible assignment history. It starts with the exact conditional Gaussian on $PX_0$, follows the admitted correlated-noise mean and Riccati equations, and applies its uncut Gaussian source map at a changed assignment only. It omits survival conditioning exactly as declared in the admission record. This construction is a candidate predictor, not the native posterior.
+
+The numerical approximation uses any sequence of meshes with maximum width $h\downarrow0$, containing both endpoints and every proposal time. Use the same activation, Brownian path, proposal times, and proposal uniforms for all meshes. Native propagation uses Euler increments with the actual common Brownian increments. The message uses the implemented affine Euler forecast and exact Gaussian conditioning on the retained endpoint; a changed native assignment triggers the uncut source map. A self-proposal applies the identity message map. The common coupling is an introduced analytical assumption for comparing mesh levels. The existing producer supplies it for its declared coarse/fine pair by summing fine Brownian increments. Reinvoking its generator with the same integer seed and a different mesh size does not by itself construct a single Brownian path across all resolutions.
+
+The intended equivalence is convergence of the message driven by the native path, not equality between the candidate's autonomous path law and the native retained law. The theorem concerns exact real arithmetic for the numerical formulas. Fixed-precision Cholesky subtraction, overflow, likelihood underflow, and roundoff accumulated over arbitrarily many steps are not covered. In particular, it does not reclassify the recorded dense-backend failure or convert two successful float64 grids into an asymptotic numerical certificate.
+
+## The square-root backend preserves the actual ordered cubature rule
+
+A covariance-matching rotation can change cubature nodes, so the local-coordinate convention must be explicit. The rule here uses exactly the ordered physical coordinate functionals in the dense implementation, not an arbitrary orthonormal basis of their span. In global orthonormal hidden coordinates $z$, these are a fixed full-row-rank matrix $H_i z$ plus a known retained-coordinate offset. The admission formulas extend to this declared choice by using $C=H_i S H_i^T$ and regression $G=S H_i^T C^{-1}$. Positive-definite conditioning, smoothness, and normalization hold exactly as before. If the earlier local-basis convention is read as requiring orthonormal columns, this paragraph is an explicit extension of that convention; cubature invariance under its replacement is not asserted.
+
+For arithmetic block means, let $E$ be the fixed lift from independent hidden coordinates that omit the last node of every block. An exact fiber covariance is $\Sigma=EHH^TE^T$ with $H$ invertible. At a receiver, both backends sort the same local nodes and omit the last node of a block only when that entire block is present. Let $V$ select the remaining ordered local coordinates from the full configuration and put $A=VEH$. The rows of $VE$ are independent: a proper subset of the rows in one block's sum-zero lift is independent, and a complete block has exactly one row omitted. Different blocks use disjoint hidden coordinates. Therefore
+
+$$
+C=AA^T>0.
+\tag{2}
+$$
+
+Take a thin QR decomposition $A^T=\mathcal Q\mathcal R$. With the diagonal sign matrix $D$ making $D\mathcal R$ have positive diagonal, set $\mathcal Q_+=\mathcal QD$ and $L=(D\mathcal R)^T$. Then $C=LL^T$ and $L$ is lower triangular with positive diagonal, hence is precisely the unique Cholesky factor used by the dense backend. The actual `_signed_qr` performs this sign operation. Consequently the ordered offsets $\pm\sqrt r L e_\ell$ agree in the two backends, not merely their covariance. The reconstructed dropped-node offsets, likelihoods, normalized source rows, tilted mean displacement $d$, and tilted local covariance $C_a$ also agree.
+
+Complete $\mathcal Q_+$ orthogonally and write $H\mathcal Q_{\mathrm{full}}=[V_0,W_0]$. Since $A^T=\mathcal Q_+L^T$, the independent-coordinate regression gain is
+
+$$
+G=HA^TC^{-1}=V_0L^{-1}.
+\tag{3}
+$$
+
+The coded rotation and column replacement return displacement $Gd$ and factor $[V_0L^{-1}L_a,W_0]$, where $L_aL_a^T=C_a$. Its covariance is
+
+$$
+W_0W_0^T+GC_aG^T
+=HH^T-GCG^T+GC_aG^T.
+\tag{4}
+$$
+
+This is exactly the dense regression update. The positive likelihood weights and affinely spanning offsets make $C_a$ positive definite. The sign choices and unused orthogonal complement therefore do not affect the mean, covariance, or subsequent local Cholesky nodes. Induction over receivers proves equality of the full uncut source maps and all prefix source probabilities. The observable map is smooth on the fiber-positive covariance domain because it equals the dense map expressed through positive-definite Cholesky factors and positive likelihoods; smoothness of every internal QR sign choice is unnecessary. Full retention has no hidden coordinate and both paths reduce to the point-source rows.
+
+## One-step identities on a frozen sheet
+
+Use the admission coordinates $X=T_Pr+Zz$, where $T_P=P^T(PP^T)^{-1}$ and $Z$ has orthonormal columns spanning $\ker P$. For a fixed sheet suppress its label and put
+
+$$
+C=PFZ, D=Z^TFZ, Q_r=PQP^T,
+ Q_z=Z^TQZ, Q_{zr}=Z^TQP^T.
+$$
+
+For hidden covariance $S$, define
+
+$$
+K(S)=(SC^T+Q_{zr})Q_r^{-1},
+\mathcal V(S)=DS+SD^T+Q_z-(SC^T+Q_{zr})Q_r^{-1}(CS+Q_{zr}^T),
+\tag{5}
+$$
+
+and write $g(r,m)=Z^T[F(T_Pr+Zm)+f]$ and $a^c(r,m)=P[F(T_Pr+Zm)+f]$. The continuous message satisfies
+
+$$
+dm=[g(R,m)-K(S)a^c(R,m)]dt+K(S)dR,
+ dS=\mathcal V(S)dt.
+\tag{6}
+$$
+
+For step size $\delta>0$, the forecast and endpoint-conditioning formulas give exactly
+
+$$
+R_\delta=\delta Q_r+\delta^2CSC^T,
+ B_\delta=\delta(SC^T+Q_{zr})+\delta^2DSC^T,
+$$
+
+$$
+H_\delta=S+\delta(DS+SD^T+Q_z)+\delta^2DSD^T,
+$$
+
+$$
+K_\delta(S)=B_\delta R_\delta^{-1},
+\Phi_\delta(S)=H_\delta-B_\delta R_\delta^{-1}B_\delta^T,
+$$
+
+$$
+m'=m+\delta g(r,m)+K_\delta(S)[r'-r-\delta a^c(r,m)],
+ S'=\Phi_\delta(S).
+\tag{7}
+$$
+
+When the retained map has no hidden complement, the message equations are absent and the proof reduces to the native path and source-probability statements. Otherwise the forecast covariance is positive definite for every positive step because its added covariance is $\delta Q>0$. Thus the hidden Schur complement $S'$ is positive definite. Factoring out $\delta$ from the observed covariance gives, uniformly on every compact set of positive-definite $S$,
+
+$$
+K_\delta(S)=K(S)+\delta B_\delta^*(S),
+\Phi_\delta(S)=S+\delta\mathcal V(S)+\delta^2E_\delta(S),
+\tag{8}
+$$
+
+with bounded continuous remainders for all sufficiently small $\delta$. This follows directly from the smooth inverse of $Q_r+\delta CSC^T$; no matrix factors are commuted. Equation (8) alone is local consistency. The next calculation controls accumulation against the rough retained path.
+
+## Global pathwise convergence between proposals
+
+On a fixed sheet $K$ is affine in $S$. Write its linear derivative as $\mathcal K(H)=HC^TQ_r^{-1}$. Since $S$ has finite variation, $y=m-K(S)R$ satisfies the ordinary differential equation
+
+$$
+\dot y=g(R,y+K(S)R)-K(S)a^c(R,y+K(S)R)
+-\mathcal K(\mathcal V(S))R, \dot S=\mathcal V(S).
+\tag{9}
+$$
+
+This is the integration-by-parts identity for (6): the quadratic covariation of $K(S)$ and the continuous semimartingale $R$ is zero. Its coefficients are locally Lipschitz in $(y,S)$ with continuous input $R$.
+
+There is a discrete identity of the same form. For the grid values set $y_n=m_n-K(S_n)r_n$, $\Delta r_n=r_{n+1}-r_n$, and $\delta_n=t_{n+1}-t_n$. Substituting (7)-(8) and subtracting $K(S_{n+1})r_{n+1}$ gives
+
+$$
+y_{n+1}-y_n
+=\delta_n F(r_n,y_n,S_n)+\rho_n,
+\tag{10}
+$$
+
+where $F$ is the right side of (9) and the exact remainder is
+
+$$
+\rho_n=\delta_n[B_{\delta_n}^*(S_n)-\mathcal K(\mathcal V(S_n))]\Delta r_n
+-\delta_n^2 B_{\delta_n}^*(S_n)a^c(r_n,m_n)
+-\delta_n^2\mathcal K(E_{\delta_n}(S_n))r_{n+1}.
+\tag{11}
+$$
+
+Equation (11) is discrete summation by parts written one step at a time; it avoids bounding the total variation of Brownian motion. On a compact neighborhood of the exact path and message,
+
+$$
+\sum_n\|\rho_n\|
+\le C\left(T\max_n\|\Delta r_n\|+Th\right).
+\tag{12}
+$$
+
+For the numerical native Euler path, after subtraction of the common additive Brownian noise the recursion is Euler quadrature for the ordinary integral equation $X_t-Q^{1/2}W_t=X_s-Q^{1/2}W_s+\int_s^t v_j(X_u)du$. On a bounded neighborhood, its error at mesh nodes obeys
+
+$$
+\max_n\|X^h_{t_n}-X_{t_n}\|
+\le e^{L T}\left(\|X_s^h-X_s\|+LT\omega_X(h)\right),
+\tag{13}
+$$
+
+where $L=\|F_j\|$ and $\omega_X$ is the exact path's modulus of continuity on this sheet interval. This inequality follows by subtracting the two integral equations, bounding each exact-path quadrature remainder by $L\delta_n\omega_X(h)$, and iterating $e_{n+1}\le(1+L\delta_n)e_n+L\delta_n\omega_X(h)$. The continuous Brownian path has vanishing modulus of continuity, so the right side vanishes when the initial error does. Moreover,
+
+$$
+\max_n\|\Delta r_n\|
+\le C h+\|PQ^{1/2}\|\omega_W(h)\longrightarrow0.
+\tag{14}
+$$
+
+Equations (8), (10), and (12) now give convergence of the message, not merely its local coefficients. Compare their sums with the integral equations (9). On the compact neighborhood the right side has a Lipschitz constant $L_*$, and the error is bounded by its initial error, $C T\sup_n\|r_n-R_{t_n}\|$, a vanishing ordinary quadrature remainder for the continuous input and exact solution, $CTh$ from (8), and the vanishing bound (12). Iteration of $e_{n+1}\le(1+L_*\delta_n)e_n+\text{local remainder}$ multiplies their sum by at most $e^{L_*T}$. Therefore both $S_n$ and $y_n$, and hence $m_n$, converge uniformly at the mesh nodes on this sheet interval. Piecewise-constant right-continuous interpolation has the same uniform limit because the exact continuous state has vanishing modulus of continuity between proposals.
+
+The compact restriction is not assumed to contain the numerical path forever. Stop the estimates at its first numerical exit. Choose the compact with positive distance around the exact segment, including a positive lower covariance eigenvalue. The displayed error bounds are eventually smaller than that distance, which rules out an exit before the segment ends. This is the required continuation argument from local estimates to the full fixed segment. It makes no moment or expectation claim.
+
+## Proposal coupling, visible jumps, and invisible subdivisions
+
+The Poisson clock has finitely many proposals on $[0,T]$ almost surely. Conditional on the past just before a proposal, its new uniforms are independent of the current native configuration. Each coordinate uniform therefore avoids every CDF boundary of that configuration's positive source row almost surely. There are finitely many rows and proposals, so all these exclusions hold simultaneously with probability one.
+
+Suppose the coupled labels already agree through one proposal. The preceding interval argument gives convergence of the native configurations at the next proposal. Continuity of the softmax CDF and the strict distance of each fixed uniform from its finitely many limiting boundaries imply that, for all sufficiently fine meshes, the new labels equal the exact labels. The source map for a visible change is smooth on its finite-dimensional fiber-positive domain by (2)-(4); the message values after that change therefore converge as well. For an unchanged assignment both exact and numerical message maps are the identity. Induction over the finite proposal list proves eventual agreement of all assignment labels and uniform convergence of the continuous coordinates and Gaussian message, including their right-continuous jump values.
+
+The exact native process is nonexplosive because finitely many affine sheet SDEs are concatenated over finitely many proposals. The externally driven message is also finite on each such path. Its Riccati equation keeps $S$ positive and finite on a finite sheet interval by the upper bounds on $\operatorname{tr}S$ and $\operatorname{tr}S^{-1}$ in the admission record. Equation (9) is linear in $y$ with continuous finite input, and each source jump maps a finite state to a finite state with positive covariance. Thus a finite path is covered by finitely many compact neighborhoods of the kind used above. Removing the compact stops proves the following scoped statement.
+
+For every fixed admitted frozen model and finite horizon, along the common coupling and any mesh sequence specified above, the exact-arithmetic native Euler path and its Gaussian message converge almost surely, uniformly on $[0,T]$ using the right-continuous interpolations, to the native switching diffusion and the admitted message driven by its retained history, with the local-coordinate convention explicitly fixed above. The coupled assignment paths agree everywhere for all sufficiently fine meshes, on the same probability-one event. Consequently convergence in probability holds, including when both paths are stopped at the same compact-localization time. No convergence of separately chosen hitting times is needed here. No rate uniform across random paths or models is asserted.
+
+Adding or removing the finitely many invisible self-proposal subdivisions changes the finite-grid approximation but not this limit. Both versions have the same vanishing-mesh proof; the limiting message uses only $R$ and visible assignments. A mesh that contains the exact visible changes but omits invisible self-proposals is meaningful for this comparison once the exact path is fixed. It is not asserted to be a separate online native simulator that can know future visible changes without sampling proposals. The convergence establishes disappearance of invisible mesh dependence, not exact retained-history measurability at a fixed nonzero step size.
+
+## Cost integrals and the actual fixed-probe limit
+
+Let $\mathcal Z_t=(X_t,J_t,m_t,S_t)$ collect the native state and driven message, and let $\mathcal Z_t^h$ be their left-endpoint grid extension. Define the continuous drift discrepancy rate $d(\mathcal Z)$ and exact visible source rate $c(\mathcal Z)$ by
+
+$$
+d(\mathcal Z)=\tfrac12\|Pv_J(X)-Pv_J(T_PR+Zm)\|_{Q_r^{-1}}^2,
+$$
+
+$$
+c(\mathcal Z)=\sum_{k\ne J}\psi(b_k(X),\widehat b_k(R,m,S)),
+ \psi(p,q)=p\log(p/q)-p+q.
+\tag{15}
+$$
+
+For a fixed finite model these functions are continuous on each regular stratum and bounded on its compact sets. The complete assignment set can be very large, but it is finite. Every hypothetical cubature-prefix map is smooth and every supported probability is positive; hence their finite collection has a common bound on the compact neighborhood of one path. There are finitely many time discontinuities. The path result therefore implies, almost surely,
+
+$$
+\int_0^T d(\mathcal Z_t^h)dt\longrightarrow\int_0^T d(\mathcal Z_t)dt,
+
+\int_0^T c(\mathcal Z_t^h)dt\longrightarrow\int_0^T c(\mathcal Z_t)dt.
+\tag{16}
+$$
+
+The first left-hand side is the actual coded `drift_integral`. The second is the conditional expectation of the coded source estimator given the complete simulated grid path and mesh, not the stored source estimate itself.
+
+To identify what is stored, let $U_1,\ldots,U_M$ be independent uniform times on $[0,T]$ and $V_1,\ldots,V_M$ independent vectors of source uniforms, all independent of the native path. At state $\mathcal Z$, use $V$ to draw a native product assignment solely for its prefixes. Let $\widehat\beta_i(\cdot\mid k_{<i},\mathcal Z)$ denote the candidate row after that hypothetical prefix. Define
+
+$$
+G(\mathcal Z,V)=\sum_i D\big(\beta_i(X)\|\widehat\beta_i(\cdot\mid k_{<i}(X,V),\mathcal Z)\big)
+-\psi(b_J(X),\widehat b_J(R,m,S)).
+\tag{17}
+$$
+
+This is exactly `source_budget_probe`'s visible estimate, with a separate sequential pass for the current-assignment term. A product-native draw has prefix law $\prod_{q<i}\beta_q(k_q\mid X)$. Expanding the finite sum over complete assignments and summing its suffix labels gives the chain-rule identity
+
+$$
+\mathbb E_V\sum_iD(\beta_i\|\widehat\beta_i(\cdot\mid k_{<i}))
+=D(b\|\widehat b).
+$$
+
+Since $b$ and $\widehat b$ are normalized,
+
+$$
+c(\mathcal Z)=D(b\|\widehat b)-\psi(b_J,\widehat b_J)=\mathbb E_VG(\mathcal Z,V).
+\tag{18}
+$$
+
+The survival compensation is present in the subtraction. Although $c\ge0$, a realized $G$ need not be nonnegative. No clipping is justified.
+
+The implementation fixes $M=2$ and stores
+
+$$
+\widehat I_h=\frac{T}{M}\sum_{q=1}^M G(\mathcal Z^h_{U_q},V_q).
+\tag{19}
+$$
+
+With the common probe coupling, almost surely no $U_q$ equals a proposal time and no component of $V_q$ equals its limiting native CDF boundary. The same continuity and threshold argument used for the process labels then gives
+
+$$
+\widehat I_h\longrightarrow\widehat I_0
+=\frac{T}{M}\sum_{q=1}^M G(\mathcal Z_{U_q},V_q)
+\hbox{almost surely}.
+\tag{20}
+$$
+
+Conditional on the complete native path, these limits satisfy
+
+$$
+\mathbb E[\widehat I_0\mid\mathcal Z]=\int_0^T c(\mathcal Z_t)dt,
+
+\operatorname{Var}(\widehat I_0\mid\mathcal Z)
+=\frac{T^2}{M}\operatorname{Var}_{U,V}(G(\mathcal Z_U,V)\mid\mathcal Z).
+\tag{21}
+$$
+
+The conditional variance is finite because each fixed path stays in a compact regular set. In general it is positive. Refining the mesh while holding two probes fixed does not remove it, even for the self correction, whose prefix sum is exact at the sampled time but whose time quadrature is still random. Thus the actual coded `total_integral` converges to $\int d(\mathcal Z_t)dt+\widehat I_0$, not necessarily to $\int(d+c)(\mathcal Z_t)dt$. Its conditional mean has the latter limit. Obtaining the realized exact source integral additionally requires an increasing-probe limit or an exact mark sum with convergent deterministic time quadrature. For example, on each compact-stopped path, conditional Chebyshev with the bounded variance in (21), followed by (16), gives convergence in probability to the exact integral when $M\to\infty$ as the mesh vanishes. This is a proposed limit of the estimator, not a study that was executed.
+
+## Expectations and remaining scope
+
+For a continuous cutoff of the cost supported on a common compact regular set, and with a bounded proposal-count indicator, the rates and probes are uniformly bounded. The path limits above therefore permit dominated convergence of those localized expectations. This statement does not assume convergence of separate numerical and exact compact-exit times. Without localization, an additional uniform-integrability argument for the numerical family is needed to conclude convergence of expected numerical budgets. Finiteness of the continuous budget alone does not provide it. For example, on a uniform probability space the sequence $n\mathbf{1}_{\{U<1/n\}}$ tends to zero almost surely while every expectation is one. This example concerns the inference from convergence to expectations, not a claim that the present numerical family behaves that way.
+
+The result removes the finite-horizon exact-arithmetic state-limit obligation and proves convergence of exact realized cost quadrature. It identifies the additional randomness that survives in the actual two-probe outputs. It does not establish numerical uniform integrability, a finite-grid bias bound, floating-point stability as the step tends to zero, exact native posterior filtering, a small retained-path error, uniformity in the two Chapter 11 asymptotic horizon regimes, or recursive endogenous formation. The next estimate needed to transfer the published finite-grid measurements to the continuous expected auxiliary budget is numerical uniform integrability together with quantitative mesh and sampling error control. O1 and O4 remain open.
