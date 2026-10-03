@@ -402,3 +402,7 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 2026-10-03 CLEANUP: Author authorized publication of their additional changes: removed six old PDFs and moved GL(K) extension/gradients sources and PDFs into Misc_Attention_Docs.
 
 2026-10-03 CLEANUP: Included the author's removal of two old review folders and relocation of spin-foam/belief-inertia manuscripts. Vault lint checked 1377 remaining notes; all five integrity counts zero.
+
+2026-10-03 INGEST: Source-informed compression from MultiAgentELBO 8d1e114; new run note, 24 immutable archive files and existing project/theme/MOC updates. Preserved underpowered mixed results, dense-workspace limits and open O1/O4.
+
+2026-10-03 LINT: Source-informed compression ingest; 1378 notes, all five link/identity categories zero.

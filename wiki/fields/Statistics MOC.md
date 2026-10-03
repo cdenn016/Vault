@@ -12,6 +12,10 @@ updated: 2026-10-03
 
 # Statistics MOC
 
+## October 3 source-informed compression comparison
+
+[[multiagentelbo-2026-10-03-source-informed-compression]] compares an activation-only frozen-weight source-sensitivity basis with half-block compression at matched ranks 64/128 on two saved paths per N512/N1024. Mean total loss relative to half-block changes by -1.295775/+0.085335 nats, with opposite source/configuration tradeoffs. Dense remains better. Fifteen tiny tests, four numerical path checks and 40 scalar reconstructions passed. No GPU ran. The underpowered sample supports no general superiority claim; both record channels are the next proposed design target. Dense workspaces and O1/O4 remain open, as do the historical parity failure and pending formal verification.
+
 ## October 3 compressed-message pilot
 
 [[multiagentelbo-2026-10-03-compressed-message]] implements an optional reference-conditioned compressed Gaussian message and tests two unchanged switching paths per size at N512/N1024. Mean/covariance history entries fall by factors of 252-254, while dense constants and temporary computation remain. Mean compressed-minus-dense losses are 9.35635/8.06562 nats; compressed-minus-reset losses are -0.85301/-0.14410. The sample is underpowered. Ten tiny tests and 28 scalar checks passed; no GPU ran. A matched-rank source-informed basis comparison is next; O1/O4, the prior parity failure and pending formal verification remain open.
