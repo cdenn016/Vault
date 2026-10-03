@@ -12,6 +12,10 @@ updated: 2026-10-03
 
 # Mathematics MOC
 
+## October 3 source-probe variance and stationary-action obstruction
+
+[[multiagentelbo-2026-10-03-probe-variance-stationary-action]] decomposes all saved frozen-budget paths into source-probe and trajectory variance. Fine candidate probe fractions are estimated at 0.3621/0.3857 for N512/N1024; the paired grid difference of the Gaussian-minus-lift contrast has 0.7059/0.8536. Signed negative residuals are retained. These are descriptive two-probe estimates, not confidence bounds. The checkpoint also proves, under stated fixed-N Gibbs assumptions, that positive stationary action of a full matched lineage event excludes success bounded below from every fixed initial density. A persistent-visit corollary has explicit energy-gap and full-horizon hypotheses; zero-action events remain outside the exclusion. O1's true prediction error and O4's endogenous hierarchy remain open. No trajectory rerun or GPU work occurred.
+
 ## October 3 continuous parent integrability and grid limits
 
 [[multiagentelbo-2026-10-03-continuous-parent-limits]] establishes a finite auxiliary budget for the frozen continuous Gaussian-message candidate at every fixed finite model and horizon. The adjugate-weighted error bound includes source resets and yields all fixed polynomial moments. A common-path exact-arithmetic proof and uniform numerical moment bounds then give L1 convergence of the fixed-probe output, with its expectation converging to the continuous auxiliary budget on the declared clock-enriched deterministic grids. The implemented cubature coordinates are fixed. Two probes retain sampling variance. Quantitative finite-grid bias, sampling accuracy, small retained error in both O1 regimes and endogenous second formation O4 remain open. No new simulation, test or GPU work occurred.

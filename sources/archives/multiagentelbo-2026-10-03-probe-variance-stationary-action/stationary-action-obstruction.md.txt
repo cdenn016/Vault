@@ -1,0 +1,255 @@
+# A stationary-action obstruction to universal formation protocols
+
+October 3, 2026. This bounded analytical result concerns the first requirement of O4. A full formation protocol that has positive stationary action cannot succeed with probability bounded below from every fixed initial density. The proof compares initial laws directly and applies to stopping-time protocols without assuming that the process first mixes. It does not settle O4 or construct a new formation mechanism. No code, simulation, test, GPU calculation, Lean work, or manuscript edit accompanies this record.
+
+## Target and source continuity
+
+The target remains the persistent-hierarchy problem in the live Research manuscript MultiAgentELBO_Theory/c12_multiscale_vfe.tex, section sec:full-graph-vfe-target, lines 1007–1068, especially open:full-graph-hierarchy at line 1015. Its first requirement is a lineage of at least two levels with probability bounded below from every fixed initial law having a density and finite second moment, together with actual-history facilitation and the restoring and horizon clauses. SPEC R14, lines 217–234, requires a common process and positive-weight nonformation handoffs. SPEC R15, lines 236–248, requires an appropriate comparison with stationarity. These requirements are retained rather than replaced by the necessary condition proved below.
+
+Sources consulted were [DIRECTION](../../DIRECTION.md), [the original fixed-energy candidate](recursive-formation-construction.md), [the actual handoff construction](recursive-handoff-experiment.md), [the nonlinear saddle-exit proof](nonlinear-saddle-exit.md), and [the matched stationary comparison](saddle-protocol-stationarity.md). The live sources additionally include Research/manuscripts/pifb2/12_section.tex, “The Participatory Loop and the Origin of Priors,” particularly “Which structure may emerge” and “Drive, duration and stationarity,” and Research/wiki/themes/Staged hierarchy formation and RG composability.md. The repository checkpoint for this continuation is 79503f411b72fd569e7c02ae0f3c11344c4964dd; the Research checkpoint is ec61b3aa17c596ea34bb1f45f955ad3495f1d9b6. Both checked-out revisions were read before writing this record.
+
+The user-supplied scope is one base point, temperature-independent model coefficients, reversible joint descent, and the large-network target. The Gibbs and reference-measure hypotheses below are introduced assumptions. They hold for the preceding confining candidate, but are not asserted for every law allowed by the full hierarchy problem. No coarse-graining map, partition selector, retained-state approximation, or renormalization flow is introduced here. Decreasing temperature is a small-noise limit, not a declaration of increasing renormalization scale.
+
+## Microscopic laws and common protocol
+
+Fix a finite network size \(N\ge512\). Let the complete microscopic state \(z\in\mathsf X_N\) include every continuous coordinate and every discrete mark that affects the dynamics. Assume a sigma-finite, locally finite reference measure \(m_N\), a measurable temperature-independent energy \(E_N\), and
+
+\[
+ E_N\ge0,
+ \rho_T(dz)=Z_T^{-1}e^{-E_N(z)/T}m_N(dz),
+ Z_T=\int e^{-E_N/T}dm_N.
+ \tag{1}
+\]
+
+The essential minimum has been subtracted from the energy. Assume \(Z_{T_0}<\infty\) for some \(T_0>0\). For every \(\delta>0\), assume that there is a bounded measurable set \(A_\delta\subset\{E_N\le\delta\}\) with \(0<m_N(A_\delta)<\infty\). Boundedness is in the continuous coordinates whose second moment the target requires. There are finitely many structural marks. Densities below are relative to this reference measure; when the target uses coordinate Lebesgue measure and counting measure, require \(m_N\) to have a density with respect to that measure as well. This ensures that the constructed initial law is admitted in the target's density convention.
+
+For each \(0<T\le T_0\), let \(P_z^T\) be a well-defined law of the complete dynamics from \(z\), with stationary law \(\rho_T\). The dynamics may include boundary reflection and conditional mark redraws. Existence, stationarity, and any boundary conditions are hypotheses about the proposed model, not consequences of the initial-law argument. Reversible Gibbs descent is the intended application; the argument does not require reversibility once these laws are available.
+
+Declare one full protocol and one measurable success event \(F_T\) before comparing initial laws. The protocol may use stopping times, deadlines, handoffs, history-dependent selection, and auxiliary randomization. Any auxiliary randomization has the same declared conditional kernel under all starting laws. More generally let \(\mathcal K_T(z,\cdot)\) be the common law of the entire recorded experiment, including its auxiliary randomness, and write
+
+\[
+ g_T(z)=\mathcal K_T(z,F_T), 0\le g_T(z)\le1,
+  P_\nu^T(F_T)=\int g_T(z)\nu(dz).
+ \tag{2}
+\]
+
+Stationary initialization means drawing the entire initial microscopic state from \(\rho_T\), then applying this same protocol. If the protocol reads a prehistory, its conditional distribution given the initial state must be part of the common kernel in (2), or the state and reference law must be enlarged to include it. Changing a prehistory-conditioning rule between starts is not covered. A probability conditioned on a selected first-stage event is a ratio of two integrals, not automatically an instance of (2). The theorem is applied to the full lineage event; conditional conclusions need their own denominator control. Comparing a selected handoff law with an unselected stationary state changes the protocol and is not the comparison considered here.
+
+## Normalization on a noncompact state space
+
+The stated hypotheses imply
+
+\[
+ \lim_{T\downarrow0}T\log Z_T=0.
+ \tag{3}
+\]
+
+For \(T\le T_0\), nonnegativity gives \(0<Z_T\le Z_{T_0}<\infty\). For every fixed \(\delta>0\),
+
+\[
+ Z_T\ge m_N(A_\delta)e^{-\delta/T}.
+\]
+
+Therefore \(\limsup T\log Z_T\le0\) and \(\liminf T\log Z_T\ge-\delta\). Taking \(\delta\downarrow0\) proves (3). This proof does not replace a noncompact integral by the volume of the whole state space, nor assume that the minimum is nondegenerate.
+
+For example, on \(\mathbb R^d\) times a finite mark set with Lebesgue and counting reference measure, the sufficient coercive bound
+
+\[
+ E_N(x,j)\ge c|x|^p-C, c,p>0,
+\]
+
+gives finiteness at every fixed positive \(T_0\). Indeed polar coordinates give
+
+\[
+ \int_{\mathbb R^d}e^{-c|x|^p/T_0}dx
+ =\frac{|S^{d-1}|}{p}
+       \left(\frac{T_0}{c}\right)^{d/p}\Gamma(d/p)<\infty,
+\]
+
+and multiplication by the finite mark count and \(e^{C/T_0}\) bounds \(Z_{T_0}\). A polynomial bound on the reference density also gives a finite radial integral. Continuity of the energy near points approaching its essential minimum supplies positive-measure low-energy sets in this setting. The conclusion (3) then follows from the preceding argument, not from assuming that this coarse coercivity bound gives the exact low-temperature normalizer.
+
+## Necessary zero stationary action
+
+Define the nonnegative stationary action of the complete event by
+
+\[
+ I_T=-T\log P_{\rho_T}^T(F_T),
+ \tag{4}
+\]
+
+with \(I_T=+\infty\) when that probability is zero. If
+
+\[
+ \limsup_{T\downarrow0}I_T>0,
+ \tag{5}
+\]
+
+then there is one fixed, temperature-independent probability law \(\mu\), having a bounded reference density and finite second moment, such that
+
+\[
+ \liminf_{T\downarrow0}P_\mu^T(F_T)=0.
+ \tag{6}
+\]
+
+To prove this, choose \(\delta>0\) and a sequence \(T_n\downarrow0\) such that \(I_{T_n}\ge2\delta\). Such a choice follows from (5), including an infinite limsup. Put
+
+\[
+ \mu(dz)=\frac{1_{A_\delta}(z)}{m_N(A_\delta)}m_N(dz).
+ \tag{7}
+\]
+
+Its reference density is bounded by the fixed finite number \(m_N(A_\delta)^{-1}\), and its continuous second moment is finite because \(A_\delta\) is bounded. On this support,
+
+\[
+ \frac{d\mu}{d\rho_T}(z)
+ =\frac{Z_T}{m_N(A_\delta)}1_{A_\delta}(z)e^{E_N(z)/T}
+ \le\frac{Z_T}{m_N(A_\delta)}e^{\delta/T}.
+\]
+
+Applying this initial-law comparison to the common kernel (2) gives
+
+\[
+ P_\mu^T(F_T)
+ \le\frac{Z_T}{m_N(A_\delta)}e^{\delta/T}
+                       P_{\rho_T}^T(F_T).
+ \tag{8}
+\]
+
+Along the selected sequence, the right side is at most
+
+\[
+ \exp[-\delta/T_n+o(1/T_n)]\longrightarrow0,
+\]
+
+by (3). This proves (6). The same calculation covers a zero stationary event probability by absolute continuity. There is no mixing assumption and no removal of a waiting period or retained prefix from the event.
+
+Consequently, if a declared protocol satisfies
+
+\[
+ \text{for every fixed admissible }\mu,
+          \liminf_{T\downarrow0}P_\mu^T(F_T)>0,
+ \tag{9}
+\]
+
+then necessarily
+
+\[
+ \boxed{\lim_{T\downarrow0}-T\log P_{\rho_T}^T(F_T)=0.}
+ \tag{10}
+\]
+
+The lower bound in (9) may depend on \(\mu\); the proof does not assume a common lower bound over initial laws. Conversely, (10) does not imply (9), facilitation, restoration, or either stationary horizon clause.
+
+## Persistent intervals within a deterministic full horizon
+
+Suppose success implies that there is an interval \([s,s+\ell_T]\subset[0,H_T]\) throughout which \(Z_t\in C_T\), where \(H_T<\infty\) and \(0<\ell_T\le H_T\) are deterministic and the measurable state set \(C_T\) is declared in advance. The location \(s\) may be random and selected from the trajectory. Pathwise,
+
+\[
+ 1_{F_T}\ell_T\le\int_0^{H_T}1_{C_T}(Z_t)dt.
+\]
+
+Stationarity and Fubini give the exact bound
+
+\[
+ P_{\rho_T}^T(F_T)
+       \le\frac{H_T}{\ell_T}\rho_T(C_T).
+ \tag{11}
+\]
+
+The full horizon includes waiting, handoff, and the coherence interval. An uncapped waiting protocol is not automatically covered. This is a probability bound for an event containing a positive-duration visit, not an estimate of stationary entrance rate or mean recurrence time from one-time occupation.
+
+Assume additionally a fixed gap \(\Delta>0\) with \(E_N\ge\Delta\) on every \(C_T\). For \(T\le T_0\),
+
+\[
+ \int_{C_T}e^{-E_N/T}dm_N
+ \le e^{-(1/T-1/T_0)\Delta}Z_{T_0},
+\]
+
+so (3) implies
+
+\[
+ \liminf_{T\downarrow0}[-T\log\rho_T(C_T)]\ge\Delta.
+ \tag{12}
+\]
+
+If \(h=\limsup_{T\downarrow0}T\log H_T<\Delta\) and
+\(T\log(1/\ell_T)\to0\), then (11) yields
+
+\[
+ \liminf_{T\downarrow0}I_T\ge\Delta-h>0.
+ \tag{13}
+\]
+
+The universal success clause (9) is therefore impossible under these hypotheses. This corollary has not converted a claim of a short horizon relative to recurrence into an energy-gap estimate; it requires the explicit bound on \(H_T\) just stated.
+
+The previous rare-well candidate has a fixed positive energy gap for its declared second-coherence set, as calculated in equations (14)–(15) of [its construction](recursive-formation-construction.md). The corollary excludes full horizons whose exponential rate is smaller than that gap. Its actual chosen horizon was \(H_T=\exp(2C_N/T)\), and no inequality placing \(2C_N\) below that gap has been established. The corollary therefore does not exclude that chosen horizon. The failure of that candidate's chosen full protocol is the separate result in [saddle-protocol-stationarity.md](saddle-protocol-stationarity.md), which remains the relevant conclusion for it.
+
+## A Gaussian boundary check, not a formation proposal
+
+The distinction between fixed initial laws and the temperature-dependent stationary family leaves a genuine gap in any attempted general no-go argument. To delimit the proof, fix any dimension \(D\ge512\) and consider the exactly solvable diffusion on \(\mathbb R^D\), with no boundary,
+
+\[
+ dX_t=-X_tdt+\sqrt{2T}dB_t,
+ E(x)=|x|^2/2, Z_T=(2\pi T)^{D/2}.
+\]
+
+Choose \(0<a<b<1/2\), let \(t_T=a\log(1/T)\), and declare only the terminal observable
+
+\[
+ F_T=\{|X_{t_T}|>T^b\}.
+ \tag{14}
+\]
+
+The exact transition formula is
+
+\[
+ T^{-a}X_{t_T}
+ =X_0+T^{1/2-a}\sqrt{1-T^{2a}}G,
+  G\sim N(0,I_D),
+ \tag{15}
+\]
+
+with \(G\) independent of \(X_0\). The noise term tends to zero in probability. For every fixed initial density, \(\Pr(X_0=0)=0\). Given \(\epsilon>0\), eventually \(T^{b-a}<\epsilon/2\), and
+
+\[
+ \Pr_\mu(F_T^c)
+ \le\Pr_\mu(|X_0|\le\epsilon)
+ +\Pr\big(T^{1/2-a}\sqrt{1-T^{2a}}|G|>\epsilon/2\big).
+\]
+
+First send \(T\downarrow0\), then \(\epsilon\downarrow0\). It follows that \(\Pr_\mu(F_T)\to1\), in particular for every fixed density with finite second moment.
+
+At stationarity, \(X_{t_T}\sim N(0,TI_D)\). Put \(R_T=T^{b-1/2}\to\infty\). Markov's inequality gives
+
+\[
+ p_T:=P_{\rho_T}(F_T)=\Pr(|G|>R_T)
+ \le D/R_T^2\longrightarrow0.
+\]
+
+A lower bound is required to determine the action. For \(R\ge1\), integrating the first Gaussian coordinate over \([R,R+1/R]\) gives
+
+\[
+ \Pr(|G|>R)\ge\Pr(G_1>R)
+ \ge\frac{1}{\sqrt{2\pi}R}
+           \exp[-(R+1/R)^2/2].
+\]
+
+Thus
+
+\[
+ 0\le-T\log p_T
+ \le\frac{T}{2}(R_T+1/R_T)^2
+       +T\log R_T+\frac{T}{2}\log(2\pi)
+ \longrightarrow0,
+ \tag{16}
+\]
+
+because \(TR_T^2=T^{2b}\to0\), \(T/R_T^2=T^{2-2b}\to0\), and \(T\log R_T\to0\). This supplies both the vanishing stationary probability and its zero action; an upper tail bound alone would not prove the latter.
+
+This is solely an exact boundary check for (10). The event is a surviving-displacement observable, not a restoring coherence episode. It has no first-stage partition, no positive-weight actual nonformation handoff comparison, and no demonstrated facilitation. It neither supplies a direction for O4 nor establishes a hierarchy. Its role is to show why fixed-initial-law universality and stationary rarity alone do not imply impossibility when that rarity has zero action.
+
+## Supported conclusion and remaining obligation
+
+For each fixed allowed network size satisfying (1), a full matched lineage event with positive stationary action fails the every-fixed-initial-law success requirement. A fixed energy gap and a persistent coherence interval within a sufficiently short deterministic full horizon are explicit sufficient conditions for that failure. All constants, reference measures, low-energy sets, and initial counterexamples may depend on \(N\). No bound uniform in \(N\), joint \(N,T\) limit, infinite-network statement, or universality class is inferred.
+
+The next discriminating analytic requirement for a proposed replacement mechanism is to establish zero stationary action for its full matched event, or identify precisely why one of this record's introduced hypotheses fails. Zero action is only a necessary condition. A successful mechanism must still produce the positive-weight actual nonformation handoffs and facilitation required by R14, restoring coherence and a matched R15 horizon comparison, an intrinsic partition selector, and consistent slow feedback. The Gaussian calculation supplies none of those missing conditions. O4 remains open.

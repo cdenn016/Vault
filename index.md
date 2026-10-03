@@ -1473,3 +1473,5 @@ All new source notes are cataloged below. [[multiagentelbo-2026-09-11-research-s
 - [[multiagentelbo-2026-10-02-square-root-budget]] -- completed saved-tape validation and 32-path paired-grid budget study; corrected tiny uncertainty summaries; O1/O4 open.
 
 - [[multiagentelbo-2026-10-03-conditional-parent-error]] -- conditional error identity and frozen activation-lift contrast; absolute error and O1/O4 remain open.
+
+- [[multiagentelbo-2026-10-03-probe-variance-stationary-action]] -- source-probe variance and a scoped stationary-action obstruction; O1/O4 remain open.
