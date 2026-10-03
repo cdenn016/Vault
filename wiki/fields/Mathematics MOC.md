@@ -12,6 +12,10 @@ updated: 2026-10-03
 
 # Mathematics MOC
 
+## October 3 complete saved-history comparison
+
+[[multiagentelbo-2026-10-03-binary-source-history]] completes the declared matched finite-grid comparison on all 32 saved 512/1024-agent histories. Native paths and probe draws matched exactly on both grids. Fine-grid auxiliary totals changed by -1.882353 and -3.977573 against retained cubature controls, with empirical paired path SEs 0.166279 and 0.201332. All path jobs and three tiny replay tests passed; array and scalar arithmetic checks are archived. These are descriptive auxiliary-budget results, not retained-path KL. Native survival conditioning, practical O1 accuracy/complexity, transfer of prior continuum bounds and O4 remain open. No GPU was used.
+
 ## October 3 consistent binary source moments
 
 [[multiagentelbo-2026-10-03-binary-source-moments]] supplies an opt-in CPU binary source backend with probabilities and tilted Gaussian moments from one integral. Twenty-five final tiny checks passed, including real worker routing. Two saved first-event sequences at N=512/1024 reproduced the archived cubature means exactly and admitted the new hidden covariances, while some row probabilities changed by about 0.15. These are sensitivity results, not general predictive improvement. Full matched-history budgets, survival-aware native accuracy and O4 remain open; prior cubature-specific bounds have not been transferred. No new native trajectory or GPU work occurred.
