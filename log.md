@@ -371,3 +371,6 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 
 2026-10-03 INGEST: Archived exact Gaussian source moment bounds from MultiAgentELBO 56f73c0; three immutable archives, source note, existing project/theme and Mathematics/Statistics MOCs. Retained the sharp quadratic bound and explicit failure of uniform cubature reset estimates without claiming native divergence or O1/O4 closure.
 2026-10-03 LINT: Exact Gaussian source moment ingest; 1458 notes, zero broken links, graph grey nodes, empty files, case collisions and identity collisions.
+
+2026-10-03 INGEST: Archived exact Gaussian reverse path budget from MultiAgentELBO 4dbd041; six immutable archives, source note, existing project/theme and Mathematics/Statistics MOCs. Preserved reverse/native weighting distinction and open quantitative O1/O4 obligations.
+2026-10-03 LINT: Exact Gaussian reverse-budget ingest; 1459 notes, zero broken links, graph grey nodes, empty files, case collisions and identity collisions.

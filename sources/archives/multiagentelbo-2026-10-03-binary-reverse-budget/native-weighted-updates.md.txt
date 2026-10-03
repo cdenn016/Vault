@@ -1,0 +1,149 @@
+# Native-weighted Gaussian updates: incoming-metric control and its limit
+
+October 3, 2026. This is the discrete native-weighted companion to [binary-reverse-budget.md](binary-reverse-budget.md), within round two of the exact-Gaussian moment investigation. It builds on the [published exact moment bounds](binary-moment-bounds.md). The continuous native generator and target are in [continuous-budget-integrability.md](continuous-budget-integrability.md), equations (7)-(24), and live Research Chapter 11, `def:rg-regular-finite-filter` and `open:rg-pointwise-parent-dynamics`. The problem remains fixed c_* with frozen finite quadratic-softmax rows. No active model or configuration is changed.
+
+Fix q=N(m,S), S positive definite, a retained state R, and an actual hidden state z. For a receiver label a, write beta_a for its fixed quadratic-softmax likelihood, c_a=E_q beta_a, r_a=beta_a q/c_a, and g_a=N(m_a,S_a) for the exact Gaussian moment projection. Labels in this record have native weights beta_a(z;R), not c_a. The previous update regularity and finite moments justify the quantities below.
+
+## Semiconvexity gives a bound in the incoming metric
+
+Set h_a=-log beta_a and U_a(y)=|y-m|_{S^{-1}} squared/2+h_a(y;R). If H_a is the constant hidden Hessian of logit ell_a and v_a its hidden gradient, direct differentiation gives
+
+$$
+\nabla_y^2h_a=\sum_b\beta_b H_b-H_a+\operatorname{Cov}_{\beta}(v_b).
+\tag{1}
+$$
+
+There is therefore a fixed-model L at least zero such that Hess h_a is at least -LI, for every label and state. The gradient covariance is nonnegative; only finitely many constant Hessians enter the lower bound. Semiconvexity and the exact Gaussian quadratic identity imply
+
+$$
+U_a(y)-U_a(z)\le\nabla U_a(y)\cdot(y-z)
+-\tfrac12(y-z)^T(S^{-1}-LI)(y-z).
+$$
+
+Since r_a is proportional to exp(-U_a), integration by parts gives E_r[gradient U_a(Y) dot (Y-z)]=k. The boundary terms vanish: r_a is bounded by a constant times the incoming Gaussian, and derivatives of the potentials have polynomial growth. Thus
+
+$$
+E_{r_a}|Y-m|_{S^{-1}}^2
++E_{r_a}|Y-z|_{S^{-1}-LI}^2+2E_{r_a}h_a(Y;R)
+\le |z-m|_{S^{-1}}^2+2h_a(z;R)+2k.
+\tag{2}
+$$
+
+The quadratic expression with S^{-1}-LI need not be nonnegative. Introduce the additional condition
+
+$$
+S^{-1}-LI\succeq\eta S^{-1},\qquad 0\le\eta\le1.
+\tag{3}
+$$
+
+Under (3), dropping the nonnegative likelihood term, averaging with native probabilities, and using Gaussian moment matching gives
+
+$$
+\begin{split}
+\sum_a\beta_a(z;R)\big[&|m_a-m|_{S^{-1}}^2
++\eta|z-m_a|_{S^{-1}}^2
++(1+\eta)\operatorname{tr}(S^{-1}S_a)\big]\\
+&\le |z-m|_{S^{-1}}^2+2H(\beta(z;R))+2k
+\le |z-m|_{S^{-1}}^2+2\log|\mathcal A|+2k.
+\end{split}
+\tag{4}
+$$
+
+Condition (3) has not been shown invariant under the continuous and reset dynamics. If all hidden logit Hessians agree, the first two terms of (1) cancel, h_a is convex, and L=0, eta=1 works for every incoming covariance. The metric in (4) is still the incoming S inverse, not the post-reset S_a inverse. At a later receiver prefix its incoming covariance has changed; neither a full-sequence nor a continuous Lyapunov estimate follows by silently keeping the original metric.
+
+## Output precision has a polynomial bound
+
+Let s_a=gradient log r_a and J_a=E_r[s_a s_a^T]. Score integration by parts yields
+
+$$
+E_{r_a}[(Y-m_a)s_a^T]=-I,\qquad J_a=E_{r_a}\nabla^2U_a.
+$$
+
+Expanding a positive-semidefinite square gives the exact identity
+
+$$
+J_a-S_a^{-1}
+=E_{r_a}\left[(s_a+S_a^{-1}(Y-m_a))(s_a+S_a^{-1}(Y-m_a))^T\right]\succeq0.
+\tag{5}
+$$
+
+The upper bound in (1) is C(1+|R| squared+|y| squared)I, because logit gradients are affine and the Hessians are fixed. Consequently
+
+$$
+S_a^{-1}\preceq S^{-1}+C(1+|R|^2+|m_a|^2+\operatorname{tr}S_a)I
+\preceq S^{-1}+C'M^2I,
+\tag{6}
+$$
+
+where M=1+|R| squared+|m| squared+trace S and the last inequality uses the published quadratic moment bound. These score integrations have Gaussian tails times polynomials. This estimate is uniform over the fixed model's labels and states. It does not require a covariance or probability floor, but multiplying it by the post-reset error introduces mixed physical-moment terms not controlled by (4).
+
+## A native-weighted counterexample to Gaussian log-loss control
+
+Take one hidden and one retained coordinate, equal priors and temperature one, with fixed positive-definite quadratic energies
+
+$$
+E_0(y,R)=\tfrac12(y-2R)^2+K(y,R),\qquad
+E_1(y,R)=\tfrac12y^2+K(y,R),\qquad K=y^2+R^2.
+$$
+
+The common energy cancels and beta_0(y;R)=sigma(2R(y-R)). For t at least one, take incoming q=N(0,1), retained R=t, and actual hidden z=2t. Then beta_0(z;t)=sigma(2t squared) tends to one. Set the current label to one if this is to be a visible change into label zero; the identity self convention does not remove this example.
+
+For the selected label-zero tilt, y=t+u/t gives the exact density
+
+$$
+q(y)\beta_0(y;t)dy
+=\frac{e^{-t^2/2}}{\sqrt{2\pi}t}
+\frac{e^{-u^2/(2t^2)}}{2\cosh u}du.
+\tag{7}
+$$
+
+It is even in u, so m_0=t exactly. Define the finite positive constant
+
+$$
+v_*=
+\frac{\int_{\mathbb R}u^2(2\cosh u)^{-1}du}
+{\int_{\mathbb R}(2\cosh u)^{-1}du}.
+$$
+
+Exponential tails dominate (7) and its second moment, so dominated convergence gives t squared S_0 tending to v_*. Hence
+
+$$
+|z-m_0|_{S_0^{-1}}^2=\frac{t^2}{S_0}\sim\frac{t^4}{v_*}.
+\tag{8}
+$$
+
+Consider the natural nonnegative candidate function
+
+$$
+V_0=1+|z|^2+|R|^2+|m|^2+\operatorname{tr}S
++\operatorname{tr}S^{-1}+|z-m|_{S^{-1}}^2+|\log\det S|.
+$$
+
+Its incoming value is 3+9t squared, while its native-averaged post-reset value is at least beta_0(z;t)t squared/S_0, asymptotic to t to the fourth/v_*. Thus no fixed C gives E_native[V_0 after reset] at most C V_0 over the declared class. Adding the incoming maximum source log loss does not repair this example, since that loss is O(t squared).
+
+The same failure occurs for Gaussian pointwise negative log density:
+
+$$
+-\log q(2t)=2t^2+\tfrac12\log(2\pi),\qquad
+-\log g_0(2t)=\tfrac12\log(2\pi S_0)+\frac{t^2}{2S_0}
+\sim\frac{t^4}{2v_*}.
+\tag{9}
+$$
+
+The other label cannot cancel the native-averaged leading growth. Equation (7) gives c_0=O(t^{-1}exp(-t squared/2)); exact label-mixture moments imply m_1 tends to zero and S_1 tends to one. Its Gaussian log loss at 2t is O(t squared), with native weight O(exp(-2t squared)). The identity self-map instead retains the incoming log loss O(t squared), so the same conclusion holds with the actual self convention. This failure occurs even though both negative log likelihoods are convex and (4) holds with eta=1.
+
+For exact Bayesian densities there is instead the identity
+
+$$
+\sum_a\beta_a(z;R)[-\log r_a(z)]
+=-\log q(z)-D(\beta(z;R)\Vert c).
+\tag{10}
+$$
+
+It follows immediately from log r_a=log q+log beta_a-log c_a. Forward-KL Gaussian optimality therefore does not transfer this pointwise log-loss control through moment projection.
+
+This scalar example is necessary grounding for a proposed universal inequality, not a study of small-network formation. It excludes this V_0 and comparable log-loss routes; it does not exclude every higher-order or mixed Lyapunov function, prove divergence under native trajectories, or establish this asymptotic state sequence in the saved GL(2) studies. In particular, the actual native Gaussian tails may compensate the polynomial growth in this example.
+
+## Outcome and continuation
+
+The established statements are (2), the conditional native-weighted incoming-metric estimate (4), the general precision bound (6), and the explicit failure (8)-(10). The unresolved forward obligation is a common native-weighted Lyapunov control of the mixed physical and post-reset mismatch terms together with the continuous generator. The companion reverse-budget theorem obtains a finite, differently oriented path budget without replacing native weights in this obligation. No native-integrability conclusion follows from that change of orientation. The [scalar symbolic check](binary-reverse-budget-evidence/native-update-symbolic.py) confirms the energy difference and the exponent in (7) exactly; its [output](binary-reverse-budget-evidence/native-update-symbolic.json) is archived. This grounds the algebra, while dominated convergence supplies the limit proof. No trajectory, model, test suite or GPU job ran.
