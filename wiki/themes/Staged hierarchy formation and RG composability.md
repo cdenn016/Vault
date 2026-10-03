@@ -20,6 +20,10 @@ updated: 2026-10-03
 
 # Staged hierarchy formation and RG composability
 
+## October 3 compressed-message pilot
+
+[[multiagentelbo-2026-10-03-compressed-message]] implements an optional reference-conditioned compressed Gaussian message and tests two unchanged switching paths per size at N512/N1024. Mean/covariance history entries fall by factors of 252-254, while dense constants and temporary computation remain. Mean compressed-minus-dense losses are 9.35635/8.06562 nats; compressed-minus-reset losses are -0.85301/-0.14410. The sample is underpowered. Ten tiny tests and 28 scalar checks passed; no GPU ran. A matched-rank source-informed basis comparison is next; O1/O4, the prior parity failure and pending formal verification remain open.
+
 ## October 3 provisional reverse retained-cost analysis
 
 [[multiagentelbo-2026-10-03-reverse-retained-decomposition]] preserves the provisional third analytical round: the actual comparison hidden law differs from the parent's Gaussian message; reverse source conditioning uses geometric averages; fine path entropy contains a conditional-path contribution beyond retained error. A linear Gaussian calibration has positive auxiliary cost even with exact retained prediction, including after conditional trace removal. Its constant marks are outside informative-source O1. Finite symbolic checks passed, but formal verification is pending because the required skill was unavailable. Practical O1/O4 and the preceding parity failure remain open; no new study or GPU run occurred.

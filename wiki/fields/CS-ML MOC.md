@@ -10,6 +10,10 @@ updated: 2026-10-02
 
 # CS-ML MOC
 
+## October 3 compressed-message pilot
+
+[[multiagentelbo-2026-10-03-compressed-message]] implements an optional reference-conditioned compressed Gaussian message and tests two unchanged switching paths per size at N512/N1024. Mean/covariance history entries fall by factors of 252-254, while dense constants and temporary computation remain. Mean compressed-minus-dense losses are 9.35635/8.06562 nats; compressed-minus-reset losses are -0.85301/-0.14410. The sample is underpowered. Ten tiny tests and 28 scalar checks passed; no GPU ran. A matched-rank source-informed basis comparison is next; O1/O4, the prior parity failure and pending formal verification remain open.
+
 ## October 3 reverse-budget large-network validation
 
 [[multiagentelbo-2026-10-03-reverse-budget-validation]] records one fresh reverse-budget path each at N512/N1024 and four passing independent grid reconstructions in 119.086 CPU seconds. Fine sampled totals are 78.13565 and 151.90999 nats, about 92% source cost. N512 had three visible changes; N1024 had no proposals. These descriptive conservative functionals do not certify retained accuracy or measure retained KL. Quantitative O1/O4 and the prior parity failure remain open; sharper reverse-weighted retained-prediction accounting precedes a full replicated measurement.
