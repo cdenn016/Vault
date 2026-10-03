@@ -330,3 +330,7 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 2026-10-03 INGEST: Archived multiagentelbo-2026-10-03-probe-variance-stationary-action from code commit 4a15917; added the run/source note and updated the project, hierarchy theme and Mathematics/Statistics MOCs. Preserved two-probe uncertainty, full-protocol hypotheses and open O1/O4 scope. No manuscript or previous source edited.
 
 2026-10-03 LINT: After probe-variance/stationary-action ingest, docs/_lint.py scanned 1447 notes; broken wikilinks, graph grey nodes, empty files, case collisions and identity collisions all zero.
+
+2026-10-03 INGEST: Archived two fixed-projection filter derivations from code commit 266e1f7. Added a manuscript-source note and updated the existing project, hierarchy theme and Mathematics/Statistics MOCs. Retained finite-horizon, fourth-moment and unrestricted-complexity assumptions; moving projections and general O1/O4 remain open. No theory manuscript or previous source edited.
+
+2026-10-03 LINT: Fixed-projection filter ingest scanned 1448 notes; broken wikilinks, graph grey nodes, empty files, case collisions and identity collisions were all zero. Both archived derivations match their committed code-source bytes.

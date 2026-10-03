@@ -20,6 +20,11 @@ updated: 2026-10-03
 
 # Staged hierarchy formation and RG composability
 
+## October 3 fixed-projection filters with unrestricted smooth complexity
+
+[[multiagentelbo-2026-10-03-fixed-projection-filters]] gives a written construction of arbitrarily small retained path KL on each requested finite horizon for the stated finite affine switching class with a fixed projection, positive quadratic-softmax source marks, nondegenerate noise and finite-fourth-moment initialization. A clock and two smooth scalar registers realize finite predictable density libraries; the decoder determines both drift and source probabilities. Coefficient complexity may grow without restriction. The older P09 lower-bound route has additional uniform-regularity assumptions. Moving projections, a single design for every horizon, useful complexity bounds, uniform large-N control and O4 remain open. No model or GPU run occurred.
+
+
 ## October 3 source-probe variance and stationary-action obstruction
 
 [[multiagentelbo-2026-10-03-probe-variance-stationary-action]] decomposes all saved frozen-budget paths into source-probe and trajectory variance. Fine candidate probe fractions are estimated at 0.3621/0.3857 for N512/N1024; the paired grid difference of the Gaussian-minus-lift contrast has 0.7059/0.8536. Signed negative residuals are retained. These are descriptive two-probe estimates, not confidence bounds. The checkpoint also proves, under stated fixed-N Gibbs assumptions, that positive stationary action of a full matched lineage event excludes success bounded below from every fixed initial density. A persistent-visit corollary has explicit energy-gap and full-horizon hypotheses; zero-action events remain outside the exclusion. O1's true prediction error and O4's endogenous hierarchy remain open. No trajectory rerun or GPU work occurred.

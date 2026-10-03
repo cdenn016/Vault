@@ -1,0 +1,201 @@
+# Smooth realization of a finite sampled-history policy
+
+October 3, 2026. This record constructs a deterministic retained-history filter of dimension three that approximates a prescribed finite quantized-history policy. Its clock, codebook and coefficients may depend on the finite horizon and tolerance. The result realizes an already supplied predictive policy; it does not establish approximation of the native conditional law or small parent path-law total variation.
+
+The source baselines are code commit `ccf60af` and Research commit `60e2126`. The sources read are docs/DIRECTION.md; live Chapter 11, def:rg-regular-finite-filter and open:rg-pointwise-parent-dynamics; [P09 sections 2, 5, 7 and 11](../../derivations/2026-09-11-meta-agent-formation-frontier-and-locality/p09-finite-approximate-filters.md); its [P09-math report](../../derivations/2026-09-11-meta-agent-formation-frontier-and-locality/evidence/2026-09-24-p09-finite-approximate-filters/P09-math/P09-math-report.md), especially Definition 1 and Theorems G/N; [continuous Gaussian-parent admission](continuous-gaussian-parent-admission.md); and the [conditional characteristic-error identity](conditional-characteristic-error.md). No earlier proof is assigned a new verification status here.
+
+## Target and introduced assumptions
+
+The supplied program asks for deterministic retained-history filters with dimension bounded independently of epsilon and horizon, locally Lipschitz time-homogeneous stochastic realizations between assignment changes, continuous initialization and jump maps, and a continuously Frechet differentiable decoder into one common density space. The live definition does not impose uniform-in-epsilon Lipschitz constants, a bounded codebook, or uniform description length.
+
+For the construction fix a finite horizon T and deterministic sampling times
+
+$$
+0=t_0<t_1<\cdots<t_n<T, t_{n+1}=T.
+\tag{1}
+$$
+
+Let P be a law of Y=(R,J), where R takes values in a finite-dimensional Euclidean space and has continuous paths, and J takes values in a finite set. Assume the counting process of visible J changes has a predictable intensity bounded by one. These properties hold for the fixed-projection retained process in the frozen switching-diffusion setting. No independence of R and J or of their innovations is assumed. An assignment-dependent projection can give retained-coordinate jumps and lies outside this lemma.
+
+At every sample time choose a finite rectangular quantization of R, with an overflow symbol outside a bounded box. Require every coordinate threshold and box boundary to have zero probability under its sampled marginal distribution. This is achievable: each real marginal has at most countably many atoms, and there are finitely many samples and coordinates. It is not a guarantee for an arbitrary preassigned partition whose boundaries have atoms. Record J exactly as a finite symbol.
+
+Write H_l for the quantized prefix through t_l, including (R_0,J_0). In a normed vector space \(\mathcal B\), supply a prototype \(f_{l,H}\) for every possible prefix and a fallback \(f_*\), all of norm at most M<infinity. Define the target policy by
+
+$$
+f_t^{\mathrm{pol}}=f_{l,H_l}, t_l\le t<t_{l+1}.
+\tag{2}
+$$
+
+Values at isolated deterministic times do not affect the integral below. The density application uses one fixed hidden-coordinate space and
+
+$$
+\mathcal B=L^1((1+|z|^2)dz),
+\|q\|_{\mathcal B}=\int(1+|z|^2)|q(z)|dz.
+\tag{3}
+$$
+
+Here every prototype and fallback is a probability density with finite second moments. A common M exists because the list is finite. Their approximation to the true predictable hidden-density kernel is a separate obligation.
+
+## Realization statement
+
+For every eta>0 and L>0 there is a filter with continuous state (c,A,B) in R^3, smooth autonomous ODE coefficients on each assignment stratum, smooth initialization in (R_0,J_0), and identity jump maps at actual assignment changes. Its decoder is a finite smooth convex mixture of the supplied prototypes. For every finite p>=1, the same construction satisfies
+
+$$
+E_P\int_0^T\|\widehat f_t-f_t^{\mathrm{pol}}\|_{\mathcal B}^pdt
+\le (2M)^p(T\eta+L).
+\tag{4}
+$$
+
+The filter dimension is three for every grid, horizon and tolerance. Its codebook, code spacing, gate widths, derivatives and coefficient description may depend on all of them without uniform bounds. The clock starts at zero and obeys dc=dt. The augmented process is time-homogeneous, but its design contains a prescribed finite observation schedule and a chosen horizon. One coefficient set valid for all horizons is not constructed.
+
+## Safe cores and initial recording
+
+Choose compact cores K_{l,a} strictly inside every quantization cell, including the overflow cell. An overflow core can be a finite union of compact rectangles. First truncate the sampled distributions to a sufficiently large box, which need not be the quantizer's box, then remove thin boundary strips so that
+
+$$
+\sum_{l=0}^n P(R_{t_l}\notin\textstyle\bigcup_a K_{l,a})<\eta/3.
+\tag{5}
+$$
+
+The zero-boundary-probability condition justifies shrinking the strips by continuity of probability from above. Overflow samples inside their chosen cores are captured with their ordinary overflow symbol; only the remaining truncated tails and boundary strips are excluded. Thus a fixed quantizer with positive overflow probability is allowed.
+
+Choose slightly enlarged compact cores still inside their cells. Let phi_{l,a} be smooth [0,1]-valued functions, equal to one on these enlargements and with disjoint supports at each level. Finiteness gives a common d>0 such that
+
+$$
+r\in K_{l,a}, |r'-r|<d
+\Longrightarrow \phi_{l,a}(r')=1.
+\tag{6}
+$$
+
+Assign every possible prefix at every level a distinct code c_H in (-1,1). Choose rho>0 smaller than one fifth of their minimum separation and smaller than one. Smooth code functions psi_{l,H}, valued in [0,1], equal one on |s-c_H|<=rho and vanish on |s-c_H|>=2rho. Their supports are disjoint. Overflow-containing prefixes use the same coding and capture rules as other prefixes.
+
+Initialize both registers smoothly by
+
+$$
+C_0(r,j)=\sum_a\phi_{0,a}(r)c_{(a,j)},
+A_0=B_0=C_0(R_0,J_0), c_0=0.
+\tag{7}
+$$
+
+The missing weight is assigned value zero. Thus both registers lie in [-1,1] for every input and equal the correct prefix code on a safe initial core. Initialization reads the actual initial retained coordinates and assignment continuously within each assignment stratum. It neither delays their recording nor changes the retained initial law.
+
+## Alternating capture registers
+
+For l>=1 define the smooth lookup, separately on each assignment stratum j, by
+
+$$
+F_l(s,r,j)=
+\sum_{H,a}\psi_{l-1,H}(s)\phi_{l,a}(r)c_{H\mathbin{\|}(a,j)}.
+\tag{8}
+$$
+
+The nonnegative weights sum to at most one, so F_l lies in [-1,1]. On a correct old-code plateau and safe observation core it equals the correct next-prefix code. The zero-valued missing weight is a declared fallback. The actual equations contain no discontinuous quantizer.
+
+Choose disjoint intervals I_l=[t_l,t_l+delta_l] with delta_l<t_{l+1}-t_l. Let gamma_l be a nonnegative smooth bump supported in the interior of I_l, with integral one. Choose kappa>=log(2/rho). The autonomous equations are
+
+$$
+\dot c=1,
+\dot A=\sum_{\substack{1\le l\le n\\l\ {\rm even}}}
+\kappa\gamma_l(c)[F_l(B,R,J)-A],
+\tag{9}
+$$
+
+$$
+\dot B=\sum_{\substack{1\le l\le n\\l\ {\rm odd}}}
+\kappa\gamma_l(c)[F_l(A,R,J)-B].
+\tag{10}
+$$
+
+Level zero uses A. Odd gates update B while A is frozen; even gates update A while B is frozen. This avoids consulting the old prefix in a register that is traversing intermediate codes. The finite sums and smooth lookup maps give a smooth vector field on each assignment stratum, locally Lipschitz in all continuous arguments. Both registers remain in [-1,1], since active updates contract toward that interval. For every continuous retained path and finite-change assignment path the driven ODE therefore has a unique global solution. After the final gate the registers are constant and the clock continues.
+
+At every actual assignment change the state update is the identity. The coefficients subsequently use the new J. No hidden proposal time is observed and no private random variable is introduced.
+
+Let h=max_l delta_l and define
+
+$$
+\omega_R(h)=
+\sup_{\substack{s,t\in[0,T]\\|s-t|\le h}}|R_t-R_s|.
+\tag{11}
+$$
+
+Let E be the event that all samples belong to their safe cores, omega_R(h)<d, and J has no visible change in the gates. Suppose the frozen old register is within rho of its correct code. On E, (6) fixes the observation bump to one throughout the gate, and J stays fixed. Therefore F_l is the next-prefix code throughout that gate. Solving the active scalar contraction gives
+
+$$
+|x_{t_l+\delta_l}-c_{H_l}|
+=e^{-\kappa}|x_{t_l}-c_{H_l}|
+\le 2e^{-\kappa}\le\rho.
+\tag{12}
+$$
+
+The initialization (7) supplies the induction base. Every completed gate puts its active register on the correct decoder plateau. Exact finite-time resetting is unnecessary.
+
+The counting-process compensator bound and a union bound give
+
+$$
+P(E^c)\le
+\sum_{l=0}^nP(R_{t_l}\notin\textstyle\bigcup_aK_{l,a})
++P(\omega_R(h)\ge d)+\sum_{l=1}^n\delta_l.
+\tag{13}
+$$
+
+Continuity on [0,T] gives omega_R(h)->0 almost surely. After fixing the cores, their margin, and the finite prototype list, choose the gates so small that the middle probability is below eta/3 and their total length is below min(L,eta/3). Then P(E^c)<=eta. A deterministic-time jump has probability zero under the bounded compensator, so endpoint conventions do not affect this bound. If n=0 there are no gates, and only the initial-core exceptional event is needed.
+
+## Explicit decoder timing
+
+For each level define
+
+$$
+Q_l(x)=
+\Bigl(1-\sum_H\psi_{l,H}(x)\Bigr)f_*
++\sum_H\psi_{l,H}(x)f_{l,H}.
+\tag{14}
+$$
+
+Put Z_l=A for even l and Z_l=B for odd l, including Z_0=A. Let chi_l(c) be the integral of gamma_l from minus infinity to c. For n>=1 set
+
+$$
+w_0=1-\chi_1,
+w_l=\chi_l-\chi_{l+1}\ (1\le l<n),
+w_n=\chi_n.
+\tag{15}
+$$
+
+Ordered disjoint gates make these weights nonnegative with sum one. For n=0 set w_0=1. Define the decoder by
+
+$$
+\widehat f(c,A,B)=\sum_{l=0}^n w_l(c)Q_l(Z_l).
+\tag{16}
+$$
+
+Between gates only the last completed prefix has positive weight. During gate l the decoder interpolates only between Q_{l-1} of the frozen register and Q_l of the active register. All older weights vanish before their registers are reused. Thus premature reading and later overwriting affect the decoder only inside the charged gate intervals.
+
+These maps are finite smooth combinations of fixed elements of the normed space. In the density case they are smooth into weighted L1, hence continuously Frechet differentiable into ordinary L1; convexity preserves normalization and nonnegativity. Both the decoder and target policy have norm at most M.
+
+On E the decoder equals the target policy outside the gates, by (7), (12) and (15). Their discrepancy is bounded everywhere by 2M. Therefore
+
+$$
+E_P\int_0^T\|\widehat f_t-f_t^{\mathrm{pol}}\|_{\mathcal B}^pdt
+\le (2M)^p\left[TP(E^c)+\sum_l\delta_l\right]
+\le(2M)^p(T\eta+L),
+\tag{17}
+$$
+
+which proves (4). Gate tolerances are selected after the prototype list: its bound M must not change within this step.
+
+## The earlier uniformity restriction
+
+P09-math Definition 1 imposes uniform C1 coefficient bounds and uniformly Lipschitz derivatives after burst scaling. Its Theorem G takes a compact family of parent coefficients and derives a positive infimum of path-law distances using compactness, lower semicontinuity and its preceding non-equality statement. Theorem N retains that regularity restriction as well as its burst-limit and visit hypotheses. The live regular-filter definition does not impose the same uniform bounds.
+
+Even if every individual fixed filter has a nonzero error, a positive infimum over a noncompact family does not follow. This construction displays the uncontrolled resource: three continuous coordinates can carry an increasingly large finite codebook when code spacing and derivative bounds are unrestricted. It neither refutes the stated conditional P09 theorem nor verifies its source proof. Applying that existing lower-bound route to the live class requires a justified uniform compactness restriction or a different quantitative obstruction.
+
+Branicky's [*Universal computation and other capabilities of hybrid and continuous dynamical systems*](https://doi.org/10.1016/0304-3975(94)00147-B), *Theoretical Computer Science* 138 (1995), 67-100, is related primary context: its publisher abstract describes simulation of discrete dynamics by ODEs and computation with smooth three-dimensional ODEs. It is not used as a theorem proving this stochastic-filter construction, its probability bound, or a path-TV conclusion. The finite capture and decoding argument is given above.
+
+## Scope and companion obligation
+
+The supported conclusion is smooth fixed-dimensional realization, in an integrated norm under the native law, of a finite sampled-history policy. It adds no private randomness, invisible proposal observation, changed Brownian covariance, or assignment jumps at deterministic grid times. Capture reads observations slightly after each nominal sample time; its possible discrepancy during those intervals is explicitly charged in (17).
+
+Constants, codebook size, coefficient complexity and scheduled design may depend without bound on epsilon, T and tolerance. This is not a practical low-complexity prediction algorithm, an exact encoding of every history, or a construction with one fixed coefficient set for every horizon.
+
+The companion [fixed-projection approximation record](fixed-projection-filter-approximation.md) supplies the predictable density approximation and characteristic-error argument, then derives retained path KL control under its additional affine-drift, positive quadratic-softmax and fourth-moment assumptions. The [conditional characteristic-error identity](conditional-characteristic-error.md) identifies that mismatch; the present lemma alone does not make it small. Assignment-dependent projections additionally require the correct continuous-coordinate jump kernel and support, which are not supplied here. The full O1 question and recursive formation remain open at this record's scope.
+
+This is a written mathematical construction. No model run, numerical experiment, GPU job, Lean work or theory-manuscript edit was performed.
