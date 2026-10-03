@@ -394,3 +394,7 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 2026-10-03 INGEST: Unified six Attention notes in attention_unified.tex; Option A exponential links are the author-selected primary future GL(K) construction. Added immutable source note and updated existing project, concept, method, theme, and discipline pages. Preserved six originals, GL(K) sources, VFE working state, and historical/untested evidence boundaries.
 
 2026-10-03 LINT: Unified attention companion ingest checked 1464 notes; broken links, graph grey nodes, empty files, case collisions and identity collisions all zero.
+
+2026-10-03 CLEANUP: Retired six superseded Attention working .tex notes; attention_unified.tex replaces them. Updated current navigation and provenance; originals remain recoverable in Git history.
+
+2026-10-03 LINT: Superseded Attention-note cleanup checked 1464 notes; all five integrity categories zero. Unified manuscript rebuilt to 74 pages without undefined references/citations or overfull boxes.
