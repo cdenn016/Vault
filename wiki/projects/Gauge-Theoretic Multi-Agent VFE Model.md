@@ -21,6 +21,10 @@ updated: 2026-10-03
 
 # Gauge-Theoretic Multi-Agent VFE Model
 
+## October 3 activation source-integration accuracy
+
+[[multiagentelbo-2026-10-03-activation-source-calibration]] compares the twelve-point source rule with an independent Gaussian integral on 32 saved activations at N=512 and N=1024. The 24,576 unprefixed rows have mean probability errors 0.015674 and 0.015856, with maxima 0.126513 and 0.173166. Receiver-zero mean errors are 0.003013 and 0.001966; only this first row is an actual marginal of the sequential candidate. Five tiny tests passed and the CPU analysis took 19.72 seconds. The next update must integrate probabilities and tilted Gaussian moments consistently. This does not measure retained path KL, supply survival filtering, or close O1/O4; no trajectory or GPU run occurred.
+
 ## October 3 entropic dynamics and the inner-region boundary
 
 [[multiagentelbo-2026-10-03-entropic-time-scale]] concludes the third bounded round. An explicit corrector gives a local slow path-law limit on time Tt for the introduced GL model, with an actual initial slip for a specified class of fixed initial densities. Exact stationary elimination retains determinant and angular link weights; equal amplitude and matter dimensions give a uniform logarithmic radius and a nonnormalizable formal reduced density at zero mismatch. The balanced inner scaling keeps both blocks active, so global passage and the full R14/R15 comparison remain unresolved. This is not O4 closure; practical O1 accuracy, intrinsic partitions and hierarchical feedback remain open. No model or GPU run occurred.
