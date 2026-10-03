@@ -165,9 +165,18 @@ same demand the model places on its $GL^+(K)$ frame transport.
 > Wilson loops, the Hamiltonian), and the program maps its agent-network
 > connection onto them.
 
+## Curvature of causal link fields, October 2, 2026
+
+[[dennis-2026-link-curvature]] (agent-drafted companion to [[dennis-2026-link-origin]]; float64 checks at $K=4$, nothing trained) measures the content of a causal link field by the triangle holonomy $F_{ijk}=\Theta_{ik}^{-1}\Theta_{ij}\Theta_{jk}=U_k\,G_{ik}^{-1}G_{ij}G_{jk}\,U_k^{-1}$, whose conjugacy class is gauge invariant and independent of the frames, so curvature is a property of the reference-coordinate field $G$. A field of arbitrary matrices is flat exactly when it is recurrent (each link is the ordered product of the adjacent links), and for invertible links flat is exactly pure gauge, $\Theta_{ij}=g_ig_j^{-1}$; the singular shared projector is flat and not pure gauge. Positional and rotary links are therefore flat, while the constant exponential link is maximally curved ($F=U_ke^{X}U_k^{-1}$). Holonomies of the candidate edge-dependent generators: a routed exponent $X_{ij}=OB_{ij}T$ has the additive defect $B_{ij}+B_{jk}-B_{ik}$ of the routing weights in the exponent; the head sum has their multiplicative defect $B_{ij}B_{jk}/B_{ik}$ (the KL triangle defect of the earlier note); normalized head-sum routing is flat on strict triangles only for $\beta_{ij}=c_i/c_j$, a thin subset that uniform causal attention violates. The first-order part of the exponential-link holonomy is the discrete exterior derivative of the generator cochain, with commutator corrections at second order ([[Baker-Campbell-Hausdorff formula]]). The note notes that linear state-space recurrences have flat transition products ([[State space models]]), a structural observation only.
+
+For an inference-derived edge-dependent link, the regression link $W_{ab}=\Sigma_{ab}\Sigma_{bb}^{-1}$ of a joint Gaussian has curvature equal to the partial cross-covariance $\Sigma_{ik|j}$ and is flat exactly when $\xi_i\perp\xi_k\mid\xi_j$ (an AR(1) chain gives $W_{ij}=A^{\,i-j}$; the converse for the full Markov property is not claimed). Its rank-$d$ truncation is reduced-rank regression, and the correlated variational family needed to supply cross-covariances is absent in the mean-field family. None of this is tested in training.
+
+> [!note] Editorial: Flatness equals recurrence and invertible flatness equals pure gauge are short exact propositions. Whether the trained routing is nearer the flat pattern than uniform attention is unmeasured, and the loop observables remain conventions on causal support, as above.
+
 ## Sources
 
 - [[dennis-2026-link-origin]] — group-valued origin of the singular matrix links (exponential link, parabolic compression with Schur complement, head-sum link); agent-drafted, small-dimension numerical checks only.
+- [[dennis-2026-link-curvature]] — triangle holonomy of causal link fields; flat = recurrent, invertible flat = pure gauge; holonomy table of candidate generators; regression links; agent-drafted, float64 checks at K=4.
 - [[wilson-1974-confinement-quarks]] — origin of the lattice formulation: link variables, plaquette action, Wilson loop, area-law confinement (central).
 - [[kogut-susskind-1975-hamiltonian-lattice-gauge]] — the continuous-time Hamiltonian formulation (links + conjugate electric fields, Gauss law) the M-step dynamics mirror (central).
 - [[creutz-1983-quarks-gluons-lattices]] — the methodology textbook: plaquette/Wilson-loop observables and Monte-Carlo sampling for measuring curvature (central).

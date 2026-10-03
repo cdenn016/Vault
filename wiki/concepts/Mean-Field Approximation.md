@@ -249,6 +249,10 @@ constraint, but that source does not automatically supply an arbitrary discrete/
 gauge-compatible recognition law; each proposed family still needs a normalized construction and
 an exact-oracle error measurement.
 
+## Regression links vanish under mean field, October 2, 2026
+
+The regression link $W_{ab}=\Sigma_{ab}\Sigma_{bb}^{-1}$ between tokens requires cross-covariances, which are zero in the factorized family $q=\prod_iq_i$, so the link is zero there; a correlated variational family would be needed ([[dennis-2026-link-curvature]]).
+
 ## Related
 
 [[Variational free energy]] · [[Evidence lower bound (ELBO)]] · [[Variational EM]] ·

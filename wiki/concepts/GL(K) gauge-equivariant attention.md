@@ -29,6 +29,10 @@ The VFE_3.0 implementation now executes only the two projected routes, [[Project
 
 [[dennis-2026-link-origin]] asks where the singular links $L_{ij}^{(h)}=U_iO_hT_hU_j^{-1}$ come from. As exponential link $U_i\exp(O_hT_h)U_j^{-1}=\Omega_{ij}+U_iO_h\varphi(T_hO_h)T_hU_j^{-1}$, $L$ is the first-order term and the non-communicating part is the identity on $\ker T_h$. As compression of a primitive link, it is the communicating block of a Levi (parabolic) factorization with a hidden Schur complement. As head sum, $\sum_h\beta^{(h)}_{ij}L^{(h)}_{ij}=U_iOB_{ij}TU_j^{-1}$ is generically a $\mathrm{GL}(K)$ element and with trivial frames is exactly the standard multi-head value path $\sum_jW_OB_{ij}W_Vx_j$. The note ranks the constructions A (exponential) > B (compression) > C (head sum) by principledness and C > A > B by closeness to standard attention. For the attention residual, the exponential construction with the receiver carrying the unsent complement gives a residual only on directions that no head writes, and none when the heads tile the fiber ($K=Hd$, as the code requires); the code's additive $r=1$ residual matches neither this nor the Gaussian-fusion residual $\alpha/(\alpha+\lambda)$ of the gradient receiver, and is the ResNet optimization device. In the tiled case the exponential construction adds no expressive power over the head sum with receiving maps $OE_{:,h}$. Identities were checked numerically at small dimension; nothing was trained. See [[Lattice gauge theory]] and [[Holonomy]].
 
+## Edge-dependent links and curvature, October 2, 2026
+
+[[dennis-2026-link-curvature]] asks what an edge-dependent generator can add to the exponential link of [[dennis-2026-link-origin]]. The answer it gives is curvature: the triangle holonomy $F_{ijk}=U_k(G_{ik}^{-1}G_{ij}G_{jk})U_k^{-1}$ is the frame-independent content of the link field, a constant generator is maximally curved, positional links are flat, and the head-sum link has the multiplicative routing defect $\beta_{ij}\beta_{jk}/\beta_{ik}$ (flat only for $\beta_{ij}=c_i/c_j$). A principled non-positional edge-dependent link is the regression link of a joint Gaussian, whose curvature is the partial cross-covariance and whose rank-$d$ optimum is reduced-rank regression, a second-order-statistics reading of the low-rank channel $OT$ (identification of the learned $(O,T)$ with it is a hypothesis, not a result; see [[Canonical Correlation Analysis]]). The regression link needs cross-covariances that vanish in the mean-field family. The same note gives the Fisher metric of a link acting on a Gaussian belief, shows that the singular boundary of $\mathrm{GL}(K)$ is at infinite Fisher distance, and contrasts additive affine updates (which can cross $\det=0$ in one step) with multiplicative group updates (which cannot); see [[Natural gradient]]. Agent-drafted, float64 checks at $K=4$, nothing trained, no claim about perplexity ([[Holonomy]], [[Lattice gauge theory]]).
+
 ## Moment-matched predictive covariance, September 27, 2026
 
 On the [[Projected predictive attention|projected predictive route]] the evaluated model passes the covariance through, so $\Sigma$ stays the encoded token-type lookup at every depth. The v2 exact-status theorem already gives the moment-matched covariance of the predictive kernel; it is now implemented as the opt-in `predictive_covariance="moment_matched"`, with cross-head terms, between-source spread, residual persistence and self-edge terms, and a covariant reference floor $\epsilon(\mathrm{Tr}\,C_i/K)I$ ([[dennis-2026-projected-predictive]]). It is positive definite, obeys the passive law $\Sigma_i^+\mapsto g_i\Sigma_i^+g_i^\top$, and depends on context through the spread of the attended sources. Tests match a brute-force enumeration of the kernel; no training run uses it yet.
@@ -364,7 +368,7 @@ precision is a $\beta$-weighted blend of its prior precision and its neighbors' 
 precisions. Measured on the mean update at the trained operating point,
 that blend puts **80 to 85% of the
 fused precision on the prior** and 15 to 20% on the transported neighbors, so the converged belief
-is $\mu^*pprox0.8\mu_p+0.2(	ext{attention-weighted transported neighbors})$ -- the derived
+is $\mu^*\approx0.8\mu_p+0.2(\text{attention-weighted transported neighbors})$ -- the derived
 attention operates as a layer with a dominant residual path. The neighbor share rises with width
 (0.153 at $K=20$ to 0.196 at $K=300$), though that pair is confounded with training length and
 head geometry and is not an isolated width effect.
@@ -462,7 +466,7 @@ transformer attention is an exact special case.
 
 ## Sources
 
-[[dennis-2026-link-origin]] · [[gl-k-attention]] · [[vaswani-2017-attention]] · [[bronstein-2021-geometric-deep-learning]] ·
+[[dennis-2026-link-curvature]] · [[dennis-2026-link-origin]] · [[gl-k-attention]] · [[vaswani-2017-attention]] · [[bronstein-2021-geometric-deep-learning]] ·
 [[cohen-2019-gauge-cnn]] · [[wang-2023-riemannian-self-attention-spd]] ·
 [[tsai-2019-kernel-attention]] · [[pennec-2006-affine-invariant-tensor]] ·
 [[bhatia-2007-positive-definite-matrices]] · [[amari-2016-information-geometry-applications]] ·
