@@ -10,6 +10,10 @@ updated: 2026-10-02
 
 # CS-ML MOC
 
+## October 3 reverse-budget implementation checkpoint
+
+[[multiagentelbo-2026-10-03-reverse-budget-implementation]] records the candidate-driven fine comparison and supplied-uniform candidate-prefix sampler. Thirty-three distinct focused tests and both grids of an independent N4 archive reconstruction passed. The N512/N1024 launcher, pre-run contract and large-network calculation remain pending. Finite-step validation does not establish continuous path accuracy or a small reverse budget; quantitative O1, native-driven integrability, the preceding parity failure and O4 remain open. No GPU calculation ran.
+
 ## October 3 projection parity diagnosis
 
 [[multiagentelbo-2026-10-03-projection-parity-diagnosis]] records three bounded non-reproductions of the preceding projection parity failure: the first event with archived/off/on implementations, complete path000 on/off traces, and four separate spawned N512 cases. All 180 archived candidate-field comparisons were exact. The original failure remains unresolved and the 32-path study remains incomplete. Future failures now retain actual arrays, the reference field and mismatch location/magnitude; two tiny capture tests pass. No full-study retry, GPU or O1/O4 closure is claimed.

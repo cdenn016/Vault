@@ -1,0 +1,254 @@
+"""Uncut source cubature with an independent-coordinate Gaussian square root.
+
+The latent factor rotations preserve the existing local Cholesky-oriented rule.
+This isolated candidate does not replace the dense source or observation paths.
+"""
+from __future__ import annotations
+
+from math import log, sqrt
+from typing import Optional
+
+import torch
+
+from .coupled_learning import CoupledModel, CoupledState, comparison_maps
+from .switching_paths import source_log_posterior
+
+
+def _signed_qr(
+    matrix: torch.Tensor,           # (B,m,r), m>=r, full column rank.
+) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+    r"""Return packed Q, tau, column signs and L with matrix^T matrix=L L^T.
+
+    QR is unpivoted. Positive diagonal signs make L the canonical lower
+    Cholesky orientation without forming the Gram matrix or a dense Q.
+    """
+    packed, tau = torch.geqrf(matrix)
+    r = matrix.shape[-1]
+    upper = torch.triu(packed[:, :r, :])
+    diagonal = upper.diagonal(dim1=-2, dim2=-1)
+    if bool(((diagonal == 0) | ~torch.isfinite(diagonal)).any()):
+        raise ValueError("local square root lost finite full column rank")
+    signs = torch.where(diagonal < 0, -torch.ones_like(diagonal), torch.ones_like(diagonal))
+    L = (signs[:, :, None]*upper).mT
+    return packed, tau, signs, L
+
+
+def _condition_rotated_factor(
+    factor:        torch.Tensor,   # (B,h,h), independent-coordinate factor.
+    packed:        torch.Tensor,   # (B,h,r), r stored Householder reflectors.
+    tau:           torch.Tensor,   # (B,r).
+    signs:         torch.Tensor,   # (B,r), positive-diagonal QR convention.
+    L:             torch.Tensor,   # (B,r,r), incoming local Cholesky factor.
+    shift:         torch.Tensor,   # (B,r), tilted local mean displacement.
+    tilted_factor: torch.Tensor,   # (B,r,r), T=tilted_factor tilted_factor^T.
+) -> tuple[torch.Tensor, torch.Tensor]:
+    r"""Use UQ=[V,W] to return V L^(-1) shift and [V L^(-1) L_T,W]."""
+    r = L.shape[-1]
+    rotated = torch.ormqr(packed, tau, factor, left=False, transpose=False)
+    rotated[:, :, :r] *= signs[:, None, :]
+    V = rotated[:, :, :r]
+    displacement = (V@torch.linalg.solve_triangular(L, shift[..., None], upper=False)).squeeze(-1)
+    replacement = V@torch.linalg.solve_triangular(L, tilted_factor, upper=False)
+    rotated[:, :, :r] = replacement
+    return displacement, rotated
+
+
+def condition_hidden_factor(
+    factor:        torch.Tensor,   # (B,h,h), full-rank hidden factor.
+    local_rows:    torch.Tensor,   # (r,h), fixed local coordinate functionals.
+    shift:         torch.Tensor,   # (B,r), selected local mean displacement.
+    tilted_factor: torch.Tensor,   # (B,r,r), any full-rank square root of T.
+) -> tuple[torch.Tensor, torch.Tensor]:
+    r"""Condition a hidden Gaussian using an equivalent covariance-factor update.
+
+    For A=local_rows U, C=A A^T and G=U A^T C^(-1), return G shift and
+    a factor of U U^T+G(T-C)G^T. Exactly h columns remain; the r Householder
+    reflectors cost O(h^2 r), with no dense h-by-h Q or covariance subtraction.
+    Inputs are preserved. No eigenvalue floor or rank truncation is applied.
+    """
+    if local_rows.shape[0] == 0:
+        return factor.new_zeros(factor.shape[:2]), factor.clone()
+    local_factor = local_rows@factor
+    packed, tau, signs, L = _signed_qr(local_factor.mT)
+    return _condition_rotated_factor(factor, packed, tau, signs, L, shift, tilted_factor)
+
+
+
+def _binary_integral_tilt(
+    residual: torch.Tensor,  # (B,2r,2,K), residuals at +/-sqrt(r)e_j.
+    L:        torch.Tensor,  # (B,r,r), physical local Cholesky factor.
+    H:        torch.Tensor,
+    prior:    torch.Tensor,
+    labels:   torch.Tensor,
+    tau:      float,
+    uniforms: Optional[torch.Tensor] = None,  # (B,), optional candidate draws.
+) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+    r"""Integrate both tilts; optional uniforms fill the caller's label buffer."""
+    from .binary_source_reference import quadratic_logistic_moments
+
+    r = L.shape[-1]
+    center = ((residual[:, :r]+residual[:, r:])/2).mean(1)
+    response = ((residual[:, :r]-residual[:, r:])/(2*sqrt(r))).permute(0, 2, 3, 1)
+    rows, shifts, factors, errors = [], [], [], []
+    for index in range(len(L)):
+        R_0, R_1 = response[index]
+        u_0, u_1 = center[index]
+        A = (R_1.mT@H@R_1-R_0.mT@H@R_0)/(2*tau)
+        b = (R_1.mT@H@u_1-R_0.mT@H@u_0)/tau
+        c = float((u_1@H@u_1-u_0@H@u_0)/(2*tau)+(prior[0]/prior[1]).log())
+        p, mean, covariance, error, _ = quadratic_logistic_moments(
+            A.detach().numpy(), b.detach().numpy(), c)
+        if uniforms is not None:
+            labels[index] = int(uniforms[index] > p[0])
+        label = int(labels[index])
+        rows.append(L.new_tensor(p).log())
+        shifts.append(L[index]@L.new_tensor(mean[label]))
+        factors.append(L[index]@torch.linalg.cholesky(L.new_tensor(covariance[label])))
+        errors.append(error)
+    return torch.stack(rows), torch.stack(shifts), torch.stack(factors), L.new_tensor(errors)
+
+
+def square_root_source_rows(
+    mu:         torch.Tensor,      # (B,N,K), means on a retained block-mean fiber.
+    covariance: torch.Tensor,      # (B,NK,NK), positive on that fiber's tangent.
+    labels:     torch.Tensor,      # (B,N), selected supported source labels.
+    state:      CoupledState,
+    model:      CoupledModel,
+    block_size: int,
+    integration:      str                    = "cubature",
+    evaluation_state: Optional[torch.Tensor] = None,  # (B,N,K), same retained fiber.
+    uniforms:         Optional[torch.Tensor] = None,  # (B,N), candidate prefix draws.
+) -> dict[str, torch.Tensor]:
+    r"""Return normalized source rows and the uncut sequential Gaussian message.
+
+    Each block omits its last node from the independent hidden coordinates.
+    Their principal covariance is factored once. Source steps rotate that
+    h-column factor with thin QR and replace only r columns. Local cubature
+    retains the dense path's ordered Cholesky orientation. The opt-in CPU
+    binary_integral mode instead integrates probabilities and tilted moments
+    together; subsequent steps still replace the tilted law by a Gaussian. Means and the final
+    factor are lifted by the fixed block sums, not a repeated dense lift.
+    With evaluation_state, also return log(q_before / q_after) on the hidden
+    fiber. Each regression preserves the conditional law given its local
+    coordinates, so the density ratio is the sum of local marginal ratios.
+    With uniforms, ignore the supplied label values and sample each receiver
+    from its current candidate row before conditioning the next receiver.
+    Inputs are preserved; only sampled calls add labels and log_refresh.
+    """
+    if integration not in ("cubature", "binary_integral"):
+        raise ValueError("integration must be cubature or binary_integral")
+    if integration == "binary_integral" and (
+            mu.device.type != "cpu" or mu.dtype != torch.float64 or model.sources.shape[1] != 2):
+        raise ValueError("binary_integral requires CPU float64 and two source labels")
+    integration_error = mu.new_zeros(len(mu))
+    density_ratio = mu.new_zeros(len(mu))
+    batch, n_agents, dimension = mu.shape
+    if uniforms is not None:
+        if uniforms.shape != (batch, n_agents) or not bool(
+                (torch.isfinite(uniforms) & (uniforms >= 0) & (uniforms < 1)).all()):
+            raise ValueError("uniforms must have shape (B,N) and finite values in [0,1)")
+        labels = labels.clone()
+    if block_size <= 0 or n_agents % block_size:
+        raise ValueError("block size must be positive and divide the number of agents")
+    if block_size == 1:
+        result = {"log_rows": source_log_posterior(mu, state, model),
+                  "mean": mu.clone(), "covariance": covariance.clone()}
+        if uniforms is not None:
+            rows = result["log_rows"]
+            labels = (uniforms[..., None] > rows.exp().cumsum(-1)).sum(-1).clamp_max(rows.shape[-1]-1)
+            result["labels"] = labels
+            result["log_refresh"] = rows.gather(-1, labels[..., None]).squeeze(-1).sum(-1)
+        if evaluation_state is not None:
+            result["log_density_before_over_after"] = density_ratio
+        return result
+    blocks = n_agents//block_size
+    nodes_kept = torch.arange(n_agents, device=mu.device)
+    nodes_kept = nodes_kept[nodes_kept % block_size != block_size-1]
+    coordinates = (nodes_kept[:, None]*dimension+torch.arange(dimension, device=mu.device)).flatten()
+    factor = torch.linalg.cholesky(covariance[:, coordinates][:, :, coordinates])
+    hidden_size = len(coordinates)
+    hidden_mean = mu[:, nodes_kept].flatten(1).clone()
+    block_sums = mu.reshape(batch, blocks, block_size, dimension).sum(2)
+    mean = mu.clone()
+    maps = comparison_maps(state.Theta, model)
+    source_rows = []
+    for receiver in range(n_agents):
+        nodes = sorted({receiver, *model.sources[receiver].tolist()})
+        node_set = set(nodes)
+        dropped = {
+            (node//block_size+1)*block_size-1 for node in nodes
+            if all(other in node_set for other in range(
+                node//block_size*block_size, (node//block_size+1)*block_size))
+        }
+        independent = [node for node in nodes if node not in dropped]
+        # Gather local physical factor rows without building a dense lifting map.
+        shaped_factor = factor.reshape(batch, blocks, block_size-1, dimension, hidden_size)
+        local_parts = [
+            -shaped_factor[:, node//block_size].sum(1) if node % block_size == block_size-1
+            else shaped_factor[:, node//block_size, node % block_size]
+            for node in independent
+        ]
+        local_factor = torch.cat(local_parts, dim=1)       # (B,r,h).
+        packed, tau, signs, L = _signed_qr(local_factor.mT)
+        r = local_factor.shape[1]
+        offsets = sqrt(r)*torch.cat((L.mT, -L.mT), dim=1) # (B,2r,r), canonical order.
+        local_offsets = offsets.reshape(batch, 2*r, len(independent), dimension)
+        points = mean[:, None, nodes].expand(-1, 2*r, -1, -1).clone()
+        positions = {node: index for index, node in enumerate(nodes)}
+        independent_positions = {node: index for index, node in enumerate(independent)}
+        for node in independent:
+            points[:, :, positions[node]] += local_offsets[:, :, independent_positions[node]]
+        for node in dropped:
+            members = [independent_positions[other] for other in range(
+                node//block_size*block_size, (node//block_size+1)*block_size) if other != node]
+            points[:, :, positions[node]] -= local_offsets[:, :, members].sum(2)
+        source_positions = [positions[int(node)] for node in model.sources[receiver]]
+        residual = points[:, :, positions[receiver], None]-torch.einsum(
+            "sij,bqsj->bqsi", maps[receiver], points[:, :, source_positions])
+        if integration == "binary_integral":
+            rows, shift, tilted_factor, error = _binary_integral_tilt(
+                residual, L, model.H[receiver], state.pi[receiver], labels[:, receiver], model.tau,
+                uniforms[:, receiver] if uniforms is not None else None)
+            source_rows.append(rows)
+            integration_error = torch.maximum(integration_error, error)
+        else:
+            cost = .5*torch.einsum("bqsi,ij,bqsj->bqs", residual, model.H[receiver], residual)
+            node_logs = torch.log_softmax(state.pi[receiver].log()-cost/model.tau, -1)
+            source_rows.append(torch.logsumexp(node_logs, dim=1)-log(2*r))
+            if uniforms is not None:
+                labels[:, receiver] = (uniforms[:, receiver, None] > source_rows[-1].exp().cumsum(-1)
+                                       ).sum(-1).clamp_max(node_logs.shape[-1]-1)
+            selected = node_logs.gather(-1, labels[:, receiver, None, None].expand(-1, 2*r, 1)).squeeze(-1)
+            weights = torch.softmax(selected, dim=-1)
+            shift = torch.einsum("bq,bqr->br", weights, offsets)
+            weighted_centered = weights.sqrt()[..., None]*(offsets-shift[:, None])
+            _, _, _, tilted_factor = _signed_qr(weighted_centered)
+        if evaluation_state is not None:
+            delta = (evaluation_state[:, independent]-mean[:, independent]).flatten(1)
+            before = torch.linalg.solve_triangular(L, delta[..., None], upper=False).squeeze(-1)
+            after = torch.linalg.solve_triangular(
+                tilted_factor, (delta-shift)[..., None], upper=False).squeeze(-1)
+            density_ratio += .5*(after.square()-before.square()).sum(-1)
+            density_ratio += (tilted_factor.diagonal(dim1=-2, dim2=-1).log()
+                              -L.diagonal(dim1=-2, dim2=-1).log()).sum(-1)
+        displacement, factor = _condition_rotated_factor(
+            factor, packed, tau, signs, L, shift, tilted_factor)
+        hidden_mean += displacement
+        mean_blocks = mean.new_empty((batch, blocks, block_size, dimension))
+        mean_blocks[:, :, :-1] = hidden_mean.reshape(batch, blocks, block_size-1, dimension)
+        mean_blocks[:, :, -1] = block_sums-mean_blocks[:, :, :-1].sum(2)
+        mean = mean_blocks.reshape_as(mu)
+    lifted = factor.new_empty((batch, blocks, block_size, dimension, hidden_size))
+    lifted[:, :, :-1] = factor.reshape(batch, blocks, block_size-1, dimension, hidden_size)
+    lifted[:, :, -1] = -lifted[:, :, :-1].sum(2)
+    lifted = lifted.reshape(batch, n_agents*dimension, hidden_size)
+    result = {"log_rows": torch.stack(source_rows, dim=1), "mean": mean,
+              "covariance": lifted@lifted.mT}
+    if uniforms is not None:
+        result["labels"] = labels
+        result["log_refresh"] = result["log_rows"].gather(-1, labels[..., None]).squeeze(-1).sum(-1)
+    if evaluation_state is not None:
+        result["log_density_before_over_after"] = density_ratio
+    if integration == "binary_integral":
+        result["integration_error_max"] = integration_error
+    return result
