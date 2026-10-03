@@ -12,6 +12,10 @@ updated: 2026-10-03
 
 # Mathematics MOC
 
+## October 3 continuous parent integrability and grid limits
+
+[[multiagentelbo-2026-10-03-continuous-parent-limits]] establishes a finite auxiliary budget for the frozen continuous Gaussian-message candidate at every fixed finite model and horizon. The adjugate-weighted error bound includes source resets and yields all fixed polynomial moments. A common-path exact-arithmetic proof and uniform numerical moment bounds then give L1 convergence of the fixed-probe output, with its expectation converging to the continuous auxiliary budget on the declared clock-enriched deterministic grids. The implemented cubature coordinates are fixed. Two probes retain sampling variance. Quantitative finite-grid bias, sampling accuracy, small retained error in both O1 regimes and endogenous second formation O4 remain open. No new simulation, test or GPU work occurred.
+
 ## October 3 conditional error and frozen lift comparison
 
 [[multiagentelbo-2026-10-03-conditional-parent-error]] separates the auxiliary budget into candidate-independent hidden information and conditional prediction error, identifying the latter with retained path KL under an explicit finite-budget assumption. The candidate covariance cannot replace the true conditional covariance. A posthoc saved-array comparison over all32 paths and64 grids favors the evolving Gaussian recipe over the frozen activation lift by8.39344 +/-1.08005 and15.28922 +/-1.90772 nats on the fine grid at N512/N1024 (empirical paired standard errors). Both drift and source components improve in this sample. The4.101-second CPU calculation generated no trajectories and used no GPU. These finite-grid differences do not establish small absolute error or isolate memory; O1/O4 and both horizon regimes remain open.

@@ -323,3 +323,6 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 
 2026-10-03  INGEST  [[multiagentelbo-2026-10-03-conditional-parent-error]]: archived conditional B=G+C derivation with finite-budget likelihood proof and posthoc32-path lift comparison; updated project, hierarchy theme and Mathematics/Statistics MOCs. No new trajectories, GPU use or manuscript edit; O1/O4 remain open.
 2026-10-03  LINT  Conditional parent-error ingest:1445 notes; zero broken wikilinks, graph grey nodes, empty files, case collisions and identity collisions. All42 copied archive files matched at ingest.
+
+2026-10-03  INGEST  [[multiagentelbo-2026-10-03-continuous-parent-limits]]: archived three finite-model derivations; updated project, hierarchy theme and Mathematics/Statistics MOCs. Finite continuous budget and exact-arithmetic expected-grid convergence are established at their stated assumptions. Fixed-probe randomness, finite-grid bias, O1/O4 remain open; no scientific run or manuscript edit.
+2026-10-03  LINT  Continuous-parent limit ingest: 1446 notes; zero broken wikilinks, graph grey nodes, empty files, case collisions and identity collisions. Three archived proof files match their committed code-source bytes.
