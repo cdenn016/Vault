@@ -1,0 +1,25 @@
+# Reverse-budget large-network validation contract
+
+Declared before execution on October 3, 2026. This is the next numerical validation of the [candidate-driven implementation](reverse-budget-implementation-RESULTS.md), using the [reverse-budget construction](binary-reverse-budget.md). It stays at the fixed base point and uses the existing frozen learned GL(2,R) model. It is a new comparison law, not a retry of the failed native-path projection measurement.
+
+## Fixed design and scope
+
+The unit is one complete candidate-driven comparison path. Run one path at N512 and one at N1024, sequentially in that order, each on paired coarse/fine meshes. The two meshes share activation, proposal times, Brownian tape, proposal uniforms, independent uniform probe times and candidate-prefix uniforms. They are paired numerical resolutions, not independent replicates. Report each path's drift, full-mark source and total functional, proposal counts, covariance diagnostics and fine-minus-coarse difference. No seed variance, confidence interval, significance, scaling exponent or path-TV certificate is estimated from two different-sized cases with one path each.
+
+The RUN dictionary in experiments/gaussian_reverse_budget.py fixes model_seed=20261002 and path_seed=20261010. Size index s uses path_seed+100000*s; neither seed may be changed after inspection. Initial mu, Sigma, pi and Theta come from the committed learned activations N512-learn_both-final.npz and N1024-learn_both-final.npz. Mobility is the frozen activation Sigma. THEORY sets dimension=2, link_scale=0.2, tau=0.5, block_size=16, horizon=1, coarse_steps=64 and n_probes=2. The fine regular mesh has 128 steps, and both meshes include the common rate-one proposal times.
+
+NUMERICS declares CPU float64, one Torch/BLAS thread and binary_integral source integration through C:/anaconda/python.exe. No GPU is required. The launcher re-executes with isolated Python and sequential BLAS before importing Torch. There is one sequential science process and no worker pool, retry or resume. The existing native-driven profiles remain unchanged.
+
+## Acceptance and failure handling
+
+Before sampling each case, preserve activation and reconstructed model coefficients, the actual profile, runtime versions, repository base revision and working status, and executed source bytes. Record the native Euler curvature diagnostic dt*bound and require it to be at most one; this is not a stability certificate for the comparison filter. Save every returned array including both final full covariances before applying numerical acceptance checks.
+
+Require finite arrays, mean/covariance retained-fiber diagnostics at most 1e-8, binary integration error estimates at most 1e-9, and positive-definite final hidden principal covariances by Cholesky. The integration estimate is a numerical quadrature diagnostic, not an analytic probability-error certificate. A terminal exception preserves the traceback, metadata and any kernel-supplied state/tape, then stops without retry. A failed case remains failed even if another completed.
+
+After a passing runner, execute experiments/check_gaussian_reverse_budget.py on the saved run directory. Its independent NumPy reconstruction checks sender-inclusive forces, minimum-Q corrections, all Euler transitions, Brownian aggregation, source rows, candidate CDF labels and selected scores, assignment history, saved costs, retained means and final covariance. Use its existing atol=1e-10, rtol=5e-11, row normalization=1e-11, allowed negative-cost roundoff=1e-9 and fiber/diagnostic threshold=1e-8; the runner's stricter integration threshold also applies. The checker does not re-integrate every candidate probability or reconstruct intermediate covariance histories. No threshold changes based on observed output are allowed.
+
+## Interpretation and next decision
+
+Passing establishes only the declared finite-grid calculation and saved-array reconstruction for these two paths. Report grid differences descriptively and keep invisible-proposal mesh dependence and local Gaussian conditioning error explicit. No global discretization bound has been proved. If either case or reconstruction fails, preserve it and diagnose the first failing operation before choosing another calculation. If both pass, use the cost magnitudes and paired-grid sensitivity to choose between a separately declared refinement and a replicated comparison-law measurement; do not automatically launch a 32-path run. Quantitative O1 accuracy, forward native integrability and O4 remain open.
+
+Experimental-design procedure consulted: Kassis, T., Agarwal, V., He, Y., Patel, D., and Brueckner, A. M. (2026), Scientific Agent Skills: A Library of Procedural Knowledge for Research Agents, https://doi.org/10.48550/arXiv.2609.00065. The current arXiv record and authors were checked before this contract; this is a workflow reference, not mathematical evidence.

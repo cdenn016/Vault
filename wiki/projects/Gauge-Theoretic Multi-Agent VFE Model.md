@@ -21,6 +21,10 @@ updated: 2026-10-03
 
 # Gauge-Theoretic Multi-Agent VFE Model
 
+## October 3 reverse-budget large-network validation
+
+[[multiagentelbo-2026-10-03-reverse-budget-validation]] records one fresh reverse-budget path each at N512/N1024 and four passing independent grid reconstructions in 119.086 CPU seconds. Fine sampled totals are 78.13565 and 151.90999 nats, about 92% source cost. N512 had three visible changes; N1024 had no proposals. These descriptive conservative functionals do not certify retained accuracy or measure retained KL. Quantitative O1/O4 and the prior parity failure remain open; sharper reverse-weighted retained-prediction accounting precedes a full replicated measurement.
+
 ## October 3 reverse-budget implementation checkpoint
 
 [[multiagentelbo-2026-10-03-reverse-budget-implementation]] records the candidate-driven fine comparison and supplied-uniform candidate-prefix sampler. Thirty-three distinct focused tests and both grids of an independent N4 archive reconstruction passed. The N512/N1024 launcher, pre-run contract and large-network calculation remain pending. Finite-step validation does not establish continuous path accuracy or a small reverse budget; quantitative O1, native-driven integrability, the preceding parity failure and O4 remain open. No GPU calculation ran.

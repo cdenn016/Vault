@@ -1,0 +1,173 @@
+"""One fresh reverse-budget validation path per declared large network."""
+from __future__ import annotations
+
+from dataclasses import replace
+from datetime import datetime, timezone
+import hashlib
+import json
+import os
+from pathlib import Path
+import platform
+import shutil
+import subprocess
+import sys
+import time
+import traceback
+import zipfile
+
+ROOT = Path(__file__).resolve().parents[1]
+RUN = {
+    "activation_root": "docs/research/2026-10-02-renormalization-completion/evidence/activation",
+    "model_seed": 20261002, "path_seed": 20261010,
+}
+THEORY = {
+    "n_agents": [512, 1024], "dimension": 2, "link_scale": .2, "tau": .5,
+    "block_size": 16, "horizon": 1., "coarse_steps": 64, "n_probes": 2,
+}
+NUMERICS = {"device": "cpu", "dtype": "float64", "cpu_threads": 1, "integration": "binary_integral"}
+OUTPUT = {"root": str(ROOT/"artifacts/reverse-budget-validation")}
+CONTRACT = "docs/research/2026-10-02-renormalization-completion/reverse-budget-validation-CONTRACT.md"
+
+
+def run_validation(
+    run:      dict,
+    theory:   dict,
+    numerics: dict,
+    output:   dict,
+) -> Path:
+    """Save one paired path per size, preserving inputs and any terminal failure."""
+    import numpy as np
+    import scipy
+    import torch
+    from multiagent_elbo.realizations.gaussian.coupled_learning import CoupledState
+    from multiagent_elbo.realizations.gaussian.coupled_learning_experiment import build_coupled_case
+    from multiagent_elbo.realizations.gaussian.reverse_budget import sample_reverse_budget
+    from multiagent_elbo.realizations.gaussian.switching_paths import all_sheet_curvature_bound
+
+    if numerics["device"] != "cpu" or numerics["dtype"] != "float64":
+        raise ValueError("this validation requires CPU float64")
+    if numerics["integration"] != "binary_integral":
+        raise ValueError("this validation requires binary_integral source updates")
+    torch.set_num_threads(numerics["cpu_threads"])
+    directory = Path(output["root"])/datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+    directory.mkdir(parents=True)
+    (directory/"inputs").mkdir()
+    started = time.perf_counter()
+    metadata = {
+        "status": "running", "run": run, "theory": theory, "numerics": numerics,
+        "cases": [], "retries": 0, "automatic_resume": False,
+        "python": sys.executable, "python_version": platform.python_version(),
+        "torch": torch.__version__, "numpy": np.__version__, "scipy": scipy.__version__,
+        "platform": platform.platform(), "processor": platform.processor(),
+        "threads": {name: os.environ.get(name) for name in
+                    ("MKL_THREADING_LAYER", "MKL_NUM_THREADS", "OMP_NUM_THREADS")},
+        "base_head": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
+        "working_status": subprocess.check_output(["git", "status", "--short"], cwd=ROOT, text=True),
+        "source_sha256_diagnostic": {}, "input_sha256_diagnostic": {},
+        "scope": "One path per size. Paired-grid numerical validation, not a confidence or continuous-time accuracy bound.",
+    }
+
+    def save() -> None:
+        """Persist the latest completed cases and terminal status."""
+        metadata["elapsed_seconds"] = time.perf_counter()-started
+        (directory/"metadata.json").write_text(json.dumps(metadata, indent=2)+"\n", encoding="utf-8")
+
+    save()
+    print(json.dumps({"run_dir": str(directory), "status": "running"}), flush=True)
+    try:
+        sources = list((ROOT/"src/multiagent_elbo/realizations/gaussian").glob("*.py"))
+        sources += [ROOT/"experiments/gaussian_reverse_budget.py", ROOT/"experiments/check_gaussian_reverse_budget.py",
+                    ROOT/CONTRACT, ROOT/"tests/test_gaussian_reverse_budget_runner.py"]
+        with zipfile.ZipFile(directory/"source.zip", "w", zipfile.ZIP_DEFLATED) as archive:
+            for path in sources:
+                relative = path.relative_to(ROOT).as_posix()
+                data = path.read_bytes()
+                archive.writestr(relative, data)
+                metadata["source_sha256_diagnostic"][relative] = hashlib.sha256(data).hexdigest()
+        for N in theory["n_agents"]:
+            original = ROOT/Path(run["activation_root"])/f"N{N}-learn_both-final.npz"
+            shutil.copyfile(original, directory/"inputs"/f"N{N}-activation.npz")
+            metadata["input_sha256_diagnostic"][str(original)] = hashlib.sha256(original.read_bytes()).hexdigest()
+        save()
+        for size_index, N in enumerate(theory["n_agents"]):
+            case_started = time.perf_counter()
+            seed = run["path_seed"]+100000*size_index
+            case = {"n_agents": N, "path_index": 0, "seed": seed, "status": "running"}
+            metadata["active_case"] = case
+            save()
+            with np.load(directory/"inputs"/f"N{N}-activation.npz", allow_pickle=False) as archive:
+                initial = CoupledState(**{key: torch.from_numpy(archive[key].copy())
+                                         for key in ("mu", "Sigma", "pi", "Theta")})
+            if initial.mu.shape != (N, theory["dimension"]) or any(
+                    value.dtype != torch.float64 or not bool(torch.isfinite(value).all())
+                    for value in (initial.mu, initial.Sigma, initial.pi, initial.Theta)):
+                raise ValueError("activation dimensions, dtype or coefficients differ from the contract")
+            model, _ = build_coupled_case(N, theory["dimension"], run["model_seed"], theory["link_scale"])
+            model = replace(model, tau=theory["tau"])
+            coefficients = {name: getattr(model, name).numpy() for name in
+                            ("a", "J_0", "H", "sources", "endpoints", "link_index", "reverse")}
+            np.savez_compressed(directory/"inputs"/f"N{N}-model.npz", **coefficients, tau=model.tau)
+            bound = all_sheet_curvature_bound(initial.Sigma, initial.Theta, model)
+            case["native_euler_dt_times_bound"] = theory["horizon"]/theory["coarse_steps"]*bound
+            save()
+            if not np.isfinite(bound) or case["native_euler_dt_times_bound"] > 1.:
+                raise ValueError("native Euler curvature preflight failed; no comparison-stability claim is implied")
+            result = sample_reverse_budget(initial.Sigma, initial, model, theory["horizon"],
+                theory["block_size"], theory["coarse_steps"], theory["n_probes"], seed, numerics["integration"])
+            arrays = {key: value.detach().cpu().numpy() for key, value in result.items()}
+            np.savez_compressed(directory/f"N{N}-path000.npz", **arrays)
+            if any(not np.isfinite(value).all() for value in arrays.values()):
+                raise FloatingPointError("nonfinite reverse-budget arrays")
+            case["grids"] = {}
+            for level in ("coarse", "fine"):
+                summary = {name: float(arrays[level+"_"+name]) for name in
+                    ("drift_integral", "mark_integral", "total_integral", "projection_max_error",
+                     "covariance_projection_max_error", "integration_error_max", "proposal_count", "visible_changes")}
+                case["grids"][level] = summary
+                if max(summary["projection_max_error"], summary["covariance_projection_max_error"]) > 1e-8:
+                    raise FloatingPointError("retained-fiber residual exceeds 1e-8")
+                if summary["integration_error_max"] > 1e-9:
+                    raise FloatingPointError("binary integral error estimate exceeds 1e-9")
+                K, block = theory["dimension"], theory["block_size"]
+                kept = [node*K+k for node in range(N) if node % block != block-1 for k in range(K)]
+                covariance = arrays[level+"_final_covariance"]
+                factor = np.linalg.cholesky(covariance[np.ix_(kept, kept)])
+                summary["hidden_cholesky_min_diagonal"] = float(np.diag(factor).min())
+            case["fine_minus_coarse"] = {name: case["grids"]["fine"][name]-case["grids"]["coarse"][name]
+                for name in ("drift_integral", "mark_integral", "total_integral")}
+            case.update(status="pass", elapsed_seconds=time.perf_counter()-case_started)
+            metadata["cases"].append(case)
+            metadata.pop("active_case")
+            save()
+            print(json.dumps(case), flush=True)
+        metadata["status"] = "pass"
+        save()
+        return directory
+    except Exception as error:
+        metadata["status"] = "fail"
+        metadata["error"] = f"{type(error).__name__}: {error}"
+        (directory/"traceback.txt").write_text(traceback.format_exc(), encoding="utf-8")
+        if hasattr(error, "reverse_state"):
+            np.savez_compressed(directory/"failure-state.npz", **{
+                name: value.detach().cpu().numpy() for name, value in error.reverse_state.items()})
+        save()
+        raise
+
+
+def main() -> int:
+    """Use the declared interpreter and sequential BLAS before importing Torch."""
+    sequential = os.environ.get("MKL_THREADING_LAYER") == "SEQUENTIAL"
+    os.environ["MKL_THREADING_LAYER"] = "SEQUENTIAL"
+    os.environ["OMP_NUM_THREADS"] = os.environ["MKL_NUM_THREADS"] = "1"
+    interpreter = Path(os.environ.get("CUDA_PYTHON", "C:/anaconda/python.exe"))
+    same = os.path.normcase(str(Path(sys.executable).resolve())) == os.path.normcase(str(interpreter.resolve()))
+    if not same or not sys.flags.isolated or not sequential:
+        return subprocess.run([str(interpreter), "-I", "-B", str(Path(__file__).resolve())],
+                              env=os.environ.copy(), check=False).returncode
+    sys.path.insert(0, str(ROOT/"src"))
+    run_validation(RUN, THEORY, NUMERICS, OUTPUT)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
