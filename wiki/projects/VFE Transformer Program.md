@@ -27,6 +27,10 @@ After VFE_3.0 PRs #32 (October 1) and #34 to #39 (October 2), recorded in [[vfe3
 
 The frame-table optimizers of 2026-09-28 (belief-Fisher natural gradient and the `group_log` retraction) are written up in [[dennis-2026-phi-natgrad]]. A September 20 rigorous theory search, [[dennis-2026-neuron-free-agent-theory]], gives a conditional neuron-free construction (source and reliability inference plus KL-budget scale control in one constrained ELBO) and leaves the full replacement question inconclusive.
 
+## Group-valued origin of the matrix links, October 2, 2026
+
+[[dennis-2026-link-origin]] (agent-drafted technical note, identities checked in float64 at $K=6$ or $7$, nothing trained) relates the singular links of the projected routes to group-valued links through an exponential link, a parabolic compression with Schur complement, and the head-sum operator, and derives that the code's tiled heads ($K=Hd$) correspond to no residual at all in the exponential construction ([[Lattice gauge theory]], [[Projected predictive attention]], [[Projected gradient attention]]). Open theory directions it records: whether a projected residual stream with $Hd<K$ trains as well as the additive residual, whether a self-gate $e^{\beta_{ii}}$ or a state-dependent self-link should replace part of the block MLP ([[Activation Functions]]), an edge-dependent generator (without which the tiled exponential link adds no expressive power), hidden-block identifiability under the chosen receiver energy, and measuring the routing triangle defect in trained models ([[Holonomy]]).
+
 ## Projected predictive route note and covariance toggle, September 27, 2026
 
 [[dennis-2026-projected-predictive]] documents the `projected_predictive` route end to end and maps each launcher toggle to its equation ([[Projected predictive attention]]). The saved calibration probes of the two K=64 runs (validation perplexity 53.3 and 53.9) show the covariance is the input-token variance (CV 0.02 to 0.03): passthrough keeps $\Sigma$ at encode. The new opt-in `predictive_covariance="moment_matched"` assigns the exact moment-matched covariance of the predictive kernel instead, which makes $\Sigma$ context dependent and feeds it to the next layer's routing, the prior-bank decoder, and [[Template routing]]. `train_vfe3.py` now lists `predictive_covariance`, `predictive_covariance_floor`, `block_mlp_mode`, and `block_mlp_covariance` at their defaults. The matched comparison against passthrough has not been run.
@@ -181,7 +185,7 @@ Next steps, in rough priority order:
 
 **Related project:** [[Gauge-Theoretic Multi-Agent VFE Model]] — the multi-agent, continuous-time instantiation of the same GL(K)-gauge VFE theory (this transformer is the language-model instantiation).
 
-**Manuscripts:** [[gl-k-attention]] · [[participatory-it-from-bit]] · [[dennis-2026-projected-predictive]] · [[dennis-2026-projected-gradient]] · [[dennis-2026-phi-natgrad]] · [[dennis-2026-template-routing]] · [[dennis-2026-neuron-free-agent-theory]]
+**Manuscripts:** [[gl-k-attention]] · [[participatory-it-from-bit]] · [[dennis-2026-projected-predictive]] · [[dennis-2026-projected-gradient]] · [[dennis-2026-phi-natgrad]] · [[dennis-2026-template-routing]] · [[dennis-2026-neuron-free-agent-theory]] · [[dennis-2026-link-origin]]
 
 **Methods (attention routes):** [[Projected predictive attention]] · [[Projected gradient attention]] · [[Template routing]]
 

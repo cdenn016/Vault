@@ -10,6 +10,10 @@ updated: 2026-10-02
 
 # Mathematics MOC
 
+## Group-valued links, October 2, 2026
+
+[[dennis-2026-link-origin]] relates the rank-deficient matrix links of the projected attention routes to group-valued links: the exponential identity $\exp(PQ)=I+P\varphi(QP)Q$, a Levi/Schur block factorization of a primitive link under the parabolic reduction of structure group, and the loop of the head-sum operator as a triangle defect of the routing costs. All identities are checked in float64 at $K=6$ or $7$; it is an agent-drafted note with nothing trained and several items open. Synthesis: [[Lattice gauge theory]].
+
 ## Frame-chart geometry and receiver flows, October 2, 2026
 
 [[dennis-2026-phi-natgrad]] proves that the Frobenius-pullback frame step is projected Euclidean descent on $U$, recovers the ambient gradient by a Fréchet derivative of the principal logarithm, and derives the belief-Fisher metric on frames with its stabilizer kernel, spectrum, symmetries and Kronecker completion (numerical checks at $d\le6$). [[dennis-2026-projected-gradient]] gives exact natural-parameter Fisher flows for a quadratic Gaussian family, a majorize-minimize argument for profiled self-coupling, and an explicit counterexample to descent of damped diagonal steps.
