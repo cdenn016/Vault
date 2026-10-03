@@ -8,7 +8,14 @@ created: 2026-06-19
 updated: 2026-10-02
 ---
 
+
+
 # Statistics MOC
+
+## October 2 covariance diagnostic checkpoint
+
+[[multiagentelbo-2026-10-02-covariance-diagnostics]] preserves a saved-path replay mismatch, a source update whose outgoing covariance condition reaches about 5.8e12 despite positive weights, and 730 subsequent source updates that stay within their declared diagnostic thresholds. Direct block assembly improves local precision but shows no measured full-fiber improvement. The original projected-covariance Cholesky failure remains unresolved. No production repair, full study retry, test rerun, or GPU calculation was performed; O1/O4 remain open.
+
 
 ## Frozen parent budget: terminal numerical failure, October 2, 2026
 
