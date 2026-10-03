@@ -60,4 +60,3 @@ Selected checks:
 - template responsibilities versus exact Gaussian KL, affine shared-width reduction, and input/parameter finite-difference gradients.
 
 No training, large-scale experiment, GPU benchmark, new test suite, code change, or global ELBO verification was performed. These tiny checks ground the equations and live implementation only. Root handles final standalone LaTeX compilation, ingest, and publication.
-
