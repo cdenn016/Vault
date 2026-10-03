@@ -1495,3 +1495,5 @@ All new source notes are cataloged below. [[multiagentelbo-2026-09-11-research-s
 - [[multiagentelbo-2026-10-03-source-projection-entropy]] -- conditional entropy construction and failed large-network parity measurement; incomplete outputs preserved.
 
 - [[multiagentelbo-2026-10-03-projection-parity-diagnosis]] -- bounded non-reproduction of a retained parity failure and improved numerical failure capture.
+
+- [[multiagentelbo-2026-10-03-binary-moment-bounds]] -- exact Gaussian source moment growth, entropy identities and native-law transfer limits.

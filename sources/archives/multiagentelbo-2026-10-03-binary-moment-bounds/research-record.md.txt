@@ -1,0 +1,200 @@
+# Exact Gaussian source moments: sharp growth bound and transfer limits
+
+October 3, 2026. This research record closes a bounded question about the ideal exact Gaussian source update. Its physical second moment has a uniform quadratic growth bound in the incoming physical second-moment scale. A linear bound, a fixed standardized mean-shift bound, and a fixed covariance multiplier all fail over the stated class. These are statements about update maps, not divergence under native histories or an obstruction to large-network formation. Native-driven integrability and practical O1 accuracy remain open; O4 is unchanged.
+
+## Source continuity and scope
+
+The [binary source contract](binary-source-moments-CONTRACT.md) already constructs an opt-in consistent probability-and-moment backend. The [completed history comparison](binary-source-history-RESULTS.md) measures it on saved N512/N1024 histories. The [continuous integrability argument](continuous-budget-integrability.md), equations (2)-(5), instead uses fixed finite standardized cubature nodes to obtain state-independent covariance and mean-shift constants. The question here is whether those constants transfer to exact Gaussian integration. The answer is no in the general fixed quadratic-softmax class.
+
+This continues the fixed-base-point regular-filter question in the live Research manuscript `manuscripts/MultiAgentELBO_Theory/c11_network_coarsegraining.tex`, `def:rg-regular-finite-filter` and `open:rg-pointwise-parent-dynamics`, under `SPEC.md` section 0. The source covariance is the conditional recognition covariance on a retained fiber; it is not silently identified with either mixture dispersion or independent-average covariance in `manuscripts/pifb2/09_section.tex`. Canonical theory manuscripts remain in the Research vault.
+
+Normalized likelihood tilting followed by forward-KL Gaussian moment projection is the sequential assumed-density-filtering construction described by Thomas P. Minka, *Expectation Propagation for Approximate Bayesian Inference*, UAI 2001, section 2, equations (4)-(6), [author's corrected paper](https://tminka.github.io/papers/ep/minka-ep-uai.pdf). That reference supplies the method context. The estimates and counterexamples below are derived here; no expectation-propagation iteration or convergence theorem is being invoked.
+
+Fix finite hidden and retained dimensions k and r, finite label support, fixed positive priors and temperature, and quadratic logits with fixed coefficients. With hidden coordinate y, retained coordinate R, and incoming covariance S positive definite, write
+
+$$
+q=N(m,S),\qquad
+\beta_a(y;R)=\frac{e^{\ell_a(y,R)}}{\sum_b e^{\ell_b(y,R)}},\qquad
+c_a=E_q\beta_a,\qquad
+r_a=\frac{\beta_a q}{c_a}.
+$$
+
+Let m_a and S_a be the exact first and covariance moments of r_a, and let g_a=N(m_a,S_a). Every assertion below is about these exact integrals. The implementation's adaptive quadrature errors are estimates, and its finite cutoff, small-probability cancellation, and numerical Cholesky admission remain distinct issues. No active profile, source backend, or experiment runner is changed by this record.
+
+## Local regularity and an entropy bound
+
+At every fixed incoming state, 0<c_a<1 when there are at least two labels, and r_a is everywhere positive. Its polynomial moments are finite because r_a is bounded above by q/c_a. Its covariance is positive definite: a nonzero linear coordinate cannot be almost surely constant under an everywhere positive density. The maps c_a, m_a and S_a are smooth on finite R,m and positive-definite S. Indeed, on each compact subset of this domain, derivatives of the Gaussian density and quadratic-softmax likelihood are bounded by a polynomial times a common integrable Gaussian envelope. Differentiation under the integral is valid to every finite order; positive continuous c_a has a positive minimum on that compact set. This establishes local update regularity, not a global moment estimate for the continuous filter.
+
+There is a fixed-model constant K such that
+
+$$
+-\log\beta_a(y;R)\le K(1+|R|^2+|y|^2).
+$$
+
+To see this, bound log-sum-exp by the logarithm of the finite support size plus the maximum logit difference, and bound each fixed quadratic polynomial by a constant times 1+|R| squared+|y| squared. Define
+
+$$
+M=1+|R|^2+|m|^2+\operatorname{tr}S.
+$$
+
+Jensen's inequality and the definition of relative entropy give
+
+$$
+c_a\ge \exp(E_q\log\beta_a)\ge e^{-KM},\qquad
+D(r_a\Vert q)=E_{r_a}\log\beta_a-\log c_a\le KM.
+\tag{1}
+$$
+
+The Gaussian g_a matches the first two moments of r_a. Since log(g_a/q) is quadratic, its expectations under these two laws agree. All terms are integrable by the bounds just established, so
+
+$$
+D(r_a\Vert q)=D(r_a\Vert g_a)+D(g_a\Vert q).
+\tag{2}
+$$
+
+In particular, for u=S^{-1/2}(m_a-m) and V=S^{-1/2}S_aS^{-1/2},
+
+$$
+|u|^2+\operatorname{tr}V-\log\det V-k\le 2KM.
+\tag{3}
+$$
+
+For fixed incoming q, summing (2) with its own candidate weights also gives
+
+$$
+\sum_a c_a\left[D(r_a\Vert g_a)+D(g_a\Vert q)\right]
+=H(c)-E_q H(\beta)\le\log|\mathcal A|.
+\tag{4}
+$$
+
+Here H is discrete entropy and the identity follows directly from sum_a beta_a=1. These are c_a-weighted identities, not bounds with arbitrary native label weights.
+
+## Uniform quadratic physical-moment bound
+
+For Z=S^{-1/2}(Y-m), the entropy variational inequality gives
+
+$$
+E_{r_a}h\le D(r_a\Vert q)+\log E_qe^h.
+$$
+
+It follows by applying Jensen to E_r exp(h-log(dr/dq)); equivalently it follows from nonnegativity of relative entropy to the exponentially tilted q. Take h=|Z| squared/4, so E_q exp(h)=2^{k/2}. Equations (1) and the finite polynomial moments yield
+
+$$
+E_{r_a}|Z|^2\le 4KM+2k\log2=:A(M).
+\tag{5}
+$$
+
+Consequently,
+
+$$
+S_a\preceq A(M)S,\qquad
+|m_a-m|^2\le A(M)\|S\|_{\mathrm{op}},
+$$
+
+and
+
+$$
+|m_a|^2+\operatorname{tr}S_a
+=E_{r_a}|Y|^2
+\le 2|m|^2+2\|S\|_{\mathrm{op}}A(M)
+\le (2+8K+4k\log2)M^2.
+\tag{6}
+$$
+
+The matrix inequality uses Cov(Z) at most E[ZZ transpose], which is at most E|Z| squared times the identity; the mean inequality follows from Jensen. Thus this estimate needs neither inverse-covariance moments nor an imposed probability floor. Constants depend on the frozen model and dimension; no uniform large-N claim is made.
+
+## Failure of a linear bound and a fixed standardized mean shift
+
+Take one hidden coordinate y, retained coordinates (u,v), equal priors and temperature one, with the fixed energies
+
+$$
+E_0=\frac{(y-u)^2}{4}+v^2+K_0,\qquad
+E_1=\frac{(y+u)^2}{4}+K_0,\qquad
+K_0=y^2+u^2+v^2.
+$$
+
+Both are positive-definite quadratic forms. Their common term cancels, and beta_0=sigma(uy-v squared), where sigma denotes the logistic function. For t at least one choose R_t=(1,t), m_t=0, and S_t=s_t=t squared/2. Completing the square gives the exact measure identity
+
+$$
+q_t(dy)\beta_0(y;R_t)
+=e^{-3t^2/4}\nu_t(dy)w_t(y),\qquad
+\nu_t=N(s_t,s_t),\qquad
+w_t(y)=\frac1{1+e^{y-t^2}}.
+\tag{7}
+$$
+
+Writing y=t squared/2+(t/sqrt(2))Z with standard Gaussian Z gives
+
+$$
+w_t=\left[1+\exp(-t^2/2+tZ/\sqrt2)\right]^{-1}\longrightarrow1.
+$$
+
+The weights lie between zero and one. Dominated convergence applies to their products with 1, Z and Z squared. It therefore proves
+
+$$
+E_{\nu_t}w_t\to1,\qquad
+\frac{m_{0,t}}{t^2}\to\frac12,\qquad
+\frac{E_{r_{0,t}}Y^2}{t^4}\to\frac14,\qquad
+\frac{S_{0,t}}{s_t}\to1.
+\tag{8}
+$$
+
+For example, the rescaled second moment is dominated for t at least one by (1/2+|Z|/sqrt(2)) squared. The covariance limit follows by centering in Z before taking its variance. Meanwhile M_t=2+3t squared/2. Hence no constant C can bound E_r Y squared by C M_t, and no power M_t^p with p<2 can replace M_t squared uniformly in (6). Also
+
+$$
+\frac{|m_{0,t}-m_t|^2}{\operatorname{tr}S_t}\sim\frac{t^2}{2}\longrightarrow\infty.
+$$
+
+Thus the fixed standardized shift constant used by the cubature proof does not transfer.
+
+## Failure of a fixed covariance multiplier
+
+Independently take q=N(0,1) and beta_0(y;R)=sigma(y squared-R squared). These arise from fixed positive-definite energies E_0=R squared+K_0 and E_1=y squared+K_0 with K_0=y squared+R squared. Symmetry makes the selected mean zero. Set a=R squared and
+
+$$
+g(z)=e^{-z/2}\sigma(z)=\frac1{2\cosh(z/2)}.
+$$
+
+Using the density of Y squared, the selected mass c_a and unnormalized second moment n_a are
+
+$$
+c_a=\frac{e^{-a/2}}{\sqrt{2\pi a}}
+\int_{-a}^{\infty}(1+z/a)^{-1/2}g(z)dz,
+$$
+
+$$
+n_a=\frac{\sqrt a e^{-a/2}}{\sqrt{2\pi}}
+\int_{-a}^{\infty}(1+z/a)^{1/2}g(z)dz.
+\tag{9}
+$$
+
+Both integrals tend to the integral of g, which equals pi by substituting u=exp(z/2). For the first integral, the part z at least -a/2 is dominated by sqrt(2)g(z). The omitted interval is bounded by
+
+$$
+\sqrt a\int_0^{a/2}x^{-1/2}e^{(x-a)/2}dx
+\le\sqrt2 a e^{-a/4}\longrightarrow0.
+$$
+
+For the second integral, g(z) dominates its negative half and sqrt(1+z)g(z) dominates its positive half for a at least one. These are integrable. Therefore
+
+$$
+c_a\sim\sqrt{\frac\pi2}a^{-1/2}e^{-a/2},\qquad
+S_a=\frac{n_a}{c_a}\sim a=R^2.
+\tag{10}
+$$
+
+Since the incoming covariance is one, no fixed covariance multiplier rho works over all incoming retained states. These scalar calculations are used because a universal update inequality can be disproved in one coordinate. Independent untouched Gaussian coordinates can be appended without changing the counterexample. No embedding into, or reachability within, the particular saved GL(2) network histories is established.
+
+## Executed grounding checks and remaining obligation
+
+The archived [scalar script](binary-moment-bounds-evidence/check_scalars.py) was executed once using `C:/anaconda/python.exe -I -B artifacts/binary-moment-admission/check_scalars.py`. It verifies the energy difference exactly with SymPy and evaluates the two tilted moment formulas using SciPy quadrature in stable coordinates. The [saved output](binary-moment-bounds-evidence/scalar-checks.json) has t or R values 2, 4, 8 and 16. At 16, the first mean divided by t squared is 0.5, the second moment divided by t to the fourth is 0.251953125, and the second example's variance divided by R squared is 0.999924670. These numbers illustrate the proved limits; they do not prove those limits or measure network behavior. No test suite, native trajectory, failed-study retry or GPU job ran in this phase.
+
+For a finite sequence of receiver updates, (6) supplies state-dependent polynomial bounds. Iteration over an unbounded random proposal count does not establish finite native-driven moments. The two state-independent reset constants used by the existing adjugate Lyapunov proof have both failed in the general exact-integral class. This limits that proof route; it does not prove the desired integrability false.
+
+The next mathematical obligation is a bound for the native-weighted reset operator
+
+$$
+\sum_a b_a(X)\left[V(U_a(R,m,S))-V(R,m,S)\right],
+$$
+
+jointly with the continuous native-driven filter generator. Here a is a complete proposed assignment, b_a(X) is its native probability, and U_a is the declared sequential moment update with identity on invisible self-proposals. Incoming-Gaussian weights c_a in (4) cannot replace these probabilities. A proposed moment estimate under the candidate's own process law likewise would not settle this obligation. No candidate-process moment theorem or complete continuous admission extension is claimed in this checkpoint. The preceding parity failure remains unexplained and its measurement remains incomplete.

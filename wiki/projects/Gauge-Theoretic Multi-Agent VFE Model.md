@@ -21,6 +21,10 @@ updated: 2026-10-03
 
 # Gauge-Theoretic Multi-Agent VFE Model
 
+## October 3 exact Gaussian moment bounds
+
+[[multiagentelbo-2026-10-03-binary-moment-bounds]] proves a sharp quadratic physical-moment growth bound for exact Gaussian source tilts and local smoothness/positive-definite covariance. Fixed quadratic-softmax examples disprove the linear bound and both state-independent cubature reset constants. The scalar calculation grounds these update-map statements only; it says nothing about their reachability in saved GL(2) histories or large-network formation. A native-weighted Lyapunov bound remains required for integrability. Practical O1 accuracy, O4 and the preceding parity failure remain unresolved; no full-study retry or GPU job ran.
+
 ## October 3 projection parity diagnosis
 
 [[multiagentelbo-2026-10-03-projection-parity-diagnosis]] records three bounded non-reproductions of the preceding projection parity failure: the first event with archived/off/on implementations, complete path000 on/off traces, and four separate spawned N512 cases. All 180 archived candidate-field comparisons were exact. The original failure remains unresolved and the 32-path study remains incomplete. Future failures now retain actual arrays, the reference field and mismatch location/magnitude; two tiny capture tests pass. No full-study retry, GPU or O1/O4 closure is claimed.

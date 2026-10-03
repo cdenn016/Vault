@@ -1,0 +1,29 @@
+"""Small scalar quadrature checks for analytic Gaussian-tilt counterexamples."""
+from pathlib import Path
+import json,math
+import numpy as np
+from scipy.integrate import quad
+from scipy.special import expit
+from scipy.stats import norm
+import sympy as sp
+y,u,v=sp.symbols('y u v',real=True)
+assert sp.expand(((y-u)**2/4+v**2)-(y+u)**2/4)==v**2-u*y
+rows=[]
+for R in (2.,4.,8.,16.):
+    S=R*R/2
+    def moment(power: int) -> float:
+        value,_=quad(lambda z: norm.pdf(z)*(S+math.sqrt(S)*z)**power*expit(R*R-S-math.sqrt(S)*z),-np.inf,np.inf,epsabs=1e-10,epsrel=1e-10)
+        return value
+    mass=moment(0); mean=moment(1)/mass; second=moment(2)/mass
+    def covariance_integral(power: int) -> float:
+        def integrand(z: float) -> float:
+            a=z+z*z/(2*R*R)
+            return math.exp(-float(np.logaddexp(a,-a)))*(R+z/R)**power
+        left,_=quad(integrand,-R*R,0.,epsabs=1e-10,epsrel=1e-10)
+        right,_=quad(integrand,0.,np.inf,epsabs=1e-10,epsrel=1e-10)
+        return left+right
+    variance=covariance_integral(2)/covariance_integral(0)
+    rows.append({'R':R,'linear_log_probability':-.75*R*R+math.log(mass),'mean_over_R_squared':mean/(R*R),'second_over_R_fourth':second/R**4,'linear_second_over_proposed_scale':second/(1+1+R*R+S),'quadratic_variance_over_R_squared':variance/(R*R),'quadratic_variance':variance})
+out={'scope':'One-dimensional checks of the derived asymptotic formulas, not network evidence or proof of limits. No model run or GPU.', 'energy_difference_exact':str(sp.expand(((y-u)**2/4+v**2)-(y+u)**2/4)),'rows':rows}
+Path('artifacts/binary-moment-admission/scalar-checks.json').write_text(json.dumps(out,indent=2)+'\n',encoding='utf-8')
+print(json.dumps(out,indent=2))
