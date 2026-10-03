@@ -21,6 +21,10 @@ updated: 2026-10-03
 
 # Gauge-Theoretic Multi-Agent VFE Model
 
+## October 3 limits of gated formation extensions
+
+[[multiagentelbo-2026-10-03-gated-handoff-obstruction]] records two candidate failures on o(1/T) horizons: an exact Fisher slow-record extension can remain inactive, and a normalized configuration-law model with dynamic noncommuting GL links can relax its shared amplitude before matter coheres. Each failure uses a fixed admissible initial density and stopped diffusion estimates. The network result permits each fixed N>=512 under explicit local coercivity and process assumptions; it has no uniform thermodynamic conclusion. The earlier restoring-coherence result remains valid, but these handoff extensions do not close O4. Longer protocols, intrinsic partition branching, actual R14 comparison histories, practical O1 accuracy and full feedback remain open. Exact algebra was checked; no simulation or GPU run occurred.
+
 ## October 3 restoring coherence with zero stationary action
 
 [[multiagentelbo-2026-10-03-restoring-zero-action]] constructs a fixed-coefficient reversible diffusion with an exact regular Gaussian-recognition free energy and Fisher metric. At each fixed dimension, every fixed initial density reaches a persistent restoring-coherence window with probability tending to one, while the same full protocol under stationarity has a fixed probability deficit and zero action. Plain coherence also has the deficit. This closes a mechanism-level gap in the earlier obstruction, not the hierarchy problem: R14 handoffs and facilitation, intrinsic partition selection, interacting gauge links and slow feedback remain unconstructed. Constants are not uniform in network size; no model or GPU run occurred.
