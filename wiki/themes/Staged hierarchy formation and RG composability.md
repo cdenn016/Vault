@@ -18,6 +18,12 @@ updated: 2026-10-02
 
 # Staged hierarchy formation and RG composability
 
+## Frozen parent budget: terminal numerical failure, October 2, 2026
+
+[[multiagentelbo-2026-10-02-continuous-parent-budget]] records a failed CPU study: the parent exited one after 2234.793 seconds when projected-covariance Cholesky factorization rejected leading minor 72. Sixteen N512 and nine N1024 path files were retained; the N1024 case and overall study are incomplete. No partial N1024 average is promoted to a completed sixteen-path result. A separate completed N1024 path001 reports covariance-fiber residual 1.87083152e-07, above 1e-8; its relation to the terminal exception, root cause and score bias remain undiagnosed.
+
+Seven tiny checks passed, but no full-result checker or budget-accounting reconstruction ran, and the study was not retried. No GPU was used. The partial arrays remain diagnostic evidence rather than accepted parent-error estimates. Local consistency does not establish a global limit or remove finite-grid dependence on invisible self-proposals. Numerical diagnosis, endogenous feedback and intrinsic recursive formation remain open; O1 and O4 are not closed.
+
 ## Source-adapted Gaussian continuation, October 2, 2026
 
 [[multiagentelbo-2026-10-02-source-adapted-gaussian]] replaces finite-cloud source weighting with normalized sequential Gaussian adaptation and retains full covariance through propagation and observation. Thirteen distinct tiny CPU checks pass. One matched first-32-path study at 512/1,024 agents compares persistent and activation-reset messages; persistent-minus-reset loss is N=512: -5.4287 +/- 1.6054; N=1024: -10.8093 +/- 2.1081 nats per path (empirical paired standard errors). The archive separates source/configuration contributions and compares the same paths with prior candidates. There is one model realization per size, so the comparison is underpowered for across-model generalization.
