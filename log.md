@@ -334,3 +334,7 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 2026-10-03 INGEST: Archived two fixed-projection filter derivations from code commit 266e1f7. Added a manuscript-source note and updated the existing project, hierarchy theme and Mathematics/Statistics MOCs. Retained finite-horizon, fourth-moment and unrestricted-complexity assumptions; moving projections and general O1/O4 remain open. No theory manuscript or previous source edited.
 
 2026-10-03 LINT: Fixed-projection filter ingest scanned 1448 notes; broken wikilinks, graph grey nodes, empty files, case collisions and identity collisions were all zero. Both archived derivations match their committed code-source bytes.
+
+2026-10-03 INGEST: Archived three moving-projection filter derivations from code commit ee0acdd. Added a source note and updated project, hierarchy theme and Mathematics/Statistics MOCs. Both O1 error regimes are covered for prescribed horizon families with unrestricted coefficient complexity; practical prediction and O4 remain unfinished. No theory manuscript or previous source edited.
+
+2026-10-03 LINT: Moving-projection ingest scanned 1449 notes; all five link-integrity categories were zero. All three archived derivations match their committed code-source bytes.
