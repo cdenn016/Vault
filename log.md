@@ -382,3 +382,7 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 2026-10-03 INGEST: Archived reverse-budget validation from MultiAgentELBO 836cbe2; source note, 22 immutable archive files, existing project/theme and CS-ML/Statistics MOCs. Preserved one-path scope, zero-event N1024 coverage and open O1/O4.
 
 2026-10-03 LINT: Reverse-budget validation ingest; 1461 notes, all five integrity counts zero.
+
+2026-10-03 INGEST: Archived provisional reverse retained-cost derivation from MultiAgentELBO 74047f3; source note, three immutable files, existing project/theme and Mathematics/Statistics MOCs. Formal verification pending; O1/O4 open.
+
+2026-10-03 LINT: After provisional reverse retained-cost ingest, 1462 notes checked; broken links, graph grey nodes, empty files, case collisions and identity collisions all zero.
