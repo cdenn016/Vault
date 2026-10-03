@@ -1,0 +1,32 @@
+from pathlib import Path
+import json,math,sys,zipfile
+import numpy as np
+root=Path(__file__).resolve().parents[2]
+sys.path.insert(0,str(root/'src'))
+from multiagent_elbo.realizations.gaussian.continuous_budget_experiment import _estimate
+run=root/'artifacts/gaussian-continuous-square-root/20261003T041753622698Z'
+metadata=json.loads((run/'metadata.json').read_text())
+assert metadata['status']=='pass'
+receipt={'status':'pass','scope':'Posthoc scale-stable uncertainty summaries from retained paths; raw producer/checker records unchanged','cases':[],'checks':0}
+for N in [512,1024]:
+    values={grid:{key:[] for key in ['drift','mark','self','visible','total','augmented']} for grid in ['coarse','fine']}
+    for index in range(16):
+        with np.load(run/f'N{N}-path{index:03d}.npz') as z:
+            for grid in values:
+                for key in values[grid]:values[grid][key].append(float(z[grid+'_'+key+'_integral']))
+    estimates={grid:{} for grid in ['coarse','fine','fine_minus_coarse']}
+    for key in values['coarse']:
+        coarse,fine=[np.array(values[g][key]) for g in ['coarse','fine']]
+        for grid,samples in [('coarse',coarse),('fine',fine),('fine_minus_coarse',fine-coarse)]:
+            actual=_estimate(samples)
+            n=len(samples); center=math.fsum(map(float,samples))/n; scale=max(map(abs,samples))
+            se=0. if scale==0. else scale*math.sqrt(math.fsum((float(x)/scale-center/scale)**2 for x in samples)/(n*(n-1)))
+            assert math.isclose(actual['mean'],center,rel_tol=1e-13,abs_tol=1e-300),(N,grid,key,'mean')
+            assert math.isclose(actual['standard_error'],se,rel_tol=1e-13,abs_tol=1e-300),(N,grid,key,'standard_error')
+            estimates[grid][key+'_integral']=actual;receipt['checks']+=1
+    receipt['cases'].append({'n_agents':N,'estimates':estimates})
+with (run/'scale-stable-summaries.json').open('x',encoding='utf-8') as f:json.dump(receipt,f,indent=2)
+with zipfile.ZipFile(run/'summary-correction-source.zip','x',zipfile.ZIP_DEFLATED) as z:
+    for path in [Path(__file__),root/'src/multiagent_elbo/realizations/gaussian/continuous_budget_experiment.py',root/'experiments/check_gaussian_continuous_square_root.py',root/'tests/test_gaussian_budget_summary_scale.py']:
+        z.writestr(path.relative_to(root).as_posix(),path.read_bytes())
+print(json.dumps({'checks':receipt['checks'],'N1024_self':{g:receipt['cases'][1]['estimates'][g]['self_integral'] for g in ['coarse','fine','fine_minus_coarse']}},indent=2))

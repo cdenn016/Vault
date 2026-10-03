@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="1.430" timestamp="2026-10-02T23:41:59.893294" hostname="DESKTOP-RT15E78"><testcase classname="tests.test_gaussian_budget_summary_scale" name="test_standard_error_preserves_the_scale_of_three_distinct_values[1.0]" time="0.001" /><testcase classname="tests.test_gaussian_budget_summary_scale" name="test_standard_error_preserves_the_scale_of_three_distinct_values[1e-216]" time="0.000"><failure message="assert False&#10; +  where False = &lt;built-in function isclose&gt;(0.0, (1e-216 / 1.7320508075688772), rel_tol=1e-14, abs_tol=0.0)&#10; +    where &lt;built-in function isclose&gt; = math.isclose&#10; +    and   1.7320508075688772 = &lt;built-in function sqrt&gt;(3.0)&#10; +      where &lt;built-in function sqrt&gt; = math.sqrt">scale = 1e-216
+
+    @pytest.mark.parametrize("scale", [1., 1e-216])
+    def test_standard_error_preserves_the_scale_of_three_distinct_values(scale: float) -&gt; None:
+        values = scale*np.array([1., 2., 3.])
+        estimate = _estimate(values)
+        assert math.isclose(estimate["mean"], 2*scale, rel_tol=1e-14, abs_tol=0.)
+&gt;       assert math.isclose(estimate["standard_error"], scale/math.sqrt(3.), rel_tol=1e-14, abs_tol=0.)
+E       assert False
+E        +  where False = &lt;built-in function isclose&gt;(0.0, (1e-216 / 1.7320508075688772), rel_tol=1e-14, abs_tol=0.0)
+E        +    where &lt;built-in function isclose&gt; = math.isclose
+E        +    and   1.7320508075688772 = &lt;built-in function sqrt&gt;(3.0)
+E        +      where &lt;built-in function sqrt&gt; = math.sqrt
+
+tests\test_gaussian_budget_summary_scale.py:15: AssertionError</failure></testcase><testcase classname="tests.test_gaussian_budget_summary_scale" name="test_zero_budget_has_zero_empirical_uncertainty" time="0.000" /></testsuite></testsuites>

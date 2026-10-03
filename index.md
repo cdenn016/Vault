@@ -1468,3 +1468,5 @@ All new source notes are cataloged below. [[multiagentelbo-2026-09-11-research-s
 - [[multiagentelbo-2026-10-02-covariance-diagnostics]] -- bounded covariance diagnostics, captured states, and unresolved original failure.
 
 - [[multiagentelbo-2026-10-02-square-root-conditioning]] -- captured suffix, square-root source candidate and tested opt-in integration; N1024 saved-tape validation pending.
+
+- [[multiagentelbo-2026-10-02-square-root-budget]] -- completed saved-tape validation and 32-path paired-grid budget study; corrected tiny uncertainty summaries; O1/O4 open.
