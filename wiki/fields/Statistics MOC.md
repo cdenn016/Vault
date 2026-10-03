@@ -12,6 +12,10 @@ updated: 2026-10-02
 
 # Statistics MOC
 
+## October 2 square-root conditioning checkpoint
+
+[[multiagentelbo-2026-10-02-square-root-conditioning]] records a completed 86-interval captured suffix, four tiny factor checks, one captured N1024 operation comparison, and eight focused consumer/real-spawn integration checks. The factor method is opt-in; dense defaults and the original launcher remain unchanged. N1024 saved-tape validation is pending. The original Cholesky failure remains unresolved, and O1/O4 remain open. This checkpoint adds no full budget retry, GPU run or manuscript closure.
+
 ## October 2 covariance diagnostic checkpoint
 
 [[multiagentelbo-2026-10-02-covariance-diagnostics]] preserves a saved-path replay mismatch, a source update whose outgoing covariance condition reaches about 5.8e12 despite positive weights, and 730 subsequent source updates that stay within their declared diagnostic thresholds. Direct block assembly improves local precision but shows no measured full-fiber improvement. The original projected-covariance Cholesky failure remains unresolved. No production repair, full study retry, test rerun, or GPU calculation was performed; O1/O4 remain open.

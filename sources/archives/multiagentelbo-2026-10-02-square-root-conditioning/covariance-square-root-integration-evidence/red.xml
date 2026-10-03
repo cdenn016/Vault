@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="0.385" timestamp="2026-10-02T22:46:33.606176" hostname="DESKTOP-RT15E78"><testcase classname="tests.test_gaussian_continuous_square_root" name="test_factor_probe_preserves_prefix_self_costs_and_input_states" time="0.006"><failure message="TypeError: source_budget_probe() got an unexpected keyword argument 'source_backend'">def test_factor_probe_preserves_prefix_self_costs_and_input_states() -&gt; None:
+        model, state, _ = _example()
+        X = (state.mu+.13)[None]
+        observed = X.reshape(1, 2, 2, 2).mean(2).flatten(1)
+        message = observe_gaussian(state.mu[None], torch.block_diag(*state.Sigma)[None], observed, 2)
+        mu, cov = message["mean"], message["covariance"]
+        before_mu, before_cov = mu.clone(), cov.clone()
+        current, prefix = torch.tensor([[0, 1, 0, 1]]), torch.tensor([[1, 1, 0, 0]])
+        dense = budget.source_budget_probe(X, mu, cov, current, prefix, state, model, 2)
+&gt;       factor = budget.source_budget_probe(X, mu, cov, current, prefix, state, model, 2, source_backend="square_root")
+E       TypeError: source_budget_probe() got an unexpected keyword argument 'source_backend'
+
+tests\test_gaussian_continuous_square_root.py:22: TypeError</failure></testcase><testcase classname="tests.test_gaussian_continuous_square_root" name="test_factor_sampler_reaches_updates_and_probes_without_changing_native_tape" time="0.063"><failure message="TypeError: sample_frozen_budget() got an unexpected keyword argument 'source_backend'">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x000001F68CA42570&gt;
+
+    def test_factor_sampler_reaches_updates_and_probes_without_changing_native_tape(monkeypatch: pytest.MonkeyPatch) -&gt; None:
+        model, state, mobility = _example()
+        batches: list[int] = []
+        def observe_rows(*args: object, **kwargs: object) -&gt; dict[str, torch.Tensor]:
+            """Record actual consumer entry while running the real factor implementation."""
+            batches.append(args[0].shape[0])
+            return square_root_source_rows(*args, **kwargs)
+        monkeypatch.setattr(budget, "square_root_source_rows", observe_rows, raising=False)
+        dense = budget.sample_frozen_budget(mobility, state, model, 1., 2, 16, 2, 78)
+&gt;       factor = budget.sample_frozen_budget(mobility, state, model, 1., 2, 16, 2, 78, source_backend="square_root")
+
+tests\test_gaussian_continuous_square_root.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+args = (tensor([[[0.7000, 0.1000],
+         [0.1000, 1.2000]],
+
+        [[0.7000, 0.1000],
+         [0.1000, 1.2000]],
+
+     ...r([[False, False],
+        [ True, False],
+        [False,  True],
+        [ True,  True]]), tau=0.7), 1.0, 2, 16, ...)
+kwargs = {'source_backend': 'square_root'}
+
+    @functools.wraps(func)
+    def decorate_context(*args, **kwargs):
+        # pyrefly: ignore [bad-context-manager]
+        with ctx_factory():
+&gt;           return func(*args, **kwargs)
+E           TypeError: sample_frozen_budget() got an unexpected keyword argument 'source_backend'
+
+C:\anaconda\Lib\site-packages\torch\utils\_contextlib.py:124: TypeError</failure></testcase><testcase classname="tests.test_gaussian_continuous_square_root" name="test_unknown_source_backend_is_rejected" time="0.001"><failure message="TypeError: sample_frozen_budget() got an unexpected keyword argument 'source_backend'">def test_unknown_source_backend_is_rejected() -&gt; None:
+        model, state, mobility = _example()
+        with pytest.raises(ValueError, match="source.backend|backend"):
+&gt;           budget.sample_frozen_budget(mobility, state, model, .1, 2, 4, 1, 93, source_backend="unknown")
+
+tests\test_gaussian_continuous_square_root.py:52: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+args = (tensor([[[0.7000, 0.1000],
+         [0.1000, 1.2000]],
+
+        [[0.7000, 0.1000],
+         [0.1000, 1.2000]],
+
+     ...or([[False, False],
+        [ True, False],
+        [False,  True],
+        [ True,  True]]), tau=0.7), 0.1, 2, 4, ...)
+kwargs = {'source_backend': 'unknown'}
+
+    @functools.wraps(func)
+    def decorate_context(*args, **kwargs):
+        # pyrefly: ignore [bad-context-manager]
+        with ctx_factory():
+&gt;           return func(*args, **kwargs)
+E           TypeError: sample_frozen_budget() got an unexpected keyword argument 'source_backend'
+
+C:\anaconda\Lib\site-packages\torch\utils\_contextlib.py:124: TypeError</failure></testcase></testsuite></testsuites>

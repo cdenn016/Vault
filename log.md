@@ -314,3 +314,6 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 2026-10-02  LINT  Frozen-parent failed-run ingest: 1441 notes; zero broken wikilinks, graph grey nodes, empty files, case collisions and identity collisions. Preserved the terminal failure and partial evidence.
 
 2026-10-02  INGEST  [[multiagentelbo-2026-10-02-covariance-diagnostics]]; archived full covariance captures and scoped precision comparison; updated project, hierarchy theme and Mathematics/Statistics MOCs. Original failed study unchanged; O1/O4 open.
+
+2026-10-02  INGEST  [[multiagentelbo-2026-10-02-square-root-conditioning]]: archived captured suffix, factor comparison and twelve distinct focused checks across two packets; updated project, hierarchy theme and Mathematics/Statistics MOCs. N1024 saved-tape validation is pending; original failure and O1/O4 remain open. No manuscript or protected WIP changed.
+2026-10-02  LINT  Square-root conditioning ingest: 1443 notes; zero broken wikilinks, graph grey nodes, empty files, case collisions and identity collisions. All 34 copied archive files matched their originating code checkpoint at ingest.
