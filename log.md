@@ -350,3 +350,7 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 2026-10-03 INGEST: Archived the entropic time-scale derivation and exact algebra checks from code commit 0c2f8d3. Added a source note and updated existing project, hierarchy theme and Mathematics/Statistics MOCs. Retained the stopped local scope, initial-slip basin, prior weights and unresolved inner passage. The three-round loop is concluded without O4 closure. No manuscript or prior source edited.
 
 2026-10-03 LINT: Entropic time-scale ingest scanned 1452 notes; all five link-integrity categories were zero. Both archives match their committed code-source bytes.
+
+2026-10-03 INGEST: Archived activation source calibration from code commit 2ae407a. Added a run source and updated the project, hierarchy theme and Mathematics/Statistics MOCs. Preserved first-receiver versus unprefixed-row scope, numerical integration limitations and open O1/O4 status. No manuscript or previous source edited.
+
+2026-10-03 LINT: Activation source ingest scanned 1453 notes; all five link-integrity categories were zero. All five archives match their committed code-source bytes.

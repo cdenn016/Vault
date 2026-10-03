@@ -1,0 +1,46 @@
+# Activation source-integration results
+
+The existing twelve-point source cubature has a measurable activation integration defect in the two saved frozen GL(2,R) models. Across the unprefixed receiver primitives, mean absolute label-zero probability error is about 0.016, while the largest observed errors are 0.127 and 0.173. Receiver zero, whose row is an actual marginal of the sequential joint candidate, has smaller mean errors. These are deterministic conditional-integration comparisons over sixteen activation draws per model, not evidence of general path-law accuracy or a size trend.
+
+## Method and provenance
+
+The [predeclared contract](activation-source-calibration-CONTRACT.md) fixes all inputs, numerical settings and interpretation boundaries. The [runner](../../../experiments/calibrate_activation_sources.py) reconstructed the exact activation Gaussian conditioned on retained sixteen-node block means. The [reference module](../../../src/multiagent_elbo/realizations/gaussian/binary_source_reference.py) evaluates a one-dimensional characteristic-function integral for the binary quadratic-Gaussian logit. The comparison keeps the current sorted physical coordinates, lower Cholesky factor, six integration coordinates and twelve equal-weight points.
+
+The single CPU invocation, `C:/anaconda/python.exe -I -B experiments/calibrate_activation_sources.py`, completed in 19.718451 seconds with all 32 activations and 24,576 rows. It used Python 3.12.7, NumPy 2.0.0, SciPy 1.16.0 and Torch 2.10.0.dev20251210+cu128 with one CPU thread. CUDA was available but unused. No trajectories, training, source events or production GPU jobs were rerun. The active neighborhood profile is unchanged; this runner is a standalone saved-data analysis and does not route through run_lab.py.
+
+The maximum difference between reconstructed conditional means and both archived initial candidate means was 3.3306690738754696e-16. Adaptive quadrature reported errors below 1e-10 on every row; the analytic omitted-tail bound is about 2.70e-17. The adaptive estimates are not certified error enclosures. All reference probabilities lay between 0.06265 and 0.94910, avoiding the extreme-probability cancellation regime in this dataset.
+
+## Measured errors
+
+Absolute probability errors below are on the zero-to-one scale. Bernoulli KL is oriented from the integrated Gaussian reference to the cubature row and measured in nats.
+
+| Diagnostic | N=512 | N=1024 |
+| --- | ---: | ---: |
+| Unprefixed rows | 8,192 | 16,384 |
+| Mean absolute error | 0.01567402 | 0.01585559 |
+| Median absolute error | 0.00710281 | 0.00712573 |
+| 95th percentile absolute error | 0.05533366 | 0.05608991 |
+| Maximum absolute error | 0.12651286 | 0.17316566 |
+| Mean row Bernoulli KL | 0.00167340 | 0.00185331 |
+| Maximum row Bernoulli KL | 0.05903959 | 0.10139565 |
+| Receiver-zero mean absolute error, 16 draws | 0.00301274 | 0.00196645 |
+| Receiver-zero maximum absolute error | 0.00438779 | 0.00267973 |
+| Receiver-zero mean Bernoulli KL | 0.0000187551 | 0.0000081791 |
+
+The all-receiver values measure the unprefixed local integration primitive. After receiver zero, the sequential joint predictor instead conditions its Gaussian on the selected prefix. These standalone rows therefore are not its later marginal probabilities. Receiver zero is separately reported because its pre-prefix row is an actual first marginal. Nodes share retained blocks and a single frozen model realization per size; no nodewise standard error, hypothesis test or thermodynamic extrapolation is reported.
+
+The target is a full-proposal row marginal. Visible assignment-change intensity subtracts the full self-assignment probability and, if conditioned on a visible event, renormalizes by the total visible intensity. Nothing here computes that joint correction, the complete candidate joint KL, the actual-history conditional covariance, survival filtering, or retained path KL C_T. Summing the listed row KL values does not repair those missing quantities.
+
+## Validation and evidence
+
+The focused [JUnit record](activation-source-calibration-evidence/focused.xml) records five tests, zero failures/errors/skips, in 1.530 seconds. Direct one-dimensional normal quadrature and two-dimensional Gaussian quadrature ground the independent integral; tests check complementary labels and orthogonal Gaussian-coordinate changes. A tiny eight-node case compares the block conditional with the existing dense observation helper, checks the quadratic logit against source_log_posterior, and matches the twelve-point probability against gaussian_source_step for either selected label. Tiny networks validate the numerical implementation only.
+
+An independent scalar read of the saved CSV checked all 24,576 probability-error and KL calculations, row identities and aggregate mean errors/KLs for both receiver scopes. The saved [summary](activation-source-calibration-evidence/summary.json) contains all 32 activation summaries; [rows.csv](activation-source-calibration-evidence/rows.csv) contains every row. The [metadata](activation-source-calibration-evidence/metadata.json), [terminal output](activation-source-calibration-evidence/terminal.txt), executed source snapshot and execution record retain the calculation's exact scope. No full suite or historical heavy node ran.
+
+## Consequence for the next phase
+
+The result justifies improving the integration primitive before treating the current source approximation as quantitatively accurate. The next bounded implementation should compute binary row probabilities and the matching tilted first and second Gaussian moments from one consistent reference, preserve block constraints, and compare that update against the current cubature. Replacing only the row probability would leave the existing Gaussian tilt tied to a different discrete measure. Such a replacement requires its own tiny moment checks and an explicit comparison on actual sequential histories.
+
+This calibration does not change production filtering, establish the size of the survival-filter error, or close practical O1. Full O4, the regular-filter complexity requirements and the remaining history/composition studies keep their recorded status. The exhausted three-round degenerate-valley investigation is not reopened.
+
+The contract cites the primary inversion treatment and acknowledges Kassis et al. (2026), [Scientific Agent Skills](https://doi.org/10.48550/arXiv.2609.00065), for the experimental-design procedure.
