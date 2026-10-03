@@ -12,6 +12,11 @@ updated: 2026-10-03
 
 # Mathematics MOC
 
+## October 3 filters with changing projection ranks
+
+[[multiagentelbo-2026-10-03-moving-projection-filters]] extends the three-coordinate smooth parent construction to assignment-dependent retentions of changing rank and arbitrary supplied activation laws. Exact affine event supports and positive predictable hidden densities feed a stopped-likelihood path-TV bound. For each prescribed qualifying complete-history horizon, the same horizon-dependent parent family also controls fixed-length windows placed up to switching time. Both O1 error regimes are covered at this unrestricted-complexity existence scope; a single design for all horizons, practical Gaussian-parent accuracy and effective resource bounds are not established. O4 is unchanged. No model or GPU run occurred.
+
+
 ## October 3 fixed-projection filters with unrestricted smooth complexity
 
 [[multiagentelbo-2026-10-03-fixed-projection-filters]] gives a written construction of arbitrarily small retained path KL on each requested finite horizon for the stated finite affine switching class with a fixed projection, positive quadratic-softmax source marks, nondegenerate noise and finite-fourth-moment initialization. A clock and two smooth scalar registers realize finite predictable density libraries; the decoder determines both drift and source probabilities. Coefficient complexity may grow without restriction. The older P09 lower-bound route has additional uniform-regularity assumptions. Moving projections, a single design for every horizon, useful complexity bounds, uniform large-N control and O4 remain open. No model or GPU run occurred.

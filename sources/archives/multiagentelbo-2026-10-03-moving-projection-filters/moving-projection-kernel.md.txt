@@ -1,0 +1,303 @@
+# Moving-projection event kernels and hidden-density admission
+
+October 3, 2026. This record constructs the exact conditional event kernel for an assignment-dependent linear retention, including rank changes and singular affine event supports. It proves that the native predictable hidden law has a strictly positive Lebesgue density at almost every path-time under the stated elliptic switching model. An exact posterior at a rank-changing jump can still be singular. These statements supply geometric and density inputs for an approximation theorem; they do not by themselves establish small path-law error.
+
+The inspected baselines are code revision e1ac92b1bd35eb5cb510fee809a55bef20530348 and Research revision 91f25196fffbb64477698a411e46973cc0ab67c0. Source continuity is with docs/DIRECTION.md; docs/STATUS.md; Research/manuscripts/MultiAgentELBO_Theory/c11_network_coarsegraining.tex, lines 1288-1346, def:rg-regular-finite-filter and open:rg-pointwise-parent-dynamics; c13_formation.tex, lines 1202-1355, especially part (b) of prop:rg-formation-endogenous-cycle; Research/manuscripts/pifb2/09_section.tex at sec:meta_agent_definition and sec:meta_agent_state_construction; and the latest entry of Research/wiki/themes/Staged hierarchy formation and RG composability.md. The construction extends the geometry left open by [fixed-projection-filter-approximation.md](fixed-projection-filter-approximation.md). The [smooth finite-history realization](smooth-finite-history-realization.md) covers continuous retained coordinates; its extension to assignment-dependent jumps is a separate step.
+
+## Target, assumptions and conventions
+
+The supplied program keeps the base point fixed at c_*. For this bounded result, fix a finite assignment set A, a finite configuration dimension d, constant Q positive definite, affine native drifts v_j(x)=F_j x+f_j, and continuous strictly positive full-assignment probabilities b_k(x), summing to one. The current quadratic-softmax probabilities satisfy these assumptions. At a rate-one proposal clock the assignment is redrawn with probabilities b_k(X); the configuration is continuous through every proposal. Only assignment changes are visible. The supplied initial joint law of (X,J) is retained and has finite fourth moment in X. All matrices and channels are frozen on the trajectory. There is no uniform bound here as epsilon, d or the requested horizon varies.
+
+For each j choose a full-row-rank coordinate matrix P_j in R^{m_j by d}, allowing m_j=0 and m_j=d. An orthogonal projection into a retained subspace can be expressed in orthonormal coordinates of its image in this form. Set n_j=d-m_j and choose
+
+$$
+B_j=P_j^T(P_jP_j^T)^{-1}, Z_j^TZ_j=I_{n_j}, \operatorname{im} Z_j=\ker P_j.
+\tag{1}
+$$
+
+Here and below a displayed empty matrix has its usual unique linear-map meaning. Thus B_j has no columns when m_j=0, and Z_j has no columns when n_j=0. The retained coordinate is R=P_JX. Within stratum j,
+
+$$
+x=B_jr+Z_jz, r=P_jx, z=Z_j^Tx.
+\tag{2}
+$$
+
+The Euclidean orthogonal choice in (1) is a coordinate convention, not a claim of a GL-invariant Euclidean metric.
+
+| Object | Type and role |
+| --- | --- |
+| Base | The single point c_*; no base path or base connection is used. |
+| Fine configuration fiber | E=R^d in the declared frozen affine chart. |
+| Retained stratum | E_j^r=R^{m_j}; total observed state is the disjoint union of {j} times E_j^r. |
+| Hidden fiber over (j,r) | The affine space B_jr+ker P_j, coordinatized by z in R^{n_j}. |
+| Section | A state x, or a time-dependent stochastic state X_t, in this fixed-point configuration fiber. |
+| Frame actions | Left actions by invertible linear coordinate changes; their passive transformation law is given below. This is not an assertion that every GL(d) change is a physical gauge symmetry. |
+| Noise and metric | Q is the covariance tensor; Q inverse is its positive quadratic metric. Euclidean inner products are auxiliary choices for orthonormal coordinates and Hausdorff measures. |
+| Connection and transport | None is introduced. P_j and B_j are retention and lift maps. The transition to another assignment is a conditional probability kernel, not parallel transport. |
+| Group action on laws | Pushforward by the same invertible coordinate map used on states. Physical energy, noise and source channels must transform as well for passive covariance. |
+
+The target is exact equality of the conditional event kernel for every bounded measurable test function, and existence of a predictable conditional density for almost every native path-time on each finite horizon. The target does not require the exact hidden posterior to have a density at time zero or at the jump instant.
+
+## 1. Exact event kernel and its affine support
+
+Let H_{t-} be the retained history immediately before t, and write j=J_{t-}, r=R_{t-}. Let nu_{t,j} be the conditional law of z_j=Z_j^TX_t given that history. Before proving its density, it can be treated as an arbitrary probability measure. The full proposal kernel is
+
+$$
+K_{t,j}(k,D)
+=
+\int b_k(B_jr+Z_jz)
+1_D\left(P_k(B_jr+Z_jz)\right)\nu_{t,j}(dz),
+ k\in A.
+\tag{3}
+$$
+
+Its total mass, summed over k, is one. The compensator of visible retained jumps uses only k different from j. Self-proposals give k=j and retained value r, so their removal introduces no missing coordinate jump.
+
+To check (3), condition the rate-one marked proposal on the full current state: the conditional mark probability is b_k(X_t), and continuity of X makes the new observed coordinate P_kX_t. Conditional expectation against H_{t-}, followed by (2), gives (3). In particular, for bounded measurable phi,
+
+$$
+E\sum_{\tau\le H:\Delta J_\tau\ne0}
+\phi(\tau,J_{\tau-},R_{\tau-},J_\tau,R_\tau)
+=
+E\int_0^H
+\sum_{k\ne J_{t-}}\int
+\phi(t,J_{t-},R_{t-},k,r')K_{t,J_{t-}}(k,dr')dt.
+\tag{4}
+$$
+
+The integrability assertion in (4) uses bounded phi and visible intensity at most one. Predictable nonnegative test functions follow by monotone approximation.
+
+Put
+
+$$
+A_{kj}=P_kZ_j, a_{kj}(r)=P_kB_jr, \rho_{kj}=\operatorname{rank}A_{kj}.
+\tag{5}
+$$
+
+Every k-mark is supported on the affine space
+
+$$
+S_{kj}(r)=a_{kj}(r)+\operatorname{im}A_{kj}.
+\tag{6}
+$$
+
+Equivalently, for every vector h in ker A_{kj}^T,
+
+$$
+h^T(r'-a_{kj}(r))=0.
+\tag{7}
+$$
+
+These are the redundant-direction constraints in the destination coordinates. Replacing the event law by a density on all of R^{m_k} would violate them whenever rho_{kj}<m_k. Once Section 3 proves positivity of nu_{t,j}, positivity of b_k shows that the exact support is all of S_{kj}(r), for almost every native path-time.
+
+There is an explicit density on that support. Take a thin singular-value decomposition
+
+$$
+A_{kj}=UDV^T,
+$$
+
+where U and V have rho_{kj} orthonormal columns and D has strictly positive diagonal. Let N have orthonormal columns spanning ker A_{kj} in R^{n_j}. Write r'=a_{kj}(r)+Uy. If nu_{t,j}(dz)=q_j(z)dz, the event density relative to rho_{kj}-dimensional Euclidean Hausdorff measure on S_{kj}(r) is
+
+$$
+\kappa_{kj}(r,y)=
+\frac{1}{\det D}
+\int_{\mathbb R^{n_j-\rho_{kj}}}
+b_k\left(B_jr+Z_j(VD^{-1}y+Nw)\right)
+q_j(VD^{-1}y+Nw)dw.
+\tag{8}
+$$
+
+Indeed the orthogonal decomposition z=Va+Nw has dz=da dw, while y=Da gives da=(det D)^{-1}dy. Since U is an isometry, dy is precisely the declared Hausdorff measure. This proves the coarea factor directly. Equation (8) is asserted almost everywhere in y; it does not use pointwise evaluations of an L1 equivalence class as globally defined data.
+
+When rho_{kj}=0, the empty determinant is one and the support measure is the point mass at a_{kj}(r); the integral in (8) is the total k-event probability. When rho_{kj}=n_j, the integral over R^0 is evaluation at its unique point. When n_j=0, the old state was completely observed, nu_{t,j} is the unit probability on R^0, and
+
+$$
+K_{t,j}(k,dr')=
+b_k(B_jr)\delta_{P_kB_jr}(dr').
+\tag{9}
+$$
+
+When m_j=0, there is no old retained coordinate, Z_j may be chosen as I_d, rho_{kj}=m_k and the destination support is all of R^{m_k}. When m_k=0, the new retained coordinate is the unique point of R^0, although the assignment change itself is visible.
+
+## 2. Exact posterior at a jump
+
+At a j-to-k event with value r'=a_{kj}(r)+Uy, the remaining free fine coordinates are w in (8). Wherever kappa_{kj}(r,y)>0, their exact conditional density is proportional to
+
+$$
+w\longmapsto
+b_k\left(B_jr+Z_j(VD^{-1}y+Nw)\right)
+q_j(VD^{-1}y+Nw).
+\tag{10}
+$$
+
+The common determinant in (8) cancels when this expression is normalized. In the new hidden coordinate z_k=Z_k^TX, the posterior is supported on
+
+$$
+z_k=
+Z_k^T\left(B_jr+Z_jVD^{-1}y\right)
++Z_k^TZ_jNw.
+\tag{11}
+$$
+
+The columns of Z_jN span ker P_j intersect ker P_k. They lie in im Z_k and are orthonormal, so the map Z_k^TZ_jN is an isometry onto its image. The posterior support dimension is therefore
+
+$$
+n_j-\rho_{kj}
+=
+d-\operatorname{rank}
+\begin{bmatrix}P_j\\P_k\end{bmatrix}
+=
+n_k-\operatorname{rank}(P_jZ_k).
+\tag{12}
+$$
+
+Thus exact conditioning on the newly observed coordinates preserves the previously observed ones. If rank(P_jZ_k)>0, that knowledge puts the new hidden posterior on a proper affine subspace of R^{n_k}. A density with respect to n_k-dimensional Lebesgue measure is then impossible at the jump instant.
+
+This is not repaired by forgetting the old r: it is part of the retained history. Nor do the deterministic matrices P_kB_j form transition functions or a connection. The retained ranks can differ, and composing event kernels without the updated conditional hidden law can resample distinctions that the history has already fixed. The full conditional kernels compose through Bayesian conditioning of the shared fine state, not through a frame cocycle.
+
+## 3. Strictly positive predictable hidden densities between jumps
+
+Fix a finite horizon H. The native affine sheets have a common linear-growth bound. Ito's formula for |X|^4, compact stopping and Gronwall yield sup_{t<=H} E|X_t|^4<infinity. The rate-one clock has finitely many proposals almost surely, and concatenating finitely many nonexplosive affine diffusions proves nonexplosion.
+
+For the density argument compare the full fine law with a reference law having zero configuration drift, the same constant Q and initial joint law, and independent uniform assignment redraws at rate one. On a compact configuration stop, drift likelihood coefficients are bounded. All b_k are strictly positive and continuous, so on that compact their ratios to the uniform reference probabilities and the inverse ratios are bounded. The stopped Brownian exponential and bounded-rate counting likelihoods are true martingales, and the same construction in reverse gives equivalence of the stopped laws. This is the ordinary bounded-coefficient likelihood argument used in the earlier [fixed-projection proof](fixed-projection-filter-approximation.md), applied before observation.
+
+The stopped conclusion extends to the full finite horizon: for either law, the events that the configuration remains in a ball of radius n through H increase to probability one. A null event intersected with any such event is a stopped-law null event, hence null under the other stopped law. Taking the countable union proves mutual absolute continuity of the complete fine path laws. The common initial law may be singular or correlate X_0 with J_0; it is not changed by the likelihood.
+
+Under the reference, condition on the assignment path and let tau be the last visible assignment-change time strictly before t, or zero if there was none. Except at a jump or time zero, a=t-tau>0 and the current assignment is some j. Uniform future assignments are independent of Brownian increments, conditional on the initial assignment. The observation on (tau,t) is P_jX. The observed new coordinate P_jX_tau at tau is included in the retained history, together with the old observations.
+
+For m_j>0 define
+
+$$
+Q_{r,j}=P_jQP_j^T, L_j=Z_j^TQP_j^TQ_{r,j}^{-1},
+$$
+
+and for every hidden dimension define
+
+$$
+Q_{0,j}=Z_j^TQZ_j-Z_j^TQP_j^TQ_{r,j}^{-1}P_jQZ_j.
+\tag{13}
+$$
+
+For m_j=0 the subtracted term is zero and L_j has no columns. If n_j>0, Q_{0,j} is positive definite: the block covariance of (P_j dX,Z_j^T dX) is positive definite because the stacked coordinate matrix is invertible, and completing its quadratic form gives the positive Schur complement (13).
+
+The Gaussian Brownian decomposition on the holding interval is exact:
+
+$$
+Z_j^TX_t
+=
+Z_j^TX_\tau+
+L_j(R_t-R_\tau)+G_a,
+ G_a\sim\mathcal N(0,aQ_{0,j}).
+\tag{14}
+$$
+
+Here G_a is independent of the Brownian retained path on [tau,t], the fine past through tau, and the reference assignment path, after conditioning on that path. One way to check this is to subtract L_jP_j from Z_j^T in the Brownian noise: its covariance with P_j dX is zero by (13), and jointly Gaussian independent increments then give independence from the entire retained Brownian path, not only its endpoint. Conditioning on the independent assignment path fixes the interval endpoints without changing this calculation.
+
+Consequently the reference conditional hidden law at t is a convolution of an arbitrary conditional law of Z_j^TX_tau with a strictly positive nondegenerate Gaussian, translated by the known retained increment. It has a strictly positive density on R^{n_j}. This remains true when the law at tau was singular as in (11). At n_j=0 the hidden space has one point and its density is identically one.
+
+Mutual absolute continuity of the full fine laws transfers this positivity. More explicitly, after adjoining an independent uniform time in (0,H), disintegrate the equivalent joint laws over the retained predictable history and current hidden coordinate. If L is the strictly positive finite likelihood, the native conditional density is the reference density multiplied by
+
+$$
+\frac{E_{\mathrm{ref}}[L\mid \mathcal H_{t-},z]}
+     {E_{\mathrm{ref}}[L\mid \mathcal H_{t-}]}.
+\tag{15}
+$$
+
+Both numerator and denominator are positive and finite almost everywhere on the relevant conditional laws. Since the reference density is positive Lebesgue almost everywhere, the native density is also positive Lebesgue almost everywhere. Canonical path-space disintegration gives a jointly measurable predictable version modulo native path-times-Lebesgue null sets. In a finite union of Euclidean strata the raw retained path sigma-fields are countably generated; their usual augmentation changes only the null-set version of this statement.
+
+The random jump set is finite on a finite interval and has zero path-times-Lebesgue measure. The argument therefore proves precisely the density needed in predictable time-integrated characteristic costs. It does not silently turn (11) into a Lebesgue density at the jump itself.
+
+## 4. One common hidden measure and weighted moment space
+
+Declare the hidden-coordinate space and measure
+
+$$
+E^{\mathrm{hid}}=
+\bigsqcup_{j\in A}\bigl(\{j\}\times\mathbb R^{n_j}\bigr),
+ \mu=\sum_{j\in A}\lambda^{n_j},
+\tag{16}
+$$
+
+where lambda^0 is unit mass at the unique point of R^0. This is one sigma-finite measure on the finite disjoint union. On stratum j the conditional density is supported on that component. No dimension-changing Lebesgue measure is substituted inside a single Euclidean space.
+
+Let B_j=L1((1+|z|^2)dz), with the corresponding weighted counting convention at dimension zero. Since Z_j has orthonormal columns, |Z_j^TX|<=|X|. Conditional Jensen gives
+
+$$
+E\int_0^H
+\left[
+\int(1+|z|^2)\nu_{t,J_{t-}}(z)dz
+\right]^2dt
+\le
+E\int_0^H(1+|X_t|^2)^2dt<\infty.
+\tag{17}
+$$
+
+This establishes a weighted L2 density target on the active stratum. If a finite predictable library is built in the product space of all B_j, extend the target to inactive components by fixed normalized Gaussian densities, or the unit density in dimension zero. Then every table entry can be a tuple of normalized densities, and finiteness of A preserves the same L2 bound up to a fixed additive constant. Using zero inactive components as if they were candidate probability densities would be incorrect.
+
+For a candidate decoder q_{j,theta}, the map from (j,theta) into L1(mu) is C1 whenever each theta-to-q_{j,theta} map is C1 in its own component. The assignment strata are disconnected, as allowed by def:rg-regular-finite-filter. No differentiability condition across two different discrete labels is required.
+
+## 5. Admission, kernel contraction and covariance
+
+Replacing nu_{t,j} in (3) by a strictly positive candidate density q_{j,theta} preserves the affine support exactly. For two candidate densities at the same retained history, define the variation norm of a finite signed measure as its total absolute mass. The joint latent proposal measure has density q_j(z)b_k(B_jr+Z_jz) relative to counting measure in k times dz. Because sum_k b_k=1,
+
+$$
+\sum_k
+\left\|
+K_j^{q}(k,\cdot)-K_j^{\widetilde q}(k,\cdot)
+\right\|_{\mathrm{var}}
+\le
+\int|q_j(z)-\widetilde q_j(z)|dz.
+\tag{18}
+$$
+
+Indeed its latent variation norm is exactly the right-hand side, and measurable pushforward cannot increase that norm. Omitting self-proposals keeps the inequality. Thus density approximation controls event-kernel error without assuming a full-dimensional event density or a lower bound on its Hausdorff density.
+
+The same decoder gives the retained drift
+
+$$
+a_j^q(r)=
+P_jF_jB_jr+
+P_jF_jZ_j\int zq_{j,\theta}(z)dz+
+P_jf_j,
+\tag{19}
+$$
+
+and retained diffusion covariance Q_{r,j}. Weighted density error controls the difference in hidden means in (19). When m_j=0 there is no retained diffusion coordinate or drift cost.
+
+At a proposed jump use native latent input (k,z), then set
+
+$$
+r^+=P_k(B_jr+Z_jz), j^+=k, \theta^+=\theta.
+\tag{20}
+$$
+
+For every ordered pair of discrete strata, (20) is affine in continuous inputs and the filter jump map is the identity. Randomness used to generate the retained process through its prescribed event kernel does not introduce private randomness into theta: theta remains a deterministic functional of the retained path. Between jumps the filter realization and decoder are supplied by the separate smooth-capture construction.
+
+For finite Gaussian-mixture libraries with smooth convex weights, the latent mark density is locally L1-continuous, and locally Lipschitz under the corresponding finite derivative bounds, in r and theta. Quadratic-softmax derivatives have polynomial growth and the library has all moments, which permits differentiation under the integral on compact r sets. The retained jump kernel is weakly continuous through the continuous map (20). It need not be continuous in total variation as r changes: the support in (6) may move to a disjoint parallel affine space. Inequality (18) compares two densities at the same r and does not make that stronger claim.
+
+The distinction between an approximate decoder and an exact posterior matters. Identity filter jumps and a regular density decoder need not implement the singular exact posterior (11). A construction claiming exact conditional-law equality at every jump would need a different admission argument. The current approximation program only uses the density to produce predictive characteristics; small path error must be proved from those characteristics.
+
+For passive coordinate covariance, let x'=Hx with H invertible, r_j'=G_jr_j and z_j'=C_jz_j with G_j and C_j invertible on the retained and hidden coordinate spaces. Transform all data consistently:
+
+$$
+P_j'=G_jP_jH^{-1}, B_j'=HB_jG_j^{-1}, Z_j'=HZ_jC_j^{-1},
+$$
+
+$$
+Q'=HQH^T, F_j'=HF_jH^{-1}, f_j'=Hf_j, b_k'(x')=b_k(H^{-1}x'),
+\tag{21}
+$$
+
+and q_j'(z')=q_j(C_j^{-1}z')/abs(det C_j). The transformed lifts need not remain Euclidean orthonormal; the hidden extraction becomes C_jZ_j^TH^{-1}. Substitution into (3) proves that the new kernel is the old kernel pushed forward by G_k, with the old retained input pushed forward by G_j. Its probabilities and exact affine constraints are therefore coordinate covariant. The continuous retained covariance transforms by G_jQ_{r,j}G_j^T, and the residual hidden covariance by C_jQ_{0,j}C_j^T.
+
+If Hausdorff densities are used, the Jacobian of the destination frame G_k restricted to im U is sqrt(det(U^TG_k^TG_kU)); the event density transforms with the reciprocal of that Jacobian. A passive GL change does not preserve a fixed Euclidean Hausdorff density numerically. An active transformation holding Q, energy and source channels fixed is a symmetry only if it preserves those data. No GL-invariant Euclidean noise model is asserted.
+
+## 6. Minimal validation case and remaining obligation
+
+A two-coordinate example checks the rank bookkeeping, rather than setting the research direction. Take P_1=(1,0), P_2=I_2 and Q=I_2. At a 1-to-2 event with old retained value r, the destination is (r,z). Its kernel lies on a vertical line in R^2, so a two-dimensional Lebesgue density would be false. At the reverse event the exact new hidden coordinate equals the previously observed second coordinate, giving a Dirac posterior. Positive holding age supplies independent hidden Gaussian noise and restores a positive density under the reference argument.
+
+More generally, no single sigma-finite measure can dominate every Dirac mass at all points of R: a sigma-finite measure has at most countably many atoms of positive mass. Thus requiring exact decoding of all such jump-time posteriors would be a substantive extra condition, not a consequence of the predictable-density result. This observation is about admission at the jump instant, not a lower bound on approximate parent path-law accuracy.
+
+The supported result is the exact event kernel (3), its support and coarea formula (6)-(8), the jump posterior dimension (12), and positive predictable hidden densities with weighted control (15)-(17), for every fixed finite frozen model and horizon under the stated assumptions. Rank-zero and full-rank strata are included. The [combined moving-projection construction](moving-projection-filter-approximation.md) supplies the smooth finite-dimensional density predictor for the discontinuous retained path, and the [marked path-TV comparison](marked-path-tv-bound.md) supplies the conversion from drift and kernel errors to retained path total variation. Those are additional arguments: the geometric and density lemmas proved here alone do not imply small path error. No KL extension, efficient complexity estimate, uniform large-N result or endogenous formation result follows from this record.
+
+No model run, numerical experiment, GPU calculation, Lean work, Research vault edit or theory-manuscript edit was performed.

@@ -1,0 +1,227 @@
+# Finite-horizon filter approximation with assignment-dependent projections
+
+October 3, 2026. This construction extends the fixed-projection approximation to a finite family of assignment-dependent linear retentions, including changes of rank. Each requested finite horizon and total-variation tolerance admits a parent with a deterministic three-coordinate smooth filter. Its density decoder supplies both the drift and the complete supported jump kernel. The coefficient functions and finite library may depend without bound on the horizon, accuracy and model. This is a finite-horizon existence result, not an efficient implementation or a hierarchy-formation result.
+
+## Sources, target and conventions
+
+The code baseline is e1ac92b1bd35eb5cb510fee809a55bef20530348 and the Research baseline is 91f25196fffbb64477698a411e46973cc0ab67c0. Sources read are [DIRECTION](../../DIRECTION.md), [STATUS](../../STATUS.md), the existing [obligations](obligations.md), Research/wiki/themes/Staged hierarchy formation and RG composability.md, and Research/manuscripts/pifb2/09_section.tex at sec:meta_agent_definition and sec:meta_agent_state_construction. The exact live target is Research/manuscripts/MultiAgentELBO_Theory/c11_network_coarsegraining.tex, def:rg-regular-finite-filter and open:rg-pointwise-parent-dynamics, lines 1288-1346. The assignment-dependent channel in c13_formation.tex, prop:rg-formation-endogenous-cycle part (b), keeps nine coordinates on matching assignments and all twelve otherwise. That example fixes the need to handle changing rank; no direction of the general theory is inferred from its small network.
+
+The preceding [fixed-projection proof](fixed-projection-filter-approximation.md) and [smooth sampled-history realization](smooth-finite-history-realization.md) already supply the density-library and clock/register mechanism. The new ingredients are the [supported jump kernel](moving-projection-kernel.md), the [marked path-TV estimate](marked-path-tv-bound.md), and the extensions of density approximation and capture below. Everything remains at c_* with frozen fine coefficients. No base transport is introduced.
+
+For primary methodological context, Genon-Catalot, Laredo and Nussbaum, [Asymptotic equivalence of estimating a Poisson intensity and a positive diffusion drift](https://pi.math.cornell.edu/~nussbaum/papers/02-1.pdf), Annals of Statistics 30 (2002), 731-753, Lemma 3 and equation (4.1) on page 743, use an expected Hellinger-process bound for equal-covariance diffusions. That diffusion result is not assumed to cover the present marked jumps. The companion record derives the needed stopped-likelihood estimate, including variable-dimensional strata and jump overshoot. This was a targeted primary-source lookup, not a systematic literature review.
+
+Fix a finite configuration dimension d, a finite assignment set A, constant Q>0, affine sheet drifts v_j(x)=F_j x+f_j, and positive smooth quadratic-softmax full-mark probabilities b_k(x) summing to one. The fine dynamics are
+
+$$
+dX_t=v_{J_{t-}}(X_t)dt+Q^{1/2}dW_t,
+\tag{1}
+$$
+
+with rate-one whole-assignment proposals and conditional mark law b(X_t). Self proposals do not change the observed assignment. For each j, choose a full-row-rank matrix P_j with m_j rows, 0<=m_j<=d, and retain Y_t=(J_t,R_t), R_t=P_{J_t}X_t. A rank-zero stratum consists of a single empty retained coordinate. A full-rank stratum has no hidden coordinate. Orthogonal projectors are represented in orthonormal coordinates on their ranges, so this setup includes the live orthogonal channels without redundant coordinates.
+
+Set B_j=P_j^T(P_jP_j^T)^{-1}, choose orthonormal columns Z_j spanning ker(P_j), and write X=B_jr+Z_jz. In rank zero, B_jr=0; with no hidden coordinates Z_jz=0. The retained state is the finite disjoint union of the assignment strata. Throughout, TV(P,S)=sup_E|P(E)-S(E)|, while ||K-K'||_var is the full variation norm of finite kernels, without the factor one half.
+
+For every supplied initial probability law mu of (X,J), finite H>0 and eta>0, there exists an autonomous nonexplosive parent with the actual retained initial law mu_Y, continuous filter initialization on each assignment stratum, identity filter jump maps, locally Lipschitz between-jump coefficients and a C1 density decoder, such that
+
+$$
+\operatorname{TV}(P_Y^{[0,H]},S_Y^{[0,H]})<\eta.
+\tag{2}
+$$
+
+The filter state is a clock and two scalar registers. Its dimension is three for every H and eta. We first prove (2) when mu has a finite fourth moment and then remove that moment assumption by an initial-law truncation argument. No finite path-KL conclusion is claimed for the moving-projection result.
+
+## 1. Native characteristics and supported candidate jumps
+
+Let H_t be the natural retained filtration, and use predictable pre-jump versions. On the active stratum j, let nu_t,j be the native conditional density of z_t=Z_j^T X_t. The kernel record proves that this density is strictly positive for Pdt-almost every active history, including after rank-changing jumps. At an actual jump the exact posterior can be singular; this product-null set is not used in a time-integrated characteristic bound.
+
+Between visible jumps, define
+
+$$
+Q_j=P_jQP_j^T,
+A_j=P_jF_jB_j,
+C_j=P_jF_jZ_j,
+d_j=P_jf_j.
+\tag{3}
+$$
+
+The continuous drift in retained filtration is a_t^*=A_jR_{t-}+C_j integral z nu_t,j(z)dz+d_j. In the zero-retained-dimensional stratum its diffusion and drift terms are absent. The visible jump kernel is
+
+$$
+K_t(k,dr')=
+\int b_k(B_jR_{t-}+Z_jz)
+\delta_{P_k(B_jR_{t-}+Z_jz)}(dr')\nu_{t,j}(z)dz,
+k\ne j.
+\tag{4}
+$$
+
+Every destination is on the exact affine support P_kB_jr+im(P_kZ_j). Its dimension can be zero or strictly below m_k. Replace nu_t,j by a strictly positive decoded density q_theta,j to obtain the candidate drift u_t and candidate kernel Khat_t. The candidate never widens or shifts this support at the same history. Both visible total rates are at most one.
+
+At a rate-one proposal the candidate can sample z from its current decoded density, then k from b(B_jr+Z_jz). If k differs from j, it sets r'=P_k(B_jr+Z_jz); otherwise it makes no observable update. These variables implement the jump kernel and are discarded. They add no persistent hidden random state to the filter, which remains a deterministic functional of the resulting retained path. Its update at every observed jump is the identity. In the declared latent jump inputs (r,k,z), the retained update is affine and continuous. The pushed-forward kernel need not be TV-continuous as r varies, since its affine support may move.
+
+For any two density decoders at the same history,
+
+$$
+\sum_{k\ne j}\|K(q)(k,\cdot)-K(q')(k,\cdot)\|_{\rm var}
+\le \int\sum_{k\ne j}b_k(B_jr+Z_jz)|q(z)-q'(z)|dz
+\le\|q-q'\|_{L^1}.
+\tag{5}
+$$
+
+This is contraction through the actual common marked channel. It includes singular destination supports and requires no ambient destination density.
+
+## 2. Finite libraries across changing hidden spaces
+
+For n_j=d-m_j let Bcal_j=L1((1+|z|^2)dz) on R^{n_j}, with the one-point convention when n_j=0. Use the finite product Banach space Bcal=product_j Bcal_j with norm equal to the sum of component norms. Choose a Gaussian reference q0,j in each positive-dimensional hidden space and the unit density in dimension zero. Extend the native target to a normalized tuple by
+
+$$
+f_{t,j}=1_{\{J_{t-}=j\}}\nu_{t,j}
++1_{\{J_{t-}\ne j\}}q_{0,j}.
+\tag{6}
+$$
+
+Thus every component is a probability density, even on inactive strata. Finite native fourth moments and conditional Jensen give
+
+$$
+E_P\int_0^H\|f_t\|_{\mathcal B}^2dt<\infty.
+\tag{7}
+$$
+
+Indeed |Z_j^T X|<=|X| for active j, finitely many inactive reference norms are fixed, and the finite affine sheets give a common linear-growth bound and finite fourth moments on [0,H].
+
+Embed the observed stratum in a common Euclidean space by E_jr=P_j^T r. This is injective on each full-row-rank stratum and has a continuous inverse there; the label j is also retained. Use nested finite quantizers of this embedded coordinate and exact labels at increasing dyadic grids, with the current time-bin index. As in the fixed-projection proof, their finite sigma-fields G_n increase and generate the retained predictable sigma-field modulo Pdt. The observation now has finitely many jumps; its left history is still recovered by rational samples, using its left limits. The countably many deterministic samples almost surely avoid actual jump times because the jump compensator is absolutely continuous in time.
+
+Take componentwise Bochner conditional expectations E[f|G_n]. Every component of every positive-probability cell remains a normalized density. Approximate the finite tuple library by positive finite Gaussian mixtures in the weighted norm, with the dimension-zero entries left exactly one. The same separable-space simple-function argument as in the fixed-projection proof gives finite policies g_n satisfying
+
+$$
+\|g_n-f\|_{L^2(Pdt;\mathcal B)}\longrightarrow0.
+\tag{8}
+$$
+
+All Gaussian mixtures are strictly positive. One may retain a common Gaussian mixture weight for each fixed design, but it is unnecessary to assume an entropy bound for continuous jump marks. The path comparison below only uses weighted-density approximation and positivity.
+
+## 3. Smooth capture with projection jumps
+
+Use the clock and alternating-register construction from smooth-finite-history-realization.md with observation (E_J R,J) and prototypes in Bcal. Its initial map is smooth on each assignment stratum, and the codebook includes every quantized prefix, including overflow symbols. Safe cores and their smooth bump functions are chosen relative to the native sampled distributions, with thresholds avoiding atoms. The construction has smooth ODE coefficients separately on each stratum and identity jump maps.
+
+The old proof used a uniform continuity modulus of the retained path, which is not available across projection jumps. Replace that step as follows. Let C_P=max_j||P_j^T P_j|| and let omega_X(h) be the uniform modulus of continuity of the fine path X on [0,H]. Whenever a gate contains no assignment change, J is constant there, and
+
+$$
+|E_{J_t}R_t-E_{J_s}R_s|
+\le C_P\omega_X(h)
+(s,t\hbox{ in the same gate of length at most }h).
+\tag{9}
+$$
+
+The fine path is continuous, so omega_X(h) tends to zero almost surely. Choose the safe-core margin first, then short disjoint gates. The probability of any assignment change in the gates is at most their total length, because the visible intensity is at most one. These two facts replace the continuous-retained-path step and preserve the original good-event induction for the captured prefixes. Fine X is used only to prove this probability bound; it is never an input to the filter.
+
+If every prototype tuple and fallback has norm at most M, the resulting smooth tuple decoder obeys
+
+$$
+E_P\int_0^H\|\widehat f_t-g_n(t)\|_{\mathcal B}^2dt
+\le (2M)^2(Hp_{\rm bad}+L_{\rm gates}).
+\tag{10}
+$$
+
+Choose gate tolerances after fixing the finite library, so M is fixed at this step. Both terms on the right can be made arbitrarily small. Selecting the current-stratum component of the tuple then gives actual decoded densities q_theta,j with
+
+$$
+E_P\int_0^H
+\|q_{\theta_t,J_{t-}}-\nu_{t,J_{t-}}\|_{\mathcal B_{J_{t-}}}^2dt
+\longrightarrow0.
+\tag{11}
+$$
+
+A common hidden reference measure is the sum of Lebesgue measures on the finite disjoint union of hidden coordinate spaces, with unit mass in dimension zero. On each assignment stratum the decoder is a finite smooth convex combination of fixed densities, hence C-infinity into weighted L1 and C1 into ordinary L1. Exact singular jump-time posterior recovery is not asserted or required of this approximate decoder.
+
+## 4. Parent admission and the path-distance estimate
+
+The candidate continuous drift is affine in retained r plus a bounded mean from its finite density library. Its filter coefficients are smooth and its two registers stay in [-1,1]; the elapsed-time coordinate increases at unit speed. Integrated source rates are smooth locally because the quadratic-softmax derivatives have polynomial growth and every prototype Gaussian mixture has all moments. The latent jump representation gives a normalized measurable probability kernel and a continuous affine retained update.
+
+Construct the parent between independent rate-one proposals by the locally Lipschitz diffusion/ODE, then draw the prescribed latent mark and perform the affine update. Finitely many proposals occur on every finite interval, all Gaussian-mixture marks are finite, and each between-proposal drift has linear growth. This constructs a nonexplosive law with uniqueness. Conditional on its observed path, the filter is the unique solution of its driven ODE. Thus no unobserved random tape is retained by the filter.
+
+Write
+
+$$
+A_H=E_P\int_0^H
+\|u_t-a_t^*\|_{Q_{J_{t-}}^{-1}}^2dt,
+
+V_H=E_P\int_0^H\|\widehat K_t-K_t\|_{\rm var}dt.
+\tag{12}
+$$
+
+Terms with m_j=0 vanish. With a finite constant C depending on the fixed model, (5) and (11) imply
+
+$$
+A_H\le C E_P\int_0^H
+\|q_{\theta_t,J_{t-}}-\nu_{t,J_{t-}}\|_{\mathcal B_{J_{t-}}}^2dt,
+
+V_H\le\sqrt H\|q-\nu\|_{L^2(Pdt;\mathcal B_J)}.
+\tag{13}
+$$
+
+The kernel record establishes mutual absolute continuity of the native and candidate visible kernels at Pdt-almost every history: both have strictly positive densities on the same affine support, including the one-point convention. The marked path-TV proof therefore applies. If
+
+$$
+e_H=E_P\int_0^H
+\left[\frac18\|u_t-a_t^*\|_{Q_{J_{t-}}^{-1}}^2
++\frac12\int(\sqrt{d\widehat K_t/dK_t}-1)^2dK_t\right]dt,
+\tag{14}
+$$
+
+then
+
+$$
+e_H\le A_H/8+V_H/2,
+
+\operatorname{TV}(P_Y^{[0,H]},S_Y^{[0,H]})
+\le\min\{1,2\sqrt{e_H}+16e_H\}.
+\tag{15}
+$$
+
+The scalar inequality (sqrt a-sqrt b)^2<=|a-b| gives the first bound. For the second, the companion proof stops the candidate/native likelihood at its first exit from [1/4,4], controls the square-root likelihood by Ito's formula, includes jump overshoot, and pastes the unique candidate continuation after that stopping time. It does not assume global likelihood equivalence or finite path entropy. Every error in (12)-(15) is evaluated under the actual native law. Equations (11)-(15) prove (2) with a finite-fourth-moment initial law.
+
+## 5. Arbitrary supplied activation laws
+
+The moment condition can be removed for this TV conclusion. For any initial joint probability mu let mu_M be mu conditioned on |X_0|<=M, for M large enough that this event has positive mass, and put p_M=mu(|X_0|>M). Then TV(mu,mu_M)=p_M and mu_M has a finite fourth moment. The fine path kernel is the same for both initial laws, so data processing gives
+
+$$
+\operatorname{TV}(P_Y^\mu,P_Y^{\mu_M})\le p_M.
+\tag{16}
+$$
+
+Construct a smooth candidate S_M for mu_M with error below eta/3 on [0,H]. Keep its same coefficient functions, finite library and continuous initialization map, but start it from the actual retained initial law mu_Y. Uniqueness gives one common parent path kernel indexed by retained initialization; its two initialized laws differ by at most TV(mu_Y,(mu_M)_Y)<=p_M. The triangle inequality yields
+
+$$
+\operatorname{TV}(P_Y^\mu,S_M^{\mu_Y})<2p_M+\eta/3.
+\tag{17}
+$$
+
+Choose M so that p_M<eta/3. The resulting parent has exactly the requested retained activation and proves (2). The truncated process is a proof intermediate, not a replacement of the supplied native experiment. This argument does not produce a KL bound for arbitrary activation.
+
+## 6. Relation to the two O1 horizon regimes
+
+For any prescribed family of finite horizons H_epsilon and errors eta_epsilon tending to zero, apply the theorem to each frozen model and activation law separately. The filter dimension remains three; its library and coefficients may depend on epsilon and the requested horizon. The complete retained history over H_epsilon is controlled, including every actual assignment and coordinate jump.
+
+For a qualifying O1 history horizon, let M_epsilon(t)=E N_changes(t) and suppose M_epsilon(H_epsilon) tends to infinity. This function is continuous, nondecreasing and one-Lipschitz because the visible rate is at most one. Its first crossing s_epsilon of level one therefore exists for sufficiently small epsilon and satisfies M_epsilon(s_epsilon)=1. Consequently
+
+$$
+H_\epsilon-s_\epsilon
+\ge M_\epsilon(H_\epsilon)-1\longrightarrow\infty.
+\tag{18}
+$$
+
+For every fixed window length L, all windows [t,t+L] with 0<=t<=s_epsilon are therefore contained in [0,H_epsilon] eventually. Path restriction contracts TV, so the same family of parents gives
+
+$$
+\sup_{0\le t\le s_\epsilon}
+\operatorname{TV}(P_Y^{[t,t+L]},S_Y^{[t,t+L]})
+\le\operatorname{TV}(P_Y^{[0,H_\epsilon]},S_Y^{[0,H_\epsilon]})
+<\eta_\epsilon\longrightarrow0.
+\tag{19}
+$$
+
+The windows are marginals of one activated native trajectory and its one activated parent; the parent is not reinitialized at each window. Thus a prescribed qualifying complete-history horizon supplies both requested error regimes simultaneously. This is a positive existence statement for the stated switching class when the parent design may depend on the prescribed horizon family.
+
+The proved quantifiers are: for each model, supplied activation, finite requested horizon and tolerance, a parent exists. They do not provide one fixed coefficient set for all horizons, effective complexity, the true error of the implemented Gaussian-message parent, a thermodynamic limit of the parent coefficients, or learned structural feedback. No uniform compactness assumption is silently added to the live filter class. This distinction matters for interpreting O1 as a horizon-dependent existence problem versus a single effective dynamical closure. The broader study program still requires its practical prediction and formation obligations; O4 is unchanged.
+
+This is a written derivation at fixed c_*. No model test, numerical experiment, GPU calculation, active-profile change or theory-manuscript edit was performed. The existing neighborhood profile and all earlier scientific evidence are unchanged.
