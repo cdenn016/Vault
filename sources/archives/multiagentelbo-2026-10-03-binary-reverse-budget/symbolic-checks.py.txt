@@ -1,0 +1,28 @@
+from pathlib import Path
+import json, sympy as s, time
+start=time.perf_counter()
+root=Path.cwd(); out=root/'artifacts/binary-reverse-budget'; out.mkdir(exist_ok=True)
+F=s.Matrix(3,3,s.symbols('f0:9')); q11,q12,q13,q22,q23,q33=s.symbols('q11 q12 q13 q22 q23 q33',real=True)
+Q=s.Matrix([[q11,q12,q13],[q12,q22,q23],[q13,q23,q33]])
+P=s.Matrix([[1,1,0]]); T=P.T/2; Z=s.Matrix([[1/s.sqrt(2),0],[-1/s.sqrt(2),0],[0,1]])
+a,b,c=s.symbols('a b c',real=True); S=s.Matrix([[a,b],[b,c]])
+Qr=(P*Q*P.T)[0]; C=P*F*Z; D=Z.T*F*Z; Qzr=Z.T*Q*P.T; K=(S*C.T+Qzr)/Qr
+Sigma=Z*S*Z.T; BB=(T+Z*K)*Qr*(T+Z*K).T
+Sdot=D*S+S*D.T+Z.T*Q*Z-K*Qr*K.T
+residual=Z*Sdot*Z.T-(F*Sigma+Sigma*F.T+Q-BB)
+entries=[s.simplify(s.expand(v)) for v in residual]
+assert entries==[0]*9
+# General scalar fourth-moment generator check; covariance compensation is
+# checked independently above in a correlated, nonorthogonal 3D example.
+mu,var,drift,offset,noise,innovation=s.symbols('mu var drift offset noise innovation',real=True)
+H=1+2*(mu**2+var)+mu**4+6*mu**2*var+3*var**2
+mu_drift=drift*mu+offset; var_drift=2*drift*var+noise-innovation
+lhs=s.diff(H,mu)*mu_drift+s.diff(H,var)*var_drift+s.diff(H,mu,2)*innovation/2
+y=s.symbols('y',real=True); f=(1+y*y)**2
+native=s.Poly(s.diff(f,y)*(drift*y+offset)+s.diff(f,y,2)*noise/2,y)
+moments={0:1,1:mu,2:mu**2+var,3:mu**3+3*mu*var,4:mu**4+6*mu**2*var+3*var**2}
+rhs=sum(coeff*moments[power[0]] for power,coeff in native.terms())
+assert s.expand(lhs-rhs)==0
+result={'kind':'exact symbolic grounding, not a proof of the general theorem','matrix_residual_entries':[str(x) for x in entries],'correlated_nonorthogonal_retention':True,'scalar_fourth_moment_generator_residual':str(s.expand(lhs-rhs)),'sympy_version':s.__version__,'elapsed_seconds':time.perf_counter()-start}
+(out/'symbolic-checks.json').write_text(json.dumps(result,indent=2)+'\n')
+print(json.dumps(result,indent=2))

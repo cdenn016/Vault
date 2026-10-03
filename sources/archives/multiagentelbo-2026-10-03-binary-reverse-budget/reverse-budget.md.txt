@@ -1,0 +1,202 @@
+# Exact Gaussian parent: own-law moments and a finite reverse path budget
+
+October 3, 2026. This is the second bounded round of the exact-Gaussian moment investigation, following [binary-moment-bounds.md](binary-moment-bounds.md). The ideal exact-integral parent is admitted to the regular filter class and has finite polynomial moments under its own law. A fine comparison lifting that parent has a finite reverse relative-entropy budget against the native law, giving a sufficient criterion for small retained-path total variation. Native-driven forward-budget integrability and quantitative accuracy remain open. The [companion native-weighted analysis](binary-native-weighted-updates.md) records what the direct route establishes and where it fails.
+
+## Sources, assumptions and the two directions
+
+The target remains the fixed-c_* regular-filter problem in the live Research source `manuscripts/MultiAgentELBO_Theory/c11_network_coarsegraining.tex`, `def:rg-regular-finite-filter` and `open:rg-pointwise-parent-dynamics`, under `SPEC.md` section 0. The conditional Gaussian covariance used here is distinct from mixture dispersion and covariance of an average in `manuscripts/pifb2/09_section.tex`. The predecessors are [continuous parent admission](continuous-gaussian-parent-admission.md), [the continuous error budget](continuous-parent-error-budget.md), [cubature integrability](continuous-budget-integrability.md), and the [binary backend contract](binary-source-moments-CONTRACT.md). Their exact scope and self-proposal convention are retained.
+
+Fix a finite configuration dimension d, finite receiver supports and their product assignment set A, frozen affine drifts v_j(x)=F_j x+f_j, constant Q positive definite, and a fixed full-row-rank retention P. Native source probabilities are b_a(x)=product_i beta_{i,a_i}(x), with fixed positive quadratic-softmax receiver rows. The actual activation is X_0 distributed as N(mu_0,Sigma_0), Sigma_0 positive definite, independent of J_0. Native X follows drift v_J, diffusion covariance Q, and a rate-one proposal clock drawing a from b(X); self-proposals are invisible.
+
+Put T=P^T(PP^T)^{-1} and choose orthonormal columns Z spanning ker P, so X=TR+Zz. The parent carries (R,J,m,S), decodes q=N(m,S) in hidden coordinates, and has the exact Gaussian conditional initialization of the admission record. At each receiver prefix it uses c_i(a)=E_q beta_{i,a} and replaces the selected tilted law by its exact Gaussian moment projection. The product of these sequential probabilities is hat b_a. Let U_a be the full sequential update, including the hypothetical update U_j associated with the current assignment. The actual update is U_a only for a different from j, and identity for a=j.
+
+This is sequential assumed-density filtering; [Minka, UAI 2001, section 2, equations (4)-(6)](https://tminka.github.io/papers/ep/minka-ep-uai.pdf) supplies the method context. Gaussian moment projection is not an exact native posterior. Every theorem here concerns exact Gaussian integrals. Adaptive quadrature, finite cutoffs, cancellation and floating-point covariance admission in the implemented binary backend are not certified by this result.
+
+Write P_native for the native fine path law and S_parent for the candidate retained path law. The earlier forward budget integrates under P_native. The new budget integrates under a fine comparison law P_hat whose retained marginal is S_parent. Interchanging these expectations would be incorrect.
+
+## Exact-integral admission
+
+The previous moment record proves that every exact receiver probability is positive and smooth, and every selected mean and covariance is finite, smooth and positive definite. Finite composition gives the same properties for U_a and hat b_a, and repeated summation normalizes hat b. Replace only the cubature source maps in the admission record by these exact maps.
+
+Between jumps use its correlated Gaussian propagation. With C_j=PF_jZ, D_j=Z^TF_jZ, E_j=Z^TF_jT, A_j=PF_jT, Q_r=PQP^T, Q_z=Z^TQZ and Q_zr=Z^TQP^T, set
+
+$$
+K_j(S)=(SC_j^T+Q_{zr})Q_r^{-1},\qquad
+\bar v_j=A_jR+C_jm+Pf_j,
+$$
+
+$$
+dR=\bar v_jdt+L_r dB,\qquad L_rL_r^T=Q_r,
+$$
+
+$$
+dm=(E_jR+D_jm+Z^Tf_j)dt+K_j(S)(dR-\bar v_jdt),
+$$
+
+$$
+\dot S=D_jS+SD_j^T+Q_z-K_j(S)Q_rK_j(S)^T.
+\tag{1}
+$$
+
+The same Brownian noise drives R and m. Rewrite the last equation using Atilde_j=D_j-Q_zr Q_r^{-1}C_j, V_j=C_j^TQ_r^{-1}C_j and Q_0=Q_z-Q_zr Q_r^{-1}Q_zr^T positive definite. Then Sdot=Atilde_j S+S Atilde_j^T+Q_0-SV_jS, while the inverse H satisfies Hdot=-H Atilde_j-Atilde_j^T H-HQ_0H+V_j. Thus the traces of S and its inverse each obey a linear upper differential inequality on every sheet interval. Neither can diverge on a finite such interval. The joint (R,m) equation is linear with bounded coefficients conditional on that interval's starting state. Finitely many proposals and smooth finite SPD-preserving resets therefore construct a unique nonexplosive parent.
+
+This also constructs the candidate message driven by native observations and the fine lift below. It makes no moment claim under native histories. Between visible jumps K_j(S) has finite variation, and integration by parts expresses its integral against dR through the retained path and an ordinary time integral. Together with exact conditional initialization, known visible resets and identity self-maps, the message is a deterministic retained-history functional. The Gaussian decoder is continuously Frechet differentiable into L1(dz): its derivatives are polynomial times the density, uniformly Gaussian-dominated on compact mean/SPD parameter sets. These facts verify the same regular-filter conditions, with hidden message dimension k+k(k+1)/2 independent of horizon and, at fixed dimension, the regime parameter. Full retention k=0 is the exact native parent and needs no message.
+
+## Candidate-weighted moments and the continuous cancellation
+
+Let q_X be the physical Gaussian on the retained fiber, with
+
+$$
+\mu=TR+Zm,\qquad \Sigma=ZSZ^T,\qquad
+H_p(R,m,S)=E_{q_X}(1+|X|^2)^p.
+$$
+
+For p=1, one receiver's exact tilt r_a followed by its Gaussian projection g_a has the same second moment as r_a. Since sum_a c_a r_a=q, one has sum_a c_a H_1(g_a)=H_1(q). Conditional iteration over the fixed number M of receivers proves
+
+$$
+\sum_a\widehat b_a H_1(U_a)=H_1.
+\tag{2}
+$$
+
+The actual jump rule omits the self update. Its generator consequently obeys the exact identity and bound
+
+$$
+\mathcal L_J H_1
+=\widehat b_j[H_1-H_1(U_j)]\le H_1.
+\tag{3}
+$$
+
+This uses candidate probabilities, not native probabilities. The value H_1(U_j) is the hypothetical full update used to evaluate the self assignment; it is not an executed self reset.
+
+Higher polynomial moments also admit a useful bound. If g is the Gaussian with the first two moments of any law r having a finite 2p-th moment, then
+
+$$
+E_g(1+|X|^2)^p\le K_p E_r(1+|X|^2)^p,
+\tag{4}
+$$
+
+where K_1=1 and K_p=2^{2p-1}(2p-1)!! suffices for integer p at least two. To prove this, diagonalize the Gaussian covariance. Jensen applied to normalized eigenvalue weights gives E|G|^{2p} at most (2p-1)!!(trace Sigma)^p for centered Gaussian G. Apply the inequality for the 2p-th power of a sum to (1,X)=(1,mu)+(0,G), and then use Jensen on E_r(1+|X| squared). The proof also covers singular physical covariance. Receiver-by-receiver conditioning now gives sum_a hat b_a H_p(U_a) at most K_p^M H_p. Replacing the self update by identity adds at most H_p to the averaged post-jump value, so
+
+$$
+\mathcal L_J H_p\le K_p^M H_p.
+\tag{5}
+$$
+
+There is an exact cancellation in the continuous generator. Define B_j=(T+ZK_j)L_r. Equation (1), TP+ZZ^T=I and K_jQ_r=SC_j^T+Q_zr give
+
+$$
+d\mu=(F_j\mu+f_j)dt+B_jdB,\qquad
+\dot\Sigma=F_j\Sigma+\Sigma F_j^T+Q-B_jB_j^T.
+\tag{6}
+$$
+
+For f_p(x)=(1+|x| squared)^p, differentiation of Gaussian polynomial moments and Ito's formula yield
+
+$$
+\mathcal L_c H_p
+=E_{q_X}\left[\nabla f_p(X)\cdot(F_j\mu+f_j)
++\tfrac12(F_j\Sigma+\Sigma F_j^T+Q):\nabla^2 f_p(X)\right].
+$$
+
+Gaussian integration by parts replaces the covariance contribution by E_q[gradient f_p(X) dot F_j(X-mu)]. Polynomial moment identities justify this even for the singular covariance on the fiber. Thus
+
+$$
+\mathcal L_c H_p
+=E_{q_X}\left[\nabla f_p(X)\cdot(F_jX+f_j)
++\tfrac12 Q:\nabla^2 f_p(X)\right]\le C_p H_p.
+\tag{7}
+$$
+
+The final bound follows directly from affine drift, constant noise and finitely many sheets. It does not assert that q_X is the actual conditional law of any globally defined hidden process.
+
+Stop on compact sets controlling R,m,S,S inverse and the jump count. Images under the finitely many reset maps are compact, so a terminal jump overshoot is included and bounded in stopped Dynkin. Combining (5) and (7), then applying Gronwall and Fatou, gives
+
+$$
+E_{S_{\rm parent}}H_p(t)
+\le \exp[(C_p+K_p^M)t]E H_p(0)<\infty.
+\tag{8}
+$$
+
+The initialization expectation equals the corresponding moment of the actual Gaussian activation by conditional expectation. Jensen gives H_p at least (1+|mu| squared+trace S)^p. Also Pmu=R and Z^Tmu=m. Consequently every polynomial moment of R, m and trace S, and its integral on every finite horizon, is finite under the candidate's own law. No inverse-covariance moment is claimed. Constants need not be useful or uniform as N, horizon or inverse temperature grows.
+
+## A finite reverse budget on complete retained histories
+
+Use the same minimum-Q-metric fine lift as the forward budget. Set L=QP^TQ_r^{-1} and
+
+$$
+\widehat v_j(x,m)=v_j(x)+L[\bar v_j(Px,m)-Pv_j(x)].
+\tag{9}
+$$
+
+The law P_hat starts from the actual fine Gaussian activation, uses diffusion covariance Q, draws proposal marks from hat b(PX,m,S), leaves X continuous at jumps and updates the message by the same rule (1) and U. Its retained marginal is exactly S_parent because P vhat=vbar, with the shared observation noise retained. Existence follows from the interval construction above. Equivalently, its fine drift is
+
+$$
+\widehat v_j(x,m)=(F_j-LC_jZ^T)x+LC_jm+f_j.
+$$
+
+Ito's formula bounds the drift of (1+|X| squared)^p by a constant times itself plus |m|^{2p}. Equation (8), localization and Gronwall therefore give all polynomial moments of the comparison fine X and their finite-horizon integrals. Its decoded q need not be the conditional law of this X.
+
+Write psi(u,v)=u log(u/v)-u+v, and use predictable pre-jump values. For every finite horizon H,
+
+$$
+D(S_{\rm parent}^{[0,H]}\Vert P_{{\rm native},R,J}^{[0,H]})
+\le D(\widehat P^{[0,H]}\Vert P_{\rm native}^{[0,H]})
+\le B_H^{\rm rev}<\infty,
+\tag{10}
+$$
+
+where the extended laws include the same deterministic history message and
+
+$$
+B_H^{\rm rev}=E_{\widehat P}\int_0^H
+\left[\tfrac12\|C_J(Z^TX-m)\|_{Q_r^{-1}}^2
++\sum_{a\ne J}\psi(\widehat b_a,b_a(X))\right]dt.
+\tag{11}
+$$
+
+For completeness, stop on nested compact extended-state sets and the nth visible jump. Before each stop, drift discrepancies, active rate ratios and their logarithms are bounded, because every supported rate is positive and smooth. The Brownian and counting likelihood from native to comparison has log jump increments log(hat b/b) and survival term minus the integral of sum_{a different J}(hat b_a-b_a). Its stopped exponential has bounded second moment by the elementary square-formula/Gronwall argument in the forward-budget record. Stopped uniqueness identifies its weighted law with P_hat. Taking its log expectation under P_hat gives the stopped integral in (11). Nonexplosion lets stopped path laws converge to the full laws by coupling. Lower semicontinuity of relative entropy and monotone convergence of the nonnegative cost yield (10); discarding fine coordinates gives the first inequality. No global exponential-moment or Novikov assumption is used.
+
+Finiteness now follows without a native-driven message estimate. The drift cost is at most C(|X| squared+|m| squared). Normalization gives
+
+$$
+\sum_{a\ne J}\psi(\widehat b_a,b_a)
+=D(\widehat b\Vert b)-\psi(\widehat b_J,b_J)
+\le D(\widehat b\Vert b)
+\le\max_a[-\log b_a(X)]\le C(1+|X|^2).
+\tag{12}
+$$
+
+The last bound follows from the fixed quadratic logits. The comparison moments already proved integrate both costs. The survival term in (11) is part of psi; (12) replaces it by a conservative full-mark upper bound rather than deleting it.
+
+With TV defined as sup over events of the probability difference, (10) gives
+
+$$
+\operatorname{TV}(S_{\rm parent}^{[0,H]},P_{{\rm native},R,J}^{[0,H]})
+\le\min\{1,\sqrt{B_H^{\rm rev}/2}\}.
+\tag{13}
+$$
+
+One elementary proof is to apply data processing to each event A. Binary relative entropy, as a function of its first probability p with second probability q fixed, has second derivative 1/[p(1-p)] at least four and vanishing value and derivative at p=q. Hence it is at least 2(p-q)^2. Taking the supremum proves (13), whose total variation is symmetric even though relative entropy is not.
+
+## An estimable source term and the remaining accuracy question
+
+The full-mark quantity in (12) has the exact chain decomposition
+
+$$
+D(\widehat b\Vert b(X))
+=\sum_{i=1}^M E_{A_{<i}\sim\widehat b_{<i}}
+D\left(c_i(\cdot\mid A_{<i};R,m,S)\Vert\beta_i(\cdot\mid X)\right).
+\tag{14}
+$$
+
+It uses candidate prefixes. A single sequentially sampled candidate assignment gives an unbiased nonnegative estimate by summing these row divergences along its prefixes. For a measurable time-indexed estimator, use a finite vector of independent auxiliary uniforms, independent of the entire comparison path, and reuse that vector in the sequential inverse-CDF sampler at every time. Each time marginal has the required conditional prefix law; no uncountable family of fresh independent draws is assumed. Every sampled sum is bounded by sum_i max_a[-log beta_{i,a}(X)], hence by C(1+|X| squared), independently of the selected prefix. Combining (8) with the comparison fine moments shows that the continuous-time integral of this estimate, plus the quadratic drift cost, has finite moments of every fixed order on a fixed finite horizon. For example, Jensen bounds its p-th power by H^{p-1} times the integral of its p-th power. This supplies finite variance for independent-path sampling at the ideal continuous-law scope; it does not supply a finite-grid bias bound, useful confidence interval, or unexecuted numerical result.
+
+The decisive next implementation is a candidate-driven comparison using (9) and candidate prefixes, with a separately checked discretization. Saved native histories and native prefixes cannot be relabeled as samples of this budget. No new model simulation or retry of the failed projection measurement has been performed here.
+
+If B_rev tends to zero along either requested O1 horizon regime, (13) proves the desired path-TV conclusion. No such quantitative vanishing, uniform window-placement bound or practical accuracy estimate has been established. Forward native-driven integrability, the unexplained parity failure and O4 formation remain open. This result supplies a distinct usable error-budget route, not completion of the renormalization program.
+
+## Mechanical grounding and continuation boundary
+
+The primary [SymPy calculation](binary-reverse-budget-evidence/symbolic-checks.py) checked (6) exactly for a three-dimensional generic affine sheet, a nonorthogonal retained row P=(1,1,0), a two-dimensional symmetric hidden covariance and generic correlated noise. All nine covariance residual entries are zero. It separately checked the scalar fourth-moment generator cancellation symbolically. The [output](binary-reverse-budget-evidence/symbolic-checks.json) records SymPy 1.14.0 and 1.508818 seconds for the calculation. Command: `C:/anaconda/python.exe -I -B artifacts/binary-moment-admission/reverse-budget-check.py`. These checks ground signs and matrix placement; the general proofs are (2)-(8). No model, test suite or GPU calculation ran.
+
+This round advances the first round's unresolved weighting distinction. One of the at-most-three analytical rounds remains for this exact-Gaussian moment investigation. The exhausted O4 investigation is separate and has not restarted. Publication and future implementation do not count as additional analytical rounds; any new native-law derivation must resume these recorded obligations.

@@ -20,6 +20,10 @@ updated: 2026-10-03
 
 # Staged hierarchy formation and RG composability
 
+## October 3 exact Gaussian reverse path budget
+
+[[multiagentelbo-2026-10-03-binary-reverse-budget]] admits the ideal exact-Gaussian parent, proves its own-law polynomial moments and derives a finite reverse-KL budget that bounds retained-path total variation. Candidate-prefix source sampling has finite fixed-horizon variance at the continuous-law scope. The native-weighted companion gives incoming-metric and precision bounds but a counterexample to a natural Gaussian log-loss estimate. Forward native integrability, quantitative O1 accuracy, O4 and the preceding numerical parity failure remain open. One analytical round remains in this exact-Gaussian investigation; no model or GPU job ran.
+
 ## October 3 exact Gaussian moment bounds
 
 [[multiagentelbo-2026-10-03-binary-moment-bounds]] proves a sharp quadratic physical-moment growth bound for exact Gaussian source tilts and local smoothness/positive-definite covariance. Fixed quadratic-softmax examples disprove the linear bound and both state-independent cubature reset constants. The scalar calculation grounds these update-map statements only; it says nothing about their reachability in saved GL(2) histories or large-network formation. A native-weighted Lyapunov bound remains required for integrability. Practical O1 accuracy, O4 and the preceding parity failure remain unresolved; no full-study retry or GPU job ran.
