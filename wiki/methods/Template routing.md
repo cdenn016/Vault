@@ -11,10 +11,14 @@ tags:
   - project/transformer
 status: draft
 created: 2026-09-27
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 # Template routing
+
+## Unified inference and implementation boundary, October 3, 2026
+
+[[dennis-2026-attention-unified]] preserves both constructions: mean-field responsibilities $\rho_a\propto\pi_a e^{-\mathrm{KL}(q\Vert p_a)}$ and the different structured posterior produced by a Gaussian evidence message. The implemented block is a local-coordinate, untied-value mean readout with covariance passthrough and configured training dropout. It is not the structured posterior or the reference-coordinate covariant variant. Tying values alone is insufficient for a universal natural-gradient claim; the stated metric, covariance assumptions, and step rule matter. The main GL(K) manuscript's arbitrary MLP is therefore not retrospectively derived by this replacement candidate.
 
 Template routing replaces the residual block MLP of the [[VFE Transformer Program|vfe3 transformer]] with variational inference over a bank of learned Gaussian templates ("concept agents"). It answers the question the [[dennis-2026-glk-matrix-links-2026-09-20|matrix-links manuscript]] left open, namely what the GELU MLP after each attention step computes and why it is there, by deriving a block of the same shape from a mixture-prior free energy. The derivations and their scope are recorded in [[dennis-2026-template-routing]].
 

@@ -12,10 +12,14 @@ tags:
   - project/transformer
 status: draft
 created: 2026-10-02
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 # Projected gradient attention
+
+## Unified receiver interpretation, October 3, 2026
+
+[[dennis-2026-attention-unified]] reconciles the receiver note with the implemented channel-likelihood and closed-form paths. Its frozen expected-log-likelihood energy has a normalized generalized-posterior or variational-coordinate interpretation. It generally differs from the receiver marginal obtained by conditioning on each source separately and mixing those normalized posteriors, so the earlier blanket phrase "exact cut inference" requires that distinction. Full-family natural-parameter interpolation has the stated frozen-objective descent result. Diagonal damping lacks that guarantee; covariance clamps also qualify an unconstrained minimizer claim. The active launcher remains predictive, so these are reachable alternatives rather than the selected receiver.
 
 The attention route of the [[VFE Transformer Program|vfe3 transformer]] selected by `attention_mode="projected_gradient"`. It shares routing and matrix links with [[Projected predictive attention]] but, instead of assigning a predictive readout, moves each receiving token's Gaussian state against a receiver energy with the incoming snapshot frozen. The theory is [[dennis-2026-projected-gradient]]; the implementation history is [[vfe3-2026-10-02-projected-route-consolidation]]. As of October 2, 2026 it is one of the two executable routes, and it has no training result with its current receiver.
 

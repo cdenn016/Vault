@@ -1,0 +1,90 @@
+{
+  "source": "train_vfe3.py literal configuration; tokenizer call replaced by vocab 7 without importing launcher",
+  "loaded_configuration": {
+    "m_phi_update_mode": "adamw",
+    "m_phi_group_retraction": "chart",
+    "m_phi_group_trust_radius": 0.1,
+    "m_phi_fisher_rotation_weight": 2.0,
+    "phi_weight_decay": 0.1,
+    "phi_precond_mode": "pullback_per_block",
+    "phi_mstep_max_matrix_norm": null,
+    "transport_chart_max_norm": 50.0,
+    "gauge_group": "block_glk",
+    "embed_dim": 20,
+    "n_heads": 2,
+    "pos_phi": "none",
+    "pos_rotation": "rope",
+    "attention_mode": "projected_predictive",
+    "family": "gaussian_diagonal"
+  },
+  "tiny_optimizer_constructions": [
+    {
+      "mode": "adamw",
+      "retraction": "chart",
+      "pos_phi": "none",
+      "class": "AdamW",
+      "provider": "NoneType",
+      "frame_groups": [
+        {
+          "weight_decay": 0.1,
+          "geometric": false
+        }
+      ],
+      "parameters": 260
+    },
+    {
+      "mode": "pullback_group",
+      "retraction": "group_log",
+      "pos_phi": "learned",
+      "class": "GaugeManifoldAdamW",
+      "provider": "NoneType",
+      "frame_groups": [
+        {
+          "weight_decay": 0.0,
+          "geometric": true
+        },
+        {
+          "weight_decay": 0.0,
+          "geometric": true
+        }
+      ],
+      "parameters": 284
+    },
+    {
+      "mode": "fisher_group",
+      "retraction": "chart",
+      "pos_phi": "learned",
+      "class": "GaugeManifoldAdamW",
+      "provider": "PhiFisherStatisticsProvider",
+      "frame_groups": [
+        {
+          "weight_decay": 0.0,
+          "geometric": true
+        },
+        {
+          "weight_decay": 0.0,
+          "geometric": true
+        }
+      ],
+      "parameters": 284
+    },
+    {
+      "mode": "fisher_group",
+      "retraction": "group_log",
+      "pos_phi": "learned",
+      "class": "GaugeManifoldAdamW",
+      "provider": "PhiFisherStatisticsProvider",
+      "frame_groups": [
+        {
+          "weight_decay": 0.0,
+          "geometric": true
+        },
+        {
+          "weight_decay": 0.0,
+          "geometric": true
+        }
+      ],
+      "parameters": 284
+    }
+  ]
+}

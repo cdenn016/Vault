@@ -14,10 +14,16 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-18
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 # VFE Transformer Program
+
+## Unified attention companion, October 3, 2026
+
+[[dennis-2026-attention-unified]] unifies the six Attention notes and maps their relationship to all four current GL(K) manuscripts. The author's primary future integration choice is Option A exponential group-valued links; compression and the current routed head sum are supporting comparisons. The standalone file is `manuscripts/Attention/attention_unified.tex`; no GL(K) source was edited. The companion corrects the real-log chart scope, complement-residual assumptions, causal inverse-edge loop distinction, Fisher stabilizer/completion boundary, and frozen-receiver posterior interpretation.
+
+The inspected VFE_3.0 launcher selects projected predictive attention with moment-matched diagonal covariance and AdamW frames. Other derived paths are labeled selectable or proposed. Routing-holonomy diagnostics already present as working-tree changes were inspected and tested. An independent VFE_3.0 publication committed those same file bytes in pull request 40 during consolidation; this manuscript task made no implementation changes. Historical performance numbers and small-dimensional identity checks are kept separate from current execution evidence; no new training or GPU study was run.
 
 ## Current executable state, October 2, 2026
 

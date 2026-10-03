@@ -11,10 +11,14 @@ tags:
   - project/transformer
 status: draft
 created: 2026-09-27
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 # Projected predictive attention
+
+## Unified implementation scope, October 3, 2026
+
+[[dennis-2026-attention-unified]] connects this route to the author's primary Option A exponential-link construction while preserving the distinction between a group link and a weighted multi-source message. The inspected launcher now selects `moment_matched` with `gaussian_diagonal`; passthrough statements below describe the earlier evaluated configuration or the default field. The exact covariance belongs to the declared independent-source/independent-label kernel. Diagonal projection, output floors, and coordinate nonlinear blocks require their stated approximation and symmetry qualifications. The current routing score includes the configured smooth KL cap before division by `kappa_beta * sqrt(d)`.
 
 The attention route of the [[VFE Transformer Program|vfe3 transformer]] selected by `attention_mode="projected_predictive"`, behind the current best results (validation perplexity about 53 at K=64, four layers, WikiText-103). It is the route of [[GL(K) gauge-equivariant attention]] in which a layer replaces the belief mean by a predictive readout instead of taking a gradient step. The full walk-through, with every toggle mapped to its equation, is [[dennis-2026-projected-predictive]]; the general theory is [[dennis-2026-glk-projected-matrix-links-v2]].
 
