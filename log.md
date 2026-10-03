@@ -365,3 +365,6 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 
 2026-10-03 INGEST: Archived source projection entropy construction and failed measurement from MultiAgentELBO commit ab01187. Updated project, hierarchy theme and Mathematics/Statistics MOCs. Preserved conditional theory scope, fourteen distinct passing tiny tests, failed large-network parity, partial-output status and open O1/O4. No manuscript or prior source edited.
 2026-10-03 LINT: Source projection checkpoint ingest: 1456 Markdown notes; broken links, graph grey nodes, empty files, case collisions and identity collisions all zero.
+
+2026-10-03 INGEST: Archived projection parity diagnosis from MultiAgentELBO 3f05d15; five immutable archives, source note, existing project/theme and field MOC updates. Three bounded diagnostics did not reproduce the failure; its cause and the full study remain unresolved. No manuscript or previous source changed.
+2026-10-03 LINT: Projection parity diagnosis ingest: 1457 notes; broken links, graph grey nodes, empty files, case collisions and identity collisions all zero.

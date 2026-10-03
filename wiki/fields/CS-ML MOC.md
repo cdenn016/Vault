@@ -10,6 +10,10 @@ updated: 2026-10-02
 
 # CS-ML MOC
 
+## October 3 projection parity diagnosis
+
+[[multiagentelbo-2026-10-03-projection-parity-diagnosis]] records three bounded non-reproductions of the preceding projection parity failure: the first event with archived/off/on implementations, complete path000 on/off traces, and four separate spawned N512 cases. All 180 archived candidate-field comparisons were exact. The original failure remains unresolved and the 32-path study remains incomplete. Future failures now retain actual arrays, the reference field and mismatch location/magnitude; two tiny capture tests pass. No full-study retry, GPU or O1/O4 closure is claimed.
+
 ## Group-valued link origin, October 2, 2026
 
 [[dennis-2026-link-origin]] shows the multi-head operator $U_iOB_{ij}TU_j^{-1}$ is the standard multi-head value path with frames and is generically group-valued, derives that an exponential-link construction yields a residual only on unwritten directions (none when heads tile the fiber, as the code requires), and rewrites SiLU and GELU as exponential self-links with generators $\log\sigma$ and $\log\Phi$, which the note labels a rewriting and not a derivation. Small-dimension numerical checks only; no model trained. Synthesis: [[Projected predictive attention]], [[Projected gradient attention]], [[Activation Functions]].

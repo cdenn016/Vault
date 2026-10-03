@@ -1,0 +1,25 @@
+# Source projection parity diagnosis
+
+October 3, 2026. The earlier [measurement failure](source-projection-entropy-RESULTS.md) has not reproduced in three bounded discriminating calculations. Its cause and mismatch magnitude remain unknown. The failed 32-path study stays failed; none of these calculations resumes it or supplies its missing aggregate.
+
+## Executed comparisons
+
+The first calculation reconstructed the incoming Gaussian message from fixed native observations at the first visible source event of N512 path 000, fine index 33, time 0.2558633887939855. Every pre-event mean matched the archived history exactly. The archived source implementation, current diagnostic-off implementation and current diagnostic-on implementation produced identical mean, covariance, source rows and integration-error values. All three post-event means matched the archived result exactly. This isolated calculation omitted probes and took 9.111574 CPU seconds.
+
+The second calculation restored the original coarse-then-fine execution order, including native updates and probes. A targeted trace checked each post-step mean boundary and would have stopped at its first difference, retaining the local incoming state. Diagnostic-off and diagnostic-on each checked 194 boundaries. Both finished and matched all thirty archived candidate fields exactly. The two-arm calculation took 78.250998 CPU seconds. Trace instrumentation changes execution scheduling, so this is evidence of non-reproduction in that context, not an explanation of the original failure.
+
+The third calculation checked the original initial four N512 tasks in four separate spawned workers, with one numerical thread per worker and sequential MKL. Each worker saved the complete actual output before comparison. Paths 000 through 003 all matched their thirty archived candidate fields exactly in 49.261807 seconds. This was one concurrency discriminator without the boundary trace, not a restarted 32-path study. Spawned execution by itself did not reproduce the failure under these conditions.
+
+All three calculations used the same existing frozen tapes and CPU scientific runtime at code base 27044f5bcce644cf0ec336b3c975aae350ede28b. No new stochastic draws, GPU job, active profile change or historical heavy node was introduced. The report distinguishes the original failure from later non-reproduction; it does not reclassify that failure as a pass or as harmless floating-point noise.
+
+## Diagnostic repair
+
+Source inspection found no direct write from the optional log-density diagnostic into the Gaussian update inputs. It adds local triangular solves and temporary arrays between existing source-update operations. That changes allocation and kernel scheduling, but the executed comparisons do not establish this as the cause.
+
+The original failure handler saved only a field name and traceback. The measurement runner now saves every calculated candidate array and the differing reference field before raising the same exact-parity exception. Its failure JSON records the first unequal index, both values, unequal-element count and maximum absolute difference. Both new tiny scalar/matrix checks pass; the two expected missing-helper failures are retained. This repairs the evidence loss on a future recurrence, not the unexplained numerical discrepancy. The predeclared equality requirement and no-retry behavior are unchanged; the measurement runner has not been executed after this repair.
+
+## Evidence and next boundary
+
+[source-projection-parity-evidence](source-projection-parity-evidence) contains metadata, commands, terminal output, executed source, JUnit, first-event incoming and outgoing full covariance data, and all newly measured projection diagnostics. An independent saved-array collection check confirms all 180 candidate-field comparisons across the two traced arms and four spawned cases. Repeated native and ordinary candidate arrays remain in local artifacts, and their archived reference values remain in binary-source-history-evidence; the compact publication record does not duplicate them. First-event archived/off arrays agree exactly with the retained on common fields.
+
+A future recurrence must be diagnosed from its captured values and state before modifying scientific arithmetic or changing the parity requirement. These bounded checks do not resolve the historical failure, authorize an ordinary full-study retry, or establish continuous retained-path KL. The unmeasured complete residual sample, binary-backend integrability, native survival accuracy, practical O1 bounds and full O4 remain open. The three-round O4 investigation remains exhausted.
