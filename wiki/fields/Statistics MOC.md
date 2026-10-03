@@ -12,6 +12,10 @@ updated: 2026-10-03
 
 # Statistics MOC
 
+## October 3 joint-channel compression comparison
+
+[[multiagentelbo-2026-10-03-joint-informed-compression]] adds transition-law-weighted configuration sensitivity and preserves the native global hold/refresh mixture. Five new tiny tests, four large-path numerical checks and 52 scalar reconstructions passed. Mean total loss versus source-only changes by -0.107034/-0.000006 nats at N512/N1024, while dense remains better by about eight nats. The sample is underpowered. Next freeze the half-block/source-only/joint definitions for a separately reported remaining-history evaluation. O1/O4, dense computation, the old parity failure and pending formal verification remain open. No GPU ran.
+
 ## October 3 source-informed compression comparison
 
 [[multiagentelbo-2026-10-03-source-informed-compression]] compares an activation-only frozen-weight source-sensitivity basis with half-block compression at matched ranks 64/128 on two saved paths per N512/N1024. Mean total loss relative to half-block changes by -1.295775/+0.085335 nats, with opposite source/configuration tradeoffs. Dense remains better. Fifteen tiny tests, four numerical path checks and 40 scalar reconstructions passed. No GPU ran. The underpowered sample supports no general superiority claim; both record channels are the next proposed design target. Dense workspaces and O1/O4 remain open, as do the historical parity failure and pending formal verification.

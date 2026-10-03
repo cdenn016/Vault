@@ -1,0 +1,57 @@
+# Joint-channel compression at matched rank
+
+October 3, 2026. Adding the configuration channel made a small improvement over the source-only basis at N512 and essentially no mean change at N1024 on this pilot. Mean joint loss changed by -0.107034 and -0.000006 nats respectively, while remaining +7.953540/+8.150953 worse than dense prediction. The four paths passed numerical checks, but this underpowered comparison does not establish predictive accuracy or close O1/O4.
+
+## Construction and runtime
+
+The [pre-run contract](joint-informed-CONTRACT.md) fixes the formula and all comparisons. It reuses the source proxy from the [previous phase](source-informed-RESULTS.md), including Gaussian second moments of quadratic log-odds gradients and frozen probabilities at the activation mean. Its weight is c=1-exp(-rate dt). Configuration sensitivity is the product-assignment expectation of A_J^T Q^-1 A_J, where A_J=P(I-dt M H_J), Q=2dt P M P^T and H_J includes prior, receiver and sender terms. The implementation retains the assignment-variance term in addition to the mean Jacobian's Gram.
+
+The native initializer samples labels from free_energy(initial,model)[1] independently of configurations. Because the native transition uses one global coin, the configuration reference mixes the complete held-label and refreshed-label product-law second moments with weights 1-c and c. It does not form a product of mixed row marginals. The refreshed rows are frozen at the activation mean under the first structural state. The selected hidden directions diagonalize the conditional-reference-whitened sum. No future coefficient, actual retained value, assignment or score chooses the basis.
+
+This is a fixed local proxy. It freezes source probabilities, treats the proposal coin as augmented information, and conditions at a declared activation reference. It is not the Fisher matrix of the observed hold/refresh kernel, retained KL or a path-optimal interface. Live g07's linear Gaussian record theorem motivates the geometry but does not certify switching-law optimality. Live c11's regular finite filter and two-horizon requirements remain open.
+
+The [dedicated launcher](../../../experiments/gaussian_joint_informed_message.py) derives dt and rate from native metadata, obtains held rows from the actual initial state, and passes initial.Sigma mobility and schedule[0] to joint_informed_basis. It compiles the existing GaussianCompression and calls the unchanged gaussian_joint_scores. That scorer retains its source cubature, same-assignment hold approximation, sender-inclusive propagation, block-mean conditioning and repeated reference lift. The primary run_lab.py profile remains neighborhood.
+
+All four comparisons use exactly paths 000/001 at N512/N1024, ranks 64/128, K=2, block 16, model seed 20261002, tau 0.5, rate 1, dt 1/64, 64 microsteps, the saved eight-interval schedule expanded eightfold, and shortcut_mass 1e-12. Input arrays/assignments equal the archived half-block and source-only inputs. Dense, reset, half-block and source-only scores are loaded from their completed archives. No native data, baseline scores or learning were rerun.
+
+## Paired scores
+
+Positive is worse: candidate-minus-reference complete-path negative log score in nats. Parentheses are descriptive paired standard errors over two paths. Each size has one model realization; steps and agents are not replicates. These exploratory, underpowered comparisons on studied data do not provide significance, population scaling, retained KL or held-out validation.
+
+| Agents | Reference | Total | Source | Configuration |
+| ---: | --- | ---: | ---: | ---: |
+| 512 | Source-only | -0.107034 (0.063941) | -0.108649 (0.083113) | 0.001615 (0.019172) |
+| 512 | Half-block | -1.402809 (0.337691) | -0.031503 (0.551629) | -1.371306 (0.889321) |
+| 512 | Dense | 7.953540 (0.290183) | 7.437313 (0.331491) | 0.516227 (0.041308) |
+| 512 | Reset | -2.255824 (0.573132) | -0.299063 (0.505099) | -1.956761 (1.078232) |
+| 1024 | Source-only | -0.000006 (0.002413) | -0.000612 (0.000612) | 0.000606 (0.003025) |
+| 1024 | Half-block | 0.085329 (0.227941) | -0.534342 (0.534342) | 0.619671 (0.306401) |
+| 1024 | Dense | 8.150953 (5.477258) | 6.655412 (6.655412) | 1.495541 (1.178154) |
+| 1024 | Reset | -0.058773 (0.120863) | -0.509688 (0.509688) | 0.450915 (0.388824) |
+
+The N512 paths each contain two assignment changes. N1024 contains two and zero. The latter contributes only configuration contrast at stored source-score precision. Full per-path contrasts and all four controls are in the NPZs and [metadata](joint-informed-evidence/metadata.json).
+
+## Interpretation and next evaluation
+
+Both N512 paths improved over source-only, while the two N1024 differences were +0.002407 and -0.002419 nats. Their nearly zero mean should not be interpreted as an exact equality. The conditional-configuration term did not remove the gap to dense prediction. The source term dominates the declared proxy trace, but that observation alone does not establish the cause of the measured performance.
+
+The next empirical increment should freeze the half-block, source-only and joint-channel definitions and compare them on the remaining saved histories under a new predeclared paired protocol. Keep these pilot paths separate from the extension summary, retain per-path source/configuration decompositions and event counts, and report one-realization limitations. That extension would assess sampling variability in this model; it would not certify the c11 regular-filter class, two horizon regimes, thermodynamic scaling or endogenous O4. There is no basis for further tuning on these same four pilot histories or calling this candidate a generally superior compressor.
+
+## Numerical evidence and computation
+
+Five new tiny CPU tests passed in 0.508 seconds, zero failures/errors/skips. They independently differentiate explicit quadratic energies on a three-node K=2 network and enumerate every binary assignment to check configuration second moments. Cases include point-mass labels, noncommuting direct/inverse links, nonzero assignment variance, the difference between a global mixture and mixed independent rows, rate-zero behavior, independent source-gradient sigma-point moments, joint eigen residuals, whitening, full rank and both channel traces. The five expected missing-module failures are preserved. Previously passing source and compression tests were not rerun because their implementations are unchanged.
+
+All four large paths passed finite-score and declared residual checks. Maximum basis residual is 7.3274719625260332e-15; maximum observation-fiber residual is 1.3877787807814457e-16; maximum initial source/joint disagreement with dense is 3.979039320256561e-13. Thresholds are 1e-9, 1e-9 and 1e-8. There is no favorable-score gate. The [independent scalar reconstruction](joint-informed-evidence/independent-summary.json) passed 52 checks, reconstructing 48 loss components and four event counts from arrays. It does not independently rerun the large filters.
+
+The sole run exited zero in 338.723305400 seconds with C:/anaconda/python.exe, Python 3.12.7 and Torch 2.10.0.dev20251210+cu128, CPU float64, one Torch thread and sequential MKL. CUDA was available and unused. With c=0.015503562994591595, the weighted proxy traces and offline timings are:
+
+| Agents | Weighted source trace | Configuration trace | Basis seconds | Decoder seconds |
+| ---: | ---: | ---: | ---: | ---: |
+| 512 | 7.585178768 | 0.149999682 | 0.324771 | 0.090956 |
+| 1024 | 16.755897009 | 0.304659119 | 2.318113 | 0.599163 |
+
+These are sensitivity traces in hidden reference coordinates, not predictive loss components. The law-derived source term dominates this proxy. Timing is descriptive, with no concurrent randomized runtime control. Mean/covariance message storage stays 4160/16512 entries. Immutable decoder tensors stay 1311744/5244928 entries; dense fine covariance workspaces of size 1024-by-1024/2048-by-2048 remain. Basis construction also uses dense matrices. No peak/total-memory or runtime reduction is established.
+
+The archive retains W, raw spectra, source snapshot, inputs, scores, checker and JUnit. Executed source bytes matched the snapshot before publication. No old failure was retried or reclassified, no canonical theory changed, and no exhausted analytical loop restarted. Practical O1, O4, the old source-projection parity failure and the provisional reverse-cost derivation's missing formal verification remain unresolved.
+
+The [previous workflow reference](source-informed-CONTRACT.md#workflow-reference) credits the experimental-design skill used for paired-unit reporting and predeclared outcomes in this continuation.

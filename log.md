@@ -406,3 +406,7 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 2026-10-03 INGEST: Source-informed compression from MultiAgentELBO 8d1e114; new run note, 24 immutable archive files and existing project/theme/MOC updates. Preserved underpowered mixed results, dense-workspace limits and open O1/O4.
 
 2026-10-03 LINT: Source-informed compression ingest; 1378 notes, all five link/identity categories zero.
+
+2026-10-03 INGEST: Joint-channel compression from MultiAgentELBO 8180edb; new run note, 23 immutable archive files and existing project/theme/MOC updates. Preserved small-sample and approximation limits, open O1/O4.
+
+2026-10-03 LINT: Joint-channel compression ingest; 1379 notes, all five link/identity categories zero.
