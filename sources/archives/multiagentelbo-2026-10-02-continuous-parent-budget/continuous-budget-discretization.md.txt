@@ -1,0 +1,118 @@
+# Local consistency of the continuous Gaussian-message discretization
+
+October 2, 2026. This record checks the forecast and endpoint-conditioning step proposed for the frozen continuous-parent budget study. It derives a local expansion and records three tiny CPU tests. It supplies neither a finite-horizon convergence result nor an error estimate for a simulated continuous-time budget.
+
+## Target, sources, and assumptions
+
+The supplied target is the fixed-base-point, frozen continuous Gaussian-message candidate in [continuous-gaussian-parent-admission.md](continuous-gaussian-parent-admission.md), equations (3)â€“(4), with the actual-law comparison in [continuous-parent-error-budget.md](continuous-parent-error-budget.md). The live sources are Research/manuscripts/MultiAgentELBO_Theory/c11_network_coarsegraining.tex, lines 1288â€“1346 (`def:rg-regular-finite-filter`, `open:rg-pointwise-parent-dynamics`), and c13_formation.tex, `def:rg-formation-kinetics`, lines 495 onward. The Research project and staged-hierarchy entries already distinguish candidate admission from useful error control. The microscopic manuscript convention is Q=2T I; the implementation's prototype convention is Q=2M. They are not interchangeable.
+
+For every finite dimension d, retained dimension 1<=a<=d, full-row-rank real matrix P of shape (a,d), constant symmetric Q>0, frozen real affine drift Fx+f, and hidden S>0, consider one interval without a visible assignment change. Set T=P^T(PP^T)^(-1), and let Z have orthonormal columns spanning ker P. The hidden dimension is k=d-a. The initial message is exactly on the observed fiber: mu=Tr+Zm and Sigma=ZSZ^T. Thus P mu=r, P Sigma=0, Z^T mu=m. For k=0 the hidden message is absent. These fixed-coefficient/fixed-P choices are introduced for this local calculation, not a restriction on the original universal O1 obligation.
+
+The intended equivalence is first-order equality of the continuous mean/innovation and covariance coefficients as a positive step h tends to zero. The finite-h update is exact Gaussian conditioning of an Euler forecast; it is not exact continuous-path filtering. Matrices need not commute. Inverses below exist because P has full row rank and Q and S are positive definite.
+
+## Exact one-step formulas and expansion
+
+Use the admission record's coordinates
+
+$$
+C=PFZ,\quad D=Z^TFZ,\quad
+Q_r=PQP^T,\quad Q_z=Z^TQZ,\quad Q_{zr}=Z^TQP^T.
+$$
+
+Euler forecasting gives
+
+$$
+\mu_h^-=(I+hF)\mu+hf,\qquad
+\Sigma_h^-=(I+hF)\Sigma(I+hF)^T+hQ.
+\tag{1}
+$$
+
+For every h>0, Sigma_h^- is positive definite, even if I+hF is singular. Its observed covariance, hidden/observed cross covariance, and hidden covariance are exactly
+
+$$
+R_h=P\Sigma_h^-P^T=hQ_r+h^2CSC^T,
+$$
+
+$$
+B_h=Z^T\Sigma_h^-P^T=h(SC^T+Q_{zr})+h^2DSC^T,
+$$
+
+$$
+H_h=Z^T\Sigma_h^-Z
+=S+h(DS+SD^T+Q_z)+h^2DSD^T.
+\tag{2}
+$$
+
+The h SC^T term in B_h comes from uncertainty in the old hidden state entering the endpoint observation. The h Q_zr term comes from the shared noise. Omitting either changes the limiting gain. Let B=SC^T+Q_zr and L=CSC^T. Since Q_r>0, matrix inversion is smooth near h=0 and, preserving order,
+
+$$
+K_h=B_hR_h^{-1}=(B+hDSC^T)(Q_r+hL)^{-1}
+=K+hK_1+O(h^2),
+$$
+
+$$
+K=BQ_r^{-1},\qquad
+K_1=(DSC^T-KCSC^T)Q_r^{-1}.
+\tag{3}
+$$
+
+Conditioning on the observed endpoint r+Delta r gives exactly
+
+$$
+m_h=m+hZ^T(F\mu+f)
+ +K_h[\Delta r-hP(F\mu+f)],
+$$
+
+$$
+S_h=H_h-B_hR_h^{-1}B_h^T
+=S+h\left[DS+SD^T+Q_z-BQ_r^{-1}B^T\right]+O(h^2).
+\tag{4}
+$$
+
+The Schur complement S_h is positive definite for k>0. In full coordinates the conditioned mean and covariance again satisfy P mu_h=r+Delta r and P Sigma_h=0. The bracket in (4) is exactly the correlated-noise Riccati coefficient in the admitted candidate. Also
+
+$$
+Z^T(F\mu+f)=Z^TFT r+Dm+Z^Tf,\qquad
+P(F\mu+f)=PFT r+Cm+Pf,
+$$
+
+so the drift and innovation coefficients in (4) agree with its mean equation. As a second formulation, expanding the error drift D-KC and the error-noise covariance Q_z-KQ_zr^T-Q_zr K^T+KQ_rK^T yields the same covariance coefficient after using KQ_r=SC^T+Q_zr.
+
+For a local Brownian-scale innovation Delta r-hP(F mu+f)=sqrt(h) xi with fixed xi, the difference between this discrete mean and the corresponding Euler mean with gain K is
+
+$$
+(m_h-m_h^{\rm Euler})/h^{3/2}=K_1\xi+O(h).
+\tag{5}
+$$
+
+This is a one-step expansion, not a global strong-error rate. The remainders are for fixed matrices and state; uniform estimates require compact bounds keeping Q_r invertible. For k=0 there is no Riccati equation: endpoint conditioning fixes the entire fine mean and leaves zero conditional covariance.
+
+## Executed implementation checks
+
+The implementation uses arithmetic block means, a special case of P. The production path checked is `propagate_gaussian` followed by `observe_gaussian` in `src/multiagent_elbo/realizations/gaussian/gaussian_message.py`. The first applies the affine Euler mean and covariance with Q=2M; its Hessian action includes incident sender records. The second conditions on block means using the full forecast covariance. The default `run_lab.py` remains `PROFILE = "neighborhood"`; these tests call the named APIs directly and make no claim that a production study ran.
+
+The new file [test_gaussian_continuous_limit.py](../../../tests/test_gaussian_continuous_limit.py) uses four nodes with two coordinates each, only to validate the implementation of this expansion. Its dense reference assembles every quadratic record as D_e^T H_e D_e/tau, independently of the production sparse force path. Heterogeneous symmetric positive-definite 2x2 mobility blocks produce nonzero Q_zr. Independent GL+(2,R) links and noncommuting covariance/drift matrices prevent a scalar or isotropic simplification. The observation-noise condition number is 1.32130 and hidden-covariance condition number is 3.47925 in float64.
+
+The gain is recovered from production conditioned means along every retained innovation direction and matches (3)'s exact rational formula within absolute/relative tolerance 2e-12. The first test also checks retained-fiber identities and the gain/Riccati limits. At h=0.002, 0.001, 0.0005, the gain errors in Frobenius norm are 0.06168355, 0.03104172, 0.01557137; the Riccati derivative errors are 0.28581867, 0.14376162, 0.07209611. Their successive reduction factors lie between 1.95 and 2.05. The second test checks (5) including the complete sender-inclusive affine force. Its scaled remainder errors are 0.04814213, 0.02422709, 0.01215295. The third checks block_size=1 from zero covariance: the full forecast is the independently assembled Euler law, and endpoint conditioning returns exactly the supplied mean and zero covariance.
+
+One run passed all **3 tests, with 0 failures, 0 errors, 0 skips, in 0.262 seconds**, from JUnit. The interpreter was `C:/anaconda/python.exe`, Torch `2.10.0.dev20251210+cu128`, device CPU, dtype float64, one intra-op and one inter-op thread, `MKL_THREADING_LAYER=SEQUENTIAL`, `OMP_NUM_THREADS=1`, `MKL_NUM_THREADS=1`. CUDA availability was checked and true; no GPU computation was used. The tested checkout revision was `96c1bc4ca7f9f24548792a0b847cac2bd4faeffc`, with this new test file uncommitted. Production source files were unchanged.
+
+Actual output is in `artifacts/continuous-parent-budget-20261002/filter-consistency-output.txt`; JUnit is `filter-consistency-junit.xml`, and `filter-consistency-receipt.json` records the exact test and production-source hashes. The command was the following script piped to `C:/anaconda/python.exe -I -B -`, with those environment variables and output captured to the stated log:
+
+```python
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path.cwd()/'src'))
+import torch
+import pytest
+torch.set_num_threads(1)
+torch.set_num_interop_threads(1)
+print('INTERPRETER', sys.executable)
+print('TORCH', torch.__version__, 'CUDA_AVAILABLE', torch.cuda.is_available(), 'DEVICE', 'cpu', 'DTYPE', 'float64')
+print('THREADS', torch.get_num_threads(), torch.get_num_interop_threads())
+raise SystemExit(pytest.main(['-q', '-s', 'tests/test_gaussian_continuous_limit.py', '--junitxml=artifacts/continuous-parent-budget-20261002/filter-consistency-junit.xml']))
+```
+
+## Scope and remaining obligation
+
+The algebra proves the stated local coefficient match for arbitrary full-row-rank P, and the executed checks support the existing arithmetic-block implementation. They do not establish continuous-path filter convergence, numerical stability uniformly in the number of steps or model size, convergence of the likelihood/budget integral, or actual-law small error. No survival-conditioning term has been added: the admitted candidate deliberately omits it. A streaming study must observe only visible assignment changes, apply the uncut jump update there, retain the native fine state for the drift discrepancy, and account for the survival compensation in the jump budget. A proposal-aligned numerical mesh may also subdivide an interval at an invisible self-proposal. Although no message jump is applied there, finite-step integration can depend on that subdivision. Such a numerical approximation is therefore not asserted to be an exact retained-history regular filter at finite grid size. The continuous target ignores self-events; the local expansion and paired grids do not prove that this numerical mesh dependence disappears or that path laws converge. The next material check is that separately declared runner and its quadrature/refinement behavior; O1 remains open until the required actual-law estimates are supplied.

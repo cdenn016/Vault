@@ -1,0 +1,68 @@
+{"run_dir": "C:\\Users\\chris and christine\\Desktop\\MultiAgentELBO\\artifacts\\gaussian-continuous-budget\\20261003T014438208393Z", "status": "running"}
+N=512 path=3/16; completed=1; elapsed=58.0s
+N=512 path=1/16; completed=2; elapsed=58.2s
+N=512 path=2/16; completed=3; elapsed=58.5s
+N=512 path=4/16; completed=4; elapsed=69.2s
+N=512 path=5/16; completed=5; elapsed=104.1s
+N=512 path=7/16; completed=6; elapsed=114.4s
+N=512 path=6/16; completed=7; elapsed=114.6s
+N=512 path=8/16; completed=8; elapsed=126.9s
+N=512 path=11/16; completed=9; elapsed=163.0s
+N=512 path=9/16; completed=10; elapsed=164.1s
+N=512 path=10/16; completed=11; elapsed=182.5s
+N=512 path=12/16; completed=12; elapsed=195.1s
+N=512 path=13/16; completed=13; elapsed=210.1s
+N=512 path=14/16; completed=14; elapsed=211.1s
+N=512 path=15/16; completed=15; elapsed=224.4s
+N=512 path=16/16; completed=16; elapsed=255.2s
+N=1024 path=1/16; completed=1; elapsed=412.7s
+N=1024 path=3/16; completed=2; elapsed=511.6s
+N=1024 path=4/16; completed=3; elapsed=609.5s
+N=1024 path=2/16; completed=4; elapsed=611.4s
+N=1024 path=5/16; completed=5; elapsed=819.1s
+N=1024 path=6/16; completed=6; elapsed=918.8s
+N=1024 path=7/16; completed=7; elapsed=1122.3s
+N=1024 path=8/16; completed=8; elapsed=1227.8s
+N=1024 path=10/16; completed=9; elapsed=1331.0s
+{"run_dir": "C:\\Users\\chris and christine\\Desktop\\MultiAgentELBO\\artifacts\\gaussian-continuous-budget\\20261003T014438208393Z", "status": "failed", "elapsed_seconds": 2234.7927338000154}
+concurrent.futures.process._RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "C:\anaconda\Lib\concurrent\futures\process.py", line 263, in _process_worker
+    r = call_item.fn(*call_item.args, **call_item.kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\chris and christine\Desktop\MultiAgentELBO\src\multiagent_elbo\realizations\gaussian\continuous_budget_experiment.py", line 46, in _sample_task
+    values = sample_frozen_budget(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\anaconda\Lib\site-packages\torch\utils\_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\chris and christine\Desktop\MultiAgentELBO\src\multiagent_elbo\realizations\gaussian\continuous_budget.py", line 187, in sample_frozen_budget
+    measured = _run_grid(mobility, initial, model, tape, grid, horizon, block_size)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\chris and christine\Desktop\MultiAgentELBO\src\multiagent_elbo\realizations\gaussian\continuous_budget.py", line 112, in _run_grid
+    conditioned = observe_gaussian(forecast_mu, forecast_cov, mean_block(X), block_size)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\chris and christine\Desktop\MultiAgentELBO\src\multiagent_elbo\realizations\gaussian\gaussian_message.py", line 77, in observe_gaussian
+    chol = torch.linalg.cholesky(projected_covariance)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch._C._LinAlgError: linalg.cholesky: (Batch element 0): The factorization could not be completed because the input is not positive-definite (the leading minor of order 72 is not positive-definite).
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\chris and christine\Desktop\MultiAgentELBO\experiments\gaussian_continuous_budget.py", line 38, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\chris and christine\Desktop\MultiAgentELBO\experiments\gaussian_continuous_budget.py", line 33, in main
+    run_frozen_budget_study(RUN, THEORY, NUMERICS, OUTPUT)
+  File "C:\Users\chris and christine\Desktop\MultiAgentELBO\src\multiagent_elbo\realizations\gaussian\continuous_budget_experiment.py", line 157, in run_frozen_budget_study
+    result = future.result()
+             ^^^^^^^^^^^^^^^
+  File "C:\anaconda\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\anaconda\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+torch._C._LinAlgError: linalg.cholesky: (Batch element 0): The factorization could not be completed because the input is not positive-definite (the leading minor of order 72 is not positive-definite).

@@ -1,0 +1,27 @@
+# Frozen continuous-parent study: failed execution checkpoint
+
+October 2, 2026. The declared 512/1,024-agent study failed during Gaussian endpoint conditioning and exited with code 1. Sixteen N512 paths and nine N1024 paths were saved before failure. The complete two-size measurement and its planned independent result check were not completed. This checkpoint preserves the implementation, passing tiny checks, every saved path and the failure without a retry.
+
+## Executed failure
+
+The run `artifacts/gaussian-continuous-budget/20261003T014438208393Z` ended after 2234.7927338000154 seconds. In `continuous_budget.py:112`, `observe_gaussian` called `torch.linalg.cholesky(projected_covariance)` at `gaussian_message.py:77`. The operation reported a non-positive-definite input, with a failing leading minor of order 72. The parent propagated the worker exception. The [original log](continuous-budget-evidence/study.log), [metadata](continuous-budget-evidence/metadata.json), and [observed terminal exit](continuous-budget-evidence/terminal-exit.json) are retained.
+
+The runner's completed N512 case contains all sixteen paths. N1024 contains nine recorded paths with zero-based indices 0 through 7 and 9. The failing worker's path index and intermediate covariance were not recorded. Outputs from other futures not collected before the exception are not claimed as saved results. The partial N1024 sample is not substituted for the predeclared sixteen-path sample, and no aggregate for it is reported.
+
+A separate recorded defect already appears in N1024 path001: its fine-grid covariance-fiber residual is 1.8708315162637573e-7, above the prepared checker's unchanged 1e-8 limit. The mean-fiber residual is near machine precision. This does not identify the path that raised Cholesky or establish a shared root cause. The [numerical diagnosis](continuous-budget-numerical-failure.md) records the source-supported possible mechanism and the missing evidence.
+
+## Preserved scope and checks
+
+The [contract](continuous-budget-CONTRACT.md) freezes the published activation, independent GL+(2,R) cycle/stride-17 links, K=2, tau=0.5, block size sixteen and horizon one. Maximum steps 1/64 and 1/128 share activation, Brownian increments and exact proposal times. Two independent uniform-time source probes are used per path. Mobility is the frozen node covariance with Q=2M. The candidate carries a full Gaussian covariance and uses uncut sequential source adaptation at visible assignment changes. Four single-thread CPU workers and one parent were used; no GPU was used.
+
+Seven distinct tiny CPU checks passed in three disjoint JUnit packets totaling 2.880 seconds: three budget/enumeration/tape tests, three local correlated-noise consistency tests, and one real-spawn runner test. The historical missing-module failures are preserved. These small models validated local mechanisms and runner wiring; they did not establish large-network covariance stability. Passing tests were not rerun for publication.
+
+All 25 saved native-state/message-mean/assignment histories, stochastic tapes, source probe rows, scalar outputs, copied activation, executed source snapshot and focused test evidence are archived in [continuous-budget-evidence](continuous-budget-evidence/metadata.json). The source snapshot records the executed uncommitted implementation based on 96c1bc4. Publication does not relabel that base as an executed clean revision. The prepared full-result checker is included as unexecuted source; its complete-study prerequisite was not met. No passing reconstruction receipt is asserted or manufactured.
+
+The [local coefficient expansion](continuous-budget-discretization.md) remains separate from global convergence. Invisible self-proposals subdivide the numerical mesh, so even a numerically stable finite-grid result would not itself certify the continuous retained-history filter. Saved estimates are diagnostics from a failed study, not accepted continuous-parent budgets, retained-path KL estimates or confidence upper bounds.
+
+## Next step
+
+Locate the first loss of covariance support or positive definiteness using a bounded, separately declared diagnostic that records the failing path, time, receiver, covariance scale and local conditioning. Then establish a numerically stable update before proposing a new accepted measurement. Cancellation in endpoint conditioning and amplification by sequential source solves are possible mechanisms, not diagnosed causes. No covariance projection, clipping, tolerance relaxation or rerun was applied to this failure.
+
+O1 actual-law error control and endogenous feedback, and O4 intrinsic recursive formation, remain open. This failed numerical checkpoint does not refute the general parent construction or a renormalization mechanism. Existing conditional O2/O3 results retain their recorded scope.
