@@ -21,6 +21,10 @@ updated: 2026-10-03
 
 # Gauge-Theoretic Multi-Agent VFE Model
 
+## October 3 restoring coherence with zero stationary action
+
+[[multiagentelbo-2026-10-03-restoring-zero-action]] constructs a fixed-coefficient reversible diffusion with an exact regular Gaussian-recognition free energy and Fisher metric. At each fixed dimension, every fixed initial density reaches a persistent restoring-coherence window with probability tending to one, while the same full protocol under stationarity has a fixed probability deficit and zero action. Plain coherence also has the deficit. This closes a mechanism-level gap in the earlier obstruction, not the hierarchy problem: R14 handoffs and facilitation, intrinsic partition selection, interacting gauge links and slow feedback remain unconstructed. Constants are not uniform in network size; no model or GPU run occurred.
+
 ## October 3 filters with changing projection ranks
 
 [[multiagentelbo-2026-10-03-moving-projection-filters]] extends the three-coordinate smooth parent construction to assignment-dependent retentions of changing rank and arbitrary supplied activation laws. Exact affine event supports and positive predictable hidden densities feed a stopped-likelihood path-TV bound. For each prescribed qualifying complete-history horizon, the same horizon-dependent parent family also controls fixed-length windows placed up to switching time. Both O1 error regimes are covered at this unrestricted-complexity existence scope; a single design for all horizons, practical Gaussian-parent accuracy and effective resource bounds are not established. O4 is unchanged. No model or GPU run occurred.
