@@ -10,13 +10,19 @@ updated: 2026-10-02
 
 # Statistics MOC
 
+## Source-adapted Gaussian continuation, October 2, 2026
+
+[[multiagentelbo-2026-10-02-source-adapted-gaussian]] replaces finite-cloud source weighting with normalized sequential Gaussian adaptation and retains full covariance through propagation and observation. Thirteen distinct tiny CPU checks pass. One matched first-32-path study at 512/1,024 agents compares persistent and activation-reset messages; persistent-minus-reset loss is N=512: -5.4287 +/- 1.6054; N=1024: -10.8093 +/- 2.1081 nats per path (empirical paired standard errors). The archive separates source/configuration contributions and compares the same paths with prior candidates. There is one model realization per size, so the comparison is underpowered for across-model generalization.
+
+The posthoc saved-score functional estimates retained path KL plus a nonnegative information gap, not a confidence upper bound. Separately, a frozen continuous-time full-Gaussian parent satisfies the regular-filter conditions and has a survival-aware actual-law error budget. Neither candidate admission nor the finite scheduled replay proves the required small asymptotic error, endogenous structural feedback or recursive formation. The earlier requested break ended when the user resumed the autonomous goal.
+
 ## Cut routing and tempered Gaussian posteriors, October 2, 2026
 
 [[dennis-2026-projected-gradient]] reads routing by a comparison divergence alone as exact inference in a cut model (modular Bayesian inference) and shows that a channel-likelihood receiver has the exact tempered Gaussian posterior as minimizer, counting the receiver entropy once. [[dennis-2026-phi-natgrad]] derives a Fisher natural gradient for frame parameters from the reference-prior family. [[dennis-2026-neuron-free-agent-theory]] uses Gamma-precision (Student-t) records and a KL-budget constraint in one constrained ELBO.
 
 ## Joint particle-filter losses, October 2, 2026
 
-[[multiagentelbo-2026-10-02-joint-particle-filter]] reports eight distinct passing tiny checks and one 616.507218-second CPU study using 128 saved paths at each of 512/1,024 agents. Every tested cloud underperforms the static-lift baseline, and persistent64 underperforms reset64. Mean joint ESS at observed assignment changes is 1.751/1.458 of 64 for persistent64; hold-row medians obscure this concentration. Paired losses estimate differences of expected path KL conditional on independent algorithmic tapes, not absolute KL or the tape-marginalized parent error. Exact filtering and finite-history weak consistency do not close the regular-filter or formation obligations. Work pauses after publication at the user's request.
+[[multiagentelbo-2026-10-02-joint-particle-filter]] reports eight distinct passing tiny checks and one 616.507218-second CPU study using 128 saved paths at each of 512/1,024 agents. Every tested cloud underperforms the static-lift baseline, and persistent64 underperforms reset64. Mean joint ESS at observed assignment changes is 1.751/1.458 of 64 for persistent64; hold-row medians obscure this concentration. Paired losses estimate differences of expected path KL conditional on independent algorithmic tapes, not absolute KL or the tape-marginalized parent error. Exact filtering and finite-history weak consistency do not close the regular-filter or formation obligations. The user-requested publication break ended when work resumed.
 
 ## Joint retained path scores, October 2, 2026
 

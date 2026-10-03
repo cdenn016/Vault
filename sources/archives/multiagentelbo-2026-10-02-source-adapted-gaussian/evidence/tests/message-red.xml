@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="4" time="0.709" timestamp="2026-10-02T12:47:44.642159" hostname="DESKTOP-RT15E78"><testcase classname="tests.test_gaussian_message" name="test_propagation_matches_independent_quadratic_hessian_with_sender_terms" time="0.003"><failure message="ModuleNotFoundError: No module named 'multiagent_elbo.realizations.gaussian.gaussian_message'">def test_propagation_matches_independent_quadratic_hessian_with_sender_terms() -&gt; None:
+        model, state, mobility = _example()
+        mu, covariance, _ = _moments()
+        old_mu, old_covariance = mu.clone(), covariance.clone()
+        assignments = torch.tensor([[0, 1, 0, 1], [1, 0, 1, 0]])
+        dt = .03
+        expected_mean, expected_covariance = [], []
+        M = torch.block_diag(*mobility)
+        for batch in range(2):
+            H = torch.block_diag(*model.J_0)
+            for receiver in range(4):
+                label = int(assignments[batch, receiver])
+                source = int(model.sources[receiver, label])
+                link = state.Theta[model.link_index[receiver, label]]
+                if bool(model.reverse[receiver, label]):
+                    link = torch.linalg.inv(link)
+                difference = torch.zeros((2, 8), dtype=mu.dtype)
+                difference[:, 2*receiver:2*receiver+2] = torch.eye(2, dtype=mu.dtype)
+                difference[:, 2*source:2*source+2] = -link
+                H += difference.T @ model.H[receiver] @ difference/model.tau
+            A = torch.eye(8, dtype=mu.dtype)-dt*M@H
+            offset = dt*M@torch.block_diag(*model.J_0)@model.a.flatten()
+            expected_mean.append(A@mu[batch].flatten()+offset)
+            expected_covariance.append(A@covariance[batch]@A.T+2*dt*M)
+&gt;       actual_mean, actual_covariance = _api().propagate_gaussian(
+            mu, covariance, assignments, mobility, state, model, dt)
+
+tests\test_gaussian_message.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_gaussian_message.py:13: in _api
+    return importlib.import_module("multiagent_elbo.realizations.gaussian.gaussian_message")
+C:\anaconda\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+&lt;frozen importlib._bootstrap&gt;:1387: in _gcd_import
+    ???
+&lt;frozen importlib._bootstrap&gt;:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'multiagent_elbo.realizations.gaussian.gaussian_message'
+import_ = &lt;function _gcd_import at 0x000002577C4A80E0&gt;
+
+&gt;   ???
+E   ModuleNotFoundError: No module named 'multiagent_elbo.realizations.gaussian.gaussian_message'
+
+&lt;frozen importlib._bootstrap&gt;:1324: ModuleNotFoundError</failure></testcase><testcase classname="tests.test_gaussian_message" name="test_observation_matches_full_gaussian_density_and_cross_covariance" time="0.325"><failure message="ModuleNotFoundError: No module named 'multiagent_elbo.realizations.gaussian.gaussian_message'">def test_observation_matches_full_gaussian_density_and_cross_covariance() -&gt; None:
+        mu, covariance, P = _moments()
+        old_mu, old_covariance = mu.clone(), covariance.clone()
+        retained = torch.tensor([[.2, -.1, .4, .7], [-.5, .3, .1, -.2]], dtype=mu.dtype)
+        projected_mean = mu.flatten(1)@P.T
+        projected_covariance = P@covariance@P.T
+        cross = covariance@P.T
+        gain = torch.linalg.solve(projected_covariance, cross.mT).mT
+        expected_mean = mu.flatten(1)+(gain@(retained-projected_mean).unsqueeze(-1)).squeeze(-1)
+        expected_covariance = covariance-gain@cross.mT
+        law = torch.distributions.MultivariateNormal(projected_mean, projected_covariance)
+&gt;       result = _api().observe_gaussian(mu, covariance, retained, block_size=2)
+
+tests\test_gaussian_message.py:87: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_gaussian_message.py:13: in _api
+    return importlib.import_module("multiagent_elbo.realizations.gaussian.gaussian_message")
+C:\anaconda\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+&lt;frozen importlib._bootstrap&gt;:1387: in _gcd_import
+    ???
+&lt;frozen importlib._bootstrap&gt;:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'multiagent_elbo.realizations.gaussian.gaussian_message'
+import_ = &lt;function _gcd_import at 0x000002577C4A80E0&gt;
+
+&gt;   ???
+E   ModuleNotFoundError: No module named 'multiagent_elbo.realizations.gaussian.gaussian_message'
+
+&lt;frozen importlib._bootstrap&gt;:1324: ModuleNotFoundError</failure></testcase><testcase classname="tests.test_gaussian_message" name="test_propagation_of_singular_fiber_message_restores_positive_forecast" time="0.001"><failure message="ModuleNotFoundError: No module named 'multiagent_elbo.realizations.gaussian.gaussian_message'">def test_propagation_of_singular_fiber_message_restores_positive_forecast() -&gt; None:
+        model, state, mobility = _example()
+        mu, covariance, P = _moments()
+        retained = mu.flatten(1)@P.T+.1
+&gt;       conditioned = _api().observe_gaussian(mu, covariance, retained, block_size=2)
+
+tests\test_gaussian_message.py:104: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_gaussian_message.py:13: in _api
+    return importlib.import_module("multiagent_elbo.realizations.gaussian.gaussian_message")
+C:\anaconda\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+&lt;frozen importlib._bootstrap&gt;:1387: in _gcd_import
+    ???
+&lt;frozen importlib._bootstrap&gt;:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'multiagent_elbo.realizations.gaussian.gaussian_message'
+import_ = &lt;function _gcd_import at 0x000002577C4A80E0&gt;
+
+&gt;   ???
+E   ModuleNotFoundError: No module named 'multiagent_elbo.realizations.gaussian.gaussian_message'
+
+&lt;frozen importlib._bootstrap&gt;:1324: ModuleNotFoundError</failure></testcase><testcase classname="tests.test_gaussian_message" name="test_full_retention_has_exact_zero_conditional_covariance" time="0.001"><failure message="ModuleNotFoundError: No module named 'multiagent_elbo.realizations.gaussian.gaussian_message'">def test_full_retention_has_exact_zero_conditional_covariance() -&gt; None:
+        mu, covariance, _ = _moments()
+        retained = mu.flatten(1)+.2
+&gt;       result = _api().observe_gaussian(mu, covariance, retained, block_size=1)
+
+tests\test_gaussian_message.py:117: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_gaussian_message.py:13: in _api
+    return importlib.import_module("multiagent_elbo.realizations.gaussian.gaussian_message")
+C:\anaconda\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+&lt;frozen importlib._bootstrap&gt;:1387: in _gcd_import
+    ???
+&lt;frozen importlib._bootstrap&gt;:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'multiagent_elbo.realizations.gaussian.gaussian_message'
+import_ = &lt;function _gcd_import at 0x000002577C4A80E0&gt;
+
+&gt;   ???
+E   ModuleNotFoundError: No module named 'multiagent_elbo.realizations.gaussian.gaussian_message'
+
+&lt;frozen importlib._bootstrap&gt;:1324: ModuleNotFoundError</failure></testcase></testsuite></testsuites>

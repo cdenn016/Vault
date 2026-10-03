@@ -18,13 +18,19 @@ updated: 2026-10-02
 
 # Staged hierarchy formation and RG composability
 
+## Source-adapted Gaussian continuation, October 2, 2026
+
+[[multiagentelbo-2026-10-02-source-adapted-gaussian]] replaces finite-cloud source weighting with normalized sequential Gaussian adaptation and retains full covariance through propagation and observation. Thirteen distinct tiny CPU checks pass. One matched first-32-path study at 512/1,024 agents compares persistent and activation-reset messages; persistent-minus-reset loss is N=512: -5.4287 +/- 1.6054; N=1024: -10.8093 +/- 2.1081 nats per path (empirical paired standard errors). The archive separates source/configuration contributions and compares the same paths with prior candidates. There is one model realization per size, so the comparison is underpowered for across-model generalization.
+
+The posthoc saved-score functional estimates retained path KL plus a nonnegative information gap, not a confidence upper bound. Separately, a frozen continuous-time full-Gaussian parent satisfies the regular-filter conditions and has a survival-aware actual-law error budget. Neither candidate admission nor the finite scheduled replay proves the required small asymptotic error, endogenous structural feedback or recursive formation. The earlier requested break ended when the user resumed the autonomous goal.
+
 ## Joint particle filtering and requested pause, October 2, 2026
 
 [[multiagentelbo-2026-10-02-joint-particle-filter]] derives the exact hidden recursion conditioned on both observed block means and source assignments, with Gaussian conditioning on each observed affine fiber. Eight distinct tiny CPU checks passed. One CPU float64 study of 128 saved paths at each of 512 and 1,024 agents completed in 616.507218 seconds; no native paths were regenerated and no GPU was needed.
 
 Every tested particle cloud had higher predictive loss than the static-lift baseline. The persistent 64-particle filter also had higher loss than the reset64 control. At observed assignment changes, its mean joint effective sample size was 1.751 and 1.458 out of 64, respectively. This concentration diagnoses these finite clouds; it does not establish a general filter obstruction or identify the sole cause of the loss deficit.
 
-The exact recursion and its finite-history weak-consistency argument do not close the regular finite-filter, absolute parent-error, endogenous-feedback, or recursive-formation obligations. Convergence of expected log scores still requires additional control. At the user's request, work pauses after this checkpoint is ingested and published; the renormalization program remains incomplete.
+The exact recursion and its finite-history weak-consistency argument do not close the regular finite-filter, absolute parent-error, endogenous-feedback, or recursive-formation obligations. Convergence of expected log scores still requires additional control. This checkpoint was followed by the requested publication break. The user later resumed work; the renormalization program remains incomplete.
 
 ## Joint retained parents and stationary protocol, October 2, 2026
 
