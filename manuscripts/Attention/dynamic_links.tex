@@ -1,0 +1,350 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs,array}
+\usepackage{microtype,xcolor}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=green!40!black,urlcolor=blue!50!black]{hyperref}
+\usepackage{url}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\providecommand{\GL}{\mathrm{GL}}
+\providecommand{\gl}{\mathfrak{gl}}
+\providecommand{\tr}{\operatorname{tr}}
+\providecommand{\cfg}[1]{{\small\texttt{#1}}}
+\providecommand{\KL}{D_{\mathrm{KL}}}
+\newcommand{\E}{\mathbb E}
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathcal N}
+\newcommand{\Qb}{\bar Q}
+\newcommand{\curr}{\mathcal J}
+
+\title{Dynamic Links: Latent Link Generators\\in the Variational Free Energy}
+\author{Robert C. Dennis}
+\date{Working note, October 3, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The exponential links $\Theta_{ij}=U_ie^{X_{ij}}U_j^{-1}$ of the gauge-covariant attention construction are promoted from parameters to latent random variables. The generators $X_{ij}$ live on the edges of a depth-by-token lattice, receive a normalized prior, and are inferred together with the token states and routing labels, so that their dynamics are inference rather than a postulated mechanics. We write the joint model, derive its variational free energy in closed form for mean-field recognition, and box the resulting functional. Its link sector is an identity-anchored Gaussian prior plus a curvature energy on the elementary loops of the lattice. We show that every continuous conjugation-invariant curvature measure on the non-compact group $\GL(K)$ is blind to unipotent holonomy, and we use instead the Frobenius defect of the reference-coordinate holonomy, which separates every holonomy from the identity and equals Wilson's plaquette density on $O(K)$. Stationarity gives a link field equation whose source is a precision-weighted prediction error times the source state, the delta rule of fast-weight learning. Without the link prior the stationary link is rank one and lies outside the exponential chart, so the prior is necessary. Linearized, the equation is a screened, massive discrete Maxwell equation of Euclidean signature, in which the time-like loops of the lattice supply the kinetic term and its coefficient, the precision of the implied depth increment, acts as an inertial mass for the maximum a posteriori path. Inference itself is first-order relaxation. Finally, directed (causal) matter induces no action on the links, while integrating out undirected Gaussian matter induces the action $\tfrac12\log\det J(X)$, bounded below, whose hopping expansion begins with Wilson's triangle action. All identities were checked in float64 at small size; nothing was trained.
+\end{abstract}
+
+\section{Scope}
+\label{dl:sec:scope}
+
+The companion note on group-valued links \cite{dl:unified} selected the exponential link $\Theta_{ij}=U_ie^{X_{ij}}U_j^{-1}$ as the primary construction. VFE 3.0 implements its static, shared-generator form, selected by \cfg{content\_link\_chart="exponential"}, in which the generator is a single learned matrix $X=OT$, the same on every edge. This note asks what changes when each $X_{ij}$ becomes a latent variable inferred from the context, so that the links evolve. The physics analogy is lattice gauge theory, in which link variables carry a Boltzmann weight $e^{-S}$ \cite{dl:wilson1974,dl:kogut1975,dl:creutz1983}. In the Euclidean setting that weight is a probability measure, so a variational free energy over latent links is the natural home for link dynamics; no separate Lagrangian is needed. The kinetic and curvature terms then appear as parts of $-\log$ of a declared prior over link fields, and the remaining question is which prior. Sections~\ref{dl:sec:curvature} and~\ref{dl:sec:induced} address that question from two sides: what a curvature energy on a non-compact group must look like, and what curvature energy matter induces when it is integrated out.
+
+The scope is fixed throughout. The generative model is the layered causal model of Section~\ref{dl:sec:model}, with depth as the time axis. Recognition is mean field over token states, routing labels and links. The checks of Appendix~\ref{dl:app:checks} are float64 computations at $K\le4$ with a few tokens; they ground identities and code paths and do not set the direction of the theory, and no statement here is a training result.
+
+\section{The depth-by-token lattice}
+\label{dl:sec:setting}
+
+Tokens are indexed by $i\in\{0,\dots,N-1\}$ with causal support $\mathcal S_i=\{j:j\le i\}$, and layers by $\ell\in\{0,\dots,L\}$. Each token carries a frame $U_i\in\GL(K)$, built once per forward pass and shared across layers as in the current architecture \cite{dl:unified}. The latent state of token $i$ at layer $\ell$ is written in reference coordinates, $\zeta_i^\ell\in\R^K$, with local coordinates $U_i\zeta_i^\ell$. A passive frame change $U_i\mapsto g_iU_i$ leaves every reference-coordinate quantity unchanged; this is the gauge convention of \cite{dl:unified}.
+
+A link edge connects the vertex $(j,\ell)$ to $(i,\ell+1)$ for every $j\in\mathcal S_i$. The edge carries a generator $X_{ij}^\ell\in\gl(K)$ in reference coordinates, its group element $G_{ij}^\ell=e^{X_{ij}^\ell}$, and the local link
+\begin{equation}
+\Theta_{ij}^\ell=U_iG_{ij}^\ell U_j^{-1},\qquad \Theta_{ij}^\ell\mapsto g_i\Theta_{ij}^\ell g_j^{-1}.
+\label{dl:eq:link}
+\end{equation}
+The self edge $(i,\ell)\to(i,\ell+1)$ is time-like and the edges with $j<i$ are cross-token. Two-step routes from $(k,\ell)$ to $(i,\ell+2)$ pass through $(j,\ell+1)$ with $k\le j\le i$. We compare each route with the one that first stays at $k$, and define for $0\le\ell\le L-2$
+\begin{equation}
+W_{ijk}^\ell=\big(G_{ik}^{\ell+1}G_{kk}^\ell\big)^{-1}G_{ij}^{\ell+1}G_{jk}^\ell,\qquad k<j\le i.
+\label{dl:eq:loops}
+\end{equation}
+The loop is trivial for $j=k$. For $j=i$ it is time-like: it compares moving at layer $\ell$ and staying at $\ell+1$ with staying first and moving second. For $k<j<i$ it is space-like. Any two routes through $j$ and $j'$ differ by $(W_{ij'k}^\ell)^{-1}W_{ijk}^\ell$, so the loops~\eqref{dl:eq:loops} generate all route comparisons between layers $\ell$ and $\ell+2$. Because $X$ is written in reference coordinates, $W_{ijk}^\ell$ itself, and not only its conjugacy class, is invariant under the passive action; the local holonomy is $U_kW_{ijk}^\ell U_k^{-1}$. When the links do not depend on the layer and the time-like links are trivial, $W_{ijk}^\ell$ reduces to the triangle holonomy $F_{ijk}=G_{ik}^{-1}G_{ij}G_{jk}$ of the curvature section of \cite{dl:unified}.
+
+\section{Measuring curvature on a non-compact group}
+\label{dl:sec:curvature}
+
+A curvature energy must vanish on flat configurations and be positive otherwise. On compact groups the conjugation-invariant functions do this; on $\GL(K)$ they cannot.
+
+\begin{proposition}[Class functions are blind to unipotent holonomy]
+\label{dl:prop:blind}
+Let $K\ge2$ and let $f:\GL(K,\R)\to\R$ be continuous and constant on conjugacy classes. Then $f(u)=f(I)$ for every unipotent $u$.
+\end{proposition}
+
+\begin{proof}
+Write $u=RJR^{-1}$ with $J$ in Jordan form, so that $J=I+N$ with $N$ nilpotent and supported on the superdiagonal. Let $D_t=\operatorname{diag}(1,t^{-1},t^{-2},\dots,t^{-(K-1)})$. Then $(D_tJD_t^{-1})_{p,p+1}=tJ_{p,p+1}$, so $D_tJD_t^{-1}\to I$ as $t\to0$, and $f(u)=f(D_tR^{-1}uRD_t^{-1})\to f(I)$.
+\end{proof}
+
+The same scaling applied to the real Jordan form shows that such an $f$ depends only on the semisimple part of its argument, that is, on the eigenvalues. Hence the eigenvalue density $\sum_k|\lambda_k(W)-1|$, the spectral curvature $(\tfrac1K\sum_k|\mathrm{Log}\lambda_k|^2)^{1/2}$ of the implemented routing-holonomy diagnostic, and every other eigenvalue statistic vanish on the shear $W=I+E_{12}\ne I$ (Check~1). An earlier statement in the project notes, that the bounded eigenvalue density of the multi-agent code vanishes only at $W=I$, was corrected on October 3, 2026.
+
+\begin{definition}[Frobenius defect]
+\label{dl:def:frob}
+For a reference-coordinate holonomy $W$, set $\Phi(W)=\tfrac12\|W-I\|_F^2$.
+\end{definition}
+
+\begin{proposition}[Properties of the Frobenius defect]
+\label{dl:prop:frob}
+The defect is nonnegative and vanishes exactly at $W=I$. On $O(K)$ it equals Wilson's plaquette density, $\Phi(W)=K-\tr W$. It is invariant under the passive gauge action. Under the reparameterization $U_k\mapsto U_kh_k^{-1}$, $G_{ab}^\ell\mapsto h_aG_{ab}^\ell h_b^{-1}$, which leaves every local link unchanged, the holonomy transforms as $W_{ijk}^\ell\mapsto h_kW_{ijk}^\ell h_k^{-1}$, and $\Phi$ is invariant exactly when $h_k$ is orthogonal. For small generators,
+\begin{equation}
+\Phi(W_{ijk}^\ell)=\tfrac12\|(\delta X)_{ijk}^\ell\|_F^2+O(\|X\|^3),\qquad
+(\delta X)_{ijk}^\ell=X_{ij}^{\ell+1}+X_{jk}^\ell-X_{ik}^{\ell+1}-X_{kk}^\ell.
+\label{dl:eq:delta}
+\end{equation}
+For a time-like loop, $j=i$, this is $(\delta X)_{iik}^\ell=-\big[(X_{ik}^{\ell+1}-X_{ik}^\ell)-(X_{ii}^{\ell+1}-X_{kk}^\ell)\big]$, a discrete electric field: the depth difference of a cross-token link corrected by the time-like links at its ends.
+\end{proposition}
+
+\begin{proof}
+Nonnegativity and the zero set are properties of the norm. For orthogonal $W$, $\|W-I\|_F^2=\tr(W^\top W)-2\tr W+K=2(K-\tr W)$. Passive invariance holds because $W$ is reference data. Under the reparameterization each two-step route from $(k,\ell)$ to $(i,\ell+2)$ becomes $h_i(\cdot)h_k^{-1}$, so $W\mapsto h_kWh_k^{-1}$, and the Frobenius norm of $h_k(W-I)h_k^{-1}$ equals that of $W-I$ for all $W$ exactly when $h_k$ is orthogonal. The expansion follows from $W=(I-X_{ik}^{\ell+1}-X_{kk}^\ell)(I+X_{ij}^{\ell+1}+X_{jk}^\ell)+O(\|X\|^2)$.
+\end{proof}
+
+The Frobenius defect thus uses one piece of structure that class functions do not: the reference metric. That metric reduces the measurement of curvature from $\GL(K)$ to its compact subgroup $O(K)$, where class functions would suffice, and in local coordinates it is carried by the frame field. The same metric reappears below as the isotropic reference noise of the transport kernel and as the Frobenius anchor of the link prior; all three must be the same metric for the model to have the residual $O(K)$ symmetry of Proposition~\ref{dl:prop:frob}.
+
+\section{The generative model with latent links}
+\label{dl:sec:model}
+
+\begin{definition}[Latent-link model]
+\label{dl:def:model}
+The joint density of observations $o$, states $\zeta$, head labels $J$ and links $X$ is
+\begin{equation}
+p(o,\zeta,J,X)=p(X)\prod_ip(\zeta_i^0)\prod_{\ell=0}^{L-1}\prod_i\Big[\prod_h\pi_{i,J_i^{\ell,h}}^{\ell,h}\Big]\N\big(\zeta_i^{\ell+1};m_i^\ell,\Qb\big)\prod_ip(o_i\mid U_i\zeta_i^L),
+\label{dl:eq:joint}
+\end{equation}
+with transport mean and link prior
+\begin{equation}
+m_i^\ell=\sum_hG_{i,J_i^{\ell,h}}^\ell P_h\zeta_{J_i^{\ell,h}}^\ell,\qquad
+p(X)=Z_X^{-1}e^{-S_X(X)}.
+\label{dl:eq:mean}
+\end{equation}
+Here $p(\zeta_i^0)=\N(\xi^p_{x_i},C^p_{x_i})$ is the reference-coordinate prior of token type $x_i$, $\pi^{\ell,h}$ is the causal routing prior, $\Qb\succ0$ is the reference transport noise, and $P_h=T^{-1}D_hT$ are the head projectors of the tiled heads, which satisfy $P_hP_g=\delta_{hg}P_h$ and $\sum_hP_h=I$ \cite{dl:unified}. The link action is
+\begin{equation}
+S_X(X)=\sum_{\ell=0}^{L-1}\sum_i\sum_{j\in\mathcal S_i}\frac{\|X_{ij}^\ell-\bar X^\ell\|_F^2}{2\sigma^2}
++\lambda\sum_{\ell=0}^{L-2}\sum_{k<j\le i}w_{ijk}^\ell\Phi(W_{ijk}^\ell),\qquad
+w_{ijk}^\ell=\bar\pi_{ij}^{\ell+1}\bar\pi_{jk}^{\ell},
+\label{dl:eq:action}
+\end{equation}
+with $\bar\pi$ the head-averaged routing prior, an anchor $\bar X^\ell$, anchor width $\sigma>0$ and curvature coupling $\lambda\ge0$.
+\end{definition}
+
+Each head carries the component $P_h\zeta_j$ that it reads from its own source and transports it through that source's link, so the link acts after the head reads. The path weights in~\eqref{dl:eq:action} use the generative routing prior and never the recognition weights, in keeping with the rule that no generative factor reads a recognition law \cite{dl:pifb2}. The model is properly normalized: $S_X\ge\|X-\bar X\|_F^2/(2\sigma^2)$, so $Z_X$ is finite, and every other factor in~\eqref{dl:eq:joint} is a normalized conditional. All link-sector quantities are reference data, so the passive gauge action changes only the frames, which enter the joint only through the decoder.
+
+\begin{remark}[Static limit]
+\label{dl:rem:static}
+If $\bar X^\ell=OT$ for every layer and $\sigma\to0$, every link is pinned to the shared generator and the mean of $m_i^\ell$ under routing weights $\beta$ is $e^{OT}T^{-1}B_{ij}T\xi_j$ summed over $j$, the exponential-chart message of \cite{dl:unified} (Check~10). The implemented \cfg{content\_link\_chart="exponential"} is therefore the zero-temperature limit of this model, and the dynamic links are the fluctuations around it. Per-head links $X_{ij}^{\ell,h}$ are a variant that this note does not pursue.
+\end{remark}
+
+\section{The variational free energy}
+\label{dl:sec:vfe}
+
+Recognition is mean field,
+\begin{equation}
+q(\zeta,J,X)=\prod_{\ell,i}\N(\zeta_i^\ell;\xi_i^\ell,C_i^\ell)\prod_{\ell,i,h}\beta_i^{\ell,h}(J_i^{\ell,h})q(X),
+\label{dl:eq:recognition}
+\end{equation}
+with $q(X)$ either a point mass at $M$, which gives maximum a posteriori links, or a Gaussian on $\gl(K)^{\text{edges}}$. With $A=\Qb^{-1}$, write the routed moments of the transport mean under $q$,
+\begin{equation}
+\bar m_i^\ell=\E_q[m_i^\ell],\qquad V_i^\ell=\operatorname{Cov}_q(m_i^\ell).
+\label{dl:eq:moments}
+\end{equation}
+For a point mass $q(X)$, with $a_{ij}^h=G_{ij}^\ell P_h\xi_j^\ell$, $\bar m_i^h=\sum_j\beta_{ij}^{\ell,h}a_{ij}^h$, $c^{hh}_{ij}=\beta^{\ell,h}_{ij}$ and $c^{hg}_{ij}=\beta^{\ell,h}_{ij}\beta^{\ell,g}_{ij}$ for $h\ne g$,
+\begin{equation}
+V_i^\ell=\sum_h\sum_j\beta_{ij}^{\ell,h}(a_{ij}^h-\bar m_i^h)(a_{ij}^h-\bar m_i^h)^\top+\sum_{h,g}\sum_jc^{hg}_{ij}G_{ij}^\ell P_hC_j^\ell P_g^\top G_{ij}^{\ell\top},
+\label{dl:eq:V}
+\end{equation}
+the moment-matched predictive covariance of the current implementation without its floor.
+
+\begin{lemma}[Transport term]
+\label{dl:lem:transport}
+Under~\eqref{dl:eq:recognition},
+\begin{equation}
+\E_q\big[-\log\N(\zeta_i^{\ell+1};m_i^\ell,\Qb)\big]-H\big[q(\zeta_i^{\ell+1})\big]
+=\KL\big(q(\zeta_i^{\ell+1})\|\N(\bar m_i^\ell,\Qb)\big)+\tfrac12\tr\big(AV_i^\ell\big).
+\label{dl:eq:transport}
+\end{equation}
+For one head and a point mass $q(X)$ the right side equals
+\begin{equation}
+\sum_j\beta_{ij}^\ell\Big[\KL\big(q(\zeta_i^{\ell+1})\|\N(G_{ij}^\ell\xi_j^\ell,\Qb)\big)+\tfrac12\tr\big(AG_{ij}^\ell C_j^\ell G_{ij}^{\ell\top}\big)\Big].
+\label{dl:eq:transport_onehead}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Under mean field $\zeta_i^{\ell+1}$ is independent of $m_i^\ell$, so $\E_q[(\zeta-m)(\zeta-m)^\top]=C_i^{\ell+1}+(\xi_i^{\ell+1}-\bar m_i^\ell)(\xi_i^{\ell+1}-\bar m_i^\ell)^\top+V_i^\ell$. Inserting this into the Gaussian cross entropy and subtracting the entropy $\tfrac12\log\det(2\pi eC_i^{\ell+1})$ gives~\eqref{dl:eq:transport}. For one head, $V_i^\ell=\sum_j\beta_{ij}G_{ij}C_jG_{ij}^\top+\sum_j\beta_{ij}(a_j-\bar m)(a_j-\bar m)^\top$, and for Gaussians with a common covariance $\sum_j\beta_j\KL(q\|\N(a_j,\Qb))=\KL(q\|\N(\bar m,\Qb))+\tfrac12\sum_j\beta_j\|a_j-\bar m\|_A^2$, which gives~\eqref{dl:eq:transport_onehead}.
+\end{proof}
+
+Equation~\eqref{dl:eq:transport_onehead} identifies the matter coupling: a routing-weighted alignment between the receiver's belief and each transported source, in which the source's uncertainty is pushed through the link and charged in noise units. It is the expected-likelihood (channel) form of the alignment energy rather than the ambient sum of divergences, because the joint~\eqref{dl:eq:joint} is a likelihood model. Collecting the factors of~\eqref{dl:eq:joint} gives the free energy.
+
+\begin{equation}
+\boxed{
+\begin{aligned}
+\mathcal F[q]={}&\sum_i\E_q\big[-\log p(o_i\mid U_i\zeta_i^L)\big]+\sum_i\KL\big(q(\zeta_i^0)\|p(\zeta_i^0)\big)\\
+&+\sum_{\ell=0}^{L-1}\sum_i\Big[\KL\big(q(\zeta_i^{\ell+1})\|\N(\bar m_i^\ell,\Qb)\big)+\tfrac12\tr\big(\Qb^{-1}V_i^\ell\big)\Big]
++\sum_{\ell,i,h}\KL\big(\beta_i^{\ell,h}\|\pi_i^{\ell,h}\big)\\
+&+\E_{q(X)}\Big[\sum_{\ell,i,j\in\mathcal S_i}\frac{\|X_{ij}^\ell-\bar X^\ell\|_F^2}{2\sigma^2}
++\lambda\sum_{\ell}\sum_{k<j\le i}\bar\pi_{ij}^{\ell+1}\bar\pi_{jk}^\ell\tfrac12\big\|W_{ijk}^\ell-I\big\|_F^2\Big]-H\big[q(X)\big]+\log Z_X
+\end{aligned}}
+\label{dl:eq:F}
+\end{equation}
+
+The first line is the evidence and encoding sector, the second the matter sector of Lemma~\ref{dl:lem:transport} together with the routing sector, and the third the link sector, $\KL(q(X)\|p(X))$, with the anchor acting as a mass term and the loop energy as the curvature term. By Jensen's inequality $\mathcal F[q]\ge-\log p(o)$ for every $q$, so~\eqref{dl:eq:F} is an exact variational bound for the declared model. For a point mass $q(X)=\delta_M$ the entropy and $\log Z_X$ are constants and the third line is $S_X(M)$. Because the links enter $\bar m$ and $V$, every sector of the second line couples to them.
+
+\section{The link field equation}
+\label{dl:sec:field}
+
+Write $L(X,E)=\int_0^1e^{sX}Ee^{(1-s)X}\mathrm{d}s$ for the Fr\'echet derivative of the matrix exponential \cite{dl:higham2008}. Its Frobenius adjoint is $L(X^\top,\cdot)$, so $\partial f(e^X)/\partial X=L(X^\top,\partial f/\partial G)$.
+
+\begin{proposition}[Field equation]
+\label{dl:prop:field}
+For point-mass links, $\mathcal F$ is stationary in $X_{ij}^\ell$ exactly when
+\begin{equation}
+\frac{\partial S_X}{\partial X_{ij}^\ell}=L\big(X_{ij}^{\ell\top},\curr_{ij}^\ell\big),\qquad
+\curr_{ij}^\ell=\sum_h\beta_{ij}^{\ell,h}A\E_q\big[(\zeta_i^{\ell+1}-m_i^\ell)\zeta_j^{\ell\top}\mid J_i^{\ell,h}=j\big]P_h^\top.
+\label{dl:eq:field}
+\end{equation}
+For one head the matter current is
+\begin{equation}
+\curr_{ij}^\ell=\beta_{ij}^\ell A\Big[\big(\xi_i^{\ell+1}-G_{ij}^\ell\xi_j^\ell\big)\xi_j^{\ell\top}-G_{ij}^\ell C_j^\ell\Big].
+\label{dl:eq:current}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Only the transport term of receiver $i$ at layer $\ell$ and the link action depend on $X_{ij}^\ell$. By Lemma~\ref{dl:lem:transport} the transport term is $\tfrac12\E_q\|\zeta_i^{\ell+1}-m_i^\ell\|_A^2$ up to $X$-free terms. Since $m_i^\ell$ contains $G_{ij}^\ell P_h\zeta_j^\ell$ exactly on the event $J_i^{\ell,h}=j$, its derivative in $G_{ij}^\ell$ is $-\curr_{ij}^\ell$, and the chain rule through $e^X$ gives~\eqref{dl:eq:field}. For one head, $\E[(\zeta'-m)\zeta_j^\top\mid J=j]=\xi'\xi_j^\top-G_{ij}(C_j+\xi_j\xi_j^\top)$, which is~\eqref{dl:eq:current}.
+\end{proof}
+
+The current is a precision-weighted prediction error times the source state, minus a term from the source's uncertainty. It is the delta rule, the update of fast-weight memories \cite{dl:schmidhuber1992}, here derived from a free energy and filtered through the derivative of the exponential chart. The left side of~\eqref{dl:eq:field} is the response of the link action. The equation has the form of a field equation with a source: link stress equals matter current.
+
+\begin{corollary}[The link prior is necessary]
+\label{dl:cor:prior}
+With $S_X=0$ and one head, stationarity in $G_{ij}^\ell$ requires $G_{ij}^\ell S_j^\ell=\xi_i^{\ell+1}\xi_j^{\ell\top}$ with $S_j^\ell=C_j^\ell+\xi_j^\ell\xi_j^{\ell\top}$, so $G_{ij}^\ell=\xi_i^{\ell+1}\xi_j^{\ell\top}(S_j^\ell)^{-1}$ has rank one. For $K\ge2$ it is not invertible and lies outside the image of the exponential, so the free energy has no stationary link in the exponential chart and its infimum is approached at the singular boundary.
+\end{corollary}
+
+A single context supplies one source state per edge, which determines only a rank-one regression. Averaged over a population of contexts, the same normal equation gives the regression link $C_{ab}C_{bb}^{-1}$ of \cite{dl:unified}, whose curvature measures conditional dependence. The anchor $\sigma$ is what makes the per-context problem well posed, and its mean $\bar X$ is the learned, slow part of the link.
+
+\begin{proposition}[Linearized field equation]
+\label{dl:prop:linear}
+Take one head, a flat anchor $\bar X^\ell=0$, small links and small sources. To first order the field equation is
+\begin{equation}
+\frac1{\sigma^2}X_e+\lambda(\delta^\top w\delta X)_e+\beta_eAX_eS_{j(e)}
+=\beta_eA\big[(\xi_i^{\ell+1}-\xi_j^\ell)\xi_j^{\ell\top}-C_j^\ell\big],
+\label{dl:eq:linear}
+\end{equation}
+for every edge $e=(i\leftarrow j)$ at layer $\ell$, where $\delta$ is the loop map~\eqref{dl:eq:delta} and $w$ the diagonal of loop weights. The operator on the left is self-adjoint in the Frobenius inner product and bounded below by $\sigma^{-2}$, so the linearized links are unique.
+\end{proposition}
+
+\begin{proof}
+At $X=0$, $L(0,\cdot)$ is the identity and $G=I+X+O(X^2)$, so~\eqref{dl:eq:current} is $\beta A[(\xi'-\xi_j)\xi_j^\top-C_j-XS_j]$ plus terms of second order. By~\eqref{dl:eq:delta} the loop energy is $\tfrac\lambda2\sum w\|\delta X\|_F^2+O(X^3)$, whose gradient is $\lambda\delta^\top w\delta X$. The map $X\mapsto AXS$ is self-adjoint and nonnegative because $\langle Y,AXS\rangle=\tr(Y^\top AXS)=\langle AYS,X\rangle$ and $\langle X,AXS\rangle=\|A^{1/2}XS^{1/2}\|_F^2$, and $\delta^\top w\delta$ is nonnegative.
+\end{proof}
+
+Read as physics, \eqref{dl:eq:linear} is a static massive Maxwell (Proca) equation on the depth-by-token complex. The anchor is a bare mass, the loop term is the curl-curl operator, and the matter term $\beta AXS$ is an additional, state-dependent mass, analogous to the screening a charged medium gives the photon. The source is the prediction error times the source state. Through the time-like loops, the loop term contains $\tfrac\lambda2w_{iik}^\ell\|(X_{ik}^{\ell+1}-X_{ik}^\ell)-(X_{ii}^{\ell+1}-X_{kk}^\ell)\|_F^2$, the square of a discrete electric field. The kinetic term is therefore not a separate postulate: it is the time-like part of the same curvature energy, exactly as the electric term arises from time-like plaquettes in lattice gauge theory \cite{dl:kogut1975}, and its coefficient $\lambda\bar\pi_{ii}^{\ell+1}\bar\pi_{ik}^\ell$ is the curvature coupling times the prior probability of the route. The space-like loops give the magnetic part. The operator is positive, so the equation is elliptic: depth enters with the same sign as the token directions, the Euclidean signature (Check~6 compares~\eqref{dl:eq:linear} with the exact stationary links).
+
+\section{Dynamics}
+\label{dl:sec:dynamics}
+
+Two notions of dynamics follow from~\eqref{dl:eq:F}, and they should not be confused.
+
+\paragraph{Inference dynamics.} Within a forward pass the links relax toward the stationary point of $\mathcal F$. For point-mass links the natural preconditioner is the Fisher information of the transported law with respect to the generator, which for one head is
+\begin{equation}
+\mathcal I_{ij}^\ell[E,E']=\beta_{ij}^\ell\tr\big(AL(X_{ij}^\ell,E)S_j^\ell L(X_{ij}^\ell,E')^\top\big),
+\label{dl:eq:fisher}
+\end{equation}
+the Gauss-Newton matrix of the transport term and the mean part of the Gaussian Fisher pullback of a link in \cite{dl:unified}. The flow $\dot M=-\mathcal I(M)^{-1}\nabla_M\mathcal F$ is first order, with the Fisher information as friction and no inertia, in agreement with the stiffness and friction analysis of \cite{dl:pifb2}. For Gaussian $q(X)=\N(M,\Sigma_X)$ the corresponding natural-gradient updates are those of the Bayesian learning rule \cite{dl:khan2023}, $\Sigma_X^{-1}\leftarrow(1-\rho)\Sigma_X^{-1}+\rho\E_q[\nabla^2\ell]$ and $M\leftarrow M-\rho\Sigma_X\E_q[\nabla\ell]$, where $\ell$ is the $X$-dependent part of $\mathcal F$ before the entropy. In the Laplace approximation $\Sigma_X^{-1}=\mathcal I+\nabla^2S_X$ at the stationary point, and the link entropy contributes an Occam term to~\eqref{dl:eq:F}.
+
+\paragraph{Depth as time, and where inertia comes from.} The maximum a posteriori link field over all layers solves~\eqref{dl:eq:field} jointly in depth. The following statement makes the intuition of precision as inertial mass exact in the one place where it holds.
+
+\begin{proposition}[Inertia of the maximum a posteriori path]
+\label{dl:prop:inertia}
+Let a path $X^0,\dots,X^L$ with fixed ends minimize $\sum_\ell\big[\tfrac m2\|X^{\ell+1}-X^\ell\|_F^2+V(X^\ell)\big]$ with $V$ differentiable. Then
+\begin{equation}
+m\big(2X^\ell-X^{\ell+1}-X^{\ell-1}\big)+\nabla V(X^\ell)=0,
+\label{dl:eq:inertia}
+\end{equation}
+the discretization of $m\ddot X=\nabla V$: Newton's equation with mass $m$ in the potential $-V$.
+\end{proposition}
+
+\begin{proof}
+Differentiate the objective in $X^\ell$ for $0<\ell<L$.
+\end{proof}
+
+The quadratic increment term is $-\log$ of a Gaussian increment density with precision $m$, and in~\eqref{dl:eq:F} it is supplied by the time-like loops with $m=\lambda\bar\pi_{ii}^{\ell+1}\bar\pi_{ik}^\ell$ when the time-like links are held at the identity. Precision is therefore the inertial mass of the smoothed path. Two qualifications follow from the sign. The equation is the Euclidean one, motion in the inverted potential, so the maximum a posteriori path between two wells is a monotone kink and never oscillates (Check~9). And the inertia belongs to the smoother, the joint optimization over depth; filtering layer by layer gives first-order dynamics. Real-time propagation, waves of the link field, would require an analytic continuation that no inference procedure supplies. Second-order dynamics in inference time can be obtained by declaring velocity states in the generative model, as in generalized coordinates of motion \cite{dl:friston2008dem}, which again ties the mass to a declared precision; the path-integral form of such increment priors is the Onsager-Machlup functional \cite{dl:onsager1953}.
+
+\section{Where the curvature energy comes from}
+\label{dl:sec:induced}
+
+The loop energy in~\eqref{dl:eq:action} is a declared prior. Integrating out the token states shows when such an energy is induced instead.
+
+\begin{proposition}[Directed matter induces no link action]
+\label{dl:prop:directed}
+In the model~\eqref{dl:eq:joint}, $\int p(\zeta,J\mid X)\mathrm{d}\zeta\mathrm{d}J=1$ for every $X$, so the prior marginal of the links is $p(X)$ itself.
+\end{proposition}
+
+\begin{proof}
+Every factor other than $p(X)$ and the decoder is a normalized conditional of a directed acyclic model, and the decoder integrates to one over $o$.
+\end{proof}
+
+In the causal model, curvature reaches the posterior only through evidence. The predictive law of $\zeta_i^{\ell+2}$ given $\zeta_k^\ell$ is a mixture over routes $j$ of Gaussians centered at $G_{ik}^{\ell+1}G_{kk}^\ell W_{ijk}^\ell\zeta_k^\ell$, whose components coincide exactly when the loops are trivial. Evidence generated by a single transport therefore favors flat links, while evidence that requires different routes to carry different content favors curvature.
+
+An induced action appears for undirected matter. Let the states of one layer interact through pairwise consistency factors,
+\begin{equation}
+p(\zeta\mid X)\propto\exp\Big(-\tfrac12\sum_v\zeta_v^\top\Lambda_0\zeta_v-\tfrac12\sum_{(i\leftarrow j)}\|\zeta_i-G_{ij}\zeta_j\|_\Lambda^2\Big),
+\label{dl:eq:undirected}
+\end{equation}
+with $\Lambda_0,\Lambda\succ0$, the energy-based reading of the alignment terms. Its precision matrix $J(X)=D(X)-\mathcal A(X)$ has diagonal blocks $D_v=\Lambda_0+\sum_{v\leftarrow\cdot}\Lambda+\sum_{\cdot\leftarrow v}G^\top\Lambda G$ and off-diagonal blocks $\mathcal A_{ij}=\Lambda G_{ij}$, $\mathcal A_{ji}=G_{ij}^\top\Lambda$.
+
+\begin{proposition}[Induced action of undirected Gaussian matter]
+\label{dl:prop:induced}
+Let the joint density of states and links be proportional to $\tilde p(X)e^{-E(\zeta,X)}$, with $E$ the exponent of~\eqref{dl:eq:undirected} and $\tilde p$ a base prior, normalized as a whole and not conditionally in $\zeta$. Then the link marginal is proportional to $\tilde p(X)e^{-S_{\mathrm{ind}}(X)}$, where
+\begin{equation}
+S_{\mathrm{ind}}(X)=\tfrac12\log\det J(X)\ge\tfrac12\log\det(I\otimes\Lambda_0).
+\label{dl:eq:induced}
+\end{equation}
+If the spectral radius of $D^{-1}\mathcal A$ is below one,
+\begin{equation}
+S_{\mathrm{ind}}(X)=\tfrac12\log\det D-\tfrac12\sum_{n\ge1}\frac1n\tr\big[(D^{-1}\mathcal A)^n\big],
+\label{dl:eq:hopping}
+\end{equation}
+and the $n$-th term is a sum over closed walks of length $n$ of products of links, that is, of Wilson loops. For isotropic $\Lambda_0=\lambda_0I$, $\Lambda=\lambda_EI$ and orthogonal links, $D_v=d_vI$ does not depend on the links, the walks of length two contribute constants, and on a triangle
+\begin{equation}
+S_{\mathrm{ind}}=\text{const}+\frac{\lambda_E^3}{d_id_jd_k}\big(K-\tr F_{ijk}\big)+O\Big(\frac{\lambda_E^5}{d^5}\Big),
+\label{dl:eq:wilson}
+\end{equation}
+which is $\lambda_E^3/(d_id_jd_k)$ times the Frobenius defect $\Phi(F_{ijk})$.
+\end{proposition}
+
+\begin{proof}
+Integrating $e^{-E(\zeta,X)}$ over $\zeta$ gives $(2\pi)^{nK/2}\det J(X)^{-1/2}$, so the link marginal is proportional to $\tilde p(X)\det J(X)^{-1/2}$. Had the states been given a conditionally normalized law, this factor would cancel, which is the content of Proposition~\ref{dl:prop:directed}. Each pairwise term is positive semidefinite, so $J\succeq I\otimes\Lambda_0$. The expansion is $\log\det(D-\mathcal A)=\log\det D+\log\det(I-D^{-1}\mathcal A)$ with the logarithmic series. With orthogonal links, $G^\top\Lambda G=\lambda_EI$, so $D$ is link independent, and a walk $i\to j\to i$ contributes $\lambda_E^2\tr(GG^\top)/(d_id_j)$, a constant. A closed walk around the triangle contributes $\lambda_E^3\tr F/(d_id_jd_k)$ in one orientation and $\lambda_E^3\tr F^{-1}=\lambda_E^3\tr F$ in the other; with three starting points and two orientations, the $n=3$ term is $-\tfrac12\cdot\tfrac13\cdot6\lambda_E^3\tr F/(d_id_jd_k)$. Proposition~\ref{dl:prop:frob} identifies $K-\tr F$ with $\Phi(F)$.
+\end{proof}
+
+This is the Gaussian-matter version of the hopping-parameter expansion of lattice gauge theory \cite{dl:montvay1994} and of induced gauge actions \cite{dl:kazakov1993}: integrating out matter generates the Wilson action at leading order, and the coupling is the cube of the hopping parameter. Check~8 confirms~\eqref{dl:eq:wilson}; the ratio of the exact induced action to the leading term is $1.15$, $1.022$, $1.003$ and $1.0003$ at $\lambda_0=3$, $10$, $30$ and $100$. The induced action also settles the non-compact directions. With orthogonal links on a tree it is constant, but a symmetric generator on a single edge changes it through the diagonal blocks even without loops, so the non-compact directions acquire edge-local mass terms while the compact directions enter only through loops. The induced action is bounded below by~\eqref{dl:eq:induced} for every $\GL(K)$ configuration, and it responds to a unipotent holonomy that every class function misses (Check~8). The causal predictive route is directed, so Proposition~\ref{dl:prop:directed} applies to it, and the loop energy of~\eqref{dl:eq:action} is a declared prior whose form, the Frobenius defect with its Wilson limit, is the one undirected Gaussian matter would induce.
+
+\section{Relation to the implementation and next steps}
+\label{dl:sec:next}
+
+The implemented exponential chart is the static limit of Remark~\ref{dl:rem:static}. A first implementation of dynamic links would keep $\bar X=OT$ as the slow, learned anchor and infer per-context deviations $M-\bar X$ with a few Gauss-Newton steps preconditioned by~\eqref{dl:eq:fisher}, or with one solve of the linearized equation~\eqref{dl:eq:linear}. The cost per step is one exponential per edge, $O(LN^2K^3)$ over all causal edges, which calls for restricted supports, low-rank deviations or amortization, in which a network predicts $M-\bar X$ from the states; amortized deviations are a fast-weight program with the delta-rule source of Proposition~\ref{dl:prop:field}. A grounding experiment at small size would check that inferred links reproduce the stationary equation, that the loop energy responds to unipotent holonomy, and that removing the anchor drives links toward the singular boundary as Corollary~\ref{dl:cor:prior} predicts. Such checks validate the construction; they do not decide whether dynamic links help a language model at scale.
+
+Several questions remain open. The values of $\lambda$, $\sigma$ and the loop weights are modeling choices without a derivation here. The multi-head field equation couples edges through the receiver's mixture, and its linearization has cross-edge terms that this note does not analyze. Stationarity in the time-like links gives a constraint analogous to Gauss's law that remains to be worked out. Full Gaussian link posteriors cost $K^2\times K^2$ per edge. Whether evidence-driven curvature improves prediction, and whether the undirected matter model should replace the declared loop prior, are empirical and modeling questions respectively.
+
+\appendix
+\section{Numerical checks}
+\label{dl:app:checks}
+
+The script \texttt{dynamic\_links\_checks/checks.py}, with its output beside it, runs in float64 with NumPy and SciPy. Check~1 evaluates the eigenvalue density and the spectral curvature on $I+E_{12}$ (both zero) and the Frobenius defect ($0.5$), and shows conjugates of the shear converging to $I$. Check~2 confirms $\Phi(Q)=K-\tr Q$ on $200$ random orthogonal matrices to $1.8\times10^{-15}$ and the small-field expansion~\eqref{dl:eq:delta} with relative error $10^{-3}$, $3.4\times10^{-4}$ and $3.8\times10^{-5}$ at scales $10^{-1}$, $10^{-2}$ and $10^{-3}$. Check~3 compares the transport term~\eqref{dl:eq:transport} with a Monte Carlo estimate over $4\times10^5$ joint samples for two heads and three sources; the relative difference, $9.5\times10^{-5}$, is at the level of the sampling error, and the sampled mean and covariance of $m$ match~\eqref{dl:eq:moments} and~\eqref{dl:eq:V} to $1.3\times10^{-3}$ and $1.4\times10^{-2}$. Check~4 confirms the one-head identity~\eqref{dl:eq:transport_onehead} exactly. Check~5 compares the gradient of Proposition~\ref{dl:prop:field} with central differences ($3.0\times10^{-10}$) and confirms that the unregularized stationary link has rank one. Check~6 compares the linearized links~\eqref{dl:eq:linear} with the exact stationary links of a four-token transition with triangle loops; the relative difference is $2.7\times10^{-2}$, $8.5\times10^{-3}$ and $2.9\times10^{-3}$ at source scales $10^{-1}$, $3\times10^{-2}$ and $10^{-2}$, and the operator's smallest eigenvalue is $2.014$ against the bound $\sigma^{-2}=2$. Check~7 confirms the electric-loop expansion with relative error decreasing linearly in the scale. Check~8 confirms orthogonal gauge invariance of the induced action to machine precision, the hopping series to $10^{-15}$, the leading Wilson coefficient through the ratios quoted in Section~\ref{dl:sec:induced}, the absence of an induced action for orthogonal links on a tree, its presence for a symmetric generator ($0.237$), its response to a unipotent link ($0.045$), and the lower bound over $500$ random large $\GL(2)$ configurations. Check~9 confirms~\eqref{dl:eq:inertia} at the computed minimizer to $7\times10^{-7}$ and the monotone kink. Check~10 confirms the static limit of Remark~\ref{dl:rem:static} to $5.6\times10^{-16}$.
+
+\begin{thebibliography}{99}
+\bibitem{dl:unified} R. C. Dennis, Group-valued links and inference in gauge-covariant Gaussian attention, working companion (\texttt{attention\_unified.tex}), October 3, 2026.
+\bibitem{dl:pifb2} R. C. Dennis, Participatory It from Bit: Selective Communication, Inference, and Effective Physical Structure, working monograph, 2026.
+\bibitem{dl:wilson1974} K. G. Wilson, Confinement of quarks, \emph{Physical Review D} 10, 2445--2459, 1974.
+\bibitem{dl:kogut1975} J. Kogut and L. Susskind, Hamiltonian formulation of Wilson's lattice gauge theories, \emph{Physical Review D} 11, 395--408, 1975.
+\bibitem{dl:creutz1983} M. Creutz, \emph{Quarks, Gluons and Lattices}, Cambridge University Press, 1983.
+\bibitem{dl:montvay1994} I. Montvay and G. M\"unster, \emph{Quantum Fields on a Lattice}, Cambridge University Press, 1994.
+\bibitem{dl:kazakov1993} V. A. Kazakov and A. A. Migdal, Induced QCD at large $N$, \emph{Nuclear Physics B} 397, 214--238, 1993.
+\bibitem{dl:higham2008} N. J. Higham, \emph{Functions of Matrices: Theory and Computation}, SIAM, 2008.
+\bibitem{dl:khan2023} M. E. Khan and H. Rue, The Bayesian learning rule, \emph{Journal of Machine Learning Research} 24(281), 1--46, 2023.
+\bibitem{dl:onsager1953} L. Onsager and S. Machlup, Fluctuations and irreversible processes, \emph{Physical Review} 91, 1505--1512, 1953.
+\bibitem{dl:friston2008dem} K. J. Friston, N. Trujillo-Barreto and J. Daunizeau, DEM: A variational treatment of dynamic systems, \emph{NeuroImage} 41, 849--885, 2008.
+\bibitem{dl:schmidhuber1992} J. Schmidhuber, Learning to control fast-weight memories: An alternative to dynamic recurrent networks, \emph{Neural Computation} 4, 131--139, 1992.
+\end{thebibliography}
+
+\end{document}
