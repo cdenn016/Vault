@@ -1464,3 +1464,5 @@ All new source notes are cataloged below. [[multiagentelbo-2026-09-11-research-s
 
 - [[multiagentelbo-2026-10-02-source-adapted-gaussian]] -- deterministic Gaussian source adaptation, matched saved-path scores, and scoped continuous-parent error records.
 - [[multiagentelbo-2026-10-02-continuous-parent-budget]] -- failed frozen-parent budget run, Cholesky exception, and preserved partial diagnostic evidence.
+
+- [[multiagentelbo-2026-10-02-covariance-diagnostics]] -- bounded covariance diagnostics, captured states, and unresolved original failure.
