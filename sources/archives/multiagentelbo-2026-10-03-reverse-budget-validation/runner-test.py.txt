@@ -1,0 +1,124 @@
+"""Tiny runner checks for complete archives and preserved exception diagnostics."""
+from __future__ import annotations
+
+import importlib.util
+import json
+from pathlib import Path
+from types import ModuleType
+import zipfile
+
+import numpy as np
+import pytest
+import torch
+
+from test_gaussian_message import _example
+from multiagent_elbo.realizations.gaussian import coupled_learning_experiment, reverse_budget
+from multiagent_elbo.realizations.gaussian.coupled_learning import CoupledModel, CoupledState
+
+
+def _runner() -> ModuleType:
+    """Load the experiment entry point without changing its repository root."""
+    path = Path(__file__).resolve().parents[1]/"experiments/gaussian_reverse_budget.py"
+    spec = importlib.util.spec_from_file_location("gaussian_reverse_budget_runner", path)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def _inputs(
+    tmp_path:    Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> tuple[dict, dict, dict, dict, CoupledState]:
+    """Replace only model construction and retain the real sampling path."""
+    model, state, _ = _example()
+    activation = tmp_path/"activation"
+    activation.mkdir()
+    np.savez(activation/"N4-learn_both-final.npz", **{
+        key: getattr(state, key).numpy() for key in ("mu", "Sigma", "pi", "Theta")})
+
+    def build_case(
+        n_agents:   int,
+        dimension:  int,
+        seed:       int,
+        link_scale: float,
+    ) -> tuple[CoupledModel, CoupledState]:
+        """Supply a four-agent fixture at the runner's live builder boundary."""
+        assert (n_agents, dimension, seed, link_scale) == (4, 2, 11, .2)
+        return model, state
+
+    monkeypatch.setattr(coupled_learning_experiment, "build_coupled_case", build_case)
+    run = {"activation_root": str(activation), "model_seed": 11, "path_seed": 93}
+    theory = {"n_agents": [4], "dimension": 2, "link_scale": .2, "tau": model.tau,
+              "block_size": 2, "horizon": .05, "coarse_steps": 4, "n_probes": 1}
+    numerics = {"device": "cpu", "dtype": "float64", "cpu_threads": 1, "integration": "binary_integral"}
+    return run, theory, numerics, {"root": str(tmp_path/"output")}, state
+
+
+def test_runner_archives_real_paired_paths_full_covariances_and_inputs(
+    tmp_path:    Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    run, theory, numerics, output, state = _inputs(tmp_path, monkeypatch)
+    directory = _runner().run_validation(run, theory, numerics, output)
+    assert isinstance(directory, Path) and directory.is_dir()
+    metadata = json.loads((directory/"metadata.json").read_text(encoding="utf-8"))
+    assert metadata["status"] == "pass"
+    assert metadata["theory"] == theory and metadata["numerics"] == numerics
+    with np.load(directory/"inputs/N4-activation.npz") as activation:
+        for name in ("mu", "Sigma", "pi", "Theta"):
+            np.testing.assert_array_equal(activation[name], getattr(state, name).numpy())
+    with np.load(directory/"inputs/N4-model.npz") as model:
+        assert {"a", "J_0", "H", "sources", "link_index", "reverse", "tau"} <= set(model.files)
+    with np.load(directory/"N4-path000.npz") as saved:
+        assert saved["initial_X"].shape == (4, 2)
+        assert saved["probe_uniforms"].shape == (1, 4)
+        for grid in ("coarse", "fine"):
+            times = saved[grid+"_times"]
+            assert times[0] == 0 and times[-1] == theory["horizon"]
+            assert saved[grid+"_comparison"].shape == (len(times), 4, 2)
+            assert saved[grid+"_mean"].shape == (len(times), 4, 2)
+            assert saved[grid+"_assignments"].shape == (len(times), 4)
+            covariance = saved[grid+"_final_covariance"]
+            assert covariance.shape == (8, 8) and np.isfinite(covariance).all()
+            assert saved[grid+"_event_log_rows"].shape[1:] == (4, 2)
+            expected = saved[grid+"_drift_integral"]+saved[grid+"_mark_integral"]
+            np.testing.assert_allclose(saved[grid+"_total_integral"], expected, atol=1e-14, rtol=1e-14)
+    with zipfile.ZipFile(directory/"source.zip") as archive:
+        assert {"experiments/gaussian_reverse_budget.py",
+                "src/multiagent_elbo/realizations/gaussian/reverse_budget.py",
+                "src/multiagent_elbo/realizations/gaussian/source_square_root.py"} <= set(archive.namelist())
+
+
+def test_runner_preserves_sampler_exception_state_and_does_not_retry(
+    tmp_path:    Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    run, theory, numerics, output, state = _inputs(tmp_path, monkeypatch)
+    context = {"comparison": state.mu[None].clone(), "mean": state.mu[None].clone(),
+               "covariance": torch.block_diag(*state.Sigma)[None],
+               "assignments": torch.zeros((1, 4), dtype=torch.long), "step": torch.tensor(0),
+               "interval_start": torch.tensor(0.), "interval_end": torch.tensor(.01)}
+    calls = 0
+
+    def failing_sampler(*args: object, **kwargs: object) -> dict[str, torch.Tensor]:
+        """Raise an ordinary sampler exception with its last available state."""
+        nonlocal calls
+        calls += 1
+        error = RuntimeError("injected sampler failure")
+        setattr(error, "reverse_state", context)
+        raise error
+
+    monkeypatch.setattr(reverse_budget, "sample_reverse_budget", failing_sampler)
+    with pytest.raises(RuntimeError, match="injected sampler failure"):
+        _runner().run_validation(run, theory, numerics, output)
+    assert calls == 1
+    directory, = Path(output["root"]).iterdir()
+    metadata = json.loads((directory/"metadata.json").read_text(encoding="utf-8"))
+    assert metadata["status"] == "fail"
+    assert "injected sampler failure" in (directory/"traceback.txt").read_text(encoding="utf-8")
+    with np.load(directory/"failure-state.npz") as failure:
+        for name, value in context.items():
+            np.testing.assert_array_equal(failure[name], value.numpy())
+    assert (directory/"inputs/N4-activation.npz").is_file()
+    assert (directory/"source.zip").is_file()

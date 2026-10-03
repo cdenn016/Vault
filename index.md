@@ -1501,3 +1501,5 @@ All new source notes are cataloged below. [[multiagentelbo-2026-09-11-research-s
 - [[multiagentelbo-2026-10-03-binary-reverse-budget]] -- candidate-law moment control, reverse retained-path budget and native-weighted limits.
 
 - [[multiagentelbo-2026-10-03-reverse-budget-implementation]] -- candidate-driven comparison implementation, focused tests and pending large-network validation.
+
+- [[multiagentelbo-2026-10-03-reverse-budget-validation]] -- large-network paired-grid reverse-budget validation and remaining accuracy limits.
