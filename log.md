@@ -320,3 +320,6 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 
 2026-10-02  INGEST  [[multiagentelbo-2026-10-02-square-root-budget]]: archived completed N1024 validation, all 32 paired paths at N512/N1024, independent arithmetic checks and separate corrected uncertainty summaries; updated project, hierarchy theme and Mathematics/Statistics MOCs. Original dense failure and O1/O4 remain open. No GPU, manuscript edit or trajectory rerun during publication.
 2026-10-02  LINT  Completed square-root study ingest: 1444 notes; zero broken wikilinks, graph grey nodes, empty files, case collisions and identity collisions. All 73 copied archive files matched the originating code checkpoint at ingest.
+
+2026-10-03  INGEST  [[multiagentelbo-2026-10-03-conditional-parent-error]]: archived conditional B=G+C derivation with finite-budget likelihood proof and posthoc32-path lift comparison; updated project, hierarchy theme and Mathematics/Statistics MOCs. No new trajectories, GPU use or manuscript edit; O1/O4 remain open.
+2026-10-03  LINT  Conditional parent-error ingest:1445 notes; zero broken wikilinks, graph grey nodes, empty files, case collisions and identity collisions. All42 copied archive files matched at ingest.
