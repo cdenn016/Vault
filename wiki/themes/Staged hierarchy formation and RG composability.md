@@ -20,6 +20,10 @@ updated: 2026-10-03
 
 # Staged hierarchy formation and RG composability
 
+## October 3 provisional reverse retained-cost analysis
+
+[[multiagentelbo-2026-10-03-reverse-retained-decomposition]] preserves the provisional third analytical round: the actual comparison hidden law differs from the parent's Gaussian message; reverse source conditioning uses geometric averages; fine path entropy contains a conditional-path contribution beyond retained error. A linear Gaussian calibration has positive auxiliary cost even with exact retained prediction, including after conditional trace removal. Its constant marks are outside informative-source O1. Finite symbolic checks passed, but formal verification is pending because the required skill was unavailable. Practical O1/O4 and the preceding parity failure remain open; no new study or GPU run occurred.
+
 ## October 3 reverse-budget large-network validation
 
 [[multiagentelbo-2026-10-03-reverse-budget-validation]] records one fresh reverse-budget path each at N512/N1024 and four passing independent grid reconstructions in 119.086 CPU seconds. Fine sampled totals are 78.13565 and 151.90999 nats, about 92% source cost. N512 had three visible changes; N1024 had no proposals. These descriptive conservative functionals do not certify retained accuracy or measure retained KL. Quantitative O1/O4 and the prior parity failure remain open; sharper reverse-weighted retained-prediction accounting precedes a full replicated measurement.

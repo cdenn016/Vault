@@ -12,6 +12,10 @@ updated: 2026-10-03
 
 # Mathematics MOC
 
+## October 3 provisional reverse retained-cost analysis
+
+[[multiagentelbo-2026-10-03-reverse-retained-decomposition]] preserves the provisional third analytical round: the actual comparison hidden law differs from the parent's Gaussian message; reverse source conditioning uses geometric averages; fine path entropy contains a conditional-path contribution beyond retained error. A linear Gaussian calibration has positive auxiliary cost even with exact retained prediction, including after conditional trace removal. Its constant marks are outside informative-source O1. Finite symbolic checks passed, but formal verification is pending because the required skill was unavailable. Practical O1/O4 and the preceding parity failure remain open; no new study or GPU run occurred.
+
 ## October 3 exact Gaussian reverse path budget
 
 [[multiagentelbo-2026-10-03-binary-reverse-budget]] admits the ideal exact-Gaussian parent, proves its own-law polynomial moments and derives a finite reverse-KL budget that bounds retained-path total variation. Candidate-prefix source sampling has finite fixed-horizon variance at the continuous-law scope. The native-weighted companion gives incoming-metric and precision bounds but a counterexample to a natural Gaussian log-loss estimate. Forward native integrability, quantitative O1 accuracy, O4 and the preceding numerical parity failure remain open. One analytical round remains in this exact-Gaussian investigation; no model or GPU job ran.

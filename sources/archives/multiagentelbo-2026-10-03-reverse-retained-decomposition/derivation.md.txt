@@ -1,0 +1,151 @@
+# Reverse auxiliary cost and retained prediction: provisional checkpoint
+
+October 3, 2026. This records the third and final round of the bounded exact-Gaussian investigation. It is a working derivation with executed finite symbolic checks, pending the formal verification workflow required by the global instructions. The named `verification` skill could not be located; no formal closure is assigned. Publication preserves this checkpoint without starting another research round or numerical study.
+
+The preceding [reverse budget](binary-reverse-budget.md) controls retained-path error through a fine comparison law. Its [large-network validation](reverse-budget-validation-RESULTS.md) sampled a conservative functional, not retained relative entropy. The comparison process has a hidden conditional law different from the Gaussian message carried by its parent. Conditioning its costs can reduce sampling variance, but does not by itself extract retained error. The calibration below gives positive auxiliary cost even when retained prediction is exact.
+
+## Scope and continuity
+
+Work stays at the fixed base point and at arbitrary fixed finite dimension and horizon. Sources consulted are the live `MultiAgentELBO_Theory/c11_network_coarsegraining.tex`, `def:rg-regular-finite-filter` and `open:rg-pointwise-parent-dynamics`, its `SPEC.md`, and the retained-law and covariance distinctions in `pifb2/09_section.tex`. The [conditional characteristic record](conditional-characteristic-error.md) and [native-weighted analysis](binary-native-weighted-updates.md) use a different expectation from this reverse comparison. No theory manuscript is changed.
+
+Let the native state be $X\in\mathbb R^d$, with finite assignment $J$, affine sheet drift $v_j(x)=F_jx+f_j$, constant noise covariance $Q>0$, and fixed full-row-rank retention $P\in\mathbb R^{r\times d}$. Write $R=PX$, $Q_r=PQP^\top$ and $L=QP^\top Q_r^{-1}$. Activation is $X_0\sim N(\mu_0,\Sigma_0)$ with $\Sigma_0>0$, independent of $J_0$. Native marks have strictly positive quadratic-softmax probabilities on their declared finite support. Candidate drift $u_t$ and normalized marks $c_a(t)$ are predictable functionals of retained history alone. Assume the preceding exact-integral record's well-posedness and finite reverse budget hypotheses.
+
+The comparison lift is
+
+$$
+dX_t=\{v_{J_t}(X_t)+L[u_t-Pv_{J_t}(X_t)]\}dt+Q^{1/2}dB_t.
+$$
+
+It uses marks $c_a$ at unit proposal rate, with self proposals invisible. Denote its path law by $\widehat{\mathbb P}$, the native law by $\mathbb P$, and its retained marginal, the candidate law, by $\mathbb S$. Moving projections, hidden-dependent candidate rates, nonlinear sheets and state-dependent noise need additional analysis.
+
+## Actual comparison conditional law
+
+Choose orthonormal columns $Z$ spanning $\ker P$. Put $N=I-LP$, $W=Z^\top N$ and $z=WX$. Multiplication gives $PL=I$, $WL=0$, $WZ=I$, $LP+ZW=I$ and $WQP^\top=0$. Thus $X=LR+Zz$ and the coordinate Brownian noises are independent, with covariances $Q_r$ and
+
+$$
+Q_h=WQW^\top=Z^\top(Q-QP^\top Q_r^{-1}PQ)Z>0.
+$$
+
+With $A_j=WF_jZ$ and $g_j(R)=W(F_jLR+f_j)$, the equations become
+
+$$
+dR=u_tdt+d\eta_r,\qquad dz=(A_Jz+g_J(R))dt+d\eta_h.
+$$
+
+The Gaussian conditional activation moments are
+
+$$
+m_0=W\mu_0+W\Sigma_0P^\top(P\Sigma_0P^\top)^{-1}(R_0-P\mu_0),
+$$
+
+$$
+V_0=W[\Sigma_0-\Sigma_0P^\top(P\Sigma_0P^\top)^{-1}P\Sigma_0]W^\top>0.
+$$
+
+The residual $z_0-m_0$ is independent of $R_0,J_0$. Construct the retained process from its initial state, retained Brownian noise and independent proposal randomness. It does not use hidden state, so the hidden residual and hidden Brownian noise are independent of this retained construction. Conditional on a retained history, the hidden equation is linear with specified coefficients and Gaussian input. Its conditional law is therefore $N(m_t,V_t)$ with
+
+$$
+\dot m_t=A_{J_t}m_t+g_{J_t}(R_t),\qquad
+\dot V_t=A_{J_t}V_t+V_tA_{J_t}^\top+Q_h.
+$$
+
+Writing $\Phi(t,s)$ for the fundamental matrix gives $m_t=\Phi(t,0)m_0+\int_0^t\Phi(t,s)g_{J_s}(R_s)ds$ and $V_t=\Phi(t,0)V_0\Phi(t,0)^\top+\int_0^t\Phi(t,s)Q_h\Phi(t,s)^\top ds$. Both moments are continuous at visible jumps, where coefficients switch. There is no source reset or survival update because the comparison intensities are constant on each hidden fiber. There is no observation gain because the retained comparison drift has no hidden signal.
+
+For $K=\max_j\|A_j\|$ and $t\leq H$, $\lambda_{\min}(V_t)\geq e^{-2KH}\lambda_{\min}(V_0)$ and $\|V_t\|\leq e^{2KH}(\|V_0\|+H\|Q_h\|)$. The mean formula and preceding candidate-law moment bounds supply the polynomial moments used here. Full retention has no hidden coordinate.
+
+The actual comparison conditional moments are $\widetilde\mu=LR+Zm$ and $\widetilde\Sigma=ZVZ^\top$. They generally differ from the parent message $(\mu_q,\Sigma_q)$, which follows Riccati propagation and source tilts. Set $C_j=PF_jZ$ and $\widehat\alpha=P(F_J\widetilde\mu+f_J)$. The conditional second-moment identity is
+
+$$
+\mathbb E_{\widehat{\mathbb P}}[\tfrac12\|Pv_J(X)-u\|_{Q_r^{-1}}^2\mid\mathcal H_t]
+=\tfrac12\|\widehat\alpha-u\|_{Q_r^{-1}}^2
++\tfrac12\operatorname{tr}(Q_r^{-1}C_JVC_J^\top).
+$$
+
+Exact conditioning reduces hidden-sample variance. Removing the trace is not a retained-KL identity: the native retained drift conditions under $\mathbb P$, while $\widehat\alpha$ conditions under $\widehat{\mathbb P}$.
+
+For a fixed Euler interval $h$, the corresponding recursion is $m^+=(I+hA)m+hg(R)$ and $V^+=(I+hA)V(I+hA)^\top+hQ_h$. A proposal-enriched numerical mesh requires conditioning on that mesh too. Invisible proposal times cannot silently be added to the continuous retained filtration. No discretization-limit theorem is supplied here.
+
+## Reverse source conditioning
+
+At a predictable retained history let $\rho$ be the actual comparison conditional law of $X$, $b_a(X)$ the normalized native joint mark probability, and $c_a$ the candidate probability. Define
+
+$$
+\ell_a=\mathbb E_\rho\log b_a(X),\quad g_a=e^{\ell_a},\quad
+Z_b=\sum_a g_a,\quad\gamma_a=g_a/Z_b.
+$$
+
+Finite quadratic logits and conditional second moments imply finite $\ell_a$. Jensen gives $0<g_a\leq\mathbb E_\rho b_a$ and $0<Z_b\leq1$. Expanding the finite sum gives
+
+$$
+\mathbb E_\rho D(c\Vert b(X))=D(c\Vert\gamma)-\log Z_b.
+$$
+
+Both terms are nonnegative. These are normalized geometric means. If $b_a=\prod_i\beta_{i,a_i}$, then $g_a=\prod_i g_{i,a_i}$ and $Z_b=\prod_i Z_i$, with $g_{i,s}=\exp(\mathbb E_\rho\log\beta_{i,s})$. A sequential candidate retains its prefix dependence:
+
+$$
+\mathbb E_\rho D(c\Vert b)=\sum_i\mathbb E_{A_{<i}\sim c}
+D(c_i(\cdot\mid A_{<i})\Vert\gamma_i)-\sum_i\log Z_i.
+$$
+
+For visible changes let $\psi(u,v)=u\log(u/v)-u+v$, $\bar b_a=\mathbb E_\rho b_a$ and $j$ be the current assignment. The identity retaining survival terms is
+
+$$
+\mathbb E_\rho\sum_{a\ne j}\psi(c_a,b_a(X))
+=\sum_{a\ne j}\psi(c_a,g_a)+\sum_{a\ne j}(\bar b_a-g_a).
+$$
+
+Equivalently each summand is $\psi(c_a,\bar b_a)+c_a(\log\bar b_a-\ell_a)$. Joint arithmetic probabilities generally do not factor into row means. Neither these Jensen gaps nor the geometric mismatch is automatically native retained prediction error; they depend on the comparison conditional law.
+
+## Exact path-space distinction
+
+The standard relative-entropy chain rule supplies the distinction. This is already part of PIFB2's retained-law viewpoint; see [Leonard, Appendix A, (A.7)-(A.10)](https://leonard.perso.math.cnrs.fr/papers/2014-Leonard-A%20survey%20of%20the%20Schroedinger%20problem%20and%20some%20of%20its%20connections%20with%20optimal%20transport.pdf). With retained path map $\mathcal T$ and $\mathbb P_Y=\mathcal T_\#\mathbb P$,
+
+$$
+D(\widehat{\mathbb P}\Vert\mathbb P)=D(\mathbb S\Vert\mathbb P_Y)
++\int D(\widehat{\mathbb P}(d\omega\mid y)\Vert\mathbb P(d\omega\mid y))\mathbb S(dy).
+$$
+
+Indeed, put $f=d\widehat{\mathbb P}/d\mathbb P$ and $s(y)=\mathbb E_{\mathbb P}[f\mid\mathcal T=y]$. Then $s=d\mathbb S/d\mathbb P_Y$ and the conditional density ratio is $f/s(y)$. Splitting its logarithm gives the identity. The preceding finite reverse budget makes every entropy finite. The established budget ordering remains
+
+$$
+B_{\mathrm{full}}\geq B_{\mathrm{vis}}\geq D(\widehat{\mathbb P}\Vert\mathbb P)
+=D(\mathbb S\Vert\mathbb P_Y)+\text{conditional path entropy}.
+$$
+
+No new equality between an auxiliary budget and fine path entropy is asserted. The instantaneous decompositions above do not identify the last path-space term.
+
+Over all path laws with retained marginal $\mathbb S$, the minimum fine relative entropy is $D(\mathbb S\Vert\mathbb P_Y)$. The law $\mathbb Q^*(d\omega)=\mathbb P(d\omega\mid y)\mathbb S(dy)$ attains it. This unrestricted disintegration uses the entire retained path and gives no causal finite-message simulator. It may change the fine activation law: since $d\mathbb Q^*/d\mathbb P=s(\mathcal T\omega)$, it preserves $(X_0,J_0)$ exactly only if $\mathbb E_{\mathbb P}[s(Y)\mid X_0,J_0]=1$. Equal retained initial laws give only the weaker condition conditioned on $(R_0,J_0)$. Fixed fine activation is an additional restriction, for which equality of the infimum is not established here.
+
+## Gaussian calibration
+
+This calibration grounds the cost's interpretation; it does not set formation direction. Take the jointly linear Gaussian native process
+
+$$
+dR=(-aR+Cz)dt+dW_R,\qquad dz=(C^\top R-bz)dt+dW_z,
+$$
+
+with independent noises, Gaussian activation independent between $R_0$ and $z_0$, $a,b>0$, $C\ne0$, and $\|C\|^2<ab$. The sheet precision is positive definite. Assignment marks are constant and independent. Gaussian conditioning gives the exact retained parent with hidden mean $m_q$ and covariance $S$:
+
+$$
+dm_q=(C^\top R-bm_q)dt+SC^\top[dR-(-aR+Cm_q)dt],
+\qquad\dot S=I-2bS-SC^\top CS.
+$$
+
+These are the linear filtering and variance equations of [Kalman and Bucy (1961), relations (I)-(IV) and Theorem 1](https://eceweb1.rutgers.edu/~gajic/pdffiles/519KalmanFiltering/KalmanBucy1961.pdf), with observed feedback treated as known input. Joint Gaussianity makes the orthogonal projection the conditional mean. The innovation is Brownian in retained history; uniqueness of the resulting linear parent equation gives the native retained law and zero retained relative entropy.
+
+The minimum-$Q$ lift replaces only the retained drift by $-aR+Cm_q$. Its actual comparison hidden covariance is $V_t=e^{-2bt}S_0+(1-e^{-2bt})I/(2b)$. Thus the auxiliary drift cost is at least $\frac12\int_0^H\operatorname{tr}(CV_tC^\top)dt>0$ despite exact retained prediction.
+
+In the scalar case $a=b=1$, $C=1/2$, and stationary filter covariance $S_0=2\sqrt5-4$, write $m$ for the actual comparison conditional mean. Under the comparison law, $e=m_q-m$ satisfies
+
+$$
+de=-e dt+\tfrac12 S_0dW_R,\quad e_0=0,\quad
+\mathbb E e_t^2=\frac{S_0^2}{8}(1-e^{-2t}).
+$$
+
+The horizon-one auxiliary drift cost is $0.0629713735527812$. After removing the conditional trace, the mean remainder is $0.001977189588916891$, still positive while retained relative entropy is zero. The precision eigenvalues are $1/2$ and $3/2$. Independent block copies preserve this distinction in arbitrary fixed dimension; they do not supply an interacting formation theorem. Constant marks violate O1's informative-source clause. This is neither a saved GL-network accuracy result nor a refutation of informative-source O1.
+
+## Evidence and remaining obligations
+
+The archived [script](reverse-retained-decomposition-evidence/symbolic-checks.py) and [output](reverse-retained-decomposition-evidence/symbolic-checks.json) are from the completed command `C:/anaconda/python.exe -I -B artifacts/reverse-retained-decomposition/symbolic-checks.py`, using SymPy 1.14.0 in 0.30137589998776093 seconds. Nine matrix residuals, two finite source-entropy identities and four scalar ODE/initial residuals vanish exactly. Positive principal minors ground the correlated-noise fixture; the stationary Riccati root and cost integrals were evaluated symbolically before decimal conversion. These finite checks are not proof of the general stochastic assertions or a formal verification certificate. No model simulation, production-code change, active-config change, GPU job, full suite or failed-study retry occurred.
+
+The allotted analytical round ends at this provisional checkpoint. Complete the missing formal verification workflow before relying on its general conclusions. Practical O1 still needs an admissible native conditional-prediction comparison or a sharper lift with controlled error in both required horizon regimes. The unrestricted minimizer does not meet that constructive obligation. This document authorizes no replicated measurement. Forward native integrability, the previous parity failure and O4 remain open; neither this loop nor the exhausted degenerate-valley loop is silently restarted.
