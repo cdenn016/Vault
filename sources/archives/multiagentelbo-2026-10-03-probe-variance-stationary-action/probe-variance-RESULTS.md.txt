@@ -1,0 +1,48 @@
+# Source-probe and trajectory variation in the saved budgets
+
+October 3, 2026. The [declared posthoc analysis](probe-variance-CONTRACT.md) completed once with exit zero in 0.2344153 seconds of terminal time (0.0996816 seconds inside the analysis). It used all 32 saved trajectories at N512/N1024, both grids, and all three candidate/comparator arms: 18 groups and 288 path/group rows. No trajectory, message propagation, new source probe or GPU calculation ran. All 1,234 arithmetic comparisons passed. An independent scalar reconstruction matched all 18 summaries and the earlier means/standard errors, with maximum summary discrepancy 1.42109e-14. The [evidence directory](probe-variance-evidence/) contains the CSV, machine-readable summary, exact source archive and terminal records.
+
+## Exact statistical identity and its empirical use
+
+Let F_i contain the simulation random streams, both grids and both native/message histories, excluding probe times and prefix uniforms. The sampler reserves streams 0 through 3 for simulation and 4 and 5 for probes. Probes do not alter the histories. Under that intended independent-stream model, the two visible-cost probes G_i1,G_i2 are conditionally iid. They include both time sampling and native-prefix sampling, and already subtract the whole-current-assignment self correction. The lift's source cost is exact conditional on its sampled time.
+
+For horizon H, write Y_i=D_i+H(G_i1+G_i2)/2. Conditional independence gives
+
+$$
+E[(G_{i1}-G_{i2})^2\mid F_i]=2\operatorname{Var}(G_{i1}\mid F_i),
+$$
+
+so v_i=H^2(G_i1-G_i2)^2/4 is conditionally unbiased for Var(Y_i|F_i). For independent path tapes with the same declared law, E[s_Y^2]=Var(Y_i) and E[v_bar]=E[Var(Y_i|F_i)]. Expanding Y-EY as (Y-E[Y|F])+(E[Y|F]-EY), whose cross expectation is zero, proves
+
+$$
+E[s_Y^2-\bar v]=\operatorname{Var}(E[Y_i\mid F_i]).
+$$
+
+The same proof applies to any paired arm or grid contrast by taking its drift difference and probe-wise source difference first. The empirical subtraction may be negative even though its target is nonnegative. Deterministic pseudorandom seeds implement the sampling model; the analysis does not prove PRNG independence.
+
+## Measured variance components
+
+The table reports per-path variance in squared nats. The trajectory column is the signed residual s_Y^2-v_bar. The probe fraction is a ratio of noisy estimates, not a confidence bound or an unbiased fraction.
+
+| Agents | Fine-grid quantity | Total variance | Estimated probe variance | Estimated trajectory variance | Probe fraction |
+| --- | --- | --- | --- | --- | --- |
+| 512 | Gaussian candidate | 15.76169 | 5.70689 | 10.05480 | 0.3621 |
+| 1,024 | Gaussian candidate | 23.60627 | 9.10559 | 14.50068 | 0.3857 |
+| 512 | Activation lift | 36.38174 | 13.93755 | 22.44419 | 0.3831 |
+| 1,024 | Activation lift | 95.48210 | 24.20060 | 71.28150 | 0.2535 |
+| 512 | Gaussian minus lift | 18.66399 | 6.45249 | 12.21150 | 0.3457 |
+| 1,024 | Gaussian minus lift | 58.23032 | 14.70744 | 43.52288 | 0.2526 |
+
+Divide each component by 16 to obtain the corresponding estimated variance of the sample mean. The reconstructed means and total variances recover the earlier [Gaussian-versus-lift results](frozen-lift-comparison-RESULTS.md).
+
+Grid sensitivity has a different allocation of estimated variation. For the paired fine-minus-coarse Gaussian-versus-lift contrast, the estimated probe fractions are 0.70588 at N512 and 0.85358 at N1024. The total variances are 0.0509121 and 0.1793649; probe components are 0.0359378 and 0.1531026. At N512 the individual Gaussian and lift grid differences have negative trajectory-component estimates, -0.00812550 and -0.00933226, with probe fractions above one. These values are retained and demonstrate the sampling uncertainty of the decomposition; they are not negative physical variances.
+
+## Consequence for the next study
+
+These data do not support treating two-probe noise as the only source of the fine-grid budget variation. More source probes could improve precision of a grid-sensitivity comparison, where the point estimates attribute a larger share to probe noise. They would not remove a candidate-independent hidden-information contribution or turn the large auxiliary means into small retained-path error. The next O1 accuracy obligation remains the true conditional predictive characteristics, rather than another absolute auxiliary-budget measurement.
+
+The present sample cannot choose an optimal probe count, distinguish time noise from prefix noise, or estimate variability across model realizations. It has only two probes per path, sixteen paths per size, and one model per size. No new experiment is launched from this posthoc result. The [grid moment proof](continuous-grid-moments.md) concerns an exact-arithmetic qualitative limit, not a finite-grid bias bound or a float64 confidence certificate. O1 and O4 remain open.
+
+## Source and execution boundary
+
+The executed path is experiments/analyze_frozen_probe_variance.py, which loads the declared metadata and saved NPZ arrays directly; run_lab.py and its neighborhood profile are not invoked. The arrays and pairing were traced through continuous_budget.py (source_budget_probe, _run_grid, sample_frozen_budget) and compare_frozen_parent_lift.py. Candidate/lift subtraction, drift-plus-visible totals, and fine-minus-coarse subtraction are checked for every saved path. Total sample variance is independently reconstructed using pairwise differences, and each probe component is checked against the centered two-point variance. No unit-test or production suite was rerun. Protected WIP and historical failed runs remain unchanged.

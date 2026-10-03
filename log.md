@@ -326,3 +326,7 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 
 2026-10-03  INGEST  [[multiagentelbo-2026-10-03-continuous-parent-limits]]: archived three finite-model derivations; updated project, hierarchy theme and Mathematics/Statistics MOCs. Finite continuous budget and exact-arithmetic expected-grid convergence are established at their stated assumptions. Fixed-probe randomness, finite-grid bias, O1/O4 remain open; no scientific run or manuscript edit.
 2026-10-03  LINT  Continuous-parent limit ingest: 1446 notes; zero broken wikilinks, graph grey nodes, empty files, case collisions and identity collisions. Three archived proof files match their committed code-source bytes.
+
+2026-10-03 INGEST: Archived multiagentelbo-2026-10-03-probe-variance-stationary-action from code commit 4a15917; added the run/source note and updated the project, hierarchy theme and Mathematics/Statistics MOCs. Preserved two-probe uncertainty, full-protocol hypotheses and open O1/O4 scope. No manuscript or previous source edited.
+
+2026-10-03 LINT: After probe-variance/stationary-action ingest, docs/_lint.py scanned 1447 notes; broken wikilinks, graph grey nodes, empty files, case collisions and identity collisions all zero.
