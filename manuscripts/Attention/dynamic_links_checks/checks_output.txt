@@ -1,0 +1,78 @@
+
+==============================================================================
+1. Class functions are blind to unipotent holonomy; the Frobenius defect is not
+==============================================================================
+eigenvalues of I+E12: [1. 1. 1.]
+sum_k |lambda_k - 1| = 0.0
+rms |Log lambda_k|   = 0.0
+Frobenius defect (1/2)||W - I||_F^2 = 0.5
+  conjugate by diag(1.0,1,1): ||D N D^-1 - I||_F = 1.0e+00
+  conjugate by diag(0.01,1,1): ||D N D^-1 - I||_F = 1.0e-02
+  conjugate by diag(0.0001,1,1): ||D N D^-1 - I||_F = 1.0e-04
+
+==============================================================================
+2. On O(K) the Frobenius defect equals the Wilson density K - tr W; small-field expansion
+==============================================================================
+max |(1/2)||Q-I||^2 - (K - tr Q)| over 200 orthogonal Q: 1.8e-15
+  s=1e-01: Phi(F) = 1.774e-01, (1/2)||dX||^2 = 1.772e-01, rel diff = 1.0e-03
+  s=1e-02: Phi(F) = 1.772e-03, (1/2)||dX||^2 = 1.772e-03, rel diff = 3.4e-04
+  s=1e-03: Phi(F) = 1.772e-05, (1/2)||dX||^2 = 1.772e-05, rel diff = 3.8e-05
+
+==============================================================================
+3. Transport term: E[-log N(z'; m, Q)] - H[q(z')] = KL(q' || N(mbar, Q)) + (1/2) tr(Q^-1 V)
+==============================================================================
+sum_h P_h = I: 1.1e-16   P_h P_g = delta P_h: 1.1e-16
+Monte Carlo 11.5605   closed form 11.5594   rel diff 9.5e-05 (S=400000)
+mean of m: MC vs closed 1.3e-03   cov of m: MC vs closed 1.4e-02
+
+==============================================================================
+4. One head: transport term = sum_j beta_j [KL(q'||N(G_j xi_j, Q)) + (1/2) tr(Q^-1 G_j C_j G_j^T)]
+==============================================================================
+lhs 11.504716119340  rhs 11.504716119340  diff 0.0e+00
+
+==============================================================================
+5. Link gradient: dF/dX = L(X^T, dF/dG) with dF/dG = beta A (G S_j - xi' xi_j^T)
+==============================================================================
+max |analytic - central FD| = 3.0e-10  (|grad| ~ 0.80)
+unregularized stationary G = xi' xi_j^T S_j^{-1} has rank 1 and det -4.7e-32 (not in the image of exp)
+
+==============================================================================
+6. Linearized field equation: screened discrete Maxwell (Proca) operator vs exact MAP
+==============================================================================
+linear operator symmetric: 0.0e+00  min eigenvalue: 2.014 (>= 1/sigma^2 = 2.0)
+  eps=1e-01: |X_map| = 7.59e-02, |X_map - X_lin|/|X_map| = 2.74e-02
+  eps=3e-02: |X_map| = 2.31e-02, |X_map - X_lin|/|X_map| = 8.52e-03
+  eps=1e-02: |X_map| = 7.74e-03, |X_map - X_lin|/|X_map| = 2.87e-03
+
+==============================================================================
+7. Electric (time-like) loop: W ~ I - [(X^{l+1}_ik - X^l_ik) - (X^{l+1}_ii - X^l_kk)]
+==============================================================================
+  s=1e-01: ||W - (I - E)||_F / ||E||_F = 2.0e-01
+  s=1e-02: ||W - (I - E)||_F / ||E||_F = 1.9e-02
+  s=1e-03: ||W - (I - E)||_F / ||E||_F = 1.8e-03
+
+==============================================================================
+8. Undirected Gaussian matter: induced action (1/2) log det J(X) and the hopping expansion
+==============================================================================
+S_ind gauge-transformed - S_ind: 0.0e+00
+  theta=0.3: exact dS_ind = 0.000827, leading Wilson c(K - tr F) = 0.000715, hopping series vs exact S_ind: 8.9e-16, rho(D^-1 A) = 0.398
+  theta=1.0: exact dS_ind = 0.008477, leading Wilson c(K - tr F) = 0.007355, hopping series vs exact S_ind: 0.0e+00, rho(D^-1 A) = 0.378
+  theta=2.0: exact dS_ind = 0.025887, leading Wilson c(K - tr F) = 0.022658, hopping series vs exact S_ind: 8.9e-16, rho(D^-1 A) = 0.371
+  lam0=  3.0: exact / leading Wilson = 1.1525
+  lam0= 10.0: exact / leading Wilson = 1.0222
+  lam0= 30.0: exact / leading Wilson = 1.0030
+  lam0=100.0: exact / leading Wilson = 1.0003
+single edge: S_ind(orthogonal) - S_ind(I) = 0.0e+00   S_ind(e^{sH_sym}) - S_ind(I) = 0.2366
+triangle with unipotent link: S_ind - S_ind(flat) = 0.0453  (class-function curvature of its holonomy: 0.0e+00)
+min S_ind over 500 random large GL links: 4.1372 >= (1/2) log det(lam0 I) = 3.2958
+
+==============================================================================
+9. Depth path MAP: increment precision is the inertial mass, Euclidean (inverted-potential) sign
+==============================================================================
+max |m(2x_l - x_{l+1} - x_{l-1}) + V'(x_l)| at the MAP path: 7.1e-07
+MAP path is a monotone kink between the wells (no oscillation): True
+
+==============================================================================
+10. Static limit: shared generator recovers the exponential-chart message e^{OT} T^-1 B T xi
+==============================================================================
+max |model mean - exponential-chart mean| = 5.6e-16

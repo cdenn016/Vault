@@ -410,3 +410,5 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 2026-10-03 INGEST: Joint-channel compression from MultiAgentELBO 8180edb; new run note, 23 immutable archive files and existing project/theme/MOC updates. Preserved small-sample and approximation limits, open O1/O4.
 
 2026-10-03 LINT: Joint-channel compression ingest; 1379 notes, all five link/identity categories zero.
+
+2026-10-03 FIX: Corrected [[Non-flat connection and the photon analogy]]: the bounded eigenvalue density sum_k|lambda_k(W)-1| vanishes exactly when every eigenvalue of W is one, which includes unipotent W such as I+E12, not only W=I; no continuous class function on non-compact GL(K) separates a unipotent element from the identity. The 2026-06-18 INGEST line above records the earlier wording. Added manuscripts/Attention/dynamic_links.tex (latent link generators X_ij in the variational free energy; not yet ingested) with float64 checks in dynamic_links_checks/.
