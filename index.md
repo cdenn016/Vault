@@ -1483,3 +1483,5 @@ All new source notes are cataloged below. [[multiagentelbo-2026-09-11-research-s
 - [[multiagentelbo-2026-10-03-restoring-zero-action]] -- actual restoring coherence with zero stationary action in an introduced regular recognition model; full O4 remains open.
 
 - [[multiagentelbo-2026-10-03-gated-handoff-obstruction]] -- scoped failures of slow-record and interacting GL formation candidates on o(1/T) horizons; O4 remains open.
+
+- [[multiagentelbo-2026-10-03-entropic-time-scale]] -- local inverse-temperature GL dynamics, actual initial slip and exact stationary logarithmic scales; inner passage and O4 remain open.
