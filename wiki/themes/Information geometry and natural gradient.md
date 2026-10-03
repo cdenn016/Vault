@@ -12,10 +12,14 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 # Information geometry and natural gradient
+
+## Unified frame and receiver geometry, October 3, 2026
+
+[[dennis-2026-attention-unified]] supplies the current distinction behind the historical summaries below. The Frobenius pullback on frame matrices is extrinsic geometry. The belief-family frame Fisher is the pullback of a specified Gaussian reference-prior family, has a stabilizer kernel, and uses a declared completion and batch-block approximation in the implementation. It is distinct from the predictor's output Fisher. The current launcher uses AdamW; `fisher_group` and `group_log` are reachable options for frame tables, not content-map optimization. Input occurrences are counted separately from the scored-token normalization. Their implementation and 26 focused CPU checks do not establish a training advantage.
 
 ## The big picture
 

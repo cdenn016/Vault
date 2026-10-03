@@ -14,10 +14,19 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 # GL(K) gauge-equivariant attention
+
+## Unified companion and primary group-valued direction, October 3, 2026
+
+[[dennis-2026-attention-unified]] consolidates the six Attention notes into one standalone manuscript. The author selected Option A, $\Theta_{ij}=U_i e^{X_{ij}}U_j^{-1}$, as the primary construction for later integration; compression and the current head sum remain supporting bridges. The existing GL(K) manuscripts are unchanged. The companion relates the predictive moment theorem, the receiver energies, template inference, and frame optimization to the main paper and its gradient, supplementary, and nonlinear extensions.
+
+> [!warning] Scope corrections to the October 2 summaries
+> The unified derivations qualify [[dennis-2026-link-origin]] and [[dennis-2026-link-curvature]]: a constant nonidentity exponential link is nonflat, without a defined claim of maximal curvature; affine/exponential equivalence requires a real-logarithm domain; complement persistence is an additional assumption; and the Gaussian orbit Fisher has stabilizer null directions. Inverse-edge triangle holonomy is possible on causal support even though forward causal walks have no nontrivial cycles. A frozen expected-log-likelihood receiver update is distinct from a mixture of separately normalized label-conditioned posteriors.
+
+The October 3 launcher selects moment-matched covariance, diagonal storage, and AdamW frames. Statements below about an evaluated passthrough/full-covariance route retain their historical scope. Current template routing remains a local-coordinate mean readout; no whole-stack GL(K) covariance or common population-ELBO descent follows from component identities.
 
 The program studies Gaussian routing and predictive communication between locally framed agents. The current manuscript is *Gauge-Covariant Gaussian Attention and Predictive Communication*; the immutable [[gl-k-attention]] note records an earlier version. [[dennis-2026-glk-matrix-links-2026-09-20]] records the September matrix-link revision.
 

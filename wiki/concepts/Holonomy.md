@@ -12,10 +12,16 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 # Holonomy
+
+## Unified exponential-link construction, October 3, 2026
+
+The author selected Option A exponential group-valued links as the primary future GL(K) integration direction in [[dennis-2026-attention-unified]]. Causal support forbids directed cycles through distinct positions, but invertible edges allow the inverse-edge triangle $\Theta_{ik}^{-1}\Theta_{ij}\Theta_{jk}$. Its conjugacy invariants can be nontrivial for a composite link field without an independent gauge action. A constant exponential link is nonflat unless its exponential is identity; "maximally curved" in the earlier note has no specified ordering and is removed in the consolidation.
+
+The existing VFE_3.0 working tree now includes routing-triangle diagnostics, checked by five tiny CPU tests during consolidation. This is a diagnostic path, not a new learned exponential edge field or a trained performance result. The exact head-weight ratio requires the stated inverse-map assumptions; the general map-dependent diagnostic retains $TO$ rather than assuming identity. For jointly Gaussian reference states, zero regression composition defect on every strict triple is equivalent to first-order Markov conditional independence; group holonomy additionally needs invertible regression maps.
 
 ## Coboundary monitors and link spectra in vfe3 (design record, September 28)
 

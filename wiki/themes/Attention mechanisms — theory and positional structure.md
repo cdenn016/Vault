@@ -12,10 +12,14 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-09-27
+updated: 2026-10-03
 ---
 
 # Attention mechanisms — theory and positional structure
+
+## Unified group-valued attention companion, October 3, 2026
+
+[[dennis-2026-attention-unified]] organizes projected prediction, receiver inference, template routing, link curvature, and frame optimization around the author's primary Option A exponential-link construction. Source selection, predictive averaging, frozen receiver optimization, and correlated population inference remain different statistical operations. The companion gives an implementation snapshot and a future integration map for the GL(K) manuscripts, with no new performance claim.
 
 ## The big picture
 

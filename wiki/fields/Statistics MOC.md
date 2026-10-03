@@ -252,3 +252,7 @@ or `tag:#field/statistics tag:#cluster/vfe`. See the [[Disciplines MOC]] hub for
 [[multiagentelbo-2026-09-30-spin-foam-integration-review]] records the eight-investigator review of the spin-foam boundary companion, four statements integrated into the MultiAgentELBO theory (memory identity on standard Borel records, two-sided bounded-tier divergence bounds, tree-transport composition, and recovery by likelihood descent), and their Claude Fable 5.1 verification.
 
 [[multiagentelbo-2026-09-30-locality-parent-memory]] records parent-memory decay across locality priors at N = 64 to 2,048: local priors keep finite size-independent memory, while complete support becomes nearly Markov by exchangeability.
+
+## Unified attention companion, October 3, 2026
+
+[[dennis-2026-attention-unified]] consolidates exponential-link geometry, Gaussian inference, templates, and frame optimization with a dated implementation crosswalk. Option A is the author-selected primary construction; the file remains separate from the GL(K) manuscripts. No new training or large-network result is claimed.

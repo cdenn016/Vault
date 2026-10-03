@@ -5,7 +5,7 @@ aliases: [field/cs-ml, CS-ML sources, Machine learning MOC, CS/ML MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-10-02
+updated: 2026-10-03
 ---
 
 # CS-ML MOC
@@ -126,3 +126,7 @@ or `tag:#field/cs-ml tag:#cluster/info-geometry`. See the [[Disciplines MOC]] hu
 ## Observed-link Gaussian parent reference, September 30, 2026
 
 [[multiagentelbo-2026-09-30-gaussian-parent-dynamics]] records seven tiny CPU tests and 95 passing comparisons across five 512-agent cases, actual-history filtering and finite-path Markov information loss. External controls and network-sized conditionals do not establish endogenous learning or autonomous parent closure.
+
+## Unified attention companion, October 3, 2026
+
+[[dennis-2026-attention-unified]] consolidates exponential-link geometry, Gaussian inference, templates, and frame optimization with a dated implementation crosswalk. Option A is the author-selected primary construction; the file remains separate from the GL(K) manuscripts. No new training or large-network result is claimed.
