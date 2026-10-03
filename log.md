@@ -386,3 +386,7 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 2026-10-03 INGEST: Archived provisional reverse retained-cost derivation from MultiAgentELBO 74047f3; source note, three immutable files, existing project/theme and Mathematics/Statistics MOCs. Formal verification pending; O1/O4 open.
 
 2026-10-03 LINT: After provisional reverse retained-cost ingest, 1462 notes checked; broken links, graph grey nodes, empty files, case collisions and identity collisions all zero.
+
+2026-10-03 INGEST: Archived compressed-message implementation and four-path pilot from MultiAgentELBO dc892c4; source note, 20 immutable files and existing project/theme/discipline pages. Preserved dense-workspace and small-sample limits, open O1/O4.
+
+2026-10-03 LINT: Compressed-message ingest checked 1463 notes; all five link/identity error categories zero.
