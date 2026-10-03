@@ -10,6 +10,12 @@ updated: 2026-10-02
 
 # Mathematics MOC
 
+## Source-adapted Gaussian continuation, October 2, 2026
+
+[[multiagentelbo-2026-10-02-source-adapted-gaussian]] replaces finite-cloud source weighting with normalized sequential Gaussian adaptation and retains full covariance through propagation and observation. Thirteen distinct tiny CPU checks pass. One matched first-32-path study at 512/1,024 agents compares persistent and activation-reset messages; persistent-minus-reset loss is N=512: -5.4287 +/- 1.6054; N=1024: -10.8093 +/- 2.1081 nats per path (empirical paired standard errors). The archive separates source/configuration contributions and compares the same paths with prior candidates. There is one model realization per size, so the comparison is underpowered for across-model generalization.
+
+The posthoc saved-score functional estimates retained path KL plus a nonnegative information gap, not a confidence upper bound. Separately, a frozen continuous-time full-Gaussian parent satisfies the regular-filter conditions and has a survival-aware actual-law error budget. Neither candidate admission nor the finite scheduled replay proves the required small asymptotic error, endogenous structural feedback or recursive formation. The earlier requested break ended when the user resumed the autonomous goal.
+
 ## Group-valued links, October 2, 2026
 
 [[dennis-2026-link-origin]] relates the rank-deficient matrix links of the projected attention routes to group-valued links: the exponential identity $\exp(PQ)=I+P\varphi(QP)Q$, a Levi/Schur block factorization of a primitive link under the parabolic reduction of structure group, and the loop of the head-sum operator as a triangle defect of the routing costs. All identities are checked in float64 at $K=6$ or $7$; it is an agent-drafted note with nothing trained and several items open. Synthesis: [[Lattice gauge theory]].

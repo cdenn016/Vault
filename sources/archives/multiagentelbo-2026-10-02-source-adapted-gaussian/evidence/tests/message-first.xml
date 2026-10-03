@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="4" time="0.584" timestamp="2026-10-02T12:49:14.441624" hostname="DESKTOP-RT15E78"><testcase classname="tests.test_gaussian_message" name="test_propagation_matches_independent_quadratic_hessian_with_sender_terms" time="0.022"><failure message="AssertionError: Tensor-likes are not close!&#10;&#10;Mismatched elements: 96 / 128 (75.0%)&#10;Greatest absolute difference: 0.5073103012395777 at index (0, 7, 7) (up to 2e-14 allowed)&#10;Greatest relative difference: 2.989307997977387 at index (1, 5, 1) (up to 2e-14 allowed)">def test_propagation_matches_independent_quadratic_hessian_with_sender_terms() -&gt; None:
+        model, state, mobility = _example()
+        mu, covariance, _ = _moments()
+        old_mu, old_covariance = mu.clone(), covariance.clone()
+        assignments = torch.tensor([[0, 1, 0, 1], [1, 0, 1, 0]])
+        dt = .03
+        expected_mean, expected_covariance = [], []
+        M = torch.block_diag(*mobility)
+        for batch in range(2):
+            H = torch.block_diag(*model.J_0)
+            for receiver in range(4):
+                label = int(assignments[batch, receiver])
+                source = int(model.sources[receiver, label])
+                link = state.Theta[model.link_index[receiver, label]]
+                if bool(model.reverse[receiver, label]):
+                    link = torch.linalg.inv(link)
+                difference = torch.zeros((2, 8), dtype=mu.dtype)
+                difference[:, 2*receiver:2*receiver+2] = torch.eye(2, dtype=mu.dtype)
+                difference[:, 2*source:2*source+2] = -link
+                H += difference.T @ model.H[receiver] @ difference/model.tau
+            A = torch.eye(8, dtype=mu.dtype)-dt*M@H
+            offset = dt*M@torch.block_diag(*model.J_0)@model.a.flatten()
+            expected_mean.append(A@mu[batch].flatten()+offset)
+            expected_covariance.append(A@covariance[batch]@A.T+2*dt*M)
+        actual_mean, actual_covariance = _api().propagate_gaussian(
+            mu, covariance, assignments, mobility, state, model, dt)
+        torch.testing.assert_close(actual_mean.flatten(1), torch.stack(expected_mean), atol=2e-14, rtol=2e-14)
+&gt;       torch.testing.assert_close(actual_covariance, torch.stack(expected_covariance), atol=2e-14, rtol=2e-14)
+E       AssertionError: Tensor-likes are not close!
+E       
+E       Mismatched elements: 96 / 128 (75.0%)
+E       Greatest absolute difference: 0.5073103012395777 at index (0, 7, 7) (up to 2e-14 allowed)
+E       Greatest relative difference: 2.989307997977387 at index (1, 5, 1) (up to 2e-14 allowed)
+
+tests\test_gaussian_message.py:71: AssertionError</failure></testcase><testcase classname="tests.test_gaussian_message" name="test_observation_matches_full_gaussian_density_and_cross_covariance" time="0.305" /><testcase classname="tests.test_gaussian_message" name="test_propagation_of_singular_fiber_message_restores_positive_forecast" time="0.002" /><testcase classname="tests.test_gaussian_message" name="test_full_retention_has_exact_zero_conditional_covariance" time="0.001" /></testsuite></testsuites>
