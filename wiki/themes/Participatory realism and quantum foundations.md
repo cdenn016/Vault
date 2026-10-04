@@ -9,7 +9,7 @@ aliases:
 tags: [cluster/participatory, project/multi-agent]
 status: stable
 created: 2026-06-18
-updated: 2026-06-20
+updated: 2026-10-04
 ---
 
 # Participatory realism and quantum foundations
@@ -224,3 +224,16 @@ informational state rather than presupposed.
 - [[nelson-1967-brownian-motion]] — stochastic mechanics deriving the Schrödinger equation from a conservative diffusion; the physics-from-information ancestor of the entropic-dynamics strand.
 - [[bell-2004-speakable-unspeakable]] — Bell's collected foundational papers; the theorem against local observer-independent values that the sharpened Wigner's-friend no-go results extend.
 - [[connes-rovelli-1994-thermal-time]] — thermal time hypothesis; observer-relative emergent time.
+
+## Historical consistency and predictive stability: October 2026
+
+> [!note] Editorial: Scoped continuation of the participatory program
+> The research agenda [[multiagentelbo-2026-10-04-stable-physics-questions]] and manuscript [[Stable_Physics_Research_Questions]] investigate mechanisms within the current classical agent framework. They do not establish that consciousness creates physical laws or that quantum theory follows from agreement.
+
+Wheeler's history analogy motivates a shared object constrained by accumulated records. The question is how those constraints become reusable predictions. The agenda connects this question to existing exact retained laws and the conditional-information cost of forgetting. It distinguishes a stable record from a fixed interpretation of that record; learning may revise the latter.
+
+The generator-history prior provides an especially precise obligation: consistency within one finite-horizon joint and consistency across independently extended horizons are different properties. Compatible boundary conditions or a declared causal model are possible routes, with different assumptions. A conditional positive-eigenfunction transition formula is included as a candidate, without claiming its required existence or boundary matching.
+
+Public equivalence is defined relative to accessible record histories and protocols. Different cognitive communities may share predictions, have different access, or disagree on an established comparison. Gauge transformations form a specified family of representation changes; operational equivalence can be broader because interfaces may hide distinctions. Earlier interpretive identifications of the framework with particular quantum-foundational positions do not constitute derivations of those positions.
+
+The remaining progression is endogenous record persistence, a predictive parent that survives an inherited second interaction episode, and a controlled large-network/large-depth limit. [[Participatory realism (it from bit)]] carries the corresponding concept update. [[shalizi-1999-computational-mechanics-pattern-and-prediction-structure-and-simplicit]] and [[wilson-1971-rg-critical-phenomena]] are precedents for prediction and scaling within their own assumptions; they do not settle those obligations here.
