@@ -14,12 +14,16 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-10-03
+updated: 2026-10-04
 ---
 
 
 
 # Gauge-Theoretic Multi-Agent VFE Model
+
+## October 4 Lie-algebra links as latent fields
+
+[[multiagentelbo-2026-10-04-lie-algebra-links]] repositions the theory so that the links between agents are inferred. A new main-manuscript Chapter 9, "Lie-Algebra Links as Latent Fields", places the generators $\mathring\omega_e$ of an exponential chart in the collective evidence bound with a Gaussian base prior and a metric loop-defect action. It proves class-function blindness to unipotent holonomy on $\mathrm{GL}(K)$, a delta-rule link field equation, the necessity of the generator prior, and the held-link zero-width limit. It also proves the induced action of undirected matter with its Wilson triangle term, a natural-gradient recognition flow whose Euler step is the Bayesian learning rule, inertia of the most probable history with Euclidean sign, and a Proca-type linearized operator. Supplement G gains the Gaussian values, and Chapters 11 and 13 gain the almost-sure emptiness of the holonomy parent family and coarse generators. Former Chapters 9–15 are now 10–16. Every statement was checked by Claude Fable 5.1 against Claude Opus 5.5's drafts, and none was judged invalid. Open: `open:link-coarse-closure`, `open:glink-unanchored-normalization` and `open:glink-chart-infimum` ($K\ge4$). The six PIFB2 references to Chapters 11, 12 and 14 of this monograph are stale after the renumbering. Motivation: the VFE 3.0 affine, first-order and exponential content-link charts were within seed variance, and only the exponential chart cannot leave $\mathrm{GL}^+(K)$. Nothing was trained.
 
 ## October 3 joint-channel compression comparison
 

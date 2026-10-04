@@ -1,0 +1,253 @@
+# Cross-model proof check: ch:links, sections sec:link-chart, sec:link-curvature, sec:link-prior, plus the Part II statements and the pointer sentences
+
+**Author model:** Claude Opus 5.5 (`claude-opus-5-5`)
+**Verifier model:** Claude Fable 5.1 (`claude-fable-5-1`)
+
+**Files and line ranges checked (THEORY = `C:\Users\chris and christine\Desktop\Research\manuscripts\MultiAgentELBO_Theory`):**
+
+- `THEORY\c08b_lie_links.tex` lines 1–601 (chapter opening, notation table, scope paragraph, and the three assigned sections with their inline proofs and commentary); lines 840–889 read for lem:link-exp-derivative, which the c12 proof uses.
+- `THEORY\ca_proofs_c08b.tex` lines 1–244 (deferred proofs of prop:link-chart-image, prop:link-loop-defect, prop:link-generator-prior, prop:link-translation-instance).
+- `THEORY\c10_network_state.tex` lines 134–203 (def:rg-rooted-tree-data, eq:full-graph-based-holonomy, prop:rg-rooted-datum), 433–552 (def:cg-holonomy-law-score, thm:cg-holonomy-kl-marginal, prop:cg-holonomy-compact-closed-form, cor:cg-holonomy-noncompact-gaussian), 554–629 (cor:link-holonomy-parent-almost-sure and its commentary).
+- `THEORY\c12_multiscale_vfe.tex` lines 1–47 (opening and scope), 572–622 (def:full-graph-coarse-links, prop:full-graph-coarse-links), 641–926 (def:link-coarse-generator, prop:link-coarse-generator-law with proof and commentary, open:link-coarse-closure).
+- `THEORY\c02_geometry.tex` lines 1–134 (scope paragraph, quotient convention, frame laws), 303–455 (def:geo-graph-links, prop:geo-edge-twist-invariance, rem:geo-loop-penalties), 457–463 (the new pointer paragraph), 522–558 (running example).
+- `THEORY\c13_formation.tex` lines 1–40 (opening pointer to prop:link-translation-instance), 110–209 (def:rg-formation-carrier, lem:rg-formation-carrier), 219–367 (def:rg-formation-experiment, prop:rg-formation-normalized-experiment, eq:rg-formation-partition-integrals), 1205–1250 (def:rg-formation-cycle-experiment), 1351–1420 (def:rg-gated-translation-family).
+- `THEORY\c01_program_scope.tex` lines 1–248 (every occurrence of "link"); `THEORY\c05_evidence_bound.tex` 975–1033 (prop:elbo-random-link-vfe); `THEORY\ca_open_problems.tex` line 47 (ledger row of open:link-coarse-closure).
+- `THEORY\references.bib` entries `culver1966existence`, `WilsonConfinement1974`, `Creutz1983`, `Hall2015`; the author's citation record `SCR\citations.md` (items 1, 3, 7, 17).
+- `THEORY\SPEC.md` rules R2, R4, R8, R12, R16.
+- Numerical probes (float64, CPU, `C:/anaconda/python.exe`, NumPy/SciPy/SymPy): `SCR\verify_V1_checks.py`, output in `SCR\verify_V1_checks_output.txt`. They test explicit witnesses, closed forms, and the leading cumulant coefficients only; no verdict below rests on them.
+
+Method: for each statement I reconstructed the proof from the statement and the cited results before reading the drafted proof, then compared statement, proof, hypotheses of every `\cref`'d result, and status tag. Verdict scale: VALID, VALID_WITH_MINOR_ISSUES, INVALID.
+
+Summary: no statement is INVALID. Every derivation closes under its stated hypotheses, the one STANDARD statement has a checked primary locator, and the open problem satisfies R16. Three wording defects need fixing: the "consequently" clause of cor:link-no-invariant-defect (and the c02 pointer paragraph that repeats it) asserts that an invariant continuous loop penalty *vanishes* at unipotent holonomy, which the proof establishes only for penalties that vanish at the trivial holonomy; the commentary after prop:link-loop-defect drops the walk hypothesis of part (b) when it says "under no other"; and cor:link-holonomy-parent-almost-sure leaves the connectedness of the block implicit. Two R12 nits concern a chapter-level locator (Hall 2015) and an unreferenced use of Ad∘exp = exp∘ad in the c12 proof. Details follow.
+
+---
+
+## lem:link-exp-naturality (c08b 99–135)
+
+**Verdict: VALID.**
+
+Reconstruction: γ(t)=φ(exp(tω)) is a smooth one-parameter subgroup of 𝕐 with γ'(0)=dφ ω; differentiating γ(t+t')=γ(t)γ(t') at t'=0 shows γ is the integral curve through e of the left-invariant field with value dφ ω, so γ(t)=exp(t dφ ω) by uniqueness; t=1 gives φ∘exp=exp∘dφ. Conjugation is a smooth homomorphism with differential Ad_g, giving g exp(ω)g⁻¹=exp(Ad_g ω). On GL(𝕍) the left-invariant field with value 𝐇 at I is y↦y𝐇 and d/dt e^{t𝐇}=e^{t𝐇}𝐇, so the matrix exponential is the Lie exponential, giving ρ_x∘exp=exp∘dρ_x. Applying ρ_x to the first identity at tω and differentiating at t=0 gives dρ_x(Ad_g ω)=ρ_x(g)dρ_x(ω)ρ_x(g)⁻¹. The drafted proof is exactly this. Hypotheses complete; status ESTABLISHED with a full proof is R12-compliant because the Hall 2015 locators in the author's record are unchecked (the rule keeps the proof in that case).
+
+---
+
+## def:link-exponential-chart (c08b 137–170)
+
+**Verdict: VALID.**
+
+Consistency with c02: Θ_e=U_i exp(ω_e)U_j⁻¹ has twist U_i⁻¹Θ_eU_j=exp(ω_e) (eq:geo-edge-twist); ω_ē=−ω_e gives Θ_ē=Θ_e⁻¹ (eq:geo-regime-two-links); the path product telescopes to U_{i_0}(∏exp ω_{e_a})U_{i_r}⁻¹, so for a closed walk Hol(p)=U_{i_0}Θ̊_pU_{i_0}⁻¹ (eq:geo-edge-twist-holonomy). The reversal is fixed-point-free, so E_+ is well defined; 𝒯 is a finite-dimensional real vector space, standard Borel. No defect.
+
+---
+
+## prop:link-generator-gauge (c08b 172–211)
+
+**Verdict: VALID.**
+
+(a) g_iΘ_eg_j⁻¹=(g_iU_i)exp(ω_e)(g_jU_j)⁻¹ with U_i'=g_iU_i from eq:geo-regime-one-gauge-law and σ unchanged. (b) u_i=σU_i⁻¹=σ'(U_ig_0)⁻¹; (U_ig_0)exp(Ad_{g_0⁻¹}ω_e)(U_jg_0)⁻¹=U_i g_0g_0⁻¹exp(ω_e)g_0g_0⁻¹U_j⁻¹=Θ_e by the lemma, so exp_{σ'}∘Ad_{g_0⁻¹}=exp_σ and reference products become g_0⁻¹Θ̊_pg_0. (c) prop:geo-edge-twist-invariance gives the image twists κΘ̊_eκ⁻¹=exp(Ad_κω_e); with the original frames, t_e'(σU_j⁻¹)=σκΘ̊_eκ⁻¹U_j⁻¹ gives the link U_iκΘ̊_eκ⁻¹U_j⁻¹, i.e. the links of Ad_κω relative to σ and the same frames. (d) is eq:geo-edge-twist-holonomy and the homomorphism property. Statement asserts exactly what is proved; status correct.
+
+---
+
+## prop:link-real-logarithm (c08b 213–216), STANDARD
+
+**Verdict: VALID.**
+
+Culver 1966, Theorem 1 (p. 1149): a real square matrix C has a real logarithm iff C is nonsingular and each Jordan block belonging to a negative eigenvalue occurs an even number of times. The manuscript's wording is this statement. The author's record (`citations.md` item 7) reports the AMS PDF read in full with Theorem 1 at p. 1149 and Theorem 2 (uniqueness) at p. 1150; this matches my knowledge of the paper. Checked locator; STANDARD is the right tag. (Optional: add the DOI 10.1090/S0002-9939-1966-0202740-6 to the bib entry, as the record suggests.)
+
+---
+
+## prop:link-chart-image (c08b 218–236; proof ca_proofs 4–46)
+
+**Verdict: VALID** (one wording remark, no fix required).
+
+(a) Membership in the image is "every twist on E_+ lies in exp(𝔤)", extended to E by exp(ω)⁻¹=exp(−ω); reference changes and active automorphisms conjugate twists and exp(𝔤) is conjugation-closed by the lemma; passive re-expressions leave twists unchanged. Remark: "passive re-expressions map it onto itself" is literally true only for the image read as a set of link maps (or of coordinate tuples together with their frames), since the coordinate set {Θ : U_i⁻¹Θ_eU_j∈exp 𝔤} for frames U is carried onto the corresponding set for frames gU; this is the reading of prop:geo-edge-twist-invariance, so no fix is required. (b) det e^𝐇=e^{Tr 𝐇}>0 by Jacobi; the direct argument that diag(−1,−2,1,…,1) is not e^𝐇 (𝐇 commutes with it, preserves the eigenline of −1, e^𝐇 acts there by a positive scalar) is correct and independent of Culver. (c) Polar decomposition 𝐁=e^{𝐒}𝐎_1 with 𝐒=½log(𝐁𝐁ᵀ) symmetric and 𝐎_1∈SO(K); real normal form of 𝐎_1 with the −1 entries pairing into R(π) blocks because det=1; so 𝐎_1=e^{𝐓}, 𝐓 skew; the path exp(t𝐒)exp(t𝐓) connects I to 𝐁 in GL⁺(K); so(K) is the skew-symmetric matrices. (d) Inverse function theorem at 0, open subgroup, connectedness. (e) 𝐁=exp(𝐒)exp(𝐓) placed on the two pairs traversed once (signs by the reversal convention), zero elsewhere, every other twist I, so Θ̊_p=𝐁; the K=2 triangle witness: diag(1,2)·R(π)·I=diag(−1,−2), confirmed numerically (probe 5). Status ESTABLISHED correct.
+
+---
+
+## prop:link-class-function-blindness (c08b 253–272)
+
+**Verdict: VALID.**
+
+The flag ker 𝐓⊆ker 𝐓²⊆⋯ gives a basis in which 𝐓 is strictly upper triangular (𝐓 maps ker 𝐓^{k+1} into ker 𝐓^k, spanned by earlier basis vectors); negating the first column conjugates 𝐓_0 by a diagonal sign matrix, which keeps strict upper triangularity, so det 𝐁>0 may be assumed; (𝐒_t⁻¹𝐓_0𝐒_t)_{kl}=t^{l−k}(𝐓_0)_{kl}→0 since only l>k entries are nonzero; 𝐁𝐒_t∈GL⁺(K)⊆ℍ; continuity gives 𝐡(I+𝐓)=𝐡(I). Numerical probe 5 shows the conjugated shear norm scaling linearly in t. Correct for both ℍ=GL(K,ℝ) and GL⁺(K).
+
+---
+
+## cor:link-no-invariant-defect (c08b 274–296)
+
+**Verdict: VALID_WITH_MINOR_ISSUES** (the "consequently" clause asserts more than the proof establishes).
+
+First claim: the proposition at 𝐓=E_12 (nilpotent, E_12²=0); the shear has the eigenvalue multiset of I, so any function of the eigenvalues with multiplicity that vanishes at I vanishes there. Correct. Norm claim: g'↦‖g'−I‖_⋆ is a continuous class function vanishing exactly at I when the norm is conjugation-invariant, contradicting the first claim; this holds for ℍ=GL⁺(K) as well, which is stronger than the remark in c02. Correct.
+
+Defect: the clause "a loop penalty that is a continuous function of Hol^x(p) on G and is unchanged by every passive re-expression of every link family vanishes at every unipotent holonomy" has no hypothesis forcing the penalty to vanish at the trivial holonomy, and the constant penalty 1 satisfies every stated hypothesis without vanishing anywhere. What the proof establishes is: the link family with Θ_e=g'^{±1} (direction of traversal) and all other links e_G has Hol(p)=g', the re-expression g_{i_0}=g replaces it by gg'g⁻¹, so the penalty is a continuous class function 𝐟 on G, and the proposition gives 𝐟(I+𝐓)=𝐟(I) at every unipotent element. Nothing gives 𝐟(I)=0.
+
+Fix: replace "vanishes at every unipotent holonomy" by "takes at every unipotent holonomy the value it takes at the trivial holonomy; in particular, if it vanishes at the trivial holonomy it vanishes at every unipotent holonomy". The same correction applies to the chapter opening only if one reads "separates" as "vanishes at" (line 12 says "no continuous class function separates unipotent holonomy from the identity", which is correct as written) and to the c02 pointer paragraph (see the pointer section below).
+
+---
+
+## def:link-loop-defect (c08b 298–326)
+
+**Verdict: VALID.**
+
+The trace form is an inner product (prop(a)); the pullback is declared only when dρ_x is injective; the loop defect uses the reference holonomy and the cycle map is linear with the reversal convention, so each pair enters with its net signed traversal count. No defect.
+
+---
+
+## lem:link-trace-form-scale (c08b 328–345)
+
+**Verdict: VALID.**
+
+‖𝐛𝐜ᵀ‖²_{𝖦'}=Tr(𝖦'⁻¹𝐜𝐛ᵀ𝖦'𝐛𝐜ᵀ)=(𝐛ᵀ𝖦'𝐛)(𝐜ᵀ𝖦'⁻¹𝐜) by cyclicity. Scaling cancels. Conversely, fixing 𝐜≠0 gives 𝐛ᵀ𝖦''𝐛=c_s𝐛ᵀ𝖦'𝐛 for all 𝐛 with c_s>0, and a symmetric matrix with vanishing quadratic form is zero. Probe 5 confirms the rank-one formula and the scaling case.
+
+---
+
+## prop:link-loop-defect (c08b 347–408; proof ca_proofs 48–131)
+
+**Verdict: VALID** (all parts; one overstatement in the commentary after the tag, see below).
+
+Preliminary identity eq:link-defect-conjugation: ‖𝐑⁻¹Δ𝐑‖²_{𝖦'}=Tr(𝐑𝖦'⁻¹𝐑ᵀΔᵀ𝐑^{−ᵀ}𝖦'𝐑⁻¹Δ)=‖Δ‖²_{𝐑^{−ᵀ}𝖦'𝐑⁻¹}, using (𝐑^{−ᵀ}𝖦'𝐑⁻¹)⁻¹=𝐑𝖦'⁻¹𝐑ᵀ. Correct.
+
+(a) ⟨𝐇,𝐇'⟩_𝖦 is the Frobenius inner product of the images under the algebra isomorphism 𝐇↦𝖦^{1/2}𝐇𝖦^{−1/2}, which gives positivity, submultiplicativity, and ‖I‖_𝖦=(dim 𝕍)^{1/2}; the zero set is that of a norm; ρ_x(Hol(p)) is conjugate to ρ_x(Θ̊_p). Correct.
+
+(b) Reference-change invariance: the quotient convention gives coordinates 𝐑⁻¹v at σ', so the same inner product has matrix 𝐑ᵀ𝖦𝐑 there; the reference holonomy becomes g_0⁻¹Θ̊_pg_0, Δ↦𝐑⁻¹Δ𝐑, and the identity with 𝖦'=𝐑ᵀ𝖦𝐑 returns ‖Δ‖²_𝖦. With the matrix held, 𝖦'=𝖦 gives ‖Δ‖²_{𝐑^{−ᵀ}𝖦𝐑⁻¹}. If 𝐑ᵀ𝖦𝐑=c²𝖦 (c≠0) then 𝐑^{−ᵀ}𝖦𝐑⁻¹=c^{−2}𝖦 and the lemma gives equality; conversely, with dρ_x(𝔤)=𝔤𝔩(𝕍) and a pair traversed once, the family tω on that pair gives Δ=∓t𝐇+O(t²), dividing by t² yields ‖𝐇‖_{𝐑^{−ᵀ}𝖦𝐑⁻¹}=‖𝐇‖_𝖦 for every 𝐇, the lemma gives 𝐑^{−ᵀ}𝖦𝐑⁻¹=c_s𝖦, and c_s^{1/2}𝐑 is then a 𝖦-isometry (from 𝖦=c_s𝐑ᵀ𝖦𝐑). The rotated walk has reference holonomy Θ̊_{e_0}⁻¹Θ̊_pΘ̊_{e_0}, so the identity with 𝐑=ρ_x(Θ̊_{e_0}) applies. All correct.
+
+(c) [σ,v]=[u_i,ρ_x(U_i)v] gives coordinates ρ_x(U_i)v at u_i and the matrix 𝖦_i=ρ_x(U_i)^{−ᵀ}𝖦ρ_x(U_i)⁻¹; U_i'=g_iU_i gives the law 𝖦_i↦(R_i)^{−ᵀ}𝖦_i(R_i)⁻¹ of rem:geo-loop-penalties; T_{ij}=U_iU_j⁻¹ gives the relation between agents (checked by substitution). I−𝖴=ρ_x(U_{i_0})Δρ_x(U_{i_0})⁻¹ and the identity with 𝐑=ρ_x(U_{i_0})⁻¹, 𝖦'=𝖦_{i_0} give eq:link-defect-local, which is half the remark's penalty Tr(𝖦⁻¹(I−𝖴)ᵀ𝖦(I−𝖴)). The converse is the one-line conjugation check. Correct.
+
+(d) Wilson identity: for 𝐁ᵀ𝖦𝐁=𝖦, ΔᵀGΔ=2𝖦−𝐁ᵀ𝖦−𝖦𝐁, Tr(𝖦⁻¹𝐁ᵀ𝖦)=Tr 𝐁, so 𝔔=dim 𝕍−Tr 𝐁; 𝖦^{1/2}𝐁𝖦^{−1/2} is orthogonal, so |Tr 𝐁|≤dim 𝕍. Probe 5 confirms on a random 𝖦-isometry. The citations: Wilson Eq. (3.29) (the non-Abelian plaquette trace) and Creutz Ch. 7 Eq. (7.6) (the form 1−Re Tr/n) are both verified in the author's record and are used for what they say.
+
+(e) Cubic remainder: ∏exp(Ω_a)=I+ΣΩ_a+𝐓_p with ‖𝐓_p‖_𝖦≤Σ_{|l|≥2}∏‖Ω_a‖^{l_a}/l_a!=e^ς−1−ς (submultiplicativity, and ∏e^{‖Ω_a‖}=e^ς); expanding ‖ΣΩ_a+𝐓_p‖² and using ‖ΣΩ_a‖≤ς gives eq:link-defect-expansion. e^ς−1−ς=ς²Σ_kς^k/(k+2)!≤½ς²e^ς since (k+2)!≥2·k!, so the right side is ≤½ς³e^ς+⅛ς⁴e^{2ς}≤(½e+⅛e²)ς³ for ς≤1, and ½e+⅛e²=2.28277<2.3. With the pulled-back norm ‖Ω_a‖_𝖦=‖ω_{e_a}‖_𝖦≤‖ω‖, so ς≤r‖ω‖, and the bound is monotone in ς. Probe 4 (2000 random triples, random SPD 𝖦) finds no violation, worst ratio 0.10 of the 2.3ς³ bound. Correct.
+
+Hypotheses are inside the statement; cited results (prop:link-generator-gauge, lem:link-exp-naturality, eq:geo-quotient-convention, eq:geo-regime-one-gauge-law, rem:geo-loop-penalties) are used within their hypotheses. Status ESTABLISHED correct.
+
+Defect (commentary, R4): lines 414–416 say that, held as a matrix, the defect is invariant "under the reference changes acting by nonzero multiples of its isometries, and, when dρ_x(𝔤)=𝔤𝔩(𝕍), under no other". Part (b)'s "only then" requires in addition that p traverse some reversal pair exactly once; for a backtrack walk (e,ē) the defect is identically zero and invariant under every reference change. Fix: insert "and the walk traverses some reversal pair exactly once" after "when dρ_x(𝔤)=𝔤𝔩(𝕍)" in the commentary (the section opening at lines 249–251 is informal and cites the statement, so it needs no change).
+
+---
+
+## def:link-generator-prior (c08b 435–460)
+
+**Verdict: VALID.**
+
+The Gaussian density is written for a self-adjoint positive definite covariance operator with respect to the normalized Lebesgue measure of the declared inner product (determinant basis-independent). When dρ_x is injective the inner product is the pullback, which is consistent with the norm used in prop:link-loop-defect(e). Two-channel and common-link cases are declared. No defect.
+
+---
+
+## prop:link-generator-prior (c08b 462–502; proof ca_proofs 133–197)
+
+**Verdict: VALID.**
+
+(a) Finiteness and continuity of 𝒮 from prop:link-loop-defect(a). Mean: ‖exp 𝐇‖_𝖦≤‖I‖_𝖦+e^{‖𝐇‖}−1≤(dim 𝕍)^{1/2}e^{‖𝐇‖}, so for a walk of length r, ‖ρ_x(Θ̊_p)‖_𝖦≤(dim 𝕍)^{r/2}e^{ς_p} and 𝔔_p≤½((dim 𝕍)^{1/2}+(dim 𝕍)^{r/2}e^{ς_p})²≤2(dim 𝕍)^re^{2ς_p} (using (a+b)²≤2a²+2b² and r≥1). ς_p≤‖dρ_x‖Σ_a‖ω_{e_a}‖ is a sum over the traversed pairs of multiples of Gaussian norms, independent across pairs, each with finite exponential moments of every order (E e^{t‖𝐛‖}≤∏_l 2e^{t²/2}), so E e^{2ς_p}<∞. Then 0<e^{−𝒮}≤1 gives 0<Z≤1 and Jensen on the convex u↦e^{−u} gives Z≥e^{−E𝒮}; the isometry bound follows from part (d) of prop:link-loop-defect; the density is a positive continuous product. The hypotheses of prop:elbo-random-link-vfe on (ν,𝒮,Z) are exactly "probability law on a standard Borel space, measurable action in (−∞,+∞], 0<Z<∞" (c05 979–984), all met. 𝒮̃ is defined on all of G^{E_+} through Θ̊_p=∏U_{i_a}⁻¹Θ_{e_a}U_{i_{a+1}}, and the change of variables gives the image prior with the same normalizer. Correct.
+
+(b) Generators, data, σ and 𝖦 unchanged under passive re-expression; links by the vertex law. Correct.
+
+(c) dρ_x(Ad_{g_0⁻¹}ω)=𝐑⁻¹dρ_x(ω)𝐑 (third identity of the lemma); polarizing eq:link-defect-conjugation with 𝖦'=𝐑ᵀ𝖦𝐑 shows Ad_{g_0⁻¹} is an isometry from the pullback of 𝖦 onto the pullback of 𝐑ᵀ𝖦𝐑, and in general onto ⟨Ad_{g_0}·,Ad_{g_0}·⟩_𝖦 by construction. An isometry carries normalized Lebesgue measure to normalized Lebesgue measure and N(α,Σ) to the Gaussian with mean Tα and covariance operator TΣT^{−1} (T=Ad_{g_0⁻¹}, whose adjoint between the two inner products is T⁻¹=Ad_{g_0}); I checked that TΣT⁻¹ is self-adjoint positive definite for the new inner product and that the variance of ⟨β,Tω⟩' equals ⟨Ad_{g_0}β,ΣAd_{g_0}β⟩_𝖦. The transformed action composed with T is 𝒮 by prop:link-loop-defect(b), so the normalizer is unchanged, and exp_{σ'}∘T=exp_σ by prop:link-generator-gauge(b). Correct.
+
+(d) Under the hypotheses the data of (c) reduce to the original ones with fiber matrix c²𝖦, and the lemma makes the defect and the pulled-back inner product scale-invariant, so the transformed prior is the original measure on 𝒯. For the pullback, ‖dρ_x(Ad_{g_0⁻¹}ω)‖_𝖦=‖dρ_x ω‖_{𝐑^{−ᵀ}𝖦𝐑⁻¹}, which equals ‖dρ_x ω‖_𝖦 when 𝐑^{−ᵀ}𝖦𝐑⁻¹=c^{−2}𝖦; when dρ_x(𝔤)=𝔤𝔩(𝕍) the lemma gives the converse. Correct.
+
+The normalizer bounds hold for any Lie group with a declared inner product on 𝔤, as the brief asks; the covariance statements are correct. Status ESTABLISHED correct.
+
+---
+
+## prop:link-translation-instance (c08b 511–571; proof ca_proofs 199–244)
+
+**Verdict: VALID.**
+
+(a) ρ(ω)ρ(ω')=ρ(ω+ω') by block multiplication; injective and smooth; dρ(ω)²=0 gives exp(dρ ω)=I+dρ(ω)=ρ(ω); one-parameter subgroups t↦tω make exp the identity; the twist −U_i+Θ_e+U_j is the additive form of eq:geo-edge-twist; frames telescope around a closed walk. Correct.
+
+(b) I−ρ(ξ)=−(ξ,0)𝐛ᵀ is rank one with 𝐛 the last basis vector, so by the rank-one formula ‖dρ(ξ)‖²_𝖦=((ξ,0)ᵀ𝖦(ξ,0))(𝐛ᵀ𝖦⁻¹𝐛), which is both 2𝔔_p and the pulled-back ‖ξ‖²_𝖦; the pullback is positive definite on ℝ^K because the leading K×K block of 𝖦 is and (𝖦⁻¹)_{K+1,K+1}>0. Correct.
+
+(c) Checked against def:rg-formation-cycle-experiment (c13 1205–1250): edges e_i: i→i+1, configuration (k̄,m̄,ω)∈ℝ¹² with prior N(0,I_12), so the link translations are independent of the means with law ∏N(0,1); r^b_i=k̄_{i+1}−k̄_i−ω_i and r^m_i=m̄_{i+1}−m̄_i−ω_i, so Σ_ir^b_i=Σ_ir^m_i=−Σ_iω_i. Against def:rg-gated-translation-family (c13 1351–1420): prior N(0,I_{2N+|E|}), one ω_e per edge, residual pair (k̄_i−k̄_j−ω_e, m̄_i−m̄_j−ω_e). In generator coordinates ω̊_e=ω_e−U_i+U_j is N(U_j−U_i,1); anchors telescope to zero loop sums; with 𝖦=I_2 the pulled-back norm is |ω|² so the covariances are unit; 𝒮=0 since the prior has no loop factor. The walk (e_3,e_2,e_1,e_0) satisfies e_a: i_{a+1}→i_a with vertices 0,3,2,1,0, so it is closed at 0 and (𝐂ω)_p=Σω_i. Correct.
+
+(d) Checked against def:rg-formation-carrier, lem:rg-formation-carrier (loop covectors with entries 1/√3 on a triangle, orthonormal and orthogonal to every row of B; ℝ^{10N_△−1}=𝒰⊕ℋ⊕𝒦 orthogonal), eq:rg-formation-physical-prior (Ω_0=ϑH+P_𝒦−TR_ev, H=Bᵀdiag(J_ℓI)B+J_1P_ℋ) and prop:rg-formation-normalized-experiment (Ω_0≽(ϑ/2)H+P_𝒦≻0). 𝔥_q=√3h_q and (b) give 𝔔_q=½𝔥_q², so J_1h_q²=⅔J_1𝔔_q; Ω_0=Ω_0^⊥+ϑJ_1P_ℋ and xᵀP_ℋx=Σh_q² give eq:link-triangle-chain-prior. Bᵀ(…)B, P_𝒦, and R_ev=𝔇ᵀ𝔇/(1−σ²_ev) (rows of 𝔇 are rows of B_1) annihilate ℋ and map into 𝒰⊕𝒦, so Ω_0^⊥ agrees with Ω_0 on 𝒰⊕𝒦 (positive definite there) and has kernel exactly ℋ; the prior with precision Ω_0/T is block diagonal for ℋ⊕(𝒰⊕𝒦), the h_q are i.i.d. N(0,T/(ϑJ_1)), so the 𝔥_q are independent N(0,3T/(ϑJ_1)) and independent of P_{𝒰⊕𝒦}x. In eq:rg-formation-partition-integrals, ½ϑxᵀHx contributes ½ϑJ_1Σh_q²=⅓ϑJ_1Σ𝔔_q, and the remaining terms (B x, P_𝒦, z_⋆∈𝒦, R_ev) depend only on the projection. The non-integrability remark is the nonzero kernel ℋ. Correct; the comparison with the formation chapter's objects is exact.
+
+Status ESTABLISHED correct.
+
+---
+
+## rem:link-running-example (c08b 575–600)
+
+**Verdict: VALID.**
+
+E_21−E_12 and E_32−E_23 generate the z- and x-rotations with the orientation of c02 (R_z(φ) has first row (cos φ,−sin φ,0)). R_z(π/2)R_x(π/2) is the matrix with rows (0,0,1),(1,0,0),(0,1,0), sending e_1→e_2→e_3→e_1, fixing (1,1,1), trace 0=1+2cos(2π/3) (probe 5). With 𝖦=I_3 every rotation is an isometry, so part (d) gives 3−(1+2cos φ)=4sin²(φ/2) and 𝔔^b_p=3; the trivial model representation gives 0. (𝐂ω^b)_p has four entries of modulus π/2, squared Frobenius norm π², quadratic term π²/2≈4.93>3; ς_p=2·π/√2=π√2>1, outside the ball of part (e), so no contradiction with the bound. The walk (e_1,e_2,e_3) is closed at agent 1 as in c02 (e_1:2→1, e_2:3→2, e_3:1→3). Status ESTABLISHED with a proof; correct.
+
+---
+
+## cor:link-holonomy-parent-almost-sure (c10 557–620)
+
+**Verdict: VALID_WITH_MINOR_ISSUES** (mathematics complete; connectedness of the block is left implicit).
+
+Walk existence: in a forest every copy is a bridge and a closed walk crosses a bridge equally often in both orientations; a loop copy traversed once, (e,ē') through two parallel copies (closed: e:j→i, ē':i→j), or a cycle traversed once has a pair with net count ±1. Correct.
+
+(i) Hol(p)=U_{i_0}e^{ω_{e_0}}⋯e^{ω_{e_{r−1}}}U_{i_0}⁻¹ and det e^𝐁=e^{Tr 𝐁}. (ii) Σ_aTr ω_{e_a}=Σ_{e∈E_+}n_eTr ω_e with some n_e≠0, nonzero on ω_e=I_K, so a hyperplane; off it |det Hol(p)|≠1; the closed walk at the root r through a walk to i_0, p, and back has a conjugate holonomy with the same determinant and lies in Hol_I(r)={Θ_p: p closed at r} (eq:full-graph-based-holonomy), so cor:cg-holonomy-noncompact-gaussian (hypotheses: linear invertible holonomy action on ℝ^K, nondegenerate Gaussian family, one loop holonomy with an eigenvalue off the unit circle, e.g. |det|≠1) gives an empty fixed family and 𝔇=+∞. (iii) Null hyperplane under every Lebesgue-a.c. law; the prior is a.c. with respect to its Gaussian base law; a.c. is transitive. (iv) Restates (ii); at ω=0 all holonomies are trivial, the trivial group is compact, and prop:cg-holonomy-compact-closed-form's last sentence (Gaussian constituents, compact linear holonomy) gives a finite score. (v) With cycle rank one, Hol_I is generated by one fundamental-cycle holonomy 𝗄 (prop:rg-rooted-datum), conjugate to a product of exponentials along the cycle, so Tr 𝗄 is continuous in ω; at the family with (π/2)𝔍 on the non-tree copy, 𝗄 is conjugate to R(π/2); on the open nonempty set {|Tr 𝗄|<2} an SL(2,ℝ) element has eigenvalues e^{±iφ}, sin φ≠0, and acts as a rotation in the basis of real and imaginary parts of an eigenvector, so ⟨𝗄⟩ is conjugate into SO(2) and the fixed family is nonempty by cor:cg-holonomy-noncompact-gaussian; a positive density charges an open set. All correct. Status ESTABLISHED correct.
+
+Defect (minor, R2): the walk from the root r to i_0 inside I, which (ii) uses, exists because def:cg-holonomy-law-score (c10 433–434) fixes a *connected* block; the corollary says only "a block whose internal multigraph is not a forest". Fix: write "let I be a connected block, as in def:cg-holonomy-law-score, whose internal multigraph is not a tree, that is, ...". Remark (no fix required): part (v) switches to G=SL(2,ℝ) inside a statement headed "Let G=GL⁺(K)"; it does so explicitly, and (ii) does not apply there since Tr vanishes on 𝔰𝔩(2,ℝ), which is consistent with (v).
+
+---
+
+## def:link-coarse-generator (c12 648–682)
+
+**Verdict: VALID.**
+
+Checked against def:full-graph-coarse-links (c12 585–590) and eq:full-graph-tree-transport-law (c10 149–151): Θ^{ℓ+1}_e=Θ_{I←i}Θ_e(Θ_{J←j})⁻¹ with Θ_{I←i} the path product along the tree path from i to r_I; for the tree copy e':i→r_I this is Θ_{e'}, and for the root j=r_J it is 1_G, so the coarse link is Θ_{e'}Θ_e=U_{r_I}e^{ω_{e'}}e^{ω_e}U_{r_J}⁻¹ and its twist relative to the root frames is e^{ω_{e'}}e^{ω_e}. The inclusion makes dρ injective, so "extend ⟨·,·⟩_𝖦 to 𝔤𝔩(K,ℝ) by the same formula" is consistent with def:link-generator-prior. Cumulant forms: I verified below (prop(iii)) that κ_3 and κ_4 are exactly the leading cumulant coefficients. No defect.
+
+---
+
+## prop:link-coarse-generator-law (c12 684–901)
+
+**Verdict: VALID** (two minor pointers, see below).
+
+(i) Commuting exponentials; sums of independent Gaussians. Correct.
+
+(ii) det>0 as a product of eigenvalues with two negative ones; openness: a simple real eigenvalue stays real nearby (a nonreal one would bring its conjugate into the same disk centered on the real axis), signs and distinctness persist. Each negative eigenvalue is simple, so its Jordan block occurs once, and Culver's Theorem 1 excludes a real logarithm. exp(π𝔍⊕0)·exp(diag(0,log 2,…,log K))=diag(−1,−2,3,…,K)∈𝕏_K (probe 5 for K=4), the preimage under the continuous (ξ_1,ξ_2)↦e^{ξ_1}e^{ξ_2} is open and nonempty, and the product of two nondegenerate Gaussians has an everywhere positive density. Hence Pr(Θ̊∈𝕏_K)>0, no 𝔤-valued ω with e^ω=Θ̊ a.s., and no law on 𝔤 has exp-image equal to the law of Θ̊. Correct.
+
+(iii) Expansion: ‖e^{ξ_1}e^{ξ_2}−I‖≤e^{1/2}−1<1 (since Σ_{a+b=l}‖ξ_1‖^a‖ξ_2‖^b/(a!b!)=s^l/l!), so the log series converges to the principal logarithm; grouping by degree is dominated by −log(2−e^s), convergent for s<log 2; BCH_1=Π_1, BCH_2=Π_2−½Π_1²=½[ξ_1,ξ_2], and the third-order term is the standard (1/12)([ξ_1,[ξ_1,ξ_2]]+[ξ_2,[ξ_2,ξ_1]]) (probe 1: the residual after these terms scales as s⁴ with ratio ≈0.06, the residual after second order as s³); the remainder constant c_3=Σ_{l≥4}b_l2^{4−l}≈2.74 is finite and the 300-sample worst ratio is 0.006. −log(2−e^{1/2})=1.046<π/2. The 𝔤-membership argument: γ(t)=Log(e^{tξ_1}e^{ξ_2}) is analytic with ‖γ‖<π/2 and γ(0)=ξ_2; differentiating with lem:link-exp-derivative gives 𝐋(γ,γ')=ξ_1e^γ; 𝐋(γ,𝐓)=(∫_0^1e^{u ad_γ}du)(𝐓)e^γ; ‖ad_γ‖≤2‖γ‖<π<2π so the series of w/(e^w−1) inverts the integral operator; the resulting analytic vector field 𝐓↦F(ad_𝐓)ξ_1 is tangent to the closed subalgebra 𝔤; uniqueness of ODE solutions and compactness of γ([0,1]) give γ(1)∈𝔤. Correct.
+
+Probability of the event: ω=τ(μ+ζ) with ζ∼N(0,Λ⁻¹) independent of τ; E e^{c‖χ‖²}<∞ and Markov give Pr(‖χ‖>1/(4τ))≤c e^{−c/(16τ²)}; the two events ‖χ‖≤1/(4τ) imply ‖ω_{e'}‖+‖ω_e‖≤½. Correct.
+
+Polynomial part and cumulants: on the event τ⁻¹⟨υ,Log Θ̊⟩=ψ_1+τψ_2+τ²ψ_3+τ³ψ_4 by homogeneity, |ψ_4|≤c_4(‖χ_{e'}‖+‖χ_e‖)⁴, moments uniformly bounded; multilinearity gives eq:link-coarse-cumulant-expansion with the multinomial coefficients 3, 4, 6, 4. Gaussian integration by parts: E[⟨υ,ζ⟩φ]=E[⟨Λ⁻¹υ,∇φ⟩] (Stein), so ∂_υ runs along (Λ_{e'}⁻¹υ,Λ_e⁻¹υ). I re-derived: E[X²Y]=E[∂_υ(XY)]=aE[Y]+E[X∂_υY]=E[∂²_υψ_2]=⟨υ,[υ_{e'},υ_e]⟩=κ_3(υ) for X=ψ_1−Eψ_1, Y=ψ_2−Eψ_2, a=∂_υψ_1=Var ψ_1 (valid for all means). Centered case: sign symmetry kills cumulants with an odd number of entries from {ψ_1,ψ_3}; E[ψ_1²ψ_2²]=E[ψ_1²]E[ψ_2²]+2E[(∂_υψ_2)²] and E[ψ_1³ψ_3]=3E[ψ_1²]E[ψ_1ψ_3]+∂³_υψ_3 follow by repeated integration by parts (I checked both, using Eψ_2=0, E[ψ_1ψ_2]=0, and E[∂_υψ_3]=E[ψ_1ψ_3]); the fourth joint cumulant of centered variables is the fourth moment minus the three pair products, giving 2E[(∂_υψ_2)²] and ∂³_υψ_3=6ψ_3(υ_{e'},υ_e); with ∂_υψ_2 the sum of two independent centered terms, 6·2E[(∂_υψ_2)²]+4·6ψ_3(υ_{e'},υ_e)=3E⟨υ,[υ_{e'},ζ_e]⟩²+3E⟨υ,[ζ_{e'},υ_e]⟩²+2⟨υ,[υ_{e'},[υ_{e'},υ_e]]+[υ_e,[υ_e,υ_{e'}]]⟩=κ_4(υ). Probe 2 (exact Isserlis computation on the 8 Gaussian entries, SymPy) returns cum(ψ_1,ψ_1,ψ_2,ψ_2)=2, cum(ψ_1,ψ_1,ψ_1,ψ_3)=0, cum(ψ_1,ψ_1,ψ_1,ψ_2)=0, τ²-coefficient 12 for the first instance, and cum(ψ_1,ψ_1,ψ_2)=1=κ_3 for the second instance (with the covariance Id+P realized as ζ_e=(Id+(√2−1)P)𝐛 and checked). Probe 3 (Monte Carlo, 4·10⁶ samples, the actual principal logarithm on the event, the polynomial off it) gives cum_4/τ²=12.6 at τ=0.2 and 12.75 at τ=0.1, consistent with 12+O(τ) (MC standard error ≈0.01). Correct.
+
+Gaussian rigidity: Y_n=τ_n⁻¹⟨υ,Γ_n⟩ is Gaussian and equals Ψ_{τ_n} off an event of probability ≤c_1e^{−c_2/τ_n²}; Ψ_τ→ψ_1 in mean square, so Y_n→ψ_1 in probability and in law; convergence in law of Gaussians to the nondegenerate Gaussian ψ_1 forces convergence of variances (moduli of characteristic functions) and means (phase factors; |m_n|→|m| from the Gaussian-weighted integral, and the sign from pointwise convergence), so eighth moments are bounded; Cauchy–Schwarz on the exceptional event bounds the difference of moments up to order four by O(e^{−c_2/(2τ²)}); the third and fourth cumulants of Y_n vanish, so 3τκ_3(υ)+O(τ²) (resp. τ²κ_4(υ)+O(τ³)) would be O(e^{−c_2/(2τ²)}), impossible when κ_3(υ)≠0 (resp. κ_4(υ)≠0); hence τ_0 exists. Correct.
+
+Instances: with unit precisions and 𝖦=I_K, ⟨E_12,[E_12,ζ]⟩=ζ_22−ζ_11 (variance 2), its negative for the other bracket, double brackets vanish, κ_4=12; for the second instance υ_e=υ+P_{E_12}υ=E_11+2E_12, [υ,υ_e]=E_12, pairing 1. Ad-invariant inner product: ⟨υ,[υ,𝐓]⟩=−⟨[υ,υ],𝐓⟩=0; isotropic precisions make υ_{e'},υ_e multiples of υ, so every term vanishes. All correct (probe 2 confirms both numbers).
+
+(iv) is (ii) and (iii). Status ESTABLISHED correct; statement (iii) asserts exactly "no Gaussian coincides a.s. on the event for small widths", which is what is proved.
+
+Minor pointer 1 (R8-adjacent): the proof uses e^{uγ}𝐓e^{−uγ}=e^{u ad_γ}𝐓 without justification; it is lem:link-exp-naturality applied to the adjoint representation Ad: GL(K,ℝ)→GL(𝔤𝔩(K,ℝ)), whose differential is ad. Fix: add "(lem:link-exp-naturality for the adjoint representation, whose differential at the identity is ad)".
+
+Minor pointer 2 (R12, commentary line 910–912): "\citep[Ch.~5]{Hall2015}" is a chapter-level locator; the author's record (item 17) says the book was not read and only the chapter title (Ch. 5, "The Baker–Campbell–Hausdorff Formula and Its Consequences") was confirmed from the publisher's table of contents. The statement is proved in full, so ESTABLISHED stands; the attribution should carry a section or equation locator once checked against the 2nd edition (the series through third order is displayed at the start of Hall's Chapter 5, in Section 5.1 in my recollection, which I could not confirm here), or the citation should say "Ch.~5" with no finer claim, as now.
+
+---
+
+## open:link-coarse-closure (c12 914–926; ledger row ca_open_problems 47) — R16
+
+**Verdict: VALID (R16 satisfied).**
+
+Class: G=GL⁺(K), K≥2; weakly continuous injective maps from a connected open subset of some ℝ^d into the Borel probability laws on GL⁺(K); the image must contain exp_#N for every nondegenerate Gaussian N on 𝔤𝔩(K,ℝ) and be closed under convolution. The motivating reduction (two copies in series send independent laws ν',ν to ν'∗ν) is correct since the coarse twist is e^{ω_{e'}}e^{ω_e}. Branch 1 (construction) is not met by any existing statement nor by a trivial construction: the exp-Gaussian family itself is not convolution-closed (prop(ii)), and a d-dimensional injective continuous image cannot contain the n-fold convolution families for all n unless their dimension stays bounded, which is a genuine algebraic question. Branch 2 (impossibility) is not met by prop:link-coarse-generator-law, which only shows the Gaussian chart family is not closed; proving that no finite-dimensional convolution-closed family contains the exp-Gaussians requires a growth-of-dimension argument for the convolution powers that no document supplies. Both branches nontrivial; the ledger row (ca_open_problems line 47) reproduces the settling condition verbatim. The problem's first sentences ("no law of generators represents a coarse link", "the law of the coarse links always exists") are exactly prop(ii) and prop:full-graph-coarse-links.
+
+---
+
+## Pointer sentences (unnumbered)
+
+**c02 scope paragraph (lines 15–21):** "a Gaussian reference on the Lie algebra normalizes the generator prior of prop:link-generator-prior for every G" is prop:link-generator-prior(a) (0<Z_𝒮≤1 for every Lie group with an inner product on 𝔤). No claim beyond the cited statement. VALID.
+
+**c02 paragraph after rem:geo-loop-penalties (lines 457–463):** "one half of the general linear penalty above is the loop defect of def:link-loop-defect (prop:link-loop-defect)" is part (c) with the vertex metrics induced by one reference matrix. VALID. The second clause, "every continuous penalty of the holonomy that is unchanged by passive re-expression vanishes at every unipotent holonomy (cor:link-no-invariant-defect)", repeats the corollary's over-statement (it is false for a penalty that does not vanish at trivial holonomy). Fix: "takes at every unipotent holonomy the value it takes at the trivial holonomy (cor:link-no-invariant-defect), so a penalty that vanishes only at trivial holonomy needs data beyond the holonomy, such as the fiber metric." The conclusion drawn is already the correct one.
+
+**c01 (lines 11–13, 35–40, 62–64, 114–118, 167, 173–174, 239–241):** every sentence cites a numbered statement (prop:link-generator-prior, prop:link-gaussian-recognition-vfe, prop:link-recognition-flow, prop:link-conditional-transfer, thm:link-held-limit, def:link-latent-model, prop:link-field-equation) and claims only what those statements say: normalization for every structure group (prop(a)), a link sector equal to one relative entropy (V2-checked prop:link-gaussian-recognition-vfe), held links as the zero-width limit (V2-checked theorem), the latent-link model as the declaration of a link law. No claim beyond the citations; no tags on pointer text. VALID.
+
+---
+
+## Cross-cutting issues
+
+1. **Missing hypothesis in a "consequently" clause (cor:link-no-invariant-defect) and its echo in c02.** The only statement in the scope whose wording exceeds its proof. Exact fix given above; the mathematics (continuous class functions take the same value at I and at every unipotent element) is correct and the chapter's uses of the corollary (opening line 12, section opening line 245, the commentary on the fiber metric) are all of the correct "cannot vanish only at trivial holonomy" form.
+
+2. **Commentary overstating prop:link-loop-defect(b).** Lines 414–416 omit the walk hypothesis of the "only then" direction. One-clause fix given above.
+
+3. **Connectedness in cor:link-holonomy-parent-almost-sure.** Inherited from def:cg-holonomy-law-score but not stated; add "connected". Also note that with connectedness "not a forest" means "not a tree".
+
+4. **Status tags (R4).** Every theorem-type statement in scope carries exactly one tag; the one STANDARD statement (prop:link-real-logarithm) has a checked locator (Culver 1966, Theorem 1); every ESTABLISHED statement has a complete proof inline or in ca_proofs_c08b; definitions, the remark (tagged, with proof), and the open problem are correctly typed. Textbook facts re-proved in full (lem:link-exp-naturality; polar decomposition, generation by exp, connectedness of GL⁺(K) in prop:link-chart-image) are R12-compliant because the Hall 2015 locators are unchecked in the author's record; once checked, those parts may be cited instead.
+
+5. **R12 locators.** Wilson Eq. (3.29) and Creutz Ch. 7 Eq. (7.6) in prop:link-loop-defect(d) and Culver Theorem 1 in prop:link-real-logarithm and the c12 proof are verified in the author's record and are used for what the sources say. Hall 2015 "Ch. 5" (commentary in c12) is chapter-level and unread; see prop:link-coarse-generator-law, minor pointer 2.
+
+6. **Hypothesis placement (R2).** All hypotheses are inside the statements. Cross-statement inheritance is explicit ("In def:link-loop-defect", "In def:link-coarse-generator", "as in cor:cg-holonomy-noncompact-gaussian"), with the single implicit case of item 3.
+
+7. **Use of cited results within their hypotheses.** prop:elbo-random-link-vfe is invoked only for its (ν,𝒮,Z) hypotheses; cor:cg-holonomy-noncompact-gaussian only with linear invertible holonomy and the nondegenerate Gaussian family; prop:cg-holonomy-compact-closed-form only for the trivial (compact) group with Gaussian constituents; prop:rg-rooted-datum for generation of Hol_I by fundamental-cycle holonomies; lem:link-exp-derivative for a differentiable curve; the c13 objects (configuration prior N(0,I), residuals, carrier algebra, Ω_0≻0) are quoted exactly.
+
+8. **Measure theory and integrability.** E_ν𝒮<∞ is proved through finite exponential moments of Gaussian norms, independence across pairs, and the bound 𝔔_p≤2(dim 𝕍)^re^{2ς_p}; the null hyperplane in c10 and the positive-measure open set in c12(ii) are handled correctly; the cumulant argument keeps all moments uniformly bounded in τ and isolates the exceptional event by Cauchy–Schwarz.
+
+9. **Numerical probes.** `SCR\verify_V1_checks.py` (seeded, float64, CPU; NumPy/SciPy/SymPy; about four minutes, dominated by the 8·10⁶-sample Monte Carlo); output `SCR\verify_V1_checks_output.txt`. Contents: BCH third-order residual scaling and the remainder constant; exact Gaussian-moment computation of the leading cumulant coefficients for the two displayed instances (12 and 1); Monte Carlo of the fourth cumulant of the actual principal logarithm; the cubic remainder bound of prop:link-loop-defect(e) on 2000 random triples with a random SPD metric; the explicit matrix witnesses of prop:link-chart-image(e), prop:link-coarse-generator-law(ii), the running example, the shear conjugation, the rank-one trace-form formula, and the Wilson identity on a random 𝖦-isometry. They support no verdict on their own.

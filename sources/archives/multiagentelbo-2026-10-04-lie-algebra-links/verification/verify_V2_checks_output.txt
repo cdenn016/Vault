@@ -1,0 +1,58 @@
+=== lem:link-exp-derivative (a),(b): random 3x3 ===
+  trial 0: remainder 2.472e-04 <= bound 2.429e-03 : True;  adjoint identity residual 1.49e-16
+  trial 1: remainder 9.096e-05 <= bound 7.451e-03 : True;  adjoint identity residual 2.60e-18
+  trial 2: remainder 2.367e-04 <= bound 1.592e-03 : True;  adjoint identity residual -1.18e-16
+
+=== cor:link-prior-necessary (a)(iii): stationary generator at a fold (K=2) ===
+  exp(omega) = [[0.333333, -0.0], [0.0, 0.333333]]  M* = [[0.5, 0.0], [0.0, 0.0]]
+  grad l(exp omega) = [[-0.333333, -0.0], [0.0, 0.333333]]  (claimed (1/3)diag(-1,1))
+  L(omega^T, diag(-1,1)) = [[0.0, 0.0], [0.0, -0.0]]
+  finite-difference gradient of l(exp .) at omega: [[0.0, -0.0], [-0.0, 0.0]]
+
+=== cor:link-prior-necessary (a)(iv): K=2, negative case mu_j^T Sigma_j^{-1} mu_i < 0 ===
+  M* = [[-0.5, 0.0], [0.0, 0.0]]  tr M* = -0.5  l(M*) = 0.25
+  start  0: chart value 0.29303110  |omega|   97.980  gap to l(M*) 0.043031
+  start  1: chart value 0.29301843  |omega|   81.876  gap to l(M*) 0.043018
+  start  2: chart value 0.29298229  |omega|   96.796  gap to l(M*) 0.042982
+  start  3: chart value 0.29297901  |omega|   99.097  gap to l(M*) 0.042979
+  start  4: chart value 0.29301711  |omega|   82.427  gap to l(M*) 0.043017
+  start  5: chart value 0.29298482  |omega|   97.058  gap to l(M*) 0.042985
+  start  6: chart value 0.29299026  |omega|   92.818  gap to l(M*) 0.042990
+  start  7: chart value 0.29300801  |omega|   92.943  gap to l(M*) 0.043008
+  start  8: chart value 0.29299263  |omega|   95.180  gap to l(M*) 0.042993
+  start  9: chart value 0.29298725  |omega|   98.251  gap to l(M*) 0.042987
+  start 10: chart value 0.29303624  |omega|   77.029  gap to l(M*) 0.043036
+  start 11: chart value 0.29307359  |omega|   74.086  gap to l(M*) 0.043074
+  closure candidate [[-1/2,a],[b,0]], ab=-1/16: l = 0.3383883476483185  eigenvalues [-0.25 -0.25]
+  (the chart infimum found numerically should be >= l(M*) + margin and approach the closure value with |omega| growing)
+
+=== cor:link-prior-necessary (a)(iv): K=2, positive case ===
+  c0=1e-01: |exp(omega)-M*| = 1.12e-01, l - l(M*) = 7.81e-03
+  c0=1e-03: |exp(omega)-M*| = 1.12e-03, l - l(M*) = 7.81e-07
+  c0=1e-06: |exp(omega)-M*| = 1.12e-06, l - l(M*) = 7.81e-13
+
+=== prop:link-law-level-energy (c): Gaussian orbit Fisher form (K=3) ===
+  second derivative of KL along orbit: 6.986474; formula k_q(xi,xi): 6.986474
+  stabilizer direction: |xi mu| = 7.473417450352271e-17  |B+B^T|_F = 1.8721130609009413e-15
+  exp(0.7 xi_stab) fixes q: |g mu - mu| = 1.1102230246251565e-16  |g Sigma g^T - Sigma| = 6.709275326305665e-15
+
+=== prop:link-law-level-energy (b): Mahalanobis criterion and transport ===
+  det O = 1.0  |Theta0 mu_j - mu_i| = 2.835419185914153e-15  |Theta0 Sigma_j Theta0^T - Sigma_i| = 4.565771097859314e-15  det Theta0 > 0: True
+
+=== lem:link-gaussian-gradients: 1-D loop-defect-type h, Gauss-Hermite quadrature ===
+  d/dmu E h = 2.40647870 vs E h' = 2.40647870
+  d/dSigma E h = 3.23083933 vs 1/2 E h'' = 3.23083933
+
+=== prop:link-conditional-transfer (c): fourth moment witness ===
+  E e^(2w) = 7.389056 (e^2 = 7.389056); E e^(4w) = 2980.957987 (e^8 = 2980.957987)
+  E k_i^4 = 8990.2083; 3(E k_i^2)^2 = 211.1288; claimed 3(1+2e^2+e^8) = 8990.2083
+
+=== lem:link-growth (a): d=1 exponential moment bound ===
+  c=1.0, mu=0.5, Sigma=2.0: E e^(c|w|) = 5.724965 <= bound 8.963378: True
+  c=3.0, mu=-1.0, Sigma=0.5: E e^(c|w|) = 190.889788 <= bound 381.132537: True
+
+=== prop:link-induced-action (b): GL+(1) witness normalizer ===
+  rho=0.3: (1-rho^2)^(-1/2) = 1.048285, det(W)^(-1/2) = 1.048285
+  rho=0.9: (1-rho^2)^(-1/2) = 2.294157, det(W)^(-1/2) = 2.294157
+  rho=0.999: (1-rho^2)^(-1/2) = 22.366272, det(W)^(-1/2) = 22.366272
+  P(omega >= 0) under N(0,1) = 0.5 > 0, so the joint normalizer diverges.

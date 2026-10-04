@@ -2,7 +2,7 @@
 type: index
 title: Index
 aliases: [Index, Home]
-updated: 2026-10-03
+updated: 2026-10-04
 ---
 
 # Index
@@ -10,7 +10,7 @@ updated: 2026-10-03
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **45** manuscripts · **16** themes · **11** field MOCs · **289** concepts · **15** methods · **734** papers · **159** references · **10** runs · **7** web/methodology
+> **3** projects · **56** manuscripts · **16** themes · **11** field MOCs · **289** concepts · **15** methods · **734** papers · **159** references · **10** runs · **7** web/methodology
 
 ## 🧭 Start here
 - [[multiagentelbo-2026-09-26-selection-and-reference-review]] — scoped pairing-selection proof and checked primary-reference archive
@@ -34,6 +34,8 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 - [[dennis-2026-template-routing]] — template routing explainer: block MLP as mixture-prior inference over learned Gaussian templates; vfe3 `gaussian_template` toggle, no training result
 - [[dennis-2026-link-origin]] — where the singular matrix links come from: exponential link, parabolic compression with Schur complement, head-sum link; complement-only residual, gated-exponential reading of SiLU/GELU; float64 checks at K=6/7, no training, items open
 - [[dennis-2026-link-curvature]] — flat vs curved link fields: triangle holonomy, flat = recurrent, invertible flat = pure gauge, holonomy table of candidate generators, regression links (curvature = partial cross-covariance, reduced-rank regression), Fisher distance to the singular boundary; float64 checks at K=4, no training
+- [[dennis-2026-dynamic-links]] — latent link generators in the free energy: depth-by-token link lattice, Frobenius-defect curvature prior (Wilson on O(K); class functions miss unipotent holonomy), boxed free energy, delta-rule link field equation, link prior necessary, screened Euclidean Maxwell linearization with kinetic term from time-like loops, MAP-path inertia with Euclidean sign, induced Wilson action of undirected Gaussian matter; float64 checks, no training
+- [[multiagentelbo-2026-10-04-lie-algebra-links]] — latent Lie-algebra links in the MultiAgentELBO theory (new main Chapter 9 and Supplement G chapter): exponential chart, metric loop defect, generator prior, delta-rule field equation, prior necessity with the trace criterion for the chart infimum, induced Wilson action, Bayesian-learning-rule flow, Proca-type linearization; cross-model checked; October 4 corrections to the dynamic-links note
 - [[dennis-2026-projected-gradient]] — projected gradient route: ambient versus channel-likelihood receiver energies, cut routing, exact natural-parameter updates, profiled self-coupling as MM; float64 identity checks, no training result
 - [[dennis-2026-phi-natgrad]] — frame-chart geometry: Frobenius pullback as projected descent on U, belief-Fisher natural gradient for the frame tables, and (from the design record) the content-link spectrum; no training result in the note
 - [[dennis-2026-neuron-free-agent-theory]] — rigorous theory search: conditional neuron-free agent construction in one constrained ELBO; INCONCLUSIVE for the full target

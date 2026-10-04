@@ -5,10 +5,16 @@ aliases: [field/physics, Physics sources]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-09-30
+updated: 2026-10-04
 ---
 
 # Physics MOC
+
+## Dynamic link fields, October 3, 2026
+
+[[dennis-2026-dynamic-links]] treats attention link generators as latent lattice gauge variables on a depth-by-token lattice. It uses a Frobenius-defect curvature prior that reduces to Wilson's action on $O(K)$, with the kinetic term supplied by time-like loops. Its linearized link equation is a screened, massive Euclidean Maxwell equation, and the inertia of the maximum a posteriori path over depth has Euclidean sign. Integrating out undirected Gaussian matter induces $\tfrac12\log\det J$, whose hopping expansion begins with Wilson's triangle action. Agent-drafted, float64 checks at small size, nothing trained.
+
+[[multiagentelbo-2026-10-04-lie-algebra-links]] makes the multi-agent links latent lattice gauge variables with a loop-action prior. Undirected matter induces the Wilson triangle term, time-like loop defects across learning episodes supply a mass, and the linearized operator has screened, massive Euclidean Proca structure. Cross-model checked; nothing trained.
 
 ## Pointwise boundary-method derivations, September 30, 2026
 

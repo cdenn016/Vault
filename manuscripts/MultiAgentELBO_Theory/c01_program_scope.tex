@@ -4,11 +4,14 @@
 This manuscript asks what collective inference is available to agents that are local sections of a
 belief and a model associated bundle of one principal bundle, placed at one base point and interacting
 through independent links under one normalized joint law, and which parts of that inference survive
-exact coarse-graining of the agents into meta-agents. The answer has four main parts. The whole
+exact coarse-graining of the agents into meta-agents. The answer has five main parts. The whole
 population has one evidence bound, an identity in the extended reals whose gap vanishes exactly at the
 posterior as a measure (\Cref{thm:elbo-extended-gap,cor:elbo-bound-tightness}). Each agent's local
 objective is a conditional free energy whose differential is that of the collective free energy
-(\Cref{thm:obs-local-global-potential}). Coarse channels of the agent network preserve the evidence and
+(\Cref{thm:obs-local-global-potential}). The links can themselves be inferred as Lie-algebra generators
+under a prior that is normalized for every structure group, and they then enter the free energy through
+one relative entropy (\Cref{prop:link-generator-prior,prop:link-gaussian-recognition-vfe}). Coarse
+channels of the agent network preserve the evidence and
 decompose the free energy exactly (\Cref{thm:rg-exact-coarse-vfe}), with an effective action for the
 retained coordinates (\Cref{thm:rg-effective-action}). A finite-depth family forms successive
 meta-agents under free-energy descent with learning, in a stated scope
@@ -28,6 +31,13 @@ explicitly, never an additional agent and never a sum of local objectives that h
 Every statement about a parent must hold for the normalized parent law that coarse-graining actually
 produces. And formation of a parent must be a theorem about a declared family, with its scope stated,
 rather than a reading of a formula.
+
+The links between agents are inferred as well. Written in the exponential chart, their Lie-algebra
+generators are latent variables under a normalized prior, and they move with the agents under descent of
+the one collective free energy (\Cref{ch:links}, \Cref{prop:link-recognition-flow}). A result stated at
+held link values is a statement about the conditional laws given the generators
+(\Cref{prop:link-conditional-transfer}), and held links are the zero-width limit of the latent model
+(\Cref{thm:link-held-limit}).
 
 The present phase fixes one base point $c_*$ and settles the theory there before any transport across the
 base is considered. At $c_*$ the exact normalized parent law exists for every coarse channel of the
@@ -50,8 +60,10 @@ $G$-bundle, expressed in one common frame $u_i$, a gauge choice by \Cref{prop:ge
 two channels may carry inequivalent representations, and cross morphisms between them are additional
 structure (\Cref{def:geo-cross-morphisms}). Interactions are normalized record kernels $K_a$ on the scopes
 of an interaction multigraph, and the links $\Theta_e^x$ on its edge copies are independent data with loop
-holonomy and per-edge invariant classes (\Cref{prop:geo-edge-twist-invariance}). The primitive descriptive
-data are the agents, their local recognition laws, their evaluated mechanisms, and the record kernels.
+holonomy and per-edge invariant classes (\Cref{prop:geo-edge-twist-invariance}), held as structural data,
+moved as parameters, or inferred as latent generators under a declared prior (\Cref{def:link-latent-model}).
+The primitive descriptive data are the agents, their local recognition laws, their evaluated mechanisms,
+and the record kernels.
 Population laws enter only by construction (\Cref{prop:gen-exact-normalization}) or by an explicit
 selection (\Cref{hyp:prob-measurable-coupling-selector}). The architecture is
 \begin{equation}
@@ -99,7 +111,11 @@ and records its correspondence with transformer attention (\Cref{tab:obs-transfo
 morphisms (\Cref{thm:cg-fisher-contraction}), and inference histories measured by a Fisher duration that is
 invariant under reparameterization (\Cref{thm:hist-fisher-clock-invariance}). \Cref{ch:two-timescales} types
 fast beliefs and slow models (\Cref{def:obs-fast-slow-blocks}) and proves the reduced slow flow
-(\Cref{prop:obs-rate-separated-flow}).
+(\Cref{prop:obs-rate-separated-flow}). \Cref{ch:links} infers the links as Lie-algebra generators under a
+Gaussian prior reweighted by a loop action, normalized for every structure group
+(\Cref{prop:link-generator-prior}); their stationarity condition is a link field equation
+(\Cref{prop:link-field-equation}), and held links are the zero-width limit of the latent model
+(\Cref{thm:link-held-limit}).
 
 Part II coarse-grains at one base point. \Cref{ch:coarsegraining} separates Markov coarse channels, energy
 restriction, and parameter aggregation (\Cref{sec:cg-three-operations}) and proves the exact coarse free
@@ -148,12 +164,15 @@ space $\mathsf S$. Laws and kernels are normalized and measurable. A coarse chan
 kernel on latent coordinates that does not depend on the recognition law, leaves observations unchanged, and
 is vertical over the identity of $c_*$. An admitted observation has finite positive evidence. Structural data
 are parameters unless a configuration prior or a structural channel is declared, and the declaration names
-its law. The interaction multigraph at $c_*$ is a structural parameter whose edge copies come in reversal
+its law; the latent-link model of \Cref{def:link-latent-model} is such a declaration for the links. The
+interaction multigraph at $c_*$ is a structural parameter whose edge copies come in reversal
 pairs; it contains every copy in the support of a receiving row's source prior and, unless a model adds
 further copies, is the reversal closure of the union of these supports. Each support is complete unless
 masked, and supports need not be symmetric: a receiver may attend to a source that does not attend to it. Gibbs attention weights are strictly positive on positive-prior edges when their
 costs are finite; the extended-cost rows of \Cref{prop:full-graph-gibbs-rows} can assign zero weight to
-infinite-cost edges. Dynamic structure is carried by attention weights and link values. Discrete creation and deletion of edges is not part of the model; it is
+infinite-cost edges. Dynamic structure is carried by attention weights, link values, and, in the
+latent-link model, the inferred generators. Discrete creation and deletion of edges is not part of the
+model; it is
 \Cref{open:obs-edge-creation}. Coarse multigraphs are induced structure. Absolute continuity of a recognition
 law with respect to the posterior is not a default: it is clause (H3) of \Cref{hyp:elbo-evidence-domain}, and
 its failure is the singular branch of the extended bound.
@@ -217,7 +236,9 @@ Open problem & An unsettled question with what holds, what is unproved, and what
 \section*{Physicist's summary}
 
 The manuscript studies agents that are local sections of belief and model bundles, all at one base point,
-coupled through independent links and interaction records under a single normalized joint law. There is one
+coupled through independent links and interaction records under a single normalized joint law. The links
+can be held fixed or inferred, as Lie-algebra generators under a prior that is normalized for any structure
+group. There is one
 evidence bound for the whole population, the local objectives are exact conditional pieces of it, and
 coarse-graining the agent network into meta-agents is done with Markov channels that preserve the evidence
 and split the free energy exactly. Formation of meta-agents is proved for a declared finite-depth family in a

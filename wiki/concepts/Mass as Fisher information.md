@@ -104,12 +104,19 @@ Mechanics on probability spaces predates this program. [[chirco-2022-statistical
 
 Under the primary first-order linearization, $\dot\delta=-\eta G^{-1}H_F\delta$. At fixed $G$ and $\eta$, a larger positive modal stiffness produces a smaller static displacement under matched constant forcing and a faster relaxation rate. It does not itself create revision latency. Slower revision requires an independently specified mobility or learning rate, damping law, kinetic metric, or slow explanatory state. The four-part stiffness also does not by itself derive confirmation bias, belief perseverance, expertise rigidity, or validation of Hamiltonian opinion dynamics.
 
+## Inertia of a maximum a posteriori path, October 3, 2026
+
+[[dennis-2026-dynamic-links]] gives one setting in which a precision is exactly an inertial mass. For a path minimizing $\sum_\ell[\tfrac m2\|X^{\ell+1}-X^\ell\|^2+V(X^\ell)]$, stationarity is $m(2X^\ell-X^{\ell+1}-X^{\ell-1})+\nabla V=0$, the discretization of $m\ddot X=\nabla V$. Here $m$ is the precision of the declared Gaussian increment prior, and in that note it is supplied by the time-like loops of the link curvature energy. The sign is Euclidean: motion is in the inverted potential $-V$, so the path between two wells is a monotone kink and does not oscillate. The inertia belongs to smoothing over the whole path. Filtering, and inference within a pass, stay first order with the Fisher information as friction.
+
+> [!note] Editorial: This supplies a mass $M$ that is specified independently of the restoring tensor, as the section above requires. The mass comes from the increment prior, and the restoring terms come from the anchor, the space-like loops and the matter. It concerns link fields over depth, not belief trajectories over time, and its Euclidean sign gives no oscillatory spectrum. Carrying it to beliefs would need a declared path prior over belief states, for example generalized coordinates of motion ([[friston-2008-dem]]).
+
 ## Sources
 
 - [[belief-inertia]] -- immutable historical manuscript note.
 - [[girolami-calderhead-2011-riemann-hmc]] -- position-dependent Fisher/Riemannian kinetic geometry.
 - [[chirco-2022-statistical-bundle-dynamics]], [[leok-zhang-2017-information-geometric-mechanics]], [[pistone-2018-statistical-bundle-lagrangian]] -- statistical-bundle and geometric-mechanics precedents.
 - [[martins-2015-opinion-particles]] -- direct opinion-inertia comparator.
+- [[dennis-2026-dynamic-links]] -- increment precision as the inertial mass of a maximum a posteriori path (Euclidean sign), for latent link fields over depth.
 
 ## See also
 

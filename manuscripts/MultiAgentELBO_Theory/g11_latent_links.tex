@@ -1,0 +1,1069 @@
+\chapter[Latent Lie-Algebra Links]{Latent Lie-Algebra Links in the Gaussian Realization}
+\label{ch:gauss-latent-links}
+
+What do the latent exponential-chart links of \Cref{ch:links} become when every belief law is
+Gaussian, and what does Gaussian matter do to them when it is integrated out? In this realization
+the law-level transported divergence is an explicit function of the generator whose log-volume
+part is linear in it (\Cref{prop:glink-law-level-energy}). The expected energy of a linear
+comparison record gives the delta-rule current, and without a link prior its minimizing transport
+matrix has rank at most one and, for \(K\geq2\), lies outside the exponential chart, while stationary
+points in the chart can still sit at critical points of the exponential map
+(\Cref{prop:glink-sample-record}); when its trace is negative, no chart link with semisimple negative
+eigenvalues attains the infimum over the chart, so for \(K=2\) and \(K=3\) the infimum is not attained
+(\Cref{prop:glink-chart-infimum-semisimple}). Under a product Gaussian recognition law of the
+generators the expected holonomy of a closed walk that traverses each reversal pair at most once is
+an ordered product of per-copy exponential moments
+(\Cref{prop:glink-expected-loop}). Jointly normalized undirected Gaussian matter induces on the
+generators the action \(\mathscr S^{\mathrm{ind}}=-\mathsf A(\mathsf h,\Lambda(\mathring\omega))\),
+one half the log-determinant of a connection-Laplacian precision at zero information vector,
+bounded below by the self terms (\Cref{prop:glink-induced-action}); its hopping expansion is a
+convergent sum of weighted Wilson loops whose leading link-dependent term on a triangle of agents,
+for isotropic data and isometric links, is a multiple of the loop defect of the triangle
+(\Cref{prop:glink-hopping}). The link-dependent normalizers of
+\Cref{prop:cg-normalized-schur-action,prop:obs-normalizer-link-dependence,prop:obs-holonomy-determinant-factorization}
+are values of this induced action at fixed links, and an unanchored cycle, whose law at fixed links
+exists off a null set, admits no joint law with latent links (\Cref{cor:glink-unanchored-cycle}),
+while for \(K=1\) unanchored matter on a connected multigraph of cycle rank at least two has one
+(\Cref{prop:glink-unanchored-scalar}). An explicit spectrum of the linearized link operator on a
+ring closes the chapter (\Cref{prop:glink-linear-spectrum}). These are the Gaussian values of
+\Cref{prop:link-law-level-energy,cor:link-delta-rule,cor:link-prior-necessary,prop:link-induced-action,prop:link-linearized-equation}
+of the main manuscript, and the induced action is the quantity against which a loop action of the
+generator prior of \Cref{def:link-generator-prior} can be compared.
+
+Every statement concerns the Gaussian realization with the specialization
+\(\Gamma_b=\GL^+(K)\) of \Cref{hyp:gen-lg-frame-group}, one channel, and held model latents. The
+chapter does not claim that inference of the generators reaches the stationary points it computes,
+does not select anchors, generator covariances, loop coefficients, or increment precisions, does
+not identify the induced action with a loop action of the generator prior beyond the leading
+hopping order, gives no expansion of the induced action over cycle-rooted spanning forests in rank
+three or more, where a combinatorial interpretation is an open question of
+\citet[Sec.~14]{Kenyon2011VectorBundleLaplacian}, and evaluates expected loop defects as ordered
+products only for walks without a repeated reversal pair; the ring of \Cref{sec:glink-spectrum} illustrates
+the linearized operator and sets no direction for the theory. \status{NOT-CLAIMED} Joint
+normalization of unanchored matter on multigraphs of cycle rank at least two at a stated
+\(K\geq2\) is \Cref{open:glink-unanchored-normalization}, and attainment of the chart infimum of an
+unregularized record energy for \(K\geq4\) at a chart link with a non-semisimple negative eigenvalue
+is \Cref{open:glink-chart-infimum}.
+
+\section{Generator coordinates and reference laws}
+\label{sec:glink-setting}
+
+Throughout the chapter \(G=\GL^+(K)\) with \(\rho_b\) its defining representation, which realizes
+\(\Gamma_b=\GL^+(K)\) (\Cref{hyp:gen-lg-frame-group}); the Lie algebra is
+\(\mathfrak g=\mathfrak{gl}(K,\R)\), \(\mathrm d\rho_b\) is the identity, and the exponential is
+the matrix exponential. Only the belief channel is considered, and its index is dropped. Each
+oriented edge copy \(e:j\to i\) carries a generator \(\mathring\omega_e\in\mathfrak g\) with twist
+\(\mathring\Theta_e=\exp(\mathring\omega_e)\) and \(\mathring\omega_{\bar e}=-\mathring\omega_e\)
+(\Cref{def:link-exponential-chart}); \(E_+\) contains one orientation of each reversal pair and
+\(\mathscr T=\mathfrak g^{E_+}\). A closed walk \(p=(e_0,\ldots,e_{r-1})\) with
+\(e_a:i_{a+1}\to i_a\) and \(i_r=i_0\) has the reference-coordinate holonomy
+\(\mathring\Theta_p=\mathring\Theta_{e_0}\cdots\mathring\Theta_{e_{r-1}}\), and
+\(\mathrm{Hol}(p)=U_{i_0}\mathring\Theta_pU_{i_0}^{-1}\) by \eqref{eq:geo-edge-twist-holonomy}.
+
+Laws, self terms, weights, observations, and information vectors are written in reference
+coordinates: the belief law of agent \(i\) stands for \(\rho_b(U_i)^{-1}_\#q_i\). In these
+coordinates the link of \(e:j\to i\) acts as \(\exp(\mathring\omega_e)\), because the passive
+re-expression \(g_i=U_i^{-1}\) makes every frame the reference frame, leaves every twist unchanged
+(\Cref{prop:geo-edge-twist-invariance}), and pushes both arguments of every transported divergence
+forward by one bijection, which preserves relative entropy. A Gaussian energy in local coordinates
+becomes one in reference coordinates by the block congruence of
+\Cref{rem:gauss-membership-frame-dependence}, which changes a log-determinant by the
+link-independent constant \(2\sum_i\log\lvert\det U_i\rvert\), the Jacobian bookkeeping of
+\Cref{prop:cg-nonflat-series-gauge}.
+
+Matrices are paired by the trace pairing \(\langle\mathbf S,\mathbf T\rangle=\Tr(\mathbf S^\top\mathbf T)\),
+and gradients are taken for this pairing; the gradient for the inner product
+\(\langle\cdot,\cdot\rangle_{\mathsf G}\) of \Cref{ch:links} is \(\mathsf G^{-1}\nabla\mathsf G\), with
+\(\mathsf G=\mathsf G^{\mathrm{fib}}\). Kronecker products have the coordinates
+\((\mathbf S\otimes\mathbf T)_{(a,b),(c,d)}=\mathbf S_{ac}\mathbf T_{bd}\). The Fr\'echet derivative of the
+exponential is \(\mathbf L(\mathbf B,\mathbf T)=\int_0^1e^{t\mathbf B}\mathbf Te^{(1-t)\mathbf B}dt\)
+(\Cref{lem:link-exp-derivative}), and cyclicity of the trace under the integral makes
+\(\mathbf L(\mathbf B^\top,\cdot)\) its adjoint for the trace pairing. The second derivative
+\(\mathbf L^{(2)}(\mathbf B;\mathbf T)=\frac{d^2}{dt^2}e^{\mathbf B+t\mathbf T}\big|_{t=0}\) is used once. The loop
+defect of a closed walk is
+\(\mathfrak Q_p=\tfrac12\langle\mathring\Theta_p-I,\mathring\Theta_p-I\rangle_{\mathsf G}\)
+(\Cref{def:link-loop-defect}). Bold capitals \(\mathbf B,\mathbf S,\mathbf T\) denote generic matrices
+inside one statement or proof, and upright Roman letters denote statement-local real constants.
+
+\section{Law-level and record energies of one copy}
+\label{sec:glink-energies}
+
+\propositionheading{Law-level transported divergence in generator coordinates}{prop:glink-law-level-energy}
+Let \(q_i=\mathcal N(\mu_i,\Sigma_i)\) and \(q_j=\mathcal N(\mu_j,\Sigma_j)\) be nondegenerate
+Gaussian laws in reference coordinates, \(e:j\to i\), and \(\mathring\omega=\mathring\omega_e\in\mathfrak g\).
+(i) The transported divergence is
+\begin{equation}
+\begin{aligned}
+\KL\bigl(q_i\Vert\exp(\mathring\omega)_\#q_j\bigr)
+={}&\tfrac12\Tr\bigl(\Sigma_j^{-1}e^{-\mathring\omega}\Sigma_ie^{-\mathring\omega^\top}\bigr)
++\tfrac12\bigl(e^{-\mathring\omega}\mu_i-\mu_j\bigr)^\top\Sigma_j^{-1}\bigl(e^{-\mathring\omega}\mu_i-\mu_j\bigr)\\
+&-\tfrac K2+\tfrac12\log\frac{\det\Sigma_j}{\det\Sigma_i}+\Tr\mathring\omega ,
+\end{aligned}
+\label{eq:glink-law-level-energy}
+\end{equation}
+and it equals \(\KL(q_i\Vert(\Theta_e)_\#q_j)\) computed in local coordinates for every choice of
+frames. The log-volume part \(\Tr\mathring\omega\) is linear in the generator, and every other
+dependence on \(\mathring\omega\) passes through \(e^{-\mathring\omega}\).
+(ii) The divergence is a real-analytic function of \(\mathring\omega\) with differential and gradient
+\begin{equation}
+\begin{gathered}
+d\KL[\mathbf T]=\Tr\mathbf T-\bigl\langle\mathbf A_e,\mathbf L(-\mathring\omega,\mathbf T)\bigr\rangle,
+\qquad
+\nabla_{\mathring\omega}\KL=I-\mathbf L(-\mathring\omega^\top,\mathbf A_e),\\
+\mathbf A_e=\Sigma_j^{-1}\bigl(e^{-\mathring\omega}(\Sigma_i+\mu_i\mu_i^\top)-\mu_j\mu_i^\top\bigr).
+\end{gathered}
+\label{eq:glink-law-level-gradient}
+\end{equation}
+(iii) At \(\mathring\omega=0\) it is the Gaussian relative entropy of \(q_i\) to \(q_j\). If the
+transported source has the receiver's covariance, \(\Sigma_i=e^{\mathring\omega}\Sigma_je^{\mathring\omega^\top}\),
+it is the twisted pair energy \eqref{eq:cg-twisted-pair} with \(W_e=\Sigma_i^{-1}\),
+\(\tfrac12(\mu_i-e^{\mathring\omega}\mu_j)^\top\Sigma_i^{-1}(\mu_i-e^{\mathring\omega}\mu_j)\), which
+at \(\mathring\omega=0\) and \(\Sigma_i=\Sigma_j\) is the edge relative entropy of
+\Cref{prop:ig-fixed-covariance-kl}. If \(q_i=q_j=\mathcal N(\mu,\Sigma)\) and
+\(\mathring\omega=t\mathring\upsilon\), then as \(t\to0\) the divergence is
+\(\tfrac{t^2}2\mathfrak k_q(\mathring\upsilon,\mathring\upsilon)+O(t^3)\) with the Gaussian orbit
+Fisher form
+\begin{equation}
+\mathfrak k_q(\mathring\upsilon,\mathring\upsilon)
+=(\mathring\upsilon\mu)^\top\Sigma^{-1}\mathring\upsilon\mu
++\Tr(\mathring\upsilon^2)+\Tr\bigl(\Sigma^{-1}\mathring\upsilon\Sigma\mathring\upsilon^\top\bigr)
+\label{eq:glink-orbit-fisher}
+\end{equation}
+of \Cref{cor:pb-orbit-fisher-form}. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) By \Cref{prop:geo-moment-pushforward},
+\(\exp(\mathring\omega)_\#q_j=\mathcal N(e^{\mathring\omega}\mu_j,e^{\mathring\omega}\Sigma_je^{\mathring\omega^\top})\).
+For nondegenerate Gaussian laws on \(\R^K\), integrating the difference of the log densities gives
+\(\KL(\mathcal N(\mu_i,\Sigma_i)\Vert\mathcal N(\mu',\Sigma'))=\tfrac12[\Tr(\Sigma'^{-1}\Sigma_i)+(\mu_i-\mu')^\top\Sigma'^{-1}(\mu_i-\mu')-K+\log\det\Sigma'-\log\det\Sigma_i]\).
+With \(\mu'=e^{\mathring\omega}\mu_j\) and \(\Sigma'=e^{\mathring\omega}\Sigma_je^{\mathring\omega^\top}\), the inverse
+is \(e^{-\mathring\omega^\top}\Sigma_j^{-1}e^{-\mathring\omega}\), cyclicity of the trace moves the
+outer factors onto \(\Sigma_i\) and onto the mean difference, and
+\(\log\det\Sigma'=\log\det\Sigma_j+2\log\det e^{\mathring\omega}\). Jacobi's formula
+\(\frac{d}{dt}\det e^{t\mathring\omega}=\det e^{t\mathring\omega}\Tr(e^{-t\mathring\omega}\mathring\omega e^{t\mathring\omega})=\Tr(\mathring\omega)\det e^{t\mathring\omega}\)
+integrates to \(\det e^{\mathring\omega}=e^{\Tr\mathring\omega}\), which gives
+\eqref{eq:glink-law-level-energy}. In local coordinates the two laws are
+\(\rho_b(U_i)_\#q_i\) and
+\((U_ie^{\mathring\omega}U_j^{-1})_\#\rho_b(U_j)_\#q_j=\rho_b(U_i)_\#\exp(\mathring\omega)_\#q_j\),
+and relative entropy is invariant under the common bijection \(\rho_b(U_i)\).
+(ii) The right side of \eqref{eq:glink-law-level-energy} is a polynomial in the entries of
+\(\mathring\Theta_e^{-1}=e^{-\mathring\omega}\) plus \(\Tr\mathring\omega\), and the exponential is entire. As
+a function of \(\mathring\Theta_e^{-1}\), the first two terms have the differential
+\(\langle\mathbf A_e,d\mathring\Theta_e^{-1}\rangle\): the first contributes
+\(\langle\Sigma_j^{-1}\mathring\Theta_e^{-1}\Sigma_i,d\mathring\Theta_e^{-1}\rangle\) because \(\Sigma_i\) and
+\(\Sigma_j\) are symmetric, and the second
+\(\langle\Sigma_j^{-1}(\mathring\Theta_e^{-1}\mu_i-\mu_j)\mu_i^\top,d\mathring\Theta_e^{-1}\rangle\). By
+\Cref{lem:link-exp-derivative}, the derivative of \(e^{-\mathring\omega}\) in the direction \(\mathbf T\) is
+\(\mathbf L(-\mathring\omega,-\mathbf T)=-\mathbf L(-\mathring\omega,\mathbf T)\), and
+\(d\Tr\mathring\omega[\mathbf T]=\Tr\mathbf T\), which gives the differential; the adjoint of
+\(\mathbf L(-\mathring\omega,\cdot)\) is \(\mathbf L(-\mathring\omega^\top,\cdot)\), which gives the
+gradient. (iii) The first two cases are substitution. For the third, insert
+\(e^{-t\mathring\upsilon}=I-t\mathring\upsilon+\tfrac{t^2}2\mathring\upsilon^2+O(t^3)\) into
+\eqref{eq:glink-law-level-energy} with \(\mu_i=\mu_j=\mu\) and \(\Sigma_i=\Sigma_j=\Sigma\). The trace term is
+\(\tfrac K2-t\Tr\mathring\upsilon+\tfrac{t^2}2[\Tr(\mathring\upsilon^2)+\Tr(\Sigma^{-1}\mathring\upsilon\Sigma\mathring\upsilon^\top)]+O(t^3)\),
+because the trace is invariant under cyclic permutation and transposition, so that the first-order
+terms \(\Tr(\Sigma^{-1}\mathring\upsilon\Sigma)\) and \(\Tr\mathring\upsilon^\top\) both equal
+\(\Tr\mathring\upsilon\), and the terms \(\Tr(\Sigma^{-1}\mathring\upsilon^2\Sigma)\) and
+\(\Tr(\mathring\upsilon^\top)^2\) both equal \(\Tr(\mathring\upsilon^2)\); the mean term is
+\(\tfrac{t^2}2(\mathring\upsilon\mu)^\top\Sigma^{-1}\mathring\upsilon\mu+O(t^3)\), since
+\(e^{-t\mathring\upsilon}\mu-\mu=-t\mathring\upsilon\mu+O(t^2)\); the log-determinant term vanishes, and the
+linear terms \(-t\Tr\mathring\upsilon\) and \(t\Tr\mathring\upsilon\) cancel. The sum is
+\(\tfrac{t^2}2\) times \eqref{eq:glink-orbit-fisher} plus \(O(t^3)\). The form is the orbit Fisher form of
+\Cref{cor:pb-orbit-fisher-form}: the moment curve
+\(t\mapsto(e^{t\mathring\upsilon}\mu,e^{t\mathring\upsilon}\Sigma e^{t\mathring\upsilon^\top})\) has
+velocity \((\mathring\upsilon\mu,\mathring\upsilon\Sigma+\Sigma\mathring\upsilon^\top)\) at \(t=0\),
+the fundamental vector field of \(\mathring\upsilon\) at \(q\), and the Fisher metric
+\eqref{eq:ig-moment-metric} evaluates it to
+\((\mathring\upsilon\mu)^\top\Sigma^{-1}\mathring\upsilon\mu+\tfrac12\Tr[(\Sigma^{-1}\mathring\upsilon\Sigma+\mathring\upsilon^\top)^2]\);
+expanding the square, the two pure terms each have trace \(\Tr(\mathring\upsilon^2)\) and the two
+cross terms each \(\Tr(\Sigma^{-1}\mathring\upsilon\Sigma\mathring\upsilon^\top)\), which is
+\eqref{eq:glink-orbit-fisher}.
+\hfill$\square$
+
+The divergence charges the generator in two ways: through \(e^{-\mathring\omega}\), which pulls the
+receiver's law back into the source frame, and through the volume term \(\Tr\mathring\omega\), which
+penalizes expansion of the source and rewards contraction. For trace-free generators, the
+isometries of \Cref{sec:glink-induced} among them, the volume term vanishes.
+
+The comparison record of \Cref{prop:obs-selective-gaussian-record}(iii) with \(S^Q_e=I\) and
+\(S^K_e=\mathbf M\) is the kernel \(o_e\given z_i,z_j\sim\mathcal N(z_i-\mathbf Mz_j,W_e^{-1})\),
+\(W_e\succ0\), a Gaussian kernel for every transport matrix \(\mathbf M\in\R^{K\times K}\), singular ones
+included; its energy at an
+observed \(o_e\) is
+\begin{equation}
+\mathsf E_e(z_i,z_j;\mathbf M)
+=\tfrac12(o_e-z_i+\mathbf Mz_j)^\top W_e(o_e-z_i+\mathbf Mz_j)+\tfrac12\log\det(2\pi W_e^{-1}),
+\label{eq:glink-record-energy}
+\end{equation}
+and the latent link sets \(\mathbf M=e^{\mathring\omega_e}\). At \(o_e=0\) its quadratic part is the record
+energy of \Cref{cor:link-delta-rule}(a), and \(\mathbf M\) plays the role of the matrix of
+\Cref{cor:link-prior-necessary}(a).
+
+\propositionheading{Linear comparison record, delta-rule current, and the unregularized transport}{prop:glink-sample-record}
+Let \(q_i=\mathcal N(\mu_i,\Sigma_i)\) and \(q_j=\mathcal N(\mu_j,\Sigma_j)\) be nondegenerate and
+let matter be recognized by the product \(q_i\otimes q_j\). (i) The expected energy
+\eqref{eq:glink-record-energy} of the comparison record with weight \(W_e\succ0\) at an observation
+\(o_e\in\R^K\) is
+\begin{equation}
+\begin{aligned}
+\E_{q_i\otimes q_j}\mathsf E_e(\cdot;\mathbf M)
+={}&\tfrac12(\mu_i-o_e-\mathbf M\mu_j)^\top W_e(\mu_i-o_e-\mathbf M\mu_j)+\tfrac12\Tr(W_e\Sigma_i)\\
+&+\tfrac12\Tr\bigl(W_e\mathbf M\Sigma_j\mathbf M^\top\bigr)+\tfrac12\log\det(2\pi W_e^{-1}),
+\end{aligned}
+\label{eq:glink-expected-record}
+\end{equation}
+and if \(\mathbf M=e^{\mathring\omega_e}\) with \(\mathring\omega_e\) random and independent of the
+matter, its expectation over \(\mathring\omega_e\) is the affine function
+\(\tfrac12(\mu_i-o_e)^\top W_e(\mu_i-o_e)-(\mu_i-o_e)^\top W_e(\E e^{\mathring\omega_e})\mu_j
++\tfrac12\sum_{a,b,c,d}(W_e)_{ab}(\Sigma_j+\mu_j\mu_j^\top)_{cd}\bigl(\E[e^{\mathring\omega_e}\otimes e^{\mathring\omega_e}]\bigr)_{(b,a),(c,d)}
++\tfrac12\Tr(W_e\Sigma_i)+\tfrac12\log\det(2\pi W_e^{-1})\)
+of the first two exponential moments.
+(ii) The derivative of \eqref{eq:glink-expected-record} in \(\mathbf M\) is \(-\mathbf J_e\), with the
+current
+\begin{equation}
+\mathbf J_e=W_e\bigl[(\mu_i-o_e-\mathbf M\mu_j)\mu_j^\top-\mathbf M\Sigma_j\bigr],
+\label{eq:glink-current}
+\end{equation}
+a precision-weighted prediction error times the source mean, minus the source covariance
+transported by \(\mathbf M\), and its gradient in the generator at \(\mathbf M=e^{\mathring\omega_e}\)
+is \(-\mathbf L(\mathring\omega_e^\top,\mathbf J_e)\); this is the Gaussian form of the current of
+\Cref{cor:link-delta-rule} with an observed offset.
+(iii) Without a link prior, \eqref{eq:glink-expected-record} is a strictly convex quadratic
+function of \(\mathbf M\in\R^{K\times K}\) with the unique minimizer
+\begin{equation}
+\mathbf M^\star=(\mu_i-o_e)\mu_j^\top(\Sigma_j+\mu_j\mu_j^\top)^{-1},
+\qquad
+\Tr\mathbf M^\star=\frac{\mu_j^\top\Sigma_j^{-1}(\mu_i-o_e)}{1+\mu_j^\top\Sigma_j^{-1}\mu_j},
+\label{eq:glink-rank-one}
+\end{equation}
+of rank at most one. For \(K\geq2\) it is singular and equals no \(e^{\mathring\omega}\);
+consequently the gradient in \(\mathring\omega_e\) vanishes only where \(\mathbf L(\mathring\omega_e,\cdot)\)
+is singular, that is, where two eigenvalues of \(\mathring\omega_e\) differ by a nonzero integer
+multiple of \(2\pi\mathrm i\). For \(K\geq2\), if \(\Tr\mathbf M^\star\geq0\), the infimum over
+\(\mathring\omega_e\in\mathfrak g\) equals the value at \(\mathbf M^\star\) and is not attained; if
+\(\Tr\mathbf M^\star<0\), no sequence of exponentials converges to \(\mathbf M^\star\), and the
+infimum over \(\mathfrak g\) exceeds the value at \(\mathbf M^\star\).
+(iv) A stationary point at a critical point of the exponential can be a saddle. For \(K=2\),
+\(W_e=I_2\), \(\Sigma_j=\varsigma^2I_2\), \(\mu_j=(1,0)^\top\), and
+\(\mu_i-o_e=-(1+2\varsigma^2)e^{\mathrm a}(1,0)^\top\) with \(\varsigma>0\) and \(\mathrm a\in\R\), the
+generator \(\mathring\omega_0=\mathrm aI_2+\pi\mathfrak J\), with
+\(\mathfrak J=\begin{psmallmatrix}0&-1\\1&0\end{psmallmatrix}\), is a stationary point of
+\(\mathring\omega\mapsto\E\mathsf E_e(\cdot;e^{\mathring\omega})\) with
+\(e^{\mathring\omega_0}=-e^{\mathrm a}I_2\), and it is not a local minimizer.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) Under \(q_i\otimes q_j\) the residual \(o_e-z_i+\mathbf Mz_j\) is Gaussian with mean
+\(-(\mu_i-o_e-\mathbf M\mu_j)\) and covariance \(\Sigma_i+\mathbf M\Sigma_j\mathbf M^\top\), and the
+expectation of a quadratic form is the form at the mean plus the trace against the covariance.
+Expanding the first and third terms as
+\(\tfrac12(\mu_i-o_e)^\top W_e(\mu_i-o_e)-(\mu_i-o_e)^\top W_e\mathbf M\mu_j+\tfrac12\Tr(W_e\mathbf M\mathbf S\mathbf M^\top)\)
+with \(\mathbf S=\Sigma_j+\mu_j\mu_j^\top\), and writing
+\(\Tr(W_e\mathbf M\mathbf S\mathbf M^\top)=\sum_{a,b,c,d}(W_e)_{ab}\mathbf M_{bc}\mathbf S_{cd}\mathbf M_{ad}\), shows that the
+expression is affine in \(\mathbf M\) and in \(\mathbf M\otimes\mathbf M\); the exponential moments are
+finite because \(\lVert e^{\mathring\omega}\rVert\leq e^{\lVert\mathring\omega\rVert}\) and Gaussian laws
+have exponential moments of every order.
+(ii) The differential of \eqref{eq:glink-expected-record} is
+\(-(\mu_i-o_e-\mathbf M\mu_j)^\top W_e(d\mathbf M)\mu_j+\Tr(W_e\mathbf M\Sigma_j(d\mathbf M)^\top)=-\langle\mathbf J_e,d\mathbf M\rangle\),
+and the chain rule through \Cref{lem:link-exp-derivative} with the adjoint
+\(\mathbf L(\mathring\omega_e^\top,\cdot)\) gives the generator gradient.
+(iii) The quadratic part
+\(\tfrac12\Tr(W_e\mathbf M(\Sigma_j+\mu_j\mu_j^\top)\mathbf M^\top)
+=\tfrac12\lVert W_e^{1/2}\mathbf M(\Sigma_j+\mu_j\mu_j^\top)^{1/2}\rVert_{\mathrm F}^2\) is positive definite
+in \(\mathbf M\), so the function is strictly convex and coercive, and \(\mathbf J_e=0\) is
+\((\mu_i-o_e)\mu_j^\top=\mathbf M(\Sigma_j+\mu_j\mu_j^\top)\), whose unique solution is
+\eqref{eq:glink-rank-one}; the trace is \(\mu_j^\top(\Sigma_j+\mu_j\mu_j^\top)^{-1}(\mu_i-o_e)\), and the
+Sherman--Morrison identity gives its second form. Every exponential is invertible, so
+\(e^{\mathring\omega}\neq\mathbf M^\star\) for \(K\geq2\), which the rest of (iii) assumes. With
+\(\operatorname{ad}_{\mathbf B}\mathbf T=[\mathbf B,\mathbf T]\), the identity
+\(e^{t\mathbf B}\mathbf Te^{-t\mathbf B}=e^{t\operatorname{ad}_{\mathbf B}}\mathbf T\) writes
+\(\mathbf L(\mathbf B,\mathbf T)=\bigl(\int_0^1e^{t\operatorname{ad}_{\mathbf B}}dt\bigr)(\mathbf T)e^{\mathbf B}\), and right
+multiplication by \(e^{\mathbf B}\) is invertible. Simultaneous triangularization of the commuting maps
+\(\mathbf T\mapsto\mathbf B\mathbf T\) and \(\mathbf T\mapsto\mathbf T\mathbf B\) shows that the eigenvalues of
+\(\operatorname{ad}_{\mathbf B}\) are the differences \(\mathring\lambda_a-\mathring\lambda_b\) of eigenvalues of
+\(\mathbf B\), so those of \(\int_0^1e^{t\operatorname{ad}_{\mathbf B}}dt\) are
+\(\int_0^1e^{t(\mathring\lambda_a-\mathring\lambda_b)}dt\), which vanish exactly when
+\(\mathring\lambda_a-\mathring\lambda_b\in2\pi\mathrm i\mathbb Z\setminus\{0\}\); and \(\mathbf B^\top\) has the
+eigenvalues of \(\mathbf B\). Where \(\mathbf L(\mathring\omega_e^\top,\cdot)\) is invertible, a zero gradient
+forces \(\mathbf J_e(e^{\mathring\omega_e})=0\), hence \(e^{\mathring\omega_e}=\mathbf M^\star\), which is
+impossible. If \(\Tr\mathbf M^\star>0\), the rank-one matrix \(\mathbf M^\star\) has the simple eigenvalue
+\(\Tr\mathbf M^\star\) and the eigenvalue \(0\) with a \((K-1)\)-dimensional eigenspace, so
+\(\mathbf M^\star=\mathbf B\operatorname{diag}(\Tr\mathbf M^\star,0,\ldots,0)\mathbf B^{-1}\) for an invertible
+\(\mathbf B\), and
+\(\exp\bigl(\mathbf B\operatorname{diag}(\log\Tr\mathbf M^\star,\log\mathrm c_0,\ldots,\log\mathrm c_0)\mathbf B^{-1}\bigr)\to\mathbf M^\star\)
+as \(\mathrm c_0\to0\). If \(\Tr\mathbf M^\star=0\) and \(\mathbf M^\star\neq0\), then \((\mathbf M^\star)^2=0\) and
+\(\exp\bigl((\log\mathrm c_0)I+\mathrm c_0^{-1}\mathbf M^\star\bigr)=\mathrm c_0I+\mathbf M^\star\to\mathbf M^\star\); if
+\(\mathbf M^\star=0\), \(\exp((\log\mathrm c_0)I)\to0\). In each case continuity carries the values to the
+infimum, which no exponential attains by strict convexity. If \(\Tr\mathbf M^\star<0\), it is a simple
+eigenvalue of \(\mathbf M^\star\); every real matrix near \(\mathbf M^\star\) has a simple real negative
+eigenvalue near it, because a simple real eigenvalue of a real matrix stays real under small real
+perturbations, and its single Jordan block of size one occurs once, so by
+\citet[Theorem~1]{culver1966existence} that matrix has no real logarithm. A neighborhood of
+\(\mathbf M^\star\) therefore contains no exponential, and outside it the strictly convex coercive function
+stays above a value larger than its minimum.
+(iv) At \(\mathbf M=e^{\mathring\omega_0}=-e^{\mathrm a}I_2\),
+\(\mu_i-o_e-\mathbf M\mu_j=-2\varsigma^2e^{\mathrm a}(1,0)^\top\), so
+\(\mathbf J_e=-2\varsigma^2e^{\mathrm a}\operatorname{diag}(1,0)+\varsigma^2e^{\mathrm a}I_2
+=-\varsigma^2e^{\mathrm a}\operatorname{diag}(1,-1)\). The matrix \(\operatorname{diag}(1,-1)\)
+anticommutes with \(\mathfrak J\), so
+\(e^{\mathrm b\mathfrak J}\operatorname{diag}(1,-1)=\operatorname{diag}(1,-1)e^{-\mathrm b\mathfrak J}\) for real
+\(\mathrm b\), and with \(e^{t\mathring\omega_0^\top}=e^{t\mathrm a}e^{-t\pi\mathfrak J}\) the gradient is
+\(-\mathbf L(\mathring\omega_0^\top,\mathbf J_e)=\varsigma^2e^{2\mathrm a}\operatorname{diag}(1,-1)\int_0^1e^{(2t-1)\pi\mathfrak J}dt=0\),
+since \(\int_{-1}^1\cos(\pi u)du=\int_{-1}^1\sin(\pi u)du=0\). Along the direction \(\operatorname{diag}(1,-1)\),
+which anticommutes with \(\mathfrak J\),
+\((\pi\mathfrak J+t\operatorname{diag}(1,-1))^2=-(\pi^2-t^2)I_2\), so with \(\mathrm r_t=(\pi^2-t^2)^{1/2}\),
+\(e^{\mathring\omega_0+t\operatorname{diag}(1,-1)}
+=e^{\mathrm a}\bigl[\cos\mathrm r_tI_2+\mathrm r_t^{-1}\sin\mathrm r_t(\pi\mathfrak J+t\operatorname{diag}(1,-1))\bigr]
+=-e^{\mathrm a}I_2+\tfrac{e^{\mathrm a}t^2}{2\pi^2}(\pi\mathfrak J+t\operatorname{diag}(1,-1))+O(t^4)\). The
+expected energy is quadratic in \(\mathbf M\) with derivative \(-\mathbf J_e\), and
+\(\operatorname{diag}(1,-1)\) is orthogonal to \(\mathfrak J\) and to \(I_2\) for the trace pairing, so
+its change is \(\varsigma^2e^{2\mathrm a}t^3/\pi^2+O(t^4)\), negative for small \(t<0\).
+\hfill$\square$
+
+Part (iii) is the Gaussian instance of \Cref{cor:link-prior-necessary}(a) with an observed offset: a
+single context determines only a rank-one regression, and without the anchor of the generator prior the
+record drives the link out of the exponential chart. Part (iv) adds to the stationary generator of
+\Cref{cor:link-prior-necessary}(a) that a stationary point at a critical point of the exponential map can
+be a saddle of the chart energy. When \(\Tr\mathbf M^\star<0\),
+\Cref{prop:glink-chart-infimum-semisimple} excludes attainment of the chart infimum at every chart link
+with semisimple negative eigenvalues, which settles \(K=2\) and \(K=3\); attainment at a chart link with a
+non-semisimple negative eigenvalue, possible only for \(K\geq4\), is \Cref{open:glink-chart-infimum}.
+
+\propositionheading{Non-attainment of the chart infimum at semisimple negative eigenvalues}{prop:glink-chart-infimum-semisimple}
+Let \(K\geq2\), let \(q_i=\mathcal N(\mu_i,\Sigma_i)\) and \(q_j=\mathcal N(\mu_j,\Sigma_j)\) be
+nondegenerate, let matter be recognized by \(q_i\otimes q_j\), and, without a link prior, let
+\(\mathbf l(\mathbf M)=\E_{q_i\otimes q_j}\mathsf E_e(\cdot;\mathbf M)\) be the expected energy
+\eqref{eq:glink-expected-record} of the comparison record with weight \(W_e\succ0\) at an observation
+\(o_e\in\R^K\), whose minimizer \(\mathbf M^\star\) of \eqref{eq:glink-rank-one} has \(\Tr\mathbf M^\star<0\).
+Call an element of \(\exp(\mathfrak g)\) a chart link, and an eigenvalue semisimple if all its Jordan
+blocks have size one. Then no chart link \(\mathbf M\) whose negative eigenvalues are all semisimple
+satisfies \(\mathbf l(\mathbf M)=\inf_{\exp(\mathfrak g)}\mathbf l\). For \(K=2\) and \(K=3\) every chart
+link has this property, so \(\mathring\omega\mapsto\mathbf l(e^{\mathring\omega})\) does not attain its
+infimum over \(\mathfrak g\); for \(K=2\) this is \Cref{cor:link-prior-necessary}(a)(iv) for the matter
+law of \((z_i-o_e,z_j)\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+By \Cref{prop:glink-sample-record}(iii), \(\mathbf l\) is a strictly convex quadratic function on
+\(\R^{K\times K}\) whose gradient vanishes only at \(\mathbf M^\star\), which is singular because its rank is
+at most one and \(K\geq2\), while every chart link is invertible, since
+\(\det e^{\mathring\omega}=e^{\Tr\mathring\omega}\). By \citet[Theorem~1]{culver1966existence}, a real
+\(K\times K\) matrix is a chart link exactly when it is invertible and every Jordan block belonging to a
+negative eigenvalue occurs an even number of times. Let a chart link \(\mathbf M\) with semisimple negative
+eigenvalues satisfy \(\mathbf l(\mathbf M)=\inf_{\exp(\mathfrak g)}\mathbf l\). It suffices to find a
+nonempty open set of real matrices \(\mathbf E\) such that, for each of them, \(\mathbf M+t\mathbf E\) is a
+chart link for every sufficiently small \(\lvert t\rvert\). Indeed, for such \(\mathbf E\) minimality gives
+\(\mathbf l(\mathbf M+t\mathbf E)\geq\mathbf l(\mathbf M)\) for small \(t\) of either sign, so
+\(\langle\nabla\mathbf l(\mathbf M),\mathbf E\rangle=\frac{d}{dt}\mathbf l(\mathbf M+t\mathbf E)\big|_{t=0}=0\);
+the linear span of a nonempty open set is \(\R^{K\times K}\), so \(\nabla\mathbf l(\mathbf M)=0\) and
+\(\mathbf M=\mathbf M^\star\), which contradicts the invertibility of \(\mathbf M\).
+
+If \(\mathbf M\) has no negative eigenvalue, its spectrum is a compact set at positive distance from
+\((-\infty,0]\); by continuity of the roots of the characteristic polynomial every real matrix near
+\(\mathbf M\) has no eigenvalue in \((-\infty,0]\) and is a chart link by the criterion, so every
+\(\mathbf E\) qualifies. Otherwise let \(\mathrm c'_1,\ldots,\mathrm c'_{\mathrm r}\) be the distinct negative
+eigenvalues of \(\mathbf M\). The Jordan blocks of \(\mathrm c'_l\) have size one, so their number is its
+multiplicity \(\mathrm n_l\), which the criterion makes even. The real eigenspaces of the \(\mathrm c'_l\) and
+the sum of the real generalized eigenspaces of the other eigenvalues decompose \(\R^K\) into invariant
+subspaces, so that for a real invertible \(\mathbf S\)
+\[
+\mathbf S^{-1}\mathbf M\mathbf S=\operatorname{blockdiag}\bigl(\mathrm c'_1I_{\mathrm n_1},\ldots,\mathrm c'_{\mathrm r}I_{\mathrm n_{\mathrm r}},\mathbf M_0\bigr),
+\]
+with \(\mathbf M_0\) real and without eigenvalues in \((-\infty,0]\). For a real \(\mathbf E\), let
+\(\widetilde{\mathbf E}_{ll}\) be the diagonal block of \(\mathbf S^{-1}\mathbf E\mathbf S\) at \(\mathrm c'_l\), the
+compression of \(\mathbf E\) to the eigenspace of \(\mathrm c'_l\) along this decomposition, and call
+\(\mathbf E\) admissible if every \(\widetilde{\mathbf E}_{ll}\) has distinct non-real eigenvalues. The
+admissible matrices form an open set, because each \(\mathbf E\mapsto\widetilde{\mathbf E}_{ll}\) is linear
+and, by continuity of the roots of the characteristic polynomial, distinct non-real eigenvalues stay
+distinct and non-real under small real perturbations; and a nonempty one, because each \(\mathrm n_l\) is
+even and the block-diagonal matrix with the \(2\times2\) blocks
+\(\begin{psmallmatrix}0&-\mathrm k\\\mathrm k&0\end{psmallmatrix}\), \(\mathrm k=1,\ldots,\mathrm n_l/2\), has
+the distinct eigenvalues \(\pm\mathrm i\mathrm k\).
+
+Fix an admissible \(\mathbf E\), and let \(\mathrm r_0>0\) be smaller than the distance between any two
+distinct eigenvalues of \(\mathbf M\) and than the distance from the spectrum of \(\mathbf M_0\) to
+\((-\infty,0]\). Fix \(l\), order the blocks so that the one at \(\mathrm c'_l\) comes first, let \(\mathbf B\)
+be the complementary diagonal block of \(\mathbf S^{-1}\mathbf M\mathbf S\), of which \(\mathrm c'_l\) is not an
+eigenvalue, and split \(\mathbf S^{-1}\mathbf E\mathbf S\) accordingly into
+\(\mathbf E_{11}=\widetilde{\mathbf E}_{ll}\), \(\mathbf E_{12}\), \(\mathbf E_{21}\), and \(\mathbf E_{22}\). For
+\(\lvert\mathring\lambda-\mathrm c'_l\rvert\leq\mathrm r_0/2\) and small \(\lvert t\rvert\), the matrix
+\(\mathbf T(t,\mathring\lambda)=\mathring\lambda I-\mathbf B-t\mathbf E_{22}\) is invertible, and the Schur
+complement gives
+\[
+\det(\mathring\lambda I-\mathbf M-t\mathbf E)
+=\det\mathbf T(t,\mathring\lambda)
+\det\bigl((\mathring\lambda-\mathrm c'_l)I-t\mathbf E_{11}-t^2\mathbf E_{12}\mathbf T(t,\mathring\lambda)^{-1}\mathbf E_{21}\bigr).
+\]
+With \(\mathring\lambda=\mathrm c'_l+t\mathring\nu\) the second factor is \(t^{\mathrm n_l}\mathrm f(t,\mathring\nu)\),
+where
+\(\mathrm f(t,\mathring\nu)=\det\bigl(\mathring\nu I-\mathbf E_{11}-t\mathbf E_{12}\mathbf T(t,\mathrm c'_l+t\mathring\nu)^{-1}\mathbf E_{21}\bigr)\)
+is real-analytic in \(t\) and holomorphic in \(\mathring\nu\) near \(t=0\), and \(\mathrm f(0,\cdot)\) is the
+characteristic polynomial of \(\mathbf E_{11}\), whose roots \(\mathring\nu_1,\ldots,\mathring\nu_{\mathrm n_l}\) are
+simple and non-real. The implicit function theorem at these simple roots gives continuous
+\(\mathring\nu_k(t)\) for small \(\lvert t\rvert\), with \(\mathrm f(t,\mathring\nu_k(t))=0\) and
+\(\mathring\nu_k(0)=\mathring\nu_k\), which stay distinct and non-real. For small \(t\neq0\) the numbers
+\(\mathrm c'_l+t\mathring\nu_k(t)\) are therefore \(\mathrm n_l\) distinct eigenvalues of \(\mathbf M+t\mathbf E\)
+within \(\mathrm r_0/2\) of \(\mathrm c'_l\), and they are non-real, with imaginary parts
+\(t\operatorname{Im}\mathring\nu_k(t)\neq0\). By continuity of the roots of the characteristic polynomial,
+for small \(\lvert t\rvert\) exactly \(\mathrm n_l\) eigenvalues of \(\mathbf M+t\mathbf E\), counted with multiplicity,
+lie within \(\mathrm r_0/2\) of \(\mathrm c'_l\), so these are all of them. The same continuity places every
+eigenvalue of \(\mathbf M+t\mathbf E\) within \(\mathrm r_0/2\) of the spectrum of \(\mathbf M\) for small
+\(\lvert t\rvert\), and those not near any \(\mathrm c'_l\) lie near the spectrum of \(\mathbf M_0\), off
+\((-\infty,0]\). Hence, for every small \(t\neq0\) of either sign, \(\mathbf M+t\mathbf E\) has no eigenvalue in
+\((-\infty,0]\) and is a chart link by the criterion.
+
+For \(K\leq3\), a negative eigenvalue of a chart link has even multiplicity by the criterion, hence
+multiplicity two, and a single Jordan block of size two would occur once, so it has two blocks of size
+one and is semisimple; for \(K=3\) the remaining eigenvalue is real and, as \(\det e^{\mathring\omega}>0\),
+positive. The infimum of \(\mathring\omega\mapsto\mathbf l(e^{\mathring\omega})\) over \(\mathfrak g\) is
+\(\inf_{\exp(\mathfrak g)}\mathbf l\), attained at \(\mathring\omega\) exactly when \(e^{\mathring\omega}\)
+attains it. For \(K=2\), \(\mathbf l\) is, up to the constant \(\tfrac12\log\det(2\pi W_e^{-1})\), the
+expected record energy of \Cref{cor:link-prior-necessary}(a) for the matter law of \((z_i-o_e,z_j)\), a
+product law with \(\Sigma_j\succ0\), whose condition \(\mu_j^\top\Sigma_j^{-1}(\mu_i-o_e)<0\) is
+\(\Tr\mathbf M^\star<0\) by \eqref{eq:glink-rank-one}. \hfill$\square$
+
+\section{Expected loop defects under product recognition}
+\label{sec:glink-loops}
+
+This section computes expected loop defects when the generators are recognized by a product Gaussian
+law.
+
+\propositionheading{Expected loop defects under product Gaussian recognition}{prop:glink-expected-loop}
+Let the generators be recognized by the product Gaussian law
+\(R=\bigotimes_{e\in E_+}\mathcal N(\mathring\mu_e,\mathring\Lambda_e^{-1})\), with each precision
+\(\mathring\Lambda_e\) a positive-definite self-adjoint operator on
+\((\mathfrak g,\langle\cdot,\cdot\rangle_{\mathsf G})\), as in \Cref{prop:link-gaussian-recognition-vfe}, and
+for a copy \(e\notin E_+\) write \(\mathring\mu_e=-\mathring\mu_{\bar e}\) and
+\(\mathring\Lambda_e=\mathring\Lambda_{\bar e}\), so that its generator \(\mathring\omega_e=-\mathring\omega_{\bar e}\)
+has the law \(\mathcal N(\mathring\mu_e,\mathring\Lambda_e^{-1})\) under \(R\). Let \(p=(e_0,\ldots,e_{r-1})\) be
+a closed walk whose copies belong to pairwise distinct reversal pairs. (i) The expected reference
+holonomy and its second moment are the ordered products
+\begin{equation}
+\E_R\mathring\Theta_p=\prod_{a=0}^{r-1}\E_Re^{\mathring\omega_{e_a}},
+\qquad
+\E_R\bigl[\mathring\Theta_p\otimes\mathring\Theta_p\bigr]
+=\prod_{a=0}^{r-1}\E_R\bigl[e^{\mathring\omega_{e_a}}\otimes e^{\mathring\omega_{e_a}}\bigr],
+\label{eq:glink-loop-moments}
+\end{equation}
+with factors in the order of the walk. (ii) With \(\mathsf G=\mathsf G^{\mathrm{fib}}\) and the vectors
+\(\mathbf G^\pm\in\R^K\otimes\R^K\) of coordinates \(\mathbf G^+_{(a,b)}=\mathsf G_{ab}\) and
+\(\mathbf G^-_{(a,b)}=(\mathsf G^{-1})_{ab}\), the expected loop defect is the finite expression
+\begin{equation}
+\E_R\mathfrak Q_p
+=\tfrac12(\mathbf G^+)^\top\Bigl(\prod_{a=0}^{r-1}\E_R\bigl[e^{\mathring\omega_{e_a}}\otimes e^{\mathring\omega_{e_a}}\bigr]\Bigr)\mathbf G^-
+-\Tr\Bigl(\prod_{a=0}^{r-1}\E_Re^{\mathring\omega_{e_a}}\Bigr)+\tfrac K2
+\label{eq:glink-expected-defect}
+\end{equation}
+in the per-copy first and second moments of exponentials of Gaussian matrices.
+(iii) Write \(\mathring\omega_{e_a}=\mathring\mu_{e_a}+\mathring\zeta_a\), with \(\mathring\mu_{e_a}\) the mean of
+the generator of \(e_a\), and let \(\mathring\Theta_p(\mathring\mu)\),
+\(\mathring\Theta^{<a}_p=\prod_{b<a}e^{\mathring\mu_{e_b}}\), and
+\(\mathring\Theta^{>a}_p=\prod_{b>a}e^{\mathring\mu_{e_b}}\) be evaluated at the means. As the covariances
+\(\mathring\Lambda_e^{-1}\) of the copies of \(p\) tend to zero with the means held,
+\begin{equation}
+\begin{aligned}
+\E_R\mathfrak Q_p={}&\mathfrak Q_p(\mathring\mu)
++\tfrac12\sum_{a=0}^{r-1}\E\Bigl[\bigl\lVert\mathring\Theta^{<a}_p\mathbf L(\mathring\mu_{e_a},\mathring\zeta_a)\mathring\Theta^{>a}_p\bigr\rVert_{\mathsf G}^2\\
+&+\bigl\langle\mathring\Theta_p(\mathring\mu)-I,\mathring\Theta^{<a}_p\mathbf L^{(2)}(\mathring\mu_{e_a};\mathring\zeta_a)\mathring\Theta^{>a}_p\bigr\rangle_{\mathsf G}\Bigr]
++O\Bigl(\max_a\lVert\mathring\Lambda_{e_a}^{-1}\rVert^2\Bigr),
+\end{aligned}
+\label{eq:glink-defect-first-order}
+\end{equation}
+and at flat means, \(\mathring\mu_{e_a}=0\) for every \(a\),
+\(\E_R\mathfrak Q_p=\tfrac12\sum_a\Tr\mathring\Lambda_{e_a}^{-1}+O(\max_a\lVert\mathring\Lambda_{e_a}^{-1}\rVert^2)\),
+where \(\Tr\) is the trace of an operator on \((\mathfrak g,\langle\cdot,\cdot\rangle_{\mathsf G})\).
+(iv) If a walk traverses a reversal pair twice, (i) fails in general: for \(K=1\) and the walk
+\((e,\bar e)\), \(\mathring\Theta_p=1\) while
+\(\E_Re^{\mathring\omega_e}\E_Re^{-\mathring\omega_e}=e^{\mathring\Lambda_e^{-1}}\neq1\).
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) Distinct reversal pairs carry independent generators under \(R\), so the factors
+\(e^{\mathring\omega_{e_a}}\) are independent random matrices. They are integrable to every order,
+because \(\lVert e^{\mathbf B}\rVert\leq e^{\lVert\mathbf B\rVert}\) and Gaussian laws have exponential moments of
+every order. For independent integrable random matrices \(\E[\mathbf S\mathbf T]=(\E\mathbf S)(\E\mathbf T)\)
+entrywise, which gives the first product, and the mixed-product rule
+\((\mathbf B_0\cdots\mathbf B_{r-1})\otimes(\mathbf B_0\cdots\mathbf B_{r-1})=(\mathbf B_0\otimes\mathbf B_0)\cdots(\mathbf B_{r-1}\otimes\mathbf B_{r-1})\)
+reduces the second to the first. (ii) In the coordinates of \Cref{sec:glink-setting},
+\((\mathbf G^+)^\top(\mathbf B\otimes\mathbf B)\mathbf G^-=\sum_{a,b,c,d}\mathsf G_{ab}\mathbf B_{ac}\mathbf B_{bd}(\mathsf G^{-1})_{cd}
+=\Tr(\mathsf G^{-1}\mathbf B^\top\mathsf G\mathbf B)=\langle\mathbf B,\mathbf B\rangle_{\mathsf G}\). Expanding
+\(\tfrac12\langle\mathring\Theta_p-I,\mathring\Theta_p-I\rangle_{\mathsf G}\) with
+\(\langle I,\mathbf B\rangle_{\mathsf G}=\Tr\mathbf B\) and \(\langle I,I\rangle_{\mathsf G}=K\), and taking
+expectations with (i), gives \eqref{eq:glink-expected-defect}.
+(iii) At the generators \(\mathring\mu_{e_a}+t\mathring\zeta_a\), the defect \(\mathfrak Q_p\) is a polynomial in
+the entries of the factors \(e^{\mathring\mu_{e_a}+t\mathring\zeta_a}\), and the power series of the
+exponential bounds the \(k\)-th derivative of \(t\mapsto e^{\mathbf B+t\mathbf T}\) by
+\(\lVert\mathbf T\rVert^ke^{\lVert\mathbf B\rVert+\lvert t\rvert\lVert\mathbf T\rVert}\); hence, with
+\(\mathring\zeta=(\mathring\zeta_0,\ldots,\mathring\zeta_{r-1})\), the fourth \(t\)-derivative of the defect is
+bounded by \(\mathrm c_1e^{\mathrm c_1\lVert\mathring\zeta\rVert}\lVert\mathring\zeta\rVert^4\) for
+\(\lvert t\rvert\leq1\), with \(\mathrm c_1\) depending on the means. Taylor's formula in \(t\) to third order
+with integral remainder at \(t=1\), the vanishing of first and third moments of a centered Gaussian, and
+the bound
+\(\E[e^{\mathrm c_1\lVert\mathring\zeta\rVert}\lVert\mathring\zeta\rVert^4]=O(\max_a\lVert\mathring\Lambda_{e_a}^{-1}\rVert^2)\)
+for bounded covariances give \(\E_R\mathfrak Q_p=\mathfrak Q_p(\mathring\mu)\) plus one half the expected
+second \(t\)-derivative at \(t=0\), up to \(O(\max_a\lVert\mathring\Lambda_{e_a}^{-1}\rVert^2)\). In that second
+derivative the terms mixing \(\mathring\zeta_a\) and \(\mathring\zeta_b\), \(a\neq b\), have zero expectation
+because the two are independent and centered. Along \(\mathring\zeta_a\) alone, the first and second
+derivatives of \(\mathring\Theta_p\) are \(\mathring\Theta^{<a}_p\mathbf L(\mathring\mu_{e_a},\mathring\zeta_a)\mathring\Theta^{>a}_p\)
+and \(\mathring\Theta^{<a}_p\mathbf L^{(2)}(\mathring\mu_{e_a};\mathring\zeta_a)\mathring\Theta^{>a}_p\), and the second
+derivative of \(\mathfrak Q_p\) is the squared \(\mathsf G\)-norm of the first plus the pairing of
+\(\mathring\Theta_p-I\) with the second, which gives \eqref{eq:glink-defect-first-order}. At flat means
+\(\mathring\Theta^{<a}_p=\mathring\Theta^{>a}_p=I\), \(\mathbf L(0,\mathring\zeta_a)=\mathring\zeta_a\), and
+\(\mathring\Theta_p(0)=I\), so the bracket is \(\E\lVert\mathring\zeta_a\rVert_{\mathsf G}^2=\Tr\mathring\Lambda_{e_a}^{-1}\).
+(iv) For \(K=1\) and \(\mathring\omega_e\sim\mathcal N(\mathring\mu_e,\mathring\Lambda_e^{-1})\),
+\(\E e^{\pm\mathring\omega_e}=e^{\pm\mathring\mu_e+\mathring\Lambda_e^{-1}/2}\). \hfill$\square$
+
+At flat means the recognition spread alone produces curvature energy: each copy of the walk
+contributes half its generator variance, measured in the fiber metric. For a repeated pair the
+expectation involves joint moments of one Gaussian generator, such as
+\(\E[e^{\mathring\omega_e}\mathbf Te^{\mathring\omega_e}]\), which the same Taylor argument expands to first
+order but which do not factor.
+
+\section{The action induced by undirected Gaussian matter}
+\label{sec:glink-induced}
+
+On a finite multigraph with agents \(V=\{1,\ldots,N\}\), let every copy \(e:j\to i\) in \(E_+\) carry a
+weight \(W_e\succ0\), every agent a self term \(A_i\succeq0\), and let \(\mathsf h\in\R^{NK}\) be an
+information vector, all in reference coordinates. The matter energy with latent links is
+\begin{equation}
+\mathsf E(z;\mathring\omega)
+=\tfrac12\sum_{i\in V}z_i^\top A_iz_i
++\tfrac12\sum_{e\in E_+}\bigl(z_i-e^{\mathring\omega_e}z_j\bigr)^\top W_e\bigl(z_i-e^{\mathring\omega_e}z_j\bigr)
+-\mathsf h^\top z,
+\label{eq:glink-matter-energy}
+\end{equation}
+with precision \(\Lambda(\mathring\omega)=A_\oplus+L(\mathring\omega)\), where
+\(A_\oplus=\operatorname{blockdiag}(A_1,\ldots,A_N)\) and \(L(\mathring\omega)\) is the connection
+Laplacian of \Cref{def:cg-connection-laplacian} with represented links \(e^{\mathring\omega_e}\); a loop
+copy contributes \((I-e^{\mathring\omega_e})^\top W_e(I-e^{\mathring\omega_e})\) to its agent's block.
+At \(\mathring\omega=0\) the precision is the member of the interaction family
+\eqref{eq:gauss-interaction-family} with self terms \(A_i\) and weights summed over parallel copies,
+the form adopted in \Cref{hyp:gauss-global-interaction}; for \(\mathring\omega\neq0\) it has the
+nonflat form of \Cref{def:cg-nonflat-series-class}. The generator family carries a base law
+\(e^{-\mathscr S}\nu^{\mathscr T}\) with \(0<Z_{\mathscr S}<\infty\) as in
+\Cref{prop:elbo-random-link-vfe}, for instance the generator prior of \Cref{def:link-generator-prior},
+and the joint law of generators and matter is proportional to
+\(e^{-\mathscr S(\mathring\omega)}\nu^{\mathscr T}(d\mathring\omega)e^{-\mathsf E(z;\mathring\omega)}dz\),
+normalized as a whole, the undirected model of \Cref{def:gen-undirected-model}.
+
+\propositionheading{Induced action of undirected Gaussian matter}{prop:glink-induced-action}
+(i) If every \(A_i\succ0\), then \(\Lambda(\mathring\omega)\succeq A_\oplus\succ0\) for every
+\(\mathring\omega\), the joint normalizer \(\mathfrak Z\), as in \Cref{prop:link-induced-action}, is finite
+and positive, and the generator marginal is
+\(\mathfrak Z^{-1}e^{-\mathscr S(\mathring\omega)-\mathscr S^{\mathrm{ind}}(\mathring\omega)}\nu^{\mathscr T}(d\mathring\omega)\) with
+\begin{equation}
+\mathscr S^{\mathrm{ind}}(\mathring\omega)=-\mathsf A\bigl(\mathsf h,\Lambda(\mathring\omega)\bigr)
+=\tfrac12\log\det\Lambda(\mathring\omega)-\tfrac12\mathsf h^\top\Lambda(\mathring\omega)^{-1}\mathsf h-\tfrac{NK}2\log2\pi
+\geq-\mathsf A(\mathsf h,A_\oplus).
+\label{eq:glink-induced-action}
+\end{equation}
+(ii) If every \(A_i\succ0\) and \(E_+\neq\varnothing\), then \(e^{-\mathscr S^{\mathrm{ind}}}\) is not
+integrable for Lebesgue measure on \(\mathscr T\); the induced action does not by itself define a law
+of the generators.
+(iii) If the multigraph is a forest (no loop copy, no parallel copies, no cycle), choose a root in
+every component, let \(\mathring\Theta_{I\leftarrow i}\) be the product of the twists along the path from \(i\)
+to the root of its component \(I\), the tree transport of \Cref{def:rg-rooted-tree-data} in reference
+coordinates, and put \(\mathring\Theta_\oplus=\operatorname{blockdiag}(\mathring\Theta_{I\leftarrow i})\). Then
+\(\Lambda(\mathring\omega)=\mathring\Theta_\oplus^\top\Lambda^{\mathrm{root}}(\mathring\omega)\mathring\Theta_\oplus\), where
+\(\Lambda^{\mathrm{root}}(\mathring\omega)\) belongs to the interaction family with self terms
+\(\mathring\Theta_{I\leftarrow i}^{-\top}A_i\mathring\Theta_{I\leftarrow i}^{-1}\) and weights
+\(\mathring\Theta_{I\leftarrow i}^{-\top}W_e\mathring\Theta_{I\leftarrow i}^{-1}\) on \(e:j\to i\); no holonomy
+enters \(\mathscr S^{\mathrm{ind}}\). If moreover \(A_i=a_i\mathsf G\), \(W_e=w_e\mathsf G\) with scalars
+\(a_i,w_e>0\), \(\mathsf h=0\), and every link is an isometry,
+\(e^{\mathring\omega_e^\top}\mathsf Ge^{\mathring\omega_e}=\mathsf G\), then \(\mathscr S^{\mathrm{ind}}\)
+takes one value on all such configurations.
+(iv) For two agents joined by one copy \(e:j\to i\) and \(\mathsf h=0\),
+\(\det\Lambda(\mathring\omega)=\det(A_i+W_e)\det(A_j+e^{\mathring\omega_e^\top}W_e^\sharp e^{\mathring\omega_e})\)
+with \(W_e^\sharp=W_e(A_i+W_e)^{-1}A_i\). For \(\mathsf G=I_K\), \(A_i=a_iI\) with \(a_i>0\), \(A_j=a_jI\),
+\(W_e=w_eI\), \(w^\sharp=a_iw_e/(a_i+w_e)\), and \(\mathring\omega_e=t\mathring\upsilon\) with \(\mathring\upsilon\)
+symmetric,
+\begin{equation}
+\frac{d}{dt}\mathscr S^{\mathrm{ind}}\Big|_{t=0}=\frac{w^\sharp\Tr\mathring\upsilon}{a_j+w^\sharp},
+\qquad
+\frac{d^2}{dt^2}\mathscr S^{\mathrm{ind}}\Big|_{t=0}=\frac{2w^\sharp a_j\lVert\mathring\upsilon\rVert_{\mathrm F}^2}{(a_j+w^\sharp)^2},
+\label{eq:glink-edge-mass}
+\end{equation}
+while \(\mathscr S^{\mathrm{ind}}\) is constant along skew-symmetric \(\mathring\upsilon\): noncompact generator
+directions receive edge-local terms without any loop, and along the trace direction the action
+decreases as the link contracts.
+(v) At fixed links the induced action takes the values of earlier chapters. With every coordinate
+hidden it is the scalar \(\mathfrak c^{\mathrm{eff}}-\mathfrak c\) of \eqref{eq:cg-kron-complete-schur}
+at the links \(e^{\mathring\omega}\). For an unanchored cycle of \(m\geq2\) distinct agents, with copies
+\(e_a:i_{a+1}\to i_a\), \(i_m=i_0\), and every \(A_i=0\),
+\begin{equation}
+\det\Lambda(\mathring\omega)=\det\bigl(I-\mathring\Theta_p\bigr)^2\prod_{a=0}^{m-1}\det W_{e_a},
+\qquad p=(e_0,\ldots,e_{m-1}),
+\label{eq:glink-cycle-determinant}
+\end{equation}
+which for \(m=2\) and \(W_e=\Sigma_e^{-1}\) is \eqref{eq:obs-holonomy-det}. For \(K=1\), the reciprocal
+pair of \Cref{prop:obs-normalizer-link-dependence} with unit weights, anchors \(a_0>0\), and the flat
+slice \(\mathring\omega_{e'}=-\mathring\omega_e\) has
+\(\mathscr S^{\mathrm{ind}}=\tfrac12\log(a_0^2+4a_0\cosh^2\mathring\omega_e)-\log2\pi\) at
+\(\mathsf h=0\), which is \eqref{eq:obs-det-witness} with \(\mathsf g=e^{\mathring\omega_e}\).
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) Every edge term of \(L(\mathring\omega)\) is positive semidefinite, so
+\(\Lambda(\mathring\omega)\succeq A_\oplus\succ0\). By \Cref{prop:gauss-log-normalizer-moments},
+\(\int e^{-\mathsf E(z;\mathring\omega)}dz=\exp\mathsf A(\mathsf h,\Lambda(\mathring\omega))\). The Loewner
+inequality gives \(\log\det\Lambda(\mathring\omega)\geq\log\det A_\oplus\) and
+\(\Lambda(\mathring\omega)^{-1}\preceq A_\oplus^{-1}\), so
+\(\mathsf A(\mathsf h,\Lambda(\mathring\omega))\leq\mathsf A(\mathsf h,A_\oplus)\), which is the lower bound.
+The map \(\mathring\omega\mapsto\mathsf A(\mathsf h,\Lambda(\mathring\omega))\) is continuous, so by
+Tonelli's theorem
+\(\mathfrak Z=\int e^{-\mathscr S}e^{\mathsf A(\mathsf h,\Lambda)}d\nu^{\mathscr T}\in(0,Z_{\mathscr S}e^{\mathsf A(\mathsf h,A_\oplus)}]\),
+and integrating out \(z\) gives the generator marginal.
+(ii) Fix \(e_\star\in E_+\) and consider the generator families with
+\(\mathring\omega_{e_\star}=tI+\mathring\xi\), \(t\leq0\), \(\lVert\mathring\xi\rVert\leq1\), and
+\(\lVert\mathring\omega_e\rVert\leq1\) for \(e\neq e_\star\), in the operator norm. On this set every link lies in
+a compact set of matrices: \(e^{\mathring\omega_e}\) in the image of the unit ball, and
+\(e^{tI+\mathring\xi}=e^te^{\mathring\xi}\) among the multiples \(\mathrm a\mathbf B\) with \(\mathrm a\in[0,1]\) and
+\(\mathbf B\) in that image. The precision is a polynomial in the links and is \(\succeq A_\oplus\) at every
+matrix value of the links, singular ones included, so \(\tfrac12\log\det\Lambda\) is bounded above on the
+set, and \(\mathscr S^{\mathrm{ind}}\leq\tfrac12\log\det\Lambda-\tfrac{NK}2\log2\pi\). The set contains the
+disjoint sets on which \(\lVert\mathring\omega_{e_\star}+kI\rVert\leq\tfrac13\) and
+\(\lVert\mathring\omega_e\rVert\leq1\) for \(e\neq e_\star\), \(k=1,2,\ldots\), of equal positive Lebesgue
+measure, so it has infinite measure, and \(e^{-\mathscr S^{\mathrm{ind}}}\) is bounded below by a positive
+constant on it.
+(iii) The transports exist and are unique given the roots, because each copy of a forest joins a vertex
+to its parent and the relation \(\mathring\Theta_{I\leftarrow i}e^{\mathring\omega_e}=\mathring\Theta_{I\leftarrow j}\) on
+\(e:j\to i\) determines the child's transport from the parent's in either orientation. With
+\(z=\mathring\Theta_\oplus^{-1}z^{\mathrm{root}}\), every residual becomes
+\(z_i-e^{\mathring\omega_e}z_j=\mathring\Theta_{I\leftarrow i}^{-1}z^{\mathrm{root}}_i-e^{\mathring\omega_e}\mathring\Theta_{I\leftarrow j}^{-1}z^{\mathrm{root}}_j
+=\mathring\Theta_{I\leftarrow i}^{-1}(z^{\mathrm{root}}_i-z^{\mathrm{root}}_j)\), so
+\(\mathring\Theta_\oplus^{-\top}\Lambda(\mathring\omega)\mathring\Theta_\oplus^{-1}\) is the interaction-family precision
+\(\Lambda^{\mathrm{root}}\) with the stated self terms and weights. Isometric links make each
+\(\mathring\Theta_{I\leftarrow i}\) an isometry of \(\mathsf G\), so the self terms and weights of \(\Lambda^{\mathrm{root}}\)
+are \(A_i\) and \(W_e\), and \((\det\mathring\Theta_{I\leftarrow i})^2=1\) because
+\(\det(\mathring\Theta_{I\leftarrow i}^\top\mathsf G\mathring\Theta_{I\leftarrow i})=\det\mathsf G\); hence
+\(\det\Lambda(\mathring\omega)=\det\Lambda^{\mathrm{root}}(0)\).
+(iv) With \(\mathring\Theta_e=e^{\mathring\omega_e}\), the blocks are \(\Lambda_{ii}=A_i+W_e\),
+\(\Lambda_{ij}=-W_e\mathring\Theta_e\), and \(\Lambda_{jj}=A_j+\mathring\Theta_e^\top W_e\mathring\Theta_e\), and the
+Schur complement of \(\Lambda_{ii}\) is \(A_j+\mathring\Theta_e^\top(W_e-W_e(A_i+W_e)^{-1}W_e)\mathring\Theta_e\),
+where \(W_e-W_e(A_i+W_e)^{-1}W_e=W_e(A_i+W_e)^{-1}(A_i+W_e-W_e)=W_e(A_i+W_e)^{-1}A_i\), with
+\(A_i+W_e\succ0\) because \(W_e\succ0\); \Cref{lem:gauss-schur}(iv) gives the determinant. In the
+isotropic case \(\mathscr S^{\mathrm{ind}}=\tfrac12\log\det\mathbf B_t\) plus a constant, with \(\mathbf B_t=a_jI+w^\sharp e^{2t\mathring\upsilon}\), which commutes with \(\mathring\upsilon\); the
+derivatives \(\frac{d}{dt}\log\det\mathbf B_t=\Tr(\mathbf B_t^{-1}\mathbf B_t')\) and
+\(\frac{d^2}{dt^2}\log\det\mathbf B_t=\Tr(\mathbf B_t^{-1}\mathbf B_t''-\mathbf B_t^{-1}\mathbf B_t'\mathbf B_t^{-1}\mathbf B_t')\) at
+\(t=0\), where \(\mathbf B_0=(a_j+w^\sharp)I\), \(\mathbf B_0'=2w^\sharp\mathring\upsilon\), and
+\(\mathbf B_0''=4w^\sharp\mathring\upsilon^2\), give \eqref{eq:glink-edge-mass}. For skew \(\mathring\upsilon\),
+\(e^{t\mathring\upsilon^\top}e^{t\mathring\upsilon}=I\).
+(v) With the pivot \(\Lambda\), \(n_{\mathrm h}=NK\), and no retained coordinate,
+\eqref{eq:cg-kron-complete-schur} gives
+\(\mathfrak c^{\mathrm{eff}}-\mathfrak c=\tfrac12\log\det\Lambda-\tfrac{NK}2\log2\pi-\tfrac12\mathsf h^\top\Lambda^{-1}\mathsf h\).
+For the cycle, \(z^\top\Lambda z=(\mathbf Tz)^\top W_\oplus(\mathbf Tz)\) with
+\(W_\oplus=\operatorname{blockdiag}(W_{e_a})\) and the square block matrix \(\mathbf T\) whose block row \(a\)
+has \(I\) in column \(a\) and \(-\mathring\Theta_{e_a}\) in column \(a+1\) modulo \(m\), so
+\(\det\Lambda=(\det\mathbf T)^2\det W_\oplus\). Deleting block row and column \(0\) of \(\mathbf T\) leaves a
+block upper bidiagonal matrix with identity diagonal blocks, of determinant one, whose inverse has the
+block \(\mathring\Theta_{e_1}\cdots\mathring\Theta_{e_{m-2}}\) in its upper right corner (the identity when
+\(m=2\)); the Schur complement of that matrix in \(\mathbf T\) is
+\(I-\mathring\Theta_{e_0}\mathring\Theta_{e_1}\cdots\mathring\Theta_{e_{m-1}}=I-\mathring\Theta_p\), which gives
+\eqref{eq:glink-cycle-determinant}. The last statement is substitution into \eqref{eq:obs-det-witness},
+since \((e^{\mathring\omega}+e^{-\mathring\omega})^2=4\cosh^2\mathring\omega\). \hfill$\square$
+
+Part (ii) is the Gaussian counterpart of the requirement that the generator prior be normalized: the
+induced action is bounded below but stays bounded on a set of infinite volume toward contracting links,
+so it confines no generator direction by itself, and the base law \(\nu^{\mathscr T}\) must. Parts (iii)
+and (iv) separate the two kinds of generator direction. Compact directions enter
+\(\mathscr S^{\mathrm{ind}}\) only through loops, while noncompact directions change the diagonal blocks
+of \(\Lambda\) on a single copy; along the trace direction the induced action decreases as links
+contract, toward the singular boundary that \Cref{prop:glink-sample-record}(iii) meets without a prior.
+
+\corollaryheading{An unanchored cycle admits no joint law with latent links}{cor:glink-unanchored-cycle}
+Let \(m\geq2\) distinct agents form a cycle \(p=(e_0,\ldots,e_{m-1})\) of copies from distinct
+reversal pairs, with weights \(W_{e_a}\succ0\), every self term zero, any information vector
+\(\mathsf h\), and latent generators of the cycle copies. Let \(\nu\) be a finite measure on
+\(\mathfrak g^m\) whose density is bounded below by a positive constant near some point at which
+\(\det(I-\mathring\Theta_p)\) vanishes with nonzero differential; for every \(K\geq1\) the point with
+\(\mathring\omega_{e_1}=\operatorname{diag}(0,\log2,\ldots,\log K)\) and every other generator zero is
+such a point, and every Gaussian law with positive-definite covariance qualifies. Then
+\(\int\nu(d\mathring\omega)\int e^{-\mathsf E(z;\mathring\omega)}dz=+\infty\), so no law proportional to
+\(\nu(d\mathring\omega)e^{-\mathsf E(z;\mathring\omega)}dz\) exists, although for every generator family
+off the Lebesgue-null set \(\{\det(I-\mathring\Theta_p)=0\}\) the matter law at fixed links exists. With
+positive-definite self terms at every agent the joint law exists for every finite base measure
+(\Cref{prop:glink-induced-action}(i)). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Write \(\mathrm D_p(\mathring\omega)=\det(I-\mathring\Theta_p)\). Off its zero set,
+\eqref{eq:glink-cycle-determinant} gives \(\Lambda(\mathring\omega)\succ0\), and since
+\(\mathsf h^\top\Lambda^{-1}\mathsf h\geq0\),
+\(\int e^{-\mathsf E}dz=e^{\mathsf A(\mathsf h,\Lambda)}\geq(2\pi)^{mK/2}(\det\Lambda)^{-1/2}
+=(2\pi)^{mK/2}\prod_a(\det W_{e_a})^{-1/2}\lvert\mathrm D_p(\mathring\omega)\rvert^{-1}\); on the zero set
+the inner integral is \(+\infty\). The function \(\mathrm D_p\) is real-analytic and not identically
+zero, so its zero set is Lebesgue-null. At a point where \(\mathrm D_p=0\) and
+\(d\mathrm D_p\neq0\), the submersion theorem gives local coordinates on a neighborhood whose first
+coordinate is \(\mathrm D_p\), with Jacobian bounded above and below on a smaller neighborhood, and the
+density of \(\nu\) is bounded below there, so the integral of \(\lvert\mathrm D_p\rvert^{-1}\) is bounded
+below by a positive multiple of \(\int_{-\mathrm a}^{\mathrm a}\lvert\mathrm u\rvert^{-1}d\mathrm u=+\infty\) for some
+\(\mathrm a>0\). At the stated point, along \(\mathring\omega_{e_0}=tI\),
+\(\mathring\Theta_p=e^t\operatorname{diag}(1,2,\ldots,K)\) and \(\mathrm D_p=\prod_{k=1}^K(1-ke^t)\), which
+vanishes at \(t=0\) with derivative \(-\prod_{k=2}^K(1-k)\neq0\). A Gaussian law with positive-definite
+covariance has a continuous positive density. \hfill$\square$
+
+At fixed links, \Cref{prop:obs-reciprocal-pair-kernel,cor:obs-holonomy-kernel-shrinkage} show that
+holonomy without eigenvalue one restores definiteness of the unanchored pair, so its law exists off a
+null set of links; the corollary shows that this does not survive integration over the links, because
+the partition function diverges like \(\lvert\det(I-\mathring\Theta_p)\rvert^{-1}\) across a
+hypersurface. For \(K=1\) more cycles restore integrability (\Cref{prop:glink-unanchored-scalar}); for
+\(K\geq2\) whether they do is \Cref{open:glink-unanchored-normalization}.
+
+\propositionheading{Joint normalization of unanchored scalar matter}{prop:glink-unanchored-scalar}
+Let \(K=1\), so that generators and links are real numbers, and in \eqref{eq:glink-matter-energy} let the
+multigraph be connected, every weight \(W_e=w_e\) positive, every self term zero, and the information
+vector zero. Let the generators carry a Gaussian base law \(\nu\) on \(\mathscr T=\R^{E_+}\) with
+positive-definite covariance and no action, for instance a product of nondegenerate Gaussian laws of the
+generators. With the value \(+\infty\) for \(\det\Lambda(\mathring\omega)^{-1/2}\) where \(\Lambda(\mathring\omega)\)
+is singular, the joint normalizer of \Cref{prop:link-induced-action} is
+\begin{equation}
+\mathfrak Z=\int\nu(d\mathring\omega)\int e^{-\mathsf E(z;\mathring\omega)}dz
+=(2\pi)^{N/2}\int\nu(d\mathring\omega)\det\Lambda(\mathring\omega)^{-1/2}.
+\label{eq:glink-unanchored-normalizer}
+\end{equation}
+(i) If the cycle rank \(\lvert E_+\rvert-N+1\) of the multigraph, the number of its copies in \(E_+\)
+outside a spanning tree, is at least two, then \(\Lambda(\mathring\omega)\succ0\) off a Lebesgue-null set
+and \(0<\mathfrak Z<\infty\), so generators and matter have the joint law
+\(\mathfrak Z^{-1}\nu(d\mathring\omega)e^{-\mathsf E(z;\mathring\omega)}dz\).
+(ii) If the cycle rank is one, then \(\mathfrak Z=+\infty\) and no law proportional to
+\(\nu(d\mathring\omega)e^{-\mathsf E(z;\mathring\omega)}dz\) exists; for a cycle of distinct agents this is
+\Cref{cor:glink-unanchored-cycle} at \(K=1\). \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Where \(\Lambda(\mathring\omega)\succ0\), \Cref{prop:gauss-log-normalizer-moments} gives
+\(\int e^{-\mathsf E}dz=e^{\mathsf A(0,\Lambda)}=(2\pi)^{N/2}\det\Lambda^{-1/2}\); where \(\Lambda\) is singular,
+\(\mathsf E\) is constant along a kernel vector and the inner integral is \(+\infty\); Tonelli's theorem
+gives \eqref{eq:glink-unanchored-normalizer}. Let \(\mathbf T(\mathring\omega)\) be the
+\(\lvert E_+\rvert\times N\) matrix whose row at a copy \(e:j\to i\) has the entry \(1\) in column \(i\), the
+entry \(-e^{\mathring\omega_e}\) in column \(j\), and zeros elsewhere, the row of a loop copy having the
+single entry \(1-e^{\mathring\omega_e}\). Then
+\(2\mathsf E(z;\mathring\omega)=\sum_{e\in E_+}w_e((\mathbf Tz)_e)^2\), so
+\(\Lambda=\mathbf T^\top\operatorname{diag}(w_e)\mathbf T\), and the Cauchy--Binet formula gives
+\[
+\det\Lambda(\mathring\omega)=\sum_{E'}\Bigl(\prod_{e\in E'}w_e\Bigr)\bigl(\det\mathbf T_{E'}(\mathring\omega)\bigr)^2,
+\]
+the sum over the sets \(E'\subseteq E_+\) of \(N\) copies, with \(\mathbf T_{E'}\) the square submatrix of the
+rows in \(E'\); every term is nonnegative.
+
+Fix a spanning tree, with copy set \(E_{\mathrm{tr}}\subseteq E_+\) of \(N-1\) copies, let
+\(e'_1,\ldots,e'_{\mathrm r}\) be the other copies of \(E_+\), with \(\mathrm r=\lvert E_+\rvert-N+1\), and for
+each \(k\) let \(p_k\) be the closed walk that traverses \(e'_k\) in its orientation in \(E_+\) and returns
+along the path of the tree between its endpoints (\(p_k=(e'_k)\) for a loop copy), with the value
+\(\mathring s_k=(\mathbf C\mathring\omega)_{p_k}\) of the cycle map \eqref{eq:link-cycle-map}, the sum of the
+generators along \(p_k\) under the reversal convention. The copies \(E'_k=E_{\mathrm{tr}}\cup\{e'_k\}\) form a
+connected subgraph with \(N\) vertices and \(N\) copies, the cycle of \(p_k\) with trees attached. While an
+attached tree remains, it has a vertex off the cycle that lies on exactly one copy \(e\) of the subgraph;
+the column of that vertex has the single nonzero entry \(1\) or \(-e^{\mathring\omega_e}\), in the row of
+\(e\), and expanding the determinant along it leaves, up to that entry and a sign, the determinant of the
+matrix of the subgraph without that vertex and copy. When only the cycle remains, the row of a copy \(e:j\to i\) that
+\(p_k\) traverses against its orientation in \(E_+\) is \(-e^{\mathring\omega_e}\) times the row of the
+reversed copy \(\bar e\), which has the entry \(1\) at \(j\) and \(-e^{\mathring\omega_{\bar e}}=-e^{-\mathring\omega_e}\)
+at \(i\). After these replacements, and with the \(m\) vertices and the \(m\) copies \(e_a\) of the cycle
+ordered along \(p_k\), the matrix has the diagonal entries \(1\) and the entries \(-e^{\mathring\omega_{e_a}}\)
+at the positions \((a,a+1)\) modulo \(m\), or the single entry \(1-e^{\mathring\omega_{e'_k}}\) when
+\(m=1\). For \(m\geq2\) only the identity and the cyclic shift, of sign \((-1)^{m-1}\), contribute to its
+determinant, which is therefore \(1-e^{\mathring s_k}\), as it is for \(m=1\); for \(m\geq2\) its square is
+\eqref{eq:glink-cycle-determinant} at \(K=1\) with unit weights. So \(\lvert\det\mathbf T_{E'_k}\rvert\) is
+\(\lvert1-e^{\mathring s_k}\rvert\) times a product of factors \(e^{\mathring\omega_e}\) over distinct copies \(e\),
+and
+\[
+e^{-\sum_{e\in E_+}\lvert\mathring\omega_e\rvert}\lvert1-e^{\mathring s_k}\rvert
+\leq\lvert\det\mathbf T_{E'_k}(\mathring\omega)\rvert
+\leq e^{\sum_{e\in E_+}\lvert\mathring\omega_e\rvert}\lvert1-e^{\mathring s_k}\rvert.
+\]
+The linear map \(\mathring\omega\mapsto(\mathring s,\mathring\omega_{\mathrm{tr}})\), with
+\(\mathring s=(\mathring s_k)_k\in\R^{\mathrm r}\) and \(\mathring\omega_{\mathrm{tr}}=(\mathring\omega_e)_{e\in E_{\mathrm{tr}}}\), is
+invertible, because \(p_k\) traverses \(e'_k\) once and no other copy outside the tree, so that
+\(\mathring s_k\) is \(\mathring\omega_{e'_k}\) plus a signed sum of tree generators.
+
+(i) Keeping the terms \(E'=E'_k\) of the Cauchy--Binet sum, with \(w_{\min}=\min_ew_e\),
+\[
+\det\Lambda(\mathring\omega)
+\geq w_{\min}^Ne^{-2\sum_e\lvert\mathring\omega_e\rvert}\sum_{k=1}^{\mathrm r}\bigl(1-e^{\mathring s_k}\bigr)^2
+\geq w_{\min}^Ne^{-2-2\sum_e\lvert\mathring\omega_e\rvert}\min\bigl(\lvert\mathring s\rvert^2,1\bigr),
+\]
+because \(\lvert1-e^{\mathrm u}\rvert\geq e^{-1}\min(\lvert\mathrm u\rvert,1)\) for real \(\mathrm u\), by the mean
+value theorem for \(\lvert\mathrm u\rvert\leq1\) and by \(\lvert1-e^{\mathrm u}\rvert\geq1-e^{-1}>e^{-1}\)
+otherwise, and because \(\sum_k\min(\mathring s_k^2,1)\geq\min(\lvert\mathring s\rvert^2,1)\), the left side
+being at least one if some \(\lvert\mathring s_k\rvert\geq1\) and equal to \(\lvert\mathring s\rvert^2\) otherwise.
+So \(\Lambda(\mathring\omega)\succ0\) off the subspace \(\{\mathring s=0\}\), which has codimension
+\(\mathrm r\geq1\) and is Lebesgue-null, and there
+\(\det\Lambda^{-1/2}\leq w_{\min}^{-N/2}e^{1+\sum_e\lvert\mathring\omega_e\rvert}\max(\lvert\mathring s\rvert^{-1},1)\).
+Since the map above is a linear isomorphism and \(\nu\) is Gaussian with positive-definite covariance,
+there are constants \(\mathrm c_1,\mathrm c_2,\mathrm c_3>0\) such that the density of \(\nu\) is at most
+\(\mathrm c_1e^{-\mathrm c_2(\lvert\mathring s\rvert^2+\lvert\mathring\omega_{\mathrm{tr}}\rvert^2)}\) and
+\(\sum_e\lvert\mathring\omega_e\rvert\leq\mathrm c_3(\lvert\mathring s\rvert+\lvert\mathring\omega_{\mathrm{tr}}\rvert)\). In
+the coordinates \((\mathring s,\mathring\omega_{\mathrm{tr}})\), whose Jacobian is constant,
+\(\int\nu(d\mathring\omega)\det\Lambda^{-1/2}\) is therefore at most a constant times
+\[
+\int_{\R^{N-1}}e^{-\mathrm c_2\lvert\mathring\omega_{\mathrm{tr}}\rvert^2+\mathrm c_3\lvert\mathring\omega_{\mathrm{tr}}\rvert}d\mathring\omega_{\mathrm{tr}}
+\int_{\R^{\mathrm r}}e^{-\mathrm c_2\lvert\mathring s\rvert^2+\mathrm c_3\lvert\mathring s\rvert}\max\bigl(\lvert\mathring s\rvert^{-1},1\bigr)d\mathring s,
+\]
+the first factor being absent when \(N=1\). The first integral is finite, and so is the part of the second
+over \(\lvert\mathring s\rvert>1\); on \(\lvert\mathring s\rvert\leq1\) the second integrand is at most
+\(e^{\mathrm c_3}\lvert\mathring s\rvert^{-1}\), whose integral there is the area of the unit sphere of
+\(\R^{\mathrm r}\) times \(\int_0^1\mathrm u^{\mathrm r-2}d\mathrm u\), finite because \(\mathrm r\geq2\). So
+\(\mathfrak Z<\infty\), and \(\mathfrak Z>0\) because its integrand is positive.
+(ii) If \(\mathrm r=1\), then \(\lvert E_+\rvert=N\), the Cauchy--Binet sum has the single term
+\(E'=E_+=E'_1\), and
+\(\det\Lambda\leq\bigl(\prod_ew_e\bigr)e^{2\sum_e\lvert\mathring\omega_e\rvert}(1-e^{\mathring s_1})^2\). On the
+bounded set where \(\lvert\mathring s_1\rvert\leq1\) and \(\lvert\mathring\omega_{\mathrm{tr}}\rvert\leq1\), the mean
+value theorem gives \(\lvert1-e^{\mathring s_1}\rvert\leq e\lvert\mathring s_1\rvert\), the sum
+\(\sum_e\lvert\mathring\omega_e\rvert\) is bounded, and the density of \(\nu\) is bounded below by a positive
+constant, so \(\mathfrak Z\) is at least a positive multiple of
+\(\int_{-1}^1\lvert\mathrm u\rvert^{-1}d\mathrm u=+\infty\). \hfill$\square$
+
+\propositionheading{Hopping expansion of the induced action}{prop:glink-hopping}
+In the setting of \Cref{prop:glink-induced-action} with every \(A_i\succ0\) and \(\mathsf h=0\), let
+\(\Lambda^{\mathrm{diag}}(\mathring\omega)=\operatorname{blockdiag}(\Lambda^{\mathrm{diag}}_i)\), where
+\(\Lambda^{\mathrm{diag}}_i\) is \(A_i\) plus \(W_e\) for every \(e\in E_+\) ending at \(i\) and
+\(e^{\mathring\omega_e^\top}W_ee^{\mathring\omega_e}\) for every \(e\in E_+\) starting at \(i\), a loop counting in
+both sums, and let \(\Lambda^{\mathrm{hop}}(\mathring\omega)=\Lambda^{\mathrm{diag}}(\mathring\omega)-\Lambda(\mathring\omega)\).
+For a copy \(e\notin E_+\) put \(W_e=e^{\mathring\omega_{\bar e}^\top}W_{\bar e}e^{\mathring\omega_{\bar e}}\), the
+reversal law of \Cref{prop:cg-kernel-holonomy}(i).
+(i) For every \(\mathring\omega\),
+\(\operatorname{spr}((\Lambda^{\mathrm{diag}})^{-1}\Lambda^{\mathrm{hop}})
+\leq1-\min_i\min_{z\neq0}z^\top A_iz/z^\top\Lambda^{\mathrm{diag}}_iz<1\), with \(\operatorname{spr}\) the
+spectral radius.
+(ii) The induced action has the absolutely convergent expansion
+\begin{equation}
+\mathscr S^{\mathrm{ind}}(\mathring\omega)
+=\tfrac12\log\det\Lambda^{\mathrm{diag}}(\mathring\omega)
+-\tfrac12\sum_{r\geq1}\frac1r\Tr\bigl[\bigl((\Lambda^{\mathrm{diag}})^{-1}\Lambda^{\mathrm{hop}}\bigr)^r\bigr]-\tfrac{NK}2\log2\pi .
+\label{eq:glink-hopping}
+\end{equation}
+(iii) The \(r\)-th trace is a sum over the closed walks \((e_1,\ldots,e_r)\) of length \(r\), with
+\(e_b:i_b\to i_{b-1}\), \(i_r=i_0\), and copies of either orientation, loops included,
+\begin{equation}
+\Tr\bigl[\bigl((\Lambda^{\mathrm{diag}})^{-1}\Lambda^{\mathrm{hop}}\bigr)^r\bigr]
+=\sum_{(e_1,\ldots,e_r)}\Tr\Bigl((\Lambda^{\mathrm{diag}}_{i_0})^{-1}W_{e_1}e^{\mathring\omega_{e_1}}(\Lambda^{\mathrm{diag}}_{i_1})^{-1}W_{e_2}e^{\mathring\omega_{e_2}}\cdots
+(\Lambda^{\mathrm{diag}}_{i_{r-1}})^{-1}W_{e_r}e^{\mathring\omega_{e_r}}\Bigr),
+\label{eq:glink-walk-sum}
+\end{equation}
+a weighted Wilson loop: the trace of the reference holonomy
+\(e^{\mathring\omega_{e_1}}\cdots e^{\mathring\omega_{e_r}}\) of the walk with a weight inserted at every vertex.
+(iv) If \(A_i=a_i\mathsf G\) and \(W_e=w_e\mathsf G\) with scalars \(a_i,w_e>0\), and every link is an
+isometry of \(\mathsf G\), then \(\Lambda^{\mathrm{diag}}_i=a^{\mathrm{diag}}_i\mathsf G\), with \(a^{\mathrm{diag}}_i\) equal to
+\(a_i\) plus the sum of \(w_e\) over the copies \(e\in E_+\) incident to \(i\), a loop counted twice;
+\(\Lambda^{\mathrm{diag}}\) does not depend on the links, and the walk \((e_1,\ldots,e_r)\) contributes
+\(\bigl(\prod_bw_{e_b}/a^{\mathrm{diag}}_{i_{b-1}}\bigr)\Tr(e^{\mathring\omega_{e_1}}\cdots e^{\mathring\omega_{e_r}})\). A walk that
+reduces to the trivial walk by cancelling backtracks \((e,\bar e)\) contributes a link-independent
+constant.
+(v) For the triangle, three agents \(i_0,i_1,i_2\) joined by three copies that form one cycle \(p\)
+and by no other copy, in the isotropic isometric setting of (iv) and with
+\(w^{\mathrm{hop}}=\max_ew_e/\min_ia^{\mathrm{diag}}_i<\tfrac12\),
+\begin{equation}
+\mathscr S^{\mathrm{ind}}(\mathring\omega)-\mathscr S^{\mathrm{ind}}(0)
+=\frac{w_{e_0}w_{e_1}w_{e_2}}{a^{\mathrm{diag}}_{i_0}a^{\mathrm{diag}}_{i_1}a^{\mathrm{diag}}_{i_2}}\mathfrak Q_p(\mathring\omega)+\mathfrak o(\mathring\omega),
+\qquad
+\lvert\mathfrak o(\mathring\omega)\rvert\leq\frac K5\Bigl(\frac{(2w^{\mathrm{hop}})^5}{1-2w^{\mathrm{hop}}}+\frac{2(w^{\mathrm{hop}})^5}{1-w^{\mathrm{hop}}}\Bigr),
+\label{eq:glink-wilson-triangle}
+\end{equation}
+where \(\mathfrak Q_p=K-\Tr\mathring\Theta_p\) for isometric holonomy.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) Each energy term \((z_i-e^{\mathring\omega_e}z_j)^\top W_e(z_i-e^{\mathring\omega_e}z_j)\) contributes
+\(W_e\) and \(e^{\mathring\omega_e^\top}W_ee^{\mathring\omega_e}\) to the diagonal blocks, collected in
+\(\Lambda^{\mathrm{diag}}\), and \(-W_ee^{\mathring\omega_e}\) and \(-e^{\mathring\omega_e^\top}W_e\) to the blocks
+\((i,j)\) and \((j,i)\), so \(\Lambda^{\mathrm{hop}}\) has blocks \(W_ee^{\mathring\omega_e}\) and
+\(e^{\mathring\omega_e^\top}W_e\). The same terms with the sign of every link reversed,
+\((z_i+e^{\mathring\omega_e}z_j)^\top W_e(z_i+e^{\mathring\omega_e}z_j)\), assemble
+\(\Lambda^{\mathrm{diag}}+\Lambda^{\mathrm{hop}}\). Both forms are sums of positive semidefinite terms plus
+\(z^\top A_\oplus z\), so \(\Lambda^{\mathrm{diag}}\pm\Lambda^{\mathrm{hop}}\succeq A_\oplus\). With the symmetric
+matrix \(\breve\Lambda^{\mathrm{hop}}=(\Lambda^{\mathrm{diag}})^{-1/2}\Lambda^{\mathrm{hop}}(\Lambda^{\mathrm{diag}})^{-1/2}\)
+and \(\breve A_\oplus=(\Lambda^{\mathrm{diag}})^{-1/2}A_\oplus(\Lambda^{\mathrm{diag}})^{-1/2}\), this reads
+\(-(I-\breve A_\oplus)\preceq\breve\Lambda^{\mathrm{hop}}\preceq I-\breve A_\oplus\), and
+\((\Lambda^{\mathrm{diag}})^{-1}\Lambda^{\mathrm{hop}}=(\Lambda^{\mathrm{diag}})^{-1/2}\breve\Lambda^{\mathrm{hop}}(\Lambda^{\mathrm{diag}})^{1/2}\)
+has the spectrum of \(\breve\Lambda^{\mathrm{hop}}\). The block-diagonal matrix \(\breve A_\oplus\) has smallest
+eigenvalue \(\min_i\min_{z\neq0}z^\top A_iz/z^\top\Lambda^{\mathrm{diag}}_iz\), by the Rayleigh quotient in the
+variable \((\Lambda^{\mathrm{diag}}_i)^{1/2}z\), and it lies in \((0,1]\) because
+\(\Lambda^{\mathrm{diag}}_i\succeq A_i\succ0\).
+(ii) \(\Lambda=(\Lambda^{\mathrm{diag}})^{1/2}(I-\breve\Lambda^{\mathrm{hop}})(\Lambda^{\mathrm{diag}})^{1/2}\), and for
+the symmetric matrix \(\breve\Lambda^{\mathrm{hop}}\) with eigenvalues \(\mathring\lambda_k\in(-1,1)\),
+\(\log\det(I-\breve\Lambda^{\mathrm{hop}})=\sum_k\log(1-\mathring\lambda_k)=-\sum_{r\geq1}\frac1r\Tr(\breve\Lambda^{\mathrm{hop}})^r\),
+absolutely convergent because \(\sum_r\sum_k\lvert\mathring\lambda_k\rvert^r/r<\infty\); similarity gives
+\(\Tr(\breve\Lambda^{\mathrm{hop}})^r=\Tr((\Lambda^{\mathrm{diag}})^{-1}\Lambda^{\mathrm{hop}})^r\), and
+\eqref{eq:glink-induced-action} at \(\mathsf h=0\) gives \eqref{eq:glink-hopping}.
+(iii) The block \((i,j)\) of \((\Lambda^{\mathrm{diag}})^{-1}\Lambda^{\mathrm{hop}}\) is
+\((\Lambda^{\mathrm{diag}}_i)^{-1}\) times the sum of \(W_ee^{\mathring\omega_e}\) over the copies \(e:j\to i\) of
+either orientation: for \(e\in E_+\) it was computed in (i), and for the reversal of \(e\in E_+\) the block
+\(e^{\mathring\omega_e^\top}W_e\) equals \(W_{\bar e}e^{\mathring\omega_{\bar e}}\) with
+\(W_{\bar e}=e^{\mathring\omega_e^\top}W_ee^{\mathring\omega_e}\) and \(\mathring\omega_{\bar e}=-\mathring\omega_e\). The
+diagonal blocks of the \(r\)-th power are sums over vertex sequences of products of these blocks, which
+is \eqref{eq:glink-walk-sum}.
+(iv) An isometric link satisfies \(e^{\mathring\omega_e^\top}W_ee^{\mathring\omega_e}=w_e\mathsf G\), and so does
+every reversed weight, which gives \(\Lambda^{\mathrm{diag}}_i\) and the factors
+\((\Lambda^{\mathrm{diag}}_{i_{b-1}})^{-1}W_{e_b}e^{\mathring\omega_{e_b}}=(w_{e_b}/a^{\mathrm{diag}}_{i_{b-1}})e^{\mathring\omega_{e_b}}\).
+A backtrack contributes \(e^{\mathring\omega_e}e^{-\mathring\omega_e}=I\) to the product for every link value.
+(v) On the triangle every closed walk winds \(\mathbf k\in\mathbb Z\) times around \(p\), and after
+cancelling backtracks its holonomy is conjugate to \(\mathring\Theta_p^{\mathbf k}\), so it contributes its
+weight times \(\Tr\mathring\Theta_p^{\mathbf k}\). A walk of length \(r\) has \(r\equiv\mathbf k\pmod2\) and
+\(r\geq3\lvert\mathbf k\rvert\), so in \(\mathscr S^{\mathrm{ind}}(\mathring\omega)-\mathscr S^{\mathrm{ind}}(0)\),
+where \(\Lambda^{\mathrm{diag}}\) cancels, the walks with \(\mathbf k=0\) cancel, no walk of length four
+contributes, and the walks of length three are the six traversals of \(p\), three starting points in two
+orientations, all of weight \(w_{e_0}w_{e_1}w_{e_2}/(a^{\mathrm{diag}}_{i_0}a^{\mathrm{diag}}_{i_1}a^{\mathrm{diag}}_{i_2})\). Their term in
+\eqref{eq:glink-hopping} is \(-\tfrac12\cdot\tfrac13\cdot6\) times that weight times
+\(\Tr\mathring\Theta_p-K\), using
+\(\Tr\mathring\Theta_p^{-1}=\Tr(\mathsf G^{-1}\mathring\Theta_p^\top\mathsf G)=\Tr\mathring\Theta_p\) for an
+isometry, and for an isometry
+\(\tfrac12\langle\mathring\Theta_p-I,\mathring\Theta_p-I\rangle_{\mathsf G}=K-\Tr\mathring\Theta_p\). The
+remaining walks have length \(r\geq5\); the triangle has \(2^r+2(-1)^r\leq2^r+2\) closed walks of length
+\(r\), the eigenvalues of its adjacency matrix being \(2,-1,-1\), each of weight at most
+\((w^{\mathrm{hop}})^r\), and
+\(\lvert\Tr\mathring\Theta_p^{\mathbf k}-K\rvert\leq2K\) because an isometry has eigenvalues of modulus one.
+Summing \(\tfrac1{2r}(2^r+2)(w^{\mathrm{hop}})^r\cdot2K\leq\tfrac K5((2w^{\mathrm{hop}})^r+2(w^{\mathrm{hop}})^r)\)
+over \(r\geq5\) gives the bound. \hfill$\square$
+
+The expansion is the Gaussian-matter form of the induced gauge action of
+\citet[Sec.~2, Eqs.~(2)--(4)]{KazakovMigdal1993}, in which integrating out a field coupled to the links
+gives one half the logarithm of the determinant of its quadratic operator and an expansion over closed
+lattice loops; here the field is the belief fiber, and the leading curvature term is the triangle's
+loop defect with the product of the hopping ratios \(w_{e_a}/a^{\mathrm{diag}}_{i_a}\) along the cycle as
+coefficient. For the connection Laplacian of a line bundle the determinant, and for a rank-two bundle
+with links in \(\mathrm{SL}_2\) its quaternion determinant, has a finite expansion over cycle-rooted
+spanning forests \citep[Theorem~1 and Theorem~9]{Kenyon2011VectorBundleLaplacian}; Kenyon lists a combinatorial
+interpretation in higher rank as an open question \citep[Sec.~14]{Kenyon2011VectorBundleLaplacian},
+and no finite expansion of \(\det\Lambda(\mathring\omega)\) for \(K\geq3\) is stated here.
+
+\section{An explicit spectrum of the linearized link operator}
+\label{sec:glink-spectrum}
+
+On a ring of agents with isotropic data, the linearized operator of
+\Cref{prop:link-linearized-equation} has an explicit spectrum.
+
+\propositionheading{The linearized operator on a ring of agents and episodes}{prop:glink-linear-spectrum}
+Take a ring of \(N\geq2\) agents \(i\in\mathbb Z_N\), with copies \(e_i:i+1\to i\),
+\(E_+=\{e_0,\ldots,e_{N-1}\}\), and the closed walk \(p=(e_0,\ldots,e_{N-1})\), which spans the cycle
+space of the ring, of dimension one; the learning episodes of \Cref{def:full-graph-episode-joint},
+indexed here by \(\mathring n=0,\ldots,\mathring n_1\) with \(\mathring n_1\geq0\); and generator histories
+\((\mathring\omega^{(\mathring n)}_{e_i})\) in the history space
+\(\R^N\otimes\R^{\mathring n_1+1}\otimes\mathfrak g\) of edge index, episode index, and generator, with the
+inner product \(\sum_{\mathring n,i}\langle\cdot,\cdot\rangle_{\mathsf G}\). Let \(\mathrm a>0\) and
+\(\mathrm b,\mathrm c,\mathbf m\geq0\), and take the isotropic data of the anchor \(\mathring\alpha=0\) with prior
+covariance \(\mathring\Sigma_{e_i}=\mathrm a^{-1}\mathrm{Id}\), the loop coefficient \(\mathrm c\) of \(p\), and a
+matter mass \(\mathrm b\) times the identity at every episode, and the increment precision \(\mathbf m\)
+between successive episodes, with the history action
+\begin{equation}
+\mathscr S^{\mathrm{hist}}(\mathring\omega)
+=\sum_{\mathring n=0}^{\mathring n_1}\Bigl[\tfrac{\mathrm a+\mathrm b}2\sum_i\bigl\lVert\mathring\omega^{(\mathring n)}_{e_i}\bigr\rVert_{\mathsf G}^2
++\mathrm c\mathfrak Q_p\bigl(\mathring\omega^{(\mathring n)}\bigr)\Bigr]
++\tfrac{\mathbf m}2\sum_{\mathring n=1}^{\mathring n_1}\sum_i\bigl\lVert\mathring\omega^{(\mathring n)}_{e_i}-\mathring\omega^{(\mathring n-1)}_{e_i}\bigr\rVert_{\mathsf G}^2 ,
+\label{eq:glink-ring-energy}
+\end{equation}
+which for \(\mathbf m>0\) is, up to a constant, the negative logarithm of the density of the history
+prior of \Cref{def:link-history-prior} with the Gaussian increment as kinetic term, plus the isotropic
+second-order matter term. Let \(\mathbf K\) be its Hessian at \(\mathring\omega=0\), the operator of
+\Cref{prop:link-linearized-equation} for these data with the matter operator \(\mathrm b\mathrm{Id}\).
+(i) As \(\mathring\omega\to0\),
+\(\mathfrak Q_p(\mathring\omega)=\tfrac12\lVert\mathbf C\mathring\omega\rVert_{\mathsf G}^2+O(\lVert\mathring\omega\rVert^3)\)
+with the cycle map \(\mathbf C\mathring\omega=\sum_i\mathring\omega_{e_i}\), so the loop part of \(\mathbf K\)
+is \(\mathrm c\mathbf C^*\mathbf C\), which acts on the edge index as the rank-one matrix
+\(\mathrm c\mathbf 1\mathbf 1^\top\) and not as a Laplacian of the ring. (ii) The operator is
+\begin{equation}
+\mathbf K=\Bigl[(\mathrm a+\mathrm b)I_N\otimes I_{\mathring n_1+1}+\mathrm c\mathbf 1\mathbf 1^\top\otimes I_{\mathring n_1+1}
++\mathbf mI_N\otimes L_{\mathring n_1}\Bigr]\otimes\mathrm{Id}_{\mathfrak g},
+\label{eq:glink-ring-operator}
+\end{equation}
+with \(L_{\mathring n_1}\) the Laplacian of the path on \(\{0,\ldots,\mathring n_1\}\), equal to
+\(2\mathrm v_{\mathring n}-\mathrm v_{\mathring n-1}-\mathrm v_{\mathring n+1}\) in the interior and to
+\(\mathrm v_0-\mathrm v_1\) and \(\mathrm v_{\mathring n_1}-\mathrm v_{\mathring n_1-1}\) at the ends. Its eigenvalues are
+\begin{equation}
+\mathrm a+\mathrm b+\mathrm cN+4\mathbf m\sin^2\frac{\pi l}{2(\mathring n_1+1)}
+\quad\text{and}\quad
+\mathrm a+\mathrm b+4\mathbf m\sin^2\frac{\pi l}{2(\mathring n_1+1)},
+\qquad l=0,\ldots,\mathring n_1,
+\label{eq:glink-ring-spectrum}
+\end{equation}
+and for each \(l\), with the episode profile \(\mathrm v^{(l)}\in\R^{\mathring n_1+1}\) of entries
+\(\mathrm v^{(l)}_{\mathring n}=\cos(\pi l(\mathring n+\tfrac12)/(\mathring n_1+1))\), \(\mathbf K\) acts by the first
+value on the edge-uniform subspace \(\mathbf 1\otimes\mathrm v^{(l)}\otimes\mathfrak g\), of dimension \(K^2\), and by
+the second on the zero-edge-sum subspace \(\mathbf 1^\perp\otimes\mathrm v^{(l)}\otimes\mathfrak g\), of dimension
+\((N-1)K^2\). These \(2(\mathring n_1+1)\) subspaces are orthogonal and span the history space, so the
+multiplicity of an eigenvalue of \(\mathbf K\) is the sum of the dimensions of the subspaces on which
+\(\mathbf K\) acts by it, larger than \(K^2\) or \((N-1)K^2\) when values coincide, as when \(\mathrm c=0\) or
+\(\mathbf m=0\). The discrete Fourier basis of \(\mathbb Z_N\) is one orthonormal eigenbasis in the edge index.
+(iii) Every eigenvalue is at least
+\(\mathrm a+\mathrm b\geq\mathrm a>0\), attained by profiles constant in the episode index whose edge sum
+vanishes; there is no zero or negative mode. (iv) For \(\mathbf m>0\) and either spatial sector, with
+\(\mathrm q\) its constant part \(\mathrm a+\mathrm b+\mathrm cN\) or \(\mathrm a+\mathrm b\), the homogeneous episode
+recursion \(\mathbf m(2\mathrm v_{\mathring n}-\mathrm v_{\mathring n-1}-\mathrm v_{\mathring n+1})+\mathrm q\mathrm v_{\mathring n}=0\)
+has the characteristic roots
+\(1+\tfrac{\mathrm q}{2\mathbf m}\pm\bigl((1+\tfrac{\mathrm q}{2\mathbf m})^2-1\bigr)^{1/2}\), real, positive, and
+reciprocal, so its solutions are combinations of one increasing and one decreasing geometric sequence and
+none oscillates. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+In \eqref{eq:link-history-prior} with these data, the base law \(\mathcal N(0,\mathrm a^{-1}\mathrm{Id})\) of each copy
+contributes \(\tfrac{\mathrm a}2\lVert\mathring\omega^{(\mathring n)}_{e_i}\rVert_{\mathsf G}^2\) to the negative
+logarithm of the density up to a constant, the action contributes \(\mathrm c\mathfrak Q_p\) at every episode,
+and the Gaussian increment with mass \(\mathbf m\) contributes the last sum of \eqref{eq:glink-ring-energy},
+which gives the identification for \(\mathbf m>0\).
+(i) \(e^{\mathbf B}=I+\mathbf B+O(\lVert\mathbf B\rVert^2)\) gives
+\(\mathring\Theta_p-I=\sum_i\mathring\omega_{e_i}+O(\lVert\mathring\omega\rVert^2)\), and \(\mathfrak Q_p\) is
+half its squared \(\mathsf G\)-norm; the Hessian of
+\(\tfrac{\mathrm c}2\lVert\sum_i\mathring\omega_{e_i}\rVert_{\mathsf G}^2\) is \(\mathrm c\mathbf C^*\mathbf C\), which
+sends \((\mathring\omega_{e_i})_i\) to the constant profile \(\sum_i\mathring\omega_{e_i}\). (ii) The anchor
+and matter terms contribute \((\mathrm a+\mathrm b)\mathrm{Id}\), the loop term
+\(\mathrm c\mathbf 1\mathbf 1^\top\) in the edge index at every episode, and the increment term
+\(\mathbf mL_{\mathring n_1}\) in the episode index for every edge, which is
+\eqref{eq:glink-ring-operator}; these are the summands \(\mathring\Sigma^{-1}\), \(\mathrm c\mathbf C_p^\top\mathbf C_p\),
+and \(\mathbf m(-\Delta_n)\) of the operator of \Cref{prop:link-linearized-equation}, with \(\mathrm b\mathrm{Id}\) in
+place of its matter operator. The three Kronecker summands commute. The matrix \(\mathbf 1\mathbf 1^\top\)
+has eigenvalue \(N\) on \(\mathbf 1\) and \(0\) on \(\mathbf 1^\perp\), and it is circulant, so the Fourier
+basis diagonalizes it. For \(\phi=\pi l/(\mathring n_1+1)\) and
+\(\mathrm v_{\mathring n}=\mathrm v^{(l)}_{\mathring n}=\cos(\phi(\mathring n+\tfrac12))\), the identity
+\(2\cos(\phi(\mathring n+\tfrac12))-\cos(\phi(\mathring n-\tfrac12))-\cos(\phi(\mathring n+\tfrac32))
+=4\sin^2(\phi/2)\cos(\phi(\mathring n+\tfrac12))\) gives the interior rows; at \(\mathring n=0\),
+\(\cos\tfrac\phi2-\cos\tfrac{3\phi}2=4\sin^2\tfrac\phi2\cos\tfrac\phi2\), and at
+\(\mathring n=\mathring n_1\) the same identity holds after the substitution
+\(\mathring n\mapsto\mathring n_1-\mathring n\), because \(\phi(\mathring n_1+1)=\pi l\) multiplies both
+terms by \((-1)^l\). These \(\mathring n_1+1\) nonzero vectors, with \(\mathrm v^{(l)}_0>0\), are eigenvectors
+for distinct eigenvalues of the symmetric \(L_{\mathring n_1}\), hence orthogonal, so they exhaust its
+spectrum, and eigenvalues of commuting summands add on the subspaces
+\(\mathbf 1\otimes\mathrm v^{(l)}\otimes\mathfrak g\) and \(\mathbf 1^\perp\otimes\mathrm v^{(l)}\otimes\mathfrak g\), which are
+orthogonal because \(\mathbf 1\perp\mathbf 1^\perp\) and the \(\mathrm v^{(l)}\) are orthogonal, and whose
+dimensions add up to \(N(\mathring n_1+1)K^2\). (iii) Every term of
+\eqref{eq:glink-ring-spectrum} beyond \(\mathrm a+\mathrm b\) is nonnegative and vanishes for
+\(l=0\) on \(\mathbf 1^\perp\), which is nonzero for \(N\geq2\). (iv) The roots solve
+\(\mathrm u^2-(2+\mathrm q/\mathbf m)\mathrm u+1=0\), whose discriminant \((2+\mathrm q/\mathbf m)^2-4\) is positive for
+\(\mathrm q>0\); the product of the roots is \(1\) and their sum is positive. \hfill$\square$
+
+The ring is a validation instance, not a model: it shows that the operator of
+\Cref{prop:link-linearized-equation} is positive with an explicit gap, that the loop term of a ring is a
+single collective mode, and that the episode index enters with the same sign as the anchor, so the most
+probable history relaxes monotonically between its ends.
+
+\section{Open problems of the Gaussian link sector}
+\label{sec:glink-open}
+
+\openproblemheading{Joint normalization of unanchored matter with latent links}{open:glink-unanchored-normalization}
+With positive-definite self terms the joint law of generators and undirected Gaussian matter exists for
+every finite base measure (\Cref{prop:glink-induced-action}), and without self terms an unanchored cycle
+admits no joint law (\Cref{cor:glink-unanchored-cycle}), because the partition function diverges like
+\(\lvert\det(I-\mathring\Theta_p)\rvert^{-1}\). For \(K=1\), with positive weights, zero self terms, and
+zero information vector, the partition function of a connected multigraph of cycle rank at least two is
+finite under every Gaussian base law with positive-definite covariance
+(\Cref{prop:glink-unanchored-scalar}). On a connected multigraph of cycle rank at least two, the
+matter precision without self terms is singular exactly when the holonomy group has a nonzero common
+fixed vector (\Cref{prop:cg-kernel-holonomy}), and for \(K\geq2\) whether its partition function is
+integrable is not settled. It is settled, at a stated \(K\geq2\), for connected multigraphs of cycle rank
+at least two with positive-definite weights, zero self terms, zero information vector, and a product
+Gaussian base law of the generators with positive-definite covariances, by a proof that
+\(\int\nu(d\mathring\omega)\det\Lambda(\mathring\omega)^{-1/2}<\infty\) for every such multigraph and law,
+or by a multigraph and law in this class for which the integral diverges.
+
+\openproblemheading{Attainment of the chart infimum without a link prior}{open:glink-chart-infimum}
+Without a link prior and for \(K\geq2\), the expected record energy \(\mathbf l\) of
+\Cref{prop:glink-chart-infimum-semisimple} has its infimum over the exponential chart at the value of the
+rank-one minimizer \(\mathbf M^\star\), unattained, when \(\Tr\mathbf M^\star\geq0\), and strictly above it
+when \(\Tr\mathbf M^\star<0\) (\Cref{prop:glink-sample-record}(iii)), where stationary points in the chart can
+sit at critical points of the exponential map without being minimizers. In the second case
+\Cref{prop:glink-chart-infimum-semisimple} excludes attainment at every chart link whose negative
+eigenvalues are semisimple, which covers every chart link for \(K=2\) and \(K=3\) and, for \(K=2\), agrees
+with \Cref{cor:link-prior-necessary}(a)(iv). A chart link outside its reach has a negative eigenvalue with a
+Jordan block of size at least two, which occurs an even number of times by
+\citet[Theorem~1]{culver1966existence}, so that \(K\geq4\); its proof perturbs semisimple negative
+eigenvalues to first order and does not reach such a link. It is settled, for \(K\geq4\),
+\(W_e,\Sigma_j\succ0\), and data with \(\Tr\mathbf M^\star<0\), by a proof that no chart link having a
+negative eigenvalue with a Jordan block of size at least two minimizes \(\mathbf l\) over the chart links,
+which with \Cref{prop:glink-chart-infimum-semisimple} gives non-attainment for every \(K\), or by data in
+this class and such a chart link that minimizes \(\mathbf l\) over the chart links.

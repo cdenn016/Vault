@@ -14,10 +14,16 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-10-03
+updated: 2026-10-04
 ---
 
 # GL(K) gauge-equivariant attention
+
+## Latent link generators, October 3, 2026
+
+[[dennis-2026-dynamic-links]] (agent-drafted derivation note, float64 checks at $K\le4$, nothing trained) promotes the exponential link generators $X_{ij}$ to latent variables, inferred per context together with the token states and routing labels, with a normalized prior made of an anchor $\|X-\bar X\|^2/2\sigma^2$ and a Frobenius-defect curvature energy on the loops of a depth-by-token lattice. The transport term of its free energy is exactly $\mathrm{KL}(q(\zeta')\|\mathcal N(\bar m,\bar Q))+\tfrac12\operatorname{tr}(\bar Q^{-1}V)$, with $V$ the moment-matched predictive covariance already implemented. The link field equation is driven by a delta-rule current, a precision-weighted prediction error times the source state. Without the anchor the per-context optimum is a rank-one transport outside the exponential chart, so the anchor is necessary. Stationary generators can still exist at critical points of the exponential map, and the chart infimum is approached at the rank-one transport only when $\xi_j^\top C_j^{-1}\xi'\ge0$; otherwise it lies strictly above it (corrected October 4, [[multiagentelbo-2026-10-04-lie-algebra-links]]). The implemented `content_link_chart="exponential"` is the zero-temperature limit with $\bar X=OT$, so dynamic links are fluctuations around the current model; they are not implemented.
+
+[[multiagentelbo-2026-10-04-lie-algebra-links]] carries the same exponential chart into the multi-agent theory. Each edge there has a latent generator $\mathring\omega_e$ with link $U_i\exp(\mathring\omega_e)U_j^{-1}$, a Gaussian base prior with an anchor, and a loop-defect curvature action. The transformer's static chart is the zero-width limit of that model. The theory proves the per-context results in general form: a delta-rule current in the link field equation, a degenerate link problem without the prior, first-order natural-gradient inference whose Euler step is the Bayesian learning rule, and an induced Wilson-type action only for jointly normalized undirected matter. None of it is implemented in `vfe3`.
 
 ## Unified companion and primary group-valued direction, October 3, 2026
 
@@ -475,7 +481,7 @@ transformer attention is an exact special case.
 
 ## Sources
 
-[[dennis-2026-link-curvature]] · [[dennis-2026-link-origin]] · [[gl-k-attention]] · [[vaswani-2017-attention]] · [[bronstein-2021-geometric-deep-learning]] ·
+[[dennis-2026-dynamic-links]] · [[dennis-2026-link-curvature]] · [[dennis-2026-link-origin]] · [[gl-k-attention]] · [[vaswani-2017-attention]] · [[bronstein-2021-geometric-deep-learning]] ·
 [[cohen-2019-gauge-cnn]] · [[wang-2023-riemannian-self-attention-spd]] ·
 [[tsai-2019-kernel-attention]] · [[pennec-2006-affine-invariant-tensor]] ·
 [[bhatia-2007-positive-definite-matrices]] · [[amari-2016-information-geometry-applications]] ·

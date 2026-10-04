@@ -31,7 +31,9 @@ distinction between the inference index or RG depth and physical time, the three
 must remain distinct (pointwise frame comparison, independent graph link, base parallel
 transport), the two uses of "coarse", and the convention on the interaction multigraph (D8, revised
 to the reversal closure of the source-prior supports, with one-way attention). The status
-table `tab:status-taxonomy` follows SPEC R4.
+table `tab:status-taxonomy` follows SPEC R4. The links are written in the exponential chart, and in the
+latent-link model their Lie-algebra generators are latent coordinates with a normalized prior, inferred
+jointly with the agents; held links are the zero-width limit of that model (Chapter 9).
 
 **Chapter 2, geometry at one base point.** One principal bundle `\pi:\mathscr P_G\to\mathcal C`
 induces the belief and model associated bundles
@@ -67,8 +69,9 @@ conjugation has no positive invariant norm on `\mathfrak{gl}(n)`; a positive con
 covariant SPD metric data. For compact `G` with unitary `\rho_x`, the normalized loop penalty
 `\frac1{2n}\Tr((I-\mathsf U)^*(I-\mathsf U))` lies in `[0,2]`, so a finite nonnegative combination
 of them against the product of Haar probability measures on the links has normalizer in
-`[e^{-2\sum_p\mathrm c_p},1]` (`rem:geo-loop-penalties`); normalizability for noncompact or general
-linear `G` is not asserted. The running example has three agents on a triangle with nontrivial
+`[e^{-2\sum_p\mathrm c_p},1]` (`rem:geo-loop-penalties`); normalizability of that Haar-referenced law for noncompact or general
+linear `G` is not asserted, while the generator chart of Chapter 9 supplies a normalizable prior for
+every structure group with a declared inner product on its Lie algebra (`prop:link-generator-prior`). The running example has three agents on a triangle with nontrivial
 loop holonomy, per-edge twist classes, one passive vertex change, and one record kernel.
 
 **Chapter 3, probability semantics at `c_*`.** Kernels come first and densities second, on
@@ -136,7 +139,7 @@ point under compact upper level sets. Both chapter labels `ch:elbo` and
 
 **Chapter 6, attention and selective communication.** The interaction multigraph contains the
 reversal closure of the union of the row supports of `\pi` (D8, revised) and equals it unless a
-model adds copies (the triangle-chain bridges of Chapter 13 are such added copies); each support is
+model adds copies (the triangle-chain bridges of Chapter 14 are such added copies); each support is
 complete unless masked and need not be symmetric (one-way attention), and each attention row is
 strictly positive on its own source set when its costs are finite; discrete
 edge creation and deletion is `open:obs-edge-creation` (the grand-canonical program note is
@@ -210,7 +213,7 @@ the orbit Fisher form `\mathfrak k_q` and isotropy algebra `\mathfrak g_q`
 The Markov coarse-morphism hypothesis (`hyp:pb-markov-morphism`) carries no common-domination
 clause.
 
-The Fisher contraction theorem (`thm:cg-fisher-contraction`, section 7.3; Chapter 9 cites it): a
+The Fisher contraction theorem (`thm:cg-fisher-contraction`, section 7.3; Chapter 10 cites it): a
 parameter-independent normalized record channel replaces a score by its conditional expectation
 and contracts Fisher information by the exact conditional-covariance defect. It applies to the
 coarse image of the same fine orbit and does not compare independently recomputed orbits without
@@ -286,7 +289,8 @@ explicit. The envelope identity and reduced slow flow (`lem:obs-envelope-slow-fl
 semiconjugacy is `prop:obs-rate-separated-flow`. A correlated belief-model metric requires the rate
 declaration to name its slow manifold, `open:obs-slow-manifold`. On the four-cycle,
 `prop:obs-slow-model-link-dichotomy` moves belief means at rate one, model means at a supplied rate
-`\varepsilon_{\mathrm m}`, and links at `\varepsilon_\omega`: on a held matching the mean flow is the
+`\varepsilon_{\mathrm m}`, and links at `\varepsilon_\omega` (in the latent-link model, the rate-separated flow with the
+generator recognition means in the slow block, `rem:link-rates`): on a held matching the mean flow is the
 rate-separated flow, whose selected-edge blocks meet the three slow-manifold hypotheses with
 constant 4 uniformly in the temperature while the full sheet has curvature `3\mathrm T` along the
 pair means; at zero temperature a fast link or fast model means remove the model disagreement at
@@ -303,9 +307,83 @@ Markov property of a prepared parent rests on the instantaneous within-parent re
 (`hyp:rg-memory-instantaneous-refresh`), not on preparation alone; partial refresh gives a
 non-Markov parent whose closure cost is `D^{(1)}_N` (`eq:rg-memory-partial-refresh-witness`).
 
+**Chapter 9, Lie-algebra links as latent fields.** The links of Chapter 2 are written in the
+exponential chart at the reference point: a generator family `\mathring\omega^x` on one orientation
+`E_+` of each reversal pair, in the link space `\mathscr T=\mathfrak g^{E_+}` (per channel), with
+twist `\mathring\Theta^x_e=\exp\mathring\omega^x_e`, link
+`\Theta^x_e=U_i\exp(\mathring\omega^x_e)U_j^{-1}`, and `\mathring\omega^x_{\bar
+e}=-\mathring\omega^x_e` (`def:link-exponential-chart`, `lem:link-exp-naturality`). Passive
+re-expressions leave every generator unchanged; a reference change acts on all generators by one
+`\operatorname{Ad}` map and an active automorphism by another (`prop:link-generator-gauge`). The
+chart covers exactly the families whose twists lie in `\exp\mathfrak g`; for `\GL^+(K)` this is a
+proper subset by Culver's real-logarithm criterion (`prop:link-real-logarithm`, STANDARD with Culver
+1966 Theorem 1), while reference holonomies of chart links reach all of `\GL^+(K)`
+(`prop:link-chart-image`). Every continuous class function on `\GL(K,\R)` or `\GL^+(K)`, `K\geq2`,
+is blind to unipotent elements (`prop:link-class-function-blindness`), so no continuous
+conjugation-invariant penalty vanishes only at the identity (`cor:link-no-invariant-defect`). The
+loop defect `\mathfrak Q^x_p` of a closed walk, measured with the declared fiber metric
+(`def:link-loop-defect`, `lem:link-trace-form-scale`), is nonnegative with zero set
+`\rho_x(\mathring\Theta^x_p)=I`, passive invariant, invariant under reference changes by nonzero
+multiples of metric isometries (and under every reference change once the metric is transported),
+half the invariant penalty of `rem:geo-loop-penalties` when the metric at the base vertex is the
+frame image of the reference metric, `\dim\mathbb V-\Tr` on isometries, and quadratic in the cycle
+map `\mathbf C` with an explicit cubic remainder bound (`prop:link-loop-defect`). The generator
+prior is a Gaussian base law with anchor `\mathring\alpha^x_e` and covariance `\mathring\Sigma^x_e`
+(generative parameters) tilted by `\mathscr S=\sum_p\mathrm c_p\mathfrak Q_p`; its normalizer
+satisfies `e^{-\E\mathscr S}\leq Z_{\mathscr S}\leq1` for every Lie group with a declared inner
+product on its Lie algebra, compact or not, so the hypotheses of `prop:elbo-random-link-vfe` hold
+(`def:link-generator-prior`, `prop:link-generator-prior`). The abelian translation links of the
+formation chapter are the instance `G=(\R^d,+)`, with an exactly quadratic defect; the
+triangle-chain prior is not claimed as an instance (`prop:link-translation-instance`,
+`rem:link-running-example`). The latent-link model types the generators as a root latent block under
+the typing prohibition (`def:link-latent-model`); it is normalized and its free energy is
+`\KL(R\Vert\text{prior})` plus the `R`-average of the held-link free energy
+(`prop:link-latent-normalization`, `lem:link-growth`), with a closed form for Gaussian generator
+recognition (`prop:link-gaussian-recognition-vfe`). The field equation (`lem:link-exp-derivative`,
+`lem:link-gaussian-gradients`, `prop:link-field-equation`) states mean and precision stationarity,
+with the current entering through the adjoint Frechet derivative of the exponential; its point limit
+concerns the stationarity conditions only, and point masses are inadmissible. For a linear-Gaussian
+comparison record the current is the precision-weighted prediction error times the source state plus
+a cross-covariance term minus a source-covariance term, with an attention-gated form
+(`cor:link-delta-rule`); the correspondence with the delta rule is one of form. Law-level
+transported divergences are invariant under the stabilizer double cosets, with the Gaussian
+stabilizers and the Mahalanobis criterion for exact transport, and their Hessian is the orbit Fisher
+form only at exact transports (`prop:link-law-level-energy`). Without the prior, the sample-level
+minimizer under product recognition has rank at most one, stationary generators exist at folds of
+the chart, the chart infimum equals the singular minimum exactly when
+`\mu_j^\top\Sigma_j^{-1}\mu_i\geq0`, and for `K=2` in the negative case it is not attained; the
+prior restores coercivity (`cor:link-prior-necessary`). Held links are the zero-width limit of the
+latent model for a declared recognition class, with concentration of the link recognition at the
+anchor (`thm:link-held-limit`); statements proved at every held link value transfer to the
+conditional laws given the generators, and mixture statements do not
+(`prop:link-conditional-transfer`). Directed record extensions induce no link action, while jointly
+normalized undirected matter induces `\mathscr S^{\mathrm{ind}}=-\log Z` whenever the joint
+normalizer is finite, which can fail although `Z_{\mathscr S}\leq1` (`prop:link-induced-action`).
+The Gaussian generator recognition family is a regular statistical manifold; the joint
+natural-gradient flow is a free-energy ray of the inference histories, first order, with free energy
+decreasing at the squared gradient norm, and its explicit Euler step is the Gaussian Bayesian
+learning rule with a descent bound (`prop:link-recognition-flow`). The anchor M-coordinate is moment
+matching through `-\log Z_{\mathscr S}` and reduces to the recognition mean when `\mathscr S=0`
+(`prop:link-anchor-m-coordinate`), and the supplied link rate of the two-timescale four-cycle is the
+rate-separated flow with generator means in the slow block (`rem:link-rates`). Generator histories
+over learning episodes carry a Gibbs prior whose kinetic term is the defect of time-like loops with
+mass `\mathbf m` under static frames (`def:link-history-prior`); it is normalized, Markov with
+Gibbs-conditional transition kernels, a latent route of `def:full-graph-episode-joint`, and in
+temporal gauge (`prop:link-history-prior`). The most probable history obeys a discrete Newton
+equation in the inverted potential, with a monotone kink between the wells of a one-dimensional
+double well (`prop:link-map-inertia`), and the linearized operator `\mathbf K`, made of the anchor
+precision, the cycle-space curl term, the episode second difference and the matter term, is bounded
+below by the anchor precision, so the linearized history is unique
+(`prop:link-linearized-equation`). Under exact coarse-graining the dressed coarse link of Gaussian
+generators has no real logarithm with positive probability on `\GL^+(K)`, and at small width its
+principal logarithm is not Gaussian when the leading cumulant forms are nonzero
+(`prop:link-coarse-generator-law`, Chapter 13), so closure is `open:link-coarse-closure`; the
+holonomy-conditioned Gaussian parent score is infinite almost surely under every absolutely
+continuous generator law (`cor:link-holonomy-parent-almost-sure`, Chapter 11).
+
 ### Part II. Exact coarse-graining at one base point
 
-**Chapter 9, coarse channels.** A coarse channel is a recognition-independent normalized Markov
+**Chapter 10, coarse channels.** A coarse channel is a recognition-independent normalized Markov
 kernel on latent coordinates that leaves observations unchanged and is vertical over the identity
 of `c_*`; it is never a matrix or a deterministic map by default. Data processing and recovery come
 from the Chapter 3 lemma. The common-channel coarse VFE chain rule (`thm:rg-exact-coarse-vfe`): one
@@ -342,7 +420,7 @@ posterior version, and jointly measurable cross-orbit selection, remain
 continuously on Polish spaces. The Galerkin
 exactness display `eq:cg-galerkin-exactness` stays here.
 
-The scale category (section 9.6, `sec:rg-scale-category`): one target category is chosen (maps,
+The scale category (section 10.6, `sec:rg-scale-category`): one target category is chosen (maps,
 normalized Markov kernels, or a declared operator or product category); arrows compose; right-acting
 kernels compose as `K_{\ell r}=K_{\ell k}K_{kr}`; a reference-space expression needs declared
 isomorphisms, and reference-measure transformations stay explicit. Functoriality is automatic on a
@@ -363,9 +441,9 @@ counterexamples (`prop:rg-thermo-label-tie-counterexamples`) show the hypotheses
 Selection is one open problem, `open:cg-natural-selector`: the analyzed costs select trivial
 endpoints or need an external coefficient (Supplement G), and settling it needs a nonmonotone
 functional with a nondegenerate optimizer or an impossibility theorem; its common-recovery part
-cites Chapter 10.
+cites Chapter 11.
 
-**Chapter 10, gauge-retained network state and fixed sectors.** Tree transports
+**Chapter 11, gauge-retained network state and fixed sectors.** Tree transports
 `\Theta^x_{I\leftarrow i}` with stated tree dependence, rooted holonomy `\mathrm{Hol}^x_I`, and
 block-dressed boundary edges `\widehat\Theta^x_e=\Theta^x_{I\leftarrow i}\Theta^x_e(\Theta^x_{J\leftarrow j})^{-1}`
 with their endpoint gauge law are retained as raw root-framed marks (primary spanning-tree
@@ -429,7 +507,7 @@ operational record at `c_*` sensitive to network-loop holonomy (from the cover o
 proof; if the proof does not carry over, it becomes an open problem), the holonomy-score example on
 the running loop, and the structural-versus-marginal examples.
 
-**Chapter 11, exact agent-network coarse-graining.** The product-referenced network scale
+**Chapter 12, exact agent-network coarse-graining.** The product-referenced network scale
 (`def:rg-network-scale`) with finite-step multipliers `D_\ell`, `D_{n\leftarrow\ell}`. Membership is
 a normalized Markov kernel `\mathfrak m_\ell(I\given i,R_\ell)`; a hard partition is its
 deterministic case; correlated endpoints use one joint kernel `\mathfrak M_\ell(I,J\given i,j,R_\ell)`,
@@ -464,7 +542,7 @@ obstructs typed comparisons and vertex-ratio termination,
 `prop:rg-interaction-finite-network-obstruction`). Meta-attention is stated for the declared
 single-edge model (`prop:rg-attention-single-edge-weights`, `eq:rg-attention-prior-weighted-row`),
 with its collapse in the per-receiver model (`prop:rg-attention-per-receiver-collapse`). Path laws and
-memory (section 11.8): projection memory, strong lumpability (Kemeny–Snell, chapter 6), the finite
+memory (section 12.8): projection memory, strong lumpability (Kemeny–Snell, chapter 6), the finite
 memory KL projection, its extension to standard Borel records and arbitrary Borel history
 statistics (`thm:rg-memory-borel-projection`: path KL equals the summed conditional information
 `D^{\mathbf f}_N` plus the summed expected row divergence, in `[0,+\infty]` with no dominance or
@@ -489,13 +567,13 @@ without such a class the existing lumpability, refresh, filter, and witness stat
 both directions. The chapter keeps the agentization no-go. No Wilsonian
 vocabulary (D5); one pointer names Supplement B.
 
-**Chapter 12, the multiscale graph VFE and closing the tower.** The adaptive tower law: the
+**Chapter 13, the multiscale graph VFE and closing the tower.** The adaptive tower law: the
 top-down factorization conditions each depth-`\ell` factor on the whole next-depth state
 `Y_{\ell+1}=(Z_{\ell+1},\mathfrak N_{\ell+1})` and on `R_\ell` (`lem:full-graph-adaptive-reversal`,
 `eq:full-graph-adaptive-tower-law`); dropping the graph datum costs
 `\sum_\ell I(Y_\ell;\mathfrak N_{\ell+1}\given Z_{\ell+1},R_\ell)` (`eq:full-graph-dropped-datum-cost`).
 The row free energy `\Fenergy^{\mathrm{att},x}_i` is defined once in energy units, with its
-dimensionless form as a one-line rescaling. Tree dependence cites Chapter 10. The random partition
+dimensionless form as a one-line rescaling. Tree dependence cites Chapter 11. The random partition
 catalog for membership (D12): the normalization models with finite geometry labels
 `\gamma\in\mathfrak G`, typed as the structural mark `R_\ell` at `c_*`; the branch carrier is random
 and `X` stays outside the channel; hierarchical normalization preserves declared label priors while
@@ -542,7 +620,7 @@ them.
 
 ### Part III. Formation and interpretation
 
-**Chapter 13, formation witnesses** (title "Finite-Depth Formation under a Supplied Energy
+**Chapter 14, formation witnesses** (title "Finite-Depth Formation under a Supplied Energy
 Hierarchy" for the theorem's section). One fixed `c_*` in the principal/associated-bundle model,
 independent translation links, and every network loop retained; no base transport. The chapter
 defines the normalized physical joint, its observation and posterior, the separately normalized
@@ -623,7 +701,7 @@ lemma-dependency table (`tab:rg-formation-lemma-dependencies`); the textbook ent
 are cited with their checked locators (Boucheron–Lugosi–Massart, Bakry–Émery, Stam, Carlen,
 Csiszár), and a proof is removed only where the plan cuts it.
 
-**Chapter 14, interpretation and its limits.** Declared readings are definitions, commitments
+**Chapter 15, interpretation and its limits.** Declared readings are definitions, commitments
 the mathematics uses are standing hypotheses (`hyp:phil-observational-closure`,
 `hyp:phil-boundary-agents`), and unsettled readings are open problems (`open:phil-testability`,
 citing `thm:cg-loop-operational-holonomy`). The one theorem-type statement is
@@ -661,7 +739,7 @@ datum, with held-out evidence that a baseline margin is met or is not met as its
 `open:phil-testability` is posed for a target system observed through a kernel that reads the links
 of a closed walk or the coordinates of a candidate block.
 
-**Chapter 15, related work.** Positioning against Bayesian renormalization, network
+**Chapter 16, related work.** Positioning against Bayesian renormalization, network
 renormalization, channel and information-geometric renormalization, algebraic multigrid,
 matrix-weighted consensus, cellular sheaves, connection Laplacians, and gauge fixing, with the
 attribution constraints of section D. Wilsonian vocabulary is allowed here for other authors'
@@ -802,6 +880,29 @@ the core), open rows of this supplement only (Bayesian-RG bridge, update robustn
 information-geometric transfer, stochastic inverse RG, nonsemialgebraic Kron families, nonlinear
 attraction at the Gaussian tangent), and the numerical index.
 
+**Latent Lie-algebra links (`ch:gauss-latent-links`).** For Gaussian belief laws and
+`\Gamma_b=\GL^+(K)`: the law-level transported divergence in reference coordinates in closed form,
+with a log-volume term linear in `\Tr\mathring\omega` and its gradient through the exponential
+derivative (`prop:glink-law-level-energy`); the comparison record with its current, rank-one
+minimizer `\mathbf M^\star`, the sign dichotomy, and an explicit saddle at a critical point of the
+exponential (`prop:glink-sample-record`); expected holonomies and loop defects under product
+Gaussian generator recognition as ordered products of per-edge moments, with the failure for a
+repeated reversal pair (`prop:glink-expected-loop`); the induced action `\tfrac12\log\det` of the
+link-dependent interaction precision, its lower bound, single-edge mass terms of noncompact
+directions, the cycle determinant, and the values at fixed links of the earlier normalizer results
+(`prop:glink-induced-action`); an unanchored cycle with latent links has no joint law
+(`cor:glink-unanchored-cycle`), while for `K=1` an unanchored connected multigraph of cycle rank at
+least two has a finite joint normalizer and a unicyclic one does not
+(`prop:glink-unanchored-scalar`); the chart infimum of the record energy in the negative case is
+attained by no chart link whose negative eigenvalues are semisimple, so it is not attained for
+`K=2,3` (`prop:glink-chart-infimum-semisimple`); the closed-walk (hopping) series with the triangle
+coefficient and an explicit remainder (`prop:glink-hopping`); and the exact spectrum of the
+linearized operator on a ring times learning episodes (`prop:glink-linear-spectrum`). A
+cycle-rooted-forest expansion of the induced action in rank three or more is declined in the scope
+paragraph. Open: normalization of unanchored latent links at a stated `K\geq2`
+(`open:glink-unanchored-normalization`), and the chart infimum for `K\geq4` at minimizers with a
+non-semisimple negative eigenvalue (`open:glink-chart-infimum`).
+
 ## C. Supplement B (`supplement_base.tex`)
 
 Supplement B may cite the main manuscript and Supplement G. Its introduction states the deferral
@@ -915,6 +1016,17 @@ independent-family, graph-boundary, and marked nonflat series results extend the
 congruence-diagonal theorem in different directions; broader correlated or branching classifications
 need a declared admissibility class. Check every key in this folder's `references.bib` before use.
 
+For the latent Lie-algebra links: Wilson 1974 Eq. (3.29) for the plaquette action, and
+Kogut–Susskind 1975 with Creutz 1983 Ch. 15 Eq. (15.41) for the temporal-gauge derivation in which
+time-like plaquettes supply the electric term; Kazakov–Migdal 1993 Sec. 2 for induced gauge actions;
+Kenyon 2011 Theorems 1 and 9 for cycle-rooted spanning-forest expansions of connection-Laplacian
+determinants in rank one and two (higher rank is open there, Sec. 14); Culver 1966 Theorem 1 for
+real logarithms; Schlag–Irie–Schmidhuber 2021 (Sec. 4.2, Eq. (24)) for the delta rule of fast-weight
+programmers, with their Sec. 2 for the lineage to Schmidhuber 1992, a correspondence of form only;
+Khan–Rue 2023 Eq. (12) (and Eq. (37) for the diagonal form) for the Gaussian Bayesian learning rule;
+Opper–Archambeau 2009 Eqs. (18)–(19) for the Gaussian gradient identities and Higham 2008 Ch. 10 for
+the Frechet derivative of the exponential, both of which the manuscript proves.
+
 ## E. Content that leaves the documents
 
 The typed-intervention identifiability section of 05d, with its certificate digests, goes to
@@ -932,8 +1044,8 @@ grand-canonical formation note goes to MultiAgentELBO `docs/research/program-not
 
 ca_selected_coherence.tex and ca_first_block_comparison.tex, included by
 ca_selection_proofs.tex, prove actual-path persistence and the early-window
-conditional first-block null. Chapter 14 states their different observables
-and horizons; Chapter 13 retains the original adaptive-family problem.
+conditional first-block null. Chapter 15 states their different observables
+and horizons; Chapter 14 retains the original adaptive-family problem.
 
 ## Actual conditioned parent activation
 
@@ -941,5 +1053,5 @@ ca_parent_conditional.tex and ca_parent_dynamics.tex, included after the
 coherence proofs, establish averaged conditional-information and retained-path
 bounds for the existing channel activated on the completed late coherence
 prefix. The parent starts from the actual conditioned retained law and learns
-from its own law. Chapter 14 explains that scope; the original first-contrast
+from its own law. Chapter 15 explains that scope; the original first-contrast
 and recursive-formation obligations remain distinct.

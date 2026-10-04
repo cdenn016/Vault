@@ -5,7 +5,7 @@ aliases: [field/cs-ml, CS-ML sources, Machine learning MOC, CS/ML MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-10-03
+updated: 2026-10-04
 ---
 
 # CS-ML MOC
@@ -39,6 +39,10 @@ updated: 2026-10-03
 [[dennis-2026-link-origin]] shows the multi-head operator $U_iOB_{ij}TU_j^{-1}$ is the standard multi-head value path with frames and is generically group-valued, derives that an exponential-link construction yields a residual only on unwritten directions (none when heads tile the fiber, as the code requires), and rewrites SiLU and GELU as exponential self-links with generators $\log\sigma$ and $\log\Phi$, which the note labels a rewriting and not a derivation. Small-dimension numerical checks only; no model trained. Synthesis: [[Projected predictive attention]], [[Projected gradient attention]], [[Activation Functions]].
 
 [[dennis-2026-link-curvature]] (2026-10-02) asks what edge-dependent links add to the attention link field: flat links are recurrent (state-space transition products), the head-sum routing has multiplicative cocycle defect and is flat only for $\beta_{ij}=c_i/c_j$, regression links give the low-rank channel a reduced-rank-regression reading, and additive affine updates can cross the singular boundary that multiplicative updates cannot. Agent-drafted, float64 checks at $K=4$, no training, no performance claim.
+
+[[dennis-2026-dynamic-links]] (2026-10-03) works out per-context, inferred attention links. Its link field equation is driven by a delta-rule current, prediction error times source state, as in fast-weight memories. Without a prior the per-context optimum is a rank-one transport outside the exponential chart, so the anchor is necessary. The implemented `content_link_chart="exponential"` is the static limit, and amortized link inference would be a fast-weight program. Agent-drafted, float64 checks at small size, no training, no performance claim.
+
+[[multiagentelbo-2026-10-04-lie-algebra-links]] (2026-10-04) brings latent Lie-algebra links into the multi-agent theory. Their natural-gradient recognition flow has the Bayesian learning rule as its Euler step, and their field equation has the delta-rule current. It does not claim an identification with a trained fast-weight architecture. Drafted by Claude Opus 5.5 and cross-checked by Claude Fable 5.1; nothing trained.
 
 ## vfe3 projected attention routes, October 2, 2026
 

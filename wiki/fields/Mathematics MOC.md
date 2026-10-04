@@ -5,7 +5,7 @@ aliases: [field/mathematics, Mathematics sources, Math MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-10-03
+updated: 2026-10-04
 ---
 
 
@@ -106,6 +106,10 @@ The posthoc saved-score functional estimates retained path KL plus a nonnegative
 [[dennis-2026-link-origin]] relates the rank-deficient matrix links of the projected attention routes to group-valued links: the exponential identity $\exp(PQ)=I+P\varphi(QP)Q$, a Levi/Schur block factorization of a primitive link under the parabolic reduction of structure group, and the loop of the head-sum operator as a triangle defect of the routing costs. All identities are checked in float64 at $K=6$ or $7$; it is an agent-drafted note with nothing trained and several items open. Synthesis: [[Lattice gauge theory]].
 
 [[dennis-2026-link-curvature]] (2026-10-02) defines the triangle holonomy $F_{ijk}=\Theta_{ik}^{-1}\Theta_{ij}\Theta_{jk}$ of a causal link field, proves that flat is recurrent and that invertible flat is pure gauge $g_ig_j^{-1}$, computes the holonomy of positional, constant, routed-exponent and head-sum links (second-order BCH, discrete exterior derivative), shows that regression links of a joint Gaussian have curvature equal to the partial cross-covariance (flat iff conditional independence), gives the reduced-rank regression optimum and its excess risk, and shows that the singular boundary of $\mathrm{GL}(K)$ is at infinite Fisher distance. Agent-drafted, float64 checks at $K=4$, nothing trained.
+
+[[dennis-2026-dynamic-links]] (2026-10-03) proves that continuous class functions on non-compact $\mathrm{GL}(K)$ cannot separate unipotent elements from the identity. It uses instead the Frobenius defect of a reference-coordinate holonomy, nonnegative, separating, and equal to $K-\operatorname{tr}W$ on $O(K)$. It also derives the closed-form transport term of a latent-link free energy, $\mathrm{KL}(q\|\mathcal N(\bar m,\bar Q))+\tfrac12\operatorname{tr}(\bar Q^{-1}V)$, a link field equation through the Fréchet derivative of the exponential, a self-adjoint linearized operator bounded below by $\sigma^{-2}$, and the hopping expansion of $\tfrac12\log\det J(X)$. Agent-drafted, float64 checks at $K\le4$, nothing trained.
+
+[[multiagentelbo-2026-10-04-lie-algebra-links]] (2026-10-04) integrates latent Lie-algebra links into the MultiAgentELBO theory. It uses Culver's real-logarithm criterion for the chart image, a loop defect invariant under multiples of isometries, the Fréchet derivative of the exponential for the field equation, and a rank-one obstruction that makes the generator prior necessary. Non-attainment of the chart infimum is proved at semisimple negative eigenvalues, which covers $K=2,3$. Cross-model checked; open problems on unanchored normalization and on the chart infimum at $K\ge4$.
 
 ## Frame-chart geometry and receiver flows, October 2, 2026
 

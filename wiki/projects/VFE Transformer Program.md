@@ -14,10 +14,14 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-18
-updated: 2026-10-03
+updated: 2026-10-04
 ---
 
 # VFE Transformer Program
+
+## Dynamic links (theory), October 3, 2026
+
+[[dennis-2026-dynamic-links]] works out how the exponential links could become dynamic: the link generators are latent variables with a normalized prior inside the free energy, and their evolution is inference. The note boxes the resulting free energy and derives a delta-rule link field equation, the necessity of the link prior, a linearized screened Euclidean Maxwell equation whose kinetic term comes from time-like loops of the depth-by-token lattice, and the Wilson action induced by undirected Gaussian matter. The current `content_link_chart="exponential"` (VFE 3.0 PR #41) is its static limit with anchor $\bar X=OT$. Nothing is implemented or trained. The obvious implementation path is per-context deviations from $OT$ obtained by a few Fisher-preconditioned steps or by one linearized solve. The all-edge cost $O(LN^2K^3)$ per step points to restricted supports, low-rank deviations or amortization. Open: loop weights and couplings, multi-head cross-edge terms, and the Gauss-law constraint from time-like links. The multi-agent theory now carries the same chart as latent per-edge generators ([[multiagentelbo-2026-10-04-lie-algebra-links]]), and two statements of the note were corrected on October 4: the invariance group of the Frobenius defect, and the location of the unregularized chart infimum.
 
 ## Unified attention companion, October 3, 2026
 
@@ -197,7 +201,7 @@ Next steps, in rough priority order:
 
 **Related project:** [[Gauge-Theoretic Multi-Agent VFE Model]] — the multi-agent, continuous-time instantiation of the same GL(K)-gauge VFE theory (this transformer is the language-model instantiation).
 
-**Manuscripts:** [[gl-k-attention]] · [[participatory-it-from-bit]] · [[dennis-2026-projected-predictive]] · [[dennis-2026-projected-gradient]] · [[dennis-2026-phi-natgrad]] · [[dennis-2026-template-routing]] · [[dennis-2026-neuron-free-agent-theory]] · [[dennis-2026-link-origin]] · [[dennis-2026-link-curvature]]
+**Manuscripts:** [[gl-k-attention]] · [[participatory-it-from-bit]] · [[dennis-2026-projected-predictive]] · [[dennis-2026-projected-gradient]] · [[dennis-2026-phi-natgrad]] · [[dennis-2026-template-routing]] · [[dennis-2026-neuron-free-agent-theory]] · [[dennis-2026-link-origin]] · [[dennis-2026-link-curvature]] · [[dennis-2026-dynamic-links]]
 
 **Methods (attention routes):** [[Projected predictive attention]] · [[Projected gradient attention]] · [[Template routing]]
 

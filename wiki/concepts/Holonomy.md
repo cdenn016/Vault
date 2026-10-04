@@ -12,10 +12,16 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-10-03
+updated: 2026-10-04
 ---
 
 # Holonomy
+
+## Unipotent blind spot and the Frobenius defect, October 3, 2026
+
+[[dennis-2026-dynamic-links]] proves that every continuous conjugation-invariant function on the non-compact $\mathrm{GL}(K)$, $K\ge2$, takes the same value at a unipotent element as at the identity: conjugating a Jordan block by $\operatorname{diag}(1,t^{-1},\dots)$ scales its superdiagonal by $t\to0$. Such functions depend only on eigenvalues, so every eigenvalue statistic of a holonomy, including the spectral curvature reported by the `vfe3` routing-holonomy diagnostic and the bounded density $\sum_k|\lambda_k(W)-1|$ of MAgent (corrected on [[Non-flat connection and the photon analogy]]), vanishes on a shear $W=I+E_{12}\ne I$. The note measures curvature by the Frobenius defect $\tfrac12\|W-I\|_F^2$ of the reference-coordinate holonomy instead. Because the generators are reference data, that matrix and not only its conjugacy class is invariant under the passive gauge action, the defect vanishes only at $W=I$, and on $O(K)$ it equals Wilson's density $K-\operatorname{tr}W$. The extra structure it uses is the reference metric, which reduces the measurement from $\mathrm{GL}(K)$ to $O(K)$; under the reparameterization that moves frames into links it is invariant exactly for nonzero multiples of orthogonal changes, and the scalar factor acts trivially on the holonomy. The October 3 version of the note said orthogonal changes only; it was corrected on October 4.
+
+[[multiagentelbo-2026-10-04-lie-algebra-links]] states the same blindness in the multi-agent theory (`prop:link-class-function-blindness`, `cor:link-no-invariant-defect`): no continuous conjugation-invariant loop defect on $\mathrm{GL}(K)$ separates unipotent holonomy from the identity. Its loop defect $\mathfrak Q_p=\tfrac12\operatorname{Tr}\bigl(G^{-1}(I-\rho(\mathring\Theta_p))^\top G(I-\rho(\mathring\Theta_p))\bigr)$ uses the fiber metric $G$ and is invariant under reference changes by nonzero multiples of $G$-isometries. With latent links in $\mathrm{GL}^+(K)$, the determinant of the holonomy of a closed walk in a block that is not a forest is $\exp(\sum_a\operatorname{Tr}\mathring\omega_{e_a})$, which differs from one off a Lebesgue-null hyperplane. The fixed Gaussian parent family is then empty, so the holonomy-parent score is $+\infty$ almost surely under any absolutely continuous generator law (`cor:link-holonomy-parent-almost-sure`).
 
 ## Unified exponential-link construction, October 3, 2026
 
@@ -161,6 +167,7 @@ Holonomy surfaces wherever the config commits to a connection or to non-commutin
 
 ## Sources
 
+- [[dennis-2026-dynamic-links]] — class functions on non-compact $\mathrm{GL}(K)$ are blind to unipotent holonomy; the Frobenius defect of the reference-coordinate holonomy separates, and equals Wilson's density on $O(K)$; loops of the depth-by-token link lattice.
 - [[dennis-2026-link-origin]] — triangle defect of routing logits as the loop of the head-sum link; exponential-link loops via BCH (agent-drafted, small-dimension checks).
 - [[dennis-2026-link-curvature]] — triangle holonomy on causal support, frame independence of its conjugacy class, flat = recurrent, holonomy table of candidate links (agent-drafted, float64 checks at K=4).
 - [[cohen-2019-gauge-cnn]] — gauge equivariance on manifolds: the kernel constraint and the parallel-transport rule whose closed-loop composition is holonomy.
@@ -173,6 +180,7 @@ Holonomy surfaces wherever the config commits to a connection or to non-commutin
 - [[absil-2008-optimization-matrix-manifolds]] — retractions and vector transports as first-order surrogates for geodesic transport.
 - [[ollivier-2015-riemannian-metrics-nn]], [[amari-1998-natural-gradient]] — metric/Fisher preconditioning that makes transport reparameterization-invariant.
 - [[bleecker-1981-gauge-theory-variational-principles]] — canonical bundle-connection-and-variational-principle reference behind the gauge formalism (connections, curvature, and holonomy on principal bundles).
+- [[multiagentelbo-2026-10-04-lie-algebra-links]] — class-function blindness and the metric loop defect in the multi-agent theory; latent noncompact links make the holonomy-parent score infinite almost surely.
 
 ## See also
 
