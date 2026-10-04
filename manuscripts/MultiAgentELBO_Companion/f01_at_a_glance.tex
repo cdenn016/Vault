@@ -15,7 +15,10 @@ one recognition law for the whole population, and one evidence bound, which is t
 principle applied to that joint. Attention is a posterior over which neighbor a receiver listens to,
 and selective communication adds query, key, and value maps between the agents' internal spaces.
 Fisher geometry turns free-energy descent into oriented histories with an information clock, once a
-metric is chosen, and a fast-slow split separates beliefs from models.
+metric is chosen, and a fast-slow split separates beliefs from models. The links themselves can be
+inferred as Lie-algebra generators with a normalized Gaussian-based loop prior. Their recognition
+law contributes to the same evidence bound; their most probable episode history has a linearized
+operator of Euclidean Proca type (\cref{comp:lie-links}).
 
 Coarse-graining is a Markov kernel from a block of agents to a parent. Applied to the joint, the
 posterior, and the recognition law at once, it preserves the evidence and splits the free energy
@@ -45,19 +48,20 @@ and beyond four agents, is open.
   arr/.style={-{Latex[length=2mm]},draw=darkgray,line width=0.5pt},
   sup/.style={box,draw=mediumgray,dashed},
 ]
-\node[box,fill=VCOLch02] (c2) at (0,0) {2\enspace Geometry at $c_*$\\bundles, links, holonomy};
-\node[box,fill=VCOLch03] (c3) at (0,-1.35) {3\enspace Probability semantics\\kernels, levels, chain rule};
-\node[box,fill=VCOLch04] (c4) at (0,-2.7) {4\enspace Normalized joint law\\typing prohibition};
-\node[box,fill=VCOLch05] (c5) at (0,-4.05) {5\enspace One evidence bound\\local--global identity};
-\node[box,fill=VCOLch06] (c6) at (4.3,-2.7) {6\enspace Attention and\\selective communication};
-\node[box,fill=VCOLch07] (c7) at (4.3,-4.05) {7\enspace Fiber information\\geometry, histories};
-\node[box,fill=VCOLch08] (c8) at (4.3,-5.4) {8\enspace Fast beliefs,\\slow models};
-\node[box,fill=VCOLch09] (c9) at (0,-6.75) {9\enspace Coarse channels\\exact coarse free energy};
-\node[box,fill=VCOLch10] (c10) at (0,-8.1) {10\enspace Network state\\fixed sectors, holonomy};
-\node[box,fill=VCOLch11] (c11) at (4.3,-8.1) {11\enspace Exact network\\coarse-graining};
-\node[box,fill=VCOLch12] (c12) at (4.3,-9.45) {12\enspace Multiscale VFE,\\closing the tower};
-\node[box,fill=VCOLch13] (c13) at (8.6,-9.45) {13\enspace Formation under a\\supplied hierarchy};
-\node[box,fill=VCOLch14] (c14) at (8.6,-8.1) {14\enspace Four-cycle selection\\and parent activation};
+\node[box,fill=VCOLch02] (c2) at (0,0) {\ref{comp:ch02}\enspace Geometry at $c_*$\\bundles, links, holonomy};
+\node[box,fill=VCOLch03] (c3) at (0,-1.35) {\ref{comp:ch03}\enspace Probability semantics\\kernels, levels, chain rule};
+\node[box,fill=VCOLch04] (c4) at (0,-2.7) {\ref{comp:ch04}\enspace Normalized joint law\\typing prohibition};
+\node[box,fill=VCOLch05] (c5) at (0,-4.05) {\ref{comp:ch05}\enspace One evidence bound\\local--global identity};
+\node[box,fill=VCOLch06] (c6) at (4.3,-2.7) {\ref{comp:ch06}\enspace Attention and\\selective communication};
+\node[box,fill=VCOLch07] (c7) at (4.3,-4.05) {\ref{comp:ch07}\enspace Fiber information\\geometry, histories};
+\node[box,fill=VCOLch08] (c8) at (4.3,-5.4) {\ref{comp:ch08}\enspace Fast beliefs,\\slow models};
+\node[box,fill=lightgreen] (cl) at (4.3,-6.75) {\ref{comp:lie-links}\enspace Latent Lie-algebra links\\prior, current, history};
+\node[box,fill=VCOLch09] (c9) at (0,-6.75) {\ref{comp:ch09}\enspace Coarse channels\\exact coarse free energy};
+\node[box,fill=VCOLch10] (c10) at (0,-8.1) {\ref{comp:ch10}\enspace Network state\\fixed sectors, holonomy};
+\node[box,fill=VCOLch11] (c11) at (4.3,-8.1) {\ref{comp:ch11}\enspace Exact network\\coarse-graining};
+\node[box,fill=VCOLch12] (c12) at (4.3,-9.45) {\ref{comp:ch12}\enspace Multiscale VFE,\\closing the tower};
+\node[box,fill=VCOLch13] (c13) at (8.6,-9.45) {\ref{comp:ch13}\enspace Formation under a\\supplied hierarchy};
+\node[box,fill=VCOLch14] (c14) at (8.6,-8.1) {\ref{comp:ch14}\enspace Four-cycle selection\\and parent activation};
 \node[sup,fill=VCOLsg] (sg) at (8.6,-2.7) {Supplement G\\Gaussian realization};
 \node[sup,fill=VCOLsb] (sb) at (8.6,-5.4) {Supplement B\\base, infinite networks,\\lattice cluster};
 \draw[arr] (c2) -- (c3);
@@ -66,13 +70,17 @@ and beyond four agents, is open.
 \draw[arr] (c5) -- (c6);
 \draw[arr] (c5) -- (c7);
 \draw[arr] (c7) -- (c8);
+\draw[arr] (c8) -- (cl);
+\draw[arr] (c5.south east) -- (cl.north west);
+\draw[arr] (cl.south west) -- (c10.north east);
+\draw[arr] (cl.east) -- ++(1,0) |- (c12.east);
 \draw[arr] (c5) -- (c9);
 \draw[arr] (c9) -- (c10);
 \draw[arr] (c10) -- (c11);
 \draw[arr] (c9) -- (c11);
 \draw[arr] (c11) -- (c12);
 \draw[arr] (c12) -- (c13);
-\draw[arr] (c8) -- (c13);
+\draw[arr] (c8.east) -- (6.6,-5.4) -- (6.6,-7.3) -- (10.6,-7.3) |- (c13.east);
 \draw[arr] (c13) -- (c14);
 \draw[arr,dashed,draw=mediumgray] (sg) -- (c6);
 \draw[arr,dashed,draw=mediumgray] (sg.south) -- (sb.north);
@@ -80,9 +88,9 @@ and beyond four agents, is open.
 \end{tikzpicture}
 \caption{How the chapters depend on one another. Fill color gives the companion's verdict on each
 technical chapter's own claims: green, delivered as worded; orange, delivered but narrower than the
-wording. Dashed boxes are the supplements, on which no main-manuscript result depends. Chapter~1 is
-the program statement, whose verdict is ``partly delivered'' (\cref{comp:ch01}), and chapter~15 is
-related work.}
+wording. Dashed boxes are the supplements, on which no main-manuscript result depends.
+\Cref{comp:ch01} gives the program statement, whose verdict is ``partly delivered'', and
+\cref{comp:ch15} covers related work.}
 \label{comp:fig-map}
 \end{figure}
 
@@ -90,8 +98,8 @@ related work.}
 delivered'': every chapter proves what its statements say, and the open problems are posed as open.
 Where a verdict is ``narrower than it sounds'', the gap is between an opening paragraph or a title
 and the theorems, and the companion chapter names the sentence. The theory's unproved ambitions sit
-in its open problems, which \hyperref[comp:open-ends]{Open Ends of the Theory} collects; the two
-``not delivered'' rows of the table below are two of those ambitions, which the technical documents
+in its open problems, which \hyperref[comp:open-ends]{Open Ends of the Theory} collects; the
+``not delivered'' rows of the table below are ambitions that the technical documents
 themselves pose as open.
 
 \clearpage
@@ -109,11 +117,13 @@ One evidence bound for the whole population, tight exactly at the posterior (\cr
 Local objectives are exact conditional pieces of the collective one (\cref{comp:ch05}) & \DELIVERED & The chain rule for relative entropy with the rest of the population held fixed; the ``exact potential game'' needs singleton blocks with product profiles. \\
 Everything is gauge covariant at one base point (\cref{comp:ch02,comp:ch04}) & \DELIVERED & Evidence and bound are invariant under passive frame changes when kernels are covariant; links carry per-edge twist classes and loop holonomy. \\
 Attention is inference (\cref{comp:ch06}) & \DELIVERED & The softmax is Bayes' rule for a declared latent pointer; the transformer's free value and output maps are replaced by a tied value map in the exact update. \\
+Lie-algebra links are inferred fields (\cref{comp:lie-links}) & \DELIVERED & A Gaussian-based prior normalizes compact and noncompact generator laws; joint recognition gives a delta current and first-order flow, while a most probable episode history has a Proca-type linearization. \\
 Information geometry and inference histories (\cref{comp:ch07}) & \NARROWERstack & Fisher contraction and the information clock are proved; they cover a meta-agent only when its law is a parameter-independent Markov image, and every orbit rests on a chosen metric. \\
 Collective free energy does not factor through marginals (\cref{comp:ch07}) & \DELIVERED & An exact refutation by a three-agent parity witness. \\
 Fast beliefs, slow models (\cref{comp:ch08}) & \NARROWERstack & The reduced slow flow is the kinematics of adiabatic elimination; that the actual flow tracks it is proved only on the four-cycle's held sheets. \\
 Coarse channels preserve evidence and split the free energy exactly; a parent law always exists (\cref{comp:ch09}) & \DELIVERED & The relative-entropy chain rule for one channel pushing three laws; exact, static, and with no closure or selected channel. \\
 Holonomy decides what a coarse description can retain (\cref{comp:ch10}) & \DELIVERED & Fixed sectors and a holonomy-conditioned parent score; for generic $\GL(K)$ links the Gaussian score is infinite on any block with a loop. \\
+A finite-dimensional coarse link-law family closes (\cref{comp:ch12,comp:gaussian-latent-links}) & \NOTDELIVERED & An exact retained law exists, but ordered products may have no real logarithm and chart-selected generators need not be Gaussian; finite-dimensional closure is open. \\
 Exact coarse-graining of the agent network (\cref{comp:ch11}) & \NARROWERstack & The effective action exists for every channel, but closure keeps the complete laws, the coupling calculus excludes Gaussian $\GL(K)$ couplings, everything is finite-network, and there is no thermodynamic limit. \\
 One free energy for the multiscale tower; parents influence children (\cref{comp:ch12}) & \DELIVERED & As accounting and typing; parent influence is proved as a typed possibility, not as dynamics. \\
 Successive meta-agents form under free-energy descent with learning (\cref{comp:ch13}) & \NARROWERstack & Exact parents track linear relaxation through a hierarchy supplied by hand; attention and learning play no role in the coherence conclusion. \\
@@ -123,6 +133,7 @@ Parents activated after formation behave well (\cref{comp:ch14}) & \DELIVERED{} 
 A parent evolves as an autonomous process (\cref{comp:ch11}) & \NOTDELIVERED & Posed as the defining open problem of the phase, \MT{open:rg-pointwise-parent-dynamics}. \\
 Collectives form through the agents' coupled inference, recursively (\cref{comp:ch01,comp:ch13}) & \NOTDELIVERED & The program aim; posed as \MT{open:rg-formation-general} and \MT{open:full-graph-hierarchy}. \\
 Gaussian realization: aggregation, Kron reduction, holonomy (\cref{comp:sg1,comp:sg2}) & \DELIVERED & Aggregation is the exact algebraic-multigrid coarse operator; Kron closure is classified; the interaction family is declared, not derived, and complex Gaussians are not treated. \\
+Gaussian matter with latent links (\cref{comp:gaussian-latent-links}) & \DELIVERED & Conditional energies, induced action, and ring spectrum are explicit; marginalizing generators generally leaves the jointly Gaussian sector, and unanchored matrix normalization remains open. \\
 Asymptotic renormalization and the lattice cluster (\cref{comp:sb}) & \NARROWERstack & Finite depth gives no asymptotics; the $\mathbb Z_2$ lattice cluster is a genuine constructive result whose sites are not yet typed as agents. \\
 \end{longtable}
 \endgroup
@@ -159,18 +170,21 @@ against phase transitions, which need the many-agent limit (\cref{comp:ch13,comp
 
 \paragraph{Noncompact groups meet specific friction.}
 For the program's target of hundreds of agents with $\GL(K,\R)$, $\GL(K,\mathbb C)$, or $\mathrm{SU}(N)$
-links, the documents record several boundaries. A normalized law on noncompact links is not
-constructed (\cref{comp:ch02}). The holonomy-conditioned Gaussian parent score is infinite for
+links, the documents record several boundaries. The Gaussian-reference generator prior supplies
+a normalized noncompact link law in its exponential chart (\cref{comp:lie-links}); compactness
+is required only for the earlier Haar-reference construction. The holonomy-conditioned Gaussian parent score is infinite for
 generic $\GL(K)$ loops (\cref{comp:ch10}). The coupling calculus of exact network coarse-graining
 is proved only in a bounded tier that excludes Gaussian $\GL(K)$ couplings (\cref{comp:ch11}). Gauge
 absorption of Gaussian gains is proved on forests and pairs, with only sign conditions on cycles, and
 complex Gaussians are not treated (\cref{comp:sg1}). No symmetric rule that ignores a reference point
 averages frames in $\GL^+(K)$, so a meta-agent's frame must be chosen with a reference
-(\cref{comp:ch10}). $\mathrm{SU}(N)$, being compact, avoids the first two.
+(\cref{comp:ch10}). Compact-unitary links admit an invariant nondegenerate Gaussian law; that
+does not by itself close the parent dynamics or the coarse generator family.
 
 \paragraph{What is new.}
 Beyond the typing, the new mathematics is concentrated in a few places: the per-edge twist invariants
-that a shared fiber gives links at one point (\cref{comp:ch02}), the holonomy-conditioned fixed
+that a shared fiber gives links at one point (\cref{comp:ch02}), the normalized latent-link model
+with its current, recognition flow, and episode-history equation (\cref{comp:lie-links}), the holonomy-conditioned fixed
 sectors and parent score (\cref{comp:ch10}), the parity no-go for factoring collective free energy
 (\cref{comp:ch07}), the Kron closure classification (\cref{comp:sg2}), the formation machinery that
 carries exact parents through a relaxation (\cref{comp:ch13}), and the four-cycle selection and
@@ -179,12 +193,8 @@ activation-clock results (\cref{comp:ch14}).
 \section*{How far this companion was checked}
 \phantomsection\addcontentsline{toc}{section}{How far this companion was checked}
 
-The companion's chapters were drafted by Claude Opus 5.5 against the technical statements. A second
-model, Claude Fable 5.1, checked the reading guide, chapters~1, 5, 6, 9, 10, and~18, and the open
-ends against the technical documents, and its findings were applied: none of them changed a verdict,
-and several corrected paraphrases that were stronger than their sources. The remaining chapters
-(2~to~4, 7, 8, 11~to~17), this overview, and the glossary were not checked by a second model. Their
-drafters verified every cited label and recomputed many numerical witnesses, and the central claim
-of \cref{comp:ch13}, that attention and learning play no role in the coherence conclusion of the
-formation theorem, was checked against its source. Read the unchecked chapters with that in mind,
-and trust the technical statement over the companion wherever they differ.
+The companion summarizes proofs in the technical documents; it supplies no independent proof or
+empirical validation. Its formula boxes, badges, and verdicts are readings of the cited statements
+at their stated hypotheses. Follow the linked statement when a condition matters, especially for
+the weak-current Proca approximation, unanchored normalization, and conditional transfer of
+held-link results. The technical statement controls wherever it differs from the companion.

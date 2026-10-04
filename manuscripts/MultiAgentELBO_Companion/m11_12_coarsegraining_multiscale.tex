@@ -18,6 +18,13 @@ kept is collected in a table (\MT{tab:rg-retained-state}): induced multi-agent c
 law of fine and coarse variables, the joint law of attention events rather than attention rows, the
 gauge marks of each block, and the path law with its memory.
 
+For the latent links of \cref{comp:lie-links}, this retained state also includes the generator and
+chart marks that a later channel or episode kernel reads, with their joint law. Held-link formulas
+remain available conditional on those marks (\MT{prop:link-conditional-transfer}); they need not
+describe the matter marginal after the generators are integrated out. Gaussian elimination at a
+fixed link value and elimination of a random link are different operations, as
+\cref{comp:gaussian-latent-links} explains.
+
 Has this resolved the renormalization of the agent network at one base point? Not in the sense a
 physicist gives the word, and the chapter does not say that it has. Exact and proved are the
 effective action as minus the log density of the pushed evidence measure relative to the pushed
@@ -551,6 +558,14 @@ normalized joints, and delayed feedback with a declared update rule is itself th
 lifted joint (\MT{prop:full-graph-episode-lifted-joint}). Whether descent of this free energy produces a
 persistent hierarchy is open (\MT{open:full-graph-hierarchy}).
 
+The newly latent links add a distinct closure question. Their coarse laws exist exactly as the
+pushforwards through the dressed products, but the Gaussian generator family is not closed under them
+(\MT{prop:link-coarse-generator-law}). For $\GL^+(K)$ with $K\ge2$, some resulting group elements
+have no real logarithm at all, so even an unrestricted law of one Lie-algebra generator per coarse
+link cannot represent that coarse law. A finite-dimensional family of group-valued link laws closed
+under the step remains open (\MT{open:link-coarse-closure}); this does not impair the tower's exact
+measure-level accounting.
+
 Do parents act back on their children in a proved sense? In four senses of different strength. In a
 declared top-down hierarchy the downward kernel reads the parent coordinates, so the parent enters every
 child's prior by construction, a modeling choice; parent and child optimization are then coupled
@@ -598,6 +613,12 @@ loops as self-loops of the coarse vertex, and boundary links connect block roots
 gauge links, nothing is averaged or projected, and every parallel copy is kept.
 \end{analogy}
 
+For latent links these are operations on random marks, rather than multiplication of held matrices.
+The parent keeps a group-valued product and its correlations with the event laws, coordinates, and
+other links. An exponential-chart presentation is additional information whenever the next kernel
+reads generators. The complete state must keep those generator or chart marks in that case
+(\MT{def:full-graph-composition}); the coarse group element alone is not guaranteed to supply them.
+
 \section{Objects and notation}
 \label{comp:ch12-notation}
 
@@ -605,6 +626,8 @@ gauge links, nothing is averaged or projected, and every parallel copy is kept.
 $Z_\ell$ & Full coordinates at depth $\ell$ (beliefs and models) & Block variables\\
 $\mathfrak N_\ell=(\eta_\ell,\Theta^{b,\ell},\Theta^{m,\ell},\mathfrak h_\ell)$ & Graph datum: event laws,
 links, root and holonomy marks & Coarse lattice with gauge field and bond occupations\\
+$\mathring\omega_e$, $\mathring\Theta^{\ell+1}_e$ & Fine Lie-algebra generator; root-framed coarse group product, which need not have a real logarithm & Algebra field; coarse link\\
+$\operatorname{Log}$, $\nu'*\nu$ & Principal logarithm on its domain; law of a product of independent group-valued links & Local chart; convolution of link laws\\
 $Y_\ell=(Z_\ell,\mathfrak N_\ell)$, $\mathbf Y$ & Complete state at depth $\ell$; all depths together &
 Block configuration; multiscale configuration\\
 $R_\ell$, $\gamma$ & Structural mark (realized partition or membership pattern) & Random blocking
@@ -739,6 +762,11 @@ evidence bound. Appending such row energies, partition terms, cross-scale terms,
 to a fixed population free energy gives the composite potential of
 \MT{def:full-graph-composite-potential}, a descent potential with no evidence interpretation; the same
 terms from a normalized Gibbs prior inside the joint belong to the tower free energy instead.
+The latent-link loop action provides this latter option explicitly: placed in the normalized
+generator prior, it enters through the link relative entropy together with its normalizer
+(\MT{prop:link-gaussian-recognition-vfe}, \MTeq{eq:link-sector}). An action appended to an already
+fixed bound still has only the composite-potential interpretation. The location of the same loop
+energy inside or outside the joint decides its status.
 
 \subsection{Random partitions and the two normalizations}
 
@@ -771,6 +799,56 @@ holonomy. Once holonomy is nontrivial the trees are part of the coarse channel, 
 although the divergences do not depend on them for holonomy-stabilized parent laws. Overlapping
 membership is excluded, since an edge would need a root transport into every block containing an
 endpoint.
+
+\subsection{Random coarse links, logarithms, and closure}
+\label{comp:ch12-latent-closure}
+
+The full coarse link law is always the pushed fine law conditional on the partition and trees.
+For two copies in series, one a tree copy and the other joining block roots, the root-framed twist is
+(\MT{def:link-coarse-generator})
+\begin{keyequation}{Coarse links are ordered products, not sums of generators}
+\[
+\mathring\Theta^{\ell+1}_e
+=e^{\mathring\omega_{e'}}e^{\mathring\omega_e}.
+\]
+\[
+\begin{aligned}
+\operatorname{Log}(e^Ae^B)
+&=A+B+\tfrac12[A,B]+O\bigl((\lVert A\rVert+\lVert B\rVert)^3\bigr),\\
+&\lVert A\rVert+\lVert B\rVert\le\tfrac12.
+\end{aligned}
+\]
+\end{keyequation}
+The second display is local: $A=\mathring\omega_{e'}$ and $B=\mathring\omega_e$ lie in the
+matrix Lie algebra of a closed subgroup of $\GL(K,\R)$, the norm is the operator norm, and the
+principal logarithm exists in the displayed neighborhood. The first display is exact everywhere.
+Their distinction matters. The Baker--Campbell--Hausdorff commutator corrects addition in a
+nonabelian algebra; a coarse link is globally a group element, not automatically the exponential
+of a real coarse generator (\MT{prop:link-coarse-generator-law}).
+
+The proposition separates three cases. In an abelian algebra the sum of two independent Gaussian
+generators is an exact Gaussian coarse generator. For $G=\GL^+(K)$, $K\ge2$, every pair of
+nondegenerate Gaussian generator laws gives positive probability to products with distinct real
+eigenvalues, exactly two negative and the rest positive. Such matrices have no real logarithm.
+Consequently no law on the Lie algebra, Gaussian or otherwise, has this coarse link law as its
+exponential image. This is a failure of the single-generator chart as a global coarse
+presentation, rather than a failure to define the coarse link law.
+
+Even in the local chart, Gaussianity generally fails. If the means scale as $\mathring\tau$ and
+covariances as $\mathring\tau^2$, the neighborhood in the box has probability at least
+$1-\mathrm c_1e^{-\mathrm c_2/\mathring\tau^2}$. Under the proposition's nonzero cubic cumulant
+condition, or its nonzero quartic condition for centered laws, no Gaussian random element equals
+the principal-logarithm product almost surely on that event at sufficiently small width.
+The coefficients are explicit commutator forms; for an adjoint-invariant inner product and
+isotropic precisions both leading forms vanish, so that test supplies no conclusion there.
+The general-linear isotropic centered example has a nonzero quartic coefficient. These clauses
+do not assert non-Gaussianity for every nonabelian group and every covariance.
+
+Preserving every parallel copy also preserves correlations: even when fine generators start
+independent, dressed products can share fine factors. A Gaussian mean and covariance for each
+coarse link neither retains their complete law nor guarantees composition of the next channel.
+The exact option is the full law of the group-valued products together with whatever generator
+and chart marks later kernels read. A reduced presentation needs an explicit closure residual.
 
 \subsection{How a parent enters its children's prior}
 
@@ -861,6 +939,10 @@ Finite catalog and carriers\\
 membership; composition & \SOLID & Product form needs independent draws\\
 \MT{prop:full-graph-coarse-links} & Coarse links keep all holonomy; trees belong to the channel & \SOLID
 & Hard partitions only\\
+\MT{prop:link-coarse-generator-law}(i) & Abelian sums of independent Gaussian generators give a Gaussian coarse generator & \SOLID & Exact for abelian matrix Lie algebras\\
+\MT{prop:link-coarse-generator-law}(ii), (iv) & General-linear coarse links have no real logarithm with positive probability & \SOLID & $\GL^+(K)$, $K\ge2$, nondegenerate Gaussian fine laws; no single-generator law represents the image\\
+\MT{prop:link-coarse-generator-law}(iii) & Local principal-logarithm coarse generators fail Gaussianity & \COND & Small width and a stated nonzero cubic or centered quartic cumulant form\\
+\MT{open:link-coarse-closure} & Finite-dimensional group-valued link family closed under coarse multiplication & \OPEN & Exact pushforward laws already exist\\
 \MT{prop:full-graph-downward-coupling}, general part & No parent dependence, no cross-derivative;
 normalization gives no coupling & \SOLID & Declared top-down hierarchy\\
 \MT{prop:full-graph-downward-coupling}, criterion & Bidirectional coupling iff odds ratio $\ne1$ & \TOY &
@@ -890,10 +972,24 @@ copy. A fifth concerns reading, not truth: energy-unit row free energies with $\
 composite potential are not evidence bounds. The rest is hygiene: standard Borel spaces and regular
 conditional versions, common domination and integrability, extended-real conventions, joint measurability
 of selector and update, and discrete records for the displayed episode decomposition.
+For the generator closure statements, abelianity, full nondegenerate Gaussian support in
+$\mathfrak{gl}(K,\R)$, and the nonzero cumulant conditions are substantive in their respective
+clauses. A principal logarithm is admitted only on its domain. The tower must carry every
+generator or chart mark read by a later kernel, as well as the group-valued coarse links.
 \end{hygiene}
 
 \section{Open ends}
 \label{comp:ch12-open}
+
+\MT{open:link-coarse-closure} asks for a finite-dimensional description of the random coarse
+links that survives multiplication. For two independent series links with laws $\nu'$ and $\nu$,
+the coarse law is their convolution $\nu'*\nu$ on $G$. In the stated $\GL^+(K)$ problem a
+positive answer is a weakly continuous injective parameterization by a connected open subset of
+some $\R^d$, containing the exponential image of every nondegenerate Gaussian generator law and
+closed under convolution. A proof that no such family exists for some $K\ge2$ would settle the
+negative branch. The absence of a real logarithm rules out a single-generator representation of
+the coarse law; it does not settle this larger family of group-valued laws. This question is
+separate from formation, natural partition selection, and exact measure-level coarse-graining.
 
 \MT{open:full-graph-hierarchy} asks for the hierarchy the program is after: a normalized partition law
 and parent--child kernels at $c_*$ such that descent of the tower free energy produces persistent nested
@@ -947,4 +1043,9 @@ prior by construction, bidirectional coupling is proved only as a binary criteri
 towers the downward kernel is a Bayes reversal the chapter declines to read causally. ``Closing the
 tower'' means closing it by declaration; the chapter proves that a finite acyclic tower cannot close
 itself.
+With latent links it also delivers explicit limits to chart and Gaussian closure: the full coarse
+law is a valid pushed law, while general-linear products can leave the exponential image and local
+logarithms can develop non-Gaussian cumulants under the stated conditions. The finite-dimensional
+group-law closure question remains open. These are mathematical restrictions on a reduced
+presentation; they do not weaken the delivered exact accounting of the complete tower.
 \end{verdictbox}

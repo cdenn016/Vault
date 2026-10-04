@@ -1,0 +1,357 @@
+\chapter[Supplement G, Part 3: Latent Lie-Algebra Links]{Supplement G, Part 3:\\Latent Lie-Algebra Links}
+\label{comp:gaussian-latent-links}
+
+\section{The question and the answer}
+
+\SG{ch:gauss-latent-links} evaluates the latent-link construction of
+\cref{comp:lie-links} for multivariate Gaussian beliefs, the defining representation of
+\(\GL^+(K)\), one belief channel, and held model latents. Random generators make links random
+matrices. This changes what must be averaged, what must be normalized, and what a stationary link
+means. The chapter gives explicit transported divergences and comparison-record currents,
+evaluates expected loop defects under product recognition, integrates undirected Gaussian matter
+out exactly, and grounds the linearized history equation in a ring spectrum. It also separates
+two questions that fixed-link calculations cannot answer: whether the joint generator--matter
+law is normalizable, and whether an unregularized optimum belongs to the exponential chart.
+
+The earlier Gaussian chapters remain conditional calculations at a given link family. They
+describe \(\Lambda(\mathring\omega)\), its Schur complements, and its Gaussian laws after the
+generators have been fixed. Integrating over generators generally produces a mixture, which
+need not be Gaussian (\MT{prop:link-conditional-transfer}). This is not a single Gaussian
+evaluated at a mean link.
+
+\section{The picture}
+
+\begin{analogy}{exact}
+Undirected Gaussian matter is a quadratic field coupled to link matrices. Integrating it out
+gives a fluctuation determinant and, with an information vector, a source term mediated by the
+propagator. Its convergent hopping expansion sums weighted closed walks
+(\SG{prop:glink-induced-action}, \SG{prop:glink-hopping}). This is the Gaussian form of an induced
+gauge action \citep{KazakovMigdal1993}. The matter lives in belief fibers over the agent network
+at one base point; no base-manifold transport has been introduced.
+\end{analogy}
+
+Two energies must be kept distinct. A transported relative entropy compares whole belief laws.
+A comparison record compares latent samples through a conditional observation kernel. A
+quadratic mean mismatch with $W_e=\Sigma_i^{-1}$ equals the transported divergence when the
+transported source covariance equals the receiver covariance
+(\SG{prop:glink-law-level-energy}). Averaging a sample mismatch adds variances;
+discarding them changes the force on the link.
+
+\begin{analogy}{structural}
+The ring grounds the Proca-type operator of \cref{comp:lie-links}: the anchor supplies positive
+local stiffness, a cycle defect penalizes one collective edge mode, matter supplies a declared
+isotropic stiffness, and increments penalize differences between episodes. The episode term has
+Euclidean sign. The homogeneous most-probable-history recursion has increasing and decreasing
+real solutions, rather than oscillations (\SG{prop:glink-linear-spectrum}). This is a history
+posterior equation, not a real-time wave equation.
+\end{analogy}
+
+\section{Objects and notation}
+
+\begin{decoder}
+\(\mathring\omega_e\), \(\mathbf M=e^{\mathring\omega_e}\) & Reference-coordinate generator and represented link; reversal negates the generator & Link coordinate and transporter\\
+\(\mu_i,\Sigma_i\) & Matter mean and covariance in reference coordinates & Field mean and propagator\\
+\(\mathring\mu_e,\mathring\Lambda_e^{-1}\) & Mean and covariance of a generator recognition law & Link-field mean and fluctuations\\
+\(\mathbf L(\mathbf B,\mathbf T)\) & Fr\'echet derivative of the exponential in direction \(\mathbf T\) & Jacobian from generator to matrix\\
+\(\mathbf J_e\) & Negative matrix derivative of expected record energy & Prediction-error current\\
+\(\mathfrak Q_p\) & Half the squared metric defect of a loop product from identity & Curvature penalty\\
+\(\mathscr S^{\mathrm{ind}}=-\mathsf A\) & Negative matter log partition at the links & Induced effective action\\
+\(\Lambda^{\mathrm{diag}},\Lambda^{\mathrm{hop}}\) & Matrices satisfying \(\Lambda=\Lambda^{\mathrm{diag}}-\Lambda^{\mathrm{hop}}\) & Local inverse propagator and hopping operator\\
+\end{decoder}
+
+Re-expressing local frames puts the matter laws in reference coordinates and retains the metric
+\(\mathsf G\) in contractions. This does not remove independent twists. A ``chart link'' belongs
+to \(\exp\mathfrak{gl}(K,\R)\), a proper subset of \(\GL^+(K)\): positive determinant does not
+guarantee a real logarithm (\MT{prop:link-chart-image}). A critical point of the exponential
+means its derivative is singular, not that an energy is minimized.
+
+\clearpage
+\section{The formulas, explained}
+
+\subsection{Law divergence and sample energy}
+
+For nondegenerate Gaussian laws \(q_i=\mathcal N(\mu_i,\Sigma_i)\) and
+\(q_j=\mathcal N(\mu_j,\Sigma_j)\),
+\begin{keyequation}{The transported Gaussian divergence}
+\[
+\begin{aligned}
+\KL(q_i\Vert e^{\mathring\omega}_\#q_j)
+={}&\tfrac12\Tr\bigl(\Sigma_j^{-1}e^{-\mathring\omega}\Sigma_i e^{-\mathring\omega^\top}\bigr)\\
+&+\tfrac12(e^{-\mathring\omega}\mu_i-\mu_j)^\top\Sigma_j^{-1}(e^{-\mathring\omega}\mu_i-\mu_j)\\
+&-\tfrac K2+\tfrac12\log\frac{\det\Sigma_j}{\det\Sigma_i}+\Tr\mathring\omega.
+\end{aligned}
+\]
+\end{keyequation}
+This is \SGeq{eq:glink-law-level-energy}, proved in \SG{prop:glink-law-level-energy}. The first
+term compares covariances after pulling the receiver back through the link, the second compares
+means in the source precision, and the determinant terms compare volume.
+\(\Tr\mathring\omega\) is the link's log-volume change. At zero generator this is ordinary
+Gaussian relative entropy. When
+\(\Sigma_i=e^{\mathring\omega}\Sigma_j e^{\mathring\omega^\top}\), the covariance and volume terms
+cancel and only the quadratic mean mismatch remains. For equal laws the local second-order form
+is the orbit Fisher form of \SGeq{eq:glink-orbit-fisher}; stabilizer directions can have zero
+stiffness (\MT{prop:link-law-level-energy}).
+
+The comparison kernel instead reads
+\(o_e\given z_i,z_j\sim\mathcal N(z_i-\mathbf Mz_j,W_e^{-1})\). Product matter recognition gives
+\begin{keyequation}{Expected record energy and link current}
+\[
+\begin{aligned}
+\E\mathsf E_e
+={}&\tfrac12(\mu_i-o_e-\mathbf M\mu_j)^\top W_e(\mu_i-o_e-\mathbf M\mu_j)
++\tfrac12\Tr(W_e\Sigma_i)\\
+&+\tfrac12\Tr(W_e\mathbf M\Sigma_j\mathbf M^\top)
++\tfrac12\log\det(2\pi W_e^{-1}),\\
+\mathbf J_e={}&W_e\bigl[(\mu_i-o_e-\mathbf M\mu_j)\mu_j^\top-\mathbf M\Sigma_j\bigr],
+\qquad \nabla_{\mathbf M}\E\mathsf E_e=-\mathbf J_e.
+\end{aligned}
+\]
+\end{keyequation}
+These are \SGeq{eq:glink-expected-record} and \SGeq{eq:glink-current}. Receiver variance is a
+link-independent offset. Transported source variance changes with the link and contributes to
+its current. The generator gradient is \(-\mathbf L(\mathring\omega_e^\top,\mathbf J_e)\),
+the current pulled back through the exponential Jacobian (\SG{prop:glink-sample-record}). If
+generators are random and independent of matter, the energy uses both
+\(\E e^{\mathring\omega_e}\) and
+\(\E[e^{\mathring\omega_e}\otimes e^{\mathring\omega_e}]\); replacing them by the exponential of
+the generator mean drops fluctuations.
+
+Without a prior the unique minimizer over real transport matrices is
+\[
+\mathbf M^\star=(\mu_i-o_e)\mu_j^\top(\Sigma_j+\mu_j\mu_j^\top)^{-1}.
+\]
+Its rank is at most one, so for \(K\geq2\) it lies outside the invertible group. This uses
+independent matter recognition: cross covariance replaces the numerator by a second-moment
+regression, which can be invertible (\MT{cor:link-prior-necessary}). This is not a universal
+obstruction to learned links.
+
+For $K\geq2$ the exponential chart adds a distinction. If \(\Tr\mathbf M^\star\geq0\), its infimum equals
+the unrestricted minimum and is not attained. If \(\Tr\mathbf M^\star<0\), the chart infimum is
+strictly higher: no sequence of real exponentials approaches \(\mathbf M^\star\). In this second
+case nonattainment is proved at every chart link whose negative eigenvalues are semisimple,
+covering all chart links for \(K=2,3\) (\SG{prop:glink-chart-infimum-semisimple}). Attainment at
+nonsemisimple negative eigenvalues for \(K\geq4\) is open. Stationary generators can nevertheless
+exist where the exponential derivative is singular; the two-dimensional example of
+\SG{prop:glink-sample-record}(iv) is a saddle. Stationarity is not an optimum.
+
+\subsection{Fluctuating holonomy}
+
+Take \(R=\bigotimes_{e\in E_+}\mathcal N(\mathring\mu_e,\mathring\Lambda_e^{-1})\) and a closed
+walk \(p=(e_0,\ldots,e_{r-1})\) using each reversal pair at most once. Write
+\(\mathbf H_a=\E_R e^{\mathring\omega_{e_a}}\) and
+\(\mathbf T_a=\E_R[e^{\mathring\omega_{e_a}}\otimes e^{\mathring\omega_{e_a}}]\).
+\begin{keyequation}{The expected metric loop defect}
+\[
+\E_R\mathfrak Q_p
+=\tfrac12(\mathbf G^+)^\top\left(\prod_{a=0}^{r-1}\mathbf T_a\right)\mathbf G^-
+-\Tr\left(\prod_{a=0}^{r-1}\mathbf H_a\right)+\tfrac K2.
+\]
+\end{keyequation}
+Here \(\mathbf G^+_{(a,b)}=\mathsf G_{ab}\),
+\(\mathbf G^-_{(a,b)}=(\mathsf G^{-1})_{ab}\), and both products preserve the walk's order
+(\SG{prop:glink-expected-loop}, \SGeq{eq:glink-expected-defect}). Independence gives products of
+moments, not exponentials of means. Correlated recognition needs joint moments. Even product
+recognition does not permit this factorization when a reversal pair repeats: a scalar backtrack
+has holonomy identically one, while multiplying its separate exponential means gives
+\(e^{\mathring\Lambda_e^{-1}}>1\).
+
+At zero means and small covariances,
+\(\E_R\mathfrak Q_p=\tfrac12\sum_a\Tr\mathring\Lambda_{e_a}^{-1}
++O(\max_a\lVert\mathring\Lambda_{e_a}^{-1}\rVert^2)\).
+Flat means therefore do not make a fluctuating loop flat. At nonzero means the correction also
+uses a second derivative of the exponential (\SGeq{eq:glink-defect-first-order}).
+
+\subsection{Integrating out matter and checking the joint law}
+
+Undirected matter has the energy
+\[
+\begin{aligned}
+\mathsf E(z;\mathring\omega)
+={}&\tfrac12\sum_i z_i^\top A_i z_i-\mathsf h^\top z\\
+&+\tfrac12\sum_{e:j\to i\in E_+}(z_i-e^{\mathring\omega_e}z_j)^\top W_e(z_i-e^{\mathring\omega_e}z_j).
+\end{aligned}
+\]
+Its precision is \(\Lambda(\mathring\omega)=A_\oplus+L(\mathring\omega)\). With every
+\(A_i\succ0\), integration gives
+\begin{keyequation}{The action induced by Gaussian matter}
+\[
+\begin{aligned}
+\mathscr S^{\mathrm{ind}}(\mathring\omega)
+={}&\tfrac12\log\det\Lambda(\mathring\omega)
+-\tfrac12\mathsf h^\top\Lambda(\mathring\omega)^{-1}\mathsf h-\tfrac{NK}{2}\log2\pi,\\
+P^{\mathscr T}(d\mathring\omega)
+={}&\mathfrak Z^{-1}e^{-\mathscr S(\mathring\omega)-\mathscr S^{\mathrm{ind}}(\mathring\omega)}
+\nu^{\mathscr T}(d\mathring\omega).
+\end{aligned}
+\]
+\end{keyequation}
+The action is minus the matter log partition, so the positive half-log-determinant accompanies
+a negative source energy (\SGeq{eq:glink-induced-action}). The bound
+\(\Lambda\succeq A_\oplus\succ0\) makes the whole joint normalizer finite for every finite base
+measure after a normalizable prior tilt (\SG{prop:glink-induced-action}). The induced action alone
+is not integrable against generator Lebesgue measure when an edge is present. Matter integration
+does not replace the generator prior.
+
+This whole-joint normalization is a distinct model choice. In a directed, conditionally normalized
+record construction, integrating matter and records gives unit mass at each link family; it
+induces no prior action of this kind, although observed records update the link posterior
+(\MT{prop:link-induced-action}). In the undirected model the earlier Schur scalar and pair
+normalizers are values of the displayed action. A link-dependent normalizer cannot be dropped
+during link inference.
+
+For noncompact links the action need not be purely a sum of loop defects. On a tree it can vary
+through transported self terms and weights. It is constant there with isotropic self terms and
+weights, zero information vector, and isometric links. The one-edge calculation of
+\SGeq{eq:glink-edge-mass} gives stiffness along symmetric directions and a linear trace-direction
+term even without a loop.
+
+On an unanchored cycle,
+\[
+\det\Lambda(\mathring\omega)=\det(I-\mathring\Theta_p)^2\prod_{e\in p}\det W_e.
+\]
+The matter law exists at fixed links away from a null set, but its partition function diverges
+at least as \(\lvert\det(I-\mathring\Theta_p)\rvert^{-1}\) across a regular singular hypersurface. A
+finite base measure with positive density near such a point, including any nondegenerate Gaussian
+base law, gives an infinite joint normalizer (\SG{cor:glink-unanchored-cycle}). This result is
+about a cycle, not every unanchored graph. At \(K=1\), a connected multigraph with positive
+weights, zero self terms, zero information vector, and nondegenerate Gaussian generator base law
+is jointly normalizable when its cycle rank is at least two, and is not when its cycle rank is
+one (\SG{prop:glink-unanchored-scalar}). The matrix question for \(K\geq2\) remains open.
+
+\subsection{Hopping and the Wilson triangle}
+
+At zero information vector with positive-definite self terms, set
+\(\mathbf H=(\Lambda^{\mathrm{diag}})^{-1}\Lambda^{\mathrm{hop}}\). Its spectral radius is below
+one, and the absolutely convergent expansion is
+\[
+\mathscr S^{\mathrm{ind}}=\tfrac12\log\det\Lambda^{\mathrm{diag}}
+-\tfrac12\sum_{r\geq1}\frac{\Tr\mathbf H^r}{r}-\tfrac{NK}{2}\log2\pi.
+\]
+Each trace sums length-\(r\) closed walks with a weight at every vertex
+(\SG{prop:glink-hopping}). In general these are weighted matrix products. Isotropic data and
+isometric links give scalar hopping ratios and a link-independent diagonal determinant. On the
+isolated triangle in that setting,
+\begin{keyequation}{The leading induced loop term on a triangle}
+\[
+\mathscr S^{\mathrm{ind}}(\mathring\omega)-\mathscr S^{\mathrm{ind}}(0)
+=\frac{w_{e_0}w_{e_1}w_{e_2}}
+{a^{\mathrm{diag}}_{i_0}a^{\mathrm{diag}}_{i_1}a^{\mathrm{diag}}_{i_2}}
+\mathfrak Q_p(\mathring\omega)+\mathfrak o(\mathring\omega).
+\]
+\end{keyequation}
+Here \(\mathfrak Q_p=K-\Tr\mathring\Theta_p\) and the remainder obeys
+\[
+\lvert\mathfrak o\rvert\leq\frac K5\left(
+\frac{(2w^{\mathrm{hop}})^5}{1-2w^{\mathrm{hop}}}
++\frac{2(w^{\mathrm{hop}})^5}{1-w^{\mathrm{hop}}}\right),
+\qquad w^{\mathrm{hop}}=\frac{\max_e w_e}{\min_i a_i^{\mathrm{diag}}}<\tfrac12.
+\]
+This is \SGeq{eq:glink-wilson-triangle}. The small parameter controls hopping, not an assumption
+that each generator is small. The first link-dependent term is a positive loop penalty. Equality
+of the full induced action with the chosen prior loop action is not proved. The general walk
+expansion needs no isometry; this triangle reduction and bound do.
+
+\subsection{The explicit ring spectrum}
+
+For \(N\geq2\) ring agents and \(n_1+1\) episodes, let anchor precision \(\mathrm a>0\),
+declared matter stiffness \(\mathrm b\geq0\), loop coefficient \(\mathrm c\geq0\), and increment
+precision \(\mathbf m\geq0\) be isotropic. The cycle map sums edge generators. The Hessian is
+\[
+\mathbf K=\left[(\mathrm a+\mathrm b)I_N\otimes I_{n_1+1}
++\mathrm c\mathbf1\mathbf1^\top\otimes I_{n_1+1}
++\mathbf m I_N\otimes L_{n_1}\right]\otimes\mathrm{Id}_{\mathfrak g}.
+\]
+The cycle term has rank one in the edge index, rather than being the ring graph Laplacian. It
+penalizes total generator around the ring and leaves zero-edge-sum profiles unchanged. The episode
+term is the path Laplacian including endpoint rows. The eigenvalues are
+\[
+\begin{gathered}
+\mathrm a+\mathrm b+\mathrm cN+4\mathbf m\sin^2\frac{\pi l}{2(n_1+1)},\qquad
+\mathrm a+\mathrm b+4\mathbf m\sin^2\frac{\pi l}{2(n_1+1)},\\
+l=0,\ldots,n_1.
+\end{gathered}
+\]
+For each episode mode the first acts on the edge-uniform sector of dimension \(K^2\), the second
+on the zero-edge-sum sector of dimension \((N-1)K^2\). Dimensions add when values coincide.
+Every eigenvalue is at least \(\mathrm a+\mathrm b>0\) (\SG{prop:glink-linear-spectrum}). For
+\(\mathbf m>0\) the homogeneous episode recursion has positive reciprocal roots. These signs
+ground the Euclidean reading, but prove no nonlinear recognition-flow convergence.
+
+\section{What is proved, and how solid it is}
+
+\begin{scorecard}
+\MT{def:link-exponential-chart} & Independent generators are latent link coordinates & \CHOICE & Exponential chart at one base point\\
+\SG{prop:glink-law-level-energy} & Exact Gaussian divergence and generator derivative & \SOLID & Nondegenerate laws, \(\GL^+(K)\)\\
+\SG{prop:glink-sample-record} & Expected energy, covariance current, rank-one optimum & \COND & Product matter recognition; critical chart stationarity may be a saddle\\
+\SG{prop:glink-chart-infimum-semisimple} & No minimum at semisimple negative chart eigenvalues & \SOLID & Negative-trace case; covers all chart links for \(K=2,3\)\\
+\SG{prop:glink-expected-loop} & Ordered exponential moments give expected defect & \COND & Product generator recognition, distinct reversal pairs\\
+\SG{prop:glink-induced-action} & Exact action and finite joint normalizer & \SOLID & Every self term positive definite; induced action alone insufficient\\
+\SG{cor:glink-unanchored-cycle} & Conditional law almost everywhere need not yield joint law & \SOLID & Unanchored cycle; density positive near a regular singularity\\
+\SG{prop:glink-unanchored-scalar} & Cycle rank at least two restores normalization & \TOY & Scalar fibers, zero information vector, Gaussian base law\\
+\SG{prop:glink-hopping} & Convergent weighted closed-walk expansion & \SOLID & Positive-definite self terms, zero information vector\\
+\SG{prop:glink-hopping}\newline (v) & Leading triangle term is metric loop defect & \TOY & Isotropic isometric triangle, stated hopping bound\\
+\SG{prop:glink-linear-spectrum} & Positive ring-history operator; nonoscillatory homogeneous recursion & \TOY & One cycle, isotropic coefficients\\
+\SG{open:glink-unanchored-normalization} & Unanchored matrix-network joint normalization & \OPEN & \(K\geq2\), cycle rank at least two\\
+\SG{open:glink-chart-infimum} & Attainment at nonsemisimple negative eigenvalues & \OPEN & \(K\geq4\), negative-trace regression optimum\\
+\end{scorecard}
+
+The conditional badges identify substantive recognition restrictions, not gaps in the Gaussian
+calculations. Product matter recognition is what forces rank-one regression; correlations can
+change the conclusion. Chart nonattainment is general for semisimple negative eigenvalues, while
+its \(K=2,3\) consequences do not settle the remaining Jordan cases.
+
+\begin{hygiene}
+Conditions that matter: the real defining representation of \(\GL^+(K)\), nondegenerate matter
+and generator covariances, product recognition where used, distinct reversal pairs for products
+of loop moments, positive-definite self terms for general anchored normalization and hopping,
+and joint normalization of undirected matter. The scalar unanchored theorem needs zero
+information vector; the triangle needs isotropic data, isometric links, and the stated hopping
+bound; the ring needs its isotropic coefficients. These are not results for arbitrary noncompact
+nonabelian networks. Hygiene: finite graph inventories, Gaussian moments, reference measures, and
+the matrix derivative conventions of \SG{sec:glink-setting}.
+\end{hygiene}
+
+\section{Toy versus general}
+
+The energies, current, anchored induced action, and hopping expansion apply at arbitrary finite
+\(N,K\) within their hypotheses, including 512 or more agents. The scalar cycle-rank theorem
+does not settle the matrix problem. The triangle identifies how a positive loop penalty can arise
+from integrating matter out under its isometry and hopping conditions; it is not proved to
+dominate arbitrary large noncompact networks. The ring supplies a spectrum at any finite \(N\),
+but its single cycle term and isotropic matter stiffness are special. Its positive finite gap
+does not exclude collective behavior, critical slowing down, or symmetry breaking in other
+large-network or limiting regimes.
+
+\section{Open ends}
+
+\SG{open:glink-unanchored-normalization} asks whether
+\(\int\nu(d\mathring\omega)\det\Lambda(\mathring\omega)^{-1/2}\) is finite for connected matrix
+multigraphs of cycle rank at least two, positive weights, zero self terms, zero information vector,
+and product nondegenerate Gaussian generator base laws. A proof for every such graph and law at a
+stated \(K\geq2\), or a divergent example in that class, settles the question. Almost-sure
+positive definiteness of conditional precision alone does not settle it.
+
+\SG{open:glink-chart-infimum} concerns negative-trace regression at \(K\geq4\). The unresolved
+candidates have a negative eigenvalue with Jordan blocks of size at least two, paired as required
+for a real logarithm. Excluding every such candidate as a chart minimizer, or exhibiting one that
+attains the infimum for admitted data, settles it. The nonnegative-trace case and the \(K=2,3\)
+cases are already closed negative results. Neither open item blocks the anchored latent-link
+model. Its coarse closure is the separate question \MT{open:link-coarse-closure}, discussed in
+\cref{comp:lie-links}.
+
+\begin{verdictbox}{\DELIVERED}
+\textbf{Claimed.} Gaussian values of transported law divergence, record current and unregularized
+chart behavior, expected loop defects under product recognition, the action induced by undirected
+matter and its hopping expansion, and a ring spectrum, with matrix unanchored normalization and
+the remaining chart-attainment cases left open.
+
+\textbf{Proved.} These calculations and negative results are provided at their stated generality.
+Gaussian integration and the log-determinant expansion are standard in substance; their role here
+is to retain the link-dependent normalizer and distinguish a conditional Gaussian law from the
+whole joint model.
+
+\textbf{Gaps.} No nonlinear convergence, anchor or covariance selection, equality of the full
+induced action with the prior loop action, or large-network limit is proved. The scalar, triangle,
+and ring results ground mechanisms in their named regimes. The two matrix questions and
+latent-link coarse closure remain open.
+\end{verdictbox}
