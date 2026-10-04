@@ -17,6 +17,10 @@ updated: 2026-09-23
 
 # Gauge equivariance and geometric deep learning
 
+## Dynamic link fields, October 3, 2026
+
+The attention links of the program are frame-dressed, $\Theta_{ij}=U_ie^{X_{ij}}U_j^{-1}$, so the generator $X_{ij}$ is reference data and the passive gauge action never touches it. [[dennis-2026-dynamic-links]] uses this to make the links dynamic within a variational model rather than through an imposed equivariance constraint. The generators become latent variables with a normalized prior, and their evolution is inference. Two points matter for the geometric-deep-learning picture. First, curvature on a non-compact structure group cannot be measured by conjugation-invariant functions, which miss unipotent holonomy; the frames supply a reference metric under which the Frobenius defect of the holonomy is gauge invariant and separating. Second, the curvature energy is either a declared prior or, for undirected Gaussian matter, induced by integrating out the states, with Wilson's action at leading order ([[Lattice gauge theory]]).
+
 ## Dressed frames, $\{e\}$-structures and sheaves, September 23, 2026
 
 The v2 revision of the GL(K) attention manuscript separates two kinds of frame covariance. In gauge-equivariant CNNs ([[cohen-2019-gauge-cnn]], [[weiler-2021-coordinate-independent-cnns]]) the frame is geometric data defined only up to the structure group, and weight sharing forces the shared kernels to be intertwiners. In the attention construction the frames $U_i$ are learned. They fix an $\{e\}$-structure, a global frame field ([[weiler-2021-coordinate-independent-cnns]], Sections 2.1.1 and 3.1.3), and act as a local dressing field in the sense of [[fournel-2014-gauge-invariant-composite-fields]]. By criterion (C1) of [[francois-2019-artificial-gauge-symmetries]] the resulting covariance is artificial, the kind Kretschmann called physically vacuous ([[norton-1993-general-covariance]]), and it constrains none of the learned maps. [[Dressing field method]] records the construction.

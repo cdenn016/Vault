@@ -11,7 +11,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-10-02
+updated: 2026-10-04
 ---
 
 # Natural gradient
@@ -131,10 +131,17 @@ Two later notes give the program natural gradients with a stated statistical mod
 
 [[dennis-2026-link-curvature]] pulls the Fisher-Rao metric back through the action $N(\mu,\Sigma)\mapsto N(g\mu,g\Sigma g^\top)$ of a group element: for $\delta g=Ag$ and output Cholesky factor $L'$, $ds^2=\|Z\eta\|^2+2\|\mathrm{sym}Z\|_F^2$ with $Z=L'^{-1}AL'$ and $\eta=L'^{-1}\mu'$, the same metric as in [[dennis-2026-phi-natgrad]] but for a link acting on a source belief. In the exponential chart $A=\frac{e^{\mathrm{ad}_X}-1}{\mathrm{ad}_X}\delta X$. Along $g_t=\mathrm{diag}(e^{-t},1,\dots,1)$ the divergence is $\mathrm{KL}(q_t\|q_0)\sim t=-\log\sigma_{\min}$ and the Fisher-Rao distance is at least $\sqrt2\,t$, so the singular boundary of $\mathrm{GL}(K)$ is at infinite Fisher distance, while in the affine chart with Euclidean metric it is at finite distance $\sigma_{\min}$. An additive update $M\leftarrow M-\eta\Delta$ can cross $\det=0$ in one step when $\eta\|\Delta\|_2\ge\sigma_{\min}(M)$ with $\Delta$ aligned to the smallest singular direction; a multiplicative update $g\leftarrow e^{-\eta A}g$ cannot, since $\det(e^{-\eta A}g)=e^{-\eta\,\mathrm{tr}A}\det g\neq0$. The loss does not diverge there (covariance floors), so the barrier is a property of the update geometry. The note compares with the finished run 54.73 (content learning rate $2.5\times10^{-3}$, AdamW, $\sigma_{\min}$ of the stacked operator $10^{-5}$ to $4\times10^{-3}$) as an order-of-magnitude estimate only, not a measurement of crossings, and states that the link actually applied in that run ($I+M$) stayed far from the boundary. Multiplicative, Fisher-preconditioned updates for the content maps are suggested and not implemented or tested.
 
+## Latent links and the link Fisher (2026-10-03)
+
+When the link generators are latent variables of the free energy ([[dennis-2026-dynamic-links]]), their inference dynamics are a natural-gradient relaxation. For point-mass links the preconditioner is the Fisher information of the transported Gaussian with respect to the generator, $\mathcal I[E,E']=\beta\operatorname{tr}(\bar Q^{-1}L(X,E)S_jL(X,E')^\top)$, with $L$ the Fréchet derivative of the exponential and $S_j$ the source second moment; it is the Gauss–Newton matrix of the transport term and the mean part of the link Fisher pullback above. For Gaussian link posteriors the natural-gradient updates are those of the Bayesian learning rule ([[khan-rue-2023-bayesian-learning-rule]]). These dynamics are first order, with the Fisher information acting as friction; the note obtains inertia only for the maximum a posteriori path over depth, with Euclidean sign (see [[Mass as Fisher information]]).
+
+In the multi-agent theory, [[multiagentelbo-2026-10-04-lie-algebra-links]] proves the general statement (`prop:link-recognition-flow`): the natural-gradient flow of a Gaussian recognition law of the generators has an explicit Euler step that is the Gaussian Bayesian learning rule of [[khan-rue-2023-bayesian-learning-rule]], Eqs. (12) and (37). The flow is first order. Inertia appears only for the most probable history across learning episodes, as a discrete Newton equation of Euclidean sign.
+
 ## Sources
 
 - [[dennis-2026-phi-natgrad]] — belief-Fisher natural gradient for the frame tables; the pullback step as projected Euclidean descent.
 - [[dennis-2026-link-curvature]] — Fisher metric of a group-element link; infinite Fisher distance to the singular boundary; additive versus multiplicative updates (float64 checks, nothing trained).
+- [[dennis-2026-dynamic-links]] — Fisher preconditioning of latent link generators; first-order inference dynamics; Bayesian-learning-rule updates for Gaussian link posteriors.
 - [[dennis-2026-projected-gradient]] — exact Fisher flow and closed-form receiver updates on the gradient attention route.
 - [[amari-1998-natural-gradient]] — the natural gradient as Fisher-preconditioned steepest descent; reparameterization invariance and Fisher efficiency.
 - [[amari-2000-methods-information-geometry]] — Fisher metric and Amari alpha-connections; order-Rényi divergence is a distinct family.
@@ -149,6 +156,7 @@ Two later notes give the program natural gradients with a stated statistical mod
 - [[martens-2010-hessian-free-optimization]] — truncated-Newton background; no audited frame-Fisher M-step is inferred.
 
 - [[ay-2025-natural-gradient-elbo]] — the ambient/constrained distinction and a sufficient
+- [[multiagentelbo-2026-10-04-lie-algebra-links]] — natural-gradient recognition flow of latent link generators; Euler step equals the Gaussian Bayesian learning rule.
   cylindrical-model condition for ELBO/target-KL natural-gradient compatibility.
 - [[lukashchuk-2025-quotient-bayesian-learning]] — a quotient Bayesian learning rule for declared
   marginal families, with scope distinct from the project's passive-frame quotient.

@@ -1,0 +1,196 @@
+# Common brief: integrating dynamic Lie-algebra links into the MultiAgentELBO theory
+
+## Task owner's decision (the author's, not open for debate)
+
+The author has decided that Lie-algebra (exponential-chart) links, promoted to latent dynamic fields, are the
+path forward for the whole theory. The MultiAgentELBO theory is to be repositioned so that its interaction
+links are written in the exponential chart and treated as latent variables with a declared normalized prior,
+inferred jointly with the agents' states by joint descent of the collective free energy. Held links (the
+present structural-data or parameter reading) become the zero-width limit of this construction.
+
+## Where things are
+
+- Theory folder (three documents, one source directory):
+  `C:\Users\chris and christine\Desktop\Research\manuscripts\MultiAgentELBO_Theory`
+  Read `SPEC.md` IN FULL before writing any LaTeX. It fixes prose rules (R1 to R16), the status system
+  (ESTABLISHED, STANDARD, NUMERICAL, NOT-CLAIMED), the notation table (section 3), label prefixes, proof-heading
+  format, and build mechanics. `CONTENT.md` states what the documents contain (Part I is most relevant).
+- Inventory of every link-related statement in the three documents, glyph availability, bibliography keys
+  and proof wiring: `scratchpad/lie_links/inventory.md` (absolute path below).
+- Source material for the new construction (the author's working note, written for the transformer; its
+  depth-by-token lattice must be translated to the agent multigraph at one base point):
+  `C:\Users\chris and christine\Desktop\Research\manuscripts\Attention\dynamic_links.tex`
+  and its float64 checks in `...\Attention\dynamic_links_checks\checks.py`.
+  Background on the exponential chart: `...\Attention\attention_unified.tex` (sections on link origin and the
+  tiled message order by order).
+- Scratch root (write ONLY here, never inside the theory folder):
+  `C:\Users\CHRISA~1\AppData\Local\Temp\claude\C--Users-chris-and-christine-Desktop-VFE-3-0\4e2da218-3dfb-44f7-95ba-4761b2a9cb35\scratchpad\lie_links`
+
+## Existing theory facts the integration must build on (verify against the files)
+
+- Links: `def:geo-graph-links` (c02): `\Theta^x_e\in G` on oriented edge copies `e:j\to i`,
+  `\Theta^x_{\bar e}=(\Theta^x_e)^{-1}`, vertex law `\Theta'=g_i\Theta g_j^{-1}`, path products and holonomy.
+  `prop:geo-edge-twist-invariance`: per-edge twist `\mathring\Theta^x_e=U_i^{-1}\Theta^x_eU_j` relative to a
+  reference point `\sigma` with `u_i=\sigma\cdot U_i^{-1}`; twists are passive-invariant, a reference change
+  conjugates all twists simultaneously.
+- `rem:geo-loop-penalties` (c02): unitary loop penalty in `[0,2]`, Haar-normalizable for compact `G`; no norm
+  on `gl(n)` is invariant under all of `GL(n)`; an SPD fiber metric `\mathsf G^{\mathrm{fib}}` transforming
+  covariantly gives a positive invariant penalty; normalizability for noncompact or general linear `G` is
+  NOT asserted there. The new construction supplies normalizability through the generator chart.
+- `prop:elbo-random-link-vfe` (c05): links as a latent variable with prior `Z^{-1}e^{-\mathscr S}\nu`,
+  recognition `Q(d\Theta,dy)=R(d\Theta)Q_\Theta(dy)`, and
+  `\Fenergy=\E_R\Fenergy_{\mathrm{matter}}+\E_R\mathscr S+\KL(R\Vert\nu)+\log Z_{\mathscr S}`. The new chapter
+  SPECIALIZES this; it does not re-prove it.
+- `prop:gen-exact-normalization` (c04): the joint is a directed latent law composed with conditionally
+  independent normalized record kernels, so it is normalized on any cyclic record hypergraph.
+  `def:gen-undirected-model` (c04): the normalized undirected alternative with normalizer `Z_X`.
+  This is the home of the dichotomy "directed (record-extension) matter induces no link action; jointly
+  normalized undirected matter induces `-\log Z_{\mathrm{matter}}`".
+- Records: `hyp:local-interaction-kernels` (c05), with binary success records `K_a(y,\{1\})=e^{-E(y)}`;
+  the running example's record `a_2` has success probability `\exp(-\frac12|k_2-\rho_b(\Theta^b_{e_2})k_3|^2)`.
+  Transported divergences `\KL(q_i\Vert(\Theta_e)_\#q_j)` are law-point energies (c03).
+- Two timescales (c08): `def:obs-fast-slow-blocks`, `lem:obs-envelope-slow-flow`,
+  `prop:obs-rate-separated-flow`, and `prop:obs-slow-model-link-dichotomy` with links moved at a supplied
+  rate `\varepsilon_\omega`.
+- Supplement G (`g*.tex`): Gaussian realization; `\Gamma_b=\GL^+(K)`; the Laplacian-plus-self-term
+  interaction family `hyp:gauss-global-interaction`; Gaussian information parameters `(\mathsf h,\Lambda)`.
+
+## Architecture of the integration (fixed by the orchestrator)
+
+- New main-manuscript chapter, file `c08b_lie_links.tex`, placed after `c08_two_timescales.tex` as the last
+  chapter of Part I. Chapter label `ch:links`. New labels use the topic prefix `link-` with the heading-type
+  prefix: `def:link-*`, `hyp:link-*`, `prop:link-*`, `thm:link-*`, `lem:link-*`, `cor:link-*`, `rem:link-*`,
+  `open:link-*`, `eq:link-*`, `sec:link-*`. Long proofs may be deferred to a new appendix file
+  `ca_proofs_c08b.tex`.
+- New Supplement G chapter, file `g11_latent_links.tex`, after `g10_reciprocal_pairs.tex`. Chapter label
+  `ch:gauss-latent-links`; labels use the prefix `glink-` (`prop:glink-*`, `eq:glink-*`, ...). It cites the
+  main manuscript and never Supplement B.
+- Existing chapters get only pointer sentences, short remarks, or single statements, added later by the
+  integration agent. Drafting agents do NOT edit any file in the theory folder.
+
+## Notation for the new material (use exactly these; collisions were checked in the inventory)
+
+Convention: every object of the generator sector that lives in reference-point (twist) coordinates on the
+Lie algebra carries a ring accent, like the twist `\mathring\Theta^x_e` itself. All ring-accented Greek
+letters except `\mathring\Theta` are unused in the three documents (verified), so these are free:
+
+| Symbol | Meaning |
+| --- | --- |
+| `\mathfrak g` | Lie algebra of `G` (already used with this meaning in c07 and Supplement B) |
+| `\mathrm d\rho_x` | differential of `\rho_x` at the identity, so `\rho_x(\exp\mathring\omega)=\exp(\mathrm d\rho_x\mathring\omega)` |
+| `\mathring\omega^x_e\in\mathfrak g` | generator of the twist of edge copy `e:j\to i`, channel `x`: `\mathring\Theta^x_e=\exp(\mathring\omega^x_e)`, `\Theta^x_e=U_i\exp(\mathring\omega^x_e)U_j^{-1}`, `\mathring\omega^x_{\bar e}=-\mathring\omega^x_e`. Drop `x` under the common-link specialization `eq:geo-common-link`. |
+| `E_+` | one orientation of each reversal pair of edge copies; the generator family `\mathring\omega=(\mathring\omega^x_e)_{e\in E_+}` takes values in `\mathscr T=\mathfrak g^{E_+}` (per channel) |
+| `\langle\cdot,\cdot\rangle_{\mathsf G}` | inner product on (represented) generators induced by the declared SPD fiber metric `\mathsf G^{\mathrm{fib}}` of `rem:geo-loop-penalties` at the reference point: `\langle A,B\rangle_{\mathsf G}=\Tr((\mathsf G^{\mathrm{fib}})^{-1}A^\top\mathsf G^{\mathrm{fib}}B)` |
+| `\mathring\alpha^x_e\in\mathfrak g` | anchor: mean of the generator prior (a generative parameter, a coordinate of `\theta`) |
+| `\mathring\Sigma^x_e` | prior covariance of the generator: a positive-definite self-adjoint operator on `(\mathfrak g,\langle\cdot,\cdot\rangle_{\mathsf G})` (generative parameter) |
+| `\mathring\mu^x_e`, `\mathring\Lambda^x_e` | mean and precision of a Gaussian recognition law of the generator; the link recognition law is `R` as in `prop:elbo-random-link-vfe` |
+| `\mathfrak Q^x_p` | loop defect of a closed walk `p` (Frobenius defect of the reference-coordinate holonomy measured with `\mathsf G^{\mathrm{fib}}`); `\mathfrak Q` is unused in all three documents |
+| `\mathrm c_p\geq0` | loop coefficients, as in `rem:geo-loop-penalties` |
+| `\mathscr S`, `Z_{\mathscr S}`, `\nu^{\mathscr T}`, `\mathscr T` | link action, its normalizer, base law, link space: the SAME objects as in `prop:elbo-random-link-vfe` (specialized) |
+| `\mathscr S^{\mathrm{ind}}` | induced link action of jointly normalized undirected matter |
+| `\mathbf L(A,E)` | Frechet derivative of the matrix exponential, `\int_0^1e^{sA}Ee^{(1-s)A}ds` (bold L is unused) |
+| `\mathbf J^x_e` | link current (the delta-rule source of the field equation) (bold J is unused) |
+| `\mathbf m` | precision of the generator increment between successive learning episodes (inertial mass of the most probable link history) (bold m is unused) |
+| `\mathbf C` | cycle map from edge generators to loop sums at linear order (bold C is unused) |
+| `\mathbf K` | operator of the linearized link equation (bold K is unused) |
+| `n` | learning-episode index, as in `def:full-graph-episode-joint` (c12); generator history `\mathring\omega^{x,(n)}_e` |
+
+Other secondary symbols: choose from glyphs verified unused in all three documents and list them in your notes:
+Fraktur `\mathfrak i,\mathfrak o,\mathfrak J,\mathfrak U,\mathfrak V,\mathfrak Z`; bold roman `\mathbf b,c,h,i,j,k,l,o,q,t,B,F,G,H,I,M,N,Q,R,S,T,U,V`;
+blackboard `\mathbb H,\mathbb L,\mathbb N,\mathbb O,\mathbb U,\mathbb Y`; any ring-accented Greek letter except
+`\mathring\Theta`. Do NOT use `X` (structural data), `G` as a group element (structure group), `\xi`, `\omega`
+undecorated, `\zeta`, `\Lambda` undecorated (precision in Supplement G, connection-Laplacian form in c10),
+`\lambda` (recognition coordinates), `\sigma` (reference point), `\Phi` (cross morphisms), `V` (agent set),
+`M` (slice measure), `s` (slow coordinates), `\kappa`, `\varkappa`.
+
+## Existing material the construction must connect to (from the inventory; read these)
+
+- `rem:geo-loop-penalties` (c02:422) and the c02 scope paragraph (c02:15-19), which declines normalizability for
+  noncompact `G`: the generator prior discharges it.
+- The formation chapter c13 already realizes latent ABELIAN links: translations `\omega_e` with
+  `\Theta_e(k)=k+\omega_e`, Gaussian configuration priors, a quadratic loop energy and unit-mobility Langevin
+  kinetics (`lem:rg-formation-carrier` c13:160, `def:rg-formation-experiment` c13:216,
+  `def:rg-formation-cycle-experiment` c13:1202, `def:rg-gated-translation-family` c13:1348,
+  `def:rg-formation-kinetics` c13:495). It is the translation-group instance of the new construction; the
+  quadratic loop energy is the loop defect in the affine representation of translations.
+- `cor:pb-orbit-fisher-form` (c07:175): the transported divergence of `\exp(t\xi)` acting on a law is
+  `(t^2/2)\mathfrak k_q(\xi,\xi)+O(t^3)`; the orbit Fisher form is the Fisher information of a transported
+  law with respect to the generator.
+- `def:obs-selective-interface-learning` (c06:987) names a latent link option and states its requirements
+  (a normalized prior, declared dynamics in the augmented state, a regular configuration metric or a
+  justified quotient) without supplying them: the new chapter discharges these.
+- `def:full-graph-episode-joint` and `prop:full-graph-episode-joint` (c12:773, c12:806): learning episodes
+  `n`, the latent route (one joint across episodes with forward transitions through a declared parent
+  readout, filtered predictive priors, free energy decomposing along `n`). A link history prior is a latent
+  route of this kind.
+- `rem:hist-discrete-histories` (c07:849), `eq:hist-vfe-ray-representative`: natural-gradient histories.
+- `def:obs-fast-slow-blocks` (c08:96), `lem:obs-envelope-slow-flow`, `prop:obs-rate-separated-flow`,
+  `prop:obs-slow-model-link-dichotomy` (c08:266, link rate `\varepsilon_{\check\omega}`),
+  `open:obs-slow-manifold` (c08:455). `prop:elbo-exact-m-coordinate` (c05:1035).
+- `rem:gen-appended-energy` (c04:207): an energy appended to the free energy without its log-normalizer is
+  not an evidence bound. `def:full-graph-composite-potential` (c12:324): a "declared link regularizer"
+  outside the bound, which a normalized generator prior can replace inside it.
+- `def:cg-connection-laplacian` (c10:625); `thm:cg-holonomy-kl-marginal` (c10:453);
+  `cor:cg-holonomy-noncompact-gaussian` (c10:531).
+- `def:full-graph-coarse-links`, `prop:full-graph-coarse-links` (c12:563, c12:586): coarse links are dressed
+  fine links, deterministic given trees and partition.
+- Supplement G link-dependent normalizers at fixed links: `prop:cg-normalized-schur-action` (g07:1038),
+  `prop:cg-nonflat-series-pivot` (g07:1640), `thm:cg-nonflat-series-kron` (g07:1701),
+  `prop:obs-normalizer-link-dependence` (g10:139), `prop:obs-holonomy-determinant-factorization` (g10:392),
+  `prop:cg-effective-support` (g08:47), the interaction family `hyp:gauss-global-interaction` (g03:461).
+- Verified citations and BibTeX: `scratchpad/lie_links/citations.md`. Existing keys: `WilsonConfinement1974`,
+  `KogutSusskind1975`, `Creutz1983`, `Creutz1977`, `culver1966existence`, `Higham2008`, `Friston2008DEM`,
+  `Hall2015`, `Amari1998`. New keys with checked BibTeX in citations.md: `MontvayMunster1994`,
+  `KazakovMigdal1993`, `Kenyon2011VectorBundleLaplacian`, `KhanRue2023`, `OpperArchambeau2009`, `Price1958`,
+  `Bonnet1964`, `Schmidhuber1992`, `Ba2016FastWeights`, `Schlag2021`, `WidrowHoff1960`, `OnsagerMachlup1953`,
+  `NajfeldHavel1995`, `VanLoan1978`. Locators CONFIRMED: Culver Thm 1 and Thm 2; Wilson Eq. (3.29);
+  Khan-Rue Eq. (12); Kenyon Thm 1 (line bundles) and Thm 9 (SL2); Van Loan Thm 1; Schlag Sec. 4.2 Eq. (24);
+  Kazakov-Migdal Sec. 2; Creutz Ch. 7 Eq. (7.6) and Ch. 15 Eq. (15.41). Locators NOT confirmed: Higham
+  (Frechet derivative integral), Hall (theorem numbers), Montvay-Munster (section), Kogut-Susskind (section),
+  Opper-Archambeau journal numbering. For unconfirmed locators, PROVE the statement (the derivative of the
+  exponential by Duhamel's formula, the Gaussian gradient identities by Gaussian integration by parts) and tag
+  it ESTABLISHED, citing the source only as attribution.
+
+## Writing rules you must follow (from SPEC.md; read it for the full list)
+
+- Flowing academic paragraphs, American English. No bullet lists in body text. No `\;`, `\,`, `\!`.
+  No horizontal rules. Banned words: key insight, crucially, critically, notably, importantly, it's worth
+  noting, fundamentally, leverages, underscores. Punctuate displays as sentences.
+- Every definition, standing hypothesis, lemma, proposition, theorem, corollary, conjecture, open problem
+  and claim-bearing remark is a numbered statement using `\definitionheading{Title}{label}`,
+  `\propositionheading{...}{...}`, etc. Hypotheses of a result are stated inside the result. The statement
+  runs from its heading to its status tag. Theorem-type statements and claim-bearing remarks carry exactly
+  one tag: `\status{ESTABLISHED}` (proved here), `\status{STANDARD}` (known result, cited to a CHECKED
+  primary source with a theorem/section/equation locator). Do not use NUMERICAL: numerical checks are for
+  our validation only and are not cited in the manuscript.
+- Proofs open a new paragraph with `\noindent\emph{Proof.}` and end with `\hfill$\square$`.
+- Refer to labeled objects only with `\cref`/`\Cref`; never hard-code numbers.
+- No dates, repository paths, code or configuration names, run records, or hashes. Nothing about the
+  transformer implementation, its experiments, or its configuration keys.
+- No hand-waves ("clearly", "one can show", "in the appropriate limit"): discharge by proof, exact
+  condition, or checked citation, or turn the gap into an open problem whose settling condition is
+  restricted to a stated class with both branches nontrivial (R16).
+- Do not use "declared", "normalized", "actual", "complete", "retained", "exact", "fixed" when the word only
+  restates a default (R6).
+- Interpretation (photon analogy, Maxwell, fast weights) goes in at most one short unnumbered paragraph that
+  restates numbered results with `\cref`; physical time and spacetime are declined claims of the manuscript.
+- Citations: natbib `\citep`/`\citet` with keys from the folder's `references.bib`. If a needed key is
+  missing, give a COMPLETE BibTeX entry in your notes file, checked against the primary source (title,
+  authors, venue, volume, pages, year). Never invent a DOI, page range, or quotation. A STANDARD statement
+  needs a checked locator; if you cannot check it, prove the statement and tag it ESTABLISHED.
+- Small networks ground and validate; they do not set direction. A finite-size computation is validation of
+  an identity, never evidence for a general claim.
+
+## Deliverables of every drafting agent
+
+1. A LaTeX fragment (no preamble, no `\chapter`), sections with numbered statements and full proofs,
+   written to your assigned file in the scratch root.
+2. A notes file (Markdown) listing: every label you introduce; every label of other fragments or existing
+   chapters you reference; every citation with its key or full checked BibTeX; open problems you propose,
+   each with a settling condition per R16; and any point where you could not discharge a gap.
+3. A float64 check script (Python, NumPy only; run it with `C:/anaconda/python.exe`) that validates each
+   identity, gradient, and expansion in your fragment at small size, plus its saved output. These are
+   validation, not manuscript claims.
+
+Report back in at most 25 lines: the statements you wrote (label, type, one line each), unresolved gaps,
+and the check results.

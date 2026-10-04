@@ -103,6 +103,8 @@ For first-order flow linearized at a critical point, $\dot\delta=-\eta G^{-1}H_F
 
 Oscillation alone is not evidence for belief inertia. [[baumann-sokolov-tyloo-2020-second-order-consensus]] produces network resonance under periodic coupling, and [[sampson-porter-restrepo-2025-oscillatory-opinion]] produces oscillatory and excitable opinions through group-state feedback without this kinetic mechanism. [[nevin-mandell-atak-1983-behavioral-momentum]] is an empirical resistance-to-disruption comparator, not validation of opinion-level Hamiltonian dynamics.
 
+> [!note] Editorial: [[dennis-2026-dynamic-links]] (October 3, 2026) derives an inertial mass without a kinetic postulate in one restricted setting: the maximum a posteriori path of a latent link field over depth. There the mass is the precision of a declared increment prior, distinct from the restoring stiffness, and the equation of motion has Euclidean sign, motion in the inverted potential. It produces no oscillation, and it says nothing about belief trajectories unless a path prior over beliefs is declared. See [[Mass as Fisher information]].
+
 ## Sources
 
 - [[belief-inertia]] -- immutable historical manuscript note, retained for provenance.

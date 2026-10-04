@@ -14,10 +14,16 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-18
-updated: 2026-10-02
+updated: 2026-10-04
 ---
 
 # Lattice gauge theory
+
+## Latent link generators and the induced Wilson action, October 3, 2026
+
+[[dennis-2026-dynamic-links]] gives the attention links a lattice-gauge dynamics by making their generators latent variables with a prior inside the variational free energy, following the Euclidean reading of the Wilson weight $e^{-S}$ as a probability measure ([[wilson-1974-confinement-quarks]]). The lattice is depth by token: an edge from $(j,\ell)$ to $(i,\ell+1)$ for each causal source, self edges time-like, and elementary loops that compare two-step routes from $(k,\ell)$ to $(i,\ell+2)$. The curvature energy on each loop is the Frobenius defect $\tfrac12\|W-I\|_F^2$ of the reference-coordinate holonomy, which is $K-\operatorname{tr}W$, Wilson's plaquette density, on $O(K)$ and remains separating on $\mathrm{GL}(K)$. The time-like loops contribute the square of a discrete electric field, so the kinetic term comes from the same action as in the Hamiltonian formulation ([[kogut-susskind-1975-hamiltonian-lattice-gauge]]); linearized, the link field equation is a screened, massive Euclidean Maxwell equation. For undirected Gaussian matter, integrating out the states induces $S_{\rm ind}=\tfrac12\log\det J(X)$, bounded below, whose hopping-parameter expansion is a sum of Wilson loops with the triangle term $\frac{\lambda_E^3}{d_id_jd_k}(K-\operatorname{tr}F)$ at leading order (ratio of exact to leading term $1.15\to1.0003$ as the matter gets heavier); in that model the non-compact generator directions acquire edge-local mass terms even on a tree. Directed (causal) matter induces nothing, so in the transformer's causal model the curvature energy is a declared prior.
+
+[[multiagentelbo-2026-10-04-lie-algebra-links]] makes the same move in the multi-agent theory. The link generators are latent fields of the collective evidence bound, with a Gaussian base prior tilted by a loop action $e^{-\mathcal S}$ whose normalizer obeys $e^{-\mathbb E\mathcal S}\le Z\le1$. Directed record extension induces no link action. Jointly normalized undirected matter induces $-\log Z$, one half the log-determinant of the connection Laplacian, and its hopping expansion begins with the Wilson triangle term. Across learning episodes a history prior adds time-like loop defects with a mass $\mathbf m$. The linearized operator $\mathring\Sigma^{-1}+\sum_pc_p\mathbf C^\top\mathbf C+\mathbf m(-\Delta_n)+\text{matter}$ has the structure of a screened, massive Euclidean Proca operator. The Kogut–Susskind Hamiltonian is cited through its derivation from the transfer matrix of the Wilson action in [[creutz-1983-quarks-gluons-lattices]], Chapter 15, Eq. (15.41).
 
 ## Matrix communication links, September 20, 2026
 
@@ -183,6 +189,8 @@ For an inference-derived edge-dependent link, the regression link $W_{ab}=\Sigma
 - [[milnor-1976-left-invariant-metrics]] — $GL^+(K)$ admits no bi-invariant metric, so the electric-term inner product / link metric is a choice.
 - [[arnold-1989-classical-mechanics]] — symplectic/Hamiltonian geometric-mechanics framework behind the Hamiltonian lattice formulation and belief dynamics.
 - [[lee-2012-smooth-manifolds]] — smooth-manifold and fiber-bundle foundations: a lattice gauge field as a discrete principal-bundle connection.
+- [[dennis-2026-dynamic-links]] — latent link generators on a depth-by-token lattice, Frobenius-defect curvature prior with Wilson limit on $O(K)$, kinetic term from time-like loops, induced action and hopping expansion of undirected Gaussian matter.
+- [[multiagentelbo-2026-10-04-lie-algebra-links]] — latent Lie-algebra links in the multi-agent theory: loop-action prior, induced action of undirected matter with Wilson triangle term, time-like loop defects across learning episodes, Proca-type linearized operator.
 
 ## See also
 
