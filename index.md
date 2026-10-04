@@ -10,7 +10,7 @@ updated: 2026-10-04
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **58** manuscripts · **16** themes · **11** field MOCs · **289** concepts · **15** methods · **734** papers · **159** references · **10** runs · **7** web/methodology
+> **3** projects · **59** manuscripts · **16** themes · **11** field MOCs · **289** concepts · **15** methods · **734** papers · **159** references · **11** runs · **7** web/methodology
 
 ## 🧭 Start here
 - [[multiagentelbo-2026-09-26-selection-and-reference-review]] — scoped pairing-selection proof and checked primary-reference archive
@@ -26,6 +26,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 - [[VFE Transformer Program]]
 
 ## 📝 Manuscripts (in preparation)
+- [[dennis-2026-glk-lie-algebra-links-v2]] — main GL(K) attention manuscript revised with Lie-algebra links: exponential-link endpoint law, low-rank split into flat transport plus value-path channel, three content-link charts, closed-form channel-likelihood receiver, inverse-edge triangle holonomy; 58 float64 checks and single-seed K=20 chart runs
 - [[multiagentelbo-2026-10-04-stable-physics-questions]] — eighteen questions on historical consistency, predictive retention, endogenous records, dynamic links, and universality; editable [[Stable_Physics_Research_Questions]].
 - [[dennis-2026-attention-unified]] — unified six-note companion, primary exponential group links, implementation crosswalk, and future GL(K) integration map
 - [[multiagentelbo-2026-10-03-continuous-parent-limits]] — finite continuous budget and exact-arithmetic convergence of expected numerical budgets; fixed-probe randomness and O1/O4 remain open
@@ -1326,6 +1327,8 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[pep-8-style-guide-python-code|PEP 8 - Style Guide for Python Code]]
 
 ## 🧪 Sources — experiment runs
+
+- [[vfe3-2026-10-03-link-charts-and-channel-receiver|VFE_3.0 link charts and channel receiver at K=20, October 3, 2026]] — four matched single-seed WikiText-103 runs: affine, first-order and exponential content-link charts within 0.0037 nats on test; exponential transfers stay in GL+(K) and better conditioned; closed-form channel receiver +0.0276 nats in a configuration that does not isolate it.
 
 - [[multiagentelbo-2026-09-30-pointwise-gaussian-network|Pointwise Gaussian network baseline, September 30, 2026]] — complete held-link Schur parents; ten tiny CPU tests and 45 passing numerical comparisons across five 512-agent cases; formation and evolving-link dynamics remain open.
 

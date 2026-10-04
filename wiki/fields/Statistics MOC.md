@@ -5,7 +5,7 @@ aliases: [field/statistics, Statistics sources, Information theory MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-10-03
+updated: 2026-10-04
 ---
 
 
@@ -268,3 +268,5 @@ or `tag:#field/statistics tag:#cluster/vfe`. See the [[Disciplines MOC]] hub for
 ## Unified attention companion, October 3, 2026
 
 [[dennis-2026-attention-unified]] consolidates exponential-link geometry, Gaussian inference, templates, and frame optimization with a dated implementation crosswalk. Option A is the author-selected primary construction; the file remains separate from the GL(K) manuscripts. No new training or large-network result is claimed.
+
+[[dennis-2026-glk-lie-algebra-links-v2]] (2026-10-04) states the channel-likelihood receiver of the projected-gradient route in the main GL(K) manuscript. With routing weights as likelihood powers, the frozen receiver energy is minimized by the Gaussian power posterior $\xi^\star=\Lambda^{-1}\eta$, $C^\star=\lambda_\alpha\Lambda^{-1}$; it reduces to the predictive head sum in a flat-prior limit, gives a precision-weighted fusion residual at finite prior precision, and its Fisher flow is solved exactly in natural parameters. The profiled coupling $c_0/(b_0+D)$ gives a majorize–minimize step; in the implemented configuration the layer prior equals the incoming state, so the step is a Kalman update.

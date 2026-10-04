@@ -11,16 +11,20 @@ tags:
   - project/transformer
 status: draft
 created: 2026-09-27
-updated: 2026-10-03
+updated: 2026-10-04
 ---
 
 # Projected predictive attention
+
+## Content-link charts, October 4, 2026
+
+The stored content maps are now applied through one of three charts, selected by `content_link_chart` and derived in Section 3 of [[dennis-2026-glk-lie-algebra-links-v2]]. The layer uses an effective receiving map $\widetilde O_h$ in place of $O_h$: $\widetilde O=O$ (affine, which is how the stored maps were applied before the selector existed), $\widetilde O=T^{-1}+O$ (first order: a head-routed flat transport plus the value path) or $\widetilde O=e^{OT}T^{-1}$ (exponential: the resummed message of the shared exponential link $\exp(OT)$). Every statement on this page that involves the content maps holds with $M_h=\widetilde O_hT_h$, including the moment-matched covariance. The three charts represent the same tiled mean maps up to the real-logarithm domain. In the matched $K=20$ runs of [[vfe3-2026-10-03-link-charts-and-channel-receiver]] (two layers, $r=0$, moment matched, single seed) they reached test cross-entropies of 4.80216, 4.80390 and 4.80016 nats, a spread of 0.0037 nats, and the exponential arm kept its transfers in $\mathrm{GL}^+(K)$ with better conditioning. The same derivation shows that with tiled heads complement-preserving aggregation leaves no residual, so the $r=1$ residual of this route has no counterpart in the exponential construction.
 
 ## Unified implementation scope, October 3, 2026
 
 [[dennis-2026-attention-unified]] connects this route to the author's primary Option A exponential-link construction while preserving the distinction between a group link and a weighted multi-source message. The inspected launcher now selects `moment_matched` with `gaussian_diagonal`; passthrough statements below describe the earlier evaluated configuration or the default field. The exact covariance belongs to the declared independent-source/independent-label kernel. Diagonal projection, output floors, and coordinate nonlinear blocks require their stated approximation and symmetry qualifications. The current routing score includes the configured smooth KL cap before division by `kappa_beta * sqrt(d)`.
 
-The attention route of the [[VFE Transformer Program|vfe3 transformer]] selected by `attention_mode="projected_predictive"`, behind the current best results (validation perplexity about 53 at K=64, four layers, WikiText-103). It is the route of [[GL(K) gauge-equivariant attention]] in which a layer replaces the belief mean by a predictive readout instead of taking a gradient step. The full walk-through, with every toggle mapped to its equation, is [[dennis-2026-projected-predictive]]; the general theory is [[dennis-2026-glk-projected-matrix-links-v2]].
+The attention route of the [[VFE Transformer Program|vfe3 transformer]] selected by `attention_mode="projected_predictive"`, behind the current best results (validation perplexity about 53 at K=64, four layers, WikiText-103). It is the route of [[GL(K) gauge-equivariant attention]] in which a layer replaces the belief mean by a predictive readout instead of taking a gradient step. The full walk-through, with every toggle mapped to its equation, is [[dennis-2026-projected-predictive]]; the general theory is [[dennis-2026-glk-lie-algebra-links-v2]] (earlier record: [[dennis-2026-glk-projected-matrix-links-v2]]).
 
 ## The layer
 
@@ -46,4 +50,4 @@ Since the retirement of transported attention, this route and [[Projected gradie
 
 ## Sources
 
-[[dennis-2026-link-origin]], [[dennis-2026-projected-predictive]], [[dennis-2026-projected-gradient]], [[vfe3-2026-10-02-projected-route-consolidation]], [[dennis-2026-glk-projected-matrix-links-v2]], [[dennis-2026-template-routing]], [[vaswani-2017-attention]], [[vilnis-2015-gaussian-embeddings]]
+[[dennis-2026-glk-lie-algebra-links-v2]], [[vfe3-2026-10-03-link-charts-and-channel-receiver]], [[dennis-2026-link-origin]], [[dennis-2026-projected-predictive]], [[dennis-2026-projected-gradient]], [[vfe3-2026-10-02-projected-route-consolidation]], [[dennis-2026-glk-projected-matrix-links-v2]], [[dennis-2026-template-routing]], [[vaswani-2017-attention]], [[vilnis-2015-gaussian-embeddings]]

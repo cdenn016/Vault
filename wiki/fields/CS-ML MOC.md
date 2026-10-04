@@ -44,6 +44,8 @@ updated: 2026-10-04
 
 [[multiagentelbo-2026-10-04-lie-algebra-links]] (2026-10-04) brings latent Lie-algebra links into the multi-agent theory. Their natural-gradient recognition flow has the Bayesian learning rule as its Euler step, and their field equation has the delta-rule current. It does not claim an identification with a trained fast-weight architecture. Drafted by Claude Opus 5.5 and cross-checked by Claude Fable 5.1; nothing trained.
 
+[[dennis-2026-glk-lie-algebra-links-v2]] (2026-10-04) derives the standard multi-head value path as the first-order channel of a group-valued exponential link, with order zero a head-routed flat transport and order two cross-head mixing, and states the implemented `content_link_chart` options as three charts of the same tiled mean maps. In the matched single-seed $K=20$ runs of [[vfe3-2026-10-03-link-charts-and-channel-receiver]] the charts reached test cross-entropies within 0.0037 nats, while the trained links differed in singular-set crossing and conditioning; the closed-form channel receiver was 0.0276 nats worse in a configuration that does not isolate it.
+
 ## vfe3 projected attention routes, October 2, 2026
 
 [[dennis-2026-projected-gradient]] derives the receiver energies, cut-model routing, closed-form natural-parameter updates and profiled self-coupling of the gradient attention route; [[vfe3-2026-10-02-projected-route-consolidation]] records their implementation and the retirement of transported attention (CPU tests only, no training). [[dennis-2026-phi-natgrad]] gives the frame-table optimizers, and [[dennis-2026-neuron-free-agent-theory]] a conditional neuron-free construction (inconclusive for the full target). Synthesis: [[Projected gradient attention]].
