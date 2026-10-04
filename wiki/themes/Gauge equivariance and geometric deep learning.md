@@ -12,10 +12,14 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-09-23
+updated: 2026-10-04
 ---
 
 # Gauge equivariance and geometric deep learning
+
+## Exponential links as charts of the content maps, October 4, 2026
+
+[[dennis-2026-glk-lie-algebra-links-v2]] gives the static form of the frame-dressed links a concrete place in a trained architecture. For the shared low-rank generator built from the value and output maps, the exponential link splits exactly into the flat identification and a selective channel whose first-order part is the familiar multi-head value path, and the linear and exponential links are an exact change of coordinates on the principal-logarithm domain. The equivariance is the same in every chart: costs are invariant and messages covariant under passive frame changes, because every chart uses the content maps only through an effective receiving map. What the chart changes is the group domain and the optimization geometry, not the function class, and the matched runs of [[vfe3-2026-10-03-link-charts-and-channel-receiver]] show that pattern at $K=20$: held-out losses within 0.004 nats per token in single-seed runs, with different singular-set behavior and conditioning of the trained links. Group-valued links also supply inverse edges, so causal attention graphs, which contain no directed cycles through distinct positions, acquire triangle holonomies ([[Holonomy]]).
 
 ## Dynamic link fields, October 3, 2026
 

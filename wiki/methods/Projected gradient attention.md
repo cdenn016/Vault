@@ -12,16 +12,20 @@ tags:
   - project/transformer
 status: draft
 created: 2026-10-02
-updated: 2026-10-03
+updated: 2026-10-04
 ---
 
 # Projected gradient attention
+
+## Main-manuscript derivation and first training run, October 4, 2026
+
+The channel-likelihood receiver and its closed form now appear in the main GL(K) manuscript as Section 7 of [[dennis-2026-glk-lie-algebra-links-v2]]. With the tied measurement $\mathsf P_h=\widetilde O_h^\top$ of the active content-link chart, channel covariance $R_{hj}=T_h\bar C_jT_h^\top+Q_h^{\mathrm{ch}}$ and the routing weights as likelihood powers, the minimizer $\xi^\star=\Lambda^{-1}\eta$, $C^\star=\lambda_\alpha\Lambda^{-1}$ is the Gaussian power posterior. The first training run of this route is the receiver arm of [[vfe3-2026-10-03-link-charts-and-channel-receiver]] ($K=20$, two layers, exponential chart, closed form, damping 1, single seed): test cross-entropy 4.82773 nats, 0.0276 above the matched exponential predictive arm. In that configuration the layer prior equals the incoming state at every episode start, so the profiled coupling stays at $c_0/b_0=1$ and each layer applies a Kalman update of the incoming mean, $\mu^+=\mu+(\Sigma_p^{-1}+\Lambda^{\mathrm{ch}})^{-1}(\eta^{\mathrm{ch}}-\Lambda^{\mathrm{ch}}\mu)$. The covariance is passed through rather than moment matched, so the gap does not isolate the receiver.
 
 ## Unified receiver interpretation, October 3, 2026
 
 [[dennis-2026-attention-unified]] reconciles the receiver note with the implemented channel-likelihood and closed-form paths. Its frozen expected-log-likelihood energy has a normalized generalized-posterior or variational-coordinate interpretation. It generally differs from the receiver marginal obtained by conditioning on each source separately and mixing those normalized posteriors, so the earlier blanket phrase "exact cut inference" requires that distinction. Full-family natural-parameter interpolation has the stated frozen-objective descent result. Diagonal damping lacks that guarantee; covariance clamps also qualify an unconstrained minimizer claim. The active launcher remains predictive, so these are reachable alternatives rather than the selected receiver.
 
-The attention route of the [[VFE Transformer Program|vfe3 transformer]] selected by `attention_mode="projected_gradient"`. It shares routing and matrix links with [[Projected predictive attention]] but, instead of assigning a predictive readout, moves each receiving token's Gaussian state against a receiver energy with the incoming snapshot frozen. The theory is [[dennis-2026-projected-gradient]]; the implementation history is [[vfe3-2026-10-02-projected-route-consolidation]]. As of October 2, 2026 it is one of the two executable routes, and it has no training result with its current receiver.
+The attention route of the [[VFE Transformer Program|vfe3 transformer]] selected by `attention_mode="projected_gradient"`. It shares routing and matrix links with [[Projected predictive attention]] but, instead of assigning a predictive readout, moves each receiving token's Gaussian state against a receiver energy with the incoming snapshot frozen. The theory is [[dennis-2026-projected-gradient]]; the implementation history is [[vfe3-2026-10-02-projected-route-consolidation]]. As of October 2, 2026 it is one of the two executable routes; its first training run with the current receiver is the October 3 receiver arm of [[vfe3-2026-10-03-link-charts-and-channel-receiver]].
 
 ## Routing and the cut model
 
@@ -40,7 +44,7 @@ The update is either `euler` (the PR #30 step) or `closed_form` (default): the e
 
 Since PR #38 the self-coupling $\alpha$ may be state dependent, $\alpha^\star=c_0/(b_0+\mathrm{KL}(q\Vert p))$, recomputed at each iteration. The profiled energy is $c_0\log(b_0+D)+G$; its gradient is the frozen-$\alpha$ force by the envelope theorem, and the closed-form step at frozen $\alpha$ is a majorize-minimize step because the logarithm lies below its tangent, so the profiled energy does not increase at $\rho=1$. A per-coordinate form is exact on the diagonal family but tied to the local basis; its full-family closed form is derived and checked at $K=4$ but not implemented.
 
-> [!note] Editorial: The profiled rule is the same $\alpha^\star=c_0/(b_0+D)$ anchor that appears in the multi-agent model; on the transformer route it is a receiver-level choice whose effect on training is untested. Whether the channel receiver with closed-form updates reaches the predictive route's loss is the deciding experiment, and none has been run.
+> [!note] Editorial: The profiled rule is the same $\alpha^\star=c_0/(b_0+D)$ anchor that appears in the multi-agent model; on the transformer route it is a receiver-level choice whose effect on training is untested; in the one trained configuration it stayed at its starting value. One single-seed run at $K=20$ ([[vfe3-2026-10-03-link-charts-and-channel-receiver]]) places the closed-form channel receiver 0.0276 nats above the predictive route under a different covariance contract, so a matched multi-seed comparison remains the deciding experiment.
 
 ## Fusion residual and the exponential link, October 2026
 
@@ -52,4 +56,4 @@ At finite precision the channel-likelihood receiver yields a partial residual in
 
 ## Sources
 
-[[dennis-2026-link-origin]], [[dennis-2026-projected-gradient]], [[vfe3-2026-10-02-projected-route-consolidation]], [[dennis-2026-projected-predictive]], [[dennis-2026-glk-projected-matrix-links-v2]], [[blei-2017-variational-inference]], [[bishop-2006-pattern-recognition-machine-learning]]
+[[dennis-2026-glk-lie-algebra-links-v2]], [[vfe3-2026-10-03-link-charts-and-channel-receiver]], [[dennis-2026-link-origin]], [[dennis-2026-projected-gradient]], [[vfe3-2026-10-02-projected-route-consolidation]], [[dennis-2026-projected-predictive]], [[dennis-2026-glk-projected-matrix-links-v2]], [[blei-2017-variational-inference]], [[bishop-2006-pattern-recognition-machine-learning]]

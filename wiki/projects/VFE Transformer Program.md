@@ -19,6 +19,10 @@ updated: 2026-10-04
 
 # VFE Transformer Program
 
+## Lie-algebra links in the main manuscript and the chart runs, October 4, 2026
+
+[[dennis-2026-glk-lie-algebra-links-v2]] integrates the exponential links of Option A, the three implemented `content_link_chart` options and the `channel_likelihood`/`closed_form` receiver into the main GL(K) manuscript (revision drafted by Claude Opus 5.5; 58 float64 identity checks; no cross-model review). The charts apply the stored maps through the effective receiving maps $\widetilde O=O$, $T^{-1}+O$ and $e^{OT}T^{-1}$, which represent the same tiled mean maps up to the real-logarithm domain. The first training runs of the selector and of the receiver are recorded in [[vfe3-2026-10-03-link-charts-and-channel-receiver]]: at $K=20$ with two layers and one seed the three predictive charts reached test perplexities 121.77, 121.98 and 121.53 (within 0.0037 nats per token), the exponential chart kept its trained transfers in $\mathrm{GL}^+(K)$ with better conditioning, and the closed-form channel receiver reached 124.93 in a configuration where its profiled coupling was inert and its covariance was passed through. Replicate seeds and the $K=256$ configuration remain open.
+
 ## Backpropagation-free generative language architecture, October 4, 2026
 
 [[dennis-2026-backprop-free-vfe-language-architecture]] develops a proposed fully non-neural continuation of the program. It replaces target-blind forward refinements and outer backpropagation with a declared causal latent-agent model: prefix-only fast beliefs and finite-entropy link posteriors infer current context; persistent template, channel, anchor, and hyperprior variables learn slowly through posterior statistics or local analytic scores. Two normalized observation laws are specified: a probabilistic vocabulary tree driven by a link-bearing Gaussian state, and a contextual Gaussian-template kernel with categorical concept emissions. The latter's observation-to-carrier score is $\gamma-\rho$, so the contextual normalizer is part of the learning signal. The report separates exact model-evidence or fixed-$q$ ELBO learning from the perplexity of a finite deployed inference schedule.
@@ -141,6 +145,7 @@ Run artifacts (checkpoints, `metrics.csv`, `config.json`, figures) now persist u
 
 | run | K / heads | dataset | test ppl | finding |
 |-----|-----------|---------|----------|---------|
+| [[vfe3-2026-10-03-link-charts-and-channel-receiver]] | 20 / 2 | wikitext-103 | 121.53 to 124.93 (4 single-seed runs) | affine, first-order and exponential content-link charts within 0.0037 nats on test, consistent with one function class; first-order layer-0 transfer crossed the singular set, exponential transfers stayed in $\mathrm{GL}^+(K)$ and better conditioned; closed-form channel receiver $+0.0276$ nats with inert profiled coupling and passthrough covariance |
 | [[vfe3-2026-10-02-projected-route-consolidation]] | tiny CPU configs | none | none (implementation record) | gradient route receiver laws and closed-form updates; profiled $\alpha$; transported attention and five gauge groups retired; so_n reconnected (equal irrep blocks); equivariance residuals about $10^{-13}$ |
 | [[2026-09-28-k20-ablation-set]] | 20 / 2 | wikitext-103 | 109.23 to 160.05 (15 single-seed runs) | KL-to-bank decoder $-17.2$ PPL through learned per-class precisions; learned positional frames $+13.7$ if removed; reference decoder costs $+7.5$ (KL decoder) but the covariant block MLP is free; sigma tables nearly static yet load-bearing; belief-Fisher phi step $+11.1$ behind AdamW (stateless, untuned) |
 | `2026-07-18-phi-pullback-group-k10-partial-negative-result` | 10 / 2 | wikitext-103 | validation PPL 365.57 at step 9,000 (partial) | rebuilt stateless phi pullback-group descent is stable but slow at `m_phi_lr=0.01`; user-reported AdamW gap lacks a retained matched K=10 comparator, so the LR sweep remains required |
@@ -208,7 +213,7 @@ Next steps, in rough priority order:
 
 **Related project:** [[Gauge-Theoretic Multi-Agent VFE Model]] — the multi-agent, continuous-time instantiation of the same GL(K)-gauge VFE theory (this transformer is the language-model instantiation).
 
-**Manuscripts:** [[gl-k-attention]] · [[participatory-it-from-bit]] · [[dennis-2026-projected-predictive]] · [[dennis-2026-projected-gradient]] · [[dennis-2026-phi-natgrad]] · [[dennis-2026-template-routing]] · [[dennis-2026-neuron-free-agent-theory]] · [[dennis-2026-link-origin]] · [[dennis-2026-link-curvature]] · [[dennis-2026-dynamic-links]]
+**Manuscripts:** [[gl-k-attention]] · [[dennis-2026-glk-lie-algebra-links-v2]] · [[participatory-it-from-bit]] · [[dennis-2026-projected-predictive]] · [[dennis-2026-projected-gradient]] · [[dennis-2026-phi-natgrad]] · [[dennis-2026-template-routing]] · [[dennis-2026-neuron-free-agent-theory]] · [[dennis-2026-link-origin]] · [[dennis-2026-link-curvature]] · [[dennis-2026-dynamic-links]]
 
 **Methods (attention routes):** [[Projected predictive attention]] · [[Projected gradient attention]] · [[Template routing]]
 
