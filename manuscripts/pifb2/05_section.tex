@@ -28,6 +28,49 @@ The local sections $\zeta_i$ are marginals of $Q$, with dependence on the record
 
 The generative law reads latent coordinates and declared parameters, not the live recognition law $Q$. A model evaluator may read a latent model presentation $m_i$. Replacing a generative factor by another agent's current posterior changes the model during inference and requires a separate predictive, conditional or learning interpretation.
 
+\subsection{Latent links share the evidence bound}\label{sec:latent_link_bound}
+The held-link model extends by treating the generators of Eq.~\eqref{eq:pifb_latent_link_chart} as latent coordinates. For one channel put $\mathcal T=\mathfrak g^{E_+}$ and choose an inner product, Gaussian anchors $\mathring\alpha_e$ and positive-definite prior covariances $\mathring\Sigma_e$ on its summands. Define
+\begin{equation}
+\begin{aligned}
+\nu^{\mathcal T}&=\bigotimes_{e\in E_+}\mathcal N(\mathring\alpha_e,\mathring\Sigma_e),\\
+\mathcal A_{\mathrm{loop}}(\mathring\omega)&=\sum_{p\in\mathbb L}c_p\mathfrak Q_p(\mathring\omega),\qquad c_p\geq0,\\
+P_{\mathrm{gen}}(d\mathring\omega)&=Z_{\mathrm{loop}}^{-1}e^{-\mathcal A_{\mathrm{loop}}(\mathring\omega)}\nu^{\mathcal T}(d\mathring\omega),\\
+Z_{\mathrm{loop}}&=\mathbb E_{\nu^{\mathcal T}}e^{-\mathcal A_{\mathrm{loop}}}.
+\end{aligned}
+\label{eq:pifb_generator_prior}
+\end{equation}
+Here $\mathbb L$ is a supplied finite family of closed walks, and $\mathfrak Q_p$ measures the defect of their represented reference holonomy. For a real vector representation $\rho$ and a positive-definite fiber matrix $\mathsf G^{\mathrm{fib}}$ at the reference, take
+\begin{equation}
+\begin{aligned}
+\mathfrak Q_p&=\tfrac12\|I-\rho(\mathring\Theta_p)\|_{\mathsf G}^2,\qquad
+\mathring\Theta_p=\prod_{e\in p}^{\mathrm{ordered}}\exp(\mathring\omega_e),\\
+\|A\|_{\mathsf G}^2&=\operatorname{tr}[(\mathsf G^{\mathrm{fib}})^{-1}A^\top\mathsf G^{\mathrm{fib}}A].
+\end{aligned}
+\label{eq:pifb_metric_loop_defect}
+\end{equation}
+The reversed-edge convention determines each factor. The action is finite, nonnegative and Gaussian-integrable, giving $0<e^{-\mathbb E_{\nu^{\mathcal T}}\mathcal A_{\mathrm{loop}}}\leq Z_{\mathrm{loop}}\leq1$~\cite[Ch.~9, Normalization and covariance of the generator prior]{DennisGaugeVFE2026}. This supplies a proper generator prior for noncompact groups without invoking a finite Haar law. Passive frame changes leave the defect unchanged; a reference change must carry the fiber metric and the Gaussian data. Holding the metric matrix fixed leaves only the narrower reference symmetry acting by multiples of its isometries. On $\mathrm{GL}(K)$ a continuous conjugacy-class function cannot distinguish every unipotent holonomy from identity, so the metric is substantive modeling data~\cite[Ch.~9, Continuous class functions are blind to unipotent holonomy]{DennisGaugeVFE2026}.
+
+Let $\mathbb P_{\mathring\omega}(dy,dJ,do\mid X)$ be the normalized population law conditional on $\Theta(\mathring\omega)$. Structural data $X$ contain the graph, frames and interfaces, while anchors and covariances are fixed generative parameters during recognition. Then
+\begin{equation}
+\mathbb P(d\mathring\omega,dy,dJ,do\mid X)
+=P_{\mathrm{gen}}(d\mathring\omega)\mathbb P_{\mathring\omega}(dy,dJ,do\mid X).
+\label{eq:pifb_latent_population_joint}
+\end{equation}
+It has unit mass by conditional integration, even with cyclic interaction records. For a joint recognition law $Q(d\mathring\omega,dy,dJ)=R(d\mathring\omega)Q_{\mathring\omega}(dy,dJ)$ the conditional relative-entropy chain rule yields
+\begin{equation}
+\boxed{\begin{aligned}
+\mathcal F_V[Q;X,o]
+&=D_{\mathrm{KL}}(R\|P_{\mathrm{gen}})
++\mathbb E_R\mathcal F_V[Q_{\mathring\omega};X,\Theta(\mathring\omega),o],\\
+D_{\mathrm{KL}}(R\|P_{\mathrm{gen}})
+&=D_{\mathrm{KL}}(R\|\nu^{\mathcal T})+\mathbb E_R\mathcal A_{\mathrm{loop}}+\log Z_{\mathrm{loop}}.
+\end{aligned}}
+\label{eq:pifb_latent_collective_vfe}
+\end{equation}
+The first identity has the extended-real meaning under bounded record densities and positive conditional evidence; the second uses finite generator divergence and action expectation. It is the latent-link collective bound of the mathematical counterpart~\cite[Ch.~9, Normalization, evidence, and the conditional decomposition]{DennisGaugeVFE2026}. In particular, the loop term enters with its normalizer. The identity admits generator--matter correlations; the product $R\otimes Q_Y$ used in the Gaussian stationarity calculation below is a recognition restriction.
+
+Making generators latent does not convert a comparison between live recognition laws into a fixed generative likelihood. The separate consensus potential below retains its original status. Held-link calculations remain conditional calculations; Gaussian matter conditional on a generator can have a non-Gaussian marginal. Under the counterpart's held-limit hypotheses, narrowing the generator prior to its anchor recovers the held-link free-energy infimum. Narrowing recognition alone against a fixed-width prior instead gives infinite divergence in the point-mass limit~\cite[Ch.~9, Held links are the zero-width limit; Link field equation]{DennisGaugeVFE2026}.
+
 \subsection{Selective records place the links inside the functional}
 For a linear Gaussian comparison record, take
 \begin{equation}
