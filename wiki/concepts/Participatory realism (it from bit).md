@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-08-13
+updated: 2026-10-04
 ---
 
 # Participatory realism (it from bit)
@@ -185,3 +185,16 @@ vanishing only at perfect post-detection consensus. In the single reported run, 
 - [[Explanatory gap]]
 - [[Mathematical consciousness science]]
 - [[Collective active inference]]
+
+## Stable physics and accumulated histories: October 2026 agenda
+
+> [!note] Editorial: Research questions, not established physical emergence
+> [[multiagentelbo-2026-10-04-stable-physics-questions]] records a user-directed investigation and links the editable [[Stable_Physics_Research_Questions]]. Its proposals retain the current single-point scope.
+
+The current candidate sequence is historical compatibility, predictive retention, persistence of record carriers, inherited formation, and a possible common effective law across microscopic models. These are separate obligations. The live memory theorem already decomposes forward path error into lost history information and error in the predictor built from what remains. The open issue is how the dynamics selects and maintains useful retained states.
+
+A specific temporal question precedes a Wheeler-style indefinite history: the current finite generator-history Gibbs laws have horizon-dependent backward normalizers. Extending their terminal horizon can change earlier marginal laws. This is a documented source distinction, not a failure of filtering within a fixed joint. The agenda compares finite-horizon interpretation, explicitly changed causal kernels, and compatible boundary or limiting constructions. It assumes none is already the physical answer.
+
+Passive gauge re-expression preserves predictions when all model ingredients transform consistently. It does not itself alter experience or create different effective geometries. Historical passages on this page linking changes of gauge representatives to changes of perceived geometry must be read with the earlier covariant-pullback correction and the live PIFB2 sections 22–23. A change of agent state, access channel, or dynamics is a separate operation. Shared evolution and zero transported disagreement do not, alone, select physical law.
+
+The nearest questions concern the intended history convention, attainable future protocols, where a parent stores predictive history, and whether the actual induced parent can support another formation episode. The Proca-type link response is a conditional Euclidean result with a current-dependent Hessian correction, not yet an identification of a physical force or clock.
