@@ -326,6 +326,10 @@ These mechanisms live in two Layer-6/7 modules of `MAgent_Model`:
 
 It is exercised by the `'hierarchy'` preset (species × coalition gated membership + condensation, manuscript §4.2) and feeds the `'ouroboros'` multi-scale tower (§4.5–4.7). The construction grounds out in the source manuscript [[participatory-it-from-bit]], which develops the participatory "It From Bit" loop the meta-agent / top-down cycle realizes. It composes with the related concepts [[Multi-agent variational free energy]], [[Agents as fibre-bundle sections]], [[Meta-entropy]] (the thermodynamic counting of belief configurations), [[Renormalization-group flow of beliefs]], and [[Ouroboros multi-scale dynamics]]; the Hamiltonian / inertial belief regime is developed in [[Belief inertia]] and [[belief-inertia]].
 
+## Predictive retention criterion for language parents, October 4, 2026
+
+[[dennis-2026-backprop-free-vfe-language-architecture]] gives a causal language-oriented criterion that sharpens the existing operational parent contract. A proposed word, phrase, or idea parent must retain enough of the consumed prefix to predict future tokens at a declared memory budget; internal coherence, sharp membership, or a higher coarse ELBO is insufficient. For a deterministic retained prefix statistic, the excess one-step log loss decomposes into discarded conditional mutual information plus decoder error. The source treats explicit-duration parents, finite grammar/tree hypotheses, and Bayesian context memory as candidate non-neural parent laws. It leaves activation rules, practical retention tests, and semantic composition open, and does not convert finite formation constructions into a general language-hierarchy result.
+
 ## Sources
 
 - [[participatory-it-from-bit]] — source manuscript: gauge-covariant multi-agent variational inference on a $GL(K)$-bundle, with the Ouroboros meta-agent emergence simulation that this construction implements.

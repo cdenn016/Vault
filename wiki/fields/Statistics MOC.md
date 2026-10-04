@@ -183,6 +183,10 @@ views:
 
 [[multiagentelbo-2026-09-12-finite-depth-dynamical-rg]] records repeated nonlinear formation, exact normalized parent composition and separate finite-depth entropy and path estimates. Supplied weights and depth-dependent constants remain explicit.
 
+## Backpropagation-free gauge-VFE language construction, October 4, 2026
+
+[[dennis-2026-backprop-free-vfe-language-architecture]] records an exploratory non-neural causal model with analytic local learning, link-bearing categorical observations, and explicit boundaries between ELBO/model evidence and finite-predictor perplexity. Its small CPU checks are formula grounding only; scalable inference and language performance remain open.
+
 ## Cross-facet pivots
 Compose with the topic facet via tag search — e.g. `tag:#field/statistics tag:#cluster/info-geometry`
 or `tag:#field/statistics tag:#cluster/vfe`. See the [[Disciplines MOC]] hub for all fields.

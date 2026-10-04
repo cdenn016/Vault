@@ -10,7 +10,7 @@ updated: 2026-10-04
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **57** manuscripts · **16** themes · **11** field MOCs · **289** concepts · **15** methods · **734** papers · **159** references · **10** runs · **7** web/methodology
+> **3** projects · **58** manuscripts · **16** themes · **11** field MOCs · **289** concepts · **15** methods · **734** papers · **159** references · **10** runs · **7** web/methodology
 
 ## 🧭 Start here
 - [[multiagentelbo-2026-09-26-selection-and-reference-review]] — scoped pairing-selection proof and checked primary-reference archive
@@ -40,6 +40,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 - [[dennis-2026-projected-gradient]] — projected gradient route: ambient versus channel-likelihood receiver energies, cut routing, exact natural-parameter updates, profiled self-coupling as MM; float64 identity checks, no training result
 - [[dennis-2026-phi-natgrad]] — frame-chart geometry: Frobenius pullback as projected descent on U, belief-Fisher natural gradient for the frame tables, and (from the design record) the content-link spectrum; no training result in the note
 - [[dennis-2026-neuron-free-agent-theory]] — rigorous theory search: conditional neuron-free agent construction in one constrained ELBO; INCONCLUSIVE for the full target
+- [[dennis-2026-backprop-free-vfe-language-architecture]] — exploratory causal non-neural language architecture: normalized vocabulary-tree and contextual-template observations, local link/model learning, and predictive parent criteria; no training or performance result
 - [[multiagentelbo-2026-09-26-conditioned-parent]] — actual prefix-conditioned parent activation, own-law learning, and vanishing conditional-information and path errors after late coherence
 - [[multiagentelbo-2026-09-28-early-parent]] — parent on the seeded early first-contrast prefix at every mobility up to 1 (including T^(1/8)): vanishing conditional and path errors after hidden thermalization, divergence at the first-completion clock
 - [[multiagentelbo-2026-09-26-selected-coherence]] — actual-path coherent persistence and the early first-block null

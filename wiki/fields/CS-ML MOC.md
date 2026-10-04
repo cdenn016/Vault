@@ -91,6 +91,10 @@ views:
       - year
 ```
 
+## Backpropagation-free gauge-VFE language construction, October 4, 2026
+
+[[dennis-2026-backprop-free-vfe-language-architecture]] records an exploratory non-neural causal model with analytic local learning, link-bearing categorical observations, and explicit boundaries between ELBO/model evidence and finite-predictor perplexity. Its small CPU checks are formula grounding only; scalable inference and language performance remain open.
+
 ## Cross-facet pivots
 Compose with the topic facet via tag search — e.g. `tag:#field/cs-ml tag:#cluster/attention`
 or `tag:#field/cs-ml tag:#cluster/info-geometry`. See the [[Disciplines MOC]] hub for all fields.

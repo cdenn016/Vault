@@ -129,6 +129,8 @@ degeneracy ($\partial F_{red}/\partial\tau = \mathrm{KL}(\beta\|\pi)\ge 0$) make
 hyperparameters unlearnable by any free-energy descent. Design stage only; the EqProp theorem's
 equilibrium premise does not hold under truncated settling, so gates replace guarantees.
 
+**A causal generative route without through-trajectory backpropagation (October 4, 2026).** [[dennis-2026-backprop-free-vfe-language-architecture]] specifies a distinct route from the earlier EqProp proposal. A fully declared prefix-causal joint provides observations that update fast states, labels, links, and slow statistical models; local complete-data scores and posterior statistics provide learning credit without reverse-mode differentiation through the inference trajectory. Its exact-likelihood identity applies at an exact posterior, and a held approximate $q$ supplies a fixed-$q$ ELBO step. Neither fact makes the update the gradient of a finite deployed predictor. The source insists on scoring one prefix forecast before assimilating the token and on retaining normalizers in contextual-template and loop-prior learning. It contributes two candidate categorical sensors, but practical nonconjugate inference and matched predictive evaluation remain open.
+
 **Amortization and iterative refinement.** VAEs and iterative-amortized methods provide
 recognition-network and learned-optimizer precedents. The pure transformer contains neither:
 it carries model and belief states explicitly and applies finite target-blind refinements.

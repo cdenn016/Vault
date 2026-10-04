@@ -58,6 +58,10 @@ Reading the attention output as a Gaussian message about the state, the exact po
 
 > [!note] Editorial: These sections summarize later revisions of the explainer (worked example, social reading, structured posterior) made after [[dennis-2026-template-routing]] was recorded. With `predictive_covariance="moment_matched"` on the [[Projected predictive attention|projected predictive route]], the template step receives a context-dependent $\Sigma_i$ for the first time, which is the prerequisite for any of the uncertainty-dependent behavior above.
 
+## Causal contextual-template direction, October 4, 2026
+
+[[dennis-2026-backprop-free-vfe-language-architecture]] gives the structured Gaussian-template posterior a causal language-model role. A link-dependent carrier $m$ conditions a normalized joint template/state kernel, and a categorical emission from the template produces the token. Before observation the predictive responsibilities are $\rho_c(m)$; after a token they become $\gamma_c$. The local carrier score is the posterior-minus-predictive responsibility contrast $\sum_c(\gamma_c-\rho_c)[-(\Lambda_c+R)^{-1}(m-\nu_c)]$, so the normalizer cannot be discarded. This is a candidate generative observation law rather than the existing gaussian_template block implementation, and it does not make prototype or covariance learning conjugate.
+
 ## Open questions
 
 Whether template routing matches the GELU MLP at matched parameters and seeds; whether softmax competition needs more templates than independent gates; whether trained templates are interpretable (inspect top-responsibility tokens); whether routing correlates with $\mathrm{tr}\,\Sigma_i$ as predicted. The last is uncertain in practice because the belief covariance in recent runs has behaved as a near-static prior (see [[VFE Transformer Program]], 2026-06-29 finding). Extensions not built: covariant form, regression blocks $B_a$, independent gates, covariance update, joint softmax over peers and templates.
