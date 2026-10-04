@@ -1,0 +1,199 @@
+% !TeX root = ../PIFB2.tex
+\section{Lie-Algebra Links as Latent Relations}\label{sec:latent_lie_links}
+
+The latent extension of Section~\ref{sec:latent_link_bound} makes the relation between agents an inferred quantity within the same normalized population model. At the fixed base point $c_*$, an independent invertible link has an exponential generator $\mathring\omega_e\in\mathfrak g$, and $R$ recognizes the generator family on $\mathcal T=\mathfrak g^{E_+}$. This section uses one common channel with representation $\rho$; separate belief and model channels have their own generator blocks. The ring accent distinguishes these coordinates from agent means and covariances. The Gaussian anchor, loop action and episode law are supplied generative structure. Inference adjusts their recognition without deriving their choice from the evidence bound.
+
+Two meanings of a dynamic link must be distinguished. Recognition can relax as a record is assimilated through a first-order inference flow. A generative law across learning episodes can instead penalize link increments and assign a most probable history. The second construction supplies a history stationarity equation with inertia; it does not turn recognition into a second-order flow. Both constructions concern relations among agents at $c_*$ and introduce no transport between base points.
+
+\subsection{The expected link field equation}
+\label{sec:latent_link_field}
+Hold the agents' recognition $Q_Y$ and restrict the joint recognition to $R\otimes Q_Y$,
+with $R=\mathcal N(\mathring\mu,\mathring\Lambda^{-1})$ and $\mathring\Lambda\succ0$.
+Let $\mathring\alpha$ and $\mathring\Sigma\succ0$ be the generator anchor and prior
+covariance, and write $\mathcal A_{\mathrm{loop}}$ for the nonnegative loop action.
+For the complete held-link joint density define
+$H_o(\mathring\omega,y)=-\log p(o,y\mid X,\Theta(\mathring\omega))$.
+Under the primary theory's integrability and dominated derivative conditions,
+Gaussian mean and precision stationarity are
+\begin{equation}
+\boxed{\begin{aligned}
+\mathring\Sigma^{-1}(\mathring\mu-\mathring\alpha)
++\mathbb E_R\nabla\mathcal A_{\mathrm{loop}}
+&=-\mathbb E_{R\otimes Q_Y}\nabla H_o,\\
+\mathring\Lambda
+&=\mathring\Sigma^{-1}+\mathbb E_R\nabla^2\mathcal A_{\mathrm{loop}}
++\mathbb E_{R\otimes Q_Y}\nabla^2 H_o.
+\end{aligned}}
+\label{eq:latent_link_stationarity}
+\end{equation}
+An edge-block or diagonal Gaussian family projects the precision equation onto its
+admitted blocks. These are stationarity conditions within that family. Every
+link-dependent part of the held joint belongs in $H_o$, including a latent law or
+normalizer when present~\cite[Ch.~9, Proposition \emph{Link field equation}]{DennisGaugeVFE2026}.
+
+Put $M_e=\exp(\mathrm d\rho\mathring\omega_e)$ in reference coordinates and define
+$\mathbf J_e=-\mathbb E_{Q_Y}\partial H_o/\partial M_e$. With the matrix trace pairing
+and its generator adjoint, the edge component is
+\begin{equation}
+\begin{split}
+(\mathring\Sigma_e)^{-1}(\mathring\mu_e-\mathring\alpha_e)
++\mathbb E_R\nabla_e\mathcal A_{\mathrm{loop}}
+={}&\mathbb E_R\left[(\mathrm d\rho)^\top
+\mathbf L\bigl((\mathrm d\rho\mathring\omega_e)^\top,\mathbf J_e\bigr)\right],\\
+\mathbf L(B,T)={}&\int_0^1e^{uB}Te^{(1-u)B}du.
+\end{split}
+\label{eq:latent_link_current}
+\end{equation}
+The Fr\'echet derivative pulls the matrix current back through the exponential;
+averaging gives the stress balance of the prior. Evaluating this only at
+$\mathring\mu$ would be a further approximation.
+
+For a comparison record with energy $\tfrac12(k_i-M_ek_j)^\top W_a(k_i-M_ek_j)$
+and $W_a\succ0$, the current includes mean mismatch and uncertainty:
+\begin{equation}
+\mathbf J_e=W_a\left[(\mu_i-M_e\mu_j)\mu_j^\top+\Sigma_{ij}-M_e\Sigma_j\right].
+\label{eq:latent_link_delta_current}
+\end{equation}
+Here $\Sigma_{ij}$ is the cross covariance under $Q_Y$, zero for product matter.
+The error outer product has the delta-rule form, while the remaining terms retain
+dependence and source uncertainty. Selective source records insert their recognized
+weight and comparison maps, with a generator-independent recognition row in the
+displayed specialization~\cite[Ch.~9, Corollary \emph{The current of a comparison record}]{DennisGaugeVFE2026}.
+This form does not identify a fast-weight architecture. A point mass at $\mathring\mu$
+has infinite $D_{\mathrm{KL}}$ from a nondegenerate Gaussian generator prior; a most
+probable link is a generative mode rather than a recognition optimum of zero width.
+
+\subsection{Fisher inference and a finite learning step}
+\label{sec:latent_link_recognition}
+Let $Q_\lambda$ vary with the agents' recognition coordinates, using the product metric
+$\mathsf G=g^F\oplus\mathsf G_Y$ with the Gaussian Fisher metric $g^F$ of $R$. At fixed
+generator-prior parameters, define, up to a recognition-independent constant,
+\begin{equation}
+\mathfrak i_\lambda(\mathring\omega)
+=\mathcal F_V[Q_\lambda;X,\Theta(\mathring\omega),o]
++\mathcal A_{\mathrm{loop}}(\mathring\omega)
++\frac12\langle\mathring\omega-\mathring\alpha,
+\mathring\Sigma^{-1}(\mathring\omega-\mathring\alpha)\rangle.
+\label{eq:latent_link_integrand}
+\end{equation}
+For $\mathcal Q=R\otimes Q_\lambda$ the joint inference law is
+$\dot{\mathcal Q}=-\operatorname{grad}^{\mathsf G}\mathcal F_V$,
+with $d\mathcal F_V/dt=-\|\operatorname{grad}^{\mathsf G}\mathcal F_V\|_{\mathsf G}^2$.
+Its generator Euler step in Gaussian natural parameters, rewritten as mean and
+precision, is the Gaussian Bayesian learning rule:
+\begin{equation}
+\boxed{\begin{aligned}
+\mathring\Lambda'&=(1-\Delta t)\mathring\Lambda
++\Delta t\operatorname{pr}_{\mathring\Xi}\mathbb E_R\nabla^2\mathfrak i_\lambda,\\
+\mathring\mu'&=\mathring\mu-\Delta t\mathring\Lambda'^{-1}
+\mathbb E_R\nabla\mathfrak i_\lambda.
+\end{aligned}}
+\label{eq:latent_link_blr}
+\end{equation}
+The projection selects full, edge-block or diagonal precision. Admissibility requires
+$\mathring\Lambda'\succ0$; finite-step descent additionally requires the relative
+curvature bound in expectation coordinates and a sufficiently small step
+\cite[Ch.~9, Proposition \emph{Natural-gradient recognition flow of the generators}]{DennisGaugeVFE2026}.
+A unit step gives the Gaussian minimizer for a positive quadratic integrand in the full
+family. General convergence and automatically slower link recognition are not established.
+The continuous law is first order and dissipative; its Fisher metric acts as friction
+in this force balance.
+
+\subsection{A normalized episode law and history inertia}
+\label{sec:latent_link_history}
+For a finite horizon $n=0,\ldots,n_1$, hold frames static and specify the history law
+\begin{equation}
+\begin{gathered}
+\mathbb P^{\mathrm{hist}}(d\mathring\omega^{(0:n_1)})
+=Z_{\mathrm{hist}}^{-1}e^{-\mathcal A_{\mathrm{loop,inc}}(\mathring\omega^{(0:n_1)})}
+\prod_{n=0}^{n_1}\nu^{\mathcal T}(d\mathring\omega^{(n)}),\\
+\mathcal A_{\mathrm{loop,inc}}(\mathring\omega^{(0:n_1)})
+=\sum_{n=0}^{n_1}\mathcal A_{\mathrm{loop}}(\mathring\omega^{(n)})
++\mathbf m\sum_{n<n_1}\mathfrak U(\mathring\omega^{(n+1)},\mathring\omega^{(n)}).
+\end{gathered}
+\label{eq:latent_link_history_law}
+\end{equation}
+Here $\nu^{\mathcal T}$ is the Gaussian base law and $\mathbf m>0$. Either the Gaussian
+increment $\mathfrak U=\tfrac12\|\mathring\omega'-\mathring\omega\|^2$ or the nonnegative
+metric loop defect of $\exp(-\mathring\omega'_e)\exp(\mathring\omega_e)$ is admitted.
+A finite nonnegative action gives $0<Z_{\mathrm{hist}}\leq1$. The exact forward kernels
+include backward normalizers depending on the horizon; normalizing each increment
+independently usually gives a different law. Links between copies of one agent across
+episodes are identities, with no extra latent variable
+\cite[Ch.~9, Proposition \emph{The generator history prior}]{DennisGaugeVFE2026}.
+
+Let $\mathfrak V_n$ include the anchor quadratic, loop action and any declared episode
+matter term. Gaussian increments give the exact interior stationarity equation
+\begin{equation}
+\boxed{\begin{gathered}
+\mathbf m\bigl(2\mathring\omega^{(n)}-\mathring\omega^{(n+1)}
+-\mathring\omega^{(n-1)}\bigr)+\nabla\mathfrak V_n(\mathring\omega^{(n)})=0,\\
+0<n<n_1.
+\end{gathered}}
+\label{eq:latent_link_history_inertia}
+\end{equation}
+Free endpoints have one-sided equations; held endpoints impose boundary values.
+A minimizing history exists under the stated coercivity condition. With unit episode
+spacing the central difference has the Euclidean sign
+$\mathbf m\ddot{\mathring\omega}=+\nabla\mathfrak V$, corresponding to Newtonian potential
+$-\mathfrak V$. Increment precision acts as mass in this history equation without
+establishing a physical mass or real-time dynamics in $+\mathfrak V$. The time-like loop
+defect gives a generator-dependent increment tensor, agreeing with the Gaussian equation
+only at its controlled near-zero order
+\cite[Ch.~9, Proposition \emph{Inertia of the most probable history}]{DennisGaugeVFE2026}.
+
+\subsection{The Proca-type operator and its domain of validity}
+\label{sec:latent_link_proca}
+
+Assume $\mathrm d\rho$ is injective and give generators the inner product pulled back
+from the fiber trace norm; all adjoints and increment norms below use this metric.
+For zero anchor, fixed product Gaussian matter, and the specified quadratic comparison
+records with generator-independent weights $\beta_a\in[0,1]$, the history equation to
+first order jointly in generators and individual currents is
+\begin{equation}
+\boxed{\begin{aligned}
+\mathbf K\mathring\omega&=\mathbf j,\\
+\mathbf K&=\mathring\Sigma^{-1}+\sum_p c_p\mathbf C_p^\top\mathbf C_p
++\mathbf m(-\Delta_n)+\mathring\Phi,\\
+\mathbf K&\succeq c_{\mathring\Sigma}I,\\
+\mathring\omega_{\mathrm{lin}}&=\mathbf K^{-1}\mathbf j.
+\end{aligned}}
+\label{eq:latent_link_proca}
+\end{equation}
+The cycle map $\mathbf C_p\mathring\omega=\sum_{e\in p}\mathring\omega_e$ counts each
+traversal with its orientation. The positive episode Laplacian $-\Delta_n$ has the
+central difference in the interior and one-sided differences at free endpoints.
+The anchor precision acts episode by episode, with smallest eigenvalue
+$c_{\mathring\Sigma}>0$. Define $B_{a,n}=\mathrm d\rho\mathring\omega_e^{(n)}$ and
+$M_{j,n}=\Sigma_j^{(n)}+\mu_j^{(n)}\mu_j^{(n)\top}$. The nonnegative matter operator
+and source have the quadratic and linear forms
+\begin{equation}
+\begin{aligned}
+\langle\mathring\omega,\mathring\Phi\mathring\omega\rangle
+&=\sum_{n,a}\beta_a\operatorname{tr}(W_aB_{a,n}M_{j,n}B_{a,n}^\top),\\
+\langle\mathbf j,\mathring\omega\rangle
+&=\sum_{n,a}\beta_a\operatorname{tr}(\mathbf J_a^\top B_{a,n}),\\
+\mathbf J_a&=W_a[(\mu_i^{(n)}-\mu_j^{(n)})\mu_j^{(n)\top}-\Sigma_j^{(n)}].
+\end{aligned}
+\label{eq:latent_link_matter_operator}
+\end{equation}
+The cycle term has graph curl-curl form, and the anchor and matter terms supply bare and
+screening masses. This is a massive Euclidean vector operator of Proca type on agent
+edges. Its episode index remains an inference index; no physical Proca field, Lorentzian
+propagation law or base connection has been identified.
+
+The exact zero-generator Hessian is $\mathbf K+\mathbf N_0$, where
+\begin{equation}
+\langle\mathring\omega,\mathbf N_0\mathring\omega\rangle
+=-\sum_{n,a}\beta_a\operatorname{tr}(\mathbf J_a^\top B_{a,n}^2).
+\label{eq:latent_link_current_correction}
+\end{equation}
+Thus linearizing generators at fixed currents retains $\mathbf N_0$. A small total source
+does not ensure small individual-current corrections. Write the full history objective as
+$\mathcal A^{\mathrm{hist}}=\sum_n\mathfrak V_n+\mathbf m\sum_n\mathfrak U$.
+If $c_0=\|\mathbf N_0\|$, $c_r=\sup_{\|\mathring\omega\|\leq r}\|D^3\mathcal A^{\mathrm{hist}}\|$,
+$c_0+c_rr\leq c_{\mathring\Sigma}/2$ and $\|\mathbf j\|\leq c_{\mathring\Sigma}r/4$, there
+is exactly one critical history in that ball, with a controlled second-order discrepancy
+from $\mathbf K^{-1}\mathbf j$. This local conclusion establishes neither global uniqueness
+of nonlinear histories nor a universal link timescale
+\cite[Ch.~9, Proposition \emph{The linearized link equation}]{DennisGaugeVFE2026}.
