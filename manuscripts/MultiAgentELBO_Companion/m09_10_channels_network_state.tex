@@ -26,6 +26,12 @@ case, Bayes recovery), proves that three operations physicists all call coarse-g
 theorems, treats symmetry, defines scale diagrams, and ends with labeled mixtures whose retained label
 carries Fisher information of order $N^2$ at a tie.
 
+With the latent links of \cref{comp:lie-links}, the fine state includes the generators:
+the same theorem applies to a channel on $(\mathring\omega,y)$. A tree transport that reads links
+belongs to that joint channel. Keeping or discarding generators changes the conditional remainder,
+and the exact identity supplies no Gaussian closure after they are marginalized
+(\MT{prop:link-conditional-transfer}).
+
 The verdict in advance: the core identity is the relative-entropy chain rule applied twice to the joint
 law of fine and coarse variables. It is standard in substance; the contribution is careful typing and a
 clean statement of what the identity does not give. Exact means an identity with an explicit
@@ -155,12 +161,15 @@ not absolutely continuous, identities hold as $+\infty=+\infty$ and say nothing.
 \subsection{The exact coarse free energy}
 
 The central display (\MTeq{eq:rg-vfe-chain-rule}) is
+\begin{keyequation}{Coarse free energy and discarded information}
 \[
+\begin{aligned}
 \Fenergy_{\mathbb P}(\mathbb Q_o)
-=\Fenergy_{\mathbb P^c}(\mathbb Q^c_o)+\Delta(o),
-\qquad
-\Delta(o)=\int_{\mathsf Z}\KL\bigl(\widehat{\mathbb Q}_o(dy\given z)\Vert\widehat{\boldsymbol\Pi}_o(dy\given z)\bigr)\mathbb Q^c_o(dz).
+&=\Fenergy_{\mathbb P^c}(\mathbb Q^c_o)+\Delta(o),\\
+\Delta(o)&=\int_{\mathsf Z}\KL\bigl(\widehat{\mathbb Q}_o(\cdot\given z)\Vert\widehat{\boldsymbol\Pi}_o(\cdot\given z)\bigr)\mathbb Q^c_o(dz).
+\end{aligned}
 \]
+\end{keyequation}
 The first term on the right is computed entirely at the coarse scale, from the pushed joint (evidence
 $p(o)$, posterior $\boldsymbol\Pi_oC$) and the pushed recognition law $\mathbb Q^c_o=\mathbb Q_oC$. The
 remainder compares, for each coarse value $z$, what recognition and posterior say about the fine
@@ -404,7 +413,7 @@ precomposition, and Galerkin restriction, and never treats parameter aggregation
 \label{comp:ch10-question}
 
 Grouping agents into a block does not average away their gauge data: the links $\Theta^x_e$ are
-independent group elements on the edge copies of the interaction multigraph, one family per channel
+independently variable group elements on the edge copies of the interaction multigraph, one family per channel
 $x\in\{b,m\}$, and closed walks carry holonomy. \MT{ch:network-state} asks what a coarse description of
 a block must keep of these data and which part of the block's state survives exact aggregation. The
 answers come in six pieces. A rooted spanning tree turns the block's gauge data into one root-framed
@@ -422,6 +431,14 @@ frame of a meta-agent is invisible to its members and cannot be computed from th
 symmetric rule that does not depend on a reference point (equivalently, any symmetric left-equivariant
 rule) (\MT{prop:cg-frame-sector}). A declared noisy record at one base point distinguishes loop
 holonomies (\MT{thm:cg-loop-operational-holonomy}).
+
+When the links are latent generators, as in \cref{comp:lie-links}, the root transports, dressed edges,
+and holonomies are random marks with their joint law. The Gaussian-parent obstruction then becomes an
+almost-sure statement: for $G=\GL^+(K)$ in its defining representation, a connected block with an
+internal loop has infinite holonomy-conditioned Gaussian score under every generator law absolutely
+continuous with respect to Lebesgue measure (\MT{cor:link-holonomy-parent-almost-sure}). This concerns
+the holonomy-fixed Gaussian parent family. The exact pushed parent law of \cref{comp:ch09} still
+exists, and need not belong to that family.
 
 These results feed \cref{comp:ch11,comp:ch12,comp:ch13,comp:ch14}; Supplement G realizes them for
 Gaussian families. The scope paragraph fences them: the fixed-sector rank is an admissibility criterion,
@@ -616,6 +633,40 @@ independent $\GL(K)$ links, $\lvert\det\rvert=1$ on that loop is Lebesgue-null, 
 almost everywhere and distinguishes configurations only after the links are restricted to a group
 conjugate into $\mathrm O(K)$ or a parent family with invariant members is declared.
 
+\subsection{The obstruction under a law of generators}
+
+For the latent links, the determinant test is especially transparent
+(\MT{cor:link-holonomy-parent-almost-sure}):
+\begin{keyequation}{The determinant test for a fixed Gaussian parent}
+\[
+\begin{aligned}
+\det\mathrm{Hol}^x(p)
+&=\exp\Bigl(\sum_a\Tr\mathring\omega^x_{e_a}\Bigr),\\
+\mathfrak D^x_I=+\infty
+&\quad\text{if }\sum_a\Tr\mathring\omega^x_{e_a}\ne0.
+\end{aligned}
+\]
+\end{keyequation}
+Here $G=\GL^+(K)$ acts on $\R^K$ by the defining representation, and $p$ lies in a connected
+block whose internal multigraph is not a forest. A loop copy, two parallel copies, or a cycle through
+three or more agents supplies a closed walk with nonzero net traversal of a reversal pair. For such a
+walk the trace sum is a nonzero linear functional of the generators, so its zero set is a hyperplane.
+Every generator law absolutely continuous with respect to Lebesgue measure gives that hyperplane
+probability zero. This includes the Gaussian-base generator prior with positive-definite covariances
+and every recognition law absolutely continuous with respect to it. The score is therefore infinite
+almost surely, and its expectation is infinite. This is a general result at every admitted finite
+network size, rather than an obstruction inferred from a small example.
+
+The hypotheses decide the conclusion. A singular generator law can charge the hyperplane: the point
+mass at zero gives trivial holonomy and a finite score for nondegenerate Gaussian marginals. Removing
+the trace direction changes the situation. For $\mathrm{SL}(2,\R)$ with cycle rank one, the corollary
+exhibits a nonempty open set of generator families whose holonomy group is conjugate into
+$\mathrm{SO}(2)$; any everywhere-positive generator density gives this set positive probability.
+Thus noncompactness alone is not the asserted obstruction. Nor does the empty fixed Gaussian family
+prevent normalized coarse laws, parents that retain the generators, or other declared parent families.
+Conditionally on the generators, the held-link results apply; mixing those conditionals can lose
+Gaussianity (\MT{prop:link-conditional-transfer}; see \cref{comp:gaussian-latent-links}).
+
 Two fences. A zero score is not common recovery: it reads only marginals, and joint laws with equal
 marginals cannot both be recovered through a channel that reads only marginals
 (\MT{rem:cg-marginal-not-joint}). A cross map commuting with the links carries invariant belief parents
@@ -673,8 +724,8 @@ W_{\mathrm{bal}}=W_{\mathrm{lo}}^{1/2}\bigl(W_{\mathrm{lo}}^{-1/2}W_{\mathrm{hi}
 \qquad
 \Theta_{\mathrm{bal}}=W_{\mathrm{bal}}^{-1}\Lambda_{IJ},
 \]
-gauge covariant, the same read from either end, and in the scalar-weight orthogonal case the polar
-factor of $\bar\Theta$. Two negative results bound it. At the level of Gaussian laws, with
+gauge covariant, the same read from either end, and for scalar weights and orthogonal links the
+polar factor of $\bar\Theta$. Two negative results bound it. For Gaussian laws, with
 $\sum_ew_e\KL(q_I\Vert(\widehat\Theta_e)_\#q_J)$ in place of the quadratic energy, a cut with excess has
 no presentation as one divergence to an image of $q_J$ plus self terms reading one law each whose mean
 part is the balanced link, for any law class at $J$ closed under covariance rescaling
@@ -745,6 +796,7 @@ invisible. No link value is recovered, and no sample-size or power statement is 
 \MT{thm:cg-holonomy-kl-marginal} & Marginal-law score is walk, root, and frame independent; attained zero iff one invariant law. & \SOLID & Marginals only; no kernel, no joint recovery.\\
 \MT{prop:cg-holonomy-compact-closed-form} & Compact holonomy: minimizer is the Haar-symmetrized mixture or its moment-matched Gaussian. & \COND & Compact represented holonomy: holds for $\mathrm{SU}(N)$ links, fails for $\GL(K)$ links.\\
 \MT{cor:cg-holonomy-noncompact-gaussian} & Gaussian parents exist iff holonomy is conjugate into $\mathrm O(K)$; generic $\GL(K)$ loops give infinite score. & \SOLID & Negative for the noncompact target.\\
+\MT{cor:link-holonomy-parent-almost-sure} & Latent $\GL^+(K)$ generators give infinite fixed-Gaussian score almost surely on a connected nonforest block. & \SOLID & Defining representation and a Lebesgue-absolutely-continuous law; not a no-go for pushed parents.\\
 \MT{rem:cg-holonomy-score-loop} & Three-agent $\mathrm{SO}(2)$ loop: explicit score. & \TOY & Illustrates the compact closed form.\\
 \MT{prop:cg-kernel-holonomy,prop:cg-fixed-section-compression,prop:cg-nested-sections-compose} & Fixed fiber is $\ker L_I$, the holonomy-fixed space for positive-definite weights; compression and nesting exact. & \SOLID & Standard in substance (sheaf cohomology). Semidefinite weights can hide holonomy.\\
 \MT{rem:cg-structural-vs-marginal} & Structural rank and marginal-law occupation are independent; singletons minimize unpenalized divergence sums. & \SOLID & Witnesses for negative statements.\\
@@ -767,6 +819,9 @@ branch of the parent alternatives needs covariance of every law, version, kernel
 Attainment of the infimum matters too: without it a zero marginal-law score gives only approximability
 by invariant parents, not one invariant law. Hygiene: bimeasurable actions, metrizable compact groups,
 Polish fibers, and finite second moments.
+For the latent almost-sure obstruction, full Lebesgue absolute continuity of the generator law,
+$\GL^+(K)$ in its defining representation, and a nonforest internal multigraph are substantive.
+A generator law confined to a lower-dimensional subalgebra or to a point is outside that conclusion.
 \end{hygiene}
 
 \section{Toy versus general, and the noncompact target}
@@ -803,6 +858,14 @@ $\mathrm{SU}(N)$, keeps $f_I>0$ at every link configuration. The balanced cut li
 orthogonal in the scalar-weight orthogonal case; no statement keeps it in a smaller group containing the
 twists.
 
+In the latent exponential model the real-group almost-sure statement is now explicit for
+$\GL^+(K)$, including loop and parallel copies, under any Lebesgue-absolutely-continuous generator
+law (\MT{cor:link-holonomy-parent-almost-sure}). At every positive width of a nondegenerate Gaussian
+base prior, concentrating near zero does not remove this null-set obstruction. The exactly held
+identity links have admissible Gaussian parents, so the limit is singular for this particular score;
+the held-link free-energy limit of \MT{thm:link-held-limit} concerns a different quantity and does
+not assert continuity of the holonomy-conditioned score.
+
 \section{Open ends}
 \label{comp:ch10-open}
 
@@ -826,6 +889,9 @@ links, no symmetric reference-independent frame average, no Gaussian parent unde
 remain. What a block must retain is answered by a choice (the raw root-framed datum), not a necessity
 theorem. The record distinguishes holonomies because it is declared to read them. For the $\GL(K,\R)$
 target, the holonomy-conditioned Gaussian parent exists, for almost every link configuration, only on
-blocks without internal loops; the chapter states this itself, and its positive parent results reach that
-target only under a restriction of the links or of the parent family.
+blocks without internal loops under the stated absolute-continuity assumptions; for latent $\GL^+(K)$
+generators the obstruction holds almost surely under every Lebesgue-absolutely-continuous law. Its
+positive fixed-Gaussian parent results reach that target only under a restriction of the links or of
+the parent family. Exact pushed parent laws and the retained random root-framed datum remain
+available throughout.
 \end{verdictbox}

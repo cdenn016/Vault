@@ -6,8 +6,11 @@ This chapter covers the second half of Supplement G: score tangents and the Herm
 links, relaxation, and quotient volume (\SG{ch:gaussian-nonflat}), the operator arrow
 (\SG{ch:gaussian-renormalization}), reciprocal pairs, anchored stars, and loop holonomy
 (\SG{ch:obstructions}), the decision metatheory (\SG{app:decision-metatheory}), and the supplement's open
-problems (\SG{sec:grg-obligations}). Everything acts on the Gaussian interaction family explained with the
-first half in \cref{comp:sg1}.
+problems (\SG{sec:grg-obligations}). The flat interaction family is explained in \cref{comp:sg1};
+the nonflat statements name their broader conditional precision classes. With latent generators,
+these remain held-link calculations, rather than automatic statements about a Gaussian matter
+marginal after link integration (\MT{prop:link-conditional-transfer}). The Gaussian latent-link
+sector is explained in \cref{comp:gaussian-latent-links}.
 
 In short, this half of Supplement G carries out one finite step of exact coarse-graining for Gaussian agent
 networks and does so completely: which step maps are exact, when the natural parameter families close under
@@ -182,7 +185,10 @@ every finite depth. When the precision moves, so does the channel (\SG{open:grg-
 -\tfrac12\mathsf h_{\mathrm h}^\top M^{-1}\mathsf h_{\mathrm h}
 \]
 (\SG{prop:cg-normalized-schur-action}): direct stiffness minus softening through hidden agents, and an offset that
-adds the free energy of the eliminated modes, so raw mass and evidence are unchanged. Eliminating one agent \(k\) adds
+adds the free energy of the eliminated modes, so raw mass and evidence are unchanged. When every
+matter coordinate is hidden at a given latent link family, this scalar change is the induced
+generator action of \SG{prop:glink-induced-action}. It must be retained when the links are inferred
+(\cref{comp:gaussian-latent-links}). Eliminating one agent \(k\) adds
 \(W_{ik}M^{-1}W_{kj}\) between each pair of its retained neighbors. For \(K=1\) this is \(w_{ik}w_{kj}/m\geq0\), and scalar
 networks always close (\SG{lem:cg-scalar-kron-closure}). For matrices it need not be symmetric:
 \(W_{13}=\operatorname{diag}(1,2)\), \(W_{23}=\begin{psmallmatrix}2&1\\1&2\end{psmallmatrix}\), and unit pins
@@ -243,6 +249,12 @@ for the block. The edge has become a self-loop with holonomy \(\Theta_e\). The s
 term of \cref{comp:sg2-coarse-maps} and the generated self terms of \cref{comp:sg2-reciprocal}: frustration inside a
 block becomes mass after blocking.
 
+For a latent link held at \(\Theta_e=e^{\mathring\omega_e}\), this twisted quadratic at Gaussian
+means equals the transported law divergence when the transported source covariance matches
+the receiver covariance and \(W_e\) is the receiver precision (\SG{prop:glink-law-level-energy}).
+The general divergence and the expected sample-record energy are distinct formulas in
+\cref{comp:gaussian-latent-links}.
+
 \begin{analogy}{structural}
 For \(K=2\), \(W_e=wI\), and \(\Theta_e\) a rotation by \(\phi\), the residue is \(4w\sin^2(\phi/2)I\), the energy
 \(\lvert1-e^{i\phi}\rvert^2\) of hopping back to one site with phase \(\phi\); a flux through a ring lifts the uniform
@@ -292,8 +304,12 @@ a holonomy group with compact closure the parent is the moment match of Haar-ave
 \(\mathcal N(0,I_2+uu^\top)\), so the constraint bites without disagreement. Compactness matters: a loop holonomy with
 an eigenvalue off the unit circle fixes no nondegenerate Gaussian, and for independent \(\GL(K)\) links
 \(\lvert\det\rvert=1\) on a loop is a null condition (\MT{cor:cg-holonomy-noncompact-gaussian}). For the program's
-\(\GL(K,\R)\) links the constrained Gaussian parent is empty off a null set; a compact group such as
-\(\operatorname{SU}(N)\) in its real representation meets the hypothesis. Nor is the barycenter a channel: a kernel
+\(\GL(K,\R)\) links the constrained Gaussian parent is empty off a null set. In the latent
+\(\GL^+(K)\) chart, every connected block whose internal multigraph is not a forest has an empty
+fixed Gaussian parent family almost surely under an absolutely continuous generator law
+(\MT{cor:link-holonomy-parent-almost-sure}); replacing held links by such a law does not repair
+this score. A compact group such as \(\operatorname{SU}(N)\) in its real representation meets the
+compact-holonomy hypothesis. Nor is the barycenter a channel: a kernel
 sending \(\mathcal N(\mu,\Sigma_0)\) to \(\mathcal N(\mathsf H\mu+\mathsf b,\Sigma_1)\) for all \(\mu\) must add noise
 \(\Sigma_1-\mathsf H\Sigma_0\mathsf H^\top\) (\SG{prop:hist-normal-barycenter-kernel}), and the equal-width barycenter of two
 normals needs noise \(\varsigma^2/2\), which depends on the width. Merging two agents into one of the same width is a
@@ -437,7 +453,11 @@ log normalizer \(-\log\lvert\det(I-\mathrm{Hol})\rvert\) diverges on a singular 
 (\SG{cor:obs-holonomy-kernel-shrinkage}). For \(K=1\), links \(\mathsf g,\mathsf g^{-1}\), and anchor \(a_0\),
 \(\det(\Lambda+a_0I)=a_0^2+a_0(\mathsf g+\mathsf g^{-1})^2\) (\SG{prop:obs-normalizer-link-dependence}): varying a declared
 link changes the normalizer, so the global term cannot be treated as a per-agent constant while links are learned.
-This is a change of model, not of coordinates, and it fixes no sign for the full objective.
+This is a change of model, not of coordinates, and it fixes no sign for the full objective. With
+latent generators these determinants enter the induced undirected action. Conditional
+normalizability at almost every link does not ensure a joint law: an unanchored cycle with a
+nondegenerate Gaussian generator base law has an infinite whole-joint normalizer
+(\SG{cor:glink-unanchored-cycle}, \cref{comp:gaussian-latent-links}).
 
 \paragraph{The anchored star.} For an apex \(y_0\sim\mathcal N(0,A_0^{-1})\) with
 \(y_i\given y_0\sim\mathcal N(\Theta_iy_0,\Sigma_i)\), precisions add, \(\Lambda_{00}=A_0+\sum_i\Theta_i^\top\Sigma_i^{-1}\Theta_i\),

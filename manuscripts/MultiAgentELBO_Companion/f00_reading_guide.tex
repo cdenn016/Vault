@@ -19,8 +19,9 @@ When the technical documents prove something, the companion states it and cites 
 as \MT{thm:elbo-extended-gap} refers to the main manuscript, and statements of the supplements carry
 their own letters (Proposition~G4.2, Theorem~B6.1). In the PDF these references are links that open
 the technical document at the cited statement, provided the technical PDFs sit in the neighboring
-folder where they are built. The companion's chapters~1 to~15 mirror the fifteen chapters of the main
-manuscript one to one; chapters~16 and~17 cover Supplement~G and chapter~18 covers Supplement~B. The
+folder where they are built. The companion's main part mirrors the sixteen chapters of the main
+manuscript one to one, including the latent-link chapter (\cref{comp:lie-links}). Three chapters cover
+Supplement~G (\cref{comp:sg1,comp:sg2,comp:gaussian-latent-links}), and \cref{comp:sb} covers Supplement~B. The
 companion has no numbered statements of its own, so every theorem, proposition, or lemma number you
 meet here points into a technical document.
 
@@ -31,6 +32,11 @@ term by term with their limiting cases; a scorecard of the main results; a box t
 chapter's hypotheses into those that matter and those that are hygiene; the open ends; and a
 verdict. Where a proof would help intuition, the companion gives a sentence or two of informal
 reason and labels it as such.
+
+Highlighted equation boxes mark the central constructions and balances of the dynamic-link model.
+Their titles identify the role of each formula; the surrounding text states its hypotheses and
+points to the technical result. The Proca-type equation in \cref{comp:lie-links} is a linearized
+Euclidean stationarity equation across inference episodes, whereas the recognition flow is first order.
 
 \section*{Two questions about every result}
 \phantomsection\addcontentsline{toc}{section}{Two questions about every result}
@@ -100,12 +106,15 @@ established negative result. The scope paragraphs are the fastest way to find ou
 not do, and the companion's verdicts lean on them.
 
 \paragraph{Defaults, and why the prose is full of qualifiers.}
-Chapter~1 of the main manuscript fixes defaults once for the whole document
+The introduction of the main manuscript fixes defaults once for the whole document
 (\MT{sec:intro-conventions}): measurable spaces are standard Borel, laws and kernels are normalized
 and measurable, a coarse channel is a Markov kernel that does not read the recognition law and
 leaves observations alone, admitted observations have finite positive evidence, structural data are
-parameters unless a law for them is declared, and the interaction graph is the support of the source
-prior, complete unless masked. A statement mentions only departures from these defaults, so a
+parameters unless a law for them is declared, and the interaction multigraph contains the reversal
+closure of the union of the source-prior supports. A receiving row's support is complete unless
+masked and need not be symmetric. In the latent-link model the multigraph and frames remain
+structural, while Lie-algebra generators are inferred under a prior
+(\MT{def:link-latent-model}). A statement mentions only departures from these defaults, so a
 hypothesis that appears inside a statement is a departure and worth reading. Three other sources of
 qualifiers are worth knowing. The documents work with arbitrary laws on arbitrary spaces rather than
 Gaussians, which forces extended-real values (a relative entropy may be $+\infty$) and almost-sure
@@ -203,6 +212,9 @@ $q_i^b$, $q_i^m$ & Agent $i$'s belief law and model law (probability laws on the
 $u_i$ & Agent $i$'s frame, one for both channels at $c_*$ (a gauge choice). & A local gauge fixing at site $i$. \\
 $\mathfrak I$, $e$, $\bar e$ & Interaction multigraph, an oriented edge copy, its reversal. & The lattice, with multiple links allowed. \\
 $\Theta^x_e$ & Independent group-valued link on edge copy $e$ for channel $x\in\{b,m\}$, with $\Theta_{\bar e}=\Theta_e^{-1}$. & Link variable $U_\ell$ of lattice gauge theory. \\
+$\mathring\omega^x_e$, $R$ & Generator of the reference twist, $\Theta^x_e=U_i\exp(\mathring\omega^x_e)U_j^{-1}$; recognition law of the generators. & Lie-algebra field and its variational distribution. \\
+$\mathring\alpha$, $\mathring\Sigma$ & Anchor and covariance of the Gaussian base prior; generative parameters. & Preferred field and bare restoring scale. \\
+$\mathscr S$, $\mathbf m$, $n$ & Loop action, history increment precision, and learning-episode index. & Spatial loop penalty, Euclidean history mass, and an inference index. \\
 $\mathrm{Hol}^x(p)$ & Holonomy: product of links around a closed walk $p$. & Wilson loop before the trace. \\
 $K_a$, $\mathfrak A$ & A normalized record kernel (an interaction or observation factor) and the set of them. & A factor of the Boltzmann weight; a local term of the action. \\
 $\mathbb P_{\theta,V}$ & The one normalized joint generative law of all agents and records. & The Gibbs measure $e^{-S}/Z$. \\
@@ -219,8 +231,8 @@ $\mathrm T$, $\varepsilon$ & Temperature and small parameters of the formation f
 \phantomsection\addcontentsline{toc}{section}{Reading paths}
 
 For a first pass, read \hyperref[comp:glance]{The Theory at a Glance} and the verdict box at the end of each chapter. For the
-physical core of the theory, read \cref{comp:ch02,comp:ch05,comp:ch06,comp:ch09,comp:ch11,comp:ch13,comp:ch14}
+physical core of the theory, read \cref{comp:ch02,comp:ch05,comp:ch06,comp:lie-links,comp:ch09,comp:ch11,comp:ch13,comp:ch14}
 in that order. For what the theory says about Gaussian networks with $\GL(K)$ links at large size,
-read \cref{comp:ch02,comp:ch10,comp:sg1,comp:sg2}. For the state of the renormalization program at one
+read \cref{comp:ch02,comp:lie-links,comp:ch10,comp:sg1,comp:sg2,comp:gaussian-latent-links}. For the state of the renormalization program at one
 base point, read \cref{comp:ch09,comp:ch11,comp:ch12,comp:sb}. The open ends of the whole theory are
 collected in \hyperref[comp:open-ends]{Open Ends of the Theory}.

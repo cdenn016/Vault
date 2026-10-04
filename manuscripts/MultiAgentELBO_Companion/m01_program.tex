@@ -24,7 +24,9 @@ and law-level selection of one pairing by slow source learning for almost every 
 mean (\MT{conj:phil-contrast-formation}, a theorem despite its label). The chapter also names what is
 not done: how a parent's own dynamics are determined by the network it summarizes is
 \MT{open:rg-pointwise-parent-dynamics}, which it calls the defining open problem of the present
-phase.
+phase. Links can also be inferred as latent Lie-algebra generators: a normalized prior contributes
+one relative entropy to the same collective bound, and the generators evolve by recognition
+(\MT{prop:link-latent-normalization}, \MT{prop:link-recognition-flow}; \cref{comp:lie-links}).
 
 \section{The picture}
 \label{comp:ch01-picture}
@@ -35,7 +37,11 @@ $q_i^b$ and a model $q_i^m$, on spaces on which the structure group $G$ acts thr
 $\rho_b$ and $\rho_m$; the agent also carries a frame $u_i$, a point of the one $G$-torsor over $c_*$
 that says in which gauge the agent's laws are written. Each edge of the interaction graph carries a
 group element $\Theta_e$ for each channel, an independent variable rather than something computed from
-the frames, so products of links around loops (holonomies) can be nontrivial. Agents interact through
+the frames, so products of links around loops (holonomies) can be nontrivial. In the latent-link
+model it is written $\Theta_e=U_i\exp(\mathring\omega_e)U_j^{-1}$, and inference moves the
+distribution of the generators $\mathring\omega_e$ under their Gaussian-based loop prior.
+The held-link model is recovered as the prior width tends to zero
+(\MT{thm:link-held-limit}). Agents interact through
 normalized record kernels $K_a$, which play the role of local factors of a Boltzmann weight.
 
 From these local data the manuscript builds three global objects, in this order: one normalized joint
@@ -52,7 +58,9 @@ state $q$, $\log Z=-F[q]+\KL(q\Vert p)$ with $F[q]=\E_q[\text{energy}]-\text{ent
 gauge theory over a zero-dimensional base: frames are local gauge choices, links are link variables,
 holonomies are untraced Wilson loops. Two differences matter. The site variables are probability laws
 on representation spaces, not field values, and the links need not carry a kinetic (plaquette) term;
-whether they are fixed parameters or dynamical variables is declared model by model.
+the latent-generator model supplies a loop prior and an inference flow, while held links are its
+zero-width limit. An episode-history prior adds inertia to the most probable history; it does not
+turn the first-order recognition flow into Newtonian motion (\cref{comp:lie-links}).
 \end{analogy}
 
 \section{Objects and notation}
@@ -79,10 +87,12 @@ the bundle projection and, with indices, the source prior of attention.
 
 The architecture display \MTeq{eq:intro-local-to-global-architecture} is a flow chart:
 \[
+\begin{aligned}
 \{\mathcal A^i,G_{\theta,i},\mathbb Q_{i,o,X},K_a\}_{i\in V,a\in\mathfrak A}
-\longrightarrow
-\bigl(\mathbb P_{\theta,V}\text{ by construction},\ \mathbb Q_{V,o,X}\in\operatorname{Cpl}(\mathbb Q_{\bullet,o,X})\text{ by selection}\bigr)
-\longrightarrow\Lelbo_V .
+&\longrightarrow
+\bigl(\mathbb P_{\theta,V},\ \mathbb Q_{V,o,X}\in\operatorname{Cpl}(\mathbb Q_{\bullet,o,X})\bigr)\\
+&\longrightarrow\Lelbo_V .
+\end{aligned}
 \]
 On the left are the local data: agents, their generative mechanisms, their local recognition laws,
 and the record kernels. The joint law is built by multiplying normalized kernels; the population's

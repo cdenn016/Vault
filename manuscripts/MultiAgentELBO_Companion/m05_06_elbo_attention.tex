@@ -162,9 +162,16 @@ of \cref{comp:ch06}, and the Hamiltonian $H_o$ to its message spaces $H^\pm_e$.
 \subsection{The bound, its energy form, and the singular branch}
 \label{comp:ch05-bound}
 
-The extended bound
-$\Lelbo_V^{\mathrm{ext}}(Q)=\log p_{\theta,V}(o\given X)-\KL(Q\Vert\boldsymbol\Pi)\in[-\infty,\log p_{\theta,V}(o\given X)]$
-(\MTeq{eq:elbo-extended-definition}) never forms $\infty-\infty$: the evidence term is finite by (H2)
+The extended evidence identity is
+\begin{keyequation}{One collective evidence bound}
+\[
+\begin{aligned}
+\Lelbo_V^{\mathrm{ext}}(Q)&=\log p_{\theta,V}(o\given X)-\KL(Q\Vert\boldsymbol\Pi),\\
+\Fenergy_V^{\mathrm{ext}}(Q)&=-\log p_{\theta,V}(o\given X)+\KL(Q\Vert\boldsymbol\Pi).
+\end{aligned}
+\]
+\end{keyequation}
+The definition (\MTeq{eq:elbo-extended-definition}) never forms $\infty-\infty$: the evidence term is finite by (H2)
 and relative entropy lies in $[0,+\infty]$. Under absolute continuity with respect to the baseline,
 finite relative entropy, and an integrable negative part of the energy,
 \[
@@ -297,9 +304,10 @@ probability reference $\nu^{\mathscr T}$, and recognition $R(d\Theta)Q_\Theta(dy
 \]
 (\MT{prop:elbo-random-link-vfe}): the matter free energy at frozen links, averaged, plus the expected link
 action, the link entropy cost, and the link normalizer. Structural links contribute only the matter term. The
-form is that of lattice gauge theory on the agent graph with links integrated against an action
-\citep{Creutz1983}, no action being specified. It needs a normalizable link prior; for a noncompact group such as
-$\GL(K,\R)$, Haar measure is not a probability reference.
+form is structurally that of lattice gauge theory on the agent graph with links integrated against
+an action \citep{Creutz1983}. The abstract random-link identity is realized by the Gaussian-generator
+base and metric loop action of \cref{comp:lie-links}. It needs a normalizable link prior; for a
+noncompact group such as $\GL(K,\R)$, Haar measure is not a probability reference.
 
 \subsection{How model parameters move}
 \label{comp:ch05-parameters}
@@ -377,6 +385,26 @@ relative to one joint and not monotone toward an endpoint, with a nondegenerate 
 endpoint degeneracy for a stated class. For the program, the free energy alone does not say which agents belong
 together; formation (\cref{comp:ch13}) is posed through declared families and dynamics instead.
 
+\section{The same evidence bound with latent links}
+\label{comp:ch05-latent-links}
+
+When the link values are inferred, their law belongs inside the population recognition law.
+Writing that law as $Q(d\mathring\omega,dy)=R(d\mathring\omega)Q_{\mathring\omega}(dy)$, the
+collective free energy has the conditional decomposition
+(\MT{prop:link-latent-normalization}),
+\[
+\Fenergy_V[Q]
+=\KL(R\Vert\mathbb P^{\mathscr T}_\theta)
++\E_R\Fenergy_V[Q_{\mathring\omega};\Theta(\mathring\omega),o].
+\]
+The second term is the held-link free energy averaged over the generator recognition law; the
+first pays for that law relative to the generator prior. For the Gaussian base and loop action,
+it is $\KL(R\Vert\nu^{\mathscr T})+\E_R\mathscr S+\log Z_{\mathscr S}$ when those terms are
+finite. Omitting its entropy or its normalizer changes the evidence bound
+(\MT{prop:elbo-random-link-vfe}). This is a \SOLID{} conditional identity under the stated
+evidence and density hypotheses, not an independent link penalty appended to an agent objective.
+\Cref{comp:lie-links} explains the prior and highlights the field equation derived from this bound.
+
 \begin{verdictbox}{\DELIVERED}
 The technical chapter says it gives one extended evidence bound for every recognition law, a local--global
 potential identity under which the local objectives form an exact potential game, observations as interaction
@@ -394,6 +422,12 @@ updates.
 
 \chapter{Attention and Selective Communication}
 \label{comp:ch06}
+
+The attention constructions below can be read conditional on the link generators. The joint
+recognition dynamics also updates the generator law (\MT{prop:link-recognition-flow}), and a recognized source contributes its
+attention weight to the link current (\MT{cor:link-delta-rule}). A conditional attention identity
+does not justify replacing a random exponential link by the exponential of its mean
+(\MT{prop:link-conditional-transfer}; \cref{comp:lie-links}).
 
 \section{The question and the answer}
 \label{comp:ch06-question}
@@ -549,11 +583,14 @@ self-attention maximal under a uniform prior. One label per row also fixes occup
 exactly one source, and attending to none needs a null label or another joint label model.
 
 Restricting recognition to rows independent of $y$, row $i$ contributes
+\begin{keyequation}{Attention as recognition of a source label}
 \[
-\Fenergy^{\rm att}_i(\beta^Q_i)=\KL(\beta^Q_i\Vert\pi_i)+\frac1{\tau_i}\sum_j\beta^Q_{ij}\E_{\mathbb Q_Y}D_{ij},
-\qquad
-\beta^{Q\star}_{ij}\propto\pi_{ij}e^{-\E_{\mathbb Q_Y}D_{ij}/\tau_i}
+\begin{aligned}
+\Fenergy^{\rm att}_i(\beta^Q_i)&=\KL(\beta^Q_i\Vert\pi_i)+\frac1{\tau_i}\sum_j\beta^Q_{ij}\E_{\mathbb Q_Y}D_{ij},\\
+\beta^{Q\star}_{ij}&\propto\pi_{ij}e^{-\E_{\mathbb Q_Y}D_{ij}/\tau_i}.
+\end{aligned}
 \]
+\end{keyequation}
 (\MTeq{eq:obs-attention-vfe}), a Gibbs row over averaged energies. With $R^Q_i$ the row free energy at averaged
 energies and $R^P_i(y)$ that at $y$, the price of the constant row is
 \[

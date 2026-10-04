@@ -174,11 +174,14 @@ in the typeset text.
 
 `companion.tex` holds the preamble, the macros, and the chapter order. Front matter:
 `f00_reading_guide.tex`, `f01_at_a_glance.tex`. Main manuscript, mirroring its chapter
-numbers 1 to 15: `m01_program.tex`, `m02_04_foundations.tex`, `m05_06_elbo_attention.tex`,
-`m07_08_geometry_timescales.tex`, `m09_10_channels_network_state.tex`,
+numbers 1 to 16: `m01_program.tex`, `m02_04_foundations.tex`, `m05_06_elbo_attention.tex`,
+`m07_08_geometry_timescales.tex`, `m08b_lie_links.tex`, `m09_10_channels_network_state.tex`,
 `m11_12_coarsegraining_multiscale.tex`, `m13_formation.tex`,
 `m14_15_interpretation_related.tex`. Supplements: `s_g1_gaussian_foundations.tex`,
-`s_g2_gaussian_coarse.tex`, `s_b_base.tex`. Back matter: `z01_glossary.tex`,
+`s_g2_gaussian_coarse.tex`, `s_g3_latent_links.tex`, `s_b_base.tex`. The earlier filenames and
+`comp:ch*` labels remain stable even though adding the latent-link chapter shifts their printed
+numbers. `keyequation` boxes highlight the central dynamic-link formulas; their captions and
+surrounding text preserve the stated approximation or conditional scope. Back matter: `z01_glossary.tex`,
 `z02_open_ends.tex`. Chapter files contain no preamble and add no packages.
 `technical-document-issues.md` lists errors, overstatements, and drift the drafters noticed in the
 technical documents; it is a note for the theory's maintainer and is not typeset.
