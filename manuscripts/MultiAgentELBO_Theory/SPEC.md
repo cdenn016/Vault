@@ -21,7 +21,9 @@ Three documents share one source directory, one preamble style, and one bibliogr
 
 - **Main manuscript** (`main.tex`): the theory at one fixed base point `c_*`. It develops agents
   as local sections of belief and model associated bundles of one principal `G`-bundle, their
-  independent dynamic interaction links, the normalized joint law and one collective evidence
+  independent dynamic interaction links, written in the exponential chart with latent
+  Lie-algebra generators that carry a normalized prior and are inferred with the agents (held
+  links are the zero-width limit; chapter `ch:links`), the normalized joint law and one collective evidence
   bound, attention and selective communication, fiber information geometry and inference
   histories, fast beliefs and slow models, exact coarse-graining of the pointwise agent network,
   and meta-agent formation. It must be readable on its own, contains no `\cref` into a
@@ -51,7 +53,9 @@ it contains every copy in the support of a receiving row's source prior and, unl
 further copies, is the reversal closure of the union of these supports. Each support is complete
 unless masked and need not be symmetric (one-way attention, decided 2026-09-30); each attention row
 is strictly positive on its own source set when its costs are finite, and dynamic structure is
-carried by attention weights and link values. The program's dynamics is joint descent of the
+carried by attention weights and link values; in the latent-link model of `ch:links` the link
+values are exponentials of latent generators inferred by joint descent of the collective free
+energy, and the multigraph stays structural. The program's dynamics is joint descent of the
 collective free energy, so a source is moved by the record of every row that attends to it even
 when it attends to none of them. An agent's local free energy contains every record incident on
 it, so per-agent descent of local free energies is, for product families, a block of the joint
@@ -269,6 +273,13 @@ tables and never reuse a core glyph with a different meaning. "Replaces" names t
 | `\Theta^x_e`, `\mathsf t^x_e`, `\mathring\Theta^x_e=U_i^{-1}\Theta^x_eU_j` | independent link on edge copy `e:j\to i`, with `\Theta^x_{\bar e}=(\Theta^x_e)^{-1}`; link map of the fiber; per-edge twist | `\Omega^{x,\ell}_{ij}`, `B_e`, `\tau^x_e`; `H^x_e` (horizontal lift, Supplement B only) |
 | `\Theta^x_p`, `\Theta^x_{I\leftarrow i}`, `\widehat\Theta^x_e` | path product, tree transport to a block root, block-dressed edge | `\tau^x_{I\leftarrow i}`, `V^x_e` |
 | `\mathrm{Hol}^x(p)`, `\mathrm{Hol}^x_I` | holonomy of a closed walk, based holonomy group of a block | `H_e`, `H_\gamma`, `H^x(\gamma)` |
+| `\mathfrak g`, `\exp`, `\operatorname{Ad}_g`, `\mathrm d\rho_x` | Lie algebra of `G`, exponential map, adjoint action, differential of `\rho_x` at the identity | bare `\xi` as a generic Lie-algebra element in new text (use `\mathring\xi`) |
+| `E_+`, `\mathring\omega^x_e`, `\mathring\Theta^x_p`, `\exp_\sigma` | one orientation of each reversal pair; generator of the twist of `e` (`\mathring\Theta^x_e=\exp\mathring\omega^x_e`, `\mathring\omega^x_{\bar e}=-\mathring\omega^x_e`); reference path product, the reference holonomy of a closed walk; exponential chart at `\sigma` (`ch:links`) | `X_{ij}` and `W_p` for these objects |
+| `\mathscr T`, `\nu^{\mathscr T}`, `\mathscr S`, `Z_{\mathscr S}`, `\mathbb P^{\mathscr T}_\theta` | link space `\mathfrak g^{E_+}` of one latent channel, Gaussian base law, link action, its normalizer, generator prior | |
+| `\mathring\alpha^x_e`, `\mathring\Sigma^x_e`; `\mathring\mu`, `\mathring\Lambda` | anchor and prior covariance of a generator (generative parameters); mean and precision of a Gaussian generator recognition law `R` | |
+| `\mathfrak Q^x_p`, `\mathbb L`, `\mathrm c_p`, `\mathbf C` | loop defect of a closed walk (Frobenius defect of the reference holonomy in the declared fiber metric `\mathsf G^{\mathrm{fib}}`), family of closed walks, loop coefficients, cycle map | `\Phi` as a curvature density |
+| `\mathbf L(\mathbf B,\mathbf T)`, `\mathbf J^x_e`; `\mathscr S^{\mathrm{ind}}`, `\mathfrak Z` | Frechet derivative of the matrix exponential, link current; induced link action of jointly normalized undirected matter, joint normalizer | |
+| `\mathbf m`, `\mathfrak U`, `\mathbb P^{\mathrm{hist}}`, `\mathscr S^{\mathrm{hist}}`, `\mathbf K` | increment precision (inertial mass) of generator histories over learning episodes, kinetic term of time-like loop defects, history prior, history action, linearized link operator | |
 | `\Phi`, `\widetilde\Phi` | cross-associated-bundle morphisms | `\Phi` as an evolution map, flow, or row free energy |
 | `V`, `N`, `i,j` | agent set, number of agents (also the extensive size of a finite labeled mixture), agent indices | `V` as side information, volume, or a vector fiber (use `\mathbb V`) |
 | `y`, `\mathsf Y`, `o`, `X`, `\theta` | latent sample, latent space, observation, structural data, generative parameters | `X` as a vector field or process |
@@ -315,7 +326,8 @@ Hoeffding conditional-expectation operators of the network coarse-graining chapt
 `\E_{\ell,B}` (not `\mathsf E_{\ell,B}`), as expectations under the product reference.
 
 Label prefixes: `eq:geo-*`, `eq:prob-*`, `eq:gen-*`, `eq:elbo-*`, `eq:exp-*`, `eq:gauss-*`,
-`eq:restrict-*`, `eq:ig-*`, `eq:cg-*`, `eq:rg-*`, `eq:obs-*`, `eq:obst-*`, `eq:pb-*`, `eq:hist-*`;
+`eq:restrict-*`, `eq:ig-*`, `eq:cg-*`, `eq:rg-*`, `eq:obs-*`, `eq:obst-*`, `eq:pb-*`, `eq:hist-*`,
+`eq:link-*` (the latent-link chapter `ch:links`), `eq:glink-*` (its Gaussian realization in Supplement G);
 `ch:*`, `sec:*`, `app:*`; `def:*`, `hyp:*`, `thm:*`, `prop:*`, `lem:*`, `cor:*`, `conj:*`,
 `open:*`, `rem:*`, `claim:*`; `tab:*`, `fig:*`. A new label's prefix matches its heading type.
 Every existing label is kept exactly when text moves or a statement changes type or title (so

@@ -13,7 +13,9 @@ parent--child terms (\Cref{thm:full-graph-vfe-decomposition}). A finite acyclic 
 needs a declared latent root (\Cref{prop:obs-declared-root-unavoidable});
 participation across depths enters through the inference loop, parameter learning
 (\Cref{prop:full-graph-aggregate-prior}), and delayed feedback
-(\Cref{prop:full-graph-episode-joint,prop:full-graph-episode-lifted-joint}). The formation witnesses of
+(\Cref{prop:full-graph-episode-joint,prop:full-graph-episode-lifted-joint}). With latent links, the
+product Gaussian generator laws are not closed under the coarse links
+(\Cref{prop:link-coarse-generator-law}). The formation witnesses of
 \Cref{ch:finite-depth-formation} are adaptive towers, and \Cref{ch:philosophy} reads
 the three loci of participation.
 
@@ -27,7 +29,10 @@ generative, posterior, or recognition. In the episode-indexed models of
 \Cref{sec:obs-participatory}, $\widetilde o_n$ is a latent copy of the record $o_n$,
 $\epsilon_{\mathrm e}$ is the constant step of the aggregate parameter update, and
 $\mathrm T$ is the temperature of the descent kinetics, the symbol of
-\Cref{ch:finite-depth-formation}.
+\Cref{ch:finite-depth-formation}. With latent links the generator symbols are those of
+\Cref{tab:link-notation}, and the direction $\mathring\upsilon$, the noise $\mathring\zeta$, the width
+$\mathring\tau$, the cumulant forms $\mathring\kappa_3$ and $\mathring\kappa_4$, and the set $\mathbb X_K$
+are declared in \Cref{def:link-coarse-generator,prop:link-coarse-generator-law}.
 
 Scope. In an adaptive tower the downward kernel is a reversal kernel, and the coupling
 it carries is not read as causal downward influence; declining that reading does not
@@ -37,8 +42,9 @@ evidence bound, and delayed feedback is not claimed to support a sustained
 nonequilibrium reading. \status{NOT-CLAIMED} Open items are the persistent hierarchy
 (\Cref{open:full-graph-hierarchy}), the accounting across episodes
 (\Cref{open:full-graph-episode-accounting}), the dynamic closure of the pointwise
-parent (\Cref{open:rg-pointwise-parent-dynamics}), and a natural partition selector
-(\Cref{open:cg-natural-selector}).
+parent (\Cref{open:rg-pointwise-parent-dynamics}), a natural partition selector
+(\Cref{open:cg-natural-selector}), and a finite-dimensional description of coarse link laws
+(\Cref{open:link-coarse-closure}).
 
 \section{The full answer before decomposition}
 \label{sec:full-graph-vfe-global}
@@ -342,7 +348,10 @@ where the sum over $i$ runs over the vertices that carry a row, a term of zero o
 zero, the partition and cross-scale terms are those of \eqref{eq:full-graph-partition-free-energy}
 and \eqref{eq:full-graph-cross-scale-kl}, and $\mathcal J^\ell_{\mathrm{link}}$ is a declared link
 regularizer. It is a descent potential and carries no evidence
-interpretation of its own.
+interpretation of its own. With latent links, a loop action placed in the generator prior of
+\Cref{def:link-generator-prior} is the in-bound counterpart of a link regularizer: it enters the free
+energy with its normalizer through the link sector \eqref{eq:link-sector}
+(\Cref{prop:link-gaussian-recognition-vfe}), so it belongs to the bound instead of being appended to it.
 
 \section{Partition variables and event pushforwards}
 \label{sec:full-graph-vfe-partitions}
@@ -629,6 +638,295 @@ $\mathrm{Hol}_I(p_i)$ fixes $q_I$ and $\mathrm{Hol}_J(p_j)$ fixes $q_J$, invaria
 the pushforward by $\mathrm{Hol}_I(p_i)^{-1}$ gives
 $\KL(q_I\Vert(\mathrm{Hol}_I(p_i)\Theta\mathrm{Hol}_J(p_j)^{-1})_\#q_J)=\KL(q_I\Vert\Theta_\#q_J)$. $\square$
 
+When the links are latent generators (\Cref{ch:links}), the coarse links of
+\Cref{def:full-graph-coarse-links} are random elements of \(G\): measurable functions of the fine
+generators given the partition and the trees, whose law is the pushforward of the fine generator law.
+Two questions follow: whether the exponential chart and its Gaussian laws survive the coarse step, and
+how the holonomy-conditioned score of \Cref{def:cg-holonomy-law-score} behaves once the links carry a
+law.
+
+\definitionheading{Series coarse twist and cumulant forms}{def:link-coarse-generator}
+Let \(G\) be a closed subgroup of \(\GL(K,\R)\) with Lie algebra \(\mathfrak g\subseteq\mathfrak{gl}(K,\R)\),
+acting on the channel by the inclusion, so that the exponential is the matrix exponential, and let
+\(\lVert\cdot\rVert\) be the operator norm. Fix one channel and drop its superscript. In
+\Cref{def:full-graph-coarse-links} at depth \(\ell\), let \(e':i\to r_I\) be a copy of the rooted spanning
+tree of a block \(I\) that joins an agent \(i\) to the root, and let \(e:j\to i\) be a copy from the root
+\(j=r_J\) of a block \(J\neq I\). Then \(\Theta_{I\leftarrow i}=\Theta_{e'}\) and \(\Theta_{J\leftarrow j}=1_G\),
+so the coarse link of \(e\) is \(\Theta_{e'}\Theta_e=U_{r_I}e^{\mathring\omega_{e'}}e^{\mathring\omega_e}U_{r_J}^{-1}\),
+and its twist relative to the root frames, in which the parent laws are expressed, is
+\begin{equation}
+\mathring\Theta^{\ell+1}_e=e^{\mathring\omega_{e'}}e^{\mathring\omega_e}.
+\label{eq:link-coarse-twist}
+\end{equation}
+A coarse generator is a \(\mathfrak g\)-valued random variable \(\mathring\omega^{\ell+1}_e\) with
+\(e^{\mathring\omega^{\ell+1}_e}=\mathring\Theta^{\ell+1}_e\) almost surely; where the principal logarithm
+\(\operatorname{Log}\mathring\Theta^{\ell+1}_e\) exists, it is the natural candidate. Extend
+\(\langle\cdot,\cdot\rangle_{\mathsf G}\) to \(\mathfrak{gl}(K,\R)\) by the same formula. For a direction
+\(\mathring\upsilon\in\mathfrak g\), positive-definite self-adjoint operators
+\(\mathring\Lambda_{e'},\mathring\Lambda_e\) on \((\mathfrak g,\langle\cdot,\cdot\rangle_{\mathsf G})\), the
+directions \(\mathring\upsilon_{e'}=\mathring\Lambda_{e'}^{-1}\mathring\upsilon\) and
+\(\mathring\upsilon_e=\mathring\Lambda_e^{-1}\mathring\upsilon\), and independent centered Gaussian random
+elements \(\mathring\zeta_{e'}\sim\mathcal N(0,\mathring\Lambda_{e'}^{-1})\) and
+\(\mathring\zeta_e\sim\mathcal N(0,\mathring\Lambda_e^{-1})\) of \(\mathfrak g\), put
+\begin{equation}
+\begin{aligned}
+\mathring\kappa_3(\mathring\upsilon)
+={}&\bigl\langle\mathring\upsilon,[\mathring\upsilon_{e'},\mathring\upsilon_e]\bigr\rangle_{\mathsf G},\\
+\mathring\kappa_4(\mathring\upsilon)
+={}&3\E\bigl\langle\mathring\upsilon,[\mathring\upsilon_{e'},\mathring\zeta_e]\bigr\rangle_{\mathsf G}^2
++3\E\bigl\langle\mathring\upsilon,[\mathring\zeta_{e'},\mathring\upsilon_e]\bigr\rangle_{\mathsf G}^2
++2\bigl\langle\mathring\upsilon,[\mathring\upsilon_{e'},[\mathring\upsilon_{e'},\mathring\upsilon_e]]
++[\mathring\upsilon_e,[\mathring\upsilon_e,\mathring\upsilon_{e'}]]\bigr\rangle_{\mathsf G}.
+\end{aligned}
+\label{eq:link-coarse-cumulant-forms}
+\end{equation}
+
+\propositionheading{Gaussian generator laws are not closed under coarse links}{prop:link-coarse-generator-law}
+In \Cref{def:link-coarse-generator} let \(\mathring\omega_{e'}\) and \(\mathring\omega_e\) be independent Gaussian random
+elements of \(\mathfrak g\) with means \(\mathring\mu_{e'},\mathring\mu_e\) and positive-definite precisions
+\(\mathring\Lambda_{e'},\mathring\Lambda_e\), as under a product Gaussian recognition law of the generators
+(\Cref{prop:link-gaussian-recognition-vfe}).
+(i) If \(\mathfrak g\) is abelian, \(\mathring\omega_{e'}+\mathring\omega_e\) is a Gaussian coarse generator.
+(ii) Let \(G=\GL^+(K)\) with \(K\geq2\), and let \(\mathbb X_K\) be the set of real \(K\times K\) matrices with
+\(K\) distinct real eigenvalues, exactly two of them negative and the others positive. Then \(\mathbb X_K\)
+is a nonempty open subset of \(\GL^+(K)\), no element of \(\mathbb X_K\) has a real logarithm, and
+\(\Pr(\mathring\Theta^{\ell+1}_e\in\mathbb X_K)>0\). Consequently no coarse generator exists, and the law of
+\(\mathring\Theta^{\ell+1}_e\) is the image under the exponential of no law on \(\mathfrak g\).
+(iii) Let the laws depend on a width \(\mathring\tau\in(0,1]\) through the means
+\(\mathring\tau\mathring\mu_{e'}\) and \(\mathring\tau\mathring\mu_e\) and the precisions
+\(\mathring\tau^{-2}\mathring\Lambda_{e'}\) and \(\mathring\tau^{-2}\mathring\Lambda_e\), with
+\(\mathring\mu_{e'},\mathring\mu_e,\mathring\Lambda_{e'},\mathring\Lambda_e\) held. On the event \(\lVert\mathring\omega_{e'}\rVert+\lVert\mathring\omega_e\rVert\leq\frac12\) the principal
+logarithm of \(\mathring\Theta^{\ell+1}_e\) exists and lies in \(\mathfrak g\), and the event has probability
+at least \(1-\mathrm c_1e^{-\mathrm c_2/\mathring\tau^2}\) for constants \(\mathrm c_1,\mathrm c_2>0\). If the
+cubic form \(\mathring\kappa_3\) of \eqref{eq:link-coarse-cumulant-forms} is not identically zero, or if
+\(\mathring\mu_{e'}=\mathring\mu_e=0\) and the quartic form \(\mathring\kappa_4\) is not identically zero,
+there is \(\mathring\tau_0>0\) such that for every \(\mathring\tau\in(0,\mathring\tau_0)\) no Gaussian random
+element of \(\mathfrak{gl}(K,\R)\) coincides with \(\operatorname{Log}\mathring\Theta^{\ell+1}_e\) almost
+surely on that event. For \(\mathfrak g=\mathfrak{gl}(K,\R)\) with \(K\geq2\), \(\mathsf G^{\mathrm{fib}}=I_K\),
+and \(\mathring\Lambda_{e'}=\mathring\Lambda_e=\mathrm{Id}\), the form \(\mathring\kappa_3\) vanishes
+identically and \(\mathring\kappa_4(\mathring\upsilon)=12\) at
+\(\mathring\upsilon=\begin{psmallmatrix}0&1\\0&0\end{psmallmatrix}\oplus0_{K-2}\); with
+\(\mathring\Lambda_{e'}=\mathrm{Id}\) and \(\mathring\Lambda_e^{-1}\) the identity plus the orthogonal
+projection onto the line of that matrix, \(\mathring\kappa_3(\mathring\upsilon)=1\) at
+\(\mathring\upsilon=\begin{psmallmatrix}1&1\\0&0\end{psmallmatrix}\oplus0_{K-2}\). For an inner product on
+\(\mathfrak g\) invariant under the adjoint action of \(\mathfrak g\) and precisions that are multiples of
+the identity, both forms vanish identically.
+(iv) Consequently the product Gaussian generator laws are not closed under the coarse links of
+\Cref{def:full-graph-coarse-links}: for \(G=\GL^+(K)\) with \(K\geq2\) and every pair of nondegenerate laws
+by (ii), and for every closed subgroup under the conditions of (iii) at small widths, in the sense that
+the principal-logarithm coarse generator is not Gaussian. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(i) Commuting matrices satisfy \(e^{\mathring\omega_{e'}}e^{\mathring\omega_e}=e^{\mathring\omega_{e'}+\mathring\omega_e}\),
+and a sum of independent Gaussian random elements is Gaussian.
+
+(ii) A matrix in \(\mathbb X_K\) has determinant equal to the product of its eigenvalues, which is
+positive. Near a matrix of \(\mathbb X_K\) the eigenvalues depend continuously on the entries, a simple
+real eigenvalue stays real because a nonreal eigenvalue nearby would bring its complex conjugate into the
+same small disk, and signs and distinctness persist, so \(\mathbb X_K\) is open. Each negative eigenvalue of a
+matrix in \(\mathbb X_K\) is simple, so its single Jordan block occurs once, and by
+\citet[Theorem~1]{culver1966existence} no element of \(\mathbb X_K\) has a real logarithm. With
+\(\mathfrak J=\begin{psmallmatrix}0&-1\\1&0\end{psmallmatrix}\),
+\(\exp(\pi\mathfrak J\oplus0_{K-2})\exp(\operatorname{diag}(0,\log2,\log3,\ldots,\log K))=\operatorname{diag}(-1,-2,3,\ldots,K)\in\mathbb X_K\),
+so the preimage of \(\mathbb X_K\) under the continuous map
+\((\mathring\xi_1,\mathring\xi_2)\mapsto e^{\mathring\xi_1}e^{\mathring\xi_2}\) is a nonempty open subset of
+\(\mathfrak g\times\mathfrak g\), and the joint law of \((\mathring\omega_{e'},\mathring\omega_e)\), which has an
+everywhere positive density, charges it. A \(\mathfrak g\)-valued \(\mathring\omega^{\ell+1}_e\) with
+\(e^{\mathring\omega^{\ell+1}_e}=\mathring\Theta^{\ell+1}_e\) almost surely would place
+\(\mathring\Theta^{\ell+1}_e\) in \(\exp(\mathfrak g)\), which misses \(\mathbb X_K\), almost surely, and the
+image under the exponential of any law on \(\mathfrak g\) gives \(\mathbb X_K\) mass zero.
+
+(iii) Expansion of the logarithm. Let \(\mathring\xi_1,\mathring\xi_2\in\mathfrak{gl}(K,\R)\) with
+\(\lVert\mathring\xi_1\rVert+\lVert\mathring\xi_2\rVert\leq\frac12\), and let
+\(\mathring\Pi_l=\sum_{a+b=l}\mathring\xi_1^a\mathring\xi_2^b/(a!b!)\) be the part of degree \(l\) of
+\(e^{\mathring\xi_1}e^{\mathring\xi_2}\). Then \(\lVert e^{\mathring\xi_1}e^{\mathring\xi_2}-I\rVert\leq e^{1/2}-1<1\),
+so the series \(\sum_{k\geq1}(-1)^{k+1}(e^{\mathring\xi_1}e^{\mathring\xi_2}-I)^k/k\) converges; its value is the
+principal logarithm, the logarithm whose eigenvalues have imaginary parts in \((-\pi,\pi)\). Substituting
+\(\sum_{l\geq1}\mathring\Pi_l\) and grouping by total degree in \((\mathring\xi_1,\mathring\xi_2)\) is
+legitimate, because replacing every coefficient by its absolute value and every word in the letters by the
+product of the norms of its letters gives the expansion of
+\(-\log(2-e^{\lVert\mathring\xi_1\rVert+\lVert\mathring\xi_2\rVert})\), which converges since \(\frac12<\log2\).
+Hence
+\(\operatorname{Log}(e^{\mathring\xi_1}e^{\mathring\xi_2})=\sum_{l\geq1}\operatorname{BCH}_l(\mathring\xi_1,\mathring\xi_2)\)
+with homogeneous polynomials \(\operatorname{BCH}_l\) of degree \(l\) satisfying
+\(\lVert\operatorname{BCH}_l(\mathring\xi_1,\mathring\xi_2)\rVert\leq\mathrm b_l(\lVert\mathring\xi_1\rVert+\lVert\mathring\xi_2\rVert)^l\),
+where \(\mathrm b_l\geq0\) are the Taylor coefficients at zero of \(\mathrm u\mapsto-\log(2-e^{\mathrm u})\). The
+components of degree one, two, and three are \(\operatorname{BCH}_1=\mathring\Pi_1\),
+\(\operatorname{BCH}_2=\mathring\Pi_2-\frac12\mathring\Pi_1^2=\frac12[\mathring\xi_1,\mathring\xi_2]\), and
+\(\operatorname{BCH}_3=\mathring\Pi_3-\frac12(\mathring\Pi_1\mathring\Pi_2+\mathring\Pi_2\mathring\Pi_1)+\frac13\mathring\Pi_1^3
+=\frac1{12}([\mathring\xi_1,[\mathring\xi_1,\mathring\xi_2]]+[\mathring\xi_2,[\mathring\xi_2,\mathring\xi_1]])\),
+the last by expanding the products and collecting the eight words of degree three, so
+\begin{equation}
+\begin{gathered}
+\operatorname{Log}(e^{\mathring\xi_1}e^{\mathring\xi_2})
+=\mathring\xi_1+\mathring\xi_2+\tfrac12[\mathring\xi_1,\mathring\xi_2]
++\tfrac1{12}\bigl([\mathring\xi_1,[\mathring\xi_1,\mathring\xi_2]]+[\mathring\xi_2,[\mathring\xi_2,\mathring\xi_1]]\bigr)
++\operatorname{BCH}_{\geq4}(\mathring\xi_1,\mathring\xi_2),\\
+\lVert\operatorname{BCH}_{\geq4}(\mathring\xi_1,\mathring\xi_2)\rVert\leq\mathrm c_3\bigl(\lVert\mathring\xi_1\rVert+\lVert\mathring\xi_2\rVert\bigr)^4,
+\end{gathered}
+\label{eq:link-bch-third}
+\end{equation}
+with \(\mathrm c_3=\sum_{l\geq4}\mathrm b_l2^{4-l}<\infty\).
+
+The logarithm lies in \(\mathfrak g\) when \(\mathring\xi_1,\mathring\xi_2\in\mathfrak g\). For \(t\in[0,1]\) put
+\(\mathring\gamma(t)=\operatorname{Log}(e^{t\mathring\xi_1}e^{\mathring\xi_2})\). By the bound above,
+\(\mathring\gamma\) is real-analytic with
+\(\lVert\mathring\gamma(t)\rVert\leq-\log(2-e^{1/2})<\frac\pi2\), and \(\mathring\gamma(0)=\mathring\xi_2\), because
+the grouped series of \(\operatorname{Log}(e^{\mathring\xi_2})\) is that of the formal identity
+\(\log(e^{\mathrm u})=\mathrm u\). Differentiating \(e^{\mathring\gamma(t)}=e^{t\mathring\xi_1}e^{\mathring\xi_2}\)
+with \Cref{lem:link-exp-derivative} gives \(\mathbf L(\mathring\gamma,\mathring\gamma')=\mathring\xi_1e^{\mathring\gamma}\),
+and \(e^{\mathrm u\mathring\gamma}\mathbf Te^{-\mathrm u\mathring\gamma}=e^{\mathrm u\operatorname{ad}_{\mathring\gamma}}\mathbf T\)
+(\Cref{lem:link-exp-naturality} for the homomorphism \(g\mapsto\operatorname{Ad}_g\), whose differential is
+\(\operatorname{ad}\)), with
+\(\operatorname{ad}_{\mathring\gamma}\mathbf T=[\mathring\gamma,\mathbf T]\), writes
+\(\mathbf L(\mathring\gamma,\mathbf T)=\bigl(\int_0^1e^{\mathrm u\operatorname{ad}_{\mathring\gamma}}d\mathrm u\bigr)(\mathbf T)e^{\mathring\gamma}\).
+Since \(\lVert\operatorname{ad}_{\mathring\gamma}\rVert\leq2\lVert\mathring\gamma\rVert<\pi\), the operator
+\(\int_0^1e^{\mathrm u\operatorname{ad}_{\mathring\gamma}}d\mathrm u=\sum_{k\geq0}\operatorname{ad}_{\mathring\gamma}^k/(k+1)!\) is
+inverted by the power series of \(\mathrm w\mapsto\mathrm w/(e^{\mathrm w}-1)\), which converges for
+\(\lvert\mathrm w\rvert<2\pi\). Hence
+\(\mathring\gamma\) solves the differential equation whose right side at \(\mathbf T\) is that power series in
+\(\operatorname{ad}_{\mathbf T}\) applied to \(\mathring\xi_1\), an analytic vector field on the ball
+\(\lVert\mathbf T\rVert<\pi\) that is tangent to \(\mathfrak g\) at the points of \(\mathfrak g\), because
+\(\mathfrak g\) is a closed Lie subalgebra. The solution of this equation in \(\mathfrak g\) from
+\(\mathring\xi_2\) coincides with \(\mathring\gamma\) by uniqueness while it exists, and it exists on \([0,1]\)
+because \(\mathring\gamma\) stays in a compact subset of the ball; so
+\(\operatorname{Log}(e^{\mathring\xi_1}e^{\mathring\xi_2})=\mathring\gamma(1)\in\mathfrak g\).
+
+Probability of the event. Write \(\mathring\omega_{e'}=\mathring\tau\mathring\chi_{e'}\) and
+\(\mathring\omega_e=\mathring\tau\mathring\chi_e\), where \(\mathring\chi_{e'}=\mathring\mu_{e'}+\mathring\zeta_{e'}\)
+and \(\mathring\chi_e=\mathring\mu_e+\mathring\zeta_e\) are independent with laws that do not depend on
+\(\mathring\tau\). A Gaussian random element \(\mathring\chi\) of a space of finite dimension satisfies
+\(\E e^{\mathrm c\lVert\mathring\chi\rVert^2}<\infty\) for some \(\mathrm c>0\), by a Gaussian integral, and
+Markov's inequality for \(e^{\mathrm c\lVert\mathring\chi\rVert^2}\) bounds
+\(\Pr(\lVert\mathring\chi\rVert>1/(4\mathring\tau))\) by a multiple of \(e^{-\mathrm c/(16\mathring\tau^2)}\), which
+bounds the probability of the complement of the event.
+
+Polynomial part. Put
+\(\mathring\psi_1=\langle\mathring\upsilon,\mathring\chi_{e'}+\mathring\chi_e\rangle_{\mathsf G}\),
+\(\mathring\psi_2=\frac12\langle\mathring\upsilon,[\mathring\chi_{e'},\mathring\chi_e]\rangle_{\mathsf G}\),
+\(\mathring\psi_3=\frac1{12}\langle\mathring\upsilon,[\mathring\chi_{e'},[\mathring\chi_{e'},\mathring\chi_e]]+[\mathring\chi_e,[\mathring\chi_e,\mathring\chi_{e'}]]\rangle_{\mathsf G}\),
+\(\mathring\psi_4=\mathring\tau^{-4}\langle\mathring\upsilon,\operatorname{BCH}_{\geq4}(\mathring\omega_{e'},\mathring\omega_e)\rangle_{\mathsf G}\)
+on the event and \(\mathring\psi_4=0\) off it, and
+\begin{equation}
+\mathring\Psi_{\mathring\tau}=\mathring\psi_1+\mathring\tau\mathring\psi_2+\mathring\tau^2\mathring\psi_3+\mathring\tau^3\mathring\psi_4 .
+\label{eq:link-coarse-polynomial-part}
+\end{equation}
+By \eqref{eq:link-bch-third} and homogeneity,
+\(\mathring\Psi_{\mathring\tau}=\mathring\tau^{-1}\langle\mathring\upsilon,\operatorname{Log}\mathring\Theta^{\ell+1}_e\rangle_{\mathsf G}\)
+on the event, and
+\(\lvert\mathring\psi_4\rvert\leq\mathrm c_4(\lVert\mathring\chi_{e'}\rVert+\lVert\mathring\chi_e\rVert)^4\) with
+\(\mathrm c_4\) independent of \(\mathring\tau\), so every moment of \(\mathring\psi_1,\ldots,\mathring\psi_4\) is
+bounded uniformly in \(\mathring\tau\). Joint cumulants are multilinear and are polynomials in joint
+moments, and the cumulants of order three and four of the Gaussian variable \(\mathring\psi_1\) vanish, so,
+with \(\operatorname{cum}_l\) the cumulant of order \(l\) and \(\operatorname{cum}\) the joint cumulant,
+\begin{equation}
+\begin{aligned}
+\operatorname{cum}_3\mathring\Psi_{\mathring\tau}
+&=3\mathring\tau\operatorname{cum}(\mathring\psi_1,\mathring\psi_1,\mathring\psi_2)+O(\mathring\tau^2),\\
+\operatorname{cum}_4\mathring\Psi_{\mathring\tau}
+&=4\mathring\tau\operatorname{cum}(\mathring\psi_1,\mathring\psi_1,\mathring\psi_1,\mathring\psi_2)
++\mathring\tau^2\bigl[6\operatorname{cum}(\mathring\psi_1,\mathring\psi_1,\mathring\psi_2,\mathring\psi_2)
++4\operatorname{cum}(\mathring\psi_1,\mathring\psi_1,\mathring\psi_1,\mathring\psi_3)\bigr]+O(\mathring\tau^3).
+\end{aligned}
+\label{eq:link-coarse-cumulant-expansion}
+\end{equation}
+
+Gaussian integration by parts. Let \(\partial_{\mathring\upsilon}\) be the derivative of a function of
+\((\mathring\zeta_{e'},\mathring\zeta_e)\) along \((\mathring\upsilon_{e'},\mathring\upsilon_e)\). Every polynomial
+function \(\mathring\varphi\) of \((\mathring\zeta_{e'},\mathring\zeta_e)\) satisfies
+\(\E[(\mathring\psi_1-\E\mathring\psi_1)\mathring\varphi]=\E[\partial_{\mathring\upsilon}\mathring\varphi]\): here
+\(\mathring\psi_1-\E\mathring\psi_1=\langle\mathring\upsilon,\mathring\zeta_{e'}\rangle_{\mathsf G}+\langle\mathring\upsilon,\mathring\zeta_e\rangle_{\mathsf G}\),
+and integration by parts against the Gaussian density, whose gradient in \(\mathring\zeta_{e'}\) for
+\(\langle\cdot,\cdot\rangle_{\mathsf G}\) is \(-\mathring\Lambda_{e'}\mathring\zeta_{e'}\) times the density and
+likewise in \(\mathring\zeta_e\), turns each term into the derivative along
+\(\mathring\Lambda_{e'}^{-1}\mathring\upsilon\), respectively \(\mathring\Lambda_e^{-1}\mathring\upsilon\), as in the
+proof of \Cref{lem:link-gaussian-gradients}. Two applications give
+\(\operatorname{cum}(\mathring\psi_1,\mathring\psi_1,\mathring\psi_2)
+=\E[(\mathring\psi_1-\E\mathring\psi_1)^2(\mathring\psi_2-\E\mathring\psi_2)]=\partial^2_{\mathring\upsilon}\mathring\psi_2
+=\mathring\kappa_3(\mathring\upsilon)\) for all means, because \(\mathring\psi_2\) is a quadratic polynomial whose
+second derivative along \((\mathring\upsilon_{e'},\mathring\upsilon_e)\) is
+\(\langle\mathring\upsilon,[\mathring\upsilon_{e'},\mathring\upsilon_e]\rangle_{\mathsf G}\). If the means vanish, the
+map \((\mathring\zeta_{e'},\mathring\zeta_e)\mapsto(-\mathring\zeta_{e'},-\mathring\zeta_e)\) preserves the law
+and changes the signs of \(\mathring\psi_1\) and \(\mathring\psi_3\) but not of \(\mathring\psi_2\), so every
+joint cumulant and every joint moment with an odd number of entries from
+\(\{\mathring\psi_1,\mathring\psi_3\}\) vanishes; in particular
+\(\operatorname{cum}(\mathring\psi_1,\mathring\psi_1,\mathring\psi_1,\mathring\psi_2)=0\) and
+\(\E[\mathring\psi_1\mathring\psi_2]=0\), while \(\E\mathring\psi_2=0\) because the two generators are
+independent and centered. Repeated integration by parts then gives
+\(\E[\mathring\psi_1^2\mathring\psi_2^2]=\E[\mathring\psi_1^2]\E[\mathring\psi_2^2]+2\E[(\partial_{\mathring\upsilon}\mathring\psi_2)^2]\)
+and
+\(\E[\mathring\psi_1^3\mathring\psi_3]=3\E[\mathring\psi_1^2]\E[\mathring\psi_1\mathring\psi_3]+\partial^3_{\mathring\upsilon}\mathring\psi_3\),
+hence
+\(\operatorname{cum}(\mathring\psi_1,\mathring\psi_1,\mathring\psi_2,\mathring\psi_2)=2\E[(\partial_{\mathring\upsilon}\mathring\psi_2)^2]\)
+and \(\operatorname{cum}(\mathring\psi_1,\mathring\psi_1,\mathring\psi_1,\mathring\psi_3)=\partial^3_{\mathring\upsilon}\mathring\psi_3\),
+which is six times the value of the homogeneous cubic \(\mathring\psi_3\) at
+\((\mathring\upsilon_{e'},\mathring\upsilon_e)\). Since
+\(\partial_{\mathring\upsilon}\mathring\psi_2=\frac12\langle\mathring\upsilon,[\mathring\upsilon_{e'},\mathring\zeta_e]\rangle_{\mathsf G}
++\frac12\langle\mathring\upsilon,[\mathring\zeta_{e'},\mathring\upsilon_e]\rangle_{\mathsf G}\) with independent
+centered summands, the coefficient of \(\mathring\tau^2\) in \eqref{eq:link-coarse-cumulant-expansion} is
+\(\mathring\kappa_4(\mathring\upsilon)\) in the centered case.
+
+Gaussian rigidity. Fix a direction \(\mathring\upsilon\) with \(\mathring\kappa_3(\mathring\upsilon)\neq0\), or, in
+the centered case, with \(\mathring\kappa_4(\mathring\upsilon)\neq0\), and suppose that along a sequence of
+widths tending to zero some Gaussian random element of \(\mathfrak{gl}(K,\R)\) coincides with
+\(\operatorname{Log}\mathring\Theta^{\ell+1}_e\) almost surely on the event. Pairing it with
+\(\mathring\upsilon\) and dividing by \(\mathring\tau\) gives real Gaussian variables that equal
+\(\mathring\Psi_{\mathring\tau}\) outside an event of probability at most
+\(\mathrm c_1e^{-\mathrm c_2/\mathring\tau^2}\). Since \(\mathring\Psi_{\mathring\tau}\to\mathring\psi_1\) in mean
+square, these Gaussian variables converge in law to \(\mathring\psi_1\); the moduli of their characteristic
+functions converge pointwise, which gives convergence of their variances, and then their phase factors
+converge pointwise, which by integration against a standard normal density forces convergence of their
+means. Their moments of order eight are therefore bounded along the sequence, and by the Cauchy--Schwarz
+inequality on the exceptional event their moments of order at most four differ from those of
+\(\mathring\Psi_{\mathring\tau}\) by \(O(e^{-\mathrm c_2/(2\mathring\tau^2)})\), and so do their cumulants of order
+three and four. Those of a Gaussian variable vanish, so by \eqref{eq:link-coarse-cumulant-expansion}
+\(3\mathring\tau\mathring\kappa_3(\mathring\upsilon)+O(\mathring\tau^2)\), and in the centered case
+\(\mathring\tau^2\mathring\kappa_4(\mathring\upsilon)+O(\mathring\tau^3)\), tend to zero faster than every power
+of \(\mathring\tau\), which is impossible. Hence such a sequence does not exist, and \(\mathring\tau_0\) does.
+
+Instances. For \(\mathsf G^{\mathrm{fib}}=I_K\) the inner product is \(\Tr(\mathbf S^\top\mathbf T)\). With unit
+precisions \(\mathring\upsilon_{e'}=\mathring\upsilon_e=\mathring\upsilon\), so
+\(\mathring\kappa_3(\mathring\upsilon)=\langle\mathring\upsilon,[\mathring\upsilon,\mathring\upsilon]\rangle_{\mathsf G}=0\)
+and the double brackets of \(\mathring\kappa_4\) vanish. For the stated \(\mathring\upsilon\),
+\(\langle\mathring\upsilon,[\mathring\upsilon,\mathring\zeta]\rangle_{\mathsf G}=\mathring\zeta_{22}-\mathring\zeta_{11}\),
+which has variance \(2\) when \(\mathring\zeta\) has independent standard normal entries, and
+\(\langle\mathring\upsilon,[\mathring\zeta,\mathring\upsilon]\rangle_{\mathsf G}\) is its negative, so
+\(\mathring\kappa_4(\mathring\upsilon)=3\cdot2+3\cdot2\). In the second instance \(\mathring\upsilon_{e'}=\mathring\upsilon\)
+and \(\mathring\upsilon_e=\begin{psmallmatrix}1&2\\0&0\end{psmallmatrix}\oplus0_{K-2}\), whose bracket
+\([\mathring\upsilon_{e'},\mathring\upsilon_e]=\begin{psmallmatrix}0&1\\0&0\end{psmallmatrix}\oplus0_{K-2}\) pairs with
+\(\mathring\upsilon\) to \(1\). For an invariant inner product,
+\(\langle\mathring\upsilon,[\mathring\upsilon,\mathbf T]\rangle_{\mathsf G}=-\langle[\mathring\upsilon,\mathring\upsilon],\mathbf T\rangle_{\mathsf G}=0\)
+for every \(\mathbf T\in\mathfrak g\), and with precisions that are multiples of the identity
+\(\mathring\upsilon_{e'}\) and \(\mathring\upsilon_e\) are multiples of \(\mathring\upsilon\), so every term of both
+forms vanishes.
+
+(iv) is (ii) and (iii). $\square$
+
+For \(\GL^+(K)\) the exponential chart does not survive the coarse step: the product of two independent
+links with full-support generator laws leaves the image of the exponential with positive probability, so
+the coarse links stay typed as group elements, as in \Cref{def:full-graph-coarse-links}, and their law, not
+a generator law, is what the next depth receives. Where the logarithm exists, the commutator term of the
+expansion makes the coarse generator non-Gaussian at first order in the width whenever
+\(\mathring\kappa_3\) is not identically zero, and, for centered laws, at second order whenever
+\(\mathring\kappa_4\) is not; for an invariant inner product with isotropic precisions both leading
+coefficients vanish and this test is silent. The expansion \eqref{eq:link-bch-third} is the
+Baker--Campbell--Hausdorff series through third order \citep[Ch.~5]{Hall2015}, proved above with the
+remainder bound used here.
+
+\openproblemheading{A finite-dimensional description of coarse link laws}{open:link-coarse-closure}
+By \Cref{prop:link-coarse-generator-law} the product Gaussian generator laws are not closed under the
+coarse links of \Cref{def:full-graph-coarse-links}, and for \(G=\GL^+(K)\) with \(K\geq2\) no law of
+generators represents a coarse link. The law of the coarse links always exists, as the pushforward of the
+fine law through the dressed products, which are deterministic given the partition and the trees
+(\Cref{prop:full-graph-coarse-links}), and \Cref{thm:rg-exact-coarse-vfe} applies to the coarse step. What
+is open is a finite-dimensional family of link laws that survives the step. For the two copies in series of
+\Cref{prop:link-coarse-generator-law}, the step sends independent links with laws \(\nu'\) and \(\nu\) on
+\(G\) to the law \(\nu'*\nu\) of their product, so such a family must be closed under convolution. It is
+settled, for \(G=\GL^+(K)\) with \(K\geq2\), by a weakly continuous injective map from a connected open
+subset of some \(\R^d\) into the Borel probability laws on \(\GL^+(K)\) whose image contains the image under
+the exponential of every nondegenerate Gaussian law on \(\mathfrak{gl}(K,\R)\) and contains \(\nu'*\nu\)
+whenever it contains \(\nu'\) and \(\nu\); or by a proof that for some \(K\geq2\) no such map exists.
+
 \section{How a parent influences its children}
 \label{sec:full-graph-vfe-downward}
 
@@ -848,6 +1146,11 @@ on $o_{0:n}$ and integrating out $Z^{(n)}_{\mathrm{par}}$ gives
 \Cref{lem:prob-kl-chain-rule} applied along $n$ to the Radon--Nikodym ratio of
 $\mathbb Q$ against the joint. The last statement is the definition of a maximizer.
 $\square$
+
+With latent links, \Cref{def:link-history-prior} puts a Gibbs prior on the generator histories across
+episodes, and \Cref{prop:link-history-prior} shows that it is a latent route of
+\Cref{def:full-graph-episode-joint} with the generators in the parent read-out, to which
+\Cref{prop:full-graph-episode-joint} applies.
 
 \propositionheading{One joint for a declared parameter route}{prop:full-graph-episode-lifted-joint}
 Let the episode joints of the parameter route form a Markov kernel

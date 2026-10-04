@@ -1,0 +1,1903 @@
+\chapter[Lie-Algebra Links as Latent Fields]{Lie-Algebra Links as Latent Fields}
+\label{ch:links}
+
+This chapter asks what becomes of the independent links of \Cref{def:geo-graph-links} when they are
+inferred jointly with the agents' states instead of being held as structural data or moved as
+parameters. Written in the exponential chart of a reference point, every twist is the exponential of a
+generator in the Lie algebra, on which passive re-expressions do not act
+(\Cref{def:link-exponential-chart,prop:link-generator-gauge}). A Gaussian base law on the generators
+multiplied by the exponential of minus a nonnegative loop action is a normalized prior for every
+structure group whose Lie algebra carries an inner product, compact or not
+(\Cref{prop:link-generator-prior}); on the general linear group the loop action measures the reference
+holonomy with a fiber metric, because no continuous class function separates unipotent holonomy from
+the identity (\Cref{cor:link-no-invariant-defect,prop:link-loop-defect}). With the generators latent,
+the collective bound of \Cref{prop:elbo-random-link-vfe} specializes to a joint that has unit mass on
+every record hypergraph and to a free energy whose link sector is the relative entropy from the
+generator prior (\Cref{prop:link-latent-normalization,prop:link-gaussian-recognition-vfe}). Its
+stationarity condition is a link field equation in which the stress of the prior balances the expected
+matter current transported by the adjoint derivative of the chart (\Cref{prop:link-field-equation});
+for a comparison record the current has the outer-product form of a delta rule
+(\Cref{cor:link-delta-rule}), and without the prior the link problem degenerates
+(\Cref{cor:link-prior-necessary}). Held links are the zero-width limit of the latent model, and
+statements proved at every held link transfer conditionally on the generators
+(\Cref{thm:link-held-limit,prop:link-conditional-transfer}). Matter attached by record extension
+induces no link action, while matter normalized jointly with the generators induces minus the logarithm
+of its normalizer (\Cref{prop:link-induced-action}). Recognition of the generators is a first-order
+natural-gradient history whose explicit Euler step is the Gaussian Bayesian learning rule
+(\Cref{prop:link-recognition-flow}); across learning episodes a Gibbs prior on generator histories gives
+the most probable history an inertia whose mass is the precision of the generator increment
+(\Cref{prop:link-history-prior,prop:link-map-inertia}); and near zero generators the stationarity
+condition is a linear equation whose positive operator collects the anchor, the loops, the episodes,
+and the matter (\Cref{prop:link-linearized-equation}). These results are used for the coarse links and
+the holonomy-conditioned parents of \Cref{ch:network-state,ch:full-graph-meta-agent-vfe}, whose link
+statements gain a version with latent generators, and the link translations of
+\Cref{ch:finite-depth-formation} are their translation-group instance
+(\Cref{prop:link-translation-instance}); Supplement G realizes them for Gaussian matter. Longer proofs
+are deferred to \cref{app:deferred-proofs}.
+
+The symbols of \cref{tab:link-notation} are declared for this chapter and its proof section, and those
+that recur in \Cref{ch:network-state,ch:full-graph-meta-agent-vfe} are also listed in \cref{tab:notation};
+$\mathbf B$, $\mathbf S$, $\mathbf T$, and $\mathbf H$ denote generic square matrices, $\mathbf b$ and
+$\mathbf c$ generic vectors, and $\mathbf h$ a generic real function, each bound in the statement or proof
+where it appears, and a ring accent marks an object of the generator sector written in the coordinates of
+the reference point.
+
+\begin{sciencetable}{Symbols of the latent-link construction.}
+\label{tab:link-notation}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.33\textwidth}>{\raggedright\arraybackslash}X}
+\toprule
+\textbf{Symbol} & \textbf{Meaning} \\
+\midrule
+\(\mathfrak g\), \(\exp\), \(\operatorname{Ad}_g\), \(\mathrm d\rho_x\) & Lie algebra of \(G\), its exponential map, the adjoint action, the differential of \(\rho_x\) at \(e_G\) \\
+\(E_+\), \(\mathscr T=\mathfrak g^{E_+}\) & one orientation of each reversal pair; link space of one channel, \(\mathscr T\times\mathscr T\) for two independent channels \\
+\(\mathring\omega^x_e\), \(\exp_\sigma\), \(\mathring\Theta^x_p\) & generator of the twist of \(e\); exponential chart at \(\sigma\); reference path product, the reference holonomy of a closed walk \\
+\(\mathsf G^{\mathrm{fib}}\), \(\langle\cdot,\cdot\rangle_{\mathsf G}\), \(\lVert\cdot\rVert_{\mathsf G}\) & fiber metric at the reference point; trace form on \(\mathfrak{gl}(\mathbb V)\) and the inner product on \(\mathfrak g\) \\
+\(\mathfrak Q^x_p\), \(\mathbb L\), \(\mathrm c_p\), \(\mathbf C\) & loop defect of a closed walk; family of closed walks and their coefficients; cycle map \\
+\(\nu^{\mathscr T}\), \(\mathscr S\), \(Z_{\mathscr S}\), \(\mathbb P^{\mathscr T}_\theta\) & base law, link action, normalizer, generator prior \\
+\(\mathring\alpha^x_e\), \(\mathring\Sigma^x_e\); \(\mathring\mu\), \(\mathring\Lambda\) & anchor and prior covariance; mean and precision of a Gaussian recognition law \(R\) of the generators \\
+\(\mathbf L(\mathbf B,\mathbf T)\) & Fr\'echet derivative of the matrix exponential \\
+\(\mathbf H_o\), \(\mathbf U\), \(\mathbf V\), \(\mathbf J^x_e\) & matter energy, expected action plus matter energy, most-probable-link objective, link current \\
+\(\mathbf M\), \(\mathbf M^\star\), \(\mathbf l\) & transport matrix of a comparison record, its rank-one minimizer, expected record energy \\
+\(\mathbf F_Q\), \(\mathbf F\) & held-link free energy as a function of the generators, and its infimum over a class \\
+\(\mathscr S^{\mathrm{ind}}\), \(\mathfrak Z\) & induced link action, joint normalizer of generators and undirected matter \\
+\(\mathfrak i_\lambda\), \(\mathring\Xi\), \(\mathring\vartheta\), \(\mathring\varpi\), \(\mathring\Gamma\) & generator integrand, space of admissible precisions, natural and expectation parameters, log-partition function \\
+\(\mathbf m\), \(\mathfrak U\), \(\mathbb P^{\mathrm{hist}}\), \(Z_{\mathrm{hist}}\), \(\mathring Z^{\leftarrow}_n\) & increment precision, kinetic term, generator history prior, its normalizer, backward functions \\
+\(\mathscr S^{\mathrm{hist}}\), \(\mathfrak V_n\) & history action and episode potentials \\
+\(\mathbf K\), \(\mathbf N_0\), \(\mathring\Phi\), \(\mathbf j\) & linearized link operator, current correction of the Hessian, matter operator, source \\
+\bottomrule
+\end{tabularx}
+\end{sciencetable}
+
+\paragraph{Scope.}
+The chapter does not claim that latent links improve the evidence, the prediction of any record, or any
+learning outcome relative to held links; that the generator prior is invariant under reference changes
+that do not act by multiples of isometries of the fiber metric, or that the loop defect is independent
+of the base vertex of a closed walk; that every local minimizer of the most-probable-link objective is
+global; that the recognition flow of the generators converges, or that stationary generator histories
+are unique outside the ball of \cref{prop:link-linearized-equation}; that the joint M-coordinate of the
+anchors and the prior covariances exists when the action has loop terms; that frames are dynamical, so
+that time-like links would carry variables; that the linearized link operator is the operator of a
+physical field; or that the outer-product form of the link current identifies the model with a
+fast-weight or delta-rule architecture. \status{NOT-CLAIMED} The interaction multigraph stays structural, and edge creation and
+deletion is \cref{open:obs-edge-creation}; a finite-dimensional family of link laws that survives the
+coarse step is \cref{open:link-coarse-closure}; and a slow-manifold reduction with the generator
+recognition means in the slow block is part of \cref{open:obs-slow-manifold}.
+
+\section{The exponential chart of the links}
+\label{sec:link-chart}
+
+This section writes the independent links of \Cref{def:geo-graph-links} in the exponential chart of
+the reference point $\sigma$ of \Cref{prop:geo-edge-twist-invariance}. The twist of an edge copy is
+unchanged by every passive re-expression, so a generator of the twist carries no vertex gauge: the
+frames $U_i$ carry the passive action, while a change of reference point or an active automorphism
+moves all generators by one adjoint map (\Cref{prop:link-generator-gauge}). The chart covers exactly
+the link families whose twists are exponentials. For $G=\GL(K,\R)$ this excludes some twists of
+positive determinant, while on a closed walk that traverses two reversal pairs once each the
+reference holonomies of chart links still reach every element of $\GL^+(K)$
+(\Cref{prop:link-chart-image}).
+
+\lemmaheading{Exponential maps and homomorphisms}{lem:link-exp-naturality}
+Let $\boldsymbol\varphi:G\to\mathbb Y$ be a smooth homomorphism of Lie groups with differential
+$\mathrm d\boldsymbol\varphi:\mathfrak g\to\operatorname{Lie}(\mathbb Y)$ at $e_G$. Then
+$\boldsymbol\varphi(\exp\mathring\omega)=\exp(\mathrm d\boldsymbol\varphi\mathring\omega)$ for every
+$\mathring\omega\in\mathfrak g$. In particular, let $\operatorname{Ad}_g$ be the differential at $e_G$
+of the conjugation $g'\mapsto gg'g^{-1}$, and let $\rho_x:G\to\GL(\mathbb V)$ be a smooth homomorphism
+into the general linear group of a finite-dimensional real vector space $\mathbb V$, with differential
+$\mathrm d\rho_x$ at $e_G$. Then for all $g\in G$ and $\mathring\omega\in\mathfrak g$, with the matrix
+exponential as the exponential map of $\GL(\mathbb V)$,
+\begin{equation}
+g\exp(\mathring\omega)g^{-1}=\exp(\operatorname{Ad}_g\mathring\omega),
+\qquad
+\rho_x(\exp\mathring\omega)=\exp(\mathrm d\rho_x\mathring\omega),
+\qquad
+\mathrm d\rho_x(\operatorname{Ad}_g\mathring\omega)=\rho_x(g)\mathrm d\rho_x(\mathring\omega)\rho_x(g)^{-1}.
+\label{eq:link-exp-naturality}
+\end{equation}
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The exponential map sends $\mathring\omega$ to the value at time one of the integral curve through
+the identity of the left-invariant vector field whose value at the identity is $\mathring\omega$, and
+$t\mapsto\exp(t\mathring\omega)$ is a smooth homomorphism from $(\R,+)$. Hence
+$\boldsymbol\gamma(t)=\boldsymbol\varphi(\exp(t\mathring\omega))$ is a smooth homomorphism from $(\R,+)$ into $\mathbb Y$.
+Differentiating $\boldsymbol\gamma(t+t')=\boldsymbol\gamma(t)\boldsymbol\gamma(t')$ in $t'$ at $t'=0$ shows that $\boldsymbol\gamma'(t)$ is the image
+of $\boldsymbol\gamma'(0)$ under the differential at the identity of the left multiplication by $\boldsymbol\gamma(t)$, so
+$\boldsymbol\gamma$ is the integral curve through the identity of the left-invariant vector field with value
+$\boldsymbol\gamma'(0)=\mathrm d\boldsymbol\varphi\mathring\omega$, and uniqueness of integral curves gives
+$\boldsymbol\gamma(t)=\exp(t\mathrm d\boldsymbol\varphi\mathring\omega)$; the first claim is the case $t=1$. Conjugation by
+$g$ is a smooth homomorphism with differential $\operatorname{Ad}_g$, which gives the first identity of
+\cref{eq:link-exp-naturality}. On $\GL(\mathbb V)$ the left-invariant vector field with value
+$\mathbf H$ at the identity is $y\mapsto y\mathbf H$, and the matrix exponential satisfies
+$\frac{\mathrm d}{\mathrm dt}e^{t\mathbf H}=e^{t\mathbf H}\mathbf H$ with $e^{0}=I_{\mathbb V}$, so it is the
+exponential map of $\GL(\mathbb V)$; this gives the second identity. Applying $\rho_x$ to the first
+identity for $t\mathring\omega$ and using the second gives
+$\rho_x(g)\exp(t\mathrm d\rho_x\mathring\omega)\rho_x(g)^{-1}=\exp(t\mathrm d\rho_x(\operatorname{Ad}_g\mathring\omega))$,
+whose derivative at $t=0$ is the third identity. \hfill$\square$
+
+\definitionheading{Exponential chart of the links}{def:link-exponential-chart}
+Let $\mathfrak g$ be the Lie algebra of $G$ and $\exp:\mathfrak g\to G$ its exponential map, let
+$E_+\subseteq E$ contain exactly one edge copy of each reversal pair of $\mathfrak I$, and let the
+reference point $\sigma$ and the frames $u_i=\sigma\cdot U_i^{-1}$ be those of
+\Cref{prop:geo-edge-twist-invariance}. For a channel $x$, a generator family is a point
+$\mathring\omega^x=(\mathring\omega^x_e)_{e\in E_+}$ of the link space $\mathscr T=\mathfrak g^{E_+}$,
+extended to the reversed copies by the first line below. Its twists and links are those of the second
+line, and for a walk $p=(e_0,\ldots,e_{r-1})$ with $e_a:i_{a+1}\to i_a$, as in
+\Cref{def:geo-graph-links}, its reference path product is that of the third line, called the reference
+holonomy of $p$ when $p$ is closed:
+\begin{gather}
+\mathring\omega^x_{\bar e}=-\mathring\omega^x_e,
+\label{eq:link-generator-reversal}\\
+\mathring\Theta^x_e=\exp(\mathring\omega^x_e),
+\qquad
+\Theta^x_e=U_i\exp(\mathring\omega^x_e)U_j^{-1}\quad(e:j\to i),
+\label{eq:link-chart}\\
+\mathring\Theta^x_p=\mathring\Theta^x_{e_0}\mathring\Theta^x_{e_1}\cdots\mathring\Theta^x_{e_{r-1}}
+=\exp(\mathring\omega^x_{e_0})\exp(\mathring\omega^x_{e_1})\cdots\exp(\mathring\omega^x_{e_{r-1}}).
+\label{eq:link-reference-holonomy}
+\end{gather}
+The links satisfy \cref{eq:geo-regime-two-links} because $\exp(-\mathring\omega)=\exp(\mathring\omega)^{-1}$,
+and $\mathring\Theta^x_e$ is their twist in the sense of \cref{eq:geo-edge-twist}. The exponential chart
+at $\sigma$ is the continuous map $\exp_\sigma:\mathscr T\to G^{E_+}$,
+$\mathring\omega^x\mapsto(U_i\exp(\mathring\omega^x_e)U_j^{-1})_{e\in E_+}$. The link space is a real
+vector space of dimension $\lvert E_+\rvert\dim G$, standard Borel with its Borel sets, and the chart
+covers exactly the link families whose twists lie in $\exp(\mathfrak g)$ (\Cref{prop:link-chart-image}).
+When $\rho_x$ is a smooth homomorphism $G\to\GL(\mathbb V)$ on a real vector sample fiber
+$\mathbb V=\R^{\dim\mathbb V}$, the represented generators are
+$\mathrm d\rho_x(\mathring\omega^x_e)\in\mathfrak{gl}(\mathbb V)$, and
+$\rho_x(\mathring\Theta^x_e)=\exp(\mathrm d\rho_x\mathring\omega^x_e)$ by \Cref{lem:link-exp-naturality}.
+The two channels carry independent generator families, with link space $\mathscr T\times\mathscr T$;
+under the common-link specialization \cref{eq:geo-common-link} one generator family
+$\mathring\omega=\mathring\omega^b=\mathring\omega^m$ serves both channels and the index $x$ is dropped.
+
+\propositionheading{Gauge action on generators}{prop:link-generator-gauge}
+In \Cref{def:link-exponential-chart}, let the generator family $\mathring\omega^x$ have the links
+$\Theta^x=\exp_\sigma(\mathring\omega^x)$. (a) After a passive re-expression $(g_i)_{i\in V}$ the links
+$g_i\Theta^x_eg_j^{-1}$ are the links of the same $\mathring\omega^x$ relative to $\sigma$ and the
+re-expressed frames $g_iU_i$, so every generator is unchanged. (b) Relative to the reference point
+$\sigma'=\sigma\cdot g_0$ the frames are $U_ig_0$, and the links $\Theta^x$ are those of the generator
+family $\operatorname{Ad}_{g_0^{-1}}\mathring\omega^x=(\operatorname{Ad}_{g_0^{-1}}\mathring\omega^x_e)_{e\in E_+}$,
+so that $\exp_{\sigma'}\circ\operatorname{Ad}_{g_0^{-1}}=\exp_\sigma$; every reference path product
+becomes $g_0^{-1}\mathring\Theta^x_pg_0$. (c) An active $F$ with $F(\sigma)=\sigma\cdot\kappa$, as in
+\Cref{prop:geo-edge-twist-invariance}, carries $\Theta^x$ to the links of
+$\operatorname{Ad}_\kappa\mathring\omega^x$ relative to $\sigma$ and the same frames, and every
+reference path product to $\kappa\mathring\Theta^x_p\kappa^{-1}$. (d) The holonomy of a closed walk
+$p$ based at $i_0$ and, for a smooth homomorphism $\rho_x:G\to\GL(\mathbb V)$, its represented
+reference holonomy are
+\begin{equation}
+\mathrm{Hol}^x(p)=U_{i_0}\mathring\Theta^x_pU_{i_0}^{-1},
+\qquad
+\rho_x(\mathring\Theta^x_p)=\exp(\mathrm d\rho_x\mathring\omega^x_{e_0})\exp(\mathrm d\rho_x\mathring\omega^x_{e_1})\cdots\exp(\mathrm d\rho_x\mathring\omega^x_{e_{r-1}}).
+\label{eq:link-holonomy-chart}
+\end{equation}
+Each of (a) to (c) moves all generators by one linear map of $\mathfrak g$, namely the identity,
+$\operatorname{Ad}_{g_0^{-1}}$, or $\operatorname{Ad}_\kappa$, and the passive vertex group acts on the
+frames alone. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(a) The vertex law \cref{eq:geo-regime-two-gauge-law} and $U_i'=g_iU_i$ from
+\cref{eq:geo-regime-one-gauge-law} give
+\begin{equation*}
+g_i\Theta^x_eg_j^{-1}=(g_iU_i)\exp(\mathring\omega^x_e)(g_jU_j)^{-1}.
+\end{equation*}
+(b) From
+$\sigma=\sigma'\cdot g_0^{-1}$ we get $u_i=\sigma'\cdot(U_ig_0)^{-1}$, and
+\Cref{lem:link-exp-naturality} gives
+$(U_ig_0)\exp(\operatorname{Ad}_{g_0^{-1}}\mathring\omega^x_e)(U_jg_0)^{-1}=U_ig_0g_0^{-1}\exp(\mathring\omega^x_e)g_0g_0^{-1}U_j^{-1}=\Theta^x_e$;
+the same identity applied to each factor of \cref{eq:link-reference-holonomy} gives the path products.
+(c) By \Cref{prop:geo-edge-twist-invariance} the image twists are
+$\kappa\exp(\mathring\omega^x_e)\kappa^{-1}=\exp(\operatorname{Ad}_\kappa\mathring\omega^x_e)$, and a twist
+determines its link given the frames through $\Theta^x_e=U_i\mathring\Theta^x_eU_j^{-1}$. (d) The first
+identity is \cref{eq:geo-edge-twist-holonomy}, and the second follows from the homomorphism property of
+$\rho_x$ and \Cref{lem:link-exp-naturality}. \hfill$\square$
+
+\propositionheading{Real logarithms}{prop:link-real-logarithm}
+A real square matrix is the exponential of a real square matrix exactly when it is nonsingular and
+each Jordan block belonging to a negative eigenvalue occurs an even number of times
+\citep[Theorem~1]{culver1966existence}. \status{STANDARD}
+
+\propositionheading{Image of the exponential chart}{prop:link-chart-image}
+In \Cref{def:link-exponential-chart} the following hold. (a) The image of $\exp_\sigma$ is the set of
+link families of channel $x$ whose twists all lie in $\exp(\mathfrak g)$; it does not depend on
+$\sigma$, and passive re-expressions and active automorphisms map it onto itself. Link families with a
+twist outside $\exp(\mathfrak g)$ have no generator family. (b) For $G=\GL(K,\R)$ or $G=\GL^+(K)$ the
+set $\exp(\mathfrak{gl}(K,\R))$ is the set of matrices described in \Cref{prop:link-real-logarithm}
+and lies in $\GL^+(K)$; for $K\geq2$ it is a proper subset of $\GL^+(K)$, since
+$\operatorname{diag}(-1,-2,1,\ldots,1)$ is not the exponential of a real matrix, so the chart misses
+every link family with such a twist, and for $G=\GL(K,\R)$ it also misses every link family with a
+twist of negative determinant. (c) Every element of $\GL^+(K)$ equals $\exp(\mathbf S)\exp(\mathbf T)$
+with $\mathbf S$ symmetric and $\mathbf T$ skew-symmetric, and every element of $SO(K)$ equals
+$\exp(\mathbf T)$ with $\mathbf T$ skew-symmetric; hence $\GL^+(K)$ is connected and generated by
+$\exp(\mathfrak{gl}(K,\R))$, and for $G=SO(K)$ the chart covers every link family. (d) For every
+connected Lie group $G$, $\exp(\mathfrak g)$ generates $G$. (e) Let $G$ be $\GL(K,\R)$ or $\GL^+(K)$,
+and let the closed walk $p$ traverse two distinct reversal pairs exactly once each. Then every element
+of $\GL^+(K)$ is the reference holonomy $\mathring\Theta_p$ of some generator family, so for $K\geq2$
+the reference holonomies of chart links leave $\exp(\mathfrak{gl}(K,\R))$. On a triangle walk
+$(e_0,e_1,e_2)$ with every $e_a\in E_+$ and $K=2$, the generators $\operatorname{diag}(0,\log2)$,
+$\pi(E_{21}-E_{12})$, and $0$ give $\mathring\Theta_p=\operatorname{diag}(-1,-2)$. \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-links}.
+
+\section{Curvature on a noncompact structure group}
+\label{sec:link-curvature}
+
+A loop penalty should vanish exactly on the closed walks with trivial represented holonomy. For compact
+$G$ and unitary $\rho_x$ the class function of \Cref{rem:geo-loop-penalties} does so; on the general
+linear group no continuous class function can (\Cref{cor:link-no-invariant-defect}), because
+conjugation contracts every unipotent element to the identity
+(\Cref{prop:link-class-function-blindness}). The loop defect defined below measures the reference
+holonomy with a fiber metric placed at the reference point. It separates every holonomy from the
+identity; with the metric held as a matrix at the reference point, it is invariant under the reference
+changes that act by multiples of isometries of that metric, and for the general linear group under no
+others (\Cref{prop:link-loop-defect}).
+
+\propositionheading{Continuous class functions are blind to unipotent holonomy}{prop:link-class-function-blindness}
+Let $K\geq2$, let $\mathbb H$ be $\GL(K,\R)$ or $\GL^+(K)$, and let $\mathbf h:\mathbb H\to\R$ be
+continuous and constant on the conjugacy classes of $\mathbb H$. Then $\mathbf h(I_K+\mathbf T)=\mathbf h(I_K)$
+for every nilpotent $\mathbf T$, that is, at every unipotent matrix $I_K+\mathbf T$, which lies in
+$\GL^+(K)$ because $\det(I_K+\mathbf T)=1$. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+Since $\mathbf T^K=0$, the kernels
+$\ker\mathbf T\subseteq\ker\mathbf T^2\subseteq\cdots\subseteq\ker\mathbf T^K=\R^K$ increase, and
+$\mathbf T$ maps $\ker\mathbf T^{k+1}$ into $\ker\mathbf T^k$. Listing a basis of $\ker\mathbf T$,
+extending it to a basis of $\ker\mathbf T^2$, and so on, gives the columns of an invertible $\mathbf B$
+with $\mathbf B^{-1}\mathbf T\mathbf B=\mathbf T_0$ strictly upper triangular. Replacing the first column
+of $\mathbf B$ by its negative conjugates $\mathbf T_0$ by a diagonal matrix, which keeps it strictly
+upper triangular, so $\det\mathbf B>0$ may be assumed. For $t>0$ let
+$\mathbf S_t=\operatorname{diag}(1,t,\ldots,t^{K-1})$; then $\mathbf B\mathbf S_t\in\GL^+(K)\subseteq\mathbb H$
+and $(\mathbf S_t^{-1}\mathbf T_0\mathbf S_t)_{kl}=t^{l-k}(\mathbf T_0)_{kl}$, which tends to zero as
+$t\to0$ because $(\mathbf T_0)_{kl}=0$ unless $l>k$. Hence
+$\mathbf h(I_K+\mathbf T)=\mathbf h\bigl((\mathbf B\mathbf S_t)^{-1}(I_K+\mathbf T)\mathbf B\mathbf S_t\bigr)
+=\mathbf h(I_K+\mathbf S_t^{-1}\mathbf T_0\mathbf S_t)$ for every $t>0$, and continuity gives
+$\mathbf h(I_K+\mathbf T)=\mathbf h(I_K)$. \hfill$\square$
+
+\corollaryheading{No invariant loop defect on the general linear group}{cor:link-no-invariant-defect}
+Let $K\geq2$ and $\mathbb H$ be as in \Cref{prop:link-class-function-blindness}. No continuous function
+on $\mathbb H$ that is constant on its conjugacy classes vanishes exactly at $I_K$: every such function
+that vanishes at $I_K$ vanishes at the shear $I_K+E_{12}\neq I_K$, and so does every function of the
+eigenvalues, counted with multiplicity, that vanishes at $I_K$. Consequently, for $G=\GL(K,\R)$ or
+$G=\GL^+(K)$ and a closed walk $p$ that traverses some reversal pair exactly once, a loop penalty that
+is a continuous function of $\mathrm{Hol}^x(p)$ on $G$ and is unchanged by every passive re-expression
+of every link family takes at every unipotent holonomy the value it takes at the trivial holonomy, so it
+vanishes at every unipotent holonomy whenever it vanishes at the trivial one. In particular no norm on
+$\mathfrak{gl}(K,\R)$ is invariant under conjugation by $\mathbb H$, which for $\mathbb H=\GL(K,\R)$ is
+the observation of \Cref{rem:geo-loop-penalties}; the corollary is stronger, since it excludes every
+continuous conjugation-invariant penalty and not only those of the form $g'\mapsto\lVert g'-I_K\rVert$.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The first claim is \Cref{prop:link-class-function-blindness} at $\mathbf T=E_{12}$, which is
+nilpotent because $E_{12}^2=0$; the shear is upper triangular with unit diagonal, so its eigenvalues are
+those of $I_K$. If $p$ traverses the pair of $e$ exactly once, the link family with $\Theta^x_e$ equal
+to a given $g'\in G$ or to $g'^{-1}$, according to the direction of the traversal, and with all other
+links equal to $e_G$ has $\mathrm{Hol}^x(p)=g'$, and the passive re-expression with $g_{i_0}=g$ replaces
+it by $gg'g^{-1}$ by \cref{eq:geo-edge-twist-holonomy}; the penalty is therefore a continuous class
+function on $G$. For a norm $\lVert\cdot\rVert_\star$ invariant under conjugation by $\mathbb H$, the
+function $g'\mapsto\lVert g'-I_K\rVert_\star$ is continuous, constant on conjugacy classes because
+$gg'g^{-1}-I_K=g(g'-I_K)g^{-1}$, and vanishes exactly at $I_K$. \hfill$\square$
+
+\definitionheading{Loop defect and cycle map}{def:link-loop-defect}
+In \Cref{def:link-exponential-chart}, let $\rho_x:G\to\GL(\mathbb V)$ be a smooth homomorphism on a real
+vector sample fiber $\mathbb V=\R^{\dim\mathbb V}$, and let $\mathsf G^{\mathrm{fib}}$ be a symmetric
+positive definite matrix at the reference point: the matrix, in the coordinates of $\sigma$, of an inner
+product on the fiber at $c_*$ of the vector bundle associated with $\rho_x$. It plays the role of the
+fiber metric of \Cref{rem:geo-loop-penalties}, placed at $\sigma$ instead of at a vertex. On
+$\mathfrak{gl}(\mathbb V)$ put
+\begin{equation}
+\langle\mathbf H,\mathbf H'\rangle_{\mathsf G}=\Tr\bigl((\mathsf G^{\mathrm{fib}})^{-1}\mathbf H^\top\mathsf G^{\mathrm{fib}}\mathbf H'\bigr),
+\qquad
+\lVert\mathbf H\rVert_{\mathsf G}=\langle\mathbf H,\mathbf H\rangle_{\mathsf G}^{1/2},
+\label{eq:link-trace-form}
+\end{equation}
+and, when $\mathrm d\rho_x$ is injective, write
+$\langle\mathring\omega,\mathring\omega'\rangle_{\mathsf G}=\langle\mathrm d\rho_x\mathring\omega,\mathrm d\rho_x\mathring\omega'\rangle_{\mathsf G}$
+for the pulled-back inner product on $\mathfrak g$. The loop defect of a closed walk $p$ based at $i_0$
+is the first quantity below, with $\mathring\Theta^x_p$ the reference holonomy
+\cref{eq:link-reference-holonomy}. For a finite family $\mathbb L$ of closed walks, the cycle map
+$\mathbf C:\mathscr T\to\mathfrak g^{\mathbb L}$ is the second, with $p=(e_0,\ldots,e_{r-1})$ and the
+reversal convention \cref{eq:link-generator-reversal}:
+\begin{gather}
+\mathfrak Q^x_p(\mathring\omega^x)=\tfrac12\bigl\lVert I_{\mathbb V}-\rho_x(\mathring\Theta^x_p)\bigr\rVert_{\mathsf G}^2,
+\label{eq:link-loop-defect}\\
+(\mathbf C\mathring\omega^x)_p=\mathring\omega^x_{e_0}+\mathring\omega^x_{e_1}+\cdots+\mathring\omega^x_{e_{r-1}}.
+\label{eq:link-cycle-map}
+\end{gather}
+Each reversal pair thus enters $(\mathbf C\mathring\omega^x)_p$ with its generator on $E_+$ times the
+number of traversals of $p$ along the orientation in $E_+$ minus the number against it, and $\mathbf C$
+is linear.
+
+\lemmaheading{The trace form determines the metric up to scale}{lem:link-trace-form-scale}
+For symmetric positive definite matrices $\mathsf G'$ and $\mathsf G''$ on $\mathbb V$, write
+$\lVert\cdot\rVert_{\mathsf G'}$ and $\lVert\cdot\rVert_{\mathsf G''}$ for \cref{eq:link-trace-form} with
+$\mathsf G'$ and $\mathsf G''$ in place of $\mathsf G^{\mathrm{fib}}$. Then
+$\lVert\mathbf H\rVert_{\mathsf G'}=\lVert\mathbf H\rVert_{\mathsf G''}$ for every rank-one $\mathbf H$ exactly
+when $\mathsf G''$ is a positive multiple of $\mathsf G'$, and in that case the two norms agree on all of
+$\mathfrak{gl}(\mathbb V)$. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+For $\mathbf H=\mathbf b\mathbf c^\top$, cyclicity of the trace gives
+$\lVert\mathbf H\rVert^2_{\mathsf G'}=(\mathbf b^\top\mathsf G'\mathbf b)(\mathbf c^\top\mathsf G'^{-1}\mathbf c)$,
+and likewise for $\mathsf G''$. If $\mathsf G''=\mathrm c_{\mathrm s}\mathsf G'$ with $\mathrm c_{\mathrm s}>0$,
+the factors $\mathrm c_{\mathrm s}^{-1}$ and $\mathrm c_{\mathrm s}$ in \cref{eq:link-trace-form} cancel for
+every $\mathbf H$. Conversely, fixing $\mathbf c\neq0$ gives
+$\mathbf b^\top\mathsf G''\mathbf b=\mathrm c_{\mathrm s}\mathbf b^\top\mathsf G'\mathbf b$ for every
+$\mathbf b$, with
+$\mathrm c_{\mathrm s}=(\mathbf c^\top\mathsf G'^{-1}\mathbf c)/(\mathbf c^\top\mathsf G''^{-1}\mathbf c)>0$,
+and symmetric matrices with proportional quadratic forms are proportional. \hfill$\square$
+
+\propositionheading{Properties of the loop defect}{prop:link-loop-defect}
+In \Cref{def:link-loop-defect}, let $p=(e_0,\ldots,e_{r-1})$ be a closed walk based at $i_0$.
+
+(a) The form \cref{eq:link-trace-form} is an inner product on $\mathfrak{gl}(\mathbb V)$ with
+$\lVert\mathbf H\mathbf H'\rVert_{\mathsf G}\leq\lVert\mathbf H\rVert_{\mathsf G}\lVert\mathbf H'\rVert_{\mathsf G}$
+and $\lVert I_{\mathbb V}\rVert_{\mathsf G}=(\dim\mathbb V)^{1/2}$. The defect $\mathfrak Q^x_p$ is a
+continuous function on $\mathscr T$ that depends on $\mathring\omega^x$ only through the links; it is
+nonnegative and vanishes exactly when $\rho_x(\mathring\Theta^x_p)=I_{\mathbb V}$, equivalently when
+$\rho_x(\mathrm{Hol}^x(p))=I_{\mathbb V}$.
+
+(b) Passive re-expressions leave $\mathfrak Q^x_p$ unchanged. Under the reference change
+$\sigma'=\sigma\cdot g_0$, with $\mathbf R=\rho_x(g_0)$ and the generators
+$\operatorname{Ad}_{g_0^{-1}}\mathring\omega^x$ of \Cref{prop:link-generator-gauge}, the defect computed
+at $\sigma'$ with the matrix $\mathbf R^\top\mathsf G^{\mathrm{fib}}\mathbf R$, which represents the same
+inner product in the coordinates of $\sigma'$, equals $\mathfrak Q^x_p$ for every link family, while the
+defect computed at $\sigma'$ with the matrix $\mathsf G^{\mathrm{fib}}$ equals the defect at $\sigma$
+computed with $\mathbf R^{-\top}\mathsf G^{\mathrm{fib}}\mathbf R^{-1}$. The latter equals
+$\mathfrak Q^x_p$ for every generator family whenever $\mathbf R^\top\mathsf G^{\mathrm{fib}}\mathbf R$ is
+a positive multiple of $\mathsf G^{\mathrm{fib}}$, that is, whenever $\mathbf R$ is a nonzero multiple of a
+$\mathsf G^{\mathrm{fib}}$-isometry, and, when
+$\mathrm d\rho_x(\mathfrak g)=\mathfrak{gl}(\mathbb V)$ and $p$ traverses some reversal pair exactly
+once, only then. Likewise, the defect of the rotated walk $(e_1,\ldots,e_{r-1},e_0)$ based at $i_1$ is
+that of $p$ computed with
+$\rho_x(\mathring\Theta^x_{e_0})^{-\top}\mathsf G^{\mathrm{fib}}\rho_x(\mathring\Theta^x_{e_0})^{-1}$.
+
+(c) For each agent $i$ let
+$\mathsf G^{\mathrm{fib}}_i=\rho_x(U_i)^{-\top}\mathsf G^{\mathrm{fib}}\rho_x(U_i)^{-1}$, the matrix of
+the same inner product in the coordinates of $u_i$. Under passive re-expression
+$\mathsf G^{\mathrm{fib}}_i$ becomes $(R^x_i)^{-\top}\mathsf G^{\mathrm{fib}}_i(R^x_i)^{-1}$, the law of
+\Cref{rem:geo-loop-penalties}; the matrices of different agents satisfy
+$\mathsf G^{\mathrm{fib}}_i=\rho_x(T_{ij})^{-\top}\mathsf G^{\mathrm{fib}}_j\rho_x(T_{ij})^{-1}$; and, with
+$\mathsf U=\rho_x(\mathrm{Hol}^x(p))$,
+\begin{equation}
+\mathfrak Q^x_p=\tfrac12\Tr\bigl((\mathsf G^{\mathrm{fib}}_{i_0})^{-1}(I_{\mathbb V}-\mathsf U)^\top\mathsf G^{\mathrm{fib}}_{i_0}(I_{\mathbb V}-\mathsf U)\bigr),
+\label{eq:link-defect-local}
+\end{equation}
+which is one half of the invariant penalty of \Cref{rem:geo-loop-penalties} at $i_0$. Conversely, if
+matrices $\widetilde{\mathsf G}_{i_0}$ assigned to the frames of agent $i_0$ transform by the law of that
+remark, then $\rho_x(U_{i_0})^\top\widetilde{\mathsf G}_{i_0}\rho_x(U_{i_0})$ is unchanged by passive
+re-expression, and $\widetilde{\mathsf G}_{i_0}$ is its frame image.
+
+(d) If $\rho_x(\mathring\Theta^x_p)$ is a $\mathsf G^{\mathrm{fib}}$-isometry, then
+$\mathfrak Q^x_p=\dim\mathbb V-\Tr\rho_x(\mathring\Theta^x_p)=\dim\mathbb V-\Tr\mathsf U\in[0,2\dim\mathbb V]$,
+which is $\dim\mathbb V$ times the plaquette term $1-\Tr\mathsf U/\dim\mathbb V$ of Wilson's lattice
+action \citep[Eq.~(3.29)]{WilsonConfinement1974}, in the normalization of
+\citet[Ch.~7, Eq.~(7.6)]{Creutz1983}.
+
+(e) Let $\mathring\Omega_a=\mathrm d\rho_x(\mathring\omega^x_{e_a})$ and
+$\mathring\varsigma_p=\sum_{a=0}^{r-1}\lVert\mathring\Omega_a\rVert_{\mathsf G}$. Then
+\begin{equation}
+\Bigl\lvert\mathfrak Q^x_p-\tfrac12\bigl\lVert\mathrm d\rho_x(\mathbf C\mathring\omega^x)_p\bigr\rVert^2_{\mathsf G}\Bigr\rvert
+\leq\mathring\varsigma_p\bigl(\exp(\mathring\varsigma_p)-1-\mathring\varsigma_p\bigr)
++\tfrac12\bigl(\exp(\mathring\varsigma_p)-1-\mathring\varsigma_p\bigr)^2,
+\label{eq:link-defect-expansion}
+\end{equation}
+and the right side is at most
+$(\tfrac12\exp(1)+\tfrac18\exp(2))\mathring\varsigma_p^3<\tfrac{23}{10}\mathring\varsigma_p^3$ when
+$\mathring\varsigma_p\leq1$. When $\mathrm d\rho_x$ is injective and $\mathscr T$ carries the norm
+$\lVert\mathring\omega\rVert^2=\sum_{e\in E_+}\lVert\mathring\omega_e\rVert^2_{\mathsf G}$, one has
+$\mathring\varsigma_p\leq r\lVert\mathring\omega^x\rVert$, so the bound is
+$\tfrac{23}{10}r^3\lVert\mathring\omega^x\rVert^3$ on the ball $r\lVert\mathring\omega^x\rVert\leq1$.
+\status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-links}.
+
+The matrix at the reference point is thus the one datum beyond the group that the defect uses. Carried
+along with the reference point, it leaves the defect invariant under every reference change; held as a
+matrix, it leaves the defect invariant under the reference changes acting by nonzero multiples of its
+isometries, and, when $\mathrm d\rho_x(\mathfrak g)=\mathfrak{gl}(\mathbb V)$ and the walk traverses some
+reversal pair exactly once, under no other (\Cref{prop:link-loop-defect}(b)). The symmetry of the measurement is reduced in this way from all
+reference changes to those acting by multiples of isometries of $\mathsf G^{\mathrm{fib}}$; on
+holonomies that are isometries the defect is Wilson's trace density (part (d)), and one reference matrix
+supplies the metric of \Cref{rem:geo-loop-penalties} at every vertex and for every closed walk (part
+(c)). A cyclic rotation of a closed walk replaces the matrix by its image under the twist moved across
+(part (b)), so the base vertex does not affect the defect when that twist acts by a multiple of an
+isometry. The quadratic part of the defect is carried by the cycle map (part (e)), which reappears in
+\Cref{prop:link-linearized-equation}.
+
+\section{The generator prior}
+\label{sec:link-prior}
+
+The generator chart supplies a link prior for every Lie group: a Gaussian base law on the generators,
+which exists whether or not $G$ is compact, multiplied by the exponential of minus a nonnegative loop
+action (\Cref{prop:link-generator-prior}). It replaces the Haar reference, whose normalizability the scope
+of \Cref{ch:geometry} declines for noncompact and general linear $G$, by a reference on the Lie algebra,
+and the abelian links of \Cref{ch:finite-depth-formation} are its translation-group instance
+(\Cref{prop:link-translation-instance}).
+
+\definitionheading{Generator prior}{def:link-generator-prior}
+In \Cref{def:link-exponential-chart,def:link-loop-defect}, equip $\mathfrak g$ with an inner product,
+written $\langle\cdot,\cdot\rangle_{\mathsf G}$ (the pulled-back inner product of
+\Cref{def:link-loop-defect} when $\mathrm d\rho_x$ is injective), and $\mathscr T$ with the product inner
+product and the Lebesgue measure $\mathrm d\mathring\omega$ normalized by it, under which the cube
+spanned by an orthonormal basis has volume one. For each $e\in E_+$ let the anchor
+$\mathring\alpha^x_e\in\mathfrak g$ and the covariance $\mathring\Sigma^x_e$, a positive definite
+self-adjoint operator on $(\mathfrak g,\langle\cdot,\cdot\rangle_{\mathsf G})$, be generative parameters,
+that is, coordinates of $\theta$, and let $\mathbb L$ be a finite family of closed walks with coefficients
+$\mathrm c_p\geq0$. The base law, link action, normalizer, and generator prior are
+\begin{gather}
+\nu^{\mathscr T}=\bigotimes_{e\in E_+}\mathcal N(\mathring\alpha^x_e,\mathring\Sigma^x_e),
+\qquad
+\mathscr S(\mathring\omega^x)=\sum_{p\in\mathbb L}\mathrm c_p\mathfrak Q^x_p(\mathring\omega^x),
+\label{eq:link-base-action}\\
+Z_{\mathscr S}=\int_{\mathscr T}e^{-\mathscr S}d\nu^{\mathscr T},
+\qquad
+Z_{\mathscr S}^{-1}e^{-\mathscr S}\nu^{\mathscr T},
+\label{eq:link-generator-prior}
+\end{gather}
+where $\mathcal N(\mathring\alpha,\mathring\Sigma)$ has the density
+$(2\pi)^{-\dim\mathfrak g/2}(\det\mathring\Sigma)^{-1/2}\exp\bigl(-\tfrac12\langle\mathring\omega-\mathring\alpha,\mathring\Sigma^{-1}(\mathring\omega-\mathring\alpha)\rangle_{\mathsf G}\bigr)$
+with respect to the normalized Lebesgue measure of $\mathfrak g$. With independent links in the two
+channels the link space is $\mathscr T\times\mathscr T$, the base law is the product of the two base
+laws, and the action is the sum of the two channel actions; under the common-link specialization one
+base law on $\mathscr T$ serves both channels and the action is the sum over channels.
+
+\propositionheading{Normalization and covariance of the generator prior}{prop:link-generator-prior}
+Let $G$ be a Lie group, compact or not, and let the data of \Cref{def:link-generator-prior} be given.
+
+(a) The action $\mathscr S$ is finite, continuous, and nonnegative on $\mathscr T$ and has finite
+$\nu^{\mathscr T}$-mean, and
+\begin{equation}
+0<\exp\bigl(-\E_{\nu^{\mathscr T}}\mathscr S\bigr)\leq Z_{\mathscr S}\leq1;
+\label{eq:link-normalizer-bounds}
+\end{equation}
+when $\rho_x(G)$ consists of $\mathsf G^{\mathrm{fib}}$-isometries, also
+$Z_{\mathscr S}\geq\exp(-2\dim\mathbb V\sum_p\mathrm c_p)$. The generator prior is a probability law on
+the standard Borel space $\mathscr T$ with a strictly positive continuous density with respect to
+$\mathrm d\mathring\omega$. Hence $\nu^{\mathscr T}$, $\mathscr S$, and $Z_{\mathscr S}$ satisfy the
+hypotheses that \Cref{prop:elbo-random-link-vfe} places on its base law, action, and normalizer, with the
+generator family as the latent link variable and the links $\exp_\sigma(\mathring\omega^x)$ as a
+continuous function of it. With $\widetilde{\mathscr S}$ the action written as a function of the link
+family through $\mathring\Theta^x_p=U_{i_0}^{-1}\mathrm{Hol}^x(p)U_{i_0}$, so that
+$\mathscr S=\widetilde{\mathscr S}\circ\exp_\sigma$, the image of the prior under $\exp_\sigma$ is
+$Z_{\mathscr S}^{-1}e^{-\widetilde{\mathscr S}}(\exp_\sigma)_\#\nu^{\mathscr T}$, with the same normalizer.
+
+(b) Passive re-expressions leave the generator prior unchanged and carry its image on link families by
+the vertex law \cref{eq:geo-regime-two-gauge-law}.
+
+(c) Let $\sigma'=\sigma\cdot g_0$ and $\mathbf R=\rho_x(g_0)$, and let $\operatorname{Ad}_{g_0^{-1}}$ act
+on every component of $\mathscr T$. The image of the generator prior under $\operatorname{Ad}_{g_0^{-1}}$
+is the generator prior relative to $\sigma'$ with the anchors
+$\operatorname{Ad}_{g_0^{-1}}\mathring\alpha^x_e$, the covariances
+$\operatorname{Ad}_{g_0^{-1}}\mathring\Sigma^x_e\operatorname{Ad}_{g_0}$, the fiber matrix
+$\mathbf R^\top\mathsf G^{\mathrm{fib}}\mathbf R$, the inner product
+$\langle\operatorname{Ad}_{g_0}\cdot,\operatorname{Ad}_{g_0}\cdot\rangle_{\mathsf G}$ on $\mathfrak g$, which is the
+pullback for $\mathbf R^\top\mathsf G^{\mathrm{fib}}\mathbf R$ when $\mathrm d\rho_x$ is injective, and the
+same walks and coefficients; both priors have the same image on link families.
+
+(d) If $\operatorname{Ad}_{g_0}$ is an isometry of $\langle\cdot,\cdot\rangle_{\mathsf G}$, fixes every
+anchor, and commutes with every covariance, and $\mathbf R$ is a nonzero multiple of a
+$\mathsf G^{\mathrm{fib}}$-isometry, then the image of the generator prior under
+$\operatorname{Ad}_{g_0^{-1}}$ is the generator prior itself, so the reference change by $g_0$ leaves the
+anchors, covariances, and coefficients unchanged and multiplies the fiber matrix by a positive scalar,
+which changes neither the inner product nor the defect. For the pulled-back inner product the isometry
+condition follows from the condition on $\mathbf R$, and when $\mathrm d\rho_x(\mathfrak g)=\mathfrak{gl}(\mathbb V)$
+it is equivalent to it. \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-links}.
+
+The Haar-referenced density of \Cref{rem:geo-loop-penalties} needs the finite invariant measure of a
+compact group, whereas the base law of \Cref{def:link-generator-prior} lives on the Lie algebra, so
+\cref{eq:link-normalizer-bounds} holds for every Lie group; the price is a set of anchors and covariances
+that a reference change transforms (\Cref{prop:link-generator-prior}).
+
+\propositionheading{Translation links}{prop:link-translation-instance}
+Let $G=(\R^K,+)$ act on the sample fiber $\R^K$ by translation, and write the group additively.
+
+(a) The affine representation and its differential,
+\begin{equation}
+\rho(\mathring\omega)=\begin{pmatrix}I_K&\mathring\omega\\0&1\end{pmatrix},
+\qquad
+\mathrm d\rho(\mathring\omega)=\begin{pmatrix}0&\mathring\omega\\0&0\end{pmatrix},
+\label{eq:link-affine-representation}
+\end{equation}
+form a faithful smooth linear representation on $\R^{K+1}$ with $\mathfrak g=\R^K$ and $\exp$ the
+identity, and $\rho(\mathring\omega)(k,1)=(k+\mathring\omega,1)$, so the translations of the sample fiber
+act on the affine slice $\R^K\times\{1\}$. A link $\Theta_e\in\R^K$ on $e:j\to i$, acting by
+$k\mapsto k+\Theta_e$, has the generator $\mathring\omega_e=\Theta_e-U_i+U_j$, and the reference holonomy
+of a closed walk is the loop sum $\mathring\Theta_p=(\mathbf C\mathring\omega)_p=\sum_a\Theta_{e_a}$, in
+which the frames cancel.
+
+(b) For every symmetric positive definite $\mathsf G^{\mathrm{fib}}$ on $\R^{K+1}$, the pulled-back norm
+and the loop defect are
+\begin{equation}
+\lVert\mathring\omega\rVert^2_{\mathsf G}
+=\bigl((\mathsf G^{\mathrm{fib}})^{-1}\bigr)_{K+1,K+1}(\mathring\omega,0)^\top\mathsf G^{\mathrm{fib}}(\mathring\omega,0),
+\qquad
+\mathfrak Q_p=\tfrac12\bigl\lVert(\mathbf C\mathring\omega)_p\bigr\rVert^2_{\mathsf G},
+\label{eq:link-translation-defect}
+\end{equation}
+so the left side of \cref{eq:link-defect-expansion} vanishes; for $\mathsf G^{\mathrm{fib}}=I_{K+1}$,
+$\mathfrak Q_p=\tfrac12\lvert\sum_a\Theta_{e_a}\rvert^2$.
+
+(c) In the four-cycle experiment of \Cref{def:rg-formation-cycle-experiment} and the gated translation
+family of \Cref{def:rg-gated-translation-family}, where $K=1$ and the link translations $\omega_e$ are
+the links $\Theta_e$, the configuration prior is $\mathcal N(0,I)$, so the link translations are
+independent of the means and have the law $\prod_e\mathcal N(0,1)$. In generator coordinates this is the
+base law of \Cref{def:link-generator-prior} for $\mathsf G^{\mathrm{fib}}=I_2$ with unit covariances and
+the anchors $\mathring\alpha_e=U_j-U_i$, which vanish when every frame equals $\sigma$ and always have
+zero loop sums, and the action is $\mathscr S=0$. The loop $p=(e_3,e_2,e_1,e_0)$ of the four-cycle,
+based at agent $0$, has $(\mathbf C\mathring\omega)_p=\sum_i\omega_i$ and
+$\mathfrak Q_p=\tfrac12(\sum_i\omega_i)^2$; in these models it enters only through the edge costs, whose
+residuals satisfy $\sum_ir^b_i=\sum_ir^m_i=-\sum_i\omega_i$.
+
+(d) In the triangle-chain experiment of \Cref{def:rg-formation-experiment}, with the symbols of
+\cref{tab:rg-formation-notation} and $\mathsf G^{\mathrm{fib}}=I_2$, every cyclically oriented triangle
+$q$ has $\mathfrak h_q=(\mathbf C\mathring\omega)_q$ and loop energy
+$\mathrm J_1h_q^2=\tfrac23\mathrm J_1\mathfrak Q_q$, and for every configuration
+\begin{equation}
+\frac{\mathbf x^\top\Omega_0(\vartheta)\mathbf x}{2\mathrm T}
+=\sum_q\frac{\vartheta\mathrm J_1}{3\mathrm T}\mathfrak Q_q+\frac{\mathbf x^\top\Omega^\perp_0(\vartheta)\mathbf x}{2\mathrm T},
+\qquad
+\Omega^\perp_0(\vartheta)=\vartheta B^\top\operatorname{diag}(\mathrm J_\ell I)B+P_{\mathcal K}-\mathrm TR_{\mathrm{ev}},
+\label{eq:link-triangle-chain-prior}
+\end{equation}
+where the kernel of $\Omega^\perp_0(\vartheta)$ is the loop space $\mathcal H$ and $\Omega^\perp_0(\vartheta)$ is
+positive definite on $\mathcal U\oplus\mathcal K$. Under the configuration prior the loop sums
+$\mathfrak h_q$ are therefore independent with law $\mathcal N(0,3\mathrm T/(\vartheta\mathrm J_1))$ and
+independent of the projection of $\mathbf x$ onto $\mathcal U\oplus\mathcal K$, and the quadratic energies
+$\mathrm E_\vartheta$ and $\mathrm E^{\mathrm{phys}}_\vartheta$ of
+\cref{eq:rg-formation-partition-integrals} are $\tfrac13\vartheta\mathrm J_1\sum_q\mathfrak Q_q$ plus a
+function of that projection. This prior differs from \Cref{def:link-generator-prior} in that its second
+factor is a Gaussian energy of means and links jointly that is constant along $\mathcal H$, so it is not
+integrable alone, and the loop defect with coefficient $\vartheta\mathrm J_1/(3\mathrm T)$ supplies all
+of the prior's precision along loop coordinates. \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-links}.
+
+\remarkheading{The running example in the chart}{rem:link-running-example}
+In the running example of \Cref{sec:geo-running-example} take $E_+=\{e_1,e_2,e_3\}$, $\sigma=u_1$, and
+$U_i=e_G$, and write $R_x(\phi)=\exp(\phi(E_{32}-E_{23}))$ and $R_z(\phi)=\exp(\phi(E_{21}-E_{12}))$ for
+the rotations about the first and third axes. The chart covers every link family of $SO(3)$
+(\Cref{prop:link-chart-image}), and the generators of rotation angle at most $\pi$ are
+$\mathring\omega^b_{e_1}=\tfrac\pi2(E_{21}-E_{12})$, $\mathring\omega^b_{e_2}=\tfrac\pi2(E_{32}-E_{23})$,
+and $\mathring\omega^b_{e_3}=0$. The reference holonomy of $p=(e_1,e_2,e_3)$ is
+$\mathring\Theta^b_p=R_z(\tfrac\pi2)R_x(\tfrac\pi2)$, the cyclic permutation matrix that sends each
+standard basis vector to the next one, and it equals $\mathrm{Hol}^b(p)$, a rotation by $2\pi/3$ about the
+axis spanned by $(1,1,1)$. With $\mathsf G^{\mathrm{fib}}=I_3$ every rotation is an isometry, a rotation
+by $\phi$ has defect $4\sin^2(\phi/2)\in[0,4]$, and $\mathfrak Q^b_p=3-\Tr\mathring\Theta^b_p=3$, while the
+trivial model representation gives $\mathfrak Q^m_p=0$. The cycle map gives
+$(\mathbf C\mathring\omega^b)_p=\tfrac\pi2(E_{21}-E_{12}+E_{32}-E_{23})$, whose quadratic term
+$\tfrac12\lVert(\mathbf C\mathring\omega^b)_p\rVert^2_{\mathsf G}=\pi^2/2$ exceeds the defect; here
+$\mathring\varsigma_p=\pi\sqrt2>1$, outside the ball of \Cref{prop:link-loop-defect}(e). A passive
+re-expression $g_2$ changes $\Theta^b_{e_1}$ and $\Theta^b_{e_2}$ but no generator.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+The series gives $R_z(\tfrac\pi2)$ and $R_x(\tfrac\pi2)$ as the quarter turns of \cref{eq:geo-running-links},
+whose product is the displayed permutation matrix; it fixes $(1,1,1)$ and has trace $0=1+2\cos\phi$ with
+$\phi=2\pi/3$. A rotation by $\phi$ has eigenvalues $1$ and $e^{\pm i\phi}$, so
+\Cref{prop:link-loop-defect}(d) gives the defect $3-(1+2\cos\phi)=4\sin^2(\phi/2)$, and
+$\mathfrak Q^b_p=3-0$. The four nonzero entries of $(\mathbf C\mathring\omega^b)_p$ have modulus $\pi/2$,
+so its squared Frobenius norm is $\pi^2$, and each nonzero generator has norm $\pi/\sqrt2$. Generators
+are unchanged by passive re-expression by \Cref{prop:link-generator-gauge}(a). \hfill$\square$
+
+\section{Latent generators in the collective evidence bound}
+\label{sec:link-latent}
+
+What joint law and what collective free energy result when the link values of a channel leave the
+structural data and the generators of the exponential chart become latent coordinates? The joint has
+unit mass on every finite record hypergraph, and its free energy splits into a link sector and the
+conditional free energies of the held-link model (\cref{prop:link-latent-normalization}); for a Gaussian
+recognition law of the generators every term is finite and the link sector is the relative entropy from
+the generator prior (\cref{prop:link-gaussian-recognition-vfe}). Throughout, the generator prior is that
+of \cref{def:link-generator-prior} in the following form: the base law $\nu^{\mathscr T}$ is the product,
+over the copies $e\in E_+$, of the Gaussian laws
+$\mathcal N(\mathring\alpha^x_e,\mathring\Sigma^x_e)$ on $(\mathfrak g,\langle\cdot,\cdot\rangle_{\mathsf G})$,
+written $\mathcal N(\mathring\alpha,\mathring\Sigma)$ with a block-diagonal covariance $\mathring\Sigma$; the
+action $\mathscr S$ is a finite nonnegative combination of the loop defects $\mathfrak Q^x_p$ of
+\cref{def:link-loop-defect}; and $0<Z_{\mathscr S}\leq1$ by \cref{prop:link-generator-prior}. The
+definitions and statements of this section and of \cref{sec:link-field,sec:link-held,sec:link-induced} are
+written for the link space $\mathscr T$ of one latent channel $x$, which covers the common-link
+specialization. When both channels carry independent latent generator families, the link space is
+$\mathscr T\times\mathscr T$ with the product of the two base laws and the sum of the two actions
+(\cref{def:link-exponential-chart,def:link-generator-prior}); every definition and statement then holds with
+these data in place of $\mathscr T$, $\nu^{\mathscr T}$, and $\mathscr S$, with the summands indexed by the
+pairs $(x,e)$, by the same proof, since the proofs use only that the link space is a finite-dimensional
+inner product space carrying a Gaussian base law that factors over orthogonal summands and an action that
+is a finite nonnegative combination of loop defects. The space
+$\mathscr T$ carries the orthogonal sum of the inner products of its summands, its norm
+$\lVert\cdot\rVert$, and the Lebesgue measure normalized by it; gradients and Hessians on $\mathscr T$
+refer to this inner product, $\lVert\cdot\rVert$ is the operator norm on matrices, and upright
+$\mathrm c_1,\mathrm c_2,\ldots$ are constants local to one statement.
+
+\definitionheading{Joint law with latent generators}{def:link-latent-model}
+Let the structural data $X$ contain the interaction multigraph $\mathfrak I$, an orientation set $E_+$ with
+one copy of each reversal pair, the reference point $\sigma$ with the frames $U_i$, $u_i=\sigma\cdot
+U_i^{-1}$, and the acyclic graph $\Gamma$ of \cref{def:gen-parameter-split}, but no link values of the
+channels $x$ whose links are latent. For those channels the generator family
+$\mathring\omega=(\mathring\omega^x_e)$ is a latent coordinate with values in $\mathscr T$, or in
+$\mathscr T\times\mathscr T$ when both channels are latent, and it determines the links of the exponential
+chart of
+\cref{def:link-exponential-chart},
+\begin{equation}
+\Theta^x_e(\mathring\omega)=U_i\exp(\mathring\omega^x_e)U_j^{-1},
+\qquad
+\Theta^x_{\bar e}(\mathring\omega)=\Theta^x_e(\mathring\omega)^{-1},
+\qquad e:j\to i\text{ in }E_+,
+\label{eq:link-generator-links}
+\end{equation}
+a continuous map $\mathring\omega\mapsto\Theta(\mathring\omega)$ into the link families. Write $(X,\Theta)$ for
+$X$ with a link family $\Theta$ adjoined, and let the factors \eqref{eq:gen-kernels} and the record kernels
+of \cref{hyp:local-interaction-kernels} be measurable in the link values, so that for each $\Theta$ the
+held-link model of \cref{ch:generative,ch:elbo} at $(X,\Theta)$ has the joint
+$\mathbb P_{\theta,V}(dy,do\given X,\Theta)=\mathbb P^{\mathsf Y}_{\theta,V}(dy\given X,\Theta)\prod_{a\in\mathfrak A}K_a(X,\Theta,y_{\partial a},do_a)$,
+the evidence $p_{\theta,V}(o\given X,\Theta)$, the posterior $\boldsymbol\Pi_{\theta,V,o,X,\Theta}$, and, for
+laws $Q$ on $\mathsf Y$, the free energy
+$\Fenergy_V[Q;X,\Theta,o]=-\log p_{\theta,V}(o\given X,\Theta)+\KL(Q\Vert\boldsymbol\Pi_{\theta,V,o,X,\Theta})$ of
+\cref{def:elbo-extended}. With the generator prior
+$\mathbb P^{\mathscr T}_\theta(d\mathring\omega\given X)=Z_{\mathscr S}^{-1}e^{-\mathscr S(\mathring\omega)}\nu^{\mathscr T}(d\mathring\omega)$,
+the joint law with latent generators is the law on $\mathscr T\times\mathsf Y\times\mathsf O$
+\begin{equation}
+\mathbb P_{\theta,V}(d\mathring\omega,dy,do\given X)
+=\mathbb P^{\mathscr T}_\theta(d\mathring\omega\given X)
+\mathbb P^{\mathsf Y}_{\theta,V}\bigl(dy\given X,\Theta(\mathring\omega)\bigr)
+\prod_{a\in\mathfrak A}K_a\bigl(X,\Theta(\mathring\omega),y_{\partial a},do_a\bigr),
+\label{eq:link-latent-joint}
+\end{equation}
+whose evidence $p_{\theta,V}(o\given X)$, posterior $\boldsymbol\Pi_{\theta,V,o,X}(d\mathring\omega,dy)$, and
+extended free energy $\Fenergy_V[Q;X,o]$ for laws $Q$ on $\mathscr T\times\mathsf Y$ are those of
+\cref{def:elbo-extended} with the latent space $\mathscr T\times\mathsf Y$ and the baseline
+$\mathbb P^{\mathscr T}_\theta(d\mathring\omega\given X)\mathbb P^{\mathsf Y}_{\theta,V}(dy\given X,\Theta(\mathring\omega))$.
+With $\theta$, $X$ and $o$ held, write
+$p(o\given\mathring\omega)=p_{\theta,V}(o\given X,\Theta(\mathring\omega))$,
+$\boldsymbol\Pi_{\mathring\omega}=\boldsymbol\Pi_{\theta,V,o,X,\Theta(\mathring\omega)}$,
+$\mathbb P^{\mathsf Y}(\cdot\given\mathring\omega)=\mathbb P^{\mathsf Y}_{\theta,V}(\cdot\given X,\Theta(\mathring\omega))$,
+and, for records with densities \eqref{eq:obs-interaction-density},
+$L_o(\mathring\omega,y)=\prod_{a}e^{-E_{a,o}(X,\Theta(\mathring\omega),y_{\partial a})}$ and
+$H_o(\mathring\omega,y)=\sum_aE_{a,o}(X,\Theta(\mathring\omega),y_{\partial a})$. The anchors
+$\mathring\alpha^x_e$, the prior covariances $\mathring\Sigma^x_e$, and the loop coefficients are coordinates
+of $\theta$, and the walks of $\mathscr S$ belong to $X$. The prior reads $\theta$ and $X$; each agent factor
+reads $\theta$, $X$, its parents and $\mathring\omega$; each record reads $\theta$, $X$, $y_{\partial a}$ and
+$\mathring\omega$. No factor reads a recognition law, a variational parameter, or the posterior, so
+\cref{req:gen-typing-prohibition} holds: moving an anchor or a prior covariance is an M-coordinate
+(\cref{def:elbo-generalized-m-acceptance}), while the generators are moved by recognition. Passive
+re-expression changes the frames and no generator (\cref{prop:geo-edge-twist-invariance}); a change of
+reference point acts on the generator prior as in \cref{prop:link-generator-gauge}.
+
+\propositionheading{Normalization, evidence, and the conditional decomposition}{prop:link-latent-normalization}
+Assume \cref{def:link-latent-model}. (a) For every finite record hypergraph, cyclic or not, and every
+$(\theta,X)$, \eqref{eq:link-latent-joint} is a probability law on $\mathscr T\times\mathsf Y\times\mathsf O$,
+and the generator family is a root block of the directed latent law. (b) If the records have densities
+\eqref{eq:obs-interaction-density}, then
+$\mathring\omega\mapsto p(o\given\mathring\omega)=\int L_o(\mathring\omega,y)\mathbb P^{\mathsf Y}(dy\given\mathring\omega)$
+is measurable and
+\begin{equation}
+p_{\theta,V}(o\given X)=\int_{\mathscr T}p(o\given\mathring\omega)\mathbb P^{\mathscr T}_\theta(d\mathring\omega\given X);
+\label{eq:link-latent-evidence}
+\end{equation}
+the evidence is positive exactly when $p(o\given\cdot)$ is positive on a set of positive Lebesgue measure,
+and if every record density is bounded, $e^{-E_{a,o}}\leq\mathrm c_a$, then
+$p(o\given\mathring\omega)\leq\mathrm c_{\mathfrak A}:=\prod_a\mathrm c_a$ for every $\mathring\omega$ and the evidence is at
+most $\mathrm c_{\mathfrak A}$; binary success records have $\mathrm c_a=1$. (c) Suppose further that the record
+densities are bounded and $p(o\given\mathring\omega)>0$ for every $\mathring\omega$. Then the posterior
+disintegrates as
+$\boldsymbol\Pi_{\theta,V,o,X}(d\mathring\omega,dy)=\boldsymbol\Pi^{\mathscr T}(d\mathring\omega)\boldsymbol\Pi_{\mathring\omega}(dy)$
+with link marginal
+$\boldsymbol\Pi^{\mathscr T}(d\mathring\omega)=p_{\theta,V}(o\given X)^{-1}p(o\given\mathring\omega)\mathbb P^{\mathscr T}_\theta(d\mathring\omega\given X)$,
+and every law $Q$ on $\mathscr T\times\mathsf Y$, disintegrated as $Q(d\mathring\omega,dy)=R(d\mathring\omega)Q_{\mathring\omega}(dy)$,
+satisfies
+\begin{equation}
+\Fenergy_V[Q;X,o]
+=\KL\bigl(R\Vert\mathbb P^{\mathscr T}_\theta(\cdot\given X)\bigr)
++\int_{\mathscr T}\Fenergy_V\bigl[Q_{\mathring\omega};X,\Theta(\mathring\omega),o\bigr]R(d\mathring\omega)
+\qquad\text{in }(-\infty,+\infty],
+\label{eq:link-decomposition}
+\end{equation}
+with a measurable integrand bounded below by $-\log\mathrm c_{\mathfrak A}$. When $\KL(R\Vert\nu^{\mathscr T})<\infty$
+and $\E_R\lvert\mathscr S\rvert<\infty$, the first term equals
+$\KL(R\Vert\nu^{\mathscr T})+\E_R\mathscr S+\log Z_{\mathscr S}$, and \eqref{eq:link-decomposition} is
+\eqref{eq:rg-geometry-random-link-vfe} for the latent variable $\mathring\omega$. \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-links}.
+
+\lemmaheading{Exponential moments and growth of loop actions}{lem:link-growth}
+(a) For a Gaussian law $\mathcal N(\mu,\Sigma)$ on $\mathscr T$ and every $\mathrm c\geq0$,
+$\E_{\mathcal N(\mu,\Sigma)}e^{\mathrm c\lVert\mathring\omega\rVert}\leq e^{\mathrm c\lVert\mu\rVert}\bigl(2e^{\mathrm c^2\lVert\Sigma\rVert/2}\bigr)^{\dim\mathscr T}$,
+and the same bound holds on each summand of $\mathscr T$ with its dimension.
+(b) For a representation $\rho_x$ on a real vector space of finite dimension, the map
+$\mathring\xi\mapsto\rho_x(\exp\mathring\xi)=\exp(\mathrm d\rho_x\mathring\xi)$ on
+$(\mathfrak g,\langle\cdot,\cdot\rangle_{\mathsf G})$ is smooth, and its value and its first and second
+derivatives at $\mathring\xi$ have norms at most $e^{\lVert\mathrm d\rho_x\rVert\lVert\mathring\xi\rVert}$,
+$\lVert\mathrm d\rho_x\rVert e^{\lVert\mathrm d\rho_x\rVert\lVert\mathring\xi\rVert}$ and
+$\lVert\mathrm d\rho_x\rVert^2e^{\lVert\mathrm d\rho_x\rVert\lVert\mathring\xi\rVert}$. (c) Every real polynomial
+$\mathbf h$ in the matrix entries of the represented twists
+$\rho_x(\mathring\Theta^x_e)^{\pm1}=\exp(\pm\mathrm d\rho_x\mathring\omega^x_e)$, $e\in E_+$, is smooth on
+$\mathscr T$ and satisfies, for constants depending on $\mathbf h$,
+\begin{equation}
+\lvert\mathbf h(\mathring\omega)\rvert+\lVert\nabla\mathbf h(\mathring\omega)\rVert
++\lVert\nabla^2\mathbf h(\mathring\omega)\rVert\leq\mathrm c_1e^{\mathrm c_2\lVert\mathring\omega\rVert};
+\label{eq:link-growth}
+\end{equation}
+each loop defect of \cref{def:link-loop-defect}, and hence the action $\mathscr S$, is such a polynomial.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(a) Write $\mathring\omega=\mu+\Sigma^{1/2}\mathbf b$ with $\mathbf b$ standard Gaussian in an orthonormal
+basis, so that $\lVert\mathring\omega\rVert\leq\lVert\mu\rVert+\lVert\Sigma\rVert^{1/2}\sum_l\lvert\mathbf b_l\rvert$;
+the coordinates are independent and, for $\mathrm c'\geq0$,
+$\E e^{\mathrm c'\lvert\mathbf b_l\rvert}\leq\E e^{\mathrm c'\mathbf b_l}+\E e^{-\mathrm c'\mathbf b_l}=2e^{\mathrm c'^2/2}$.
+(b) The identity $\rho_x(\exp\mathring\xi)=\exp(\mathrm d\rho_x\mathring\xi)$ is
+\cref{lem:link-exp-naturality}. The series $\exp\mathbf B=\sum_l\mathbf B^l/l!$ converges
+with all its derivatives. The first derivative of $\mathbf B\mapsto\mathbf B^l$ in the direction $\mathbf T$ is a
+sum of $l$ products of $l-1$ factors $\mathbf B$ and one factor $\mathbf T$, and its second derivative in the
+directions $\mathbf T$ and $\mathbf T'$ is a sum of $l(l-1)$ products of $l-2$ factors $\mathbf B$ and one factor
+each of $\mathbf T$ and $\mathbf T'$. Summing the series, the value and the first and second derivatives of the
+exponential have norms at most $e^{\lVert\mathbf B\rVert}$, $e^{\lVert\mathbf B\rVert}\lVert\mathbf T\rVert$ and
+$e^{\lVert\mathbf B\rVert}\lVert\mathbf T\rVert\lVert\mathbf T'\rVert$; composing with the linear map $\mathrm d\rho_x$
+gives (b). (c) By (b) every entry of
+$\exp(\pm\mathrm d\rho_x\mathring\omega^x_e)$ and its first two derivatives are bounded by
+$\mathrm c e^{\lVert\mathrm d\rho_x\rVert\lVert\mathring\omega\rVert}$, and the Leibniz rule bounds a monomial of
+degree $\mathrm c_0$ and its derivatives by $\mathrm c'e^{\mathrm c_0\lVert\mathrm d\rho_x\rVert\lVert\mathring\omega\rVert}$. The
+reference-coordinate holonomy of a closed walk is the product of the matrices
+$\rho_x(\mathring\Theta^x_e)^{\pm1}$ along the walk (\cref{prop:geo-edge-twist-invariance}), and a loop
+defect is a quadratic polynomial in its entries (\cref{def:link-loop-defect}). \hfill$\square$
+
+\propositionheading{Gaussian recognition of the generators}{prop:link-gaussian-recognition-vfe}
+Let $R=\mathcal N(\mathring\mu,\mathring\Lambda^{-1})$ be a Gaussian law on $\mathscr T$ with mean
+$\mathring\mu$ and positive-definite self-adjoint precision $\mathring\Lambda$; in the mean-field case
+$R=\bigotimes\mathcal N(\mathring\mu^x_e,(\mathring\Lambda^x_e)^{-1})$ over the summands of $\mathscr T$.
+(a) The relative entropy from the base law is finite and equals
+\begin{equation}
+\KL(R\Vert\nu^{\mathscr T})
+=\tfrac12\Bigl[\Tr\bigl(\mathring\Sigma^{-1}\mathring\Lambda^{-1}\bigr)
++\bigl\langle\mathring\mu-\mathring\alpha,\mathring\Sigma^{-1}(\mathring\mu-\mathring\alpha)\bigr\rangle
+-\dim\mathscr T+\log\det\mathring\Sigma+\log\det\mathring\Lambda\Bigr];
+\label{eq:link-gaussian-kl}
+\end{equation}
+in the mean-field case it is the sum of the same expressions over the summands, and in general it equals
+$\operatorname{TC}(R)+\sum\KL(R^x_e\Vert\mathcal N(\mathring\alpha^x_e,\mathring\Sigma^x_e))$, with $R^x_e$ the
+summand marginals and
+$\operatorname{TC}(R)=\frac12[\sum\log\det(\mathring\Lambda^{-1})^x_e+\log\det\mathring\Lambda]$, where
+$(\mathring\Lambda^{-1})^x_e$ are the diagonal blocks of $\mathring\Lambda^{-1}$. (b)
+$\E_Re^{\mathrm c\lVert\mathring\omega\rVert}<\infty$ for every $\mathrm c\geq0$ and $\E_R\mathscr S<\infty$.
+Consequently, if the record densities are bounded and $p(o\given\mathring\omega)>0$ for every
+$\mathring\omega$, then for every Markov kernel $\mathring\omega\mapsto Q_{\mathring\omega}$ the free energy of
+$Q=R(d\mathring\omega)Q_{\mathring\omega}(dy)$ is \eqref{eq:rg-geometry-random-link-vfe} for the latent variable
+$\mathring\omega$, with the finite link sector
+\begin{equation}
+\KL(R\Vert\nu^{\mathscr T})+\E_R\mathscr S+\log Z_{\mathscr S}=\KL\bigl(R\Vert\mathbb P^{\mathscr T}_\theta(\cdot\given X)\bigr).
+\label{eq:link-sector}
+\end{equation}
+(c) If moreover $Q_{\mathring\omega}\ll\mathbb P^{\mathsf Y}(\cdot\given\mathring\omega)$ for $R$-almost every
+$\mathring\omega$, $\int\KL(Q_{\mathring\omega}\Vert\mathbb P^{\mathsf Y}(\cdot\given\mathring\omega))R(d\mathring\omega)<\infty$,
+and $\E_Q\lvert H_o\rvert<\infty$, then the free energy is finite and equals
+\begin{equation}
+\Fenergy_V[Q;X,o]=\KL\bigl(R\Vert\mathbb P^{\mathscr T}_\theta(\cdot\given X)\bigr)
++\int\KL\bigl(Q_{\mathring\omega}\Vert\mathbb P^{\mathsf Y}(\cdot\given\mathring\omega)\bigr)R(d\mathring\omega)
++\E_QH_o.
+\label{eq:link-gaussian-energy-form}
+\end{equation}
+The condition on $H_o$ holds for a product law $Q=R\otimes Q^{\mathsf Y}$ when $\mathsf Y$ is a real vector
+space of finite dimension, $Q^{\mathsf Y}$ has finite second moments, and every record satisfies
+$\lvert E_{a,o}(X,\Theta(\mathring\omega),y_{\partial a})\rvert\leq\mathrm c_1(1+\lVert y\rVert^2)e^{\mathrm c_2\lVert\mathring\omega\rVert}$.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(a) Both laws have densities with respect to Lebesgue measure on $\mathscr T$, and for a self-adjoint
+operator $\mathbf B$, $\E_R\langle\mathring\omega-\mathring\alpha,\mathbf B(\mathring\omega-\mathring\alpha)\rangle
+=\Tr(\mathbf B\mathring\Lambda^{-1})+\langle\mathring\mu-\mathring\alpha,\mathbf B(\mathring\mu-\mathring\alpha)\rangle$;
+taking the $R$-expectation of the difference of the two log densities gives \eqref{eq:link-gaussian-kl}. In
+the mean-field case all operators are block diagonal, so traces and log-determinants are sums over blocks.
+The general identity is \cref{thm:elbo-total-correlation-chain} with the product law $\nu^{\mathscr T}$,
+and the total correlation of a Gaussian law is the sum of the summand entropies minus the joint entropy,
+in which the factors $2\pi e$ cancel because the summand dimensions add up to $\dim\mathscr T$. (b) The
+first claim is \cref{lem:link-growth}(a), and \cref{lem:link-growth}(c) gives
+$\E_R\mathscr S\leq\mathrm c_1\E_Re^{\mathrm c_2\lVert\mathring\omega\rVert}<\infty$. With (a), the hypotheses of
+the last sentence of \cref{prop:link-latent-normalization}(c) hold, and \eqref{eq:link-sector} is
+$\log(dR/d\mathbb P^{\mathscr T}_\theta)=\log(dR/d\nu^{\mathscr T})+\mathscr S+\log Z_{\mathscr S}$ integrated
+against $R$. (c) The baseline of the latent space is
+$\mathbb P^{\mathscr T}_\theta(d\mathring\omega\given X)\mathbb P^{\mathsf Y}(dy\given\mathring\omega)$, and
+\cref{lem:prob-kl-chain-rule}(a) writes its divergence from $Q$ as the first two terms of
+\eqref{eq:link-gaussian-energy-form}, which are finite, so $Q$ is absolutely continuous with respect to
+it; the negative part of $H_o$ is $Q$-integrable, and \eqref{eq:obs-collective-energy-form} of
+\cref{thm:elbo-extended-gap}, applied on the latent space $\mathscr T\times\mathsf Y$, gives
+\eqref{eq:link-gaussian-energy-form}. For a product law,
+$\E_Q\lvert E_{a,o}\rvert\leq\mathrm c_1\E_Re^{\mathrm c_2\lVert\mathring\omega\rVert}\E_{Q^{\mathsf Y}}(1+\lVert y\rVert^2)<\infty$
+by (b) and Tonelli's theorem. \hfill$\square$
+
+The relative entropy \eqref{eq:link-sector} is the whole link sector: a loop energy placed in the prior
+enters with its normalizer, as \cref{rem:gen-appended-energy} requires of any reciprocal energy that is to
+be part of an evidence bound, and in the mean-field case the sector is a sum over edge copies of Gaussian
+divergences from the anchors plus the recognition expectation of the loop action.
+
+\section{The link field equation}
+\label{sec:link-field}
+
+Which condition does the recognition law of the generators satisfy where the collective free energy is
+stationary? For a Gaussian recognition law and a given matter recognition law, the stress of the anchor
+plus the expected gradient of the loop action equals the expected matter current, filtered through the
+adjoint derivative of the exponential chart (\cref{prop:link-field-equation}); for a comparison record the
+current is a precision-weighted prediction error times the source mean, minus the transported source
+covariance (\cref{cor:link-delta-rule}). Without the generator prior the stationary problem degenerates,
+at the sample level and at the law level (\cref{prop:link-law-level-energy,cor:link-prior-necessary}). The
+recognition flow that relaxes to these conditions is \cref{prop:link-recognition-flow}. Matrices are real,
+$\langle\mathbf S,\mathbf T\rangle=\Tr(\mathbf S^\top\mathbf T)$ is the trace pairing of square matrices of
+one size, gradients of functions of matrices refer to it, and for a representation $\rho_x$ on a sample
+fiber written in reference coordinates, $(\mathrm d\rho_x)^\top$ is the adjoint of $\mathrm d\rho_x$ for
+$\langle\cdot,\cdot\rangle_{\mathsf G}$ on $\mathfrak g$ and the trace pairing.
+
+\lemmaheading{Derivative of the exponential chart}{lem:link-exp-derivative}
+For square matrices $\mathbf B,\mathbf T$ of one size put
+\begin{equation}
+\mathbf L(\mathbf B,\mathbf T)=\int_0^1e^{t\mathbf B}\mathbf Te^{(1-t)\mathbf B}dt.
+\label{eq:link-exp-derivative}
+\end{equation}
+(a) For all $\mathbf B,\mathbf T$, in the operator norm,
+$\lVert e^{\mathbf B+\mathbf T}-e^{\mathbf B}-\mathbf L(\mathbf B,\mathbf T)\rVert\leq\frac12\lVert\mathbf T\rVert^2e^{\lVert\mathbf B\rVert+\lVert\mathbf T\rVert}$,
+so the matrix exponential is Fr\'echet differentiable at $\mathbf B$ with derivative
+$\mathbf T\mapsto\mathbf L(\mathbf B,\mathbf T)$, and
+$\lVert\mathbf L(\mathbf B,\mathbf T)\rVert\leq e^{\lVert\mathbf B\rVert}\lVert\mathbf T\rVert$. (b) For every
+$\mathbf S$,
+\begin{equation}
+\langle\mathbf S,\mathbf L(\mathbf B,\mathbf T)\rangle=\langle\mathbf L(\mathbf B^\top,\mathbf S),\mathbf T\rangle.
+\label{eq:link-exp-adjoint}
+\end{equation}
+(c) If a function $\mathbf h$ is differentiable at $e^{\mathbf B}$ with gradient $\nabla\mathbf h(e^{\mathbf B})$,
+then $\mathbf B\mapsto\mathbf h(e^{\mathbf B})$ has gradient $\mathbf L(\mathbf B^\top,\nabla\mathbf h(e^{\mathbf B}))$
+at $\mathbf B$, and $\mathring\xi\mapsto\mathbf h(\rho_x(\exp\mathring\xi))$ has gradient
+$(\mathrm d\rho_x)^\top\mathbf L\bigl((\mathrm d\rho_x\mathring\xi)^\top,\nabla\mathbf h(\rho_x(\exp\mathring\xi))\bigr)$ at
+$\mathring\xi$ for $\langle\cdot,\cdot\rangle_{\mathsf G}$. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+For square matrices $\mathbf B$ and $\mathbf B'$, Duhamel's formula
+$e^{\mathbf B'}-e^{\mathbf B}=\int_0^1e^{t\mathbf B'}(\mathbf B'-\mathbf B)e^{(1-t)\mathbf B}dt$ holds because the
+integrand is the $t$-derivative of $e^{t\mathbf B'}e^{(1-t)\mathbf B}$, and with
+$\lVert e^{t\mathbf B}\rVert\leq e^{t\lVert\mathbf B\rVert}$ it gives
+$\lVert e^{\mathbf B'}-e^{\mathbf B}\rVert\leq\lVert\mathbf B'-\mathbf B\rVert e^{\max(\lVert\mathbf B'\rVert,\lVert\mathbf B\rVert)}$.
+With $\mathbf B'=\mathbf B+\mathbf T$,
+$e^{\mathbf B+\mathbf T}-e^{\mathbf B}-\mathbf L(\mathbf B,\mathbf T)=\int_0^1(e^{t(\mathbf B+\mathbf T)}-e^{t\mathbf B})\mathbf Te^{(1-t)\mathbf B}dt$,
+and the same bound applied to $t(\mathbf B+\mathbf T)$ and $t\mathbf B$ bounds the integrand by
+$t\lVert\mathbf T\rVert^2e^{t(\lVert\mathbf B\rVert+\lVert\mathbf T\rVert)+(1-t)\lVert\mathbf B\rVert}\leq t\lVert\mathbf T\rVert^2e^{\lVert\mathbf B\rVert+\lVert\mathbf T\rVert}$,
+whose integral gives (a); the bound on $\mathbf L$ follows from
+$\lVert e^{t\mathbf B}\rVert\lVert e^{(1-t)\mathbf B}\rVert\leq e^{\lVert\mathbf B\rVert}$.
+For (b), cyclicity of the trace and $(e^{t\mathbf B})^\top=e^{t\mathbf B^\top}$ give
+$\Tr(\mathbf S^\top e^{t\mathbf B}\mathbf Te^{(1-t)\mathbf B})=\Tr\bigl((e^{t\mathbf B^\top}\mathbf Se^{(1-t)\mathbf B^\top})^\top\mathbf T\bigr)$,
+and integration over $t$ gives \eqref{eq:link-exp-adjoint}. Part (c) is the chain rule with (a) and (b);
+for the representation, $\rho_x(\exp\mathring\xi)=\exp(\mathrm d\rho_x\mathring\xi)$ (\cref{lem:link-exp-naturality}),
+its derivative in the direction $\mathring\eta$ is $\mathbf L(\mathrm d\rho_x\mathring\xi,\mathrm d\rho_x\mathring\eta)$, and
+\eqref{eq:link-exp-adjoint}
+moves $\mathbf L$ onto the gradient before the adjoint $(\mathrm d\rho_x)^\top$ is applied. \hfill$\square$
+
+The integral form of the Fr\'echet derivative of the matrix exponential is classical \citep[Ch.~10]{Higham2008}.
+
+\lemmaheading{Gaussian expectations and their derivatives}{lem:link-gaussian-gradients}
+Let $\mathbf h$ be a twice continuously differentiable function on $\mathscr T$, or on one of its summands,
+with
+$\lvert\mathbf h(\mathring\omega)\rvert+\lVert\nabla\mathbf h(\mathring\omega)\rVert+\lVert\nabla^2\mathbf h(\mathring\omega)\rVert\leq\mathrm c_1e^{\mathrm c_2\lVert\mathring\omega\rVert}$.
+Then $(\mu,\Sigma)\mapsto\E_{\mathcal N(\mu,\Sigma)}\mathbf h$ is continuously differentiable on the product
+of the space and the open cone of positive-definite self-adjoint operators, and for every self-adjoint
+$\mathring\Delta$
+\begin{equation}
+\nabla_\mu\E_{\mathcal N(\mu,\Sigma)}\mathbf h=\E_{\mathcal N(\mu,\Sigma)}\nabla\mathbf h,
+\qquad
+\frac{d}{dt}\E_{\mathcal N(\mu,\Sigma+t\mathring\Delta)}\mathbf h\Big|_{t=0}=\tfrac12\Tr\bigl(\mathring\Delta\E_{\mathcal N(\mu,\Sigma)}\nabla^2\mathbf h\bigr);
+\label{eq:link-bonnet-price}
+\end{equation}
+that is, for the trace pairing of self-adjoint operators the gradient in $\Sigma$ is one half of
+$\E_{\mathcal N(\mu,\Sigma)}\nabla^2\mathbf h$. \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-links}.
+
+The two identities are the Gaussian derivative identities used for variational Gaussian approximations
+in \citet[Eqs.~(18)--(19)]{OpperArchambeau2009}.
+
+\propositionheading{Link field equation}{prop:link-field-equation}
+Assume \cref{def:link-latent-model} with bounded record densities and $p(o\given\mathring\omega)>0$ for every
+$\mathring\omega$, a $\sigma$-finite reference $\nu^{\mathsf Y}$ with respect to which every
+$\mathbb P^{\mathsf Y}(\cdot\given\mathring\omega)$ has a density, and a matter recognition law $Q^{\mathsf Y}$
+with density $q^{\mathsf Y}$ and $\E_{Q^{\mathsf Y}}\lvert\log q^{\mathsf Y}\rvert<\infty$. Let the matter energy
+$\mathbf H_o(\mathring\omega,y)=-\log p_{\theta,V}(o,y\given X,\Theta(\mathring\omega))$, the negative logarithm
+of the density \eqref{eq:gen-record-density} of the held-link joint at $\Theta(\mathring\omega)$, be twice
+continuously differentiable in $\mathring\omega$ for every $y$ with
+\begin{equation}
+\E_{Q^{\mathsf Y}}\sup_{\lVert\mathring\omega\rVert\leq\mathring r}\Bigl(\lvert\mathbf H_o\rvert+\lVert\nabla_{\mathring\omega}\mathbf H_o\rVert
++\lVert\nabla^2_{\mathring\omega}\mathbf H_o\rVert\Bigr)(\mathring\omega,Y)\leq\mathrm c_1e^{\mathrm c_2\mathring r}
+\qquad\text{for every }\mathring r\geq0.
+\label{eq:link-matter-domination}
+\end{equation}
+Restrict recognition to the laws $R\otimes Q^{\mathsf Y}$ with $R=\mathcal N(\mathring\mu,\mathring\Lambda^{-1})$
+Gaussian on $\mathscr T$, general or mean-field over the summands, and put
+$\mathbf U(\mathring\omega)=\mathscr S(\mathring\omega)+\E_{Q^{\mathsf Y}}\mathbf H_o(\mathring\omega,Y)$. Then:
+
+(a) $\mathbf U$ is twice continuously differentiable, with
+$\lvert\mathbf U\rvert+\lVert\nabla\mathbf U\rVert+\lVert\nabla^2\mathbf U\rVert\leq\mathrm c_3e^{\mathrm c_4\lVert\mathring\omega\rVert}$,
+and the free energy
+\begin{equation}
+\Fenergy_V[R\otimes Q^{\mathsf Y};X,o]=\KL(R\Vert\nu^{\mathscr T})+\E_R\mathbf U+\log Z_{\mathscr S}
++\E_{Q^{\mathsf Y}}\log q^{\mathsf Y}
+\label{eq:link-field-free-energy}
+\end{equation}
+is finite and continuously differentiable in $(\mathring\mu,\mathring\Lambda)$.
+
+(b) A pair $(\mathring\mu,\mathring\Lambda)$ is stationary for \eqref{eq:link-field-free-energy} exactly when
+\begin{gather}
+\mathring\Sigma^{-1}(\mathring\mu-\mathring\alpha)+\E_R\nabla\mathscr S
+=-\E_{R\otimes Q^{\mathsf Y}}\nabla_{\mathring\omega}\mathbf H_o,
+\label{eq:link-field-mean}\\
+\mathring\Lambda=\mathring\Sigma^{-1}+\E_R\nabla^2\mathscr S+\E_{R\otimes Q^{\mathsf Y}}\nabla^2_{\mathring\omega}\mathbf H_o,
+\label{eq:link-field-precision}
+\end{gather}
+and in the mean-field case exactly when the summand components of \eqref{eq:link-field-mean} and the
+diagonal blocks of \eqref{eq:link-field-precision} hold. When the agent latent law does not read the links,
+$\nabla_{\mathring\omega}\mathbf H_o=\sum_a\nabla_{\mathring\omega}E_{a,o}(X,\Theta(\mathring\omega),y_{\partial a})$, the sum over the
+records whose kernels read a link, so the right side of \eqref{eq:link-field-mean} is minus the expected
+gradient of the incident record energies.
+
+(c) If $\mathbf H_o$ reads $\mathring\omega^x_e$ only through the represented twist
+$\rho_x(\mathring\Theta^x_e)=\exp(\mathrm d\rho_x\mathring\omega^x_e)$, as a differentiable function of this matrix on
+an open set of matrices that contains the represented twists, and its gradient
+$\partial\mathbf H_o/\partial\rho_x(\mathring\Theta^x_e)$ is $Q^{\mathsf Y}$-integrable at every $\mathring\omega$, then
+with the link current
+\begin{equation}
+\mathbf J^x_e(\mathring\omega)=-\E_{Q^{\mathsf Y}}\frac{\partial\mathbf H_o}{\partial\rho_x(\mathring\Theta^x_e)}(\mathring\omega,Y)
+\label{eq:link-current}
+\end{equation}
+the $(x,e)$ component of \eqref{eq:link-field-mean} reads
+\begin{equation}
+(\mathring\Sigma^x_e)^{-1}(\mathring\mu^x_e-\mathring\alpha^x_e)+\E_R\nabla_{(x,e)}\mathscr S
+=\E_R\Bigl[(\mathrm d\rho_x)^\top\mathbf L\bigl((\mathrm d\rho_x\mathring\omega^x_e)^\top,\mathbf J^x_e(\mathring\omega)\bigr)\Bigr]:
+\label{eq:link-field-current}
+\end{equation}
+the expected stress of the generator prior equals the expected matter current transported by the adjoint
+derivative of the exponential chart.
+
+(d) Put
+$\mathbf V(\mathring\omega)=\frac12\langle\mathring\omega-\mathring\alpha,\mathring\Sigma^{-1}(\mathring\omega-\mathring\alpha)\rangle+\mathbf U(\mathring\omega)$.
+Then \eqref{eq:link-field-mean} is $\E_R\nabla\mathbf V=0$, and
+$\E_{\mathcal N(\mathring\mu,\mathring\Lambda^{-1})}\nabla\mathbf V\to\nabla\mathbf V(\mathring\mu)$ as
+$\mathring\Lambda^{-1}\to0$, uniformly for $\mathring\mu$ in compact sets. Every limit point $\mathring\mu_*$, as
+$\mathring\Lambda^{-1}\to0$, of solutions of \eqref{eq:link-field-mean} satisfies $\nabla\mathbf V(\mathring\mu_*)=0$;
+and if $\nabla\mathbf V(\mathring\mu_*)=0$ with $\nabla^2\mathbf V(\mathring\mu_*)$ invertible, then for every
+positive-definite $\mathring\Lambda_0$ there are $t_0>0$ and a continuously differentiable curve
+$t\mapsto\mathring\mu(t)$ on $(-t_0,t_0)$ with $\mathring\mu(0)=\mathring\mu_*$ such that
+$(\mathring\mu(t),t^{-2}\mathring\Lambda_0)$ solves \eqref{eq:link-field-mean} for $0<\lvert t\rvert<t_0$. When
+$\mathbf U$ is bounded below, the law
+$R^\star(d\mathring\omega)\propto e^{-\mathbf U(\mathring\omega)}\nu^{\mathscr T}(d\mathring\omega)$ is the
+unique minimizer of $\Fenergy_V[R\otimes Q^{\mathsf Y};X,o]$ over all laws $R$ on $\mathscr T$, and $-\mathbf V$ is
+its log density up to a constant, so the limit condition $\nabla\mathbf V=0$ is the stationarity condition
+of the most probable link given the matter recognition.
+
+(e) No point mass is admissible: $\KL(\delta_{\mathring\mu}\Vert\nu^{\mathscr T})=+\infty$, so the free
+energy of $\delta_{\mathring\mu}\otimes Q^{\mathsf Y}$ is $+\infty$, and \eqref{eq:link-field-free-energy} tends
+to $+\infty$ as $\mathring\Lambda^{-1}\to0$ at a given $\mathring\mu$. \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-links}.
+
+At a point law the matter current is evaluated at one link value and the condition $\nabla\mathbf V=0$ is the
+most-probable-link equation; part (e) types it as a generative quantity at given matter recognition, in
+the sense of \cref{prop:prob-law-point-point-mass}, and not as a recognition optimum.
+
+\corollaryheading{The current of a comparison record}{cor:link-delta-rule}
+In the setting of \cref{prop:link-field-equation}(c), let $x=b$, let $e:j\to i$ lie in $E_+$, and write samples
+and links in the reference gauge, in which every frame is the identity, reached by the passive
+re-expression by the inverse frames, which changes no twist and hence no generator
+(\cref{prop:geo-edge-twist-invariance}). Suppose that the only term
+of $\mathbf H_o$ that reads $\mathring\omega^b_e$ is either (a) a binary success record $a$ with scope $\{i,j\}$,
+observed as a success, with
+$E_{a,o}=\frac12(k_i-\rho_b(\mathring\Theta^b_e)k_j)^\top W_a(k_i-\rho_b(\mathring\Theta^b_e)k_j)$ and
+$W_a\succ0$, or (b) the comparison record \eqref{eq:obs-selective-attention-record} of row $i$ at $o_i=0$ in
+the per-receiver source-label model of \cref{def:obs-attention-label-model}, with query map $S^Q_i$, key map
+$S^K_e=S^K_{\rm ref}\rho_b(\mathring\Theta^b_e)$ as in \cref{def:obs-selective-comparison}, tempered weight
+$\widetilde W_i=W_i/\tau_i$, the source labels counted among the matter coordinates, and a matter recognition
+law of the factorization \eqref{eq:obs-attention-recognition-factorization} whose row $\beta^Q_i$ does not
+depend on $(\mathring\omega,y)$. Let the belief marginals of $Q^{\mathsf Y}$ have finite second moments, with
+means $\mu_i,\mu_j$, covariance $\Sigma_j$ of $k_j$, and cross covariance
+$\Sigma_{ij}=\E_{Q^{\mathsf Y}}[(k_i-\mu_i)(k_j-\mu_j)^\top]$, which vanishes for a product law. Then the
+current \eqref{eq:link-current} is, in the two cases,
+\begin{gather}
+\mathbf J^b_e(\mathring\omega)
+=W_a\bigl[(\mu_i-\rho_b(\mathring\Theta^b_e)\mu_j)\mu_j^\top+\Sigma_{ij}-\rho_b(\mathring\Theta^b_e)\Sigma_j\bigr],
+\label{eq:link-delta-current}\\
+\mathbf J^b_e(\mathring\omega)
+=\beta^Q_{ij}(S^K_{\rm ref})^\top\widetilde W_i\bigl[(S^Q_i\mu_i-S^K_{\rm ref}\rho_b(\mathring\Theta^b_e)\mu_j)\mu_j^\top
++S^Q_i\Sigma_{ij}-S^K_{\rm ref}\rho_b(\mathring\Theta^b_e)\Sigma_j\bigr],
+\label{eq:link-delta-current-attention}
+\end{gather}
+and \eqref{eq:link-field-current} holds for $e$ with this current. For a product law in case (a) the
+current is the precision-weighted prediction error of the receiver times the source mean, minus the
+precision-weighted transported source covariance. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+For a matrix $\mathbf M$ in place of $\rho_b(\mathring\Theta^b_e)$, the gradient of
+$\frac12(k_i-\mathbf Mk_j)^\top W_a(k_i-\mathbf Mk_j)$ in $\mathbf M$ for the trace pairing is
+$-W_a(k_i-\mathbf Mk_j)k_j^\top$, which is $Q^{\mathsf Y}$-integrable by the second moments, and
+$\E_{Q^{\mathsf Y}}[(k_i-\mathbf Mk_j)k_j^\top]=\mu_i\mu_j^\top+\Sigma_{ij}-\mathbf M(\Sigma_j+\mu_j\mu_j^\top)$, which
+gives \eqref{eq:link-delta-current}. In case (b), \cref{prop:obs-attention-elbo}(b) with the latent state
+$(\mathring\omega,y)$ shows that row $i$ contributes $\tau_i^{-1}\sum_j\beta^Q_{ij}\E D_{ij}$ together with terms
+that do not read the links, because $\mathrm c_i$ of \cref{prop:obs-selective-receiver-update} is constant; the
+source $j$ reached through $e$ has $D_{ij}=V_e$ of \cref{def:obs-selective-comparison}, whose gradient in
+$\mathbf M$ is $-(S^K_{\rm ref})^\top W_i(S^Q_ik_i-S^K_{\rm ref}\mathbf Mk_j)k_j^\top$, and the same expectation gives
+\eqref{eq:link-delta-current-attention}. The last sentence is
+\cref{prop:link-field-equation}(c). \hfill$\square$
+
+By \cref{cor:link-delta-rule}, the source of the link field equation \eqref{eq:link-field-current} has the
+outer-product form of the delta rule that \citet[Sec.~4.2, Eq.~(24)]{Schlag2021} write for fast-weight
+programmers, a line of work they trace in their Sec.~2 to \citet{Schmidhuber1992}: a weighted
+prediction error of the receiver times the source mean. Three features have no counterpart there and are
+consequences of the joint: the transported source covariance, the transport of the current by the
+adjoint derivative of the exponential chart, and the average over the recognition law of the generators,
+balanced by the stress of the generator prior. The correspondence is one of form between update rules; no
+learning architecture is identified with the model.
+
+\propositionheading{Law-level link energies and their stabilizers}{prop:link-law-level-energy}
+Let $q_i,q_j$ be laws in the law fiber $\mathcal B_x$ of a channel, let
+$D_e(\Theta)=\KL(q_i\Vert\widehat\rho_x(\Theta)q_j)$ for $\Theta\in G$ be the transported divergence
+\eqref{eq:full-graph-transported-divergences} of a copy $e:j\to i$ as a function of its link value, and let
+$G_q=\{g\in G:\widehat\rho_x(g)q=q\}$ be the stabilizer of $q$, a closed subgroup when
+$g\mapsto\widehat\rho_x(g)q$ is continuous for the weak topology on laws, with Lie algebra $\mathfrak g_q$; under
+\cref{hyp:pb-regular-models} it is the isotropy algebra of \eqref{eq:pb-orbit-fisher-form}.
+
+(a) $D_e(h\Theta h')=D_e(\Theta)$ for all $\Theta\in G$, $h\in G_{q_i}$, $h'\in G_{q_j}$. Hence the set of
+minimizers of $D_e$, and the set of its stationary points when $D_e$ is finite and continuously
+differentiable on $G$, are unions of double cosets $G_{q_i}\Theta G_{q_j}$, and a minimizer or stationary
+point is not isolated when $\dim\mathfrak g_{q_i}>0$ or $\dim\mathfrak g_{q_j}>0$. At every generator at which
+the exponential map of $\mathfrak g$ is a local diffeomorphism, a minimizer or stationary point of the chart
+energy $\mathring\omega^x_e\mapsto D_e(U_i\exp(\mathring\omega^x_e)U_j^{-1})$ is likewise not isolated when
+$\dim\mathfrak g_{q_i}>0$ or $\dim\mathfrak g_{q_j}>0$.
+
+(b) Let $G=\GL^+(K)$ act on $\R^K$ by its defining representation, and let
+$q=\mathcal N(\mu,\Sigma)$ with $\Sigma\succ0$. Then
+$G_q=\Sigma^{1/2}\{O\in\mathrm{SO}(K):O\Sigma^{-1/2}\mu=\Sigma^{-1/2}\mu\}\Sigma^{-1/2}$, of dimension
+$(K-1)(K-2)/2$ if $\mu\neq0$ and $K(K-1)/2$ if $\mu=0$. The Mahalanobis norm
+$\lvert\mu\rvert_\Sigma=(\mu^\top\Sigma^{-1}\mu)^{1/2}$ satisfies
+$\lvert g\mu\rvert_{g\Sigma g^\top}=\lvert\mu\rvert_\Sigma$ for every $g$, and for $K\geq2$ a link $\Theta_0$ with
+$\widehat\rho_x(\Theta_0)q_j=q_i$ exists exactly when $\lvert\mu_i\rvert_{\Sigma_i}=\lvert\mu_j\rvert_{\Sigma_j}$; the zero
+set of $D_e$ is then the double coset $G_{q_i}\Theta_0G_{q_j}=\Theta_0G_{q_j}$. For $K\geq3$ every minimizer and
+stationary point of $D_e$ is non-isolated, and for $K=2$ this holds when $\mu_i=0$ or $\mu_j=0$.
+
+(c) If $\widehat\rho_x(\Theta_0)q_j=q_i$ and \cref{hyp:pb-regular-models} holds in the channel, then $D_e$ is
+$C^3$ near $\Theta_0$ with zero value and differential at $\Theta_0$, and its Hessian at $\Theta_0$ on the
+tangent vector of $t\mapsto\exp(t\mathring\xi)\Theta_0$ is the orbit Fisher form $\mathfrak k_{q_i}(\mathring\xi,\mathring\xi)$ of
+\cref{cor:pb-orbit-fisher-form}; it is positive semidefinite with kernel the tangent space of the zero set.
+For Gaussian laws in (b),
+\begin{equation}
+\mathfrak k_q(\mathring\xi,\mathring\xi)=\bigl\lvert\Sigma^{-1/2}\mathring\xi\mu\bigr\rvert^2
++\tfrac12\bigl\lVert\Sigma^{-1/2}\mathring\xi\Sigma^{1/2}+(\Sigma^{-1/2}\mathring\xi\Sigma^{1/2})^\top\bigr\rVert_{\mathrm F}^2,
+\qquad\mathring\xi\in\mathfrak{gl}(K,\R).
+\label{eq:link-gaussian-orbit-form}
+\end{equation}
+\status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-links}.
+
+\corollaryheading{Without the generator prior the link problem degenerates}{cor:link-prior-necessary}
+(a) Let $G=\GL^+(K)$, $K\geq2$, act on the belief fiber by its defining representation, and in the reference
+gauge let the record of \cref{cor:link-delta-rule}(a) be the only factor reading the link of $e:j\to i$.
+For a matter recognition law with finite second moments, $\Sigma_j\succ0$, and $\Sigma_{ij}=0$, let the link be
+moved as a parameter without a generator prior, with expected record energy
+$\mathbf l(\mathbf M)=\E_{Q^{\mathsf Y}}\frac12(k_i-\mathbf Mk_j)^\top W_a(k_i-\mathbf Mk_j)$ for real
+$K\times K$ matrices $\mathbf M$. Then:
+(i) $\mathbf l$ is a strictly convex quadratic whose unique stationary point and minimizer is
+\begin{equation}
+\mathbf M^\star=\mu_i\mu_j^\top(\Sigma_j+\mu_j\mu_j^\top)^{-1}
+=\frac{\mu_i\mu_j^\top\Sigma_j^{-1}}{1+\mu_j^\top\Sigma_j^{-1}\mu_j},
+\label{eq:link-rank-one}
+\end{equation}
+of rank at most one and therefore singular; with a cross covariance it is instead the second-moment
+regression $\E[k_ik_j^\top]\E[k_jk_j^\top]^{-1}$, which can be invertible. (ii) $\mathbf l$ has no stationary
+point on $\GL(K)$; its infimum over $\GL^+(K)$ equals $\mathbf l(\mathbf M^\star)$, is not attained, and every
+minimizing sequence in $\GL^+(K)$ converges to $\mathbf M^\star$. (iii) A generator $\mathring\omega^b_e$ is
+stationary for $\mathring\omega^b_e\mapsto\mathbf l(\exp\mathring\omega^b_e)$ only where
+$\mathbf L(\mathring\omega^b_e,\cdot)$ is singular, and such generators exist: for $K=2$,
+$\mu_i=\mu_j=\begin{psmallmatrix}1\\0\end{psmallmatrix}$, $\Sigma_j=W_a=I_2$, the generator
+$\mathring\omega^b_e=-(\log3)I_2+2\pi\begin{psmallmatrix}0&-1\\1&0\end{psmallmatrix}$ is stationary, with link
+$\exp\mathring\omega^b_e=\frac13I_2\neq\mathbf M^\star$. (iv) If $\mu_j^\top\Sigma_j^{-1}\mu_i\geq0$, then
+$\mathbf M^\star$ is a limit of chart links $\exp\mathring\omega^b_e$, so the infimum over chart links equals
+$\mathbf l(\mathbf M^\star)$, is not attained, and is approached only along links converging to
+$\mathbf M^\star$; if $\mu_j^\top\Sigma_j^{-1}\mu_i<0$, no sequence of chart links converges to $\mathbf M^\star$, the
+infimum over chart links exceeds $\mathbf l(\mathbf M^\star)$, and for $K=2$ it is not attained.
+
+(b) If the free energy depends on a link value only through a law-point energy $D_e$ of
+\cref{prop:link-law-level-energy}, finite and continuously differentiable on $G$, and the link is moved as a
+parameter without a generator prior, its stationary link values form a union of double cosets, none
+isolated when $\dim\mathfrak g_{q_i}+\dim\mathfrak g_{q_j}>0$; for nondegenerate Gaussian laws under $\GL^+(K)$,
+where $D_e$ is finite and smooth, this holds for every pair of laws when $K\geq3$.
+
+(c) With the generator prior: (i) under the hypotheses of \cref{prop:link-field-equation} with $\mathbf U$
+bounded below, $\mathbf V$ attains its minimum on $\mathscr T$, and
+$(\mathring\mu,\mathring\Lambda)\mapsto\Fenergy_V[\mathcal N(\mathring\mu,\mathring\Lambda^{-1})\otimes Q^{\mathsf Y};X,o]$ has
+compact sublevel sets in the product of $\mathscr T$ and the open cone of positive-definite precisions, or of
+block-diagonal ones in the mean-field case, and attains its minimum there; (ii) if $\mathbb P^{\mathsf Y}$ is a
+nondegenerate Gaussian law on a real vector space $\mathsf Y$ of finite dimension that does not read the links,
+and every record energy is nonnegative, lower semicontinuous in $(\mathring\omega,y)$, and bounded by
+$\mathrm c_1(1+\lVert y\rVert^2)e^{\mathrm c_2\lVert\mathring\omega\rVert}$, then the free energy restricted to the product
+Gaussian laws $\mathcal N(\mathring\mu,\mathring\Lambda^{-1})\otimes\mathcal N(\mu^{\mathsf Y},\Sigma^{\mathsf Y})$ has compact sublevel
+sets in $(\mathring\mu,\mathring\Lambda,\mu^{\mathsf Y},\Sigma^{\mathsf Y})$ and attains its minimum.
+\status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-links}.
+
+At the sample level the degeneracy of (a) is tied to a product matter recognition, since a correlated one
+can make the stationary matrix invertible, while the coercivity of (c) comes from the anchor term of the
+prior at every width $\mathring\Sigma$. Part (a)(iii) shows that the chart itself creates stationary generators
+at its folds: a gradient flow in generator coordinates started at such a generator does not move, although
+its link value is not stationary for the link energy.
+
+\section{Held links as a limit, and conditional statements}
+\label{sec:link-held}
+
+How does the theory with latent generators relate to the theory in which links are structural data or
+parameters? As the prior covariance shrinks at a held anchor, the infimum of the latent-link free energy
+converges to the infimum of the held-link free energy at the anchor links, and near-minimizing link
+recognition laws concentrate at the anchor (\cref{thm:link-held-limit}); at every width, the conditional
+laws given the generators are held-link laws, so statements proved for every link value transfer
+conditionally, while statements about mixtures over the generators need not
+(\cref{prop:link-conditional-transfer}).
+
+\theoremheading{Held links are the zero-width limit}{thm:link-held-limit}
+Hold $\theta$ except for the prior covariances, which are $\mathring\Sigma=\mathring\sigma^2\mathring\Sigma_0$ for
+$\mathring\sigma>0$ and a block-diagonal $\mathring\Sigma_0\succ0$, and hold $X$, $o$ and the anchor $\mathring\alpha$.
+Write $\nu^{\mathscr T}_{\mathring\sigma}$, $\mathbb P^{\mathscr T}_{\mathring\sigma}$, $Z_{\mathscr S,\mathring\sigma}$ and
+$\Fenergy_{\mathring\sigma}$ for the base law, the generator prior, its normalizer, and the free energy of the
+latent-link model at width $\mathring\sigma$. Let $\mathcal Q'$ be a nonempty class of laws on $\mathsf Y$, put
+$\mathbf F_Q(\mathring\omega)=\Fenergy_V[Q;X,\Theta(\mathring\omega),o]$ for $Q\in\mathcal Q'$ and
+$\mathbf F(\mathring\omega)=\inf_{Q\in\mathcal Q'}\mathbf F_Q(\mathring\omega)$, and assume:
+(i) the record densities are bounded, $L_o\leq\mathrm c_{\mathfrak A}$, and $p(o\given\mathring\omega)>0$ for every
+$\mathring\omega$;
+(ii) $\mathbf F$ is finite and lower semicontinuous at $\mathring\alpha$;
+(iii) a subclass $\mathcal Q'_0\subseteq\mathcal Q'$ with $\inf_{Q\in\mathcal Q'_0}\mathbf F_Q(\mathring\alpha)=\mathbf F(\mathring\alpha)$
+consists of laws for which $\mathbf F_Q$ is continuous at $\mathring\alpha$ and bounded by
+$\mathrm c_Qe^{\mathrm c_Q\lVert\mathring\omega\rVert}$.
+Then:
+
+(a) As $\mathring\sigma\to0$, the infimum of $\Fenergy_{\mathring\sigma}$ over the product laws $R\otimes Q$ with
+$Q\in\mathcal Q'$ and $R$ in any class of laws on $\mathscr T$ that contains $\nu^{\mathscr T}_{\mathring\sigma}$, and its
+infimum over all laws $R(d\mathring\omega)Q_{\mathring\omega}(dy)$ whose kernel takes values in $\mathcal Q'$, both
+converge to
+\begin{equation}
+\mathbf F(\mathring\alpha)=\inf_{Q\in\mathcal Q'}\Fenergy_V\bigl[Q;X,\Theta(\mathring\alpha),o\bigr],
+\qquad
+\Theta^x_e(\mathring\alpha)=U_i\exp(\mathring\alpha^x_e)U_j^{-1},
+\label{eq:link-held-limit}
+\end{equation}
+the infimum over $\mathcal Q'$ of the held-link free energy at the anchor links.
+
+(b) Under (i) alone, every family of laws $R_{\mathring\sigma}(d\mathring\omega)Q_{\mathring\sigma,\mathring\omega}(dy)$ with
+$\sup_{\mathring\sigma}\Fenergy_{\mathring\sigma}<\infty$ satisfies
+$R_{\mathring\sigma}\{\lVert\mathring\omega-\mathring\alpha\rVert\geq\mathring\epsilon\}\to0$ for every $\mathring\epsilon>0$; under (i)
+and (ii),
+every such family with kernels in $\mathcal Q'$ and $\Fenergy_{\mathring\sigma}\to\mathbf F(\mathring\alpha)$ satisfies in
+addition $\KL(R_{\mathring\sigma}\Vert\mathbb P^{\mathscr T}_{\mathring\sigma})\to0$.
+
+(c) Under (i) alone, if $p(o\given\cdot)$ is continuous at $\mathring\alpha$, then the evidence of the
+latent-link model converges to $p_{\theta,V}(o\given X,\Theta(\mathring\alpha))$, and the link marginal
+$\boldsymbol\Pi^{\mathscr T}_{\mathring\sigma}$ of its posterior satisfies
+$\boldsymbol\Pi^{\mathscr T}_{\mathring\sigma}\{\lVert\mathring\omega-\mathring\alpha\rVert\geq\mathring\epsilon\}\to0$ for every
+$\mathring\epsilon>0$.
+
+(d) Under (i), hypothesis (ii) holds when $\mathcal Q'=\{Q_\lambda:\lambda\in\mathbb U\}$ for a subset $\mathbb U$ of a
+Euclidean space, $(\mathring\omega,\lambda)\mapsto\mathbf F_{Q_\lambda}(\mathring\omega)$ is lower semicontinuous,
+$\mathbf F(\mathring\alpha)<\infty$, and for some $\mathring\epsilon_0>0$ and some $\mathrm c>\mathbf F(\mathring\alpha)$ the set
+of $\lambda$ with $\mathbf F_{Q_\lambda}(\mathring\omega)\leq\mathrm c$ for some
+$\lVert\mathring\omega-\mathring\alpha\rVert<\mathring\epsilon_0$ has compact closure in $\mathbb U$. \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-links}.
+
+The present held-link theory is therefore the zero-width limit of the latent one in value: the prior and
+the recognition law narrow together, so the link sector costs nothing in the limit, in contrast with a
+recognition law that narrows under a prior of constant width, whose cost diverges
+(\cref{prop:link-field-equation}(e)).
+
+\propositionheading{Conditional statements transfer; link-marginal statements need not}{prop:link-conditional-transfer}
+Assume the hypotheses of \cref{prop:link-latent-normalization}(c).
+(a) For every $\mathring\omega$ the conditional law of the posterior given $\mathring\omega$ is the held-link
+posterior $\boldsymbol\Pi_{\theta,V,o,X,\Theta(\mathring\omega)}$, and for every law
+$Q=R(d\mathring\omega)Q_{\mathring\omega}(dy)$ the conditional free energy
+$-\log p(o\given\mathring\omega)+\KL(Q_{\mathring\omega}\Vert\boldsymbol\Pi_{\mathring\omega})$ is the held-link free energy
+$\Fenergy_V[Q_{\mathring\omega};X,\Theta(\mathring\omega),o]$. If $Q'=R(d\mathring\omega)Q'_{\mathring\omega}(dy)$ has the same link
+marginal and both free energies are finite, then
+\begin{equation}
+\Fenergy_V[Q';X,o]-\Fenergy_V[Q;X,o]
+=\int\Bigl(\Fenergy_V\bigl[Q'_{\mathring\omega};X,\Theta(\mathring\omega),o\bigr]-\Fenergy_V\bigl[Q_{\mathring\omega};X,\Theta(\mathring\omega),o\bigr]\Bigr)R(d\mathring\omega).
+\label{eq:link-transfer-potential}
+\end{equation}
+(b) Let $\mathbb O$ be a measurable set of link families, and consider a property of a pair consisting of
+held-link structural data and a law on $\mathsf Y$, expressed through the held-link joint, evidence,
+posterior and free energy. If the property holds for $((X,\Theta),Q'')$ for every $\Theta\in\mathbb O$ and
+every $Q''$ in a class $\mathcal Q''$, then it holds for $((X,\Theta(\mathring\omega)),Q_{\mathring\omega})$ at every
+$\mathring\omega$ with $\Theta(\mathring\omega)\in\mathbb O$ and $Q_{\mathring\omega}\in\mathcal Q''$, hence for $R$-almost
+every $\mathring\omega\in\Theta^{-1}(\mathbb O)$ when the kernel lies in $\mathcal Q''$ $R$-almost surely. For instance, for
+$G=\GL^+(K)$ in its defining representation and a closed walk $p$ in which the copies of some reversal pair
+occur with nonzero net count, the generators at which $\lvert\det\rho_x(\mathrm{Hol}^x(p))\rvert=1$ form a
+hyperplane of $\mathscr T$, so for every $R$ absolutely continuous with respect to Lebesgue measure the
+conclusion of \cref{cor:cg-holonomy-noncompact-gaussian} for a block containing $p$ holds conditionally on
+$\mathring\omega$ for $R$-almost every $\mathring\omega$.
+(c) A property of laws on $\mathsf Y$ transfers from the conditional laws to the link-marginal laws, namely
+the matter marginal $\int Q_{\mathring\omega}R(d\mathring\omega)$ of a recognition law, the matter marginal
+$\int\boldsymbol\Pi_{\mathring\omega}\boldsymbol\Pi^{\mathscr T}(d\mathring\omega)$ of the posterior, and their images under a coarse
+channel that does not read the links, when the set of laws with the property is preserved by mixtures, and
+need not otherwise. For $G=\GL^+(1)$ acting on $\R$ by multiplication, two agents with
+$k_j\sim\mathcal N(0,1)$ and $k_i\given k_j\sim\mathcal N(\rho_b(\Theta^b_e)k_j,1)$ for the copy $e:j\to i$, trivial
+frames, $\mathscr S=0$, $\nu^{\mathscr T}=\mathcal N(0,1)$, and no record, every held-link posterior is Gaussian,
+while the $k_i$-marginal of the latent-link posterior has
+$\E k_i^4=3(1+2e^2+e^8)>3(1+e^2)^2=3(\E k_i^2)^2$, so it is not Gaussian. \status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(a) The first claim is the disintegration of \cref{prop:link-latent-normalization}(c), and the second is
+\cref{def:elbo-extended} at $(X,\Theta(\mathring\omega))$. Finite free energies make both integrals in
+\eqref{eq:link-decomposition} finite, because the integrands are bounded below and the divergence term is
+common, so subtraction gives \eqref{eq:link-transfer-potential}. (b) By (a) the conditional objects at
+$\mathring\omega$ are the held-link objects at $(X,\Theta(\mathring\omega))$, and kernels are determined up to
+$R$-null sets. For the example, $\det e^{\mathbf B}=e^{\operatorname{tr}\mathbf B}$ (triangularize $\mathbf B$ over
+$\mathbb C$), so by \eqref{eq:geo-edge-twist-holonomy}
+$\det\rho_x(\mathrm{Hol}^x(p))$ is the exponential of the linear functional
+$\mathring\omega\mapsto\sum_{e\in E_+}\operatorname{tr}\mathring\omega^x_e$ weighted by the net count of each $e$ in $p$, which is
+nonzero by assumption, and the set where the determinant has modulus one is the kernel of this functional,
+which is Lebesgue null. Off it the holonomy has $\lvert\det\rvert\neq1$, and
+\cref{cor:cg-holonomy-noncompact-gaussian} applies at every such link value. (c) The marginals are mixtures
+over $\mathring\omega$ of the conditional laws, and a link-independent kernel commutes with mixing, which gives
+the positive clause. In the example there are no records, so the posterior is the prior; given the
+generator, $(k_i,k_j)$ is Gaussian with $\E[k_i^2\given\mathring\omega]=1+e^{2\mathring\omega}$, and a centered Gaussian
+has $\E k^4=3(\E k^2)^2$, so $\E k_i^4=3\E(1+e^{2\mathring\omega})^2=3(1+2e^2+e^8)$ and $\E k_i^2=1+e^2$, by
+$\E e^{2\mathring\omega}=e^2$ and $\E e^{4\mathring\omega}=e^8$; strict inequality is strict Jensen, since
+$e^{2\mathring\omega}$ is not almost surely constant. \hfill$\square$
+
+A coarse channel that reads the links, such as the tree transports of
+\cref{def:full-graph-coarse-links}, is a kernel on $(\mathring\omega,y)$ and is covered by (b) conditionally on
+$\mathring\omega$; its link-marginal image is again a mixture.
+
+\section{Directed and undirected matter}
+\label{sec:link-induced}
+
+Does matter generate a link action of its own? In the record extension it does not: the generator marginal
+is the generator prior, and matter reaches the links only through the evidence. When generators and matter
+are normalized jointly as an undirected model, the generator marginal acquires minus the logarithm of the
+matter normalizer (\cref{prop:link-induced-action}).
+
+\propositionheading{Induced link action}{prop:link-induced-action}
+(a) For the joint \eqref{eq:link-latent-joint},
+$\int_{\mathsf Y\times\mathsf O}\mathbb P_{\theta,V}(d\mathring\omega,dy,do\given X)=\mathbb P^{\mathscr T}_\theta(d\mathring\omega\given X)$,
+and with record densities the link marginal of the posterior is proportional to
+$p(o\given\mathring\omega)\mathbb P^{\mathscr T}_\theta(d\mathring\omega\given X)$.
+(b) Let the potentials $\psi_i(\cdot;X,\Theta)$, $\psi_{ij}(\cdot;X,\Theta)$, $\psi_a(\cdot;X,\Theta)$ of
+\cref{def:gen-undirected-model} depend jointly measurably on the link family, write
+$\widetilde p_{X,\Theta}$ and $Z_{X,\Theta}$ for \eqref{eq:gen-gibbs-potential} and \eqref{eq:gen-gibbs-partition}
+at $(X,\Theta)$, and normalize generators and matter jointly: with
+\begin{equation}
+\mathfrak Z=\int_{\mathscr T}e^{-\mathscr S(\mathring\omega)}Z_{X,\Theta(\mathring\omega)}\nu^{\mathscr T}(d\mathring\omega),
+\label{eq:link-joint-undirected-normalizer}
+\end{equation}
+assume $0<\mathfrak Z<\infty$, and take the law with density
+$\mathfrak Z^{-1}e^{-\mathscr S(\mathring\omega)}\widetilde p_{X,\Theta(\mathring\omega)}(o,y)$ with respect to
+$\nu^{\mathscr T}\otimes\nu^{\mathsf Y}\otimes\nu^{\mathsf O}$. It is a probability law,
+$Z_{X,\Theta(\mathring\omega)}<\infty$ for $\nu^{\mathscr T}$-almost every $\mathring\omega$, its generator marginal is
+\begin{equation}
+\mathfrak Z^{-1}e^{-\mathscr S(\mathring\omega)-\mathscr S^{\mathrm{ind}}(\mathring\omega)}\nu^{\mathscr T}(d\mathring\omega),
+\qquad
+\mathscr S^{\mathrm{ind}}(\mathring\omega)=-\log Z_{X,\Theta(\mathring\omega)},
+\label{eq:link-induced-marginal}
+\end{equation}
+with $\mathscr S^{\mathrm{ind}}(\mathring\omega)\in(-\infty,+\infty]$ for $\nu^{\mathscr T}$-almost every
+$\mathring\omega$, and on $\{0<Z_{X,\Theta(\mathring\omega)}<\infty\}$ its conditional law given $\mathring\omega$ is the undirected model
+\eqref{eq:gen-gibbs-density} at $(X,\Theta(\mathring\omega))$. A record extension with densities is the case
+$Z_{X,\Theta}=1$ for every $\Theta$, in which $\mathscr S^{\mathrm{ind}}=0$. The condition $\mathfrak Z<\infty$ is not
+implied by $Z_{\mathscr S}<\infty$: for $G=\GL^+(1)$, trivial frames, $\mathscr S=0$, two scalar agents with
+standard Gaussian self potentials, and the edge potential $\exp(\rho_b(\Theta_e)k_1k_2)$,
+$Z_{X,\Theta}=(1-\rho_b(\Theta_e)^2)^{-1/2}$ when $\rho_b(\Theta_e)<1$ and $Z_{X,\Theta}=+\infty$ when
+$\rho_b(\Theta_e)=e^{\mathring\omega_e}\geq1$, a set of positive $\nu^{\mathscr T}$-measure, so $\mathfrak Z=+\infty$.
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(a) By Tonelli's theorem, integrate the records, each a kernel of unit mass, and then $y$ against the
+probability kernel $\mathbb P^{\mathsf Y}(\cdot\given\mathring\omega)$; the posterior marginal is that of
+\cref{prop:link-latent-normalization}(c). (b) Tonelli's theorem gives
+$\int e^{-\mathscr S}\widetilde p_{X,\Theta(\mathring\omega)}d(\nu^{\mathsf Y}\otimes\nu^{\mathsf O})=e^{-\mathscr S(\mathring\omega)}Z_{X,\Theta(\mathring\omega)}$,
+whose $\nu^{\mathscr T}$-integral is $\mathfrak Z$, so the density integrates to one; finiteness of $\mathfrak Z$ with
+$e^{-\mathscr S}>0$ forces $Z_{X,\Theta(\mathring\omega)}<\infty$ almost everywhere, the generator marginal is
+$\mathfrak Z^{-1}e^{-\mathscr S}Z_{X,\Theta(\mathring\omega)}\nu^{\mathscr T}$, which is \eqref{eq:link-induced-marginal} with the
+value $+\infty$ of $\mathscr S^{\mathrm{ind}}$ where $Z_{X,\Theta(\mathring\omega)}=0$, and dividing the joint density by
+the marginal density gives \eqref{eq:gen-gibbs-density}. The densities of a record extension are
+conditional densities of unit mass in $(y,o)$ for every link family (\cref{prop:gen-exact-normalization}),
+so as potentials they have $Z_{X,\Theta}=1$. In the example,
+$\iint(2\pi)^{-1}e^{-(k_1^2+k_2^2)/2+\rho_b(\Theta_e)k_1k_2}dk_1dk_2=\det\begin{psmallmatrix}1&-\rho_b(\Theta_e)\\-\rho_b(\Theta_e)&1\end{psmallmatrix}^{-1/2}$
+for $\rho_b(\Theta_e)<1$, the integral diverges for $\rho_b(\Theta_e)\geq1$ by
+\cref{prop:gen-gibbs-counterexample}, and the Gaussian law $\nu^{\mathscr T}$ on $\mathfrak g=\R$ charges
+$\{\mathring\omega_e\geq0\}$. \hfill$\square$
+
+For Gaussian self potentials and pairwise potentials of the connection-Laplacian form
+\eqref{eq:cg-connection-laplacian-energy}, the matter normalizer is a Gaussian determinant, so the induced
+action is one half the log-determinant of the connection Laplacian plus the self term, and its expansion in
+closed walks produces loop products of the links; Supplement G develops both.
+
+\section{Inference dynamics of the links}
+\label{sec:link-inference-dynamics}
+
+The generators are latent coordinates, so they move by the dynamics of every recognition coordinate
+of the program, descent of the collective free energy. This section writes that descent for a
+Gaussian recognition law of the generators jointly with the agents' recognition coordinates, shows
+that it is a natural-gradient history whose explicit Euler step is the Gaussian Bayesian learning
+rule (\cref{prop:link-recognition-flow}), gives the exact M-coordinate of the anchor
+(\cref{prop:link-anchor-m-coordinate}), and reads the supplied link rate of
+\cref{prop:obs-slow-model-link-dichotomy} in this setting (\cref{rem:link-rates}). In this section
+and the next two, the links of one channel are latent, or both channels share them under the
+common-link specialization \eqref{eq:geo-common-link}, and the channel index is dropped. The link
+space $\mathscr T=\mathfrak g^{E_+}$ carries the product inner product
+$\langle\mathring\omega,\mathring\omega'\rangle=\sum_{e\in E_+}\langle\mathring\omega_e,\mathring\omega'_e\rangle_{\mathsf G}$
+of \cref{def:link-generator-prior}, its norm $\lVert\cdot\rVert$, and the Lebesgue measure of that definition;
+self-adjointness, traces, and determinants of operators on $\mathscr T$ refer to this inner product.
+Where a representation $\rho$ enters, $\mathrm d\rho$ is injective and $\mathfrak g$ carries the
+pulled-back inner product of \cref{def:link-loop-defect}, so that
+$\lVert\mathring\omega_e\rVert_{\mathsf G}=\lVert\mathrm d\rho\mathring\omega_e\rVert_{\mathsf G}$. For a
+matrix $\mathbf H$ on the represented fiber,
+$\mathbf H^*=(\mathsf G^{\mathrm{fib}})^{-1}\mathbf H^\top\mathsf G^{\mathrm{fib}}$ is its adjoint for the
+fiber metric, so that $\langle\mathbf H,\mathbf H'\rangle_{\mathsf G}=\Tr(\mathbf H^*\mathbf H')$ in
+\eqref{eq:link-trace-form} and left or right multiplication by $\mathbf H$ has as adjoint the left or
+right multiplication by $\mathbf H^*$; $\operatorname{pr}_{\mathfrak g}$ is the
+$\langle\cdot,\cdot\rangle_{\mathsf G}$-orthogonal projection of matrices onto
+$\mathrm d\rho(\mathfrak g)$, read in $\mathfrak g$.
+
+\propositionheading{Natural-gradient recognition flow of the generators}{prop:link-recognition-flow}
+In the latent-link model of \cref{def:link-latent-model}, with bounded record densities and
+$p(o\given\mathring\omega)>0$ for every $\mathring\omega$, let the recognition law be
+$R\otimes Q_\lambda$. Here $R=\mathcal N(\mathring\mu,\mathring\Lambda^{-1})$ is a Gaussian law on
+$\mathscr T$ with mean $\mathring\mu\in\mathscr T$ and precision $\mathring\Lambda$ in the open cone
+$\mathring\Xi_{\succ0}$ of positive-definite elements of the space $\mathring\Xi$ of self-adjoint
+operators that preserve each summand of a given orthogonal decomposition of $\mathscr T$: one summand
+admits every positive-definite precision, the summands $\mathfrak g$ of the edge copies give the
+products $\bigotimes_{e\in E_+}\mathcal N(\mathring\mu_e,\mathring\Lambda_e^{-1})$, and the lines of an
+orthonormal basis give the diagonal precisions. The law $Q_\lambda$ is the agents' recognition law,
+with coordinates $\lambda$ in a collective configuration manifold $\mathcal Q_V$
+(\cref{def:hist-configuration-manifold}) that satisfies \cref{hyp:hist-standing-configuration-tier}
+with metric $\mathsf G_V$. By \eqref{eq:link-decomposition} and
+\cref{prop:link-gaussian-recognition-vfe}(b) with $Q_{\mathring\omega}=Q_\lambda$ for every
+$\mathring\omega$, the collective free energy at $R\otimes Q_\lambda$ is
+\begin{equation}
+F(\mathring\mu,\mathring\Lambda,\lambda)
+=\E_R\bigl[\mathfrak i_\lambda\bigr]+\tfrac12\log\det\mathring\Lambda+\log Z_{\mathscr S}
+-\tfrac12\dim\mathscr T\log(2\pi e),
+\label{eq:link-gaussian-free-energy}
+\end{equation}
+with the generator integrand
+\begin{equation}
+\mathfrak i_\lambda(\mathring\omega)
+=\Fenergy_V\bigl[Q_\lambda;X,\Theta(\mathring\omega),o\bigr]+\mathscr S(\mathring\omega)
++\tfrac12\bigl\langle\mathring\omega-\mathring\alpha,\mathring\Sigma^{-1}(\mathring\omega-\mathring\alpha)\bigr\rangle
++\tfrac12\log\det\bigl(2\pi\mathring\Sigma\bigr).
+\label{eq:link-generator-integrand}
+\end{equation}
+Assume that $F$ is $C^2$ on $\mathscr T\times\mathring\Xi_{\succ0}\times\mathcal Q_V$ and that each
+$\mathfrak i_\lambda$ is $C^2$ with
+$\lvert\mathfrak i_\lambda\rvert+\lVert\nabla\mathfrak i_\lambda\rVert+\lVert\nabla^2\mathfrak i_\lambda\rVert\leq\mathrm c_1e^{\mathrm c_2\lVert\mathring\omega\rVert}$
+for constants $\mathrm c_1,\mathrm c_2$. Write $\mathring\mu\otimes\mathring\mu$ for the operator
+$\mathring\omega\mapsto\langle\mathring\mu,\mathring\omega\rangle\mathring\mu$ and
+$\operatorname{pr}_{\mathring\Xi}$ for the orthogonal projection onto $\mathring\Xi$ in the trace inner
+product.
+\begin{enumerate}
+\item[(a)] The laws $\mathcal N(\mathring\mu,\mathring\Lambda^{-1})$ with
+$\mathring\Lambda\in\mathring\Xi_{\succ0}$ form a minimal regular exponential family with natural
+parameter $\mathring\vartheta=(\mathring\Lambda\mathring\mu,-\tfrac12\mathring\Lambda)$, expectation
+parameter
+$\mathring\varpi=(\mathring\mu,\mathring\Lambda^{-1}+\operatorname{pr}_{\mathring\Xi}(\mathring\mu\otimes\mathring\mu))$,
+and log-partition function $\mathring\Gamma$, hence a regular statistical manifold. Its Fisher metric
+is smooth and positive definite, and in the coordinates $(\mathring\mu,\mathring\Lambda)$ it is
+\begin{equation}
+g^F\bigl((\delta\mathring\mu,\delta\mathring\Lambda),(\delta\mathring\mu,\delta\mathring\Lambda)\bigr)
+=\langle\delta\mathring\mu,\mathring\Lambda\delta\mathring\mu\rangle
++\tfrac12\Tr\bigl(\mathring\Lambda^{-1}\delta\mathring\Lambda\mathring\Lambda^{-1}\delta\mathring\Lambda\bigr).
+\label{eq:link-gaussian-fisher}
+\end{equation}
+The product $\mathcal Q$ of this family with $\mathcal Q_V$, with the metric
+$\mathsf G=g^F\oplus\mathsf G_V$, satisfies \cref{hyp:hist-standing-configuration-tier}.
+\item[(b)] The natural-gradient field $-\operatorname{grad}^{\mathsf G}F$ of
+\eqref{eq:hist-fisher-gradient-definition} on $\mathcal Q$ is $C^1$, so its maximal integral curves
+exist and are unique. Along each of them $\tfrac{d}{dt}F=-\lVert\operatorname{grad}^{\mathsf G}F\rVert_{\mathsf G}^2\leq0$,
+and each one through a noncritical point has nowhere-vanishing velocity and satisfies
+\eqref{eq:hist-vfe-ray-representative} with $\mathsf a\equiv1$, so it represents a natural-gradient
+history (\cref{def:hist-oriented-history}).
+\item[(c)] The flow is of first order. Its velocity is a function of the configuration alone and
+vanishes exactly at the critical points of $F$. It obeys the force balance
+$\mathsf G(\dot Q,\cdot)=-dF$, in which $\mathsf G$ is the friction tensor, and
+$\tfrac{d}{dt}F=-\mathsf G(\dot Q,\dot Q)$. The free energy strictly decreases along every
+nonconstant solution, so no nonconstant solution is periodic. At a critical point $Q_\star$ with
+invertible Hessian the linearized field is $-\mathsf G(Q_\star)^{-1}\nabla^2F(Q_\star)$, which is
+diagonalizable with real eigenvalues, so no linearized mode oscillates.
+\item[(d)] In the chart $(\mathring\vartheta,\lambda)$, the generator block of the explicit Euler step
+of the flow with step $\Delta t>0$ is
+\begin{equation}
+\mathring\Lambda'=(1-\Delta t)\mathring\Lambda+\Delta t\operatorname{pr}_{\mathring\Xi}\E_R\bigl[\nabla^2\mathfrak i_\lambda\bigr],
+\qquad
+\mathring\mu'=\mathring\mu-\Delta t\mathring\Lambda'^{-1}\E_R\bigl[\nabla\mathfrak i_\lambda\bigr],
+\label{eq:link-blr}
+\end{equation}
+whenever $\mathring\Lambda'$ is positive definite, for instance when $0<\Delta t<1$ and
+$\operatorname{pr}_{\mathring\Xi}\E_R[\nabla^2\mathfrak i_\lambda]$ is positive semidefinite. For one summand
+this is the Gaussian form of the Bayesian learning rule \citep[Eq.~(12)]{KhanRue2023} applied to
+$\mathfrak i_\lambda$, and for the lines of an orthonormal basis it is its diagonal-precision form, which
+\citet[Sec.~4.2, Eq.~(37)]{KhanRue2023} state with the expected gradient and Hessian replaced by their
+values at the mean.
+\item[(e)] Let $R'=\mathcal N(\mathring\mu',\mathring\Lambda'^{-1})$ with expectation parameter
+$\mathring\varpi'$, and let $\widetilde F(\mathring\varpi)$ denote $F$ at fixed $\lambda$ in the
+expectation chart. If $\mathring\Lambda'$ is positive definite and
+$\nabla^2\widetilde F\preceq\mathrm c_{\mathsf G}\nabla^2\mathring\Gamma^\star$ on the segment from
+$\mathring\varpi$ to $\mathring\varpi'$ for some $\mathrm c_{\mathsf G}>0$, where
+$\mathring\Gamma^\star$ is the convex conjugate of $\mathring\Gamma$ and $\nabla^2\mathring\Gamma^\star$ is
+the Fisher metric in the expectation chart, then
+\begin{equation}
+F(R')\leq F(R)-\Delta t^{-1}\KL(R\Vert R')-\bigl(\Delta t^{-1}-\mathrm c_{\mathsf G}\bigr)\KL(R'\Vert R),
+\label{eq:link-blr-descent}
+\end{equation}
+so a step with $0<\Delta t\leq1/\mathrm c_{\mathsf G}$ decreases $F$ unless $R'=R$. For one summand
+and a quadratic integrand
+$\mathfrak i_\lambda(\mathring\omega)=\tfrac12\langle\mathring\omega,\mathbf Q\mathring\omega\rangle-\langle\mathbf b,\mathring\omega\rangle+\mathrm c_3$
+with $\mathbf Q$ positive definite, the hypothesis holds with $\mathrm c_{\mathsf G}=1$ everywhere, and
+the step $\Delta t=1$ gives $R'=\mathcal N(\mathbf Q^{-1}\mathbf b,\mathbf Q^{-1})$, the minimizer of $F$
+over Gaussian $R$.
+\end{enumerate}
+\status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-links}.
+
+For links, the latent option of \cref{def:obs-selective-interface-learning} asks of a random relation
+coordinate a prior that is a probability law, dynamics in the augmented state, and a regular configuration
+metric or a justified quotient, and the present construction discharges these requirements. The generator
+prior of \cref{def:link-generator-prior}, in the joint of \cref{def:link-latent-model}, supplies the first for
+every Lie group $G$, compact or not (\cref{prop:link-generator-prior,prop:link-latent-normalization}), with
+directed matter, and with undirected matter normalized jointly whenever the normalizer
+\eqref{eq:link-joint-undirected-normalizer} is finite (\cref{prop:link-induced-action}); the dynamics and the
+metric are those of \cref{prop:link-recognition-flow}.
+
+\propositionheading{Exact M-coordinate of the anchor}{prop:link-anchor-m-coordinate}
+Let the generator prior of \cref{def:link-generator-prior} have base law
+$\nu^{\mathscr T}_{\mathring\alpha}=\bigotimes_{e\in E_+}\mathcal N(\mathring\alpha_e,\mathring\Sigma_e)$
+and an action $\mathscr S\geq0$ that does not depend on $\mathring\alpha$, so that the prior is
+$\mathbb P^{\mathscr T}_{\mathring\alpha}=Z_{\mathscr S}(\mathring\alpha)^{-1}e^{-\mathscr S}\nu^{\mathscr T}_{\mathring\alpha}$
+with $Z_{\mathscr S}(\mathring\alpha)=\int e^{-\mathscr S}d\nu^{\mathscr T}_{\mathring\alpha}$, and let
+no other factor of the joint depend on $\mathring\alpha$. Hold the recognition coupling
+$\mathbb Q_{V,o,X}$ fixed, let its generator marginal $R$ have finite second moments, and assume the
+finiteness hypotheses of \cref{prop:elbo-exact-m-coordinate} for every anchor.
+\begin{enumerate}
+\item[(a)] Up to terms that do not depend on $\mathring\alpha$, the objective of
+\eqref{eq:elbo-m-coordinate} is
+\begin{equation}
+\Lelbo^{\mathrm{anc}}(\mathring\alpha)=-\tfrac12\E_R\bigl\langle\mathring\omega-\mathring\alpha,\mathring\Sigma^{-1}(\mathring\omega-\mathring\alpha)\bigr\rangle-\log Z_{\mathscr S}(\mathring\alpha),
+\label{eq:link-anchor-objective}
+\end{equation}
+which contains the normalizer of the prior, and
+\begin{equation}
+\nabla_{\mathring\alpha_e}\Lelbo^{\mathrm{anc}}=\mathring\Sigma_e^{-1}\bigl(\E_R[\mathring\omega_e]-\E_{\mathbb P^{\mathscr T}_{\mathring\alpha}}[\mathring\omega_e]\bigr).
+\label{eq:link-anchor-gradient}
+\end{equation}
+\item[(b)] The function $\Lelbo^{\mathrm{anc}}$ is strictly concave and has exactly one maximizer
+$\mathring\alpha^{\mathrm{new}}$, the unique anchor at which the prior mean equals the recognition
+mean, $\E_{\mathbb P^{\mathscr T}_{\mathring\alpha^{\mathrm{new}}}}[\mathring\omega]=\E_R[\mathring\omega]$. By
+\cref{prop:elbo-exact-m-coordinate} it is the exact M-coordinate on the anchor at the given
+covariances.
+\item[(c)] If $\mathscr S=0$, as when every loop coefficient $\mathrm c_p$ vanishes, then
+$\mathring\alpha^{\mathrm{new}}=\E_R[\mathring\omega]$, which is $\mathring\mu$ for a Gaussian
+generator recognition law. If
+$\mathscr S(\mathring\omega)=\tfrac12\sum_p\mathrm c_p\lVert\mathbf C_p\mathring\omega\rVert_{\mathsf G}^2$,
+where $\mathbf C_p\mathring\omega=(\mathbf C\mathring\omega)_p$ is the loop sum of the cycle map
+\eqref{eq:link-cycle-map} and $\mathbf C_p^\top$ is the adjoint of $\mathbf C_p:\mathscr T\to\mathfrak g$,
+as for the loop defects of the translation instance in its affine representation
+(\cref{prop:link-translation-instance}), then
+\begin{equation}
+\mathring\alpha^{\mathrm{new}}=\Bigl(I+\mathring\Sigma\sum_p\mathrm c_p\mathbf C_p^\top\mathbf C_p\Bigr)\E_R[\mathring\omega],
+\label{eq:link-anchor-quadratic}
+\end{equation}
+which differs from $\E_R[\mathring\omega]$ exactly when $\mathbf C_p\E_R[\mathring\omega]\neq0$ for
+some loop $p$ with $\mathrm c_p>0$.
+\item[(d)] If the covariances $\mathring\Sigma_e$ range as well over the positive-definite
+self-adjoint operators on $\mathfrak g$, the objective is strictly concave in the coordinates
+$(\mathring\Sigma_e^{-1}\mathring\alpha_e,-\tfrac12\mathring\Sigma_e^{-1})_{e\in E_+}$, it has at most
+one maximizer, and a maximizer matches the mean and the covariance of every edge generator under
+the prior and under $R$. If $\mathscr S=0$ and every $\operatorname{Cov}_R(\mathring\omega_e)$ is
+positive definite, the maximizer exists and is
+$(\E_R[\mathring\omega_e],\operatorname{Cov}_R(\mathring\omega_e))_{e\in E_+}$. With a loop term it
+need not exist: in the translation instance with $\mathsf G^{\mathrm{fib}}=I_2$, on one agent $i$
+with one reversal pair of edge copies $e,\bar e:i\to i$, the loop $p=(e)$ with
+$\mathrm c_p=\mathrm c>0$, and $R=\mathcal N(\mathring\mu,\mathrm v)$ with $\mathrm v\geq1/\mathrm c$,
+the objective has no maximizer over $(\mathring\alpha_e,\mathring\Sigma_e)\in\R\times(0,\infty)$, and
+its supremum is approached as $\mathring\Sigma_e\to\infty$.
+\end{enumerate}
+\status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-links}.
+
+\remarkheading{The supplied link rate in the latent reading}{rem:link-rates}
+Read \cref{def:rg-formation-cycle-experiment} with every frame at the reference point, so that each
+twist equals its link (\cref{prop:geo-edge-twist-invariance}).
+(i) Its link translations, written $\check\omega_i$ in \cref{prop:obs-slow-model-link-dichotomy}, are
+generators of the translation instance (\cref{prop:link-translation-instance}): $(\R,+)$ acting on the
+scalar fibers by translation, in its affine representation with $\mathsf G^{\mathrm{fib}}=I_2$, for
+which $\mathfrak g=\R$, $\langle\mathrm x,\mathrm y\rangle_{\mathsf G}=\mathrm x\mathrm y$, and every loop
+defect is the quadratic $\tfrac12(\sum_a\check\omega_{e_a})^2$. The link block $\mathcal N(0,I_4)$ of the
+configuration prior is the generator prior of \cref{def:link-generator-prior} with anchor $0$,
+$\mathring\Sigma_e=1$, and no loop term; the loop energy of the experiment enters through its
+records. For a law of the configuration, the generator
+recognition law $R$ is its $\check\omega$-marginal, and its mean is the generator recognition mean
+$\mathring\mu$.
+(ii) Moving the link translations at the supplied rate $\varepsilon_{\check\omega}$ is therefore, on
+the held matching sheet and for $\varepsilon_{\mathrm m},\varepsilon_{\check\omega}>0$, the
+rate-separated flow \eqref{eq:obs-rate-separated-flow} with the generator recognition means in the
+slow block, $s=(\bar m,\mathring\mu)$ and
+$\mathsf G_{\mathrm s}=I_4\oplus(\varepsilon_{\mathrm m}/\varepsilon_{\check\omega})I_4$, by
+\cref{prop:obs-slow-model-link-dichotomy}(i).
+(iii) The anchor $\mathring\alpha$ is a coordinate of the generative parameter $\theta$, so it
+belongs to the slow block $s=(s_{\mathrm m},\theta)$ of \cref{def:obs-fast-slow-blocks}: it moves the
+joint between evaluations, by accepted M-coordinates (\cref{def:elbo-generalized-m-acceptance}), of
+which \cref{prop:link-anchor-m-coordinate} gives the exact one, or by the rate-separated flow, and
+never inside an evaluation (\cref{req:gen-typing-prohibition}). In the experiment no generative
+parameter is learned and the anchor stays at $0$.
+(iv) The recognition flow of \cref{prop:link-recognition-flow} does not supply the separation of
+(ii). In the notation of \cref{def:rg-formation-cycle-experiment}, take the held sheet $S^{(0)}$, the
+Gaussian configuration laws
+$\mathcal N(\mu,\Sigma)\otimes\delta_{S^{(0)}}$ on $\R^{12}$ with their Fisher metric, of the form
+\eqref{eq:link-gaussian-fisher}, and the free energy $\Fenergy_{\mathrm T}/\mathrm T$ of
+\cref{prop:rg-formation-endogenous-cycle}, at the temperature $\mathrm T$ of that proposition. Then
+$\nabla^2U_{S^{(0)}}\succeq\mathrm TI$, the natural-gradient flow leaves the slice
+$\Sigma=\mathrm T(\nabla^2U_{S^{(0)}})^{-1}$ invariant, and on it $\mu(t)=e^{-t}\mu(0)$: belief means,
+model means, and link means relax at one common rate. From
+$\mu(0)=\mathbf x^\circ$, every residual is $r^b_i(t)=r^m_i(t)=-e^{-t}$, so at no time is
+$\lvert r^b_i\rvert\leq2\varepsilon_{\mathrm m}<\tfrac12\leq\lvert r^m_i\rvert$, and the
+belief-agreeing, model-disagreeing interval of \cref{prop:obs-slow-model-link-dichotomy}(ii) does not
+occur. \status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-links}.
+
+On the slice of \cref{rem:link-rates}(iv) the Fisher geometry of the recognition family assigns every
+coordinate the same rate, so there the separation in \cref{prop:obs-slow-model-link-dichotomy} comes
+from its supplied mobilities alone, and a slow link block is a declaration of the kind that
+\cref{def:obs-fast-slow-blocks} allows.
+
+\section{Link histories across learning episodes}
+\label{sec:link-histories}
+
+Across learning episodes the generators form a history, and the latent route of
+\cref{def:full-graph-episode-joint} gives that history one joint law. This section puts a Gibbs prior
+on generator histories whose kinetic term is the loop defect of a time-like loop
+(\cref{def:link-history-prior}), proves that it is a latent route with the generators in the parent
+readout (\cref{prop:link-history-prior}), and shows that its increment precision is the inertial mass
+of the most probable history (\cref{prop:link-map-inertia}). Throughout,
+$\mathfrak Q(\mathbf H)=\tfrac12\lVert\mathbf H-I\rVert_{\mathsf G}^2$ for a matrix $\mathbf H$ on the
+represented fiber, so that the loop defect \eqref{eq:link-loop-defect} of a closed walk $p$ is
+$\mathfrak Q_p=\mathfrak Q(\rho(\mathring\Theta_p))$.
+
+\definitionheading{Generator history prior}{def:link-history-prior}
+Index learning episodes by $n=0,\ldots,n_1$ as in \cref{def:full-graph-episode-joint}, let
+$\mathring\omega^{(n)}=(\mathring\omega^{(n)}_e)_{e\in E_+}\in\mathscr T$ be the generators of episode
+$n$, with $\mathring\omega^{(n)}_{\bar e}=-\mathring\omega^{(n)}_e$, and write
+$\mathring\omega^{(0:n_1)}$ for a history. Fix the generator prior of \cref{def:link-generator-prior},
+with base law $\nu^{\mathscr T}=\bigotimes_{e\in E_+}\mathcal N(\mathring\alpha_e,\mathring\Sigma_e)$ and
+action $\mathscr S=\sum_p\mathrm c_p\mathfrak Q_p$ (the statements below use only that $\mathscr S$ is
+finite, measurable, and nonnegative), and a mass $\mathbf m>0$. Frames are static at $c_*$: the copies
+of agent $i$ at episodes $n$ and $n+1$ are joined by the identity link. For an edge copy $e:j\to i$,
+the time-like loop of $e$ between episodes $n$ and $n+1$ is the closed walk that runs from $j$ at
+episode $n+1$ to $j$ at episode $n$, along $e$ at episode $n$, from $i$ at episode $n$ to $i$ at
+episode $n+1$, and along $\bar e$ at episode $n+1$. Its reference holonomy
+\eqref{eq:link-reference-holonomy}, with the identity twist for each time-like step, is
+$\mathring\Theta^{(n+1\leftarrow n)}_e=\exp(-\mathring\omega^{(n+1)}_e)\exp(\mathring\omega^{(n)}_e)$, with
+the represented holonomy
+\begin{equation}
+\rho\bigl(\mathring\Theta^{(n+1\leftarrow n)}_e\bigr)=e^{-\mathrm d\rho\mathring\omega^{(n+1)}_e}e^{\mathrm d\rho\mathring\omega^{(n)}_e}.
+\label{eq:link-timelike-holonomy}
+\end{equation}
+The kinetic term of $e$ between episodes $n$ and $n+1$ is either the time-like loop defect
+$\mathfrak U^{(n)}_e=\mathfrak Q(\rho(\mathring\Theta^{(n+1\leftarrow n)}_e))$ or the Gaussian increment
+$\mathfrak U^{(n)}_e=\tfrac12\lVert\mathring\omega^{(n+1)}_e-\mathring\omega^{(n)}_e\rVert_{\mathsf G}^2$,
+and $\mathfrak U(\mathring\omega^{(n+1)},\mathring\omega^{(n)})=\sum_{e\in E_+}\mathfrak U^{(n)}_e$. The
+generator history prior is the law on $\mathscr T^{n_1+1}$
+\begin{equation}
+\mathbb P^{\mathrm{hist}}\bigl(d\mathring\omega^{(0:n_1)}\bigr)
+=Z_{\mathrm{hist}}^{-1}\exp\Bigl[-\sum_{n=0}^{n_1}\mathscr S\bigl(\mathring\omega^{(n)}\bigr)
+-\mathbf m\sum_{n=0}^{n_1-1}\mathfrak U\bigl(\mathring\omega^{(n+1)},\mathring\omega^{(n)}\bigr)\Bigr]
+\prod_{n=0}^{n_1}\nu^{\mathscr T}\bigl(d\mathring\omega^{(n)}\bigr),
+\label{eq:link-history-prior}
+\end{equation}
+with $Z_{\mathrm{hist}}$ the integral of the exponential against $\bigotimes_n\nu^{\mathscr T}$. The
+anchor, the prior covariances, the loop coefficients, and the mass are coordinates of the generative
+parameter $\theta$.
+
+\propositionheading{The generator history prior}{prop:link-history-prior}
+In \cref{def:link-history-prior}, with either kinetic term:
+\begin{enumerate}
+\item[(a)] $0<Z_{\mathrm{hist}}\leq Z_{\mathscr S}^{n_1+1}\leq1$, so
+$\mathbb P^{\mathrm{hist}}$ is a probability law, absolutely continuous with respect to
+$\bigotimes_n\nu^{\mathscr T}$ with density at most $Z_{\mathrm{hist}}^{-1}$; every function
+integrable under $\bigotimes_n\nu^{\mathscr T}$, in particular every function bounded by
+$\mathrm c_1e^{\mathrm c_2\lVert\mathring\omega^{(0:n_1)}\rVert}$, is integrable under it.
+\item[(b)] With the backward functions $\mathring Z^{\leftarrow}_{n_1}\equiv1$ and
+\begin{equation}
+\mathring Z^{\leftarrow}_n(\mathring\omega)=\int\exp\bigl[-\mathscr S(\mathring\omega')-\mathbf m\mathfrak U(\mathring\omega',\mathring\omega)\bigr]\mathring Z^{\leftarrow}_{n+1}(\mathring\omega')\nu^{\mathscr T}(d\mathring\omega'),
+\qquad n<n_1,
+\label{eq:link-backward-functions}
+\end{equation}
+which are measurable with values in $(0,1]$, $\mathbb P^{\mathrm{hist}}$ is the law of the Markov chain
+with root and transition kernels
+\begin{equation}
+\begin{gathered}
+\mathbb P^{(0)}_{\mathrm{hist}}(d\mathring\omega)=Z_{\mathrm{hist}}^{-1}e^{-\mathscr S(\mathring\omega)}\mathring Z^{\leftarrow}_0(\mathring\omega)\nu^{\mathscr T}(d\mathring\omega),\\
+\mathbb P^{(n+1\leftarrow n)}_{\mathrm{hist}}(d\mathring\omega'\given\mathring\omega)
+=\frac{e^{-\mathscr S(\mathring\omega')-\mathbf m\mathfrak U(\mathring\omega',\mathring\omega)}\mathring Z^{\leftarrow}_{n+1}(\mathring\omega')}{\mathring Z^{\leftarrow}_n(\mathring\omega)}\nu^{\mathscr T}(d\mathring\omega').
+\end{gathered}
+\label{eq:link-history-kernels}
+\end{equation}
+These kernels are the conditional laws of the Gibbs law \eqref{eq:link-history-prior} and depend on
+$n$ and on the horizon $n_1$ through $\mathring Z^{\leftarrow}_{n+1}$. The chain whose kernels normalize each
+increment factor separately, started from the law proportional to $e^{-\mathscr S}\nu^{\mathscr T}$,
+has the law \eqref{eq:link-history-prior} exactly when $\mathring Z^{\leftarrow}_{n_1-1}$ is constant
+$\nu^{\mathscr T}$-almost everywhere, and this fails for one scalar generator with
+$\nu^{\mathscr T}=\mathcal N(0,1)$, $\mathscr S=0$, the Gaussian increment, and $n_1=1$. With tower states
+$\mathbf Y^{(n)}=(\mathring\omega^{(n)},y^{(n)})$ at depth zero, parent readout
+$\chi^{\mathrm{ep}}(\mathbf Y^{(n)})=\mathring\omega^{(n)}$, the agents' latent law of each episode given
+by a Markov kernel $\mathbb P^{\mathrm{ag}}_n(dy^{(n)}\given\mathring\omega^{(n)},X)$, and records of
+episode $n$ that read $\mathbf Y^{(n)}$ only, the joint is a latent route of
+\cref{def:full-graph-episode-joint}, with root
+$\mathbb P^{(0)}_{\mathrm{hist}}(d\mathring\omega^{(0)})\mathbb P^{\mathrm{ag}}_0(dy^{(0)}\given\mathring\omega^{(0)},X)$ and transitions
+$\mathbb P^{(n\leftarrow n-1)}_{\mathrm{hist}}(d\mathring\omega^{(n)}\given\mathring\omega^{(n-1)})\mathbb P^{\mathrm{ag}}_n(dy^{(n)}\given\mathring\omega^{(n)},X)$,
+each a composition of kernels. Hence
+\cref{prop:full-graph-episode-joint} applies: the joint has unit mass and is acyclic with forward
+cross-episode edges, the root is required, the predictive prior of the generators at episode $n+1$ is
+the filtered law of $\mathring\omega^{(n)}$ pushed through $\mathbb P^{(n+1\leftarrow n)}_{\mathrm{hist}}$, and, on the
+finite-density domain with observation densities, the free energy decomposes along $n$ as in
+\eqref{eq:full-graph-episode-decomposition}.
+\item[(c)] The time-like links carry no variable. The twist of the identity link of agent $i$ between
+two episodes is $e_G$, so $\mathbb P^{\mathrm{hist}}$ is a law on the spatial generator histories
+alone, and each kinetic term is a function of the generators of one edge at two consecutive episodes.
+In lattice gauge theory this configuration is the temporal gauge, in which a time-like plaquette
+couples two space-like links at consecutive times \citep[Ch.~15, Eq.~(15.9)]{Creutz1983}.
+\end{enumerate}
+\status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-links}.
+
+\propositionheading{Inertia of the most probable history}{prop:link-map-inertia}
+Let $\mathfrak V_n:\mathscr T\to\R$, $n=0,\ldots,n_1$, be differentiable, let $\mathbf m>0$ and
+$\mathfrak U$ be either kinetic term of \cref{def:link-history-prior}, and let
+\begin{equation}
+\mathscr S^{\mathrm{hist}}\bigl(\mathring\omega^{(0:n_1)}\bigr)=\sum_{n=0}^{n_1}\mathfrak V_n\bigl(\mathring\omega^{(n)}\bigr)
++\mathbf m\sum_{n=0}^{n_1-1}\mathfrak U\bigl(\mathring\omega^{(n+1)},\mathring\omega^{(n)}\bigr).
+\label{eq:link-history-action}
+\end{equation}
+For the history prior, $\mathfrak V_n=\mathscr S+\tfrac12\langle\cdot-\mathring\alpha,\mathring\Sigma^{-1}(\cdot-\mathring\alpha)\rangle$
+makes $\mathscr S^{\mathrm{hist}}$ the negative log density of \eqref{eq:link-history-prior} relative to Lebesgue measure up
+to a constant; adding to $\mathfrak V_n$ a matter term of episode $n$, such as the negative log
+evidence of its records given the generators or their expected energy under a matter recognition law,
+gives the corresponding posterior or conditional objective. A most probable history is a minimizer of
+$\mathscr S^{\mathrm{hist}}$, with free ends or with ends held at given values.
+\begin{enumerate}
+\item[(a)] For the Gaussian increment, every critical point satisfies
+\begin{equation}
+\mathbf m\bigl(2\mathring\omega^{(n)}-\mathring\omega^{(n+1)}-\mathring\omega^{(n-1)}\bigr)+\nabla\mathfrak V_n\bigl(\mathring\omega^{(n)}\bigr)=0,
+\qquad 0<n<n_1,
+\label{eq:link-map-inertia}
+\end{equation}
+and, with free ends,
+$\mathbf m(\mathring\omega^{(0)}-\mathring\omega^{(1)})+\nabla\mathfrak V_0(\mathring\omega^{(0)})=0$ and
+$\mathbf m(\mathring\omega^{(n_1)}-\mathring\omega^{(n_1-1)})+\nabla\mathfrak V_{n_1}(\mathring\omega^{(n_1)})=0$.
+With unit step in $n$, \eqref{eq:link-map-inertia} is the central-difference form of
+$\mathbf m\ddot{\mathring\omega}=\nabla\mathfrak V$, Newton's equation with mass $\mathbf m$ in the
+potential $-\mathfrak V$, the Euclidean sign. If each $\mathfrak V_n$ is continuous and
+$\sum_n\mathfrak V_n(\mathring\omega^{(n)})\to\infty$ as
+$\lVert\mathring\omega^{(0:n_1)}\rVert\to\infty$, as when each $\mathfrak V_n$ is at least the anchor
+quadratic minus a constant, a most probable history exists.
+\item[(b)] For the time-like loop defect, write
+$\mathring\Theta^{\leftarrow}_e=\exp(-\mathring\omega'_e)\exp(\mathring\omega_e)$ for a later family
+$\mathring\omega'$ and an earlier family $\mathring\omega$, so that $\rho(\mathring\Theta^{\leftarrow}_e)$ is
+\eqref{eq:link-timelike-holonomy} with $\mathring\omega'$ and $\mathring\omega$ in place of
+$\mathring\omega^{(n+1)}$ and $\mathring\omega^{(n)}$, and let $\mathbf L$ be the Fr\'echet derivative
+\eqref{eq:link-exp-derivative}. The gradients of $\mathfrak U(\mathring\omega',\mathring\omega)$ in its
+earlier and later arguments are
+\begin{equation}
+\begin{aligned}
+\bigl(\partial_{\mathring\omega}\mathfrak U\bigr)_e&=\operatorname{pr}_{\mathfrak g}\mathbf L\bigl((\mathrm d\rho\mathring\omega_e)^*,(e^{-\mathrm d\rho\mathring\omega'_e})^*\bigl(\rho(\mathring\Theta^{\leftarrow}_e)-I\bigr)\bigr),\\
+\bigl(\partial_{\mathring\omega'}\mathfrak U\bigr)_e&=-\operatorname{pr}_{\mathfrak g}\mathbf L\bigl(-(\mathrm d\rho\mathring\omega'_e)^*,\bigl(\rho(\mathring\Theta^{\leftarrow}_e)-I\bigr)(e^{\mathrm d\rho\mathring\omega_e})^*\bigr),
+\end{aligned}
+\label{eq:link-timelike-gradients}
+\end{equation}
+and every critical point satisfies, for $0<n<n_1$,
+\begin{equation}
+\mathbf m\bigl[\partial_{\mathring\omega}\mathfrak U\bigl(\mathring\omega^{(n+1)},\mathring\omega^{(n)}\bigr)+\partial_{\mathring\omega'}\mathfrak U\bigl(\mathring\omega^{(n)},\mathring\omega^{(n-1)}\bigr)\bigr]+\nabla\mathfrak V_n\bigl(\mathring\omega^{(n)}\bigr)=0.
+\label{eq:link-map-inertia-defect}
+\end{equation}
+For $\mathrm r>0$ let $\mathrm c_{\mathrm r}=\sqrt2\sup\lVert D^3\mathfrak U(\mathring\omega',\mathring\omega)\rVert$ over
+$\lVert\mathring\omega\rVert,\lVert\mathring\omega'\rVert\leq\mathrm r$. On that set
+$\lVert\partial_{\mathring\omega}\mathfrak U-(\mathring\omega-\mathring\omega')\rVert$ and
+$\lVert\partial_{\mathring\omega'}\mathfrak U-(\mathring\omega'-\mathring\omega)\rVert$ are at most
+$\mathrm c_{\mathrm r}\mathrm r\lVert\mathring\omega'-\mathring\omega\rVert$, so at a history in the ball of radius $\mathrm r$
+the left side of \eqref{eq:link-map-inertia-defect} differs from that of \eqref{eq:link-map-inertia}
+by at most
+$\mathbf m\mathrm c_{\mathrm r}\mathrm r(\lVert\mathring\omega^{(n+1)}-\mathring\omega^{(n)}\rVert+\lVert\mathring\omega^{(n)}-\mathring\omega^{(n-1)}\rVert)$.
+At a given $\mathring\omega$ and small increments $\delta\mathring\omega$,
+$\mathfrak U(\mathring\omega+\delta\mathring\omega,\mathring\omega)=\tfrac12\sum_e\lVert\mathbf L(-\mathrm d\rho\mathring\omega_e,\mathrm d\rho\delta\mathring\omega_e)e^{\mathrm d\rho\mathring\omega_e}\rVert_{\mathsf G}^2+O(\lVert\delta\mathring\omega\rVert^3)$,
+so the time-like defect gives the increment the mass tensor
+$\delta\mathring\omega\mapsto\mathbf m\sum_e\lVert\mathbf L(-\mathrm d\rho\mathring\omega_e,\mathrm d\rho\delta\mathring\omega_e)e^{\mathrm d\rho\mathring\omega_e}\rVert_{\mathsf G}^2$,
+which depends on the generators and reduces to $\mathbf m\lVert\delta\mathring\omega\rVert^2$ at
+$\mathring\omega=0$.
+\item[(c)] Let $\mathscr T$ be one-dimensional, as for one reversal pair of edge copies of the
+translation instance, identified with $\R$ isometrically, take the Gaussian increment, hold the ends
+at $\mathring\omega^{(0)}=\mathrm a<\mathrm b=\mathring\omega^{(n_1)}$, and let $\mathfrak V_n=\mathfrak V$
+for $0<n<n_1$ be continuous with $\mathfrak V\geq\mathfrak V(\mathrm a)$ on $(-\infty,\mathrm a]$ and
+$\mathfrak V\geq\mathfrak V(\mathrm b)$ on $[\mathrm b,\infty)$, as for a double well with minima at
+$\mathrm a$ and $\mathrm b$. Then a most probable history exists, and every most probable history is
+nondecreasing in $n$; if moreover $\mathfrak V$ is differentiable with
+$\mathfrak V'(\mathrm a)=\mathfrak V'(\mathrm b)=0$, every most probable history is strictly
+increasing. The most probable path between the wells is a monotone kink and does not oscillate.
+\end{enumerate}
+\status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-links}.
+
+The inertia of \cref{prop:link-map-inertia} belongs to the smoothed history, a joint optimization over
+$n$, while the recognition flow of \cref{prop:link-recognition-flow} is of first order in its
+parameter. Recognition dynamics with velocity variables arise when the generative model itself
+declares the motion of its states, as in the generalized coordinates of motion of
+\citet[p.~852, Eq.~(13)]{Friston2008DEM}, whose ensemble dynamics couple each state to its motion;
+the history prior declares no such variables. The Gaussian increment term of
+\eqref{eq:link-history-action} is, up to a constant, the negative log transition density of a random
+walk with increment covariance $\mathbf m^{-1}I$, the discrete-time form of the path weight of a
+driftless diffusion.
+
+\section{The linearized link equation}
+\label{sec:link-linear}
+
+Near zero generators the stationarity condition of the generator history becomes a linear equation
+whose operator collects every term of the construction: the anchor, the loops, the episodes, and the
+matter. Its positivity makes the linearized history unique, and the neglected terms are of second
+order in the sources (\cref{prop:link-linearized-equation}).
+
+\propositionheading{The linearized link equation}{prop:link-linearized-equation}
+In the latent-link model of \cref{def:link-latent-model}, let the generators carry the history prior
+of \cref{def:link-history-prior} with zero anchor, prior covariance $\mathring\Sigma$, action
+$\mathscr S=\sum_p\mathrm c_p\mathfrak Q_p$, mass $\mathbf m$, and either kinetic term, and write samples
+in the reference gauge of \cref{cor:link-delta-rule}. At each episode $n$ let $\mathfrak A_n$ be a
+finite set of binary success records (\cref{hyp:local-interaction-kernels}), observed as successes;
+record $a$ has a scope $\{i,j\}$ joined by an edge copy $e:j\to i$ of $E_+$ or of its reversal, with
+$\mathring\omega_{\bar e}=-\mathring\omega_e$, and the energy of \cref{cor:link-delta-rule}(a),
+\begin{equation}
+E_{a,o}(k;\mathring\omega)=\tfrac12\bigl(k_i-e^{\mathrm d\rho\mathring\omega_e}k_j\bigr)^\top W_a\bigl(k_i-e^{\mathrm d\rho\mathring\omega_e}k_j\bigr),
+\qquad W_a\succ0,
+\label{eq:link-comparison-record}
+\end{equation}
+where $i$, $j$, and $e$ are those of $a$. Record $a$ enters the free energy of its episode with a
+weight $\beta_a\in[0,1]$ that does not depend on the generators: $\beta_a=1$ for a record that is
+always read, and a weight below one arises when a record enters through a recognized source label,
+as in \cref{cor:link-delta-rule}(b). Hold a product Gaussian matter recognition under which $k_i$ at
+episode $n$ has mean $\mu^{(n)}_i$ and covariance $\Sigma^{(n)}_i$, and let $\mathscr S^{\mathrm{hist}}$ be
+the history action \eqref{eq:link-history-action} with
+$\mathfrak V_n=\tfrac12\langle\cdot,\mathring\Sigma^{-1}\cdot\rangle+\mathscr S+\sum_{a\in\mathfrak A_n}\beta_a\E[E_{a,o}(k;\cdot)]$,
+that is,
+\begin{equation}
+\begin{aligned}
+\mathscr S^{\mathrm{hist}}(\mathring\omega)={}&\sum_{n=0}^{n_1}\Bigl[\tfrac12\bigl\langle\mathring\omega^{(n)},\mathring\Sigma^{-1}\mathring\omega^{(n)}\bigr\rangle+\sum_p\mathrm c_p\mathfrak Q_p\bigl(\mathring\omega^{(n)}\bigr)+\sum_{a\in\mathfrak A_n}\beta_a\E\bigl[E_{a,o}\bigl(k;\mathring\omega^{(n)}\bigr)\bigr]\Bigr]\\
+&+\mathbf m\sum_{n=0}^{n_1-1}\mathfrak U\bigl(\mathring\omega^{(n+1)},\mathring\omega^{(n)}\bigr),
+\end{aligned}
+\label{eq:link-history-objective}
+\end{equation}
+which, when the agents' latent law does not read the links, is the generator part of the expected
+negative log joint density. Its minimizers are the most
+probable generator histories given the matter recognition, in the sense of
+\cref{prop:link-map-inertia}. For one episode with every $\beta_a=1$, and an agent latent law that
+does not read the links, $\mathscr S^{\mathrm{hist}}$ is the function $\mathbf V$ of
+\cref{prop:link-field-equation}(d) up to a constant, so $\nabla\mathscr S^{\mathrm{hist}}=0$ is the history
+form of the most-probable-link condition $\nabla\mathbf V=0$. On $\mathscr T^{n_1+1}$, with
+$\langle\mathring\omega,\mathring\omega'\rangle=\sum_n\langle\mathring\omega^{(n)},\mathring\omega'^{(n)}\rangle$,
+define self-adjoint operators $\mathbf K$ and $\mathbf N_0$ and a source $\mathbf j$ by
+\begin{equation}
+\begin{aligned}
+\langle\mathring\omega,\mathbf K\mathring\omega\rangle
+={}&\sum_n\Bigl[\bigl\langle\mathring\omega^{(n)},\mathring\Sigma^{-1}\mathring\omega^{(n)}\bigr\rangle+\sum_p\mathrm c_p\bigl\lVert\mathbf C_p\mathring\omega^{(n)}\bigr\rVert_{\mathsf G}^2
++\sum_{a\in\mathfrak A_n}\beta_a\Tr\bigl(W_a\mathrm d\rho\mathring\omega^{(n)}_e\E\bigl[k_jk_j^\top\bigr](\mathrm d\rho\mathring\omega^{(n)}_e)^\top\bigr)\Bigr]\\
+&+\mathbf m\sum_{n<n_1}\bigl\lVert\mathring\omega^{(n+1)}-\mathring\omega^{(n)}\bigr\rVert^2,\\
+\langle\mathring\omega,\mathbf N_0\mathring\omega\rangle
+={}&-\sum_n\sum_{a\in\mathfrak A_n}\beta_a\Tr\bigl(\mathbf J_a^\top(\mathrm d\rho\mathring\omega^{(n)}_e)^2\bigr),
+\qquad
+\langle\mathbf j,\mathring\omega\rangle=\sum_n\sum_{a\in\mathfrak A_n}\beta_a\Tr\bigl(\mathbf J_a^\top\mathrm d\rho\mathring\omega^{(n)}_e\bigr),
+\end{aligned}
+\label{eq:link-linear-operator}
+\end{equation}
+where $e$ and $j$ are those of $a$, $\E[k_jk_j^\top]=\Sigma^{(n)}_j+\mu^{(n)}_j\mu^{(n)\top}_j$,
+$\mathbf C_p\mathring\omega=(\mathbf C\mathring\omega)_p$ is the loop sum of the cycle map
+\eqref{eq:link-cycle-map}, and, for $a\in\mathfrak A_n$,
+\begin{equation}
+\mathbf J_a=W_a\bigl[(\mu^{(n)}_i-\mu^{(n)}_j)\mu^{(n)\top}_j-\Sigma^{(n)}_j\bigr]
+\label{eq:link-zero-current}
+\end{equation}
+is the current \eqref{eq:link-delta-current} of record $a$ at zero generators for a product law. Thus
+$\mathbf K=\mathring\Sigma^{-1}+\sum_p\mathrm c_p\mathbf C_p^\top\mathbf C_p+\mathbf m(-\Delta_n)+\mathring\Phi$,
+where $\mathring\Sigma^{-1}$ and the loop term act episode by episode,
+$(-\Delta_n\mathring\omega)^{(n)}=2\mathring\omega^{(n)}-\mathring\omega^{(n+1)}-\mathring\omega^{(n-1)}$ in the
+interior, $\mathring\omega^{(0)}-\mathring\omega^{(1)}$ and $\mathring\omega^{(n_1)}-\mathring\omega^{(n_1-1)}$ at
+the ends, and $\mathring\Phi$ is the matter operator of the last term of the bracket. Let
+$\mathrm c_{\mathring\Sigma}$ be the smallest eigenvalue of $\mathring\Sigma^{-1}$, and let
+$\operatorname{cond}(\mathsf G^{\mathrm{fib}})$ be the ratio of the extreme eigenvalues of
+$\mathsf G^{\mathrm{fib}}$.
+\begin{enumerate}
+\item[(a)] $\nabla\mathscr S^{\mathrm{hist}}(0)=-\mathbf j$ and $\nabla^2\mathscr S^{\mathrm{hist}}(0)=\mathbf K+\mathbf N_0$, so to first order in
+the generators and the currents the stationarity condition is
+\begin{equation}
+\mathbf K\mathring\omega=\mathbf j.
+\label{eq:link-linearized-equation}
+\end{equation}
+\item[(b)] $\mathbf K\succeq\mathrm c_{\mathring\Sigma}I$. Hence \eqref{eq:link-linearized-equation}
+has the unique solution $\mathring\omega_{\mathrm{lin}}=\mathbf K^{-1}\mathbf j$, with
+$\lVert\mathring\omega_{\mathrm{lin}}\rVert\leq\lVert\mathbf j\rVert/\mathrm c_{\mathring\Sigma}$, and
+$\lVert\mathbf K^{-1}\mathbf j-\mathbf K^{-1}\mathbf j'\rVert\leq\lVert\mathbf j-\mathbf j'\rVert/\mathrm c_{\mathring\Sigma}$.
+\item[(c)] Let $\mathrm c_0=\lVert\mathbf N_0\rVert$ and, for $\mathrm r>0$,
+$\mathrm c_{\mathrm r}=\sup_{\lVert\mathring\omega\rVert\leq\mathrm r}\lVert D^3\mathscr S^{\mathrm{hist}}(\mathring\omega)\rVert$. Then
+$\mathrm c_0\leq\operatorname{cond}(\mathsf G^{\mathrm{fib}})\max_{n,e\in E_+}\mathrm j^{(n)}_e$ and
+$\lVert\mathbf j\rVert\leq\operatorname{cond}(\mathsf G^{\mathrm{fib}})^{1/2}(\sum_{n,e\in E_+}(\mathrm j^{(n)}_e)^2)^{1/2}$,
+where $\mathrm j^{(n)}_e$ is the sum of $\beta_a\lVert\mathbf J_a\rVert_{\mathrm F}$ over the records
+$a\in\mathfrak A_n$ on $e$ or $\bar e$. If $\mathrm c_0+\mathrm c_{\mathrm r}\mathrm r\leq\mathrm c_{\mathring\Sigma}/2$ and
+$\lVert\mathbf j\rVert\leq\mathrm c_{\mathring\Sigma}\mathrm r/4$, then $\mathscr S^{\mathrm{hist}}$ has exactly one critical point
+$\mathring\omega_\star$ in the ball of radius $\mathrm r$ about $0$; it is the unique minimizer of $\mathscr S^{\mathrm{hist}}$ on
+that ball, $\lVert\mathring\omega_\star\rVert\leq2\lVert\mathbf j\rVert/\mathrm c_{\mathring\Sigma}$, and
+\begin{equation}
+\lVert\mathring\omega_\star-\mathring\omega_{\mathrm{lin}}\rVert
+\leq\frac{2\lVert\mathbf j\rVert}{\mathrm c_{\mathring\Sigma}^2}\Bigl(\mathrm c_0+\frac{\mathrm c_{\mathrm r}\lVert\mathbf j\rVert}{\mathrm c_{\mathring\Sigma}}\Bigr),
+\label{eq:link-linearization-error}
+\end{equation}
+which, at fixed $\mathrm c_{\mathrm r}$, is of second order in the currents.
+\end{enumerate}
+\status{ESTABLISHED}
+
+The proof is in \cref{sec:proofs-links}.
+
+In the language of lattice gauge theory, \cref{prop:link-linearized-equation} reads as follows, and
+the reading adds nothing to it. The spatial term $\sum_p\mathrm c_p\mathbf C_p^\top\mathbf C_p$ is a
+discrete curl-curl operator: $\mathbf C_p$ sums the generators around the loop $p$, so the term
+penalizes the circulation of the generator field on the cycle space of the multigraph, the magnetic
+part of a lattice action. The episode term $\mathbf m(-\Delta_n)$ has the quadratic form
+$\mathbf m\sum_n\lVert\mathring\omega^{(n+1)}-\mathring\omega^{(n)}\rVert^2$ of a forward difference in the
+episode index; by \cref{prop:link-history-prior}(c) and \cref{prop:link-map-inertia}(b) it is the
+second-order part of the time-like loop defect with identity time-like links, the temporal gauge, in
+which the time-like plaquettes give the electric term of the Hamiltonian of
+\citet{KogutSusskind1975}, as derived in \citet[Ch.~15, Eq.~(15.41)]{Creutz1983}. The anchor
+precision $\mathring\Sigma^{-1}$ is a bare mass and the matter operator $\mathring\Phi$ a state-dependent
+screening mass, so at linear order $\mathbf K$ has the form of a massive Euclidean vector-field
+operator of Proca type, a mass term plus curl-curl plus a squared episode difference, acting on the
+spatial components alone, since the history carries no time-like variable. Its curl-curl and episode
+terms act as scalar graph operators on each component of $\mathfrak g$ in an orthonormal basis, and
+the bracket of $\mathfrak g$ enters only through the terms of order three and higher, which
+\cref{prop:link-linearized-equation}(c) bounds. The episode index is an
+inference index in the sense of \cref{sec:intro-conventions}, and the signature is Euclidean
+because $\mathbf K$ is positive (\cref{prop:link-linearized-equation}(b)).
+
+\section*{Physicist's summary}
+
+The links between agents are treated here as a field that is inferred, not as a background that is held.
+Each link is the exponential of a Lie-algebra generator measured in the frame of a reference point;
+per-agent frame changes do not touch the generators, and a change of reference point rotates all of them
+by one adjoint map. A Gaussian law on the generators, reweighted by a Wilson-type loop penalty, is a
+normalized prior for any structure group, so no finite Haar measure is needed; on the general linear
+group the loop penalty is measured with a fiber metric, because conjugation-invariant penalties cannot
+see unipotent holonomy. The links enter the free energy through one relative entropy from this prior.
+Stationarity is a field equation: the restoring force of the prior balances a matter current, which for
+a comparison record is a precision-weighted prediction error times the source state, the form of a delta
+rule, transported by the derivative of the exponential map. Shrinking the prior to its anchor recovers
+the free energy and the evidence of the held links at the anchor. Integrating out matter that is normalized jointly with the links generates an induced
+link action, as in induced lattice gauge theory, while matter attached by record extension generates
+none. Inference of the generators is first-order gradient flow in the Fisher geometry of their Gaussian
+law, with the Bayesian learning rule as its Euler step; inertia appears only in the most probable
+history across learning episodes, where the precision of the increment acts as a mass. Linearized about
+zero generators, the stationarity operator is a bare mass from the anchor, a curl-curl term from the
+loops, a squared episode difference, and a screening mass from the matter, which is the form of a
+massive Euclidean vector operator in the episode index.
