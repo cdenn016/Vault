@@ -5,7 +5,7 @@
 \paragraph{Scope of this appendix.}
 The analysis below is a local, fixed-attention, receiver-only surrogate. We treat the attention weights $\beta_{ij}$ as exogenous constants when differentiating with respect to $\Sigma_i$, vary only the receiver covariance, and never differentiate the sender covariances $\Sigma_j$ or the weights $\beta_{ij}$ themselves. The full reduced functional, obtained by envelope-eliminating $\beta_{ij}$ via its entropy-regularized softmax optimum and including the complete sender-row contributions, is not derived here; no explicit first-derivative $\partial\beta_{ij}$ response survives in that canonical functional. The fixed point characterized below is therefore a partial Euler-Lagrange stationarity condition, not a stationary point of the fully reduced free energy.
 
-The covariance fixed point is also a property of the consensus potential of Section~\ref{sec:mixture_derivation}, which weights the belief entropy of agent $i$ by $1+B_i$ with $B_i := \sum_j\beta_{ij}$. Minimizing $\mathbb{E}_{q}[U] - (1+B_i)H(q)$ over laws $q$ gives $q \propto e^{-U/(1+B_i)}$, so each belief is a Gibbs state at temperature $1+B_i = 2$ in units in which Bayesian updating has temperature one. In a normalized Gaussian joint the entropy enters once, and the mean-field covariance is the inverse diagonal precision block, fixed in one step and independent of the neighbors' covariances~\cite[Ch.~G4, block optimum]{DennisGaugeVFESuppG2026}. The factor $\tfrac{1}{2}$ in Eq.~\eqref{eq:sigma_fixed_point_beta} and the homogeneous limit $\Sigma_\infty = \Sigma_0$ below both come from this doubled entropy weight.
+The covariance fixed point is also a property of the consensus potential of Section~\ref{sec:mixture_derivation}, which weights the belief entropy of agent $i$ by $1+B_i$ with $B_i := \sum_j\beta_{ij}$. Minimizing $\mathbb{E}_{q}[U] - (1+B_i)H(q)$ over laws $q$ gives $q \propto e^{-U/(1+B_i)}$, so each belief is a Gibbs state at temperature $1+B_i = 2$ in units in which Bayesian updating has temperature one. In a normalized Gaussian joint the entropy enters once, and the mean-field covariance is the inverse diagonal precision block, fixed in one step and independent of the neighbors' covariances. The factor $\tfrac{1}{2}$ in Eq.~\eqref{eq:sigma_fixed_point_beta} and the homogeneous limit $\Sigma_\infty = \Sigma_0$ below both come from this doubled entropy weight.
 
 \subsection{Covariance Gradient of the Per-Agent Block}
 
@@ -148,7 +148,7 @@ In the homogeneous limit we assume that (i) all agents are identical, so $\Sigma
 \end{equation}
 and the solution is unique by Proposition~\ref{prop:covariance_fixed_point}, since links preserving $\Sigma_0$ are orthogonal in the common frame $\Sigma_0^{-1/2}$. With a common sensory precision $\Lambda_{o_i} = \Lambda_o > 0$ and links preserving the combined precision $A=\Sigma_0^{-1}+\Lambda_o$ by $\Omega_{ij}^{-\top}A\Omega_{ij}^{-1}=A$, the same computation gives $\Sigma_\infty = (\Sigma_0^{-1} + \Lambda_o)^{-1}$.
 
-Hence, in a symmetric observation-free population, the equilibrium covariance reproduces the shared prior. This reflects the doubled entropy weight of the consensus potential: a normalized Gaussian joint with prior precision $\Sigma_0^{-1}$ and edge precision $\Sigma_0^{-1}$ gives the mean-field covariance $\Sigma_0/2$, which is precision addition~\cite[Ch.~G4, block optimum]{DennisGaugeVFESuppG2026}.
+Hence, in a symmetric observation-free population, the equilibrium covariance reproduces the shared prior. This reflects the doubled entropy weight of the consensus potential: a normalized Gaussian joint with prior precision $\Sigma_0^{-1}$ and edge precision $\Sigma_0^{-1}$ gives the mean-field covariance $\Sigma_0/2$, which is precision addition.
 
 \subsubsection{Alignment-dominated regime}
 
@@ -220,5 +220,5 @@ The natural-gradient mean update $\Sigma_i\nabla_{\mu_i}\mathcal{E}_i$ carries t
 \begin{equation}
 \beta_{ij} \Sigma_i (\Omega_{ij}\Sigma_j\Omega_{ij}^\top)^{-1}(\mu_i - \Omega_{ij}\mu_j) \longrightarrow \beta_{ij}(\mu_i - \Omega_{ij}\mu_j),
 \end{equation}
-so the step is an attention-weighted sum of transported residuals with no covariance factor. This is again a property of the consensus potential: in the exact receiver update of a normalized comparison-record model the corresponding step keeps a Kalman-type gain set by the receiver's posterior covariance~\cite[Ch.~6, exact receiver update]{DennisGaugeVFE2026}.
+so the step is an attention-weighted sum of transported residuals with no covariance factor. This is again a property of the consensus potential: in the exact receiver update of a normalized comparison-record model the corresponding step keeps a Kalman-type gain set by the receiver's posterior covariance.
 
