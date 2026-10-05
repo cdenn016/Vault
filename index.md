@@ -1328,6 +1328,8 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 
 ## 🧪 Sources — experiment runs
 
+- [[vfe3-2026-10-05-k30-multiseed|VFE_3.0 three-seed noise floor at K=30, October 5, 2026]] — seeds 6, 54, 271: test PPL 87.19 ± 0.33, test CE SD 0.0037 nats; current multi-seed noise floor for the VFE_3.0 line (shared data order, mixed code identity accepted)
+
 - [[vfe3-2026-10-03-link-charts-and-channel-receiver|VFE_3.0 link charts and channel receiver at K=20, October 3, 2026]] — four matched single-seed WikiText-103 runs: affine, first-order and exponential content-link charts within 0.0037 nats on test; exponential transfers stay in GL+(K) and better conditioned; closed-form channel receiver +0.0276 nats in a configuration that does not isolate it.
 
 - [[multiagentelbo-2026-09-30-pointwise-gaussian-network|Pointwise Gaussian network baseline, September 30, 2026]] — complete held-link Schur parents; ten tiny CPU tests and 45 passing numerical comparisons across five 512-agent cases; formation and evolving-link dynamics remain open.
