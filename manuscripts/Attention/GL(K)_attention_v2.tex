@@ -73,7 +73,7 @@ Geometric deep learning supplies the representation-theoretic setting \citep{coh
 
 The links obey the endpoint law of lattice link variables. Conventional lattice connections use group-valued edge maps \citep{WilsonConfinement1974}; linear lattice gauge theory admits more general matrix links with a compact gauge group \citep{Wetterich2014LinearLattice}, whereas the covariance group here is $\mathrm{GL}(K)$, which is not compact. The exponential links are group valued, but with one shared generator per layer they remain composites of site data and learned maps rather than independent gauge fields. The composition defect and rank loss of individual channels, and the products of routed links around loops, are distinct from the holonomy of the flat reference identification. Because the selective channels factor through an edge space, they are close to the restriction maps of cellular sheaves and sheaf neural networks \citep{HansenGhrist2019,Bodnar2022NeuralSheaf}. Promoting the generators to latent variables with a normalized prior places link dynamics inside a variational free energy; its stationarity condition is a field equation whose source has the form of the delta rule of fast-weight memories \citep{Schmidhuber1992,Schlag2021}, and the implemented shared generator is its zero-width limit. That extension is stated in Section~\ref{sec:latent_links} and is not implemented here. The static construction supplies neither an autonomous lattice action nor a continuum limit.
 
-The contribution is the explicit organization of Gaussian comparison, categorical routing, group-valued communication, and predictive or evidential content within one framed construction, together with exact statements about it. Section~\ref{sec:construction_overview} states the framed Gaussian states, the comparison and content interfaces, and the attention operator in one place. Section~\ref{sec:lie_links} introduces Lie-algebra links, derives the selective channels from a low-rank generator (Proposition~\ref{prop:lie_split}), relates the linear and exponential parametrizations as charts of one group (Proposition~\ref{prop:lie_charts}), and derives the aggregation rule, the residual, and the order-by-order structure of the routed message (Propositions~\ref{prop:lie_complement_persistence} to~\ref{prop:lie_order_zero}). Section~\ref{sec:passive_covariance} proves that the operator factors through frame-invariant reference moments (Theorem~\ref{thm:reference_moments}) and derives the normal form of the evaluated predictor. Section~\ref{sec:transformer_comparison_summary} gives the dual-coordinate form of Gaussian-KL routing (Theorem~\ref{thm:dual_coordinates}) and its reductions to whitened L2 and biased dot-product attention. Section~\ref{sec:probabilistic_status} establishes the exact probabilistic status of routing at every temperature and of content aggregation as a predictive mean (Theorem~\ref{thm:probabilistic_status}). Section~\ref{sec:receiver_inference} derives the channel-likelihood receiver and its closed-form update (Proposition~\ref{prop:rec_closed_form}). Section~\ref{sec:matrix_link_fields} develops the rank, composition, and holonomy of the links (Propositions~\ref{prop:link_algebra} and~\ref{prop:lie_triangle_spectrum}), their relation to lattice gauge theory and cellular sheaves, and the latent-generator extension. Section~\ref{sec:lm_realization} reports language-model realizations, including a matched comparison of the three charts, and their evaluation limits. The appendices give the smooth-bundle construction, the frame-block representation theory, the positional priors, the prior-bank readout, the relation to a normalized latent-source model, the Gaussian-closure and causal-prediction results, the numerical identity checks, and the experimental record.
+The contribution is the explicit organization of Gaussian comparison, categorical routing, group-valued communication, and predictive or evidential content within one framed construction, together with exact statements about it. Section~\ref{sec:construction_overview} states the framed Gaussian states, the comparison and content interfaces, and the attention operator in one place. Section~\ref{sec:lie_links} introduces Lie-algebra links, derives the selective channels from a low-rank generator (Proposition~\ref{prop:lie_split}), relates the linear and exponential parametrizations as charts of one group (Proposition~\ref{prop:lie_charts}), and derives the aggregation rule, the residual, and the order-by-order structure of the routed message (Propositions~\ref{prop:lie_complement_persistence} to~\ref{prop:lie_order_zero}). Section~\ref{sec:passive_covariance} proves that the operator factors through frame-invariant reference moments (Theorem~\ref{thm:reference_moments}) and derives the normal form of the evaluated predictor. Section~\ref{sec:transformer_comparison_summary} gives the dual-coordinate form of Gaussian-KL routing (Theorem~\ref{thm:dual_coordinates}) and its reductions to whitened L2 and biased dot-product attention. Section~\ref{sec:probabilistic_status} establishes the exact probabilistic status of routing at every temperature and of content aggregation as a predictive mean (Theorem~\ref{thm:probabilistic_status}). Section~\ref{sec:receiver_inference} derives the channel-likelihood receiver and its closed-form update (Proposition~\ref{prop:rec_closed_form}). Section~\ref{sec:matrix_link_fields} develops the rank, composition, and holonomy of the links (Propositions~\ref{prop:link_algebra} and~\ref{prop:lie_triangle_spectrum}), their relation to lattice gauge theory and cellular sheaves, and the latent-generator extension. Section~\ref{sec:lm_realization} reports language-model realizations, including a matched comparison of the three charts, and their evaluation limits. The appendices give the smooth-bundle construction, the frame-block representation theory, the positional priors, the prior-bank readout, the relation to a normalized latent-source model, the Gaussian-closure and causal-prediction results, the proofs for latent link generators, the numerical identity checks, and the experimental record.
 
 \paragraph{Scope.} The results concern the attention operator for full Gaussian states and its group-valued links. The law of the generator is not derived: the implemented links use one learned generator per layer, shared across edges, and per-edge latent generators are stated as an unimplemented extension. The content maps, the residual coefficient, the normalization, the multilayer perceptron (MLP), and the decoder are taken from the transformer rather than derived. The stored covariance is either a static routing state or the moment-matched covariance of a declared predictive kernel; in neither case is it uncertainty propagated through the nonlinear block. No common variational free energy is claimed for the whole predictor, and the construction does not invoke a general Free Energy Principle. The language-model results are single-seed records without a matched conventional baseline.
 
@@ -1399,9 +1399,9 @@ where $S_X$ is the negative logarithm of the link prior up to a constant. For on
 Only the transport factor of receiver $i$ at layer $\ell$ and the link prior depend on $X_{ij}^\ell$, and under the recognition law the transport term is $\tfrac12\mathbb E_q\|\zeta_i^{\ell+1}-m_i^\ell\|_{\bar A}^2$ up to $X$-free terms. The mean $m_i^\ell$ contains $e^{X_{ij}^\ell}\Pi_h\zeta_j^\ell$ exactly on the event $J_i^{\ell,h}=j$, so the derivative of the transport term in the group element is $-\mathcal J_{ij}^\ell$. The adjoint of $E\mapsto\mathbf L(X,E)$ in the Frobenius inner product is $E\mapsto\mathbf L(X^\top,E)$ \citep{Higham2008}, which gives Eq.~\eqref{eq:lie_field_equation}. For one head, mean-field independence of $\zeta_i^{\ell+1}$ and $\zeta_j^\ell$ gives $\mathbb E[(\zeta_i^{\ell+1}-e^X\zeta_j^\ell)\zeta_j^{\ell\top}]=\xi_i^{\ell+1}\xi_j^{\ell\top}-e^X(C_j^\ell+\xi_j^\ell\xi_j^{\ell\top})$.
 \end{proof}
 
-The current is a precision-weighted prediction error times the source state, minus a term from the source's uncertainty. It has the form of the delta rule that updates fast-weight memories \citep{Schmidhuber1992}, the same rule that appears when linear attention is read as a fast-weight programmer \citep{Schlag2021}; here it is derived from a free energy and filtered through the derivative of the exponential chart. The link prior is necessary for a well-posed per-context problem. Without it, for one head with $\beta_{ij}^\ell>0$ and $K\ge2$, the generator enters only through the strictly convex quadratic $\mathcal T(G)=\tfrac12\beta_{ij}^\ell\mathbb E_q\|\zeta_i^{\ell+1}-G\zeta_j^\ell\|_{\bar A}^2$ evaluated at $G=e^{X_{ij}^\ell}$. Its unique stationary point $G^\star=\xi_i^{\ell+1}\xi_j^{\ell\top}(C_j^\ell+\xi_j^\ell\xi_j^{\ell\top})^{-1}$ has rank at most one and lies outside the exponential chart, so by Proposition~\ref{prop:lie_field_equation} a generator can be stationary only where $\mathbf L(X^\top,\cdot)$ is singular, at a critical point of the exponential map. Whether the infimum over the chart is approached at $G^\star$ depends on the sign of $\xi_j^{\ell\top}(C_j^\ell)^{-1}\xi_i^{\ell+1}$; that statement is not proved here.
+The current is a precision-weighted prediction error times the source state, minus a term from the source's uncertainty. It has the form of the delta rule that updates fast-weight memories \citep{Schmidhuber1992}, the same rule that appears when linear attention is read as a fast-weight programmer \citep{Schlag2021}; here it is derived from a free energy and filtered through the derivative of the exponential chart. The link prior is necessary for a well-posed per-context problem. Without it, for one head with $\beta_{ij}^\ell>0$ and $K\ge2$, the generator enters only through the strictly convex quadratic $\mathcal T(G)=\tfrac12\beta_{ij}^\ell\mathbb E_q\|\zeta_i^{\ell+1}-G\zeta_j^\ell\|_{\bar A}^2$ evaluated at $G=e^{X_{ij}^\ell}$. Its unique stationary point $G^\star=\xi_i^{\ell+1}\xi_j^{\ell\top}(C_j^\ell+\xi_j^\ell\xi_j^{\ell\top})^{-1}$ has rank at most one and lies outside the exponential chart, so by Proposition~\ref{prop:lie_field_equation} a generator can be stationary only where $\mathbf L(X^\top,\cdot)$ is singular, at a critical point of the exponential map. Whether the infimum over the chart is approached at $G^\star$ depends on the sign of $\xi_j^{\ell\top}(C_j^\ell)^{-1}\xi_i^{\ell+1}$ (Proposition~\ref{prop:app_chart_infimum} in Appendix~\ref{app:latent_link_proofs}).
 
-Linearized around a flat anchor for small links and sources, the field equation becomes a screened, massive discrete Maxwell equation of Euclidean signature on the depth-by-token complex, in which the anchor is a bare mass, the loop term is a curl-curl operator, and the time-like loops supply the electric term, as time-like plaquettes do in lattice gauge theory \citep{KogutSusskind1975,Creutz1983}. Inference in the links is first-order relaxation with the Fisher information of the transported law as friction, and inertia appears only for the most probable path jointly over depth. Directed causal matter induces no action on the links, because every factor of Eq.~\eqref{eq:lie_latent_model} other than the prior is a normalized conditional. Integrating out undirected Gaussian matter instead induces one half of the log-determinant of the matter precision, whose hopping expansion begins with Wilson's triangle term, in the manner of induced gauge theories \citep{KazakovMigdal1993}; the loop prior of Eq.~\eqref{eq:lie_latent_model} has the form that such matter would induce. These linearized and induced-action statements are summarized here without proof. A first implementation would keep $\bar X^\ell=OT$ as the learned anchor and infer per-context deviations by a few Fisher-preconditioned steps or by one linearized solve; the all-edge cost $O(LN^2K^3)$ per step points to restricted supports, low-rank deviations, or amortization.
+For one head, linearized around a flat anchor for small links and sources, the field equation becomes a screened, massive discrete Maxwell equation of Euclidean signature on the depth-by-token complex, in which the anchor is a bare mass, the loop term is a curl-curl operator, and the time-like loops supply the electric term, as time-like plaquettes do in lattice gauge theory \citep{KogutSusskind1975,Creutz1983}. Inference in the links is first-order relaxation with the Fisher information of the transported law as friction, and inertia appears only for the most probable path jointly over depth. Directed causal matter induces no action on the links, because every factor of Eq.~\eqref{eq:lie_latent_model} other than the prior is a normalized conditional. Integrating out undirected Gaussian matter instead induces one half of the log-determinant of the matter precision, whose hopping expansion for orthogonal links and isotropic couplings begins with Wilson's triangle term, in the manner of induced gauge theories \citep{KazakovMigdal1993}; the loop prior of Eq.~\eqref{eq:lie_latent_model} has the form that such matter would induce. Appendix~\ref{app:latent_link_proofs} proves these linearized, dynamical, and induced-action statements (Propositions~\ref{prop:app_linearized} to~\ref{prop:app_induced}). A first implementation would keep $\bar X^\ell=OT$ as the learned anchor and infer per-context deviations by a few Fisher-preconditioned steps or by one linearized solve; the all-edge cost $O(LN^2K^3)$ per step points to restricted supports, low-rank deviations, or amortization.
 
 \section{Language-Model Realization and Evaluation}
 \label{sec:lm_realization}
@@ -2099,6 +2099,206 @@ The output law has two atoms. For \(\epsilon>0\) and arbitrary \(K\ge2\), the ou
 \label{sec:causal_prediction_scope}
 
 A predictive conditional requires a state determined only by the available prefix and shared across all candidate next tokens. If one separately recomputes a binary state after inspecting each candidate target and assigns that target probability \(3/4\), each row is normalized but the two candidate scores sum to \(3/2\). They are not one conditional probability law. By contrast, a single prefix-based state followed by one categorical readout defines a normalized kernel, and the product of such kernels defines a finite sequence law by successive summation. The main architecture uses this direct causal construction. Outer backpropagation from training targets updates shared parameters; it does not insert those targets into the prediction-time state.
+
+
+\section{Proofs for Latent Link Generators}
+\label{app:latent_link_proofs}
+
+This appendix proves the statements of Section~\ref{sec:latent_links} that follow Proposition~\ref{prop:lie_field_equation}. The notation is that of Eq.~\eqref{eq:lie_latent_model} and Proposition~\ref{prop:lie_field_equation}. The links are point masses, the states and labels carry the mean-field recognition law of that proposition with $C_j^\ell\succ0$, $\bar A=\bar Q^{-1}$, and $\mathbf L(X,E)=\int_0^1e^{sX}Ee^{(1-s)X}ds$ is the Fr\'echet derivative of the matrix exponential, which is linear in $E$ and is the differential of the exponential map at $X$ \citep{Higham2008}. Matrices carry the Frobenius inner product $\langle E,E'\rangle=\operatorname{Tr}(E^\top E')$ and its norm $\|E\|$, which is submultiplicative, and a family $X=(X_e)$ of generators indexed by the edges $e=(i\leftarrow j,\ell)$, $j\le i$, carries $\langle X,Y\rangle=\sum_e\langle X_e,Y_e\rangle$. We write $\mathcal F(X)$ for the free energy of Proposition~\ref{prop:lie_field_equation} as a function of the point-mass links at fixed recognition of the states and labels. With one head, $\Pi_1=I_K$, the label $J_i^\ell$ selects one source, and its recognition law assigns probability $\beta_{ij}^\ell$ to the source $j$. Write
+\begin{equation}
+S_j^\ell=C_j^\ell+\xi_j^\ell\xi_j^{\ell\top}\succ0
+\label{eq:app_second_moment}
+\end{equation}
+for the second moment of $\zeta_j^\ell$ under the recognition law. A chart link is a matrix $e^X$ with $X\in\mathfrak{gl}(K)$. By Theorem~1 of \citet{culver1966existence}, a real matrix is a chart link exactly when it is invertible and every Jordan block belonging to a negative eigenvalue occurs an even number of times; in particular, every invertible real matrix without negative eigenvalues is a chart link.
+
+\subsection{The unregularized link problem}
+
+\begin{proposition}[The chart infimum without a link prior]
+\label{prop:app_chart_infimum}
+Let $S_X=0$, take one head, $K\ge2$, and $\beta_{ij}^\ell>0$, write $\xi'=\xi_i^{\ell+1}$ and $S=S_j^\ell$, and let $\mathcal T(G)=\tfrac12\beta_{ij}^\ell\mathbb E_q\|\zeta_i^{\ell+1}-G\zeta_j^\ell\|_{\bar A}^2$ for real $K\times K$ matrices $G$.
+\begin{enumerate}
+\item Up to a constant independent of $X_{ij}^\ell$, the free energy depends on $X_{ij}^\ell$ only through $\mathcal T(e^{X_{ij}^\ell})$, and
+\begin{equation}
+\mathcal T(G)-\mathcal T(G^\star)=\tfrac12\beta_{ij}^\ell\bigl\|\bar A^{1/2}(G-G^\star)S^{1/2}\bigr\|^2,\qquad G^\star=\xi'\xi_j^{\ell\top}S^{-1}.
+\label{eq:app_quadratic_identity}
+\end{equation}
+Hence $G^\star$ is the unique stationary point and the unique minimizer of $\mathcal T$; it has rank at most one and is not a chart link.
+\item A generator $X$ is stationary for $X\mapsto\mathcal T(e^X)$ only where $\mathbf L(X^\top,\cdot)$ is singular, which is exactly where $X$ is a critical point of the exponential map.
+\item The trace $\tau=\operatorname{Tr}G^\star$ is
+\begin{equation}
+\tau=\frac{\xi_j^{\ell\top}(C_j^\ell)^{-1}\xi'}{1+\xi_j^{\ell\top}(C_j^\ell)^{-1}\xi_j^\ell},
+\label{eq:app_trace_sign}
+\end{equation}
+so it has the sign of $\xi_j^{\ell\top}(C_j^\ell)^{-1}\xi_i^{\ell+1}$.
+\item If $\tau\ge0$, the infimum of $\mathcal T$ over chart links equals $\mathcal T(G^\star)$, is not attained, and is approached only along sequences of links that converge to $G^\star$.
+\item If $\tau<0$, no sequence of chart links converges to $G^\star$, and the infimum of $\mathcal T$ over chart links lies strictly above $\mathcal T(G^\star)$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+(1) With one head, $m_i^\ell=e^{X_{iJ}^\ell}\zeta_J^\ell$ with $J=J_i^\ell$, and $-\log\mathcal N(\zeta_i^{\ell+1};m_i^\ell,\bar Q)=\tfrac12\|\zeta_i^{\ell+1}-m_i^\ell\|_{\bar A}^2+\tfrac12\log\det(2\pi\bar Q)$. Under the recognition law the label is independent of the states, so the expected transport term of receiver $i$ at layer $\ell$ is $\sum_{j'}\beta_{ij'}^\ell\tfrac12\mathbb E_q\|\zeta_i^{\ell+1}-e^{X_{ij'}^\ell}\zeta_{j'}^\ell\|_{\bar A}^2$ up to a constant. Its summand $j'=j$ is $\mathcal T(e^{X_{ij}^\ell})$, and with $S_X=0$ no other term of the free energy contains $X_{ij}^\ell$. The variables $\zeta_i^{\ell+1}$ and $\zeta_j^\ell$ belong to different layers and are independent under the recognition law, so $\mathbb E_q[\zeta_j^\ell\zeta_i^{\ell+1\top}]=\xi_j^\ell\xi'^\top=SG^{\star\top}$ and $\mathbb E_q[\zeta_j^\ell\zeta_j^{\ell\top}]=S$. Expanding the square,
+\begin{equation*}
+\tfrac2{\beta_{ij}^\ell}\mathcal T(G)=\mathbb E_q\|\zeta_i^{\ell+1}\|_{\bar A}^2-2\operatorname{Tr}\bigl(\bar AGSG^{\star\top}\bigr)+\operatorname{Tr}\bigl(\bar AGSG^\top\bigr),
+\end{equation*}
+and completing the square in $G$ gives Eq.~\eqref{eq:app_quadratic_identity}, because $\operatorname{Tr}(\bar A(G-G^\star)S(G-G^\star)^\top)=\|\bar A^{1/2}(G-G^\star)S^{1/2}\|^2$. Since $\bar A$ and $S$ are positive definite, the right side of Eq.~\eqref{eq:app_quadratic_identity} vanishes only at $G=G^\star$, and it is a positive-definite quadratic form in $G-G^\star$. The matrix $G^\star=\xi'(S^{-1}\xi_j^\ell)^\top$ has rank at most one, hence is singular for $K\ge2$, whereas $\det e^X=e^{\operatorname{Tr}X}>0$.
+
+(2) The gradient of $\mathcal T$ at $G$ is $\beta_{ij}^\ell\bar A(GS-\xi'\xi_j^{\ell\top})=\beta_{ij}^\ell\bar A(G-G^\star)S$, which is the negative of the one-head current $\mathcal J_{ij}^\ell$ of Proposition~\ref{prop:lie_field_equation} at $G$. With $S_X=0$ that proposition makes $X$ stationary exactly when $\mathbf L(X^\top,\mathcal J_{ij}^\ell)=0$. Because $e^X\ne G^\star$ by item 1 and $\bar A$ and $S$ are invertible, $\mathcal J_{ij}^\ell\ne0$, so $\mathbf L(X^\top,\cdot)$ has a nonzero kernel. The substitution $s\mapsto1-s$ gives $\mathbf L(X,E)^\top=\mathbf L(X^\top,E^\top)$, so $\mathbf L(X^\top,\cdot)$ is singular exactly when $\mathbf L(X,\cdot)$ is, that is, exactly when the differential of the exponential map at $X$ is singular.
+
+(3) By the Sherman--Morrison formula, $S^{-1}\xi_j^\ell=(C_j^\ell)^{-1}\xi_j^\ell/(1+\xi_j^{\ell\top}(C_j^\ell)^{-1}\xi_j^\ell)$, and $\tau=\operatorname{Tr}(\xi'\xi_j^{\ell\top}S^{-1})=(S^{-1}\xi_j^\ell)^\top\xi'$. The denominator is positive.
+
+(4) and (5) The rank-one matrix $G^\star=\xi'w^\top$, $w=S^{-1}\xi_j^\ell$, has characteristic polynomial $z^{K-1}(z-\tau)$. By Eq.~\eqref{eq:app_quadratic_identity}, $\mathcal T(G)-\mathcal T(G^\star)\ge\tfrac12\beta_{ij}^\ell\lambda_{\min}(\bar A)\lambda_{\min}(S)\|G-G^\star\|^2$. If $\tau\ge0$, then for $\varepsilon>0$ the matrix $G^\star+\varepsilon I$ has the eigenvalues $\tau+\varepsilon$ and $\varepsilon$, all positive, so it is a chart link, and $\mathcal T(G^\star+\varepsilon I)\to\mathcal T(G^\star)$ as $\varepsilon\to0$. No chart link equals $G^\star$, so the infimum $\mathcal T(G^\star)$ is not attained, and by the lower bound every sequence of links whose energies tend to $\mathcal T(G^\star)$ converges to $G^\star$. If $\tau<0$, then $\tau$ is a simple eigenvalue of $G^\star$, and the other eigenvalue, $0$, lies at distance $|\tau|$. By continuity of the roots of the characteristic polynomial there is $r>0$ such that every real matrix $G$ with $\|G-G^\star\|<r$ has exactly one eigenvalue, counted with multiplicity, in the disk $|z-\tau|<|\tau|/2$. That disk is symmetric under complex conjugation and the characteristic polynomial of $G$ is real, so this eigenvalue is real and negative. Its algebraic multiplicity is one, so it has a single Jordan block, which occurs once, and by the criterion above $G$ is not a chart link. No chart link lies within $r$ of $G^\star$, and the lower bound gives $\mathcal T(e^X)\ge\mathcal T(G^\star)+\tfrac12\beta_{ij}^\ell\lambda_{\min}(\bar A)\lambda_{\min}(S)r^2$ for every $X$.
+\end{proof}
+
+\subsection{The linearized link equation}
+
+\begin{proposition}[Linearized link equation]
+\label{prop:app_linearized}
+Take one head and the flat anchor $\bar X^\ell=0$ for every layer. For $0\le\ell\le L-2$ and $k<j\le i$, define the loop map $\mathbf d$ and the loop-weight operator $\mathbf w$ by
+\begin{equation}
+(\mathbf dX)_{ijk}^\ell=X_{ij}^{\ell+1}+X_{jk}^\ell-X_{ik}^{\ell+1}-X_{kk}^\ell,\qquad(\mathbf w\mathbf dX)_{ijk}^\ell=w_{ijk}^\ell(\mathbf dX)_{ijk}^\ell,
+\label{eq:app_loop_map}
+\end{equation}
+let $\mathbf d^\top$ be the adjoint of $\mathbf d$ for the Frobenius inner products on edges and loops, write $\beta_e=\beta_{ij}^\ell$ and $\mathcal J_e^0=\beta_e\bar A[(\xi_i^{\ell+1}-\xi_j^\ell)\xi_j^{\ell\top}-C_j^\ell]$ for the one-head current of Proposition~\ref{prop:lie_field_equation} at zero generators on the edge $e=(i\leftarrow j,\ell)$, and define the operator
+\begin{equation}
+(\mathbf KX)_e=\sigma_X^{-2}X_e+\lambda_W(\mathbf d^\top\mathbf w\mathbf dX)_e+\beta_e\bar AX_eS_j^\ell.
+\label{eq:app_linear_operator}
+\end{equation}
+\begin{enumerate}
+\item $\mathbf K$ is self-adjoint and $\langle X,\mathbf KX\rangle\ge\sigma_X^{-2}\|X\|^2$. The linear equation $\mathbf KX=\mathcal J^0$ therefore has a unique solution $X_{\mathrm{lin}}$, and $\|X_{\mathrm{lin}}\|\le\sigma_X^2\|\mathcal J^0\|$.
+\item Write the stationarity condition of Proposition~\ref{prop:lie_field_equation} as $\Phi(X)=0$, with $\Phi_e(X)=\partial S_X/\partial X_e-\mathbf L(X_e^\top,\mathcal J_e(X))$ and $\mathcal J_e(X)$ the one-head current at $X$. There is a constant $c$, depending on $\lambda_W$, the loop weights, $\bar A$, the weights $\beta_e$, and the matrices $S_j^\ell$, such that for $\|X\|\le1$
+\begin{equation}
+\Phi(X)=\mathbf KX-\mathcal J^0+R(X),\qquad\|R(X)\|\le c\bigl(\|X\|^2+\|X\|\|\mathcal J^0\|\bigr).
+\label{eq:app_linear_remainder}
+\end{equation}
+To first order in the generators and the sources, the field equation is therefore $\mathbf KX=\mathcal J^0$, that is,
+\begin{equation}
+\sigma_X^{-2}X_e+\lambda_W(\mathbf d^\top\mathbf w\mathbf dX)_e+\beta_e\bar AX_eS_j^\ell=\beta_e\bar A\bigl[(\xi_i^{\ell+1}-\xi_j^\ell)\xi_j^{\ell\top}-C_j^\ell\bigr]\quad\text{for every edge }e.
+\label{eq:app_linear_equation}
+\end{equation}
+\item Every stationary link field $X^\star$ with $\|X^\star\|\le1$ satisfies $\|X^\star-X_{\mathrm{lin}}\|\le c\sigma_X^2(\|X^\star\|^2+\|X^\star\|\|\mathcal J^0\|)$. If in addition $\|X^\star\|+\|\mathcal J^0\|\le1/(2c\sigma_X^2)$, then $\|X^\star\|\le2\sigma_X^2\|\mathcal J^0\|$ and $\|X^\star-X_{\mathrm{lin}}\|\le2c\sigma_X^4(2\sigma_X^2+1)\|\mathcal J^0\|^2$, which is of second order in the sources.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+(1) For matrices $Y$ and $X$ and symmetric $\bar A$ and $S$, $\langle Y,\bar AXS\rangle=\operatorname{Tr}(Y^\top\bar AXS)=\langle\bar AYS,X\rangle$ and $\langle X,\bar AXS\rangle=\|\bar A^{1/2}XS^{1/2}\|^2\ge0$, so each matter block is self-adjoint and nonnegative. The loop weights are nonnegative and $\lambda_W\ge0$, so $\lambda_W\mathbf d^\top\mathbf w\mathbf d$ is self-adjoint with $\langle X,\lambda_W\mathbf d^\top\mathbf w\mathbf dX\rangle=\lambda_W\sum w_{ijk}^\ell\|(\mathbf dX)_{ijk}^\ell\|^2\ge0$. Adding $\sigma_X^{-2}$ times the identity gives the bound, so $\mathbf K$ is invertible with $\|\mathbf K^{-1}\|\le\sigma_X^2$.
+
+(2) With the flat anchor, $S_X(X)=\sum_e\|X_e\|^2/(2\sigma_X^2)+\lambda_Wg_0(X)$ with $g_0(X)=\sum w_{ijk}^\ell\Psi(W_{ijk}^\ell)$ and $W_{ijk}^\ell=e^{-X_{kk}^\ell}e^{-X_{ik}^{\ell+1}}e^{X_{ij}^{\ell+1}}e^{X_{jk}^\ell}$, an entire function of $X$. Item 3 of Proposition~\ref{prop:lie_blind} gives $g_0(X)=\tfrac12\langle\mathbf dX,\mathbf w\mathbf dX\rangle+O(\|X\|^3)$, so the function $g=g_0-\tfrac12\langle\mathbf dX,\mathbf w\mathbf dX\rangle$ has vanishing value, gradient, and Hessian at $X=0$, and Taylor's theorem bounds $\|\nabla g(X)\|$ by $\tfrac12\sup_{\|Y\|\le1}\|D^3g(Y)\|\|X\|^2$ for $\|X\|\le1$. Hence $\partial S_X/\partial X_e=\sigma_X^{-2}X_e+\lambda_W(\mathbf d^\top\mathbf w\mathbf dX)_e+\lambda_W\nabla_eg(X)$. For the matter side, the one-head current at $G=e^{X_e}$ is $\mathcal J_e(X)=\beta_e\bar A(\xi_i^{\ell+1}\xi_j^{\ell\top}-GS_j^\ell)=\mathcal J_e^0-\beta_e\bar A(e^{X_e}-I)S_j^\ell$. Write $\|\cdot\|_2$ for the operator norm, so that $\|\cdot\|_2\le\|\cdot\|$ and $\|Y_1Y_2\|\le\min(\|Y_1\|_2\|Y_2\|,\|Y_1\|\|Y_2\|_2)$. For $\|Y\|\le1$ and $0\le t\le1$, $\|e^Y-I-Y\|\le\sum_{n\ge2}\|Y\|^n/n!\le\|Y\|^2$, $\|e^{tY}-I\|_2\le e^{t\|Y\|}-1\le2t\|Y\|$, and $\|e^{tY}\|_2\le e$, so
+\begin{equation*}
+\bigl\|\mathbf L(Y,E)-E\bigr\|\le\int_0^1\bigl(\|e^{sY}-I\|_2\|E\|\|e^{(1-s)Y}\|_2+\|E\|\|e^{(1-s)Y}-I\|_2\bigr)ds\le(e+1)\|Y\|\|E\|.
+\end{equation*}
+Therefore
+\begin{equation*}
+\mathbf L(X_e^\top,\mathcal J_e(X))=\mathcal J_e^0-\beta_e\bar AX_eS_j^\ell-\beta_e\bar A(e^{X_e}-I-X_e)S_j^\ell+\bigl[\mathbf L(X_e^\top,\mathcal J_e(X))-\mathcal J_e(X)\bigr],
+\end{equation*}
+where the third term has norm at most $\beta_e\|\bar A\|\|S_j^\ell\|\|X_e\|^2$ and the bracket has norm at most $(e+1)\|X_e\|(\|\mathcal J_e^0\|+2\beta_e\|\bar A\|\|S_j^\ell\|\|X_e\|)$. Subtracting from $\partial S_X/\partial X_e$ gives Eq.~\eqref{eq:app_linear_remainder} edge by edge, and summing the squares over the edges, with $\sum_ea_e^4\le(\sum_ea_e^2)^2$ and $\sum_ea_e^2b_e^2\le(\sum_ea_e^2)(\sum_eb_e^2)$, gives the bound with one constant $c$. Dropping $R$, which is of second order in $X$ and $\mathcal J^0$ jointly, gives Eq.~\eqref{eq:app_linear_equation}.
+
+(3) At a stationary point $\Phi(X^\star)=0$, so $\mathbf K(X^\star-X_{\mathrm{lin}})=-R(X^\star)$ and $\|X^\star-X_{\mathrm{lin}}\|\le\sigma_X^2\|R(X^\star)\|$ by item 1. Under the additional condition, $\|X^\star\|\le\|X_{\mathrm{lin}}\|+c\sigma_X^2\|X^\star\|(\|X^\star\|+\|\mathcal J^0\|)\le\sigma_X^2\|\mathcal J^0\|+\tfrac12\|X^\star\|$, which gives $\|X^\star\|\le2\sigma_X^2\|\mathcal J^0\|$, and substituting this bound into the first estimate gives the second.
+\end{proof}
+
+In the language of lattice gauge theory, Eq.~\eqref{eq:app_linear_equation} reads as follows; the reading names the terms of Proposition~\ref{prop:app_linearized} and adds nothing to it. The anchor term $\sigma_X^{-2}X_e$ is a bare mass. The map $\mathbf d$ sums the generators around each elementary loop of Eq.~\eqref{eq:lie_depth_loops} with its orientation, the discrete curl of the algebra-valued edge field, so $\lambda_W\mathbf d^\top\mathbf w\mathbf d$ is a weighted curl-curl operator. For a time-like loop, $j=i$, the loop sum is $(\mathbf dX)_{iik}^\ell=-[(X_{ik}^{\ell+1}-X_{ik}^\ell)-(X_{ii}^{\ell+1}-X_{kk}^\ell)]$, the depth difference of a cross-token generator corrected by the time-like generators at its ends, so these loops contribute the square of a discrete electric field to $\langle X,\mathbf KX\rangle$, as time-like plaquettes give the electric term of lattice gauge theory \citep{KogutSusskind1975,Creutz1983}; the space-like loops give the magnetic part. The matter term $\beta_e\bar AX_eS_j^\ell$ is an additional, state-dependent mass that screens the field. Because $\mathbf K$ is positive definite, depth enters $\langle X,\mathbf KX\rangle$ with the same sign as the token directions, so the equation is elliptic, of Euclidean signature: a static, screened, massive discrete Maxwell (Proca) equation on the depth-by-token complex rather than a wave equation.
+
+\subsection{Inference dynamics and the most probable path}
+
+\begin{proposition}[Fisher information and first-order relaxation]
+\label{prop:app_fisher_flow}
+For a link field $X$, let $\mathcal I_X$ be the Fisher information, with respect to $X$, of the transport kernels $\mathcal N(\zeta_i^{\ell+1};m_i^\ell,\bar Q)$ of Eq.~\eqref{eq:lie_latent_model}, averaged over the recognition law of the states and labels,
+\begin{equation}
+\mathcal I_X[E,E']=\sum_{\ell,i}\mathbb E_q\bigl\langle Dm_i^\ell[E],\bar ADm_i^\ell[E']\bigr\rangle,\qquad
+Dm_i^\ell[E]=\sum_h\mathbf L\bigl(X_{iJ_i^{\ell,h}}^\ell,E_{iJ_i^{\ell,h}}^\ell\bigr)\Pi_h\zeta_{J_i^{\ell,h}}^\ell,
+\label{eq:app_fisher}
+\end{equation}
+where $Dm_i^\ell[E]$ is the derivative of $m_i^\ell$ in the direction $E=(E_e)$.
+\begin{enumerate}
+\item $\mathcal I_X$ is the Gauss--Newton form of the transport part of $\mathcal F$. For one head it is block diagonal over the edges, with blocks
+\begin{equation}
+\mathcal I_e[E,E']=\beta_{ij}^\ell\operatorname{Tr}\bigl(\bar A\mathbf L(X_e,E)S_j^\ell\mathbf L(X_e,E')^\top\bigr),\qquad e=(i\leftarrow j,\ell),
+\label{eq:app_fisher_onehead}
+\end{equation}
+and $\mathcal I_e$ is positive definite exactly when $\beta_{ij}^\ell>0$ and $\mathbf L(X_e,\cdot)$ is invertible.
+\item On the open set where $\mathcal I_X$ is invertible, the recognition flow $\dot X=-\mathcal I_X^{-1}\nabla\mathcal F(X)$ of the point-mass links is of first order. Its velocity is a function of the configuration alone and vanishes exactly at the critical points of $\mathcal F$, and it obeys the force balance $\mathcal I_X[\dot X,\cdot]=-d\mathcal F$, in which $\mathcal I_X$ is a friction tensor and no inertial term appears. Along every solution $\tfrac{d}{dt}\mathcal F=-\mathcal I_X[\dot X,\dot X]$, so $\mathcal F$ strictly decreases along every nonconstant solution and no nonconstant solution is periodic. At a critical point with invertible Hessian $H$, the linearized field $-\mathcal I_X^{-1}H$ has real eigenvalues, so no linearized mode oscillates.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+(1) For a Gaussian kernel $\mathcal N(\zeta';m_\theta,\bar Q)$ with fixed covariance, the score in the direction $E$ is $\langle Dm[E],\bar A(\zeta'-m_\theta)\rangle$, and its covariance under the kernel is $\langle Dm[E],\bar A\bar Q\bar ADm[E']\rangle=\langle Dm[E],\bar ADm[E']\rangle$; the covariance block of the Gaussian Fisher metric does not contribute because $\bar Q$ does not depend on $X$. Averaging over the conditioning states and labels gives Eq.~\eqref{eq:app_fisher}. The transport part of $\mathcal F$ is $\sum_{\ell,i}\tfrac12\mathbb E_q\|\zeta_i^{\ell+1}-m_i^\ell\|_{\bar A}^2$ up to $X$-free terms, as in the proof of Proposition~\ref{prop:app_chart_infimum}, and its second derivative is $\mathcal I_X[E,E']-\sum_{\ell,i}\mathbb E_q\langle\zeta_i^{\ell+1}-m_i^\ell,\bar AD^2m_i^\ell[E,E']\rangle$; the Gauss--Newton form omits the second term. For one head, $Dm_i^\ell[E]=\mathbf L(X_{iJ}^\ell,E_{iJ}^\ell)\zeta_J^\ell$ with $J=J_i^\ell$, the events $J=j$ are disjoint with probabilities $\beta_{ij}^\ell$ and independent of the states, and $\mathbb E_q[\zeta_j^\ell\zeta_j^{\ell\top}]=S_j^\ell$, which gives the block form. Finally $\mathcal I_e[E,E]=\beta_{ij}^\ell\|\bar A^{1/2}\mathbf L(X_e,E)(S_j^\ell)^{1/2}\|^2$ vanishes for some $E\ne0$ exactly when $\beta_{ij}^\ell=0$ or $\mathbf L(X_e,\cdot)$ has a nonzero kernel.
+
+(2) The free energy is smooth in the point-mass links, and so is $\mathcal I_X$, so on the open set where $\mathcal I_X$ is invertible the field $-\mathcal I_X^{-1}\nabla\mathcal F$ is smooth and its integral curves exist and are unique. The flow is a first-order equation in $X$, so its velocity is a function of $X$, and it vanishes exactly where $\nabla\mathcal F=0$. Applying $\mathcal I_X$ gives the force balance. Along a solution, $\tfrac{d}{dt}\mathcal F=\langle\nabla\mathcal F,\dot X\rangle=-\mathcal I_X[\dot X,\dot X]\le0$, with equality only at a critical point. A solution that reaches a critical point is constant by uniqueness, so a nonconstant solution has nonvanishing velocity, $\mathcal F$ decreases strictly along it, and it cannot return to an earlier point. At a critical point with invertible Hessian $H$, $\mathcal I_X^{-1}H$ is similar to the symmetric matrix $\mathcal I_X^{-1/2}H\mathcal I_X^{-1/2}$, whose eigenvalues are real.
+\end{proof}
+
+\begin{proposition}[Inertia of the most probable path over depth]
+\label{prop:app_inertia}
+Let $m^\ell>0$ for $0\le\ell\le L-1$, let $V_\ell$, $0\le\ell\le L$, be differentiable functions on a finite-dimensional inner-product space, and let a path $X^0,\ldots,X^L$ with fixed ends minimize
+\begin{equation}
+\sum_{\ell=0}^{L-1}\frac{m^\ell}2\bigl\|X^{\ell+1}-X^\ell\bigr\|^2+\sum_{\ell=0}^LV_\ell(X^\ell).
+\label{eq:app_path_action}
+\end{equation}
+Then, for $0<\ell<L$,
+\begin{equation}
+m^\ell\bigl(X^\ell-X^{\ell+1}\bigr)+m^{\ell-1}\bigl(X^\ell-X^{\ell-1}\bigr)+\nabla V_\ell(X^\ell)=0.
+\label{eq:app_inertia}
+\end{equation}
+For $m^\ell=m$ and $V_\ell=V$ this is $m(2X^\ell-X^{\ell+1}-X^{\ell-1})+\nabla V(X^\ell)=0$, the central-difference form of $m\ddot X=\nabla V$, Newton's equation with mass $m$ in the potential $-V$.
+\end{proposition}
+\begin{proof}
+For $0<\ell<L$ the point $X^\ell$ is an unconstrained variable of the differentiable objective~\eqref{eq:app_path_action}, so its gradient in $X^\ell$ vanishes at a minimizer, and that gradient is the left side of Eq.~\eqref{eq:app_inertia}.
+\end{proof}
+
+The increment term of Eq.~\eqref{eq:app_path_action} is, up to a constant, the negative logarithm of a Gaussian increment density with precision $m^\ell$. In the latent-link model the time-like loops supply such a term. If the time-like generators $X_{ii}^{\ell+1}$ and $X_{kk}^\ell$ are held at zero, then $W_{iik}^\ell=e^{-X_{ik}^{\ell+1}}e^{X_{ik}^\ell}$, and item 3 of Proposition~\ref{prop:lie_blind} gives
+\begin{equation*}
+\lambda_Ww_{iik}^\ell\Psi(W_{iik}^\ell)=\tfrac12\lambda_Ww_{iik}^\ell\bigl\|X_{ik}^{\ell+1}-X_{ik}^\ell\bigr\|^2+O(\|X\|^3),
+\end{equation*}
+an increment term for the cross-token generator of the edge $(i\leftarrow k)$ with mass $m^\ell=\lambda_Ww_{iik}^\ell=\lambda_W\bar\pi_{ii}^{\ell+1}\bar\pi_{ik}^\ell$ at quadratic order. Precision is in this sense the inertial mass of the most probable path, and the sign is the Euclidean one: Eq.~\eqref{eq:app_inertia} describes motion in the inverted potential $-V_\ell$. The inertia belongs to the joint optimization over depth, whereas the recognition flow of Proposition~\ref{prop:app_fisher_flow} is of first order.
+
+\subsection{Directed and undirected matter}
+
+\begin{proposition}[Directed matter induces no link action]
+\label{prop:app_directed}
+In the model of Eq.~\eqref{eq:lie_latent_model}, the conditional law of the observations, states, and labels given the links has total mass one for every $X$. The link marginal of the model is therefore the prior $p(X)$, and the links reach the posterior only through the evidence $p(o\mid X)$.
+\end{proposition}
+\begin{proof}
+Every factor of Eq.~\eqref{eq:lie_latent_model} other than $p(X)$ is a normalized conditional of a directed acyclic model: $p(o_i\mid U_i\zeta_i^L)$ integrates to one over $o_i$, $\mathcal N(\zeta_i^{\ell+1};m_i^\ell,\bar Q)$ integrates to one over $\zeta_i^{\ell+1}$ for every value of the states and labels of layer $\ell$ and of the links, the routing prior sums to one over the labels, and $p(\zeta_i^0)$ integrates to one. Integrating first over the observations and then over the states and labels of layers $L,L-1,\ldots,0$, which Tonelli's theorem permits for nonnegative integrands, leaves $1$. The posterior of the links is then proportional to $p(X)p(o\mid X)$.
+\end{proof}
+
+For undirected matter, let a finite set $V$ of sites carry states $\zeta_v\in\mathbb R^K$, let a set $E$ of directed edges $e=(a\leftarrow b)$ between distinct sites, at most one for each pair of sites, carry reference links $G_e=e^{X_e}$, and declare the pairwise consistency energy
+\begin{equation}
+\mathcal E(\zeta,X)=\tfrac12\sum_{v\in V}\zeta_v^\top\Lambda_0\zeta_v+\tfrac12\sum_{e=(a\leftarrow b)\in E}\bigl\|\zeta_a-G_e\zeta_b\bigr\|_{\Lambda_E}^2,\qquad\Lambda_0,\Lambda_E\succ0,
+\label{eq:app_undirected_energy}
+\end{equation}
+the energy-based reading of the alignment terms. As a quadratic form in $\zeta=(\zeta_v)_{v\in V}$, $\mathcal E=\tfrac12\zeta^\top\mathbf P(X)\zeta$ with the matter precision $\mathbf P(X)=\mathbf D(X)-\mathbf H(X)$, whose diagonal blocks are
+\begin{equation}
+\mathbf D_v(X)=\Lambda_0+\sum_{e=(v\leftarrow b)\in E}\Lambda_E+\sum_{e=(a\leftarrow v)\in E}G_e^\top\Lambda_EG_e,
+\label{eq:app_matter_diagonal}
+\end{equation}
+and whose off-diagonal blocks are $\mathbf H_{ab}=\Lambda_EG_e$ and $\mathbf H_{ba}=G_e^\top\Lambda_E$ for $e=(a\leftarrow b)\in E$, and zero for sites not joined by an edge.
+
+\begin{proposition}[Induced action of undirected Gaussian matter]
+\label{prop:app_induced}
+\begin{enumerate}
+\item Let $\tilde p$ be a probability density on the generators, and let the joint density of states and generators be proportional to $\tilde p(X)e^{-\mathcal E(\zeta,X)}$, normalized as a whole and not conditionally on $X$. This joint is normalizable, and its generator marginal is proportional to $\tilde p(X)e^{-S_{\mathrm{ind}}(X)}$ with
+\begin{equation}
+S_{\mathrm{ind}}(X)=\tfrac12\log\det\mathbf P(X)\ge\tfrac12|V|\log\det\Lambda_0.
+\label{eq:app_induced_action}
+\end{equation}
+\item If the spectral radius of $\mathbf D^{-1}\mathbf H$ is below one,
+\begin{equation}
+S_{\mathrm{ind}}(X)=\tfrac12\log\det\mathbf D(X)-\tfrac12\sum_{n\ge1}\frac1n\operatorname{Tr}\bigl[(\mathbf D^{-1}\mathbf H)^n\bigr],
+\label{eq:app_hopping}
+\end{equation}
+and $\operatorname{Tr}[(\mathbf D^{-1}\mathbf H)^n]$ is the sum, over the closed walks $(v_0,v_1,\ldots,v_n=v_0)$ of length $n$ whose steps join sites adjacent in $E$, of $\operatorname{Tr}(\mathbf D_{v_0}^{-1}\mathbf H_{v_0v_1}\mathbf D_{v_1}^{-1}\mathbf H_{v_1v_2}\cdots\mathbf D_{v_{n-1}}^{-1}\mathbf H_{v_{n-1}v_0})$, in which each step carries the link of its edge or the transpose of that link.
+\item Let $\Lambda_0=\lambda_0I$ and $\Lambda_E=\lambda_EI$, let every link be orthogonal, and let the sites be token positions with the edges oriented causally, $e=(a\leftarrow b)$ with $b<a$. Then $\mathbf D_v=d_vI$ with $d_v=\lambda_0+\deg(v)\lambda_E$ independent of the links, the spectral radius of $\mathbf D^{-1}\mathbf H$ is below one, the terms $n=1$ and $n=2$ of Eq.~\eqref{eq:app_hopping} do not depend on the links, and the term $n=3$ is, up to a link-independent constant,
+\begin{equation}
+\sum_{k<j<i}\frac{\lambda_E^3}{d_id_jd_k}\bigl(K-\operatorname{Tr}F_{ijk}\bigr)=\sum_{k<j<i}\frac{\lambda_E^3}{d_id_jd_k}\Psi\bigl(G_{ik}^{-1}G_{ij}G_{jk}\bigr),
+\label{eq:app_wilson}
+\end{equation}
+summed over the triples whose three edges lie in $E$, with $F_{ijk}$ the triangle holonomy of Definition~\ref{def:lie_triangle}. On a single triangle, $V=\{i,j,k\}$, the term $n=4$ is also link independent, and $S_{\mathrm{ind}}$ equals a constant plus the single summand of Eq.~\eqref{eq:app_wilson} plus a remainder of absolute value at most $\tfrac{3K}{10}\rho^5/(1-\rho)$, where $\rho=2\lambda_E/(\lambda_0+2\lambda_E)<1$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+(1) Each pairwise term of Eq.~\eqref{eq:app_undirected_energy} is nonnegative, so $\mathbf P(X)\succeq I_{|V|}\otimes\Lambda_0\succ0$, and since $\log\det$ is monotone on positive-definite matrices the bound in Eq.~\eqref{eq:app_induced_action} follows. The Gaussian integral gives $\int e^{-\mathcal E(\zeta,X)}d\zeta=(2\pi)^{|V|K/2}\det\mathbf P(X)^{-1/2}$, which lies in $(0,(2\pi)^{|V|K/2}(\det\Lambda_0)^{-|V|/2}]$. Integrating against the probability density $\tilde p$ therefore gives a finite positive normalizer, and the generator marginal is proportional to $\tilde p(X)\det\mathbf P(X)^{-1/2}=\tilde p(X)e^{-S_{\mathrm{ind}}(X)}$. Had the states been given a law normalized conditionally on $X$, this factor would cancel, as in Proposition~\ref{prop:app_directed}.
+
+(2) $\mathbf D(X)\succeq I_{|V|}\otimes\Lambda_0$ is invertible, and $\log\det(\mathbf D-\mathbf H)=\log\det\mathbf D+\log\det(I-\mathbf D^{-1}\mathbf H)$. Under the spectral condition, $\log\det(I-M)=\operatorname{Tr}\log(I-M)=-\sum_{n\ge1}\operatorname{Tr}(M^n)/n$ with $M=\mathbf D^{-1}\mathbf H$. Expanding the block product $\operatorname{Tr}(M^n)$ gives the sum over sequences of sites, and $\mathbf H_{vu}=0$ unless $v$ and $u$ are joined by an edge, which leaves the closed walks.
+
+(3) With orthogonal links, $G_e^\top\Lambda_EG_e=\lambda_EI$, so $\mathbf D_v=d_vI$. For the norm $\max_v\|x_v\|$ on block vectors, the induced norm of $M$ is at most $\max_v\sum_u\|M_{vu}\|_2=\max_v\deg(v)\lambda_E/d_v<1$, and the spectral radius is bounded by any induced norm. There are no edges from a site to itself, so $\mathbf H_{vv}=0$ and the term $n=1$ vanishes. A closed walk of length two is $v\to u\to v$, with trace $\lambda_E^2\operatorname{Tr}(G_eG_e^\top)/(d_vd_u)=\lambda_E^2K/(d_vd_u)$. A closed walk of length three visits three pairwise adjacent sites $k<j<i$. The walk $i\to j\to k\to i$ carries $\mathbf H_{ij}\mathbf H_{jk}\mathbf H_{ki}=\lambda_E^3G_{ij}G_{jk}G_{ik}^\top$, whose trace is $\lambda_E^3\operatorname{Tr}(G_{ik}^{-1}G_{ij}G_{jk})=\lambda_E^3\operatorname{Tr}F_{ijk}$, because $G_{ik}^\top=G_{ik}^{-1}$ and $F_{ijk}$ is conjugate to $G_{ik}^{-1}G_{ij}G_{jk}$. The reversed walk carries the transpose and has the same trace, and cyclicity of the trace gives the same value for each of the three starting sites, so each triangle contributes $-\tfrac12\cdot\tfrac13\cdot6\lambda_E^3\operatorname{Tr}F_{ijk}/(d_id_jd_k)$ to Eq.~\eqref{eq:app_hopping}, which is the summand of Eq.~\eqref{eq:app_wilson} minus the constant $\lambda_E^3K/(d_id_jd_k)$. For orthogonal $W$, $\Psi(W)=K-\operatorname{Tr}W$ by item 2 of Proposition~\ref{prop:lie_blind}. On a single triangle, label the sites cyclically; each step of a closed walk then moves one place forward or backward, and the number of forward steps minus the number of backward steps is divisible by three. A walk of length four therefore has two steps in each direction, so it contains a step followed by its reversal, which contributes $\lambda_E^2G_eG_e^\top/d=\lambda_E^2I/d$ or $\lambda_E^2G_e^\top G_e/d=\lambda_E^2I/d$ with $d=\lambda_0+2\lambda_E$; removing that pair leaves a closed walk of length two, so the term $n=4$ is link independent. For $n\ge5$ there are at most $3\cdot2^n$ closed walks of length $n$, and each has trace of absolute value at most $K(\lambda_E/d)^n$, because a product of orthogonal matrices has trace at most $K$ in absolute value. The remainder is therefore at most $\tfrac12\sum_{n\ge5}\tfrac1n3K\rho^n\le\tfrac{3K}{10}\rho^5/(1-\rho)$.
+\end{proof}
+
+On orthogonal links, the leading link-dependent term of the induced action is thus a positive multiple of the Frobenius defect of each triangle holonomy, with the cube of the hopping ratio $\lambda_E/d$ as coupling, which is the form of the loop term of the prior in Eq.~\eqref{eq:lie_latent_model}. For links outside the orthogonal group the blocks $\mathbf D_v$ and the walks of length two depend on the links, so the induced action then also contains edge-local terms that involve no loop.
 
 
 \section{Numerical Identity Checks}

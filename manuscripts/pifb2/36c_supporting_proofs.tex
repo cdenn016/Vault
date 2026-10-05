@@ -1,0 +1,305 @@
+% !TeX root = ../PIFB2.tex
+\clearpage
+\section{Supporting Proofs}\label{app:supporting_proofs}
+
+This appendix proves statements of the main text and of the preceding appendices whose arguments are not given where the statements are made. Each subsection restates the objects it uses, in the notation of the section that cites it, and derives its statement from the definitions given there together with standard measure theory and linear algebra. Relative entropies take values in $[0,\infty]$, with the value $+\infty$ whenever absolute continuity fails.
+
+\subsection{Coordinate actions on latent generators}\label{app:sp_generator_gauge}
+Fix the base point $c_*$, a matrix group $G\subseteq\mathrm{GL}(K)$ with Lie algebra $\mathfrak g$, frames $U_i\in G$, and for each oriented copy $e:j\to i$ in $E_+$ a generator $\mathring\omega_e\in\mathfrak g$ with link $\Theta_e=U_i\exp(\mathring\omega_e)U_j^{-1}$ and reversed generator $\mathring\omega_{\bar e}=-\mathring\omega_e$, as in Eq.~\eqref{eq:pifb_latent_link_chart}. Then $\Theta_{\bar e}=U_j\exp(-\mathring\omega_e)U_i^{-1}=\Theta_e^{-1}$.
+
+\begin{lemma}[Coordinate actions on generators]\label{lem:sp_generator_gauge}
+(i) Under a passive change $U_i'=g_iU_i$, the links $\Theta_e'=g_i\Theta_eg_j^{-1}$ of Eq.~\eqref{eq:omega_gauge_law} are the links of the same generators $\mathring\omega_e$ relative to the frames $U_i'$.
+(ii) For $h\in G$, the unchanged links $\Theta_e$ are the links of the generators $\operatorname{Ad}_{h^{-1}}\mathring\omega_e=h^{-1}\mathring\omega_eh$ relative to the frames $U_ih$.
+(iii) Both operations produce the frames $U_ih$ when the passive change is $g_i=U_ihU_i^{-1}$. The resulting frames, links and generators then coincide if and only if $h^{-1}\mathring\omega_eh=\mathring\omega_e$ for every $e\in E_+$.
+\end{lemma}
+\begin{proof}
+(i) Substitution gives $g_i\Theta_eg_j^{-1}=(g_iU_i)\exp(\mathring\omega_e)(g_jU_j)^{-1}$.
+(ii) Conjugating the absolutely convergent exponential series term by term gives $h^{-1}\exp(X)h=\exp(h^{-1}Xh)$ for every $X\in\mathfrak g$, and $h^{-1}Xh\in\mathfrak g$ because $\mathfrak g$ is invariant under the adjoint action of $G$. Hence
+\begin{equation*}
+(U_ih)\exp(h^{-1}\mathring\omega_eh)(U_jh)^{-1}
+=U_ihh^{-1}\exp(\mathring\omega_e)hh^{-1}U_j^{-1}=\Theta_e.
+\end{equation*}
+(iii) With $g_i=U_ihU_i^{-1}$ the frames of (i) are $U_ih$. Operation (i) keeps every generator and replaces each link by $U_ih\exp(\mathring\omega_e)h^{-1}U_j^{-1}$, whereas operation (ii) keeps every link and replaces each generator by $h^{-1}\mathring\omega_eh$. If the generators agree, the links agree as well, since a link is determined by its generator and the frames. Conversely, agreement of the data includes agreement of the generators.
+\end{proof}
+The passive vertex group therefore acts on frames and link presentations with every generator fixed, while a change of common reference fixes every link and acts on all generators through the single linear map $\operatorname{Ad}_{h^{-1}}$ of $\mathfrak g$.
+
+\subsection{Evidence identity and restriction principle}\label{app:sp_restriction}
+Let a normalized generative law have positive finite evidence $Z_o$ at the record $o$ and posterior $P_o$ on the latent space, and define the variational free energy of a recognition law $Q$ on that space by
+\begin{equation}
+\mathcal F(Q)=D_{\mathrm{KL}}(Q\|P_o)-\log Z_o\in(-\infty,\infty],
+\label{eq:sp_extended_vfe}
+\end{equation}
+which agrees with Eqs.~\eqref{eq:collective_vfe} and~\eqref{eq:one_law_conditional_vfe} whenever their split forms are finite.
+
+\begin{proposition}[Restriction principle]\label{prop:sp_restriction}
+For every recognition law $Q$, $\mathcal F(Q)\geq-\log Z_o$, with equality if and only if $Q=P_o$. For arbitrary sets of laws $\mathcal Q'\subseteq\mathcal Q$,
+\begin{equation}
+\inf_{Q\in\mathcal Q'}\mathcal F(Q)=-\log Z_o+\inf_{Q\in\mathcal Q'}D_{\mathrm{KL}}(Q\|P_o),
+\label{eq:sp_restriction_inf}
+\end{equation}
+the infimum over $\mathcal Q'$ is at least the infimum over $\mathcal Q$, and when both divergence infima are finite,
+\begin{equation}
+\inf_{Q\in\mathcal Q'}\mathcal F(Q)-\inf_{Q\in\mathcal Q}\mathcal F(Q)
+=\inf_{Q\in\mathcal Q'}D_{\mathrm{KL}}(Q\|P_o)-\inf_{Q\in\mathcal Q}D_{\mathrm{KL}}(Q\|P_o)\geq0.
+\label{eq:sp_restriction_loss}
+\end{equation}
+In particular, if $\mathcal Q$ contains $P_o$, the restricted optimum exceeds $-\log Z_o$ by exactly the divergence infimum over $\mathcal Q'$ in Eq.~\eqref{eq:sp_restriction_inf}. None of these identities requires an infimum to be attained, and the infimum over a restricted family need not be attained.
+\end{proposition}
+\begin{proof}
+If $Q\ll P_o$ with density $f$, then $D_{\mathrm{KL}}(Q\|P_o)=\int\varphi(f)dP_o$ for the strictly convex function $\varphi(x)=x\log x$, whose negative part is bounded by $e^{-1}$. Jensen's inequality gives $\int\varphi(f)dP_o\geq\varphi(\int fdP_o)=\varphi(1)=0$, with equality exactly when $f=1$ almost everywhere. Otherwise the divergence is $+\infty$ and $Q\neq P_o$. This proves the bound and its equality case. The infimum over a set of a finite constant plus a $[0,\infty]$-valued function is that constant plus the infimum of the function, including the value $+\infty$, which is Eq.~\eqref{eq:sp_restriction_inf}. Inclusion of sets reverses the order of infima, and the subtraction in Eq.~\eqref{eq:sp_restriction_loss} is legitimate when both infima are finite. For the last clause take $P_o=\mathcal N(0,1)$ and $\mathcal Q'=\{\mathcal N(\mu,1):\mu>0\}$. By Eq.~\eqref{eq:gaussian_kl} the divergences are $\mu^2/2$, whose infimum $0$ is approached as $\mu\downarrow0$ and attained by no member.
+\end{proof}
+A positive restricted gap is the condition $\inf_{Q\in\mathcal Q'}D_{\mathrm{KL}}(Q\|P_o)>0$. Proposition~\ref{prop:sp_block_gaussian} evaluates this gap for block-factorized Gaussian recognition of a correlated Gaussian posterior.
+
+\subsection{Memory residual, sufficiency and slow spectrum}\label{app:sp_memory_conditions}
+This subsection uses the notation of Section~\ref{sec:one_law_memory_reduction}. A finite irreducible generator $\mathsf L$, reversible under $\pi>0$, acts on densities $r=dQ/d\pi$ in $L^2(\pi)$ with inner product $\langle f,g\rangle=\sum_x\pi_xf_xg_x$; $\mathsf P=\mathbb E_\pi[\cdot\mid T]$ for a partition statistic $T$, $\mathsf R=I-\mathsf P$, and $\mathsf A,\mathsf B,\mathsf C,\mathsf D$ are the blocks of $\mathsf L$. Closure of the retained label for every initial law is the condition $\mathsf C=0$, and the residual of the local memory replacement obeys Eq.~\eqref{eq:one_law_memory_error} whenever $\mathsf D\preceq-\gamma I$ on the range of $\mathsf R$.
+
+Consider four states with symmetric jump rates $u>0$ on $1\leftrightarrow2$ and on $3\leftrightarrow4$, $\epsilon>0$ on $1\leftrightarrow3$, $\epsilon'>0$ on $2\leftrightarrow4$, and no other jumps, so that $(\mathsf Lf)_x=\sum_y\mathsf L_{xy}(f_y-f_x)$, the uniform law is reversible, and $T$ labels the cells $\{1,2\}$ and $\{3,4\}$. For $\epsilon=\epsilon'$ and $u=1$ this is the generator of Section~\ref{sec:intrinsic_slow_sector}. Put $\delta=\epsilon'-\epsilon$.
+
+\begin{proposition}[Distinct conditions for an autonomous retained model]\label{prop:sp_memory_conditions}
+In the orthonormal basis $\mathbf 1=(1,1,1,1)$, $h=(1,1,-1,-1)$, $v_+=(1,-1,1,-1)$, $v_-=(1,-1,-1,1)$ of $L^2(\pi)$,
+\begin{equation}
+\mathsf L\mathbf 1=0,\qquad
+\mathsf Lv_+=-2uv_+,\qquad
+\mathsf Lh=-(\epsilon+\epsilon')h+\delta v_-,\qquad
+\mathsf Lv_-=\delta h-(2u+\epsilon+\epsilon')v_-.
+\label{eq:sp_four_state_action}
+\end{equation}
+Hence the spectrum of $\mathsf L$ is $\{0,-2u,\lambda_+,\lambda_-\}$ with $\lambda_\pm=-(u+\epsilon+\epsilon')\pm\sqrt{u^2+\delta^2}$, and
+\begin{equation}
+\|\mathsf A\|=\epsilon+\epsilon',\qquad
+\|\mathsf B\|=\|\mathsf C\|=|\delta|,\qquad
+\mathsf D\preceq-2uI.
+\label{eq:sp_four_state_blocks}
+\end{equation}
+Consequently the following hold.
+(i) For $\epsilon=\epsilon'>u$ the label is exactly closed, $\mathsf C=0$, so the memory residual vanishes, while the label relaxes at rate $2\epsilon$, faster than the within-cell rate $2u$; sufficiency holds without a slow retained spectrum.
+(ii) For $\epsilon\neq\epsilon'$ the label is not closed for every initial law, while $-(\epsilon+\epsilon')\leq\lambda_+\leq-(\epsilon+\epsilon')+\delta^2/(2u)$, the eigenvector of $\lambda_+$ is $h+\kappa v_-$ with $|\kappa|\leq|\delta|/(2u)$, and $\lambda_-\leq-2u$; a slow retained mode exists without sufficiency once $\epsilon+\epsilon'$ is small compared with $u$.
+(iii) For fixed $\epsilon\neq\epsilon'$, the right side of Eq.~\eqref{eq:one_law_memory_error} is at most
+\begin{equation}
+\delta^2\|r_0\|\left(\frac{e^{-2ut}}{2u}+\frac{\max(\epsilon,\epsilon')}{2u^2}\right),
+\label{eq:sp_four_state_residual}
+\end{equation}
+which tends to zero as $u\to\infty$, although $\mathsf C\neq0$ for every $u$.
+Thus a small memory residual, statistical sufficiency of the retained label, and a slow retained spectrum are pairwise distinct conditions.
+\end{proposition}
+\begin{proof}
+Equation~\eqref{eq:sp_four_state_action} follows by evaluating $(\mathsf Lf)_x$ at the four states; for example $\mathsf Lh=(-2\epsilon,-2\epsilon',2\epsilon,2\epsilon')=-(\epsilon+\epsilon')h+\delta v_-$. The four vectors are orthonormal for the uniform law. On $\operatorname{span}\{h,v_-\}$ the operator is the symmetric matrix with diagonal entries $-(\epsilon+\epsilon')$ and $-(2u+\epsilon+\epsilon')$ and off-diagonal entry $\delta$, whose eigenvalues are $\lambda_\pm$; together with $\mathsf L\mathbf 1=0$ and $\mathsf Lv_+=-2uv_+$ this gives the spectrum. The range of $\mathsf P$ is $\operatorname{span}\{\mathbf 1,h\}$, the functions constant on cells, and the range of $\mathsf R$ is $\operatorname{span}\{v_+,v_-\}$. Reading off Eq.~\eqref{eq:sp_four_state_action}, $\mathsf A$ annihilates $\mathbf 1$ and multiplies $h$ by $-(\epsilon+\epsilon')$; $\mathsf C$ annihilates $\mathbf 1$ and sends $h$ to $\delta v_-$; $\mathsf B=\mathsf C^*$ annihilates $v_+$ and sends $v_-$ to $\delta h$; and $\mathsf D$ has eigenvalues $-2u$ on $v_+$ and $-(2u+\epsilon+\epsilon')$ on $v_-$. This is Eq.~\eqref{eq:sp_four_state_blocks}.
+For (i), $\delta=0$ gives $\mathsf C=\mathsf B=0$ and the spectrum $\{0,-2\epsilon,-2u,-2u-2\epsilon\}$, with eigenvector $h$ for $-2\epsilon$. For (ii), $\delta\neq0$ gives $\mathsf C\neq0$; the bounds $u\leq\sqrt{u^2+\delta^2}\leq u+\delta^2/(2u)$ give the bounds on $\lambda_+$ and on $\kappa=(\sqrt{u^2+\delta^2}-u)/\delta$, and $\lambda_-\leq-(u+\epsilon+\epsilon')-u$. For (iii), $\mathsf L$ is self-adjoint and negative semidefinite on $L^2(\pi)$, so $e^{t\mathsf L}$ is a contraction and $\|a(t)\|,\|b(t)\|\leq\|r_0\|$. Then $\|\dot a\|=\|\mathsf Aa+\mathsf Bb\|\leq(\epsilon+\epsilon'+|\delta|)\|r_0\|=2\max(\epsilon,\epsilon')\|r_0\|$, so $M_t\leq2\max(\epsilon,\epsilon')\|r_0\|$. Substituting $\gamma=2u$, $\|\mathsf B\|\|\mathsf C\|=\delta^2$ and these bounds into Eq.~\eqref{eq:one_law_memory_error} gives Eq.~\eqref{eq:sp_four_state_residual}.
+\end{proof}
+
+\subsection{Block descent and the Fisher clock}\label{app:sp_block_descent}
+Let $\xi=(\xi_b)_b$ range over an open subset of a finite-dimensional coordinate space divided into blocks $b$, let $\mathcal V$ be a $C^1$ potential, either the consensus potential $\mathcal E$ or a collective free energy $\mathcal F_V$, let $G_b(\xi)$ be continuous fields of symmetric positive-definite block metrics, and let $G=\bigoplus_bG_b$. For rates $\eta_b>0$ consider a $C^1$ solution of
+\begin{equation}
+\eta_b^{-1}G_b\dot\xi_b=-\nabla_{\xi_b}\mathcal V,
+\label{eq:sp_block_flow}
+\end{equation}
+which is Eq.~\eqref{eq:friction_form}; blocks with zero rate are held fixed and omitted. Write $\operatorname{grad}^G\mathcal V=G^{-1}\nabla\mathcal V$, $\|w\|_G^2=G(w,w)$, $\|\nabla_{\xi_b}\mathcal V\|_{G_b^{-1}}^2=(\nabla_{\xi_b}\mathcal V)^\top G_b^{-1}\nabla_{\xi_b}\mathcal V$, and $G_\eta=\bigoplus_b\eta_b^{-1}G_b$ for the rate-weighted metric. Along the solution, the Fisher clock of Eq.~\eqref{eq:fisher_clock} and the block clocks are
+$\vartheta(t)=\int_0^t\|\dot\xi(s)\|_Gds$ and $\vartheta_b(t)=\int_0^t\|\dot\xi_b(s)\|_{G_b}ds$.
+
+\begin{proposition}[Block descent and Fisher clock]\label{prop:sp_block_descent}
+(i) For all positive rates, equal or not, every solution of Eq.~\eqref{eq:sp_block_flow} satisfies
+\begin{equation}
+\frac{d\mathcal V}{dt}=-\sum_b\eta_b\|\nabla_{\xi_b}\mathcal V\|_{G_b^{-1}}^2=-2\mathcal R\leq0,
+\qquad
+\mathcal R=\sum_b\frac{1}{2\eta_b}G_b(\dot\xi_b,\dot\xi_b).
+\label{eq:sp_block_dissipation}
+\end{equation}
+(ii) For an orientation-preserving $C^1$ diffeomorphism $\phi$ of parameter intervals, the curve $\xi\circ\phi$ has the clock $\vartheta\circ\phi$ from the corresponding origin, and corresponding subarcs have equal Fisher length. The clock is strictly increasing on intervals where $\dot\xi\neq0$ and constant on stationary intervals.
+(iii) The squared clock speed is additive, $\dot\vartheta^2=\sum_b\dot\vartheta_b^2$ with $\dot\vartheta_b=\eta_b\|\nabla_{\xi_b}\mathcal V\|_{G_b^{-1}}$, and over a common interval $\max_b\vartheta_b\leq(\sum_b\vartheta_b^2)^{1/2}\leq\vartheta\leq\sum_b\vartheta_b$.
+(iv) For a common rate $\eta_b=\eta$, $\dot\vartheta=\eta\|\operatorname{grad}^G\mathcal V\|_G$ and $\dot\vartheta^2=-\eta\dot{\mathcal V}=2\eta\mathcal R$, and where $\nabla\mathcal V\neq0$, $d\mathcal V/d\vartheta=-\|\operatorname{grad}^G\mathcal V\|_G$.
+(v) For arbitrary rates, wherever $\dot\xi\neq0$,
+\begin{equation}
+\left|\frac{d\mathcal V}{d\vartheta}\right|
+=\frac{|d\mathcal V(\dot\xi)|}{\|\dot\xi\|_G}
+\leq\|\operatorname{grad}^G\mathcal V\|_G,
+\label{eq:sp_clock_bound}
+\end{equation}
+with equality exactly when $d\mathcal V=0$ or $\dot\xi$ is parallel to $\operatorname{grad}^G\mathcal V$. The flow is the unit-rate natural-gradient flow of $G_\eta$, and the identities of (iv) hold with $\eta=1$ for the clock read with $G_\eta$.
+\end{proposition}
+\begin{proof}
+(i) By the chain rule $d\mathcal V/dt=\sum_b(\nabla_{\xi_b}\mathcal V)^\top\dot\xi_b$, and Eq.~\eqref{eq:sp_block_flow} gives $\dot\xi_b=-\eta_bG_b^{-1}\nabla_{\xi_b}\mathcal V$. Hence $d\mathcal V/dt=-\sum_b\eta_b\|\nabla_{\xi_b}\mathcal V\|_{G_b^{-1}}^2$ and $G_b(\dot\xi_b,\dot\xi_b)=\eta_b^2\|\nabla_{\xi_b}\mathcal V\|_{G_b^{-1}}^2$, so that $2\mathcal R$ equals the negative of $d\mathcal V/dt$.
+(ii) For $\tilde\xi=\xi\circ\phi$ with $\phi'>0$, $\|\tilde\xi'(s)\|_G=\|\dot\xi(\phi(s))\|_G\phi'(s)$, and the substitution $t=\phi(s)$ in the length integral proves the reparameterization law. The integrand $\|\dot\xi\|_G$ is continuous, nonnegative, and zero exactly where $\dot\xi=0$.
+(iii) Block diagonality gives $\|\dot\xi\|_G^2=\sum_b\|\dot\xi_b\|_{G_b}^2$, and $\|\dot\xi_b\|_{G_b}=\eta_b\|\nabla_{\xi_b}\mathcal V\|_{G_b^{-1}}$ by the computation in (i). Pointwise $\dot\vartheta_b\leq\dot\vartheta\leq\sum_b\dot\vartheta_b$, and integrating the right inequality gives $\vartheta\leq\sum_b\vartheta_b$. Minkowski's inequality for integrals of the vector $(\dot\vartheta_b)_b$ gives $(\sum_b\vartheta_b^2)^{1/2}\leq\int(\sum_b\dot\vartheta_b^2)^{1/2}ds=\vartheta$, and the first inequality is elementary.
+(iv) With $\eta_b=\eta$, $\dot\xi=-\eta\operatorname{grad}^G\mathcal V$, so $\dot\vartheta=\eta\|\operatorname{grad}^G\mathcal V\|_G$, and (i) gives $\dot{\mathcal V}=-\eta\|\operatorname{grad}^G\mathcal V\|_G^2=-2\mathcal R$. Dividing $\dot{\mathcal V}$ by $\dot\vartheta>0$ gives the last identity.
+(v) The defining relation of the gradient gives $d\mathcal V(\dot\xi)=G(\operatorname{grad}^G\mathcal V,\dot\xi)$, and the Cauchy--Schwarz inequality for $G$ gives Eq.~\eqref{eq:sp_clock_bound} with its equality case. Equation~\eqref{eq:sp_block_flow} reads $G_\eta\dot\xi=-\nabla\mathcal V$, so (iv) applies with $G_\eta$ in place of $G$ and $\eta=1$.
+\end{proof}
+With unequal rates the velocity $-(\eta_bG_b^{-1}\nabla_{\xi_b}\mathcal V)_b$ is generally not parallel to $\operatorname{grad}^G\mathcal V$, and the inequality in Eq.~\eqref{eq:sp_clock_bound} is then strict. This is the precise sense in which the single-rate identity of Eq.~\eqref{eq:clock_dissipation} cannot be applied unchanged to a rate-weighted flow.
+
+\subsection{Conditional and link-marginal statements}\label{app:sp_link_transfer}
+Use the latent-link joint of Eq.~\eqref{eq:pifb_latent_population_joint}, written $\mathbb P(d\mathring\omega,dy,do)=P_{\mathrm{gen}}(d\mathring\omega)\mathbb P_{\mathring\omega}(dy,do)$ with any source labels absorbed into $y$ and the structural data suppressed. Let $\ell_o(y;\mathring\omega)$ be the record density, assume that the held-link evidence $Z_o(\mathring\omega)=\int\ell_o(y;\mathring\omega)\mathbb P_{\mathring\omega}(dy)$ is positive and finite for $P_{\mathrm{gen}}$-almost every $\mathring\omega$ and that $Z_o=\int Z_o(\mathring\omega)P_{\mathrm{gen}}(d\mathring\omega)\in(0,\infty)$, and write $\Pi_{\mathring\omega}$ for the held-link posterior at $\Theta(\mathring\omega)$.
+
+\begin{proposition}[Conditional transfer and its limit]\label{prop:sp_link_transfer}
+(i) The posterior is $\Pi(d\mathring\omega,dy)=\Pi^{\mathcal T}(d\mathring\omega)\Pi_{\mathring\omega}(dy)$ with $\Pi^{\mathcal T}(d\mathring\omega)=Z_o(\mathring\omega)P_{\mathrm{gen}}(d\mathring\omega)/Z_o$.
+(ii) The matter marginal $\int\Pi_{\mathring\omega}\Pi^{\mathcal T}(d\mathring\omega)$ of the posterior, the matter marginal $\int Q_{\mathring\omega}R(d\mathring\omega)$ of a recognition law $R(d\mathring\omega)Q_{\mathring\omega}(dy)$, and their images under a normalized coarse channel $C$ that does not read the links are mixtures of the corresponding conditional laws. A property of laws on the matter space that holds for almost every conditional law therefore holds for these marginals whenever the set of laws with the property is closed under such mixtures.
+(iii) Gaussianity is not closed under such mixtures. Let $G=\mathrm{GL}^+(1)$ act on $\mathbb R$ by multiplication, and take two agents with one reversal pair $e:j\to i$, trivial frames, no loop terms, $\nu^{\mathcal T}=\mathcal N(0,1)$, no record, and the held-link matter law $k_j\sim\mathcal N(0,1)$, $k_i\mid k_j\sim\mathcal N(e^{\mathring\omega_e}k_j,1)$. Every conditional matter law is Gaussian, while the posterior marginal of $k_i$ is centered with $\mathbb Ek_i^4=3(1+2e^2+e^8)>3(\mathbb Ek_i^2)^2$, so it is not Gaussian.
+\end{proposition}
+\begin{proof}
+(i) The posterior has density $\ell_o(y;\mathring\omega)/Z_o$ with respect to $P_{\mathrm{gen}}(d\mathring\omega)\mathbb P_{\mathring\omega}(dy)$, and the factorization of this density as $[Z_o(\mathring\omega)/Z_o][\ell_o(y;\mathring\omega)/Z_o(\mathring\omega)]$ gives the disintegration, the second factor being the held-link posterior density.
+(ii) Integrating out $\mathring\omega$ in a disintegration gives the mixture of its conditional laws, and for a link-independent channel Fubini's theorem gives $(\int Q_{\mathring\omega}R(d\mathring\omega))C=\int(Q_{\mathring\omega}C)R(d\mathring\omega)$.
+(iii) With no loop terms the action $\mathcal A_{\mathrm{loop}}$ vanishes and $P_{\mathrm{gen}}=\nu^{\mathcal T}$, and with no record the posterior is the prior. Given $\mathring\omega=\mathring\omega_e$, $(k_i,k_j)$ is a centered Gaussian vector with $\mathbb E[k_i^2\mid\mathring\omega]=1+e^{2\mathring\omega}$, so that $\mathbb E[k_i^4\mid\mathring\omega]=3(1+e^{2\mathring\omega})^2$. Since $\mathbb Ee^{s\mathring\omega}=e^{s^2/2}$ for a standard normal generator, $\mathbb Ek_i^2=1+e^2$ and $\mathbb Ek_i^4=3(1+2e^2+e^8)$. A centered Gaussian variable with this variance would have fourth moment $3(1+2e^2+e^4)$, and $e^8>e^4$.
+\end{proof}
+A Gaussian law fitted to such a marginal is therefore a projection of it rather than the marginal itself.
+
+\subsection{Noncompact latent links and the holonomy-fixed Gaussian family}\label{app:sp_holonomy_gaussian}
+Let $G=\mathrm{GL}^+(K)$ with $K\geq1$ act on $\mathbb R^K$ by its defining representation, with links $\Theta_e=U_i\exp(\mathring\omega_e)U_j^{-1}$ as in Appendix~\ref{app:sp_generator_gauge} and generator space $\mathcal T=\mathfrak{gl}(K,\mathbb R)^{E_+}$, a real vector space carrying Lebesgue measure. A closed walk $p=(e_0,\ldots,e_{r-1})$ of a connected block, based at $i_0$, consists of copies $e_a:i_{a+1}\to i_a$ with $i_r=i_0$, each a member of $E_+$ or a reversal of one, and has holonomy $H_p=\Theta_{e_0}\Theta_{e_1}\cdots\Theta_{e_{r-1}}$ in the ordering of Eq.~\eqref{eq:discrete_holonomy}. For $e\in E_+$ let $n_e$ be the number of indices with $e_a=e$ minus the number with $e_a=\bar e$. For a vertex $\varrho$ of the block, the holonomy-fixed nondegenerate Gaussian family $\mathcal G_\varrho$ consists of the laws $\mathcal N(m,\Sigma)$ on $\mathbb R^K$ with $\Sigma\succ0$ that are fixed by the pushforward of every holonomy of a closed walk of the block based at $\varrho$. A coherence score of the block is an infimum over $\mathcal G_\varrho$ of a weighted sum of relative entropies from the transported member marginals, with the convention that an infimum over the empty set is $+\infty$.
+
+\begin{proposition}[Latent noncompact links empty the Gaussian parent family]\label{prop:sp_holonomy_gaussian}
+Suppose the block contains a closed walk $p$ with $n_e\neq0$ for some $e\in E_+$.
+(i) For every choice of frames, $\det H_p=\exp(\sum_{e\in E_+}n_e\operatorname{tr}\mathring\omega_e)$.
+(ii) The generator families with $\sum_{e\in E_+}n_e\operatorname{tr}\mathring\omega_e=0$ form a hyperplane of $\mathcal T$, a Lebesgue-null set, and for every generator family off this hyperplane $\mathcal G_\varrho$ is empty at every vertex $\varrho$ of the block.
+(iii) Under every law of the generators that is absolutely continuous with respect to Lebesgue measure on $\mathcal T$, including the generator prior of Eq.~\eqref{eq:pifb_generator_prior} and every recognition law absolutely continuous with respect to it, $\mathcal G_\varrho$ is empty and every coherence score of the block is $+\infty$ almost surely.
+\end{proposition}
+\begin{proof}
+(i) Intermediate frames cancel in the product, so $H_p=U_{i_0}\exp(\mathring\omega_{e_0})\cdots\exp(\mathring\omega_{e_{r-1}})U_{i_0}^{-1}$. The determinant is multiplicative, and $\det\exp(B)=\exp(\operatorname{tr}B)$ for every real square matrix $B$, as one sees by triangularizing $B$ over $\mathbb C$. With $\mathring\omega_{\bar e}=-\mathring\omega_e$ the sum of the traces collects into $\sum_en_e\operatorname{tr}\mathring\omega_e$.
+(ii) The map $\ell(\mathring\omega)=\sum_en_e\operatorname{tr}\mathring\omega_e$ is linear on $\mathcal T$ and nonzero, since on the family with $\mathring\omega_e=I_K$ for one $e$ with $n_e\neq0$ and every other generator zero it equals $n_eK\neq0$. Its kernel is therefore a hyperplane and has Lebesgue measure zero. If $\mathcal N(m,\Sigma)$ with $\Sigma\succ0$ is fixed by a matrix $H$, then $H_\#\mathcal N(m,\Sigma)=\mathcal N(Hm,H\Sigma H^\top)$ forces $H\Sigma H^\top=\Sigma$, hence $(\det H)^2=1$. Off the hyperplane $|\det H_p|=e^{\ell(\mathring\omega)}\neq1$. For another base vertex $\varrho$ choose a walk $w$ in the block from $\varrho$ to $i_0$ with path product $\Theta_w$. The closed walk that follows $w$, then $p$, then the reversal of $w$ has holonomy $\Theta_wH_p\Theta_w^{-1}$, because reversed copies carry inverse links, and its determinant equals $\det H_p$. No nondegenerate Gaussian law at $\varrho$ is therefore fixed by every based holonomy, and $\mathcal G_\varrho=\varnothing$.
+(iii) An absolutely continuous law gives probability zero to the null hyperplane. The generator prior has a Lebesgue density because its Gaussian base law has positive-definite covariances on every summand and its loop factor is positive. On the complement of the hyperplane, (ii) gives an empty family, and the convention gives the value $+\infty$.
+\end{proof}
+The exact retained law of Eq.~\eqref{eq:exact_parent_laws} is unaffected; the statement concerns the invariant Gaussian family alone.
+
+\subsection{Gaussian relative entropy and Fisher metric}\label{app:sp_gaussian}
+
+\begin{proposition}[Gaussian relative entropy and Fisher metric]\label{prop:sp_gaussian}
+(i) For $q=\mathcal N(\mu_q,\Sigma_q)$ and $p=\mathcal N(\mu_p,\Sigma_p)$ on $\mathbb R^K$ with $\Sigma_q,\Sigma_p\succ0$,
+\begin{equation}
+D_{\mathrm{KL}}(q\|p)=\frac12\left[\log\frac{\det\Sigma_p}{\det\Sigma_q}+\operatorname{tr}(\Sigma_p^{-1}\Sigma_q)+(\mu_q-\mu_p)^\top\Sigma_p^{-1}(\mu_q-\mu_p)-K\right].
+\label{eq:sp_gaussian_kl}
+\end{equation}
+(ii) In the moment chart $(\mu,\Sigma)$, with $\Lambda=\Sigma^{-1}$ and symmetric covariance tangents, the score of the Gaussian family in the direction $(\dot\mu,\dot\Sigma)$ is
+\begin{equation}
+s_{(\dot\mu,\dot\Sigma)}(x)=\dot\mu^\top\Lambda(x-\mu)+\tfrac12(x-\mu)^\top\Lambda\dot\Sigma\Lambda(x-\mu)-\tfrac12\operatorname{tr}(\Lambda\dot\Sigma),
+\label{eq:sp_gaussian_score}
+\end{equation}
+and the Fisher metric is
+\begin{equation}
+G\big((\dot\mu_1,\dot\Sigma_1),(\dot\mu_2,\dot\Sigma_2)\big)=\dot\mu_1^\top\Lambda\dot\mu_2+\tfrac12\operatorname{tr}(\Lambda\dot\Sigma_1\Lambda\dot\Sigma_2),
+\label{eq:sp_gaussian_fisher}
+\end{equation}
+with vanishing mean--covariance block.
+(iii) Every affine map $(\mu,\Sigma)\mapsto(Q\mu+v,Q\Sigma Q^\top)$ with $Q\in\mathrm{GL}(K)$ and $v\in\mathbb R^K$ is an isometry of Eq.~\eqref{eq:sp_gaussian_fisher}.
+\end{proposition}
+\begin{proof}
+(i) For $X\sim q$, a symmetric matrix $M$ and a vector $m$, expanding $X-m=(X-\mu_q)+(\mu_q-m)$ gives $\mathbb E_q[(X-m)^\top M(X-m)]=\operatorname{tr}(M\Sigma_q)+(\mu_q-m)^\top M(\mu_q-m)$. With $\log q(x)=-\tfrac12(x-\mu_q)^\top\Sigma_q^{-1}(x-\mu_q)-\tfrac12\log\det(2\pi\Sigma_q)$ and the analogous formula for $p$, this gives $\mathbb E_q\log q=-\tfrac K2-\tfrac12\log\det(2\pi\Sigma_q)$ and
+\begin{equation*}
+\mathbb E_q\log p=-\tfrac12\big[\operatorname{tr}(\Sigma_p^{-1}\Sigma_q)+(\mu_q-\mu_p)^\top\Sigma_p^{-1}(\mu_q-\mu_p)\big]-\tfrac12\log\det(2\pi\Sigma_p),
+\end{equation*}
+and subtraction gives Eq.~\eqref{eq:sp_gaussian_kl}.
+(ii) Write $e=x-\mu$, so that $\log q(x)=-\tfrac12e^\top\Lambda e+\tfrac12\log\det\Lambda-\tfrac K2\log2\pi$. A tangent vector $(\dot\mu,\dot\Sigma)$ moves $e$ by $-\dot\mu$ and $\Lambda$ by $-\Lambda\dot\Sigma\Lambda$, and $d\log\det\Lambda=\operatorname{tr}(\Lambda^{-1}d\Lambda)$; differentiating gives Eq.~\eqref{eq:sp_gaussian_score}. Under $e\sim\mathcal N(0,\Sigma)$ the linear term has variance $\dot\mu^\top\Lambda\Sigma\Lambda\dot\mu=\dot\mu^\top\Lambda\dot\mu$, and its covariance with the quadratic term is a third moment of a centered Gaussian vector and vanishes. For a symmetric $M$, write $e=\Sigma^{1/2}z$ with $z\sim\mathcal N(0,I)$ and diagonalize $\Sigma^{1/2}M\Sigma^{1/2}=O\operatorname{diag}(m_k)O^\top$ with $O$ orthogonal. Then $e^\top Me=\sum_km_kw_k^2$ with $w=O^\top z$ standard normal, so $\mathbb E[e^\top Me]=\operatorname{tr}(M\Sigma)$ and $\operatorname{Var}(e^\top Me)=2\sum_km_k^2=2\operatorname{tr}(M\Sigma M\Sigma)$. For $M=\Lambda\dot\Sigma\Lambda$ the mean of the quadratic term cancels the constant term, so the score is centered, and the quadratic term has variance $\tfrac14\cdot2\operatorname{tr}(\Lambda\dot\Sigma\Lambda\dot\Sigma)$. Hence $\mathbb E s_{(\dot\mu,\dot\Sigma)}^2=\dot\mu^\top\Lambda\dot\mu+\tfrac12\operatorname{tr}(\Lambda\dot\Sigma\Lambda\dot\Sigma)$, and polarization gives Eq.~\eqref{eq:sp_gaussian_fisher} with its vanishing cross block.
+(iii) The differential of the affine map sends $(\dot\mu,\dot\Sigma)$ to $(Q\dot\mu,Q\dot\Sigma Q^\top)$, and the precision at the image point is $Q^{-\top}\Lambda Q^{-1}$. Substitution leaves the first term of Eq.~\eqref{eq:sp_gaussian_fisher} unchanged, and cyclicity of the trace leaves the second unchanged.
+\end{proof}
+This is the Fisher metric of the multivariate normal model~\cite{Skovgaard1984}. Its covariance block is the member $a=\tfrac12$, $b=0$ of the two-parameter family of congruence-invariant metrics quoted in Appendix~\ref{app:gradients}, and Eq.~\eqref{eq:sp_gaussian_kl} is Eq.~\eqref{eq:gaussian_kl}.
+
+\subsection{Block-factorized Gaussian recognition}\label{app:sp_block_gaussian}
+Let the target be a nondegenerate Gaussian law $p^*=\mathcal N(\mu^*,\Lambda^{-1})$ on $\mathbb R^n$, with $\Lambda\succ0$ and $\mathsf h=\Lambda\mu^*$, for instance a Gaussian posterior or the normalized Gaussian law of a quadratic energy. Partition the coordinates into blocks $b$ of dimensions $n_b$, write $\Lambda_{bc}$ for the corresponding blocks of $\Lambda$, and let $\mathcal Q_{\mathcal P}$ be the Gaussian laws with unrestricted mean and block-diagonal covariance $\operatorname{blockdiag}_b(\Sigma_b)$, $\Sigma_b\succ0$.
+
+\begin{proposition}[Block optimum and determinant gap]\label{prop:sp_block_gaussian}
+(i) Over $\mathcal Q_{\mathcal P}$, $D_{\mathrm{KL}}(Q\|p^*)$ has the unique minimizer $\mu_Q=\mu^*$, $\Sigma_b=\Lambda_{bb}^{-1}$ for every $b$.
+(ii) Let the other blocks carry a law $Q_{-b}$ with finite second moments, finite differential entropy and block means $\mu_c$. Among all laws $Q_b$ of block $b$, $D_{\mathrm{KL}}(Q_b\otimes Q_{-b}\|p^*)$ is minimized uniquely by
+\begin{equation}
+Q_b^*=\mathcal N\Big(\Lambda_{bb}^{-1}\big(\mathsf h_b-\textstyle\sum_{c\neq b}\Lambda_{bc}\mu_c\big),\Lambda_{bb}^{-1}\Big).
+\label{eq:sp_block_coordinate}
+\end{equation}
+Its covariance is fixed by $\Lambda_{bb}$ in one coordinate step and does not depend on the covariances of the other blocks.
+(iii) The restricted optimum is the determinant gap
+\begin{equation}
+\min_{Q\in\mathcal Q_{\mathcal P}}D_{\mathrm{KL}}(Q\|p^*)=\frac12\Big[\sum_b\log\det\Lambda_{bb}-\log\det\Lambda\Big]\geq0,
+\label{eq:sp_determinant_gap}
+\end{equation}
+with equality if and only if $\Lambda_{bc}=0$ for every pair of distinct blocks. When $p^*$ is the posterior of a normalized model with evidence $Z_o$, Proposition~\ref{prop:sp_restriction} identifies Eq.~\eqref{eq:sp_determinant_gap} with the excess of the restricted free-energy optimum over $-\log Z_o$.
+\end{proposition}
+\begin{proof}
+By Eq.~\eqref{eq:sp_gaussian_kl} with $\Sigma_p=\Lambda^{-1}$,
+\begin{equation*}
+D_{\mathrm{KL}}(Q\|p^*)=\tfrac12\big[\operatorname{tr}(\Lambda\Sigma_Q)+(\mu_Q-\mu^*)^\top\Lambda(\mu_Q-\mu^*)-n-\log\det\Lambda-\log\det\Sigma_Q\big].
+\end{equation*}
+On $\mathcal Q_{\mathcal P}$, $\operatorname{tr}(\Lambda\Sigma_Q)=\sum_b\operatorname{tr}(\Lambda_{bb}\Sigma_b)$ and $\log\det\Sigma_Q=\sum_b\log\det\Sigma_b$. Each $\Lambda_{bb}$ is positive definite as a principal submatrix of $\Lambda$; let $m_{b,1},\ldots,m_{b,n_b}>0$ be the eigenvalues of $\Lambda_{bb}^{1/2}\Sigma_b\Lambda_{bb}^{1/2}$. Then
+\begin{equation}
+D_{\mathrm{KL}}(Q\|p^*)
+=\tfrac12(\mu_Q-\mu^*)^\top\Lambda(\mu_Q-\mu^*)
++\tfrac12\sum_b\sum_{k=1}^{n_b}(m_{b,k}-1-\log m_{b,k})
++\tfrac12\Big[\sum_b\log\det\Lambda_{bb}-\log\det\Lambda\Big].
+\label{eq:sp_block_decomposition}
+\end{equation}
+Since $x-1-\log x\geq0$ with equality only at $x=1$, the first two terms vanish exactly at $\mu_Q=\mu^*$ and $\Sigma_b=\Lambda_{bb}^{-1}$, which proves (i) and the value in (iii). That value is nonnegative because it is a relative entropy, and by Proposition~\ref{prop:sp_restriction} it vanishes exactly when the minimizer $\mathcal N(\mu^*,\operatorname{blockdiag}_b(\Lambda_{bb}^{-1}))$ equals $p^*$, that is, when $\Lambda=\operatorname{blockdiag}_b(\Lambda_{bb})$.
+For (ii), $-\log p^*(y)=\tfrac12y^\top\Lambda y-\mathsf h^\top y+c_0$. The terms containing $y_b$ are $\tfrac12y_b^\top\Lambda_{bb}y_b+\sum_{c\neq b}y_b^\top\Lambda_{bc}y_c-\mathsf h_b^\top y_b$, so integration against $Q_{-b}$ leaves $\tfrac12y_b^\top\Lambda_{bb}y_b-y_b^\top(\mathsf h_b-\sum_{c\neq b}\Lambda_{bc}\mu_c)$ plus a finite constant. Completing the square shows that this equals $-\log Q_b^*(y_b)$ up to a constant. Hence $D_{\mathrm{KL}}(Q_b\otimes Q_{-b}\|p^*)=D_{\mathrm{KL}}(Q_b\|Q_b^*)+\mathrm{const}$ in $(-\infty,\infty]$, where the constant collects the entropy of $Q_{-b}$ and the terms free of $y_b$, and Proposition~\ref{prop:sp_restriction} gives the unique minimizer.
+\end{proof}
+Comparing Eq.~\eqref{eq:sp_determinant_gap} with its equality case recovers Fischer's inequality $\det\Lambda\leq\prod_b\det\Lambda_{bb}$~\cite{HornJohnson2013}. By (ii), a node whose diagonal precision block is the sum $2\Sigma_0^{-1}$ of a prior precision $\Sigma_0^{-1}$ and an edge contribution $\Sigma_0^{-1}$ has mean-field covariance $\Sigma_0/2$, whatever the covariances of its neighbors.
+
+\subsection{Exact receiver update in the comparison-record model}\label{app:sp_receiver_update}
+Fix a receiver $i$ of the selective record model of Eq.~\eqref{eq:selective_record}, with source prior $\pi_{ij}>0$ on a finite source set, maps $A_i$ and covariance $\tau_i\Gamma_i$ common to the row, and the record observed at $o_i=0$. Suppose that this record is the only factor reading $J_i$. Condition on every latent coordinate other than $k_i$ and $J_i$, which fixes the source states $k_j$, and on every other record, and suppose that under this conditioning $k_i\sim\mathcal N(\mu_i,\Sigma_i)$ with $\Sigma_i\succ0$. Put $\widetilde W_i=(\tau_i\Gamma_i)^{-1}$ and
+\begin{equation}
+\Sigma_i^+=\big(\Sigma_i^{-1}+A_i^\top\widetilde W_iA_i\big)^{-1},\qquad
+\Sigma_i^{\mathrm{pred}}=\widetilde W_i^{-1}+A_i\Sigma_iA_i^\top,\qquad
+r_{ij}=A_i\mu_i-B_{ij}k_j.
+\label{eq:sp_receiver_defs}
+\end{equation}
+
+\begin{proposition}[Exact receiver update]\label{prop:sp_receiver_update}
+Given the conditioning variables and $o_i=0$, the source label has posterior weights $w_{ij}\propto\pi_{ij}\exp[-\tfrac12r_{ij}^\top(\Sigma_i^{\mathrm{pred}})^{-1}r_{ij}]$, normalized over the source set. Conditionally on $J_i=j$, $k_i\sim\mathcal N(\Sigma_i^+(\Sigma_i^{-1}\mu_i+A_i^\top\widetilde W_iB_{ij}k_j),\Sigma_i^+)$, and
+\begin{equation}
+\mathbb E[k_i\mid k_{-i},o]=\mu_i+\sum_jw_{ij}\mathsf K_i(B_{ij}k_j-A_i\mu_i),
+\qquad
+\mathsf K_i=\Sigma_i^+A_i^\top\widetilde W_i=\Sigma_iA_i^\top(\Sigma_i^{\mathrm{pred}})^{-1},
+\label{eq:sp_receiver_update}
+\end{equation}
+where $k_{-i}$ denotes the conditioning latent coordinates. In the full-state receiving form $A_i=I$, $B_{ij}=\Omega_{ij}$, the gain is the Kalman gain $\mathsf K_i=\Sigma_i^+\widetilde W_i=\Sigma_i(\Sigma_i+\tau_i\Gamma_i)^{-1}$, set by the receiver's posterior covariance $\Sigma_i^+$, and it differs from the identity for every positive record covariance.
+\end{proposition}
+\begin{proof}
+Under the conditioning, the joint law of $(k_i,J_i)$ at $o_i=0$ has density proportional to $\pi_{ij}\mathcal N(k_i;\mu_i,\Sigma_i)\mathcal N(0;A_ik_i-B_{ij}k_j,\tau_i\Gamma_i)$. For fixed $j$, the integral over $k_i$ of the last two factors is the density at $0$ of $A_iK-B_{ij}k_j+\varepsilon$ with independent $K\sim\mathcal N(\mu_i,\Sigma_i)$ and $\varepsilon\sim\mathcal N(0,\tau_i\Gamma_i)$, namely $\mathcal N(0;r_{ij},\Sigma_i^{\mathrm{pred}})$. Its normalizing constant does not depend on $j$ because $A_i$ and $\Gamma_i$ are common to the row, which gives the weights. For fixed $j$ the exponent in $k_i$,
+\begin{equation*}
+-\tfrac12\big[(k_i-\mu_i)^\top\Sigma_i^{-1}(k_i-\mu_i)+(A_ik_i-B_{ij}k_j)^\top\widetilde W_i(A_ik_i-B_{ij}k_j)\big],
+\end{equation*}
+is a quadratic with Hessian $-(\Sigma_i^+)^{-1}$ whose gradient vanishes at $\Sigma_i^+(\Sigma_i^{-1}\mu_i+A_i^\top\widetilde W_iB_{ij}k_j)$, which gives the conditional components. Averaging their means with the weights $w_{ij}$, which sum to one, and using $\Sigma_i^+\Sigma_i^{-1}=I-\Sigma_i^+A_i^\top\widetilde W_iA_i$ gives the first identity in Eq.~\eqref{eq:sp_receiver_update}. The second follows from $A_i^\top\widetilde W_i\Sigma_i^{\mathrm{pred}}=A_i^\top+A_i^\top\widetilde W_iA_i\Sigma_iA_i^\top=(\Sigma_i^+)^{-1}\Sigma_iA_i^\top$ after multiplication by $\Sigma_i^+$ on the left and by $(\Sigma_i^{\mathrm{pred}})^{-1}$ on the right. For $A_i=I$, $\Sigma_i^{\mathrm{pred}}=\Sigma_i+\tau_i\Gamma_i$, and $\Sigma_i(\Sigma_i+\tau_i\Gamma_i)^{-1}=I$ would require $\tau_i\Gamma_i=0$.
+\end{proof}
+
+\subsection{Total correlation and appended energies}\label{app:sp_total_correlation}
+
+\begin{proposition}[Total-correlation chain identity]\label{prop:sp_total_correlation}
+Let $Y=(Y_b)_b$ take values in a finite product of standard Borel spaces, let $Q$ be a law with marginals $Q_b$, let $\rho_b$ be arbitrary probability laws, and let $\operatorname{TC}(Q)=D_{\mathrm{KL}}(Q\|\bigotimes_bQ_b)$ be the total correlation. Then
+\begin{equation}
+D_{\mathrm{KL}}\Big(Q\Big\|\bigotimes_b\rho_b\Big)=\operatorname{TC}(Q)+\sum_bD_{\mathrm{KL}}(Q_b\|\rho_b)
+\label{eq:sp_total_correlation}
+\end{equation}
+in $[0,\infty]$. For a product prior $\bigotimes_b\rho_b$, the complexity of a correlated recognition law is thus its total correlation plus its marginal divergences, and replacing $Q$ by the product of its marginals lowers this complexity by exactly $\operatorname{TC}(Q)$. Equation~\eqref{eq:observation_typing_ledger} is the two-block case, in which the total correlation is the mutual information.
+\end{proposition}
+\begin{proof}
+Write $\rho=\bigotimes_b\rho_b$ and $\bar Q=\bigotimes_bQ_b$. Suppose first that $Q\ll\rho$ with density $f$. By Fubini's theorem $Q_b\ll\rho_b$ with density $f_b(y_b)$, the integral of $f$ over the other coordinates, so $\bar Q$ has density $\prod_bf_b$ relative to $\rho$. The set $N=\{y:\prod_bf_b(y_b)=0\}$ satisfies $\bar Q(N)=0$ and $Q(N)\leq\sum_bQ_b(\{f_b=0\})=0$. Hence $g=f/\prod_bf_b$ off $N$, with $g=0$ on $N$, is a density of $Q$ relative to $\bar Q$, and $\log f=\log g+\sum_b\log f_b(y_b)$ holds $Q$-almost surely. The $Q$-integrals of $\log f$, $\log g$ and $\log f_b(Y_b)$ are $D_{\mathrm{KL}}(Q\|\rho)$, $\operatorname{TC}(Q)$ and $D_{\mathrm{KL}}(Q_b\|\rho_b)$, and each integrand has a negative part with integral at most $e^{-1}$, because $x\log x\geq-e^{-1}$. Additivity of such integrals proves Eq.~\eqref{eq:sp_total_correlation} in $(-\infty,\infty]$, and every term is nonnegative. If $Q$ is not absolutely continuous with respect to $\rho$, the left side is infinite. Then either some $Q_b$ is not absolutely continuous with respect to $\rho_b$, or $\bar Q\ll\rho$ and $Q$ is not absolutely continuous with respect to $\bar Q$; in both cases the right side is infinite.
+\end{proof}
+
+\begin{proposition}[Appended energy]\label{prop:sp_appended}
+Let a normalized joint $\mathbb P(dy,do)$ have density $p(o,y)$ relative to $\nu_Y\otimes\nu_O$ and positive finite evidence $p(o)$ at the record $o$, and let $U$ be a real measurable function of the latent state that is bounded below. Then $Z_U=\int e^{-U(y)}\mathbb P(dy,do)\in(0,\infty)$, the tilted law $\widetilde{\mathbb P}=Z_U^{-1}e^{-U}\mathbb P$ is a normalized joint, and for every recognition law $Q$ with finite free energy $\mathcal F_V[Q]=\mathbb E_Q[\log q(Y)-\log p(o,Y)]$ in its split form and $\mathbb E_Q|U|<\infty$,
+\begin{equation}
+\mathcal F_V[Q]+\mathbb E_QU=\widetilde{\mathcal F}_V[Q]-\log Z_U,
+\label{eq:sp_appended}
+\end{equation}
+where $\widetilde{\mathcal F}_V$ is the variational free energy of $\widetilde{\mathbb P}$. The appended objective is therefore minimized exactly at the posterior of the tilted joint, with minimum $-\log\int e^{-U(y)}p(o,y)\nu_Y(dy)$. It is the free energy of a normalized joint, and hence an evidence bound in the sense of Eq.~\eqref{eq:collective_vfe}, only after the term $\log Z_U$, which depends on the generative parameters through $\mathbb P$, is restored.
+\end{proposition}
+\begin{proof}
+Since $U$ is real and bounded below, $0<e^{-U}\leq e^{-\inf U}$, and integration against the probability law $\mathbb P$ gives $0<Z_U<\infty$. The tilted joint has density $\tilde p(o,y)=p(o,y)e^{-U(y)}/Z_U$, so
+$\widetilde{\mathcal F}_V[Q]=\mathbb E_Q[\log q(Y)-\log\tilde p(o,Y)]=\mathcal F_V[Q]+\mathbb E_QU+\log Z_U$, with every expectation finite. By Proposition~\ref{prop:sp_restriction} applied to $\widetilde{\mathbb P}$, $\widetilde{\mathcal F}_V[Q]\geq-\log\tilde p(o)$, with equality exactly at the tilted posterior, where $\tilde p(o)=Z_U^{-1}\int e^{-U(y)}p(o,y)\nu_Y(dy)\in(0,\infty)$. Subtracting $\log Z_U$ gives the stated minimum.
+\end{proof}
+
+\subsection{Downward kernels and the conditional cross-scale divergence}\label{app:sp_downward}
+Let a parent latent $Z$ and child latents $Y$ take values in standard Borel spaces, and let
+\begin{equation}
+\mathbb P(dz,dy,do)=P_Z(dz)\mathcal K_\downarrow(dy\mid z)\ell(o\mid y,z)\nu_O(do)
+\label{eq:sp_downward_joint}
+\end{equation}
+be a normalized hierarchical joint, with a proper parent prior $P_Z$, a normalized downward kernel $\mathcal K_\downarrow$, a record density normalized against $\nu_O$, and positive finite evidence $Z_o$ at the record $o$. A recognition law is disintegrated as $Q(dz,dy)=Q_Z(dz)Q_{Y\mid Z}(dy\mid z)$.
+
+\begin{proposition}[Downward coupling]\label{prop:sp_downward}
+If $Q\ll P_Z\mathcal K_\downarrow$ and $\mathbb E_Q|\log\ell(o\mid Y,Z)|<\infty$, then
+\begin{equation}
+\begin{split}
+\mathcal F_V[Q]
+&=D_{\mathrm{KL}}(Q_Z\|P_Z)+\int D_{\mathrm{KL}}\big(Q_{Y\mid Z}(\cdot\mid z)\big\|\mathcal K_\downarrow(\cdot\mid z)\big)Q_Z(dz)-\mathbb E_Q\log\ell(o\mid Y,Z)\\
+&=D_{\mathrm{KL}}\big(Q\|\mathbb P(\cdot\mid o)\big)-\log Z_o.
+\end{split}
+\label{eq:sp_downward_identity}
+\end{equation}
+The conditional cross-scale divergence is therefore the cross-scale term of an exact evidence bound, which equals $-\log Z_o$ exactly at the posterior. Its generative denominator reads the parent's latent coordinate $z$ and never the parent's recognition law. For a product law $Q_Z\otimes Q_Y$ the cross-scale term is $\mathbb E_{Q_Z}D_{\mathrm{KL}}(Q_Y\|\mathcal K_\downarrow(\cdot\mid Z))$.
+\end{proposition}
+\begin{proof}
+Let $f$ be the density of $Q$ relative to $P_Z\mathcal K_\downarrow$. Then $Q_Z\ll P_Z$ with density $f_Z(z)=\int f(z,y)\mathcal K_\downarrow(dy\mid z)$, the set $\{f_Z=0\}$ is $Q_Z$-null, and off it $Q_{Y\mid Z}(dy\mid z)=[f(z,y)/f_Z(z)]\mathcal K_\downarrow(dy\mid z)$ is a version of the conditional law. Thus $\log f=\log f_Z(z)+\log[f(z,y)/f_Z(z)]$ holds $Q$-almost surely, each logarithm has a negative part with integral at most $e^{-1}$, and integration gives
+$D_{\mathrm{KL}}(Q\|P_Z\mathcal K_\downarrow)=D_{\mathrm{KL}}(Q_Z\|P_Z)+\int D_{\mathrm{KL}}(Q_{Y\mid Z}(\cdot\mid z)\|\mathcal K_\downarrow(\cdot\mid z))Q_Z(dz)$ in $[0,\infty]$. Subtracting the integrable expected log record density gives the first line, which is the defining form of Eq.~\eqref{eq:collective_vfe} for the joint~\eqref{eq:sp_downward_joint}. Substituting the posterior density $\ell(o\mid y,z)/Z_o$ relative to $P_Z\mathcal K_\downarrow$ gives the second line, and its equality case is that of Proposition~\ref{prop:sp_restriction}. For a product law $Q_{Y\mid Z}(\cdot\mid z)=Q_Y$ for every $z$.
+\end{proof}
+In the augmented joint of Definition~\ref{def:augmented_joint}, $\mathcal K_\downarrow$ is the product of the link kernels of Eq.~\eqref{eq:gibbs_factor} over the children of one parent, and this term is the conditional coupling of the first reading of top-down influence in Appendix~\ref{app:augmented_joint}.
