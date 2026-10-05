@@ -3,7 +3,7 @@
 
 The latent extension of Section~\ref{sec:latent_link_bound} makes the relation between agents an inferred quantity within the same normalized population model. At the fixed base point $c_*$, an independent invertible link has an exponential generator $\mathring\omega_e\in\mathfrak g$, and $R$ recognizes the generator family on $\mathcal T=\mathfrak g^{E_+}$. This section uses one common channel with representation $\rho$; separate belief and model channels have their own generator blocks. The ring accent distinguishes these coordinates from agent means and covariances. The Gaussian anchor, loop action and episode law are supplied generative structure. Inference adjusts their recognition without deriving their choice from the evidence bound.
 
-Two meanings of a dynamic link must be distinguished. Recognition can relax as a record is assimilated through a first-order inference flow. A generative law across learning episodes can instead penalize link increments and assign a most probable history. The second construction supplies a history stationarity equation with inertia; it does not turn recognition into a second-order flow. Both constructions concern relations among agents at $c_*$ and introduce no transport between base points. The stationarity conditions, flows and history equations below are stated with their hypotheses; their complete proofs are not given in this monograph.
+Two meanings of a dynamic link must be distinguished. Recognition can relax as a record is assimilated through a first-order inference flow. A generative law across learning episodes can instead penalize link increments and assign a most probable history. The second construction supplies a history stationarity equation with inertia; it does not turn recognition into a second-order flow. Both constructions concern relations among agents at $c_*$ and introduce no transport between base points. The stationarity conditions, flows and history equations below are stated with their hypotheses and proved in Appendix~\ref{app:latent_link_proofs}.
 
 \subsection{The expected link field equation}
 \label{sec:latent_link_field}
@@ -13,8 +13,14 @@ Let $\mathring\alpha$ and $\mathring\Sigma\succ0$ be the generator anchor and pr
 covariance, and write $\mathcal A_{\mathrm{loop}}$ for the nonnegative loop action.
 For the complete held-link joint density define
 $H_o(\mathring\omega,y)=-\log p(o,y\mid X,\Theta(\mathring\omega))$.
-Under integrability and dominated-derivative conditions that permit differentiation under the integral,
-Gaussian mean and precision stationarity are
+Assume bounded record densities with positive conditional evidence at every generator,
+a matter recognition law $Q_Y$ with a density $q_Y$ against a $\sigma$-finite reference
+that dominates every conditional matter prior, $\mathbb E_{Q_Y}|\log q_Y|<\infty$, and
+$H_o$ twice continuously differentiable in $\mathring\omega$ with
+$\mathbb E_{Q_Y}\sup_{\|\mathring\omega\|\leq r}(|H_o|+\|\nabla H_o\|+\|\nabla^2H_o\|)\leq c_1e^{c_2r}$
+for every $r\geq0$. Then the free energy of $R\otimes Q_Y$ is finite and continuously
+differentiable in $(\mathring\mu,\mathring\Lambda)$, and Gaussian mean and precision
+stationarity are
 \begin{equation}
 \boxed{\begin{aligned}
 \mathring\Sigma^{-1}(\mathring\mu-\mathring\alpha)
@@ -27,11 +33,14 @@ Gaussian mean and precision stationarity are
 \label{eq:latent_link_stationarity}
 \end{equation}
 An edge-block or diagonal Gaussian family projects the precision equation onto its
-admitted blocks. These are stationarity conditions within that family. Every
+admitted blocks. These are stationarity conditions within that family
+(Appendix~\ref{app:llp_field}). Every
 link-dependent part of the held joint belongs in $H_o$, including a latent law or
 normalizer when present.
 
-Put $M_e=\exp(\mathrm d\rho\mathring\omega_e)$ in reference coordinates and define
+Put $M_e=\exp(\mathrm d\rho\mathring\omega_e)$ in reference coordinates. When $H_o$ reads
+$\mathring\omega_e$ only through $M_e$, differentiably on an open set of matrices containing
+the represented twists and with $Q_Y$-integrable gradient, define
 $\mathbf J_e=-\mathbb E_{Q_Y}\partial H_o/\partial M_e$. With the matrix trace pairing
 and its generator adjoint, the edge component is
 \begin{equation}
@@ -49,7 +58,8 @@ averaging gives the stress balance of the prior. Evaluating this only at
 $\mathring\mu$ would be a further approximation.
 
 For a comparison record with energy $\tfrac12(k_i-M_ek_j)^\top W_a(k_i-M_ek_j)$
-and $W_a\succ0$, the current includes mean mismatch and uncertainty:
+and $W_a\succ0$ that is the only term of $H_o$ reading $\mathring\omega_e$, and belief
+marginals with finite second moments, the current includes mean mismatch and uncertainty:
 \begin{equation}
 \mathbf J_e=W_a\left[(\mu_i-M_e\mu_j)\mu_j^\top+\Sigma_{ij}-M_e\Sigma_j\right].
 \label{eq:latent_link_delta_current}
@@ -58,10 +68,11 @@ Here $\Sigma_{ij}$ is the cross covariance under $Q_Y$, zero for product matter.
 The error outer product has the delta-rule form, while the remaining terms retain
 dependence and source uncertainty. Selective source records insert their recognized
 weight and comparison maps, with a generator-independent recognition row in the
-displayed specialization.
+displayed specialization; Appendix~\ref{app:llp_field} derives both currents.
 This form does not identify a fast-weight architecture. A point mass at $\mathring\mu$
 has infinite $D_{\mathrm{KL}}$ from a nondegenerate Gaussian generator prior; a most
-probable link is a generative mode rather than a recognition optimum of zero width.
+probable link is a generative mode rather than a recognition optimum of zero width
+(Appendices~\ref{app:llp_held} and~\ref{app:llp_field}).
 
 \subsection{Fisher inference and a finite learning step}
 \label{sec:latent_link_recognition}
@@ -76,6 +87,11 @@ generator-prior parameters, define, up to a recognition-independent constant,
 \mathring\Sigma^{-1}(\mathring\omega-\mathring\alpha)\rangle.
 \label{eq:latent_link_integrand}
 \end{equation}
+Assume bounded record densities with positive conditional evidence at every generator,
+let $\lambda$ range over a finite-dimensional $C^2$ manifold with a $C^1$ positive-definite
+metric $\mathsf G_Y$, and let the free energy of $R\otimes Q_\lambda$ be $C^2$ and each
+$\mathfrak i_\lambda$ be $C^2$ with
+$|\mathfrak i_\lambda|+\|\nabla\mathfrak i_\lambda\|+\|\nabla^2\mathfrak i_\lambda\|\leq c_1e^{c_2\|\mathring\omega\|}$.
 For $\mathcal Q=R\otimes Q_\lambda$ the joint inference law is
 $\dot{\mathcal Q}=-\operatorname{grad}^{\mathsf G}\mathcal F_V$,
 with $d\mathcal F_V/dt=-\|\operatorname{grad}^{\mathsf G}\mathcal F_V\|_{\mathsf G}^2$.
@@ -91,8 +107,11 @@ precision, is the Gaussian Bayesian learning rule:
 \label{eq:latent_link_blr}
 \end{equation}
 The projection selects full, edge-block or diagonal precision. Admissibility requires
-$\mathring\Lambda'\succ0$; finite-step descent additionally requires the relative
-curvature bound in expectation coordinates and a sufficiently small step.
+$\mathring\Lambda'\succ0$. Finite-step descent additionally requires a relative curvature
+bound: on the segment joining the expectation parameters of the two Gaussian laws, the
+Hessian of the free energy in these coordinates is at most $c_{\mathsf G}$ times the Fisher
+metric of the family in the same coordinates, and the step satisfies
+$\Delta t\leq1/c_{\mathsf G}$ (Appendix~\ref{app:llp_flow}).
 A unit step gives the Gaussian minimizer for a positive quadratic integrand in the full
 family. General convergence and automatically slower link recognition are not established.
 The continuous law is first order and dissipative; its Fisher metric acts as friction
@@ -117,8 +136,10 @@ increment $\mathfrak U=\tfrac12\|\mathring\omega'-\mathring\omega\|^2$ or the no
 metric loop defect of $\exp(-\mathring\omega'_e)\exp(\mathring\omega_e)$ is admitted.
 A finite nonnegative action gives $0<Z_{\mathrm{hist}}\leq1$. The exact forward kernels
 include backward normalizers depending on the horizon; normalizing each increment
-independently usually gives a different law. Links between copies of one agent across
-episodes are identities, with no extra latent variable.
+independently gives the same law only when the last backward normalizer is almost
+everywhere constant, which fails already for one scalar Gaussian generator. Links between
+copies of one agent across episodes are identities, with no extra latent variable
+(Appendix~\ref{app:llp_history}).
 
 Let $\mathfrak V_n$ include the anchor quadratic, loop action and any declared episode
 matter term. Gaussian increments give the exact interior stationarity equation
@@ -131,21 +152,25 @@ matter term. Gaussian increments give the exact interior stationarity equation
 \label{eq:latent_link_history_inertia}
 \end{equation}
 Free endpoints have one-sided equations; held endpoints impose boundary values.
-A minimizing history exists under the stated coercivity condition. With unit episode
+A minimizing history exists when each $\mathfrak V_n$ is continuous and
+$\sum_n\mathfrak V_n(\mathring\omega^{(n)})\to\infty$ as the history norm diverges, as when
+each $\mathfrak V_n$ is at least the anchor quadratic minus a constant. With unit episode
 spacing the central difference has the Euclidean sign
 $\mathbf m\ddot{\mathring\omega}=+\nabla\mathfrak V$, corresponding to Newtonian potential
 $-\mathfrak V$. Increment precision acts as mass in this history equation without
-establishing a physical mass or real-time dynamics in $+\mathfrak V$. The time-like loop
-defect gives a generator-dependent increment tensor, agreeing with the Gaussian equation
-only at its controlled near-zero order.
+establishing a physical mass or real-time dynamics in $+\mathfrak V$. When $\mathrm d\rho$
+is injective and generators carry the inner product pulled back from the fiber trace norm,
+the time-like loop defect gives a generator-dependent increment tensor, agreeing with the
+Gaussian equation only at its controlled near-zero order (Appendix~\ref{app:llp_history}).
 
 \subsection{The Proca-type operator and its domain of validity}
 \label{sec:latent_link_proca}
 
 Assume $\mathrm d\rho$ is injective and give generators the inner product pulled back
 from the fiber trace norm; all adjoints and increment norms below use this metric.
-For zero anchor, fixed product Gaussian matter, and the specified quadratic comparison
-records with generator-independent weights $\beta_a\in[0,1]$, the history equation to
+For zero anchor, fixed product Gaussian matter, and quadratic comparison records of the
+form above on edge copies $e:j\to i$ of $E_+$ or their reversals, entering with
+generator-independent weights $\beta_a\in[0,1]$, the history equation to
 first order jointly in generators and individual currents is
 \begin{equation}
 \boxed{\begin{aligned}
@@ -192,4 +217,5 @@ If $c_0=\|\mathbf N_0\|$, $c_r=\sup_{\|\mathring\omega\|\leq r}\|D^3\mathcal A^{
 $c_0+c_rr\leq c_{\mathring\Sigma}/2$ and $\|\mathbf j\|\leq c_{\mathring\Sigma}r/4$, there
 is exactly one critical history in that ball, with a controlled second-order discrepancy
 from $\mathbf K^{-1}\mathbf j$. This local conclusion establishes neither global uniqueness
-of nonlinear histories nor a universal link timescale.
+of nonlinear histories nor a universal link timescale. Appendix~\ref{app:llp_linear} proves
+these statements and bounds the discrepancy explicitly.

@@ -97,7 +97,7 @@ The framed states and reference moments of Section~\ref{unified:objects} supply 
 \beta_{ij}^{(h)}=\frac{\pi_{ij}^{(h)}\exp[-D_{ij}^{(h)}/\tau_h]}{\sum_{k\in S_i}\pi_{ik}^{(h)}\exp[-D_{ik}^{(h)}/\tau_h]}, \qquad \tau_h>0.
 \label{unified:source_row}
 \end{equation}
-This row uniquely minimizes $\sum_j\beta_{ij}^{(h)}D_{ij}^{(h)}+\tau_h\mathrm{KL}(\beta_i^{(h)}\Vert\pi_i^{(h)})$. It is also the exact posterior after observing a declared binary compatibility record with success probability $\exp(-D_{ij}^{(h)}/\tau_h)$, the optimality-record construction of control as inference \cite{unified:levine2018}. Exactness is conditional on that record model. It neither makes the record an observed training datum nor derives the cost from symmetry. At unit temperature a separate fixed-query Gaussian-mixture variational model gives the same row; that construction is not reproduced here. The probabilistic readings should remain distinct.
+This row uniquely minimizes $\sum_j\beta_{ij}^{(h)}D_{ij}^{(h)}+\tau_h\mathrm{KL}(\beta_i^{(h)}\Vert\pi_i^{(h)})$. It is also the exact posterior after observing a declared binary compatibility record with success probability $\exp(-D_{ij}^{(h)}/\tau_h)$, the optimality-record construction of control as inference \cite{unified:levine2018}. Exactness is conditional on that record model. It neither makes the record an observed training datum nor derives the cost from symmetry. At unit temperature, and for the Gaussian comparison cost of Eq.~\eqref{inference:p:eq:routing_cost}, a separate fixed-query Gaussian-mixture variational model gives the same row. Proposition~\ref{unified:row:prop:row} proves these three characterizations. The probabilistic readings should remain distinct.
 
 The first two moments of a normalized predictive mixture-of-channels kernel, including shared-source, cross-head, and residual self-edge terms, are derived in Proposition~\ref{inference:p:prop:covariance}. Historical runs used covariance passthrough. The predictive section below connects that covariance derivation to the current moment-matched implementation and states the projection imposed by diagonal storage. A static-covariance normal form describes only the passthrough configuration; $C_i$ must be allowed to vary with depth when moment matching or receiver inference updates it.
 
@@ -115,14 +115,14 @@ Local mechanisms can be placed beside a normalized population model. On a regula
 -\mathbb E_Q\log\frac{p_\theta(z,o)}{q(z)}=\mathrm{KL}\bigl(Q\Vert P_\theta(\cdot\mid o)\bigr)-\log p_\theta(o).
 \label{unified:elbo}
 \end{equation}
-The evidence identity is exact for the declared joint and recognition family \cite{unified:blei2017}. It does not identify arbitrary layer composition with coordinate minimization. A population construction with source labels, latent reliability, correlated Gaussian recognition, and reference-relative information control lies outside this document. In such a construction the source weights use expected record residuals, including cross-agent covariance, rather than generically the marginal Gaussian KL of Eq.~\eqref{unified:source_row}; it shares a categorical variational mechanism with the local constructions but uses a different energy. These statements about the population construction are not derived here.
+The evidence identity is exact for the declared joint and recognition family \cite{unified:blei2017}. It does not identify arbitrary layer composition with coordinate minimization. Appendix~\ref{unified:population} constructs a normalized population model with source labels, latent reliability, correlated Gaussian recognition, and reference-relative information control. Its source weights use expected record residuals, including cross-agent covariance, rather than generically the marginal Gaussian KL of Eq.~\eqref{unified:source_row}; it shares a categorical variational mechanism with the local constructions but uses a different energy (Proposition~\ref{unified:pop:prop:row}). The population model is a declared statistical construction, not a description of the implemented attention stack.
 
 For a joint state with covariance blocks $\Gamma_{ij}$, the residual $x_i-L_{ij}x_j$ has covariance
 \begin{equation}
 \Gamma_{ii}+L_{ij}\Gamma_{jj}L_{ij}^\top-\Gamma_{ij}L_{ij}^\top-L_{ij}\Gamma_{ji}.
 \label{unified:population_residual}
 \end{equation}
-The cross terms vanish under a product-state assumption, not from knowledge of the marginals. Regression links below use such cross covariances; current per-token covariance tensors do not provide them. Repeating inference under fixed factors has a frozen-objective interpretation, whereas untied depth-dependent maps need a larger model before one global descent statement is available. A causal mask also does not remove source-side derivatives of a population energy. Prefix-only state construction, shared across candidate next tokens, is what gives the implemented categorical predictor its normalized autoregressive law.
+The cross terms vanish under a product-state assumption, not from knowledge of the marginals. Regression links below use such cross covariances; current per-token covariance tensors do not provide them. Repeating inference under fixed factors has a frozen-objective interpretation, whereas untied depth-dependent maps need a larger model before one global descent statement is available. A causal mask also does not remove source-side derivatives of a population energy (Remark~\ref{unified:pop:rem:causal}). Prefix-only state construction, shared across candidate next tokens, is what gives the implemented categorical predictor its normalized autoregressive law.
 
 \subsection{Evidence and integration scope}
 \label{unified:evidence_scope}
@@ -141,7 +141,7 @@ and the projected predictive mean is $\mu_i^+=r\mu_i+\sum_{h,j}\beta_{ij}^{(h)}L
 
 A group-valued link is a field $\Theta_{ij}\in\GL(K)$ with the same law $\Theta_{ij}\mapsto g_i\Theta_{ij}g_j^{-1}$, which is the lattice gauge field of Wilson \cite{links:wilson1974}. The primary construction for future integration is the exponential link $\Theta_{ij}=U_i\exp(X_{ij})U_j^{-1}$ developed below. A low-rank content map is its infinitesimal channel term, and on an appropriate logarithm domain its finite channel correction has an exact affine representation. Compression of a primitive link and the presently implemented head sum provide complementary realizations and implementation comparisons. They do not change the choice of the exponential construction as the geometric starting point.
 
-Two facts constrain any answer. First, when $d<K$, $L_{ij}^{(h)}$ has rank at most $d<K$, so for any $M$ the product $L^{(h)}M$ is singular, and no factorization $\Theta=L^{(h)}N$ of a group element exists. The relation between $L$ and $\Theta$ must be additive, through a block of $\Theta$, or infinitesimal, through the Lie algebra. Second, on causal support every source satisfies $j\le i$, so a closed directed walk can only be a self-loop. The triangle constructions below explicitly complete this graph with inverse reverse edges. They do not claim that a forward causal computation contains a directed cycle. An existing invertible composite edge can be given such a reverse edge without adding an independently learned connection; a separately computed reverse attention map need not equal that inverse. Singular links admit closed matrix products on a declared extended graph, but do not supply inverse reverse edges. This distinction preserves the rank and composition algebra of the projected links and the separation of $\Omega$ from communication links \cite{links:wilson1974,links:kogut1979}.
+Two facts constrain any answer. First, when $d<K$, $L_{ij}^{(h)}$ has rank at most $d<K$, so for any $M$ the product $L^{(h)}M$ is singular, and no factorization $\Theta=L^{(h)}N$ of a group element exists. The relation between $L$ and $\Theta$ must be additive, through a block of $\Theta$, or infinitesimal, through the Lie algebra. Second, on causal support every source satisfies $j\le i$, so positions never decrease along a directed walk, and a closed directed walk, which returns to its starting position, can only traverse self-loops. The triangle constructions below explicitly complete this graph with inverse reverse edges. They do not claim that a forward causal computation contains a directed cycle. An existing invertible composite edge can be given such a reverse edge without adding an independently learned connection; a separately computed reverse attention map need not equal that inverse. Singular links admit closed matrix products on a declared extended graph, but do not supply inverse reverse edges. This distinction preserves the rank and composition algebra of the projected links and the separation of $\Omega$ from communication links \cite{links:wilson1974,links:kogut1979}.
 
 
 The connection discussed here belongs to the declared communication graph over labeled token fibers. It is not the curvature of a smooth contextual bundle. Its token construction is a constant-context pullback with a common reference trivialization. Passive covariance follows from the endpoint frames and does not constrain the reference maps to be intertwiners. Under a common reference change $a$, every reference link is conjugated by $a^{-1}$; the shared family of reference links therefore retains simultaneous-similarity data. Flatness of the link field is also weaker than alignment with the specific frame transport $\Omega_{ij}$: a distinct coboundary can be flat while changing the communication law.
@@ -904,12 +904,12 @@ Before capping this nonnegative cost differs from the Gaussian negative log like
 
 \paragraph{Gibbs routing.}
 With a source prior $\pi_{ij}^{h}$ and a temperature $\tau_h>0$, the routing weights minimize
-$\sum_j\beta_jD_{ij}^{h}+\tau_h\sum_j\beta_j\log(\beta_j/\pi_{ij}^{h})$ on the simplex, with unique solution
+$\sum_j\beta_jD_{ij}^{h}+\tau_h\sum_j\beta_j\log(\beta_j/\pi_{ij}^{h})$ on the simplex, with unique solution (Proposition~\ref{unified:row:prop:row}, item 1)
 \begin{equation}
 \beta_{ij}^{h}=\softmax_j\bigl(-D_{ij}^{h}/\tau_h+\log\pi_{ij}^{h}\bigr).
 \label{inference:p:eq:gibbs}
 \end{equation}
-The causal support sets $\pi_{ij}^{h}=0$ for $j>i$. Under \cfg{beta\_attention\_prior="causal\_alibi"} the prior adds a head-dependent linear distance penalty. The implemented temperature is $\tau_h=\kappa_{\beta,h}\sqrt{d_h}$, with equal $d_h=d$ in the admitted architecture. The code bounds the score to $\widehat D=\operatorname{clip}_{[0,D_{\max}]}D$ and maps nonfinite values to configured endpoints before computing $\softmax_j(B_{ij}^h-\widehat D_{ij}^h/\tau_h)$, for unnormalized log-prior $B$. Normalizing $B$ adds only a row constant. The launcher sets $D_{\max}=8K$. Unmodified Gaussian-KL semantics require an inactive cap, while categorical optimality holds for the actual bounded cost. Equation~\eqref{inference:p:eq:gibbs} is an exact posterior at every temperature: attaching to each receiver and head a binary compatibility record with likelihood $\exp(-D_{ij}^{h}/\tau_h)$ makes $\beta_{ij}^{h}$ the posterior of the source label given the record, as in Section~\ref{unified:main_bridge} \citep{unified:levine2018}. This establishes consistency with exact inference; it does not show that attention must be inference.
+The causal support sets $\pi_{ij}^{h}=0$ for $j>i$. Under \cfg{beta\_attention\_prior="causal\_alibi"} the prior adds a head-dependent linear distance penalty. The implemented temperature is $\tau_h=\kappa_{\beta,h}\sqrt{d_h}$, with equal $d_h=d$ in the admitted architecture. The code bounds the score to $\widehat D=\operatorname{clip}_{[0,D_{\max}]}D$ and maps nonfinite values to configured endpoints before computing $\softmax_j(B_{ij}^h-\widehat D_{ij}^h/\tau_h)$, for unnormalized log-prior $B$. Normalizing $B$ adds only a row constant. The launcher sets $D_{\max}=8K$. Unmodified Gaussian-KL semantics require an inactive cap, while categorical optimality holds for the actual bounded cost. Equation~\eqref{inference:p:eq:gibbs} is an exact posterior at every temperature: attaching to each receiver and head a binary compatibility record with likelihood $\exp(-D_{ij}^{h}/\tau_h)$ makes $\beta_{ij}^{h}$ the posterior of the source label given the record (Proposition~\ref{unified:row:prop:row}, item 2), the optimality-record construction of \citep{unified:levine2018}. This establishes consistency with exact inference; it does not show that attention must be inference.
 
 \subsubsection{One layer: content and the predictive mean}
 \label{inference:p:sec:content}
@@ -1114,7 +1114,7 @@ p_{\mathrm A}^*(x)\propto p(x)^{\alpha/c}\prod_{h,j}t_{hj}(x)^{w_{hj}/c}.
 Its covariance $c\Lambda^{-1}$ is not an algebraic error. It differs from a posterior interpreting the same $\Lambda$ as accumulated likelihood precision. The channel model declares that alternative meaning; entropy coefficients must be interpreted with the complete objective and its scaling.
 
 \paragraph{The routing entropy.}
-The term $\tau\sum_j\beta_j\log(\beta_j/\pi_j)$ makes the Gibbs weights the minimizer of the headwise routing objective stated after Eq.~\eqref{unified:source_row}. Whether it belongs in the receiver gradient depends on whether routing and content are inferred jointly.
+The term $\tau\sum_j\beta_j\log(\beta_j/\pi_j)$ makes the Gibbs weights the minimizer of the headwise routing objective stated after Eq.~\eqref{unified:source_row} (Proposition~\ref{unified:row:prop:row}, item 1). Whether it belongs in the receiver gradient depends on whether routing and content are inferred jointly.
 
 \begin{definition}[Joint routing]
 \label{inference:g:def:joint}
@@ -2315,7 +2315,7 @@ A discussion of causal loops should state both that directed causal walks cannot
 
 General derivative formulas for Gaussian beliefs and frames remain to be connected to the specific frozen receiver objective and to the current frame optimizers. Ambient alignment and channel likelihood count receiver entropy differently; exact natural-parameter evolution belongs to a frozen quadratic Gaussian objective. The pooled frame Fisher is defined by a specified statistical orbit and a declared sampling design, with stabilizer completion distinguished from the Fisher itself. A frame-table implementation does not establish that the content-map optimizer or the entire language-model training algorithm is Fisher-natural.
 
-The fixed-joint evidence identity of Eq.~\eqref{unified:elbo} remains the general probabilistic reference. The population residual covariance of Eq.~\eqref{unified:population_residual} is also the appropriate bridge to regression links and correlated receivers. Source and reliability inference with information control under one objective is not constructed here (Section~\ref{unified:companions}). The present local mechanisms should be related to such a construction by explicit model and recognition restrictions, rather than by substituting marginal KL scores for expected population record costs. Template mixture inference is one specified route to a nonlinear block, not a theorem that every feed-forward network optimizes that objective.
+The fixed-joint evidence identity of Eq.~\eqref{unified:elbo} remains the general probabilistic reference. The population residual covariance of Eq.~\eqref{unified:population_residual} is also the appropriate bridge to regression links and correlated receivers. Appendix~\ref{unified:population} constructs source and reliability inference with information control under one objective for a declared population model, with exact coordinate updates that never increase that objective (Corollary~\ref{unified:pop:cor:descent}); it does not cover the composed attention stack. The present local mechanisms should be related to such a construction by explicit model and recognition restrictions, rather than by substituting marginal KL scores for expected population record costs (Proposition~\ref{unified:pop:prop:row}). Template mixture inference is one specified route to a nonlinear block, not a theorem that every feed-forward network optimizes that objective.
 
 \subsection{Choices that remain open}
 
@@ -2327,6 +2327,262 @@ Empirical comparisons remain separate from these derivations. A useful compariso
 
 The normalized autoregressive predictor and the local inference results remain valid within their stated domains. A single population ELBO for the entire composed stack still requires an explicit joint, an observation model, a recognition family, and an account of each finite update. This obligation survives the unification of the notation.
 \appendix
+\section{Characterizations of the routing row}
+\label{unified:row}
+
+This appendix proves the three readings of the routing row stated in Section~\ref{unified:main_bridge} and used in Eq.~\eqref{inference:p:eq:gibbs}. Fix a layer, a head, and a receiver $i$, and suppress the head index. The input states are fixed at their values for the layer, so every cost below is a number rather than a quantity being optimized. The allowed support $S_i$ is finite and nonempty, the source prior satisfies $\pi_{ij}>0$ for $j\in S_i$ and $\sum_{j\in S_i}\pi_{ij}=1$, the temperature is $\tau>0$, and every cost $D_{ij}$ with $j\in S_i$ is finite. Let $\Delta(S_i)$ be the probability simplex on $S_i$, use the convention $0\log0=0$, and put
+\begin{equation}
+\begin{aligned}
+\mathcal A_i(\beta)&=\sum_{j\in S_i}\beta_jD_{ij}+\tau\KL(\beta\Vert\pi_i),\qquad \beta\in\Delta(S_i),\\
+Z_i&=\sum_{k\in S_i}\pi_{ik}e^{-D_{ik}/\tau},\qquad \beta_{ij}^\star=\frac{\pi_{ij}e^{-D_{ij}/\tau}}{Z_i}.
+\end{aligned}
+\label{unified:row:eq:objective}
+\end{equation}
+The row $\beta_i^\star$ is Eq.~\eqref{unified:source_row} for the suppressed head.
+
+\begin{proposition}[Three characterizations of the routing row]
+\label{unified:row:prop:row}
+Under the standing assumptions of this appendix, the following hold.
+\begin{enumerate}
+\item \emph{Entropy-regularized selection.} For every $\beta\in\Delta(S_i)$, $\mathcal A_i(\beta)=\tau\KL(\beta\Vert\beta_i^\star)-\tau\log Z_i$. Hence $\beta_i^\star$ is the unique minimizer of $\mathcal A_i$ on $\Delta(S_i)$, and the minimum value is $-\tau\log Z_i$.
+\item \emph{Exact posterior of a compatibility record.} Assume in addition that $D_{ij}\ge0$ for $j\in S_i$. Let a source label $J$ have law $\pi_i$ on $S_i$, and let a binary record $o\in\{0,1\}$ satisfy $P(o=1\mid J=j)=e^{-D_{ij}/\tau}$. This joint law is normalized, and $P(J=j\mid o=1)=\beta_{ij}^\star$. Moreover $\mathcal A_i(\beta)=\tau\mathcal L_i(\beta)$ for the label free energy $\mathcal L_i(\beta)=\KL(\beta\Vert\pi_i)-\sum_j\beta_j\log P(o=1\mid J=j)$, whose minimum is the surprisal $-\log P(o=1)$.
+\item \emph{Unit-temperature Gaussian mixture.} Let $\tau=1$, let $q_{Q,i}$ and $p_{K,j}$ be the comparison laws of Eq.~\eqref{inference:p:eq:comparison_laws} on $\R^r$, and let $D_{ij}=\KL(q_{Q,i}\Vert p_{K,j})$ be the Gaussian cost of Eq.~\eqref{inference:p:eq:routing_cost}. On $\R^r\times S_i$ declare the normalized local joint and the recognition family
+\begin{equation}
+\mathbb P_i(y,J=j)=\pi_{ij}p_{K,j}(y),\qquad \mathbb Q_{i,\beta}(y,J=j)=\beta_jq_{Q,i}(y),
+\label{unified:row:eq:mixture}
+\end{equation}
+in which the query law is held fixed as the recognition marginal of $y$ and $\beta\in\Delta(S_i)$ is the only recognition variable. Then $\KL(\mathbb Q_{i,\beta}\Vert\mathbb P_i)=\mathcal A_i(\beta)$, so the unique minimizer over $\beta$ is $\beta_i^\star$. Equivalently, $\beta_{ij}^\star=\softmax_{j\in S_i}\bigl(\log\pi_{ij}+\E_{q_{Q,i}}[\log p_{K,j}]\bigr)$, the responsibility of component $j$ of the Gaussian mixture $\sum_k\pi_{ik}p_{K,k}$ when the component log densities are averaged over the query law.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+For item 1, $Z_i$ is positive and finite because $S_i$ is finite, the priors are positive, and the costs are finite; hence $\beta_{ij}^\star>0$ on $S_i$. Substituting $D_{ij}=-\tau\log(\beta_{ij}^\star Z_i/\pi_{ij})$ gives, for $\beta\in\Delta(S_i)$,
+\[
+\mathcal A_i(\beta)=\tau\sum_{j\in S_i}\beta_j\Bigl[\log\frac{\beta_j}{\pi_{ij}}-\log\frac{\beta_{ij}^\star Z_i}{\pi_{ij}}\Bigr]=\tau\sum_{j\in S_i}\beta_j\log\frac{\beta_j}{\beta_{ij}^\star}-\tau\log Z_i,
+\]
+where the terms with $\beta_j=0$ vanish. The relative entropy $\KL(\beta\Vert\beta_i^\star)$ is nonnegative and vanishes only at $\beta=\beta_i^\star$, which proves uniqueness and the minimum value.
+
+For item 2, $D_{ij}\ge0$ gives $e^{-D_{ij}/\tau}\in(0,1]$, so $P(o=1\mid J=j)$ and $P(o=0\mid J=j)=1-e^{-D_{ij}/\tau}$ define a probability kernel and $\sum_{j,o}\pi_{ij}P(o\mid J=j)=1$. Records attached to different receivers and heads are conditionally independent children of their own labels, so their product with the label priors is normalized on any source graph. Bayes' rule gives $P(J=j\mid o=1)=\pi_{ij}e^{-D_{ij}/\tau}/\sum_k\pi_{ik}e^{-D_{ik}/\tau}=\beta_{ij}^\star$. Since $-\log P(o=1\mid J=j)=D_{ij}/\tau$, the label free energy equals $\mathcal A_i/\tau$, and by item 1 its minimum is $-\log Z_i=-\log\sum_j\pi_{ij}P(o=1\mid J=j)=-\log P(o=1)$.
+
+For item 3, both projected covariances are positive definite, so every $p_{K,j}$ has full support and $\mathbb Q_{i,\beta}$ is absolutely continuous with respect to $\mathbb P_i$. At $(y,j)$ with $\beta_j>0$ the log density ratio is $\log(\beta_j/\pi_{ij})+\log\bigl(q_{Q,i}(y)/p_{K,j}(y)\bigr)$. Integrating in $y$ against $q_{Q,i}$ and summing in $j$ against $\beta$ gives $\KL(\beta\Vert\pi_i)+\sum_j\beta_j\KL(q_{Q,i}\Vert p_{K,j})$, which is $\mathcal A_i(\beta)$ at $\tau=1$, and item 1 gives the minimizer. Finally, $\KL(q_{Q,i}\Vert p_{K,j})=-\E_{q_{Q,i}}[\log p_{K,j}]-\Hent(q_{Q,i})$, the entropy $\Hent(q_{Q,i})$ does not depend on $j$, and a softmax is unchanged by a common shift of its arguments.
+\end{proof}
+
+Items 1 and 2 hold for every finite cost, nonnegative in item 2, and at every temperature. The record of item 2 is a declared modeling event rather than an observed datum, so that item shows that the row is consistent with exact inference, not that routing must be inference. Item 3 requires both the Gaussian cost and $\tau=1$. At another temperature $\mathcal A_i(\beta)-\KL(\mathbb Q_{i,\beta}\Vert\mathbb P_i)=(\tau-1)\KL(\beta\Vert\pi_i)$, so the tempered objective is not the relative entropy of the joint in Eq.~\eqref{unified:row:eq:mixture}. The three items rest on different declarations, namely an optimization objective, a record model, and a local mixture with the query law clamped, and none of them supplies a population model or a language-model observation likelihood.
+
+\section{A population model with source and reliability inference}
+\label{unified:population}
+
+This appendix constructs the population model referred to in Sections~\ref{unified:companions} and~\ref{unified:integration}. It is a declared statistical model, not a description of the implemented attention stack. Its latent variables are a correlated population state, one source label for each record, and one reliability for each record. Its recognition family keeps a full Gaussian population state, its Gaussian coordinate can be constrained by a reference-relative information budget, and every update below is an exact coordinate minimization of one objective.
+
+\subsection{Model and evidence}
+
+Fix a finite population of $N\ge2$ agents with fibers $E_i\cong\R^K$, and collect the latent states into $x=(x_1,\ldots,x_N)\in\R^{NK}$. Declare a proper reference law $\varrho(x)=\N(x;\boldsymbol\mu_0,\Lambda_0^{-1})$ with $\Lambda_0\succ0$. Let $a$ range over a finite set $\mathcal R$ of records. Record $a$ has a dimension $d_a\ge1$; a finite nonempty source palette $\mathcal J_a$ with positive probabilities $\pi_{aj}$ summing to one; receiving noise $R_a\succ0$ of size $d_a\times d_a$; a shape parameter $\nu_a>0$; and, for each $j\in\mathcal J_a$, a linear map $\mathsf A_{aj}:\R^{NK}\to\R^{d_a}$ with offset $\mathsf b_{aj}\in\R^{d_a}$. A realization through the links of this document is
+\begin{equation}
+\mathsf A_{aj}x=\mathsf H_a(x_i-L_{ij}x_j),
+\label{unified:pop:eq:link_record}
+\end{equation}
+which attaches record $a$ to receiver $i$ through a declared measurement $\mathsf H_a:E_i\to\R^{d_a}$; a palette may enumerate sources or source-head pairs, with $L_{ij}$ the corresponding link. Neither $\mathsf A_{aj}$ nor $L_{ij}$ needs to be invertible, and the receiving noise stays positive definite when the measured subspace has lower rank. For shape $\kappa>0$ and rate $\theta>0$, write $\mathrm{Gam}(\lambda;\kappa,\theta)=\theta^\kappa\lambda^{\kappa-1}e^{-\theta\lambda}/\Gamma(\kappa)$ for the Gamma density on $\lambda>0$.
+
+\begin{definition}[Population model]
+\label{unified:pop:def:model}
+Give each record a source label $z_a\in\mathcal J_a$ and a reliability $\lambda_a>0$, and let $o=(o_a)_{a\in\mathcal R}$ with $o_a\in\R^{d_a}$ be the records. The joint density, with respect to Lebesgue measure in $x$, $\lambda$, and $o$ and counting measure in $z$, is
+\begin{equation}
+p(x,z,\lambda,o)=\varrho(x)\prod_{a\in\mathcal R}\pi_{az_a}\mathrm{Gam}\bigl(\lambda_a;\tfrac{\nu_a}{2},\tfrac{\nu_a}{2}\bigr)\N\bigl(o_a;\mathsf A_{az_a}x+\mathsf b_{az_a},R_a/\lambda_a\bigr).
+\label{unified:pop:eq:joint}
+\end{equation}
+\end{definition}
+
+For record $a$ and source $j$, write the residual and its energy as
+\begin{equation}
+e_{aj}(x)=o_a-\mathsf b_{aj}-\mathsf A_{aj}x,\qquad s_{aj}(x)=e_{aj}(x)^\top R_a^{-1}e_{aj}(x).
+\label{unified:pop:eq:energy}
+\end{equation}
+
+\begin{proposition}[Normalization and finite evidence]
+\label{unified:pop:prop:normalization}
+Equation~\eqref{unified:pop:eq:joint} is a probability density, and every finite record vector $o$ has evidence $0<p(o)<\infty$.
+\end{proposition}
+
+\begin{proof}
+The density is nonnegative, so Tonelli's theorem permits integration in any order. Integrating each Gaussian record over $o_a$, summing each label against $\pi_a$, integrating each Gamma factor, and finally integrating $\varrho$ gives total mass one. All records are generated from one latent population state, so cycles among the agent pairs of Eq.~\eqref{unified:pop:eq:link_record} are permitted. For the evidence, put $\kappa_a=(\nu_a+d_a)/2$. The Gamma integral $\int_0^\infty\lambda^{\kappa_a-1}e^{-\lambda(\nu_a+s)/2}d\lambda=\Gamma(\kappa_a)\bigl((\nu_a+s)/2\bigr)^{-\kappa_a}$ gives
+\begin{equation}
+p(o_a\mid x,z_a=j)=\frac{\Gamma(\kappa_a)}{\Gamma(\nu_a/2)(\pi\nu_a)^{d_a/2}\det(R_a)^{1/2}}\Bigl(1+\frac{s_{aj}(x)}{\nu_a}\Bigr)^{-\kappa_a},
+\label{unified:pop:eq:student}
+\end{equation}
+a multivariate Student density. It is positive and, since $s_{aj}\ge0$, bounded above by its leading constant $c_a$. Under the prior, labels and reliabilities are independent across records and of $x$, and records are conditionally independent given $(x,z,\lambda)$, so $p(o\mid x)=\prod_a\sum_j\pi_{aj}p(o_a\mid x,z_a=j)$ lies in $(0,\prod_ac_a]$ for every $x$. Integrating against the proper reference $\varrho$, which has full support, gives $0<p(o)\le\prod_ac_a$.
+\end{proof}
+
+\subsection{Recognition, objective, and coordinate updates}
+
+The recognition family is
+\begin{equation}
+q(x,z,\lambda)=Q(x)\prod_{a\in\mathcal R}\beta_a(z_a)\gamma_a(\lambda_a),\qquad Q=\N(\boldsymbol\mu,\Gamma),\qquad\Gamma\succ0,
+\label{unified:pop:eq:recognition}
+\end{equation}
+where $\boldsymbol\mu=(\mu_1,\ldots,\mu_N)$ and $\Gamma$ has $K\times K$ blocks $\Gamma_{ij}$. The diagonal block $\Gamma_{ii}$ is the covariance of agent $i$, and the off-diagonal blocks are cross-agent covariances; a product of site Gaussians is the further restriction $\Gamma_{ij}=0$ for $i\ne j$. Each $\beta_a$ is a probability vector on $\mathcal J_a$. Each $\gamma_a$ is a density on $(0,\infty)$ with finite $w_a=\E_{\gamma_a}\lambda_a$, finite $\E_{\gamma_a}\lvert\log\lambda_a\rvert$, and finite relative entropy to $\mathrm{Gam}(\nu_a/2,\nu_a/2)$; every Gamma density with finite positive shape and rate qualifies. The auxiliary factors are independent of the population state under recognition, whereas the exact posterior generally has neither that independence nor Gaussian state marginals. Put $\ell_a=\E_{\gamma_a}\log\lambda_a$, $\bar e_{aj}=e_{aj}(\boldsymbol\mu)$, and
+\begin{equation}
+\delta_{aj}=\E_Qs_{aj}=\bar e_{aj}^\top R_a^{-1}\bar e_{aj}+\Tr\bigl(R_a^{-1}\mathsf A_{aj}\Gamma\mathsf A_{aj}^\top\bigr),
+\label{unified:pop:eq:residual}
+\end{equation}
+the expected residual energy of record $a$ under source $j$. The second equality follows by writing $e_{aj}(x)=\bar e_{aj}-\mathsf A_{aj}(x-\boldsymbol\mu)$ and using $\E_Q(x-\boldsymbol\mu)=0$ and $\E_Q(x-\boldsymbol\mu)(x-\boldsymbol\mu)^\top=\Gamma$.
+
+\begin{lemma}[Population free energy]
+\label{unified:pop:lem:free_energy}
+For $q$ in the family of Eq.~\eqref{unified:pop:eq:recognition},
+\begin{equation}
+\begin{aligned}
+\F_{\mathrm{pop}}(q)&=\E_q\log\frac{q(x,z,\lambda)}{p(x,z,\lambda,o)}\\
+&=\KL(Q\Vert\varrho)+\sum_a\KL(\beta_a\Vert\pi_a)+\sum_a\KL\bigl(\gamma_a\Vert\mathrm{Gam}(\tfrac{\nu_a}{2},\tfrac{\nu_a}{2})\bigr)\\
+&\qquad+\frac12\sum_a\Bigl[d_a\log(2\pi)+\log\det R_a-d_a\ell_a+w_a\sum_{j\in\mathcal J_a}\beta_{aj}\delta_{aj}\Bigr],
+\end{aligned}
+\label{unified:pop:eq:free_energy}
+\end{equation}
+every term is finite, and $\F_{\mathrm{pop}}(q)=\KL\bigl(q\Vert p(\cdot\mid o)\bigr)-\log p(o)$. This is the evidence identity of Eq.~\eqref{unified:elbo} with $(x,z,\lambda)$ as the latent variable.
+\end{lemma}
+
+\begin{proof}
+The log density of record $a$ is $-\tfrac{d_a}{2}\log(2\pi)-\tfrac12\log\det R_a+\tfrac{d_a}{2}\log\lambda_a-\tfrac{\lambda_a}{2}s_{az_a}(x)$. Under $q$ the variables $x$, $z_a$, and $\lambda_a$ are independent, so its expectation is $-\tfrac{d_a}{2}\log(2\pi)-\tfrac12\log\det R_a+\tfrac{d_a}{2}\ell_a-\tfrac{w_a}{2}\sum_j\beta_{aj}\delta_{aj}$. The remaining factors of $q$ and $p$ pair into the three relative entropies. These are finite for a nondegenerate Gaussian $Q$, positive priors $\pi_a$, and the stated conditions on $\gamma_a$, and $\ell_a$, $w_a$, and $\delta_{aj}$ are finite. Since $p(x,z,\lambda\mid o)=p(x,z,\lambda,o)/p(o)$ with $0<p(o)<\infty$ by Proposition~\ref{unified:pop:prop:normalization}, the last identity follows by adding and subtracting $\log p(o)$.
+\end{proof}
+
+The objective contains one population-state entropy and one entropy for each auxiliary factor. Its identity with a relative entropy minus the log evidence holds for the restricted family; it does not mean that recognition equals the posterior.
+
+\begin{proposition}[Coordinate minimizers]
+\label{unified:pop:prop:coordinates}
+Hold all factors of $q$ but one fixed.
+\begin{enumerate}
+\item The unique minimizing source row of record $a$ is
+\begin{equation}
+\beta_{aj}^\star=\frac{\pi_{aj}\exp(-E_{aj})}{\sum_{k\in\mathcal J_a}\pi_{ak}\exp(-E_{ak})},\qquad E_{aj}=\tfrac12w_a\delta_{aj}.
+\label{unified:pop:eq:row}
+\end{equation}
+\item The unique minimizing reliability factor of record $a$ is
+\begin{equation}
+\gamma_a^\star=\mathrm{Gam}\Bigl(\frac{\nu_a+d_a}{2},\frac{\nu_a+\sum_j\beta_{aj}\delta_{aj}}{2}\Bigr),\qquad w_a^\star=\E_{\gamma_a^\star}\lambda_a=\frac{\nu_a+d_a}{\nu_a+\sum_j\beta_{aj}\delta_{aj}}.
+\label{unified:pop:eq:reliability}
+\end{equation}
+\item The unique minimizing Gaussian state factor is $Q_\star=\N(\Lambda_\star^{-1}\eta_\star,\Lambda_\star^{-1})$, with
+\begin{equation}
+\Lambda_\star=\Lambda_0+\sum_{a,j}w_a\beta_{aj}\mathsf A_{aj}^\top R_a^{-1}\mathsf A_{aj},\qquad
+\eta_\star=\Lambda_0\boldsymbol\mu_0+\sum_{a,j}w_a\beta_{aj}\mathsf A_{aj}^\top R_a^{-1}(o_a-\mathsf b_{aj}).
+\label{unified:pop:eq:state}
+\end{equation}
+For every density $Q$ on $\R^{NK}$ with finite second moments and finite entropy, the $Q$-dependent part of Eq.~\eqref{unified:pop:eq:free_energy} equals $\KL(Q\Vert Q_\star)$ plus a constant, so $Q_\star$ is also the unique minimizer in that larger class.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+For item 1, the terms of Eq.~\eqref{unified:pop:eq:free_energy} that involve $\beta_a$ are $\KL(\beta_a\Vert\pi_a)+\sum_j\beta_{aj}E_{aj}$; the noise $R_a$ and the dimension $d_a$ do not depend on the label, so the other terms of record $a$ are constant in $\beta_a$. This is the objective $\mathcal A_i$ of Eq.~\eqref{unified:row:eq:objective} at $\tau=1$ with prior $\pi_a$ and cost $E_{aj}$, and Proposition~\ref{unified:row:prop:row}, item 1, gives the unique minimizer. For item 2, expanding the Gamma prior and collecting $-\tfrac{d_a}{2}\ell_a+\tfrac{w_a}{2}\sum_j\beta_{aj}\delta_{aj}$ shows that the terms involving $\gamma_a$ are
+\[
+\E_{\gamma_a}\Bigl[\log\gamma_a(\lambda_a)-\Bigl(\frac{\nu_a+d_a}{2}-1\Bigr)\log\lambda_a+\frac{\nu_a+\sum_j\beta_{aj}\delta_{aj}}{2}\lambda_a\Bigr]+\text{const}.
+\]
+Because $\nu_a>0$ and $\delta_{aj}\ge0$, the rate in Eq.~\eqref{unified:pop:eq:reliability} is positive and finite, and the bracket equals $\log(\gamma_a/\gamma_a^\star)$ up to the logarithm of the normalizing constant of $\gamma_a^\star$. The coordinate objective is therefore $\KL(\gamma_a\Vert\gamma_a^\star)$ plus a constant, minimized only by $\gamma_a^\star$, which satisfies the integrability conditions; its mean is the ratio of shape to rate. For item 3, the terms involving $Q$ are $\KL(Q\Vert\varrho)+\tfrac12\sum_{a,j}w_a\beta_{aj}\E_Qs_{aj}$. Expanding $-\log\varrho$ and the quadratic forms $s_{aj}$ gives $\E_Q[\log Q+\tfrac12x^\top\Lambda_\star x-\eta_\star^\top x]+\text{const}$, which is $\KL(Q\Vert Q_\star)+\text{const}$. Each added precision term is positive semidefinite, so $\Lambda_\star\succeq\Lambda_0\succ0$ and $Q_\star$ is a nondegenerate Gaussian. Relative entropy is nonnegative and vanishes only at $Q=Q_\star$.
+\end{proof}
+
+The coordinate temperature in Eq.~\eqref{unified:pop:eq:row} is one, fixed by the joint of Eq.~\eqref{unified:pop:eq:joint}. Because the minimizer in item 1 is unique, a row computed with another temperature, or with any cost other than $E_{aj}$ that changes the row, is not a coordinate minimizer of $\F_{\mathrm{pop}}$. The inferred reliability $w_a^\star$ decreases as the expected residual $\sum_j\beta_{aj}\delta_{aj}$ increases.
+
+\subsection{Relation to the local routing row}
+
+\begin{proposition}[Population source weights]
+\label{unified:pop:prop:row}
+Consider the source row of Eq.~\eqref{unified:pop:eq:row} for a record $a$ attached to receiver $i$.
+\begin{enumerate}
+\item The row of Eq.~\eqref{unified:pop:eq:row} is the routing row of Eq.~\eqref{unified:source_row} at unit temperature, with prior $\pi_a$ and with the energy $E_{aj}=\tfrac12w_a\delta_{aj}$ in place of the comparison cost. Both rows minimize a linear energy plus the relative entropy to the prior on the simplex. The population energy is an expected record residual, and its unit temperature is fixed by the joint.
+\item For the link record of Eq.~\eqref{unified:pop:eq:link_record}, with $\bar e_{aj}=o_a-\mathsf b_{aj}-\mathsf H_a(\mu_i-L_{ij}\mu_j)$,
+\begin{equation}
+\delta_{aj}=\bar e_{aj}^\top R_a^{-1}\bar e_{aj}+\Tr\Bigl(R_a^{-1}\mathsf H_a\bigl[\Gamma_{ii}+L_{ij}\Gamma_{jj}L_{ij}^\top-\Gamma_{ij}L_{ij}^\top-L_{ij}\Gamma_{ji}\bigr]\mathsf H_a^\top\Bigr).
+\label{unified:pop:eq:link_residual}
+\end{equation}
+The bracket is the residual covariance of Eq.~\eqref{unified:population_residual} under the recognition law, so the energy depends on the cross-agent blocks $\Gamma_{ij}$.
+\item The population row is not in general a function of site laws. There are recognition states in which two sources $j$ and $k$ of one receiver $i$ have equal priors, identical site laws and frames, and record maps that differ only in the source index, yet $\beta_{aj}^\star\ne\beta_{ak}^\star$. Any row that depends on each source only through its site law and frame, with equal priors, assigns them equal weight; in particular this holds for Eq.~\eqref{unified:source_row} with the Gaussian cost of Eq.~\eqref{inference:p:eq:routing_cost} at every temperature.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Item 1 compares Proposition~\ref{unified:pop:prop:coordinates}, item 1, with Proposition~\ref{unified:row:prop:row}, item 1. For item 2, $\mathsf A_{aj}=\mathsf H_a(E_i-L_{ij}E_j)$, where $E_i$ extracts the block of agent $i$, so $\mathsf A_{aj}\boldsymbol\mu=\mathsf H_a(\mu_i-L_{ij}\mu_j)$ and
+\[
+\mathsf A_{aj}\Gamma\mathsf A_{aj}^\top=\mathsf H_a\bigl(\Gamma_{ii}-\Gamma_{ij}L_{ij}^\top-L_{ij}\Gamma_{ji}+L_{ij}\Gamma_{jj}L_{ij}^\top\bigr)\mathsf H_a^\top.
+\]
+Substitution in Eq.~\eqref{unified:pop:eq:residual} gives Eq.~\eqref{unified:pop:eq:link_residual}. For item 3, take three agents $i$, $j$, and $k$, with any further agents independent of them under $Q$. Let $U_j=U_k$ and $\mu_j=\mu_k$, and let $\Gamma_{ii}=\Gamma_{jj}=\Gamma_{kk}=I_K$, $\Gamma_{ij}=\Gamma_{ji}=\tfrac12I_K$, and $\Gamma_{ik}=\Gamma_{jk}=0$, together with their transposes. The restriction of $\Gamma$ to the three agents is $G\otimes I_K$ with
+\[
+G=\begin{pmatrix}1&\tfrac12&0\\\tfrac12&1&0\\0&0&1\end{pmatrix},
+\]
+whose eigenvalues $\tfrac12$, $1$, and $\tfrac32$ are positive, so $\Gamma\succ0$. Let record $a$ of receiver $i$ have palette $\{j,k\}$, $\pi_{aj}=\pi_{ak}=\tfrac12$, $d_a=K$, $\mathsf H_a=I_K$, $L_{ij}=L_{ik}=I_K$, and $\mathsf b_{aj}=\mathsf b_{ak}$, with any $R_a\succ0$, $o_a$, and $\gamma_a$. Then $\bar e_{aj}=\bar e_{ak}$, and the brackets of Eq.~\eqref{unified:pop:eq:link_residual} are $I_K$ for $j$ and $2I_K$ for $k$. Hence $\delta_{aj}-\delta_{ak}=-\Tr(R_a^{-1})<0$ and
+\[
+\frac{\beta_{aj}^\star}{\beta_{ak}^\star}=\exp\bigl(\tfrac12w_a\Tr(R_a^{-1})\bigr)>1,
+\]
+because $w_a>0$ for a density on $(0,\infty)$. Both sources have site law $\N(\mu_j,I_K)$ and the same frame, so their reference moments $(\xi,C)$ coincide. In particular their key laws and the costs $D_{ij}=D_{ik}$ of Eq.~\eqref{inference:p:eq:routing_cost} agree, and Eq.~\eqref{unified:source_row} with equal priors gives them equal weight at every temperature.
+\end{proof}
+
+Even under the product restriction $\Gamma_{ij}=0$, the energy $E_{aj}$ is affine in the source covariance $\Gamma_{jj}$, whereas the Gaussian cost of Eq.~\eqref{inference:p:eq:routing_cost} depends on the source covariance through $\Tr(P_jV_{Q,i})$ and $\log\det V_{K,j}$. By the uniqueness in Proposition~\ref{unified:pop:prop:coordinates}, substituting a marginal KL score into Eq.~\eqref{unified:pop:eq:row} while retaining Eq.~\eqref{unified:pop:eq:state} does not minimize $\F_{\mathrm{pop}}$ over the source row whenever the substituted row differs from $\beta_a^\star$.
+
+\subsection{Reference-relative information control}
+
+Fix a finite budget $\mathsf B\ge0$ and constrain the state factor by $\KL(Q\Vert\varrho)\le\mathsf B$. The reference parameters, the orientation of the divergence, and the value of $\mathsf B$ are modeling choices, and the constraint controls belief displacement relative to $\varrho$.
+
+\begin{theorem}[Reference-budget projection]
+\label{unified:pop:thm:projection}
+Let $q$ and $\varrho$ be nondegenerate Gaussian densities on $\R^n$ and let $\mathsf B\ge0$ be finite. Over all probability densities $s$ on $\R^n$ with $\KL(s\Vert\varrho)\le\mathsf B$, the relative entropy $\KL(s\Vert q)$ has a unique minimizer. It is $q$ if $\KL(q\Vert\varrho)\le\mathsf B$, it is $\varrho$ if $\mathsf B=0$, and otherwise it is
+\begin{equation}
+q_t=\frac{q^t\varrho^{1-t}}{\int q^t\varrho^{1-t}},\qquad 0<t<1,
+\label{unified:pop:eq:projection}
+\end{equation}
+where $t$ is the unique solution of $\KL(q_t\Vert\varrho)=\mathsf B$. If $q=\N(m_q,P_q^{-1})$ and $\varrho=\N(m_\varrho,P_\varrho^{-1})$, then $q_t$ is the Gaussian with precision $tP_q+(1-t)P_\varrho$ and information vector $tP_qm_q+(1-t)P_\varrho m_\varrho$.
+\end{theorem}
+
+\begin{proof}
+If $q$ is feasible, $\KL(s\Vert q)\ge0$ with equality only at $s=q$. If $\mathsf B=0$, $\KL(s\Vert\varrho)\le0$ forces $s=\varrho$. Assume therefore $\KL(q\Vert\varrho)>\mathsf B>0$, so that $q\ne\varrho$.
+
+\emph{The path.} Let $L=\log(q/\varrho)$, a polynomial of degree at most two in $x$, and $A(t)=\log\int q^t\varrho^{1-t}=\log\E_\varrho e^{tL}$. The unnormalized density $q^t\varrho^{1-t}=\varrho e^{tL}$ is Gaussian with precision $tP_q+(1-t)P_\varrho$, which is positive definite on an open interval $I\supset[0,1]$, so $A$ is finite on $I$. On a compact subinterval $[t_0,t_1]\subset I$, convexity of $t\mapsto e^{tL}$ gives $e^{tL}\le e^{t_0L}+e^{t_1L}$, so $\lvert L\rvert^me^{tL}\varrho$ for $m\le2$ is dominated by a polynomial times two Gaussian densities, and $A$ may be differentiated twice under the integral. With $q_t=\varrho e^{tL-A(t)}$, this gives $A'(t)=\E_{q_t}L$ and $A''(t)=\operatorname{Var}_{q_t}L$. Hence $k(t)=\KL(q_t\Vert\varrho)=tA'(t)-A(t)$ satisfies
+\[
+k'(t)=tA''(t)=t\operatorname{Var}_{q_t}L.
+\]
+If $L$ were constant, normalization would force $q=\varrho$; so $L$ is a nonconstant polynomial, its level sets are Lebesgue null, and $\operatorname{Var}_{q_t}L>0$ because $q_t$ has a positive density. Thus $k$ is continuous and strictly increasing on $[0,1]$, with $k(0)=0$ and $k(1)=\KL(q\Vert\varrho)>\mathsf B$, and exactly one $t\in(0,1)$ satisfies $k(t)=\mathsf B$. Adding the exponents of $q^t$ and $\varrho^{1-t}$ gives the stated precision and information vector.
+
+\emph{Optimality.} Let $s$ be feasible. For bounded measurable $f$, Jensen's inequality for the logarithm under $s$ gives
+\[
+\log\E_\varrho e^f\ge\log\int_{\{s>0\}}s\frac{e^f\varrho}{s}\ge\E_s\Bigl[f+\log\frac{\varrho}{s}\Bigr]=\E_sf-\KL(s\Vert\varrho).
+\]
+Choose $a>0$ with $\E_\varrho e^{a\lVert x\rVert^2}<\infty$, which is possible because $\varrho$ is Gaussian, apply the inequality to $f=\min(a\lVert x\rVert^2,m)$, and let $m\to\infty$ by monotone convergence. This gives $a\E_s\lVert x\rVert^2\le\mathsf B+\log\E_\varrho e^{a\lVert x\rVert^2}<\infty$. The Gaussian log densities $\log q$, $\log\varrho$, and $\log q_t$ are quadratic and therefore $s$-integrable, and $\E_s\log s=\KL(s\Vert\varrho)+\E_s\log\varrho$ is finite. Since $\log q=\log\varrho+L$ and $\log q_t=\log\varrho+tL-A(t)$,
+\[
+\KL(s\Vert q)=\KL(s\Vert\varrho)-\E_sL,\qquad \KL(s\Vert q_t)=\KL(s\Vert\varrho)-t\E_sL+A(t).
+\]
+Eliminating $\E_sL$ gives $\KL(s\Vert q)=t^{-1}\KL(s\Vert q_t)-t^{-1}(1-t)\KL(s\Vert\varrho)-t^{-1}A(t)$. Evaluating this at $s=q_t$, where $\KL(q_t\Vert\varrho)=\mathsf B$, and subtracting,
+\[
+\KL(s\Vert q)-\KL(q_t\Vert q)=\frac1t\KL(s\Vert q_t)+\frac{1-t}{t}\bigl[\mathsf B-\KL(s\Vert\varrho)\bigr]\ge0,
+\]
+with equality only if $\KL(s\Vert q_t)=0$, that is, $s=q_t$ almost everywhere.
+\end{proof}
+
+\begin{corollary}[Constrained state coordinate]
+\label{unified:pop:cor:constrained}
+Fix the source and reliability factors and a budget $\mathsf B\ge0$. Among Gaussian state factors with $\KL(Q\Vert\varrho)\le\mathsf B$, the unique minimizer of $\F_{\mathrm{pop}}$ is $Q_\star$ if $\KL(Q_\star\Vert\varrho)\le\mathsf B$, $\varrho$ if $\mathsf B=0$, and otherwise the Gaussian $Q_t=\N(\boldsymbol\mu_t,\Gamma_t)$ with
+\begin{equation}
+\Gamma_t^{-1}=t\Lambda_\star+(1-t)\Lambda_0,\qquad \Gamma_t^{-1}\boldsymbol\mu_t=t\eta_\star+(1-t)\Lambda_0\boldsymbol\mu_0,
+\label{unified:pop:eq:constrained}
+\end{equation}
+where $t\in(0,1)$ solves $\KL(Q_t\Vert\varrho)=\mathsf B$. The same law minimizes $\F_{\mathrm{pop}}$ over all state densities that satisfy the budget.
+\end{corollary}
+
+\begin{proof}
+Every density satisfying the budget has finite second moments and finite entropy, by the optimality part of the proof of Theorem~\ref{unified:pop:thm:projection}. By Proposition~\ref{unified:pop:prop:coordinates}, item 3, the $Q$-dependent part of $\F_{\mathrm{pop}}$ on that class is $\KL(Q\Vert Q_\star)$ plus a constant. Theorem~\ref{unified:pop:thm:projection} with $q=Q_\star$, whose precision is $\Lambda_\star$ and information vector $\eta_\star$, gives the minimizer over all feasible densities. It is Gaussian, so it is also the unique minimizer among feasible Gaussian factors.
+\end{proof}
+
+\begin{corollary}[Common-objective descent]
+\label{unified:pop:cor:descent}
+Fix the model data, $\varrho$, and $\mathsf B$. Start from a Gaussian $Q$ with $\KL(Q\Vert\varrho)\le\mathsf B$, probability vectors $\beta_a$, and Gamma factors $\gamma_a$ with finite positive shapes and rates. In any sequence of exact replacements, each of which replaces one $\beta_a$ by Eq.~\eqref{unified:pop:eq:row}, one $\gamma_a$ by Eq.~\eqref{unified:pop:eq:reliability}, or $Q$ by the constrained coordinate of Corollary~\ref{unified:pop:cor:constrained}, using the current values of the other factors, $\F_{\mathrm{pop}}$ never increases, and its values converge to a finite limit no smaller than $-\log p(o)$.
+\end{corollary}
+
+\begin{proof}
+Each replacement keeps its factor in the admissible class: source rows remain probability vectors, reliability factors remain Gamma densities with finite positive shape and rate, and the state factor remains a feasible Gaussian. Each replacement minimizes $\F_{\mathrm{pop}}$ over its factor with the others fixed, and the factor it replaces is an admissible competitor, so the objective does not increase. By Lemma~\ref{unified:pop:lem:free_energy} and Proposition~\ref{unified:pop:prop:normalization}, $\F_{\mathrm{pop}}=\KL(q\Vert p(\cdot\mid o))-\log p(o)\ge-\log p(o)>-\infty$. A nonincreasing sequence bounded below converges.
+\end{proof}
+
+The corollary concerns objective values. It does not establish convergence of the factors, a global optimum, a stopping rule, or descent under simultaneous updates computed from stale factors. Changing the model data, the reference, or the budget during a sweep changes the objective, and a normalization applied after an unrelated update is covered only when it is the constrained minimizer of the actual coordinate objective.
+
+\begin{remark}[Causal support and source-side derivatives]
+\label{unified:pop:rem:causal}
+Restricting link records to causal pairs $j\le i$ limits which links enter the energies, but it does not remove the dependence of $\F_{\mathrm{pop}}$ on source states. For a link record with $j<i$, differentiating Eq.~\eqref{unified:pop:eq:link_residual} shows that record $a$ contributes $w_a\beta_{aj}L_{ij}^\top\mathsf H_a^\top R_a^{-1}\bar e_{aj}$ to $\partial\F_{\mathrm{pop}}/\partial\mu_j$, which is nonzero whenever $L_{ij}^\top\mathsf H_a^\top R_a^{-1}\bar e_{aj}\ne0$. Correspondingly, the block of $\eta_\star$ belonging to the earlier agent $j$ receives $-w_a\beta_{aj}L_{ij}^\top\mathsf H_a^\top R_a^{-1}(o_a-\mathsf b_{aj})$ from the record of the later receiver $i$. Dropping these source-side terms defines a different directed algorithm rather than the gradient or the coordinate minimizer of $\F_{\mathrm{pop}}$.
+\end{remark}
+
 \section{Implementation provenance}
 \label{unified:provenance}
 The code snapshot began at VFE 3.0 commit \texttt{f35c573} with intentional working-tree changes. During the consolidation, an independent publication advanced that repository to \texttt{0f05ec92176391949034112a9ffcc578f88f065c}, merging the already-present routing-holonomy work. All initially recorded working-file hashes remained unchanged. Implementation descriptions therefore bind to inspected file bytes, not to a Git identifier alone. This manuscript task made no VFE source or configuration changes.

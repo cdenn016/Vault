@@ -1,0 +1,562 @@
+% !TeX root = ../PIFB2.tex
+\clearpage
+\section{Proof of Fixed-Temperature Pairing Selection}\label{app:selection_proof}
+
+This appendix proves the selection theorem of Section~\ref{sec:participatory}. Subsection~\ref{app:sel_model} declares the model completely and Subsection~\ref{app:sel_statement} restates the theorem. The proof has five parts. At frozen rows the dynamics is uniformly geometrically ergodic and contracts relative entropy (Lemmas~\ref{lem:sel_harris} and~\ref{lem:sel_lsi}). While the rows are close to uniform, learning integrates a small matching-mode imprint of the initial mean, and this imprint vanishes only on a Lebesgue-null set of means (Lemmas~\ref{lem:sel_imprint} and~\ref{lem:sel_nonvanishing}). An entropy balance controls how closely the recognition law follows the invariant law of its instantaneous rows (Lemma~\ref{lem:sel_entropy}). The reduced row field has a saddle at uniform rows whose single expanding direction is the matching mode, and its diagonal flows into the two matching vertices (Lemma~\ref{lem:sel_landscape}). Finally, Subsection~\ref{app:sel_selection} amplifies the imprint through the saddle on a logarithmic slow horizon and carries the rows to the selected vertex.
+
+\subsection{The declared model}\label{app:sel_model}
+
+\begin{definition}[Homogeneous four-cycle with learned source rows]\label{def:fourcycle_model}
+Index four agents at $c_*$ by $i\in\mathbb Z/4$ and orient the edge $e_i$ from $i$ to $i+1$. A configuration is $\mathbf x=(k,m,w)\in\mathbb R^{12}$: agent $i$ has the state belief $\mathcal N(k_i,1)$ and the model law $\mathcal N(m_i,\frac12)$, and $w_i$ is the scalar translation on $e_i$. With the residuals $r^b_i=k_{i+1}-k_i-w_i$ and $r^m_i=m_{i+1}-m_i-w_i$, the comparison cost~\eqref{eq:formation_cycle_cost} of $e_i$ is
+\[
+\begin{aligned}
+D_{e_i}(\mathbf x)&=\tfrac12\bigl[(r^b_i)^2+(r^m_i)^2\bigr]\\
+&=\KL\bigl(\mathcal N(k_{i+1},1)\Vert\mathcal N(k_i+w_i,1)\bigr)
++\tfrac12\KL\bigl(\mathcal N(m_{i+1},\tfrac12)\Vert\mathcal N(m_i+w_i,\tfrac12)\bigr).
+\end{aligned}
+\]
+Reversing the orientation of an edge reverses the signs of its translation and of both residuals, so the cost does not depend on the orientation. Each agent $i$, acting as a receiver, has both neighbors as candidate sources. An assignment is $J=(J_i)_i\in\mathcal J=\prod_i\{i-1,i+1\}$, so $|\mathcal J|=16$; $e(i,j)$ is the edge joining $i$ and $j$, and $V_J(\mathbf x)=\sum_iD_{e(i,J_i)}(\mathbf x)$. The occupied edge set of $J$ is $S(J)=\{e(i,J_i):i\in\mathbb Z/4\}$, and the perfect matchings of the cycle are $M_0=\{e_0,e_2\}$ and $M_1=\{e_1,e_3\}$.
+
+The generative ingredients at the temperature $T>0$ are the following. The configuration prior is $\mathcal N(0,I_{12})$. The source prior is a product $\pi_J=\prod_i\pi_{iJ_i}$ of receiver rows with $\pi_{i,i-1}+\pi_{i,i+1}=1$. Given $(\mathbf x,J)$, binary records $E_i$ are independent with $\Pr(E_i=1\mid\mathbf x,J)=\frac12\exp[-D_{e(i,J_i)}(\mathbf x)/T]$, and $E=(1,1,1,1)$ is observed. Agent $i$'s model presentation is a sample $\tilde m_i\sim\mathcal N(m_i,\frac12)$, and its evaluator sends $\tilde m_i$ to the normalized kernel $\mathcal N(\tilde m_i,\frac12)$ on a belief sample $\tilde k_i$. At a fixed configuration the recognition coupling of the two samples is
+\[
+\tilde m_i=m_i+\xi_i,\qquad \tilde k_i=k_i+\xi_i+\xi_i',\qquad
+\xi_i,\xi_i'\sim\mathcal N(0,\tfrac12)\quad\text{independent},
+\]
+which has the marginals $\mathcal N(m_i,\frac12)$ and $\mathcal N(k_i,1)$. Put $\mathfrak D\mathbf x=k-m$, $R_{\mathrm{ev}}=2\mathfrak D^\top\mathfrak D$, $\Omega=I_{12}+R_{\mathrm{ev}}$ and
+\begin{equation}
+U_J(\mathbf x)=V_J(\mathbf x)+\frac T2\mathbf x^\top\Omega\mathbf x,\qquad
+\beta_{ij}(\mathbf x;\pi)=\frac{\pi_{ij}e^{-D_{e(i,j)}(\mathbf x)/T}}{\sum_{j'=i\pm1}\pi_{ij'}e^{-D_{e(i,j')}(\mathbf x)/T}},
+\label{eq:sel_energy_rows}
+\end{equation}
+with $\beta_J(\mathbf x;\pi)=\prod_i\beta_{iJ_i}(\mathbf x;\pi)$.
+
+The kinetics at a continuous row path $t\mapsto\pi(t)$ form the following process on $(\mathbf x,J)$. Between rings of a rate-one Poisson clock the assignment is held and
+\[
+d\mathbf X_t=-\nabla U_{J_t}(\mathbf X_t)dt+\sqrt{2T}dW_t,
+\]
+with $W$ a standard Brownian motion on $\mathbb R^{12}$. At a ring $\tau$ the complete assignment is redrawn from $\beta_J(\mathbf X_\tau;\pi(\tau))$, self-proposals allowed: receiver $i$ takes source $i+1$ exactly when a uniform variable $\mathsf U_{\tau,i}$ on $[0,1]$ is at most $\beta_{i,i+1}(\mathbf X_\tau;\pi(\tau))$. The uniform variables are independent of each other and of $W$, the clock and the initial state. The recognition law $q_t$ is the law of $(\mathbf X_t,J_t)$. In the learned arm the rows start uniform and evolve by~\eqref{eq:formation_source_learning} with mobility $\epsilon_L>0$; in the frozen arm they stay at $\frac12$.
+\end{definition}
+
+The following reading of the declaration explains its form; the proof uses only the formulas it produces. Under the recognition coupling the conditional law of $\tilde k_i$ given $\tilde m_i$ is $\mathcal N(\tilde m_i+k_i-m_i,\frac12)$, whereas the evaluator kernel is $\mathcal N(\tilde m_i,\frac12)$, and the $\tilde m_i$ marginals agree. The relative entropy of the coupling to the evaluator factor is therefore $(k_i-m_i)^2$, and summed over agents it is $\frac12\mathbf x^\top R_{\mathrm{ev}}\mathbf x$. Adding the prior term $\frac12|\mathbf x|^2$ and the record terms $D_{e(i,J_i)}/T+\log2$, the negative evidence bound of a recognition law $q$ on $(\mathbf x,J)$, extended by the recognition coupling, equals $\KL(q\Vert q^\star_\pi)$ plus a constant, where
+\[
+q^\star_\pi(\mathbf x,J)\propto\pi_J\exp[-U_J(\mathbf x)/T].
+\]
+The factor $\exp[-\mathbf x^\top\Omega\mathbf x/2]$ is common to all assignments and $\pi_Je^{-V_J/T}$ factorizes over receivers, so $\beta_J(\mathbf x;\pi)$ is the conditional law of $J$ given $\mathbf x$ under $q^\star_\pi$. The redraw therefore refreshes the assignment from its conditional law, and the configuration motion is the Langevin dynamics of $U_J$ at temperature $T$.
+
+\subsection{Statement}\label{app:sel_statement}
+
+\begin{theorem}[Fixed-temperature pairing selection]\label{thm:pairing_selection}
+In the model of Definition~\ref{def:fourcycle_model}, let the initial law be $\mathcal N(\mathbf m_0,I_{12})\otimes\operatorname{Unif}(\mathcal J)$ with $\mathbf m_0\in\mathbb R^{12}$. Write $q^{\epsilon_L}_t$ for the recognition law of the learned arm, $q^0_t$ for that of the frozen arm, and $S=S(J)$.
+\begin{enumerate}
+\item[(i)] There is $T_0>0$ such that for every $T\in(0,T_0]$ there is $C_T<\infty$ for which, for Lebesgue-almost every $\mathbf m_0\in\mathbb R^{12}$, one perfect matching $M\in\{M_0,M_1\}$ satisfies
+\[
+\lim_{\epsilon_L\to0}\sup_{t_L\le t\le2t_L}q^{\epsilon_L}_t(S\ne M)=0,
+\qquad
+t_L=C_T\epsilon_L^{-1}\log(1/\epsilon_L).
+\]
+\item[(ii)] For every $T>0$ and every $\mathbf m_0\in\mathbb R^{12}$, $q^0_t(S=M_0)-q^0_t(S=M_1)\to0$ as $t\to\infty$.
+\end{enumerate}
+\end{theorem}
+
+\subsection{Reduced coordinates, symmetry and frozen invariant laws}\label{app:sel_reduced}
+
+Throughout, $T>0$ is fixed and $\varepsilon=\epsilon_L$. Encode an assignment by $\sigma\in\{\pm1\}^4$, with $\sigma_i=+1$ exactly when receiver $i$ selects $i+1$, and write the rows as $p_i=\pi_{i,i+1}$, so $\pi_{i,i-1}=1-p_i$ and
+\[
+\pi_\sigma(p)=\prod_ip_i^{1_{\{\sigma_i=+1\}}}(1-p_i)^{1_{\{\sigma_i=-1\}}}.
+\]
+The number of receivers attending the edge $e_i$ is its multiplicity $n_i(\sigma)=1_{\{\sigma_i=+1\}}+1_{\{\sigma_{i+1}=-1\}}$, so $V_\sigma=\sum_in_i(\sigma)D_{e_i}$; write $C_\sigma=\operatorname{diag}(n_i(\sigma))$. Put $\mathbf v=(1,-1,1,-1)$. The assignment $\sigma=\mathbf v$ is $J^{(0)}=(1,0,3,2)$, which selects $e_0$ and $e_2$ from both ends, and $\sigma=-\mathbf v$ is $J^{(1)}=(3,2,1,0)$. These are the only assignments whose occupied edge set is a perfect matching: if $S(J)=M_0$, receiver $0$ must select $e_0$ rather than $e_3$, receiver $1$ must select $e_0$ rather than $e_1$, and similarly receivers $2$ and $3$ must select $e_2$, which forces $J=J^{(0)}$; the case $M_1$ is the same after rotation. Hence $\{S=M_0\}=\{\sigma=\mathbf v\}$ and $\{S=M_1\}=\{\sigma=-\mathbf v\}$.
+
+Write $H_\sigma=\nabla^2V_\sigma$, $A_\sigma=H_\sigma+T\Omega$ and $B_\sigma=A_\sigma/T$. Then $\nabla U_\sigma(\mathbf x)=A_\sigma\mathbf x$ and $A_\sigma\succeq TI$, because $H_\sigma$ and $R_{\mathrm{ev}}$ are positive semidefinite. Let
+\[
+\theta_\sigma=\det(B_\sigma)^{-1/2},\qquad
+\mathsf Z(p)=\sum_\sigma\pi_\sigma(p)\theta_\sigma,\qquad
+\mu_p(\mathbf x,\sigma)=\frac{\pi_\sigma(p)}{(2\pi)^6\mathsf Z(p)}\exp\left[-\frac{\mathbf x^\top A_\sigma\mathbf x}{2T}\right],
+\]
+so that $\mu_p=q^\star_\pi$, and let $b_\sigma(\mathbf x;p)=\mu_p(\mathbf x,\sigma)/\sum_\eta\mu_p(\mathbf x,\eta)=\beta_\sigma(\mathbf x;\pi)$ be its conditional assignment law. The reduced row field is
+\begin{equation}
+\bar\beta_i(p)=\mu_p(\sigma_i=+1),\qquad
+g_i(p)=\partial_{p_i}\log\mathsf Z(p),\qquad
+\Phi_i(p)=\bar\beta_i(p)-p_i=p_i(1-p_i)g_i(p).
+\label{eq:sel_reduced_field}
+\end{equation}
+The last identity follows from $\partial_{p_i}\pi_\sigma=\pi_\sigma(1_{\{\sigma_i=+1\}}-p_i)/(p_i(1-p_i))$ by summing against $\theta_\sigma/\mathsf Z$. Since $\mathsf Z$ is a multilinear polynomial that is positive on the closed cube $[0,1]^4$, the functions $g$ and $\Phi$ extend analytically to a neighborhood of the cube and have bounded derivatives there.
+
+For constant rows $p$ write $P^p_t$ for the transition semigroup of the kinetics. Let $\mathcal G_s$ denote the held motion for a time $s$, acting on functions of $(\mathbf x,\sigma)$ with $\sigma$ fixed, and let $\mathcal R_p\phi(\mathbf x,\sigma)=\sum_\eta b_\eta(\mathbf x;p)\phi(\mathbf x,\eta)$ be the redraw. Because the clock has constant rate one and is independent of the other inputs,
+\begin{equation}
+P^p_t=\sum_{n\ge0}e^{-t}\int_{0<t_1<\cdots<t_n<t}\mathcal G_{t_1}\mathcal R_p\mathcal G_{t_2-t_1}\cdots\mathcal R_p\mathcal G_{t-t_n}dt_1\cdots dt_n.
+\label{eq:sel_uniformization}
+\end{equation}
+
+\begin{lemma}[Frozen invariant laws and symmetry]\label{lem:sel_invariance}
+For every $p\in[0,1]^4$, $\mu_p$ is invariant for $P^p_t$. The law $\mu_{1/2}$ is invariant under the automorphisms of the cycle; consequently $\bar\beta_i(\frac12)=\frac12$, $g(\frac12)=\Phi(\frac12)=0$, $\mu_{1/2}f_{\mathbf v}=0$ for $f_{\mathbf v}(\sigma)=\frac12\sum_i\mathbf v_i\sigma_i$, and $\mu_{1/2}(S=M_0)=\mu_{1/2}(S=M_1)$.
+\end{lemma}
+
+\begin{proof}
+On a held sheet $\sigma$ the configuration is an Ornstein--Uhlenbeck process with drift $-A_\sigma\mathbf x$ and diffusion matrix $2TI$. Since $A_\sigma$ is symmetric, its stationary covariance $\Sigma$ solves $A_\sigma\Sigma+\Sigma A_\sigma=2TI$, so $\Sigma=TA_\sigma^{-1}$ and each $\mathcal G_s$ preserves $\mu_p$. The redraw $\mathcal R_p$ resamples $\sigma$ from its conditional law given $\mathbf x$ under $\mu_p$ and also preserves it. By~\eqref{eq:sel_uniformization}, $\mu_pP^p_t=\sum_ne^{-t}t^n\mu_p/n!=\mu_p$. When some $p_i\in\{0,1\}$ the same argument applies on the sheets of positive weight.
+
+The rotation $i\mapsto i+1$ permutes $k$, $m$ and $w$ cyclically. The reflection $i\mapsto-i$ sends $k_i$ and $m_i$ to the coordinates of agent $-i$ and, since it carries $e_i$ onto $e_{-i-1}$ with reversed orientation, it sends $w_i$ to the translation $-w_i$ on $e_{-i-1}$. Each automorphism $g$ thus acts by an orthogonal signed permutation $O_g$ with $D_{e(gi,gj)}(O_g\mathbf x)=D_{e(i,j)}(\mathbf x)$, and $\mathfrak DO_g\mathbf x$ is a permutation of $\mathfrak D\mathbf x$, hence $U_{gJ}(O_g\mathbf x)=U_J(\mathbf x)$, where $(gJ)_{gi}=gJ_i$. At uniform rows $\pi_\sigma=1/16$ for every $\sigma$, so $\mu_{1/2}(O_g\mathbf x,gJ)=\mu_{1/2}(\mathbf x,J)$. The reflection $j\mapsto2i-j$ fixes receiver $i$ and exchanges its two sources, which gives $\bar\beta_i(\frac12)=\frac12$ and, by~\eqref{eq:sel_reduced_field}, $\Phi(\frac12)=g(\frac12)=0$. The rotation by one maps $J^{(0)}$ to $J^{(1)}$, that is $\mathbf v$ to $-\mathbf v$, and changes the sign of $f_{\mathbf v}$, which gives the last two assertions.
+\end{proof}
+
+\subsection{Rows and geometric ergodicity}\label{app:sel_rows}
+
+\begin{lemma}[Well-posedness and row bounds]\label{lem:sel_rows}
+For every $\varepsilon>0$ the kinetics and~\eqref{eq:formation_source_learning}, started from uniform rows, have exactly one joint solution on $[0,\infty)$. Its rows are deterministic and continuously differentiable, and
+\begin{equation}
+\min_i\{p_i(t),1-p_i(t)\}\ge\tfrac12e^{-\varepsilon t},\qquad
+\|p(t)-\tfrac12\|_\infty\le\tfrac12(1-e^{-\varepsilon t})\le\tfrac12\varepsilon t.
+\label{eq:sel_row_bounds}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+For a continuous row path $\pi$ construct the kinetics pathwise from the inputs of Definition~\ref{def:fourcycle_model}. Between rings the configuration solves a linear equation with one of sixteen matrices, and rings are finitely many on bounded intervals, so the process exists, is pathwise unique given the inputs, and does not explode. The configuration drift does not involve the rows. Write $q^\pi_t$ for the law at time $t$. Suppose the entries of two row paths $\pi,\pi'$ lie in $[\underline p,1-\underline p]$ with $\underline p\in(0,\frac12]$, and drive both constructions by the same initial data, Brownian motion, clock and uniform variables. They coincide until the first ring at which the uniform variable of some receiver falls between its posterior rows under $\pi$ and $\pi'$. Given agreement before a ring $\tau$, this happens at $\tau$ with conditional probability at most $\sum_i|\beta_{i,i+1}(\mathbf x;\pi(\tau))-\beta_{i,i+1}(\mathbf x;\pi'(\tau))|$ at the common configuration. With $\mathrm p=\pi_{i,i+1}$, the derivative of a posterior row in $\mathrm p$ is $\beta_{i,i+1}(1-\beta_{i,i+1})/(\mathrm p(1-\mathrm p))\le1/(4\underline p(1-\underline p))\le1/(2\underline p)$. The clock has rate one, so
+\begin{equation}
+\bigl|q^\pi_t(J_i=j)-q^{\pi'}_t(J_i=j)\bigr|\le\|q^\pi_t-q^{\pi'}_t\|_{\mathrm{TV}}\le\frac2{\underline p}\int_0^t\|\pi(s)-\pi'(s)\|_\infty ds,
+\label{eq:sel_row_coupling}
+\end{equation}
+where $\|\cdot\|_\infty$ is the maximum over receivers and sources and $\|q-\nu\|_{\mathrm{TV}}=\sup_A|q(A)-\nu(A)|$.
+
+A solution of~\eqref{eq:formation_source_learning} that starts uniform satisfies
+\[
+\pi_{ij}(t)-\tfrac12=\varepsilon\int_0^te^{-\varepsilon(t-s)}\bigl(q_s(J_i=j)-\tfrac12\bigr)ds,
+\qquad
+\bigl|\pi_{ij}(t)-\tfrac12\bigr|\le\tfrac12(1-e^{-\varepsilon t}),
+\]
+because $0\le q_s(J_i=j)\le1$; each row sums to one, and on $[0,t_1]$ its entries lie in $[\underline p,1-\underline p]$ with $\underline p=e^{-\varepsilon t_1}/2$. Fix $t_1>0$ and let $\Gamma$ send a row path $\pi$ to the right-hand side of the identity with $q_s=q^\pi_s$. It maps the closed set of continuous row paths on $[0,t_1]$ with $|\pi_{ij}(t)-\frac12|\le\frac12(1-e^{-\varepsilon t})$ into itself, and by~\eqref{eq:sel_row_coupling}
+\[
+\|\Gamma\pi(t)-\Gamma\pi'(t)\|_\infty\le\frac{2\varepsilon t_1}{\underline p}\int_0^t\|\pi(s)-\pi'(s)\|_\infty ds,\qquad t\le t_1.
+\]
+The $n$th iterate of $\Gamma$ therefore contracts the supremum distance by the factor $(2\varepsilon t_1^2/\underline p)^n/n!$, and $\Gamma$ has exactly one fixed point in that set. Every solution lies in the set, and solutions on nested intervals agree. Since $J$ changes only at rings, $|q^\pi_{s+h}(J_i=j)-q^\pi_s(J_i=j)|\le h$, so the fixed point is continuously differentiable and solves~\eqref{eq:formation_source_learning}. The rows are a deterministic function of time and satisfy~\eqref{eq:sel_row_bounds}.
+\end{proof}
+
+\begin{lemma}[Uniform geometric ergodicity at frozen rows]\label{lem:sel_harris}
+For every row path and every starting point,
+\begin{equation}
+\mathbb E_{\mathbf x}|\mathbf X_t|^2\le e^{-2Tt}|\mathbf x|^2+12(1-e^{-2Tt}).
+\label{eq:sel_moment}
+\end{equation}
+There are $K_T<\infty$ and $\lambda_T>0$, depending only on $T$, such that for every $p\in[0,1]^4$, every bounded measurable $\phi$, every $(\mathbf x,\sigma)$ and every $t\ge0$,
+\begin{equation}
+|P^p_t\phi(\mathbf x,\sigma)-\mu_p\phi|\le K_Te^{-\lambda_Tt}(1+|\mathbf x|^2)\|\phi\|_\infty.
+\label{eq:sel_harris}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Redraws leave $\mathbf X$ unchanged, and on a held sheet It\^o's formula gives $d|\mathbf X|^2=(24T-2\mathbf X^\top A_\sigma\mathbf X)dt+dN_t$ with a martingale $N$. Since $A_\sigma\succeq TI$, the drift is at most $24T-2T|\mathbf X|^2$, which gives~\eqref{eq:sel_moment}. Let $P=P^p_1$ and $\mathcal V(\mathbf x,\sigma)=|\mathbf x|^2$; then $P\mathcal V\le\gamma_0\mathcal V+K_0$ with $\gamma_0=e^{-2T}$ and $K_0=12$. Choose $R>2K_0/(1-\gamma_0)$.
+
+\emph{Minorization.} For any $p$ some assignment $\sigma_*(p)$ has $\pi_{\sigma_*}\ge1/16$. Consider the clock event of exactly one ring in $[0,\frac12]$ and none in $(\frac12,1]$, of probability $e^{-1}/2$. Starting with $|\mathbf x|\le\sqrt R$, the held motion up to the ring time $\tau$ is Gaussian with mean $e^{-A_\sigma\tau}\mathbf x$, of norm at most $|\mathbf x|$, and a fluctuation with expected squared norm at most $24T\tau\le12T$; by Chebyshev's inequality it lies in the ball of radius $r'=\sqrt R+\sqrt{24T}$ at the ring with probability at least $\frac12$. On that ball the redraw selects $\sigma_*$ with probability $\pi_{\sigma_*}e^{-V_{\sigma_*}/T}/\sum_\eta\pi_\eta e^{-V_\eta/T}\ge16^{-1}e^{-v(r')/T}$, where $v(r')=\max_{|\mathbf z|\le r',\sigma}V_\sigma(\mathbf z)<\infty$, because the denominator is at most one. The subsequent held Gaussian transition lasts between $\frac12$ and $1$, its means are bounded and its covariance matrices have common positive lower and finite upper bounds, so its density has a positive common lower bound on the unit ball $B_1$. Hence, for some $\alpha_T>0$ independent of $p$,
+\[
+P((\mathbf x,\sigma),\cdot)\ge\alpha_T\nu_p,\qquad\nu_p=\operatorname{Unif}(B_1)\otimes\delta_{\sigma_*(p)},\qquad\text{whenever }|\mathbf x|^2\le R.
+\]
+
+\emph{Contraction.} The weighted-norm argument below follows~\cite{HairerMattingly2011}. Fix $\gamma_1\in(\gamma_0+2K_0/R,1)$, put $\vartheta=\alpha_T/(2K_0)$, and for functions $\phi$ on the state space define
+\[
+|||\phi|||=\sup_{y\ne y'}\frac{|\phi(y)-\phi(y')|}{2+\vartheta\mathcal V(y)+\vartheta\mathcal V(y')}.
+\]
+If $\phi$ is bounded and $|||\phi|||\le1$, then $\sup_y[\phi(y)-1-\vartheta\mathcal V(y)]\le\inf_{y'}[\phi(y')+1+\vartheta\mathcal V(y')]$, and a constant $c$ between the two satisfies $|\phi-c|\le1+\vartheta\mathcal V$. Since $P$ reproduces constants, we may replace $\phi$ by $\phi-c$. Consider two points $y,y'$. If $\mathcal V(y)+\mathcal V(y')\ge R$, then $(\gamma_1-\gamma_0)(\mathcal V(y)+\mathcal V(y'))\ge2K_0$, and
+\[
+\begin{aligned}
+|P\phi(y)-P\phi(y')|&\le2+\vartheta P\mathcal V(y)+\vartheta P\mathcal V(y')\le2+\vartheta\gamma_1(\mathcal V(y)+\mathcal V(y'))\\
+&\le\bar\alpha_1(2+\vartheta\mathcal V(y)+\vartheta\mathcal V(y')),
+\end{aligned}
+\]
+with $\bar\alpha_1=(2+\vartheta R\gamma_1)/(2+\vartheta R)<1$, because $(2+\vartheta\gamma_1W)/(2+\vartheta W)$ decreases in $W$. If $\mathcal V(y)+\mathcal V(y')<R$, both points lie in the minorization set, $P(y,\cdot)=\alpha_T\nu_p+(1-\alpha_T)\tilde P(y,\cdot)$ with a Markov kernel $\tilde P$, and the same holds for $y'$. Then $P\phi(y)-P\phi(y')=(1-\alpha_T)(\tilde P\phi(y)-\tilde P\phi(y'))$ and $(1-\alpha_T)\tilde P\mathcal V\le P\mathcal V$, so
+\[
+\begin{aligned}
+|P\phi(y)-P\phi(y')|&\le2(1-\alpha_T)+2\vartheta K_0+\vartheta\gamma_0(\mathcal V(y)+\mathcal V(y'))\\
+&\le\bar\alpha_2(2+\vartheta\mathcal V(y)+\vartheta\mathcal V(y')),
+\end{aligned}
+\]
+with $\bar\alpha_2=\max(1-\alpha_T/2,\gamma_0)$, since $2\vartheta K_0=\alpha_T$. Hence $|||P\phi|||\le\bar\alpha|||\phi|||$ for every bounded $\phi$, with $\bar\alpha=\max(\bar\alpha_1,\bar\alpha_2)<1$ depending only on $T$; this is the weighted-norm form of Harris's ergodic theorem. Since $\mu_p$ is invariant (Lemma~\ref{lem:sel_invariance}), $|||\phi|||\le\|\phi\|_\infty$, and $\mu_p\mathcal V\le12$ because $TA_\sigma^{-1}\preceq I$,
+\[
+|P^n\phi(y)-\mu_p\phi|\le\int|P^n\phi(y)-P^n\phi(y')|\mu_p(dy')\le\bar\alpha^n\|\phi\|_\infty(2+12\vartheta+\vartheta\mathcal V(y)).
+\]
+For $t=n+r$ with $0\le r<1$, apply this to $P^p_r\phi$, whose supremum norm is at most $\|\phi\|_\infty$. This gives~\eqref{eq:sel_harris} with $\lambda_T=-\log\bar\alpha$.
+\end{proof}
+
+\subsection{The initial imprint}\label{app:sel_imprint}
+
+From here on $\mathrm K_T$ and $\mathrm c_T$ denote finite positive constants depending only on $T$, whose values may change between occurrences, and a subscript $\mathbf m_0$ indicates additional dependence on the initial mean.
+
+\begin{lemma}[Imprint]\label{lem:sel_imprint}
+For every $\mathbf m_0$ the integrals
+\begin{equation}
+\mathsf I_i(\mathbf m_0)=\int_0^\infty\bigl[q^0_t(\sigma_i=+1)-\tfrac12\bigr]dt,\qquad
+\mathsf j_T(\mathbf m_0)=\mathbf v\cdot\mathsf I(\mathbf m_0)=\int_0^\infty q^0_tf_{\mathbf v}dt
+\label{eq:sel_imprint}
+\end{equation}
+converge absolutely, and $\mathsf j_T$ extends to an entire function of $\mathbf m_0\in\mathbb C^{12}$. The Poisson integral
+\begin{equation}
+\mathcal Q_T(\mathbf x,\sigma)=\int_0^\infty P^{1/2}_tf_{\mathbf v}(\mathbf x,\sigma)dt
+\quad\text{satisfies}\quad
+|\mathcal Q_T(\mathbf x,\sigma)|\le\mathrm K_T(1+|\mathbf x|^2).
+\label{eq:sel_poisson}
+\end{equation}
+Moreover, with $\underline p=0.45$, for $t\le1/(10\varepsilon)$,
+\begin{equation}
+\begin{gathered}
+\|q^\varepsilon_t-q^0_t\|_{\mathrm{TV}}\le\frac{\varepsilon t^2}{2\underline p},\\
+\bigl|p(t)-\tfrac12-\varepsilon\mathsf I(\mathbf m_0)\bigr|_\infty\le\mathrm K_{T,\mathbf m_0}(\varepsilon e^{-\lambda_Tt}+\varepsilon^2t)+\frac{\varepsilon^2t^3}{6\underline p}.
+\end{gathered}
+\label{eq:sel_imprint_expansion}
+\end{equation}
+In particular $p(t_1)-\frac12=\varepsilon\mathsf I(\mathbf m_0)+o(\varepsilon)$ at $t_1=\varepsilon^{-1/4}$.
+\end{lemma}
+
+\begin{proof}
+Since $\mu_{1/2}f_{\mathbf v}=0$ and $|f_{\mathbf v}|\le2$, estimate~\eqref{eq:sel_harris} at $p=\frac12$ gives $|P^{1/2}_tf_{\mathbf v}(\mathbf x,\sigma)|\le2K_Te^{-\lambda_Tt}(1+|\mathbf x|^2)$, which proves~\eqref{eq:sel_poisson}. The same estimate applied to $1_{\{\sigma_i=+1\}}-\frac12$ and integrated against the initial law proves absolute convergence of $\mathsf I_i$, with $|q^0_t(\sigma_i=+1)-\frac12|\le\mathrm K_{T,\mathbf m_0}e^{-\lambda_Tt}$. By Fubini's theorem, $\mathsf j_T(\mathbf m_0)=\frac1{16}\sum_\sigma\int\mathcal Q_T(\mathbf x,\sigma)\mathcal N(\mathbf m_0,I_{12})(d\mathbf x)$. Writing the Gaussian density as $(2\pi)^{-6}e^{-|\mathbf x|^2/2}e^{\mathbf x\cdot\mathbf m_0}e^{-|\mathbf m_0|^2/2}$ exhibits $\mathsf j_T$ as an entire function of the complexified mean: for every compact set of complex means, all differentiated integrands are bounded by an integrable polynomial times a Gaussian.
+
+For $t\le1/(10\varepsilon)$, \eqref{eq:sel_row_bounds} places every row entry in $[\underline p,1-\underline p]$. Coupling the learned and frozen arms by common inputs as in the proof of Lemma~\ref{lem:sel_rows}, estimate~\eqref{eq:sel_row_coupling} and $\|p(s)-\frac12\|_\infty\le\varepsilon s/2$ give the first inequality of~\eqref{eq:sel_imprint_expansion}. For the second, subtract $\varepsilon\mathsf I_i$ from the variation-of-constants identity in the proof of Lemma~\ref{lem:sel_rows}:
+\[
+\begin{aligned}
+p_i(t)-\tfrac12-\varepsilon\mathsf I_i
+={}&\varepsilon\int_0^te^{-\varepsilon(t-s)}\bigl[q^\varepsilon_s(\sigma_i=+1)-q^0_s(\sigma_i=+1)\bigr]ds\\
+&+\varepsilon\int_0^t\bigl(e^{-\varepsilon(t-s)}-1\bigr)\bigl[q^0_s(\sigma_i=+1)-\tfrac12\bigr]ds\\
+&-\varepsilon\int_t^\infty\bigl[q^0_s(\sigma_i=+1)-\tfrac12\bigr]ds.
+\end{aligned}
+\]
+The first term is at most $\varepsilon\int_0^t\varepsilon s^2/(2\underline p)ds=\varepsilon^2t^3/(6\underline p)$. With $|e^{-\varepsilon(t-s)}-1|\le\varepsilon(t-s)$ and the exponential bound on $q^0_s(\sigma_i=+1)-\frac12$, the second is at most $\mathrm K_{T,\mathbf m_0}\varepsilon^2t$ and the third at most $\mathrm K_{T,\mathbf m_0}\varepsilon e^{-\lambda_Tt}$. At $t_1=\varepsilon^{-1/4}$ the three terms are $O(\varepsilon^{5/4})$, $O(\varepsilon^{7/4})$ and $o(\varepsilon^n)$ for every $n$.
+\end{proof}
+
+\subsection{Nonvanishing of the matching imprint}\label{app:sel_nonvanishing}
+
+\begin{lemma}[Nonvanishing imprint]\label{lem:sel_nonvanishing}
+Let $\mathbf u_\circ=(0_4,0_4,(0,1,0,-1))$. For every $T>0$, as $s\to\infty$,
+\begin{equation}
+\mathsf j_T(s\mathbf u_\circ)\ge\frac{\log s}{2T}-\frac5T\log\log s-O_T(1).
+\label{eq:sel_nonvanishing}
+\end{equation}
+Consequently $\mathsf j_T$ is not identically zero, and its real zero set is Lebesgue-null.
+\end{lemma}
+
+\begin{proof}
+\emph{The tied residual motion.} Both residual vectors of $\mathbf u_\circ$ equal $(0,-1,0,1)$. Consider a switched motion $\dot{\mathbf y}=-A_{\sigma(t)}\mathbf y$ along a prescribed piecewise constant assignment path. On the tied subspace $\{k=m\}$ we have $R_{\mathrm{ev}}\mathbf y=0$, the two residual vectors agree, and, writing $\rho$ for the common one, $V_\sigma=\sum_in_i(\sigma)\rho_i^2$. Let $D=\mathsf P-I$ be the cyclic difference matrix, $(\mathsf Pk)_i=k_{i+1}$. Then $\partial V_\sigma/\partial k=\partial V_\sigma/\partial m=D^\top C_\sigma\rho$ and $\partial V_\sigma/\partial w=-2C_\sigma\rho$ there, so the tied subspace is invariant. After removal of the scalar factor $e^{-Tt}$ contributed by $T\Omega=TI$ on it, $\dot\rho=D\dot k-\dot w=-(DD^\top+2I)C_\sigma\rho$, that is
+\begin{equation}
+\dot\rho=-GC_\sigma\rho,\qquad G=4I-\mathsf P-\mathsf P^\top.
+\label{eq:sel_tied_residual}
+\end{equation}
+
+Of the sixteen assignments, six have $n_1=n_3$: the two matchings, with multiplicity patterns $(2,0,2,0)$ and $(0,2,0,2)$, the two oriented cycles, with pattern $(1,1,1,1)$, and the patterns $(2,1,0,1)$ and $(0,1,2,1)$. Since $G(0,-1,0,1)^\top=4(0,-1,0,1)^\top$, their first held motion is $e^{-ct}(0,-1,0,1)$ with $c=4n_1\in\{0,4,8\}$. At their first clock ring the even residuals vanish and the odd ones do not, so every receiver prefers its even edge, that is the matching $J^{(0)}$. Holding $J^{(0)}$, with $C_\sigma=\operatorname{diag}(2,0,2,0)$, then leaves the odd residuals constant and the even residuals zero.
+
+Four further assignments have the multiplicity patterns $(1,1,2,0)$, $(1,0,2,1)$, $(2,0,1,1)$ and $(2,1,1,0)$. The exchange of the residual coordinates $1$ and $3$ and the rotation of coordinates by two commute with $G$, permute these four patterns transitively, fix the pattern $(2,0,2,0)$ of $J^{(0)}$, and carry the initial residual to its negative; by linearity they reduce these four cases to $(1,1,2,0)$. Write its residual as $\rho=(-\mathsf a,-\mathsf b,-\mathsf d,\mathsf h)$. Then
+\[
+\begin{pmatrix}\dot{\mathsf a}\\\dot{\mathsf b}\\\dot{\mathsf d}\end{pmatrix}
+=\begin{pmatrix}-4&1&0\\1&-4&2\\0&1&-8\end{pmatrix}
+\begin{pmatrix}\mathsf a\\\mathsf b\\\mathsf d\end{pmatrix},\qquad
+\dot{\mathsf h}=-(\mathsf a+2\mathsf d),
+\]
+with $(\mathsf a,\mathsf b,\mathsf d,\mathsf h)(0)=(0,1,0,1)$. The off-diagonal entries are nonnegative, so the nonnegative cone is invariant, and the row sums are negative, so $\max(\mathsf a,\mathsf b,\mathsf d)\le1$; hence $\mathsf a\le\frac14$ and $\mathsf d\le\frac18$. The half-spaces $\mathsf a-\frac34\mathsf b-\frac{11}{25}\mathsf d\le0$ and $\mathsf d-\frac14\mathsf b\le0$ are invariant: on the corresponding boundaries the outward derivatives are $-\mathsf b/400-7\mathsf d/100$ and $-\mathsf a/4-\mathsf b/8$. Consequently $\mathsf a\le\frac{43}{50}\mathsf b$, $\mathsf d\le\frac14\mathsf b$, and $\mathsf b\ge e^{-4t}$ because $\dot{\mathsf b}\ge-4\mathsf b$. The attended $3\times3$ block is similar to a negative definite symmetric matrix because $G\succ0$, so $(\mathsf a,\mathsf b,\mathsf d)\to0$. Integrating~\eqref{eq:sel_tied_residual}, $\rho(\infty)=\rho(0)-Gz$ with $z=\int_0^\infty C_\sigma\rho dt$ and $z_3=0$; the first three coordinates of $\rho(\infty)$ vanish, which gives $z=(-\frac1{14},-\frac4{14},-\frac1{14},0)$ and $\mathsf h(\infty)=\frac67$. Since $\mathsf h$ decreases, $\mathsf h\ge\frac67$.
+
+If the first ring occurs at $t_{\mathrm r}$ and redraws $J^{(0)}$, the subsequent scalar-free held motion, in elapsed time $r$, is
+\[
+\begin{aligned}
+\mathsf a_r&=\mathsf a_0e^{-8r},&\mathsf d_r&=\mathsf d_0e^{-8r},\\
+\mathsf b_r&=\mathsf b_0+\tfrac14(\mathsf a_0+\mathsf d_0)(1-e^{-8r}),&
+\mathsf h_r&=\mathsf h_0-\tfrac14(\mathsf a_0+\mathsf d_0)(1-e^{-8r})\ge\tfrac{171}{224}.
+\end{aligned}
+\]
+Each receiver has one odd and one even edge, and on every receiver the odd-edge absolute residual exceeds the even-edge one by at least $\frac7{50}e^{-4t_{\mathrm r}}$, both at the ring and afterward. On the tied subspace $D_{e_i}=\rho_i^2$ in scale-free coordinates, so $\sqrt{D_{e_i}}$ is the scale times $e^{-Tt}|\rho_i|$. Combining these four cases with the preceding six, the deterministic motion $\mathbf Y$ from $s\mathbf u_\circ$ satisfies, for every receiver $i$ with odd edge $o(i)$ and even edge $\bar o(i)$, throughout the hypothesized hold of $J^{(0)}$,
+\begin{equation}
+\sqrt{D_{o(i)}(\mathbf Y_t)}-\sqrt{D_{\bar o(i)}(\mathbf Y_t)}\ge\frac7{50}se^{-Tt-8t_{\mathrm r}},\qquad t\ge t_{\mathrm r}.
+\label{eq:sel_lock_margin}
+\end{equation}
+There are therefore ten good initial assignments. For the remaining six, with patterns $(1,2,0,1)$, $(1,2,1,0)$, $(0,1,1,2)$, $(0,2,1,1)$, $(1,0,1,2)$ and $(1,1,0,2)$, only $f_{\mathbf v}\ge-2$ will be used.
+
+\emph{Noise.} Set $h_s=(\log s)/T$ for $s>e$, and write the initial configuration as $s\mathbf u_\circ+\xi$ with $\xi\sim\mathcal N(0,I_{12})$. Along the actual assignment path of the frozen arm decompose $\mathbf X=\mathbf Y+\mathbf Y'+\mathbf Z$, where $\mathbf Y$ and $\mathbf Y'$ solve the switched deterministic equation from $s\mathbf u_\circ$ and from $\xi$, while
+\[
+d\mathbf Z=-A_{\sigma_t}\mathbf Zdt+\sqrt{2T}dW_t,\qquad\mathbf Z_0=0.
+\]
+All three are adapted, and $|\mathbf Y'_t|\le e^{-Tt}|\xi|$ because $A_\sigma\succeq TI$. For $\varphi(\mathbf z)=e^{|\mathbf z|^2/4}$ the generator of $\mathbf Z$ satisfies
+\[
+\mathcal L\varphi=\bigl[T(6+|\mathbf z|^2/4)-\tfrac12\mathbf z^\top A_\sigma\mathbf z\bigr]\varphi\le T(6-|\mathbf z|^2/4)\varphi\le Te^5.
+\]
+Stopping at radius $\log s$ and using $\mathbb Ee^{|\xi|^2/4}=2^6=64$ bounds the probability that $|\xi|>\log s$ or $\sup_{t\le h_s}|\mathbf Z_t|>\log s$ by $(65+Te^5h_s)e^{-(\log s)^2/4}$. On the complement, each $\sqrt{D_e}$ differs from its value at $\mathbf Y$ by at most $2c_N\log s$, where $c_N$ is the largest operator norm of a residual-pair map $\mathbf x\mapsto(r^b_i,r^m_i)$ divided by $\sqrt2$.
+
+\emph{Lock.} Define
+\[
+L_s=h_s-\frac8Tt_{\mathrm r}-\frac2T\log\log s,\qquad\tau_s=(L_s-t_{\mathrm r})_+.
+\]
+For a good initial assignment, \eqref{eq:sel_lock_margin} gives a square-root gap at least $\frac7{50}(\log s)^2$ on $[t_{\mathrm r},L_s]$, since there $se^{-Tt-8t_{\mathrm r}}\ge se^{-TL_s-8t_{\mathrm r}}=(\log s)^2$. For sufficiently large $s$, while both noise bounds hold, the actual square-root gap is at least $\frac7{100}(\log s)^2$, and since $a-b\ge(\sqrt a-\sqrt b)^2$ for $a\ge b\ge0$ the energy gap is at least $c_\star(\log s)^4$ with $c_\star=(7/50)^2/4$. At uniform rows a receiver's posterior then chooses its odd edge with probability at most $e^{-c_\star(\log s)^4/T}$. Apply this bound at the first ring, then use the rate-one compensator up to the first wrong redraw or exit from the noise bounds, stopping at $L_s\wedge h_s$. The endpoint $L_s$ is known after the first ring, and the gap estimate holds until the first failure. Thus $J^{(0)}$ is held throughout $[t_{\mathrm r},L_s]$ except on an event of probability at most
+\begin{equation}
+\delta_s=(65+Te^5h_s)e^{-(\log s)^2/4}+4(1+h_s)e^{-c_\star(\log s)^4/T},\qquad h_s\delta_s\to0.
+\label{eq:sel_lock_failure}
+\end{equation}
+Since $f_{\mathbf v}(\pm\mathbf v)=\pm2$ and $\mathbb Et_{\mathrm r}=1$, a good initial assignment contributes at least
+\[
+-2h_s+4\mathbb E\tau_s-4h_s\delta_s\ge2h_s-4(1+8/T)-(8/T)\log\log s-4h_s\delta_s
+\]
+to $\mathbb E\int_0^{h_s}f_{\mathbf v}(\sigma_t)dt$, and each of the other six contributes at least $-2h_s$. Averaging over the sixteen equally likely initial assignments,
+\[
+\mathbb E\int_0^{h_s}f_{\mathbf v}(\sigma_t)dt\ge\tfrac12h_s-\frac5T\log\log s-O_T(1).
+\]
+By~\eqref{eq:sel_moment}, $\mathbb E|\mathbf X_{h_s}|^2\le s^{-2}(2s^2+12)+12(1-s^{-2})=14$. The Markov property and~\eqref{eq:sel_poisson} bound the integral after $h_s$ in absolute value by $15\mathrm K_T$, independently of $s$. This proves~\eqref{eq:sel_nonvanishing}.
+
+\emph{Zero set.} A real-analytic function $f\not\equiv0$ on $\mathbb R^d$ has a Lebesgue-null zero set. In one variable its zeros are isolated. In $d$ variables some coefficient $\partial_d^\ell f(\mathbf x',0)$ is a real-analytic function of $\mathbf x'\in\mathbb R^{d-1}$ that is not identically zero, for otherwise $f$ would vanish identically. Outside the zero set of that coefficient, null by induction, each one-dimensional slice $x_d\mapsto f(\mathbf x',x_d)$ is a nonzero analytic function with isolated zeros, and Fubini's theorem concludes. Apply this to $\mathsf j_T$.
+\end{proof}
+
+\subsection{Entropy balance for the evolving recognition law}\label{app:sel_entropy}
+
+Write $q_\sigma(t,\mathbf x)$ for the density of the learned recognition law on sheet $\sigma$, $Q=\sum_\sigma q_\sigma$, $b_\sigma(t,\mathbf x)=b_\sigma(\mathbf x;p(t))$, $f_\sigma=q_\sigma/\mu_{p(t)}(\cdot,\sigma)$ and $\mathsf H(t)=\KL(q_t\Vert\mu_{p(t)})$.
+
+\begin{lemma}[Entropy balance]\label{lem:sel_entropy}
+On every finite interval $[0,h]$, $\mathsf H$ is finite and absolutely continuous, and almost everywhere
+\begin{equation}
+\begin{aligned}
+\mathsf H'(t)&=-\mathcal P_{p(t)}(f)-\sum_\sigma\int q_\sigma\partial_t\log\mu_{p(t)}(\mathbf x,\sigma)d\mathbf x,\\
+\mathcal P_p(f)&=T\sum_\sigma\int\mu_p(\mathbf x,\sigma)\frac{|\nabla f_\sigma|^2}{f_\sigma}d\mathbf x\\
+&\quad+\frac12\sum_{\sigma,\eta}\int\mu_p(\mathbf x,\sigma)b_\eta(\mathbf x;p)(f_\eta-f_\sigma)(\log f_\eta-\log f_\sigma)d\mathbf x,
+\end{aligned}
+\label{eq:sel_entropy_identity}
+\end{equation}
+with both production integrals finite and locally integrable in time.
+\end{lemma}
+
+\begin{proof}
+All rows are bounded away from zero on $[0,h]$ by~\eqref{eq:sel_row_bounds}. For the forward Ornstein--Uhlenbeck semigroup $\mathcal K_\sigma$ of sheet $\sigma$, acting on densities, conditioning on the last ring before $t$ gives the last-proposal formula
+\begin{equation}
+q_\sigma(t)=e^{-t}\mathcal K_\sigma(t)q_\sigma(0)+\int_0^te^{-(t-r)}\mathcal K_\sigma(t-r)[b_\sigma(r)Q(r)]dr.
+\label{eq:sel_forward}
+\end{equation}
+Iterating this positive formula, and bounding each proposal factor by one, reduces each term to a Gaussian motion along a deterministic sequence of sheets. Put $\bar a=\max_\sigma\|A_\sigma\|$. The means of these motions have norm at most $|\mathbf m_0|$, and their covariances lie between $e^{-2\bar ah}I$ and $(1+2Th)I$. Summing the at most $16^n$ sequences on each time simplex, of volume $t^n/n!$, gives a finite upper Gaussian envelope, and the no-proposal term gives a lower one. Consequently, uniformly on $[0,h]$,
+\begin{equation}
+0<\mathrm c_he^{-\mathrm C_h(1+|\mathbf x|^2)}\le q_\sigma(t,\mathbf x)\le\mathrm C_he^{-\mathrm c_h|\mathbf x|^2}.
+\label{eq:sel_density_envelopes}
+\end{equation}
+This bound does not assert Gaussianity conditional on a state-dependent assignment history.
+
+Differentiating one Ornstein--Uhlenbeck kernel against a function bounded by a polynomial times a Gaussian gives a bound of the same type with the factor $(t-r)^{-1/2}$: the kernel covariance is bounded above and below by multiples of $t-r$, its linear derivative is absorbed into a Gaussian with twice the covariance, and completing the square in the convolution concludes. This singularity is integrable in~\eqref{eq:sel_forward}, which proves a first-derivative Gaussian bound. Moreover
+\[
+\nabla b_\sigma=-\frac{b_\sigma}T\Bigl(H_\sigma\mathbf x-\sum_\eta b_\eta H_\eta\mathbf x\Bigr),\qquad|\nabla b_\sigma|\le\mathrm K_T|\mathbf x|,
+\]
+so the source $b_\sigma Q$ has a first derivative with the same type of bound. For the second derivative, transfer one derivative to this source using $\nabla\mathcal K_\sigma(r)g=e^{rA_\sigma}\mathcal K_\sigma(r)\nabla g$, which follows by integration by parts in the Gaussian transition density, whose inverse mean map is uniformly bounded on this finite interval, and differentiate the other kernel factor; the singularity is again only $r^{-1/2}$. The explicit initial Gaussian term supplies the bounds near zero. The forward equation obtained from a time difference quotient in~\eqref{eq:sel_forward} then bounds the time derivative, and
+\begin{equation}
+|\nabla q_\sigma|+|\nabla^2q_\sigma|+|\partial_tq_\sigma|\le\mathrm C_h(1+|\mathbf x|)^\ell e^{-\mathrm c_h|\mathbf x|^2}
+\label{eq:sel_density_derivatives}
+\end{equation}
+for some integer $\ell$. These estimates justify the differentiations below without assuming finite Fisher information.
+
+By~\eqref{eq:sel_density_envelopes} the logarithms of $q_\sigma$ and $\mu_{p(t)}(\cdot,\sigma)$ grow at most quadratically, and $\partial_t\log\mu_p$ is bounded in $\mathbf x$, since only its prior weight and normalizer vary. Together with~\eqref{eq:sel_density_derivatives}, this proves that $\mathsf H$ is finite, in particular $\mathsf H(0)<\infty$, and absolutely continuous on $[0,h]$, and permits differentiation under the integral. To integrate the diffusion term by parts, multiply first by a smooth radial cutoff $\chi_\varrho$, equal to one on $B_\varrho$ and zero outside $B_{2\varrho}$, with $|\nabla\chi_\varrho|\le\mathrm C/\varrho$, increasing to one as $\varrho\to\infty$. On each compact cylinder the densities have positive lower bounds, so $\log f_\sigma$ is a legitimate test function. The boundary term is bounded by
+\[
+\frac{\mathrm C_h}\varrho\int_{\varrho\le|\mathbf x|\le2\varrho}(1+|\mathbf x|)^{\ell+3}e^{-\mathrm c_h|\mathbf x|^2}d\mathbf x\longrightarrow0.
+\]
+Detailed balance, $\mu_p(\mathbf x,\sigma)b_\eta(\mathbf x;p)=\mu_p(\mathbf x,\eta)b_\sigma(\mathbf x;p)$, symmetrizes the finite jump sum. Both resulting production integrands are nonnegative, so monotone convergence removes the cutoff and proves finiteness and local time integrability of the production. The jump term is integrable already by the Gaussian envelopes and the quadratic logarithmic bounds, so the cutoff argument does not presuppose a bound on the diffusion production. The result is~\eqref{eq:sel_entropy_identity}, almost everywhere and in integrated form on every finite interval.
+\end{proof}
+
+\subsection{Entropy contraction at frozen rows}\label{app:sel_lsi}
+
+For $p$ in the open cube put
+\[
+\underline\kappa=\min_\sigma\lambda_{\min}(B_\sigma)>0,\qquad
+\bar\kappa=\max_\sigma\|B_\sigma\|,\qquad
+q^*_\sigma=\mu_p(\sigma)=\frac{\pi_\sigma\theta_\sigma}{\mathsf Z},\qquad
+q^*_{\min}=\min_\sigma q^*_\sigma,
+\]
+let $\gamma_\sigma=\mathcal N(0,B_\sigma^{-1})$, so that $\mu_p(\mathbf x,\sigma)d\mathbf x=q^*_\sigma\gamma_\sigma(d\mathbf x)$, and for a real function $u=(u_\sigma)_\sigma$ define
+\[
+\mathcal E_c(u)=T\sum_\sigma\int\mu_p(\mathbf x,\sigma)|\nabla u_\sigma|^2d\mathbf x,\qquad
+\mathcal E_j(u)=\frac12\sum_{\sigma,\eta}\int\mu_p(\mathbf x,\sigma)b_\eta(\mathbf x;p)(u_\sigma-u_\eta)^2d\mathbf x.
+\]
+
+\begin{lemma}[Entropy contraction]\label{lem:sel_lsi}
+With $p_{\min}=\min_i\{p_i,1-p_i\}>0$ and $\operatorname{Ent}_\nu(f)=\int f\log(f/\int fd\nu)d\nu$ for $f\ge0$, every probability density $f$ with respect to $\mu_p$ in the form domain satisfies
+\begin{equation}
+\mathcal P_p(f)\ge\lambda(T,p)\operatorname{Ent}_{\mu_p}(f),\qquad
+\lambda(T,p)\ge\frac{\mathrm c_T}{\mathrm K_T+8\log(1/p_{\min})}.
+\label{eq:sel_entropy_contraction}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+\emph{Gaussian inequalities.} The Ornstein--Uhlenbeck semigroup $P_t$ with generator $\Delta-B_\sigma\mathbf x\cdot\nabla$ has invariant law $\gamma_\sigma$, Dirichlet form $\int|\nabla g|^2d\gamma_\sigma$, and gradient commutation $\nabla P_tg=e^{-tB_\sigma}P_t\nabla g$. Differentiating entropy and applying the Cauchy--Schwarz inequality inside the kernel, $(P_t|\nabla g|)^2\le P_t(|\nabla g|^2/g)P_tg$, gives
+\[
+-\frac d{dt}\operatorname{Ent}_{\gamma_\sigma}(P_tg)=\int\frac{|\nabla P_tg|^2}{P_tg}d\gamma_\sigma\le e^{-2\underline\kappa t}\int\frac{|\nabla g|^2}gd\gamma_\sigma.
+\]
+For bounded positive smooth $g$ the explicit Gaussian formula and dominated convergence make the entropy tend to zero. Integrating in $t$, with $g=u^2$, and differentiating the variance along the same semigroup,
+\begin{equation}
+\operatorname{Ent}_{\gamma_\sigma}(u^2)\le\frac2{\underline\kappa}\int|\nabla u|^2d\gamma_\sigma,\qquad
+\operatorname{Var}_{\gamma_\sigma}(u)\le\frac1{\underline\kappa}\int|\nabla u|^2d\gamma_\sigma.
+\label{eq:sel_gaussian_inequalities}
+\end{equation}
+Positive regularization, truncation and smooth cutoffs extend both estimates to their form domains: the cutoff errors tend to zero by integrability of the squared function and its gradient, and the entropy passes to the limit by its variational formula.
+
+\emph{Mixture decomposition.} Replace $u$ by $|u|$, which decreases both energies, and normalize $\int u^2d\mu_p=1$. Put $z_\sigma=(\int u_\sigma^2d\gamma_\sigma)^{1/2}$. The chain rule for entropy gives
+\[
+\operatorname{Ent}_{\mu_p}(u^2)=\sum_\sigma q^*_\sigma\operatorname{Ent}_{\gamma_\sigma}(u_\sigma^2)+\operatorname{Ent}_{q^*}(z^2),
+\]
+with $0\le z_\sigma\le R_*=(q^*_{\min})^{-1/2}$. The function $\psi(z)=z^2\log z^2-z^2+1$ satisfies $\psi(1)=\psi'(1)=0$ and $\psi''(z)=4+4\log z$, so $\psi(z)\le2(1+\log R_*)(z-1)^2$ on $[0,R_*]$. Since $\sum_\sigma q^*_\sigma z_\sigma^2=1$, $\operatorname{Ent}_{q^*}(z^2)=\sum_\sigma q^*_\sigma\psi(z_\sigma)$ and $\sum_\sigma q^*_\sigma(z_\sigma-1)^2=2(1-\mathbb E_{q^*}z)\le2\operatorname{Var}_{q^*}(z)$, whence
+\[
+\operatorname{Ent}_{q^*}(z^2)\le L_p\operatorname{Var}_{q^*}(z),\qquad L_p=4+2\log(1/q^*_{\min}).
+\]
+
+\emph{Variance of the sheet masses.} Fix a ball $B_\varrho$ in $\mathbb R^{12}$ and define
+\[
+\bar u_\sigma=|B_\varrho|^{-1}\int_{B_\varrho}u_\sigma,\quad
+\bar u_*=\sum_\sigma\pi_\sigma\bar u_\sigma,\quad
+\chi_\sigma=\left[\frac{(2\pi)^6\theta_\sigma e^{\varrho^2\|B_\sigma\|/2}}{|B_\varrho|}-1\right]_+,\quad
+\mathsf B_T=\max_\sigma(1+\sqrt{\chi_\sigma})^2.
+\]
+Variance about any center bounds the variance, so
+\[
+\operatorname{Var}_{q^*}(z)\le2\sum_\sigma q^*_\sigma(z_\sigma-\bar u_\sigma)^2+2\sum_\sigma q^*_\sigma(\bar u_\sigma-\bar u_*)^2.
+\]
+For the first sum, $|z_\sigma-\gamma_\sigma u_\sigma|\le\sqrt{\operatorname{Var}_{\gamma_\sigma}(u_\sigma)}$, and the Cauchy--Schwarz inequality bounds $|\bar u_\sigma-\gamma_\sigma u_\sigma|$ by the same standard deviation times $\sqrt{\chi^2(\operatorname{Unif}(B_\varrho)\Vert\gamma_\sigma)}\le\sqrt{\chi_\sigma}$, because the density of $\gamma_\sigma$ is at least $(2\pi)^{-6}\theta_\sigma^{-1}e^{-\varrho^2\|B_\sigma\|/2}$ on the ball. With~\eqref{eq:sel_gaussian_inequalities}, the first sum is at most $(\mathsf B_T/(T\underline\kappa))\mathcal E_c(u)$. For the second sum, Jensen's inequality and $q^*_\sigma\le\pi_\sigma\theta_{\max}/\mathsf Z$ give
+\[
+\sum_\sigma q^*_\sigma(\bar u_\sigma-\bar u_*)^2\le\frac{\theta_{\max}}{\mathsf Z|B_\varrho|}\sum_{\sigma,\eta}\pi_\sigma\pi_\eta\int_{B_\varrho}(u_\sigma-u_\eta)^2.
+\]
+On $B_\varrho$ the explicit Gaussian densities give
+\[
+\mu_p(\mathbf x,\sigma)b_\eta(\mathbf x;p)\ge\frac{\pi_\sigma\pi_\eta e^{-\varrho^2\bar\kappa}}{(2\pi)^6\mathsf Z}.
+\]
+The normalizer therefore cancels, and the preceding sum is at most $2(2\pi)^6\theta_{\max}e^{\varrho^2\bar\kappa}\mathcal E_j(u)/|B_\varrho|$. Combining these bounds proves
+\[
+\operatorname{Ent}_{\mu_p}(u^2)\le\frac2{T\underline\kappa}(1+L_p\mathsf B_T)\mathcal E_c(u)+\frac{4L_p(2\pi)^6\theta_{\max}e^{\varrho^2\bar\kappa}}{|B_\varrho|}\mathcal E_j(u).
+\]
+
+\emph{Production.} For $u=\sqrt f$ the production is at least $4(\mathcal E_c(u)+\mathcal E_j(u))$: the diffusion part equals $4\mathcal E_c(u)$, and the jump part uses $(a-b)(\log a-\log b)\ge4(\sqrt a-\sqrt b)^2$, which follows from the Cauchy--Schwarz inequality applied to the integral of $r^{-1/2}$ between $a$ and $b$. The inequality extends to the form domain by the preceding approximations. Finally $q^*_{\min}\ge p_{\min}^4\theta_{\min}/\theta_{\max}$, because $\pi_\sigma\ge p_{\min}^4$ and $\mathsf Z\le\theta_{\max}$, so $L_p\le4+2\log(\theta_{\max}/\theta_{\min})+8\log(1/p_{\min})$, and~\eqref{eq:sel_entropy_contraction} follows with constants depending only on $T$. The factor $T$ in $\mathcal E_c$ is the diffusion coefficient of~\eqref{eq:sel_entropy_identity}.
+\end{proof}
+
+\subsection{The matching branch of the small-temperature landscape}\label{app:sel_landscape}
+
+\begin{lemma}[Landscape]\label{lem:sel_landscape}
+\emph{(a) Sheet weights.} The sheet weight $\theta_\sigma$ is constant on orbits of the cycle automorphisms. With $\mathsf d_\sigma=\det A_\sigma$, the two matchings, eight end-path assignments, four middle-path assignments and two oriented cycles, with representative multiplicity patterns $(2,0,2,0)$, $(2,1,1,0)$, $(1,2,1,0)$ and $(1,1,1,1)$, have
+\[
+\begin{aligned}
+\mathsf d_M&=25T^8(T+8)^2(5T+4)^2,\\
+\mathsf d_E&=5T^6(T^3+16T^2+77T+112)(125T^3+200T^2+85T+8),\\
+\mathsf d_N&=5T^6(T+4)(5T+2)(T^2+12T+28)(25T^2+30T+4),\\
+\mathsf d_C&=5T^5(T+2)(T+4)^2(T+6)(5T+2)^2(5T+4).
+\end{aligned}
+\]
+The ratios $\mathsf r_E=\sqrt{\mathsf d_M/\mathsf d_E}$, $\mathsf r_N=\sqrt{\mathsf d_M/\mathsf d_N}$ and $\mathsf r_C=\sqrt{\mathsf d_M/\mathsf d_C}$ of the corresponding sheet weights to the matching weight satisfy $\mathsf r_E,\mathsf r_N=\sqrt{40/7}T+O(T^2)$ and $\mathsf r_C=\sqrt{5/3}T^{3/2}(1+O(T))$. Choose $T_0>0$ with $0<\mathsf r_E,\mathsf r_N,\mathsf r_C\le\frac18$ for $0<T\le T_0$.
+
+\emph{(b) Saddle.} For $T\le T_0$, the Jacobian of $\Phi$ at $p=\frac12$ is symmetric, with eigenvalues
+\begin{equation}
+\begin{gathered}
+\alpha=\frac{3-2\mathsf r_N-\mathsf r_C}{\mathsf D_0}\ge\frac75,\qquad
+\alpha_{\mathrm{alt}}=\frac{-1-2\mathsf r_N+3\mathsf r_C}{\mathsf D_0}\le-\frac13,\\
+\alpha_{\mathrm{opp}}=\frac{-1+2\mathsf r_N-\mathsf r_C}{\mathsf D_0}\le-\frac25\quad\text{(twice)},
+\end{gathered}
+\label{eq:sel_saddle_spectrum}
+\end{equation}
+where $\mathsf D_0=1+4\mathsf r_E+2\mathsf r_N+\mathsf r_C$; the eigenvector of $\alpha$ is $\mathbf v$. The centered field $y\mapsto\Phi(\frac12+y)$ is odd, and the line $\frac12+\mathbb R\mathbf v$ is invariant.
+
+\emph{(c) Diagonal.} On that line the reduced flow $\dot p=\Phi(p)$ moves from $\frac12+a\mathbf v/2$ with $0<a<1$ into every prescribed neighborhood of the vertex $\sigma=\mathbf v$ in finite time, and from $-1<a<0$ into every neighborhood of the vertex $\sigma=-\mathbf v$.
+
+\emph{(d) Vertices.} Both matching vertices are sinks. At each, $|g_i|=\nu=1-\mathsf r_E>0$ with $g_i$ directed toward the vertex, and the Jacobian of $\Phi$ is $-\nu I$.
+\end{lemma}
+
+\begin{proof}
+\emph{(a)} An automorphism $g$ gives $A_{g\sigma}=O_gA_\sigma O_g^\top$, so $\theta_\sigma$ is constant on orbits; the sixteen assignments fall into the four listed classes of sizes $2$, $8$, $4$ and $2$. In the orthonormal coordinates $u=(k+m)/\sqrt2$, $v=(k-m)/\sqrt2$ and $w$, the residuals are $r^b=(Du+Dv)/\sqrt2-w$ and $r^m=(Du-Dv)/\sqrt2-w$, so
+\[
+V_\sigma=\tfrac12(Du-\sqrt2w)^\top C_\sigma(Du-\sqrt2w)+\tfrac12(Dv)^\top C_\sigma Dv,
+\]
+while $\mathbf x^\top R_{\mathrm{ev}}\mathbf x=2|k-m|^2=4|v|^2$, so the discrepancy coordinate $v$ has reference precision $5I$. The $(u,w)$ block of $A_\sigma$ is $TI_8+\mathsf F^\top C_\sigma\mathsf F$ with $\mathsf F=(D,-\sqrt2I_4)$, and Sylvester's determinant identity gives $\det(TI_8+\mathsf F^\top C_\sigma\mathsf F)=T^4\det(TI_4+C_\sigma\mathsf F\mathsf F^\top)$ with $\mathsf F\mathsf F^\top=DD^\top+2I$. Hence
+\begin{equation}
+\det A_\sigma=T^4\det\bigl[TI+C_\sigma(DD^\top+2I)\bigr]\det\bigl[5TI+D^\top C_\sigma D\bigr].
+\label{eq:sel_sheet_determinants}
+\end{equation}
+Evaluating~\eqref{eq:sel_sheet_determinants} on the four representative patterns gives the displayed determinants, and $\theta_\sigma/\theta_M=\sqrt{\mathsf d_M/\mathsf d_\sigma}$. Expanding the ratios at small $T$ gives their leading terms. The ratios are continuous on $(0,\infty)$ and tend to zero with $T$, so $T_0$ exists.
+
+\emph{(b)} Use the matching coordinates $x=(p_0,1-p_1,p_2,1-p_3)$, in which $x_i$ is the prior probability that receiver $i$ makes its $J^{(0)}$ choice. A vertex of the cube in these coordinates is the set $\mathcal A$ of receivers agreeing with $J^{(0)}$. Normalizing the matching weight to one, the evidence $\mathsf Z$ is the multilinear polynomial with vertex weights $1$ at $\mathcal A=\emptyset$ and $\mathcal A=\{0,1,2,3\}$, $\mathsf r_E$ for $|\mathcal A|\in\{1,3\}$, $\mathsf r_N$ for the four adjacent pairs and $\mathsf r_C$ for the two opposite pairs. For example, $\mathcal A=\{0\}$ is $\sigma=(1,1,-1,1)$ with pattern $(1,2,0,1)$, an end path, and $\mathcal A=\{0,2\}$ is $\sigma=(1,1,1,1)$, an oriented cycle. In these coordinates the field is $x_i(1-x_i)\partial_{x_i}\log\mathsf Z$, because $x\mapsto p$ is affine with diagonal signs. Complementation $\mathcal A\mapsto\mathcal A^c$ and the cyclic rotation of receivers preserve these weights, so the centered field is odd and commutes with the cyclic rotation of coordinates, which makes the diagonal $x=z\mathbf1$, that is the line $\frac12+\mathbb R\mathbf v$, invariant. At $x=\frac12\mathbf1$ the gradient of $\log\mathsf Z$ vanishes, the row mobility is $\frac14$, the uniform value of $\mathsf Z$ is $\mathsf D_0/8$, the adjacent Hessian entry of $\mathsf Z$ is $(1-\mathsf r_C)/2$ and the opposite one is $(1-2\mathsf r_N+\mathsf r_C)/2$. The Jacobian is therefore the circulant
+\[
+\frac1{\mathsf D_0}
+\begin{pmatrix}
+0&1-\mathsf r_C&1-2\mathsf r_N+\mathsf r_C&1-\mathsf r_C\\
+1-\mathsf r_C&0&1-\mathsf r_C&1-2\mathsf r_N+\mathsf r_C\\
+1-2\mathsf r_N+\mathsf r_C&1-\mathsf r_C&0&1-\mathsf r_C\\
+1-\mathsf r_C&1-2\mathsf r_N+\mathsf r_C&1-\mathsf r_C&0
+\end{pmatrix},
+\]
+with eigenvectors $\mathbf1$, $(1,-1,1,-1)$, $(1,0,-1,0)$ and $(0,1,0,-1)$ and the eigenvalues~\eqref{eq:sel_saddle_spectrum}. The direction $\mathbf1$ in matching coordinates is $\mathbf v$ in the original rows, and the change of coordinates is a signed diagonal map, so the Jacobian is symmetric in the original rows too. With $\mathsf r_E,\mathsf r_N,\mathsf r_C\in(0,\frac18]$ we have $\mathsf D_0\le\frac{15}8$, which gives the three numerical bounds.
+
+\emph{(c)} On the diagonal write $\varpi=z(1-z)$. The normalized evidence and the reduced motion are
+\[
+\mathsf Z_{\mathrm{diag}}(z)=1+4(\mathsf r_E-1)\varpi+(2-8\mathsf r_E+4\mathsf r_N+2\mathsf r_C)\varpi^2,\qquad
+\dot z=\frac{z(1-z)}{4\mathsf Z_{\mathrm{diag}}(z)}\mathsf Z_{\mathrm{diag}}'(z).
+\]
+The derivative is $(1-2z)[4(\mathsf r_E-1)+2(2-8\mathsf r_E+4\mathsf r_N+2\mathsf r_C)\varpi]$. The bracket is affine in $\varpi$ and negative at both endpoints $\varpi=0$ and $\varpi=\frac14$, where it equals $4(\mathsf r_E-1)$ and $-3+2\mathsf r_N+\mathsf r_C$. It is therefore negative throughout, so the diagonal motion tends to $z=1$ from $z>\frac12$ and to $z=0$ from $z<\frac12$, reaching every prescribed endpoint neighborhood in finite time.
+
+\emph{(d)} At the vertex $x=\mathbf1$ a single receiver flip changes the weight one to $\mathsf r_E$, so $\partial_{x_i}\log\mathsf Z=1-\mathsf r_E=\nu$ there, directed toward the vertex. The mobility $x_i(1-x_i)$ vanishes at the vertex with derivative $-1$, so the Jacobian is $-\nu I$. The vertex $x=0$ follows by complementation.
+\end{proof}
+
+\subsection{Tracking, escape and selection}\label{app:sel_selection}
+
+\emph{Tracking.} Let $\hat q_i(t)=q_t(\sigma_i=+1)$ and $\Delta_i(t)=\hat q_i(t)-\bar\beta_i(p(t))$, so that the learning equation reads $\dot p_i=\varepsilon(\Delta_i+\Phi_i(p))$. Differentiating the normalized product prior gives
+\[
+\partial_{p_i}\log\mu_p(\mathbf x,\sigma)=\frac{1_{\{\sigma_i=+1\}}-\bar\beta_i(p)}{p_i(1-p_i)}.
+\]
+Inserting the learning equation and~\eqref{eq:sel_reduced_field} in~\eqref{eq:sel_entropy_identity} yields
+\begin{equation}
+\begin{aligned}
+\mathsf H'&=-\mathcal P_p(f)-\varepsilon\sum_ig_i(p)\Delta_i-\varepsilon\sum_i\frac{\Delta_i^2}{p_i(1-p_i)}\\
+&\le-\lambda(T,p)\mathsf H+\varepsilon\|g(p)\|_1\sqrt{\mathsf H/2}.
+\end{aligned}
+\label{eq:sel_learning_entropy}
+\end{equation}
+The last bound uses Lemma~\ref{lem:sel_lsi} and $|\Delta_i|\le\|q_t-\mu_{p(t)}\|_{\mathrm{TV}}\le\sqrt{\mathsf H/2}$ by Pinsker's inequality. The nonpositive square is kept until this step, so no inverse row factor enters the forcing. Writing $\Lambda(t)=\int_0^t\lambda(T,p(r))dr$, comparison for $\sqrt{\mathsf H+\delta^2}$, followed by $\delta\downarrow0$, gives
+\begin{equation}
+\sqrt{\mathsf H(t)}\le e^{-\Lambda(t)/2}\sqrt{\mathsf H(0)}+\frac\varepsilon{2\sqrt2}\int_0^te^{-(\Lambda(t)-\Lambda(r))/2}\|g(p(r))\|_1dr.
+\label{eq:sel_tracking}
+\end{equation}
+Let $C_T$ be the window constant fixed below. On $t\le2C_T\varepsilon^{-1}\log(1/\varepsilon)$, \eqref{eq:sel_row_bounds} gives $p_{\min}\ge\frac12\varepsilon^{2C_T}$, so by~\eqref{eq:sel_entropy_contraction} $\lambda$ is bounded below by a positive constant divided by $1+\log(1/\varepsilon)$. Since $g$ is bounded, on this horizon
+\begin{equation}
+\|q_t-\mu_{p(t)}\|_{\mathrm{TV}}\le e^{-\Lambda(t)/2}\sqrt{\mathsf H(0)/2}+O_T(\varepsilon\log(1/\varepsilon)).
+\label{eq:sel_global_tracking}
+\end{equation}
+Near the saddle a finer bound is needed. Let $\|g(p)-g(p')\|_1\le L_T\|p-p'\|_\infty$ on the cube, and suppose $\lambda\ge\lambda_\flat>0$ on $[s_0,t]$. Inserting $\|g(p(r))\|_1\le\|g(p(t))\|_1+L_T\varepsilon(t-r)$, which follows from $|\dot p_i|\le\varepsilon$, in~\eqref{eq:sel_tracking} restarted at $s_0$, and integrating $1$ and $t-r$ against $e^{-\lambda_\flat(t-r)/2}$, gives
+\begin{equation}
+\|q_t-\mu_{p(t)}\|_{\mathrm{TV}}\le e^{-\lambda_\flat(t-s_0)/2}\sqrt{\mathsf H(s_0)/2}+\frac\varepsilon{2\lambda_\flat}\|g(p(t))\|_1+\frac{L_T\varepsilon^2}{\lambda_\flat^2}.
+\label{eq:sel_refined_tracking}
+\end{equation}
+
+\emph{Escape from the saddle.} Fix $0<T\le T_0$ and a mean with $\mathsf j_T(\mathbf m_0)\ne0$; by Lemma~\ref{lem:sel_nonvanishing} this excludes only a Lebesgue-null set. Put $\mathbf e=\mathbf v/2$, a unit vector. In slow time $\mathfrak s=\varepsilon t$, write $y=p-\frac12=a\mathbf e+\mathbf z$ with $\mathbf z\perp\mathbf e$, so that $dy/d\mathfrak s=\Phi(\frac12+y)+\Delta$. By~\eqref{eq:sel_imprint_expansion}, at $t_1=\varepsilon^{-1/4}$,
+\[
+a(t_1)=\varepsilon\bigl(\mathsf j_T(\mathbf m_0)/2+o(1)\bigr),\qquad|\mathbf z(t_1)|=O(\varepsilon).
+\]
+On $[0,t_1]$, $g(\frac12)=0$ (Lemma~\ref{lem:sel_invariance}) gives $\|g(p(t))\|_1\le L_T\varepsilon t/2$, and $\lambda$ is bounded below by a positive constant, so~\eqref{eq:sel_tracking} gives $\sqrt{\mathsf H(t_1)}=O(\varepsilon^2t_1)=O(\varepsilon^{7/4})$. Consequently, until exit from any sufficiently small fixed ball about $\frac12$, \eqref{eq:sel_refined_tracking} with $s_0=t_1$ and $\|g(p)\|_1\le L_T|y|$ implies
+\begin{equation}
+|\Delta|_2\le\kappa_\varepsilon|y|+b_\varepsilon,\qquad\kappa_\varepsilon=O(\varepsilon),\qquad b_\varepsilon=O(\varepsilon^{7/4})=o(|a(t_1)|),
+\label{eq:sel_relative_error}
+\end{equation}
+with constants that may depend on the fixed mean.
+
+Let $\alpha_\perp=\max(\alpha_{\mathrm{alt}},\alpha_{\mathrm{opp}})<0$ and $\gamma=\alpha-\alpha_\perp>0$. Oddness and diagonal invariance of the analytic reduced field imply, for $|y|\le r$,
+\[
+\bigl|\langle\Phi(\tfrac12+y),\mathbf e\rangle-\alpha a\bigr|\le\mathrm C|y|^3,\qquad
+\bigl|P_\perp\Phi(\tfrac12+y)-D\Phi(\tfrac12)\mathbf z\bigr|\le\mathrm C|y|^2|\mathbf z|,
+\]
+where $P_\perp$ is the orthogonal projection onto $\mathbf e^\perp$. The first follows because the field has no quadratic term and $\mathbf e$ is an eigenvector of the symmetric Jacobian. For the second, subtract the perpendicular field on $a\mathbf e$, which vanishes by diagonal invariance, and integrate its derivative along the transverse segment; the derivative differs from its value at the center by $O(|y|^2)$ because the field is odd, and $D\Phi(\frac12)$ preserves $\mathbf e^\perp$. Writing $\omega=|\mathbf z|/|a|$, the upper right derivatives of norms give
+\begin{equation}
+\begin{aligned}
+\frac{d|a|}{d\mathfrak s}&\ge|a|\bigl[\alpha-(\mathrm Cr^2+\kappa_\varepsilon)(1+\omega)\bigr]-b_\varepsilon,\\
+D^+\omega&\le-\bigl[\gamma-\mathrm Cr^2-(\mathrm Cr^2+\kappa_\varepsilon)(1+\omega)\bigr]\omega+(1+\omega)(\kappa_\varepsilon+b_\varepsilon/|a|).
+\end{aligned}
+\label{eq:sel_cone}
+\end{equation}
+Choose $\omega_*$ larger than twice the limiting initial ratio $\lim_{\varepsilon\to0}\omega(t_1)$, which is finite, then choose $r>0$ so small that the terms $\mathrm Cr^2(1+\omega_*)$ consume less than one quarter of both rates $\alpha$ and $\gamma$. For small enough $\varepsilon$, \eqref{eq:sel_relative_error} controls the remaining terms. A bootstrap then keeps $\omega\le\omega_*$, makes $|a|$ increase without changing sign, and gives
+\[
+\omega(\mathfrak s)\le\omega(\mathfrak s_1)e^{-\gamma(\mathfrak s-\mathfrak s_1)/2}+\frac{2(1+\omega_*)}\gamma\bigl(\kappa_\varepsilon+b_\varepsilon/|a(t_1)|\bigr),\qquad\mathfrak s_1=\varepsilon t_1.
+\]
+The lower growth bound for $|a|$ yields an exit time from the ball of radius $r$ no larger than
+\[
+\frac{1+O(r^2)+o(1)}\alpha\log(1/\varepsilon)
+\]
+in slow time, and the corresponding upper growth bound for $|y|$ forces the exit time to tend to infinity. Hence $\omega\to0$ at exit, and the exit point tends to $\operatorname{sign}(\mathsf j_T(\mathbf m_0))r\mathbf e$.
+
+\emph{Transit and capture.} Let $M=M_0$ if $\mathsf j_T(\mathbf m_0)>0$ and $M=M_1$ otherwise, and let $p^M$ be the corresponding vertex, $\sigma=\mathbf v$ or $\sigma=-\mathbf v$. By Lemma~\ref{lem:sel_landscape}(c) the reduced diagonal orbit from $\frac12\pm r\mathbf e$ enters any fixed neighborhood of $p^M$ in finite slow time. After $t_1$ the tracking error in~\eqref{eq:sel_global_tracking} tends to zero, because $\Lambda(t)$ grows at least as a positive multiple of $\varepsilon^{-1}$ once $t$ is of order $\varepsilon^{-1}$; finite-time Gr\"onwall comparison therefore carries the evolving rows into the same neighborhood. At $p^M$ let $\zeta_i=|p_i-p^M_i|$. By Lemma~\ref{lem:sel_landscape}(d) and continuity, a sufficiently small neighborhood has $(1-\zeta_i)|g_i(p)|\ge\nu/2$ with $g_i$ directed toward the vertex. Since $\Phi_i=p_i(1-p_i)g_i$ and $p_i(1-p_i)=\zeta_i(1-\zeta_i)$ there, in slow time
+\[
+D^+\zeta_i\le-\tfrac\nu2\zeta_i+\|q_t-\mu_{p(t)}\|_{\mathrm{TV}}.
+\]
+The neighborhood remains invariant once the tracking floor is small enough, and $\zeta_i$ decays exponentially to a vanishing floor.
+
+\emph{Selection window.} Choose any $C_T>1/\alpha$, independently of the mean; by~\eqref{eq:sel_saddle_spectrum} every $C_T>\frac57$ is admissible. Then choose the local radius $r$ so that the coefficient of $\log(1/\varepsilon)$ in the exit time is less than $C_T$. The slow time remaining after the finite transit tends to infinity uniformly on the slow-time window $[C_T\log(1/\varepsilon),2C_T\log(1/\varepsilon)]$, which is the window $t_L\le t\le2t_L$ of the theorem. The row distances therefore vanish uniformly on that window. Every normalized sheet weight is at most the matching weight one, so
+\[
+\mu_p(S=M)\ge\pi_M\ge1-\sum_i\zeta_i,\qquad
+q_t(S\ne M)\le\sum_i\zeta_i+\|q_t-\mu_{p(t)}\|_{\mathrm{TV}}.
+\]
+The total variation tends to zero uniformly on the window by~\eqref{eq:sel_global_tracking}, since the integrated contraction exponent at the beginning of the window grows at least as a positive constant times $\varepsilon^{-1}$. This proves part (i) of Theorem~\ref{thm:pairing_selection} for every mean outside the null zero set of $\mathsf j_T$, with $T_0$ from Lemma~\ref{lem:sel_landscape}(a).
+
+\emph{Frozen arm.} For part (ii), fix any $T>0$ and $\mathbf m_0$. Integrating~\eqref{eq:sel_harris} at $p=\frac12$ against the initial law, which has a finite second moment, gives $\|q^0_t-\mu_{1/2}\|_{\mathrm{TV}}\le\mathrm K_{T,\mathbf m_0}e^{-\lambda_Tt}$, and $\mu_{1/2}(S=M_0)=\mu_{1/2}(S=M_1)$ by Lemma~\ref{lem:sel_invariance}. Hence $q^0_t(S=M_0)-q^0_t(S=M_1)\to0$.
+
+The convergence in part (i) is pointwise in the fixed mean; no bound uniform near the zero set of the imprint has been used. The asymmetry is supplied by the initial mean through $\mathsf j_T(\mathbf m_0)$, and slow learning amplifies it along the expanding saddle direction $\mathbf v$, whereas at frozen rows the same initial asymmetry decays at the rate $\lambda_T$. \hfill$\square$

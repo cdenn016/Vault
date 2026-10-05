@@ -13,7 +13,7 @@ When the density and integrability assumptions of Section~\ref{sec:free_energy} 
 \begin{equation}
 \mathcal F_V[Q]=D_{\mathrm{KL}}(Q\|P_0)-\mathbb E_Q\log\ell_o.
 \end{equation}
-The posterior-relative-entropy formula defines the extended value when the split expression would subtract infinities. Exact inference can require an intractable integral, but tractable models also exist. Minimization over all probability laws attains the bound exactly at $Q=P_o$. A restricted family can have a positive irreducible approximation gap, and an update scheme need not reach even its restricted optimum. The notation $\mathcal E$ remains reserved for the separate consensus potential.
+The posterior-relative-entropy formula defines the extended value when the split expression would subtract infinities. Exact inference can require an intractable integral, but tractable models also exist. Minimization over all probability laws attains the bound exactly at $Q=P_o$, while a restricted family can have a positive irreducible approximation gap (Propositions~\ref{prop:sp_restriction} and~\ref{prop:sp_block_gaussian}). An update scheme need not reach even its restricted optimum. The notation $\mathcal E$ remains reserved for the separate consensus potential.
 
 \subsection{Gaussian KL Divergence}
 \label{app:gaussian_kl}
@@ -22,7 +22,7 @@ For multivariate Gaussian distributions $q = \mathcal{N}(\mu_q, \Sigma_q)$ and $
 \begin{equation}
 D_{\mathrm{KL}}(q \| p) = \frac{1}{2}\left[\log\frac{|\Sigma_p|}{|\Sigma_q|} + \operatorname{tr}(\Sigma_p^{-1}\Sigma_q) + (\mu_p - \mu_q)^\top\Sigma_p^{-1}(\mu_p - \mu_q) - K_q\right],
 \end{equation}
-the Gaussian reverse relative entropy. This formula is used throughout for the self and alignment terms of the consensus functional.
+the Gaussian reverse relative entropy (Proposition~\ref{prop:sp_gaussian}). This formula is used throughout for the self and alignment terms of the consensus functional.
 
 \subsection{Fisher Information Matrix for Gaussians}
 \label{app:fisher_gaussian}
@@ -34,7 +34,7 @@ G = \begin{pmatrix}
 0 & \frac{1}{2}(\Sigma^{-1} \otimes \Sigma^{-1})
 \end{pmatrix},
 \end{equation}
-and every affine map $(\mu, \Sigma) \mapsto (Q\mu + v, Q\Sigma Q^\top)$ with $Q \in \mathrm{GL}(K_q)$ is an isometry of it. The covariance block is to be read as the Fisher quadratic form restricted to symmetric perturbations, $g(d\Sigma, d\Sigma) = \tfrac{1}{2}\operatorname{tr}(\Sigma^{-1} d\Sigma \Sigma^{-1} d\Sigma)$. As an operator on symmetric matrices, $X \mapsto \tfrac{1}{2}\Sigma^{-1}X\Sigma^{-1}$ has inverse $X \mapsto 2\Sigma X \Sigma$, so the natural gradient is
+and every affine map $(\mu, \Sigma) \mapsto (Q\mu + v, Q\Sigma Q^\top)$ with $Q \in \mathrm{GL}(K_q)$ is an isometry of it~\cite{Skovgaard1984} (Proposition~\ref{prop:sp_gaussian}). The covariance block is to be read as the Fisher quadratic form restricted to symmetric perturbations, $g(d\Sigma, d\Sigma) = \tfrac{1}{2}\operatorname{tr}(\Sigma^{-1} d\Sigma \Sigma^{-1} d\Sigma)$. As an operator on symmetric matrices, $X \mapsto \tfrac{1}{2}\Sigma^{-1}X\Sigma^{-1}$ has inverse $X \mapsto 2\Sigma X \Sigma$, so the natural gradient is
 \begin{align}
 \tilde{\nabla}_\mu \mathcal{E} &= \Sigma (\nabla_\mu \mathcal{E}), \\
 \tilde{\nabla}_\Sigma \mathcal{E} &= 2\Sigma (\nabla_\Sigma \mathcal{E}) \Sigma,
