@@ -1,0 +1,120 @@
+Minimal agent model checks (float64, NumPy 2.0.0), seed 20261005
+
+(a) One head: label posterior, component posteriors, mixture moments
+  [PASS] label posterior w_ij (closed vs brute), max abs: 1.943e-16
+  [PASS] component means m_ij, max abs: 2.220e-16
+  [PASS] component covariances C_i - G_ij S_Q C_i, max abs: 3.331e-16
+  [PASS] posterior mean (mixture mean), max abs: 4.441e-16
+  [PASS] posterior covariance incl. between-source spread, max abs: 6.661e-16
+  [PASS] expected-likelihood kernel = N(T xi_j; S_Q xi_i, V+R) (product integral): 8.882e-16
+  [PASS] N=0: weights equal expected-likelihood routing with S_K = T: 2.220e-16
+  [PASS] constant R: xi+ = (I - G S_Q) xi + G sum_j w_ij T xi_j (vs brute): 1.110e-16
+  [PASS] constant R: C+ = (I - G S_Q) C + G Cov_w(T xi) G^T (vs brute): 4.441e-16
+  [PASS] precision-weighted residual: I - G S_Q = P C_i^{-1}: 2.220e-16
+  [PASS] Woodbury: G = (C^-1 + S^T R^-1 S)^-1 S^T R^-1: 1.110e-16
+
+(a') Monte Carlo (self-normalized importance sampling, no Gaussian conditioning used)
+  draws = 1000000, effective sample size = 56054
+  exact mean  = [-0.1852  0.1545  0.9483  0.9456 -0.0274]
+  MC mean     = [-0.187   0.1582  0.9514  0.947  -0.0295]
+  MC std err  = [0.0032 0.0043 0.0044 0.0043 0.0047]
+  exact w     = [0.2123 0.1153 0.5984 0.074 ]; MC w = [0.2128 0.1151 0.5973 0.0748]
+  [PASS] MC posterior mean: max |MC - exact| / s.e. (pass if < 4): 8.759e-01
+  [PASS] MC label posterior: max |MC - exact| / s.e. (pass if < 4): 8.246e-01
+
+(b) Several heads: factorization under H1-H3, and its failure
+  |S_Q1 C_i S_Q2^T| = 1.5e-15, |T1 C_s T2^T| = 6.2e-16
+  [PASS] H1-H3: tuple posterior = product of per-head w^h, max abs: 2.220e-16
+  [PASS] H1-H3: xi+ = (I - sum_h G^h S_Qh) xi + sum_h G^h sum_j w^h T_h xi_j: 1.332e-15
+  [PASS] H1-H3: C+ formula (per-head spread, no cross-head spread): 8.882e-16
+  [PASS] H2,H3 without H1: tuple posterior still factorizes, max abs: 3.331e-16
+  [PASS] H2,H3 without H1: xi+ = xi + sum_h sum_j w^h G^h_ij (T_h xi_j - S_Qh xi): 1.332e-15
+  [PASS] H3 fails: tuple posterior differs from product of per-head w (expected > 0): 3.323e-02
+  [PASS] H3 fails, H1,H2 hold: xi+ = xi + G_stack (sum_j wbar T xi_j - S xi) with exact marginals: 2.220e-16
+  [PASS] H3 fails: per-head rows with per-head gains differ from exact mean (expected > 0): 2.473e-01
+    max |w^1 - wbar^1| = 1.473e-02, max |G^1 - G_stack[:, head 1]| = 9.879e-02
+  [PASS] H2 fails (sender cross-head covariance): no factorization (expected > 0): 8.836e-02
+  K=1 counterexample: S_Q1=S_Q2=T1=T2=1, C_i=1, N_h=1, C_j=0, xi_i=0, x_1=0, x_2=2, uniform prior
+  [PASS] K=1: tuple posterior = (1, e^-4/3, e^-4/3, e^-4/3)/(1+3e^-4/3): 8.327e-17
+    exact marginal P(J^h=2) = 0.29439; per-head weight from (a) = 0.26894
+    P(J^1=2,J^2=2) = 0.14720 vs product of marginals 0.08667
+  [PASS] K=1: exact posterior mean = (1/3) E[x_J1 + x_J2] = 4 wbar / 3: 1.110e-16
+    exact mean = 0.39252; per-head rows with per-head gains 1/2 give 0.53788
+
+(c) Noise-free channel R = 0: gain, oblique projector, constraint, local form, passive law
+    eps=1e-01: max|G_ij - R_Q| = 1.68e+00, |xi+(eps) - xi+(0)| = 1.30e+00, |w(eps) - w(0)| = 4.59e-01
+    eps=1e-02: max|G_ij - R_Q| = 6.96e-01, |xi+(eps) - xi+(0)| = 3.36e-01, |w(eps) - w(0)| = 5.28e-02
+    eps=1e-04: max|G_ij - R_Q| = 1.09e-02, |xi+(eps) - xi+(0)| = 3.94e-03, |w(eps) - w(0)| = 4.20e-04
+    eps=1e-06: max|G_ij - R_Q| = 1.09e-04, |xi+(eps) - xi+(0)| = 3.94e-05, |w(eps) - w(0)| = 4.19e-06
+    eps=1e-08: max|G_ij - R_Q| = 1.09e-06, |xi+(eps) - xi+(0)| = 3.94e-07, |w(eps) - w(0)| = 4.19e-08
+  [PASS] limit R -> 0: |G_ij - R_Q| = O(eps); |1 - fitted order| between eps=1e-6 and 1e-8: 1.229e-05
+  [PASS] R = 0 exactly: closed form vs brute (mean): 4.219e-15
+  [PASS] R = 0 exactly: closed form vs brute (covariance): 2.331e-15
+  [PASS] S_Q R_Q = I_r: 2.331e-15
+  [PASS] Pi^2 = Pi: 9.714e-16
+  [PASS] S_Q Pi = S_Q (so ker Pi = ker S_Q, by rank): 3.775e-15
+  [PASS] Pi C S_Q^T = C S_Q^T (im Pi = im C S_Q^T): 4.441e-15
+  [PASS] rank Pi = r: 0.000e+00
+  [PASS] xi+ = (I - Pi) xi + R_Q sum_j w T xi_j (vs brute): 4.663e-15
+  [PASS] constraint S_Q xi+ = sum_j w_ij T xi_j: 3.039e-15
+  [PASS] unprobed component kept: (I - Pi)(xi+ - xi) = 0: 2.998e-15
+  [PASS] xi+ - xi = argmin delta^T C^-1 delta s.t. S_Q delta = zbar - S_Q xi (KKT): 2.331e-15
+  [PASS] C+ = (I - Pi) C + R_Q Cov_w(T xi) R_Q^T: 1.554e-15
+  [PASS] local: mu+ = U_i(I-Pi)U_i^-1 mu_i + sum_j w M^cmp_ij mu_j (vs local brute): 1.528e-13
+  [PASS] local weights equal reference weights: 1.218e-15
+  [PASS] passive law: weights unchanged: 1.701e-13
+  [PASS] passive law: mu+ -> g_i mu+: 5.612e-11
+  [PASS] passive law: Sigma+ -> g_i Sigma+ g_i^T: 1.557e-10
+  [PASS] passive law: M^cmp_ij -> g_i M^cmp_ij g_j^-1: 1.933e-12
+  [PASS] noisy local: mu+ = U_i(I - sum_j w G_ij S_Q)U_i^-1 mu_i + sum_j w U_i G_ij T U_j^-1 mu_j: 3.242e-14
+  [PASS] noisy passive law: weights, mean, covariance (max abs): 1.393e-11
+  [PASS] common reference change: weights unchanged: 4.441e-16
+  [PASS] common reference change: xi+ -> a^-1 xi+: 2.665e-15
+  [PASS] common reference change: G_ij -> a^-1 G_ij: 6.661e-16
+
+(d) Full rank r = K: one comparison link weighs and transports
+  [PASS] log N(T xi_j; S_Q xi_i, V+R) - log N(Th xi_j; xi_i, C_i + Th C_j Th^T) = -log|det S_Q|: 3.331e-15
+  [PASS] weights = pi * expected likelihood of q_i and Th_* q_j (normalized): 6.661e-16
+  [PASS] component posterior = normalized product q_i * Th_* q_j (mean): 1.554e-14
+  [PASS] component posterior = normalized product q_i * Th_* q_j (covariance): 3.497e-15
+  [PASS] full rank, N=0: closed vs brute (mean): 2.220e-16
+  [PASS] full rank, N>0: weights with C_i + C~_ij: 3.886e-16
+  [PASS] full rank, N>0: component means xi + C(C + C~)^-1 (Th xi_j - xi): 8.882e-16
+    C_j -> 1e-02 C_j: |xi+ - sum_j w Th xi_j| = 5.83e-01, |w - pi N(Th xi_j; xi_i, C_i)| = 9.32e-03
+    C_j -> 1e-04 C_j: |xi+ - sum_j w Th xi_j| = 8.21e-03, |w - pi N(Th xi_j; xi_i, C_i)| = 6.94e-06
+    C_j -> 1e-06 C_j: |xi+ - sum_j w Th xi_j| = 8.24e-05, |w - pi N(Th xi_j; xi_i, C_i)| = 6.62e-08
+    C_j -> 1e-08 C_j: |xi+ - sum_j w Th xi_j| = 8.24e-07, |w - pi N(Th xi_j; xi_i, C_i)| = 6.62e-10
+  [PASS] transport limit: |xi+ - sum_j w Th xi_j| at eps = 1e-8 (pass if < 1e-6; error is O(eps)): 8.238e-07
+    at finite C_j: |exact xi+ - sum_j w(C_i + Th C_j Th^T) Th xi_j| = 1.934e+00 (nonzero)
+  [PASS] local, C_j = 0: mu+ = sum_j w_ij Theta^cmp_ij mu_j: 1.910e-14
+  [PASS] KL((S_Q)_* q_i || T_* q_j) = KL(q_i || Th_* q_j): 1.531e-10
+  [PASS] K=2 grid quadrature: int q_i Th_* q_j = N(Th xi_j; xi_i, C_i + Th C_j Th^T) (rel.): 7.505e-14
+
+(e) Re-basing S_K = A T, and the rectangular case
+  [PASS] S_K = A T vs tied (A^-1 S_Q, T, A^-1 N A^-T): label posterior: 8.327e-16
+  [PASS] S_K = A T vs tied: posterior mean: 4.857e-16
+  [PASS] S_K = A T vs tied: posterior covariance: 6.661e-16
+  [PASS] Gibbs costs D_ij with (S_Q, A T) equal those with (A^-1 S_Q, T): 3.553e-15
+  [PASS] tied model invariant under (A S_Q, A T, A N A^T): 8.882e-16
+    |T delta| = 1.000 (content changes), |A T delta| = 9.2e-16
+  [PASS] rectangular A: content change in ker A does not reach the receiver: 1.110e-16
+  [PASS] rectangular A: every update xi+ - xi lies in im(C_i S_Q^T), dim r < s: 4.996e-16
+
+(f) Shared covariance: constant gain, dot-product routing, tiled heads
+  [PASS] shared C, common R: gain identical for two receivers: 0.000e+00
+  [PASS] w = softmax(q.k - |k|^2/2 + log pi), whitening by V_Q + V_K: 2.498e-16
+  [PASS] same with W_Q = Sigma^-1 S_Q and W_K = W_V = T (no key whitening): 1.110e-16
+  [PASS] tiled, C-orthogonal: sum_h R^h_Q S_Qh = I (residual vanishes): 6.606e-15
+  [PASS] tiled: R^h_Q = block columns of S_Q^-1: 2.498e-15
+  [PASS] tiled: xi+ = sum_j Th Pi(w_ij) xi_j, Pi(w) = T^-1 bold(w) T (vs brute): 1.221e-14
+  [PASS] tiled, not C-orthogonal: xi+ = sum_j Th Pi(wbar_ij) xi_j with exact marginals: 2.442e-15
+  [PASS] tiled, not C-orthogonal: per-head w^h differ from exact marginals (expected > 0): 5.910e-01
+
+(g) Approximations: structured mean field and the power-posterior receiver
+  [PASS] mean-field label cost closed form vs MC (|z| < 4): 2.237e-01
+  [PASS] label cost - KL((S_Q)_* q_i || N(T xi_j, R_ij)) is constant in j: 8.882e-16
+  [PASS] N=0: mean-field label step at the prior = Gibbs routing (tau=1, S_K=T): 1.735e-17
+  [PASS] power-posterior receiver mean (powers w) = minimal agent posterior mean: 2.220e-16
+  [PASS] power-posterior receiver covariance = (I - G S_Q) C_i (omits between-source spread): 2.220e-16
+
+Summary: 79 checks, 79 pass, 0 fail

@@ -1,0 +1,373 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs,array}
+\usepackage{microtype,xcolor}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=green!40!black,urlcolor=blue!50!black]{hyperref}
+\usepackage{url}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\providecommand{\GL}{\mathrm{GL}}
+\providecommand{\tr}{\operatorname{tr}}
+\providecommand{\KL}{D_{\mathrm{KL}}}
+\newcommand{\E}{\mathbb E}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Nset}{\mathcal N}
+\newcommand{\Gauss}{\mathcal N}
+\newcommand{\Vrec}{V^{\mathrm{rec}}}
+\newcommand{\Vrecb}{\mathbf V^{\mathrm{rec}}}
+\newcommand{\G}{\mathsf G}
+\newcommand{\Thr}{\mathring\Theta^{\mathrm{cmp}}}
+\newcommand{\Thcmp}{\Theta^{\mathrm{cmp}}}
+\newcommand{\Mcmp}{M^{\mathrm{cmp}}}
+\newcommand{\qt}{\widetilde q}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\rank}{\operatorname{rank}}
+
+\title{A Minimal Agent Model:\\Tied Key and Content with a Bayesian Receiver}
+\author{Robert C. Dennis}
+\date{Working note, October 5, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+An agent that holds a full Gaussian belief privately but can transmit only a partial representation of it faces two problems when it listens to others: deciding whom to listen to, and bringing what it hears back into its own full internal frame. A standard attention layer solves both with learned maps, a key map and a value map on the sender side and a query map and an output map on the receiver side, together with an identity residual. We declare a minimal agent model in which each sender emits one linear observable of its belief per head, the utterance, which serves as both key and content, and each receiver conditions its belief exactly on a noisy comparison record between its own query observable and the utterance of a latent selected source. Only the query maps and the sending maps are free. The source posterior is an expected-likelihood routing rule, the receiving map is the gain of linear Gaussian conditioning, and the residual is precision weighted. We state and prove the exact posterior for one head, its factorization over several heads under two explicit orthogonality conditions, the noise-free limit in which the receiver performs a minimal-change projection that keeps the part of its belief its query does not probe, the full-rank case in which a single group-valued comparison link both weighs and, for precise senders, transports the source beliefs, and the invariance of the model under an invertible re-basing of the key. We relate the model to a standard attention layer, of which it has the algebraic form with a state-dependent derived output map, and to divergence-based Gibbs routing, which is the first label step of a structured mean-field approximation to it. The model is declared and has not been implemented or evaluated; float64 checks at state dimension at most six confirm the identities on the instances computed.
+\end{abstract}
+
+\section{Introduction}
+\label{ma:sec:intro}
+
+The attention layer of the transformer \citep{vaswani2017attention} can be read as communication among agents. Each position of a sequence is an agent; it broadcasts a key, by which others decide whether to listen, and a value, which is what they receive; each listener forms a query, weighs the broadcasts by the agreement of query and key, and passes the weighted values through an output map before adding them to its own state. Learned multi-agent communication follows the same pattern, from continuous broadcast channels averaged across agents \citep{Sukhbaatar2016CommNet} and differentiable protocols \citep{foerster2016learning} to targeted communication in which each message carries a signature and a value and receivers attend to signatures with their own queries \citep{Das2019TarMAC}. In all of these, the maps that produce, address, and absorb messages are learned, and in the transformer the residual connection that adds the received message to the listener's state is fixed by architecture rather than derived.
+
+This note asks what remains when the listener is an exact Bayesian receiver. Suppose each agent holds a full Gaussian belief over a $K$-dimensional state but can transmit only a partial representation of it, a linear observable of rank $r\le K$. A receiver must then weigh each transmitted representation against its own question and, having decided how much to trust it, bring it back into its full internal frame. Both steps are inference problems once the communication channel is declared. We declare the simplest channel we could find: each sender emits a single observable per head, the utterance, which is at once what makes it findable and what it says, so that the key map equals the sending map, and each receiver conditions its belief on a noisy record of the agreement between its own query observable and the utterance of a source chosen by a latent label. The receiving map, the residual, and the routing are then consequences of Gaussian conditioning \citep[Sec.~2.3]{Bishop2006}; only the query maps and the sending maps remain free.
+
+Probabilistic readings of attention are not new. Attention weights have been treated as posterior marginals of latent structure \citep{Kim2017StructuredAttention} and as latent alignment variables under variational inference \citep{Deng2018LatentAlignment}; transformers have been read as inference in Gaussian mixture models \citep{Movellan2020ProbabilisticTransformers}, with probabilistic attention mechanisms built on that reading \citep{Gabbur2021ProbabilisticAttention}; and keys have been modeled as Gaussian mixtures to improve attention heads \citep{Nguyen2022MGK}. The routing rule that emerges here is the expected-likelihood, or probability product, kernel between the receiver's query law and the sender's key law \citep{Jebara2004ProbabilityProduct}, the same similarity used for Gaussian and Gaussian-mixture word embeddings \citep{Vilnis2015Gaussian,Athiwaratkun2017Multimodal}. What the present construction adds is the receiver side: the posterior mean is a gain-weighted correction of the receiver's prior mean, the gain depends on the receiver's own covariance, and in the noise-free limit the update keeps exactly the component of the receiver's belief that its query does not probe. When the maps have full rank, a single matrix in $\GL(K)$, the comparison link, determines both the routing weights and, for precise senders, the transport of source beliefs into the receiver's frame.
+
+The scope is narrow and fixed throughout. The model is a single round of communication among Gaussian agents with fixed input beliefs, analyzed exactly. Section~\ref{ma:sec:setting} sets up agents, frames, heads, and two comparison-based routing rules that serve as reference points. Section~\ref{ma:sec:model} declares the minimal agent model and states its exact posterior (Proposition~\ref{ma:prop:minimal}). Section~\ref{ma:sec:readings} reads the result in the noise-free and full-rank limits and relates it to a standard attention layer and to divergence-based routing. Section~\ref{ma:sec:open} records what is not established. Appendix~\ref{ma:app:proofs} contains the proofs, and Appendix~\ref{ma:app:checks} summarizes float64 checks at small dimension. Nothing here is a training result, and the model has not been implemented.
+
+\section{Setting}
+\label{ma:sec:setting}
+
+\paragraph{Agents and frames.}
+Agents $i\in\{1,\ldots,n\}$ share a single context. Agent $i$ carries a frame $U_i\in\GL(K)$ and a Gaussian belief $q_i=\Gauss(\mu_i,\Sigma_i)$ in its local coordinates. Its reference moments are
+\begin{equation}
+\xi_i=U_i^{-1}\mu_i,\qquad C_i=U_i^{-1}\Sigma_iU_i^{-\top},
+\label{ma:eq:reference}
+\end{equation}
+and its reference law is $\qt_i=\Gauss(\xi_i,C_i)=(U_i^{-1})_*q_i$. A passive frame change acts by $(U_i,\mu_i,\Sigma_i)\mapsto(g_iU_i,g_i\mu_i,g_i\Sigma_ig_i^\top)$ with $g_i\in\GL(K)$; it leaves every reference moment unchanged. Every quantity computed from reference moments and from maps that act on reference coordinates is therefore invariant, and a local quantity obtained from it by applying $U_i$ transforms covariantly. Each receiver $i$ listens to a source set $\Nset_i\subseteq\{1,\ldots,n\}$, which may contain $i$ itself (the self edge). We write $\Gauss(x;m,S)$ for the Gaussian density with mean $m$ and covariance $S\succ0$; the source set $\Nset_i$ always carries a single subscript and no arguments.
+
+\paragraph{Heads and the four maps.}
+A head $h\in\{1,\ldots,H\}$ is a channel of low rank. In a standard attention layer \citep{vaswani2017attention}, written in reference coordinates, head $h$ uses four maps: a query map $S_{Q,h}\in\R^{r_h\times K}$ and a key map $S_{K,h}\in\R^{r_h\times K}$, whose outputs are compared to produce routing weights $\beta^{(h)}_{ij}$; a sending map $T_h\in\R^{s_h\times K}$ that produces the content $T_h\xi_j$; and a receiving map $W_{O,h}\in\R^{K\times s_h}$ that brings the weighted content back into the receiver's $K$-dimensional state,
+\begin{equation}
+\xi_i^+=\xi_i+\sum_{h=1}^H\sum_{j\in\Nset_i}\beta^{(h)}_{ij}W_{O,h}T_h\xi_j.
+\label{ma:eq:four_map}
+\end{equation}
+The key and sending maps belong to the sender, the query and receiving maps to the receiver, and all four are learned, while the identity residual $\xi_i$ is fixed by architecture. The tied case is $S_{K,h}=T_h$, with $s_h=r_h$: the sender transmits one observable per head, used both for being found and for being heard. A key that is an invertible function of the content, $S_{K,h}=A_hT_h$ with $A_h\in\GL(r_h)$, reduces to the tied case after a change of basis of the comparison space (Proposition~\ref{ma:prop:minimal}(e)). Throughout, every query map $S_{Q,h}$ has full row rank $r_h\le K$; no rank condition is imposed on $T_h$.
+
+\paragraph{Comparison laws and two routing rules.}
+The query observable of receiver $i$ and the key observable of sender $j$ have the laws
+\begin{equation}
+q^{(h)}_{Q,i}=(S_{Q,h})_*\qt_i=\Gauss\bigl(S_{Q,h}\xi_i,V^{(h)}_{Q,i}\bigr),\qquad
+p^{(h)}_{K,j}=(S_{K,h})_*\qt_j=\Gauss\bigl(S_{K,h}\xi_j,V^{(h)}_{K,j}\bigr),
+\label{ma:eq:comparison_laws}
+\end{equation}
+with $V^{(h)}_{Q,i}=S_{Q,h}C_iS_{Q,h}^\top\succ0$ and $V^{(h)}_{K,j}=S_{K,h}C_jS_{K,h}^\top\succeq0$. Both laws live in the comparison space $\R^{r_h}$, and both are unchanged by passive frame changes.
+
+\begin{definition}[Gibbs and expected-likelihood routing]
+\label{ma:def:routing}
+Let $\pi^{(h)}_{ij}>0$ be prior weights on $\Nset_i$. Gibbs routing at temperature $\tau>0$ assigns
+\begin{equation}
+\beta^{(h)}_{ij}\propto\pi^{(h)}_{ij}\exp\bigl(-D^{(h)}_{ij}/\tau\bigr),\qquad D^{(h)}_{ij}=\KL\bigl(q^{(h)}_{Q,i}\big\|p^{(h)}_{K,j}\bigr),
+\label{ma:eq:gibbs}
+\end{equation}
+which is finite when $V^{(h)}_{K,j}\succ0$. Expected-likelihood routing assigns
+\begin{equation}
+w^{(h)}_{ij}\propto\pi^{(h)}_{ij}\int_{\R^{r_h}}q^{(h)}_{Q,i}(y)p^{(h)}_{K,j}(y)\mathrm dy=\pi^{(h)}_{ij}\Gauss\bigl(S_{K,h}\xi_j;S_{Q,h}\xi_i,V^{(h)}_{Q,i}+V^{(h)}_{K,j}\bigr),
+\label{ma:eq:el_routing}
+\end{equation}
+which is finite for every positive-semidefinite $V^{(h)}_{K,j}$ because $V^{(h)}_{Q,i}\succ0$; when $V^{(h)}_{K,j}$ is singular the integral is read as the expectation of $q^{(h)}_{Q,i}$ under $p^{(h)}_{K,j}$, which is the right-hand side. Both rows are normalized over $\Nset_i$.
+\end{definition}
+
+The right-hand side of Eq.~\eqref{ma:eq:el_routing} is the density at $S_{K,h}\xi_j$ of the difference of independent draws from $q^{(h)}_{Q,i}$ and from $\Gauss(0,V^{(h)}_{K,j})$; this convolution identity is proved in Appendix~\ref{ma:app:item1}. The integral is the probability product kernel with exponent one \citep[Secs.~2.1 and~3.1]{Jebara2004ProbabilityProduct}. The two rules serve as reference points: Gibbs routing compares laws by divergence, expected-likelihood routing by overlap. The following lemma collects the facts about pushforwards that the rest of the note uses.
+
+\begin{lemma}[Comparison through a link]
+\label{ma:lem:link}
+\begin{enumerate}
+\item[(a)] Let $A\in\GL(m)$ and let $p,q$ be probability laws on $\R^m$ with densities. Then $\KL(A_*p\|A_*q)=\KL(p\|q)$, and $\int(A_*p)(A_*q)=|\det A|^{-1}\int pq$.
+\item[(b)] Let $r_h=K$ with $S_{Q,h}$ and $S_{K,h}$ invertible, and put $\Thr_h=S_{Q,h}^{-1}S_{K,h}$ and $\Thcmp_{ij,h}=U_i\Thr_hU_j^{-1}$. Then
+\begin{equation}
+D^{(h)}_{ij}=\KL\bigl((S_{Q,h})_*\qt_i\big\|(S_{K,h})_*\qt_j\bigr)=\KL\bigl(\qt_i\big\|(\Thr_h)_*\qt_j\bigr)=\KL\bigl(q_i\big\|(\Thcmp_{ij,h})_*q_j\bigr),
+\label{ma:eq:link_identity}
+\end{equation}
+and under the passive action $\Thcmp_{ij,h}\mapsto g_i\Thcmp_{ij,h}g_j^{-1}$.
+\item[(c)] Let $p$ be a Gaussian law on $\R^K$ with nonsingular covariance and let $M\in\R^{K\times K}$ have rank less than $K$. Then $\KL(p\|M_*q)=\infty$ for every probability law $q$ on $\R^K$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) The density of $A_*p$ is $y\mapsto|\det A|^{-1}p(A^{-1}y)$, and likewise for $q$, so the likelihood ratio at $y$ equals that of $p$ and $q$ at $A^{-1}y$; the substitution $x=A^{-1}y$ gives both statements. (b) Apply (a) with $A=S_{Q,h}^{-1}$: it maps $(S_{Q,h})_*\qt_i$ to $\qt_i$ and $(S_{K,h})_*\qt_j$ to $(\Thr_h)_*\qt_j$. Apply (a) again with $A=U_i$: it maps $\qt_i$ to $q_i$ and $(\Thr_h)_*\qt_j=(\Thr_hU_j^{-1})_*q_j$ to $(U_i\Thr_hU_j^{-1})_*q_j$. The transformation law follows from $U_k\mapsto g_kU_k$. (c) The law $M_*q$ is concentrated on the proper subspace $\im M$, which has Lebesgue measure zero, so $p(\im M)=0$ while $M_*q(\im M)=1$. Hence the complement of $\im M$ has $p$-measure one and $M_*q$-measure zero, $p$ is not absolutely continuous with respect to $M_*q$, and the divergence is infinite by definition.
+\end{proof}
+
+Part (b) says that at full rank the comparison of query and key laws is the comparison of the receiver's full belief with the sender's full belief carried into the receiver's frame by a group-valued link. Part (c) says that no such reading exists below full rank: any $K\times K$ map that carries a sender's belief through a rank-$r_h$ observable has rank at most $r_h<K$, and the divergence of the receiver's full belief from a law pushed through it is infinite. Below full rank, the comparison must therefore be made in the comparison space, as in Eqs.~\eqref{ma:eq:gibbs} and~\eqref{ma:eq:el_routing}.
+
+\section{The minimal agent model and its exact posterior}
+\label{ma:sec:model}
+
+Fix a receiver $i$ and the input beliefs, and work in reference coordinates. The minimal agent model replaces the learned receiving map and the fixed residual of Eq.~\eqref{ma:eq:four_map} by exact conditioning of the receiver's belief on a declared record.
+
+\begin{definition}[Minimal agent model]
+\label{ma:def:model}
+The receiver's state is a random vector $X_i\sim\qt_i=\Gauss(\xi_i,C_i)$ with $C_i\succ0$. Each source $j\in\Nset_i$ has a state $X_j\sim\qt_j=\Gauss(\xi_j,C_j)$ with $C_j\succeq0$, independent of $X_i$ and of the other sources. On the self edge, $X_i'$ is an independent copy of the receiver's input belief (the snapshot convention), so the receiver hears its own utterance as it was before the round. Head $h$ carries a source label $J^h\in\Nset_i$ with prior $P(J^h=j)=\pi^{(h)}_{ij}>0$, the labels being independent across heads, and produces the comparison record
+\begin{equation}
+o_h=S_{Q,h}X_i-T_hX_{J^h}+\varepsilon_h,\qquad\varepsilon_h\sim\Gauss(0,N_h),\quad N_h\succeq0,
+\label{ma:eq:record}
+\end{equation}
+with $X_{J^h}$ read as the snapshot $X_i'$ when $J^h=i$, and with channel noises independent of each other and of all states and labels. The records are observed at $o_h=0$ for every $h$: the receiver's query observable agrees with the selected sender's utterance up to the declared channel noise. Each receiver conditions on its own records only.
+\end{definition}
+
+Conditioning every receiver jointly on all records would couple the receivers through shared source states; the declaration that each receiver conditions on its own records, with source states as independent snapshots, keeps the round parallel across receivers. With the tied key $S_{K,h}=T_h$, the comparison covariances are $V^{(h)}_{Q,i}=S_{Q,h}C_iS_{Q,h}^\top$ and $V^{(h)}_{K,j}=T_hC_jT_h^\top$. Define the record covariance, the gain, and the expected-likelihood weights by
+\begin{equation}
+\begin{gathered}
+V^{\mathrm{rec},(h)}_{ij}=V^{(h)}_{Q,i}+V^{(h)}_{K,j}+N_h,\qquad
+\G^{(h)}_{ij}=C_iS_{Q,h}^\top\bigl(V^{\mathrm{rec},(h)}_{ij}\bigr)^{-1},\\
+w^{(h)}_{ij}=\frac{\pi^{(h)}_{ij}\Gauss\bigl(T_h\xi_j;S_{Q,h}\xi_i,V^{\mathrm{rec},(h)}_{ij}\bigr)}{\sum_{k\in\Nset_i}\pi^{(h)}_{ik}\Gauss\bigl(T_h\xi_k;S_{Q,h}\xi_i,V^{\mathrm{rec},(h)}_{ik}\bigr)}.
+\end{gathered}
+\label{ma:eq:weights}
+\end{equation}
+Since $S_{Q,h}$ has full row rank and $C_i\succ0$, $V^{(h)}_{Q,i}\succ0$ and hence $V^{\mathrm{rec},(h)}_{ij}\succ0$, so every quantity in Eq.~\eqref{ma:eq:weights} is defined. The weight $w^{(h)}_{ij}$ normalizes the prior times the expected likelihood $\int q^{(h)}_{Q,i}(y)\Gauss(y;T_h\xi_j,V^{(h)}_{K,j}+N_h)\mathrm dy$ of the query law against the law of the noisy utterance; at $N_h=0$ it is the expected-likelihood routing of Definition~\ref{ma:def:routing} with $S_{K,h}=T_h$. For a weight row $w_i$ we write $\Cov_{w_i}(T\xi)=\sum_jw_{ij}(T\xi_j-\bar z_i)(T\xi_j-\bar z_i)^\top$ with $\bar z_i=\sum_jw_{ij}T\xi_j$ for the between-source spread of the utterances.
+
+\begin{proposition}[Minimal agent model]
+\label{ma:prop:minimal}
+In the model of Definition~\ref{ma:def:model}, let every $S_{Q,h}$ have full row rank, let $C_i\succ0$, and let $C_j\succeq0$ for $j\in\Nset_i$.
+\begin{enumerate}
+\item[(a)] One head ($H=1$; the index $h$ is suppressed). The source posterior is $P(J=j\mid o=0)=w_{ij}$. Given $J=j$, the receiver's state is Gaussian with mean $m_{ij}=\xi_i+\G_{ij}(T\xi_j-S_Q\xi_i)$ and covariance $P_{ij}=C_i-\G_{ij}S_QC_i$. The posterior law of $X_i$ is the mixture $\sum_jw_{ij}\Gauss(m_{ij},P_{ij})$, with mean $\xi_i^+=\sum_jw_{ij}m_{ij}$ and covariance $C_i^+=\sum_jw_{ij}\bigl[P_{ij}+(m_{ij}-\xi_i^+)(m_{ij}-\xi_i^+)^\top\bigr]$. If $V_{K,j}=V_K$ for every $j\in\Nset_i$, then $\G_{ij}=\G_i$ and $P_{ij}=P_i$ do not depend on $j$, and
+\begin{equation}
+\xi_i^+=(I_K-\G_iS_Q)\xi_i+\G_i\bar z_i,\qquad
+C_i^+=(I_K-\G_iS_Q)C_i+\G_i\Cov_{w_i}(T\xi)\G_i^\top.
+\label{ma:eq:update}
+\end{equation}
+\item[(b)] Several heads. Assume that for all $h\ne g$ and every $j\in\Nset_i$
+\begin{equation}
+S_{Q,h}C_iS_{Q,g}^\top=0\qquad\text{and}\qquad T_hC_jT_g^\top=0.
+\label{ma:eq:orthogonality}
+\end{equation}
+Then the posterior of the label tuple factorizes, $P(J^1=j_1,\ldots,J^H=j_H\mid o=0)=\prod_hw^{(h)}_{ij_h}$, and the posterior mean is $\xi_i+\sum_h\sum_jw^{(h)}_{ij}\G^{(h)}_{ij}(T_h\xi_j-S_{Q,h}\xi_i)$. If moreover $V^{(h)}_{K,j}=V^{(h)}_K$ for every $j$, then $\G^{(h)}_{ij}=\G^{(h)}_i$, and with $\bar z^{(h)}_i=\sum_jw^{(h)}_{ij}T_h\xi_j$
+\begin{equation}
+\begin{aligned}
+\xi_i^+&=\Bigl(I_K-\sum_h\G^{(h)}_iS_{Q,h}\Bigr)\xi_i+\sum_h\G^{(h)}_i\bar z^{(h)}_i,\\
+C_i^+&=\Bigl(I_K-\sum_h\G^{(h)}_iS_{Q,h}\Bigr)C_i\\
+&\quad+\sum_h\G^{(h)}_i\Cov_{w^{(h)}_i}(T_h\xi)\G^{(h)\top}_i.
+\end{aligned}
+\label{ma:eq:multihead}
+\end{equation}
+If either condition in Eq.~\eqref{ma:eq:orthogonality} fails, the label posterior need not factor over heads.
+\item[(c)] Noise-free channel. If $V_{K,j}+N=0$ for every $j\in\Nset_i$, that is, $N=0$ and $TC_jT^\top=0$ (for instance, point-mass senders), then $\G_{ij}=R_{Q,i}=C_iS_Q^\top(S_QC_iS_Q^\top)^{-1}$, the $C_i^{-1}$-minimal right inverse of $S_Q$, and $\Pi_i=R_{Q,i}S_Q$ is the projector onto $\im(C_iS_Q^\top)$ along $\ker S_Q$. The update $\xi_i^+=(I_K-\Pi_i)\xi_i+R_{Q,i}\bar z_i$ is the change of mean of least $C_i^{-1}$-norm subject to $S_Q\xi_i^+=\bar z_i$, it leaves $(I_K-\Pi_i)\xi_i$ unchanged, and $C_i^+=(I_K-\Pi_i)C_i+R_{Q,i}\Cov_{w_i}(T\xi)R_{Q,i}^\top$. Every quantity of item (a) converges to these as $N\to0$ and $V_{K,j}\to0$. In local coordinates,
+\begin{equation}
+\mu_i^+=U_i(I_K-\Pi_i)U_i^{-1}\mu_i+\sum_{j\in\Nset_i}w_{ij}\Mcmp_{ij}\mu_j,\qquad
+\Mcmp_{ij}=U_iR_{Q,i}TU_j^{-1},
+\label{ma:eq:local}
+\end{equation}
+and we call $\Mcmp_{ij}$ the induced comparison link. Under the passive action the weights are unchanged, $\Mcmp_{ij}\mapsto g_i\Mcmp_{ij}g_j^{-1}$, and the local posterior mean $\mu_i^+=U_i\xi_i^+$ and covariance $\Sigma_i^+=U_iC_i^+U_i^\top$ map to $g_i\mu_i^+$ and $g_i\Sigma_i^+g_i^\top$.
+\item[(d)] Full rank. Let $r=K$ with $S_Q$ and $T$ invertible, put $\Thr=S_Q^{-1}T$, so that $\Thcmp_{ij}=U_i\Thr U_j^{-1}$ is the comparison link of Lemma~\ref{ma:lem:link}(b) with $S_K=T$, and put $\widetilde C_{ij}=\Thr C_j\mathring\Theta^{\mathrm{cmp}\top}+S_Q^{-1}NS_Q^{-\top}$. Then
+\begin{equation}
+w_{ij}=\frac{\pi_{ij}\Gauss\bigl(\Thr\xi_j;\xi_i,C_i+\widetilde C_{ij}\bigr)}{\sum_k\pi_{ik}\Gauss\bigl(\Thr\xi_k;\xi_i,C_i+\widetilde C_{ik}\bigr)},\qquad
+m_{ij}=\xi_i+C_i\bigl(C_i+\widetilde C_{ij}\bigr)^{-1}\bigl(\Thr\xi_j-\xi_i\bigr).
+\label{ma:eq:full_rank}
+\end{equation}
+For $N=0$ the weight is the prior times the expected likelihood $\int\qt_i(x)\mathrm d(\Thr_*\qt_j)(x)$ of the receiver's law against the linked sender law, normalized, and when $C_j\succ0$ the component posterior given $J=j$ is the normalized product of $\qt_i$ and $\Thr_*\qt_j$. As $\widetilde C_{ij}\to0$ for every $j$, the posterior mean tends to $\mu_i^+=\sum_jw^0_{ij}\Thcmp_{ij}\mu_j$ with $w^0_{ij}\propto\pi_{ij}\Gauss(\Thr\xi_j;\xi_i,C_i)$.
+\item[(e)] Re-basing. For $A\in\GL(r)$, the model whose record compares the query with the key $S_K=AT$, $o=S_QX_i-ATX_J+\varepsilon$ with $\varepsilon\sim\Gauss(0,N)$, has the same posterior over $(J,X_i)$ as the tied model with $(S_Q,N)$ replaced by $(A^{-1}S_Q,A^{-1}NA^{-\top})$, and the Gibbs costs $D_{ij}$ of Eq.~\eqref{ma:eq:gibbs} are unchanged under $(S_Q,S_K)=(S_Q,AT)\mapsto(A^{-1}S_Q,T)$.
+\end{enumerate}
+\end{proposition}
+
+The proof is in Appendix~\ref{ma:app:proofs}. Several features of the statement deserve emphasis because they are easy to lose. The several-head factorization of item (b) needs both conditions in Eq.~\eqref{ma:eq:orthogonality}: the queries of different heads must be uncorrelated under the receiver's belief, and the utterances of different heads from one sender must be uncorrelated under that sender's belief. The second condition holds automatically for point-mass senders. The component means of item (a) are exact at finite sender covariance; in item (d) the sender covariance enters the weights and the component means at the same order, so the pure transport $m_{ij}=\Thr\xi_j$ holds only in the limit $\widetilde C_{ij}\to0$, in which the sender covariance also leaves the weights. Item (e) shows that untying the key by an invertible map of the comparison space buys nothing that a re-basing of the query and of the channel noise does not already provide.
+
+\begin{remark}[Why the self edge is a snapshot]
+\label{ma:rem:snapshot}
+If the self edge read the receiver's own latent state instead of a snapshot, its record would be $(S_Q-T)X_i+\varepsilon$. The same conditioning gives a component with gain $C_i(S_Q-T)^\top(\widehat V_{ii})^{-1}$ and weight factor $\Gauss(0;(S_Q-T)\xi_i,\widehat V_{ii})$, where $\widehat V_{ii}=(S_Q-T)C_i(S_Q-T)^\top+N$ must be positive definite. This component does not share the gain of the other sources and so does not have the common form of Eq.~\eqref{ma:eq:update}, which is why the snapshot convention is declared (Appendix~\ref{ma:app:item1}).
+\end{remark}
+
+\section{Readings}
+\label{ma:sec:readings}
+
+\paragraph{The derived receiver.}
+Each head of the minimal model has two learned observables, the query map $S_{Q,h}$ and the sending map $T_h$. The receiving map $\G_i$, the residual, and the routing are derived from them and from the receiver's covariance. The residual is precision weighted: since $(I_K-\G_iS_Q)C_i=P_i$, one has $I_K-\G_iS_Q=P_iC_i^{-1}$, so the receiver keeps its prior mean in proportion to its share of the posterior precision. When $V_K+N\succ0$, the matrix inversion lemma \citep{petersen2012matrix} gives the information form
+\begin{equation}
+P_i=\bigl(C_i^{-1}+S_Q^\top(V_K+N)^{-1}S_Q\bigr)^{-1},\qquad
+\xi_i^+=P_i\bigl[C_i^{-1}\xi_i+S_Q^\top(V_K+N)^{-1}\bar z_i\bigr],
+\label{ma:eq:information}
+\end{equation}
+and Eq.~\eqref{ma:eq:update} equals $\xi_i+\G_i(\bar z_i-S_Q\xi_i)$, which writes the update as a gain applied to the difference between what the receiver heard and what it asked.
+
+\paragraph{The noise-free limit and the projected residual.}
+In the noise-free channel of item (c), the receiver keeps exactly the component $(I_K-\Pi_i)\xi_i$ of its belief that its query does not probe and adopts the heard content on the component that it probes; the update is the smallest change of the mean, in the receiver's own precision metric, that makes the receiver's query agree with the weighted utterance. The residual is therefore a projected residual, and the projection is a consequence of conditioning rather than a design choice. The complement $\ker S_Q$ that persists is fixed by the receiver's query, not by the sender's map. The induced link $\Mcmp_{ij}=U_iR_{Q,i}TU_j^{-1}$ carries a sender's local mean into the receiver's frame, but for $r<K$ it has rank at most $r$, and by Lemma~\ref{ma:lem:link}(c) the divergence of the receiver's belief from a sender belief pushed through it is infinite. Below full rank, the link that transports cannot also be the object that weighs; the weighing happens in the comparison space.
+
+The receiver absorbs exactly what was compared. For a key map unrelated to $T$, the same conditioning applies the gain to $S_K\xi_j$ and $T$ does not enter the posterior at all; a separately learned content map has no place in an exact receiver of a comparison record. A key that is a lower-dimensional readout of the content, $S_K=AT$ with $A\in\R^{r\times s}$ of rank $r<s$ and $T$ of full row rank $s$, gives the tied model with the coarser utterance $AT$: the receiver absorbs only an $r$-dimensional readout of the $s$ transmitted numbers, a change of the source mean by $\delta$ with $T\delta\in\ker A$ leaves the posterior unchanged, and every update $\xi_i^+-\xi_i$ lies in $\im(C_iS_Q^\top)$, of dimension $r$ (Appendix~\ref{ma:app:statements}). Absorbing all $s$ numbers requires an $s$-dimensional record, whose likelihood then also enters the label posterior.
+
+\paragraph{Full rank: one link weighs and transports.}
+In the full-rank case of item (d) with a noise-free channel, $N=0$, a single group-valued link plays three roles. The comparison link $\Thcmp_{ij}$ fixes the source weight through the overlap of the receiver's belief with the transported sender belief, fixes the component posterior through their normalized product, and becomes the transport of the posterior mean when the senders are precise. By Lemma~\ref{ma:lem:link}(b), the same link also expresses the Gibbs cost: $D_{ij}=\KL(q_i\|(\Thcmp_{ij})_*q_j)$ with $S_K=T$. Replacing the expected-likelihood weights by the Gibbs weights $\beta_{ij}\propto\pi_{ij}\exp(-\KL(q_i\|(\Thcmp_{ij})_*q_j)/\tau)$, which requires $C_j\succ0$ for finiteness, and keeping the message $\sum_j\beta_{ij}\Thcmp_{ij}\mu_j$ defines a KL-routed variant of the model. That variant is declared, not derived from the record model, and its relation to the exact model is that of an approximation, made precise below.
+
+\paragraph{Relation to Gibbs routing.}
+Divergence-based routing is one step of a structured mean-field approximation to the exact posterior.
+
+\begin{proposition}[Gibbs routing as a mean-field step]
+\label{ma:prop:mean_field}
+Take one head, assume $V_{K,j}+N\succ0$ for every $j\in\Nset_i$, and consider the variational family $q(X_i)q(J)$ for the posterior of Definition~\ref{ma:def:model}, with the source states marginalized.
+\begin{enumerate}
+\item[(i)] At $q(X_i)=\qt_i$ the coordinate update of the label is $q(J=j)\propto\pi_{ij}\exp\bigl(-\KL(q_{Q,i}\|\Gauss(T\xi_j,V_{K,j}+N))\bigr)$. For $N=0$ it is Gibbs routing with $\tau=1$ and $S_K=T$.
+\item[(ii)] At fixed label weights $\beta_{ij}$, the coordinate update of the receiver is the power posterior $q(X_i)\propto\qt_i(x)\prod_j\Gauss(T\xi_j;S_Qx,V_{K,j}+N)^{\beta_{ij}}$.
+\item[(iii)] If $V_{K,j}=V_K$ for every $j$ and $\beta_{ij}=w_{ij}$, the power posterior of (ii) has mean $\xi_i^+$ of Eq.~\eqref{ma:eq:update} and covariance $P_i=(I_K-\G_iS_Q)C_i$, which omits the between-source spread $\G_i\Cov_{w_i}(T\xi)\G_i^\top$ of the exact posterior covariance.
+\end{enumerate}
+With several heads and the sender condition of Eq.~\eqref{ma:eq:orthogonality}, the likelihood given $X_i$ factors over heads and (i) to (iii) hold head by head.
+\end{proposition}
+
+The proof is in Appendix~\ref{ma:app:statements}. The mean-field label update replaces the expected likelihood of the exact posterior by the exponentiated expected log-likelihood \citep[Sec.~10.1]{Bishop2006}, which is where the overlap of Eq.~\eqref{ma:eq:el_routing} becomes the divergence of Eq.~\eqref{ma:eq:gibbs}. Gibbs routing with $S_K=T$ at $\tau=1$ is therefore the first label update of this family started at the receiver's prior, for any rank $r$; it is not the exact posterior. The two differ in their dependence on the sender covariance: the exact weight uses $\Gauss(T\xi_j;S_Q\xi_i,V_{Q,i}+V_{K,j}+N)$, which stays finite as $V_{K,j}+N\to0$ because $V_{Q,i}\succ0$, while the mean-field cost measures the receiver's query law in the metric of $V_{K,j}+N$ alone and diverges in that limit. Proposition~\ref{ma:prop:mean_field} is stated at $\tau=1$; other temperatures are not obtained from the record model.
+
+\paragraph{Relation to a standard attention layer.}
+If every receiver has the same fixed covariance, $C_i=C$, and $V^{(h)}_K$ and $N_h$ are shared across sources and receivers, then $\G^{(h)}$ is a constant matrix and Eq.~\eqref{ma:eq:multihead} is an attention layer of the form of Eq.~\eqref{ma:eq:four_map} with query maps $S_{Q,h}$, tied key and value maps $T_h$, a derived output map
+\begin{equation}
+W_{O,h}=\G^{(h)}=CS_{Q,h}^\top\bigl(S_{Q,h}CS_{Q,h}^\top+V^{(h)}_K+N_h\bigr)^{-1},
+\label{ma:eq:derived_output}
+\end{equation}
+and the residual $I_K-\sum_h\G^{(h)}S_{Q,h}$ in place of the identity. Its routing is expected-likelihood routing. Since $\log\Gauss(b;a,\Vrec)=a^\top(\Vrec)^{-1}b-\frac12b^\top(\Vrec)^{-1}b$ up to terms that depend only on $a$ and $\Vrec$, with shared covariances the logits of head $h$ are
+\begin{equation}
+\ell^{(h)}_{ij}=\bigl((V^{\mathrm{rec},(h)})^{-1}S_{Q,h}\xi_i\bigr)^\top\bigl(T_h\xi_j\bigr)-\tfrac12\bigl(T_h\xi_j\bigr)^\top(V^{\mathrm{rec},(h)})^{-1}\bigl(T_h\xi_j\bigr)+\log\pi^{(h)}_{ij},
+\label{ma:eq:logits}
+\end{equation}
+a biased dot product in which the key map of the bilinear term is the value map itself and the whitening by $V^{\mathrm{rec},(h)}=V^{(h)}_Q+V^{(h)}_K+N_h$ sits in the query and in the key-norm bias.
+
+With noise-free tiled heads, $\sum_hr_h=K$, point-mass senders, $N_h=0$, and $C$-orthogonal query rows, the stacked query map $S_Q=[S_{Q,1};\cdots;S_{Q,H}]$ is invertible, the noise-free head gain $R^{(h)}_Q=CS_{Q,h}^\top(S_{Q,h}CS_{Q,h}^\top)^{-1}$ is the head-$h$ block column of $S_Q^{-1}$, $\sum_hR^{(h)}_QS_{Q,h}=I_K$, and the residual vanishes. If the stacked sending map $T=[T_1;\cdots;T_H]$ is also invertible, put $\boldsymbol w_{ij}=\bigoplus_hw^{(h)}_{ij}I_{r_h}$ and $\mathcal P(\boldsymbol w_{ij})=T^{-1}\boldsymbol w_{ij}T=\sum_hw^{(h)}_{ij}T^{-1}E_hT$, where $E_h$ selects the head-$h$ block; the matrices $T^{-1}E_hT$ are complementary oblique projectors onto the heads' content subspaces. Then
+\begin{equation}
+\xi_i^+=\sum_{j\in\Nset_i}\Thr\mathcal P(\boldsymbol w_{ij})\xi_j,\qquad
+\mu_i^+=\sum_{j\in\Nset_i}\Thcmp_{ij}U_j\mathcal P(\boldsymbol w_{ij})U_j^{-1}\mu_j,
+\label{ma:eq:tiled}
+\end{equation}
+so each source is first split by heads in its own frame, the head components are weighted separately, and the result is carried into the receiver's frame by the comparison link. Without the $C$-orthogonality, provided the stacked $S_Q$ remains invertible, the conditional mean given the labels is still $S_Q^{-1}$ applied to the stacked utterances, and Eq.~\eqref{ma:eq:tiled} holds with the exact marginal label probabilities in place of $w^{(h)}_{ij}$ (Appendix~\ref{ma:app:statements}).
+
+A conventional transformer layer has the same algebraic form as Eq.~\eqref{ma:eq:multihead} with a free constant output map, a key map learned separately from the value map, and the identity residual. One may read its output map as an amortized, state-independent surrogate for the state-dependent gain $\G^{(h)}_i$, which in the minimal model changes with the receiver's covariance. That reading is an interpretation, not a derivation: nothing here shows that trained output maps approximate any gain.
+
+\section{Scope and open problems}
+\label{ma:sec:open}
+
+\paragraph{Several heads without orthogonality.}
+Without the query condition of Eq.~\eqref{ma:eq:orthogonality}, the exact posterior couples the labels of different heads, and per-head weights and gains computed from item (a) are an approximation. With source-independent $V^{(h)}_K$, the sender condition, and a positive-definite stacked record covariance, the posterior mean keeps a per-head linear form, $\xi_i^+=\xi_i+\sum_h\G_{[h]}\bigl(\sum_j\bar w^{(h)}_{ij}T_h\xi_j-S_{Q,h}\xi_i\bigr)$, with the block columns $\G_{[h]}$ of a stacked gain and the exact marginal label probabilities $\bar w^{(h)}_{ij}$ (Appendix~\ref{ma:app:item2}); but the marginals require summing over label tuples, whose number grows as $|\Nset_i|^H$. The smallest example already shows the size of the error. Take one dimension and two heads with $S_{Q,h}=T_h=1$ that query the same coordinate, unit prior variance, unit channel noise, a receiver at $0$, point senders at $0$ and $2$, and uniform source priors. The exact marginal probability of the second source is $0.294$ in each head while item (a) gives $0.269$, and the exact posterior mean is $0.393$ while per-head weights and gains give $0.538$; the per-head gains count the receiver's prior uncertainty once for each head along the shared direction. This example grounds the failure mode and says nothing about its size at large $K$ and $H$. Whether a tractable approximation to the coupled label posterior, or a parametrization that enforces the query condition by construction, is preferable is open. If the sender condition fails, tuples in which two heads select the same source acquire the additional covariance $T_hC_jT_g^\top$, and the posterior acquires a coincidence coupling between heads, which we have not analyzed further.
+
+\paragraph{Mixture collapse between layers.}
+The exact posterior of one round is a mixture of $|\Nset_i|$ Gaussians for one head and of up to $|\Nset_i|^H$ for several. Stacking rounds into layers requires the receiver's belief to be Gaussian again, or a model for carrying mixtures forward. Collapsing to the moments $(\xi_i^+,C_i^+)$ is the Gaussian that minimizes $\KL(p\|q)$ from the mixture $p$ \citep[Sec.~10.7]{Bishop2006}, and it retains the between-source spread in $C_i^+$; the mean-field receiver of Proposition~\ref{ma:prop:mean_field}(iii) drops that spread. Which collapse to use, how its error compounds across layers, and whether the snapshot convention for the self edge and the independence of source snapshots remain adequate over many rounds are open.
+
+\paragraph{No implementation or evaluation.}
+Proposition~\ref{ma:prop:minimal} is an exact statement about a declared model. It is not evidence about any learning task: the model has not been implemented or trained, and no claim is made that it performs well or that it is competitive with a standard attention layer. The model also specifies only a communication round. The components a full architecture would need beyond it, such as a per-agent nonlinearity in place of a feed-forward block, a normalization, a decoder, and a learning rule, are not specified here.
+
+\paragraph{What an implementation would test.}
+An implementation would first have to choose how $C_i$, $N_h$, and the priors $\pi^{(h)}_{ij}$ are produced, and how the mixture is collapsed between layers. It could then test whether tying the key to the content and deriving the receiving map and residual from the receiver's covariance matches a layer with separately learned key, value, and output maps at equal parameter count; whether the state dependence of the gain, which is absent from a constant output map, carries information that the model uses; whether expected-likelihood routing and Gibbs routing differ in practice, given that they differ in their treatment of precise senders; whether enforcing the query condition of Eq.~\eqref{ma:eq:orthogonality} costs expressiveness relative to coupled heads; and what the per-receiver cost of the $r_h\times r_h$ solves in Eq.~\eqref{ma:eq:weights} is at scale, where source-independent sender covariances reduce it to one solve per receiver and head. Each of these is an empirical question that the derivations here do not answer.
+
+\appendix
+
+\section{Proofs}
+\label{ma:app:proofs}
+
+Throughout, each record is observed at the point $o=0$ of a variable with a continuous positive density, and the conditional laws are the versions given by Bayes' formula for densities, continuous in $o$. One conditioning fact is used repeatedly. Let $(X,o)$ be jointly Gaussian with $\Cov o=V\succ0$, and put
+\begin{equation}
+m(o)=\E X+\Cov(X,o)V^{-1}(o-\E o).
+\label{ma:eq:conditioning}
+\end{equation}
+The residual $e=X-m(o)$ is jointly Gaussian with $o$ and $\Cov(e,o)=\Cov(X,o)-\Cov(X,o)V^{-1}V=0$, so $e$ is independent of $o$. Hence, given $o$, $X\sim\Gauss\bigl(m(o),\Cov X-\Cov(X,o)V^{-1}\Cov(o,X)\bigr)$, a version continuous in $o$, and the argument does not require this conditional covariance to be nonsingular \citep[Sec.~2.3.1]{Bishop2006}.
+
+\subsection{Item (a)}
+\label{ma:app:item1}
+
+Given $J=j$, the record $o=S_QX_i-TX_j+\varepsilon$ is an affine image of the independent Gaussian vectors $X_i$, $X_j$, and $\varepsilon$, so $(X_i,o)$ is jointly Gaussian with
+\[
+\begin{gathered}
+\E[o\mid J=j]=S_Q\xi_i-T\xi_j,\qquad
+\Cov(X_i,o\mid J=j)=C_iS_Q^\top,\\
+\Cov(o\mid J=j)=V_{Q,i}+V_{K,j}+N=\Vrec_{ij}.
+\end{gathered}
+\]
+Since $\Vrec_{ij}\succ0$, the pair $(J,o)$ has the density $\pi_{ij}\Gauss(o;S_Q\xi_i-T\xi_j,\Vrec_{ij})$ with respect to counting measure times Lebesgue measure, positive and continuous in $o$. Bayes' formula at $o=0$, together with $\Gauss(0;S_Q\xi_i-T\xi_j,\Vrec_{ij})=\Gauss(T\xi_j;S_Q\xi_i,\Vrec_{ij})$, gives $P(J=j\mid o=0)=w_{ij}$ of Eq.~\eqref{ma:eq:weights}. Equation~\eqref{ma:eq:conditioning} at $o=0$ gives the component mean $m_{ij}=\xi_i+\G_{ij}(T\xi_j-S_Q\xi_i)$ and covariance $P_{ij}=C_i-\G_{ij}S_QC_i$. The posterior law of $X_i$ is therefore the mixture $\sum_jw_{ij}\Gauss(m_{ij},P_{ij})$; its mean follows from the tower property and its covariance from the law of total covariance. If $V_{K,j}=V_K$, then $\Vrec_{ij}=\Vrec_i$ and $\G_{ij}=\G_i$ for every $j$, so $\xi_i^+=\xi_i+\G_i(\bar z_i-S_Q\xi_i)$ and $m_{ij}-\xi_i^+=\G_i(T\xi_j-\bar z_i)$, which gives Eq.~\eqref{ma:eq:update}.
+
+For the expected-likelihood reading, let $Y\sim q_{Q,i}=\Gauss(S_Q\xi_i,V_{Q,i})$ and $E\sim\Gauss(0,V_{K,j}+N)$ be independent. Then $Y-E\sim\Gauss(S_Q\xi_i,\Vrec_{ij})$, and its density at $T\xi_j$ is $\int q_{Q,i}(y)\Gauss(y-T\xi_j;0,V_{K,j}+N)\mathrm dy=\int q_{Q,i}(y)\Gauss(y;T\xi_j,V_{K,j}+N)\mathrm dy$, read as an expectation under $\Gauss(T\xi_j,V_{K,j}+N)$ when that covariance is singular. For $N=0$ the second law is the key law $p_{K,j}$ of Eq.~\eqref{ma:eq:comparison_laws} with $S_K=T$, and the weights are those of Eq.~\eqref{ma:eq:el_routing}; the same computation with general $S_K$ proves the identity stated in Definition~\ref{ma:def:routing}. For the residual, $(I_K-\G_iS_Q)C_i=P_i$ gives $I_K-\G_iS_Q=P_iC_i^{-1}$. When $V_K+N\succ0$, the matrix inversion lemma \citep{petersen2012matrix} gives $P_i=(C_i^{-1}+S_Q^\top(V_K+N)^{-1}S_Q)^{-1}$ and $\G_i=P_iS_Q^\top(V_K+N)^{-1}$, so $\xi_i^+=P_i\bigl[C_i^{-1}\xi_i+S_Q^\top(V_K+N)^{-1}\bar z_i\bigr]$, which is Eq.~\eqref{ma:eq:information}.
+
+For Remark~\ref{ma:rem:snapshot}, if the self edge reads $X_i$ itself, the record given $J=i$ is $(S_Q-T)X_i+\varepsilon$, with mean $(S_Q-T)\xi_i$, covariance $\widehat V_{ii}=(S_Q-T)C_i(S_Q-T)^\top+N$, and cross-covariance $C_i(S_Q-T)^\top$ with $X_i$; when $\widehat V_{ii}\succ0$, Eq.~\eqref{ma:eq:conditioning} and Bayes' formula give the stated gain and weight factor.
+
+\subsection{Item (b)}
+\label{ma:app:item2}
+
+Stack the records as $o=(o_1,\ldots,o_H)$, put $S=[S_{Q,1};\cdots;S_{Q,H}]$, and for a label tuple $\mathbf j=(j_1,\ldots,j_H)$ put $y_{\mathbf j}=(T_1\xi_{j_1},\ldots,T_H\xi_{j_H})$. Given the tuple, $o$ is an affine image of the receiver state, the source states, and the noises, with $\E[o\mid\mathbf j]=S\xi_i-y_{\mathbf j}$, $\Cov(X_i,o\mid\mathbf j)=C_iS^\top$, and blocks
+\[
+\Cov(o_h,o_g\mid\mathbf j)=S_{Q,h}C_iS_{Q,g}^\top+\delta_{hg}N_h+\mathbf 1[j_h=j_g]T_hC_{j_h}T_g^\top,
+\]
+because distinct sources are independent and the noises are independent. The diagonal blocks are $V^{\mathrm{rec},(h)}_{ij_h}$. Under the two conditions of Eq.~\eqref{ma:eq:orthogonality} every off-diagonal block vanishes, so the density of $o$ at $0$ given the tuple is $\prod_h\Gauss(T_h\xi_{j_h};S_{Q,h}\xi_i,V^{\mathrm{rec},(h)}_{ij_h})$. With the product prior $\prod_h\pi^{(h)}_{ij_h}$, both the joint weight and its normalizer factor over heads, which gives $\prod_hw^{(h)}_{ij_h}$. The conditional gain $C_iS^\top\Cov(o\mid\mathbf j)^{-1}$ has the block columns $\G^{(h)}_{ij_h}$, so by Eq.~\eqref{ma:eq:conditioning} the conditional mean is $\xi_i+\sum_h\G^{(h)}_{ij_h}(T_h\xi_{j_h}-S_{Q,h}\xi_i)$ and the conditional covariance is $C_i-\sum_h\G^{(h)}_{ij_h}S_{Q,h}C_i$. Each head's term depends only on its own label, and the labels are independent under the posterior, so the posterior mean is $\xi_i+\sum_h\sum_jw^{(h)}_{ij}\G^{(h)}_{ij}(T_h\xi_j-S_{Q,h}\xi_i)$, which is the first form of Eq.~\eqref{ma:eq:multihead} when the $V^{(h)}_{K,j}$ do not depend on $j$. In that case the conditional covariance does not depend on the tuple, and the covariance of the conditional means is the sum over heads of $\G^{(h)}_i\Cov_{w^{(h)}_i}(T_h\xi)\G^{(h)\top}_i$, because the head terms are functions of independent labels.
+
+To see what fails without the query condition, keep source-independent $V^{(h)}_K$ and the sender condition. Then $\Vrecb=SC_iS^\top+\bigoplus_h(V^{(h)}_K+N_h)$ is the covariance of $o$ given every tuple; assume $\Vrecb\succ0$, as holds when each $N_h\succ0$. Equation~\eqref{ma:eq:conditioning} gives each conditional law with the tuple-independent covariance $C_i-\G SC_i$ and mean $\xi_i+\G(y_{\mathbf j}-S\xi_i)$, with the stacked gain $\G=C_iS^\top(\Vrecb)^{-1}$ and its block columns $\G_{[h]}$. Averaging over the tuple posterior gives
+\begin{equation}
+\xi_i^+=\xi_i+\sum_h\G_{[h]}\Bigl(\sum_j\bar w^{(h)}_{ij}T_h\xi_j-S_{Q,h}\xi_i\Bigr),\qquad
+\bar w^{(h)}_{ij}=P(J^h=j\mid o=0),
+\label{ma:eq:stacked_mean}
+\end{equation}
+so the per-head linear form survives with the stacked gain blocks and the exact marginal label probabilities. The tuple posterior is proportional to $\prod_h\pi^{(h)}_{ij_h}\exp(-\frac12d_{\mathbf j}^\top(\Vrecb)^{-1}d_{\mathbf j})$ with $d_{\mathbf j}=y_{\mathbf j}-S\xi_i$, and its exponent contains the terms $-d_h^\top((\Vrecb)^{-1})_{hg}d_g$, which couple $j_h$ and $j_g$ whenever the block $((\Vrecb)^{-1})_{hg}$ is nonzero. A symmetric positive-definite matrix and its inverse are block diagonal together, so these couplings are absent for all states exactly when the query condition holds. Without it, the marginals $\bar w^{(h)}_{ij}$ need not equal the per-head weights $w^{(h)}_{ij}$, the tuple posterior need not factor, and the blocks $\G_{[h]}$ differ from the per-head gains $\G^{(h)}_i$. If instead the sender condition fails, tuples with $j_h=j_g$ acquire the additional covariance $T_hC_{j_h}T_g^\top$, so even under the query condition the record covariance depends on whether labels coincide, and the posterior acquires a coincidence coupling between heads.
+
+For the one-dimensional example of Section~\ref{ma:sec:open}, take $K=1$, two heads with $S_{Q,1}=S_{Q,2}=T_1=T_2=1$, $\xi_i=0$, $C_i=1$, $N_1=N_2=1$, point senders at $x_1=0$ and $x_2=2$, and uniform priors. Then $\Vrecb=\bigl(\begin{smallmatrix}2&1\\1&2\end{smallmatrix}\bigr)$, $(\Vrecb)^{-1}=\frac13\bigl(\begin{smallmatrix}2&-1\\-1&2\end{smallmatrix}\bigr)$, and $d_{\mathbf j}=(x_{j_1},x_{j_2})$, so the tuples $(1,1),(1,2),(2,1),(2,2)$ have masses proportional to $1,e^{-4/3},e^{-4/3},e^{-4/3}$. The joint probability of $(2,2)$ is $e^{-4/3}/(1+3e^{-4/3})\approx0.147$, while the product of the marginals $\bar w^{(h)}_{i2}=2e^{-4/3}/(1+3e^{-4/3})\approx0.294$ is $0.087$, and item (a) applied to one head gives $w^{(h)}_{i2}=e^{-1}/(1+e^{-1})\approx0.269$. The stacked gain is $\G=\frac13(1,1)$, so the exact posterior mean is $\frac13\E[x_{J^1}+x_{J^2}\mid o=0]=\frac43\bar w^{(h)}_{i2}\approx0.393$, whereas per-head weights with the per-head gains $\G^{(h)}=\frac12$ give $2\cdot\frac12\cdot2w^{(h)}_{i2}\approx0.538$.
+
+\subsection{Item (c)}
+\label{ma:app:item3}
+
+If $V_{K,j}+N=0$, then $\Vrec_{ij}=V_{Q,i}\succ0$, and item (a) holds verbatim, since Eq.~\eqref{ma:eq:conditioning} admits a singular conditional covariance; thus $\G_{ij}=C_iS_Q^\top V_{Q,i}^{-1}=R_{Q,i}$ and $S_QR_{Q,i}=I_r$. Then $\Pi_i^2=R_{Q,i}(S_QR_{Q,i})S_Q=\Pi_i$. From $\Pi_i=R_{Q,i}S_Q$ and $S_Q\Pi_i=S_Q$ follow $\ker S_Q\subseteq\ker\Pi_i$ and $\ker\Pi_i\subseteq\ker S_Q$. Since $R_{Q,i}$ is injective, $\rank\Pi_i=r$, and $\im\Pi_i\subseteq\im R_{Q,i}=\im(C_iS_Q^\top)$, which has dimension $r$, so the two images coincide; a projector projects onto its image along its kernel. The update is $\xi_i^+=\xi_i+R_{Q,i}(\bar z_i-S_Q\xi_i)=(I_K-\Pi_i)\xi_i+R_{Q,i}\bar z_i$, so $S_Q\xi_i^+=\bar z_i$, and $(I_K-\Pi_i)R_{Q,i}=0$ gives $(I_K-\Pi_i)\xi_i^+=(I_K-\Pi_i)\xi_i$. For minimality, every $\delta$ with $S_Q\delta=y$ is $R_{Q,i}y+u$ with $S_Qu=0$, and the cross term $(R_{Q,i}y)^\top C_i^{-1}u=y^\top V_{Q,i}^{-1}S_Qu$ vanishes, so $\delta^\top C_i^{-1}\delta=(R_{Q,i}y)^\top C_i^{-1}R_{Q,i}y+u^\top C_i^{-1}u$ is uniquely minimized at $u=0$; take $\delta=\xi_i^+-\xi_i$ and $y=\bar z_i-S_Q\xi_i$. For any right inverse $R'$ of $S_Q$ and any $y$, the vector $R'y$ satisfies $S_QR'y=y$, so the same decomposition gives $(R'y)^\top C_i^{-1}R'y\ge(R_{Q,i}y)^\top C_i^{-1}R_{Q,i}y$ with equality only if $R'y=R_{Q,i}y$; in this sense $R_{Q,i}$ is the $C_i^{-1}$-minimal right inverse. The covariance is item (a) with $\G_{ij}=R_{Q,i}$ and $C_i-R_{Q,i}S_QC_i=(I_K-\Pi_i)C_i$. As $N\to0$ and $V_{K,j}\to0$, $\Vrec_{ij}\to V_{Q,i}\succ0$; inversion is continuous on positive-definite matrices and the Gaussian density is continuous in its covariance there, so the gains, weights, component moments, and mixture moments converge.
+
+In local coordinates $\mu_i^+=U_i\xi_i^+$ with $\xi_k=U_k^{-1}\mu_k$, which gives Eq.~\eqref{ma:eq:local}; for items (a) and (b) the same substitution gives $\mu_i^+=U_i(I_K-\sum_jw_{ij}\G_{ij}S_Q)U_i^{-1}\mu_i+\sum_jw_{ij}U_i\G_{ij}TU_j^{-1}\mu_j$. Under the passive action $(U_k,\mu_k,\Sigma_k)\mapsto(g_kU_k,g_k\mu_k,g_k\Sigma_kg_k^\top)$ the reference moments are unchanged, so the weights, gains, $R_{Q,i}$, and $\Pi_i$ are unchanged; the local posterior is the pushforward of the unchanged reference posterior by $g_iU_i$, so its mean and covariance map to $g_i\mu_i^+$ and $g_i\Sigma_i^+g_i^\top$, and $\Mcmp_{ij}\mapsto g_iU_iR_{Q,i}TU_j^{-1}g_j^{-1}$. Under a common change of reference coordinates $(U_k,S_Q,T)\mapsto(U_ka,S_Qa,Ta)$ with $a\in\GL(K)$, so that $\xi_k\mapsto a^{-1}\xi_k$ and $C_k\mapsto a^{-1}C_ka^{-\top}$, every mean and covariance in the comparison space is unchanged, hence so are the weights, while $\G_{ij}\mapsto a^{-1}\G_{ij}$, $R_{Q,i}\mapsto a^{-1}R_{Q,i}$, $\Pi_i\mapsto a^{-1}\Pi_ia$, and $\xi_i^+\mapsto a^{-1}\xi_i^+$, so the local update is unchanged.
+
+\subsection{Item (d)}
+\label{ma:app:item4}
+
+For invertible $A$, $\Gauss(Ax;Am,ASA^\top)=|\det A|^{-1}\Gauss(x;m,S)$. With $A=S_Q$, $x=\Thr\xi_j$, $m=\xi_i$, and $S=C_i+\widetilde C_{ij}$, one has $Ax=T\xi_j$ and $S_Q(C_i+\widetilde C_{ij})S_Q^\top=V_{Q,i}+TC_jT^\top+N=\Vrec_{ij}$, so the factor $|\det S_Q|^{-1}$ is common to all sources and cancels in Eq.~\eqref{ma:eq:weights}, which gives the weights of Eq.~\eqref{ma:eq:full_rank}. The gain is $\G_{ij}=C_iS_Q^\top S_Q^{-\top}(C_i+\widetilde C_{ij})^{-1}S_Q^{-1}=C_i(C_i+\widetilde C_{ij})^{-1}S_Q^{-1}$, so $m_{ij}$ is as stated and $P_{ij}=C_i-C_i(C_i+\widetilde C_{ij})^{-1}C_i$. For $N=0$, $\widetilde C_{ij}=\Thr C_j\mathring\Theta^{\mathrm{cmp}\top}$ and $\Thr_*\qt_j=\Gauss(\Thr\xi_j,\widetilde C_{ij})$, and the convolution argument of Appendix~\ref{ma:app:item1} gives $\int\Gauss(x;\xi_i,C_i)\mathrm d(\Thr_*\qt_j)(x)=\Gauss(\Thr\xi_j;\xi_i,C_i+\widetilde C_{ij})$. When $\widetilde C_{ij}\succ0$, completing the square gives $\Gauss(x;\xi_i,C_i)\Gauss(x;\Thr\xi_j,\widetilde C_{ij})=\Gauss(\Thr\xi_j;\xi_i,C_i+\widetilde C_{ij})\Gauss(x;m,P)$ with $P=(C_i^{-1}+\widetilde C_{ij}^{-1})^{-1}$ and $m=P(C_i^{-1}\xi_i+\widetilde C_{ij}^{-1}\Thr\xi_j)$ \citep[Sec.~2.3.3]{Bishop2006}. The identities $P=\widetilde C_{ij}(C_i+\widetilde C_{ij})^{-1}C_i=C_i(C_i+\widetilde C_{ij})^{-1}\widetilde C_{ij}$ give $PC_i^{-1}=I_K-C_i(C_i+\widetilde C_{ij})^{-1}$ and $P\widetilde C_{ij}^{-1}=C_i(C_i+\widetilde C_{ij})^{-1}$, hence $m=m_{ij}$ and $P=P_{ij}$: the component is the normalized product. In local coordinates $q_i=(U_i)_*\qt_i$ and $(\Thcmp_{ij})_*q_j=(U_i\Thr U_j^{-1})_*(U_j)_*\qt_j=(U_i)_*(\Thr_*\qt_j)$, and by Lemma~\ref{ma:lem:link}(a) the overlap of two laws pushed forward by the same $U_i$ is $|\det U_i|^{-1}$ times that of the reference laws, a factor common to all sources. Finally, $\widetilde C_{ij}$ is a sum of two positive-semidefinite terms, so $\widetilde C_{ij}\to0$ exactly when $N\to0$ and $\Thr C_j\mathring\Theta^{\mathrm{cmp}\top}\to0$; then $C_i(C_i+\widetilde C_{ij})^{-1}\to I_K$, $m_{ij}\to\Thr\xi_j$, the weights tend to $w^0_{ij}$, and $U_i\sum_jw^0_{ij}\Thr U_j^{-1}\mu_j=\sum_jw^0_{ij}\Thcmp_{ij}\mu_j$. This is item (c) with $R_{Q,i}=S_Q^{-1}$ and $\Pi_i=I_K$.
+
+\subsection{Item (e)}
+\label{ma:app:item5}
+
+Write $o=S_QX_i-ATX_J+\varepsilon=Ao'$ with $o'=A^{-1}S_QX_i-TX_J+A^{-1}\varepsilon$ and $A^{-1}\varepsilon\sim\Gauss(0,A^{-1}NA^{-\top})$, which is the tied record with the stated replacements. For each label, the density of $o$ at $0$ is $|\det A|^{-1}$ times the density of $o'$ at $0$, a common factor, so the weights agree. The conditional means agree because the gain of the re-based model is $C_iS_Q^\top A^{-\top}(A^{-1}\Vrec_{ij}A^{-\top})^{-1}=\G_{ij}A$, where $\Vrec_{ij}$ here denotes the record covariance of the model with key $AT$, and its innovation is $T\xi_j-A^{-1}S_Q\xi_i=A^{-1}(AT\xi_j-S_Q\xi_i)$; the conditional covariances agree because $\G_{ij}A\cdot A^{-1}S_Q=\G_{ij}S_Q$. For the Gibbs costs, the query and key laws of the two parametrizations differ by the common pushforward $A^{-1}$ of the comparison space, which leaves the divergence unchanged by Lemma~\ref{ma:lem:link}(a).
+
+\subsection{Statements of Section~\ref{ma:sec:readings}}
+\label{ma:app:statements}
+
+\paragraph{Rectangular keys.}
+For $A\in\R^{r\times s}$ of rank $r<s$ and $T$ of full row rank $s$, the record $S_QX_i-ATX_J+\varepsilon$ is the tied record with the sending map $AT$, of full row rank $r$, so item (a) applies with $T$ replaced by $AT$. The source enters only through $AT\xi_j$ and $ATC_jT^\top A^\top$, so a change of the source mean by $\delta$ with $T\delta\in\ker A$ leaves the posterior unchanged, and every update $\xi_i^+-\xi_i$ lies in $\sum_j\im\G_{ij}\subseteq\im(C_iS_Q^\top)$, of dimension $r$.
+
+\paragraph{Proposition~\ref{ma:prop:mean_field}.}
+Since $V_{K,j}+N\succ0$, marginalizing the source state gives the joint density $\pi_{ij}\Gauss(x;\xi_i,C_i)\Gauss(0;S_Qx-T\xi_j,V_{K,j}+N)$ of $(X_i,J)$ at $o=0$. In the family $q(X_i)q(J)$ the coordinate update of the label is \citep[Sec.~10.1.1]{Bishop2006}
+\[
+q(J=j)\propto\pi_{ij}\exp\E_{q(X_i)}\log\Gauss(T\xi_j;S_QX_i,V_{K,j}+N).
+\]
+At $q(X_i)=\qt_i$ the expectation equals
+\[
+\E_{y\sim q_{Q,i}}\log\Gauss(y;T\xi_j,V_{K,j}+N)=-\KL\bigl(q_{Q,i}\big\|\Gauss(T\xi_j,V_{K,j}+N)\bigr)-H(q_{Q,i}),
+\]
+whose entropy term does not depend on $j$; this proves (i), since for $N=0$ the reference law is the key law $p_{K,j}$ with $S_K=T$, and the update is the Gibbs row of Eq.~\eqref{ma:eq:gibbs} at $\tau=1$. The coordinate update of the receiver at fixed label weights $\beta_{ij}$ is $q(X_i)\propto\qt_i(x)\exp\sum_j\beta_{ij}\log\Gauss(T\xi_j;S_Qx,V_{K,j}+N)$, which is (ii). With source-independent $V_K+N\succ0$ and $\beta_{ij}=w_{ij}$, the log-density of this power posterior is quadratic in $x$ with precision $C_i^{-1}+S_Q^\top(V_K+N)^{-1}S_Q=P_i^{-1}$ and information vector $C_i^{-1}\xi_i+S_Q^\top(V_K+N)^{-1}\bar z_i$, so by Eq.~\eqref{ma:eq:information} its mean is $\xi_i^+$ and its covariance is $P_i=(I_K-\G_iS_Q)C_i$, which is (iii). With several heads and the sender condition, the source states entering different heads' records are either distinct and independent or, for a shared source, contribute no cross-head covariance, so the likelihood given $X_i$ and the labels factors over heads and the computation applies head by head.
+
+\paragraph{Standard layer and tiled heads.}
+For any $a$, $b$, and $\Vrec\succ0$, $\log\Gauss(b;a,\Vrec)=a^\top(\Vrec)^{-1}b-\frac12b^\top(\Vrec)^{-1}b-\frac12a^\top(\Vrec)^{-1}a-\frac12\log\det(2\pi\Vrec)$; with shared covariances the last two terms are constant on the row, which gives Eq.~\eqref{ma:eq:logits}. For tiled noise-free heads with $C$-orthogonal query rows, $SCS^\top=\bigoplus_hV^{(h)}_Q$ is positive definite, so the square stacked map $S=S_Q$ is invertible and $CS_Q^\top(S_QCS_Q^\top)^{-1}=S_Q^{-1}$; the block columns of the left side are the $R^{(h)}_Q$, so $\sum_hR^{(h)}_QS_{Q,h}=S_Q^{-1}S_Q=I_K$. Equation~\eqref{ma:eq:multihead} then gives $\xi_i^+=\sum_hR^{(h)}_Q\bar z^{(h)}_i=S_Q^{-1}\sum_j\boldsymbol w_{ij}T\xi_j=\sum_jS_Q^{-1}T\cdot T^{-1}\boldsymbol w_{ij}T\xi_j=\sum_j\Thr\mathcal P(\boldsymbol w_{ij})\xi_j$, and $U_i\Thr\mathcal P(\boldsymbol w_{ij})U_j^{-1}=\Thcmp_{ij}U_j\mathcal P(\boldsymbol w_{ij})U_j^{-1}$. The matrices $T^{-1}E_hT$ are idempotent, annihilate each other, and sum to $I_K$, because the $E_h$ do. Without the orthogonality, provided the stacked $S_Q$ remains invertible, $\Vrecb=S_QCS_Q^\top\succ0$ and Eq.~\eqref{ma:eq:conditioning} gives the conditional mean $\xi_i+S_Q^{-1}(y_{\mathbf j}-S_Q\xi_i)=S_Q^{-1}y_{\mathbf j}$ for every tuple, so the same formulas hold with the exact marginals $\bar w^{(h)}_{ij}$.
+
+\section{Numerical checks}
+\label{ma:app:checks}
+
+The script \texttt{minimal\_agent\_checks/checks.py} distributed with this note compares the closed forms of Proposition~\ref{ma:prop:minimal}, Proposition~\ref{ma:prop:mean_field}, and the statements of Section~\ref{ma:sec:readings} with an independent brute-force path. The brute-force path builds, for each label tuple, the full stacked joint law of the receiver state, every source state, and every channel noise, maps it linearly to the receiver state and the records, and applies generic Gaussian conditioning; it never uses the record covariance, the gain, or any closed form. One configuration is also checked by self-normalized importance sampling with $10^6$ draws, which uses no Gaussian conditioning formula. The computations are in float64 with NumPy at state dimension $K\le6$, comparison rank at most $3$, at most two heads, and four sources, with a fixed seed; the recorded output is \texttt{minimal\_agent\_checks/checks\_output.txt}. In the script's labels, \texttt{R} denotes the channel covariance $V_K+N$, \texttt{H1} the source independence of $V^{(h)}_K$, \texttt{H2} the sender condition, and \texttt{H3} the query condition of Eq.~\eqref{ma:eq:orthogonality}.
+
+All 79 comparisons pass. For item (a), eleven comparisons cover the label posterior, the component means and covariances, the mixture moments including the between-source spread, the convolution form of the expected likelihood, the reduction to expected-likelihood routing at $N=0$, Eq.~\eqref{ma:eq:update}, the precision-weighted residual, and the information form; the largest residual is $8.9\times10^{-16}$. The importance-sampling estimate, with an effective sample size of $56054$, agrees with the exact posterior mean and label posterior to within $0.88$ and $0.82$ standard errors. For item (b), at $K=6$ with ranks $3$ and $2$, the factorization and Eq.~\eqref{ma:eq:multihead} hold to $1.3\times10^{-15}$, and the factorization persists with source-dependent sender covariances under the two orthogonality conditions; when the query condition is broken the tuple posterior departs from the product by $3.3\times10^{-2}$ while Eq.~\eqref{ma:eq:stacked_mean} holds to $2.2\times10^{-16}$, and when the sender condition is broken the departure is $8.8\times10^{-2}$. The one-dimensional example reproduces the tuple masses and the posterior means $0.39252$ and $0.53788$ to $1.1\times10^{-16}$. For item (c), the gain converges to $R_{Q,i}$ at first order in the vanishing channel covariance (fitted order within $1.3\times10^{-5}$ of one), and the exact noise-free closed forms, the projector identities, the constraint, the minimal-change property, the covariance, the local form, the passive transformation law, and the invariance under a common reference change hold to at most $1.6\times10^{-10}$, the largest residuals occurring in the passive law where random frames are applied. For item (d), the weight identity, the normalized-product form, the noisy full-rank formulas, the local transport at $C_j=0$, and Eq.~\eqref{ma:eq:link_identity} hold to at most $1.6\times10^{-10}$, a two-dimensional quadrature confirms the overlap formula to relative error $7.5\times10^{-14}$, the transport limit converges at first order in the sender covariance, and at finite sender covariance the exact mean differs from pure transport by $1.9$, as stated. For item (e), the re-based and tied posteriors agree to $8.3\times10^{-16}$, the Gibbs costs to $3.6\times10^{-15}$, and the rectangular-key statements hold to $5.0\times10^{-16}$. The shared-covariance checks confirm the constant gain, the biased dot-product logits, and the tiled-head formulas, including their form with exact marginals, to at most $1.3\times10^{-14}$. The mean-field checks confirm the label cost against a Monte Carlo estimate ($z=0.22$), its agreement with the divergence of Proposition~\ref{ma:prop:mean_field}(i) up to a source-independent constant, the reduction to Gibbs routing at $N=0$, and the mean and spread-free covariance of Proposition~\ref{ma:prop:mean_field}(iii), all to at most $8.9\times10^{-16}$ apart from the Monte Carlo comparison. A rerun with one thread reproduces every pass and differs from the recorded output only at the level of rounding.
+
+These checks cover the instances computed at small dimension. They ground the identities and the code paths; the statements of this note rest on the derivations, and the checks carry no information about any trained model.
+
+\bibliographystyle{plainnat}
+\bibliography{../references}
+
+\end{document}

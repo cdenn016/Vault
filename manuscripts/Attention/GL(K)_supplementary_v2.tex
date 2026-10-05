@@ -1,6 +1,3 @@
-% SUPERSEDED on 2026-09-23. Its content was merged into GL(K)_attention_v2.tex as
-% JMLR Appendices E, F, and G (review item M9). This file is kept for reference only;
-% it is no longer compiled, cited, or read by GL(K)_gradients.tex.
 \documentclass[twoside,11pt]{article}
 
 % Use JMLR style with preprint option
@@ -12,7 +9,7 @@
 \usepackage{tabularx}
 \usepackage{booktabs}
 \usepackage{xr-hyper}
-\hypersetup{pdftitle={Gauge-Covariant Gaussian Attention through Projected Matrix Links: Supplementary Material},
+\hypersetup{pdftitle={Gauge-Covariant Gaussian Attention through Lie-Algebra Links: Supplementary Material},
   pdfauthor={Robert C. Dennis}}
 
 % Custom commands (must match main paper)
@@ -25,13 +22,20 @@
 % macros when no placeholder remains.
 \providecommand{\placeholderbox}[2]{\fbox{\parbox[c][#1][c]{0.94\linewidth}{\centering\small\color{red!55!black}#2}}}
 \providecommand{\datapending}[1]{{\color{red!60!black}\textbf{[Data pending:} #1\textbf{]}}}
-\externaldocument[][nocite]{GL(K)_attention_v2}
+\externaldocument[M-][nocite]{GL(K)_attention_v2}
 
+% Supplement numbering: every counter carries the prefix S.
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\theequation}{S\arabic{equation}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thetheorem}{S\arabic{theorem}}
+\renewcommand{\theexample}{S\arabic{example}}
 \setlength{\emergencystretch}{3em}
 \begin{document}
 \jmlrheading{}{2026}{}{}{}{}{Robert C. Dennis}
 
-\title{Gauge-Covariant Gaussian Attention through Projected Matrix Links\\[6pt]
+\title{Gauge-Covariant Gaussian Attention through Lie-Algebra Links\\[6pt]
 \large Supplementary Material}
 
 \author{\name Robert C. Dennis \email cdenn016@gmail.com \\
@@ -43,14 +47,861 @@
 
 \ShortHeadings{Gauge-Covariant Gaussian Attention: Supplementary Material}{Dennis}
 
-This supplement supports the main paper's probabilistic and architectural claims. Appendix~\ref{app:fixed_joint_bridge} states the relation between its categorical routing objective and a normalized latent-variable model. Appendix~\ref{app:architecture_scope} gives the population-covariance identities, limits of full-Gaussian propagation through normalization, and causal-prediction conditions. Optional belief-revision objectives and their differential theory are collected separately in \emph{Variational Belief Gradients for Gauge-Covariant Gaussian Attention}.
 
-\appendix
-\renewcommand{\theequation}{S\arabic{equation}}
-\renewcommand{\thefigure}{S\arabic{figure}}
-\renewcommand{\thetable}{S\arabic{table}}
+% S0: supplement front matter (overview paragraph and section guide)
+This supplement accompanies the article ``Gauge-Covariant Gaussian Attention through Lie-Algebra Links.'' It collects secondary results, extensions that the main text does not evaluate, scope results, numerical checks, and additional runs, while the main article and its appendices contain the central results and their proofs. Section~\ref{supp:exp_links} gives further properties of exponential group links: the Fisher--Rao distance bound that places the singular set at infinite distance, the behavior of additive steps and finite truncations near the singular set, the complement split, and the projected residual that appears when channels do not tile. Section~\ref{supp:matrix_links} treats the selective, possibly singular head maps and the induced comparison links, with their rank and composition algebra, Gaussian link kernels, the comparison tensor, and loop traces. Section~\ref{supp:holonomy} collects holonomy diagnostics for routed links, including triangle spectra and curvature measures on $\mathrm{GL}(K)$. Section~\ref{supp:routing} gives routing details omitted from the main text: the sharp perturbation bound of the dot-product reduction, temperature, rotary positions, Gaussian-mixture and noisy-query readings, divergence directions, and the content laws. Section~\ref{sec:receiver_inference} develops receiver inference, an evidential update of the receiver over the same channels in closed form. Section~\ref{sec:latent_links} introduces latent link generators that vary with the edge, their field equation, and the induced action, an extension that is not implemented. Section~\ref{sec:heads_irreps} relates communication heads to the irreducible blocks of the frame group. Section~\ref{supp:scope} states the probabilistic and architectural scope of the construction, including the relation to a normalized latent-source model, population covariance and link-residual costs, nonlinear mean maps acting on full Gaussian laws, prefix-based causal prediction, and an optional prior-bank vocabulary readout. Section~\ref{app:identity_checks} reports the float64 checks of the identities. Section~\ref{supp:runs} records two affine-chart language-model runs at widths 160 and 256 with their diagnostics, gives the link geometry and the receiver arm of the small-width chart runs, and reserves further diagnostics of the evaluated run. Sections, results, equations, tables, and figures of this supplement carry the prefix S; numbered references without that prefix point to the main article.
 
-\section{Relation to a Normalized Latent-Source Model}
+% W3: Supplement S1, further properties of exponential links (from HEAD 388-403, 484-535, 585, 603-606)
+\section{Further Properties of Exponential Links}
+\label{supp:exp_links}
+
+This section collects properties of the exponential group links of Section~\ref{M-sec:lie_links} that the main text uses only in passing: the geometry of the singular boundary, the failure of finite truncations to stay invertible, the aggregation of channels that do not tile the reference space, and routed exponents. Notation is that of the main text; in particular $L=OT$ is the stacked generator, $\bar s=\sum_hs_h$ is the total head width, and $c_{\mathrm{res}}\in\{0,1\}$ is the residual coefficient of Eq.~\eqref{M-eq:relational_predictive_residual}.
+
+\subsection{The singular boundary}
+\label{supp:singular_boundary}
+
+An additive update of an invertible matrix $M$ can reach the singular set in a single step of spectral norm $\sigma_{\min}(M)$: for unit singular vectors $u,v$ belonging to $\sigma_{\min}(M)$, the matrix $M-\sigma_{\min}(M)uv^\top$ annihilates $v$. The exponential parametrization keeps $\det e^{L}=e^{\operatorname{tr}L}>0$ for every finite generator, and $\sigma_{\min}(e^{L})\ge e^{-\|L\|_2}$ because $\|e^{-L}\|_2\le e^{\|L\|_2}$. For an exact Gaussian pushforward, the singular boundary also lies at infinite statistical distance.
+
+\begin{proposition}[The singular boundary is at infinite distance]
+\label{prop:lie_boundary}
+Let $q_0=\mathcal N(\mu_0,\Sigma_0)$ with $\Sigma_0\succ0$, let $g\in\mathrm{GL}(K)$, and let $q_g=\mathcal N(g\mu_0,g\Sigma_0g^\top)$. If $\lambda_{\min}$ is the smallest eigenvalue of $\Sigma_0^{-1/2}g\Sigma_0g^\top\Sigma_0^{-1/2}$, then
+\begin{equation}
+d_{\mathrm{FR}}(q_0,q_g)\ge\tfrac{1}{\sqrt2}\bigl|\log\lambda_{\min}\bigr|.
+\label{eq:lie_fr_bound}
+\end{equation}
+As $g$ approaches a singular matrix, $\lambda_{\min}\to0$ and the Fisher--Rao distance diverges.
+\end{proposition}
+\begin{proof}
+Let $w=\Sigma_0^{-1/2}e$ for a unit eigenvector $e$ belonging to $\lambda_{\min}$. The scalar observable $w^\top x$ has variance $w^\top\Sigma_0w=1$ under $q_0$ and $w^\top g\Sigma_0g^\top w=\lambda_{\min}$ under $q_g$. The univariate Gaussian family with mean $m$ and standard deviation $s$ has Fisher metric $(dm^2+2ds^2)/s^2$, so every path between standard deviations $1$ and $\lambda_{\min}^{1/2}$ has length at least $\sqrt2|\log\lambda_{\min}^{1/2}|$. Marginalization to $w^\top x$ is a Markov morphism and does not increase Fisher--Rao length \citep{AmariNagaoka2000}, which gives Eq.~\eqref{eq:lie_fr_bound}. If $g$ tends to a singular matrix $g_\star$, then $g_\star\Sigma_0g_\star^\top$ is singular, and continuity of eigenvalues gives $\lambda_{\min}\to0$.
+\end{proof}
+
+The proposition concerns the exact pushforward of a fixed nondegenerate Gaussian. A positive covariance floor or additive receiving noise changes this geometry, so it is not a claim that a training objective diverges when a content map becomes singular. Neither the lower bound on $\sigma_{\min}(e^{L})$ nor Eq.~\eqref{eq:lie_fr_bound} prevents a trained generator from approaching the boundary through large negative eigenvalues, which is what the generators of the $K=128$ language model of Section~\ref{M-sec:trained_links} did.
+
+\subsection{Finite truncations}
+\label{supp:truncations}
+
+A finite truncation is a separate model that approximates the exponential only for small generators. Truncation after order $n$ gives $\widetilde O_nT=p_n(L)$ with $p_n(z)=\sum_{k\le n}z^k/k!$, and the remainder obeys $\|e^{L}-p_n(L)\|_2\le\sum_{k>n}\|L\|_2^k/k!$, which is small only when $\|L\|_2$ is small compared with $n$. No finite truncation is structurally group valued. Every $p_n$ with $n\ge1$ has a complex root, which is an eigenvalue of some real $Z$ when $K\ge2$, through a rotation-scaling block if it is not real, and $p_n(Z)$ is then singular by spectral mapping. For example, $I+Z+Z^2/2=\tfrac12[(Z+I)^2+I]$ vanishes at $Z=\bigl(\begin{smallmatrix}-1&-1\\1&-1\end{smallmatrix}\bigr)$. The exponential has no zeros and is therefore invertible for every generator.
+
+\subsection{Channels that do not tile: the complement split}
+\label{supp:complement}
+
+The main text assumes tiled heads. This subsection drops that assumption. It keeps categorical routing outside the exponent and the routing-independent stacked generator $L=OT$, so that $\beta_{ij}^{(h)}$ retains its meaning as the probability that head $h$ selects source $j$ (Theorem~\ref{M-thm:probabilistic_status}), and it assumes that the stacked transfer $TO\in\mathbb R^{\bar s\times\bar s}$ is invertible, which allows $\bar s\le K$.
+
+\begin{lemma}[Complement split]
+\label{lem:lie_complement}
+With $\Pi=O(TO)^{-1}T$,
+\begin{equation}
+\exp(OT)=(I-\Pi)+Oe^{TO}(TO)^{-1}T.
+\label{eq:lie_complement}
+\end{equation}
+\end{lemma}
+\begin{proof}
+By Lemma~\ref{M-lem:lie_lowrank}, $\exp(OT)=I+O\varphi_1(TO)T=(I-\Pi)+O[(TO)^{-1}+\varphi_1(TO)]T$, and $(TO)^{-1}+\varphi_1(TO)=(TO)^{-1}+(e^{TO}-I)(TO)^{-1}=e^{TO}(TO)^{-1}$ because every term is a function of $TO$.
+\end{proof}
+
+The first term is the identity on the unread complement $\ker T$ and annihilates $\operatorname{im}O$. The second reads the $\bar s$ sent coordinates $T\xi$, mixes them through the $\bar s\times\bar s$ matrix $e^{TO}(TO)^{-1}$, and writes them into $\operatorname{im}O$. Write $\widetilde O=Oe^{TO}(TO)^{-1}$, and let $\widetilde O_h$ be its block column receiving head $h$. Following the predictive kernel of Theorem~\ref{M-thm:probabilistic_status}, each head draws its own source label $J^h$ with probability $\beta_{ij}^{(h)}$, independently across heads, and the sent block $T_h\xi$ is read from the source selected by its head. The complement term needs a carrier of its own, a label $J^0$. The transported reference state and its expectation over the independent labels are
+\begin{align}
+\xi_i'&=(I-\Pi)\xi_{J^0}+\sum_h\widetilde O_hT_h\xi_{J^h},
+\label{eq:lie_transported_state}\\
+\mathbb E[\xi_i']&=\mathbb E[(I-\Pi)\xi_{J^0}]+\sum_h\sum_j\beta_{ij}^{(h)}\widetilde O_hT_h\xi_j.
+\label{eq:lie_aggregate}
+\end{align}
+Each sent block travels with the label of its own head, so the cross-head mixing in $e^{TO}(TO)^{-1}$ does not couple the head routings. The weights depend on the states through the comparison costs, but they are evaluated at the layer's input states and held fixed while the message is formed, so Eq.~\eqref{eq:lie_aggregate} is the expectation conditional on those states.
+
+\begin{proposition}[Complement persistence]
+\label{prop:lie_complement_persistence}
+Assume that only sent content may cross between agents and that the update retains one unchanged complement taken from an existing agent state, as in Eq.~\eqref{eq:lie_transported_state}. Then the carrier is the receiver, $J^0=i$, and
+\begin{equation}
+\mu_i^+=U_i(I-\Pi)U_i^{-1}\mu_i+\sum_h\sum_j\beta_{ij}^{(h)}U_i\widetilde O_hT_hU_j^{-1}\mu_j.
+\label{eq:lie_self_complement}
+\end{equation}
+\end{proposition}
+\begin{proof}
+The complement $\ker T$ holds exactly the directions that no head sends. A carrier $J^0=j\ne i$ would place unsent coordinates of agent $j$ in the state of agent $i$, contradicting the premise, so the receiver is the only admissible carrier within the declared unchanged-complement rule. Without that rule, locality would also permit discarding the complement or applying a receiver-local map, so locality alone does not force persistence. Equation~\eqref{eq:lie_aggregate} with $J^0=i$, conjugated by the frames, gives Eq.~\eqref{eq:lie_self_complement}.
+\end{proof}
+
+Under complement-preserving aggregation, the receiver therefore keeps its own state exactly on the directions that no head writes and takes the transported message on the directions that heads write. That projected residual $U_i(I-\Pi)U_i^{-1}\mu_i$ differs from the full residual $c_{\mathrm{res}}\mu_i$ of Eq.~\eqref{M-eq:relational_predictive_residual}. When the heads tile the state with $O$ and $T$ invertible, $\Pi=I$ and $\widetilde O=e^{OT}T^{-1}$ (Remark~\ref{M-rem:no_complement}), so the complement is empty, the residual $c_{\mathrm{res}}=1$ has no counterpart in this aggregation, and the receiver's own state enters only through the self-weights $\beta_{ii}^{(h)}$. A residual of the projected kind requires channels that do not tile, $\bar s<K$; the $K-\bar s$ coordinates that no head reads or writes then pass through the layer unchanged. Gaussian fusion reaches a related structure by a different argument: the channel-likelihood receiver of Section~\ref{sec:receiver_inference} keeps its prior on the directions that no head observes and blends prior and message on the observed directions with a precision-weighted gain (Eq.~\eqref{eq:rec_fusion_residual}). The additive residual $\mu_i+m_i$ is neither. It is the residual connection of residual networks \citep{He2016ResNet}, added in every direction without normalization.
+
+\subsection{Routed exponents}
+\label{supp:routed_exponent}
+
+\begin{remark}[Routed exponents and self-gates]
+\label{rem:lie_routed_exponent}
+The routed generator $L_{ij}=O\boldsymbol\beta_{ij}T$ gives $\exp(O\boldsymbol\beta_{ij}T)=I+O\varphi_1(\boldsymbol\beta_{ij}TO)\boldsymbol\beta_{ij}T$ by Lemma~\ref{M-lem:lie_lowrank}. Its first-order term is the routed head sum, and heads interact from second order on through the blocks of $TO$. Because the weights depend on the states, $\varphi_1(\boldsymbol\beta_{ij}TO)$ is then a matrix function of the states. On the self-link this is a single-source transformation and needs no aggregation rule; for tiled heads with $TO=I$ it equals $\sum_he^{\beta_{ii}^{(h)}}O_hT_h$, a gate in $(1,e]$ on each head block whose argument is the self-routing weight. A general state-dependent self-generator $L(\xi)=\operatorname{diag}(a(\xi))$ gives the coordinatewise gate $\xi_k\mapsto\xi_ke^{a_k(\xi)}$, and every positive gate has this form. The SiLU $x\operatorname{sgm}(x)$, with $\operatorname{sgm}$ the logistic function, and the GELU $x\Phi_{\mathcal N}(x)$, with $\Phi_{\mathcal N}$ the standard normal distribution function, are exponential self-links with generators $\log\operatorname{sgm}$ and $\log\Phi_{\mathcal N}$ \citep{hendrycks2016gaussian}. This rewriting places the MLP in the same group-valued language as the links, but it does not derive the generator.
+\end{remark}
+
+The standard transformer layer of Section~\ref{M-sec:lie_charts} relates to routed exponents only on the self-edge. Its self-block $I_K+O\boldsymbol\beta_{ii}T$ is the first-order chart of the routed self-exponent $\exp(O\boldsymbol\beta_{ii}T)$, while every other edge carries the bare channel term $O\boldsymbol\beta_{ij}T$.
+
+% W3: Supplement S2, selective matrix links and induced comparison links (from HEAD 237, 1141-1263 without the cospan 1192-1198)
+\section{Selective Matrix Links and Induced Comparison Links}
+\label{supp:matrix_links}
+\label{sec:projection_link_geometry}
+
+Communication uses selected directions of an agent's framed state. Using a subset of a frame means that a receiving or sending map accesses a lower-dimensional observable of the state expressed in that frame. These maps also set gains and identify transmitted directions with received directions. They need not select coordinate entries, define orthogonal projections, or select a subset of group elements. This section records the algebra of the selective head maps $M^{(h)}_{ij}=U_i\widetilde O_hT_hU_j^{-1}$ of Eq.~\eqref{M-eq:main_content_link}, the lift of the comparison maps to an induced link, and the loop observables available for matrix links of any rank. For each agent write $G_i=U_i^{-\top}U_i^{-1}$ for the local metric induced by the Euclidean reference inner product, and $A_{Q,i}=S_QU_i^{-1}$, $A_{K,j}=S_KU_j^{-1}$ for the local comparison measurements of one head.
+
+\subsection{Rank and composition of head maps}
+\label{supp:link_rank}
+
+\begin{proposition}[Rank and composition of content links]
+\label{prop:link_algebra}
+Fix a layer and write $M_h=\widetilde O_hT_h$.
+\begin{enumerate}
+\item Each head has rank at most $s_h$, and the routed link of Eq.~\eqref{M-eq:main_routed_link} satisfies
+\begin{equation}
+\operatorname{rank}\mathcal M_{ij}
+\le\min\left(K,\sum_hs_h\right).
+\label{eq:main_link_rank}
+\end{equation}
+\item For one head, intermediate frame factors cancel:
+\begin{align}
+M_{ij}^{(h)}M_{jk}^{(h)}-M_{ik}^{(h)}
+&=U_i\widetilde O_h(T_h\widetilde O_h-I_{s_h})T_hU_k^{-1},\\
+M_{i_0i_1}^{(h)}\cdots M_{i_{a-1}i_a}^{(h)}
+&=U_{i_0}M_h^aU_{i_a}^{-1}.
+\label{eq:main_link_composition}
+\end{align}
+If $T_h\widetilde O_h=I_{s_h}$, the composition defect vanishes. Conversely, if $\widetilde O_h$ has full column rank and $T_h$ has full row rank, a vanishing defect implies $T_h\widetilde O_h=I_{s_h}$.
+\item For a declared link $\mathcal K_{ij}:E_j\to E_i$ of any rank and $Q_i\succ0$, the kernel
+\begin{equation}
+k_i\mid k_j\sim\mathcal N(\mathcal K_{ij}k_j,Q_i)
+\label{eq:main_gaussian_link_kernel}
+\end{equation}
+is normalized, and a source $k_j\sim\mathcal N(\mu_j,\Sigma_j)$ has the nondegenerate receiving marginal
+\begin{equation}
+k_i\sim\mathcal N\left(
+\mathcal K_{ij}\mu_j,
+Q_i+\mathcal K_{ij}\Sigma_j\mathcal K_{ij}^{\top}\right).
+\label{eq:main_gaussian_link_marginal}
+\end{equation}
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+(1) Each head contributes $U_iM_hU_j^{-1}$, of rank at most $s_h$, and the rank of a sum is at most the sum of the ranks. (2) Substituting Eq.~\eqref{M-eq:main_content_link}, the factors $U_j^{-1}U_j$ cancel and leave $U_i\widetilde O_hT_h\widetilde O_hT_hU_k^{-1}-U_i\widetilde O_hT_hU_k^{-1}$; the path identity follows by induction. For the converse, remove the invertible frames and multiply the defect by a left inverse of $\widetilde O_h$ on the left and a right inverse of $T_h$ on the right. (3) Write $k_i=\mathcal K_{ij}k_j+\varepsilon_i$ with independent $\varepsilon_i\sim\mathcal N(0,Q_i)$. Means and covariances give the marginal, and $Q_i\succ0$ makes it nondegenerate. These are affine-Gaussian identities \citep{Bishop2006}.
+\end{proof}
+For example, at $K=2$, take $\widetilde O_1T_1=\operatorname{diag}(1,0)$ and $\widetilde O_2T_2=\operatorname{diag}(0,1)$. Positive weights produce the invertible reference operator $\operatorname{diag}(\beta_{ij}^{(1)},\beta_{ij}^{(2)})$, so rank-deficient heads can sum to an invertible link. Conversely, a single head with $s_h<K$ cannot be a $\mathrm{GL}(K)$ element. The realized matrices also remain in the span of the shared $\widetilde O_hT_h$ at a fixed layer; they are not unrestricted independent edge parameters. For tiled heads Theorem~\ref{M-thm:routed_transport} gives the general statement: the routed edge map is $U_if(L)\Pi(\boldsymbol\beta_{ij})U_j^{-1}$, and it is invertible exactly when $f(L)$ is invertible and every head gives the edge positive weight.
+
+The composition defect measures repeated receiving-to-sending processing. If $T_h\widetilde O_h=I_{s_h}$, then $M_{ij}^{(h)}$ identifies $U_j\operatorname{im}\widetilde O_h$ with $U_i\operatorname{im}\widetilde O_h$ and composes flatly on these subspaces; its ambient self-map is a projector. At $K=s_h=1$, $U_i=1$, $T_h=1$, and $\widetilde O_h=2$, the one-edge map is $2$ while the two-edge map is $4$. Even invertibility therefore does not make the shared processing family a flat reference transport. Paths of the same length and endpoints still agree for this unweighted, shared-head specialization. Routed mixtures can depend on the intermediate sites through their coefficients. Without the rank assumptions the converse can fail.
+
+Under a passive frame change, $Q_i'=g_iQ_ig_i^\top$ together with the link endpoint law gives the corresponding pushforward conditional and marginal. This channel provides a probabilistic use of the sending and receiving maps, but it does not force a particular predictive architecture. In particular, a residual update of the mean with covariance retained as a routing state does not propagate the covariance in Eq.~\eqref{eq:main_gaussian_link_marginal}; Theorem~\ref{M-thm:probabilistic_status} gives the moment-matched alternative for the full multi-head update. A population model requires a normalized directed assembly of kernels, or a separately normalized cyclic law. Multiplying reciprocal conditionals without that construction does not specify a joint evidence model.
+
+\subsection{Kernels and complements of a head}
+\label{supp:link_kernels}
+
+The receiving image is $U_i\operatorname{im}\widetilde O_h$; the invisible sending directions are $\ker(T_hU_j^{-1})$. With the metric $G_j$, the orthogonal complement of that kernel is $U_j\operatorname{im}T_h^\top$. Indeed, $\langle U_jx,U_jy\rangle_{G_j}=x^\top y$, reducing this statement to the Euclidean identity $(\ker T_h)^\perp=\operatorname{im}T_h^\top$. The Fisher metric of the Gaussian location family, $\Sigma_j^{-1}=U_j^{-\top}C_j^{-1}U_j^{-1}$, transforms in the same way without a reference inner product; in that metric the complement is $U_jC_j\operatorname{im}T_h^\top$, and the Gaussian lift of Eq.~\eqref{eq:comparison_gaussian_lift} below is the minimal-norm right inverse of the query map. Sending, receiving, and comparison subspaces may overlap. Their dimensions do not impose a partition of the frame, and $\widetilde O_hT_h$ is generally neither orthogonal nor idempotent.
+
+\subsection{Comparison maps and induced links}
+\label{sec:comparison_lift}
+
+The query and key maps define the comparison cospan of Eq.~\eqref{M-eq:comparison_cospan}, which compares two observables in a common comparison space and does not by itself choose a map back from that space to $E_i$. The distinction can be seen directly in the mean cross term of the Gaussian KL. Suppress $h$, and put $P_{K,j}=(A_{K,j}\Sigma_jA_{K,j}^\top)^{-1}$. The comparison tensor is
+\begin{equation}
+\mathsf B_{ij}=A_{Q,i}^\top P_{K,j}A_{K,j},\qquad
+\mathsf B_{ij}'=g_i^{-\top}\mathsf B_{ij}g_j^{-1}.
+\label{eq:comparison_bilinear_tensor}
+\end{equation}
+It maps $E_j$ to $E_i^*$, with invariant scalar $\mu_i^\top\mathsf B_{ij}\mu_j$. A vector link instead maps $E_j$ to $E_i$. A declared receiver metric can raise the first index: $G_i^{-1}\mathsf B_{ij}$ then obeys the link law because $G_i'=g_i^{-\top}G_ig_i^{-1}$. The covariance $\Sigma_i$, viewed as a map $E_i^*\to E_i$, supplies another such choice; with the Fisher metric $G_i=\Sigma_i^{-1}$ the two choices coincide. Neither choice is an inverse of the rectangular query map.
+
+A more specific lift uses the receiver's Gaussian geometry. Define
+\begin{align}
+R_{Q,i}&=C_iS_Q^\top(S_QC_iS_Q^\top)^{-1},\qquad S_QR_{Q,i}=I_{r_h},\\
+M_{ij}^{\mathrm{cmp}}
+&=U_iR_{Q,i}S_KU_j^{-1}.
+\label{eq:comparison_gaussian_lift}
+\end{align}
+For every $y\in\mathbb R^{r_h}$, $R_{Q,i}y$ is the unique minimizer of $\delta^\top C_i^{-1}\delta$ subject to $S_Q\delta=y$. To check this, write $\delta=R_{Q,i}y+w$ with $S_Qw=0$. Then $(R_{Q,i}y)^\top C_i^{-1}w=y^\top(S_QC_iS_Q^\top)^{-1}S_Qw=0$, so the objective is its value at $R_{Q,i}y$ plus $w^\top C_i^{-1}w$. This also identifies the lift in the Gaussian conditional mean,
+\begin{equation}
+\mathbb E[X_i\mid S_QX_i=y]
+=\xi_i+R_{Q,i}(y-S_Q\xi_i),
+\quad X_i\sim\mathcal N(\xi_i,C_i).
+\label{eq:comparison_conditional_mean}
+\end{equation}
+For the conditional identity, the Gaussian residual $X_i-\xi_i-R_{Q,i}(S_QX_i-S_Q\xi_i)$ has zero cross covariance with $S_QX_i$, since $C_iS_Q^\top-R_{Q,i}S_QC_iS_Q^\top=0$. Its joint Gaussian characteristic function therefore factors, making the residual independent of the measurement and giving Eq.~\eqref{eq:comparison_conditional_mean}. Thus $M_{ij}^{\mathrm{cmp}}$ is a precise state-dependent comparison link induced by a specified lift. Its covariance follows because $R_{Q,i}$ is unchanged by the passive site action. It transports a comparison displacement into the receiver; the complete conditional mean includes the affine centering term in Eq.~\eqref{eq:comparison_conditional_mean}. This construction gives $S_Q$ and $S_K$ a precise induced-link interpretation. It is distinct from the independently chosen head map $M_{ij}^{(h)}$ built from $T_h,\widetilde O_h$; equality would require additional conditions on those maps. If $S_Q$ is square and invertible, then $R_{Q,i}=S_Q^{-1}$ for every $C_i$, and $M^{\mathrm{cmp}}_{ij}$ becomes the comparison link $\Theta^{\mathrm{cmp}}_{ij}=U_iS_Q^{-1}S_KU_j^{-1}$ of Proposition~\ref{M-prop:comparison_link}, which is group valued when $S_K$ is invertible as well.
+
+\subsection{Loop traces and linear lattice structure}
+\label{supp:loop_traces}
+
+Theorem~\ref{M-thm:reference_moments} records the loop invariants of routed links; the following definition applies to any endpoint-covariant edge matrices. For a declared closed walk \(\gamma=(i_0,\ldots,i_r=i_0)\) and endpoint-covariant edge matrices \(\mathcal K_{ij}:E_j\to E_i\), define
+\begin{align}
+\mathcal H_\gamma(\mathcal K)&=\mathcal K_{i_0i_1}\cdots\mathcal K_{i_{r-1}i_0},\\
+\mathcal H_\gamma(\mathcal K)'&=g_{i_0}\mathcal H_\gamma(\mathcal K)g_{i_0}^{-1},\\
+\mathcal W_\gamma(\mathcal K)&=\operatorname{Tr}\mathcal H_\gamma(\mathcal K).
+\label{eq:main_matrix_loop_trace}
+\end{align}
+Intermediate gauge factors cancel, and cyclicity of trace proves that \(\mathcal W_\gamma\) is invariant even for singular links. It is not a complete invariant of the loop matrix. For routed links, write \(\mathring{\mathcal M}_{ij}=\sum_h\beta_{ij}^{(h)}M_h\) for the reference representative of $\mathcal M_{ij}$. Then
+\begin{equation}
+\mathcal H_\gamma(\mathcal M)
+=U_{i_0}\bigl(\mathring{\mathcal M}_{i_0i_1}\cdots\mathring{\mathcal M}_{i_{r-1}i_0}\bigr)U_{i_0}^{-1}.
+\label{eq:main_routed_loop_body}
+\end{equation}
+Expanding the product gives the loop-trace polynomial of Theorem~\ref{M-thm:reference_moments}. A nonidentity communication product can express gain, contraction, or rank loss and does not imply nonzero holonomy of \(\Omega\). Causal support has no directed cycles through distinct token positions, so on it the only closed walks are self-loops, whose traces are those of the frame-free operator \(\mathring{\mathcal M}_{ii}\). For singular links, a loop observable therefore requires a declared extended graph and its additional links, because causal routing weights alone do not provide reverse transports. Invertible links do provide them, and Section~\ref{M-sec:lie_holonomy} constructs the resulting inverse-edge holonomy. Products at different network depths are compositions of different operators and are not automatically loops of one fixed connection.
+
+An invertible routed link can be supplied with an inverse reverse edge, but a separately computed reverse attention operator need not be that inverse. General matrix links have a precedent in linear lattice gauge theory \citep{Wetterich2014LinearLattice}; its compact-group action and continuum conclusions are not consequences of the present algebra.
+
+Finally, arbitrary invertible coordinate changes must be distinguished from symmetries of a fixed numerical metric or a restricted frame parameterization. Here $G_i$ and all Gaussian tensors transform together. Holding $G_i$ fixed restricts metric-preserving active maps to its orthogonal group, and the Euclidean quantity $\operatorname{Tr}(\mathcal K_{ij}^\top\mathcal K_{ij})$ is not invariant under general independent $\mathrm{GL}(K)$ actions. The results above establish covariance of the full-Gaussian communication construction. They do not supply an invariant lattice action or a normalized population model. The link prior of Section~\ref{sec:latent_links} is a declared action whose curvature term uses the reference metric; it is invariant under passive site changes and under reparametrizations by nonzero multiples of orthogonal matrices, not under all of $\mathrm{GL}(K)$ (Proposition~\ref{prop:lie_blind}).
+
+% W3: Supplement S3, holonomy diagnostics (from HEAD 1295-1340 and 1368-1382, with the log-space evaluation rule for trained links)
+\section{Holonomy Diagnostics}
+\label{supp:holonomy}
+
+Section~\ref{M-sec:lie_holonomy} defines the triangle holonomy $\mathcal H_{ijk}=\Theta_{ik}^{-1}\Theta_{ij}\Theta_{jk}$ of invertible links on the causal graph (Definition~\ref{M-def:lie_triangle}) and shows that the shared-generator field of the implementation has holonomy $U_ke^{L}U_k^{-1}$ on every triangle. This section gives the expansion of the holonomy for small generators, the exact holonomies of candidate link fields, the holonomy of tiled routed edge maps, the rules for evaluating these quantities on trained models, and the limits of spectral curvature measures on $\mathrm{GL}(K)$.
+
+\subsection{Small generators}
+\label{supp:holonomy_bch}
+
+\begin{lemma}[Second-order holonomy]
+\label{lem:lie_bch}
+For exponential links with generators $A=L_{ij}$, $B=L_{jk}$, and $Z=L_{ik}$, $\mathcal H_{ijk}=U_ke^{-Z}e^{A}e^{B}U_k^{-1}$, and on a neighborhood of zero where the logarithm is analytic,
+\begin{equation}
+\log\bigl(e^{-Z}e^{A}e^{B}\bigr)=(A+B-Z)+\tfrac12\bigl([A,B]-[Z,A]-[Z,B]\bigr)+\mathcal O(3).
+\label{eq:lie_bch}
+\end{equation}
+The first-order term is the additive cocycle defect of the algebra-valued field. On the complete ordered graph it vanishes for all triples exactly when $L_{ij}=\psi_i-\psi_j$ for some $\psi_i\in\mathfrak{gl}(K)$, and an additive coboundary does not make the exponential links flat when its values fail to commute.
+\end{lemma}
+\begin{proof}
+Apply the Baker--Campbell--Hausdorff series twice \citep{Hall2015}: $\log(e^Ae^B)=A+B+\tfrac12[A,B]+\cdots$, and then $\log(e^{-Z}e^C)=C-Z-\tfrac12[Z,C]+\cdots$ with $C=A+B+\tfrac12[A,B]$. For the coboundary statement take $\psi_0=0$ and $\psi_i=L_{i0}$, and apply the vanishing defect with $k=0$.
+\end{proof}
+
+\subsection{Exact holonomies and routed edge maps}
+\label{supp:holonomy_exact}
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.36\textwidth}X>{\raggedright\arraybackslash}p{0.22\textwidth}@{}}
+\toprule
+Link field & Triangle holonomy $\mathcal H_{ijk}$ & Flat when \\
+\midrule
+Positional, $U_ie^{(p_i-p_j)Y}U_j^{-1}$ & $I$ & always \\
+Shared generator, $U_ie^{L}U_j^{-1}$ & $U_ke^{L}U_k^{-1}$ & only if $e^{L}=I$ \\
+Routed exponent, $L_{ij}=O\boldsymbol\beta_{ij}T$ & $U_kOe^{\boldsymbol\beta_{ij}+\boldsymbol\beta_{jk}-\boldsymbol\beta_{ik}}TU_k^{-1}$ & $\boldsymbol\beta_{ij}+\boldsymbol\beta_{jk}=\boldsymbol\beta_{ik}$ \\
+Head sum, $U_iO\boldsymbol\beta_{ij}TU_j^{-1}$ & $U_kO\boldsymbol\beta_{ik}^{-1}\boldsymbol\beta_{ij}\boldsymbol\beta_{jk}TU_k^{-1}$ & $\boldsymbol\beta_{ij}\boldsymbol\beta_{jk}=\boldsymbol\beta_{ik}$ \\
+\bottomrule
+\end{tabularx}
+\caption{Triangle holonomy of candidate link fields. The routing matrices act headwise. The last two rows assume square invertible stacked maps with $TO=I_K$, and the head sum also requires positive weights on the three edges.}
+\label{tab:lie_holonomy}
+\end{table}
+
+Table~\ref{tab:lie_holonomy} collects exact holonomies. The tiled routed edge maps of Theorem~\ref{M-thm:routed_transport} fall under the following statement, which does not assume $TO=I$.
+
+\begin{proposition}[Triangle spectrum of tiled routed links]
+\label{prop:lie_triangle_spectrum}
+Assume tiled heads with invertible $T$ and an invertible effective receiving map $\widetilde O$, and positive routing weights on the edges $ij$, $jk$, and $ik$. Put $\boldsymbol\rho_{ijk}=\bigoplus_h\rho_{ijk}^{(h)}I_{s_h}$ with $\rho_{ijk}^{(h)}=\beta_{ij}^{(h)}\beta_{jk}^{(h)}/\beta_{ik}^{(h)}$. The triangle holonomy of the edge operators $\mathcal M_{ab}=U_a\widetilde O\boldsymbol\beta_{ab}TU_b^{-1}$ is similar to $\boldsymbol\rho_{ijk}T\widetilde O$. In the affine chart $T\widetilde O=TO$, in the first-order chart $T\widetilde O=I+TO$, and in the exponential chart $T\widetilde O=e^{TO}$.
+\end{proposition}
+\begin{proof}
+Removing the external conjugation by $U_k$ gives
+\[
+T^{-1}\boldsymbol\beta_{ik}^{-1}\widetilde O^{-1}\widetilde O\boldsymbol\beta_{ij}T\widetilde O\boldsymbol\beta_{jk}T=T^{-1}\boldsymbol\beta_{ik}^{-1}\boldsymbol\beta_{ij}(T\widetilde O)\boldsymbol\beta_{jk}T.
+\]
+Conjugation by $\boldsymbol\beta_{jk}T$ gives $\boldsymbol\beta_{jk}\boldsymbol\beta_{ik}^{-1}\boldsymbol\beta_{ij}(T\widetilde O)=\boldsymbol\rho_{ijk}T\widetilde O$, because head-diagonal matrices commute with one another; they need not commute with $T\widetilde O$. The last statement is Eq.~\eqref{M-eq:lie_three_charts} and item 2 of Theorem~\ref{M-thm:routed_transport}.
+\end{proof}
+
+The routing factor and the head transfer therefore remain distinct. A vanishing routing defect, $\boldsymbol\rho_{ijk}=I$, leaves a holonomy similar to $T\widetilde O$, which in the exponential chart is $e^{TO}$ and is generally not the identity. For softmax routing $\beta_{ij}=e^{s_{ij}}/Z_i$ the receiver normalizer cancels between $\beta_{ij}$ and $\beta_{ik}$, and for Gaussian-KL routing
+\begin{equation}
+\log\rho_{ijk}^{(h)}=-\frac{D_{ij}^{(h)}+D_{jk}^{(h)}-D_{ik}^{(h)}}{\tau_h}+\log\frac{\pi_{ij}^{(h)}\pi_{jk}^{(h)}}{\pi_{ik}^{(h)}}-\log Z_j^{(h)}.
+\label{eq:lie_kl_triangle}
+\end{equation}
+The leading term is the triangle defect of the routing costs. The Kullback--Leibler divergence obeys no triangle inequality, and here it compares a query law with a key law under different maps, so the defect can take either sign. With $T\widetilde O=I$, flatness on every strict triangle forces $\beta_{ij}=c_i/c_j$ for $0<j<i$ with $c_i=\beta_{i0}$, as the case $k=0$ shows; this is a thin set, and uniform causal attention, with $\rho_{ijk}=1/(j+1)$, is not flat. The implementation reports path-weighted moments of $\log\rho_{ijk}^{(h)}$ during training and computes spectra of $\boldsymbol\rho_{ijk}T\widetilde O$ from checkpoints. Spectral summaries of this kind take their identity value at every unipotent holonomy (Proposition~\ref{prop:lie_blind}), so they are not complete curvature measures.
+
+\subsection{Evaluation on trained models}
+\label{supp:holonomy_numerics}
+
+Trained links require these quantities to be evaluated in log space. In the $K=128$ exponential-chart language model of Section~\ref{M-sec:trained_links}, $\operatorname{tr}L$ lies between $-2611$ and $-674$ across layers, so $\det e^{L}=e^{\operatorname{tr}L}$ underflows in floating point, and the reverse edges $\Theta_{ij}^{-1}=U_je^{-L}U_i^{-1}$ have norms up to about $e^{123}$. For the shared-generator field the holonomy is conjugate to $e^{L}$, so its logarithmic spectrum is the spectrum of $L$, or equivalently of $TO=TLT^{-1}$, and needs no matrix exponential. For tiled routed links the proof of Proposition~\ref{prop:lie_triangle_spectrum} cancels the inverse receiving map analytically, so $\boldsymbol\rho_{ijk}e^{TO}$ is formed without inverting a matrix exponential, and
+\begin{equation}
+\log|\det\mathcal H_{ijk}|=\sum_hs_h\log\rho_{ijk}^{(h)}+\operatorname{tr}(TO)
+\label{eq:lie_triangle_logdet}
+\end{equation}
+holds exactly. Eigenvalues of $\boldsymbol\rho_{ijk}e^{TO}$ much smaller than its norm are computed with absolute rather than relative accuracy and should be reported only above a stated threshold. A determinant or spectrum obtained by inverting a numerically computed matrix exponential, or from the signed log-determinant of a computed matrix exponential, is unreliable at these scales: for two layers of that model the latter returned negative determinants, which item 3 of Proposition~\ref{M-prop:lie_endpoint} excludes.
+
+\subsection{Curvature measures on \texorpdfstring{$\mathrm{GL}(K)$}{GL(K)}}
+\label{supp:curvature_measures}
+
+A curvature measure for a link action should vanish exactly at flat configurations. On a compact group a class function, such as Wilson's plaquette density, can do this; on $\mathrm{GL}(K)$ with $K\ge2$ no continuous class function can, because $\mathrm{GL}(K)$ then contains unipotent elements other than $I$. The latent-link model of Section~\ref{sec:latent_links} therefore uses the Frobenius defect $\Psi(W)=\tfrac12\|W-I\|_F^2$ of its depth loops $W_{ijk}^\ell$ (Eq.~\eqref{eq:lie_depth_loops}).
+
+\begin{proposition}[Curvature measures on $\mathrm{GL}(K)$]
+\label{prop:lie_blind}
+\begin{enumerate}
+\item If $f:\mathrm{GL}(K,\mathbb R)\to\mathbb R$ is continuous and constant on conjugacy classes, then $f(u)=f(I)$ for every unipotent $u$.
+\item $\Psi(W)\ge0$ with equality exactly at $W=I$, and on $\mathrm O(K)$, $\Psi(W)=K-\operatorname{Tr}W$, Wilson's plaquette density. $\Psi(W_{ijk}^\ell)$ is invariant under the passive site action. Under a reparametrization $U_k\mapsto U_kh_k^{-1}$, $e^{L_{ab}^\ell}\mapsto h_ae^{L_{ab}^\ell}h_b^{-1}$, which leaves every local link unchanged, $W_{ijk}^\ell\mapsto h_kW_{ijk}^\ell h_k^{-1}$, and $\Psi(h_kWh_k^{-1})=\Psi(W)$ for every $W$ exactly when $h_k$ is a nonzero multiple of an orthogonal matrix.
+\item For small generators, $\Psi(W_{ijk}^\ell)=\tfrac12\|L_{ij}^{\ell+1}+L_{jk}^\ell-L_{ik}^{\ell+1}-L_{kk}^\ell\|_F^2+\mathcal O(\|L\|^3)$. For a time-like loop the argument is the depth difference of a cross-token generator corrected by the time-like generators at its ends, a discrete electric field.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+(1) Write $u=RJR^{-1}$ with $J=I+N$ in real Jordan form, $N$ nilpotent on the superdiagonal, and let $D_t=\operatorname{diag}(1,t^{-1},\ldots,t^{-(K-1)})$. Then $(D_tJD_t^{-1})_{p,p+1}=tJ_{p,p+1}$, so $D_tJD_t^{-1}\to I$ as $t\to0$, and $f(u)=f(D_tR^{-1}uRD_t^{-1})\to f(I)$. (2) The zero set is a property of the norm, and for orthogonal $W$, $\|W-I\|_F^2=2(K-\operatorname{Tr}W)$. The loops are reference data, which gives passive invariance. Under the reparametrization each two-step route becomes $h_i(\cdots)h_k^{-1}$, so $W\mapsto h_kWh_k^{-1}$. If $h_k=cR$ with $R$ orthogonal, $h_k(W-I)h_k^{-1}=R(W-I)R^\top$. Conversely, for nonzero $u,v$ and small $t\ne0$ the matrix $W=I+tuv^\top$ is invertible and $\|h_k(W-I)h_k^{-1}\|_F=|t||h_ku||h_k^{-\top}v|$, so invariance forces $|h_ku|/|u|=|v|/|h_k^{-\top}v|$ for all nonzero $u,v$; both sides then equal one constant $c>0$, and $h_k/c$ is orthogonal. (3) $W=(I-L_{ik}^{\ell+1}-L_{kk}^\ell)(I+L_{ij}^{\ell+1}+L_{jk}^\ell)+\mathcal O(\|L\|^2)$.
+\end{proof}
+
+Item 1 applies to every eigenvalue statistic, including the spectral summaries of the implemented triangle diagnostic, which all take their identity value on the shear $I+E_{12}\ne I$, whereas $\Psi(I+E_{12})=\tfrac12$. The Frobenius defect uses one structure that class functions lack, the reference metric, and that metric reduces the residual invariance of the curvature measure from $\mathrm{GL}(K)$ to the orthogonal group times scalars.
+
+% W4 supplement fragment: S4, routing details (sharp bound, temperature, mixture attention, rotary correspondence, divergence directions, alignment bound, posterior predictive, noisy query, content laws).
+\section{Routing Details}
+\label{supp:routing}
+
+This section collects secondary results on the Gaussian-KL routing of Section~\ref{M-sec:transformer_comparison_summary} and on the local source model of Section~\ref{M-sec:probabilistic_status}. Notation and standing hypotheses are those of the main text: one layer and head are fixed, the comparison rank is $r_h$, the allowed source set of receiver $i$ is $\mathcal N_i$, and the projected moments $a_i,b_j,V_{Q,i},V_{K,j}$ are those of Eq.~\eqref{M-eq:projected_qk_moments}.
+
+\subsection{Sharp routing perturbation bound}
+\label{supp:sharp_bound}
+
+The dot-product logits of Eq.~\eqref{M-eq:main_dot_product_scope} differ from ordinary dot-product routing by the key-norm term. An approximation can be stated by bounding that bias.
+\begin{proposition}[Sharp routing perturbation bound]
+\label{prop:sharp_bound}
+For any row constant $c_i$, under the hypotheses of Proposition~\ref{M-prop:projected_dot_product}, define
+\begin{equation}
+\varepsilon_i=\max_{j\in\mathcal N_i}
+\frac{|\|\mathsf k_j\|^2-c_i|}{2\tau},\qquad
+p_{ij}=\softmax_j\left(\mathsf q_i^\top\mathsf k_j/\tau+\log\pi_{ij}\right).
+\label{eq:projected_bias_error}
+\end{equation}
+Then
+\begin{equation}
+\sum_j|\beta_{ij}-p_{ij}|\le2\tanh(\varepsilon_i/2)\le\min(\varepsilon_i,2),
+\label{eq:projected_softmax_bound}
+\end{equation}
+with equality for two sources with $p_{i1}=1/(1+e^{\varepsilon_i})$ and key-norm offsets of $\pm\varepsilon_i$. The best row constant is the midrange, which gives $\varepsilon_i=(\max_j\|\mathsf k_j\|^2-\min_j\|\mathsf k_j\|^2)/(4\tau)$.
+\end{proposition}
+\begin{proof}
+By Eq.~\eqref{M-eq:main_dot_product_scope}, $\beta_{ij}=p_{ij}e^{\delta_{ij}}/\sum_kp_{ik}e^{\delta_{ik}}$ with $\delta_{ij}=-(\|\mathsf k_j\|^2-c_i)/(2\tau)$, so $|\delta_{ij}|\le\varepsilon_i$. For $A\subseteq\mathcal N_i$, the derivative of $\beta_i(A)$ in $\delta_{ik}$ is positive for $k\in A$ and negative otherwise, so $\beta_i(A)-p_i(A)$ is largest at $\delta_{ij}=\varepsilon_i$ on $A$ and $\delta_{ij}=-\varepsilon_i$ off $A$, where it equals $x(1-x)(e^{2\varepsilon_i}-1)/[1+x(e^{2\varepsilon_i}-1)]$ with $x=p_i(A)$. The maximum over $x$ is attained at $x=1/(1+e^{\varepsilon_i})$ and equals $\tanh(\varepsilon_i/2)$. Since $\sum_j|\beta_{ij}-p_{ij}|=2\max_A[\beta_i(A)-p_i(A)]$, the bound follows, and $2\tanh(\varepsilon_i/2)\le\min(\varepsilon_i,2)$ because $\tanh$ is bounded by one and by its argument. The midrange minimizes $\varepsilon_i$ over $c_i$.
+\end{proof}
+The ratio bound $e^{-2\varepsilon_i}\le\beta_{ij}/p_{ij}\le e^{2\varepsilon_i}$ remains available as a multiplicative statement.
+Therefore uniform control $\varepsilon_i\to0$ suffices for rowwise convergence, including when the number of keys varies. For the conventional scale $\tau=\sqrt{r_h}$, this requires maximum squared-norm dispersion $o(\sqrt{r_h})$ on the row support. High-dimensional relative concentration alone is insufficient: for independent standard Gaussian vectors, the squared norm has variance $2r_h$ and the dot product of independent vectors has variance $r_h$. Both residuals retain order-one fluctuations after division by $\sqrt{r_h}$. Coordinate LayerNorm followed by an arbitrary learned key map does not impose the required projected-key norm constancy.
+
+\subsection{Temperature and geometric dilation}
+\label{supp:temperature}
+
+Standard attention uses the comparison dimension \(r_h\) in its scale \(\sqrt{r_h}\) \citep[Sec.~3.2.1]{vaswani2017attention}. After whitening, the cross term has this conventional scale when \(\tau_h=\sqrt{r_h}\). For arbitrary positive \(\tau_h\), rescaling both effective query and key by \((\sqrt{r_h}/\tau_h)^{1/2}\) writes the same cross term with denominator \(\sqrt{r_h}\). Covariance scale has already entered through whitening and must not be counted a second time as temperature. Numerical modification of the KL cost lies outside the uncapped score identity unless it leaves every relevant cost unchanged.
+
+Geometric dilation must also be separated from statistical sharpness. A passive rescaling of one frame block (Section~\ref{sec:heads_irreps}) transforms its mean, covariance, and frame together as $(\mu,\Sigma,U)\mapsto(c\mu,c^2\Sigma,cU)$, $c\ne0$. The reference moments and all routing costs are unchanged. At fixed projected means, changing a shared isotropic comparison covariance $\sigma_h^2I$ instead changes the statistical model and gives $D_{ij}^{(h)}=\|S_{Q,h}\xi_i-S_{K,h}\xi_j\|^2/(2\sigma_h^2)$. The logits then depend on $\sigma_h^2$ and $\tau_h$ only through $\sigma_h^2\tau_h$, so the two are not separately identifiable from routing. For general projected covariances, trace and determinant terms prevent reducing every covariance change to one scalar temperature.
+
+\subsection{Gaussian-mixture attention}
+\label{supp:mixture_attention}
+
+\begin{remark}[Relation to Gaussian-mixture attention]
+\label{rem:gaussian_mixture_attention}
+Because the entropy $H(q_{Q,i})$ is constant on row $i$ and $D_{\mathrm{KL}}(q\|p)=-\mathbb E_q\log p-H(q)$,
+\begin{equation}
+\beta_{ij}=\softmax_j\bigl(\log\pi_{ij}+\mathbb E_{q_{Q,i}}[\log p_{K,j}]/\tau\bigr),
+\end{equation}
+the mean-field responsibility of a Gaussian mixture under an uncertain query. For a point query at $a_i$ it is the mixture responsibility of \citet{Movellan2020ProbabilisticTransformers} and \citet{Nguyen2022MGK}, and Eq.~\eqref{M-eq:projected_key_bias_compensation} is the prior with which \citet[Eqs.~16 to 21]{Movellan2020ProbabilisticTransformers} recover dot-product attention. The query covariance adds $-\operatorname{Tr}(P_jV_{Q,i})/(2\tau)$, which depends on the pair whenever $P_j$ varies with the source.
+\end{remark}
+
+\subsection{Restricted rotary correspondence}
+\label{sec:rope}
+
+Rotary position embedding (RoPE) applies position-dependent orthogonal rotations after query and key projection \citep{su2024roformer}. For an even comparison dimension, let $R_i$ be a block-diagonal matrix of planar rotations with angles proportional to position, so $R_i^\top R_j=R_{j-i}$. A declared comparison-space construction $a_i\mapsto R_i a_i$, $b_j\mapsto R_jb_j$ has cross term
+\begin{equation}
+(R_i a_i)^\top(R_jb_j)
+=a_i^\top R_{j-i}b_j
+=\xi_i^\top S_Q^\top R_{j-i}S_K\xi_j.
+\label{eq:projected_rope_kernel}
+\end{equation}
+Rotating both projected laws gives, by Eq.~\eqref{M-eq:glk_invariance}, $D_{\mathrm{KL}}\bigl((R_i)_*q_{Q,i}\|(R_j)_*p_{K,j}\bigr)=D_{\mathrm{KL}}\bigl(q_{Q,i}\|(R_{j-i})_*p_{K,j}\bigr)$, a relative-position score for arbitrary projected covariances. The dot-product form with an unchanged key-norm bias requires only that the shared key covariance commute with every $R_\delta$; with distinct rotation frequencies this means $V_*=\bigoplus_k\lambda_kI_2$ over the rotation planes. Query covariance is unrestricted. If the rotations act on anisotropic projected laws rather than on means alone, the trace and query-quadratic terms of Eq.~\eqref{M-eq:projected_full_kl} also become functions of $i-j$ and contribute relative-position biases.
+
+This identity does not automatically identify position rotations inside an ambient frame with ordinary post-projection RoPE. Moving an ambient positional map through $S_Q$ or $S_K$ requires the corresponding intertwining identities, such as $S_Qe^{-Y_i}=R_iS_Q$ and $S_Ke^{-Y_i}=R_iS_K$ for the positional factor of $U_i=e^{\phi_{x_i}}e^{Y_i}$ (Eq.~\eqref{M-eq:prior_bank}); imposing the identity on the complete $U_i^{-1}$ would require every token factor to act trivially on the comparison row spaces. Arbitrary learned maps need not satisfy them. In addition, ordinary RoPE leaves value aggregation unrotated. The separated comparison and content maps allow this design to be specified, but one shared ambient positional frame acting through every $U_i^{-1}$ does not establish it. The relative rotation is a flat group-valued factor; the full projected compatibility remains a generally low-rank bilinear tensor, and the content link remains a separate operator.
+
+\subsection{Divergence direction and complete-state alignment}
+\label{supp:divergence_alignment}
+
+In the local source model of Eqs.~\eqref{M-eq:mixture_joint} and~\eqref{M-eq:mixture_free_energy}, the categorical entropy belongs to the variational objective, and the direction of $D_{ij}$ is fixed by the declared joint and the exclusive divergence: the key laws are the generative mixture components and the query law is the recognition factor. The inclusive divergence gives $D_{\mathrm{KL}}(\mathbb P_i\|\mathbb Q_{i,\beta})=D_{\mathrm{KL}}(\pi_i\|\beta_i)+\sum_j\pi_{ij}D_{\mathrm{KL}}(p_{K,j}\|q_{Q,i})$, whose minimizer is $\beta_i=\pi_i$ for all costs. The reverse cost $D_{\mathrm{KL}}(p_{K,j}\|q_{Q,i})$ follows from the joint $\pi_{ij}q_{Q,i}(y)$ with recognition $\beta_{ij}p_{K,j}(y)$; its reduction to a dot product requires a shared query covariance and retains a source-dependent bias. Symmetric divergences require both projected covariances to be shared.
+
+Complete-state alignment is the comparison with $S_Q=S_K=I_K$: by Lemma~\ref{M-lem:glk_invariance} applied to the common pushforward by $U_i$, it is $D_{\mathrm{KL}}(\widetilde q_i\|\widetilde q_j)=D_{\mathrm{KL}}(q_i\|(\Omega_{ij})_*q_j)$, the flat case of alignment through a group link. For a group link $\Theta_{ij}=U_ie^{L_{ij}}U_j^{-1}$ the same argument gives $D_{\mathrm{KL}}(q_i\|(\Theta_{ij})_*q_j)=D_{\mathrm{KL}}(\widetilde q_i\|(e^{L_{ij}})_*\widetilde q_j)$. A learned comparison coarse-grains such an alignment whenever its key map is the query map composed with the reference representative of the link. If $S_K=S_Qe^{L_{ij}}$, the key law is $(S_K)_*\widetilde q_j=(S_Q)_*(e^{L_{ij}})_*\widetilde q_j$, and the data-processing inequality for the common map $S_Q$ \citep[Thm.~9]{vanErvenHarremoes2014} gives
+\begin{equation}
+D_{ij}=D_{\mathrm{KL}}\bigl((S_Q)_*\widetilde q_i\|(S_Q)_*(e^{L_{ij}})_*\widetilde q_j\bigr)
+\le D_{\mathrm{KL}}\bigl(q_i\|(\Theta_{ij})_*q_j\bigr).
+\label{eq:transported_alignment_bound}
+\end{equation}
+Tied maps are the case $L_{ij}=0$, for which $D_{ij}\le D_{\mathrm{KL}}(q_i\|(\Omega_{ij})_*q_j)$: a shared comparison coarse-grains complete-state alignment. The hypothesis $S_K=S_QA$ with $A\in\mathrm{GL}(K)$ can always be met. Let $S_Q^+$ be a right inverse of $S_Q$ and let $N:\mathsf V\to\ker S_Q$ restrict to an isomorphism $\ker S_K\to\ker S_Q$ and vanish on a complement of $\ker S_K$; both kernels have dimension $K-r_h$. Then $A=S_Q^+S_K+N$ satisfies $S_QA=S_K$, and $Ax=0$ forces $S_Kx=0$ and then $Nx=0$, so $x=0$. The argument of Eq.~\eqref{eq:transported_alignment_bound} then gives $D_{ij}\le D_{\mathrm{KL}}(q_i\|(U_iAU_j^{-1})_*q_j)$ for every such $A$, and $U_iAU_j^{-1}$ is an exponential group link exactly when $A$ has a real logarithm. For square maps $A=S_Q^{-1}S_K$ is unique and the bound is the equality of Proposition~\ref{M-prop:comparison_link}. Every Gaussian-KL routing cost is therefore dominated by complete-state alignment through an invertible link $U_iAU_j^{-1}$, where $A$ ranges over the invertible solutions of $S_QA=S_K$, a nonempty open subset of the affine family $A_0+\operatorname{Hom}(\mathsf V,\ker S_Q)$ of all solutions. When $S_Q\ne S_K$ that link is not $\Omega_{ij}$, and identical reference states $\widetilde q_i=\widetilde q_j$ can have $D_{ij}>0$.
+
+\subsection{Gibbs routing and the posterior-predictive source probability}
+\label{supp:posterior_predictive}
+
+For fixed $q_{Q,i}$ the optimizer of Eq.~\eqref{M-eq:mixture_softmax_general} minimizes $\mathbb E_{y\sim q_{Q,i}}D_{\mathrm{KL}}\bigl(\beta_i\|p_i^{(\tau)}(\cdot\mid y)\bigr)$ with $p_i^{(\tau)}(j\mid y)\propto\pi_{ij}p_{K,j}(y)^{1/\tau}$: it is the normalized geometric mean of the pointwise source posteriors under the query law. The posterior-predictive source probability $\mathbb E_{y\sim q_{Q,i}}\mathbb P_i(J=j\mid y)$, with $\mathbb P_i$ the local joint of Eq.~\eqref{M-eq:mixture_joint}, minimizes the reverse expected divergence. It is also the unrestricted minimizer of the KL to $\mathbb P_i$ over joints whose $y$-marginal is clamped to $q_{Q,i}$, and it generally differs from the Gibbs row, as for the readout of Section~\ref{sec:prior_bank_readout}. Apart from a row constant, the query covariance enters $D_{ij}$ only through the trace term of Eq.~\eqref{M-eq:projected_full_kl}. That term penalizes sources whose key laws are precise along the uncertain directions of the query, and it drops out when key covariances are shared. A broad query law therefore does not flatten Gibbs routing.
+
+\begin{remark}[Noisy-query routing]
+\label{rem:noisy_query}
+A rule under which query uncertainty does flatten routing requires a different local model, in which the projected query mean is data. Under source $j$, let $y\sim p_{K,j}$ and let the observed query mean be $a_i=y+\varepsilon$ with independent noise $\varepsilon\sim\mathcal N(0,V_{Q,i})$. Then $p(a_i\mid J=j)=\mathbb E_{y\sim q_{Q,i}}[p_{K,j}(y)]=\mathcal N(a_i;b_j,V_{Q,i}+V_{K,j})$, the expected likelihood kernel of the two laws \citep[Secs.~2.1 and~3.1]{Jebara2004ProbabilityProduct}, and Bayes' rule gives the exact posterior
+\begin{equation}
+P(J=j\mid a_i)=\frac{\pi_{ij}\mathcal N(a_i;b_j,V_{Q,i}+V_{K,j})}{\sum_{k\in\mathcal N_i}\pi_{ik}\mathcal N(a_i;b_k,V_{Q,i}+V_{K,k})}.
+\label{eq:noisy_query_routing}
+\end{equation}
+At unit temperature, Gibbs routing normalizes $\pi_{ij}\exp\mathbb E_{q_{Q,i}}[\log p_{K,j}]$, whereas Eq.~\eqref{eq:noisy_query_routing} normalizes $\pi_{ij}\mathbb E_{q_{Q,i}}[p_{K,j}]$; in the point-query limit both give the mixture responsibility of Remark~\ref{rem:gaussian_mixture_attention}. With shared key covariance $V_*$, Eq.~\eqref{eq:noisy_query_routing} is Eq.~\eqref{M-eq:main_dot_product_scope} at $\tau=1$ with $V_*$ replaced by $V_{Q,i}+V_*$, so the query covariance enters as a receiver-dependent whitening that tempers the row. For $r_h=1$, keys $b_1=0$ and $b_2=1$ with unit variance, $a_i=0$, and a uniform prior, the unit-temperature Gibbs weight on the first source is $(1+e^{-1/2})^{-1}\approx0.622$ for every query variance $v$, whereas Eq.~\eqref{eq:noisy_query_routing} gives $(1+e^{-1/(2+2v)})^{-1}$, which is $0.562$ at $v=1$ and $0.511$ at $v=10$. The weights depend on the states only through projected moments, and a common invertible map of the comparison space multiplies every term by the same Jacobian factor, so they share the invariances of Theorem~\ref{M-thm:reference_moments}. A temperature can be introduced through the binary record of Theorem~\ref{M-thm:probabilistic_status} after a row shift that makes the cost $-\log\mathcal N(a_i;b_j,V_{Q,i}+V_{K,j})$ nonnegative. The rule is a different routing operator rather than a reading of Eq.~\eqref{M-eq:relational_routing}, and the evaluated model does not implement it.
+\end{remark}
+
+\subsection{Content laws and the shared-latent alternative}
+\label{sec:content_laws}
+
+For one head, $z_i^{(h)}$ is exactly the mean of a declared mixture of content laws with means $T_h\xi_j$ and weights $\beta_{ij}$. A normalized local construction makes the limited probabilistic interpretation explicit. At fixed context, let $p_{K,j}(y)$ be the comparison densities of Eq.~\eqref{M-eq:relational_key_law}, and choose normalized content laws $\nu_j(\zeta)$ with those content means. Then
+\begin{align}
+\mathbb P_i(j,y,\zeta)&=\pi_{ij}p_{K,j}(y)\nu_j(\zeta),\\
+\mathbb Q_{i,\beta}(j,y,\zeta)&=\beta_jq_{Q,i}(y)\nu_j(\zeta),\\
+D_{\mathrm{KL}}(\mathbb Q_{i,\beta}\|\mathbb P_i)
+&=\sum_j\beta_jD_{\mathrm{KL}}(q_{Q,i}\|p_{K,j})
++D_{\mathrm{KL}}(\beta\|\pi_i).
+\label{eq:relational_normalized_model}
+\end{align}
+The identity follows by cancellation of $\nu_j$ in the density ratio and integration of normalized factors. It recovers the uncapped routing objective at $\tau_h=1$. Since every normalized $\nu_j$ cancels, this construction permits a chosen content bank but does not select its means, $T_h$, $\widetilde O_h$, or the residual. At general $\tau_h$, Eq.~\eqref{M-eq:relational_routing_objective} is the declared entropy-regularized extension, not the KL of this same joint without additional modeling changes; the binary compatibility record of Theorem~\ref{M-thm:probabilistic_status} realizes it exactly at every temperature.
+
+The independent-content construction also distinguishes two measurements of a distribution from two observations of one latent draw. If $X_j\sim\mathcal N(\xi_j,C_j)$, $Y=S_KX_j+\varepsilon$ with independent Gaussian noise $\varepsilon\sim\mathcal N(0,\Gamma)$, $\Gamma\succeq0$, and $V=T X_j$, then Gaussian conditioning instead gives \citep{petersen2012matrix}
+\begin{equation}
+\mathbb E[V\mid Y=y,J=j]
+=T\xi_j+TC_jS_K^\top(S_KC_jS_K^\top+\Gamma)^{-1}(y-S_K\xi_j).
+\label{eq:relational_shared_latent_correction}
+\end{equation}
+Thus uncorrected values $T\xi_j$ do not generally equal shared-latent conditional means. Overlapping transmitting and comparison subspaces are permitted, but they do not remove this correlation term. The mixture-mean readout in Eq.~\eqref{M-eq:relational_predictive_residual} specifies a different statistical operation from this shared-latent conditioning law. With $\Gamma=0$ and the query law as the recognition of $Y$, this model gives the same routing objective and the pair-dependent content $T\bigl(\xi_j+R_{K,j}(S_Q\xi_i-S_K\xi_j)\bigr)$, where $R_{K,j}=C_jS_K^\top(S_KC_jS_K^\top)^{-1}$ is the key-side analogue of the lift in Eq.~\eqref{eq:comparison_gaussian_lift}. The uncorrected value is recovered for every query exactly when $TC_jS_K^\top=0$.
+
+% Supplement S5: receiver inference over the same channels (moved from HEAD 1006-1139, notation updated).
+\section{Receiver Inference over the Same Channels}
+\label{sec:receiver_inference}
+
+Section~\ref{M-sec:probabilistic_status} of the main text reads content predictively: each head's routed message is averaged, and the predictive mean replaces ($c_{\mathrm{res}}=0$) or increments ($c_{\mathrm{res}}=1$) the receiver's state, as in Eq.~\eqref{M-eq:relational_predictive_residual}. The same channels can instead be read as evidence about the receiver. The receiver holds a Gaussian prior, each head observes the receiver through a receiving measurement, and the routed source messages are the observations, so the update is a variational posterior. This section derives that receiver energy and its exact minimizer, states when the predictive head sum is its limit, and records the realization used in the receiver arm of the small-width chart runs (Section~\ref{M-sec:chart_runs}). Routing is computed from the comparison laws as before and held fixed during the update.
+
+\subsection{The receiver episode and the channel likelihood}
+\label{sec:rec_channel}
+
+A receiver episode snapshots the incoming states $(\bar\xi_j,\bar C_j)$, the routing weights, and the frames of one layer. It then moves each receiver's state $(\xi,C)$ against an energy $F_i(\xi,C)$ with the snapshot held fixed in value, while the outer supervised graph through the snapshot remains attached. The frames do not change within the episode, so $(\mu,\Sigma)\mapsto(\xi,C)$ is a fixed linear reparametrization. Every energy below is a function of reference moments. Its local gradients are $\nabla_\mu F=U_i^{-\top}\nabla_\xi F$ and $\nabla_\Sigma F=U_i^{-\top}(\nabla_CF)U_i^{-1}$, and the Gaussian Fisher natural gradient $(\Sigma\nabla_\mu F,2\Sigma\nabla_\Sigma F\Sigma)$ equals the reference natural gradient $(C\nabla_\xi F,2C\nabla_CFC)$ mapped by $U_i$, with $U_i^\top$ on the right of the covariance term. A Fisher step taken in local coordinates is therefore the same step taken in reference coordinates and mapped back, because the Fisher metric of the Gaussian family is invariant under affine reparametrization of the sample space \citep{Amari1998}. We work in reference coordinates and suppress the receiver index.
+
+Head $h$ observes the receiver through a receiving measurement $\mathsf P_h\in\mathbb R^{s_h\times K}$, and the message of source $j$, with the source state marginalized, predicts that measurement through a channel with noise $Q_h^{\mathrm{ch}}\succeq0$:
+\begin{equation}
+\begin{gathered}
+\mathsf P_hx=T_hx_j+\epsilon,\qquad x_j\sim\mathcal N(\bar\xi_j,\bar C_j),\qquad \epsilon\sim\mathcal N(0,Q_h^{\mathrm{ch}}),\\
+p(T_h\bar\xi_j\mid x)=\mathcal N\bigl(T_h\bar\xi_j;\mathsf P_hx,R_{hj}\bigr),\qquad R_{hj}=T_h\bar C_jT_h^\top+Q_h^{\mathrm{ch}}.
+\end{gathered}
+\label{eq:rec_channel_model}
+\end{equation}
+With the routing weights declared as likelihood powers $w_{hj}=\lambda_\beta\beta_{ij}^{(h)}$, $\lambda_\beta>0$, and a Gaussian prior $p=\mathcal N(\xi_p,C_p)$ with coefficient $\lambda_\alpha>0$, the receiver energy is
+\begin{equation}
+F(\xi,C)=\lambda_\alpha D_{\mathrm{KL}}\bigl(\mathcal N(\xi,C)\|\mathcal N(\xi_p,C_p)\bigr)+\sum_{h,j}w_{hj}\mathbb E_{x\sim\mathcal N(\xi,C)}\bigl[-\log\mathcal N(T_h\bar\xi_j;\mathsf P_hx,R_{hj})\bigr].
+\label{eq:rec_channel_energy}
+\end{equation}
+
+\begin{proposition}[Closed-form channel receiver]
+\label{prop:rec_closed_form}
+Let $C_p\succ0$ and $R_{hj}\succ0$, and put
+\begin{equation}
+\begin{gathered}
+W_h=\sum_jw_{hj}R_{hj}^{-1},\qquad \omega_h=\sum_jw_{hj}R_{hj}^{-1}T_h\bar\xi_j,\\
+\Lambda=\lambda_\alpha C_p^{-1}+\sum_h\mathsf P_h^\top W_h\mathsf P_h,\qquad
+\eta=\lambda_\alpha C_p^{-1}\xi_p+\sum_h\mathsf P_h^\top\omega_h.
+\end{gathered}
+\label{eq:rec_stats}
+\end{equation}
+Then
+\begin{equation}
+F(\xi,C)=\tfrac12\operatorname{Tr}(\Lambda C)+\tfrac12\xi^\top\Lambda\xi-\eta^\top\xi-\tfrac{\lambda_\alpha}{2}\log\det C+\mathrm{const},
+\label{eq:rec_quadratic}
+\end{equation}
+$F$ is strictly convex on $\mathbb R^K\times\{C\succ0\}$, and its unique minimizer is
+\begin{equation}
+\xi^\star=\Lambda^{-1}\eta,\qquad C^\star=\lambda_\alpha\Lambda^{-1}.
+\label{eq:rec_minimizer}
+\end{equation}
+Equivalently, $F=\lambda_\alpha D_{\mathrm{KL}}(\mathcal N(\xi,C)\|p_{\mathrm{pow}})+\mathrm{const}$, where $p_{\mathrm{pow}}(x)\propto p(x)\prod_{h,j}p(T_h\bar\xi_j\mid x)^{w_{hj}/\lambda_\alpha}$ is the normalized Gaussian power posterior with mean $\xi^\star$ and covariance $C^\star$.
+\end{proposition}
+\begin{proof}
+For a Gaussian likelihood, $\mathbb E_{\mathcal N(\xi,C)}[-\log\mathcal N(y;\mathsf Px,R)]=\tfrac12(y-\mathsf P\xi)^\top R^{-1}(y-\mathsf P\xi)+\tfrac12\operatorname{Tr}(\mathsf P^\top R^{-1}\mathsf PC)+\tfrac12\log\det(2\pi R)$, and the Gaussian divergence is $\tfrac12[\operatorname{Tr}(C_p^{-1}C)+(\xi-\xi_p)^\top C_p^{-1}(\xi-\xi_p)-K+\log\det C_p-\log\det C]$. Collecting terms gives Eq.~\eqref{eq:rec_quadratic}. The expected log-likelihoods contain no entropy of the receiver, which enters once, through the prior divergence. The energy is a strictly convex quadratic in $\xi$ plus a function of $C$ that is linear apart from the strictly convex term $-\tfrac{\lambda_\alpha}2\log\det C$, and its gradients $\Lambda\xi-\eta$ and $\tfrac12(\Lambda-\lambda_\alpha C^{-1})$ vanish exactly at Eq.~\eqref{eq:rec_minimizer}. Finally, $F/\lambda_\alpha=\mathbb E_q[\log q-\log p-\sum_{h,j}(w_{hj}/\lambda_\alpha)\log p(T_h\bar\xi_j\mid x)]$ up to a constant, which is $D_{\mathrm{KL}}(q\|p_{\mathrm{pow}})$ minus the logarithm of the normalizer of $p_{\mathrm{pow}}$, and the product of the Gaussian prior with Gaussian likelihood powers is Gaussian with precision $\Lambda/\lambda_\alpha$ and information vector $\eta/\lambda_\alpha$.
+\end{proof}
+
+\begin{corollary}[Properties of the channel receiver]
+\label{cor:rec_properties}
+\begin{enumerate}
+\item The receiver entropy enters with the single coefficient $\lambda_\alpha$, so $C^\star$ is the covariance of the declared power posterior. At $\lambda_\alpha=1$ and unit weights the update is the conjugate linear-Gaussian update \citep[Sec.~2.3.3]{Bishop2006}, and the Gaussian variational optimum is exact because the target is Gaussian \citep{OpperArchambeau2009}.
+\item With $Q_h^{\mathrm{ch}}=0$ the energy is finite whenever $T_h$ has full row rank, because then $T_h\bar C_jT_h^\top\succ0$. A positive channel floor guards against loss of rank as $T_h$ is learned; it is not needed for finiteness.
+\item The likelihoods depend on $x$ only through $\mathsf P_hx$. On $V_0=\bigcap_h\ker\mathsf P_h$, the directions that no head observes, the posterior conditional law given the observed component equals the prior conditional law, and if $C_p$ does not couple $V_0$ to its orthogonal complement, the posterior marginal on $V_0$ equals the prior marginal. No head imposes a value on $V_0$.
+\item At $C=C^\star$, $C\Lambda=\lambda_\alpha I$, so the explicit Fisher mean step $\xi\leftarrow\xi-\varepsilon C(\Lambda\xi-\eta)$ contracts exactly for $0<\varepsilon<2/\lambda_\alpha$, and $\varepsilon=1/\lambda_\alpha$ is the Newton step.
+\end{enumerate}
+\end{corollary}
+\begin{proof}
+Item 1 restates Proposition~\ref{prop:rec_closed_form}. For item 2, $y^\top T_h\bar C_jT_h^\top y=(T_h^\top y)^\top\bar C_j(T_h^\top y)>0$ for $y\ne0$. For item 3, decompose $x=u+v$ with $u\in V_0^\perp$ and $v\in V_0$. Every likelihood depends on $x$ only through $\mathsf P_hu$, so $p_{\mathrm{pow}}(v\mid u)=p(v\mid u)$; if the prior factorizes over $V_0^\perp\oplus V_0$, so does $p_{\mathrm{pow}}$, and its marginal on $V_0$ is the prior marginal. For item 4, the step maps the error $e=\xi-\xi^\star$ to $(I-\varepsilon C\Lambda)e=(1-\varepsilon\lambda_\alpha)e$ at $C=C^\star$.
+\end{proof}
+
+\subsection{The receiving measurement and the predictive limit}
+\label{sec:rec_predictive_limit}
+
+The posterior moves the state along the gain $\Lambda^{-1}\mathsf P_h^\top W_h=(C^\star/\lambda_\alpha)\mathsf P_h^\top W_h$, as in a Kalman update, so the receiving interface of this energy is the measurement $\mathsf P_h$ rather than a free write-back map. The implementation ties $\mathsf P_h=\widetilde O_h^\top$, the transposed effective receiving map of the chart in use. This keeps the stored parameters and their block-identity initialization and gives the following limit.
+
+\begin{proposition}[Predictive limit]
+\label{prop:rec_predictive_limit}
+Assume $\mathsf P_h=\widetilde O_h^\top$ with $\widetilde O_h^\top\widetilde O_g=\delta_{hg}I_{s_h}$ and $\bar s=\sum_hs_h=K$, so that $\sum_h\widetilde O_h\widetilde O_h^\top=I_K$, assume $R_{hj}=R_h$ for every source, and let $\lambda_\alpha C_p^{-1}\to0$ and $\lambda_\alpha C_p^{-1}\xi_p\to0$. Then
+\begin{equation}
+\xi^\star\to\sum_h\widetilde O_h\sum_j\beta_{ij}^{(h)}T_h\bar\xi_j,
+\label{eq:rec_predictive_limit}
+\end{equation}
+the residual-free ($c_{\mathrm{res}}=0$) predictive head sum of Eq.~\eqref{M-eq:relational_predictive_residual} in reference coordinates.
+\end{proposition}
+\begin{proof}
+In the limit, $\Lambda=\sum_h\widetilde O_h(\lambda_\beta R_h^{-1})\widetilde O_h^\top$ and $\eta=\sum_h\widetilde O_h\lambda_\beta R_h^{-1}\sum_j\beta_{ij}^{(h)}T_h\bar\xi_j$, using $\sum_j\beta_{ij}^{(h)}=1$. Both are block diagonal in the orthonormal basis formed by the columns of the $\widetilde O_h$, and solving blockwise gives $\widetilde O_h^\top\xi^\star=\sum_j\beta_{ij}^{(h)}T_h\bar\xi_j$.
+\end{proof}
+
+Each relaxed hypothesis has a definite meaning. With source-dependent channel covariances, the channel mean of head $h$ becomes the precision-weighted average $(\sum_j\beta_{ij}^{(h)}R_{hj}^{-1})^{-1}\sum_j\beta_{ij}^{(h)}R_{hj}^{-1}T_h\bar\xi_j$, so confident senders count for more than their routing weight. Overlapping heads fuse their measurements by least squares. A finite prior blends the prior mean and the messages with a gain set by their precisions. For an isotropic prior precision $\lambda_\alpha C_p^{-1}=aI$ and message evidence of precision $\ell$ on the range $W$ of the measurements, $\sum_h\mathsf P_h^\top W_h\mathsf P_h=\ell P_W$ and $\sum_h\mathsf P_h^\top\omega_h=\ell P_Wm$ with $P_W$ the orthogonal projector onto $W$, the minimizer is
+\begin{equation}
+\xi^\star=(I-P_W)\xi_p+P_W\frac{a\xi_p+\ell m}{a+\ell}.
+\label{eq:rec_fusion_residual}
+\end{equation}
+The coefficient of the prior state is its share of precision, $a/(a+\ell)$, on observed directions and one on unobserved directions, and the complement-preserving aggregation of Proposition~\ref{prop:lie_complement_persistence} is the limit $\ell/a\to\infty$ when its splitting is orthogonal. The posterior covariance $C^\star=\lambda_\alpha\Lambda^{-1}$ depends on the context but omits the between-source spread of the moment-matched predictive covariance, because geometric pooling of likelihoods differs from marginalizing a categorical predictive mixture. In the exponential chart the tied measurement has the zeroth-order part $(T^{-1})_{:,h}^\top$, which reads through $T^{-\top}$ and agrees with the head-routed flat transport of Theorem~\ref{M-thm:routed_transport} only when $T$ is orthogonal; tying the chart into the measurement is an implementation choice, not a consequence of the exponential construction.
+
+\subsection{Updates, outer derivatives, and the profiled coupling}
+\label{sec:rec_updates}
+
+\begin{proposition}[Natural-parameter flow]
+\label{prop:rec_flow}
+For an energy of the form of Eq.~\eqref{eq:rec_quadratic} with an entropy coefficient $c_{\mathrm H}>0$ in place of $\lambda_\alpha$, the Fisher flow $\dot\xi=-C(\Lambda\xi-\eta)$, $\dot C=c_{\mathrm H}C-C\Lambda C$ has the exact solution
+\begin{equation}
+J(t)=(1-\rho)J(0)+\rho\Lambda/c_{\mathrm H},\qquad
+\vartheta(t)=(1-\rho)\vartheta(0)+\rho\eta/c_{\mathrm H},\qquad
+\rho=1-e^{-c_{\mathrm H}t},
+\label{eq:rec_flow}
+\end{equation}
+in the natural parameters $J=C^{-1}$ and $\vartheta=C^{-1}\xi$. Every iterate with $\rho\in[0,1]$ is positive definite, the energy does not increase along the flow, and $\rho=1$ gives the minimizer $(\Lambda^{-1}\eta,c_{\mathrm H}\Lambda^{-1})$.
+\end{proposition}
+\begin{proof}
+$\dot J=-J\dot CJ=\Lambda-c_{\mathrm H}J$ and $\dot\vartheta=\dot J\xi+J\dot\xi=\eta-c_{\mathrm H}\vartheta$ are linear with constant coefficients. A convex combination of positive-definite matrices is positive definite. Along the flow, $\tfrac{d}{dt}F=-\nabla_\xi F^\top C\nabla_\xi F-2\operatorname{Tr}(C\nabla_CFC\nabla_CF)\le0$, since $c_{\mathrm H}C-C\Lambda C=-2C\nabla_CFC$.
+\end{proof}
+
+With the snapshot fixed in value, the closed form, $\rho=1$, completes a receiver episode in one solve, and further iterations leave it unchanged when the coupling is constant. Its outer derivatives follow by implicit differentiation, $d\xi^\star=\Lambda^{-1}\bigl(d\eta-(d\Lambda)\xi^\star\bigr)$ and $dC^\star=(d\lambda_\alpha)\Lambda^{-1}-\lambda_\alpha\Lambda^{-1}(d\Lambda)\Lambda^{-1}$, which automatic differentiation through a Cholesky solve computes. This removes the step-size restriction of the explicit step, but it does not bound every outer derivative of the network. Partial damping $\rho<1$ descends the frozen energy in the full family: with a scalar coefficient the energy equals $c_{\mathrm H}D_{\mathrm{KL}}(q\|q^\star)$ up to a constant, with $q^\star=\mathcal N(\Lambda^{-1}\eta,c_{\mathrm H}\Lambda^{-1})$, and along the segment $\theta_\rho=(1-\rho)\theta_0+\rho\theta^\star$ of natural parameters with log-partition $A$, $\tfrac{d}{d\rho}D_{\mathrm{KL}}(q_{\theta_\rho}\|q^\star)=-(1-\rho)\delta^\top\nabla^2A(\theta_\rho)\delta\le0$ with $\delta=\theta^\star-\theta_0$.
+
+When only local variances $s_k$ are stored, the energy restricted to the diagonal family separates in the variances as $\tfrac12\sum_k(\Lambda_{\mathrm{loc}})_{kk}s_k-\tfrac{c_{\mathrm H}}2\sum_k\log s_k$, with $\Lambda_{\mathrm{loc}}=U_i^{-\top}\Lambda U_i^{-1}$ and $\eta_{\mathrm{loc}}=U_i^{-\top}\eta$, so its exact restricted minimizer is $\mu^\star=\Lambda_{\mathrm{loc}}^{-1}\eta_{\mathrm{loc}}$ and $s_k^\star=c_{\mathrm H}/(\Lambda_{\mathrm{loc}})_{kk}$. Interpolating natural parameters does not stay in the diagonal family when $\Lambda_{\mathrm{loc}}$ is dense, and the coordinatewise damping $s_k^{-1}\mapsto(1-\rho)s_k^{-1}+\rho(\Lambda_{\mathrm{loc}})_{kk}/c_{\mathrm H}$ carries no descent guarantee. For $\Lambda=\bigl(\begin{smallmatrix}1&0.99\\0.99&1\end{smallmatrix}\bigr)$, $\eta=0$, $c_{\mathrm H}=1$, mean $(5,-5)$, variances $(1/2,2)$, and $\rho=1/2$, the frozen energy without constants rises from $1.500$ to $2.503$, while $\rho=1$ lowers it to $1.000$.
+
+The coefficient of the prior can also be profiled. With $D(q)=D_{\mathrm{KL}}(q\|p)$ and the regularizer $b_\alpha\lambda_\alpha-c_\alpha\log\lambda_\alpha$, $b_\alpha,c_\alpha>0$, minimizing over $\lambda_\alpha$ gives $\lambda_\alpha^\star(D)=c_\alpha/(b_\alpha+D)$ and the profiled energy $c_\alpha\log(b_\alpha+D(q))+G(q)+\mathrm{const}$, where $G$ is the energy at $\lambda_\alpha=0$. Its gradient equals the gradient of the frozen energy at $\lambda_\alpha=\lambda_\alpha^\star(D(q))$. Because $x\mapsto c_\alpha\log(b_\alpha+x)$ is concave, freezing $\lambda_\alpha$ at the current state gives a majorizer that touches the profiled energy there, so the closed form at the frozen coefficient never increases the profiled energy: it is a majorize-minimize step \citep{HunterLange2004}. On the diagonal family with a diagonal prior the divergence separates over local coordinates, and the per-coordinate coefficients $\lambda_{\alpha,k}^\star=c_\alpha/(b_\alpha+D_k)$ keep the restricted closed form exact with entropy weights $c_{\mathrm H,k}=\lambda_{\alpha,k}^\star$. That per-coordinate form is tied to the local basis and is not covariant under a change of local frame.
+
+In the implementation the receiver of each layer receives as its prior the state handed off by the layer below: the prior mean is the incoming mean, and the prior covariance is the token-type covariance of the encoding. In the configuration of Section~\ref{M-sec:chart_runs}, which holds the stored covariance at that encoding value, the incoming state equals the layer prior at the start of every episode. Then $D_k=0$, the profiled coefficients equal $c_\alpha/b_\alpha$, and with $b_\alpha=c_\alpha=1$ and one closed-form step per layer the update is the Kalman update of the incoming mean,
+\begin{equation}
+\mu^+=\mu+\bigl(\Sigma_p^{-1}+\Lambda^{\mathrm{ch}}_{\mathrm{loc}}\bigr)^{-1}\bigl(\eta^{\mathrm{ch}}_{\mathrm{loc}}-\Lambda^{\mathrm{ch}}_{\mathrm{loc}}\mu\bigr),
+\label{eq:rec_kalman}
+\end{equation}
+where $\Lambda^{\mathrm{ch}}_{\mathrm{loc}}$ and $\eta^{\mathrm{ch}}_{\mathrm{loc}}$ are the channel terms of Eq.~\eqref{eq:rec_stats} pulled back to local coordinates and $\Sigma_p$ is the stored diagonal covariance. The routed messages are the measurements, and the gain weighs the stored token-type precision against the channel precision. This is a precision-weighted residual of the kind in Eq.~\eqref{eq:rec_fusion_residual}, not the additive residual, and the profiled coupling acts only when the receiver iterates or when its incoming state differs from the layer prior.
+
+\subsection{Fixed routing and the ambient alternative}
+\label{sec:rec_fixed_routing}
+
+\begin{proposition}[Routing by the comparison cost alone]
+\label{prop:rec_no_joint}
+Consider a functional of one routing row that is affine in $\beta$ apart from the routing entropy $\tau\sum_j\beta_j\log(\beta_j/\pi_j)$, with linear coefficients $D_j+g_j(q)$ that may depend on the receiver state $q$. Its minimizing weights equal the Gibbs row of Eq.~\eqref{M-eq:relational_routing} for every $q$ if and only if $g_j(q)$ does not depend on $j$ on the support of $\pi$.
+\end{proposition}
+\begin{proof}
+The minimizer is $\softmax_j(\log\pi_j-(D_j+g_j)/\tau)$, and a softmax is unchanged by $j$-independent shifts of its arguments and injective modulo them.
+\end{proof}
+
+A content term that carries source-specific information therefore changes the routing, and routing by the comparison costs while content moves the receiver is not coordinate descent of one such functional. It is exact inference in a declared modular model, in which comparison supplies a source-label posterior that content does not feed back into, the intention of cut inference \citep{Plummer2015}. The expected-log-likelihood receiver targets the geometric likelihood pool $p_{\mathrm{pow}}$; a literal categorical cut posterior would instead average normalized conditionals and is generally a mixture. No population evidence bound for the composed stack follows from these local identities.
+
+Replacing each channel likelihood by the divergence $D_{\mathrm{KL}}(\mathcal N(\xi,C)\|\mathcal N(M_h\bar\xi_j,M_h\bar C_jM_h^\top+\nu I_K))$, which aligns the receiver with lifted $K$-dimensional messages, gives an energy of the same quadratic form with entropy coefficient $\lambda_\alpha+\lambda_\beta H$, because each divergence carries its own copy of the receiver entropy and each routing row sums to one. For $s_h<K$ that energy is finite only with $\nu>0$, since the lifted message law is otherwise singular, and the floor then makes every head an opinion of mean zero and precision $1/\nu$ on the complement of its range. The implementation offers this ambient law as an alternative; the runs reported here use the channel likelihood.
+
+% Supplement S6: latent link generators and their proofs (moved from HEAD 1342-1404 and 2104-2301, notation updated, point-mass links treated as MAP estimates).
+\section{Latent Link Generators}
+\label{sec:latent_links}
+
+The implemented links use one learned generator per layer, the same on every edge, so that every triangle of a layer carries the holonomy class of that one generator (Section~\ref{M-sec:lie_holonomy}). Promoting the generators to latent variables with a normalized prior places their dynamics inside the free energy of a normalized generative model rather than in a postulated mechanics. This section states the model, its relation to the implemented chart, and its stationarity condition, and Section~\ref{app:latent_link_proofs} proves the remaining statements. It is not implemented, and nothing in it has been trained.
+
+Index layers by $\ell=0,\ldots,N_\ell$ and write the state of token $i$ at layer $\ell$ in reference coordinates as $\zeta_i^\ell$. Each causal edge from $(j,\ell)$ to $(i,\ell+1)$, $j\le i$, carries a generator $L_{ij}^\ell\in\mathfrak{gl}(K,\mathbb R)$, and the local link is $U_ie^{L_{ij}^\ell}U_j^{-1}$. Two-step routes from $(k,\ell)$ to $(i,\ell+2)$ are compared with the route that first stays at $k$ through the loops
+\begin{equation}
+W_{ijk}^\ell=\bigl(e^{L_{ik}^{\ell+1}}e^{L_{kk}^{\ell}}\bigr)^{-1}e^{L_{ij}^{\ell+1}}e^{L_{jk}^{\ell}},\qquad k<j\le i,
+\label{eq:lie_depth_loops}
+\end{equation}
+which are time-like for $j=i$ and space-like for $j<i$. With tiled heads and an invertible stacked sending map $T$, let $\Pi_h=T^{-1}\Delta_hT$ be the oblique head projectors of Theorem~\ref{M-thm:routed_transport}, where $\Delta_h$ is the coordinate projector onto the head-$h$ block of $\mathbb R^{\bar s}$, $\bar s=K$. With these projectors, a transport noise $\bar Q\succ0$, causal routing priors $\pi^{\ell,h}$, and token-type priors $p(\zeta_i^0)$, the latent-link model is
+\begin{equation}
+\begin{aligned}
+p(o,\zeta,J,L)={}&p(L)\prod_ip(\zeta_i^0)\prod_{\ell=0}^{N_\ell-1}\prod_i\Bigl[\prod_h\pi_{i,J_i^{\ell,h}}^{\ell,h}\Bigr]\mathcal N\bigl(\zeta_i^{\ell+1};m_i^\ell,\bar Q\bigr)\prod_ip(o_i\mid U_i\zeta_i^{N_\ell}),\\
+m_i^\ell={}&\sum_he^{L_{iJ_i^{\ell,h}}^\ell}\Pi_h\zeta_{J_i^{\ell,h}}^\ell,\\
+-\log p(L)={}&\sum_{\ell,i,j\le i}\frac{\|L_{ij}^\ell-\bar L^\ell\|_F^2}{2\sigma_L^2}+\lambda_W\sum_{\ell,k<j\le i}w_{ijk}^\ell\Psi\bigl(W_{ijk}^\ell\bigr)+\mathrm{const},
+\end{aligned}
+\label{eq:lie_latent_model}
+\end{equation}
+with anchor $\bar L^\ell$, width $\sigma_L>0$, coupling $\lambda_W\ge0$, loop weights $w_{ijk}^\ell=\bar\pi_{ij}^{\ell+1}\bar\pi_{jk}^\ell$ from the head-averaged generative routing prior, and the Frobenius defect $\Psi(W)=\tfrac12\|W-I\|_F^2$. The prior is normalizable because the loop term is nonnegative, every other factor is a normalized conditional of a directed model, and no generative factor reads a recognition law.
+
+The links are estimated below as point masses, while the states and labels carry a mean-field recognition law. A point mass on the generators has no density with respect to Lebesgue measure, so $D_{\mathrm{KL}}(q(L)\|p(L))=+\infty$ and the link sector cannot enter the objective as a divergence. It enters instead through the MAP energy $\mathcal V(L)=-\log p(L)$, and for a recognition law $q(\zeta,J)$ of the states and labels the objective is
+\begin{equation}
+\mathcal F(L,q)=\mathbb E_q\bigl[\log q(\zeta,J)-\log p(o,\zeta,J\mid L)\bigr]+\mathcal V(L).
+\label{eq:lie_map_free_energy}
+\end{equation}
+This is a MAP free energy in the links and a mean-field variational free energy in the states and labels. For fixed links the expectation equals $D_{\mathrm{KL}}(q\|p(\zeta,J\mid o,L))-\log p(o\mid L)$, so $\mathcal F(L,q)\ge-\log p(o,L)$ with equality at the exact conditional posterior, and minimizing $\mathcal F$ over the links approximates joint MAP estimation of the links. It is not a bound on $-\log p(o)$, because $p(o,L)$ is a density in $L$ and the entropy of the link law is absent; a recognition law of finite entropy for the links, such as a Gaussian $q(L)$, would restore an evidence bound and is not developed here.
+
+\begin{remark}[Static limit]
+\label{rem:lie_static_limit}
+If $\bar L^\ell=L^{(\ell)}=O^{(\ell)}T^{(\ell)}$ for every layer and $\sigma_L\to0$, every generator is pinned to the shared generator of its layer. Writing $L$, $T$, and $\widetilde O=e^{L}T^{-1}$ for the maps of the layer and $\boldsymbol\beta_{ij}=\sum_h\beta_{ij}^{(h)}\Delta_h$, the mean of $m_i^\ell$ under routing weights $\beta$ is
+\begin{equation*}
+\sum_h\sum_j\beta_{ij}^{(h)}e^{L}\Pi_h\xi_j=\sum_je^{L}\Pi(\boldsymbol\beta_{ij})\xi_j=\sum_j\widetilde O\boldsymbol\beta_{ij}T\xi_j,\qquad\Pi(\boldsymbol\beta_{ij})=\sum_h\beta_{ij}^{(h)}\Pi_h=T^{-1}\boldsymbol\beta_{ij}T,
+\end{equation*}
+which is the exponential-chart message of Theorem~\ref{M-thm:routed_transport} in reference coordinates. The implemented exponential chart is therefore the zero-width limit of the latent model, and dynamic links are fluctuations around it.
+\end{remark}
+
+The loop term must vanish exactly at flat configurations, and it uses the Frobenius defect because on $\mathrm{GL}(K,\mathbb R)$ with $K\ge2$ every continuous class function takes its identity value on every unipotent element, so none vanishes only at $W=I$. Proposition~\ref{prop:lie_blind} in Section~\ref{supp:holonomy} proves this and records the properties of $\Psi(W_{ijk}^\ell)$ used here: it vanishes exactly at $W_{ijk}^\ell=I$, it is invariant under the passive site action, and under a reparametrization $U_k\mapsto U_kh_k^{-1}$, $e^{L_{ab}^\ell}\mapsto h_ae^{L_{ab}^\ell}h_b^{-1}$, which leaves every local link unchanged, it is invariant exactly when every $h_k$ is a nonzero multiple of an orthogonal matrix. For small generators, $W_{ijk}^\ell=(I-L_{ik}^{\ell+1}-L_{kk}^\ell)(I+L_{ij}^{\ell+1}+L_{jk}^\ell)+O(\|L\|^2)$, and therefore (item 3 of that proposition)
+\begin{equation}
+\Psi\bigl(W_{ijk}^\ell\bigr)=\tfrac12\bigl\|L_{ij}^{\ell+1}+L_{jk}^\ell-L_{ik}^{\ell+1}-L_{kk}^\ell\bigr\|_F^2+O(\|L\|^3).
+\label{eq:lie_loop_expansion}
+\end{equation}
+For a time-like loop the argument is the depth difference of a cross-token generator corrected by the time-like generators at its ends, a discrete electric field.
+
+\begin{proposition}[Link field equation]
+\label{prop:lie_field_equation}
+Take the mean-field recognition law
+\begin{equation*}
+q(\zeta,J)=\prod_{\ell,i}\mathcal N(\zeta_i^\ell;\xi_i^\ell,C_i^\ell)\prod_{\ell,i,h}\beta_i^{\ell,h}(J_i^{\ell,h})
+\end{equation*}
+for the states and labels and point estimates for the links, put $\bar A=\bar Q^{-1}$, and let $\mathrm d\exp_{L}(E)=\int_0^1e^{sL}Ee^{(1-s)L}ds$ be the Fr\'echet derivative of the matrix exponential. The MAP free energy $\mathcal F(L,q)$ of Eq.~\eqref{eq:lie_map_free_energy} for the model of Eq.~\eqref{eq:lie_latent_model}, with the link sector given by the MAP energy $\mathcal V(L)=-\log p(L)$ in place of a divergence $D_{\mathrm{KL}}(q(L)\|p(L))$, is stationary in $L_{ij}^\ell$ exactly when
+\begin{equation}
+\frac{\partial \mathcal V}{\partial L_{ij}^\ell}=\mathrm d\exp_{L_{ij}^{\ell\top}}\bigl(\mathcal J_{ij}^\ell\bigr),\qquad
+\mathcal J_{ij}^\ell=\sum_h\beta_{ij}^{\ell,h}\bar A\mathbb E_q\bigl[(\zeta_i^{\ell+1}-m_i^\ell)\zeta_j^{\ell\top}\bigm|J_i^{\ell,h}=j\bigr]\Pi_h^\top.
+\label{eq:lie_field_equation}
+\end{equation}
+For one head the current is $\mathcal J_{ij}^\ell=\beta_{ij}^\ell\bar A[(\xi_i^{\ell+1}-e^{L_{ij}^\ell}\xi_j^\ell)\xi_j^{\ell\top}-e^{L_{ij}^\ell}C_j^\ell]$.
+\end{proposition}
+\begin{proof}
+The entropy of $q(\zeta,J)$ does not depend on the links. Of the remaining terms of Eq.~\eqref{eq:lie_map_free_energy}, only the transport factor of receiver $i$ at layer $\ell$ and the MAP energy $\mathcal V$ depend on $L_{ij}^\ell$, and under the recognition law the transport term is $\tfrac12\mathbb E_q\|\zeta_i^{\ell+1}-m_i^\ell\|_{\bar A}^2$ up to $L$-free terms. The mean $m_i^\ell$ contains $e^{L_{ij}^\ell}\Pi_h\zeta_j^\ell$ exactly on the event $J_i^{\ell,h}=j$, so the derivative of the transport term in the group element $e^{L_{ij}^\ell}$ is $-\mathcal J_{ij}^\ell$. The adjoint of $E\mapsto\mathrm d\exp_{L}(E)$ in the Frobenius inner product is $E\mapsto\mathrm d\exp_{L^\top}(E)$ \citep{Higham2008}, so the chain rule gives $\partial\mathcal F/\partial L_{ij}^\ell=\partial\mathcal V/\partial L_{ij}^\ell-\mathrm d\exp_{L_{ij}^{\ell\top}}(\mathcal J_{ij}^\ell)$, whose vanishing is Eq.~\eqref{eq:lie_field_equation}. For one head, mean-field independence of $\zeta_i^{\ell+1}$ and $\zeta_j^\ell$ gives $\mathbb E[(\zeta_i^{\ell+1}-e^L\zeta_j^\ell)\zeta_j^{\ell\top}]=\xi_i^{\ell+1}\xi_j^{\ell\top}-e^L(C_j^\ell+\xi_j^\ell\xi_j^{\ell\top})$.
+\end{proof}
+
+The current is a precision-weighted prediction error times the source state, minus a term from the source's uncertainty. It has the form of the delta rule that updates fast-weight memories \citep{Schmidhuber1992}, the same rule that appears when linear attention is read as a fast-weight programmer \citep{Schlag2021}; here it is derived from the MAP free energy and filtered through the derivative of the exponential chart. The link prior is necessary for a well-posed per-context problem. Without it, for one head with $\beta_{ij}^\ell>0$ and $K\ge2$, the generator enters only through the strictly convex quadratic $\mathcal T(G)=\tfrac12\beta_{ij}^\ell\mathbb E_q\|\zeta_i^{\ell+1}-G\zeta_j^\ell\|_{\bar A}^2$ evaluated at $G=e^{L_{ij}^\ell}$. Its unique stationary point $G^\star=\xi_i^{\ell+1}\xi_j^{\ell\top}(C_j^\ell+\xi_j^\ell\xi_j^{\ell\top})^{-1}$ has rank at most one and lies outside the exponential chart, so by Proposition~\ref{prop:lie_field_equation} a generator can be stationary only where $\mathrm d\exp_{L^\top}$ is singular, at a critical point of the exponential map. Whether the infimum over the chart is approached at $G^\star$ depends on the sign of $\xi_j^{\ell\top}(C_j^\ell)^{-1}\xi_i^{\ell+1}$ (Proposition~\ref{prop:app_chart_infimum} in Section~\ref{app:latent_link_proofs}).
+
+For one head, linearized around a flat anchor for small links and sources, the field equation becomes a screened, massive discrete Maxwell equation of Euclidean signature on the depth-by-token complex, in which the anchor is a bare mass, the loop term is a curl-curl operator, and the time-like loops supply the electric term, as time-like plaquettes do in lattice gauge theory \citep{KogutSusskind1975,Creutz1983}. Inference in the links is first-order relaxation with the Fisher information of the transported law as friction, and inertia appears only for the most probable path jointly over depth. Directed causal matter induces no action on the links, because every factor of Eq.~\eqref{eq:lie_latent_model} other than the prior is a normalized conditional. Integrating out undirected Gaussian matter instead induces one half of the log-determinant of the matter precision, whose hopping expansion for orthogonal links and isotropic couplings begins with Wilson's triangle term, in the manner of induced gauge theories \citep{KazakovMigdal1993}; the loop prior of Eq.~\eqref{eq:lie_latent_model} has the form that such matter would induce. Section~\ref{app:latent_link_proofs} proves these linearized, dynamical, and induced-action statements (Propositions~\ref{prop:app_linearized} to~\ref{prop:app_induced}). A first implementation would keep $\bar L^\ell=L^{(\ell)}$ as the learned anchor and infer per-context deviations by a few Fisher-preconditioned steps or by one linearized solve; the all-edge cost $O(N_\ell N^2K^3)$ per step points to restricted supports, low-rank deviations, or amortization.
+
+\subsection{Proofs for latent link generators}
+\label{app:latent_link_proofs}
+
+This subsection proves the statements of Section~\ref{sec:latent_links} that follow Proposition~\ref{prop:lie_field_equation}. The notation is that of Eqs.~\eqref{eq:lie_latent_model} and~\eqref{eq:lie_map_free_energy} and Proposition~\ref{prop:lie_field_equation}. The links are point estimates, the states and labels carry the mean-field recognition law of that proposition with $C_j^\ell\succ0$, $\bar A=\bar Q^{-1}$, and $\mathrm d\exp_{L}(E)=\int_0^1e^{sL}Ee^{(1-s)L}ds$ is the Fr\'echet derivative of the matrix exponential, which is linear in $E$ and is the differential of the exponential map at $L$ \citep{Higham2008}. Matrices carry the Frobenius inner product $\langle E,E'\rangle=\operatorname{Tr}(E^\top E')$ and its norm $\|E\|$, which is submultiplicative, and a family $L=(L_e)$ of generators indexed by the edges $e=(i\leftarrow j,\ell)$, $j\le i$, carries $\langle L,Y\rangle=\sum_e\langle L_e,Y_e\rangle$. We write $\mathcal F(L)$ for the MAP free energy $\mathcal F(L,q)$ of Eq.~\eqref{eq:lie_map_free_energy} as a function of the links at fixed recognition of the states and labels. With one head, $\Pi_1=I_K$, the label $J_i^\ell$ selects one source, and its recognition law assigns probability $\beta_{ij}^\ell$ to the source $j$. Write
+\begin{equation}
+S_j^\ell=C_j^\ell+\xi_j^\ell\xi_j^{\ell\top}\succ0
+\label{eq:app_second_moment}
+\end{equation}
+for the second moment of $\zeta_j^\ell$ under the recognition law. A chart link is a matrix $e^L$ with $L\in\mathfrak{gl}(K,\mathbb R)$. By Theorem~1 of \citet{culver1966existence}, a real matrix is a chart link exactly when it is invertible and every Jordan block belonging to a negative eigenvalue occurs an even number of times; in particular, every invertible real matrix without negative eigenvalues is a chart link.
+
+\subsubsection{The unregularized link problem}
+
+\begin{proposition}[The chart infimum without a link prior]
+\label{prop:app_chart_infimum}
+Let $\mathcal V=0$, take one head, $K\ge2$, and $\beta_{ij}^\ell>0$, write $\xi'=\xi_i^{\ell+1}$ and $S=S_j^\ell$, and let $\mathcal T(G)=\tfrac12\beta_{ij}^\ell\mathbb E_q\|\zeta_i^{\ell+1}-G\zeta_j^\ell\|_{\bar A}^2$ for real $K\times K$ matrices $G$.
+\begin{enumerate}
+\item Up to a constant independent of $L_{ij}^\ell$, the free energy depends on $L_{ij}^\ell$ only through $\mathcal T(e^{L_{ij}^\ell})$, and
+\begin{equation}
+\mathcal T(G)-\mathcal T(G^\star)=\tfrac12\beta_{ij}^\ell\bigl\|\bar A^{1/2}(G-G^\star)S^{1/2}\bigr\|^2,\qquad G^\star=\xi'\xi_j^{\ell\top}S^{-1}.
+\label{eq:app_quadratic_identity}
+\end{equation}
+Hence $G^\star$ is the unique stationary point and the unique minimizer of $\mathcal T$; it has rank at most one and is not a chart link.
+\item A generator $L$ is stationary for $L\mapsto\mathcal T(e^L)$ only where $\mathrm d\exp_{L^\top}$ is singular, which is exactly where $L$ is a critical point of the exponential map.
+\item The trace $\tau=\operatorname{Tr}G^\star$ is
+\begin{equation}
+\tau=\frac{\xi_j^{\ell\top}(C_j^\ell)^{-1}\xi'}{1+\xi_j^{\ell\top}(C_j^\ell)^{-1}\xi_j^\ell},
+\label{eq:app_trace_sign}
+\end{equation}
+so it has the sign of $\xi_j^{\ell\top}(C_j^\ell)^{-1}\xi_i^{\ell+1}$.
+\item If $\tau\ge0$, the infimum of $\mathcal T$ over chart links equals $\mathcal T(G^\star)$, is not attained, and is approached only along sequences of links that converge to $G^\star$.
+\item If $\tau<0$, no sequence of chart links converges to $G^\star$, and the infimum of $\mathcal T$ over chart links lies strictly above $\mathcal T(G^\star)$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+(1) With one head, $m_i^\ell=e^{L_{iJ}^\ell}\zeta_J^\ell$ with $J=J_i^\ell$, and $-\log\mathcal N(\zeta_i^{\ell+1};m_i^\ell,\bar Q)=\tfrac12\|\zeta_i^{\ell+1}-m_i^\ell\|_{\bar A}^2+\tfrac12\log\det(2\pi\bar Q)$. Under the recognition law the label is independent of the states, so the expected transport term of receiver $i$ at layer $\ell$ is $\sum_{j'}\beta_{ij'}^\ell\tfrac12\mathbb E_q\|\zeta_i^{\ell+1}-e^{L_{ij'}^\ell}\zeta_{j'}^\ell\|_{\bar A}^2$ up to a constant. Its summand $j'=j$ is $\mathcal T(e^{L_{ij}^\ell})$, and with $\mathcal V=0$ no other term of the free energy contains $L_{ij}^\ell$. The variables $\zeta_i^{\ell+1}$ and $\zeta_j^\ell$ belong to different layers and are independent under the recognition law, so $\mathbb E_q[\zeta_j^\ell\zeta_i^{\ell+1\top}]=\xi_j^\ell\xi'^\top=SG^{\star\top}$ and $\mathbb E_q[\zeta_j^\ell\zeta_j^{\ell\top}]=S$. Expanding the square,
+\begin{equation*}
+\tfrac2{\beta_{ij}^\ell}\mathcal T(G)=\mathbb E_q\|\zeta_i^{\ell+1}\|_{\bar A}^2-2\operatorname{Tr}\bigl(\bar AGSG^{\star\top}\bigr)+\operatorname{Tr}\bigl(\bar AGSG^\top\bigr),
+\end{equation*}
+and completing the square in $G$ gives Eq.~\eqref{eq:app_quadratic_identity}, because $\operatorname{Tr}(\bar A(G-G^\star)S(G-G^\star)^\top)=\|\bar A^{1/2}(G-G^\star)S^{1/2}\|^2$. Since $\bar A$ and $S$ are positive definite, the right side of Eq.~\eqref{eq:app_quadratic_identity} vanishes only at $G=G^\star$, and it is a positive-definite quadratic form in $G-G^\star$. The matrix $G^\star=\xi'(S^{-1}\xi_j^\ell)^\top$ has rank at most one, hence is singular for $K\ge2$, whereas $\det e^L=e^{\operatorname{Tr}L}>0$.
+
+(2) The gradient of $\mathcal T$ at $G$ is $\beta_{ij}^\ell\bar A(GS-\xi'\xi_j^{\ell\top})=\beta_{ij}^\ell\bar A(G-G^\star)S$, which is the negative of the one-head current $\mathcal J_{ij}^\ell$ of Proposition~\ref{prop:lie_field_equation} at $G$. With $\mathcal V=0$ that proposition makes $L$ stationary exactly when $\mathrm d\exp_{L^\top}(\mathcal J_{ij}^\ell)=0$. Because $e^L\ne G^\star$ by item 1 and $\bar A$ and $S$ are invertible, $\mathcal J_{ij}^\ell\ne0$, so $\mathrm d\exp_{L^\top}$ has a nonzero kernel. The substitution $s\mapsto1-s$ gives $\mathrm d\exp_{L}(E)^\top=\mathrm d\exp_{L^\top}(E^\top)$, so $\mathrm d\exp_{L^\top}$ is singular exactly when $\mathrm d\exp_{L}$ is, that is, exactly when the differential of the exponential map at $L$ is singular.
+
+(3) By the Sherman--Morrison formula, $S^{-1}\xi_j^\ell=(C_j^\ell)^{-1}\xi_j^\ell/(1+\xi_j^{\ell\top}(C_j^\ell)^{-1}\xi_j^\ell)$, and $\tau=\operatorname{Tr}(\xi'\xi_j^{\ell\top}S^{-1})=(S^{-1}\xi_j^\ell)^\top\xi'$. The denominator is positive.
+
+(4) and (5) The rank-one matrix $G^\star=\xi'w^\top$, $w=S^{-1}\xi_j^\ell$, has characteristic polynomial $z^{K-1}(z-\tau)$. By Eq.~\eqref{eq:app_quadratic_identity}, $\mathcal T(G)-\mathcal T(G^\star)\ge\tfrac12\beta_{ij}^\ell\lambda_{\min}(\bar A)\lambda_{\min}(S)\|G-G^\star\|^2$. If $\tau\ge0$, then for $\varepsilon>0$ the matrix $G^\star+\varepsilon I$ has the eigenvalues $\tau+\varepsilon$ and $\varepsilon$, all positive, so it is a chart link, and $\mathcal T(G^\star+\varepsilon I)\to\mathcal T(G^\star)$ as $\varepsilon\to0$. No chart link equals $G^\star$, so the infimum $\mathcal T(G^\star)$ is not attained, and by the lower bound every sequence of links whose energies tend to $\mathcal T(G^\star)$ converges to $G^\star$. If $\tau<0$, then $\tau$ is a simple eigenvalue of $G^\star$, and the other eigenvalue, $0$, lies at distance $|\tau|$. By continuity of the roots of the characteristic polynomial there is $r>0$ such that every real matrix $G$ with $\|G-G^\star\|<r$ has exactly one eigenvalue, counted with multiplicity, in the disk $|z-\tau|<|\tau|/2$. That disk is symmetric under complex conjugation and the characteristic polynomial of $G$ is real, so this eigenvalue is real and negative. Its algebraic multiplicity is one, so it has a single Jordan block, which occurs once, and by the criterion above $G$ is not a chart link. No chart link lies within $r$ of $G^\star$, and the lower bound gives $\mathcal T(e^L)\ge\mathcal T(G^\star)+\tfrac12\beta_{ij}^\ell\lambda_{\min}(\bar A)\lambda_{\min}(S)r^2$ for every $L$.
+\end{proof}
+
+\subsubsection{The linearized link equation}
+
+\begin{proposition}[Linearized link equation]
+\label{prop:app_linearized}
+Take one head and the flat anchor $\bar L^\ell=0$ for every layer. For $0\le\ell\le N_\ell-2$ and $k<j\le i$, define the loop map $\mathbf d$ and the loop-weight operator $\mathbf w$ by
+\begin{equation}
+(\mathbf dL)_{ijk}^\ell=L_{ij}^{\ell+1}+L_{jk}^\ell-L_{ik}^{\ell+1}-L_{kk}^\ell,\qquad(\mathbf w\mathbf dL)_{ijk}^\ell=w_{ijk}^\ell(\mathbf dL)_{ijk}^\ell,
+\label{eq:app_loop_map}
+\end{equation}
+let $\mathbf d^\top$ be the adjoint of $\mathbf d$ for the Frobenius inner products on edges and loops, write $\beta_e=\beta_{ij}^\ell$ and $\mathcal J_e^0=\beta_e\bar A[(\xi_i^{\ell+1}-\xi_j^\ell)\xi_j^{\ell\top}-C_j^\ell]$ for the one-head current of Proposition~\ref{prop:lie_field_equation} at zero generators on the edge $e=(i\leftarrow j,\ell)$, and define the operator
+\begin{equation}
+(\mathbf K L)_e=\sigma_L^{-2}L_e+\lambda_W(\mathbf d^\top\mathbf w\mathbf dL)_e+\beta_e\bar AL_eS_j^\ell.
+\label{eq:app_linear_operator}
+\end{equation}
+\begin{enumerate}
+\item $\mathbf K$ is self-adjoint and $\langle L,\mathbf K L\rangle\ge\sigma_L^{-2}\|L\|^2$. The linear equation $\mathbf K L=\mathcal J^0$ therefore has a unique solution $L_{\mathrm{lin}}$, and $\|L_{\mathrm{lin}}\|\le\sigma_L^2\|\mathcal J^0\|$.
+\item Write the stationarity condition of Proposition~\ref{prop:lie_field_equation} as $\Phi(L)=0$, with $\Phi_e(L)=\partial \mathcal V/\partial L_e-\mathrm d\exp_{L_e^\top}(\mathcal J_e(L))$ and $\mathcal J_e(L)$ the one-head current at $L$. There is a constant $c$, depending on $\lambda_W$, the loop weights, $\bar A$, the weights $\beta_e$, and the matrices $S_j^\ell$, such that for $\|L\|\le1$
+\begin{equation}
+\Phi(L)=\mathbf K L-\mathcal J^0+R(L),\qquad\|R(L)\|\le c\bigl(\|L\|^2+\|L\|\|\mathcal J^0\|\bigr).
+\label{eq:app_linear_remainder}
+\end{equation}
+To first order in the generators and the sources, the field equation is therefore $\mathbf K L=\mathcal J^0$, that is,
+\begin{equation}
+\sigma_L^{-2}L_e+\lambda_W(\mathbf d^\top\mathbf w\mathbf dL)_e+\beta_e\bar AL_eS_j^\ell=\beta_e\bar A\bigl[(\xi_i^{\ell+1}-\xi_j^\ell)\xi_j^{\ell\top}-C_j^\ell\bigr]\quad\text{for every edge }e.
+\label{eq:app_linear_equation}
+\end{equation}
+\item Every stationary link field $L^\star$ with $\|L^\star\|\le1$ satisfies $\|L^\star-L_{\mathrm{lin}}\|\le c\sigma_L^2(\|L^\star\|^2+\|L^\star\|\|\mathcal J^0\|)$. If in addition $\|L^\star\|+\|\mathcal J^0\|\le1/(2c\sigma_L^2)$, then $\|L^\star\|\le2\sigma_L^2\|\mathcal J^0\|$ and $\|L^\star-L_{\mathrm{lin}}\|\le2c\sigma_L^4(2\sigma_L^2+1)\|\mathcal J^0\|^2$, which is of second order in the sources.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+(1) For matrices $Y$ and $L$ and symmetric $\bar A$ and $S$, $\langle Y,\bar ALS\rangle=\operatorname{Tr}(Y^\top\bar ALS)=\langle\bar AYS,L\rangle$ and $\langle L,\bar ALS\rangle=\|\bar A^{1/2}LS^{1/2}\|^2\ge0$, so each matter block is self-adjoint and nonnegative. The loop weights are nonnegative and $\lambda_W\ge0$, so $\lambda_W\mathbf d^\top\mathbf w\mathbf d$ is self-adjoint with $\langle L,\lambda_W\mathbf d^\top\mathbf w\mathbf dL\rangle=\lambda_W\sum w_{ijk}^\ell\|(\mathbf dL)_{ijk}^\ell\|^2\ge0$. Adding $\sigma_L^{-2}$ times the identity gives the bound, so $\mathbf K$ is invertible with $\|\mathbf K^{-1}\|\le\sigma_L^2$.
+
+(2) With the flat anchor, $\mathcal V(L)=\sum_e\|L_e\|^2/(2\sigma_L^2)+\lambda_Wg_0(L)$ with $g_0(L)=\sum w_{ijk}^\ell\Psi(W_{ijk}^\ell)$ and $W_{ijk}^\ell=e^{-L_{kk}^\ell}e^{-L_{ik}^{\ell+1}}e^{L_{ij}^{\ell+1}}e^{L_{jk}^\ell}$, an entire function of $L$. Eq.~\eqref{eq:lie_loop_expansion} gives $g_0(L)=\tfrac12\langle\mathbf dL,\mathbf w\mathbf dL\rangle+O(\|L\|^3)$, so the function $g=g_0-\tfrac12\langle\mathbf dL,\mathbf w\mathbf dL\rangle$ has vanishing value, gradient, and Hessian at $L=0$, and Taylor's theorem bounds $\|\nabla g(L)\|$ by $\tfrac12\sup_{\|Y\|\le1}\|D^3g(Y)\|\|L\|^2$ for $\|L\|\le1$. Hence $\partial \mathcal V/\partial L_e=\sigma_L^{-2}L_e+\lambda_W(\mathbf d^\top\mathbf w\mathbf dL)_e+\lambda_W\nabla_eg(L)$. For the matter side, the one-head current at $G=e^{L_e}$ is $\mathcal J_e(L)=\beta_e\bar A(\xi_i^{\ell+1}\xi_j^{\ell\top}-GS_j^\ell)=\mathcal J_e^0-\beta_e\bar A(e^{L_e}-I)S_j^\ell$. Write $\|\cdot\|_2$ for the operator norm, so that $\|\cdot\|_2\le\|\cdot\|$ and $\|Y_1Y_2\|\le\min(\|Y_1\|_2\|Y_2\|,\|Y_1\|\|Y_2\|_2)$. For $\|Y\|\le1$ and $0\le t\le1$, $\|e^Y-I-Y\|\le\sum_{n\ge2}\|Y\|^n/n!\le\|Y\|^2$, $\|e^{tY}-I\|_2\le e^{t\|Y\|}-1\le2t\|Y\|$, and $\|e^{tY}\|_2\le e$, so
+\begin{equation*}
+\bigl\|\mathrm d\exp_{Y}(E)-E\bigr\|\le\int_0^1\bigl(\|e^{sY}-I\|_2\|E\|\|e^{(1-s)Y}\|_2+\|E\|\|e^{(1-s)Y}-I\|_2\bigr)ds\le(e+1)\|Y\|\|E\|.
+\end{equation*}
+Therefore
+\begin{equation*}
+\mathrm d\exp_{L_e^\top}(\mathcal J_e(L))=\mathcal J_e^0-\beta_e\bar AL_eS_j^\ell-\beta_e\bar A(e^{L_e}-I-L_e)S_j^\ell+\bigl[\mathrm d\exp_{L_e^\top}(\mathcal J_e(L))-\mathcal J_e(L)\bigr],
+\end{equation*}
+where the third term has norm at most $\beta_e\|\bar A\|\|S_j^\ell\|\|L_e\|^2$ and the bracket has norm at most $(e+1)\|L_e\|(\|\mathcal J_e^0\|+2\beta_e\|\bar A\|\|S_j^\ell\|\|L_e\|)$. Subtracting from $\partial \mathcal V/\partial L_e$ gives Eq.~\eqref{eq:app_linear_remainder} edge by edge, and summing the squares over the edges, with $\sum_ea_e^4\le(\sum_ea_e^2)^2$ and $\sum_ea_e^2b_e^2\le(\sum_ea_e^2)(\sum_eb_e^2)$, gives the bound with one constant $c$. Dropping $R$, which is of second order in $L$ and $\mathcal J^0$ jointly, gives Eq.~\eqref{eq:app_linear_equation}.
+
+(3) At a stationary point $\Phi(L^\star)=0$, so $\mathbf K(L^\star-L_{\mathrm{lin}})=-R(L^\star)$ and $\|L^\star-L_{\mathrm{lin}}\|\le\sigma_L^2\|R(L^\star)\|$ by item 1. Under the additional condition, $\|L^\star\|\le\|L_{\mathrm{lin}}\|+c\sigma_L^2\|L^\star\|(\|L^\star\|+\|\mathcal J^0\|)\le\sigma_L^2\|\mathcal J^0\|+\tfrac12\|L^\star\|$, which gives $\|L^\star\|\le2\sigma_L^2\|\mathcal J^0\|$, and substituting this bound into the first estimate gives the second.
+\end{proof}
+
+In the language of lattice gauge theory, Eq.~\eqref{eq:app_linear_equation} reads as follows; the reading names the terms of Proposition~\ref{prop:app_linearized} and adds nothing to it. The anchor term $\sigma_L^{-2}L_e$ is a bare mass. The map $\mathbf d$ sums the generators around each elementary loop of Eq.~\eqref{eq:lie_depth_loops} with its orientation, the discrete curl of the algebra-valued edge field, so $\lambda_W\mathbf d^\top\mathbf w\mathbf d$ is a weighted curl-curl operator. For a time-like loop, $j=i$, the loop sum is $(\mathbf dL)_{iik}^\ell=-[(L_{ik}^{\ell+1}-L_{ik}^\ell)-(L_{ii}^{\ell+1}-L_{kk}^\ell)]$, the depth difference of a cross-token generator corrected by the time-like generators at its ends, so these loops contribute the square of a discrete electric field to $\langle L,\mathbf K L\rangle$, as time-like plaquettes give the electric term of lattice gauge theory \citep{KogutSusskind1975,Creutz1983}; the space-like loops give the magnetic part. The matter term $\beta_e\bar AL_eS_j^\ell$ is an additional, state-dependent mass that screens the field. Because $\mathbf K$ is positive definite, depth enters $\langle L,\mathbf K L\rangle$ with the same sign as the token directions, so the equation is elliptic, of Euclidean signature: a static, screened, massive discrete Maxwell (Proca) equation on the depth-by-token complex rather than a wave equation.
+
+\subsubsection{Inference dynamics and the most probable path}
+
+\begin{proposition}[Fisher information and first-order relaxation]
+\label{prop:app_fisher_flow}
+For a link field $L$, let $\mathcal I_L$ be the Fisher information, with respect to $L$, of the transport kernels $\mathcal N(\zeta_i^{\ell+1};m_i^\ell,\bar Q)$ of Eq.~\eqref{eq:lie_latent_model}, averaged over the recognition law of the states and labels,
+\begin{equation}
+\mathcal I_L[E,E']=\sum_{\ell,i}\mathbb E_q\bigl\langle Dm_i^\ell[E],\bar ADm_i^\ell[E']\bigr\rangle,\qquad
+Dm_i^\ell[E]=\sum_h\mathrm d\exp_{L_{iJ_i^{\ell,h}}^\ell}\bigl(E_{iJ_i^{\ell,h}}^\ell\bigr)\Pi_h\zeta_{J_i^{\ell,h}}^\ell,
+\label{eq:app_fisher}
+\end{equation}
+where $Dm_i^\ell[E]$ is the derivative of $m_i^\ell$ in the direction $E=(E_e)$.
+\begin{enumerate}
+\item $\mathcal I_L$ is the Gauss--Newton form of the transport part of $\mathcal F$. For one head it is block diagonal over the edges, with blocks
+\begin{equation}
+\mathcal I_e[E,E']=\beta_{ij}^\ell\operatorname{Tr}\bigl(\bar A\mathrm d\exp_{L_e}(E)S_j^\ell\mathrm d\exp_{L_e}(E')^\top\bigr),\qquad e=(i\leftarrow j,\ell),
+\label{eq:app_fisher_onehead}
+\end{equation}
+and $\mathcal I_e$ is positive definite exactly when $\beta_{ij}^\ell>0$ and $\mathrm d\exp_{L_e}$ is invertible.
+\item On the open set where $\mathcal I_L$ is invertible, the recognition flow $\dot L=-\mathcal I_L^{-1}\nabla\mathcal F(L)$ of the link estimate is of first order. Its velocity is a function of the configuration alone and vanishes exactly at the critical points of $\mathcal F$, and it obeys the force balance $\mathcal I_L[\dot L,\cdot]=-d\mathcal F$, in which $\mathcal I_L$ is a friction tensor and no inertial term appears. Along every solution $\tfrac{d}{dt}\mathcal F=-\mathcal I_L[\dot L,\dot L]$, so $\mathcal F$ strictly decreases along every nonconstant solution and no nonconstant solution is periodic. At a critical point with invertible Hessian $H$, the linearized field $-\mathcal I_L^{-1}H$ has real eigenvalues, so no linearized mode oscillates.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+(1) For a Gaussian kernel $\mathcal N(\zeta';m_\theta,\bar Q)$ with fixed covariance, the score in the direction $E$ is $\langle Dm[E],\bar A(\zeta'-m_\theta)\rangle$, and its covariance under the kernel is $\langle Dm[E],\bar A\bar Q\bar ADm[E']\rangle=\langle Dm[E],\bar ADm[E']\rangle$; the covariance block of the Gaussian Fisher metric does not contribute because $\bar Q$ does not depend on $L$. Averaging over the conditioning states and labels gives Eq.~\eqref{eq:app_fisher}. The transport part of $\mathcal F$ is $\sum_{\ell,i}\tfrac12\mathbb E_q\|\zeta_i^{\ell+1}-m_i^\ell\|_{\bar A}^2$ up to $L$-free terms, as in the proof of Proposition~\ref{prop:app_chart_infimum}, and its second derivative is $\mathcal I_L[E,E']-\sum_{\ell,i}\mathbb E_q\langle\zeta_i^{\ell+1}-m_i^\ell,\bar AD^2m_i^\ell[E,E']\rangle$; the Gauss--Newton form omits the second term. For one head, $Dm_i^\ell[E]=\mathrm d\exp_{L_{iJ}^\ell}(E_{iJ}^\ell)\zeta_J^\ell$ with $J=J_i^\ell$, the events $J=j$ are disjoint with probabilities $\beta_{ij}^\ell$ and independent of the states, and $\mathbb E_q[\zeta_j^\ell\zeta_j^{\ell\top}]=S_j^\ell$, which gives the block form. Finally $\mathcal I_e[E,E]=\beta_{ij}^\ell\|\bar A^{1/2}\mathrm d\exp_{L_e}(E)(S_j^\ell)^{1/2}\|^2$ vanishes for some $E\ne0$ exactly when $\beta_{ij}^\ell=0$ or $\mathrm d\exp_{L_e}$ has a nonzero kernel.
+
+(2) The MAP free energy is smooth in the links, and so is $\mathcal I_L$, so on the open set where $\mathcal I_L$ is invertible the field $-\mathcal I_L^{-1}\nabla\mathcal F$ is smooth and its integral curves exist and are unique. The flow is a first-order equation in $L$, so its velocity is a function of $L$, and it vanishes exactly where $\nabla\mathcal F=0$. Applying $\mathcal I_L$ gives the force balance. Along a solution, $\tfrac{d}{dt}\mathcal F=\langle\nabla\mathcal F,\dot L\rangle=-\mathcal I_L[\dot L,\dot L]\le0$, with equality only at a critical point. A solution that reaches a critical point is constant by uniqueness, so a nonconstant solution has nonvanishing velocity, $\mathcal F$ decreases strictly along it, and it cannot return to an earlier point. At a critical point with invertible Hessian $H$, $\mathcal I_L^{-1}H$ is similar to the symmetric matrix $\mathcal I_L^{-1/2}H\mathcal I_L^{-1/2}$, whose eigenvalues are real.
+\end{proof}
+
+\begin{proposition}[Inertia of the most probable path over depth]
+\label{prop:app_inertia}
+Let $m^\ell>0$ for $0\le\ell\le N_\ell-1$, let $V_\ell$, $0\le\ell\le N_\ell$, be differentiable functions on a finite-dimensional inner-product space, and let a path $X^0,\ldots,X^{N_\ell}$ with fixed ends minimize
+\begin{equation}
+\sum_{\ell=0}^{N_\ell-1}\frac{m^\ell}2\bigl\|X^{\ell+1}-X^\ell\bigr\|^2+\sum_{\ell=0}^{N_\ell}V_\ell(X^\ell).
+\label{eq:app_path_action}
+\end{equation}
+Then, for $0<\ell<N_\ell$,
+\begin{equation}
+m^\ell\bigl(X^\ell-X^{\ell+1}\bigr)+m^{\ell-1}\bigl(X^\ell-X^{\ell-1}\bigr)+\nabla V_\ell(X^\ell)=0.
+\label{eq:app_inertia}
+\end{equation}
+For $m^\ell=m$ and $V_\ell=V$ this is $m(2X^\ell-X^{\ell+1}-X^{\ell-1})+\nabla V(X^\ell)=0$, the central-difference form of $m\ddot X=\nabla V$, Newton's equation with mass $m$ in the potential $-V$.
+\end{proposition}
+\begin{proof}
+For $0<\ell<N_\ell$ the point $X^\ell$ is an unconstrained variable of the differentiable objective~\eqref{eq:app_path_action}, so its gradient in $X^\ell$ vanishes at a minimizer, and that gradient is the left side of Eq.~\eqref{eq:app_inertia}.
+\end{proof}
+
+The increment term of Eq.~\eqref{eq:app_path_action} is, up to a constant, the negative logarithm of a Gaussian increment density with precision $m^\ell$. In the latent-link model the time-like loops supply such a term. If the time-like generators $L_{ii}^{\ell+1}$ and $L_{kk}^\ell$ are held at zero, then $W_{iik}^\ell=e^{-L_{ik}^{\ell+1}}e^{L_{ik}^\ell}$, and Eq.~\eqref{eq:lie_loop_expansion} gives
+\begin{equation*}
+\lambda_Ww_{iik}^\ell\Psi(W_{iik}^\ell)=\tfrac12\lambda_Ww_{iik}^\ell\bigl\|L_{ik}^{\ell+1}-L_{ik}^\ell\bigr\|^2+O(\|L\|^3),
+\end{equation*}
+an increment term for the cross-token generator of the edge $(i\leftarrow k)$ with mass $m^\ell=\lambda_Ww_{iik}^\ell=\lambda_W\bar\pi_{ii}^{\ell+1}\bar\pi_{ik}^\ell$ at quadratic order. Precision is in this sense the inertial mass of the most probable path, and the sign is the Euclidean one: Eq.~\eqref{eq:app_inertia} describes motion in the inverted potential $-V_\ell$. The inertia belongs to the joint optimization over depth, whereas the recognition flow of Proposition~\ref{prop:app_fisher_flow} is of first order.
+
+\subsubsection{Directed and undirected matter}
+
+\begin{proposition}[Directed matter induces no link action]
+\label{prop:app_directed}
+In the model of Eq.~\eqref{eq:lie_latent_model}, the conditional law of the observations, states, and labels given the links has total mass one for every $L$. The link marginal of the model is therefore the prior $p(L)$, and the links reach the posterior only through the likelihood $p(o\mid L)$.
+\end{proposition}
+\begin{proof}
+Every factor of Eq.~\eqref{eq:lie_latent_model} other than $p(L)$ is a normalized conditional of a directed acyclic model: $p(o_i\mid U_i\zeta_i^{N_\ell})$ integrates to one over $o_i$, $\mathcal N(\zeta_i^{\ell+1};m_i^\ell,\bar Q)$ integrates to one over $\zeta_i^{\ell+1}$ for every value of the states and labels of layer $\ell$ and of the links, the routing prior sums to one over the labels, and $p(\zeta_i^0)$ integrates to one. Integrating first over the observations and then over the states and labels of layers $N_\ell,N_\ell-1,\ldots,0$, which Tonelli's theorem permits for nonnegative integrands, leaves $1$. The posterior of the links is then proportional to $p(L)p(o\mid L)$.
+\end{proof}
+
+For undirected matter, let a finite set $V$ of sites carry states $\zeta_v\in\mathbb R^K$, let a set $E$ of directed edges $e=(a\leftarrow b)$ between distinct sites, at most one for each pair of sites, carry reference links $\mathring\Theta_e=e^{L_e}$, and declare the pairwise consistency energy
+\begin{equation}
+\mathcal E(\zeta,L)=\tfrac12\sum_{v\in V}\zeta_v^\top\Lambda_0\zeta_v+\tfrac12\sum_{e=(a\leftarrow b)\in E}\bigl\|\zeta_a-\mathring\Theta_e\zeta_b\bigr\|_{\Lambda_E}^2,\qquad\Lambda_0,\Lambda_E\succ0,
+\label{eq:app_undirected_energy}
+\end{equation}
+the energy-based reading of the alignment terms. As a quadratic form in $\zeta=(\zeta_v)_{v\in V}$, $\mathcal E=\tfrac12\zeta^\top\mathbf P(L)\zeta$ with the matter precision $\mathbf P(L)=\mathbf D(L)-\mathbf H(L)$, whose diagonal blocks are
+\begin{equation}
+\mathbf D_v(L)=\Lambda_0+\sum_{e=(v\leftarrow b)\in E}\Lambda_E+\sum_{e=(a\leftarrow v)\in E}\mathring\Theta_e^\top\Lambda_E\mathring\Theta_e,
+\label{eq:app_matter_diagonal}
+\end{equation}
+and whose off-diagonal blocks are $\mathbf H_{ab}=\Lambda_E\mathring\Theta_e$ and $\mathbf H_{ba}=\mathring\Theta_e^\top\Lambda_E$ for $e=(a\leftarrow b)\in E$, and zero for sites not joined by an edge.
+
+\begin{proposition}[Induced action of undirected Gaussian matter]
+\label{prop:app_induced}
+\begin{enumerate}
+\item Let $\tilde p$ be a probability density on the generators, and let the joint density of states and generators be proportional to $\tilde p(L)e^{-\mathcal E(\zeta,L)}$, normalized as a whole and not conditionally on $L$. This joint is normalizable, and its generator marginal is proportional to $\tilde p(L)e^{-S_{\mathrm{ind}}(L)}$ with
+\begin{equation}
+S_{\mathrm{ind}}(L)=\tfrac12\log\det\mathbf P(L)\ge\tfrac12|V|\log\det\Lambda_0.
+\label{eq:app_induced_action}
+\end{equation}
+\item If the spectral radius of $\mathbf D^{-1}\mathbf H$ is below one,
+\begin{equation}
+S_{\mathrm{ind}}(L)=\tfrac12\log\det\mathbf D(L)-\tfrac12\sum_{n\ge1}\frac1n\operatorname{Tr}\bigl[(\mathbf D^{-1}\mathbf H)^n\bigr],
+\label{eq:app_hopping}
+\end{equation}
+and $\operatorname{Tr}[(\mathbf D^{-1}\mathbf H)^n]$ is the sum, over the closed walks $(v_0,v_1,\ldots,v_n=v_0)$ of length $n$ whose steps join sites adjacent in $E$, of $\operatorname{Tr}(\mathbf D_{v_0}^{-1}\mathbf H_{v_0v_1}\mathbf D_{v_1}^{-1}\mathbf H_{v_1v_2}\cdots\mathbf D_{v_{n-1}}^{-1}\mathbf H_{v_{n-1}v_0})$, in which each step carries the link of its edge or the transpose of that link.
+\item Let $\Lambda_0=\lambda_0I$ and $\Lambda_E=\lambda_EI$, let every link be orthogonal, and let the sites be token positions with the edges oriented causally, $e=(a\leftarrow b)$ with $b<a$. Then $\mathbf D_v=d_vI$ with $d_v=\lambda_0+\deg(v)\lambda_E$ independent of the links, the spectral radius of $\mathbf D^{-1}\mathbf H$ is below one, the terms $n=1$ and $n=2$ of Eq.~\eqref{eq:app_hopping} do not depend on the links, and the term $n=3$ is, up to a link-independent constant,
+\begin{equation}
+\sum_{k<j<i}\frac{\lambda_E^3}{d_id_jd_k}\bigl(K-\operatorname{Tr}\mathcal H_{ijk}\bigr)=\sum_{k<j<i}\frac{\lambda_E^3}{d_id_jd_k}\Psi\bigl(\mathring\Theta_{ik}^{-1}\mathring\Theta_{ij}\mathring\Theta_{jk}\bigr),
+\label{eq:app_wilson}
+\end{equation}
+summed over the triples whose three edges lie in $E$, with $\mathcal H_{ijk}$ the triangle holonomy of Definition~\ref{M-def:lie_triangle} at trivial frames. On a single triangle, $V=\{i,j,k\}$, the term $n=4$ is also link independent, and $S_{\mathrm{ind}}$ equals a constant plus the single summand of Eq.~\eqref{eq:app_wilson} plus a remainder of absolute value at most $\tfrac{3K}{10}\rho^5/(1-\rho)$, where $\rho=2\lambda_E/(\lambda_0+2\lambda_E)<1$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+(1) Each pairwise term of Eq.~\eqref{eq:app_undirected_energy} is nonnegative, so $\mathbf P(L)\succeq I_{|V|}\otimes\Lambda_0\succ0$, and since $\log\det$ is monotone on positive-definite matrices the bound in Eq.~\eqref{eq:app_induced_action} follows. The Gaussian integral gives $\int e^{-\mathcal E(\zeta,L)}d\zeta=(2\pi)^{|V|K/2}\det\mathbf P(L)^{-1/2}$, which lies in $(0,(2\pi)^{|V|K/2}(\det\Lambda_0)^{-|V|/2}]$. Integrating against the probability density $\tilde p$ therefore gives a finite positive normalizer, and the generator marginal is proportional to $\tilde p(L)\det\mathbf P(L)^{-1/2}=\tilde p(L)e^{-S_{\mathrm{ind}}(L)}$. Had the states been given a law normalized conditionally on $L$, this factor would cancel, as in Proposition~\ref{prop:app_directed}.
+
+(2) $\mathbf D(L)\succeq I_{|V|}\otimes\Lambda_0$ is invertible, and $\log\det(\mathbf D-\mathbf H)=\log\det\mathbf D+\log\det(I-\mathbf D^{-1}\mathbf H)$. Under the spectral condition, $\log\det(I-M)=\operatorname{Tr}\log(I-M)=-\sum_{n\ge1}\operatorname{Tr}(M^n)/n$ with $M=\mathbf D^{-1}\mathbf H$. Expanding the block product $\operatorname{Tr}(M^n)$ gives the sum over sequences of sites, and $\mathbf H_{vu}=0$ unless $v$ and $u$ are joined by an edge, which leaves the closed walks.
+
+(3) With orthogonal links, $\mathring\Theta_e^\top\Lambda_E\mathring\Theta_e=\lambda_EI$, so $\mathbf D_v=d_vI$. For the norm $\max_v\|x_v\|$ on block vectors, the induced norm of $M$ is at most $\max_v\sum_u\|M_{vu}\|_2=\max_v\deg(v)\lambda_E/d_v<1$, and the spectral radius is bounded by any induced norm. There are no edges from a site to itself, so $\mathbf H_{vv}=0$ and the term $n=1$ vanishes. A closed walk of length two is $v\to u\to v$, with trace $\lambda_E^2\operatorname{Tr}(\mathring\Theta_e\mathring\Theta_e^\top)/(d_vd_u)=\lambda_E^2K/(d_vd_u)$. A closed walk of length three visits three pairwise adjacent sites $k<j<i$. The walk $i\to j\to k\to i$ carries $\mathbf H_{ij}\mathbf H_{jk}\mathbf H_{ki}=\lambda_E^3\mathring\Theta_{ij}\mathring\Theta_{jk}\mathring\Theta_{ik}^\top$, whose trace is $\lambda_E^3\operatorname{Tr}(\mathring\Theta_{ik}^{-1}\mathring\Theta_{ij}\mathring\Theta_{jk})=\lambda_E^3\operatorname{Tr}\mathcal H_{ijk}$, because $\mathring\Theta_{ik}^\top=\mathring\Theta_{ik}^{-1}$ and $\mathcal H_{ijk}$ is conjugate to $\mathring\Theta_{ik}^{-1}\mathring\Theta_{ij}\mathring\Theta_{jk}$. The reversed walk carries the transpose and has the same trace, and cyclicity of the trace gives the same value for each of the three starting sites, so each triangle contributes $-\tfrac12\cdot\tfrac13\cdot6\lambda_E^3\operatorname{Tr}\mathcal H_{ijk}/(d_id_jd_k)$ to Eq.~\eqref{eq:app_hopping}, which is the summand of Eq.~\eqref{eq:app_wilson} minus the constant $\lambda_E^3K/(d_id_jd_k)$. For orthogonal $W$, $\|W-I\|_F^2=2(K-\operatorname{Tr}W)$, so $\Psi(W)=K-\operatorname{Tr}W$. On a single triangle, label the sites cyclically; each step of a closed walk then moves one place forward or backward, and the number of forward steps minus the number of backward steps is divisible by three. A walk of length four therefore has two steps in each direction, so it contains a step followed by its reversal, which contributes $\lambda_E^2\mathring\Theta_e\mathring\Theta_e^\top/d=\lambda_E^2I/d$ or $\lambda_E^2\mathring\Theta_e^\top\mathring\Theta_e/d=\lambda_E^2I/d$ with $d=\lambda_0+2\lambda_E$; removing that pair leaves a closed walk of length two, so the term $n=4$ is link independent. For $n\ge5$ there are at most $3\cdot2^n$ closed walks of length $n$, and each has trace of absolute value at most $K(\lambda_E/d)^n$, because a product of orthogonal matrices has trace at most $K$ in absolute value. The remainder is therefore at most $\tfrac12\sum_{n\ge5}\tfrac1n3K\rho^n\le\tfrac{3K}{10}\rho^5/(1-\rho)$.
+\end{proof}
+
+On orthogonal links, the leading link-dependent term of the induced action is thus a positive multiple of the Frobenius defect of each triangle holonomy, with the cube of the hopping ratio $\lambda_E/d$ as coupling, which is the form of the loop term of the prior in Eq.~\eqref{eq:lie_latent_model}. For links outside the orthogonal group the blocks $\mathbf D_v$ and the walks of length two depend on the links, so the induced action then also contains edge-local terms that involve no loop.
+
+% W4 supplement fragment: S7, irreducible frame blocks and communication heads.
+\section{Irreducible Frame Blocks and Communication Heads}
+\label{sec:heads_irreps}
+
+The representation carried by a state and the organization of its communication heads are separate structures. To make their relationship precise, fix a decomposition $\mathsf V=\bigoplus_{b=1}^{B}\mathsf V_b$, with $\mathsf V_b\simeq\mathbb R^{d_b}$ and $K=\sum_bd_b$, and restrict the frame group to
+\begin{equation}
+G=\prod_{b=1}^{B}\mathrm{GL}(d_b,\mathbb R),\qquad
+\rho(g_1,\ldots,g_B)=\bigoplus_{b=1}^{B}g_b,\qquad
+U_i=\bigoplus_{b=1}^{B}U_i^{(b)}.
+\label{eq:frame_product_representation}
+\end{equation}
+Here $B$ counts independently transforming frame blocks, while $H$ counts communication heads. Each $\mathsf V_b$ is an irreducible real representation of $G$: a nonzero invariant subspace contains the orbit of any one of its nonzero vectors, and the $b$th general linear factor maps that vector to every other nonzero vector in $\mathsf V_b$. Thus no proper nonzero invariant subspace exists. These representations remain inequivalent when their dimensions coincide, because the product factors act independently. Repeating the same group element on several blocks would instead give equivalent copies of one representation. Equation~\eqref{eq:frame_product_representation} is an explicit specialization of the full $\mathrm{GL}(K)$ action, not a theorem that an arbitrary attention architecture has this decomposition.
+
+Let $\operatorname{pr}_b:\mathsf V\to\mathsf V_b$ and $\iota_b:\mathsf V_b\to\mathsf V$ be the coordinate projection and inclusion, and put $E_i^{(b)}=U_i\mathsf V_b$. A head $h$ is local to a block $b=b(h)$ when its interface maps factor as
+\begin{equation}
+S_{Q,h}=\overline S_{Q,h}\operatorname{pr}_b,\quad
+S_{K,h}=\overline S_{K,h}\operatorname{pr}_b,\quad
+T_h=\overline T_h\operatorname{pr}_b,\quad
+\widetilde O_h=\iota_b\overline O_h.
+\label{eq:block_local_head_conditions}
+\end{equation}
+The barred maps act on the selected block; the comparison maps retain the full-row-rank requirement. The resulting head map $M_{ij}^{(h)}=U_i\iota_b\overline O_h\overline T_h\operatorname{pr}_bU_j^{-1}$ communicates only between the corresponding site subspaces $E_j^{(b)}$ and $E_i^{(b)}$. Taking $H=B$ and a one-to-one assignment gives a precise sense in which heads can be organized by irreducible blocks. The irreducible object is the vector carrier $E_i^{(b)}$, however, not the Gaussian density or the entire attention operation. The common reference channels remain fixed under the passive site action of Eq.~\eqref{M-eq:passive_site_action}. A proper selected row space inside the carrier is not invariant under the full defining $\mathrm{GL}(d_b)$ action. In the full-input/output construction, $S_Q,S_K,T,O$ need not satisfy Eq.~\eqref{eq:block_local_head_conditions}; a head can access several blocks. Its endpoint covariance follows from the transforming frames, without requiring the fixed reference maps to be group intertwiners. The evaluated model of Section~\ref{M-sec:relational_run} has $B=4$ frame blocks of width $d_b=32$ at $K=128$ and $H=4$ heads whose interface maps read and write all $K$ coordinates, so its heads are not block local. For the same reason its group links $U_ie^{L}U_j^{-1}$ take values in $\mathrm{GL}^+(K)$ and not in $G$: the generator $L=OT$ couples the blocks.
+
+Independent Gaussian blocks require an additional statistical assumption. If every local covariance is block diagonal, $\Sigma_i=\bigoplus_b\Sigma_i^{(b)}$, then the full Gaussian laws factor and block-diagonal reference transport gives
+\begin{equation}
+D_{\mathrm{KL}}\bigl(q_i\|(\Omega_{ij})_*q_j\bigr)
+=\sum_{b=1}^{B}D_{\mathrm{KL}}\bigl(q_i^{(b)}\|(\Omega_{ij}^{(b)})_*q_j^{(b)}\bigr),
+\quad \Omega_{ij}^{(b)}=U_i^{(b)}(U_j^{(b)})^{-1}.
+\label{eq:irrep_block_kl_additivity}
+\end{equation}
+Here $q_i^{(b)}$ is the block marginal. The same identity holds with $\Theta_{ij}$ in place of $\Omega_{ij}$ when the reference representative $e^{L_{ij}}$ is block diagonal, which a generator coupling the blocks does not provide. The identity follows by writing the logarithm of the product-density ratio as a sum and integrating each normalized factor \citep[Thm.~28]{vanErvenHarremoes2014}. Block-diagonal frames alone do not imply it. For example, $q=\mathcal N(0,\left(\begin{smallmatrix}1&c\\c&1\end{smallmatrix}\right))$, $p=\mathcal N(0,I_2)$, and $0<|c|<1$ have identical one-dimensional marginals but $D_{\mathrm{KL}}(q\|p)=-\tfrac12\log(1-c^2)>0$. Furthermore, separate routing distributions for the blocks are a modeling choice: softmax of the summed KL chooses one shared source and does not equal independent headwise source selection.
+
+The frame generators have a related but different decomposition. At a block, $\mathfrak{gl}(d_b)=\mathfrak{sl}(d_b)\oplus\mathbb RI_{d_b}$ separates traceless generators from the central dilation generator; it is not a decomposition of the state space into two irreducible heads. At the ambient level,
+\begin{equation}
+\mathfrak{gl}(K)=\left(\bigoplus_b\mathfrak{gl}(d_b)\right)
+\oplus_{\mathrm{vec}}\mathfrak m,\qquad
+\mathfrak m=\bigoplus_{b\ne c}\operatorname{Hom}(\mathsf V_c,\mathsf V_b),\qquad
+\dim\mathfrak m=K^2-\sum_bd_b^2.
+\label{eq:off_block_vector_complement}
+\end{equation}
+The subscript emphasizes a vector-space splitting. The off-block complement is preserved by block-diagonal conjugation but is generally not a Lie subalgebra: for two scalar blocks, $[E_{12},E_{21}]=E_{11}-E_{22}$ is block diagonal. Restoring these generators enlarges the frame group; it does not add the only possible cross-block communication, since full-width interface maps already provide such communication.
+
+Representation-based attention has established precedents. The SE(3)-Transformer uses irreducible rotation types with invariant attention and equivariant values; its multi-head construction partitions multiplicity channels while retaining several representation types in each head \citep[Secs.~2.3 and 3.2, App.~D.3]{fuchs2020se3}. Gauge Equivariant Transformer combines local-frame-equivariant multi-head attention with regular fields and their irreducible decomposition \citep[Secs.~4.1--4.2]{He2021GaugeEquivariantTransformer}. The subject here is the particular combination of full Gaussian comparison laws, separately specified sending/receiving interfaces, and the matrix links $U_i\widetilde O_hT_hU_j^{-1}$. The frame blocks specify the state representation, while the comparison and content interfaces specify how that state is used for communication.
+
+% Moved from main Section 4 (second trim pass, T4).
+\paragraph{Intertwiner constraint.}
+Gauge-equivariant convolution and attention on manifolds treat the frame as geometric data defined only up to the structure group, so their shared maps must be intertwiners \citetext{\citealp[Sec.~2.4]{cohen2019gauge}; \citealp[Secs.~4.3 and~4.4]{He2021GaugeEquivariantTransformer}}. For the frame group of Eq.~\eqref{eq:frame_product_representation} the blocks $\mathsf V_b$ are pairwise inequivalent and each $\mathrm{GL}(d_b)$ factor has scalar commutant, so $\operatorname{End}_G(\mathsf V)=\bigoplus_b\mathbb RI_{d_b}$. That requirement would confine each $\widetilde O_hT_h$ to $\operatorname{End}_G(\mathsf V)$, so every head map would reduce to $\sum_bc_b\Omega_{ij}^{(b)}$, and full-row-rank comparison maps would reduce routing to blockwise frame-only divergences. The low rank, block mixing, and composition defect of the selective links (Section~\ref{supp:matrix_links}) are available because the frames are learned, so that the local covariance of Theorem~\ref{M-thm:reference_moments} is that of a dressing field (Section~\ref{M-sec:passive_covariance}).
+
+% Supplement S8 (W5a): probabilistic and architectural scope; HEAD 2010-2045 (normalized latent-source model), 2048-2101 (architecture scope), 1960-2007 (prior-bank readout; the linear-decoder identity is main Appendix E).
+\section{Probabilistic and Architectural Scope}
+\label{supp:scope}
+
+This section collects scope results for the probabilistic reading of Section~\ref{M-sec:probabilistic_status}. It relates the local source model to a normalized latent-source model of the whole population, states the population-covariance, Gaussian-closure, and causal-prediction conditions that separate the evaluated predictor from a complete model of population inference, and develops an optional vocabulary readout by Gaussian templates with class-specific covariances.
+
+\subsection{Relation to a normalized latent-source model}
 \label{app:fixed_joint_bridge}
 
 A broader gauge-theoretic variational free energy (VFE) theory begins with a normalized generative law and a separately specified population recognition law. Geometry alone supplies neither. Let $z$ collect the declared agent and auxiliary latent variables (the latent configuration, written $y$ in the broader theory), let $X$ denote fixed structural data, and let each record kernel have a normalized density $\ell_a$. A normalized latent law $p_\theta^Z$, constructed for example by finite directed kernel composition, gives
@@ -83,32 +934,32 @@ in which no other factor reads a label. Each record kernel is normalized for eve
 \end{align}
 Expansion of the factorized density gives the first expression up to a row-independent term; a normalization multiplier gives the second. The pointwise generative posterior instead uses $D_{ij}^{(h)}(z)$ inside softmax. Multiplying a row objective by $\tau_h$ preserves its optimizer, but does not license independently rescaling sectors of one global evidence lower bound (ELBO).
 
-The main paper's fixed-context Gaussian mixture supplies a different local joint with the same unit-temperature row objective: at unit temperature its KL is the projected Gaussian comparison cost plus categorical relative entropy. Appending the same normalized content law in the model and recognition factors makes that content law cancel, as in main-text Eq.~\eqref{eq:relational_normalized_model}. It therefore permits the chosen message means without deriving the learned content maps or residual. The general Gaussian realization likewise permits singular conditional mean maps with positive-definite receiving noise, but that normalization fact does not select the predictive attention architecture.
+The fixed-context Gaussian mixture of Section~\ref{M-sec:mixture_derivation} supplies a different local joint with the same unit-temperature row objective: at unit temperature its KL is the projected Gaussian comparison cost plus categorical relative entropy. Appending the same normalized content law in the model and recognition factors makes that content law cancel, as in Eq.~\eqref{eq:relational_normalized_model}. It therefore permits the chosen message means without deriving the learned content maps or residual. The general Gaussian realization likewise permits singular conditional mean maps with positive-definite receiving noise, but that normalization fact does not select the predictive attention architecture.
 
-The autoregressive softmax predictor already defines a normalized probability law, and its outer cross-entropy is the corresponding negative log-likelihood; in evaluation each conditional is computed from a bounded window, which leaves every factor normalized. For the attention sublayer, a normalized latent model exists in which routing is the exact label posterior and the content-plus-residual update is the exact predictive mean (main-text Sections~\ref{sec:mixture_derivation} and~\ref{sec:relational_communication}). What remains unresolved is a latent joint and recognition construction that also covers the normalization and MLP maps, the collapse of the predictive mixture to a point state between layers, and the relation of cross-entropy training to that model's evidence. A model with no latent variables would make the evidence identity tautological without deriving those operations.
+The autoregressive softmax predictor already defines a normalized probability law, and its outer cross-entropy is the corresponding negative log-likelihood; in evaluation each conditional is computed from a bounded window, which leaves every factor normalized. For the attention sublayer, a normalized latent model exists in which routing is the exact label posterior and the content-plus-residual update is the exact predictive mean (Theorem~\ref{M-thm:probabilistic_status}). What remains unresolved is a latent joint and recognition construction that also covers the normalization and MLP maps, the collapse of the predictive mixture to a point state between layers, and the relation of cross-entropy training to that model's evidence. A model with no latent variables would make the evidence identity tautological without deriving those operations.
 
 
-\section{Additional Scope Results for Gaussian Predictive Architectures}
+\subsection{Additional scope results for Gaussian predictive architectures}
 \label{app:architecture_scope}
 
-The main text distinguishes geometric attention from a complete model of population inference and nonlinear state evolution. The following calculations state the population-covariance, Gaussian-closure, and causal-prediction conditions used in the main paper. They concern the declared states and predictive maps.
+The main text distinguishes geometric attention from a complete model of population inference and nonlinear state evolution. The following calculations state the population-covariance, Gaussian-closure, and causal-prediction conditions used in the main text. They concern the declared states and predictive maps.
 
-\subsection{Population covariance and link-residual costs}
+\subsubsection{Population covariance and link-residual costs}
 \label{sec:population_link_residuals}
 
 Let a joint population state have law
 \(\mathcal N(\boldsymbol\mu,\Gamma)\), with covariance blocks
 \(\Gamma_{ij}=\operatorname{Cov}(k_i,k_j)\) and
-\(\Gamma_{ii}=\Sigma_i\). For a fixed link \(L_{ij}:E_j\to E_i\), set
-\(e_{ij}=k_i-L_{ij}k_j\) and
-\(\bar e_{ij}=\mu_i-L_{ij}\mu_j\). Bilinearity of covariance gives
+\(\Gamma_{ii}=\Sigma_i\). For a fixed edge matrix \(\mathcal K_{ij}:E_j\to E_i\) of any rank, set
+\(e_{ij}=k_i-\mathcal K_{ij}k_j\) and
+\(\bar e_{ij}=\mu_i-\mathcal K_{ij}\mu_j\). Bilinearity of covariance gives
 \begin{equation}
 V_{ij}:=\operatorname{Cov}(e_{ij})
-=\Sigma_i+L_{ij}\Sigma_jL_{ij}^{\top}
--\Gamma_{ij}L_{ij}^{\top}-L_{ij}\Gamma_{ji}.
+=\Sigma_i+\mathcal K_{ij}\Sigma_j\mathcal K_{ij}^{\top}
+-\Gamma_{ij}\mathcal K_{ij}^{\top}-\mathcal K_{ij}\Gamma_{ji}.
 \label{eq:population_residual_covariance}
 \end{equation}
-This identity needs no inverse of \(L_{ij}\). For any receiving covariance \(R_i\succ0\), expansion around the mean gives the expected quadratic cost
+This identity needs no inverse of \(\mathcal K_{ij}\). For any receiving covariance \(R_i\succ0\), expansion around the mean gives the expected quadratic cost
 \begin{equation}
 \mathbb E[e_{ij}^{\top}R_i^{-1}e_{ij}]
 =\bar e_{ij}^{\top}R_i^{-1}\bar e_{ij}
@@ -117,11 +968,11 @@ This identity needs no inverse of \(L_{ij}\). For any receiving covariance \(R_i
 \end{equation}
 The centered cross terms have zero expectation, leaving the trace term. These are Gaussian moment identities \citep{Bishop2006}; the two displayed moment formulas also hold for non-Gaussian laws with finite second moments.
 
-A product approximation to the population sets the off-diagonal blocks \(\Gamma_{ij}\) to zero. Local state covariances alone do not justify that substitution. For a scalar example, take unit marginal variances, zero means, \(L_{ij}=1\), and cross covariance \(c\), with \(|c|<1\). The expected squared residual is \(2(1-c)\), while every individual Gaussian marginal is unchanged as \(c\) varies. Thus comparing local distributions and computing a correlated population residual are different operations.
+A product approximation to the population sets the off-diagonal blocks \(\Gamma_{ij}\) to zero. Local state covariances alone do not justify that substitution. For a scalar example, take unit marginal variances, zero means, \(\mathcal K_{ij}=1\), and cross covariance \(c\), with \(|c|<1\). The expected squared residual is \(2(1-c)\), while every individual Gaussian marginal is unchanged as \(c\) varies. Thus comparing local distributions and computing a correlated population residual are different operations.
 
-A Gaussian record with mean \(k_i-L_{ij}k_j\) and positive-definite noise can use Eq.~\eqref{eq:population_residual_cost} inside a normalized population model of Appendix~\ref{app:fixed_joint_bridge}. Its expected log-likelihood cost is not generically the KL between the two projected Gaussian marginals in the main text. That KL has its own trace and determinant terms. Substituting a marginal divergence for the record cost changes the probabilistic model unless a separate identity establishes their equality.
+A Gaussian record with mean \(k_i-\mathcal K_{ij}k_j\) and positive-definite noise can use Eq.~\eqref{eq:population_residual_cost} inside a normalized population model of Section~\ref{app:fixed_joint_bridge}. Its expected log-likelihood cost is not generically the KL between the two projected Gaussian marginals in the main text. That KL has its own trace and determinant terms. Substituting a marginal divergence for the record cost changes the probabilistic model unless a separate identity establishes their equality.
 
-\subsection{Nonlinear mean maps and full Gaussian laws}
+\subsubsection{Nonlinear mean maps and full Gaussian laws}
 \label{sec:nonlinear_gaussian_scope}
 
 An operation on a Gaussian mean does not automatically specify the pushforward of its entire law. To see this for LayerNorm \citep{ba2016layernorm}, put \(P_0=I-\mathbf1\mathbf1^\top/K\) and define
@@ -138,85 +989,219 @@ For \(K=2\), \(\epsilon=0\), and a nondegenerate Gaussian input, \(x_1=x_2\) has
 \end{equation}
 The output law has two atoms. For \(\epsilon>0\) and arbitrary \(K\ge2\), the output remains in the proper zero-sum hyperplane, and it is bounded, \(\|\operatorname{LN}_\epsilon(x)\|^2<K\), so its law is not even a degenerate Gaussian. Fixed affine gains and biases map this support into an affine subspace of dimension at most \(K-1\). Neither construction is a nondegenerate full Gaussian pushforward. Applying normalization only to \(\mu_i\), while retaining \(\Sigma_i\) for routing, remains a valid specified coordinate operation; it has a different statistical meaning.
 
-\subsection{Prefix-based causal prediction}
+\subsubsection{Prefix-based causal prediction}
 \label{sec:causal_prediction_scope}
 
 A predictive conditional requires a state determined only by the available prefix and shared across all candidate next tokens. If one separately recomputes a binary state after inspecting each candidate target and assigns that target probability \(3/4\), each row is normalized but the two candidate scores sum to \(3/2\). They are not one conditional probability law. By contrast, a single prefix-based state followed by one categorical readout defines a normalized kernel, and the product of such kernels defines a finite sequence law by successive summation. The main architecture uses this direct causal construction. Outer backpropagation from training targets updates shared parameters; it does not insert those targets into the prediction-time state.
 
+\subsection{An optional prior-bank vocabulary readout}
+\label{sec:prior_bank_readout}
 
-% PLACEHOLDER S: experimental record and diagnostics for the final runs.
-\section{Experimental Record and Diagnostics}
-\label{app:placeholder_experimental_record}
+Let $q_i$ be the Gaussian state after the chosen forward computation and $p_v$ a normalized class template on the same latent space, with finite $D_{\mathrm{KL}}(q_i\|p_v)$. Main Appendix~\ref{M-app:decoder_readout} defines the categorical readout that minimizes Eq.~\eqref{M-eq:readout_objective}, the Gibbs readout of Eq.~\eqref{M-eq:readout_gibbs}, and shows that the linear decoder of the evaluated model is this readout for shared-covariance templates. A token bank instead gives each class its own template, $p_v=\mathcal N(\mu_{p,v},\Sigma_{p,v})$. Declaring the templates in reference coordinates and comparing them with $\widetilde q_i=(U_i^{-1})_*q_i$ makes the readout invariant under the passive action; comparing local coordinates directly defines a different, non-covariant readout. The Gibbs readout is not generically the posterior-predictive average of a classifier.
 
-This appendix reserves the experimental record of the final runs. Each table and figure below is a placeholder to be replaced by recorded values or artwork. % PLACEHOLDER
+The score identity is exact:
+\begin{equation}
+\mathbb E_{q_i}[\log p_v(X)]
+=-D_{\mathrm{KL}}(q_i\|p_v)-H(q_i).
+\label{eq:readout_kl_decomposition}
+\end{equation}
+The entropy is independent of $v$ and cancels in the categorical softmax. For Gaussian $q_i=\mathcal N(\mu_i,\Sigma_i)$ and $p_v=\mathcal N(\mu_{p,v},\Sigma_{p,v})$, the expectation is
+\begin{equation}
+-\frac12\left[
+\operatorname{Tr}(\Sigma_{p,v}^{-1}\Sigma_i)
++(\mu_i-\mu_{p,v})^\top\Sigma_{p,v}^{-1}(\mu_i-\mu_{p,v})
++\log\det\Sigma_{p,v}+K\log(2\pi)
+\right].
+\label{eq:readout_expected_loglik}
+\end{equation}
+These are Gaussian cross-entropy identities \citep{Bishop2006}.
+
+For the normalized point classifier
+\begin{equation}
+p(v\mid x)=\frac{\omega_vp_v(x)}
+{\sum_w\omega_wp_w(x)},
+\label{eq:readout_point_classifier}
+\end{equation}
+posterior prediction instead averages probabilities,
+$\bar p_i(v)=\mathbb E_{q_i}[p(v\mid X)]$. This generally differs from normalizing $\exp(\mathbb E_{q_i}\log p(v\mid X))$. For example, with equal class priors, $q_i=\mathcal N(0,4)$ and templates $p_0=\mathcal N(0,1)$, $p_1=\mathcal N(2,1)$, the unit-temperature Gibbs readout is $\hat p_i(1)=1/(1+e^2)\approx0.11920$. The predictive average is
+\begin{equation}
+\bar p_i(1)=\mathbb E_{X\sim\mathcal N(0,4)}
+\left[\frac{1}{1+\exp(2-2X)}\right]\approx0.32383.
+\end{equation}
+The expected-log construction therefore does not replace the predictive integral. Both readouts are variational: among joints whose latent marginal is fixed to $q_i$, the unrestricted minimizer of the KL to $\omega_vp_v(x)$ has class marginal $\bar p_i$, and the minimizer within the product family is the Gibbs readout. The same distinction separates the Gibbs routing row from the posterior-predictive source probability of Section~\ref{supp:routing}.
+
+Uniform $\omega$ gives logits $-D_{\mathrm{KL}}(q_i\|p_v)/\tau_{\mathrm{dec}}$. Projecting a full-covariance belief before decoding makes this identity exact for the projected distribution only. Choosing a temperature or learning an additional scalar is a modeling choice. With class-specific covariances the belief covariance no longer cancels from the logit differences, which is what distinguishes the token-bank readout from the linear decoder.
+
+% S9: numerical identity checks (supplement; moved from HEAD 2304-2313)
+\section{Numerical Identity Checks}
+\label{app:identity_checks}
+
+The identities of Sections~\ref{M-sec:lie_links} and~\ref{M-sec:lie_holonomy} of the main article, and of Sections~\ref{supp:exp_links}, \ref{supp:holonomy}, \ref{sec:receiver_inference}, and~\ref{sec:latent_links} of this supplement, were evaluated in float64 at small sizes with random inputs by the script \texttt{glk\_\allowbreak lie\_\allowbreak links\_\allowbreak checks/\allowbreak checks.py}, whose output accompanies it. The written derivations carry the mathematical claims; the checks test the formulas, and their sizes, $K\le7$ with at most three heads and four sources, carry no information about trained models or large networks. All $58$ checks passed.
+
+The low-rank exponential of Lemma~\ref{M-lem:lie_lowrank} holds to a relative error of $8.5\times10^{-16}$, the augmented-exponential evaluation of $\varphi_1$ agrees with its series to $2.6\times10^{-15}$, and the split of Proposition~\ref{M-prop:lie_split} holds to $5.5\times10^{-16}$, with the identity on $\ker T_h$, the image condition, and the determinant identity at the level of rounding. The first-order defect $(\Theta_{ij}(s)-\Omega_{ij})/s-U_iO_hT_hU_j^{-1}$, with $\Theta_{ij}(s)=U_ie^{sO_hT_h}U_j^{-1}$, is $8.5\times10^{-3}$, $8.5\times10^{-4}$, and $8.5\times10^{-5}$ at $s=10^{-2}$, $10^{-3}$, and $10^{-4}$. The passive law and the adjoint action of a common reference change hold to $8\times10^{-16}$, and the numerical matrix logarithm of $\operatorname{diag}(-1,-2)$ is complex, as item 4 of Proposition~\ref{M-prop:lie_endpoint} requires. On the principal-logarithm domain the conversion of Proposition~\ref{M-prop:lie_charts} gives $TO=Z$ to $2.4\times10^{-15}$ and $\exp(OT)=I+O_{\mathrm{lin}}T$ to $1.6\times10^{-16}$, and the embedding $\Upsilon$ is a determinant-preserving homomorphism satisfying items 2 and 3 to $3\times10^{-15}$. The complement split of Lemma~\ref{lem:lie_complement} holds to $2.7\times10^{-14}$ at $K=7$ with $\bar s=4$, and exact enumeration over head-label tuples reproduces Eq.~\eqref{eq:lie_aggregate} with a receiver-carried complement to $3.4\times10^{-16}$. In the tiled case the three forms of the resummed receiving map, the effective transfer $T\widetilde O=e^{TO}$, the head-sum identity, the projector relations of Theorem~\ref{M-thm:routed_transport}, and the order series of Eq.~\eqref{M-eq:lie_orders} hold to $2\times10^{-15}$; the second-order truncation vanishes exactly at the stated matrix, and $\sigma_{\min}(e^L)\ge e^{-\|L\|_2}$ held on $200$ random generators. The pinned latent-link transport reproduces the exponential-chart message of Remark~\ref{rem:lie_static_limit} to $2.4\times10^{-15}$. The factorization of the exponential-chart routed edge map in Theorem~\ref{M-thm:routed_transport}, $\mathcal M_{ij}=\Theta_{ij}U_j\Pi(\boldsymbol\beta_{ij})U_j^{-1}$, is not among the $58$ checks; it was evaluated separately in float64 at $K=6$ with three heads, together with $\det\mathcal M_{ij}>0$ and the eigenvalues of $\Pi(\boldsymbol\beta_{ij})$, as reported with its proof in Appendix~\ref{M-app:proofs_links}.
+
+For the holonomy, the triangle spectra of Proposition~\ref{prop:lie_triangle_spectrum} match those of $\boldsymbol\rho_{ijk}TO$ and $\boldsymbol\rho_{ijk}e^{TO}$ to $1.3\times10^{-14}$ with $TO\ne I$, the head-sum loop with $TO=I$ matches Table~\ref{tab:lie_holonomy} to $2\times10^{-15}$, and the flat identification has trivial holonomy. The errors of the first- and second-order truncations of Eq.~\eqref{eq:lie_bch} scale as the square and the cube of the generator scale. The flat routing pattern $c=(1,0.5,0.2,0.05,0.01)$ has positive rows summing to one and zero cocycle defect. All eigenvalue statistics vanish on the shear $I+E_{12}$ while its Frobenius defect is $\tfrac12$, the Frobenius defect is invariant under a multiple of an orthogonal matrix, and a non-conformal diagonal reparametrization changes it.
+
+For the receiver, $200$ random perturbations do not lower the energy of Eq.~\eqref{eq:rec_channel_energy} below its value at the closed form of Proposition~\ref{prop:rec_closed_form}, central differences of the energy vanish there to $1.8\times10^{-9}$, the closed form equals the Gaussian power posterior to $9\times10^{-16}$, and $F-\lambda_\alpha D_{\mathrm{KL}}(q\|p_{\mathrm{pow}})$ is constant in $q$ to $5\times10^{-15}$. The unobserved marginal of item 3 of Corollary~\ref{cor:rec_properties} equals the prior marginal to $1.1\times10^{-15}$, the predictive limit of Proposition~\ref{prop:rec_predictive_limit} holds to $1.3\times10^{-9}$ at prior precision $10^{-10}$, the natural-parameter interpolation of Proposition~\ref{prop:rec_flow} agrees with a fourth-order Runge--Kutta integration of the Fisher flow to $6\times10^{-15}$, and the frozen energy decreases along the damped full-family update. The profiled per-coordinate majorize-minimize step never increased the profiled energy over $300$ random instances of four iterations each, the episode-start step equals the Kalman form of Eq.~\eqref{eq:rec_kalman}, the damped diagonal counterexample reproduces $1.500$, $2.503$, and $1.000$, and the local closed form is the frame image of the reference closed form. A Monte Carlo estimate from $4\times10^5$ draws matches the moment-matched covariance of Eq.~\eqref{M-eq:predictive_kernel_covariance} to a relative error of $2.3\times10^{-3}$ at $c_{\mathrm{res}}=0$ and $2.0\times10^{-3}$ at $c_{\mathrm{res}}=1$.
+
+% S10: additional runs and diagnostics (supplement; HEAD 1442-1518, 1506-1516, 1609-1619, 2376-2421, and the K=160 run record)
+\section{Additional Runs and Diagnostics}
+\label{supp:runs}
+
+This section records two runs of the language model of Section~\ref{M-sec:lm_realization} that were executed with the historical reference implementation before the content-link chart selector existed, gives the link geometry and the receiver arm of the small-width chart runs of Section~\ref{M-sec:chart_runs} (Section~\ref{supp:chart_geometry}), and reserves the figures and tables of further diagnostics for the evaluated run. Both runs apply the stored content maps directly, which is the affine chart of Eq.~\eqref{M-eq:lie_three_charts}, with the full residual $c_{\mathrm{res}}=1$ and covariance passthrough, so neither forms a group-valued link. The run at $K=160$ gives the best affine-chart perplexity among the runs reported in this article, and the run at $K=256$ supplies diagnostics of a trained affine operator. Their protocols differ from each other, from the evaluated run at $K=128$, and from the conventional baselines of Table~\ref{M-tab:param_accounting}, so no comparison among these perplexities is matched. Each is a single-seed run from a dirty source tree whose identity changed during training. Three properties of the trained affine operator recur in both runs: the explicit attention residual is numerically inert, the stored variances decayed from their initial value $15$ to near unity under weight decay, and replacing every routing covariance $C_i$ by the identity costs an order of magnitude more cross-entropy than replacing only the stored variances, so the covariance channel of the router is carried by the frames.
+
+\subsection{An affine-chart run at width 160}
+\label{supp:run_k160}
+\label{sec:affine_run_k160}
+
+A WikiText-103 \citep{merity2017pointer} run applies the causal residual architecture with $K=160$, five $32$-dimensional gauge blocks, six layers, and model seed 6, so that $H=B=5$, $d_b=r_h=s_h=32$, $N_\ell=6$, and $\tau_h=\kappa_\beta\sqrt{32}$ with $\kappa_\beta=1$. Each layer has independent comparison and content maps and one predictive readout. The run applies the stored content maps directly, which is the affine chart, with $c_{\mathrm{res}}=1$ and covariance passthrough, so $\Sigma_i$ equals the token prior covariance at every layer. One affine LayerNorm ($\epsilon=10^{-6}$), shared by all six layers and applied to $\mu_i+m_i$, is followed in each layer by a coordinate residual GELU MLP of hidden width $1280$ that is not conjugated by the frames; there is no final normalization. Routing uses Gaussian KL between full $32\times32$ projected covariances of the frame-pulled-back beliefs, the cost bound $[0,8K]$, and the causal ALiBi prior including the current position with slopes $2^{-2},2^{-4},2^{-6},2^{-8},2^{-1}$. The configuration records an attention window of 128 that the ALiBi prior does not read, so every layer routes over the full causal prefix of its 256-token window. The frames are $U_i=\exp(\phi_{x_i})\exp(Y_i)$ with block generators in $\mathfrak{gl}(32)^{5}$, a learned token table and a learned positional table, and no rotary factor; after each step the frame rows are projected to per-block Frobenius norm at most 12, a bound that was inactive at all 200 logged steps (largest pre-projection norm $9.27$). The decoder is a separate $50{,}257\times160$ linear map with a learned bias and the unigram term $\kappa_{\mathrm{uni}}\log p_{\mathrm{uni}}$ with $\kappa_{\mathrm{uni}}=1$; it is not tied to the prior means.
+
+Training used $240{,}000$ AdamW updates with betas $(0.9,0.999)$ on batches of eight non-overlapping 256-token windows, shuffled per epoch with data seed 3, that is $491{,}520{,}000$ token presentations over $116{,}840{,}318$ unique training tokens, or $4.21$ passes. The learning rates and decoupled weight decays were set per parameter group: prior means $5\times10^{-3}$ and $0.025$, log-variances $10^{-3}$ and $0.04$, token frames $1.5\times10^{-3}$ and $0.05$, positional frames $10^{-3}$ and $0.05$, decoder matrix $5\times10^{-3}$ and $0.025$, decoder bias $5\times10^{-3}$ and $0$, MLP $10^{-3}$ and $0.01$, comparison maps $10^{-2}$ and $0$, content maps $2.5\times10^{-3}$ and $0$, and normalization $5\times10^{-2}$ and $0$. A warmup of 100 steps was followed by a half-cosine decay to one percent of each base rate, and gradients were clipped at norm one separately for the mean, variance, and frame roles. No update was skipped and no nonfinite loss or gradient was logged. Bfloat16 autocast reached the MLP matrix products and the GELU between them, while relational scoring, content aggregation, normalization, matrix exponentials, decoding, and cross-entropy ran in float32 under deterministic algorithms with full float32 matrix-product precision. Training took $77{,}693$ seconds on one NVIDIA GeForce RTX 5090 with PyTorch \texttt{2.10.0.dev20251210+cu128}.
+
+Evaluation uses context 256 and stride 128: window $w$ starts at position $128w$ and scores its last 128 targets, and the first window scores all 256, so each target is scored once and all but the first 127 targets have at least 128 tokens of context. The test split supplies $280{,}541$ scored targets and the validation split $245{,}020$. Table~\ref{tab:run_k160} lists the recorded values. The paired test difference between the final and the best-validation weights is $0.00494$ nats, with 95\% paired article-bootstrap interval $[0.00066,0.00913]$, and validation cross-entropy rose by $0.0015$ nats between steps $216{,}000$ and $240{,}000$. A post-hoc replay in bfloat16 reproduces the recorded test and validation cross-entropies to $1.6\times10^{-5}$ and $7.8\times10^{-6}$ nats.
 
 \begin{table}[htbp]
 \centering
 \small
-\begin{tabular}{p{0.30\linewidth}p{0.62\linewidth}}
+\begin{tabular}{@{}lrrrc@{}}
 \toprule
-Reporting field & Final-run value or artifact identifier \\
+Evaluation & Step & CE & PPL & 95\% interval (CE) \\
 \midrule
-Source and configuration & pending: source archive and hash, configuration schema, resolved operator selectors \\
-Data and tokenizer & pending: dataset and split revision, tokenizer and version, vocabulary, concatenation policy, token-cache hashes, unique training tokens, passes \\
-Architecture & pending: $K$, blocks, heads, ranks $r_h,s_h$, depth, normalization placement, residual, MLP width, decoder \\
-Initialization & pending: prior means and covariances, frame generators, interface maps, as executed \\
-Optimization & pending: learning rate and weight decay for every parameter table, schedule, warmup, clipping groups, post-update frame projection \\
-Numerical realization & pending: precision per operation, cost bound, reduced-covariance factorization and failure policy, matrix-exponential policy \\
-Training budget & pending: token presentations, updates, batch and accumulation, device-hours \\
-Evaluation & pending: checkpoint-selection rule, context, stride, scored targets, masking \\
+Best recorded validation & $216{,}000$ & $3.382406$ & $29.4415$ & -- \\
+Final validation & $240{,}000$ & $3.383951$ & $29.4870$ & $[3.2714,3.4906]$ \\
+Test, final weights & $240{,}000$ & $3.405945$ & $30.1428$ & $[3.2393,3.5517]$ \\
+Test, best-validation weights & $216{,}000$ & $3.401019$ & $29.9946$ & $[3.2373,3.5442]$ \\
+Training-split sample, final weights & $240{,}000$ & $3.068656$ & $21.5130$ & $[3.0415,3.0951]$ \\
+Training-split sample, best-validation weights & $216{,}000$ & $3.111270$ & $22.4495$ & $[3.0840,3.1376]$ \\
 \bottomrule
 \end{tabular}
-\caption{Reproducibility contract for the final reported runs. Populate each field from the executing source archive and its saved metadata, and separate effective settings from accepted but inactive selectors.}
-\label{tab:placeholder_methods_contract}
+\caption{Recorded values of the single-seed affine-chart run at $K=160$. Cross-entropy (CE) is in nats per scored token and perplexity (PPL) is its exponential. Intervals are 95\% article-level bootstrap intervals. The training-split sample has $1{,}915$ windows scored under the evaluation protocol. The headline test value of the run used the final weights.}
+\label{tab:run_k160}
 \end{table}
+
+The run has $285{,}881{,}138$ parameters. The token-frame table holds $50{,}257\times5\times32^2=257{,}315{,}840$ of them ($90.01\%$), the prior means and log-variances $8{,}041{,}120$ each, and the decoder $8{,}091{,}377$, so the vocabulary-indexed tables hold $281{,}489{,}457$ ($98.46\%$). The positional frames hold $256\times5{,}120=1{,}310{,}720$. The context-processing parameters number $3{,}080{,}960$: $614{,}400$ in the comparison and content maps ($102{,}400$ per layer), $2{,}466{,}240$ in the MLPs, and $320$ in the shared normalization. One further scalar, a decoding temperature of the prior bank, is never read by the linear decoder. A forward pass reads $11{,}182{,}897$ parameters per token. This is capacity accounting in the sense of Section~\ref{M-sec:param_accounting}; table lookups do not make the count comparable to dense-transformer compute.
+
+Frozen interventions at the final weights on all validation targets, with 95\% intervals from a paired bootstrap over 60 articles, raise cross-entropy by $1.594$ $[1.546,1.650]$ nats when the routing costs are removed and the positional prior is kept, by $2.462$ $[2.401,2.533]$ when the positional prior is flattened on the causal support, by $6.90$ $[6.78,7.03]$ when the token frames are replaced by the identity in every role, by $0.0289$ $[0.0266,0.0311]$ when the positional frames are, by $0.259$ $[0.250,0.269]$ when every routing covariance $C_i$ is replaced by the identity, by $0.0157$ $[0.0146,0.0167]$ when only the stored covariances are, and by $0.00091$ $[0.00059,0.00124]$ when the residual is deleted at every layer. The role-wise frame removals F1 to F4 of Table~\ref{M-tab:placeholder_interventions} were not implemented for this run. The check that restores the model between sequential intervention arms reported per-target changes of up to $0.037$ nats on 384 targets; the recorded cause is a comparison of windows scored alone with the same windows scored inside a batch in bfloat16, corrected after this post-hoc evaluation, and the corrected check was not rerun, so restoration between arms is unverified at that level. These are properties of one trained predictor, not retraining ablations.
+
+The cost bound was active on $0.085\%$ of the scored causal test entries in layer 1 and on $0.0004\%$ in layer 2, almost all with the first position of the window as source, and in no other layer. Capped entries of scored rows carry exactly zero float32 routing weight, so scored routing equals uncapped routing wherever the raw costs are finite; raw costs were not recorded. On frequent token types (at least 100 training occurrences, best-validation weights) the stored variances lie between $0.91$ and $1.21$ from the first to the ninety-ninth percentile, with median $1.05$, against the initial value $15$, and the coefficient of variation of $\operatorname{Tr}\Sigma$ is $0.018$. The token-frame routing covariance $U_v^{-1}\Sigma_vU_v^{-\top}$ lies within a median relative gap of $4.85\%$ of a common multiple of $(U_v^\top U_v)^{-1}$, so, as at $K=256$, the covariance channel of the router is carried by the frames, and the decay sharpened the Mahalanobis term by a factor of about $14$. The largest singular values of $O_hT_h$ grew from 1 at initialization to between $82.0$ and $742.6$ across heads and layers, the common scale of the comparison maps from 1 to between $35.5$ and $39.6$, and the layer-0 ratio $\|m\|_F/\|\mu\|_F$ on the first validation batch is $737$; the mean routing self-weight lies between $0.098$ and $0.207$ across layers. On the first test window the smallest raw comparison-map singular value per layer lies between $5.79$ and $10.49$ and the largest projected-covariance condition number decreases from $721.1$ at layer 0 to $75.5$ at layer 5, with no covariance repair and no capped score; the basis-independent relative gains lie between $0.134$ and $4.36$.
+
+The trained affine transfers lie outside the image of the exponential chart. Computed in float64 from the final weights, the stacked $K\times K$ transfer $OT$ has $\|OT\|_2$ between $214$ and $909$ and negative determinant in four of six layers, which excludes it from $\exp(\mathfrak{gl}(K,\mathbb R))\subset\mathrm{GL}^+(K)$ there; in every layer it has between 7 and 11 negative real eigenvalues, which excludes a real logarithm by the criterion of Proposition~\ref{M-prop:lie_endpoint} whenever one of them is simple, as is generic. The stacked $T$ has smallest singular value between $0.0066$ and $0.023$. The self-block $I+OT$ of the first position, where every head routes to itself with unit weight, has negative determinant in three of six layers, so the reading of the residual layer as the first-order chart of a group element (Section~\ref{M-sec:lie_links}) fails at these trained weights.
+
+The provenance records a dirty source tree and a change of code identity during the run. The final code identity equals that of VFE~3.0 commit \texttt{57d9ea0}, an import of the historical source; the launch identity matches no preserved snapshot, and no source archive is stored in the run directory, so the executed bytes are not recoverable. The tokenizer is inferred from the cache filename and has no verified manifest. The run shows that the affine-chart architecture trains without skipped or nonfinite updates for $240{,}000$ steps at $K=160$ and reaches test perplexity $30.14$ under its own protocol with one seed, and that the trained predictor depends on content-dependent routing costs, on the positional prior, and above all on the token frames, while it is nearly insensitive to the explicit residual. It supplies no comparison with a conventional transformer, because no baseline shares its context, stride, batch, token budget, or optimizer, and no seed variability, retraining ablation, test of learned per-token uncertainty, or evidence for group-valued links.
+
+\subsection{An affine-chart run at width 256}
+\label{supp:run_k256}
+
+The second run, also on WikiText-103, instantiates Section~\ref{M-sec:relational_communication} with $K=256$, eight $32$-dimensional gauge blocks, four layers, and seed 6, so that $H=B=8$, $d_b=r_h=s_h=32$, $N_\ell=4$, and $\tau_h=\sqrt{32}$. It predates the chart selector, applies the stored content maps directly, which is the affine chart, uses the residual $c_{\mathrm{res}}=1$, and passes the covariance through. Each layer has independent comparison and content maps. The configuration uses the historical selectors \texttt{projected\_\allowbreak filtering} with full input scope, \texttt{predictive\_\allowbreak content} readout, full output scope, and the additive attention residual; this combination performs no iterative belief update or inner descent, so all source, score, and content dependencies remain available to outer cross-entropy differentiation. The group parameterization remains block-diagonal and vertex-factorized, with learned token and positional frames. Each block also contains affine LayerNorm and a coordinate GELU MLP with hidden width $2048$, expansion factor eight, zero dropout, and covariance passthrough. These are the combined methods used in the recorded run; the saved results do not isolate the contribution of each choice.
+
+The historical implementation fixes \(H=B\) and \(r_h=s_h=d_b\) and computes \(\tau_h=\kappa_\beta\sqrt{d_b}\) with \(\kappa_\beta=1\), so \(\tau_h=\sqrt{r_h}\) holds by construction; independent head counts and ranks are not implemented. The numerical KL cost is bounded to \([0,8K]\) before routing. The categorical optimization remains exact for this bounded cost; its identification with the unmodified Gaussian KL requires an inactive bound. Capping was checked on one 128-token window at each of 200 logged training steps and 10 evaluations, with no capped score, and on sampled windows the largest causal cost is about 300, well below \(8K=2048\). The bounded cost is nonnegative, so the evaluated routing is also the exact label posterior of the binary-record joint of Theorem~\ref{M-thm:probabilistic_status} for that cost. The theoretical comparison in Section~\ref{M-sec:transformer_comparison_summary} is stated for uncapped costs.
+
+The stored beliefs are diagonal Gaussians, but each role projection retains its full $32\times32$ reduced covariance. Diagonal storage is a partial gauge fixing: within each frame block every positive-definite covariance is congruent to a diagonal one and the frame absorbs the congruence, so with block-diagonal frames the realized reference covariances $C_i$ are exactly the block-diagonal positive-definite matrices, and cross-block reference covariance is not representable. The operative router is Gaussian KL. Although the launch configuration contains \texttt{attention\_\allowbreak score=squared\_\allowbreak distance}, \texttt{mean\_\allowbreak only=False} selects the Gaussian-KL path, as the saved resolved-operator metadata confirms. The causal ALiBi prior includes the current position and adds the headwise logit bias $-2^{-h}(i-j)$ for $j\le i$, $h=1,\ldots,8$. Predictive content uses one readout per layer; the configured inference learning rates and belief trust bounds do not scale this update. The covariance and frame are held fixed through the stack, while outer cross-entropy training updates the learned tables, frames, role maps, MLPs, normalization, and decoder parameters through the forward graph. The decoder term $\kappa_{\mathrm{uni}}\log p_{\mathrm{uni}}$ uses the fixed coefficient $\kappa_{\mathrm{uni}}=1$ and the add-one-smoothed unigram frequency of the training stream; because $b_{\mathrm{out}}$ is learned without decay, this term acts as an initialization offset for $b_{\mathrm{out}}$.
+
+The stored covariance table holds log-variances initialized at $\log15$, so the initial variance is 15. Decoupled weight decay 0.04 on this table carried the variances to $1.045\pm0.054$ per coordinate at the final step, with $84.6\%$ of entries within $10\%$ of unit variance; the run's covariance-diversity check recorded a coefficient of variation of $\operatorname{Tr}\Sigma$ of $0.047$ against its threshold of $0.10$. Because covariances and frames are fixed through the stack, $C_i=U_i^{-1}\Sigma_{p,x_i}U_i^{-\top}$ depends only on token type and position and is close to $1.04(U_i^\top U_i)^{-1}$, with a median relative Frobenius gap of $7.6\%$ on sampled token-position pairs: the covariance channel of the router is carried by the frames. On sampled windows of 128 tokens, replacing every routing covariance $C_i$ by the identity raises cross-entropy by $0.325$ nats on average over 8 windows (range $0.11$ to $0.57$), whereas replacing only the stored variances by the identity raises it by $0.024\pm0.024$ nats over 24 windows. The decay also acted as a hidden temperature for the Mahalanobis term, which a common rescaling of all covariances by $c$ rescales by $1/c$; over training it sharpened that term about 14-fold. The experiment therefore does not test learned per-token uncertainty.
+
+The run records $456{,}654{,}162$ parameters, including $1{,}048{,}576$ relational-map parameters and $4{,}203{,}520$ MLP parameters. The token-frame table has $50{,}257\times8{,}192=411{,}705{,}344$ parameters, approximately $90.16\%$ of the total. Per-type tables (token frames, prior means and log-variances, and decoder weights and biases) hold $98.6\%$ of the parameters, the positional frames hold $1{,}048{,}576$, and the context-processing parameters (interface maps, MLPs, and the shared normalization) number $5{,}252{,}608$. This is capacity accounting; sparse table access does not make the count equivalent to dense-transformer FLOPs. The run completed $240{,}000$ accepted updates and $491{,}520{,}000$ training-token presentations over about $116.8$ million unique training tokens, or about $4.21$ passes. The saved environment identifies an NVIDIA GeForce RTX 5090, PyTorch \texttt{2.10.0.dev20251210+cu128}, and bfloat16 automatic mixed precision, which applies to the MLP matrix products; frame exponentials, Gaussian scores, content aggregation, layer normalization ($\epsilon=10^{-6}$), decoding, and cross-entropy run in float32, and GELU is the exact error-function form.
+
+Evaluation uses context length $128$ and stride $32$, excluding overlapping positions from repeated scoring. The test result covers $280{,}541$ next-token targets from $280{,}542$ tokens; validation covers $245{,}020$ targets. The cache filename identifies tiktoken/GPT-2 tokenization with vocabulary size $50{,}257$, but no verified tokenizer manifest is available. Perplexities refer to this saved protocol and are not directly comparable to conventional word-level WikiText-103 results. Table~\ref{tab:relational_run} lists the recorded perplexities.
 
 \begin{table}[htbp]
 \centering
-\small
-\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}Xcc@{}}
+\begin{tabular}{lrr}
 \toprule
-Parameter role or resource & Evaluated run & Final run \\
+Evaluation & Step & Perplexity \\
 \midrule
-Per-type tables (token frames, prior means and covariances, decoder) & pending & pending \\
-Positional frame generators & pending & pending \\
-Context-processing parameters (interface maps, MLP, normalization) & pending & pending \\
-Parameters read per token & pending & pending \\
-Optimizer state and peak device memory & pending & pending \\
-Training throughput and device-hours & pending & pending \\
-Inference latency at declared batch and context & pending & pending \\
-\bottomrule
-\end{tabularx}
-\caption{Reserved storage and cost record. Sparse access to per-type tables reduces the parameters read per token but not the stored parameters; report both, together with measured throughput under a declared precision.}
-\label{tab:placeholder_resources}
-\end{table}
-
-\begin{table}[htbp]
-\centering
-\small
-\begin{tabular}{lccccc}
-\toprule
-Model arm & Seeds & Selected step & Validation CE & Test CE & Test PPL \\
-\midrule
-pending & pending & pending & pending & pending & pending \\
+Best recorded validation & $216{,}000$ & $29.6088$ \\
+Final validation & $240{,}000$ & $30.0100$ \\
+Test, final weights & $240{,}000$ & $31.0389$ \\
+Test, best-validation weights & $216{,}000$ & pending \\ % PLACEHOLDER
+Training-split sample, evaluation protocol & $240{,}000$ & pending \\ % PLACEHOLDER
 \bottomrule
 \end{tabular}
-\caption{Reserved per-seed results for every arm of the main results table. List the model seed and the data-order seed, and apply the checkpoint-selection rule identically across arms.}
-\label{tab:placeholder_per_seed}
+\caption{Recorded perplexities of the single-seed affine-chart run at $K=256$. Test evaluation used the final weights, not the checkpoint with the lowest recorded validation perplexity. No variability estimate or causal ablation is supplied by this run.}
+\label{tab:relational_run}
 \end{table}
+
+The test cross-entropy is $3.43524149$ nats per scored token. Validation cross-entropy reached its minimum at step $216{,}000$ and rose by $0.0135$ nats by the final step; the test split has not yet been evaluated at the best-validation checkpoint. The result is stored in the run directory \texttt{31.04\_\allowbreak wikitext-103\_\allowbreak K256\_\allowbreak 4-layer\_\allowbreak noHM}, with configuration and resolved methods in \texttt{config.json}, evaluation in \texttt{test\_\allowbreak results.json}, and source/data identity in \texttt{provenance.json}. The provenance records a dirty source tree and a change in source identity during the run. The starting Git revision is \texttt{4e137ec88f45} and the final recorded revision is \texttt{965718d88cf7}; these revisions alone cannot identify the executed dirty-source bytes. The result therefore has incomplete source reproducibility.
+
+A saved intervention probe on the first validation batch, 16 overlapping windows that score 608 consecutive targets, reports cross-entropy $3.0431$ for the trained route (against $3.4015$ on the full validation split), $4.1923$ when the routing energy is removed, and $5.1182$ when the positional prior is flattened on causal support. These frozen-model batch interventions support reliance on both content-dependent routing and the positional prior in that batch. They are not corpus-wide test results, retraining ablations, or evidence that any individual projection, the residual, or the MLP is necessary. These interventions measure prediction error, not variational descent.
+
+In the trained model the explicit attention residual is numerically inert. On 24 sampled windows of 128 tokens, the per-token ratio $\|m_i\|/\|\mu_i\|$ has median $2.1\times10^4$, $5.9\times10^3$, $5.3\times10^3$, and $1.8\times10^3$ at layers 0 to 3, with minimum 693. The residual changes the normalized state by at most $1.8\times10^{-3}$ in relative terms, and deleting it at every layer changes cross-entropy by less than $4\times10^{-4}$ nats on every window. The relational maps train without weight decay and the layer normalization is invariant to the scale of its input, so the largest singular values of $O_hT_h$ grew from 1 at initialization to between $2.6\times10^3$ and $2.6\times10^4$ across heads and layers. At the final weights each layer therefore acts as $\bar\mu_i=\operatorname{LN}(m_i)$ up to a relative $2\times10^{-3}$. The receiving token reaches the next layer through its frame and its routing self-weight, whose mean lies between 0.07 and 0.15 across layers and windows, rather than through the additive state. The role of the residual earlier in training was not measured.
+
+Saved per-layer probes from one 128-token test window report minimum raw comparison-map singular values from $6.64$ to $12.32$, maximum projected-covariance condition numbers from approximately $88.7$ to $550.5$, all attained by query covariances, and zero recorded covariance repairs or capped scores. Both describe the numerical representative reached by the optimizer rather than the learned routing. The redundancy $(S_{Q,h},S_{K,h})\mapsto(AS_{Q,h},AS_{K,h})$ of Theorem~\ref{M-thm:reference_moments} changes them while leaving every cost unchanged, and the raw maps, which carry no weight decay, grew by factors of about 40 to 54 in norm along this direction during training. The basis-independent quantities are the generalized eigenvalues of the pairs $(V_{Q,i},V_{K,j})$ and the relative gains, the square roots of the eigenvalues of $(S_{K,h}S_{K,h}^\top)^{-1}S_{Q,h}S_{Q,h}^\top$, which lie between $0.11$ and $5.35$. The mathematical full-row-rank condition does not itself guarantee conditioning throughout learned optimization.
+
+\subsection{Link geometry and the receiver arm at width 20}
+\label{supp:chart_geometry}
+
+This subsection records the geometry of the trained content links and the receiver arm of the four runs at $K=20$ in Section~\ref{M-sec:chart_runs}.
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+Arm & Layer & Sign changes & $\min\sigma_{\min}(M)$ & $\kappa(M)$ & $\|L\|_2$ & Gap \\
+\midrule
+Affine & 0 & $0$ & $8.7\times10^{-3}$ & $677$ & -- & -- \\
+Affine & 1 & $0$ & $0.110$ & $51$ & -- & -- \\
+First order & 0 & $2$ & $8.5\times10^{-3}$ & $79$ & -- & -- \\
+First order & 1 & $0$ & $0.087$ & $44$ & -- & -- \\
+Exponential & 0 & $0$ & $0.144$ & $34$ & $2.67$ & $0.58$ \\
+Exponential & 1 & $0$ & $0.231$ & $12$ & $1.91$ & $0.33$ \\
+Exponential, receiver & 0 & $0$ & $0.115$ & $42$ & $3.00$ & $0.49$ \\
+Exponential, receiver & 1 & $0$ & $0.122$ & $12$ & $2.50$ & $0.55$ \\
+\bottomrule
+\end{tabular}
+\caption{Geometry of the trained content links of the runs in Table~\ref{M-tab:chart_runs}. $M=\widetilde OT$ is the stacked $K\times K$ transfer, the reference operator of an edge on which both heads select the same source with unit weight. Sign changes of $\det M$ are counted over twelve saved snapshots from step $0$ to step $15{,}000$, the minimum singular value is taken over the snapshots from step $1000$ on, and the condition number $\kappa(M)$ is at the final step. For the exponential arms $L=OT$ is the final trained generator, and the gap is $\|e^L-I-L\|_2/\|e^L\|_2$, the relative distance of $e^L$ from its first-order polynomial. Values were computed in float64 from the saved factors.}
+\label{tab:chart_geometry}
+\end{table}
+
+The trained links differ in the way the charts predict (Table~\ref{tab:chart_geometry}). The computed determinant of the layer-0 transfer of the first-order arm was negative at the snapshots of steps $1000$ to $3000$ and positive from step $4500$ on, so the path of that link in parameter space crossed the singular set at least twice, which an affine parametrization permits. The exponential arms keep a positive determinant by construction, and their smallest singular value stayed above $0.11$ after step $1000$, against $8.7\times10^{-3}$ and $8.5\times10^{-3}$ at layer 0 of the affine and first-order arms. The trained generators have spectral norms between $1.9$ and $3.0$, where the first-order polynomial of the generator differs from its exponential by $33$ to $58$ percent in spectral norm, so the first-order arm is a different model rather than an approximation of the exponential arm. These singular values and condition numbers are properties of four trained models at $K=20$; the structural statements they illustrate are Propositions~\ref{M-prop:lie_endpoint} and~\ref{M-prop:lie_charts} and the truncation argument of Section~\ref{supp:exp_links}, which hold at every width.
+
+The receiver arm replaces the predictive mean by the closed-form channel-likelihood update of Proposition~\ref{prop:rec_closed_form}, with tied measurements $\widetilde O_h^\top$ in the exponential chart, unit damping, channel floor $Q_h^{\mathrm{ch}}=I$, routing weight $\lambda_\beta=1$, and the profiled per-coordinate coupling with $b_\alpha=c_\alpha=1$. Its covariance is held at the encoding value and its layer prior is the incoming state, so by Section~\ref{sec:rec_updates} each layer applies the Kalman update of Eq.~\eqref{eq:rec_kalman}, and the profiled coupling stays at its starting value $c_\alpha/b_\alpha$. The test cross-entropy of this arm is $0.0276$ nats above that of the exponential predictive arm. The two arms differ in the content update and in the covariance contract, so the difference does not isolate the receiver, and as a single-seed difference it is about five times the two-run standard deviation inferred in Section~\ref{M-sec:chart_runs} from the $K=30$ configuration.
+
+Each of the four runs saved an archive of the executed source bytes, but the source trees were dirty, and two runs recorded a change of Git identity during training.
+
+\subsection{Reserved diagnostics for the evaluated run}
+\label{supp:reserved_diagnostics}
+
+The figures and the table below are placeholders for diagnostics of the evaluated run at $K=128$ and of the retraining arms of Table~\ref{M-tab:placeholder_main_results}; each is to be replaced by recorded values or artwork. Figure~\ref{fig:placeholder_routing_decomposition} measures the conditions of the dot-product reduction in the trained model, Figure~\ref{fig:placeholder_learning_curves} the learning curves and generalization gap of the arms, Table~\ref{tab:placeholder_calibration} the word-level calibration of the result, Figure~\ref{fig:placeholder_numerics} the training dynamics along the comparison and content redundancies, Figure~\ref{fig:placeholder_head_blocks} the relation between heads and frame blocks, and Figure~\ref{fig:placeholder_scaling} a controlled width and depth sweep. % PLACEHOLDER
+
+% PLACEHOLDER M4: routing-score decomposition and the conditions of the dot-product reduction.
+\begin{figure}[htbp]
+\centering
+\placeholderbox{58mm}{PLACEHOLDER M4\\[3mm]
+Panel A: for each layer and head, the variance of each routing-logit component and its covariance with the total logit: whitened cross term $\mathsf q_i^\top\mathsf k_j/\tau_h$, key-norm term, source-dependent trace and log-determinant terms of Eq.~\eqref{M-eq:projected_full_kl}, and positional prior.\\[2mm]
+Panel B: after whitening by the pooled projected key covariance, the distribution of $\varepsilon_i$ from Eq.~\eqref{eq:projected_bias_error} and of the rowwise $\ell_1$ distance between Gaussian and dot-product routing, with the bound of Eq.~\eqref{eq:projected_softmax_bound}.\\[2mm]
+Panel C: dispersion of the projected key covariances $V_{K,j}$ across sources, and the share of that dispersion induced by the frames rather than by the stored covariances.\\[2mm]
+TO COLLECT: validation-set score components or projected moments for all layers and heads, with sampling coverage.}
+\caption{Reserved diagnostics for the conditions of Proposition~\ref{M-prop:projected_dot_product} in the trained model. Panel A attributes the routing logits to their Gaussian components; Panels B and C measure the distance of the trained model from the constant-norm and shared-covariance hypotheses. The figure characterizes the realized operator. Whether covariance-aware routing improves prediction requires the retraining comparisons of Table~\ref{M-tab:placeholder_main_results}.}
+\label{fig:placeholder_routing_decomposition}
+\end{figure}
+
+% PLACEHOLDER M3: learning curves and the generalization gap.
+\begin{figure}[htbp]
+\centering
+\placeholderbox{50mm}{PLACEHOLDER M3\\[3mm]
+Panel A: held-out cross-entropy versus training-token presentations for every arm of Table~\ref{M-tab:placeholder_main_results}, one curve per seed.\\[2mm]
+Panel B: the same curves against measured device-hours.\\[2mm]
+Panel C: held-out minus training cross-entropy, with the training term evaluated on a fixed training-split sample under the evaluation protocol.\\[2mm]
+TO COLLECT: per-seed validation curves at a common cadence, token counts, passes over the unique training tokens, synchronized wall-clock time, and the checkpoint-selection rule.}
+\caption{Reserved learning curves for the arms of Table~\ref{M-tab:placeholder_main_results}. Panels A and B separate data efficiency from compute efficiency. Panel C records the generalization gap on one protocol, which bears on interpretation because per-type tables hold most of the parameters.}
+\label{fig:placeholder_learning_curves}
+\end{figure}
 
 \begin{table}[htbp]
 \centering
 \small
-\begin{tabular}{lccc}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}Xccc@{}}
 \toprule
 Model and source & Tokenization & Context & Word-normalized test PPL \\
 \midrule
-Evaluated realization & GPT-2 BPE & pending & pending \\
+Evaluated realization ($K=128$, exponential chart) & GPT-2 BPE & $128$ & pending \\
 Published reference points & pending & pending & pending \\
 \bottomrule
-\end{tabular}
-\caption{Reserved calibration of the headline result. Word-normalized perplexity is the exponential of the summed test negative log-likelihood divided by the number of word-level test tokens, after an audit confirming that both token streams encode the same text. Published rows use different protocols and are contextual references, not matched comparisons.}
+\end{tabularx}
+\caption{Reserved calibration of the evaluated result. Word-normalized perplexity is the exponential of the summed test negative log-likelihood divided by the number of word-level test tokens, after an audit confirming that both token streams encode the same text. Published rows use different protocols and are contextual references, not matched comparisons.}
 \label{tab:placeholder_calibration}
 \end{table}
 
@@ -252,7 +1237,7 @@ TO COLLECT: a declared grid varying one factor at a time, with paired seeds and 
 \label{fig:placeholder_scaling}
 \end{figure}
 
-% bibliographystyle is set by jmlr2e
+\clearpage
 \bibliography{../references}
 
 \end{document}
