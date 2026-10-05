@@ -46,6 +46,8 @@ updated: 2026-10-04
 
 [[dennis-2026-glk-lie-algebra-links-v2]] (2026-10-04) derives the standard multi-head value path as the first-order channel of a group-valued exponential link, with order zero a head-routed flat transport and order two cross-head mixing, and states the implemented `content_link_chart` options as three charts of the same tiled mean maps. In the matched single-seed $K=20$ runs of [[vfe3-2026-10-03-link-charts-and-channel-receiver]] the charts reached test cross-entropies within 0.0037 nats, while the trained links differed in singular-set crossing and conditioning; the closed-form channel receiver was 0.0276 nats worse in a configuration that does not isolate it.
 
+[[vfe3-2026-10-05-k30-multiseed]] (2026-10-05) measures the seed noise floor of one VFE_3.0 configuration ($K=30$, four layers, one epoch) over three seeds: test PPL 87.19 with SD 0.33 and test CE SD 0.0037 nats, so single-seed differences under about 0.9 PPL are not established there.
+
 ## vfe3 projected attention routes, October 2, 2026
 
 [[dennis-2026-projected-gradient]] derives the receiver energies, cut-model routing, closed-form natural-parameter updates and profiled self-coupling of the gradient attention route; [[vfe3-2026-10-02-projected-route-consolidation]] records their implementation and the retirement of transported attention (CPU tests only, no training). [[dennis-2026-phi-natgrad]] gives the frame-table optimizers, and [[dennis-2026-neuron-free-agent-theory]] a conditional neuron-free construction (inconclusive for the full target). Synthesis: [[Projected gradient attention]].
