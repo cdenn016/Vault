@@ -1,0 +1,481 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs,array,tabularx}
+\usepackage{microtype,xcolor}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{xr-hyper}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=green!40!black,urlcolor=blue!50!black]{hyperref}
+\usepackage{url}
+\usepackage[htt]{hyphenat}
+\emergencystretch=3em
+
+% Cross-references into the companion manuscript (M-) and its supplement (S-).
+% Compile those two documents first (or place their .aux files beside this one).
+\externaldocument[M-][nocite]{GL(K)_attention_v2}
+\externaldocument[S-][nocite]{GL(K)_supplementary_v2}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\providecommand{\GL}{\mathrm{GL}}
+\providecommand{\gl}{\mathfrak{gl}}
+\providecommand{\tr}{\operatorname{tr}}
+\providecommand{\cfg}[1]{{\small\texttt{#1}}}
+\providecommand{\KL}{D_{\mathrm{KL}}}
+\newcommand{\E}{\mathbb E}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Gauss}{\mathcal N}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\Ot}{\widetilde O}
+\newcommand{\Bt}{\widetilde B}
+\newcommand{\xh}{\hat x}
+\newcommand{\dexp}{\mathrm d\exp}
+\newcommand{\Mref}[1]{\ref{M-#1}}
+\newcommand{\Sref}[1]{\ref{S-#1}}
+
+\title{Edge-Dependent and Latent Content Links:\\Theory and Implementation}
+\author{Robert C. Dennis}
+\date{Working note, October 6, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+In the gauge-covariant attention construction of the companion manuscript, every edge of a layer carries the same reference link $e^{L}$, $L=OT$, so that every triangle of the layer has the holonomy class of one matrix. This note develops two extensions that make the link depend on the edge, and records how they are implemented in the \texttt{vfe3} code. The first replaces $e^{L}$ by $G_{ij}=g_ie^{L}E_{ij}$ with a rank-$r$ edge factor $E_{ij}=I+A_i\Phi_{ij}B_j^\top$ whose factors are amortized functions of the normalized reference states. It comes in a curved mode, $E_{ij}=\exp(A_iB_j^\top)$, whose triangle holonomies vary from triangle to triangle, and a pure-gauge control, $G_{ij}=g_ie^{L}g_j^{-1}$, whose holonomies all lie in the class of $e^{L}$. We give the closed-form message, which needs only $r\times r$ matrix functions per edge, the exact moment-matched predictive covariance, the gauge covariance and causality of both, and their exact reduction to the exponential chart at initialization. The second extension promotes the receiver factor $A_i$ to a latent variable with a Gaussian prior around its amortized value, estimated per context by maximum a posteriori inference. We show that only the receiver factor can be inferred without breaking causality, that profiling out the receiver's next-layer state reduces the link energy to the trace of the predictive covariance, that the stationarity condition is a fixed point whose unit step is the natural-gradient step in the Fisher metric of the prior, and that this iteration converges locally exactly when the prior width times the curvature stays inside an explicit interval. A Wilson-type prior on depth loops is added, in which the shared generators of the upper layer cancel identically, so that the exponential chart is loop-flat and the loop energy measures token differences of the edge factors. The zero-width limit returns the amortized model. All identities were checked in float64 at small size against independent brute-force references; the extensions are implemented and opt-in, and no training result is reported here.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+
+The companion manuscript, \emph{Gauge-Covariant Gaussian Attention through Lie-Algebra Links} (file \texttt{GL(K)\_attention\_v2.tex}, cited below by its theorem and equation numbers), places group-valued links $\Theta_{ij}=U_ie^{L_{ij}}U_j^{-1}$ on the communication graph of a transformer layer (Definition~\Mref{def:lie_link}) and shows that, for tiled heads with routing kept outside the exponent, the routed message is a routed oblique projection followed by transport by $e^{L}$ (Theorem~\Mref{thm:routed_transport}). The evaluated model shares one generator per layer, $L_{ij}=L=OT$. With a shared generator, every triangle holonomy $\Theta_{ik}^{-1}\Theta_{ij}\Theta_{jk}$ is conjugate to $e^{L}$ (Section~\Mref{sec:lie_holonomy}), so the link field of a layer has exactly one holonomy class. Edge dependence is the natural next step, and the supplement develops it as a latent generator per edge with a normalized prior and a curvature energy (Section~\Sref{sec:latent_links}), at a cost of order $N_\ell N^2K^3$ per inference step.
+
+This note makes that program computable in a causal language model and records the implementation. Section~\ref{sec:edge} defines edge-dependent links with amortized rank-$r$ factors in two modes, a curved mode and a pure-gauge control, and derives their message and predictive covariance. Section~\ref{sec:latent} promotes the receiver factor to a latent variable, derives the per-receiver energy, analyzes the inference iteration, and adds the loop prior. Section~\ref{sec:impl} maps the mathematics to configuration keys, code, and tests, and Section~\ref{sec:costs} records parameter counts, timings, and memory. Section~\ref{sec:scope} states what has and has not been established.
+
+\paragraph{Notation.}
+We follow the companion manuscript. Token $i$ has a frame $U_i\in\GL(K)$, a local belief $\Gauss(\mu_i,\Sigma_i)$, and reference moments $\xi_i=U_i^{-1}\mu_i$ and $C_i=U_i^{-1}\Sigma_iU_i^{-\top}$. A layer has $H$ heads of width $d=K/H$ that tile the reference space, a stacked invertible sending map $T=[T_1;\cdots;T_H]\in\R^{K\times K}$ with $T_h\in\R^{d\times K}$, and a stacked receiving factor $O$. We write
+\begin{equation}
+L=OT,\qquad F=e^{L},\qquad R=T^{-1},\qquad \Ot=FR=e^{L}T^{-1},\qquad \Pi_h=R_hT_h,
+\label{eq:notation}
+\end{equation}
+where $R_h\in\R^{K\times d}$ is the column block of $R$ belonging to head $h$, so that $\Ot_h=FR_h$ is the exponential-chart receiving map of head $h$ (Eq.~\Mref{eq:lie_three_charts}) and the $\Pi_h$ are the oblique head projectors of Eq.~\Mref{eq:routed_projectors}. Routing weights $\beta_{ij}^{(h)}\ge0$ are row-stochastic and causal, $\beta_{ij}^{(h)}=0$ for $j>i$, and $\Pi(\boldsymbol\beta_{ij})=\sum_h\beta_{ij}^{(h)}\Pi_h$. The head values and pooled values are $v_j^h=T_h\xi_j$ and $z_i^h=\sum_j\beta_{ij}^{(h)}v_j^h$, and $z_i$ stacks the $z_i^h$. The residual coefficient is $r\in\{0,1\}$. In this notation the exponential-chart message of Theorem~\Mref{thm:routed_transport} is
+\begin{equation}
+\tilde m_i=\sum_jF\Pi(\boldsymbol\beta_{ij})\xi_j=\Ot z_i,\qquad m_i=U_i\tilde m_i.
+\label{eq:base_message}
+\end{equation}
+The entire function $\varphi_1(Z)=\sum_{n\ge1}Z^{n-1}/n!$ is that of Eq.~\Mref{eq:lie_phi1}, and $\dexp_X(Y)=\int_0^1e^{sX}Ye^{(1-s)X}ds$ is the Fr\'echet derivative of the matrix exponential \citep{Higham2008}.
+
+\section{Edge-dependent links}
+\label{sec:edge}
+
+\subsection{The link field}
+
+\begin{definition}[Edge link field]
+\label{def:edge_link}
+Fix a rank $1\le r\le K$. Given per-token factors $A_i,B_j\in\R^{K\times r}$, receiver matrices $g_i\in\GL(K)$, and coefficients $\Phi_{ij}\in\R^{r\times r}$, the edge link field is
+\begin{equation}
+G_{ij}=g_iFE_{ij},\qquad E_{ij}=I_K+A_i\Phi_{ij}B_j^\top,
+\label{eq:edge_link}
+\end{equation}
+with local link $\Theta_{ij}=U_iG_{ij}U_j^{-1}$, head edge map $M^{(h)}_{ij}=U_iG_{ij}\Pi_hU_j^{-1}$, and message
+\begin{equation}
+\tilde m_i=\sum_jG_{ij}\Pi(\boldsymbol\beta_{ij})\xi_j,\qquad m_i=U_i\tilde m_i.
+\label{eq:edge_message}
+\end{equation}
+\end{definition}
+
+At $g_i=I$ and $E_{ij}=I$ the head edge map is $U_iF\Pi_hU_j^{-1}=U_i\Ot_hT_hU_j^{-1}$, the exponential-chart head map, and Eq.~\eqref{eq:edge_message} is Eq.~\eqref{eq:base_message}. The factors are read from the RMS-normalized reference state
+\begin{equation}
+\xh_i=\frac{\xi_i}{\bigl(K^{-1}\|\xi_i\|^2+\varepsilon\bigr)^{1/2}},\qquad\varepsilon=10^{-12},
+\label{eq:rms}
+\end{equation}
+by learned linear maps. The two implemented modes are as follows.
+
+\paragraph{Curved mode (\cfg{lowrank}).}
+$A_i=\operatorname{vec}^{-1}(W_A\xh_i)$ and $B_j=\operatorname{vec}^{-1}(W_B\xh_j)$ with $W_A,W_B\in\R^{Kr\times K}$, $g_i=I$, and
+\begin{equation}
+\Phi_{ij}=\varphi_1(B_j^\top A_i).
+\label{eq:lowrank_phi}
+\end{equation}
+
+\paragraph{Pure-gauge mode (\cfg{pure\_gauge}).}
+One basis $A\in\R^{K\times r}$ per layer is shared by all tokens, $A_i=A$, $B_j=\operatorname{vec}^{-1}(W_B\xh_j)$, and
+\begin{equation}
+g_i=\exp(AB_i^\top)=I+A\varphi_1(B_i^\top A)B_i^\top,\qquad \Phi_{ij}=-\varphi_1(-B_j^\top A).
+\label{eq:pure_gauge}
+\end{equation}
+
+\begin{proposition}[Group values and reduction]
+\label{prop:group_values}
+\begin{enumerate}
+\item In the curved mode $E_{ij}=\exp(A_iB_j^\top)$, so $G_{ij}=e^{L}e^{A_iB_j^\top}\in\GL^+(K)$ with $\det G_{ij}=e^{\tr L+\tr(B_j^\top A_i)}$.
+\item In the pure-gauge mode $E_{ij}=\exp(-AB_j^\top)=g_j^{-1}$, so $G_{ij}=g_ie^{L}g_j^{-1}$.
+\item In either mode, if $B_j=0$ for every token, then $G_{ij}=e^{L}$ on every edge, and the message of Eq.~\eqref{eq:edge_message} and the covariance of Proposition~\ref{prop:edge_covariance} equal those of the exponential chart.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+Lemma~\Mref{lem:lie_lowrank} states $\exp(\mathsf A\mathsf B)=I+\mathsf A\varphi_1(\mathsf B\mathsf A)\mathsf B$ for $\mathsf A\in\R^{K\times r}$ and $\mathsf B\in\R^{r\times K}$. With $\mathsf A=A_i$ and $\mathsf B=B_j^\top$ it gives item 1, and $\det e^X=e^{\tr X}$ with $\tr(A_iB_j^\top)=\tr(B_j^\top A_i)$ gives the determinant. With $\mathsf A=A$ and $\mathsf B=-B_j^\top$ it gives $\exp(-AB_j^\top)=I-A\varphi_1(-B_j^\top A)B_j^\top=E_{ij}$, and $\exp(-AB_j^\top)=\exp(AB_j^\top)^{-1}=g_j^{-1}$, which is item 2. For item 3, $B=0$ gives $E_{ij}=I$ and $g_i=I$.
+\end{proof}
+
+In the curved mode the edge part $E_{ij}-I=A_i\varphi_1(B_j^\top A_i)B_j^\top$ has rank at most $r$, it acts as the identity on the orthogonal complement of $\operatorname{im}B_j$, and its image lies in $\operatorname{im}A_i$. The receiver chooses where the edge writes and the sender chooses what the edge reads, the same split that Proposition~\Mref{prop:lie_split} establishes for the head structure of the shared link.
+
+\begin{proposition}[Holonomy of the two modes]
+\label{prop:edge_holonomy}
+For $k<j<i$, the triangle holonomy $\Theta_{ik}^{-1}\Theta_{ij}\Theta_{jk}$ of Definition~\Mref{def:lie_triangle} is conjugate by $U_k$ to $G_{ik}^{-1}G_{ij}G_{jk}$.
+\begin{enumerate}
+\item In the pure-gauge mode, $G_{ik}^{-1}G_{ij}G_{jk}=g_ke^{L}g_k^{-1}$. Every triangle carries the holonomy class of $e^{L}$, the class of the shared-generator model.
+\item In the curved mode, $G_{ik}^{-1}G_{ij}G_{jk}=e^{-A_iB_k^\top}e^{A_iB_j^\top}e^{L}e^{A_jB_k^\top}$. Replacing every $B$ by $sB$,
+\begin{equation}
+\tr\bigl(G_{ik}^{-1}G_{ij}G_{jk}\bigr)=\tr e^{L}+s\bigl[\tr\bigl((B_j-B_k)^\top e^{L}A_i\bigr)+\tr\bigl(B_k^\top e^{L}A_j\bigr)\bigr]+O(s^2),
+\label{eq:holonomy_trace}
+\end{equation}
+so for generic factors the holonomy classes differ from triangle to triangle.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+The conjugacy is that of Eq.~\Mref{eq:lie_triangle}. In the pure-gauge mode,
+\begin{equation*}
+G_{ik}^{-1}G_{ij}G_{jk}=g_ke^{-L}g_i^{-1}g_ie^{L}g_j^{-1}g_je^{L}g_k^{-1}=g_ke^{L}g_k^{-1}.
+\end{equation*}
+ In the curved mode the product follows from item 1 of Proposition~\ref{prop:group_values}. Expanding each factor $e^{sX}=I+sX+O(s^2)$ gives $e^{L}+s[A_i(B_j-B_k)^\top e^{L}+e^{L}A_jB_k^\top]+O(s^2)$, and the trace is Eq.~\eqref{eq:holonomy_trace} by cyclicity. Since $e^{L}$ is invertible, the first-order coefficient is a nonzero linear function of $B_j$ whenever $A_i\ne0$, so it does not vanish identically.
+\end{proof}
+
+The pure-gauge mode is therefore the control for the curved mode. It has the same kind of content dependence, with factors computed from the same normalized states, and it adds no holonomy beyond the shared class. It is not a frame change of the exponential chart: the head projectors $\Pi_h$ stay in the original reference frame, and $g_ie^{L}g_j^{-1}\Pi_h$ differs from $g_ie^{L}\Pi_hg_j^{-1}$ unless $g_j$ commutes with $\Pi_h$. The two modes are not parameter-matched: the curved mode stores $2K^2r$ parameters per layer and the control $K^2r+Kr$.
+
+\begin{remark}[Kind of nonlinearity]
+\label{rem:nonlinearity}
+At fixed routing weights the exponential-chart message is linear in the reference states. The edge links make it nonlinear, but only in a restricted way. The factors read $\xh$, which is invariant under $\xi\mapsto s\xi$ for $s>0$ up to the $\varepsilon$ regularization, so at fixed routing the message is positively homogeneous of degree one under a common scaling of all states and depends nonlinearly only on their directions. The nonlinearity is multiplicative, of rank $r$, and between tokens; the position-wise block MLP supplies an amplitude nonlinearity within each token. The edge links do not take over the role of the MLP.
+\end{remark}
+
+\begin{proposition}[Gauge covariance and causality]
+\label{prop:edge_covariance_law}
+\begin{enumerate}
+\item Under the passive site action $\mu_i\mapsto g_i\mu_i$, $\Sigma_i\mapsto g_i\Sigma_ig_i^\top$, $U_i\mapsto g_iU_i$ of Eq.~\Mref{eq:passive_site_action}, with invariant routing weights, the quantities $\xi_i$, $C_i$, $\xh_i$, $A_i$, $B_i$, $\Phi_{ij}$, and $G_{ij}$ are unchanged, $\Theta_{ij}\mapsto g_i\Theta_{ij}g_j^{-1}$, $m_i\mapsto g_im_i$, and the local covariance $U_iC_i^{\mathrm{att}}U_i^\top$ of Proposition~\ref{prop:edge_covariance} obeys the passive law.
+\item If $\Phi_{ij}$ is finite on every pair with $\beta_{ij}^{(h)}=0$ for all $h$, then the message and covariance of receiver $i$ depend only on the states of tokens $j\le i$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+Item 1: $\xi_i=U_i^{-1}\mu_i$ and $C_i$ are invariant under the passive action, so $\xh_i$, the factors, the coefficients, and $G_{ij}$ are invariant, and the local objects are conjugated or multiplied by the frames. Item 2: every term of Eq.~\eqref{eq:edge_message} and of Proposition~\ref{prop:edge_covariance} that involves a source $j$ carries a factor $\beta_{ij}^{(h)}$, which vanishes for $j>i$. The product vanishes provided the other factor is finite.
+\end{proof}
+
+The finiteness condition in item 2 is not automatic in floating point: $\varphi_1(B_j^\top A_i)$ can overflow for large factors on future pairs, and $\infty\cdot0$ is not a number. The implementation sets the argument $B_j^\top A_i$ to zero, before $\varphi_1$ is evaluated, on every pair whose routing weight vanishes in every head, so that $\Phi_{ij}=\varphi_1(0)=I$ there.
+
+\paragraph{Initialization.}
+In both modes $W_B=0$ at initialization, so by item 3 of Proposition~\ref{prop:group_values} the model starts exactly at the exponential chart and departs from it only as the outer loss moves $W_B$. In the curved mode $W_A$ is drawn from $\Gauss(0,K^{-2})$; since $\|\xh_i\|^2\approx K$, each column of $A_i$ then has expected squared norm one. In the pure-gauge mode $A$ has orthonormal columns.
+
+\subsection{Mean}
+
+Write $\Bt_j=R^\top B_j=T^{-\top}B_j\in\R^{K\times r}$ and let $(\Bt_j)_h\in\R^{d\times r}$ be its row block for head $h$. Define the per-head sender coordinates, the routed edge coefficients, and the receiver sum
+\begin{equation}
+p_j^h=(\Bt_j)_h^\top v_j^h\in\R^r,\qquad c_{ij}=\sum_h\beta_{ij}^{(h)}p_j^h,\qquad y_i=\sum_j\Phi_{ij}c_{ij}.
+\label{eq:mean_coefficients}
+\end{equation}
+
+\begin{proposition}[Factored message]
+\label{prop:factored_mean}
+The message of Eq.~\eqref{eq:edge_message} is
+\begin{equation}
+\tilde m_i=g_i\Ot\bigl(z_i+TA_iy_i\bigr).
+\label{eq:factored_mean}
+\end{equation}
+In the pure-gauge mode this is $\tilde m_i=g_i\Ot\bigl(z_i-TA\sum_j\varphi_1(-B_j^\top A)c_{ij}\bigr)$.
+\end{proposition}
+\begin{proof}
+Let $y_{ij}$ stack $\beta_{ij}^{(h)}v_j^h$ over heads. Then $\Pi(\boldsymbol\beta_{ij})\xi_j=\sum_h\beta_{ij}^{(h)}R_hT_h\xi_j=Ry_{ij}$, and
+\begin{equation*}
+G_{ij}\Pi(\boldsymbol\beta_{ij})\xi_j=g_iFRy_{ij}+g_iFA_i\Phi_{ij}B_j^\top Ry_{ij}.
+\end{equation*}
+Here $FR=\Ot$, $FA_i=\Ot TA_i$ because $\Ot T=F$, and $B_j^\top Ry_{ij}=\sum_h\beta_{ij}^{(h)}(R_h^\top B_j)^\top v_j^h=c_{ij}$. Summing over $j$ and using $\sum_jy_{ij}=z_i$ gives Eq.~\eqref{eq:factored_mean}.
+\end{proof}
+
+The curved mode needs one $r\times r$ matrix function per causal edge and no $K\times K$ matrix per edge; the pure-gauge mode needs two $r\times r$ functions per token. The $\varphi_1$ evaluations are computed once per layer and shared by the mean, the covariance, and the diagnostics.
+
+\subsection{Moment-matched covariance}
+
+The predictive kernel of item 2 of Theorem~\Mref{thm:probabilistic_status} is stated for edge-dependent head maps $M^{(h)}_{iJ}$; with the maps of Definition~\ref{def:edge_link} it reads, in reference coordinates,
+\begin{equation}
+k_i'\mid k,J_i\sim\Gauss\Bigl(rk_i+\sum_hG_{iJ_i^{(h)}}\Pi_hk_{J_i^{(h)}},\widetilde Q_i\Bigr),
+\label{eq:edge_kernel}
+\end{equation}
+with independent head labels of laws $\beta_i^{(h)}$ and independent source states $k_j\sim\Gauss(\xi_j,C_j)$.
+
+\begin{proposition}[Edge covariance]
+\label{prop:edge_covariance}
+The covariance of $k_i'$ under Eq.~\eqref{eq:edge_kernel} is
+\begin{equation}
+\begin{aligned}
+C_i^{\mathrm{att}}={}&\widetilde Q_i+r\Bigl[C_i+\sum_h\beta_{ii}^{(h)}\bigl(G_{ii}\Pi_hC_i+C_i\Pi_h^\top G_{ii}^\top\bigr)\Bigr]+\sum_j\sum_{h,h'}c_{ij}^{hh'}G_{ij}\Pi_hC_j\Pi_{h'}^\top G_{ij}^\top\\
+&+\sum_h\Bigl[\sum_j\beta_{ij}^{(h)}n_{ij}^{h}n_{ij}^{h\top}-\bar n_i^{h}\bar n_i^{h\top}\Bigr],
+\end{aligned}
+\label{eq:edge_covariance}
+\end{equation}
+with $c_{ij}^{hh}=\beta_{ij}^{(h)}$, $c_{ij}^{hh'}=\beta_{ij}^{(h)}\beta_{ij}^{(h')}$ for $h\ne h'$, $n_{ij}^h=G_{ij}\Pi_h\xi_j$, and $\bar n_i^h=\sum_j\beta_{ij}^{(h)}n_{ij}^h$.
+\end{proposition}
+\begin{proof}
+Write $\nu_i=\sum_hG_{iJ^{(h)}}\Pi_hk_{J^{(h)}}$, dropping the receiver index on the labels. By the law of total covariance, $\Cov(k_i')=\widetilde Q_i+\Cov(rk_i+\nu_i)$, and $\Cov(rk_i)=r^2C_i=rC_i$ for $r\in\{0,1\}$. Given the labels, $\nu_i$ is linear in independent Gaussian states, so $\E[\Cov(\nu_i\mid J)]=\sum_{h,h'}\E\bigl[\mathbf 1\{J^{(h)}=J^{(h')}\}G_{iJ^{(h)}}\Pi_hC_{J^{(h)}}\Pi_{h'}^\top G_{iJ^{(h)}}^\top\bigr]$, and the probability that heads $h$ and $h'$ both select $j$ is $c_{ij}^{hh'}$. The conditional mean $\E[\nu_i\mid J]=\sum_hn_{iJ^{(h)}}^h$ is a sum of independent terms, one per head, so its covariance is the sum of the per-head covariances $\sum_j\beta_{ij}^{(h)}n_{ij}^hn_{ij}^{h\top}-\bar n_i^h\bar n_i^{h\top}$. Finally, $k_i$ enters $\nu_i$ only on the events $J^{(h)}=i$, so $\Cov(rk_i,\nu_i)=r\sum_h\beta_{ii}^{(h)}C_i\Pi_h^\top G_{ii}^\top$.
+\end{proof}
+
+The argument never uses that the head maps are the same on every edge, which is why Theorem~\Mref{thm:probabilistic_status} already covers this case; at $G_{ij}=F$ Eq.~\eqref{eq:edge_covariance} is Eq.~\Mref{eq:predictive_kernel} of the companion manuscript with $M_h=F\Pi_h$.
+
+\paragraph{Factored evaluation.}
+Since $G_{ij}\Pi_h=g_iF\bigl(R_h+A_i\Phi_{ij}(\Bt_j)_h^\top\bigr)T_h$ and $n_{ij}^h=g_iF(R_hv_j^h+A_i\Phi_{ij}p_j^h)$, every term of Eq.~\eqref{eq:edge_covariance} other than the floor and the residual has the form $g_iF(\cdots)F^\top g_i^\top$. With the head-pair source blocks $s_j^{hh'}=T_hC_jT_{h'}^\top$, the spread $\widetilde\Sigma_i^h=\sum_j\beta_{ij}^{(h)}v_j^hv_j^{h\top}-z_i^hz_i^{h\top}$, and $q_i^h=\sum_j\beta_{ij}^{(h)}\Phi_{ij}p_j^h$, put
+\begin{align}
+P_i={}&\sum_j\sum_{h,h'}c_{ij}^{hh'}R_hs_j^{hh'}R_{h'}^\top+\sum_hR_h\widetilde\Sigma_i^hR_h^\top,\\
+X_i={}&\sum_j\Phi_{ij}\sum_{h,h'}c_{ij}^{hh'}(\Bt_j)_h^\top s_j^{hh'}R_{h'}^\top+\sum_h\Bigl[\sum_j\beta_{ij}^{(h)}\Phi_{ij}p_j^hv_j^{h\top}-q_i^hz_i^{h\top}\Bigr]R_h^\top,\\
+Y_i={}&\sum_j\Phi_{ij}\Bigl[\sum_{h,h'}c_{ij}^{hh'}(\Bt_j)_h^\top s_j^{hh'}(\Bt_j)_{h'}\Bigr]\Phi_{ij}^\top+\sum_h\Bigl[\sum_j\beta_{ij}^{(h)}(\Phi_{ij}p_j^h)(\Phi_{ij}p_j^h)^\top-q_i^hq_i^{h\top}\Bigr],
+\end{align}
+with $P_i\in\R^{K\times K}$, $X_i\in\R^{r\times K}$, and $Y_i\in\R^{r\times r}$. Expanding the products gives
+\begin{equation}
+C_i^{\mathrm{att}}=\widetilde Q_i+r\bigl[C_i+\Xi_i+\Xi_i^\top\bigr]+g_iF\bigl(P_i+A_iX_i+X_i^\top A_i^\top+A_iY_iA_i^\top\bigr)F^\top g_i^\top,
+\label{eq:factored_covariance}
+\end{equation}
+with $\Xi_i=\sum_h\beta_{ii}^{(h)}G_{ii}\Pi_hC_i$. The term $FP_iF^\top=\sum_{h,g}\Ot_hP_i^{hg}\Ot_g^\top$ is the existing exponential-chart covariance, and the edge correction is $\hat A_i\hat X_i^\top+\hat X_i\hat A_i^\top+\hat A_iY_i\hat A_i^\top$ with $\hat A_i=FA_i=\Ot TA_i$ and $\hat X_i=FX_i^\top$, which is formed through the head blocks of $\Ot$ without a dense $K\times K$ intermediate per edge.
+
+\begin{remark}[Shift invariance and its failure]
+\label{rem:shift}
+The exponential-chart covariance code subtracts a common reference mean, that of token 0, from all values before forming the spread, which is valid because the spread of $n_{ij}^h=F\Pi_h\xi_j$ is invariant under $\xi_j\mapsto\xi_j-t$ for all $j$. With edge links, $n_{ij}^h$ shifts by $G_{ij}\Pi_ht$, which depends on $j$, so the spread of Eq.~\eqref{eq:edge_covariance} is not invariant under a common shift. What remains invariant is the covariance of the pair $(v_j^h,\Phi_{ij}p_j^h)$ under the routing law with $v$ shifted alone: since $\sum_j\beta_{ij}^{(h)}=1$, the cross term $\sum_j\beta_{ij}^{(h)}\Phi_{ij}p_j^h(v_j^h-t)^\top-q_i^h(z_i^h-t)^\top$ does not depend on $t$. The sender coordinates $p_j^h$ must therefore be formed from the unshifted values, while the shifted values may be used in $\widetilde\Sigma_i^h$ and in the $v$ slot of $X_i$. A test with a nonzero token-0 mean and nonzero edge factors detects a violation.
+\end{remark}
+
+For diagonal beliefs on block-diagonal frames, the implementation needs only the diagonal reference blocks of $C_i^{\mathrm{att}}$ and adds the corresponding diagonal blocks of the edge correction and of the residual cross term to the existing blockwise body. In the pure-gauge mode the outer matrix $g_i$ is a full $K\times K$ matrix of the form $I+A\varphi_1(B_i^\top A)B_i^\top$, and its blockwise sandwich is formed from $B_i^\top\Ot$ without a dense intermediate. The dense body serves as the oracle for the blockwise body in the tests.
+
+\section{Latent receiver factors}
+\label{sec:latent}
+
+\subsection{From latent generators to latent receiver factors}
+
+Section~\Sref{sec:latent_links} of the supplement promotes every edge generator $L^\ell_{ij}\in\gl(K)$ to a latent variable with an anchored Gaussian prior and a loop energy (Eq.~\Sref{eq:lie_latent_model}), estimates it by maximum a posteriori inference inside the free energy of Eq.~\Sref{eq:lie_map_free_energy}, and notes that the all-edge cost of order $N_\ell N^2K^3$ per step points to low-rank deviations or amortization. The construction here is one such restriction. The latent object is the receiver factor $A_i^\ell$ of the curved mode, the deviation from the shared link is the group factor $e^{A_iB_j^\top}$ of rank-$r$ generator rather than an additive generator, and the anchor is the amortized factor $A_i^0=\operatorname{vec}^{-1}(W_A\xh_i)$ rather than the shared generator alone. Two features of a causal language model fix the remaining choices.
+
+\begin{proposition}[Only the receiver factor can be inferred causally]
+\label{prop:causal_receiver}
+Suppose each receiver's energy $\mathcal F_i$ depends only on its own latent factor $A_i$ and on quantities of tokens $j\le i$. Then the per-receiver estimate of $A_i$, and every finite iterate of a per-receiver inference map, depends only on tokens $j\le i$. A latent sender factor does not have this property: $B_j$ enters $G_{ij}$ for every $i\ge j$, so an estimate of $B_j$ from the energies of the receivers that use it depends on tokens $i>j$, and so does every message that uses $B_j$, including the message at $j$ through $G_{jj}$.
+\end{proposition}
+\begin{proof}
+In the curved mode $A_i$ enters only the links $G_{ij}$ into receiver $i$, whose sources satisfy $j\le i$ by causal routing. If $\mathcal F_i$ depends on $A_i$ and on tokens $j\le i$, so do its minimizers and the iterates of any map built from $\mathcal F_i$ and its derivatives. For the sender factor, a joint estimate of $B_j$ couples the energies $\mathcal F_i$ for all $i\ge j$, each of which contains token $i$.
+\end{proof}
+
+The sender factors stay amortized, and each receiver's inference problem is independent of the others.
+
+\subsection{The per-receiver energy}
+
+Fix a layer and receiver $i$, hold the recognition law of the layer's input states and labels fixed at $q(k_j)=\Gauss(\xi_j,C_j)$ and $\beta_i^{(h)}$, and take the kernel of Eq.~\eqref{eq:edge_kernel} with transport covariance $Q_i$ as the generative factor of the next-layer state $k_i'$. The latent factor has the prior
+\begin{equation}
+A_i\sim\Gauss\bigl(A_i^0,\sigma_L^2I_{Kr}\bigr),
+\label{eq:factor_prior}
+\end{equation}
+optionally multiplied by the loop factor of Section~\ref{sec:loops}. In a causal forward pass, the later layers and the observation of token $i$ are not available when layer $\ell$ is computed, so the recognition law $q'(k_i')=\Gauss(\nu,S)$ of the next-layer state is chosen against this one transition. This is a filtering approximation to the free energy of Eq.~\Sref{eq:lie_map_free_energy}, not that free energy restricted to $A_i$.
+
+\begin{proposition}[Profiled transport energy]
+\label{prop:profiled}
+Let $\nu_i^{\mathrm{tot}}=rk_i+\sum_hG_{iJ^{(h)}}\Pi_hk_{J^{(h)}}$ be the random kernel mean, with mean $\bar m_i$ and covariance $V_i(A_i)$ under $q$, and let $q'$ be independent of $(k,J)$. Then
+\begin{equation}
+\min_{\nu,S\succ0}\Bigl\{\E_{q\otimes q'}\bigl[-\log\Gauss(k_i';\nu_i^{\mathrm{tot}},Q_i)\bigr]-\mathcal H[q']\Bigr\}=\tfrac12\tr\bigl(Q_i^{-1}V_i(A_i)\bigr)+\mathrm{const},
+\label{eq:profiled}
+\end{equation}
+attained at $\nu=\bar m_i$ and $S=Q_i$, where the constant does not depend on $A_i$, and $V_i=C_i^{\mathrm{att}}-\widetilde Q_i$ is the covariance of Proposition~\ref{prop:edge_covariance} without the floor.
+\end{proposition}
+\begin{proof}
+Under independence, $\E\|k_i'-\nu_i^{\mathrm{tot}}\|_{Q_i^{-1}}^2=\tr(Q_i^{-1}S)+\tr(Q_i^{-1}V_i)+(\nu-\bar m_i)^\top Q_i^{-1}(\nu-\bar m_i)$, and $\mathcal H[q']=\tfrac12\log\det(2\pi eS)$. The objective is therefore $\tfrac12\tr(Q_i^{-1}V_i)$ plus $\tfrac12(\nu-\bar m_i)^\top Q_i^{-1}(\nu-\bar m_i)$, minimized at $\nu=\bar m_i$, plus $\tfrac12\tr(Q_i^{-1}S)-\tfrac12\log\det S$, minimized at $S=Q_i$, plus terms in $Q_i$ alone.
+\end{proof}
+
+With $Q_i=c_iI_K$ and $c_i=\tr(C_i)/K$, the receiver's mean reference variance, the transport energy is the dimensionless predictive variance
+\begin{equation}
+\mathcal E_i(A_i)=\frac{\tr V_i(A_i)}{2c_i},
+\label{eq:transport_energy}
+\end{equation}
+which is invariant under the passive action because $C_i$ and $V_i$ are reference quantities. The choice of $Q_i$ is a modeling choice that makes the energy scale-free; it is not derived. The per-receiver energy is
+\begin{equation}
+\mathcal F_i(A_i)=\mathcal E_i(A_i)+\frac{1}{2\sigma_L^2}\|A_i-A_i^0\|_F^2+\lambda_W\mathcal W_i(A_i),
+\label{eq:receiver_energy}
+\end{equation}
+with the loop energy $\mathcal W_i$ of Section~\ref{sec:loops}. Lowering $\mathcal E_i$ rewards links that bring the transported sources into agreement and that contract the transported source uncertainty, and $\det E_{ij}=e^{\tr(B_j^\top A_i)}$ can be made arbitrarily small along directions of $A_i$. Nothing in $\mathcal E_i$ rewards a link for carrying content, so the anchored prior is what keeps the per-context problem tied to the factor that the outer loss trains. The supplement reaches the same conclusion for its unregularized problem, whose infimum over the exponential chart is approached at a singular transport or not at all (Proposition~\Sref{prop:app_chart_infimum}).
+
+\begin{remark}[Relation to the link field equation]
+\label{rem:current}
+By the envelope theorem, the derivative of the profiled energy in $A_i$ is the derivative of the expected transport term at the optimal $q'$. Let $\mathcal J_{ij}$ be the current of Proposition~\Sref{prop:lie_field_equation}, minus the derivative of the expected transport term in the group element $G_{ij}$, here with $\bar A=Q_i^{-1}$, the residual included in the mean, and the recognition law of Proposition~\ref{prop:profiled}. With $G_{ij}=Fe^{X_{ij}}$ and $X_{ij}=A_iB_j^\top$, the chain rule and the Frobenius adjoint $\dexp_X^*=\dexp_{X^\top}$ \citep{Higham2008} give
+\begin{equation}
+\nabla_{A_i}\mathcal E_i=-\sum_{j\le i}\dexp_{X_{ij}^\top}\bigl(F^\top\mathcal J_{ij}\bigr)B_j.
+\label{eq:pulled_current}
+\end{equation}
+The latent factor is driven by the supplement's current, a precision-weighted prediction error times the source state, pulled back through the rank-$r$ factorization.
+\end{remark}
+
+\subsection{Inference: a fixed point and its stability}
+
+\begin{proposition}[Fixed-point form and natural gradient]
+\label{prop:fixed_point}
+Let $\Gamma_i(A)=A_i^0-\sigma_L^2\nabla_A\bigl[\mathcal E_i+\lambda_W\mathcal W_i\bigr](A)$.
+\begin{enumerate}
+\item $A$ is stationary for $\mathcal F_i$ exactly when $A=\Gamma_i(A)$.
+\item $\Gamma_i(A)=A-\sigma_L^2\nabla\mathcal F_i(A)$, the natural-gradient step of unit size \citep{Amari1998} in the Fisher metric $\sigma_L^{-2}I$ of the prior of Eq.~\eqref{eq:factor_prior}.
+\item Consider the damped iteration $A^{(t)}=(1-\rho)A^{(t-1)}+\rho\Gamma_i(A^{(t-1)})$, $A^{(0)}=A_i^0$, with $0<\rho\le1$. Let $A^\star$ be a fixed point near which $\mathcal E_i+\lambda_W\mathcal W_i$ is twice continuously differentiable with Hessian eigenvalues $\lambda_1,\ldots,\lambda_{Kr}$. If $0<\rho(1+\sigma_L^2\lambda_k)<2$ for every $k$, the iteration converges linearly to $A^\star$ from every start close enough to it; if $\rho(1+\sigma_L^2\lambda_k)\notin[0,2]$ for some $k$, then $A^\star$ is a repelling fixed point in that direction. When $\mathcal F_i$ is strictly convex at $A^\star$, that is $\lambda_k>-\sigma_L^{-2}$, the undamped iteration converges locally if $\sigma_L^2\lambda_{\max}<1$ and is repelled if $\sigma_L^2\lambda_{\max}>1$, and damping extends the convergent range to $\sigma_L^2\lambda_{\max}<2/\rho-1$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+Item 1: $\nabla\mathcal F_i(A)=\sigma_L^{-2}(A-A_i^0)+\nabla[\mathcal E_i+\lambda_W\mathcal W_i](A)$, whose vanishing is $A=\Gamma_i(A)$. Item 2: $A-\sigma_L^2\nabla\mathcal F_i(A)=A_i^0-\sigma_L^2\nabla[\mathcal E_i+\lambda_W\mathcal W_i](A)$, and the Fisher information of $\Gauss(A_i^0,\sigma_L^2I)$ in its mean is $\sigma_L^{-2}I$, so the natural gradient is $\sigma_L^2\nabla\mathcal F_i$. Item 3: the Jacobian of the damped map at $A^\star$ is $I-\rho(I+\sigma_L^2H)$, with eigenvalues $1-\rho(1+\sigma_L^2\lambda_k)$. Spectral radius below one gives local linear convergence by Ostrowski's theorem \citep{OrtegaRheinboldt1970}, and an eigenvalue of modulus above one makes the fixed point repelling along its eigenvector. The two conditions in the strictly convex case follow by solving $0<\rho(1+\sigma_L^2\lambda)<2$ for $\lambda$.
+\end{proof}
+
+The curvature of $\mathcal E_i$ is not bounded by the prior: its gradient grows like $\varphi_1(B_j^\top A_i)$, and in the tiny float64 cases with $\rho=1$ one receiver with $\mathcal E_i$ of about $5\times10^3$ diverged at every $\sigma_L\ge0.02$, while receivers with $\mathcal E_i$ below about 20 reached the fixed point to $10^{-17}$ at $\sigma_L=0.1$. Damping removes oscillatory overshoot near a fixed point, but the first step still moves the factor by $\rho\sigma_L^2\nabla[\mathcal E_i+\lambda_W\mathcal W_i](A_i^0)$, so a large initial gradient overshoots unless $\rho$ is small. The implementation follows the specified iteration and has no step-size safeguard (Section~\ref{sec:scope}).
+
+The model uses the $T$-th iterate, with $T$ small (default 1), not the fixed point. At $T=1$ and $\rho=1$ the factor is $A_i^0-\sigma_L^2\nabla[\mathcal E_i+\lambda_W\mathcal W_i](A_i^0)$, one natural-gradient refinement of the amortized factor, the pattern of semi-amortized inference \citep{Kim2018SemiAmortized}. The outer parameters are trained through the unrolled iterate, with the inner gradient taken by automatic differentiation with a retained graph, so that the amortized map can absorb the bias of stopping early; implicit differentiation at the fixed point is not used.
+
+\begin{remark}[Inactive at initialization]
+\label{rem:latent_init}
+If $B_j=0$ for every token, then $E_{ij}=I$ does not depend on $A_i$, $\nabla\mathcal E_i=0$ and $\mathcal W_i=0$, so $\Gamma_i(A)=A_i^0$ and every iterate equals $A_i^0$. Since $W_B=0$ at initialization, the latent model starts at the amortized curved mode, which starts at the exponential chart, and the inference becomes active only as the outer loss moves $W_B$.
+\end{remark}
+
+\subsection{Loop prior}
+\label{sec:loops}
+
+Following Eq.~\Sref{eq:lie_depth_loops}, two-step routes from token $k$ at layer $\ell$ to token $i$ at layer $\ell+2$ are compared through the loops
+\begin{equation}
+W_{ijk}^\ell=\bigl(G_{ik}^{\ell+1}G_{kk}^\ell\bigr)^{-1}G_{ij}^{\ell+1}G_{jk}^\ell,\qquad k<j\le i,\qquad G^\ell_{ab}=e^{L_\ell}E^\ell_{ab},
+\label{eq:loops}
+\end{equation}
+time-like for $j=i$ and space-like for $j<i$, and the loop energy of receiver $i$ at layer $\ell+1$ is
+\begin{equation}
+\mathcal W_i=\sum_{\substack{k<j\le i\\ i-w\le k}}w_{ijk}^\ell\Psi\bigl(W_{ijk}^\ell\bigr),\qquad\Psi(W)=\tfrac12\|W-I\|_F^2,\qquad w_{ijk}^\ell=\bar\pi_{ij}^{\ell+1}\bar\pi_{jk}^\ell,
+\label{eq:loop_energy}
+\end{equation}
+with window $w\ge1$ (or all loops) and weights from the head-averaged routing prior $\bar\pi$, not from the recognition weights, so that the loop factor is a genuine prior that reads no recognition law, as in Eq.~\Sref{eq:lie_latent_model}. The Frobenius defect is used because every continuous class function on $\GL(K,\R)$, $K\ge2$, takes its identity value on unipotent elements (Proposition~\Sref{prop:lie_blind}).
+
+\begin{proposition}[Cancellation and first-order form of the loops]
+\label{prop:loops}
+In the curved mode:
+\begin{enumerate}
+\item The shared generator of layer $\ell+1$ cancels, and
+\begin{equation}
+W_{ijk}^\ell=\bigl(E_{kk}^\ell\bigr)^{-1}e^{-L_\ell}\bigl(E_{ik}^{\ell+1}\bigr)^{-1}E_{ij}^{\ell+1}e^{L_\ell}E_{jk}^\ell.
+\label{eq:loop_cancel}
+\end{equation}
+\item If $B_j^{\ell+1}=B_k^{\ell+1}$ and $A_j^\ell=A_k^\ell$, then $W_{ijk}^\ell=I$. In particular every loop is the identity when every edge part vanishes, so the exponential chart is flat for the loop energy.
+\item To first order in the edge parts,
+\begin{equation}
+W_{ijk}^\ell-I=e^{-L_\ell}A_i^{\ell+1}\bigl(B_j^{\ell+1}-B_k^{\ell+1}\bigr)^\top e^{L_\ell}+\bigl(A_j^\ell-A_k^\ell\bigr)B_k^{\ell\top}+O\bigl(\|AB^\top\|^2\bigr).
+\label{eq:loop_first_order}
+\end{equation}
+\item Every factor in the loops of $\mathcal W_i$ belongs to a token $a\le i$; the only latent factor among them at layer $\ell+1$ is $A_i^{\ell+1}$, and the layer-$\ell$ factors were inferred at layer $\ell$ and are held fixed.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+Item 1: $(G_{ik}^{\ell+1}G_{kk}^\ell)^{-1}G_{ij}^{\ell+1}G_{jk}^\ell=(E_{kk}^\ell)^{-1}e^{-L_\ell}(E_{ik}^{\ell+1})^{-1}e^{-L_{\ell+1}}e^{L_{\ell+1}}E_{ij}^{\ell+1}e^{L_\ell}E_{jk}^\ell$. Item 2: $E^{\ell+1}_{ij}=\exp(A_i^{\ell+1}B_j^{\ell+1\top})=E^{\ell+1}_{ik}$ and $E^\ell_{jk}=\exp(A_j^\ell B_k^{\ell\top})=E^\ell_{kk}$, so Eq.~\eqref{eq:loop_cancel} collapses to $(E_{kk}^\ell)^{-1}e^{-L_\ell}e^{L_\ell}E_{kk}^\ell=I$. Item 3: insert $E=I+AB^\top+O(\|AB^\top\|^2)$ and $E^{-1}=I-AB^\top+O(\|AB^\top\|^2)$ into Eq.~\eqref{eq:loop_cancel} and keep first-order terms. Item 4: the loop indices satisfy $k<j\le i$, and $A_i^{\ell+1}$ is the only receiver factor of layer $\ell+1$ that appears.
+\end{proof}
+
+The loop energy thus differs from the triangle holonomy of Definition~\Mref{def:lie_triangle}, which for the shared generator is conjugate to $e^{L}\ne I$. The depth loops compare two routes that each pass through one link of each layer, so the shared generators cancel or conjugate and only the edge parts remain. By Eq.~\eqref{eq:loop_first_order} the loop prior penalizes, at first order, token differences of the sender factors at layer $\ell+1$, read through the receiver factor $A_i^{\ell+1}$ and conjugated by $e^{L_\ell}$, and token differences of the receiver factors at layer $\ell$, a discrete field strength of the edge factors. The loops are evaluated in float64, because $e^{-L_\ell}$ can be large for trained generators. Layer 0 has no loops, the loop energy requires latent factors, and with $\lambda_W=0$ nothing is threaded between layers.
+
+\subsection{Static limit}
+
+\begin{proposition}[Static limit]
+\label{prop:static}
+For fixed $T$ and $\rho$, if the gradient of $\mathcal E_i+\lambda_W\mathcal W_i$ is bounded on a neighborhood of $A_i^0$, then $A_i^{(T)}\to A_i^0$ as $\sigma_L\to0$, and the latent model reduces to the amortized curved mode; if in addition $B=0$, it reduces to the exponential chart.
+\end{proposition}
+\begin{proof}
+$\|\Gamma_i(A)-A_i^0\|\le\sigma_L^2\sup\|\nabla[\mathcal E_i+\lambda_W\mathcal W_i]\|$ on the neighborhood, so by induction every iterate stays within $O(\sigma_L^2)$ of $A_i^0$ for $\sigma_L$ small enough. The second statement is item 3 of Proposition~\ref{prop:group_values}.
+\end{proof}
+
+This is the analog of Remark~\Sref{rem:lie_static_limit}, with the anchor moved from the shared generator to the amortized edge field. Table~\ref{tab:compare} summarizes how the implemented model restricts the supplement's.
+
+\begin{table}[tbp]
+\centering
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+ & Supplement, Section~\Sref{sec:latent_links} & This note \\
+\midrule
+Latent object & generator $L^\ell_{ij}\in\gl(K)$ on every edge & receiver factor $A^\ell_i\in\R^{K\times r}$ on every receiver \\
+Link & $e^{L^\ell_{ij}}$ & $e^{L_\ell}e^{A_i^\ell B_j^{\ell\top}}$, $B$ amortized \\
+Anchor & shared generator $\bar L^\ell$ & amortized factor $A_i^0=\operatorname{vec}^{-1}(W_A\xh_i)$ \\
+Recognition & mean field over all layers and the observation & one transition, next-layer state profiled out (filtering) \\
+Estimator & MAP, not specified as an algorithm & $T$ damped natural-gradient steps, unrolled for the outer gradient \\
+Loops & all elementary depth loops & window $i-w\le k$, or all \\
+Cost per step & $O(N_\ell N^2K^3)$ & $O(N_\ell N^2r^3)$ for $\varphi_1$ plus the covariance terms \\
+\bottomrule
+\end{tabularx}
+\caption{The supplement's latent-link model and the restriction implemented here.}
+\label{tab:compare}
+\end{table}
+
+\section{Implementation}
+\label{sec:impl}
+
+The extensions live in the \texttt{vfe3} package. Table~\ref{tab:config} maps the symbols to configuration keys, all of which default to the existing model.
+
+\begin{table}[tbp]
+\centering
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{5.2cm}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Key & Symbol & Values and default \\
+\midrule
+\cfg{content\_link\_edges} & mode & \cfg{"off"} (default), \cfg{"lowrank"}, \cfg{"pure\_gauge"} \\
+\cfg{content\_link\_edge\_rank} & $r$ & integer, $1\le r\le K$, default 4 \\
+\cfg{content\_link\_latent} & latent $A_i$ & default \cfg{False}; requires \cfg{"lowrank"} \\
+\cfg{content\_link\_latent\_steps} & $T$ & integer $\ge1$, default 1 \\
+\cfg{content\_link\_latent\_sigma} & $\sigma_L$ & finite $>0$, default 0.1 \\
+\cfg{content\_link\_latent\_damping} & $\rho$ & in $(0,1]$, default 1.0 \\
+\cfg{content\_link\_loop\_weight} & $\lambda_W$ & finite $\ge0$, default 0.0; $>0$ requires latent \\
+\cfg{content\_link\_loop\_window} & $w$ & integer $\ge1$ or \cfg{None} (all loops), default 1 \\
+\bottomrule
+\end{tabularx}
+\caption{Configuration keys. Edge links require \cfg{content\_link\_chart="exponential"}, \cfg{attention\_mode="projected\_predictive"}, and equal head widths.}
+\label{tab:config}
+\end{table}
+
+The algebra is in \texttt{vfe3/model/edge\_links.py} as pure functions. \texttt{edge\_factors} and \texttt{edge\_coefficients} build $A_i$, $B_j$, $g_i$, and $\Phi_{ij}$ from Eqs.~\eqref{eq:rms} to~\eqref{eq:pure_gauge}, with the masking of the $\varphi_1$ argument; \texttt{build\_edge\_context} assembles them, with $T$, $R$, $\Ot$, and $F$ from the float64 chart evaluation, into one context per layer; \texttt{edge\_reference\_message} evaluates Eq.~\eqref{eq:factored_mean}; \texttt{edge\_covariance\_factors}, \texttt{edge\_correction\_dense}, \texttt{edge\_correction\_blocks}, and the residual cross functions evaluate Eq.~\eqref{eq:factored_covariance} for the dense and blockwise bodies. For the latent model, \texttt{latent\_transport\_energy} computes $\mathcal E_i$ from the reference trace without forming the local covariance, \texttt{loop\_energy} computes Eq.~\eqref{eq:loop_energy} in float64 and skips loops of zero weight, and \texttt{infer\_latent\_receivers} runs the damped iteration with \texttt{torch.autograd.grad}, retaining the graph during training and running on a detached start under \texttt{torch.enable\_grad} in evaluation. \texttt{RelationalOperators} in \texttt{vfe3/model/relational\_operators.py} stores the parameters \texttt{edge\_receiver\_map} ($W_A$), \texttt{edge\_site\_basis} ($A$), and \texttt{edge\_sender\_map} ($W_B$), which exist only when the edges are on, so default checkpoints are unchanged. The previous layer's link state for the loop energy is threaded through the stack, block, E-step, and readout as a dictionary with \texttt{previous} and \texttt{current} entries. The new parameters join the relational-content optimizer group. Post-hoc consumers that would silently ignore the edge links, the holonomy analysis and the full-link gradient path, refuse edge-enabled models.
+
+Four test files check the construction in float64 at $K\le6$ and $N\le4$, on the CPU: \texttt{test\_edge\_links\_20261005.py} (68 tests: reduction at $W_B=0$ for mean and covariance in both bodies, families, frame types, and residual settings; gauge covariance; causality with large factors; finite-difference gradients; configuration and optimizer wiring; a model smoke test), \texttt{test\_edge\_links\_reference\_20261005.py} (118 tests against an independently written brute-force reference that forms every $G_{ij}$ with \texttt{matrix\_exp} and evaluates Eq.~\eqref{eq:edge_covariance} by explicit loops, including the shift trap of Remark~\ref{rem:shift} and the holonomy statements of Proposition~\ref{prop:edge_holonomy}), \texttt{test\_latent\_links\_20261005.py} (44 tests: static limit, descent, fixed point against finite differences, causality, covariance, outer gradients, loop semantics), and \texttt{test\_latent\_links\_reference\_20261005.py} (85 tests against an independent reference iteration and brute-force loops). The reference iteration reproduces the divergent cases of the implementation step for step, which places that behavior in the specified iteration rather than in the code.
+
+\section{Costs}
+\label{sec:costs}
+
+\paragraph{Parameters.}
+The curved mode adds $2K^2r$ parameters per layer and the pure-gauge mode $K^2r+Kr$. At $K=128$, four layers, and $r=4$, the curved mode adds 524,288 parameters, about 40 percent of that model's context-processing parameters, and the share grows linearly in $r$, so $r$ equal to the head width $d=32$ would add about three times the existing context-processing count. The latent model adds no parameters.
+
+\paragraph{Per-edge matrix functions.}
+The curved mode evaluates one $\varphi_1$ of an $r\times r$ argument per causal edge, through a $2r\times2r$ augmented exponential, and for a fixed number of edges its cost grew roughly like $r^2$ over the measured range. Measured on the CPU with one thread, forward plus backward per thousand edges, it took about 11.6 ms at $r=4$, 42 ms at $r=8$, 193 ms at $r=16$, and 961 ms at $r=32$.
+
+\paragraph{Readout layer.}
+At the widths of the main launcher ($K=192$, $H=6$, $d=32$, $r=4$, $N=256$, batch 1, float32, one CPU thread), the whole readout layer (routing, mean, blockwise covariance, and inference) took the times in Table~\ref{tab:timing}. GPU timings were not measured.
+
+\begin{table}[tbp]
+\centering
+\small
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Arm & no gradient (s) & forward and backward (s) \\
+\midrule
+exponential chart & 0.42 & 1.35 \\
+curved edges, $r=4$ & 0.83 & 2.74 \\
+pure-gauge edges, $r=4$ & 0.54 & 1.83 \\
+latent factors, $T=1$ & 1.95 & 6.76 \\
+latent factors, $T=1$, loops $w=1$ & 1.97 & 6.87 \\
+latent factors, $T=1$, loops $w=8$ & 2.55 & 9.19 \\
+\bottomrule
+\end{tabular}
+\caption{CPU time of one readout layer at $K=192$, $N=256$, batch 1. Each further latent step adds about 0.9 s without gradients and 4.0 s with them.}
+\label{tab:timing}
+\end{table}
+
+\paragraph{Memory.}
+Saved activations were measured with saved-tensor hooks for one readout layer at the launcher widths, batch 1: 0.682 GB for the curved mode (0.122 GB with \cfg{predictive\_covariance\_checkpoint}), 1.299 GB with latent factors at $T=1$, and 0.776 GB at $T=1$ with the checkpoint, which removes only the covariance body's share because the inference runs outside the checkpointed region. Scaled to batch 8 and six layers, the readouts keep about 62 GB at $T=1$ (37 GB with the checkpoint) and 33 GB for the curved mode (5.9 GB with the checkpoint), so on a 32.6 GB card the curved mode needs the checkpoint, and the latent arms also need gradient accumulation over at least four microbatches. The loop terms at $N=256$ involve 255 loops per sequence at $w=1$, 9,012 at $w=8$, and 2,796,160 for all loops, so the all-loop setting is practical only for $N$ of about 32 or less.
+
+\section{Scope}
+\label{sec:scope}
+
+Every statement above is either a derivation given here, a statement proved in the companion manuscript or its supplement, or a measurement on the CPU at the sizes stated. The float64 checks use $K\le6$ and $N\le4$. They validate the implementation against exact brute-force references; they say nothing about the behavior of the extensions at the scale of the language-model runs, and they decide nothing about the direction of the theory. No training result for the edge or latent arms is reported in this note. In particular, it is not established that edge dependence improves perplexity, that the curved mode outperforms the pure-gauge control, or that the latent refinement helps; the comparison of the curved mode with its control is the experiment that separates the effect of holonomy beyond the shared class from the effect of content-dependent transport, and it is confounded by the different parameter counts of the two modes unless that difference is controlled.
+
+Several parts are open. The latent iteration has no safeguard, so a step that raises the energy or produces a nonfinite value is kept; an opt-in per-receiver guard that keeps the previous iterate in that case would be a small addition. The latent inference is defined only for the curved mode. The energy uses a filtering approximation and the isotropic transport covariance $Q_i=c_iI$, neither of which is derived from the full free energy. The outer gradient is taken through the unrolled iterate rather than by implicit differentiation at a fixed point. The links are point estimates, so, as in the supplement, the objective is a MAP free energy and not a bound on the evidence; a Gaussian recognition law for the factors would restore a bound and is not developed. Finally, the post-hoc holonomy analysis of the companion manuscript has not been extended to edge-dependent links and refuses such models.
+
+\bibliographystyle{plainnat}
+\bibliography{../references}
+
+\end{document}

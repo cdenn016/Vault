@@ -38,6 +38,10 @@ The language-model section is anchored on the $K=128$ exponential-chart run of [
 
 A tied variant with $S_K=T$ and a Bayesian receiver, in which the receiving map and the residual follow from conditioning, is a separate note, [[dennis-2026-minimal-agent-model]], and is not part of the paper.
 
+## Edge-dependent and latent content links, October 6, 2026
+
+[[dennis-2026-edge-latent-links]] (working note, drafted by Claude Opus 5.5, describing code merged in VFE_3.0 PR #50) replaces the shared link $e^{L}$ by $G_{ij}=g_ie^{L}E_{ij}$ with a rank-$r$ edge factor read from normalized states. The curved mode $E_{ij}=\exp(A_iB_j^\top)$ gives triangle holonomies that vary between triangles; the pure-gauge control $G_{ij}=g_ie^{L}g_j^{-1}$ keeps every holonomy in the class of $e^{L}$. Both start exactly at the exponential chart. A latent extension infers the receiver factor per context (the only factor that can be inferred causally) by damped natural-gradient steps on the floor-free predictive-covariance trace plus an anchored prior and an optional depth-loop prior in which the shared generators cancel. No training result is reported for these arms.
+
 ## Lie-algebra links in the main manuscript, October 4, 2026
 
 [[dennis-2026-glk-lie-algebra-links-v2]] (revision drafted by Claude Opus 5.5, float64 identity checks, no cross-model review) carries Option A into the main GL(K) manuscript. The link $\Theta_{ij}=U_i\exp(X_{ij})U_j^{-1}$ is the primary communication object; the frames dress the generator, so $X_{ij}$ is reference data that changes only by the adjoint action under a common reference change. For the stored value and output maps, $\exp(OT)=I+O\varphi_1(TO)T$ splits the link into the flat identification and a channel term whose first-order part is the projected matrix link, and on the principal-logarithm domain the linear and exponential links are an exact change of coordinates rather than a truncation. With routing outside the exponent and tiled heads, the message resums into the receiving map $\widetilde O=e^{OT}T^{-1}=T^{-1}+O\varphi_1(TO)$: order zero is a head-routed flat transport, order one the standard value path, order two cross-head mixing. The implemented `content_link_chart` options are $\widetilde O=O$ (affine), $T^{-1}+O$ (first order) and $e^{OT}T^{-1}$ (exponential), which represent the same tiled mean maps up to the real-logarithm domain. Read as evidence, the same channels give the closed-form channel-likelihood receiver of [[Projected gradient attention]], a Gaussian power posterior.
@@ -507,6 +511,8 @@ transformer attention is an exact special case.
 ## Sources
 
 October 6, 2026 prior readings: [[barbero-2022-sheaf-attention-networks]] · [[barbero-2022-sheaf-neural-networks-connection-laplacians]] · [[disipio-2025-curved-spacetime-transformers]] · [[favoni-2022-lattice-gauge-equivariant-cnns]]
+
+October 6, 2026 edge and latent links: [[dennis-2026-edge-latent-links]]
 
 October 5, 2026 rework: [[dennis-2026-glk-attention-v2-rework-2026-10-05]] · [[dennis-2026-minimal-agent-model]] · [[vfe3-2026-10-05-k128-exponential-and-parameter-accounting]]
 
