@@ -40,6 +40,10 @@ With a shared template covariance the logits are affine in $\mu_i$, so the block
 
 What template routing adds over an MLP is dependence on the belief covariance: the trace term $\sum_k(\Sigma_i)_{kk}/\lambda_{ak}$ routes uncertain beliefs to broad templates (optimal width $\lambda^*=s+d^2/K$), so the same mean is routed differently at different confidence. Template widths act as the temperature, so none is added.
 
+Two published derived MLPs bracket the construction. In [[hoover-2023-energy-transformer]] the MLP analogue is a Hopfield energy over learned memories with tied input and output weights, trained in a recurrent block on masked images and graphs; with a softmax activation it is template routing without covariance. In [[yu-2023-white-box-transformers-sparse-rate-reduction]] (CRATE) the MLP is one ISTA step of nonnegative sparse coding against a learned dictionary, trained at ImageNet scale. Template routing differs from both in carrying the belief covariance into the routing, and, unlike either, it has no training result yet.
+
+> [!note] Editorial: CRATE's ISTA step is one proximal step of MAP inference in a sparse linear-Gaussian model with an exponential prior on nonnegative codes, a factorial sparse prior, where template routing uses a one-of-$M$ mixture prior. This reading is the vault's; CRATE motivates the step by sparse rate reduction.
+
 ## Gauge status
 
 Computed from local $(\mu_i,\Sigma_i)$, the block has the same covariance class as the coordinate MLP (non-intertwiner). Placing templates in reference coordinates $\xi_i=U_i^{-1}\mu_i$ makes the responsibilities invariant and the message covariant (Proposition 2 of [[dennis-2026-template-routing]]); that variant is not implemented.
@@ -70,4 +74,4 @@ A different objective-based answer to the same MLP question is the conditional n
 
 ## Sources
 
-[[dennis-2026-template-routing]], [[sukhbaatar-2019-persistent-memory]], [[geva-2021-ffn-key-value-memories]], [[ramsauer2021hopfield]], [[ghahramani-1994-incomplete-data-em]], [[jacobs-1991-mixtures-of-local-experts]], [[hershey-2007-kl-gmm]], [[elfwing-2018-silu]], [[hendrycks2016gaussian]], [[friston2008hierarchical]]
+[[dennis-2026-template-routing]], [[hoover-2023-energy-transformer]], [[yu-2023-white-box-transformers-sparse-rate-reduction]], [[sukhbaatar-2019-persistent-memory]], [[geva-2021-ffn-key-value-memories]], [[ramsauer2021hopfield]], [[ghahramani-1994-incomplete-data-em]], [[jacobs-1991-mixtures-of-local-experts]], [[hershey-2007-kl-gmm]], [[elfwing-2018-silu]], [[hendrycks2016gaussian]], [[friston2008hierarchical]]

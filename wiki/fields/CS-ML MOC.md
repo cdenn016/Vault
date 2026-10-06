@@ -10,6 +10,10 @@ updated: 2026-10-06
 
 # CS-ML MOC
 
+## Transformer layers derived from an objective, October 6, 2026
+
+[[yang-2022-transformers-optimization-perspective]] (NeurIPS 2022) gives an energy whose majorization-minimization and alternating gradient steps reproduce softmax self-attention, a symmetric feed-forward map and ReLU, with descent theorems and energy-descent curves as evidence. [[hoover-2023-energy-transformer]] (NeurIPS 2023) builds a recurrent block as gradient descent of an engineered attention-plus-Hopfield energy and reports masked-image completion and graph benchmarks. [[yu-2023-white-box-transformers-sparse-rate-reduction]] (NeurIPS 2023) derives attention and a sparse-coding MLP from sparse rate reduction and comes within 1.6 top-1 points of ViT-S on ImageNet-1K at about 22M parameters. All three train by backpropagation. Synthesis: [[Attention mechanisms — theory and positional structure]], [[GL(K) gauge-equivariant attention]].
+
 ## October 3 joint-channel compression comparison
 
 [[multiagentelbo-2026-10-03-joint-informed-compression]] adds transition-law-weighted configuration sensitivity and preserves the native global hold/refresh mixture. Five new tiny tests, four large-path numerical checks and 52 scalar reconstructions passed. Mean total loss versus source-only changes by -0.107034/-0.000006 nats at N512/N1024, while dense remains better by about eight nats. The sample is underpowered. Next freeze the half-block/source-only/joint definitions for a separately reported remaining-history evaluation. O1/O4, dense computation, the old parity failure and pending formal verification remain open. No GPU ran.

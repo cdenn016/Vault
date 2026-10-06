@@ -10,7 +10,7 @@ updated: 2026-10-06
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **62** manuscripts · **16** themes · **11** field MOCs · **289** concepts · **15** methods · **738** papers · **159** references · **12** runs · **7** web/methodology
+> **3** projects · **62** manuscripts · **16** themes · **11** field MOCs · **289** concepts · **15** methods · **741** papers · **159** references · **12** runs · **7** web/methodology
 
 ## 🧭 Start here
 - [[multiagentelbo-2026-09-26-selection-and-reference-review]] — scoped pairing-selection proof and checked primary-reference archive
@@ -689,6 +689,9 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 ### Attention, transformers & positional structure
 - [[barbero-2022-sheaf-attention-networks|Sheaf Attention Networks]]
 - [[disipio-2025-curved-spacetime-transformers|The Curved Spacetime of Transformer Architectures]]
+- [[yang-2022-transformers-optimization-perspective|Transformers from an Optimization Perspective]] — softmax self-attention and transformer layers as descent steps of one energy (NeurIPS 2022)
+- [[hoover-2023-energy-transformer|Energy Transformer]] — a recurrent block as gradient descent of an attention-plus-Hopfield energy (NeurIPS 2023)
+- [[yu-2023-white-box-transformers-sparse-rate-reduction|White-Box Transformers via Sparse Rate Reduction]] — CRATE: attention and a sparse-coding MLP from sparse rate reduction (NeurIPS 2023)
 - [[bahdanau-2014-neural-machine-translation|Neural Machine Translation by Jointly Learning to Align and Translate]]
 - [[dong-2021-rank-collapse|Attention Is Not All You Need: Pure Attention Loses Rank Doubly Exponentially with Depth]]
 - [[geshkovski-2023-mathematical-transformers|A Mathematical Perspective on Transformers]]

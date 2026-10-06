@@ -15,8 +15,10 @@ An associative (content-addressable) memory stores a set of patterns and retriev
 
 [[Template routing]] (2026-09-27) applies the associative-memory reading to the vfe3 block MLP: token beliefs retrieve from a bank of learned Gaussian templates with responsibilities $\propto\pi_a e^{-\mathrm{KL}(q_i\|p_a)}$. With values tied to template means the update is a natural-gradient descent that reduces to modern-Hopfield retrieval; with untied values the block reads out what each template predicts, the key-value memory reading of feed-forward layers in [[geva-2021-ffn-key-value-memories]].
 
+[[hoover-2023-energy-transformer]] (NeurIPS 2023) makes a whole transformer block an associative memory: attention is a log-sum-exp energy whose keys evolve with the queries (unlike a modern Hopfield network, whose keys are fixed memories), and the MLP is a Hopfield module over learned memories with tied weights, run in parallel with attention. With a softmax activation that module is retrieval against a learned bank, the role [[Template routing]] plays with Gaussian templates.
+
 ## Related
 [[Template routing]], [[Attention Mechanism]], [[Energy-Based Models]], [[Variational Free Energy]]
 
 ## Sources
-[[ramsauer2021hopfield]], [[krotov-2016-dense-associative-memory|krotov2016dense]], [[geva-2021-ffn-key-value-memories]], [[dennis-2026-template-routing]]
+[[ramsauer2021hopfield]], [[krotov-2016-dense-associative-memory|krotov2016dense]], [[geva-2021-ffn-key-value-memories]], [[dennis-2026-template-routing]], [[hoover-2023-energy-transformer]]
