@@ -14,10 +14,23 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-10-04
+updated: 2026-10-05
 ---
 
 # GL(K) gauge-equivariant attention
+
+## Main manuscript rework: agents, comparison links and routed transport, October 5, 2026
+
+[[dennis-2026-glk-attention-v2-rework-2026-10-05]] (drafted by Claude Opus 5.5 agents, reviewed by Claude Fable 5.1, float64 identity checks) rebuilds the main manuscript around communication among statistical agents. The base is a single context $c_*$; each token is an agent whose belief, prior and frame live in a statistical bundle associated with a principal $\mathrm{GL}(K)$-bundle, and a belief is a point of the statistical fiber $\mathbb R^K\times\mathrm{SPD}(K)$ with its [[Fisher information metric]], not a vector of the sample fiber. The four head maps get an agent reading: the sender emits a key $S_K\xi_j$ and content $T\xi_j$, the receiver forms a query $S_Q\xi_i$ that is never transmitted and writes what it receives through the receiving map $\widetilde O$, and the routing weights $\beta_{ij}$ are the decision of whom to hear, computed from the query and the key. When $S_Q$ and $S_K$ are square and invertible the routing cost is exactly $D_{\mathrm{KL}}(q_i\|(\Theta^{\mathrm{cmp}}_{ij})_*q_j)$ with the group-valued comparison link $\Theta^{\mathrm{cmp}}_{ij}=U_iS_Q^{-1}S_KU_j^{-1}$, so the divergence of a receiver's belief from a linked sender belief is the full-rank case of the projected score; through a map of rank below $K$ that divergence is infinite. The notation is now $L_{ij}$ for the Lie-algebra generator, $\Theta_{ij}=U_ie^{L_{ij}}U_j^{-1}$ for the group link and $\Omega_{ij}=U_iU_j^{-1}$ for the flat link.
+
+The central result is a routed-transport theorem: with tiled heads, the shared generator $L=OT$ and routing outside the exponent, the message is $m_i=\sum_jU_if(L)\Pi(\boldsymbol\beta_{ij})U_j^{-1}\mu_j$ with oblique head projectors $\Pi_h$ and $f(L)=L$, $I+L$, $e^L$ in the affine, first-order and exponential charts. [[Multi-head attention]] is therefore a routed oblique projection followed by link transport; when all heads share one routing pattern the exponential chart gives the lattice hopping term $\sum_j\beta_{ij}\Theta_{ij}\mu_j$, and a standard transformer layer is the affine chart with residual coefficient 1. Matrix-valued and group-valued links share the endpoint law and covariance; they differ in invertibility (a groupoid rather than a monoid, hence inverse edges and [[Holonomy]]), in the reachable component $\mathrm{GL}^+(K)$ and in optimization geometry. Whether $OT\in\mathrm{GL}(K)$ in a standard transformer is the wrong question: single heads are singular, the stacked product is generically invertible but unconstrained, and the group-valued objects are $e^{OT}$ and $I+OT$. Receiver inference and latent links moved to the supplement.
+
+The language-model section is anchored on the $K=128$ exponential-chart run of [[vfe3-2026-10-05-k128-exponential-and-parameter-accounting]] (test perplexity 34.48, one seed), with a parameter accounting of the comparison with conventional transformers: at equal non-embedding parameters the VFE models win (39.77 against 90.15 at $K=128$), but each vocabulary entry stores $K(d_b+2)$ numbers, mostly a block frame that acts on the queries, keys, values and outputs of every layer, and no run yet separates frame structure from per-type table size.
+
+> [!warning] Tension (scale-scoped)
+> [[vfe3-2026-10-03-link-charts-and-channel-receiver]] found the exponential-chart transfers at $K=20$ (two layers) in $\mathrm{GL}^+(K)$ and better conditioned than those of the first-order chart, which [[dennis-2026-glk-lie-algebra-links-v2]] used to motivate group links. In the $K=128$ run of [[vfe3-2026-10-05-k128-exponential-and-parameter-accounting]] the trained $e^L$ is invertible in exact arithmetic but numerically low rank ($\sigma_{\min}\le e^{-39.5}$, numerical rank 47 to 90 of 128). Both are single runs; whether the near-singularity is specific to long training at larger width is open.
+
+A tied variant with $S_K=T$ and a Bayesian receiver, in which the receiving map and the residual follow from conditioning, is a separate note, [[dennis-2026-minimal-agent-model]], and is not part of the paper.
 
 ## Lie-algebra links in the main manuscript, October 4, 2026
 
@@ -486,6 +499,8 @@ transformer attention is an exact special case.
 [[Quantum information geometry]] · [[Statistical manifold]] · [[Dressing field method]]
 
 ## Sources
+
+October 5, 2026 rework: [[dennis-2026-glk-attention-v2-rework-2026-10-05]] · [[dennis-2026-minimal-agent-model]] · [[vfe3-2026-10-05-k128-exponential-and-parameter-accounting]]
 
 [[dennis-2026-dynamic-links]] · [[dennis-2026-link-curvature]] · [[dennis-2026-link-origin]] · [[gl-k-attention]] · [[vaswani-2017-attention]] · [[bronstein-2021-geometric-deep-learning]] ·
 [[cohen-2019-gauge-cnn]] · [[wang-2023-riemannian-self-attention-spd]] ·

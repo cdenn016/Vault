@@ -14,10 +14,14 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-18
-updated: 2026-10-04
+updated: 2026-10-05
 ---
 
 # Lattice gauge theory
+
+## The lattice above a point, October 5, 2026
+
+[[dennis-2026-glk-attention-v2-rework-2026-10-05]] states in what sense attention carries a lattice gauge structure. The lattice is the communication graph above a single base point $c_*$, with agents as vertices and allowed source relations as edges; it discretizes no base manifold and is not the single-site reduction of large-$N$ gauge theory in the Eguchi–Kawai sense, whose links are labeled by collapsed lattice directions. Invertible links obeying the endpoint law $\Theta_{ij}\mapsto g_i\Theta_{ij}g_j^{-1}$ are lattice gauge data and, as edge variables under independent vertex groups, bifundamental fields of a quiver gauge theory; singular head maps and comparison maps are quiver-representation and cellular-sheaf data ([[hansen-2018-toward-a-spectral-theory-of-cellular-sheaves]]), of which group links are the invertible restriction. When all heads share one routing pattern, the exponential chart turns the routed message into the hopping term $\sum_j\beta_{ij}\Theta_{ij}\mu_j$. In the trained $K=128$ model the group links are numerically low rank, so inverse-edge holonomies must be computed in log space from the generator spectrum ([[vfe3-2026-10-05-k128-exponential-and-parameter-accounting]]).
 
 ## Latent link generators and the induced Wilson action, October 3, 2026
 
@@ -181,6 +185,7 @@ For an inference-derived edge-dependent link, the regression link $W_{ab}=\Sigma
 
 ## Sources
 
+- [[dennis-2026-glk-attention-v2-rework-2026-10-05]] — the lattice as the communication graph above one context; invertible links as lattice-gauge and quiver data, singular head maps as sheaf data; routed hopping term.
 - [[dennis-2026-link-origin]] — group-valued origin of the singular matrix links (exponential link, parabolic compression with Schur complement, head-sum link); agent-drafted, small-dimension numerical checks only.
 - [[dennis-2026-link-curvature]] — triangle holonomy of causal link fields; flat = recurrent, invertible flat = pure gauge; holonomy table of candidate generators; regression links; agent-drafted, float64 checks at K=4.
 - [[wilson-1974-confinement-quarks]] — origin of the lattice formulation: link variables, plaquette action, Wilson loop, area-law confinement (central).

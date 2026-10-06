@@ -16,6 +16,8 @@ updated: 2026-10-04
 
 [[multiagentelbo-2026-10-04-lie-algebra-links]] makes the multi-agent links latent lattice gauge variables with a loop-action prior. Undirected matter induces the Wilson triangle term, time-like loop defects across learning episodes supply a mass, and the linearized operator has screened, massive Euclidean Proca structure. Cross-model checked; nothing trained.
 
+[[dennis-2026-glk-attention-v2-rework-2026-10-05]] (2026-10-05) states the lattice reading of attention: the lattice is the communication graph above one context, not an Eguchi–Kawai reduction; invertible links are lattice-gauge data and quiver bifundamentals, singular head maps are sheaf data, and the exponential chart gives the hopping term $\sum_j\beta_{ij}\Theta_{ij}\mu_j$.
+
 ## Pointwise boundary-method derivations, September 30, 2026
 
 [[dennis-2026-spin-foam-boundary-methods]] develops conditional classical graph-boundary operations from [[Spin foam coarse-graining for agent networks]]. Ordered non-Abelian marks, compact-unitary whole-carrier projection, passive GL metric covariance, and an auxiliary finite regulated functional retain distinct admissions. No quantum amplitude, base transport, emergent geometry, autonomous formation, or thermodynamic limit is established. The source is included in the tagged Bases view.

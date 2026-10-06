@@ -48,6 +48,8 @@ updated: 2026-10-04
 
 [[vfe3-2026-10-05-k30-multiseed]] (2026-10-05) measures the seed noise floor of one VFE_3.0 configuration ($K=30$, four layers, one epoch) over three seeds: test PPL 87.19 with SD 0.33 and test CE SD 0.0037 nats, so single-seed differences under about 0.9 PPL are not established there.
 
+[[dennis-2026-glk-attention-v2-rework-2026-10-05]] (2026-10-05) presents attention as communication among statistical agents, with a standard transformer layer as the affine chart of a routed group-link transport, and anchors its language model on [[vfe3-2026-10-05-k128-exponential-and-parameter-accounting]] (2026-10-05): a $K=128$ exponential-chart model at test perplexity 34.48 (one seed), and protocol-matched pairs that beat conventional transformers of equal non-embedding size (39.77 against 90.15, 52.91 against 117.63) while holding 16 to 17 times more total parameters in per-type tables. The control that separates frame structure from table size has not been run.
+
 ## vfe3 projected attention routes, October 2, 2026
 
 [[dennis-2026-projected-gradient]] derives the receiver energies, cut-model routing, closed-form natural-parameter updates and profiled self-coupling of the gradient attention route; [[vfe3-2026-10-02-projected-route-consolidation]] records their implementation and the retirement of transported attention (CPU tests only, no training). [[dennis-2026-phi-natgrad]] gives the frame-table optimizers, and [[dennis-2026-neuron-free-agent-theory]] a conditional neuron-free construction (inconclusive for the full target). Synthesis: [[Projected gradient attention]].

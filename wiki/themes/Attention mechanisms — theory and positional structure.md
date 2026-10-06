@@ -12,10 +12,14 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-10-03
+updated: 2026-10-05
 ---
 
 # Attention mechanisms — theory and positional structure
+
+## Attention as communication among statistical agents, October 5, 2026
+
+The reworked GL(K) manuscript ([[dennis-2026-glk-attention-v2-rework-2026-10-05]]) treats attention as communication: each head has four interfaces, a sender's key and content and a receiver's query and receiving map, and the routing weights decide whom each agent hears. It places this reading next to learned multi-agent communication ([[sukhbaatar-2016-commnet]], [[foerster-2016-dial]], [[das-2019-tarmac]]) and differs from TarMAC in transporting every message between frames. Its central theorem writes multi-head attention as a routed oblique projection followed by link transport, with a standard layer as the affine chart. [[dennis-2026-minimal-agent-model]] ties the key to the content, so that the receiving map and the residual follow from Bayesian conditioning of the receiver, and shows that divergence-based Gibbs routing is the first label step of a structured mean-field approximation to the exact source posterior. The empirical support for this program is one $K=128$ run whose advantage over conventional transformers is not yet separated from per-type table size ([[vfe3-2026-10-05-k128-exponential-and-parameter-accounting]]).
 
 ## Unified group-valued attention companion, October 3, 2026
 

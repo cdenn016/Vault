@@ -26,6 +26,8 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 - [[VFE Transformer Program]]
 
 ## 📝 Manuscripts (in preparation)
+- [[dennis-2026-glk-attention-v2-rework-2026-10-05]] — main GL(K) attention manuscript rebuilt on October 5, 2026: agents on a bundle over one context, four head interfaces, comparison link, routed-transport theorem with a standard layer as the affine chart, $K=128$ anchor with parameter accounting; supplement revived as S1 to S10
+- [[dennis-2026-minimal-agent-model]] — standalone note: tied key and content with a Bayesian receiver; exact posterior, derived gain and residual, Gibbs routing as a mean-field step; declared and unevaluated
 - [[dennis-2026-glk-lie-algebra-links-v2]] — main GL(K) attention manuscript revised with Lie-algebra links: exponential-link endpoint law, low-rank split into flat transport plus value-path channel, three content-link charts, closed-form channel-likelihood receiver, inverse-edge triangle holonomy; 58 float64 checks and single-seed K=20 chart runs
 - [[multiagentelbo-2026-10-04-stable-physics-questions]] — eighteen questions on historical consistency, predictive retention, endogenous records, dynamic links, and universality; editable [[Stable_Physics_Research_Questions]].
 - [[dennis-2026-attention-unified]] — unified six-note companion, primary exponential group links, implementation crosswalk, and future GL(K) integration map
@@ -1327,6 +1329,8 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[pep-8-style-guide-python-code|PEP 8 - Style Guide for Python Code]]
 
 ## 🧪 Sources — experiment runs
+
+- [[vfe3-2026-10-05-k128-exponential-and-parameter-accounting|VFE_3.0 K=128 exponential-chart run and parameter accounting, October 5, 2026]] — test PPL 34.48 (one seed, 614.4M tokens); matched pairs 39.77 vs 90.15 and 52.91 vs 117.63 at equal non-embedding parameters; trained links numerically low rank; frame-versus-table control not run
 
 - [[vfe3-2026-10-05-k30-multiseed|VFE_3.0 three-seed noise floor at K=30, October 5, 2026]] — seeds 6, 54, 271: test PPL 87.19 ± 0.33, test CE SD 0.0037 nats; current multi-seed noise floor for the VFE_3.0 line (shared data order, mixed code identity accepted)
 
