@@ -14,10 +14,16 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-18
-updated: 2026-10-05
+updated: 2026-10-06
 ---
 
 # Lattice gauge theory
+
+## Learned models on lattice gauge fields, October 6, 2026
+
+Two sources in the vault run networks on lattice gauge fields, the opposite direction from the program's use of lattice-gauge language. [[favoni-2022-lattice-gauge-equivariant-cnns]] (L-CNNs) takes $\mathrm{SU}(N_c)$ link variables $U_{x,\mu}$, which transform as $\Omega_xU_{x,\mu}\Omega_{x+\mu}^\dagger$, together with locally transforming matrix channels $W_{x,i}$. Its convolution parallel-transports $W$ from neighboring sites along coordinate axes, $W\to\sum\omega\,UWU^\dagger$, its bilinear layer multiplies locally transforming matrices so that alternating the two grows arbitrary contractible Wilson loops, and a trace layer gives gauge-invariant output; with Polyakov loops for non-contractible topology the authors argue such a network can approximate any gauge-covariant function on the lattice. [[nagai-2025-cask]] builds attention weights from Frobenius inner products of links and staples. In both, the gauge field is the input and gauge equivariance is a real constraint on every layer. In the GL(K) manuscripts the frames are learned parameters, the covariance is artificial in the sense of [[francois-2019-artificial-gauge-symmetries]], and the lattice is the communication graph above one context ([[dennis-2026-glk-attention-v2-rework-2026-10-05]]). The L-Exp layer of [[favoni-2022-lattice-gauge-equivariant-cnns]], which multiplies the exponential of a locally transforming Lie-algebra element onto a given link, is the nearest structural parallel to the exponential link $\Theta_{ij}=U_ie^{L_{ij}}U_j^{-1}$.
+
+> [!note] Editorial: The L-Exp parallel is formal. It acts on a given compact-group gauge field, whereas the GL(K) generator is a learned map into $\mathrm{GL}^+(K)$. [[disipio-2025-curved-spacetime-transformers]] and the sheaf-network sources of [[Gauge equivariance and geometric deep learning]] are the other prior readings of attention as a connection; none states the lattice-gauge reading of a token transformer.
 
 ## The lattice above a point, October 5, 2026
 
@@ -185,6 +191,7 @@ For an inference-derived edge-dependent link, the regression link $W_{ab}=\Sigma
 
 ## Sources
 
+- [[favoni-2022-lattice-gauge-equivariant-cnns]] — lattice gauge equivariant CNNs: gauge-covariant convolution and bilinear layers on $\mathrm{SU}(N_c)$ links that generate Wilson loops.
 - [[dennis-2026-glk-attention-v2-rework-2026-10-05]] — the lattice as the communication graph above one context; invertible links as lattice-gauge and quiver data, singular head maps as sheaf data; routed hopping term.
 - [[dennis-2026-link-origin]] — group-valued origin of the singular matrix links (exponential link, parabolic compression with Schur complement, head-sum link); agent-drafted, small-dimension numerical checks only.
 - [[dennis-2026-link-curvature]] — triangle holonomy of causal link fields; flat = recurrent, invertible flat = pure gauge; holonomy table of candidate generators; regression links; agent-drafted, float64 checks at K=4.

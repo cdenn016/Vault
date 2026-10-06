@@ -5,7 +5,7 @@ aliases: [field/mathematics, Mathematics sources, Math MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-10-04
+updated: 2026-10-06
 ---
 
 
@@ -114,6 +114,8 @@ The posthoc saved-score functional estimates retained path KL plus a nonnegative
 [[dennis-2026-glk-lie-algebra-links-v2]] (2026-10-04) puts the exponential links into the main GL(K) attention manuscript. The low-rank identity $\exp(PQ)=I+P\varphi_1(QP)Q$ splits the link built from the value and output maps into the flat identification and a channel term; on the principal-logarithm domain the linear and exponential links are an exact change of coordinates through an embedding $\mathrm{GL}(s)\to\mathrm{GL}(K)$; with routing outside the exponent the tiled message resums into $\widetilde O=e^{OT}T^{-1}$, and no finite truncation of the exponential is group valued. It also proves a Fisher–Rao lower bound $|\log\lambda_{\min}|/\sqrt2$ that places the singular boundary at infinite distance for exact pushforwards, and shows that the triangle holonomy of tiled routed links is similar to $\boldsymbol\rho_{ijk}T\widetilde O$. Revision drafted by Claude Opus 5.5; 58 float64 identity checks; no cross-model review.
 
 [[dennis-2026-glk-attention-v2-rework-2026-10-05]] (2026-10-05) reorganizes the main GL(K) attention manuscript around a principal $\mathrm{GL}(K)$-bundle over a single point with statistical-manifold fibers. With square invertible query and key maps the routing divergence equals $D_{\mathrm{KL}}(q_i\|(\Theta^{\mathrm{cmp}}_{ij})_*q_j)$ for the group-valued comparison link $U_iS_Q^{-1}S_KU_j^{-1}$, and a routed-transport theorem writes the tiled multi-head message as $\sum_jU_if(L)\Pi(\boldsymbol\beta_{ij})U_j^{-1}\mu_j$ with oblique head projectors and $f(L)\in\{L,I+L,e^L\}$. [[dennis-2026-minimal-agent-model]] (2026-10-05) proves the exact posterior of a tied key-and-content agent with a linear Gaussian receiver: expected-likelihood source weights, the gain $C_iS_Q^\top(V^{\mathrm{rec}})^{-1}$, factorization over heads under two orthogonality conditions, and a minimal-change projection in the noise-free limit.
+
+[[barbero-2022-sheaf-neural-networks-connection-laplacians]] (2022) computes the sheaf of a graph as a discrete $O(d)$-bundle: orthonormal local-PCA bases at nodes and orthogonal SVD alignments along edges, whose sheaf Laplacian is the connection Laplacian of vector diffusion maps. [[barbero-2022-sheaf-attention-networks]] (2022; abstract only) is its attention-based companion on cellular sheaves.
 
 ## Frame-chart geometry and receiver flows, October 2, 2026
 

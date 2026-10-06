@@ -18,7 +18,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-08-10
-updated: 2026-09-23
+updated: 2026-10-06
 ---
 
 # Graph Synchronization and Connection Laplacians
@@ -47,6 +47,8 @@ Pairwise link fit does not guarantee global consistency. Holonomy detects path d
 Synchronizability is kinematic. It does not imply that agents agree in belief space, that an optimizer converges, or that a finite graph realizes a continuum gauge theory.
 
 Cellular sheaves generalize this setting. A sheaf assigns a vector space (stalk) to every vertex and edge and a linear restriction map from each vertex stalk to each incident edge stalk. Global sections are vertex data that agree in every edge stalk, and their space is isomorphic to the kernel of the sheaf Laplacian ([[bodnar-2022-neural-sheaf-diffusion]], Definitions 1–2; [[hansen-2018-toward-a-spectral-theory-of-cellular-sheaves]]). With orthogonal restriction maps the sheaf is a discrete $O(d)$ bundle and its Laplacian is the connection Laplacian. Restriction maps need not be invertible, which is why the September 2026 revision of the GL(K) attention manuscript treats its comparison cospans and matrix links as sheaf data ([[GL(K) gauge-equivariant attention]]).
+
+[[barbero-2022-sheaf-neural-networks-connection-laplacians]] (Conn-NSD) precomputes the orthogonal restriction maps instead of learning them. At each node a local PCA of the one-hop neighborhood gives a $d$-dimensional orthonormal basis $O_i$, and the transport along edge $(i,j)$ is the orthogonal factor $O_{ij}=UV^\top$ of the SVD of $O_i^\top O_j$, the vector-diffusion-maps alignment of [[singer-2012-vector-diffusion-maps]] moved from point clouds to graph neighborhoods. With $O(d)$-valued restriction maps the sheaf is a discrete $O(d)$-bundle and its Laplacian is the connection Laplacian. On nine node-classification benchmarks its mean accuracy exceeds random-orthogonal sheaves everywhere and comes near the learned-sheaf models on most, but it trails them on Squirrel and Chameleon, with lower epoch times. [[barbero-2022-sheaf-attention-networks]] (abstract only) extends graph attention to cellular sheaves.
 
 ## Gauged Laplacians, heat kernels, and a discrete Yang–Mills energy (2026-08-12)
 
@@ -107,6 +109,8 @@ Useful tests include: gauge-transform vertices and confirm spectral/holonomy inv
   graph architectures whose fixed points are harmonic sections.
 - [[hansen-2018-toward-a-spectral-theory-of-cellular-sheaves]] — spectral theory of cellular sheaf Laplacians.
 - [[bodnar-2022-neural-sheaf-diffusion]] — sheaf Laplacians with learned restriction maps; discrete $O(d)$ bundles and the connection Laplacian.
+- [[barbero-2022-sheaf-neural-networks-connection-laplacians]] — precomputed orthogonal restriction maps from local PCA and SVD alignment (Conn-NSD).
+- [[barbero-2022-sheaf-attention-networks]] — attention-based graph networks generalized to cellular sheaves (abstract only).
 
 ## See also
 

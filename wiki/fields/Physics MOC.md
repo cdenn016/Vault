@@ -5,7 +5,7 @@ aliases: [field/physics, Physics sources]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-10-04
+updated: 2026-10-06
 ---
 
 # Physics MOC
@@ -17,6 +17,8 @@ updated: 2026-10-04
 [[multiagentelbo-2026-10-04-lie-algebra-links]] makes the multi-agent links latent lattice gauge variables with a loop-action prior. Undirected matter induces the Wilson triangle term, time-like loop defects across learning episodes supply a mass, and the linearized operator has screened, massive Euclidean Proca structure. Cross-model checked; nothing trained.
 
 [[dennis-2026-glk-attention-v2-rework-2026-10-05]] (2026-10-05) states the lattice reading of attention: the lattice is the communication graph above one context, not an Eguchi–Kawai reduction; invertible links are lattice-gauge data and quiver bifundamentals, singular head maps are sheaf data, and the exponential chart gives the hopping term $\sum_j\beta_{ij}\Theta_{ij}\mu_j$.
+
+[[favoni-2022-lattice-gauge-equivariant-cnns]] (2022) constructs lattice gauge equivariant networks for $\mathrm{SU}(N_c)$ links: parallel-transport convolution, bilinear products that generate arbitrary contractible Wilson loops, and exponentiation and trace layers. [[disipio-2025-curved-spacetime-transformers]] (2025) maps attention onto a discrete connection, layers onto time slices and training onto a least-action principle by analogy with general relativity, and tests the prediction of bent embedding trajectories.
 
 ## Pointwise boundary-method derivations, September 30, 2026
 

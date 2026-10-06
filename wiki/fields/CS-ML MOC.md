@@ -5,7 +5,7 @@ aliases: [field/cs-ml, CS-ML sources, Machine learning MOC, CS/ML MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-10-04
+updated: 2026-10-06
 ---
 
 # CS-ML MOC
@@ -49,6 +49,8 @@ updated: 2026-10-04
 [[vfe3-2026-10-05-k30-multiseed]] (2026-10-05) measures the seed noise floor of one VFE_3.0 configuration ($K=30$, four layers, one epoch) over three seeds: test PPL 87.19 with SD 0.33 and test CE SD 0.0037 nats, so single-seed differences under about 0.9 PPL are not established there.
 
 [[dennis-2026-glk-attention-v2-rework-2026-10-05]] (2026-10-05) presents attention as communication among statistical agents, with a standard transformer layer as the affine chart of a routed group-link transport, and anchors its language model on [[vfe3-2026-10-05-k128-exponential-and-parameter-accounting]] (2026-10-05): a $K=128$ exponential-chart model at test perplexity 34.48 (one seed), and protocol-matched pairs that beat conventional transformers of equal non-embedding size (39.77 against 90.15, 52.91 against 117.63) while holding 16 to 17 times more total parameters in per-type tables. The control that separates frame structure from table size has not been run.
+
+[[barbero-2022-sheaf-attention-networks]] (2022; abstract only) extends graph attention networks to cellular sheaves and reports gains over GAT on oversmoothing and heterophily benchmarks. [[barbero-2022-sheaf-neural-networks-connection-laplacians]] (2022) precomputes orthogonal sheaf restriction maps by local PCA and SVD alignment, giving a discrete $O(d)$-bundle with a connection Laplacian, and nears learned-sheaf diffusion at lower cost on nine node-classification sets. [[disipio-2025-curved-spacetime-transformers]] (2025) reads attention as a discrete connection by analogy with general relativity and measures layerwise turning angles of token trajectories against a random-direction null. [[favoni-2022-lattice-gauge-equivariant-cnns]] (2022) builds gauge-equivariant convolution and bilinear layers on $\mathrm{SU}(N_c)$ lattice links that generate Wilson loops.
 
 ## vfe3 projected attention routes, October 2, 2026
 
