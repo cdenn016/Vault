@@ -12,10 +12,16 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-10-04
+updated: 2026-10-06
 ---
 
 # Gauge equivariance and geometric deep learning
+
+## Prior readings of attention as a sheaf, connection or gauge theory, October 6, 2026
+
+Five sources bound what the GL(K) program can call new in reading attention geometrically. Graph networks with linear edge maps: [[barbero-2022-sheaf-attention-networks]] (abstract only) generalizes graph attention to cellular sheaves, and [[barbero-2022-sheaf-neural-networks-connection-laplacians]] with [[bodnar-2022-neural-sheaf-diffusion]] give sheaf diffusion with orthogonal restriction maps, a discrete $O(d)$-bundle whose Laplacian is the connection Laplacian; all are node-classification graph networks with no probabilistic fibers and no reading of a token transformer. Analogy for transformers: [[disipio-2025-curved-spacetime-transformers]] calls the operator $W_O\hat\alpha_{ij}W_V$ a discrete connection by analogy with general relativity and measures the turning angle of layerwise token trajectories as a curvature proxy, with no group, frame or holonomy. Gauge theory of inference: [[sengupta2017gauge]], already in the vault, is the closest conceptual precursor, a gauge theory of variational inference with parallel transport of sufficient statistics on a statistical manifold, but its attention is neuronal precision weighting, not transformer attention. In the opposite direction, [[favoni-2022-lattice-gauge-equivariant-cnns]] and [[nagai-2025-cask]] run networks on lattice gauge fields ([[Lattice gauge theory]]), and [[cassel-2025-bundle-scale-spaces]] and [[cassel-2025-yang-mills-data]] build locally gauge-equivariant graph architectures from discrete vector bundles. Of these, only [[disipio-2025-curved-spacetime-transformers]] addresses transformers directly, and only by analogy.
+
+> [!note] Editorial: This is the vault's reading of the abstracts and the parts of each paper read (each note records its read status), from a brief search with no adversarial check. That none of them defines frames in a principal $\mathrm{GL}(K)$-bundle with Gaussian statistical fibers and group-valued links for token transformers is the reading of the October 5 rework ([[dennis-2026-glk-attention-v2-rework-2026-10-05]]), not a verified priority claim.
 
 ## Exponential links as charts of the content maps, October 4, 2026
 
@@ -183,6 +189,10 @@ decrease. This is a real gap, not a technicality, and it should not be cited as 
 - [[norton-1993-general-covariance]] — the Kretschmann objection and eight decades of dispute over general covariance.
 - [[bodnar-2022-neural-sheaf-diffusion]] — Neural Sheaf Diffusion: learned restriction maps of cellular sheaves on graphs.
 - [[hansen-2018-toward-a-spectral-theory-of-cellular-sheaves]] — spectral theory of cellular sheaf Laplacians.
+- [[barbero-2022-sheaf-neural-networks-connection-laplacians]] — precomputed orthogonal sheaf from local PCA and SVD alignment (Conn-NSD).
+- [[barbero-2022-sheaf-attention-networks]] — Sheaf Attention Networks: attention-based graph networks on cellular sheaves (abstract only).
+- [[disipio-2025-curved-spacetime-transformers]] — attention as a discrete connection by analogy with general relativity; turning-angle curvature of token trajectories.
+- [[favoni-2022-lattice-gauge-equivariant-cnns]] — lattice gauge equivariant CNNs: link-transported convolution and bilinear layers that generate Wilson loops.
 
 ### Related sources
 

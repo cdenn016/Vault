@@ -14,10 +14,16 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-10-05
+updated: 2026-10-06
 ---
 
 # GL(K) gauge-equivariant attention
+
+## Prior readings of attention as a sheaf, connection or gauge theory, October 6, 2026
+
+A literature check on the bundle and lattice-gauge language of the October 5 rework found precedent for each ingredient. Graph attention has been extended to cellular sheaves ([[barbero-2022-sheaf-attention-networks]], abstract only), sheaf diffusion with orthogonal restriction maps is a discrete $O(d)$-bundle with a connection Laplacian ([[barbero-2022-sheaf-neural-networks-connection-laplacians]], [[bodnar-2022-neural-sheaf-diffusion]]), and [[disipio-2025-curved-spacetime-transformers]] calls the attention operator a discrete connection by analogy with general relativity, measuring the turning angle of layerwise token trajectories. [[favoni-2022-lattice-gauge-equivariant-cnns]] and [[nagai-2025-cask]] run networks on lattice gauge fields, and [[sengupta2017gauge]] is a gauge theory of variational inference whose attention is neuronal precision weighting. The synthesis is in [[Gauge equivariance and geometric deep learning]].
+
+> [!note] Editorial: In none of these is the object a principal $\mathrm{GL}(K)$-bundle of per-token frames with Gaussian statistical fibers and links $\Theta_{ij}=U_ie^{L_{ij}}U_j^{-1}$, and none states the routed-transport factorization of multi-head attention, as far as the abstracts and the parts read show. This is not an exhaustive search and was not checked adversarially; the novelty of the combination is unverified. In [[disipio-2025-curved-spacetime-transformers]] the update $W_O\hat\alpha_{ij}W_V$ coincides with the affine-chart edge map, so the nearest published statement of the first-order chart is an analogy, not a group-theoretic result.
 
 ## Main manuscript rework: agents, comparison links and routed transport, October 5, 2026
 
@@ -499,6 +505,8 @@ transformer attention is an exact special case.
 [[Quantum information geometry]] · [[Statistical manifold]] · [[Dressing field method]]
 
 ## Sources
+
+October 6, 2026 prior readings: [[barbero-2022-sheaf-attention-networks]] · [[barbero-2022-sheaf-neural-networks-connection-laplacians]] · [[disipio-2025-curved-spacetime-transformers]] · [[favoni-2022-lattice-gauge-equivariant-cnns]]
 
 October 5, 2026 rework: [[dennis-2026-glk-attention-v2-rework-2026-10-05]] · [[dennis-2026-minimal-agent-model]] · [[vfe3-2026-10-05-k128-exponential-and-parameter-accounting]]
 

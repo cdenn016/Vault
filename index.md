@@ -2,7 +2,7 @@
 type: index
 title: Index
 aliases: [Index, Home]
-updated: 2026-10-04
+updated: 2026-10-06
 ---
 
 # Index
@@ -10,7 +10,7 @@ updated: 2026-10-04
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **59** manuscripts · **16** themes · **11** field MOCs · **289** concepts · **15** methods · **734** papers · **159** references · **11** runs · **7** web/methodology
+> **3** projects · **61** manuscripts · **16** themes · **11** field MOCs · **289** concepts · **15** methods · **738** papers · **159** references · **12** runs · **7** web/methodology
 
 ## 🧭 Start here
 - [[multiagentelbo-2026-09-26-selection-and-reference-review]] — scoped pairing-selection proof and checked primary-reference archive
@@ -608,6 +608,8 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[carhartharris-2019-rebus|REBUS and the Anarchic Brain: Toward a Unified Model of the Brain Action of Psychedelics]]
 
 ### Gauge theory, Lie groups & geometric deep learning
+- [[favoni-2022-lattice-gauge-equivariant-cnns|Lattice gauge equivariant convolutional neural networks]]
+- [[barbero-2022-sheaf-neural-networks-connection-laplacians|Sheaf Neural Networks with Connection Laplacians]]
 - [[bronstein-2021-geometric-deep-learning|Geometric Deep Learning: Grids, Groups, Graphs, Geodesics, and Gauges]]
 - [[cohen-2016-gcnn|Group Equivariant Convolutional Networks]]
 - [[cohen-2019-gauge-cnn|Gauge Equivariant Convolutional Networks and the Icosahedral CNN]]
@@ -684,6 +686,8 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[petersen2012matrix|The Matrix Cookbook]]
 
 ### Attention, transformers & positional structure
+- [[barbero-2022-sheaf-attention-networks|Sheaf Attention Networks]]
+- [[disipio-2025-curved-spacetime-transformers|The Curved Spacetime of Transformer Architectures]]
 - [[bahdanau-2014-neural-machine-translation|Neural Machine Translation by Jointly Learning to Align and Translate]]
 - [[dong-2021-rank-collapse|Attention Is Not All You Need: Pure Attention Loses Rank Doubly Exponentially with Depth]]
 - [[geshkovski-2023-mathematical-transformers|A Mathematical Perspective on Transformers]]
