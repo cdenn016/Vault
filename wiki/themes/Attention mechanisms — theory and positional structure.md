@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-10-05
+updated: 2026-10-06
 ---
 
 # Attention mechanisms — theory and positional structure
@@ -35,7 +35,7 @@ The second lever is that "geometry-aware affinity" already has a worked example 
 
 The third lever is precision. In the VFE Transformer the weighting of information is not merely a learned similarity but a *precision-weighted* one, in which more reliable (lower-variance) sources are up-weighted. This idea does not originate in the attention literature at all; it descends from predictive coding and the free-energy framework, where prediction errors are scaled by their precision before being propagated. The synthesis this program attempts is to fuse the kernel view of attention with the precision view of inference, so that the attention matrix and the belief-updating dynamics are two faces of the same variational object.
 
-The direct precursor landscape also includes Structured Attention Networks; latent-alignment and variational-attention models; Bahuleyan and collaborators; Singh and Buckley; GET; Energy Transformer; Ravuri and Lawrence; and Free Energy Mixer. Sengupta's neuronal gauge work did use Schild's ladder to parallel-transport Gaussian means and covariances. The narrower contribution here is the particular combination of transported Gaussian posteriors, token-local frames, and entropy-regularized $\mathrm{GL}(K)$ attention.
+The direct precursor landscape also includes Structured Attention Networks; latent-alignment and variational-attention models; Bahuleyan and collaborators; Singh and Buckley; GET; Energy Transformer ([[hoover-2023-energy-transformer]]); Ravuri and Lawrence; and Free Energy Mixer. Sengupta's neuronal gauge work did use Schild's ladder to parallel-transport Gaussian means and covariances. The narrower contribution here is the particular combination of transported Gaussian posteriors, token-local frames, and entropy-regularized $\mathrm{GL}(K)$ attention.
 
 ## Key threads
 
@@ -103,6 +103,12 @@ Gibbs routing pools the pointwise source posteriors geometrically. It normalizes
 
 > [!note] Editorial: These sources predate the program's statements of the KL-softmax row, the additive log-prior, and the isotropic L2 limit, so those statements are positioned as rederivations. The program-specific content lies in the Gaussian framed states and in the comparison and content maps that connect them.
 
+## Transformer layers derived from an objective (2026-10-06)
+
+A separate precursor line derives whole transformer layers, not only the attention row, as steps that decrease an objective. [[yang-2022-transformers-optimization-perspective]] constructs a pairwise energy $\sum_{ij}\rho(\tfrac12\|y_i-y_j\|^2)+R(Y)$ whose majorization-minimization step is softmax self-attention, shows that alternating gradient steps on the attention and feed-forward energies descend their sum outside a bounded region, and treats ReLU as a proximal step; its weights must be symmetric and shared across layers, and its evidence is energy descent on IMDB and SST-2. [[hoover-2023-energy-transformer]] goes the other way, choosing an energy from Dense Associative Memory theory (a log-sum-exp over query-key alignments plus a Hopfield term over learned memories, both on layer-normalized tokens) and accepting the block its gradient flow produces: attention with value matrix $(W^Q)^\top K$ and an extra key-side term, a tied-weight MLP in parallel with attention, LayerNorm as the gradient of a Lagrangian, and a provably decreasing energy. [[yu-2023-white-box-transformers-sparse-rate-reduction]] (CRATE) derives attention as an approximate gradient step on a subspace coding rate, with query, key and value all equal to a learned subspace basis, and the MLP as one ISTA step of nonnegative sparse coding, and is within 1.6 top-1 points of ViT-S on ImageNet-1K at similar size. All three are trained by backpropagation through the unrolled forward pass, and all three treat tokens as point vectors. They extend [[ramsauer2021hopfield]], whose energy gives one cross-attention retrieval step, to the self-attention and MLP parts of the block, and sit beside the geometric-flow route of [[cassel-2024-sigma-flows]] above.
+
+> [!note] Editorial: For the gauge-VFE program the relevant contrast is between descent of a chosen energy and exact inference in a stated model. The program's routing is a source posterior and reduces, in the isotropic shared-frame limit, to the same $\operatorname{softmax}_j(-\tfrac12\|y_i-y_j\|^2)$ that Yang et al. obtain from their energy; its distinct content is the propagated covariance and group-valued transport ([[GL(K) gauge-equivariant attention]]). Its gap relative to this line is a trained derived MLP and a block-level descent guarantee, which CRATE and ET supply for their own objectives. This positioning is the vault's, not the papers'.
+
 ## Sources synthesized
 
 - [[bouchaffra-2026-attention-synergy]] — unreviewed game-theoretic attention/free-energy preprint with a bounded interaction-information claim.
@@ -122,6 +128,9 @@ Core attention theory and the existing linked sources remain as above. The 2026-
 - [[levine-2018-control-as-inference]], [[toussaint-storkey-2006-probabilistic-inference-mdp]], [[kappen-2012-optimal-control-inference]] — binary optimality variables and KL control, the device behind exact Gibbs posteriors.
 - [[das-2019-tarmac]] — attention-based targeted communication among agents.
 - [[jebara-2004-probability-product-kernels]] — kernels between distributions; the expected likelihood kernel behind noisy-query routing.
+- [[yang-2022-transformers-optimization-perspective]] — softmax self-attention as a majorization-minimization step and transformer layers as alternating inexact minimization of one energy.
+- [[hoover-2023-energy-transformer]] — a recurrent transformer block as gradient descent of an engineered attention-plus-Hopfield energy.
+- [[yu-2023-white-box-transformers-sparse-rate-reduction]] — CRATE: attention and a sparse-coding MLP from alternating minimization of sparse rate reduction.
 
 ## See also
 
