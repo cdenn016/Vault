@@ -17,6 +17,10 @@ updated: 2026-10-04
 
 # Holonomy
 
+## Edge-dependent links: curved mode and pure-gauge control, October 6, 2026
+
+[[dennis-2026-edge-latent-links]] gives the first implemented link field with more than one holonomy class per layer: with $G_{ij}=e^{L}\exp(A_iB_j^\top)$ the triangle trace changes at first order in $B$, while the pure-gauge control $G_{ij}=g_ie^{L}g_j^{-1}$ has every triangle holonomy conjugate to $e^{L}$. In the depth loops $(G_{ik}^{\ell+1}G_{kk}^\ell)^{-1}G_{ij}^{\ell+1}G_{jk}^\ell$ the upper shared generator cancels, so the shared-generator model is loop-flat there although its triangles are not.
+
 ## Triangle spectra of the implemented charts, October 4, 2026
 
 [[dennis-2026-glk-lie-algebra-links-v2]] places the inverse-edge triangle holonomy in the main GL(K) manuscript and computes it for the routed links that VFE_3.0 actually forms. With tiled heads, an invertible $T$, an invertible effective receiving map $\widetilde O$ and positive weights on the three edges, the triangle holonomy of $\mathcal M_{ab}=U_a\widetilde O\boldsymbol\beta_{ab}TU_b^{-1}$ is similar to $\boldsymbol\rho_{ijk}T\widetilde O$, where $\boldsymbol\rho_{ijk}$ is the head-diagonal routing ratio $\beta_{ij}^{(h)}\beta_{jk}^{(h)}/\beta_{ik}^{(h)}$. The head transfer is $TO$ in the affine chart, $I+TO$ in the first-order chart and $e^{TO}$ in the exponential chart, so a vanishing routing defect still leaves a holonomy similar to the transfer, which in the exponential chart is generally not the identity. For softmax routing the receiver normalizer cancels and the intermediate normalizer $Z_j$ remains in $\log\rho_{ijk}$. To second order the exponential-link holonomy is $\log(e^{-Z}e^Ae^B)=(A+B-Z)+\tfrac12([A,B]-[Z,A]-[Z,B])+O(3)$, so an additive coboundary of generators does not make the links flat when its values fail to commute. The statements are checked numerically in float64 at small sizes; none of them is a measurement on trained links.

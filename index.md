@@ -10,7 +10,7 @@ updated: 2026-10-06
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
-> **3** projects · **61** manuscripts · **16** themes · **11** field MOCs · **289** concepts · **15** methods · **738** papers · **159** references · **12** runs · **7** web/methodology
+> **3** projects · **62** manuscripts · **16** themes · **11** field MOCs · **289** concepts · **15** methods · **738** papers · **159** references · **12** runs · **7** web/methodology
 
 ## 🧭 Start here
 - [[multiagentelbo-2026-09-26-selection-and-reference-review]] — scoped pairing-selection proof and checked primary-reference archive
@@ -27,6 +27,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 
 ## 📝 Manuscripts (in preparation)
 - [[dennis-2026-glk-attention-v2-rework-2026-10-05]] — main GL(K) attention manuscript rebuilt on October 5, 2026: agents on a bundle over one context, four head interfaces, comparison link, routed-transport theorem with a standard layer as the affine chart, $K=128$ anchor with parameter accounting; supplement revived as S1 to S10
+- [[dennis-2026-edge-latent-links]] — working note: edge-dependent links $G_{ij}=g_ie^{L}E_{ij}$ (curved rank-$r$ mode and pure-gauge control), closed-form message and covariance, causal latent receiver factors with natural-gradient inference and a depth-loop prior; implemented in vfe3, no training result
 - [[dennis-2026-minimal-agent-model]] — standalone note: tied key and content with a Bayesian receiver; exact posterior, derived gain and residual, Gibbs routing as a mean-field step; declared and unevaluated
 - [[dennis-2026-glk-lie-algebra-links-v2]] — main GL(K) attention manuscript revised with Lie-algebra links: exponential-link endpoint law, low-rank split into flat transport plus value-path channel, three content-link charts, closed-form channel-likelihood receiver, inverse-edge triangle holonomy; 58 float64 checks and single-seed K=20 chart runs
 - [[multiagentelbo-2026-10-04-stable-physics-questions]] — eighteen questions on historical consistency, predictive retention, endogenous records, dynamic links, and universality; editable [[Stable_Physics_Research_Questions]].
