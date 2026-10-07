@@ -1,41 +1,50 @@
 r"""Geometry of the trained content links of the October 3, 2026 chart runs (CPU, float64).
 
-Reads the stored factors (T, O) from the saved map snapshots and final weights of the K=20 runs in
-VFE_3.0/vfe3_runs/10-3-2026_Experiments and evaluates, per layer, the stacked transfer
+Reads the stored float32 factors (T, O) of every map snapshot (steps 0 to 15000) of the K=20 runs
+from trained_links_K20.npz (written by extract_trained_links.py from the run folders
+10-3-2026_Experiments/<run>/map_snapshots) and evaluates, per layer, the stacked transfer
 M = O'T (K x K) of each run's chart: the reference operator of an edge on which every head selects
-the same source with unit weight. Run from the VFE_3.0 checkout with its package importable:
+the same source with unit weight. Needs numpy and torch (CPU) only:
 
-    PYTHONPATH=. python <this file> > trained_link_geometry_output.txt
+    python trained_link_geometry.py > trained_link_geometry_output.txt
 """
-import glob
 import os
+import platform
 
+import numpy as np
 import torch
 
-from vfe3.model.relational_operators import chart_receive_map
-
 torch.set_num_threads(1)
-ROOT = os.path.join("vfe3_runs", "10-3-2026_Experiments")
-RUNS = [("affine", "affine", "121.77_wikitext-103_K20_affine"),
-        ("first order", "first_order", "121.98_wikitext-103_K20_first-order"),
-        ("exponential", "exponential", "121.53_wikitext-103_K20_exponential"),
-        ("exponential, receiver", "exponential", "124.93_wikitext-103_K20_exponential_gradient")]
+print(f"python {platform.python_version()}, numpy {np.__version__}, torch {torch.__version__}, {platform.platform()}")
+NPZ = os.path.join(os.path.dirname(os.path.abspath(__file__)), "trained_links_K20.npz")
+RUNS = [("affine", "affine", "121.77_wikitext-103_K20_affine", "affine"),
+        ("first order", "first_order", "121.98_wikitext-103_K20_first-order", "first_order"),
+        ("exponential", "exponential", "121.53_wikitext-103_K20_exponential", "exponential"),
+        ("exponential, receiver", "exponential", "124.93_wikitext-103_K20_exponential_gradient",
+         "exponential_receiver")]
 
 
-def flat(d, pre=""):
-    out = {}
-    for k, v in d.items():
-        out.update(flat(v, pre + k + ".") if isinstance(v, dict) else {pre + k: v})
-    return out
+def _phi1(A: torch.Tensor) -> torch.Tensor:
+    r"""phi_1(A) = sum_{n>=1} A^{n-1}/n!, the upper-right block of exp([[A, I], [0, 0]])."""
+    n = A.shape[-1]
+    eye = torch.eye(n, dtype=A.dtype)
+    augmented = torch.cat([torch.cat([A, eye], dim=-1), torch.zeros(n, 2 * n, dtype=A.dtype)], dim=-2)
+    return torch.linalg.matrix_exp(augmented)[:n, n:]
 
 
-def layers(state):
-    found = [(state["relational_operators.T"], state["relational_operators.O"])]
-    i = 0
-    while f"relational_operators_extra.{i}.T" in state:
-        found.append((state[f"relational_operators_extra.{i}.T"], state[f"relational_operators_extra.{i}.O"]))
-        i += 1
-    return found
+def chart_receive_map(T: torch.Tensor, O: torch.Tensor, chart: str) -> torch.Tensor:
+    r"""Effective receiving maps O' (H, K, d) of the tiled content link (same arithmetic as
+    vfe3.model.relational_operators.chart_receive_map, one equal-head run):
+    O'_affine = O, O'_first_order = T^{-1} + O, O'_exponential = T^{-1} + O phi_1(TO) = e^{OT} T^{-1},
+    with T the (K, K) row stack of the sending maps and O the (K, K) column stack of the receiving factors."""
+    if chart == "affine":
+        return O
+    H, d, K = T.shape
+    T_stack = T.to(torch.float64).reshape(-1, K)                               # (K, K) rows by head
+    O_stack = O.to(torch.float64).permute(1, 0, 2).reshape(K, -1)              # (K, K) columns by head
+    inverse = torch.linalg.inv_ex(T_stack).inverse
+    receive = inverse + O_stack if chart == "first_order" else inverse + O_stack @ _phi1(T_stack @ O_stack)
+    return receive.reshape(K, H, d).permute(1, 0, 2)                           # (H, K, d)
 
 
 def geometry(T, O, chart):
@@ -57,20 +66,16 @@ def geometry(T, O, chart):
     return row
 
 
-for label, chart, run in RUNS:
-    base = os.path.join(ROOT, run)
-    entries = []
-    for path in sorted(glob.glob(os.path.join(base, "map_snapshots", "step_*.pt"))):
-        snap = torch.load(path, map_location="cpu", weights_only=False)
-        entries.append((int(snap["step"]), flat(snap["state"])))
-    if not entries or entries[-1][0] != 15000:                             # final weights unless snapshotted
-        final = torch.load(os.path.join(base, "final_model.pt"), map_location="cpu", weights_only=False)
-        entries.append((15000, final["model_state"]))
+data = np.load(NPZ)
+for label, chart, run, tag in RUNS:
+    steps = [int(s) for s in data[f"{tag}_steps"]]
+    T_all, O_all = data[f"{tag}_T"], data[f"{tag}_O"]                      # (S, L, H, d, K), (S, L, H, K, d)
     print(f"== {label}: {run}")
-    print("   snapshot steps:", [s for s, _ in entries])
+    print("   snapshot steps:", steps)
     by_layer = {}
-    for step, state in entries:
-        for layer, (T, O) in enumerate(layers(state)):
+    for k, step in enumerate(steps):
+        for layer in range(T_all.shape[1]):
+            T, O = torch.from_numpy(T_all[k, layer]), torch.from_numpy(O_all[k, layer])
             by_layer.setdefault(layer, []).append((step, geometry(T, O, chart)))
     for layer, rows in by_layer.items():
         signs = [r["sign"] for _, r in rows]
