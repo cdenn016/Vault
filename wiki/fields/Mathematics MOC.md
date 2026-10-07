@@ -12,6 +12,11 @@ updated: 2026-10-07
 
 # Mathematics MOC
 
+## Saved-law arithmetic and residual precision, October 7, 2026
+
+[[multiagentelbo-2026-10-07-recognition-precision]] records 79,183 passing independent L3 checks across all 64 contexts, including complete density and required KL-bound inventories. L2 passes 723 saved-reduction checks but misses its frozen link-mean precision threshold. Complete-vector aggregation and grouped arithmetic reuse establish the declared reductions; byte bindings and a heuristic RMS margin prove neither stationarity nor continuous-target or thermodynamic closure.
+
+
 ## Finite-source window-memory bounds, October 7, 2026
 
 [[multiagentelbo-2026-10-07-window-memory]] reconstructs finite suffix-memory defects, prior-row excess, normalized two-depth composition and separate physical/observation path bounds at N512/N2048. The B64/r3 twelve-record observation bound averages .025313 nat. Positive cutoff noise still makes the full simultaneous child-parent KL infinite; the finite teacher comparison proves no continuous-history or thermodynamic closure.

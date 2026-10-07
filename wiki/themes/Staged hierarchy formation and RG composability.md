@@ -20,6 +20,13 @@ updated: 2026-10-07
 
 # Staged hierarchy formation and RG composability
 
+## Recognition comparison and precision stop, October 7, 2026
+
+[[multiagentelbo-2026-10-07-recognition-precision]] completes the existing two-depth L3 comparison at saved fixed/refreshed N512 endpoints, including thirteen missing contexts after a preserved failed output write. All 64 contexts, required density/bound inventories and 79,183 independent arithmetic checks passed. The largest count-matched mean conditional record score contrast is −1.244661 nat, MCSE .324277, with four negative construction batches; finite reference-mixture comparisons do not establish continuous-target closure. Mean payload reduction excludes compiled decoder and encoder workspace.
+
+The independent L2 stopping-precision measurement completed 32 vector estimates over 8,192 draws with zero optimization. It retains **precision_target_unmet**, despite passing objective precision and all 723 saved-reduction checks. A heuristic residual margin does not certify stationarity. These completed operations establish no parent-dependent recursive formation, downward Bayes-consistent dynamics or RG limit. Full-graph feedback is unrun scope; publication and Desktop synchronization precede the requested break.
+
+
 ## October 7 window-memory accuracy and storage
 
 [[multiagentelbo-2026-10-07-window-memory]] extends the finite-memory route at $c_*$ to $r=2,3$ suffix contexts at N512/N2048. Sixty-four shared dictionaries and 512 original initialized paired-depth sequences complete the declared twelve-record comparison. Independent arithmetic readback reconstructs both normalized filter routes, the within-model composition square, entropy accounting and complete occupied-storage charges. The actual-cutoff-weight row control separates memory defect from the extra prior-row approximation, while remaining an instance-specific reference.

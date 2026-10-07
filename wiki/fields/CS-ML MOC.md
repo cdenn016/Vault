@@ -10,6 +10,11 @@ updated: 2026-10-07
 
 # CS-ML MOC
 
+## Recognition payloads and bounded precision, October 7, 2026
+
+[[multiagentelbo-2026-10-07-recognition-precision]] completes L3 with 64 contexts and 79,183 passing arithmetic checks. Mean payloads are 17,800–289,904 bytes, with separately charged decoder workspaces of 41,216–706,560 bytes and a 5,676,048-byte encoder workspace; payload reduction is not peak-memory reduction. The largest count-matched conditional score contrast favors the joint law. L2 completes 8,192 zero-update draws and 723 passing reduction checks but retains its link-mean precision miss without extending the budget. CPU float64 sufficed; no GPU was allocated.
+
+
 ## Window-memory storage and filtering, October 7, 2026
 
 [[multiagentelbo-2026-10-07-window-memory]] retains sparse rectangular transitions, correlated emissions and peak message capacity. B64/r3 occupies 28,141,517.5 mean bytes, near the 29,109,774-byte retained reference, while nearly identifying the finite teacher histories. Independent saved-value readback passed 584,803 checks; no GPU was needed. Smaller finite-source path bounds do not demonstrate a predictive gain.
