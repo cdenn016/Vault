@@ -10,6 +10,11 @@ updated: 2026-10-07
 
 # CS-ML MOC
 
+## Graded retention and its limits, October 7, 2026
+
+[[multiagentelbo-2026-10-07-graded-retention]] compares bottom spectral ranks 2-32 against the actual rooted-mean channel at rank two, charging full decoder geometry, messages and separate dictionary/workspace costs. Slow-mode rank two is nearly tied with rooted mean and retains little of the sparse-record posterior information; no prediction or operational speedup claim follows. CPU NumPy sufficed.
+
+
 ## Full-network conditional recovery baseline, October 7, 2026
 
 [[multiagentelbo-2026-10-07-full-graph-feedback]] evaluates 192 all-block outcomes with block Gaussian operations and shared rank-four factors. CPU NumPy suffices; the producer takes 223.744632 seconds and saved-only readback 316.648521 seconds. The compressed NPZ archive occupies 807,249,912 bytes, not peak RAM or a compact decoder budget. O4 graded retention requires matched dimension and explicit error/storage/workspace accounting.
