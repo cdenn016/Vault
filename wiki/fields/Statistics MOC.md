@@ -5,12 +5,17 @@ aliases: [field/statistics, Statistics sources, Information theory MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-10-04
+updated: 2026-10-07
 ---
 
 
 
 # Statistics MOC
+
+## Finite-source window-memory comparison, October 7, 2026
+
+[[multiagentelbo-2026-10-07-window-memory]] compares prior-count and actual-cutoff-weight rows on a shared 192-history teacher. Its 512 paired-depth sequences share dictionaries and histories, so aggregate means are descriptive. B64/r3 observation-score changes average -.0003422643 nat with 31 positive and 33 negative instances: tighter finite-source bounds establish no predictive gain or independent-instance effect.
+
 
 ## October 3 joint-channel compression comparison
 

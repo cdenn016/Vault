@@ -5,10 +5,15 @@ aliases: [field/cs-ml, CS-ML sources, Machine learning MOC, CS/ML MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-10-06
+updated: 2026-10-07
 ---
 
 # CS-ML MOC
+
+## Window-memory storage and filtering, October 7, 2026
+
+[[multiagentelbo-2026-10-07-window-memory]] retains sparse rectangular transitions, correlated emissions and peak message capacity. B64/r3 occupies 28,141,517.5 mean bytes, near the 29,109,774-byte retained reference, while nearly identifying the finite teacher histories. Independent saved-value readback passed 584,803 checks; no GPU was needed. Smaller finite-source path bounds do not demonstrate a predictive gain.
+
 
 ## Transformer layers derived from an objective, October 6, 2026
 
