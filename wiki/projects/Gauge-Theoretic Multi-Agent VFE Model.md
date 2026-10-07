@@ -21,11 +21,17 @@ updated: 2026-10-07
 
 # Gauge-Theoretic Multi-Agent VFE Model
 
+## Full-network Gaussian feedback calibration, October 7, 2026
+
+[[multiagentelbo-2026-10-07-full-graph-feedback]] completes a supplied-hierarchy, cutoff-frozen Gaussian delayed-feedback reference on all N512/N2048 blocks. Sixteen archived instances produce 192 arm/horizon outcomes; independent saved-only readback passes 2,480 checks over 76,605,696 entries, maximum discrepancy 1.1942802303e-10. Downward recovery conditions on the entire parent vector and updates all history-label weights, retaining shared correlations. Known shifted response validates the declared rates; the fixed conditional probe establishes no prediction gain or endogenous formation.
+
+The broad RG goal is active. O4 graded retention at matched dimension and charged error/cost is next, while O1's size/expansion obligation, theory-wide O3, graph-family S1, original joint-flow feedback, evolving geometry and continuous-target accuracy remain open. No GPU was required. This executed Gaussian control supersedes the preceding report's unrun-feedback status only within its declared supplied-hierarchy scope.
+
 ## October 7 saved recognition and stopping precision
 
 [[multiagentelbo-2026-10-07-recognition-precision]] completes the L3 saved-law comparison at the fixed/refreshed N512 checkpoint-128 endpoints: all 64 contexts and 79,183 independent arithmetic checks passed. The largest count-matched mean-minus-joint conditional record score is −1.244661 nat, MCSE .324277, with four negative batches. Smaller mean payloads require separately charged decoder and encoder workspaces; payload reduction is not total-memory reduction. The endpoints remain unconverged on one dataset.
 
-The zero-update L2 fixed-endpoint measurement completed all 8,192 draws and passed 723 saved-reduction checks, but retains **precision_target_unmet**: link-mean MC_RMS_SE .002511071 exceeds .002500 while the objective precision passes. No budget extension or equilibrium claim follows. Earlier L3 failures remain failures and the operating-system cause is unknown. Source-byte bindings record provenance. Full-graph parent-dependent feedback, an actual downward reversal, continuous-target accuracy, O1/O4 and the RG limit remain open; their next scope is unrun. Publication and actual Desktop synchronization precede the requested break.
+The zero-update L2 fixed-endpoint measurement completed all 8,192 draws and passed 723 saved-reduction checks, but retains **precision_target_unmet**: link-mean MC_RMS_SE .002511071 exceeds .002500 while the objective precision passes. No budget extension or equilibrium claim follows. Earlier L3 failures remain failures and the operating-system cause is unknown. Source-byte bindings record provenance. At that earlier checkpoint, full-graph parent-dependent feedback and an actual downward reversal were unrun; continuous-target accuracy, O1/O4 and the RG limit remain open. Publication and actual Desktop synchronization precede the requested break.
 
 
 ## October 7 finite-source window-memory comparison

@@ -12,6 +12,10 @@ updated: 2026-10-07
 
 # Mathematics MOC
 
+## Full-parent Gaussian conditioning, October 7, 2026
+
+[[multiagentelbo-2026-10-07-full-graph-feedback]] supplies nested covariance-compatible Gaussian transitions and full correlated downward reversal at N512/N2048. Seven tiny dense-oracle tests pass, followed by 2,480 independent saved-value checks over 76,605,696 entries. Singular conditional fibers retain their affine support without ambient jitter. These numerical checks validate the declared supplied model, not an intrinsic selector, original-flow semiconjugacy or a thermodynamic theorem.
+
 ## Saved-law arithmetic and residual precision, October 7, 2026
 
 [[multiagentelbo-2026-10-07-recognition-precision]] records 79,183 passing independent L3 checks across all 64 contexts, including complete density and required KL-bound inventories. L2 passes 723 saved-reduction checks but misses its frozen link-mean precision threshold. Complete-vector aggregation and grouped arithmetic reuse establish the declared reductions; byte bindings and a heuristic RMS margin prove neither stationarity nor continuous-target or thermodynamic closure.

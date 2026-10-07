@@ -20,11 +20,17 @@ updated: 2026-10-07
 
 # Staged hierarchy formation and RG composability
 
+## Full-network supplied Gaussian feedback, October 7, 2026
+
+[[multiagentelbo-2026-10-07-full-graph-feedback]] adds a normalized delayed transition and actual all-parent reversal to the complete retained-history reference. All 192 outcomes include every first parent, second parent and fine agent at N512/N2048; shared factors retain cross-group correlations. The independent readback passes 2,480 comparisons at maximum discrepancy 1.1942802303e-10. Known shifted response and probe-conditioned RMS are controls of supplied rates and finite laws, without formation or prediction claims.
+
+The new prospective model draws fresh baseline fibers at positive horizons and retains a static history index. It does not substitute for the original collective-free-energy descent or eliminate temporal memory by hiding that index. O4 graded compression follows this baseline; O1/O3/S1, continuous-target accuracy, evolving geometry, intrinsic hierarchy and RG-limit obligations stay open. Earlier failed runs and precision misses remain distinct. The earlier report's unrun status is superseded only for this frozen Gaussian control.
+
 ## Recognition comparison and precision stop, October 7, 2026
 
 [[multiagentelbo-2026-10-07-recognition-precision]] completes the existing two-depth L3 comparison at saved fixed/refreshed N512 endpoints, including thirteen missing contexts after a preserved failed output write. All 64 contexts, required density/bound inventories and 79,183 independent arithmetic checks passed. The largest count-matched mean conditional record score contrast is −1.244661 nat, MCSE .324277, with four negative construction batches; finite reference-mixture comparisons do not establish continuous-target closure. Mean payload reduction excludes compiled decoder and encoder workspace.
 
-The independent L2 stopping-precision measurement completed 32 vector estimates over 8,192 draws with zero optimization. It retains **precision_target_unmet**, despite passing objective precision and all 723 saved-reduction checks. A heuristic residual margin does not certify stationarity. These completed operations establish no parent-dependent recursive formation, downward Bayes-consistent dynamics or RG limit. Full-graph feedback is unrun scope; publication and Desktop synchronization precede the requested break.
+The independent L2 stopping-precision measurement completed 32 vector estimates over 8,192 draws with zero optimization. It retains **precision_target_unmet**, despite passing objective precision and all 723 saved-reduction checks. A heuristic residual margin does not certify stationarity. These completed operations establish no parent-dependent recursive formation, downward Bayes-consistent dynamics or RG limit. Full-graph feedback was unrun at that earlier checkpoint; publication and Desktop synchronization precede the requested break.
 
 
 ## October 7 window-memory accuracy and storage

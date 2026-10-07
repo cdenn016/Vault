@@ -12,6 +12,10 @@ updated: 2026-10-07
 
 # Statistics MOC
 
+## Conditional-probe feedback diagnostics, October 7, 2026
+
+[[multiagentelbo-2026-10-07-full-graph-feedback]] retains all 3,072 history-label components and updates their weights using the entire parent density. Sixteen instances share four underlying networks, one per case; conditional-probe RMS and component ESS are descriptive. The probe is declared, not generated future data, and the shifted response is a supplied-rate positive control. No independent-network effect or predictive gain is established.
+
 ## Conditional score loss and precision miss, October 7, 2026
 
 [[multiagentelbo-2026-10-07-recognition-precision]] reports a largest count-matched mean-minus-joint conditional record score of −1.244661 nat, MCSE .324277, with four negative batches. The four batches average dependent patches on one N512 dataset at unconverged endpoints. Its separate fixed-state 8,192-draw L2 measurement has link-mean MC_RMS_SE .002511071 above the .002500 target, while objective MCSE .000397641 nat/agent passes. Grouped estimates reuse the same draws; no extra replication, training-noise, between-network or posterior-accuracy claim follows.
