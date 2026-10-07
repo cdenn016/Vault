@@ -1340,6 +1340,9 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 
 ## 🧪 Sources — experiment runs
 
+- [[multiagentelbo-2026-10-07-recognition-precision|MultiAgentELBO saved recognition and stopping precision, October 7, 2026]] — L3 all 64 contexts and 79,183 arithmetic checks complete, largest count-matched mean score contrast −1.244661 nat; L2 all 8,192 draws and 723 reduction checks complete but frozen link-mean precision target unmet; one dataset, unconverged endpoints, no equilibrium or formation claim.
+
+
 - [[multiagentelbo-2026-10-07-window-memory|MultiAgentELBO finite-source window-memory comparison, October 7, 2026]] — N512/N2048, 64 shared dictionaries and 512 paired-depth sequences; tighter finite-history bounds approach retained-teacher storage, mixed scores establish no predictive gain; independent arithmetic readback passed 584,803 checks.
 
 - [[vfe3-2026-10-05-k128-exponential-and-parameter-accounting|VFE_3.0 K=128 exponential-chart run and parameter accounting, October 5, 2026]] — test PPL 34.48 (one seed, 614.4M tokens); matched pairs 39.77 vs 90.15 and 52.91 vs 117.63 at equal non-embedding parameters; trained links numerically low rank; frame-versus-table control not run

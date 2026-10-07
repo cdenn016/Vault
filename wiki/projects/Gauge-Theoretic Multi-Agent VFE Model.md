@@ -21,6 +21,13 @@ updated: 2026-10-07
 
 # Gauge-Theoretic Multi-Agent VFE Model
 
+## October 7 saved recognition and stopping precision
+
+[[multiagentelbo-2026-10-07-recognition-precision]] completes the L3 saved-law comparison at the fixed/refreshed N512 checkpoint-128 endpoints: all 64 contexts and 79,183 independent arithmetic checks passed. The largest count-matched mean-minus-joint conditional record score is −1.244661 nat, MCSE .324277, with four negative batches. Smaller mean payloads require separately charged decoder and encoder workspaces; payload reduction is not total-memory reduction. The endpoints remain unconverged on one dataset.
+
+The zero-update L2 fixed-endpoint measurement completed all 8,192 draws and passed 723 saved-reduction checks, but retains **precision_target_unmet**: link-mean MC_RMS_SE .002511071 exceeds .002500 while the objective precision passes. No budget extension or equilibrium claim follows. Earlier L3 failures remain failures and the operating-system cause is unknown. Source-byte bindings record provenance. Full-graph parent-dependent feedback, an actual downward reversal, continuous-target accuracy, O1/O4 and the RG limit remain open; their next scope is unrun. Publication and actual Desktop synchronization precede the requested break.
+
+
 ## October 7 finite-source window-memory comparison
 
 [[multiagentelbo-2026-10-07-window-memory]] records the published L4 comparison at N512/N2048, using the same finite 192-history teacher, original cutoff initialization and twelve later records. All 64 shared dictionaries and 512 paired-depth sequences completed; independent arithmetic readback passed 584,803 checks with maximum absolute discrepancy $4.263256\times10^{-14}$. The new $r=2,3$ windows compare prior-count rows with controls fitted using each instance's actual cutoff weights. Both arms assimilate future records; the cutoff control is a reference, not a deployable prior-only parent.

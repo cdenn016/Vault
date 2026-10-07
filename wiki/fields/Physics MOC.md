@@ -10,6 +10,11 @@ updated: 2026-10-07
 
 # Physics MOC
 
+## Fixed-context recognition and numerical stopping, October 7, 2026
+
+[[multiagentelbo-2026-10-07-recognition-precision]] completes finite saved recognition-law comparisons on the existing N512 $GL^+(2,\mathbb R)$ network at one base point. A separate zero-update residual measurement retains its declared precision miss. Neither calculation establishes equilibrium, endogenous hierarchy, nonlinear network scaling or the thermodynamic limit. Full-graph parent-dependent feedback remains unrun; concurrent theory edits remain distinct from these frozen calculations.
+
+
 ## Fixed-context finite-memory RG comparison, October 7, 2026
 
 [[multiagentelbo-2026-10-07-window-memory]] measures two-depth memory/error/storage at one base point for saved N512/N2048 latent-link histories. It does not establish endogenous hierarchy, nonlinear large-network scaling or a thermodynamic limit. Concurrent quadratic cycle-sector additions to the theory are recorded separately from the frozen calculation and receive no experimental validation here.

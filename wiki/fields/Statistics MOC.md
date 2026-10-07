@@ -12,6 +12,11 @@ updated: 2026-10-07
 
 # Statistics MOC
 
+## Conditional score loss and precision miss, October 7, 2026
+
+[[multiagentelbo-2026-10-07-recognition-precision]] reports a largest count-matched mean-minus-joint conditional record score of −1.244661 nat, MCSE .324277, with four negative batches. The four batches average dependent patches on one N512 dataset at unconverged endpoints. Its separate fixed-state 8,192-draw L2 measurement has link-mean MC_RMS_SE .002511071 above the .002500 target, while objective MCSE .000397641 nat/agent passes. Grouped estimates reuse the same draws; no extra replication, training-noise, between-network or posterior-accuracy claim follows.
+
+
 ## Finite-source window-memory comparison, October 7, 2026
 
 [[multiagentelbo-2026-10-07-window-memory]] compares prior-count and actual-cutoff-weight rows on a shared 192-history teacher. Its 512 paired-depth sequences share dictionaries and histories, so aggregate means are descriptive. B64/r3 observation-score changes average -.0003422643 nat with 31 positive and 33 negative instances: tighter finite-source bounds establish no predictive gain or independent-instance effect.

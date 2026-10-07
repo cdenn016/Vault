@@ -18,6 +18,13 @@ updated: 2026-10-07
 
 # Meta-agents and hierarchical emergence
 
+## Saved recognition does not establish formation, October 7, 2026
+
+[[multiagentelbo-2026-10-07-recognition-precision]] completes a finite saved-law comparison across 64 N512 contexts, with 79,183 independent arithmetic checks. The largest count-matched mean-minus-joint conditional record score is −1.244661 nat, MCSE .324277, and all four construction batches are negative. This describes information lost by the declared mean message at unconverged saved endpoints; it supplies no independent-network or formation result.
+
+Its separate zero-update L2 measurement retains **precision_target_unmet** after 8,192 draws: the link-mean MC_RMS_SE .002511071 exceeds .002500. Objective precision passes, but no stationarity or equilibrium certificate follows. Full-graph parent-dependent feedback and actual downward reversal remain unrun. The previous failures and unknown operating-system cause remain recorded; useful compressed closure, O1/O4 and the thermodynamic limit stay open.
+
+
 ## Finite memory and retained-history identification, October 7, 2026
 
 [[multiagentelbo-2026-10-07-window-memory]] measures what a longer suffix retains in the existing fixed-$c_*$ finite teacher. Prior-count and actual-cutoff-weight row fits share correlated emissions and an affine parent channel, and both assimilate the same twelve original records. The normalized two-depth square preserves the declared selected output within the approximate model; it does not make the children independently autonomous or furnish a full-network interface.
