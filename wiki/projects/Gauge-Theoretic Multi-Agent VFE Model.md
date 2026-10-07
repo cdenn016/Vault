@@ -21,6 +21,11 @@ updated: 2026-10-07
 
 # Gauge-Theoretic Multi-Agent VFE Model
 
+## L5 nonlinear accuracy and tails, October 7, 2026
+
+[[multiagentelbo-2026-10-07-l5-accuracy-tails]] Six N512/N2048/N8192 accuracy/tail cases completed, reusing the two smaller nonlinear archives and generating only three Gaussian controls plus the missing N8192 nonlinear case. Independent saved-only arithmetic passed 1,299 comparisons from 1,536 histories and 88,080,384 based loop products. Tail rank screens give 61 passes, seventeen misses and twelve inconclusive results. Unthinned tail diagnostics or another justified precision design is next; stationary tails, O5, formation, original dynamics and thermodynamic closure remain open. Goal active; CPU only.
+
+
 ## L5 CPU resource baseline, October 7, 2026
 
 [[multiagentelbo-2026-10-07-l5-cpu-resource]] executes the unchanged nonlinear history CPU path once at N512/N2048/N8192. Sampler costs under the eight-sweep resource budget are .649015/2.662270/11.079382 seconds; independently implemented saved-only arithmetic passes 195 comparisons over 11,161,356 entries. This establishes finite-instance CPU execution, not sampling accuracy, stationary tails, O5 spectral scaling or formation. The full goal remains active. Freeze nonlinear accuracy/tail observables next; CUDA capacity/timing waits for a free compute slot. Original dynamics, continuous-target precision and thermodynamic closure remain open.

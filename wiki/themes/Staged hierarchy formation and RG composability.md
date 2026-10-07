@@ -20,6 +20,11 @@ updated: 2026-10-07
 
 # Staged hierarchy formation and RG composability
 
+## L5 nonlinear accuracy and tails, October 7, 2026
+
+[[multiagentelbo-2026-10-07-l5-accuracy-tails]] The L5 measurement now includes generator/link/loop tails through N8192 with explicit initialized-chain limits. The two earlier nonlinear producers were not repeated. Consistent derived numerical values do not establish stationary tails or parent formation. The retained 256-history cap and missed/inconclusive diagnostic channels keep precision open before scaling inference; the existing support/relaxation/prediction distinction remains.
+
+
 ## L5 CPU resource baseline, October 7, 2026
 
 [[multiagentelbo-2026-10-07-l5-cpu-resource]] supplies measured computational support for the existing L5 sequence through N8192 without changing the nonlinear history law or prior completed studies. All initial and postburn histories are reconstructed; unsaved burn-in states have finite-trace/count checks only. The short initialized-chain diagnostics do not establish equilibrium, rare tails, endogenous retention or a thermodynamic law. Separate sampling accuracy and tail/rare-event estimands are next; GPU profiling remains pending.

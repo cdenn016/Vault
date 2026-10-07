@@ -12,6 +12,11 @@ updated: 2026-10-07
 
 # Mathematics MOC
 
+## L5 nonlinear accuracy and tails, October 7, 2026
+
+[[multiagentelbo-2026-10-07-l5-accuracy-tails]] Independent Cayley-Hamilton exponentials, NumPy SVD, dense temporal covariance and original ordered products reconstruct derived observables from all 1,536 retained histories. The 1,299 numerical comparisons are finite-instance consistency checks; continuous-law accuracy and thermodynamic closure remain open.
+
+
 ## L5 CPU resource baseline, October 7, 2026
 
 [[multiagentelbo-2026-10-07-l5-cpu-resource]] checks ordered GL(2) loop action and normalized temporal Gaussian initialization with separately implemented Cayley-Hamilton exponentials and covariance arithmetic. The 195 saved-array comparisons concern finite instances; no universal proof or thermodynamic closure follows.

@@ -10,6 +10,11 @@ updated: 2026-10-07
 
 # Physics MOC
 
+## L5 nonlinear accuracy and tails, October 7, 2026
+
+[[multiagentelbo-2026-10-07-l5-accuracy-tails]] The unchanged nonlinear GL(2,R) history prior supplies six finite-size tail/loop measurements with Gaussian-increment episodes. Sampled loop defects are about .798 at c=0 and .683 at c=.25; these initialized contrasts imply no stationary tail exponent, Lifshitz mechanism, physical-time law, eigenvalue scaling or thermodynamic limit.
+
+
 ## L5 CPU resource baseline, October 7, 2026
 
 [[multiagentelbo-2026-10-07-l5-cpu-resource]] retains the nonlinear based-plaquette GL(2,R) history action, positive anchor and Gaussian episode increment at one base point through N8192. Measured CPU feasibility does not establish a stationary noncompact tail, O5 rare-region mechanism, physical-time dynamics or a thermodynamic limit.
