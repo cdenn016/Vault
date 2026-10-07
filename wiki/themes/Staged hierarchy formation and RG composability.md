@@ -20,11 +20,18 @@ updated: 2026-10-07
 
 # Staged hierarchy formation and RG composability
 
+## Conditional soft-sector mass and localization, October 7, 2026
+
+[[multiagentelbo-2026-10-07-soft-sector-mass]] adds the conditional geometric support step to the earlier soft-sector identity. Scalar expansion plus a small covariant non-isometry budget gives a substantial connected carrier and an average repair budget. Uniform per-edge conditioning alone fails through cumulative physical amplitude change, with a flat noncompact arbitrary-N construction. Passive frame changes carry the metric and preserve the mass profile; this localization is not removed by rewriting the links as identity.
+
+Together with [[multiagentelbo-2026-10-07-graded-retention]], this keeps three questions separate: geometric support, relaxation timescale and predictive recovery. None implies the other two without further assumptions. The remaining L5 nonlinear finite-size/tail/scaling study should report localized modes without naming them formed blocks. Original coupled-flow, continuous-target and thermodynamic obligations remain open; no independent mathematical certification of the O1 derivation is claimed.
+
+
 ## Graded retention and its limits, October 7, 2026
 
 [[multiagentelbo-2026-10-07-graded-retention]] adds a graded reference-relative recovery curve for the original fine cutoff posterior, rather than the preceding supplied feedback model's fresh later fibers. Full shared factors preserve cross-block correlations, and weighted component losses bound the unlabeled mixture loss. All 112 outcomes and frozen quadratic decay/energy bounds pass independent saved-value checks. Rank-two slow retention captures only about .9-2.2% of baseline-relative information, with no general advantage over the matched rooted mean.
 
-The earlier Gaussian realization work already separates relaxation modes from exterior-predictive modes. This calculation measures that distinction within its supplied hierarchy, without resolving predictive sufficiency, original-flow error or intrinsic formation. Soft-sector O1 substantial mass versus localization is next; the continuous-target, joint-dynamics and RG-limit obligations remain open.
+The earlier Gaussian realization work already separates relaxation modes from exterior-predictive modes. This calculation measures that distinction within its supplied hierarchy, without resolving predictive sufficiency, original-flow error or intrinsic formation. Soft-sector O1 now has the conditional mass result and arbitrary-N localization construction above; the continuous-target, joint-dynamics and RG-limit obligations remain open.
 
 
 ## Full-network supplied Gaussian feedback, October 7, 2026

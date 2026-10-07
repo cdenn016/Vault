@@ -12,6 +12,11 @@ updated: 2026-10-07
 
 # Mathematics MOC
 
+## Conditional soft-sector mass and localization, October 7, 2026
+
+[[multiagentelbo-2026-10-07-soft-sector-mass]] supplies conditional amplitude/connected-mass derivations and an arbitrary-N localized flat GL construction, with metrics, edge coercivity, expansion, degree cost and group-repair restrictions explicit. N512/N2048 reconstructions and independently implemented arithmetic support those instances, not independent proof adjudication. Strongly non-isometric/pathwise criteria remain open.
+
+
 ## Graded retention and its limits, October 7, 2026
 
 [[multiagentelbo-2026-10-07-graded-retention]] checks reference-relative Gaussian recovery KL, complete correlated covariance factors, generalized metric eigenproblems, nested channels and full-rank recovery across all N512/N2048 blocks. Frozen internal quadratic bounds are exact within the declared operator. Soft-sector O1 substantial mass versus localization, original-flow error and intrinsic selection remain open.

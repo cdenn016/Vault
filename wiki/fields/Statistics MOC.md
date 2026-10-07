@@ -12,6 +12,11 @@ updated: 2026-10-07
 
 # Statistics MOC
 
+## Conditional soft-sector mass and localization, October 7, 2026
+
+[[multiagentelbo-2026-10-07-soft-sector-mass]] validates four prescribed constructions, not a random-curvature scaling ensemble. Forty-two producer and 86 corrected saved-value comparisons pass; an earlier boolean-comparator failure is preserved. Conservative mass bounds use an analytic scalar-gap lower bound, while approximate eigenvalues are descriptive. No confidence interval, population prediction or expander-family inference is made.
+
+
 ## Graded retention and its limits, October 7, 2026
 
 [[multiagentelbo-2026-10-07-graded-retention]] records 112 outcomes, 1,324 independent saved-value comparisons and all sixteen matched-rank paired evaluations. Four chains share one network per case; there are no independent-network confidence intervals or p-values. Labeled component recovery bounds unlabeled mixture KL. Rank-two retention loses about 98% of baseline-relative information, without predictive-gain evidence.

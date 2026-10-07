@@ -10,6 +10,11 @@ updated: 2026-10-07
 
 # Physics MOC
 
+## Conditional soft-sector mass and localization, October 7, 2026
+
+[[multiagentelbo-2026-10-07-soft-sector-mass]] shows that noncompact physical amplitude transport can localize even flat sections at arbitrary N despite bounded per-edge conditioning. A declared self-loop extension produces positive bottom eigenvalues without changing the mass profile. This does not alter the original lattice/plaquette model or imply formation; L5 finite-size/tail/scaling and the thermodynamic limit remain separate.
+
+
 ## Graded retention and its limits, October 7, 2026
 
 [[multiagentelbo-2026-10-07-graded-retention]] measures graded internal connection modes at one base point with held nonabelian GL+(2,R) links and original plaquette priors on N512/N2048. Exact frozen quadratic relaxation supplies no original coupled-flow rate or substantial endogenous formation result. Soft-sector O1, graph-family loops and the thermodynamic limit remain open.

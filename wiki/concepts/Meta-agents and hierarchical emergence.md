@@ -18,6 +18,13 @@ updated: 2026-10-07
 
 # Meta-agents and hierarchical emergence
 
+## Conditional soft-sector mass and localization, October 7, 2026
+
+[[multiagentelbo-2026-10-07-soft-sector-mass]] separates an extensive near-sectioned carrier from a localized low mode. A conditional amplitude/connected-volume derivation needs scalar expansion to dominate energy and covariant non-isometry. In general GL, exact flat sections can remain concentrated in a bounded-radius neighborhood at arbitrary N despite uniformly bounded per-edge conditioning. The declared self-loop extension preserves this localization at positive bottom eigenvalue.
+
+The N512/N2048 reconstructions hold more than 99.94% mass on 37 agents in the localized case, while the controlled nearly isometric cases satisfy conservative connected-fraction bounds .999874/.997243. The general derivation/construction carries the scope, not these two samples. Neither substantial support nor a slow mode establishes predictive sufficiency, endogenous formation or a closed parent dynamics. Original joint-flow and strong pathwise-comparability obligations remain open.
+
+
 ## Graded retention and its limits, October 7, 2026
 
 [[multiagentelbo-2026-10-07-graded-retention]] checks graded recovery on supplied 16-agent blocks covering all N512/N2048 agents. Exact labeled conditional recovery and internal quadratic relaxation are different objectives: rank-two slow-mode recovery is nearly tied with rooted mean and loses about 98% of the original sparse-record posterior information. Higher-rank recovery is nested and exact at full rank, with complete geometry costs charged. Six tiny oracles ground the implementation; the reported calculations are network-wide.

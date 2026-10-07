@@ -23,11 +23,18 @@ updated: 2026-10-07
 
 # Cellular sheaves and sheaf Laplacians
 
+## Conditional soft-sector mass and localization, October 7, 2026
+
+[[multiagentelbo-2026-10-07-soft-sector-mass]] continues the October 7 structural O1 question using the live connection form and covariant metric. It supplies an amplitude Poincare argument with an explicit non-isometry cost, then a graph-volume and connected-component bound when expansion dominates that cost and section energy. The existing rank-one link repair gains an average correction budget on a substantial carrier; invertibility and represented-subgroup admission remain separate.
+
+An arbitrary-N flat GL field with bounded per-edge singular values carries localized sections on any bounded-degree graph, including an expander family. The positive-mode variant explicitly adds self loops. N512/N2048 saved-data checks validate the construction but do not establish a uniform random ensemble or independently adjudicate the proof. This partially answers O1 in a controlled regime; strong non-isometry/pathwise conditions, intrinsic selection, the O3 metric declaration and graph-family S1 remain open.
+
+
 ## Graded retention and its limits, October 7, 2026
 
 [[multiagentelbo-2026-10-07-graded-retention]] partially executes the October 7 graded-compression question on all supplied N512/N2048 blocks. Frozen baseline precision defines the covariant generalized spectrum, both directed Gaussian mean-KL edge terms are retained, and exact conditional recovery plus quadratic decay/energy bounds pass independent readback. This is not a theory-wide metric declaration. At matched rank two, slow modes and rooted mean lose about 98% of this cutoff record's information.
 
-The graded recovery curve does not settle the Cheeger substantial-block question, original collective-flow approximation, intrinsic rank selection or predictive information. Soft-sector O1's mass/expansion versus localized-mode gap is the next decisive formation obligation; the plaquette model is held, so graph-family loop selection remains open.
+The graded recovery curve does not settle the Cheeger substantial-block question, original collective-flow approximation, intrinsic rank selection or predictive information. The conditional O1 result above now addresses a controlled regime, with strong non-isometry/pathwise conditions open; the plaquette model is held, so graph-family loop selection remains open.
 
 
 This page synthesizes a full reading (October 7, 2026) of the two Hansen–Ghrist papers already archived in the vault: the spectral-theory paper [[hansen-2018-toward-a-spectral-theory-of-cellular-sheaves]] and the opinion-dynamics paper [[hansen-ghrist-2021-discourse-sheaves]] (the archived text is arXiv v1, 2005.12798). Both source notes predate the reading and record only identity and scope; the content below is drawn from the PDFs themselves, with section and theorem numbers from those versions. Material that goes beyond the two papers is marked editorial.
