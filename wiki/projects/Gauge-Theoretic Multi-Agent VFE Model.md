@@ -21,6 +21,11 @@ updated: 2026-10-07
 
 # Gauge-Theoretic Multi-Agent VFE Model
 
+## L5 CPU resource baseline, October 7, 2026
+
+[[multiagentelbo-2026-10-07-l5-cpu-resource]] executes the unchanged nonlinear history CPU path once at N512/N2048/N8192. Sampler costs under the eight-sweep resource budget are .649015/2.662270/11.079382 seconds; independently implemented saved-only arithmetic passes 195 comparisons over 11,161,356 entries. This establishes finite-instance CPU execution, not sampling accuracy, stationary tails, O5 spectral scaling or formation. The full goal remains active. Freeze nonlinear accuracy/tail observables next; CUDA capacity/timing waits for a free compute slot. Original dynamics, continuous-target precision and thermodynamic closure remain open.
+
+
 ## Conditional soft-sector mass and localization, October 7, 2026
 
 [[multiagentelbo-2026-10-07-soft-sector-mass]] conditionally addresses the October 7 soft-sector O1 question. Scalar expansion must dominate low section energy plus covariant non-isometry to certify substantial graph volume and a large connected carrier. The separate arbitrary-N flat GL construction shows that uniformly bounded per-edge singular values alone do not prevent localized physical sections, even on an expander family. A positive-eigenvalue extension is explicitly limited to a declared self-loop validation model.

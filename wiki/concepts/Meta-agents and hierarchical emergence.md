@@ -18,6 +18,11 @@ updated: 2026-10-07
 
 # Meta-agents and hierarchical emergence
 
+## L5 CPU resource baseline, October 7, 2026
+
+[[multiagentelbo-2026-10-07-l5-cpu-resource]] validates and measures the nonlinear history sampler at 512, 2,048 and 8,192 agents on CPU. This is computational feasibility at the target scale. Short initialized chains, loop extrema and consistent numerical caches are not formed-parent evidence. The distinction among geometric support, slow relaxation and predictive recovery remains intact.
+
+
 ## Conditional soft-sector mass and localization, October 7, 2026
 
 [[multiagentelbo-2026-10-07-soft-sector-mass]] separates an extensive near-sectioned carrier from a localized low mode. A conditional amplitude/connected-volume derivation needs scalar expansion to dominate energy and covariant non-isometry. In general GL, exact flat sections can remain concentrated in a bounded-radius neighborhood at arbitrary N despite uniformly bounded per-edge conditioning. The declared self-loop extension preserves this localization at positive bottom eigenvalue.

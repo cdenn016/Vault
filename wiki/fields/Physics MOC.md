@@ -10,6 +10,11 @@ updated: 2026-10-07
 
 # Physics MOC
 
+## L5 CPU resource baseline, October 7, 2026
+
+[[multiagentelbo-2026-10-07-l5-cpu-resource]] retains the nonlinear based-plaquette GL(2,R) history action, positive anchor and Gaussian episode increment at one base point through N8192. Measured CPU feasibility does not establish a stationary noncompact tail, O5 rare-region mechanism, physical-time dynamics or a thermodynamic limit.
+
+
 ## Conditional soft-sector mass and localization, October 7, 2026
 
 [[multiagentelbo-2026-10-07-soft-sector-mass]] shows that noncompact physical amplitude transport can localize even flat sections at arbitrary N despite bounded per-edge conditioning. A declared self-loop extension produces positive bottom eigenvalues without changing the mass profile. This does not alter the original lattice/plaquette model or imply formation; L5 finite-size/tail/scaling and the thermodynamic limit remain separate.
