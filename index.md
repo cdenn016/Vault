@@ -8,6 +8,11 @@ updated: 2026-10-07
 # Index
 
 
+## October 7: L5 captured exponential diagnosis
+
+[[multiagentelbo-2026-10-07-l5-exponential-diagnosis]] narrows the preserved numerical failure to an exact omitted-square signature; both bounded probes did not reproduce it and full N8192 coverage remains incomplete.
+
+
 ## October 7: L5 unthinned history precision
 
 [[multiagentelbo-2026-10-07-l5-unthinned-precision]]: six complete large-network continuations/controls, all new histories retained, bulk/quantile precision, four completed readbacks and two retained N8192 failures.

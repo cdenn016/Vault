@@ -495,3 +495,7 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 - 2026-10-07 INGEST [[multiagentelbo-2026-10-07-l5-unthinned-precision]]: completed unthinned production, four full saved-history/direct-lag readbacks and two retained N8192 failures, scoped precision and open scaling/dynamics obligations; propagated to project, emergence/composability/sheaf pages and four discipline MOCs. Goal pauses after publication at the user request.
 
 - 2026-10-07 LINT L5 unthinned ingestion: 1,411 files; zero broken links, grey nodes, empty files, case collisions or identity collisions.
+
+- 2026-10-07 INGEST [[multiagentelbo-2026-10-07-l5-exponential-diagnosis]]: captured arithmetic signature and two bounded non-reproductions, preserving both failed N8192 cases and active-goal scope; propagated to eight existing synthesis/MOC pages.
+
+- 2026-10-07 LINT L5 diagnosis ingestion: 1,412 files; zero broken links, grey nodes, empty files, case collisions or identity collisions.
