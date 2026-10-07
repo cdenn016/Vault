@@ -10,6 +10,11 @@ updated: 2026-10-07
 
 # Physics MOC
 
+## Graded retention and its limits, October 7, 2026
+
+[[multiagentelbo-2026-10-07-graded-retention]] measures graded internal connection modes at one base point with held nonabelian GL+(2,R) links and original plaquette priors on N512/N2048. Exact frozen quadratic relaxation supplies no original coupled-flow rate or substantial endogenous formation result. Soft-sector O1, graph-family loops and the thermodynamic limit remain open.
+
+
 ## Frozen full-network feedback control, October 7, 2026
 
 [[multiagentelbo-2026-10-07-full-graph-feedback]] executes supplied Gaussian delayed feedback at one base point on N512/N2048 networks with frozen GL+(2,R) links and original plaquette priors. Full-parent reversal is now executed in that scope. The original nonlinear collective flow, endogenous hierarchy, evolving geometry, graph-family loop selection and thermodynamic limit remain open; small-oracle agreement determines no theoretical direction.

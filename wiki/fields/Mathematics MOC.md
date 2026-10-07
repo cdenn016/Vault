@@ -12,6 +12,11 @@ updated: 2026-10-07
 
 # Mathematics MOC
 
+## Graded retention and its limits, October 7, 2026
+
+[[multiagentelbo-2026-10-07-graded-retention]] checks reference-relative Gaussian recovery KL, complete correlated covariance factors, generalized metric eigenproblems, nested channels and full-rank recovery across all N512/N2048 blocks. Frozen internal quadratic bounds are exact within the declared operator. Soft-sector O1 substantial mass versus localization, original-flow error and intrinsic selection remain open.
+
+
 ## Full-parent Gaussian conditioning, October 7, 2026
 
 [[multiagentelbo-2026-10-07-full-graph-feedback]] supplies nested covariance-compatible Gaussian transitions and full correlated downward reversal at N512/N2048. Seven tiny dense-oracle tests pass, followed by 2,480 independent saved-value checks over 76,605,696 entries. Singular conditional fibers retain their affine support without ambient jitter. These numerical checks validate the declared supplied model, not an intrinsic selector, original-flow semiconjugacy or a thermodynamic theorem.

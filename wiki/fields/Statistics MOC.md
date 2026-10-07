@@ -12,6 +12,11 @@ updated: 2026-10-07
 
 # Statistics MOC
 
+## Graded retention and its limits, October 7, 2026
+
+[[multiagentelbo-2026-10-07-graded-retention]] records 112 outcomes, 1,324 independent saved-value comparisons and all sixteen matched-rank paired evaluations. Four chains share one network per case; there are no independent-network confidence intervals or p-values. Labeled component recovery bounds unlabeled mixture KL. Rank-two retention loses about 98% of baseline-relative information, without predictive-gain evidence.
+
+
 ## Conditional-probe feedback diagnostics, October 7, 2026
 
 [[multiagentelbo-2026-10-07-full-graph-feedback]] retains all 3,072 history-label components and updates their weights using the entire parent density. Sixteen instances share four underlying networks, one per case; conditional-probe RMS and component ESS are descriptive. The probe is declared, not generated future data, and the shifted response is a supplied-rate positive control. No independent-network effect or predictive gain is established.

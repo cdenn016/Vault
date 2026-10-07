@@ -21,11 +21,18 @@ updated: 2026-10-07
 
 # Gauge-Theoretic Multi-Agent VFE Model
 
+## Graded retention and its limits, October 7, 2026
+
+[[multiagentelbo-2026-10-07-graded-retention]] completes 112 supplied-block Gaussian compression outcomes on every N512/N2048 agent. Exact component conditional recovery, shared correlations, full-rank identity and frozen internal quadratic bounds pass 1,324 independent saved-value checks over 205,963,616 entries. At matched rank two, internal slow modes and rooted mean are nearly tied and both discard about 98% of baseline-relative posterior information; complete decoder/message, shared dictionary and named workspace costs are explicit.
+
+This partially answers the October 7 soft-sector O4 question, without predictive sufficiency, original-flow accuracy or endogenous selection. Soft-sector O1's substantial-block mass/expansion versus localization question is next. Theory-wide O3, graph-family S1, joint dynamics, continuous-target/L2 precision, independent-instance prediction, nonlinear scaling and the thermodynamic limit remain open. The broad goal stays active. CPU only; the code checkpoint is published as PR161.
+
+
 ## Full-network Gaussian feedback calibration, October 7, 2026
 
 [[multiagentelbo-2026-10-07-full-graph-feedback]] completes a supplied-hierarchy, cutoff-frozen Gaussian delayed-feedback reference on all N512/N2048 blocks. Sixteen archived instances produce 192 arm/horizon outcomes; independent saved-only readback passes 2,480 checks over 76,605,696 entries, maximum discrepancy 1.1942802303e-10. Downward recovery conditions on the entire parent vector and updates all history-label weights, retaining shared correlations. Known shifted response validates the declared rates; the fixed conditional probe establishes no prediction gain or endogenous formation.
 
-The broad RG goal is active. O4 graded retention at matched dimension and charged error/cost is next, while O1's size/expansion obligation, theory-wide O3, graph-family S1, original joint-flow feedback, evolving geometry and continuous-target accuracy remain open. No GPU was required. This executed Gaussian control supersedes the preceding report's unrun-feedback status only within its declared supplied-hierarchy scope.
+The broad RG goal is active. O4 graded retention was next at that checkpoint; its supplied Gaussian comparison is now recorded above, while O1's size/expansion obligation, theory-wide O3, graph-family S1, original joint-flow feedback, evolving geometry and continuous-target accuracy remain open. No GPU was required. This executed Gaussian control supersedes the preceding report's unrun-feedback status only within its declared supplied-hierarchy scope.
 
 ## October 7 saved recognition and stopping precision
 

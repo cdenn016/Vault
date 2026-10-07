@@ -20,11 +20,18 @@ updated: 2026-10-07
 
 # Staged hierarchy formation and RG composability
 
+## Graded retention and its limits, October 7, 2026
+
+[[multiagentelbo-2026-10-07-graded-retention]] adds a graded reference-relative recovery curve for the original fine cutoff posterior, rather than the preceding supplied feedback model's fresh later fibers. Full shared factors preserve cross-block correlations, and weighted component losses bound the unlabeled mixture loss. All 112 outcomes and frozen quadratic decay/energy bounds pass independent saved-value checks. Rank-two slow retention captures only about .9-2.2% of baseline-relative information, with no general advantage over the matched rooted mean.
+
+The earlier Gaussian realization work already separates relaxation modes from exterior-predictive modes. This calculation measures that distinction within its supplied hierarchy, without resolving predictive sufficiency, original-flow error or intrinsic formation. Soft-sector O1 substantial mass versus localization is next; the continuous-target, joint-dynamics and RG-limit obligations remain open.
+
+
 ## Full-network supplied Gaussian feedback, October 7, 2026
 
 [[multiagentelbo-2026-10-07-full-graph-feedback]] adds a normalized delayed transition and actual all-parent reversal to the complete retained-history reference. All 192 outcomes include every first parent, second parent and fine agent at N512/N2048; shared factors retain cross-group correlations. The independent readback passes 2,480 comparisons at maximum discrepancy 1.1942802303e-10. Known shifted response and probe-conditioned RMS are controls of supplied rates and finite laws, without formation or prediction claims.
 
-The new prospective model draws fresh baseline fibers at positive horizons and retains a static history index. It does not substitute for the original collective-free-energy descent or eliminate temporal memory by hiding that index. O4 graded compression follows this baseline; O1/O3/S1, continuous-target accuracy, evolving geometry, intrinsic hierarchy and RG-limit obligations stay open. Earlier failed runs and precision misses remain distinct. The earlier report's unrun status is superseded only for this frozen Gaussian control.
+The new prospective model draws fresh baseline fibers at positive horizons and retains a static history index. It does not substitute for the original collective-free-energy descent or eliminate temporal memory by hiding that index. O4 graded compression followed this baseline and its supplied Gaussian result is now recorded above; O1/O3/S1, continuous-target accuracy, evolving geometry, intrinsic hierarchy and RG-limit obligations stay open. Earlier failed runs and precision misses remain distinct. The earlier report's unrun status is superseded only for this frozen Gaussian control.
 
 ## Recognition comparison and precision stop, October 7, 2026
 

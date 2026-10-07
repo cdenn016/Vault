@@ -18,11 +18,18 @@ updated: 2026-10-07
 
 # Meta-agents and hierarchical emergence
 
+## Graded retention and its limits, October 7, 2026
+
+[[multiagentelbo-2026-10-07-graded-retention]] checks graded recovery on supplied 16-agent blocks covering all N512/N2048 agents. Exact labeled conditional recovery and internal quadratic relaxation are different objectives: rank-two slow-mode recovery is nearly tied with rooted mean and loses about 98% of the original sparse-record posterior information. Higher-rank recovery is nested and exact at full rank, with complete geometry costs charged. Six tiny oracles ground the implementation; the reported calculations are network-wide.
+
+These controls do not show substantial endogenous formed blocks or prediction gain. The October 7 soft-sector O1 mass/expansion condition, intrinsic selection and original joint-flow error remain open. Its O3 metric is frozen baseline precision only, without a theory-wide declaration.
+
+
 ## Supplied feedback versus endogenous formation, October 7, 2026
 
 [[multiagentelbo-2026-10-07-full-graph-feedback]] executes all-parent Gaussian downward reversal on every block of the N512/N2048 references, with full history-label Bayes weighting and correlated recovery. The supplied two-rate transition has the expected shifted mean response everywhere. Seven tiny dense-oracle tests and 2,480 independent large-network saved-value checks pass. These calibrate a declared hierarchy and frozen geometry; neither the response nor component concentration demonstrates that the original collective dynamics formed that hierarchy.
 
-O4 mode retention and matched-cost recovery error are next. O1's substantial-block criterion, intrinsic selection, theory-wide metric choice, original joint-flow feedback and the thermodynamic limit remain open. The preceding unrun statement describes the earlier checkpoint; the frozen supplied Gaussian control is now executed.
+O4 mode retention and matched-cost recovery error were next at that checkpoint; the supplied Gaussian comparison is now recorded above. O1's substantial-block criterion, intrinsic selection, theory-wide metric choice, original joint-flow feedback and the thermodynamic limit remain open. The preceding unrun statement describes the earlier checkpoint; the frozen supplied Gaussian control is now executed.
 
 ## Saved recognition does not establish formation, October 7, 2026
 

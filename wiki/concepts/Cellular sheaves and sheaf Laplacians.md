@@ -23,6 +23,13 @@ updated: 2026-10-07
 
 # Cellular sheaves and sheaf Laplacians
 
+## Graded retention and its limits, October 7, 2026
+
+[[multiagentelbo-2026-10-07-graded-retention]] partially executes the October 7 graded-compression question on all supplied N512/N2048 blocks. Frozen baseline precision defines the covariant generalized spectrum, both directed Gaussian mean-KL edge terms are retained, and exact conditional recovery plus quadratic decay/energy bounds pass independent readback. This is not a theory-wide metric declaration. At matched rank two, slow modes and rooted mean lose about 98% of this cutoff record's information.
+
+The graded recovery curve does not settle the Cheeger substantial-block question, original collective-flow approximation, intrinsic rank selection or predictive information. Soft-sector O1's mass/expansion versus localized-mode gap is the next decisive formation obligation; the plaquette model is held, so graph-family loop selection remains open.
+
+
 This page synthesizes a full reading (October 7, 2026) of the two Hansen–Ghrist papers already archived in the vault: the spectral-theory paper [[hansen-2018-toward-a-spectral-theory-of-cellular-sheaves]] and the opinion-dynamics paper [[hansen-ghrist-2021-discourse-sheaves]] (the archived text is arXiv v1, 2005.12798). Both source notes predate the reading and record only identity and scope; the content below is drawn from the PDFs themselves, with section and theorem numbers from those versions. Material that goes beyond the two papers is marked editorial.
 
 ## Definition
@@ -105,7 +112,7 @@ The Hodge 1-Laplacian enters through the link prior of `c08b_lie_links.tex`. Its
 
 For the HodgeRank diagnostic above, one-way attention ($\pi_{ij}>0$, $\pi_{ji}=0$) makes $\log\beta_{ij}-\log\beta_{ji}$ undefined. The edge flow $\beta_{ij}-\beta_{ji}$, or restriction to reciprocal pairs, is needed.
 
-Three parts of the spectral theory are not yet used, and each bears on current directions. The first is graded retention. The fixed rank $f_I=\dim\ker L_I$ is sharp, while the user's working picture of formation is soft; the spectral subspace of $L_I$ below a threshold would grade retained degrees, and the needed estimate is the structural Cheeger inequality that Hansen and Ghrist pose but do not prove (small $\lambda_1(L_I)$ if and only if the links are near a configuration with a fixed vector). The Bandeira–Singer–Spielman bound covers $O(K)$ only, and for $\mathrm{GL}(K)$ the statement has to be made in a covariant metric such as the Fisher metric, since only kernel and inertia are metric-free. The second is covering and pullback isospectrality (Propositions 5.10–5.12), which gives a holonomy-twisted Bloch reduction for translation-invariant links on periodic lattices, an exact spectral tool at 512 or more agents. The third is interlacing under cell deletion (Theorem 5.7), which bounds how much the retained spectrum moves when a hard attention mask removes edges.
+Three spectral directions remain incompletely connected to current formation studies; the supplied Gaussian graded-retention comparison above now executes part of the first. The first is graded retention. The fixed rank $f_I=\dim\ker L_I$ is sharp, while the user's working picture of formation is soft; the spectral subspace of $L_I$ below a threshold would grade retained degrees, and the needed estimate is the structural Cheeger inequality that Hansen and Ghrist pose but do not prove (small $\lambda_1(L_I)$ if and only if the links are near a configuration with a fixed vector). The Bandeira–Singer–Spielman bound covers $O(K)$ only, and for $\mathrm{GL}(K)$ the statement has to be made in a covariant metric such as the Fisher metric, since only kernel and inertia are metric-free. The second is covering and pullback isospectrality (Propositions 5.10–5.12), which gives a holonomy-twisted Bloch reduction for translation-invariant links on periodic lattices, an exact spectral tool at 512 or more agents. The third is interlacing under cell deletion (Theorem 5.7), which bounds how much the retained spectrum moves when a hard attention mask removes edges.
 
 ## Sources
 

@@ -1340,6 +1340,9 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 
 ## 🧪 Sources — experiment runs
 
+- [[multiagentelbo-2026-10-07-graded-retention|MultiAgentELBO graded Gaussian retention, October 7, 2026]] - N512/N2048, 112 outcomes and 1,324 independent saved-value checks; exact conditional recovery and frozen quadratic bounds, matched rank-two losses nearly tied, substantial-block O1 and original-flow error open.
+
+
 - [[multiagentelbo-2026-10-07-full-graph-feedback|MultiAgentELBO full-network frozen Gaussian feedback, October 7, 2026]] - N512/N2048, 192 all-block outcomes and 2,480 independent saved-value checks; supplied normalized transitions and full-parent Bayes reversal, no endogenous formation or prediction claim.
 
 - [[multiagentelbo-2026-10-07-recognition-precision|MultiAgentELBO saved recognition and stopping precision, October 7, 2026]] — L3 all 64 contexts and 79,183 arithmetic checks complete, largest count-matched mean score contrast −1.244661 nat; L2 all 8,192 draws and 723 reduction checks complete but frozen link-mean precision target unmet; one dataset, unconverged endpoints, no equilibrium or formation claim.
