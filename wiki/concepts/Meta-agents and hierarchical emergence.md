@@ -18,6 +18,11 @@ updated: 2026-10-07
 
 # Meta-agents and hierarchical emergence
 
+## L5 nonlinear accuracy and tails, October 7, 2026
+
+[[multiagentelbo-2026-10-07-l5-accuracy-tails]] Finite-history tail/loop measurements at 512, 2,048 and 8,192 agents have separate batch and folded-rank status. Seventeen rank screens miss and twelve are inconclusive; no low-spectrum mode, substantial block, endogenous selector or predictive formation criterion follows. The next task is measurement precision, while the original dynamics and independent-instance recovery remain open.
+
+
 ## L5 CPU resource baseline, October 7, 2026
 
 [[multiagentelbo-2026-10-07-l5-cpu-resource]] validates and measures the nonlinear history sampler at 512, 2,048 and 8,192 agents on CPU. This is computational feasibility at the target scale. Short initialized chains, loop extrema and consistent numerical caches are not formed-parent evidence. The distinction among geometric support, slow relaxation and predictive recovery remains intact.

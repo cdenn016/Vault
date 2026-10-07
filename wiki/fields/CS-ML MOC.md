@@ -10,6 +10,11 @@ updated: 2026-10-07
 
 # CS-ML MOC
 
+## L5 nonlinear accuracy and tails, October 7, 2026
+
+[[multiagentelbo-2026-10-07-l5-accuracy-tails]] The new N8192 nonlinear history sampler completed in 653.260664 CPU seconds under 256 burn-in and 256 postburn sweeps. It retained 2 GiB of complete histories per arm, with unmeasured extra workspace. The GPU was occupied and unused. Three tiny formula tests and full saved-observable checks pass, while tail integration accuracy remains open.
+
+
 ## L5 CPU resource baseline, October 7, 2026
 
 [[multiagentelbo-2026-10-07-l5-cpu-resource]] measures the unchanged nonlinear history CPU path through N8192: 11.079382 sampler seconds and 134,217,728 retained tensor bytes at the largest size. These are short-budget observed costs; GPU peaks, production mixing, predictive gains and decoder storage remain separate.

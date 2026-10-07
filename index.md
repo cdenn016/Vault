@@ -1341,6 +1341,9 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 
 ## 🧪 Sources — experiment runs
 
+- [[multiagentelbo-2026-10-07-l5-accuracy-tails|MultiAgentELBO L5 nonlinear history accuracy and tails, October 7, 2026]] - six cases through N8192; 1,299 saved-value checks, precision misses retained; no stationary-tail or O5 closure.
+
+
 - [[multiagentelbo-2026-10-07-l5-cpu-resource|MultiAgentELBO L5 nonlinear CPU resources through N8192, October 7, 2026]] - three resource cases, 195 saved-value comparisons; CPU execution measured, CUDA profiling and nonlinear sampling/tail accuracy open.
 
 

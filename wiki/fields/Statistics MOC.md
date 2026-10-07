@@ -12,6 +12,11 @@ updated: 2026-10-07
 
 # Statistics MOC
 
+## L5 nonlinear accuracy and tails, October 7, 2026
+
+[[multiagentelbo-2026-10-07-l5-accuracy-tails]] Exact Gaussian expectation screens give eighteen passes and three inconclusive unobserved rare-tail checks. The separate tail batch/rank screens retain their misses and constants. Rank misses also occur in direct iid controls, so they do not alone establish bias. A zero event-trace MCSE gives no absence bound; the 256-history cap lies below the recommended 400 effective draws. Unthinned measurement is next.
+
+
 ## L5 CPU resource baseline, October 7, 2026
 
 [[multiagentelbo-2026-10-07-l5-cpu-resource]] measures three initialized resource cases with four chains each. Rhat reaches 2.860500 and ESS falls to 6.308316 under a sixteen-draw cap. These short outputs do not establish joint-law accuracy, stationary tails or between-environment uncertainty; a separately frozen accuracy/tail study remains required.

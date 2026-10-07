@@ -23,6 +23,11 @@ updated: 2026-10-07
 
 # Cellular sheaves and sheaf Laplacians
 
+## L5 nonlinear accuracy and tails, October 7, 2026
+
+[[multiagentelbo-2026-10-07-l5-accuracy-tails]] The L5 tail study computes generator norms, link conditioning, based-loop defects and their concentration through N8192. No connection spectrum or spectral metric is selected. O5, theory-wide O3 and sparse-graph S1 remain open. Finite initialized loop contrasts and numerically consistent tails are not stationary rare-region or substantial-block evidence.
+
+
 ## L5 CPU resource baseline, October 7, 2026
 
 [[multiagentelbo-2026-10-07-l5-cpu-resource]] completes a nonlinear history CPU resource baseline through N8192 with separately reconstructed initial/postburn states. No connection spectrum or new spectral metric is computed, so O5 eigenvalue scaling, O3 and the graph-family S1 choice remain open. Observed initialized-state extrema are not stationary tail or substantial-block evidence.
