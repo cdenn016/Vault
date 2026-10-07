@@ -7,6 +7,11 @@ updated: 2026-10-07
 
 # Index
 
+
+## October 7: L5 unthinned history precision
+
+[[multiagentelbo-2026-10-07-l5-unthinned-precision]]: six complete large-network continuations/controls, all new histories retained, bulk/quantile precision, four completed readbacks and two retained N8192 failures.
+
 Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (Ingest / Query / Lint) and the [[log|Operations Log]] for history.
 
 > [!abstract] At a glance
