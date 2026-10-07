@@ -10,6 +10,11 @@ updated: 2026-10-07
 
 # CS-ML MOC
 
+## Conditional soft-sector mass and localization, October 7, 2026
+
+[[multiagentelbo-2026-10-07-soft-sector-mass]] gives an explicit eligibility condition before reading low connection modes as substantial carriers. N512/N2048 localized positive modes hold over 99.94% mass on 37 agents; this supports the general construction but supplies no predictive-gain or endogenous-selector evidence. CPU NumPy/SciPy suffice for these algebraic validations.
+
+
 ## Graded retention and its limits, October 7, 2026
 
 [[multiagentelbo-2026-10-07-graded-retention]] compares bottom spectral ranks 2-32 against the actual rooted-mean channel at rank two, charging full decoder geometry, messages and separate dictionary/workspace costs. Slow-mode rank two is nearly tied with rooted mean and retains little of the sparse-record posterior information; no prediction or operational speedup claim follows. CPU NumPy sufficed.

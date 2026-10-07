@@ -1340,6 +1340,9 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 
 ## 🧪 Sources — experiment runs
 
+- [[multiagentelbo-2026-10-07-soft-sector-mass|MultiAgentELBO conditional soft-sector mass and localization, October 7, 2026]] - explicit expansion/non-isometry mass bound, arbitrary-N localized GL sections, four N512/N2048 reconstructions and 86 corrected saved-value checks; no endogenous formation or independent mathematical certification.
+
+
 - [[multiagentelbo-2026-10-07-graded-retention|MultiAgentELBO graded Gaussian retention, October 7, 2026]] - N512/N2048, 112 outcomes and 1,324 independent saved-value checks; exact conditional recovery and frozen quadratic bounds, matched rank-two losses nearly tied, substantial-block O1 and original-flow error open.
 
 

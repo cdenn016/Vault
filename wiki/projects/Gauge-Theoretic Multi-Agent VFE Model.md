@@ -21,11 +21,18 @@ updated: 2026-10-07
 
 # Gauge-Theoretic Multi-Agent VFE Model
 
+## Conditional soft-sector mass and localization, October 7, 2026
+
+[[multiagentelbo-2026-10-07-soft-sector-mass]] conditionally addresses the October 7 soft-sector O1 question. Scalar expansion must dominate low section energy plus covariant non-isometry to certify substantial graph volume and a large connected carrier. The separate arbitrary-N flat GL construction shows that uniformly bounded per-edge singular values alone do not prevent localized physical sections, even on an expander family. A positive-eigenvalue extension is explicitly limited to a declared self-loop validation model.
+
+All four N512/N2048 numerical reconstructions pass, and corrected saved-only arithmetic passes 86 comparisons; the first boolean-helper failure is retained. The localized positive modes hold over 99.94% physical mass on 37 agents at both sizes. These validate the construction, not independent mathematical adjudication or endogenous formation. The next scoping obligation returns to existing L5 nonlinear finite-size/tail/scaling. Strongly non-isometric/pathwise criteria, O3, graph-family S1, original joint dynamics, continuous-target precision, independent-instance prediction and thermodynamic closure remain open. Goal active; no GPU required for this unit.
+
+
 ## Graded retention and its limits, October 7, 2026
 
 [[multiagentelbo-2026-10-07-graded-retention]] completes 112 supplied-block Gaussian compression outcomes on every N512/N2048 agent. Exact component conditional recovery, shared correlations, full-rank identity and frozen internal quadratic bounds pass 1,324 independent saved-value checks over 205,963,616 entries. At matched rank two, internal slow modes and rooted mean are nearly tied and both discard about 98% of baseline-relative posterior information; complete decoder/message, shared dictionary and named workspace costs are explicit.
 
-This partially answers the October 7 soft-sector O4 question, without predictive sufficiency, original-flow accuracy or endogenous selection. Soft-sector O1's substantial-block mass/expansion versus localization question is next. Theory-wide O3, graph-family S1, joint dynamics, continuous-target/L2 precision, independent-instance prediction, nonlinear scaling and the thermodynamic limit remain open. The broad goal stays active. CPU only; the code checkpoint is published as PR161.
+This partially answers the October 7 soft-sector O4 question, without predictive sufficiency, original-flow accuracy or endogenous selection. Soft-sector O1 was next at that checkpoint; its conditional mass result and remaining strong non-isometry scope are now recorded above. Theory-wide O3, graph-family S1, joint dynamics, continuous-target/L2 precision, independent-instance prediction, nonlinear scaling and the thermodynamic limit remain open. The broad goal stays active. CPU only; the code checkpoint is published as PR161.
 
 
 ## Full-network Gaussian feedback calibration, October 7, 2026
