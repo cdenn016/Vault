@@ -14,7 +14,7 @@ tags:
   - project/transformer
 status: draft
 created: 2026-06-18
-updated: 2026-10-06
+updated: 2026-10-07
 ---
 
 # Lattice gauge theory
@@ -207,6 +207,7 @@ For an inference-derived edge-dependent link, the regression link $W_{ab}=\Sigma
 ## See also
 
 - [[Holonomy]]
+- [[Cellular sheaves and sheaf Laplacians]] — sheaf coboundary as lattice covariant difference; flatness as $\delta^2=0$; Hodge decomposition of link fluctuations about a flat background.
 - [[Parallel transport]]
 - [[Non-flat connection and the photon analogy]]
 - [[Gauge transformation]]

@@ -11,7 +11,7 @@ tags:
   - project/social-physics
 status: stable
 created: 2026-06-19
-updated: 2026-07-13
+updated: 2026-10-07
 ---
 
 # Bounded confidence
@@ -60,6 +60,7 @@ Beyond the agent-based realizations, the same confidence mechanism admits a cont
 ## See also
 
 - [[Opinion dynamics]]
+- [[Cellular sheaves and sheaf Laplacians]] — bounded confidence on discourse sheaves, whose equilibria are global sections of the below-threshold subsheaf.
 - [[Kinetic theory of opinion dynamics]]
 - [[Echo chambers and polarization]]
 - [[SocialPhysics]]

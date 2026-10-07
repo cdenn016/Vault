@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-21
-updated: 2026-10-01
+updated: 2026-10-07
 ---
 
 # Coarse Graining
@@ -176,7 +176,7 @@ The gauge absorption is `prop:gauss-gain-absorption`, "Gain absorption and the o
 
 ## Related
 
-[[Renormalization group flow]], [[Renormalization-group flow of beliefs]], [[Meta-agents and hierarchical emergence]], [[Ouroboros multi-scale dynamics]], [[Fisher information metric]], [[Graph Laplacian]], [[Entropic Force]], [[Mean-Field Approximation]], [[Evidence lower bound (ELBO)]]
+[[Renormalization group flow]], [[Renormalization-group flow of beliefs]], [[Meta-agents and hierarchical emergence]], [[Ouroboros multi-scale dynamics]], [[Fisher information metric]], [[Graph Laplacian]], [[Cellular sheaves and sheaf Laplacians]] (sheaf Kron reduction and its failure), [[Entropic Force]], [[Mean-Field Approximation]], [[Evidence lower bound (ELBO)]]
 
 ## Sources
 

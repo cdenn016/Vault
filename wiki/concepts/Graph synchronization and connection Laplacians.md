@@ -18,7 +18,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-08-10
-updated: 2026-10-06
+updated: 2026-10-07
 ---
 
 # Graph Synchronization and Connection Laplacians
@@ -118,6 +118,7 @@ Useful tests include: gauge-transform vertices and confirm spectral/holonomy inv
 - [[Parallel transport]]
 - [[Gauge transformation]]
 - [[Graph Laplacian]]
+- [[Cellular sheaves and sheaf Laplacians]] — full-reading synthesis of the Hansen–Ghrist spectral theory and discourse-sheaf papers, with the agent network as a weighted sheaf.
 - [[Lattice gauge theory]]
 - [[Bundle scale space]]
 - [[Harmonic map]]
