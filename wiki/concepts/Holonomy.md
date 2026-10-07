@@ -12,7 +12,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-10-04
+updated: 2026-10-07
 ---
 
 # Holonomy
@@ -195,6 +195,7 @@ Holonomy surfaces wherever the config commits to a connection or to non-commutin
 
 - [[Parallel transport]]
 - [[Gauge transformation]]
+- [[Cellular sheaves and sheaf Laplacians]] — $H^0$ of an invertible-link sheaf is the holonomy-fixed subspace; curved links are sheaves on the 1-skeleton only.
 - [[Lattice gauge theory]] — Wilson loops are lattice holonomy (the trace of transport around a plaquette)
 - [[Group equivariance]]
 - [[Irreducible representation]]

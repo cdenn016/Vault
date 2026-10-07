@@ -108,6 +108,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[Decentralized Bayesian inference]]
 - [[Statistical experiment comparison and deficiency]]
 - [[Graph synchronization and connection Laplacians]]
+- [[Cellular sheaves and sheaf Laplacians]]
 - [[Singular statistical models]]
 - [[Quotient Bayesian learning]]
 - [[Communication-constrained inference]]

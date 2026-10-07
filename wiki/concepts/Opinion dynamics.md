@@ -13,7 +13,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-19
-updated: 2026-07-13
+updated: 2026-10-07
 ---
 
 # Opinion dynamics
@@ -54,6 +54,7 @@ The averaging skeleton of opinion dynamics is the same object that appears in tw
 
 - [[Multi-agent variational free energy]] — the functional whose restricted Fisher flows yield the proved averaging subclass.
 - [[Bounded confidence]] — a soft-analog comparison, not an exact recovered limit.
+- [[Cellular sheaves and sheaf Laplacians]] — discourse sheaves (Hansen–Ghrist): private opinion stalks, selective expression maps, sheaf diffusion to global sections, stubbornness as harmonic extension, and expression dynamics.
 - [[Echo chambers and polarization]] — metastability under passive attraction and the extra mechanisms needed for persistent separation.
 - [[Sociophysics]] · [[SocialPhysics]] — the broader programme and the founding project page.
 - [[Collective active inference]] — the active-inference reading of coupled belief-updating populations.
