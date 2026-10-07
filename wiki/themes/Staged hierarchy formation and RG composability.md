@@ -20,6 +20,11 @@ updated: 2026-10-07
 
 # Staged hierarchy formation and RG composability
 
+## L5 CPU resource baseline, October 7, 2026
+
+[[multiagentelbo-2026-10-07-l5-cpu-resource]] supplies measured computational support for the existing L5 sequence through N8192 without changing the nonlinear history law or prior completed studies. All initial and postburn histories are reconstructed; unsaved burn-in states have finite-trace/count checks only. The short initialized-chain diagnostics do not establish equilibrium, rare tails, endogenous retention or a thermodynamic law. Separate sampling accuracy and tail/rare-event estimands are next; GPU profiling remains pending.
+
+
 ## Conditional soft-sector mass and localization, October 7, 2026
 
 [[multiagentelbo-2026-10-07-soft-sector-mass]] adds the conditional geometric support step to the earlier soft-sector identity. Scalar expansion plus a small covariant non-isometry budget gives a substantial connected carrier and an average repair budget. Uniform per-edge conditioning alone fails through cumulative physical amplitude change, with a flat noncompact arbitrary-N construction. Passive frame changes carry the metric and preserve the mass profile; this localization is not removed by rewriting the links as identity.

@@ -23,6 +23,11 @@ updated: 2026-10-07
 
 # Cellular sheaves and sheaf Laplacians
 
+## L5 CPU resource baseline, October 7, 2026
+
+[[multiagentelbo-2026-10-07-l5-cpu-resource]] completes a nonlinear history CPU resource baseline through N8192 with separately reconstructed initial/postburn states. No connection spectrum or new spectral metric is computed, so O5 eigenvalue scaling, O3 and the graph-family S1 choice remain open. Observed initialized-state extrema are not stationary tail or substantial-block evidence.
+
+
 ## Conditional soft-sector mass and localization, October 7, 2026
 
 [[multiagentelbo-2026-10-07-soft-sector-mass]] continues the October 7 structural O1 question using the live connection form and covariant metric. It supplies an amplitude Poincare argument with an explicit non-isometry cost, then a graph-volume and connected-component bound when expansion dominates that cost and section energy. The existing rank-one link repair gains an average correction budget on a substantial carrier; invertibility and represented-subgroup admission remain separate.

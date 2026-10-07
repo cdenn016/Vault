@@ -1341,6 +1341,9 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 
 ## 🧪 Sources — experiment runs
 
+- [[multiagentelbo-2026-10-07-l5-cpu-resource|MultiAgentELBO L5 nonlinear CPU resources through N8192, October 7, 2026]] - three resource cases, 195 saved-value comparisons; CPU execution measured, CUDA profiling and nonlinear sampling/tail accuracy open.
+
+
 - [[multiagentelbo-2026-10-07-soft-sector-mass|MultiAgentELBO conditional soft-sector mass and localization, October 7, 2026]] - explicit expansion/non-isometry mass bound, arbitrary-N localized GL sections, four N512/N2048 reconstructions and 86 corrected saved-value checks; no endogenous formation or independent mathematical certification.
 
 

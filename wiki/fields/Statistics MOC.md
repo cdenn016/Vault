@@ -12,6 +12,11 @@ updated: 2026-10-07
 
 # Statistics MOC
 
+## L5 CPU resource baseline, October 7, 2026
+
+[[multiagentelbo-2026-10-07-l5-cpu-resource]] measures three initialized resource cases with four chains each. Rhat reaches 2.860500 and ESS falls to 6.308316 under a sixteen-draw cap. These short outputs do not establish joint-law accuracy, stationary tails or between-environment uncertainty; a separately frozen accuracy/tail study remains required.
+
+
 ## Conditional soft-sector mass and localization, October 7, 2026
 
 [[multiagentelbo-2026-10-07-soft-sector-mass]] validates four prescribed constructions, not a random-curvature scaling ensemble. Forty-two producer and 86 corrected saved-value comparisons pass; an earlier boolean-comparator failure is preserved. Conservative mass bounds use an analytic scalar-gap lower bound, while approximate eigenvalues are descriptive. No confidence interval, population prediction or expander-family inference is made.

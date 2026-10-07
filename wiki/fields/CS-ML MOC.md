@@ -10,6 +10,11 @@ updated: 2026-10-07
 
 # CS-ML MOC
 
+## L5 CPU resource baseline, October 7, 2026
+
+[[multiagentelbo-2026-10-07-l5-cpu-resource]] measures the unchanged nonlinear history CPU path through N8192: 11.079382 sampler seconds and 134,217,728 retained tensor bytes at the largest size. These are short-budget observed costs; GPU peaks, production mixing, predictive gains and decoder storage remain separate.
+
+
 ## Conditional soft-sector mass and localization, October 7, 2026
 
 [[multiagentelbo-2026-10-07-soft-sector-mass]] gives an explicit eligibility condition before reading low connection modes as substantial carriers. N512/N2048 localized positive modes hold over 99.94% mass on 37 agents; this supports the general construction but supplies no predictive-gain or endogenous-selector evidence. CPU NumPy/SciPy suffice for these algebraic validations.
