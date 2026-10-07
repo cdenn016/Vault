@@ -20,6 +20,11 @@ updated: 2026-10-07
 
 # Staged hierarchy formation and RG composability
 
+
+## L5 unthinned history precision, October 7, 2026
+
+[[multiagentelbo-2026-10-07-l5-unthinned-precision]] All six unthinned N512/N2048/N8192 cases completed with 512 new complete histories in each of four chains. Independent saved-only arithmetic completed 4 of six case checks, with 2 retained failures; completed cases passed 5,094 comparisons over 378,170 entries from 8,192 complete histories and 167,772,160 based loop products. Tail precision counts are {'passed': 78, 'inconclusive': 12}. Unavailable rare-event/tied-indicator channels remain inconclusive. Both N8192 inverse-product checks failed. Bounded fresh-process probes did not reproduce either; the captured Gaussian-control forward exponential disagrees with SciPy on the exact saved input. Cause and complete numerical coverage remain unresolved without retry. Passing finite screens do not certify stationary tails, joint-law error, O5, formation or the thermodynamic limit. Nonlinear segments continue existing endpoints and stay dependent on old samples. The broader scaling/dynamics/formation obligations remain open. The user requested a break after publication; the goal pauses at handoff. CPU only.
+
 ## L5 nonlinear accuracy and tails, October 7, 2026
 
 [[multiagentelbo-2026-10-07-l5-accuracy-tails]] The L5 measurement now includes generator/link/loop tails through N8192 with explicit initialized-chain limits. The two earlier nonlinear producers were not repeated. Consistent derived numerical values do not establish stationary tails or parent formation. The retained 256-history cap and missed/inconclusive diagnostic channels keep precision open before scaling inference; the existing support/relaxation/prediction distinction remains.

@@ -12,6 +12,11 @@ updated: 2026-10-07
 
 # Statistics MOC
 
+
+## L5 unthinned history precision, October 7, 2026
+
+[[multiagentelbo-2026-10-07-l5-unthinned-precision]] All six unthinned N512/N2048/N8192 cases completed with 512 new complete histories in each of four chains. Independent saved-only arithmetic completed 4 of six case checks, with 2 retained failures; completed cases passed 5,094 comparisons over 378,170 entries from 8,192 complete histories and 167,772,160 based loop products. Tail precision counts are {'passed': 78, 'inconclusive': 12}. Unavailable rare-event/tied-indicator channels remain inconclusive. Both N8192 inverse-product checks failed. Bounded fresh-process probes did not reproduce either; the captured Gaussian-control forward exponential disagrees with SciPy on the exact saved input. Cause and complete numerical coverage remain unresolved without retry. Passing finite screens do not certify stationary tails, joint-law error, O5, formation or the thermodynamic limit. Nonlinear segments continue existing endpoints and stay dependent on old samples. The broader scaling/dynamics/formation obligations remain open. The user requested a break after publication; the goal pauses at handoff. CPU only.
+
 ## L5 nonlinear accuracy and tails, October 7, 2026
 
 [[multiagentelbo-2026-10-07-l5-accuracy-tails]] Exact Gaussian expectation screens give eighteen passes and three inconclusive unobserved rare-tail checks. The separate tail batch/rank screens retain their misses and constants. Rank misses also occur in direct iid controls, so they do not alone establish bias. A zero event-trace MCSE gives no absence bound; the 256-history cap lies below the recommended 400 effective draws. Unthinned measurement is next.
