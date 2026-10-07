@@ -10,6 +10,10 @@ updated: 2026-10-07
 
 # CS-ML MOC
 
+## Full-network conditional recovery baseline, October 7, 2026
+
+[[multiagentelbo-2026-10-07-full-graph-feedback]] evaluates 192 all-block outcomes with block Gaussian operations and shared rank-four factors. CPU NumPy suffices; the producer takes 223.744632 seconds and saved-only readback 316.648521 seconds. The compressed NPZ archive occupies 807,249,912 bytes, not peak RAM or a compact decoder budget. O4 graded retention requires matched dimension and explicit error/storage/workspace accounting.
+
 ## Recognition payloads and bounded precision, October 7, 2026
 
 [[multiagentelbo-2026-10-07-recognition-precision]] completes L3 with 64 contexts and 79,183 passing arithmetic checks. Mean payloads are 17,800–289,904 bytes, with separately charged decoder workspaces of 41,216–706,560 bytes and a 5,676,048-byte encoder workspace; payload reduction is not peak-memory reduction. The largest count-matched conditional score contrast favors the joint law. L2 completes 8,192 zero-update draws and 723 passing reduction checks but retains its link-mean precision miss without extending the budget. CPU float64 sufficed; no GPU was allocated.

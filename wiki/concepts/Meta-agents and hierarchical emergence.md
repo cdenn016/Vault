@@ -18,11 +18,17 @@ updated: 2026-10-07
 
 # Meta-agents and hierarchical emergence
 
+## Supplied feedback versus endogenous formation, October 7, 2026
+
+[[multiagentelbo-2026-10-07-full-graph-feedback]] executes all-parent Gaussian downward reversal on every block of the N512/N2048 references, with full history-label Bayes weighting and correlated recovery. The supplied two-rate transition has the expected shifted mean response everywhere. Seven tiny dense-oracle tests and 2,480 independent large-network saved-value checks pass. These calibrate a declared hierarchy and frozen geometry; neither the response nor component concentration demonstrates that the original collective dynamics formed that hierarchy.
+
+O4 mode retention and matched-cost recovery error are next. O1's substantial-block criterion, intrinsic selection, theory-wide metric choice, original joint-flow feedback and the thermodynamic limit remain open. The preceding unrun statement describes the earlier checkpoint; the frozen supplied Gaussian control is now executed.
+
 ## Saved recognition does not establish formation, October 7, 2026
 
 [[multiagentelbo-2026-10-07-recognition-precision]] completes a finite saved-law comparison across 64 N512 contexts, with 79,183 independent arithmetic checks. The largest count-matched mean-minus-joint conditional record score is −1.244661 nat, MCSE .324277, and all four construction batches are negative. This describes information lost by the declared mean message at unconverged saved endpoints; it supplies no independent-network or formation result.
 
-Its separate zero-update L2 measurement retains **precision_target_unmet** after 8,192 draws: the link-mean MC_RMS_SE .002511071 exceeds .002500. Objective precision passes, but no stationarity or equilibrium certificate follows. Full-graph parent-dependent feedback and actual downward reversal remain unrun. The previous failures and unknown operating-system cause remain recorded; useful compressed closure, O1/O4 and the thermodynamic limit stay open.
+Its separate zero-update L2 measurement retains **precision_target_unmet** after 8,192 draws: the link-mean MC_RMS_SE .002511071 exceeds .002500. Objective precision passes, but no stationarity or equilibrium certificate follows. Full-graph parent-dependent feedback and actual downward reversal were unrun at that earlier checkpoint. The previous failures and unknown operating-system cause remain recorded; useful compressed closure, O1/O4 and the thermodynamic limit stay open.
 
 
 ## Finite memory and retained-history identification, October 7, 2026

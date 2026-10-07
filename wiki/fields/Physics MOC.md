@@ -10,9 +10,13 @@ updated: 2026-10-07
 
 # Physics MOC
 
+## Frozen full-network feedback control, October 7, 2026
+
+[[multiagentelbo-2026-10-07-full-graph-feedback]] executes supplied Gaussian delayed feedback at one base point on N512/N2048 networks with frozen GL+(2,R) links and original plaquette priors. Full-parent reversal is now executed in that scope. The original nonlinear collective flow, endogenous hierarchy, evolving geometry, graph-family loop selection and thermodynamic limit remain open; small-oracle agreement determines no theoretical direction.
+
 ## Fixed-context recognition and numerical stopping, October 7, 2026
 
-[[multiagentelbo-2026-10-07-recognition-precision]] completes finite saved recognition-law comparisons on the existing N512 $GL^+(2,\mathbb R)$ network at one base point. A separate zero-update residual measurement retains its declared precision miss. Neither calculation establishes equilibrium, endogenous hierarchy, nonlinear network scaling or the thermodynamic limit. Full-graph parent-dependent feedback remains unrun; concurrent theory edits remain distinct from these frozen calculations.
+[[multiagentelbo-2026-10-07-recognition-precision]] completes finite saved recognition-law comparisons on the existing N512 $GL^+(2,\mathbb R)$ network at one base point. A separate zero-update residual measurement retains its declared precision miss. Neither calculation establishes equilibrium, endogenous hierarchy, nonlinear network scaling or the thermodynamic limit. Full-graph parent-dependent feedback was unrun at that earlier checkpoint; concurrent theory edits remain distinct from these frozen calculations.
 
 
 ## Fixed-context finite-memory RG comparison, October 7, 2026
