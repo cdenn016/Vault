@@ -1117,6 +1117,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[hall-2015-lie-groups|Lie Groups, Lie Algebras, and Representations: An Elementary Introduction]]
 - [[kobayashi-nomizu-1963-foundations|Foundations of Differential Geometry, Volume I]]
 - [[kogut-susskind-1975-hamiltonian-lattice-gauge|Hamiltonian Formulation of Wilson's Lattice Gauge Theories]]
+- [[arkani-hamed-2001-deconstructing-dimensions|(De)Constructing Dimensions]]
 - [[milnor-1976-left-invariant-metrics|Curvatures of Left Invariant Metrics on Lie Groups]]
 - [[nakahara-2003-geometry-topology-physics|Geometry, Topology and Physics (Second Edition)]]
 - [[naber-2011-topology-geometry-gauge-fields-foundations|Topology, Geometry and Gauge Fields: Foundations]]

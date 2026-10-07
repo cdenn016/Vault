@@ -207,6 +207,7 @@ For an inference-derived edge-dependent link, the regression link $W_{ab}=\Sigma
 ## See also
 
 - [[Holonomy]]
+- [[arkani-hamed-2001-deconstructing-dimensions]] — four-dimensional quiver gauge theory whose bifundamental condensates are lattice links of a deconstructed fifth dimension; template for links $\Theta_{ij}(c)$ varying over a base with kinetic term $\lVert\nabla\Theta\rVert^2$.
 - [[Cellular sheaves and sheaf Laplacians]] — sheaf coboundary as lattice covariant difference; flatness as $\delta^2=0$; Hodge decomposition of link fluctuations about a flat background.
 - [[Parallel transport]]
 - [[Non-flat connection and the photon analogy]]
