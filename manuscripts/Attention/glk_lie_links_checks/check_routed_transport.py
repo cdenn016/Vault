@@ -4,23 +4,45 @@ Small sizes only (K=6, H=3 heads of width 2, N=4 positions). Every check prints 
 absolute or relative residual. The checks test formulas; they carry no information about trained
 models.
 
+Residual checks pass when the residual is at most RES_TOL = 1e-12 (rel() is relative for matrices of
+norm >= 1, absolute otherwise). The largest residual at these sizes is below 1e-13, so the tolerance
+leaves more than an order of magnitude for BLAS/LAPACK variation while any algebraic error (O(1)
+or, for a wrong rank, >= 1) fails. Sanity values (positivity, ranks, scaling ratios, stated
+constants) are not residuals; each is printed with its expected value and its own pass condition.
+The script prints "N of M passed" and exits nonzero on any failure. Run single-threaded:
+
+    OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 python check_routed_transport.py > check_routed_transport_output.txt
+
 Notation follows PLAN.md Section 3: L = O T is the shared generator, Theta_ij = U_i e^L U_j^{-1},
 Omega_ij = U_i U_j^{-1}, M_h = Otilde_h T_h, Pi_h = T^{-1} Delta_h T, Pi(beta) = T^{-1} bbeta T.
 """
 from __future__ import annotations
 
+import platform
+import sys
+from typing import Callable
+
 import numpy as np
+import scipy
 from scipy.linalg import expm, logm, block_diag
 
 rng = np.random.default_rng(20261005)
 K, H, N = 6, 3, 4
 s = [2, 2, 2]
 offs = np.cumsum([0] + s)
-results: list[tuple[str, float]] = []
+RES_TOL = 1e-12
+results: list[tuple[str, float, float, bool]] = []                 # (name, residual, tol, ok)
+sanity: list[tuple[str, float, str, bool]] = []                    # (name, value, expected, ok)
 
 
-def rec(name: str, val: float) -> None:
-    results.append((name, float(val)))
+def rec(name: str, val: float, tol: float = RES_TOL) -> None:
+    val = float(val)
+    results.append((name, val, tol, bool(np.isfinite(val) and val <= tol)))
+
+
+def sane(name: str, val: float, expected: str, ok: Callable[[float], bool]) -> None:
+    val = float(val)
+    sanity.append((name, val, expected, bool(np.isfinite(val) and ok(val))))
 
 
 def rel(a: np.ndarray, b: np.ndarray) -> float:
@@ -180,7 +202,7 @@ for i in range(N):
         dmin = min(dmin, d)
 rec("thm item 4  calM_ij = Theta_ij U_j Pi(beta_ij) U_j^-1", e1)
 rec("thm item 4  det(e^L Pi(beta)) = e^{tr L} prod beta^{s_h}", e2)
-rec("thm item 4  min det of reference rep (must be > 0)", dmin)
+sane("thm item 4  min det of reference rep (must be > 0)", dmin, "> 0", lambda v: v > 0)
 
 # shared routing: hopping form, affine and first-order forms
 e = 0.0
@@ -261,7 +283,7 @@ worst = np.inf
 for _ in range(200):
     X = rng.standard_normal((K, K)) * rng.uniform(0.1, 3)
     worst = min(worst, np.linalg.svd(expm(X), compute_uv=False)[-1] - np.exp(-np.linalg.norm(X, 2)))
-rec("S1  min over 200 of sigma_min(e^X) - e^{-||X||_2} (must be >= 0)", worst)
+sane("S1  min over 200 of sigma_min(e^X) - e^{-||X||_2} (must be >= 0)", worst, ">= 0", lambda v: v >= 0)
 Z = np.array([[-1.0, -1.0], [1.0, -1.0]])
 rec("S1  I + Z + Z^2/2 singular at stated Z (|det|)", abs(np.linalg.det(np.eye(2) + Z + Z @ Z / 2)))
 
@@ -286,7 +308,7 @@ rec("prop:lie_charts item 3  e^{OT} = I + O_lin T", rel(expm(Oconv @ Tc), np.eye
 # ---------------- Standard layer at fixed routing (joint level) ----------------
 Mh = [O[:, offs[h]:offs[h + 1]] @ T[offs[h]:offs[h + 1], :] for h in range(H)]  # W_O^h W_V^h
 rec("std  sum_h M_h = OT", rel(sum(Mh), L))
-rec("std  max rank of a single head map (K/H = 2)", max(np.linalg.matrix_rank(m) for m in Mh))
+sane("std  max rank of a single head map (K/H = 2)", max(np.linalg.matrix_rank(m) for m in Mh), "= 2", lambda v: v == 2)
 frakL = np.zeros((N * K, N * K))
 for i in range(N):
     for j in range(N):
@@ -311,13 +333,14 @@ selfev = np.concatenate([np.linalg.eigvals(Jt[i * K:(i + 1) * K, i * K:(i + 1) *
 neg_axis = np.any((np.abs(selfev.imag) < 1e-12) & (selfev.real <= 0))
 Lg = logm(Jt)
 upper_log = max(np.abs(Lg[i * K:(i + 1) * K, j * K:(j + 1) * K]).max() for i in range(N) for j in range(i + 1, N))
-rec("std  self-block eigenvalue on (-inf,0] (0 = none)", float(neg_axis))
+sane("std  self-block eigenvalue on (-inf,0] (0 = none)", float(neg_axis), "= 0", lambda v: v == 0)
 rec("std  principal log of I + frakL block lower triangular (max strictly-upper block)", upper_log)
 rec("std  exp(log(I+frakL)) = I + frakL", rel(expm(Lg), Jt))
 # exp(frakL) composes multi-hop paths: (frakL^2)_{ik} = sum_j frakL_ij frakL_jk differs from per-edge exponential
 e_joint = expm(frakL)[3 * K:4 * K, 1 * K:2 * K]
 e_edge = U[3] @ expm(L) @ Ti @ bbeta(beta[:, 3, 1]) @ T @ Ui[1]
-rec("std  ||exp(frakL)_{31} - per-edge exponential message map|| (expected O(1), not 0)", rel(e_joint, e_edge))
+sane("std  ||exp(frakL)_{31} - per-edge exponential message map|| (expected O(1), not 0)", rel(e_joint, e_edge),
+     "O(1), > 1e-3", lambda v: v > 1e-3)
 
 # ---------------- holonomy (Section 3.5, Supplement S3) ----------------
 i, j, k = 3, 2, 0
@@ -343,8 +366,10 @@ rhs = (Ag + Bg - Zg) + 0.5 * (com(Ag, Bg) - com(Zg, Ag) - com(Zg, Bg))
 rem2 = np.linalg.norm(lhs - rhs)
 lhs3 = logm(expm(-Zg / 10) @ expm(Ag / 10) @ expm(Bg / 10)).real
 rhs3 = (Ag + Bg - Zg) / 10 + 0.5 * (com(Ag, Bg) - com(Zg, Ag) - com(Zg, Bg)) / 100
-rec("S3 lem:lie_bch  third-order remainder at generator scale 1e-2", rem2)
-rec("S3 lem:lie_bch  remainder ratio for scale 1e-2 vs 1e-3 (cubic: ~1e3)", rem2 / np.linalg.norm(lhs3 - rhs3))
+sane("S3 lem:lie_bch  third-order remainder at generator scale 1e-2", rem2,
+     "< eps^2 = 1e-4", lambda v: v < eps ** 2)                    # below the order it truncates
+sane("S3 lem:lie_bch  remainder ratio for scale 1e-2 vs 1e-3 (cubic: ~1e3)", rem2 / np.linalg.norm(lhs3 - rhs3),
+     "in [10^2.5, 10^3.5]", lambda v: 10 ** 2.5 <= v <= 10 ** 3.5)  # quadratic gives 1e2, quartic 1e4
 # head-sum row of tab:lie_holonomy with TO = I
 Tq = rng.standard_normal((K, K))
 Oq = np.linalg.inv(Tq)
@@ -356,7 +381,8 @@ rec("S3 tab:lie_holonomy head-sum row (TO=I)", rel(Hq, pred))
 Sh = np.eye(K)
 Sh[0, 1] = 1.0
 rec("S3 prop:lie_blind  eigenvalues of shear all 1 (max |lambda-1|)", np.abs(np.linalg.eigvals(Sh) - 1).max())
-rec("S3 prop:lie_blind  Psi(shear) = 1/2", 0.5 * np.linalg.norm(Sh - np.eye(K)) ** 2)
+sane("S3 prop:lie_blind  Psi(shear) = 1/2", 0.5 * np.linalg.norm(Sh - np.eye(K)) ** 2,
+     "= 0.5 (to 1e-15)", lambda v: abs(v - 0.5) <= 1e-15)
 
 # ---------------- Supplement S2: Gaussian lift reduces to S_Q^{-1} for square S_Q ----------------
 SQ = rand_inv(K)
@@ -379,8 +405,19 @@ w = kerS @ rng.standard_normal(K - 3)
 Ci = np.linalg.inv(Cm)
 rec("S2  lift is C^{-1}-orthogonal to ker S_Q", abs(d0 @ Ci @ w))
 # K=2 example of prop:link_algebra
-rec("S2  K=2 example det diag(b1,b2) > 0", np.linalg.det(np.diag([0.3, 0.7])))
+sane("S2  K=2 example det diag(b1,b2) > 0", np.linalg.det(np.diag([0.3, 0.7])), "> 0", lambda v: v > 0)
 
-width = max(len(n) for n, _ in results)
-for n, v in results:
-    print(f"{n:<{width}}  {v: .3e}")
+blas = np.show_config(mode="dicts")["Build Dependencies"]["blas"]
+print(f"python {platform.python_version()}, numpy {np.__version__}, scipy {scipy.__version__}, "
+      f"BLAS {blas.get('name')} {blas.get('version')}, {platform.platform()}")
+width = max(len(n) for n, *_ in results + sanity)
+print(f"\nResiduals ({len(results)}), pass if residual <= tol")
+for n, v, tol, ok in results:
+    print(f"[{'PASS' if ok else 'FAIL'}] {n:<{width}}  {v: .3e}  (tol {tol:.0e})")
+print(f"\nSanity values ({len(sanity)}), pass if the stated condition holds")
+for n, v, expected, ok in sanity:
+    print(f"[{'PASS' if ok else 'FAIL'}] {n:<{width}}  {v: .3e}  (expected {expected})")
+n_all = len(results) + len(sanity)
+n_pass = sum(ok for *_, ok in results + sanity)
+print(f"\n{n_pass} of {n_all} passed")
+sys.exit(0 if n_pass == n_all else 1)

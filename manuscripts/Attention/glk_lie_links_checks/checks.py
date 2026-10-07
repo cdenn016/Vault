@@ -2,16 +2,34 @@ r"""Float64 identity checks for the Lie-algebra-link revision of GL(K)_attention
 
 Every check evaluates one displayed identity of the revised manuscript at a small size with random
 inputs. The sizes are chosen to test algebra and code-independent formulas; they carry no information
-about trained models or large networks. Run with any NumPy/SciPy installation:
+about trained models or large networks. Run with any NumPy/SciPy installation, single-threaded BLAS
+for reproducibility (OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1):
 
     python checks.py > checks_output.txt
+
+Residuals at the 1e-16 to 1e-14 level depend on the BLAS/LAPACK build and are reproducible digit for
+digit only under the environment printed in the header; quote them as bounds. Monte Carlo draws use
+an explicit Cholesky factor, so the sample stream depends only on the seed and NumPy's Generator.
+Exits nonzero if any check fails.
 """
 
 import itertools
+import platform
+import sys
 
 import numpy as np
+import scipy
 from scipy.linalg import expm, logm, null_space, orth
 
+
+def print_environment() -> None:
+    blas = np.show_config(mode="dicts")["Build Dependencies"]["blas"]
+    print(f"python {platform.python_version()}, numpy {np.__version__}, scipy {scipy.__version__}, "
+          f"BLAS {blas.get('name')} {blas.get('version')}, {platform.platform()}")
+    print()
+
+
+print_environment()
 rng = np.random.default_rng(20261004)
 results = []
 
@@ -530,7 +548,9 @@ for r_res in (0, 1):
         Catt += sum(bm[h, j] * np.outer(Mh[h] @ xs[j], Mh[h] @ xs[j]) for j in range(Nm)) - np.outer(nbar, nbar)
     n_mc = 400000
     labels = np.stack([rng.choice(Nm, size=n_mc, p=bm[h]) for h in range(Hm)])
-    states = np.stack([rng.multivariate_normal(xs[j], Cs[j], size=n_mc) for j in range(Nm)])  # (Nm, n, K)
+    # x = mean + z L^T with Cs[j] = L L^T (explicit Cholesky; avoids the LAPACK-dependent SVD of multivariate_normal)
+    states = np.stack([xs[j] + rng.standard_normal((n_mc, Km)) @ np.linalg.cholesky(Cs[j]).T
+                       for j in range(Nm)])                                                    # (Nm, n, K)
     out = r_res * states[ir].copy()
     for h in range(Hm):
         chosen = states[labels[h], np.arange(n_mc)]
@@ -541,3 +561,4 @@ for r_res in (0, 1):
 print()
 n_fail = sum(1 for *_, ok in results if not ok)
 print(f"{len(results)} checks, {n_fail} failed")
+sys.exit(1 if n_fail else 0)
