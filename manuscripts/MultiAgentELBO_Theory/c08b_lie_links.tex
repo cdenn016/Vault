@@ -53,6 +53,8 @@ the reference point.
 \(\mathring\omega^x_e\), \(\exp_\sigma\), \(\mathring\Theta^x_p\) & generator of the twist of \(e\); exponential chart at \(\sigma\); reference path product, the reference holonomy of a closed walk \\
 \(\mathsf G^{\mathrm{fib}}\), \(\langle\cdot,\cdot\rangle_{\mathsf G}\), \(\lVert\cdot\rVert_{\mathsf G}\) & fiber metric at the reference point; trace form on \(\mathfrak{gl}(\mathbb V)\) and the inner product on \(\mathfrak g\) \\
 \(\mathfrak Q^x_p\), \(\mathbb L\), \(\mathrm c_p\), \(\mathbf C\) & loop defect of a closed walk; family of closed walks and their coefficients; cycle map \\
+\(\mathbb L_+\), \(\mathbf C_+\), \(z_p\), \(r_{\mathbb L}\), \(\kappa\) & loops with positive coefficient and their cycle map; net traversal vector of a loop; rank of these vectors; number of components of the multigraph \\
+\(d\), \(Z\), \(\mathscr T_{\mathrm{ex}}\), \(\mathscr T_{\mathrm{har}}\) & vertex-difference map and cycle space of \(\R^{E_+}\); exact and harmonic generators \\
 \(\nu^{\mathscr T}\), \(\mathscr S\), \(Z_{\mathscr S}\), \(\mathbb P^{\mathscr T}_\theta\) & base law, link action, normalizer, generator prior \\
 \(\mathring\alpha^x_e\), \(\mathring\Sigma^x_e\); \(\mathring\mu\), \(\mathring\Lambda\) & anchor and prior covariance; mean and precision of a Gaussian recognition law \(R\) of the generators \\
 \(\mathbf L(\mathbf B,\mathbf T)\) & Fr\'echet derivative of the matrix exponential \\
@@ -1881,6 +1883,96 @@ the bracket of $\mathfrak g$ enters only through the terms of order three and hi
 inference index in the sense of \cref{sec:intro-conventions}, and the signature is Euclidean
 because $\mathbf K$ is positive (\cref{prop:link-linearized-equation}(b)).
 
+The loop term sees only part of the link space, and the declared family $\mathbb L$ fixes which part.
+The next statement makes this exact for the quadratic loop action of
+\cref{prop:link-anchor-m-coordinate}(c) and for the loop term of $\mathbf K$.
+
+\corollaryheading{Cycle-space splitting of the loop sector}{cor:link-cycle-splitting}
+Let $\mathfrak I=(V,E,\bar{\ })$ be the interaction multigraph of \cref{def:geo-graph-links}, with
+$\kappa$ connected components, write $\mathscr T=\R^{E_+}\otimes\mathfrak g$, let
+$\mathbb L_+=\{p\in\mathbb L:\mathrm c_p>0\}$, and let $\mathbf C_+:\mathscr T\to\mathfrak g^{\mathbb L_+}$ be the
+cycle map \eqref{eq:link-cycle-map} of $\mathbb L_+$. Let $d:\R^V\to\R^{E_+}$ be $(da)_e=a_i-a_j$ for
+$e:j\to i$, let $Z=(\operatorname{im}d)^\perp$ be the cycle space, and for $p\in\mathbb L_+$ let
+$z_p\in\R^{E_+}$ count the traversals of each $e\in E_+$ along its orientation minus those against it,
+so that $(\mathbf C\mathring\omega)_p=\sum_{e\in E_+}z_{p,e}\mathring\omega_e$. Put
+$r_{\mathbb L}=\dim\operatorname{span}\{z_p:p\in\mathbb L_+\}\leq\lvert\mathbb L_+\rvert$, and call
+\begin{equation}
+\mathscr T_{\mathrm{ex}}=\operatorname{im}d\otimes\mathfrak g,
+\qquad
+\mathscr T_{\mathrm{har}}=\bigl(Z\cap\{z_p:p\in\mathbb L_+\}^\perp\bigr)\otimes\mathfrak g
+\label{eq:link-exact-harmonic}
+\end{equation}
+the exact and the harmonic generators; $\mathring\omega$ is exact when $\mathring\omega_e=a_i-a_j$ for some
+$a\in\mathfrak g^V$.
+\begin{enumerate}
+\item[(a)] $\ker\mathbf C_+=\mathscr T_{\mathrm{ex}}\oplus\mathscr T_{\mathrm{har}}$, a sum orthogonal for the
+inner product of $\mathscr T$, with
+\begin{equation}
+\dim\mathscr T_{\mathrm{ex}}=\dim\mathfrak g\,(\lvert V\rvert-\kappa),
+\qquad
+\dim\mathscr T_{\mathrm{har}}=\dim\mathfrak g\,(\lvert E_+\rvert-\lvert V\rvert+\kappa-r_{\mathbb L})
+\geq\dim\mathfrak g\,(\lvert E_+\rvert-\lvert V\rvert+\kappa-\lvert\mathbb L_+\rvert).
+\label{eq:link-cycle-splitting-dims}
+\end{equation}
+In the translation instance (\cref{prop:link-translation-instance}) an exact generator shift by
+$a_i-a_j$ is the link change $\Theta_e\mapsto\Theta_e+a_i-a_j$ with the frames held, and every loop
+defect $\mathfrak Q_p$ with $p\in\mathbb L_+$ is constant along $\ker\mathbf C_+$.
+\item[(b)] Under the quadratic action of \cref{prop:link-anchor-m-coordinate}(c), with
+$\mathring\Sigma=\bigoplus_{e\in E_+}\mathring\Sigma_e$,
+\begin{equation}
+\mathring\alpha^{\mathrm{new}}-\E_R[\mathring\omega]\in\mathring\Sigma\operatorname{im}\mathbf C_+^\top,
+\qquad
+\mathscr T=\mathscr T_{\mathrm{ex}}\oplus\mathscr T_{\mathrm{har}}\oplus\mathring\Sigma\operatorname{im}\mathbf C_+^\top,
+\label{eq:link-anchor-coexact}
+\end{equation}
+and the last summand is orthogonal to the first two for
+$\langle\cdot,\mathring\Sigma^{-1}\cdot\rangle$. Hence $\mathring\alpha^{\mathrm{new}}$ and $\E_R[\mathring\omega]$ have
+the same components in $\mathscr T_{\mathrm{ex}}$ and in $\mathscr T_{\mathrm{har}}$, and the anchor
+update corrects only the component in $\mathring\Sigma\operatorname{im}\mathbf C_+^\top$.
+\item[(c)] For the operator $\mathbf K$ of \cref{prop:link-linearized-equation}, if every
+$\mathring\omega^{(n)}$ lies in $\ker\mathbf C_+$, the loop term vanishes and
+$\langle\mathring\omega,\mathbf K\mathring\omega\rangle=\sum_n\langle\mathring\omega^{(n)},\mathring\Sigma^{-1}\mathring\omega^{(n)}\rangle
++\mathbf m\sum_{n<n_1}\lVert\mathring\omega^{(n+1)}-\mathring\omega^{(n)}\rVert^2+\langle\mathring\omega,\mathring\Phi\mathring\omega\rangle$.
+\end{enumerate}
+\status{ESTABLISHED}
+
+\noindent\emph{Proof.}
+(a) The kernel of $d$ is the functions constant on components, so
+$\dim\operatorname{im}d=\lvert V\rvert-\kappa$ and $\dim Z=\lvert E_+\rvert-\lvert V\rvert+\kappa$. Along a
+closed walk every arrival at a vertex is followed by a departure, so the net traversals at each vertex
+cancel, $d^\top z_p=0$, and $z_p\in Z$. For the matrix $\mathsf Z_+$ with rows $z_p$, $p\in\mathbb L_+$,
+this gives $\ker\mathsf Z_+=(\operatorname{span}\{z_p\})^\perp=\operatorname{im}d\oplus\bigl(Z\cap\{z_p\}^\perp\bigr)$,
+orthogonally, and the second summand has dimension $\dim Z-r_{\mathbb L}$ because
+$\operatorname{span}\{z_p\}\subset Z$. By \eqref{eq:link-cycle-map} and the reversal convention
+\eqref{eq:link-generator-reversal}, $\mathbf C_+=\mathsf Z_+\otimes\mathrm{id}_{\mathfrak g}$, and the inner product
+of $\mathscr T$ is the Euclidean one on $\R^{E_+}$ times $\langle\cdot,\cdot\rangle_{\mathsf G}$, so tensoring with
+$\mathfrak g$ carries the decomposition, its orthogonality, and the dimensions over. In the translation
+instance $\mathring\omega_e=\Theta_e-U_i+U_j$ by \cref{prop:link-translation-instance}(a), so with the frames
+held an exact shift of $\mathring\omega$ is the stated shift of $\Theta$, and by
+\eqref{eq:link-translation-defect} $\mathfrak Q_p=\tfrac12\lVert(\mathbf C\mathring\omega)_p\rVert_{\mathsf G}^2$
+depends on $\mathring\omega$ only through $\mathbf C_+\mathring\omega$ when $p\in\mathbb L_+$.
+(b) Terms with $\mathrm c_p=0$ vanish in \eqref{eq:link-anchor-quadratic}, so
+$\mathring\alpha^{\mathrm{new}}-\E_R[\mathring\omega]=\mathring\Sigma\sum_{p\in\mathbb L_+}\mathrm c_p\mathbf C_p^\top\mathbf C_p\E_R[\mathring\omega]\in\mathring\Sigma\operatorname{im}\mathbf C_+^\top$.
+Each $\mathring\Sigma_e$ is self-adjoint and positive, so for $h\in\ker\mathbf C_+$ and
+$v\in\operatorname{im}\mathbf C_+^\top$, $\langle\mathring\Sigma v,\mathring\Sigma^{-1}h\rangle=\langle v,h\rangle=0$.
+The subspace $\mathring\Sigma\operatorname{im}\mathbf C_+^\top$ therefore meets $\ker\mathbf C_+$ only in zero, and its
+dimension $\operatorname{rank}\mathbf C_+=\dim\mathscr T-\dim\ker\mathbf C_+$ makes the sum all of $\mathscr T$; with
+(a) this gives \eqref{eq:link-anchor-coexact}, and the components of the difference in the first two
+summands vanish. (c) $\mathbf C_p\mathring\omega^{(n)}=0$ for $p\in\mathbb L_+$, and the other loop terms carry
+$\mathrm c_p=0$, so only the remaining terms of \eqref{eq:link-linear-operator} survive. $\square$
+
+Attaching a two-cell along each walk of $\mathbb L_+$ makes the declared loop family a two-complex on
+the agents, and \cref{cor:link-cycle-splitting} is the Hodge decomposition of its one-cochains with
+values in $\mathfrak g$ \citep[Theorem~3.1]{HansenGhrist2019}, applied to the constant sheaf: exact
+generators are its gradient part, $\mathring\Sigma\operatorname{im}\mathbf C_+^\top$ its circulating part in the
+metric of the prior, and $\mathscr T_{\mathrm{har}}$ the circulation around cycles of $\mathfrak I$ that bound
+no declared walk. By \eqref{eq:link-cycle-splitting-dims}, a family of short loops on a multigraph whose
+cycle space is mostly spanned by longer cycles leaves most of that space to the anchor, the episodes,
+and the matter, so the choice of $\mathbb L$ is a structural declaration on the agent set of the same
+kind as the support of the source prior. Away from zero generators the loop defects of a nonabelian
+group are not functions of $\mathbf C\mathring\omega$, and the splitting describes only their quadratic part
+(\cref{prop:link-loop-defect}(e)).
+
 \section*{Physicist's summary}
 
 The links between agents are treated here as a field that is inferred, not as a background that is held.
@@ -1900,4 +1992,6 @@ law, with the Bayesian learning rule as its Euler step; inertia appears only in 
 history across learning episodes, where the precision of the increment acts as a mass. Linearized about
 zero generators, the stationarity operator is a bare mass from the anchor, a curl-curl term from the
 loops, a squared episode difference, and a screening mass from the matter, which is the form of a
-massive Euclidean vector operator in the episode index.
+massive Euclidean vector operator in the episode index. On the cycle space the loop term acts only on the circulating part of the
+generators: exact generators and circulation around cycles that bound no declared loop are fixed by the
+anchor, the episodes, and the matter alone, and the anchor update corrects only the circulating part.
