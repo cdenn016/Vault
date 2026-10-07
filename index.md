@@ -27,6 +27,7 @@ Catalog of this **LLM-wiki**. See [[CLAUDE|LLM-Wiki Schema]] for conventions (In
 
 ## 📝 Manuscripts (in preparation)
 - [[dennis-2026-glk-attention-v2-rework-2026-10-05]] — main GL(K) attention manuscript rebuilt on October 5, 2026: agents on a bundle over one context, four head interfaces, comparison link, routed-transport theorem with a standard layer as the affine chart, $K=128$ anchor with parameter accounting; supplement revived as S1 to S10
+- [[dennis-2026-glk-attention-v2-review-2026-10-07]] — October 7, 2026 peer review and revision of the GL(K) manuscript: covariance scoped to the attention operator, exactness rescoped, trained-link claims limited to working precision, comparison now the October 6 read-table baseline with a stated retraction rule
 - [[dennis-2026-edge-latent-links]] — working note: edge-dependent links $G_{ij}=g_ie^{L}E_{ij}$ (curved rank-$r$ mode and pure-gauge control), closed-form message and covariance, causal latent receiver factors with natural-gradient inference and a depth-loop prior; implemented in vfe3, no training result
 - [[dennis-2026-minimal-agent-model]] — standalone note: tied key and content with a Bayesian receiver; exact posterior, derived gain and residual, Gibbs routing as a mean-field step; declared and unevaluated
 - [[dennis-2026-glk-lie-algebra-links-v2]] — main GL(K) attention manuscript revised with Lie-algebra links: exponential-link endpoint law, low-rank split into flat transport plus value-path channel, three content-link charts, closed-form channel-likelihood receiver, inverse-edge triangle holonomy; 58 float64 checks and single-seed K=20 chart runs
@@ -1353,7 +1354,8 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 
 - [[multiagentelbo-2026-10-07-window-memory|MultiAgentELBO finite-source window-memory comparison, October 7, 2026]] — N512/N2048, 64 shared dictionaries and 512 paired-depth sequences; tighter finite-history bounds approach retained-teacher storage, mixed scores establish no predictive gain; independent arithmetic readback passed 584,803 checks.
 
-- [[vfe3-2026-10-05-k128-exponential-and-parameter-accounting|VFE_3.0 K=128 exponential-chart run and parameter accounting, October 5, 2026]] — test PPL 34.48 (one seed, 614.4M tokens); matched pairs 39.77 vs 90.15 and 52.91 vs 117.63 at equal non-embedding parameters; trained links numerically low rank; frame-versus-table control not run
+- [[vfe3-2026-10-05-k128-exponential-and-parameter-accounting|VFE_3.0 K=128 exponential-chart run and parameter accounting, October 5, 2026]] — test PPL 34.48 (one seed, 614.4M tokens); earlier baseline pairs (39.77 vs 90.15, 52.91 vs 117.63) superseded by the October 6 read-table study; trained links numerically low rank
+- [[vfe3-2026-10-06-block-read-baseline|VFE_3.0 per-type read-table transformer baseline at K=128, October 6, 2026]] — conventional transformer with a per-type read table of nearly the frame table's size under the 34.48 protocol: test PPL 55.10 (one seed), learning rate selected on validation; the GL(K) paper's comparison
 
 - [[vfe3-2026-10-05-k30-multiseed|VFE_3.0 three-seed noise floor at K=30, October 5, 2026]] — seeds 6, 54, 271: test PPL 87.19 ± 0.33, test CE SD 0.0037 nats; current multi-seed noise floor for the VFE_3.0 line (shared data order, mixed code identity accepted)
 
