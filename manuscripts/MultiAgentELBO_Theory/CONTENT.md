@@ -374,7 +374,9 @@ equation in the inverted potential, with a monotone kink between the wells of a 
 double well (`prop:link-map-inertia`), and the linearized operator `\mathbf K`, made of the anchor
 precision, the cycle-space curl term, the episode second difference and the matter term, is bounded
 below by the anchor precision, so the linearized history is unique
-(`prop:link-linearized-equation`). Under exact coarse-graining the dressed coarse link of Gaussian
+(`prop:link-linearized-equation`). The loop term vanishes on the exact and harmonic generators of the
+two-complex declared by the loop family, whose dimensions are counted, and the quadratic anchor update
+corrects only the circulating part (`cor:link-cycle-splitting`). Under exact coarse-graining the dressed coarse link of Gaussian
 generators has no real logarithm with positive probability on `\GL^+(K)`, and at small width its
 principal logarithm is not Gaussian when the leading cumulant forms are nonzero
 (`prop:link-coarse-generator-law`, Chapter 13), so closure is `open:link-coarse-closure`; the
