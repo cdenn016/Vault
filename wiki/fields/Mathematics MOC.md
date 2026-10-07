@@ -5,12 +5,17 @@ aliases: [field/mathematics, Mathematics sources, Math MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-10-06
+updated: 2026-10-07
 ---
 
 
 
 # Mathematics MOC
+
+## Finite-source window-memory bounds, October 7, 2026
+
+[[multiagentelbo-2026-10-07-window-memory]] reconstructs finite suffix-memory defects, prior-row excess, normalized two-depth composition and separate physical/observation path bounds at N512/N2048. The B64/r3 twelve-record observation bound averages .025313 nat. Positive cutoff noise still makes the full simultaneous child-parent KL infinite; the finite teacher comparison proves no continuous-history or thermodynamic closure.
+
 
 ## October 3 provisional reverse retained-cost analysis
 

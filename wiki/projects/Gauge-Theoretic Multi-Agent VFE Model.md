@@ -14,12 +14,19 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-10-04
+updated: 2026-10-07
 ---
 
 
 
 # Gauge-Theoretic Multi-Agent VFE Model
+
+## October 7 finite-source window-memory comparison
+
+[[multiagentelbo-2026-10-07-window-memory]] records the published L4 comparison at N512/N2048, using the same finite 192-history teacher, original cutoff initialization and twelve later records. All 64 shared dictionaries and 512 paired-depth sequences completed; independent arithmetic readback passed 584,803 checks with maximum absolute discrepancy $4.263256\times10^{-14}$. The new $r=2,3$ windows compare prior-count rows with controls fitted using each instance's actual cutoff weights. Both arms assimilate future records; the cutoff control is a reference, not a deployable prior-only parent.
+
+At B64/r3, the mean twelve-record observation-path bound falls to .025313 nat, while complete occupied storage grows to 28,141,517.5 bytes, near the retained teacher's 29,109,774. Observation score changes average -.0003422643 nat, with 31 positive and 33 negative instances, so no predictive gain is established. Singleton contexts identify 99.87% of candidates at slot two: this is nearly history identification on the finite source, not continuous-history closure. Positive cutoff parent noise keeps the full simultaneous child-parent forward KL infinite. O1/O4, continuous-history and L2/L3 accuracy, endogenous feedback, nonlinear L5 and the thermodynamic limit remain open. The original 61-file failure and partial UTF-8 readback failure are preserved. Concurrent quadratic cycle-sector theory additions are distinct from the frozen scientific result. No GPU was needed.
+
 
 ## October 4 non-neural causal language construction
 

@@ -5,10 +5,15 @@ aliases: [field/physics, Physics sources]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-10-06
+updated: 2026-10-07
 ---
 
 # Physics MOC
+
+## Fixed-context finite-memory RG comparison, October 7, 2026
+
+[[multiagentelbo-2026-10-07-window-memory]] measures two-depth memory/error/storage at one base point for saved N512/N2048 latent-link histories. It does not establish endogenous hierarchy, nonlinear large-network scaling or a thermodynamic limit. Concurrent quadratic cycle-sector additions to the theory are recorded separately from the frozen calculation and receive no experimental validation here.
+
 
 ## Dynamic link fields, October 3, 2026
 

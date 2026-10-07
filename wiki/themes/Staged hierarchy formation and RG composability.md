@@ -13,12 +13,19 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-08-17
-updated: 2026-10-03
+updated: 2026-10-07
 ---
 
 
 
 # Staged hierarchy formation and RG composability
+
+## October 7 window-memory accuracy and storage
+
+[[multiagentelbo-2026-10-07-window-memory]] extends the finite-memory route at $c_*$ to $r=2,3$ suffix contexts at N512/N2048. Sixty-four shared dictionaries and 512 original initialized paired-depth sequences complete the declared twelve-record comparison. Independent arithmetic readback reconstructs both normalized filter routes, the within-model composition square, entropy accounting and complete occupied-storage charges. The actual-cutoff-weight row control separates memory defect from the extra prior-row approximation, while remaining an instance-specific reference.
+
+For B64/r3, the mean observation-path bound is .025313 nat and the physical depth-two bound .156632 nat; the latter retains initial physical cost and cutoff-label/path information. Occupied storage is 28,141,517.5 bytes, near the retained reference's 29,109,774, and most later contexts identify the finite source histories individually. The observation-score mean is slightly negative with mixed signs. Finite-horizon error bounds, predictive scores, complete storage and full joint support therefore remain separate assessments: the full simultaneous child-parent KL is still infinite. The result supplies a finite-codec tradeoff, without closing O1/O4, continuous-history accuracy, endogenous delayed feedback or a thermodynamic limit. Historical execution failures and concurrent quadratic cycle-sector theory additions retain their separate identities.
+
 
 ## October 3 joint-channel compression comparison
 

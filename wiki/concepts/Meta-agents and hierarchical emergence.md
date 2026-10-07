@@ -13,10 +13,17 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-09-28
+updated: 2026-10-07
 ---
 
 # Meta-agents and hierarchical emergence
+
+## Finite memory and retained-history identification, October 7, 2026
+
+[[multiagentelbo-2026-10-07-window-memory]] measures what a longer suffix retains in the existing fixed-$c_*$ finite teacher. Prior-count and actual-cutoff-weight row fits share correlated emissions and an affine parent channel, and both assimilate the same twelve original records. The normalized two-depth square preserves the declared selected output within the approximate model; it does not make the children independently autonomous or furnish a full-network interface.
+
+At B64/r3, the mean observation-path upper bound is .025313 nat, while occupied storage reaches 28,141,517.5 bytes against a 29,109,774-byte retained reference. Slot-two singleton contexts identify 99.87% of the 192 candidate histories. Thus the improvement can be accounted for by near identification of this finite teacher, with little remaining storage advantage. Mixed observation scores establish no predictive gain, and positive cutoff noise leaves the full simultaneous child-parent KL infinite. These results do not close continuous-history accuracy, endogenous feedback, O1/O4 or recursive formation.
+
 
 ## What a culture throws away: timescale-separation lens, September 28, 2026
 
