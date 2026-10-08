@@ -7,6 +7,11 @@ updated: 2026-10-08
 
 # Index
 
+## October 8: native nonlinear history inference
+
+[[multiagentelbo-2026-10-08-native-history-inference]] implements prefix-only inference under the original nonlinear finite-history energy, with analytic temporal coupling and common-state natural updates. A full Gaussian predictive-prior arm checks exact backward normalization and correlated filtering. Thirty-five distinct tiny cases pass; N512/T4/m16 CPU admission took 8.924 seconds. The product-family posterior gap remains explicit, and objective descent does not establish predictive accuracy. Next is causal original-record prediction against a reference with the same observation design. Full RG gates remain open and the goal is active.
+
+
 ## October 8: fitted parent activation and native-history correction
 
 [[multiagentelbo-2026-10-08-recognition-activation]] implements the fitted R1 activation bridge with full parent covariance, nonuniform masses and original-copy identities. Seven new tiny CPU tests pass. The corrected N512 admission retains all 128 parents and 1,024 copies in about 1.01 seconds and 141 MB of retained tensor storage; the diagnosed strided-input failure remains recorded. This is a recognition-snapshot handoff. The next native dependency is the filtered predictive-prior correction, including the horizon-dependent initial backward factor. Original trajectory control, growing operational limits and persistent second formation remain open; the goal remains active.
