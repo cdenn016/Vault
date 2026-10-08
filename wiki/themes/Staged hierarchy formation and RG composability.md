@@ -20,6 +20,10 @@ updated: 2026-10-08
 
 # Staged hierarchy formation and RG composability
 
+## October 8, 2026: causal native-history forecasting
+
+[[multiagentelbo-2026-10-08-native-forecast]] records the implemented all-row native posterior reference and forecast-before-assimilation protocol, including empty-prefix inference and fresh future matter. Seventeen distinct tiny checks pass; the N512/T4 CPU admission completes in 48.148 seconds. Its one-step recognition and short reference chains establish execution and resources, not predictive accuracy or mixing. The next dependency is convergence and conditional-precision calibration before independent-instance parent evaluation. The original four RG gates remain open; the full goal stays active.
+
 ## October 8: native nonlinear history inference
 
 [[multiagentelbo-2026-10-08-native-history-inference]] implements prefix-only inference under the original nonlinear finite-history energy, with analytic temporal coupling and common-state natural updates. A full Gaussian predictive-prior arm checks exact backward normalization and correlated filtering. Thirty-five distinct tiny cases pass; N512/T4/m16 CPU admission took 8.924 seconds. The product-family posterior gap remains explicit, and objective descent does not establish predictive accuracy. Next is causal original-record prediction against a reference with the same observation design. Full RG gates remain open and the goal is active.
