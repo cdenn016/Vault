@@ -12,6 +12,8 @@ updated: 2026-10-08
 
 # Statistics MOC
 
+[[multiagentelbo-2026-10-08-n2048-cpu-capacity]] records one independently seeded finite-MCMC resource input and three two-step CPU controls. It is excluded from the sixteen-instance predictive calibration population. Descriptive receiver-row score differences do not establish an arm advantage; prior-law accuracy, device agreement and independent-instance evaluation remain unresolved.
+
 [[multiagentelbo-2026-10-08-filter-boundary-learning-domain]] adds tested saved-score assessment using draw-level influence functions and paired common-noise contrasts, with eight preparation-level replicates per size. Its precision screens do not establish score bias, native accuracy or state convergence, and the full grid remains unrun. The learner alternatives distinguish a proper hierarchical reward prior with MAP estimation from finite-KL continuous-parameter recognition; neither is adopted. Fifteen focused tests and twelve coefficient identities remain separate from the analytical filter and recurrence arguments.
 
 [[multiagentelbo-2026-10-08-record-error-formation-regime]] distinguishes expected recognition-induced marginal log loss from realized record scores and exact posterior error. Its stationary snapshot decoder is not the full-geometry continuous-history conditional. The seeded formation margin compares histories of one process, while the frozen-learning null leaves causal learning, general initial-law probability and learned recurrence unresolved.
