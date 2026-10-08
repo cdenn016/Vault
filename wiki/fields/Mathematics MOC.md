@@ -18,6 +18,8 @@ updated: 2026-10-08
 
 [[multiagentelbo-2026-10-08-incident-catalog-decoder]] projects that native KL comparison to an exact incident-catalog original-record marginal with shared fine matter. Six tiny checks and one saved N512/M1024 representation comparison pass; full channel/copy/evaluator and growing-limit obligations remain.
 
+[[multiagentelbo-2026-10-08-normalized-channel-carrier]] adds an exact singular finite matter window, sparse record bridge and common-noise 5/2 perturbation certificate. A theoretical grid/polar code has explicit accuracy/expected-bit bounds; nine tiny checks and one actual saved N512 next-channel calculation ground the component formulas. Native autonomous and complete growing all-copy RG remain open.
+
 [[multiagentelbo-2026-10-08-n2048-cpu-capacity]] adds saved-value reconstruction of a finite GL+(2) N2048 model, complete-history selection and three admissible numerical endpoints. These checks do not prove the growing retained-state law, native parent closure or formation; all full RG gates remain open.
 
 [[multiagentelbo-2026-10-08-filter-boundary-learning-domain]] reports a positive-trace Schur-complement correction for hidden-mean density averaging under full continuous geometry and disjoint rooted trees, separating the resulting path laws without stationary initialization. Its separate finite-catalog learner analysis identifies a nonnegative-domain boundary and escape in an unadopted unrestricted extension. Neither alternative global completion is selected; these arguments do not exclude all augmented parents, settle Chapter 11 or establish learned recurrence.
