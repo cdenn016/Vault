@@ -21,9 +21,11 @@ updated: 2026-10-08
 
 # Gauge-Theoretic Multi-Agent VFE Model
 
-## Resumed Gaussian lane, October 8, 2026
+## Paused Gaussian lane, October 8, 2026
 
-[[multiagentelbo-2026-10-08-n2048-cpu-capacity]] records the missing four-episode N2048 CPU endpoint: one fresh finite-MCMC resource preparation and three controls complete once, with 172.358929 seconds of flow and a 1,981,579,264-byte cumulative process peak. Both NumPy saved-value readbacks pass; all controls reach accepted time .1 without backtracking. This admits the declared CPU budget without establishing predictive improvement or posterior accuracy. CUDA agreement remains pending while the GPU is occupied, the full calibration stays disabled, and all four RG gates remain open. The full goal has resumed and is active.
+[[multiagentelbo-2026-10-08-nonlinear-decoder-bound]] supplies an averaged original-difference-record information estimate under the anchored nonlinear prior and fresh Gaussian matter. Projection rank and generator second-moment tails suffice while complete geometry is retained as additional O(N) memory. Native prefix posterior control, fixed patches and the compressed complete operational state remain open. The user requested a break at this published checkpoint; the unfinished goal is paused, with retained-input CUDA admission and the exact decoder/geometry gaps recorded for resumption. All four RG gates remain open.
+
+[[multiagentelbo-2026-10-08-n2048-cpu-capacity]] records the missing four-episode N2048 CPU endpoint: one fresh finite-MCMC resource preparation and three controls complete once, with 172.358929 seconds of flow and a 1,981,579,264-byte cumulative process peak. Both NumPy saved-value readbacks pass; all controls reach accepted time .1 without backtracking. This admits the declared CPU budget without establishing predictive improvement or posterior accuracy. CUDA agreement remains pending while the GPU is occupied, the full calibration stays disabled, and all four RG gates remain open. The later decoder checkpoint above records the requested pause.
 
 [[multiagentelbo-2026-10-08-filter-boundary-learning-domain]] records PR192: fifteen focused score-assessment tests pass in .218 seconds, and twelve exact learner coefficient/hazard checks pass. The saved-only assessment preserves paired draw uncertainty and complete grid coverage; the full grid remains disabled and unrun. The analytical results delimit one density-averaged augmented-filter class and identify the reward learner's unresolved global domain. Both proposed completions remain unadopted, with the user's choice pending. No network run or GPU workload occurred; device agreement, capacity admission and all four full RG gates remain open.
 
