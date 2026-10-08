@@ -12,6 +12,8 @@ updated: 2026-10-08
 
 # Mathematics MOC
 
+[[multiagentelbo-2026-10-08-record-error-formation-regime]] derives an incidence-based original-record KL bound, a regular stationary hidden-coordinate Gaussian decoder, and scoped continuous-path observability for disjoint rooted-tree covers. Its separate perturbation construction supplies a prepared finite-window mean-coherence regime on each fixed compatible lattice; it does not establish general initialization, learned recurrence or full parent closure.
+
 [[multiagentelbo-2026-10-08-discarded-energy-device-admission]] derives centered native discarded-energy bounds, deterministic compactness and late-activation small-noise control at fixed finite size. Its separate bridge-gap calculation gives a conditional counterfactual margin; uniform limits and actual formation remain open.
 
 [[multiagentelbo-2026-10-08-moving-parents-bond-factor]] derives moving rooted-map covariations, an exact subtree carrier, a conditional stopped coupling bound, and finite globally normalized bond conditionals. Small CPU coefficient checks are separate from the general arguments; uniform residual/exit estimates and formation remain open.

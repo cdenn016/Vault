@@ -551,3 +551,7 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 2026-10-08 INGEST [[multiagentelbo-2026-10-08-moving-parents-bond-factor]]: code PR189, 4a2bc57bbde407391716827ac52e517910a2616d. Recorded accepted-time driver tests, moving-parent conditional constructions and the unadopted globally normalized bond candidate. Updated existing synthesis, Mathematics/Statistics MOCs and index; no manuscript or prior-source edits. Full RG gates remain open.
 
 2026-10-08 INGEST [[multiagentelbo-2026-10-08-discarded-energy-device-admission]]: code PR190, d6620b5504999b29d6cbaf500d3d06b480e27651. Recorded six CPU admissions, actual finite-instance discarded-energy control and the conditional bridge mechanism. Extended existing synthesis rather than adding another status section; manuscripts and prior sources unchanged. Full RG gates remain open.
+
+2026-10-08 INGEST [[multiagentelbo-2026-10-08-record-error-formation-regime]]: code PR191, 144f7828875fdd5243a11d076d0d042f77b9c7d3. Recorded original-row error control, regular stationary hidden-coordinate operations and a prepared finite-window mean-coherence regime. Updated existing synthesis and Mathematics/Statistics MOCs; preserved continuous-history, initial-law, recurrence and full-parent limitations. No manuscript or prior-source edits.
+
+2026-10-08 LINT PR191 ingest: docs/_lint.py inspected 1,430 files once; broken wikilinks, graph grey nodes, empty files, case collisions and identity collisions all zero. Protected lint-report WIP preserved.
