@@ -18,6 +18,8 @@ updated: 2026-10-08
 
 # Renormalization-group flow of beliefs
 
+[[multiagentelbo-2026-10-08-fisher-trajectory-admission]] adds an actual finite-quadrature recognition path with all 128 moving conditional parents and 1,024 copies retained at eight saved points. Independent proposal/readout arithmetic passes 405 comparisons. The stopped-grid bound controls a supplied smooth readout only under compact-domain, drift-error and exit hypotheses; it supplies neither an autonomous parent/filter nor a full recognition mixture, feedback law or growing RG limit. Single-path refinement and the uncalibrated M16 field close none of the four RG gates.
+
 [[multiagentelbo-2026-10-08-native-flow-handoff-fisher-step]] completes the static adapter from the actual saved R1 future quadrature to the original-record and two-depth parent joint, preserving shared matter, all copies and costs. Its 25 comparisons pass; its original joint score differs from a sum of marginal row scores. The opt-in Fisher proposal supplies local numerical coefficients, not an autonomous parent trajectory. Conditional stationarity is available only in the uncoupled reward-prior control; positive-strength actual occupation and every full RG gate remain open.
 
 [[multiagentelbo-2026-10-08-cuda-flow-admission]] supplies passed retained-input CUDA comparisons and two NumPy readbacks through N2048. This is short-interval numerical/resource admission; the registered 144-case grid and complete density reconstruction remain unrun while the user occupies the GPU. The full goal resumed and continues with CPU/source work. Device agreement closes no scientific RG gate.

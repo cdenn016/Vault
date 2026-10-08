@@ -12,6 +12,8 @@ updated: 2026-10-08
 
 # Statistics MOC
 
+[[multiagentelbo-2026-10-08-fisher-trajectory-admission]] distinguishes a single coupled Brownian refinement from multiseed or population-flow accuracy: 405 conditional arithmetic comparisons pass for the fixed sixteen-draw field, while smaller adjacent differences remain descriptive. Its uniform Gaussian-envelope/net bound addresses a shared training pool across evolving states but is not a practical M16 certificate. Native compact-exit and floating-point budgets remain separate, and moving conditional probe parents are not the full posterior filter or future forecast.
+
 [[multiagentelbo-2026-10-08-native-flow-handoff-fisher-step]] checks the exact saved 256-component R1 forecast joint, preserving fresh future matter, generative source weights and shared-record dependence. All 25 row/joint/parent comparisons pass at frozen tolerance. Hypothetical normalized contexts remain separate from causal marginals, and finite quadrature is not the continuous posterior. Local Fisher-step consistency and uncoupled learner stationarity provide neither population accuracy nor persistent formation.
 
 [[multiagentelbo-2026-10-08-cuda-flow-admission]] admits CUDA on retained CPU inputs through N2048 without treating receiver rows as replicates or reusing admission scores to tune assessment. The sixteen-instance 144-case grid remains unrun while the user occupies the GPU; its design and numerical screens remain frozen.

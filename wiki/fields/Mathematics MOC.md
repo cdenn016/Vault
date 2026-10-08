@@ -12,6 +12,8 @@ updated: 2026-10-08
 
 # Mathematics MOC
 
+[[multiagentelbo-2026-10-08-fisher-trajectory-admission]] derives an exact-arithmetic stopped-grid bound C(h+delta_M^2) for the Cholesky exponential/softmax proposal, treating its quadratic noise term as a centered martingale and separating exit, interpolation and finite-pool events. Smooth supplied readouts inherit a compact-domain bound. Root reconstructed the proof; no formal adjudication state or global/growing-network rate is assigned. The N512 saved-array arithmetic checks ground the implementation but do not supply the theorem's quantitative constants.
+
 [[multiagentelbo-2026-10-08-native-flow-handoff-fisher-step]] derives a positive Fisher covariance proposal with the full Itô correction and analyzes the unadopted MAP hybrid generator. A complete invariant law exists in the uncoupled control; explicit full-covariance KL-drift and covariance-face entropy sequences refute two universal shortcuts for positive strengths. Seven tiny numerical checks and nine exact coefficient identities ground their formulas; actual-law occupation and full RG remain open.
 
 [[multiagentelbo-2026-10-08-cuda-flow-admission]] adds independent saved-state and original-score reconstruction for nine bounded CUDA arms, plus tiny grounding for a complete-grid Gaussian density checker. Numerical agreement does not prove the nonlinear operational limit or native-parent closure; the full grid remains unrun.
