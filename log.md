@@ -569,4 +569,6 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 
 2026-10-08 INGEST [[multiagentelbo-2026-10-08-posterior-average-transfer]]: code PR196 revision 52e8e319. Recorded exact prior-predictive moment transfer, averaged native joint decoder KL and high-probability prefixes with complete geometry cost retained. Five tiny symbolic identities ground coefficients only. Updated existing project/theme/RG concept, Mathematics/Statistics MOCs and index; no every-history, recognition, compressed-state or formation closure. No manuscript or prior-source edits.
 
+2026-10-08 INGEST [[multiagentelbo-2026-10-08-incident-catalog-decoder]]: code PR197 revision 85683abb. Recorded incident-catalog marginalization/KL contraction, six tiny CPU checks and the one saved N512/M1024 representation comparison (maximum error 6.217248937900877e-15; owned catalog 246,688 tensor bytes). Updated existing project/theme/RG concept, Mathematics/Statistics MOCs and index. Native sampler accuracy, raw-parent/channel/all-copy/growing-state/formation gaps remain; no GPU, new sampling, manuscript or old-source edit.
+
 2026-10-08 LINT PR196 ingestion: docs/_lint.py inspected 1,435 files once; broken wikilinks, graph grey nodes, empty files, case collisions and identity collisions all zero. Protected lint-report WIP preserved.

@@ -13,6 +13,8 @@ updated: 2026-10-08
 
 [[multiagentelbo-2026-10-08-posterior-average-transfer]] extends PR195's [[multiagentelbo-2026-10-08-nonlinear-decoder-bound]] to exact native posterior control averaged over the same model's generated prefixes. Geometry remains charged; every-history uniformity, approximate-law accuracy and complete operational RG closure remain open. The requested break has been explicitly lifted.
 
+[[multiagentelbo-2026-10-08-incident-catalog-decoder]] records PR197's exact incident-catalog original-record marginal and inherited native KL bound. Six tiny CPU checks and one saved N512/M1024 comparison pass at the frozen tolerance; the owned two-row catalog is 246,688 tensor bytes. Inference/working memory, raw-parent regression, all-copy channels and the full RG gates remain open. No GPU or new sampling was used.
+
 [[multiagentelbo-2026-10-08-n2048-cpu-capacity]] records PR194's completed four-episode N2048 CPU admission and two passing saved-value readbacks. Flow takes 172.358929 seconds with a 1,981,579,264-byte cumulative process peak. Its later CUDA comparison is recorded above; the full calibration and all scientific RG gates remain open.
 
 [[multiagentelbo-2026-10-08-filter-boundary-learning-domain]] records PR192's paired score assessment and the scoped augmented-filter and reward-domain boundaries. Fifteen focused tests and twelve coefficient identities pass; no network run occurred. Both global learner completions remain unadopted pending the user's choice, and all full RG gates remain open.
