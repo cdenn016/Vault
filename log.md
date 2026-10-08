@@ -515,3 +515,6 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 2026-10-07 INGEST [[multiagentelbo-2026-10-07-l5-normalized-marks]]: exact normalized affine/coisometric step, scoped growing-loop determinant obstruction and stationary central augmentation/error; six existing synthesis/MOC pages updated. No experiments or manuscript/older-source changes.
 
 2026-10-07 LINT L5 normalized-channel ingestion: 1,416 files; zero broken links, grey nodes, empty files, case collisions or identity collisions.
+
+2026-10-07 INGEST [[multiagentelbo-2026-10-07-l5-covariance-decoder]]: minimum covariance rate 3 gamma, condition-number/inverse bounds and fixed-patch KL/window TV/posterior limits; six existing synthesis/MOC pages updated. No experiments, manuscripts or older sources changed.
+2026-10-07 LINT L5 covariance/decoder ingestion: 1417 files; broken wikilinks, graph grey nodes, empty files, case collisions and identity collisions all 0.
