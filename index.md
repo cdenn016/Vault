@@ -9,6 +9,8 @@ updated: 2026-10-08
 
 ## Moving parents and normalized bond candidate, October 8, 2026
 
+[[multiagentelbo-2026-10-08-discarded-energy-device-admission]] continues with code PR190: actual finite-instance discarded-energy estimates, a conditional bridge mechanism and the six-arm two-step CPU admission. CUDA, regular compressed filtering and the full RG gates remain open.
+
 [[multiagentelbo-2026-10-08-moving-parents-bond-factor]] records code PR189 at `4a2bc57bbde407391716827ac52e517910a2616d`: eleven tested flow-driver cases, conditional moving-parent constructions and an unadopted normalized structural extension. Two CPU coefficient checks ground formulas. Full calibration, GPU admission and all four RG gates remain open.
 
 ## October 8, 2026: independent preparations and native Fisher trajectories
