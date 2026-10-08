@@ -12,6 +12,10 @@ updated: 2026-10-08
 
 # Statistics MOC
 
+## October 8, 2026: independent finite-MCMC preparations and CPU admission
+
+[[multiagentelbo-2026-10-08-independent-preparations-native-trajectory]] records sixteen preparations, eight on each fixed N512/N1024 graph, with separate prior/data/training/scoring seeds. Each selects one predeclared complete history from its own finite chain; native-prior approximation and initialization bias remain uncertified. Four tiny helper tests and reconstruction of all 1,024 retained histories pass. The 43.895-second N1024 CPU admission cannot discriminate longer simultaneous/alternating predictions because their first-step future coefficients coincide. Independent matched-time calibration and CUDA/capacity checks remain unrun. The companion geometric trajectory derivation is neither an executed stochastic simulator nor a mixing or formation result.
+
 ## October 8, 2026: native parent-context precision and matched controls
 
 [[multiagentelbo-2026-10-08-parent-context-controls]] records the direct native parent-context sampler and the fixed N512/T4 CPU comparison. Direct score MCSE is .003560 nat per original row, versus .07126 for the saved reweighted ensemble, but twice MCSE and the half-chain difference still exceed the frozen .0025 target. The result remains inconclusive without extension; scalar diagnostics do not establish full-state mixing. Matched simultaneous/alternating/held-anchor control paths also complete a one-step N512 admission. The two finite-width future forecasts coincide at that first step and require longer matched-time comparison. Twenty-two distinct tiny checks and two saved-array reconstructions pass. Independent-preparation calibration, native parent dynamics and the full nonlinear RG gates remain open; the GPU was unused and the goal stays active.

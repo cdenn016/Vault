@@ -12,6 +12,10 @@ updated: 2026-10-08
 
 # Mathematics MOC
 
+## October 8, 2026: finite anchored Fisher trajectory construction
+
+[[multiagentelbo-2026-10-08-independent-preparations-native-trajectory]] records the source argument for a normalized, interior nonexplosive recognition diffusion under an explicit thermostat, source reference and sufficient finite-dimensional temperature bound. It separates fixed-time zero-noise comparison from path total variation and retains Itô/jump terms for moving coarse readouts. Exact SymPy identities in Gaussian dimensions one and two and a three-source simplex ground coefficients only; the general derivation is not independently adjudicated here. Endogenous catalog selection, parent closure and growing-size/depth control remain open.
+
 ## October 8, 2026: native parent-context precision and matched controls
 
 [[multiagentelbo-2026-10-08-parent-context-controls]] records the direct native parent-context sampler and the fixed N512/T4 CPU comparison. Direct score MCSE is .003560 nat per original row, versus .07126 for the saved reweighted ensemble, but twice MCSE and the half-chain difference still exceed the frozen .0025 target. The result remains inconclusive without extension; scalar diagnostics do not establish full-state mixing. Matched simultaneous/alternating/held-anchor control paths also complete a one-step N512 admission. The two finite-width future forecasts coincide at that first step and require longer matched-time comparison. Twenty-two distinct tiny checks and two saved-array reconstructions pass. Independent-preparation calibration, native parent dynamics and the full nonlinear RG gates remain open; the GPU was unused and the goal stays active.

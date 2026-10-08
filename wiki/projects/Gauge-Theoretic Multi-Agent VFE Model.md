@@ -21,6 +21,10 @@ updated: 2026-10-08
 
 # Gauge-Theoretic Multi-Agent VFE Model
 
+## October 8, 2026: independent preparations and a native trajectory construction
+
+[[multiagentelbo-2026-10-08-independent-preparations-native-trajectory]] records eight seeded preparations at each of N512 and N1024, with finite-MCMC prior error still uncertified. Four tiny helper tests and saved-array reconstructions pass. The one-step N1024 control admission takes 43.895 seconds on CPU; simultaneous and alternating future predictions coincide at this first step, so it establishes execution rather than an arm advantage. The separate source argument specifies a finite anchored Fisher recognition diffusion with an explicit thermostat/reference choice and a sufficient temperature bound. Its scoped SymPy checks do not independently verify the general derivation or establish endogenous formation. Independent matched-time calibration, GPU capacity, native parent closure and all full RG gates remain open.
+
 ## October 8, 2026: native parent-context precision and matched controls
 
 [[multiagentelbo-2026-10-08-parent-context-controls]] records the direct native parent-context sampler and the fixed N512/T4 CPU comparison. Direct score MCSE is .003560 nat per original row, versus .07126 for the saved reweighted ensemble, but twice MCSE and the half-chain difference still exceed the frozen .0025 target. The result remains inconclusive without extension; scalar diagnostics do not establish full-state mixing. Matched simultaneous/alternating/held-anchor control paths also complete a one-step N512 admission. The two finite-width future forecasts coincide at that first step and require longer matched-time comparison. Twenty-two distinct tiny checks and two saved-array reconstructions pass. Independent-preparation calibration, native parent dynamics and the full nonlinear RG gates remain open; the GPU was unused and the goal stays active.
