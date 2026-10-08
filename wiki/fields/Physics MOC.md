@@ -10,6 +10,11 @@ updated: 2026-10-07
 
 # Physics MOC
 
+
+## Normalized affine channel and central scale memory, October 7, 2026
+
+[[multiagentelbo-2026-10-07-l5-normalized-marks]] Exact conditional coisometries, shared-history reverse kernels and a recursively normalized all-copy affine step preserve the stated channel. Raw-context likelihoods and the original shared-matter decoder remain distinct from a standard-normal marginal. The actual growing midpoint loop has determinant variance $4v_n s$, obstructing root-conjugation tightness only when the comparison space exposes that moving scale-relative query. Its normalized central history has an exact stationary augmented scale kernel and a computable KL error; unaugmented lag conditionals do not compose. This does not supply the full noncentral/evaluator joint limit, nonlinear scaling, original dynamics or formation. O1/O3/O4/O5, sparse-graph S1 and both N8192 failures remain open. No experiment, GPU operation, spectral choice or manuscript edit occurred.
+
 ## Growing dyadic paths and retained covariance, October 7, 2026
 
 [[multiagentelbo-2026-10-07-l5-path-growth]] The actual first-copy dyadic paths have length r+c<=2(s-1). The unchanged nonlinear anchored prior supplies path-normalized logarithmic moments, ensemble trace centering and stationary-axis rates, without nonlinear positivity or staircase concentration. The actual Gaussian GL(2) control has covariance rate log lambda_max(V_I)/s to 4 gamma>0; polynomial scalar normalization does not keep this rooted-mean comparison law tight. The carried-metric determinant statistic H converges in L2 to 2v_n when blocks and parent count grow. An explicit matching diagonal has summable errors. This scalar limit does not establish a full retained-state limit, RG relevance, universality or formation. Nonlinear growth/correlation, a compatible normalized full joint, original dynamics, compression error and both N8192 failures remain open. No simulation or GPU was used; no spectral metric or manuscript choice was made.
