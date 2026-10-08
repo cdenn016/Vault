@@ -20,6 +20,11 @@ updated: 2026-10-07
 
 # Staged hierarchy formation and RG composability
 
+## Anchored link-history prior spatial existence, October 7, 2026
+
+[[multiagentelbo-2026-10-07-l5-prior-limit]] The declared positively anchored Gaussian-increment link-history prior now has an analytical spatial existence construction: a volume-uniform one-cell entropy bound gives generator second moments and tightness, and finite-cylinder conditional identities give subsequential infinite-volume DLR laws for the unchanged nonlinear based-plaquette action. The fixed-horizon proof was independently reconstructed. It establishes neither uniqueness nor convergence of whole-slice episode kernels, a full agent joint, or the two-index RG limit. Both N8192 numerical readback failures remain unresolved; no experiment or GPU was used. The remaining analytical step is the actual retained state and compatible kernels with useful size/depth error bounds.
+
+
 
 ## L5 numerical follow-up, October 7, 2026
 

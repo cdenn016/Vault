@@ -18,6 +18,11 @@ updated: 2026-09-27
 
 # Renormalization-group flow of beliefs
 
+## Anchored link-history prior spatial existence, October 7, 2026
+
+[[multiagentelbo-2026-10-07-l5-prior-limit]] The declared positively anchored Gaussian-increment link-history prior now has an analytical spatial existence construction: a volume-uniform one-cell entropy bound gives generator second moments and tightness, and finite-cylinder conditional identities give subsequential infinite-volume DLR laws for the unchanged nonlinear based-plaquette action. The fixed-horizon proof was independently reconstructed. It establishes neither uniqueness nor convergence of whole-slice episode kernels, a full agent joint, or the two-index RG limit. Both N8192 numerical readback failures remain unresolved; no experiment or GPU was used. The remaining analytical step is the actual retained state and compatible kernels with useful size/depth error bounds.
+
+
 > [!note] Current scope, September 11, 2026
 > The opening RG-inspired assessment below describes the earlier MAgent manuscript and exploratory pipeline. It is not the current status of the separate MultiAgentELBO construction: [[multiagentelbo-2026-09-11-normalized-core]] records exact normalized channel composition, and [[multiagentelbo-2026-09-11-spatial]] and [[multiagentelbo-2026-09-11-continuum]] record additional conditional constructions. These results do not retroactively prove the old five-term Gaussian closure ansatz. Pathwise reuse requires the emitted-kernel or memory conditions in [[multiagentelbo-2026-09-11-memory]].
 
