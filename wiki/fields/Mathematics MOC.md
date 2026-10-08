@@ -12,6 +12,8 @@ updated: 2026-10-08
 
 # Mathematics MOC
 
+[[multiagentelbo-2026-10-08-discarded-energy-device-admission]] derives centered native discarded-energy bounds, deterministic compactness and late-activation small-noise control at fixed finite size. Its separate bridge-gap calculation gives a conditional counterfactual margin; uniform limits and actual formation remain open.
+
 [[multiagentelbo-2026-10-08-moving-parents-bond-factor]] derives moving rooted-map covariations, an exact subtree carrier, a conditional stopped coupling bound, and finite globally normalized bond conditionals. Small CPU coefficient checks are separate from the general arguments; uniform residual/exit estimates and formation remain open.
 
 ## October 8, 2026: finite anchored Fisher trajectory construction
