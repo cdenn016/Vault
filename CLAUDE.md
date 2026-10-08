@@ -2,22 +2,16 @@
 type: schema
 title: LLM-Wiki Schema & Operating Manual
 aliases: [LLM-Wiki Schema, Schema, Wiki Schema]
-updated: 2026-09-27
+updated: 2026-10-08
 ---
 
 # LLM-Wiki Schema
 
-This Obsidian vault is an **LLM-maintained research wiki**, built on the pattern from
-[Karpathy's "LLM Wiki" gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f).
-
-The premise: **knowledge should compound, not be re-derived.** Instead of re-reading raw
-papers at every query (classic RAG), an LLM incrementally maintains a persistent web of
-interlinked markdown pages. Humans curate sources and ask questions; the LLM does the
-bookkeeping — summarizing, cross-referencing, reconciling contradictions, and keeping the
-index current.
-
-This file is the **schema**: it tells any LLM (and you) the conventions and workflows for
-maintaining the wiki. Read it before doing any ingest / query / lint operation.
+This Obsidian vault is an LLM-maintained research wiki on the pattern of
+[Karpathy's "LLM Wiki" gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f):
+knowledge compounds instead of being re-derived. The human curates sources and asks questions; the
+LLM summarizes, cross-references, reconciles contradictions, and keeps the index current. Read this
+schema before any ingest, query, or lint operation.
 
 ---
 
@@ -26,7 +20,7 @@ maintaining the wiki. Read it before doing any ingest / query / lint operation.
 | Layer | Location | Mutability | Owner |
 |-------|----------|------------|-------|
 | **Raw sources** | `sources/` | **Immutable** — never edit, only append new files | Human curates |
-| **Manuscripts** | `manuscripts/` | **Editable** — freshest in-progress LaTeX WIPs (`.tex`/`.bib`); these working copies do not override authorial intent; the canonical home of all theory manuscripts (the MultiAgentELBO theory is `manuscripts/MultiAgentELBO_Theory/`, governed by that folder's `SPEC.md`; MultiAgentELBO's `Theory/` is retired) | Human + LLM edit |
+| **Manuscripts** | `manuscripts/` | **Editable** — freshest LaTeX WIPs (`.tex`/`.bib`) and the only home of theory source; see the manuscripts note under Guidance | Human + LLM edit |
 | **The wiki** | `wiki/` | LLM-owned synthesis; freely rewritten | LLM maintains |
 | **The schema** | `CLAUDE.md` (this file) | Rarely changed | Human + LLM agree |
 
@@ -39,7 +33,7 @@ Plus two navigation files at the vault root: **`index.md`** (catalog) and **`log
 ├── CLAUDE.md            ← this schema / operating manual
 ├── index.md            ← catalog of every wiki page, grouped by type
 ├── log.md              ← append-only chronological ledger of operations
-├── manuscripts/        ← EDITABLE freshest LaTeX WIPs (.tex/.bib) — current working copies, not an authority over authorial intent — canonical home of all theory; MultiAgentELBO theory in manuscripts/MultiAgentELBO_Theory/ (governed by its SPEC.md)
+├── manuscripts/        ← EDITABLE freshest LaTeX WIPs (.tex/.bib); canonical home of all theory
 ├── sources/            ← IMMUTABLE raw source notes (the source of truth)
 │   ├── papers/         ←   one note per paper (arXiv etc.), with bibtex
 │   ├── refs/           ←   curated references cited by the manuscripts (type: reference)
@@ -148,7 +142,7 @@ Use `cluster/<name>` tags so the Obsidian graph and search group by research are
 - `cluster/info-geometry` — Fisher metric, natural gradient, α/Rényi divergences, dual connections
 - `cluster/spd-geometry` — SPD manifold, affine-invariant metric, Riemannian optimization
 - `cluster/attention` — attention mechanisms, precision-weighting, positional encodings
-- `cluster/multi-agent` — the MAgent model: multi-agent VFE, meta-agents, hierarchical emergence, ouroboros, RG flow, belief inertia, Hamiltonian dynamics
+- `cluster/multi-agent` — the multi-agent model (MultiAgentELBO): multi-agent VFE, meta-agents, hierarchical emergence, ouroboros, RG flow, belief inertia, Hamiltonian dynamics
 - `cluster/participatory` — participatory realism / "it from bit", quantum foundations (QBism, relational QM), holography, IIT / consciousness. **Subdivided** — add the finer tag *alongside* the parent (which still rolls up; existing `[[theme]]` links keep resolving):
   - `cluster/participatory/quantum-foundations` — *physics origin*: QM foundations & interpretation (QBism, relational QM, Wigner's-friend / observer-dependent-facts no-go theorems), holography & emergent spacetime / quantum gravity, physics-from-information (entropic dynamics, Fisher/Jaynes)
   - `cluster/participatory/philosophy-of-mind` — *philosophy origin*: philosophy of mind (the hard problem, panpsychism), philosophy of science & metaphysics (structural realism, the relativized a priori), it-from-bit metaphysics
@@ -167,8 +161,8 @@ Add `status/stub`, `status/draft`, or `status/stable` to track maturity if usefu
 Every content note also carries a **project affiliation** tag so the Obsidian graph colors by
 project (`.obsidian/graph.json` defines the color groups):
 
-- `project/transformer` — belongs to the [[VFE Transformer Program]] (the `vfe3` language model)
-- `project/multi-agent` — belongs to the [[Gauge-Theoretic Multi-Agent VFE Model]] (MAgent)
+- `project/transformer` — belongs to the [[VFE Transformer Program]] (the `vfe3` language model in `VFE_3.0`)
+- `project/multi-agent` — belongs to the [[Gauge-Theoretic Multi-Agent VFE Model]] (MultiAgentELBO)
 - `project/social-physics` — belongs to the [[SocialPhysics]] project (opinion dynamics, belief momentum, sociophysics; founded on [[belief-inertia]])
 - **multiple tags** = shared core theory used by more than one project (colored green in the graph)
 
@@ -296,7 +290,8 @@ Append-only. One operation per line, newest at the bottom, parseable timestamp f
 
 ## Guidance for the maintaining LLM
 
-- **You own `wiki/`; you may rewrite any wiki page wholesale.** You may NEVER edit `sources/`. The top-level `manuscripts/` folder *is* editable — it holds the freshest `.tex`/`.bib` WIPs, which are the current working copies but do not override authorial intent; `sources/manuscripts/` still holds only the immutable *notes* about them.
+- **You own `wiki/`; you may rewrite any wiki page wholesale.** You may NEVER edit `sources/`.
+- **Manuscripts.** The top-level `manuscripts/` folder is editable and holds the freshest `.tex`/`.bib` WIPs. They are working copies, not an authority over the author's intent. The MultiAgentELBO theory lives at `manuscripts/MultiAgentELBO_Theory/`, governed by its `SPEC.md`; that repository no longer carries `Theory/`. `sources/manuscripts/` holds only the immutable notes about the manuscripts.
 - Keep summaries current; that bookkeeping is the whole point — the human won't do it.
 - Write for a future reader who has not read the papers: define terms, link generously.
 - Prefer fewer, well-connected, canonical pages over many thin duplicates.
