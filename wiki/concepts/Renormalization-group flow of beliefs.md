@@ -18,6 +18,8 @@ updated: 2026-10-08
 
 # Renormalization-group flow of beliefs
 
+[[multiagentelbo-2026-10-08-nonlinear-decoder-bound]] derives a uniform per-queried-row information bound under the anchored nonlinear generator prior with fresh Gaussian matter. It uses normalized parent projection rank and a generator split, preserving shared senders and the actual difference record. Complete original geometry is conditioned upon and charged as source memory. The estimate does not identify a compressed complete RG state or transfer the prior moment to the native posterior. Averaged queries, fixed patches and growing whole-record vectors have different error obligations; full operational composition and native-law control remain open.
+
 ## Moving-map noise and structural normalization, October 8, 2026
 
 [[multiagentelbo-2026-10-08-n2048-cpu-capacity]] completes the declared N2048 CPU resource endpoint with three matched accepted-time controls and separate passing preparation/flow readbacks. Its single resource realization lies outside the predictive calibration population. Device agreement, independent matched-time/refinement evaluation, complete retained-state RG and the nonlinear size/depth limit remain separate open obligations; no RG gate closes from capacity alone.
