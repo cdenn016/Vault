@@ -18,6 +18,10 @@ updated: 2026-10-08
 
 # Renormalization-group flow of beliefs
 
+## Moving-map noise and structural normalization, October 8, 2026
+
+[[multiagentelbo-2026-10-08-moving-parents-bond-factor]] distinguishes the conditional Gaussian readout covariance from its stochastic recognition mean's quadratic variation. Moving links add a geometry-noise term and cross-covariations; exact retention of the complete primitive geometry on a positive-weight rooted GL tree exposes all transported subtree means. The source gives an exact O(N) carrier and a lossy weighted-lift alternative with a stopped Wasserstein bound. It does not prove compressed path total variation or uniform growing-size/depth control. The accompanying globally normalized bond extension changes the fine law, and its conditional Gaussian parent/child kernels do not establish an autonomous parent trajectory or persistent hierarchy.
+
 ## October 8, 2026: finite Fisher trajectories and the remaining closure problem
 
 [[multiagentelbo-2026-10-08-independent-preparations-native-trajectory]] distinguishes the generative latent-history law from a newly specified recognition-parameter diffusion. The source's finite anchored argument uses the original population Fisher drift, inverse-Fisher noise, Gaussian Fisher volume and an explicit supported-simplex reference; its sufficient normalization range is $0<T<1/d_{\max}$. The moving-readout generator retains geometric Itô and structural jump terms. Neither that generator formula nor the scoped SymPy coefficient checks supplies an autonomous finite-dimensional parent filter or endogenous formation. Sixteen seeded preparations and N1024 CPU control admission advance the numerical comparison inputs, while independent flow calibration and full RG closure remain open. This is a report of the source argument, not independent mathematical verification.

@@ -20,6 +20,10 @@ updated: 2026-10-08
 
 # Staged hierarchy formation and RG composability
 
+## Moving parents and a normalized structural candidate, October 8, 2026
+
+[[multiagentelbo-2026-10-08-moving-parents-bond-factor]] supplies a moving-map covariance calculation, an exact subtree carrier with O(N) storage, and a lossy stopped path bound conditional on discarded energy and local regularity. The added persistent probe coupling is distinct from the latent episode-history law. Its normalized bond candidate has exact conditional Gaussian kernels and local curvature after bond marginalization, but has not been adopted. Coherence-region entry, persistence, first-stage-dependent second formation and regular feedback remain unproved. These results narrow the outstanding construction; coefficient checks and the eleven tested flow-driver cases do not close a full RG gate.
+
 ## October 8, 2026: independent preparations and a native trajectory construction
 
 [[multiagentelbo-2026-10-08-independent-preparations-native-trajectory]] supplies the sixteen seeded finite-MCMC preparations for the registered flow comparison and a CPU admission at N1024; the comparison itself remains unrun. Its separate geometric source argument preserves the simultaneous population Fisher drift at zero temperature by explicitly declaring thermostat noise and a source-boundary reference. Normalization, nonexplosion and fixed-time zero-noise comparison are argued for finite anchored instances under a stated temperature restriction, without a uniform mixing or growing-law conclusion. A nontrivial structural catalog adds forces and cannot silently remain the unchanged R0 dynamics. The scoped symbolic checks are not an independent verification of that argument. Coupled structural selection, retained covariance/jump closure, inherited feedback and endogenous second formation remain the next model and closure obligations.

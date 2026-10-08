@@ -7,6 +7,10 @@ updated: 2026-10-08
 
 # Index
 
+## Moving parents and normalized bond candidate, October 8, 2026
+
+[[multiagentelbo-2026-10-08-moving-parents-bond-factor]] records code PR189 at `4a2bc57bbde407391716827ac52e517910a2616d`: eleven tested flow-driver cases, conditional moving-parent constructions and an unadopted normalized structural extension. Two CPU coefficient checks ground formulas. Full calibration, GPU admission and all four RG gates remain open.
+
 ## October 8, 2026: independent preparations and native Fisher trajectories
 
 [[multiagentelbo-2026-10-08-independent-preparations-native-trajectory]] records sixteen independent seeded finite-MCMC preparations, four passing helper tests and the one-step N1024 CPU control admission. The separate source argument constructs a finite anchored Fisher recognition diffusion with explicit thermostat/reference choices and scoped symbolic checks; it does not establish endogenous formation or parent closure. Independent matched-time calibration, GPU capacity and all full RG gates remain open. Code provenance is PR185, `9e037938bb355cce4a13c359fa4df9f0de721e44`.
