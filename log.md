@@ -559,3 +559,7 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 2026-10-08 INGEST [[multiagentelbo-2026-10-08-filter-boundary-learning-domain]]: code PR192, result pin 827424de21798442ee73e5937e75cf8e3e460571. Recorded tested paired saved-score assessment, the scoped conditional-generator averaging boundary and the reward learner's unresolved global domain. Updated existing synthesis, Mathematics/Statistics MOCs and index; both learner completions remain unadopted pending the user's choice. No manuscript, prior-source or network-experiment changes; full RG gates remain open.
 
 2026-10-08 LINT PR192 ingest: docs/_lint.py inspected 1,431 files once; broken wikilinks, graph grey nodes, empty files, case collisions and identity collisions all zero. Protected lint-report WIP preserved.
+
+2026-10-08 INGEST [[multiagentelbo-2026-10-08-n2048-cpu-capacity]]: code PR194 result revision 56c2996885cc11714ac7e6633338d382616c49dd; producer e650bdbd. Recorded one fresh four-episode N2048 resource preparation, three completed CPU controls and two passing NumPy saved-value reconstructions. Updated project/RG synthesis, Mathematics/Statistics MOCs and index. CUDA, full calibration and all scientific RG gates remain open; no manuscript or prior-source edits.
+
+2026-10-08 LINT PR194 ingest: docs/_lint.py inspected 1,432 files once; broken wikilinks, graph grey nodes, empty files, case collisions and identity collisions all zero. Protected lint-report WIP preserved.

@@ -9,6 +9,8 @@ updated: 2026-10-08
 
 ## Moving parents and normalized bond candidate, October 8, 2026
 
+[[multiagentelbo-2026-10-08-n2048-cpu-capacity]] records PR194's completed four-episode N2048 CPU admission and two passing saved-value readbacks. Flow takes 172.358929 seconds with a 1,981,579,264-byte cumulative process peak. CUDA, the full calibration and all scientific RG gates remain open; the full goal has resumed.
+
 [[multiagentelbo-2026-10-08-filter-boundary-learning-domain]] records PR192's paired score assessment and the scoped augmented-filter and reward-domain boundaries. Fifteen focused tests and twelve coefficient identities pass; no network run occurred. Both global learner completions remain unadopted pending the user's choice, and all full RG gates remain open.
 
 [[multiagentelbo-2026-10-08-record-error-formation-regime]] continues with an original-row loss bound, regular stationary parent coordinates and a prepared finite-window mean-coherence regime. Scoped algebra checks support coefficients; general formation, learned recurrence and full parent closure remain open.
