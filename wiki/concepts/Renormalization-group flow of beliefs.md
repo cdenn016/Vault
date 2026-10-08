@@ -18,6 +18,11 @@ updated: 2026-10-08
 
 # Renormalization-group flow of beliefs
 
+## October 8, 2026: native parent-context precision and matched controls
+
+[[multiagentelbo-2026-10-08-parent-context-controls]] records the direct native parent-context sampler and the fixed N512/T4 CPU comparison. Direct score MCSE is .003560 nat per original row, versus .07126 for the saved reweighted ensemble, but twice MCSE and the half-chain difference still exceed the frozen .0025 target. The result remains inconclusive without extension; scalar diagnostics do not establish full-state mixing. Matched simultaneous/alternating/held-anchor control paths also complete a one-step N512 admission. The two finite-width future forecasts coincide at that first step and require longer matched-time comparison. Twenty-two distinct tiny checks and two saved-array reconstructions pass. Independent-preparation calibration, native parent dynamics and the full nonlinear RG gates remain open; the GPU was unused and the goal stays active.
+
+
 ## October 8, 2026: native bridge storage and longer inference
 
 [[multiagentelbo-2026-10-08-native-bridge-convergence]] records the full 1,024-component N512 parent/record bridge comparison: maximum dense-law discrepancy 1.57e-13, 104,937,904 retained tensor bytes versus a chunk-validated analytical dense equivalent of 8,992,790,800 bytes. Full-parent conditioning leaves effective component count 2.72, so continuous native conditional accuracy remains open. Longer inference reaches additional time 1; residuals decline but stationarity is not reached, while the 16/64-draw score contrast is only .000045 nat/record on this instance. Next is independent-preparation calibration and the native parent-context accuracy seam. Ten focused tests and saved-value reconstruction pass; no GPU workload ran and the full goal stays active.
