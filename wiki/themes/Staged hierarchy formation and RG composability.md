@@ -21,6 +21,11 @@ updated: 2026-10-07
 # Staged hierarchy formation and RG composability
 
 
+## Correlated angular histories and expected-window information, October 7, 2026
+
+[[multiagentelbo-2026-10-07-l5-angular-history]] The actual Gaussian-control midpoint loop has a fixed-window signed rank-one weak limit with correlated persistent axis histories and fresh signs; trace/axis/sign selected scale kernels compose. Actual axes keep original-field and posterior-record dependence. Fresh annular innovations close the previously open expected standardized-window KL gap for fixed original patches. Individual normalized inverse reversal survives, but normalized group composition loses small singular data at inverse pairs; the actual covariance loop score has logarithmic growth bounds 3 gamma and 5 gamma. Full all-copy/evaluator-compatible identification, nonlinear scaling, original dynamics/formation, O1/O3/O4/O5, sparse-graph S1 and both N8192 failures remain open. No simulation, GPU operation, spectral choice or manuscript edit occurred. The preceding expected-window gap is now resolved under these stated hypotheses; older source notes remain historical. Publication is followed by the requested break.
+
+
 ## Minimum covariance and fixed-record decoder limits, October 7, 2026
 
 [[multiagentelbo-2026-10-07-l5-covariance-decoder]] The actual Gaussian-control tree has minimum covariance rate 3 gamma, maximum rate 4 gamma and condition-number rate gamma, with explicit finite-size and inverse-moment bounds. Its existing fixed-patch shared-matter decoder loses conditional information in standardized growing-depth matter. Single-depth KL and fixed-window/posterior total-variation limits follow under the stated fresh comparison law. Expected KL for the entire iid window, hidden-mark raw-context factorization, full retained geometry and nonlinear scaling are separate obligations. O1/O3/O4/O5, sparse-graph S1, original dynamics/formation and both N8192 failures remain open. No simulation, GPU operation, spectral choice or manuscript edit occurred. Publication is followed by the requested break.
