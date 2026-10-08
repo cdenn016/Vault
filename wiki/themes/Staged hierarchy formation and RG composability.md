@@ -20,6 +20,10 @@ updated: 2026-10-08
 
 # Staged hierarchy formation and RG composability
 
+## October 8, 2026: independent preparations and a native trajectory construction
+
+[[multiagentelbo-2026-10-08-independent-preparations-native-trajectory]] supplies the sixteen seeded finite-MCMC preparations for the registered flow comparison and a CPU admission at N1024; the comparison itself remains unrun. Its separate geometric source argument preserves the simultaneous population Fisher drift at zero temperature by explicitly declaring thermostat noise and a source-boundary reference. Normalization, nonexplosion and fixed-time zero-noise comparison are argued for finite anchored instances under a stated temperature restriction, without a uniform mixing or growing-law conclusion. A nontrivial structural catalog adds forces and cannot silently remain the unchanged R0 dynamics. The scoped symbolic checks are not an independent verification of that argument. Coupled structural selection, retained covariance/jump closure, inherited feedback and endogenous second formation remain the next model and closure obligations.
+
 ## October 8, 2026: native parent-context precision and matched controls
 
 [[multiagentelbo-2026-10-08-parent-context-controls]] records the direct native parent-context sampler and the fixed N512/T4 CPU comparison. Direct score MCSE is .003560 nat per original row, versus .07126 for the saved reweighted ensemble, but twice MCSE and the half-chain difference still exceed the frozen .0025 target. The result remains inconclusive without extension; scalar diagnostics do not establish full-state mixing. Matched simultaneous/alternating/held-anchor control paths also complete a one-step N512 admission. The two finite-width future forecasts coincide at that first step and require longer matched-time comparison. Twenty-two distinct tiny checks and two saved-array reconstructions pass. Independent-preparation calibration, native parent dynamics and the full nonlinear RG gates remain open; the GPU was unused and the goal stays active.

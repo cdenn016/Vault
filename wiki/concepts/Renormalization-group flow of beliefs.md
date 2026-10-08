@@ -18,6 +18,10 @@ updated: 2026-10-08
 
 # Renormalization-group flow of beliefs
 
+## October 8, 2026: finite Fisher trajectories and the remaining closure problem
+
+[[multiagentelbo-2026-10-08-independent-preparations-native-trajectory]] distinguishes the generative latent-history law from a newly specified recognition-parameter diffusion. The source's finite anchored argument uses the original population Fisher drift, inverse-Fisher noise, Gaussian Fisher volume and an explicit supported-simplex reference; its sufficient normalization range is $0<T<1/d_{\max}$. The moving-readout generator retains geometric Itô and structural jump terms. Neither that generator formula nor the scoped SymPy coefficient checks supplies an autonomous finite-dimensional parent filter or endogenous formation. Sixteen seeded preparations and N1024 CPU control admission advance the numerical comparison inputs, while independent flow calibration and full RG closure remain open. This is a report of the source argument, not independent mathematical verification.
+
 ## October 8, 2026: native parent-context precision and matched controls
 
 [[multiagentelbo-2026-10-08-parent-context-controls]] records the direct native parent-context sampler and the fixed N512/T4 CPU comparison. Direct score MCSE is .003560 nat per original row, versus .07126 for the saved reweighted ensemble, but twice MCSE and the half-chain difference still exceed the frozen .0025 target. The result remains inconclusive without extension; scalar diagnostics do not establish full-state mixing. Matched simultaneous/alternating/held-anchor control paths also complete a one-step N512 admission. The two finite-width future forecasts coincide at that first step and require longer matched-time comparison. Twenty-two distinct tiny checks and two saved-array reconstructions pass. Independent-preparation calibration, native parent dynamics and the full nonlinear RG gates remain open; the GPU was unused and the goal stays active.

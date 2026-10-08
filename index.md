@@ -7,6 +7,10 @@ updated: 2026-10-08
 
 # Index
 
+## October 8, 2026: independent preparations and native Fisher trajectories
+
+[[multiagentelbo-2026-10-08-independent-preparations-native-trajectory]] records sixteen independent seeded finite-MCMC preparations, four passing helper tests and the one-step N1024 CPU control admission. The separate source argument constructs a finite anchored Fisher recognition diffusion with explicit thermostat/reference choices and scoped symbolic checks; it does not establish endogenous formation or parent closure. Independent matched-time calibration, GPU capacity and all full RG gates remain open. Code provenance is PR185, `9e037938bb355cce4a13c359fa4df9f0de721e44`.
+
 ## October 8, 2026: native parent-context precision and matched controls
 
 [[multiagentelbo-2026-10-08-parent-context-controls]] records the direct native parent-context sampler and the fixed N512/T4 CPU comparison. Direct score MCSE is .003560 nat per original row, versus .07126 for the saved reweighted ensemble, but twice MCSE and the half-chain difference still exceed the frozen .0025 target. The result remains inconclusive without extension; scalar diagnostics do not establish full-state mixing. Matched simultaneous/alternating/held-anchor control paths also complete a one-step N512 admission. The two finite-width future forecasts coincide at that first step and require longer matched-time comparison. Twenty-two distinct tiny checks and two saved-array reconstructions pass. Independent-preparation calibration, native parent dynamics and the full nonlinear RG gates remain open; the GPU was unused and the goal stays active.
