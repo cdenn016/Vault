@@ -12,6 +12,8 @@ updated: 2026-10-08
 
 # Mathematics MOC
 
+[[multiagentelbo-2026-10-08-moving-parents-bond-factor]] derives moving rooted-map covariations, an exact subtree carrier, a conditional stopped coupling bound, and finite globally normalized bond conditionals. Small CPU coefficient checks are separate from the general arguments; uniform residual/exit estimates and formation remain open.
+
 ## October 8, 2026: finite anchored Fisher trajectory construction
 
 [[multiagentelbo-2026-10-08-independent-preparations-native-trajectory]] records the source argument for a normalized, interior nonexplosive recognition diffusion under an explicit thermostat, source reference and sufficient finite-dimensional temperature bound. It separates fixed-time zero-noise comparison from path total variation and retains Itô/jump terms for moving coarse readouts. Exact SymPy identities in Gaussian dimensions one and two and a three-source simplex ground coefficients only; the general derivation is not independently adjudicated here. Endogenous catalog selection, parent closure and growing-size/depth control remain open.

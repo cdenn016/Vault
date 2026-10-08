@@ -21,6 +21,10 @@ updated: 2026-10-08
 
 # Gauge-Theoretic Multi-Agent VFE Model
 
+## Resumed Gaussian lane, October 8, 2026
+
+[[multiagentelbo-2026-10-08-moving-parents-bond-factor]] records code PR189 after the cleanup. The matched-time independent-preparation driver passes eleven tiny CPU tests; its full grid remains disabled pending device agreement and capacity admission. The two bounded constructions provide moving-parent covariations and a conditional lossy path bound, plus a globally normalized bond candidate with Fisher forces and conditional kernels. Their residual/exit/jump and second-stage formation obligations remain open. Two coefficient checks ran on CPU; no GPU, large-network experiment or manuscript edit occurred. The full goal is active and all four gates remain open.
+
 ## October 8, 2026: independent preparations and a native trajectory construction
 
 [[multiagentelbo-2026-10-08-independent-preparations-native-trajectory]] records eight seeded preparations at each of N512 and N1024, with finite-MCMC prior error still uncertified. Four tiny helper tests and saved-array reconstructions pass. The one-step N1024 control admission takes 43.895 seconds on CPU; simultaneous and alternating future predictions coincide at this first step, so it establishes execution rather than an arm advantage. The separate source argument specifies a finite anchored Fisher recognition diffusion with an explicit thermostat/reference choice and a sufficient temperature bound. Its scoped SymPy checks do not independently verify the general derivation or establish endogenous formation. Independent matched-time calibration, GPU capacity, native parent closure and all full RG gates remain open.

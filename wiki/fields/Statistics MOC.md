@@ -12,6 +12,8 @@ updated: 2026-10-08
 
 # Statistics MOC
 
+[[multiagentelbo-2026-10-08-moving-parents-bond-factor]] adds an accepted-time comparison driver for the existing independent preparations and distinguishes three different bond laws: latent conditional, variational coordinate optimum and thermostat redraw. Eleven tiny CPU cases pass; the independent calibration grid and GPU numerical admission remain unrun.
+
 ## October 8, 2026: independent finite-MCMC preparations and CPU admission
 
 [[multiagentelbo-2026-10-08-independent-preparations-native-trajectory]] records sixteen preparations, eight on each fixed N512/N1024 graph, with separate prior/data/training/scoring seeds. Each selects one predeclared complete history from its own finite chain; native-prior approximation and initialization bias remain uncertified. Four tiny helper tests and reconstruction of all 1,024 retained histories pass. The 43.895-second N1024 CPU admission cannot discriminate longer simultaneous/alternating predictions because their first-step future coefficients coincide. Independent matched-time calibration and CUDA/capacity checks remain unrun. The companion geometric trajectory derivation is neither an executed stochastic simulator nor a mixing or formation result.
