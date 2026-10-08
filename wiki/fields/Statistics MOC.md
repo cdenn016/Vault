@@ -12,6 +12,8 @@ updated: 2026-10-08
 
 # Statistics MOC
 
+[[multiagentelbo-2026-10-08-record-error-formation-regime]] distinguishes expected recognition-induced marginal log loss from realized record scores and exact posterior error. Its stationary snapshot decoder is not the full-geometry continuous-history conditional. The seeded formation margin compares histories of one process, while the frozen-learning null leaves causal learning, general initial-law probability and learned recurrence unresolved.
+
 [[multiagentelbo-2026-10-08-discarded-energy-device-admission]] records six two-step CPU admissions with retained inputs and independent saved-value checks. It distinguishes product-recognition reconstruction KL from exact latent-posterior error and finite selected-input score differences from independent-instance predictive evidence.
 
 [[multiagentelbo-2026-10-08-moving-parents-bond-factor]] adds an accepted-time comparison driver for the existing independent preparations and distinguishes three different bond laws: latent conditional, variational coordinate optimum and thermostat redraw. Eleven tiny CPU cases pass; the independent calibration grid and GPU numerical admission remain unrun.

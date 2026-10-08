@@ -9,6 +9,8 @@ updated: 2026-10-08
 
 ## Moving parents and normalized bond candidate, October 8, 2026
 
+[[multiagentelbo-2026-10-08-record-error-formation-regime]] continues with an original-row loss bound, regular stationary parent coordinates and a prepared finite-window mean-coherence regime. Scoped algebra checks support coefficients; general formation, learned recurrence and full parent closure remain open.
+
 [[multiagentelbo-2026-10-08-discarded-energy-device-admission]] continues with code PR190: actual finite-instance discarded-energy estimates, a conditional bridge mechanism and the six-arm two-step CPU admission. CUDA, regular compressed filtering and the full RG gates remain open.
 
 [[multiagentelbo-2026-10-08-moving-parents-bond-factor]] records code PR189 at `4a2bc57bbde407391716827ac52e517910a2616d`: eleven tested flow-driver cases, conditional moving-parent constructions and an unadopted normalized structural extension. Two CPU coefficient checks ground formulas. Full calibration, GPU admission and all four RG gates remain open.
@@ -1393,6 +1395,8 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 - [[pep-8-style-guide-python-code|PEP 8 - Style Guide for Python Code]]
 
 ## 🧪 Sources — experiment runs
+
+- [[multiagentelbo-2026-10-08-record-error-formation-regime|MultiAgentELBO original-record error, regular parent coordinates, and prepared formation regime]] — conditional analytical results and exact coefficient grounding; no new network experiment or full RG gate closure.
 
 - [[multiagentelbo-2026-10-07-l5-accuracy-tails|MultiAgentELBO L5 nonlinear history accuracy and tails, October 7, 2026]] - six cases through N8192; 1,299 saved-value checks, precision misses retained; no stationary-tail or O5 closure.
 
