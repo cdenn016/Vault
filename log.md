@@ -541,3 +541,5 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 2026-10-08 INGEST [[multiagentelbo-2026-10-08-native-history-inference]]: original nonlinear history inference, exact Gaussian prior validation, 35 distinct checks and N512 CPU admission, pinned code 4176c2eb. Native predictive accuracy remains open; no manuscript edit.
 
 2026-10-08  INGEST  [[multiagentelbo-2026-10-08-native-bridge-convergence]]: N512 complete empirical bridge storage/identity and longer finite-time inference; PR182, 4587db5d031f41e965ef4c5388eb72a3b9e1b0ff. Updated project, theme, concept, Mathematics/Statistics MOCs and index; native conditional accuracy and full RG gates remain open.
+
+2026-10-08 INGEST [[multiagentelbo-2026-10-08-parent-context-controls]]: direct native conditional reference with inconclusive frozen precision and matched N512 history controls; code PR183, 91b0aaec061da04b3d76fdab085530d28423571a. Updated existing project/theme/concept, Mathematics/Statistics MOCs and index. No manuscript edits; all full RG gates remain open.
