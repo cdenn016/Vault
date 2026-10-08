@@ -12,6 +12,8 @@ updated: 2026-10-08
 
 # Mathematics MOC
 
+[[multiagentelbo-2026-10-08-filter-boundary-learning-domain]] reports a positive-trace Schur-complement correction for hidden-mean density averaging under full continuous geometry and disjoint rooted trees, separating the resulting path laws without stationary initialization. Its separate finite-catalog learner analysis identifies a nonnegative-domain boundary and escape in an unadopted unrestricted extension. Neither alternative global completion is selected; these arguments do not exclude all augmented parents, settle Chapter 11 or establish learned recurrence.
+
 [[multiagentelbo-2026-10-08-record-error-formation-regime]] derives an incidence-based original-record KL bound, a regular stationary hidden-coordinate Gaussian decoder, and scoped continuous-path observability for disjoint rooted-tree covers. Its separate perturbation construction supplies a prepared finite-window mean-coherence regime on each fixed compatible lattice; it does not establish general initialization, learned recurrence or full parent closure.
 
 [[multiagentelbo-2026-10-08-discarded-energy-device-admission]] derives centered native discarded-energy bounds, deterministic compactness and late-activation small-noise control at fixed finite size. Its separate bridge-gap calculation gives a conditional counterfactual margin; uniform limits and actual formation remain open.

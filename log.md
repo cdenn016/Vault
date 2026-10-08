@@ -555,3 +555,7 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 2026-10-08 INGEST [[multiagentelbo-2026-10-08-record-error-formation-regime]]: code PR191, 144f7828875fdd5243a11d076d0d042f77b9c7d3. Recorded original-row error control, regular stationary hidden-coordinate operations and a prepared finite-window mean-coherence regime. Updated existing synthesis and Mathematics/Statistics MOCs; preserved continuous-history, initial-law, recurrence and full-parent limitations. No manuscript or prior-source edits.
 
 2026-10-08 LINT PR191 ingest: docs/_lint.py inspected 1,430 files once; broken wikilinks, graph grey nodes, empty files, case collisions and identity collisions all zero. Protected lint-report WIP preserved.
+
+2026-10-08 INGEST [[multiagentelbo-2026-10-08-filter-boundary-learning-domain]]: code PR192, result pin 827424de21798442ee73e5937e75cf8e3e460571. Recorded tested paired saved-score assessment, the scoped conditional-generator averaging boundary and the reward learner's unresolved global domain. Updated existing synthesis, Mathematics/Statistics MOCs and index; both learner completions remain unadopted pending the user's choice. No manuscript, prior-source or network-experiment changes; full RG gates remain open.
+
+2026-10-08 LINT PR192 ingest: docs/_lint.py inspected 1,431 files once; broken wikilinks, graph grey nodes, empty files, case collisions and identity collisions all zero. Protected lint-report WIP preserved.

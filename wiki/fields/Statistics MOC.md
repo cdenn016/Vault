@@ -12,6 +12,8 @@ updated: 2026-10-08
 
 # Statistics MOC
 
+[[multiagentelbo-2026-10-08-filter-boundary-learning-domain]] adds tested saved-score assessment using draw-level influence functions and paired common-noise contrasts, with eight preparation-level replicates per size. Its precision screens do not establish score bias, native accuracy or state convergence, and the full grid remains unrun. The learner alternatives distinguish a proper hierarchical reward prior with MAP estimation from finite-KL continuous-parameter recognition; neither is adopted. Fifteen focused tests and twelve coefficient identities remain separate from the analytical filter and recurrence arguments.
+
 [[multiagentelbo-2026-10-08-record-error-formation-regime]] distinguishes expected recognition-induced marginal log loss from realized record scores and exact posterior error. Its stationary snapshot decoder is not the full-geometry continuous-history conditional. The seeded formation margin compares histories of one process, while the frozen-learning null leaves causal learning, general initial-law probability and learned recurrence unresolved.
 
 [[multiagentelbo-2026-10-08-discarded-energy-device-admission]] records six two-step CPU admissions with retained inputs and independent saved-value checks. It distinguishes product-recognition reconstruction KL from exact latent-posterior error and finite selected-input score differences from independent-instance predictive evidence.
