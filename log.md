@@ -527,3 +527,5 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 
 2026-10-08 INGEST [[multiagentelbo-2026-10-08-joint-flow-contract]]: common-state latent inference, N512 CPU admission/refinement and finite correlated-state/record construction, pinned to code merge 20c83bc1. Existing project/theme/concept and Mathematics/Statistics MOCs updated; no manuscripts or historical sources changed. Goal remains active.
 2026-10-08 LINT Joint-flow/finite-state ingest: 1420 files; broken links, graph grey nodes, empty files, case collisions and identity collisions all zero.
+
+2026-10-08 INGEST [[multiagentelbo-2026-10-08-recognition-activation]]: fitted-state correlated activation, preserved layout failure, N512 CPU admission and native-history correction boundary; pinned code d968c10a. Existing synthesis and MOCs updated; no manuscript edits.

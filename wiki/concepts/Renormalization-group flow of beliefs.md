@@ -18,6 +18,11 @@ updated: 2026-10-08
 
 # Renormalization-group flow of beliefs
 
+## October 8: fitted parent activation and native-history correction
+
+[[multiagentelbo-2026-10-08-recognition-activation]] implements the fitted R1 activation bridge with full parent covariance, nonuniform masses and original-copy identities. Seven new tiny CPU tests pass. The corrected N512 admission retains all 128 parents and 1,024 copies in about 1.01 seconds and 141 MB of retained tensor storage; the diagnosed strided-input failure remains recorded. This is a recognition-snapshot handoff. The next native dependency is the filtered predictive-prior correction, including the horizon-dependent initial backward factor. Original trajectory control, growing operational limits and persistent second formation remain open; the goal remains active.
+
+
 ## Simultaneous inference and finite handoff, October 8, 2026
 
 [[multiagentelbo-2026-10-08-joint-flow-contract]] implements common-state matter/source/generator inference, keeping expected-Hessian and sampled Fisher estimators separate. Ten tiny CPU tests pass. One N512 CPU admission and short common-time refinement completed, with successive endpoint ratios 0.479-0.495; CUDA admission and independent-instance calibration remain open. A finite full-covariance record/retained-state construction reuses existing Gaussian kernels, with explicit conditional error bounds and singular-support exclusions. It supplies a native-parent adapter target, not a uniform growing-state or finite-memory result. The fixed-c_* RG goal is active; all four completion gates and both historical N8192 failures remain open.
