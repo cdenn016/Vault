@@ -1566,3 +1566,5 @@ All new source notes are cataloged below. [[multiagentelbo-2026-09-11-research-s
 - [[multiagentelbo-2026-10-03-source-informed-compression]] -- matched-rank source-sensitivity basis with mixed joint-score results.
 
 - [[multiagentelbo-2026-10-03-joint-informed-compression]] -- native hold/refresh weighting for the joint compression proxy.
+
+- [[multiagentelbo-2026-10-07-l5-prior-limit]] -- analytical spatial DLR existence at fixed horizon and positive anchor, with independent reconstruction and explicit remaining RG obligations.

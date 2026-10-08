@@ -499,3 +499,7 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 - 2026-10-07 INGEST [[multiagentelbo-2026-10-07-l5-exponential-diagnosis]]: captured arithmetic signature and two bounded non-reproductions, preserving both failed N8192 cases and active-goal scope; propagated to eight existing synthesis/MOC pages.
 
 - 2026-10-07 LINT L5 diagnosis ingestion: 1,412 files; zero broken links, grey nodes, empty files, case collisions or identity collisions.
+
+- 2026-10-07 INGEST [[multiagentelbo-2026-10-07-l5-prior-limit]]: anchored nonlinear prior spatial existence proof, independent reconstruction and unresolved temporal/coarse limits; six existing synthesis/MOC pages updated. No manuscript or prior source edits.
+
+- 2026-10-07 LINT L5 prior-limit ingestion: 1,413 files; zero broken links, grey nodes, empty files, case collisions or identity collisions.
