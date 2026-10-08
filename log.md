@@ -511,3 +511,7 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 2026-10-07 20:45 INGEST [[multiagentelbo-2026-10-07-l5-path-growth]]: independently reconstructed path/metric/trace/concentration proof, covariance rate and determinant two-index limit; six existing synthesis/MOC pages updated. No experiments, manuscript edits or older source changes.
 
 2026-10-07 20:46 LINT L5 growing-path ingestion: 1,415 files; zero broken links, grey nodes, empty files, case collisions or identity collisions.
+
+2026-10-07 INGEST [[multiagentelbo-2026-10-07-l5-normalized-marks]]: exact normalized affine/coisometric step, scoped growing-loop determinant obstruction and stationary central augmentation/error; six existing synthesis/MOC pages updated. No experiments or manuscript/older-source changes.
+
+2026-10-07 LINT L5 normalized-channel ingestion: 1,416 files; zero broken links, grey nodes, empty files, case collisions or identity collisions.
