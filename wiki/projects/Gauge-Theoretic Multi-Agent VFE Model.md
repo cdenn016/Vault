@@ -21,6 +21,11 @@ updated: 2026-10-07
 
 # Gauge-Theoretic Multi-Agent VFE Model
 
+## Fixed-depth retained joint spatial limit, October 7, 2026
+
+[[multiagentelbo-2026-10-07-l5-retained-limit]] The actual complete rooted all-copy channel now has a spatial joint-law limit at each fixed finite dyadic depth, with exact normalized forward composition and a reverse conditional tower. The declared fresh-matter comparison joint and fixed finite-original-record posteriors converge along the same prior subsequence, preserving shared matter and posterior cross-block dependence. Independent reconstruction made local parameter consistency and distinct record/noise embeddings explicit. Volume-uniform localization and conditional perturbation bounds deteriorate with block size and path length; growing-depth RG, compressed-parent accuracy, original joint descent and both N8192 failures remain unresolved. No experiment or GPU was used. The next analytical obligation is useful control or justified normalization of the actual growing paths and retained outputs.
+
+
 ## Anchored link-history prior spatial existence, October 7, 2026
 
 [[multiagentelbo-2026-10-07-l5-prior-limit]] The declared positively anchored Gaussian-increment link-history prior now has an analytical spatial existence construction: a volume-uniform one-cell entropy bound gives generator second moments and tightness, and finite-cylinder conditional identities give subsequential infinite-volume DLR laws for the unchanged nonlinear based-plaquette action. The fixed-horizon proof was independently reconstructed. It establishes neither uniqueness nor convergence of whole-slice episode kernels, a full agent joint, or the two-index RG limit. Both N8192 numerical readback failures remain unresolved; no experiment or GPU was used. The remaining analytical step is the actual retained state and compatible kernels with useful size/depth error bounds.

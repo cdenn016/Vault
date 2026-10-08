@@ -503,3 +503,7 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 - 2026-10-07 INGEST [[multiagentelbo-2026-10-07-l5-prior-limit]]: anchored nonlinear prior spatial existence proof, independent reconstruction and unresolved temporal/coarse limits; six existing synthesis/MOC pages updated. No manuscript or prior source edits.
 
 - 2026-10-07 LINT L5 prior-limit ingestion: 1,413 files; zero broken links, grey nodes, empty files, case collisions or identity collisions.
+
+2026-10-07 19:56 INGEST [[multiagentelbo-2026-10-07-l5-retained-limit]]: exact complete-state fixed-depth limits, compatible kernels and finite-original-record conditioning, with independent reconstruction and explicit growing-depth gap; six existing synthesis/MOC pages updated. No manuscript or older source edits.
+
+2026-10-07 19:58 LINT L5 retained-limit ingestion: 1,414 files; zero broken links, grey nodes, empty files, case collisions or identity collisions.
