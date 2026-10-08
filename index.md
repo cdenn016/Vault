@@ -7,6 +7,10 @@ updated: 2026-10-08
 
 # Index
 
+## October 8, 2026: native reference precision and inference calibration
+
+[[multiagentelbo-2026-10-08-native-calibration]] records the completed 621.655-second N512/T4 CPU study. The registered finite reference screen passes (mean-score MCSE .000367 nat/record); local timestep score differences are 2.41e-7 and 1.19e-7. Recognition/reference scores agree within conditional numerical uncertainty on this one instance, but matter and link-precision residuals remain substantial. The next discriminator is longer-interval/integration-budget calibration before independent preparations. Nine focused checks and a NumPy saved-value reconstruction pass; full RG gates remain open and the goal stays active.
+
 ## October 8, 2026: causal native-history forecasting
 
 [[multiagentelbo-2026-10-08-native-forecast]] records the implemented all-row native posterior reference and forecast-before-assimilation protocol, including empty-prefix inference and fresh future matter. Seventeen distinct tiny checks pass; the N512/T4 CPU admission completes in 48.148 seconds. Its one-step recognition and short reference chains establish execution and resources, not predictive accuracy or mixing. The next dependency is convergence and conditional-precision calibration before independent-instance parent evaluation. The original four RG gates remain open; the full goal stays active.
