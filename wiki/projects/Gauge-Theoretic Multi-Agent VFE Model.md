@@ -22,6 +22,11 @@ updated: 2026-10-07
 # Gauge-Theoretic Multi-Agent VFE Model
 
 
+## Minimum covariance and fixed-record decoder limits, October 7, 2026
+
+[[multiagentelbo-2026-10-07-l5-covariance-decoder]] The actual Gaussian-control tree has minimum covariance rate 3 gamma, maximum rate 4 gamma and condition-number rate gamma, with explicit finite-size and inverse-moment bounds. Its existing fixed-patch shared-matter decoder loses conditional information in standardized growing-depth matter. Single-depth KL and fixed-window/posterior total-variation limits follow under the stated fresh comparison law. Expected KL for the entire iid window, hidden-mark raw-context factorization, full retained geometry and nonlinear scaling are separate obligations. O1/O3/O4/O5, sparse-graph S1, original dynamics/formation and both N8192 failures remain open. No simulation, GPU operation, spectral choice or manuscript edit occurred. Publication is followed by the requested break.
+
+
 ## Normalized affine channel and central scale memory, October 7, 2026
 
 [[multiagentelbo-2026-10-07-l5-normalized-marks]] Exact conditional coisometries, shared-history reverse kernels and a recursively normalized all-copy affine step preserve the stated channel. Raw-context likelihoods and the original shared-matter decoder remain distinct from a standard-normal marginal. The actual growing midpoint loop has determinant variance $4v_n s$, obstructing root-conjugation tightness only when the comparison space exposes that moving scale-relative query. Its normalized central history has an exact stationary augmented scale kernel and a computable KL error; unaugmented lag conditionals do not compose. This does not supply the full noncentral/evaluator joint limit, nonlinear scaling, original dynamics or formation. O1/O3/O4/O5, sparse-graph S1 and both N8192 failures remain open. No experiment, GPU operation, spectral choice or manuscript edit occurred.
