@@ -1575,3 +1575,5 @@ All new source notes are cataloged below. [[multiagentelbo-2026-09-11-research-s
 - [[multiagentelbo-2026-10-07-l5-normalized-marks]]: exact conditional normalized affine channel, growing midpoint-loop obstruction and stationary central scale memory; full operational parent limit remains open.
 
 - [[multiagentelbo-2026-10-07-l5-covariance-decoder]]: actual Gaussian minimum covariance, fixed-patch information and standardized depth-window/posterior limits; full retained parent remains open.
+
+- [[multiagentelbo-2026-10-07-l5-angular-history]]: correlated angular history, selected loop-sector scale law and expected standardized-window KL; full evaluator-compatible parent remains open.

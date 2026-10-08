@@ -518,3 +518,6 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 
 2026-10-07 INGEST [[multiagentelbo-2026-10-07-l5-covariance-decoder]]: minimum covariance rate 3 gamma, condition-number/inverse bounds and fixed-patch KL/window TV/posterior limits; six existing synthesis/MOC pages updated. No experiments, manuscripts or older sources changed.
 2026-10-07 LINT L5 covariance/decoder ingestion: 1417 files; broken wikilinks, graph grey nodes, empty files, case collisions and identity collisions all 0.
+
+2026-10-07 INGEST [[multiagentelbo-2026-10-07-l5-angular-history]]: correlated direction kernel, signed rank-one loop histories, selected scale composition, expected window KL and inverse/evaluator limits; six existing synthesis/MOC pages updated. No experiments, manuscripts or older sources changed.
+2026-10-07 LINT Angular-history ingest: 1418 Markdown files; broken wikilinks, graph grey nodes, empty files, case collisions and identity collisions all zero.
