@@ -1577,3 +1577,5 @@ All new source notes are cataloged below. [[multiagentelbo-2026-09-11-research-s
 - [[multiagentelbo-2026-10-07-l5-covariance-decoder]]: actual Gaussian minimum covariance, fixed-patch information and standardized depth-window/posterior limits; full retained parent remains open.
 
 - [[multiagentelbo-2026-10-07-l5-angular-history]]: correlated angular history, selected loop-sector scale law and expected standardized-window KL; full evaluator-compatible parent remains open.
+
+- [[multiagentelbo-2026-10-08-l5-operational-evaluator]]: exact actual-loop full KL rate 4 gamma and quantitative affine cancellation chart; complete growing operational state remains open.

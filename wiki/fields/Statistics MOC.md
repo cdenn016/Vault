@@ -5,12 +5,17 @@ aliases: [field/statistics, Statistics sources, Information theory MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-10-07
+updated: 2026-10-08
 ---
 
 
 
 # Statistics MOC
+
+
+## Exact operational loop growth and cancellation data, October 8, 2026
+
+[[multiagentelbo-2026-10-08-l5-operational-evaluator]] The actual Gaussian-control loop score has exact rate 4 gamma, including the supplied nonzero mean, with explicit finite-event, correlated-history and uniform-parent scope. This closes the earlier [3 gamma,5 gamma] interval for that evaluator. A local scaled-alignment/singular-ratio/amplitude/affine-offset chart preserves inverse cancellation and a bounded continuous Gaussian evaluator. A source factor cache adds memory; a current-state circuit dictionary alone supplies no growing-law theorem. Full all-copy comparison/update laws and nonlinear control remain open, along with original dynamics/formation, O1/O3/O4/O5, sparse-graph S1 and both N8192 failures. Seven exact symbolic identities were checked; no scientific run, GPU operation, spectral choice or manuscript edit occurred. Older source claims are historical; the unfinished goal pauses after the requested publication closeout.
 
 
 ## Correlated angular histories and expected-window information, October 7, 2026
