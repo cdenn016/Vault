@@ -507,3 +507,7 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 2026-10-07 19:56 INGEST [[multiagentelbo-2026-10-07-l5-retained-limit]]: exact complete-state fixed-depth limits, compatible kernels and finite-original-record conditioning, with independent reconstruction and explicit growing-depth gap; six existing synthesis/MOC pages updated. No manuscript or older source edits.
 
 2026-10-07 19:58 LINT L5 retained-limit ingestion: 1,414 files; zero broken links, grey nodes, empty files, case collisions or identity collisions.
+
+2026-10-07 20:45 INGEST [[multiagentelbo-2026-10-07-l5-path-growth]]: independently reconstructed path/metric/trace/concentration proof, covariance rate and determinant two-index limit; six existing synthesis/MOC pages updated. No experiments, manuscript edits or older source changes.
+
+2026-10-07 20:46 LINT L5 growing-path ingestion: 1,415 files; zero broken links, grey nodes, empty files, case collisions or identity collisions.

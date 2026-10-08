@@ -18,6 +18,11 @@ updated: 2026-10-07
 
 # Renormalization-group flow of beliefs
 
+## Growing dyadic paths and retained covariance, October 7, 2026
+
+[[multiagentelbo-2026-10-07-l5-path-growth]] The actual first-copy dyadic paths have length r+c<=2(s-1). The unchanged nonlinear anchored prior supplies path-normalized logarithmic moments, ensemble trace centering and stationary-axis rates, without nonlinear positivity or staircase concentration. The actual Gaussian GL(2) control has covariance rate log lambda_max(V_I)/s to 4 gamma>0; polynomial scalar normalization does not keep this rooted-mean comparison law tight. The carried-metric determinant statistic H converges in L2 to 2v_n when blocks and parent count grow. An explicit matching diagonal has summable errors. This scalar limit does not establish a full retained-state limit, RG relevance, universality or formation. Nonlinear growth/correlation, a compatible normalized full joint, original dynamics, compression error and both N8192 failures remain open. No simulation or GPU was used; no spectral metric or manuscript choice was made.
+
+
 ## Fixed-depth retained joint spatial limit, October 7, 2026
 
 [[multiagentelbo-2026-10-07-l5-retained-limit]] The actual complete rooted all-copy channel now has a spatial joint-law limit at each fixed finite dyadic depth, with exact normalized forward composition and a reverse conditional tower. The declared fresh-matter comparison joint and fixed finite-original-record posteriors converge along the same prior subsequence, preserving shared matter and posterior cross-block dependence. Independent reconstruction made local parameter consistency and distinct record/noise embeddings explicit. Volume-uniform localization and conditional perturbation bounds deteriorate with block size and path length; growing-depth RG, compressed-parent accuracy, original joint descent and both N8192 failures remain unresolved. No experiment or GPU was used. The next analytical obligation is useful control or justified normalization of the actual growing paths and retained outputs.
