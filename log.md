@@ -521,3 +521,6 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 
 2026-10-07 INGEST [[multiagentelbo-2026-10-07-l5-angular-history]]: correlated direction kernel, signed rank-one loop histories, selected scale composition, expected window KL and inverse/evaluator limits; six existing synthesis/MOC pages updated. No experiments, manuscripts or older sources changed.
 2026-10-07 LINT Angular-history ingest: 1418 Markdown files; broken wikilinks, graph grey nodes, empty files, case collisions and identity collisions all zero.
+
+2026-10-08 INGEST [[multiagentelbo-2026-10-08-l5-operational-evaluator]]: exact shared-axis full loop-KL rate, finite-event bounds and local affine cancellation/evaluator chart; six existing synthesis/MOC pages and their updated dates refreshed. No experiments, manuscripts or older sources changed.
+2026-10-08 LINT after L5 operational-evaluator ingest: 1419 files; broken links, grey nodes, empty files, case and identity collisions all zero.
