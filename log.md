@@ -524,3 +524,6 @@ Ingested [[multiagentelbo-2026-09-26-conditioned-parent]] with immutable local p
 
 2026-10-08 INGEST [[multiagentelbo-2026-10-08-l5-operational-evaluator]]: exact shared-axis full loop-KL rate, finite-event bounds and local affine cancellation/evaluator chart; six existing synthesis/MOC pages and their updated dates refreshed. No experiments, manuscripts or older sources changed.
 2026-10-08 LINT after L5 operational-evaluator ingest: 1419 files; broken links, grey nodes, empty files, case and identity collisions all zero.
+
+2026-10-08 INGEST [[multiagentelbo-2026-10-08-joint-flow-contract]]: common-state latent inference, N512 CPU admission/refinement and finite correlated-state/record construction, pinned to code merge 20c83bc1. Existing project/theme/concept and Mathematics/Statistics MOCs updated; no manuscripts or historical sources changed. Goal remains active.
+2026-10-08 LINT Joint-flow/finite-state ingest: 1420 files; broken links, graph grey nodes, empty files, case collisions and identity collisions all zero.

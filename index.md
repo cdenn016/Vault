@@ -2,10 +2,15 @@
 type: index
 title: Index
 aliases: [Index, Home]
-updated: 2026-10-07
+updated: 2026-10-08
 ---
 
 # Index
+
+## October 8: simultaneous inference and finite retained state
+
+[[multiagentelbo-2026-10-08-joint-flow-contract]] records the resumed execution contract, common-state runtime, N512 CPU admission/refinement and finite correlated-state handoff. Full RG completion remains open.
+
 
 
 ## October 7: L5 captured exponential diagnosis

@@ -20,6 +20,11 @@ updated: 2026-10-08
 
 # Staged hierarchy formation and RG composability
 
+## Simultaneous inference and finite handoff, October 8, 2026
+
+[[multiagentelbo-2026-10-08-joint-flow-contract]] implements common-state matter/source/generator inference, keeping expected-Hessian and sampled Fisher estimators separate. Ten tiny CPU tests pass. One N512 CPU admission and short common-time refinement completed, with successive endpoint ratios 0.479-0.495; CUDA admission and independent-instance calibration remain open. A finite full-covariance record/retained-state construction reuses existing Gaussian kernels, with explicit conditional error bounds and singular-support exclusions. It supplies a native-parent adapter target, not a uniform growing-state or finite-memory result. The fixed-c_* RG goal is active; all four completion gates and both historical N8192 failures remain open.
+
+
 
 ## Exact operational loop growth and cancellation data, October 8, 2026
 

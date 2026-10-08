@@ -12,6 +12,11 @@ updated: 2026-10-08
 
 # Mathematics MOC
 
+## Simultaneous inference and finite handoff, October 8, 2026
+
+[[multiagentelbo-2026-10-08-joint-flow-contract]] records the common-state runtime and its CPU tests/N512 refinement, together with a finite correlated Gaussian retained/record construction and conditional error bounds. Eight rational identities and ten existing-runtime comparisons ground the latter. Singular-support treatment, useful growing memory/error and the full RG gates remain open.
+
+
 
 ## Exact operational loop growth and cancellation data, October 8, 2026
 
