@@ -9,6 +9,8 @@ updated: 2026-10-08
 
 ## Moving parents and normalized bond candidate, October 8, 2026
 
+[[multiagentelbo-2026-10-08-filter-boundary-learning-domain]] records PR192's paired score assessment and the scoped augmented-filter and reward-domain boundaries. Fifteen focused tests and twelve coefficient identities pass; no network run occurred. Both global learner completions remain unadopted pending the user's choice, and all full RG gates remain open.
+
 [[multiagentelbo-2026-10-08-record-error-formation-regime]] continues with an original-row loss bound, regular stationary parent coordinates and a prepared finite-window mean-coherence regime. Scoped algebra checks support coefficients; general formation, learned recurrence and full parent closure remain open.
 
 [[multiagentelbo-2026-10-08-discarded-energy-device-admission]] continues with code PR190: actual finite-instance discarded-energy estimates, a conditional bridge mechanism and the six-arm two-step CPU admission. CUDA, regular compressed filtering and the full RG gates remain open.
@@ -1396,6 +1398,7 @@ The discipline facet (`field/*`), orthogonal to topic and project. Each MOC is a
 
 ## 🧪 Sources — experiment runs
 
+- [[multiagentelbo-2026-10-08-filter-boundary-learning-domain|MultiAgentELBO paired score assessment, augmented-filter boundary, and reward-learning domain]] — tested saved-only assessment and scoped analytical boundaries; no network run or adopted learner completion.
 - [[multiagentelbo-2026-10-08-record-error-formation-regime|MultiAgentELBO original-record error, regular parent coordinates, and prepared formation regime]] — conditional analytical results and exact coefficient grounding; no new network experiment or full RG gate closure.
 
 - [[multiagentelbo-2026-10-07-l5-accuracy-tails|MultiAgentELBO L5 nonlinear history accuracy and tails, October 7, 2026]] - six cases through N8192; 1,299 saved-value checks, precision misses retained; no stationary-tail or O5 closure.
