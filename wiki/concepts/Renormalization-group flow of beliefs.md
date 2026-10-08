@@ -24,6 +24,8 @@ updated: 2026-10-08
 
 [[multiagentelbo-2026-10-08-incident-catalog-decoder]] retains only the incident generators, shared original IDs and local model/noise tags needed for a declared original-record vector. Its exact joint marginal and KL contraction reduce this particular handoff's geometry, preserving shared senders and reversed copies. The saved N512/M1024 marginal comparison passes; no full-state or inference-memory reduction follows. Omitted paths still determine the next normalized channel, raw-parent regression and copy-word evaluators, so complete operational composition remains open.
 
+[[multiagentelbo-2026-10-08-normalized-channel-carrier]] now retains that actual adjacent channel and sparse initial queried-node coefficients for a declared finite matter window. Its exact ordered forward/reverse kernels preserve cross-scale dependence and singular support; a common-noise lift bounds record error under channel rounding without asserting path KL. The saved N512 next-step calculation passes with charged storage. Continuation beyond supplied channels, original-copy/evaluator operations and the full growing native law remain open.
+
 ## Moving-map noise and structural normalization, October 8, 2026
 
 [[multiagentelbo-2026-10-08-n2048-cpu-capacity]] completes the declared N2048 CPU resource endpoint with three matched accepted-time controls and separate passing preparation/flow readbacks. Its single resource realization lies outside the predictive calibration population. Device agreement, independent matched-time/refinement evaluation, complete retained-state RG and the nonlinear size/depth limit remain separate open obligations; no RG gate closes from capacity alone.

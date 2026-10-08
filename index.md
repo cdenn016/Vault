@@ -15,6 +15,8 @@ updated: 2026-10-08
 
 [[multiagentelbo-2026-10-08-incident-catalog-decoder]] records PR197's exact incident-catalog original-record marginal and inherited native KL bound. Six tiny CPU checks and one saved N512/M1024 comparison pass at the frozen tolerance; the owned two-row catalog is 246,688 tensor bytes. Inference/working memory, raw-parent regression, all-copy channels and the full RG gates remain open. No GPU or new sampling was used.
 
+[[multiagentelbo-2026-10-08-normalized-channel-carrier]] records PR198's exact finite normalized matter/query carrier and channel-error certificate. Nine tiny checks and one saved N512/M1024 actual 128-to-32-parent calculation pass; maximum exact error is 4.440892098500626e-15 and maximum b=8 conditional record-vector KL is 2.480852491881791e-6. Autonomous/full-copy/growing-state/formation gaps remain. No GPU or new inference was used.
+
 [[multiagentelbo-2026-10-08-n2048-cpu-capacity]] records PR194's completed four-episode N2048 CPU admission and two passing saved-value readbacks. Flow takes 172.358929 seconds with a 1,981,579,264-byte cumulative process peak. Its later CUDA comparison is recorded above; the full calibration and all scientific RG gates remain open.
 
 [[multiagentelbo-2026-10-08-filter-boundary-learning-domain]] records PR192's paired score assessment and the scoped augmented-filter and reward-domain boundaries. Fifteen focused tests and twelve coefficient identities pass; no network run occurred. Both global learner completions remain unadopted pending the user's choice, and all full RG gates remain open.
