@@ -9,9 +9,11 @@ updated: 2026-10-08
 
 ## Moving parents and normalized bond candidate, October 8, 2026
 
-[[multiagentelbo-2026-10-08-nonlinear-decoder-bound]] records PR195's nonlinear-prior averaged original-record estimate with complete geometry charged as source memory. Posterior control and complete operational RG closure remain open. The user requested a break at this checkpoint; the unfinished goal is paused after publication.
+[[multiagentelbo-2026-10-08-cuda-flow-admission]] records PR196's completed retained-input CUDA comparison and two saved-only readbacks. All nine arms pass; maximum allocated/reserved peaks are 1071165440/1426063360 bytes. The prepared 144-case calibration remains unrun after the user reclaimed the GPU before launch. The goal is active and CPU/source work continues; all scientific RG gates remain open.
 
-[[multiagentelbo-2026-10-08-n2048-cpu-capacity]] records PR194's completed four-episode N2048 CPU admission and two passing saved-value readbacks. Flow takes 172.358929 seconds with a 1,981,579,264-byte cumulative process peak. CUDA, the full calibration and all scientific RG gates remain open; the later decoder checkpoint records the requested pause.
+[[multiagentelbo-2026-10-08-posterior-average-transfer]] extends PR195's [[multiagentelbo-2026-10-08-nonlinear-decoder-bound]] to exact native posterior control averaged over the same model's generated prefixes. Geometry remains charged; every-history uniformity, approximate-law accuracy and complete operational RG closure remain open. The requested break has been explicitly lifted.
+
+[[multiagentelbo-2026-10-08-n2048-cpu-capacity]] records PR194's completed four-episode N2048 CPU admission and two passing saved-value readbacks. Flow takes 172.358929 seconds with a 1,981,579,264-byte cumulative process peak. Its later CUDA comparison is recorded above; the full calibration and all scientific RG gates remain open.
 
 [[multiagentelbo-2026-10-08-filter-boundary-learning-domain]] records PR192's paired score assessment and the scoped augmented-filter and reward-domain boundaries. Fifteen focused tests and twelve coefficient identities pass; no network run occurred. Both global learner completions remain unadopted pending the user's choice, and all full RG gates remain open.
 
