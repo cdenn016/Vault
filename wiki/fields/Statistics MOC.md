@@ -12,6 +12,10 @@ updated: 2026-10-08
 
 # Statistics MOC
 
+[[multiagentelbo-2026-10-08-cuda-flow-admission]] admits CUDA on retained CPU inputs through N2048 without treating receiver rows as replicates or reusing admission scores to tune assessment. The sixteen-instance 144-case grid remains unrun while the user occupies the GPU; its design and numerical screens remain frozen.
+
+[[multiagentelbo-2026-10-08-posterior-average-transfer]] separates exact prior-predictive averaging from every fixed observed history, misspecified data, finite-MCMC preparations and fitted recognition laws. Its conditional KL concerns a joint original-record vector with full geometry retained; per-row convergence alone does not imply total growing-vector convergence.
+
 [[multiagentelbo-2026-10-08-n2048-cpu-capacity]] records one independently seeded finite-MCMC resource input and three two-step CPU controls. It is excluded from the sixteen-instance predictive calibration population. Descriptive receiver-row score differences do not establish an arm advantage; prior-law accuracy, device agreement and independent-instance evaluation remain unresolved.
 
 [[multiagentelbo-2026-10-08-filter-boundary-learning-domain]] adds tested saved-score assessment using draw-level influence functions and paired common-noise contrasts, with eight preparation-level replicates per size. Its precision screens do not establish score bias, native accuracy or state convergence, and the full grid remains unrun. The learner alternatives distinguish a proper hierarchical reward prior with MAP estimation from finite-KL continuous-parameter recognition; neither is adopted. Fifteen focused tests and twelve coefficient identities remain separate from the analytical filter and recurrence arguments.

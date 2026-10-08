@@ -18,7 +18,9 @@ updated: 2026-10-08
 
 # Renormalization-group flow of beliefs
 
-[[multiagentelbo-2026-10-08-nonlinear-decoder-bound]] derives a uniform per-queried-row information bound under the anchored nonlinear generator prior with fresh Gaussian matter. It uses normalized parent projection rank and a generator split, preserving shared senders and the actual difference record. Complete original geometry is conditioned upon and charged as source memory. The estimate does not identify a compressed complete RG state or transfer the prior moment to the native posterior. Averaged queries, fixed patches and growing whole-record vectors have different error obligations; full operational composition and native-law control remain open.
+[[multiagentelbo-2026-10-08-cuda-flow-admission]] supplies passed retained-input CUDA comparisons and two NumPy readbacks through N2048. This is short-interval numerical/resource admission; the registered 144-case grid and complete density reconstruction remain unrun while the user occupies the GPU. The full goal resumed and continues with CPU/source work. Device agreement closes no scientific RG gate.
+
+[[multiagentelbo-2026-10-08-posterior-average-transfer]] carries the estimate in [[multiagentelbo-2026-10-08-nonlinear-decoder-bound]] through the exact native all-row posterior in prior-predictive data average. The row-weighted generator moment obeys Bayes cancellation, so averaged joint decoder KL and a high-probability prefix bound follow without a maximum posterior edge moment. This supplies a scoped native-law hypothesis, not deterministic-history uniformity or accuracy of finite-MCMC/recognition approximations. Complete geometry is still retained and charged. Averaged queries, fixed patches and growing whole-record vectors have different error obligations; controlled geometry compression and complete operational composition remain open.
 
 ## Moving-map noise and structural normalization, October 8, 2026
 

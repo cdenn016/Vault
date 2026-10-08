@@ -12,6 +12,10 @@ updated: 2026-10-08
 
 # Mathematics MOC
 
+[[multiagentelbo-2026-10-08-cuda-flow-admission]] adds independent saved-state and original-score reconstruction for nine bounded CUDA arms, plus tiny grounding for a complete-grid Gaussian density checker. Numerical agreement does not prove the nonlinear operational limit or native-parent closure; the full grid remains unrun.
+
+[[multiagentelbo-2026-10-08-posterior-average-transfer]] derives Bayes cancellation of selected-generator moments, averaged original-record joint KL and a high-probability prefix bound under the exact model. Complete geometry cost and the original RG quantifiers remain; five symbolic identities ground algebra only.
+
 [[multiagentelbo-2026-10-08-n2048-cpu-capacity]] adds saved-value reconstruction of a finite GL+(2) N2048 model, complete-history selection and three admissible numerical endpoints. These checks do not prove the growing retained-state law, native parent closure or formation; all full RG gates remain open.
 
 [[multiagentelbo-2026-10-08-filter-boundary-learning-domain]] reports a positive-trace Schur-complement correction for hidden-mean density averaging under full continuous geometry and disjoint rooted trees, separating the resulting path laws without stationary initialization. Its separate finite-catalog learner analysis identifies a nonnegative-domain boundary and escape in an unadopted unrestricted extension. Neither alternative global completion is selected; these arguments do not exclude all augmented parents, settle Chapter 11 or establish learned recurrence.

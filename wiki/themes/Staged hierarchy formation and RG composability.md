@@ -20,6 +20,10 @@ updated: 2026-10-08
 
 # Staged hierarchy formation and RG composability
 
+[[multiagentelbo-2026-10-08-cuda-flow-admission]] completes the retained-input CUDA comparison for all nine N512/N1024/N2048 control arms and both independent saved readbacks. The full independent matched-time grid remains unrun after the user reclaimed the GPU before launch. Its prepared launcher/checker preserve the existing design; short device admission establishes neither native-law accuracy nor formation. The resumed goal proceeds with CPU/source work.
+
+[[multiagentelbo-2026-10-08-posterior-average-transfer]] gives exact native decoder control in average over the model's generated prefixes, retaining fresh baseline matter and complete shared geometry. This replaces a missing maximum-edge posterior hypothesis with a row-weighted Bayes identity for that averaged query class. It does not supply a dynamics/formation-conditioned law, regular compressed filter, every-history bound or growing operational state; those remain separate construction obligations.
+
 ## Moving parents and a normalized structural candidate, October 8, 2026
 
 [[multiagentelbo-2026-10-08-filter-boundary-learning-domain]] identifies the missing global domain rule for the realized-mark learner: a zero-mark interval can reach the nonnegative reward boundary with positive probability. Its unadopted unrestricted unregularized extension is conservative but has reward escape and no invariant probability on finite rewards. Compact constrained Fisher flow and a proper conjugate-prior MAP learner are two unadopted alternatives; MAP here is not finite-KL recognition by a continuous-parameter Dirac law. The user's model choice remains pending. Neither bounded rewards nor the existing prepared finite-window episode establishes stationary entrance rates, learned recurrence or a growing hierarchy, and the filter boundary remains scoped to conditional-generator averaging under full continuous geometry.
