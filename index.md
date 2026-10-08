@@ -7,6 +7,11 @@ updated: 2026-10-08
 
 # Index
 
+## October 8: fitted parent activation and native-history correction
+
+[[multiagentelbo-2026-10-08-recognition-activation]] implements the fitted R1 activation bridge with full parent covariance, nonuniform masses and original-copy identities. Seven new tiny CPU tests pass. The corrected N512 admission retains all 128 parents and 1,024 copies in about 1.01 seconds and 141 MB of retained tensor storage; the diagnosed strided-input failure remains recorded. This is a recognition-snapshot handoff. The next native dependency is the filtered predictive-prior correction, including the horizon-dependent initial backward factor. Original trajectory control, growing operational limits and persistent second formation remain open; the goal remains active.
+
+
 ## October 8: simultaneous inference and finite retained state
 
 [[multiagentelbo-2026-10-08-joint-flow-contract]] records the resumed execution contract, common-state runtime, N512 CPU admission/refinement and finite correlated-state handoff. Full RG completion remains open.
