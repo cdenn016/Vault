@@ -1569,3 +1569,5 @@ All new source notes are cataloged below. [[multiagentelbo-2026-09-11-research-s
 
 - [[multiagentelbo-2026-10-07-l5-prior-limit]] -- analytical spatial DLR existence at fixed horizon and positive anchor, with independent reconstruction and explicit remaining RG obligations.
 - [[multiagentelbo-2026-10-07-l5-retained-limit]]: exact fixed-depth retained joint and finite-record posterior spatial limits; growing-depth control remains open.
+
+- [[multiagentelbo-2026-10-07-l5-path-growth]]: exact dyadic spatial growth, Gaussian covariance rate and invariant determinant diagonal; full normalized parent limit remains open.
