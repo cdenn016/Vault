@@ -9,6 +9,8 @@ updated: 2026-10-08
 
 ## Moving parents and normalized bond candidate, October 8, 2026
 
+[[multiagentelbo-2026-10-08-native-flow-handoff-fisher-step]] records PR199's actual saved N512 forecast-to-parent handoff (25 comparisons pass), local Fisher proposal (seven tiny checks), and unadopted MAP stationarity continuation (nine exact coefficient identities). Positive-strength stationarity and the four full RG gates remain open. The GPU stays with the user.
+
 [[multiagentelbo-2026-10-08-cuda-flow-admission]] records PR196's completed retained-input CUDA comparison and two saved-only readbacks. All nine arms pass; maximum allocated/reserved peaks are 1071165440/1426063360 bytes. The prepared 144-case calibration remains unrun after the user reclaimed the GPU before launch. The goal is active and CPU/source work continues; all scientific RG gates remain open.
 
 [[multiagentelbo-2026-10-08-posterior-average-transfer]] extends PR195's [[multiagentelbo-2026-10-08-nonlinear-decoder-bound]] to exact native posterior control averaged over the same model's generated prefixes. Geometry remains charged; every-history uniformity, approximate-law accuracy and complete operational RG closure remain open. The requested break has been explicitly lifted.

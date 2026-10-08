@@ -11,7 +11,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-10-04
+updated: 2026-10-08
 ---
 
 # Natural gradient
@@ -30,6 +30,8 @@ is not automatically invariant, because its result also depends on step size
 and the chosen integration or retraction map.
 
 ## Why it matters here
+
+In MultiAgentELBO, [[multiagentelbo-2026-10-08-native-flow-handoff-fisher-step]] supplies an opt-in proposal for the already-declared full product-Fisher recognition thermostat. Its positive covariance retraction includes the joint mean/covariance Itô correction, and supported-source softmax noise supplies the declared inward drift through curvature. Seven tiny coefficient/layout checks pass. Its zero-temperature tangent matches common-state descent; finite steps differ from BLR, and local consistency does not establish trajectory convergence or exact invariant sampling. Population/quadrature direction noise and trajectory Brownian inputs remain distinct.
 
 Natural-gradient claims apply to the Gaussian belief mean/covariance updates, whose statistical family has a Fisher metric. At each recorded source SHA, the committed gate and stored configuration route the audited frame table through AdamW on the outer objective; dirty provenance prevents byte-level reconstruction. Heavy-ball belongs only to the disabled custom outer frame optimizer, BCH/retraction only to disabled in-E-step revision, and the optional Cartan/Killing or exponential-pullback conditioner would not thereby be Fisher, reparameterization invariant, or gauge invariant if enabled.
 

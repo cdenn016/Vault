@@ -12,6 +12,8 @@ updated: 2026-10-08
 
 # Statistics MOC
 
+[[multiagentelbo-2026-10-08-native-flow-handoff-fisher-step]] checks the exact saved 256-component R1 forecast joint, preserving fresh future matter, generative source weights and shared-record dependence. All 25 row/joint/parent comparisons pass at frozen tolerance. Hypothetical normalized contexts remain separate from causal marginals, and finite quadrature is not the continuous posterior. Local Fisher-step consistency and uncoupled learner stationarity provide neither population accuracy nor persistent formation.
+
 [[multiagentelbo-2026-10-08-cuda-flow-admission]] admits CUDA on retained CPU inputs through N2048 without treating receiver rows as replicates or reusing admission scores to tune assessment. The sixteen-instance 144-case grid remains unrun while the user occupies the GPU; its design and numerical screens remain frozen.
 
 [[multiagentelbo-2026-10-08-posterior-average-transfer]] separates exact prior-predictive averaging from every fixed observed history, misspecified data, finite-MCMC preparations and fitted recognition laws. Its conditional KL concerns a joint original-record vector with full geometry retained; per-row convergence alone does not imply total growing-vector convergence.

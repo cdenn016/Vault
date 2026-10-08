@@ -20,6 +20,8 @@ updated: 2026-10-08
 
 # Staged hierarchy formation and RG composability
 
+[[multiagentelbo-2026-10-08-native-flow-handoff-fisher-step]] separates three operations: the completed static actual-flow forecast handoff, the locally checked Fisher trajectory proposal, and conditional learned-process stationarity. The unadopted proper-prior learner is conservative, and an uncoupled invariant law exists, but full-covariance positive-strength sequences invalidate the baseline-KL and universal entropy-to-occupation shortcuts. Actual tight occupation and the coherence event's learned stationary entrance rate remain separate obligations. Neither the original every-initial-law target nor persistent formation follows from these controls.
+
 [[multiagentelbo-2026-10-08-cuda-flow-admission]] completes the retained-input CUDA comparison for all nine N512/N1024/N2048 control arms and both independent saved readbacks. The full independent matched-time grid remains unrun after the user reclaimed the GPU before launch. Its prepared launcher/checker preserve the existing design; short device admission establishes neither native-law accuracy nor formation. The resumed goal proceeds with CPU/source work.
 
 [[multiagentelbo-2026-10-08-posterior-average-transfer]] gives exact native decoder control in average over the model's generated prefixes, retaining fresh baseline matter and complete shared geometry. This replaces a missing maximum-edge posterior hypothesis with a row-weighted Bayes identity for that averaged query class. It does not supply a dynamics/formation-conditioned law, regular compressed filter, every-history bound or growing operational state; those remain separate construction obligations.

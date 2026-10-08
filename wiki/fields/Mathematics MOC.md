@@ -12,6 +12,8 @@ updated: 2026-10-08
 
 # Mathematics MOC
 
+[[multiagentelbo-2026-10-08-native-flow-handoff-fisher-step]] derives a positive Fisher covariance proposal with the full Itô correction and analyzes the unadopted MAP hybrid generator. A complete invariant law exists in the uncoupled control; explicit full-covariance KL-drift and covariance-face entropy sequences refute two universal shortcuts for positive strengths. Seven tiny numerical checks and nine exact coefficient identities ground their formulas; actual-law occupation and full RG remain open.
+
 [[multiagentelbo-2026-10-08-cuda-flow-admission]] adds independent saved-state and original-score reconstruction for nine bounded CUDA arms, plus tiny grounding for a complete-grid Gaussian density checker. Numerical agreement does not prove the nonlinear operational limit or native-parent closure; the full grid remains unrun.
 
 [[multiagentelbo-2026-10-08-posterior-average-transfer]] derives Bayes cancellation of selected-generator moments, averaged original-record joint KL and a high-probability prefix bound under the exact model. Complete geometry cost and the original RG quantifiers remain; five symbolic identities ground algebra only.
