@@ -7,9 +7,13 @@ updated: 2026-10-09
 
 # Index
 
+## Fixed-prefix actual-law error, October 9, 2026
+
+[[multiagentelbo-2026-10-09-fixed-prefix-native-error]] records PR230-233's held-fixed-H2 actual next-conditional computational KL/TV allowance, 8,310 repaired-reader comparisons and preserved first reader failure without producer rerun. A bounded hybrid-history recurrence establishes integrability of capped local costs; useful own-history expectation remains unevaluated. The fixed-H2 value is not that expectation, and no native compact/continuous filter or RG gate closes. No GPU work occurs.
+
 ## Recursive original parent kernel, October 9, 2026
 
-[[multiagentelbo-2026-10-09-recursive-parent-kernel]] records PR228/229's four physical q2 endpoint draws through the complete original current-R2 kernel, 6,568 independent comparisons and 1,011 canonical replay files. Smoothed old centering, both mean/precision probe and relative-normalizer shifts are retained. Local same-q2-joint entropy ceilings identify neither actual p3 nor an integrated expectation or Monte Carlo accuracy. Bounded-loss actual-law transfer is under derivation; all RG gates remain open and the GPU stays user-owned.
+[[multiagentelbo-2026-10-09-recursive-parent-kernel]] records PR228/229's four physical q2 endpoint draws through the complete original current-R2 kernel, 6,568 independent comparisons and 1,011 canonical replay files. Smoothed old centering, both mean/precision probe and relative-normalizer shifts are retained. Local same-q2-joint entropy ceilings identify neither actual p3 nor an integrated expectation or Monte Carlo accuracy. Its subsequent held-fixed-H2 actual-law transfer and bounded recurrence are recorded above; all RG gates remain open and the GPU stays user-owned.
 
 ## Advanced retained-state coefficients, October 9, 2026
 
