@@ -7,6 +7,10 @@ updated: 2026-10-09
 
 # Index
 
+## Population decoder transfer and surviving-parent information loss, October 9, 2026
+
+[[multiagentelbo-2026-10-09-population-decoder-transfer]] records PR259's energy-coercive evolving-recognition moment, exact shared incident decoder, growing-block fixed-query record-information allowance and separately charged channel precision under original T=0 population descent. Fresh baseline matter/original pi, supplied hard hierarchy and finite clocks selected before query remain explicit. Numerical/native-posterior transfer, continuation beyond the supplied window and formation stay open, with all four gates open and roughly 65% progress unchanged. No scientific or GPU work occurs.
+
 ## Nonstationary startup admission and native population paths, October 9, 2026
 
 [[multiagentelbo-2026-10-09-nonstationary-population-flow]] records PR258's positive original T=0/unit-Fisher population path theorem from baseline: annealed rooted continuous subsequences, original local equations and finite expected local action. Infinite uniqueness, numerical transfer and growing-depth/formation remain open. Separate fitted-startup admission includes failure/global-route marks; its ideal increasing-family success vanishes asymptotically without a practical N512 prediction. All four gates stay open and roughly 65% progress is unchanged. No scientific or GPU work occurs.
