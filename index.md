@@ -7,6 +7,10 @@ updated: 2026-10-09
 
 # Index
 
+## Initialized actual-history information and directed filter KL, October 9, 2026
+
+[[multiagentelbo-2026-10-09-actual-information]] records PR256's finite actual two-update complete-reference KL average from a fixed known initialization, for each supplied forest separately. The directed recurrence charges inherited KL once plus information under the actual non-Gaussian old filter, giving finite conditional comparisons almost surely at finite prefixes. The next outer information average a2 and later averages, useful numerical/uniform allowances, native/regular/growing closure and all four RG gates remain open. No scientific execution or GPU work occurs.
+
 ## Noisy chart information and saved-prefix comparison, October 9, 2026
 
 [[multiagentelbo-2026-10-09-chart-information]] records PR254/255's scoped raw-prefix signal-moment divergence and a different local KL comparison through the actual new retained marginal of the specified Gaussian-reference joint. One saved-H2 calculation passes all 272 comparisons and tightens the local joint TV ceiling from .001542794 to .000873591 with unchanged projection charge. All 35 replay files have canonical parity. This supplies no predictive-KL divergence, accuracy measurement, global history control or RG-gate closure; native/regular/growing and formation questions remain open. No GPU work occurs.
