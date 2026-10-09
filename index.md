@@ -7,6 +7,10 @@ updated: 2026-10-09
 
 # Index
 
+## Recursive recognition filter and conditional density energy, October 9, 2026
+
+[[multiagentelbo-2026-10-09-recursive-recognition-filter-bound]] records PR214's exact raw-filter/conditional-parent construction and PR215's once-run six-case Gaussian comparison: both directed targets pass, with 741 independent comparisons and a 118-file canonical replay package. The largest forward computational upper is 3.227318899228039e-7 per original receiver. Full known initialization/history, O(N) costs and rounding exclusions remain; compact feedback and all RG gates are open. The stationary companion proves maximal weak density energy and compact localization, leaving chosen-minimal-form approximation and full-past Markov identification open. No GPU work occurs.
+
 ## First-step physical filter and enlarged source domain, October 9, 2026
 
 [[multiagentelbo-2026-10-09-first-step-filter-source-domain]] records PR213's once-run first native-kernel conditional, 259 passing QR readback comparisons and conditional expected discarded energies 159.744626/183.782649 dominated by mean mismatch. Physical covariance is $\Sigma_0/400000$, with complete cross-child correlations and known fine initialization. Its separate stationary result enlarges source tests in the same native form and establishes whole-past cylinder martingales; complete law identification still depends on unproved conditional density energy (EA). Later nonlinear filtering, stopped/feedback control, full O(N) costs and all RG gates remain open; no GPU work occurs.
