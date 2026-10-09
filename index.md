@@ -7,6 +7,10 @@ updated: 2026-10-09
 
 # Index
 
+## First-step physical filter and enlarged source domain, October 9, 2026
+
+[[multiagentelbo-2026-10-09-first-step-filter-source-domain]] records PR213's once-run first native-kernel conditional, 259 passing QR readback comparisons and conditional expected discarded energies 159.744626/183.782649 dominated by mean mismatch. Physical covariance is $\Sigma_0/400000$, with complete cross-child correlations and known fine initialization. Its separate stationary result enlarges source tests in the same native form and establishes whole-past cylinder martingales; complete law identification still depends on unproved conditional density energy (EA). Later nonlinear filtering, stopped/feedback control, full O(N) costs and all RG gates remain open; no GPU work occurs.
+
 ## Own-retained paths and original future forecasts, October 9, 2026
 
 [[multiagentelbo-2026-10-09-own-parent-trajectory-forecast]] records completed four-step own-state 128/32-parent candidates and their original future-kernel consumer. Independent trajectory/forecast readers pass 911/390 comparisons. Small computed terminal recognition-reference KL remains limited by the short inference window and excluded rounding; it supplies no predictive improvement or hidden-parameter filter law. Full O(N) state, feedback, persistent formation, growing size/depth and all RG gates remain open. No GPU work occurs.
