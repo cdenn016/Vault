@@ -7,9 +7,13 @@ updated: 2026-10-09
 
 # Index
 
+## Advanced retained-state coefficients, October 9, 2026
+
+[[multiagentelbo-2026-10-09-advanced-retained-coefficients]] records PR226/227's full advanced R2 field/coefficient packet, 2,904 passing comparisons and 480 canonical replay files. All four generator slices and 15,872 prediction rows are current; the causal Gaussian mean is only a point anchor. The existing Gaussian reference endpoint has horizon-independent dense m,C storage and three QR fixtures, without nonlinear likelihood assimilation, network-size compression or a regular native filter. Next recursive-kernel preparation is in progress; all RG gates remain open and the GPU stays user-owned.
+
 ## Generated-prefix conditional, October 9, 2026
 
-[[multiagentelbo-2026-10-09-generated-prefix-filter]] records PR224/225's once-run original R1-to-generated-R2 conditional: 15,872 chart rows, 3,106 independent comparisons and 438 canonical replay files. Whole-joint forward/reverse sufficient KL is 1.43343e-5/4.74308e-6 nat; centered/raw relative-tilt intervals are not full observation normalizers or integrated posteriors. Complete new-R2 coefficient preparation is in progress, while actual-history accuracy and all RG gates remain open. No new model/GPU work occurs.
+[[multiagentelbo-2026-10-09-generated-prefix-filter]] records PR224/225's once-run original R1-to-generated-R2 conditional: 15,872 chart rows, 3,106 independent comparisons and 438 canonical replay files. Whole-joint forward/reverse sufficient KL is 1.43343e-5/4.74308e-6 nat; centered/raw relative-tilt intervals are not full observation normalizers or integrated posteriors. Its subsequent new-R2 coefficient packet is recorded above, while actual-history accuracy and all RG gates remain open. No new model/GPU work occurs.
 
 ## Compact raw-history comparison, October 9, 2026
 
