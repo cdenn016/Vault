@@ -9,6 +9,8 @@ updated: 2026-10-08
 
 ## Moving parents and normalized bond candidate, October 8, 2026
 
+[[multiagentelbo-2026-10-08-recognition-spatial-source-moment]] records PR203's conditional native recognition spatial Gibbs limits, empirical observation second-moment extension and explicit periodic N512 core/prefix reference. The exact source quadratic coefficient is 0.0111 versus $32/3$, with 37 symbolic identities. Independent volume inputs, infinite dynamics, complete numerical budgets and all four RG gates remain open; no GPU or model change occurs.
+
 [[multiagentelbo-2026-10-08-saved-forecast-local-exit]] records PR202's eight saved continuous original-forecast comparisons, fixed-model rational local coefficients and conditional native compact-exit bound at most 0.038196. The direct four-step sufficient numerical exit/forecast budget fails, without showing inaccurate dynamics. Arithmetic, population/native-posterior accuracy and all four RG gates remain open; no GPU or new trajectory runs.
 
 [[multiagentelbo-2026-10-08-product-moment-fisher]] records PR201's completed N512 product-field CPU admission (190 comparisons, 24 selected generator tangents), six tiny checks, rational integration/rule drift bounds and conditional recognition-state-to-correlated-forecast transfer. The study takes 206.0417918 seconds and peaks at 1,173,491,712 bytes. Computed-field arithmetic, useful path/exit constants, native-posterior forward KL and all four RG gates remain open. No GPU or reward-law choice is introduced.
