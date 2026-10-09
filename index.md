@@ -7,6 +7,10 @@ updated: 2026-10-09
 
 # Index
 
+## First live projected-parent path, October 9, 2026
+
+[[multiagentelbo-2026-10-09-live-block-parent]] records PR236/237's two-transition path from fixed H2, causal projection ceiling and 537 passing independent comparisons. Full current-R coefficients, original kernel/probe and all storage/factor costs remain charged. First-transition ceilings and one descriptive observed cost sum are distinct; useful projected-history expectations and all RG gates remain open. No GPU work occurs.
+
 ## Paired block-Gaussian filter screen, October 9, 2026
 
 [[multiagentelbo-2026-10-09-block-filter-screen]] records PR234/235's five saved projections, four sparse updates of one old compact Gaussian and 8,255 passing independent comparisons. Gaussian-only state uses 43,008 bytes, with full R/model/geometry and factor/oracle costs additional. Small fixed-history projection losses supply neither evolving projected-hybrid expectations nor nonlinear posterior accuracy. All RG gates remain open; no GPU work occurs.
