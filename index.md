@@ -9,6 +9,8 @@ updated: 2026-10-08
 
 ## Moving parents and normalized bond candidate, October 8, 2026
 
+[[multiagentelbo-2026-10-08-moving-parent-coefficients]] records PR209's once-run four-state N512 instantaneous moving-parent drift/bracket diagnostic and nonzero centered-lift mean-noise defect. Independent replay passes 253 comparisons over 10,475,718 entries; the first Boolean-reader failure and separate repair remain recorded without a producer retry. Complete lifted drift, path/filter/formation control and all RG gates remain open.
+
 [[multiagentelbo-2026-10-08-discarded-mean-stationary-bound]] records PR208's four saved field-state/two-depth centered reconstruction and 256 passing comparisons. Its separate finite stationary expectation is uniform in size/depth under temperature/receiver-budget hypotheses and vanishes as temperature tends to zero. Saved-state stationarity, moving coefficients, parent/filter dynamics and all RG gates remain open.
 
 [[multiagentelbo-2026-10-08-preparation-paths-moment-trajectory]] records ideal finite-preparation mark admission, stationary native path subsequences and conditional dense-range law identification from PR205. PR206 adds one four-step order-9 N512 trajectory with 445 passing saved-only comparisons and the complete 256-component forecast/128-to-32-parent adapter contract. PR207 exercises both full banks, shared original receivers 0/1 joints and all-copy normalized-parent bridges with 198 passing comparisons; retained/filter dynamics and original-flow feedback remain open. Native range density, arbitrary starts, computed/population/posterior accuracy, growing depth and all RG gates remain open.
