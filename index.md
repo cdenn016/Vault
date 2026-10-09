@@ -9,6 +9,8 @@ updated: 2026-10-08
 
 ## Moving parents and normalized bond candidate, October 8, 2026
 
+[[multiagentelbo-2026-10-08-discarded-mean-stationary-bound]] records PR208's four saved field-state/two-depth centered reconstruction and 256 passing comparisons. Its separate finite stationary expectation is uniform in size/depth under temperature/receiver-budget hypotheses and vanishes as temperature tends to zero. Saved-state stationarity, moving coefficients, parent/filter dynamics and all RG gates remain open.
+
 [[multiagentelbo-2026-10-08-preparation-paths-moment-trajectory]] records ideal finite-preparation mark admission, stationary native path subsequences and conditional dense-range law identification from PR205. PR206 adds one four-step order-9 N512 trajectory with 445 passing saved-only comparisons and the complete 256-component forecast/128-to-32-parent adapter contract. PR207 exercises both full banks, shared original receivers 0/1 joints and all-copy normalized-parent bridges with 198 passing comparisons; retained/filter dynamics and original-flow feedback remain open. Native range density, arbitrary starts, computed/population/posterior accuracy, growing depth and all RG gates remain open.
 
 [[multiagentelbo-2026-10-08-blockwise-budget-stationary-process]] records PR204's passed exact-reference blockwise forecast/grid-exit budgets, source-byte replay and conservative stationary native recognition diffusion. Common survival is at least 0.961756222, with conditional expected original joint forecast KL at most $9.179\times10^{-6}$ nats per receiver. Computed/input arithmetic, M16/posterior accuracy, prescribed R0 starts, finite-volume path convergence, growing depth and all RG gates remain open. No GPU or new model is used.
