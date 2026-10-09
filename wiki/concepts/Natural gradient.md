@@ -16,6 +16,8 @@ updated: 2026-10-08
 
 # Natural gradient
 
+[[multiagentelbo-2026-10-08-moving-parent-coefficients]] retains the native covariance-driver orientation when converting generator noise to precision coordinates, then differentiates the actual precision-Cholesky probe and ordered shared-driver products. The four-state N512 replay checks complete old finite-rule Fisher drift, including covariance/precision thermal terms, against independent local derivatives. This supplies instantaneous moving-readout coefficients; full lifted forces, population/computed error and path control remain separate.
+
 ## Definition
 
 The **natural gradient** is the direction of steepest descent of a loss function when the parameter space is treated not as flat Euclidean space but as a Riemannian manifold whose metric is the [[Fisher information metric]]. Concretely, for a loss $L(\theta)$ over parameters $\theta$ that index a family of probability distributions $p_\theta$, the ordinary (Euclidean) gradient $\nabla L$ answers "which way increases $L$ fastest per unit change in the *coordinates* $\theta$" — an answer that depends on how the model happens to be parameterized. The natural gradient instead measures distance in *distribution space* using the Fisher metric $F(\theta)$, and the steepest-descent direction becomes
