@@ -7,6 +7,10 @@ updated: 2026-10-09
 
 # Index
 
+## Noisy chart information and saved-prefix comparison, October 9, 2026
+
+[[multiagentelbo-2026-10-09-chart-information]] records PR254/255's scoped raw-prefix signal-moment divergence and a different local KL comparison through the actual new retained marginal of the specified Gaussian-reference joint. One saved-H2 calculation passes all 272 comparisons and tightens the local joint TV ceiling from .001542794 to .000873591 with unchanged projection charge. All 35 replay files have canonical parity. This supplies no predictive-KL divergence, accuracy measurement, global history control or RG-gate closure; native/regular/growing and formation questions remain open. No GPU work occurs.
+
 ## Joint word carrier and conditional record-loss bridge, October 9, 2026
 
 [[multiagentelbo-2026-10-09-joint-word-carrier]] records PR252/253's compact both-channel joint-word closure, fixed-substitution composition and full affine amplification conditions. The native-filter-to-original-Gaussian-record-loss bound requires both stronger-than-second forecast-signal moments under actual prefixes; the old fixed-model prior cancellation supplies neither moment. Native whitening/selector updates, joint moment estimates, useful compression, growing size/depth and all four RG gates remain open. This is an analytical checkpoint with no experiment or GPU work.
