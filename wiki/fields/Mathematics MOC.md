@@ -5,12 +5,14 @@ aliases: [field/mathematics, Mathematics sources, Math MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-10-08
+updated: 2026-10-09
 ---
 
 
 
 # Mathematics MOC
+
+[[multiagentelbo-2026-10-09-own-parent-trajectory-forecast]] reconstructs complete own-state record/loop/prior/history derivatives and every retained recurrence, then independently evaluates directed Gaussian KL by a covariance-factor relative eigenspectrum and stable near-zero series. Common-kernel contraction concerns the exact symmetric recognition Gaussian laws; floating input/inverse/Cholesky errors remain excluded from the numerical values. The centered lift is a constrained recognition-parameter reconstruction, not a conditional law for hidden mean parameters. Continuous coupling and growing operational RG closure remain open.
 
 [[multiagentelbo-2026-10-08-lifted-parent-field]] reconstructs complete signed moment derivative contractions through independent NumPy entire-function derivatives, then propagates first transport responses with original shared driver labels. All 594 comparisons pass. Primitive exact-real polynomial truncation, floating field evaluation and continuous coupling are separate obligations; four instantaneous residuals and exact frozen-Gaussian increment integration do not bound an evolved parent path.
 

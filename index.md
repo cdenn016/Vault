@@ -2,14 +2,18 @@
 type: index
 title: Index
 aliases: [Index, Home]
-updated: 2026-10-08
+updated: 2026-10-09
 ---
 
 # Index
 
+## Own-retained paths and original future forecasts, October 9, 2026
+
+[[multiagentelbo-2026-10-09-own-parent-trajectory-forecast]] records completed four-step own-state 128/32-parent candidates and their original future-kernel consumer. Independent trajectory/forecast readers pass 911/390 comparisons. Small computed terminal recognition-reference KL remains limited by the short inference window and excluded rounding; it supplies no predictive improvement or hidden-parameter filter law. Full O(N) state, feedback, persistent formation, growing size/depth and all RG gates remain open. No GPU work occurs.
+
 ## Moving parents and normalized bond candidate, October 8, 2026
 
-[[multiagentelbo-2026-10-08-lifted-parent-field]] records PR210's completed full centered-lift field/moving-parent residual replay: 594 passing comparisons over 6,119,490 entries and a 93-file package. Frozen tangent-increment diagnostics remain local; the retained-only lift was added after the producer and no own-state candidate has run. Continuous coupling, feedback, persistent formation and all RG gates remain open.
+[[multiagentelbo-2026-10-08-lifted-parent-field]] records PR210's completed full centered-lift field/moving-parent residual replay: 594 passing comparisons over 6,119,490 entries and a 93-file package. Frozen tangent-increment diagnostics remain local; the retained-only lift was added after that producer and subsequent own-state candidates are recorded in [[multiagentelbo-2026-10-09-own-parent-trajectory-forecast]]. Continuous coupling, feedback, persistent formation and all RG gates remain open.
 
 [[multiagentelbo-2026-10-08-moving-parent-coefficients]] records PR209's once-run four-state N512 instantaneous moving-parent drift/bracket diagnostic and nonzero centered-lift mean-noise defect. Independent replay passes 253 comparisons over 10,475,718 entries; the first Boolean-reader failure and separate repair remain recorded without a producer retry. Complete lifted drift, path/filter/formation control and all RG gates remain open.
 

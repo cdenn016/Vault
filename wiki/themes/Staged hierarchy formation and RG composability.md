@@ -13,14 +13,16 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-08-17
-updated: 2026-10-08
+updated: 2026-10-09
 ---
 
 
 
 # Staged hierarchy formation and RG composability
 
-[[multiagentelbo-2026-10-08-lifted-parent-field]] completes the two depth-specific centered-lift coefficient substitutions with original shared drivers and complete generator/source feedback. The 128/32-parent lifts are separate candidates, not one evolved hierarchy, and their retained norms do not compare matched compression performance. Four truth-path comparisons cannot supply a parent path law. A retained-only adapter added afterward passes four tiny cases, but own-state candidate dynamics remain unrun; continuous coupling, filter/feedback, persistent formation and all RG gates stay open.
+[[multiagentelbo-2026-10-09-own-parent-trajectory-forecast]] advances each alternative 128/32-parent candidate from its own retained recognition state, reevaluating complete fields and coarsening each positive proposal. Later fine checkpoints supply comparisons only. These are two separate short paths with supplied trees, rather than one jointly evolved or endogenous hierarchy. The original future forecast kernel uses each terminal generator law with fresh matter/source priors, preserving shared senders and reversed primitive draws. Small computed recognition-reference KL does not identify the conditional law of hidden recognition parameters needed for causal feedback. Full O(N) retained state, nonstationary path/error control, same-law filtering, persistent second formation, growing operational closure and all RG gates remain open.
+
+[[multiagentelbo-2026-10-08-lifted-parent-field]] completes the two depth-specific centered-lift coefficient substitutions with original shared drivers and complete generator/source feedback. The 128/32-parent lifts are separate candidates, not one evolved hierarchy, and their retained norms do not compare matched compression performance. Four truth-path comparisons cannot supply a parent path law. A retained-only adapter added afterward passes four tiny cases; the later own-state candidates are recorded in [[multiagentelbo-2026-10-09-own-parent-trajectory-forecast]]. Continuous coupling, filter/feedback, persistent formation and all RG gates stay open.
 
 [[multiagentelbo-2026-10-08-moving-parent-coefficients]] independently replays staged/direct instantaneous value, drift, curvature and common-driver noise at 128/32 parents on four saved N512 states. Original primitive labels remain shared through dressing, preserving the full cross-depth bracket. The centered-lift mean-noise defect is nonzero at both depths; it is not a matched depth comparison or a continuous residual integral. Complete lifted generator/source field changes remain next, followed by local stability, exits and numerical/population accuracy. No parent path, regular filter, checkpoint stationarity, endogenous formation or RG gate closes.
 
