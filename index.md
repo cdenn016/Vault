@@ -7,6 +7,10 @@ updated: 2026-10-09
 
 # Index
 
+## Selected-only cost and conditional norm enclosures, October 9, 2026
+
+[[multiagentelbo-2026-10-09-selected-block-cost]] records PR238/239's selected-only evaluation at two saved live N512 states, with 222 exact-agreement comparisons and 95 canonical replay files. Original selected responses/native charts and constant cancellation are preserved without full-history fields. The measured route takes 9.35 CPU minutes; the two costs are not history-expectation samples or a controlled speedup. Conditional d1024 adaptive-projector and guarded coefficient formulas are proved, while useful numerical uniform envelopes/history expectations and all four RG gates remain open. No GPU work occurs.
+
 ## First live projected-parent path, October 9, 2026
 
 [[multiagentelbo-2026-10-09-live-block-parent]] records PR236/237's two-transition path from fixed H2, causal projection ceiling and 537 passing independent comparisons. Full current-R coefficients, original kernel/probe and all storage/factor costs remain charged. First-transition ceilings and one descriptive observed cost sum are distinct; useful projected-history expectations and all RG gates remain open. No GPU work occurs.
