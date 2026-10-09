@@ -7,6 +7,10 @@ updated: 2026-10-09
 
 # Index
 
+## Same-prefix chart means and Gaussian-L2 transfer, October 9, 2026
+
+[[multiagentelbo-2026-10-09-conditional-chart-means]] records PR216's fixed-prefix chi-square proof and PR217's once-run 95,232 conditional chart means, 1,161 independent comparisons and 178-file canonical replay package. Complete physical covariance, causal prefix selection, total joint entropy budgets and numerical exclusions remain explicit. Cubic polynomial transfer is proved, while complete moving coefficients, compact feedback, integrated history error and all RG gates remain open. No GPU work occurs.
+
 ## Recursive recognition filter and conditional density energy, October 9, 2026
 
 [[multiagentelbo-2026-10-09-recursive-recognition-filter-bound]] records PR214's exact raw-filter/conditional-parent construction and PR215's once-run six-case Gaussian comparison: both directed targets pass, with 741 independent comparisons and a 118-file canonical replay package. The largest forward computational upper is 3.227318899228039e-7 per original receiver. Full known initialization/history, O(N) costs and rounding exclusions remain; compact feedback and all RG gates are open. The stationary companion proves maximal weak density energy and compact localization, leaving chosen-minimal-form approximation and full-past Markov identification open. No GPU work occurs.
