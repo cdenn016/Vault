@@ -13,12 +13,14 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-10-08
+updated: 2026-10-09
 ---
 
 # Renormalization-group flow of beliefs
 
-[[multiagentelbo-2026-10-08-lifted-parent-field]] now populates complete finite-rule old-minus-reconstructed drift/noise residuals, including all generator/source force changes, at four old states for each of two separate centered lifts. Its analytically integrated common-Gaussian tangent increment is a local diagnostic, not a positive-retraction error or a continuous residual integral. The later retained-only adapter is prepared but an own-state candidate remains unrun. Stopped residual expectations, lifted-segment containment, stability/exits, computed/population accuracy, feedback and all RG gates remain open.
+[[multiagentelbo-2026-10-09-own-parent-trajectory-forecast]] supplies one four-step coupled own-state recurrence at each of 128 and 32 parents, with full original-copy generator/covariance/source state and a discarded slice-two matter mean. Each field is evaluated after a retained-only centered reconstruction, using the original innovation tuple. Complete independent field/proposal/recurrence replay passes 911 comparisons. Future product-Gaussian comparison then controls the original correlated record kernel under the declared recognition reference; the full 256-component two-row mixture is independently replayed. The $10^{-4}$ inference window and uncaptured rounding prevent an accuracy certificate. M remains a recognition parameter, reconstruction covariance does not supply hidden-parameter filtering, and O(N) state does not establish a growing operational RG limit. All four gates remain open.
+
+[[multiagentelbo-2026-10-08-lifted-parent-field]] populates complete finite-rule old-minus-reconstructed drift/noise residuals, including all generator/source force changes, at four old states for each of two separate centered lifts. Its analytically integrated common-Gaussian tangent increment is a local diagnostic, not a positive-retraction error or a continuous residual integral. Subsequent own-state use of the retained-only adapter is recorded in [[multiagentelbo-2026-10-09-own-parent-trajectory-forecast]]. Stopped residual expectations, lifted-segment containment, stability/exits, computed/population accuracy, feedback and all RG gates remain open.
 
 [[multiagentelbo-2026-10-08-moving-parent-coefficients]] evaluates the actual fixed-probe moving-map drift and full shared-driver joint bracket at four old finite-rule field states, including cross-depth and native generator/matter blocks. Independent replay passes 253 comparisons. Its nonzero mean-noise substitution defect is one instantaneous residual component; replacing means also changes generator/source forces. Complete lifted drift, stopped residual expectations, compatible stability/exits and numerical/population error remain necessary for a path bound. These snapshots establish neither a stationary law nor endogenous formation or an RG gate.
 

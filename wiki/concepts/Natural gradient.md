@@ -11,10 +11,12 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-10-08
+updated: 2026-10-09
 ---
 
 # Natural gradient
+
+[[multiagentelbo-2026-10-09-own-parent-trajectory-forecast]] independently reconstructs every generator mean and symmetric precision covector across eight own-state full fields, retaining record, ordered-loop, Gaussian-prior and history-kinetic terms. The lifted numerical mean is held as an independent matter coordinate when differentiating the original objective. Original shared Brownian inputs drive all positive Fisher proposals. This checks the complete finite-rule candidate computation, with 911 passing trajectory comparisons; population-field arithmetic, continuous error/exit control and native posterior accuracy remain separate.
 
 [[multiagentelbo-2026-10-08-lifted-parent-field]] checks every generator mean and independent symmetric precision derivative of the matter-replacement difference, with lifted means held independent during differentiation. Complete source/receiver/sender forces and unchanged native metrics give full finite-rule retained drift/noise residuals. This broader substitution-gradient check does not extend the earlier selected-tangent coverage of the old full generator field; population/computed accuracy and continuous path control remain separate.
 

@@ -14,16 +14,20 @@ tags:
   - project/multi-agent
 status: draft
 created: 2026-06-18
-updated: 2026-10-08
+updated: 2026-10-09
 ---
 
 
 
 # Gauge-Theoretic Multi-Agent VFE Model
 
+## Own-retained trajectories and original forecasts, October 9, 2026
+
+[[multiagentelbo-2026-10-09-own-parent-trajectory-forecast]] records two separate 128/32-parent candidates advancing from their own reconstructed states for four steps, with eight complete fields/proposals and all original shared Brownian inputs. Independent trajectory replay passes 911 comparisons over 22,734,861 entries. The subsequent original-kernel forecast replay passes 390 comparisons over 5,238,382 entries; computed both-direction future product-Gaussian KL per 512 receivers is about $3.728\times10^{-19}$/$4.057\times10^{-19}$ for the two candidates. These short-window recognition-reference values exclude input/evaluation rounding and certify neither posterior accuracy nor predictive improvement. Retained M is a recognition parameter; its reconstruction covariance is not a conditional law for hidden recognition means. The complete retained state is still O(N). Same-law filtering/feedback, persistent formation, growing size/depth and all four RG gates remain open; the GPU stays with the user and the 144-case calibration remains unrun.
+
 ## Resumed Gaussian lane, October 8, 2026
 
-[[multiagentelbo-2026-10-08-lifted-parent-field]] completes PR210's old-to-centered-lift generator/source field and full moving-parent drift/noise residual at four saved N512 states and two alternative depths. Independent replay passes 594 comparisons over 6,119,490 entries; frozen tangent-increment mean-square differences are about $7.50\times10^{-6}$/$1.90\times10^{-6}$ in different retained charts, not accumulated path or predictive error. The retained-only reconstruction adapter was added after frozen producer 0feab90d and was not used in that run. No own-state candidate has run; continuous coupling, original-record feedback, formation and all RG gates remain open.
+[[multiagentelbo-2026-10-08-lifted-parent-field]] completes PR210's old-to-centered-lift generator/source field and full moving-parent drift/noise residual at four saved N512 states and two alternative depths. Independent replay passes 594 comparisons over 6,119,490 entries; frozen tangent-increment mean-square differences are about $7.50\times10^{-6}$/$1.90\times10^{-6}$ in different retained charts, not accumulated path or predictive error. The retained-only reconstruction adapter was added after frozen producer 0feab90d and was not used in that run. The later own-state candidates are recorded in [[multiagentelbo-2026-10-09-own-parent-trajectory-forecast]]; continuous coupling, original-record feedback, formation and all RG gates remain open.
 
 [[multiagentelbo-2026-10-08-moving-parent-coefficients]] records PR209's once-run instantaneous drift/bracket diagnostic at four saved N512 old field states. Its common 800-row factor preserves 9,280 active shared driver labels and all cross-depth blocks; independent replay passes 253 comparisons over 10,475,718 entries, maximum discrepancy $3.19744\times10^{-14}$. Centered-lift physical mean-noise defect squared norms are about .281 at 128 parents and .0528 at 32 parents, with different geometries. The first Boolean-reader failure and separately frozen repair remain visible; no producer retry occurred. Complete lifted drift, continuous residual expectations, retained/filter updates, formation and all RG gates remain open.
 

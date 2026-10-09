@@ -5,14 +5,16 @@ aliases: [field/statistics, Statistics sources, Information theory MOC]
 tags: [moc]
 status: stable
 created: 2026-06-19
-updated: 2026-10-08
+updated: 2026-10-09
 ---
 
 
 
 # Statistics MOC
 
-[[multiagentelbo-2026-10-08-lifted-parent-field]] gives frozen tangent-increment mean-square differences near $7.50\times10^{-6}$ and $1.90\times10^{-6}$ at different parent depths/charts. Complete drift includes original generator/source changes; only parent mean noise rows differ. These are neither forecast KL, matched-depth performance, stationarity nor stopped time-integrated error. The retained-only adapter was added after the producer and an own-state candidate remains unrun.
+[[multiagentelbo-2026-10-09-own-parent-trajectory-forecast]] separates terminal continuous product-Gaussian recognition KL, the finite 256-component/16-source-pattern joint and same-query marginal scores. Both directed computed KL values per 512 original receivers are about $3.728\times10^{-19}$/$4.057\times10^{-19}$ at the two candidate depths, after a $10^{-4}$ inference window. No negative scalar terms were clipped. Tiny same-query log-density changes of about $5\times10^{-11}$ do not show predictive improvement or posterior accuracy, and raw floating precision/factor rounding is outside any certificate. Hidden-parameter filtering and full RG closure remain open.
+
+[[multiagentelbo-2026-10-08-lifted-parent-field]] gives frozen tangent-increment mean-square differences near $7.50\times10^{-6}$ and $1.90\times10^{-6}$ at different parent depths/charts. Complete drift includes original generator/source changes; only parent mean noise rows differ. These are neither forecast KL, matched-depth performance, stationarity nor stopped time-integrated error. The retained-only adapter was added after that producer; subsequent own-state candidates are recorded in [[multiagentelbo-2026-10-09-own-parent-trajectory-forecast]].
 
 [[multiagentelbo-2026-10-08-moving-parent-coefficients]] reports nonzero instantaneous physical mean-noise residual squared norms near .281/.0528 for distinct 128/32-parent geometries, rather than integrated error, stationarity or a matched depth comparison. The independently replayed 800-coordinate bracket includes shared-driver cross-depth and native-coordinate covariance blocks. Four saved old states do not identify a parent process, forecast accuracy or persistent formation; complete lifted drift and continuous error control remain open.
 
