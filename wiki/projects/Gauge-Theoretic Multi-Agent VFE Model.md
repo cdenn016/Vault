@@ -21,6 +21,10 @@ updated: 2026-10-09
 
 # Gauge-Theoretic Multi-Agent VFE Model
 
+## Compact raw-history comparison, October 9, 2026
+
+[[multiagentelbo-2026-10-09-compact-raw-history]] records PR222/223's raw covariance-tail proof, stopped-history TV construction, adaptive local innovation envelope and once-run scalar evaluation. The specific unrestricted normalized-reference entropy expectation is infinite for both supplied forests; compact masked control does not require that global expectation. All 141 rational comparisons match exactly, and 25 replay files totaling 349,847 bytes have canonical copy parity. Global/local sufficient TV ceilings 26.5258/2.8099/5.4032 all cap at one and supply no useful accuracy or underlying-law failure claim. Seven pre-outcome fixtures remain passing; no noise, field, trajectory, model or GPU execution is added. The next prepared consumer is an already-generated R2/M2 same-joint normalizer/downward bound using old R1 polynomials and reencoded observations. Full known initialization, O(N)/history dependence, rounding exclusions, compact feedback and all four RG gates remain explicit; the GPU stays user-owned and the 144-case CUDA grid remains unrun.
+
 ## Continuous conditional original parent kernel, October 9, 2026
 
 [[multiagentelbo-2026-10-09-conditional-parent-kernel]] records PR221's once-run continuous Gaussian-reference consumer at six saved retained histories. All 48 fresh complete original Fisher proposals preserve causal fibers, five-family noise, source support, copies/reversals and first/staged/direct readouts; independent reconstruction passes 4,460 comparisons over 108,970,525 entries. The 592-file/355,320,940-byte canonical replay includes full known initialization and O(N)/history costs. Local conditional kappa ceilings reach 2.831318073010919e-6; eight realizations do not integrate the mixture or estimate predictive accuracy. Newly generated retained states need new coefficients, while nonlinear downward integration, actual-history expectations/domain control and all four RG gates remain open. The GPU remains user-owned and the 144-case calibration remains unrun.
