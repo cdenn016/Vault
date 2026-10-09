@@ -7,9 +7,13 @@ updated: 2026-10-09
 
 # Index
 
+## Complete same-prefix moving-parent drift, October 9, 2026
+
+[[multiagentelbo-2026-10-09-conditional-moving-parent-drift]] records PR218/219's once-run six-case cubic/quadratic drift readout: 2,400 scalar coordinates, 7,971 independent comparisons and 709 canonical replay files. The largest component allowance is 1.500576892464e-5 in drift units, with no scientific pass target and unchanged likelihood/arithmetic scope. Complete coefficients are evaluated; joint predictive/downward execution, actual-history error, compact feedback and all RG gates remain open. No GPU work occurs.
+
 ## Same-prefix chart means and Gaussian-L2 transfer, October 9, 2026
 
-[[multiagentelbo-2026-10-09-conditional-chart-means]] records PR216's fixed-prefix chi-square proof and PR217's once-run 95,232 conditional chart means, 1,161 independent comparisons and 178-file canonical replay package. Complete physical covariance, causal prefix selection, total joint entropy budgets and numerical exclusions remain explicit. Cubic polynomial transfer is proved, while complete moving coefficients, compact feedback, integrated history error and all RG gates remain open. No GPU work occurs.
+[[multiagentelbo-2026-10-09-conditional-chart-means]] records PR216's fixed-prefix chi-square proof and PR217's once-run 95,232 conditional chart means, 1,161 independent comparisons and 178-file canonical replay package. Complete physical covariance, causal prefix selection, total joint entropy budgets and numerical exclusions remain explicit. Cubic polynomial transfer is proved and its subsequent coefficient readout is recorded above; compact feedback, integrated history error and all RG gates remain open. No GPU work occurs.
 
 ## Recursive recognition filter and conditional density energy, October 9, 2026
 

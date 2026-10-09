@@ -21,9 +21,13 @@ updated: 2026-10-09
 
 # Gauge-Theoretic Multi-Agent VFE Model
 
+## Complete conditional moving-parent drift, October 9, 2026
+
+[[multiagentelbo-2026-10-09-conditional-moving-parent-drift]] records PR218's frozen construction and PR219's once-run complete cubic mean/quadratic covariance drift readout. All six old-prefix/depth cases contain 2,400 scalar components, with 7,971 independent comparisons and a 709-file/164,185,609-byte canonical replay. The maximum component allowance is 1.500576892464e-5 in declared drift units; no scientific pass target is chosen. Original-copy/source topology, prior/loop/history/thermal terms, full physical covariance and all shared driver contractions are preserved. No new field, moment rule, proposal, trajectory or sample occurs. The unchanged predictive/downward operation and actual-history error budget remain pending, with known initialization, raw unselected law, O(N)/history costs, arithmetic exclusions and all four RG gates explicit. The GPU remains user-owned; the 144-case calibration remains unrun.
+
 ## Conditional chart means and Gaussian-L2 transfer, October 9, 2026
 
-[[multiagentelbo-2026-10-09-conditional-chart-means]] records PR216's chi-square transfer proof and PR217's once-run six-case causal chart consumer. All 95,232 original coordinates are evaluated with full physical conditional covariance; independent readback passes 1,161 comparisons over 21,871,319 entries, with a 178-file canonical replay package. Prefix-three source component allowances reach 1.4198798610660002e-6 in whitened chart units, subject to the existing coefficient/input/arithmetic exclusions. The likelihood second-moment bound now transfers cubic Gaussian-L2 fields, while complete moving-parent coefficients remain the next computation. Known fine initialization, raw unselected kernel, O(N)/history costs, unknown/stopped/native-posterior scope and all four RG gates remain explicit. No GPU work occurs; the 144-case CUDA calibration remains unrun.
+[[multiagentelbo-2026-10-09-conditional-chart-means]] records PR216's chi-square transfer proof and PR217's once-run six-case causal chart consumer. All 95,232 original coordinates are evaluated with full physical conditional covariance; independent readback passes 1,161 comparisons over 21,871,319 entries, with a 178-file canonical replay package. Prefix-three source component allowances reach 1.4198798610660002e-6 in whitened chart units, subject to the existing coefficient/input/arithmetic exclusions. The likelihood second-moment bound transfers cubic Gaussian-L2 fields; the then-pending moving-parent consumer is now recorded above. Known fine initialization, raw unselected kernel, O(N)/history costs, unknown/stopped/native-posterior scope and all four RG gates remain explicit. No GPU work occurs; the 144-case CUDA calibration remains unrun.
 
 ## Recursive recognition filtering and weak energy, October 9, 2026
 
