@@ -7,6 +7,10 @@ updated: 2026-10-09
 
 # Index
 
+## Nonstationary startup admission and native population paths, October 9, 2026
+
+[[multiagentelbo-2026-10-09-nonstationary-population-flow]] records PR258's positive original T=0/unit-Fisher population path theorem from baseline: annealed rooted continuous subsequences, original local equations and finite expected local action. Infinite uniqueness, numerical transfer and growing-depth/formation remain open. Separate fitted-startup admission includes failure/global-route marks; its ideal increasing-family success vanishes asymptotically without a practical N512 prediction. All four gates stay open and roughly 65% progress is unchanged. No scientific or GPU work occurs.
+
 ## Second actual-information disposition and raw locality, October 9, 2026
 
 [[multiagentelbo-2026-10-09-second-information]] records PR257's final bounded analytical INCONCLUSIVE disposition: finite averaged posterior log-fourth moment, exact fresh-fiber variance floor and b2<=Gamma2+sqrt(r a1), with native Gamma2 integrability and finite/divergent a2 or b2 unresolved. The local incident raw map does not admit the globally selected fitted warm-start as an increasing-volume initial law. All four gates remain open, with roughly 65% progress unchanged. No science or GPU work occurs.
