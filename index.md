@@ -7,6 +7,10 @@ updated: 2026-10-09
 
 # Index
 
+## Relative covariance-factor expectation refinement, October 9, 2026
+
+[[multiagentelbo-2026-10-09-relative-expectation-envelope]] records PR246/247's same-event relative-Cholesky/coefficient refinement, giving expected-cost/joint/downward ceilings .008880420/.012449113/.016017806. All 257 comparisons pass, and 57 saved replay files retain exact canonical parity after the host crash without scientific rerun. Nine new tiny cases preserve first-attempt and aggregate invocation scope. Arithmetic certification, unbounded record loss, accumulated multihorizon/native/regular/growing closure and all four RG gates remain open; no GPU work occurs.
+
 ## Baseline-relative expectation refinement, October 9, 2026
 
 [[multiagentelbo-2026-10-09-baseline-expectation-envelope]] records PR244/245's same-event signed-baseline and complete physical-covariance enclosure, giving expected cost .023506131 and joint-history/downward-TV .027074824/.030643517. All 222 comparisons pass; fresh analytical bounds are charged without new histories, fields, responses, matrix exponentials or proposals. Input/arithmetic certification, native/regular/growing closure, unbounded record loss and all four RG gates remain open. No GPU work occurs.
