@@ -9,6 +9,8 @@ updated: 2026-10-08
 
 ## Moving parents and normalized bond candidate, October 8, 2026
 
+[[multiagentelbo-2026-10-08-lifted-parent-field]] records PR210's completed full centered-lift field/moving-parent residual replay: 594 passing comparisons over 6,119,490 entries and a 93-file package. Frozen tangent-increment diagnostics remain local; the retained-only lift was added after the producer and no own-state candidate has run. Continuous coupling, feedback, persistent formation and all RG gates remain open.
+
 [[multiagentelbo-2026-10-08-moving-parent-coefficients]] records PR209's once-run four-state N512 instantaneous moving-parent drift/bracket diagnostic and nonzero centered-lift mean-noise defect. Independent replay passes 253 comparisons over 10,475,718 entries; the first Boolean-reader failure and separate repair remain recorded without a producer retry. Complete lifted drift, path/filter/formation control and all RG gates remain open.
 
 [[multiagentelbo-2026-10-08-discarded-mean-stationary-bound]] records PR208's four saved field-state/two-depth centered reconstruction and 256 passing comparisons. Its separate finite stationary expectation is uniform in size/depth under temperature/receiver-budget hypotheses and vanishes as temperature tends to zero. Saved-state stationarity, moving coefficients, parent/filter dynamics and all RG gates remain open.

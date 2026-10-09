@@ -16,6 +16,8 @@ updated: 2026-10-08
 
 # Natural gradient
 
+[[multiagentelbo-2026-10-08-lifted-parent-field]] checks every generator mean and independent symmetric precision derivative of the matter-replacement difference, with lifted means held independent during differentiation. Complete source/receiver/sender forces and unchanged native metrics give full finite-rule retained drift/noise residuals. This broader substitution-gradient check does not extend the earlier selected-tangent coverage of the old full generator field; population/computed accuracy and continuous path control remain separate.
+
 [[multiagentelbo-2026-10-08-moving-parent-coefficients]] retains the native covariance-driver orientation when converting generator noise to precision coordinates, then differentiates the actual precision-Cholesky probe and ordered shared-driver products. The four-state N512 replay checks complete old finite-rule Fisher drift, including covariance/precision thermal terms, against independent local derivatives. This supplies instantaneous moving-readout coefficients; full lifted forces, population/computed error and path control remain separate.
 
 ## Definition

@@ -12,6 +12,8 @@ updated: 2026-10-08
 
 # Mathematics MOC
 
+[[multiagentelbo-2026-10-08-lifted-parent-field]] reconstructs complete signed moment derivative contractions through independent NumPy entire-function derivatives, then propagates first transport responses with original shared driver labels. All 594 comparisons pass. Primitive exact-real polynomial truncation, floating field evaluation and continuous coupling are separate obligations; four instantaneous residuals and exact frozen-Gaussian increment integration do not bound an evolved parent path.
+
 [[multiagentelbo-2026-10-08-moving-parent-coefficients]] differentiates precision-Cholesky probes, noncommuting exponentials and ordered product/inverse jets with shared primitive driver labels. Independent local Jacobian/Hessian replay checks staged/direct drift, curvature and full cross-depth brackets at four N512 states. Nonzero centered-lift mean-noise residuals leave complete lifted drift and stopped residual/stability/exit estimates unresolved; no path or RG closure follows.
 
 [[multiagentelbo-2026-10-08-discarded-mean-stationary-bound]] derives noncommuting covariance/Hessian domain control and conditional normal/Wishart inverse moments, then bounds the complete receiver/sender diagonal precision against its coupled Hessian. This gives a finite stationary reconstruction expectation uniform in size/depth under explicit temperature and receiver budgets. Independent basis-force replay checks saved quadratic/lift arithmetic; positive-temperature integrated control, infinite readout construction and parent/RG closure remain separate.

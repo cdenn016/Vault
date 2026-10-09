@@ -12,6 +12,8 @@ updated: 2026-10-08
 
 # Statistics MOC
 
+[[multiagentelbo-2026-10-08-lifted-parent-field]] gives frozen tangent-increment mean-square differences near $7.50\times10^{-6}$ and $1.90\times10^{-6}$ at different parent depths/charts. Complete drift includes original generator/source changes; only parent mean noise rows differ. These are neither forecast KL, matched-depth performance, stationarity nor stopped time-integrated error. The retained-only adapter was added after the producer and an own-state candidate remains unrun.
+
 [[multiagentelbo-2026-10-08-moving-parent-coefficients]] reports nonzero instantaneous physical mean-noise residual squared norms near .281/.0528 for distinct 128/32-parent geometries, rather than integrated error, stationarity or a matched depth comparison. The independently replayed 800-coordinate bracket includes shared-driver cross-depth and native-coordinate covariance blocks. Four saved old states do not identify a parent process, forecast accuracy or persistent formation; complete lifted drift and continuous error control remain open.
 
 [[multiagentelbo-2026-10-08-discarded-mean-stationary-bound]] measures same-covariance recognition reconstruction KL rather than fresh-baseline forecast or posterior error. Four-state N512 values increase slightly, from .1560329 to .1561057 at 128 parents and .1795121 to .1796210 at 32 parents. Exact stationary mean/covariance factors give a separate expectation ceiling without asserting stationary saved checkpoints. One-path snapshots, stationary expectations and population/computed error budgets retain distinct scopes.
