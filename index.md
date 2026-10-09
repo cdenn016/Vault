@@ -7,6 +7,10 @@ updated: 2026-10-09
 
 # Index
 
+## Joint word carrier and conditional record-loss bridge, October 9, 2026
+
+[[multiagentelbo-2026-10-09-joint-word-carrier]] records PR252/253's compact both-channel joint-word closure, fixed-substitution composition and full affine amplification conditions. The native-filter-to-original-Gaussian-record-loss bound requires both stronger-than-second forecast-signal moments under actual prefixes; the old fixed-model prior cancellation supplies neither moment. Native whitening/selector updates, joint moment estimates, useful compression, growing size/depth and all four RG gates remain open. This is an analytical checkpoint with no experiment or GPU work.
+
 ## Accumulated second-history expectation, October 9, 2026
 
 [[multiagentelbo-2026-10-09-second-history-expectation]] records PR248-250's conditional nu ceiling .207845786 and third-transition joint/downward-TV ceilings .220294899/.232744012. The first reader remains failed after 326 numerical passes on an eight-byte scalar accounting mismatch; a distinct metadata-only repair adds 29 checks, giving a 355-check composite without numerical rerun. All 66 replay files have canonical parity. The finite ceilings are loose; arithmetic certification, unbounded log loss, native/regular/growing closure, formation and all four RG gates remain open. No GPU work occurs.
