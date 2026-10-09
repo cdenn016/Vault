@@ -54,7 +54,7 @@ The $v_j$ are full local quadratic retained shifts. Completing squares bounds $a
 
 The [frozen contract](https://github.com/cdenn016/MultiAgentELBO/blob/910e00d5dfab122e5ab1750eca92c3a6d3cb07c7/docs/research/2026-10-03-latent-link-rg-plan/R3-NONLINEAR-FILTER-CONTRACT.md) declares prefixes two, three and four at both alternative 128/32-parent constraints, with a .001-nat-per-original-receiver target in each direction. The [published outcome](https://github.com/cdenn016/MultiAgentELBO/blob/a4102c441a47c09ab02ab8e4eaa5fe5499a926de/docs/research/2026-10-03-latent-link-rg-plan/R3-RECOGNITION-FILTER-RESULTS.md) reports all six cases passing:
 
-| Prefix | Parents | KL(q || p) upper per 512 receivers | KL(p || q) upper per 512 receivers |
+| Prefix | Parents | $D(q\Vert p)$ upper per 512 receivers | $D(p\Vert q)$ upper per 512 receivers |
 | --- | ---: | ---: | ---: |
 | 2 | 128 | 8.884777228838912e-9 | 2.6480431564775908e-8 |
 | 2 | 32 | 8.884764873892975e-9 | 2.6480597187888764e-8 |
