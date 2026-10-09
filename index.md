@@ -7,6 +7,10 @@ updated: 2026-10-09
 
 # Index
 
+## All-row source coding and joint-frame continuation, October 9, 2026
+
+[[multiagentelbo-2026-10-09-joint-frame-codec]] records PR260's shared-inverse positive source code, full shared-sender all-row record KL and explicit extensive component bits. Its separate finite-domain all-word discriminator identifies missing joint covariance/frame data for computed whitening, with an exact extension criterion and no native no-go claim. Charged Gram/frame refresh, useful growing all-copy/evaluator control, numerical/native-posterior transfer and formation remain open. All four gates and the roughly 65% planning estimate are unchanged; no scientific or GPU work occurs.
+
 ## Population decoder transfer and surviving-parent information loss, October 9, 2026
 
 [[multiagentelbo-2026-10-09-population-decoder-transfer]] records PR259's energy-coercive evolving-recognition moment, exact shared incident decoder, growing-block fixed-query record-information allowance and separately charged channel precision under original T=0 population descent. Fresh baseline matter/original pi, supplied hard hierarchy and finite clocks selected before query remain explicit. Numerical/native-posterior transfer, continuation beyond the supplied window and formation stay open, with all four gates open and roughly 65% progress unchanged. No scientific or GPU work occurs.
