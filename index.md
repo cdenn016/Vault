@@ -7,6 +7,10 @@ updated: 2026-10-09
 
 # Index
 
+## Hierarchy-aware source precision and finite evaluator control, October 9, 2026
+
+[[multiagentelbo-2026-10-09-hierarchy-codec]] records PR261's shared positive/inverse-compatible primitive code with recomputed canonical hierarchy frames, all original affine copies, capped words, raw Gaussian divergence error and full code/endpoint/all-original-record KL at each individual endpoint. A feasible growing supplied diagonal gives vanishing finite-reference error and growing surviving parents, with conservative superlinear source bits. Complete identified-law convergence, useful parent compression and actual retained transition/total cost, native posterior/Fisher evolution, second-channel and recursive root-relative cocycle closure remain open. All four gates and the roughly 65% planning estimate are unchanged; no scientific or GPU work occurs.
+
 ## All-row source coding and joint-frame continuation, October 9, 2026
 
 [[multiagentelbo-2026-10-09-joint-frame-codec]] records PR260's shared-inverse positive source code, full shared-sender all-row record KL and explicit extensive component bits. Its separate finite-domain all-word discriminator identifies missing joint covariance/frame data for computed whitening, with an exact extension criterion and no native no-go claim. Charged Gram/frame refresh, useful growing all-copy/evaluator control, numerical/native-posterior transfer and formation remain open. All four gates and the roughly 65% planning estimate are unchanged; no scientific or GPU work occurs.
