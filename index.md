@@ -7,6 +7,10 @@ updated: 2026-10-09
 
 # Index
 
+## Second actual-information disposition and raw locality, October 9, 2026
+
+[[multiagentelbo-2026-10-09-second-information]] records PR257's final bounded analytical INCONCLUSIVE disposition: finite averaged posterior log-fourth moment, exact fresh-fiber variance floor and b2<=Gamma2+sqrt(r a1), with native Gamma2 integrability and finite/divergent a2 or b2 unresolved. The local incident raw map does not admit the globally selected fitted warm-start as an increasing-volume initial law. All four gates remain open, with roughly 65% progress unchanged. No science or GPU work occurs.
+
 ## Initialized actual-history information and directed filter KL, October 9, 2026
 
 [[multiagentelbo-2026-10-09-actual-information]] records PR256's finite actual two-update complete-reference KL average from a fixed known initialization, for each supplied forest separately. The directed recurrence charges inherited KL once plus information under the actual non-Gaussian old filter, giving finite conditional comparisons almost surely at finite prefixes. The next outer information average a2 and later averages, useful numerical/uniform allowances, native/regular/growing closure and all four RG gates remain open. No scientific execution or GPU work occurs.
