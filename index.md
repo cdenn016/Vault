@@ -7,6 +7,10 @@ updated: 2026-10-09
 
 # Index
 
+## Accumulated second-history expectation, October 9, 2026
+
+[[multiagentelbo-2026-10-09-second-history-expectation]] records PR248-250's conditional nu ceiling .207845786 and third-transition joint/downward-TV ceilings .220294899/.232744012. The first reader remains failed after 326 numerical passes on an eight-byte scalar accounting mismatch; a distinct metadata-only repair adds 29 checks, giving a 355-check composite without numerical rerun. All 66 replay files have canonical parity. The finite ceilings are loose; arithmetic certification, unbounded log loss, native/regular/growing closure, formation and all four RG gates remain open. No GPU work occurs.
+
 ## Relative covariance-factor expectation refinement, October 9, 2026
 
 [[multiagentelbo-2026-10-09-relative-expectation-envelope]] records PR246/247's same-event relative-Cholesky/coefficient refinement, giving expected-cost/joint/downward ceilings .008880420/.012449113/.016017806. All 257 comparisons pass, and 57 saved replay files retain exact canonical parity after the host crash without scientific rerun. Nine new tiny cases preserve first-attempt and aggregate invocation scope. Arithmetic certification, unbounded record loss, accumulated multihorizon/native/regular/growing closure and all four RG gates remain open; no GPU work occurs.
