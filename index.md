@@ -7,6 +7,10 @@ updated: 2026-10-09
 
 # Index
 
+## Paired block-Gaussian filter screen, October 9, 2026
+
+[[multiagentelbo-2026-10-09-block-filter-screen]] records PR234/235's five saved projections, four sparse updates of one old compact Gaussian and 8,255 passing independent comparisons. Gaussian-only state uses 43,008 bytes, with full R/model/geometry and factor/oracle costs additional. Small fixed-history projection losses supply neither evolving projected-hybrid expectations nor nonlinear posterior accuracy. All RG gates remain open; no GPU work occurs.
+
 ## Fixed-prefix actual-law error, October 9, 2026
 
 [[multiagentelbo-2026-10-09-fixed-prefix-native-error]] records PR230-233's held-fixed-H2 actual next-conditional computational KL/TV allowance, 8,310 repaired-reader comparisons and preserved first reader failure without producer rerun. A bounded hybrid-history recurrence establishes integrability of capped local costs; useful own-history expectation remains unevaluated. The fixed-H2 value is not that expectation, and no native compact/continuous filter or RG gate closes. No GPU work occurs.
