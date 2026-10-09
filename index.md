@@ -9,6 +9,8 @@ updated: 2026-10-08
 
 ## Moving parents and normalized bond candidate, October 8, 2026
 
+[[multiagentelbo-2026-10-08-blockwise-budget-stationary-process]] records PR204's passed exact-reference blockwise forecast/grid-exit budgets, source-byte replay and conservative stationary native recognition diffusion. Common survival is at least 0.961756222, with conditional expected original joint forecast KL at most $9.179\times10^{-6}$ nats per receiver. Computed/input arithmetic, M16/posterior accuracy, prescribed R0 starts, finite-volume path convergence, growing depth and all RG gates remain open. No GPU or new model is used.
+
 [[multiagentelbo-2026-10-08-recognition-spatial-source-moment]] records PR203's conditional native recognition spatial Gibbs limits, empirical observation second-moment extension and explicit periodic N512 core/prefix reference. The exact source quadratic coefficient is 0.0111 versus $32/3$, with 37 symbolic identities. Independent volume inputs, infinite dynamics, complete numerical budgets and all four RG gates remain open; no GPU or model change occurs.
 
 [[multiagentelbo-2026-10-08-saved-forecast-local-exit]] records PR202's eight saved continuous original-forecast comparisons, fixed-model rational local coefficients and conditional native compact-exit bound at most 0.038196. The direct four-step sufficient numerical exit/forecast budget fails, without showing inaccurate dynamics. Arithmetic, population/native-posterior accuracy and all four RG gates remain open; no GPU or new trajectory runs.
