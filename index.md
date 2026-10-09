@@ -7,9 +7,13 @@ updated: 2026-10-09
 
 # Index
 
+## Generated-prefix conditional, October 9, 2026
+
+[[multiagentelbo-2026-10-09-generated-prefix-filter]] records PR224/225's once-run original R1-to-generated-R2 conditional: 15,872 chart rows, 3,106 independent comparisons and 438 canonical replay files. Whole-joint forward/reverse sufficient KL is 1.43343e-5/4.74308e-6 nat; centered/raw relative-tilt intervals are not full observation normalizers or integrated posteriors. Complete new-R2 coefficient preparation is in progress, while actual-history accuracy and all RG gates remain open. No new model/GPU work occurs.
+
 ## Compact raw-history comparison, October 9, 2026
 
-[[multiagentelbo-2026-10-09-compact-raw-history]] records PR222/223's exact-real raw covariance entropy tail, stopped-TV and local adaptive innovation proofs, and once-run scalar bounds. The unrestricted normalized-reference expectation is infinite for both forests; all compact global/local sufficient TV caps are one and uninformative. Independent reconstruction matches 141 exact rational comparisons, with 25 canonical replay files and no model/GPU work. The next prepared R2/M2 same-joint normalizer/downward calculation remains unrun; compact feedback and all RG gates remain open.
+[[multiagentelbo-2026-10-09-compact-raw-history]] records PR222/223's exact-real raw covariance entropy tail, stopped-TV and local adaptive innovation proofs, and once-run scalar bounds. The unrestricted normalized-reference expectation is infinite for both forests; all compact global/local sufficient TV caps are one and uninformative. Independent reconstruction matches 141 exact rational comparisons, with 25 canonical replay files and no model/GPU work. Its subsequent generated-prefix conditional is recorded above; compact feedback and all RG gates remain open.
 
 ## Continuous conditional original parent kernel, October 9, 2026
 
