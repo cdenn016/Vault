@@ -7,6 +7,10 @@ updated: 2026-10-09
 
 # Index
 
+## Positive-strength reset cycles and conditional occupation, October 9, 2026
+
+[[multiagentelbo-2026-10-09-positive-occupation]] records PR262's exact all-off membership reset split, complete on-sheet cycle kernel and invariant-chain/process correspondence for the unadopted MAP candidate. Its proper additive cycle inequality would give tight actual-law occupation but remains unproved natively. The full-covariance finite-off witness rejects uniform compact regeneration, with no stationarity refutation or formation closure. State-dependent full-cycle control, R15 entrance/recurrence and causal/growing hierarchy remain open; all four gates and roughly 65% progress are unchanged. No scientific or GPU work occurs.
+
 ## Hierarchy-aware source precision and finite evaluator control, October 9, 2026
 
 [[multiagentelbo-2026-10-09-hierarchy-codec]] records PR261's shared positive/inverse-compatible primitive code with recomputed canonical hierarchy frames, all original affine copies, capped words, raw Gaussian divergence error and full code/endpoint/all-original-record KL at each individual endpoint. A feasible growing supplied diagonal gives vanishing finite-reference error and growing surviving parents, with conservative superlinear source bits. Complete identified-law convergence, useful parent compression and actual retained transition/total cost, native posterior/Fisher evolution, second-channel and recursive root-relative cocycle closure remain open. All four gates and the roughly 65% planning estimate are unchanged; no scientific or GPU work occurs.
