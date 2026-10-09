@@ -7,6 +7,10 @@ updated: 2026-10-09
 
 # Index
 
+## Deterministic projected-history expectation enclosure, October 9, 2026
+
+[[multiagentelbo-2026-10-09-projected-expectation-envelope]] records PR240/241's completed fixed-H2 computational expected-cost ceiling .099662978, yielding joint-history/expected downward-TV .103231671/.106800364. All 1024 primitives pass guards, 250 independent comparisons pass and 64 replay files have canonical parity. The deterministic expectation enclosure is distinct from observed costs and excludes uncertified arithmetic; TV does not control unbounded log loss. Tighter quantitative accuracy, nonlinear/native closure and all four RG gates remain open; the next refinement is unpublished/unrun and no GPU work occurs.
+
 ## Selected-only cost and conditional norm enclosures, October 9, 2026
 
 [[multiagentelbo-2026-10-09-selected-block-cost]] records PR238/239's selected-only evaluation at two saved live N512 states, with 222 exact-agreement comparisons and 95 canonical replay files. Original selected responses/native charts and constant cancellation are preserved without full-history fields. The measured route takes 9.35 CPU minutes; the two costs are not history-expectation samples or a controlled speedup. Conditional d1024 adaptive-projector and guarded coefficient formulas are proved, while useful numerical uniform envelopes/history expectations and all four RG gates remain open. No GPU work occurs.
