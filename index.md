@@ -7,9 +7,13 @@ updated: 2026-10-09
 
 # Index
 
+## Continuous conditional original parent kernel, October 9, 2026
+
+[[multiagentelbo-2026-10-09-conditional-parent-kernel]] records PR221's once-run continuous Gaussian-fiber consumer: 48 complete original raw proposals, 4,460 passing independent comparisons and a 592-file canonical replay. Six local conditional kappa ceilings do not integrate an actual-law history budget. Generated-state coefficients, nonlinear downward integration, compact feedback and all RG gates remain open; no GPU work occurs.
+
 ## Complete same-prefix moving-parent drift, October 9, 2026
 
-[[multiagentelbo-2026-10-09-conditional-moving-parent-drift]] records PR218/219's once-run six-case cubic/quadratic drift readout: 2,400 scalar coordinates, 7,971 independent comparisons and 709 canonical replay files. The largest component allowance is 1.500576892464e-5 in drift units, with no scientific pass target and unchanged likelihood/arithmetic scope. Complete coefficients are evaluated; joint predictive/downward execution, actual-history error, compact feedback and all RG gates remain open. No GPU work occurs.
+[[multiagentelbo-2026-10-09-conditional-moving-parent-drift]] records PR218/219's once-run six-case cubic/quadratic drift readout: 2,400 scalar coordinates, 7,971 independent comparisons and 709 canonical replay files. The largest component allowance is 1.500576892464e-5 in drift units, with no scientific pass target and unchanged likelihood/arithmetic scope. Complete coefficients are evaluated; the subsequent continuous-reference predictive consumer is recorded above, while nonlinear downward integration, actual-history error, compact feedback and all RG gates remain open. No GPU work occurs.
 
 ## Same-prefix chart means and Gaussian-L2 transfer, October 9, 2026
 
