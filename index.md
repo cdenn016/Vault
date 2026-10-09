@@ -9,6 +9,8 @@ updated: 2026-10-08
 
 ## Moving parents and normalized bond candidate, October 8, 2026
 
+[[multiagentelbo-2026-10-08-saved-forecast-local-exit]] records PR202's eight saved continuous original-forecast comparisons, fixed-model rational local coefficients and conditional native compact-exit bound at most 0.038196. The direct four-step sufficient numerical exit/forecast budget fails, without showing inaccurate dynamics. Arithmetic, population/native-posterior accuracy and all four RG gates remain open; no GPU or new trajectory runs.
+
 [[multiagentelbo-2026-10-08-product-moment-fisher]] records PR201's completed N512 product-field CPU admission (190 comparisons, 24 selected generator tangents), six tiny checks, rational integration/rule drift bounds and conditional recognition-state-to-correlated-forecast transfer. The study takes 206.0417918 seconds and peaks at 1,173,491,712 bytes. Computed-field arithmetic, useful path/exit constants, native-posterior forward KL and all four RG gates remain open. No GPU or reward-law choice is introduced.
 
 [[multiagentelbo-2026-10-08-fisher-trajectory-admission]] records PR200's single N512 Fisher CPU admission (seven proposals; 405 independent comparisons pass) and localized path/readout error derivation. Complete replay costs, finite-pool and exit budgets remain explicit; population accuracy, autonomous parents and all four RG gates stay open. The GPU remains with the user.
