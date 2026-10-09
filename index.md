@@ -7,13 +7,17 @@ updated: 2026-10-09
 
 # Index
 
+## Baseline-relative expectation refinement, October 9, 2026
+
+[[multiagentelbo-2026-10-09-baseline-expectation-envelope]] records PR244/245's same-event signed-baseline and complete physical-covariance enclosure, giving expected cost .023506131 and joint-history/downward-TV .027074824/.030643517. All 222 comparisons pass; fresh analytical bounds are charged without new histories, fields, responses, matrix exponentials or proposals. Input/arithmetic certification, native/regular/growing closure, unbounded record loss and all four RG gates remain open. No GPU work occurs.
+
 ## Saved natural-chart expectation refinement, October 9, 2026
 
-[[multiagentelbo-2026-10-09-natural-expectation-envelope]] records PR242/243's saved-only computational expected-cost ceiling .040353304 with unchanged event/physical controls, yielding joint-history/downward-TV .043921996/.047490689. All 135 comparisons pass and 44 replay files have canonical parity. No field/history/noise/node calculation occurs. Arithmetic certification, native/regular/growing closure and all four RG gates remain open; conditional baseline-relative work is prepared but N512 Delta evaluation unrun. No GPU work occurs.
+[[multiagentelbo-2026-10-09-natural-expectation-envelope]] records PR242/243's saved-only computational expected-cost ceiling .040353304 with unchanged event/physical controls, yielding joint-history/downward-TV .043921996/.047490689. All 135 comparisons pass and 44 replay files have canonical parity. No field/history/noise/node calculation occurs. Arithmetic certification, native/regular/growing closure and all four RG gates remain open; the subsequent baseline-relative N512 result is recorded above. No GPU work occurs.
 
 ## Deterministic projected-history expectation enclosure, October 9, 2026
 
-[[multiagentelbo-2026-10-09-projected-expectation-envelope]] records PR240/241's completed fixed-H2 computational expected-cost ceiling .099662978, yielding joint-history/expected downward-TV .103231671/.106800364. All 1024 primitives pass guards, 250 independent comparisons pass and 64 replay files have canonical parity. The deterministic expectation enclosure is distinct from observed costs and excludes uncertified arithmetic; TV does not control unbounded log loss. Tighter quantitative accuracy, nonlinear/native closure and all four RG gates remain open; the subsequent natural-chart refinement is recorded above, while useful N512 Delta ceilings remain unrun and no GPU work occurs.
+[[multiagentelbo-2026-10-09-projected-expectation-envelope]] records PR240/241's completed fixed-H2 computational expected-cost ceiling .099662978, yielding joint-history/expected downward-TV .103231671/.106800364. All 1024 primitives pass guards, 250 independent comparisons pass and 64 replay files have canonical parity. The deterministic expectation enclosure is distinct from observed costs and excludes uncertified arithmetic; TV does not control unbounded log loss. Tighter quantitative accuracy, nonlinear/native closure and all four RG gates remain open; the subsequent natural-chart refinement is recorded above, the subsequent baseline-relative N512 result is recorded above and no GPU work occurs.
 
 ## Selected-only cost and conditional norm enclosures, October 9, 2026
 
