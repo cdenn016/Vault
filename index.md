@@ -7,9 +7,13 @@ updated: 2026-10-09
 
 # Index
 
+## Recursive original parent kernel, October 9, 2026
+
+[[multiagentelbo-2026-10-09-recursive-parent-kernel]] records PR228/229's four physical q2 endpoint draws through the complete original current-R2 kernel, 6,568 independent comparisons and 1,011 canonical replay files. Smoothed old centering, both mean/precision probe and relative-normalizer shifts are retained. Local same-q2-joint entropy ceilings identify neither actual p3 nor an integrated expectation or Monte Carlo accuracy. Bounded-loss actual-law transfer is under derivation; all RG gates remain open and the GPU stays user-owned.
+
 ## Advanced retained-state coefficients, October 9, 2026
 
-[[multiagentelbo-2026-10-09-advanced-retained-coefficients]] records PR226/227's full advanced R2 field/coefficient packet, 2,904 passing comparisons and 480 canonical replay files. All four generator slices and 15,872 prediction rows are current; the causal Gaussian mean is only a point anchor. The existing Gaussian reference endpoint has horizon-independent dense m,C storage and three QR fixtures, without nonlinear likelihood assimilation, network-size compression or a regular native filter. Next recursive-kernel preparation is in progress; all RG gates remain open and the GPU stays user-owned.
+[[multiagentelbo-2026-10-09-advanced-retained-coefficients]] records PR226/227's full advanced R2 field/coefficient packet, 2,904 passing comparisons and 480 canonical replay files. All four generator slices and 15,872 prediction rows are current; the causal Gaussian mean is only a point anchor. The existing Gaussian reference endpoint has horizon-independent dense m,C storage and three QR fixtures, without nonlinear likelihood assimilation, network-size compression or a regular native filter. Its later recursive-kernel consumer is recorded above; all RG gates remain open and the GPU stays user-owned.
 
 ## Generated-prefix conditional, October 9, 2026
 
