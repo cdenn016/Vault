@@ -13,12 +13,16 @@ tags:
   - project/social-physics
 status: draft
 created: 2026-08-17
-updated: 2026-10-09
+updated: 2026-10-10
 ---
 
 
 
 # Staged hierarchy formation and RG composability
+
+## October 10, 2026: completed independent CUDA flow calibration
+
+[[multiagentelbo-2026-10-10-flow-calibration]] completes the first frozen N512/N1024 matched-time grid: sixteen preparations, 144 endpoints and accepted inference time one. The CPU saved-value reconstruction passes 75644928 original Gaussian candidate densities; an earlier Python314 startup failed before reading data because NumPy was missing. All 144 score and 96 refinement screens pass, without producer replay or design changes. Simultaneous-minus-alternating mean loss is -3.96e-7 at N512 and 1.48e-6 at N1024, while finite-width arms show modest mean improvements over held anchors. Eight finite-MCMC preparations per size support descriptive contrasts with preparation variation separate from conditional draw uncertainty; they establish no superiority, native .01-nat target or whole-state convergence. Step .05, expected-Hessian inference, sixteen training draws, 256 fresh scoring draws, baseline initialization and time one become the measured finite reference for subsequent independent/native comparison. The earlier CUDA-admission section below retains its historical unrun-grid status; this source records the completed run. Normalized generator history at fixed $c_*$ and separate inference/episode/coarse clocks remain explicit. The GPU is released; all four gates remain open at roughly 65%, with native accuracy, parent closure, formation, the unadopted R4 learner and global reward-law choice still pending.
 
 [[multiagentelbo-2026-10-09-minimal-form-recovery]] ends the three-round minimal-admission investigation. The second round bounds the original boundary covariance stack by residual conditional-density variance times its dual-Fisher force-covariance eigenvalue; the needed weighted susceptibility bound remains unproved, and native time reversal supplies only a time-integrated estimate. The third round constructs genuine diagonal finite-volume recovery for the original minimal form core. Full closed-gradient adjoint recovery (AR), or the stated uniform finite-volume Galerkin-resolvent residual (R), would separately give the sharp pure-energy liminf and actual conditional-density admission; neither native interface is established, and localized vector tests are not a proved adjoint graph core. The recovered existing $2.0044 Exa candidate is primary-source checked against Kuwae–Shioya without a new request. CP, minimal admission, full-past identification, compatible growing laws and formation remain open; all four gates and roughly 65% stay unchanged. The completed Code checkpoint supplies the next-session handoff without science/test/GPU replay or manuscript/model/configuration changes.
 
