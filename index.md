@@ -7,6 +7,10 @@ updated: 2026-10-09
 
 # Index
 
+## Conditional support-local Fisher amplification, October 9, 2026
+
+[[multiagentelbo-2026-10-09-local-update-amplification]] records PR266's sparse factor-Hessian row bounds and same-driver finite-horizon max-block coding recurrence. Local coefficients omit N only under uniform state/data/rule/driver and weighted-loop-incidence caps, with all sender forces and native blocks retained. Dependency cones concern raw proposals; global stopping and fitted step selection keep separate charges. No coefficient/event budget is evaluated. Full recognition KL/storage and growing hierarchy-output factors remain charged; native containment, posterior accuracy, full channels/growing laws and formation remain open. All four gates and roughly 65% progress are unchanged; unpublished coefficient-contract work is excluded.
+
 ## Owned input storage and conditional recognition-update error, October 9, 2026
 
 [[multiagentelbo-2026-10-09-owned-storage-update-error]] records PR265's exact owned broadcast inputs and separate logical/backing inventories: the N512 input-only check owns 209,952 backing bytes while retaining 859,963,392 logical bytes. The signed-map charge is corrected to the actual 13,436,928-byte edge chunk. Ten current CPU cases pass; archived 35-test/N512 outcomes retain their old-source scope, with no new full-process measurement or compact factor serialization. Conditional full-recognition coding supplies e_next<=K e+q+a, product-recognition KL and shared fresh-baseline endpoint bounds at complete cost. Actual-law exit/amplification, useful precision/storage, native posterior, full two-channel/growing laws and formation remain open; all four gates and roughly 65% progress are unchanged.
