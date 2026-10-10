@@ -14,7 +14,7 @@ tags:
   - project/multi-agent
 status: stable
 created: 2026-06-18
-updated: 2026-09-24
+updated: 2026-10-10
 ---
 
 # Fisher information metric
@@ -144,7 +144,7 @@ where $\zeta_\xi q$ is the fundamental vector field of the fiber action. When $g
 
 The orbit form is now `cor:pb-orbit-fisher-form` in Chapter 7 of the main manuscript at `623e4fe` ([[multiagentelbo-2026-09-24-theory-restructure]]), tagged ESTABLISHED, with its proof in Appendix B.2 (Deferred Proofs). Under the chapter's regularity hypothesis it defines $\mathfrak k_q(\xi,\eta)=g^F_q(\xi_{\mathcal B}(q),\eta_{\mathcal B}(q))$ and the isotropy algebra $\mathfrak g_q=\{\xi:\xi_{\mathcal B}(q)=0\}$. It states that $\mathfrak k_q$ is positive semidefinite with radical exactly $\mathfrak g_q$, the Lie algebra of the stabilizer of $q$, that $\mathrm{KL}(q\Vert\widehat\rho(\exp t\xi)q)=\tfrac{t^2}{2}\mathfrak k_q(\xi,\xi)+O(t^3)$, that the left side vanishes for every $t$ when $\xi\in\mathfrak g_q$, and that the same expansion holds for every regular invariant contrast with its metric jet in place of $g^F$. It follows `prop:pb-kl-divergence-jets`, which identifies the metric jet of KL with $g^F$ and its cubic jet with the Amari–Chentsov tensor. X03's third-order coefficient $\tfrac12g(v,\nabla^*_vv)+\tfrac16T_{\mathcal D}(v,v,v)$ is `prop:pb-divergence-cubic-coefficient` in Supplement B, Chapter B2, stated for one-sided contrast expansions along curves, with $\nabla^*$ the exponential connection for regular KL. The review's Gaussian draws are not reproduced in the manuscript.
 
-The same chapter's `prop:ig-fisher-characterizations`, tagged STANDARD, states Cencov's uniqueness theorem (on the open simplex of positive laws on a finite set, the Fisher metric is, up to a positive factor, the unique Riemannian metric invariant under congruent Markov embeddings) and now cites it as Lemma 11.3, p. 161 of [[cencov-1982-statistical-decision-rules]], corrected from p. 156 in the locator pass of the restructure. The corrected locator is one Claude Opus 5.5 agent's reading of the primary source; the source note on the monograph records no page-level locator of its own.
+The same chapter's `prop:ig-fisher-characterizations`, tagged STANDARD, states Cencov's uniqueness theorem (on the open simplex of positive laws on a finite set, the Fisher metric is, up to a positive factor, the unique Riemannian metric invariant under congruent Markov embeddings) and since October 10, 2026 cites it as Theorem 11.1 and Lemma 11.3 of [[cencov-1982-statistical-decision-rules]], with no page number. Campbell (1986, Proc. AMS 98:135) names the result as "Theorem 11.1 or Lemma 11.3" of the monograph; secondary sources disagree on the page (156, 159 and 161 all appear), and the AMS volume itself was not read, so the restructure's earlier "Lemma 11.3, p. 161" locator (itself corrected from p. 156) was replaced by the two statement numbers. The source note on the monograph records no page-level locator of its own.
 
 > [!warning] Status
 > Manuscript statements (ESTABLISHED with proofs, or STANDARD with a checked citation), written and checked by Claude Opus 5.5 agents with their own scripts; no cross-model check (the author's choice) and not adjudicated.
