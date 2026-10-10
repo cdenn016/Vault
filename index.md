@@ -2,10 +2,14 @@
 type: index
 title: Index
 aliases: [Index, Home]
-updated: 2026-10-09
+updated: 2026-10-10
 ---
 
 # Index
+
+## Independent CUDA flow calibration completed, October 10, 2026
+
+[[multiagentelbo-2026-10-10-flow-calibration]] records Code PR271's first 144-case N512/N1024 grid, sixteen finite-MCMC/data preparations and passing CPU reconstruction of 75644928 candidate densities. All 144 score and 96 refinement screens pass. The small simultaneous/alternating differences and modest mean held-anchor improvements remain descriptive, with preparation variation separate from draw uncertainty. Step .05 supplies the selected finite reference with unchanged estimator/budgets/baseline/time one; native accuracy, state convergence, parent closure and all four RG gates remain open at approximately 65%. The first Python314 import failure is retained separately from the actual successful readback, and the GPU is released.
 
 ## Minimal-form recovery endpoints and pause handoff, October 9, 2026
 
