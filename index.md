@@ -7,9 +7,13 @@ updated: 2026-10-09
 
 # Index
 
+## Owned input storage and conditional recognition-update error, October 9, 2026
+
+[[multiagentelbo-2026-10-09-owned-storage-update-error]] records PR265's exact owned broadcast inputs and separate logical/backing inventories: the N512 input-only check owns 209,952 backing bytes while retaining 859,963,392 logical bytes. The signed-map charge is corrected to the actual 13,436,928-byte edge chunk. Ten current CPU cases pass; archived 35-test/N512 outcomes retain their old-source scope, with no new full-process measurement or compact factor serialization. Conditional full-recognition coding supplies e_next<=K e+q+a, product-recognition KL and shared fresh-baseline endpoint bounds at complete cost. Actual-law exit/amplification, useful precision/storage, native posterior, full two-channel/growing laws and formation remain open; all four gates and roughly 65% progress are unchanged.
+
 ## First N512 retained-reference admission and extensive cost, October 9, 2026
 
-[[multiagentelbo-2026-10-09-retained-admission]] records PR264's first one-field/one-proposal CPU execution and updated-future two-level hierarchy refresh. Producer 22 and saved-only reader 195 comparisons pass; the reader checks 131,616,969 entries without field replay. Retained logical bytes are 998,536,776 plus 5,142,472 query bytes; measured producer peak is separately 2,979,176,448 bytes. All 45 packet files have exact canonical parity. The identified repeated-input factor-storage seam is unimplemented and separate from parent compression. Native accuracy, repeated evolution, full two-channel/growing law and formation remain open; all four gates and roughly 65% progress are unchanged.
+[[multiagentelbo-2026-10-09-retained-admission]] records PR264's first one-field/one-proposal CPU execution and updated-future two-level hierarchy refresh. Producer 22 and saved-only reader 195 comparisons pass; the reader checks 131,616,969 entries without field replay. Retained logical bytes are 998,536,776 plus 5,142,472 query bytes; measured producer peak is separately 2,979,176,448 bytes. All 45 packet files have exact canonical parity. The repeated-input factor-storage seam was unimplemented in that admission; its subsequent owned-backing implementation remains separate from parent compression. Native accuracy, repeated evolution, full two-channel/growing law and formation remain open; all four gates and roughly 65% progress are unchanged.
 
 ## Callable charged retained-reference transition, October 9, 2026
 
