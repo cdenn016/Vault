@@ -7,6 +7,10 @@ updated: 2026-10-09
 
 # Index
 
+## Minimal-form recovery endpoints and pause handoff, October 9, 2026
+
+[[multiagentelbo-2026-10-09-minimal-form-recovery]] combines the last two bounded R5 rounds: exact native boundary covariance has an operator bound but no proved weighted susceptibility estimate; original minimal-core diagonal finite-volume recovery is established, while full adjoint recovery AR and uniform Galerkin residual R remain conditional interfaces to the sharp minimal-energy liminf. The sole existing final Exa result cost $2.0044 and was primary-source checked without another request. This ends the three-round investigation and records the published next-session handoff. Minimal admission, whole-past-law identification, growing laws, formation, all four gates and roughly 65% progress remain open; no science/test/GPU replay.
+
 ## Conditional minimal recognition-domain admission, October 9, 2026
 
 [[multiagentelbo-2026-10-09-minimal-conditional-domain]] records Code269's finite conditional-projection admission to the original minimal Fisher form and exact boundary-covariance derivative. The unproved sufficient condition CP would give original-cylinder approximation for actual whole-past conditional densities with the sharp energy bound; fixed-B integrability does not establish it. Original marks/source reference/mobility/domain remain. One $2.3553 Exa Ultra candidate retains separate Code266/Vault188 request provenance and corrected primary-source matching. Full-past-law/growing/formation closure remains open, all four gates and roughly 65% unchanged; no science/test/GPU replay.
