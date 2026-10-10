@@ -7,6 +7,10 @@ updated: 2026-10-09
 
 # Index
 
+## First local-update scalar budget is uninformative, October 9, 2026
+
+[[multiagentelbo-2026-10-09-local-budget]] records Code267/268's frozen first scalar assessment: both driver cases miss the 1e-6 sufficient inequality at p=53,64,128,256. The computational sufficient ceiling is 717,030,657,455,427 bits per scalar; this conservative bound establishes no necessary precision or actual instability. The complete fifteen-file packet matches canonical Code, with no field/proposal/hierarchy/GPU replay. Arithmetic/input axioms, native containment, repeated amplification and decoder accuracy remain unadmitted. This bounded route ends without further refinement; all four gates and roughly 65% progress are unchanged.
+
 ## Conditional support-local Fisher amplification, October 9, 2026
 
 [[multiagentelbo-2026-10-09-local-update-amplification]] records PR266's sparse factor-Hessian row bounds and same-driver finite-horizon max-block coding recurrence. Local coefficients omit N only under uniform state/data/rule/driver and weighted-loop-incidence caps, with all sender forces and native blocks retained. Dependency cones concern raw proposals; global stopping and fitted step selection keep separate charges. No coefficient/event budget is evaluated. Full recognition KL/storage and growing hierarchy-output factors remain charged; native containment, posterior accuracy, full channels/growing laws and formation remain open. All four gates and roughly 65% progress are unchanged; unpublished coefficient-contract work is excluded.
