@@ -7,6 +7,10 @@ updated: 2026-10-09
 
 # Index
 
+## Callable charged retained-reference transition, October 9, 2026
+
+[[multiagentelbo-2026-10-09-retained-reference]] records PR263's joined native Fisher proposal and updated-future-slice hierarchy refresh, with canonical affine copies/reversals, composed coisometries and factorized original-record decoder. Full fine cache and one replay snapshot remain charged. One tiny CPU pass completed 35 tests; source-bound JUnit counts are preserved without rerun. Logical inventory/workspace lower bounds do not certify peak memory or compression. Native posterior/population error, full two-channel/growing law and formation remain open; N512/q9 execution is unrun. All four gates and roughly 65% progress are unchanged.
+
 ## Positive-strength reset cycles and conditional occupation, October 9, 2026
 
 [[multiagentelbo-2026-10-09-positive-occupation]] records PR262's exact all-off membership reset split, complete on-sheet cycle kernel and invariant-chain/process correspondence for the unadopted MAP candidate. Its proper additive cycle inequality would give tight actual-law occupation but remains unproved natively. The full-covariance finite-off witness rejects uniform compact regeneration, with no stationarity refutation or formation closure. State-dependent full-cycle control, R15 entrance/recurrence and causal/growing hierarchy remain open; all four gates and roughly 65% progress are unchanged. No scientific or GPU work occurs.
