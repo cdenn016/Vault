@@ -7,9 +7,13 @@ updated: 2026-10-09
 
 # Index
 
+## First N512 retained-reference admission and extensive cost, October 9, 2026
+
+[[multiagentelbo-2026-10-09-retained-admission]] records PR264's first one-field/one-proposal CPU execution and updated-future two-level hierarchy refresh. Producer 22 and saved-only reader 195 comparisons pass; the reader checks 131,616,969 entries without field replay. Retained logical bytes are 998,536,776 plus 5,142,472 query bytes; measured producer peak is separately 2,979,176,448 bytes. All 45 packet files have exact canonical parity. The identified repeated-input factor-storage seam is unimplemented and separate from parent compression. Native accuracy, repeated evolution, full two-channel/growing law and formation remain open; all four gates and roughly 65% progress are unchanged.
+
 ## Callable charged retained-reference transition, October 9, 2026
 
-[[multiagentelbo-2026-10-09-retained-reference]] records PR263's joined native Fisher proposal and updated-future-slice hierarchy refresh, with canonical affine copies/reversals, composed coisometries and factorized original-record decoder. Full fine cache and one replay snapshot remain charged. One tiny CPU pass completed 35 tests; source-bound JUnit counts are preserved without rerun. Logical inventory/workspace lower bounds do not certify peak memory or compression. Native posterior/population error, full two-channel/growing law and formation remain open; N512/q9 execution is unrun. All four gates and roughly 65% progress are unchanged.
+[[multiagentelbo-2026-10-09-retained-reference]] records PR263's joined native Fisher proposal and updated-future-slice hierarchy refresh, with canonical affine copies/reversals, composed coisometries and factorized original-record decoder. Full fine cache and one replay snapshot remain charged. One tiny CPU pass completed 35 tests; source-bound JUnit counts are preserved without rerun. Logical inventory/workspace lower bounds do not certify peak memory or compression. Native posterior/population error, full two-channel/growing law and formation remain open; N512/q9 execution was unrun in that implementation checkpoint. All four gates and roughly 65% progress are unchanged.
 
 ## Positive-strength reset cycles and conditional occupation, October 9, 2026
 
