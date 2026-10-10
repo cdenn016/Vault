@@ -7,6 +7,10 @@ updated: 2026-10-10
 
 # Index
 
+## Fresh N512 native pilot completed and break checkpoint, October 10, 2026
+
+[[multiagentelbo-2026-10-10-fresh-native-pilot]] records Code PR273's first CPU-only fresh candidate/finite-posterior comparison. All four necessary conditional screens pass; realized loss contrast -.000413053 has conditional MCSE .000427602. One finite-prior preparation establishes neither expected native accuracy, preparation variance nor posterior mixing. Complete endpoint fields remain nonzero, signed corrections stay unmodified, and the first saved-arithmetic reconstruction passes. N512 execution takes 645.9959176 seconds; N1024 cost remains unadmitted. Publication and actual canonical synchronization form the requested break point, with all four RG gates open near 65% and no further study begun.
+
 ## Selected endpoint fields measured, October 10, 2026
 
 [[multiagentelbo-2026-10-10-endpoint-field]] records Code PR272's CPU-only diagnostic of sixteen selected N512/N1024 endpoints and eighty complete fields. The first saved-array reader passes 880 comparisons; four tiny tests ground the consumer and arithmetic. Independent fresh means retain nonzero residuals and differ from adaptive fitting-pool fields, without a stationarity, trajectory or native-accuracy certificate. The fresh N512 posterior comparison has a frozen contract only, remaining unimplemented and unrun here. All four RG gates stay open at approximately 65%; the GPU remains released.
