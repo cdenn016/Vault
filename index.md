@@ -7,6 +7,10 @@ updated: 2026-10-10
 
 # Index
 
+## Selected endpoint fields measured, October 10, 2026
+
+[[multiagentelbo-2026-10-10-endpoint-field]] records Code PR272's CPU-only diagnostic of sixteen selected N512/N1024 endpoints and eighty complete fields. The first saved-array reader passes 880 comparisons; four tiny tests ground the consumer and arithmetic. Independent fresh means retain nonzero residuals and differ from adaptive fitting-pool fields, without a stationarity, trajectory or native-accuracy certificate. The fresh N512 posterior comparison has a frozen contract only, remaining unimplemented and unrun here. All four RG gates stay open at approximately 65%; the GPU remains released.
+
 ## Independent CUDA flow calibration completed, October 10, 2026
 
 [[multiagentelbo-2026-10-10-flow-calibration]] records Code PR271's first 144-case N512/N1024 grid, sixteen finite-MCMC/data preparations and passing CPU reconstruction of 75644928 candidate densities. All 144 score and 96 refinement screens pass. The small simultaneous/alternating differences and modest mean held-anchor improvements remain descriptive, with preparation variation separate from draw uncertainty. Step .05 supplies the selected finite reference with unchanged estimator/budgets/baseline/time one; native accuracy, state convergence, parent closure and all four RG gates remain open at approximately 65%. The first Python314 import failure is retained separately from the actual successful readback, and the GPU is released.
