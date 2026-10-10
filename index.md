@@ -7,6 +7,10 @@ updated: 2026-10-09
 
 # Index
 
+## Conditional minimal recognition-domain admission, October 9, 2026
+
+[[multiagentelbo-2026-10-09-minimal-conditional-domain]] records Code269's finite conditional-projection admission to the original minimal Fisher form and exact boundary-covariance derivative. The unproved sufficient condition CP would give original-cylinder approximation for actual whole-past conditional densities with the sharp energy bound; fixed-B integrability does not establish it. Original marks/source reference/mobility/domain remain. One $2.3553 Exa Ultra candidate retains separate Code266/Vault188 request provenance and corrected primary-source matching. Full-past-law/growing/formation closure remains open, all four gates and roughly 65% unchanged; no science/test/GPU replay.
+
 ## First local-update scalar budget is uninformative, October 9, 2026
 
 [[multiagentelbo-2026-10-09-local-budget]] records Code267/268's frozen first scalar assessment: both driver cases miss the 1e-6 sufficient inequality at p=53,64,128,256. The computational sufficient ceiling is 717,030,657,455,427 bits per scalar; this conservative bound establishes no necessary precision or actual instability. The complete fifteen-file packet matches canonical Code, with no field/proposal/hierarchy/GPU replay. Arithmetic/input axioms, native containment, repeated amplification and decoder accuracy remain unadmitted. This bounded route ends without further refinement; all four gates and roughly 65% progress are unchanged.
